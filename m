@@ -1,87 +1,148 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3DCC2FDC38;
-	Wed,  6 May 2026 19:52:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778097180; cv=none; b=ZJYDoPNuBRYt60Wt9Y09uBCgtHXNsSJlD+aCQS59vPaekE0wY9ByC3YCzdZa6TAWkDR0nOxocsaRa6+NBHdmwjdSfrjItOwmelsVw/Q0za8pBak2SMJK5wJraQCZt/t6EHxPvfAteJy0yGKzEBbjtPGUcPq9yCtLKKj+w/2pUS8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778097180; c=relaxed/simple;
-	bh=IOtFOPMt4Nq2ieBI30BlD7YV0L0Y+BTFgi5nZlW+WLg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i5Grgjz9h1AdLwQTiMm70DDpdGoHSUEPVYzAXiBA+qLYIZVL7ijyxyFuQOMd9zCIeJhHYN4ElJBaNhynrutwBzEjMKQLmQ/lWkQxusTeMgkXwDp0X3g3BLMBQeP2mK0MPYxkbFW6R8xa5Oby380EPG0wYL8yPp9J65ZTdz1WaTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=sTc/uhrd; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEBFF33D512
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 19:58:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778097538; cv=pass; b=ZyUt+Mxonkm7/u2sv0KrviZh7yfu/mn52eXOuSvNP2Hagkqun56k2iMqPjH0E3odj8c05inM4KbcygmBKTfNwUwgAkpEqu+hlADsH+5y8IA99MixlOdCiWsuguY3VxCQuk3apXgd7w6zsGG4xZ9i+sX9ns3Vlx87BmjQzKdFdo4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778097538; c=relaxed/simple;
+	bh=cKQwfi3VdbXqK1EPlrp+rIWkQqAXhahRUcj4Mc9yLZo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cwzBaom7XAsWjpTYlfxdloZtcg/s+kAl2PbV/AslosykgDJBEl9xUFXciLjBUW9TsnOcBGYn7V7G2Y2sRDIp8lNSVTnqOKDwHFyB0S2IA//ohGHkBMjfA+yzjHsR5e285TJXxu/zHmEFin8VMBYLLNYwzEZyiLoB6TIvoQ3mJyk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IfyueNpm; arc=pass smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="sTc/uhrd"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=LLm/OyrLL/bFbrU/6UU1ygktiOEEMm3JkZVjxWOAaEM=; b=sTc/uhrdL+f56jIUOYaI0nqCje
-	VW5KJ91Ih/YjryXx+Dtp4boxbSBp2M6yCNeZ2uiaISvG8eGaokn5gkGgnJF8sE6m5eX8idzZSW83L
-	7wzQEjNtqgX9EUcUGWHGKlsfwhGELCW2T+rQqz/LLmbboncShwHwquVOVBF6Eet5PNCs=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wKiI8-001hI4-02; Wed, 06 May 2026 21:52:20 +0200
-Date: Wed, 6 May 2026 21:52:19 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Daniel Thompson <daniel@riscstar.com>
-Cc: Xilin Wu <sophon@radxa.com>, Alex Elder <elder@riscstar.com>,
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
-	rmk+kernel@armlinux.org.uk, andersson@kernel.org,
-	konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org,
-	arnd@arndb.de, gregkh@linuxfoundation.org,
-	mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
-	alexandre.torgue@foss.st.com, ast@kernel.org,
-	boon.khai.ng@altera.com, chenchuangyu@xiaomi.com,
-	chenhuacai@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
-	hkallweit1@gmail.com, inochiama@gmail.com, john.fastabend@gmail.com,
-	julianbraha@gmail.com, livelycarpet87@gmail.com,
-	matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
-	prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
-	rohan.g.thomas@altera.com, sdf@fomichev.me,
-	siyanteng@cqsoftware.com.cn, weishangjuan@eswincomputing.com,
-	wens@kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 10/12] net: stmmac: tc956x: add TC956x/QPS615
- support
-Message-ID: <982d4d8c-5348-4fd7-8ad2-aac9b3791150@lunn.ch>
-References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-11-elder@riscstar.com>
- <224E233C593EF171+8c8a43dd-5061-40f8-9eb7-f360eabf2ecc@radxa.com>
- <4015f47a-af62-441d-b1b8-a8598f963970@lunn.ch>
- <afteD2d8d87Nyvl7@aspen.lan>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IfyueNpm"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-43d76dd4ee8so77399f8f.2
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 12:58:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778097535; cv=none;
+        d=google.com; s=arc-20240605;
+        b=FagJH6R00PvvXQQeXpGmOFtAB54CZ6kVNgxcfQcVpksP/zZ2+kQDYjU8qQxXM2dYrx
+         UeT4JfUBbXmmCNCLtOWgh6Zx7+neaAm8XQIDRFk3dgOPs6hv6WoEGtK/zDyKmwuyvSJs
+         Rw9fPIEvxijR/wjowSMUl7hgh6aKiUGwYiJNzb6mjsTc5Vg4FPEDRAi5J9GuslKwbLLk
+         trnL+altgsUZY5UfXJ1iVeVO0g+rDy19p8xUsCLa4cSRqhkYG0DRl/Y52PqO9qhfwPBN
+         krQgi9002yq55c1ZgBzKwlm3MHDlLRlZI80kF9ntINZBx2iEQFxbID1bPxQ+CpwMgxfb
+         fFsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cKQwfi3VdbXqK1EPlrp+rIWkQqAXhahRUcj4Mc9yLZo=;
+        fh=WNw/0Vv6aA6w7gNkEtnw0Vbo+XBlkOkHM/1/1nhmEIg=;
+        b=GAklq8fFdTfU6PDxccJMF264uoPduIH1/x0UGWiVvO4DOqbyezxo767rghcWkOyea8
+         AKgabiKbs8jgX0UmoVkC6ohto2tA070Lt8hCikWyKQJzJSns53zT8jpX2FQCeuOyll4R
+         /95dLlhIebS+/E3uyF6K7dMhK0C0X1nq1AlZwW2Vbek15DOrhZ3HulZxEKk4kAxI6kNh
+         QhcY3EjdcXlgR3BblUngxR09o6xugR9HFg5H8JRx9uyfzkK9Nm1CItFing607S42sG1X
+         ZKrKnt4dpQ18YGrm/PLaZ5L55+aes5NB8yOvDZQKSeX6mDxJVrZ0L8b9qyD2wmB0eWCS
+         2b3w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778097535; x=1778702335; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cKQwfi3VdbXqK1EPlrp+rIWkQqAXhahRUcj4Mc9yLZo=;
+        b=IfyueNpmrnIHDE+grq7rAmz0gffddBpuukW5tvnTPN5/FIR6GwOQxlk+Qt6eVOgLdQ
+         v9CZuQPV70ZKPGykxqnHyPRkXxoF2x3Wco7gTtmHwCqKQmNHziQt2n0JvXtVHMWKyALo
+         lSLxE1Jgjw+Ib32mfp5RK72QGO+iEH8DpNZd9rjxITyIaIqEOjASrpDFsePDVP2F6iwF
+         zUqm4gPU4d1tDmHVxEOch/8DSr2ti8cMN2RkGZNzTzgdwOBugeAllHLsapLjL25nC9iL
+         hAAf1Df5HFqgkift0LV9Dru/UQrXVGFOvZzjE3q6e/9TVOjXpBwRkdOpAGbigDcKqKdX
+         RKog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778097535; x=1778702335;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=cKQwfi3VdbXqK1EPlrp+rIWkQqAXhahRUcj4Mc9yLZo=;
+        b=bQERsSmYt8MgA0bv/uEfC9GhEsl89zOgHyT5yplB21DSXMolhYQrko6rv4Gh5bO4nt
+         8L6gUx5oRWKXxPcWM2HXd72sBWdtyLVCDE5V40bT7S3vAgkvg9WCW+v/Rsxjc21kPqB7
+         TKx5OjhLOUhF0c6ieC/9kWRbd7mSJxjPdIRG5u8hjNCSTPNKh3w7/oJWAON2ae16MhS4
+         ayeETjzpkhqzwT18CFlAizO8U1z7VK2h/pA3lHFlSrZjkweLLhrsIi7Ip3Y4KNNb6+Ri
+         tTZQ0VQSPBJuVdW+6s7CxOvtsh983JkSDE23qf3ZTIKsPA7vd36JygvpicHt8Ai0flrj
+         TF6g==
+X-Forwarded-Encrypted: i=1; AFNElJ+6lcF7Q28AN33/KNbP54LaawfJssXQl+KhSjWJvBeELNjXW/fX/Eqhi6NUcUzETLwUZ47nX1OowHth@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx/aVaD5MWm0bcqEOq+92WZ9CAcSzntblmrNCuapj2bpejvG+cx
+	M2WJxI2+qcmifC74mavtG9jhHl5VwRo8RaYh0zkrPTc4Y9vIfCvOuWFhIngQesNO2CZ7K9TF/nI
+	132fmkqWqL1REkByUWzuKdUVv6qiVvFc=
+X-Gm-Gg: AeBDiesuvGPSshEi4AYjSwnQMIQmwN0nGBZ/ArmauwvlK55XeJEBCmfYlZfs+zpBAFG
+	QfQhsOki82KXBPM4dQUlamZ1/wXY7itN7V0e0JNss8JLTYXolfWntYw5auJvt9uctDyM265pTm5
+	xuMCj5MdC3CJ6d+x1jP4g5oywfoGFMg7IF0r1SIsWycmSiinVL6t+V8VsBwlcv00afNCnfaJNrk
+	TfZLHfW22OsqeiYyRZ2OUEOIa8J6AU2UIumTd5QeIJ+S4YU3kepXAvzbVftEpWBCB0kYHVAM6st
+	UrhWmO1XRKlrUDpHT3bnIbLKudz2LlkFKJbweTZAjDhD44aTNCg5BC2j4fsi9RHWPR6s242P9gS
+	09rwop5qnvzsvTH6T9V9JEoM0PyGiN1GHJr1c
+X-Received: by 2002:a05:6000:2309:b0:43d:773d:78ff with SMTP id
+ ffacd0b85a97d-4515ce1c7a9mr8612810f8f.27.1778097535163; Wed, 06 May 2026
+ 12:58:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <afteD2d8d87Nyvl7@aspen.lan>
+References: <20260429170012.366537-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260429170012.366537-2-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260506195002.GA1778786@killaraus.ideasonboard.com>
+In-Reply-To: <20260506195002.GA1778786@killaraus.ideasonboard.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Wed, 6 May 2026 20:58:29 +0100
+X-Gm-Features: AVHnY4JcTk1czQ8A4YapAWR6cDFrvvjoC98jxL7sK27uKvjqiU99iFcUrsGiPk0
+Message-ID: <CA+V-a8u8=mfR0zDJRNMEjnjrzFVAkOrqtro05Zgd1JFqGRByKw@mail.gmail.com>
+Subject: Re: [PATCH 1/4] dt-bindings: display: renesas,rzg2l-du: Add RZ/T2H
+ and RZ/N2H support
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>, dri-devel@lists.freedesktop.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> TL;DR - there are conceivable (and sane) hardware designs where the
-> interrupt goes only to the TC9564 GPIO, but they are too different to
-> RB3gen2 (and related SBC designs) for them to be supported before
-> they exist!
+Hi Laurent,
 
-Agreed. I'm just trying to be cautious. It would be bad to saying that
-WoL is supported in general, because a board might come along where it
-does not work because the TC9564 itself cannot wake the system. If the
-driver needs to say WoL is supported, it should try to validate the
-system is using a supported set of features.
+Thank you for the review.
 
-But lets get the basic features supported first, WoL can be added
-later.
+On Wed, May 6, 2026 at 8:50=E2=80=AFPM Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+>
+> Hi Prabhakar,
+>
+> Thank you for the patch.
+>
+> On Wed, Apr 29, 2026 at 06:00:09PM +0100, Prabhakar wrote:
+> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> >
+> > Document the Display Unit (DU) support for the RZ/T2H and RZ/N2H SoCs.
+> >
+> > The DU block on RZ/T2H is functionally equivalent to the RZ/G2UL DU and
+> > supports the DPI interface, but includes SoC-specific register differen=
+ces.
+> > Add a dedicated compatible string to represent this variant.
+> >
+> > As the DU implementation on RZ/N2H matches RZ/T2H, describe it using an
+> > RZ/N2H specific compatible string with the RZ/T2H compatible as fallbac=
+k.
+> >
+> > Unlike other DU variants which use a multi-port model, the RZ/T2H and
+> > RZ/N2H DU has a single output and is modelled using a single port node
+> > with one endpoint. Add a port property to support this and update the
+> > allOf constraints accordingly.
+>
+> Wouldn't it be simpler to always have a "ports" node, even for variants
+> with a single port ?
+>
+I agree that, from a binding perspective, always having a "ports" node
+keeps things simpler and consistent. Biju suggested this change based
+on earlier feedback for the RZ/G3E series.
 
-       Andrew
+Cheers,
+Prabhakar
