@@ -1,206 +1,155 @@
-Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com [209.85.160.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010056.outbound.protection.outlook.com [52.101.69.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA193F7888
-	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 14:56:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778079384; cv=none; b=TL9h3HNmv3Ilz9QhupmfnYSlyit7Kd07wEBSUBo7Zqkv09ZqzS5PHMhLBBo1DlVSqANV5azwaSHdhJ5jlHbd2G9aWFBA9ssdtCldsD9C+97bM92E/uovN/5/jEThIjPBeNZYJnIVHvaPoJ4UgKJTrkzRNMmmp8jCkKeaGdPUk4s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778079384; c=relaxed/simple;
-	bh=94gcLKqdZVCylJnCw23bUXj9VoLTvMwy+QHxsGzTi8g=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=PN7wZEDSxR+D7zEvMMfuMGN3pIx5oIyChW5879Tt96BHlKPp3QZZDvRRTBGD92ORyEzrOE4PZHeLqBMgM07hXet9pFdM7XIejYFDeM4AToBPhfWF8HMPxl+A69rtLddzjLebjsh1/QLErDXhKcx87wb0gzV7hxUZaFJT9Cot//k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=dJxQ3+ZY; arc=none smtp.client-ip=209.85.160.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C960E47798B;
+	Wed,  6 May 2026 14:59:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.56
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778079554; cv=fail; b=K05BB0NjOMKkorsWxGnEEPCgVKuy+BMD9SJqLpFwU1Wz9OnFAQaVC4fUDlmjCxziFh5ntKa63BkkTdXT9YiH6AVV7Hclfo7rCXfeKUgkYwbb2HlX2FzyfeWvd1IteIBpjDUPWl9Ii/Au+edPzg0DVfe8jwxZbWhWJEeU6bsZp9g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778079554; c=relaxed/simple;
+	bh=1WbjXahoHUY5Y/f/oj0F15HKIVk2VLp37erQ7r9ou5A=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 Content-Type:MIME-Version; b=AauhkqiBUgV+1ZtCLyf7b51PpXYz17s7w3WkE65wvTZn5n3dfTAnuKp6XQ/8IVmcxqy86PeI0EeZCXoBgUVdqugvxhB1HzM7wMvPNtiXlJuChBMuL3BFELOF1dou+IXH8gpyCTuq2bohpxQGq3g6yvxyaWVafm2/2iV6/5i1Drk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=gdlpQvqt; arc=fail smtp.client-ip=52.101.69.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="dJxQ3+ZY"
-Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-4350cd5b97fso282969fac.0
-        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 07:56:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1778079381; x=1778684181; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=lqwubmezLdUWi5nwdGm9inEyQvRDdNL1kdWWslX4DTM=;
-        b=dJxQ3+ZYyogghpk/WU1KXOdQi4cXD3knPlsf45nS4+iLZhxQSZieeuNNwbM2OJ4d6E
-         LQJ3ez7MlWdBJCST4t1+5lyJr30wyT5jVAmw7IMGW0Kxuq9vlo/jXgjrfgwRWXpeqZCb
-         9QIA1YwJF5xDFHbGBx8sfLQUibd1LyXkrYJxhGib5QxSEn/XaoMfF1ovX0PSSmxZ3MVt
-         wcK1RvNuXKhO8T7dE/5jdKueADOcVD1Vi7nx7eYtltwIO5fqyvp5864U+BSXHeiTp7Wf
-         rMidCTnQOcdNyL1/O+u3+JO/faxMMUyJoFIBHN+1ingJrW+CUeKt0fQH8SqI/Pv1n1LC
-         cxHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778079381; x=1778684181;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=lqwubmezLdUWi5nwdGm9inEyQvRDdNL1kdWWslX4DTM=;
-        b=AdKt152a96iEHNi02C+51idALFkhS5MM6cQ7D0ddtdaYzw1c5OgAEpbm0t770xTw1W
-         2jxehG3rXttkR8yFD2qqs77NHtn343C1kHnddFZKJbFKKE0//Bb6kMO5RpyaqWKHkQc5
-         loQ90YsrM4M+myeLfBEV+DKnu5k3TB9IbjCdfEqhsTc6L3EeAFzSqvyDnW0OYMAhKT/V
-         5buOveLglqAvvg11JitZOddjIxiLOPFdAOXdae9Ro7Mii4A0JeMbX21eRadOJwEDMVBp
-         Uh+j/kpcQJOGyt0z3Bk5cFFdqGyVZEFIglRbff9KmTI+rTdzRx5ydXPMRArQ9pQ4CHSZ
-         EbFQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9bI7eL3yKyh+CS48jSmdLQITj/FIOWKVCan+W+vMIo9yxK3MBVkcJZam5ZXOFjblTKMlhZOyC/EG/e@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyd6nbgfACJWkr2skZ6Cv+/BXB3ppuxwpRwOeB5j7wVSYegfqO5
-	VK9cvkutNE2g0JcN9AME3pZN6gvmOAk16vUzTyYvBoBODjzLF3Airibyv9aaIS8CTLU=
-X-Gm-Gg: AeBDievBcLmeaL3u9r0oyA59yPSTgn1PLdkJv/yuR6iZhfjr1HAqydQ9EzWUpekTpy6
-	xMBE/itkpDxdrEU+0PuuxoTPCdT0HTpme4t/mDU3ySJ1mQKZmeTLjPOkfBfE/nfZQQC1srxp8tz
-	K+37ttJKSUrt54L739vMdhzn27ewwHOej3htVDHMvGx8g0R9ebNjKpE2Dwu4syG/jfWyJcJaAiD
-	NmhK27AY8Tchwzk6JsFyg00oLhoYvnzsuT6Sp+izcvlO0zdcprBF8EStOv5/XATQz7k3ZD0XXM1
-	8kRW6wfpK9GtgKEt9xldrijLLMatk1p13F8xWU5bKmCK18S8W79ts9D+LowAxQgfD790wGTMo1x
-	2x9ZdKgxYHnhD7dfoMBIaEcVaOvX7hDUAcfCUocvEWa5LkaAPMAZvlUsuwjCIf9Kr8uV8q+Mg1J
-	qWXbMQx4CSRHl9NbYdZfhsaquAWOvEWPOb1GlzlMwi87t4e1eozn9Q1C5OyhuN1a41COphYhVfl
-	/NQhkDd2xXZ48MrGfDz8tOkmUTF
-X-Received: by 2002:a05:6871:e48b:b0:417:6237:cf7e with SMTP id 586e51a60fabf-434f5cd2ed9mr2538133fac.8.1778079380535;
-        Wed, 06 May 2026 07:56:20 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:5798:67fd:c866:b378? ([2a01:e0a:106d:1080:5798:67fd:c866:b378])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-43454d8ed0dsm15613477fac.17.2026.05.06.07.56.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 06 May 2026 07:56:20 -0700 (PDT)
-Message-ID: <cb419510-b9ab-4a62-b210-ce07383c564b@linaro.org>
-Date: Wed, 6 May 2026 16:56:15 +0200
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="gdlpQvqt"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NTDvvK60XSMlelqvxzl+7B/4uS16tf+4A9fUdOhf7i7UHh5FLzlVR0DvI2N3tc84+rspr8+DAIUUJ7Wz0DTLmncttZCLB0oPgHcpSZZY4zR6KaBs5ka8OQXcmHzReSqgL/VXdBCcWWKk5dS2885NC+TCOwpFZG5Fg90fWKNKxEYxZlfOFvJGpb2r6rJ/oxkai8/ZnnAIutFa/+EIGHDq/j3IwrCTcw97MBvIt20aQjXN51GtEfEFk9GAZ8/jgcOGYg/+nOu4BQ9qWVb9SbzcYYrNQ9nAgKTHNHLJxm/dcWjNrzO1/VokJx09Z4M/Y8+R9wyJ7gfVs850ArmG9EEv3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PnOefGTI0cf18Z8MTj6MleCguWEHQlhho9M+GtQESow=;
+ b=EKI/i1ERniECZjJD+uZEPkEQw1jLYX7oz5PoO27TGJWnPuFTNaC4W7lWnYcTGjwL8mJYVPiAKnbAErvYtmeAY54LNs/1a0hFMzn7Sb3lPU8M0APWZR3LCVK344ISUZ+aQhq4mHeCrgqKgf598868nYG1MYeK3UTtEecshPxfyHKKYG/Jrte9mMuLGpsG2fnHdiIg/KhN5LProecnazTtncjf6dY6lqnmIh2zGkIF5yxmCCYbXU+T9ybkT0/7RubkTQ16f31u3kYsbPsJUe7uNfTPibZGiSQSQmUIQISu8Qju5uby6v5JUhBP29TY4zQcqA4x9IhKakyWhFnqIu/6Hg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PnOefGTI0cf18Z8MTj6MleCguWEHQlhho9M+GtQESow=;
+ b=gdlpQvqt3SahyGEDFnUQF3RKJxacitzhCZSuvrLvf0XoM8gEhzQfcbEnnUZzkUMMmMmN6asUcTMcE4mAONBI4v6yKDuCvl4inRyJ3BDMgiVOwrOrwa+gs+QaNpeA3lSrBESilevw2JqvRxitW+vT4Py4acO659jWNcLVgccvB/BD4VQILW79VUWnvYA9JIP+OfCk4Ociv4tZdCwFj8DiWjH5YCs0yKy+Xs2zKLti0MQVek51IQWQAkcCxjAYJVA4k0QVAYKtzizghEfpbZ/zhO4AQyRjvY7eCr+hUreERJhpNj8ljLxrWAeWP5Qu1iAqVCZXSLgoPfjxmqfMs/Cxvg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by DBBPR04MB7673.eurprd04.prod.outlook.com (2603:10a6:10:202::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Wed, 6 May
+ 2026 14:59:08 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9870.023; Wed, 6 May 2026
+ 14:59:07 +0000
+From: Frank Li <Frank.Li@nxp.com>
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ frank.li@nxp.com, s.hauer@pengutronix.de, festevam@gmail.com, 
+ Richard Zhu <hongxing.zhu@nxp.com>
+Cc: kernel@pengutronix.de, devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260506055316.2798693-1-hongxing.zhu@nxp.com>
+References: <20260506055316.2798693-1-hongxing.zhu@nxp.com>
+Subject: Re: [PATCH v9 0/3] Add i.MX943 PCIe supports
+Message-Id: <177807954574.853863.624761746932435454.b4-ty@nxp.com>
+Date: Wed, 06 May 2026 10:59:05 -0400
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.2
+X-ClientProxiedBy: SA0PR11CA0010.namprd11.prod.outlook.com
+ (2603:10b6:806:d3::15) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v4 11/16] phy: rockchip: usbdp: Register DP aux bridge
-To: Sebastian Reichel <sebastian.reichel@collabora.com>,
- Vinod Koul <vkoul@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Frank Wang <frank.wang@rock-chips.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Yubing Zhang <yubing.zhang@rock-chips.com>,
- Alexey Charkov <alchark@gmail.com>, linux-phy@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, kernel@collabora.com,
- devicetree@vger.kernel.org
-References: <20260428-rockchip-usbdp-cleanup-v4-0-7775671ece22@collabora.com>
- <20260428-rockchip-usbdp-cleanup-v4-11-7775671ece22@collabora.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260428-rockchip-usbdp-cleanup-v4-11-7775671ece22@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|DBBPR04MB7673:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc60d390-1b6d-4b05-5e4a-08deab8005e8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|1800799024|376014|7416014|52116014|366016|38350700014|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	gR+lGn1XRZWqB4WXbYW1fn75dDs/dpT0YVgyaEyX6RhebLJ78WNXFEVSNOuc0NoYYV2HR9L8/gtx9KiiUudOVKiKVCW3XqSXzVYri2HEyu6zOV6DSbKux6rvcShZWLq3IrteqRe/HJHIrEa3Bl1iarUTAXq67IxiBdr3mJnJli1mxE3UDAR77HjJE0hYMRDmEwRx06pbU6d8zzJSPkqQcCgvE6FGn+SXT1OSxWW+j8dwHqOmG8dSYuu51zmgH/y9EqCLaByVAofAdIF2aYFnDxB4KnR7haP+fLfWLisg4b7CZlCh+dBHjWUh4jc86r/w4gG2phny044bzvhjpPn7Ma9tGmDxUU3QZgmnHHS6YmLmxjHBChNJxO3Yq4o8xm+ZfqXT3mGVrGcGwPSWlkoYrA/LRLNJD+8fLzl7rgzDFh0MeR67/mGlAj85XVt9K0jIB5d6GzN2OGGGcVMj0zoAcgxXCD/YgotyUH/P2rbB3xWBWxmmDMYFp6k/av43sTCRAO7Qg0uPEgA/BTq8hbJFWgBovRw/L+okvJbEUt/+9yxpyxoEm+Twlj+160wVH7ML1k46FGpRISOC9S/U/ZBMfDgpC2Hjg9uTQ4hcw2avDt+EQ/FWaAc9FW+gf5UlxzkHSZbpundYjcPrfsydvdO9HHbt51wOBE3wjEaRXtPu3YxzU/U0oewj3WZ3aeexTpT8AlOGD2ECjsb/SzdfVFEO12K62ikS4jrpumV0KYCpQf8uKridQPop7oIUIBPlYaRz
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(376014)(7416014)(52116014)(366016)(38350700014)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QjRBR090WWVyNXIzUlVncDFjYjhlQklFOG1VNWVwelJjL0NGamU0VFdtZXZ0?=
+ =?utf-8?B?d1BES2poR2I0bnFPNkV2cW1IOGZWU3NZSGJlY3dSWFdpQkVSMzFQMk1VbjFm?=
+ =?utf-8?B?TG43R244V3BIZEx2UEdxbGJZYUxsa0pmMHZlck15dU05MlB6Z25NRnFvRnlE?=
+ =?utf-8?B?ZS9kTHpxdUVSUEtBZWkveGFCdTNqYU5ITjhSbzl4ZWxYZkVhcnlpb3QyazBh?=
+ =?utf-8?B?WGRuNWFSVFZGMXVGZkhqckFEQVJhRVA2VTdlNVJudi8wdU5DTXRNQWw0Qm4x?=
+ =?utf-8?B?TDdVRU5BRGRSU2NiYzVoZ2oySlFUQVI4ZUJBYk03YW1WVTdBd2p3WC8xb1cv?=
+ =?utf-8?B?bWdkTXdiR2NHeUl4YVFCeGsvQTJ2NzlWdEtWRGN0OGJEZWtCa1BxQ0NELzlY?=
+ =?utf-8?B?M3dwWDNQNHF5Tm90OVBJbmlUMEMyb1IyQnBYa29GSUx0c0tXeTNHZ2ZSbnNU?=
+ =?utf-8?B?YldqT3ZqOHRxbG1BenJCOWZKalp5OEdhSDltSzF4QkVQWW1NY0xESXdjL2t2?=
+ =?utf-8?B?ZC9COGZ5ZmFPVUNQZENOMDFCbm9DN3V0QnVqOE5xYmtXQ0N4MjNLZlNMZmFD?=
+ =?utf-8?B?OUVBNzgyMXFBZmp5Y3RubnZlWWNsNTg3SkphZkdWR3BFNHNpNHRFOXYxQ00r?=
+ =?utf-8?B?bjhOQ1NlNzdFSFUvck9zRllrQUVPWEtHM3lHV052ZHNrN2ZkQWJFbnBZdDNZ?=
+ =?utf-8?B?Vnp4MkpjMGRlVERvTHlLamIzWGFyNjhuanpkZkI4ZzBpN2xwU2pXejVnWXB4?=
+ =?utf-8?B?SXJOK3RSblJzS2xpRlJJVURxeHMzVnA2T1lEdENvRnJWNnFQQlQwWHNhMnE1?=
+ =?utf-8?B?eGpSWnJFQkszOTZDRStVK2tmSVZETllPNXRydythNWYwNjNBTkx2djZCZXg2?=
+ =?utf-8?B?a2xhUnpjZGNiT0tKYVRsNFVjaGZaYklXdW1vTk80VGJZQ2pPZis5enJaS0VP?=
+ =?utf-8?B?TXVqaFlHRjJEU0RBRHFLcERNSGxUbWJmSytqckxuL0ZPd0RMUHIyNHluSVF1?=
+ =?utf-8?B?SHZUdDl1Tyt5RG9qeis3TUdBQzRNczhUbFlCSm92dGRma2R5dVVjUDIzaVM1?=
+ =?utf-8?B?TXdXM3N2Y0pPSC9nVFprT0cvaE96Z2ovQ0s3c2Zka1BkSGZnR0ZZSlZlMEl3?=
+ =?utf-8?B?S2h4MUxFMW1JQTJlVjF3bTJkZGZDMWpneDdGMldCWjI5em1GVEdFSVBRdU52?=
+ =?utf-8?B?T2RXNi9RN1lNdnAwUHdXUVhGTEFZRE9rVWZjRDFyL0FCanV1RUIwY3Z6SEdS?=
+ =?utf-8?B?aTZMcG1YUXRnSVJpbWRRV2JUQ1JYSXhCT0JoTzJTMnUyTDJSb2hsaXNLOWFy?=
+ =?utf-8?B?VU5OUmJmckxkNjc3SFdDV0RjZmJIRUJvOE41cmliaTIyMytIcFEybVdhYlc2?=
+ =?utf-8?B?b05QMEk1MGlYQjJIVkswNmlyNEhUTGZsNVZtbVg2RnpHNnhnOVNOZm9CNzRN?=
+ =?utf-8?B?UmFmQ0lHTS9QN2JpazR5QXhnVXFpYlJOUWs2YXJjVmpTZzFzSHA3VnZrdVlj?=
+ =?utf-8?B?NHR1TGVUZWlqaStVLzY0T3Q5Z3BWVG5QTVR0RzZyaVRJeHFkbWlXci94LzE3?=
+ =?utf-8?B?Kys1WTI0N0laVTN5OXVqRHRPTzBidTRHc0pPWVd5SVNqbFNLZmd0RElhTXNJ?=
+ =?utf-8?B?a0IxTVZZdFNDdDlEZ1JKT25hSmhjRDV6T1pLY0ltT2s1R091YWxQMFZidERp?=
+ =?utf-8?B?SFZsNXRIcHBzdURRbjhndkRHOXFyQlRUMjdBakdpK0pjVXFTY204R0o1Wnpu?=
+ =?utf-8?B?ZGVZUmx5b04zbVhhbi9NcGRPT3o0QVdZdElXZ01QUXZDRFFkNEt2TFhIODZ3?=
+ =?utf-8?B?SXZpcnljOXZieUxLYjJYVnQ2WVEyZ3p3TU9xK3lZTHgvY25iMlVTUzJDVUhW?=
+ =?utf-8?B?UEZSUm81K0k5ZUVvVmxabXRxRndsMSsxZDFMTEwzRXJFWjFUWWxnNW9UUUhT?=
+ =?utf-8?B?UTgzSnIrQWdxaDhQT01hdC92ckNURnpKNDdRRE1UNDJFSVU4MVRZSnV3QXBO?=
+ =?utf-8?B?bklEMGRrOG9neTl0R2o4elpKaEdOQW9lZ3F1c1JmK3N4M25Qa1VQY01rNVFB?=
+ =?utf-8?B?R1NJVUJ1MXBNOHJEb3NsbDFFeDdtK3VBUmZ2R0U2Zkk0Qmc4R3FtN0t4L1FZ?=
+ =?utf-8?B?TVpscHl6dnduSmJ1ZTNsTEZ4UkhmbXhxTFRBb0RIdDRPeEFZdXI2NkNIelVW?=
+ =?utf-8?B?QzZnL3ZlcW5LbFJPMkRkMXN5VThLTTk4aFpOSFF6dWdkQWVxdlF0ZGhOU3Jh?=
+ =?utf-8?B?TGJmTjg4UUh2RWtCamNJajFHWERTdEUzcm5RcFV1YWxRejJiaWdWV2ZqSC9r?=
+ =?utf-8?Q?8CP+yNtDD3zdw/PWyJ?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc60d390-1b6d-4b05-5e4a-08deab8005e8
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 14:59:07.8115
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SlDIrQnMFkruY8ozGxcpgaU62jRaH64JwDL9Z+gNHAALHnHq4MxQ9eDft1m60S+VQbFeknBYuDYQGh4cprA6aQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7673
 
-On 4/28/26 18:13, Sebastian Reichel wrote:
-> Add support to use USB-C connectors with the DP altmode helper code on
-> devicetree based platforms. To get this working there must be a DRM
-> bridge chain from the DisplayPort controller to the USB-C connector.
-> E.g. on Rockchip RK3576:
-> 
-> root@rk3576 # cat /sys/kernel/debug/dri/0/encoder-0/bridges
-> bridge[0]: dw_dp_bridge_funcs
->          refcount: 7
->          type: [10] DP
->          OF: /soc/dp@27e40000:rockchip,rk3576-dp
->          ops: [0x47] detect edid hpd
-> bridge[1]: drm_aux_bridge_funcs
->          refcount: 4
->          type: [0] Unknown
->          OF: /soc/phy@2b010000:rockchip,rk3576-usbdp-phy
->          ops: [0x0]
-> bridge[2]: drm_aux_hpd_bridge_funcs
->          refcount: 5
->          type: [10] DP
->          OF: /soc/i2c@2ac50000/typec-portc@22/connector:usb-c-connector
->          ops: [0x4] hpd
-> 
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> ---
->   drivers/phy/rockchip/Kconfig              |  2 ++
->   drivers/phy/rockchip/phy-rockchip-usbdp.c | 14 ++++++++++++++
->   2 files changed, 16 insertions(+)
-> 
-> diff --git a/drivers/phy/rockchip/Kconfig b/drivers/phy/rockchip/Kconfig
-> index 14698571b607..39759bb2fa1d 100644
-> --- a/drivers/phy/rockchip/Kconfig
-> +++ b/drivers/phy/rockchip/Kconfig
-> @@ -136,8 +136,10 @@ config PHY_ROCKCHIP_USBDP
->   	tristate "Rockchip USBDP COMBO PHY Driver"
->   	depends on ARCH_ROCKCHIP && OF
->   	depends on TYPEC
-> +	depends on DRM || DRM=n
->   	select GENERIC_PHY
->   	select USB_COMMON
-> +	select DRM_AUX_BRIDGE if DRM_BRIDGE
->   	help
->   	  Enable this to support the Rockchip USB3.0/DP combo PHY with
->   	  Samsung IP block. This is required for USB3 support on RK3588.
-> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> index beab20e4c512..77ad2a89d4f2 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> @@ -6,6 +6,7 @@
->    * Copyright (C) 2024 Collabora Ltd
->    */
->   
-> +#include <drm/bridge/aux-bridge.h>
->   #include <dt-bindings/phy/phy.h>
->   #include <linux/bitfield.h>
->   #include <linux/bits.h>
-> @@ -1434,6 +1435,7 @@ static int rk_udphy_probe(struct platform_device *pdev)
->   {
->   	struct device *dev = &pdev->dev;
->   	struct phy_provider *phy_provider;
-> +	struct fwnode_handle *dp_aux_ep;
->   	struct resource *res;
->   	struct rk_udphy *udphy;
->   	void __iomem *base;
-> @@ -1492,6 +1494,18 @@ static int rk_udphy_probe(struct platform_device *pdev)
->   			return ret;
->   	}
->   
-> +	/*
-> +	 * Only register the DRM bridge, if the DP aux channel is connected.
-> +	 * Some boards use the USBDP PHY only for its USB3 capabilities.
-> +	 */
-> +	dp_aux_ep = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 3, 0, 0);
-> +	if (dp_aux_ep) {
-> +		ret = drm_aux_bridge_register(dev);
-> +		fwnode_handle_put(dp_aux_ep);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
->   	udphy->phy_u3 = devm_phy_create(dev, dev->of_node, &rk_udphy_usb3_phy_ops);
->   	if (IS_ERR(udphy->phy_u3)) {
->   		ret = PTR_ERR(udphy->phy_u3);
-> 
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+On Wed, 06 May 2026 13:53:13 +0800, Richard Zhu wrote:
+> This patch-set adds i.MX943 PCIe supports on EVK board. Please pay
+> attention to that it relies on the patch-set[1], and the PCIe1 port on
+> the EVK board relies on the [2].
+> 
+> Both of them are included in the v7.0 kernel.
+> [1] https://lore.kernel.org/imx/176649331066.523506.9443864112044699350.b4-ty@kernel.org/
+> [2] https://lore.kernel.org/imx/inzg46tc2fwsajxq4vzdyuiq7krzy6xtcg2mjaieninz7zsmgm@mtdjr4tuegpq/
+> 
+> [...]
 
-Thanks,
-Neil
+Applied, thanks!
+
+[1/3] arm64: dts: imx94: Add pcie0 and pcie0-ep supports
+      commit: 43a2c0c0664a14b08a9de6e3d26121070ea55715
+[2/3] arm64: dts: imx943: Add pcie1 and pcie1-ep supports
+      commit: 7f7b2317069d8a4e56de38606180e60c0969767c
+[3/3] arm64: dts: imx943-evk: Add pcie[0,1] and pcie-ep[0,1] support
+      commit: d570a0d019a3d84832bfc6867647d3581b0052f3
+
+Best regards,
+-- 
+Frank Li <Frank.Li@nxp.com>
+
