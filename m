@@ -1,49 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 139A73C660C;
-	Wed,  6 May 2026 07:37:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 345892FE56E;
+	Wed,  6 May 2026 07:39:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778053024; cv=none; b=MP3a573USsE13PeoH4YlAAAMk+9rvHjWFIM2rhmsXi5OoydvzripWcPdsrvFTcmTCEmWSanzudNRAeiQpYwLxcnYH9Uy7+TP8aXCGAZqyeKbNwjiPI52U9MSO76zhcnFFybKqpToWio1zHjXdr1022Y0j2mCL84w2b2xLUc6dts=
+	t=1778053173; cv=none; b=tbBIT8sZcCkM0ZmnSvdJUgEc3BU1PEqmr3+g9NXmczGcK+pdcIzByBNJ5mTlqLjtDzyPaOhZds74Ekb1FnH+Vw4tDBb2t1+5YD3+a8cJdrU7eLSqd5vNDcbD2RDuE/YUOfUWntFAQy8Lr8qXMkM0AGNR21ufvotjW24o4V6+1qQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778053024; c=relaxed/simple;
-	bh=t+wddImILhiRlLgm7OAy3vy+PnBWb2TY1blk6nX8kIY=;
+	s=arc-20240116; t=1778053173; c=relaxed/simple;
+	bh=lOZR6R92sYmsE+sacZXYlzXEvAzRCNPQjdcttW+HiEI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VWPG6XZXX0Wrhiy9ZpMqb7br053mDLwC9AvOc63Y8iuMnh1n8cEKZTXqtcBRVzfVJhWEvMSrP0WQPFULMmAHrG6k3pvEfKrTWYUfyWeP9qWGOGfdwEvRcpieAFkpTlNz97ICNhjVt+PtztXLJxxYvaYTiTFpOGNpH6e2e3V32YE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZmED6XV2; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=qMONofuYqDChDg1YY8ixuWEdUoGrPJCpJsDknStD5Ge840TMhzn5Tr3DYhfIVch5PwP1JgoYKbvmpBaGkW1osV8CT4Qkp0dxIw4O/a+BXDJutvdWPWIDKrglUePIG7LRgP9NDt+RUA21DTfYe9g34C97a9bEyDBvG1ouEe/9tbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WdSfHTqO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZmED6XV2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD502C2BCB8;
-	Wed,  6 May 2026 07:37:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WdSfHTqO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29243C2BCC4;
+	Wed,  6 May 2026 07:39:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778053023;
-	bh=t+wddImILhiRlLgm7OAy3vy+PnBWb2TY1blk6nX8kIY=;
+	s=k20201202; t=1778053172;
+	bh=lOZR6R92sYmsE+sacZXYlzXEvAzRCNPQjdcttW+HiEI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZmED6XV2+ULPkYL97gNRIrfEvbbr8etLa5fwvtT90bqO0hhu0wBFDd5py4itOXmjj
-	 rlXu2TsdXII7CU5OM4hgOMPuA4wZIVk/9tlxJbYPmKLA/RzTHlm3WryF6DThmUOSHk
-	 fScFwLkL9gUVEILcRvh7+bBbSEWRp1Mjwfl0sd+qH/gzuZsBmIAj/Pt+qtRCiqbcXZ
-	 /daGg1p0Ole8/5d1s5hx6GhiPtN1eMb9AnSrI0S6+ec+kgeqXq7zueqBTU4mwlD+qN
-	 +TIUcZ0CBjE2qMgEuRuon4Q4Vs2r5nFsMSbwxTgBBJVghNa7y/Ijf+137Zefz5P4Vo
-	 40TggBcsnnl1Q==
-Date: Wed, 6 May 2026 09:37:00 +0200
+	b=WdSfHTqOu5BFKhh9H6gB60W8gXq3rmKibmrf3vbev1u6CaDiACnCqH1Cenf5p0UyI
+	 b2nD+HZqCQBOqukKByXS/Q1rbIoYpoPy6urYiYUU16ln3I+LQNkU3xMa0shIsO7yQW
+	 +OToIFNoAS04L4hnYTr7zvE7drWwa0XzVqJ8U/bZDy8k1JBhVeO2WW3vmE6X3FWGIv
+	 5N0N0zUMwWIXPlriZw3P7ZpOQ1bYRxYxmOAhmNd6X/ORe74NG5tcLqyrhHkgqeMWIh
+	 GWlcXyB0ws1TmjfnjLl6jVeAS4hETzrhvdR0e84YiDgA9a/Z5NSC81N8siQiW6XyVH
+	 KMiEGOXxaxZ3A==
+Date: Wed, 6 May 2026 09:39:30 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Erikas Bitovtas <xerikasxx@gmail.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, 
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	=?utf-8?B?QW5kcsOp?= Apitzsch <git@apitzsch.eu>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, linux-media@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
-	phone-devel@vger.kernel.org
-Subject: Re: [PATCH v4 2/9] media: qcom: venus: add common clocks used by
- both vdec and venc
-Message-ID: <20260506-hypersonic-belligerent-prawn-8150db@quoll>
-References: <20260506-msm8939-venus-rfc-v4-0-994f5eb22acb@gmail.com>
- <20260506-msm8939-venus-rfc-v4-2-994f5eb22acb@gmail.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, linux-input@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: input: Document Imagis ISA1200
+ haptic motor driver
+Message-ID: <20260506-nautilus-of-abstract-efficiency-eebe94@quoll>
+References: <20260503165243.215979-1-clamor95@gmail.com>
+ <20260503165243.215979-2-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,40 +46,20 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260506-msm8939-venus-rfc-v4-2-994f5eb22acb@gmail.com>
+In-Reply-To: <20260503165243.215979-2-clamor95@gmail.com>
 
-On Wed, May 06, 2026 at 12:44:39AM +0300, Erikas Bitovtas wrote:
-> Add clocks which are enabled during both decode and encode. This shall
-> be used in newer bindings for Venus, where subnodes for video decoder
-> and video encoder are not included and clocks are not differentiated
-> between decode and encode.
+On Sun, May 03, 2026 at 07:52:42PM +0300, Svyatoslav Ryhel wrote:
+> Document the Imagis ISA1200 haptic motor driver, used primarily in mobile
+> handheld devices and capable of supporting up to two motors.
 > 
-> Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
-> ---
->  drivers/media/platform/qcom/venus/core.h | 3 +++
->  1 file changed, 3 insertions(+)
-
-I still do not understand why this patchset has such mixed arrangement.
-First media patches, then SoC, then clock, then again media.
-
-Please follow submitting patches in DT - DTS CANNOT be stuffed in the
-middle.
-
+> The exact datasheet for the ISA1200 is not available; all data was modeled
+> based on available downstream kernel sources for various devices and
+> fragments of information scattered across the internet.
 > 
-> diff --git a/drivers/media/platform/qcom/venus/core.h b/drivers/media/platform/qcom/venus/core.h
-> index 7506f5d0f609..c1d772c7ae9b 100644
-> --- a/drivers/media/platform/qcom/venus/core.h
-> +++ b/drivers/media/platform/qcom/venus/core.h
-> @@ -77,6 +77,7 @@ struct venus_resources {
->  	const struct hfi_ubwc_config *ubwc_conf;
->  	const char * const clks[VIDC_CLKS_NUM_MAX];
->  	unsigned int clks_num;
-> +	const char * const vcodec_clks[VIDC_VCODEC_CLKS_NUM_MAX];
+> Tested-by: Linus Walleij <linusw@kernel.org> # Samsung GT-I9070 Janice
 
-This is dead code. Drop or organize your patches correctly, so there
-will be user of this. Each patch is one logical change. Adding dead code
-is not a logical change, because it is unused, thus completely
-redundant.
+Drop the tag here, you cannot test a binding. It's not possible or
+otherwise explain how YAML file was tested by this device.
 
 Best regards,
 Krzysztof
