@@ -1,350 +1,184 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013015.outbound.protection.outlook.com [40.107.159.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE66E1D9A5F
-	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 05:21:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778044902; cv=none; b=I1027Z0QDDhXsTNZjbqIdYe8LUyZ+HG83w5fzIVnd/F9A/h0ahvrqyNyWd/U1R2qibUs5e1rsbvC/nWGjVtC8sOxNp+EwvwkyUvgW5M4hqvByYquQDwOFyd6R4Kfmrz5kJmp/G2CYgpbwEnfSUrR0AiBa2fHmKm8EvtbHsjeCqI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778044902; c=relaxed/simple;
-	bh=Sj/Uu5RP+53mJvN5YPI+Bqc0Ki1TaGCxMvlnM8akErY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XfxaKoIqdWIFY/cnXObyWdL/3zunFtuVsNv05Ez26CKvl97+wNtXjGB5UW9La/U9FiRVcIBeKFyokLGdPyjoxhogbHXp+4xf9iyD4vKv/aYPtnzQ0Xc05MuKQd2erKSN/Q2s/1TXy+VyG94NRZe8eQirDF2puOX5rDzoxYDkl/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nBvF1NmG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ji4Be3K2; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5169F1F94F;
+	Wed,  6 May 2026 05:51:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778046679; cv=fail; b=SrVmdryrTwxewtmT/htjykDrvqjs8UuKpNm9rvXnHV2ZGJFsMZDsypA2GTbXQPYqMZZVhFxG1z67v3RZ7uE/wtBcG1WSB/kv72bqbKu32Rk4uTTs9AIdRypvm8kWK9LOsdI0eMbKtJXV11s73X9v8niiUbUcDY5CHzsKubdNkzQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778046679; c=relaxed/simple;
+	bh=FKBYGPI0Cu0r3lgRAeCprfhLu/mZVxXS62NbN8q8zV4=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=TggOnhGUJmAGrteYnQMVPiDX9/hbCfmx2zFr09sZER4KVmpgmdEZJAQWg/TIpHUHpi21/Nljgpbg2lQ1HH6aq5AxvB1WxcOEywLMe6uwv6lajlAbUY9X48EVgNZMHKpc8DJtiPFtvSl5YAn5QmqxSnCHUfdsCVuIlqgHYRhyLrA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=Me5gkPgg; arc=fail smtp.client-ip=40.107.159.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nBvF1NmG";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ji4Be3K2"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 645Lw0QR912232
-	for <devicetree@vger.kernel.org>; Wed, 6 May 2026 05:21:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=pBdh4/JvYKUMPV4XE6EJA/hH
-	7ueJ2klFaJ8ONNXBNbU=; b=nBvF1NmGfNwIwP1ohqzFJH1WKXEZTQGwMsaVNLzB
-	6oYB6qlIUj8c4FzXyjS74ibGUuJO0ru7hqPeCnGlqVKkYfjgzUv/84XdmS8ZTxao
-	ktdasOQQQBTYYy2W0sBX7VMAgOKYujtYJrftD7itHVZTqCWZW2AonjdnJoNUoxv7
-	z6vFYK97VDitmhEwUBZ8vW0EUsEfe1nqRkhpRYcT+63rWgffpPoP8wR96fMPrkfL
-	PdIz9cn/XxicoIlkzoe5wrCgySytujOGxCgQAyGyhpiYGwiK9oCVoNagbFifDm0I
-	N7u27EPH4uJjRIfXlg9sjt/7NHS92QxhfgeQUnG3tW5dsQ==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dyj7jk0fr-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 06 May 2026 05:21:39 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2aad5fec175so81898935ad.2
-        for <devicetree@vger.kernel.org>; Tue, 05 May 2026 22:21:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778044899; x=1778649699; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=pBdh4/JvYKUMPV4XE6EJA/hH7ueJ2klFaJ8ONNXBNbU=;
-        b=Ji4Be3K2NmxMRSrhmoQX3hn8tfErQMdMA+oqnGCdgx/q7xz/damWldCVBhKttkLrk0
-         sLVd+a5YmziaAl4LEBDReRMPq9YZ/fDc3BDV4ArRFq3bdk+iHB1rSJS7Ekd3y75XLHc1
-         3D1dXXMIXeI3+pm5QuUgzyuhI2leapFO3ERTxAkDd5Mp2plMwEuza1p5fCYdScvqusur
-         1oYsTlFVl+X7aTR4m5pROmPEn3B5rq7q1ncmLvyuJyOwW1myTSfUoC1aX0lN1c+4OhWq
-         XryC9Y1Qvl1LibH2e0FDYFeS4ndNnorjPO6e1gLwFjXhM5zS/GBvtWhJePgJNaggYSSZ
-         pVBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778044899; x=1778649699;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=pBdh4/JvYKUMPV4XE6EJA/hH7ueJ2klFaJ8ONNXBNbU=;
-        b=SRQA/49Vi8rnF0wbjX3Lm1fHqFoLf9j7XaeJtxUrcLSZenMitdCYtEEwZH3rXSEiSe
-         xpS8sIIovd8m9dtuETW28owIGCLSk2rCuvj34MOZUF0wHLVpzPi3SbpiQihHjBhWma0f
-         zZwa7tBCNHh5EeX8nlvfPpi/pFAYrWKw7tRkM8OlEj+iBIjWIcyDnpUmFvUYFxR39ssE
-         5BWlCy8v8VAfTDWJUTt9xRzaMblXSSscJ5E84KmbXKDqDiLlVlR1VuJKrba8QyN+jFXy
-         w1xqFRK71QQabOQs8GkaUhncKvVzXPcK8g7mQ5GCkq7Ym/3+BIysL+HcsmTFE6TDMIJk
-         vHgw==
-X-Forwarded-Encrypted: i=1; AFNElJ/yM0CW8HQ6WUCurLLz7M75auwheun6cQilkQ+ca1wIOQ+BS7XAdCH3wggXF6oWovuIRX6yy99puHah@vger.kernel.org
-X-Gm-Message-State: AOJu0YxguKZ4PMhzGdSgJ45imhYKdUAsFUKGoCjaMtxPKCprMJU5vNLv
-	J20ndhJHIg9ncuv0645o96hZJc8kNMv8yULNJwp1+iO4eY4YeHvAXDdFg/qdx8+1VNcFrdRcvi/
-	dEvhG47SdFcbSbsOoLsaJaZAOdFCN6UFGE9GgMCoG0KtKBtZcJFcPUlAfwhW3LrM4
-X-Gm-Gg: AeBDiet3O3plS4G78YA46z2sLna/5xz1xxqy+RqiIzoEEzWmGvxfcObgXmlb7i0Mo1s
-	yUZ/yF20HjgJGznPHJ5fKhBqt9suxuyeRlUrqnhXbY9B7DyaiKl7Ev9YpAtCvsSkoU8DkPuzlpg
-	RC3XbQCm2jpxaCXGxzxwjtGjtgOi0tIOBEtZ5GWclwT1LuHntOqDMdCJI6WgBebPIJP1tRbKJh6
-	G1Ahk9yif5JZtQAXWUa/UwXL24KV2aenie5qu6wNuleu/ci+XCenE5Jmb7F2jDXOqPt8L2CwQmS
-	SDk+8ysRZuJLNLwiFpbPh5A32+ZNSdSIQh9cEuiSUywB24YgAcOpWZ8Sm63JHZYbKkzdZ4b7BHF
-	QJcswIR6lD9VRMu0s7xYzDnXOpwy/wg9Xsixqkrv+co4FqC/lC/ClEQbvRUc=
-X-Received: by 2002:a17:903:1b10:b0:2b0:bebb:1081 with SMTP id d9443c01a7336-2ba7a20ce22mr17270245ad.28.1778044899059;
-        Tue, 05 May 2026 22:21:39 -0700 (PDT)
-X-Received: by 2002:a17:903:1b10:b0:2b0:bebb:1081 with SMTP id d9443c01a7336-2ba7a20ce22mr17269975ad.28.1778044898470;
-        Tue, 05 May 2026 22:21:38 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ba7ca3bff3sm10280225ad.84.2026.05.05.22.21.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 May 2026 22:21:38 -0700 (PDT)
-Date: Wed, 6 May 2026 10:51:29 +0530
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
-        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, iommu@lists.linux.dev
-Subject: Re: [PATCH v4 07/13] media: iris: Enable Secure PAS support with
- IOMMU managed by Linux
-Message-ID: <20260506052129.4kahdrcxxrvl53hy@hu-mojha-hyd.qualcomm.com>
-References: <20260505-glymur-v4-0-17571dbd1caa@oss.qualcomm.com>
- <20260505-glymur-v4-7-17571dbd1caa@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="Me5gkPgg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fNTW9hKeFaNXMdsVHX2IKLCq770ayAKkUu4hcWQKEjikAtF7VQCXg8hjjGeBn0PbR6AJddlSxm45mbaXkQeyt5U+w/W2qdxE3wEup6D8JasLzOAWu+MznGpF75yPuHVXbN1iKtg2xqmw7UXKtZI3INetpewC2WsAG0yLSgX8Zej5PV62e7BEJy3WZmFjyQTTCROkS4dyeevDqC6HIew2ZkCbr0WbUGXpCbd5VBQHSePN2NGRhXvCUqpXLCeJI56uS52lcXThscnQ+RzaF0ZSGlNLjKizHyeygViLdw26UJ/xZhekGJPBNYBwFc6DZliXTQTn8suqmLmi30Yxo/d3BQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=x9oVbqtLHNTbEwR3upiBV3QQvhNN7IW4nhUROz8+MUg=;
+ b=swGJw7nYYurGcW+P2AcyC/W2g9ekOxH7k8TcOXu0pG24Ttwbxh5Z+fjwNEHAFHSbYN7ureGC3KTbSj14gKLIx1xxFymRaXL4q5Zxf9/+Ldc+GzD+olFT8qzXWtPIob+BkEtJyzuuDApKWbrasJG6dJOdngy5b7Mw5MJvdoeBKq/vw1FSl92cf+90a53isLCY41XgpLMjz4ccOhtueSLcUGk5TA3OChs+N/T/NgIM6ZFp7Xq1NvH1GowFDua2MMInQhfk5lEW+m3zFDKt1tBvKceuPJIHkvdEwc9W3HMEk8M4WiiaszXeXXIiHwEHlYNmyUQXLAcxkOGhg35bxoCBmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=x9oVbqtLHNTbEwR3upiBV3QQvhNN7IW4nhUROz8+MUg=;
+ b=Me5gkPggrQqlo0pkdRg+Q8UhkjGgsHrElqwfhJA+KW/MSK3NXiwhom/wMBJVMP3OOkQws9TRyFCaY+V4++NGKIKX5mVWjhcUG0gRNBKnpgN5iAXphLZKQ6oGMfSP4e4o/L4zQUdXVDPadRLg36VL0RmVky5XjXKENrl/95S63sudw34zhdzJ6YIVyGhuVdpTzOZsVuj5puyrTtvPqEXDc+4uLvhpSWvXVbqaJDVo0G4zV2xd7VgSVauafJGmyWDPExue0FbHpmIoMdjwbRT1Flk7AVPKKGg7fBt1+xzBHipR4H6tb/OcCbNHYy7RsovNRikevZj3IXD5elKPHuPsqg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from GV2PR04MB12019.eurprd04.prod.outlook.com
+ (2603:10a6:150:30c::14) by DBBPR04MB7834.eurprd04.prod.outlook.com
+ (2603:10a6:10:1ee::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Wed, 6 May
+ 2026 05:51:14 +0000
+Received: from GV2PR04MB12019.eurprd04.prod.outlook.com
+ ([fe80::ed75:bac1:2554:5cbe]) by GV2PR04MB12019.eurprd04.prod.outlook.com
+ ([fe80::ed75:bac1:2554:5cbe%4]) with mapi id 15.20.9870.023; Wed, 6 May 2026
+ 05:51:13 +0000
+From: Richard Zhu <hongxing.zhu@nxp.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	frank.li@nxp.com,
+	s.hauer@pengutronix.de,
+	festevam@gmail.com
+Cc: kernel@pengutronix.de,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v9 0/3] Add i.MX943 PCIe supports
+Date: Wed,  6 May 2026 13:53:13 +0800
+Message-Id: <20260506055316.2798693-1-hongxing.zhu@nxp.com>
+X-Mailer: git-send-email 2.37.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MA5P287CA0085.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d8::19) To GV2PR04MB12019.eurprd04.prod.outlook.com
+ (2603:10a6:150:30c::14)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260505-glymur-v4-7-17571dbd1caa@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA2MDA1MCBTYWx0ZWRfX/jWXfEzGe2Oh
- RoTG1xfxhRyQAvtC9cFgClWmFXHGSFhf6OPNENN6vTPJgGHM20TIlupA/5YN8oqUm87KLY1aaYN
- py1pImcQDfhy9noR1gjI+1FTuR9cRQoSoSLszey9XSWQOh6CDc3jG/iesvXgrgco/nZOyfhcC9T
- Wk2PJahSlEiixsdi1v2heUeyJ9EA8NqzDi8E8GoF+D0hNwZwL2+mQUYqYLdwuwWMvrV83VOlQMw
- vMc3zjkXGLRyd61xfxunGRfLJZn3gW095WD9mM1FT8JUSVS6z3tdkWWZOSn4cJy1PrDMJ0ZhOn6
- BnVQOX0P4aAGgIdRWt5RuwDxnJPw0skKp07T3lelyh0D6bWsL0RODckdZ68vcUOCsCRHm/chtWY
- D9meCRkU4EBrj4FO5d6EfA3kzf/6UZqgr7B0PuIHbRgBBM17m9Spp4zw/WRlmpxLH7000LtPuA5
- f6E4WZO9Bd3n0SJEoHQ==
-X-Proofpoint-GUID: Afq1jEgZWmKfziddlQ9W3yJYPzBlFyRR
-X-Authority-Analysis: v=2.4 cv=FpA1OWrq c=1 sm=1 tr=0 ts=69facfe3 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=kdmdhyyA-vVXd4KnKA0A:9 a=CjuIK1q_8ugA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-ORIG-GUID: Afq1jEgZWmKfziddlQ9W3yJYPzBlFyRR
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-05_02,2026-04-30_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
- impostorscore=0 malwarescore=0 priorityscore=1501 bulkscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605060050
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12019:EE_|DBBPR04MB7834:EE_
+X-MS-Office365-Filtering-Correlation-Id: 987980ea-d953-4bc7-761b-08deab337b66
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|52116014|366016|1800799024|19092799006|7416014|56012099003|18002099003|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	FqFPPPERB+VRsAa7lPbCg4gLzAhndhUI44FcUNzDbKS/ddBtp19IL6j0D/hVrpdYwLZ7scRcbboEgjiGAyjaFk9KxYU8yq/BssNiKkK1v26+st7wiFVeSjahOy9bqPUpfJzgMFx11t3tLVPBWnF/61jgM8c6r+3lWiJlI6GRoGFA2QDBuUrxoAqnk8heY8NHTSosQgXtxnMpvZk6oFalvPgHejKd+OlY+OAHM2KQQsfHtUEgFeYv2yTWdYkBrdx1TfGfjTiMvFC0sCdoc7jtstHiNIXTXzQ9DKJuSVNFmw22pgH5NJvx1fgDNE7x+5Bmh6Q9fpHrqJY3n9SJG2G7OQ4O9saIjNZkIj90bDCYWhFagu+8DJOT7w6Ys1hcWOaD/Q/5XwWgXOyL2+SbkggHnwGT3DDbBH++9kZcrVn3bidFdbVvANU7CADJ/5wEYgA91yqSRODUbcZduAI6fram+H3hqs5xRuyYpni5WQNZJMBe5SpnNySZIOz7+7RT9iS0ehZKTem0GNDFEsRaCsUXqzUuQaknEMXkNHUWj+P11j5ze9TXfUbgauaCUXs4Qzd8F53kabjPkL+as5mwfYhm+FtULjhsBjqL8T9mxB2YfuOcw4JAawtfZ7R9Q5yfPGlx7WEBkej5QoUvA1/+yoD6VKwxmC+8PFmeWaMYx2YXRpuP8YuVI64rP0KtvAl5ka89jVN/64OEzckDSus26t6wPgL28lCxEtOgkBPZacQLzbGRg+cu+M9ak0BfQ5Gx1JgZ
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12019.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(366016)(1800799024)(19092799006)(7416014)(56012099003)(18002099003)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?B0nsWQZc7MyNdDt23pIPwLn5PeV3y9WRDd1hap/LRUXQ4QMQeBq7WApP57Yv?=
+ =?us-ascii?Q?alERgshV9f91hwPWracAEuiDMvqZf4DtRUTmwgbi3gvyiiuPPIyIaZlc87W7?=
+ =?us-ascii?Q?45BndE8sRDnghAEi1qj9h29AjAHcrCSeutZKL6dY3o/26eG2BF96YyyJcsgk?=
+ =?us-ascii?Q?EBUu640AXtufmVKSjozhubZhiyDhNUyDX7V9nCai+u5s3nf2b8sx9l07zrDf?=
+ =?us-ascii?Q?f06Sj3ecuJoIt87lpwmlSMIwRADHx2jQBKGD9vh71vCnlXeELHW/shX8beSr?=
+ =?us-ascii?Q?fi44FDI8e0NhH3EnBOmVwFSAgfddlx1p67j860qXlhkbNHFTLQzo6ZqfXuXy?=
+ =?us-ascii?Q?zejXNUlJO9x36TbNTX+iBmEs+LBhyTHLuJEvD4zzHB/cFZckDSChKXSDERSD?=
+ =?us-ascii?Q?DfS/0wil1eSoIy+HofLXN4SxyqFLsqtDf+9hw//2n+ReWZZzbZk3ndM5OTdV?=
+ =?us-ascii?Q?mRtEjEioAshrOyLxgHyzIFNEbeGi4a2qOBWX1+jatQsxEQwBN0nQn8kOlr/v?=
+ =?us-ascii?Q?ydzjn8Sb6Nuf3AQUyiIYkOo4psYplt1JNYAfBW4BIsHCiv/C6bv39FCmNokK?=
+ =?us-ascii?Q?ojtmcy2wN1jwtP0PfQ0XQ52BuQHhEmuiUcUB3Yw3CUQDDA6pfVXfFWeFFwqB?=
+ =?us-ascii?Q?yBZxinWxPjENykwnjLfllhqdcJsZWrQov+djaq5S3foMReqDKQGhEgKs++eE?=
+ =?us-ascii?Q?leHUrxv4VINNAHa+M9o7s4iR741dMxk+lKr1xYtKSmh1GFbIbmPrNemYaDcJ?=
+ =?us-ascii?Q?uNz4t+nOVhXKkPQQ2hhObeGvxMvEwvEpyOykvOSdxrYwtiN+KeQezZVNoMTn?=
+ =?us-ascii?Q?iHRPeGsgxLUvr9zJR1x5qMa0qjOJRbXp/3RgkBtJw/C+4BRwGd8LsmH4IqP8?=
+ =?us-ascii?Q?kBnvx1ZhT9bsWLJGM4wJhlgvS3OqctC6kXL6L4Nk0hJga16NeUIHZx+ccyhr?=
+ =?us-ascii?Q?zkZxjB8cMch+i1R2bAU8FZkcAhbtdd+NOY0Mn/2l/9lNL9ZLasTGTiOnR4x6?=
+ =?us-ascii?Q?RCfQGqNWwCY8m/Ft2B4Ye9aTij82ErwJ6rV3mFzIl+GvjjTZGW35oixGdc0/?=
+ =?us-ascii?Q?/OXaBvHyVS+BcuTtDAoe0d4CLkQAmUGsLIRRIaX9iejpUBhRDCjWuHRQw3W6?=
+ =?us-ascii?Q?HiV6tE6wb6gmjvX4eZWUiNA4bEESy+ZHE/mMwNcL25+xgxOt7tUOMitPZfu1?=
+ =?us-ascii?Q?hV9WC6Mg8p0SqeUze6m00M3DarcnEuZd+fVMn5dd6Y1J0fA/tz/roNXdWTP1?=
+ =?us-ascii?Q?e9wGWxQ7Z+jGvIGJ91ymjBYEnGTYGgqGV0nKV2Q3w9w7F4p+OKjUyTh01r+x?=
+ =?us-ascii?Q?t9cITigMJWrKB36jN1SaSo5K39uqyXTSsUvckOaY4Lq1fXv99yMiYGmRWhdD?=
+ =?us-ascii?Q?JMOiiqW773TPLDaBmLpxtYwOURffyG5M8ndwnAz+QUyybHHpeyJ4UChdfpPb?=
+ =?us-ascii?Q?RWU763JQ9q1xr9zlXYJpYD5qGMhIl7D3JVoaTkHzP6FmunFmj35FFyY5J18t?=
+ =?us-ascii?Q?gyGEONGQ9zje9FssJL9nOY/d2ajgw8X3YLTuTKTNVswYMv2pw0QvQGgTK+5k?=
+ =?us-ascii?Q?UlcirvkOeuc4sr0u0WRk9GhJK8gBAsInMGr7nwhuK8oHiztHChBBPmaJ4ztk?=
+ =?us-ascii?Q?tJhkK0/C9x650Nxs1c59nvyjrOnjiRrEdSPU9BpGlj35hwT9PTNAad1tQVLT?=
+ =?us-ascii?Q?01qA7aSAFiqXdPo3XNjCy3Cu+eSAJvFFapn6fIh+Y0Xv98LJJ7evFf9laUu0?=
+ =?us-ascii?Q?6oqwbQPrbw=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 987980ea-d953-4bc7-761b-08deab337b66
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12019.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 05:51:13.7345
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7R/Cs7cWzkdlTitUprIOQbU9UVlgdj7toNhGzyInpgr45mfbmx6eDjUz4YgVetUlnRYOGdOttHUzbUiemCEGbQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7834
 
-On Tue, May 05, 2026 at 12:29:28PM +0530, Vishnu Reddy wrote:
-> From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> 
-> Most Qualcomm platforms feature a proprietary hypervisor (such as Gunyah
-> or QHEE), which typically handles IOMMU configuration. This includes
-> mapping memory regions and device memory resources for remote processors
-> by intercepting qcom_scm_pas_auth_and_reset() calls. These mappings are
-> later removed during teardown. Additionally, SHM bridge setup is required
-> to enable memory protection for both remoteproc metadata and its memory
-> regions.
-> 
-> When the hypervisor is absent, the operating system must perform these
-> configurations instead.
-> 
-> Support for handling IOMMU and SHM setup in the absence of a hypervisor
-> is now in place. Extend the Iris driver to enable this functionality on
-> platforms where IOMMU is managed by Linux (i.e., non-Gunyah, non-QHEE).
-> 
-> Additionally, the Iris driver must map the firmware and its required
-> resources to the firmware SID, which is now specified via iommu-map in
-> the device tree.
-> 
-> Co-developed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+This patch-set adds i.MX943 PCIe supports on EVK board. Please pay
+attention to that it relies on the patch-set[1], and the PCIe1 port on
+the EVK board relies on the [2].
 
-I have posted https://lore.kernel.org/lkml/20260506050107.1985033-1-mukesh.ojha@oss.qualcomm.com/#r
-for resource table extraction and the API to map and unmap and now you
-can use the api similar to below
-https://lore.kernel.org/lkml/20250819165447.4149674-12-mukesh.ojha@oss.qualcomm.com/
+Both of them are included in the v7.0 kernel.
+[1] https://lore.kernel.org/imx/176649331066.523506.9443864112044699350.b4-ty@kernel.org/
+[2] https://lore.kernel.org/imx/inzg46tc2fwsajxq4vzdyuiq7krzy6xtcg2mjaieninz7zsmgm@mtdjr4tuegpq/
 
-> ---
->  drivers/media/platform/qcom/iris/iris_core.h     |  4 ++
->  drivers/media/platform/qcom/iris/iris_firmware.c | 72 ++++++++++++++++++++----
->  2 files changed, 66 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/iris/iris_core.h b/drivers/media/platform/qcom/iris/iris_core.h
-> index fb194c967ad4..b396c8cf595e 100644
-> --- a/drivers/media/platform/qcom/iris/iris_core.h
-> +++ b/drivers/media/platform/qcom/iris/iris_core.h
-> @@ -34,6 +34,8 @@ enum domain_type {
->   * struct iris_core - holds core parameters valid for all instances
->   *
->   * @dev: reference to device structure
-> + * @fw_dev: reference to the context bank device used for firmware load
-> + * @pas_ctx: SCM PAS context for authenticated firmware load and shutdown
->   * @reg_base: IO memory base address
->   * @irq: iris irq
->   * @v4l2_dev: a holder for v4l2 device structure
-> @@ -77,6 +79,8 @@ enum domain_type {
->  
->  struct iris_core {
->  	struct device				*dev;
-> +	struct device				*fw_dev;
-> +	struct qcom_scm_pas_context		*pas_ctx;
->  	void __iomem				*reg_base;
->  	int					irq;
->  	struct v4l2_device			v4l2_dev;
-> diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/media/platform/qcom/iris/iris_firmware.c
-> index 5f408024e967..0085dd7ec052 100644
-> --- a/drivers/media/platform/qcom/iris/iris_firmware.c
-> +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
-> @@ -5,6 +5,7 @@
->  
->  #include <linux/firmware.h>
->  #include <linux/firmware/qcom/qcom_scm.h>
-> +#include <linux/iommu.h>
->  #include <linux/of_address.h>
->  #include <linux/of_reserved_mem.h>
->  #include <linux/soc/qcom/mdt_loader.h>
-> @@ -13,12 +14,15 @@
->  #include "iris_firmware.h"
->  
->  #define MAX_FIRMWARE_NAME_SIZE	128
-> +#define IRIS_FW_START_ADDR	0
->  
->  static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
->  {
-> +	struct device *fw_dev = core->fw_dev ? core->fw_dev : core->dev;
->  	u32 pas_id = core->iris_platform_data->pas_id;
->  	const struct firmware *firmware = NULL;
-> -	struct device *dev = core->dev;
-> +	struct qcom_scm_pas_context *pas_ctx;
-> +	struct iommu_domain *domain;
->  	struct resource res;
->  	phys_addr_t mem_phys;
->  	size_t res_size;
-> @@ -29,14 +33,18 @@ static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
->  	if (strlen(fw_name) >= MAX_FIRMWARE_NAME_SIZE - 4)
->  		return -EINVAL;
->  
-> -	ret = of_reserved_mem_region_to_resource(dev->of_node, 0, &res);
-> +	ret = of_reserved_mem_region_to_resource(core->dev->of_node, 0, &res);
->  	if (ret)
->  		return ret;
->  
->  	mem_phys = res.start;
->  	res_size = resource_size(&res);
->  
-> -	ret = request_firmware(&firmware, fw_name, dev);
-> +	pas_ctx = devm_qcom_scm_pas_context_alloc(fw_dev, pas_id, mem_phys, res_size);
-> +	if (IS_ERR(pas_ctx))
-> +		return PTR_ERR(pas_ctx);
-> +
-> +	ret = request_firmware(&firmware, fw_name, fw_dev);
->  	if (ret)
->  		return ret;
->  
-> @@ -52,9 +60,27 @@ static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
->  		goto err_release_fw;
->  	}
->  
-> -	ret = qcom_mdt_load(dev, firmware, fw_name,
-> -			    pas_id, mem_virt, mem_phys, res_size, NULL);
-> +	pas_ctx->use_tzmem = !!core->fw_dev;
-> +	ret = qcom_mdt_pas_load(pas_ctx, firmware, fw_name, mem_virt, NULL);
-> +	if (ret)
-> +		goto err_mem_unmap;
-> +
-> +	if (pas_ctx->use_tzmem) {
-> +		domain = iommu_get_domain_for_dev(fw_dev);
-> +		if (!domain) {
-> +			ret = -ENODEV;
-> +			goto err_mem_unmap;
-> +		}
-> +
-> +		ret = iommu_map(domain, IRIS_FW_START_ADDR, mem_phys, res_size,
-> +				IOMMU_READ | IOMMU_WRITE | IOMMU_PRIV, GFP_KERNEL);
-> +		if (ret)
-> +			goto err_mem_unmap;
-> +	}
->  
-> +	core->pas_ctx = pas_ctx;
-> +
-> +err_mem_unmap:
->  	memunmap(mem_virt);
->  err_release_fw:
->  	release_firmware(firmware);
-> @@ -62,6 +88,18 @@ static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
->  	return ret;
->  }
->  
-> +static void iris_fw_iommu_unmap(struct iris_core *core)
-> +{
-> +	struct iommu_domain *domain;
-> +
-> +	if (!core->pas_ctx->use_tzmem)
-> +		return;
-> +
-> +	domain = iommu_get_domain_for_dev(core->fw_dev);
-> +	if (domain)
-> +		iommu_unmap(domain, IRIS_FW_START_ADDR, core->pas_ctx->mem_size);
-> +}
-> +
->  int iris_fw_load(struct iris_core *core)
->  {
->  	const struct tz_cp_config *cp_config;
-> @@ -79,10 +117,10 @@ int iris_fw_load(struct iris_core *core)
->  		return -ENOMEM;
->  	}
->  
-> -	ret = qcom_scm_pas_auth_and_reset(core->iris_platform_data->pas_id);
-> +	ret = qcom_scm_pas_prepare_and_auth_reset(core->pas_ctx);
->  	if (ret)  {
->  		dev_err(core->dev, "auth and reset failed: %d\n", ret);
-> -		return ret;
-> +		goto err_unmap;
->  	}
->  
->  	for (i = 0; i < core->iris_platform_data->tz_cp_config_data_size; i++) {
-> @@ -93,17 +131,31 @@ int iris_fw_load(struct iris_core *core)
->  						     cp_config->cp_nonpixel_size);
->  		if (ret) {
->  			dev_err(core->dev, "qcom_scm_mem_protect_video_var failed: %d\n", ret);
-> -			qcom_scm_pas_shutdown(core->iris_platform_data->pas_id);
-> -			return ret;
-> +			goto err_pas_shutdown;
->  		}
->  	}
->  
-> +	return 0;
-> +
-> +err_pas_shutdown:
-> +	qcom_scm_pas_shutdown(core->pas_ctx->pas_id);
-> +err_unmap:
-> +	iris_fw_iommu_unmap(core);
-> +
->  	return ret;
->  }
->  
->  int iris_fw_unload(struct iris_core *core)
->  {
-> -	return qcom_scm_pas_shutdown(core->iris_platform_data->pas_id);
-> +	int ret;
-> +
-> +	ret = qcom_scm_pas_shutdown(core->pas_ctx->pas_id);
-> +	if (ret)
-> +		return ret;
-> +
-> +	iris_fw_iommu_unmap(core);
-> +
-> +	return ret;
->  }
->  
->  int iris_set_hw_state(struct iris_core *core, bool resume)
-> 
-> -- 
-> 2.34.1
-> 
+Changes in v9:
+- Since the dt-binding changes have been merged, only the DTS changes are
+being resent after rebasing to v7.1-rc1.
 
--- 
--Mukesh Ojha
+Note: The corresponding changes will be updated later after the following
+two patch sets are merged, as suggested by Mani:
+  - [PATCH V14 00/12] pci-imx6: Add support for parsing the reset property in new Root Port binding
+  - [PATCH V2 0/8] PCI: imx6: Integrate pwrctrl API and update device trees
+
+Changes in v8:
+- Drop the redundant strings since they are compatible with i.MX95.
+
+Changes in v7:
+- Fix the checkpatch.pl warning in the first patch. Sorry for not
+understanding the comments provided by Krzysztof in the v4 patch-set.
+- Adjust the compatible strings in alphabetical order.
+
+Changes in v6:
+- Let i.MX94 and i.MX943 EP mode compatible strings fallback to i.MX95 EP
+mode complatible string too.
+- Add missing space after "=" in pcie0_ep node.
+
+Changes in v5:
+- Add Reviewed-by tag in first patch.
+- Add i.MX94/i.MX943 compatible strings.
+- Add "dma" irq for i.MX94/i.MX943 PCIe.
+- Add 'fsl,max-link-speed = <3>;' back. Because that Link speed is decided
+by pcie_link_speed[pci->max_link_speed]; Found it when one Gen3 NVME SSD is
+used in the tests.
+
+Changes in v4:
+- Add missing space after comma or '='.
+- Remove 'fsl,max-link-speed = <3>;' in dts, since it's not required anymore.
+
+Changes in v3:
+- Fix build warning in the dtbs_check.
+
+Changes in v2:
+- Refine the nodes sequence refer to Frank's comments.
+- Rely on [3], and remove the duplacated codes mentioned by Sherry.
+[3] https://patchwork.kernel.org/project/imx/patch/20260204022306.2372889-1-sherry.sun@nxp.com/
+
+[PATCH v9 1/3] arm64: dts: imx94: Add pcie0 and pcie0-ep supports
+[PATCH v9 2/3] arm64: dts: imx943: Add pcie1 and pcie1-ep supports
+[PATCH v9 3/3] arm64: dts: imx943-evk: Add pcie[0,1] and pcie-ep[0,1]
+
+arch/arm64/boot/dts/freescale/Makefile       |  4 ++++
+arch/arm64/boot/dts/freescale/imx94.dtsi     | 88 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+arch/arm64/boot/dts/freescale/imx943-evk.dts | 83 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+arch/arm64/boot/dts/freescale/imx943.dtsi    | 75 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+4 files changed, 250 insertions(+)
+
