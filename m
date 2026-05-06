@@ -1,122 +1,214 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11020110.outbound.protection.outlook.com [52.101.84.110])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7290417AE11;
-	Tue,  5 May 2026 23:33:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778024025; cv=none; b=kK4MZglc/foUOucgB9e0XZ4l8o7LTJO6BKaNAr46WmEfjmTphfAz+6xIwI9cTt4wdjag3SAuUu3GrgjiAz3D3GIsOTv0CBzZRWSIl9TbyE9cVPUao635HW7RmvfB0u8h++I1mXjZij0NHuB+NAwxsnvnHUkcWqJdjzmQGfSe0wY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778024025; c=relaxed/simple;
-	bh=Fh+pc8iiwZvkDlM/WcbsplroNBSMDu4Ciha4LqkRgOY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LqKVU/bdXyLulu1QIVXOh3SPepirp2h0ltxSDdMVyvgz6AiidrEOZ6UfR7k7qi29KRk5E1EmrcyDskbykzK5BamN+jYrBkO1+9td1XayNbsk/6HrOgCwsoJq+U0oSfxg44QS44KY48GIzx1RExOmQDI6v4TmkYI5Ke+DGmrCLHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BJbcnDez; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB9DB1E531;
+	Wed,  6 May 2026 00:00:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.110
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778025629; cv=fail; b=EkrI3ca/j5dW3xvfK1jK7Tdy98KWtG1H0B3nYDmgT3q2MYDIvOQdIcYwVEVtwvYAsV8/BDGjraO1IZzWwm1avmlr5nyI1jMPec6sLc0qVsgxAQDQQTJgr/KPiYdjQhiexH10Hq6XR8pNSqu0o7OPBdezmqLGJwel36RarAAiKck=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778025629; c=relaxed/simple;
+	bh=hf8bkNQVVikLr2esfN8d8E8akp4BwQkgMfLqmnByJqw=;
+	h=Message-ID:Date:Subject:To:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=kNkPLLSquDQMg3luFP9OkoFkL+D5hbny+EUS4apX+qF0LZOI685ej05OmCbsfVGF3GXMXXh4okLM/Jmv/OS8xmT76dNEr+THzPX8pZJL6tBTJwZ2xFyogvmQQHsv1ibCqLP+8KLA9w9zSC3hB0OCZcrUvcn7bXGLALlrmGdwEvY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=genexis.eu; spf=pass smtp.mailfrom=genexis.eu; dkim=pass (2048-bit key) header.d=genexis.eu header.i=@genexis.eu header.b=mZhCMiXo; arc=fail smtp.client-ip=52.101.84.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=genexis.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=genexis.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BJbcnDez"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E73EC2BCB4;
-	Tue,  5 May 2026 23:33:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778024025;
-	bh=Fh+pc8iiwZvkDlM/WcbsplroNBSMDu4Ciha4LqkRgOY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=BJbcnDezKubf1NhExDoT/qbCbfgj3/fkiaeVhzgpCjvaWIujV2V73Nndbr/qMneUT
-	 yNGJgrV5qx2N4oFW4U06bCJChiAr57LnDHFHQy3av2yucCwY/6Hr3lLIN2O9LCKcqd
-	 NGIsxFYQCFBEdlYJqNlXpubVz+Wz6ug8ohOh0lWchA0Bb8rKHBGUT1wiMyvwJ9qmVe
-	 2PRZqb5AoiMe8TozSp48UrrFLY5ZxgyU0N5nx+RmNhmWfVyZ+ZIAojdqSEyS1om4cX
-	 wdg7RIQ1+Htcmkh0tDsAFc4ypCbBBOYcQLF6ajxb8ko/ph13SD6xgCqlRBUl9zG4i0
-	 QafU9kNcRtvuA==
-Message-ID: <108401cb-040a-441c-b463-b69df195378e@kernel.org>
-Date: Wed, 6 May 2026 00:33:39 +0100
+	dkim=pass (2048-bit key) header.d=genexis.eu header.i=@genexis.eu header.b="mZhCMiXo"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SOllEwp6DeG/eyRZXCgBb5tIfMaTa9j/DdNJ6/74ON66j9exOapw+J8wBN1OojSNs97rKofU8B/v4D2V1ndpis5v/g0iLwZ5wiVIjPpnb+RCSt3o2wZ5J3Wda2atIq+pA1ZSKJIjmBrr6bCBzbFLCO54hlG1FAZTW3UDopyCpJzvZTodseumZWm1VcSx2cSE0CyueaH0LEbNdYMCRG7PfedauD5Ol1r4IGiiisLG+Ykk6s7taD59grcSc79MQSkj9Ye3SXIAZbw2ljOMyDQWI58VgNTU8iOSWOkka3Eq1I3aFiBv8e4ZecwP8oXnCgOgT+EnM0HYXJjs9Xcr7Xq0zQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1YNIUtYOAEzFl5jRvxqILmZomuAINmo2Khle6yMwqNg=;
+ b=JPe6pFI7H8I8LltszQLOlI2XacAiePnoyUIfxYtpPoxkgUTjAuUXmYz0ZvXoBaZ+dmuDN3oV199R/Eu/eW6XRNl1PRvdl3aJugvb9RJauG3UBpOXpI8TReJcnKJVWpU3mXPuov3MXdr6PX67U0wZsWx0jhe4oMnuZmhPNeWdhFf2+79FsLduvcJiLk2Bk/VXOsvt+iVnGmG4WffmNp/VC5wYIioFNObCjipPdNML2aex/HpsDscfLrZ1SI953QJuZG92xSnW9ts05B+C66k1fwcZqlPf3W5U4yrnuxrBdu6H8Mbe0RXPLLY9sFG82OvmEgtqMX6awQGpmt32JAxECQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=genexis.eu; dmarc=pass action=none header.from=genexis.eu;
+ dkim=pass header.d=genexis.eu; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=genexis.eu;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1YNIUtYOAEzFl5jRvxqILmZomuAINmo2Khle6yMwqNg=;
+ b=mZhCMiXoWVk2Xi5CXnCoZrKdsRta7vcB9T6mm4uXlEET14tVtf6GZyBt8CoiNJ+PaKUuB/cDCngZIHsWs/KPv6tNIsMQv+6zsfAJpLmAFGFgYOlgxLfqM7Pj37pCUahbSqyXUOghl1zcBfaAOCjAs4P5SkD8yKOZUqU97gyjPbVSgOnOmMUqBb57gtJrbUCaUNmKioPbg67PDuhgQ6ZNivH42qjVyoY/2qTfU4hcbh1AA8mwSXDkIAWhVWHazu5bkkghctL9gBikqnyELwtcgdzB3nnIDvG9Qhzr+FuXxAx+eLCfZFmsc4ZAY0VgB8yBH0QY0549BI1CTHkd0vqFEw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=genexis.eu;
+Received: from DB9PR08MB6697.eurprd08.prod.outlook.com (2603:10a6:10:2ad::14)
+ by DU2PR08MB10132.eurprd08.prod.outlook.com (2603:10a6:10:49a::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Wed, 6 May
+ 2026 00:00:23 +0000
+Received: from DB9PR08MB6697.eurprd08.prod.outlook.com
+ ([fe80::bdec:3e95:6614:441f]) by DB9PR08MB6697.eurprd08.prod.outlook.com
+ ([fe80::bdec:3e95:6614:441f%6]) with mapi id 15.20.9870.023; Wed, 6 May 2026
+ 00:00:23 +0000
+Message-ID: <5f3b3b38-1b53-4b9a-9673-de4ca321b3f1@genexis.eu>
+Date: Wed, 6 May 2026 02:00:20 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [net-next RFC PATCH v5 08/10] dt-bindings: net: pcs: Document
+ support for Airoha Ethernet PCS
+To: Christian Marangi <ansuelsmth@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Lorenzo Bianconi <lorenzo@kernel.org>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Russell King
+ <linux@armlinux.org.uk>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Daniel Golle <daniel@makrotopia.org>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ llvm@lists.linux.dev
+References: <20260505182713.27644-1-ansuelsmth@gmail.com>
+ <20260505182713.27644-9-ansuelsmth@gmail.com>
+Content-Language: en-US
+From: Benjamin Larsson <benjamin.larsson@genexis.eu>
+In-Reply-To: <20260505182713.27644-9-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: GVZP280CA0081.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:150:274::8) To DB9PR08MB6697.eurprd08.prod.outlook.com
+ (2603:10a6:10:2ad::14)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/9] media: qcom: venus: Add msm8939 resource struct
-To: Erikas Bitovtas <xerikasxx@gmail.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260506-msm8939-venus-rfc-v4-0-994f5eb22acb@gmail.com>
- <0TaxINYCitQd2DsGsbhRviwmrQkaaVMaE9vABS3gSsSPNfrgS3JPTIo_kvTzyEhGOAZuMVq-k-5T8mqDM7dnIw==@protonmail.internalid>
- <20260506-msm8939-venus-rfc-v4-3-994f5eb22acb@gmail.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20260506-msm8939-venus-rfc-v4-3-994f5eb22acb@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB9PR08MB6697:EE_|DU2PR08MB10132:EE_
+X-MS-Office365-Filtering-Correlation-Id: e881d99e-7dcf-45e2-c583-08deab027849
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|376014|1800799024|921020|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	AtjM9YpRxieDJ5F7seLmYaefnBV6lXyaCcoJEFalH5uSETeGUFIwLmx88rRUedRwBztN1WbAht/+oXqPeE+6vg3Xx71/r8G+pNe8o8uOfKe1i37vN6GrL43POxdR66kIzVinXHHLSBHeeiYz/5n4M613s2PuMPsjqVKMAPZHjOF/SqJ3+xvkVWK9DsKb/PSRPOcbx5iolzNxpqrfGII+cEApvIva3XaFHqrJ6YL2jkSY+N0UjlfChGpSV9JFwwgb9/b0XdjlODB6GD07hofUEddabnMeDa7HFPgbiMl1vF/MTXlRwsHLw0XgtvhzScjNCU0oLImqc7kBeIlhhM/H5xe4+8/bQ+lS/N3wJC3pqcBWK9RjUObVJEJK9uPxfH3yYXtmgtvQrOROkeyJNHUaElI1e8MiPf3+zcbei0k8AM0alnus3l0EFdH2K3HwA+FVj+5YVOqo6ltl6Q/3lzJxt3WOrkxOFIMNQigZ1eaBvaZnPT9NiWb9wMHhgj27rMdNlv070Q1JUNGpecy8yo9Knuciz966h6J2MW68H1teE7y1Yy5r2MTisQ6ebxm9LqfcUiLmydh85vF9Cot83QiVzDAtzNuIewEa7HTR2vvG0xz8DOcixot6YanwxnM0RO3qVpXJn7luFIVj7F/Yp1kJbahtP5KiqHxsh7wdrnG/JL2yni3F4Jy5QamzJDRsh4T1
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6697.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(921020)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Q3VhV0lpZ296VS9SdEo3RWs3NDVWZTYwaGNPWHA3alNOaEdhS1JNUkpDb1hC?=
+ =?utf-8?B?SGpsdnl0eDdRUWFYSzVteHc1VGk2QWZQbW95bWhsL1UxVjZEWmlHakVhbXp2?=
+ =?utf-8?B?T05xMEw4MGFJRmZMamQ3akRocW0zNnc1L21UaEdBdk05YXJ1VHE1VzBGQ0tV?=
+ =?utf-8?B?bFFjMnUwTmsxbEd2QzV5Y1M1cG1mYUZuRTJPL2FYRFJTOUcwYzNkZ09yWHhZ?=
+ =?utf-8?B?T3hsNnQvbGpQU0xjVjVNRlZhRk9rbEhIZjk5QzV3elZ4SmtCUmNVNEozUXhV?=
+ =?utf-8?B?YTZJTzVxVU1FRy85cENCdW9iNy9UcjhqZUtNcXZQWVBPQ2d6TStJb1loa2Fw?=
+ =?utf-8?B?Z0FRcThpVmFUaTRVSmh3eUhVV2pQOGYxWjNRQ2hIaVFiR2lIUmM2QWxRY0th?=
+ =?utf-8?B?eGd2bFU3Y2ZPSFp5MlJlNW41VVc0b1FpY1dzRld0Z1pDK3NtbXphdE5FNnlU?=
+ =?utf-8?B?V1llbmcwTm1acmRBSGRvWVhCWTErelJPdGtzak5sL2dWYmh1RFFVdXhzVDh4?=
+ =?utf-8?B?eUZqTDQzcGtZRjJSMHRwTlVqUzBQMHMvM2RaTTdSWitDdndEK0RGMzRDNzc2?=
+ =?utf-8?B?eFc2RDl1dUl4Q2xaWUZvaDU5cmlZVUU4MUdlVHVGZ0YyTFptM0dtMjlRQ0hx?=
+ =?utf-8?B?RmZpOHkrc2hlUHdkQ3VYbXFTVENKWHNHUjRPOVRzT2h4SUR2QThENWdNd1dJ?=
+ =?utf-8?B?YStHNFlha0lrMnJBOTA1MmxsZHNqTmZEeWRhZ1NmbUJJZkpWdi9qb3VnTVhZ?=
+ =?utf-8?B?THFNQ05RbjJkS2xpQWlYWjdxclpDbFZrSzh0dUZscGdka05Rem45WG56NmxX?=
+ =?utf-8?B?dWhPSzR6R084UEFtME9wQjF0VXBFUUdlV3RFcFNSLy9yVkhxV1NOcXNveTdF?=
+ =?utf-8?B?cUFGTE9HRWtLZnp3VWVJei8vSnFBcGF5NnYxM3oxSmVkWHpua1M2WktKN25q?=
+ =?utf-8?B?YUtGZWhQWkVOTDBTcFpwdUgyeWVsQm1jNitHVmNyRGNFSzRmaGZlUUxBQ1J1?=
+ =?utf-8?B?S1JvZHFaTjlYcmttQ2pMNTR1bEF6dk1pdXB0cmpTOGJ4amU2N1k3c0h4aTQw?=
+ =?utf-8?B?QmhLbTd5alFtRDJHQUdkZWowY1JiN09ZUnpkM1NIOS9meDUyUFhDdy9acjcv?=
+ =?utf-8?B?N2w3TjFGZS9iZEpVUUhNR1JMRlRYd1FpaEJxbGsyOTJwWkhxbk5MODd3UnlQ?=
+ =?utf-8?B?RlViODdVWXAwTmtqNi9vS2E0U0pyWnFBVWJnY0NpbWdrbEsvNndmZmpMR3JE?=
+ =?utf-8?B?WHh5T2JjaVdNdHBrT3B3VTRnTHFTUHRoRkFPd3krOUluNUxnREg5MXVuZWlC?=
+ =?utf-8?B?a01GdkV2c1pVTEJWbmJSazNjRVFoaFpBNDFJalFHUjNLU1dnOEUwT1NXaHdW?=
+ =?utf-8?B?SStIWERPZVpkTHRJTmNyYkszcm1xRENodDMwdHZnMlhyVVhwNkZyTForaEpy?=
+ =?utf-8?B?OVZLOVEyeGtjbVByc0pOaVhsV3ZVWmQ2bWt3WWJsS2pMTmdUYTZCOVVQSWZC?=
+ =?utf-8?B?NnMvMEg5MVdEZ2ZsMWFVeUpoSGlXRSthc2Fkc2xvd0lmNkp2TDlmUGhCNmo1?=
+ =?utf-8?B?Zm51RDBlYk95enZoM3JIdCtMKzgvWTU1L21QMGg4eWs3dVc4eHRUZ1FJNy85?=
+ =?utf-8?B?UlhtSktQSlJoT2MvdGZKYkVUVVQxbnp1TlJHNHZRZDFQVklsMHd3alU5dkJK?=
+ =?utf-8?B?ZEZBWU1saHJOaXFOOHdoQmllWS93QmthdlczbVA5WitJL2VVMGRad082Rllo?=
+ =?utf-8?B?ZjZVczE4aU55dzFhVVU1M29uV3pKcmhidStPeHl1ZmtJWGpBbzFROXhIVzg5?=
+ =?utf-8?B?c29FdWt5QXE0dkJrUEVpK3RSYkdPbUZQd0ExZGgxL29ITGVPSnlxbU9rZkFF?=
+ =?utf-8?B?eEpXdjhJemV2bmQ1Vi9oN00zUG5sUW05c09EWjdlZGtFQnJEQXp2ZzFOajlh?=
+ =?utf-8?B?cjBvSEhLSWNSamhDRjIvdCtMSkxQM2UrZlhhaWF1VHYwS1BHbC9uTDRRc2Uz?=
+ =?utf-8?B?UVZLR3BkZGM0Mnc5MFIyRXNFMS81NENQamt5d3RXVjZFMEc2eXA1aUhhSFlQ?=
+ =?utf-8?B?TUhzRFFxZDkrVUpaancrWERCc2pTaStQMnVkMTQyWXQ0cDFRM0hDQzBDQ2tL?=
+ =?utf-8?B?V201bHVxTTNSUVBtMGhDTlROaW82dFBOWGVvVnpVQ2pURTJiSlkzeWxrbG5x?=
+ =?utf-8?B?VDdjZ3lXMXBBV3FvdkZrNzNmUjdNM2REWlNMNTlvYVAvdkxhcUJWOFFMcU9Q?=
+ =?utf-8?B?Rk5nblIxanM5SlpDczNKQ0xvTERMOUFNOWhNTE80VnFSZHNoOUJmcngrNUdF?=
+ =?utf-8?B?Z1RaaWNRRXFoNmhvaGhzcWRLa3pPZEtBSnUrVHVxYjJsUi9XOUlTYjlpVkNw?=
+ =?utf-8?Q?nhfJ2Qa1qKr1ul0c=3D?=
+X-OriginatorOrg: genexis.eu
+X-MS-Exchange-CrossTenant-Network-Message-Id: e881d99e-7dcf-45e2-c583-08deab027849
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR08MB6697.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 00:00:23.4866
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8d891be1-7bce-4216-9a99-bee9de02ba58
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AfaybxIm3fCPu3JQQY2hV5/l8xWNE7VTzBbc3q88hHQ81bkYN9/Bz/7sj/BMaGyH1rvrngbr9Y61B/V3aKOBA1jEHZYpYQboNylIiWYGQyQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR08MB10132
 
-On 05/05/2026 22:44, Erikas Bitovtas wrote:
-> +	.vcodec_clks = { "core0", "core1" },
-> +	.vcodec_clks_num = 2,
+Hi.
 
-This smells a bit dodgy to me.
+On 05/05/2026 20:27, Christian Marangi wrote:
+> Document support for Airoha Ethernet PCS for AN7581 SoC.
+>
+> Airoha AN7581 SoC expose multiple Physical Coding Sublayer (PCS) for
+> the various Serdes port supporting different Media Independent Interface
+> (10BASE-R, USXGMII, 2500BASE-X, 1000BASE-X, SGMII).
 
-You already have
+10GBASE-R
 
-struct clk *vcodec0_clks[VIDC_VCODEC_CLKS_NUM_MAX];
-struct clk *vcodec1_clks[VIDC_VCODEC_CLKS_NUM_MAX];
+> This follow the new PCS provider with the use of #pcs-cells property.
+>
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
+>   .../bindings/net/pcs/airoha,pcs.yaml          | 112 ++++++++++++++++++
+>   1 file changed, 112 insertions(+)
+>   create mode 100644 Documentation/devicetree/bindings/net/pcs/airoha,pcs.yaml
+>
+> diff --git a/Documentation/devicetree/bindings/net/pcs/airoha,pcs.yaml b/Documentation/devicetree/bindings/net/pcs/airoha,pcs.yaml
+> new file mode 100644
+> index 000000000000..8bcf7757c728
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/pcs/airoha,pcs.yaml
+> @@ -0,0 +1,112 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/net/pcs/airoha,pcs.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Airoha Ethernet PCS and Serdes
+> +
+> +maintainers:
+> +  - Christian Marangi <ansuelsmth@gmail.com>
+> +
+> +description:
+> +  Airoha AN7581 SoC expose multiple Physical Coding Sublayer (PCS) for
+> +  the various Serdes port supporting different Media Independent Interface
+> +  (10BASE-R, USXGMII, 2500BASE-X, 1000BASE-X, SGMII).
 
-so why add vcodec_clks and put core0 and core1 into a new array. 
-vcodec0_clks and vcodec1_clks seem like a very natural place for core0 
-and core1 clocks to live ?
+10GBASE-R
 
----
-bod
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - airoha,an7581-pcs-eth
+> +      - airoha,an7581-pcs-pon
+> +
+> +  reg:
+> +    items:
+> +      - description: XFI MAC reg
+> +      - description: HSGMII AN reg
+> +      - description: HSGMII PCS reg
+> +      - description: MULTI SGMII reg
+> +      - description: USXGMII reg
+> +      - description: HSGMII rate adaption reg
+> +      - description: XFI Analog register
+> +      - description: XFI PMA (Physical Medium Attachment) register
+
+reg or register ?
+
+
+MvH
+
+Benjamin Larsson
+
+
