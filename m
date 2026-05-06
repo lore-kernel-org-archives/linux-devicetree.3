@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C332E346E6D;
-	Wed,  6 May 2026 13:08:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A5C23EAA4;
+	Wed,  6 May 2026 13:09:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778072896; cv=none; b=be7v8XghqX6PeEHEn0QuyjyRX7eHLqL3fy+BaMYH0AS8uY1yo4+HtiVvpVfPV2aa8M7/yXdP8z2CFrlbgHAK85BoKDl79VN3OWnFtJg44BfiLiRiohuI8z9FlAjAerxI+AuBVtkg8ksFRxwlEnCKwR0qFNwNVlv80GvprRGfLWs=
+	t=1778072972; cv=none; b=oUzZ9mRcwKV5xNjLkjCTsRdX3TebMnTUNqz0ce1mlyAOXXeqzokeIZyKtUqQ2Kbyxo9IeaVa6PjAHMHIuzXDWAEmKMgKZmh7XAsaE8Oc4IMsqiewj7I20jaEQuHZdw6JpyG9t7wcX9w1vqmijxDvcDU8KIz3cVa3B364C3fh0RE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778072896; c=relaxed/simple;
-	bh=9OVWyBMTIv1qHfDj+4mWQFWJ5hA9S8PB01gNeTpSYIk=;
+	s=arc-20240116; t=1778072972; c=relaxed/simple;
+	bh=juxC1w54vZtFk+kcyUmrx4kkcWDaPhp0wFIhxrFViIc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HBeuIEbVpFK9ug4rKgCT8vvGh0jUVkOFUOZTyDwIU9iTAw28Txt0rgAO7FOy0I7b5gNhD+7E2St9zNjf4Wqkc+2xeeqHIbWlDnKwjzLHcGixYMlngPME8ZtErVWhB2aCprcmnLiwTh1c5jaWkyPLGpx9hwshyZcF7RLPSPCjs/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X3MQEhj8; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=bz/bSwfEu3qNa2Znuk1sNz56TmOTg9Ie6oi+0UAjD9RFXAcbxlpRbrdzLGR9jZzZHg7VIUoOxwc15gDfv8c37p0cODJbqAvBYxhHQwG2pojw0pRjS023sEP1OX2B1zArjFruwQ6aI914dwJcwMwHlXvLpMNPV+FMYH83iLOGQ+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rljuuN/w; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X3MQEhj8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66834C2BCB8;
-	Wed,  6 May 2026 13:08:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rljuuN/w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3291BC2BCB8;
+	Wed,  6 May 2026 13:09:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778072896;
-	bh=9OVWyBMTIv1qHfDj+4mWQFWJ5hA9S8PB01gNeTpSYIk=;
+	s=k20201202; t=1778072971;
+	bh=juxC1w54vZtFk+kcyUmrx4kkcWDaPhp0wFIhxrFViIc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=X3MQEhj8vCdODlxuWRmr5O8HzDG49l2HcZ68ZY0ECM3hGwG5dkTB2mfgWfrmGfXAN
-	 e6d94OtkGskFTKry7c0STFF/YimcRvEWzABRm+qVXsdaelGxB0iXiBNRsiTbgTDeie
-	 fJxAMLPP7mcvpnyO8czmABY9qhI6PmQwyC7gixNbnTkhVSb7ISywri3TP0YBSdQ5rZ
-	 6/loiLf9WvC1F2GeANrqz0w5vPlMSxj6HYnYWnXUNw+7zg0+Oolv33UvqkfFlcP+6m
-	 1Nlq8FflD1efVzEGikYLg2L2xMaowkwPLmQ//piaUvGQODaxDWGZ/a7bMxcSaGd3+/
-	 nMnzESkFuOIaw==
-Message-ID: <b66ec605-d120-46b8-89b4-89bc40c1575e@kernel.org>
-Date: Wed, 6 May 2026 15:08:07 +0200
+	b=rljuuN/wHYHuQ1ICP4gxoD6AY++1WO7WmPN8MIkYnuePHNUNljqvMnk4j7wrm15FH
+	 //WtO4b4Q5WpQ2hgEGrCGiNPUfXuFWiOTC1c7jw4z17xUZcuzV6lKxzAP5DFposiYy
+	 SChE8cnNdHYJntv56LHKejp5GYLDsi14trlY0GxE828C7H+8q4DjyXrw/ezIrCLoS3
+	 BR5V5bs4L5X+n4lhxC2Y3l9HbCXeVJF1vKRMFAc1fMKTje7eVEzvn54v3WhNGHmjx+
+	 q7AkU2L8e6B7mp2m1f+pJucrB+pdERK25dqe4oyklMKKMM0m/wPVKNORBGFVFquyvn
+	 954ZSC3aJtxmA==
+Message-ID: <333ba4cd-8168-41f1-afdc-348f99ed0611@kernel.org>
+Date: Wed, 6 May 2026 15:09:25 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,25 +35,26 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/13] dt-bindings: iio: adc: add mt6323 PMIC AUXADC
-To: Roman Vivchar <rva333@protonmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH v4 02/13] dt-bindings: media: qcom,venus: Remove clock,
+ power-domain, and iommus from common schema
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Stefan Schmidt <stefan.schmidt@linaro.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Srinivas Kandagatla <srini@kernel.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
- Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-pm@vger.kernel.org, Ben Grisdale <bengris32@protonmail.ch>
-References: <20260504-mt6323-v1-0-799b58b355ff@protonmail.com>
- <20260504-mt6323-v1-1-799b58b355ff@protonmail.com>
- <389917bb-c64c-4ac2-ab8f-b28ab0a89ecb@kernel.org>
- <evJBbJD1B9GjUyj5xyiJVUw-Ufib330tbUxxamM8-e4kJeNlwcENufbYZHdDWb0ZItz1fsEAbDaSFk0ObL4y0zenRr4vA4KOn6IHxuBP4VQ=@protonmail.com>
+ <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, iommu@lists.linux.dev
+References: <20260505-glymur-v4-0-17571dbd1caa@oss.qualcomm.com>
+ <20260505-glymur-v4-2-17571dbd1caa@oss.qualcomm.com>
+ <20260506-inquisitive-wondrous-lori-a9e639@quoll>
+ <455376f9-48c2-e663-3be3-fd310afb7f7f@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -99,46 +100,43 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <evJBbJD1B9GjUyj5xyiJVUw-Ufib330tbUxxamM8-e4kJeNlwcENufbYZHdDWb0ZItz1fsEAbDaSFk0ObL4y0zenRr4vA4KOn6IHxuBP4VQ=@protonmail.com>
+In-Reply-To: <455376f9-48c2-e663-3be3-fd310afb7f7f@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 06/05/2026 12:59, Roman Vivchar wrote:
-> On Wednesday, May 6th, 2026 at 10:56 AM, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+On 06/05/2026 11:32, Vishnu Reddy wrote:
 > 
->> On 04/05/2026 20:24, Roman Vivchar via B4 Relay wrote:
->>> From: Roman Vivchar <rva333@protonmail.com>
->>>
->>> The MediaTek mt6323 PMIC includes an AUXADC used for battery voltage,
->>> temperature, and other internal measurements.
->>>
+> On 5/6/2026 12:11 PM, Krzysztof Kozlowski wrote:
+>> On Tue, May 05, 2026 at 12:29:23PM +0530, Vishnu Reddy wrote:
+>>> The common schema defines minItems and maxItems for clocks, power-domains,
+>>> and iommus. This suggests that the number of these resources can vary,
+>>> while in reality they are fixed constraints per platform.
+>> OK, that's interesting approach. I am fine with it, but then you need to
+>> remove these from "required:" list as well, because requiring properties
+>> which are not defined here is not the most readable.
 > 
-> ...
+> Ack, I will remove them from "required:" in the next revision.
 > 
->>> +
->>> +properties:
->>> +  compatible:
->>> +    const: mediatek,mt6323-auxadc
->>> +
->>> +  "#io-channel-cells":
->>> +    const: 1
->>> +
->>> +required:
->>> +  - compatible
->>> +  - "#io-channel-cells"
->>
->>
->> This is heavily incomplete node... or unnecessarily split. Why it cannot
->> be part of parent binding? Or even parent node?
->>
+>> I still do not understand though why you cannot just grow the properties
+>> here. The point of this schema is to define common set for range of
+>> devices, because all of these devices are supposed to be veri similar.
 > 
-> The MediaTek mt6359 AUXADC also has a very similar binding. The mt6323
-> cannot be merged there because it has a different hardware.
+> If a new platform schema uses this common schema but does not explicitly
+> re-declare clocks or power-domains, it will inherit minItems and maxItems
 
+But new platform MUST define them, because each platform has both clocks
+and power domains.
 
-I did not propose that, but since you are mentioning it: it is 100% the
-same, so I do not understand why it cannot be merged. That would save
-you a few questions :/
+> range from the common schema. This gives the false impression that the
+> resource count is flexible for that platform, when in reality it should
+> be a fixed constraints.
+> 
+> If a new platform requires more resources than the current maxItems (e.g.,
+> Glymur due to its dual vcodec core design), we need to keep bumping maxItems
+> in the common schema every time a new platform exceeds the previous limit.
+> That makes the common schema a moving target driven by platform specific.
+
+That's pretty expected, I don't see a problem in that.
 
 Best regards,
 Krzysztof
