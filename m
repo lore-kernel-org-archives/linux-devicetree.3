@@ -1,134 +1,269 @@
-Received: from smtpbg150.qq.com (smtpbg150.qq.com [18.132.163.193])
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022140.outbound.protection.outlook.com [40.107.75.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2FFA19DF6A;
-	Wed,  6 May 2026 02:31:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.132.163.193
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778034671; cv=none; b=hrGXYl2nZSDtICYm+qnGAY2ZnV/YtcYrCyafKk7wtXkoWbvXyVYK8iZnVw0ExwL2x4ZmpqDIuFTUfy5reHkprnjPp4FP2DZPztHPei5bZ9VEYaSKDh1yMP/2ckJ59khsoxI8EuDdV1z/v0UgqMjrKRqyTBvZtyw/DLtfvCEpIvw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778034671; c=relaxed/simple;
-	bh=g5oNCXLIrRB8Peo+P5aiq5oeMf2uwLyTTn+a4i74TPs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IHwgMEfwmu39wnwoy2cCxvvZAAOV0IyBIomipSx26bkFue+J/1dJ4wozFzkdDYPLWnzaw5cegee1NhcIf2T0tOIcmOBmGT/MKCMCpZ0CN0p65AuuuISAC//nmPfGpe4p8NZXDIi7+fZ0FLlARmD+sRxnjhw7iMQNFzeafqgdF2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=18.132.163.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: esmtpsz16t1778034653t405f70b0
-X-QQ-Originating-IP: 4meMtvNm/og9G0fVM/ycSpSa183Qcv1XH6iFoe6ZdSA=
-Received: from [127.0.0.1] ( [116.234.74.217])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 06 May 2026 10:30:47 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 2498618263695594642
-Message-ID: <DD71CDEABC7C16D5+02d052ff-13bb-4712-a847-91416f76c578@radxa.com>
-Date: Wed, 6 May 2026 10:30:46 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82EF82036E9;
+	Wed,  6 May 2026 02:53:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778035982; cv=fail; b=Bb/ceh5ACulTyH209Mk1UJ/VmgeZr/TnAHDCrB+0SfVoJqAb+XgzCsq5/NjRylbAbPSfCf227KSumaluFTQ1AfwCML2ZDZGTfkiF6k0hh+sDXeoT6fGL56IpEuR8ZGHVWcBaSHvYpKdbmhc6BJMEzhO2OBDenDkjBPSGDKlZ9SY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778035982; c=relaxed/simple;
+	bh=aZMMuiGRBKmX4wVFd+r25QrQvLiTYxbfvbA30EEYIrg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=HJE1pfIylUMbowpxE4W+ro9EaNdz/ZV+GgkWdSH/TfTVvFk/zJEt55WKY6aWB6GGoagNHl1aM9taeRB9/dEeoJgEe409UbTKxOjbyhPVzlAtiTKWSifT6Xzx5U1zHnEaFkQNCbJ6CkwFdMDTYS3ilyIvS5Pyv4OYsZ6ANud91bQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.75.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gKSNvB+MJny4tOquukUQwjq95qrimmGVn/ZD8KcZVXj5P/8hT1f9QDeYS2QCEH4fWapBUsxl7BQ/rebn2UCEYkxrh8pAwznngxTt9kMlLTQRIK5CckbvWRWbFp23HP5p0UuOi+r7adQYKp27FGk59/uUOQcaz/8cDGd1HqXodeyDpENqd3yGbRVDP1op2qMYDhWiLJAGc5xAXqcnQHVYMypuIw5zDDP9oikBgyBo+h9NH1j1jtTm9LGg4YpGnJp764vfWMg0luupSTAJTV+nMcjQBv2ENIRRJh7CXtLYuR9mo2NlZL3ZOweUVPPulYpCLMRKfDj7N/NozcEI2qjqUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zMOtIPPU4iAnPDt8+Drfz3OP1ZsA9NGC0YnvHaCH0+w=;
+ b=cz4DUNjzQMH58Xn7xP3Xc5gWnpMapr0kqAs4IccC2XSpReVI/819CYh1Ymd/uaIpjJ4NE1SLq6nZs3BJP4YJt700+Ks68VlbBfYswcKNijw6er3DJVH3T5vEFSZWJ+syQLVqfHZWb9KQUcaofQucL5NCIfQUb7kCHYDHwvvWWh8swoaXG0xuk7RcLiCURvfGy60f30IKSOJbmuxqNTJ12r2c+XvOGGXfK13JvBzAvHrETCAVWB4im+TmTwOTU3JvSqfIJQ+xW13EUy/l2FjrWWOOJ8BN9NcbHD0DQ2uZ3P0Bqh/WZm6YMuphjRtI87ezBIFgAzm0JLY6c3JwnS4kUQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SG2PR02CA0078.apcprd02.prod.outlook.com (2603:1096:4:90::18) by
+ TYQPR06MB8085.apcprd06.prod.outlook.com (2603:1096:405:2f8::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9870.25; Wed, 6 May 2026 02:52:57 +0000
+Received: from SG2PEPF000B66CB.apcprd03.prod.outlook.com
+ (2603:1096:4:90:cafe::3) by SG2PR02CA0078.outlook.office365.com
+ (2603:1096:4:90::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.15 via Frontend Transport; Wed,
+ 6 May 2026 02:52:56 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG2PEPF000B66CB.mail.protection.outlook.com (10.167.240.24) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9891.9 via Frontend Transport; Wed, 6 May 2026 02:52:56 +0000
+Received: from local (unknown [172.16.64.130])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id B3B0F4115DE1;
+	Wed,  6 May 2026 10:52:55 +0800 (CST)
+From: Devin Li <Devin.Li@cixtech.com>
+To: peter.chen@cixtech.com,
+	fugang.duan@cixtech.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	cix-kernel-upstream@cixtech.com
+Cc: linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	guoyin.chen@cixtech.com,
+	robin.wang@cixtech.com,
+	hong.guo@cixtech.com,
+	Devin.Li@cixtech.com
+Subject: [PATCH v2] arm64: dts: cix: Add SCMI performance domains for CPUFreq on Sky1
+Date: Wed,  6 May 2026 10:52:54 +0800
+Message-ID: <20260506025254.3602623-1-Devin.Li@cixtech.com>
+X-Mailer: git-send-email @GIT_VERSION@
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 10/12] net: stmmac: tc956x: add TC956x/QPS615
- support
-To: Alex Elder <elder@riscstar.com>, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, maxime.chevallier@bootlin.com,
- rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org,
- brgl@kernel.org, arnd@arndb.de, gregkh@linuxfoundation.org
-Cc: Daniel Thompson <daniel@riscstar.com>, mohd.anwar@oss.qualcomm.com,
- a0987203069@gmail.com, alexandre.torgue@foss.st.com, ast@kernel.org,
- boon.khai.ng@altera.com, chenchuangyu@xiaomi.com, chenhuacai@kernel.org,
- daniel@iogearbox.net, hawk@kernel.org, hkallweit1@gmail.com,
- inochiama@gmail.com, john.fastabend@gmail.com, julianbraha@gmail.com,
- livelycarpet87@gmail.com, matthew.gerlach@altera.com,
- mcoquelin.stm32@gmail.com, me@ziyao.cc,
- prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
- rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
- weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
- bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-11-elder@riscstar.com>
-Content-Language: en-US
-From: Xilin Wu <sophon@radxa.com>
-In-Reply-To: <20260501155421.3329862-11-elder@riscstar.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: MxdW4jxL6NvXsbtSC0sdkRTYslY/wd+PTnnOEmueE64hCrFI+earuJRV
-	hgNg2Ceej//UIQfd+2Wlk//epUITPXjjocchjWHEZMcdfNK1LLNLFyz0ZfXIRI3td8fvLcg
-	ioV78ncJzF7+KQCzQK9t0u73IRt2vWCCO0ElFvy14O+nJcxgQpZdBKTQ9TxTIcZUoaAwD4Q
-	xxzCEbjkDEoZxLTSeuiKoMKu+9qsf2zYfVwTd4hlpiDd5MHlm0CJzfCfSSoeI2FKWi3VgWo
-	9CEexip17TssKCTg8w/buxu5ytVm0435turBile67gA71cUUxk7zTng8zNvMjJmNoMxOCli
-	SSSo40gjI+GpvWoeF8JpMycBvTtnwXL8DvuC8k18EOcCQq+lv2FwbMqMBWph7sa7gSjdkCp
-	O8jkqB5fGOO5vVNzg/eaRrs7biPOkQy44iN36TDJx0Wb03IkHOXbWxOab453acDV/JxVNOl
-	uN9OScd0yczqaUxHJhVCBUC6AHGRz92UcT3bVSvvvD+L9qnUx3msHzghPxpppLzzOOcG0xw
-	n79UGEvdQpwNrII1tgGEiLdYEYaUqmKTtnlD19HdD5uYy9GBUatNcBJtzhbCH9ijDsGrDTy
-	sIre1iDEw9SwHlD/oFtCYBgrgyS6IHnf2+zt/3HEx1OgJOH5rlUg03KJ4BOL5bmDkOOdVtg
-	hV3z89018f9IgXo2HO9E26kHWJoIdXlggavuQIQ/xNcS8GyZ973bAYpcbARpt/R5eHrlGKt
-	yYmwp6EciINtFp7rAHahigqRc7OkhTAYteXoLX+w13hrYAAbpmbGo7nyIQh6eVXWksTovTp
-	DNCclkxdoVXVsPuZuHvdsyeAiCuxOhLSqYwUXbeLg/0vNJMLPsFFK1MyzNaPPLIFuwuERmM
-	W0BM4I5HB7dilQPZZyLzEFCaY2yOLQxcMxwiwF8R32kA1J4gqGyz16Qs8HzIVHG3H24Vu5H
-	bSaoBbcHAZIxNn+BUYUmS+plXKCWKlZWHhqmJJh7mvJXe92jRy1l2J4fKNglrg3Cni9s=
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CB:EE_|TYQPR06MB8085:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: fbaa4028-c7cf-49b0-975f-08deab1a9382
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700016|1800799024|82310400026|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	BjJHD+Lxo6vO5NfLqcT229RSzA5y6DuXnRaT2wP/K+JiJGlwuaA2vV7S6ZV0qx/r6+Xok8jYBcEwgOvhgfrI+ywsqcNfyep9RMi/lkqlaaG9zoDMoNQGLLaVe5vxBovaoHY1k+I3UhS35pLRc6h6149fesK9wPaTNLHAba/QE9BetCj4levGDgcTCGE9/4QUHz7O8gvVVNJrkdxedDGywreXCyE7Eyy6FqjzF3Gb4w9CM0RcQkLhI26JxW8zITxQXNWe67fz2vWAzCg8g5S05DzQHoz+kjGct9GxLuQoBnHf/Tciwu1kCY8KTTDfnLpc2q3keNFy65i15kblsDKhUCh0YDgE3y6tayoGNrgaZSupYIVDj1MYWIB1TlDlrkVmzdJ3PR+glPzhS62tH7Z+OJ9qGt/aV9BUSPqaAFrTKHG5XGeh+Z5t6SSEemS867tYBKLpnTxpLIepm5bdA+yM8DyJPoX6qwJbbGmCFHwL6Q9CHOwneaXdbP+7nZBhwCqe1B9yABCTTobfB4YG797+XXX9jiYCfSVNRe+FFd794aNbk/Db2ELk7TYNt+9r8w5LZ9U2JBjmGY/IFSrDbgKnh8GZHWWLn2M1VML/1rs43PJnXBZjvUaCKzohsGwpA4Haps6FzwjKTClDoA6OT3fBEF4Kd7AbdFGOxRnQKgFTKBeAu8MRLXyGgM6NpgxwCe3mgCB5W4KjWgM8PqioYSjrG7PwhodH5CK6BHnN/h+68AA=
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(56012099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	k4mj7Ud6TlPwe4xX19fRBowl6wQ7YZXTBaHE898XQNv/uLBAfqGdMqzd4SiIje+TvHtYazkNkVg1HnHregW6tcWBu+SK8gt2ge/UVFMqhmTV4i6ogZLbMrB88tY1YqZ29odLudodvyFDmKFe7A2jdHOmVQvRSqhdpiG2ssVW3cTf2w7DnwleDFbUegjpDuDV89k4n/+PkdmRmUKtbgjz5AMWOJ9Z42hoczEKt4qIvOmKyTe/NxTwJXE+3oV4qk5i2nlule8bx51jM+bltVyHDtEiEX4UZslclTd+2Qm/WMWFUyCQuUDrpbcPbXAKctUfRBUSIZvmoUOQFwHZuWD+SkDnl7UgLzdo/VlWzWuWckELsCjgIfsyTLq5Sm3xLXw/r3CKf+QOXvwHONRtIbmKKKr8/mQ8IjoCuuKIjF8g2H+C2F2qRjKWRK9K8Ms6lKaP
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 02:52:56.3214
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fbaa4028-c7cf-49b0-975f-08deab1a9382
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG2PEPF000B66CB.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYQPR06MB8085
 
-On 5/1/2026 11:54 PM, Alex Elder wrote:
-> From: Daniel Thompson <daniel@riscstar.com>
-> 
-> Toshiba TC956x is an Ethernet AVB/TSN bridge and is essentially a
-> small and highly-specialized SoC. TC956x includes an "eMAC" subsystem
-> that can be accessed, along with several other peripherals, via two
-> PCIe endpoint functions. There is a main driver for the endpoint that
-> decomposes things and creates auxiliary bus devices to model the SoC.
-> 
-> The eMAC consists of a Designware XGMAC, XPCS and PMA. Each eMAC is
-> supported by an MSIGEN that bridges TC956x level interrupts to PCIe
-> MSIs.
-> 
-> Add a driver for the eMAC/MSIGEN combination.
-> 
-> Co-developed-by: Alex Elder <elder@riscstar.com>
-> Signed-off-by: Alex Elder <elder@riscstar.com>
-> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> ---
->   drivers/net/ethernet/stmicro/stmmac/Kconfig   |  13 +
->   drivers/net/ethernet/stmicro/stmmac/Makefile  |   2 +
->   .../ethernet/stmicro/stmmac/dwmac-tc956x.c    | 791 ++++++++++++++++++
->   include/soc/toshiba/tc956x-dwmac.h            |  84 ++
->   4 files changed, 890 insertions(+)
->   create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-tc956x.c
->   create mode 100644 include/soc/toshiba/tc956x-dwmac.h
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> index e3dd5adda5aca..66bcfaccbe21f 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> @@ -404,6 +404,19 @@ config DWMAC_MOTORCOMM
->   	  This enables glue driver for Motorcomm DWMAC-based PCI Ethernet
->   	  controllers. Currently only YT6801 is supported.
->   
-> +config DWMAC_TC956X
-> +	tristate "Toshiba TC956X DWMAC support"
-> +	depends on PCI
-> +	depends on COMMON_CLK
-> +	depends on TOSHIBA_TC956X_PCI
-> +	default m if TOSHIBA_TC956X_PCI
+Add SCMI Protocol 13 (Performance) node under ap_to_pm_scmi with
+domains.
 
-Hi Alex,
+Define SKY1_PERF_* macros in sky1-power.h for all performance domain
+IDs (CPU L/B0/B1/M0/M1, GPU, DSU, NPU, VPU, CI700, NI700), and
+wire each CPU node to its corresponding performance domain using
+power-domains and power-domain-names properties.
 
-I think GENERIC_IRQ_CHIP should be selected here.
+Signed-off-by: Devin Li <Devin.Li@cixtech.com>
+---
 
-Thank you for the driver.
+Notes:
+    Change for v2:
+    - Use real name format "Devin Li"
 
+ arch/arm64/boot/dts/cix/sky1-power.h | 13 +++++++++++++
+ arch/arm64/boot/dts/cix/sky1.dtsi    | 29 ++++++++++++++++++++++++++++
+ 2 files changed, 42 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/cix/sky1-power.h b/arch/arm64/boot/dts/cix/sky1-power.h
+index 53f4a3af36b3..144567579b71 100644
+--- a/arch/arm64/boot/dts/cix/sky1-power.h
++++ b/arch/arm64/boot/dts/cix/sky1-power.h
+@@ -30,4 +30,17 @@
+ #define SKY1_PD_ISP0		20
+ #define SKY1_PD_GPU		21
+ 
++#define SKY1_PERF_GPU_CORE	0
++#define SKY1_PERF_GPU_TOP	1
++#define SKY1_PERF_CPU_L     2
++#define SKY1_PERF_CPU_B0	3
++#define SKY1_PERF_CPU_B1	4
++#define SKY1_PERF_CPU_M0	5
++#define SKY1_PERF_CPU_M1	6
++#define SKY1_PERF_DSU	    7
++#define SKY1_PERF_NPU	    8
++#define SKY1_PERF_VPU	    9
++#define SKY1_PERF_CI700	    10
++#define SKY1_PERF_NI700	    11
++
+ #endif
+diff --git a/arch/arm64/boot/dts/cix/sky1.dtsi b/arch/arm64/boot/dts/cix/sky1.dtsi
+index 0611098b5f05..a77c52296ebd 100644
+--- a/arch/arm64/boot/dts/cix/sky1.dtsi
++++ b/arch/arm64/boot/dts/cix/sky1.dtsi
+@@ -22,6 +22,8 @@ cpu0: cpu@0 {
+ 			enable-method = "psci";
+ 			reg = <0x0 0x0>;
+ 			device_type = "cpu";
++			power-domains = <&scmi_dvfs SKY1_PERF_CPU_L>;
++			power-domain-names = "perf";
+ 			capacity-dmips-mhz = <403>;
+ 			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_0>;
+ 		};
+@@ -31,6 +33,8 @@ cpu1: cpu@100 {
+ 			enable-method = "psci";
+ 			reg = <0x0 0x100>;
+ 			device_type = "cpu";
++			power-domains = <&scmi_dvfs SKY1_PERF_CPU_L>;
++			power-domain-names = "perf";
+ 			capacity-dmips-mhz = <403>;
+ 			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_0>;
+ 		};
+@@ -40,6 +44,8 @@ cpu2: cpu@200 {
+ 			enable-method = "psci";
+ 			reg = <0x0 0x200>;
+ 			device_type = "cpu";
++			power-domains = <&scmi_dvfs SKY1_PERF_CPU_L>;
++			power-domain-names = "perf";
+ 			capacity-dmips-mhz = <403>;
+ 			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_0>;
+ 		};
+@@ -49,6 +55,8 @@ cpu3: cpu@300 {
+ 			enable-method = "psci";
+ 			reg = <0x0 0x300>;
+ 			device_type = "cpu";
++			power-domains = <&scmi_dvfs SKY1_PERF_CPU_L>;
++			power-domain-names = "perf";
+ 			capacity-dmips-mhz = <403>;
+ 			cpu-idle-states = <&CPU_SLEEP_0 &CLUSTER_SLEEP_0>;
+ 		};
+@@ -58,6 +66,8 @@ cpu4: cpu@400 {
+ 			enable-method = "psci";
+ 			reg = <0x0 0x400>;
+ 			device_type = "cpu";
++			power-domains = <&scmi_dvfs SKY1_PERF_CPU_M0>;
++			power-domain-names = "perf";
+ 			capacity-dmips-mhz = <1024>;
+ 			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
+ 		};
+@@ -67,6 +77,8 @@ cpu5: cpu@500 {
+ 			enable-method = "psci";
+ 			reg = <0x0 0x500>;
+ 			device_type = "cpu";
++			power-domains = <&scmi_dvfs SKY1_PERF_CPU_M0>;
++			power-domain-names = "perf";
+ 			capacity-dmips-mhz = <1024>;
+ 			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
+ 		};
+@@ -76,6 +88,8 @@ cpu6: cpu@600 {
+ 			enable-method = "psci";
+ 			reg = <0x0 0x600>;
+ 			device_type = "cpu";
++			power-domains = <&scmi_dvfs SKY1_PERF_CPU_M1>;
++			power-domain-names = "perf";
+ 			capacity-dmips-mhz = <1024>;
+ 			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
+ 		};
+@@ -85,6 +99,8 @@ cpu7: cpu@700 {
+ 			enable-method = "psci";
+ 			reg = <0x0 0x700>;
+ 			device_type = "cpu";
++			power-domains = <&scmi_dvfs SKY1_PERF_CPU_M1>;
++			power-domain-names = "perf";
+ 			capacity-dmips-mhz = <1024>;
+ 			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
+ 		};
+@@ -94,6 +110,8 @@ cpu8: cpu@800 {
+ 			enable-method = "psci";
+ 			reg = <0x0 0x800>;
+ 			device_type = "cpu";
++			power-domains = <&scmi_dvfs SKY1_PERF_CPU_B0>;
++			power-domain-names = "perf";
+ 			capacity-dmips-mhz = <1024>;
+ 			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
+ 		};
+@@ -103,6 +121,8 @@ cpu9: cpu@900 {
+ 			enable-method = "psci";
+ 			reg = <0x0 0x900>;
+ 			device_type = "cpu";
++			power-domains = <&scmi_dvfs SKY1_PERF_CPU_B0>;
++			power-domain-names = "perf";
+ 			capacity-dmips-mhz = <1024>;
+ 			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
+ 		};
+@@ -112,6 +132,8 @@ cpu10: cpu@a00 {
+ 			enable-method = "psci";
+ 			reg = <0x0 0xa00>;
+ 			device_type = "cpu";
++			power-domains = <&scmi_dvfs SKY1_PERF_CPU_B1>;
++			power-domain-names = "perf";
+ 			capacity-dmips-mhz = <1024>;
+ 			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
+ 		};
+@@ -121,6 +143,8 @@ cpu11: cpu@b00 {
+ 			enable-method = "psci";
+ 			reg = <0x0 0xb00>;
+ 			device_type = "cpu";
++			power-domains = <&scmi_dvfs SKY1_PERF_CPU_B1>;
++			power-domain-names = "perf";
+ 			capacity-dmips-mhz = <1024>;
+ 			cpu-idle-states = <&CPU_SLEEP_1 &CLUSTER_SLEEP_0>;
+ 		};
+@@ -205,6 +229,11 @@ ap_to_pm_scmi: scmi {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 
++			scmi_dvfs: protocol@13 {
++				reg = <0x13>;
++				#power-domain-cells = <1>;
++			};
++
+ 			scmi_clk: protocol@14 {
+ 				reg = <0x14>;
+ 				#clock-cells = <1>;
 -- 
-Best regards,
-Xilin Wu <sophon@radxa.com>
+2.49.0
 
