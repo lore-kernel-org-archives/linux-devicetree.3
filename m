@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73CE54611C6;
-	Wed,  6 May 2026 13:32:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41EE630BBAE;
+	Wed,  6 May 2026 13:34:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778074359; cv=none; b=oomaBALiTf9p3+nN56/SCe5EdmG975Rw5V+pciwtdNpFYTpD3OjOmbYQ9o7HBPTAcOhrC5otHzcfkMsxGR3kZgb4peuirVFZ7I6TfA8vVwSJreuoaSyh8nYPx1I4coWdCn6Wtqns3IV5fLecS4oK3Ruyd0Akzmk5wwahPPxny6A=
+	t=1778074444; cv=none; b=PMT/nmPMgKetSCPqEHFVWQZwnmrRtAAjrI+wjRgEGFJe2vqP1cAInZQgGi3Vf5Wm8dHJ9+8k4L/CDClDtEGROrlCwUQHOOu1TiQ6knQQWcx+DIo/7UOtYasyXmmmLIDyosWGbJ1CDP2hAjyKYBk2JJE9OOC7vGtgKIopS+jOHdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778074359; c=relaxed/simple;
-	bh=hqEF9QBmsHf89v3HQqP30wbFhWcDKq6a6ZOM8TpWWP4=;
+	s=arc-20240116; t=1778074444; c=relaxed/simple;
+	bh=YshSG+jEZSwzCbdJ4jDr60hn3hQDUfkq89jqa5o9J50=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TJ+x21WxhA6rXgMR+hNeVq+tqIi+h2BCL1rV/NnKjv0kZVZDxGGFgxyaFqfhuoiUm6tuUzm33fHrUhay/Skcduiku4+TBAY9wgukPsJzTql5v7OjoG9qVI/dDpKgfiK32igCqPeX5I0gjyQpdlsDI1XzL8r+HeOlz4VhCVw+W70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A60jetpK; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=umMjTqSO1MqAhLbpKOfKT/ebhePvhrx/G7rDd7lsSfjzQJ+6mhZGz+GO6QDd5eFCeYSca+0Lddz4Ag/4AWlEwulGE6wp8lLiOCUY+My7V0xvzRsvFiqnxB89gjSeFXV0bb4oLzM2E91YpQqvhEWaDwkjAanD+iDcOIdg3wUC1zI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qdLAuEoa; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A60jetpK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A3D9C2BCB8;
-	Wed,  6 May 2026 13:32:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qdLAuEoa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A72BC2BCB8;
+	Wed,  6 May 2026 13:33:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778074359;
-	bh=hqEF9QBmsHf89v3HQqP30wbFhWcDKq6a6ZOM8TpWWP4=;
+	s=k20201202; t=1778074443;
+	bh=YshSG+jEZSwzCbdJ4jDr60hn3hQDUfkq89jqa5o9J50=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=A60jetpK/ojbehYN0wJxFf32PpEBuUZEXrrEoVQ8R1c1eRD10Pnqshs3tWpRQQn0U
-	 trtu5OwZdkVerx1vA9z3FM/TxIG6Gg6bdChLScnGWbjScBOpCPOFbilmO8gvbTIfqX
-	 rMz6sveWLKMSh3C34R7+Nde0+fDm3iWPQHJ4Tfq+f+YVmXgzLfUoWkFUcMaIzapBvR
-	 lmD/fjVe1Lg87G9zkJCX3rVlcpgr1eA15ioyz0i7+2Gu4VaI8tyVkPHne2LBZ1yHi8
-	 TTGLMJSlw1wMb4pwbeXr7V4KE+FF7/cICRrb7evvgR7iAz98rZo4XnOFmR0UGoL/xp
-	 KKyYIKMXgGzOA==
-Message-ID: <b99fd4d3-244a-422a-929d-ac05268165f8@kernel.org>
-Date: Wed, 6 May 2026 15:32:32 +0200
+	b=qdLAuEoarlvWQFVS18RsdiGDZiM1aagLv4kBPglSttVyPwWiOKaZRqtzf7CVl8bsH
+	 vo66qBIcrlbi+mQJWAOBGKqrcV8ZzGwt7/kiuacW8HS+1ksIDS+NDW5ogV30ccR9aI
+	 iu3jMFPR18qwRRJTqZiuV41lPF5qrs6G8KEBmHDKBKhBBXSxu0BwCeKD13EulgBxTo
+	 u6S84xkkkFu7iBUyMF1Te74+ySF3/URpaJS6kaKZXeinLifk7+WLWJXTDNHDYwEVJ4
+	 1TuErwj9K1Hs9weQU/kSc3eoaqyjVBUghGtLi7rKdBGpX6Ue2LglK9H1krlMYggNIy
+	 ko1GkfQRSViLw==
+Message-ID: <5ad1e2df-85f3-4f9a-ab9d-b6ae34eebed3@kernel.org>
+Date: Wed, 6 May 2026 15:33:57 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,22 +35,17 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: net: microchip: Add LAN7500 and
- LAN7505 devices
-To: Thomas Richard <thomas.richard@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>,
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-omap@vger.kernel.org
-References: <20260506-b4-var-som-om44-lan7500-v2-0-b8af59ab877c@bootlin.com>
- <20260506-b4-var-som-om44-lan7500-v2-1-b8af59ab877c@bootlin.com>
+Subject: Re: [PATCH] media: dt-bindings: nxp,imx8mq-mipi-csi2: Fix example
+ endpoint label typo
+To: Robby Cai <robby.cai@nxp.com>, laurent.pinchart@ideasonboard.com,
+ Frank.Li@nxp.com, martink@posteo.de, rmfrfs@gmail.com, kernel@puri.sm,
+ mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
+ festevam@gmail.com, martin.kepplinger@puri.sm
+Cc: imx@lists.linux.dev, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260506090124.2960477-1-robby.cai@nxp.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -96,21 +91,41 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260506-b4-var-som-om44-lan7500-v2-1-b8af59ab877c@bootlin.com>
+In-Reply-To: <20260506090124.2960477-1-robby.cai@nxp.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 06/05/2026 14:13, Thomas Richard wrote:
-> Add bindings for LAN7500 and LAN7505 USB Ethernet Devices which are similar
-> to LAN9500.
+On 06/05/2026 11:01, Robby Cai wrote:
+> The example in imx8mq-mipi-csi2.yaml uses imx8mm_mipi_csi_{in,out} endpoint
+> labels, which is confusing for an i.MX8MQ binding. Rename the labels to
+> imx8mq_mipi_csi_{in,out} for consistency.
 > 
-> Signed-off-by: Thomas Richard <thomas.richard@bootlin.com>
+> Fixes: 37255747ecbd ("media: dt-bindings: media: document the nxp,imx8mq-mipi-csi2 receiver phy and controller")
+
+Nothing to fix here. Otherwise explain the bug.
+
+> Signed-off-by: Robby Cai <robby.cai@nxp.com>
 > ---
->  Documentation/devicetree/bindings/net/microchip,lan95xx.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+>  .../devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml       | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml b/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
+> index 4fcfc4fd3565..71f79651dd96 100644
+> --- a/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
+> +++ b/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
+> @@ -220,7 +220,7 @@ examples:
+>              port@0 {
+>                  reg = <0>;
+>  
+> -                imx8mm_mipi_csi_in: endpoint {
+> +                imx8mq_mipi_csi_in: endpoint {
 
+Drop the labels instead - they are not used.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+This is just churn and for sure not a fix.
+
+NAK
+
 
 Best regards,
 Krzysztof
