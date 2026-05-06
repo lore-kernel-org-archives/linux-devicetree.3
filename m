@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41EE630BBAE;
-	Wed,  6 May 2026 13:34:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B2B334FF4F;
+	Wed,  6 May 2026 13:36:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778074444; cv=none; b=PMT/nmPMgKetSCPqEHFVWQZwnmrRtAAjrI+wjRgEGFJe2vqP1cAInZQgGi3Vf5Wm8dHJ9+8k4L/CDClDtEGROrlCwUQHOOu1TiQ6knQQWcx+DIo/7UOtYasyXmmmLIDyosWGbJ1CDP2hAjyKYBk2JJE9OOC7vGtgKIopS+jOHdc=
+	t=1778074605; cv=none; b=WnAJevQHWqO9hJDZgAQ+s947IGbL3kh8maHZaQ1b+Bars5D8FLHrMql252FDBiFnKn97rvioJsOXeUoKY3Sz2VPKtcQm0Fm6JuIIeWTPV6Fb3TM2Lf6L5t9u+QFx01CmC7pM4WFNT1KRZ6XyPpgBIIf7uJ7DhVRwh6tZoInGyfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778074444; c=relaxed/simple;
-	bh=YshSG+jEZSwzCbdJ4jDr60hn3hQDUfkq89jqa5o9J50=;
+	s=arc-20240116; t=1778074605; c=relaxed/simple;
+	bh=7I7M1eUDVF5088ev2jyWTqkJf4GORVg6OfRPDZkIzIU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=umMjTqSO1MqAhLbpKOfKT/ebhePvhrx/G7rDd7lsSfjzQJ+6mhZGz+GO6QDd5eFCeYSca+0Lddz4Ag/4AWlEwulGE6wp8lLiOCUY+My7V0xvzRsvFiqnxB89gjSeFXV0bb4oLzM2E91YpQqvhEWaDwkjAanD+iDcOIdg3wUC1zI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qdLAuEoa; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=J+X35gTRPyAqCDWp155h9r0eNRs0wwJDQw1WBiSWJ9e14HAEVz73cGDVRaH/dX1cOyNeKZ0xKkQNYzkA22Gug4TK5o7SFncf4SHMT2u2HGRmmOX3EWdt4s0sH4t3Emd8sNF3LoiSYw8IQIaZvhP9Dw5wiUeJoXI6fBbGPu5eiVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EJbOClFH; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qdLAuEoa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A72BC2BCB8;
-	Wed,  6 May 2026 13:33:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EJbOClFH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9692C2BCB8;
+	Wed,  6 May 2026 13:36:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778074443;
-	bh=YshSG+jEZSwzCbdJ4jDr60hn3hQDUfkq89jqa5o9J50=;
+	s=k20201202; t=1778074605;
+	bh=7I7M1eUDVF5088ev2jyWTqkJf4GORVg6OfRPDZkIzIU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qdLAuEoarlvWQFVS18RsdiGDZiM1aagLv4kBPglSttVyPwWiOKaZRqtzf7CVl8bsH
-	 vo66qBIcrlbi+mQJWAOBGKqrcV8ZzGwt7/kiuacW8HS+1ksIDS+NDW5ogV30ccR9aI
-	 iu3jMFPR18qwRRJTqZiuV41lPF5qrs6G8KEBmHDKBKhBBXSxu0BwCeKD13EulgBxTo
-	 u6S84xkkkFu7iBUyMF1Te74+ySF3/URpaJS6kaKZXeinLifk7+WLWJXTDNHDYwEVJ4
-	 1TuErwj9K1Hs9weQU/kSc3eoaqyjVBUghGtLi7rKdBGpX6Ue2LglK9H1krlMYggNIy
-	 ko1GkfQRSViLw==
-Message-ID: <5ad1e2df-85f3-4f9a-ab9d-b6ae34eebed3@kernel.org>
-Date: Wed, 6 May 2026 15:33:57 +0200
+	b=EJbOClFHa2CcPRVkMYmz3+QesZYjQNBc5i5M+WR8ZnFT9UmFA+x50oAQQSJHu+wKe
+	 CKDdBcu44jNL7MH1Pyrr3IenoyMDkNSEABAhwHqFAn/+ZNZ/Ru37bg++86Ty4aioHL
+	 N5IHrimxJBe6wi+A/9kPXXbRDlqhk8j7H69HKEnsRDr+nKqVonKkbB6FioOrf5bMWj
+	 9HGQy1nIB2gw9ozVOnTFkBJvuNpLhFXBGunovGg103oANtLK7ie1csTZoX2AXucpP1
+	 pD8b2yqX9SOWfN/J6LLnlsAkljS7Ud+emFKAVa3IviQ4g5dCqsvTx79S+JR1fMJmhu
+	 Rt40RKlmr6k9A==
+Message-ID: <f4212885-fcfe-4687-ba1f-b8713b1ecdad@kernel.org>
+Date: Wed, 6 May 2026 15:36:39 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,17 +35,19 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: dt-bindings: nxp,imx8mq-mipi-csi2: Fix example
- endpoint label typo
-To: Robby Cai <robby.cai@nxp.com>, laurent.pinchart@ideasonboard.com,
- Frank.Li@nxp.com, martink@posteo.de, rmfrfs@gmail.com, kernel@puri.sm,
- mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
- festevam@gmail.com, martin.kepplinger@puri.sm
-Cc: imx@lists.linux.dev, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260506090124.2960477-1-robby.cai@nxp.com>
+Subject: Re: [PATCH] dt-bindings: remoteproc: mtk,scp: Allow multiple memory
+ regions
+To: Arnab Layek <arnab.layek@mediatek.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com
+References: <20260506133157.3283204-1-arnab.layek@mediatek.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -91,41 +93,47 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260506090124.2960477-1-robby.cai@nxp.com>
+In-Reply-To: <20260506133157.3283204-1-arnab.layek@mediatek.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 06/05/2026 11:01, Robby Cai wrote:
-> The example in imx8mq-mipi-csi2.yaml uses imx8mm_mipi_csi_{in,out} endpoint
-> labels, which is confusing for an i.MX8MQ binding. Rename the labels to
-> imx8mq_mipi_csi_{in,out} for consistency.
+On 06/05/2026 15:31, Arnab Layek wrote:
+> Update the memory-region property to support 1-2 reserved memory
+> regions instead of exactly one. This is needed for newer MediaTek
+> SoCs like MT8188 which require additional memory regions for SCP
+> operation.
+
+So where is the compatible? Already there?
+
 > 
-> Fixes: 37255747ecbd ("media: dt-bindings: media: document the nxp,imx8mq-mipi-csi2 receiver phy and controller")
+> Tested on MT8188 Geralt platform.
 
-Nothing to fix here. Otherwise explain the bug.
+You cannot test binding.
 
-> Signed-off-by: Robby Cai <robby.cai@nxp.com>
+> 
+> Signed-off-by: Arnab Layek <arnab.layek@mediatek.com>
 > ---
->  .../devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml       | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  .../devicetree/bindings/remoteproc/mtk,scp.yaml        | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml b/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
-> index 4fcfc4fd3565..71f79651dd96 100644
-> --- a/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
-> +++ b/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
-> @@ -220,7 +220,7 @@ examples:
->              port@0 {
->                  reg = <0>;
+> diff --git a/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml b/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
+> index bdbb12118da4..9f6dca94ff40 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
+> @@ -55,7 +55,10 @@ properties:
+>        initializing SCP.
 >  
-> -                imx8mm_mipi_csi_in: endpoint {
-> +                imx8mq_mipi_csi_in: endpoint {
+>    memory-region:
+> -    maxItems: 1
+> +    description:
+> +      Phandle to the reserved memory regions.
+> +    minItems: 1
+> +    maxItems: 2
 
-Drop the labels instead - they are not used.
-
-This is just churn and for sure not a fix.
-
-NAK
-
+Just like I sent some patches long time ago for iommus Mediatek media
+bindings - fix it the same way. Pity the patches were not picked up,
+even though sending twice, but that does not give you easier way to get
+incorrect code in. You just multiple poor patterns...
 
 Best regards,
 Krzysztof
