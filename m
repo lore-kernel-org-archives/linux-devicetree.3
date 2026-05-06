@@ -1,102 +1,93 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0544F43D518;
-	Wed,  6 May 2026 14:20:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E79C47ECEF;
+	Wed,  6 May 2026 14:21:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778077247; cv=none; b=LcZWKzf803N12y0cJ++iqTWljBXJb/w9hLhzPKddmJw4swnSKpoouPKwfNUKJSwod6/WKlCngLwkQpRkmm8Gn67qJOogCeqTE/lUHuext0PwBW/AEnAwuVfyNvLLSwnsjMY8wNOBfSt9ocnah88s0yJIN4KIDesQfRSgFjKgqA4=
+	t=1778077319; cv=none; b=SHujzg8+SNQm4T29M0RerxKxGNfCkvJr0uN0oS3mniyaXF2gmtmN3eSDZp9EAcAAh0aS9c7dgJLEs3tEPG3ofqBgh0ZhYGdS7Sp0VFNEqtylRMlCuqdJO+7Qehblq5hNxqPbFthVWIwTumhkCbGZCWu+qRLbMucwiwRtz4jh8ys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778077247; c=relaxed/simple;
-	bh=dCNsi5z6SE2MWwj9xZX3J8gRDqSesA8VaakN/eL/kEI=;
+	s=arc-20240116; t=1778077319; c=relaxed/simple;
+	bh=0Uq1YugYUXzi8pj8HXdSH3+9q4grpd3YGFD2ihnyGEM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PqFKmVXbJyHr+ts1KwmzjMc12pwOXGMCSa8QvUj9NU8E47N7R2sAgKsZtcuHF1BXFqJaPjIjSJXP3M+4HNebUMcmDBTgjtkB12ZqPnE37edx4zrkbvaJ4aFZpPkIkKyDx2Ei+xNmhGb1fo2s/vLwuJAU9TRGt+W8N9tNRLsmzGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=opZ83zhD; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=RhOzrs6ldd6G7j7Jlqmim6xhhwnsyKJ4ixLPrBBeHglDVGZCYvJA6iz5XeiHAQiY1yyeN9xOlsCMB/7VzqQN5ekvC74BMrdgy8sbecO3vFr7ZPU1le/hEfrjr/aIewuU+IMKA/0cBQvR95b1FG773X0EWP1ZAK9tYlhviN1v40c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=dWFsteE5; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="opZ83zhD"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=1TINjW2+GVZfWHKbu6bM194099KLPKEaQdFEP5VO8RU=; b=opZ83zhD6sjRhZ7vgFaALHMDtg
-	yMrK1zc9GmBjDoW8m7f+apmZY4/bw8ws/7BIjjUvBWL3eGr2+CaCiB09M4COnVl9XwQH95NQrl262
-	e3VsH1fC3/lBBMuIlH1rUjT+xI53oA9VMCYeMYcxZxYvxxer0ML+kfNiaZ4gwy/8Y4Nc=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wKd6Q-001eSU-BM; Wed, 06 May 2026 16:19:54 +0200
-Date: Wed, 6 May 2026 16:19:54 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Xilin Wu <sophon@radxa.com>
-Cc: Alex Elder <elder@riscstar.com>, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, maxime.chevallier@bootlin.com,
-	rmk+kernel@armlinux.org.uk, andersson@kernel.org,
-	konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org,
-	arnd@arndb.de, gregkh@linuxfoundation.org,
-	Daniel Thompson <daniel@riscstar.com>, mohd.anwar@oss.qualcomm.com,
-	a0987203069@gmail.com, alexandre.torgue@foss.st.com, ast@kernel.org,
-	boon.khai.ng@altera.com, chenchuangyu@xiaomi.com,
-	chenhuacai@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
-	hkallweit1@gmail.com, inochiama@gmail.com, john.fastabend@gmail.com,
-	julianbraha@gmail.com, livelycarpet87@gmail.com,
-	matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
-	prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
-	rohan.g.thomas@altera.com, sdf@fomichev.me,
-	siyanteng@cqsoftware.com.cn, weishangjuan@eswincomputing.com,
-	wens@kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="dWFsteE5"
+Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 64FFE63D;
+	Wed,  6 May 2026 16:21:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1778077313;
+	bh=0Uq1YugYUXzi8pj8HXdSH3+9q4grpd3YGFD2ihnyGEM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dWFsteE5Yud9FRc62Ue8FUO1vdIwK1vF//+75iUC2X7IJ1qEGI5wf7uLMVSqUixQL
+	 CYkQY5kk6D7xRaLVAInGyyQB7WpzGQiea6RSDdQasbUA8cRbp62zKd8B/r+vafVkbC
+	 XaHtZPTfgKXiZBHn4Bu0KHJZEpO9vq4rEUHNlxPM=
+Date: Wed, 6 May 2026 17:21:55 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Robby Cai <robby.cai@nxp.com>, Frank.Li@nxp.com, martink@posteo.de,
+	rmfrfs@gmail.com, kernel@puri.sm, mchehab@kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
+	martin.kepplinger@puri.sm, imx@lists.linux.dev,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 10/12] net: stmmac: tc956x: add TC956x/QPS615
- support
-Message-ID: <4015f47a-af62-441d-b1b8-a8598f963970@lunn.ch>
-References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-11-elder@riscstar.com>
- <224E233C593EF171+8c8a43dd-5061-40f8-9eb7-f360eabf2ecc@radxa.com>
+Subject: Re: [PATCH] media: dt-bindings: nxp,imx8mq-mipi-csi2: Fix example
+ endpoint label typo
+Message-ID: <20260506142155.GR1598374@killaraus.ideasonboard.com>
+References: <20260506090124.2960477-1-robby.cai@nxp.com>
+ <5ad1e2df-85f3-4f9a-ab9d-b6ae34eebed3@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <224E233C593EF171+8c8a43dd-5061-40f8-9eb7-f360eabf2ecc@radxa.com>
+In-Reply-To: <5ad1e2df-85f3-4f9a-ab9d-b6ae34eebed3@kernel.org>
 
-On Wed, May 06, 2026 at 08:59:01PM +0800, Xilin Wu wrote:
-> On 5/1/2026 11:54 PM, Alex Elder wrote:
-> > +	/* AXI Configuration */
-> > +	axi = &td->axi;
-> > +	axi->axi_lpi_en = 1;
-> > +	axi->axi_wr_osr_lmt = 31;
-> > +	axi->axi_rd_osr_lmt = 31;
-> > +	/* All sizes (2^2..2^8) are supported */
-> > +	axi->axi_blen_regval = DMA_AXI_BLEN_MASK;
-> > +	plat->axi = axi;
-> > +
-> > +	plat->mac_port_sel_speed = speed;
-> > +	plat->flags = STMMAC_FLAG_MULTI_MSI_EN | STMMAC_FLAG_TSO_EN;
+On Wed, May 06, 2026 at 03:33:57PM +0200, Krzysztof Kozlowski wrote:
+> On 06/05/2026 11:01, Robby Cai wrote:
+> > The example in imx8mq-mipi-csi2.yaml uses imx8mm_mipi_csi_{in,out} endpoint
+> > labels, which is confusing for an i.MX8MQ binding. Rename the labels to
+> > imx8mq_mipi_csi_{in,out} for consistency.
+> > 
+> > Fixes: 37255747ecbd ("media: dt-bindings: media: document the nxp,imx8mq-mipi-csi2 receiver phy and controller")
 > 
-> I got WoL working only after adding STMMAC_FLAG_USE_PHY_WOL here. I guess
-> it's required, since the driver clocks down the MAC/PMA/XPCS in its suspend
-> hook?
+> Nothing to fix here. Otherwise explain the bug.
+> 
+> > Signed-off-by: Robby Cai <robby.cai@nxp.com>
+> > ---
+> >  .../devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml       | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml b/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
+> > index 4fcfc4fd3565..71f79651dd96 100644
+> > --- a/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
+> > +++ b/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
+> > @@ -220,7 +220,7 @@ examples:
+> >              port@0 {
+> >                  reg = <0>;
+> >  
+> > -                imx8mm_mipi_csi_in: endpoint {
+> > +                imx8mq_mipi_csi_in: endpoint {
+> 
+> Drop the labels instead - they are not used.
 
-Nice to see somebody testing WoL.
+I think the label has value, it improves readability of the example by
+making the purpose of the endpoints more explicit. I won't fight for it
+though, I know it's hard to change your mind.
 
-In your testing, is it the PHY doing the WoL, or the MAC? I assume
-PHY.
+> This is just churn and for sure not a fix.
+> 
+> NAK
 
-If i remember the DT correctly, the PHY interrupt is connected to a
-SoC GPIO, not a GPIO of this chip. So for your board, it is the SoCs
-GPIO controllers ability to perform the wake which is
-important. However, where the PHY interrupt is connected is a board
-design issue. Could the PHY interrupt be connected to the chip? Would
-the chip be able to wake the system? Should STMMAC_FLAG_USE_PHY_WOL be
-conditional?
+-- 
+Regards,
 
-	Andrew
+Laurent Pinchart
