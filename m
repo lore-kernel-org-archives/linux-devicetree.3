@@ -1,83 +1,163 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AACEE258EF9;
-	Wed,  6 May 2026 01:43:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A50A69463;
+	Wed,  6 May 2026 01:45:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778031804; cv=none; b=eGDgXTeK0k/fagyTjxKau96VQy2KZ4aLinIS5NLSD9fYL3+CTDRZmtv4OrcZ+/zkL8uO3eONmwa4/UC+vCB1hLRBwpsR5Ftk0ZmqnRfgGP2WJLo8kzyEs2legNFdY0C17bvcXAzt2TfNPN4LxsXoOtsUVPr8lu5/Kzk+cskGpnM=
+	t=1778031955; cv=none; b=gtc8zuOxfR/kc8oEiY3YUjlV6GyejmXZZdGafcHiC09lZStF2GxB8xOzx/rKEG3yTjj371UoJw9nfcaK6rawsSgris8TxprQDi6PQ3IpV3O2FA/5orTwVg74/mmS5y+q1oP/WH82bUXHjRgB993eVuH0HK4bib876Ff5f7Rsf8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778031804; c=relaxed/simple;
-	bh=vSPiDgJ0IkynnZonv8Pb+B5VUe/T3NmI2G4+fg17vlk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m/X4W0lwS8XgE/5lOWci1yhW5gz4C8Nf+zpZvv8SAH1zBBjg0syHpH8JVo9erxFS4fpA+fZrTLq+iCVYpjjnDJ1519NFgX++AANInE9Z7N/rHRWLz7/ES47wEw8a03ipULTRxrPq2efjelgw72YyHd2VvS8G3phzAASpAKLk9Fw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YIWF5+nQ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778031955; c=relaxed/simple;
+	bh=HcowDaLCPHTbfwY5o6JAlN46GhiTtHscFHLYw9ODrbo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GU5KtG0uy+MWr+D/M+ZQ/rXi1RkEfa5yDFJyr7VVrKx7HssPzHIx3BY9tdxH2euB4m04njdpFFUxOc5pyGQL5bL3Jy8+he2Rm1YMh5ZSSrvghBC0TqQiT66YkUb1MqnOxp1XlZMzDIpRLeJkdAoTUb6ZnfP8aDww5B+nlMNZo1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TPigXP7V; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YIWF5+nQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11332C2BCB4;
-	Wed,  6 May 2026 01:43:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TPigXP7V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AB2EC2BCB4;
+	Wed,  6 May 2026 01:45:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778031804;
-	bh=vSPiDgJ0IkynnZonv8Pb+B5VUe/T3NmI2G4+fg17vlk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YIWF5+nQEZRPqEYYEOo13NiSq/4G3uObvMlisFqsvSk4sg+Z7wZ+Vhlj0cf9eviBZ
-	 H/aV1zvXqD6NDraiftci1LHUasqpW8hzynBgRP0x6eKvV7alJz1oJfm+LRPxHcR5pZ
-	 MTawc7sRQIFFfbZOlUU8PIpG0TEdSgNCqYsngbHH+7Hp1HgUtWcwx1ZAr3cZPXR+2H
-	 +AQUDEbcqMcJsU8VYWHlPKh4AAus7Nc8U2X01yFwjdKtLIMR+RODA3lfebIDD3d1yi
-	 1INYC5M8AbCOHv/2+b2PjR1zxjlt2xe+JNin3piGraOgKYkAC4PLmfiZINe4zg37EH
-	 6P+QjfgasM5vA==
-Date: Tue, 5 May 2026 20:43:21 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Chanhong Jung <happycpu@gmail.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-	Linus Walleij <linusw@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Ripard <mripard@kernel.org>
-Subject: Re: [PATCH v2 1/2] dt-bindings: gpio: fairchild,74hc595: add
- lines-initial-states property
-Message-ID: <177803180135.280005.13996377729144610896.robh@kernel.org>
-References: <cover.1776872453.git.happycpu@gmail.com>
- <20260429035134.1023330-2-happycpu@gmail.com>
+	s=k20201202; t=1778031955;
+	bh=HcowDaLCPHTbfwY5o6JAlN46GhiTtHscFHLYw9ODrbo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=TPigXP7Veb0WMItIe4J2VNjLe7lcBIQnNWCLv+Crg9bbgOMlWOcYd9A8d93KezwjA
+	 WBw1z5sUHpMBtIkW08cPleP8hkHZHbw9Ki2zPenUw1qsPEZFZO0PTR6PyPyXXm/r1C
+	 HufOWerCc+5sT7TLngU/1rc9PmfIHZMziGF7PuhFuICAHGfHt60ELOqpSmTGXmR2Dn
+	 ihV1whI/nmbDh/15VAM8NlYwoXq1LlSjZrETK5aL46rQXFXMrJVUvvj6lt4dKvj4w8
+	 /fgH/T/LQBqLzDFbXwcg/SVlfwQO5l3pTL+zwLOgT6BhAcr4hkxJTEt75VG+VlUquJ
+	 ZVK3ty39cjwmg==
+From: Jakub Kicinski <kuba@kernel.org>
+To: jensemil.schulzostergaard@microchip.com
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	UNGLinuxDriver@microchip.com,
+	andrew@lunn.ch,
+	olteanv@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	woojung.huh@microchip.com,
+	linux@armlinux.org.uk,
+	Steen.Hegelund@microchip.com,
+	daniel.machon@microchip.com,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH net-next v4 1/9] net: dsa: add tag driver for LAN9645X
+Date: Tue,  5 May 2026 18:45:52 -0700
+Message-ID: <20260506014552.1616551-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260430-dsa_lan9645x_switch_driver_base-v4-1-f1b6005fa8b7@microchip.com>
+References: <20260430-dsa_lan9645x_switch_driver_base-v4-1-f1b6005fa8b7@microchip.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260429035134.1023330-2-happycpu@gmail.com>
+Content-Transfer-Encoding: 8bit
 
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+---
+net: dsa: add tag driver for LAN9645X
 
-On Wed, 29 Apr 2026 12:51:33 +0900, Chanhong Jung wrote:
-> The 74HC595 and 74LVC594 shift registers latch their outputs until the
-> first serial write, so boards that depend on a specific power-on pattern
-> (for example active-low indicators, reset lines, or other signals that
-> must come up non-zero) have no way to express that today: the Linux
-> driver always writes zeros from its zero-initialised buffer during
-> probe.
-> 
-> Document support for the existing lines-initial-states bitmask, already
-> defined for nxp,pcf8575, so the same convention covers this output-only
-> device. Bit N corresponds to GPIO line N. Because the 74HC595/74LVC594
-> family is push-pull output only (no input mode, no high-impedance state
-> under software control), bit=0 drives the line low and bit=1 drives it
-> high; this differs from nxp,pcf8575, where the 0/1 polarity reflects the
-> quasi-bidirectional nature of that part.
-> 
-> The bitmask covers up to 32 lines, which fits the typical 1-4 chip
-> cascades that appear in tree. Should longer chains require seeding in
-> the future, the property can be extended to a uint32-array without
-> breaking the bit-N-equals-line-N convention.
-> 
-> Suggested-by: Linus Walleij <linus.walleij@linaro.org>
-> Signed-off-by: Chanhong Jung <happycpu@gmail.com>
-> ---
->  .../devicetree/bindings/gpio/fairchild,74hc595.yaml | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
-> 
+Adds a DSA tag driver for Microchip LAN9645x switches operating with a
+front port configured as an NPI CPU port. RX uses a 16-byte long prefix
+plus a 28-byte internal frame header; TX uses only the IFH.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> diff --git a/net/dsa/tag_lan9645x.c b/net/dsa/tag_lan9645x.c
+> new file mode 100644
+> index 000000000000..81e7a78e0f81
+> --- /dev/null
+> +++ b/net/dsa/tag_lan9645x.c
 
+[ ... ]
+
+> +static struct sk_buff *lan9645x_rcv(struct sk_buff *skb,
+> +				    struct net_device *ndev)
+> +{
+> +	u32 src_port, qos_class, vlan_tci, tag_type, popcnt, etype_ofs;
+> +	struct dsa_port *dp;
+> +	u32 ifh_gap_len = 0;
+> +	u16 vlan_tpid;
+> +	u8 *ifh;
+> +
+> +	/* DSA master already consumed DMAC,SMAC,ETYPE from long prefix. Go back
+> +	 * to beginning of frame.
+> +	 */
+> +	skb_push(skb, ETH_HLEN);
+> +
+> +	if (unlikely(!pskb_may_pull(skb, LAN9645X_TOTAL_TAG_LEN)))
+> +		return NULL;
+> +
+> +	/* IFH starts after our long prefix */
+> +	ifh = skb_pull(skb, LAN9645X_LONG_PREFIX_LEN);
+
+[ ... ]
+
+> +	skb_pull(skb, LAN9645X_IFH_LEN);
+> +
+> +	if (unlikely(!pskb_may_pull(skb, ifh_gap_len + ETH_HLEN)))
+> +		return NULL;
+> +
+> +	skb_pull(skb, ifh_gap_len);
+> +	skb_reset_mac_header(skb);
+> +	skb_set_network_header(skb, ETH_HLEN);
+> +	skb_reset_mac_len(skb);
+> +
+> +	/* Remove the long prefix + IFH + ifh_gap contribution from
+> +	 * skb->csum so the stack sees a checksum consistent with the
+> +	 * real Ethernet frame. skb->data currently points at the real
+> +	 * MAC header.
+> +	 */
+> +	skb_postpull_rcsum(skb,
+> +			   skb->data - LAN9645X_TOTAL_TAG_LEN - ifh_gap_len,
+> +			   LAN9645X_TOTAL_TAG_LEN + ifh_gap_len);
+
+Does this skb_postpull_rcsum() call subtract the wrong region from
+skb->csum for CHECKSUM_COMPLETE frames?
+
+By the time lan9645x_rcv() is entered, the conduit's eth_type_trans()
+has already pulled the first ETH_HLEN (14) bytes of the long prefix and
+adjusted skb->csum accordingly, so skb->csum covers bytes starting at
+offset 14 (the remaining 2 bytes of the long prefix plus IFH plus any
+gap plus the real frame).
+
+At the point of the skb_postpull_rcsum() call, skb->data points at the
+real MAC header, i.e. at offset LAN9645X_TOTAL_TAG_LEN + ifh_gap_len
+from the start of the originally-received frame. So
+skb->data - LAN9645X_TOTAL_TAG_LEN - ifh_gap_len points at offset 0,
+and the subtracted region is [0, LAN9645X_TOTAL_TAG_LEN + ifh_gap_len).
+
+That region includes the first 14 bytes that eth_type_trans() already
+removed from skb->csum, and it stops short of the real MAC header which
+also needs to be removed. Shouldn't the subtracted region instead start
+at what skb->data was on entry to rcv() (i.e. post-eth_type_trans) and
+cover LAN9645X_TOTAL_TAG_LEN + ifh_gap_len bytes from there, so that it
+matches what skb->csum actually covers?
+
+For reference, tag_ocelot.c (cited in the commit message as the
+architectural model) saves start = skb->data at function entry before
+any skb_push()/skb_pull() manipulation:
+
+    net/dsa/tag_ocelot.c:ocelot_rcv() {
+        ...
+        u8 *start = skb->data;
+        ...
+        skb_push(skb, ETH_HLEN);
+        skb_pull(skb, OCELOT_SHORT_PREFIX_LEN);
+        ...
+    }
+
+and later passes that saved pointer to skb_postpull_rcsum() with the
+total tag length, so the subtracted region exactly matches what the
+NIC's csum_complete covers.
+
+Would saving skb->data on entry (before the initial skb_push(ETH_HLEN))
+and passing that as the start argument, with length
+LAN9645X_TOTAL_TAG_LEN + ifh_gap_len, produce the correct result here
+as well?
