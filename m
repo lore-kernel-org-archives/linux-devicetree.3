@@ -1,47 +1,47 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012015.outbound.protection.outlook.com [52.101.43.15])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012016.outbound.protection.outlook.com [40.93.195.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD0F444D688;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB3C44DB6C;
 	Wed,  6 May 2026 12:42:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.15
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.16
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778071355; cv=fail; b=sDIQG9aP1Vn6N46DSxNzHfJ3aH74pPh0txjg1zp1wE8NiL23iQmnSnZVvxE3fvh9ksE3I6E4LdUHCSbxqWjh1wNxOuF9vPILorcf/OQTPCoIugJtKEvYJKH+i0c98NXKGie7gwZUekLJYS9p2aaI4SPotjL/gwyQGOglEraQcZ0=
+	t=1778071356; cv=fail; b=Sb6ARTFjyZr5TrVKaCu68iQ4aix87xWRlM2+Ja/IRwAiWkOGSTO0CAIRl9YGGdlnriepvDj0ydN5bnsJgQyLicPu45kSLWqsAjKnxnnBSXlkBw58lJ+fKTARD6wSfvdoNzmGY/zCdUDFQ68Q7wv9wc0tieI4Sz+tPF2/QMyt2vY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778071355; c=relaxed/simple;
-	bh=Qwehyx/jGL3LJOO/hbWhSE6lBC0ARHO9OQnb91Wa7UE=;
+	s=arc-20240116; t=1778071356; c=relaxed/simple;
+	bh=NQMXTRqbjS/uRzxWPE87ljLj8XMWgEUq+fn/tRQsYuc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=FGQOZGiNMnrlE+reDL6XeViGZiLlD/eVPMGTsz1It+ExBT+9ZHS1uaj5mHQuoJiQ1PBa/QX3VL5Sb/baWLfqQYWtcG7rpD7AjG8rvarDCiqALag4pE0XGkYLfALkXvJYoEjDRtl6bj96R25zlJYNhts73PVzpRfja8/+KDhmODE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=YDKhF3bF; arc=fail smtp.client-ip=52.101.43.15
+	 Content-Type:MIME-Version; b=nKFWVhAkf0j6wWyrEZco7zhoXkAIYJFOWmSkeOqhr/Uq9IMvTpqxjOddDUmWX+77AfvR58MrFLtekIJ+2cAvb3K8IXvxxX5GT7wRfSMKygGEile0V+81L6Yc/AzA9hbUmFfPIRfR+Yi/VqsmNFCn0MBHn/pIYkqih5XZQeH6HNY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=VOsu+RP6; arc=fail smtp.client-ip=40.93.195.16
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="YDKhF3bF"
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="VOsu+RP6"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KJ8NdP2kYfdyIKZyMik6/FpuwSfEDDIJWMcMpl15sBOVq8767P6O2BSkVudzNFpPbmlmM77Ny19/nSbEGyyGb0MnqbGS3vhGwg+wU1FlTqjZxYjpDHJhW1AJuNH/rDA95UolmhcW5aLiBC34+NAmjlBsoRUljNeZeKmA/hHBMKPJ04a0O/XzAoxZjNCBpDGXbe6luG8IavHOtaMcakJHCes8e3fqTBoSYtmhMinG6UgVrVS8x0sGF3r6NQiF2MTpclb+ZPwv2q3Zgoq1vUu5+RAAX5zeE9as/GpxzOVn6Qff2tcQsXhCVFydgKDkN1GcsfMajoEZqbjZGqhQ2zVz+A==
+ b=nfvWXYxIqWIuTCdDkM1fna3gZieN/YmLCjeD0yz2go4XxIDcDkKOJw92bxTrY6EsyK4E/eatuLFdAaqBJJTrIUCyTfJnKNkGW/atFnxEqLNPYrLE/ZqfKeuizNwM7gWs/wG+NYOidvKIERnv4ON0DQRn5HXIp/vpJqqIorxM+JhkNvGgptXhLreNklB7ZYUG1r3QTvX4+3R1FN6hOni1oxQi5HpwbahzNmiSqr7zTCeBr9iKk9IRlJGdEHZQfWRYjyiwEQ3yaVlvzMoJD/6WvRPRD31dlmocm/aBo4gHCnbyXd6aeJbZ5NEpXxeEfapVKuftOSHjhaixKgcrYTl93A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fwBijhe/0s9q7IPGl9Dh5+ap3Aa3e+2YSDjidCBoRWo=;
- b=cIOb0TBTj3A64LWwgqHYssAn6sVrj4wqSImc4ugkPWkx9kAbSOx9UovLI7+Hovaq0Xf5Fy8/ihMwrSoAekTYvVxOI4qPyjZ4n0RCUJWQMhC/gy7e+vMOhoDudBB4S/ajRKOf39pqG86I9Uc5XCF2m8Cu3pPGArUpdOd2RrvbP9aq5hpgg1aKfiPQbM/utmauWbnFm2EBAyaHHDI5DEXGnrIKSsXo+6ZweLtCiixLEWpM6d/l4eKO/amB/WRkqc9HIkx+N2lfbP/kmSAjHhKRlplv4Qc53RX7/RXyypgl6zG4d6T4PoVsWm2O+SafvHvhQAVlMQj5qOSq+x2yFJfpuQ==
+ bh=1xgJ4whMueBvOwWEDz10GkuZrPAJgs+6Kx3ZF4Orf2E=;
+ b=TCBSuYIgOguy2WcyiNjxgy/FYjOld8UOkqHxSwXb6xAB4WJTGK6HFsruDsbMNvA0O3OAwcX9Xhr1BvkExHaRb3ihgBbFZBGpw/gq1caTHfYydETyUn7rLixtHiV0P4Q4thbUbqeSZFPWkfdXY9zxoZvcu4QhqQLWfyN6+1KW4fpnGKZ/P+Wg8qU3vnslmPR+X/0q/REqpfvTFfViAqDeW0A3j7KD6TU+WoKlNbro25ZjmROcDSDEEI/Ils7sTrOAuuYGrx3yv1y49pFlodbd/u9eXvuQziP7SOb0Zmed453yw2qJsSbXb410lEthFwDSr6JTPZy4ZFdRqZs8c/KR+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
  dkim=pass header.d=altera.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fwBijhe/0s9q7IPGl9Dh5+ap3Aa3e+2YSDjidCBoRWo=;
- b=YDKhF3bFcRJwYp/DLOVQ0g4/HsCAwZPf9mmvNIr89fNjA8tCHVZRE41RNwF3h506w3QGe3vE7YUFHBKxTQRNN5PTWlZvfrp7jyrf69+5u+6gBrt/Ve2fOzowtpaSJ8ziMn21bbjnRuLF+sf+bZaNj6OuPuyjA+iMddKrzXO66IYbUTixA7ZCDr+mnHyypkRMUss47VHotrtpsmRLB+BE3fVKSUkq1eHt0gbuzwe/E2yNO2KXupSq64NEMjfbc4X6w9aXBUglNpgpYYE5nG/z/v7PuI3AA+jN/IxjB3q5rEEWATSEzmxc3bjr/GYztHrAIDMj50XN6zvd5KJiEsj2+A==
+ bh=1xgJ4whMueBvOwWEDz10GkuZrPAJgs+6Kx3ZF4Orf2E=;
+ b=VOsu+RP6GbjAPeyZyDm1/o87dhZxI2mObCT0SSiJAaJDanluq7PIijMWjESkW0Di5MJADVpEWy8KiPbqZgA0D7+KBjLza8DE+/5QC8cpea5znuekGDY1x7qZWwmrJiKdKJzj3UtdJXkAaTqwDdRviUSE8gE586Ry2kULKVR2/M0VuJ46tycWoRFwFSGMJVKXkbEPL72Tb3KHtR+ZCNNjhR1QVaCv5i9Qs1ZQhHPL6u7XGymDpjGo/dfJVsuyVFn1hkHiFPYlPK9NSltN4ITwmsjmiBMMPaSw7tXogDp+8VmVATN5nM/SecN+NcNAC6HW/dYbscPtQ/AgNn+A6GQt/g==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=altera.com;
 Received: from SJ0PR03MB5950.namprd03.prod.outlook.com (2603:10b6:a03:2d3::20)
- by MW4PR03MB6948.namprd03.prod.outlook.com (2603:10b6:303:1bf::21) with
+ by LV4PR03MB8332.namprd03.prod.outlook.com (2603:10b6:408:2dc::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Wed, 6 May
- 2026 12:42:30 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Wed, 6 May
+ 2026 12:42:31 +0000
 Received: from SJ0PR03MB5950.namprd03.prod.outlook.com
  ([fe80::53a0:bf93:6b6b:de01]) by SJ0PR03MB5950.namprd03.prod.outlook.com
  ([fe80::53a0:bf93:6b6b:de01%4]) with mapi id 15.20.9891.008; Wed, 6 May 2026
- 12:42:29 +0000
+ 12:42:30 +0000
 From: tze.yee.ng@altera.com
 To: Dinh Nguyen <dinguyen@kernel.org>,
 	Rob Herring <robh@kernel.org>,
@@ -53,9 +53,9 @@ To: Dinh Nguyen <dinguyen@kernel.org>,
 Cc: Tze Yee Ng <tze.yee.ng@altera.com>,
 	Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
 	Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
-Subject: [PATCH 1/2] dt-bindings: firmware: document rsu-handle for intel stratix10-svc
-Date: Wed,  6 May 2026 05:42:20 -0700
-Message-ID: <09822cb8171f90d50c018f2f1fae5e5aab737301.1778070377.git.tze.yee.ng@altera.com>
+Subject: [PATCH 2/2] arm64: dts: socfpga: add rsu-handle to svc on QSPI SoCDK boards
+Date: Wed,  6 May 2026 05:42:21 -0700
+Message-ID: <e7c3910954bc4a15a69e80bd671b8521bb2f65c3.1778070377.git.tze.yee.ng@altera.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <cover.1778070377.git.tze.yee.ng@altera.com>
 References: <cover.1778070377.git.tze.yee.ng@altera.com>
@@ -71,123 +71,220 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB5950:EE_|MW4PR03MB6948:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb4a5c8e-5a9c-4a42-66f3-08deab6ced92
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB5950:EE_|LV4PR03MB8332:EE_
+X-MS-Office365-Filtering-Correlation-Id: f5d67f3b-d778-4ec8-9e82-08deab6ceea5
 X-MS-Exchange-AtpMessageProperties: SA
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|55112099003|56012099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|366016|1800799024|376014|56012099003|18002099003|22082099003|55112099003;
 X-Microsoft-Antispam-Message-Info:
-	19diGny5a0z8yrNTP4iYiQNwTGbp4ZVE1K8hPzCgXArAVvQrDDMZ/H+53HP9RJJvoiSWFXGO3z0cnm9yxXfEg7WMA2kAZgEP4aTfAKa3oJAXewS3EYtQ7Y4JXQp84BMf/BN/MF8htDjFFXWkYzUVi2mZg8E0szYax9pvvmuqNFn7yO26dypknFUqzQWKYTC7eir9hZQbY5LLF3tYaN/ilC0jlpts3EeuzO4DvNtkZnn5fjrmrn4BzZX9Gu7Xf59/dmPgosc/SzSd0JboYk58m1URx7j4tz2htS0BJUIlZEo2iNSHsVfrMvV6iJhPf34otEr0nCObE9OHYo+Pha6MBhAQOrwimR9iuU7BvIM709KSkuTJNlIL/Xk81RDLExBY/9L+57ShRU+Ml2qXXCNH2zBdJpYIsw7+0tuM8tJ2fVC+dvIT8vAvQ5k3yoahEIFKU4lO0k9bkbbsC6cMbY7d7IGWQj8IAQT+jp7fqtEKvflc77RYPgIba80o6v7nlsS/0Z75LYDnKMkhn4u3OzjSo9YzgEjFUYOEX2LHBDKmNteSFkb4+7azEiwCJORkl6rxp8J6gmFDFbenmLQgPucykOE9CCmN74HX119HSzDgcHv7eJIDqfvt47amKz5IO9A2mai00atVXFXpge9zQfRQoOGhNG8Wdq9Pjm8gks6ringi42rQP8TMk3Hw0oSNpWQB
+	9wbyErM4eWBZJYGcvVUM0+/G8FxIa8+rohJ2NEHKSOY5+BX8qiEb/Y4V6RuE7A4B7CQWp0AvAI0TOe5wIXFDbrlVeOou1SCqebkh8oXMDFAm+TCiUKRAF+rMjRmHPj+Mdb/Bj96S3/cNte1CuqQtpX77tsIevy9c4Qo5YtjbwJd+OiOGGRObulrRYQg0lDi3vETOdqOEfzKGIw9ssgexPOQ87LQkDJo0CaT5JsGGdpVzUxBwyWX/HaVNc1Ez0FdNueoMQybLMOefjZ4RSzfJiVfUi/zsVD3rcKcaPzofHP/S07CfAOUFiPgfMTytrsZZaD35WzJS93B7VgBUdIIXgIipoB2pS5idjx2Ya/B5ZBNYh45K7Vtec+YRqaBXXBDrDbjerPG3CxvKTWZ/BkqXqGp4lLuMRenSiCSIuJqZVk2ize3ztxBmNlr9VEg8sNEZ2bff8l14Lp6feXFQ19UJs3X0+2XwFJD9WjJ5QmsgY+GUft8N0W506Ti9ohuL9CTOQKqWtfgowrTn2Y111WDw6CiKRsNrsuLXSmrq5bP5siFKHou4VcqSMBtuKJInHL4tl37tuyI74sH5gknx4X/1Fj0uab2tT6abYnwSh1JmeZdDTZT+7qXtJcA6NIlmNT3t4+BS/dz2PFKPdHdbJrOY25yLgotiNb2af1+i2CnQK8/h3SAMwBHgZwd5ac+ZXTxF
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5950.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(55112099003)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5950.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(18002099003)(22082099003)(55112099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?liGCSMigXi9E+snHnFTofFX6IpI2E7sYK0YIPauh+p+rDkiOU2n+iXdwBTyZ?=
- =?us-ascii?Q?SRnhEHo+khxjT53MyvBivZrx/wtMjSaUaWHRoMlnCKSA1Slh2R8djpJ21NmO?=
- =?us-ascii?Q?IotaQvDy49vx5ZUmWDpKKGpWEK4zFmhXjqyvbhP906KtZd0tWniwkfvRGVov?=
- =?us-ascii?Q?WbVtJ+VyAq96yksbc9oj8gfQ2c2mtL5SmLu1DYu2Q0KlbIJXYOzn6yswXQcx?=
- =?us-ascii?Q?l9CvryyabE4dxiDBaH97cFjBYjWYBkeQMWODv5/vuKzPWB/IrR5EPh9/Hxfg?=
- =?us-ascii?Q?o8oWHYuHBcuoOUh06/H/EOktJ+Bc/X0m7D7PCpriv9qoux2HaZrYlJ7nJBvV?=
- =?us-ascii?Q?eBvG725AVI/TLzXyiYGZYayW5k41Gx/Y9yIBl/i55/bif7G5Owdr4mzWP++W?=
- =?us-ascii?Q?SJulyKX4rfm8Gyz2PLtgET7dL3tjINcV5s84Kj/bgo+m/n9DwkE7zgwLIdsA?=
- =?us-ascii?Q?qaVrrkw+C1wj+OAsaOSfKh+RTdWi9YQAR/BY8wNoZyZ6Eg4ft6oI6hFq8s1X?=
- =?us-ascii?Q?85OKSZGpKVgv0UxbIb+9B4fJjuc+9R0QgTdQmapF+I7mKbLr1YB8UhIfp2Ch?=
- =?us-ascii?Q?xPV0LC4z32cBBudSvy4yBtmuGgRr65GRvb3s4i64jGhPdtUsSR9KI1RRnxUh?=
- =?us-ascii?Q?sc5sx94oxeg84lBp4GNTeq+FcjnAIEczWYNYQNibNA5Mzwj55MVcve52L4cL?=
- =?us-ascii?Q?vXQyQyKfCbae38vjzV+9QXef3CyhXYKPnO/YiQXIJh+GAbUe4bdTXukEUrM4?=
- =?us-ascii?Q?74GqHb9dm26GKAdOH04EWM3csGmN22txqS2zAnM/RgRR7htog23n+tfRXKO0?=
- =?us-ascii?Q?0lTJVckE15vnLwB5cRq3461sgjPWN09LwyEa8EOOiLuBj/4bk60bYLaDaOcU?=
- =?us-ascii?Q?1Fl3DR2nMl27pHldkM3ZSoOkiRMs7SY7EdOt44+Ou50PxRkJ5oMiZ2XE3t48?=
- =?us-ascii?Q?TwLNcaTblGZGBFzvaZdYLA56I1pn+WPVXC8vqC9NBEkAY8k3Trpp62ANSH8K?=
- =?us-ascii?Q?UVws0OEblyoCnI59m8fky4sdVGsQj48xM43/4ET6KQ28D/53yIWkTAoeUnB3?=
- =?us-ascii?Q?lROgIsj1b7SzIhCDG5N13gQ91r7yA7qbCaPK1XO6znalVEANPcjT1hHvO0Lv?=
- =?us-ascii?Q?Bh9FEi286nuMoK9tx0Sd7vBGKHfoOSnrjedlpEpo6De/UpdmSq/YwFpadZL4?=
- =?us-ascii?Q?bo9NbQmEuxZ38Hg/MjAR4p2/kmUluaJGluO0YzVBFRZg34hrvSZHbMnQM5fI?=
- =?us-ascii?Q?2bVPlXNKicTilhdK9kGgPr9ff5HOU0oO0mPiBouhvcbeOzoR+X/0MbkRWBt5?=
- =?us-ascii?Q?QksGjCi1W+FQOd0/tzwv++6Mo/acnU3IzhqmaCgh/tzSRJQL8IMAePwOe/iX?=
- =?us-ascii?Q?iPArrSaVyzVF4wxrLe9eTzQnPqBkNBvO2WDaAgmQlmXINBO4mGHk3dOOyW93?=
- =?us-ascii?Q?Su/f1udoaJpFkc5qqgd/u15q6S8I1sNzxzAifef/84r+aybuxtncQPqFn4Wm?=
- =?us-ascii?Q?1+WF5FzJjW9Ue8DQ9XWCgBUavfjUrbEsBV/bjuStLNjdwAlXSY/A5R2zcH70?=
- =?us-ascii?Q?ddrGwDcACzpZr2pd3o+kcvjomUeZMZXDejdLhwo5MogPEyvoVc2l789nvxrm?=
- =?us-ascii?Q?s2vzPLI9wS5woFM1KzJasAkRHg55lZ/UmYkfb6BVkOoUVa0mwFRiITxSXEZR?=
- =?us-ascii?Q?sXBmh7E8yoiIBLyU157jrY8mmO3h69JmqLtuxtbuosUVPdRp/YenCRchNMFV?=
- =?us-ascii?Q?+DS8MHAflA=3D=3D?=
+	=?us-ascii?Q?1Wz7/pF2UVUnET3mS6ELJztsYIczdgacHesB1cd8xHAiuLHj0PR5rhbU7IJI?=
+ =?us-ascii?Q?Qk9H5jGoQzFzJ5ieYtHMYmltY9SKG0syAs0C9rmNavogma83AwHbSXAgKl7Y?=
+ =?us-ascii?Q?SuOEShdxMPMxcoKi7lLqJoIOecpxq3/904unenOTBogRUqB7iaxolzez98iJ?=
+ =?us-ascii?Q?WSmMfvdD3SBEiFX3SXncu71Og4lWqmG1bKeOgkf0dLDZXvM41n6zUtBPFoCC?=
+ =?us-ascii?Q?DSTqT8bBBckD1xnrvM/ZbvX2fdGE6WCgFBwiIAtKVYSLBukO7H5OJi0jZetI?=
+ =?us-ascii?Q?7eRdjQM5lGatrvy79WqejlYDvWAjyJFeuzTinUO3my9co6noqGoL1qOSRGNy?=
+ =?us-ascii?Q?Hh2DDAns261vW94jerVpGa7DETzR7JBKXWdMXczGPw9Mqr3YGcQJqJXkqQ9k?=
+ =?us-ascii?Q?NlC2sUxTdDOyfDMZrD0RzC5H9wtbtgTReWrjtfju1+M0UKQjcqCXKqlLMAN3?=
+ =?us-ascii?Q?hmQF8fsmHxTRtfijgmfXSpv9DNB5/WQQhPn9i3T2yradOcAWqEg4B0Ezqjs1?=
+ =?us-ascii?Q?4tZI7ttAFhtMGib5q0HrukZ1K520bwLWP7BStqk6cEZGC3w6n4e8wt8UAm8i?=
+ =?us-ascii?Q?U4gTRPrPsoIFVaqBoUUtO4I3yPynbdJLzeAuWsmPC1OZ6iMoIq/TNSadorEw?=
+ =?us-ascii?Q?IsF1XlWXR0iR6ZVzRh3Ip3I1Mq/Cay4t3wYI6AuSwDsc7nmWHKS7vqwCm8n9?=
+ =?us-ascii?Q?8ez5o9cG1Xb4Iyu5G/1HMNX5Kq1qIcklWebxqYJXzn79xScFr3lYl68SomMP?=
+ =?us-ascii?Q?ql4bP9T+DvAFlR5YVvJm0zIVhFXV9wI0Nd3nNGClshXqzppDJGk0rA+DcHdM?=
+ =?us-ascii?Q?eKDU/eUa3VCoZJdG+YOWi37qWWbTGhIWeWXeY230qIZFQvPnUWMWaR905Yfn?=
+ =?us-ascii?Q?UEQXb3MXvYMEy9P+uFRp26qlID+PRhNEsreVC5sL8iYaKtl05Ze2UEgHlXtD?=
+ =?us-ascii?Q?+DJDSmTov92tUfA2xgGZ9xxezJItZ/7nTySW1OkaJ7uMwtD7d2ZZm8ksCHyK?=
+ =?us-ascii?Q?bqvvakHsMNHbGWFCbQiYqnC1pj6/40xZdFAPz0U2RaLpwX2bYKU+aPZ37PNI?=
+ =?us-ascii?Q?L/L2hoK+EYfF0mXsebC9/hYzkb/8krHyfDPVDgtH2lb00wDzeOg/90a9XaEn?=
+ =?us-ascii?Q?Mi10+AlnFlXnBxXbmiVs5Gd2SKcMnOD4K3VrM1AAx55g0GIUBt8XpsQDiFyG?=
+ =?us-ascii?Q?lOfEdZZSWsimoFrqQZbLXS3RlEdf/N+8zGTi/Z/mfNfvqdgw4O0m3fdjtCk9?=
+ =?us-ascii?Q?YhaFU2UmWbBu6a2F1Aqh2ILYSlAZvYAA3zWXMjoTmOXby+ZgrjK4Id6Hrqjh?=
+ =?us-ascii?Q?q+yfyWMqYvq8Kb4hK/6i5ET99xt6DiQlZ9AHVKuaop0yPn30CqW2/EjJQ9d8?=
+ =?us-ascii?Q?jX3y5Zm6Y0ZmVi+DD8mRgHBNh1YlwhN9v3PwvHEh8BvY+OLP9dhEMlwQV0Yx?=
+ =?us-ascii?Q?QGUXsFkzdmR1iKE4sYj+aFQuTLSMz754qJ12YhveES10tIv5bWud6mba8vwG?=
+ =?us-ascii?Q?hQB1+qEllhEbI8w/dPWaulrUeO76usdRaZPEr5a/buJgb7F3sCi5TJdg+v7q?=
+ =?us-ascii?Q?n9OmzL3U+Qf1uvk2GeYq6RtuuXutR7UlNpaZPOtB+f7ciEign8Cws6vSxber?=
+ =?us-ascii?Q?eJo3i3Oi8hj6f7mUzFRhUVilo4uqOOF2/ECmMToHB1Mx+GjLjiN0iozFHDj4?=
+ =?us-ascii?Q?dsZQj7V/eaWvmjnmQBGol5LMsxE2VuLCTAeWBJSfWJ2aXNQx/c9LshBL8ewO?=
+ =?us-ascii?Q?Oz/ZIr16FA=3D=3D?=
 X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb4a5c8e-5a9c-4a42-66f3-08deab6ced92
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5d67f3b-d778-4ec8-9e82-08deab6ceea5
 X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5950.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 12:42:27.3466
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 12:42:29.6236
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pV66vKCgwfVlmd13soOi8qNm4L9AKdPuP/7APRWl8z0CdzEUJ8/137aO8OsRDDUYJdMmiMeBdymJNDNU57NTKg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR03MB6948
+X-MS-Exchange-CrossTenant-UserPrincipalName: sglzhES+Xw9yprP9ZJvQbONf2Pe/rN0Le9FhQjWTY3sTyEZIh6nONbrYc3S4MhvSyvaLOR3I2irYQ+Qcf4JWsA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV4PR03MB8332
 
 From: Tze Yee Ng <tze.yee.ng@altera.com>
 
-Add the optional rsu-handle property to the intel,stratix10-svc binding.
-It holds a phandle to the QSPI boot partition (qspi_boot) for U-Boot
-remote system update (RSU) handoff.
+Label the firmware svc node as "svc" in the Stratix 10, Agilex, and
+Agilex5 SoC base include files so board DTS can override it by phandle.
 
-Extend the example with a minimal QSPI fixed-partitions node so the
-qspi_boot label is defined where rsu-handle is used.
+Set rsu-handle = <&qspi_boot> on &svc only in board DTs that define
+the qspi_boot partition, so boards without that partition do not
+reference an undefined phandle.
 
 Signed-off-by: Tze Yee Ng <tze.yee.ng@altera.com>
 ---
- .../firmware/intel,stratix10-svc.yaml         | 25 +++++++++++++++++++
- 1 file changed, 25 insertions(+)
+ arch/arm64/boot/dts/altera/socfpga_stratix10.dtsi           | 2 +-
+ arch/arm64/boot/dts/altera/socfpga_stratix10_socdk.dts      | 4 ++++
+ arch/arm64/boot/dts/altera/socfpga_stratix10_socdk_nand.dts | 4 ++++
+ arch/arm64/boot/dts/intel/socfpga_agilex.dtsi               | 2 +-
+ arch/arm64/boot/dts/intel/socfpga_agilex3_socdk.dts         | 4 ++++
+ arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi              | 2 +-
+ arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts         | 4 ++++
+ arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_013b.dts    | 4 ++++
+ arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_modular.dts | 4 ++++
+ arch/arm64/boot/dts/intel/socfpga_agilex_socdk.dts          | 4 ++++
+ arch/arm64/boot/dts/intel/socfpga_n5x_socdk.dts             | 4 ++++
+ 11 files changed, 35 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/firmware/intel,stratix10-svc.yaml b/Documentation/devicetree/bindings/firmware/intel,stratix10-svc.yaml
-index b42cfa78b28b..5b90058f4f6b 100644
---- a/Documentation/devicetree/bindings/firmware/intel,stratix10-svc.yaml
-+++ b/Documentation/devicetree/bindings/firmware/intel,stratix10-svc.yaml
-@@ -58,6 +58,12 @@ properties:
-   iommus:
-     maxItems: 1
+diff --git a/arch/arm64/boot/dts/altera/socfpga_stratix10.dtsi b/arch/arm64/boot/dts/altera/socfpga_stratix10.dtsi
+index 0d9cad0c0351..64e9e1d8a852 100644
+--- a/arch/arm64/boot/dts/altera/socfpga_stratix10.dtsi
++++ b/arch/arm64/boot/dts/altera/socfpga_stratix10.dtsi
+@@ -70,7 +70,7 @@ l2_shared: cache {
+ 	};
  
-+  rsu-handle:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      Phandle to the QSPI boot partition node (qspi_boot), used by U-Boot
-+      during remote system update flow.
+ 	firmware {
+-		svc {
++		svc: svc {
+ 			compatible = "intel,stratix10-svc";
+ 			method = "smc";
+ 			memory-region = <&service_reserved>;
+diff --git a/arch/arm64/boot/dts/altera/socfpga_stratix10_socdk.dts b/arch/arm64/boot/dts/altera/socfpga_stratix10_socdk.dts
+index e2a1cea7f3da..f4c9f9bb26aa 100644
+--- a/arch/arm64/boot/dts/altera/socfpga_stratix10_socdk.dts
++++ b/arch/arm64/boot/dts/altera/socfpga_stratix10_socdk.dts
+@@ -134,3 +134,7 @@ root: partition@4200000 {
+ 		};
+ 	};
+ };
 +
-   fpga-mgr:
-     $ref: /schemas/fpga/intel,stratix10-soc-fpga-mgr.yaml
-     description: Optional child node for fpga manager to perform fabric configuration.
-@@ -94,11 +100,30 @@ examples:
-       };
-     };
++&svc {
++	rsu-handle = <&qspi_boot>;
++};
+diff --git a/arch/arm64/boot/dts/altera/socfpga_stratix10_socdk_nand.dts b/arch/arm64/boot/dts/altera/socfpga_stratix10_socdk_nand.dts
+index 7951ce46ae1f..1f3e4b50412d 100644
+--- a/arch/arm64/boot/dts/altera/socfpga_stratix10_socdk_nand.dts
++++ b/arch/arm64/boot/dts/altera/socfpga_stratix10_socdk_nand.dts
+@@ -184,3 +184,7 @@ qspi_rootfs: partition@3fe0000 {
+ 		};
+ 	};
+ };
++
++&svc {
++	rsu-handle = <&qspi_boot>;
++};
+diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex.dtsi b/arch/arm64/boot/dts/intel/socfpga_agilex.dtsi
+index 0dfbafde8822..6440b4c6818a 100644
+--- a/arch/arm64/boot/dts/intel/socfpga_agilex.dtsi
++++ b/arch/arm64/boot/dts/intel/socfpga_agilex.dtsi
+@@ -61,7 +61,7 @@ cpu3: cpu@3 {
+ 	};
  
-+    qspi@0 {
-+      compatible = "jedec,spi-nor";
-+      reg = <0x0 0x1000>;
-+      #address-cells = <1>;
-+      #size-cells = <1>;
+ 	firmware {
+-		svc {
++		svc: svc {
+ 			compatible = "intel,agilex-svc";
+ 			method = "smc";
+ 			memory-region = <&service_reserved>;
+diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex3_socdk.dts b/arch/arm64/boot/dts/intel/socfpga_agilex3_socdk.dts
+index 14b299f19f3a..af8b75107216 100644
+--- a/arch/arm64/boot/dts/intel/socfpga_agilex3_socdk.dts
++++ b/arch/arm64/boot/dts/intel/socfpga_agilex3_socdk.dts
+@@ -130,3 +130,7 @@ &uart0 {
+ &watchdog0 {
+ 	status = "okay";
+ };
 +
-+      partitions {
-+        compatible = "fixed-partitions";
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+
-+        qspi_boot: partition@0 {
-+          label = "u-boot";
-+          reg = <0x0 0x100000>;
-+        };
-+      };
-+    };
-+
-     firmware {
-       svc {
-         compatible = "intel,stratix10-svc";
-         method = "smc";
-         memory-region = <&service_reserved>;
-+        rsu-handle = <&qspi_boot>;
++&svc {
++	rsu-handle = <&qspi_boot>;
++};
+diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+index 02e62d954e94..d415b762f328 100644
+--- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
++++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+@@ -80,7 +80,7 @@ L3: l3-cache {
+ 	};
  
-         fpga-mgr {
-           compatible = "intel,stratix10-soc-fpga-mgr";
+ 	firmware {
+-		svc {
++		svc: svc {
+ 			compatible = "intel,agilex5-svc";
+ 			method = "smc";
+ 			memory-region = <&service_reserved>;
+diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
+index 262bb3e8e5c7..0985e70dfe44 100644
+--- a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
++++ b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
+@@ -110,3 +110,7 @@ &usb0 {
+ &watchdog0 {
+ 	status = "okay";
+ };
++
++&svc {
++	rsu-handle = <&qspi_boot>;
++};
+diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_013b.dts b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_013b.dts
+index f71e1280c778..5948f125ba0b 100644
+--- a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_013b.dts
++++ b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_013b.dts
+@@ -124,3 +124,7 @@ &uart0 {
+ &watchdog0 {
+ 	status = "okay";
+ };
++
++&svc {
++	rsu-handle = <&qspi_boot>;
++};
+diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_modular.dts b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_modular.dts
+index 1831402d8808..78be156208d9 100644
+--- a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_modular.dts
++++ b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_modular.dts
+@@ -107,3 +107,7 @@ &uart0 {
+ &watchdog0 {
+ 	status = "okay";
+ };
++
++&svc {
++	rsu-handle = <&qspi_boot>;
++};
+diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex_socdk.dts b/arch/arm64/boot/dts/intel/socfpga_agilex_socdk.dts
+index 8f8a5423ba02..d277b7073dbf 100644
+--- a/arch/arm64/boot/dts/intel/socfpga_agilex_socdk.dts
++++ b/arch/arm64/boot/dts/intel/socfpga_agilex_socdk.dts
+@@ -136,3 +136,7 @@ root: partition@4200000 {
+ 		};
+ 	};
+ };
++
++&svc {
++	rsu-handle = <&qspi_boot>;
++};
+diff --git a/arch/arm64/boot/dts/intel/socfpga_n5x_socdk.dts b/arch/arm64/boot/dts/intel/socfpga_n5x_socdk.dts
+index d7d500f50a07..ac8cf8b7257b 100644
+--- a/arch/arm64/boot/dts/intel/socfpga_n5x_socdk.dts
++++ b/arch/arm64/boot/dts/intel/socfpga_n5x_socdk.dts
+@@ -126,3 +126,7 @@ &usb0 {
+ &watchdog0 {
+ 	status = "okay";
+ };
++
++&svc {
++	rsu-handle = <&qspi_boot>;
++};
 -- 
 2.43.7
 
