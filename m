@@ -1,171 +1,225 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2110.outbound.protection.partner.outlook.cn [139.219.146.110])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52FF1495517
-	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 15:55:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778082926; cv=none; b=VAH7EBsBWb9VcuFMLNi+yCmgqiUo7GQsvSNRQ3YPteNi0lCvG1M2i0iguFu9e5POLS0NXdPYP+guxzT2zc5pRy0IqdFaCjkAZFJSFJ2+E58NuOai0ZN16zpXgBx+5uqc5IyRfvvcyvXv9VIFu5+X2L21qxb9me9WOKt4nQyI2PA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778082926; c=relaxed/simple;
-	bh=TyBKEitXSOYpOLdZrSe1cpQT0eEqwMSxLUtGZaEeL3g=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=R7kZrxTHrlnzyymy8Bsp7drsGo+vlu9CHA+1UZ+9iYi0fgnqGgEta6DZVdB7wJBmZ5hbM/pzbUmuFbIYTzWj6jL4OGWSPDzyP25PrIcxN6BgPrEu6l2ISnT0i6vp0j9+abQgt/QSTxl5qtVbifYXECWqCK8qr8wL673UWmKDGWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=CRl7JWMf; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="CRl7JWMf"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-48374014a77so78605755e9.3
-        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 08:55:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1778082918; x=1778687718; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=PMDmbK31Q/cBTRDNdYVwkrUVXvsO29GTLMWDni5jKAI=;
-        b=CRl7JWMf5XvpYEXcChLH9WYBJL+LbF9Q50n9yCHvzV+gYXG5BViA6NNxnH5MgEixrB
-         2er7PkErWayX5efXE8xTAwhd+vMcZxqxoEeGeYHYPfI3xL/gJs25dkmOAO2kB1iBrdDY
-         hnMnL9bvs5BVtH/8d9f4P1WPoE5iQZbOkaSBwvNflVa8i1kOvlgJiVNx9gLuZvlvEE2+
-         1qqQhrZSZ1JJv+mwXziKYlmfNr2kEAvFzekjEnJc6UiivnR+jhPV3xPdtwIm/YCLwchg
-         FpQTP4GHWwimZ3wRLvgCcKUg53bXaJC4NdScdiTl9DmPtD2hDPksnFQ5wQUSii0+6iwn
-         cAKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778082918; x=1778687718;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=PMDmbK31Q/cBTRDNdYVwkrUVXvsO29GTLMWDni5jKAI=;
-        b=BqUbVgIih41GA/OrqMfe4I+HtGh5c3GoNxBmazIqIsdXxv7NS7XWO/Ty7iEYl4HIZs
-         J3D34hRThcnyYPcLz6xpEAAMTBlXHO1z+1Tt1iMDtHVPWhHjrOmq4obI8uXSGChsZ7SN
-         qK0+lOUU+i7IBKtaQ26Uk83yxd2Nl3hnLhbDguugfdilNQaCQY9jKyuvPPzQbGQ4sjos
-         GKED4SNPuJNOyOCv9F2OSJY9EGh565R7NhibUobbN8CbZAKoUAXrRma0RR3v8STQnF4N
-         n4Mb8iMbXxEnrK7Jcg8Q7Azfwv2VshL0AMjDSNDkhZfKWws4vjqX5KjCfcJXA9YIFgQq
-         KgJw==
-X-Forwarded-Encrypted: i=1; AFNElJ8juEcbiMJzewTvCBbU/Ei0IEJajmocjui7A+E6zFU4DSq+tcql4MOqAd+6FvQVEeS7co7uTAFmwbNb@vger.kernel.org
-X-Gm-Message-State: AOJu0YyOGP7xu7E9RLNbFgWko8qzF6CdnUoHSQeR5Jx4h8UNoVEeTGLP
-	CNVxUWOjemWv7mjJKwcodJWvHJrKtyb6Ov4mI+wuMtJSGOqWd84prbGaziv092k1VGA=
-X-Gm-Gg: AeBDieugGhnyfPm3yaJvQgPegiaeYj5rZOmrSc2A9ElF+scX7Irku9dVr7yEmZdpvNQ
-	QJTyFnMzY3Z0D66qH4gKvS0c0Ybb5rjsC5shlDR8iz6Qip4diEQCtdjSxONeQGDF7dCA3QWtFU/
-	F1VoaPJegfk5769K/8pHsWQf6Tqr8v3uHb2sRBVi2j6MIEmLYetFCegHr5w3VE7DuxRUaLyYOSH
-	AYshgfBvnC+lOM8W7agyet6QIlBN+uAoHuc0kSBvHdrHcWaKMGbLdbFC0Th5jERCQhyFCGxstS7
-	a6VtTE1Qxw0YNs0ILnQ7ySHMfiDV29rliHAvjTyCQRuOqLY8AWnlwL2ignnUwoetdRjeSelCyI4
-	8E812oRJ/z3etkqgQD+eFjZRut/fMiOspDkU01HrT8Pj7hfAf3BEKoxUjmsL/VzLuH2Yg6TVHgP
-	uUkK8xrHsEOcpPxfEMZohLMIPoG6thCmULJ/HEPwW5Vm+lOLorcAu2uarM+oJDCroJmfAoPadTO
-	dVzrBBS8aQY50gQKQ==
-X-Received: by 2002:a05:600c:3ba8:b0:48a:7676:30bc with SMTP id 5b1f17b1804b1-48e52bd5035mr71562705e9.14.1778082916975;
-        Wed, 06 May 2026 08:55:16 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:5798:67fd:c866:b378? ([2a01:e0a:106d:1080:5798:67fd:c866:b378])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e538a547bsm62226385e9.5.2026.05.06.08.55.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 06 May 2026 08:55:16 -0700 (PDT)
-Message-ID: <27d7363e-b8bc-4e69-a9d2-abd7e12fe562@linaro.org>
-Date: Wed, 6 May 2026 17:55:14 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2966347D95B;
+	Wed,  6 May 2026 15:56:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.110
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778082998; cv=fail; b=SRgVmfGy2vBnheZ0JQugUtPB4tjM0p3O7YYY4Xp7dYdhBBiXUkjoGiB7HKe7f/9WlTpekycYHRCxQ8YouRl1YNMnU0mQ9QA7zEpEogtG425gaBf11yJ76qS2ySJ+hJ+2OHytiPA66fWR4+9Ob+kLiRIx49u3yaX0WqaCdsJT2CI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778082998; c=relaxed/simple;
+	bh=3cdirSAGaGDnorGyOgMnO90YvYT/I9F14uF2el/Zhhw=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Kn4b2xBZWI22a1dO7Yp9pMScGe842absHH8xQrUUmFP2yLrFM3ty2H01hDBeCdIoVINpJ2qTL28wGCggDB3Sw3yw4XlMTHtozJhnyK6OfNAJXkHP7nuesAVeR/monYqILRUym+xVXmxj8UnWRmIz4gnBUr4XtMk5BGWyD0qeFNY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dbrRuxJkNqtOIrnxQp60IdNwxaWzDJpKByV4UzCu9FNk5vmBYa7/Oz73BXcxB8Mp7Do2jLe/wP2bbb/XVdY5Tk4lcSJ1k/YN7gTGaz9m7GkAur0rCt1kAyklbhyiDuddLai+XJ0Z/Z37YYV//edoxghv/lxm6qxnwpHzzI7I1E28xniRs+zpZMWkVviw3VCRPTvozrEn/anW0tEfd+UWuv7afscwRQz2+CA4Y2e39/JCCxxYxZwe7NI/Vy595nVThWfSUj6DaEPxogHAYDolmLAOfZ143N6SsiQywAsFBpYgBMhJOOG/kYN1rPBEQcTLGf+igw+6RZ965y/NzKYd8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uJKEKVPIq1XRSdKOOntc9VF2F23Ieo4f1lZdwnoGwX0=;
+ b=d+6JsZsTnWI37eX55CkEyUfZU72QTwsVwbldsh1+Aeo83m+qqvbbyNn1JUND9Ps5xXXRK+gBu8hMalRUIkFCa6JQP6RfQKomBicL+PmS0+eMQ8JTyzz2hTesmFzcz5IjFacSpPTvbGRCyf6lPCAYuJZ+E4vLQY7fpWE7woFAWxiyk8bQbI7170eRxn1m9T5IF7mpQD9DU+Xt8/iSMPfE/1u3TFTFQvVDUZl6HJm5JhA8iBQl7vL6Lt4guPkQ+tAzmUMC+MSIhNTUmR4IDKJZJIWSwiMFZ3CB6rpOo63fQhHRQFwSM6fjvy86TUwOOmfXHqJsT4tQDlOyfYG6YZGuhw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1172.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:14::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Wed, 6 May
+ 2026 09:23:37 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%5])
+ with mapi id 15.20.9891.008; Wed, 6 May 2026 09:23:37 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Conor Dooley <conor@kernel.org>
+CC: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>, Paul Walmsley <pjw@kernel.org>,
+	Albert Ou <aou@eecs.berkeley.edu>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>,
+	Bartosz Golaszewski <brgl@kernel.org>, "linux-gpio@vger.kernel.org"
+	<linux-gpio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-riscv@lists.infradead.org"
+	<linux-riscv@lists.infradead.org>, Lianfeng Ouyang
+	<lianfeng.ouyang@starfivetech.com>
+Subject: Re: [PATCH v1 11/20] dt-bindings: pinctrl: Add
+ starfive,jhb100-per1-pinctrl
+Thread-Topic: [PATCH v1 11/20] dt-bindings: pinctrl: Add
+ starfive,jhb100-per1-pinctrl
+Thread-Index: AQHc09tvLatUK5oq3keSy4c9Ncpt5LXubvkAgAVF1NCAASNvgIAL9BTw
+Date: Wed, 6 May 2026 09:23:36 +0000
+Message-ID:
+ <ZQ4PR01MB1202F561A68C43547A85D1E7F23F2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+References: <20260424111330.702272-1-changhuang.liang@starfivetech.com>
+ <20260424111330.702272-12-changhuang.liang@starfivetech.com>
+ <20260424-mumps-foothill-ef122c1029c0@spud>
+ <ZQ4PR01MB120229BE0DAC2658164C066AF2372@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <20260428-hardhat-both-1c9aa594a45a@spud>
+In-Reply-To: <20260428-hardhat-both-1c9aa594a45a@spud>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1172:EE_
+x-ms-office365-filtering-correlation-id: 6475f694-eb94-495c-fc29-08deab51271b
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|7416014|1800799024|38070700021|56012099003|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ uKyLAUOB1M1rdjZ7VM216P9y7hUaP6JCFmlFKKjfxZ4zATBg9w6xBKsS5W19KVzwYxcm14cFhoPTlIJ+DgiA7CRK8SHrRZEWQyqWGgja5qeTcRfpcxRQ1pi4Jg1MR9unQbAfYm/y4gNQYMl/xMp207beYp6bKtAH0BpBRNHBn7m2u42K4bj0azHt6u8XpT4gmBo8FuKiazt9eWd1BXv259Il0afmXoOoWVXPpQIIqYS0+YPvOG2xvIpsKszFmLoHhtunP4M1B3L0Z0RtR8O2/Kp5jbdXt8K5QJoIM0Gn7iw6iBrjK2ZvzOIGuXm/koa/XvljjQLJyaHJEnVLP2ZEuW8I5ah39nJ4tKePSCxGufbCCYVvQDD4HilvylijYX2c8Ds9Tl/DZhgeHgrHPr6pHimGbEjE1AX7MWlIvJizzNso42hVH79SpOvbhJfVJWllGTGulaHsKbS5PMLmjcdRpugOJwrB6Nm6aBB8Hfml3jPGbfiiyRC0xyouZe2oyI3DXbNBKfogKu1NIzHLH4NYXJB6XTR4ekHDhcbEJujX2rDzt6DQi44l9M9iztGoXrFc
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(38070700021)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?Uy566qmnzeObFGEfVpxuK3doQQ83ff25mtBEh3d3TemKDeJ3nfwbguyTka32?=
+ =?us-ascii?Q?O0xOwISG1171zxuouK3rAbFQFsaz9ErbvfpRr+yqfpfWsGOn9lgXjMKZqu67?=
+ =?us-ascii?Q?NWIfQ08Rrz6XuU4dGwSdpXN2TjuBRO5r26oHOlzwNhl/GM3NiQ3VblX8ilOd?=
+ =?us-ascii?Q?yR3QfxnPvOE9x7C7REpXriIll4Rj8HMgq/8D7GddGlVjBlThGoz/aTCgg2+Q?=
+ =?us-ascii?Q?hMBm1imt3E1fadyJvm5hic7P33Cut8xeR3TWY0h1MMjCsPZYuAGa5yz2tx+5?=
+ =?us-ascii?Q?oP/DbJs+5GT12aG5mgBhwhhWVsV2P5SI5RPQogmKIlb3qokWFgadTs5id7e+?=
+ =?us-ascii?Q?sL+nQEedVU7ux0wsLm1nPeGMo4PTkW5+rsGhTYTTH1jNnXp257V6sX0aCR3/?=
+ =?us-ascii?Q?bHdKFtZxNXBOnOJN7yRTL2hny8AQEnFI96U/upVVu80PSaJA4TB/r0GiVwTI?=
+ =?us-ascii?Q?+J958lfHNEA4ypM0MNvgGiprWWHNJy1H0Q0v4WLJ2b5XZtz+uvMolp6vKY2f?=
+ =?us-ascii?Q?kixBACxg3v6ZIqGkynn+5uKu8xsZwlGi9PlPzW2enE5u8ZGR910YjYiiPfhx?=
+ =?us-ascii?Q?juBN5pWsjidVAl3nsd/I0kXqIfKj4AqsednlcPdkwrnrbRZkzqVggYvX/21v?=
+ =?us-ascii?Q?s75db86JFBhUgCC8oLESULbDXzlfJVc73rdNDwvVz99Ozk0g3lkjsETWbcxe?=
+ =?us-ascii?Q?Y1E5W+pWoWoRtISkuILLhYX8eLrlBtqtsZCTH83zDm0rbwqHd4H/Zb8TA73w?=
+ =?us-ascii?Q?92dpgqxPwzY3ECKsP5NsE2iDqpnUEJpx46yLflYf+W9fq6yfmVniPuRsj+74?=
+ =?us-ascii?Q?zpnok8aHJIPUMtIrJYb5ZOcGsBEqZkYtaE33K88mNuYSSJbWsXykxpCWW3vn?=
+ =?us-ascii?Q?l6LuPhnVaJWrw+I9p2EMO4uUPer60ExVL9xKv8vd8rbLpQX4uVsbHC1eeUXC?=
+ =?us-ascii?Q?Kiu6DR0W1Fm7640FophNtG7ueJN2Zgvn77JJFQRLKDB47GVmzk5mJedbpV5g?=
+ =?us-ascii?Q?X1lclNVc/DH/x2cPDgMBwDd6L1OuczzFVulBy4gW/mqkUqkYR5JMJZaKX/Av?=
+ =?us-ascii?Q?UuPp3QsxybF7SMhMhHR7lE+7xrIJ6K6SvxUNFkB2/xmJD3Z3vvf63I8Q6d6U?=
+ =?us-ascii?Q?+BV1tNGz436RXnmms+a3BRqy/7x1ZjT8Slg4cxgvh6zegvpTRV+78nWLABf5?=
+ =?us-ascii?Q?3uFBT0KmtRKMAeZwQrM7ux5ddjV4KG17mUDMBKlFfXvoiDr/R44ilufj5JRN?=
+ =?us-ascii?Q?uWYn1pcLmDkAYysoLwnlzUQkZ4ibx43hVjxEG/fZ7SejiaJ7d/nLgbwttvqf?=
+ =?us-ascii?Q?vrbhP/YRcUHxgrUG/PV7SDHDIH1jq+pP+5hQbnUXczoKWCEfiQftFXSs8Cun?=
+ =?us-ascii?Q?7R7VU87s6Ldk+7Htc3Y/7vKYfvXbyu3W8FhVNscPWGI9CXaFUGggJEH2Mq2Z?=
+ =?us-ascii?Q?ZnNkbnwbpnwWRLnXy/RHZ8diqhGSf2RMwN/KUlKxIKdJZTMFQhxZ6V0pjao1?=
+ =?us-ascii?Q?cOZvpDUTSvVK0r0dTrBKz6RJONW2yLgTwGLmumaUNB7FPtE31xPqFnon/xql?=
+ =?us-ascii?Q?q9tskyisgkIf6EmjgztfuUhrEupQEO1BU+W1UmSzKXG2BPa9IZM90xJgJPit?=
+ =?us-ascii?Q?uOABoJFPIUg0tPj3UwFSIL7Pb1H2rcxx+bdJY1SGdDJIqonASNaHx9XgUX4e?=
+ =?us-ascii?Q?YNn/Zq1lofKZI/TPoDWfaNVBovRPmwvr/A8x29RxXym9YHHUkTmrNlTgktXT?=
+ =?us-ascii?Q?stzmFJkkQEoKyJ3cw3hj9Sd8rp25wIo=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v5 4/8] thermal: amlogic: Add support for secure monitor
- calibration readout
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
- linux-kernel-dev@aliel.fr, Guillaume La Roque <glaroque@baylibre.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260424-add-thermal-t7-vim4-v5-0-9040ca36afe2@aliel.fr>
- <20260424-add-thermal-t7-vim4-v5-4-9040ca36afe2@aliel.fr>
- <f4bd99bc-00c7-47f6-a914-e398dd2c3bd5@oss.qualcomm.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <f4bd99bc-00c7-47f6-a914-e398dd2c3bd5@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6475f694-eb94-495c-fc29-08deab51271b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 May 2026 09:23:37.0018
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: FuerHwtXM5GFeawXRfQk5QhdK71janhM/c8jakeLxsim3FYPkBHmdwDiPWcEaYv3XJPhBDpncXNR8Nt95Cxmwxt37ujp4I9izhQBt2Dtgxf+mKNX85vinzufyU6Jb8E6
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1172
 
-On 5/6/26 17:45, Daniel Lezcano wrote:
-> On 4/24/26 17:45, Ronald Claveau via B4 Relay wrote:
-> 
-> [ ... ]
-> 
->> +static int amlogic_thermal_probe_sm(struct platform_device *pdev,
->> +                    struct amlogic_thermal *pdata)
->> +{
->> +    struct device *dev = &pdev->dev;
->> +    struct of_phandle_args ph_args;
->> +    int ret;
->> +
->> +    ret = of_parse_phandle_with_fixed_args(pdev->dev.of_node,
->> +                           "amlogic,secure-monitor",
->> +                           1, 0, &ph_args);
->> +    if (ret)
->> +        return ret;
->> +
->> +    if (!ph_args.np) {
->> +        dev_err(dev, "Failed to parse secure monitor phandle\n");
->> +        return -ENODEV;
->> +    }
->> +
->> +    pdata->sm_fw = meson_sm_get(ph_args.np);
->> +    of_node_put(ph_args.np);
->> +    if (!pdata->sm_fw) {
->> +        dev_err(dev, "Failed to get secure monitor firmware\n");
->> +        return -EPROBE_DEFER;
->> +    }
->> +
->> +    pdata->tsensor_id = ph_args.args[0];
->> +
->> +    return meson_sm_get_thermal_calib(pdata->sm_fw,
->> +                      &pdata->trim_info,
->> +                      pdata->tsensor_id);
-> 
-> This driver has a dependency on patch 2 and 3. Shall those being merged through the thermal tree ?
+Hi, Conor
 
-It's fine for me.
+Thanks for the review.
 
-Neil
+> On Tue, Apr 28, 2026 at 01:28:05AM +0000, Changhuang Liang wrote:
+> > > On Fri, Apr 24, 2026 at 04:13:21AM -0700, Changhuang Liang wrote:
+> > > > Add pinctrl bindings for StarFive JHB100 SoC Peripheral-1(per1)
+> > > > pinctrl controller.
+> > > >
+> > > > Signed-off-by: Changhuang Liang
+> > > > <changhuang.liang@starfivetech.com>
+> > > > +        properties:
+> > > > +          pinmux:
+> > > > +            description: |
+> > > > +              The list of GPIOs and their function select.
+> > > > +              The PINMUX macros are used to configure the
+> > > > +              function selection.
+> > >
+> > > Why is the pinmux property needed?
+> > > Can you use pins and function instead?
+> > >
+> > > Looking at the defines that you have added, it appears that lots of
+> > > defines for the same peripheral share the same numerical values,
+> > > suggesting that across peripheral, all (or most) pins would share
+> > > the same mux setting/"function select", suggesting that pins/function
+> would suffice.
+> > >
+> > > I'd like to see some justification for pinmux being the right
+> > > solution here, like the "function select" used by one peripheral
+> > > being significantly different for many of its pins.
+> >
+> > We think that implementing this in the pinmux will be relatively
+> > simple. It avoids the need to create a large number of mapping
+> > relationships in the driver, which simplifies our driver
+> > implementation. I'm not sure if you'll find this explanation acceptable=
+.
+>=20
+> I don't really see how pins + functions would require lots of "mapping
+> relationships". Instead of having
+> +/* pinctrl_sys2 pad function selection */
+> +#define FUNC_SYS2_UART_CTS				1
+> +#define FUNC_SYS2_UART_RTS				1
+> +#define FUNC_SYS2_UART_DCD				1
+> +#define FUNC_SYS2_UART_DSR				1
+> +#define FUNC_SYS2_UART_DTR				1
+> +#define FUNC_SYS2_UART_RI				1
+> +#define FUNC_SYS2_UART0_TX				1
+> +#define FUNC_SYS2_UART0_RX				1
+> +#define FUNC_SYS2_UART1_TX				1
+> +#define FUNC_SYS2_UART1_RX				1
+> +#define FUNC_SYS2_UART2_TX				1
+> +#define FUNC_SYS2_UART2_RX				1
+> +#define FUNC_SYS2_UART3_TX				1
+> +#define FUNC_SYS2_UART3_RX				1
+> +#define FUNC_SYS2_UART4_TX				1
+> +#define FUNC_SYS2_UART4_RX				1
+> +#define FUNC_SYS2_UART5_TX				1
+> +#define FUNC_SYS2_UART5_RX				1
+> +#define FUNC_SYS2_UART6_TX				1
+> +#define FUNC_SYS2_UART6_RX				1
+> +#define FUNC_SYS2_UART7_TX				1
+> +#define FUNC_SYS2_UART7_RX				1
+> +#define FUNC_SYS2_UART8_TX				1
+> +#define FUNC_SYS2_UART8_RX				1
+> +#define FUNC_SYS2_UART9_TX				1
+> +#define FUNC_SYS2_UART9_RX				1
+> +#define FUNC_SYS2_UART10_TX				1
+> +#define FUNC_SYS2_UART10_RX				1
+> +#define FUNC_SYS2_UART11_TX				1
+> +#define FUNC_SYS2_UART11_RX				1
+> +#define FUNC_SYS2_UART12_TX				1
+> +#define FUNC_SYS2_UART12_RX				1
+> +#define FUNC_SYS2_UART13_TX				1
+> +#define FUNC_SYS2_UART13_RX				1
+> +#define FUNC_SYS2_UART14_TX				1
+> +#define FUNC_SYS2_UART14_RX				1
+> you just define a function called "uart" and have a simple map of that st=
+ring to
+> the number 1. You end up with a single array with the relationships, not =
+lots.
+>=20
+> Frankly, pinmux just does not seem appropriate to me when it looks like 9=
+0%+
+> of the pin mappings for a peripheral share the same function value.
+> There appears only to be a rare number of cases where that doesn't apply,=
+ but
+> that could be handled by having them represented by a different group/pin=
+s
+> node with a different function.
 
-> 
-> 
->> +}
-> 
-> 
-> [ ... ]
-> 
+Thank you for sharing the method. We are trying to make some modifications,=
+ and the results are quite good.
 
+Best Regards,
+Changhuang
