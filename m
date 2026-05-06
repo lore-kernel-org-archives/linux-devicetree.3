@@ -1,42 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB1DE204F93;
-	Wed,  6 May 2026 01:25:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 242F54C97;
+	Wed,  6 May 2026 01:29:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778030758; cv=none; b=fwO+u49dZv/GL4Hmcnhp6UKA/yFG/42yD/qTHno+JdE6uD8o3y1YbVDeEen/a3CSQnaAy0qmOgI2JHowi/j5pApVrQhxKBhpDCyNG4Hnnxcqh0pEXBFn4ownyFVfT0sA7DVdLjHqR8GSDSwySwNiGn45WobhJUCU4QUZ2JYHOlw=
+	t=1778030983; cv=none; b=iDl+LJ5g0ROVkSMTXr5MjSYRs6MM4w8M44DrNN6S7PpTBw9psgcnrKEiSs/wmQpBoP9NOQsVGQ09Ei3F8VXM0rNa6sJQp+SO0oAFrRHSLRoUIQQaaMkHICGAGbObhfyRjoyI8kbITRraSvHZ9kWO2LNG1QvDZHs58gwfpVW30eQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778030758; c=relaxed/simple;
-	bh=7XqJAINRGOIrXlZLOK6eK3oz0SKwRLEWMQhNHaZGhu4=;
+	s=arc-20240116; t=1778030983; c=relaxed/simple;
+	bh=wP89bVMkLCeV8uSax+sj7j6o99tqYb4LbJiJy8rGNWI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X3nVnl9kRfyHiJ+lIXqVRdWqwOxqZLVJi9crv5t3VFz78nnzg5ublEweyWcFq+pYk9+e81Vr9DJLITEewAxknsI0mZYm61noEtdtvVqYUGWA2EaZOUQYxb4hyICsnn/v+pk22eKsSSQvdmchTk/pkcjHzRz0HuZrSoyYkvSYavU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uiHCivsv; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=UCFaMQ/VMv/emHHS4yq1RYFUWvZSC8RnTj39H4EORsUkxBOaQJrMxFYXKaE5JwLKsOrxw3Zt8Gl3ThD2FHRPR3CivwTqB6OrXj2NXmeY3xt+38dmze3xJjllwXMffyK5Szqpmwyfg+zVhz6UeJaGvGDraO0dJR3TyH8UaAHv5l8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TdKcHrrY; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uiHCivsv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3803FC2BCB4;
-	Wed,  6 May 2026 01:25:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TdKcHrrY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76678C2BCB4;
+	Wed,  6 May 2026 01:29:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778030758;
-	bh=7XqJAINRGOIrXlZLOK6eK3oz0SKwRLEWMQhNHaZGhu4=;
+	s=k20201202; t=1778030982;
+	bh=wP89bVMkLCeV8uSax+sj7j6o99tqYb4LbJiJy8rGNWI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uiHCivsv7jc8PG4ySgH1N4AemPKi9n46X8G+I3KCPPU4OtX5rukWQqxWGXKnMqGb6
-	 0lJQKB3oSD7AyS+Q3nhM/HrQV+Vq2E0hfkxOz14qEEa0RmtG83lsvss/DJBHBdbAqL
-	 GfYeiPn8BJumA+nVx2m2+dR0Mr7kjtnCuLEDChDw4825cjRJl7e8L1pxL/4fM2bp7E
-	 ZqZQSiQGPWgNcK/PHrQgTn5wU2A3yHJYaToQTWtpnoFQkj4p2Oy5fCkUu6FhAIFGwz
-	 4mqm5AQBJ1li/a65LCqg132ddmXW35uUVwaqZhxbdVs+X+iBwF/YuZvKMNKE0iy6zD
-	 YA5IwvC0AAmeg==
-Date: Tue, 5 May 2026 20:25:56 -0500
+	b=TdKcHrrYbi/YQ5FiZUEcsDuRtsloLjS0sYVrYW2xhn81Va7VxiDuhGimwsO7+rFJu
+	 Gj0z82hCvP0E9ld0m5c+z55pLNX2wRQQrUqaPAKAfRP7A8WaxKaFFMc/AOkojuYCkp
+	 jhON0wdJj+F5wIpvz6eOy7v2f+LdpYlSuA2yx8g0EI96Yxfh8HmWU1uI2N6hTRrQN/
+	 CSS4g82Xvl9CAAWloRdOnZzicC+dmvdjCkZWBzCpKqKV9WqonHiDToIorpyu2xQ6Bl
+	 RXmiH0Z/NpxsYF6EQwMB4bC/zPDN9SPZ8+HKgR7MVzHpw+LSeYsyTK37IZO+ZNYNJt
+	 FZ0FBdRNO7F3A==
+Date: Tue, 5 May 2026 20:29:40 -0500
 From: Rob Herring <robh@kernel.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Guenter Roeck <linux@roeck-us.net>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] dt-bindings: hwmon: Add starfive,jhb100-fan-tach
-Message-ID: <20260506012556.GB248179-robh@kernel.org>
-References: <20260428082337.743546-1-changhuang.liang@starfivetech.com>
- <20260428082337.743546-2-changhuang.liang@starfivetech.com>
+To: Billy Tsai <billy_tsai@aspeedtech.com>
+Cc: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Andrew Jeffery <andrew@aj.id.au>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
+	linux-gpio@vger.kernel.org, linux-clk@vger.kernel.org
+Subject: Re: [PATCH v8 1/3] dt-bindings: pinctrl: Add
+ aspeed,ast2700-soc0-pinctrl
+Message-ID: <20260506012940.GA258045-robh@kernel.org>
+References: <20260428-upstream_pinctrl-v8-0-eb8ef9ab0498@aspeedtech.com>
+ <20260428-upstream_pinctrl-v8-1-eb8ef9ab0498@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,100 +52,226 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260428082337.743546-2-changhuang.liang@starfivetech.com>
+In-Reply-To: <20260428-upstream_pinctrl-v8-1-eb8ef9ab0498@aspeedtech.com>
 
-On Tue, Apr 28, 2026 at 01:23:36AM -0700, Changhuang Liang wrote:
-> Add compatible "starfive,jhb100-fan-tach" for StarFive JHB100 Fan-Tach
-> controller.
+On Tue, Apr 28, 2026 at 05:49:45PM +0800, Billy Tsai wrote:
+> Add a device tree binding for the pin controller found in the
+> ASPEED AST2700 SoC0.
 > 
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> The controller manages various peripheral functions such as eMMC, USB,
+> VGA DDC, JTAG, and PCIe root complex signals.
+> 
+> Describe the AST2700 SoC0 pin controller using standard pin multiplexing
+> and configuration properties.
+> 
+> Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
 > ---
->  .../hwmon/starfive,jhb100-fan-tach.yaml       | 98 +++++++++++++++++++
->  1 file changed, 98 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-tach.yaml
+>  .../pinctrl/aspeed,ast2700-soc0-pinctrl.yaml       | 187 +++++++++++++++++++++
+>  1 file changed, 187 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-tach.yaml b/Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-tach.yaml
+> diff --git a/Documentation/devicetree/bindings/pinctrl/aspeed,ast2700-soc0-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2700-soc0-pinctrl.yaml
 > new file mode 100644
-> index 000000000000..fdc8539ec804
+> index 000000000000..ef500209d81e
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-tach.yaml
-> @@ -0,0 +1,98 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +++ b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2700-soc0-pinctrl.yaml
+> @@ -0,0 +1,187 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 > +%YAML 1.2
 > +---
-> +$id: http://devicetree.org/schemas/hwmon/starfive,jhb100-fan-tach.yaml#
+> +$id: http://devicetree.org/schemas/pinctrl/aspeed,ast2700-soc0-pinctrl.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +title: StarFive JHB100 Fan-Tach controller
+> +title: ASPEED AST2700 SoC0 Pin Controller
 > +
 > +maintainers:
-> +  - Changhuang Liang <changhuang.liang@starfivetech.com>
+> +  - Billy Tsai <billy_tsai@aspeedtech.com>
 > +
 > +description:
-> +  The StarFive Fan-Tach controller can support up to 16 fan tach input.
+
+Need '>' if you have paragraphs.
+
+> +  The AST2700 features a dual-SoC architecture with two interconnected SoCs,
+> +  each having its own System Control Unit (SCU) for independent pin control.
+> +  This pin controller manages the pin multiplexing for SoC0.
+> +
+> +  The SoC0 pin controller manages pin functions including eMMC, VGA DDC,
+> +  dual USB3/USB2 ports (A and B), JTAG, and PCIe root complex interfaces.
 > +
 > +properties:
 > +  compatible:
-> +    enum:
-> +      - starfive,jhb100-fan-tach
-> +
+> +    const: aspeed,ast2700-soc0-pinctrl
+
+blank line
+
 > +  reg:
 > +    maxItems: 1
 > +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 0
-> +
 > +patternProperties:
-> +  "^fan@[0-9]+$":
+> +  '-state$':
+> +    description: |
+> +      Pin control state.
+> +
+> +      If `function` is present, the node describes a pinmux state and must
 
-Unit-addresses are hex.
+Use regular quotes.
 
-> +    $ref: fan-common.yaml#
-> +    unevaluatedProperties: false
-> +    required:
-> +      - reg
-> +      - tach-ch
-
-You need constraints on the 'reg' values. Also, what does 'reg' 
-represent in this case?
-
+> +      specify `groups`.
+> +
+> +      For pin configuration, exactly one of `groups` or `pins` must be
+> +      specified in each state node. Group-level configuration applies to all
+> +      pins in the group. Pin-level configuration may be supplied in a
+> +      separate state node for individual pins; when both group-level and
+> +      pin-level configuration apply to the same pin, the pin-level
+> +      configuration takes precedence.
+> +
+> +    type: object
+> +    allOf:
+> +      - $ref: pinmux-node.yaml#
+> +      - $ref: pincfg-node.yaml#
+> +      - if:
+> +          required:
+> +            - function
+> +        then:
+> +          required:
+> +            - groups
+> +      - oneOf:
+> +          - required:
+> +              - groups
+> +          - required:
+> +              - pins
+> +
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      function:
+> +        enum:
+> +          - EMMC
+> +          - JTAGDDR
+> +          - JTAGM0
+> +          - JTAGPCIEA
+> +          - JTAGPCIEB
+> +          - JTAGPSP
+> +          - JTAGSSP
+> +          - JTAGTSP
+> +          - JTAGUSB3A
+> +          - JTAGUSB3B
+> +          - PCIERC0PERST
+> +          - PCIERC1PERST
+> +          - TSPRSTN
+> +          - UFSCLKI
+> +          - USB2AD0
+> +          - USB2AD1
+> +          - USB2AH
+> +          - USB2AHP
+> +          - USB2AHPD0
+> +          - USB2AXH
+> +          - USB2AXH2B
+> +          - USB2AXHD1
+> +          - USB2AXHP
+> +          - USB2AXHP2B
+> +          - USB2AXHPD1
+> +          - USB2BD0
+> +          - USB2BD1
+> +          - USB2BH
+> +          - USB2BHP
+> +          - USB2BHPD0
+> +          - USB2BXH
+> +          - USB2BXH2A
+> +          - USB2BXHD1
+> +          - USB2BXHP
+> +          - USB2BXHP2A
+> +          - USB2BXHPD1
+> +          - USB3AXH
+> +          - USB3AXH2B
+> +          - USB3AXHD
+> +          - USB3AXHP
+> +          - USB3AXHP2B
+> +          - USB3AXHPD
+> +          - USB3BXH
+> +          - USB3BXH2A
+> +          - USB3BXHD
+> +          - USB3BXHP
+> +          - USB3BXHP2A
+> +          - USB3BXHPD
+> +          - VB
+> +          - VGADDC
+> +
+> +      groups:
+> +        enum:
+> +          - EMMCCDN
+> +          - EMMCG1
+> +          - EMMCG4
+> +          - EMMCG8
+> +          - EMMCWPN
+> +          - JTAG0
+> +          - PCIERC0PERST
+> +          - PCIERC1PERST
+> +          - TSPRSTN
+> +          - UFSCLKI
+> +          - USB2A
+> +          - USB2AAP
+> +          - USB2ABP
+> +          - USB2ADAP
+> +          - USB2AH
+> +          - USB2AHAP
+> +          - USB2B
+> +          - USB2BAP
+> +          - USB2BBP
+> +          - USB2BDBP
+> +          - USB2BH
+> +          - USB2BHBP
+> +          - USB3A
+> +          - USB3AAP
+> +          - USB3ABP
+> +          - USB3B
+> +          - USB3BAP
+> +          - USB3BBP
+> +          - VB0
+> +          - VB1
+> +          - VGADDC
+> +
+> +      pins:
+> +        enum:
+> +          - AB13
+> +          - AB14
+> +          - AC13
+> +          - AC14
+> +          - AD13
+> +          - AD14
+> +          - AE13
+> +          - AE14
+> +          - AE15
+> +          - AF13
+> +          - AF14
+> +          - AF15
+> +
+> +      drive-strength:
+> +        enum: [3, 6, 8, 11, 16, 18, 20, 23, 30, 32, 33, 35, 37, 38, 39, 41]
+> +
+> +      bias-disable: true
+> +      bias-pull-up: true
+> +      bias-pull-down: true
 > +
 > +required:
 > +  - compatible
 > +  - reg
-> +  - clocks
-> +  - resets
-> +  - interrupts
+> +
+> +allOf:
+> +  - $ref: pinctrl.yaml#
 > +
 > +additionalProperties: false
 > +
 > +examples:
 > +  - |
-> +    fan-tach-controller@11be0000 {
-> +        compatible = "starfive,jhb100-fan-tach";
-> +        reg = <0x11be0000 0x400>;
-> +        interrupts = <128>;
-> +        clocks = <&per2crg 33>;
-> +        resets = <&per2crg 5>;
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        fan@0 {
-> +            reg = <0>;
-> +            tach-ch = /bits/ 8 <0x0>, <0x8>;
-
-How do you have 1 fan with 2 tach signals?
-
-Rob
+> +    pinctrl@400 {
+> +        compatible = "aspeed,ast2700-soc0-pinctrl";
+> +        reg = <0x400 0x318>;
+> +        emmc-state {
+> +            function = "EMMC";
+> +            groups = "EMMCG1";
+> +        };
+> +    };
+> 
+> -- 
+> 2.34.1
+> 
