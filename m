@@ -1,88 +1,122 @@
-Received: from mail-4325.protonmail.ch (mail-4325.protonmail.ch [185.70.43.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055A1261388
-	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 10:59:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C34426686
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 10:59:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778065186; cv=none; b=TM1pd39nI57nRNuB4TFwJIHrDEwcSt0meBmhOq7iIYrMkKFGZzNDiGGvog+Bp2txYrYTTlqAtgcEOQcnAf/ftxJJfudVH83Mmdxc9vp3DMJmRutwIOkq3EooCk+Bzccs9M7txhY99kVB45BuXmhJhGxacPZ/+34eUSj/RxzJ5Zk=
+	t=1778065187; cv=none; b=uFGmmCIWBc3A/812LK0LDJ+29uLSypff0iQ8ooZXUDnvbpXU4kTp27wcPLCkABqvgw7Hiq6ThvOUSeVbjJGaw1aI7mz++YAymioCAE/DEC2kh3T8iMX0z0MD+tEXeVXr+I/brNWCDIbwZsT8qO2/5H5zs4B0i9/FLlngdpr9LPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778065186; c=relaxed/simple;
-	bh=XXcj7T3DFPNc7g+RbOa+lN53rr7KNdcj2NlBPpaVIQY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MDJeYlNoRhifUfaePk7dGeKf6z1JrPWMyX6hj3AEhzD1GwcPjt3Uy58dgfOT97kYqYX/JYwVZTV3YA7XeEg4y0CWr8Lgxc4kw90wFcIVQVOcnnZ/spId0JPLJ2arKVKKFuJbmeAfD3hz5BQVw2h3XrXHgxglXWc2Af/hhyLuOxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=EGvbsrKR; arc=none smtp.client-ip=185.70.43.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	s=arc-20240116; t=1778065187; c=relaxed/simple;
+	bh=68tySyh4OCRbTeMjA4Q3ATFLu5St0nhIXSCwG3pciB8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sfqVxelZjEX+xwPcUKrxb32t0UposRhanFR23kNIgBsamC5SUSoof+nirNBfsjjvV6WrnjVzlGkokNuImNFvdvpVtpmcWXckxqhRdLeSD3LRvfL1PccuQ6dKSW4IyzpVGuXZutRg2LC9+pZ7qyDikHixUtP+aklEmmpTCs8LMlQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sMd0gAT1; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="EGvbsrKR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1778065173; x=1778324373;
-	bh=Vp0YaEHA+Vz07FZCGn4HZFYiAua40SZzSJgjDcDx34I=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=EGvbsrKRp1zTJyOrjN5rl3dTlWGFVpAz7bq3iUMc856yy0WajiUiNmBoE98uFZwHb
-	 ykdM8CowM5+bdvhIWDGn/bOquMNDH3qQbBNbUNYYcIHks6ZiSyKRAeUST60HSRvX5R
-	 IlMYZxq5ha+Wqiwhpy7e9xNrZ3jSD0BIdSKDvFzoG3PvI39J4aXFoIF3zq/WXKsvBH
-	 gPaae4kOBbCZUEaxc5fCn+oX6Y2+g+8dn73HAu5zkr5dedRensLsNleyTMlI9B0L+/
-	 Y1N1N1tC6rchd1GSkbGloTh1k10xUJGSBmwk1HK1A9n/iqg4Pezkz87lRXumhtE1HT
-	 H5LqCYAtGqxlQ==
-Date: Wed, 06 May 2026 10:59:29 +0000
-To: Krzysztof Kozlowski <krzk@kernel.org>
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Srinivas Kandagatla <srini@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, linux-pm@vger.kernel.org, Ben Grisdale <bengris32@protonmail.ch>
-Subject: Re: [PATCH 01/13] dt-bindings: iio: adc: add mt6323 PMIC AUXADC
-Message-ID: <evJBbJD1B9GjUyj5xyiJVUw-Ufib330tbUxxamM8-e4kJeNlwcENufbYZHdDWb0ZItz1fsEAbDaSFk0ObL4y0zenRr4vA4KOn6IHxuBP4VQ=@protonmail.com>
-In-Reply-To: <389917bb-c64c-4ac2-ab8f-b28ab0a89ecb@kernel.org>
-References: <20260504-mt6323-v1-0-799b58b355ff@protonmail.com> <20260504-mt6323-v1-1-799b58b355ff@protonmail.com> <389917bb-c64c-4ac2-ab8f-b28ab0a89ecb@kernel.org>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: c2fe990d4bbda504abf775e2c63ea9d8db350fca
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sMd0gAT1"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-488b0e1b870so97065465e9.2
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 03:59:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778065181; x=1778669981; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=V7mCE4spOzGHm/dSut48qSV7WdMjsy0PphKRPfYRcpo=;
+        b=sMd0gAT1FYcCxVNXtb8XsGV9ckUy6x97h2Lv0xJiBypiN5ziq8UjbBjLyajnZncwPC
+         VMXrCDkeQrkM9WSpx9Cl8kna/3Qdy6+p+gKSnDPakoiiQVr69sTufEgU9oFFzlnkD14t
+         1C414/SVfP/eX48S5w/hAqDsmWWrzLv/5ISmlI+M4mJ4yG2KRWUq/M0gDtG58kv3fiBK
+         TsHmur2A4BXfkVT/gtFq25HwTsbYytZcr49xrAoI77hanqQpOLhIo8gWPXATTm0Soh6/
+         XJT6RqereGEPgd/9GwjE+PY1eASpNDSq7G/F0uZwV8jjJ49gDkWR5v1leYvz1TWZmsP9
+         PZsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778065181; x=1778669981;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=V7mCE4spOzGHm/dSut48qSV7WdMjsy0PphKRPfYRcpo=;
+        b=c3BXqfC7GsceVstktRnlJQaHaDCF0CRZNm7rgK+tJ0XKazb7+77FMdIdw/dAZ4YXAG
+         KY8BjqmzncepNezmeqkRAd2BPFoO1Pi0gm0nEULYZsLzoSnlmKv62ibMZtCbtDOf6lZT
+         3L/w8hXCOeGszfQFu6PwmbMPR8/K20904lVvh+s5iSBH4GbZlG3c6+vAnluTGT7OyKzr
+         /hNP2gFKLS/o2iJsFd5eJiiN1MWNbIMW5pKsPN0ejuqHLI/ZfdIWSz2qlsZDyjdT+jNf
+         EE2F5tvjic9qZnf3VoF9J9KMJxXE6XfrapfIR8gZxLDiYBPZs6oiRQT055SAxUUijuZ4
+         GGCg==
+X-Gm-Message-State: AOJu0YzX8+615yHX0u4RHX+OA9LtPNNoRQVS7UDdXB23/DrFPDDwhNdM
+	xzd5yCvfEU2CA30ntVWui9TbdV1Gq1jqKCVow7LgejuNjzmFvugCqCBU
+X-Gm-Gg: AeBDiesh3dPxXi6Hj+0+Y7sPSkLYzLo152aO8eoBrfM+9KQkmfOw0EoOJMylfGnGec+
+	26VILD6cKgfBBQT8VF+T/CFd4m9avDnc1yDtO3lHexGBmBexLJ3VuTV/ZffD2vvpVvL2av5byyf
+	WaC30VCEePI4eRtA9h1APOgxxyObfwKf1ACcV4t9qTzNw4K+to5F4aFvvLwhR0fvnXyXvWhPpMK
+	HloozNV4TVh/7IN6b68kdQOhAXrcx8NyNy6XOLT0UIpQ6K7HXKWWtJGEZ2/TH0YaI8SxNgRYpD7
+	hI1/CBYVSt1tjFSBrIuKy+MwEVhMucNchsLPoDP158/9MudtSt1YVLlTN1iQxU/YhCtE2i9VwpC
+	nV/E1/xqp2LzA2nVRDS7mZWWywMEDXVek6S28+1wbthFW17VTQAnzLYfZbinr9VktoZ4JbfIPSg
+	v3uqHMfX47irVqAx22t0CqeK30FxV81ZDPIwTsUIgHqHkXVQ==
+X-Received: by 2002:a05:600c:c094:b0:488:b14f:b8ed with SMTP id 5b1f17b1804b1-48e51dd89ffmr38486615e9.0.1778065181007;
+        Wed, 06 May 2026 03:59:41 -0700 (PDT)
+Received: from [192.168.1.10] ([95.43.220.235])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-48e530d8691sm31468585e9.2.2026.05.06.03.59.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 06 May 2026 03:59:40 -0700 (PDT)
+Message-ID: <115479a5-3471-4f49-ac7f-48da5508ee70@gmail.com>
+Date: Wed, 6 May 2026 13:59:38 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/5] arch: arm: dts: cpcap-mapphone: Set VAUDIO
+ regulator always-on
+To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Tony Lindgren <tony@atomide.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-omap@vger.kernel.org, linux-sound@vger.kernel.org
+References: <20250122164129.807247-1-ivo.g.dimitrov.75@gmail.com>
+ <20250122164129.807247-2-ivo.g.dimitrov.75@gmail.com>
+Content-Language: en-GB
+From: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+In-Reply-To: <20250122164129.807247-2-ivo.g.dimitrov.75@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wednesday, May 6th, 2026 at 10:56 AM, Krzysztof Kozlowski <krzk@kernel.o=
-rg> wrote:
+Hi,
 
-> On 04/05/2026 20:24, Roman Vivchar via B4 Relay wrote:
-> > From: Roman Vivchar <rva333@protonmail.com>
-> >
-> > The MediaTek mt6323 PMIC includes an AUXADC used for battery voltage,
-> > temperature, and other internal measurements.
-> >
+It looks like this patch from the series may have been missed. Could you 
+please take another look and consider merging it?
 
-...
+Thanks!
 
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: mediatek,mt6323-auxadc
-> > +
-> > +  "#io-channel-cells":
-> > +    const: 1
-> > +
-> > +required:
-> > +  - compatible
-> > +  - "#io-channel-cells"
->=20
->=20
-> This is heavily incomplete node... or unnecessarily split. Why it cannot
-> be part of parent binding? Or even parent node?
->
 
-The MediaTek mt6359 AUXADC also has a very similar binding. The mt6323
-cannot be merged there because it has a different hardware.
-
-Should this go as a child for the mt6397 mfd like mediatek,mt6323-led?
-It currently references only mediatek,mt6359-auxadc.yaml, so perhaps
-the mt6359 should be merged to the mfd, and then use oneOf for the
-compatible property?
-
-Best regards,
-Roman
+On 22.01.25 г. 18:41 ч., Ivaylo Dimitrov wrote:
+> VAUDIO regulator is used by cpcap codec and currently is enabled/disabled
+> by dapm logic, however, when regulator is turned off, various cpcap
+> functions (like jack detection) do not work.
+> 
+> Configure VAUDIO regulator-allowed-modes property while at it to enable
+> low-power regulator mode being set.
+> 
+> Signed-off-by: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+> ---
+>   arch/arm/boot/dts/ti/omap/motorola-cpcap-mapphone.dtsi | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm/boot/dts/ti/omap/motorola-cpcap-mapphone.dtsi b/arch/arm/boot/dts/ti/omap/motorola-cpcap-mapphone.dtsi
+> index ea02fd403a9b..83fd58157579 100644
+> --- a/arch/arm/boot/dts/ti/omap/motorola-cpcap-mapphone.dtsi
+> +++ b/arch/arm/boot/dts/ti/omap/motorola-cpcap-mapphone.dtsi
+> @@ -267,6 +267,8 @@ vaudio: VAUDIO {
+>   		regulator-min-microvolt = <2775000>;
+>   		regulator-max-microvolt = <2775000>;
+>   		regulator-enable-ramp-delay = <1000>;
+> -		regulator-initial-mode = <0x00>; /* NORMAL */
+> +		regulator-allowed-modes = <0x00>, <0x40>; /* ON, LOW_PWR */
+> +		regulator-initial-mode = <0x00>; /* ON */
+> +		regulator-always-on;
+>   	};
+>   };
