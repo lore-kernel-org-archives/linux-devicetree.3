@@ -1,118 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ADE3242D6B;
-	Wed,  6 May 2026 01:51:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DAFF1274B28;
+	Wed,  6 May 2026 02:11:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778032275; cv=none; b=X30kmcA1Kl+XcCogtZ8WTJBcPV4O4y7OD9WWfp2FlKzy/Yh75zf6+zr2vCJdoeu2VeFz2KCi3Ehn6QSQ2INv+msS+xz6kGI7USXk6lHhf++HwMUK5F3Xvx91g9mRfiQqOlgVBkDhIzCWHlM7OB1kvuV9q8CSZ3Z68jX0++xPgQo=
+	t=1778033517; cv=none; b=CZVMpEQDkWjYQEmYC2wZ70JMUlk1/jNFXxGqOsA9+07NaeLwqOFD2MAA1eFmlTD/ILgwrcXgtD5AMurSa8nslIXfC/A+FQOJGFssJWyaDOPFc4pXgAPDsBGSxEm+szzCgJ4fH+HPfIO0gvGs1q2lOp7uRbXApmH+FF+T4O+DikE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778032275; c=relaxed/simple;
-	bh=rZGbP7UVSJQLbomugjy0SBe34Yd1bEsmhshX1oItOXo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jVHXrqpjvDVEr2BnKanJahYTTdJPpWfTHjWs0f5PeIsc3x39iRTeT0+QCpnpllxFKzjYtoQQTeiAW+syAE/AhcV65SLLOQK7td7s1/u1ne/D1esi5CHDoD29I0n5V9AXoGgPPQh08k64WaDZNcHv0YUOVLX4819//ur3mJM+w3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VKnMC9Af; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VKnMC9Af"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E996C2BCB4;
-	Wed,  6 May 2026 01:51:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778032274;
-	bh=rZGbP7UVSJQLbomugjy0SBe34Yd1bEsmhshX1oItOXo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VKnMC9Af9zyMVkAZ3683otI/LgubBaZvrCRPg4y2mubUZ8JHFwvPcQC4rztW27bOm
-	 kOm7cwUT07yU8UYQz4zLdvuVbzLSWaprXSNOZzVhfuTni8P0PxH6BM681/2D3j+/ob
-	 CjALN1Mhcgdob4ftf2pzjZp9Nh3j3IM3tQcpEi8mRqDKrm54QcW1LESyIla3EGmwip
-	 H29FY6TLiKOswKlzYRB6BS9cvZJm/2U96hMnZzDeAv/wkdgs+f2Shuf6VeUsJOdB2X
-	 0hAMQ1Je+3KqqL6lZe4Hn8OJ8OSJJzIz8HlF9vIFq8Ywqbs/TkTcDj9dNhN/KGiB90
-	 +HV47N+hmO7/Q==
-Date: Tue, 5 May 2026 20:51:12 -0500
-From: Rob Herring <robh@kernel.org>
-To: Chen Wandun <chenwandun1@gmail.com>
-Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org, akpm@linux-foundation.org,
-	bhe@redhat.com, rppt@kernel.org, pasha.tatashin@soleen.com,
-	pratyush@kernel.org, ruirui.yang@linux.dev, corbet@lwn.net,
-	skhan@linuxfoundation.org, catalin.marinas@arm.com, will@kernel.org,
-	chenhuacai@kernel.org, kernel@xen0n.name, pjw@kernel.org,
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, saravanak@kernel.org,
-	chenwandun@lixiang.com, zhaomeijing@lixiang.com, everyzhao@126.com
-Subject: Re: [PATCH 02/11] of: reserved_mem: reject reserved memory outside
- physical address range
-Message-ID: <20260506015112.GA286568-robh@kernel.org>
-References: <20260429065831.1510858-1-chenwandun@lixiang.com>
- <20260429065831.1510858-3-chenwandun@lixiang.com>
+	s=arc-20240116; t=1778033517; c=relaxed/simple;
+	bh=OyJWM5q8wlnOqWx5bMCl7ppdv5LJ0QqOaQ1SST/zF5s=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=D62sqxB8Vnf1kBkNJLx9noxpIqqAH3ixx1m8FZ2Bdr50molSokDO5GIcu0TRzxPSRlf7ssiMyb5BLtOv03CLU77CQw7IB7sUkSoyXnqRTLr99v0qMduC2P0XEPYzq1N8so5mHZkkpuWChFDLMGg6FqVUCFjsOBQPy0NpwO+W/UE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=13.75.44.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from lizhi2$eswincomputing.com ( [10.11.96.26] ) by
+ ajax-webmail-app1 (Coremail) ; Wed, 6 May 2026 10:10:57 +0800 (GMT+08:00)
+Date: Wed, 6 May 2026 10:10:57 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
+To: "Jakub Kicinski" <kuba@kernel.org>
+Cc: andrew+netdev@lunn.ch, devicetree@vger.kernel.org, davem@davemloft.net,
+	edumazet@google.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
+	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+	rmk+kernel@armlinux.org.uk, pjw@kernel.org, palmer@dabbelt.com,
+	aou@eecs.berkeley.edu, alex@ghiti.fr,
+	linux-riscv@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	maxime.chevallier@bootlin.com, ningyu@eswincomputing.com,
+	linmin@eswincomputing.com, pinkesh.vaghela@einfochips.com,
+	pritesh.patel@einfochips.com, weishangjuan@eswincomputing.com,
+	horms@kernel.org
+Subject: Re: Re: [PATCH net-next v7 2/4] net: stmmac: eic7700: enable clocks
+ before syscon access and correct RX sampling timing
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <20260430163551.7491407a@kernel.org>
+References: <20260427072353.1114-1-lizhi2@eswincomputing.com>
+ <20260427072508.1151-1-lizhi2@eswincomputing.com>
+ <20260428180625.738223cf@kernel.org>
+ <2117464.7991.19ddd2125d1.Coremail.lizhi2@eswincomputing.com>
+ <20260430163551.7491407a@kernel.org>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260429065831.1510858-3-chenwandun@lixiang.com>
+Message-ID: <38d052b7.7a70.19dfb0d782b.Coremail.lizhi2@eswincomputing.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:TAJkCgDHaXMyo_ppwzEXAA--.6613W
+X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/1tbiAQETDGn6G5we7wACs4
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-On Wed, Apr 29, 2026 at 02:58:22PM +0800, Chen Wandun wrote:
-> early_init_dt_reserve_memory() does not validate whether the region
-> falls within physical memory. If a device tree incorrectly specifies a
-> reserved memory region outside the physical address range:
-> 
->  - For the non-nomap path, memblock_reserve() blindly adds the region
->    to memblock.reserved, creating a stale entry that refers to
->    non-existent memory.
-> 
->  - For the nomap path, memblock_mark_nomap() silently fails to match
->    any region in memblock.memory, but still returns success.
-> 
-> Add a memblock_overlaps_region() check at the entry of
-> early_init_dt_reserve_memory() to reject such regions before any
-> memblock operation takes place. This also simplifies the existing nomap
-> guard: the original "overlaps && is_reserved" condition reduces to just
-> "is_reserved", since the overlap with physical memory is already
-> guaranteed by the new check.
-
-While I agree, I suspect we already have cases abusing reserved-memory 
-like this.
-
-> 
-> Signed-off-by: Chen Wandun <chenwandun@lixiang.com>
-> Tested-by: Zhao Meijing <zhaomeijing@lixiang.com>
-> ---
->  drivers/of/of_reserved_mem.c | 15 +++++++++++----
->  1 file changed, 11 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-> index 9d1b0193864c..03c676052dab 100644
-> --- a/drivers/of/of_reserved_mem.c
-> +++ b/drivers/of/of_reserved_mem.c
-> @@ -112,14 +112,21 @@ static int fdt_fixup_reserved_mem_node(unsigned long node,
->  static int __init early_init_dt_reserve_memory(phys_addr_t base,
->  					       phys_addr_t size, bool nomap)
->  {
-> +	if (!memblock_overlaps_region(&memblock.memory, base, size)) {
-> +		phys_addr_t end = base + size - 1;
-> +
-> +		pr_warn("Reserved memory region %pa..%pa is outside of physical memory\n",
-> +			&base, &end);
-> +		return -EINVAL;
-> +	}
-> +
->  	if (nomap) {
->  		/*
->  		 * If the memory is already reserved (by another region), we
-> -		 * should not allow it to be marked nomap, but don't worry
-> -		 * if the region isn't memory as it won't be mapped.
-> +		 * should not allow it to be marked nomap. The region being
-> +		 * physical memory is guaranteed by the overlap check above.
->  		 */
-> -		if (memblock_overlaps_region(&memblock.memory, base, size) &&
-> -		    memblock_is_region_reserved(base, size))
-> +		if (memblock_is_region_reserved(base, size))
->  			return -EBUSY;
->  
->  		return memblock_mark_nomap(base, size);
-> -- 
-> 2.43.0
-> 
+CgoKPiAtLS0tLeWOn+Wni+mCruS7ti0tLS0tCj4g5Y+R5Lu25Lq6OiAiSmFrdWIgS2ljaW5za2ki
+IDxrdWJhQGtlcm5lbC5vcmc+Cj4g5Y+R6YCB5pe26Ze0OjIwMjYtMDUtMDEgMDc6MzU6NTEgKOaY
+n+acn+S6lCkKPiDmlLbku7bkuro6IOadjuW/lyA8bGl6aGkyQGVzd2luY29tcHV0aW5nLmNvbT4K
+PiDmioTpgIE6IGFuZHJldytuZXRkZXZAbHVubi5jaCwgZGV2aWNldHJlZUB2Z2VyLmtlcm5lbC5v
+cmcsIGRhdmVtQGRhdmVtbG9mdC5uZXQsIGVkdW1hemV0QGdvb2dsZS5jb20sIHJvYmhAa2VybmVs
+Lm9yZywga3J6aytkdEBrZXJuZWwub3JnLCBjb25vcitkdEBrZXJuZWwub3JnLCBuZXRkZXZAdmdl
+ci5rZXJuZWwub3JnLCBwYWJlbmlAcmVkaGF0LmNvbSwgbWNvcXVlbGluLnN0bTMyQGdtYWlsLmNv
+bSwgYWxleGFuZHJlLnRvcmd1ZUBmb3NzLnN0LmNvbSwgcm1rK2tlcm5lbEBhcm1saW51eC5vcmcu
+dWssIHBqd0BrZXJuZWwub3JnLCBwYWxtZXJAZGFiYmVsdC5jb20sIGFvdUBlZWNzLmJlcmtlbGV5
+LmVkdSwgYWxleEBnaGl0aS5mciwgbGludXgtcmlzY3ZAbGlzdHMuaW5mcmFkZWFkLm9yZywgbGlu
+dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbSwgbGludXgtYXJtLWtlcm5lbEBs
+aXN0cy5pbmZyYWRlYWQub3JnLCBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnLCBtYXhpbWUu
+Y2hldmFsbGllckBib290bGluLmNvbSwgbmluZ3l1QGVzd2luY29tcHV0aW5nLmNvbSwgbGlubWlu
+QGVzd2luY29tcHV0aW5nLmNvbSwgcGlua2VzaC52YWdoZWxhQGVpbmZvY2hpcHMuY29tLCBwcml0
+ZXNoLnBhdGVsQGVpbmZvY2hpcHMuY29tLCB3ZWlzaGFuZ2p1YW5AZXN3aW5jb21wdXRpbmcuY29t
+LCBob3Jtc0BrZXJuZWwub3JnCj4g5Li76aKYOiBSZTogW1BBVENIIG5ldC1uZXh0IHY3IDIvNF0g
+bmV0OiBzdG1tYWM6IGVpYzc3MDA6IGVuYWJsZSBjbG9ja3MgYmVmb3JlIHN5c2NvbiBhY2Nlc3Mg
+YW5kIGNvcnJlY3QgUlggc2FtcGxpbmcgdGltaW5nCj4gCj4gT24gVGh1LCAzMCBBcHIgMjAyNiAx
+NDo0Mzo1MCArMDgwMCAoR01UKzA4OjAwKSDmnY7lv5cgd3JvdGU6Cj4gPiA+IFdoeSBGaXhlcz8g
+SWYgZXRoMSBuZXZlciB3b3JrZWQgdGhpcyBpcyBub3QgYSBmaXggYnV0IG5ldyBmdW5jdGlvbmFs
+aXR5Cj4gPiA+IElmIHlvdSB3YW50IHRvIG1ha2UgdGhpcyBhIGZpeCB0byBwcmV2ZW50IGluY29t
+cGF0aWJpbGl0eSAtIGN1dCBpdCBkb3duCj4gPiA+IGp1c3QgdG8gdGhlIGV0aDAgY2hhbmdlcy4K
+PiA+ID4gICAKPiA+IFRoYW5rIHlvdSBmb3IgdGhlIHN1Z2dlc3Rpb24uCj4gPiAKPiA+IFlvdSdy
+ZSByaWdodCB0aGF0IGV0aDEgbmV2ZXIgd29ya2VkIGF0IEdpZ2FiaXQgc3BlZWQsIHNvIHRoaXMg
+c2hvdWxkCj4gPiBub3QgYmUgdHJlYXRlZCBhcyBhIGZpeC4KPiA+IAo+ID4gSW4gdjgsIEkgd2ls
+bCBzcGxpdCB0aGUgY2hhbmdlcyBpbnRvIHR3byBwYXRjaGVzIHdpdGhpbiB0aGUgc2FtZSBzZXJp
+ZXM6Cj4gPiAtIFBhdGNoIDEgd2lsbCBjb250YWluIG9ubHkgdGhlIGZpeGVzIGFmZmVjdGluZyB0
+aGUgZXhpc3RpbmcgZXRoMAo+ID4gZnVuY3Rpb25hbGl0eSwgYW5kIHdpbGwga2VlcCB0aGUgRml4
+ZXMgdGFnLgo+ID4gLSBQYXRjaCAyIHdpbGwgYWRkIHRoZSBldGgxIHN1cHBvcnQgKFJYIGNsb2Nr
+IGludmVyc2lvbiB3b3JrYXJvdW5kKQo+ID4gYXMgbmV3IGZ1bmN0aW9uYWxpdHksIHdpdGhvdXQg
+YSBGaXhlcyB0YWcuCj4gPiAKPiA+IFBsZWFzZSBsZXQgbWUga25vdyBpZiB5b3Ugd291bGQgcHJl
+ZmVyIGEgZGlmZmVyZW50IHNwbGl0IG9yIG9yZGVyaW5nLgo+IAo+IElmIHlvdSB3YW50IHRvIGNv
+bnNpZGVyIHNvbWUgcGFydCBvZiB0aGlzIGNvbW1pdCBhIGZpeCBpdCBoYXMgdG8gYmUKPiBwb3N0
+ZWQgc2VwYXJhdGVseSB0byB0aGUgbmV0IHRyZWUgKHJhdGhlciB0aGFuIG5ldC1uZXh0KS4KPiBP
+bmNlIGl0J3MgbWVyZ2VkIGFuZCBtYWtlcyBpdCB3YXkgb3ZlciB0byB0aGUgbmV0LW5leHQgdHJl
+ZSAoZWFjaAo+IFRodXJzZGF5KSB5b3UgY2FuIHBvc3QgdGhlIG5ldC1uZXh0IGNobmFnZXMgZm9y
+IGV0aDEKClRoYW5rcywgdW5kZXJzdG9vZC4KCkkgd2lsbCBzcGxpdCB0aGUgY2hhbmdlcyBhY2Nv
+cmRpbmdseToKLSBTZW5kIHRoZSBldGgwIGZpeGVzIGFzIGEgbmV3IHYxIHNlcmllcyB0YXJnZXRp
+bmcgbmV0LgotIFNlbmQgdGhlIGV0aDEgZW5hYmxlbWVudCBhcyBhIG5ldyB2MSBzZXJpZXMgdGFy
+Z2V0aW5nIG5ldC1uZXh0LgoKVGhhbmtzIGZvciB0aGUgZ3VpZGFuY2UuCg==
