@@ -1,48 +1,71 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F6C44DB76;
-	Wed,  6 May 2026 14:30:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00D53472798;
+	Wed,  6 May 2026 14:32:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778077841; cv=none; b=G6Ife+EDpUYnlXs5tROcpLKITYJ/rGJP1wp7d5r39IKIBUm5snG1G1wP8HgnBcE9UigcVs33Y+Zw4UIIr1YhphG3JYX+EAham4qguQu+8u/Fsvp3iaPo95OLncdJZqJ158egV+s9goA6kU0bbsDOlXmKeWm62n5IsneshjRXBjw=
+	t=1778077965; cv=none; b=VXa6weMKqxteFxT4u8iwPlT3etHBgcjSFbiaXX/FP6Jmv+utYvNMBKOyzaBK7pZfV/l0clIq2fAMaQU0xM+0/xt/fw8gMtsUMgi+sop3RLHzRjqvqYm91yt0lwQuL3vahQ7j/9NIvEGavH5bdTHbigw2ugPPRJBFsnyrB9oAnb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778077841; c=relaxed/simple;
-	bh=XSvJ+OmVlLTqJ7h113TNTtPCVhXQ8dW2y/GYuT/4Yc0=;
+	s=arc-20240116; t=1778077965; c=relaxed/simple;
+	bh=M4Op3MU8U7qnFirwJEpwL6TP+LDf5NNBUxWnDHHh+ew=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fPMlprfz0WMeCKNLsTO8h7ywoz5MXko8YMtpfLQngcOAV2pFrfULW5E5t9H9cC4ATL54qXtfLtTFFEmxbTvK6TFbqacWaNnZ6YfLGfLhYDfGk2tdZyBVM31cJs5M6xg70oPtuAONJO/jy/IrxKHtOi3MKnOhAz6jQwJ5Ec0JYiU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=WrehR2Tj; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=qO+TGO4KochL4moZd+OlsPn7VDTnsH+Ps2cKnqdR+1OzkmiByEGF5+4Q2qqbQ6ZfY0TG4JsMlq+yKmU8iKnflNCyDmsJWl/RUe3hIAU0pKpqKk+7DGyzgXCNuC+MN5/JpIlN0osD7MZ5gK2TOO1BlXZ1WVSjI5Rx3vruetEbGB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XeMZZyp8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="WrehR2Tj"
-Received: from killaraus.ideasonboard.com (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id BFFB563D;
-	Wed,  6 May 2026 16:30:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1778077834;
-	bh=XSvJ+OmVlLTqJ7h113TNTtPCVhXQ8dW2y/GYuT/4Yc0=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XeMZZyp8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DD95C2BCC7;
+	Wed,  6 May 2026 14:32:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778077964;
+	bh=M4Op3MU8U7qnFirwJEpwL6TP+LDf5NNBUxWnDHHh+ew=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WrehR2TjrLABvwpBHdQYZ7tO33iW32DNapFqFOa+/lw7mhXsNCishbETpUzkCOuLf
-	 26z6X1VrNPFIW6G56jxVf5rtRPGNrqL6x4qQag1QjIbhq6EhJKH/oGU7AIHC6m9FQ6
-	 h4DYzE8LkU5rlC+llbnw6sykd8Y9qsY4NX/lzZsA=
-Date: Wed, 6 May 2026 17:30:36 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Robby Cai <robby.cai@nxp.com>, Frank.Li@nxp.com, martink@posteo.de,
-	rmfrfs@gmail.com, kernel@puri.sm, mchehab@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
-	martin.kepplinger@puri.sm, imx@lists.linux.dev,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: dt-bindings: nxp,imx8mq-mipi-csi2: Fix example
- endpoint label typo
-Message-ID: <20260506143036.GS1598374@killaraus.ideasonboard.com>
-References: <20260506090124.2960477-1-robby.cai@nxp.com>
- <5ad1e2df-85f3-4f9a-ab9d-b6ae34eebed3@kernel.org>
- <20260506142155.GR1598374@killaraus.ideasonboard.com>
- <73111cb1-2019-4faf-abc6-c7deea603eb1@kernel.org>
+	b=XeMZZyp8ExfOaWggSUq1pd6kDO03pFpo+gCgb8xbicGas9fdGsFXtK325XqXKS0cb
+	 TCfRe2GdYDmnGvdmJbSo1SEv0UbHebmojCXfG9pEFLDrxF2OHzWJvhA/ioc12ZUQMu
+	 s0KHBIWMjBsLHzrr5Q+SCQKSX075RA0TOC0WoGj4bMs3QjgZmi50cnEbe33lQaqnm2
+	 GU5QVVFNdOJW7qFwpJ1nTGAy2BX5C3lYp9lt/EKdzv70lagu1KDG3U2YWp/cJUH/tQ
+	 D4GUMexjSTCRQ8n1A63coMyxFXXvkekHcBAKl2LVI+m7DI1IUzpKj45SsL3I8Te8D6
+	 eznSX3yLHKyrw==
+Date: Wed, 6 May 2026 07:32:41 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: yunhui cui <cuiyunhui@bytedance.com>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Adrien Ricciardi <aricciardi@baylibre.com>,
+	Nicolas Pitre <npitre@baylibre.com>,
+	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
+	Atish Patra <atish.patra@linux.dev>,
+	Atish Kumar Patra <atishp@rivosinc.com>,
+	Vasudevan Srinivasan <vasu@rivosinc.com>,
+	Ved Shanbhogue <ved@rivosinc.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Chen Pei <cp0613@linux.alibaba.com>,
+	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+	Weiwei Li <liwei1518@gmail.com>, guo.wenjia23@zte.com.cn,
+	Gong Shuai <gong.shuai@sanechips.com.cn>,
+	Gong Shuai <gsh517@gmail.com>, liu.qingtao2@zte.com.cn,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Tony Luck <tony.luck@intel.com>, Babu Moger <babu.moger@amd.com>,
+	Peter Newman <peternewman@google.com>,
+	Fenghua Yu <fenghua.yu@intel.com>,
+	James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>,
+	Dave Martin <Dave.Martin@arm.com>, Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>, Robert Moore <robert.moore@intel.com>,
+	Sunil V L <sunilvl@ventanamicro.com>, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org, x86@kernel.org,
+	linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	Paul Walmsley <paul.walmsley@sifive.com>
+Subject: Re: [External] [PATCH RFC v3 00/11] RISC-V: QoS: add CBQRI resctrl
+ interface
+Message-ID: <aftRCQhRc585Jski@x1>
+References: <20260414-ssqosid-cbqri-rqsc-v7-0-v3-0-b3b2e7e9847a@kernel.org>
+ <CAEEQ3wn3F-Wg-Wi+d5znpcgt5pfJVuRQCPvi4W7q4an+SLrOdQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,54 +74,29 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <73111cb1-2019-4faf-abc6-c7deea603eb1@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAEEQ3wn3F-Wg-Wi+d5znpcgt5pfJVuRQCPvi4W7q4an+SLrOdQ@mail.gmail.com>
 
-On Wed, May 06, 2026 at 04:24:35PM +0200, Krzysztof Kozlowski wrote:
-> On 06/05/2026 16:21, Laurent Pinchart wrote:
-> > On Wed, May 06, 2026 at 03:33:57PM +0200, Krzysztof Kozlowski wrote:
-> >> On 06/05/2026 11:01, Robby Cai wrote:
-> >>> The example in imx8mq-mipi-csi2.yaml uses imx8mm_mipi_csi_{in,out} endpoint
-> >>> labels, which is confusing for an i.MX8MQ binding. Rename the labels to
-> >>> imx8mq_mipi_csi_{in,out} for consistency.
-> >>>
-> >>> Fixes: 37255747ecbd ("media: dt-bindings: media: document the nxp,imx8mq-mipi-csi2 receiver phy and controller")
-> >>
-> >> Nothing to fix here. Otherwise explain the bug.
-> >>
-> >>> Signed-off-by: Robby Cai <robby.cai@nxp.com>
-> >>> ---
-> >>>  .../devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml       | 4 ++--
-> >>>  1 file changed, 2 insertions(+), 2 deletions(-)
-> >>>
-> >>> diff --git a/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml b/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
-> >>> index 4fcfc4fd3565..71f79651dd96 100644
-> >>> --- a/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
-> >>> +++ b/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
-> >>> @@ -220,7 +220,7 @@ examples:
-> >>>              port@0 {
-> >>>                  reg = <0>;
-> >>>  
-> >>> -                imx8mm_mipi_csi_in: endpoint {
-> >>> +                imx8mq_mipi_csi_in: endpoint {
-> >>
-> >> Drop the labels instead - they are not used.
-> > 
-> > I think the label has value, it improves readability of the example by
-> > making the purpose of the endpoints more explicit. I won't fight for it
-> > though, I know it's hard to change your mind.
+On Tue, May 05, 2026 at 12:46:14PM +0800, yunhui cui wrote:
+> Hi Drew,
 > 
-> Then should not have imx8mq in the first place. The only information
-> coming here is that it is input endpoint. IMO it is close to obvious
-> from the opposite of "remote-endpoint = <&imx477_out>;" (if remote is
-> OUT, then this must be IN). But keeping the redundant data or actually
-> correcting wrong redundant data into correct redundant data, is still
-> undesirable. Such patterns then keep spreading to new code.
+> On Wed, Apr 15, 2026 at 9:57 AM Drew Fustini <fustini@kernel.org> wrote:
+> > Changelog
+> > ---------
+> > Changes in v3:
+> 
+> Thanks for posting the series. Once the remaining issues are
+> addressed, are you considering moving this out of RFC in the next
+> revision?
 
-Dropping the imx8mm_ prefix instead of renaming it is a good idea,
-thanks for proposing it. As for the Fixes: tag, I don't see a need to
-backport this, so I'd leave it out too.
+I do intend to post as a real non-RFC patch series eventually but the
+two main open issues are:
 
--- 
-Regards,
+  - refactor support for bandwithd reservation and bandwidth weight on
+    Reinette's proof-of-concept once that is posted.
 
-Laurent Pinchart
+  - ACPI RQSC headers added to Linux through the standard ACPICA process
+    once the RQSC spec is ratified.
+
+Thanks,
+Drew
