@@ -1,29 +1,33 @@
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF71143D518;
-	Wed,  6 May 2026 14:35:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78B583ED5CD;
+	Wed,  6 May 2026 14:38:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778078159; cv=none; b=JH7mkSU85AN33ixMiBK6KNkMq/I9QsYDZpDbas8VlQZd3fFo2UGuGKgsRjB1G/4e4yyAk/hA4PWz77nhSqlge3H6SrJAkn8fyPKB5yb6zMEWyGJuTYD+aEjQha9lUbFNGm2bC4EVnHounTxcNADHI7Apixy8MBS76vktd1uh3+M=
+	t=1778078291; cv=none; b=pPuRbGGyfaQ47GxGbFZ77+jjo9gOwFPSIJ/48kvs0meCR+aP86HLfaSECygK2ZEEO5/1/75PngPFMCo7OmamhnyEgFu+BPeOZ2rUUjrEhF7+LigUq/R/ZvEamEantIx+cQaA7g9e2u7uJ2wGLPRnGsd4ZqgbaWLXtZd5vhD7CaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778078159; c=relaxed/simple;
-	bh=Zur84kG6Cnp4wreiG5CN4FgwbW1EIdYLvjwk+4rMp9I=;
+	s=arc-20240116; t=1778078291; c=relaxed/simple;
+	bh=ckTxYuVYS5Rz3zH0pIi1LUW90v3+Olkd4kOfbm6F23M=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hWh+kVXWcOL6nEfYH8GlMmyqT6g3PusCZecvtgvYgDkf+O4HoyEPXhyFfqKQAowJoijKvO/vEj1yRx3xkksoZj49nFqi/yy+yLpY05y+97ug9HsRThpcwBpl8GEb4OWIjgeaAiOHdItNX3PD2GbWFP6FX4jwxCUG+8uU7xEaT1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.207.19.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpgz9t1778078124tfdb3498a
-X-QQ-Originating-IP: HLf/KqKvl4iUx55Y9dX5tREX5GHA3CKBaEkxPVPPjPc=
-Received: from [127.0.0.1] ( [116.234.74.217])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 06 May 2026 22:35:19 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 7518115279056366694
-Message-ID: <4C0D95BC59F1A4ED+53f3be85-2cdd-4058-8950-57970027d481@radxa.com>
-Date: Wed, 6 May 2026 22:35:18 +0800
+	 In-Reply-To:Content-Type; b=d/kepqJBUzBHXpomLfA6CyO9x1KclzsF5sqC2yQspCQAriEEo661nnv1KoJGmSVA5zJ9YKZd7sQhqB0Uhqy095owWMk3IMypf28qbkwCQHwRVtNrh+qAepIvRkQsHZ3gbDbLasyZyKksfYGPqFAaOV5hrUHEng9Sz0kFBAoUigE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fGKVYOL2; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fGKVYOL2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3CD9C2BCB0;
+	Wed,  6 May 2026 14:38:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778078290;
+	bh=ckTxYuVYS5Rz3zH0pIi1LUW90v3+Olkd4kOfbm6F23M=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=fGKVYOL2jktUhU0keJPgg7vbstw5G5EoV2Vi9772iwM1OIjJPOmBSC37RxCBi5IyD
+	 5WyEyPfgEvkRX0v1ljxS0XvlmsxjBjjwkAYFn9Lo42auROoMkIZpX5WQr465lAAHk8
+	 8I+bYyOCfOXby31r1+OvZpN54aYsCBuB7bghbwWrz1LZP8ax+70WTF9exhvO794a29
+	 kDYq/UiOKbjwxNaDUFtkNZQEKyY7p9RHqPH0gGv8yVCsvxCNCj/8+CzFCta8ExzFWP
+	 707jFuJzF0JVnLS/0CN1TTC1tNoOYh0tjqTprHXni55axwfKltzp4BFeqAehKVyg9U
+	 tHHBmID+sZ7XQ==
+Message-ID: <6f12536b-59fc-4598-b174-460a32aa275a@kernel.org>
+Date: Wed, 6 May 2026 16:38:04 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -31,107 +35,120 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 10/12] net: stmmac: tc956x: add TC956x/QPS615
- support
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Alex Elder <elder@riscstar.com>, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, maxime.chevallier@bootlin.com,
- rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org,
- brgl@kernel.org, arnd@arndb.de, gregkh@linuxfoundation.org,
- Daniel Thompson <daniel@riscstar.com>, mohd.anwar@oss.qualcomm.com,
- a0987203069@gmail.com, alexandre.torgue@foss.st.com, ast@kernel.org,
- boon.khai.ng@altera.com, chenchuangyu@xiaomi.com, chenhuacai@kernel.org,
- daniel@iogearbox.net, hawk@kernel.org, hkallweit1@gmail.com,
- inochiama@gmail.com, john.fastabend@gmail.com, julianbraha@gmail.com,
- livelycarpet87@gmail.com, matthew.gerlach@altera.com,
- mcoquelin.stm32@gmail.com, me@ziyao.cc,
- prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
- rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
- weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
- bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-11-elder@riscstar.com>
- <224E233C593EF171+8c8a43dd-5061-40f8-9eb7-f360eabf2ecc@radxa.com>
- <4015f47a-af62-441d-b1b8-a8598f963970@lunn.ch>
+Subject: Re: [PATCH] media: dt-bindings: nxp,imx8mq-mipi-csi2: Fix example
+ endpoint label typo
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Robby Cai <robby.cai@nxp.com>, Frank.Li@nxp.com, martink@posteo.de,
+ rmfrfs@gmail.com, kernel@puri.sm, mchehab@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, s.hauer@pengutronix.de,
+ kernel@pengutronix.de, festevam@gmail.com, martin.kepplinger@puri.sm,
+ imx@lists.linux.dev, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260506090124.2960477-1-robby.cai@nxp.com>
+ <5ad1e2df-85f3-4f9a-ab9d-b6ae34eebed3@kernel.org>
+ <20260506142155.GR1598374@killaraus.ideasonboard.com>
+ <73111cb1-2019-4faf-abc6-c7deea603eb1@kernel.org>
+ <20260506143036.GS1598374@killaraus.ideasonboard.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Xilin Wu <sophon@radxa.com>
-In-Reply-To: <4015f47a-af62-441d-b1b8-a8598f963970@lunn.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260506143036.GS1598374@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: OfvHCbuEslM3Ck5szwuuQAkL7b1wZdWKW5s8yTwsBXMt0g7JWSmtLq5z
-	GeqGX+SvAzYkXuUOHu0oZS1KcuPOB7YBUdOFze6JBifAKzTWQiSYoOFU8mP12whoplFDt5R
-	0vrN3lnq1jUm9vvtu78UuasMewHcoRlx/XVkUfpbM6Rpuwc9p0ZEb1S9o1wIoD4coV4wm4X
-	qoWyyx9iFZ4L6VwVQTOmk6aF1py0JsFAiDCJRkvby+pvEWLB+cHnAbcNK87AKUcvmMfO5XR
-	8wqVOOG57Oc3EboSM6cIjXGlKeaEGVGrzL9nKILgRvvp+HFkIsgmYHftsqrWbua3ZfharTU
-	sFHYbNPuzEYd/YPYwQgP6lLL5Fv4jJOgbp69v7lqp/QOhFgBHF1O0t4+CgIVMlmVPXH3rP7
-	HSf4PL5Vu6oASDITs91M1rTnDrlf/iBvE1t73lBwR78h6gfKV2WIemvvb8ag5KgX2o7S3cH
-	Rn4jFLVJImGVSv2o8ry0grQlS2JLeIV+qZRMOl8FrxFIyP+kPuxz69UvJDBKZJyni1piSaQ
-	Up21qbkJjGqxW/ShWB3OOl7ezSX/y4ca10qw0vr3DB8zHhJkcXoGERyAzKp8tUaN7dShEuQ
-	LyX1BOwyIcAj9VwTf/XQ8WYEsWg+/INTigOOVsmmIldH92kr4ZUlKmZF3A++16LWX8LkCmF
-	1fVf+m+CXvR/Hj2Q7fuaVJgjnxBPYqrXd1Vk04rFe4oPvNIGut7/P7ksDs7dQRL55rUdjg3
-	WHtsSvHSBA/RmyseO2kpPgkisxGcYTklXDM4hP7R2XvapIdgRqA4ujjZ1T2HFWHnXwg/LtG
-	lm3TtAsAHV14yezknyUT8nl+KBhjiJZ92JRUyUyXhZMiY9d7rudY2wr3RZx9SiKh9CYstFF
-	8MvJTinKwRpw4NdmF16h1kgvc+FJxeN1j9TA7pF2MhvpaUlEWZc54M5OE6iIg/F9GNsYQze
-	N5CzIBeWkys2UFo8YOUDNHCn0S62D1uw9Vq23fce78sGFIB0huepiu4RCUO0XObQa3vt6Y7
-	IpRES9DP2aXTxbEYqqTLAxnVWZo/KZEV4QWT7ikpMl/HoOpdIs7xjrUg41rUsvkJmAUkouP
-	Y0klfgQdeZ5hs3vrHwsWLw=
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
 
-On 5/6/2026 10:19 PM, Andrew Lunn wrote:
-> On Wed, May 06, 2026 at 08:59:01PM +0800, Xilin Wu wrote:
->> On 5/1/2026 11:54 PM, Alex Elder wrote:
->>> +	/* AXI Configuration */
->>> +	axi = &td->axi;
->>> +	axi->axi_lpi_en = 1;
->>> +	axi->axi_wr_osr_lmt = 31;
->>> +	axi->axi_rd_osr_lmt = 31;
->>> +	/* All sizes (2^2..2^8) are supported */
->>> +	axi->axi_blen_regval = DMA_AXI_BLEN_MASK;
->>> +	plat->axi = axi;
->>> +
->>> +	plat->mac_port_sel_speed = speed;
->>> +	plat->flags = STMMAC_FLAG_MULTI_MSI_EN | STMMAC_FLAG_TSO_EN;
+On 06/05/2026 16:30, Laurent Pinchart wrote:
+> On Wed, May 06, 2026 at 04:24:35PM +0200, Krzysztof Kozlowski wrote:
+>> On 06/05/2026 16:21, Laurent Pinchart wrote:
+>>> On Wed, May 06, 2026 at 03:33:57PM +0200, Krzysztof Kozlowski wrote:
+>>>> On 06/05/2026 11:01, Robby Cai wrote:
+>>>>> The example in imx8mq-mipi-csi2.yaml uses imx8mm_mipi_csi_{in,out} endpoint
+>>>>> labels, which is confusing for an i.MX8MQ binding. Rename the labels to
+>>>>> imx8mq_mipi_csi_{in,out} for consistency.
+>>>>>
+>>>>> Fixes: 37255747ecbd ("media: dt-bindings: media: document the nxp,imx8mq-mipi-csi2 receiver phy and controller")
+>>>>
+>>>> Nothing to fix here. Otherwise explain the bug.
+>>>>
+>>>>> Signed-off-by: Robby Cai <robby.cai@nxp.com>
+>>>>> ---
+>>>>>  .../devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml       | 4 ++--
+>>>>>  1 file changed, 2 insertions(+), 2 deletions(-)
+>>>>>
+>>>>> diff --git a/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml b/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
+>>>>> index 4fcfc4fd3565..71f79651dd96 100644
+>>>>> --- a/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
+>>>>> +++ b/Documentation/devicetree/bindings/media/nxp,imx8mq-mipi-csi2.yaml
+>>>>> @@ -220,7 +220,7 @@ examples:
+>>>>>              port@0 {
+>>>>>                  reg = <0>;
+>>>>>  
+>>>>> -                imx8mm_mipi_csi_in: endpoint {
+>>>>> +                imx8mq_mipi_csi_in: endpoint {
+>>>>
+>>>> Drop the labels instead - they are not used.
+>>>
+>>> I think the label has value, it improves readability of the example by
+>>> making the purpose of the endpoints more explicit. I won't fight for it
+>>> though, I know it's hard to change your mind.
 >>
->> I got WoL working only after adding STMMAC_FLAG_USE_PHY_WOL here. I guess
->> it's required, since the driver clocks down the MAC/PMA/XPCS in its suspend
->> hook?
+>> Then should not have imx8mq in the first place. The only information
+>> coming here is that it is input endpoint. IMO it is close to obvious
+>> from the opposite of "remote-endpoint = <&imx477_out>;" (if remote is
+>> OUT, then this must be IN). But keeping the redundant data or actually
+>> correcting wrong redundant data into correct redundant data, is still
+>> undesirable. Such patterns then keep spreading to new code.
 > 
-> Nice to see somebody testing WoL.
-> 
-> In your testing, is it the PHY doing the WoL, or the MAC? I assume
-> PHY.
-> 
-> If i remember the DT correctly, the PHY interrupt is connected to a
-> SoC GPIO, not a GPIO of this chip. So for your board, it is the SoCs
-> GPIO controllers ability to perform the wake which is
-> important. However, where the PHY interrupt is connected is a board
-> design issue. Could the PHY interrupt be connected to the chip? Would
-> the chip be able to wake the system? Should STMMAC_FLAG_USE_PHY_WOL be
-> conditional?
-> 
-> 	Andrew
-> 
+> Dropping the imx8mm_ prefix instead of renaming it is a good idea,
+> thanks for proposing it. As for the Fixes: tag, I don't see a need to
+> backport this, so I'd leave it out too.
 
-Hi Andrew,
+Fixes is not only for backporting but indicating that there was a bug,
+being fixed here. For example for stats. There was no bug, because DTS
+example absolutely does not matter - it's example code - therefore
+redundant incorrect information in label matters even less.
 
-Yes, the PHY is doing the WoL. And I guess this makes sense as it allows 
-the MAC to power down during suspend to save power.
-
-The INTN pin of QCA8081 is connected to the ETH_0_INT_N of QPS615. And 
-the INTN_WOL pin is connected to a SoC GPIO.
-
-Without this change, I can't get WoL to work. I have a working branch 
-for our board here:
-https://github.com/strongtz/linux-radxa-qcom/commits/v7.0.2-8280-wip/
-
--- 
 Best regards,
-Xilin Wu <sophon@radxa.com>
+Krzysztof
