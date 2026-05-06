@@ -1,45 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA7A819F12D;
-	Wed,  6 May 2026 01:18:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 547A41E531;
+	Wed,  6 May 2026 01:19:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778030327; cv=none; b=TyW7wWukkL7j5zgI7MTDQ7eWF4AN4HByXvFKO647pkBtwluFa4g9igCIwCz8BXy1yx96hAFiJYdHQKtW4YPhYeHpknBUi4RLNejC5gQJTTF2+4YUV3GH1Bz66mUkbdKBeIK+f8ES+PJ6A/lDUK+ramriD156Qsw3anNqnLHVwhM=
+	t=1778030396; cv=none; b=R0yv6QtFvBml31W/GrrOJb4qzv9FdpabViSIbjqGCIExk3aHLnjIkdu/mKNHcJXh96tI7g6Q2NI9X9G7v/iGZ/Aqc8WOJBksu5g54O96S7BfB/h8vDOWWzInA4Y2jq+aKhanPnRpMeyJ4diu3Bht97xz9v0DC05D5gmGRY9GEsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778030327; c=relaxed/simple;
-	bh=zgeJAnXNcY7y2JF2NY2BE8l67m6YmL70NojhHZykk7k=;
+	s=arc-20240116; t=1778030396; c=relaxed/simple;
+	bh=Lo2J3ckp1HHEUc7MJLC2C5rpL8Id65rwctqCEandc1I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ntJV/LKOwtazhsR5qxCGWfN4y6IpCTR8RrpzQi4kf+9+t3qbAuFpfoD1Ul6CqvfVGAKis5ft0yCmkZASkYQErc7+pyce1vCgoW/dRoBotNkaxaJzIxS06Q5A0798eEX8aZ3bVGqK4l7L69yoOfA7hIILKsfTV/+WmqTY1Wg1n10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rj7cQ7VJ; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mofvg0kYiX9o/v9oiHs9RogteoRKHIaB2kH0xZOOLhXPvqFqpIAu4eQWM5ZW49LjjAqJBTLg7YwtjlLLhRkJ1WGJFAE8vaITgUKVyDvn+Eo2zsE/tEYNM9azat2eBB+1i2MzT1yAHzRWxLozavleBJMs/VZU8bOcW3daead8x3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=awwUcUyW; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rj7cQ7VJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C44FEC2BCB4;
-	Wed,  6 May 2026 01:18:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="awwUcUyW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B88F7C2BCB4;
+	Wed,  6 May 2026 01:19:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778030327;
-	bh=zgeJAnXNcY7y2JF2NY2BE8l67m6YmL70NojhHZykk7k=;
+	s=k20201202; t=1778030396;
+	bh=Lo2J3ckp1HHEUc7MJLC2C5rpL8Id65rwctqCEandc1I=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=rj7cQ7VJwzEwPOVgotIdCEKXLOHNSbw5VxaTotI0RGgRWPdCGV5I7gDBK/ut3cAjh
-	 K2C7dT6ZG2tGlmKlW+smI6CjKFt8xEB3I/FPqv2UJJsQMHbLgJtSfsAO4SEaBCfNY4
-	 aoKGmHg2pfhZaQeluNFBBfDi0eV+lgDk8+1cBJ/ifNHK3WPWHDt54f5WAKwdnwMW8L
-	 pM6Fd+Z7HLGJf465gRVItBt3AXoMU/oUmXzjk6EqFXtGY0AOziGrxBd/JGlISN2U6A
-	 eQgPfpc7CkRLOY/XMCn+oNSwcINsSr6HrL7leGpcskAAbWH9HEFRceIDQ5Oh7u50SB
-	 nGNi2ChBIO9cA==
-Date: Tue, 5 May 2026 20:18:44 -0500
+	b=awwUcUyW/UELBpZuRTUrQscWsE2Cg7oiPFXIPoGfTnZHPzN5o8ryEGm0dmTrCRabV
+	 MdPZcjNr8hXmvRmV8j0E4W4f8jHTcbov/b3Ec76PyDbeQi03r18aIXaC71qzUGDpgM
+	 uOfAm1GqEZeIhRXD2xbFwzKrvOU5dyDeyfuoqV/Bfxcyptrc77qE9PatjUr79oomlR
+	 gEmiJ2AKU9AhDKD2gYHiNYvnD4Qdms9SqMltUj5CS675xbiZejsTTtf2O3/4xHOWG7
+	 yTxC2x9LFi+q+iS5g4zsp1SdYwJfApuuGEvZCAGJw6kGuxzVZWVM6J59rp5tVwOurN
+	 fl5U9cFeeUQFQ==
+Date: Tue, 5 May 2026 20:19:25 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-	devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>
-Subject: Re: [PATCH 2/2] dt-bindings: remoteproc: qcom,sm8550-pas: Add Hawi
- CDSP compatible
-Message-ID: <177803032404.244514.14184900670312262489.robh@kernel.org>
-References: <20260427190614.3679937-1-mukesh.ojha@oss.qualcomm.com>
- <20260427190614.3679937-2-mukesh.ojha@oss.qualcomm.com>
+To: Ronak Raheja <ronak.raheja@oss.qualcomm.com>
+Cc: linux-usb@vger.kernel.org, dmitry.baryshkov@oss.qualcomm.com,
+	abel.vesa@oss.qualcomm.com, krzysztof.kozlowski@oss.qualcomm.com,
+	linux-kernel@vger.kernel.org, vkoul@kernel.org,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	gregkh@linuxfoundation.org, conor+dt@kernel.org,
+	konrad.dybcio@oss.qualcomm.com, wesley.cheng@oss.qualcomm.com,
+	linux-arm-msm@vger.kernel.org, krzk+dt@kernel.org,
+	neil.armstrong@linaro.org
+Subject: Re: [PATCH 1/4] dt-bindings: phy: qcom,sc8280xp-qmp-usb43dp-phy: Add
+ Hawi QMP PHY
+Message-ID: <177803036501.245983.2853371804362184732.robh@kernel.org>
+References: <20260427214217.2735240-1-ronak.raheja@oss.qualcomm.com>
+ <20260427214217.2735240-2-ronak.raheja@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,19 +50,19 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260427190614.3679937-2-mukesh.ojha@oss.qualcomm.com>
+In-Reply-To: <20260427214217.2735240-2-ronak.raheja@oss.qualcomm.com>
 
 
-On Tue, 28 Apr 2026 00:36:14 +0530, Mukesh Ojha wrote:
-> Document compatible string for the CDSP Peripheral Authentication
-> Service on the Hawi SoC, which is compatible with the Qualcomm SM8550
-> SoC except for the one additional interrupt ("shutdown-ack") and
-> similar to the Qualcomm Kaanapali SoC, "global_sync_mem" is not
-> managed by the kernel so it remains unlisted.
+On Mon, 27 Apr 2026 14:42:14 -0700, Ronak Raheja wrote:
+> Document the Hawi compatible string for the QMP combo PHY.
 > 
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> Hawi uses a new QSERDES V10 register layout with a new COM AON module
+> and hardware-specific PHY init sequences compared to previous targets,
+> requiring a dedicated compatible string.
+> 
+> Signed-off-by: Ronak Raheja <ronak.raheja@oss.qualcomm.com>
 > ---
->  .../devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml         | 2 ++
+>  .../devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml  | 2 ++
 >  1 file changed, 2 insertions(+)
 > 
 
