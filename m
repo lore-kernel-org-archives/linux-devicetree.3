@@ -1,118 +1,115 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3AF73ED10A
-	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 15:58:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 754B144D682;
+	Wed,  6 May 2026 16:01:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778083111; cv=none; b=LsmaiRuRaOzM9A1wSYiF064btAK+dUwwamrvZeXvj+tQSyH0A1HLBdYz+5jD8wGZCWcn//Y4i6TBeHUvTs4G7gOBDxDFNhlCYf0NTux5X8m7pUjoWRVQ8ecIbGLGag2/kpYfA2d39nloyLN/EICL/oTvTstxTJs6H7925kWiQxM=
+	t=1778083295; cv=none; b=iyd4xx3gXYcY2s7ep8qYJfwnaEVpkAKWdJxCYHuTeeOuX6rIXj22hb0OD96aW+Y/Fe4jxLAd9Z/kog8t17/yOHFlpMpLjB/YxhNWzdpU6P+Loew3yT8wHxv2lebBEGOjv6w5zwzX44sizJ4OAC/usMLd4mvkLYq8RIFKsul+Sbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778083111; c=relaxed/simple;
-	bh=wyMxM6YQD+S8i1bLWoADdlaRZYIbQTZSquyAK63yc3Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=X8VIFowXkV3zoImRIxWjtRD3FrlPW/styjoogSTlaul8iyiqi+Jm2S9e+8En05c5/tXIZ22kcpKAnehq16xv28JXm0Hk1wVSpmcOAITX5/hjQxeaRCOJCxPAnobDeNb/8pPd2BZ6/3X6KRkNEfpAGcRwGYAAnuqp0zFpB9M7lnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OB3k4Y1S; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OB3k4Y1S"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-43fe3e22e33so3891138f8f.0
-        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 08:58:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778083104; x=1778687904; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SLxt3NAzP2ZNWQv4kMfhbYlGVoizEwbznGwwg4XaRZ4=;
-        b=OB3k4Y1SXtVJPqjW7sco4WOXMAPVO5G0OrNZ7g5lfYRmPAeTQuNPQtqMwH/2qqluLR
-         tAac7KtQ0zMhbXlpC/bv6RJICAGPsVQrucIPBgvKvvnxELq0T4skI+pgReaIKIwhd0dC
-         sttYPKEfy8hU0TnzU237KqfY0ttXFeMx8NZLsJfMjp2NUImUr+W38tV7vpGLRwLssVT0
-         V9FShe0XexK/J51mTtca+OF3ZU663Z2ENZJKNn26C8VrDUtPUEY4rfNRl/ZHKM3ToEen
-         10vRQHOTT5n/6YBcsIUDQ9k7gzU08Vi+gBHhTfnEjFVQJjLAZfux7yL1KlI6Isd2YiaN
-         Ab5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778083104; x=1778687904;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=SLxt3NAzP2ZNWQv4kMfhbYlGVoizEwbznGwwg4XaRZ4=;
-        b=HtxeIiGe9Ols/3ozpEa1DX2NR1vZMKfDnR8J+Pvi7qiu/c8kHDjEsTIZhG7c4LS6Gu
-         4hX6LTeVK0x/Mf/p91gPY76Jps60Ns3ZHla9+wsfVFoTpGTpQs2fHV9OOhlg2BOjpqbO
-         VZOjvI2hEbcCkva+lULxdC8y36dDea+A3gqrErUlvZVuTIpm9mlAYwjbyjd6SOGqSYrb
-         nobsznEv5405V0oNaREcSPeCugeLnCNSK6t6lsT2RlphESBI992zLxO1adA3T4fVyS8k
-         /8g0GP6D2b7RakF6grI9mcgfAw88yRW03u/jhPA5KjYTeYBlnbEAE6xX2It8BObmK8Il
-         1CiQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8bbAHKW4bKuK6HTR12Tx/2qJvOOi+93FAEZch052lzf7NGqUOF/8sStjtB6LXsOrfGkpSuBUCxkUBR@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw24GB+Z9dYNAyfuUO+FSWYSqdxZ6McG8ZZzuST/L2QOq4BpGcE
-	qwJ2WiRx4k7kdpl58j7L58y6oiGjLHNzkbo0e9n2APxanizz223pakIA
-X-Gm-Gg: AeBDievsqp6IRCsGsFoly+IQQ8lc4YJtVRZ8UpfjOBnYdH3jkiH7ufTKbepjTA20uWM
-	qaJBFnOQx1Z/8NdqT9RuRb+XIVS5bNhVlOpKUer3gkdSAD5sWbXTEzGlrIl+85Lk+QgamE3o+rk
-	JyTy13P5aCuAy4b1unEc5lAHxEA5qCeB8m4+69CbvfbwONYIL2JPZ1xe9l4HcxmrEzO+sdaHu+6
-	23zRDAs7M14Kuvj87HcrkQ4n2KdvDG6/67sIo1VXZ/n3U34qSPq1vs/fVRZh4P+Hgdd68qQaGTR
-	YwrCiux1lZX2/YgFTpqZ2vrjJGWLdqlP8d3c6sOcrhHu/IGs1e+QX9C+gCLUo2qw+fCPwkVQn/M
-	jhy6uInatveU+Sval3hmMWF1Biz+bsRt38Y3ZZJFz4+O5kWQ0AinfOhQCDruvS8TphfiFYS/C8M
-	YkKvseYmDwcmn6ttH1koUM9kvgQxPJJdBPbQeU2+j8MsSu94P7RHM/xKkAfXeJu7X+hIlKKbK9o
-	K/IJmrPe47gbzO8Pob+1p5KlE5k+G/jXjHmPX8LpUKja7bCpD4JfgIlFQ==
-X-Received: by 2002:a05:600c:6dcc:b0:48a:5301:bb5c with SMTP id 5b1f17b1804b1-48e51f2f786mr40594565e9.16.1778083104255;
-        Wed, 06 May 2026 08:58:24 -0700 (PDT)
-Received: from iku.example.org ([2a06:5906:61b:2d00:3dcb:40a8:a5b9:2327])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e530b2039sm21345205e9.5.2026.05.06.08.58.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 06 May 2026 08:58:23 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH 2/2] arm64: dts: renesas: r9a09g056n48-rzv2n-evk: Add alias for on-SoC RTC
-Date: Wed,  6 May 2026 16:58:04 +0100
-Message-ID: <20260506155804.3984418-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260506155804.3984418-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260506155804.3984418-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	s=arc-20240116; t=1778083295; c=relaxed/simple;
+	bh=Pdxjh+MVY+S12i6fbEKZTJUUsYrxu+Bd2Br0RkMq47U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=l0Msx8eXSDrBN4AJmq8L71P/Wl0Jxk+NOas0yt+5+4dJsCKFuMNEHgL9gql0wwHdUkAbnVY/baUJtJCCNkW6oGTOQF12jEfMw+4QNby9k3C8SPeg6cZcTNp6pT4T/5AVQ21bbU1tDNTO1ti5sFRVB4IyibzACc/NRORdk2dJEUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.92.39.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: esmtpgz16t1778083257t46dc08ae
+X-QQ-Originating-IP: G9YZKnrl1p0wXA0Vy0+oySRdc1VRx/a+D0I73RMqFHw=
+Received: from [127.0.0.1] ( [116.234.74.217])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 07 May 2026 00:00:52 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 8386846045021828038
+Message-ID: <EE8A30342A260FB4+57795644-675f-45b1-995d-48de28b14a34@radxa.com>
+Date: Thu, 7 May 2026 00:00:50 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 10/12] net: stmmac: tc956x: add TC956x/QPS615
+ support
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Daniel Thompson <daniel@riscstar.com>, Alex Elder <elder@riscstar.com>,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
+ rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org,
+ brgl@kernel.org, arnd@arndb.de, gregkh@linuxfoundation.org,
+ mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
+ alexandre.torgue@foss.st.com, ast@kernel.org, boon.khai.ng@altera.com,
+ chenchuangyu@xiaomi.com, chenhuacai@kernel.org, daniel@iogearbox.net,
+ hawk@kernel.org, hkallweit1@gmail.com, inochiama@gmail.com,
+ john.fastabend@gmail.com, julianbraha@gmail.com, livelycarpet87@gmail.com,
+ matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
+ rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
+ weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260501155421.3329862-1-elder@riscstar.com>
+ <20260501155421.3329862-11-elder@riscstar.com>
+ <224E233C593EF171+8c8a43dd-5061-40f8-9eb7-f360eabf2ecc@radxa.com>
+ <4015f47a-af62-441d-b1b8-a8598f963970@lunn.ch>
+ <4C0D95BC59F1A4ED+53f3be85-2cdd-4058-8950-57970027d481@radxa.com>
+ <aftgorkah-Hjrvq2@aspen.lan>
+ <549BE66F62F1470F+a489d4fd-10ab-484c-9b55-6aecfd05d383@radxa.com>
+ <a8b5d96b-3c8f-4ec5-b205-bbacafbf47aa@lunn.ch>
+Content-Language: en-US
+From: Xilin Wu <sophon@radxa.com>
+In-Reply-To: <a8b5d96b-3c8f-4ec5-b205-bbacafbf47aa@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: NYlggeZuI0UG5ceJbvnRxJWvN8cJfwrOSkmij5dH1qZMj0vYN4/mkdbk
+	Iqo46RtHaNQup3gfYG3N/fW/GEqEdBaJmBUv9f28xfLpysM4DWtxo2wV53MmIqhnJzgXnU7
+	PGk55JDkJ9LxlDwX60+kcTO+iv7TOZmstjBKNdHnsdhc4R6jXEREuX1eeGdUMMGGe4rYWmx
+	fO5TDyTaxdYIbcbpERvOCA3xuy0x43jM3inNC0C7ppGhILRI7dZP72q2fcj6Gr+rO7psQwx
+	/O5XIXQwHB0LG7VYHvCj8KSMiHXtzJY0eyR7qritmMcnuvSxhO0ERIznKVJ0g+m3tGrLf3A
+	EFdq5tVI/AIkjE3m6xSZUu3GoCzZZlrl1HYG8mrcvJy2OzlBkN/GeAkyJeR1R5D293NvVSz
+	mHb27v3iEEYS4MAnV3gy2xxCdV7ynPPUFiP+54/TVqAlJHDI8FK1c93Al4WBPNpdIl2dQ+o
+	2OPAYrIrSs9Jhmv65nhGHajAO85nccy+kdmBMjkw3Wh6v5U1mg1gnFvnX1Bo99kcT9WPHia
+	rylWDq4At4A0+xRk/uK/4QKlnipmo0151IlTv0ZSLEeTZRsvC2cgxinq6DdzjzfKrYaSLJb
+	0OtRlbAtYA0EkypuOkC+b3FquIdJwLGZ3hH2fC8+2T9vW/LZBNndwXZ4zB5oTmbTiuoKhNK
+	2QxDSOg8J0K9tOI0PDA2PDcO3UB3hqhSQVMzLvnh5qKSQ0yhi4L/bm0rAZYOzC5PR8WzQy9
+	HWWtccenfAiNTcfQOBpZ16w5unSa8zPNjhAYs5RCtouHfMuvFmpXh8yJ2kD5X13uJv3wOQx
+	jBjCdH2B7qfV7NfJtdYfdSXsO6KUqu+szmAS7OvRrjRPitzWxm7jh48Vo4zlkFwbMMW22lm
+	hVQXVrJ/TkOOaZ9KvkJ5SpFWhjwGXE21Uu//pEtQSIid0FwwOldiWmcL98vmeekB5HvoNYE
+	VaGcdYzrpnkPIMoezsM9GQVHz67Fj8MQsqJlRnD5vChR41Re1ZHmX2j2CYj49yfefvqD5XL
+	TGy7podOffB2BONmomlVKIcDSkYbw=
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On 5/6/2026 11:56 PM, Andrew Lunn wrote:
+>>> Does that mean you don't get phy interrupts reported in /proc/interrupts
+>>> before any suspend happens?
+>>>
+>>
+>> No. The phy works in polling mode AFAIK.
+> 
+> You should be able to tell from dmesg:
+> 
+> Generic FE-GE Realtek PHY r8169-0-600:00: attached PHY driver (mii_bus:phy_addr=r8169-0-600:00, irq=MAC)
+> 
+> irq= can be MAC, POLL, or the interrupt number if interrupts are used.
+> 
+> If PHY WoL is used, i would expect interrupts to be used, otherwise
+> how is the PHY waking the system?
+> 
+>       Andrew
+> 
 
-The RZ/V2N SoC provides an internal RTC, which is enabled in the DT.
-The RZ/V2N EVK board also includes an external RTC in the RAA215300
-PMIC.
+Yeah I know, it's indeed POLL. The phy is now waking the system using 
+the INTN_WOL pin directly connected to the SoC GPIO, instead of the INTN 
+pin connected to the QPS615.
 
-Add an "rtc0" alias pointing to the on-SoC RTC node to ensure a stable
-device numbering.
-
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
----
- arch/arm64/boot/dts/renesas/r9a09g056n48-rzv2n-evk.dts | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/arch/arm64/boot/dts/renesas/r9a09g056n48-rzv2n-evk.dts b/arch/arm64/boot/dts/renesas/r9a09g056n48-rzv2n-evk.dts
-index 00e5455ea5ab..65c93e5e3f98 100644
---- a/arch/arm64/boot/dts/renesas/r9a09g056n48-rzv2n-evk.dts
-+++ b/arch/arm64/boot/dts/renesas/r9a09g056n48-rzv2n-evk.dts
-@@ -26,6 +26,7 @@ aliases {
- 		i2c7 = &i2c7;
- 		i2c8 = &i2c8;
- 		mmc1 = &sdhi1;
-+		rtc0 = &rtc;
- 		serial0 = &scif;
- 	};
- 
 -- 
-2.54.0
-
+Best regards,
+Xilin Wu <sophon@radxa.com>
