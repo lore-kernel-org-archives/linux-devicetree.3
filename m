@@ -1,86 +1,86 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D3823EF0B7
-	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 16:28:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF6823F0754
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 16:36:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778084907; cv=none; b=Qf0jqSLoVJNYHaUpzi++De31uDkrM32qQWZwIH6VErRriLOScLYJ3iuOIxuq7r78wWAeBy11t9WgTzZSnkfw/B907ZxXsvxHfmDXBIHM3VmkO2gVUiFxNqZItIU2Xx3Zks/j3O1szXPTb+9v811gb2Lbg+R1CtWQes7TWCs1Kfg=
+	t=1778085408; cv=none; b=fX7hmL5pUvI528PsvMW69cB27Wf2ux9S7rQbmENH55Xm9rp0HNWaWlkcBparbcSPF0VQfKKMMtZNzuoDJxYDCDqHVtTQ9zY+zcMbGQyzwVtDvtoZwT0zpNQoi4tzTasRxmdJ87TWodQvKng3dAiyTT6XoqDkmxl56ccsR7hI/tE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778084907; c=relaxed/simple;
-	bh=QYVtzd/xc7fLQtZMy6ElulTvtzvDpcvThePe9t+u1iU=;
+	s=arc-20240116; t=1778085408; c=relaxed/simple;
+	bh=YUCDA48aXRxkZw5mYhHWBC3J8D349BVZVO7Begm/rv8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NFDD0qb98lLL2swOs9Nh5XrIPbBuyCIh+LK/F+NDFlqeOMG55CIwz0J0JmiXCD0YzU3MS8rgn6YI9DllPN0eFYNSZmD8e9BxqcUQR81kJ5DkLS+QCaTtqipCtDmmn1jMbLjZmBsJF+vWMthR1C1yMvsRljDWTsPPZ8d/pfYUlNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=m+4PBVCj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=diXgGgx+; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:Content-Type; b=MgdhjoHwXqX2Vj/xN7VT0ThptjnUQajlLx5AwTY7tMsjv7BTQz7hTWi6DzPRmRwPCdIqHojPLajvSaXLMS6aEmrK3mOtyRcWIytlFvtyS2R1sqowPvvSvIaVG2RBMRnWb32I9vholwEJhL0x5NUn8Zm8r4zx+2UYlsIa7SO9sH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=epMNdibW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FkJ4THH3; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="m+4PBVCj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="diXgGgx+"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 646A4iPc3524255
-	for <devicetree@vger.kernel.org>; Wed, 6 May 2026 16:28:25 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="epMNdibW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FkJ4THH3"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 646FQ9dN442793
+	for <devicetree@vger.kernel.org>; Wed, 6 May 2026 16:36:45 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	QYVtzd/xc7fLQtZMy6ElulTvtzvDpcvThePe9t+u1iU=; b=m+4PBVCjRBUt8x9Y
-	1V4nTnB8Xt8sh0FUCkGcY6iMdibhGGM6ZCSfLGsXjpgwBpzNbBJqfigCaWNSfgA7
-	fkdoh+95AtuqpBEhTd4EwB7rt0ZSCnDVfYLZZynMPrtVmBJ/T/4FbcTnyMONpYnc
-	+cEoGx1eBHT7GJKL402X4JQZBh5EQbW8kUGja2razBFLZB6Rq+ukNtNi6hgH29Df
-	8Ug154SyyiHoBpX2pDqdVJlyBC1pVPJdANWUFRjVzVSXtnGhabx8y7im4iDrkjHr
-	es8/Uq90zcIswIcITlJGHHgJ5P/92WUd/S+EJT/Zq+X/JC5QwcAG1uOBmgvwWdMY
-	6x0MhQ==
+	iJmC9RsVHYv/TaiaQgM7ygIb7Mvb3W28zM26saXdFEY=; b=epMNdibWfB6LmuXp
+	2s4p9v73nC5YP0MaC0kNVX2uk2XbceJmPhO10PWyzz6qqd1Zr2lXDvAZvJrsxKKG
+	dfKjuGLGFTOqhirWYwOHfRYTddnlzZsrgaoxYsfK7Kb36JSqSpK0fd9SmZ6oL+wi
+	C+lai2kvQQRtybHYdhV00G8YheFmLusQK9+SpJ0MqWB81M1tGbX5D/hSYl4U1pCB
+	3lqKEfiBghY27Sq2Opo1dkDKLhKdn9Ln7N7fOJqAo6DEEBouRGBt8DLYs/5WTt9m
+	7LK6o4+mhnj42dak+ie6AkTDbhOlFcw4VlhLk9qwaW9vu5o8bGC4QvHTL3v3g6/U
+	huKG3w==
 Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e03jwsesx-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0299hswy-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 06 May 2026 16:28:25 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2b9a6d84522so105248955ad.2
-        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 09:28:25 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 06 May 2026 16:36:45 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2b7aba0af02so62815255ad.2
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 09:36:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778084905; x=1778689705; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1778085404; x=1778690204; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=QYVtzd/xc7fLQtZMy6ElulTvtzvDpcvThePe9t+u1iU=;
-        b=diXgGgx+nQcGF2KOE0gukhBlZFgL3Zyqo4bDQ04bLyqfGeLUZcO4/X97qKyQaHhdhC
-         Vg7H/UIzbxNm5zwyco3S2Bk+L6u3Qrd4G9AGOhJW46gGWnGRjRqb77c3sYS+kwG+cHxJ
-         BWrgqYcgdswq0SIBO7VNdq/yRo/Oq9DWekF5BDuCKhCZeJYi98dOJCiBuKbMS+tZ8g2a
-         1X5Ph7KtOHzE3jF+OriT78i3Nxdoh4UI4CebeMnJf5u1QRVXOeQuHPrbZpk2YIiYPxy0
-         6hMQbU6r7+Ftz5IPZqxlMFaE7YASLw92AwAw008qeeyBOMH1iVv/yyRtMWTABF3w0/ie
-         kLDw==
+        bh=iJmC9RsVHYv/TaiaQgM7ygIb7Mvb3W28zM26saXdFEY=;
+        b=FkJ4THH32eWzj+cuVRxJgJqjrbXaq05HID0bJvpQZGtT26v0xM4OjYdgcBxtcx1kQW
+         txtEN+A9mT6/iKNLMI1hScKQvzedUYUY9f1EYmZNJ3SWYnXwk2X0ASpM6246eZOkXVuM
+         nkrjpflvoZpEaBlq60mmtV7GgRWiYRGk6LrHsE8etzOQ610vVCtqA5t5PAht9HFGqCdN
+         A4OOWytrCAXgHWMgyMMkQ4ObIdgNOShK6NbZ0rTgXE91D8PKTFbb+nRyYqbkYDAOHzGR
+         VwE4gdQb6t0dnAQwD64MX/H0u/mq+KYdmFyWx5Th0cfuKrl44orB2GrZ4nhLLy6RxqUf
+         UIMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778084905; x=1778689705;
+        d=1e100.net; s=20251104; t=1778085404; x=1778690204;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=QYVtzd/xc7fLQtZMy6ElulTvtzvDpcvThePe9t+u1iU=;
-        b=ikLcbwALvyl/Gsgnfou2DOkMZm3OrFmN1DUBRlThSiEp+zx1aHascpbbPhsZPyffZ6
-         Cfw8Edy8QtsmbEhOSC0/GciYPwcsFEnSRYS2QT+DJ9WHT43zIEHwaPcj37cC+kE9WP+0
-         7GtWLEqIxYWZ/yXn/8Am+iEwTiaJA+tyVZnQc6T+jLGdbXIAPwh1DP/BCNWIWqoGRsRs
-         943LkUtDx9NYASxsCESOF85e6EfKonCfPq9SENBkmAYKYivuHAYBwwgLL2p4Iui2dpuf
-         DfhYEyB9ubg/+pc/VvQZDxdbZQX7XXWPcXpxrWlxfu5Z7h2UFwXvpYkS0FCivWTddVne
-         vjAA==
-X-Forwarded-Encrypted: i=1; AFNElJ/9YJxPJ02Uq2Sri0GKm4gk+awisYlJms/Az/qElTnJUVfRC5YdJstID8nfWq8n0hDGR0sL35lhZK1G@vger.kernel.org
-X-Gm-Message-State: AOJu0YyabhOyHpQgfxCEoRyOFO1uHA9vbWmYzqI2CKE+wkEbFG7MerbE
-	7oX1cr/pNELUlbvFCcoUk8w67JU6IGT1oifUZYgNm8Nb0dSa2CDb/HJjseGNEb6xM0g2ObmaUXx
-	MnGN3UE6zAxP7YTDX1GMeYQaga3TOC0lJD1SIHVcN+84zFJuCac5IXUZdVwNApxFn
-X-Gm-Gg: AeBDiesRu6r7Vm37Wr3BjnXbHiG/3fQV9P3K6o9yK9nqG8Rk9YFiG+asZwDn9or/kXS
-	3CoGSwCJQ8W0wGwLUelyueuJBttCKwxp7wJhk5NUM5KDi9yfOa9lCfoW33lCbi4OT/OzQXIbFpE
-	d5vgkBKwt2ONHp0BGWytxGotqyfB+xZNr7wbjF+9tKj+7pgtRNhtS/39z+4dFYd4W4WnQ/hDiit
-	+WWd92daNtdFrDz6M0aUXnxz1MaUzuRiP1C61Zs4M8wra87LJ+LMSJPYyg1yVSgugIPRK8zmygC
-	veyJP2ptx1y+/Lr2XA2yhtsBbo4KFNl1Fj0fMt7m9QCyTQ683kLIVMGBMLp30aArPYCymYg0EaN
-	gLjWrdCVDFCdbhSrDX3adEY/Xic1XwVNLbTpPbCrVkROrofGAe3tRVjuF9w7NFKu1
-X-Received: by 2002:a17:902:ebc3:b0:2b2:3eec:c75f with SMTP id d9443c01a7336-2ba798a9396mr43247235ad.28.1778084904622;
-        Wed, 06 May 2026 09:28:24 -0700 (PDT)
-X-Received: by 2002:a17:902:ebc3:b0:2b2:3eec:c75f with SMTP id d9443c01a7336-2ba798a9396mr43246545ad.28.1778084903722;
-        Wed, 06 May 2026 09:28:23 -0700 (PDT)
+        bh=iJmC9RsVHYv/TaiaQgM7ygIb7Mvb3W28zM26saXdFEY=;
+        b=iMx5WJf3pK2cFqNZitIlj8kiW8c4AWw6XnNeUq+NuGntOQ8GBEhIFzrVM4/He5mJXm
+         Gwz1LeE3MkZMA4t6xmLFCWOoAIvhUHcRcb8yyrt1J3np0Cu0SnPryoo9Xqpt6t3fMstO
+         3iDVa6/HA6TFA0p/eFN+3LCm4SzWZGkYfjCUfu6Pcu2Uzokcw9F979gfFXYbPVBXFWaA
+         93Aji3CNzSlxbFR3QwA2hkoQwN5+cZBDUruHQkFTHj1IWDXNHs9/RAmxLVoZdfFrorrT
+         QwkwhtBNmDd1wTK/vvtHRTu+mUGnw20EvBd6sQNt46DXIX4Lov8aOqrkrgDCxMy3thXG
+         89VQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9KpzdW1X6mqRuHjvm5twjxIkVFGLAgpH0B8BpetRIKFhUjm3bX/U8+zehJVyk8nkFIn9GIgw1jyI5q@vger.kernel.org
+X-Gm-Message-State: AOJu0YxH0vwgjsXB91PsIskuoytxCupuVbbRVxNtd/8NFSTEE0TUZbWZ
+	VgIOXGW67ub3cX44+xFZar7Upav92hQZzUiCASQB+lVIDMucdXS4pZAgQqdMCRjdMpzTheNCsSa
+	oQfYnzldS0dKgmGnPeD8VrsSjf2I7OphDL0sr7/615Sn41ESN8GiQB1jzESRhay+l
+X-Gm-Gg: AeBDietSBvc171hv0jvWzHpWM+Dd/StrrFiswgzfquSU/AI1q+a63ENBC35ozt9Cfgl
+	bNdrmGM6qxQocM9a/ZjsmPeWxh4NXRYLvy27nzN+AqxOPcqldkPnKJw0kMu4y+QIJSg8rw9tQip
+	AwZ713NmDT8nb0sOABQTim29Kw1o9z8ExOhNGcLkM2OD7DLM4qKk0hZIobDzbJ3dvNhJKZA+OPg
+	Dby/TcxoaVw+uV54qxACVauZnLXNcw6sJezbbOJlbxXxM5yC4/lm8vgD8P0iZteK2ycx+g9A2pq
+	e2WeJtds2m4gKgfQ2jDMqwZ7DUd8KyFND3SQhm637BxwMJYTV2caSAcqINT9L9qvwwx64lu/LD/
+	KkmgI7QRVjIrMx1tG7SvN5/7eE0D3J6MHJkiMOVQ3qfuwY7VH0E4mvTT9M0HaMShY
+X-Received: by 2002:a17:903:24f:b0:2b4:5f67:5914 with SMTP id d9443c01a7336-2ba79becc18mr44285355ad.33.1778085404289;
+        Wed, 06 May 2026 09:36:44 -0700 (PDT)
+X-Received: by 2002:a17:903:24f:b0:2b4:5f67:5914 with SMTP id d9443c01a7336-2ba79becc18mr44285005ad.33.1778085403722;
+        Wed, 06 May 2026 09:36:43 -0700 (PDT)
 Received: from [10.206.105.200] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ba7ca106e8sm32048405ad.62.2026.05.06.09.28.17
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ba7ca2563dsm29225485ad.76.2026.05.06.09.36.36
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 06 May 2026 09:28:23 -0700 (PDT)
-Message-ID: <bb008913-1100-9b8a-c7f5-1194df33eea8@oss.qualcomm.com>
-Date: Wed, 6 May 2026 21:58:15 +0530
+        Wed, 06 May 2026 09:36:43 -0700 (PDT)
+Message-ID: <4d4d8023-57ba-0dec-488f-bce17090a0d4@oss.qualcomm.com>
+Date: Wed, 6 May 2026 22:06:35 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,10 +89,10 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH v4 02/13] dt-bindings: media: qcom,venus: Remove clock,
- power-domain, and iommus from common schema
+Subject: Re: [PATCH v4 07/13] media: iris: Enable Secure PAS support with
+ IOMMU managed by Linux
 Content-Language: en-US
-To: Krzysztof Kozlowski <krzk@kernel.org>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
         Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
         Abhinav Kumar <abhinav.kumar@linux.dev>,
@@ -112,83 +112,254 @@ Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
         linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
         devicetree@vger.kernel.org, iommu@lists.linux.dev
 References: <20260505-glymur-v4-0-17571dbd1caa@oss.qualcomm.com>
- <20260505-glymur-v4-2-17571dbd1caa@oss.qualcomm.com>
- <20260506-inquisitive-wondrous-lori-a9e639@quoll>
- <455376f9-48c2-e663-3be3-fd310afb7f7f@oss.qualcomm.com>
- <333ba4cd-8168-41f1-afdc-348f99ed0611@kernel.org>
+ <20260505-glymur-v4-7-17571dbd1caa@oss.qualcomm.com>
+ <20260506052129.4kahdrcxxrvl53hy@hu-mojha-hyd.qualcomm.com>
 From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-In-Reply-To: <333ba4cd-8168-41f1-afdc-348f99ed0611@kernel.org>
+In-Reply-To: <20260506052129.4kahdrcxxrvl53hy@hu-mojha-hyd.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=J4CaKgnS c=1 sm=1 tr=0 ts=69fb6c29 cx=c_pps
+X-Authority-Analysis: v=2.4 cv=fMMJG5ae c=1 sm=1 tr=0 ts=69fb6e1d cx=c_pps
  a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=Ao3bqe3Qqjuf2QKdZGMA:9 a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA2MDE2MCBTYWx0ZWRfXx6qd8Bs/Zo84
- 5TtZnud/H9ldUkQa31DWjt6yU0I2zWBOeblWKjM8UYVYrNCjuOuFHL73J7UW4/k7Lg6xjF5o23Y
- Re9RtcmOQmtqmVqPFSWdMyZt2YlYSSsRxsijzRr37WfcoXnDIbSL6bcU+/Plz1KrUC+kfO7/xa0
- /EWI8Vd1/lPCbknQBzMnVNxVOXaY+X12BGXKwmfpIrm0aBeXINSLPsqZC7lBRadMax4HIgmb3o5
- FZmsCAqe6wnihls87h17LNT0t49xG6T1K9b2kUyl2NSZhe1a0mYSoFGgWobxOuvY84J0qWnZN3P
- BCvusblmnjZjsWCkdaFl+xCzOPMIKAxScilXUi3KLHLeyRWKWpwaqNrmiuC7PVwKGxw802Vos6W
- hsaDlUDtRWLggEXIssot9WPeVlt9eh2Xez0AaYyKGPp7nllq3DJ7miKPoou6SpCJnQjqpGmdfi9
- Ym38OTyvaMbZIlCa8tg==
-X-Proofpoint-GUID: MSz8M3q-MlY0BG3zrDgpmq3EffWnCYD2
-X-Proofpoint-ORIG-GUID: MSz8M3q-MlY0BG3zrDgpmq3EffWnCYD2
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=tkXzD9pcQE_IdLLthRAA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-ORIG-GUID: WIH_R9NjGjWAQ7DN-IqFBX5CXh1_LAIE
+X-Proofpoint-GUID: WIH_R9NjGjWAQ7DN-IqFBX5CXh1_LAIE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA2MDE2MiBTYWx0ZWRfXxstZDQ2vlLPk
+ DeGSfAmkoilFp4I98Rdr7rtH5goTVMytSFYEC9XqPjK6szobX4Xdp1bStu5BMMT+j4LPnM4mfUU
+ N9AV3Yc/BNInLNgB+SQ7P6oEVOTUlfHum28TVFAMpC0zZOreMRzuoPfs6Qk7IpUdI1ZpYZ4aZmD
+ Qr9V0Oiy+zzvBFNC1UZPA2QJkfeXp94H4viLkwoPebXjlafvjKyISR5bzxwxw5hN7eFZQSLPP2x
+ U8cTbR4Jhp/vFyo1lTZbH0bveH12/D5at6sNXPB56EQDzMxjYwgllkbIbBI3GSNKCIM2CG0sQ+5
+ o/AaA67zwf3AgKR1BamoOiyi+/jNnEopTqcmwwQIUpMDXkzgifN5R/06oPgwDTqO7yuT+FpdQqd
+ Y7Lu4jG5QQ1DAh4k7juHUyFsOQnvDZMguiIs+Y+Ca8GjkIu1zGq51xru8Am8UZiodxTXyYlgCQY
+ 6+ulKaE6ObJDnJ4Z+yw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-06_01,2026-05-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 malwarescore=0 impostorscore=0 adultscore=0
- phishscore=0 suspectscore=0 spamscore=0 bulkscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605060160
+ adultscore=0 phishscore=0 priorityscore=1501 suspectscore=0
+ lowpriorityscore=0 bulkscore=0 impostorscore=0 spamscore=0 malwarescore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2605060162
 
 
-On 5/6/2026 6:39 PM, Krzysztof Kozlowski wrote:
-> On 06/05/2026 11:32, Vishnu Reddy wrote:
->> On 5/6/2026 12:11 PM, Krzysztof Kozlowski wrote:
->>> On Tue, May 05, 2026 at 12:29:23PM +0530, Vishnu Reddy wrote:
->>>> The common schema defines minItems and maxItems for clocks, power-domains,
->>>> and iommus. This suggests that the number of these resources can vary,
->>>> while in reality they are fixed constraints per platform.
->>> OK, that's interesting approach. I am fine with it, but then you need to
->>> remove these from "required:" list as well, because requiring properties
->>> which are not defined here is not the most readable.
->> Ack, I will remove them from "required:" in the next revision.
+On 5/6/2026 10:51 AM, Mukesh Ojha wrote:
+> On Tue, May 05, 2026 at 12:29:28PM +0530, Vishnu Reddy wrote:
+>> From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 >>
->>> I still do not understand though why you cannot just grow the properties
->>> here. The point of this schema is to define common set for range of
->>> devices, because all of these devices are supposed to be veri similar.
->> If a new platform schema uses this common schema but does not explicitly
->> re-declare clocks or power-domains, it will inherit minItems and maxItems
-> But new platform MUST define them, because each platform has both clocks
-> and power domains.
->
->> range from the common schema. This gives the false impression that the
->> resource count is flexible for that platform, when in reality it should
->> be a fixed constraints.
+>> Most Qualcomm platforms feature a proprietary hypervisor (such as Gunyah
+>> or QHEE), which typically handles IOMMU configuration. This includes
+>> mapping memory regions and device memory resources for remote processors
+>> by intercepting qcom_scm_pas_auth_and_reset() calls. These mappings are
+>> later removed during teardown. Additionally, SHM bridge setup is required
+>> to enable memory protection for both remoteproc metadata and its memory
+>> regions.
 >>
->> If a new platform requires more resources than the current maxItems (e.g.,
->> Glymur due to its dual vcodec core design), we need to keep bumping maxItems
->> in the common schema every time a new platform exceeds the previous limit.
->> That makes the common schema a moving target driven by platform specific.
-> That's pretty expected, I don't see a problem in that.
+>> When the hypervisor is absent, the operating system must perform these
+>> configurations instead.
+>>
+>> Support for handling IOMMU and SHM setup in the absence of a hypervisor
+>> is now in place. Extend the Iris driver to enable this functionality on
+>> platforms where IOMMU is managed by Linux (i.e., non-Gunyah, non-QHEE).
+>>
+>> Additionally, the Iris driver must map the firmware and its required
+>> resources to the firmware SID, which is now specified via iommu-map in
+>> the device tree.
+>>
+>> Co-developed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+>> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+>> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> I have posted https://lore.kernel.org/lkml/20260506050107.1985033-1-mukesh.ojha@oss.qualcomm.com/#r
+> for resource table extraction and the API to map and unmap and now you
+> can use the api similar to below
+> https://lore.kernel.org/lkml/20250819165447.4149674-12-mukesh.ojha@oss.qualcomm.com/
 
-I am fine with increasing maxItems in the common schema. I can set it to a
-reasonable value (for example, up to 20) so that it accommodates future
-platforms without frequent changes. Anyway, each platform schema must define
-fixed constraints, since clocks and power-domains are mandatory per platform.
-
-At the same time, I am also fine with the alternative approach of removing
-these properties from the common schema entirely, since the fixed constraints
-are already defined in each platform schema.
-
-I'm fine with both approaches.
-Could you please let me know which one you would prefer going forward?
+Thanks for letting me know, rather than introducing a dependency for this
+series, I'd keep them independent for now. If your series lands first, I
+can update my patches to use the new API. Otherwise, I'm happy to volunteer
+a follow-up patch on top of my series once your patches are merged.
 
 Thanks,
-Vishnu Reddy
+Vishnu Reddy.
 
-> Best regards,
-> Krzysztof
+>> ---
+>>  drivers/media/platform/qcom/iris/iris_core.h     |  4 ++
+>>  drivers/media/platform/qcom/iris/iris_firmware.c | 72 ++++++++++++++++++++----
+>>  2 files changed, 66 insertions(+), 10 deletions(-)
+>>
+>> diff --git a/drivers/media/platform/qcom/iris/iris_core.h b/drivers/media/platform/qcom/iris/iris_core.h
+>> index fb194c967ad4..b396c8cf595e 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_core.h
+>> +++ b/drivers/media/platform/qcom/iris/iris_core.h
+>> @@ -34,6 +34,8 @@ enum domain_type {
+>>   * struct iris_core - holds core parameters valid for all instances
+>>   *
+>>   * @dev: reference to device structure
+>> + * @fw_dev: reference to the context bank device used for firmware load
+>> + * @pas_ctx: SCM PAS context for authenticated firmware load and shutdown
+>>   * @reg_base: IO memory base address
+>>   * @irq: iris irq
+>>   * @v4l2_dev: a holder for v4l2 device structure
+>> @@ -77,6 +79,8 @@ enum domain_type {
+>>  
+>>  struct iris_core {
+>>  	struct device				*dev;
+>> +	struct device				*fw_dev;
+>> +	struct qcom_scm_pas_context		*pas_ctx;
+>>  	void __iomem				*reg_base;
+>>  	int					irq;
+>>  	struct v4l2_device			v4l2_dev;
+>> diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/media/platform/qcom/iris/iris_firmware.c
+>> index 5f408024e967..0085dd7ec052 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_firmware.c
+>> +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
+>> @@ -5,6 +5,7 @@
+>>  
+>>  #include <linux/firmware.h>
+>>  #include <linux/firmware/qcom/qcom_scm.h>
+>> +#include <linux/iommu.h>
+>>  #include <linux/of_address.h>
+>>  #include <linux/of_reserved_mem.h>
+>>  #include <linux/soc/qcom/mdt_loader.h>
+>> @@ -13,12 +14,15 @@
+>>  #include "iris_firmware.h"
+>>  
+>>  #define MAX_FIRMWARE_NAME_SIZE	128
+>> +#define IRIS_FW_START_ADDR	0
+>>  
+>>  static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
+>>  {
+>> +	struct device *fw_dev = core->fw_dev ? core->fw_dev : core->dev;
+>>  	u32 pas_id = core->iris_platform_data->pas_id;
+>>  	const struct firmware *firmware = NULL;
+>> -	struct device *dev = core->dev;
+>> +	struct qcom_scm_pas_context *pas_ctx;
+>> +	struct iommu_domain *domain;
+>>  	struct resource res;
+>>  	phys_addr_t mem_phys;
+>>  	size_t res_size;
+>> @@ -29,14 +33,18 @@ static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
+>>  	if (strlen(fw_name) >= MAX_FIRMWARE_NAME_SIZE - 4)
+>>  		return -EINVAL;
+>>  
+>> -	ret = of_reserved_mem_region_to_resource(dev->of_node, 0, &res);
+>> +	ret = of_reserved_mem_region_to_resource(core->dev->of_node, 0, &res);
+>>  	if (ret)
+>>  		return ret;
+>>  
+>>  	mem_phys = res.start;
+>>  	res_size = resource_size(&res);
+>>  
+>> -	ret = request_firmware(&firmware, fw_name, dev);
+>> +	pas_ctx = devm_qcom_scm_pas_context_alloc(fw_dev, pas_id, mem_phys, res_size);
+>> +	if (IS_ERR(pas_ctx))
+>> +		return PTR_ERR(pas_ctx);
+>> +
+>> +	ret = request_firmware(&firmware, fw_name, fw_dev);
+>>  	if (ret)
+>>  		return ret;
+>>  
+>> @@ -52,9 +60,27 @@ static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
+>>  		goto err_release_fw;
+>>  	}
+>>  
+>> -	ret = qcom_mdt_load(dev, firmware, fw_name,
+>> -			    pas_id, mem_virt, mem_phys, res_size, NULL);
+>> +	pas_ctx->use_tzmem = !!core->fw_dev;
+>> +	ret = qcom_mdt_pas_load(pas_ctx, firmware, fw_name, mem_virt, NULL);
+>> +	if (ret)
+>> +		goto err_mem_unmap;
+>> +
+>> +	if (pas_ctx->use_tzmem) {
+>> +		domain = iommu_get_domain_for_dev(fw_dev);
+>> +		if (!domain) {
+>> +			ret = -ENODEV;
+>> +			goto err_mem_unmap;
+>> +		}
+>> +
+>> +		ret = iommu_map(domain, IRIS_FW_START_ADDR, mem_phys, res_size,
+>> +				IOMMU_READ | IOMMU_WRITE | IOMMU_PRIV, GFP_KERNEL);
+>> +		if (ret)
+>> +			goto err_mem_unmap;
+>> +	}
+>>  
+>> +	core->pas_ctx = pas_ctx;
+>> +
+>> +err_mem_unmap:
+>>  	memunmap(mem_virt);
+>>  err_release_fw:
+>>  	release_firmware(firmware);
+>> @@ -62,6 +88,18 @@ static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
+>>  	return ret;
+>>  }
+>>  
+>> +static void iris_fw_iommu_unmap(struct iris_core *core)
+>> +{
+>> +	struct iommu_domain *domain;
+>> +
+>> +	if (!core->pas_ctx->use_tzmem)
+>> +		return;
+>> +
+>> +	domain = iommu_get_domain_for_dev(core->fw_dev);
+>> +	if (domain)
+>> +		iommu_unmap(domain, IRIS_FW_START_ADDR, core->pas_ctx->mem_size);
+>> +}
+>> +
+>>  int iris_fw_load(struct iris_core *core)
+>>  {
+>>  	const struct tz_cp_config *cp_config;
+>> @@ -79,10 +117,10 @@ int iris_fw_load(struct iris_core *core)
+>>  		return -ENOMEM;
+>>  	}
+>>  
+>> -	ret = qcom_scm_pas_auth_and_reset(core->iris_platform_data->pas_id);
+>> +	ret = qcom_scm_pas_prepare_and_auth_reset(core->pas_ctx);
+>>  	if (ret)  {
+>>  		dev_err(core->dev, "auth and reset failed: %d\n", ret);
+>> -		return ret;
+>> +		goto err_unmap;
+>>  	}
+>>  
+>>  	for (i = 0; i < core->iris_platform_data->tz_cp_config_data_size; i++) {
+>> @@ -93,17 +131,31 @@ int iris_fw_load(struct iris_core *core)
+>>  						     cp_config->cp_nonpixel_size);
+>>  		if (ret) {
+>>  			dev_err(core->dev, "qcom_scm_mem_protect_video_var failed: %d\n", ret);
+>> -			qcom_scm_pas_shutdown(core->iris_platform_data->pas_id);
+>> -			return ret;
+>> +			goto err_pas_shutdown;
+>>  		}
+>>  	}
+>>  
+>> +	return 0;
+>> +
+>> +err_pas_shutdown:
+>> +	qcom_scm_pas_shutdown(core->pas_ctx->pas_id);
+>> +err_unmap:
+>> +	iris_fw_iommu_unmap(core);
+>> +
+>>  	return ret;
+>>  }
+>>  
+>>  int iris_fw_unload(struct iris_core *core)
+>>  {
+>> -	return qcom_scm_pas_shutdown(core->iris_platform_data->pas_id);
+>> +	int ret;
+>> +
+>> +	ret = qcom_scm_pas_shutdown(core->pas_ctx->pas_id);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	iris_fw_iommu_unmap(core);
+>> +
+>> +	return ret;
+>>  }
+>>  
+>>  int iris_set_hw_state(struct iris_core *core, bool resume)
+>>
+>> -- 
+>> 2.34.1
+>>
