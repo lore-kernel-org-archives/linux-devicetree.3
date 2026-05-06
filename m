@@ -1,216 +1,203 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2552247CC80
-	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 15:14:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABA0A393DF5
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 15:15:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778080450; cv=none; b=sOQfpBDs0bPrT9rK78PA+1K4NSUl5MCIWAROsGeFibrZbkLnZ25igqixQYCkN/B7j/l+ssiSg7XH6+QffBe9K0zBUHUwWQA0wiANbBRW1kbDtW2JD47eWgFnNJZ47iJ3GFbR35oGoI+N/GYhREhX6Z6zzi1U6rR0k/kF20ctacM=
+	t=1778080552; cv=none; b=NnEfPCEw7MIiJipoh2ctG8YywjzKA42/VZu2ZhyPj/92F4CQwPPZqO5XHeTg52YLBA/6OVnJ41X+H+Yl2kv7i6x6r3w/YaGuV0e5E1uOnqJQ+ZuvgMHSxpblc+y361oax6qZ+T1axIeMbcA09C0mQ42W+K198U+SL6/ZVqCHZb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778080450; c=relaxed/simple;
-	bh=6uxmBcsusZraeh4PG9F1SE0HCI0qSLyvABncvHgVrrw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l5vktOl4v3ZvuVF8JWPW6vWkHZazCFvsT4WT7EZoqm56u+6u4LLgZWp3Zxf5hWaIyv6tWgqKBCkkkI9OGvQdJuAqwOT8BLbbeW1sJtayh9vDXpKKQZKQAxNoQiHNZCKI0C9D5spMIt1AsjFjP4bogZnogB2ehfpQl9AxBXDcrdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=DNQ17v0/; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imd-tec.com
+	s=arc-20240116; t=1778080552; c=relaxed/simple;
+	bh=RhXRCgMNScIf77wnkS151xUmWJL1ppbZupG/e8th0Wo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Z2943Nx3cz26Q088Vq1PFGCHSBbgQlZtxYn5vo7xevt2/QzpBIJ3mMYxxBj4k1oYA4EBxzxVDHhUK32vW3Ez/N10Bb/ubvztI3waYEIINIrNx1c4EkcpfEh/TIj88us7NWOAOpGGpZTJYmhW1Ee4Je2rTqjm7P0cIwcZ3s0v3DE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=n/VwO3gu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a76mmv1j; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="DNQ17v0/"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4891e5b9c1fso63572785e9.2
-        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 08:14:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="n/VwO3gu";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a76mmv1j"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 646BU1Bi2581484
+	for <devicetree@vger.kernel.org>; Wed, 6 May 2026 15:15:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	l/4qDhc3xqA5oi78owxsgPypqoMvOhzYxv2FjuGz/0A=; b=n/VwO3guoR+gbKM1
+	vb0fnDr6mJk5eh7Iu4Pb2rehc1/6B0SVyZwPzmokdVjmrT8XUkkGo1LD2LUHZ04Q
+	tG22UnrMqoEzNOZApoH3mapGqv5Hwee9CyqQpytgakTfwbG0E+whoET0gqlMKs3s
+	mO4SRSIPPrKdkw7EbeZRx3Ux744J6zKBgWNIqNq1/QTcrvDfBQ8+NCukHkeiGaIT
+	kTCgHg/Gxc0+jtAASUiSJaDqXNiCYxQTu1P8B6VDmSyD/TRPbwHzl5OjVx1oSLlr
+	dLOwLeqlm3Wa3ldEbRcqqdmHu5amea0mG1rREAEc3q+ePIZY7VH0yw+/+5839/Md
+	Oly30Q==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dyyvw26km-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 06 May 2026 15:15:48 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-35845fcf0f5so963278a91.0
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 08:15:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=imd-tec.com; s=google; t=1778080447; x=1778685247; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=IqBw8Kd6OtjjnQiFLsdPfhJ7HyL89HYldEhFC8X0GH0=;
-        b=DNQ17v0/9S0QPq+fGJQdHrALvbwpzxoj6RmDJFsbf5jLvjMPnlEVUcMS0jjgAi2AYf
-         O3eY5fGSaMIigEABwmqAlQZixfn+knoD9zRhu2O9DSwirSv94zWeiMESMzxl6TCbBWMP
-         TLfSKa+v0nbbPcd/i8ZY6jbCcMOby2N/V55r/ai0JV8u5eZ9QqrGLq98UkILHnhgGw5k
-         Pkyl6QmLeigrP2PPSrgSKMYif6f3l8aqWjVJM+X7FSAuORIf6ToEFK7rtpGnNPf1Tu+V
-         +FSwQHLjMzri9BFwvMPVDF4xvCTzpDUANtlWj40rv49LAoTy/YKBd8BSj6F0Hckm2vvC
-         42uQ==
+        d=oss.qualcomm.com; s=google; t=1778080548; x=1778685348; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=l/4qDhc3xqA5oi78owxsgPypqoMvOhzYxv2FjuGz/0A=;
+        b=a76mmv1jqYRv5tEMLtRZgwP+sEyFnT7uag5eD3+TVweFMbOY0KF+rsNiRNHpBrJdqS
+         0gpwXmiqj+M0RZqMTbsQYILISJxR4cgkZw+t7bQ8tn2Ys34RtklFZhu2dDEzLKaetXnh
+         9OZ4+EtlRQekqgbNVJ1Wb3SXTaGmbWo+O9RGpRZ+95Ti7ZeqpAIePL0cqA7ZGHnjRN7r
+         INehhDIqrWhIOE1pjnUZSusm06H1U7Ew9ATFpm1CBucCqkPwGWK+7v/10JOl2aNNK0wx
+         5cOIqqUsHsG051Bl+/JvufEKcjAVu6TM6w1zfEw2ocwXdFRnrqrwY7wfufeXMMPO2d6n
+         3qNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778080447; x=1778685247;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=IqBw8Kd6OtjjnQiFLsdPfhJ7HyL89HYldEhFC8X0GH0=;
-        b=RU/B9xJEyZWzuP29BSIE3Nl/qipehlxRQfLnrLEhBI5iLjSs6n74NEUbaRgpXM+M+P
-         eI1aesPc1OqDmm0wJpm+LORJqnJKKwfyNBkaWse+Z07ig37UG7+Cvp1OWyDnA1HZnPrb
-         kRoLDsA9bJx10BAo/RsAx6YoziKfIFtnLVbGxVYB61/ov93w8/yEK82NtsBCQWS3tE6m
-         1/Q2s4zSeo/Al0F/Pfeh1fAS6kBIYtKHwg4Q8MfrXYrfdI5zMo1cLw3+nppV4xI+3WUz
-         qLXyLb/0AYJfoxJX/90pArv//8xSHFon1qaLdWt2LN2R+TUNZ064KnCqGzGG/c3AxYpN
-         Y/uw==
-X-Forwarded-Encrypted: i=1; AFNElJ9R4ZbnTqRmJvrbrYKefrFJ7hQQOvNmuDGDol8U3czrHHMjUQG6sGPBXR9ROigRHNHWKOdRclrzvHNI@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy++Udeo5pLcXNmg9uYZYbFpH45GovyZ8yHzjlYBC2jQ7WVNxTp
-	Q/ujBm8UAQR/LRaIBwSotuqGHBE4/e1AOFszPSbzyW9+ivZ9ObXMCezIWQcFQ9vsdX4=
-X-Gm-Gg: AeBDiev6nAoAfPccTZtDJaQ9n2gR2uesjca9H85mJUTAjKHPJa7wELDd4gUDQQ57jAh
-	l2qu199VjMo6iAjnikIuK8VUoC3aDWuSwrD00p1W3+6ugjbp3hTRNTlp78voxDP5qaH0EdkD1ku
-	h2b5JYHJQrlMeDtvsm3NvV5AIpV4y/OLxiVrAtvpXuVx35TyOBEupchUTQqmiZfWlDSsG8If6/9
-	56C8vtwBMMzhmu29xfIEwfTr/81Vlt0o8QyUE1aMzoMGZ9i5Bl8VbFtD6z8w1u7kJ2TMuQEJXcF
-	ujeeJueSMxJUkjye+s7NN22Le4F2qw1bp6feYAL0Pbw7zIOCn29X1oHg1AXwg8BFagjt/y1B/y2
-	cfyZI/nA+8nYLRiK66bx5kZYls9g3f5oCvpPiPoVZ8Qg+GGwFUbSdWBkSDJZ5DkjMY9p16w4+lJ
-	oXwHD0TF88mbJzZ2vZ29+yE2n/tfe6qWv44wBCVHqI08UZp9S8zYyY5ZgqAIQpaIUG9gTdOC610
-	CRZx1/rriYPGq4mPERqp6OK4JjsUir4KxoQTA/hVzMzXf+ILe9SIg==
-X-Received: by 2002:a05:600c:a111:b0:480:1c69:9d36 with SMTP id 5b1f17b1804b1-48e51f2f83dmr51500945e9.17.1778080447300;
-        Wed, 06 May 2026 08:14:07 -0700 (PDT)
-Received: from will-Legion-Slim-5-16APH8 ([2a00:23c6:2736:8e01:5fbb:faec:b3da:7ea1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e538b26a3sm95055395e9.9.2026.05.06.08.14.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 06 May 2026 08:14:06 -0700 (PDT)
-Date: Wed, 6 May 2026 16:14:05 +0100
-From: William Bright <william.bright@imd-tec.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: Add IMDT QCS8550 SBC
-Message-ID: <aftavTZafl6bCQhD@will-Legion-Slim-5-16APH8>
-References: <20260505-imdt-qcs8550-sbc-rfc-v2-0-b4767d0dd421@imd-tec.com>
- <20260505-imdt-qcs8550-sbc-rfc-v2-4-b4767d0dd421@imd-tec.com>
- <20260506-aquatic-shrew-of-engineering-09fbe8@quoll>
+        d=1e100.net; s=20251104; t=1778080548; x=1778685348;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=l/4qDhc3xqA5oi78owxsgPypqoMvOhzYxv2FjuGz/0A=;
+        b=bIQQtJw3u0De3YkmaoeuDAJCdg0PzF9GCUkbvRnTIFa90J+bSXfAXyQOcjoNeLwtg1
+         hpGcNbqfMmT0pqnT7lUZClq9O8XF1+3iZsBNaZmGwc56452rk2dlfDG7iSS1lNap15dW
+         k+m49eX6y/YmbVHAkt8aPaqWowaMiUJKXczEK+mwygobWBAX0OU1ekpHMgvmkhPDq6IU
+         oA5hF/2yR2YkWD1Z7oFUyj5w88wjqfwlucPNlkGyXg6Klm4tgbD1EVNnhqdEo6M5hPCa
+         amX3e3L7zhDYhgf2sx7zzTn4rjqUwdRPUZu02lQnZdfkX3H4DcvO644o/Diy0XjCz8dm
+         UcqA==
+X-Forwarded-Encrypted: i=1; AFNElJ/PcXJPAk4BuuW8xSvszf5vTNDetHjyBlKAQ8dcokmmONutOjanbhIBNJQVejuPeuv3FYKcDWGa8UjJ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw8/ghqZluYKCDAwq++defvi9sQxzJcS+CrEd/gEl5zThO6tWj9
+	8eo3/jVsml9xIU0oxyngZJB8j3v3T2ngqnmcVp4QxZRPZq7GfRDQPHkyKZRoGGxUbM17KZKPJdS
+	lu4DLtvtCiArSjd/hSd5Y/Py/77zChLbCSvTK3ySG1Bz7lOSzpAMPqtBMqYa4TFW5
+X-Gm-Gg: AeBDiev+37oLorJ+Ksx4wNtjH+yxbzudTNt/sCDlwVhIEsrGjQApu7QAUrEIEJcyfXf
+	kLJHmFAgUuyplWmlf2kamv2HeeceaITNP46tw+GjjiydHibvZUAQIDJCIDIuwws5PSoXoNT6559
+	wpOJmVfKQ8IuYjaFfo0jjjEiMQV2kduq2Q/UF5+3tE10BPf3qP5ADwAFrrFOY2UoH9qaO52Izju
+	lA8ofHkvka7qB39e1ED2/TjGcQimLLXJKZxvi6OA54SUXbk/OykdsHh5nxXf3h0SnqTyX43zhAD
+	68u0AFUpT+vqQLasi82hcH92GyXJg+Lf5c3jkqCz4IDFjuVy3H9houV9ft8VEfebanu2BftTtqm
+	JFvyR4/x5NfLBOgCueWRb616ztIOsQ5kHFbR9PtvRmjN3Jk+88GQyBw6uyeXn556q
+X-Received: by 2002:a17:90a:e7d1:b0:35f:bc9f:e1b6 with SMTP id 98e67ed59e1d1-365a96b6eb6mr2734381a91.1.1778080547448;
+        Wed, 06 May 2026 08:15:47 -0700 (PDT)
+X-Received: by 2002:a17:90a:e7d1:b0:35f:bc9f:e1b6 with SMTP id 98e67ed59e1d1-365a96b6eb6mr2734310a91.1.1778080546676;
+        Wed, 06 May 2026 08:15:46 -0700 (PDT)
+Received: from [10.204.101.47] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-365b4f70e8asm4011790a91.11.2026.05.06.08.15.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 06 May 2026 08:15:46 -0700 (PDT)
+Message-ID: <734e8ad0-54e0-4fcd-a3b4-8e99fb521ea1@oss.qualcomm.com>
+Date: Wed, 6 May 2026 20:45:38 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260506-aquatic-shrew-of-engineering-09fbe8@quoll>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 10/13] media: iris: Add power sequence for Glymur
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Hans Verkuil <hverkuil@kernel.org>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        iommu@lists.linux.dev
+References: <20260505-glymur-v4-0-17571dbd1caa@oss.qualcomm.com>
+ <20260505-glymur-v4-10-17571dbd1caa@oss.qualcomm.com>
+Content-Language: en-US
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In-Reply-To: <20260505-glymur-v4-10-17571dbd1caa@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=YYCNIQRf c=1 sm=1 tr=0 ts=69fb5b24 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=4ZKAssT4AknkAVwkBooA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA2MDE1MCBTYWx0ZWRfXy3qPfnU7AXop
+ GkWfXQRUGlu7CZZrw6DN5AfvxkgCp3J+4KicNXjPXSOe0TuFK0drmZ7K//yjnQ0+J3ilv9ZKd/k
+ n/dETLtruZZt4by5Zuhrn8S55XZiHQLZwsd0ZaeBz+U4RnAYEQj0iK5u+RN8uh0lf5i3FWqDNnu
+ Of1KFmRQCZE8KaTW74Qo4MimCbO+Wgx1lYeeMzaNe9Bxq9+8z/FyO+orlVjgdWUp0mv1JOUl6Np
+ ZVEU4dll+FOIwfIVw/b2SUfqAKYoExzTIwMHHf89hg/mmFQL8kJFuxLklNqWhxY91SO1Zl+1g2S
+ sOFiU03q9I3fWTiu2a8pzB5hpV9N4BfQiecZ/is8h/cok/HGfrLCPjEm2zp09m2+nsa5JRp8v7w
+ VuImK8GB3SWP0jOsu3E2DgDasSxuj/WFRUBwbPJk9DAwunC0Pe5OwlkqF7itdBGSk05M3ZPm1YX
+ 8RuDs4Tx0blf6JM7POA==
+X-Proofpoint-ORIG-GUID: 55YyRmnkPffG9WFCDkWDxDVaYgMcjd6k
+X-Proofpoint-GUID: 55YyRmnkPffG9WFCDkWDxDVaYgMcjd6k
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-06_01,2026-05-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 impostorscore=0 malwarescore=0 clxscore=1015
+ lowpriorityscore=0 priorityscore=1501 spamscore=0 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605060150
 
-On Wed, May 06, 2026 at 09:53:01AM +0200, Krzysztof Kozlowski wrote:
-> On Tue, May 05, 2026 at 09:09:54PM +0100, William Bright wrote:
-> > + compatible = "regulator-fixed";
-> > + regulator-name = "cam_3v3_reg";
-> > + regulator-min-microvolt = <3300000>;
-> > + regulator-max-microvolt = <3300000>;
-> > + vin-supply = <&hr_cam_pwr>;
-> > + };
-> > +
-> > + display_panel_pwr_en: regulator-display-panel-en {
->
-> Again, unused
->
 
-For the camera regulators, I intended these to be used within device tree
-overlays (I.E a DTSO would be made for an AR1335 connected to CSI0).
-I don't have any camera device tree overlays in this patch series
-as the only camera I have tested is the OnSemi AR1335 which isn't supported
-upstream. So I will drop these camera regulator nodes.
 
-> > + compatible = "regulator-fixed";
-> > + regulator-name = "dsi_5v_en";
-> > + regulator-min-microvolt = <5000000>;
-> > + regulator-max-microvolt = <5000000>;
-> > +
-> > + pinctrl-names = "default";
-> > + pinctrl-0 = <&dsi_5v_en_default>;
-> > +
-> > + gpio = <&tlmm 140 GPIO_ACTIVE_HIGH>;
-> > + enable-active-high;
-> > +
-> > + vin-supply = <&som_vph_pwr>;
-> > +
-> > + regulator-always-on;
-> > + regulator-boot-on;
-> > + };
-> > +
-> > + /* Enables 1V2, 1V8_CAM and 3V3_CAM */
-> > + hr_cam_pwr: regulator-hr-cam-pwr {
->
-> And this becames unused after dropping fake regulators. Why don't you
-> have proper users of these controllable supplies?
->
+On 5/5/2026 12:29 PM, Vishnu Reddy wrote:
+> Glymur has a secondary video codec core (vcodec1), equivalent to the
+> primary core (vcodec0), but with independent power domains, clocks,
+> and reset lines. Reuse the existing code wherever possible and add
+> power sequence for vcodec1.
+> 
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> ---
+>   .../platform/qcom/iris/iris_platform_common.h      |   4 +
+>   drivers/media/platform/qcom/iris/iris_vpu3x.c      | 137 +++++++++++++++++++++
+>   drivers/media/platform/qcom/iris/iris_vpu_common.h |   1 +
+>   .../platform/qcom/iris/iris_vpu_register_defines.h |   7 ++
+>   4 files changed, 149 insertions(+)
+> 
+> diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
+> index 7d59e6364e9d..8995136ad29e 100644
+> --- a/drivers/media/platform/qcom/iris/iris_platform_common.h
+> +++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
+> @@ -61,6 +61,9 @@ enum platform_clk_type {
+>   	IRIS_VPP0_HW_CLK,
+>   	IRIS_VPP1_HW_CLK,
+>   	IRIS_APV_HW_CLK,
+> +	IRIS_AXI_VCODEC1_CLK,
+> +	IRIS_VCODEC1_CLK,
+> +	IRIS_VCODEC1_FREERUN_CLK,
+>   };
+>   
+>   struct platform_clk_data {
+> @@ -210,6 +213,7 @@ enum platform_pm_domain_type {
+>   	IRIS_VPP0_HW_POWER_DOMAIN,
+>   	IRIS_VPP1_HW_POWER_DOMAIN,
+>   	IRIS_APV_HW_POWER_DOMAIN,
+> +	IRIS_VCODEC1_POWER_DOMAIN,
+>   };
+>   
+>   struct platform_pd_data {
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu3x.c b/drivers/media/platform/qcom/iris/iris_vpu3x.c
+> index 13fbb21c2182..0d0a239f9feb 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vpu3x.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu3x.c
+> @@ -27,6 +27,16 @@ static bool iris_vpu3x_hw_power_collapsed(struct iris_core *core)
+>   	return pwr_status ? false : true;
+>   }
+>   
+> +static bool iris_vpu36_hw1_power_collapsed(struct iris_core *core)
+> +{
+> +	u32 value, pwr_status;
+> +
+> +	value = readl(core->reg_base + WRAPPER_CORE_POWER_STATUS);
+> +	pwr_status = value & BIT(4);
 
-I will drop the on-board regulators for panels. These were intended to
-be used by a panel DTSO. So I will these back in when I 
-submit patches for a panel DTSO for this board.
+define these bits position
 
-> > + per_1v8_reg: regulator-per-1v8 {
->
-> Drop node
->
+#define VCODEC0_POWER_STATUS BIT(1)
+#define VCODEC1_POWER_STATUS BIT(4)
 
-I have omitted that its used by the LAN7430. I will add this
-usage in V3.
+with this,
 
-> > + compatible = "regulator-fixed";
-> > + regulator-name = "per_1v8_reg";
-> > + regulator-min-microvolt = <1800000>;
-> > + regulator-max-microvolt = <1800000>;
-> > + vin-supply = <&per_pwr>;
-> > + };
-> > +
-> > + per_3v3_reg: regulator-per-3v3 {
-> > + compatible = "regulator-fixed";
-> > + regulator-name = "per_3v3_reg";
-> > + regulator-min-microvolt = <3300000>;
-> > + regulator-max-microvolt = <3300000>;
-> > + vin-supply = <&per_pwr>;
-> > + };
-> > +
-> > + per_5v_reg: regulator-per-5v {
-> > + compatible = "regulator-fixed";
-> > + regulator-name = "per_5v_reg";
-> > + regulator-min-microvolt = <5000000>;
-> > + regulator-max-microvolt = <5000000>;
-> > + vin-supply = <&per_pwr>;
-> > + };
->
-> Drop all these
->
-
-per_3v3_reg: Used by the LAN7430 but omitted by accident so I will define 
-  that it's used by the LAN7430 in V3.
-per_5v_reg: Used by onboard audio but audio support is omitted within this 
-  patch series so I will drop this regulator.
-
->
-> Probably most of them are to be dropped :/
->
-
-For V3, I will go through all of these and eliminate any redundant regulators
-or add where they're used.
-Most of them likely became unused when removing SDHC4 whilst
-preparing this patch series.
-
-> > +&lpass_rxmacro {
-> > + status = "disabled";
-> > +};
-> > +
-> > +&lpass_tlmm {
-> > + status = "disabled";
-> > +};
-> > +
-> > +&lpass_txmacro {
-> > + status = "disabled";
-> > +};
-> > +
-> > +&lpass_vamacro {
-> > + status = "disabled";
-> > +};
-> > +
-> > +&lpass_wsa2macro {
-> > + status = "disabled";
-> > +};
-> > +
-> > +&lpass_wsamacro {
-> > + status = "disabled";
-> > +};
->
-> Why are all these LPASS codecs disabled?
->
-> Best regards,
-> Krzysztof
->
-
-No audio driver support is included in this series, but disabling the LPASS
-codec nodes is unnecessary so I'll drop these changes in V3.
-Many thanks for your feedback.
-
-Best regards,
-William Bright
-
+Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
