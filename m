@@ -1,66 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61C072627;
-	Wed,  6 May 2026 15:23:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD86B48C405;
+	Wed,  6 May 2026 15:27:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778080993; cv=none; b=IxdPBhO6LCPmfGRsAruGi5rLitl88J+qBqkTtuNsafAStGFHbCSoMp7nVFY5FUC8RCNsCqFKir/fDylb33s3NZ5S0jpuye9m1mdEWu9ygrDU6Fwoks2O7bOMuNJ7iZAYEK80KS9kVk7yy1eYJGp82TvsMZaoN6+vgNqnRfI4x0w=
+	t=1778081247; cv=none; b=lr8eXBQ5Ng9cyTpAFP7S9t1RwVV5gNqBg3NG/SlR32QxsnTclYsXo/LmhuZEymW+Qk7YoXiJfS+Q8qb4/bm+1CdJP3gwsjl0W9KdliV6xRIbfmilA8sgQfK3pO62VDzGnuFO/lp21uGThEOS4dNMtVC2w7t/XbWOovW7T5T184s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778080993; c=relaxed/simple;
-	bh=V+9LRE9DDhuKr6ZZ/HALlvqwy8cp4ENj3/Lz0I/d0fI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aQtip+CuZ5ArMCFTpl+nyQwdMFkqrz8vD8PZhWkqR4gDngcIT17WlaJuasVizHeqpudX7uyoP6tLSWcL95Pibl2LcjSyjfELSWE213NoYEO3kjS17cm5sh7icanQDw4PWvERSt3nX+bP+wkvy8NmWNThYTHSUfbtFx6GaK4tV4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hvWixOoQ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778081247; c=relaxed/simple;
+	bh=FEvngRTBTYk4B9n3K7Okanm/jldFJ4FdUeITv2+Pte4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ey6tQwooHreCaAFymd+q1Unde2IhrJUdYK7Akna79vEDio63U0rTzwhSMg+CITYa96L1ZPqUcjrrMQKNJq76x4fRHkxbcTP9+o2AR1ze48eMBp6+Fya96nVPh7Elunp4WwbZ/77cF+0i6dmBJ6ecfIiaKI8jOgNAYFUMiyu/vDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=jb74YaeK; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hvWixOoQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A16FC2BCB0;
-	Wed,  6 May 2026 15:23:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778080991;
-	bh=V+9LRE9DDhuKr6ZZ/HALlvqwy8cp4ENj3/Lz0I/d0fI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hvWixOoQp94LAWXlAMSe65AuGtNjJPIwjei2ZvZfrTLEw6RkbRs402J/0FRU1jJGS
-	 IVcUwPVSmDSVYaBQL/PWgF7YxP+wUxJBfB2tKyjqzmop7PnH4JVk25+Ofiv5fhaIX2
-	 EIYIl3z8rsuc2pdu19NAzIAxlalzRLsAsF8j04JjrwjhdomahQpRE5pumyPWdjECAp
-	 BAvT7dQR7TBYAC8Fhi2RvKFSNUIFbMnj1ueeNb5rE8JURggEfMcS+vvQJU8UUDVTqy
-	 U//LnHbz2B+Jh7Sn6XWjKMsGFDnWaPgjEW79BL9WrDi8di9khPccGSZ8U7t5On2rlt
-	 qDN1NCizghgsA==
-Date: Wed, 6 May 2026 10:23:09 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>,
-	Thara Gopinath <thara.gopinath@gmail.com>,
-	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH] dt-bindings: crypto: qcom-qce: document the Nord crypto
- engine
-Message-ID: <177808098870.2152824.11717885412954046946.robh@kernel.org>
-References: <20260429081021.16380-1-bartosz.golaszewski@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="jb74YaeK"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A42FF306F35;
+	Wed,  6 May 2026 17:27:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1778081236; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=8HE3m8x+hz3IF4eoayZQahKTddy0WxRCJveHFD/TVLs=;
+	b=jb74YaeKXYNfIDXcQFgTn+cCHMxjIEgbtCghknAiPXAvLLe7C9p3N469XNYG0O9Ew/3app
+	tMM7yQKSrFBk4r4JPAGw7mIJp1O2u/gjQnsbgBT59O+kANRSIUK7kx+PMu49lPG1TzSDMc
+	p8eG7y6JeIihr5i1FIsZ6nhrtN1ZnAi6jEmXExH/j46tr1/Fs6jLp6f7RFGbCrwqIlAyt6
+	JBkRMYG7UZ/UoAJQplY8AOvvxOQaQ3Vr7aJdTXLK37bbwycpl2gbYH85brNkSga4698TFk
+	olq7HyGuNV8fXRkSMMFZVriQ03dnicGI4jPHwSDnBIJ0GJLsJINT24N2zxSTQg==
+Message-ID: <b37dd665-3d25-4627-ab04-17431d9931f4@cjdns.fr>
+Date: Wed, 6 May 2026 17:27:08 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260429081021.16380-1-bartosz.golaszewski@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH 2/2] clocksource/timer-econet-en751221: Support irq number
+ per timer
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+ linux-mips@vger.kernel.org
+Cc: naseefkm@gmail.com, daniel.lezcano@kernel.org, tglx@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260416175101.958073-1-cjd@cjdns.fr>
+ <20260416175101.958073-3-cjd@cjdns.fr>
+ <e5851014-3f9f-4e5b-bdfe-8c277f581155@oss.qualcomm.com>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <e5851014-3f9f-4e5b-bdfe-8c277f581155@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
+
+Hello, thanks for having a look.
 
 
-On Wed, 29 Apr 2026 10:10:20 +0200, Bartosz Golaszewski wrote:
-> Document the crypto engine on the Qualcomm Nord Platform.
-> 
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/crypto/qcom-qce.yaml | 1 +
->  1 file changed, 1 insertion(+)
-> 
+On 06/05/2026 16:39, Daniel Lezcano wrote:
+> On 4/16/26 19:51, Caleb James DeLisle wrote:
+>> This timer was first developed on the EN751221 which is a MIPS 34Kc
+>> and therefore has a custom interrupt controller. The hardware for
+>> econet,en751221-intc implements percpu routing of the timer
+>> interrupts.
+>>
+>> However, the EN751627 and EN7528 are MIPS 1004Kc based, and
+>> therefore use the standard mti,gic compatible interrupt controller.
+>> This interrupt controller uses a different IRQ number for each
+>> timer interrupt.
+>>
+>> Add support for both models in this timer driver.
+>
+> Given the changes done in this driver, the description is short and 
+> does not explain why the code is so impacted.
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
+Fair enough. Supporting the two different IRQ models lead to an annoying 
+amount of changes.
+
+
+>
+> I suggest to split the changes in order to facilitate the review process
+
+
+Okay, I'll see what I can do in this regard.
+
+
+Thanks,
+
+Caleb
+
+
+>
+> [ ... ]
