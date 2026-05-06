@@ -1,144 +1,288 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CC0447F2C4;
-	Wed,  6 May 2026 14:14:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA0F5480962
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 14:15:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778076899; cv=none; b=jyva5tCA1QRvlP19856zabT8SlRaeyuKXGubTbt7TJxJRQBnxsrTS1FIrwAhuBbeGIXqowkqmPmBgHBOzF5PYJFGXDDx6gv4KG9uA9NVcuum1N22WiLZSH6UXPQflOCL3OhOdm2inHX3nUuQ7TraoqZsVM875eKV2nCi1B3Zj9s=
+	t=1778076956; cv=none; b=NCUlp8MJtJVqi2Wb6S6xRYvhwFvwFt1zqCXdB2HH10bdvQTsfUsUPxYWS395gxJY8CaIgJI226OYOPCATclUAXHfgH61dVw+GSC0Nha7U65zc8Gb+URs8u92WJKYVq1xeeuF4jckmHX3a21cBN0Qz4eZKJyKbAbk/mTyoedrNU0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778076899; c=relaxed/simple;
-	bh=Pm0+Gh1N3CQZmo80V9svpnAeqF+PlXCFFDOgCkyNM1Q=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=DXoXmvKv7oB08/j5MTLsGzvSwWXRUXVnNP/556zoJZhbQ1pxD3sFDbAEh7zIfEBbIdhoKZDb65Y9bJyItjQ7gAKC5kbxt6zaLZQx3Iv7tFQxVYSKNoK3+Jfh8hYXxpLSSmpKYnBGYiZEiahtakjwSiJjKVARMSTp6oO47GeTZGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.82])
-	by APP-05 (Coremail) with SMTP id zQCowABH2AvSTPtpLvWNDw--.25404S2;
-	Wed, 06 May 2026 22:14:42 +0800 (CST)
-Message-ID: <4a43edb8c7ae3f96f77272db89ec6450ffa28876.camel@iscas.ac.cn>
-Subject: Re: [PATCH 2/2] arm64: dts: mediatek: mt8188-geralt: enable Wi-Fi
- card
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger	 <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno	 <angelogioacchino.delregno@collabora.com>, Hui
- Liu <hui.liu@mediatek.com>, 	linux-gpio@vger.kernel.org,
- devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, 	linux-mediatek@lists.infradead.org
-Date: Wed, 06 May 2026 22:14:41 +0800
-In-Reply-To: <CAGXv+5F6BSmqq5HEybuCSwt75LVzh5gvs2wQpqy3vgfLi60Dcg@mail.gmail.com>
-References: <20260504072748.2580172-1-zhengxingda@iscas.ac.cn>
-	 <20260504072748.2580172-2-zhengxingda@iscas.ac.cn>
-	 <CAGXv+5F6BSmqq5HEybuCSwt75LVzh5gvs2wQpqy3vgfLi60Dcg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	s=arc-20240116; t=1778076956; c=relaxed/simple;
+	bh=77fJr5LiA/sxupPT8D6D6Tg2q69Ndutr+ng2W7NYQUc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YPJ9qU++PcYAN8kRNOALpSPR+1N7/z/zlNwYr90YngPTebTNiTIL+AhIpXtZN6cCGiO0PlVdtB854fZVHWU7ETAD50dRp+5s5ZNGqlEyhwY2VgrYCzOVCGfJXDUIFjwfnpFDK/Jr+t5GhX8u1zTACE1nsW9ZF0bATOwpgyblNjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=a3omOw4Q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JwM9jMWi; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="a3omOw4Q";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JwM9jMWi"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 646DK63L529408
+	for <devicetree@vger.kernel.org>; Wed, 6 May 2026 14:15:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	meGD3Bi0QGO28p7xtSgOSjUMqCXzjYkDyPriOZRTKRg=; b=a3omOw4QdhsyYJGa
+	si+XT6kwzHEmJtWJ34j54LJFoLnFRPyBE+tH1EZz99YBZmqTXh2F6vrHR5mWyTD/
+	Z+u/xy8szUADasJXV0Bi4KCPXCbEKAlG8/XjLhWVUPvfE6EvNDojpLpzNl7YodAE
+	fwHhjNyGBCZSVvxEnbJc29PaBaw5S+GqT4VZbLft5AcIEHZyurd3wJZMvvQaOStB
+	QF6jCgJHilepC2m/jhVYYBNkNADsupACM1pn4ovl2rKt5FeO/oOWSvX8NbHne2Ov
+	P7PfBXaYnsea66A7joZnbdFzc7Hlv5oc+8jr5+aegWfQ2TC0WiuiKq9OsM0QH2Jd
+	6A14rQ==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e015x9m7t-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 06 May 2026 14:15:53 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-35fbb57764aso1113697a91.1
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 07:15:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778076953; x=1778681753; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=meGD3Bi0QGO28p7xtSgOSjUMqCXzjYkDyPriOZRTKRg=;
+        b=JwM9jMWi4hja4vvChls6LEpONAUWomJY7EmUeytJoSE+7TjlU8OZ9slh4BeShp0KAc
+         QrBvm2JkBfPAQh+FgAJmXvd1ns8QSc84xPsWaJK71+QH5CmJQcis7iaPbZeSvFYsZ60D
+         bR3BVAIIRcfMaFVfiYlMZyyM98HtLbL44PKxpnsXAFinVLPGH/DyeyUsUQwJRto1UknZ
+         Aqcn+UcpLY832MdHALhRwqch9xqDJlKTWJsh26Ak4wGanEuPFXyXGMpoDiQvnvEYJOPO
+         WWEez2VF2GaddErUhe+dz3Thx+yRpvCp5kkO6zatykauL5yAHHDBGlwAWS9hQdN19eqP
+         /2Rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778076953; x=1778681753;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=meGD3Bi0QGO28p7xtSgOSjUMqCXzjYkDyPriOZRTKRg=;
+        b=gz/iXWYvNwtsPZAT4ZqOvop/UQ+Z0JnkCqojtg9Hde5CNb8762YemopOEh7t9s6Mg6
+         opovNJPAK4NHzEY+WM8Lc2yU3papHnXPTgIID/8JEqJaR/qB1MLhA/ZhUzJelKHKkJf7
+         vDnGnf2/iw6PjLrsXjYMNlZELLPARFufiPsQSQWxVyC6PXYqnvT3HOK8YUtSYWQ7Y31K
+         GVqibYeVj77qKudhQjeUK4gtYUeTzBeKKk5hocOjz8Nh4S3Hnd6OFAwbIj1VpYQFtz8l
+         Q04Tomf5lIjK6Dlkx9QExUlV7sky60qQzM6JMpwWspxPCdroYRxS0Hog5fzVW+egWNaL
+         5ksA==
+X-Forwarded-Encrypted: i=1; AFNElJ/hwB1NWG8fNtsbw/qqxKEuqBv9FNEEy6A+P9iPzD0C6Bdf33jx7ZGF92g8PWWWeTIQqCYhuqNNwEur@vger.kernel.org
+X-Gm-Message-State: AOJu0YwdTdx3Uenu4pB/WubcRqOCJPZ0Dth9GaRFxksGB7lVpFq4z/0Z
+	4kpLSNn/aYObp2G/2QVmRPtNK6Ojco/MKA/wotvxN90lBL5iYLI3h0M/iFLntTfEL82u7TK2Suh
+	amkaTWeHLuXPZJDHB551nUM+ob6UFBVARZdT+Fs9ib1jWefiTO9/Z6neSgJ5t1nUj
+X-Gm-Gg: AeBDievtA+l2hODTT1l7hHdW/D7ombvkoC9Yzm95PSJThGoe1ivi1CHtpyGcUZQzgJy
+	nW1gG9EiRk+1tvljIj+no8OEixE2aKbYwNB7OYSkGpp4FjApiW2tcBlTlW1FRfiYLFwOFqJxbtB
+	SY3YLsqw2AXHvvuYfHf4ccDanNXKq11XiI+raVcqBHp7GaddPTz/mXzBOkE9/j47keVDQmMLGg4
+	N6CeGTJc50azUg6ceF945mCzSAhz+DnfB2e/WADGILf8BLdKBSIWbKJexz6d9GkzyyFNQlBLoOh
+	goWW2Z+Y9QIsMw+bX9QlcNyGr7YDdEmo0CQFgoUtnISoVfK07wBr0cqXO+0+yT3SeqQNt+F0Fzz
+	+yLKqc+P/K2f/oRsCPq9PUyHhyWwtp1MvvSFg/hWia+QtlVYC3TUlMIUiG8hdbdja
+X-Received: by 2002:a17:90b:1b48:b0:364:721e:42d3 with SMTP id 98e67ed59e1d1-365a96ec81cmr2744692a91.4.1778076953045;
+        Wed, 06 May 2026 07:15:53 -0700 (PDT)
+X-Received: by 2002:a17:90b:1b48:b0:364:721e:42d3 with SMTP id 98e67ed59e1d1-365a96ec81cmr2744637a91.4.1778076952422;
+        Wed, 06 May 2026 07:15:52 -0700 (PDT)
+Received: from [10.204.101.47] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-365b08d6c5csm1710667a91.1.2026.05.06.07.15.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 06 May 2026 07:15:51 -0700 (PDT)
+Message-ID: <6092c78d-b21a-4eb1-815a-87a530781705@oss.qualcomm.com>
+Date: Wed, 6 May 2026 19:45:43 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:zQCowABH2AvSTPtpLvWNDw--.25404S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7try8Xw1Dtw4DWF47JrWfuFg_yoW8uFWxpr
-	1ktFWUtryUGrs7JF45Xr17JFW5Ar1fJwn8Cr1xXFy8tr15Ar1jqr98Xr909w4UJr48Jw1F
-	qr10vry7ur1UZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
-	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
-	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
-	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
-	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
-	wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
-	v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
-	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
-	ZFpf9x07j8KsUUUUUU=
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 04/13] media: iris: Add iris vpu bus support
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Hans Verkuil <hverkuil@kernel.org>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        iommu@lists.linux.dev
+References: <20260505-glymur-v4-0-17571dbd1caa@oss.qualcomm.com>
+ <20260505-glymur-v4-4-17571dbd1caa@oss.qualcomm.com>
+Content-Language: en-US
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In-Reply-To: <20260505-glymur-v4-4-17571dbd1caa@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=Os1/DS/t c=1 sm=1 tr=0 ts=69fb4d19 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=B53-pikVkeDfK7DE9NMA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-GUID: 2FKZ2f6bgqRzUlqTYc5vuUPx1p-Dc_WC
+X-Proofpoint-ORIG-GUID: 2FKZ2f6bgqRzUlqTYc5vuUPx1p-Dc_WC
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA2MDE0MCBTYWx0ZWRfXzQlwgFjC95Xe
+ HG/mA32GvBQHhQ5vXtlQ6lhOsyAOj8x+hSn6ZmE2IOmp1IhwiG/zE3HpAsySBF31TclG3X+knDr
+ 2zE6ShwfMb0oetVPx1vbUuoRJC6zB/YWltEx8Ul92lT87DuQbAFuoPWd2y66kBA4KW6MNW32t/u
+ 1hk2uqq+mQoF/UjN5lJh3sGvJ1rJ+mS6M2YiJi/7dKVSLzC9hG+qXd2b/yqsaD8a6RYjxgerfE0
+ xhKUWG6T54CZb5G/1Qf6iJJj6tF7irHfsm3KKc7/aOVYAwvmVpyiKV0OSqSXFpQtmf95Ytt0DtN
+ a+1HAEa9xBUQGDG2P959SdC9Nj9kqnHbupW0ERweWwtmGFsviBP3sdU6nlsi117R2ZGfYqq7XXW
+ 6hL2Su8JkDtY12nyoj5fju7n6IxyBmbdPzw+dstemiD5jt2VBhvRC5fyAekFvWeM1bVMJ1gTbbE
+ IqxeGPFtmUr1kplAGOQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-05_03,2026-05-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 priorityscore=1501 spamscore=0 clxscore=1015
+ malwarescore=0 lowpriorityscore=0 adultscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605060140
 
-=E5=9C=A8 2026-05-04=E4=B8=80=E7=9A=84 15:34 +0800=EF=BC=8CChen-Yu Tsai=E5=
-=86=99=E9=81=93=EF=BC=9A
-> Hi,
->=20
-> On Mon, May 4, 2026 at 3:28=E2=80=AFPM Icenowy Zheng
-> <zhengxingda@iscas.ac.cn> wrote:
-> >=20
-> > The mainline pcie-mediatek-gen3 driver does not have code managing
-> > downstream device power / reset.
-> >=20
-> > As the Wi-Fi card on ciri is a fixed device, set the related
-> > regulator
-> > to always-on and use GPIO hog to set the status of its reset pin.
->=20
-> The plan now is to model it as an M.2 E-key slot (even though the
-> chip
-> is actually soldered on the main board).
 
-Interestingly I saw a "PCI_PWRCTRL_GENERIC" driver in 7.1, although it
-does not support toggling #PERST now -- maybe this should be done and
-used instead? (Well it looks like the driver had existed for some time,
-but it was for "slots" previously)
+On 5/5/2026 12:29 PM, Vishnu Reddy wrote:
+> From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> 
+> On glymur platform, firmware loading needs a separate IOMMU mapping with
+> its own stream ID. This stream ID is defined in the device tree with the
+> assosiated firmware function ID in the iommu-map property. To create this
+> mapping, a separate child device is needed so the firmware memory can be
+> isolated in its own IOMMU context.
+> 
+> Introduced a new bus called iris-vpu-bus. This creates a dynamic device,
+> and its dma_configure() callback calls of_dma_configure_id() with the
+> function ID provided by the client to map the corresponding stream ID.
+> This sets up a dedicated IOMMU context for the child device.
+> 
+> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> ---
+>   drivers/media/platform/qcom/iris/Makefile       |  4 ++
+>   drivers/media/platform/qcom/iris/iris_vpu_bus.c | 69 +++++++++++++++++++++++++
+>   include/linux/iris_vpu_bus.h                    | 25 +++++++++
+>   3 files changed, 98 insertions(+)
+> 
+> diff --git a/drivers/media/platform/qcom/iris/Makefile b/drivers/media/platform/qcom/iris/Makefile
+> index 2abbd3aeb4af..6f4052b98491 100644
+> --- a/drivers/media/platform/qcom/iris/Makefile
+> +++ b/drivers/media/platform/qcom/iris/Makefile
+> @@ -31,3 +31,7 @@ qcom-iris-objs += iris_platform_gen1.o
+>   endif
+>   
+>   obj-$(CONFIG_VIDEO_QCOM_IRIS) += qcom-iris.o
+> +
+> +ifdef CONFIG_VIDEO_QCOM_IRIS
+> +obj-y += iris_vpu_bus.o
+> +endif
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_bus.c b/drivers/media/platform/qcom/iris/iris_vpu_bus.c
+> new file mode 100644
+> index 000000000000..15ba4d9c563e
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu_bus.c
+> @@ -0,0 +1,69 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) Qualcomm Innovation Center, Inc. All rights reserved.
+> + */
+> +
+> +#include <linux/device.h>
+> +#include <linux/iris_vpu_bus.h>
+> +#include <linux/of_device.h>
+> +
+> +static int iris_vpu_bus_dma_configure(struct device *dev)
+> +{
+> +	const u32 *iommu_fid = dev_get_drvdata(dev);
+> +
+> +	return of_dma_configure_id(dev, dev->parent->of_node, true, iommu_fid);
+> +}
+> +
+> +const struct bus_type iris_vpu_bus_type = {
+> +	.name = "iris-vpu-bus",
+> +	.dma_configure = iris_vpu_bus_dma_configure,
+> +};
+> +EXPORT_SYMBOL_GPL(iris_vpu_bus_type);
+> +
+> +static void release_iris_vpu_bus_device(struct device *dev)
+> +{
+> +	kfree(dev);
+> +}
+> +
+> +struct device *create_iris_vpu_bus_device(struct device *parent_device, const char *name,
+> +					  u64 dma_mask, const u32 *iommu_fid)
+> +{
+> +	struct device *dev;
+> +	int ret;
+> +
+> +	dev = kzalloc_obj(*dev);
+> +	if (!dev)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	dev->release = release_iris_vpu_bus_device;
+> +	dev->bus = &iris_vpu_bus_type;
+> +	dev->parent = parent_device;
+> +	dev->coherent_dma_mask = dma_mask;
+> +	dev->dma_mask = &dev->coherent_dma_mask;
+> +
+> +	dev_set_name(dev, "%s", name);
+> +	dev_set_drvdata(dev, (void *)iommu_fid);
+> +
+> +	ret = device_register(dev);
+> +	if (ret) {
+> +		put_device(dev);
+> +		return ERR_PTR(ret);
+> +	}
+> +
+> +	return dev;
+> +}
+> +EXPORT_SYMBOL_GPL(create_iris_vpu_bus_device);
+> +
+> +static int __init iris_vpu_bus_init(void)
+> +{
+> +	int ret;
+> +
+> +	ret = bus_register(&iris_vpu_bus_type);
+> +	if (ret) {
+> +		pr_err("iris-vpu-bus registration failed: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +postcore_initcall(iris_vpu_bus_init);
+> diff --git a/include/linux/iris_vpu_bus.h b/include/linux/iris_vpu_bus.h
+> new file mode 100644
+> index 000000000000..750e878e489f
+> --- /dev/null
+> +++ b/include/linux/iris_vpu_bus.h
+> @@ -0,0 +1,25 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (c) Qualcomm Innovation Center, Inc. All rights reserved.
+> + */
+> +
+> +#ifndef _LINUX_IRIS_VPU_BUS_H
+> +#define _LINUX_IRIS_VPU_BUS_H
+> +
+> +#include <linux/device.h>
+> +
+> +#if IS_ENABLED(CONFIG_VIDEO_QCOM_IRIS)
+> +extern const struct bus_type iris_vpu_bus_type;
+> +
+> +struct device *create_iris_vpu_bus_device(struct device *parent_device, const char *name,
+> +					  u64 dma_mask, const u32 *iommu_fid);
+> +#else
+> +static inline struct device *create_iris_vpu_bus_device(struct device *parent_device,
+> +							const char *name, u64 dma_mask,
+> +							const u32 *iommu_fid)
+> +{
+> +	return NULL;
 
-Thanks,
-Icenowy
+change this to return ERR_PTR(-ENODEV);
 
->=20
-> I have some of the patches ready, but I'm still working out the USB
-> side of it.
->=20
->=20
-> ChenYu
->=20
-> > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> > ---
-> > =C2=A0arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi | 11 +++++++++++
-> > =C2=A01 file changed, 11 insertions(+)
-> >=20
-> > diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-> > b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-> > index 8e423504ec052..c25780098103b 100644
-> > --- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-> > +++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-> > @@ -544,6 +544,11 @@ &mt6359codec {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mediatek,mic-type-2 =3D <2>;=
- /* DMIC */
-> > =C2=A0};
-> >=20
-> > +&mt6359_vcn18_ldo_reg {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Used by WLAN */
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 regulator-always-on;
-> > +};
-> > +
-> > =C2=A0&mt6359_vcore_buck_reg {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 regulator-always-on;
-> > =C2=A0};
-> > @@ -1145,6 +1150,12 @@ pins-en-pp3300-wlan {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 outpu=
-t-low;
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 };
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 wlan-reset-hog {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 gpio-hog;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 gpios =3D <145 GPIO_ACTIVE_HIGH>;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 output-high;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
-> > =C2=A0};
-> >=20
-> > =C2=A0&pmic {
-> > --
-> > 2.52.0
-> >=20
-> >=20
+> +}
+> +#endif
+> +
+> +#endif /* _LINUX_IRIS_VPU_BUS_H */
+> 
 
