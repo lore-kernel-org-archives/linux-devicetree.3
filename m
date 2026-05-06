@@ -1,225 +1,154 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2110.outbound.protection.partner.outlook.cn [139.219.146.110])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2966347D95B;
-	Wed,  6 May 2026 15:56:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.110
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778082998; cv=fail; b=SRgVmfGy2vBnheZ0JQugUtPB4tjM0p3O7YYY4Xp7dYdhBBiXUkjoGiB7HKe7f/9WlTpekycYHRCxQ8YouRl1YNMnU0mQ9QA7zEpEogtG425gaBf11yJ76qS2ySJ+hJ+2OHytiPA66fWR4+9Ob+kLiRIx49u3yaX0WqaCdsJT2CI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778082998; c=relaxed/simple;
-	bh=3cdirSAGaGDnorGyOgMnO90YvYT/I9F14uF2el/Zhhw=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Kn4b2xBZWI22a1dO7Yp9pMScGe842absHH8xQrUUmFP2yLrFM3ty2H01hDBeCdIoVINpJ2qTL28wGCggDB3Sw3yw4XlMTHtozJhnyK6OfNAJXkHP7nuesAVeR/monYqILRUym+xVXmxj8UnWRmIz4gnBUr4XtMk5BGWyD0qeFNY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dbrRuxJkNqtOIrnxQp60IdNwxaWzDJpKByV4UzCu9FNk5vmBYa7/Oz73BXcxB8Mp7Do2jLe/wP2bbb/XVdY5Tk4lcSJ1k/YN7gTGaz9m7GkAur0rCt1kAyklbhyiDuddLai+XJ0Z/Z37YYV//edoxghv/lxm6qxnwpHzzI7I1E28xniRs+zpZMWkVviw3VCRPTvozrEn/anW0tEfd+UWuv7afscwRQz2+CA4Y2e39/JCCxxYxZwe7NI/Vy595nVThWfSUj6DaEPxogHAYDolmLAOfZ143N6SsiQywAsFBpYgBMhJOOG/kYN1rPBEQcTLGf+igw+6RZ965y/NzKYd8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uJKEKVPIq1XRSdKOOntc9VF2F23Ieo4f1lZdwnoGwX0=;
- b=d+6JsZsTnWI37eX55CkEyUfZU72QTwsVwbldsh1+Aeo83m+qqvbbyNn1JUND9Ps5xXXRK+gBu8hMalRUIkFCa6JQP6RfQKomBicL+PmS0+eMQ8JTyzz2hTesmFzcz5IjFacSpPTvbGRCyf6lPCAYuJZ+E4vLQY7fpWE7woFAWxiyk8bQbI7170eRxn1m9T5IF7mpQD9DU+Xt8/iSMPfE/1u3TFTFQvVDUZl6HJm5JhA8iBQl7vL6Lt4guPkQ+tAzmUMC+MSIhNTUmR4IDKJZJIWSwiMFZ3CB6rpOo63fQhHRQFwSM6fjvy86TUwOOmfXHqJsT4tQDlOyfYG6YZGuhw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1172.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:14::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Wed, 6 May
- 2026 09:23:37 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%5])
- with mapi id 15.20.9891.008; Wed, 6 May 2026 09:23:37 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Conor Dooley <conor@kernel.org>
-CC: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>, Paul Walmsley <pjw@kernel.org>,
-	Albert Ou <aou@eecs.berkeley.edu>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>,
-	Bartosz Golaszewski <brgl@kernel.org>, "linux-gpio@vger.kernel.org"
-	<linux-gpio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-riscv@lists.infradead.org"
-	<linux-riscv@lists.infradead.org>, Lianfeng Ouyang
-	<lianfeng.ouyang@starfivetech.com>
-Subject: Re: [PATCH v1 11/20] dt-bindings: pinctrl: Add
- starfive,jhb100-per1-pinctrl
-Thread-Topic: [PATCH v1 11/20] dt-bindings: pinctrl: Add
- starfive,jhb100-per1-pinctrl
-Thread-Index: AQHc09tvLatUK5oq3keSy4c9Ncpt5LXubvkAgAVF1NCAASNvgIAL9BTw
-Date: Wed, 6 May 2026 09:23:36 +0000
-Message-ID:
- <ZQ4PR01MB1202F561A68C43547A85D1E7F23F2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-References: <20260424111330.702272-1-changhuang.liang@starfivetech.com>
- <20260424111330.702272-12-changhuang.liang@starfivetech.com>
- <20260424-mumps-foothill-ef122c1029c0@spud>
- <ZQ4PR01MB120229BE0DAC2658164C066AF2372@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
- <20260428-hardhat-both-1c9aa594a45a@spud>
-In-Reply-To: <20260428-hardhat-both-1c9aa594a45a@spud>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1172:EE_
-x-ms-office365-filtering-correlation-id: 6475f694-eb94-495c-fc29-08deab51271b
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|376014|7416014|1800799024|38070700021|56012099003|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- uKyLAUOB1M1rdjZ7VM216P9y7hUaP6JCFmlFKKjfxZ4zATBg9w6xBKsS5W19KVzwYxcm14cFhoPTlIJ+DgiA7CRK8SHrRZEWQyqWGgja5qeTcRfpcxRQ1pi4Jg1MR9unQbAfYm/y4gNQYMl/xMp207beYp6bKtAH0BpBRNHBn7m2u42K4bj0azHt6u8XpT4gmBo8FuKiazt9eWd1BXv259Il0afmXoOoWVXPpQIIqYS0+YPvOG2xvIpsKszFmLoHhtunP4M1B3L0Z0RtR8O2/Kp5jbdXt8K5QJoIM0Gn7iw6iBrjK2ZvzOIGuXm/koa/XvljjQLJyaHJEnVLP2ZEuW8I5ah39nJ4tKePSCxGufbCCYVvQDD4HilvylijYX2c8Ds9Tl/DZhgeHgrHPr6pHimGbEjE1AX7MWlIvJizzNso42hVH79SpOvbhJfVJWllGTGulaHsKbS5PMLmjcdRpugOJwrB6Nm6aBB8Hfml3jPGbfiiyRC0xyouZe2oyI3DXbNBKfogKu1NIzHLH4NYXJB6XTR4ekHDhcbEJujX2rDzt6DQi44l9M9iztGoXrFc
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(38070700021)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?Uy566qmnzeObFGEfVpxuK3doQQ83ff25mtBEh3d3TemKDeJ3nfwbguyTka32?=
- =?us-ascii?Q?O0xOwISG1171zxuouK3rAbFQFsaz9ErbvfpRr+yqfpfWsGOn9lgXjMKZqu67?=
- =?us-ascii?Q?NWIfQ08Rrz6XuU4dGwSdpXN2TjuBRO5r26oHOlzwNhl/GM3NiQ3VblX8ilOd?=
- =?us-ascii?Q?yR3QfxnPvOE9x7C7REpXriIll4Rj8HMgq/8D7GddGlVjBlThGoz/aTCgg2+Q?=
- =?us-ascii?Q?hMBm1imt3E1fadyJvm5hic7P33Cut8xeR3TWY0h1MMjCsPZYuAGa5yz2tx+5?=
- =?us-ascii?Q?oP/DbJs+5GT12aG5mgBhwhhWVsV2P5SI5RPQogmKIlb3qokWFgadTs5id7e+?=
- =?us-ascii?Q?sL+nQEedVU7ux0wsLm1nPeGMo4PTkW5+rsGhTYTTH1jNnXp257V6sX0aCR3/?=
- =?us-ascii?Q?bHdKFtZxNXBOnOJN7yRTL2hny8AQEnFI96U/upVVu80PSaJA4TB/r0GiVwTI?=
- =?us-ascii?Q?+J958lfHNEA4ypM0MNvgGiprWWHNJy1H0Q0v4WLJ2b5XZtz+uvMolp6vKY2f?=
- =?us-ascii?Q?kixBACxg3v6ZIqGkynn+5uKu8xsZwlGi9PlPzW2enE5u8ZGR910YjYiiPfhx?=
- =?us-ascii?Q?juBN5pWsjidVAl3nsd/I0kXqIfKj4AqsednlcPdkwrnrbRZkzqVggYvX/21v?=
- =?us-ascii?Q?s75db86JFBhUgCC8oLESULbDXzlfJVc73rdNDwvVz99Ozk0g3lkjsETWbcxe?=
- =?us-ascii?Q?Y1E5W+pWoWoRtISkuILLhYX8eLrlBtqtsZCTH83zDm0rbwqHd4H/Zb8TA73w?=
- =?us-ascii?Q?92dpgqxPwzY3ECKsP5NsE2iDqpnUEJpx46yLflYf+W9fq6yfmVniPuRsj+74?=
- =?us-ascii?Q?zpnok8aHJIPUMtIrJYb5ZOcGsBEqZkYtaE33K88mNuYSSJbWsXykxpCWW3vn?=
- =?us-ascii?Q?l6LuPhnVaJWrw+I9p2EMO4uUPer60ExVL9xKv8vd8rbLpQX4uVsbHC1eeUXC?=
- =?us-ascii?Q?Kiu6DR0W1Fm7640FophNtG7ueJN2Zgvn77JJFQRLKDB47GVmzk5mJedbpV5g?=
- =?us-ascii?Q?X1lclNVc/DH/x2cPDgMBwDd6L1OuczzFVulBy4gW/mqkUqkYR5JMJZaKX/Av?=
- =?us-ascii?Q?UuPp3QsxybF7SMhMhHR7lE+7xrIJ6K6SvxUNFkB2/xmJD3Z3vvf63I8Q6d6U?=
- =?us-ascii?Q?+BV1tNGz436RXnmms+a3BRqy/7x1ZjT8Slg4cxgvh6zegvpTRV+78nWLABf5?=
- =?us-ascii?Q?3uFBT0KmtRKMAeZwQrM7ux5ddjV4KG17mUDMBKlFfXvoiDr/R44ilufj5JRN?=
- =?us-ascii?Q?uWYn1pcLmDkAYysoLwnlzUQkZ4ibx43hVjxEG/fZ7SejiaJ7d/nLgbwttvqf?=
- =?us-ascii?Q?vrbhP/YRcUHxgrUG/PV7SDHDIH1jq+pP+5hQbnUXczoKWCEfiQftFXSs8Cun?=
- =?us-ascii?Q?7R7VU87s6Ldk+7Htc3Y/7vKYfvXbyu3W8FhVNscPWGI9CXaFUGggJEH2Mq2Z?=
- =?us-ascii?Q?ZnNkbnwbpnwWRLnXy/RHZ8diqhGSf2RMwN/KUlKxIKdJZTMFQhxZ6V0pjao1?=
- =?us-ascii?Q?cOZvpDUTSvVK0r0dTrBKz6RJONW2yLgTwGLmumaUNB7FPtE31xPqFnon/xql?=
- =?us-ascii?Q?q9tskyisgkIf6EmjgztfuUhrEupQEO1BU+W1UmSzKXG2BPa9IZM90xJgJPit?=
- =?us-ascii?Q?uOABoJFPIUg0tPj3UwFSIL7Pb1H2rcxx+bdJY1SGdDJIqonASNaHx9XgUX4e?=
- =?us-ascii?Q?YNn/Zq1lofKZI/TPoDWfaNVBovRPmwvr/A8x29RxXym9YHHUkTmrNlTgktXT?=
- =?us-ascii?Q?stzmFJkkQEoKyJ3cw3hj9Sd8rp25wIo=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18E4B3FE64C
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 15:56:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778083003; cv=none; b=PXMRrM2EHav3lkPyTm/KOjIpECeMvvvw+ChhiNXarU88TAoCZ00+ud53UBHUvjs8blfv+aItC/1y1A7okn+X0tubXz73CsWv2eSDeIvjfsucE8jPZZ//1EqcZwfrJv8CBPTWuplsqHxsFKVSNLBWwKHzF3vNG28oWqM4qj+bPZU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778083003; c=relaxed/simple;
+	bh=slFlcG18qKmRJPdDvfi5FDwm64deTGUrtGeGdyAySDI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sLDL/qaiqMHCEVCP9P22KOxSlYrMhKxSfX/+D4/W0LAber+g2vQmvmZQHpPN+ZNua6FhJdDfO3p2+L97me3U3lfxL4pBr3xUi2J8dBf4h7rpI1tHe7z83vGi8r/XY4QV5mzbyo630oAKpEXbl2D3cduIJuldFYmW949Jwo554/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lUxvZK/P; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jIKjr2P7; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lUxvZK/P";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jIKjr2P7"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 646DoLVH1527930
+	for <devicetree@vger.kernel.org>; Wed, 6 May 2026 15:56:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	0hbrdNEm+roBJyCislrqsmK+OlBVhAX1OhZtfM4e7C4=; b=lUxvZK/PdTXLb89b
+	kOoFZzfSwhMEpLuomTDMDCEb9V9gM+reKqMbt8imv00LFL4ox2+0XRRxQQKYs4H/
+	NETs2OgFotrUI2GcCrm7MF+nNG4n0jtg7T7bvOAZuMSXHRJO+7I0Ap2ACljVhWsI
+	3yk+jVM3ctQiYEa2TFQR/v2V0wb/DS9nkAU2PlK8Dg0TqRLSTlO0wAWbN58oJyjI
+	yRpcUQDms2KpkQk5y7fVN0D4TpOkiK+tRcE3nDm+ezn4J175nyy+POEhuepbYwjX
+	7ILtgxrunRAwI1Vk/7/V5qzBGZU3w8n/0FS4FbXUqyywjAhnMywFnbo+musI0766
+	x90uCA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0128a1bv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 06 May 2026 15:56:39 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-35fbaada2f3so11937834a91.0
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 08:56:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778082998; x=1778687798; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=0hbrdNEm+roBJyCislrqsmK+OlBVhAX1OhZtfM4e7C4=;
+        b=jIKjr2P722tkurHjHV7xJofcCGFSsSiVhkBLM9r7JX2TYjtVT2va5NbJDtA6cvRNy0
+         /odua52NzkOUhW4cUmSUxUKD0W4jj6Zo4EwSNLzWCp98vpG8X152kq7zRAmucmqmXAg6
+         3akokDbb10zFfQrWPGBK9CoDoReRwLaHX3+FfBYup50lgedc1R9NTSZGTnEBra1HrYWT
+         uvjTt+gc1yBOTuot6dIrKINR0y+fSn3CB8f7iAjZBooRO59n1Lt55io+Fa9QaxrHWiua
+         g1Gde9ziCYWVDGkfHLrmiifdedEqLnRj/r5JTGvkfLtftG/wK1mmk3cmKqiEKfWBRe35
+         zuwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778082998; x=1778687798;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0hbrdNEm+roBJyCislrqsmK+OlBVhAX1OhZtfM4e7C4=;
+        b=rdLr3LrhUZnDQQ23tiQq36I2zkowjsgxBdGE4ns8eMohGpPpUlT+2HlL9s37SDBWVi
+         pxs9ulUw+rRsWQaQMi0dXY7q0p3WTPJa6AwnWMjpZJMi6Z13EqCNhG0z+ZiBhqBA+eFM
+         Oxk/MRJb7FJg4GPPbpbyD13WCAxHQ1avZGJcliADPwTyeTyPZKZj13H5wJg29CqtCovc
+         gglK5ToN8u4pJBIX4xoTSKo0Qg014glmE6ont8DxYs154Itn3GYTarZKeIXySZB7K9NO
+         mqaIYkkmWiG+WsjFySeNRpzWcj/LFlM/7Yo2mk6fMvbfoKUdECbthdACxPWSjH0/bZLO
+         GEhQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9T/43niZnI0Wt0idBqNdUaoaxu2vD0/F3xlkexvapXzYovYf7rVoHJRvT2FFrP3BALTbqo836B/JYg@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw5IbPJEfo42iyn792+gccO0ua4kkibaDxDqrI+B8nVZSmQm1Lv
+	PxHdKSJWLBucQINB0mL8se7EVUNclhLhj1RnQG8J/90b8/BTVRlS2o6oAzpfnpiwrdIqhS9YdiZ
+	B2DXisu4qb2xzRhFSCGL6waUFEjuR8y7uSiC/v12FLmi8hx2iGVukco1Z3EAr7nes
+X-Gm-Gg: AeBDieuvkpKiXzMvBB4qca0CafKHOce8c/+rWnJdQp5eLusjJU2QzshKBHDR3gaI7j7
+	3rEZT1PS1MaNEedMCI3cdH2+I1pVaeMfbab8aRreupIZN2y6TnZMLzSMxVoh+pRJHeCKm8hy0Vh
+	yhc5OkWot5eKxCvXdXIcckUe3n/+odXG2LicwhwzsesQdzRQMhcjtZNOuQ4EjTbgbeYX78IwVD9
+	gUuaPtyxqE6g5vPkgg+Bw69qnvRrpLEs1UqiLZ2Yo8S8XJsNV+xG/JQim+7wk0xcdXKUBKmndTs
+	Q+fsRq/KXfmZVR/fI5SMTKRmV5BCZS7oeHeimPJekeQRGkSjgcyfsqgPVXW5BI4d+CReseeZayF
+	NgVimk1bCnUhxAwJJmW47ajaeTbswhsfUmJcDefcQWFFlW33vf2pNWDVEtaqGLxFV
+X-Received: by 2002:a17:90b:520b:b0:35f:b293:7ac6 with SMTP id 98e67ed59e1d1-365ab3e6379mr4145704a91.6.1778082997921;
+        Wed, 06 May 2026 08:56:37 -0700 (PDT)
+X-Received: by 2002:a17:90b:520b:b0:35f:b293:7ac6 with SMTP id 98e67ed59e1d1-365ab3e6379mr4145671a91.6.1778082997424;
+        Wed, 06 May 2026 08:56:37 -0700 (PDT)
+Received: from [10.204.101.47] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-365b4bd8debsm2886209a91.2.2026.05.06.08.56.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 06 May 2026 08:56:36 -0700 (PDT)
+Message-ID: <47413644-1c3e-4668-980c-e60f7b8c1352@oss.qualcomm.com>
+Date: Wed, 6 May 2026 21:26:29 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6475f694-eb94-495c-fc29-08deab51271b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 May 2026 09:23:37.0018
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: FuerHwtXM5GFeawXRfQk5QhdK71janhM/c8jakeLxsim3FYPkBHmdwDiPWcEaYv3XJPhBDpncXNR8Nt95Cxmwxt37ujp4I9izhQBt2Dtgxf+mKNX85vinzufyU6Jb8E6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1172
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 12/13] media: iris: Add platform data for glymur
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Hans Verkuil <hverkuil@kernel.org>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        iommu@lists.linux.dev
+References: <20260505-glymur-v4-0-17571dbd1caa@oss.qualcomm.com>
+ <20260505-glymur-v4-12-17571dbd1caa@oss.qualcomm.com>
+Content-Language: en-US
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In-Reply-To: <20260505-glymur-v4-12-17571dbd1caa@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 21WsmuZP5j-uUkyquUMocsxtiKhWJbPJ
+X-Proofpoint-ORIG-GUID: 21WsmuZP5j-uUkyquUMocsxtiKhWJbPJ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA2MDE1NyBTYWx0ZWRfX/Xhf6oQzOWUx
+ KVZZ9IOP8Oi1+5sOvTLv12Uh7P5UJqh6bXkCUscScIAwpWIjLtEsvOiwKYS8CrSv75o7P0W/MCZ
+ et4FhW6NfsQ9ZYTpWdhHXFBmqNKA7ule2YBY9lFxkbvIQ6i4TfeEpxfiLw5tssolGje5YQHKXci
+ dpUZD5BEtOAT/djM6M64CavkK4c8Tzv0yeXsuL/jbELUmPcaUrjw710SPdQbJyOcAk4Ex3ekQi3
+ ynraqC+D5s4J/qZi3z97Yw+dCmFvTPx+3970+LeyJRAisAmrkmVhLWNNV3qb+pogcKwl32klTiO
+ aRDdhDcLWwfAIlaaIux8FZxzs32tg7qBcNGjZRS3NUymnuYnbXk2xNQbCyWyLGLSpx8ZpKSZiLy
+ p/aQPqBJfhdUcIT1NipDDEloG33QlAMrcLq6PbH43ORcTti3QYwXMwPhgSJp7QUmva7o8ooeJok
+ Ov666k6TnLnLMbb0TUg==
+X-Authority-Analysis: v=2.4 cv=A8xc+aWG c=1 sm=1 tr=0 ts=69fb64b7 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=2SVvIUmmVaN44YnEgAEA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-06_01,2026-05-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 phishscore=0 bulkscore=0 clxscore=1015
+ lowpriorityscore=0 malwarescore=0 adultscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605060157
 
-Hi, Conor
 
-Thanks for the review.
+On 5/5/2026 12:29 PM, Vishnu Reddy wrote:
+> On glymur platform, the iris core shares most properties with the
+> iris core on the SM8550 platform. The major difference is that glymur
+> integrates two codec cores (vcodec0 and vcodec1), while SM8550 has only
+> one. Add glymur specific platform data, reusing SM8550 definitions
+> wherever applicable.
+> 
+> Signed-off-by: Vishnu Reddy<busanna.reddy@oss.qualcomm.com>
+> ---
 
-> On Tue, Apr 28, 2026 at 01:28:05AM +0000, Changhuang Liang wrote:
-> > > On Fri, Apr 24, 2026 at 04:13:21AM -0700, Changhuang Liang wrote:
-> > > > Add pinctrl bindings for StarFive JHB100 SoC Peripheral-1(per1)
-> > > > pinctrl controller.
-> > > >
-> > > > Signed-off-by: Changhuang Liang
-> > > > <changhuang.liang@starfivetech.com>
-> > > > +        properties:
-> > > > +          pinmux:
-> > > > +            description: |
-> > > > +              The list of GPIOs and their function select.
-> > > > +              The PINMUX macros are used to configure the
-> > > > +              function selection.
-> > >
-> > > Why is the pinmux property needed?
-> > > Can you use pins and function instead?
-> > >
-> > > Looking at the defines that you have added, it appears that lots of
-> > > defines for the same peripheral share the same numerical values,
-> > > suggesting that across peripheral, all (or most) pins would share
-> > > the same mux setting/"function select", suggesting that pins/function
-> would suffice.
-> > >
-> > > I'd like to see some justification for pinmux being the right
-> > > solution here, like the "function select" used by one peripheral
-> > > being significantly different for many of its pins.
-> >
-> > We think that implementing this in the pinmux will be relatively
-> > simple. It avoids the need to create a large number of mapping
-> > relationships in the driver, which simplifies our driver
-> > implementation. I'm not sure if you'll find this explanation acceptable=
-.
->=20
-> I don't really see how pins + functions would require lots of "mapping
-> relationships". Instead of having
-> +/* pinctrl_sys2 pad function selection */
-> +#define FUNC_SYS2_UART_CTS				1
-> +#define FUNC_SYS2_UART_RTS				1
-> +#define FUNC_SYS2_UART_DCD				1
-> +#define FUNC_SYS2_UART_DSR				1
-> +#define FUNC_SYS2_UART_DTR				1
-> +#define FUNC_SYS2_UART_RI				1
-> +#define FUNC_SYS2_UART0_TX				1
-> +#define FUNC_SYS2_UART0_RX				1
-> +#define FUNC_SYS2_UART1_TX				1
-> +#define FUNC_SYS2_UART1_RX				1
-> +#define FUNC_SYS2_UART2_TX				1
-> +#define FUNC_SYS2_UART2_RX				1
-> +#define FUNC_SYS2_UART3_TX				1
-> +#define FUNC_SYS2_UART3_RX				1
-> +#define FUNC_SYS2_UART4_TX				1
-> +#define FUNC_SYS2_UART4_RX				1
-> +#define FUNC_SYS2_UART5_TX				1
-> +#define FUNC_SYS2_UART5_RX				1
-> +#define FUNC_SYS2_UART6_TX				1
-> +#define FUNC_SYS2_UART6_RX				1
-> +#define FUNC_SYS2_UART7_TX				1
-> +#define FUNC_SYS2_UART7_RX				1
-> +#define FUNC_SYS2_UART8_TX				1
-> +#define FUNC_SYS2_UART8_RX				1
-> +#define FUNC_SYS2_UART9_TX				1
-> +#define FUNC_SYS2_UART9_RX				1
-> +#define FUNC_SYS2_UART10_TX				1
-> +#define FUNC_SYS2_UART10_RX				1
-> +#define FUNC_SYS2_UART11_TX				1
-> +#define FUNC_SYS2_UART11_RX				1
-> +#define FUNC_SYS2_UART12_TX				1
-> +#define FUNC_SYS2_UART12_RX				1
-> +#define FUNC_SYS2_UART13_TX				1
-> +#define FUNC_SYS2_UART13_RX				1
-> +#define FUNC_SYS2_UART14_TX				1
-> +#define FUNC_SYS2_UART14_RX				1
-> you just define a function called "uart" and have a simple map of that st=
-ring to
-> the number 1. You end up with a single array with the relationships, not =
-lots.
->=20
-> Frankly, pinmux just does not seem appropriate to me when it looks like 9=
-0%+
-> of the pin mappings for a peripheral share the same function value.
-> There appears only to be a rare number of cases where that doesn't apply,=
- but
-> that could be handled by having them represented by a different group/pin=
-s
-> node with a different function.
-
-Thank you for sharing the method. We are trying to make some modifications,=
- and the results are quite good.
-
-Best Regards,
-Changhuang
+Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
