@@ -1,68 +1,68 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF87481661
-	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 14:49:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 072B048A2CE
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 14:49:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778078972; cv=none; b=jq1Zn0/0mLhY+FXZ3yBMHJZCxZuTqmNiHjjLjjzJKrKjNTXYG88Xo1dMwuRcwlXo+++R5H6qUqeXPBwWgO0aKl9WplG5Vvvt/0rdvJqZEWFHTjJ8STgRs+7h4b2JyEAA+OJGq/uGs6u19t14Q9kPp1ndrsNBUfdDv7LUIBNc/ug=
+	t=1778078983; cv=none; b=RrweuqJt8Ag6c5dI680NqdjakESepRnKMM8AvUVjfYfBgXIP4+Wb91zF/HNMzcBityEg+xTruXSD14QCr3vLMolc90CHCITZYHmAypqVkiBDeCf/cFSP7bnLF9/4kRoOxFoxzRjgilI7MAZlnBG2osWGntumoR+i3+X4V0EwX48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778078972; c=relaxed/simple;
-	bh=qnusQFmn4pMAFv6LjyuEsqmsFou/SxGhc6MmczAZ63Y=;
+	s=arc-20240116; t=1778078983; c=relaxed/simple;
+	bh=E4j/5JIxs2RFw0dHYZvGZu3nb78ZTFUG1m2FapdPN/8=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=fICAsfznIil+8kXl5GbfJxqrKS/qxwoVHwqdcBnIwe6OTrPqbwsA0lBYXv60KRKjvDOE6NYkZehGsx2izhWz+0NPGP8IPCAWZrGTzuMFsB7e2Gnpc0v/6ZtlV5q83FCe5B9TrcG4gRGnb354wjUT2aCcLOzxKo5TIkj38Kex0k4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=u149sAjA; arc=none smtp.client-ip=209.85.128.46
+	 In-Reply-To:Content-Type; b=XnQy8c05KHHNEkx7f65gohT3L78crMPd8p9TWshX+bqBkAIy/cM5428urz+apXQzcvTv2lZxomlUxf2TfSHzecrMjd51489HtsS/lwFoxm3iXF05NX0qPPIABKvp1NnGNvv3JGJXCaqMkZHlF3SrKEJFiuK5x/2IOXa0fTkiDG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Ra7swc/T; arc=none smtp.client-ip=209.85.221.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="u149sAjA"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-488ad135063so62107175e9.0
-        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 07:49:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Ra7swc/T"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-44a74032ff8so3708673f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 07:49:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1778078970; x=1778683770; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1778078977; x=1778683777; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=jERKJjknkdQ4i9JtoqjPY+iXeD3hkNunomlZQlqiv/8=;
-        b=u149sAjAqQrk40msNvRxK9DRME5bv/t+iMvsK+9tyyO+T6Vm8B2b1J1MOKGR2i7wS9
-         bGIH59guJmAb+1uiPmJMZgKMpvynNw9NJOxQCDDpqpmUivMf6fxstssjpnna8Z+Bz7tn
-         JAN4gOmuXzrgPZi/lqiHFy/L3rNCQVYGDSJcTcXrmGhozB7yJzbcE4cH3p5XgC8QTEb3
-         mTdnqlnBB9MNjSaV2aRhhYy6VSVKFh3OIOvh1go7zm+OtF8kJTw8T7diU1s6xffT+Xe1
-         B8zVMoz4lcgXa0WDb8Pjp6Yfqlxqnqa6kAtcTxDlk6AR3Yy5pARuXwwZQ87PFpn3ajTB
-         VQ+A==
+        bh=xgbuIPvwGTDZ1vH1DcLJwAkJi5BHMTFvMXCyADYeRKI=;
+        b=Ra7swc/TdMCBet5b5E26NIoZpFvYs+cf9u03RjKhFYltjZkFMPsIblfjPPNpsyLC/5
+         NZXVgLTMfgu+qvfJDeuIAWuewpuvjLRCIwybgBD3MFCmli0ePqwDaPkX/rjbnLBR2NE1
+         IdvwFn7htzHqcnDGFPhUwb5ExQMKRiInQ2lKyobmTUYBOa5+6QjzZjY3fY6qENGlS8pA
+         S3CvCW13qcPbUGLsaD9R6+LyslHLpeaFAehyXQIBIFnpOPN+MnoeUlFj7LjnhBfoxYS/
+         fekhi1DYU/q2+xXok/VHCrcaHAdfV7cj+46FHZ9zqkhDez+iYhL4dZHl38yNoaYEcTrk
+         RA5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778078970; x=1778683770;
+        d=1e100.net; s=20251104; t=1778078977; x=1778683777;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=jERKJjknkdQ4i9JtoqjPY+iXeD3hkNunomlZQlqiv/8=;
-        b=GC6PKdLOhWYKyZLzWc03ccsATYM6PNo2dJ23o1vDRBZ4KA0Sjqig1MjEaOdgsoJkir
-         34dbEXSUzVB1W8Snb75gXHHTBPSXGE71f3B7JzA2DL/AeJ+59snn2PdgluidRkL/F89w
-         039kXJFttKJyyz+fU4Ho7DmwR4cs3pmY12ojiXeExRSW4tUycT6Y2I+OuSdvOhueYD11
-         flXFl2PCbeBrCSDQ4lKM6TmBuE1v8mi13lkotPM2atUe+OGJJ/n7xDVYyxYMSj/eXI86
-         rkfw3XH5wiZysW6/qEsMU/agjmzKCgivDy9z5hkf+mWCic1JBRspAKzHSTdrq/5UbIoq
-         3gFQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9pab+k4KTBu0HJJGVXam3xnUnF5bs9OWbjpWOhxRpehYXNb32PMyA9jYpnnUEEjSUSruZcYwpWWe3I@vger.kernel.org
-X-Gm-Message-State: AOJu0YwkZgNKW1YgIOgQ/TNEv9vO6oyWIYD+F1O0U6Sz+u62kRQAMyeB
-	Lzr3KJbEEKsbci001aZU9UwZR08PDp1Mhn2EO9SEHeLKQ007B0eQrG0dJKW+tZxGvUY=
-X-Gm-Gg: AeBDieshkXUXIjeyjP0E00x2y3oIEWXm+2ioFLg8HbNA/J7ztr6aXcZd+qCXMYPRuJ+
-	XLZC/5onJlKFfQgCUH1S87fpWFQGnQR1DsgjSVqkPT51dsPsw9edX+70eYJ+W7n6ZJrocDHTN6O
-	4jpjZaynXi+2zqq95U3wF7rBIvxnsmB/08N8DVK8X+J+x/xbtN3u5wc9NXlO5MrtepdaXONEBHW
-	fH96qsfyhrQfnfMU1qEqTv5Mo+sX4Q3X0kSwJe+YSGU/e0T0FYXDEuLNA8aX85sSwak4t/crERR
-	4hNza0jlY5VUGrUCRHPav8b8SptSUGnkKz42PdVJznAhbreo+0dBRYMfyYa14VPuEWJPrSF0uoH
-	h/piwuObrebIWfhM2uiqKwy5+yCUgtANUzgwtvbTGMkwMJrb4go3imNimz7LWZzhRy60AFQsBNw
-	kpvxQItPd4sJ5C64kJdwKwaWp5S00z7f6DTdmy49yosRprGogDxl2kdf9ShHMPPzPRt1n+aGrSz
-	/UYQMqjVYMYwtw8ZA==
-X-Received: by 2002:a05:600c:8907:b0:48a:65ad:1881 with SMTP id 5b1f17b1804b1-48e51f32a46mr51738465e9.13.1778078969666;
-        Wed, 06 May 2026 07:49:29 -0700 (PDT)
+        bh=xgbuIPvwGTDZ1vH1DcLJwAkJi5BHMTFvMXCyADYeRKI=;
+        b=JBIAFccKDWIGFJAbof2bOfWvbj+ykhQQXo4HyRGs3Nq1Yx+doSN0HmnHc3gniEefsa
+         fyzUZB2K9cxEukoaxnks1EO180R6GpXivWTkvE9EPBMDvaF9/Rv0mhRoLHhaIz6Ql3vR
+         /8+ivIwrC4af+Gsm1LSeryMvIl18LtMnKvgiENuHHWpHJ8Qknmsv6eQ5LYKOPTszgUem
+         syZ5wdh+zruJGFUouG97jd5sOAuzTMaJG7uV19V79NMTtdVHnW3/sUxTwdFMQcrJxujg
+         Vx8pka3DOSdYBVjKl68LxVySo0nQq78tnu14bhkyjUudhmR9WNoRtgh0TC3dG+CLNs7a
+         O/Wg==
+X-Forwarded-Encrypted: i=1; AFNElJ8qCATOonezsNUXXKYutzy++ZDzDGV66Zt0KSyNN0rUtbprupO4TfEjpz1u+k1NhB+TCTTfbx6+d8Pn@vger.kernel.org
+X-Gm-Message-State: AOJu0YysYBBeTA3ut2dbgqavyfh4E40Hlic3zv7bYfdCubGlBF8AOo3L
+	Ffnl/H2d/ehvRdhOqx+3d98+B8dYAkNoiXPbaUUQcmfWSz4TQrIlEkVPpUGXLGiVf7g=
+X-Gm-Gg: AeBDietAYrUxLMTs74sPzzg+68RsJ/y4pNJhnLgq4/SItM0A8uqxGo5nXM+BqJmJrlx
+	lkWst8H3mMMYIyPAgZsz5b41ocw53Egi6b4IkdlNs4EjlMM7xk4WDNpjnkU4jNWBa36etABBUnK
+	RHTy0SHrJjg1SaIxnG36Nbj+Qy7hy6NeyFAB4uh4UTwhuQllZu9YyLHLcrSBwAv4tglmmCSPAb8
+	h7Z14F6LXeIHO0W/vmR0gMkuaJ7skCqvcIN23kmmAWJRV56dAPacsP3IzlO6hDxqN2hgJu8itI1
+	yNx1uubfDiz2VVKxNGofbz+iJA1XbaMjB5xTnFLkiz9CxUuFKsbUD/IgevvwtrUt6O7BJJ1nIDl
+	oXA1pM8BHH2Tf6p6FeUPP5DRtXHq9VCziF4lc2HPf0y53Fjta17AO7RC7pz+Pe3SNRR9H4161Lg
+	bxHDWONkWx0b30BR4IkUOJrkdXky9rjox2wG1R0qIHeCe5qCBve13zA7OBKKWWQoYYud8gyxThN
+	PUEosLpCD2IjchGkg==
+X-Received: by 2002:a05:6000:2013:b0:43c:f3ef:ee36 with SMTP id ffacd0b85a97d-4515d4d0fbcmr6911189f8f.33.1778078977349;
+        Wed, 06 May 2026 07:49:37 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:5798:67fd:c866:b378? ([2a01:e0a:106d:1080:5798:67fd:c866:b378])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e5312dcbesm18061055e9.22.2026.05.06.07.49.28
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45054b02c5asm13014040f8f.19.2026.05.06.07.49.36
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 06 May 2026 07:49:29 -0700 (PDT)
-Message-ID: <3010fcb6-f5af-41e2-aa5a-ba4401513a52@linaro.org>
-Date: Wed, 6 May 2026 16:49:27 +0200
+        Wed, 06 May 2026 07:49:36 -0700 (PDT)
+Message-ID: <ab5efb9a-a2a7-4871-94c3-599ba8510dd3@linaro.org>
+Date: Wed, 6 May 2026 16:49:35 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,8 +72,8 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v4 04/16] phy: rockchip: usbdp: Amend SSC modulation
- deviation
+Subject: Re: [PATCH v4 05/16] phy: rockchip: usbdp: Fix LFPS detect threshold
+ control
 To: Sebastian Reichel <sebastian.reichel@collabora.com>,
  Vinod Koul <vkoul@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
  Frank Wang <frank.wang@rock-chips.com>, Rob Herring <robh@kernel.org>,
@@ -83,9 +83,9 @@ Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>,
  Alexey Charkov <alchark@gmail.com>, linux-phy@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
  linux-kernel@vger.kernel.org, kernel@collabora.com,
- devicetree@vger.kernel.org
+ devicetree@vger.kernel.org, William Wu <william.wu@rock-chips.com>
 References: <20260428-rockchip-usbdp-cleanup-v4-0-7775671ece22@collabora.com>
- <20260428-rockchip-usbdp-cleanup-v4-4-7775671ece22@collabora.com>
+ <20260428-rockchip-usbdp-cleanup-v4-5-7775671ece22@collabora.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -112,56 +112,44 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260428-rockchip-usbdp-cleanup-v4-4-7775671ece22@collabora.com>
+In-Reply-To: <20260428-rockchip-usbdp-cleanup-v4-5-7775671ece22@collabora.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 4/28/26 18:13, Sebastian Reichel wrote:
-> From: Frank Wang <frank.wang@rock-chips.com>
+> From: William Wu <william.wu@rock-chips.com>
 > 
-> Move SSC modulation deviation into private config of clock
+> According to the LFPS Tx Low Power/LFPS Rx Detect Threshold [1],
+> the device under test(DUT) must not respond if LFPS below the
+> minimum LFPS Rx Detect Threshold 100mV. Test fail on Rockchip
+> platforms, because the default LFPS detect threshold is set to
+> 65mV.
 > 
->   - 24M: 0x00d4[5:0] = 0x30
->   - 26M: 0x00d4[5:0] = 0x33
+> The USBDP PHY LFPS detect threshold voltage could be set to
+> 30mV ~ 140mV, and since there could be 10-20% PVT variation,
+> we set LFPS detect threshold voltage to 110mV.
 > 
-> Signed-off-by: Frank Wang <frank.wang@rock-chips.com>
-> [Taken over from rockchip's kernel tree; register 0x00d4 is not
-> described in the TRM]
+> [1] https://compliance.usb.org/resources/LFPS_Rx_Tx_Low_Power_Compliance_Update_Rev5.pdf
+> 
+> Signed-off-by: William Wu <william.wu@rock-chips.com>
+> [Taken over from rockchip's kernel tree; the registers are not described
+> in the TRM]
 > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 > ---
->   drivers/phy/rockchip/phy-rockchip-usbdp.c | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
+>   drivers/phy/rockchip/phy-rockchip-usbdp.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
 > 
 > diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> index 98562a888b42..1f686844c337 100644
+> index 1f686844c337..97e53b933225 100644
 > --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 > +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> @@ -350,7 +350,8 @@ static const struct reg_sequence rk_udphy_24m_refclk_cfg[] = {
->   	{0x0a64, 0xa8}, {0x1a3c, 0xd0},
->   	{0x1a44, 0xd0}, {0x1a48, 0x01},
->   	{0x1a4c, 0x0d}, {0x1a54, 0xe0},
-> -	{0x1a5c, 0xe0}, {0x1a64, 0xa8}
-> +	{0x1a5c, 0xe0}, {0x1a64, 0xa8},
-> +	{0x00d4, 0x30}
->   };
->   
->   static const struct reg_sequence rk_udphy_26m_refclk_cfg[] = {
-> @@ -377,7 +378,7 @@ static const struct reg_sequence rk_udphy_26m_refclk_cfg[] = {
->   	{0x0c30, 0x0e}, {0x0c48, 0x06},
->   	{0x1c30, 0x0e}, {0x1c48, 0x06},
->   	{0x028c, 0x18}, {0x0af0, 0x00},
-> -	{0x1af0, 0x00}
-> +	{0x1af0, 0x00}, {0x00d4, 0x33}
->   };
->   
->   static const struct reg_sequence rk_udphy_init_sequence[] = {
-> @@ -412,8 +413,7 @@ static const struct reg_sequence rk_udphy_init_sequence[] = {
+> @@ -413,7 +413,8 @@ static const struct reg_sequence rk_udphy_init_sequence[] = {
 >   	{0x0070, 0x7d}, {0x0074, 0x68},
 >   	{0x0af4, 0x1a}, {0x1af4, 0x1a},
 >   	{0x0440, 0x3f}, {0x10d4, 0x08},
-> -	{0x20d4, 0x08}, {0x00d4, 0x30},
-> -	{0x0024, 0x6e},
-> +	{0x20d4, 0x08}, {0x0024, 0x6e}
+> -	{0x20d4, 0x08}, {0x0024, 0x6e}
+> +	{0x20d4, 0x08}, {0x0024, 0x6e},
+> +	{0x09c0, 0x0a}, {0x19c0, 0x0a}
 >   };
 >   
 >   static inline int rk_udphy_grfreg_write(struct regmap *base,
