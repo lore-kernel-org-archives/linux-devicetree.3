@@ -1,65 +1,67 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B0F132F757
-	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 19:33:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 995FD330659
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 19:33:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778096035; cv=none; b=fL+L54l/Fij5GOrOXjE+lqnBcHWf3tosHhimGLJu/u5XfAkl9okhXJVQgSLn1e2V5shtLOqcZThrU2ehq957sX31xl/gSP59rXE1QUo6utUkxMsDatiQbh+KFEzkx4Jk6P5U7RBXK5U5y6ZCHnMGPyGxbv3zdR8eb3BwqlT0+eU=
+	t=1778096045; cv=none; b=MLHotZZCZvjEUWGfd/ALEgeCOGRaXehvbvdvIsDyma4Whny1K8C7YLqOIMv4yW17ch2sLxyiiDaF0wg6vF3YDIfhNtKWO8iIBV/AiQYiIhv21IHU3rOlQTYKNjJagn7JuggdE3D+J4rfeu1pcqdj3GKg1v8a7fcmDAVSwDwVDOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778096035; c=relaxed/simple;
-	bh=IumsBJY/68uD1DAyl0ojHH88Rxzv5otuXToNllxUdWQ=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YLP5HCoPW1HRfdCNrtM2qiz78m6igv803F8WB2srO2Dgupi45lCbqPuJHNXkcVRAZ45jv10ZtXG/gBqxyWMyY5GBsT9LSyQzPWoTU47Obq+jGHTLkRRIreju9XycG637IQHaDVu38nl40ipuRlMw6IzZkLUxkqFdyxt1mtE3yRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HavKA7h3; arc=none smtp.client-ip=209.85.128.42
+	s=arc-20240116; t=1778096045; c=relaxed/simple;
+	bh=+GtKlk1K7hr83CoqJ8aTYEzO+TXa3ITFJyZ/GejNafo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=oluPadp37a4pU0ko5W8VE0vd4GPUe+Hu13hK1pcfcJMHC5He34q80vkpI02fbaehz6+3TgfVS1/gU46RMwuAjA9qdoNFX77ZYSqV2wzOvXJJxH/LqT6rfHYsxy6VRGia1PeRE7IyPKCnWPYtx5Vak0SVWmg3Gs2Sglddv2Uilrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PBv0vXcf; arc=none smtp.client-ip=209.85.221.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HavKA7h3"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-48e56c1bf5dso243535e9.3
-        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 12:33:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PBv0vXcf"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-44da2de25f3so56889f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 12:33:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778096031; x=1778700831; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=jVr4I6OhLAaxawRod3py4pnB+8B+XGHPtuWfZP5G64E=;
-        b=HavKA7h302EL7TGLRmKppP9pJ9LuW6pftwDsYV8+wT6ezKb0SU7aNA2TiedDS9+nTr
-         k7RtRUUTLyW7uLlWquewRjW/fbPBwFX05NZKWkdZ6dJoIOldd/imYw/AstJj+pU5q4kR
-         S3ownqUH9DBCpjka83OPvlpqL0GY2TL94cSGRUermEt9lSUfyv+M+RprXiRAmRMverSa
-         SvMlZt13Mgcbyzp03am3cOQuBppXOIOF4Ze87Vnu0B/s5cIeQOo0pIAXiQ9pB6evJbTt
-         z/6D7S2Zzkb5BRffrwVCzP7HqheiEXeFdZIafX1VFY8m86345LGfgCOW7T+XVeuwIH7h
-         NUwQ==
+        d=gmail.com; s=20251104; t=1778096036; x=1778700836; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=9lu2q2P2n5BrSSlxeogaqEBxGB98cpNlogETzW0AQwM=;
+        b=PBv0vXcfWHtI5tn/wIMl9ja+dnL5rG4NazLUtwWhkFWxPIGQLu/A/2Hf0JOhxlkGJV
+         P7NG9tBq8VJeecj6zJah0rdcbl+n2abu5y7YNDBxzBu5iOWXnqgmeTpDmJsb7sRkz4Xd
+         PJamaUODcbtY92kerBOucLIi4r6MqVU9cT9ZLmAOdEwJ1BmqeiBOGhgn7Ac2IS5wA4aW
+         aHvgraqpypwqJSybnLiWYe9ZfR7/lnunZbPpSIerPY3pNItSRlz0MLLrryeCsuVagmEr
+         6IS3gKY4AJ38qgD8sxP8ZS5D1ZP0jGxyKaYJ3b7LBBZ6APEGmADRyCHJ5Tw5TjObize3
+         trVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778096031; x=1778700831;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jVr4I6OhLAaxawRod3py4pnB+8B+XGHPtuWfZP5G64E=;
-        b=ZRPc95BkJNDaL0WdShUG6VcCddsicfNkno/UUF5N6RyE2Vx23NLGEKTYsXuzuaxFxo
-         5nrg59VpgHx79q6mLsG7ixREGTMfpQdLMkmyeuEo0kDbVYy7WaITZsYKodkVYxZZcBpM
-         v8/sr+NRPSTgBUldVdl5D1IKzeBYHNfxIikwRshwjPXr+i66JcVnI0+9CqFQHyfb21bA
-         c/a9FECpc1kDyE8+sIEj/9Bq/0LpYCdJH18p6wJhOCe3Wg4zCRNcSyIMk1Q4MAJnUySZ
-         W2n1P60blqa7tn3gXFObQh2flkFZVK4TV8lQ7oOiyRE9vvDLPFIdhmzfslmpfKI6sHYl
-         4p3A==
-X-Forwarded-Encrypted: i=1; AFNElJ9csmhr9duq473vwnxSP08Gmvih8LHk3JQeFBgvJLaeSKd96tE8vp0ohQ0DY1RfZUPi0xj363QmWcZP@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz6MEuVEiivp+3e1E383s+yPsNAUEDh9fUGDdPidhObcSvmsR2w
-	WpbYxR7jFhpOvYMXR9RPfHqYXy3Wgnty70x69sqdmKRwf99wsT2YIdhA
-X-Gm-Gg: AeBDieuYmzynwz6npq0+GaIfFRof+pEzzauvtVsQ9jzKZqrMfNsuIN0pHIvNkw/uI93
-	NrTNiYn0cYpxYJj9MbBMrLFeszfTZdmp/3wcyKCItExEYDEYsFmM7jNFMPFp08fhAaXzB0T/46B
-	SpbX+EcZXm/3ZLLQxeuaZkmHOzK2/PLiCDJgLbp9QBYQZnjvwF8oST/mYVgpt1aabg7HBS/j4/k
-	acYkqeug9PeZ5lELxUFZk8f33cv0neDk//WB/aqCxwCNhGY3pqIuYXQE+4msmMf2059Dccqgpuv
-	xcXQSlgHMQTaIjpiY70JFI04w+UOFdSAjC8e3X5X4S+D/+mRLonVBkKBDn3mAh6erbjj6BdiN6U
-	Bynk6vHv2HxxBp80Y7ySRn7wBZQ9JphuCelh0kLdrsaOMBVyAsbwxHFOywMnl4oaOeJHJLF0AU7
-	aB0DaRkZGGI/fP0GfS0H+pyAhYFNEt5/boAlHU/1k82Lvu53NLd4+fNg==
-X-Received: by 2002:a05:6000:2082:b0:441:1c18:f779 with SMTP id ffacd0b85a97d-4515da967c3mr7862014f8f.37.1778096030578;
-        Wed, 06 May 2026 12:33:50 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1778096036; x=1778700836;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=9lu2q2P2n5BrSSlxeogaqEBxGB98cpNlogETzW0AQwM=;
+        b=sGdGHTv3xkq/XVHkFF406C3gkI3ICvVyoMKifktcIEE0xOtPerudBTeyrErZp5FesS
+         Doa30QVNRmb8VI58Ki/ybWj6aEUgwFSvlG2LR5wgHbbDkXx4qMgfKcPfJV7dFMxQl2Co
+         KqUudyZ5VsZgp5bczFVLMpf4wpUwp3PI2/mvxi9q8lnIGLfy+fp71Ix81DrdkrjcssB/
+         od3eyPTbtqibxw7j/Tz/OpHas63AdamLDrCwKK2FqE0t6cNPge677iyIY9rC2Nrw+D89
+         cRGk7rjB2/PKte48hVkVsBijthc9h6fa+o6pKEz+7sGhNFodrBZS4g6Ow7XIJAmU8WrX
+         pISA==
+X-Forwarded-Encrypted: i=1; AFNElJ9NXrpY1/49fgUuNE1TyWfMbs+9ZRJEwa+bZeAuIi+vXZhZ5y+B5GYZTeWbXwrFkrMY6zCRFoefJdX2@vger.kernel.org
+X-Gm-Message-State: AOJu0YyEO7k0lJKyN/MvhZLk0jnfSZ6elCfuTH4tZdrMS38dHRX7FFjz
+	UTwjzGz4UMC0JkwsFtrvjOoW1UA6PiqIYvx+q7F0AfmB5AQyRkklbZyx
+X-Gm-Gg: AeBDietPJNbZFIlYT6veluNOLG+O5eu6XkXkpIIJPEcTdCL8WJ1weZQuedxjdZ1oBfj
+	mL80mP7FK0tPAbAHE33MBijWUiDZFO2DGuNVIwF1fsXyKs8tnjplEJxuQ0JCZcqFoVywRFXfXVm
+	aX/EO8/HJbASMtMC6PqYNBJtGoCtDWEx0kNA1z2w7y6oNpSV3XchUZCXMnsjpuO2egs2FswjWEP
+	YALr466ZDCe4+JDDpEclOCKgRy2LWZZ5OgppGPlDBQnl1rshv3N2hXCH7egYzFsAg6DbUh57es/
+	zuTdMP1d09aOGUTdrHNI2npvZAylRDWwnOm8msNvQ+Ex/ZRBzuFp0eiYDnUdLcGVBhaPXUAnUJR
+	hrtws4pjdhErbnQhA397yGltJ6KrQPJKAZBhoamEErUdOFk6Q1ADwqH4Fmiyl8frStAr0lUqeW3
+	fuQEqE/DVlMXS+DcW/pF5yORGUjV2tmsuI30Muj5nOCruNhyAb2HGn920s5vMXb6kJ
+X-Received: by 2002:a05:6000:200d:b0:43b:4136:1e6f with SMTP id ffacd0b85a97d-4515da9545cmr8271440f8f.38.1778096035758;
+        Wed, 06 May 2026 12:33:55 -0700 (PDT)
 Received: from [192.168.0.2] ([197.250.51.29])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45055960022sm14895673f8f.26.2026.05.06.12.33.43
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45055960022sm14895673f8f.26.2026.05.06.12.33.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 06 May 2026 12:33:50 -0700 (PDT)
+        Wed, 06 May 2026 12:33:55 -0700 (PDT)
 From: =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
-Subject: [PATCH v8 0/6] Add support for ZTE zx297520v3
-Date: Wed, 06 May 2026 22:33:17 +0300
-Message-Id: <20260506-send-v8-0-f1bdf3243b34@gmail.com>
+Date: Wed, 06 May 2026 22:33:18 +0300
+Subject: [PATCH v8 1/6] dt-bindings: arm: zte: Add D-Link DWR932M board
+ based on zx297520v3 SoC
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,11 +70,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAH6X+2kC/13N3wqDIBTH8VcZXs9xMjXd1d5j7MI/pxJWjRyyE
- b37LBpEl7+Dn68TiTgGjOR6msiIKcQw9Hmo84m41vQN0uDzJgyYBF5IGrH3VDhQCFqgcJrkp68
- R6/BZM/dH3m2I72H8rtXEl+shkDgFioX2wKzmHN2t6Ux4XtzQkSWQxA6xYkMiI+MQSoWyFIU4I
- rlH/59kRp5rrE3FrAV9RNUe6Q1VGVleMgTwzFu1R/M8/wCHsxKANwEAAA==
-X-Change-ID: 20260416-send-5c08e095e5c9
+Message-Id: <20260506-send-v8-1-f1bdf3243b34@gmail.com>
+References: <20260506-send-v8-0-f1bdf3243b34@gmail.com>
+In-Reply-To: <20260506-send-v8-0-f1bdf3243b34@gmail.com>
 To: Jonathan Corbet <corbet@lwn.net>, 
  Shuah Khan <skhan@linuxfoundation.org>, 
  Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>, 
@@ -89,148 +89,94 @@ Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>, 
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5625;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2213;
  i=stefandoesinger@gmail.com; h=from:subject:message-id;
- bh=IumsBJY/68uD1DAyl0ojHH88Rxzv5otuXToNllxUdWQ=;
- b=owEBiQJ2/ZANAwAIAT0TvMhUTxoiAcsmYgBp+5eNh+r2QhpsPjvjGcW3ZFofw8SmJJc0RnLO0
- 8iTYeCI5UqJAk8EAAEIADkWIQRDFvS2qgVbJ5UyXWw9E7zIVE8aIgUCafuXjRsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQPRO8yFRPGiL1FxAAkay5ZSjMustiVPUMIApO6OgwvH1NoWW
- QPvBPHmRP6vzAA6W999MCJCYzQ2URjWzh5h7X9N+Sx9Su8HLaT4KG8fW+nv6tIe2GcxLZU1nD41
- Hqx/OVDlngrjysPGGrvIxm0XVlyhuLDQ2/Ok/tp3lQKiIGw5g7jvkTEvBtW/0U01M7CiVPqoaIq
- SooldcoB9PK8N5qHCXR4IdwBXKNPjrr4cl94v2bvCpU8HVuKvqKdVdQxI4GN/23WvxfiENnRfan
- 3LBqmmmsg/KahQ2cg1se3xbzgl+EoXuyWZz7tl3TliN0izyKIswFKWQM8JUPtWLXNollNwpQgCu
- xQUyxZG65npDsJNxptZwI7t/NGj9FzJ7t7Q6aAfMAFwQ7ecwmit2iGcDoy7TWVTwUhMYO1ekbwX
- jE6XRm1l/H+l7U/lvFvLhCY2SpN3PaH4WV6q94wwwicR2QXdW3RK0wa867YgWaU+G1oz451JLYb
- KzQlek6SgX7M8fmLyPw4KwzGLAhQANwcx1nthCjWcaAyKmWFIcMEYfSvkkJZ/IFSSP2VVRQPtx7
- N0dBBAtlg1wfvu6JHnvvqeokstmjapHhr53kdUnT97vejsmqB3lZODQCK71zYWyctJ987USHglV
- UUDbeTXf1uVR2/WTGsiKZB4Y1Pjp2Wq35Oh0GNpYYi/7JkI7aMjE=
+ bh=+GtKlk1K7hr83CoqJ8aTYEzO+TXa3ITFJyZ/GejNafo=;
+ b=owEBiQJ2/ZANAwAIAT0TvMhUTxoiAcsmYgBp+5eWK67X53SzKHIlBRmKN+YIbH0e7b6j2TyOr
+ aCK6GX/DqKJAk8EAAEIADkWIQRDFvS2qgVbJ5UyXWw9E7zIVE8aIgUCafuXlhsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQPRO8yFRPGiLe9A//QrlJoD5UHF8Jyl3id4evXsfCSOna7s3
+ a3Vr2Eb2zkTlTOgcvpkjxjQBSgKu11wh2ipgdAHyWoxfWLzWOKvt0RRzEkMMAyfciXMLOZ2lI6/
+ 7u2PAjwtrWX3JRhKTnAOVZBOsffj6E65JWWHL1i0MTiNLaTu61zqN7EDsm23ie/t8UTRXlAFIm0
+ HNQYjZUG34QM5alJ3LONrFEo10wxrHMLX3IiOubh5F2bfohO68yy/+lsaLM0Y7n6j5/OAA0IZUa
+ VBK7uePl8d63Gq3B3FBKGisV+kIW2mMji8qCcaDL/z5eP9pQq1lw4y3KERIQdrlbgnLyRz9gCO4
+ s/y2zMkIsc0DE18qeMPMBv87Q+8S80d52TzxfQj02CuwxGhHmD8IEmp0ysFNgQnTAmw7WD9F9jQ
+ ogtoJZND+ExSKF1+wkWfIL9r2fV0ljl9pCiCvBaabvbhBdlJk+dHTxYsT/m3yGRTpfl0JTj8B3t
+ Q/8AmjcT2gf/z8DsedC6CryNtvrwhDuia/jlS3Wzp9wl2oUNWAjWTk9QJQWyBGF5TbXYW+VOCdN
+ fsjmv6YkM7LafxHSL+kqgzH4Mjez4BDNb3rcFA+G0dOvxZ07cZuwjn7+4SjsFiRmnjZJzp1PB8n
+ jBgulpoL5cVbuVM1B3TVh21UGevB9y78NqWrTGAYww1yLQzAEJbQ=
 X-Developer-Key: i=stefandoesinger@gmail.com; a=openpgp;
  fpr=4F9C2C8728019633893EBBB98CB81F9A72BBA155
 
-Hi,
+This adds a new binding file for ZTE, containing their zx297520v3 SoC
+and one board (D-Link DWR-932M) based on it.
 
-This is a follow-up on my RFC patches from January [0] for ZTE's 
-zx297520v3 chipset. This chipset is popular in cheap LTE-to-wifi routers
-sold in developing countries. My goal is to run OpenWRT on them. I made 
-more progress in more work on this SoC and it is time to get serious 
-about code review and upstreaming.
-
-Since my version in January I managed to get more hardware running: SPI, 
-I2C, PMIC with real time clock and voltage regulators, Watchdog. LTE is 
-not working yet, but I am able to start the coprocessor that handles it 
-and talk to it via mailbox + shared memory. Wifi is working on a few 
-more devices. Since WiFi, USB and Ethernet are working, the devices can 
-have actual use with OpenWRT even without LTE.
-
-Another hacker created a free software program to talk to the USB loader 
-[1] and boot U-Boot and Linux without modifying the on disk files. At 
-the moment it needs a proprietary blob, so my documentation is 
-emphasising booting with the on-device U-Boot.
-
-This patchset here is mostly unmodified from the version I sent in 
-January. It is the bare minimum to get an interactive shell working on 
-the UART. Future patches can be found on my git repository [2] for those 
-curious to peek ahead. The first 30 patches are in reasonable shape, but 
-the further you go the more cleanup is necessary. I expect all of the 
-patches go require a few rounds of feedback though.
-
-My plan for upstreaming is largly this:
-
-1) This bare minimum boot patchset
-2) Add clock and pinctrl drivers
-3) Add standard hardware to the device tree
-4) Add zx29 specific drivers one by one: Watchdog, spi, i2c, DMA, PMIC, 
-battery
-5) SDIO backend for rtl8xxxu
-6) rproc, mailbox and rpmsg
-
-I am willing to maintain support for the SoC within reason. My patches 
-add myself as maintainer. This is a hobby project for me though, keep 
-that in mind if you want to ship a commercial product with these SoCs 
-and upstreaming Linux.
-
-Cheers,
-Stefan
-
-0: https://lists.infradead.org/pipermail/linux-arm-kernel/2026-January/1099306.html
-1: https://github.com/zx297520v3-mainline/zx297520v3-loader
-2: https://gitlab.com/stefandoesinger/zx297520-kernel/
-
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
 ---
-Changes in v8: A number of Sashiko suggestions:
-Add new documentation files to the documentation index
-Add new documentation directory to MAINTAINERS
-Remove a redundant "if ARCH_ZTE"
-Set ARM_PSCI_FW because ARM_GIC_V3 needs it
-Use the correct UART01x_FR_BUSY flag in lldebug asm
-Remove an accidentally duplicated label from the DTSI file, properly use 
-"arm,pl011", "arm,primecell" for all UARTs
-Remove BINFMT_FLAT from defconfig. I have no idea how that got enabled.
 
-Point to a sane (but not yet upstream) U-Boot that sets up the GIC 
-correctly for this board. Improve the provided example GIC setup code to 
-detect this for reusing one binary for both boot chains.
+Changelog:
 
-Changes in v7:
-Fix line order in mach-zte/Kconfig
-Use "zx297520v3 SoC" as the option name for CONFIG_SOC_ZX297520V3
+v6:
+Removed extra boards, I'll add them when submitting their individual
+DTS files. Rephrase the subject to add "zte" and remove the redundant
+use of "binding".
 
-Changes in v6:
-Squashed DT commits into one
-Removed for-now unused board DT bindings
-Add "zte" to DT patch subject
-Regenerate the defconfig with make savedefconfig
-- Link to v5: https://lore.kernel.org/r/20260421-send-v5-0-ace038e63515@gmail.com
+Moved the devicetree bindings patch ahead of the implementation patches.
 
-v5:
-Spelling fixes
-Renamed dlink-dwr-932m.dts to zx297520v3-dlink-dwr932m.dts
-DT binding indentation fixes
-Use a manufacturer 0x8b for the UART, fix patch prefix
-Declare all UARTs, remove uart aliases for now
-Consistent license declarations. I made every new file except the DT 
-binding GPL-2.0-only but I don't particularly mind GPL-2.0-or-later 
-either.
-- Link to v4: https://lore.kernel.org/r/20260416-send-v4-0-e19d02b944ec@gmail.com
-
-v4: rename zx29.yaml to zte.yaml and add board enums
-v3: Remove [RFC] tag, add defconfig
-v2: checkpatch.pl fixes
-
+Moved the MAINTAINERS section from "ZX29" to "ARM/ZTE".
 ---
-Stefan Dösinger (6):
-      dt-bindings: arm: zte: Add D-Link DWR932M board based on zx297520v3 SoC
-      ARM: zte: Add zx297520v3 platform support
-      ARM: zte: Add support for zx29 low level debug
-      amba/serial: amba-pl011: Bring back zx29 UART support
-      ARM: dts: zte: Add D-Link DWR-932M support
-      ARM: zte: defconfig: Add a zx29 defconfig file
+ Documentation/devicetree/bindings/arm/zte.yaml | 26 ++++++++++++++++++++++++++
+ MAINTAINERS                                    |  4 ++++
+ 2 files changed, 30 insertions(+)
 
- Documentation/arch/arm/index.rst                   |   2 +
- Documentation/arch/arm/zte/index.rst               |  10 ++
- Documentation/arch/arm/zte/zx297520v3.rst          | 167 +++++++++++++++++++++
- Documentation/devicetree/bindings/arm/zte.yaml     |  26 ++++
- MAINTAINERS                                        |   8 +
- arch/arm/Kconfig                                   |   2 +
- arch/arm/Kconfig.debug                             |  12 ++
- arch/arm/Makefile                                  |   1 +
- arch/arm/boot/dts/Makefile                         |   1 +
- arch/arm/boot/dts/zte/Makefile                     |   3 +
- arch/arm/boot/dts/zte/zx297520v3-dlink-dwr932m.dts |  22 +++
- arch/arm/boot/dts/zte/zx297520v3.dtsi              | 103 +++++++++++++
- arch/arm/configs/zx29_defconfig                    |  53 +++++++
- arch/arm/include/debug/pl01x.S                     |   9 ++
- arch/arm/mach-zte/Kconfig                          |  29 ++++
- arch/arm/mach-zte/Makefile                         |   2 +
- arch/arm/mach-zte/zx297520v3.c                     |  16 ++
- drivers/tty/serial/amba-pl011.c                    |  42 ++++++
- 18 files changed, 508 insertions(+)
----
-base-commit: 028ef9c96e96197026887c0f092424679298aae8
-change-id: 20260416-send-5c08e095e5c9
+diff --git a/Documentation/devicetree/bindings/arm/zte.yaml b/Documentation/devicetree/bindings/arm/zte.yaml
+new file mode 100644
+index 000000000000..f028d2cec7ab
+--- /dev/null
++++ b/Documentation/devicetree/bindings/arm/zte.yaml
+@@ -0,0 +1,26 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/arm/zte.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: ZTE zx platforms
++
++maintainers:
++  - Stefan Dösinger <stefandoesinger@gmail.com>
++
++description: |
++  ARM platforms using SoCs designed by ZTE. Currently this supports devices
++  based on the zx297520v3 SoC which is found in LTE routers.
++
++properties:
++  $nodename:
++    const: "/"
++  compatible:
++    oneOf:
++      - items:
++          - enum:
++              - dlink,dwr932m
++          - const: zte,zx297520v3
++
++additionalProperties: true
+diff --git a/MAINTAINERS b/MAINTAINERS
+index d1cc0e12fe1f..b768b9da37a4 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -3772,6 +3772,10 @@ F:	drivers/video/fbdev/vt8500lcdfb.*
+ F:	drivers/video/fbdev/wm8505fb*
+ F:	drivers/video/fbdev/wmt_ge_rops.*
+ 
++ARM/ZTE ZX29 SOC SUPPORT
++M:	Stefan Dösinger <stefandoesinger@gmail.com>
++F:	Documentation/devicetree/bindings/arm/zte.yaml
++
+ ARM/ZYNQ ARCHITECTURE
+ M:	Michal Simek <michal.simek@amd.com>
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
 
-Best regards,
 -- 
-Stefan Dösinger <stefandoesinger@gmail.com>
+2.53.0
 
