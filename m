@@ -1,283 +1,161 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD01B4963D4
-	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 16:57:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778086626; cv=pass; b=rlzPYUf61BtBjIIC0L3Ci4m8x0jdN0DDIhEXF7nnEpKW68sSqOOsGo2kDjOfY+SjYQo/oIhVNz+xHUMAcg1bZLLgGb53DJz2pk+3gETws6l4zx86NCtWughNKgy4JKn9T6l31MJVoEoVBXbaCTihEbt1Il4ZMCQuISyXK2pJ6GU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778086626; c=relaxed/simple;
-	bh=nnDPaFLuNjymt4tOlyK75CyPRpjnz6csTwevbm8ig3s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kCtD4ppQTtEeDtvugoM2UxqnWvqmRb/sTy/YiFvyw6ixdWxIJSfrSkQYduB9JMQdW0LgoFdp29koBcB/FmXB990B0GdF8gRk0MjxQmVy0xgFD/LXuYUd+DfHFD9N+JlyMuJYfxHak3Tp+qkOIcI+BClF3DOFNH76a8Qn5iProfw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DvKsfPVd; arc=pass smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B23649550E;
+	Wed,  6 May 2026 16:58:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778086687; cv=none; b=cRS08hlXd1xK5rgGcSKA03T1+wlY3Dxza2Dwi9e0Qlti3DttMlk5GsYVm3LFu6ySDLzd7iQ+Ct6B5HVexKDALjzpYARRVcbc+cgb/S/VQaxAYx5YbV5s0GeGpacYuQEBnzU/8s4bFopvT0SPbdJUGj4hiEBaHI0bFfJlFA2XPNw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778086687; c=relaxed/simple;
+	bh=aMkFGXzi8Egn2jdhjt/Bo9gCanCXDfSPDnXjNpmDKB0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W5rghF7sk/P0t/jpxf/QeuD8irQP/Tj5m8W44xpbfpLqPfFHqqYzHLxdHLfPEWCVkA8WEIAqROgMiPtHcPKyr30WO//H4QVMW5a5D+CdOwkM4Z0b1x7pNxqY/zwl2QuzoBLlLr9k3y8F95+S3irhOedeimsDsFuxKVM83UDtYco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ou5KWIDB; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DvKsfPVd"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-44509921fbcso3465217f8f.3
-        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 09:57:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778086623; cv=none;
-        d=google.com; s=arc-20240605;
-        b=EHl1UNKqWk1m7bkUyavAw8xxYQjgzV9zRoaSu7QWqiAJK0stCy2pgu+uc56VF3JHaF
-         /herbD6QqdezLrv430xl1aP/RSGdrohF5VFfwJPCexvsLnUEbbkTQuPuEUs/UGx7Mr4M
-         GLpsoeGqb0bPcBAviaz+h4LVbjgQTY5mEBKekIB/+ynfIqsIoLPGJbIXLMTPGSfzOwC2
-         GuPjoJ6CfYZehg2pmtqBze9DLzn4VDGADCbhpATGHxHNnPUFKOMoOrDpDsi6VxT7rlQJ
-         gsOcsOcXz5jxtE5EoisLQsPgmfYttC4+GISVlVbmkM3kCK3CYX5xEu7PmL8Dv6sJ/5ou
-         BkKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=W3VrhHynwF48UxqEaIGN6Be/106vwYx62+QwtkeJSSQ=;
-        fh=xd0SirPiVuBY/Wv612GgPOeDpOWkOMwzdt6x1rqrh8s=;
-        b=L6BOUh4dS4nwzT6dqcGcGQ5jBrAxwAanrOwyMDnfnqwrIeslC7I1WqfUaM3MiHEe0r
-         3Bqo95n3xHMfWQjrChx/x7BnpKpYI4Y9kJKj10sj6ufLL/Ew3gVZ1Gh8Ncy30PhbPVjP
-         umo2RhNL/KkkKVUnEQ973Md4dadi/Q2cuv0cmHNRjkZEcM2agXf59hlpVifCs5RrwVgw
-         gfzHmjBYr2VNX7YQOcqz0AvfRnI5qsS2Nr49tX/7t325bq+gB85Kn6H8mdGWZOpNrZ2L
-         rFNIzq30pzFDefsIJ4CMyxreJbZGdcc5/IxuapASxOQuU3cR4C13eRFGVd2UFghqbQqW
-         bC3Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778086623; x=1778691423; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=W3VrhHynwF48UxqEaIGN6Be/106vwYx62+QwtkeJSSQ=;
-        b=DvKsfPVdrYrHRnwlyd3CYOEXYiDXhfu03/bnjD86bXkyGLIjE0W3tiA5rMqTYyFxom
-         dRstHX8n8g4pMknBbVzZE67RMcitm+8cFvfH8znxoFAM+ownD0ZT/en8LryF0WQbJvFI
-         ncqNYvBupY6Vwk8rghUSAaKVZsvOX1ScoZTVFxT6Y84clf4Ea+CchvXnl6Y3QlUDFYkK
-         K0zo9ii2IBD4B65uIBY56hUxLTlohNZvTrFj8xjSVS0I0wU9YZzn6fcnn7Y36JgXbSvv
-         Z5Adq6QnW7OK+l2p86z5Mx8KBEgfVEMyKlA/ixEAZi1QrxzmnqSyf0W2tW3lSx+6zzjz
-         ZZDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778086623; x=1778691423;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=W3VrhHynwF48UxqEaIGN6Be/106vwYx62+QwtkeJSSQ=;
-        b=AhNmq+MpYMxgnPHSYqeqLdqJlG5Ma7MJyyNsFd2lhd/gLW2t4+WSG59BMBAbB/YnMU
-         ddNVuLrRPSOytzESw2jyH5q/4ftizBwTYKDSy9OHuZvdhUNKqv0Juv/3ornSOe1VNR63
-         cvJ1kAPHTbRsv0HwT7d6DUU4+48AErov292saq4gfbBmJlXFTILkkxtjmlWpthtiW5y5
-         pMjnwTmYOu/lz+xWkeAgav26KyGMYrS/7dp/eMheaZWI7M8UcnsHf3CU21/j4HH981ja
-         Jf1HOHps+bCphIJbVB1QUgxq0p+PfY/uH3FTC7YhYxzW+ead7l9uXKEwELDbrIKRE89x
-         G41g==
-X-Forwarded-Encrypted: i=1; AFNElJ/lC9SQ0s76m+DZfcldLr4gZiGi9gg59gvp2mLPCuC0WnQIMzhG5nB9IHM9fA7QS5geTg/Us57pDl7+@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw1gazglHzGijV4ys2OwZUZ3e1Py+Uu7pG7OR1lf0O2uqvscOSU
-	a77uV5WRtUtTp2estteAONYmbVjOhMCs0CMlUm1dKkQ3emlY8X8ZPEJTokFMAZJKiTF1IZRUGSf
-	83g+Cu5wtD7Ic8X8ZGksLDExPcEbHlfc=
-X-Gm-Gg: AeBDies4dOjC6ShYmlYRnCXHXJiaUeCOYhzBs9fij+pApDqofZCGgkduAOPL1RMqJzH
-	g+NzQyv/uac8Iw/5itOjCjqrOw5iRG+xxR60X1aBoSS9SPWBMwyUXcz5uJmOg641GMRrg6KzPZq
-	X3bg7Yhx0NfT+m3n4BDUr0ShKXG9xi3SASl0hbxyWo+Ffy9+sMtHuTzzAYaginoGl7747Lli2Dy
-	hPHf/C4yAE3/sTz4D6P2m8QS8sHSiluZGcX9ZQ4sqKDb0Px8JtoY9LQbfGDJm6Cw1bARIOMSR4G
-	Q27J5Qwtai2ZUlYjTdqnN/BMd4J8XkfRiZkFqDz68vK53T9/rZfw5NihOJG/y7EUno2KU9OujJE
-	Q6Wxhp/mr1uKMIesoIe7BQl+XlgS4OZ8wAFKI
-X-Received: by 2002:a05:6000:1ac6:b0:43e:a9ba:b194 with SMTP id
- ffacd0b85a97d-4515d5c6b69mr7472966f8f.34.1778086623205; Wed, 06 May 2026
- 09:57:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ou5KWIDB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC1C5C2BCB0;
+	Wed,  6 May 2026 16:58:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778086687;
+	bh=aMkFGXzi8Egn2jdhjt/Bo9gCanCXDfSPDnXjNpmDKB0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ou5KWIDBRlPw5uY6Bz5p7kvavhQL701mIxTZSkuiPwLGwDu+R4FIXZhhgyFF0zh0b
+	 6rR+D8yi2bkjZEBgYs8NtJogY0Fd8NQCRSt40Vipz/amsJwqMfjYxCAZPl2jO79B0H
+	 dJOcgopwwOqCZG2Yw60Ni82NombFqokowM4Q+pSLO0IIwgNHWeI3PjWgHQ0N/7C/5+
+	 aSouXljf+6fUBvCXlVGEK2glvxRWzM4ZWuBcISIsYw4Q88A3gj8aUgGIy/QAgLJy1F
+	 lnuKiutIx0MmI0SzBhgurxLmA2uYl8Wp+8WO1QqCg68YtTUWnxmTMjScgWMMaa4aNZ
+	 tkCK8K7o9lV5Q==
+Date: Wed, 6 May 2026 17:58:02 +0100
+From: Conor Dooley <conor@kernel.org>
+To: LiangCheng Wang <zaq14760@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Wig Cheng <onlywig@gmail.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: display: mayqueen,pixpaper: add
+ pixpaper-426m
+Message-ID: <20260506-clique-safely-6dd507d0593f@spud>
+References: <20260506-bar-v1-0-12195406f4ef@gmail.com>
+ <20260506-bar-v1-1-12195406f4ef@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260318124450.163471-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260318124450.163471-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <605e8d4c-09e7-4d11-acdb-7829a85eacc3@tuxon.dev> <CA+V-a8srS9g2WDMARDJn98K=nL9v1LiZYxqM8evsVrzR-s5ZMA@mail.gmail.com>
- <lvix7p4e7c4dtchtdti3rwrs7jkda5iy7lthcffhqc7g6vgu2p@54qywklrspi7>
- <CA+V-a8sd=dyTZmViLbDrCPYbx5ujWzjk74HxhP0aBEqxLuEqJA@mail.gmail.com>
- <leky6ktelj7t3uwd4bakgefrk32m3ceyxmwbkkjpp5zqp6rjgj@jtiqktxchws3>
- <CAMuHMdUpzABKKRBwK3mMmTS1+S21R+0k94bOX-+4ZBoa+bRWSA@mail.gmail.com>
- <phuerp2kp6ngruqjkpyjczpn5ya7iywrsiaqiiydvqxwlkntks@gyfcws3intsw>
- <CAMuHMdW_f5676cmimQYNyO3FZyi=DY_3sdVdUSUqXyZXpqCN0Q@mail.gmail.com> <ed3g6ff6rprbmho6aegkl3p3rzr2lroskf3h2rk774jhxpbqkt@pkuovjn3hrlw>
-In-Reply-To: <ed3g6ff6rprbmho6aegkl3p3rzr2lroskf3h2rk774jhxpbqkt@pkuovjn3hrlw>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Wed, 6 May 2026 17:56:36 +0100
-X-Gm-Features: AVHnY4IxAQNfa7ZXVBZBUZ_-kUL61L7PlHFWw3kP1JJ8Ny6Y6D4wlmNswfFeMso
-Message-ID: <CA+V-a8t01Rf-i--7RL3A+O4xVGOtDLEJWSnztH0S-OGWDLQ94Q@mail.gmail.com>
-Subject: Re: [PATCH 5/5] PCI: rzg3s-host: Add support for RZ/V2H(P) SoC
-To: Manivannan Sadhasivam <mani@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Magnus Damm <magnus.damm@gmail.com>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	John Madieu <john.madieu.xa@bp.renesas.com>, linux-pci@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="XlmV61d7RTQpBGLX"
+Content-Disposition: inline
+In-Reply-To: <20260506-bar-v1-1-12195406f4ef@gmail.com>
+
+
+--XlmV61d7RTQpBGLX
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Manivannan and Geert,
+On Wed, May 06, 2026 at 02:25:37PM +0800, LiangCheng Wang wrote:
+> Add the compatible string for the PIXPAPER 4.26 monochrome
+> e-ink panel to the Mayqueen Pixpaper binding.
+>=20
+> The new panel uses the same SPI and GPIO control interface as
+> the existing Pixpaper panel, so extend the existing binding
+> instead of adding a separate schema. Document the new compatible
+> string and add an example node for pixpaper-426m.
+>=20
+> Signed-off-by: LiangCheng Wang <zaq14760@gmail.com>
+> ---
+>  .../bindings/display/mayqueen,pixpaper.yaml        | 25 ++++++++++++++++=
++-----
+>  1 file changed, 20 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/display/mayqueen,pixpaper.=
+yaml b/Documentation/devicetree/bindings/display/mayqueen,pixpaper.yaml
+> index cd27f8ba5ae1d94660818525b5fa71db98c8acb7..4b0db2b079ebea244eb149a52=
+ee1d8dbab0f60bb 100644
+> --- a/Documentation/devicetree/bindings/display/mayqueen,pixpaper.yaml
+> +++ b/Documentation/devicetree/bindings/display/mayqueen,pixpaper.yaml
+> @@ -4,22 +4,23 @@
+>  $id: http://devicetree.org/schemas/display/mayqueen,pixpaper.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
+> =20
+> -title: Mayqueen Pixpaper e-ink display panel
+> +title: Mayqueen Pixpaper e-ink display panels
+> =20
+>  maintainers:
+>    - LiangCheng Wang <zaq14760@gmail.com>
+> =20
+>  description:
+> -  The Pixpaper is an e-ink display panel controlled via an SPI interface.
+> -  The panel has a resolution of 122x250 pixels and requires GPIO pins for
+> -  reset, busy, and data/command control.
+> +  Mayqueen Pixpaper e-ink display panels are controlled via an SPI inter=
+face
+> +  and require GPIO pins for reset, busy, and data/command control.
+> =20
+>  allOf:
+>    - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> =20
+>  properties:
+>    compatible:
+> -    const: mayqueen,pixpaper
+> +    enum:
+> +      - mayqueen,pixpaper
+> +      - mayqueen,pixpaper-426m
 
-On Wed, May 6, 2026 at 2:12=E2=80=AFPM Manivannan Sadhasivam <mani@kernel.o=
-rg> wrote:
->
-> On Wed, May 06, 2026 at 02:07:21PM +0200, Geert Uytterhoeven wrote:
-> > Hi Manivannan,
-> >
-> > On Wed, 6 May 2026 at 14:02, Manivannan Sadhasivam <mani@kernel.org> wr=
-ote:
-> > > On Mon, May 04, 2026 at 11:05:11AM +0200, Geert Uytterhoeven wrote:
-> > > > On Fri, 1 May 2026 at 16:42, Manivannan Sadhasivam <mani@kernel.org=
-> wrote:
-> > > > > On Fri, May 01, 2026 at 12:13:55PM +0100, Lad, Prabhakar wrote:
-> > > > > > On Thu, Apr 30, 2026 at 4:26=E2=80=AFPM Manivannan Sadhasivam <=
-mani@kernel.org> wrote:
-> > > > > > > On Wed, Apr 08, 2026 at 07:54:41PM +0100, Lad, Prabhakar wrot=
-e:
-> > > > > > > > On Wed, Mar 25, 2026 at 10:18=E2=80=AFAM Claudiu Beznea
-> > > > > > > > <claudiu.beznea@tuxon.dev> wrote:
-> > > > > > > > > On 3/18/26 14:44, Prabhakar wrote:
-> > > > > > > > > > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesa=
-s.com>
-> > > > > > > > > >
-> > > > > > > > > > Add support for the RZ/V2H(P) SoC PCIe controller to th=
-e rzg3s-host
-> > > > > > > > > > driver.
-> > > > > > > > > >
-> > > > > > > > > > The RZ/V2H(P) SoC features two independent PCIe channel=
-s that share
-> > > > > > > > > > physical lanes. The hardware supports two configuration=
- modes: single
-> > > > > > > > > > x4 mode where one controller uses all four lanes, or du=
-al x2 mode
-> > > > > > > > > > where both controllers use two lanes each.
-> > > > > > > > > >
-> > > > > > > > > > Introduce configure_lanes() function pointer to configu=
-re the PCIe
-> > > > > > > > > > lanes based on the number of channels enabled. Implemen=
-t
-> > > > > > > > > > rzv2h_pcie_configure_lanes() to detect the active PCIe =
-channels at
-> > > > > > > > > > boot time and program the lane mode via the system cont=
-roller using
-> > > > > > > > > > the new RZG3S_SYSC_FUNC_ID_LINK_MASTER function ID.
-> > > > > > > > > >
-> > > > > > > > > > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@=
-bp.renesas.com>
-> > > > > > > > > > ---
-> > > > > > > > > >   drivers/pci/controller/pcie-rzg3s-host.c | 142 ++++++=
-+++++++++++++++++
-> > > > > > > > > >   1 file changed, 142 insertions(+)
-> > > > > > > > > >
-> > > > > > <snip>
-> > > > > > > > >
-> > > > > > > > > This introduces some limits in the systems with RZ/V2H(P)=
- SoCs with regards to
-> > > > > > > > > the usage of linux,pci-domain. I would like the PCIe main=
-tainers take on this.
-> > > > > > > > >
-> > > > > > > > > As this is necessary to index in the system controller dr=
-iver specific data (as
-> > > > > > > > > there are different SYSC offsets for different PCIe contr=
-ollers) I see the
-> > > > > > > > > following alternatives, if any:
-> > > > > > > > >
-> > > > > > > > > 1/ add a dedicated DT property for this, e.g. renesas,pci=
-e-controller-id
-> > > > > > > > > 2/ Add dedicated DT bindings for RZ/V2H(P) SoC that would=
- be used to specify the
-> > > > > > > > >     system controller register offset and mask for differ=
-ent functionalities.
-> > > > > > > > >
-> > > > > > > > >     E.g.:
-> > > > > > > > >     renesas,sysc-l1-allow =3D <&sysc 0x1020 0x1>;
-> > > > > > > > >     renesas,sysc-mode =3D <&sysc 0x1024 0x1>;
-> > > > > > > > >     renesas,sysc-link-master =3D <&sysc 0x1060 0x300>;
-> > > > > > > > >
-> > > > > > > > >     And use them in each controller DT node. E.g.:
-> > > > > > > > >
-> > > > > > > > >     pcie0: pcie@add1 {
-> > > > > > > > >         // ...
-> > > > > > > > >
-> > > > > > > > >         renesas,sysc-l1-allow =3D <&sysc 0x1020 0x1>;
-> > > > > > > > >         renesas,sysc-mode =3D <&sysc 0x1024 0x1>;
-> > > > > > > > >         renesas,sysc-link-master =3D <&sysc 0x1060 0x300>=
-;
-> > > > > > > > >
-> > > > > > > > >         // ...
-> > > > > > > > >     };
-> > > > > > > > >
-> > > > > > > > >     pcie0: pcie@add1 {
-> > > > > > > > >         // ...
-> > > > > > > > >
-> > > > > > > > >         renesas,sysc-l1-allow =3D <&sysc 0x1050 0x1>;
-> > > > > > > > >         renesas,sysc-mode =3D <&sysc 0x1054 0x1>;
-> > > > > > > > >         renesas,sysc-link-master =3D <&sysc 0x1060 0x300>=
-;
-> > > > > > > > >
-> > > > > > > > >         // ...
-> > > > > > > > >     };
-> > > > > > > > >
-> > > > > > > > I'd like to get a clearer steer from the PCIe and DT mainta=
-iners
-> > > > > > > > before investing further in either direction.
-> > > > > > > >
-> > > > > > > > To recap the two approaches on the table:
-> > > > > > > >
-> > > > > > > >   Option 1: A single renesas,pcie-controller-id property us=
-ed to look up
-> > > > > > > >             SYSC offsets in the driver.
-> > > > > > >
-> > > > > > > Can you explain what is the limitation with 'linux,pci-domain=
-' property?
-> > > > > > >
-> > > > > > As sashiko pointed out.dev, The linux,pci-domain property is ge=
-nerally
-> > > > > > an OS-specific logical property intended to assign a stable PCI=
- domain
-> > > > > > number across reboots. Restricting it to [0, 1] would prevent s=
-ystem
-> > > > > > integrators from using non-conflicting domain numbers like 2 or=
- 3 if
-> > > > > > the board incorporates other PCIe controllers.
-> > > > >
-> > > > > "linux,pci-domain" is supposed to be used in SoC.dtsi, not in boa=
-rd.dts. AFAIK,
-> > > > > the board designers have no reason to change it.
-> > > > >
-> > > > > Yes, the property name implies that it is a Linux specific proper=
-ty and if you
-> > > > > want, you can propose a generic one (not vendor specific one). Ot=
-her than that,
-> > > > > I don't see a blocker in using this property. Many SoCs already d=
-o this and
-> > > > > other DT projects like u-boot do not end up parsing this property=
-.
-> > > >
-> > > > Sounds like this overlaps with pciN DT aliases, which are in use on
-> > > > some (PPC) boards?
-> > > >
-> > >
-> > > Hmm. DT aliases are discouraged these days, AFAIK. Are those boards a=
-lso need
-> > > these register configuration? I thought only RZ/V2H(P) SoCs need them=
-. If not,
-> > > then RZ/V2H(P) DTS can use 'linux,pci-domain' property.
-> > >
-> > > If yes, then it would be better to hardcode these offsets in the driv=
-er based
-> > > on the compatible. DT's job is to describe the hardware topology and =
-resources,
-> > > not register offsets.
-> >
-> > The offsets cannot be hardcoded based just on the compatible value as t=
-here
-> > are two instances.  The offsets do describe the topology.
-> >
->
-> Oops. I mixed it with the PHY compatibles... Anyhow, I'd suggest to go wi=
-th
-> 'linux,pci-domain' to get the domain ID and use it to calculate the offse=
-t.
->
-Thank you for the feedback, I will go with the 'linux,pci-domain' property.
+The commit message makes it sound like both devices could be compatible,
+but the diff says they are not. What actually makes them incompatible?
+
+> =20
+>    reg:
+>      maxItems: 1
+> @@ -61,3 +62,17 @@ examples:
+>              dc-gpios =3D <&gpio1 19 GPIO_ACTIVE_HIGH>;
+>          };
+>      };
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +    spi {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +        display@0 {
+> +            compatible =3D "mayqueen,pixpaper-426m";
+> +            reg =3D <0>;
+> +            spi-max-frequency =3D <1000000>;
+> +            reset-gpios =3D <&gpio1 17 GPIO_ACTIVE_HIGH>;
+> +            busy-gpios =3D <&gpio1 18 GPIO_ACTIVE_HIGH>;
+> +            dc-gpios =3D <&gpio1 19 GPIO_ACTIVE_HIGH>;
+> +        };
+> +    };
+
+This example just duplicates the existing one, there's no value in
+adding it.
+
+pw-bot: changes-requested
 
 Cheers,
-Prabhakar
+Conor.
+
+>=20
+> --=20
+> 2.34.1
+>=20
+
+--XlmV61d7RTQpBGLX
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaftzGgAKCRB4tDGHoIJi
+0sxUAQCLu8SFH/T5I6Xp1bz4jhxFnR8ov5kVt8WibSDpgZoBbAEAv06FTy+aRbgh
+URBJgr9cofJoYTIl7cejUjHC3xdcVgk=
+=xFdR
+-----END PGP SIGNATURE-----
+
+--XlmV61d7RTQpBGLX--
