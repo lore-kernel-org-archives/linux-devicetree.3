@@ -1,136 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F7B30BF6B;
-	Wed,  6 May 2026 12:16:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01CBD31716F;
+	Wed,  6 May 2026 12:21:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778069761; cv=none; b=b1oM1vlWLMo+isao1SNIUdk7xNYJcwr3/QHQZYYvFp/bulD471hD4EXrlQjbb2ahf6YSmL+qAckNUSGTuOY8AiYyKvRWSB86DCZkE7gkmHi+Db9WhnsyqAGLVj9qy3a7DKW86f6yDcpePynTw3j0jnpZDY894beqR8dYAa+nh6s=
+	t=1778070070; cv=none; b=bfwY2eQUbb2YsxgWJIdMgdDGjOF3aZ0eYhK/o7PVhvo+Mg3qxZXd90onykmW9jhr/VtylixsMVhXetlfOnzFpN3VeSvshFxwJvwm9Lwvqdg74lWbA1kXqawXK1GphracQz/mLCXms0Bp5RFru6HtK2/za6pRtyDtv5pW10LhfM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778069761; c=relaxed/simple;
-	bh=PVbJfhMcEWSq3OTaIOhsL24F9gqMxzDfSuCNkAdfebA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Vg8twMBaYv4ID7K2WrIjzQZ9esqGUHNmAh+3fhgXA1XJZ+1Royoymfbj564QkzW/B6YxHBjI0QtMh8ndyDKSJwk56kAWc5/3yQz8wYpWTrxk5G92y5lKgFLjfEDPjizcTiGazMpxy+JlNccQ1y07ehfpAkittFpBgP0HS/3orLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J2O579k8; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778070070; c=relaxed/simple;
+	bh=MEcilob3lIa0Djuvxe+8G/SiF3Ck8f9Fw74juQCNS4k=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=q2ds2loLmGh4aD8hk2GP0t5u0kY1/vDPkyqojj7ucPPHfeEaLJs8bk7T8ixEOC/p9F/gdTEI715B/7QhwyFnNzKWHdF35H0lIqBUYux7Rn2jdd2d0AzxGsqoh8XrHne1u5KsYF3muRtgB0zE+y4LRWSjOXjnrq4FIrIRcYXydAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=DBA9+0qw; arc=none smtp.client-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J2O579k8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0D61C2BCB8;
-	Wed,  6 May 2026 12:15:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778069761;
-	bh=PVbJfhMcEWSq3OTaIOhsL24F9gqMxzDfSuCNkAdfebA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=J2O579k8XPru5Vbtx57kgcppAe1xdig+cEkOib0q2rLb0hQuZj+JouvWoRaTivX2+
-	 /zXOoEYFlP3TyvvwTCRLjbSMFVZKof8Sd8KlHVoTDX6TTwJX6Vrx7NXDG8Zoo7m+ox
-	 P91zd6ZWcxvMjxjGTaYB+rf9fdKPrB1XNNp6UQcCFLbHQ1TA3uNuCMcGdMhvFxYuMV
-	 zko7mSnN9pLbvHT9m9dc6656r6S6Zbbfcz9kX00fNWMKoWq1Oo1171KsBjsSaSAkZb
-	 pXFKVQXGfs4b4GY6fWr+dMRadoXYwj4FnS97acTIKgFlxUaIHbnoAvAkWEOu7V+k/a
-	 NK8z0pf5YyA3g==
-Message-ID: <2920e0bc-3f60-49bf-969c-9c049b080703@kernel.org>
-Date: Wed, 6 May 2026 14:15:57 +0200
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="DBA9+0qw"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Cc:From:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=/4qEkQwBeZBXmPpSGuA2DsdKBoBKWN8Kcgu73ejEo9o=; b=DBA9+0qwOxXnnHKSp6m1ufmG9f
+	jSLEwl4qIf/wO9UPBs0kfkPAQT7aST7lkuMm+zcH3o7z16qh9qGniBd2PclrsbXNND5PbBq1Ma+VG
+	P8ePmEj7ZxSqCV7YIbvy9YELBnEPSqw20XhoLAKz2J6hHBcLN5rgczJ4v0xeXIii+iumTpwJ2BDus
+	2kTncE0pufzoBqvWcJB71feVe82q31aNGjyNoNhJtPHooklX28+mcwrL2uYZeUPDhHwiPc5QWB826
+	MC5QLwo3a1jwzulpO7zVPl2qJx7SxE7EnZwqNiEM0uAhNbMFUIO1z2AhV0dQkLIH7vyHfjxKi1kG1
+	0HK1gThA==;
+Date: Wed, 6 May 2026 14:20:44 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Kevin Hilman <khilman@baylibre.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, akemnade@kernel.org, Jean-Baptiste
+ Maneyrol <jean-baptiste.maneyrol@tdk.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>, Roger
+ Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-omap@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/2] ARM: dts: ti/omap: omap4-epson-embt2ws: fix typo in
+ iio device property
+Message-ID: <20260506142044.6456b2d5@kemnade.info>
+In-Reply-To: <7ha4yfzv2t.fsf@baylibre.com>
+References: <20251231-mpu9150-v1-0-08ecf085c4ae@kernel.org>
+	<20251231-mpu9150-v1-2-08ecf085c4ae@kernel.org>
+	<20260111123200.6871a41b@jic23-huawei>
+	<20260112094259.4648cfaa@kemnade.info>
+	<7ha4yfzv2t.fsf@baylibre.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: cache: qcom,llcc: Document Eliza LLCC
- block
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Conor Dooley <conor@kernel.org>,
- Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260504-eliza-llcc-v1-0-d7006c899812@oss.qualcomm.com>
- <20260504-eliza-llcc-v1-1-d7006c899812@oss.qualcomm.com>
- <20260506-imported-emerald-quoll-fd1ef8@quoll>
- <0028dd41-d039-4ef5-a9f7-deb730a05b0b@oss.qualcomm.com>
- <319fc5ac-1211-4845-9a66-79f1a3026126@kernel.org>
- <486d6b30-8762-4f14-aa19-7c5497cba00f@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <486d6b30-8762-4f14-aa19-7c5497cba00f@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 06/05/2026 12:47, Konrad Dybcio wrote:
-> On 5/6/26 11:56 AM, Krzysztof Kozlowski wrote:
->>>>> +    then:
->>>>> +      properties:
->>>>> +        reg:
->>>>> +          items:
->>>>> +            - description: LLCC0 base register region
->>>>> +            - description: LLCC2 base register region
->>>>
->>>> LLCC1?
->>>
->>> Unfortunately not
->>
->> Then let's just skip the names, because it will cause unnecessary
->> confusion when name is llcc1 (since it is the NEXT entry) but it points
->> to block called LLCC2 in the manual.
+On Wed, 14 Jan 2026 14:30:02 -0800
+Kevin Hilman <khilman@baylibre.com> wrote:
+
+> Andreas Kemnade <andreas@kemnade.info> writes:
 > 
-> I don't think skipping the names is a good idea, especially since if
-> we keep them, we could teach the driver what channel the region actually
-> corresponds to
+> > On Sun, 11 Jan 2026 12:32:00 +0000
+> > Jonathan Cameron <jic23@kernel.org> wrote:
+> >  
+> >> On Wed, 31 Dec 2025 22:14:17 +0100
+> >> akemnade@kernel.org wrote:
+> >>   
+> >> > From: Andreas Kemnade <andreas@kemnade.info>
+> >> > 
+> >> > Define interrupts properly. Unfortunately, this hides a bug in the linux
+> >> > driver, so it needs to be used with the driver fixed only.
+> >> > 
+> >> > Signed-off-by: Andreas Kemnade <andreas@kemnade.info>    
+> >> 
+> >> Reviewed-by: Jonathan Cameron <jonathan.cameron@huawei.com>
+> >> Not related to patch 1 so if TI soc folk can pick this up that would be
+> >> great.
+> >>   
+> > well, it needs things fixed via patch 1 to avoid creating havoc...
+> > But from a strictly dogmatic point of view the devicetree describes the
+> > hardware, so it is unrelated.
+> > ... but from a more pragmatic point of view, I do not want to have interrupts
+> > enabled for drivers which do not handle them correctly.
+> >
+> > Of course this should be picked up by omap folks.  
+> 
+> Based on the changelog comments, I will pick up the DT patch when the
+> driver fix gets applied.
+> 
+the needed patch is in. So it can be applied.
 
-You still can do it, because indices are fixed. Names are only helper
-and makes that easier.
-
-The problem looks to me purely doc-related, because this is logically
-second channel, so LLCC1, just like qcom,sc7280-llcc or
-qcom,sdm670-llcc. Does naming it as third channel (LLCC2) is relevant
-for programming interface? Imagine driver taking LLCCx and using the 'x'
-as offset?
-
-I tried to find something in HPG but no luck.
-
-
-Best regards,
-Krzysztof
+Regards,
+Andreas
