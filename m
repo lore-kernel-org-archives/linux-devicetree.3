@@ -1,196 +1,856 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012015.outbound.protection.outlook.com [52.101.66.15])
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B851F3CF697;
-	Wed,  6 May 2026 08:07:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778054869; cv=fail; b=ReI79boR1Gk+2gOSFGp4znGxaPozmyfNysYaxGFd7laKfzsYxMgJ95HYhN5j+IBSeeiKq3HzHqMSY9zAYg7y5MkrVAngH+PYDF78heJQvVmoPqyMfv/wxUxKK1tJ9Vhv8DnCf8CBqet27lg0frPtmPTgMVIbjO4Nv7eP1jk7unA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778054869; c=relaxed/simple;
-	bh=B9o8wQi6KgI8MVByCprM7H0EuHb2V8liKzJMfvSFCt8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=jDhpegAEaN4hM5q0qleThQjhVa467AZ3nPAvYkRnR+NvcPslCDI0AFTarkKzzCxvPpyBoVpenKEC+8/zbwDm7jpzvcFZ16ER7HAAAWs0TLPtjXQ0ucD0x5v1Toc/fj5payryW9x01ytRgdpmoYXsT+OXL7bG2ohR9L0d3l/D7Ww=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=oDNUNejf; arc=fail smtp.client-ip=52.101.66.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="oDNUNejf"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O9MYbzCtQ6eJnS7XMebnncPg31RNfoxJ464CXWLob5Irk2vOzThRrRsbDFzHA6k72WG3/pJ6KDRJbk/Ppq+8pOh53w5dhAo4Ru13c6IyMBzt93kqs5Nqb/Fj+pah1aaOBSjCwdFBFN5GE3jf6fxPIknH91ZEDdHCbJCAO+pszfB0jHxG1zG62M+tjRIZ1PeIndbRPjGZJF2Js96zuesOzURY5rFAW496dWxZ7AgB+SmvR71F8Ah0xpQwCt4xJc8xdShMbQl5ccIBkTops04w3AQMXzI3lNKpYiOHWtCDvwsXLEHduHFyDkuWLJYgArYsX61u6e1SZlR03OhvyPT9Kg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/Oq1nvSBQ5WV5VwbQiKRBhF+o6GZZv+XrOzWTSzAD9c=;
- b=GuWRwlSP50Y9xt0SbGhB5r9QcuZVBE+3MZ1eMPJx3y7j/3WymbvxQ36WGNhWlqN2R1VqV1xez7/kb+hOEQrp/i+4aRevn2sWy5NvnwbvFnwGfQs6iafBjP/wwdzLTpmVrS7wJ3XQFmXXOLtrUieiELnwxNqSp/65Fn7BAhaGJW1ULggVOWxw2TQqfKX9exHy+KUQGTg8hzPztgzcMYvXfdekxzMbetq6pENOQcs+LsbfdgEHq2Jy345iA3KV9r1rAKHeCtt8z93RaWDdeFgQq2GeJlibbY3IlckrCH+qtFlemj2oFATyfEg6tLRajVrUm8EWwDcpl9r3Q3YfORjRBQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/Oq1nvSBQ5WV5VwbQiKRBhF+o6GZZv+XrOzWTSzAD9c=;
- b=oDNUNejfBsCMQQli0kB6gLe7kGofs6jaenquieygTa2lYvlEkNLq0Rz9vFcCZmdXMRS+HsRxD4nNq+eFXs7tBDQwIUUxadukk+fvzvHjUlJuTHdp6cuJ65hGbBCmD5vTOR14bBbFmrqEt2EB/UENWF4Jk3OZomQmEsZpoTShffzyL3UC4JzLETEhaZ/DPkU3J1F10UPaRk6g3nB1wzRz9W+uHNdMhLnxsccTFICbqPjEMGMgQuPI0q7+Vkb2bUtLAyKImduZ+7pOysRpVnR0sdKT58xA4JchckSNQhnfUv6Q4Q6EoBIHj4OWK2H9NLFuJWbrSxvB38He5VWyAmJ/CQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com (2603:10a6:20b:4dd::8)
- by AS8PR04MB8868.eurprd04.prod.outlook.com (2603:10a6:20b:42f::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Wed, 6 May
- 2026 08:07:43 +0000
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c]) by AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c%3]) with mapi id 15.20.9891.008; Wed, 6 May 2026
- 08:07:43 +0000
-Date: Wed, 6 May 2026 16:09:01 +0800
-From: Liu Ying <victor.liu@nxp.com>
-To: Marco Felsch <m.felsch@pengutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, laurentiu.palcu@oss.nxp.com,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 2/4] Revert "dt-bindings: display: bridge: ldb: Fill in
- reg property"
-Message-ID: <afr3HWjUr_5wVT-f@raspi>
-References: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
- <20260504-v7-1-topic-ldb-fixes-v1-2-0125d937ff7f@pengutronix.de>
- <20260505141538.GA2547282-robh@kernel.org>
- <2bl2mwpk57xgkuye2gydliymjkzikiovnb7ovnb73olwtfkjwn@byn3732grvnh>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2bl2mwpk57xgkuye2gydliymjkzikiovnb7ovnb73olwtfkjwn@byn3732grvnh>
-X-ClientProxiedBy: SI1PR02CA0027.apcprd02.prod.outlook.com
- (2603:1096:4:1f4::18) To AS1PR04MB9287.eurprd04.prod.outlook.com
- (2603:10a6:20b:4dd::8)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC7263E1CF3;
+	Wed,  6 May 2026 08:08:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778054894; cv=none; b=e2sXzqqgZbsAZbApr9lEqLVB/4k96FwZgJy/LwGmYRraqFXiJ3oymZ/htrZHkUC484pFqVfJGUjYGZ/hqIf9ad9uoJuW5KDN9E/W2lE4JkFVUmbW3abBFTZmm+qdTFhYLwlQOoSP9rKl+6u5zTdrHKH0jHi+/L6ZYqqMJgNJaVo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778054894; c=relaxed/simple;
+	bh=ImJg2ZAMoCSiIYkS69pDYp+iu9Js7rY+4AIGByuwaBw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=Qboe3EUBzCRX08TvKrhI+XCqzgk7oAk/FYIhKpgFCJXyRuA7iWUy4xV3FocV8/lBe3XLyyRK75ttEYK+gGhDMilcMHTvv7ZQT+nHxwreCeT1C+laCfEY1/pgYKM+VxliMg9dYCAreeBdXBIrKl4nrhwL9dzbFyBr2L/V53igS1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Wed, 6 May
+ 2026 16:06:58 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Wed, 6 May 2026 16:06:58 +0800
+From: Billy Tsai <billy_tsai@aspeedtech.com>
+Date: Wed, 6 May 2026 16:06:20 +0800
+Subject: [PATCH v9 3/3] pinctrl: aspeed: Add AST2700 SoC0 support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS1PR04MB9287:EE_|AS8PR04MB8868:EE_
-X-MS-Office365-Filtering-Correlation-Id: 70e378ba-408d-40de-81e4-08deab468c91
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|366016|19092799006|1800799024|7416014|376014|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
- a91OE9oIrBHo6HWSkhqJflQ2Ci/ItG3VAt2AlcHaOQ5n81nKUORhm3kK7xk+ZOJQdCnSlSwPJI9lhz2s2vKWYwjzaW0olXHO4kPAIWFVzz3MgWitrGvR3wV6SYlpafkusG3CO5mLdeqC/RdFusg+ZlvzDJzh1U47qa9NP9VIQkcSrU5JImOn5pceVyOo3iJ1vSgABwYWDjD5tC5WF8YpyzoU18qRwJNiyKmoo9I6bbxPF84JhFYCAiJwo7+IVG5GSSeJQGcUZzox5UdwsbOZfNuAW1HIUjDm2URmzpahTjSIdGnBfr1xQOjPtwMUOmBPJoxQR6wJwyP7q4wRWEMuj6upoAKgA3NIA+u1DvhKJT//WQB/fhYtVnQIeLcVVgFGYaKtXUM5G2Xky8CeUnjLB5Jokw2+oMe1ZLlyDoWAmx42m1y9o6l0dKapBdAZS5GD9yh75HWI/xb/oayhX7kb7ct+pCi3x3kzxrfA/ReEjP1t6FagklMztVSZTAK1J5SQl+FdYh/aZ2mDUkk6mzaO5oVvFkSxMiKCsNEY3u6PdWdSJivLkjLWv/wb0BjIf9cx05fv71g3nEHHOmTnmq+ob8dI9Wh91b+P8nGLy/jo9Xri/AwVh0dUrmxHfYWXk3FGVasZaOO1tg6UCQni4gk/xQ==
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS1PR04MB9287.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(7416014)(376014)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?JvYBodxEvnUsYixqrDsORvAIbYaR8JzKaIyRxqd8801p/s+Onl1uPk2bTFpI?=
- =?us-ascii?Q?oEMQ988bOuD5nvjt+qtOMniOrL8xAfrcLzy2gMZ3g7Uol/M1pzr/igUy+QXj?=
- =?us-ascii?Q?au+68QU5+C7bs9LySV0Wxb9YPNlehhwpe46IHBQlIxC4mMQH8BnKBWynRZAr?=
- =?us-ascii?Q?gtPnKKSV9qtPR36D9yPESnmIKnfjvl7UsxpoKEdHnHlYv1Eeb68hKAUD7fWk?=
- =?us-ascii?Q?8GHium/DAaL2SkVmR0RC7GcoOWKhyEjQFo1u5NWrj4EH51eSwBOnpfi7kXBK?=
- =?us-ascii?Q?74poNmBgcv6RHlNMIYntEvXpAGv3xXuKwFRiBmdtXqW7YYTu7puYDcA1mL0f?=
- =?us-ascii?Q?A/umeOfSZMgx2kHRbZybplbpZFkn/hGzB84lKf8lFZKVOf4GeUQGp1+l3UDs?=
- =?us-ascii?Q?l7ZypYsRZKsQPwUW5gBZlya23NrnfbCz5QtaEnlE0UbUcBrwQwh60rcNGn9i?=
- =?us-ascii?Q?81xgqI3OxQUVQc79r/yttiOJJLPUJ4yclLuPrF/yMrBXyeaQmcWkxXZNsBs5?=
- =?us-ascii?Q?SeAtA/O5H1mtLilNIHOJbETAXGAtLeXycZAV504j4ejCVJOysnvQO0OdJvt1?=
- =?us-ascii?Q?C13uOFgj+3qBk0pb7+dI7KxX87n++QaQTwn/FqZOZ9tZe35nwbIWlwe/YTZR?=
- =?us-ascii?Q?5wPs79kjiP6YvJDFdx3VFyyQS5qcCUyIb4EKG2DAlHAChaiGjirt6yyBpkK3?=
- =?us-ascii?Q?Yy0U+PuORSPKXJ0QsEnCZTOWgqZKV3awdztlARI9/0JXvOSktYISoQZHmB/W?=
- =?us-ascii?Q?to+dee3hVk8gRFOiAIhpLZjx5Sx85LwjK00v3VDWbaQt0uafK/PK9co4X2AG?=
- =?us-ascii?Q?TkRrIkPyED7q0iH9GYdCfdOsiGRfKedbCqBGZTAuDfhlR5XdTvpMq2w213+t?=
- =?us-ascii?Q?ypBkaoNspNp/BffTAX10qizEixc4A2BvJgvomfUzzHqUkedwagvMdWJ2qvw5?=
- =?us-ascii?Q?S56MbpA+54i34Ez1ZZIuPiGxmZ/9E/5P6If4lFbXFKO9pe9TM8b+yqaFPcqf?=
- =?us-ascii?Q?jNQtdPGD96i0y+L40knHeS9X9MlOwEdDEE00fsY5RKNcBx5iW147pzjWipKi?=
- =?us-ascii?Q?/tTyDbcefVDL2+zBFNrXSd0rE7cXZKXobkZ206H4Yz+dj0xALeINo/5A4TVO?=
- =?us-ascii?Q?h/Q9caf76Euerwy0A4ZVtnKUD8Wlh3KGNu0Mq+yVdXfftUlPzuijnAonwieA?=
- =?us-ascii?Q?qerFK6Zqd/QqttbsOsNhIP4PJyp59cLR8/bC0fWsls0VwIANPHdlX509hEjF?=
- =?us-ascii?Q?kp7ccjDMDEAn+XuKYOcRqsC51xilXZo9r15+FJctbEn6mhgXhOLoW+viaan1?=
- =?us-ascii?Q?HLy+SN/qn8JZqZbIn/Xa+waGM1Ih8Ow3ygiXttMDRRGgMMeVzHwXtL8TAYU/?=
- =?us-ascii?Q?mAcGo4sHJvmpIAEGmluk+vgzBDxfFKnDXsCanSQMtxuV/yvLgjxSYxFqkwJf?=
- =?us-ascii?Q?0ovmH/eNeDBvQcExYaLDXh7yUTatErCXfkLUzpGDQJfB2NkH5D02fYH2agls?=
- =?us-ascii?Q?yM6n8MDiWQdeBd+ttmeQiBmP2nktPDhUcHNxVGlQUdjAm8hKou7L+yl6Yzfe?=
- =?us-ascii?Q?OyarUjzXQrnIu7xKBgXgEVJv9ehsj0PTDb7rTvopr+5JBXMZfGxgPk259QMV?=
- =?us-ascii?Q?PwdNgSbpuiYEZICpltPbpIbh8H6GzjocW2h7Jjw2v3MYhUI0NLqDX6G228uP?=
- =?us-ascii?Q?e+Xh+5c67zQtI6F2eFfSUoiItJb/MXF77EG+Wsi7phwK5SrItU/G730LTHxb?=
- =?us-ascii?Q?paHtVJhL2g=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70e378ba-408d-40de-81e4-08deab468c91
-X-MS-Exchange-CrossTenant-AuthSource: AS1PR04MB9287.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 08:07:42.9447
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: F9mZ9x+zfUfgBSDh7K4TkMglP6VGKcGSIHhFjXsdRxlrVGj80ryXU0NaNYbM1UkzEyLOdd3FB9zGdt+eBK6gNA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8868
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260506-upstream_pinctrl-v9-3-0636e22343ad@aspeedtech.com>
+References: <20260506-upstream_pinctrl-v9-0-0636e22343ad@aspeedtech.com>
+In-Reply-To: <20260506-upstream_pinctrl-v9-0-0636e22343ad@aspeedtech.com>
+To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Joel
+ Stanley" <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+	"Linus Walleij" <linusw@kernel.org>, Billy Tsai <billy_tsai@aspeedtech.com>,
+	"Bartosz Golaszewski" <brgl@kernel.org>, Ryan Chen <ryan_chen@aspeedtech.com>
+CC: Andrew Jeffery <andrew@aj.id.au>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
+	<linux-kernel@vger.kernel.org>, <openbmc@lists.ozlabs.org>,
+	<linux-gpio@vger.kernel.org>, <linux-clk@vger.kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778054817; l=35255;
+ i=billy_tsai@aspeedtech.com; s=20251118; h=from:subject:message-id;
+ bh=ImJg2ZAMoCSiIYkS69pDYp+iu9Js7rY+4AIGByuwaBw=;
+ b=/9rrvCIE2PhKFSVEUazRVKSChxn2oOgruI5sq27ZOS8QDodCFw3XMC0NTh6IuyItrUf4fV+9J
+ HBiyrzZ+eEsBranVEf+Xm/i6YQEChvvv/2fUebbBFavd23XcTMXEQGJ
+X-Developer-Key: i=billy_tsai@aspeedtech.com; a=ed25519;
+ pk=/A8qvgZ6CPfnwKgT6/+k+nvXOkN477MshEGJvVdzeeQ=
 
-On Tue, May 05, 2026 at 05:45:56PM +0200, Marco Felsch wrote:
-> On 26-05-05, Rob Herring wrote:
-> > On Mon, May 04, 2026 at 10:21:42PM +0200, Marco Felsch wrote:
-> > > This reverts commit 16c8d76abe83d75b578d72ee22d25a52c764e14a.
-> > > 
-> > > Remove the 'reg' and 'reg-names' property from the LDB.
-> > > 
-> > > The LDB is either part of the IOMUX_GPR (i.MX6SX) or the BLKCTRL
-> > > (i.MX8MP, i.MX93) register space. Both IOMUX_GPR and BLKCTRL are
-> > > register ranges with loose register definitions. E.g.
-> > > 
-> > >   - On the i.MX8MP there is one register which controls the AXI
-> > >     threshold for two different IPs (BIT(31:16) - IP1, BIT(15:0) - IP2).
-> > >   - On the i.MX6SX IOMUXC_GPR5 controlls: CSI2 mux, WDOG3 settings, PXP
-> > >     handshake, ...
-> > > 
-> > > In conclusion: it can't be ensured that one register belongs to one
-> > > dedicated IP and the LDB is rather an exception than the rule.
-> > 
-> > It is fine if there's a child node for LDB if the LDB registers are 
-> > consistent, but the other misc things are represented by the parent 
-> > node. It is certainly not a requirement that either everything be in 
-> > child nodes or nothing be in child nodes.
-> > 
-> > What I don't see in this series is what problem does this fix? If you 
-> > are going to break compatibility, then there had better be a good 
-> > reason.
-> 
-> Hi Rob,
-> 
-> with the upcoming i.MX9x SoCs the parent syscon (BLKCTRL) controlls
-> multiple other IPs, e.g. a DPI mux added by commit 3feaa4342637
-> ("dt-bindings: soc: imx93-media-blk-ctrl: Add PDFC subnode to schema and
-> example").
-> 
-> During the discussion of the above commit we agreed that the sub-devices
-> of the syscon shall not use the reg property due to the fact that one
-> register serves multiple purposes. In the above case the same register
-> controlling the dpi-mux also controlls MIPI-DSI bits. The MIPI-DSI bits
-> can be abstracted as drm-bridge as well. Two sub-devs using the same
-> 'reg' property below the same parent seems odd and I don't know if this
-> allowed either.
+Add pinctrl support for the SoC0 instance of the ASPEED AST2700.
 
-The MIPI-DSI bits are not modelled as sub-devs, but instead,
-according to fsl,imx93-mipi-dsi.yaml[1], an i.MX93 MIPI DSI driver would
-access the bits directly through the syscon.
+AST2700 consists of two interconnected SoC instances, each with its own
+pinctrl register block.
 
-Here, dpi-mux is a sub-dev while the MIPI-DSI bits are "misc things
-represented by the parent node"(Rob's words).  I don't see any problem
-here at least for Linux since regmap provides register access synchronization
-if everyone accesses registers through parent node's regmap.
+The SoC0 pinctrl hardware closely follows the design found in previous
+ASPEED BMC generations, allowing the driver to build upon the common
+ASPEED pinctrl infrastructure.
 
-[1] https://elixir.bootlin.com/linux/v7.0/source/Documentation/devicetree/bindings/display/bridge/fsl,imx93-mipi-dsi.yaml#L43-L47
+Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
+---
+ drivers/pinctrl/aspeed/Kconfig                  |   9 +
+ drivers/pinctrl/aspeed/Makefile                 |   1 +
+ drivers/pinctrl/aspeed/pinctrl-aspeed-g7-soc0.c | 749 ++++++++++++++++++++++++
+ 3 files changed, 759 insertions(+)
+
+diff --git a/drivers/pinctrl/aspeed/Kconfig b/drivers/pinctrl/aspeed/Kconfig
+index 1a4e5b9ed471..f9672cca891e 100644
+--- a/drivers/pinctrl/aspeed/Kconfig
++++ b/drivers/pinctrl/aspeed/Kconfig
+@@ -31,3 +31,12 @@ config PINCTRL_ASPEED_G6
+ 	help
+ 	  Say Y here to enable pin controller support for Aspeed's 6th
+ 	  generation SoCs. GPIO is provided by a separate GPIO driver.
++
++config PINCTRL_ASPEED_G7_SOC0
++	bool "Aspeed G7 SoC pin control"
++	depends on (ARCH_ASPEED || COMPILE_TEST) && OF
++	select PINCTRL_ASPEED
++	help
++	  Say Y here to enable pin controller support for the SoC0 instance
++	  of Aspeed's 7th generation SoCs. GPIO is provided by a separate
++	  GPIO driver.
+diff --git a/drivers/pinctrl/aspeed/Makefile b/drivers/pinctrl/aspeed/Makefile
+index db2a7600ae2b..0de524ca2c72 100644
+--- a/drivers/pinctrl/aspeed/Makefile
++++ b/drivers/pinctrl/aspeed/Makefile
+@@ -6,3 +6,4 @@ obj-$(CONFIG_PINCTRL_ASPEED)	+= pinctrl-aspeed.o pinmux-aspeed.o
+ obj-$(CONFIG_PINCTRL_ASPEED_G4)	+= pinctrl-aspeed-g4.o
+ obj-$(CONFIG_PINCTRL_ASPEED_G5)	+= pinctrl-aspeed-g5.o
+ obj-$(CONFIG_PINCTRL_ASPEED_G6)	+= pinctrl-aspeed-g6.o
++obj-$(CONFIG_PINCTRL_ASPEED_G7_SOC0) += pinctrl-aspeed-g7-soc0.o
+diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g7-soc0.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g7-soc0.c
+new file mode 100644
+index 000000000000..94f216f55bdd
+--- /dev/null
++++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g7-soc0.c
+@@ -0,0 +1,749 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#include <linux/bitops.h>
++#include <linux/bits.h>
++#include <linux/mfd/syscon.h>
++#include <linux/of.h>
++#include <linux/pinctrl/pinconf-generic.h>
++#include <linux/pinctrl/pinconf.h>
++#include <linux/pinctrl/pinctrl.h>
++#include <linux/pinctrl/pinmux.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
++
++#include "pinctrl-aspeed.h"
++#include "pinmux-aspeed.h"
++#include "../pinctrl-utils.h"
++
++#define SCU200 0x200 /* System Reset Control #1  */
++
++#define SCU010 0x010 /* Hardware Strap Register */
++#define SCU400 0x400 /* Multi-function Pin Control #1  */
++#define SCU404 0x404 /* Multi-function Pin Control #2  */
++#define SCU408 0x408 /* Multi-function Pin Control #3  */
++#define SCU40C 0x40C /* Multi-function Pin Control #3  */
++#define SCU410 0x410 /* USB Multi-function Control Register  */
++#define SCU414 0x414 /* VGA Function Control Register  */
++
++#define SCU480 0x480 /* GPIO18A0 IO Control Register */
++#define SCU484 0x484 /* GPIO18A1 IO Control Register */
++#define SCU488 0x488 /* GPIO18A2 IO Control Register */
++#define SCU48C 0x48c /* GPIO18A3 IO Control Register */
++#define SCU490 0x490 /* GPIO18A4 IO Control Register */
++#define SCU494 0x494 /* GPIO18A5 IO Control Register */
++#define SCU498 0x498 /* GPIO18A6 IO Control Register */
++#define SCU49C 0x49c /* GPIO18A7 IO Control Register */
++#define SCU4A0 0x4A0 /* GPIO18B0 IO Control Register */
++#define SCU4A4 0x4A4 /* GPIO18B1 IO Control Register */
++#define SCU4A8 0x4A8 /* GPIO18B2 IO Control Register */
++#define SCU4AC 0x4AC /* GPIO18B3 IO Control Register */
++
++enum {
++	AC14,
++	AE15,
++	AD14,
++	AE14,
++	AF14,
++	AB13,
++	AB14,
++	AF15,
++	AF13,
++	AC13,
++	AD13,
++	AE13,
++	JTAG_PORT,
++	PCIERC0_PERST,
++	PCIERC1_PERST,
++	PORTA_MODE,
++	PORTA_U2,
++	PORTB_MODE,
++	PORTB_U2,
++	PORTA_U2_PHY,
++	PORTB_U2_PHY,
++	PORTA_U3,
++	PORTB_U3,
++	PORTA_U3_PHY,
++	PORTB_U3_PHY,
++};
++
++SIG_EXPR_LIST_DECL_SEMG(AC14, EMMCCLK, EMMCG1, EMMC, SIG_DESC_SET(SCU400, 0));
++SIG_EXPR_LIST_DECL_SEMG(AC14, VB1CS, VB1, VB, SIG_DESC_SET(SCU404, 0));
++PIN_DECL_2(AC14, GPIO18A0, EMMCCLK, VB1CS);
++
++SIG_EXPR_LIST_DECL_SEMG(AE15, EMMCCMD, EMMCG1, EMMC, SIG_DESC_SET(SCU400, 1));
++SIG_EXPR_LIST_DECL_SEMG(AE15, VB1CK, VB1, VB, SIG_DESC_SET(SCU404, 1));
++PIN_DECL_2(AE15, GPIO18A1, EMMCCMD, VB1CK);
++
++SIG_EXPR_LIST_DECL_SEMG(AD14, EMMCDAT0, EMMCG1, EMMC, SIG_DESC_SET(SCU400, 2));
++SIG_EXPR_LIST_DECL_SEMG(AD14, VB1MOSI, VB1, VB, SIG_DESC_SET(SCU404, 2));
++PIN_DECL_2(AD14, GPIO18A2, EMMCDAT0, VB1MOSI);
++
++SIG_EXPR_LIST_DECL_SEMG(AE14, EMMCDAT1, EMMCG4, EMMC, SIG_DESC_SET(SCU400, 3));
++SIG_EXPR_LIST_DECL_SEMG(AE14, VB1MISO, VB1, VB, SIG_DESC_SET(SCU404, 3));
++PIN_DECL_2(AE14, GPIO18A3, EMMCDAT1, VB1MISO);
++
++SIG_EXPR_LIST_DECL_SEMG(AF14, EMMCDAT2, EMMCG4, EMMC, SIG_DESC_SET(SCU400, 4));
++PIN_DECL_1(AF14, GPIO18A4, EMMCDAT2);
++
++SIG_EXPR_LIST_DECL_SEMG(AB13, EMMCDAT3, EMMCG4, EMMC, SIG_DESC_SET(SCU400, 5));
++PIN_DECL_1(AB13, GPIO18A5, EMMCDAT3);
++
++SIG_EXPR_LIST_DECL_SEMG(AB14, EMMCCDN, EMMCG1, EMMC, SIG_DESC_SET(SCU400, 6));
++SIG_EXPR_LIST_DECL_SEMG(AB14, VB0CS, VB0, VB, SIG_DESC_SET(SCU010, 17));
++PIN_DECL_2(AB14, GPIO18A6, EMMCCDN, VB0CS);
++
++SIG_EXPR_LIST_DECL_SEMG(AF15, EMMCWPN, EMMCG1, EMMC, SIG_DESC_SET(SCU400, 7));
++SIG_EXPR_LIST_DECL_SEMG(AF15, VB0CK, VB0, VB, SIG_DESC_SET(SCU010, 17));
++PIN_DECL_2(AF15, GPIO18A7, EMMCWPN, VB0CK);
++
++SIG_EXPR_LIST_DECL_SESG(AF13, TSPRSTN, TSPRSTN, SIG_DESC_SET(SCU010, 9));
++SIG_EXPR_LIST_DECL_SEMG(AF13, EMMCDAT4, EMMCG8, EMMC, SIG_DESC_SET(SCU400, 8));
++SIG_EXPR_LIST_DECL_SEMG(AF13, VB0MOSI, VB0, VB, SIG_DESC_SET(SCU010, 17));
++PIN_DECL_3(AF13, GPIO18B0, TSPRSTN, EMMCDAT4, VB0MOSI);
++
++SIG_EXPR_LIST_DECL_SESG(AC13, UFSCLKI, UFSCLKI, SIG_DESC_SET(SCU010, 19));
++SIG_EXPR_LIST_DECL_SEMG(AC13, EMMCDAT5, EMMCG8, EMMC, SIG_DESC_SET(SCU400, 9));
++SIG_EXPR_LIST_DECL_SEMG(AC13, VB0MISO, VB0, VB, SIG_DESC_SET(SCU010, 17));
++PIN_DECL_3(AC13, GPIO18B1, UFSCLKI, EMMCDAT5, VB0MISO);
++
++SIG_EXPR_LIST_DECL_SEMG(AD13, EMMCDAT6, EMMCG8, EMMC, SIG_DESC_SET(SCU400, 10));
++SIG_EXPR_LIST_DECL_SESG(AD13, DDCCLK, VGADDC, SIG_DESC_SET(SCU404, 10));
++PIN_DECL_2(AD13, GPIO18B2, EMMCDAT6, DDCCLK);
++
++SIG_EXPR_LIST_DECL_SEMG(AE13, EMMCDAT7, EMMCG8, EMMC, SIG_DESC_SET(SCU400, 11));
++SIG_EXPR_LIST_DECL_SESG(AE13, DDCDAT, VGADDC, SIG_DESC_SET(SCU404, 11));
++PIN_DECL_2(AE13, GPIO18B3, EMMCDAT7, DDCDAT);
++
++GROUP_DECL(EMMCG1, AC14, AE15, AD14);
++GROUP_DECL(EMMCG4, AC14, AE15, AD14, AE14, AF14, AB13);
++GROUP_DECL(EMMCG8, AC14, AE15, AD14, AE14, AF14, AB13, AF13, AC13, AD13, AE13);
++GROUP_DECL(EMMCWPN, AF15);
++GROUP_DECL(EMMCCDN, AB14);
++FUNC_DECL_(EMMC, "EMMCG1", "EMMCG4", "EMMCG8", "EMMCWPN", "EMMCCDN");
++
++GROUP_DECL(VB1, AC14, AE15, AD14, AE14);
++GROUP_DECL(VB0, AF15, AB14, AF13, AC13);
++FUNC_DECL_2(VB, VB1, VB0);
++
++FUNC_GROUP_DECL(TSPRSTN, AF13);
++
++FUNC_GROUP_DECL(UFSCLKI, AC13);
++
++FUNC_GROUP_DECL(VGADDC, AD13, AE13);
++
++/* JTAG Port Selection */
++#define JTAG_PORT_PSP_DESC   { ASPEED_IP_SCU, SCU408, GENMASK(12, 5), 0x0, 0 }
++#define JTAG_PORT_SSP_DESC   { ASPEED_IP_SCU, SCU408, GENMASK(12, 5), 0x41, 0 }
++#define JTAG_PORT_TSP_DESC   { ASPEED_IP_SCU, SCU408, GENMASK(12, 5), 0x42, 0 }
++#define JTAG_PORT_DDR_DESC   { ASPEED_IP_SCU, SCU408, GENMASK(12, 5), 0x43, 0 }
++#define JTAG_PORT_USB3A_DESC { ASPEED_IP_SCU, SCU408, GENMASK(12, 5), 0x44, 0 }
++#define JTAG_PORT_USB3B_DESC { ASPEED_IP_SCU, SCU408, GENMASK(12, 5), 0x45, 0 }
++#define JTAG_PORT_PCIEA_DESC { ASPEED_IP_SCU, SCU408, GENMASK(12, 5), 0x46, 0 }
++#define JTAG_PORT_PCIEB_DESC { ASPEED_IP_SCU, SCU408, GENMASK(12, 5), 0x47, 0 }
++#define JTAG_PORT_JTAGM0_DESC { ASPEED_IP_SCU, SCU408, GENMASK(12, 5), 0x8, 0 }
++
++SIG_EXPR_LIST_DECL_SEMG(JTAG_PORT, JTAGPSP, JTAG0, JTAGPSP, JTAG_PORT_PSP_DESC);
++SIG_EXPR_LIST_DECL_SEMG(JTAG_PORT, JTAGSSP, JTAG0, JTAGSSP, JTAG_PORT_SSP_DESC);
++SIG_EXPR_LIST_DECL_SEMG(JTAG_PORT, JTAGTSP, JTAG0, JTAGTSP, JTAG_PORT_TSP_DESC);
++SIG_EXPR_LIST_DECL_SEMG(JTAG_PORT, JTAGDDR, JTAG0, JTAGDDR, JTAG_PORT_DDR_DESC);
++SIG_EXPR_LIST_DECL_SEMG(JTAG_PORT, JTAGUSB3A, JTAG0, JTAGUSB3A, JTAG_PORT_USB3A_DESC);
++SIG_EXPR_LIST_DECL_SEMG(JTAG_PORT, JTAGUSB3B, JTAG0, JTAGUSB3B, JTAG_PORT_USB3B_DESC);
++SIG_EXPR_LIST_DECL_SEMG(JTAG_PORT, JTAGPCIEA, JTAG0, JTAGPCIEA, JTAG_PORT_PCIEA_DESC);
++SIG_EXPR_LIST_DECL_SEMG(JTAG_PORT, JTAGPCIEB, JTAG0, JTAGPCIEB, JTAG_PORT_PCIEB_DESC);
++SIG_EXPR_LIST_DECL_SEMG(JTAG_PORT, JTAGM0, JTAG0, JTAGM0, JTAG_PORT_JTAGM0_DESC);
++PIN_DECL_(JTAG_PORT, SIG_EXPR_LIST_PTR(JTAG_PORT, JTAGPSP), SIG_EXPR_LIST_PTR(JTAG_PORT, JTAGSSP),
++	  SIG_EXPR_LIST_PTR(JTAG_PORT, JTAGTSP), SIG_EXPR_LIST_PTR(JTAG_PORT, JTAGDDR),
++	  SIG_EXPR_LIST_PTR(JTAG_PORT, JTAGUSB3A), SIG_EXPR_LIST_PTR(JTAG_PORT, JTAGUSB3B),
++	  SIG_EXPR_LIST_PTR(JTAG_PORT, JTAGPCIEA), SIG_EXPR_LIST_PTR(JTAG_PORT, JTAGPCIEB),
++	  SIG_EXPR_LIST_PTR(JTAG_PORT, JTAGM0));
++
++GROUP_DECL(JTAG0, JTAG_PORT);
++
++FUNC_DECL_1(JTAGPSP, JTAG0);
++FUNC_DECL_1(JTAGSSP, JTAG0);
++FUNC_DECL_1(JTAGTSP, JTAG0);
++FUNC_DECL_1(JTAGDDR, JTAG0);
++FUNC_DECL_1(JTAGUSB3A, JTAG0);
++FUNC_DECL_1(JTAGUSB3B, JTAG0);
++FUNC_DECL_1(JTAGPCIEA, JTAG0);
++FUNC_DECL_1(JTAGPCIEB, JTAG0);
++FUNC_DECL_1(JTAGM0, JTAG0);
++
++/* PCIe Reset Control */
++SIG_EXPR_LIST_DECL_SESG(PCIERC0_PERST, PCIERC0PERST, PCIERC0PERST, SIG_DESC_SET(SCU200, 21));
++PIN_DECL_(PCIERC0_PERST, SIG_EXPR_LIST_PTR(PCIERC0_PERST, PCIERC0PERST));
++FUNC_GROUP_DECL(PCIERC0PERST, PCIERC0_PERST);
++
++SIG_EXPR_LIST_DECL_SESG(PCIERC1_PERST, PCIERC1PERST, PCIERC1PERST, SIG_DESC_SET(SCU200, 19));
++PIN_DECL_(PCIERC1_PERST, SIG_EXPR_LIST_PTR(PCIERC1_PERST, PCIERC1PERST));
++FUNC_GROUP_DECL(PCIERC1PERST, PCIERC1_PERST);
++
++#define PORTA_MODE_HPD0_DESC { ASPEED_IP_SCU, SCU410, GENMASK(25, 24), 0, 0 }
++#define PORTA_MODE_D0_DESC   { ASPEED_IP_SCU, SCU410, GENMASK(25, 24), 1, 0 }
++#define PORTA_MODE_H_DESC    { ASPEED_IP_SCU, SCU410, GENMASK(25, 24), 2, 0 }
++#define PORTA_MODE_HP_DESC    { ASPEED_IP_SCU, SCU410, GENMASK(25, 24), 3, 0 }
++
++SIG_EXPR_LIST_DECL_SEMG(PORTA_MODE, USB2AHPD0, USB2AH, USB2AHPD0, PORTA_MODE_HPD0_DESC);
++SIG_EXPR_LIST_DECL_SEMG(PORTA_MODE, USB2AH, USB2AHAP, USB2AH, PORTA_MODE_H_DESC);
++SIG_EXPR_LIST_DECL_SEMG(PORTA_MODE, USB2AHP, USB2AHAP, USB2AHP, PORTA_MODE_HP_DESC);
++SIG_EXPR_LIST_DECL_SEMG(PORTA_MODE, USB2AD0, USB2AHAP, USB2AD0, PORTA_MODE_D0_DESC);
++PIN_DECL_(PORTA_MODE, SIG_EXPR_LIST_PTR(PORTA_MODE, USB2AHPD0),
++	  SIG_EXPR_LIST_PTR(PORTA_MODE, USB2AH), SIG_EXPR_LIST_PTR(PORTA_MODE, USB2AHP),
++	  SIG_EXPR_LIST_PTR(PORTA_MODE, USB2AD0));
++
++#define PORTA_U2_XHD_DESC   { ASPEED_IP_SCU, SCU410, GENMASK(3, 2), 0, 0 }
++#define PORTA_U2_D1_DESC    { ASPEED_IP_SCU, SCU410, GENMASK(3, 2), 1, 0 }
++#define PORTA_U2_XH_DESC    { ASPEED_IP_SCU, SCU410, GENMASK(3, 2), 2, 0 }
++#define PORTA_U2_XH2E_DESC   { ASPEED_IP_SCU, SCU410, GENMASK(3, 2), 3, 0 }
++
++SIG_EXPR_LIST_DECL_SEMG(PORTA_U2, USB2AXHD1, USB2A, USB2AXHD1, PORTA_U2_XHD_DESC,
++			SIG_DESC_SET(SCU410, 9));
++SIG_EXPR_LIST_DECL_SEMG(PORTA_U2, USB2AXHPD1, USB2A, USB2AXHPD1, PORTA_U2_XHD_DESC,
++			SIG_DESC_CLEAR(SCU410, 9));
++SIG_EXPR_LIST_DECL_SEMG(PORTA_U2, USB2AXH, USB2AAP, USB2AXH, PORTA_U2_XH_DESC,
++			SIG_DESC_SET(SCU410, 9));
++SIG_EXPR_LIST_DECL_SEMG(PORTA_U2, USB2AXHP, USB2AAP, USB2AXHP, PORTA_U2_XH_DESC,
++			SIG_DESC_CLEAR(SCU410, 9));
++SIG_EXPR_LIST_DECL_SEMG(PORTA_U2, USB2AXH2B, USB2ABP, USB2AXH2B, PORTA_U2_XH2E_DESC,
++			SIG_DESC_SET(SCU410, 9));
++SIG_EXPR_LIST_DECL_SEMG(PORTA_U2, USB2AXHP2B, USB2ABP, USB2AXHP2B, PORTA_U2_XH2E_DESC,
++			SIG_DESC_CLEAR(SCU410, 9));
++SIG_EXPR_LIST_DECL_SEMG(PORTA_U2, USB2AD1, USB2ADAP, USB2AD1, PORTA_U2_D1_DESC);
++PIN_DECL_(PORTA_U2, SIG_EXPR_LIST_PTR(PORTA_U2, USB2AXHD1), SIG_EXPR_LIST_PTR(PORTA_U2, USB2AXHPD1),
++	  SIG_EXPR_LIST_PTR(PORTA_U2, USB2AXH), SIG_EXPR_LIST_PTR(PORTA_U2, USB2AXHP),
++	  SIG_EXPR_LIST_PTR(PORTA_U2, USB2AXH2B), SIG_EXPR_LIST_PTR(PORTA_U2, USB2AXHP2B),
++	  SIG_EXPR_LIST_PTR(PORTA_U2, USB2AD1));
++
++#define PORTB_MODE_HPD0_DESC { ASPEED_IP_SCU, SCU410, GENMASK(29, 28), 0, 0 }
++#define PORTB_MODE_D0_DESC   { ASPEED_IP_SCU, SCU410, GENMASK(29, 28), 1, 0 }
++#define PORTB_MODE_H_DESC    { ASPEED_IP_SCU, SCU410, GENMASK(29, 28), 2, 0 }
++#define PORTB_MODE_HP_DESC    { ASPEED_IP_SCU, SCU410, GENMASK(29, 28), 3, 0 }
++
++SIG_EXPR_LIST_DECL_SEMG(PORTB_MODE, USB2BHPD0, USB2BH, USB2BHPD0, PORTB_MODE_HPD0_DESC);
++SIG_EXPR_LIST_DECL_SEMG(PORTB_MODE, USB2BH, USB2BHBP, USB2BH, PORTB_MODE_H_DESC);
++SIG_EXPR_LIST_DECL_SEMG(PORTB_MODE, USB2BHP, USB2BHBP, USB2BHP, PORTB_MODE_HP_DESC);
++SIG_EXPR_LIST_DECL_SEMG(PORTB_MODE, USB2BD0, USB2BHBP, USB2BD0, PORTB_MODE_D0_DESC);
++PIN_DECL_(PORTB_MODE, SIG_EXPR_LIST_PTR(PORTB_MODE, USB2BHPD0),
++	  SIG_EXPR_LIST_PTR(PORTB_MODE, USB2BH), SIG_EXPR_LIST_PTR(PORTB_MODE, USB2BHP),
++	  SIG_EXPR_LIST_PTR(PORTB_MODE, USB2BD0));
++
++#define PORTB_U2_XHD_DESC   { ASPEED_IP_SCU, SCU410, GENMASK(7, 6), 0, 0 }
++#define PORTB_U2_D1_DESC    { ASPEED_IP_SCU, SCU410, GENMASK(7, 6), 1, 0 }
++#define PORTB_U2_XH_DESC    { ASPEED_IP_SCU, SCU410, GENMASK(7, 6), 2, 0 }
++#define PORTB_U2_XH2E_DESC   { ASPEED_IP_SCU, SCU410, GENMASK(7, 6), 3, 0 }
++
++SIG_EXPR_LIST_DECL_SEMG(PORTB_U2, USB2BXHD1, USB2B, USB2BXHD1, PORTB_U2_XHD_DESC,
++			SIG_DESC_SET(SCU410, 10));
++SIG_EXPR_LIST_DECL_SEMG(PORTB_U2, USB2BXHPD1, USB2B, USB2BXHPD1, PORTB_U2_XHD_DESC,
++			SIG_DESC_CLEAR(SCU410, 10));
++SIG_EXPR_LIST_DECL_SEMG(PORTB_U2, USB2BXH, USB2BBP, USB2BXH, PORTB_U2_XH_DESC,
++			SIG_DESC_SET(SCU410, 10));
++SIG_EXPR_LIST_DECL_SEMG(PORTB_U2, USB2BXHP, USB2BBP, USB2BXHP, PORTB_U2_XH_DESC,
++			SIG_DESC_CLEAR(SCU410, 10));
++SIG_EXPR_LIST_DECL_SEMG(PORTB_U2, USB2BXH2A, USB2BAP, USB2BXH2A, PORTB_U2_XH2E_DESC,
++			SIG_DESC_SET(SCU410, 10));
++SIG_EXPR_LIST_DECL_SEMG(PORTB_U2, USB2BXHP2A, USB2BAP, USB2BXHP2A, PORTB_U2_XH2E_DESC,
++			SIG_DESC_CLEAR(SCU410, 10));
++SIG_EXPR_LIST_DECL_SEMG(PORTB_U2, USB2BD1, USB2BDBP, USB2BD1, PORTB_U2_D1_DESC);
++PIN_DECL_(PORTB_U2, SIG_EXPR_LIST_PTR(PORTB_U2, USB2BXHD1), SIG_EXPR_LIST_PTR(PORTB_U2, USB2BXHPD1),
++	  SIG_EXPR_LIST_PTR(PORTB_U2, USB2BXH), SIG_EXPR_LIST_PTR(PORTB_U2, USB2BXHP),
++	  SIG_EXPR_LIST_PTR(PORTB_U2, USB2BXH2A), SIG_EXPR_LIST_PTR(PORTB_U2, USB2BXHP2A),
++	  SIG_EXPR_LIST_PTR(PORTB_U2, USB2BD1));
++/*
++ * USB2 virtual PHY pins.
++ *
++ * PORTA_U2_PHY and PORTB_U2_PHY are logical endpoints, not package pins.
++ * They alias existing USB2 expressions so pin groups can model direct and
++ * cross-coupled routing for host and mode paths.
++ *
++ * - USB2AAP/USB2ADAP/USB2AHAP: use PORTA_U2_PHY
++ * - USB2ABP                  : use PORTB_U2_PHY
++ * - USB2BBP/USB2BDBP/USB2BHBP: use PORTB_U2_PHY
++ * - USB2BAP                  : use PORTA_U2_PHY
++ *
++ * They do not have any registers to configure this behaviour; the goal is
++ * simply for the driver to prevent conflicting selections. For example,
++ * selecting group USB2ABP and USB2BBP at the same time should not be
++ * allowed.
++ */
++SIG_EXPR_LIST_ALIAS(PORTA_U2_PHY, USB2AXH, USB2AAP);
++SIG_EXPR_LIST_ALIAS(PORTA_U2_PHY, USB2AXHP, USB2AAP);
++SIG_EXPR_LIST_ALIAS(PORTA_U2_PHY, USB2BXH2A, USB2BAP);
++SIG_EXPR_LIST_ALIAS(PORTA_U2_PHY, USB2BXHP2A, USB2BAP);
++SIG_EXPR_LIST_ALIAS(PORTA_U2_PHY, USB2AD1, USB2ADAP);
++SIG_EXPR_LIST_ALIAS(PORTA_U2_PHY, USB2AH, USB2AHAP);
++SIG_EXPR_LIST_ALIAS(PORTA_U2_PHY, USB2AHP, USB2AHAP);
++SIG_EXPR_LIST_ALIAS(PORTA_U2_PHY, USB2AD0, USB2AHAP);
++PIN_DECL_(PORTA_U2_PHY, SIG_EXPR_LIST_PTR(PORTA_U2_PHY, USB2AXH),
++	  SIG_EXPR_LIST_PTR(PORTA_U2_PHY, USB2AXHP), SIG_EXPR_LIST_PTR(PORTA_U2_PHY, USB2BXH2A),
++	  SIG_EXPR_LIST_PTR(PORTA_U2_PHY, USB2BXHP2A), SIG_EXPR_LIST_PTR(PORTA_U2_PHY, USB2AD1),
++	  SIG_EXPR_LIST_PTR(PORTA_U2_PHY, USB2AH), SIG_EXPR_LIST_PTR(PORTA_U2_PHY, USB2AHP),
++	  SIG_EXPR_LIST_PTR(PORTA_U2_PHY, USB2AD0));
++
++SIG_EXPR_LIST_ALIAS(PORTB_U2_PHY, USB2AXH2B, USB2ABP);
++SIG_EXPR_LIST_ALIAS(PORTB_U2_PHY, USB2AXHP2B, USB2ABP);
++SIG_EXPR_LIST_ALIAS(PORTB_U2_PHY, USB2BXH, USB2BBP);
++SIG_EXPR_LIST_ALIAS(PORTB_U2_PHY, USB2BXHP, USB2BBP);
++SIG_EXPR_LIST_ALIAS(PORTB_U2_PHY, USB2BD1, USB2BDBP);
++SIG_EXPR_LIST_ALIAS(PORTB_U2_PHY, USB2BH, USB2BHBP);
++SIG_EXPR_LIST_ALIAS(PORTB_U2_PHY, USB2BHP, USB2BHBP);
++SIG_EXPR_LIST_ALIAS(PORTB_U2_PHY, USB2BD0, USB2BHBP);
++PIN_DECL_(PORTB_U2_PHY, SIG_EXPR_LIST_PTR(PORTB_U2_PHY, USB2AXH2B),
++	  SIG_EXPR_LIST_PTR(PORTB_U2_PHY, USB2AXHP2B), SIG_EXPR_LIST_PTR(PORTB_U2_PHY, USB2BXH),
++	  SIG_EXPR_LIST_PTR(PORTB_U2_PHY, USB2BXHP), SIG_EXPR_LIST_PTR(PORTB_U2_PHY, USB2BD1),
++	  SIG_EXPR_LIST_PTR(PORTB_U2_PHY, USB2BH), SIG_EXPR_LIST_PTR(PORTB_U2_PHY, USB2BHP),
++	  SIG_EXPR_LIST_PTR(PORTB_U2_PHY, USB2BD0));
++
++GROUP_DECL(USB2A, PORTA_U2);
++GROUP_DECL(USB2AAP, PORTA_U2, PORTA_U2_PHY);
++GROUP_DECL(USB2ABP, PORTA_U2, PORTB_U2_PHY);
++GROUP_DECL(USB2ADAP, PORTA_U2, PORTA_U2_PHY);
++GROUP_DECL(USB2AH, PORTA_MODE);
++GROUP_DECL(USB2AHAP, PORTA_MODE, PORTA_U2_PHY);
++
++FUNC_DECL_1(USB2AXHD1, USB2A);
++FUNC_DECL_1(USB2AXHPD1, USB2A);
++FUNC_DECL_1(USB2AXH, USB2AAP);
++FUNC_DECL_1(USB2AXHP, USB2AAP);
++FUNC_DECL_1(USB2AXH2B, USB2ABP);
++FUNC_DECL_1(USB2AXHP2B, USB2ABP);
++FUNC_DECL_1(USB2AD1, USB2ADAP);
++FUNC_DECL_1(USB2AHPD0, USB2AH);
++FUNC_DECL_1(USB2AH, USB2AHAP);
++FUNC_DECL_1(USB2AHP, USB2AHAP);
++FUNC_DECL_1(USB2AD0, USB2AHAP);
++
++GROUP_DECL(USB2B, PORTB_U2);
++GROUP_DECL(USB2BBP, PORTB_U2, PORTB_U2_PHY);
++GROUP_DECL(USB2BAP, PORTB_U2, PORTA_U2_PHY);
++GROUP_DECL(USB2BDBP, PORTB_U2, PORTB_U2_PHY);
++GROUP_DECL(USB2BH, PORTB_MODE);
++GROUP_DECL(USB2BHBP, PORTB_MODE, PORTB_U2_PHY);
++
++FUNC_DECL_1(USB2BXHD1, USB2B);
++FUNC_DECL_1(USB2BXHPD1, USB2B);
++FUNC_DECL_1(USB2BXH, USB2BBP);
++FUNC_DECL_1(USB2BXHP, USB2BBP);
++FUNC_DECL_1(USB2BXH2A, USB2BAP);
++FUNC_DECL_1(USB2BXHP2A, USB2BAP);
++FUNC_DECL_1(USB2BD1, USB2BDBP);
++FUNC_DECL_1(USB2BHPD0, USB2BH);
++FUNC_DECL_1(USB2BH, USB2BHBP);
++FUNC_DECL_1(USB2BHP, USB2BHBP);
++FUNC_DECL_1(USB2BD0, USB2BHBP);
++
++#define PORTA_U3_XHD_DESC   { ASPEED_IP_SCU, SCU410, GENMASK(1, 0), 0, 0 }
++#define PORTA_U3_XH_DESC    { ASPEED_IP_SCU, SCU410, GENMASK(1, 0), 2, 0 }
++#define PORTA_U3_XH2E_DESC   { ASPEED_IP_SCU, SCU410, GENMASK(1, 0), 3, 0 }
++
++SIG_EXPR_LIST_DECL_SEMG(PORTA_U3, USB3AXHD, USB3A, USB3AXHD, PORTA_U3_XHD_DESC,
++			SIG_DESC_SET(SCU410, 9));
++SIG_EXPR_LIST_DECL_SEMG(PORTA_U3, USB3AXHPD, USB3A, USB3AXHPD, PORTA_U3_XHD_DESC,
++			SIG_DESC_CLEAR(SCU410, 9));
++SIG_EXPR_LIST_DECL_SEMG(PORTA_U3, USB3AXH, USB3AAP, USB3AXH, PORTA_U3_XH_DESC,
++			SIG_DESC_SET(SCU410, 9));
++SIG_EXPR_LIST_DECL_SEMG(PORTA_U3, USB3AXHP, USB3AAP, USB3AXHP, PORTA_U3_XH_DESC,
++			SIG_DESC_CLEAR(SCU410, 9));
++SIG_EXPR_LIST_DECL_SEMG(PORTA_U3, USB3AXH2B, USB3ABP, USB3AXH2B, PORTA_U3_XH2E_DESC,
++			SIG_DESC_SET(SCU410, 9));
++SIG_EXPR_LIST_DECL_SEMG(PORTA_U3, USB3AXHP2B, USB3ABP, USB3AXHP2B, PORTA_U3_XH2E_DESC,
++			SIG_DESC_CLEAR(SCU410, 9));
++PIN_DECL_(PORTA_U3, SIG_EXPR_LIST_PTR(PORTA_U3, USB3AXHD), SIG_EXPR_LIST_PTR(PORTA_U3, USB3AXHPD),
++	  SIG_EXPR_LIST_PTR(PORTA_U3, USB3AXH), SIG_EXPR_LIST_PTR(PORTA_U3, USB3AXHP),
++	  SIG_EXPR_LIST_PTR(PORTA_U3, USB3AXH2B), SIG_EXPR_LIST_PTR(PORTA_U3, USB3AXHP2B));
++
++#define PORTB_U3_XHD_DESC   { ASPEED_IP_SCU, SCU410, GENMASK(5, 4), 0, 0 }
++#define PORTB_U3_XH_DESC    { ASPEED_IP_SCU, SCU410, GENMASK(5, 4), 2, 0 }
++#define PORTB_U3_XH2E_DESC   { ASPEED_IP_SCU, SCU410, GENMASK(5, 4), 3, 0 }
++
++SIG_EXPR_LIST_DECL_SEMG(PORTB_U3, USB3BXHD, USB3B, USB3BXHD, PORTB_U3_XHD_DESC,
++			SIG_DESC_SET(SCU410, 10));
++SIG_EXPR_LIST_DECL_SEMG(PORTB_U3, USB3BXHPD, USB3B, USB3BXHPD, PORTB_U3_XHD_DESC,
++			SIG_DESC_CLEAR(SCU410, 10));
++SIG_EXPR_LIST_DECL_SEMG(PORTB_U3, USB3BXH, USB3BBP, USB3BXH, PORTB_U3_XH_DESC,
++			SIG_DESC_SET(SCU410, 10));
++SIG_EXPR_LIST_DECL_SEMG(PORTB_U3, USB3BXHP, USB3BBP, USB3BXHP, PORTB_U3_XH_DESC,
++			SIG_DESC_CLEAR(SCU410, 10));
++SIG_EXPR_LIST_DECL_SEMG(PORTB_U3, USB3BXH2A, USB3BAP, USB3BXH2A, PORTB_U3_XH2E_DESC,
++			SIG_DESC_SET(SCU410, 10));
++SIG_EXPR_LIST_DECL_SEMG(PORTB_U3, USB3BXHP2A, USB3BAP, USB3BXHP2A, PORTB_U3_XH2E_DESC,
++			SIG_DESC_CLEAR(SCU410, 10));
++PIN_DECL_(PORTB_U3, SIG_EXPR_LIST_PTR(PORTB_U3, USB3BXHD), SIG_EXPR_LIST_PTR(PORTB_U3, USB3BXHPD),
++	  SIG_EXPR_LIST_PTR(PORTB_U3, USB3BXH), SIG_EXPR_LIST_PTR(PORTB_U3, USB3BXHP),
++	  SIG_EXPR_LIST_PTR(PORTB_U3, USB3BXH2A), SIG_EXPR_LIST_PTR(PORTB_U3, USB3BXHP2A));
++
++/*
++ * USB3 virtual PHY pins.
++ *
++ * PORTA_U3_PHY and PORTB_U3_PHY are logical endpoints, not package pins.
++ * They alias existing USB3 expressions so pin groups can model both direct and
++ * cross-coupled routing to PHY A/B.
++ *
++ * - USB3AAP: PORTA_U3 + PORTA_U3_PHY   (A -> PHY A)
++ * - USB3ABP: PORTA_U3 + PORTB_U3_PHY   (A -> PHY B)
++ * - USB3BBP: PORTB_U3 + PORTB_U3_PHY   (B -> PHY B)
++ * - USB3BAP: PORTB_U3 + PORTA_U3_PHY   (B -> PHY A)
++ *
++ * They do not have any registers to configure this behavior; the goal is
++ * simply for the driver to prevent conflicting selections. For example,
++ * selecting group USB3ABP and USB3BBP at the same time should not be
++ * allowed.
++ */
++SIG_EXPR_LIST_ALIAS(PORTA_U3_PHY, USB3AXH, USB3AAP);
++SIG_EXPR_LIST_ALIAS(PORTA_U3_PHY, USB3AXHP, USB3AAP);
++SIG_EXPR_LIST_ALIAS(PORTA_U3_PHY, USB3BXH2A, USB3BAP);
++SIG_EXPR_LIST_ALIAS(PORTA_U3_PHY, USB3BXHP2A, USB3BAP);
++PIN_DECL_(PORTA_U3_PHY, SIG_EXPR_LIST_PTR(PORTA_U3_PHY, USB3AXH),
++	  SIG_EXPR_LIST_PTR(PORTA_U3_PHY, USB3AXHP), SIG_EXPR_LIST_PTR(PORTA_U3_PHY, USB3BXH2A),
++	  SIG_EXPR_LIST_PTR(PORTA_U3_PHY, USB3BXHP2A));
++
++SIG_EXPR_LIST_ALIAS(PORTB_U3_PHY, USB3AXH2B, USB3ABP);
++SIG_EXPR_LIST_ALIAS(PORTB_U3_PHY, USB3AXHP2B, USB3ABP);
++SIG_EXPR_LIST_ALIAS(PORTB_U3_PHY, USB3BXH, USB3BBP);
++SIG_EXPR_LIST_ALIAS(PORTB_U3_PHY, USB3BXHP, USB3BBP);
++PIN_DECL_(PORTB_U3_PHY, SIG_EXPR_LIST_PTR(PORTB_U3_PHY, USB3AXH2B),
++	  SIG_EXPR_LIST_PTR(PORTB_U3_PHY, USB3AXHP2B), SIG_EXPR_LIST_PTR(PORTB_U3_PHY, USB3BXH),
++	  SIG_EXPR_LIST_PTR(PORTB_U3_PHY, USB3BXHP));
++
++/* USB3A xHCI to vHUB */
++GROUP_DECL(USB3A, PORTA_U3);
++/* USB3A xHCI to USB3A PHY */
++GROUP_DECL(USB3AAP, PORTA_U3, PORTA_U3_PHY);
++/* USB3A xHCI to USB3B PHY */
++GROUP_DECL(USB3ABP, PORTA_U3, PORTB_U3_PHY);
++
++FUNC_DECL_1(USB3AXHD, USB3A);
++FUNC_DECL_1(USB3AXHPD, USB3A);
++FUNC_DECL_1(USB3AXH, USB3AAP);
++FUNC_DECL_1(USB3AXHP, USB3AAP);
++FUNC_DECL_1(USB3AXH2B, USB3ABP);
++FUNC_DECL_1(USB3AXHP2B, USB3ABP);
++
++/* USB3B xHCI to vHUB */
++GROUP_DECL(USB3B, PORTB_U3);
++/* USB3B xHCI to USB3A PHY */
++GROUP_DECL(USB3BAP, PORTB_U3, PORTA_U3_PHY);
++/* USB3B xHCI to USB3B PHY */
++GROUP_DECL(USB3BBP, PORTB_U3, PORTB_U3_PHY);
++
++FUNC_DECL_1(USB3BXHD, USB3B);
++FUNC_DECL_1(USB3BXHPD, USB3B);
++FUNC_DECL_1(USB3BXH, USB3BBP);
++FUNC_DECL_1(USB3BXHP, USB3BBP);
++FUNC_DECL_1(USB3BXH2A, USB3BAP);
++FUNC_DECL_1(USB3BXHP2A, USB3BAP);
++
++static const struct pinctrl_pin_desc aspeed_g7_soc0_pins[] = {
++	ASPEED_PINCTRL_PIN(AC14),
++	ASPEED_PINCTRL_PIN(AE15),
++	ASPEED_PINCTRL_PIN(AD14),
++	ASPEED_PINCTRL_PIN(AE14),
++	ASPEED_PINCTRL_PIN(AF14),
++	ASPEED_PINCTRL_PIN(AB13),
++	ASPEED_PINCTRL_PIN(AB14),
++	ASPEED_PINCTRL_PIN(AF15),
++	ASPEED_PINCTRL_PIN(AF13),
++	ASPEED_PINCTRL_PIN(AC13),
++	ASPEED_PINCTRL_PIN(AD13),
++	ASPEED_PINCTRL_PIN(AE13),
++	ASPEED_PINCTRL_PIN(JTAG_PORT),
++	ASPEED_PINCTRL_PIN(PCIERC0_PERST),
++	ASPEED_PINCTRL_PIN(PCIERC1_PERST),
++	ASPEED_PINCTRL_PIN(PORTA_MODE),
++	ASPEED_PINCTRL_PIN(PORTA_U2),
++	ASPEED_PINCTRL_PIN(PORTA_U3),
++	ASPEED_PINCTRL_PIN(PORTA_U2_PHY),
++	ASPEED_PINCTRL_PIN(PORTA_U3_PHY),
++	ASPEED_PINCTRL_PIN(PORTB_MODE),
++	ASPEED_PINCTRL_PIN(PORTB_U2),
++	ASPEED_PINCTRL_PIN(PORTB_U3),
++	ASPEED_PINCTRL_PIN(PORTB_U2_PHY),
++	ASPEED_PINCTRL_PIN(PORTB_U3_PHY),
++};
++
++static const struct aspeed_pin_group aspeed_g7_soc0_groups[] = {
++	ASPEED_PINCTRL_GROUP(EMMCCDN),
++	ASPEED_PINCTRL_GROUP(EMMCG1),
++	ASPEED_PINCTRL_GROUP(EMMCG4),
++	ASPEED_PINCTRL_GROUP(EMMCG8),
++	ASPEED_PINCTRL_GROUP(EMMCWPN),
++	ASPEED_PINCTRL_GROUP(TSPRSTN),
++	ASPEED_PINCTRL_GROUP(UFSCLKI),
++	ASPEED_PINCTRL_GROUP(VB0),
++	ASPEED_PINCTRL_GROUP(VB1),
++	ASPEED_PINCTRL_GROUP(VGADDC),
++	/* JTAG groups */
++	ASPEED_PINCTRL_GROUP(JTAG0),
++	/* PCIE RC groups */
++	ASPEED_PINCTRL_GROUP(PCIERC0PERST),
++	ASPEED_PINCTRL_GROUP(PCIERC1PERST),
++	/* USB3A groups */
++	ASPEED_PINCTRL_GROUP(USB3A),
++	ASPEED_PINCTRL_GROUP(USB3AAP),
++	ASPEED_PINCTRL_GROUP(USB3ABP),
++	/* USB3B groups */
++	ASPEED_PINCTRL_GROUP(USB3B),
++	ASPEED_PINCTRL_GROUP(USB3BAP),
++	ASPEED_PINCTRL_GROUP(USB3BBP),
++	/* USB2A groups */
++	ASPEED_PINCTRL_GROUP(USB2A),
++	ASPEED_PINCTRL_GROUP(USB2AAP),
++	ASPEED_PINCTRL_GROUP(USB2ABP),
++	ASPEED_PINCTRL_GROUP(USB2ADAP),
++	ASPEED_PINCTRL_GROUP(USB2AH),
++	ASPEED_PINCTRL_GROUP(USB2AHAP),
++	/* USB2B groups */
++	ASPEED_PINCTRL_GROUP(USB2B),
++	ASPEED_PINCTRL_GROUP(USB2BAP),
++	ASPEED_PINCTRL_GROUP(USB2BBP),
++	ASPEED_PINCTRL_GROUP(USB2BDBP),
++	ASPEED_PINCTRL_GROUP(USB2BH),
++	ASPEED_PINCTRL_GROUP(USB2BHBP),
++};
++
++static const struct aspeed_pin_function aspeed_g7_soc0_functions[] = {
++	ASPEED_PINCTRL_FUNC(EMMC),
++	ASPEED_PINCTRL_FUNC(TSPRSTN),
++	ASPEED_PINCTRL_FUNC(UFSCLKI),
++	ASPEED_PINCTRL_FUNC(VB),
++	ASPEED_PINCTRL_FUNC(VGADDC),
++	/* JTAG functions */
++	ASPEED_PINCTRL_FUNC(JTAGDDR),
++	ASPEED_PINCTRL_FUNC(JTAGM0),
++	ASPEED_PINCTRL_FUNC(JTAGPCIEA),
++	ASPEED_PINCTRL_FUNC(JTAGPCIEB),
++	ASPEED_PINCTRL_FUNC(JTAGPSP),
++	ASPEED_PINCTRL_FUNC(JTAGSSP),
++	ASPEED_PINCTRL_FUNC(JTAGTSP),
++	ASPEED_PINCTRL_FUNC(JTAGUSB3A),
++	ASPEED_PINCTRL_FUNC(JTAGUSB3B),
++	/* PCIE RC functions */
++	ASPEED_PINCTRL_FUNC(PCIERC0PERST),
++	ASPEED_PINCTRL_FUNC(PCIERC1PERST),
++	/* USB3A functions */
++	ASPEED_PINCTRL_FUNC(USB3AXH),
++	ASPEED_PINCTRL_FUNC(USB3AXH2B),
++	ASPEED_PINCTRL_FUNC(USB3AXHD),
++	ASPEED_PINCTRL_FUNC(USB3AXHP),
++	ASPEED_PINCTRL_FUNC(USB3AXHP2B),
++	ASPEED_PINCTRL_FUNC(USB3AXHPD),
++	/* USB3B functions */
++	ASPEED_PINCTRL_FUNC(USB3BXH),
++	ASPEED_PINCTRL_FUNC(USB3BXH2A),
++	ASPEED_PINCTRL_FUNC(USB3BXHD),
++	ASPEED_PINCTRL_FUNC(USB3BXHP),
++	ASPEED_PINCTRL_FUNC(USB3BXHP2A),
++	ASPEED_PINCTRL_FUNC(USB3BXHPD),
++	/* USB2A functions */
++	ASPEED_PINCTRL_FUNC(USB2AD0),
++	ASPEED_PINCTRL_FUNC(USB2AD1),
++	ASPEED_PINCTRL_FUNC(USB2AH),
++	ASPEED_PINCTRL_FUNC(USB2AHP),
++	ASPEED_PINCTRL_FUNC(USB2AHPD0),
++	ASPEED_PINCTRL_FUNC(USB2AXH),
++	ASPEED_PINCTRL_FUNC(USB2AXH2B),
++	ASPEED_PINCTRL_FUNC(USB2AXHD1),
++	ASPEED_PINCTRL_FUNC(USB2AXHP),
++	ASPEED_PINCTRL_FUNC(USB2AXHP2B),
++	ASPEED_PINCTRL_FUNC(USB2AXHPD1),
++	/* USB2B functions */
++	ASPEED_PINCTRL_FUNC(USB2BD0),
++	ASPEED_PINCTRL_FUNC(USB2BD1),
++	ASPEED_PINCTRL_FUNC(USB2BH),
++	ASPEED_PINCTRL_FUNC(USB2BHP),
++	ASPEED_PINCTRL_FUNC(USB2BHPD0),
++	ASPEED_PINCTRL_FUNC(USB2BXH),
++	ASPEED_PINCTRL_FUNC(USB2BXH2A),
++	ASPEED_PINCTRL_FUNC(USB2BXHD1),
++	ASPEED_PINCTRL_FUNC(USB2BXHP),
++	ASPEED_PINCTRL_FUNC(USB2BXHP2A),
++	ASPEED_PINCTRL_FUNC(USB2BXHPD1),
++};
++
++static const struct pinmux_ops aspeed_g7_soc0_pinmux_ops = {
++	.get_functions_count = aspeed_pinmux_get_fn_count,
++	.get_function_name = aspeed_pinmux_get_fn_name,
++	.get_function_groups = aspeed_pinmux_get_fn_groups,
++	.set_mux = aspeed_pinmux_set_mux,
++	.gpio_request_enable = aspeed_gpio_request_enable,
++	.strict = true,
++};
++
++static const struct pinctrl_ops aspeed_g7_soc0_pinctrl_ops = {
++	.get_groups_count = aspeed_pinctrl_get_groups_count,
++	.get_group_name = aspeed_pinctrl_get_group_name,
++	.get_group_pins = aspeed_pinctrl_get_group_pins,
++	.pin_dbg_show = aspeed_pinctrl_pin_dbg_show,
++	.dt_node_to_map = pinconf_generic_dt_node_to_map_all,
++	.dt_free_map = pinctrl_utils_free_map,
++};
++
++static const struct pinconf_ops aspeed_g7_soc0_pinconf_ops = {
++	.is_generic = true,
++	.pin_config_get = aspeed_pin_config_get,
++	.pin_config_set = aspeed_pin_config_set,
++	.pin_config_group_get = aspeed_pin_config_group_get,
++	.pin_config_group_set = aspeed_pin_config_group_set,
++};
++
++/* pinctrl_desc */
++static const struct pinctrl_desc aspeed_g7_soc0_pinctrl_desc = {
++	.name = "aspeed-g7-soc0-pinctrl",
++	.pins = aspeed_g7_soc0_pins,
++	.npins = ARRAY_SIZE(aspeed_g7_soc0_pins),
++	.pctlops = &aspeed_g7_soc0_pinctrl_ops,
++	.pmxops = &aspeed_g7_soc0_pinmux_ops,
++	.confops = &aspeed_g7_soc0_pinconf_ops,
++};
++
++static const struct aspeed_pin_config aspeed_g7_soc0_configs[] = {
++	/* GPIO18A */
++	{ PIN_CONFIG_DRIVE_STRENGTH, { AC14, AC14 }, SCU480, GENMASK(3, 0) },
++	{ PIN_CONFIG_BIAS_PULL_DOWN, { AC14, AC14 }, SCU480, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_PULL_UP, { AC14, AC14 }, SCU480, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_DISABLE, { AC14, AC14 }, SCU480, BIT(5) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, { AE15, AE15 }, SCU484, GENMASK(3, 0) },
++	{ PIN_CONFIG_BIAS_PULL_DOWN, { AE15, AE15 }, SCU484, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_PULL_UP, { AE15, AE15 }, SCU484, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_DISABLE, { AE15, AE15 }, SCU484, BIT(5) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, { AD14, AD14 }, SCU488, GENMASK(3, 0) },
++	{ PIN_CONFIG_BIAS_PULL_DOWN, { AD14, AD14 }, SCU488, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_PULL_UP, { AD14, AD14 }, SCU488, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_DISABLE, { AD14, AD14 }, SCU488, BIT(5) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, { AE14, AE14 }, SCU48C, GENMASK(3, 0) },
++	{ PIN_CONFIG_BIAS_PULL_DOWN, { AE14, AE14 }, SCU48C, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_PULL_UP, { AE14, AE14 }, SCU48C, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_DISABLE, { AE14, AE14 }, SCU48C, BIT(5) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, { AF14, AF14 }, SCU490, GENMASK(3, 0) },
++	{ PIN_CONFIG_BIAS_PULL_DOWN, { AF14, AF14 }, SCU490, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_PULL_UP, { AF14, AF14 }, SCU490, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_DISABLE, { AF14, AF14 }, SCU490, BIT(5) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, { AB13, AB13 }, SCU494, GENMASK(3, 0) },
++	{ PIN_CONFIG_BIAS_PULL_DOWN, { AB13, AB13 }, SCU494, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_PULL_UP, { AB13, AB13 }, SCU494, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_DISABLE, { AB13, AB13 }, SCU494, BIT(5) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, { AB14, AB14 }, SCU498, GENMASK(3, 0) },
++	{ PIN_CONFIG_BIAS_PULL_DOWN, { AB14, AB14 }, SCU498, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_PULL_UP, { AB14, AB14 }, SCU498, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_DISABLE, { AB14, AB14 }, SCU498, BIT(5) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, { AF15, AF15 }, SCU49C, GENMASK(3, 0) },
++	{ PIN_CONFIG_BIAS_PULL_DOWN, { AF15, AF15 }, SCU49C, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_PULL_UP, { AF15, AF15 }, SCU49C, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_DISABLE, { AF15, AF15 }, SCU49C, BIT(5) },
++	/* GPIO18B */
++	{ PIN_CONFIG_DRIVE_STRENGTH, { AF13, AF13 }, SCU4A0, GENMASK(3, 0) },
++	{ PIN_CONFIG_BIAS_PULL_DOWN, { AF13, AF13 }, SCU4A0, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_PULL_UP, { AF13, AF13 }, SCU4A0, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_DISABLE, { AF13, AF13 }, SCU4A0, BIT(5) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, { AC13, AC13 }, SCU4A4, GENMASK(3, 0) },
++	{ PIN_CONFIG_BIAS_PULL_DOWN, { AC13, AC13 }, SCU4A4, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_PULL_UP, { AC13, AC13 }, SCU4A4, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_DISABLE, { AC13, AC13 }, SCU4A4, BIT(5) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, { AD13, AD13 }, SCU4A8, GENMASK(3, 0) },
++	{ PIN_CONFIG_BIAS_PULL_DOWN, { AD13, AD13 }, SCU4A8, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_PULL_UP, { AD13, AD13 }, SCU4A8, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_DISABLE, { AD13, AD13 }, SCU4A8, BIT(5) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, { AE13, AE13 }, SCU4AC, GENMASK(3, 0) },
++	{ PIN_CONFIG_BIAS_PULL_DOWN, { AE13, AE13 }, SCU4AC, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_PULL_UP, { AE13, AE13 }, SCU4AC, GENMASK(5, 4) },
++	{ PIN_CONFIG_BIAS_DISABLE, { AE13, AE13 }, SCU4AC, BIT(5) },
++};
++
++static const struct aspeed_pin_config_map aspeed_g7_soc0_pin_config_map[] = {
++	{ PIN_CONFIG_BIAS_PULL_DOWN, -1, 2, GENMASK(1, 0) },
++	{ PIN_CONFIG_BIAS_PULL_UP, -1, 3, GENMASK(1, 0) },
++	{ PIN_CONFIG_BIAS_DISABLE, -1, 0, BIT_MASK(0) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, 3, 0, GENMASK(3, 0) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, 6, 1, GENMASK(3, 0) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, 8, 2, GENMASK(3, 0) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, 11, 3, GENMASK(3, 0) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, 16, 4, GENMASK(3, 0) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, 18, 5, GENMASK(3, 0) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, 20, 6, GENMASK(3, 0) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, 23, 7, GENMASK(3, 0) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, 30, 8, GENMASK(3, 0) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, 32, 9, GENMASK(3, 0) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, 33, 10, GENMASK(3, 0) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, 35, 11, GENMASK(3, 0) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, 37, 12, GENMASK(3, 0) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, 38, 13, GENMASK(3, 0) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, 39, 14, GENMASK(3, 0) },
++	{ PIN_CONFIG_DRIVE_STRENGTH, 41, 15, GENMASK(3, 0) },
++
++};
++
++static int aspeed_g7_soc0_sig_expr_set(struct aspeed_pinmux_data *ctx,
++				       const struct aspeed_sig_expr *expr, bool enable)
++{
++	int ret;
++	int i;
++
++	for (i = 0; i < expr->ndescs; i++) {
++		const struct aspeed_sig_desc *desc = &expr->descs[i];
++		u32 pattern = enable ? desc->enable : desc->disable;
++		u32 val = (pattern << __ffs(desc->mask));
++
++		if (!ctx->maps[desc->ip])
++			return -ENODEV;
++
++		WARN_ON_ONCE(desc->ip != ASPEED_IP_SCU);
++
++		ret = regmap_update_bits(ctx->maps[desc->ip], desc->reg,
++					 desc->mask, val);
++		if (ret)
++			return ret;
++	}
++
++	ret = aspeed_sig_expr_eval(ctx, expr, enable);
++	if (ret < 0)
++		return ret;
++
++	return ret ? 0 : -EPERM;
++}
++
++static const struct aspeed_pinmux_ops aspeed_g7_soc0_ops = {
++	.set = aspeed_g7_soc0_sig_expr_set,
++};
++
++static struct aspeed_pinctrl_data aspeed_g7_soc0_pinctrl_data = {
++	.pins = aspeed_g7_soc0_pins,
++	.npins = ARRAY_SIZE(aspeed_g7_soc0_pins),
++	.pinmux = {
++		.ops = &aspeed_g7_soc0_ops,
++		.groups = aspeed_g7_soc0_groups,
++		.ngroups = ARRAY_SIZE(aspeed_g7_soc0_groups),
++		.functions = aspeed_g7_soc0_functions,
++		.nfunctions = ARRAY_SIZE(aspeed_g7_soc0_functions),
++	},
++	.configs = aspeed_g7_soc0_configs,
++	.nconfigs = ARRAY_SIZE(aspeed_g7_soc0_configs),
++	.confmaps = aspeed_g7_soc0_pin_config_map,
++	.nconfmaps = ARRAY_SIZE(aspeed_g7_soc0_pin_config_map),
++};
++
++static int aspeed_g7_soc0_pinctrl_probe(struct platform_device *pdev)
++{
++	return aspeed_pinctrl_probe(pdev, &aspeed_g7_soc0_pinctrl_desc,
++				    &aspeed_g7_soc0_pinctrl_data);
++}
++
++static const struct of_device_id aspeed_g7_soc0_pinctrl_match[] = {
++	{ .compatible = "aspeed,ast2700-soc0-pinctrl" },
++	{}
++};
++MODULE_DEVICE_TABLE(of, aspeed_g7_soc0_pinctrl_match);
++
++static struct platform_driver aspeed_g7_soc0_pinctrl_driver = {
++	.probe = aspeed_g7_soc0_pinctrl_probe,
++	.driver = {
++		.name = "aspeed-g7-soc0-pinctrl",
++		.of_match_table = aspeed_g7_soc0_pinctrl_match,
++		.suppress_bind_attrs = true,
++	},
++};
++
++static int __init aspeed_g7_soc0_pinctrl_init(void)
++{
++	return platform_driver_register(&aspeed_g7_soc0_pinctrl_driver);
++}
++arch_initcall(aspeed_g7_soc0_pinctrl_init);
 
 -- 
-Regards,
-Liu Ying
+2.34.1
+
