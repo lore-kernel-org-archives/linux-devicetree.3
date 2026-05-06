@@ -1,47 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E15FF40DFDA;
-	Wed,  6 May 2026 01:41:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AACEE258EF9;
+	Wed,  6 May 2026 01:43:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778031662; cv=none; b=dQa6n9+K+MAJJ8LZobJKPvchzEtUsl6jsRTKAtosJ71s+6+aqL6UcMdjc1lE6DA6KAmXtx8n4Y3biJjKa7lusiWAPFYRFBtDe1gYLewH58dDxWIonbZIkmbuDc7DOLuVXvhCUH9xe4LbrC7qvDCHSVVA0edZtzhmNzFIULDyYSE=
+	t=1778031804; cv=none; b=eGDgXTeK0k/fagyTjxKau96VQy2KZ4aLinIS5NLSD9fYL3+CTDRZmtv4OrcZ+/zkL8uO3eONmwa4/UC+vCB1hLRBwpsR5Ftk0ZmqnRfgGP2WJLo8kzyEs2legNFdY0C17bvcXAzt2TfNPN4LxsXoOtsUVPr8lu5/Kzk+cskGpnM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778031662; c=relaxed/simple;
-	bh=hhMyhYQkEibov8dn8mpF2dhq9pE2vOf4P3z3yErV8Bo=;
+	s=arc-20240116; t=1778031804; c=relaxed/simple;
+	bh=vSPiDgJ0IkynnZonv8Pb+B5VUe/T3NmI2G4+fg17vlk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qTFBnTBdDLqOHrMmhJo7rK2MvsYX8LQP63Ds7i+BfjnY4r2TE2pbqaDSkSxM5aYLwLd0xn+Tov/Gb2B+FR3MZUkFsp20eT3BCnthC95nH6u5vlFScTOKv3LN5Vc/CwxKy1maDSFz5fHlEyydvw2QNHHNGpJxOrDQ9PXeFyLRqlo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SbmIvA0C; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=m/X4W0lwS8XgE/5lOWci1yhW5gz4C8Nf+zpZvv8SAH1zBBjg0syHpH8JVo9erxFS4fpA+fZrTLq+iCVYpjjnDJ1519NFgX++AANInE9Z7N/rHRWLz7/ES47wEw8a03ipULTRxrPq2efjelgw72YyHd2VvS8G3phzAASpAKLk9Fw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YIWF5+nQ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SbmIvA0C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 409D5C2BCB4;
-	Wed,  6 May 2026 01:41:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YIWF5+nQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11332C2BCB4;
+	Wed,  6 May 2026 01:43:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778031661;
-	bh=hhMyhYQkEibov8dn8mpF2dhq9pE2vOf4P3z3yErV8Bo=;
+	s=k20201202; t=1778031804;
+	bh=vSPiDgJ0IkynnZonv8Pb+B5VUe/T3NmI2G4+fg17vlk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SbmIvA0CoRDijT5PixCvhBpVGsf6Pe4U9+n6QJfiJ1GfQfJxpMKA9fg7rOuw/7ee4
-	 RhVtgKO4zwQx35Z0rvxTLveNcyBatCa0K7UzyOINYii6rOdpBwHhaS4Zx1w/VkT9Kp
-	 cqDiL/eY4RhGnXKBHNAsrtUq80zHpAhA508Khi7b2lhL3iIVs0UxNtv4mVhAcqtvjQ
-	 xpEQQ4vEuvcxEXQBpoQp9XF6dTaKCvi7oB2PBkKNDkdfJhoyb7oRBDBKgw6zChytNE
-	 btd0bvsL7VmTgd6cSCwpGQ7B7yFJ+/aO4vW+AnBIgpj/EEJ4JuIyP0/iFuEFhjnqEW
-	 AGfeQUsMYrnmg==
-Date: Tue, 5 May 2026 20:40:59 -0500
+	b=YIWF5+nQEZRPqEYYEOo13NiSq/4G3uObvMlisFqsvSk4sg+Z7wZ+Vhlj0cf9eviBZ
+	 H/aV1zvXqD6NDraiftci1LHUasqpW8hzynBgRP0x6eKvV7alJz1oJfm+LRPxHcR5pZ
+	 MTawc7sRQIFFfbZOlUU8PIpG0TEdSgNCqYsngbHH+7Hp1HgUtWcwx1ZAr3cZPXR+2H
+	 +AQUDEbcqMcJsU8VYWHlPKh4AAus7Nc8U2X01yFwjdKtLIMR+RODA3lfebIDD3d1yi
+	 1INYC5M8AbCOHv/2+b2PjR1zxjlt2xe+JNin3piGraOgKYkAC4PLmfiZINe4zg37EH
+	 6P+QjfgasM5vA==
+Date: Tue, 5 May 2026 20:43:21 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Jinmei Wei <weijinmei@linux.spacemit.com>,
-	Jaroslav Kysela <perex@perex.cz>, Mark Brown <broonie@kernel.org>,
-	spacemit@lists.linux.dev, Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
-	Yixun Lan <dlan@kernel.org>,
+To: Chanhong Jung <happycpu@gmail.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+	Linus Walleij <linusw@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-riscv@lists.infradead.org
-Subject: Re: [PATCH 4/7] ASoC: dt-bindings: add SpacemiT K3 SoC compatible
-Message-ID: <177803165885.276520.14965394611244579892.robh@kernel.org>
-References: <20260429-k3-i2s-v1-0-2fe99db11ecb@linux.spacemit.com>
- <20260429-k3-i2s-v1-4-2fe99db11ecb@linux.spacemit.com>
+	Maxime Ripard <mripard@kernel.org>
+Subject: Re: [PATCH v2 1/2] dt-bindings: gpio: fairchild,74hc595: add
+ lines-initial-states property
+Message-ID: <177803180135.280005.13996377729144610896.robh@kernel.org>
+References: <cover.1776872453.git.happycpu@gmail.com>
+ <20260429035134.1023330-2-happycpu@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,23 +48,36 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260429-k3-i2s-v1-4-2fe99db11ecb@linux.spacemit.com>
+In-Reply-To: <20260429035134.1023330-2-happycpu@gmail.com>
 
 
-On Wed, 29 Apr 2026 09:38:49 +0800, Troy Mitchell wrote:
-> Add the spacemit,k3-i2s compatible string for the K3 SoC I2S
-> controller. The K3 I2S IP is the same as K1 but requires additional
-> clocks: sysclk_div, common_sysclk, and common_bclk. These common
-> clocks are shared across multiple I2S controllers on K3.
+On Wed, 29 Apr 2026 12:51:33 +0900, Chanhong Jung wrote:
+> The 74HC595 and 74LVC594 shift registers latch their outputs until the
+> first serial write, so boards that depend on a specific power-on pattern
+> (for example active-low indicators, reset lines, or other signals that
+> must come up non-zero) have no way to express that today: the Linux
+> driver always writes zeros from its zero-initialised buffer during
+> probe.
 > 
-> Also add the spacemit,fixed-sample-rate property which constrains
-> the sample rate when multiple I2S controllers share a common bclk.
+> Document support for the existing lines-initial-states bitmask, already
+> defined for nxp,pcf8575, so the same convention covers this output-only
+> device. Bit N corresponds to GPIO line N. Because the 74HC595/74LVC594
+> family is push-pull output only (no input mode, no high-impedance state
+> under software control), bit=0 drives the line low and bit=1 drives it
+> high; this differs from nxp,pcf8575, where the 0/1 polarity reflects the
+> quasi-bidirectional nature of that part.
 > 
-> Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+> The bitmask covers up to 32 lines, which fits the typical 1-4 chip
+> cascades that appear in tree. Should longer chains require seeding in
+> the future, the property can be extended to a uint32-array without
+> breaking the bit-N-equals-line-N convention.
+> 
+> Suggested-by: Linus Walleij <linus.walleij@linaro.org>
+> Signed-off-by: Chanhong Jung <happycpu@gmail.com>
 > ---
->  .../devicetree/bindings/sound/spacemit,k1-i2s.yaml | 31 ++++++++++++++++++++--
->  1 file changed, 29 insertions(+), 2 deletions(-)
+>  .../devicetree/bindings/gpio/fairchild,74hc595.yaml | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
 > 
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
