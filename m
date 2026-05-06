@@ -1,147 +1,161 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 147EA4ADDAA
-	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 17:39:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C984B8DED
+	for <devicetree@vger.kernel.org>; Wed,  6 May 2026 17:44:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778089163; cv=none; b=rRLf414El2Dhz/bnKU5LpOiiDHiV89kRuERedYkX6bU6vIdjMP2XqLaiyLuBzh85+ynZa3JjGNfRmTy5pxCeXcgZD0okKJmPjRl0g3hDqcAJxbjt4T0staHmRnMF5Xyy+y8at/xBwpiDJU0wO0o3Ve8ye41VMrMQOA4jGrQW+2k=
+	t=1778089477; cv=none; b=W1r5j36q4NoeT9olB/rtMsbOX+fKdbrh4LJzSGHLX5k3SlWCp0Iz249WcJ38fM/NIt+RCnKaKenNs5ACLnFsvQuKfyar4Blo4ydkg8zlgY/Tle9uPnF6+e/bakKpu4F0Ewqm2XC3KyHeBoaIVq2WI04hLWD6J4iEDqf10HaLwww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778089163; c=relaxed/simple;
-	bh=6i1w8FUVeMItLfoBEsQ1m6McI0ZsDh5XdVy3i6eNKsY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dGA4zYTcIa4C/ewSv7/mTCIBF92s1VYwM1HGBysjW+qDLxeH9GQmBrv4ud4OyjuiBQLByPKyGRVrJ4MO3bupr10cCn3FAsNdBPWqPXsdlaJG5lLfkkcRSchb6bcZlULUzeNwrS0TmOvBdPCdcc78QwpWq+6jCQtjWOxDxordMMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TdLIiDEy; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778089477; c=relaxed/simple;
+	bh=/YjFQWxNpMQZ2f2KytppViSRzU0yZJvUee9ryGQwSOQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hlvSliiQCGcHrS7F/FAvTclWCTmfX+1VFr6FflzBKQ+DNG0CN6PgF3JSb60OtCdm+53/wwhDh5lJQkq8en00rAOcDYR7NMn7tIF70qpzzA5cxwRJXqcnCnNPFkhQ2mYFmoSMe7QIIu6dboUx2ezEq7GJt3xmuw/0LNBaC49ruCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=A/tWM9I+; arc=none smtp.client-ip=209.85.222.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TdLIiDEy"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-488ba840146so59721295e9.1
-        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 10:39:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="A/tWM9I+"
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-8eae9229110so1064530485a.1
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 10:44:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778089160; x=1778693960; darn=vger.kernel.org;
-        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=6i1w8FUVeMItLfoBEsQ1m6McI0ZsDh5XdVy3i6eNKsY=;
-        b=TdLIiDEyzUKjsIHEs2BOaoMIdNi99JiO5V2RkIC8kF1lztgZwpfgLw8B+36GgXMlnU
-         svoeqXeo1rq1akTs04DPVx3ZkHHf7C+q/6cl3N8SsaSkqbC3wl0n7ft1+CQMjDCIahJV
-         qNbKnvbPFT3YjvAqpXXMHio7M+pM4+SI7ROHefCEAPH8KNyPwxVU4ZiTgHGqSDyedsHA
-         t+lXcoKqMIQHrgq2MSAzhfFuG3QEXWHlc3EHFwuDlFepfdZGitvoBw5t7GSjxIDVVXlD
-         VkR+8vUpPMJb+VR2qLwt/n3SjhxDlfyhRQ8ynuvQPDTbbiOv44pFiMj6k/yyyINxBQhU
-         CUlg==
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1778089473; x=1778694273; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=k6wXO6STmxH+YsbEuPXhWzzsM6OvvesRxD9MxXwGEOY=;
+        b=A/tWM9I+MidkfGgsZV3URMJGGeCgr+x0pwX/vDmp9qjFxG3qTM0C7yaPymIneMJsak
+         00eo6ukEIws+rAbKxilEt8PE3bBQl/bdeIR843LD5oyHIoQlulo6XQ2P7r5eu8hR4feO
+         KEVy7WEU2p/Ey/PiAiRMaz+tmrsQkdVuICkapNuYK1QpbWLQoF14Yl0qTNN55VLq3nHj
+         tbr9KV5I1Xt75WkkNjVUdlujZzYhGTnfDX4KghuHirRo+pcUytReOCCL8DveJ7DESIQB
+         UXqEHuL//GRfLjdNZXXg54F1QEu0gFapghqGj2IZcfZ9iImftmoCfFv33sIOaKewB+a6
+         47XA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778089160; x=1778693960;
-        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20251104; t=1778089473; x=1778694273;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=6i1w8FUVeMItLfoBEsQ1m6McI0ZsDh5XdVy3i6eNKsY=;
-        b=c2Z2KzAbFYgVxChXsblXGkG5O9aKsRLIDkAhd2YSKyHM/3TX3URgn5ibUUDnpWfv74
-         wEpBoB38izqKxJMAPBj3+PXVjHH8JE42YQHD1sRTWi1lNA75YLX+LdgdAaRqJIihUO3R
-         LZwSf0QS3L83DWJUYa7ASFin6mvnm0Ul9+QRIKDRFBCQ6BAomreZ5ZnrZakNf+OHJ+s6
-         /6yr3HR9M2hEkmNDGwIF3XHD35mFMBSI6JSHSanaA/ykbrz09PHcY1mnmIOmInBU7ZOA
-         ytRkfq/72SlaNJo7wIxG+z7m6Vif0u0t2u4VWyRVGTeos1RxmIVkEA4VzFwWPLbJALbY
-         oLAw==
-X-Forwarded-Encrypted: i=1; AFNElJ9Bmn2hD3ovCtJSgMT84qGmYc1JtgoV533O56dwJGtFqqU4ed9nXruRy7zExoWJl1I31An5WSQXCSJM@vger.kernel.org
-X-Gm-Message-State: AOJu0YxeUhJA95/vlTuA7Rpvv2IFWJgjGX0OVX46OdeDzlC8b6VoiOpa
-	eykua4+6hzKNMWrcHw6Avyp9J8541CFZj7upMpBYvCIPgoTEVtyrpFDs
-X-Gm-Gg: AeBDieuMbalkqxRwowzaGOvagDI/QHMdO0e4vSDnJzv1XB/IXmONBrjHkucu6BTwg9M
-	KDvdQ+CKoeNhdWMGQMK5jS4R/sEPXCLV5dzzrrVY2U+iduwvLat59vW6Qo0De3oS+YNUguMnFUL
-	ItOYYXM8oIUo7jCLvNAfkHwZ4QSekI6GiuMvh6Wf4x3cFZWlXOV5gFhR3q1HOsgA1JYpjawRz18
-	XnfTY44wrQ/JUsG/fhFmzROnXb/xy8Al7KtYoalMR3PhrfS6wyA9xYM+OZrg+rnYS3RuCHGCdKb
-	7K0+3XGKwqIWhvgrngE0o+Gq6KQqkCAgdrOeEoqL1wjSLCAf4lzS0smfOqF7iZUmmII7yzpeWiP
-	WFLOqG2yqRAGMJMAE5bLNbtS/tusprFnNzWA2FjzL64GxvGyY2/owuNhx/j/9RSLXILDgw+J/sC
-	AcE1oTt2ixyDtH9LwzBJ0ndpvD/cKAWcnS1kKxgjUPyL8xEdl6e4sQ
-X-Received: by 2002:a05:600c:2e0c:b0:48e:526e:1011 with SMTP id 5b1f17b1804b1-48e526e106bmr38312325e9.25.1778089160201;
-        Wed, 06 May 2026 10:39:20 -0700 (PDT)
-Received: from strix.localnet ([197.250.51.29])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e53116a9fsm31957135e9.8.2026.05.06.10.39.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 06 May 2026 10:39:19 -0700 (PDT)
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Drew Fustini <fustini@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, soc@lists.linux.dev, linux-serial@vger.kernel.org
-Subject: Re: [PATCH v7 6/6] ARM: zte: defconfig: Add a zx29 defconfig file
-Date: Wed, 06 May 2026 20:39:02 +0300
-Message-ID: <5379905.31r3eYUQgx@strix>
-In-Reply-To:
- <CAD++jL=S6DSOuC-PXFn76SA7e-Lgueu9Z2wuF7icXCVX7MBpJw@mail.gmail.com>
-References:
- <20260429-send-v7-0-b432e00d2db8@gmail.com>
- <20260429-send-v7-6-b432e00d2db8@gmail.com>
- <CAD++jL=S6DSOuC-PXFn76SA7e-Lgueu9Z2wuF7icXCVX7MBpJw@mail.gmail.com>
+        bh=k6wXO6STmxH+YsbEuPXhWzzsM6OvvesRxD9MxXwGEOY=;
+        b=B+v/l2mwvZzXJQARag8zrhyaemSH7E7FDT6zrNfugroBM+LZhTD0TNJJ4N4LgpmtZN
+         pXLt/0frYx0EHtsRtoI53SXp3vALA6TYH3Oeu6TgiHxGqs4/QQk69wdRNaW7tl9ojEK3
+         Lom3azbtKeGuD/nEqap+fV4cnLWdIIEWBjzs8oAe0ya2iWRl6RaXopae6LtGOYqfXoca
+         MClZmDWo5QUUySPaOmF8xsZOYOmyvdGhThmove5R+K1163vb1sFOZ8De3e4Q2yUUzxOq
+         bjg4+Dm8a8jcg9cZhQHaMvwaGNFSpYgBmB4YheEBocwY3KOgbycZxKEUHt3Yfq0PsBEj
+         TZZA==
+X-Forwarded-Encrypted: i=1; AFNElJ8+1obrNQLKxGqFDK+GVPlq8mFhtUyhoh/k17U1okz4eLdU9kSzRa9vvZJlG7V8XN62mpGo4o+a2ETw@vger.kernel.org
+X-Gm-Message-State: AOJu0YydCbNxtDwr8nmuiloGi1hrqROob43V/iN8A+UzsLlSF9xRGzZ0
+	xPzUNOrpTE66KEAJVlrHK15vmK+YPyR7+gPFa/vxRYQREyeiTb4s+AkXYU21+FeMb28=
+X-Gm-Gg: AeBDietwB1SnOhWoTeVelJzz9z0fK2fOwVdG0qZVrmkdgB8e7YjgH8AgUmFWxm5tJep
+	83V8vTRro2NMNt3RO3PhOhihuMpThNa3BKvJaGGngvu5RC67+yfkLYE34jUyo+7XfwKr1MjYrHq
+	zgojPSHmTVpl4IL70GJoMw4g2p5tOGiFcEVLUF9BG36qqiyXaMvYgS3/1KbRdj19rtHYX5gTRZD
+	vUhsh2rusdvYEtIWDUlC2OOZUtpWfiWmOW4hpars/IrJsA6OU2kga3exL03J7e0ZCSTmuP7dnhf
+	rgG6YoPf9HpnBbmqkl/exPEBBIKjgUCfp/Zk/Z+ZPivmq+HOEfY0yI/KrGPYEnrJQ2kNIQ/WIC7
+	+tkisyjRRX+rK3WTNPm+y5e+xHXCa00ad9cfTJMzXHNVpnegIVJ7cUKJJBiU+21YFkBDeweKvp8
+	WWxnanylzq7x1ndbuI0ph6KyqeJbiOrKsDIfcaLL2smzh3F5v4WnzfnO2DGZT1v0w+kO5g6k0ij
+	Q==
+X-Received: by 2002:a05:620a:f0c:b0:8f1:9e59:220e with SMTP id af79cd13be357-904d63e7a90mr642596485a.39.1778089473124;
+        Wed, 06 May 2026 10:44:33 -0700 (PDT)
+Received: from [172.22.22.28] (c-75-72-117-212.hsd1.mn.comcast.net. [75.72.117.212])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-8fc2c91cdfbsm1736572285a.34.2026.05.06.10.44.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 06 May 2026 10:44:32 -0700 (PDT)
+Message-ID: <7f3a0f16-5159-4bbc-8b15-9b5841603bf6@riscstar.com>
+Date: Wed, 6 May 2026 12:44:28 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart5014054.LvFx2qVVIh";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 10/12] net: stmmac: tc956x: add TC956x/QPS615
+ support
+To: Xilin Wu <sophon@radxa.com>, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ maxime.chevallier@bootlin.com, rmk+kernel@armlinux.org.uk,
+ andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org,
+ arnd@arndb.de, gregkh@linuxfoundation.org
+Cc: Daniel Thompson <daniel@riscstar.com>, mohd.anwar@oss.qualcomm.com,
+ a0987203069@gmail.com, alexandre.torgue@foss.st.com, ast@kernel.org,
+ boon.khai.ng@altera.com, chenchuangyu@xiaomi.com, chenhuacai@kernel.org,
+ daniel@iogearbox.net, hawk@kernel.org, hkallweit1@gmail.com,
+ inochiama@gmail.com, john.fastabend@gmail.com, julianbraha@gmail.com,
+ livelycarpet87@gmail.com, matthew.gerlach@altera.com,
+ mcoquelin.stm32@gmail.com, me@ziyao.cc,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
+ rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
+ weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260501155421.3329862-1-elder@riscstar.com>
+ <20260501155421.3329862-11-elder@riscstar.com>
+ <DD71CDEABC7C16D5+02d052ff-13bb-4712-a847-91416f76c578@radxa.com>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <DD71CDEABC7C16D5+02d052ff-13bb-4712-a847-91416f76c578@radxa.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
---nextPart5014054.LvFx2qVVIh
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: Linus Walleij <linusw@kernel.org>
-Date: Wed, 06 May 2026 20:39:02 +0300
-Message-ID: <5379905.31r3eYUQgx@strix>
-MIME-Version: 1.0
+On 5/5/26 9:30 PM, Xilin Wu wrote:
+> On 5/1/2026 11:54 PM, Alex Elder wrote:
+>> From: Daniel Thompson <daniel@riscstar.com>
+>>
+>> Toshiba TC956x is an Ethernet AVB/TSN bridge and is essentially a
+>> small and highly-specialized SoC. TC956x includes an "eMAC" subsystem
+>> that can be accessed, along with several other peripherals, via two
+>> PCIe endpoint functions. There is a main driver for the endpoint that
+>> decomposes things and creates auxiliary bus devices to model the SoC.
+>>
+>> The eMAC consists of a Designware XGMAC, XPCS and PMA. Each eMAC is
+>> supported by an MSIGEN that bridges TC956x level interrupts to PCIe
+>> MSIs.
+>>
+>> Add a driver for the eMAC/MSIGEN combination.
+>>
+>> Co-developed-by: Alex Elder <elder@riscstar.com>
+>> Signed-off-by: Alex Elder <elder@riscstar.com>
+>> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+>> ---
+>>   drivers/net/ethernet/stmicro/stmmac/Kconfig   |  13 +
+>>   drivers/net/ethernet/stmicro/stmmac/Makefile  |   2 +
+>>   .../ethernet/stmicro/stmmac/dwmac-tc956x.c    | 791 ++++++++++++++++++
+>>   include/soc/toshiba/tc956x-dwmac.h            |  84 ++
+>>   4 files changed, 890 insertions(+)
+>>   create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-tc956x.c
+>>   create mode 100644 include/soc/toshiba/tc956x-dwmac.h
+>>
+>> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/ 
+>> net/ethernet/stmicro/stmmac/Kconfig
+>> index e3dd5adda5aca..66bcfaccbe21f 100644
+>> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
+>> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+>> @@ -404,6 +404,19 @@ config DWMAC_MOTORCOMM
+>>         This enables glue driver for Motorcomm DWMAC-based PCI Ethernet
+>>         controllers. Currently only YT6801 is supported.
+>> +config DWMAC_TC956X
+>> +    tristate "Toshiba TC956X DWMAC support"
+>> +    depends on PCI
+>> +    depends on COMMON_CLK
+>> +    depends on TOSHIBA_TC956X_PCI
+>> +    default m if TOSHIBA_TC956X_PCI
+> 
+> Hi Alex,
+> 
+> I think GENERIC_IRQ_CHIP should be selected here.
 
-Hi,
+Yes there are a number of things missing in the Kconfig definitions
+and I'm working through them this week.  And yes, since we use
+irq_generic_chip_ops we must ensure CONFIG_GENERIC_IRQ_CHIP is
+enabled here.
 
-Am Dienstag, 5. Mai 2026, 12:54:29 Ostafrikanische Zeit schrieb Linus Walle=
-ij:
-> On Wed, Apr 29, 2026 at 9:14=E2=80=AFPM Stefan D=C3=B6singer
-> I'm in favor of this, mainly because multi_v7 is pretty useless
-> for this board, it is absolutely too big to boot on the machine,
-> the board is odd and need some ARM64 stuff.
+> Thank you for the driver.
 
-I added it more out of cluenessness, thought that every board should have a=
-=20
-defconfig and Sashiko let me know that multi_v7 is the preferred. But I lik=
-e=20
-your reasoning. I'll send a v8 with some of Sashiko's (very impressive)=20
-findings but keep the defconfig.
+Thank you for your feedback (this and others I see).
 
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-
-Thanks for the reviews as always, and thanks to Krzysztof for the yeoman's=
-=20
-work of guiding noobs over and over again!
-
---nextPart5014054.LvFx2qVVIh
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmn7fLYbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJED0TvMhUTxoiGRcP/ihTsoTIIoe31SesPPm7
-q97WA2l0QuRdt6uaaVSwsjuCxhCKwuVvPOYPsy5+/F0BG9UxylI20cKySsfndZyc
-kMG7hIOD2GgP2oFpXvD9Rm6mABU/01SRMgYxJ8BERldruK2XBi/tTl5z9mLCU9Gv
-6hHKRVkiS28GG08oKXywoEXba+Dt5a4HLk6oVy1UgP9OlImj1Bm+KPD3wvWmlRsL
-fYr2suEdrJ76ox0Mx0kHIrwqhGpDEOAwm3g5pjmNOEcXS1eVXW1QLSg83wN2KOty
-3NWXcwr0KxZjxMc6zkq2jqMZmx/4d7Mdijbs/TInuprU1G9mUcyVvi6BHFYS5Hpz
-2ezEEESl6nIbaMpA9zFZWHkhouqr2bOVH12W0Exkml/rhwIQBRv3S53wAeYeR3Mv
-H1LNEaKdJgZWKKL5f9WC9q4QFQ7CKJQZc+jnArsKp9GkdC1uRLWzLP3eriuRsgbf
-zAOrJSziqrze8Dq2VNH9OpqyNk0W92TO4mmUMNrsqpTMh3dDMM8MiM4VJcLIhb/J
-xUUZ4kRf2lHfx/KAJnn9munL1lsJa/k1zBVxarYe1ASh9ivRxqyojTcy0AIPklbQ
-eaQp/Vj1+rGq43J9RuCxFzqT22DpbK9xsmEcxNaCzW+ECpBXRqhclbKHHYESo/aF
-+r9T9FDiyUEQwbmVCzN6OIBc
-=eicH
------END PGP SIGNATURE-----
-
---nextPart5014054.LvFx2qVVIh--
-
+					-Alex
 
 
