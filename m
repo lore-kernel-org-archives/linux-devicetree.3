@@ -1,124 +1,173 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C20439B486;
-	Wed,  6 May 2026 07:30:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFE553B6366;
+	Wed,  6 May 2026 07:33:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778052627; cv=none; b=Jf11oChW7BQ9ID5pEPCe4DzQxpbvcRQw9LcmpmVhA721xKAbBLvwvEg6pzDUYTXmBkv7vzto2XoRgfI1bua+/SpQuRgiOezbPHubyvdbn/FxJw7wpVaBOquXLmD9dVwPxNB5AEEbE+4W9sdU0nMkIgQZDgOji8IK2QldGoc385M=
+	t=1778052821; cv=none; b=cDiGwZvu5ms/l/GR6d/GwZSkMXinwrlz/Y1zBANvn+TVya39UTM2IOkRfZXd3Yvyh2pYWRUVl56pa1aoBtThvk5BBuzxhigzYNTZNm6lNvx7sSR/+2csBob7N3ocso+09vYaVpivN54GQ6QdhJC5ld2XI4UoC2sPVem0RrYE84A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778052627; c=relaxed/simple;
-	bh=vCLaey9OpjFpEdYt8M8cmjBiqJz+wr5dw2RBMYVEuTg=;
+	s=arc-20240116; t=1778052821; c=relaxed/simple;
+	bh=F2Y0rkFfu8WpYJn2WFscZsjiOa2h76q/1wFRyrGfSi8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B+H3KNxxj1401sWZac/A3k11iUUviTLadBQQmDSSS0dRHFUz4Zzno2wG2oQ3qTOn8Z7+nTs1ifO5KP46fxwWROwlzlEaG38iQLm9SABFsL74efFbbip3ZcQ7J7aQ48NfH2RZYcYCExF8dpTOsBuCdvHyotEmqw3zQ1r05OvFAhU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=I7srsGs8; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=pB8w63Sh9CnIWhzWu5jvOHof2iq0R4FMKAJlg/R/YS8bHITBc+yOU3G0DROldstK9Agcao7GVjHAjRBDNmrpPkAYwJzsvmawM89EMN1xnXXM9g9/Q3A78+Wrkm9YuEbGrYZUK1MEIykSFp5Wyregy8l6OjnPbUcEDQBIHBResMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HCGrX+GH; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="I7srsGs8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1778052626; x=1809588626;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=vCLaey9OpjFpEdYt8M8cmjBiqJz+wr5dw2RBMYVEuTg=;
-  b=I7srsGs8RLHoCtJpn+n9OOUkjpelb4q5GnpX4wCYOyhwoL3YmA5uKXaE
-   u4WOfxYRot38zz6nmz8ckNMwcwCphLMGewA/TxKw0hlMRH5D7E2Judzwp
-   RCLLeHnMsXZMlrUoVP9RXchWyXjA1LH7FLDyHQtLBJ6GUzIp1fLucILt9
-   GCcAkHTLb2HDJtGF7PKYjnem0bj17+y36ElR5OU5x2+d2SX/e1C7OQnI8
-   P7bbi9b25bDmBNVMIwa+A9CumTiIrNhq7HAlfWDmHqMqXUrfknt4PF3jj
-   8KaONpQh/JzpNMtygD/q1h12UvBJU3oLry0EtuHTjAGA6f0Jt3ze4bMd+
-   g==;
-X-CSE-ConnectionGUID: YBGhiCMyTAiUkAlTqqFD1w==
-X-CSE-MsgGUID: ctYfomJNQtu0ne4/cYA17A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11777"; a="81538829"
-X-IronPort-AV: E=Sophos;i="6.23,219,1770624000"; 
-   d="scan'208";a="81538829"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 May 2026 00:30:26 -0700
-X-CSE-ConnectionGUID: ZorZsCONRaOy1EKm4bJdsA==
-X-CSE-MsgGUID: EE77A/rMTuCutPrAFu7/Sw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,219,1770624000"; 
-   d="scan'208";a="241044287"
-Received: from abityuts-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.183])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 May 2026 00:30:21 -0700
-Date: Wed, 6 May 2026 10:30:18 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Roman Vivchar <rva333@protonmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-	Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-pm@vger.kernel.org,
-	Ben Grisdale <bengris32@protonmail.ch>
-Subject: Re: [PATCH 05/13] nvmem: add mt6323 PMIC EFUSE driver
-Message-ID: <afruCjvTluKgI-tV@ashevche-desk.local>
-References: <20260504-mt6323-v1-0-799b58b355ff@protonmail.com>
- <20260504-mt6323-v1-5-799b58b355ff@protonmail.com>
- <afmjfWtt7Vii6xfH@ashevche-desk.local>
- <Bn1O24yJ2aBvKUTpiFUzxnqbuuybRirR73G7R38ghYtwhFvQqWJb3HPgcikEa1otDw6n07nX_g8khZUHXJ_QRA--LrV5yj5Mcg1QzrWt6vA=@protonmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HCGrX+GH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D310CC2BCB8;
+	Wed,  6 May 2026 07:33:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778052821;
+	bh=F2Y0rkFfu8WpYJn2WFscZsjiOa2h76q/1wFRyrGfSi8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=HCGrX+GHCUYy+ayJnjE8RaOFP8GmHrTBXZ5dOScZTUNJK3S5URWnzKRucVzda7Ai+
+	 YmeFXEXyLK8f6jabvhnXTpckMgSHiZJVj+rwhgnR1ag6s0Tjzkl0koSGg9qSiAYWJ/
+	 3M6MLiBK0bO9z+xL09iF3XYSHE+3ZaU46vxo0ys6agLBjN+2TZgVqo2pUr4CcG0vjJ
+	 +QhJ0cR3F6cC9LHjVLhoCsAEL4tkuKSixFw6ZaiHmjeL83+KcnyAFxB0iOcA71E6J3
+	 Jye9koB3/Jd3IKeWPXiLP5YrjqzU6u18/GR0c7Ahw3bmPiAxGh3LOrNxinJANfIOL2
+	 pYJlJFsZPXmgg==
+Date: Wed, 6 May 2026 09:33:38 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Erikas Bitovtas <xerikasxx@gmail.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, 
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	=?utf-8?B?QW5kcsOp?= Apitzsch <git@apitzsch.eu>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, linux-media@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
+	phone-devel@vger.kernel.org
+Subject: Re: [PATCH v4 1/9] media: dt-bindings: venus: Add qcom,msm8939 schema
+Message-ID: <20260506-magic-greedy-caterpillar-ea5ad8@quoll>
+References: <20260506-msm8939-venus-rfc-v4-0-994f5eb22acb@gmail.com>
+ <20260506-msm8939-venus-rfc-v4-1-994f5eb22acb@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <Bn1O24yJ2aBvKUTpiFUzxnqbuuybRirR73G7R38ghYtwhFvQqWJb3HPgcikEa1otDw6n07nX_g8khZUHXJ_QRA--LrV5yj5Mcg1QzrWt6vA=@protonmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260506-msm8939-venus-rfc-v4-1-994f5eb22acb@gmail.com>
 
-On Tue, May 05, 2026 at 04:24:41PM +0000, Roman Vivchar wrote:
-> On Tuesday, May 5th, 2026 at 11:00 AM, Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
-> > On Mon, May 04, 2026 at 09:24:57PM +0300, Roman Vivchar via B4 Relay wrote:
+On Wed, May 06, 2026 at 12:44:38AM +0300, Erikas Bitovtas wrote:
+> From: Andr=C3=A9 Apitzsch <git@apitzsch.eu>
+>=20
+> Add a schema description for the Venus video decoder/encoder IP in
+> MSM8939.
+>=20
+> Signed-off-by: Andr=C3=A9 Apitzsch <git@apitzsch.eu>
+> Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
+> ---
+>  .../bindings/media/qcom,msm8939-venus.yaml         | 75 ++++++++++++++++=
+++++++
+>  1 file changed, 75 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/media/qcom,msm8939-venus.y=
+aml b/Documentation/devicetree/bindings/media/qcom,msm8939-venus.yaml
+> new file mode 100644
+> index 000000000000..5bbc7cfb61c0
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/qcom,msm8939-venus.yaml
+> @@ -0,0 +1,75 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/qcom,msm8939-venus.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm MSM8939 Venus video encode and decode accelerators
+> +
+> +maintainers:
+> +  - Andr=C3=A9 Apitzsch <git@apitzsch.eu>
+> +  - Erikas Bitovtas <xerikasxx@gmail.com>
+> +
+> +description: |
 
-First of all, please drop the pieces you are agree with or not going to comment
-on (for whatever reason). It makes easier not miss anything important and saves
-reviewer's time on doing that for you.
+Do not need '|' unless you need to preserve formatting.
 
-...
+> +  The Venus IP is a video encode and decode accelerator present
+> +  on Qualcomm platforms
+> +
+> +allOf:
+> +  - $ref: qcom,venus-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,msm8939-venus
+> +
+> +  power-domains:
+> +    maxItems: 3
+> +
+> +  power-domain-names:
+> +    items:
+> +      - const: venus
+> +      - const: core0
 
-> > 	for (size_t i = 0; i < bytes; i += sizeof(*buf)) {
-> > 
-> > > +		ret = regmap_read(efuse->regmap,
-> > > +				  MT6323_EFUSE_DOUT_BASE + offset + i, &tmp);
-> > > +		if (ret)
-> > > +			return ret;
-> > > +		buf[i / 2] = tmp;
-> > > +	}
-> > 
-> > + blank line.
-> > 
-> > Isn't this reimplementation of bulk read? Why the latter may not be used?
-> 
-> Yes, but the PWRAP (the regmap which the driver uses) doesn't support read
-> callback, only reg_read is implemented in the driver.
-> It hits the map->cache_type == REGCACHE_NONE in the regmap_read_raw, and falls
-> for the !map->read check, so regmap_bulk_read neither the regmap_read_raw
-> can be used.
-> 
-> Technically the PMIC is not continuous address space, but rather non-MMIO FSM,
-> so it makes sense to not implement the read callback. I guess the custom
-> implementation is fine then?
+vcodec0
 
-No objections from me, but please make sure the summary of this is mentioned
-in the comment in the code and/or in the commit message.
+> +      - const: core1
 
--- 
-With Best Regards,
-Andy Shevchenko
+vcodec1
 
+> +
+> +  clocks:
+> +    maxItems: 5
+> +
+> +  clock-names:
+> +    items:
+> +      - const: core
+> +      - const: iface
+> +      - const: bus
+> +      - const: core0
+
+vcodec0_core
+
+> +      - const: core1
+
+vcodec1_core
+
+To match other bindings.
+
+> +
+> +  iommus:
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - iommus
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/qcom,gcc-msm8939.h>
+> +
+> +    video-codec@1d00000 {
+> +      compatible =3D "qcom,msm8939-venus";
+> +      reg =3D <0x01d00000 0xff000>;
+> +      interrupts =3D <GIC_SPI 44 IRQ_TYPE_LEVEL_HIGH>;
+> +      clocks =3D <&gcc GCC_VENUS0_VCODEC0_CLK>,
+> +               <&gcc GCC_VENUS0_AHB_CLK>,
+> +               <&gcc GCC_VENUS0_AXI_CLK>,
+> +               <&gcc GCC_VENUS0_CORE0_VCODEC0_CLK>,
+> +               <&gcc GCC_VENUS0_CORE1_VCODEC0_CLK>;
+> +      clock-names =3D "core", "iface", "bus", "core0", "core1";
+> +      power-domains =3D <&gcc VENUS_GDSC>,
+> +                      <&gcc VENUS_CORE0_GDSC>,
+> +                      <&gcc VENUS_CORE1_GDSC>;
+> +      power-domain-names =3D "venus", "core0", "core1";
+> +      iommus =3D <&apps_iommu 5>;
+> +      memory-region =3D <&venus_mem>;
+> +      status =3D "disabled";
+
+Examples cannot be disabled. Please add here complete example.
+
+Best regards,
+Krzysztof
 
