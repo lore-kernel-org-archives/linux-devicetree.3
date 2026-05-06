@@ -1,121 +1,79 @@
-Received: from out198-26.us.a.mail.aliyun.com (out198-26.us.a.mail.aliyun.com [47.90.198.26])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C7A421A0BF1;
-	Wed,  6 May 2026 01:32:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.26
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB8713AF2;
+	Wed,  6 May 2026 01:33:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778031171; cv=none; b=Wbq/O1S3h/d/vE5bIfOOERWdQeY7tIObCvkSxj+brw1lf/b8gCBulbjpVEQXyO3x9YIsGayw2HXgzr0ac94usepVqxfG1iYkzObAZw+n2OeaRTN+S5VSUVCeBXiJuStc/o2Jml1iwVVIcwiJ8o5Rzmv3kq/NZb+9CvybGACj2Pw=
+	t=1778031227; cv=none; b=qP5SD/Ci7f2a5y4wdfZealHLYUX5KpTi3UTttihasda68R+nggYoJ492KIup94PV68D2P+DGbXsi5iHdV8kIwppft5ba3+UysICklES+TnGJqPc80w+cZQ4m4ivo5RPAeVMz8dc2ju1qesKBXTZVyd+m8CbTmJI9pasE0Qt5ZxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778031171; c=relaxed/simple;
-	bh=b8YFwPpi8qezxaiHuAilzmv/Eoy4UE9bDrDM8edNmFE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DU9OIBacttoVYT+TpHi5nRXRY5VKjzDG2Rwo/a1ptrbR/ddDJNVl6x767vlleiImwRHzyaqgi3yg9y6BsvS9pYPjkYBFXMzAse9dk5nkvvi5Y5bewRDGCSC9VSBYFZyM7GHyu4PUZUN3P8/Sop8bVxdpMiJNmDBGNEhZECV7jiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=lGgE4SCO; arc=none smtp.client-ip=47.90.198.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
+	s=arc-20240116; t=1778031227; c=relaxed/simple;
+	bh=DqNkGEpajtFeSQcLSJkXmxKpW6Vr9KH4V+Ji0b1S3VY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B8yNjNYOT/Eq5wAntzdTWtJVAOnLtAR9ECW9ZbkWrqVHmq0KzypEooGjdJLv7Dx8c0APkKBrlXFtQG48yKF+m6e1SJKtUmKR+2eHS1/PL8k56R8TW70zmiMfEfwS4Gl/UQT34ZXQIMVuqHqt8hU0dNZEvAf/+A/AZV2OUCGgpFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sz61/s/G; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="lGgE4SCO"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=lontium.com; s=default;
-	t=1778031117; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=+UwgwNVJpqdu0DR5T4cYxdyoUgJV3ih49BLLqyFdtWM=;
-	b=lGgE4SCO42u4so+Pb5JTDs/rO678cHpP+2D83VTXRw1hpasNhjunNSCEfjT4Y6vLid0Pophqhes0kopLJOpt+Z+ekSMjD15bivNWCHulX2c3N+R7aLnMRQwf9zZhuxtM8bb5XAsWfALXnBboAcPQbm034h6LjT7MgcjELsSf830hx7dldtI6+AqVz6XMsF7tw/CUtkfw06Qf5IY7+4mFGBbbA6v97pZhxGxLXmlmL/oTs8/4zf9y34+nc/2EDcEM22/rF+0kBDvV27vUE8v5RpBz6iQloz+pLWi4Wyvt5MEnVW6mkkXL7uZs7jlZoz93PAuqvn8iIpvFRp6qOIPynA==
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1564394|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00363759-8.50324e-05-0.996277;FP=17026090100592381048|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032053168;MF=syyang@lontium.com;NM=1;PH=DS;RN=22;RT=22;SR=0;TI=SMTPD_---.hQNamiJ_1778031114;
-Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com fp:SMTPD_---.hQNamiJ_1778031114 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Wed, 06 May 2026 09:31:55 +0800
-From: syyang@lontium.com
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	dmitry.baryshkov@oss.qualcomm.com,
-	maarten.lankhorst@linux.intel.com,
-	rfoss@kernel.org,
-	mripard@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com,
-	tzimmermann@suse.de,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	yangsunyun1993@gmail.com,
-	xmzhu@lontium.corp-partner.google.com,
-	xmzhu@lontium.com,
-	rlyu@lontium.com,
-	xbpeng@lontium.com,
-	Sunyun Yang <syyang@lontium.com>
-Subject: [PATCH v5 0/2] Add Lontium LT7911EXC eDP to MIPI DSI bridge
-Date: Wed,  6 May 2026 09:31:51 +0800
-Message-Id: <20260506013153.2240-1-syyang@lontium.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sz61/s/G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E81D9C2BCB4;
+	Wed,  6 May 2026 01:33:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778031227;
+	bh=DqNkGEpajtFeSQcLSJkXmxKpW6Vr9KH4V+Ji0b1S3VY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=sz61/s/GI0TkrpeVMFADYjLjsDfw5T5KWZ1GmKFoCNBt509CDAuVqYiaQnV/oTfqI
+	 /QGsrgz9nwOkQsgjlYBTkO6fcdhwJ49HQOdbgpVX3nMSAHPXqn7ZHsB9Z1IZtAHOtV
+	 Amw6WigEhhehAR0O1WJOrUJM06povIob18BjaAUx+7edqljzyC+acVIdekzAu8g/lT
+	 LC0qhGRACtvUCPhkfrQAvZKpKgplKcbxjygb3kpkj9fdylaba00dx4RLHNO+F94pjA
+	 zU905gf7D/BniueZMM76JtCoSqa75RJ7VIqF42VmTdd6ssCe1LLcv1BsZY1/5Vx40Y
+	 EhhDjmYJdvcDA==
+Date: Tue, 5 May 2026 20:33:44 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, devicetree@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>, linux-mmc@vger.kernel.org,
+	Jens Axboe <axboe@kernel.dk>, netdev@vger.kernel.org,
+	Simon Horman <horms@kernel.org>,
+	Rocky Liao <quic_rjliao@quicinc.com>, daniel@makrotopia.org,
+	linux-wireless@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>,
+	Eric Dumazet <edumazet@google.com>,
+	Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+	linux-kernel@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	linux-bluetooth@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Jeff Johnson <jjohnson@kernel.org>, ath10k@lists.infradead.org,
+	linux-block@vger.kernel.org,
+	Johannes Berg <johannes@sipsolutions.net>
+Subject: Re: [PATCH 6/9] dt-bindings: bluetooth: qcom: Add NVMEM BD address
+ cell
+Message-ID: <177803122421.266355.17077010002069649916.robh@kernel.org>
+References: <20260428-block-as-nvmem-v1-0-6ad23e75190a@oss.qualcomm.com>
+ <20260428-block-as-nvmem-v1-6-6ad23e75190a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260428-block-as-nvmem-v1-6-6ad23e75190a@oss.qualcomm.com>
 
-From: Sunyun Yang <syyang@lontium.com>
 
-The LT7911EXC is an I2C-controlled bridge that Receiver eDP1.4
-and output signal/dual port mipi dsi. This series introduces:
+On Tue, 28 Apr 2026 16:23:11 +0200, Loic Poulain wrote:
+> Add support for an NVMEM cell provider for "local-bd-address",
+> allowing the Bluetooth stack to retrieve controller's BD address
+> from non-volatile storage such as an EEPROM or an eMMC partition.
+> 
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> ---
+>  .../bindings/net/bluetooth/qcom,bluetooth-common.yaml          | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
 
-- A device tree binding YAML file describing the hardware
-- A new DRM bridge driver implementing the basic functionality
-
-Signed-off-by: Sunyun Yang<syyang@lontium.com>
----
-Change in v5:
-- dt-binding:
-- drm/bridge:
- 1. Change "mipi" to "mipi dsi" in the commit message.     [Dmitry]
- 2. Change "eDP/MIPI" to "eDP/MIPI DSI" in Kconfig.
-- Link to v4: https://lore.kernel.org/lkml/20260430094612.3408174-1-syyang@lontium.com/
-
-Change in v4:
-- dt-binding:
- 1. Fix the missing spaces on the "subject".             [Krzysztof]
- 2. Fix the error descriptions for port@0 and port@1.
-- drm/bridge:
-- Link to v3: https://lore.kernel.org/lkml/20260429040541.3404116-1-syyang@lontium.com/
-
-Change in v3:
-- dt-binding:
-- drm/bridge:
- 1. already submit lt7911exc_fw.bin to linux-firmware.  [Dmitry]
- 2. remove lt7911exc_remove function.
- 3. drop  the "lontium, "  in lt7911exc_i2c_table.
-- Link to v2: https://lore.kernel.org/lkml/20260428063224.3316655-1-syyang@lontium.com/
-
-Change in v2:
-- dt-binding:
- 1. reset pins use active low.                        [Dmitry]
-- drm/bridge:
- 1. use atomic_* callbacks.                           [Quentin]
- 2. fix the incorrect formatting and spaces.
- 3. add the required header files.                    [Dmitry]
- 4. remove "enabled" flag.
- 5. remove *fw from the lt7911exc struct.
- 6. .max_register and .range_max use actual range.
- 7. regulator use bulk interface.
- 8. use dev_err_probe, devm_mutex_init and devm_drm_bridge_add.
- 9. Replace GPL v2 with GPL.
-- Link to v1: https://lore.kernel.org/lkml/20260420023354.1192642-1-syyang@lontium.com/
----
-Sunyun Yang (2):
-  dt-bindings: bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
-  drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
-
- .../display/bridge/lontium,lt7911exc.yaml     |  89 ++++
- drivers/gpu/drm/bridge/Kconfig                |  13 +
- drivers/gpu/drm/bridge/Makefile               |   1 +
- drivers/gpu/drm/bridge/lontium-lt7911exc.c    | 493 ++++++++++++++++++
- 4 files changed, 596 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
- create mode 100644 drivers/gpu/drm/bridge/lontium-lt7911exc.c
-
--- 
-2.34.1
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
