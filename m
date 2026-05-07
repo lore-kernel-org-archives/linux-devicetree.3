@@ -1,124 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5180331E85E;
-	Thu,  7 May 2026 08:15:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B151C3264C2;
+	Thu,  7 May 2026 08:16:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778141753; cv=none; b=s0wyxlhviHwYRmCCroniNqmzsNdXSKCuVwt2sKmhOWQwcSMTio/vLaPg/HnqBkiDvHeTiKb3shXjmShUWMU93V6rOd7UYO3xB2Ry3+CTVxvrbYtz4RDYBAc2ye6Lb+yOA0OptvSJ09V6Hk3CTTqxFVkXTgxCQmwcYXOh5UNSCMQ=
+	t=1778141810; cv=none; b=SNkZv/3sX9AWoIaZLpU1QBZjH79P3DUWQAiP0sgmWVChdWAi/2P2PxSn2tysERkwXUdl0S35qht4XY36Pvfl+WzQszEAZloATGQkFCH35XXYf9XVpIiNof5n1SCJuGOA591h7yKGCMdt+d62RWH/MQXzypHdSERGQbTo2vSKi/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778141753; c=relaxed/simple;
-	bh=mMLd+FkExonZSdmM2rLtjk2Xc3hYAUR64eyWBI0/hoU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NJFVv+hhXA1JMnP8qpfgfggTrDApNqmj65tGdWvI06+W/HFiXNbgRBS8T3FVx6+dn1rct1WVEHnl0N8cYmAvuOthD6f47O/5sNjS+mTleXrQ26EmyJbuaz1ciWMc9pQMW6bMxTk9uzqlx3UOoA4j88W1iAflBDeETTywHNF4ufY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ojbc7Snh; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ojbc7Snh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C12A1C2BCB8;
-	Thu,  7 May 2026 08:15:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778141753;
-	bh=mMLd+FkExonZSdmM2rLtjk2Xc3hYAUR64eyWBI0/hoU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Ojbc7Snh+cqQDEhbNxEFQgAx9OXSAYI4D25DRczcAsclAIx9RDDYAwaPM/ylK5JCB
-	 3nmr0WbN/zbIPnj0PEcHhwf+uOF04F5Iqlleh6SgN2HJLbS3sNt4eHN6xrmVFwmwHc
-	 syjCEgFzWpG4aLro+ZgpzpY5kVpK+Ur2MXIEhuzoyZNjtzWZwo7+SEZGP+VZBrkzHp
-	 QF4drzw/a/9/wV4Y5cY1Z9g7YZt09NgAQfGcVtIuobELmsl2bMEZeSp4Qu/JDB2wzu
-	 PJgPTrwdplCorhXFYhoyRSx6FITb/ionb0nSnn839/Nxwkmm5jvSYiN05EimpLdLbI
-	 HJdmm6bXICLTg==
-Message-ID: <26191034-ad27-4559-a845-14841c075a4c@kernel.org>
-Date: Thu, 7 May 2026 09:15:48 +0100
+	s=arc-20240116; t=1778141810; c=relaxed/simple;
+	bh=fqmXGl+pWWkBT6X4oeEj264AgLZu8QAHJCSM7okyQug=;
+	h=From:Date:Message-ID:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sCDpvXJ+sZyoZyWM/7Eznz0k0+Zvx4GduUXn5bjBViVwHfqSHf/o4rD2p/EFHXsDm42yPiJ5SVF4kL9SaTHWoTsjYjxJ+LWaHXmbeSwLC0as3jo2jWfx+ZZC2PuLhn5tpCZWVBqy6CKMfRWzlURY15AjR9lSSvIeDUhG9GMRnRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from 01-drivers-of-rob-reply.eml (unknown [111.196.245.140])
+	by APP-03 (Coremail) with SMTP id rQCowAD3GOBqSvxpU_hNEA--.31247S2;
+	Thu, 07 May 2026 16:16:42 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Date: Thu, 07 May 2026 16:16:42 +0800
+Message-ID: <20260507161642.1-drivers-of-rob-reply-pengpeng@iscas.ac.cn>
+To: Rob Herring <robh@kernel.org>
+Cc: Saravana Kannan <saravanak@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Pengpeng Hou <pengpeng@iscas.ac.cn>
+Subject: Re: [PATCH v2 1/2] drivers/of: validate live-tree string properties before string use
+In-Reply-To: <20260505180522.GA3265505-robh@kernel.org>
+References: <20260403183501.1-drivers-of-live-tree-pengpeng@iscas.ac.cn> <20260417223003.1-drivers-of-live-tree-v2-pengpeng@iscas.ac.cn> <20260505180522.GA3265505-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 5/6] clk: qcom: camcc-x1p42100: Add support for camera
- clock controller
-To: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Taniya Das
- <taniya.das@oss.qualcomm.com>, Jagadeesh Kona <quic_jkona@quicinc.com>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260507-purwa-videocc-camcc-v5-0-fc3af4130282@oss.qualcomm.com>
- <20260507-purwa-videocc-camcc-v5-5-fc3af4130282@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20260507-purwa-videocc-camcc-v5-5-fc3af4130282@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAD3GOBqSvxpU_hNEA--.31247S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrAr47try5uF4rXF43XF4rAFb_yoWxGwc_Gw
+	1kZa4xJw47tFsYv3s7Kr1Yqr1DGF4UGr1UX34rAanFvw15XF43WFs3Jrn3X34IkFZ8tr90
+	9rZ5Grsrtr13WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbcxFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcVAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWUAVWU
+	twCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r
+	1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij
+	64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr
+	0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF
+	0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUjuHq7UUUUU==
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-On 07/05/2026 06:38, Jagadeesh Kona wrote:
-> +static const struct alpha_pll_config cam_cc_pll1_config = {
-> +	.l = 0x25,
-> +	.alpha = 0xeaaa,
-> +	.config_ctl_val = 0x20485699,
-> +	.config_ctl_hi_val = 0x00182261,
-> +	.config_ctl_hi1_val = 0x82aa299c,
-> +	.test_ctl_val = 0x00000000,
-> +	.test_ctl_hi_val = 0x00000003,
-> +	.test_ctl_hi1_val = 0x00009000,
-> +	.test_ctl_hi2_val = 0x00000034,
-> +	.user_ctl_val = 0x00000400,
-> +	.user_ctl_hi_val = 0x00000005,
-> +};
+Hi Rob,
 
-Since its a script that generates most of this code, can't you teach it 
-to enumerate these magic numbers with defines and bit-fields ?
+Thanks for catching this. You are right, I missed a lock recursion in
+v2: __of_node_is_type() was changed to call of_property_match_string(),
+but that helper takes devtree_lock. __of_node_is_type() is also used
+from paths that already hold devtree_lock, including
+of_find_node_by_type(), of_match_node(), and
+of_find_matching_node_and_match(), so v2 can deadlock during early
+boot.
 
-I'm not sure if I got an answer to that question on the last iteration 
-of this patch but, asking again now.
+I will send a v3 that keeps the device_type string bounded, but uses
+__of_get_property() directly inside __of_node_is_type() so the helper
+remains safe under devtree_lock.
 
----
-bod
+Sorry about that.
+
+Thanks,
+Pengpeng
+
+
