@@ -1,49 +1,53 @@
 Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7083DA5A6
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 10:24:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E01B3E8C56
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 10:24:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778149460; cv=none; b=RjtBbt1QkMOJ991DfaXfmKCeqwqX2jzw7LeG1ADnnVXWbSgVntiL1vvKEAsE5NPqAe2BKSuoV4nMrfh+Hr0yU2dYg4Yv2A1Jalveef8FVOASvDplBsi0mmNnEr2/1jLZ4m2Q7Tj2jJVhhEiQlFG8CMOklbcODK32RY36o9f7eho=
+	t=1778149464; cv=none; b=Hatoh8DIc6m1Pwfe9a6bCZ1t1pQwA4MUNRYsCYrWToUEIQHelPZkkxEBNkYUR65MFfXx0cHcA4m6EJ12mo03fNv9NSTYY8ar+nEFEgIcDtceH74s3Snhu1E3DI6LGkkAQyCwSR/6JZ7RdU2YhT579rFZVmfulqay5JADtuvqhBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778149460; c=relaxed/simple;
-	bh=95zihIsNKMOoXD5OwnlTEVyg8/vmcAqsbbGd8t9RAOs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Yqdx5/KvggZ4xrEu6ENTwCMkL4s412MPwT6OwtQGA22SwnYE9P69rUCXVpdE1E5ArX0nsdaFAR6urpR+geXJSS708iKVXtck3j/mQ3HpabITx8peSZ2AOodg0+l34MaVe+cwRlcrNVZXU+LuwMa0lh6T0GVPvl5FJxJMt4axazw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=Hmfo0pbw; arc=none smtp.client-ip=194.117.254.33
+	s=arc-20240116; t=1778149464; c=relaxed/simple;
+	bh=xLItpHp5TBBqQSHKt1AyvZMI6BdB7ounnndiLRLnbDI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=brnbab0AlYCtTIgxOs3FgICWp2+ipyzs4fQmIb/wSc6VJbfQ5vcGfIrDiR7noJvgF0gjIAo9Cqd1sGJkbnXE8UH7su+T3MKb7/bHDVk1r/tpEBkQ+xJKpHORpYVRxCNczFkzxCiSv2Pt92bjNQplyhko6N8sLVj1fEvUZm+uRts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=PF/YFgVM; arc=none smtp.client-ip=194.117.254.33
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="Hmfo0pbw"
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="PF/YFgVM"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	sang-engineering.com; h=from:to:cc:subject:date:message-id
-	:mime-version:content-transfer-encoding; s=k1; bh=U7lcVXhRrsNyaU
-	ZcRjVHn9MrYR2QSycVByrONFV6V7k=; b=Hmfo0pbwBz01tYugrbmAHJQallIdxT
-	nNxrH1gRC3KqLMin/Y7yyLnTnoH8jRMv/q0hQS8GspARYH628glx5gsmYbWRvFcM
-	ouzgZsGLUslv/IyLXDLwsicjzcMdc43ztMKtDwgm6HctNFogOXUFqg3ZFA+49Tgc
-	hBxOPlIrQPLbrn5Azq8RGUjczu28PwEYj5iiOaW7dJdAH01Pxb7W+c31yKXQy/XH
-	z2YUfccHNKWVbcX3JinhmgoMLYDJlWdy/HVJiryiezxW2rUOpKzfgGeQJzSfTrgf
-	xoWE8ARSNzSXTbqQaVq620JnQ+19z2vID6+xuPmEMItBPMCaJ2KvwXRA==
-Received: (qmail 1070349 invoked from network); 7 May 2026 12:24:12 +0200
-Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 7 May 2026 12:24:12 +0200
-X-UD-Smtp-Session: l3s3148p1@GTV7rjdRrOcujnu4
+	:in-reply-to:references:mime-version:content-transfer-encoding;
+	 s=k1; bh=x204kEcNWD8l+gW3+BddW44FnBixr/W4KRcDG6+368o=; b=PF/YFg
+	VMI9zfymicWCDKyvkXcHDgN5qfNSAjUfFChDw4MtwVYY139coRmmjV0GxfiBsDsW
+	2hhnb9lsvtsh4d/YMfutjJST+GlP4gEMBkq9aOT9ZHt+weWF/U+WQl3pcUNYG/TH
+	Q5+EV+ZMsD2ckA0i/TzVsVcX/4nmLA3m116By8m0fPfOBNEPwywJsX9sTWyp2FDn
+	JR65JoqoIP4Xok51fUYNC+kjoUlQVCiYRWHvVRJoy5wfmToMo866ETqft9C39iYP
+	DU763HTxb5THWGtretxq4jFnlCoXstGH9s6YbJyMSLHxhaRyBrQ0dk1FTTtxAt3l
+	ZVV8RwGVSXej9hzQ==
+Received: (qmail 1070506 invoked from network); 7 May 2026 12:24:16 +0200
+Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 7 May 2026 12:24:16 +0200
+X-UD-Smtp-Session: l3s3148p1@o9CwrjdR1ucujnu4
 From: Wolfram Sang <wsa+renesas@sang-engineering.com>
 To: linux-renesas-soc@vger.kernel.org
 Cc: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>,
 	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
 	Guenter Roeck <linux@roeck-us.net>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-watchdog@vger.kernel.org,
-	Magnus Damm <magnus.damm@gmail.com>,
 	Rob Herring <robh@kernel.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>
-Subject: [PATCH v4 0/4] watchdog: rzn1: clean up and drop irq requirement
-Date: Thu,  7 May 2026 12:24:05 +0200
-Message-ID: <20260507102410.43384-1-wsa+renesas@sang-engineering.com>
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	linux-watchdog@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH v4 4/4] dt-bindings: watchdog: renesas,rzn1-wdt: interrupts are not required
+Date: Thu,  7 May 2026 12:24:09 +0200
+Message-ID: <20260507102410.43384-5-wsa+renesas@sang-engineering.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260507102410.43384-1-wsa+renesas@sang-engineering.com>
+References: <20260507102410.43384-1-wsa+renesas@sang-engineering.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,33 +56,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Changes since v3:
-* rebased to v7.1-rc2
-* added patches 3+4 to remove irq handling
-* added tags for patches 1+2 (Thanks, Guenter!)
+It is now understood how the watchdog can do its job without the need of
+an interrupt. So, it is not required anymore but optional.
 
-For easier dependency handling, I picked up Herve's v3 series and added
-my patches on top. Herve's changes to the N1D syscon are now upstream,
-so the watchdog can reset the system directly. Leaving only his cleanup
-patches to be applied, already reviewed by Guenter. Then, my patches
-remove the now unneeded irq handling and make irqs optional in DTs. All
-tested on the Renesas RZ/N1D demo board.
+Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+---
+ Documentation/devicetree/bindings/watchdog/renesas,rzn1-wdt.yaml | 1 -
+ 1 file changed, 1 deletion(-)
 
-Please apply.
-
-
-Herve Codina (Schneider Electric) (2):
-  watchdog: rzn1: Fix reverse xmas tree declaration
-  watchdog: rzn1: Use dev_err_probe()
-
-Wolfram Sang (2):
-  watchdog: rzn1: remove now obsolete interrupt support
-  dt-bindings: watchdog: renesas,rzn1-wdt: interrupts are not required
-
- .../bindings/watchdog/renesas,rzn1-wdt.yaml   |  1 -
- drivers/watchdog/rzn1_wdt.c                   | 35 +++----------------
- 2 files changed, 5 insertions(+), 31 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/watchdog/renesas,rzn1-wdt.yaml b/Documentation/devicetree/bindings/watchdog/renesas,rzn1-wdt.yaml
+index 7e3ee533cd56..0e4b5b529e9c 100644
+--- a/Documentation/devicetree/bindings/watchdog/renesas,rzn1-wdt.yaml
++++ b/Documentation/devicetree/bindings/watchdog/renesas,rzn1-wdt.yaml
+@@ -29,7 +29,6 @@ properties:
+ required:
+   - compatible
+   - reg
+-  - interrupts
+   - clocks
+ 
+ allOf:
 -- 
 2.47.3
 
