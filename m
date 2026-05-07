@@ -1,156 +1,201 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 475643ACF11
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 13:14:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED7433CF689
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 13:14:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778159672; cv=none; b=BaeTNB2hq33K7NnZ+9oPwrB3HTG8hSt46IgeN7ZQ0j/Mf5WVFCp0BYh0t4OG/7CAhBj2IEOIOjTy6WTp6uuxV41J5hsv/YyuAwDJWg390cZZVBEHErkatSwSb77T0tZbLntNhkZffQqsKL2dfQA6sS6SErWAZEGBdjBKZSHPAyw=
+	t=1778159682; cv=none; b=HIqB6t76CH6+gQBiqi7vEyQ4d2iwSNFmuxCVkAkhFGJZZC8OHIGvBZp1HOpDW0IUw6MoYcxTczAeun1RqyKuGhPz2Yv9+XEDev4qguIBwuTR04FVdLV00PlX8SsrP7nLsBmTjAHdVcg1NpuZlWKXhEI3smsVKz0rqgooMnA1QNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778159672; c=relaxed/simple;
-	bh=ytXAXdVU1RbIHxAdWPmCMlWrMpcdmU2fG/TIhwr79dI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Dn+zVGm1uDEQHNCCHvCheTyb8nmZv7qtu5UQGs0xNIozZdX8NU9zDmhr3sCAfVF7Rbi1UwG+XR4QrXzM86+5WQR09wqapUGghHAib4+1mprSOX2C0ptJMRw78L+FqNL9DoswiBpKkp2c6t4++EbbhzM9jcw0UiaMTCPs2AP3Igg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Qv/kG7Ih; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UUcvZfnR; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1778159682; c=relaxed/simple;
+	bh=ZhTdEpf2MNFijll5W3x2vK+23ZDC6tNbNnY9iCWqGvM=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=UbdERxvRuQ3Xzn4QOoncivesBfyBd0nWxpOmmyr8D4ddE06ziV8vFzafcywRQvVlXECCZydYeHiN8NXEpE3TdqyVAinlY08ZFNw4eReSYU+22V4HsO5990NMlp9bCEmUe0MDJVEKmKP2msIJRVe4MnO+zD+RCzH9cvMXS/C+d6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=UNzrdjiu; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Qv/kG7Ih";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UUcvZfnR"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6479G9oV3463998
-	for <devicetree@vger.kernel.org>; Thu, 7 May 2026 13:14:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	vwQdmTCMHnbwqgGCPCBdP0sdAsnXRvkdsmJBPtlwIGo=; b=Qv/kG7IhXEdJJwB+
-	tdiNpHtjCiXTuoQ+YnnzauNW+bgP3XzGu7l7dpf7LDgWmybXSOpz3MqdM/JZyBGV
-	KygaJo1WJu3YRy0EW20YoyWDQJa5kpkc0egN1Zg1xCcQuHvl14PsZrSbXetHkoMH
-	v96Bjhys/NUmWBCGF8T+VyjZXLHigl9+0EReiZ9ibt94Th5Y/5zdTD5sVh9AZfID
-	RC561xME5y6Vw3N+baEzKGamJnHL6FJpMAFyYay/KkqCJLpz5GHbrZGzXqFxJOkq
-	XPu+UNqvm//FWbDtMaeoXrPpVJFmEUHDICcCCAsX5ENBLMAONdm51SG/dPN9KfmC
-	O4N6MQ==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0hvn2777-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 07 May 2026 13:14:29 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2adef9d486bso8969625ad.2
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 06:14:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="UNzrdjiu"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-488ab2db91aso9577095e9.3
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 06:14:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778159669; x=1778764469; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=vwQdmTCMHnbwqgGCPCBdP0sdAsnXRvkdsmJBPtlwIGo=;
-        b=UUcvZfnRnfp8sthQSKsrA6aCn8ncVEji6XA7Z4X6WVge5S8MHv0C9lktG6WQMau4ar
-         DrXOyYkzvEEe5aavsA0v77YErEMZp4Vr8pdiEhkXC29LyFruKDmoiauHq5Kp97qxJWAg
-         uc8C5nHPCoC8QMRrys6yjLSg4R6m9iUf5qrIqr92mymfpa7nDg+E1xymcGsYDd5qYfxv
-         qk0PMlIV6sDTN4Z9+jqvuqh5lxZ6HqFL3/rNkk8fZjqfPT7hbVc5xHGT/KjNaIF65AeR
-         Pfa0L+g63efDez9m8JPDNBO44ukgLpZr8T523rU6BRNxId+e5cDCe/ymo6VgKZLnjTDM
-         XwKg==
+        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1778159677; x=1778764477; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=PMTg4x+eEXsPu7Tgk5l8N+6jmxWHQBVR0ARsPIG0eJ8=;
+        b=UNzrdjiuoS4fURntiwfLsCitXt7+3TAnqCOn45Zk/ctypBCltkbr8ly38X6SvsdaIO
+         C0U9eQ5kAePnPtTTvj1T0xVZv48CBRWTPWx/xdFwBMPWb2y9zzBdhFOQ+Sua79Ht1SUp
+         MCXUchgU+6aSld2KG7BbfwuJ7eflw0cICGiBxM+3qelmsfmiWZoc8WCMRe18Kv4JvaBZ
+         v2FcdNBqX/OUaSjz5WoaouN7RmWPpI8rPScWgWMJu13n4OJ3bXn5fEaeW9E/6Sd6vbb8
+         l+RU12AS0ZYDJCmWYBx07hyqvNNPbKk12Qj/hghKtaxJN1AlfRUSLIIQ2pPCRVtnQXnE
+         niXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778159669; x=1778764469;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=vwQdmTCMHnbwqgGCPCBdP0sdAsnXRvkdsmJBPtlwIGo=;
-        b=cx5RA3jjzduGqbODTwjeadxUoRBJNkbArtl4f9F9pFkFAR9ZYEVRg5V775J9IF4V3D
-         7GcvP+ZmeDtLLX0q/TFq7QJeYJIUSoJc51kFOSMWQ07vS21ll2sfHTL/eY76BDwsGVnV
-         dUMYQHoDtIIV+rMWqoQDqG+kH2Hfk3mR/ZcLG0UNRJE/1b3sGyjcfBapZK/7Ac3d+n0d
-         UC0nj2MmaeT5xG3lokINxUPuGeNwpkpAgJxciuMSi4Lpt+QVaffEX5uilODk5a+53Bti
-         i3Pd1/plI1A2RMlNxJtzE/3++C+rrSZ9YQ7IBWWLw/fWiJzV6SAVcbzyrtf6vhlNGrGZ
-         qp2g==
-X-Forwarded-Encrypted: i=1; AFNElJ/I0rJtyQ1Jeq8FP4UAwzz7FGCkmRx+E/Z7hz8CytxOZ4msnDpnMbLhtBW9lXqF/Osbbmxt4W5NKbCS@vger.kernel.org
-X-Gm-Message-State: AOJu0YwbmLlbg3WiFSoDaxXbxmaiTEKh3Q+gNEsLrM4ZlHJxnBoumggX
-	YdTKy/XhOYh5Jpg7tdcHBTULTtDEDbH/yhrWt6LD3HgLW8n/3maeC/jlE1EMM1BPn8GVApQEVV+
-	Fz2tIs/0lbtfaKx/hkAHTMZJc/2jiyFmHIpA7hD65onr0I5G+kkpGJphyBY0mDhis
-X-Gm-Gg: AeBDievn0OKOcYIIT4ccFyBDtqRyRbUDVfYoM5xsXnrKD0kFpk2lrP4mova28eC15wf
-	OYOe3RlaVm5iMrZwFybE5vQhWKUKa2y89wjrxGQXMRgJdU7r5wrSUYQson8j3pG255dyChK1ERh
-	kR32Ku6OKqpTsuBPWNYJvbAdk6vR46OBTOX8IYfYKHEbakWslfnV6BTxDX/cjhxoL8wa0MI3rlF
-	EXS7e4R0p0fPXOfapj3d9kvpumGWvU9LyVcoluQXlrQ1WLDWfTwAG83Qenyd60tSoPMkZP8RxKm
-	eqBHlX/yuDzI5KT6noOB0eogdDtwnnzuYR1FV2ciSgChaiAR3pwSpiYrmAVOx0l+eiYHb9AAJm0
-	23E9qFv8B7FwxH+bPVsKFpdnPjxbb+WvlMgXTDQ41VkclYkuPru92OUDRQOmc+5te0y4=
-X-Received: by 2002:a17:903:2cb:b0:2ba:9587:25c3 with SMTP id d9443c01a7336-2ba9587276emr59811895ad.1.1778159668790;
-        Thu, 07 May 2026 06:14:28 -0700 (PDT)
-X-Received: by 2002:a17:903:2cb:b0:2ba:9587:25c3 with SMTP id d9443c01a7336-2ba9587276emr59811615ad.1.1778159668351;
-        Thu, 07 May 2026 06:14:28 -0700 (PDT)
-Received: from [192.168.0.172] ([49.205.248.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2babb1f0148sm27671115ad.82.2026.05.07.06.14.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 07 May 2026 06:14:27 -0700 (PDT)
-Message-ID: <48a5691a-5fe5-41dc-acc8-270037cac598@oss.qualcomm.com>
-Date: Thu, 7 May 2026 18:44:20 +0530
+        d=1e100.net; s=20251104; t=1778159677; x=1778764477;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PMTg4x+eEXsPu7Tgk5l8N+6jmxWHQBVR0ARsPIG0eJ8=;
+        b=degV91qaCz+wM670cjxaTEOG7wh+qK+2j/nRT4Wd3Vp5qfLqaOuBzJvzU2KSlIo6ha
+         Gf/senGYeVNJVbv/R8A9D5YswjU52kva0eDmKsr1jxYLJJtOSci4o0y4AJy1Rhb2i0zm
+         tMXvSd2X0crD78ERVZEWwbPysKWlEa5pd0MYZ22EkjtWXk7N9dnkLQC2MD5Z2x9B2TXW
+         sQC9TmwdmaJcXUXOEUMpq+cy5JEkZVPexlXP5H94v5VkL6NSvNnJ++hnjNYEqzWTovmj
+         pHctNlVWayGWm6QuPOqxP7MTmzKCIbUZoxrJCAW5AQ8r9Ov9fI5lTJ5F6MqtxJpxOmGR
+         1XfA==
+X-Forwarded-Encrypted: i=1; AFNElJ8IU7j1pwQIBJFFmSttU94en4KkK9p1D3wAZNpHUp6i41VILDsxlujd6pPpKz3EmdYicRK4MLmyoFjb@vger.kernel.org
+X-Gm-Message-State: AOJu0YzHPEVX1pvmu+9+ugl1qgGykkUtiziUXVAKKXtdL+iz9Kur1JUN
+	4UnAgf2/yo6uL8mXe72NGHces0VDLx/PtA6JjTnQxf+asI6sW2E5bR9Qq6iZQ9sscHY=
+X-Gm-Gg: AeBDiesZ/Epwv4S0zLqDrPAUzYaF6nNVGA2iJX0evyp1sqooJVDn1ZKjX+r5oWUydSs
+	fRg25IoBVEyWB3g2llv0vsaoOGjNbDb8e+hk6lHDxhtRrUJtl/njiO5LE4CW5euU/tNrR494yMf
+	G1+XWEsCLzowIsUqlhqfQshy+49QUfuikRbvRscWbYrklkM2l9/8N/QMjcYuLS+RPYxMTfU+kSD
+	riDWyIqaRGB17AhruvmzmSQnHFfT37ISAm3/00W08bAqqp6T/HX36G3nag7Rr9Doi2oUOBwTvc0
+	fT1CjfZJTMVRVevMrfCbMTlD1lFvwLxqO4gMWu86VBoahE4U+mt4uWs7xzYFae6PJ8FGQlsswn7
+	XIfYDJ5cpZDQ6pomjgTz56DUM7nX1kD2bQqwcVmSWEmJOQRvfA39TagdJhSCZrFGTGy4E2l2flh
+	27J5ANGdHhpRs3ZYlT463JzwteAEx7sgFRVtMW/Upb
+X-Received: by 2002:a05:600c:4f51:b0:48d:1a94:56c with SMTP id 5b1f17b1804b1-48e51f3054cmr140580965e9.18.1778159677055;
+        Thu, 07 May 2026 06:14:37 -0700 (PDT)
+Received: from localhost ([2001:4090:a246:83ca:9bf6:accf:de42:f1be])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e53891163sm136382465e9.2.2026.05.07.06.14.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 07 May 2026 06:14:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/16] media: iris: add vpu op hook to disable ARP buffer
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-References: <20260507-iris-ar50lt-v1-0-d22cccedc3e2@oss.qualcomm.com>
- <20260507-iris-ar50lt-v1-5-d22cccedc3e2@oss.qualcomm.com>
-Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <20260507-iris-ar50lt-v1-5-d22cccedc3e2@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDEzMSBTYWx0ZWRfXxoMfc8EK+QWW
- yo7V65V/aQv3wc0ohw5T5fdF3iNoVEzq/aMiYSmROhI86FwnTeSl5tBKyuwhQKVTlaFEBsD5XFF
- xTlP2upxr55WQdekvxD+PfY2gKl0mYgm/FzTpouEDBKB6vcqnL1j/0U8NYZl2+SBgrx3QnArb3G
- FDvknPeycLwoOPKLRESaZYJaQuvpiMCWZi+S6MVJJd/Kj+NQfcuO26hc2qeHd7AHtQeUecXmqCa
- s7Tj5LV2FUM7tSaLXlL45eEjU14GMHK0jsZr72YGLRgQSlF9zmCg6AT1YDGCXEcicr5w5xt23nS
- x8ETBIi/qszaIgyVW6JqT9bSdLChbsXLrM+B5mHXH1jjJ3Zyf4ON7XTvVt6iTo6SyUjUDI7W8EH
- QczKKxnscc5fnXjt6sSAz4xw81jgLi9iVeVUXXqmfMDvmEsN5DEwoDbcb8/wCYVTpXY4BaA9i3s
- DplqMeI0Qrp0J94rlKA==
-X-Proofpoint-ORIG-GUID: t63ppii-gSTj-s9YC5V0CdERF2VdQN0A
-X-Proofpoint-GUID: t63ppii-gSTj-s9YC5V0CdERF2VdQN0A
-X-Authority-Analysis: v=2.4 cv=ZZ4t8MVA c=1 sm=1 tr=0 ts=69fc9035 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=EkRsrf7Hk27R9rd+nIzaeA==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=FahMO_wZLRsdh1i3WG8A:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-07_01,2026-05-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 spamscore=0 priorityscore=1501 bulkscore=0
- phishscore=0 clxscore=1015 impostorscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605070131
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=1cd2ce29e617ccf25a0057d7944a172c6840176cfdde9913103d3dc41b58;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Thu, 07 May 2026 15:14:25 +0200
+Message-Id: <DICGZTCMDWHK.HMQMCB8M32ZV@baylibre.com>
+Subject: Re: [PATCH v4 1/4] arm64: dts: ti: k3-am62a7-sk: Split r5f memory
+ region
+From: "Markus Schneider-Pargmann" <msp@baylibre.com>
+To: "Nishanth Menon" <nm@ti.com>, "Markus Schneider-Pargmann (TI)"
+ <msp@baylibre.com>
+Cc: "Bjorn Andersson" <andersson@kernel.org>, "Mathieu Poirier"
+ <mathieu.poirier@linaro.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Suman Anna" <s-anna@ti.com>, "Vignesh Raghavendra" <vigneshr@ti.com>,
+ "Tero Kristo" <kristo@kernel.org>, "Vishal Mahaveer" <vishalm@ti.com>,
+ "Kevin Hilman" <khilman@baylibre.com>, "Dhruva Gole" <d-gole@ti.com>,
+ "Sebin Francis" <sebin.francis@ti.com>, "Kendall Willis" <k-willis@ti.com>,
+ "Akashdeep Kaur" <a-kaur@ti.com>, <linux-remoteproc@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>
+X-Mailer: aerc 0.21.0-126-g9e77103592fe
+References: <20260429-topic-am62a-ioddr-dt-v6-19-v4-0-fc27d6ac753c@baylibre.com> <20260429-topic-am62a-ioddr-dt-v6-19-v4-1-fc27d6ac753c@baylibre.com> <20260505124121.hffywentvo5pusfx@glowing>
+In-Reply-To: <20260505124121.hffywentvo5pusfx@glowing>
 
+--1cd2ce29e617ccf25a0057d7944a172c6840176cfdde9913103d3dc41b58
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-On 5/7/2026 12:12 PM, Dmitry Baryshkov wrote:
-> From: Dikshita Agarwal<dikshita.agarwal@oss.qualcomm.com>
-> 
-> On AR50LT platforms AbsolutelyPerfectRouting (ARP) needs to be disabled
-> so firmware can configure the ARP internal buffer as non-secure for
-> encoder usage. In preparation of adding support for AR50LT platforms,
-> add an optional disable_arp callback to the VPU ops and invoke it from
-> core init and resume paths.
-> 
-> No functional change for existing platforms.
-> 
-> Reviewed-by: Dmitry Baryshkov<dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Dikshita Agarwal<dikshita.agarwal@oss.qualcomm.com>
-> Signed-off-by: Dmitry Baryshkov<dmitry.baryshkov@oss.qualcomm.com>
-> ---
->   drivers/media/platform/qcom/iris/iris_core.c       | 4 ++++
->   drivers/media/platform/qcom/iris/iris_hfi_common.c | 4 ++++
->   drivers/media/platform/qcom/iris/iris_vpu_common.h | 1 +
->   3 files changed, 9 insertions(+)
+Hi Nishanth,
 
-Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+On Tue May 5, 2026 at 2:41 PM CEST, Nishanth Menon wrote:
+> On 15:22-20260429, Markus Schneider-Pargmann (TI) wrote:
+>> Split the firmware memory region in more specific parts so it is better
+>> described where to find which information. Specifically the LPM metadata
+>> region is important as bootloader software like U-Boot has to know where
+>> that data is to be able to read that data.
+>>=20
+>> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+>> ---
+>>  arch/arm64/boot/dts/ti/k3-am62a7-sk.dts | 40 ++++++++++++++++++++++++++=
++++++--
+>>  1 file changed, 38 insertions(+), 2 deletions(-)
+>>=20
+>> diff --git a/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts b/arch/arm64/boot/d=
+ts/ti/k3-am62a7-sk.dts
+>> index c1e9067b3bdd5ab0591541d4685bb17a5dac4f65..6f2ee93c7be141ee5ae3f1e3=
+324d3a060db069f6 100644
+>> --- a/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts
+>> +++ b/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts
+>> @@ -59,9 +59,33 @@ wkup_r5fss0_core0_dma_memory_region: memory@9c800000 =
+{
+>>  			no-map;
+>>  		};
+>> =20
+>> -		wkup_r5fss0_core0_memory_region: memory@9c900000 {
+>> +		wkup_r5fss0_core0_ipc_region: memory@9c900000 {
+>
+> Looks like you have'nt addressed Vignesh's comments from previous
+> revision.
+>
+> https://lore.kernel.org/all/DHS46FH9ZYZB.3BG6HVH832NAE@baylibre.com/
+
+Sorry, I was trying to understand the issue in that thread but I didn't
+and didn't get a response so I couldn't really address it.
+
+>
+> We dropped wkup_r5fss0_core0_memory_region here..
+>
+>>  #include "k3-am62a-ti-ipc-firmware.dtsi"
+> In this file:
+> https://git.kernel.org/pub/scm/linux/kernel/git/ti/linux.git/tree/arch/ar=
+m64/boot/dts/ti/k3-am62a-ti-ipc-firmware.dtsi#n27
+
+This file line 27 is
+	mcu_r5fss0_core0_memory_region: memory@9b900000 {
+		compatible =3D "shared-dma-pool";
+		reg =3D <0x00 0x9b900000 0x00 0xf00000>;
+		no-map;
+	};
+
+But my patch is removing wkup_r5fss0_core0_memory_region and not
+touching the mcu_* definitions.
+
+> https://git.kernel.org/pub/scm/linux/kernel/git/ti/linux.git/tree/arch/ar=
+m64/boot/dts/ti/k3-am62a-ti-ipc-firmware.dtsi#n68
+>
+> I am not clear where wkup_r5fss0_core0_memory_region is now defined.
+
+It is not defined anymore for k3-am62a7-sk.
+
+> BUT, in the patch, we introduce:
+>
+>> +
+>> +&wkup_r5fss0_core0 {
+>> +	memory-region =3D <&wkup_r5fss0_core0_dma_memory_region>,
+>> +			<&wkup_r5fss0_core0_ipc_region>,
+>> +			<&wkup_r5fss0_core0_lpm_fs_stub_region>,
+>> +			<&wkup_r5fss0_core0_lpm_metadata_region>,
+>> +			<&wkup_r5fss0_core0_lpm_rest_region>,
+>> +			<&wkup_r5fss0_core0_dm_region>;
+>> +	memory-region-names =3D "dma", "ipc", "lpm-stub",
+>> +			      "lpm-metadata", "lpm-context",
+>> +			      "dm-firmware";
+>> +};
+>
+>
+> So we go ahead an override the definitions of ipc-firmware.dtsi for
+> wkup_r5fss0_core0 here - explaining why the build does'nt fail. I am
+> confused why the ipc firmware dtsi was'nt updated instead? is this
+> something different firmware dtsi now? if so, we should split the
+> ipc-firmware.dtsi accordingly. Commit message does'nt mention the same
+> either. This right solution is to make up our minds if ipc-firmware.dtsi
+> is meant for LPM mode support or not. if not, split the dtsi, if yes, do
+> the mods in the ipc.dtsi
+
+We can update the firmware definitions as well. I currently only did
+this for am62a and am62p as these require the new format so IO+DDR
+works. But if you prefer I can make the changes to firmware.dtsi
+instead.
+
+Best
+Markus
+
+--1cd2ce29e617ccf25a0057d7944a172c6840176cfdde9913103d3dc41b58
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCafyQMxsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlNz
+QwD+K6cqc767M67zBw7vaL0hUeEw8dOTuH2ND3M1gilCBQkBAMKU6KOE5lZ9FFu5
+88v+RbDSuYzP0g6h//QRzeC/V+UI
+=J7j8
+-----END PGP SIGNATURE-----
+
+--1cd2ce29e617ccf25a0057d7944a172c6840176cfdde9913103d3dc41b58--
