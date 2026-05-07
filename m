@@ -1,49 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6AD24ADDA9;
-	Thu,  7 May 2026 20:35:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D12214ADDBE;
+	Thu,  7 May 2026 20:35:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778186115; cv=none; b=d6h/7bVjzWAZrKXljREK35H5ldeAHybi06o7hDPaP09oN3d1VycbUhm35oYPOkG/Fw5NDoFayxeuygFh2kTFGEjJnwpXH01Kuifla1/dImTlKrxSUc22hwcxAMuX9DxCUGF+6aCED6kdnvZ0+wKsGsn0EBxxPHjEXi9V8pImPaY=
+	t=1778186117; cv=none; b=IdMnUlIbB1fcQSxgpgeIMC6ukV/7WSPC4XtjGkACcCItWqiXK4et0z2AvEIy7KmelO9t+RzhQmLZZ3scsJZtXnimUkgYpMBTcXGUMGIngCdAAiBWy79neyoIhHHET7gC/xJl9izClVzfxW5MreGE3q94oHL34v+JJ2aTQklZBRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778186115; c=relaxed/simple;
-	bh=sazAP2oVGZXfkGTv+FhIqQYVwPUI1cGv6nC8EixNI4A=;
+	s=arc-20240116; t=1778186117; c=relaxed/simple;
+	bh=tYMHYKHGPiU/wp5Xw/osgdSI5u6qMUaQvLA+LsnnP28=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GuARWeCXgfw2RQWG7zuU8krnsGCQcaiADGdiejHS4u2H5XYQjBI4OsVGadGlEORjBv/36xK29G/8wS031RHXcz7w7jxAvsyai97xAH2IUI8FK//MvCKxlOXhB9md15PZEwkbCcsr4mQyTg3tO07A2Ts39EFXYvhO1g38rCREv7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S/joN8l4; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version:Content-Type; b=ibBjcxOzUF7GXCmcRPYfvBMclk1zzaCCSLIHN7YlC8VJ90o0Y+yazcplKiuvAOCTbWo311rUGEZX0AiBxzDG5rnl+mtk65jI/9BhDkTDBO9jQXhoisdJE9VmDcCw4S3Q0fxpjjfTj42dXup8snNq1ZWs5xv/uSLEn+3m2HHrPF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B6ZnWlo3; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S/joN8l4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D6F3C2BCB2;
-	Thu,  7 May 2026 20:35:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B6ZnWlo3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB55DC2BCB2;
+	Thu,  7 May 2026 20:35:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778186115;
-	bh=sazAP2oVGZXfkGTv+FhIqQYVwPUI1cGv6nC8EixNI4A=;
+	s=k20201202; t=1778186117;
+	bh=tYMHYKHGPiU/wp5Xw/osgdSI5u6qMUaQvLA+LsnnP28=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=S/joN8l4Ed94NcKBj/YtnyDm7Bhn8NeTTrroS+UzsBnuymweS0q0IGkRghxODj5es
-	 ksz/CIEws6E1xYFb1GMZUPpqhHfYke09+5FUw+hw8utQgr0wARu/E0Jxx3suK0HMa1
-	 YeULbwsxN5BXxqlVMpgiTH6dFS4IDclnqJ0xxBWQtFdDzpknsFNURkcLOkaWzNGLh1
-	 I7xh0BJrqF6Am1KP/YLx0YsDHatH3rGunRvOwiBnypxIh2NcULg7eskutly9WhEgJn
-	 2oKCEZO7FdKyS3q+UDH0sut5jgjehAVZL2TVWFhZeGMretoIBCwk3Ji2rJE3kZsqNw
-	 rDmANMZyj8nJA==
+	b=B6ZnWlo3AvtdXXDRvViM4LYaOjmMOf1w5lFobUd5rGgJW2Tk2dPItqsiS5gqmQEj9
+	 SYxpuNDFYL78vARS+PuJWNijsxHCytPJFt9bC/geVA020B5/i2D9+b6RGsa2wi3BTr
+	 4tsqy+WeeDie4eek1hpr3N/oNnIDvmRoXiYdCCha49Cu1I9ZwluT7DzzrbGClvlTYc
+	 A4tsk0ILQvYSQEANx23j+Y11qJ+uVlkvj6B69CYbgZs++du0O1JXuf/LLh+gn3kS5M
+	 3CP3MQSUFGa8jaz94dpod34hRqJzXgHCMzqpc19U/wqanPPk5gU0N1xp2kuKDL+KNb
+	 v9biVclzznp8g==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Val Packett <val@packett.cool>
-Cc: ~postmarketos/upstreaming@lists.sr.ht,
-	phone-devel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
+	Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH v2 1/2] dt-bindings: arm: qcom: Add SM7325 Motorola Edge 30 (dubai)
-Date: Thu,  7 May 2026 15:34:30 -0500
-Message-ID: <177818606041.73000.17657106462085102010.b4-ty@kernel.org>
+Subject: Re: [PATCH v1] arm64: dts: qcom: qcs6490-rb3gen2: Enable CAN bus controller
+Date: Thu,  7 May 2026 15:34:31 -0500
+Message-ID: <177818606042.73000.16485184758101718037.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260403054417.167917-1-val@packett.cool>
-References: <20260403054417.167917-1-val@packett.cool>
+In-Reply-To: <20260403-can-spi-kodiak-dtsi-v1-1-4055e67dd3fc@oss.qualcomm.com>
+References: <20260403-can-spi-kodiak-dtsi-v1-1-4055e67dd3fc@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,18 +51,16 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 03 Apr 2026 02:33:08 -0300, Val Packett wrote:
-> Motorola Edge 30 (motorola,dubai) is a smartphone based on the
-> SM7325 SoC.
+On Fri, 03 Apr 2026 12:10:34 +0530, Viken Dadhaniya wrote:
+> Enable the MCP2518FD CAN controller on the QCS6490 RB3 Gen2 platform.
+> The controller is connected via SPI3 and uses a 40 MHz oscillator.
 > 
 > 
 
 Applied, thanks!
 
-[1/2] dt-bindings: arm: qcom: Add SM7325 Motorola Edge 30 (dubai)
-      commit: 839d20f9f3da93f65c000187ee68387598bdecb5
-[2/2] arm64: dts: qcom: Add Motorola Edge 30 (dubai) DTS
-      commit: dd1316efdbc5a998b901b1c5f27da73d45060795
+[1/1] arm64: dts: qcom: qcs6490-rb3gen2: Enable CAN bus controller
+      commit: 3b28947ef1f7630d272c59c0251dfa4e5ce7eb63
 
 Best regards,
 -- 
