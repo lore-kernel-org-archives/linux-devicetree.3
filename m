@@ -1,182 +1,208 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BCA23AA182;
-	Thu,  7 May 2026 08:59:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 233F13AE188
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 09:01:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778144385; cv=none; b=YcyXceZ3PQcQ0zSmc77inSHr1HqPkXwqNRQGhnBCZ6yfEMklqnL189ifgY4T6pXStxG9n/L7oom5WOCk42gesb/fVfH6X76BQ9lmwjLdxfVjGOugYaq1RZ8IVpV+wRbz33sjqpDP4pAVhHvA9hIzRJExbTXCOT0boUfei0lCeRE=
+	t=1778144511; cv=none; b=O6AGT2tvwjOfnJwNCiwNZxQ68EoK4D+mljsIYuYtfKQCmDNXjpTgG82M3xzt9b+eSydJOsFgfnS7L7hzwJx7Wrg+KUjnUILsNVisRVnXs0if9UBS6fwOudIP45XCHnqrCZYpxF1szoUOHtYSIXc/zM4Guvr0Gdwzten+NH6WYyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778144385; c=relaxed/simple;
-	bh=A+oGwPL1XNUh0c0Two5S73J+Xy3VSTABP8fVm0BZ18g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ty2744RAuZgjaIBZd62dhgLw/MsAoGNe6SCtC6JlrSrzsng3oFIr1OVx6G0gaoUeCHLUXnJRJH0+8xafGCQVuOYcGS0qYSW4zPQvuCDXilDMZ7bTAK0eS61RIA2nZljPfLLIEExY/jdqF+QrJKYpoK5ZruAYQrOC/BDhBubUCNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mqpVYeUK; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778144511; c=relaxed/simple;
+	bh=hC8gKxPAIzgcAiCj4HFnCCX8CcpOJ7V8eE3rHascLoE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=etVM5gh5Csg+22eMv62uo/KNiy0tFSDfrBjfh98lNFMG5tpaQmRW1VRTUXDKnR32P1542KRq4ENlQUAm0/sQq8WKggKutelz5rM5i75HuYhXQ0Sx2klSjXs5r78IKcWZPgaqH6Dz6i8UhBPV6k0dfhLPN6VYuliq7VMgw/L/qQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aBHwSjxS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Brj7PLn0; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mqpVYeUK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6A21C2BCB8;
-	Thu,  7 May 2026 08:59:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778144383;
-	bh=A+oGwPL1XNUh0c0Two5S73J+Xy3VSTABP8fVm0BZ18g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=mqpVYeUKMg1GCNQNW19NUjQzk41//TXoMseX/4a1IFBtkWKEZ01RBBmd3zmkNRRe2
-	 BFQvkcA+Hy5jjgYMpeYYDSVUBUtSTjuStSVW1tBs5o0Ajl69nP5utxciFzXG5pY4nP
-	 2wFV2rljw4xdvNOBqufYoBVRIhHxW8D4mtMhNMZM9BwvQremNgpIye3Y3Ho0NaMTZx
-	 g74nSu/CwlbIEir6oTcgqgpZnS4t7QD/ZMs2sG0ZfIYeJGR3I1xYk5aD57YZrkezI3
-	 RuK2S6FcMYJy+JHppzGjDHVwzsxEhsHiXBMzQfHFLumT51UNyYsJx8/Ga/Gl7n/DeX
-	 e+R4wKJQf5ARg==
-Message-ID: <17c4626e-8926-4cad-842d-a1b171d1e962@kernel.org>
-Date: Thu, 7 May 2026 09:59:38 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aBHwSjxS";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Brj7PLn0"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6475wbB81926382
+	for <devicetree@vger.kernel.org>; Thu, 7 May 2026 09:01:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=QvsauNTq3rUboIdRUovFsE
+	quKr6TllKsvzUgfaR9kbo=; b=aBHwSjxS6EJ2z88l7pE4wXiR0iON5CG+5SY7ze
+	rOc6ER0R4wQLE/c08P7ZPW5zibUnSxtoriKanBGCmUg6qBR7erkNQM0AyCJ3AF8i
+	O+XZJTtbK1UsaCQH5OCiawc4WDX46+vz8VtZGHDL54FEFCFOHbOVkYJT90wVnWbH
+	r7lOf3vz6EPsxq5QgPj7M8kzSW4AatiJRyFU2OuZsU5f2AL6RZtH7nqvXGtox//w
+	lZRrHRlw+h8fK9XgjYt9hW40xmyvSXp6Di34uS7WDgIOJ58wXrAOVVFoyNU/4Xlm
+	GOMh8xyVO540xPNtANvqXTx/8HspWBAIH8/vVFBDONAquP5g==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0n2g8pnn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 07 May 2026 09:01:43 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-62ea6ff1ca6so448152137.3
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 02:01:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778144502; x=1778749302; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=QvsauNTq3rUboIdRUovFsEquKr6TllKsvzUgfaR9kbo=;
+        b=Brj7PLn0ITlc6USAEdRcwZ93OXZJ0Cr5aKv5CI9uPrZOEctNJfqolY+yD2McM6h1qp
+         0375RSJDy/IcTEsSPW+FiB+HXtlf2kOR2bsDFri9fxyrsr8OqAdt1Lj2JLL7jop/dm+l
+         vIsyoMVgnuMT1DOIwDYW3dUUAq8DVNF387C41TPHdPTGFzO6rX9GiS9uCIEl5Di3AUdH
+         KG+9EGMPBs4kdFboGSzj1wta+GjaA3X6M4HCPoB2nnmOB/FsMMvNKIGjmXU9rx5VQd7C
+         3WbOsD4C7qLf6cMkJ76pmUgl50wcMKpi8l1RSJI3utbPKmOnC+yIUU6Ft/7QWPiPq5P5
+         /tpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778144502; x=1778749302;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QvsauNTq3rUboIdRUovFsEquKr6TllKsvzUgfaR9kbo=;
+        b=NP0oR5aqewp9gR+b580S177lRx8z40nV3VjyWziR+rbq7sCIN9WSEmdwZjUKI4q7ub
+         G8RFp7yFSlwk3zDJjo3BlXq0Eq1vp2yj9lMM/56Ja78cinLtc4zsDghjQRiwR7AiBTpq
+         6KPy0S8w8iAZeKhxc7rph4JPvI9cQqVPTEEIDlE113Lq9If7qLDFna+EivPc9r42Wl+/
+         7HF98cpjhD/xLKDrE3dAl0mHIUeiEiAOhk9TuAiIDHNAKRcCsCDnGhIoniOInY3OKiMF
+         nHray/tZ/BYaQJkP79C2ugzCAfaYUgaMJOVOhNDckT3af4JxXxdCP4CPBCGivpSB/NuS
+         PPnA==
+X-Forwarded-Encrypted: i=1; AFNElJ9K9PRguuCwiugZC9FC5QiE50+L1ESJYxtW3lhwMtZEvGsH76nHu6YCGppQnwhwUtPjmVQ1Hg7N5pbj@vger.kernel.org
+X-Gm-Message-State: AOJu0YxRFLmiW4xwy7l7ZuKUmZgKVhnD9ywLqjCExi5bqcnrH0CuIdD2
+	qFiPsKtDbd435vc3EujG25f1Dd72vnrNB6inLilNowgEK00a99AHYRD5LCp1ciOUo96cHgeriHv
+	PlBvAaGGmiGAeqy/GPZFzV2BIN/uI25IjYm4aPnAsoo/h2DjF900hEKbS0juVSkKz
+X-Gm-Gg: AeBDievdbxvj9sdjnUo0m75MFAL7Xk7YNB9pDdg7nDxnshCtWX6LZMq6P6lbtQGVzPi
+	OzrQNAkFvu6n+SIbuSoY8FljtNHOLTnjPgHjsW8V2Y2RazOVZ1+zx7wmfCXvWmCt/tNSfr4JNBh
+	ACCsC1cfroKtphLtykPMhbLqNb3drHZmNn/j5zrv23HKeTvKpBHcpVBKdLsQn7/6x+7R2TMgyok
+	9MUVR3r2a+KPzn2F6QQcib8Vzf4JffxioojXHUx3HeSZt6ChYpeE4Lbbg0ToeDLSdEHILrsTeX8
+	+o7NaboM2qhxeorKpDW8BAKTgEsZerFnYiShQCsrmUcZh0B0YhDBcP1wyVkXBjNSzhY85u4tJKz
+	L/yQRGDPYBaeEROgB+pvcq683/IT0ep1aiylDFcv3uM6UB1zTW704PD5fv5S7ZWgNs3l/3VMNo6
+	o1C0BCVZshKFrxBvBFCLB37Owa7qD67HvubRZGVwofO6ETYQ==
+X-Received: by 2002:a05:6102:84da:20b0:631:23fa:38d7 with SMTP id ada2fe7eead31-63123fa65c9mr117646137.14.1778144502466;
+        Thu, 07 May 2026 02:01:42 -0700 (PDT)
+X-Received: by 2002:a05:6102:84da:20b0:631:23fa:38d7 with SMTP id ada2fe7eead31-63123fa65c9mr117553137.14.1778144501588;
+        Thu, 07 May 2026 02:01:41 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a870f96cb1sm3480516e87.22.2026.05.07.02.01.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 07 May 2026 02:01:35 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH v5 0/2] drm/panel: support Waveshare DSI TOUCH kits
+Date: Thu, 07 May 2026 12:01:31 +0300
+Message-Id: <20260507-waveshare-dsi-touch-v5-0-d2ac7ccc22d4@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 5/8] clk: qcom: gcc-msm8939: mark Venus core GDSCs as
- hardware controlled
-To: Erikas Bitovtas <xerikasxx@gmail.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org
-References: <20260507-msm8939-venus-rfc-v5-0-d7b5ea2ce591@gmail.com>
- <f5TsKnC12rLsH63vAi01aN4oXUFLrfgIhn14IQFDb9gcac6anLzzhJdkGNdQ2dRs4vYbFKUptfEgWuKdgIgGsQ==@protonmail.internalid>
- <20260507-msm8939-venus-rfc-v5-5-d7b5ea2ce591@gmail.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20260507-msm8939-venus-rfc-v5-5-d7b5ea2ce591@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOtU/GkC/33NQU7DMBAF0KtUXuPKM7Yb0hX3QCxsZ0KMaA2ex
+ ICq3B2nbLJI2Iz0pT/v3wRTjsTifLiJTCVyTNca7MNBhMFdX0nGrmaBCk/KKJBfrhAPLpPsOMo
+ xTWGQBA00Dvo+GCXq50emPn7f1eeXv8yTf6MwLtTSGCKPKf/cZwssvf8XCkglLbUArbdOgXlKz
+ MfPyb2HdLkc6xHLUMEVBTsUVqqxofPkggV72qH0mtLblK6UduStVohB4w5l1tTjNmUq5dG0vaZ
+ Goe82qHmefwH3TFB9sAEAAA==
+X-Change-ID: 20260401-waveshare-dsi-touch-e1717a1ffc40
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Cong Yang <yangcong5@huaqin.corp-partner.google.com>,
+        Ondrej Jirman <megi@xff.cz>,
+        Javier Martinez Canillas <javierm@redhat.com>,
+        Jagan Teki <jagan@edgeble.ai>, Liam Girdwood <lgirdwood@gmail.com>,
+        Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Jie Gan <jie.gan@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+        Conor Dooley <conor.dooley@microchip.com>,
+        Riccardo Mereu <r.mereu@arduino.cc>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2331;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=hC8gKxPAIzgcAiCj4HFnCCX8CcpOJ7V8eE3rHascLoE=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBp/FTujaLZhqlfcwayX7sT39yXXp3nnbfAwrNYB
+ MNe/6xhaHqJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCafxU7gAKCRCLPIo+Aiko
+ 1ThICACuFYxF7qCax7SDv5ziEm5eOGVJeGWP+9tZXlWlKK7NvYNaNHOnmCivZN+0/u/nhYJCsva
+ w6G7P48wuUeeVjexqKW6DlO4nIhNh/1GKpJl657YW0DhnK5TmEUpaPuWvDDI0z+FEjHZWxk72Qh
+ nEvbLK0MiFWDIOuxveejtaPqSSVmCk3tpNEYA5cM9LDMZPOEZcLaXVHdprOSp681D/jLGxjNHTx
+ R5m4cpZthxG0gP0ng86u+YoT9BidjySLMVQ77cbBO3nP9wyuHxuSt/yVMS1KyhT4qaoVF4tBK/w
+ nqOuoAMwn+G3R6hNsbOc+8Wjlt8byBDC/uH//rWXBWKMvb9d
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Authority-Analysis: v=2.4 cv=Wv4b99fv c=1 sm=1 tr=0 ts=69fc54f7 cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=woyZ9DH24JpTQh7i3M0A:9 a=QEXdDO2ut3YA:10
+ a=ODZdjJIeia2B_SHc_B0f:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: KifVlKz_-2tWeVrsCa4u9ByCJJV-OEia
+X-Proofpoint-GUID: KifVlKz_-2tWeVrsCa4u9ByCJJV-OEia
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDA4OSBTYWx0ZWRfX9AcL5av0RwCC
+ 86V8ZKrp93K9+NH59dqyZMUhT8gg1ex4zgTSO++V/jp35O0pInyxWMqX1RIPA/14DncgLqnn7DJ
+ h7K5m2xRy6vVIin+Z8qU/2BA0HkuMGElJRxpRkHF6UMPj+hNDcxy+u6mpTc6a7drhjwck8czu23
+ lxS1tCCClyYRks3+BpikGGyC9+kO1pNwJ11n+mSZaTpoce+WRKMx0siu6N1X4DZEBhvt/XFeufC
+ rolbaxDJMkMzcreFVGxTM/Tg8ztAZ5gwZ12X84Utc8Q/H+rCVtSevTqGUnM9fnifz7N5tveMZKF
+ AgllZ0O/1oHa2+6hSEelSOgiKRBl86ovFx+OzQsuNrLK8y+MT9+nxEKHbxwK2YMVmt3DhYBdm+x
+ X9yVwSjYQhCsiWkU11zP7URYtXpERmO89cftijjzFLo60xO8DoXqMObzAPbHoyRkYoWqUMfEazg
+ V55BPVJpj6iSnc3e3kA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-06_02,2026-05-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015
+ impostorscore=0 spamscore=0 phishscore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605070089
 
-On 07/05/2026 09:32, Erikas Bitovtas wrote:
-> Since in downstream kernel VENUS_CORE0_GDSC and VENUS_CORE1_GDSC have a
-> device tree property "qcom,supports-hw-trigger", add a HW_CTRL flag
-> to these GDSCs to indicate that they are hardware controlled.
+The Waveshare DSI TOUCH family of DSI panel kits feature different DSI
+video-mode panels, bundled with the separate controlling circuit,
+produing necessary voltages from the 3.3V and 5V supplies. Extend panel
+drivers to support those Waveshare panels and also add GPIO driver for
+the onboard control circuitry.
 
-This is a misreading/misunderstanding - supports-hw-trigger means the 
-GDSC is capable of being configured this way - not that it _must_ be 
-configured this way.
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+Changes in v5:
+- Dropped applied patches, leaving just GPIO part.
+- Dropped panel example from the GPIO controller node, it's has no added
+  value.
+- Link to v4: https://patch.msgid.link/20260418-waveshare-dsi-touch-v4-0-b249f3e702bd@oss.qualcomm.com
 
-Which leads me back to my previous point/feedback to you in the previous 
-cycle.
+Changes in v4:
+- Dropped patches applied to drm-misc-next
+- Link to v3: https://patch.msgid.link/20260413-waveshare-dsi-touch-v3-0-3aeb53022c32@oss.qualcomm.com
 
-If you _don't_ apply this patch, do you get different behaviour when 
-trying to switch on the encoder ?
+Changes in v3:
+- Fix another typo in the focaltech,ota7290b schema, sorted out voltage
+  supplies in the schema and in the driver
+- Dropped Ricardo's T-B from bindings patch (Krzysztof)
+- In the Waveshare GPIO driver bumped max register to REG_VERSION (Jie
+  Gan)
+- Add a lanes vs config check in the JD9365 driver (Jie Gan)
+- Link to v2: https://patch.msgid.link/20260411-waveshare-dsi-touch-v2-0-75cdbeac5156@oss.qualcomm.com
 
-> Venus core clock cannot be enabled if Venus core GDSCs are switched off.
+Changes in v2:
+- Fixed errors in focaltech,ota7290b and waveshare,dsi-touch-gpio schemas
+- Split the JD9365 patch, making the changes more obvious (and
+  describing panel classes)
+- Cleaned up GPIO driver: moved NUM_GPIOS from the enum, switched to
+  guard(), added regmap error handling, dropped
+waveshare_gpio_i2c_read() (Bartosz)
+- Link to v1: https://patch.msgid.link/20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com
 
-True.
+---
+Dmitry Baryshkov (2):
+      dt-bindings: gpio: describe Waveshare GPIO controller
+      gpio: add GPIO controller found on Waveshare DSI TOUCH panels
 
-> But since they are hardware controlled
+ .../bindings/gpio/waveshare,dsi-touch-gpio.yaml    |  73 ++++++++
+ drivers/gpio/Kconfig                               |  10 +
+ drivers/gpio/Makefile                              |   1 +
+ drivers/gpio/gpio-waveshare-dsi.c                  | 208 +++++++++++++++++++++
+ 4 files changed, 292 insertions(+)
+---
+base-commit: 735d2f48cadaa9a87e7c7601667878de70c771c5
+change-id: 20260401-waveshare-dsi-touch-e1717a1ffc40
 
-False. Your patch makes it so.
-
-The question is, is that change actually required and/or beneficial here ?
-
-  they can be switched off at
-> any moment. Vote for the Venus core clock to enable it later when GDSCs
-> get turned on.
-
-
-> 
-> Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
-> ---
->   drivers/clk/qcom/gcc-msm8939.c | 4 ++++
->   1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/clk/qcom/gcc-msm8939.c b/drivers/clk/qcom/gcc-msm8939.c
-> index 45193b3d714b..420997b00ae0 100644
-> --- a/drivers/clk/qcom/gcc-msm8939.c
-> +++ b/drivers/clk/qcom/gcc-msm8939.c
-> @@ -3664,6 +3664,7 @@ static struct clk_branch gcc_venus0_vcodec0_clk = {
-> 
->   static struct clk_branch gcc_venus0_core0_vcodec0_clk = {
->   	.halt_reg = 0x4c02c,
-> +	.halt_check = BRANCH_HALT_SKIP,
->   	.clkr = {
->   		.enable_reg = 0x4c02c,
->   		.enable_mask = BIT(0),
-> @@ -3681,6 +3682,7 @@ static struct clk_branch gcc_venus0_core0_vcodec0_clk = {
-> 
->   static struct clk_branch gcc_venus0_core1_vcodec0_clk = {
->   	.halt_reg = 0x4c034,
-> +	.halt_check = BRANCH_HALT_SKIP,
->   	.clkr = {
->   		.enable_reg = 0x4c034,
->   		.enable_mask = BIT(0),
-> @@ -3753,6 +3755,7 @@ static struct gdsc venus_core0_gdsc = {
->   	.pd = {
->   		.name = "venus_core0",
->   	},
-> +	.flags = HW_CTRL,
->   	.pwrsts = PWRSTS_OFF_ON,
->   };
-> 
-> @@ -3761,6 +3764,7 @@ static struct gdsc venus_core1_gdsc = {
->   	.pd = {
->   		.name = "venus_core1",
->   	},
-> +	.flags = HW_CTRL,
->   	.pwrsts = PWRSTS_OFF_ON,
->   };
-> 
-> 
-> --
-> 2.54.0
-> 
+Best regards,
+--  
+With best wishes
+Dmitry
 
