@@ -1,136 +1,186 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 021C037475D;
-	Thu,  7 May 2026 15:11:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 190C93ED11B
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 15:18:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778166686; cv=none; b=MRt1gD/nRTbF7Lgj+Ws8eW0thW/LT0fT21s9+4tMECccOy241S7gvEbPANmyDI3L/WuYF39jgJ18PmY38N6hrYam7r5QG5dhiW7qvZ3BvUpX8ukTR4TLiiUJTfVrsLWjjC1ulETyPjTIuHDpXJn7vKsX7hwIGtbty4o0boexAEg=
+	t=1778167134; cv=none; b=CCh8b+MvCrKL8ViaBiSRvEFKPldpW/uTN8A98XbEWyOzg6pOB57bBtMWsA5mYrkzXH9j+DODrr+cu+7JbrgzVw77acewZEgbk3PN7Ps80+vGOVpTphk7pTGk13cAqTmvNsPsnfVTfdmA02A5Q5YrIdtGRGv9jdLwmE3BFIM8sv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778166686; c=relaxed/simple;
-	bh=hw6BsxqfUNxcdCQgU/QqcINBhjEnfbEwWEzmUoVMRII=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=f8tITryaKd9ayz52G2078ILoiu3Cundl+YTb4lUS6NM5X/zBZe5MuxQ86jGm1RLZSlPXQ8qJak78FTp9WCS1nQQkXLb6+u79MK0N3ZQZKlru4iadFnHfc45h0hBRYvhI0EmTEhO2O6K37DE17a1SBACDu3miuW+Jfk1kdRuKY2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cjTO0g55; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778167134; c=relaxed/simple;
+	bh=WqsYGvqy1lSoXEbCICLvQ5xvIrc5Ffnp9uo1uuZnsRU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mS3zR1zb/Pk0hmfIlGO6hMc05hwA9RAqKBJcLXEXnQncpEXr+SUPZZiLNreUiWPFVcnT+JQpE/2W7hJMmlusFVRC4ENO/T3pyTY74lLDqovkTRiTWCwK6Gi/D+VVCRFCkSzf5n9xBxQBA6P39o1pMOa4hhuWaC66YnfFjU9WUok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HCKRtmMW; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cjTO0g55"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A931C2BCB2;
-	Thu,  7 May 2026 15:11:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HCKRtmMW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5DCBC2BCF7
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 15:18:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778166685;
-	bh=hw6BsxqfUNxcdCQgU/QqcINBhjEnfbEwWEzmUoVMRII=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=cjTO0g55IsmvmDjMosOULgZ/KnM/MQ07Q+g5SxBVj7ilISoI0+PNZGxE3o5qVbp7N
-	 2lJs/Ny6J9uH7O594yn+e4mb2+8W0RsFkXfC8FVuae3cL0D/YREZms7hMMD4KIlLzZ
-	 m7n4tefDiQvxkrUILSO5nSkC4UxRgqlGjzl82eg7rolRiGp7WoB6TcvNpuO3TPVlxU
-	 2eCl/6eBXo5z63kdnipuDKS8lxi1ZBfwaQ/eJBtmlSkbY1pnMa8e+oG55FXs0Cc+AT
-	 axsfKKB/vDqTlG0Lz5hEfoZDUIR8TkYcjdg9hnY9zcWDbKw51ecuUF8bRrewvpsqa+
-	 gOJ0njzUuT/aQ==
-Date: Thu, 7 May 2026 16:11:11 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: "Sabau, Radu bogdan" <Radu.Sabau@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, "Hennerich, Michael"
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, "Sa,
- Nuno" <Nuno.Sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
- <ukleinek@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
- <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>, Bartosz
- Golaszewski <brgl@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
- "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH v9 4/6] iio: adc: ad4691: add SPI offload support
-Message-ID: <20260507161111.555bba75@jic23-huawei>
-In-Reply-To: <LV9PR03MB8414E7E034F79900A6595750F73C2@LV9PR03MB8414.namprd03.prod.outlook.com>
-References: <20260430-ad4692-multichannel-sar-adc-driver-v9-0-33e439e4fb87@analog.com>
-	<20260430-ad4692-multichannel-sar-adc-driver-v9-4-33e439e4fb87@analog.com>
-	<LV9PR03MB8414E7E034F79900A6595750F73C2@LV9PR03MB8414.namprd03.prod.outlook.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20201202; t=1778167133;
+	bh=WqsYGvqy1lSoXEbCICLvQ5xvIrc5Ffnp9uo1uuZnsRU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=HCKRtmMWF1spuZeUGiLwj6RIpdrpEVOspNACrmRyE1I85YPOotLpGdDhK2Rd4vdk3
+	 JupRjWA32kRXqAAYTnWErqs9CftohVa/Z+Rs5V5vwbc/UPHrXwRRpEXLVxQJ18pGka
+	 l+tRo8RY5L6efOK+WWgLJFc7V04o89rKt9OUm61Vgot43S5Oh6cY6UXb7m2JRIMFFd
+	 1LNT7U2Thie1DEdh1Rk4rk9rhC+5i0gYENj4PipAtEqTFi8fvrskiOHdzCOeeSKPpF
+	 szZlCrwqK+Ct9d2+MAjOHk7F+BSNwpgnwdGOeL/GJ4nZWCwSXinDZ1nayU0d1AKhsb
+	 WNQ6DtGlLYwaw==
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-67b7c77865dso1535266a12.2
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 08:18:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/aIztTxSEbymHgPNtcye3NvfazADjn4F4rOPV5mggbDWHJIxPDYxrWyebwkTqiuLzdt2Ancl/AUESM@vger.kernel.org
+X-Gm-Message-State: AOJu0YxrfIv0SQp4Wf2JZDXAvUyxacDQse8FSWBpwJCf04Y9DSg8OHyC
+	XTyOEYp+O7aOJveJdGULHN/2Usb62pYmFI3WwXFuKxpuHCn3UdBizykh+4cyVpZ7IBH4eFQ/xIU
+	B9JSpZeELt0l1+tR+g14SCY/fWIQTCQ==
+X-Received: by 2002:a05:6402:3511:b0:678:a507:e81b with SMTP id
+ 4fb4d7f45d1cf-67d6489fad4mr4544910a12.21.1778167132175; Thu, 07 May 2026
+ 08:18:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+References: <20260428082337.743546-1-changhuang.liang@starfivetech.com>
+ <20260428082337.743546-2-changhuang.liang@starfivetech.com>
+ <20260506012556.GB248179-robh@kernel.org> <ZQ4PR01MB12029EC472A080E254DC8444F23C2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+In-Reply-To: <ZQ4PR01MB12029EC472A080E254DC8444F23C2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+From: Rob Herring <robh@kernel.org>
+Date: Thu, 7 May 2026 10:18:40 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqKueRr+teYz=yW_wOZvVCSJ3w5B1DnqdT4uR+iXjpsE8A@mail.gmail.com>
+X-Gm-Features: AVHnY4IozLPi8zNfD1H5_ih9Khc3mIqKuXRGjhrfYp9Dg_K4y-EgQ1OIRt8qgLI
+Message-ID: <CAL_JsqKueRr+teYz=yW_wOZvVCSJ3w5B1DnqdT4uR+iXjpsE8A@mail.gmail.com>
+Subject: Re: [PATCH v1 1/2] dt-bindings: hwmon: Add starfive,jhb100-fan-tach
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
+On Wed, May 6, 2026 at 8:36=E2=80=AFPM Changhuang Liang
+<changhuang.liang@starfivetech.com> wrote:
+>
+> Hi, Rob
+>
+> Thanks for the review.
+>
+> > On Tue, Apr 28, 2026 at 01:23:36AM -0700, Changhuang Liang wrote:
+> > > Add compatible "starfive,jhb100-fan-tach" for StarFive JHB100 Fan-Tac=
+h
+> > > controller.
+> > >
+> > > Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> > > ---
+> > >  .../hwmon/starfive,jhb100-fan-tach.yaml       | 98
+> > +++++++++++++++++++
+> > >  1 file changed, 98 insertions(+)
+> > >  create mode 100644
+> > > Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-tach.yaml
+> > >
+> > > diff --git
+> > >
+> > a/Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-tach.yam
+> > > l
+> > >
+> > b/Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-tach.yam
+> > > l
+> > > new file mode 100644
+> > > index 000000000000..fdc8539ec804
+> > > --- /dev/null
+> > > +++
+> > b/Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-tach
+> > > +++ .yaml
+> > > @@ -0,0 +1,98 @@
+> > > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause %YAML 1.2
+> > > +---
+> > > +$id:
+> > > +http://devicetree.org/schemas/hwmon/starfive,jhb100-fan-tach.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: StarFive JHB100 Fan-Tach controller
+> > > +
+> > > +maintainers:
+> > > +  - Changhuang Liang <changhuang.liang@starfivetech.com>
+> > > +
+> > > +description:
+> > > +  The StarFive Fan-Tach controller can support up to 16 fan tach inp=
+ut.
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    enum:
+> > > +      - starfive,jhb100-fan-tach
+> > > +
+> > > +  reg:
+> > > +    maxItems: 1
+> > > +
+> > > +  clocks:
+> > > +    maxItems: 1
+> > > +
+> > > +  resets:
+> > > +    maxItems: 1
+> > > +
+> > > +  interrupts:
+> > > +    maxItems: 1
+> > > +
+> > > +  '#address-cells':
+> > > +    const: 1
+> > > +
+> > > +  '#size-cells':
+> > > +    const: 0
+> > > +
+> > > +patternProperties:
+> > > +  "^fan@[0-9]+$":
+> >
+> > Unit-addresses are hex.
+> >
+> > > +    $ref: fan-common.yaml#
+> > > +    unevaluatedProperties: false
+> > > +    required:
+> > > +      - reg
+> > > +      - tach-ch
+> >
+> > You need constraints on the 'reg' values. Also, what does 'reg'
+> > represent in this case?
+>
+> "reg" is only used to distinguish between different fan instances.
+>
+> >
+> > > +
+> > > +required:
+> > > +  - compatible
+> > > +  - reg
+> > > +  - clocks
+> > > +  - resets
+> > > +  - interrupts
+> > > +
+> > > +additionalProperties: false
+> > > +
+> > > +examples:
+> > > +  - |
+> > > +    fan-tach-controller@11be0000 {
+> > > +        compatible =3D "starfive,jhb100-fan-tach";
+> > > +        reg =3D <0x11be0000 0x400>;
+> > > +        interrupts =3D <128>;
+> > > +        clocks =3D <&per2crg 33>;
+> > > +        resets =3D <&per2crg 5>;
+> > > +        #address-cells =3D <1>;
+> > > +        #size-cells =3D <0>;
+> > > +
+> > > +        fan@0 {
+> > > +            reg =3D <0>;
+> > > +            tach-ch =3D /bits/ 8 <0x0>, <0x8>;
+> >
+> > How do you have 1 fan with 2 tach signals?
+>
+> On our platform, two fans share one PWM channel. It seems there was a mis=
+understanding earlier.
+> I will change it to the form of one tach per fan.
 
-> > +		/* TX: address phase, CS stays asserted into data phase */
-> > +		st->scan_xfers[2 * k].tx_buf =3D offload->tx_cmd[k];
-> > +		st->scan_xfers[2 * k].len =3D sizeof(offload->tx_cmd[k]);
-> > +		st->scan_xfers[2 * k].bits_per_word =3D bpw; =20
->=20
-> "When bits_per_word is greater than 8 (like bpw =3D 16 here), the SPI fra=
-mework
-> treats tx_buf as an array of native 16-bit words.
-> On little-endian architectures, the controller will byte-swap the data be=
-fore
-> transmitting it. Will using a u8 array and put_unaligned_be16() result in=
- the
-> command bytes being reversed on the wire?"
->=20
-> Switched to cpu_to_be16() assigned directly into __be16 scan_tx[],
-> matching the non-offload path. This makes the intended wire format
-> self-evident and sidesteps the byte-ordering question entirely.
+I think you have to leave it like this as you can't have 2 fan nodes
+at the same address. Just need to fix the size.
 
-This confuses me a bit because the SPI controller should work with
-native endian and from that generate the expected big endian on the wire.
-
-So on a little endian host byte order in address space is LH but it will
-write top bit of H first thus the ADC channel address needs to be in the
-second byte.
-On a big endian host despite the ordering in memory being HL, the top
-bit of H is still written first thus in needs to be in the first byte.
-
-
-If you using cpu_to_be16() to assign a 16 bit value swapping only on little=
- endian
-and start with the cmd in L on little endian you'll end up with LH swapped =
-to
-HL and on big endian HL but the little endian SPI controller should then sw=
-ap
-it again sending what it thinks is the high byte first (L) whereas the big =
-endian
-system will send H.
-
-Upshot. I think the field should be native endian. If a byte swap is needed
-it should be unconditional and not rely on endianness of the host.
-
->=20
-> > +
-> > +		/* RX: data phase, CS toggles after to delimit the next register
-> > op */
-> > +		st->scan_xfers[2 * k + 1].len =3D sizeof(offload->tx_cmd[k]);
-> > +		st->scan_xfers[2 * k + 1].bits_per_word =3D bpw;
-> > +		st->scan_xfers[2 * k + 1].offload_flags =3D
-> > SPI_OFFLOAD_XFER_RX_STREAM;
-> > +		st->scan_xfers[2 * k + 1].cs_change =3D 1;
-> > +		k++;
-> > +	}
-> > +
-> > +	/* State reset to re-arm DATA_READY for the next scan. */
-> > +	put_unaligned_be16(AD4691_STATE_RESET_REG, offload->tx_reset);
-> > +	offload->tx_reset[2] =3D AD4691_STATE_RESET_ALL;
-> > +
-> > +	st->scan_xfers[2 * k].tx_buf =3D offload->tx_reset;
-> > +	st->scan_xfers[2 * k].len =3D sizeof(offload->tx_cmd[k]);
-> > +	st->scan_xfers[2 * k].bits_per_word =3D bpw;
-> > +
-> > +	st->scan_xfers[2 * k + 1].tx_buf =3D &offload->tx_reset[2];
-> > +	st->scan_xfers[2 * k + 1].len =3D sizeof(offload->tx_cmd[k]); =20
->=20
-> "Will passing &offload->tx_reset[2] directly as tx_buf cause DMA mapping
-> issues, since it is only 2-byte aligned?"
->=20
-> Addressed by the second concern's fix: no sub-aligned pointer into the mi=
-ddle
-> of a DMA buffer =E2=80=94 the full 4-byte scan_tx_reset[] is passed as tx=
-_buf
-> from its own cache-line-aligned start address.
->=20
+Rob
