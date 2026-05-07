@@ -1,185 +1,134 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C42EF33BBB9
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 22:09:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2343F345CAB
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 22:17:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778191743; cv=none; b=EZTlLipMex1zsXxmBXx8F1SRjm7l6kQBm9VU+auVLzXlEhxgcRzRg1i6YkOH98UzVJuXhjjCFcYHtzjDjUGya4nS9nTuF4l7nINdPjE8+4DMmO9ElYn7AXj/7IaBKcqJUXZ+gwKd3fbRTMkfdW91fEAyZK/haWur8IizUFc4YT0=
+	t=1778192254; cv=none; b=Pw0rAxz2t7imbV7H5lO+aiTsd5ap+nVqAGW7RhDH8V8Ya0i750SDOLyf3c+ylpydhAfxDUAY67qyW+hHfv+2IlyaRIQY3e2fbhWdKlhx0C52zUJonrd21RKRAW2uXLhRJwz/BHFUej7Wl/xa+2zAkgNdPqjagS/n+IFZ7zrp96Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778191743; c=relaxed/simple;
-	bh=trZCIv4VUbmZsT+tqtZK8MjDiIjWO57JQfjXqAJtZwc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IOiXSDIwmbW66H5KW4kyXbk3cD+uxXCGrOY+0YUZ9NUPugr4v3N2Mn1RKc4zCxGESLHXBbP+qw4rqMgWeAlKawGFphJyFMyrR4pRxThsDlzpKpScuPHLsSvP0CzKOw3qcLnnmOvVdqntD82d3KBFdeWSMddjAcCivJLlFF4Dtd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TS8RMX/r; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778192254; c=relaxed/simple;
+	bh=nUqtAeSwtxg2g10Nn3t8JgkOkKTEyo+HUlH2xOySZMw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=j52tsnSM6gAkgIJlSNtwA56vFfGd/seaEzzaWT1N18efhIwdi2ow2lByi47sd10zeMu4SctzzVFn8Z5iScRoKEdkwNNxjjJRBWdbqmVtadcT/SHMwxh01BzKpH6sf17Ds6DW0PUZv02dp64bWqbOF0M3agqLAW32jC67dBD54qg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=Hcrw5OJh; arc=none smtp.client-ip=209.85.222.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TS8RMX/r"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4891c00e7aeso11860965e9.2
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 15:09:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="Hcrw5OJh"
+Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-8f83efb5729so130009985a.1
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 15:17:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778191740; x=1778796540; darn=vger.kernel.org;
-        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=trZCIv4VUbmZsT+tqtZK8MjDiIjWO57JQfjXqAJtZwc=;
-        b=TS8RMX/r6PH+MkBNNRfyXf5BvgXb5OkjCBwOOajaDb4vSQLyFCmZviVLdgHj7Fhq7n
-         f86xDcMvdrqvB3fdXWI30Giz8t8XSFpbcSZsEqhyOXxESkjEtorlY5IC7j+IYEiZXDkJ
-         Fhaxhntecj14ga0ZbccIAB3qYDm61ygrZ7N5dGYw7Tgvrv/FkBix/G5b3USGwZjNNnKv
-         I+w2H1MOSfAvO6bfi9YwwdwKqa0yCDQEkSOZg8pD5R/P97/FUFPEwhF4ChUcaw+B4BN3
-         RgVvz4NqxSGvB33yNOzrxbA1VJfzyGXd+v+3Ac8RsQ7DBBoHz9/pq4hzHAmTi4JDGnWq
-         VWtw==
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1778192252; x=1778797052; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=V2Ov38+ykmqD6nZk6coLqjQ6cOEYuoDtYD74/Mx9UCo=;
+        b=Hcrw5OJh6PlWZxzRnvFn+UW5odJBcqGZFJAcf1xuY+dVv+t7TCtX/vMaAWFjnVG6Yl
+         s8oCh094BPUtVBIgneGKmDXKHHuzH8VjK4vRJtA4Rl6w91nS9Sa03BErXGDM8Oha97dk
+         DFBaOSG2YwDEK8fJ5SrMSPqxu79cKZLhgnOh89+RnV+k7iyV/GB6Z7JdiAXASADEJvym
+         oylte+CJp0zC4SJBr5DZIudaLYj/Q9TVVIuLGNsdPJISYCzy4uWhcPby4JoMNC8bsoET
+         O9flifkcoqz6p1mZHo5I5LI206l8rwCXTCivGBs2kjGFapbOr5zY4k83j5vAUmXaArLP
+         LNrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778191740; x=1778796540;
-        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20251104; t=1778192252; x=1778797052;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=trZCIv4VUbmZsT+tqtZK8MjDiIjWO57JQfjXqAJtZwc=;
-        b=W8eAVW+TWev63c2WBcTDgT710n/aGDfWlR+INJ24Q+qCj7Eyacbv6mztBmVUFAcaFo
-         K04UWSyalkO3F2RmCk/6R5dzltBZ/zny/f7J5dMDvPNqqpTkP0YzEDMIx4NcWeu9juRI
-         ZV3kLdb3eTjOZox5s+OYFYZTA43P+G7dLdt5ZoCQMHebYyLILh6wIqSLI8EQzVgx6AQE
-         Xy3Le3yyyQRHSE7/YHEj5Tf5d0LnC2RnT7FZ2G4wjmQ/4rmIVk2/CfTK5paM/VB9IvUR
-         R4cbpbP4VIjkDIjk9AA/fuG9JGzJvX9CX/yJes80W5ftK6Fmn0HsZoRe+7IWYE9QMt1l
-         i+gA==
-X-Forwarded-Encrypted: i=1; AFNElJ/tyOWv9xIcg+FVyRR8YA1rtvkdnffXWR+UtmDqlLrtc1q/x8/+jOzupX1eY4iVqLyAGGqZ+aHhnVnT@vger.kernel.org
-X-Gm-Message-State: AOJu0YxQvh8Vojfn11NMRtxw/YmRVWEcTs6vIrQx+dL32T86B+4HMV+d
-	0AtRQrhQGScZz9MvDjyk2aUv3fDUyat/2Hsqor+lnjwFtwJ9QSFEC75k
-X-Gm-Gg: AeBDies62Ihteic6WPNIWH8dWPfUcWkSom/2RTZrvIWUeKHooyKPxp0gZP5OwL9UAhE
-	fxzToxqtAyuFtQ3Yv2lrEgTPg3GjHwFP7vq2VYlwem+B1A922QzrGPnMDWYP1C6h54/qHOXWpek
-	nW/s6ZYkplHdwvftb277EeNhe8rZZrTAqxlz59J2aDK0+1aM/XhHbyJUEWnVkuq23jYq3ax9GOJ
-	Hm+M6dbRJeP+Pvbg6pSsyBt0M5P34vJtxbzfOlrf8b4EFZ42Qgws1TVp5BfbhS2xQjmx8hdvZ5H
-	PfV3FfjEKC1qvym7cKDflG0/4XJnnd7IgWNI+uCtzFDhOLRRocZkC/Yss/oEF7MFoDzy5bcnYuP
-	wO/bng1c+hogbRjIsEkv+FQafcj/6UtYlFkBsBtjGMSBf6HEswY+0bpmf2Q96YGorsMjOwGLBYV
-	TWuqZnPivkXMm85UsmcOCYvM+/QXGFFi0JQgRBKXyrLl30uGRA
-X-Received: by 2002:a05:600c:3548:b0:487:1108:48b8 with SMTP id 5b1f17b1804b1-48e51e0a60fmr153507315e9.2.1778191740007;
-        Thu, 07 May 2026 15:09:00 -0700 (PDT)
-Received: from silicon.doe.home ([197.250.51.203])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45412de445csm1834705f8f.14.2026.05.07.15.08.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 May 2026 15:08:59 -0700 (PDT)
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Drew Fustini <fustini@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH v7 6/6] ARM: zte: defconfig: Add a zx29 defconfig file
-Date: Fri, 08 May 2026 01:08:49 +0300
-Message-ID: <23095518.EfDdHjke4D@silicon.doe.home>
-In-Reply-To:
- <CAD++jLk02QnkXYwJ0b6x=qw9stR4nPrjD3sYPOvWAQz8t9OsUA@mail.gmail.com>
-References:
- <20260429-send-v7-0-b432e00d2db8@gmail.com> <5379905.31r3eYUQgx@strix>
- <CAD++jLk02QnkXYwJ0b6x=qw9stR4nPrjD3sYPOvWAQz8t9OsUA@mail.gmail.com>
+        bh=V2Ov38+ykmqD6nZk6coLqjQ6cOEYuoDtYD74/Mx9UCo=;
+        b=V6rPpzM68qUnbrdqG12/xCEsefzr1rCH1rV8kWtOwXNY4F3Rji+MX/DozjNLshSkw4
+         6FjhzMz5vFJrxDvoGCrXjSBCKhnvOjxb9k5dgwomG4W6dB3xxLRQOvvbOQVi3K3Zeec5
+         P7GTPcQE+QI6d6JmK47xZ22rPWgBW34OP6aJij+2ANT2tCXOFGYB4evXIHlRMPPIiWj7
+         9GJjdDrNiYTCV6rZ0yrsoeJElmb7pzwR6D43JBL9o3ct6qXtTikTpos8UmUqxPZzkaiN
+         b6eINTwAUEhrVveo1fkrTNj4vdGjlG1C3dmuWnblAhWc3nf9R0Tjj5wWpnDdiKOfp19e
+         /jIg==
+X-Forwarded-Encrypted: i=1; AFNElJ9SmM2YM8XQGefYFl3PUfPR4iczh0IW5nzpXWx5BAHXeL3FBETwGLuUA1z880o+qBkjyESnP8T+aru6@vger.kernel.org
+X-Gm-Message-State: AOJu0YzlNApELkUXmFcVISIMfxJWiKGq3ZYLYclkEtHncMqGywCrv7vd
+	L4Togem/aAX3bDpmYl7XVl9iIkV2Gq/1l3YwztiaC9mW5KWnd6ploo6mrBw9FJ/4olA=
+X-Gm-Gg: AeBDies1jZnL4n8RO9lyK5MK/LN26lKLvAOXf7ExQOkxGEwJJctB61MG3wXVOxpgM+K
+	dlnWW2jbTeUzFLu/T6cW9PUh7GZZrbFiMAZ4uY1xGjkPRs2a394u54O6W2L8XjBUhnExtbBF3KF
+	tMsLJBoE9ZZmIvgEp122+jgxgDzHEzwru0ZCkxJVj9GH8uGEOISmjv05uWEYNdkjJCoJNovznsb
+	JWBsqrNpkk/X/xfSQ+E21KAWwtvBZqks9TCI3pEV8z5CyvwGNwlaSYkytMNfUklx72mYTk30ANy
+	DFkrwCFQUEvKyR+QD8ecz3pKkDXoe9y/a0ZKALHh7pj9GGMJ3/pdGHpGIUacpkoSHp5m+s1Azz5
+	mEoMZ8vmDZQvlwAEcqG0EqW9xgett7bLJUvVxGfMpNTMun8DAnoyAh4kHfTq3eM0Sy932OcfGIe
+	iUYFeXS1heK9zEP0U7ihgSdbsH6L3QST2c9HIoC3h0aYDM3/vHCIWsCCkcFqUsynxXvk8xkKRJX
+	Yw=
+X-Received: by 2002:a05:620a:29d0:b0:8cd:9033:1724 with SMTP id af79cd13be357-904d3cb8ed7mr1550360785a.9.1778192252020;
+        Thu, 07 May 2026 15:17:32 -0700 (PDT)
+Received: from [172.22.22.234] (c-75-72-117-212.hsd1.mn.comcast.net. [75.72.117.212])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-907b986c371sm9463285a.2.2026.05.07.15.17.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 07 May 2026 15:17:31 -0700 (PDT)
+Message-ID: <967c1d96-9a48-48de-b7d9-58b63e782aee@riscstar.com>
+Date: Thu, 7 May 2026 17:17:28 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart7940474.EvYhyI6sBW";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 08/12] dt-bindings: net: toshiba,tc965x-dwmac:
+ add TC956x Ethernet bridge
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
+ rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org,
+ brgl@kernel.org, arnd@arndb.de, gregkh@linuxfoundation.org,
+ Daniel Thompson <daniel@riscstar.com>, mohd.anwar@oss.qualcomm.com,
+ a0987203069@gmail.com, alexandre.torgue@foss.st.com, ast@kernel.org,
+ boon.khai.ng@altera.com, chenchuangyu@xiaomi.com, chenhuacai@kernel.org,
+ daniel@iogearbox.net, hawk@kernel.org, hkallweit1@gmail.com,
+ inochiama@gmail.com, john.fastabend@gmail.com, julianbraha@gmail.com,
+ livelycarpet87@gmail.com, matthew.gerlach@altera.com,
+ mcoquelin.stm32@gmail.com, me@ziyao.cc,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
+ rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
+ weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260501155421.3329862-1-elder@riscstar.com>
+ <20260501155421.3329862-9-elder@riscstar.com>
+ <1f34cbce-e2dd-4e80-b136-55d0efa50002@lunn.ch>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <1f34cbce-e2dd-4e80-b136-55d0efa50002@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---nextPart7940474.EvYhyI6sBW
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: Linus Walleij <linusw@kernel.org>
-Date: Fri, 08 May 2026 01:08:49 +0300
-Message-ID: <23095518.EfDdHjke4D@silicon.doe.home>
-MIME-Version: 1.0
+On 5/1/26 12:38 PM, Andrew Lunn wrote:
+> Why not add an subnodes for the ethernet interfaces?
 
-Hi Linus,
+We will define "ethernet" devicetree subnodes of the PCIe functions
+in the next version of the series.  Something like what's below.
 
-Am Donnerstag, 7. Mai 2026, 15:24:38 Ostafrikanische Zeit schrieb Linus=20
-Walleij:
-> Hi Stefan,
->=20
-> On Wed, May 6, 2026 at 7:39=E2=80=AFPM Stefan D=C3=B6singer
->=20
-> <stefandoesinger@gmail.com> wrote:
-> > I'll send a v8 with some of Sashiko's (very impressive)
-> > findings but keep the defconfig.
->=20
-> Maybe not send all patches to soc@kernel.org right now because they
-> end up in the patch tracker.
+					-Alex
 
-I meant send them to linux-arm-kernel@, not soc@ just yet.
+pci@0,1 {
+         compatible = "pci1179,0220";
+         reg = <0x50100 0x0 0x0 0x0 0x0>;
+         #address-cells = <3>;
+         #size-cells = <2>;
+         device_type = "pci";
+         ranges;
 
-I propose to hold off on adding the new SoC upstream until the clk and pinc=
-trl=20
-drivers had at least an initial review. They are more complicated than this=
-=20
-current patchset and they will be necessary to do anything useful with this=
-=20
-SoC. I expect to send a first version of the clock driver over the weekend.
+         ethernet {
+                 phy-mode = "sgmii";
+                 phy-handle = <&tc956x_emac1_phy>;
 
-The important thing with the submission to this mailing list was to get=20
-feedback, so I avoid building a long set of patches on a shaky foundation.
+                 mdio {
+                         compatible = "snps,dwmac-mdio";
+                         #address-cells = <1>;
+                         #size-cells = <0>;
 
-> For a new platform that may be OK though...
->=20
-> Nominall it should be three pull requests:
-> 1. Platform
-> 2. DTS files
-> 3. Defconfig
-
-So I read https://docs.kernel.org/process/maintainer-soc.html a few times. =
-If=20
-I understand it correctly at this point "pull request" still means emails s=
-ent=20
-with p4, correct? Or does someone create a git repository on git.kernel.org=
-=20
-for me that I can use to send actual pull requests?
-
-As I understand it, my 6 patches then go to the 4 corners of the kernel:
-
-Patch 1 (dt binding) to devicetree@vger.kernel.org
-Patches 2 (platform), 5 (DTS) and 6 (defconfig) to soc@kernel.org, but not =
-in=20
-one series but 3 independent ones
-Patches 3 and 4 (UART) to linux-serial@vger.kernel.org. I think this can an=
-d=20
-should be a series of both patches belonging together
-
-It might make sense to send the DT binding on its way so it is in place whe=
-n=20
-the SoC maintainers look at the patch that adds the new platform.
-
-Do I understand the mechanics correctly?
-
-Thanks,
-Stefan
---nextPart7940474.EvYhyI6sBW
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmn9DXEbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMywyAAoJED0TvMhUTxoixokQAJhmmO8EPvppOjAKiU0j
-VdiM0KDUx5XdfQy6Y3qibMHrfltre+BU1sXBALudR/Cu6eVqbRG7LnTS/SnW1HJV
-nikfjKT1fNHMgbObi7u6cg/h7vAN8nH5GLgB+cXLO6WO+227c1rusLbDW7ofc3NW
-5B6vIjy7FcGfNv2vLHucbdANPdwqrJWN/Ls5qHMUPmOo6Dqyp4t6KUUdlIHte5QZ
-TwKse0rRM0gc3qkeiL1tAWyDGAsx3l0nkWY8Dbrv38rhF/GbnSo58wv8QGUKEwoj
-7JEmr/4EKArvnpz2Hw3Kstgj2E9e2OUqV0Ba6LCKGhq5oV/+YQ0PPIrepFFznmCf
-dOs0Ek838VCedQ7tTNr689DQiQqcfc9xaU9BZWOBx8c6neW6dqlLXb+Z+PzmcAMc
-qwIMk7D+ryNHp8zKF5zc2P4GXwpeH5W87wU8y/pAscTqkBHe0lJqmqAemRqR5GQ1
-JrpbZ9+q19rh43uWQJDc/gpBm+CqzfFRIpPHpZvgqC+C6tc+IfERZPVzp/qjG6Ee
-QKks/Sw6Ppz24RhR696N1fOadSZpEBM2982UXlpTmBE6SbdMpIwycjtlakyx+qmY
-31Vt8syR+uK7HDGzKaGdXU/IouS4tJ43mfi1uIPAy7OUWlFq+3foENXKECN+E9kQ
-caBl+NzhrviDrlkehVYTcNkx
-=U1tW
------END PGP SIGNATURE-----
-
---nextPart7940474.EvYhyI6sBW--
-
-
-
+                         tc956x_emac1_phy: ethernet-phy@1c {
+                                 compatible = "ethernet-phy-id004d.d101";
+				...
+			};
+		};
+	};
+};
