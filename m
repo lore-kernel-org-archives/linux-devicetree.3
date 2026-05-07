@@ -1,137 +1,171 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D12E31618B
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 16:26:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778171168; cv=pass; b=dtHDM2TrmpdSn66yVZC5lV1oqtMcCQ0gpxUGzxOAQkr/LKb7K+Lo+eHjJ92VeUR1CC3fMst61AOdKj8XiKGED3FAr7CaUzNXxNUdatcU7uGkEnxQNb60dKfxj3ZJu9B3Aq8PaaeL0RyQRB1mZdGkH+gWSO0bmU2+ClGYqs5Vjno=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778171168; c=relaxed/simple;
-	bh=Int/Ioom6uDImBPOoRcQOfqmGnwZxp9cr18IQ5rmQ0A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BBlU//VU4ooqCEbA5aSQC19iH9/E+a7oo0OG/3yJtnxv9yCrxQkymvlkgrI923s9iWgi6Ipp5/F1IqL8/cMmnmKCADeS+wnsYgjpvF45Fv6GHyUBJMhrbwxvGiw7XBwCIGlUaIisXPkp5tSLCHrsB7wGNb5PzRkP0xJFLam9F7Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QWhRo7nl; arc=pass smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE0043CEFB;
+	Thu,  7 May 2026 16:29:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778171349; cv=none; b=Yo6E6JkTCNtBy8DO4mlnsltiNXYCzwHjmV/yAR13/gMYkbOdaapN/UVR0aG5QYnOpAT/slxIlC38jUtKBzQolyCinHR6cy8CTHgpVU9JbVqeczJuLFzyMC+JsuOjfCks7y5Mceyk1Dh6ZQfhBZ/K1Hznr/O1oAiPIEcLyzUBuuU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778171349; c=relaxed/simple;
+	bh=5Sa4VZO0SqSH1YZ1xIVDU0ZzfB2sxhGGbWBASPInkrk=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=Q2Yd7wvCXHKMd40EneKsaSyeZcAo3/svVmm6SgMSMv0EaA53gMkVv5HtaEPhDXtK/xMC2rjOrRl2gdgv5YdOE8xyjmIJOxLkdbrzRMlGGs2Z13KoPIf07vKKfYu+hkc6NBbtttjzMvPepFLPm2WkPc5Uxfk23goJrEugomV8OYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=Kh6BwpDZ; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QWhRo7nl"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4891e5b9c1fso10908595e9.2
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 09:26:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778171165; cv=none;
-        d=google.com; s=arc-20240605;
-        b=fUL27u/Z1PXyRheD0pyBGAJey4hPy27UYSTS5Wrx0OXRvzvxAlnCfzLV0NrcF770d4
-         IPjctE30iRx0fr2CEX+zLuHuMeibeqsUsPmNGCH/uxobfZlDME/2IyXWHYCaSRltSb5e
-         BCDJIA696ld0z2dayIKGg6cBzwbs35Z5ZZBUrjO6qVXujuY3ujKvdhFny89Tu82N9+w3
-         ZRqFCCgpswnVSsB4pg/iU8gqjpIpnnaYeXmBcUK9w7HSxp5ttsXtqpWI4ZNdEEjJ/pgV
-         X1F1lGSVIj4cIzQ2L2FHvhUNGAZRTaYpuC41V/YU6uvHaNi2Bs30ZjMJDpzrjL3omP6z
-         ccEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Int/Ioom6uDImBPOoRcQOfqmGnwZxp9cr18IQ5rmQ0A=;
-        fh=YnKjtJbGTRiMprLeF9QjlS9dliUBDdctwaNjLch7Egw=;
-        b=crqxTgiCmmEyjooCEgRWMRll+0q4gW0OhV67CPIRyO0XLA+YD1hjms0dHoRv4GsZET
-         iici0T2n2nvGZon+A+IZym9T49IhQ4yUTqmmLXNx7/0vaLySh7h00I/7Q+XQvENPnDB7
-         mA3C0D3ktYaIG60FG5p7LuzfoU+equXQQj3ij6Qa67iuMueeAjCihSIORXXjpMUkUF6p
-         9KL4RcvG8IxyG03UcPCPizezOD5d707ngU9HEDmtVHNKqfNVOG05B5dVO15qssOnj9LJ
-         d0GSQw8tnhC5kXfkIidxlPa69hNe0CdT4TtXTiLvX8W4WZLNGM0FqQWCnZGGlkV2mAkQ
-         d+pA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778171165; x=1778775965; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Int/Ioom6uDImBPOoRcQOfqmGnwZxp9cr18IQ5rmQ0A=;
-        b=QWhRo7nlanh63aQrdcptKhtbqHChOXNiWce4lgF4p9EiJSmvaecbBMtLoqKFJpg36q
-         sWbShc0OX1O+GqbdildFa7tp4SSlvx6pdqu/JpAXfsuK7oYsGa3xRmUt5Lyx2OJdEHaM
-         jsTfUOUK9gkruraxaQSHPO0KYLu6jeAQxOwb2nIeaI4iTeXbJg3duv8I2jXuaI/Pvgqp
-         kchZlOSZpROSp60T1dUh1cKpFizG5oxBxMK7U6Fdb/d0ciO06QuVawBuLmtUMtF0z7io
-         yFz42IAOigasD2ewr+fQ4soZ2CVY3Q2yNMqye9YuQRSIaT5Hb+G6ZAKhOU7so9i9C7bW
-         njzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778171165; x=1778775965;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Int/Ioom6uDImBPOoRcQOfqmGnwZxp9cr18IQ5rmQ0A=;
-        b=EpRLkUJrsKAosyyZARsEWmFA9yD/yQn154oIVboTGhv4AZUkesJPLKc8VOSA43s0sd
-         uBQLzt9oImptXB+kt8hZVtek2Myt3Nkd0h/Y7YXVKByOjsOz9mJDQ37RirZ5WvTss4/2
-         MP3xUh4S83y5WoYjfIFLqbgVdUnn2KKH4scg5wEwIlE9Co/rv56CYJaPC+uEBBLpIZ+c
-         sfWJkg0+CSwJZNBjCt21sogjMvK4FRQBnfaC43iraJxBBeTP/EKXvTImYTyb0h4MeGbB
-         vKHnn+aXm11a/upsQqAKTR/f8rAjSpG80rIWbHh2tC+qAFbWqA5tT298hnc9V/HCaILz
-         6QMA==
-X-Forwarded-Encrypted: i=1; AFNElJ89zZ4kF/n7clBeDtq09IsDkuDcQ9+69ryrN3H7VgZl8tF+igvX0mlJaSMwSoIvCbgxV5Nx6m7SFIy2@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywg+StHtCjTuNP4JMZ/ES5BLwTZ7JkFGNpgRrY2nYW7xY2+2s0p
-	exDY6mVuzPBCJY7GcAS8HcI9kyYjvi16viog9S5RuJLuRwjvjy7uCifI6hmn42f1OZJq+L0O6LI
-	Q3xzoDyscg14FgKzI5A7xG3r5jMqB0MU=
-X-Gm-Gg: AeBDiev51ZGwGwcRMKfN8d/AGyCAiA3QOBU1zvEMCgdnm1xBjpFCVIArSyWdNWIY+L5
-	y0E9Iptn104jSj4z07Usooi5cUlBf+o1e2OfRQGAuBqLqeLQIjdaBjku+RQkkFcrZUneFkx9ZtS
-	XRnauCEEu+XASoS5Zb1H+Hx0kspic6bmey9gHu53EGTrdDWuB0wHh11hjP5STILbBjoMQk+Sdv9
-	tgnHPNmhaX6PkNcTZTYMzi8PG5dGk370rQye1wGqXy70y6GwcOO9ePl9y4FJl8WndcdPkVX+7wk
-	O8ajdlViyQyC6tnKaF3Xbmsj4iVyz7Vrq2p1Qim28zRS5NxuHBfu7AfIi0+5axQOW8LTqbdxV+1
-	NqHr2
-X-Received: by 2002:a05:600c:3548:b0:48a:7aad:4425 with SMTP id
- 5b1f17b1804b1-48e51e097fcmr139299195e9.3.1778171165189; Thu, 07 May 2026
- 09:26:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="Kh6BwpDZ"
+Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 647Ekp0m3611580;
+	Thu, 7 May 2026 12:28:42 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=FEjDVLts2YhERmV0gF7bRd0gSmw
+	gGO5l+n11cUIs5mA=; b=Kh6BwpDZvyrffat2qsk97dxBhOwQ+Xb3V3pDoW3hrFW
+	TM1iGwF9pC70RJyJOhaq5+F+nGisAzsWviG/WsvAYT/GSGKfW9tqquXUZjiCLhz9
+	T3nYRh55nQHk+7YAFCoiVqZJvBPYidtcHtbBeX+QLXWabULpG13yv/BqxcgAtjTm
+	rOSAh9oXzT1IE5sU5yvpZuFBmP/PvQfqmLTTJYvmKEj68+Tc6gK2Vq4JpzEebvWD
+	Y7AyAjB6Q8AHSCxe+BxLS/2a/6KimBUz7/BlaqYcQDkzgaANHaAqEVCrXaFqrFjj
+	58DSBb33fvwlZPxDQtOSupTlsBMf87/rR7pN/5tNYBw==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4e04pje3sa-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 07 May 2026 12:28:41 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 647GSelq021369
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 7 May 2026 12:28:40 -0400
+Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
+ ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Thu, 7 May 2026 12:28:40 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
+ ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Thu, 7 May 2026 12:28:40 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Thu, 7 May 2026 12:28:40 -0400
+Received: from HYB-e1y2fvUQ3cx.ad.analog.com (HYB-e1y2fvUQ3cx.ad.analog.com [10.44.4.71])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 647GSMkL030829;
+	Thu, 7 May 2026 12:28:25 -0400
+From: Janani Sunil <janani.sunil@analog.com>
+Subject: [PATCH 0/3] iio: dac: Add support for AD5529R DAC
+Date: Thu, 7 May 2026 18:28:08 +0200
+Message-ID: <20260507-ad5529r-driver-v1-0-b4460f3cb44f@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260429170012.366537-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260429170012.366537-3-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260506200826.GB1652535@killaraus.ideasonboard.com>
-In-Reply-To: <20260506200826.GB1652535@killaraus.ideasonboard.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Thu, 7 May 2026 17:25:38 +0100
-X-Gm-Features: AVHnY4J0DaxPufqdFXqftS14umWBtVlA89V6qUT2eHHlB5Fn79fAtb5gBsvy_HQ
-Message-ID: <CA+V-a8vKuDzJ-ZCZFohDm2nTur4wvnQEQnZsZc0OUaJh=MwVSA@mail.gmail.com>
-Subject: Re: [PATCH 2/4] drm: renesas: rz-du: Make DU reset control optional
- for RZ/T2H support
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Magnus Damm <magnus.damm@gmail.com>, dri-devel@lists.freedesktop.org, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJi9/GkC/x3MQQqAIBBA0avIrBNM0qyrRItspppNxQgSSHdPW
+ r7F/wUSCVOCURUQypz4OivaRsF6LOdOmrEarLHeONPrBZ2zg2gUziQ6eB8jYvAdEtToFtr4+Yf
+ T/L4fxIL23mAAAAA=
+X-Change-ID: 20260507-ad5529r-driver-866bbdd864de
+To: Lars-Peter Clausen <lars@metafoo.de>,
+        Michael Hennerich
+	<Michael.Hennerich@analog.com>,
+        Jonathan Cameron <jic23@kernel.org>,
+        "David
+ Lechner" <dlechner@baylibre.com>,
+        =?utf-8?q?Nuno_S=C3=A1?=
+	<nuno.sa@analog.com>,
+        Andy Shevchenko <andy@kernel.org>, Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        "Jonathan
+ Corbet" <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>
+CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+        Janani Sunil
+	<jan.sun97@gmail.com>,
+        Janani Sunil <janani.sunil@analog.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778171303; l=1936;
+ i=janani.sunil@analog.com; s=20260507; h=from:subject:message-id;
+ bh=5Sa4VZO0SqSH1YZ1xIVDU0ZzfB2sxhGGbWBASPInkrk=;
+ b=vCv3mgA9NCuy5clbFzpkffzLLE9iYWGGd56JfuSvFhAXbteoLZ4U8P1Lh4T7lBXmJUcZSXjbu
+ HfnvaR3MPeyCG+/N9nYsivKozS9LVlkoGXHFRumoUXU9lgMPHn22ezL
+X-Developer-Key: i=janani.sunil@analog.com; a=ed25519;
+ pk=e25MyjRLPY3RWrYm/LrJ+/+t1MZJUbkgIW5CZg+g+hA=
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDE2NSBTYWx0ZWRfXyLwSnIGTc/T7
+ 1NZ3EPlaQcnnQk9Az9ecxN57BCZjU7mTjCfXMIsgVvqU7Xpt4sUHq7UpFXEtgu7uKo7aKroXSY8
+ LuETZk/VzK4L6TxiqrnW2Y4QoBg4e4wqi6pPeBYprES+UMvur+lYsmWz86+OR7tgNKKrE3Goyl4
+ uJYoUuosjBYEmZhejbPHJ4sdXZtKJXDWSwr/F/CFZ6wNXcJah0MkhT2sp1ktzJH9lZ/8iYvoQ22
+ aKYMHbn7sn4cYhaZ15yCiAfJFTr+biz4MlOP3O6j2nyGWkEZM9d7dlLsgT7Xo5iyh3g94aWWubF
+ uawrQ/aml/TEO8deIfXoJi+hpFbsJQ/rP3ZulUwXed2dPzLdlZP/mCyxeF/HD9zYMSVIatkXVZP
+ JXongmffVwzEvZmtxx74i/BQgAP0rE/fOCzegT1y6fsRezXMkadss789U6I6X+dt7fq+EyqumU9
+ okpQZoYrt5sQzHRjc/A==
+X-Proofpoint-ORIG-GUID: I-MxR6FQmn6zU6kKPjWxhI3s8EVmFXz2
+X-Proofpoint-GUID: I-MxR6FQmn6zU6kKPjWxhI3s8EVmFXz2
+X-Authority-Analysis: v=2.4 cv=Fss1OWrq c=1 sm=1 tr=0 ts=69fcbdba cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=Z0pTeXoby7EwIRygza74:22 a=gAnH3GRIAAAA:8
+ a=JRHt1TshlDf7fg1QQcYA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-07_02,2026-05-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 spamscore=0 clxscore=1011 bulkscore=0
+ priorityscore=1501 phishscore=0 impostorscore=0 adultscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2605070165
 
-Hi Laurent,
+This patch series adds support for Analog Devices AD5529R, a 16 channel
+16 and 12 bit voltage Digital-to-Analog Converter (DAC) with integrated
+precision reference. The AD5529R operates from both unipolar and
+bipolar supplies. The device communicates via SPI interface.
 
-Thank you for the review.
+**Device Overview:**
+The AD5529R features 16 independent DAC channels, with 16 or 12 bit
+resolution, allowing independently programmable output ranges. The
+internal 4.096V precision reference sets the accuracy of the output
+voltage.
 
-On Wed, May 6, 2026 at 9:08=E2=80=AFPM Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
->
-> On Wed, Apr 29, 2026 at 06:00:10PM +0100, Prabhakar wrote:
-> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >
-> > Update the DU CRTC initialisation to request the reset control using
-> > devm_reset_control_get_optional_shared(). On RZ/T2H SoCs the DU block d=
-oes
-> > not expose a reset line, and treating the reset as mandatory prevents t=
-he
-> > driver from probing on those platforms.
->
-> This assume a device tree compliant with the bindings. In case of a
-> non-compliant device tree on platforms other than RZ/T2H, the driver may
-> silently fail to work as it won't complain about the lack of reset. I
-> think that's acceptable, as the reset should be specified in the SoC's
-> .dtsi. If if was the responsibility of board DT authors I would be a bit
-> more concerned.
->
-I agree. Since the reset is expected to be defined in the SoC-level
-.dtsi and dtbs checks do complain if it is missed.
+**Features Implemented:**
+- Automatic detection of 12/16 bit generic with product ID read.
+- Reset support via GPIO.
+- Dual regmap configuration to handle 8 and 16 bit registers.
 
-Cheers,
-Prabhakar
+**Patch Summary:**
+1. **dt-bindings**: Binding documentation with channel configuration.
+2. **driver**: Implement IIO DAC Driver with regmap support.
+3. **documentation**: Add driver documentation with usage examples.
+
+**Testing:**
+The driver was compiled and tested on the EVAL-AD5529R-ARDZ using a
+coraZ7 with a mainline v7.0 kernel.
+
+Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+---
+Janani Sunil (3):
+      dt-bindings: iio: dac: Add AD5529R
+      iio: dac: Add AD5529R DAC driver support
+      Documentation: iio: Add AD5529R Documentation
+
+ .../devicetree/bindings/iio/dac/adi,ad5529r.yaml   |  99 ++++
+ Documentation/iio/ad5529r.rst                      | 214 ++++++++
+ Documentation/iio/index.rst                        |   1 +
+ MAINTAINERS                                        |   9 +
+ drivers/iio/dac/Kconfig                            |  17 +
+ drivers/iio/dac/Makefile                           |   1 +
+ drivers/iio/dac/ad5529r.c                          | 564 +++++++++++++++++++++
+ 7 files changed, 905 insertions(+)
+---
+base-commit: 93df88612859e8e19dec93c69d563b4b73e9bd4b
+change-id: 20260507-ad5529r-driver-866bbdd864de
+
+Best regards,
+-- 
+Janani Sunil <janani.sunil@analog.com>
+
