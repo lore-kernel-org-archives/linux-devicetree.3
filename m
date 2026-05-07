@@ -1,164 +1,234 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011015.outbound.protection.outlook.com [52.101.65.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A879E372B23;
-	Thu,  7 May 2026 16:03:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778169815; cv=fail; b=KZRgkhEOOQt90PmUajAwxmANPBxYHqOopel1cEKYdALUH7uPrukuAEoZgJyC72lnuVG/52AunBRzDUe2JfXaLEGKQE43cEY+4aDYrQyhamYebhnvn1bmrqNzSUzIdiSfwQqGMlZQ5e/9QVdM8jvwd5dGlStnIPxf6zt58lytQhg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778169815; c=relaxed/simple;
-	bh=+fjQbtB9pYD7qCG5j2zjwmFxVwu0s3iHNrUIP81/qQM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 Content-Type:MIME-Version; b=JgChV5+770FhjTp2uVcDbquIxw9ytp7f+j1nBz6LEp1knXh44aOW4Zy+f38oy5ZhP+df0WxvdDyxafnkj3AKkHw/x5JMKxc64tofQf0mgn/iQnX0H42HWuBiaJmZsywTZUY3FDcQY4eZU20ZJuPt4E4mB/jmlzuEOHbRygShML8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=dQuFe2ec; arc=fail smtp.client-ip=52.101.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71EB44DB63
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 16:03:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778169838; cv=none; b=cfzyC2IYwsbHcgTZpW5P1PoyqeXelxpov7Q5KKN2Y9ZmJ8jcRqwZNvhaigI2iQuMwj43MY9jTh2dFcACCcUnC30yymoa7k7eWaM4mI1gpDn2WK2+5S/Sjd144aNlfU+DJyB0stryWTjupFGo/UHbyFw93stN/xe6lDIOAK0jefA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778169838; c=relaxed/simple;
+	bh=nyA8o2NvivXKk37nVK14Jn6/jPyU2MxLgg1j2S3M6kM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=npP2BPXUbVHbPEuqTY3tNS2iB6eqBWyHAb+2lrF78SHlrQN+3bPkFPHvu2pwXKH4aCxBg1SyXtxkJlNWD1kIMQ+qG8qilwDxX34g+6RxEledqc01/zmhhNb0vTDrT62DjpPV1gejcBjpOU9IHCj0n9pFq02XedtMpbYYlaXOueQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=EOsNiDok; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="dQuFe2ec"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vIpDuTZi/wz3rh0z1UWWQk4sDvrfjdf1ySL2ejuA7PzKHUBgQpc7Ah1HLvl/gMl7GiIPXCKtVJRYj4SGN7Q776w5uNPbilVOghviYxHZN6yRrmqRWXIEgfiJO94oAq80zUy+jc/8dEs/v1/aPGCzzVbkQXSddue+BITfZgPM3R+oD49Ivc+4AJkbd74ndiHv7mSr7yoMwoAysrY2MpHW4E5Wv2sHVaHy9W75xSVREkKnpWW/1bAOgPWiAdGg3WvMYbKdFnx/VE63bgy26Cvox6/VC6BxJcSkGhFMu17rLuDqwksA1ecliBCW+UVmGUxVRAtXKQyjzt0G/nZBLhj8Hw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zNwHnQaONgoLcqdrTrHJ1DTeYxhEylonw73C3p4qkhI=;
- b=n6goQ5Ddx6516jjWDTKD3NioPbWhhEJ2amQNU/v3jLUa9SCxvms3NHvWD6NQq3AqUcqXloFehSiT93oBfalcXFM8GiZJbfkhhhuYtYg28djgkwwU8rrMtimabJhJPoiiuAD8ZyCL/WU3/pAHyO6JxFtEcMNmi0vh6Lx4Z6O5s/UGex/BOKT/qnzHPllNwrw0jMOWl+7K/Wx+w93Q/uhDA5XpRKVMoi30mYUEZemsGIuuSR7r15c7rE2hwweddcQGG6vNCwjGY5yg+IzhY1hb293xJDEX14gQA5rBN4UAxcgBNzu/RXPJgyS54Jk3pcgp5EF6Tcf8wLk1izMRmmSAug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zNwHnQaONgoLcqdrTrHJ1DTeYxhEylonw73C3p4qkhI=;
- b=dQuFe2ecVHUxNNFn9an85tBL6gJQoGpTLq51yc+WcUJ03jO3kccA6160/Vh41H7zf+rk8gxJ59xLV8CL0wONq9thzm5IVQe8bODISLhK7aGAjfG1GZI9Txdoiq4qhSNgClB5BrUNf+jBbVfFQTPxQjRk6aeH8Sk4DtLjQa8E1InkFHgLseDVrl9N8+wV937dhzcnLGmdI/ps2Ltof9OgQvkqYVfl2bg70ufH78mceoAn/cgjDrIQ6tqz9X6P6/5aQcPffZOLMMraablFQkMRYqwev18cRX8mnfLBOUdEmFsV7+RCY/do6k3HL8iwa1+CuSoNMjUxqw+XZ30K7kmL0w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by DBBPR04MB7690.eurprd04.prod.outlook.com (2603:10a6:10:200::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.17; Thu, 7 May
- 2026 16:03:30 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%3]) with mapi id 15.20.9891.016; Thu, 7 May 2026
- 16:03:29 +0000
-From: Frank Li <Frank.Li@nxp.com>
-To: s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com, 
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- hongxing.zhu@nxp.com, Sherry Sun <sherry.sun@nxp.com>
-Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260507065330.516142-1-sherry.sun@nxp.com>
-References: <20260507065330.516142-1-sherry.sun@nxp.com>
-Subject: Re: [PATCH V4 0/3] arm64: dts: imx: Disable PCIe by default and
- add overlay support for M.2 connector
-Message-Id: <177816980694.338814.8886539511728175045.b4-ty@nxp.com>
-Date: Thu, 07 May 2026 12:03:26 -0400
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.2
-X-ClientProxiedBy: SN7PR04CA0151.namprd04.prod.outlook.com
- (2603:10b6:806:125::6) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="EOsNiDok"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-48e56c1bf5dso6822955e9.3
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 09:03:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1778169835; x=1778774635; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=6okPXnC/tZolkk3p3FjZk+KFTlmCOhId/0Ru10JUIvc=;
+        b=EOsNiDokbkWqPPukv7hDjK/Jeggr+EjNM4jRuY7YfuAMp6tZyLEK/rn+z5asPdzIYU
+         bXR5o5pT8eTMLyTN5k1GnS8E63YAK7Jo/88+h5VnJCvEuH6HPIgZDm8MUmAkG73jMjwV
+         TAyTQH8AuMGsF98xqqaUXQygR8MceD2kp17cGj+pdyTIoIjIgA+86hgoUykJ7FuQKl+D
+         9vBg9mlJOhyJ2hUySpJt94JpTYk4Bk/aFOs0tPvG4DDkITg9RYYbjiRbbpsxgRFbY3RQ
+         Yr0nDY5pwFgj8f70B0fkXHNjnuuRpZYqJd4zz9XzuEbQfdMgvKV4Bbizn+dbLYC59s3L
+         Zmzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778169835; x=1778774635;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=6okPXnC/tZolkk3p3FjZk+KFTlmCOhId/0Ru10JUIvc=;
+        b=m1NoyVEoRCg2nJ9u2oBvR5Hhp4Iqi1NUmp//Gr+eJNyZ/02eAgoAcrLLJ41uyIh75P
+         hQb3oO5sM9vtxi5+hHjkntPbAaHZE2uF9TGNwsn8Um0/pzFWSq/gQWnMwAue978CfRfz
+         xRAOeDdOAzTjDLtSjaZwerqKsoIb7+tVvPFlPdnG1MWfrpLPxs2AD0o1NmWJIqpGdknj
+         13Udm4qdsJDnKJI41DLaQOZS+J6WEGUFknOJ/zapxdWCf2tfoEVqKNZbOhYzvrCvwtBH
+         d21oDy9PkjTehDbiiSTR+CafmeUCw+ORcFeakJl33DCYxiTK2lUsL8LMR+kKEqBdMsdT
+         ZjEg==
+X-Forwarded-Encrypted: i=1; AFNElJ+Qc4QorMf6Af8SkE1dVc9PyuEfsGNy/fG/6zVJ7jw6DM31tiavz2iC6tKXYPmBQGOebNRRLpqOLEkU@vger.kernel.org
+X-Gm-Message-State: AOJu0YxqhNfl7r07Z5SC1hvIspH9yMoW6j1j2Jwg1LFuR+bIQzTVHmqp
+	R7FqWJ2l+KxlAzovxuJRv1lI6kC5ya+vuMjv+bkE2QYwsUi7GZVC8FEia4KI6REMsfA=
+X-Gm-Gg: AeBDiet/xXRY20xXskmyCR6JzWfaefrtXf7zCwpz3cAqUVYnGCDGoO2pRdb6bmnKaMk
+	ph4SXyK0qoSn0DCiu7YiuZXp1MhqqXvmIX9kcLdjjcvHHCW+qleL8TsJSyCiQtgb8TXPLMA6nrf
+	Ijz+jU1UkJ63PlbSbbhn/FO4chXP/meX/QVQGs/RfgNH68V0jdH6Wu9vlpuZnx4byLnEO32CM6p
+	xyS/nx1l2p5hB7vUd9T/E5/1zIxaAgtQdRh00W4RiGu2+46bm1J2PJwRT67cqZDAw6jO2WHaZp3
+	hiBoS01oli4kLZbqfchaRqoEreGq9ZtfubkfMvrGEZegb45kfxRVETQdR3NLdCT/RZEBwx10FT+
+	E4dW8/Q1mFduy6dZVx5oJ8O/QAkLFE7dcZsCsIdix05k6l976q1L1bIwXUnkboh0YB7y5b7knMb
+	CyuEJ49CadZRDptTlyFVMOYiw8TOWjf9njJYbhyzlLFQM6dFKS64myBqg2bWCdkweV42UMwNYWe
+	zWMUY3XOPD6+ikw+JASsqCJtE1Fy3zZqoFcscC/C3bwGy2kg65Cg4WZCVUAaLA1SI5BpnNEejBV
+	7nLHoFbB
+X-Received: by 2002:a05:600c:a404:b0:488:a824:fdff with SMTP id 5b1f17b1804b1-48e51f3e0f8mr128948435e9.22.1778169830360;
+        Thu, 07 May 2026 09:03:50 -0700 (PDT)
+Received: from aspen.lan (aztw-34-b2-v4wan-166919-cust780.vm26.cable.virginm.net. [82.37.195.13])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e53907e8asm130198325e9.13.2026.05.07.09.03.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 07 May 2026 09:03:49 -0700 (PDT)
+Date: Thu, 7 May 2026 17:03:46 +0100
+From: Daniel Thompson <daniel@riscstar.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Alex Elder <elder@riscstar.com>, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, maxime.chevallier@bootlin.com,
+	rmk+kernel@armlinux.org.uk, andersson@kernel.org,
+	konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org,
+	arnd@arndb.de, gregkh@linuxfoundation.org,
+	mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
+	alexandre.torgue@foss.st.com, ast@kernel.org,
+	boon.khai.ng@altera.com, chenchuangyu@xiaomi.com,
+	chenhuacai@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
+	hkallweit1@gmail.com, inochiama@gmail.com, john.fastabend@gmail.com,
+	julianbraha@gmail.com, livelycarpet87@gmail.com,
+	matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
+	prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
+	rohan.g.thomas@altera.com, sdf@fomichev.me,
+	siyanteng@cqsoftware.com.cn, weishangjuan@eswincomputing.com,
+	wens@kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 10/12] net: stmmac: tc956x: add TC956x/QPS615
+ support
+Message-ID: <afy34kj2hPxIlArO@aspen.lan>
+References: <20260501155421.3329862-1-elder@riscstar.com>
+ <20260501155421.3329862-11-elder@riscstar.com>
+ <2ce5897d-5bbb-486a-b0f0-0e30e54b451a@lunn.ch>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|DBBPR04MB7690:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0563f53e-8201-4c4d-19fa-08deac522e04
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|7416014|52116014|376014|1800799024|366016|38350700014|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	wjNo1l0VweYk7I6TmjnToaSBsF83HO9ZG0xZFxGWhMkhMTOQ6MBpdjCCH4mmyvcQQb2zGeXCanl09bDa+3Skpuhde3AXBVHhR/R8X8KnKr7nqGsAdE/3LY3jMHfDsmxNPj5OpTEZ8q2UXpBfgcLUsSADdEdF8shWGYNulFDNAZXy8JSuLNqQ4JPlLR4MZdxZxFz5LnEgUpysX43RsLdMTReHS/JbTch64I8dzsfyQN3kVkx3gQue2Ie8L/u+2vtaKAJ7K/mncGybAU4XmX8LRxlIdzPxaswbt3jLU3W80lTlwTly/pHzNUCk3KUKh596R3ZzGk4g0VRUMRLaupOaa8oPkyySztdJjTUpJ9aTl5nqyx8PXRQ2ilOTSiazcjJtmro/t0ZB3z2yKPRUQMHbAJLdyPjQXGk0JQ771QfeI99bClZds4ZK1djMw8Iii38U6Vs2FRxqZgeGh5/DiM+9s3aorWBGSDq3jcUgwe1s8U+NQr4fxbGPgVdLk1nbd/1+ju4zZgsJ20sJB0vjKIxOW3xLhE0a/aA4LB3zO1r5RPqveCyCmdeIiHi0l1TUoBs6DPBo7WDjai4DNE+8KyDpZb/JDAP2rTIMZUvsrZdSIMGjPBMav7oWilr1Flpm3OW8kSmg5Bmy4bCVxSo8ezXvkm/4SBzScPgUMVB9adJCbhaN6R/gm1cyo8xA9s0OXrhqLFk/h6CBYJ7BgdtEZka1vrc9JuVwJyBjIDy4V6ZNhuZmwAnVWMEKmRbYg21XD4B2
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(7416014)(52116014)(376014)(1800799024)(366016)(38350700014)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dlVidml1V3U4Slp1ME0yNFFKWTdMT2t2WmRablpCY1NrMXRrTFRuWUVLUmVP?=
- =?utf-8?B?MElZbDFJTXllQUhJMmVQZjhodHFFaVdXMFpQNEttdkhKeWRULzkrTnJ4YXJI?=
- =?utf-8?B?ZTFQSk5pYVdwMmxtYitQd25oRW4vYTY2UGJyRWlVLytxYzlKeFp5TVJHMDNv?=
- =?utf-8?B?VDNTblZqNGtlR3dtZ3Q3VXZxWGpKSlFvNU5ycUNwTklJeGhTZXJaMFBiZm5E?=
- =?utf-8?B?UStiWWd3NkpHOXgxK24wWnhLQ1JYRWZrTUhTeTFpYlhZVENKN0NqUUxxTWJu?=
- =?utf-8?B?aTQ0MTk1WHlMNWtwSEZIUVRKNEtSRjEvR1greVdXOXJaZHo0SXlFQVhaQWYx?=
- =?utf-8?B?dXlYekd5bUFpTHlsWCswcWZybXpabEY2YUtFVmxLNktMdmowQk5qZXRnQ3k5?=
- =?utf-8?B?STVTL3FJd3NKQjlHaEZCVU5maHZIdElzdmE4cmt5N09UYTIreFBuay9jSjhm?=
- =?utf-8?B?L0dBWDd5OXJVam1RVWpDVHN2cm82T3o3R1YrSGx2bmkxWnpMeFZDVDQ2akM0?=
- =?utf-8?B?aFQ4U2VURTNMVEd2aDZwb0ZHa3J5MWY3b2YwYkM4a0dubEIrOElncFpCK0lB?=
- =?utf-8?B?NENRS1pQSmd6UXNleHFmSjJobVMwNHNWQjg2NVZyYVFlZkc5eC9HSWM5cXlh?=
- =?utf-8?B?Um5GZDFCeDBGbVZzREJKZFQ5dXcyRTg2WU5Oc2NJSW5VQndGcjdXZ3N2Wkgy?=
- =?utf-8?B?UmVOeDFmRmVVdmRJNnduRDJJRStOUkpwTHp5Sm9BSXJ2OUZnQTFJRDVNQkl5?=
- =?utf-8?B?UUwyOWlhTGZsZWRDci84UnBkZVNMQ016NTJCenQzM08zMVg5SWRLT3JaVXlY?=
- =?utf-8?B?Y1pNeDNlWE1CT2s2N1o5WlZ1Y3JYS2Nxb3dOMGZkZWtmYVdqRGxGNm9Fdmo2?=
- =?utf-8?B?bXo0Q2Z1anNVV2ZKYXc0YklEZVRuRk9zam9TQTd6YVlXTDhmVCtCS3lqcGY4?=
- =?utf-8?B?bUdzYmh1czE4eG03VEJoZmZqYjJVVFNBb3BwY0hZZUtZZUNucURsT2NsajV2?=
- =?utf-8?B?UHZTTDNRNENNa2p2b2oreEh4L21XZGc1WjVlM2ZYVjd5Z1pUb2t3bGNmbThZ?=
- =?utf-8?B?ZTRmL3FlTXlLZXNla3Z4eXEzdjNjR2RqZ1EwZ25jbWovUTZnWldNUCtXNGEx?=
- =?utf-8?B?RDN2UW0xOWoycVhGUy8vdDl2bVNDVjc4d0pCNEpOeW1GdEhEcko2ajFCVzVq?=
- =?utf-8?B?ajZWOGZFL3gwajE1dmgvV09jcDNVQld0WnNDbnVkNW85UUxlNnBIVDgxSU40?=
- =?utf-8?B?d1BvZmx1UEFuTXBPTmZDbUdsVXpmcjJybTVhcVA1bzNBUFRjVkVCcGJtN2xI?=
- =?utf-8?B?UWNRRWQ1YkFJcUNPSEFGTFBocmZnNUNCZ2hJWDc0V3lzWktQTVF1cVdXb2p0?=
- =?utf-8?B?bWxFM3o4TzF1d0JvUlBlRnhjK0RTUGJnQUdBZUUyQXNBSHlsMnBjMWpjNmpp?=
- =?utf-8?B?R3BxUnJVRHVIUC9NaXdjeXRLaFJjUE4rMSttaENjcXNZL2JiUUMyWlowNzJY?=
- =?utf-8?B?c2o2TmFUOCsyMVFrcVJkMEo5Z3c0aDRvUjBHa0NHcklGU3JrbEZUaEdTZU1i?=
- =?utf-8?B?VGRBeFIwNUhpY3ZDd3RYWjNCNzIrY0c4bGd6Tk9hVUVsdk02MitIbUd0UlVk?=
- =?utf-8?B?MTNXS2NOY3VZcFZaRGVKRFVyamh3dCtqZXNEWFZKV29JVkFkOUlid2V0SS9J?=
- =?utf-8?B?bCtUTGF0SlRVMU81YmVrdXZhM2Q4Y0o1L3hFeFlYM2E1UWN2c3RpYUlPUUps?=
- =?utf-8?B?OXFhYjJkS2pyQUloNTlXclJKaUo4Z3BBQ1pQWjV3SHhrUkJGZHYwdUNUbEhx?=
- =?utf-8?B?WmNQZ2Jub3kyMmwyTXVpSk9nTDl6QmFWbWpDTGgrRU1XNm5lRnlVTDFPMENZ?=
- =?utf-8?B?WUVoRU5yL1M1UDc5M1JTTStWV3lwUkFCSkE4cUZkbU1JZHd0T0JlSlZ6S1V2?=
- =?utf-8?B?TWgyMENLcWtJM1pKN0o5RmREMVhwL1p0dVZ4MVJjOUxPSml5czMvbFpKOWJS?=
- =?utf-8?B?MVRnK011TG83QzRuZ3lNMEN3S3d0NjYxdXI0QWdiM3JpZ3ZscWg2bmx2dzBX?=
- =?utf-8?B?amJlS2xtejB6NmhMQzFCWkhLZ2ptQ3ZBbVBqZ3VFYm13dER5WlNaTEtTd1Zn?=
- =?utf-8?B?Z3p6OWxOc2hUS284NnZaenZZNHhLZG1IRk1EcHFrVXR5ZVJOUnMwa0UxaFBK?=
- =?utf-8?B?U2ZCVU1SYVVsN2VINGVZUk5GaENza1o1WGgxM1RNZ3pVd1pYbTFiZkpxMjQz?=
- =?utf-8?B?Q3htRFMrNGFJeTBpcERZUjNzM1BTYlQ0YmJZd2oybjNnMEUyTElpMzl4cmlU?=
- =?utf-8?B?Mmt1SGtSVkdETWFSZXhHdTY1NzUzVkpBY1J1dDYyMkhybHpGU3RwZz09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0563f53e-8201-4c4d-19fa-08deac522e04
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2026 16:03:29.5367
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FAHe+1JqZrC9hRLoqYragOhYdmJzs1rwH5HwZmEvmqaG0K1qLYVkwueIbOGBZpiDO9hddoUYKkKPEjLlLOoKoA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7690
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2ce5897d-5bbb-486a-b0f0-0e30e54b451a@lunn.ch>
+
+On Fri, May 01, 2026 at 09:04:58PM +0200, Andrew Lunn wrote:
+> > +static struct tc956x_mac_speed mac_speed[] = {
+> > +	{ PHY_INTERFACE_MODE_2500BASEX,	SPEED_2500,  SP_SEL_SGMII_2500M, },
+> > +	{ PHY_INTERFACE_MODE_SGMII,	SPEED_2500,  SP_SEL_SGMII_2500M, },
+> > +	{ PHY_INTERFACE_MODE_SGMII,	SPEED_1000,  SP_SEL_SGMII_1000M, },
+>
+> That looks odd. Some vendors implemented 2500BaseX using SGMII
+> overclocked. But that is not strictly 2500BaseX. Having the 2500BASEX
+> entry suggests you have real 2500BASEX, so why have an SGMII entry
+> with SPEED_2500?
+
+This is a consequence of the code that uses this lookup table being
+called both during initialization and from the fix_mac_speed() callback.
+
+During initialization we only have the value in plat->phy_interface to
+go on so we run the lookup table using plat->phy_interface (which is
+typically PHY_INTERFACE_MODE_SGMII) and with the maximum permitted
+speed.
+
+I haven't got detailed enough notes to allow me to double check but I
+think there were problems completing the initial MAC reset if we didn't
+write something sensible to the hardware during initialization.
+
+During fix_max_speed() we get told to adopt 2500base-x. Reviewing the
+code I can see we don't propagate that and just use
+plat->phy_interface for fix_mac_speed(). I will fix the code to that
+the requested interface propagates properly to the lookup table but I
+think we would still rely on the SGMII entry to get sane initial values
+to write to the hardware.
 
 
-On Thu, 07 May 2026 14:53:27 +0800, Sherry Sun wrote:
-> On both i.MX8MP EVK and i.MX95-15x15 EVK boards, the M.2 connector
-> shares a common regulator between USDHC (for SDIO WiFi) and PCIe
-> controllers. The non-deterministic probe order between these two
-> buses can break the PCIe initialization sequence, causing PCIe
-> devices to fail detection intermittently.
-> 
-> The out-of-box module on i.MX8MP EVK and i.MX95-15x15 EVK are SDIO
-> WiFi (IW612), this series changes the default configuration to
-> match the out-of-box hardware (SDIO WiFi) and provides a device
-> tree overlay for users who need PCIe functionality:
-> 1. Disable PCIe in the default device tree
-> 2. Keep USDHC enabled for SDIO WiFi
-> 3. Add 'm2_usdhc' label to support overlay
-> 4. Provide a common overlay (imx-m2-pcie.dtso) to enable PCIe and
->    disable USDHC when needed
-> 
-> [...]
+> > +/* We have one IRQ chip instance with 25 IRQs in its domain */
+>
+> One per MAC, or one overall?
 
-Applied, thanks!
+One per MAC.
 
-[1/3] arm64: dts: imx8mp-evk: Disable PCIe bus in the default dts
-      commit: a4e6b9643aa4c6f539afefc9eb4768603853a6bc
-[2/3] arm64: dts: imx95-15x15-evk: Disable PCIe bus in the default dts
-      commit: fbff6c34d9e8a9f010396d96ae627ca04403033f
-[3/3] arm64: dts: imx: Add common imx-m2-pcie.dtso to enable PCIe on M.2 connector
-      commit: 5f9e9f83aee0fa8f2124c6f192505de2cdf7c5dc
 
-Best regards,
--- 
-Frank Li <Frank.Li@nxp.com>
+> > +static struct irq_domain *
+> > +tc956x_msigen_irq_domain_instantiate(struct tc956x_data *td)
+> > +{
+> > +	struct irq_domain_chip_generic_info dgc_info;
+> > +	struct irq_domain_info info;
+> > +
+> > +	dgc_info.name = "tc956x-msigen";
+>
+> If it is one per MAC, maybe this name should indicate which instance
+> of the MAC this is.
 
+Will do.
+
+
+> > +static int tc956x_mac_setup(void *apriv, struct mac_device_info *mac)
+> > +{
+> > +	struct stmmac_priv *priv = apriv;
+> > +	struct stmmac_desc_ops *desc;
+> > +	struct stmmac_dma_ops *dma;
+> > +	struct tc956x_data *td;
+> > +
+> > +	td = priv->plat->bsp_priv;
+> > +
+> > +	/* dwxgmac301_dma_ops needs extending to provide DMA address translation */
+> > +	dma = &td->dma;
+> > +	*dma = dwxgmac301_dma_ops;
+> > +	dma->init_rx_chan = tc956x_dma_init_rx_chan;
+> > +	dma->init_tx_chan = tc956x_dma_init_tx_chan;
+> > +	mac->dma = dma;
+>
+> I could be reading this wrong....
+>
+> dma points to the global dwxgmac301_dma_ops, which you added a few
+> patches back.
+>
+> You then modify it, changing two values in it.
+>
+> Doesn't that break any other dwxgmac301 in the system? Shouldn't you
+> be making a copy of the global structure, and then making
+> modifications to your copy? mac->dma then points to your copy?
+
+That's exactly what this code does.
+
+`*dma = dwxgmac301_dma_ops` is a structure copy, we never take a pointer
+to dwxgmac301_dma_ops (and if we did, dwxgmac301_dma_ops is const so I
+think we'd get a kernel oops if we tried to write to rodata).
+
+Would to code be easier to read if we dropped the local `dma` variable
+since that would make it clearer that td->dma is not a pointer? More
+like:
+
++       /* dwxgmac301_dma_ops needs extending to provide DMA address translation */
++       td->dma = dwxgmac301_dma_ops;
++       td->dma.init_rx_chan = tc956x_dma_init_rx_chan;
++       td->dma.init_tx_chan = tc956x_dma_init_tx_chan;
++       mac->dma = &dma;
+
+
+>
+> > +	/* dwxgmac210_desc_ops also needs extending for the same reason */
+> > +	desc = &td->desc;
+> > +	*desc = dwxgmac210_desc_ops;
+> > +	desc->set_addr = tc956x_desc_set_addr;
+> > +	desc->set_sec_addr = tc956x_desc_set_sec_addr;
+> > +	mac->desc = desc;
+>
+> And the same problem here?
+>
+> > +/* Called by tc956x_dwmac_probe(); return errors with dev_err_probe() */
+> > +static int tc956x_dwmac_parse_dt(struct tc956x_data *td)
+> > +{
+> > +	struct device_node *mdio_node;
+> > +	struct device *dev = td->dev;
+> > +	struct device_node *np;
+> > +
+> > +	np = dev_of_node(dev);
+> > +	if (!np)
+> > +		return dev_err_probe(dev, -EINVAL, "no devicetree node\n");
+> > +
+> > +	/* Find the MDIO bus */
+> > +	for_each_child_of_node(np, mdio_node) {
+> > +		if (of_device_is_compatible(mdio_node,
+> > +					    "snps,dwmac-mdio"))
+> > +			break;
+> > +	}
+>
+> It looks like if you put the ethernet properties into an ethernet node
+> in DT, this might go away? Or at least allow you to use
+> stmmac_of_get_mdio().
+
+Alex has started looking into adding an ethernet node.
+
+
+Daniel.
