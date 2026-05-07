@@ -1,418 +1,288 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2127.outbound.protection.partner.outlook.cn [139.219.146.127])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3659F3B9DA5
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 09:01:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778144522; cv=none; b=Td9iygyxEMBu47LUP73vh4U11P1brXTApD8Ks+5g5gnUfouQJdk/TTffNmqr+QMfwnlrYkxbgUPS8IvRLStX0EwDAJ+RmTDW/E2HeLC/RjGGYhsP7BK8FNFMcR0XdWbZTbd6fklVQYQ9YnCz+T7NqgPPyJZMWa1wx17aYJMZEzs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778144522; c=relaxed/simple;
-	bh=KKME6iYlsGtIRkbeCWgSysWc/SsTcPMTPytNfArf9VU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lAY3oC6EbKMjDfKeGBemUeEG8QH7A4ECsWDSoFrIbdqVeLx/s6O+hjwOljwyaf6dW2RoKb0akArm7pxUWKIhSYb15R88PL8k7gh8QGKRNyKerzdKHpCUbl5CRqgULqpoJvsHMXH0F3qdmJEzyQH/wU8zUC45pqgufbXHy2DNsPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hcXndHCE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ai8jbZoC; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hcXndHCE";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ai8jbZoC"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6475M7YZ3156914
-	for <devicetree@vger.kernel.org>; Thu, 7 May 2026 09:01:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	BdeZ22yc5lNb0lR3mUu0n4xdAdKcxqKN4LRfXkSTI9o=; b=hcXndHCEpLoUoI9D
-	uAhPq4aMJmU9tlVeOs9WdGK74K6/slb7Vvqzxok9GVtrZSJfAO9GLDk1Y9tUWZYP
-	1d9BCKweQutn3busPS3OcJjZ2JeC0mxP6NMeVyK5SJWqJmNHP/+7+4rnrBt2rRTz
-	2Fvj9HSvfGqGqpnyWydgzLoB02ovQym6CI2fcCZHMZkOQY3V0me40mzzOaMJu6mq
-	1Ie3muRCUQ9UL/OWKZDic7JqkIo2wTtZpaY6lufp2iJHzJv6A7YipvZY3Gx4cnUA
-	S09McgGb55SId9eT/8gA6GASa0CYIxHXgZkDS+UNWPAShw+24ulBaPD4ZV+or98O
-	+rsCAw==
-Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0mhf0t6q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 07 May 2026 09:01:47 +0000 (GMT)
-Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6948eac3522so848809eaf.3
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 02:01:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778144506; x=1778749306; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=BdeZ22yc5lNb0lR3mUu0n4xdAdKcxqKN4LRfXkSTI9o=;
-        b=ai8jbZoC2sj1o4l5RuhEPafP0PnvM6bG4cFSH54v3i4I4K+pasxtHYY6dJ2s0Zr7NV
-         AaCD9MzPMJW2rcDLaAjKaQH4MYhhqBrIXq0UA9hI0LarD3pkoRjEhsNk5qLV11CL88UP
-         0psfmjtv8Ofb6MtfsWBe+rk8veXpVoYXeIi/SbsoPruBimJackZGpfKgEsQxwoXqqysT
-         vc7jHSwKspAKT+ZSh63GMompcA12mD7eonkHL8B8KC1y3qkO9/iwqRZJZrlAuG7E3nmS
-         rXfxGtDZpHdMeu3OUDU9ozdshe25q4YGvFmcfzAEeT0uX+dEFKd/4Kc39yMKtVuzJmZB
-         GP7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778144507; x=1778749307;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=BdeZ22yc5lNb0lR3mUu0n4xdAdKcxqKN4LRfXkSTI9o=;
-        b=rtXbpBuUHwb8bFTkOjrQ2gSuVWLZtpFPNQpth7Cvu53ESsl1NonUQ48NsdawAwF1Fp
-         2jbPz1z6CXEW09RljrhVF/nlwTesAzyYU24utJpGBorDEb4gTyhpIdYnbC5+Mouqax9H
-         1fe/mUijhpHQpggEOGRk7vRpRKfMB0MkFEfUy6mfU7+SEoXIrGcmma1hrOr7f1N0xUvC
-         vEYDmV91ND5PwyPhgMcZmK6Xx21ANlY3FtB0M8XulMIAlO512n7tVmBbpNVewzNsaNmq
-         01Ynvks/EuF+zedYO2dCO9bUridCjNtDciLBtNAg0Bae104++E7l52CZIsl/JYVLzrN3
-         SF+w==
-X-Forwarded-Encrypted: i=1; AFNElJ/U7RqOqAlauyCyNKqnmiQx4I7XjJvwM9PYyQWIimn8HVfQdmLCpucsuGrscDdFe5ikOP8JoyWsVPIV@vger.kernel.org
-X-Gm-Message-State: AOJu0YzIFiC4Z5zQnQMde4Bb0iDQBpYl4QFLtf9xZYx/UisZVk4yvJvi
-	4hvurHZ7R9VAduLwpCfTAIbOkfMxBylcubNJIQFy+5wNBJklYANQ8uWa5K2oXjjK3bQ0TCmMGxd
-	R24NBo5+5fX9hQQM6wPcGjaOg2hxCHRXwS2i4RcQXwDt80Qgc03b0DpSYBV22msWv
-X-Gm-Gg: AeBDiesgJ1/0VYlPHpA13B4GPACRlydQt7V4rZ61i5E6F0MShpTlW609rKZt2GEplK6
-	M86hpfY0HsA5QJIophJdP7BgnqPR8m5zxiC6FcoIKbs3H0mnEAXHLLakEaRQavVo8VqwPWnLZ0e
-	rW5NZuwuDWsWWsYSOHTlw8ga9NZQm/iwJsghO47eHfjpF0U3ZnF81p732g47jvy43vu/LUC8wzi
-	gft4eZLP846dFNJPaMlV6XIfDVBSv/5OHyBuxiuJhqLQWDum2KJ/CGmPSuCEj4bIqwsj0XYHHXZ
-	KLI+L6crEYJHOrN3IKpU7cNzRYQFwUWdTaLgOpKPMm44JNScC9dwKtmNDCaGbpGzIzxEj2zBlbu
-	pBUyVt7IzumroEoX7TzlYff+lxlUrncuNWjhBkDZ88mFtoQq+gNCvCY9WRzKFwvi+prymTIcRlI
-	ZtL/h3megiQ97UUNKaZuO7vHVgEw566ta+FsN/mDFLt7nkBg==
-X-Received: by 2002:a05:6820:160c:b0:696:924d:2fe5 with SMTP id 006d021491bc7-69998d30716mr3943919eaf.51.1778144506512;
-        Thu, 07 May 2026 02:01:46 -0700 (PDT)
-X-Received: by 2002:a05:6820:160c:b0:696:924d:2fe5 with SMTP id 006d021491bc7-69998d30716mr3943878eaf.51.1778144505963;
-        Thu, 07 May 2026 02:01:45 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a870f96cb1sm3480516e87.22.2026.05.07.02.01.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 May 2026 02:01:44 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Thu, 07 May 2026 12:01:33 +0300
-Subject: [PATCH v5 2/2] gpio: add GPIO controller found on Waveshare DSI
- TOUCH panels
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F2939A7F9;
+	Thu,  7 May 2026 09:05:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.127
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778144760; cv=fail; b=uhCttL74Ftnov4O/rN3GnGa73flAfmROmk5MBsfwp/zwXotnOAAVsgqqDR1NuEn0KGUsjN/nUjWjVdJL7Zz0h/eOobjDdCfRkaZHoS0FzTHplphoCF8Pd40M337VDWqXOzxh4cquU/AqQJnMwMj6CfBzpV+uwilHRBsS+c8sudU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778144760; c=relaxed/simple;
+	bh=5x8L4Z3fY0PG2cG5WFYgfyafCjzvPCkTENlgL0oY3iI=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=V08OL+LBjgQO0P54BorUoxVr7sGYzC2Tz7uCi/i7IN5GvD8dLm2fzR8bdLrJQKlx/g3i3tL5voKThXPcodQNjSvPwKBo4DL0CruVzJJAxhMdDTxlC4M5joWO+WweVslAOtLADYnb7SFVkCwdeZsyA0/MQcyt0m0q3JxaVOTa9Bs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.127
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Legn7hLqMf9Lp/ZM8HeoTg4/o1J8khjncXc6RWs0kf5bnMltCVFf+X4WLJADG3AuTbf6xcymqTxD01oOoIHuaaWt+6ZjeIC409sxL79GlzBAHLdzteFTilJv6mGWpDmBu3sf9ELMXNyz8bRq1rgzIaL2fy7Y7tNDx9ELmZ2offBdlkv8m95rAtHDA7/aREmFUvdZ2tkA+rLwIUhpdArXFVLei9ty7lk2yTEuQSpDDC1YpZ0v7pmo4iz1LT+3RXHbutXTQvij/UxQgH3AKPjNfHgyE81lITQ+TTASW94n8NCa5I9li33SCMfCBj8p+d8bFj/ahQ7L6xEuijbn1j5ipw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zK1G8644XyUmjPhdjNXOWc/eT6HNb9ow4y66/QFNjKk=;
+ b=NFI3qphu2yFWBtYp5bgMufSRADKxp5ZXS4zDQkLZx67IKZYiwSGnSFWVtrgS3W4eMdTWYfimSE5f8QkfxxhwjgglJzNRYQQ93GuhA0q/UYtivGIFymoEN5UHqOlOZA705S2FPXn6XwlDkhOWBITLTJFjmkjM8ryemyA6cqYb2gLh/iNs9+Q5gdXse1HePqwC/S62E7mn1T74dmKXJBTVFcc+nrOADb2tGzf8aY97SV8+omz3vS1vrGi1rkGJOROu7+vvaaVIddwlqrvWhZ7ozNtSUpzub01TKOYxIhVJYNnMhRo+6w30x5xgTuk7wyA3O/9OWy0MK3cyXyHzoR0VTQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:11::9) by NT0PR01MB1277.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:e::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.16; Thu, 7 May
+ 2026 09:05:44 +0000
+Received: from NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
+ ([fe80::1666:48e8:19e9:ad29]) by
+ NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn ([fe80::1666:48e8:19e9:ad29%7])
+ with mapi id 15.20.9891.016; Thu, 7 May 2026 09:05:44 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Conor Dooley <conor@kernel.org>
+CC: Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Samuel Holland <samuel.holland@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>, Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>, Yixun Lan <dlan@kernel.org>, Joel
+ Stanley <jms@oss.tenstorrent.com>, Drew Fustini
+	<dfustini@oss.tenstorrent.com>, Darshan Prajapati
+	<darshan.prajapati@einfochips.com>, Guodong Xu <guodong@riscstar.com>, Michal
+ Simek <michal.simek@amd.com>, Junhui Liu <junhui.liu@pigmoral.tech>, Heinrich
+ Schuchardt <heinrich.schuchardt@canonical.com>, E Shattow <e@freeshell.de>,
+	Icenowy Zheng <uwu@icenowy.me>, Anup Patel <anup@brainfault.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>, Ji Sheng
+ Teoh <jisheng.teoh@starfivetech.com>, Hal Feng <hal.feng@starfivetech.com>,
+	Ley Foon Tan <leyfoon.tan@starfivetech.com>, Michael Zhu
+	<michael.zhu@starfivetech.com>
+Subject: Re: [PATCH v2 4/4] riscv: dts: starfive: jhb100: Add JHB100 base DT
+Thread-Topic: [PATCH v2 4/4] riscv: dts: starfive: jhb100: Add JHB100 base DT
+Thread-Index: AQHc3Ta1aYQ9BYJ5WUuCYGnurWo3wLYBRaSAgAEBS2A=
+Date: Thu, 7 May 2026 09:05:44 +0000
+Message-ID:
+ <NT0PR01MB1216090A629C0095441617F6F23C2@NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn>
+References: <20260506085937.754808-1-changhuang.liang@starfivetech.com>
+ <20260506085937.754808-5-changhuang.liang@starfivetech.com>
+ <20260506-proud-dubbed-9ab8011df899@spud>
+In-Reply-To: <20260506-proud-dubbed-9ab8011df899@spud>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: NT0PR01MB1216:EE_|NT0PR01MB1277:EE_
+x-ms-office365-filtering-correlation-id: f8560932-f142-4ab0-7855-08deac17d23a
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|376014|7416014|38070700021|22082099003|56012099003|18002099003;
+x-microsoft-antispam-message-info:
+ 4ZhV079/sv4DAJZUk+JkAv430aRu3HFoR54wJLs2pPPRJp05HwN3fcIeSXeblUAqOAKu2SlCcNp2Ddp2Ky5Tiw4v5RJSNdwsCuHNB3hmZX7CCUU4ZPJ6Bc3+Ah7UeqJG0qxwhgsb9l3H0KIo7G9uAv6UIfvD3B3rgKq9ln60ONfjFrBQRFy+UYNjEyJKImuT9nSzdmJZLaX2b/y8VXBmiQ4oOXU0dGxyu3gUmpJx8hbTpE1bWcTp4OocMrZUFhqnE3L+LjB6K13l6kSdZUEIoKu6On7Gme0uDMr/Z8Tbcx93Aa24+awWAUczshFJW+jjuuiWy+Q8tBpWFyDAdGOHfdf8Q2vJ+FzE2NuWPgTxOh2/TU8U1mbs9TNtufzA6IupIAQ9ILyXoA6koIobRhqGe4uqv6SzsllspgBq3UWbWekgo6uOPZSKyeZgxUVLOIKHs04lCrHUXHT/AT5yvENozDOjxf9B13jI+SK8gPzcJm1BDxESucV+FTijWEY4cPPB+q58JKVwJa955Dp7nV5/OucToYXQW3U2UewREYvckFE=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(38070700021)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?w5E+PvJrMyM6dGjYvIg+A1T23ANNIR8YQlfFzA7V3N4choKJxpKQxn2m4Z8v?=
+ =?us-ascii?Q?W6ppdBasuecU0MrrM73K0f2BpEzg9Mr2K4Lt/sqhpbUMQ+khQocGJ9ko2U7b?=
+ =?us-ascii?Q?xsG0Oje0wViUY9wpXG6ton78xUCxln9N/L69STfUnptgo55vjrLCwJJNOWD7?=
+ =?us-ascii?Q?qgF8x2PLWAJ3C979nv21dJbCEQl3hj/pZVMvRSPV/aN5FCgiNTI1Fiw0VT+J?=
+ =?us-ascii?Q?7Vt8U+v1RdHQtwySPtjecpn8nYxXixTUOKw6Shf0OWu/ndlvv799b0JAMkU9?=
+ =?us-ascii?Q?kjsy1oiu245io6Fd2RaxKLWQbJjSWrAiKyiEp6ALt1G0Lu1A0F4Tr3pkZ7JD?=
+ =?us-ascii?Q?iNeZtj1vQonZ5EWYAWBm6LaR+5WEs8vMjZYqbGHrcBx5pLIvrM5AV21wRg8S?=
+ =?us-ascii?Q?3D97NS1N+/teYd0zsWF/i1JKtC6KW+H7CiTF2B6NjEm7l5MwBGlblPF69dJy?=
+ =?us-ascii?Q?tBwjSB4I/i4AP0q+n47uJYfYLr0Xtyeg8seQyfd3QUW/fA+fJWSEX5YIXr44?=
+ =?us-ascii?Q?5jKGC7Shf0RFqGBH7XKjDAlgr1moAZRFg/eyA8OjCHjxwSO5XQ8Un1VNBgfz?=
+ =?us-ascii?Q?+GoDwgsb/XDxJCCpuUdQ74kbRl+ATXDgytYi4dX5ekw1rlXiHl9WQdfBJweH?=
+ =?us-ascii?Q?YFH5hiKEynX0lWEFUUOBXD9O3V/Cx9293ZLgMnGI6cu8+zuYW3yr0Z/wkxp1?=
+ =?us-ascii?Q?XL/OP3VCKX2HLyDL8kCXhRmt/pAT8DYLu56hWghYjjB9QpBmGVC7BMtt3fEL?=
+ =?us-ascii?Q?SVCdGJ2i4ZPNrDCK33gbztQcl3sYFE/uBJWe3cKxoeE9sERaHxt9jNqbmcoA?=
+ =?us-ascii?Q?deM7tXe419YLNpuObxc4jdLVvwvS8GiqivhWvlYfBgFReVaqmKFNK8eDHel5?=
+ =?us-ascii?Q?mfs8cGZ3IrigVqG2cHxKi5UK2oKYaVhR8gl497CRkYujBg1bGZsazGQI1mVq?=
+ =?us-ascii?Q?S6iu3US3Qa4REjlWPduuIYSG4HUXKTOxwQyzK27Eu2Mae2pbM3lqHA+mFMZe?=
+ =?us-ascii?Q?lQmwXaIm0BrQsLGIuQwnmo2SOLSX+XRsiNvrIOp9ofzcIZs3KvDvXqBtCRDT?=
+ =?us-ascii?Q?fz8lxmSqxMh1ujlSMlXnJXuhJAKbOZvNRMe8zR9OKWOstbByOjRYYn+fRVoZ?=
+ =?us-ascii?Q?FYxsyImkHj8empVTt6IeCv0/18pcc7NzwJE0RpsQ0rNIRu79TUGy3syHzex7?=
+ =?us-ascii?Q?EufCXx7T9wo9+0I3E8gH40jC215Ng3APak2RrTWEPEkaAxKzmc1EZjPhMExw?=
+ =?us-ascii?Q?UOWIm2vo4FEX7LEcZ1PrPAFW8Phh+XO1ojREU4+ICh0589GqFXmSPpjmPsFt?=
+ =?us-ascii?Q?eJpDsL73uf5WFTU0lSOqZ1bu2VK8W5/y+DsvBmDfgaHT1/fFuEm3VXL2NWFs?=
+ =?us-ascii?Q?6BKan4gQPEsZejM7b8sLzBmSTOThniT6SjqVmZCjzNKzGCUOEh0MiUUmKQpp?=
+ =?us-ascii?Q?ZnjfG8bkw86ydsHdYk5cOCBgV3bnAJL6Zztix1MpLtxjHpFy3glCRByu4sya?=
+ =?us-ascii?Q?ViqFzWW5Vff9SnzH03UhW0AP1XA/dc2GuMU1Z1CPtvB8z0qLIxaczXGxIJvI?=
+ =?us-ascii?Q?HNm7TGmZ0eY23SkThfTj8qL/AkTc7z5l+z5tMDmfUvbpUdtQaFnniGQgkNYw?=
+ =?us-ascii?Q?cNGJMX8m0tdBOLlThfitjIZxy/7+nAVOkl6nl+uQ+9hGi1G/ojN+mfxVk8zw?=
+ =?us-ascii?Q?lUwsS/1sHm77rnFlqqb2HSi7k1rgn7toj3y4NPCMx7WEjnWgGSC1DSferFwU?=
+ =?us-ascii?Q?NHycwvmQnkcJttqGpgFoWzh0vnMYJoE=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260507-waveshare-dsi-touch-v5-2-d2ac7ccc22d4@oss.qualcomm.com>
-References: <20260507-waveshare-dsi-touch-v5-0-d2ac7ccc22d4@oss.qualcomm.com>
-In-Reply-To: <20260507-waveshare-dsi-touch-v5-0-d2ac7ccc22d4@oss.qualcomm.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Cong Yang <yangcong5@huaqin.corp-partner.google.com>,
-        Ondrej Jirman <megi@xff.cz>,
-        Javier Martinez Canillas <javierm@redhat.com>,
-        Jagan Teki <jagan@edgeble.ai>, Liam Girdwood <lgirdwood@gmail.com>,
-        Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Jie Gan <jie.gan@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-        Riccardo Mereu <r.mereu@arduino.cc>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7772;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=KKME6iYlsGtIRkbeCWgSysWc/SsTcPMTPytNfArf9VU=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBp/FTv507N2zMjhKuukBTJZaa24cJ52RhkWf8FC
- R3Xr3WCMUqJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCafxU7wAKCRCLPIo+Aiko
- 1TMICACcfSSppOas5sNdyuHnJaTnorQ4H4K6p9AZctZ3mtr9uNvuMqNmQoNMQRwx5CZ6HyuJAI5
- T7pZpxp+e0HT8uhMMb6kWtDcwX96R/x86fZcoEI9OKfwKdcO5Blq1W0wglbBzus8AgSKiymzxGX
- mg+Js05+m5YJ6RoDGSZrf6E1aD/G3F+LWT7s1Nvp3hAoqJmwG0qAr7D3MX9iiHvVdk45VZxlxXf
- GWr/o5mphMoKl20Zw2j79LgOkaSDIa3+n9r9Z8VwjDQqACCubq1OmhA7CY6vrGvdDnrkYKBvcQw
- Qb0rEi5p1zkofCg6tWMlYI/r5SJXVJhoZRk/dvhW4NSto+A3
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDA4OSBTYWx0ZWRfX15KHE0odNKst
- Bz42Psr1D7SCyl9q+jBkm2LlymASZi3O17XQIXXyAE9ljQ0j9fqMenRGx3Eb3g9aQNH45hN45KE
- ZP6LzlwOrJ7APeqWAjq5Bcw/G9CC1JeQK8QiCEmLZ7Kr6Ime8ooW8CsWOphWDwZU2Sm/5Qmxtx5
- U0NrI3YPGd8N4I43n0lRe7gwZWE41Qk4HWNNyaJ1SjiYOHJFxXUuvFyDGe4p1E6BPd5q9+SeQb2
- gnfZy8LEIvrWCTRdz6vvSwU2IsuGKnfTarLdeqsuPyiI6N0xqugWhEiWhdX4ukjPa5mCFosmSVk
- eQ5L7T6T/TaVed5FAFZE+HHnMUz0yhewEG1p+Btp4CfW+KSWHISOQOu4MXwpdwsrBiHvlkcXhkS
- dRGiUwYL9VwmbO0HWAZ4MhOMpxQHKs5UQRygkNpnzTDeILCmYgA3rt2KkFAHw3dHSJ6uxTXwNhd
- oafwJZalasNFQTfx3xQ==
-X-Proofpoint-ORIG-GUID: lvTehGyKMnX1-W4JRjjmGkliE-efJKik
-X-Authority-Analysis: v=2.4 cv=SuagLvO0 c=1 sm=1 tr=0 ts=69fc54fb cx=c_pps
- a=lVi5GcDxkcJcfCmEjVJoaw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=BBJQNc9AFPM2Ar9AcygA:9 a=QEXdDO2ut3YA:10
- a=rBiNkAWo9uy_4UTK5NWh:22
-X-Proofpoint-GUID: lvTehGyKMnX1-W4JRjjmGkliE-efJKik
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-06_02,2026-05-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
- impostorscore=0 spamscore=0 adultscore=0 phishscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605070089
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: f8560932-f142-4ab0-7855-08deac17d23a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 May 2026 09:05:44.3104
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: u5xYS6M/+5PCoNGo6fIG+/ZACye0p9LbLQ34hjO1Yj0z19jTUMespPYR0MGrbYkGPI3LvfEWeUJkYqb5Z6+5zmLrAyIr+Hq6K59eVdcyfNxSyNecT9bbk2guK5Kp0a2W
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: NT0PR01MB1277
 
-The Waveshare DSI TOUCH family of panels has separate on-board GPIO
-controller, which controls power supplies to the panel and the touch
-screen and provides reset pins for both the panel and the touchscreen.
-Also it provides a simple PWM controller for panel backlight. Add
-support for this GPIO controller.
+Hi, Conor
 
-Tested-by: Riccardo Mereu <r.mereu@arduino.cc>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- drivers/gpio/Kconfig              |  10 ++
- drivers/gpio/Makefile             |   1 +
- drivers/gpio/gpio-waveshare-dsi.c | 208 ++++++++++++++++++++++++++++++++++++++
- 3 files changed, 219 insertions(+)
+Thanks for the review.
 
-diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
-index ce95a25298a8..8ae6a423da6d 100644
---- a/drivers/gpio/Kconfig
-+++ b/drivers/gpio/Kconfig
-@@ -806,6 +806,16 @@ config GPIO_VISCONTI
- 	help
- 	  Say yes here to support GPIO on Tohisba Visconti.
- 
-+config GPIO_WAVESHARE_DSI_TOUCH
-+	tristate "Waveshare GPIO controller for DSI panels"
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	  Enable support for the GPIO and PWM controller found on Waveshare DSI
-+	  TOUCH panel kits. It provides GPIOs (used for regulator control and
-+          resets) and backlight support.
-+
- config GPIO_WCD934X
- 	tristate "Qualcomm WCD9340/WCD9341 GPIO controller driver"
- 	depends on MFD_WCD934X
-diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
-index b267598b517d..2ea47d9d3dca 100644
---- a/drivers/gpio/Makefile
-+++ b/drivers/gpio/Makefile
-@@ -205,6 +205,7 @@ obj-$(CONFIG_GPIO_VIRTUSER)		+= gpio-virtuser.o
- obj-$(CONFIG_GPIO_VIRTIO)		+= gpio-virtio.o
- obj-$(CONFIG_GPIO_VISCONTI)		+= gpio-visconti.o
- obj-$(CONFIG_GPIO_VX855)		+= gpio-vx855.o
-+obj-$(CONFIG_GPIO_WAVESHARE_DSI_TOUCH)	+= gpio-waveshare-dsi.o
- obj-$(CONFIG_GPIO_WCD934X)		+= gpio-wcd934x.o
- obj-$(CONFIG_GPIO_WHISKEY_COVE)		+= gpio-wcove.o
- obj-$(CONFIG_GPIO_WINBOND)		+= gpio-winbond.o
-diff --git a/drivers/gpio/gpio-waveshare-dsi.c b/drivers/gpio/gpio-waveshare-dsi.c
-new file mode 100644
-index 000000000000..38f52351bb58
---- /dev/null
-+++ b/drivers/gpio/gpio-waveshare-dsi.c
-@@ -0,0 +1,208 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2024 Waveshare International Limited
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#include <linux/backlight.h>
-+#include <linux/err.h>
-+#include <linux/fb.h>
-+#include <linux/gpio/driver.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/regmap.h>
-+
-+/* I2C registers of the microcontroller. */
-+#define REG_TP		0x94
-+#define REG_LCD		0x95
-+#define REG_PWM		0x96
-+#define REG_SIZE	0x97
-+#define REG_ID		0x98
-+#define REG_VERSION	0x99
-+
-+enum {
-+	GPIO_AVDD = 0,
-+	GPIO_PANEL_RESET = 1,
-+	GPIO_BL_ENABLE = 2,
-+	GPIO_IOVCC = 4,
-+	GPIO_VCC = 8,
-+	GPIO_TS_RESET = 9,
-+};
-+
-+#define NUM_GPIO 16
-+
-+struct waveshare_gpio {
-+	struct mutex dir_lock;
-+	struct mutex pwr_lock;
-+	struct regmap *regmap;
-+	u16 poweron_state;
-+
-+	struct gpio_chip gc;
-+};
-+
-+static const struct regmap_config waveshare_gpio_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = REG_VERSION,
-+};
-+
-+static int waveshare_gpio_get(struct waveshare_gpio *state, unsigned int offset)
-+{
-+	u16 pwr_state;
-+
-+	guard(mutex)(&state->pwr_lock);
-+	pwr_state = state->poweron_state & BIT(offset);
-+
-+	return !!pwr_state;
-+}
-+
-+static int waveshare_gpio_set(struct waveshare_gpio *state, unsigned int offset, int value)
-+{
-+	u16 last_val;
-+	int err;
-+
-+	guard(mutex)(&state->pwr_lock);
-+
-+	last_val = state->poweron_state;
-+	if (value)
-+		last_val |= BIT(offset);
-+	else
-+		last_val &= ~BIT(offset);
-+
-+	state->poweron_state = last_val;
-+
-+	err = regmap_write(state->regmap, REG_TP, last_val >> 8);
-+	if (!err)
-+		err = regmap_write(state->regmap, REG_LCD, last_val & 0xff);
-+
-+	return err;
-+}
-+
-+static int waveshare_gpio_gpio_get_direction(struct gpio_chip *gc, unsigned int offset)
-+{
-+	return GPIO_LINE_DIRECTION_OUT;
-+}
-+
-+static int waveshare_gpio_gpio_get(struct gpio_chip *gc, unsigned int offset)
-+{
-+	struct waveshare_gpio *state = gpiochip_get_data(gc);
-+
-+	return waveshare_gpio_get(state, offset);
-+}
-+
-+static int waveshare_gpio_gpio_set(struct gpio_chip *gc, unsigned int offset, int value)
-+{
-+	struct waveshare_gpio *state = gpiochip_get_data(gc);
-+
-+	return waveshare_gpio_set(state, offset, value);
-+}
-+
-+static int waveshare_gpio_update_status(struct backlight_device *bl)
-+{
-+	struct waveshare_gpio *state = bl_get_data(bl);
-+	int brightness = backlight_get_brightness(bl);
-+
-+	waveshare_gpio_set(state, GPIO_BL_ENABLE, brightness);
-+
-+	return regmap_write(state->regmap, REG_PWM, brightness);
-+}
-+
-+static const struct backlight_ops waveshare_gpio_bl = {
-+	.update_status = waveshare_gpio_update_status,
-+};
-+
-+static int waveshare_gpio_probe(struct i2c_client *i2c)
-+{
-+	struct backlight_properties props = {};
-+	struct waveshare_gpio *state;
-+	struct device *dev = &i2c->dev;
-+	struct backlight_device *bl;
-+	struct regmap *regmap;
-+	unsigned int data;
-+	int ret;
-+
-+	state = devm_kzalloc(dev, sizeof(*state), GFP_KERNEL);
-+	if (!state)
-+		return -ENOMEM;
-+
-+	ret = devm_mutex_init(dev, &state->dir_lock);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_mutex_init(dev, &state->pwr_lock);
-+	if (ret)
-+		return ret;
-+
-+	regmap = devm_regmap_init_i2c(i2c, &waveshare_gpio_regmap_config);
-+	if (IS_ERR(regmap))
-+		return dev_err_probe(dev, PTR_ERR(regmap), "Failed to allocate register map\n");
-+
-+	state->regmap = regmap;
-+	i2c_set_clientdata(i2c, state);
-+
-+	ret = regmap_read(regmap, REG_ID, &data);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "Failed to read register\n");
-+
-+	dev_dbg(dev, "waveshare panel hw id = 0x%x\n", data);
-+
-+	ret = regmap_read(regmap, REG_SIZE, &data);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "Failed to read register\n");
-+
-+	dev_dbg(dev, "waveshare panel size = %d\n", data);
-+
-+	ret = regmap_read(regmap, REG_VERSION, &data);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "Failed to read register\n");
-+
-+	dev_dbg(dev, "waveshare panel mcu version = 0x%x\n", data);
-+
-+	ret = waveshare_gpio_set(state, GPIO_TS_RESET, 1);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to program GPIOs\n");
-+
-+	msleep(20);
-+
-+	state->gc.parent = dev;
-+	state->gc.label = i2c->name;
-+	state->gc.owner = THIS_MODULE;
-+	state->gc.base = -1;
-+	state->gc.ngpio = NUM_GPIO;
-+
-+	/* it is output only */
-+	state->gc.get = waveshare_gpio_gpio_get;
-+	state->gc.set = waveshare_gpio_gpio_set;
-+	state->gc.get_direction = waveshare_gpio_gpio_get_direction;
-+	state->gc.can_sleep = true;
-+
-+	ret = devm_gpiochip_add_data(dev, &state->gc, state);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to create gpiochip\n");
-+
-+	props.type = BACKLIGHT_RAW;
-+	props.max_brightness = 255;
-+	props.brightness = 255;
-+	bl = devm_backlight_device_register(dev, dev_name(dev), dev, state,
-+					    &waveshare_gpio_bl, &props);
-+	return PTR_ERR_OR_ZERO(bl);
-+}
-+
-+static const struct of_device_id waveshare_gpio_dt_ids[] = {
-+	{ .compatible = "waveshare,dsi-touch-gpio" },
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, waveshare_gpio_dt_ids);
-+
-+static struct i2c_driver waveshare_gpio_regulator_driver = {
-+	.driver = {
-+		.name = "waveshare-regulator",
-+		.of_match_table = of_match_ptr(waveshare_gpio_dt_ids),
-+	},
-+	.probe = waveshare_gpio_probe,
-+};
-+
-+module_i2c_driver(waveshare_gpio_regulator_driver);
-+
-+MODULE_DESCRIPTION("GPIO controller driver for Waveshare DSI touch panels");
-+MODULE_LICENSE("GPL");
+> On Wed, May 06, 2026 at 01:59:37AM -0700, Changhuang Liang wrote:
+> > From: Ley Foon Tan <leyfoon.tan@starfivetech.com>
+> >
+> > Add JHB100 base dtsi and dts. Consist of 4 Dubhe-70 cores, CLINT,
+> > PLIC, PMU, UART, INTC and 1GB DDR.
+> >
+> > Signed-off-by: Ley Foon Tan <leyfoon.tan@starfivetech.com>
+> > Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
 
--- 
-2.47.3
+[...]
 
+> > +	cpus {
+> > +		#address-cells =3D <1>;
+> > +		#size-cells =3D <0>;
+> > +
+> > +		cpu0: cpu@0 {
+> > +			compatible =3D "starfive,dubhe-70", "riscv";
+> > +			reg =3D <0x0>;
+>=20
+> > +			riscv,isa =3D "rv64imafdcbh";
+>=20
+> Please just remove this property.
+>=20
+> > +			riscv,isa-base =3D "rv64i";
+> > +			riscv,isa-extensions =3D "i", "m", "a", "f", "d", "c", "b", "h", "z=
+ba",
+> "zbb",
+> > +					       "zbc", "zbs", "zicbom", "zicbop", "zicboz",
+> "zicntr",
+> > +					       "zicond", "zicsr", "zifencei", "zihintpause",
+> > +					       "zihpm", "svinval", "svnapot", "sscofpmf";
+> > +			riscv,cbom-block-size =3D <64>;
+> > +			riscv,cbop-block-size =3D <64>;
+> > +			riscv,cboz-block-size =3D <64>;
+> > +			d-cache-block-size =3D <64>;
+> > +			d-cache-sets =3D <512>;
+> > +			d-cache-size =3D <32768>;
+> > +			d-tlb-sets =3D <1>;
+> > +			d-tlb-size =3D <16>;
+> > +			device_type =3D "cpu";
+> > +			i-cache-block-size =3D <64>;
+> > +			i-cache-sets =3D <512>;
+> > +			i-cache-size =3D <32768>;
+> > +			i-tlb-sets =3D <1>;
+> > +			i-tlb-size =3D <24>;
+> > +			mmu-type =3D "riscv,sv48";
+> > +			next-level-cache =3D <&l2c0>;
+> > +			tlb-split;
+> > +
+> > +			cpu0_intc: interrupt-controller {
+> > +				compatible =3D "riscv,cpu-intc";
+> > +				interrupt-controller;
+> > +				#interrupt-cells =3D <1>;
+> > +			};
+> > +		};
+>=20
+> > +		cpu-map {
+> > +			cluster0 {
+> > +				core0 {
+> > +					cpu =3D <&cpu0>;
+> > +				};
+> > +			};
+>=20
+> Each cpu is in a different cluster? Interesting, suppose it makes sense w=
+hen
+> you have different l2 caches. What other resources are not shared?
+> Do they have different cpu clocks too etc?
+
+There are no other shared resources, except for the L3 cache.
+
+>=20
+> > +
+> > +			cluster1 {
+> > +				core0 {
+> > +					cpu =3D <&cpu1>;
+> > +				};
+> > +			};
+> > +
+> > +			cluster2 {
+> > +				core0 {
+> > +					cpu =3D <&cpu2>;
+> > +				};
+> > +			};
+> > +
+> > +			cluster3 {
+> > +				core0 {
+> > +					cpu =3D <&cpu3>;
+> > +				};
+> > +			};
+> > +		};
+> > +
+> > +		l2c0: cache-controller-0 {
+> > +			compatible =3D "cache";
+> > +			cache-block-size =3D <64>;
+> > +			cache-level =3D <2>;
+> > +			cache-sets =3D <2048>;
+> > +			cache-size =3D <0x20000>;
+> > +			cache-unified;
+> > +			next-level-cache =3D <&l3_cache>;
+> > +		};
+> > +
+> > +		l2c1: cache-controller-1 {
+> > +			compatible =3D "cache";
+> > +			cache-block-size =3D <64>;
+> > +			cache-level =3D <2>;
+> > +			cache-sets =3D <2048>;
+> > +			cache-size =3D <0x20000>;
+> > +			cache-unified;
+> > +			next-level-cache =3D <&l3_cache>;
+> > +		};
+> > +
+> > +		l2c2: cache-controller-2 {
+> > +			compatible =3D "cache";
+> > +			cache-block-size =3D <64>;
+> > +			cache-level =3D <2>;
+> > +			cache-sets =3D <2048>;
+> > +			cache-size =3D <0x20000>;
+> > +			cache-unified;
+> > +			next-level-cache =3D <&l3_cache>;
+> > +		};
+> > +
+> > +		l2c3: cache-controller-3 {
+> > +			compatible =3D "cache";
+> > +			cache-block-size =3D <64>;
+> > +			cache-level =3D <2>;
+> > +			cache-sets =3D <2048>;
+> > +			cache-size =3D <0x20000>;
+> > +			cache-unified;
+> > +			next-level-cache =3D <&l3_cache>;
+> > +		};
+> > +
+> > +		l3_cache: cache-controller-4 {
+> > +			compatible =3D "cache";
+> > +			cache-block-size =3D <64>;
+> > +			cache-level =3D <3>;
+> > +			cache-sets =3D <1024>;
+> > +			cache-size =3D <0x20000>;
+> > +			cache-unified;
+> > +		};
+> > +	};
+>=20
+> > +	clk_uart: clock-25000000 {
+> > +		compatible =3D "fixed-clock"; /* Initial clock handler for UART */
+>=20
+> What does this comment mean?
+
+Here it's just a temporary clock; it will be replaced by the clock driver l=
+ater.
+
+Best Regards,
+Changhuang
