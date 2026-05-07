@@ -1,133 +1,178 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011002.outbound.protection.outlook.com [52.101.57.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDC1391846
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 08:41:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778143304; cv=none; b=MSjv/pjbC8HvcD+vtcmzsAZd6e93Z5Os/jPdrXaKQrHe+Ds89RRCqFZn6ohyLpr2s1hjaJjsmTueWQosWphXb2RGaeu4gBxdOoBM592LKXQxhRH093DP6giNmcEzUYQS/fKoTgWE0jGBEU36gBvhxUgtt9aig53qcMzgYsgM6O0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778143304; c=relaxed/simple;
-	bh=mqzUXod+HrXMUVZhR1+dl1IhEKn7WpWfFheR2nsjnAM=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hn8k5eCB354+ELtc8COqmnZBdZ4teDRgQq46krftyREW+UiMBGW/XSIIgycBgO4ul2UD+qUSgBMUbBE/uy5dyZdlQ5sqX22YxrMqF6ks5cpDPkc2mGKvYRHK9RrzhF3aUr7fS4SG6H2SfGHD24v8sPzM4/VlJ5+d7QVkRCvaN7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GrmnY+ID; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73ECE3644D1;
+	Thu,  7 May 2026 08:43:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.2
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778143402; cv=fail; b=IhbZ5smXccNQ3/TIsMBUtDazPeRdn4OVHGpe3VbIhWIVSkYFkjwHYf9FdAyRZWgXxNg2XWam8jLY8buIXPKOMsGEJNQHtJ8M48/nTpXBAJ/4oKLTRlSPTuu823wxHMzL3fAvvIuEe8JJ0fFzx5NzeikmFeTamhpM4I2UI9z9+Aw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778143402; c=relaxed/simple;
+	bh=opEx6PyRdykcsNdg3LM5hUh2yBYM7hZ/2e9CgdaSCz8=;
+	h=Message-ID:Date:MIME-Version:CC:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=SqMlJV2WaM29w4n7CFfIV9VgpqgzS9XD3OXjEBTZHEFE9tYnxlVd10NEC/IcUjiHodYdy5yJghFMiI+nYIVdegrtrrkJDHdhVI0gar97l/BSrLIJs0JusWrog8jtAb+hXCpxtlxgERpNl7R29sSz4hMrdGCnMJfgpYkk975jvG0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=rlnXXvQl; arc=fail smtp.client-ip=52.101.57.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GrmnY+ID"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-449de065cb3so585034f8f.2
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 01:41:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778143294; x=1778748094; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=caE4u5rjNrtNPQSNu8xLJwgtyQILfWxFrA+ogTI963I=;
-        b=GrmnY+IDwEFOTweBXURz79ZSV94KZappHKUjxUawydXw2f7HxT11QxaKPr4lL1tvdh
-         3kt4JU9sf0mD/hsJD6qC8qM0EuewB9mS8WhjA7xLys7Ne45smf0TtKiDo5EfSPDSBeAp
-         MMLgmq2jtkX7dchT8L/Yxnaq239t9dRMrSE0ZORxBkpvdxS7cXVo9y0FjBElb4J5XGxX
-         pX1fKQ0vrhnMPQ+6jZL4kf/WQcPbI0H+k8EbRB9LRCEaNTnlhk1nth7oVC/6HZsg4uWr
-         0wGfAQ6j7WItdYp3XQLs0a0ABfADWF+WLztuOoT7zyqC75Lq0FMR9b4NfdmdiOvPGxyB
-         AKOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778143294; x=1778748094;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=caE4u5rjNrtNPQSNu8xLJwgtyQILfWxFrA+ogTI963I=;
-        b=KaoBn0PHrE5GYzwcXGboK6VhXNarZhOCA4MsncC1EvQT0aiuq3ZVqHYD8zbunZwxNt
-         yiQWmnnD26tCVWIZ+ea9006A+2JQywXYzv1XyHphQakr25K0rBY5x9UtKc9WgYW6SNMt
-         V4yXwwf8EkJrJ0Zx1iVUOdCmP0ffSk3vapw74Za4jyOUfWbZUfIMY3Vu8WXSS7GjxzQm
-         7Th8KtUQNQzvCPtKn8Yj+9AUM/m64RRS23gUXj7BNHcPC/HoKGifP2UnQGYmuiJhxgqn
-         j8SLqTWGZ6Hl0lx5kGXxGkbfDPRddje4vKyw0mEdKFPF7kN7nwQZ5XEmQmoM3XCsGaBX
-         xFag==
-X-Forwarded-Encrypted: i=1; AFNElJ9gIjfO9t6T1ZlYMDrFKaRSvdR+r2dLPyw0kUFUi7Kqab9qrMgmans7yua7NhVN2DPuT38sKjlqzpY0@vger.kernel.org
-X-Gm-Message-State: AOJu0YyV6uDswh8DxYNFsdhZeZUbjIwBVih/M2MI6Wnl80mv3KKYqRi8
-	MXz/VNBOSkERXhXao3SLvnO56W24aL912ObHKZ0u8OhpyGWz3lReZnPo
-X-Gm-Gg: AeBDieuk925xiah+OvGEoY+HxeFBKooBrHo/5NMRIVYBNPrxnrA8fVdw3sgJN7vIX6n
-	twuKiitiksdgoIReLjjxgqK0sRFXIeL4MNOQHJK/8pSRw/5SD++qU9ocnfiqr+BmjR+M74rtCIl
-	xtsgqGqF/JNl6rOKEqzRpWErL/s5VEQc+lT452BCW6K5hPmlJFM3ol++RxlAU61p4Fj3fhfaSE0
-	Ps6asPD78bSEV2vUOzWfR2kRMrIMveusybkAeUhvoP8Q8PBopd8WGiO6Cqi0CI/aKIlw1e4GUiD
-	bHf024tJdcKG3iH0xUyvpwJw18vDB5ICx/iOYXem2ObrtLlBhETGa09zSFBXw6CT2Sd1tBoek0b
-	+mZRljLkNQBZenq/s3et9asTAhOotiMI9IY125opVWHhfj+3SO04J/zZmKmfQUgqHMdyObo2Gr2
-	zRhElcRMNnXCD2Y43HDEDJp5JfGCOBLbss4Asa49jbuN4d3EegXASsXISaVlj20g65CBKsPsFSQ
-	4MQ7SW7qlzgIPwcKCIph31jswdCpntzZpSFtnhiGHmo6e6P42GWfuq95FUe
-X-Received: by 2002:a05:6000:1868:b0:44f:da54:da6c with SMTP id ffacd0b85a97d-4515ce1c84emr12330531f8f.26.1778143293827;
-        Thu, 07 May 2026 01:41:33 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45052a48c04sm19509854f8f.15.2026.05.07.01.41.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 May 2026 01:41:31 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
-Date: Thu, 7 May 2026 09:41:29 +0100
-To: rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-doc@vger.kernel.org
-Cc: Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
-	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v11 01/11] dt-bindings: iio: frequency: add adf41513
-Message-ID: <65aggaxkgetu444geu4bpdp53obukzwk3uov3awe6ahq6zjyyf@cbdt6bhfjw4u>
-References: <20260506-adf41513-iio-driver-v11-0-2b7e99cfe8f2@analog.com>
- <20260506-adf41513-iio-driver-v11-1-2b7e99cfe8f2@analog.com>
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="rlnXXvQl"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TBvIH+SFJiKYcFzQfl8sUuED0ddlXSZloVL8CdZX4u+vvSUDwGFlDROZcVwvq835NryfOc4CKtEKFkRgUcWcDpPHtERaiDTDm/4rtGQXbsRF99Rr6oVVIldcUpdCTfMrGuAM8cLkR1WbKcptCYDA+JwNSgxcoDErvxSWBtH2VxRxNwcNwHKihFnGBY9Z+waH0COZXeJ4zxr+9oCSrrCysKGwjwZ5N0u14+wacZFb55eBfRnlAmSEzGqNO0uWJTbP/ajaRKs1I35LUy98xIMPlhXOj/PPAe1h3lZDFaRTF20EDgeAHihrbmW8dqjhcmSxDDNNRRuUeiodyvXxmcyJ9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Rl6LgXxPLAVsnYwBosaHNVVrrWGDgEJ44oBQ4KSFjBw=;
+ b=gWU4yxvj66f57ZBUPFGVGvbRDfJvroV5CnsdKp8bnVELdE3sCABLZvpsEWTMIGUMs+Wb0igo5Y8Pj3jrs1bZAZ6Wjx1V4LFdP8YwgW0WyXjKNp233nwTdiTSlsH7WdoCAsBu+nRY7uTssYVy+A7L3/JAfpDNJvXsOAMK0OHVCRIoCXIyPOH6GzZ0mCp7zm9VyZ/784Yx6ULN4hBOonhImRlon0yK9ny3ZuZPShL0l7HDZ+8oD36AiLPktW0gMcyJ3zGIgj3EgfVBAL18i8iWX9VRBInoLdzrwwul1LS7FQ5gK2DcWsbepRkVDddVZw57BgOYvpVmcbIOWmKFE/W1xw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Rl6LgXxPLAVsnYwBosaHNVVrrWGDgEJ44oBQ4KSFjBw=;
+ b=rlnXXvQl2LkShuq5oFB0slPLh7y8K23fka061mpM2xYWReCV433J1MM6LYkG79tT9jdresOAvGR3HSrdCVSONPg7WkxQEkMNHQU0+7BdydyiZ2zrePbiTQrOvX2ZxW0VdARgaePPYkjjdT1J51eCki1YhBCT/vNSzzY5wBjEp3w=
+Received: from CH0PR03CA0373.namprd03.prod.outlook.com (2603:10b6:610:119::7)
+ by PH7PR10MB5816.namprd10.prod.outlook.com (2603:10b6:510:127::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.16; Thu, 7 May
+ 2026 08:43:06 +0000
+Received: from CH1PEPF0000AD7D.namprd04.prod.outlook.com
+ (2603:10b6:610:119:cafe::69) by CH0PR03CA0373.outlook.office365.com
+ (2603:10b6:610:119::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.17 via Frontend Transport; Thu,
+ 7 May 2026 08:43:06 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ CH1PEPF0000AD7D.mail.protection.outlook.com (10.167.244.86) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9891.9 via Frontend Transport; Thu, 7 May 2026 08:43:05 +0000
+Received: from DFLE200.ent.ti.com (10.64.6.58) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 7 May
+ 2026 03:43:02 -0500
+Received: from DFLE200.ent.ti.com (10.64.6.58) by DFLE200.ent.ti.com
+ (10.64.6.58) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 7 May
+ 2026 03:43:02 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE200.ent.ti.com
+ (10.64.6.58) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Thu, 7 May 2026 03:43:02 -0500
+Received: from [10.24.73.74] (uda0492258.dhcp.ti.com [10.24.73.74])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6478gtxF2944601;
+	Thu, 7 May 2026 03:42:56 -0500
+Message-ID: <0043574e-6721-445b-ad01-54446dd72395@ti.com>
+Date: Thu, 7 May 2026 14:15:18 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260506-adf41513-iio-driver-v11-1-2b7e99cfe8f2@analog.com>
+User-Agent: Mozilla Thunderbird
+CC: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <josua@solid-run.com>,
+	<matthias.schiffer@ew.tq-group.com>, <d.haller@phytec.de>,
+	<francesco.dolcini@toradex.com>, <joao.goncalves@toradex.com>,
+	<emanuele.ghidoli@toradex.com>, <ernest.vanhoecke@toradex.com>,
+	<rogerq@kernel.org>, <eballetb@redhat.com>, <robertcnelson@gmail.com>,
+	<afd@ti.com>, <u-kumar1@ti.com>, <stable@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <luis.parga@ti.com>, <srk@ti.com>,
+	<s-vadapalli@ti.com>
+Subject: Re: [PATCH v2 02/13] arm64: dts: ti: k3-am642-phyboard-electra-rdk:
+ fix USB clocking for compliance
+To: Wadim Egorov <w.egorov@phytec.de>
+References: <20260506141040.1368918-1-s-vadapalli@ti.com>
+ <20260506141040.1368918-3-s-vadapalli@ti.com>
+ <d0eb7931-bcbc-4ca6-8ab5-4c12d134545a@phytec.de>
+Content-Language: en-US
+From: Siddharth Vadapalli <s-vadapalli@ti.com>
+In-Reply-To: <d0eb7931-bcbc-4ca6-8ab5-4c12d134545a@phytec.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7D:EE_|PH7PR10MB5816:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4a2f48a0-7f67-4ff6-faef-08deac14a80e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|376014|7416014|1800799024|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	3iWMAdsYcHK4yyYuf5YSMJyL88Q5DYFsom2dNEUkOZHgrQmyL0kSAcPVjKDj5rdFRPo+A1QEw8whLJ5Cq86reT7y2Ql64iSk42jVYXwUZGiUlbzVfut6D53VpiTrNZVgFpYQARan/TBb9oUt8hgV0vJJGFUlXu5Qpi2evixr+en60jlWFcnfcupv3JGSTij/J80w3q3lsXYAmNTaj8SGCOXjscRq/QwXr/ZaXYh8waI0iC0H6GyAjhsnkWkw6P6uQKhkRA+S9/VeKra/cNZCXQvCArwVCngshnRp96GMswLTrT8yICzC8AiCPvrO1z16Wkp/XCq0vEXf81ntCko5ZdmooJRHQSqgZ9CSmdeWATc4YVXz224bNZAp++TGdXy2xCUkoChuCQqrRevP6riPUWPseioeSa2uJ0TMZkCD50Zlrqjt1APjapLvXz2HnIFPa1SHwvwM3gHYf3ZMzYlgPwxuCNpUtYgfJv1GzQfhlcXQ1s2oOj2zFAewg7poQJRGR6AL07YhYapXsopT2+yYgf5MH3lXCOnqirdcdxWGBdpvUaC4OWSUANYqaGDcD5fVKmiObeV7zj7w6XMy4+QqAEDdKlTQictX7JybBY/m/qd8RMYkbgBvBlI8CbXzSNbahoQIel1rQrbRGiUJz8Hujs271Av+d7GU/0jCwn5KHTAMtDYsy3GPh2P58tA9ncrDZpn8VU+30if/8wYKlY6k0os2HDZF6AfAmiN8dAivpYo=
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(7416014)(1800799024)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	EtS32vw6W2Aa8fjYsSIWAmILhm/yx5986cxUgXpJ6plOVAMx/+TiowUWA4WX/QkJ55QC1otABm3D+CuBwG4MveS7matpAjOvJuhY3jfnZF6AQwW3tEnKZRH2W97mviiY05DtzBRy0769T0XDm1kupKhiRy9c5KlkJitZ2Ox9pg0GgW1JgrR3rLGOdZvTKCP9A9u0yypdW1ro8EeyO91BNEUK9Di8pOcVrANhomHK+znCkFzziqydnNHB//AzQrXuL+SDW3gVwMO8FlWXNlgmGJYk8bvFyMOtZYmfCzpyatPUBxHreGQDhH9RDb9x4Y+iGIKtGtW2zAWpjgRXgwqZXwhXEByft/+geTCUMokbg85OByVOsJpxAqjTtRX1MAAbZo7JKwbWQa/b5Rc7X002AbGA7Vb/wSABJTnfMV+yyeNUfzDBkWr5EYCc8tgnqaXf
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2026 08:43:05.1071
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a2f48a0-7f67-4ff6-faef-08deac14a80e
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000AD7D.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR10MB5816
 
-On 26/05/06 03:08PM, Rodrigo Alencar via B4 Relay wrote:
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+On 07/05/26 13:55, Wadim Egorov wrote:
+> Hi,
 > 
-> DT-bindings for ADF41513, an ultralow noise PLL frequency synthesizer that
-> can be used to implement local oscillators (LOs) as high as 26.5 GHz.
-> Some properties are based upon an existing PLL device properties
-> (e.g. ADF4350).
+> On 5/6/26 5:09 PM, Siddharth Vadapalli wrote:
+>> According to section "6.5.3 Normative Spread Spectrum Clocking (SSC)" of
+>> the USB 3.2 Specification, SSC should be enabled by default. This protects
+>> against EMI violations. Hence, enable internal SSC for USB SuperSpeed.
+>>
+>> Fixes: c48ac0efe6d7 ("arm64: dts: ti: Add support for phyBOARD-Electra-AM642")
+>> Cc: <stable@vger.kernel.org>
+>> Signed-off-by: Siddharth Vadapalli <s-vadapalli@ti.com>
+>> ---
+>>
+>> v1:
+>> https://lore.kernel.org/r/20260505110631.1144200-3-s-vadapalli@ti.com/
+>> No changes since v1.
+>>
+>>   arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts | 9 +++++++++
+>>   1 file changed, 9 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts b/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts
+>> index 793538f94942..a85d7d08bd1b 100644
+>> --- a/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts
+>> +++ b/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts
+>> @@ -439,12 +439,21 @@ &sdhci1 {
+>>   	status = "okay";
+>>   };
+>>   
+>> +&serdes_wiz0 {
+>> +	ti,core-clk-sel = <1>;  /* Select internal reference clock */
+>> +	ti,ssc-enable; /* Enable SSC */
+>> +	ti,ssc-type = <1>; /* 1 for Downspread */
+>> +	ti,ssc-frequency-hz = <33000>; /* 33 KHz */
+>> +	ti,ssc-depth-per-mil = <5>; /* 0.5% depth */
+> 
+> I don't think the comments are very helpful. The property names already give a meaning.
 
-...
- 
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - adi,adf41510
-> +      - adi,adf41513
+The comments have been added for three reasons:
+1. The meaning of the following properties isn't obvious:
+	ti,core-clk-sel = <1>
+	ti,ssc-type = <1>
+2. For ease of 'grepping'. Grepping for '33 KHz' for example based on the 
+USB 3.2 Specification's modulation rate will not show '33000' in the results.
+3. Completeness / Consistency. Since some of the less obvious properties 
+have been described via comments, the remaining have also been commented 
+on, although it is obvious what it means (ti,ssc-enable for example).
 
-...
+Unless you have a strong objection to removing the comments, I would prefer 
+retaining them. Please let me know.
 
-> +  adi,power-up-frequency-mhz:
-> +    minimum: 1000
-> +    maximum: 26500
-> +    default: 10000
-> +    description:
-> +      The PLL tunes to this frequency during the initialization sequence.
-> +      This property should be set to a frequency supported by the loop filter
-> +      and VCO used in the design. Range is 1 GHz to 26.5 GHz for ADF41513,
-> +      and 1 GHz to 10 GHz for ADF41510.
-
-Sashiko's feedback:
-
-https://sashiko.dev/#/patchset/20260506-adf41513-iio-driver-v11-0-2b7e99cfe8f2%40analog.com?part=1
-
-	Does the schema allow an ADF41510 device to be configured with frequencies
-	exceeding its physical hardware capabilities?
-	The global maximum for adi,power-up-frequency-mhz is set to 26500, but the
-	description notes that the ADF41510 variant only supports up to 10 GHz.
-	Should there be an allOf conditional block that restricts the maximum value
-	to 10000 when the adi,adf41510 compatible string is used?
-
-That makes sense and will address this in a v12.
-
--- 
-Kind regards,
-
-Rodrigo Alencar
+Regards,
+Siddharth.
