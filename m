@@ -1,369 +1,198 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CB0903806B2;
-	Thu,  7 May 2026 08:32:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E3536DA18
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 08:33:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778142766; cv=none; b=XVtYfwt8BDZ2/ByzVzNzca38WCShdbM1fW/uq3pvnpkryHFyStM2ZjQihKC4k21vUgaJSAMRFVJQUjC2k3FCgJXYQHCSBgUD05NvPKm52XjMVyP5PzRxkpAWJUmRhlCSzZ5fxCCNLVTgQY5ereRNSUIcvaiR2dNUKz79LNH71es=
+	t=1778142821; cv=none; b=ca8U1j6Xnf1twxXBMv+PUYDzEpbTxYnO00631ALA2UshtA50Le35H8L8sqeNpQjujmwNP/z+0d59SdS27nnCXAmgMuZfn4uST0rJqrxq1IHsYhD+bhll0FWTed+tgmwQ/6Uuch4+kVQoria2+zXpFPP2NLKuJeklFWrKJe7YNsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778142766; c=relaxed/simple;
-	bh=y4rcanYsWPQhm7NAUHtN8ReRbApPiqgi+zzDMEVhLbw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=osVQUQBWQMhSMnJQiFKfmFH+n3jvjktogAVQ14I/WaWDjCdf0CbK8hFYjfUBZTbuHtjcrMWoLNYNaPjYB3nfolVlPFTSGXTkj2npM5ZY1hXiTpjF8d7jS8Wm2quBG+7gTF9Gb8tt9Rp7tgM9vLNoxcx4X68sPaaRX/v3h1ta8tQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from E0004057DT.eswin.cn (unknown [10.11.96.26])
-	by app2 (Coremail) with SMTP id TQJkCgDX7J8QTvxpvXkXAA--.8522S2;
-	Thu, 07 May 2026 16:32:18 +0800 (CST)
-From: lizhi2@eswincomputing.com
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com,
-	rmk+kernel@armlinux.org.uk,
-	maxime.chevallier@bootlin.com,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org
-Cc: ningyu@eswincomputing.com,
-	linmin@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com,
-	pritesh.patel@einfochips.com,
-	weishangjuan@eswincomputing.com,
-	Zhi Li <lizhi2@eswincomputing.com>
-Subject: [PATCH net v1 2/2] net: stmmac: eic7700: fix delay step calculation and ensure safe register initialization
-Date: Thu,  7 May 2026 16:32:10 +0800
-Message-ID: <20260507083214.192-1-lizhi2@eswincomputing.com>
-X-Mailer: git-send-email 2.52.0.windows.1
-In-Reply-To: <20260507083037.152-1-lizhi2@eswincomputing.com>
-References: <20260507083037.152-1-lizhi2@eswincomputing.com>
+	s=arc-20240116; t=1778142821; c=relaxed/simple;
+	bh=D3osnMe3vp6rwSX+97IPBj9Y1Qkke5LagVWMBNxNw0A=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=u1ePx5f2mAyLkJoWaQcfaRLBEAGSZLsrYFDMmeOyxL2Olkwyo8J0dE0kw2237AFXkJveVboSOHrwdbrhenZL3QFAHRtoTyaB12OlygiSpehY9+0vVa5KDyTthVLjpSueG6mVQ6oAAyv2/ZpeRz3LPwlpJcnI3siH6k8fYxbRfzo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TaAAXT+V; arc=none smtp.client-ip=209.85.128.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TaAAXT+V"
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-79a535e7c00so6193487b3.3
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 01:33:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778142816; x=1778747616; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=u8Sk4ijFe93HuTbksMx/E9qQulVUf+80VobQVOkUoSw=;
+        b=TaAAXT+VyQSSbKz0IHsLjhmRGLd7Zy9A820pTZh3TlYK2rtcOt3PglRiFf+q6JYHA8
+         4dThlogZLucG0lHc1F3BLefcKjNacXtzq7YweV2z2Y10JiBjylnB0iAHIz7IFju8PKmb
+         RvuSTsyCRcRpvE/L3k4aD0iyJzwGX/dw3PqI1uY8mnU4b16dg7u0vA3/dq0ZIVnOnuMw
+         yNdwxOr1m8nqKzUE+5Euaqxgogi9jAr0vQhA7rIrOWwO8J069fiS3XZBrfsdHwhjB2Cl
+         ouHDBEbJLG91KNQbDUwAqLxocxhneEWXLWs7eMp6a0Gy79QyyjAFXRzLBun3XZ5mbXmX
+         0RfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778142816; x=1778747616;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=u8Sk4ijFe93HuTbksMx/E9qQulVUf+80VobQVOkUoSw=;
+        b=iIYU4GKvPQZJ0aH3bAOfG4TZOh37N0nUdqcY0Vuv7dlzU8e43IRRNNY+Khr7C7RyuG
+         8QFx9zJx2kCQ3EtS8I2TkYgTHbeNkOPFr5F6gMnO85/7ynTpYWr297XJS/zbEB3EJnvq
+         9NdrhH0Y16FCu2FIB3of7MqW4Ub8MleMQUpn+40xFlekl9Oih2v/Kd6dSenDA6cvUd9/
+         qzlObZTY5nJnKy7/bwc2LGkglVPqGKI6YIbBW3vgJWVR/nUOZfzgsFo6AC6SeRCr8+cF
+         NkkQxswWv5OQEj1GjcyhtzTpBmIpqVGj4Eyqm0McDTM82GrCUF1cA8XEYK7zBR9WXv2n
+         c45w==
+X-Forwarded-Encrypted: i=1; AFNElJ/D+h/HdBccTSmqWg5UEscLygX1zhuP0huZLdQFSh1t99LI4nA3AdAegM2EcGzGPjlH23RUfc+elErT@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw7rGQpi+U67af1UNzt1sI8lFImiWaj8h07EJB6N3Z+f0iFsMKC
+	64gQtHD+Z+g4o0T4R+bV1wOSl8KCpgrgHMm5qJ5S0WzsW5L/XZCqEkF2
+X-Gm-Gg: AeBDietlzh8RKVEsBAhC9Co27BCZ5f87s+T1ZERGUaG/jxLXp4kMnXUkLs04CSi1anS
+	Fidu/afzrBbQDp8ttsPl1ehhlUmHYDrV20+BbVpK0+QM2cTEvugYMfCa7kwcwlncLMfJ0TWvbn0
+	9idoLjSTgOEAd2ridVgrpjPgg647ibx/U1C2Xf1c3jfx5Id1ePUmK5988aJqI0YczQWDlMERINj
+	zsHV+xGpxe+PH7Q1GhS/Af2Mfr4GNEgRxkJtXVznosAO8xG2jP1UHs5v346+wbkpblhDHOa7MZ3
+	NjE8Rsms7dpGiLUhHLbxHoD/CD5f4ZT2C+2HO2D36FxNrMZzUoiAh0yPg+G5Su9hRurdbr+1O0v
+	PCGI77vnmDe5Gz1gnTMm9ktJ6Y/dfTHXLOFWc89CtjgJVj0arJnNrkVYgZ10OD3BbMCImbxy4FS
+	33UdYkWIIXw3uktPw6BVC579MBxilitlYvCVIm
+X-Received: by 2002:a05:690c:e04e:b0:7bf:424:bf4d with SMTP id 00721157ae682-7bf0424ed8bmr19632797b3.2.1778142815746;
+        Thu, 07 May 2026 01:33:35 -0700 (PDT)
+Received: from [192.168.0.39] ([79.133.247.80])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-7bd6683794dsm91692297b3.27.2026.05.07.01.33.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 07 May 2026 01:33:35 -0700 (PDT)
+From: Erikas Bitovtas <xerikasxx@gmail.com>
+Subject: [PATCH v5 0/8] media: qcom: venus: add MSM8939 support
+Date: Thu, 07 May 2026 11:32:15 +0300
+Message-Id: <20260507-msm8939-venus-rfc-v5-0-d7b5ea2ce591@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:TQJkCgDX7J8QTvxpvXkXAA--.8522S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3CFW7GF4UtFyxuF13JFWDurg_yoWDWw1xpF
-	WkAFy5tr1jqF1fG3yvyF40qa4Fkw47WF1fArZ3GFn2vF90yrn8XayjyayakF98Wry7ZF15
-	J3yUJFyxuF129FJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBm14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r4a6rW5MxkIecxEwVCm-wCF04
-	k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
-	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr4
-	1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1U
-	MIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I
-	8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRNSdgDUUUU
-X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33PQW7DIBAF0KtErEsEA9gmq9yj6gImQ0JV2xEkK
+ FHkuweni1qt1eWX/ryvebBMKVJmu82DJSoxx3GowbxtGJ7ccCQeDzUzENAILRve576zyvJCwzX
+ zFJCjAIMaWx0csXp3ThTi7WW+f3znfPWfhJcZmhunmC9jur9Gi5x7//lFcsGdsAEDIKhD2B97F
+ 7+2OPZs9gssBDBrAlQhNJYMeNWAaH8Laim0a4KqAnSdtMb71so/gv4RjFj9QlfBWh0MeQCHfil
+ M0/QEFbT/WooBAAA=
+X-Change-ID: 20260416-msm8939-venus-rfc-c025c4c74fae
+To: Bryan O'Donoghue <bod@kernel.org>, 
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
+ phone-devel@vger.kernel.org, Erikas Bitovtas <xerikasxx@gmail.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
 
-From: Zhi Li <lizhi2@eswincomputing.com>
+This patch series adds support for Venus on MSM8939. It is mostly
+similar to MSM8916 Venus, except it needs two additional cores to be
+powered on before it can start decoding.
 
-Fix several issues in the EIC7700 DWMAC glue driver related to delay
-configuration and register initialization.
+As per Dmitry's request, I am attaching Fluster results and
+v4l2-compliance output. Fluster results were very inconsistent and
+caused power collapse fails.
+H.264: https://pastebin.com/C15qeq5W
+H.265 (HEVC): https://pastebin.com/WDsnxvuk
+VP8: https://pastebin.com/egAgEm15
+v4l2-compliance: https://pastebin.com/VpBhEFc1
+Power collapse fail log: https://pastebin.com/rTivMcpK
 
-The hardware implements TX/RX delay with a granularity of 20 ps per
-step, but the driver previously assumed a 100 ps step. Update the
-definitions to match the actual hardware behaviour and align with
-the binding constraints.
-
-Introduce explicit definitions for the maximum programmable delay
-range based on the hardware limits.
-
-Move HSP CSR configuration into the initialization path after clocks
-are enabled. This ensures that all register accesses occur with the
-required clocks active, avoiding undefined behaviour.
-
-Clear the TXD and RXD delay control registers during initialization
-to override any residual configuration left by the bootloader. This
-ensures deterministic RGMII timing and prevents unintended delay
-being applied.
-
-The MAC RGMII delay programming is only required for 100Mbps and
-1000Mbps modes, where precise clock-to-data alignment is necessary for
-reliable sampling.
-
-For 10Mbps operation, timing margins are sufficiently relaxed and no
-additional delay compensation is required. In this case, the driver
-falls back to a safe default configuration with delay disabled.
-
-For unsupported or unexpected link speeds, the driver avoids
-programming invalid delay values and falls back to a safe default
-state by explicitly clearing the delay configuration.
-
-Explicitly programming zero ensures that no residual delay settings
-from previous configurations or bootloader state remain active.
-
-These changes fix incorrect delay programming and initialization
-ordering for existing users.
-
-This also aligns the driver implementation with the updated device
-tree binding.
-
-Fixes: ea77dbbdbc4e ("net: stmmac: add Eswin EIC7700 glue driver")
-Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
+Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
 ---
- .../ethernet/stmicro/stmmac/dwmac-eic7700.c   | 154 +++++++++++++-----
- 1 file changed, 112 insertions(+), 42 deletions(-)
+Changes in v5:
+- Undid the merge of vcodec_clks, they are split back to
+  vcodec{0,1}_clks now.
+- Extracted a dev_pm_domain_attach_list() call into a function of its
+  own to reduce nesting.
+- Added missing "power-domain-names" required property to device tree
+  binding.
+- Renamed vcodec clocks and power domains to match other Venus bindings.
+- Reordered commits and grouped them by subsystems. Now first come DTB
+  patches, then clock, then media.
+- Removed "status = "disabled"" in the device tree example.
+- Link to v4: https://patch.msgid.link/20260506-msm8939-venus-rfc-v4-0-994f5eb22acb@gmail.com
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
-index bcb8e000e720..0f1c62062797 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
-@@ -28,20 +28,31 @@
- 
- /*
-  * TX/RX Clock Delay Bit Masks:
-- * - TX Delay: bits [14:8] — TX_CLK delay (unit: 0.1ns per bit)
-- * - RX Delay: bits [30:24] — RX_CLK delay (unit: 0.1ns per bit)
-+ * - TX Delay: bits [14:8] — TX_CLK delay (unit: 0.02ns per bit)
-+ * - RX Delay: bits [30:24] — RX_CLK delay (unit: 0.02ns per bit)
-  */
- #define EIC7700_ETH_TX_ADJ_DELAY	GENMASK(14, 8)
- #define EIC7700_ETH_RX_ADJ_DELAY	GENMASK(30, 24)
- 
--#define EIC7700_MAX_DELAY_UNIT 0x7F
-+#define EIC7700_MAX_DELAY_STEPS		0x7F
-+#define EIC7700_DELAY_STEP_PS		20
-+#define EIC7700_MAX_DELAY_PS	\
-+	(EIC7700_MAX_DELAY_STEPS * EIC7700_DELAY_STEP_PS)
- 
- static const char * const eic7700_clk_names[] = {
- 	"tx", "axi", "cfg",
- };
- 
- struct eic7700_qos_priv {
-+	struct device *dev;
- 	struct plat_stmmacenet_data *plat_dat;
-+	struct regmap *eic7700_hsp_regmap;
-+	u32 eth_axi_lp_ctrl_offset;
-+	u32 eth_phy_ctrl_offset;
-+	u32 eth_txd_offset;
-+	u32 eth_clk_offset;
-+	u32 eth_rxd_offset;
-+	u32 eth_clk_dly_param;
- };
- 
- static int eic7700_clks_config(void *priv, bool enabled)
-@@ -61,8 +72,28 @@ static int eic7700_clks_config(void *priv, bool enabled)
- static int eic7700_dwmac_init(struct device *dev, void *priv)
- {
- 	struct eic7700_qos_priv *dwc = priv;
-+	int ret;
-+
-+	ret = eic7700_clks_config(dwc, true);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_set_bits(dwc->eic7700_hsp_regmap,
-+			      dwc->eth_phy_ctrl_offset,
-+			      EIC7700_ETH_TX_CLK_SEL |
-+			      EIC7700_ETH_PHY_INTF_SELI);
-+	if (ret) {
-+		eic7700_clks_config(dwc, false);
-+		return ret;
-+	}
-+
-+	regmap_write(dwc->eic7700_hsp_regmap, dwc->eth_axi_lp_ctrl_offset,
-+		     EIC7700_ETH_CSYSREQ_VAL);
-+
-+	regmap_write(dwc->eic7700_hsp_regmap, dwc->eth_txd_offset, 0);
-+	regmap_write(dwc->eic7700_hsp_regmap, dwc->eth_rxd_offset, 0);
- 
--	return eic7700_clks_config(dwc, true);
-+	return 0;
- }
- 
- static void eic7700_dwmac_exit(struct device *dev, void *priv)
-@@ -88,18 +119,38 @@ static int eic7700_dwmac_resume(struct device *dev, void *priv)
- 	return ret;
- }
- 
-+static void eic7700_dwmac_fix_speed(void *priv, phy_interface_t interface,
-+				    int speed, unsigned int mode)
-+{
-+	struct eic7700_qos_priv *dwc = (struct eic7700_qos_priv *)priv;
-+	bool needs_calibration = false;
-+
-+	switch (speed) {
-+	case SPEED_1000:
-+	case SPEED_100:
-+		needs_calibration = true;
-+		fallthrough;
-+	case SPEED_10:
-+		break;
-+	default:
-+		dev_err(dwc->dev, "invalid speed %u\n", speed);
-+		break;
-+	}
-+
-+	if (needs_calibration) {
-+		regmap_write(dwc->eic7700_hsp_regmap, dwc->eth_clk_offset,
-+			     dwc->eth_clk_dly_param);
-+	} else {
-+		regmap_write(dwc->eic7700_hsp_regmap, dwc->eth_clk_offset, 0);
-+	}
-+}
-+
- static int eic7700_dwmac_probe(struct platform_device *pdev)
- {
- 	struct plat_stmmacenet_data *plat_dat;
- 	struct stmmac_resources stmmac_res;
- 	struct eic7700_qos_priv *dwc_priv;
--	struct regmap *eic7700_hsp_regmap;
--	u32 eth_axi_lp_ctrl_offset;
--	u32 eth_phy_ctrl_offset;
--	u32 eth_phy_ctrl_regset;
--	u32 eth_rxd_dly_offset;
--	u32 eth_dly_param = 0;
--	u32 delay_ps;
-+	u32 delay_ps, val;
- 	int i, ret;
- 
- 	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
-@@ -116,70 +167,88 @@ static int eic7700_dwmac_probe(struct platform_device *pdev)
- 	if (!dwc_priv)
- 		return -ENOMEM;
- 
-+	dwc_priv->dev = &pdev->dev;
-+
- 	/* Read rx-internal-delay-ps and update rx_clk delay */
- 	if (!of_property_read_u32(pdev->dev.of_node,
- 				  "rx-internal-delay-ps", &delay_ps)) {
--		u32 val = min(delay_ps / 100, EIC7700_MAX_DELAY_UNIT);
-+		if (delay_ps % EIC7700_DELAY_STEP_PS)
-+			return dev_err_probe(&pdev->dev, -EINVAL,
-+				"rx delay must be multiple of %dps\n",
-+				EIC7700_DELAY_STEP_PS);
- 
--		eth_dly_param &= ~EIC7700_ETH_RX_ADJ_DELAY;
--		eth_dly_param |= FIELD_PREP(EIC7700_ETH_RX_ADJ_DELAY, val);
--	} else {
--		return dev_err_probe(&pdev->dev, -EINVAL,
--			"missing required property rx-internal-delay-ps\n");
-+		if (delay_ps > EIC7700_MAX_DELAY_PS)
-+			return dev_err_probe(&pdev->dev, -EINVAL,
-+				"rx delay out of range\n");
-+
-+		val = delay_ps / EIC7700_DELAY_STEP_PS;
-+
-+		dwc_priv->eth_clk_dly_param &= ~EIC7700_ETH_RX_ADJ_DELAY;
-+		dwc_priv->eth_clk_dly_param |=
-+				 FIELD_PREP(EIC7700_ETH_RX_ADJ_DELAY, val);
- 	}
- 
- 	/* Read tx-internal-delay-ps and update tx_clk delay */
- 	if (!of_property_read_u32(pdev->dev.of_node,
- 				  "tx-internal-delay-ps", &delay_ps)) {
--		u32 val = min(delay_ps / 100, EIC7700_MAX_DELAY_UNIT);
-+		if (delay_ps % EIC7700_DELAY_STEP_PS)
-+			return dev_err_probe(&pdev->dev, -EINVAL,
-+				"tx delay must be multiple of %dps\n",
-+				EIC7700_DELAY_STEP_PS);
- 
--		eth_dly_param &= ~EIC7700_ETH_TX_ADJ_DELAY;
--		eth_dly_param |= FIELD_PREP(EIC7700_ETH_TX_ADJ_DELAY, val);
--	} else {
--		return dev_err_probe(&pdev->dev, -EINVAL,
--			"missing required property tx-internal-delay-ps\n");
-+		if (delay_ps > EIC7700_MAX_DELAY_PS)
-+			return dev_err_probe(&pdev->dev, -EINVAL,
-+				"tx delay out of range\n");
-+
-+		val = delay_ps / EIC7700_DELAY_STEP_PS;
-+
-+		dwc_priv->eth_clk_dly_param &= ~EIC7700_ETH_TX_ADJ_DELAY;
-+		dwc_priv->eth_clk_dly_param |=
-+				 FIELD_PREP(EIC7700_ETH_TX_ADJ_DELAY, val);
- 	}
- 
--	eic7700_hsp_regmap = syscon_regmap_lookup_by_phandle(pdev->dev.of_node,
--							     "eswin,hsp-sp-csr");
--	if (IS_ERR(eic7700_hsp_regmap))
-+	dwc_priv->eic7700_hsp_regmap =
-+			syscon_regmap_lookup_by_phandle(pdev->dev.of_node,
-+							"eswin,hsp-sp-csr");
-+	if (IS_ERR(dwc_priv->eic7700_hsp_regmap))
- 		return dev_err_probe(&pdev->dev,
--				PTR_ERR(eic7700_hsp_regmap),
-+				PTR_ERR(dwc_priv->eic7700_hsp_regmap),
- 				"Failed to get hsp-sp-csr regmap\n");
- 
- 	ret = of_property_read_u32_index(pdev->dev.of_node,
- 					 "eswin,hsp-sp-csr",
--					 1, &eth_phy_ctrl_offset);
-+					 1, &dwc_priv->eth_phy_ctrl_offset);
- 	if (ret)
- 		return dev_err_probe(&pdev->dev, ret,
- 				     "can't get eth_phy_ctrl_offset\n");
- 
--	regmap_read(eic7700_hsp_regmap, eth_phy_ctrl_offset,
--		    &eth_phy_ctrl_regset);
--	eth_phy_ctrl_regset |=
--		(EIC7700_ETH_TX_CLK_SEL | EIC7700_ETH_PHY_INTF_SELI);
--	regmap_write(eic7700_hsp_regmap, eth_phy_ctrl_offset,
--		     eth_phy_ctrl_regset);
--
- 	ret = of_property_read_u32_index(pdev->dev.of_node,
- 					 "eswin,hsp-sp-csr",
--					 2, &eth_axi_lp_ctrl_offset);
-+					 2, &dwc_priv->eth_axi_lp_ctrl_offset);
- 	if (ret)
- 		return dev_err_probe(&pdev->dev, ret,
- 				     "can't get eth_axi_lp_ctrl_offset\n");
- 
--	regmap_write(eic7700_hsp_regmap, eth_axi_lp_ctrl_offset,
--		     EIC7700_ETH_CSYSREQ_VAL);
-+	ret = of_property_read_u32_index(pdev->dev.of_node,
-+					 "eswin,hsp-sp-csr",
-+					 3, &dwc_priv->eth_clk_offset);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret,
-+				     "can't get eth_clk_offset\n");
- 
- 	ret = of_property_read_u32_index(pdev->dev.of_node,
- 					 "eswin,hsp-sp-csr",
--					 3, &eth_rxd_dly_offset);
-+					 4, &dwc_priv->eth_txd_offset);
- 	if (ret)
- 		return dev_err_probe(&pdev->dev, ret,
--				     "can't get eth_rxd_dly_offset\n");
-+				     "can't get eth_txd_offset\n");
- 
--	regmap_write(eic7700_hsp_regmap, eth_rxd_dly_offset,
--		     eth_dly_param);
-+	ret = of_property_read_u32_index(pdev->dev.of_node,
-+					 "eswin,hsp-sp-csr",
-+					 5, &dwc_priv->eth_rxd_offset);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret,
-+				     "can't get eth_rxd_offset\n");
- 
- 	plat_dat->num_clks = ARRAY_SIZE(eic7700_clk_names);
- 	plat_dat->clks = devm_kcalloc(&pdev->dev,
-@@ -208,6 +277,7 @@ static int eic7700_dwmac_probe(struct platform_device *pdev)
- 	plat_dat->exit = eic7700_dwmac_exit;
- 	plat_dat->suspend = eic7700_dwmac_suspend;
- 	plat_dat->resume = eic7700_dwmac_resume;
-+	plat_dat->fix_mac_speed = eic7700_dwmac_fix_speed;
- 
- 	return devm_stmmac_pltfr_probe(pdev, plat_dat, &stmmac_res);
- }
--- 
-2.25.1
+Changes in v4:
+- Removed vcodec{0,1}_pmdomains and merged vcodec{0,1}_clks into
+  vcodec_clks instead for MSM8939.
+- Inlined video decoder and encoder device tree nodes in the driver and
+  removed them from the binding.
+- Kept vdec and venc methods for HFI v3 separate from HFI v1.
+- {vdec,venc}_get() are now called as early as before, since it is no
+  longer needed for us to attach power domains to dev_dec and dev_enc.
+- Link to v3: https://patch.msgid.link/20260427-msm8939-venus-rfc-v3-0-288195bb7917@gmail.com
+
+Changes in v3:
+- Added missing vcodec1_clks to resource struct.
+- Removed enc_nodename from resource struct since we include
+  video-decoder now.
+- Link to v2: https://patch.msgid.link/20260425-msm8939-venus-rfc-v2-0-f69e52b36207@gmail.com
+
+Changes in v2:
+- Enabled GDSCs during encoding as well.
+- Merged vcodec{0,1}_pmdomains_num into vcodec_pmdomains_num.
+- Reworded commit for marking GDSCs as hardware controlled. Same
+  situation as in cdc59600bccf ("clk: qcom: gcc-msm8953: fix stuck venus0_core0 clock")
+- Clarified the reason for missing firmware-name property in device
+  tree.
+- Clarified the reason for moving vdec_get and venc_get for later.
+- Link to v1: https://patch.msgid.link/20260416-msm8939-venus-rfc-v1-0-a09fcf2c23df@gmail.com
+
+To: Bryan O'Donoghue <bod@kernel.org>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+To: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: André Apitzsch <git@apitzsch.eu>
+To: Erikas Bitovtas <xerikasxx@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Michael Turquette <mturquette@baylibre.com>
+To: Stephen Boyd <sboyd@kernel.org>
+To: Brian Masney <bmasney@redhat.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-media@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-clk@vger.kernel.org
+
+---
+André Apitzsch (4):
+      media: dt-bindings: venus: Add qcom,msm8939 schema
+      arm64: dts: qcom: msm8939: Add venus node
+      arm64: dts: qcom: msm8939-longcheer-l9100: Enable venus node
+      media: qcom: venus: Add msm8939 resource struct
+
+Erikas Bitovtas (4):
+      arm64: dts: qcom: msm8939-asus-z00t: add Venus
+      clk: qcom: gcc-msm8939: mark Venus core GDSCs as hardware controlled
+      media: qcom: venus: add power domain enable logic for Venus cores
+      media: qcom: venus: Enable HEVC decoding for MSM8939
+
+ .../bindings/media/qcom,msm8939-venus.yaml         |  79 +++++++++++
+ arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts     |   8 ++
+ .../boot/dts/qcom/msm8939-longcheer-l9100.dts      |   8 ++
+ arch/arm64/boot/dts/qcom/msm8939.dtsi              |  23 ++++
+ drivers/clk/qcom/gcc-msm8939.c                     |   4 +
+ drivers/media/platform/qcom/venus/core.c           |  43 ++++++
+ drivers/media/platform/qcom/venus/hfi_parser.c     |   3 +-
+ drivers/media/platform/qcom/venus/pm_helpers.c     | 149 ++++++++++++++++++++-
+ 8 files changed, 312 insertions(+), 5 deletions(-)
+---
+base-commit: 735d2f48cadaa9a87e7c7601667878de70c771c5
+change-id: 20260416-msm8939-venus-rfc-c025c4c74fae
+
+Best regards,
+--  
+Erikas Bitovtas <xerikasxx@gmail.com>
 
