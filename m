@@ -1,266 +1,160 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11021084.outbound.protection.outlook.com [40.107.208.84])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC6A6328B7B;
-	Thu,  7 May 2026 08:06:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.84
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778141164; cv=fail; b=ktPQRE0LPIx0yR6Io+9WY9g/Ub39vETSeYuwCd6mA66SsNyVjXRz+t+HRBhVcsfBon9wpyWS46q/spaSWpwWlyTx5sK9cwwk1YJlqOK4l3Pw94OwKrnfJXGdCEvXjiEc3y5Ngl7xr2jDqJ6ux4O2K8g88tDzjGY6u/BfinHBY84=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778141164; c=relaxed/simple;
-	bh=1ZTTVyhWL3Q8qZ4kzZxIfDO7Nvp0jwDDZ8ESDDHU+nQ=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ZCF+e5P8VYYptXkvJPcftHVKjL3jKp8V7JkS/86LZYAfoDhuQqlQ2aIYGGv7vQp7opkvOPGyf119qpfMwvdMCbtgXd6W4DSjM5MBc+zJAkJHqTBHgNWYI3y8M0g9GhCdWwtYln3gYZALO6Q4crp9X8Mtksl5X3lhcjK7+0ca8Cs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=lVxli9ud; arc=fail smtp.client-ip=40.107.208.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF24330595B
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 08:07:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778141258; cv=none; b=c+FayB0m55IPhetL9t+0dgH5yy1PId8TuN9Qoh2RfbArtvlKzVikOOTMbVgGXFPRk1jrMvwY6MRWwgP5+xpzvo8qEKOWqCCHtawnnU9vjWEUWZTmx5fT0qmA1a8HfD8bmUDjsrixkZ+pV36rLQrjV5/XVCX3zrsV3LN+s4dQQQ4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778141258; c=relaxed/simple;
+	bh=J1mk/MVYikqL1goeDLu3PDJE4r9vtU0OZH36MxqS8Mg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qvecToh4SL5KJ4R3q5Sdg21BVNjl3qlYFWiVXq4ojXEhl8NkbE6v7znUzY1IG+7LCPTlG4pc4EtXGRYa0rVwFy+RKOgl0G/jeHNP+anqd+2NlUEJNoSQ0A38F2xBZYYJ0sdSoSa0xngBa471SKAXS3QTuSdy+qtqbnR0AR98dy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MFKHcWcH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OTmZbURx; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="lVxli9ud"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dgXCRKVrbHCOvHWth32YXQIB2D3MmY4wBBPnODKFHM8NSEWJ/ttg5JB7q5J+gyPQ4pS72a3+5T0KKCt8gakSIrhn12OLcjaHnBItVuVe7TQ/BAZJFYLDKFqTX5UvuLIdx/gDPuVE5Wc/zSV+3pCdSVdlOE8U6lg5re5Bk4awzsugHYuZQbXVTdViXy1kdgl046Lu1B7gfmsagD9HLlEvRDpQ7bVimCRsuNa034ZFjjJLjxEGjcm7lJxxpy/aoy8jiVwsfDT39gsjSHkAAfqLP9i9E8I3C80WllkA19JZ46LCsg9OHoj2CSDsLWhjHZYd648FSiQSfm5XLEYJmJtC4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nezvdZlNtUk2r4AGj/zNJdh9sF59HPHJLVWa/htujP8=;
- b=enPXG8gXb/eBKRYEck15OodHLjZo65tO4yX1x5K0y5zMoyug4ZIhtoZU9dKr3vRpxybJOKJZect0ae2b89nRdn6K3ZeFcSU42tU0BdWzi8zSN9D2oilf5I7YZCtBHahRpb4/yHbDWMIrqLKX4MZtTPrXR6Qx6Ghv0deBpLsx0VsUa1jp6PYXa4jk5umPiceqI9pUpcmmUV/5z7enTzPG+ofuzLm/jih20uNlT2R2Y9cxK4GZgW0qQZutcHQ6ktPfakOCJG3x2n5hSkGoIy7cLMk8YWJrS1/uilc//QvNHBlMFlnZ6oMRm+i7B2odkZ9/SaO46GnS9q6UNxRm90eKsA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
- dkim=pass header.d=axiado.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nezvdZlNtUk2r4AGj/zNJdh9sF59HPHJLVWa/htujP8=;
- b=lVxli9udNY2Q4txjojETFD29FP37LsR8RgJQopRCGVvZRsy81Q+wivZI/hgogwfNsb4sKJjxsLRnaT8urr/wXZKl0gaRaz4q0WntM++U4XH6Tkqch+5G0p4ypgIAbQl8oi9ERofPtOK2Gz4pIXa62LwqCH5dq+s8LUm1wB1Xo3+NBHz/bOWUxxuwfHr2BlK0jXQaWERqwLPqMbHQTHucZ4C3JYLC2fvWCjVKowNDvRqG8UKI2debannQaisDQcpOmAntsjRTkhNwLGJeHEpnpA6rTLoV39AOVA8bPNePvkKErEEQILjfJv+qPzaWS/0srAvc5/WUg904KlW00xfDHg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axiado.com;
-Received: from DM4PR18MB4144.namprd18.prod.outlook.com (2603:10b6:5:38b::8) by
- PH5PR18MB927674.namprd18.prod.outlook.com (2603:10b6:510:39d::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Thu, 7 May
- 2026 08:06:00 +0000
-Received: from DM4PR18MB4144.namprd18.prod.outlook.com
- ([fe80::cb97:ca8a:e55a:b11]) by DM4PR18MB4144.namprd18.prod.outlook.com
- ([fe80::cb97:ca8a:e55a:b11%6]) with mapi id 15.20.9891.016; Thu, 7 May 2026
- 08:06:00 +0000
-Message-ID: <106b7b64-ed6e-499f-b5ac-60c1277f2f03@axiado.com>
-Date: Thu, 7 May 2026 10:05:39 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: gpio: add Axiado SGPIO controller
-Content-Language: en-GB
-To: Linus Walleij <linusw@kernel.org>
-Cc: Tzu-Hao Wei <twei@axiado.com>, Swark Yang <syang@axiado.com>,
- Prasad Bolisetty <pbolisetty@axiado.com>,
- Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
- SriNavmani A <srinavmani@axiado.com>, linux-gpio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260414-axiado-ax3000-sgpio-controller-v1-0-b5c7e4c2e69b@axiado.com>
- <20260414-axiado-ax3000-sgpio-controller-v1-1-b5c7e4c2e69b@axiado.com>
- <CAD++jL=yc4rmNELLKUpreUqRbQ1Krg95C-o1xSrnD9Aicm4wgw@mail.gmail.com>
-From: Petar Stepanovic <pstepanovic@axiado.com>
-In-Reply-To: <CAD++jL=yc4rmNELLKUpreUqRbQ1Krg95C-o1xSrnD9Aicm4wgw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM9P195CA0007.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:20b:21f::12) To BL1PR18MB4133.namprd18.prod.outlook.com
- (2603:10b6:208:310::14)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MFKHcWcH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OTmZbURx"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6475wWf41926339
+	for <devicetree@vger.kernel.org>; Thu, 7 May 2026 08:07:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=bnjc0dzixx246uAsmR6BX8KvTfzjFEN0yFm
+	FFgSNkKM=; b=MFKHcWcHNhq9GBSdJvuif++FWiNKUjWqEeh9DKByPsIC+tB5WYk
+	ptH+LrZpq1lggXJXi9nZmlwR3m8bTuYW3eUXbc/aoVuJ09mC23+2n7Ko5ddXx4Yk
+	XzQo9dyZoyvy764iLpbw61FD00AmUmGpaPrYFyNap5orR1RUwf2dBjroOdWaAmc3
+	a+fB1I7QjaOgM8Qej0DPENwuF7P4Dp1Iilw6ic+E1vgJxaNz8e8foINhx+aEeM5F
+	QNRAG+8I4xhZ3dKb90/J5eBXJk7FCB4CiaXOuVl38ZdTxmvqGDZ+WmyPLRVgyWys
+	REAjn4/bT/LKy6CThXfxu1JVzWIi8bG+Mmw==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0n2g8fsy-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 07 May 2026 08:07:36 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-365e70c39d0so817584a91.0
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 01:07:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778141255; x=1778746055; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=bnjc0dzixx246uAsmR6BX8KvTfzjFEN0yFmFFgSNkKM=;
+        b=OTmZbURxYZM9/0pVsfhRhHgAdesF0lRcZAjTF55FqfpDddDAlH66kqLM1gLdvDD4Ki
+         e1jgpdKfxyxfnvOTMN8TXgYOUFChmvlTRHAu4+gCnfSU2UrwhKbJjjGKxtUQh8O/nW36
+         SzhTjeKb+xIFNR1b1g2r9SxB3StMNHFKfvVQxHQtBzkkf4o0jSXVI6IfYQ68vVAE8TWt
+         DLcdGjqhrhn/hQ7/LnSpi7jPdDbh1SYc2uUqIB5L4cFFwvtBngfLu9e5NRz6dmcT8g1H
+         Krvi07k8hj0FHi/OHlkrBWMp115m7OuZ8PZLLJEzFhUGLihUOUmVK8rFECHPyYTFoOoZ
+         16+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778141255; x=1778746055;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bnjc0dzixx246uAsmR6BX8KvTfzjFEN0yFmFFgSNkKM=;
+        b=LPQbh1oSOdU/Xm12jX6SxV6NVOIzGEYgxVDpOs/Lkhog72baRYtKu38SWleFIxF+++
+         P+ynitpUM1BF/XwqGvmAp27+2aOaoNP6TqQ++qZzvsAhvMzh9yO9HNgQ3ZjMI8BREXoA
+         VzTIPGx5Y07x9shK+WCu8OT6IQXvtlVHJTgDNHVEkrqQbQ9HKSy+PM9xbszCNFWwmhoi
+         hni+SP6+zVwIwpsg588gXFdIfyzVRenXPToI40WKfXR2fEo4ddztbExgg2GaZ9qQG4aD
+         SCoHkEVdhfLYV1mT42aoMACBestLYL83T4x/wOzhcVs6jxE0tvzXghd91350sG7f7l0g
+         u0qw==
+X-Forwarded-Encrypted: i=1; AFNElJ8HqaYIIZ0Z6hHkhNywsc8u4hHXzokeW23XC7x0M8Sa3MsfE6LoYeRBUoMNz5Tj8Josn4XJuAPA7s7W@vger.kernel.org
+X-Gm-Message-State: AOJu0YwMNMCfnAnkf+ogj6LiRFNl7BO+zJ6x/XWZQWvm8Oc15ywnbjvd
+	UPKqv+YlZZGn7u+ne7MHPGVN24MIieqLVn4PMf1ytBL5Fer1rnpqlOfR4MivVzuGIZyG473mxpF
+	KCyT5yUu5UT8Z5J3hUJVepIuDwrACmFdD27yoV3aMPbsy85JNmJ1LeI4tDnHrMTg2
+X-Gm-Gg: AeBDieseCRRmUE7XMGyGHJRChrYXcM5l3Mozd4skWelYk2p47JAn1m2+9fZbvv5t8Bg
+	D+x9LlwGFMbHQiPRFnHrjsaXiZnCbniMNCFROHIfzdUna913IsLTDWvCMlJtqi+TGD3y+ENwbOX
+	91bFbx222kHNPJbU2MRtCk2WDYLFPjO39KBaZPPT9Jh7AmaJnsr26seJSnJwurFPQZmylVjAk9Y
+	UEPUkdpP5UH8nCcaGSVrXXTcxmG9pch/5eZIAn+jlVhH2UO4S96bmfBZj7olcZ6rZ6PGsxa6yj1
+	WeFNsKTvcKN06RiMsS+VtSU6aYaI56lbZOxil0b9EefR61+Lk1hjFKkHBSVQZiAgBUIsKvR7nJf
+	UaHU+BoQ7ihV2pJBJlv47N+NUm8x+IXNVf35zUnNEJ86W45SrkO7qKT90TQc=
+X-Received: by 2002:a17:90b:3a0f:b0:361:472e:3be6 with SMTP id 98e67ed59e1d1-365ac79e167mr6668974a91.26.1778141255317;
+        Thu, 07 May 2026 01:07:35 -0700 (PDT)
+X-Received: by 2002:a17:90b:3a0f:b0:361:472e:3be6 with SMTP id 98e67ed59e1d1-365ac79e167mr6668916a91.26.1778141254604;
+        Thu, 07 May 2026 01:07:34 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-365b0560fa8sm1986094a91.1.2026.05.07.01.07.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 07 May 2026 01:07:34 -0700 (PDT)
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Robert Marko <robimarko@gmail.com>,
+        Guru Das Srinagesh <linux@gurudas.dev>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: [PATCH 0/4] firmware: qcom: scm: Add minidump SRAM destination support
+Date: Thu,  7 May 2026 13:37:16 +0530
+Message-ID: <20260507080727.3227367-1-mukesh.ojha@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR18MB4144:EE_|PH5PR18MB927674:EE_
-X-MS-Office365-Filtering-Correlation-Id: 986fef4a-24af-42da-7757-08deac0f71fe
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|1800799024|8126099003|3023799003|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	Q3QuoRqK/w9oUic4F8SSW2VQnSkQS904ozxv87ubaObtXmzsf1c4khIesl+vEpkxTu9Ybw79Tv+cbSdpdW+0o44jdyvGlxspscKKB4cvKomQptDAb8NfTOG2i2oott92JpDHQG2fvdvp1ibJgJpKfvan4vNbIoV6NPdNafcDnkwotBWMZEudN2tVPS/qvW/Kj77Afx1xBmnJsHekI0sKylN7BUjFPidZWPq2LEC1T9YfqO4KDYKu6oftLKq+mJd/wSOaiKqd/+H52yb3O3Alf9DWknzV5TF9BIZ66GeRr5o2bo/q84ggJS39gmXzjqwNh40V2f/JFK0QcE2U5YbV4Mb1g9sUHCQWNDGYhny5QZhhFhZNNsVzK648ARF2J7PUpjramKpSmmLSC4U/G8HSonbnYMAtcmcDrXyl019wuykKHOWsSIogui4zOdZxsk65TmzUkH/XhWQG0+ctnJsZdPBYAOxIx1KuOw/3hZwbiZCFUy+A27zGvWU9ry4hc0wym6x4bjra6i4VHR6nOGUTWuP3UWUbiHZWQUoM0YZWL2ghiD2/ex5Z5PZJuj6ZBE1D3Rx9ruwajdJhsZEbrJD4w2+vSLlVoZHFmOprBaMnk2F4x9wFcPU/mQrHarG302/4bvjSUFIiFEjINyy1YZPVYit0GrlRIWmdHjonRxOjHfMIOg3HNFTicwEYJRyP7KPI
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR18MB4144.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(8126099003)(3023799003)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TzZzRHlGbEhwcG9QMnZZbEk5bGlnaXVydmdjNEQ0VFppUW4wVGRjb28zN0lT?=
- =?utf-8?B?RnUyS0NXOTFma1djZmxCdmIvSTdJME9RWlpSZHZZQ2t6OUFIWUF6dGVDTDBp?=
- =?utf-8?B?alhRVURaUEVnamJ0V0VZS2lZalcrVzhZc2hyNGpsM3Q5dHNrVVd1M0NBVGhO?=
- =?utf-8?B?bmVrM2tuV05HeUZFc2p1UjRLTkdONUQ4bDRYS1ljOXVCdllveTdlb3BVVkYz?=
- =?utf-8?B?d3FTMWxNbUttbWFVUS9oS1VzZFY1cW9qTDQwS2s3ZUNjRGtBRkY3QThFakxz?=
- =?utf-8?B?MTI1ZFI0U0hhNmxmQmtZSzBCaE4xbnNUc0o5Mk5YR1M5d3V2NWh4NGNkd2pJ?=
- =?utf-8?B?RzI4cWxmRmsxOFlMTWlyY3lGMWI1SlVMWlVRQmRjaDdKQXBYTTFoMzVrVW9u?=
- =?utf-8?B?NWtsNVNJZXpmWmZ3OE9lLzJGNUN4ZlpQM2l0UUJpcEJWUU9kTkNKYzFicjEz?=
- =?utf-8?B?KzNFekVOUk9uY1lCbno3VlJ1T01va0NyWmVXQ3EvRDdIY0tubkwrS2MvU29V?=
- =?utf-8?B?cWNEOVgwK25vbnNCT1I0RzFFV2ZGWk4yMExUa2JuR1gzUjY0NG1qVHBYRlBZ?=
- =?utf-8?B?dEoyZ1BaRkJrQXVONEx2ekpyOHFiajl4NWY3NWE5NjlJclVTYlJUM1ZYWGQv?=
- =?utf-8?B?Y2ZrV3VMSEVMdHM2eTQvSWdOei91K1NRakhDRGlaK2lmWnJWZEpzRHMvR2xM?=
- =?utf-8?B?WFlqTHFhMHR2MGNEU1UrSnZZdWVIeUptME5OZ1krQWh5ZVNnbUprc25HMytp?=
- =?utf-8?B?d0UyaGxHV2JqUXVjUDRiSFRWUWpHeStFUmg1anl5dElhTTZWOXRMT0tpOXVi?=
- =?utf-8?B?Vk1RY29yR0FtMyszVEtKR2hUVHlKWTdZWU1TWmFlNHd2aEQwQ0VSVlFqNWZ5?=
- =?utf-8?B?NnFVZ0RmQU5BT1lCakZRU05SMVpjQ1o3R2VPRVRBM3pSenBLUzhFNkJNNUN2?=
- =?utf-8?B?dWpaelJvYXhJemdCbFNIbVRJQS95bXRmbldJblNzMWJDTDlqRExqL0dkQ21a?=
- =?utf-8?B?Nm9YSHM2SHU3QTJhUWEvWHJnb0ZVcW5FdlFkTWxVUDNQQ1ZNa1dBZVN5NVp2?=
- =?utf-8?B?WDk0M0dNbytPbTVjcytEdjdNNlE3K1ZoVXlZM2NKT21uemZTMVhQcHZPcjcr?=
- =?utf-8?B?SENoSUFkMnowaE1SeUsrOUQyc3hydk9QN2FVRDRSOG92dEpDM05HcUF3TFJp?=
- =?utf-8?B?RE52WW5DK3o3RFJTMHNVWnpDdGs2cWk3VUd4Z0FCelpLU05USjRDZzA3L00v?=
- =?utf-8?B?czB6M0YxcnBDMzg2R2ZDeTMyZWpQRDg5dFJYcnZDUHJtdlVISER1TStYeWpB?=
- =?utf-8?B?Z09lYzdNT2t2L1ZvWFRJR3JweXlJUDliR3pSMW9BSnIyV1VmTHc1TkRNRzVJ?=
- =?utf-8?B?ajFkUG14ZVFRY05MdTAvRDR0dEZiTXczVXBGbkNqUWFrWlRwTk0wUXdvK2J6?=
- =?utf-8?B?OXo0UXUyUlJYMTZjZVlKZTllZ0xheVBFSWs1ZnBLaVFpUEo2enFXSzBYWkpm?=
- =?utf-8?B?ZktKZ2xsVlRHR0dMRmFEM0dHRzNoOUcvS2VDY0tpeVlkMGM5Z0tQY2doSjFn?=
- =?utf-8?B?cnFWWnpQTGNYZlh1cFNubDNaRGc3TTB3WmloK1ZjdTdab2gvemRTaHNGeXo1?=
- =?utf-8?B?T0hSTGJZVEZJb21Wem00WG9oMUIyTTR3WWI2bmIrOEhoZjZMc1R5REtndU84?=
- =?utf-8?B?RHVINTFtYXlwRXFkWmJOemx2dVcxWmxidTQycXl6S3JOV21WZ1pCRnVXakhI?=
- =?utf-8?B?MVhqS1lmM2JydkxkR1M4MmhtSGpjd0VOVVlIZWwzQzBHbEtEWVQ4M3AxTGdu?=
- =?utf-8?B?eWx4emNINDhjUjJTa2FucmNxRkpDZDE4NmxxT2xpUk1NSktPRml2ODdiQ1Jr?=
- =?utf-8?B?Z3gwaUFndTZSbHRYQUp5MFNETnJCRTAwZmk3TFQyb3oxWVhXOVFFTThKN210?=
- =?utf-8?B?Z0FoajhSaGl6N2llcVpXSENtbW0rM1pjRnB0L0lFblR6SUIwdzhCczNLUTdn?=
- =?utf-8?B?K1ljcW5UcEt5ekhKR0s3MVltUXBTN3BpRU91aitpRStGb2RiYllRWGdtM1Zw?=
- =?utf-8?B?b2pLYzNNOEMrMGl4QVVjbzRCTEtZU1ZhM1FsRDRPam1BZ0JPRFRuc2RQdGV1?=
- =?utf-8?B?NHVpbkszcDBVT3AzbVl1ZDJsK05mN3dNMEEwM0VnZmdiK2xpMS82UENxNFk2?=
- =?utf-8?B?TWF3WHNJZTh1b252aTJOWG16TzdFNGxrMUxiUitVdi9Ba0Y4ekFhRnNpd3pX?=
- =?utf-8?B?RzI3UGluYUd1S3M5ZVlmc0NkekxWMWFINW5ObWVzbE80a1dYc0ZoS0JHRGtN?=
- =?utf-8?B?T3MxU2tGdHFKTG1mdWRVZHcydlZWT2IzM2dSd0prSmw0eHJUcmFUdz09?=
-X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 986fef4a-24af-42da-7757-08deac0f71fe
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR18MB4133.namprd18.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2026 08:06:00.3245
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2WCMPocwRv4y5S6oun0ow/zvanW+XGNzcNB7k8L6mDqy8c21Fxyk6tGbWWd7NB9VPqDDMlV+0hK325WjHBG9BQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH5PR18MB927674
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=Wv4b99fv c=1 sm=1 tr=0 ts=69fc4848 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=Uf9RHLb8GrDHKnSoJrcA:9 a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-ORIG-GUID: sJGuKqMdew1AS09ObliDFLYm85kT8KqC
+X-Proofpoint-GUID: sJGuKqMdew1AS09ObliDFLYm85kT8KqC
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDA3OSBTYWx0ZWRfXzypHJqmdyMJw
+ bWNwaT0afDeBO9B3+PF7xzv6MBVZzEoc5JfQbASQp1jNVFOQHFaMKsO6Jc+ulLmDhjvZ27HvX8q
+ 29MYbs8JjNrHya6gfDQnuoPwzusTyMklJ84uOmg73NBJd+mF75Bj9RolMoIjsKtr/JhDsvTYzak
+ +p1lyj4LOGR4JmhWdhqb4TfYvwQ7p3052pLZPXqUQYnC1dwEOkAHpULGUuaicRX3lQvsr2vHaBy
+ y/sBFljIv+wP3qPEh6toiZ9CdhxWxLJHA2EdNSPm0LF3kSrNylOESxMOioh/wgq1/L/+IKwGxWf
+ 3r3gw3MOQmIhGTf/s2m6YyhexZGPM3+qPhORkhH5KjZLHqbrc9D9PnBkQivQUU5n5fhVCtUOgdJ
+ ojk70w9nlKONYd3g0fNqhW5WlIcA87UXDOFVLYQ6+82OZId6j6kDbUYidTesnKRV4zFUAFCXFms
+ xhRyVWVxTZdkEVCEyag==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-06_02,2026-05-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015
+ impostorscore=0 spamscore=0 phishscore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605070079
 
-Hi Linus,
+On most Qualcomm SoCs where minidump is supported, a word in always-on
+SRAM is shared between the kernel and boot firmware. Before DDR is
+initialised on the warm reset following a crash, firmware reads this
+word to decide if minidump is enabled and collect a minidump and where
+to deliver it (USB upload to a host, or save to local storage).
 
-thank you for the detailed review. I will go through the comments step by step.
-Replies inline below.
+This series wires that mechanism into the SCM driver:
 
-On 4/24/2026 9:26 AM, Linus Walleij wrote:
-> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you recognize the sender and know the content is safe.
->
->
-> Hi Petar,
->
-> thanks for your patch!
->
-> On Tue, Apr 14, 2026 at 3:49 PM Petar Stepanovic <pstepanovic@axiado.com> wrote:
->
->> Add device tree binding for the Axiado SGPIO controller.
->>
->> The SGPIO controller provides a serialized interface for
->> controlling multiple GPIO signals over a limited number of
->> physical lines. It supports configurable data direction and
->> interrupt handling.
->>
->> The binding describes the properties required to instantiate
->> the controller and register it as a GPIO provider.
->>
->> Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
-> (...)
->
->> +description: |
->> +  The SGPIO controller provides a serialized interface for controlling
->> +  multiple GPIO signals over a limited number of physical lines.
->> +  It supports configurable data direction and interrupt handling.
-> This is pretty generic, can you write some details on how this happens?
+  - The SRAM word location is described via a 'sram'/'sram-names'
+    phandle pair on the SCM DT node, keeping it decoupled from the
+    driver and extensible to future SoCs.
 
-Yes, I will improve the description and add details about the SGPIO
-operation and data flow.
+  - A 'minidump_dest' module parameter (default: usb) selects the
+    destination.  Custom kernel_param_ops expose it as the human-
+    readable strings "usb" or "storage".
 
->
->> +  '#gpio-cells':
->> +    const: 2
-> Are you sure you don't want to use 3 here instead and split the 128
-> GPIOs into 4 "banks" second cell being the bank number?
-> <&gpio 2 4>; ?
->
-> Maybe this also solves the 512 GPIO by grouping the GPIOs into
-> 8 banks...?
+  - Add the support for Kaanapali.
 
-Thank you for the suggestion. We would prefer to keep #gpio-cells = <2> to stay aligned with existing SGPIO drivers and current DTS usage.
-A single linear offset is sufficient to identify each GPIO, so introducing a bank cell would add additional complexity without a clear benefit.
-Any internal bank handling can remain within the driver if needed.
+Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Link: https://lore.kernel.org/lkml/b33938e9-bb5c-4743-866d-4cdccf808a02@oss.qualcomm.com/
+Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
->> +  '#interrupt-cells':
->> +    const: 2
-> Same there.
->
->> +  design-variant:
->> +    description: SGPIO design variant size in bits (e.g. 128 or 512).
->> +    enum: [128, 512]
->> +    $ref: /schemas/types.yaml#/definitions/uint32
-> Just use two different compatible strings and infer the variant from
-> that string instead.
->
->> +  ngpios:
->> +    description: The number of gpios this controller has.
->> +    $ref: /schemas/types.yaml#/definitions/uint32
-> Same here, certainly the 128 variant has 128 gpios and
-> the 512 has 512 GPIOs? Just use the compatible string
-> to infer this.
 
-This seems to be platform-specific rather than strictly hardware-dependent.
-We were considering keeping it as a separate property (possibly renamed to |axiado,sgpio-ngpios|).
-Would you prefer that, or deriving it from the compatible string?
 
->> +  bus-frequency:
->> +    description: The SGPIO shift clock frequency in Hz.
->> +    $ref: /schemas/types.yaml#/definitions/uint32
-> Don't you want to use the clock bindings and a clk property
-> for this?
+Mukesh Ojha (4):
+  dt-bindings: firmware: qcom,scm: Add minidump SRAM property
+  firmware: qcom: scm: use dev_err_probe() for dload address failure
+  firmware: qcom: scm: Add minidump SRAM support
+  arm64: dts: qcom: kaanapali: Add minidump SRAM config to SCM node
 
-Yes, I will rework this to use the standard clock binding instead of a custom
-bus-frequency propert
+ .../bindings/firmware/qcom,scm.yaml           | 57 +++++++++++
+ arch/arm64/boot/dts/qcom/kaanapali.dtsi       |  6 ++
+ drivers/firmware/qcom/qcom_scm.c              | 98 ++++++++++++++++++-
+ 3 files changed, 160 insertions(+), 1 deletion(-)
 
->> +  apb-frequency:
->> +    description: The APB bus frequency in Hz.
->> +    $ref: /schemas/types.yaml#/definitions/uint32
-> Dito.
->
->> +  dout-init:
->> +    description: Initial values for the dout registers.
->> +    $ref: /schemas/types.yaml#/definitions/uint32-array
->> +    minItems: 4
->> +    maxItems: 4
-> In:
-> Documentation/devicetree/bindings/gpio/nxp,pcf8575.yaml
->
-> you find:
->
->   lines-initial-states:
->     $ref: /schemas/types.yaml#/definitions/uint32
->     description:
->       Bitmask that specifies the initial state of each line.
->       When a bit is set to zero, the corresponding line will be initialized to
->       the input (pulled-up) state.
->       When the  bit is set to one, the line will be initialized to the
->       low-level output state.
->       If the property is not specified all lines will be initialized to the
->       input state.
->
-> If this is what you want, use this standard binding instead.
-
-In our case, the hardware provides dedicated DOUT registers where
-each bit directly controls the output level (0 = low, 1 = high).
-
-The lines-initial-states property also encodes input state semantics,
-so it does not map directly to this hardware.
-
-Would you prefer adapting to lines-initial-states despite this,
-or using a separate property for output initialization?
-
->
-> Yours,
-> Linus Walleij
-
-Thanks again for the guidance.
-
-Best regards,
-Petar Stepanovic
+-- 
+2.53.0
 
