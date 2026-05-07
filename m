@@ -1,88 +1,87 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 553E63D1CD7
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 22:50:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8853D413B
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 22:50:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778194218; cv=none; b=tejlCScF2N+svD/BS4QkagK7ZAAodhN2e5QPX+oXcIZsDOcvaD3ihrC+YUPiQx+Yipdiwyi9qtavXVxFZxXrGH7fu3kucyyJ1HM+DKR/29fO8KupWTLNr13Og0v6GGnZh3KwHPJtjIfpTuwwZP8gd1PwfCIUuYDeT8sa8JofC2Y=
+	t=1778194221; cv=none; b=b2kzhZQBgUsdUMM602Kn/sA0TLzr+LJTB3Zk3NhHCs9035u1pkkYt1B4yTJfp0PgR7IPREnTdsRlzhGx63/xtiv4usNOGrtvalr2qBmnCT1DvAumvzq5jD43WHj15td+1KQAqCzUpMNJ1GqsB58Flif9+3kY+PwfVPON7LxgHD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778194218; c=relaxed/simple;
-	bh=d6sTldzr20rxqyeexiCHog1RigxMQcbtDegyP5w3YpA=;
+	s=arc-20240116; t=1778194221; c=relaxed/simple;
+	bh=7Krz7pN0WV1WEwE+SM/17Byvte7UfrNb2WulyP8M938=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tLhIdd0hJ3Xqn0iIXi8/ABO4VFtW66GpPixBwSOAytxALiVoeZk1UqU0c3CIcPafRVv3KF1ZDKO5p/TpiUt3381lQ5/HWUFvW5Qb2ZE7Ty0PYeLc30Bnjimvl9GWhfvkweVF5asz2xbqtd7S2HlmzWg5dxzjgA6SqOjJdQQxfqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mi5j+ZlJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ArQpPrT2; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=dEjYyK9bivUtCqHKdwNFvBjC1qSYtvxFT7YUi5m5ZZyBFWlwkBdD5M3l43Lk/Iyt/yrRgDXRf9/ueH6m9PYQ2waDkT3Tw+iqTklyNtqtCflyAcyUiIhV6/MPHu/emStmTMlv2YI8yaMiRHf/MCgoKId+nj1P7zBjPEoHsKLSGzU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aEqAB1J2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RX84c+y5; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mi5j+ZlJ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ArQpPrT2"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 647JDAiK2183134
-	for <devicetree@vger.kernel.org>; Thu, 7 May 2026 22:50:14 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aEqAB1J2";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RX84c+y5"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 647HRfip2734318
+	for <devicetree@vger.kernel.org>; Thu, 7 May 2026 22:50:18 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	dQvxefKofl/MWew8drQPijHpKnkbQHmoKvevMGmHYPQ=; b=mi5j+ZlJdbfKBhd1
-	Y6dLOtI2uozcHYMzVfe/0bwdeUBpGEvTuBh1uFUtEEdXlr0kkxbSjrZ0MbxG/Wc/
-	2WiCDHULMGVuZe9n6J+HPk+eD1WZ4ycoo3v5d/bGEpJAmQbITKQb4hfRUYsrvfWA
-	WYSkjH+OMJNTAfz/V5sjF1flMIS66yv1a06AWW5tTeimaa7FbUZxhubAmwWBbisq
-	BEC8Xhipbp2t50SYtGzCtcJ/JgzuG8mF5ZFoPcW+2KPBYcJqaRl9zAhKnz5hUk3P
-	Bq64Mit6uPyOUgzklRt6mkfNf6O7U+jDAzXrzMIStmfqAH+79bnQKQsd5g+D6Zz2
-	UPJlZQ==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e10py8m54-1
+	9MkPXhNFKpgj51RT3nXElFSkq09L7clUycFsPNU23WU=; b=aEqAB1J2DNsPcjx9
+	jt6JhCscOwesf++9Opc/65eYqOp9+o9pH0P1OK0YX/DoQqFuGZkL6bKiMGyaGhBi
+	PYIOBMk0+NKRy4Tc07QkEyMlUq3vNYLvjqJlmqHqwyLedYLUVGDy+dQOmVNMKj8m
+	mHIa4qdfP9dcDxyrE0L0g8y0WhLJqpqMsJXW0Qa6W0Xw9uljkJ70x37gxigrp2ft
+	MWo7nnRtFniQQMFnz7b2w6pA/+EYUq6F3cOvgdwXrb/ykr7CJPqHJdgbVw3MtgEu
+	f4MPSYU8hA8KqaF7+CZV4meeTP7ow9Lss4NxwzHZVs3JtFCKDBC67E7ukK5cG97Y
+	1N8SRQ==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0tbqtbp0-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 07 May 2026 22:50:14 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-95d434f3356so1327685241.0
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 15:50:14 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 07 May 2026 22:50:18 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-62e94ae0479so5172729137.1
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 15:50:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778194214; x=1778799014; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1778194217; x=1778799017; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=dQvxefKofl/MWew8drQPijHpKnkbQHmoKvevMGmHYPQ=;
-        b=ArQpPrT2oMGZeCYJKXVyrIkUPhB6yI7Qm/Sze8dFw7bFuc/7albtp+Sj2JtJgjVhSJ
-         FKTdh/ouj9RcIL/x95DsDVTNgRW6H+NO11ZVGfHwNC5NEheAqxxico7ws9SsL7/OzJAW
-         xglhmxEgxuq2xu3WwhSOJk5BEEM9OV96yxQQ3nAKRBUNWpNgccWTjnVPsAwhQ02HKgjV
-         P/koEXgJ28DdCVQYBUkUHl/sQuBGbnTfB1I8NDXOXjqNqDbz0RqlHqkKG4L6PsVoYoWP
-         V1Ef8bxPL+3T+4jgxGAu6pZG+N+MzBJG3HM6wuP8CvXtGlLgaY3Tv+A/+ugJqsUQxHBE
-         VfLA==
+        bh=9MkPXhNFKpgj51RT3nXElFSkq09L7clUycFsPNU23WU=;
+        b=RX84c+y5180DBXRSkor5q/VBH98Zc5SnwB7x3xKVbxIEayRsx2JSYC434xN7OfTAIw
+         8LQfeJ4544XSoh7IjBObFTtokzYachdLfh0OWVhN9JY9GjTh/4xTO/WtchVoe7aYY7u/
+         WnZDkuDD/IrgMlikceSRDEBlwYfk6Ds+qWoBPvfTca6VtFlw73m1d8i3H4rfiyEaEcqD
+         Kr7750m/nM3SNPwBvlPzhQRBeb0ipLHI9ftOcLYCkrGZihec5OpvYCTGUK7eUHPV9KyX
+         4L3KV/VZJOXbowAZYvi0whJeHfltGeRqj+ya4Texw35MYLJyroyeBJ6AhF7qg8ydOifF
+         Q4Dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778194214; x=1778799014;
+        d=1e100.net; s=20251104; t=1778194217; x=1778799017;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=dQvxefKofl/MWew8drQPijHpKnkbQHmoKvevMGmHYPQ=;
-        b=NEqZ4/L9etKjdkMjM0Sux1FwVOqb3HGXE1KPbDVYNWxHc6Ej/bTYxcC6zNTHu3Z7IK
-         QCP6ow2bNjK7fJaA1o7POJoYAcpcWmK6H/79KawbJ/MyMNMcN+SkK7tSn9kojORJBAUn
-         PzJMefDsrme84KEaAp6In3z5nFtq49cOtOcWrq7QWAP9ufDchHrhHSWZnuik2BfVGG8Z
-         kjmn9TKbP4ekQ1Pmc4zdWQ5G66n8m7wY4EvTouReuwpPdLuqSBHDujjJFXERtxCXYQ9e
-         WffRirfNRMGVHWCtEpIOzwMCUyXIKr2oQ6JErFMcKjXUQqMZiQaAUL8cyEPe7JNN2fyD
-         EJGQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9RdIScuzBLcac2Lryu+PwHAYYJ+ehEj0dJcmr3YK9o9LAPaVBSIuc6GArjVA7Z1+h7wNHhPjV432Pr@vger.kernel.org
-X-Gm-Message-State: AOJu0YwVOgDx8w4N6FUXYMoVAwMHDfsWhAqEPRmmz4fSvEpmlPX3tRVG
-	QfufCmDEbxWldOBJaDHvAvKf1RVoUn8DXezbuIERIK21KSmz3AyJDBKQlVVdO8cvnPqMSyXoco0
-	aUaROAXSa1Ez7nJ/EWumAFmcChlTWCYBFHzzFv41BxWmEpFXsIDb1d8HxwSluqBGa
-X-Gm-Gg: AeBDietYgYGHF4OCbOFKhHQGw1ZnrqXaVUQG6Vwn7tW/2YeQ81jWayTvjFiRzKxHGaI
-	lcWr29TZZ0sro2NZl9Uqnj+tjH+LzOcETgPAiR3BtnAh8isS/yyi5rHWxu1q5CMdY6dEzWyjJZZ
-	2PyO5ZvznUzdF6f16UJEn8mDddsMK4/Rlnx7xgN3gAc1VCqc8TFrUL6/n6JJk2Ym4/wh/piioig
-	HQyHzYL/L+iB+R9nJUDFCRi260LYKlxzJ0mMp4nqqNs4m5xqM3pEy5yg8GNKIZt6i6IqJP9m4Mp
-	4jjspm2izJB9mJCLo5KxWLo1v8UjYUs0xxIvI53j/tCTUD1WLWjCxgBy6KdUlx+B2btHFn2VrN/
-	HM7D8K58V7bnQ4L8SBEOIge+UXzRKXW58wVL7kb+zFBinEBHZFZZ1ycIayQFWQxP8N+nIucCOht
-	UdXxdQTytDqHYWx+ZU
-X-Received: by 2002:a05:6102:b01:b0:631:3b92:9dcc with SMTP id ada2fe7eead31-6313b92aa4emr424427137.27.1778194213797;
-        Thu, 07 May 2026 15:50:13 -0700 (PDT)
-X-Received: by 2002:a05:6102:b01:b0:631:3b92:9dcc with SMTP id ada2fe7eead31-6313b92aa4emr424408137.27.1778194213371;
-        Thu, 07 May 2026 15:50:13 -0700 (PDT)
+        bh=9MkPXhNFKpgj51RT3nXElFSkq09L7clUycFsPNU23WU=;
+        b=iK7yj+oolqEIToKNdBz7/W8URgILmHfE/Iqu1fFV0njo3DSRz6bZCevx2w0/cLDu+8
+         qWyaQ5w7wFv6ApmumqJ6H/einBBL/wSq6ZJ32FQ09gnr2HtsaaTosnVDA+OjELmJSwVg
+         aDLGipBFWX/xKkDx4cwuv23EVQXH5tgmTT5EWgGfUrjwZ2xFz25xbkq/xdlsrjF+PFGp
+         czKjaT7N2YMRRgkRWjl8r/rm92bSCKo2VvKYp2tcfGZmG9EP5g3FGBF67Wcb4ViAZkjK
+         PHuLhrCzlh9ZVq1016J+O4cznP0hZS5oonDxE9ddEgE0V8MYI7IowCObETn5gQwZJhbr
+         oWmQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/+5MV48Z2JkRpIZXoCPPZ1vvMLXq0QM/BcQUG1K7XMSBYJHOWzfXfVxS0YiOuUiFWgaEqHxXnyt8gI@vger.kernel.org
+X-Gm-Message-State: AOJu0YxDqyDdbWJxvvZ47IxqUkIh3iRxCwLg1Xcl+BZwzeKBnMjhqPv2
+	aBtAvIsNF5V+H7+iQ49SX9Jh6YZUWxVR0WVh16N26wgmbQyeIjOd+DUOn165EihRsE25vev9o29
+	ww0sBzpaC4UTGzOd3OeNWeSpMgewU2XEkunf/KYjxUhdWEoXoIyq64Kyo70v8GLqy
+X-Gm-Gg: AeBDiesjc6LocyQ59ganttFHDyTCmXiAfQUuX365koPuI8GXwr3zXGk2h2BGBZP3SaK
+	DAd8a5fT/RYdABEbIrGyDDv+UNIjXjvesIBnkUHn8MIpABukvRDKgY4XEIHy8eacYL9dETZSLVh
+	SY/OrM9GLbV+aaiKBamVAuAkh99bcl0OW8Ceco2hNLZ6rtrIDB9doG98YQKWD9XiW2i+JDVmuOP
+	izsOClpU3wadWWmOwMYWaNOH0W4/zzAudzbF3pDG6wd82xJjZ0Y404LFCa+FNDDgQpC2QwjIXkj
+	lwWAscFs1iaRhfgQ036gv52CKUv77rvF9RUTK+64Q+YwxxaW1jD6km3AOtNA8m0kwSWAiIzCKrI
+	rGXMFxpj1zitPe0ALR7k7FTspQQY5sFzo6ZmN1eORA3GlpGvNbxUJTlnQcPCELdWZ1KuhoIaz+L
+	LXDwpibWbrQciUY26zT6oqC4Z/GRw=
+X-Received: by 2002:a05:6102:1497:b0:62f:4854:8c53 with SMTP id ada2fe7eead31-63115f8712cmr2441530137.12.1778194217094;
+        Thu, 07 May 2026 15:50:17 -0700 (PDT)
+X-Received: by 2002:a05:6102:1497:b0:62f:4854:8c53 with SMTP id ada2fe7eead31-63115f8712cmr2441524137.12.1778194216623;
+        Thu, 07 May 2026 15:50:16 -0700 (PDT)
 Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:b16a:3475:ec42:bcfa])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bcac4359dbesm102466b.48.2026.05.07.15.50.10
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bcac4359dbesm102466b.48.2026.05.07.15.50.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 May 2026 15:50:12 -0700 (PDT)
+        Thu, 07 May 2026 15:50:15 -0700 (PDT)
 From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Fri, 08 May 2026 00:49:18 +0200
-Subject: [PATCH v3 03/15] media: qcom: camss: Drop top_ahb/axi from QCM2290
- subdevice clocks
+Date: Fri, 08 May 2026 00:49:19 +0200
+Subject: [PATCH v3 04/15] media: qcom: camss: Add camss-isp-bufq helper
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,8 +89,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260508-camss-isp-ope-v3-3-bb1055274603@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260508-camss-isp-ope-v3-4-bb1055274603@oss.qualcomm.com>
 References: <20260508-camss-isp-ope-v3-0-bb1055274603@oss.qualcomm.com>
 In-Reply-To: <20260508-camss-isp-ope-v3-0-bb1055274603@oss.qualcomm.com>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
@@ -110,115 +109,315 @@ Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         devicetree@vger.kernel.org, laurent.pinchart@ideasonboard.com,
         kieran.bingham@ideasonboard.com, johannes.goede@oss.qualcomm.com
 X-Mailer: b4 0.14.2
-X-Authority-Analysis: v=2.4 cv=DZUnbPtW c=1 sm=1 tr=0 ts=69fd1726 cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-ORIG-GUID: 5mWT3PcFcEOt3BNWLwr01Uq00fJ_Iuxt
+X-Authority-Analysis: v=2.4 cv=SJVykuvH c=1 sm=1 tr=0 ts=69fd172a cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=yFrQIQtVvbDJ7NVWecMA:9 a=QEXdDO2ut3YA:10 a=TD8TdBvy0hsOASGTdmB-:22
-X-Proofpoint-GUID: _nezgKW25Qt5sO8a23HyGtK6hx2n5WtX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDIzMSBTYWx0ZWRfXz9KPi/tfm1Ns
- 56V5vLIixFLJNSXIgGvr39yk2d5+JYNCcnCR2gly7z0n3D70WpfpmYsMQPDQWYD5tPKFitzWvWM
- heg2/Uozpz7XLm8lZj7sK2UE4yaORaGMm6Mtnj736HCG1D4kqFd42HXSgOSiJZF2BpMAjZAsKAp
- fhmGVdvMzPG0y4g/pNosxmNvWlgLuKbRcnsNTL3RoKl9Q4//Ps1fH5Qa4mITnQULS2gd03SUkIz
- MV66X2QHHp4nMGBUUu2wzx8DZFJAq2+GZeaBOqGZxPuPhzzRq5vCFfK+wfuCISB6HQGFOA+owYk
- Eb0nWBWV25wvn2UdKFqnzb08XWgpeXFFUvdWoIkyZDJcF/oHbmst28p6p74SkSdGilvMzmAAvUD
- DJqmpvkeqxRyUtqXhySwvqqWSiLXjfU9YvDUmRcvnXcjgBLLW0xT5nbuFS70QsNPXwkAd/ZGQJN
- 8xRDfX3jVXPvZyBkpVA==
-X-Proofpoint-ORIG-GUID: _nezgKW25Qt5sO8a23HyGtK6hx2n5WtX
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=Rj2g1MzNgR17_EpZbusA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-GUID: 5mWT3PcFcEOt3BNWLwr01Uq00fJ_Iuxt
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDIzMSBTYWx0ZWRfX9+0SduHWiKpA
+ fMBlmsC+LSMiqjWWsmHPcHNLOaNtiRXzRz5H9hqQ6y7rnMSOAd/RE1fQyBZmgqA1evbBtnpKpPG
+ Dqx67nirrMEK7Xv/EbqwSkGSnE7WpRYV4abmpwcJNLHuleSM0wGRz55VzlXdqcb/IMGIDXL3xgz
+ mrg1GY2FwhSKMZam8J8mXdIS5nG2PtMPY0dy2r2c2rjF/H1eLRLKzRIHZsH1RqTt7lBVo9r2JVY
+ Y5UUj2s0m5SkakRS42ci7G+SxG1nHVjRYQrC8b7ZK8K6fMGfZx+5NYGxVZ0hHZc/Wuvc2Hz/TZJ
+ LUi2MukjrmN5Y/L3s827Mm+V5YlsXhf4ycuXK93bsvYR9PfZoDbkaeKW6678XCxjiIvVAfWbbf1
+ 2pPHMXV6TeIrMBYru9WRvtqyANAS/DC4rs3SE44vUQzq60N+Rn7vJqdQhqNk1hZ77NWTpkfGYtQ
+ Ned2HWIylI2WPGoUOnA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-07_02,2026-05-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 adultscore=0 suspectscore=0 bulkscore=0
- malwarescore=0 priorityscore=1501 clxscore=1015 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605070231
+ clxscore=1015 priorityscore=1501 suspectscore=0 lowpriorityscore=0
+ impostorscore=0 bulkscore=0 adultscore=0 malwarescore=0 spamscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2605070231
 
-Remove the top_ahb/axi clocks from QCM2290 subdevice clock lists.
-These clocks are now handled centrally as a global CAMSS PM clock
-and are automatically enabled when any CAMSS child is active.
-
-This avoids redundant clock references in individual subdevices and
-ensures consistent clock management across the CAMSS pipeline.
+Add a per-queue ready-buffer FIFO helper for CAMSS offline ISP drivers.
+camss_isp_bufq provides N spinlock-protected FIFO lists of ready vb2
+buffers, one per queue index. This can help multi-queues management
+and synchronization in ISP context.
 
 Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
- drivers/media/platform/qcom/camss/camss.c | 22 +++++++---------------
- 1 file changed, 7 insertions(+), 15 deletions(-)
+ drivers/media/platform/qcom/camss/Kconfig          |  14 +++
+ drivers/media/platform/qcom/camss/Makefile         |   5 +
+ drivers/media/platform/qcom/camss/camss-isp-bufq.c | 101 +++++++++++++++++
+ drivers/media/platform/qcom/camss/camss-isp-bufq.h | 122 +++++++++++++++++++++
+ 4 files changed, 242 insertions(+)
 
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 3bde26c4750ea932ea69fdbf5c5da9f959e5e5e2..0ceab12d573ee7521d44b77d23ee563930d6aac3 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -663,9 +663,8 @@ static const struct camss_subdev_resources csiphy_res_2290[] = {
- 	/* CSIPHY0 */
- 	{
- 		.regulators = { "vdd-csiphy-1p2", "vdd-csiphy-1p8" },
--		.clock = { "top_ahb", "ahb", "csiphy0", "csiphy0_timer" },
-+		.clock = { "ahb", "csiphy0", "csiphy0_timer" },
- 		.clock_rate = { { 0 },
--				{ 0 },
- 				{ 240000000, 341330000, 384000000 },
- 				{ 100000000, 200000000, 268800000 }  },
- 		.reg = { "csiphy0" },
-@@ -680,9 +679,8 @@ static const struct camss_subdev_resources csiphy_res_2290[] = {
- 	/* CSIPHY1 */
- 	{
- 		.regulators = { "vdd-csiphy-1p2", "vdd-csiphy-1p8" },
--		.clock = { "top_ahb", "ahb", "csiphy1", "csiphy1_timer" },
-+		.clock = { "ahb", "csiphy1", "csiphy1_timer" },
- 		.clock_rate = { { 0 },
--				{ 0 },
- 				{ 240000000, 341330000, 384000000 },
- 				{ 100000000, 200000000, 268800000 }  },
- 		.reg = { "csiphy1" },
-@@ -699,9 +697,8 @@ static const struct camss_subdev_resources csid_res_2290[] = {
- 	/* CSID0 */
- 	{
- 		.regulators = {},
--		.clock = { "top_ahb", "ahb", "csi0", "vfe0_cphy_rx", "vfe0" },
-+		.clock = { "ahb", "csi0", "vfe0_cphy_rx", "vfe0" },
- 		.clock_rate = { { 0 },
--				{ 0 },
- 				{ 192000000, 240000000, 384000000, 426400000 },
- 				{ 0 },
- 				{ 0 } },
-@@ -717,9 +714,8 @@ static const struct camss_subdev_resources csid_res_2290[] = {
- 	/* CSID1 */
- 	{
- 		.regulators = {},
--		.clock = { "top_ahb", "ahb", "csi1", "vfe1_cphy_rx", "vfe1" },
--		.clock_rate = { { 0 },
--				{ 0 },
-+		.clock = { "ahb", "csi1", "vfe1_cphy_rx", "vfe1" },
-+		.clock_rate = {	{ 0 },
- 				{ 192000000, 240000000, 384000000, 426400000 },
- 				{ 0 },
- 				{ 0 } },
-@@ -737,10 +733,8 @@ static const struct camss_subdev_resources vfe_res_2290[] = {
- 	/* VFE0 */
- 	{
- 		.regulators = {},
--		.clock = { "top_ahb", "ahb", "axi", "vfe0", "camnoc_rt_axi", "camnoc_nrt_axi" },
-+		.clock = { "ahb", "vfe0", "camnoc_rt_axi", "camnoc_nrt_axi" },
- 		.clock_rate = { { 0 },
--				{ 0 },
--				{ 0 },
- 				{ 19200000, 153600000, 192000000, 256000000, 384000000, 460800000 },
- 				{ 0 },
- 				{ 0 }, },
-@@ -757,10 +751,8 @@ static const struct camss_subdev_resources vfe_res_2290[] = {
- 	/* VFE1 */
- 	{
- 		.regulators = {},
--		.clock = { "top_ahb", "ahb", "axi", "vfe1", "camnoc_rt_axi", "camnoc_nrt_axi" },
-+		.clock = { "ahb", "vfe1", "camnoc_rt_axi", "camnoc_nrt_axi" },
- 		.clock_rate = { { 0 },
--				{ 0 },
--				{ 0 },
- 				{ 19200000, 153600000, 192000000, 256000000, 384000000, 460800000 },
- 				{ 0 },
- 				{ 0 }, },
+diff --git a/drivers/media/platform/qcom/camss/Kconfig b/drivers/media/platform/qcom/camss/Kconfig
+index 4eda48cb1adf049a7fb6cb59b9da3c0870fe57f4..d77482f3f5eadc65856806b9b237d65ea484f267 100644
+--- a/drivers/media/platform/qcom/camss/Kconfig
++++ b/drivers/media/platform/qcom/camss/Kconfig
+@@ -7,3 +7,17 @@ config VIDEO_QCOM_CAMSS
+ 	select VIDEO_V4L2_SUBDEV_API
+ 	select VIDEOBUF2_DMA_SG
+ 	select V4L2_FWNODE
++
++config VIDEO_QCOM_CAMSS_ISP
++	tristate "Qualcomm CAMSS ISP common helpers"
++	depends on VIDEO_DEV
++	depends on MEDIA_CONTROLLER
++	select V4L2_ISP
++	select VIDEOBUF2_CORE
++	help
++	  Common helper library for Qualcomm CAMSS offline ISP drivers.
++	  Provides buffer queue management, job scheduling, MC pipeline
++	  topology builder, and ISP parameter buffer parsing.
++
++	  This module is selected automatically by drivers that need it.
++
+diff --git a/drivers/media/platform/qcom/camss/Makefile b/drivers/media/platform/qcom/camss/Makefile
+index 5e349b4915130c71dbff90e73102e46dfede1520..bfc05db0eada1d801839ceb8a3b157baae613053 100644
+--- a/drivers/media/platform/qcom/camss/Makefile
++++ b/drivers/media/platform/qcom/camss/Makefile
+@@ -29,3 +29,8 @@ qcom-camss-objs += \
+ 		camss-format.o \
+ 
+ obj-$(CONFIG_VIDEO_QCOM_CAMSS) += qcom-camss.o
++
++qcom-camss-isp-objs := camss-isp-bufq.o
++
++obj-$(CONFIG_VIDEO_QCOM_CAMSS_ISP) += qcom-camss-isp.o
++
+diff --git a/drivers/media/platform/qcom/camss/camss-isp-bufq.c b/drivers/media/platform/qcom/camss/camss-isp-bufq.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..b1dcf60afcc63d112eee7bd143f08a7b4aac9a18
+--- /dev/null
++++ b/drivers/media/platform/qcom/camss/camss-isp-bufq.c
+@@ -0,0 +1,101 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * camss-isp-bufq.c
++ *
++ * CAMSS ISP per-queue ready-buffer FIFO.
++ *
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#include <linux/module.h>
++#include <linux/slab.h>
++
++#include "camss-isp-bufq.h"
++
++struct camss_isp_bufq *camss_isp_bufq_init(unsigned int num_queues)
++{
++	struct camss_isp_bufq *bufq;
++	unsigned int i;
++
++	bufq = kzalloc(struct_size(bufq, entries, num_queues), GFP_KERNEL);
++	if (!bufq)
++		return ERR_PTR(-ENOMEM);
++
++	bufq->num_queues = num_queues;
++
++	for (i = 0; i < num_queues; i++) {
++		INIT_LIST_HEAD(&bufq->entries[i].rdy_queue);
++		spin_lock_init(&bufq->entries[i].rdy_spinlock);
++	}
++
++	return bufq;
++}
++EXPORT_SYMBOL_GPL(camss_isp_bufq_init);
++
++void camss_isp_bufq_release(struct camss_isp_bufq *bufq)
++{
++	kfree(bufq);
++}
++EXPORT_SYMBOL_GPL(camss_isp_bufq_release);
++
++void camss_isp_bufq_queue(struct camss_isp_bufq *bufq, unsigned int queue_idx,
++			  struct vb2_v4l2_buffer *vbuf)
++{
++	struct camss_isp_buf *buf =
++		container_of(vbuf, struct camss_isp_buf, vb);
++	struct camss_isp_bufq_entry *entry = &bufq->entries[queue_idx];
++	unsigned long flags;
++
++	spin_lock_irqsave(&entry->rdy_spinlock, flags);
++	list_add_tail(&buf->list, &entry->rdy_queue);
++	entry->num_rdy++;
++	spin_unlock_irqrestore(&entry->rdy_spinlock, flags);
++}
++EXPORT_SYMBOL_GPL(camss_isp_bufq_queue);
++
++struct vb2_v4l2_buffer *camss_isp_bufq_next(struct camss_isp_bufq *bufq, unsigned int queue_idx)
++{
++	struct camss_isp_bufq_entry *entry = &bufq->entries[queue_idx];
++	struct camss_isp_buf *buf;
++	unsigned long flags;
++
++	spin_lock_irqsave(&entry->rdy_spinlock, flags);
++	buf = list_first_entry_or_null(&entry->rdy_queue,
++				       struct camss_isp_buf, list);
++	spin_unlock_irqrestore(&entry->rdy_spinlock, flags);
++
++	return buf ? &buf->vb : NULL;
++}
++EXPORT_SYMBOL_GPL(camss_isp_bufq_next);
++
++struct vb2_v4l2_buffer *camss_isp_bufq_remove(struct camss_isp_bufq *bufq, unsigned int queue_idx)
++{
++	struct camss_isp_bufq_entry *entry = &bufq->entries[queue_idx];
++	struct camss_isp_buf *buf;
++	unsigned long flags;
++
++	spin_lock_irqsave(&entry->rdy_spinlock, flags);
++	buf = list_first_entry_or_null(&entry->rdy_queue,
++				       struct camss_isp_buf, list);
++	if (buf) {
++		list_del(&buf->list);
++		entry->num_rdy--;
++	}
++	spin_unlock_irqrestore(&entry->rdy_spinlock, flags);
++
++	return buf ? &buf->vb : NULL;
++}
++EXPORT_SYMBOL_GPL(camss_isp_bufq_remove);
++
++void camss_isp_bufq_drain(struct camss_isp_bufq *bufq, unsigned int queue_idx,
++			  enum vb2_buffer_state state)
++{
++	struct vb2_v4l2_buffer *vbuf;
++
++	while ((vbuf = camss_isp_bufq_remove(bufq, queue_idx)))
++		camss_isp_buf_done(vbuf, state);
++}
++EXPORT_SYMBOL_GPL(camss_isp_bufq_drain);
++
++MODULE_DESCRIPTION("CAMSS ISP per-queue ready-buffer FIFO");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/media/platform/qcom/camss/camss-isp-bufq.h b/drivers/media/platform/qcom/camss/camss-isp-bufq.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..1a8bc7b112a1b039233cfc7be573f1f40fcda7c9
+--- /dev/null
++++ b/drivers/media/platform/qcom/camss/camss-isp-bufq.h
+@@ -0,0 +1,122 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * camss-isp-bufq.h
++ *
++ * CAMSS ISP per-queue ready-buffer FIFO.
++ *
++ * Provides N spinlock-protected FIFO lists of ready vb2 buffers, one per
++ * queue index.  Drivers call these helpers from their vb2 ops and job
++ * completion paths.
++ *
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#ifndef CAMSS_ISP_BUFQ_H
++#define CAMSS_ISP_BUFQ_H
++
++#include <linux/list.h>
++#include <linux/spinlock.h>
++#include <linux/types.h>
++#include <media/videobuf2-v4l2.h>
++
++/**
++ * struct camss_isp_buf - vb2 buffer wrapper
++ *
++ * Use as vb2_queue.buf_struct_size so buffers can be placed on the
++ * ready lists managed by camss_isp_bufq.
++ *
++ * @vb:   The vb2 V4L2 buffer — must be first.
++ * @list: Entry in the per-queue ready list.
++ */
++struct camss_isp_buf {
++	struct vb2_v4l2_buffer	vb;	/* must be first */
++	struct list_head	list;
++};
++
++/**
++ * struct camss_isp_bufq_entry - per-queue ready-buffer state (opaque)
++ */
++struct camss_isp_bufq_entry {
++	struct list_head	rdy_queue;
++	spinlock_t		rdy_spinlock;
++	u32			num_rdy;
++};
++
++/**
++ * struct camss_isp_bufq - multi-queue ready-buffer state
++ *
++ * Allocate with camss_isp_bufq_init(), free with camss_isp_bufq_release().
++ *
++ * @num_queues: Number of entries in @entries.
++ * @entries:    Per-queue state; flexible array.
++ */
++struct camss_isp_bufq {
++	unsigned int			num_queues;
++	struct camss_isp_bufq_entry	entries[] __counted_by(num_queues);
++};
++
++/**
++ * camss_isp_bufq_init() - allocate a multi-queue ready-buffer state
++ * @num_queues: number of per-queue FIFO lists to create
++ *
++ * Returns a pointer to the new bufq or ERR_PTR on allocation failure.
++ */
++struct camss_isp_bufq *camss_isp_bufq_init(unsigned int num_queues);
++
++/**
++ * camss_isp_bufq_release() - free a bufq allocated with camss_isp_bufq_init()
++ * @bufq: bufq to free
++ */
++void camss_isp_bufq_release(struct camss_isp_bufq *bufq);
++
++/**
++ * camss_isp_bufq_queue() - append a buffer to the ready list for @queue_idx
++ * @bufq:      target bufq
++ * @queue_idx: queue index (must be < bufq->num_queues)
++ * @vbuf:      buffer to enqueue; must be embedded in a &struct camss_isp_buf
++ */
++void camss_isp_bufq_queue(struct camss_isp_bufq *bufq, unsigned int queue_idx,
++			   struct vb2_v4l2_buffer *vbuf);
++
++/**
++ * camss_isp_bufq_next() - peek at the head of the ready list without removing
++ * @bufq:      target bufq
++ * @queue_idx: queue index
++ *
++ * Returns the head buffer or NULL if the list is empty.
++ */
++struct vb2_v4l2_buffer *camss_isp_bufq_next(struct camss_isp_bufq *bufq,
++					     unsigned int queue_idx);
++
++/**
++ * camss_isp_bufq_remove() - dequeue and return the head of the ready list
++ * @bufq:      target bufq
++ * @queue_idx: queue index
++ *
++ * Returns the dequeued buffer or NULL if the list is empty.
++ */
++struct vb2_v4l2_buffer *camss_isp_bufq_remove(struct camss_isp_bufq *bufq,
++					       unsigned int queue_idx);
++
++/**
++ * camss_isp_bufq_drain() - return all ready buffers with the given state
++ * @bufq:      target bufq
++ * @queue_idx: queue index
++ * @state:     vb2 state to pass to vb2_buffer_done() for each buffer
++ */
++void camss_isp_bufq_drain(struct camss_isp_bufq *bufq, unsigned int queue_idx,
++			   enum vb2_buffer_state state);
++
++static inline u32 camss_isp_bufq_num_ready(struct camss_isp_bufq *bufq,
++					    unsigned int queue_idx)
++{
++	return bufq->entries[queue_idx].num_rdy;
++}
++
++static inline void camss_isp_buf_done(struct vb2_v4l2_buffer *vbuf,
++				       enum vb2_buffer_state state)
++{
++	vb2_buffer_done(&vbuf->vb2_buf, state);
++}
++
++#endif /* CAMSS_ISP_BUFQ_H */
 
 -- 
 2.34.1
