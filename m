@@ -1,64 +1,58 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012053.outbound.protection.outlook.com [52.101.43.53])
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023080.outbound.protection.outlook.com [52.101.127.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F5382882C5;
-	Thu,  7 May 2026 03:32:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0336364A8C;
+	Thu,  7 May 2026 03:36:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.80
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778124730; cv=fail; b=NFwKUQq/Q+Dlwz0FDcyMWtOJSAwpLUMQo+od9YcV7YwA0eT8RIjJ8JNpHtKsDWYVVWyziL9zBRX9YIYCii+oPVHN4ijuyl6y4jWoWaAnc7tYql9Qsx2QXmKlMCMdV9WNsIpEAa2oCYmWtJkuH0wcJVQQSrJfu3IZxvrgG2F8Cu4=
+	t=1778124974; cv=fail; b=lX2SRNiMt0bX1fGzesKpG6pM3X3ivEuWk/AtSjFim9eQ+AeXmRGQLLh5N04HRQxLGfR/vVzm0O47CNO6fCTlNBLA+bElSfq/BW58D49Tg1jRAH6VNgSAOGxusaH55pPkE5zon4iwOLT/pjJOo7SB5LBvHYOoutZ06JHIVq4ji7c=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778124730; c=relaxed/simple;
-	bh=N8Y1wTKEosJYBGYyNdxRQougBCYs+tKwqjyMhvFGhYk=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=PHscgLn1H7yfFdQb4+c9dNnGvQynoqDTs18fqWDvMQ8NmP9LGxFOaAlT2MjSa0Hx2vlP0JV+xhuYCWVU7dMH8sJyVbw5T2im5n7CWyTbVblI0Oks7BBvXjw/FPX8DWDTcAdScvhbyhZgX2Luraw/CJuRCglEmt5prDvA9jE216U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=Ue2dv1Lp; arc=fail smtp.client-ip=52.101.43.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="Ue2dv1Lp"
+	s=arc-20240116; t=1778124974; c=relaxed/simple;
+	bh=j92/bxiHoyLLFwt52lSsRGLX/OR9XZ7X/qt8iHzZvxU=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=fEX9k8WgvdpUj4DlP1zt3uyli3pkiCneNOUseTN00M5NlKMUq3+E8sXFgZkKskqIk/Pv/eZfB5Mm0/FOk7yJbIGL06mJYVScaP1IitSOiadIHTtOu9CGqytd3iSQrppO5mDweSw2y2hKt41EU/G2dQ79HSxE4sBNEGJDl4JC+8E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wesion.com; spf=pass smtp.mailfrom=wesion.com; arc=fail smtp.client-ip=52.101.127.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wesion.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wesion.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RB7OkU9CLhZRLrqF7+GFR9Ouyi/ydOeb7GcOvb5LSmGDFEXk522HPS1P/4sXUPl9lvaW7zCNxSxhXL9bxiy75keaMLO5L++MiZZAZkm/JlXGimqcfi8E6LRheBcqwncUa2IwMBekJf/99yvImnUiV1+3DiF0qA60MfBht93tfjL65UrKcVvy+KTfmP3kCRLpc1z2NDYF+7UHn2hOzVxi7ykYEV2kg0hsbNOKyWeSKZIxnvbgOPKzkUP85k9LZolBGTSbyfQ05vUx113moAdtdSYqkjnG1469aUzsI0uWdm9PsaC5BKcWn5Orfsu7G64I2n0Wsz86pDLZSwdBmPupyg==
+ b=kvkL3nMbiixsKpMVMde2xcMxsPo84qLGrenPUmj4UCt8yHbTE7fmJj4Oc5nJ9WPU6/s+mmtPdxkFDMsQ/0mGAQJEO2If+/493/MdZTOK8fmD64MO1k97G4k5KtHhiuQ197Do6zcOzySXKSWCn6UGRPaIw/T3pY5El9SUgNSet2ewoekVyhRe/WZ4Rl4BAVuFbQk8rl2BsNTVCfIdFn1IcY7DpA9IlWFAwPPFDUjPQS+R3fT8QNDb0ymcoWlj4p//ubLhk6myIhnqUmZcyphK759KgvwMluOs2YHbhCGYcPjAqzAYwt+BZp3M99HQBsGQ+lQed9PFIhTlFBGmge/Z6g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nOXwkUvUqLyNTU9r6lIJj10THJUc5XKWZQERRlBTc2E=;
- b=QnEBPfm9GaWlXBJ28Yk7aHgxMTQwwdiKOTanrYre4isIr5/M8QMAzQNE95lfWFVN+yf1m/JK6wZnBRRUqyU0kwmhGzLsxhcWGgm8wa+yen+U6WVaGq9lcCn4bSUzW8cgRQQpX7CLuX09KS8MtA54b9y8F8bcH3+v6d4646ew9atIto/jSC2scE5gxKAEKgYb87J9WEcqIoBFJE3Pv8+CT2FHfIS0CsST25IsfgacWnHYSUNc3Ao5T5WIRoZ55jr9K87SCthNTsXCh1yoDhBnDuF9kQwdK+LXe5u4UsABx/Rmn5/nCN23GxQZnMcUfpIzBaWKjpoDKMmui3cTNJ57ag==
+ bh=HkGrvwSYcZPcDfC0pfw0bv9JB93chWUpKKjmghSlYXg=;
+ b=RBpiD4FEBWMqGKJZgSX17tcJASBi+AykKCja6KnGrF04Q++gbsFUlRUAwiY5aVC0v77zSaZ4wbaOc/OnJjAd9B2I36JNELo0Oo930FyzImpR2opRaA1GPs+dDbLwMLwMpbC6fZf0iBvSWZ3fg0YFIHQE0UNpDyJ9S3Ld3wVDYPtv0X2xzUSAl5ghjYJv0mX/ZGkoI4Oq9PgowljhkHZ9iGZci4gwxTcbfBHVJA+88RR9+e+h0+IqjPGbISdZwmusRM56Q8ZAfOUgtKM/X7+r7Iq+4y4DOsmxMGKD2Rz6/or1eJW+Zdp3fNf6kz4f+zH/98C1pNHjlOPtfVqdl8/wCA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nOXwkUvUqLyNTU9r6lIJj10THJUc5XKWZQERRlBTc2E=;
- b=Ue2dv1Lp+yfRHNQIKk3QpVeIsurhyP8WqPuqO9ZqOBj1A4LyzRGqhQ03QREGohfirVkeoZ8f++oimcDt1qmy+W8Vy46SwKaX50AmZexYZhDsFMXvyMEXMi4wXZfmfdPbJP7B4ImRhCCEtW0vPuLbsQEokvehjzwDNduQUvGH4Th+48vpj7x5gK8fp4HR6G/4AJCTxvm4Neh4qmdBpn9LsN3JNBuzs5l6ZZ5Lh0NZJcuSMhBncbVVvGBMdPmhxPqsit8gK2ryoYOpefi3j/JGKnLFFX3K0WPdIAMo9TcBKusbwL328AJsyudrPl87L8+5/gVXim22zAwq8Lr9S61/hA==
+ smtp.mailfrom=wesion.com; dmarc=pass action=none header.from=wesion.com;
+ dkim=pass header.d=wesion.com; arc=none
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from SJ0PR03MB6964.namprd03.prod.outlook.com (2603:10b6:a03:432::18)
- by CH2PR03MB5192.namprd03.prod.outlook.com (2603:10b6:610:90::24) with
+ header.d=none;dmarc=none action=none header.from=wesion.com;
+Received: from JH0PR03MB8617.apcprd03.prod.outlook.com (2603:1096:990:91::14)
+ by SE3PR03MB9965.apcprd03.prod.outlook.com (2603:1096:101:32d::6) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.27; Thu, 7 May
- 2026 03:32:05 +0000
-Received: from SJ0PR03MB6964.namprd03.prod.outlook.com
- ([fe80::b965:bfa8:58fb:e775]) by SJ0PR03MB6964.namprd03.prod.outlook.com
- ([fe80::b965:bfa8:58fb:e775%6]) with mapi id 15.20.9870.023; Thu, 7 May 2026
- 03:32:03 +0000
-From: muhammad.nazim.amirul.nazle.asmade@altera.com
-To: dinguyen@kernel.org
-Cc: robh@kernel.org,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.12; Thu, 7 May
+ 2026 03:36:10 +0000
+Received: from JH0PR03MB8617.apcprd03.prod.outlook.com
+ ([fe80::28d:6503:f51c:11b7]) by JH0PR03MB8617.apcprd03.prod.outlook.com
+ ([fe80::28d:6503:f51c:11b7%5]) with mapi id 15.20.9891.008; Thu, 7 May 2026
+ 03:36:09 +0000
+From: Gray Huang <gray.huang@wesion.com>
+To: robh@kernel.org,
 	krzk+dt@kernel.org,
 	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
+	heiko@sntech.de
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	adrian.ho.yin.ng@altera.com,
-	tze.yee.ng@altera.com
-Subject: [PATCH] arm64: dts: socfpga: agilex5: Fix phy-mode to rgmii as HW provides clock delay
-Date: Wed,  6 May 2026 20:32:02 -0700
-Message-ID: <20260507033202.26363-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
-X-Mailer: git-send-email 2.43.7
+	nick@khadas.com,
+	Gray Huang <gray.huang@wesion.com>
+Subject: [PATCH v3 0/2] arm64: dts: rockchip: Add peripheral support for Khadas Edge 2L
+Date: Thu,  7 May 2026 11:35:39 +0800
+Message-Id: <20260507033541.2576335-1-gray.huang@wesion.com>
+X-Mailer: git-send-email 2.34.1
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR13CA0038.namprd13.prod.outlook.com
- (2603:10b6:a03:2c2::13) To SJ0PR03MB6964.namprd03.prod.outlook.com
- (2603:10b6:a03:432::18)
+X-ClientProxiedBy: TP0P295CA0028.TWNP295.PROD.OUTLOOK.COM (2603:1096:910:5::8)
+ To JH0PR03MB8617.apcprd03.prod.outlook.com (2603:1096:990:91::14)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -66,134 +60,93 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6964:EE_|CH2PR03MB5192:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1eaaa3da-bd14-4980-c6c9-08deabe934e4
-X-MS-Exchange-AtpMessageProperties: SA
+X-MS-TrafficTypeDiagnostic: JH0PR03MB8617:EE_|SE3PR03MB9965:EE_
+X-MS-Office365-Filtering-Correlation-Id: 097bb0c4-55fb-459a-2ec9-08deabe9c767
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|18002099003|56012099003|55112099003;
+	BCL:0;ARA:13230040|366016|376014|1800799024|52116014|18002099003|38350700014|3023799003|56012099003;
 X-Microsoft-Antispam-Message-Info:
-	KO88h70xLEPqhwOVljpsFv1dkK4T2GgRgzk18M7QyB6AMYh3g4QFSrPQ+P1rFtj9htqUGQlgjPCzafrjyMEIN0jcbmoMv5aBGtS6Fw7FzftLW71ERYqeSCCnLOEjdWS2tFs5hfPjAf7ZLjeW6aRCy3iAr+vsrhz9vHz0jCfS9PnyVB/UbYfxVTH+aTQ2dgKbQT031jBBVqz3s3C2e6BhmpjWM877CNIOEAF/JFxoX1188scy4QgK9PpIP8p2ddl8sI/KCVFoba/OA8MP83/FYpP3Lkm903K19Ncg6kFBlJ0BqrMeN8BYnEZ1G4beEH4F7mrw72b8MP2bh1dgZ7iulnWYkC4M2Du9ABhTiGiHzoQDOPN1GlLkacPy/q4joZE9ajTZcZNBK1miBAnqTKaXo8p9IV9hXN6qTZLUthuLnSQfVxDM2S2TVonrN8jrOg+jTob6sg75Y527FcYPP6f+ujEs3SUaZjBrhcrA844dDr2xImZoqkGTniDYPkgJTgKzZhGhwZEv1ebPZ2rfvSW8z2G04QFd4nt1fUVgyctIAfFsn4XE1VP7dzcxzXxhSU4jxmjjfAtcuWjT7YgrBdKMo9s0Ee0o9vwlyhHnpCIwd5okEHnB00QkCoDN2GbEEMl04URVHPOIoPPTBYwzrdQ7xoU4ULww8qCE/VJ3bJKrZeXg4eIDkZzdoDliK+cz1hw9
+	vBVNCEMjIe/aKatl1qIQt/eAJbHQDgGFkHMb2XVGXNHT7XSOk/BVVULWz8DUr9Hen2DGP5mBdyeJRL4QbCtOgCBl/YgEFmt33M9lOsQaTJV7nu7OTHPldnQDfz6HyU6q3umaWc5I/WPZuDCmNdv8Zd6labgersyY8ynZvcljmdX+sBh5iQCp3e9jooZ8JgkXfyHJM5GSvVcE4khUz5FjX3c5KQPHHbzI5m3LdQgsX5UsQFZCAb6ghYPMxGc+7D55zrLtps6UQyuYUlKnOKO02XSsUPdokJEtD6z0GtGIENsoFh3hGcS9uvplLtVUiDUeq4zBzn5TZYT88Emzj/FEKj0dwHkxgB7NwMq8yTzx7krdL5/GK5VN+fgi5etswkNzugwt7uyEiIEeHWErkZosJ6azITBV010lrbFV4ueA0dx+PI3A5mL5SyBRhODZgqtKchxVs+RvPMJdgO7IrgC+Z1rJJ3YUspXfe5uJxoh0a6VDSqpy3nptYdFacCNOHnFXz3tA62HQ/yQrlzpN2Ld1ZJtMsOcOoSWM5NrnV97Iw95uytD/XgA+nt+bFD+FhsrkUR15l8Py8s/Ds7AMc+69eyhqK7mEjN9cHVQQDwV0tEBWTCdKek9il2FoCXWLsYN06NJvQCqx+Jkq+t+Wc7+k+I1/ADBGwtuku7AKGnNEYGGVj+qKzMFUfssc5hwWBehz7pYzQ4fJeQXfGS6WH2yC3Cf0OYax0EDZixSopUS/nSg1ZhnbQxVMITeokTNo/PPP
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6964.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(56012099003)(55112099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:JH0PR03MB8617.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(52116014)(18002099003)(38350700014)(3023799003)(56012099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?V6IhU+cZx8GsU/M5mqYtoHBABBgAVukIPFA/11yCxocXpTsaNPXmcnmFlC6I?=
- =?us-ascii?Q?Y9ayaWNJtseworhR3vEBJUJfA2PXa5a6UsPHNWJQlMRajgvFEPGHuyR2mbMj?=
- =?us-ascii?Q?5s62ROoA+EsvoVJ4cSQlt6pJPKrT7QlmAL1ggw13NOqkoOPOGUSDHlIeYWA+?=
- =?us-ascii?Q?Ic7sco06FlL4lolwSS5Oad/psUgR2MZn183grs6N1c5btAsXTlSe1YR118TL?=
- =?us-ascii?Q?LkyXBRmbv94sEQJFck9MLivobaEc7m39KK1GQ+Yppzwqay0HbACWhyVFxf2c?=
- =?us-ascii?Q?Vt/O9LaNshn4VmMkXIxBwXMOc+xLd8TBbh3yAazr9pvsL/EqMS8/2DmGWNgH?=
- =?us-ascii?Q?8531v6NKJ0OafDCvFiCpVmsAnYC5ZsiOST6LqiPqZBmeUYGcVZrx6V/sdcNh?=
- =?us-ascii?Q?vxOZrZQIYrOt60GgHWnULYoBIc/9CbmI1j5RNRZsdkCeOYAuppS+hpldPXfo?=
- =?us-ascii?Q?mo0pPvg7yF0DgPKw0OutfLK0W7UilH9lno7AcX6stv0RFwAiRNs6z53jUH06?=
- =?us-ascii?Q?JmAp/RqSMBbeuOxwZDWpcubhijNiVWXL7WdHgAdfFaP5zfsB3WnUejux5BWT?=
- =?us-ascii?Q?q6N+BytpbwezsMtwwpnMhm7pdOj+uVo8kolAxXHbWX85lTO+rXzB61bHkgGc?=
- =?us-ascii?Q?0RSkP2O6W230DgfvsyQNt9U/m8l5/7XW5lL5pnboIjfWqUanSXMFuPPoVqsj?=
- =?us-ascii?Q?HzgGo0Jz/x+FnvjgryOYITy/0nT9Y44K1hpzreCD6ACwkhnyjJ+jqq4y+gyo?=
- =?us-ascii?Q?8vIMx+kqHMzh8PLY+jH8G1i8ge92gi5YyGmc1jdc7Edf5wxC3TvPDPVXbknl?=
- =?us-ascii?Q?4IoFXo2VmoNQNf+zozgcMWArQOPYKfBfC4Pm6vYjE/+UFuog2cmZ9sOeIkQZ?=
- =?us-ascii?Q?8UrQfFUWDvCbfWMNXVI7LhkI0LbBlEVxMlOMwS0Fi8Lwjw+W6lrGoqBobZu1?=
- =?us-ascii?Q?h3WVtV67n67DekalFGmxk1R2idoKJ/oKJAb0e5Bh2Dt8bY9cTQUyUT7NYONy?=
- =?us-ascii?Q?Q63cvs56YIQcjG34Yz1DtUvRFZAdj46zUkdKcrIRJqyxf6+VKQY4+48C8e6g?=
- =?us-ascii?Q?PMqUJ3SF1w62cpaBqOY0zpIBk/M3oirjiVx53OdVa81DqOxtu4GzhYOw4/UD?=
- =?us-ascii?Q?JEw4mwd4hPS0RBs/EEbMQPVIJSSCVBY7GwWCp030OmKXlmGlArFkJZeULctz?=
- =?us-ascii?Q?/oYBHQoR9SBojuiUflkM9o31PGOkISY9mC+DfbBbvp8dLku/7ougXiF9j12+?=
- =?us-ascii?Q?syAuLF0zBqEYEiXJhKwKuXPiAe6a/VLQwsV6mH9kcwtD3QbJ2YcxFiHVt6Cw?=
- =?us-ascii?Q?mCe0zBSWPJjpnRG14RCn5SdRcXBQc0Gud0pnF+2b2FZNBlVbrXvDFjLz1aaW?=
- =?us-ascii?Q?s/2GMJOn911XlEan6FLaszKUB5EExfluqbTxAx9v8DhmwgF+FZkxwYdkPcXb?=
- =?us-ascii?Q?5KMYqIfnPHOLKu7Ke1UW4nlnMqUOfyXSQVtDtG6yn4+DUiTwJ6T7LmsX+JZu?=
- =?us-ascii?Q?ou+zIeVsdrhqduBDbiqP2ISo++DzMkZi15JOPUr+F7KkFihP+1wiE5qhuXnZ?=
- =?us-ascii?Q?6jGRnFcFKMh3fFS2v0H7FlBaClFHFf8WEE+AvG1xtOE8jCi4LZHRNZXa/JhD?=
- =?us-ascii?Q?jYz+5QvNIMs8wZ64MEHJdUpJA1qdULsQdF6lvY7NstmgKMbAhuzp81W058TK?=
- =?us-ascii?Q?JpBSJlXEIIsQR737SUNgjsTQjHtCt8gD00M5lxmdFNP+071bW/2sroBl/N0h?=
- =?us-ascii?Q?Iw0prlutI9A5vtUpxM+VmtK8bkyBHHf2cFS0I0zR6XuOdAeZd7NYG2FCg7VH?=
-X-MS-Exchange-AntiSpam-MessageData-1: 9chThh4T3ptpeg==
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1eaaa3da-bd14-4980-c6c9-08deabe934e4
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6964.namprd03.prod.outlook.com
+	=?us-ascii?Q?QBbBmfwFImztEzmGeXh+cNELKQbBnAIrGuvFmGRMFZkxRsUUiyXd/ilhLujL?=
+ =?us-ascii?Q?60i6c6VUKpZbrdcdoeOtmK8Pawn6JJZUZVp/l9qpHn7o811hTWYMiwlcaYI1?=
+ =?us-ascii?Q?29PUnkGpPbVL9yw7zxkZYdwT+9mukdQI8O9o40m6v1+3hhW8jAK0QPORRUtV?=
+ =?us-ascii?Q?a6qe3ouGvNsVaqdUjc50dAUi/juLCDk12yhkiPQmdjFgYWBWpP8T8kQIdz4K?=
+ =?us-ascii?Q?ANYMyJ5D6DRo5I3uzQ0fT/SjYuL9vnLrMb2e7Fi+UxbFY2hjMp6DOehtCZ9z?=
+ =?us-ascii?Q?tRmot+0hApjsKQgRoZq/BlEi+p3bHrfpzoOM9RPgMWriintSIbzZAJDoe7y5?=
+ =?us-ascii?Q?X5fOsRMLHKRFs7WNpoLR1jRCQuLISl6pSiXrAeP67UqK26+LZcX79Zx3y22s?=
+ =?us-ascii?Q?Ziv+A9p2nweJE20lG3Uul0pOSWZMGbKUTTMefZqw5SJ4nNHDaw4gaBokzcTk?=
+ =?us-ascii?Q?GTVZfUeE9VMOMRkl3c3ueEwQg6AQY0+F57iTd6fotAL9KXnomClUq2HYq9rJ?=
+ =?us-ascii?Q?ie9EMuNCCpdlGJosYW7Y9mSTzBnpjNlC4dZcFgCvlXOTag49LvH1sCSiFpXH?=
+ =?us-ascii?Q?YaD4OPTsGddQ0VwFBeSVk7/4s+1x+dLfgu+NHv8FN2solAN5QzP1Mcpq9SZR?=
+ =?us-ascii?Q?i4jhBMRIVBFUuzr2Zy4FmdQHX/L0TMAYNQKYCnHEeX1IRV8SBqYj9fdP/SJm?=
+ =?us-ascii?Q?T0ZP78JPxZszUaa91OiqaDp7uFzbA5i/P80Wn0fkWBmOc/aGJyLq/KEQkXds?=
+ =?us-ascii?Q?LPRJbhvEQZnI6MTljtAXs4BlHMll/+00vDxV072yWS6JqzLfcMawwVrDYlDj?=
+ =?us-ascii?Q?fIhLS7kHP5sw/KMx0ZTyA5UrjOUOJEMrG9f+mV9QjLESqaBhlFi1BiLANbTD?=
+ =?us-ascii?Q?O8RUoQLEZZNZ7g/Ga1lsLVDq7bDM4In58Plp5c3I25Etro0k2aHRVC1vRpEx?=
+ =?us-ascii?Q?JsUcfIQlPVD+BQiOBKbOBZKuwx/A34N+ocyC0diOOK+2MVv8Y1hOZAlby9F1?=
+ =?us-ascii?Q?0Pu/cprkmqCyePnUCvYxU8ZPeg6hGGX6uKmGViO1m764HHtDh0SQx3mCc47L?=
+ =?us-ascii?Q?gfY+I3jJ77wVJ0y8VOFHY3vukhX+VttHvzebvwMQuu55on6sXNQCgVOXMAwE?=
+ =?us-ascii?Q?9s8cVfgQGSM7vvDTNsC/LOrmBg/LcsRHg2O04JghKyuD/L3TF0g5r56l/G5V?=
+ =?us-ascii?Q?69qQyPJh22/VB4dYiEe7rp0UH6eBSBajtg54u4xkiqFGcSBTYZU56MNXFXPP?=
+ =?us-ascii?Q?RuHW+nb8tsQrMXQ9UJ29ZPTdaiBXM6JYPfsboMBhpYo/xZ48FBCjBR7RINhG?=
+ =?us-ascii?Q?og6yiFAHqZPQzGq3K1lT7mtJ2IdxHzDLwdHErFZkFrJd5M3EOlLz24MikYrP?=
+ =?us-ascii?Q?mPE3mlwAoNAlnbBSfH9qXjPogH+uFPAcqZQS+gt9eZMqGTyYL1oH/4GWNfXA?=
+ =?us-ascii?Q?Ra16wbbkr/+S6uGTjFAIZSdyaGE2bg+l1J76dwbUg3j5uDBynlZWlsW52OAZ?=
+ =?us-ascii?Q?0woYQy/92UBMsH9lUYO+beiBAd/qvkf7eXJn7GS1poP2FVrgBzrbJrG94qop?=
+ =?us-ascii?Q?2J9WbxvSNNtnBpWS1/qyPpEFr0bXi8Ww7jMYHc/JOH2aishBkZqNRflw9+ro?=
+ =?us-ascii?Q?QRI/gZz1g+xJU7N1NguhQ+Xk03EKy7AJz8yEEfjlajk85CMH+5gM+kGKI3+/?=
+ =?us-ascii?Q?ph61gS40cxhBMxpfc+5Ga/lCXz+0cK/Mv9KNlxsDuWi2r+pz/0RxJya3i0wb?=
+ =?us-ascii?Q?m2LLOWpH3Q=3D=3D?=
+X-OriginatorOrg: wesion.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 097bb0c4-55fb-459a-2ec9-08deabe9c767
+X-MS-Exchange-CrossTenant-AuthSource: JH0PR03MB8617.apcprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2026 03:32:03.7644
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2026 03:36:09.7324
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-Id: 2dc3bd76-7ac2-4780-a5b7-6c6cc6b5af9b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: I2brNUbu2I2rtVuPuOP30ADfSsE3qpQmARBA5ZifO+QpKZsP6/vEIvxXwvHLmueC6IOkbupouyjMr4v4St7hnTXnimEkDAXAgWFAfUSDCwGTUz1BOaOeXXnVO/72ZIBqPeG/GdW2kBwUChHi1iaCEg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR03MB5192
+X-MS-Exchange-CrossTenant-UserPrincipalName: mReYBMygH1LqmhGsfLBdkERC6WTcVe8oljQAJDbArFFJ11bcK2gkQ50kFPSKW7Ythtj64qTj13x5Q/W1k4PN8g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE3PR03MB9965
 
-From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+This patch series adds support for several key peripherals to the
+Khadas Edge 2L board, which is based on the Rockchip RK3576 SoC.
 
-The Agilex5 SoC provides RGMII TX/RX clock delay compensation through
-its integrated I/O hardware. Using phy-mode = "rgmii-id" instructs the
-MAC driver to additionally insert internal TX/RX delays, resulting in
-double delay being applied and causing Ethernet link timing issues.
+These patches build upon the basic board support that was previously
+applied to the rockchip tree. This series enables essential
+functionalities including power management, RTC, wireless connectivity,
+graphics, display output, and USB support.
 
-Change phy-mode to "rgmii" across all Agilex5 device tree files to
-reflect that the clock delay is already handled by the hardware and
-no additional software-inserted delay is required. Add an inline comment
-to satisfy checkpatch and document the hardware-provided delay.
+Summary of changes:
+- Enable USB 3.0 Host and USB 2.0 (via internal hub).
+- Enable Bluetooth (UART5) for the Ampak module.
 
-Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
----
- arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts         | 2 +-
- arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_013b.dts    | 2 +-
- arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_modular.dts | 2 +-
- arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_nand.dts    | 2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
+Changes in v2:
+- Split the former AP6275P wireless patch into separate HYM8563 RTC and
+  AP6275P Wi-Fi patches.
+- Reorder DTS override nodes to follow the requested placement and
+  alphabetical grouping.
 
-diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
-index 262bb3e8e5c7..bf0dbcd89f72 100644
---- a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
-+++ b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
-@@ -42,7 +42,7 @@ &gpio0 {
- 
- &gmac2 {
- 	status = "okay";
--	phy-mode = "rgmii-id";
-+	phy-mode = "rgmii"; /* TX/RX clock delays provided by Agilex5 I/O hardware */
- 	phy-handle = <&emac2_phy0>;
- 	max-frame-size = <9000>;
- 
-diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_013b.dts b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_013b.dts
-index f71e1280c778..cd1e545403e7 100644
---- a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_013b.dts
-+++ b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_013b.dts
-@@ -41,7 +41,7 @@ memory@80000000 {
- 
- &gmac2 {
- 	status = "okay";
--	phy-mode = "rgmii-id";
-+	phy-mode = "rgmii"; /* TX/RX clock delays provided by Agilex5 I/O hardware */
- 	phy-handle = <&emac2_phy0>;
- 	max-frame-size = <9000>;
- 
-diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_modular.dts b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_modular.dts
-index 1831402d8808..3a54fb14910d 100644
---- a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_modular.dts
-+++ b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_modular.dts
-@@ -44,7 +44,7 @@ &gpio1 {
- 
- &gmac2 {
- 	status = "okay";
--	phy-mode = "rgmii-id";
-+	phy-mode = "rgmii"; /* TX/RX clock delays provided by Agilex5 I/O hardware */
- 	phy-handle = <&emac2_phy0>;
- 	max-frame-size = <9000>;
- 
-diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_nand.dts b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_nand.dts
-index ec4541d44c9b..877e0090cf9b 100644
---- a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_nand.dts
-+++ b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_nand.dts
-@@ -39,7 +39,7 @@ memory@80000000 {
- 
- &gmac0 {
- 	status = "okay";
--	phy-mode = "rgmii-id";
-+	phy-mode = "rgmii"; /* TX/RX clock delays provided by Agilex5 I/O hardware */
- 	phy-handle = <&emac0_phy0>;
- 	max-frame-size = <9000>;
- 
+Changes in v3:
+- This series now only contains the remaining USB and Bluetooth patches.
+  Rebase on top of the latest for-next branch.
+- The previous patches in the series (PMIC, RTC, Wi-Fi, GPU, HDMI) have
+  already been applied.
+- link to v2: https://patchwork.kernel.org/project/linux-rockchip/cover/20260429063712.2150938-1-gray.huang@wesion.com/
+
+
+Gray Huang (2):
+  arm64: dts: rockchip: Enable USB for Khadas Edge 2L
+  arm64: dts: rockchip: Add Bluetooth support for Khadas Edge 2L
+
+ .../dts/rockchip/rk3576-khadas-edge-2l.dts    | 82 +++++++++++++++++++
+ 1 file changed, 82 insertions(+)
+
 -- 
-2.43.7
+2.34.1
 
