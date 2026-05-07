@@ -1,146 +1,610 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C543D3B637E
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 18:55:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 555D82F12C5;
+	Thu,  7 May 2026 19:00:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778180132; cv=none; b=R9ZS7GnRbgqFpBy4lJEd5LUW53zNWFzIzaODR7CDJ1P8mJpQtvjD2jxK8AM+P9SwcKmZHYc3zKBsZgZ8ht5xKV4qGg8kBZDoz+th6J3h/WwMuVdK35WwKQsQzU9xi6XxkGfDulwJK4vD8V2VeZOfUOVotI8T3H9JXlTvEv0pYLs=
+	t=1778180414; cv=none; b=tncB1N/zIjO+SfaZ2cD21kF+9pnRtqk2C2NjPPSlgWLhcqjz8vwNlXZuAECikNdnujWdQXtQiZnQI1XqrzhdWc6w/nTAmPJKSwdWHWJRcwqrDaISI5Ey0oFFRir00F1jDXtoIE/1V88za31BIwuFw7scqeDUT5hcSBEs+o5ZmCA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778180132; c=relaxed/simple;
-	bh=5+QjIEY/JT86akbLno686o350DIhsf6rA/JkZCxpcDI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WgAJaneHfxAAYorzuSZFtNZ8ER6hrSxqheGYfkVaaH8QMttvJCM7sXK3QxzqZ9whtTUuFiNVrS9NbLqOQjEe8FOv23aKz4tQ3lodkhm0v3LODbtLcRp4BkNQxrULXmXMU7tTJI3ueNsaz9lDJhql4lhSTR2Z5IjGcMglBlkL4dk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iOX8tzJf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZGNcQoS+; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1778180414; c=relaxed/simple;
+	bh=kugqW37oPnQ/320NnlrYJISfzdlcj0AxYgqOEVVXtxw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cB9/DBH4J/GGEZf1gW2peRUrQFV2iXFZmw1ADToYylUhVCd2N3N5hTtLHyieJHUAMFRU9f9q245KvW6u1XwAj9xLl/sZ0sg0ha1GXu07rhiQyV5i4YW5CDm9x1XumL60Bdj7e6PMtcQ0F0Tw3g5fNNqSUFtBRwXdTD3uwPEkm2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OzDQNbLn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iOX8tzJf";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZGNcQoS+"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 647ECa1R1424447
-	for <devicetree@vger.kernel.org>; Thu, 7 May 2026 18:55:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	5+QjIEY/JT86akbLno686o350DIhsf6rA/JkZCxpcDI=; b=iOX8tzJfbuZOt0E7
-	qaEzFnsgDoEx3v6oSI/3ple9JXi37sovrG5VnAb4y0W/KkiVdJqOxbEMbB0RA8BN
-	7Uc6LeizaPCxok2Lee44M0SkEcXn8/JkDCLqxrCKRBmOxwrh3i3+7GKkSzqQAM2x
-	k03fv1Uk/hReHvqsXXRPEyTC6G+o1G36faPYZ7oS6Xein86r8XG263vXlDfzqKtF
-	Mpzz84LNAt2wfPeg28krmJGWjcHlGNCKhpiXMRrydHOx+5Ng0rEsHoNr2C645JOv
-	+yJuxaoH002VBciCF7cn+cQ/ANdVjp8IX+TGsl9FBouTzxo1eB529zekeoJ2lfIV
-	7iPYmA==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0pqftnc5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 07 May 2026 18:55:29 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3653638874cso1772924a91.2
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 11:55:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778180129; x=1778784929; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=5+QjIEY/JT86akbLno686o350DIhsf6rA/JkZCxpcDI=;
-        b=ZGNcQoS+QJaQ+9I6OvY24QK9M8ht6bi0KTmPCOqdP26Pl5RuxmO8a07sN7ogN7X0FV
-         y5+ddCZES818ISGXTrhhCfhhwzWzLZQXjIvUDiqqrw/wuE2iMEE6tnT2+MexVwWr56YF
-         v4jPCGfDd49ffWgF84sDlEf0FE+f9ev53e2LXvcPcvrKoaeAMpmTqvM9xGtkx2YYlK+P
-         hRwAwZ2by2HhsAInkynz7dhDOcVxNWU3/X46ugyoM6pRgll8sj5AYabjoY48/i9H5TwH
-         daDzUTMv0lo/ujtjFMeA9b6GG5kGjHWCFmes+xtdTSAIvvEVcBwJSF3/+TOoAJVssgps
-         XO6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778180129; x=1778784929;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=5+QjIEY/JT86akbLno686o350DIhsf6rA/JkZCxpcDI=;
-        b=K6HpZViAzmjuueSxvrZC9FJ06jwSATUA3Tv6IiDLdeJlmEzLxBcCsUrYR2jn384i6H
-         IACiyfL57UALUGIkm57VG2r/dbtX/UALFTuysLahOHVKYzd20Vl5Ry8iv8sKig/M3wGw
-         /U/EkMf3t1Uwp2Anbp5UbIKAP6yCDBkAMeY9aBZkJpwlDV/Ve7Y07Op7JqV0RfvhJye/
-         DCqSLr08RhofCug5UKWzNaRpdc0sxbgq5x2NGW3UF+/0QXiMuh+Ar5LwwThtU1WT92L0
-         YhGAvU39gVy2pTRh9kSJvVEAdKyVxhbnVSQIVe1dpnucHLtyKHndUY98Dcj8YqQFvSlT
-         o8CA==
-X-Forwarded-Encrypted: i=1; AFNElJ8ABUh12YSYrHIL/K9sNWQQYs/GNarWGxdRICQAs46IwoS4txj0J9pikcLWecWpcCN9cFbxyvdfS45E@vger.kernel.org
-X-Gm-Message-State: AOJu0YxS/uUi/nBiN3Cjul245GMOw54wVtJ0UO9NeLGBg/9Ozw3Vrrwt
-	2UCmQyZq6NCBRCIDnaGr7jNeAzR4pJkhwkJaag41XS8NQZX+OQk3l56zfUOtXrJCwbRVGmus5wD
-	ILUgwbXboBxQbS4KVBgz5tp9DGaf1tuNRQvmatJHz5hiZFZI9C23lo19fa/ECu6WF
-X-Gm-Gg: Acq92OGi4HxMY3YCl8vTn+TwdFmKkelvnkhR/mxSZ3lKC0SOEra0GUMMDHFNe1vMtjX
-	qlsaNCM6zAWa3+v7huepI7+FDKKH7U7IeeTVPy0inHt5ON+LKwZ6Tb+rkcQYZyFunCcmhUEE/L4
-	AfskQBYVu7nvDQ3Hx6AhUEUGcmSAbxvzcoAoC+LyKunkEcviu1FVUC9rbzlAhC/Iik9an8GF3UO
-	wRMcLyXIiqsKNO1U+KGNHhUsaolEPt2bBnyBX8pwxlh5PtsOwlK/1UkW8y2Pdv0mvqkac8ibCwN
-	L9Lotx6L+iOZ3uJAN7nOrpHnXcjJvidbylNzV/RCmKukD4OYEitPZeL0DByzVM5TG2IkwHK7+fM
-	zgHjethM2anDdQtqYBYCrXA0E8tUo+nUYNZAomz4XeIK7eRlno6E=
-X-Received: by 2002:a17:90b:4a07:b0:366:102a:5754 with SMTP id 98e67ed59e1d1-366102a5edbmr3643914a91.15.1778180128686;
-        Thu, 07 May 2026 11:55:28 -0700 (PDT)
-X-Received: by 2002:a17:90b:4a07:b0:366:102a:5754 with SMTP id 98e67ed59e1d1-366102a5edbmr3643889a91.15.1778180128238;
-        Thu, 07 May 2026 11:55:28 -0700 (PDT)
-Received: from [192.168.29.166] ([49.43.202.51])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-366478fb189sm140126a91.16.2026.05.07.11.55.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 07 May 2026 11:55:27 -0700 (PDT)
-Message-ID: <fd1503f8-52d4-43fd-9003-9eebcc475827@oss.qualcomm.com>
-Date: Fri, 8 May 2026 00:25:21 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OzDQNbLn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00D31C2BCB2;
+	Thu,  7 May 2026 19:00:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778180413;
+	bh=kugqW37oPnQ/320NnlrYJISfzdlcj0AxYgqOEVVXtxw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OzDQNbLn3S3wDKxIrTA/n4PzmJicO/V74dzELVy0ffxUq7JsVTVLmL4i/AwVhNMeP
+	 47NkVRP1mDTTabUTKwNZ4FPkFod+mgXfR7v97Ds4ZH6ijyMLfwnhHc6Rc896Q4dDsu
+	 OFhJBoyytEEw/takTnKzjJYwj9M1jSJ7wrHBnXP1j2Ceb0EZ8dtdFIb1T/GUv8VpWJ
+	 DW+eN/EMw32maymX83FpCvuO+oDU3Y+g0sfz6v8GohuYwLCG3oUbhiJqfn8hUSQUbO
+	 AYyclWAa2roV3yfXj2Q91rG9YMXez/kOXzqDKA5SSy6ksEdzAGE5kPq0WYniDRLZB+
+	 6KgJEDM58SlhQ==
+Date: Thu, 7 May 2026 20:00:05 +0100
+From: Lee Jones <lee@kernel.org>
+To: Kaustabh Chakraborty <kauschluss@disroot.org>
+Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	MyungJoo Ham <myungjoo.ham@samsung.com>,
+	Chanwoo Choi <cw00.choi@samsung.com>,
+	Sebastian Reichel <sre@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Nam Tran <trannamatk@gmail.com>,
+	=?utf-8?B?xYF1a2FzeiBMZWJpZWR6acWEc2tp?= <kernel@lvkasz.us>,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-samsung-soc@vger.kernel.org, linux-rtc@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v5 08/11] leds: rgb: add support for Samsung S2M series
+ PMIC RGB LED device
+Message-ID: <20260507190005.GT305027@google.com>
+References: <20260424-s2mu005-pmic-v5-0-fcbc9da5a004@disroot.org>
+ <20260424-s2mu005-pmic-v5-8-fcbc9da5a004@disroot.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: nvmem: qfprom: Add Shikra compatible
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260501-shikra-qfprom-binding-v1-1-17e63148c2c8@oss.qualcomm.com>
- <20260504-ingenious-bison-of-defense-5e16ba@quoll>
-Content-Language: en-US
-From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-In-Reply-To: <20260504-ingenious-bison-of-defense-5e16ba@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=TJB1jVla c=1 sm=1 tr=0 ts=69fce021 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=GlSZ2Rd4KtbczYCFEJIQVA==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=R2oHQpLJbn4m8KOwb_wA:9 a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDE5MSBTYWx0ZWRfX0RFhTWJ9DOXy
- KH6N5wAGRgkyY/ieaGihMC7woVRINmnu1Xi31egbRonVKXOyLa4hNweLC4BLlp/Rb+uv6LZCCID
- klVLHVd6euKgzopGd8QRLEZEcV+le7Nt4xJz36ei33eAfWuHtmtvcks8wOAP1Aj2TmDPDBOFTMc
- wg8B2lCNNRN3XLJBJd5w3Abgw9s+KzHa3HQSOsFezXepjbl3omKS2ze9e3CNEPZbm48z7wumXqd
- QfTAzd48eNK/mEBY83jku2K66xwiQFARJ0SpGOQwtp9U+Gvhtj388QW290vJ5ZGWLCZSmyIQhYY
- 7uJKKpKkJ8iIiU/jv/zQElUavQdEbyrQa6/61se/mzK1p+pyZaFnBs7Zw1vfyrL0V/ze6FDchOl
- 6WDTQyfh3NrlMwiH5pX6KM9yBBNEbycr6nfq4ZQ497ZGoZsXTUqe3+Vb7ffumtNJnc7wSLg34lH
- vQ3/Xo2toudThVq8F+A==
-X-Proofpoint-GUID: ASwmsTGZWnevB7arpOA3LkE64eErAQ0j
-X-Proofpoint-ORIG-GUID: ASwmsTGZWnevB7arpOA3LkE64eErAQ0j
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-07_02,2026-05-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 malwarescore=0 impostorscore=0 bulkscore=0
- phishscore=0 priorityscore=1501 adultscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605070191
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260424-s2mu005-pmic-v5-8-fcbc9da5a004@disroot.org>
 
+On Fri, 24 Apr 2026, Kaustabh Chakraborty wrote:
 
-On 5/4/2026 4:36 PM, Krzysztof Kozlowski wrote:
-> On Fri, May 01, 2026 at 11:40:59PM +0530, Komal Bajaj wrote:
->> Document compatible string for the QFPROM on Shikra platform.
-> subject prefix - it is "qcom,qfprom"
->
-> Here as well: s/Shikra platform/Qualcomm Shikra SoC/
+> Add support for the RGB LEDs found in certain Samsung S2M series PMICs.
+> The device has three LED channels, controlled as a single device. These
+> LEDs are typically used as status indicators in mobile phones.
+> 
+> The driver includes initial support for the S2MU005 PMIC RGB LEDs.
+> 
+> Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
+> ---
+>  drivers/leds/rgb/Kconfig        |  11 +
+>  drivers/leds/rgb/Makefile       |   1 +
+>  drivers/leds/rgb/leds-s2m-rgb.c | 446 ++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 458 insertions(+)
+> 
+> diff --git a/drivers/leds/rgb/Kconfig b/drivers/leds/rgb/Kconfig
+> index 28ef4c487367c..30051342f4e4d 100644
+> --- a/drivers/leds/rgb/Kconfig
+> +++ b/drivers/leds/rgb/Kconfig
+> @@ -75,6 +75,17 @@ config LEDS_QCOM_LPG
+>  
+>  	  If compiled as a module, the module will be named leds-qcom-lpg.
+>  
+> +config LEDS_S2M_RGB
+> +	tristate "Samsung S2M series PMICs RGB LED support"
+> +	depends on LEDS_CLASS
+> +	depends on MFD_SEC_CORE
+> +	select REGMAP_IRQ
+> +	help
+> +	  This option enables support for the S2MU005 RGB LEDs. These
+> +	  devices have three LED channels, with 8-bit brightness control
+> +	  for each channel. It's usually found in mobile phones as
 
-Will update in next version.
+"The S2MU005 is ..."
 
-Thanks
-Komal
+> +	  status indicators.
+> +
+>  config LEDS_MT6370_RGB
+>  	tristate "LED Support for MediaTek MT6370 PMIC"
+>  	depends on MFD_MT6370
+> diff --git a/drivers/leds/rgb/Makefile b/drivers/leds/rgb/Makefile
+> index be45991f63f50..98050e1aa4255 100644
+> --- a/drivers/leds/rgb/Makefile
+> +++ b/drivers/leds/rgb/Makefile
+> @@ -6,4 +6,5 @@ obj-$(CONFIG_LEDS_LP5812)		+= leds-lp5812.o
+>  obj-$(CONFIG_LEDS_NCP5623)		+= leds-ncp5623.o
+>  obj-$(CONFIG_LEDS_PWM_MULTICOLOR)	+= leds-pwm-multicolor.o
+>  obj-$(CONFIG_LEDS_QCOM_LPG)		+= leds-qcom-lpg.o
+> +obj-$(CONFIG_LEDS_S2M_RGB)		+= leds-s2m-rgb.o
+>  obj-$(CONFIG_LEDS_MT6370_RGB)		+= leds-mt6370-rgb.o
+> diff --git a/drivers/leds/rgb/leds-s2m-rgb.c b/drivers/leds/rgb/leds-s2m-rgb.c
+> new file mode 100644
+> index 0000000000000..51d12f2ef762a
+> --- /dev/null
+> +++ b/drivers/leds/rgb/leds-s2m-rgb.c
+> @@ -0,0 +1,446 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * RGB LED Driver for Samsung S2M series PMICs.
+> + *
+> + * Copyright (c) 2015 Samsung Electronics Co., Ltd
+> + * Copyright (c) 2026 Kaustabh Chakraborty <kauschluss@disroot.org>
+> + */
+> +
+> +#include <linux/container_of.h>
+> +#include <linux/led-class-multicolor.h>
+> +#include <linux/mfd/samsung/core.h>
+> +#include <linux/mfd/samsung/s2mu005.h>
+> +#include <linux/minmax.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/regmap.h>
+> +
+> +struct s2m_rgb {
+> +	struct device *dev;
+> +	struct regmap *regmap;
+> +	struct led_classdev_mc mc;
+> +	enum sec_device_type device_type;
+> +	/*
+> +	 * The mutex object prevents race conditions when evaluation and
+> +	 * application of LED pattern state.
+> +	 */
+> +	struct mutex lock;
+> +	/*
+> +	 * State variables representing the current LED pattern, these only to
+> +	 * be accessed when lock is held.
+> +	 */
+> +	u8 ramp_up;
+> +	u8 ramp_dn;
+> +	u8 stay_hi;
+> +	u8 stay_lo;
+> +};
+> +
+> +static struct led_classdev_mc *to_s2m_mc(struct led_classdev *cdev)
+> +{
+> +	return container_of(cdev, struct led_classdev_mc, led_cdev);
+> +}
+> +
+> +static struct s2m_rgb *to_s2m_rgb(struct led_classdev_mc *mc)
+> +{
+> +	return container_of(mc, struct s2m_rgb, mc);
+> +}
+> +
+> +static const u32 s2mu005_rgb_lut_ramp[] = {
+> +	0,	100,	200,	300,	400,	500,	600,	700,
+> +	800,	1000,	1200,	1400,	1600,	1800,	2000,	2200,
+> +};
+> +
+> +static const u32 s2mu005_rgb_lut_stay_hi[] = {
+> +	100,	200,	300,	400,	500,	750,	1000,	1250,
+> +	1500,	1750,	2000,	2250,	2500,	2750,	3000,	3250,
+> +};
+> +
+> +static const u32 s2mu005_rgb_lut_stay_lo[] = {
+> +	0,	500,	1000,	1500,	2000,	2500,	3000,	3500,
+> +	4000,	4500,	5000,	6000,	7000,	8000,	10000,	12000,
+> +};
+> +
+> +static int s2mu005_rgb_apply_params(struct s2m_rgb *rgb)
+> +{
+> +	struct regmap *regmap = rgb->regmap;
+> +	unsigned int ramp_val = 0;
+> +	unsigned int stay_val = 0;
+> +	int ret;
+> +	int i;
+> +
+> +	ramp_val |= FIELD_PREP(S2MU005_RGB_CH_RAMP_UP, rgb->ramp_up);
+> +	ramp_val |= FIELD_PREP(S2MU005_RGB_CH_RAMP_DN, rgb->ramp_dn);
+> +
+> +	stay_val |= FIELD_PREP(S2MU005_RGB_CH_STAY_HI, rgb->stay_hi);
+> +	stay_val |= FIELD_PREP(S2MU005_RGB_CH_STAY_LO, rgb->stay_lo);
+> +
+> +	ret = regmap_write(regmap, S2MU005_REG_RGB_EN, S2MU005_RGB_RESET);
+> +	if (ret < 0) {
+> +		dev_err(rgb->dev, "failed to reset RGB LEDs\n");
+> +		return ret;
+> +	}
+> +
+> +	for (i = 0; i < rgb->mc.num_colors; i++) {
 
->
-> Best regards,
-> Krzysztof
->
+for (int i = 0; ...)
 
+> +		ret = regmap_write(regmap, S2MU005_REG_RGB_CH_CTRL(i),
+> +				   rgb->mc.subled_info[i].brightness);
+> +		if (ret < 0) {
+> +			dev_err(rgb->dev, "failed to set LED brightness\n");
+> +			return ret;
+> +		}
+> +
+> +		ret = regmap_write(regmap, S2MU005_REG_RGB_CH_RAMP(i), ramp_val);
+> +		if (ret < 0) {
+> +			dev_err(rgb->dev, "failed to set ramp timings\n");
+> +			return ret;
+> +		}
+> +
+> +		ret = regmap_write(regmap, S2MU005_REG_RGB_CH_STAY(i), stay_val);
+> +		if (ret < 0) {
+> +			dev_err(rgb->dev, "failed to set stay timings\n");
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	ret = regmap_update_bits(regmap, S2MU005_REG_RGB_EN, S2MU005_RGB_SLOPE,
+> +				 S2MU005_RGB_SLOPE_SMOOTH);
+> +	if (ret < 0) {
+> +		dev_err(rgb->dev, "failed to set ramp slope\n");
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int s2mu005_rgb_reset_params(struct s2m_rgb *rgb)
+> +{
+> +	struct regmap *regmap = rgb->regmap;
+> +	int ret;
+> +
+> +	ret = regmap_write(regmap, S2MU005_REG_RGB_EN, S2MU005_RGB_RESET);
+> +	if (ret < 0) {
+> +		dev_err(rgb->dev, "failed to reset RGB LEDs\n");
+> +		return ret;
+> +	}
+> +
+> +	rgb->ramp_up = 0;
+> +	rgb->ramp_dn = 0;
+> +	rgb->stay_hi = 0;
+> +	rgb->stay_lo = 0;
+> +
+> +	return 0;
+> +}
+> +
+> +static int s2m_rgb_lut_calc_timing(const u32 *lut, const size_t len,
+> +				   const u32 req_time, u8 *idx)
+> +{
+> +	int lo = 0;
+> +	int hi = len - 2;
+> +
+> +	/* Bounds checking */
+> +	if (req_time < lut[0] || req_time > lut[len - 1])
+> +		return -EINVAL;
+> +
+> +	/*
+> +	 * Perform a binary search to pick the best timing from the LUT.
+> +	 *
+> +	 * The search algorithm picks two consecutive elements of the
+> +	 * LUT and tries to search the pair between which the requested
+> +	 * time lies.
+> +	 */
+> +	while (lo <= hi) {
+> +		*idx = (lo + hi) / 2;
+> +
+> +		if ((lut[*idx] <= req_time) && (req_time <= lut[*idx + 1]))
+> +			break;
+> +
+> +		if ((req_time < lut[*idx]) && (req_time < lut[*idx + 1]))
+> +			hi = *idx - 1;
+> +		else
+> +			lo = *idx + 1;
+> +	}
+> +
+> +	/*
+> +	 * The searched timing is always less than the requested time. At
+> +	 * times, the succeeding timing in the LUT is closer thus more
+> +	 * accurate. Adjust the resulting value if that's the case.
+> +	 */
+> +	if (abs(req_time - lut[*idx]) > abs(lut[*idx + 1] - req_time))
+> +		(*idx)++;
+
+As much as I appreciate the comments, most of the function is pretty
+unreadable.  Are you able to use better variable nomenclature and layout
+to better describe your aims?
+
+> +	return 0;
+> +}
+> +
+> +static int s2m_rgb_pattern_set(struct led_classdev *cdev, struct led_pattern *pattern,
+> +			       u32 len, int repeat)
+> +{
+> +	struct s2m_rgb *rgb = to_s2m_rgb(to_s2m_mc(cdev));
+> +	const u32 *lut_ramp_up, *lut_ramp_dn, *lut_stay_hi, *lut_stay_lo;
+> +	size_t lut_ramp_up_len, lut_ramp_dn_len, lut_stay_hi_len, lut_stay_lo_len;
+> +	int brightness_peak = 0;
+> +	u32 time_hi = 0, time_lo = 0;
+> +	bool ramp_up_en, ramp_dn_en;
+> +	int ret;
+> +	int i;
+> +
+> +	/*
+> +	 * The typical pattern supported by this device can be
+> +	 * represented with the following graph:
+> +	 *
+> +	 *  255 T ''''''-.                         .-'''''''-.
+> +	 *      |         '.                     .'           '.
+> +	 *      |           \                   /               \
+> +	 *      |            '.               .'                 '.
+> +	 *      |              '-...........-'                     '-
+> +	 *    0 +----------------------------------------------------> time (s)
+> +	 *
+> +	 *       <---- HIGH ----><-- LOW --><-------- HIGH --------->
+> +	 *       <-----><-------><---------><-------><-----><------->
+> +	 *       stay_hi ramp_dn   stay_lo   ramp_up stay_hi ramp_dn
+> +	 *
+> +	 * There are two states, named HIGH and LOW. HIGH has a non-zero
+> +	 * brightness level, while LOW is of zero brightness. The
+> +	 * pattern provided should mention only one zero and non-zero
+> +	 * brightness level. The hardware always starts the pattern from
+> +	 * the HIGH state, as shown in the graph.
+> +	 *
+> +	 * The HIGH state can be divided in three somewhat equal timings:
+> +	 * ramp_up, stay_hi, and ramp_dn. The LOW state has only one
+> +	 * timing: stay_lo.
+> +	 */
+> +
+> +	/* Only indefinitely looping patterns are supported. */
+> +	if (repeat != -1)
+> +		return -EINVAL;
+> +
+> +	/* Pattern should consist of at least two tuples. */
+> +	if (len < 2)
+> +		return -EINVAL;
+> +
+> +	for (i = 0; i < len; i++) {
+
+for (int i = 0; ...) would be preferable.
+
+> +		int brightness = pattern[i].brightness;
+> +		u32 delta_t = pattern[i].delta_t;
+> +
+> +		if (brightness) {
+> +			/*
+> +			 * The pattern shold define only one non-zero
+> +			 * brightness in the HIGH state. The device
+> +			 * doesn't have any provisions to handle
+> +			 * multiple peak brightness levels.
+> +			 */
+> +			if (brightness_peak && brightness_peak != brightness)
+> +				return -EINVAL;
+> +
+> +			brightness_peak = brightness;
+> +			time_hi += delta_t;
+> +			ramp_dn_en = !!delta_t;
+> +		} else {
+> +			time_lo += delta_t;
+> +			ramp_up_en = !!delta_t;
+> +		}
+> +	}
+> +
+> +	switch (rgb->device_type) {
+> +	case S2MU005:
+> +		lut_ramp_up = s2mu005_rgb_lut_ramp;
+> +		lut_ramp_up_len = ARRAY_SIZE(s2mu005_rgb_lut_ramp);
+> +		lut_ramp_dn = s2mu005_rgb_lut_ramp;
+> +		lut_ramp_dn_len = ARRAY_SIZE(s2mu005_rgb_lut_ramp);
+> +		lut_stay_hi = s2mu005_rgb_lut_stay_hi;
+> +		lut_stay_hi_len = ARRAY_SIZE(s2mu005_rgb_lut_stay_hi);
+> +		lut_stay_lo = s2mu005_rgb_lut_stay_lo;
+> +		lut_stay_lo_len = ARRAY_SIZE(s2mu005_rgb_lut_stay_lo);
+> +		break;
+> +	default:
+> +		/* execution shouldn't reach here */
+
+Instead of a comment, perhaps a WARN_ON_ONCE(1); or similar would be
+more robust here to catch unexpected device types?
+
+> +		break;
+> +	}
+> +
+> +	mutex_lock(&rgb->lock);
+> +
+> +	/*
+> +	 * The timings ramp_up, stay_hi, and ramp_dn of the HIGH state
+> +	 * are roughly equal. Firstly, calculate and set timings for
+> +	 * ramp_up and ramp_dn (making sure they're exactly equal).
+> +	 */
+> +	rgb->ramp_up = 0;
+> +	rgb->ramp_dn = 0;
+> +
+> +	if (ramp_up_en) {
+> +		ret = s2m_rgb_lut_calc_timing(lut_ramp_up, lut_ramp_up_len, time_hi / 3,
+> +					      &rgb->ramp_up);
+> +		if (ret < 0)
+> +			goto param_fail;
+> +	}
+> +
+> +	if (ramp_dn_en) {
+> +		ret = s2m_rgb_lut_calc_timing(lut_ramp_dn, lut_ramp_dn_len, time_hi / 3,
+> +					      &rgb->ramp_dn);
+> +		if (ret < 0)
+> +			goto param_fail;
+> +	}
+> +
+> +	/*
+> +	 * Subtract the allocated ramp timings from time_hi (and also
+> +	 * making sure it doesn't underflow!). The remaining time is
+> +	 * allocated to stay_hi.
+> +	 */
+> +	time_hi -= min(time_hi, lut_ramp_up[rgb->ramp_up]);
+> +	time_hi -= min(time_hi, lut_ramp_dn[rgb->ramp_dn]);
+> +
+> +	ret = s2m_rgb_lut_calc_timing(lut_stay_hi, lut_stay_hi_len, time_hi, &rgb->stay_hi);
+> +	if (ret < 0)
+> +		goto param_fail;
+> +
+> +	ret = s2m_rgb_lut_calc_timing(lut_stay_lo, lut_stay_lo_len, time_lo, &rgb->stay_lo);
+> +	if (ret < 0)
+> +		goto param_fail;
+> +
+> +	led_mc_calc_color_components(&rgb->mc, brightness_peak);
+> +	switch (rgb->device_type) {
+> +	case S2MU005:
+> +		ret = s2mu005_rgb_apply_params(rgb);
+> +		break;
+> +	default:
+> +		/* execution shouldn't reach here */
+> +		break;
+> +	}
+> +	if (ret < 0)
+> +		goto param_fail;
+
+Are we expecting positive values in these 'ret's?
+
+If not if (!ret) will do.
+
+> +
+> +	mutex_unlock(&rgb->lock);
+> +
+> +	return 0;
+> +
+> +param_fail:
+> +	rgb->ramp_up = 0;
+> +	rgb->ramp_dn = 0;
+> +	rgb->stay_hi = 0;
+> +	rgb->stay_lo = 0;
+> +
+> +	mutex_unlock(&rgb->lock);
+> +
+> +	return ret;
+> +}
+> +
+> +static int s2m_rgb_pattern_clear(struct led_classdev *cdev)
+> +{
+> +	struct s2m_rgb *rgb = to_s2m_rgb(to_s2m_mc(cdev));
+> +	int ret = 0;
+> +
+> +	mutex_lock(&rgb->lock);
+> +
+> +	switch (rgb->device_type) {
+> +	case S2MU005:
+> +		ret = s2mu005_rgb_reset_params(rgb);
+> +		break;
+> +	default:
+> +		/* execution shouldn't reach here */
+> +		break;
+
+As above.
+
+And a single branch switch () makes little sense.
+
+> +	}
+> +
+> +	mutex_unlock(&rgb->lock);
+> +
+> +	return ret;
+> +}
+> +
+> +static int s2m_rgb_brightness_set(struct led_classdev *cdev, enum led_brightness value)
+> +{
+> +	struct s2m_rgb *rgb = to_s2m_rgb(to_s2m_mc(cdev));
+> +	int ret = 0;
+> +
+> +	if (!value)
+> +		return s2m_rgb_pattern_clear(cdev);
+> +
+> +	mutex_lock(&rgb->lock);
+> +
+> +	led_mc_calc_color_components(&rgb->mc, value);
+> +	switch (rgb->device_type) {
+> +	case S2MU005:
+> +		ret = s2mu005_rgb_apply_params(rgb);
+> +		break;
+> +	default:
+> +		/* execution shouldn't reach here */
+> +		break;
+> +	}
+> +
+> +	mutex_unlock(&rgb->lock);
+> +
+> +	return ret;
+> +}
+> +
+> +static struct mc_subled s2mu005_rgb_subled_info[] = {
+
+const?
+
+> +	{ .channel = 0, .color_index = LED_COLOR_ID_BLUE },
+> +	{ .channel = 1, .color_index = LED_COLOR_ID_GREEN },
+> +	{ .channel = 2, .color_index = LED_COLOR_ID_RED },
+> +};
+> +
+> +static int s2m_rgb_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct sec_pmic_dev *pmic_drvdata = dev_get_drvdata(dev->parent);
+> +	struct s2m_rgb *rgb;
+> +	struct led_init_data init_data = {};
+> +	int ret;
+> +
+> +	rgb = devm_kzalloc(dev, sizeof(*rgb), GFP_KERNEL);
+> +	if (!rgb)
+> +		return -ENOMEM;
+> +
+> +	platform_set_drvdata(pdev, rgb);
+> +	rgb->dev = dev;
+> +	rgb->regmap = pmic_drvdata->regmap_pmic;
+> +	rgb->device_type = platform_get_device_id(pdev)->driver_data;
+
+We don't tend to use these object oriented-type constructs in the
+kernel.  Also, we have helper functions of extracting driver_data.
+Please use them.
+
+> +
+> +	switch (rgb->device_type) {
+> +	case S2MU005:
+> +		rgb->mc.subled_info = s2mu005_rgb_subled_info;
+> +		rgb->mc.num_colors = ARRAY_SIZE(s2mu005_rgb_subled_info);
+> +		break;
+> +	default:
+> +		return dev_err_probe(dev, -ENODEV, "device type %d is not supported by driver\n",
+> +				     pmic_drvdata->device_type);
+
+Small point, but for consistency, would it be better to print
+`rgb->device_type` here, since that is the value being checked in the
+switch statement?
+
+Also, same single branch comment as before.
+
+> +	}
+> +
+> +	rgb->mc.led_cdev.max_brightness = 255;
+> +	rgb->mc.led_cdev.brightness_set_blocking = s2m_rgb_brightness_set;
+> +	rgb->mc.led_cdev.pattern_set = s2m_rgb_pattern_set;
+> +	rgb->mc.led_cdev.pattern_clear = s2m_rgb_pattern_clear;
+> +
+> +	ret = devm_mutex_init(dev, &rgb->lock);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to create mutex lock\n");
+> +
+> +	init_data.fwnode = of_fwnode_handle(dev->of_node);
+> +	ret = devm_led_classdev_multicolor_register_ext(dev, &rgb->mc, &init_data);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "failed to create LED device\n");
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct platform_device_id s2m_rgb_id_table[] = {
+> +	{ "s2mu005-rgb", S2MU005 },
+> +	{ /* sentinel */ },
+> +};
+> +MODULE_DEVICE_TABLE(platform, s2m_rgb_id_table);
+> +
+> +static const struct of_device_id s2m_rgb_of_match_table[] = {
+> +	{ .compatible = "samsung,s2mu005-rgb", .data = (void *)S2MU005 },
+> +	{ /* sentinel */ },
+> +};
+> +MODULE_DEVICE_TABLE(of, s2m_rgb_of_match_table);
+> +
+> +static struct platform_driver s2m_rgb_driver = {
+> +	.driver = {
+> +		.name = "s2m-rgb",
+> +	},
+> +	.probe = s2m_rgb_probe,
+> +	.id_table = s2m_rgb_id_table,
+> +};
+> +module_platform_driver(s2m_rgb_driver);
+> +
+> +MODULE_DESCRIPTION("RGB LED Driver For Samsung S2M Series PMICs");
+
+"for"
+
+> +MODULE_AUTHOR("Kaustabh Chakraborty <kauschluss@disroot.org>");
+> +MODULE_LICENSE("GPL");
+
+-- 
+Lee Jones
