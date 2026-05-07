@@ -1,482 +1,121 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E9273F0A89
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 12:44:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F2B33E345;
+	Thu,  7 May 2026 12:46:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778157896; cv=none; b=H2U810VFrGmnpeUjJWmj6BSOgH6ZeyblEaM2sW1eGIjds9MfNqqLNAIOwo5MBkeVzzZPf0C3y3kjCwDxTj4CIyz+zq50Ep+5vCDXgUxARcKUvnE9jVlOdSAFatHtUxpCe+XZjDIdyMQOzdgFk9Ko0K9JmI28hfShR+MbZCSvrfk=
+	t=1778157987; cv=none; b=A5rhmZ5ZsqviEtyIfWQvuu0Z6yaPN7sLJVOIXvCe5rytibEzZ5IKKZqnSP7NYM6b8/7XVGmiEVG03QrucOOHtSPQT06u/Z1WUWTc/1KlzLNtvtUQkHnlahga6g7PHbLv0b7YZdzdZyqoKebkPiyqh+7TUmgaZbE1imemSPYhXpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778157896; c=relaxed/simple;
-	bh=TBjr1uyd/wQGG+6E3XVx9I4/UCqvl2l0Z5ZAqYQxWxs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aF2xRpkdwCB29JgjjlwXpn1Bxhh1cxlZsF5iAXN+qv1teRaU33rQa55IEMGf0HGowDBQ2wSYV308Vc/Vpb7D9NMQw4h5Feq2r9yxvpFby4FnxbfzrEUxgxPm9U2pjPj/pOTGYlIcXivohT4rEp1bcDWTlKSdGGiA1JMVBs12RyA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=FHUkH6Al; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1778157987; c=relaxed/simple;
+	bh=MCVZsR5HzPh6m3Tl7NULfqVTBbuOyj3XwdZNPC2OaLM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qgy0QjB9OzDN1BQWsq7HGswzNIiFYov/DLWJASA7Bcc5t2MnI/I6MjjsQZlHit0qUtRsE4WfKBtAs/ItiYQxbO5SjAV7z216kpgBBckHOBpoysftvQQmG8D45jmGWLQ+6FSAf3XRx06N952AkydwiGY8tsN2zi5wuRHPMiOdktY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JujDHvch; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="FHUkH6Al"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 32300C5DC5B;
-	Thu,  7 May 2026 12:45:34 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6829160495;
-	Thu,  7 May 2026 12:44:46 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9109510819491;
-	Thu,  7 May 2026 14:44:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1778157885; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=rwIVVjmIEnqDiiPGwYTSnWAaq2tQIAapO4ksJdHV1KA=;
-	b=FHUkH6AlB5RFtdLF2lcGxWLZgfOI9EtcurYBu3XqwTTpEdVMSLQjgS+rK10L8XbULOb3Do
-	4aFnlg0nHpiHjKvZzQJ0Bm3EoPlikdol42qr68oBNf8uB2zX7+l2FYK475GEFrK0efCbgF
-	ZH/wa/ln0vaLISqeB7mS8BNMPuLHcjK4OpEu/lNYeQRw4wEOyIMKF6MOK8mFakNcTzwvUh
-	I7C3C/VBIU66Vgog4dIWMMQ0ELmjR9NeciKj060OZYC3xAlgI05Ii2hwh8GbFgCKLoscrW
-	J/Da+0HPYsswCYDYB7n26HOGY+49HJ9YLM8rl/U+9dGTVyz8qLH+BpBbgOHxOg==
-Message-ID: <6397da3a-4643-4d9d-97e1-70f7a9b8d5d8@bootlin.com>
-Date: Thu, 7 May 2026 14:44:34 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JujDHvch"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EE79C2BCB2;
+	Thu,  7 May 2026 12:46:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778157987;
+	bh=MCVZsR5HzPh6m3Tl7NULfqVTBbuOyj3XwdZNPC2OaLM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=JujDHvch3M9RUnoOOesFvpyWzkFfagT93Ll5dd1RA1C5nrKCQv22j9n/6CtarjXip
+	 aGsHGsAJsF0LrGEttVu7GSn9D+qAQlq2p/fVWNNJkdrCL+PNi+PniX4gxW8ckfHdgN
+	 +fIgVTIIi/Btz0b8EddJJgf3gTwHKRjnPdWLgGW/EDlKupG2Kov9FffzDRR3NxcHYh
+	 1DbphBaiIZeEurCj3ADAdRZyDyTvZc1tyz/0nOmLttwRjdBFiqnnrckRGDhFbkA3VW
+	 F8K+dR7hy32uQVlvO80rCiaPsIzacp3+pKeg5uj+KK3YcYpDd1bAAH/QpEYUk6CVdm
+	 QkuGpRJHPgpxQ==
+Date: Thu, 7 May 2026 13:46:20 +0100
+From: Lee Jones <lee@kernel.org>
+To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-iio@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org
+Subject: Re: [PATCH v2 03/10] mfd: rz-mtu3: use device-managed
+ mfd_add_devices()
+Message-ID: <20260507124620.GJ305027@google.com>
+References: <20260410163530.383818-1-cosmin-gabriel.tanislav.xa@renesas.com>
+ <20260410163530.383818-4-cosmin-gabriel.tanislav.xa@renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 net-next 11/15] net: dsa: netc: add phylink MAC
- operations
-To: Wei Fang <wei.fang@nxp.com>, claudiu.manoil@nxp.com,
- vladimir.oltean@nxp.com, xiaoning.wang@nxp.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- f.fainelli@gmail.com, frank.li@nxp.com, chleroy@kernel.org,
- horms@kernel.org, linux@armlinux.org.uk
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev
-References: <20260430024945.3413973-1-wei.fang@nxp.com>
- <20260430024945.3413973-12-wei.fang@nxp.com>
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <20260430024945.3413973-12-wei.fang@nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260410163530.383818-4-cosmin-gabriel.tanislav.xa@renesas.com>
 
-Hi,
+On Fri, 10 Apr 2026, Cosmin Tanislav wrote:
 
-On 30/04/2026 04:49, Wei Fang wrote:
-> Different versions of NETC switches have different numbers of ports and
-> MAC capabilities. Add .phylink_get_caps() to struct netc_switch_info,
-> allowing each NETC switch version to implement its own callback for
-> obtaining MAC capabilities.
+> Replace mfd_add_devices() and the custom cleanup action with
+> devm_mfd_add_devices().
 > 
-> Implement the phylink_mac_ops callbacks: .mac_config(), .mac_link_up(),
-> and .mac_link_down(). Note that flow-control configuration is not yet
-> supported in .mac_link_up(), but will be implemented in a subsequent
-> patch.
-> 
-> Signed-off-by: Wei Fang <wei.fang@nxp.com>
+> Remove the ret variable as it is now unused.
 
-The phylink part looks good to me,
+Do this first, then the changes in the first patch make more sense.
 
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-
-Maxime
-
+> Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
 > ---
->  drivers/net/dsa/netc/netc_main.c      | 243 ++++++++++++++++++++++++++
->  drivers/net/dsa/netc/netc_platform.c  |  38 ++++
->  drivers/net/dsa/netc/netc_switch.h    |   4 +
->  drivers/net/dsa/netc/netc_switch_hw.h |  26 +++
->  4 files changed, 311 insertions(+)
 > 
-> diff --git a/drivers/net/dsa/netc/netc_main.c b/drivers/net/dsa/netc/netc_main.c
-> index 90a2d8cfd3d2..edf50cb32cb6 100644
-> --- a/drivers/net/dsa/netc/netc_main.c
-> +++ b/drivers/net/dsa/netc/netc_main.c
-> @@ -44,6 +44,26 @@ static void netc_mac_port_wr(struct netc_port *np, u32 reg, u32 val)
->  		netc_port_wr(np, reg + NETC_PMAC_OFFSET, val);
+> V2:
+>  * no changes
+> 
+>  drivers/mfd/rz-mtu3.c | 15 ++-------------
+>  1 file changed, 2 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/mfd/rz-mtu3.c b/drivers/mfd/rz-mtu3.c
+> index 6b9c6831dffa9..3be6f6c900b82 100644
+> --- a/drivers/mfd/rz-mtu3.c
+> +++ b/drivers/mfd/rz-mtu3.c
+> @@ -300,11 +300,6 @@ void rz_mtu3_disable(struct rz_mtu3_channel *ch)
+>  }
+>  EXPORT_SYMBOL_GPL(rz_mtu3_disable);
+>  
+> -static void rz_mtu3_mfd_remove(void *data)
+> -{
+> -	mfd_remove_devices(data);
+> -}
+> -
+>  static const struct mfd_cell rz_mtu3_devs[] = {
+>  	{
+>  		.name = "rz-mtu3-counter",
+> @@ -320,7 +315,6 @@ static int rz_mtu3_probe(struct platform_device *pdev)
+>  	struct rz_mtu3_priv *priv;
+>  	struct rz_mtu3 *ddata;
+>  	unsigned int i;
+> -	int ret;
+>  
+>  	ddata = devm_kzalloc(&pdev->dev, sizeof(*ddata), GFP_KERNEL);
+>  	if (!ddata)
+> @@ -353,13 +347,8 @@ static int rz_mtu3_probe(struct platform_device *pdev)
+>  		mutex_init(&ddata->channels[i].lock);
+>  	}
+>  
+> -	ret = mfd_add_devices(&pdev->dev, 0, rz_mtu3_devs,
+> -			      ARRAY_SIZE(rz_mtu3_devs), NULL, 0, NULL);
+> -	if (ret < 0)
+> -		return ret;
+> -
+> -	return devm_add_action_or_reset(&pdev->dev, rz_mtu3_mfd_remove,
+> -					&pdev->dev);
+> +	return devm_mfd_add_devices(&pdev->dev, 0, rz_mtu3_devs,
+> +				    ARRAY_SIZE(rz_mtu3_devs), NULL, 0, NULL);
 >  }
 >  
-> +static void netc_mac_port_rmw(struct netc_port *np, u32 reg,
-> +			      u32 mask, u32 val)
-> +{
-> +	u32 old, new;
-> +
-> +	if (is_netc_pseudo_port(np))
-> +		return;
-> +
-> +	WARN_ON((mask | val) != mask);
-> +
-> +	old = netc_port_rd(np, reg);
-> +	new = (old & ~mask) | val;
-> +	if (new == old)
-> +		return;
-> +
-> +	netc_port_wr(np, reg, new);
-> +	if (np->caps.pmac)
-> +		netc_port_wr(np, reg + NETC_PMAC_OFFSET, new);
-> +}
-> +
->  static void netc_port_get_capability(struct netc_port *np)
->  {
->  	u32 val;
-> @@ -522,10 +542,232 @@ static void netc_switch_get_ip_revision(struct netc_switch *priv)
->  	priv->revision = FIELD_GET(IPBRR0_IP_REV, val);
->  }
->  
-> +static void netc_phylink_get_caps(struct dsa_switch *ds, int port,
-> +				  struct phylink_config *config)
-> +{
-> +	struct netc_switch *priv = ds->priv;
-> +
-> +	priv->info->phylink_get_caps(port, config);
-> +}
-> +
-> +static void netc_port_set_mac_mode(struct netc_port *np,
-> +				   unsigned int mode,
-> +				   phy_interface_t phy_mode)
-> +{
-> +	u32 mask = PM_IF_MODE_IFMODE | PM_IF_MODE_REVMII;
-> +	u32 val = 0;
-> +
-> +	switch (phy_mode) {
-> +	case PHY_INTERFACE_MODE_RGMII:
-> +	case PHY_INTERFACE_MODE_RGMII_ID:
-> +	case PHY_INTERFACE_MODE_RGMII_RXID:
-> +	case PHY_INTERFACE_MODE_RGMII_TXID:
-> +		val |= IFMODE_RGMII;
-> +		break;
-> +	case PHY_INTERFACE_MODE_RMII:
-> +		val |= IFMODE_RMII;
-> +		break;
-> +	case PHY_INTERFACE_MODE_REVMII:
-> +		val |= PM_IF_MODE_REVMII;
-> +		fallthrough;
-> +	case PHY_INTERFACE_MODE_MII:
-> +		val |= IFMODE_MII;
-> +		break;
-> +	case PHY_INTERFACE_MODE_SGMII:
-> +	case PHY_INTERFACE_MODE_2500BASEX:
-> +		val |= IFMODE_SGMII;
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +
-> +	netc_mac_port_rmw(np, NETC_PM_IF_MODE(0), mask, val);
-> +}
-> +
-> +static void netc_mac_config(struct phylink_config *config, unsigned int mode,
-> +			    const struct phylink_link_state *state)
-> +{
-> +	struct dsa_port *dp = dsa_phylink_to_port(config);
-> +
-> +	netc_port_set_mac_mode(NETC_PORT(dp->ds, dp->index), mode,
-> +			       state->interface);
-> +}
-> +
-> +static void netc_port_set_speed(struct netc_port *np, int speed)
-> +{
-> +	netc_port_rmw(np, NETC_PCR, PCR_PSPEED, PSPEED_SET_VAL(speed));
-> +}
-> +
-> +static void netc_port_set_rgmii_mac(struct netc_port *np,
-> +				    int speed, int duplex)
-> +{
-> +	u32 mask, val;
-> +
-> +	mask = PM_IF_MODE_SSP | PM_IF_MODE_HD | PM_IF_MODE_M10;
-> +
-> +	switch (speed) {
-> +	default:
-> +	case SPEED_1000:
-> +		val = FIELD_PREP(PM_IF_MODE_SSP, SSP_1G);
-> +		break;
-> +	case SPEED_100:
-> +		val = FIELD_PREP(PM_IF_MODE_SSP, SSP_100M);
-> +		break;
-> +	case SPEED_10:
-> +		val = FIELD_PREP(PM_IF_MODE_SSP, SSP_10M);
-> +		break;
-> +	}
-> +
-> +	if (duplex != DUPLEX_FULL)
-> +		val |= PM_IF_MODE_HD;
-> +
-> +	netc_mac_port_rmw(np, NETC_PM_IF_MODE(0), mask, val);
-> +}
-> +
-> +static void netc_port_set_rmii_mii_mac(struct netc_port *np,
-> +				       int speed, int duplex)
-> +{
-> +	u32 mask, val = 0;
-> +
-> +	mask = PM_IF_MODE_SSP | PM_IF_MODE_HD | PM_IF_MODE_M10;
-> +
-> +	if (speed == SPEED_10)
-> +		val |= PM_IF_MODE_M10;
-> +
-> +	if (duplex != DUPLEX_FULL)
-> +		val |= PM_IF_MODE_HD;
-> +
-> +	netc_mac_port_rmw(np, NETC_PM_IF_MODE(0), mask, val);
-> +}
-> +
-> +static void netc_port_mac_rx_enable(struct netc_port *np)
-> +{
-> +	netc_port_rmw(np, NETC_POR, POR_RXDIS, 0);
-> +	netc_mac_port_rmw(np, NETC_PM_CMD_CFG(0), PM_CMD_CFG_RX_EN,
-> +			  PM_CMD_CFG_RX_EN);
-> +}
-> +
-> +static void netc_port_wait_rx_empty(struct netc_port *np, int mac)
-> +{
-> +	u32 val;
-> +
-> +	/* PM_IEVENT_RX_EMPTY is a read-only bit, it is automatically set by
-> +	 * hardware if RX FIFO is empty and no RX packet receive in process.
-> +	 * And it is automatically cleared if RX FIFO is not empty or RX
-> +	 * packet receive in process.
-> +	 */
-> +	if (read_poll_timeout(netc_port_rd, val, val & PM_IEVENT_RX_EMPTY,
-> +			      100, 10000, false, np, NETC_PM_IEVENT(mac)))
-> +		dev_warn(np->switch_priv->dev,
-> +			 "swp%d MAC%d: RX is not idle\n", np->dp->index, mac);
-> +}
-> +
-> +static void netc_port_mac_rx_graceful_stop(struct netc_port *np)
-> +{
-> +	u32 val;
-> +
-> +	if (is_netc_pseudo_port(np))
-> +		goto rx_disable;
-> +
-> +	if (np->caps.pmac) {
-> +		netc_port_rmw(np, NETC_PM_CMD_CFG(1), PM_CMD_CFG_RX_EN, 0);
-> +		netc_port_wait_rx_empty(np, 1);
-> +	}
-> +
-> +	netc_port_rmw(np, NETC_PM_CMD_CFG(0), PM_CMD_CFG_RX_EN, 0);
-> +	netc_port_wait_rx_empty(np, 0);
-> +
-> +	if (read_poll_timeout(netc_port_rd, val, !(val & PSR_RX_BUSY),
-> +			      100, 10000, false, np, NETC_PSR))
-> +		dev_warn(np->switch_priv->dev, "swp%d RX is busy\n",
-> +			 np->dp->index);
-> +
-> +rx_disable:
-> +	netc_port_rmw(np, NETC_POR, POR_RXDIS, POR_RXDIS);
-> +}
-> +
-> +static void netc_port_mac_tx_enable(struct netc_port *np)
-> +{
-> +	netc_mac_port_rmw(np, NETC_PM_CMD_CFG(0), PM_CMD_CFG_TX_EN,
-> +			  PM_CMD_CFG_TX_EN);
-> +	netc_port_rmw(np, NETC_POR, POR_TXDIS, 0);
-> +}
-> +
-> +static void netc_port_wait_tx_empty(struct netc_port *np, int mac)
-> +{
-> +	u32 val;
-> +
-> +	/* PM_IEVENT_TX_EMPTY is a read-only bit, it is automatically set by
-> +	 * hardware if TX FIFO is empty. And it is automatically cleared if
-> +	 * TX FIFO is not empty.
-> +	 */
-> +	if (read_poll_timeout(netc_port_rd, val, val & PM_IEVENT_TX_EMPTY,
-> +			      100, 10000, false, np, NETC_PM_IEVENT(mac)))
-> +		dev_warn(np->switch_priv->dev,
-> +			 "swp%d MAC%d: TX FIFO is not empty\n",
-> +			 np->dp->index, mac);
-> +}
-> +
-> +static void netc_port_mac_tx_graceful_stop(struct netc_port *np)
-> +{
-> +	netc_port_rmw(np, NETC_POR, POR_TXDIS, POR_TXDIS);
-> +
-> +	if (is_netc_pseudo_port(np))
-> +		return;
-> +
-> +	netc_port_wait_tx_empty(np, 0);
-> +	if (np->caps.pmac)
-> +		netc_port_wait_tx_empty(np, 1);
-> +
-> +	netc_mac_port_rmw(np, NETC_PM_CMD_CFG(0), PM_CMD_CFG_TX_EN, 0);
-> +}
-> +
-> +static void netc_mac_link_up(struct phylink_config *config,
-> +			     struct phy_device *phy, unsigned int mode,
-> +			     phy_interface_t interface, int speed,
-> +			     int duplex, bool tx_pause, bool rx_pause)
-> +{
-> +	struct dsa_port *dp = dsa_phylink_to_port(config);
-> +	struct netc_port *np;
-> +
-> +	np = NETC_PORT(dp->ds, dp->index);
-> +	netc_port_set_speed(np, speed);
-> +
-> +	if (phy_interface_mode_is_rgmii(interface))
-> +		netc_port_set_rgmii_mac(np, speed, duplex);
-> +
-> +	if (interface == PHY_INTERFACE_MODE_RMII ||
-> +	    interface == PHY_INTERFACE_MODE_REVMII ||
-> +	    interface == PHY_INTERFACE_MODE_MII)
-> +		netc_port_set_rmii_mii_mac(np, speed, duplex);
-> +
-> +	netc_port_mac_tx_enable(np);
-> +	netc_port_mac_rx_enable(np);
-> +}
-> +
-> +static void netc_mac_link_down(struct phylink_config *config,
-> +			       unsigned int mode,
-> +			       phy_interface_t interface)
-> +{
-> +	struct dsa_port *dp = dsa_phylink_to_port(config);
-> +	struct netc_port *np;
-> +
-> +	np = NETC_PORT(dp->ds, dp->index);
-> +	netc_port_mac_rx_graceful_stop(np);
-> +	netc_port_mac_tx_graceful_stop(np);
-> +}
-> +
-> +static const struct phylink_mac_ops netc_phylink_mac_ops = {
-> +	.mac_config		= netc_mac_config,
-> +	.mac_link_up		= netc_mac_link_up,
-> +	.mac_link_down		= netc_mac_link_down,
-> +};
-> +
->  static const struct dsa_switch_ops netc_switch_ops = {
->  	.get_tag_protocol		= netc_get_tag_protocol,
->  	.setup				= netc_setup,
->  	.teardown			= netc_teardown,
-> +	.phylink_get_caps		= netc_phylink_get_caps,
->  };
->  
->  static int netc_switch_probe(struct pci_dev *pdev,
-> @@ -564,6 +806,7 @@ static int netc_switch_probe(struct pci_dev *pdev,
->  	ds->num_ports = priv->info->num_ports;
->  	ds->num_tx_queues = NETC_TC_NUM;
->  	ds->ops = &netc_switch_ops;
-> +	ds->phylink_mac_ops = &netc_phylink_mac_ops;
->  	ds->priv = priv;
->  	priv->ds = ds;
->  
-> diff --git a/drivers/net/dsa/netc/netc_platform.c b/drivers/net/dsa/netc/netc_platform.c
-> index abd599ea9c8d..bb4f92d238cb 100644
-> --- a/drivers/net/dsa/netc/netc_platform.c
-> +++ b/drivers/net/dsa/netc/netc_platform.c
-> @@ -11,8 +11,46 @@ struct netc_switch_platform {
->  	const struct netc_switch_info *info;
->  };
->  
-> +static void imx94_switch_phylink_get_caps(int port,
-> +					  struct phylink_config *config)
-> +{
-> +	config->mac_capabilities = MAC_1000FD;
-> +
-> +	switch (port) {
-> +	case 0 ... 1:
-> +		__set_bit(PHY_INTERFACE_MODE_SGMII,
-> +			  config->supported_interfaces);
-> +		__set_bit(PHY_INTERFACE_MODE_2500BASEX,
-> +			  config->supported_interfaces);
-> +		config->mac_capabilities |= MAC_2500FD;
-> +		fallthrough;
-> +	case 2:
-> +		config->mac_capabilities |= MAC_10 | MAC_100;
-> +		__set_bit(PHY_INTERFACE_MODE_MII,
-> +			  config->supported_interfaces);
-> +		__set_bit(PHY_INTERFACE_MODE_RMII,
-> +			  config->supported_interfaces);
-> +		/* Port 0 and 1 do not support REVMII */
-> +		if (port == 2)
-> +			__set_bit(PHY_INTERFACE_MODE_REVMII,
-> +				  config->supported_interfaces);
-> +
-> +		phy_interface_set_rgmii(config->supported_interfaces);
-> +		break;
-> +	case 3: /* CPU port */
-> +		__set_bit(PHY_INTERFACE_MODE_INTERNAL,
-> +			  config->supported_interfaces);
-> +		config->mac_capabilities |= MAC_10FD | MAC_100FD |
-> +					    MAC_2500FD;
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +}
-> +
->  static const struct netc_switch_info imx94_info = {
->  	.num_ports = 4,
-> +	.phylink_get_caps = imx94_switch_phylink_get_caps,
->  };
->  
->  static const struct netc_switch_platform netc_platforms[] = {
-> diff --git a/drivers/net/dsa/netc/netc_switch.h b/drivers/net/dsa/netc/netc_switch.h
-> index dac19bfba02b..eb65c36ecead 100644
-> --- a/drivers/net/dsa/netc/netc_switch.h
-> +++ b/drivers/net/dsa/netc/netc_switch.h
-> @@ -34,6 +34,7 @@ struct netc_switch;
->  
->  struct netc_switch_info {
->  	u32 num_ports;
-> +	void (*phylink_get_caps)(int port, struct phylink_config *config);
->  };
->  
->  struct netc_port_caps {
-> @@ -70,6 +71,9 @@ struct netc_switch {
->  	struct ntmp_user ntmp;
->  };
->  
-> +#define NETC_PRIV(ds)			((struct netc_switch *)((ds)->priv))
-> +#define NETC_PORT(ds, port_id)		(NETC_PRIV(ds)->ports[(port_id)])
-> +
->  /* Write/Read Switch base registers */
->  #define netc_base_rd(r, o)		netc_read((r)->base + (o))
->  #define netc_base_wr(r, o, v)		netc_write((r)->base + (o), v)
-> diff --git a/drivers/net/dsa/netc/netc_switch_hw.h b/drivers/net/dsa/netc/netc_switch_hw.h
-> index 0419f7f9207e..7d9afb493053 100644
-> --- a/drivers/net/dsa/netc/netc_switch_hw.h
-> +++ b/drivers/net/dsa/netc/netc_switch_hw.h
-> @@ -67,6 +67,14 @@
->  #define  PQOSMR_VQMP			GENMASK(19, 16)
->  #define  PQOSMR_QVMP			GENMASK(23, 20)
->  
-> +#define NETC_POR			0x100
-> +#define  POR_TXDIS			BIT(0)
-> +#define  POR_RXDIS			BIT(1)
-> +
-> +#define NETC_PSR			0x104
-> +#define  PSR_TX_BUSY			BIT(0)
-> +#define  PSR_RX_BUSY			BIT(1)
-> +
->  #define NETC_PTCTMSDUR(a)		(0x208 + (a) * 0x20)
->  #define  PTCTMSDUR_MAXSDU		GENMASK(15, 0)
->  #define  PTCTMSDUR_SDU_TYPE		GENMASK(17, 16)
-> @@ -123,6 +131,24 @@ enum netc_mfo {
->  #define NETC_PM_MAXFRM(a)		(0x1014 + (a) * 0x400)
->  #define  PM_MAXFRAM			GENMASK(15, 0)
->  
-> +#define NETC_PM_IEVENT(a)		(0x1040 + (a) * 0x400)
-> +#define  PM_IEVENT_TX_EMPTY		BIT(5)
-> +#define  PM_IEVENT_RX_EMPTY		BIT(6)
-> +
-> +#define NETC_PM_IF_MODE(a)		(0x1300 + (a) * 0x400)
-> +#define  PM_IF_MODE_IFMODE		GENMASK(2, 0)
-> +#define   IFMODE_MII			1
-> +#define   IFMODE_RMII			3
-> +#define   IFMODE_RGMII			4
-> +#define   IFMODE_SGMII			5
-> +#define  PM_IF_MODE_REVMII		BIT(3)
-> +#define  PM_IF_MODE_M10			BIT(4)
-> +#define  PM_IF_MODE_HD			BIT(6)
-> +#define  PM_IF_MODE_SSP			GENMASK(14, 13)
-> +#define   SSP_100M			0
-> +#define   SSP_10M			1
-> +#define   SSP_1G			2
-> +
->  #define NETC_PEMDIOCR			0x1c00
->  #define NETC_EMDIO_BASE			NETC_PEMDIOCR
->  
+>  static const struct of_device_id rz_mtu3_of_match[] = {
+> -- 
+> 2.53.0
 
+-- 
+Lee Jones
