@@ -1,205 +1,87 @@
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0853A7825
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 12:21:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F1A3C3C1E
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 12:24:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778156466; cv=none; b=CJJ1IkbjZxogloJaVzk3XElZ6N1Yr0EzYIxe/W7oy3hkc4yC1TQsCmk2MCro3yKm/0ceRLf20B4Q2VHERUnokh1GqVSgKTsNqlY/ZkgH5TKsBsePRXVDg6zMeqGhQdFtMhnqLN3UafwKVPCSAiGyXik0OhXN6A5sL5XhasT0w70=
+	t=1778156691; cv=none; b=afom7xtimmizU+PWG5PyaNb3z0GL4Q/cvMvX2meffA4x6guEuElnHAw2U/IIqv/5DcRHEHW/yYMjf0lY4HaBSIedX8+JxgFDi5T1uvTflJY5JccCm8pPraFbLgJhcynC8wLRYqsEXZpa/G88W5DrR9xHE2YpGjh6NU2aN7K774s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778156466; c=relaxed/simple;
-	bh=LxG5akUKcO5BBA86ktVgP/4+ojKCeM1Tc78y1CrcuTY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Fx8GEkssLO/PgzSkQg994decy9MYvc08DBuvnfTlBkexAuuxgEiAns1ft7ip/PpvihKWqSNJ/1yHdefxB8e0Hyb/qlnsokP+ErZG3GmC1Uz3ah4bRoGEvpj9BVNpt0VtLXm2Ts8WVulByu5+h6FhPBTvwSjTblH6IddY83EsZWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=zdjslWwz; arc=none smtp.client-ip=209.85.222.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1778156691; c=relaxed/simple;
+	bh=QIql3ABFxBxfhPdKS/rwS+nEJrZPiQL67AN4+VOVMso=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=s3DsFOpdtCLFArh+yTFBTmv8gr8zCPeeF5MRKqzN57h0r5KjXcLzokHclgHaDStZ2hGYWzguBBO5LJ6S/ZDawNJtEvw7Begp/k+lrqF8Zj99cwp8HAHM9L5gBQ3IcoFEh3J4xlF1d1H4Gx5SIH8C+Av8pa5YU0EiPII10sO6QXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RKv5nDNm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="zdjslWwz"
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-8e0a768331cso209993885a.0
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 05:21:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1778156461; x=1778761261; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=jhz8KoocXZc3ctaarL47fHWQ++aFEBdyNLqthbCRIEs=;
-        b=zdjslWwzdcCgnr4aPFXk+/sg8nEfRfdHNLBL5BCbwUKq8v+mVgy+rE1YY84EOGp36J
-         RxhqNzd48l/nmbnnHztARhUUjxNoHdgnYxZeskwF5pHC37Wce5L+7uKdeARW3ApIHFgv
-         5nPvyPOJ1kK7kkvWPN+Pm8IawZpLD3GaQOYlar7Xl3SXhyD9/7DltL8qllvQRx2TSAI4
-         19BsvPDlMp+vZ4Lip+C9cJ+Cx/fqNtgEgYiVYtU0SOplxBj9WfBNZU0y6ifnlSWosrBa
-         6fWZbxatVadjVH5XCoW6F1Ym5yeYRrsjO9mAIS7eH4+o3azRniE1SjTMm8iklncBdH+L
-         b59w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778156461; x=1778761261;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=jhz8KoocXZc3ctaarL47fHWQ++aFEBdyNLqthbCRIEs=;
-        b=R0O35ND6nqt6/sTivWiatM5ULutOoTmsKCq0/hU8l7h8Agknzifa6tG2wb6AwDDDNW
-         j9ioy/3wc5ixbP2TsbCMy/upeSEhx5K97JzFmmlJe4oSLklWrTR/ncAq6U5+u17QR7zW
-         29qB2eXVdCMU/A/5jRGNcof3X8sgvjlSegAlIlKr9rSHqnQgZ8hbBKVBHD+TAbm5UsEa
-         2/LVl7D9Hr82eU0JOqI5xSdtiFix6doE9FJ8EZO8KrttjDvaNdVXq5T+5a7T1l2ANMlw
-         D0XKlHcQiNp03BCrslDEFmDFdn5EHe4aU5c3MvQ+rK1CwdJ47nwfQvFjusy8ibfm3iyj
-         CxIw==
-X-Forwarded-Encrypted: i=1; AFNElJ9PxozL3aCYFe3djF43gQQydznDAlnX2CkVhierDdWkO46llRwEl+IbbMeXoLOuwd34wELyM/ql2u6a@vger.kernel.org
-X-Gm-Message-State: AOJu0YxzWXJtGya0YtXiiqMad72hc4jbByjWSP+V8a80UmUEafbq96G6
-	nOcZVLeTaEI1vl0KbVK0SiqEHuV+dlDZA8FkW52Lyd1MZmpjbQ5LAeMb0H/RIkwpHTE=
-X-Gm-Gg: AeBDiesMlT9fMECjjzx0HqbuC5Fe5cS7Ff6f9U1eRGepKnFztk5l+58C28McM22rTUL
-	CB6IxH1KrTfDgYf80Ync+7r4bg8RZ9Kqr12x6DIVfiEyWkMphgNPvd4Obt+AHLxd334DH9p6JQB
-	+TXE27aWaHV1Q92puVQR/75J31UXhdm1ggKL7KPqsRba3rneUwIaT7Fgi2Q3UX3oD4AwJfxTi93
-	0w/y3vL/4MJBzanQYg/FGA92XP199+B5lvjxunjB3u4C35w0YFSBxY4dxfDzi0RxORQe2kEXBLg
-	AkMJQ2f7XOHD6RRU/ljcMoP5/X6yjS4j6IUdHc0LWCsluGbNV1kM9on/OevVp7Hvmlc8y+dih3K
-	oIodH8uS7vAEN8VaDJAvtfrkToUpsCNUi9leOtmcGM9Y9+8MMiFWQVMWEewiCvlRWMi5/RkdKY4
-	WeyxveRqV18U2YNmpMCoyzST7yxhoxmte0bx+XZgDhPmgEctqaQRzpbEdDydVCJCONH7OVF/82C
-	w==
-X-Received: by 2002:a05:620a:469f:b0:8cf:dd93:aca5 with SMTP id af79cd13be357-90652c64f39mr328497885a.34.1778156461028;
-        Thu, 07 May 2026 05:21:01 -0700 (PDT)
-Received: from [172.22.22.28] (c-75-72-117-212.hsd1.mn.comcast.net. [75.72.117.212])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8b53c1dc62csm226235066d6.23.2026.05.07.05.20.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 07 May 2026 05:21:00 -0700 (PDT)
-Message-ID: <cb788638-7cb0-469e-9c38-13452103f7c4@riscstar.com>
-Date: Thu, 7 May 2026 07:20:58 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RKv5nDNm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61B1BC2BD00
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 12:24:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778156691;
+	bh=QIql3ABFxBxfhPdKS/rwS+nEJrZPiQL67AN4+VOVMso=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=RKv5nDNm8HFBZ/inumudOz8bq/9D0RjWYEYvjZAonv+XeRXE/imJ8Qqy8AMlTq2/3
+	 hiTSyhuBXJEe1/W4ad2WCVpo4YydHtCpkviJfrU6xwIFA0JwyxqjujRuYf9M3mFfgZ
+	 7lIZdnr+Z9aOWGtutXOFLo+ub4pk0mUe+JTqNPeyDm3eQ0h0l3/SSNBuMpfIGRw2AZ
+	 6y6nh+Yf/G0uWxYfAZHMB0VBhBoP2DzpehNT3YjR87Ei7luHPc5avzFuwBUeFTcsPc
+	 /kJgYH0QDk4OdOX+6ZDX7xLOdrnY8yxTOwqZz+ezUcEyuj0XEXfELugJSPs4IQyjWK
+	 5chGoE6TbBt+g==
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5a87edf88b3so594298e87.0
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 05:24:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8F+RwM+iWtIZaP1aJvcGWm+jILSuxvp0f5VlkodGE7NyIxoqp1KxLL7bphsdW8YOWACZ5YKZLcmTw9@vger.kernel.org
+X-Gm-Message-State: AOJu0YwDzZ3fFIHbQTMidpXSMif59F3fJOKuXw75i5yOFg9MxdzgDE8F
+	qX+YqCF142EOFkCd5j5Ixat5eqOuCPXMJwrTVZzbP3m74HOGMiXTvLhPgevpkm34Evn209gLe7Z
+	l41v3oEow1+mB+rbb3/2z7v4TR/iigzU=
+X-Received: by 2002:a05:6512:3c81:b0:5a7:4783:a13a with SMTP id
+ 2adb3069b0e04-5a887adfe0cmr2797785e87.6.1778156689988; Thu, 07 May 2026
+ 05:24:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 09/12] gpio: tc956x: add TC956x/QPS615 support
-To: Linus Walleij <linusw@kernel.org>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
- andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, brgl@kernel.org, arnd@arndb.de,
- gregkh@linuxfoundation.org, daniel@riscstar.com, wens@kernel.org,
- netdev@vger.kernel.org, bpf@vger.kernel.org, devicetree@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-10-elder@riscstar.com>
- <CAD++jLkm4qn9hxQ9HjjnTWjvAiS+A+x1ATy7wamnm_YSP_qPEg@mail.gmail.com>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <CAD++jLkm4qn9hxQ9HjjnTWjvAiS+A+x1ATy7wamnm_YSP_qPEg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260429-send-v7-0-b432e00d2db8@gmail.com> <20260429-send-v7-6-b432e00d2db8@gmail.com>
+ <CAD++jL=S6DSOuC-PXFn76SA7e-Lgueu9Z2wuF7icXCVX7MBpJw@mail.gmail.com> <5379905.31r3eYUQgx@strix>
+In-Reply-To: <5379905.31r3eYUQgx@strix>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 7 May 2026 14:24:38 +0200
+X-Gmail-Original-Message-ID: <CAD++jLk02QnkXYwJ0b6x=qw9stR4nPrjD3sYPOvWAQz8t9OsUA@mail.gmail.com>
+X-Gm-Features: AVHnY4KG1i7F86ysxgeSAop-bGeT8IWW7pLynGDyGg64qsvOgzwotjy6zksXjl4
+Message-ID: <CAD++jLk02QnkXYwJ0b6x=qw9stR4nPrjD3sYPOvWAQz8t9OsUA@mail.gmail.com>
+Subject: Re: [PATCH v7 6/6] ARM: zte: defconfig: Add a zx29 defconfig file
+To: =?UTF-8?Q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Drew Fustini <fustini@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jiri Slaby <jirislaby@kernel.org>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-serial@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 5/7/26 7:15 AM, Linus Walleij wrote:
-> Hi Alex,
-> 
-> thanks for your patch!
+Hi Stefan,
 
-Thank you for your excellent feedback.  I will plan to use
-regmap-gpio (already suggested strongly by Andrew Lunn) and
-that will be included in the next version of the series.
-Once I've done this and tried your other patch I'll provide
-a Tested-by for it.
+On Wed, May 6, 2026 at 7:39=E2=80=AFPM Stefan D=C3=B6singer
+<stefandoesinger@gmail.com> wrote:
 
-					-Alex
+> I'll send a v8 with some of Sashiko's (very impressive)
+> findings but keep the defconfig.
 
+Maybe not send all patches to soc@kernel.org right now because they
+end up in the patch tracker.
 
-> 
-> On Fri, May 1, 2026 at 5:55 PM Alex Elder <elder@riscstar.com> wrote:
-> 
->> Toshiba TC956x is an Ethernet-AVB/TSN bridge and is essentially
->> a small and highly-specialized SoC.  TC956x includes a GPIO block that
->> can be accessed, alongside several other peripherals, via two PCIe
->> endpoint functions.  The PCIe function driver creates an auxiliary
->> device for the GPIO block, and that device gets bound to this auxiliary
->> device driver.
->>
->> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
->> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
->> Signed-off-by: Alex Elder <elder@riscstar.com>
-> (...)
-> 
->> +config GPIO_TC956X
->> +       tristate "Toshiba TC956X GPIO support"
->> +       depends on TOSHIBA_TC956X_PCI
->> +       default m if TOSHIBA_TC956X_PCI
-> 
-> I think this driver can
-> 
-> select GPIO_REGMAP
-> 
->> +#include <linux/auxiliary_bus.h>
->> +#include <linux/dev_printk.h>
->> +#include <linux/gpio/driver.h>
->> +#include <linux/module.h>
->> +#include <linux/platform_device.h>
->> +#include <linux/regmap.h>
-> 
-> #include <linux/gpio/regmap.h>
-> 
->> +#define TC956X_GPIO_COUNT      37      /* Number of GPIOs (20-21 reserved) */
-> 
-> I would just do 64 and flag > 37 as invalid.
-> 
->> +/*
->> + * struct tc956x_gpio - Information related to the embedded GPIO controller
->> + * @chip:              GPIO chip structure
->> + * @regmap:            MMIO register map for SFR GPIO region access
->> + * @input_only:                Bitmap indicating which GPIOs are input-only
->> + */
->> +struct tc956x_gpio {
->> +       struct gpio_chip chip;
->> +       struct regmap *regmap;
->> +       DECLARE_BITMAP(input_only, TC956X_GPIO_COUNT);
-> 
->> +static int tc956x_gpio_get_direction(struct gpio_chip *gc, unsigned int offset)
->> +static int tc956x_gpio_direction_input(struct gpio_chip *gc,
->> +                                      unsigned int offset)
->> +static int tc956x_gpio_direction_output(struct gpio_chip *gc,
->> +                                       unsigned int offset, int value)
->> +static int tc956x_gpio_get(struct gpio_chip *gc, unsigned int offset)
->> +static int tc956x_gpio_set(struct gpio_chip *gc, unsigned int offset, int value)
-> 
-> REGMAP_GPIO can handle all of this for you with the right
-> parameterization, study the drivers using this already such as
-> those that appear when you type
-> git grep 'gpio\/regmap\.h'
-> 
-> 
->> +static int tc956x_gpio_init_valid_mask(struct gpio_chip *gc,
->> +                                      unsigned long *valid_mask,
->> +                                      unsigned int ngpios)
->> +{
->> +       /*
->> +        * GPIOs 2 and 3 are used by the PCI power control driver, and
->> +        * we don't allow them to be used.  GPIOs 20 and 21 are reserved
->> +        * (and not usable).
->> +        */
->> +       bitmap_fill(valid_mask, ngpios);
->> +       bitmap_clear(valid_mask, 2, 2);
->> +       bitmap_clear(valid_mask, 20, 2);
->> +
->> +       return 0;
->> +}
-> 
-> That's good use of this facility.
-> 
-> I would say the chip has 64 lines and just
-> bitmap_clear(valid_mask, 37, 64 - 37);
-> but that's your pick. This probably works too.
-> 
->> +       /* Mark GPIOs 22, 23, 24, 27, 28, 31, and 34 as input only */
->> +       bitmap_set(gpio->input_only, 22, 3);
->> +       bitmap_set(gpio->input_only, 27, 2);
->> +       set_bit(31, gpio->input_only);
->> +       set_bit(34, gpio->input_only);
-> 
-> regmap-gpio can't currently handle selective input-only or
-> output-only lines, but we can
-> very easily make it.
-> 
-> So I sent a patch for that (now in your inbox).
-> 
-> Check if this fixed_direction_sparse bitmap will do the trick
-> for you and provide Tested-by if it does, thanks!
-> 
-> Yours,
-> Linus Walleij
+For a new platform that may be OK though...
 
+Nominall it should be three pull requests:
+1. Platform
+2. DTS files
+3. Defconfig
+
+But in this case maybe it is better if we cherry-pick them to the
+SoC tree.
+
+Yours,
+Linus Walleij
