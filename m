@@ -1,156 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A10E33343C
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 09:44:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D725D31A81C
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 09:52:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778147085; cv=none; b=MZ/pkVJY7QJo/TBBCE26wsQN6LqjJf0wFRQ9/2+b9NnPtNEuei8MPbuiz/CwOy40zSMWvGdGy1wYtqj3xt5Z/8F86Aq1kf5E9bE3n4S9GWqdUIReZ0ZBt+GcvRk4I7uS/j8nb+F9Cj2ds5zJ0mmDafmpP7en247r4btC1qsJ8+8=
+	t=1778147544; cv=none; b=gYRE1PRpnGo5dW0BlAwi2WskkYkj62SJWepZpzcL88sWnEOwWXlUEwcmQDK3kGu3DlxN5EchzQqfXeEN1M0/Ecic2rhbPJSy9ryL20pJZ+jwDgQNFHT2wGmen721+vCbxUheVeqp267aLgVlt99RfaQS9SY3FgtfbmaDoQymVZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778147085; c=relaxed/simple;
-	bh=Jjnn4yrDTrZX08ni2x7bn720XfEgnPw2PfUE6M7ahIw=;
+	s=arc-20240116; t=1778147544; c=relaxed/simple;
+	bh=eJ/srp9zrosiZKPztLc0t3HXPykDKM0ecqir8ctUaFU=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LNUvWONyOaRkxHpNkBMm6J0SUBL7uUaJBHtFZNG85S0TRQzcYe7tgwVFmv0Jivk5J6y9W5yQMNpsk4s3IxWxEODYwrCw34f3LG0BtmJ8qlENMKktHS+OatmpM4rCcHKGzfXGUhVecWDwhr/1xlIjC3i7vWyYEXXYnHRln26McAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qqjGNMvV; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qqjGNMvV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56770C2BCFA
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 09:44:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778147085;
-	bh=Jjnn4yrDTrZX08ni2x7bn720XfEgnPw2PfUE6M7ahIw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=qqjGNMvV31nKILNRLnEfl9xhDx2UrF0buO2OdXbecwgZvZpWUc2PWF6VcD/Xi9zdW
-	 w/J/5Tu1wRL5Ce2ZE7Hc5gQj4uYOVCR4KwpaxbwrPzqMjZptUDDcqSFD5NnxcA+1k3
-	 uZ/p+VROYY7lxK7Jp0fD6gcBcTEYDUAGnBEhudvQ8vdP8/OlxK8XKvh8PhjO3v2CVb
-	 D6mbYl3pQd16JmGt8gkQZiUWmRSBePbLKnlDI7l3IHazpidknz+dxXQj8PwBgzZBOJ
-	 UsBlxairo1QZyNDZilFJT5OIGw61w+FDKPcIz2vkDPtyw8K1c9kncnO+nmwl5jAMve
-	 mi82bMQ+wqhkw==
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5a283c44478so836972e87.3
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 02:44:45 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/rwKokb6MUDQdFyJ8y6DJN+g6wQmnXFVgyWx9oD7X/+AmOypaBX6WTuvbiT+5jc/qwu/xDHZ/LiCLQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YxMPvAiLJ6FvILUwXCgNH30GIQ61IjGDmsm+YlIh/9Gv4ewKC7s
-	zJVRbavRMj8TsvuIO5h577XLc2jisQO+5F5g0i9hAOFQUI1gMVw344YY3HXP1TX67BFj3do2FQc
-	kqtpo2eJTYzGF6oJHboURySaahzZaNyk=
-X-Received: by 2002:a05:6512:3f23:b0:5a8:638d:6f53 with SMTP id
- 2adb3069b0e04-5a887adaa88mr2727485e87.6.1778147083932; Thu, 07 May 2026
- 02:44:43 -0700 (PDT)
+	 To:Cc:Content-Type; b=d/Yg5993wWSHm5obuwRtStJjWHJXI4xdteNWbtcIhYRYICTV1V5cueuJYvPRQHxikNDp6eLJIsi4kjL7/gycxbWKNWAH/2vxi79MiP2CO5dRtGRo8eFhrATyoPlwcvStFsp9cHXudm1tCljvZqwtK8yQJIcM/Y5OtlOAQPCORaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-62f4c4e6694so418695137.3
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 02:52:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778147542; x=1778752342;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1bhar/UK+XkT5Dhu83HpcF1mBIkuaB73W2rNiIRK9TU=;
+        b=pJJZmixBx9DvNkdCLYA2DcO+qseMFi0CSBlDeXGBe0XP8JADLm9nvllo4af/H+hVlf
+         C4w6sKfjecW+kX2sNovjc+t0qbk66hMSkGzt+32hsbtG8oOpH8fvFQkzfrlt4iH4fKBZ
+         /Cdx7iBpRZGkUZ2WF7qlHZO6mMw160MmM5PN6HKyW3AbDFSzG0YdhnrdVdS4BoJn3WXJ
+         deuSo3Hy6NGWXfeY0l4astT6CRZuGqdw4JpG3bX7I2Z8UXLJubsQEVZIOVl3UDV6kkF/
+         UNSVgwAhDOxDSKm056FzSJPGfqgqyUaIbxWcfJL85ryRZ4NiyyLeNTjUsDg7t4Wx/PQL
+         VWJg==
+X-Forwarded-Encrypted: i=1; AFNElJ8ETngpmioOuk6+dIu8U078bYEsIElXkhq6010y8qk9LLkLWNUiasmbDetxPS8Avi7dxi2WfNzexKL6@vger.kernel.org
+X-Gm-Message-State: AOJu0YwhiJ0mNF/kF1gjX9cXlwWBtadTDCuxnqPor8Vk1QwTBw01JtKe
+	xTSepJoT+w14eXfiqLAhrjhfr4HfyjOw+YJ6n0mCMI0gKEa9DYmAby2z0osHWn0XhvQ=
+X-Gm-Gg: AeBDieuYavicQbyHXRbpN0kcE/T1HVq0fNlAXFXOtJd76/FMzibf5VgKVQestWG25jw
+	6OegHiByglhjdhP+YH69EnqjkAeQLF6b5sG/j6rwnhve+aUPP+V2rqFadEtr/elSmH8AViwtTEA
+	7RJRkmTN2+r+im77DAUWHpz+ukZyQaof54EPfcKqNSgaiQ+GgXhRxIwskwPYyOpjEhbYBLlXNTY
+	FsyzRE1qoX5kb0r/JIecMU3pjRbNEml121DJNT6osU09zKDuaGO/VYPzdvKgqaOGd3+gNPQjz2G
+	AY+h/ZnuvifBD46Q1vNkFy6aTrpqaHSVRgWTo9yb0b6bb9Hi2421MVCik24sefOkJB8VWOYwt9c
+	Ex3z2zpRlSHqNJAvyom3elHv0Aa1F6W84we0LUSyoJw4MjSAj1oVDxp8/X3sjTFAhUfGUMW76uP
+	0iV1DdoMqiOqOgQt0Fh6Wr29YVO0aY2meezK++r+SKlV0+hOFS0ar6ex0cSvBv5m+nrmx71SM=
+X-Received: by 2002:a05:6102:8082:b0:5ff:b8d8:b40b with SMTP id ada2fe7eead31-630f8ee2576mr3578909137.11.1778147541857;
+        Thu, 07 May 2026 02:52:21 -0700 (PDT)
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com. [209.85.217.42])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-62ece141251sm8916769137.10.2026.05.07.02.52.21
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 07 May 2026 02:52:21 -0700 (PDT)
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-62e4f756446so418665137.2
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 02:52:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9QtVUjRRYq6zLbgL7desb2qX5l27/qAtdZbiMmGHqD98i2ryh98uOZ7GQWitv+oWo+vcQgjdHAN6J3@vger.kernel.org
+X-Received: by 2002:a05:6102:374c:b0:612:164e:ab02 with SMTP id
+ ada2fe7eead31-630f8e75bc6mr3667660137.5.1778147540890; Thu, 07 May 2026
+ 02:52:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260414-axiado-ax3000-sgpio-controller-v1-0-b5c7e4c2e69b@axiado.com>
- <20260414-axiado-ax3000-sgpio-controller-v1-1-b5c7e4c2e69b@axiado.com>
- <CAD++jL=yc4rmNELLKUpreUqRbQ1Krg95C-o1xSrnD9Aicm4wgw@mail.gmail.com> <106b7b64-ed6e-499f-b5ac-60c1277f2f03@axiado.com>
-In-Reply-To: <106b7b64-ed6e-499f-b5ac-60c1277f2f03@axiado.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 7 May 2026 11:44:32 +0200
-X-Gmail-Original-Message-ID: <CAD++jLn4R9ubqHsek-56s1sF9YhxYt4-C2TPdYGcYjy2MC6q_Q@mail.gmail.com>
-X-Gm-Features: AVHnY4KA8TveR2zDsS46EaI7LI2muWnzNFMg-HaAe4yTbCLUY8SRows5ieuqqDs
-Message-ID: <CAD++jLn4R9ubqHsek-56s1sF9YhxYt4-C2TPdYGcYjy2MC6q_Q@mail.gmail.com>
-Subject: Re: [PATCH 1/3] dt-bindings: gpio: add Axiado SGPIO controller
-To: Petar Stepanovic <pstepanovic@axiado.com>
-Cc: Tzu-Hao Wei <twei@axiado.com>, Swark Yang <syang@axiado.com>, 
-	Prasad Bolisetty <pbolisetty@axiado.com>, Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+References: <20260326111953.31024-1-biju.das.jz@bp.renesas.com> <20260326111953.31024-2-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260326111953.31024-2-biju.das.jz@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 7 May 2026 11:52:08 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdU8S6pOxodK-LRWfU9NJhD5is5T-=cxA-K-cohqAyefAQ@mail.gmail.com>
+X-Gm-Features: AVHnY4KKrk-p0LtIDnyA7jlpV5cLB8liuCJjfvbTpNoJ0gGv-_9HWUuGQzK5SBg
+Message-ID: <CAMuHMdU8S6pOxodK-LRWfU9NJhD5is5T-=cxA-K-cohqAyefAQ@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] arm64: dts: renesas: r9a08g046: Add GBETH nodes
+To: Biju <biju.das.au@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Harshit Shah <hshah@axiado.com>, SriNavmani A <srinavmani@axiado.com>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
+	Richard Cochran <richardcochran@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Petar,
-
-On Thu, May 7, 2026 at 10:06=E2=80=AFAM Petar Stepanovic <pstepanovic@axiad=
-o.com> wrote:
-
-> >> +  '#gpio-cells':
-> >> +    const: 2
-> > Are you sure you don't want to use 3 here instead and split the 128
-> > GPIOs into 4 "banks" second cell being the bank number?
-> > <&gpio 2 4>; ?
-> >
-> > Maybe this also solves the 512 GPIO by grouping the GPIOs into
-> > 8 banks...?
+On Thu, 26 Mar 2026 at 12:19, Biju <biju.das.au@gmail.com> wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
 >
-> Thank you for the suggestion. We would prefer to keep #gpio-cells =3D <2>
-> to stay aligned with existing SGPIO drivers and current DTS usage.
-> A single linear offset is sufficient to identify each GPIO, so introducin=
-g a
-> bank cell would add additional complexity without a clear benefit.
-> Any internal bank handling can remain within the driver if needed.
-
-If each bank also has its own associated IRQ line, for instance, then
-this also reflects the hardware in a better way. But it seems this
-controller has just one single IRQ line for all GPIOs, so maybe
-this is better.
-
-> >> +  ngpios:
-> >> +    description: The number of gpios this controller has.
-> >> +    $ref: /schemas/types.yaml#/definitions/uint32
-> >
-> > Same here, certainly the 128 variant has 128 gpios and
-> > the 512 has 512 GPIOs? Just use the compatible string
-> > to infer this.
+> Renesas RZ/G3L SoC is equipped with 2x Synopsys DesignWare Ethernet
+> (10/100/1000 BASE) with TSN, IP block version 5.30. Add GBETH nodes
+> to R9A08G046 RZ/G3L SoC DTSI.
 >
-> This seems to be platform-specific rather than strictly hardware-dependen=
-t.
-> We were considering keeping it as a separate property (possibly renamed t=
-o |axiado,sgpio-ngpios|).
-> Would you prefer that, or deriving it from the compatible string?
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> ---
+> v2->v3:
+>  * Rebased to boot series.
 
-In this case it is fine to use ngpios.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.2.
 
-ngpios is used when the hardware can actually do more
-GPIO lines, but they are not routed out on the package of
-the silicon, for example.
+Gr{oetje,eeting}s,
 
-> >> +  dout-init:
-> >> +    description: Initial values for the dout registers.
-> >> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> >> +    minItems: 4
-> >> +    maxItems: 4
-> > In:
-> > Documentation/devicetree/bindings/gpio/nxp,pcf8575.yaml
-> >
-> > you find:
-> >
-> >   lines-initial-states:
-> >     $ref: /schemas/types.yaml#/definitions/uint32
-> >     description:
-> >       Bitmask that specifies the initial state of each line.
-> >       When a bit is set to zero, the corresponding line will be initial=
-ized to
-> >       the input (pulled-up) state.
-> >       When the  bit is set to one, the line will be initialized to the
-> >       low-level output state.
-> >       If the property is not specified all lines will be initialized to=
- the
-> >       input state.
-> >
-> > If this is what you want, use this standard binding instead.
->
-> In our case, the hardware provides dedicated DOUT registers where
-> each bit directly controls the output level (0 =3D low, 1 =3D high).
->
-> The lines-initial-states property also encodes input state semantics,
-> so it does not map directly to this hardware.
->
-> Would you prefer adapting to lines-initial-states despite this,
-> or using a separate property for output initialization?
+                        Geert
 
-Please use lines-initial-states, support also input mode setting
-and write more than one register if necessary.
 
-Setting up the dout-states for lines which are supposed to be used
-as inputs just doesn't make sense does it?
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-It is better if the device tree has this deeper semantic which
-provides useful information for the developer and makes the
-author of the device tree be more careful and detail-oriented
-around the actual usecase.
-
-Yours,
-Linus Walleij
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
