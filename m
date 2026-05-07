@@ -1,123 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azolkn19010036.outbound.protection.outlook.com [52.103.10.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEFD440DFB9;
-	Thu,  7 May 2026 02:45:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778121927; cv=none; b=jL5GIhMDC+vTcWIi//WcHNsMPWS1j7pGHDqiviojoqB7vjlcvNye04UtNP6ROYfYxaugzG0cz0VddoBXpI6JhIbTmDYxPS8l+o+g39P84/DSGEaZgHD2mP31rD+HShcejioajdug2UC++9wnJdxcy+Nb4QRHl/ap8Jne5Ijtoo4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778121927; c=relaxed/simple;
-	bh=GVDgyNBjLVJtO0PjEWdPQZ+br1pnpWOGwCkKrGbMVKY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j0Aa9qvveFs0V9y3Wa/IEBCI9CnwXVAmKqIWe9kBMr4FhqVFgwF/K6pMfo6vi8jGMjbjUFWmqHonbBwlPW3Vd9mIkhL+NTaCFRMPA+ciuSB8StrZAPCVckszqnp6Ctz4MU2L4e8XsQ6I2y0sxm1BSEHm4HzqHqaqzYJnaKEFrbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qpj1qYcr; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5F7F40DFD3;
+	Thu,  7 May 2026 03:08:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.10.36
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778123286; cv=fail; b=sUMD0h+J9cFtwz9mnCEyu0iXoeyBhRTh9NrDN3/rCqxpfTddQioHoTdWVp6C31oVgq41TG0dJqpKznrCQvdR4S0Qj8fSjZH34iqPjSbN+WBGFy07KIzdVsBOlM4y1zlkVX/S4whJT11Xap9TfKQEAfcnAZt/FEvOeG/CE2+jkL4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778123286; c=relaxed/simple;
+	bh=qYRLfQlC3v1sPd72qNSSH3FwGaXiVDPsGFufGUJ7v9I=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=YzPX5RgBnC6sHJZXhcaPf4j/gfqpz20/e+TQBJP1/P7/54u3ymrk89nlq96+g0H78dMBD9xTXpHGMNRF5/hAfgEf10hu7/KFlqn5ontAYC7W6My7eN72kXAAnqx0lLxijilEq47D40rdBVlMA+ltjotrpf7Wsiyp459xg1dPIwY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=Iiu3ewY1; arc=fail smtp.client-ip=52.103.10.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qpj1qYcr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E609CC2BCB0;
-	Thu,  7 May 2026 02:45:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778121927;
-	bh=GVDgyNBjLVJtO0PjEWdPQZ+br1pnpWOGwCkKrGbMVKY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Qpj1qYcrB2K6aLv1IaeZuNOwPCUdI+3QGKr40V78B/F3Nl90L20lL3c3Aa6ViiCxm
-	 zpSZl9i4y5RsNk2dnVmrzlb0+2o2rQgyr58CEYhwizs5YUL15KfkQCEUyGVScjLrdy
-	 naDPsrm67kPdWXE0BrEvbefGTDoQaQdhD1tnMBHk4XRV4unHxDD3ALSbb7G+VT4wtd
-	 WkNwusG5+NN+trr0hYEH1g9URbJb1iGbc4E21AbRrBF4Eu2oUEXpKhPszLF8tT3ilz
-	 oUhcjLj9pzn9fP3aGM30K5QG8RwC7iLAtbYPKr8/hxv6BO6aaBSEnLofKASeIRpy+3
-	 TO36e5KAClafw==
-Date: Thu, 7 May 2026 02:45:24 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Anand Moon <linux.amoon@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
-	open list <linux-kernel@vger.kernel.org>,
-	Han Gao <gaohan@iscas.ac.cn>, Ze Huang <huang.ze@linux.dev>,
-	Chukun Pan <amadeus@jmu.edu.cn>
-Subject: Re: [PATCH v2 1/4] riscv: dts: spacemit: k1-bananapi-f3: Add
- vcc5v0_sys regulator for Banana Pi F3
-Message-ID: <20260507024524-GKA3579608@kernel.org>
-References: <20260502051906.8160-1-linux.amoon@gmail.com>
- <20260502051906.8160-2-linux.amoon@gmail.com>
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="Iiu3ewY1"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=X96bA1SboiMbuz4cV7UCV9RWWvjlCjo/Skrg9TkkZz12wM6sWZyoJew99ASxPDcfjYU/o5bTLWaIm0F+f/yi+qZHPbbhgDJnU0VnbVTEm3MGtv5ykypU6XmFoKvlvHMeO12Tz80pBBDSAlXIRj5s+smAogqh+48beXCORJk1AUvzYYQRGBo2qVUIiCNjFy3bexPboTCUXvATpjDQCsALIgbfEIb5lDp9oid25m3M7s9SSgi52YWpYP21SDDWTlBNk9aRDkhDg7WJtYsojQRbdnlRp7x+E49YjFuVkWuriXMfFiG6MiNsNp+aOFuvwG6SsCM2ylkQQxv400CLDPMiow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nJMwf5lAOGoS9RXayozvp0480cGIqKJvu67ipdgEP2g=;
+ b=PDYyg9rtVFQYKM5b0flNLi+WfzyMRBczvYg3qMw+jQr74zBYp8Ca305DBn4Bw9eTtmBp2nXYaXlNDw44v+SaqTYmmXnoTWaBV8CBDSr2+wG/aLVVBE383GeaExGQPuQ9qcwa0dfJUS6mi5wh+rV4+MEM32I6VW9xhdOWG4k3iCr7tE6pHtJ9mDMP0I/HnflKMEXs/lJq3SQj4QgeflNApgczpKZ4JXtQG1055eIFZMTlr9f8wgst5ccRkiTY7PxWOf7x7ZndYMtSMeDLV4QZQ3tbOBRrfQNt7wWqPrXWXg60s7sMOpLfNpNLJmtQ1JVORS1GBn21bCaUstD74BDSLw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nJMwf5lAOGoS9RXayozvp0480cGIqKJvu67ipdgEP2g=;
+ b=Iiu3ewY11mVUdfsFRpbD/m7opABr1V4N31ri7+BVE1O8XFJjJnSBRPXbvSF5fEBFrHxF/bz1HcEDElHwrhCGw3GPhCK5LyAiJZIl/WFIIIfQjzz5X7J1RDNDS5kGEFefdFctfIBV6bFryj7OsIWDyhPQLOPKZseR5WqeXvhBPk33WyA+bqAo8f1DVIL7X3BZsFR3LjZGbafb/uwBUre2RQK5W6QuEgiE4Z2AA7gQro3L2MY5Mmq8dNa0xbrQTq7OaU/J1Vu4ymV6T+Co75J+Z8NhlG1cSVOJJbuvV4/B1m2mzM+nPDy27yrmuVjb3w93ZdbiLXJclR8kQ1xabovd3Q==
+Received: from MN0PR19MB6091.namprd19.prod.outlook.com (2603:10b6:208:382::21)
+ by PH7PR19MB8235.namprd19.prod.outlook.com (2603:10b6:510:2f2::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Thu, 7 May
+ 2026 03:08:03 +0000
+Received: from MN0PR19MB6091.namprd19.prod.outlook.com
+ ([fe80::af9a:4cc3:facf:9374]) by MN0PR19MB6091.namprd19.prod.outlook.com
+ ([fe80::af9a:4cc3:facf:9374%5]) with mapi id 15.20.9891.008; Thu, 7 May 2026
+ 03:08:03 +0000
+From: Liu Changjie <liucj1228@outlook.com>
+To: heiko@sntech.de
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Liu Changjie <liucj1228@outlook.com>
+Subject: [PATCH 1/2] dt-bindings: arm: rockchip: Add LCKFB Taishan Pi 3M
+Date: Thu,  7 May 2026 11:07:52 +0800
+Message-ID:
+ <MN0PR19MB6091C07C729B83E594722E84AC3C2@MN0PR19MB6091.namprd19.prod.outlook.com>
+X-Mailer: git-send-email 2.50.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PH8PR05CA0012.namprd05.prod.outlook.com
+ (2603:10b6:510:2cc::11) To MN0PR19MB6091.namprd19.prod.outlook.com
+ (2603:10b6:208:382::21)
+X-Microsoft-Original-Message-ID:
+ <20260507030753.24079-1-liucj1228@outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260502051906.8160-2-linux.amoon@gmail.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR19MB6091:EE_|PH7PR19MB8235:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f96ec43-9acd-4b55-d35a-08deabe5da12
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|461199028|37011999003|39105399006|24021099003|22141099003|8060799015|5062599005|5072599009|23021999003|15080799012|19110799012|40105399003|440099028|3412199025|3430499032|26104999009|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?/pdxEak0pilWKBHtjD0rCUBDyJY4zh27wsWUGSUk0qi+JU7JA9jOEJ9gYLTU?=
+ =?us-ascii?Q?niuv7IUXd1bHj5SdFOmcOhzLcrdSWxRpIedhTp92grsecto6YWB+zyRfPbMy?=
+ =?us-ascii?Q?UzSycLYvit5Wc94jRGhlRnL1FpfIhtydEFSch7vy+2uRddRii2/zWr4xVl1Z?=
+ =?us-ascii?Q?Wu2d0uvHwLw1AMNruH3Vk7Ays8RdqJTQ679WTbmk2+7eT5ZqpN/vHON+hSCh?=
+ =?us-ascii?Q?RqESISi5wN6uYSOl3//fw3DNIK7ptc5JtEweUX7NAl8ul+oo6O8lIs3FqKld?=
+ =?us-ascii?Q?YQY0NmdQ8hakMKsZI0CtRrJXEA/woVcOeDdlkXM1VEgaK4Y65gFE9ms7uvNJ?=
+ =?us-ascii?Q?8/VD/UTcrF4VkoDGXej2FVqkDRNsidLMjsR39TTJoX84fuNPS08s4HRCBlA2?=
+ =?us-ascii?Q?o/QOgFuvaNJ1IE7QilpDktW5W/au8ZNI+OJDW6fhYA7PpXeqDSQwmXZBNNus?=
+ =?us-ascii?Q?XgfBrid3S3opJ7yVmqpic0qherzIH6HBGofzGMcJK6lrmbhMbO4x6Pq5qyt7?=
+ =?us-ascii?Q?zvk10X6HcwC4mtWh2r7p7Vl007JAjrwTeSdLtTYu/YOwGQJiYZvz85bhfiHA?=
+ =?us-ascii?Q?zpAXpl4uDRV/PnnMbKR4+zy71tIfMNb19hkpBsolOKEZ7CjciMv8oUjcYheb?=
+ =?us-ascii?Q?mHMWca5NBcMMEZErI7+xi+7cBGePkJDL6s6zjIhXQQgnxIdogRcqbQ592k8d?=
+ =?us-ascii?Q?cBA+7U6oaJVykaNHAq6ddVLca/bPy9kzhqCA/vBXh8h4eUlMUVIZFrSKHvxW?=
+ =?us-ascii?Q?pfmVlT+thSJY7H8jD+0aYOmwTOD+yB2BNzuPDEWh5qOaU3y+MWOu8D/P2Zio?=
+ =?us-ascii?Q?4XqXhU2BuogDvy1ZCSgxFvGfmVluI1DpIGZ/9/ApGsLou6IpMd0sDcUwyvkh?=
+ =?us-ascii?Q?oz0npC0BCujSFiPjoAuk0gMOtEjdkOSjL5NM/RSKoOJ/buBUbQJZ5Er9cHDY?=
+ =?us-ascii?Q?4xdh/nrs/8jRQQE3/9T2KIsgq/VDBl8oDro6sA+9Ml6R4mr+toyqZqZICjEj?=
+ =?us-ascii?Q?ezjgLRvcDMJAdBQ0wDM0rYC4IT+QML8Ri6t1Nenf4VmVJUliL+yxJA6tvQNe?=
+ =?us-ascii?Q?whE55Wfw?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?6nIUSVZDhrqAAoOuReH21VJPNMpIOGfq8V/Omc6eqAhuDiGWw/E2/vJT3GNe?=
+ =?us-ascii?Q?KlUyLwVgUwgtYb9FJJAZ3P/pG4CDRJkOmq+zOLh84VJdaP0mzrUihs7UAila?=
+ =?us-ascii?Q?/+RKyiv+ZC60OJecYHvmDGEpjEOFqiGv+uFBFBXTGiFtYbqY5ll9Ta7o2rOO?=
+ =?us-ascii?Q?I41kzWH23dXqQ9LqIUxV/U1HGAycLbZdtQAJXrpIrQFG0OSUTm5GDVBK7046?=
+ =?us-ascii?Q?svLyATNRFaLQzeK8+EgTHX640DtZo6ZKm6owS2j+CnNmSnG4IqJmeffBYodu?=
+ =?us-ascii?Q?FM/AE8BQ3SAg9cPFwOFIIutinIHel5xa8ktWanduMvtuyhmzkBA84V1vgPOD?=
+ =?us-ascii?Q?0x8sGdYrxsGQ7wdypTx2yCu/ZEQcFubewMiW65/Npt/PmJcvw+e8xf+7+0iv?=
+ =?us-ascii?Q?/bf00IKG6Il3Mgi9vEY1FkH/kIjMIh01wSI3apJuIzNdQv7j7QdX25+qi8Lx?=
+ =?us-ascii?Q?R/1CT2l10wrsH6QcWiFq0Kd+8JkCNZ3mHW3Toav6rnBvFTo2QXWDH9LS4r+c?=
+ =?us-ascii?Q?on0R0T9bxgCetKYX3blVU7h144IfYGglHGvZv6xlWtlpYuEuoipntMwGNdQz?=
+ =?us-ascii?Q?+orQ5W6Ng8ihhkRnpmQ36IJsqPVEozhEiVXQy2IWmiKLJKSeVACCMX1iXV2U?=
+ =?us-ascii?Q?TTlYvW+YEgRdz8qpYexrvPYr+McXf+E111rkC+OXFzQHIALANNTjU3h4qZgk?=
+ =?us-ascii?Q?IcarrjZURdCYrVKPQXI3Qb89TZW/fbFjyOFF23e5QQ6kUHMQeI5g+g6bbCFF?=
+ =?us-ascii?Q?6vYlZUcQQn1vGaCSA0evQuE4sPjDu5OqQenGh4sI2YA+I3BrREthR8uqHeis?=
+ =?us-ascii?Q?l3yYi9lsG2haIkD0PAf/K0RD5QgweuQV8eOeqejXs5P54EUW59CnqCqNwyc3?=
+ =?us-ascii?Q?2RJW6SDfEteF30cbgoXtvB7CJHR0myu1HgwgJ8F2buA18KfrHZaXWFwVo3At?=
+ =?us-ascii?Q?v80piLWQ5LLW6d7CCFec6AX3Pi9AVNzu/6Bx311c2UvxjO4QRFwaJ/OmYEK4?=
+ =?us-ascii?Q?N79CsP2Mxa0RmUR0ukfdYQGfDfk+1aXByhBzg7DdpoxXWgT9kC02P8+23L4d?=
+ =?us-ascii?Q?G4urt8J3eebchcbLRnJ4+0n73hZL1m0SoV4P7U6o5aD+CYmYF17w7XuPEBC8?=
+ =?us-ascii?Q?FzdFOeWiHPLo74lvMLwkP4MQ+qiw7/nkrLXEOFWof7O2OczLLhdaVRh1mS3p?=
+ =?us-ascii?Q?DqaYiQNdHTsmf5A0cZFioBTFTkMHBBHxArOnpEMpHkXXAFOIT8x6rydjJprf?=
+ =?us-ascii?Q?C0+Wv29MXBtqltMefdnPGgEoCWtNwLnXmBK3FfdhVhzXOGnV+AtbmYo7pQsX?=
+ =?us-ascii?Q?Yc90QTNcmKLakAqWiACbS8lImWdRXZybufoLqqe2bRlKyZmH6g0eCHw6Cd9G?=
+ =?us-ascii?Q?arzB+0kkxEiRCeJaCTL1W0IrLw++?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f96ec43-9acd-4b55-d35a-08deabe5da12
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR19MB6091.namprd19.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2026 03:08:03.1179
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR19MB8235
 
-Hi Anand,
+Add the compatible string for LCKFB Taishan Pi 3M, a board based on
+the Rockchip RK3576 SoC.
 
-On 10:48 Sat 02 May     , Anand Moon wrote:
-> Define the system 5V fixed regulator (vcc5v0_sys) supplied by the
-> DC input. As per the schematics, vcc5v0_sys is the input power source
-> for the VCC5V0_HUB and 5V_VBUS reglators. Update these regulators
-> to correctly reference vcc5v0_sys as their parent (vin-supply).
-> 
-> Cc: Han Gao <gaohan@iscas.ac.cn>
-> Cc: Ze Huang <huang.ze@linux.dev>
-> Cc: Chukun Pan <amadeus@jmu.edu.cn>
-> Signed-off-by: Anand Moon <linux.amoon@gmail.com>
-> ---
->  arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> index 5790d927b93d..9727ecdd9f6b 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> @@ -50,6 +50,16 @@ reg_dc_in: regulator-dc-in-12v {
->  		regulator-always-on;
->  	};
->  
-> +	reg_vcc5v0_sys: regulator-vcc5v0-sys {
-This will fall into the catogery of "non-controllable & serve no devices"
-see similar comment for 'reg_dc_in' which raised by Krzysztof
+Signed-off-by: Liu Changjie <liucj1228@outlook.com>
+---
+ Documentation/devicetree/bindings/arm/rockchip.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-https://lore.kernel.org/all/6530526f-59ca-4753-a068-46c62a1a1fed@kernel.org/
+diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
+index 1a9dde18626d..322bcc726a26 100644
+--- a/Documentation/devicetree/bindings/arm/rockchip.yaml
++++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+@@ -779,6 +779,11 @@ properties:
+           - const: lckfb,tspi-rk3566
+           - const: rockchip,rk3566
+ 
++      - description: LCKFB Taishan Pi 3M RK3576
++        items:
++          - const: lckfb,tspi-3m-rk3576
++          - const: rockchip,rk3576
++
+       - description: LinkEase EasePi R1
+         items:
+           - const: linkease,easepi-r1
 
-or should I ask, what's the real problem if regulator has no vin-supply?
-Any probe failure or something bad happen? (besides /sys/../regulator_summay)
-
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "vcc5v0_sys";
-> +		regulator-min-microvolt = <5000000>;
-> +		regulator-max-microvolt = <5000000>;
-> +		regulator-boot-on;
-> +		regulator-always-on;
-> +		vin-supply = <&reg_dc_in>;
-> +	};
-> +
->  	reg_vcc_4v: regulator-vcc-4v {
->  		compatible = "regulator-fixed";
->  		regulator-name = "vcc_4v";
-> @@ -66,6 +76,7 @@ regulator-usb3-vbus-5v {
->  		regulator-min-microvolt = <5000000>;
->  		regulator-max-microvolt = <5000000>;
->  		regulator-always-on;
-> +		vin-supply = <&reg_vcc5v0_sys>;
->  		gpio = <&gpio K1_GPIO(97) GPIO_ACTIVE_HIGH>;
->  		enable-active-high;
->  	};
-> @@ -75,6 +86,7 @@ usb3_hub_5v: regulator-usb3-hub-5v {
->  		regulator-name = "USB30_HUB";
->  		regulator-min-microvolt = <5000000>;
->  		regulator-max-microvolt = <5000000>;
-> +		vin-supply = <&reg_vcc5v0_sys>;
->  		gpio = <&gpio K1_GPIO(123) GPIO_ACTIVE_HIGH>;
->  		enable-active-high;
->  	};
-> -- 
-> 2.50.1
-> 
-
+base-commit: 74fe02ce122a6103f207d29fafc8b3a53de6abaf
 -- 
-Yixun Lan (dlan)
+2.47.3
+
