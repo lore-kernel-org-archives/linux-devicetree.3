@@ -1,73 +1,66 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011002.outbound.protection.outlook.com [52.101.57.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com [209.85.214.196])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73ECE3644D1;
-	Thu,  7 May 2026 08:43:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778143402; cv=fail; b=IhbZ5smXccNQ3/TIsMBUtDazPeRdn4OVHGpe3VbIhWIVSkYFkjwHYf9FdAyRZWgXxNg2XWam8jLY8buIXPKOMsGEJNQHtJ8M48/nTpXBAJ/4oKLTRlSPTuu823wxHMzL3fAvvIuEe8JJ0fFzx5NzeikmFeTamhpM4I2UI9z9+Aw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778143402; c=relaxed/simple;
-	bh=opEx6PyRdykcsNdg3LM5hUh2yBYM7hZ/2e9CgdaSCz8=;
-	h=Message-ID:Date:MIME-Version:CC:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=SqMlJV2WaM29w4n7CFfIV9VgpqgzS9XD3OXjEBTZHEFE9tYnxlVd10NEC/IcUjiHodYdy5yJghFMiI+nYIVdegrtrrkJDHdhVI0gar97l/BSrLIJs0JusWrog8jtAb+hXCpxtlxgERpNl7R29sSz4hMrdGCnMJfgpYkk975jvG0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=rlnXXvQl; arc=fail smtp.client-ip=52.101.57.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE79377EAF
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 08:48:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.196
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778143708; cv=none; b=MODHDQKbNJDrIKSsjMEAKdMSImzMoqCMuvpX24gwr5sQZFOsqjzmRvOmBPt06cVNISrLqvLnC1OWElN6ogmsyMYceFuOgYG6hM5vyUbjNXNkoYaAA7fAulS7RbQ72V/cHNyTPYXgFrudp8I2E4PH5wRnxweaIOW+oQnxTBZ31yY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778143708; c=relaxed/simple;
+	bh=JIGuETpivY+tMqhUXN4t4Bny+zQtYhvsCkl/N+OUQDc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VJLRV5oIxWQZJxUaezFI+AlPeIGWf1t00fpCgd9isGeChRa55/alZxJ/JLUgaNU+6bqXeLTEUqqV3W36hnUER3/lEdAqB94VVDArPfeGzKrSyQ9pJbBbLj8JqIgznVUbta9XFkmHS6XnGUo2Yfeo0c9kdeeb+9pkLkUvySFH0RA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AtmwBZYp; arc=none smtp.client-ip=209.85.214.196
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="rlnXXvQl"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TBvIH+SFJiKYcFzQfl8sUuED0ddlXSZloVL8CdZX4u+vvSUDwGFlDROZcVwvq835NryfOc4CKtEKFkRgUcWcDpPHtERaiDTDm/4rtGQXbsRF99Rr6oVVIldcUpdCTfMrGuAM8cLkR1WbKcptCYDA+JwNSgxcoDErvxSWBtH2VxRxNwcNwHKihFnGBY9Z+waH0COZXeJ4zxr+9oCSrrCysKGwjwZ5N0u14+wacZFb55eBfRnlAmSEzGqNO0uWJTbP/ajaRKs1I35LUy98xIMPlhXOj/PPAe1h3lZDFaRTF20EDgeAHihrbmW8dqjhcmSxDDNNRRuUeiodyvXxmcyJ9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Rl6LgXxPLAVsnYwBosaHNVVrrWGDgEJ44oBQ4KSFjBw=;
- b=gWU4yxvj66f57ZBUPFGVGvbRDfJvroV5CnsdKp8bnVELdE3sCABLZvpsEWTMIGUMs+Wb0igo5Y8Pj3jrs1bZAZ6Wjx1V4LFdP8YwgW0WyXjKNp233nwTdiTSlsH7WdoCAsBu+nRY7uTssYVy+A7L3/JAfpDNJvXsOAMK0OHVCRIoCXIyPOH6GzZ0mCp7zm9VyZ/784Yx6ULN4hBOonhImRlon0yK9ny3ZuZPShL0l7HDZ+8oD36AiLPktW0gMcyJ3zGIgj3EgfVBAL18i8iWX9VRBInoLdzrwwul1LS7FQ5gK2DcWsbepRkVDddVZw57BgOYvpVmcbIOWmKFE/W1xw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rl6LgXxPLAVsnYwBosaHNVVrrWGDgEJ44oBQ4KSFjBw=;
- b=rlnXXvQl2LkShuq5oFB0slPLh7y8K23fka061mpM2xYWReCV433J1MM6LYkG79tT9jdresOAvGR3HSrdCVSONPg7WkxQEkMNHQU0+7BdydyiZ2zrePbiTQrOvX2ZxW0VdARgaePPYkjjdT1J51eCki1YhBCT/vNSzzY5wBjEp3w=
-Received: from CH0PR03CA0373.namprd03.prod.outlook.com (2603:10b6:610:119::7)
- by PH7PR10MB5816.namprd10.prod.outlook.com (2603:10b6:510:127::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.16; Thu, 7 May
- 2026 08:43:06 +0000
-Received: from CH1PEPF0000AD7D.namprd04.prod.outlook.com
- (2603:10b6:610:119:cafe::69) by CH0PR03CA0373.outlook.office365.com
- (2603:10b6:610:119::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.17 via Frontend Transport; Thu,
- 7 May 2026 08:43:06 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- CH1PEPF0000AD7D.mail.protection.outlook.com (10.167.244.86) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9891.9 via Frontend Transport; Thu, 7 May 2026 08:43:05 +0000
-Received: from DFLE200.ent.ti.com (10.64.6.58) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 7 May
- 2026 03:43:02 -0500
-Received: from DFLE200.ent.ti.com (10.64.6.58) by DFLE200.ent.ti.com
- (10.64.6.58) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 7 May
- 2026 03:43:02 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE200.ent.ti.com
- (10.64.6.58) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Thu, 7 May 2026 03:43:02 -0500
-Received: from [10.24.73.74] (uda0492258.dhcp.ti.com [10.24.73.74])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6478gtxF2944601;
-	Thu, 7 May 2026 03:42:56 -0500
-Message-ID: <0043574e-6721-445b-ad01-54446dd72395@ti.com>
-Date: Thu, 7 May 2026 14:15:18 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AtmwBZYp"
+Received: by mail-pl1-f196.google.com with SMTP id d9443c01a7336-2b4583f0a1aso3355615ad.3
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 01:48:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778143700; x=1778748500; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=2g4HOatV1Ssugu2qkDT6I/dNGmnk+MzQNypIG54pufk=;
+        b=AtmwBZYpnqNaJHDqgnVaNyl/TVpJQ7/PhlUG+5f1LRMAjHRjb5hKjvweqnGGhj+ZA/
+         9YC5nym6VkSVsrlmcjjEQAtEwwS7w3+/onAJW6l0hs8uBkpNLfLEHLkfjaseRHdnz8mf
+         NQuPGW/Own1NpoUiPgYCWPuxywXYW/WNQ8dcA1mzkcHN/hgrQyB44J8RsUoOT4gy+f+M
+         vpdPSDXAcl/1secrSK5Ydx/MMBqm0Q3uoQjYcivKuN7jnst3qCrtiHwPSKpcNBUtZTT4
+         mG+I/6uoEEed1PTZrUvLhenGSD/pNBRwDE+32y8gK9gK5fd+43EKR367imVKiGNxx9o2
+         5bOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778143700; x=1778748500;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=2g4HOatV1Ssugu2qkDT6I/dNGmnk+MzQNypIG54pufk=;
+        b=SnoJYlHu/zwVkha77dJ3pZDcBA2w1wqRx0QE/+jT34x8tcAbgWQPEsdTBpCz15pikS
+         svEUz/ef8fL9HSar7xgMmXBzxIQjuk4YgojIr7ZBPYHblPO4j9fjjVAwlCSqFKtcghXS
+         ya/ICoBSalRwdjPfNBZyOVm2o9feuYsjZnmwZAg0sgMxsuRQ/RjVRi83FsmRHZ5i0qbe
+         Fi99RhTRtpqyKL6RUlyNHKzF6lcqBh1OujufdkLjtSr8waIWkM6kuTeZQdPQKyPSAKtG
+         MgwGjclEs/uIRgsrLkoqILJt9cbgr+yzHVv6Th39/FdBo4mk8S7ID3/TTEVXaHi5L3kS
+         CBwQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/3uJGUImJ5nDNBZmBrQEBLY3mURrcutKC3MxjmElSaBSDFX6vJ+ifw7D1JXm/hlKQRoRBFZT1oRcNZ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz0czQyA/Wv2KIjJifgUrzrWRbZ7IgPl+Jr/O7dXFRQTIDNaR0V
+	GcN/9V8pibhIA5IsQWfGAFV4gy7tAlo4TM1lL6oHSxV+VzWMwj+v1eSK
+X-Gm-Gg: AeBDietrfQ689owj/IMGgrhZILrgOomgWk+voitIJy+rq/voqwD8ZJCsJRY4g6WcNmP
+	Rt87jMtyA0J+9cGsPydCB4RT0r4H/0hJI0iA7wD9oMwZHvFUNWLk4HynUVLjzf4eURXn0bRwn5O
+	aNl9KRk4mWOV4rgOktIdV5YHVCsnqBBws5oeASrZohvtwCjiXu8muxaHgxVIcAYUU1B1VR6aGqB
+	ttbmWL4xx0X8VCplz0SjFPcPKgCoRM0lW6Jo03pd9QZgiThjrhs7GrO74sCVko4Wbhswub8Dpdy
+	lM/oE2fjTu8DNLZcQjmlbEg42Aa+MNVc+aGCCghTYiiN2G5z8mVWo/4Qt2Luha+E002s46Qegh9
+	kU6cxN5QzdhhT05PvSF3AxlnreTUm/5APXih45MxYQr+yRls3+W1NzotgZBueAsjvdRZiNF3Zck
+	VsqzyH0hAZXQk/IT3gVYEX/RZpliheZmLR8u9MLnvceQ==
+X-Received: by 2002:a17:903:903:b0:2b0:5d60:7f3f with SMTP id d9443c01a7336-2ba78f7320amr72637805ad.16.1778143700446;
+        Thu, 07 May 2026 01:48:20 -0700 (PDT)
+Received: from [10.125.112.20] ([210.184.73.204])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2babab0152csm19143165ad.35.2026.05.07.01.48.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 07 May 2026 01:48:19 -0700 (PDT)
+Message-ID: <6056bd1f-3998-44ff-8c4f-972704e0b896@gmail.com>
+Date: Thu, 7 May 2026 16:48:09 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -75,104 +68,126 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-CC: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <josua@solid-run.com>,
-	<matthias.schiffer@ew.tq-group.com>, <d.haller@phytec.de>,
-	<francesco.dolcini@toradex.com>, <joao.goncalves@toradex.com>,
-	<emanuele.ghidoli@toradex.com>, <ernest.vanhoecke@toradex.com>,
-	<rogerq@kernel.org>, <eballetb@redhat.com>, <robertcnelson@gmail.com>,
-	<afd@ti.com>, <u-kumar1@ti.com>, <stable@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <luis.parga@ti.com>, <srk@ti.com>,
-	<s-vadapalli@ti.com>
-Subject: Re: [PATCH v2 02/13] arm64: dts: ti: k3-am642-phyboard-electra-rdk:
- fix USB clocking for compliance
-To: Wadim Egorov <w.egorov@phytec.de>
-References: <20260506141040.1368918-1-s-vadapalli@ti.com>
- <20260506141040.1368918-3-s-vadapalli@ti.com>
- <d0eb7931-bcbc-4ca6-8ab5-4c12d134545a@phytec.de>
+Subject: Re: [PATCH 07/11] of: reserved_mem: add no-dump crash_mem exclusion
+ helpers
+To: Rob Herring <robh@kernel.org>
+Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+ devicetree@vger.kernel.org, akpm@linux-foundation.org, bhe@redhat.com,
+ rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org,
+ ruirui.yang@linux.dev, corbet@lwn.net, skhan@linuxfoundation.org,
+ catalin.marinas@arm.com, will@kernel.org, chenhuacai@kernel.org,
+ kernel@xen0n.name, pjw@kernel.org, palmer@dabbelt.com,
+ aou@eecs.berkeley.edu, saravanak@kernel.org, chenwandun@lixiang.com,
+ zhaomeijing@lixiang.com, everyzhao@126.com
+References: <20260429065831.1510858-1-chenwandun@lixiang.com>
+ <20260429065831.1510858-8-chenwandun@lixiang.com>
+ <20260506145022.GA2084721-robh@kernel.org>
 Content-Language: en-US
-From: Siddharth Vadapalli <s-vadapalli@ti.com>
-In-Reply-To: <d0eb7931-bcbc-4ca6-8ab5-4c12d134545a@phytec.de>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+From: Wandun <chenwandun1@gmail.com>
+In-Reply-To: <20260506145022.GA2084721-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7D:EE_|PH7PR10MB5816:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4a2f48a0-7f67-4ff6-faef-08deac14a80e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|376014|7416014|1800799024|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	3iWMAdsYcHK4yyYuf5YSMJyL88Q5DYFsom2dNEUkOZHgrQmyL0kSAcPVjKDj5rdFRPo+A1QEw8whLJ5Cq86reT7y2Ql64iSk42jVYXwUZGiUlbzVfut6D53VpiTrNZVgFpYQARan/TBb9oUt8hgV0vJJGFUlXu5Qpi2evixr+en60jlWFcnfcupv3JGSTij/J80w3q3lsXYAmNTaj8SGCOXjscRq/QwXr/ZaXYh8waI0iC0H6GyAjhsnkWkw6P6uQKhkRA+S9/VeKra/cNZCXQvCArwVCngshnRp96GMswLTrT8yICzC8AiCPvrO1z16Wkp/XCq0vEXf81ntCko5ZdmooJRHQSqgZ9CSmdeWATc4YVXz224bNZAp++TGdXy2xCUkoChuCQqrRevP6riPUWPseioeSa2uJ0TMZkCD50Zlrqjt1APjapLvXz2HnIFPa1SHwvwM3gHYf3ZMzYlgPwxuCNpUtYgfJv1GzQfhlcXQ1s2oOj2zFAewg7poQJRGR6AL07YhYapXsopT2+yYgf5MH3lXCOnqirdcdxWGBdpvUaC4OWSUANYqaGDcD5fVKmiObeV7zj7w6XMy4+QqAEDdKlTQictX7JybBY/m/qd8RMYkbgBvBlI8CbXzSNbahoQIel1rQrbRGiUJz8Hujs271Av+d7GU/0jCwn5KHTAMtDYsy3GPh2P58tA9ncrDZpn8VU+30if/8wYKlY6k0os2HDZF6AfAmiN8dAivpYo=
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(7416014)(1800799024)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	EtS32vw6W2Aa8fjYsSIWAmILhm/yx5986cxUgXpJ6plOVAMx/+TiowUWA4WX/QkJ55QC1otABm3D+CuBwG4MveS7matpAjOvJuhY3jfnZF6AQwW3tEnKZRH2W97mviiY05DtzBRy0769T0XDm1kupKhiRy9c5KlkJitZ2Ox9pg0GgW1JgrR3rLGOdZvTKCP9A9u0yypdW1ro8EeyO91BNEUK9Di8pOcVrANhomHK+znCkFzziqydnNHB//AzQrXuL+SDW3gVwMO8FlWXNlgmGJYk8bvFyMOtZYmfCzpyatPUBxHreGQDhH9RDb9x4Y+iGIKtGtW2zAWpjgRXgwqZXwhXEByft/+geTCUMokbg85OByVOsJpxAqjTtRX1MAAbZo7JKwbWQa/b5Rc7X002AbGA7Vb/wSABJTnfMV+yyeNUfzDBkWr5EYCc8tgnqaXf
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2026 08:43:05.1071
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a2f48a0-7f67-4ff6-faef-08deac14a80e
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000AD7D.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR10MB5816
 
-On 07/05/26 13:55, Wadim Egorov wrote:
-> Hi,
-> 
-> On 5/6/26 5:09 PM, Siddharth Vadapalli wrote:
->> According to section "6.5.3 Normative Spread Spectrum Clocking (SSC)" of
->> the USB 3.2 Specification, SSC should be enabled by default. This protects
->> against EMI violations. Hence, enable internal SSC for USB SuperSpeed.
+
+On 5/6/26 22:50, Rob Herring wrote:
+> On Wed, Apr 29, 2026 at 02:58:27PM +0800, Chen Wandun wrote:
+>> Provide two kdump-oriented helpers so that arch kexec_file code does
+>> not have to open-code the no-dump filtering loop:
 >>
->> Fixes: c48ac0efe6d7 ("arm64: dts: ti: Add support for phyBOARD-Electra-AM642")
->> Cc: <stable@vger.kernel.org>
->> Signed-off-by: Siddharth Vadapalli <s-vadapalli@ti.com>
+>>   - of_reserved_mem_no_dump_nr_ranges() returns the number of reserved
+>>     regions flagged with linux,no-dump. Each exclusion may split one
+>>     existing crash_mem range into two, so callers use this count to
+>>     pre-size their crash_mem allocation.
+>>
+>>   - of_reserved_mem_exclude_no_dump() walks the reserved_mem[] array
+>>     and calls crash_exclude_mem_range() for each no-dump region.
+>>
+>> Both helpers are guarded by CONFIG_KEXEC_FILE; empty inline stubs are
+>> provided for the !KEXEC_FILE case so architecture code can call them
+>> unconditionally.
+>>
+>> The consumers are added in the following arm64, riscv and loongarch
+>> patches in this series.
+>>
+>> Signed-off-by: Chen Wandun <chenwandun@lixiang.com>
+>> Tested-by: Zhao Meijing <zhaomeijing@lixiang.com>
 >> ---
+>>   drivers/of/of_reserved_mem.c    | 54 +++++++++++++++++++++++++++++++++
+>>   include/linux/of_reserved_mem.h | 15 +++++++++
+>>   2 files changed, 69 insertions(+)
 >>
->> v1:
->> https://lore.kernel.org/r/20260505110631.1144200-3-s-vadapalli@ti.com/
->> No changes since v1.
->>
->>   arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts | 9 +++++++++
->>   1 file changed, 9 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts b/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts
->> index 793538f94942..a85d7d08bd1b 100644
->> --- a/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts
->> +++ b/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts
->> @@ -439,12 +439,21 @@ &sdhci1 {
->>   	status = "okay";
->>   };
+>> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+>> index 4b80420da2d2..038056a6408a 100644
+>> --- a/drivers/of/of_reserved_mem.c
+>> +++ b/drivers/of/of_reserved_mem.c
+>> @@ -27,6 +27,10 @@
 >>   
->> +&serdes_wiz0 {
->> +	ti,core-clk-sel = <1>;  /* Select internal reference clock */
->> +	ti,ssc-enable; /* Enable SSC */
->> +	ti,ssc-type = <1>; /* 1 for Downspread */
->> +	ti,ssc-frequency-hz = <33000>; /* 33 KHz */
->> +	ti,ssc-depth-per-mil = <5>; /* 0.5% depth */
-> 
-> I don't think the comments are very helpful. The property names already give a meaning.
-
-The comments have been added for three reasons:
-1. The meaning of the following properties isn't obvious:
-	ti,core-clk-sel = <1>
-	ti,ssc-type = <1>
-2. For ease of 'grepping'. Grepping for '33 KHz' for example based on the 
-USB 3.2 Specification's modulation rate will not show '33000' in the results.
-3. Completeness / Consistency. Since some of the less obvious properties 
-have been described via comments, the remaining have also been commented 
-on, although it is obvious what it means (ti,ssc-enable for example).
-
-Unless you have a strong objection to removing the comments, I would prefer 
-retaining them. Please let me know.
-
-Regards,
-Siddharth.
+>>   #include "of_private.h"
+>>   
+>> +#ifdef CONFIG_KEXEC_FILE
+>> +#include <linux/crash_core.h>
+>> +#endif
+> You shouldn't need ifdef around includes.
+>
+>> +
+>>   static struct reserved_mem reserved_mem_array[MAX_RESERVED_REGIONS] __initdata;
+>>   static struct reserved_mem *reserved_mem __refdata = reserved_mem_array;
+>>   static int total_reserved_mem_cnt = MAX_RESERVED_REGIONS;
+>> @@ -916,6 +920,56 @@ struct reserved_mem *of_reserved_mem_lookup(struct device_node *np)
+>>   }
+>>   EXPORT_SYMBOL_GPL(of_reserved_mem_lookup);
+>>   
+>> +#ifdef CONFIG_KEXEC_FILE
+> Use 'if (IS_ENABLED())' within the function.
+Get it, thanks.
+>
+>> +/**
+>> + * of_reserved_mem_no_dump_nr_ranges() - count reserved regions flagged
+>> + * with the linux,no-dump property.
+>> + *
+>> + * Each such region may split an existing crash_mem range into two when
+>> + * it is excluded, so callers can use this count to pre-size their
+>> + * crash_mem allocation.
+>> + */
+>> +unsigned int of_reserved_mem_no_dump_nr_ranges(void)
+>> +{
+>> +	unsigned int i, n = 0;
+>> +
+>> +	for (i = 0; i < reserved_mem_count; i++)
+>> +		if (reserved_mem[i].no_dump)
+>> +			n++;
+>> +	return n;
+>> +}
+>> +
+>> +/**
+>> + * of_reserved_mem_exclude_no_dump() - exclude no-dump reserved regions
+>> + * from a crash_mem list.
+>> + * @cmem: crash memory list to modify
+>> + *
+>> + * Walks the reserved_mem[] array and calls crash_exclude_mem_range() for
+>> + * every region with no_dump set. Intended to be called from arch kdump
+>> + * code when constructing the elfcorehdr.
+>> + *
+>> + * Returns 0 on success, or a negative error returned by
+>> + * crash_exclude_mem_range() on the first failure.
+>> + */
+>> +int of_reserved_mem_exclude_no_dump(struct crash_mem *cmem)
+>> +{
+>> +	unsigned int i;
+>> +	int ret;
+>> +
+>> +	for (i = 0; i < reserved_mem_count; i++) {
+>> +		struct reserved_mem *r = &reserved_mem[i];
+>> +
+>> +		if (!r->no_dump || !r->size)
+>> +			continue;
+>> +		ret = crash_exclude_mem_range(cmem, r->base,
+>> +					      r->base + r->size - 1);
+>> +		if (ret)
+>> +			return ret;
+>> +	}
+>> +	return 0;
+>> +}
+>> +#endif /* CONFIG_KEXEC_FILE */
