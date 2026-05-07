@@ -1,147 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C703EAC74;
-	Thu,  7 May 2026 10:35:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D745431AA8F;
+	Thu,  7 May 2026 10:37:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778150137; cv=none; b=cqv/JTlBmA+vns2aKUM1zidCU6CYy5gQhpL+MK3D3247XAM2kHNSaSqCS+WQcffzLUbWWuiD4gdb4h9gh2/Tdk377ViSGk7XEWBkl8qktdvDPZYskeR4Pmh9lbQYPfKjUD059+zroCuJIOpvuP6kpMARvMZyBPYakN9T316+6Xo=
+	t=1778150244; cv=none; b=XUuyrr8Z171h88rSnMd2J2EUnlfzqdlDRC9g2n5yQy5SYa1EEy0OmHJA0jGG5Zpd2c5U9KHdbPD6h8ccydpYWUZ9kS/+wqt2FGVCuD4DiyeIAHTAYcgEiTqRa2XLXwbivE6ZxSH/A3mcjSa7NrGFpSBdh+YFoKi0We8FkaaNSeg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778150137; c=relaxed/simple;
-	bh=f8iiIV+47WQMkhQVHjg2kccIWpWfcLf7fo/8BzKawrY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MnLDcvu8CElmlcmWdqRqdL/Opwxrt6971Z9sdr6UGqo4WYqensDTBNrZGYVKcsDtUQmDrJhwjhCUuLDsc0TbJNqa51iPf5dtIQpyeUw1Koq834/zuUIK3HMjeMr2np1Qmpe2dCpEOLnXvMm1H1cvMuo/jr+Vp5Jvq9zT8/vpks4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J2LC3BK8; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778150244; c=relaxed/simple;
+	bh=ESr5oLueEavHIEx5CDfpdUrwWxLz87NQ2AGm9fApLJY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=jrCpe5JdvjCybg+Qipl8fxYJxhsA+eMjv2r3kF6hlFqnLZvgI+ZrG7YmRwZMw2utTyhasK1sxCx8b/ODxFaAzaaTAKRHK5Ho0T5VgWs7cKEeso/69lASUZieCP53N3Xfmn8t+vAFS71Bbqnw8yQlYSftdBkkf+Lt5zpbE69X72w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=b/iB98Qx; arc=none smtp.client-ip=54.207.19.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J2LC3BK8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C946BC2BCB2;
-	Thu,  7 May 2026 10:35:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778150137;
-	bh=f8iiIV+47WQMkhQVHjg2kccIWpWfcLf7fo/8BzKawrY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=J2LC3BK8qHxsB8G52K60qi5m+hF1+8llhCBj7twaNaze8YgBaTQGVvSHlXjUaltMM
-	 WqiZG2K2FM/7jS+Mr98Ty760LzhIC8yrmJjfuBYXkxTKg3mppvEpLQTp+SqYGihZjn
-	 Obj1mvhgv8K7bqv3YulPL74wZfB7aZ5g1P68SX2cpGMubt01rPmA8klvdsjtzAwLNK
-	 vPalHRgwCoD9ShoOHQ8uIwLy1EBYIHYW6sL/kLh6PLcg0gYNbGuv13ata2BVaIE9FR
-	 1c+869sI54A3An3DrALi1DXrcmcCHTyoCqcW8txPeLGJqZUsVh0LXcP7uPXY8bbGXQ
-	 auaKRFhs4wTsQ==
-Date: Thu, 7 May 2026 11:35:28 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: "Stan, Liviu" <Liviu.Stan@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, "Hennerich, Michael"
- <Michael.Hennerich@analog.com>, "Sa, Nuno" <Nuno.Sa@analog.com>, David
- Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, "linux-iio@vger.kernel.org"
- <linux-iio@vger.kernel.org>, "devicetree@vger.kernel.org"
- <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/2] dt-bindings: iio: temperature: Add ADT7604 support
- to adi,ltc2983
-Message-ID: <20260507113528.607b52bf@jic23-huawei>
-In-Reply-To: <SA5PR03MB8377E2EFE0F838C0EBD70AA6F63F2@SA5PR03MB8377.namprd03.prod.outlook.com>
-References: <20260427132526.272716-1-liviu.stan@analog.com>
-	<20260427132526.272716-2-liviu.stan@analog.com>
-	<20260428155819.3b56a3fa@jic23-huawei>
-	<SA5PR03MB8377E2EFE0F838C0EBD70AA6F63F2@SA5PR03MB8377.namprd03.prod.outlook.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="b/iB98Qx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1778150203;
+	bh=Gj+W+N7im+aQQ8FFJbTvQJn0dNoasXq83/GNhZL6xwU=;
+	h=From:Date:Subject:MIME-Version:Message-Id:To;
+	b=b/iB98Qxr33fDr1N4cROaWUU80Xk0Fi6Y8/cAB1y+t+deRKcfYVeU3AVZxxjCwfxe
+	 o4nKoEjH88H13GQRO8NecrgCfkwSHovt08q02jzJrU/uRxZc3WoY5Y092mIV1zyPzh
+	 th3q2bpDX2tZGaZXqZ48DkTiwxPUvgy7hSe3C71Q=
+X-QQ-mid: esmtpgz10t1778150201tb51ce93c
+X-QQ-Originating-IP: T6++f6lRK+n6ypX3y/ZECT+G0QZ4TApbmsD2W8JptP8=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 07 May 2026 18:36:38 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 4507917310872199054
+EX-QQ-RecipientCnt: 20
+From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Date: Thu, 07 May 2026 18:36:22 +0800
+Subject: [PATCH v5 3/4] dmaengine: mmp_pdma: add Spacemit K3 support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260507-k3-pdma-v5-3-6b9743038026@linux.spacemit.com>
+References: <20260507-k3-pdma-v5-0-6b9743038026@linux.spacemit.com>
+In-Reply-To: <20260507-k3-pdma-v5-0-6b9743038026@linux.spacemit.com>
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Guodong Xu <guodong@riscstar.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>
+Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778150183; l=1936;
+ i=troy.mitchell@linux.spacemit.com; s=20250710; h=from:subject:message-id;
+ bh=0uBBuEM27xA3rpe8lKTZJ07znj6/zACtY5VL6lS0imo=;
+ b=YarURs6eql25oUea+1GkYffFXSwwGIpptcv2PTQdlBIvFqKFVeO0tCYz+0IBNJg4v9KHxiYAg
+ NPYiVM8FyKlB6CkJHZaclYjs1H/4/Ja9bA+oD+WTPnCGhDqM+pVqGZg
+X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=ed25519;
+ pk=lQa7BzLrq8DfZnChqmwJ5qQk8fP2USmY/4xZ2/MSsXc=
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: MW3wiet0EsO3ZtRRGasWQ0A1hgHuEXzsASyoHuEo8mPrQ+1DfqXpo8t5
+	fh3tM4KRdJbXdSxsEdRCRNUhr2jsXPr05QJrCHas4cePkQUWWLYb3POKV+DhAsTXw/WTae4
+	6zWb6hD8+Jkj1O3w7EY48yU5cqyoVv4nPGT1YqO0Hk7uEIBojUrVgZAEBaZgUzP3tKxVo8I
+	Rc4LMBmjIVprC14Dde3LWItqzWw8P1ZyOsGjjUzRTj+Eas5w13J8TfVcuFmBWwcu/xHx/+B
+	gDQhGtE0Bf1fiZ4EBAj1mLvpAuOhfTPtUaCAQE/hNlPHH5V1EBlZacBKzbS7az991S0Dcp/
+	yTBrph4gwFCO++iQQcor3dhqryQ/bQowUm5K8q/nnKVVg9YA4etT7Cyb4zzv0Z83rBZCWlB
+	PL6Yd7yuX7/SnNMzUX+9wepjQU8+UScLKiBfa72509nDjpfTrSF7P7rNe+mwUoL3MzlyMfq
+	eHcHjsRaHODSgH7uu3xJi8LIgdbhWkEnObzOIIbWhRkQUdmO63KhPg4aCxvxRmR1KJkO0oN
+	UH7jhNdCiO8ncizgnJlr3R+k3uJVO2TTUGqd07czQfpi0Y5+fgT00yKt6y4IDTZs+WMdbQY
+	jwBChB3wXdINsUSDYFg6IcVNjuC26HqBIJtF7V3wksX7iNXVPMUCR4KH0NG8QQ7l9GeycIZ
+	zPegJuUmF/Q390xSJkAXAUSqmG3Gf2vQRl1T3NvJH04J+zUEaWMvJuH+r9mewmzPhJ7PT4x
+	+2A64LOML8AvahrXpBoEVVqOX1QtDXqCcWTqqyHKYHMLZZJbSP44qKaZQc3xssYd1cx1ho4
+	MJN3SFZC3Of7nNWrDDfBhzyoI8inxfuLI5O4xwChTX9lISXber0P0H4sQihioAGBuVqUMO2
+	efOVJANAcFJoWEV+ilhiH0cmiiW6aKxG2t2Y+RvNgNgYTVtVa5CdbK7KoSFXwG4HNxPUNer
+	d7hczzfEvx+qZXnprk/JhPWVSQxYF/EhBXjCUqNe+JMgpNvL121feuguyPkIDyEEsSbwSNz
+	0wwarlz5B62JkS9n8Gu7LMs9PAMIu5dfR/4ApSlKyTI603musngchtz6+yniKm1rFYlJx5Q
+	jCPOoEYqvBYmqxIl8jOX/CCZkY1zjlvBCCvOrx212hjh2cjeeunkq4KapCjfHAWD4gv5gRO
+	l3EsX8Ro+2OOiaI=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-On Wed, 6 May 2026 14:52:04 +0000
-"Stan, Liviu" <Liviu.Stan@analog.com> wrote:
+From: Guodong Xu <guodong@riscstar.com>
 
-> Thanks for the comments, here are my answers:
->=20
-> On 28 Apr 2026, Jonathan Cameron wrote:
-> > I don't know much about these temp sensors, but how is this different
-> > in practice from a 2-wire RTD?  Obviously one is copper and the other
-> > probably much more precise platinum but does that matter to us? =20
->=20
-> The main practical differences are:
->=20
-> - The primary output is IIO_RESISTANCE, read from the resistance result
->    bank (0x0060-0x00AF). This bank is marked as reserved for the other=20
->    devices
+SpacemiT K3 reuses most of the PDMA IP design found on K1, with one difference
+being the extended DRCMR base address. This patch adds "spacemit,k3-pdma"
+compatible string and it defines a new mmp_pdma_ops for k3 pdma.
 
-That bit we can bury in the driver.
+Signed-off-by: Guodong Xu <guodong@riscstar.com>
+Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+---
+ drivers/dma/mmp_pdma.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-> - Sensor configuration bits 21:18 are hardcoded to 0b1001 for all
->    copper trace configurations. For the sub-ohm variant, bits 17:0 are=20
->    also zeroed; a >1=CE=A9 trace will have the excitation current and an=
-=20
->    optional custom table in those bits. For the existing custom RTD and
->    thermistor types, the custom table is required by the binding. For
->    copper trace, it is optional (and forbidden for the sub-ohm variant).
->    And for leak detector as well it is optional.
+diff --git a/drivers/dma/mmp_pdma.c b/drivers/dma/mmp_pdma.c
+index 6112369006ee..386e85cd4882 100644
+--- a/drivers/dma/mmp_pdma.c
++++ b/drivers/dma/mmp_pdma.c
+@@ -52,6 +52,7 @@
+ #define DCSR_EORINTR	BIT(9)	/* The end of Receive */
+ 
+ #define DRCMR_BASE		0x0100
++#define DRCMR_EXT_BASE_K3	0x1000
+ #define DRCMR_EXT_BASE_DEFAULT	0x1100
+ #define DRCMR_REQ_LIMIT		64
+ #define DRCMR_MAPVLD	BIT(7)	/* Map Valid (read / write) */
+@@ -1207,6 +1208,20 @@ static const struct mmp_pdma_ops spacemit_k1_pdma_ops = {
+ 	.drcmr_ext_base = DRCMR_EXT_BASE_DEFAULT,
+ };
+ 
++static const struct mmp_pdma_ops spacemit_k3_pdma_ops = {
++	.write_next_addr = write_next_addr_64,
++	.read_src_addr = read_src_addr_64,
++	.read_dst_addr = read_dst_addr_64,
++	.set_desc_next_addr = set_desc_next_addr_64,
++	.set_desc_src_addr = set_desc_src_addr_64,
++	.set_desc_dst_addr = set_desc_dst_addr_64,
++	.get_desc_src_addr = get_desc_src_addr_64,
++	.get_desc_dst_addr = get_desc_dst_addr_64,
++	.run_bits = (DCSR_RUN | DCSR_LPAEEN | DCSR_EORIRQEN | DCSR_EORSTOPEN),
++	.dma_width = 64,
++	.drcmr_ext_base = DRCMR_EXT_BASE_K3,
++};
++
+ static const struct of_device_id mmp_pdma_dt_ids[] = {
+ 	{
+ 		.compatible = "marvell,pdma-1.0",
+@@ -1214,6 +1229,9 @@ static const struct of_device_id mmp_pdma_dt_ids[] = {
+ 	}, {
+ 		.compatible = "spacemit,k1-pdma",
+ 		.data = &spacemit_k1_pdma_ops
++	}, {
++		.compatible = "spacemit,k3-pdma",
++		.data = &spacemit_k3_pdma_ops
+ 	}, {
+ 		/* sentinel */
+ 	}
 
-So working around this would require some constraints in the binding
-triggered off the compatible - but doable I think.
-
-> - When a custom table is present, a second IIO_TEMP channel also
->    appears, reading from the temperature bank. Same dual-output
->    behavior for leak detector.
-
-This feels like a driver detail rather than a binding one.
-
->=20
-> That said, the hardware uses the same custom RTD mode (sensor
-> type 18) internally.
->=20
-> > I'd go with "LTC2983 and similar" for the title now as it's
-> > to long. Leave the description to list amount more info.
-> >
-> > Alphabetical order and it might be worth thinking about switching this
-> > to a bulleted list with one device per line as it'll make adding new on=
-es
-> > neater. (obviously they are already not in numeric order, so fix that t=
-oo ;) =20
->=20
-> Will do.
->=20
-> > Is the absences of them enough to indicate this mode?  I.e. are there o=
-ther
-> > modes
-> > with no specified excitation mode or custom rtd table?
-> >=20
-> > I'm trying to work out if we can map this to the existing binding for
-> > custom rtd just be adding more constraints + making existing ones more
-> > specific.
-> >=20
-> > I don't mind if we can't and have to add a new child node definition but
-> > I'm not yet sure that's the case. =20
->=20
-> You're right that the absence of both properties could imply sub-ohm mode=
-,=20
-> so I think we could drop the boolean. But the issue with reusing rtd@ is =
-that=20
-> adi,custom-rtd is currently required for sensor-type 18, and several=20
-> RTD-specific properties (adi,number-of-wires, adi,rtd-curve,
-> adi,rsense-share) have no meaning for copper trace and would need to be=20
-> forbidden (they could also be ignored in the driver). In my opinion, sepa=
-rate=20
-> nodes for both copper trace and leak detectors would make sense, but I'm=
-=20
-> happy to go whichever way you prefer.
-
-Ok. Sounds like we could do either but the different node type is cleaner.
-So fair enough - go with that if the DT maintainers are happy with it.
-Just make sure to lay out some of this reasoning in the commit message.
->=20
-> > I'd avoid describing things as xx only as that tends to become wrong fa=
-st!
-> > Better to put that as a conditional only (as you have below)
-> > Maybe here you can say, (some parts only) or something like that. =20
->=20
-> Will switch to "some parts only".=20
->=20
-> Thanks,
-> Liviu
+-- 
+2.54.0
 
