@@ -1,189 +1,145 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010014.outbound.protection.outlook.com [52.101.69.14])
+Received: from out198-5.us.a.mail.aliyun.com (out198-5.us.a.mail.aliyun.com [47.90.198.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 456D5221DB3;
-	Thu,  7 May 2026 02:41:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.14
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778121698; cv=fail; b=bfMX4OKa2s5udbU5BlREHxkgFXbf6GaYG+CgRCKfwGONne4tY6JIqPe1WkhOLfrrBOqLbeASNIUj8F0lM82YpYyh559yUcTM/+6PvZ1xbuwmSltV4HxoU+8e7M66ej0CvQXwkUlsXOOmbAS/D5BxYn4XfpV6HNbVfORSLQKNCPw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778121698; c=relaxed/simple;
-	bh=qfuIRZCHvmC8iKWAQgOhpycDBpRwf5FdXFYPNSDkrIQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=RdfnbBwYn8VE2iKJaBtY+hzs9Ep6OB0DQa5L2zYBGTEZe4kgwj2XMhfXU5kV3jzDndm0GArFWKdUb1hfk2WwNLMkwYd+wGbs4zFsuSQV0uSovFAhZw0NrSUwe4ce0PsdynsTfk3ZUrymVYqaB/vU/CGB7fBxfbl5wnX2NONnCTM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=Zs3FgiHb; arc=fail smtp.client-ip=52.101.69.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0BE9261B70;
+	Thu,  7 May 2026 02:42:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778121755; cv=none; b=ZHbcZCAwCBbt1Yy7qWUwHXb61LSeUKUElbj1EB0hj/TBoaDwfIpQ7LIgm9Cf0rPl64sFKSz/HVC73nEsx6mwp+eyXP6Jv/OkiAUBUw3bIqIqrQ348Q4tJ4uQQLu/QCkXD6plxBf711LXggY64f8yiu9G6Aikt355C6G0XHiSuA0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778121755; c=relaxed/simple;
+	bh=b0i0pglpxPH1i6VZDklXDzAwqZGQrH0BVUJmcLdueFc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=LnYss7vVtJ1HvK9VHtnNz8dU2Am99bR7vUJ/EwPnSNeJVv76O6439Bc/AUUqi5QTwZfM8GPv3Cs6+wSVtq7Q0wJKbafjmt7ZH+cLhlov8xoMfnvqmfKuqAkQ5Ubw7njVMBF/nEYosmxL/Ih7Fs15WUJX9dF46VzOC/XiF9kwN2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=qc7vCbsn; arc=none smtp.client-ip=47.90.198.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="Zs3FgiHb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xDMtlPqjVAnuZdYoGAiv8v8htE3s31q2LTf2mBYDjVG84wAiOMJDhAcENYAY/TEtecE9oTUELzT4ehC/0IIeT4M2dEJ/6pyb1q5Qpos92q3ElkDpLnq5yrw55B+P2X009wsrSNkf7xQHwXKsdQ0wEiasFTMb1NVMDYjVDl31T/YGH/qpiv0LzIy0RElg2VSEudArZzLHc01w0l1Hjc+c5BtFSx3oKUaCz5yb3UmjKSG+YqcVZNR7DZJQqiPFvrgQlkTbKTBUPGZ6A0lcGS9hx5skkZ9FDrT6CAvRA1EdedZUoqCit8bsSp4FTcLDvSInh8gDD6BRELwhAuU+zkUseQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gTdJAAz9h9cp89iquOygpaohN+RrKF/eO812+hQBckw=;
- b=nGG7SSYVv6uK4sUuJuZjwwn//I4tDtpn1aBrUDxMHuJ8GYm1Y5wSNEj/r1O8GZz1h94fH2gBgLXR9NE8TB0JGYxrgbu9E1Z4vRYbO1C69Hf5LC25WVnZSOd6EG6oi4nNLKCFbDy3aZH2OqXqdiYGcMX9B2uVdFGkk14YR8KUKEj++XaFfky36w4FG15wmWfLKomMlQldquVXnLtkWZREf39Xj6veY05Dr3Dy9ilWKf821HzThpRYk/NLYtcZsPZkBIaEj7VglK8AK7MahLbdmFGEJyG0G+1dI5L69CUsfbGAfJY7wf1wdQ3BGQYUxEfvqEAg+SZJufuj528RpwcERg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gTdJAAz9h9cp89iquOygpaohN+RrKF/eO812+hQBckw=;
- b=Zs3FgiHb/5bko7Di/AgWqoZumja1FKsI8KQKxVTHXaRrdNPWbPzSPgrpWYoW/7adVTO6xSM2pFUv7NZWpxW+d4wYfkkWqv0gqLSh7AkMSfSvEBYlqWrcliNcOcIckjr3JbvdEpyUm4p2BuUCK+kjL9YFcfsPhAe2Hp62j/7mJT2dKXlkFEMVirfOoLe3TdP8e0vLqT4fHj6WwV5oX0SFsgEN5tiNMXtpxfST3+3qqB6GeGndZYTUXO9WV82yUQ8H0AnF/ptrDNGse/xVNkTETnO5RbH/fhhhApIBMtLsQp9gOhyG92+L7Zmtj9a75KUrpeYR5LSOh4o6mynzbpVB7g==
-Received: from DBBPR04MB7500.eurprd04.prod.outlook.com (2603:10a6:10:1f4::16)
- by DU4PR04MB11725.eurprd04.prod.outlook.com (2603:10a6:10:626::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Thu, 7 May
- 2026 02:41:31 +0000
-Received: from DBBPR04MB7500.eurprd04.prod.outlook.com
- ([fe80::c291:543b:4bde:cee7]) by DBBPR04MB7500.eurprd04.prod.outlook.com
- ([fe80::c291:543b:4bde:cee7%6]) with mapi id 15.20.9891.016; Thu, 7 May 2026
- 02:41:31 +0000
-From: Wei Fang <wei.fang@nxp.com>
-To: Claudiu Manoil <claudiu.manoil@nxp.com>, Vladimir Oltean
-	<vladimir.oltean@nxp.com>, Clark Wang <xiaoning.wang@nxp.com>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
-	<davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
-	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
-	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"f.fainelli@gmail.com" <f.fainelli@gmail.com>, Frank Li <frank.li@nxp.com>,
-	"chleroy@kernel.org" <chleroy@kernel.org>, "horms@kernel.org"
-	<horms@kernel.org>, "linux@armlinux.org.uk" <linux@armlinux.org.uk>
-CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "imx@lists.linux.dev"
-	<imx@lists.linux.dev>
-Subject: RE: [PATCH v5 net-next 14/15] net: dsa: netc: add support for the
- standardized counters
-Thread-Topic: [PATCH v5 net-next 14/15] net: dsa: netc: add support for the
- standardized counters
-Thread-Index: AQHc2Evqr/Y+KyRnR0mgO12vGrKs4LYB4XnQ
-Date: Thu, 7 May 2026 02:41:31 +0000
-Message-ID:
- <DBBPR04MB75001C6850BFBCBD825E9D43883C2@DBBPR04MB7500.eurprd04.prod.outlook.com>
-References: <20260430024945.3413973-1-wei.fang@nxp.com>
- <20260430024945.3413973-15-wei.fang@nxp.com>
-In-Reply-To: <20260430024945.3413973-15-wei.fang@nxp.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DBBPR04MB7500:EE_|DU4PR04MB11725:EE_
-x-ms-office365-filtering-correlation-id: 4bf6fa01-7488-4a5c-eee2-08deabe225aa
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|19092799006|366016|376014|7416014|1800799024|18002099003|921020|38070700021|22082099003|56012099003;
-x-microsoft-antispam-message-info:
- E/Ih/PmfxRpfwuLcQZBEuRglRx46CSobrxt+ZRVUJJLK3RzC6iJFSEk4+tONJQH4y2OFksPl9Myi45rGA8Fuzk8mmSEp9igfLaRrquZmXCk1mbbn+Xt/hNlLnhfkEnl3BaSw76H95CkUeqoH6lDfFLZakNoOS8Enm2hqkm0bqIP7/mcI0vaNtkb0unacKqv+epebVEI4V/I+NeoDEnrxeRs2aWOfaB1jjXLkjR2SBo7J8oVwyJ+9zF7yMwBmv3DBmBSTKvRItsy7wCDTtOHrYf/PdJeLHLvlqSFccAXPXmS2RtixGKKf01aRwpwOeEeyAhOqPkz1RTPhnMA1gCFQnP4TfMscrEAbX4ExXRREaQWH2LAU2vmb5qukCcbZZEOCiJZzd+xsGqLJMjHoPIicqmJpPD9b0Cbf50CuX4yhlfaY695el92ImKJKRZUgy1BiG+VIHfTV/Wp8MU8H8TziwwiQVBntqDAiRSn2zPGyT7Dg7ckQBZcx0D2Arhp/MgiZXGkZJ5DF+LjNlVaEst2WxrVxExkAiI1b7SxCA2bN/mbSv4n/ouxp4xUWl26TQ9fJpd6UnIwec3ZtnRaxt3mceX8fUNIC0Bg2dsmCrfMw52btC+yK9504CRW9MMQzAjQSIv9HsOfD7gGl/zTDJuEXraKro9UA3NOYlx0Cwf7OqzzAyYjkPFocBnywLcqV5Hwex5G9q2XWR6wYbhf05TGVXApejxLC6b2JBu/IOiOvG7OLkU5Dkny2V3ZfKpE7XS3/eupjN/RbRuq0tpokhVQmFg==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DBBPR04MB7500.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(376014)(7416014)(1800799024)(18002099003)(921020)(38070700021)(22082099003)(56012099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?p/lD97mwG/u0w4DbvZCbNBYzLvoR+UNzbQs7gs5djglkZD16fpFkfgt/g05O?=
- =?us-ascii?Q?1v1WRT+9lPvYTZgAV/exJhmLTqV1hDXe1/DLe06SFU0T29c672h+DpsQc0IH?=
- =?us-ascii?Q?4lS20bLB+HF2tcNjeWSMBI0Q524ASFiYmsDhiNJLWO8mjn42A6Rjf64Z5tIw?=
- =?us-ascii?Q?0utYFdeUgRr/dO3xCRM6DC4oCe2CbCvLuDg71gHO9DoNe3DN5xvFXTwrlx7A?=
- =?us-ascii?Q?o97La6rEkHVsDZMzRl4z8BZ0tSsqHXChNaw/h22R5LdXuv4aTAid5/uq/dMX?=
- =?us-ascii?Q?zLC+bJuboY92fStl4cDnjNPWJ0x+mVeI+5YcjizBl/rhAm2Ih0byCgTs/nV0?=
- =?us-ascii?Q?JG1y42mVka1C8Sj89UiuN4zXwDvxSYeNselmDzr71WbQin4ABY7xW4s6CUFl?=
- =?us-ascii?Q?b4amY65U8lnms+Apkc4hvtn4Q8JS8ytP/RWE7FFGE6puqQgpUzYbO0snI1Is?=
- =?us-ascii?Q?EGBjI/eYMPU7gdY26wHmpDtJr3fGyFe61OheGI6SssjsA0VMc1mxHo9wth5C?=
- =?us-ascii?Q?PMdVVWFVPuQXms/iVvOGo1MPhGqwCdnJZyiCMCI4rkr/UWYKU4tAOR6zA847?=
- =?us-ascii?Q?jeHWTCMOVIWtRp/+YzLv6hQHyi1aL8UOOLGi/3CCTwZT8OEaaf5HUSOFc01c?=
- =?us-ascii?Q?xxjEM63M//+X29/Q64mmtcTejKhkx8QStGPeq5nzaK+AyRPtRe/XThvEVu3T?=
- =?us-ascii?Q?vppMwh/fkKF3wc2BcKtywK+oqKQLUEOuf+wNKmxBEecRYcH86ue6M5lrUuL2?=
- =?us-ascii?Q?HxO7Pa3D2VzsPb6aL9/iL0oyPpTDD1LXdsmRYLWQ86E5cZ7sEtI2Ku2cGiSF?=
- =?us-ascii?Q?UjcbMYeG4eCmZdFARgc/8NOh4oZScruAYbQeFp0dw7pSHCHsWPU/4Dyv+mDA?=
- =?us-ascii?Q?DmjPHL5tihLtI7AxIfCMTUQuDi7/wmO/YGKKDPNHbPbgn/8J59c5Vru8B3P9?=
- =?us-ascii?Q?Nd/U2VhpS7lqSi/z7XeKWJkhhd6YfW0zXBMI5pUwUUpIcGB3rkXiHCj4Gnre?=
- =?us-ascii?Q?jwVX8fhNVDV8+j4qv3/DDDwjigXrlxSxU46q07bw2aQSJeJConl+mzdS+5ik?=
- =?us-ascii?Q?9LR2MpRmTPWFK64RBClk/XADuqHxQof69zriLnzOnMjJIbTKbhxZh3GQfUkl?=
- =?us-ascii?Q?Yzvh1LuQBoPJ3uykCPUyyM2bACcMKGIXlzoRm0dJf34s7UivMPQFdjYZR6W7?=
- =?us-ascii?Q?AOXMxpfefFnC2YT4amDptUHmmphSA2yxwX1Y/R3etOXRIoa4irQrN36WDC7t?=
- =?us-ascii?Q?bB4pmWHOUPz7cG7lhJlqJPm+5pSXbznvZsmvivb+7ZF8RbFdzJQVkoq6Lu3t?=
- =?us-ascii?Q?hU3hA5T3ARSdq5tH1kuI1Apv6ZuZS1eRM0ZcOm3KHWUeAbvfYE+8VcnYa4HV?=
- =?us-ascii?Q?7PPySCwaMzs6NF6U6ENIuiEg52frfEnbMYsC8txXaw4ZOYMBeCRB5BNZOBux?=
- =?us-ascii?Q?6fMtKsyvr6LCnsZmGd5rjHYjCloyiq2gwIdOoc//KfJOtqgT5C7X11syZp7O?=
- =?us-ascii?Q?bG1tmAwoXORiwhdQ9TojuypCp/VAu6XTBFvXppnAyADIdbmyxxpxUVC2DcKV?=
- =?us-ascii?Q?v/pxJvJxUF4pRAgSR5xG2rhvsVAiWUtdMM1jY3YblWPJ6QzrY57YnsDr7MhY?=
- =?us-ascii?Q?5d9NjSLViw1gO1n0Ra+wT9njhfA1T0uAcRI2QXkbqN2NKOBCPuxSFPpdpb11?=
- =?us-ascii?Q?TEu19u18BR0NksT2SU57G1sdotbOf/iFsWRitNcIAC5po9OJ?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="qc7vCbsn"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=lontium.com; s=default;
+	t=1778121740; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=cSJ9jnrnvZGTNSbO4jVs1jcndSnMw3BS+1A9Y46+N8M=;
+	b=qc7vCbsn7ykxrJKaMLzH4X1ymxaZaLcHm+nZh+EHtHLUE9/P8Iv0ZmXni6rLPNlSSmBEfa7cubMuGcD82r8RUE9eTPRxWZwhssA+USXOj+IhdCmpJ5ptt+JHhtZ/XX3ETJcMRoTH2NtUK8bQIciiMa30Zq1Rh69ew9XB4TGQ+ysJClM4a+Fr0VpkEhNxN+DPeltuAVO82ecfJ0mpo5ZOyj7UaMW0aBwtz8ped+pEOeGnrzY3O12PYfLq1QXK89Xm/g4JWz+RHfsIeOwwaKSeILgiFoevXVikfR4IYqFZOAN2idEX59HORKqllLVBlpkYkCD+WdLAonog4YNgVP23lw==
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07550596|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0201271-0.000526132-0.979347;FP=12562846209438109432|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037022039;MF=syyang@lontium.com;NM=1;PH=DS;RN=22;RT=22;SR=0;TI=SMTPD_---.hRAhTVc_1778121737;
+Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com fp:SMTPD_---.hRAhTVc_1778121737 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Thu, 07 May 2026 10:42:18 +0800
+From: syyang@lontium.com
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	dmitry.baryshkov@oss.qualcomm.com,
+	maarten.lankhorst@linux.intel.com,
+	rfoss@kernel.org,
+	mripard@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com,
+	tzimmermann@suse.de,
+	jonas@kwiboo.se,
+	jernej.skrabec@gmail.com,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	yangsunyun1993@gmail.com,
+	xmzhu@lontium.corp-partner.google.com,
+	xmzhu@lontium.com,
+	rlyu@lontium.com,
+	xbpeng@lontium.com,
+	Sunyun Yang <syyang@lontium.com>
+Subject: [PATCH v5 0/2] Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
+Date: Thu,  7 May 2026 10:42:12 +0800
+Message-Id: <20260507024214.97708-1-syyang@lontium.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DBBPR04MB7500.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4bf6fa01-7488-4a5c-eee2-08deabe225aa
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 May 2026 02:41:31.6074
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +X6iLbjTO21IAyUXXnBYcF556ukUC86rEv4/EzuNqOrujBSKMk+QAxtcr4HJHnU6DItgXW7JCRRRlZSRxf9kjg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB11725
+Content-Transfer-Encoding: 8bit
 
-> diff --git a/include/linux/fsl/netc_global.h b/include/linux/fsl/netc_glo=
-bal.h
-> index fdecca8c90f0..5b8ff528d369 100644
-> --- a/include/linux/fsl/netc_global.h
-> +++ b/include/linux/fsl/netc_global.h
-> @@ -5,6 +5,7 @@
->  #define __NETC_GLOBAL_H
->=20
->  #include <linux/io.h>
-> +#include <linux/io-64-nonatomic-lo-hi.h>
->=20
->  static inline u32 netc_read(void __iomem *reg)
->  {
-> @@ -16,4 +17,9 @@ static inline void netc_write(void __iomem *reg, u32 va=
-l)
->  	iowrite32(val, reg);
->  }
->=20
-> +static inline u64 netc_read64(void __iomem *reg)
-> +{
-> +	return ioread64(reg);
-> +}
-> +
+From: Sunyun Yang <syyang@lontium.com>
 
-Sashiko says:
+This series introduces:
+- A device tree binding YAML file describing the hardware
+- A new DRM bridge driver implementing the basic functionality
 
-Will this cause a build failure on 32-bit architectures? I noticed
-ioread64() is used here, but it is strictly gated behind #ifdef CONFIG_64BI=
-T
-in include/asm-generic/io.h. Even though linux/io-64-nonatomic-lo-hi.h is
-included above, ioread64() isn't provided by that header.
+LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
+mipi dsi and output hdmi, differences in hardware features:
+- LT9611C: supports 1-port mipi dsi to hdmi 1.4
+- LT9611EX: supports 2-port mipi dsi to hdmi 1.4
+- LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
 
-If this is updated to use readq() to fix the 32-bit build, could it lead to
-torn reads? On 32-bit systems, readq() falls back to lo_hi_readq(), which
-reads the lower 32 bits and then the upper 32 bits sequentially.=20
+Signed-off-by: Sunyun Yang<syyang@lontium.com>
+---
+Changes in v5:
+- dt-binding:
+- drm/bridge:
+ 1. use #define FW_FILE  "Lontium/lt9611c_fw.bin" to match linux-firmware    [Dmitry]
+ 2. add atomic state management
+- Link to v4: https://lore.kernel.org/lkml/20260506095100.78998-1-syyang@lontium.com/
 
-Since these are live, continuously incrementing hardware counters, a wrap o=
-f
-the lower 32 bits between reads could result in a spurious counter spike of
-~4.29 billion. Would it be safer to use a read-high, read-low, read-high
-retry loop to ensure atomicity on 32-bit architectures?
+Changes in v4:
+- dt-binding:
+ 1. fix commit message                                                    [Krzysztof]
+- drm/bridge:
+ 1. use lt9611c_fw.bin                                                     [Dmitry]
+ 2. use drm_bridge::next_bridge
+ 3. use enum lt9611_chip_type
+ 4. remove *fw from the lt9611c struct
+ 5. "bool hdmi_connected;" variable add comment
+ 6. use read_poll_timeout and -ETIMEDOUT in the "lt9611c_read_write_flow" function
+ 7. replace mutex_lock(&lt9611c->ocm_lock) with guard(mutex)(&lt9611c->ocm_lock) in some place
+ 8. switch to ARRAY_SIZE instead of specifying lengths directly
+ 9. use dev_err_probe
+ 10. add clear functions for AVI and audio infoframes
+ 11. add DRM_BRIDGE_OP_HDMI  and remove .hpd_notify
+ 12. remove the sample_rate validation code
+ 13. fix MODULE_DESCRIPTION
+ 14. replace "GPL v2" with "GPL"
+- Link to v3: https://lore.kernel.org/lkml/20260420061644.1251070-1-syyang@lontium.com/
 
-First, if CONFIG_64BIT is not selected, then ioread64() is provided by
-linux/io-64-nonatomic-lo-hi.h. Sashiko mistakenly believed that
-linux/io-64-nonatomic-lo-hi.h did not provide ioread64().
+Changes in v3:
+- dt-binding:
+ 1. lt9611c(ex/uxd) content merged into lontium,lt9611.yaml
+- drm/bridge:
+ 1. Drop the licence text, only use SPDX header
+ 2. Sort the headers
+ 3. Use library functions for crc8
+ 4. Drop i2c_read_byte and i2c_write_byte
+ 5. Lowercase all hex values
+ 6. Use paged writes as implemented for LT9611C(EX/UXD)
+ 7. Drop dev_info, use dev_dbg
+ 8. Modify lt9611c_get_edid_block, don't store EDID in the long-term structures
+ 9. Use HDMI audio helpers.
+ 10. Remove unnecessary flags,Implement proper cleanup path, unwinding resources one by one.
+ 11. Replace devm_kzalloc with devm_drm_bridge_alloc.
+ 12. Remove extra kthread.
+- Link to v1: https://lore.kernel.org/lkml/20250903123825.1721443-1-syyang@lontium.com/
 
-i.MX9x and S32N7 and subsequent SoCs are all arm64 architectures,
-netc_read64() is used to read 64-bit registers of NETC.
+Changes in v2:
+ 1. Forget modify code, operation error, Please disregard this submit.
 
-So this is a false positive.
+Changes in v1:
+- dt-binding:
+ 1. Submit the first version of the code.
+- drm/bridge:
+ 1. Submit the first version of the code.
+
+---
+Sunyun Yang (2):
+  dt-bindings: bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI
+    driver
+  drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
+
+ .../display/bridge/lontium,lt9611.yaml        |    8 +-
+ drivers/gpu/drm/bridge/Kconfig                |   18 +
+ drivers/gpu/drm/bridge/Makefile               |    1 +
+ drivers/gpu/drm/bridge/lontium-lt9611c.c      | 1240 +++++++++++++++++
+ 4 files changed, 1265 insertions(+), 2 deletions(-)
+ create mode 100644 drivers/gpu/drm/bridge/lontium-lt9611c.c
+
+-- 
+2.34.1
 
