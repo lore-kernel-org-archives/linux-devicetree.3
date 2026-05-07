@@ -1,60 +1,62 @@
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB8D3F54B3
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 13:46:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42E3A3FAE19
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 13:46:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778161581; cv=none; b=Q88AFxgxUyhOYnPmwpRiQ1WxdBekDPCs3XG+1boV/3kSsEmVUFHrliubGHxBPtm22C/6Nhl2Pg0lq74G6sLmYzcpc9sLiUiDN7+W3j5jDU/5oJnFTgTfdurOxW5vlWcWqdfzKFtwNtd8gbzH91mILVSeiWEB5cprGEdw7SdpRPY=
+	t=1778161583; cv=none; b=RwvJkxEkp/DKgIBCJLsxfiynoWeND8LzVB0rfAyTtaKrbXfHygbMSREcEQKgZWoC25RPD/Iwb1RoSByZBQrkpCvYetvmuPYcV5DJRI/hqRlOvVsfXnzalkC8fFlauQFXyju8sw17F/b/cEleHMBVJ01jKDLfMk/rf/xqe/iclOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778161581; c=relaxed/simple;
-	bh=MNVSebD0+mDfW5apdNkpjHmTZ7QyrFLsTRHwJtzgd/E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=PQgDd+BgPjL2YE5/2kbHPZEc13LgAQBhRCzjOQ9KBvKGXiEKwR2d0R9NDQm4iy+pie9pzU7as80Uxd+jGKrd6Ymlwl915eh66xskzT7F2Ft2fjrVJ3apnd5jw2Td4PgBDN2PqGgFnX3oBpNROiUkMBhElqVui58p9ELenx1ay+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aMcD/C4i; arc=none smtp.client-ip=209.85.208.45
+	s=arc-20240116; t=1778161583; c=relaxed/simple;
+	bh=+gXx26kToc5Qsn+X5xpx5KaXlfJuV83OpMJgOHZcMo4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KSoibWMAtfquDkKZVZR6CT/rBLbbyVWbqRt00hSFBuXxlg0yAF6o2WzzC/FFFKDx6qA6dnlNyh+FGuql+Wau2AY4280b0QdivAEt+OLRzcUBI3Be3nDw58FcHMjcGFzF7rDvyRVsZVnRkc8ZddniNyTUnNmmHH/zf8f5oZD9I0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FkgDFTUS; arc=none smtp.client-ip=209.85.221.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aMcD/C4i"
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-678adefbd26so1554165a12.3
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 06:46:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FkgDFTUS"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-44e5624c053so552258f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 06:46:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778161578; x=1778766378; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=RmK4VbMOENlzFgqB5AiS31ODfP6gNlZbQzPOHR6VrIc=;
-        b=aMcD/C4iDIBN9W/i86eH4lcw1dCPt7iumK5kkvtFwikcD52MNV/crINTo0U600lKam
-         3ulbjmmPsV2Io5hQXaRvPFbGFmNJTJSl2ZPrdflIrlAtiCRm97ZTkoTOOrVuc9R9N4IJ
-         0HMx9r6MNTjp6ef9Gok03JFDBGTDl5AUE8SCuxLe/buJZ+WwK09yLh8NqvGUOLS0yYtc
-         kGiSqlBNMXZsj5Uv18N1kAoXymO806gSXJYnGVte+zWyZUNcxkClSwwBc/ynAqUH/9he
-         +JUIEHexg3CIH8cj1jV6fPoZw1ZzEKCJhyk1vx62+ztXQV0mAPsybt8Xz5eKgfCJa1q7
-         2ErA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778161578; x=1778766378;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1778161580; x=1778766380; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RmK4VbMOENlzFgqB5AiS31ODfP6gNlZbQzPOHR6VrIc=;
-        b=mJddOe1lkEXLMY9clSZ0C1GgU8CBHwIkbPW7pLx3WPvhdMVwDXSDbFhrqhrA2flDQq
-         RhPhYFQuKypmkj1r1gA3+sABDko7MCWChXukcqkuyk0I1sObB6zPhEdVY0EszvN9ktts
-         HRmfWnVcxgc5RKD1wTnKwDfunJGK1eF52ugR7zmJJJ68yp+a3SnR1s3k3CeeoJTthSHw
-         y+rYGrG8AP/1JSDf/Tj0UBboWfapU5n1AL5k8vrCUUduGmtdYT1tYUoFAh1te6OWOYHP
-         tTOS8TuqJ603yM6DXscY/6X6Xb7YDppkVI8ZR3WUtj7uDTusNfneC2y7NIz70VwwkXRr
-         g31A==
-X-Gm-Message-State: AOJu0YyDreDEIAdLRlyF8whKfj5BX3Lx98fJYA/uAQofi3JZk5sjj5RE
-	//ZGSf2/JJX9euueuyZNWFb+vG+nNNbGKVbUra87rMLrd9oLIQOKU/RbiiNzZg==
-X-Gm-Gg: AeBDieuN1MB1DTvGl2z499D2CGjf48CGkrOQs+9VXpGIXdaM2/F9Q7Nzu+0ABHUoU+q
-	3XOO+aMVkzrtqbKvX4xM+yKZC99w7Ah0Eg8h0t7ny35VdTCIPQcv53iTu+GWl77LOMG5nS7gUZa
-	SRiolC+kXw0P3zqMDz1KTaGe6l6lEO9+A19x/4ZH+m6YsERrsnwHaF11fY2JQYZcDPiBfVm0K9u
-	VlSxBfORi5FPPPe3KIQWOUBi9XvJkAmqN+OjXsgVnQHweXJOzvTUJGWDLe89z1waHEPcBbpGLrK
-	nC85bskjpiKDof6zE80ypV21kPw7eV2ovIJXKjDw3OVcTX04mckj3ieGKe9N4HLyQ1TTnNDGFXU
-	4d1CtXI1w1XAsaTouW593Y4Jv2Kt1ezPLUIqPc50XVJNEm9sCqTfGy14P9L2AyleLPXXP8ZgNZa
-	rxJ6tUw/EV3JyrIpRVB1gIaRU=
-X-Received: by 2002:a17:907:e152:b0:bc9:e1b1:8edf with SMTP id a640c23a62f3a-bc9e1b192e3mr69894666b.12.1778161577410;
-        Thu, 07 May 2026 06:46:17 -0700 (PDT)
+        bh=pFgTexS82Aes4S2KA8waYF2yU7gR1eiSJ6BQPR26m30=;
+        b=FkgDFTUS4VAHCzCXwoib/O1Ujqwk8hb+6wWrorAgdpGuo5UWKX8UPOMIXkH+ZxkweB
+         0DeyIPbEZeyiJtTGtHf2GUWIjan7Y7BLIntjZbwDCy4div7L6cDfeV2W4FI0yqxlDSrF
+         dz0UmWufE4R6+Zduz2pSgYfjZT1I7PHu2Om6NJyaYHS6h1NIob+F1wt6JOhjMZDJZvXQ
+         zVyD6xVAG2ehMU6Lw1te/8tMOqbDBO6nREtN8rmdlaGWpYd8CYRDzjDqszPiMpT25+nZ
+         F2RIvu0xDnUkoelxBEMLWhtQUFQ+QU4VqmPRaga8fEuaf8QBdyYlBtsTmDWynzm7yF6g
+         J0iQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778161580; x=1778766380;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=pFgTexS82Aes4S2KA8waYF2yU7gR1eiSJ6BQPR26m30=;
+        b=Ccj9DySeSmPgQXyPWZZZ76HgopsiJ7ITuBYqVwdzRWeq4dHbt6rqJZxW444jZwRQ+J
+         9qrwS7UEy3CsA3/4onSfKhZRMPQferSftksKkOeBQ+TTMvr7CIuzrIfhZMfLpmf8BSaF
+         GYMSOMj8OGBOl+pTX+69Imw3ap5ILxv0VuFECHExzU/Ytpr9XxYfE0iQWf7XCGbOEyTh
+         ItKgf55gFii39wYv5XR65c1+vM7tLExfooPlgoJ419CQCQhY6HUVllSARjHQPEZbJzx0
+         71gneYoBddqsEQTs7VJGUvyBAPqcFDW31aOfXg3GdKt3dU7HF2yE1qHAdYyNz02sOhMM
+         GhSg==
+X-Gm-Message-State: AOJu0YzS31oP5Ln/50GP3xR9kLDRJO61XLymxndpcdGZrnAKsRF0bb5T
+	N+dzzTZXskX680ki5J+9NWcxi3P/Z8KdJEQCpeSjcfYPBk8mfCRhpie9
+X-Gm-Gg: AeBDietK7s/4OulxWGgCjmgVD9DTGoz9KyT8d9zvkCX6ucJHmR5qUGjv7wZg4QmvHGa
+	fl/6TOeS8aXMg2k9t/C9RAIE1dnwcwcgDW51NuOk992KBOKiYXxmxQXnS8MHSG3fzRyIhwb+J/2
+	bN06D3Psq1UHfwsbcpE6X65k6RimTihpQgzuRh+kvkTUFC0rH1rbotGp8LkTxgEp2aCbBD322ZB
+	r56WS+XsyvzYLlc+XTH9dWe94qiiwOP9Os/UbhCZXHzgPfk/5XNpeQ492V4MttheOZ17yDJ9g3h
+	MgOfScFN7T9U6sNR1mfBCFnrQLtKuQkBMEcwh/ojTDPIt9eYlE4xbUi0betAJuO9aJlzJPCZV1U
+	7CiGmOXVn0UTXFftERuzepWyTpCZfT71Qrauswpo2X6A4UX+NhvJ2TGi9nZUhxvtHY3cGFQJGXN
+	SO9TLjp4VTMITrA+yXT3ly77g=
+X-Received: by 2002:a5d:54c9:0:b0:43d:73d4:b34 with SMTP id ffacd0b85a97d-4515b525080mr9703117f8f.16.1778161579065;
+        Thu, 07 May 2026 06:46:19 -0700 (PDT)
 Received: from xeon ([188.163.112.56])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-450524833e1sm20701615f8f.2.2026.05.07.06.46.15
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-450524833e1sm20701615f8f.2.2026.05.07.06.46.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 May 2026 06:46:15 -0700 (PDT)
+        Thu, 07 May 2026 06:46:18 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -65,10 +67,12 @@ To: Rob Herring <robh@kernel.org>,
 Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-pm@vger.kernel.org
-Subject: [PATCH v4 0/2] power: supply: Add support for Surface RT battery and charger
-Date: Thu,  7 May 2026 16:46:05 +0300
-Message-ID: <20260507134608.76222-1-clamor95@gmail.com>
+Subject: [PATCH v4 1/2] dt-bindings: embedded-controller: Document Surface RT EC
+Date: Thu,  7 May 2026 16:46:06 +0300
+Message-ID: <20260507134608.76222-2-clamor95@gmail.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260507134608.76222-1-clamor95@gmail.com>
+References: <20260507134608.76222-1-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -78,36 +82,84 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Add support for Embedded Controller found in the Microsoft Surface RT and
-used to monitor battery cell and charger input status and properties.
-Controller works both for UEFI and APX booting.
+Document Embedded Controller used in Microsoft Surface RT tablets for
+monitoring battery properties and charger status.
 
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
-Changes in v4:
-- fixed REGS_TECHNOLOGY read size
-
-Changes in v3:
-- fixed i2c_smbus_read_i2c_block_data read size
-
-Changes in v2:
-- srt_bat_get_string > i2c_smbus_read_i2c_block_data
-- added devm_kasprintf return check
----
-
-Jonas Schwöbel (1):
-  power: supply: Add support for Surface RT battery and charger
-
-Svyatoslav Ryhel (1):
-  dt-bindings: embedded-controller: Document Surface RT EC
-
- .../microsoft,surface-rt-ec.yaml              |  63 +++
- drivers/power/supply/Kconfig                  |  11 +
- drivers/power/supply/Makefile                 |   1 +
- drivers/power/supply/surface-rt-ec.c          | 389 ++++++++++++++++++
- 4 files changed, 464 insertions(+)
+ .../microsoft,surface-rt-ec.yaml              | 63 +++++++++++++++++++
+ 1 file changed, 63 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/embedded-controller/microsoft,surface-rt-ec.yaml
- create mode 100644 drivers/power/supply/surface-rt-ec.c
 
+diff --git a/Documentation/devicetree/bindings/embedded-controller/microsoft,surface-rt-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/microsoft,surface-rt-ec.yaml
+new file mode 100644
+index 000000000000..0fee574a3015
+--- /dev/null
++++ b/Documentation/devicetree/bindings/embedded-controller/microsoft,surface-rt-ec.yaml
+@@ -0,0 +1,63 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/embedded-controller/microsoft,surface-rt-ec.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Microsoft Surface RT fuel gauge and charger EC
++
++maintainers:
++  - Jonas Schwöbel <jonasschwoebel@yahoo.de>
++  - Svyatoslav Ryhel <clamor95@gmail.com>
++
++description:
++  An Embedded Controller used in Microsoft Surface RT for monitoring
++  battery properties and charger status.
++
++allOf:
++  - $ref: /schemas/power/supply/power-supply.yaml#
++
++properties:
++  compatible:
++    const: microsoft,surface-rt-ec
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  enable-gpios:
++    maxItems: 1
++
++  monitored-battery: true
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - enable-gpios
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        embedded-controller@a {
++            compatible = "microsoft,surface-rt-ec";
++            reg = <0x0a>;
++
++            interrupt-parent = <&gpio>;
++            interrupts = <74 IRQ_TYPE_EDGE_RISING>;
++
++            enable-gpios = <&gpio 88 GPIO_ACTIVE_HIGH>;
++            monitored-battery = <&battery>;
++        };
++    };
++...
 -- 
 2.51.0
 
