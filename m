@@ -1,603 +1,265 @@
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011030.outbound.protection.outlook.com [40.107.74.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE033FB7DC;
-	Thu,  7 May 2026 14:17:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778163455; cv=none; b=guQ6/rsN91NKqLhdIWxTkRBcU+tccJDVlU9xAFATP5Svwafi6utiGjl6DYiCu707p8juaKONgsgKQK4mbCN51i9WH2PMstxRtWGh+wJDEc8iieMxsbTgW5HXrHudKfj3DlMvE8pD9lAxANC44Iy87oHoFqReqBzEBUtoX3a9UIw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778163455; c=relaxed/simple;
-	bh=3yp3YpVDpc5KxLWKUbouwnCkp5aICEO4dbDBM/bgdAg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=iz53XOYbOUi/e9dlcn3cWZNxogLh3VFKsyiGB8ULrnId/Su3cpeZygz4rP8uY9PDW6d+msW74EKUDz3uO1e4f2TKlNz9Yd8yGUEAaDpLhx+lXr50XIWcG3e12vUd4VfEV641mOLSaGxY3NHrmrwPC1T6cT3BTHSe5lP+/yupTrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.204.34.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: esmtpgz16t1778163389t8b0e6327
-X-QQ-Originating-IP: /Acnv1FPW24GmoigqNSKoyL+7+Qk+t3OYiFdsXB4eR8=
-Received: from [192.168.30.32] ( [116.234.74.217])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 07 May 2026 22:16:23 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 17409895627837406214
-EX-QQ-RecipientCnt: 9
-From: Xilin Wu <sophon@radxa.com>
-Date: Thu, 07 May 2026 22:16:07 +0800
-Subject: [PATCH] arm64: dts: qcom: sc8280xp: Move PHY, PERST, and Wake
- GPIOs to PCIe port nodes
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A23F3F1655;
+	Thu,  7 May 2026 14:20:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.30
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778163602; cv=fail; b=K8XKEKumcwG/RuYcK2GBgIjf5RGB/LyyrAqHLeanOj9f4WhBDkmJ0k62F8xXo/ydNU2AjuYj5t+gYQ0+8aJy+7Zfq4j06KPnrBzSlMlvHn9TYZFmmw2r5PHRjpICe4eqqRQhMV2sI7VoH6BE8330Gt3IxaUa8t5tvhj9KCiGEcw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778163602; c=relaxed/simple;
+	bh=sVand/y/o/Ka+nCakdK3ZMuahJPMu1c68HTH29dConc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=OuEiWBsU5K7LYyh0ZjIAdNxcyFAZEt6OC9Hf/22A0YR4tE/9+Gcg9eIeSY+gbE0I7nmTEwQKAa/PO+nTfH1wz2mlO170W1XGfnZvime+9oHs5+dZPeMjA27OfMePtQdU0i1AYpjYPaQ/8rZ6H/TsTp5H+wbO1oRzW/L1fEL8W4Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=p1p7irOc; arc=fail smtp.client-ip=40.107.74.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="p1p7irOc"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DV4H0njxLRvBLKxwjxzKgkVwgv9AixX636eZxuVuTbeaIxa+IsugqSZWFvVz+fHI7FnHVXaC9BIVPMAZgmbA9ssZ32eSHNTonMoAM9bmlzkom2YMifmAGc/0SdWtfkWz/IXK0fYg2G1R9EHx7jcLIR+F8fD0AmqAihBIVzR2Cxw2O8uBNrOjhwtRJopdXpeDub1nOd0YkL2ZYDMu2JJ067Gz3lCisei+05uPS+7xd4mno1Q/Z1N4bQSEdFdzOWQHZG6/5Tadmk0CZx43LfcksvUAq+9432fIHO7A259/IN++ebV0iSq6fr1KSV8aDtqIuUIzbGxZCsLNZA8q9Krrfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5WI9RHysxNvfrLCafwFSeb8K61Lic+hifuGEKc+ASZQ=;
+ b=ngaybzwPoqv9Oz7fXOIvR05QVjh33H07KARhBCIM82xBQyPG+UCLC9G6JQYF9wUsEe5FuETb3vIdl8Nx5X0852ppfZZEDO+Nhtz7dBeMxxVL7A4xyBDPH4clx4dX7X3nSMI3wGOz9N6pGTI1GfR7u6g/xXd/f/gbuNZJTJEUvZt+hi1OfUeiFbZ69rF8CGeoWZPbYqNSDDNXpvpwJfgdOzXdWy3lhIDPydy+NBUy35DH7izUefnMPpAudWF6BJMTkmQ2Al9VtA+bslJf+DNOuIRp5cbZTEoIBSt5GujeN7Gb1nl5JGKbf37Av6dxSCLWmSAz+jqArj1cfIYcoa6e4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5WI9RHysxNvfrLCafwFSeb8K61Lic+hifuGEKc+ASZQ=;
+ b=p1p7irOckH1ol8DjwyQOJBcVRLAAYgxPCsOYWVIbSDVz+MaSJcfBSsvHi2hEkA4IaMiZSjTNg5UTzyexS1DcVBnUnm9kYnkIJE7WfPoZ/3um06URgdTx1kTvYreJk5wk8gmtEG/7MsvUxwBmeuUM1yUEh7A3HgWdacFe7Gehjeg=
+Received: from TYYPR01MB15615.jpnprd01.prod.outlook.com
+ (2603:1096:405:291::13) by TYWPR01MB9758.jpnprd01.prod.outlook.com
+ (2603:1096:400:234::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.18; Thu, 7 May
+ 2026 14:19:57 +0000
+Received: from TYYPR01MB15615.jpnprd01.prod.outlook.com
+ ([fe80::d8aa:d4b:55a1:2948]) by TYYPR01MB15615.jpnprd01.prod.outlook.com
+ ([fe80::d8aa:d4b:55a1:2948%7]) with mapi id 15.20.9891.008; Thu, 7 May 2026
+ 14:19:51 +0000
+From: Cosmin-Gabriel Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+To: Lee Jones <lee@kernel.org>
+CC: Biju Das <biju.das.jz@bp.renesas.com>, Daniel Lezcano
+	<daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
+	magnus.damm <magnus.damm@gmail.com>, Michael Turquette
+	<mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Philipp Zabel
+	<p.zabel@pengutronix.de>, "linux-iio@vger.kernel.org"
+	<linux-iio@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
+	<linux-renesas-soc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-clk@vger.kernel.org"
+	<linux-clk@vger.kernel.org>
+Subject: RE: [PATCH v2 02/10] mfd: rz-mtu3: use device-managed reset deassert
+Thread-Topic: [PATCH v2 02/10] mfd: rz-mtu3: use device-managed reset deassert
+Thread-Index: AQHcyQgzT/aTuw+zQUSR0TY845IFgLYCquiAgAALUqA=
+Date: Thu, 7 May 2026 14:19:51 +0000
+Message-ID:
+ <TYYPR01MB156155B2A517931DADFBEA65B853C2@TYYPR01MB15615.jpnprd01.prod.outlook.com>
+References: <20260410163530.383818-1-cosmin-gabriel.tanislav.xa@renesas.com>
+ <20260410163530.383818-3-cosmin-gabriel.tanislav.xa@renesas.com>
+ <20260507123903.GI305027@google.com>
+In-Reply-To: <20260507123903.GI305027@google.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYYPR01MB15615:EE_|TYWPR01MB9758:EE_
+x-ms-office365-filtering-correlation-id: 8c54d93b-566b-45c4-ffb4-08deac43b419
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|7416014|376014|1800799024|366016|18002099003|22082099003|56012099003|38070700021;
+x-microsoft-antispam-message-info:
+ Y0V29bR8wI3qTtC3lXp61587N4TVYPXdP4Wm8CDCyLR+rH45lPlZnAFfbgWvN6C4R5pKhAsQ76dyHx1fQsoCS5WqH+lXXsQgr45TQzMK/jg38DD5nGLAeZ20ySbf9hEcJPJrz11HUFlz7p/z2j2SxDtUbojzmM580PeF7qTpopmpGmocSX4hb7idUsoEEWfFihXk71gU55xFmpiAp00seSD6jSQE3T7LVdx37OxwHms2gBf4n18D8WpFG6l+CaOZMJdPnuFy1J80RPuVI/yAKqWdW0yoc7k1Dqr3y6u022vu1Cy7kKGewByyqsP1j5IS94/isoW7eBdRJXOlr0ChW262udCtNzY8lLCXlajJuwf9XgMxSdI5L0UBhK/GTCCJZlgo3u7GLfOvAXkNyim9EwSjo5M4z6Pp5ttIFVRUzKfnMYBsTXFMaHOyf60kOMnniz4QOEmMhqPMXp/uJJcB0/8llJJ53C5qjxXgSwAvq+ESw9cRB+YiO5dLwVHV5wNOQgUa54I82SEqu3M8qePbA+IQmz1F9Tc74CVymmDQrwQqdqBvMiCeZAGhHuqkaDRM3bTewq8PgnjcTzjJY3uMEZi2GuIVElFQ91qjAXBwv6SklRMBYZ67/pKUtHbpYgFpmrYCAJOuJQaFXf/l3fVZst+0NqBLPQLMucFGWty2JO03ETq2ad2FkB59iJUvnnbG8IrCBrGNUUdFiy/ypkG1FPZr9fv3GNRjmRJh2aWbGxCR8x2ThEGfEkGDGCJDYvdB
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYPR01MB15615.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(18002099003)(22082099003)(56012099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?Rxc0NW/6eIRRQ6yU8fDwVb5PBCYsnG/vdpeIIIGbHpywUSYCWtsPM2vbHwaX?=
+ =?us-ascii?Q?t3oVinHjeaXP0GQ9N1cts3UNjRxwDLySl+Yut43wIMEj4UHASHx4FPsoICJo?=
+ =?us-ascii?Q?49AzJ5r8EvR6yRrm/pfSIsgpQWrVjkDUjGo+/+bfY/jGWLf0k02XrIKgZHUj?=
+ =?us-ascii?Q?014hLG5ze05GPU51PwiXOilu8fptvXDAQ1mxlr14osJ7DtE8EgFxXJfXg2hS?=
+ =?us-ascii?Q?k0RZCfuFYToAmxLM2miWTYLOSlpiVfkuv+JRFAhg7obv5kgMykQxYhO9WmXk?=
+ =?us-ascii?Q?ZQdwqxjigjnjHbQo/bXWDslvidlDzh2ZF3cqm73TQW+KpUjHQjFZGIjIOsi9?=
+ =?us-ascii?Q?9q/iUuIh5UcHxCcE21JvggS9WOUBeb+070EtsXjhRDOayZ78fuFJylweYvcp?=
+ =?us-ascii?Q?/KtwMG14k3N9W4IP7D+/V0uf28MndCnvcLMpwvC5eas1PY78pIPda4qpNbJO?=
+ =?us-ascii?Q?PP4yNgIUqzDS/WMTO8SYuofibJfxRfNMdABcIcEkSpO745N8sHCVAzXbCw1A?=
+ =?us-ascii?Q?YLMCgEJCFi79dIDgWyWUP2cX22bT7k4u+Ycz55+MH62X1lIQQbQDgyNavO3G?=
+ =?us-ascii?Q?8kQsvF3dyJdaWDNz3m0IEwrxNdy/BWg/uz6b3rSqza86QChXQ4WJHaqV0Mju?=
+ =?us-ascii?Q?otl1XVmsPGiefjjYUH6OBoh6whGQnZqleNzv3k0n2pRh+8aenB9JDwq0fTYi?=
+ =?us-ascii?Q?GI2O4PKOFF2Nt9/dSNwKiLlqCeCDTwPJBxrKSYXEpa7xGdyNVgcdOotJBJ5Z?=
+ =?us-ascii?Q?fExcNOCIOQnJCV5p6FGV8Ovo5626OhhnQNOy+slaQQnP6boEiBYH2DMii/+l?=
+ =?us-ascii?Q?sJuuPClOyO8bfZgRZqxr4e1CStZ6tmOFnLKfJejkxX+ZT/FvqsgIixzeTijy?=
+ =?us-ascii?Q?qrcArIWMriW0q6t2oZYffPIWaZ+3znBOa1xz3JW5m+n50oHGQqa2JkJmudSU?=
+ =?us-ascii?Q?6DSqg+5NwkVJzORA8+RvU3cepxmKbi83E8/kZzxv47bE4Q5ZIVD4kp9kBDBV?=
+ =?us-ascii?Q?v6TFugFSdU/TE/qZwA2qW0T9lMexiGEWtGhTGP40jCx7QT9tLAAU9vprsERi?=
+ =?us-ascii?Q?SzZQxZNh6AOskCQMp8SR1aFbgGSKJtgxxThbne9pb6HUsaa34OmPJXtZJ/6N?=
+ =?us-ascii?Q?2qQoCk9w3xHZN77Mkt+fyFV+GuzZJr2XgOo1f9SmJToljgJRC38jPsF812Xw?=
+ =?us-ascii?Q?ODlBuHVADaBI6CF8Zb7ex6SHx04uVj+xlNoIEATcQHOLXMlxr8zMJpEOpx+z?=
+ =?us-ascii?Q?SUELZK8GnDVcjfWTG4cqp45s0bpJDAThrWYkZ2sKE6k8En7JCi5GGUVJzali?=
+ =?us-ascii?Q?em+jcKKMB1lEKYHYuvsKIRW1B4hjM92N2VQka8ZN/+N8BUpnNtbliWxRcxp0?=
+ =?us-ascii?Q?CspTKnsYr33QpoIPkikcYRS6gXRHTSHY4Mrx5f64oFg4e/6lUU9LYVCXK98T?=
+ =?us-ascii?Q?IG8J00Qzx9qQuFeC1HUvGn8XxwffyiB3W/dr2wBv3kLR/Cv3Y5Sf4xICxICO?=
+ =?us-ascii?Q?HBhSyWR01KZ9g9ByIHtOezkkQ3RRzsQb+YJBmSTrUDdckx+J6sPCjb1zO8OA?=
+ =?us-ascii?Q?57xpsTvH2jeTQ63Vh7b/tiPOh2nvvW3NfZjDhOg4mcKxEQSmS8wy4zTF8If8?=
+ =?us-ascii?Q?YGk0q9pnWmRadnvwGfGm6jwllciKG30iq+W6N7tVE9sBgl3zaQ6dS/TfddsF?=
+ =?us-ascii?Q?WWK/FIChDJ1WzdF3meeu4uhT4bbydKax2aMWhLKVI+kZUBZYw7OoNNoYmWwT?=
+ =?us-ascii?Q?MRYTkbfkbyFHCJvbNqfBcR5eiSj5I396EYcRl2w0S8eHXcLqq8S4?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260507-8280-move-perst-wake-v1-1-5b33cef2d807@radxa.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBG4auQWTvJ2Ag2XsW4KPRHRyOQDqAJ4
- e4WXH6L9xYyJIXRpVgoYVbTvss4HgpqHqG7gzVmkxNXSSln9s4Lv/sZPCDZyJ/wArd1KE9OfAx
- VpJwOCa1+9+319rdN9RPNuL1oXX8u8k5qeAAAAA==
-X-Change-ID: 20260507-8280-move-perst-wake-fba54208da6d
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Xilin Wu <sophon@radxa.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13945; i=sophon@radxa.com;
- h=from:subject:message-id; bh=3yp3YpVDpc5KxLWKUbouwnCkp5aICEO4dbDBM/bgdAg=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDJl/5m2f7/Ltiu/Rp5lWV6V+Rc+6434ueOZm6bdrNtz8v
- DSgy98jr6OUhUGMi0FWTJFFIZ5hLntl7rWnYqV6MHNYmUCGMHBxCsBEeAwY/pc2OiV6pt8/Fntd
- 5I7wpoc7GK6wxM14obg8WijmW1GXliwjwzbuZ1nXuoX1rze6LmT4t+9MZYVWh4P4pGuy3q4TJva
- 6cAAA
-X-Developer-Key: i=sophon@radxa.com; a=openpgp;
- fpr=205F009D07796DD6E516752E32C31567AD9E324E
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: OJMDfpxdSlueYQKxA3NsXZ0VuQkeA6OGYx1em3gAirwjNPQSVRrFq+Jj
-	Z+Bz9uS3igCAKEOEjdWd4eQ+I5S7D3uuwirTV4DornyuJ0hCTi2PvaPnqeiulxoEw7XgHUX
-	EN5IClQ6cE2+tLOWj4zPE6YPHemqt+f+h9lvcKVLYK0vH0X3ltmBIi8RxK1rNzIIEGaEEi6
-	u2+0mmJpiBRbReUcfeIbi/gICdwu/OfATUsUl7LkJ54gw49pgcwuOgRAu9yy0RdRQVKBhJb
-	W71+yzsLHu1KinIvriQgIIr10x8iwuX/XJ5vvC6L9hP0EPlgffAOdOpv0rVE+vjI1jhvsQO
-	cZr0P15qD0dybBzB/XTy1eZOiFEB032fm7KQk1KOK57rx0KZ7PwLciVRdeP9MewX7YQ8JtY
-	Bx+NWV8Y1gNuYnLISa6fjPiV1oqxFMffBTab838/euuVUATVo1ni3F9v0o42jJSwRSpAls9
-	TdkbdZFGPXUSkzxBfGlh8CiWWZIqntfBgqrlpa82E6K171c/Rz9/9odQEIX3sOSWtpZWkBN
-	uEgBfK9G3YjAt0n4z+I6hTbRJjokMqKHJ1J6L1rYLIxuiWHRXQyq9ZYNqZaFHzs/UO9Aho7
-	/KOSUMn6eNh49GEi4l9hOCKIRn716kWFNhUEoF2sTsIikVKZP4fr7ecFLPrH7b6mj1QMNLJ
-	CiMjeOuU8iUYkAu8sDrlFrIEcmdCaalLMSjioNPhqWS60QVKN4Mvaa/yRIMlvoa/DHRoZj1
-	sGROJAhECP2mU0TNt3pWTBGxBDRS1IFY8EQ/28O8IcZ5Zu+pm9Qg/Jn5kYatExZHF9khzTw
-	yYutLga1PqFWbWGE5bRKsLVwL1zMqTeRI3TsMwMq2akP6suWtzctJ4ydAFGyDYXc2h57saR
-	rsVILDdqTG5zUXa/VMnBI0qrGMRulEbKKd4rp30BY6pL9uEDaH+srLQxY9NIOUZT4lZChpc
-	fcT1hFT1hHjYvrZ6A9b8eYov0OAkKtaCBythjaM2aY669sh3lm+KTbWWLDaxem2+SIQ4pNI
-	yecCHBSw2RvaAYK9uwyebEodZJ5ko=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB15615.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c54d93b-566b-45c4-ffb4-08deac43b419
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 May 2026 14:19:51.7143
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: QW3q3sY698pctgtCPVE0QCO2S6Ys+AED2FP/R5VnTlkr4U7RkZbj4X9xOj3cWVsnjLPGb93Z2PVx4MLtDYcU1JtRXA+1ut+N575VPjGnWv9ZNZJxTnHuPx0Wf7FgV/Hd
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB9758
 
-Since describing the PCIe PHY directly under the RC node is now
-deprecated, move the references to the respective PCIe port nodes.
+> From: Lee Jones <lee@kernel.org>
+> Sent: Thursday, May 7, 2026 3:39 PM
+>=20
+> On Fri, 10 Apr 2026, Cosmin Tanislav wrote:
+>=20
+> > Replace devm_reset_control_get_exclusive() and the manual
+> > reset_control_deassert()/reset_control_assert() with handling by
+> > devm_reset_control_get_exclusive_deasserted().
+> >
+> > While at it, remove struct rz_mtu3_priv::rstc and use a local variable
+> > for it as it is not needed inside rz_mtu3_reset_assert().
+> >
+> > Rename rz_mtu3_reset_assert() to rz_mtu3_mfd_remove() to accurately
+> > describe its usage since it no longer calls reset_control_assert().
+> >
+> > Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+> > ---
+> >
+> > V2:
+> >  * no changes
+> >
+> >  drivers/mfd/rz-mtu3.c | 23 +++++++----------------
+> >  1 file changed, 7 insertions(+), 16 deletions(-)
+> >
+> > diff --git a/drivers/mfd/rz-mtu3.c b/drivers/mfd/rz-mtu3.c
+> > index 9cdfef610398f..6b9c6831dffa9 100644
+> > --- a/drivers/mfd/rz-mtu3.c
+> > +++ b/drivers/mfd/rz-mtu3.c
+> > @@ -21,7 +21,6 @@
+> >
+> >  struct rz_mtu3_priv {
+> >  	void __iomem *mmio;
+> > -	struct reset_control *rstc;
+> >  	spinlock_t lock;
+> >  };
+> >
+> > @@ -301,13 +300,9 @@ void rz_mtu3_disable(struct rz_mtu3_channel *ch)
+> >  }
+> >  EXPORT_SYMBOL_GPL(rz_mtu3_disable);
+> >
+> > -static void rz_mtu3_reset_assert(void *data)
+> > +static void rz_mtu3_mfd_remove(void *data)
+>=20
+> Remove any mention of "mfd".
+>=20
 
-And also move the PCIe PERST and wake GPIOs from the controller nodes to
-the corresponding PCIe port nodes on sc8280xp-based platforms:
+_mfd here is to describe that it removes MFD devices, not that it is
+part of a MFD driver.
 
- - sa8295p-adp
- - sa8540p-ride
- - sc8280xp-crd
- - sc8280xp-huawei-gaokun3
- - sc8280xp-lenovo-thinkpad-x13s
- - sc8280xp-microsoft-arcata
- - sc8280xp-microsoft-blackrock
+What name would you prefer to use in this case?
 
-Signed-off-by: Xilin Wu <sophon@radxa.com>
----
- arch/arm64/boot/dts/qcom/sa8295p-adp.dts           | 32 ++++++++++++++--------
- arch/arm64/boot/dts/qcom/sa8540p-ride.dts          | 16 +++++++----
- arch/arm64/boot/dts/qcom/sc8280xp-crd.dts          | 22 +++++++++------
- .../boot/dts/qcom/sc8280xp-huawei-gaokun3.dts      | 14 ++++++----
- .../dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts     | 22 +++++++++------
- .../boot/dts/qcom/sc8280xp-microsoft-arcata.dts    | 22 +++++++++------
- .../boot/dts/qcom/sc8280xp-microsoft-blackrock.dts | 14 ++++++----
- arch/arm64/boot/dts/qcom/sc8280xp.dtsi             | 25 +++++++----------
- 8 files changed, 95 insertions(+), 72 deletions(-)
+> >  {
+> > -	struct rz_mtu3 *mtu =3D dev_get_drvdata(data);
+> > -	struct rz_mtu3_priv *priv =3D mtu->priv_data;
+> > -
+> >  	mfd_remove_devices(data);
+>=20
+> Why not use devm_mfd_add_devices() instead?
+>=20
 
-diff --git a/arch/arm64/boot/dts/qcom/sa8295p-adp.dts b/arch/arm64/boot/dts/qcom/sa8295p-adp.dts
-index d28d69162427..512de3597581 100644
---- a/arch/arm64/boot/dts/qcom/sa8295p-adp.dts
-+++ b/arch/arm64/boot/dts/qcom/sa8295p-adp.dts
-@@ -453,15 +453,17 @@ &mdss1_dp3_phy {
- };
- 
- &pcie2a {
--	perst-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 145 GPIO_ACTIVE_LOW>;
--
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pcie2a_default>;
- 
- 	status = "okay";
- };
- 
-+&pcie2a_port0 {
-+	reset-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 145 GPIO_ACTIVE_LOW>;
-+};
-+
- &pcie2a_phy {
- 	vdda-phy-supply = <&vreg_l11a>;
- 	vdda-pll-supply = <&vreg_l3a>;
-@@ -472,15 +474,17 @@ &pcie2a_phy {
- &pcie3a {
- 	num-lanes = <2>;
- 
--	perst-gpios = <&tlmm 151 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 56 GPIO_ACTIVE_LOW>;
--
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pcie3a_default>;
- 
- 	status = "okay";
- };
- 
-+&pcie3a_port0 {
-+	reset-gpios = <&tlmm 151 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 56 GPIO_ACTIVE_LOW>;
-+};
-+
- &pcie3a_phy {
- 	vdda-phy-supply = <&vreg_l11a>;
- 	vdda-pll-supply = <&vreg_l3a>;
-@@ -489,15 +493,17 @@ &pcie3a_phy {
- };
- 
- &pcie3b {
--	perst-gpios = <&tlmm 153 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 130 GPIO_ACTIVE_LOW>;
--
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pcie3b_default>;
- 
- 	status = "okay";
- };
- 
-+&pcie3b_port0 {
-+	reset-gpios = <&tlmm 153 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 130 GPIO_ACTIVE_LOW>;
-+};
-+
- &pcie3b_phy {
- 	vdda-phy-supply = <&vreg_l11a>;
- 	vdda-pll-supply = <&vreg_l3a>;
-@@ -506,15 +512,17 @@ &pcie3b_phy {
- };
- 
- &pcie4 {
--	perst-gpios = <&tlmm 141 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 139 GPIO_ACTIVE_LOW>;
--
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pcie4_default>;
- 
- 	status = "okay";
- };
- 
-+&pcie4_port0 {
-+	reset-gpios = <&tlmm 141 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 139 GPIO_ACTIVE_LOW>;
-+};
-+
- &pcie4_phy {
- 	vdda-phy-supply = <&vreg_l11a>;
- 	vdda-pll-supply = <&vreg_l3a>;
-diff --git a/arch/arm64/boot/dts/qcom/sa8540p-ride.dts b/arch/arm64/boot/dts/qcom/sa8540p-ride.dts
-index 44177e9b64b5..83d5f1d9e79b 100644
---- a/arch/arm64/boot/dts/qcom/sa8540p-ride.dts
-+++ b/arch/arm64/boot/dts/qcom/sa8540p-ride.dts
-@@ -366,15 +366,17 @@ &pcie2a {
- 		 <0x02000000 0x0 0x3c300000 0x0 0x3c300000 0x0 0x1d00000>,
- 		 <0x03000000 0x5 0x00000000 0x5 0x00000000 0x1 0x00000000>;
- 
--	perst-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 145 GPIO_ACTIVE_HIGH>;
--
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pcie2a_default>;
- 
- 	status = "disabled";
- };
- 
-+&pcie2a_port0 {
-+	reset-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 145 GPIO_ACTIVE_HIGH>;
-+};
-+
- &pcie2a_phy {
- 	vdda-phy-supply = <&vreg_l11a>;
- 	vdda-pll-supply = <&vreg_l3a>;
-@@ -387,15 +389,17 @@ &pcie3a {
- 		 <0x02000000 0x0 0x40300000 0x0 0x40300000 0x0 0x20000000>,
- 		 <0x03000000 0x6 0x00000000 0x6 0x00000000 0x2 0x00000000>;
- 
--	perst-gpios = <&tlmm 151 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 56 GPIO_ACTIVE_HIGH>;
--
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pcie3a_default>;
- 
- 	status = "okay";
- };
- 
-+&pcie3a_port0 {
-+	reset-gpios = <&tlmm 151 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 56 GPIO_ACTIVE_HIGH>;
-+};
-+
- &pcie3a_phy {
- 	vdda-phy-supply = <&vreg_l11a>;
- 	vdda-pll-supply = <&vreg_l3a>;
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts b/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
-index c53e00cae465..777b253d2e76 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp-crd.dts
-@@ -628,9 +628,6 @@ keyboard@68 {
- };
- 
- &pcie2a {
--	perst-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 145 GPIO_ACTIVE_LOW>;
--
- 	vddpe-3v3-supply = <&vreg_nvme>;
- 
- 	pinctrl-names = "default";
-@@ -646,10 +643,12 @@ &pcie2a_phy {
- 	status = "okay";
- };
- 
--&pcie3a {
--	perst-gpios = <&tlmm 151 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 148 GPIO_ACTIVE_LOW>;
-+&pcie2a_port0 {
-+	reset-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 145 GPIO_ACTIVE_LOW>;
-+};
- 
-+&pcie3a {
- 	vddpe-3v3-supply = <&vreg_wwan>;
- 
- 	pinctrl-names = "default";
-@@ -665,12 +664,14 @@ &pcie3a_phy {
- 	status = "okay";
- };
- 
-+&pcie3a_port0 {
-+	reset-gpios = <&tlmm 151 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 148 GPIO_ACTIVE_LOW>;
-+};
-+
- &pcie4 {
- 	max-link-speed = <2>;
- 
--	perst-gpios = <&tlmm 141 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 139 GPIO_ACTIVE_LOW>;
--
- 	vddpe-3v3-supply = <&vreg_wlan>;
- 
- 	pinctrl-names = "default";
-@@ -687,6 +688,9 @@ &pcie4_phy {
- };
- 
- &pcie4_port0 {
-+	reset-gpios = <&tlmm 141 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 139 GPIO_ACTIVE_LOW>;
-+
- 	wifi@0 {
- 		compatible = "pci17cb,1103";
- 		reg = <0x10000 0x0 0x0 0x0 0x0>;
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts b/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
-index 9819454abe13..96c7bcbe9bbc 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
-@@ -739,9 +739,6 @@ &mdss0_dp1_out {
- };
- 
- &pcie2a {
--	perst-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 145 GPIO_ACTIVE_LOW>;
--
- 	vddpe-3v3-supply = <&vreg_nvme>;
- 
- 	pinctrl-0 = <&pcie2a_default>;
-@@ -757,12 +754,14 @@ &pcie2a_phy {
- 	status = "okay";
- };
- 
-+&pcie2a_port0 {
-+	reset-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 145 GPIO_ACTIVE_LOW>;
-+};
-+
- &pcie4 {
- 	max-link-speed = <2>;
- 
--	perst-gpios = <&tlmm 141 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 139 GPIO_ACTIVE_LOW>;
--
- 	vddpe-3v3-supply = <&vreg_wlan>;
- 
- 	pinctrl-0 = <&pcie4_default>;
-@@ -772,6 +771,9 @@ &pcie4 {
- };
- 
- &pcie4_port0 {
-+	reset-gpios = <&tlmm 141 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 139 GPIO_ACTIVE_LOW>;
-+
- 	wifi@0 {
- 		compatible = "pci17cb,1103";
- 		reg = <0x10000 0x0 0x0 0x0 0x0>;
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-index d84ca010ab9d..0ef98a36acfd 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-@@ -933,9 +933,6 @@ keyboard@68 {
- };
- 
- &pcie2a {
--	perst-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 145 GPIO_ACTIVE_LOW>;
--
- 	vddpe-3v3-supply = <&vreg_nvme>;
- 
- 	pinctrl-names = "default";
-@@ -951,10 +948,12 @@ &pcie2a_phy {
- 	status = "okay";
- };
- 
--&pcie3a {
--	perst-gpios = <&tlmm 151 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 148 GPIO_ACTIVE_LOW>;
-+&pcie2a_port0 {
-+	reset-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 145 GPIO_ACTIVE_LOW>;
-+};
- 
-+&pcie3a {
- 	vddpe-3v3-supply = <&vreg_wwan>;
- 
- 	pinctrl-names = "default";
-@@ -970,12 +969,14 @@ &pcie3a_phy {
- 	status = "okay";
- };
- 
-+&pcie3a_port0 {
-+	reset-gpios = <&tlmm 151 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 148 GPIO_ACTIVE_LOW>;
-+};
-+
- &pcie4 {
- 	max-link-speed = <2>;
- 
--	perst-gpios = <&tlmm 141 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 139 GPIO_ACTIVE_LOW>;
--
- 	vddpe-3v3-supply = <&vreg_wlan>;
- 
- 	pinctrl-names = "default";
-@@ -985,6 +986,9 @@ &pcie4 {
- };
- 
- &pcie4_port0 {
-+	reset-gpios = <&tlmm 141 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 139 GPIO_ACTIVE_LOW>;
-+
- 	wifi@0 {
- 		compatible = "pci17cb,1103";
- 		reg = <0x10000 0x0 0x0 0x0 0x0>;
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-index f2b4470d4407..3d589f05b90e 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
-@@ -486,9 +486,6 @@ &mdss0_dp1_out {
- };
- 
- &pcie2a {
--	perst-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 145 GPIO_ACTIVE_LOW>;
--
- 	vddpe-3v3-supply = <&vreg_nvme>;
- 
- 	pinctrl-0 = <&pcie2a_default>;
-@@ -504,10 +501,12 @@ &pcie2a_phy {
- 	status = "okay";
- };
- 
--&pcie3a {
--	perst-gpios = <&tlmm 151 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 148 GPIO_ACTIVE_LOW>;
-+&pcie2a_port0 {
-+	reset-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 145 GPIO_ACTIVE_LOW>;
-+};
- 
-+&pcie3a {
- 	vddpe-3v3-supply = <&vreg_wwan>;
- 
- 	pinctrl-0 = <&pcie3a_default>;
-@@ -523,12 +522,14 @@ &pcie3a_phy {
- 	status = "okay";
- };
- 
-+&pcie3a_port0 {
-+	reset-gpios = <&tlmm 151 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 148 GPIO_ACTIVE_LOW>;
-+};
-+
- &pcie4 {
- 	max-link-speed = <2>;
- 
--	perst-gpios = <&tlmm 141 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 139 GPIO_ACTIVE_LOW>;
--
- 	vddpe-3v3-supply = <&vreg_wlan>;
- 
- 	pinctrl-0 = <&pcie4_default>;
-@@ -538,6 +539,9 @@ &pcie4 {
- };
- 
- &pcie4_port0 {
-+	reset-gpios = <&tlmm 141 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 139 GPIO_ACTIVE_LOW>;
-+
- 	wifi@0 {
- 		compatible = "pci17cb,1103";
- 		reg = <0x10000 0x0 0x0 0x0 0x0>;
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts
-index 00bbeeef6f14..7f82d583c3f7 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts
-@@ -624,9 +624,6 @@ &mdss0_dp2_phy {
- };
- 
- &pcie2a {
--	perst-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 145 GPIO_ACTIVE_LOW>;
--
- 	vddpe-3v3-supply = <&vreg_nvme>;
- 
- 	pinctrl-0 = <&pcie2a_default>;
-@@ -642,12 +639,14 @@ &pcie2a_phy {
- 	status = "okay";
- };
- 
-+&pcie2a_port0 {
-+	reset-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 145 GPIO_ACTIVE_LOW>;
-+};
-+
- &pcie4 {
- 	max-link-speed = <2>;
- 
--	perst-gpios = <&tlmm 141 GPIO_ACTIVE_LOW>;
--	wake-gpios = <&tlmm 139 GPIO_ACTIVE_LOW>;
--
- 	vddpe-3v3-supply = <&vreg_wlan>;
- 
- 	pinctrl-0 = <&pcie4_default>;
-@@ -657,6 +656,9 @@ &pcie4 {
- };
- 
- &pcie4_port0 {
-+	reset-gpios = <&tlmm 141 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 139 GPIO_ACTIVE_LOW>;
-+
- 	wifi@0 {
- 		compatible = "pci17cb,1103";
- 		reg = <0x10000 0x0 0x0 0x0 0x0>;
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-index 761f229e8f47..40577173053d 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-@@ -2220,9 +2220,6 @@ pcie4: pcie@1c00000 {
- 			power-domains = <&gcc PCIE_4_GDSC>;
- 			required-opps = <&rpmhpd_opp_nom>;
- 
--			phys = <&pcie4_phy>;
--			phy-names = "pciephy";
--
- 			status = "disabled";
- 
- 			pcie4_port0: pcie@0 {
-@@ -2230,6 +2227,8 @@ pcie4_port0: pcie@0 {
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				bus-range = <0x01 0xff>;
- 
-+				phys = <&pcie4_phy>;
-+
- 				#address-cells = <3>;
- 				#size-cells = <2>;
- 				ranges;
-@@ -2331,9 +2330,6 @@ pcie3b: pcie@1c08000 {
- 			power-domains = <&gcc PCIE_3B_GDSC>;
- 			required-opps = <&rpmhpd_opp_nom>;
- 
--			phys = <&pcie3b_phy>;
--			phy-names = "pciephy";
--
- 			status = "disabled";
- 
- 			pcie3b_port0: pcie@0 {
-@@ -2341,6 +2337,8 @@ pcie3b_port0: pcie@0 {
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				bus-range = <0x01 0xff>;
- 
-+				phys = <&pcie3b_phy>;
-+
- 				#address-cells = <3>;
- 				#size-cells = <2>;
- 				ranges;
-@@ -2442,9 +2440,6 @@ pcie3a: pcie@1c10000 {
- 			power-domains = <&gcc PCIE_3A_GDSC>;
- 			required-opps = <&rpmhpd_opp_nom>;
- 
--			phys = <&pcie3a_phy>;
--			phy-names = "pciephy";
--
- 			status = "disabled";
- 
- 			pcie3a_port0: pcie@0 {
-@@ -2452,6 +2447,8 @@ pcie3a_port0: pcie@0 {
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				bus-range = <0x01 0xff>;
- 
-+				phys = <&pcie3a_phy>;
-+
- 				#address-cells = <3>;
- 				#size-cells = <2>;
- 				ranges;
-@@ -2556,9 +2553,6 @@ pcie2b: pcie@1c18000 {
- 			power-domains = <&gcc PCIE_2B_GDSC>;
- 			required-opps = <&rpmhpd_opp_nom>;
- 
--			phys = <&pcie2b_phy>;
--			phy-names = "pciephy";
--
- 			status = "disabled";
- 
- 			pcie2b_port0: pcie@0 {
-@@ -2566,6 +2560,8 @@ pcie2b_port0: pcie@0 {
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				bus-range = <0x01 0xff>;
- 
-+				phys = <&pcie2b_phy>;
-+
- 				#address-cells = <3>;
- 				#size-cells = <2>;
- 				ranges;
-@@ -2667,9 +2663,6 @@ pcie2a: pcie@1c20000 {
- 			power-domains = <&gcc PCIE_2A_GDSC>;
- 			required-opps = <&rpmhpd_opp_nom>;
- 
--			phys = <&pcie2a_phy>;
--			phy-names = "pciephy";
--
- 			status = "disabled";
- 
- 			pcie2a_port0: pcie@0 {
-@@ -2677,6 +2670,8 @@ pcie2a_port0: pcie@0 {
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				bus-range = <0x01 0xff>;
- 
-+				phys = <&pcie2a_phy>;
-+
- 				#address-cells = <3>;
- 				#size-cells = <2>;
- 				ranges;
+Addressed on the following patch.
 
----
-base-commit: 735d2f48cadaa9a87e7c7601667878de70c771c5
-change-id: 20260507-8280-move-perst-wake-fba54208da6d
+> > -	reset_control_assert(priv->rstc);
+> >  }
+> >
+> >  static const struct mfd_cell rz_mtu3_devs[] =3D {
+> > @@ -321,6 +316,7 @@ static const struct mfd_cell rz_mtu3_devs[] =3D {
+> >
+> >  static int rz_mtu3_probe(struct platform_device *pdev)
+> >  {
+> > +	struct reset_control *rstc;
+>=20
+> This shouldn't go above the main device data structs.
+>=20
 
-Best regards,
---  
-Xilin Wu <sophon@radxa.com>
+I was following reverse fir tree ordering, as required in some other
+subsystems.
 
+Is there an MFD-specific preferred style that I should follow?
+
+Would you prefer having it right before unsigned int i?
+
+> >  	struct rz_mtu3_priv *priv;
+> >  	struct rz_mtu3 *ddata;
+> >  	unsigned int i;
+> > @@ -340,15 +336,14 @@ static int rz_mtu3_probe(struct platform_device *=
+pdev)
+> >  	if (IS_ERR(priv->mmio))
+> >  		return PTR_ERR(priv->mmio);
+> >
+> > -	priv->rstc =3D devm_reset_control_get_exclusive(&pdev->dev, NULL);
+> > -	if (IS_ERR(priv->rstc))
+> > -		return PTR_ERR(priv->rstc);
+> > +	rstc =3D devm_reset_control_get_exclusive_deasserted(&pdev->dev, NULL=
+);
+> > +	if (IS_ERR(rstc))
+> > +		return PTR_ERR(rstc);
+> >
+> >  	ddata->clk =3D devm_clk_get(&pdev->dev, NULL);
+> >  	if (IS_ERR(ddata->clk))
+> >  		return PTR_ERR(ddata->clk);
+> >
+> > -	reset_control_deassert(priv->rstc);
+> >  	spin_lock_init(&priv->lock);
+> >  	platform_set_drvdata(pdev, ddata);
+> >
+> > @@ -361,14 +356,10 @@ static int rz_mtu3_probe(struct platform_device *=
+pdev)
+> >  	ret =3D mfd_add_devices(&pdev->dev, 0, rz_mtu3_devs,
+> >  			      ARRAY_SIZE(rz_mtu3_devs), NULL, 0, NULL);
+> >  	if (ret < 0)
+> > -		goto err_assert;
+> > +		return ret;
+> >
+> > -	return devm_add_action_or_reset(&pdev->dev, rz_mtu3_reset_assert,
+> > +	return devm_add_action_or_reset(&pdev->dev, rz_mtu3_mfd_remove,
+> >  					&pdev->dev);
+> > -
+> > -err_assert:
+> > -	reset_control_assert(priv->rstc);
+> > -	return ret;
+> >  }
+> >
+> >  static const struct of_device_id rz_mtu3_of_match[] =3D {
+> > --
+> > 2.53.0
+>=20
+> --
+> Lee Jones
