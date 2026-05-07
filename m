@@ -1,108 +1,123 @@
-Received: from out28-92.mail.aliyun.com (out28-92.mail.aliyun.com [115.124.28.92])
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B50D2E8B6B;
-	Thu,  7 May 2026 03:41:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1231317B505
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 04:12:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778125267; cv=none; b=SeOoKxoTfOovChYZEbtuJToqeuwN9vz8Uk2WcaNK0qN6fbdfmMoMZmCMi+gAjIIcPurJvO0pDAmHks2MQ9K7oYYxHwyuHNT37AMIBiLSLPXds61ed2BypAtPb0dU6Rhmpkq2qW8PYDW2XPGSptqYH5vNareLn77T8s3LkB2Xtbs=
+	t=1778127160; cv=none; b=jN+5KqKvkEdrSPHf+hxqM/BCmGmeng44JTY9WKwWBPJH1egYtPP1m5pLx91yla9/VarBT0Qi9/KICDVW8Ey82wH92fqvq99WqWmwpNLrVRFR0tv3ixFoAZwtiL49PAqR4qcwJ4iiknEDAZ6UVudkROLPRdxmE7XZfH2SMbIzE9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778125267; c=relaxed/simple;
-	bh=/RIh2ycE+IXzSNoHQcxBqf6Uguq6HnVR7/rmn/zoxiE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=mvqRO1SNSNPLAwKmgnd0U5iJYXKozfd6GNICBQRsEDrmCmJdcdT6TyB/KeWZaC/ubuK36mexDqA4uN+pmFhAekBZR6NDy7/2JR2KbAdY1+zDmywo8kukiUFFuy1TQN/I0o5ZuyD0VP6Y2BiODr+ynhBm1m2Zq5xENSy0vTmugzk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=dCtzcq08; arc=none smtp.client-ip=115.124.28.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
+	s=arc-20240116; t=1778127160; c=relaxed/simple;
+	bh=ksNZwP1dJGNhhXlR7TirkycPIhvvbe9kAdiewChEkao=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OCYs8r7cbWj94VAT2RvfP/ldIipTLYfz/3ZG00EAK2jDKCIIRV7djbrWtE7OkxRs3qg3LmBACzKrC5Ajf21st2ZDw/vBj0kDPZEfM13gstcwoQ/5Nf9p2Sg+nAm4o+HYu8fKc+HBsLZalGsTRv0ksQil6Kpa2dIK8KQIMgS1NAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=q-lab.dev; spf=pass smtp.mailfrom=q-lab.dev; dkim=pass (2048-bit key) header.d=q-lab.dev header.i=@q-lab.dev header.b=KIUb2vCd; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=YVWbcMRh; arc=none smtp.client-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=q-lab.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=q-lab.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="dCtzcq08"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=lontium.com; s=default;
-	t=1778125256; h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Type;
-	bh=8hlh69TLukXNhYn2CsDByyP7GpON+gsj+HvV8295yUE=;
-	b=dCtzcq08Civ7qnXkNrPhSJVcujl9YkKT3d8z+NYy2N7oKhaLBYBNM9zAL9rZak7MZYN+vosaSEEg1OrXDqelYUEmqQaMk0RZG6rruvCp3ytaZkVierTj1BnDWzVIoaDtUEVpNG4JuTtERz9idMY8c3WYkaBG2VSOgzD7usDA8MU6um3qrXa5JAzuTPGW3z9Cxgp2KfDYOJ9Huqfpa3G1Y0p9eUjqBBKDqV5RsPFGWajjmcwrq91U/M5RkAUt1o4hWbAjZaiL2R/JhbPrVOOsDBYnNeDDoX6VAl02Oq+61UikKs4LYgdf02KH9QiXIh6q4eJDlUCEvXmYOZKAGLlirQ==
-X-Alimail-AntiSpam:AC=SUSPECT;BC=0.599292|-1;BR=01201311R171b1;CH=blue;DM=|SUSPECT|false|;DS=CONTINUE|ham_system_inform|0.183518-0.00602126-0.810461;FP=9943956383045776352|2|1|12|0|-1|-1|-1;HT=maildocker-contentspam033037017159;MF=syyang@lontium.com;NM=1;PH=DS;RN=22;RT=22;SR=0;TI=SMTPD_---.hRFuTI8_1778125252;
-Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com fp:SMTPD_---.hRFuTI8_1778125252 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 07 May 2026 11:40:54 +0800
-From: syyang@lontium.com
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	dmitry.baryshkov@oss.qualcomm.com,
-	maarten.lankhorst@linux.intel.com,
-	rfoss@kernel.org,
-	mripard@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com,
-	tzimmermann@suse.de,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	yangsunyun1993@gmail.com,
-	xmzhu@lontium.corp-partner.google.com,
-	xmzhu@lontium.com,
-	rlyu@lontium.com,
-	xbpeng@lontium.com,
-	Sunyun Yang <syyang@lontium.com>
-Subject: [PATCH v5 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
-Date: Thu,  7 May 2026 11:40:49 +0800
-Message-Id: <20260507034049.97765-1-syyang@lontium.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=q-lab.dev header.i=@q-lab.dev header.b="KIUb2vCd";
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="YVWbcMRh"
+DKIM-Signature: a=rsa-sha256; b=KIUb2vCd7oLJkTnwKjVpfxsqACnG5qWwCFRu8/Hdn9tcHiAzpvp4I3CzW2C6T7jj/x5v6hDN6GZ19wXtoSFuTiE41/iwIt45npDeybbGwyr6dbjX8IZtFQ4CekZFLU2HK7DC5t+7bGx4H+jC3DSIR9bUdwzESokOFrb9+sez5GEsk1SCRC9ul+WS6fL8qgH8SiWBKGf6KWCa4d34J0iJlLtYMJHdg2tX27p6LB0p7AuJOj9k9W16Go49DFIXU9nbRprJJMDPjgMzBPoY58yYKMHgGlMmZypkDHwu4JXce4R0pU1KjXOEfIFpVQMjMWVt3M/JIft1wY7sOjon7mkB4Q==; s=purelymail1; d=q-lab.dev; v=1; bh=ksNZwP1dJGNhhXlR7TirkycPIhvvbe9kAdiewChEkao=; h=Received:Date:Subject:To:From;
+DKIM-Signature: a=rsa-sha256; b=YVWbcMRhzyTa0/9I96YebYulkD5VwA6XjP7FDbQJ8cL1XDkqBPs3LfgFg0tIP0KZ1RjHhr9K//6cqAmS6s0J8XyDijo2IilIPDKabvfMHWC9B8QA7MaS+wFHrI7IJB9+Ew1ixinDGWcYJyMAYbzOhjb8dLs8KL0pLLndQSawN0oht9fX9tqvb0PC9lycXAaqvfVTU/jjXE706IgH52GUurc0WqJlOhhRBXfamfPu8EVq13AlUZsYxPQA1xeDEKaQjkdRBISwDDfvUfwHmaQUJ0DarRwcmATPm3m81l2V/HeEl8T0UgwIteBhX982DpipSE0hEBRuIWqLN4Lcbe+fMg==; s=purelymail1; d=purelymail.com; v=1; bh=ksNZwP1dJGNhhXlR7TirkycPIhvvbe9kAdiewChEkao=; h=Feedback-ID:Received:Date:Subject:To:From;
+Feedback-ID: 284201:25281:null:purelymail
+X-Pm-Original-To: devicetree@vger.kernel.org
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -578679034;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Thu, 07 May 2026 04:12:22 +0000 (UTC)
+Message-ID: <a7daefb2-3ab4-43db-b7cc-c3b7d0c0fae4@q-lab.dev>
+Date: Wed, 6 May 2026 21:12:20 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v3 2/2] media: i2c: Add onsemi AR0234 image sensor
+ driver
+To: Alexander Shiyan <eagle.alexander923@gmail.com>,
+ linux-media@vger.kernel.org
+Cc: Isaac Scott <isaac.scott@ideasonboard.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Dongcheng Yan <dongcheng.yan@intel.com>, devicetree@vger.kernel.org,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Hans de Goede <johannes.goede@oss.qualcomm.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mehdi Djait <mehdi.djait@linux.intel.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Jingjing Xiong <jingjing.xiong@intel.com>,
+ Svyatoslav Ryhel <clamor95@gmail.com>
+References: <20260306103614.3208182-1-eagle.alexander923@gmail.com>
+ <20260306103614.3208182-3-eagle.alexander923@gmail.com>
+Content-Language: en-US
+From: Quentin Freimanis <quentin@q-lab.dev>
+In-Reply-To: <20260306103614.3208182-3-eagle.alexander923@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Sunyun Yang <syyang@lontium.com>
+On 3/6/26 2:36 AM, Alexander Shiyan wrote:
+> +
+> +static int ar0234_set_ctrl(struct v4l2_ctrl *ctrl)
+> +{
+> +	struct ar0234 *ar0234 = container_of(ctrl->handler,
+> +					     struct ar0234, ctrls);
+> +	int ret = 0;
+> +
+> +	if (ctrl->flags & V4L2_CTRL_FLAG_READ_ONLY)
+> +		return 0;
+> +
+> +	if (ctrl->id == V4L2_CID_VBLANK) {
+> +		int exposure_max = ar0234->crop.height + ctrl->val - 1;
+> +		int exposure_val = clamp(ar0234->exposure->val,
+> +					 AR0234_EXPOSURE_MIN, exposure_max);
+> +
+> +		ret = __v4l2_ctrl_modify_range(ar0234->exposure,
+> +					       AR0234_EXPOSURE_MIN,
+> +					       exposure_max,
+> +					       AR0234_EXPOSURE_STEP,
+> +					       exposure_val);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	if (pm_runtime_get_if_in_use(ar0234->dev) == 0)
+> +		return 0;
+> +
+> +	switch (ctrl->id) {
+> +	case V4L2_CID_HBLANK:
+> +		cci_write(ar0234->regmap, AR0234_REG_LINE_LENGTH_PCK,
+> +			  (ar0234->crop.width / 4) + ctrl->val, &ret);
 
-LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
-mipi dsi and output hdmi, differences in hardware features:
-- LT9611C: supports 1-port mipi dsi to hdmi 1.4
-- LT9611EX: supports 2-port mipi dsi to hdmi 1.4
-- LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
+should be (crop->width + ctrl->val) / 4, &ret) to keep the control in 
+units of pixels
 
-Signed-off-by: Sunyun Yang <syyang@lontium.com>
----
- .../bindings/display/bridge/lontium,lt9611.yaml           | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+> +		break;
+> +	case V4L2_CID_VBLANK:
+> +		cci_write(ar0234->regmap, AR0234_REG_FRAME_LENGTH_LINES,
+> +			  ar0234->crop.height + ctrl->val, &ret);
+REG_FRAME_LENGTH_LINES seems to actually be total lines - 5
 
-diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
-index 429a06057ae8..b20a43456b01 100644
---- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
-+++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
-@@ -4,19 +4,23 @@
- $id: http://devicetree.org/schemas/display/bridge/lontium,lt9611.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
--title: Lontium LT9611(UXC) 2 Port MIPI to HDMI Bridge
-+title: Lontium LT9611(UXC/C/EX/UXD) 2 Port MIPI DSI to HDMI Bridge
- 
- maintainers:
-   - Vinod Koul <vkoul@kernel.org>
- 
- description: |
--  The LT9611 and LT9611UXC are bridge devices which convert DSI to HDMI
-+  The LT9611、LT9611UXC、LT9611C、LT9611EX and LT9611UXD
-+  are bridge devices which convert DSI to HDMI
- 
- properties:
-   compatible:
-     enum:
-       - lontium,lt9611
-       - lontium,lt9611uxc
-+      - lontium,lt9611c
-+      - lontium,lt9611ex
-+      - lontium,lt9611uxd
- 
-   reg:
-     maxItems: 1
--- 
-2.34.1
+I had to make these 2 changes to be able to get the expected framerate 
+when not using the default 120fps.
 
+> +		if (ret)
+> +			break;
+> +		ctrl = ar0234->exposure;
+> +		fallthrough;
+> +	case V4L2_CID_EXPOSURE:
+> +		cci_write(ar0234->regmap, AR0234_REG_COARSE_INTEGRATION_TIME,
+> +			  ctrl->val, &ret);
+> +		break;
+> +	case V4L2_CID_ANALOGUE_GAIN:
+> +		ret = ar0234_set_analog_gain(ar0234, ctrl->val);
+> +		break;
+> +	case V4L2_CID_DIGITAL_GAIN:
+> +		cci_write(ar0234->regmap, AR0234_REG_GLOBAL_GAIN,
+> +			  ctrl->val, &ret);
+> +		break;
+- Quentin
