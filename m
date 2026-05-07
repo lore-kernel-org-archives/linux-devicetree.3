@@ -1,52 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC6BB372B23;
-	Thu,  7 May 2026 18:19:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65CB83C0600;
+	Thu,  7 May 2026 18:19:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778177940; cv=none; b=Ta0aVJj3CbI2rhsojSej5WVQzhhOtWLdCQtn1fRpRP5tny5I52rp7jxlpkYPg1Khg8xULWjJ5RMLkIrEI/Y6mfK8WZFjVC+MyVfWjOkgTvn1pDBX65WQv2ubByLisYmvK3+kkHn+/kdXYOWqfTKKWj5Gp8USJMVkF0uH/+ZR7Es=
+	t=1778177962; cv=none; b=AaKJEkbT3GZl4AMzdFYuczctt/xznFeghvu5UgwS3IDqIUGLwVuHS7UQceBX6hvXwT8LXFSS8XnEisuw1bDu2JeFttin4liou9EW/+/WV6ZTjI+QENdc4OflpKkQDlfrgGqR10Aucoy7+QXFnHwBpNOCh2aLhvZpOH/O+bC93ZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778177940; c=relaxed/simple;
-	bh=QEvcEiZ4DMyLHBvFxsRZR994tE2Q0TBVuSxKL5PjWQk=;
+	s=arc-20240116; t=1778177962; c=relaxed/simple;
+	bh=L13Ya1YLtr11/2vSHCsuWV2gqbbrk3THnoiNxoiKkoE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C/y5E4htvaZPmh3qYw9Q21/QnlZ2SEtzDlJ4kiL+KRkuOu2gaGj+ZPJhtxp6DkKLupR9jaAeiO/XCluQxgE4G/RZlI8w2ezCQITfSfq4y7HhuAJDjfmhS2HaGxvr0l0poRPcU2Vi9+fi0DcN+Q4uoBUdfNXig2pM0Zuxh5cgGBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cQsoGK6c; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=WU2iz9/P3y9p5PFHAw9inGwnQHmj/2CjVpP/40rKxDdodqKRtdb4HnC0LqVcKLNRNEOKMYDUAGUVE2zziSUt6jpKec3YiiFaqTUdKBACG7qffBGEFxodDAGpu4ev1qQJ8EmHTINiX+NTSPpV720+OMZ2pseDr5NXTDlD1cqw0Zs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FphLEBkW; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cQsoGK6c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66186C2BCB2;
-	Thu,  7 May 2026 18:19:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FphLEBkW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCAA8C2BCB2;
+	Thu,  7 May 2026 18:19:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778177940;
-	bh=QEvcEiZ4DMyLHBvFxsRZR994tE2Q0TBVuSxKL5PjWQk=;
+	s=k20201202; t=1778177962;
+	bh=L13Ya1YLtr11/2vSHCsuWV2gqbbrk3THnoiNxoiKkoE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=cQsoGK6cBX/dmD7+QmFOrj8XxR+5obBACqGcFPMaiOOqAjRc6/M+Se3A5ylQrHuP4
-	 wEGN+TRf62af/saeIGYvRtGNlbrTcH7yUJmOr9XvWIn2C0Y9XTg8+Qp+x9T50q+xRD
-	 R3wt70uvDeHnPXEp7Bb+m/Ua41EaNOw2mcNvusYrR/oqmUHMk7yUGO1Niy4dTEOUBV
-	 nCRAUeK03XGTwgJ6bcjxRWiEbkJA5jqJvYa/FllEOVub3lYGIGjMz4IYXvqS51D+MC
-	 mQaDZS9NVbgdRRr6KAQfSSgAIn7oEsgoNAjxcKN9EgNEu3GiXPBf0dEbzZoovdfuON
-	 iVb+u5MC04DGw==
-Date: Thu, 7 May 2026 13:18:58 -0500
+	b=FphLEBkW2BByd/51JTrKOETzSTkxz355vauLF556Z550I3Vp+8XDuYYZdq755prvL
+	 WEhJgJuudOzkpTdDGu2hZkOA5mq9htHiumi5gPnpJx70xjrxGpPwTLkiQtnTcaDq80
+	 ALyaa1qMgzvHEALZgpRzHSTnw1BxE4P0WOp4m5UIEbojP0vQvv+sCIwe+JOwwKLl8p
+	 iXM5jj/05LCMSoJcztk1bKnc6ErOKN4l6CFxzsreiVSDmWiWpf6+9KaCtwehcKBq1M
+	 /jMMUbrLADPOk54Y4a6KNJbLXzl/u6B6QjjDN36vJrmJukVXGmxgsRNS9fIkOaqZvN
+	 C9d2y1omsOzEg==
+Date: Thu, 7 May 2026 13:19:20 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, devicetree@vger.kernel.org,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Cc: linux-arm-kernel@lists.infradead.org,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>, linux-media@vger.kernel.org,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-renesas-soc@vger.kernel.org,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>
-Subject: Re: [PATCH 2/3] media: dt-bindings: media: renesas,vsp1: Document
- RZ/T2H and RZ/N2H SoCs
-Message-ID: <177817793758.2205763.3661767367311596508.robh@kernel.org>
-References: <20260430100929.1088281-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260430100929.1088281-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	linux-kernel@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	iommu@lists.linux.dev, Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: arm-smmu: qcom: Add compatible for Qualcomm
+ Shikra SoC
+Message-ID: <177817795959.2206284.11592002109697803806.robh@kernel.org>
+References: <20260430-shikra-smmu-binding-v1-1-1a28572ebccf@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -55,25 +47,19 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260430100929.1088281-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260430-shikra-smmu-binding-v1-1-1a28572ebccf@oss.qualcomm.com>
 
 
-On Thu, 30 Apr 2026 11:09:28 +0100, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On Thu, 30 Apr 2026 17:54:44 +0530, Komal Bajaj wrote:
+> Qualcomm Shikra SoC includes an apps SMMU that implements arm,mmu-500,
+> which is used to translate device-visible virtual addresses to physical
+> addresses. Add compatible for it.
 > 
-> Document the VSP2 blocks present on the RZ/T2H and RZ/N2H SoCs.
-> 
-> The VSP2 implementation on these SoCs is identical to that on the
-> RZ/G2L SoC.
-> 
-> Update the schema to disallow the "resets" property for these SoCs to
-> reflect the hardware integration.
-> 
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
 > ---
->  .../devicetree/bindings/media/renesas,vsp1.yaml | 17 ++++++++++++++++-
->  1 file changed, 16 insertions(+), 1 deletion(-)
+>  Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 > 
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
