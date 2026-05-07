@@ -1,173 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10B6031F988;
-	Thu,  7 May 2026 05:12:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE86132D43C
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 05:14:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778130755; cv=none; b=cctcJmwVSqI8QqcYZKJGVrMslza2AVM1/c3m1Vx5VoiLBxCxINr1+ApKL1Cn1frvNgdzAkEsKkiz2owCkM0gnbe+WjSE5SHRJR9CQuw5FLwxqgYbTCvzuIKDrc6puDvDuYfRnQMBYg4s+oM6bcVK4DoF/v1tR/X6aSo8XceaWqk=
+	t=1778130866; cv=none; b=mcHwbQUMs394L7cK1RlFGZYKEevOH4M3la3CVRv9MK9yo0YE0PyRtUAoSdXyFRhKUoI4hH37eL0Y6uadErnaF+p01GLAGXH9NT0GQ6a2WxRinIBK5r+qW0Ug0ff9LI7nXR5X53/A67XX6JNDtBq/YHOaifBGbx0XuOkd4L6L6s0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778130755; c=relaxed/simple;
-	bh=xr3nP/6V7+777LfTLLcyKXsjbdL+xpZf3cjxFBvkFAI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=I86/SZ3QCnP1ATf8uAFWetnDHW0qdBP8iSyiSlVetxfQBtxWZbJW8rTWanr8IzNXpzCGlRDJcbOiqQ0bUFzuXDvKxvNZON0Y7SYNTfLFL06t5OiVrxgrWhC1ER+wZ0wRZ46DiTGzeeXi/J+WDV1V16uzaDwc7fF6sHY3j2bA26E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QlJ/Ty1H; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QlJ/Ty1H"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DA50EC2BCF7;
-	Thu,  7 May 2026 05:12:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778130754;
-	bh=xr3nP/6V7+777LfTLLcyKXsjbdL+xpZf3cjxFBvkFAI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=QlJ/Ty1HkYUqLdP9dZhS8AR9EVp+DIEp5WjCZAwy02TpEPoIOSyhmL/OlbMBRB9to
-	 nCrv+95foXL71xurD3xusxeBtfKz7ItbESwSMKLJcL+f2/nkzDZ4Uwy0XEzMRoFKaU
-	 U0bSyHY+ddSPUSN7ZSSiLB5ziNsZJXHl7JbHefMsdzF0NwyOpB8aBPYDgsNO0FtNRq
-	 cDWMopaqlNfHznyoZ0QclfSNa2DQCoV/y/sIEXWSpVu/l2P0Lpe4bbZdxlyNHmJl8s
-	 9zkNEeOoqT2M/HgcJd5F0QWJm74p7b49rFIbxC7eyiePidCDNuqE/fbL8YK8sRHHhp
-	 AER00nlWLXGMw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CFBB8CD3427;
-	Thu,  7 May 2026 05:12:34 +0000 (UTC)
-From: Colin Huang via B4 Relay <devnull+u8813345.gmail.com@kernel.org>
-Date: Thu, 07 May 2026 13:12:28 +0800
-Subject: [PATCH v4 3/3] hwmon: (pmbus) add support for Delta E50SN12051
+	s=arc-20240116; t=1778130866; c=relaxed/simple;
+	bh=vGykLeLTi2D+nlzGa2x/h5//HeZHnJS5Sgihc8zqRtc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oIWpZUvNlwvmY83/KNzC2y9KNT17rwGWF5Pi9eELGoa2dt4G4JCMcYNgpSy76Mw/WEO7jdFrcvMEkoSprMgLpOX86Dv5Jb1HR3+ABEhBa3MjEarxk3ZckuOln5iTe7GlvQ/N9X0mqFTr6NqdkH6BbKBdprnRUoOcuVfuH7eXs0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <ore@pengutronix.de>)
+	id 1wKr3u-0000W0-1f; Thu, 07 May 2026 07:14:14 +0200
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1wKr3t-000rc3-0Z;
+	Thu, 07 May 2026 07:14:13 +0200
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1wKr3t-00000005d90-26XP;
+	Thu, 07 May 2026 07:14:13 +0200
+Date: Thu, 7 May 2026 07:14:13 +0200
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: kernel@pengutronix.de, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH v1 0/7] ARM: dts: stm32: Fix mecio1 hardware revisions
+ and ADC/GPIO mappings
+Message-ID: <afwfpST_NNAWSo1l@pengutronix.de>
+References: <20260318105123.819807-1-o.rempel@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260507-add-e50sn12051-v4-3-ff2b3768ac7e@gmail.com>
-References: <20260507-add-e50sn12051-v4-0-ff2b3768ac7e@gmail.com>
-In-Reply-To: <20260507-add-e50sn12051-v4-0-ff2b3768ac7e@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Kevin Chang <kevin.chang2@amd.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- Colin Huang <colin.huang2@amd.com>, Colin Huang <u8813345@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778130752; l=3403;
- i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
- bh=kdG0eiaCamlrenMRC/OYLox58O/g4hUW+Ptrly3KsCw=;
- b=3SFF8ddWjwcxaAKTICC2yQlTlq07wUkwe+AZvba1ZEqbveZXQpsMZrA7COET8+tZ97m365kAE
- aIS+Y9BGg0UBNkt/XN4iuKfee6Bfw6VIKqHgch2/UDpEdK7yWFLirrG
-X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
- pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
-X-Endpoint-Received: by B4 Relay for u8813345@gmail.com/20260202 with
- auth_id=761
-X-Original-From: Colin Huang <u8813345@gmail.com>
-Reply-To: u8813345@gmail.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260318105123.819807-1-o.rempel@pengutronix.de>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ore@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-From: Colin Huang <u8813345@gmail.com>
+Hi Alexandre,
 
-Add the pmbus driver for Delta E50SN12051 600W Non-isolated
-1/8th Brick DCDC Power Modules.
+Can you please take a look at this patch stack :)
 
-Signed-off-by: Colin Huang <u8813345@gmail.com>
-Reviewed-by: Guenter Roeck <linux@roeck-us.net>
----
- drivers/hwmon/pmbus/Kconfig      |  9 +++++++
- drivers/hwmon/pmbus/Makefile     |  1 +
- drivers/hwmon/pmbus/e50sn12051.c | 52 ++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 62 insertions(+)
+Best Regards,
+Oleksij
 
-diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-index 8f4bff375ecb..4fbfcbc4a9c5 100644
---- a/drivers/hwmon/pmbus/Kconfig
-+++ b/drivers/hwmon/pmbus/Kconfig
-@@ -161,6 +161,15 @@ config SENSORS_DPS920AB
- 	  This driver can also be built as a module. If so, the module will
- 	  be called dps920ab.
- 
-+config SENSORS_E50SN12051
-+	tristate "Delta E50SN12051 Power Modules"
-+	help
-+	  If you say yes here you get hardware monitoring support for Delta
-+	  E50SN12051 Power Modules.
-+
-+	  This driver can also be built as a module. If so, the module will
-+	  be called e50sn12051.
-+
- config SENSORS_INA233
- 	tristate "Texas Instruments INA233 and compatibles"
- 	help
-diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
-index 7129b62bc00f..fc910bf34fe3 100644
---- a/drivers/hwmon/pmbus/Makefile
-+++ b/drivers/hwmon/pmbus/Makefile
-@@ -17,6 +17,7 @@ obj-$(CONFIG_SENSORS_FSP_3Y)	+= fsp-3y.o
- obj-$(CONFIG_SENSORS_HAC300S)	+= hac300s.o
- obj-$(CONFIG_SENSORS_IBM_CFFPS)	+= ibm-cffps.o
- obj-$(CONFIG_SENSORS_DPS920AB)	+= dps920ab.o
-+obj-$(CONFIG_SENSORS_E50SN12051) += e50sn12051.o
- obj-$(CONFIG_SENSORS_INA233)	+= ina233.o
- obj-$(CONFIG_SENSORS_INSPUR_IPSPS) += inspur-ipsps.o
- obj-$(CONFIG_SENSORS_IR35221)	+= ir35221.o
-diff --git a/drivers/hwmon/pmbus/e50sn12051.c b/drivers/hwmon/pmbus/e50sn12051.c
-new file mode 100644
-index 000000000000..efb4d62b2603
---- /dev/null
-+++ b/drivers/hwmon/pmbus/e50sn12051.c
-@@ -0,0 +1,52 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Hardware monitoring driver for E50SN12051
-+ */
-+
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/mod_devicetable.h>
-+#include "pmbus.h"
-+
-+static struct pmbus_driver_info e50sn12051_info = {
-+	.pages = 1,
-+	.format[PSC_VOLTAGE_IN] = linear,
-+	.format[PSC_VOLTAGE_OUT] = linear,
-+	.format[PSC_CURRENT_OUT] = linear,
-+	.format[PSC_TEMPERATURE] = linear,
-+	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_STATUS_INPUT |
-+		   PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT |
-+		   PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT |
-+		   PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP,
-+};
-+
-+static const struct i2c_device_id e50sn12051_id[] = { { "e50sn12051", 0 }, {} };
-+MODULE_DEVICE_TABLE(i2c, e50sn12051_id);
-+
-+static const struct of_device_id e50sn12051_of_match[] = {
-+	{ .compatible = "delta,e50sn12051" },
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, e50sn12051_of_match);
-+
-+static int e50sn12051_probe(struct i2c_client *client)
-+{
-+	return pmbus_do_probe(client, &e50sn12051_info);
-+}
-+
-+static struct i2c_driver e50sn12051_driver = {
-+	.driver = {
-+		.name = "e50sn12051",
-+		.of_match_table = e50sn12051_of_match,
-+	},
-+	.probe = e50sn12051_probe,
-+
-+	.id_table = e50sn12051_id,
-+};
-+
-+module_i2c_driver(e50sn12051_driver);
-+
-+MODULE_AUTHOR("Kevin Chang <kevin.chang2@amd.com>");
-+MODULE_DESCRIPTION("PMBus driver for E50SN12051");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("PMBUS");
+On Wed, Mar 18, 2026 at 11:51:16AM +0100, Oleksij Rempel wrote:
+> This series updates the STM32MP15x MECIO1 device trees to properly
+> account for the physical hardware changes between the R0 and R1 board
+> revisions.
+> 
+> David Jander (7):
+>   ARM: dts: stm32: stm32mp15x-mecio1-io: Enable internal ADC reference
+>   ARM: dts: stm32: stm32mp15x-mecio1-io: Fix ADC sampling times
+>   ARM: dts: stm32: stm32mp15x-mecio1-io: Move divergent mecio1 ADC
+>     channels to board files
+>   ARM: dts: stm32: stm32mp15x-mecio1-io: Fix GPIO names typo
+>   ARM: dts: stm32: stm32mp15x-mecio1-io: Move gpio-line-names to board
+>     files
+>   ARM: dts: stm32: stm32mp15x-mecio1-io: Fix expander gpio line typo
+>   ARM: dts: stm32: stm32mp15x-mecio1-io: Move expander gpio-line-names
+>     to board files
+> 
+>  arch/arm/boot/dts/st/stm32mp151c-mecio1r0.dts | 128 +++++++++++++++
+>  arch/arm/boot/dts/st/stm32mp153c-mecio1r1.dts | 144 +++++++++++++++++
+>  .../arm/boot/dts/st/stm32mp15x-mecio1-io.dtsi | 146 ++----------------
+>  3 files changed, 288 insertions(+), 130 deletions(-)
+> 
+> --
+> 2.47.3
+> 
+> 
 
 -- 
-2.34.1
-
-
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
