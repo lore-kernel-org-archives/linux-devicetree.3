@@ -1,184 +1,118 @@
-Received: from smtp-usa1.onexmail.com (smtp-usa1.onexmail.com [52.205.10.60])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8910D3EBF06;
-	Thu,  7 May 2026 10:38:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.205.10.60
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A15A93D525B;
+	Thu,  7 May 2026 10:38:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778150286; cv=none; b=E9fRqabVj9txi1iwGl3cfEs3C3ihC7X+fxz1+aZg+SIwv4pQwfe/AOfqf93fnUh41gcRAlNZ1qgiEaLdlvWqSnCGDicQF4RZCCUh0OBuN+jj3PH9F9VlAZr+oTn5JqUJ9OLm50+9yWWGWU9oIDf4E7KQv2H0bg7ZMjcnsYZVzho=
+	t=1778150314; cv=none; b=RtcpG0V+SfDQOUghjp22HSRKiOqsN/QI+YVJzIYd+LlGmYKR/IKtBrJx2igliR56KsDCc6ke8fr4N6p9eRDj94kThM9Rflu8+X1eNANwI5AolaZKx2bW6TPqpGxfuiQhgZZ8uUn5RVuKBYbVs0KcQ7KnoXS7x5stWHdmm2lniiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778150286; c=relaxed/simple;
-	bh=ldqSgxXBwNiVbDM1IvgqKUTueYaDUJx3Byc33LhWAOM=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=punMsRCI/bKnp6jzbGcWE81dCRfYHTAaSm5TQ2B5ZfYIoASG+8gIJ6wZswwHeEGxuh5N7J+e1Z/JuQk3bFvArzJeysf2REAibAnkmZZ4nuHxwy5RuwsRQA6nP99Mmyyw+BnfqmYkzjaCw7wNYWBJu9HcVoe3gQSQzVnQz9wHxpw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=pPm9zhAA; arc=none smtp.client-ip=52.205.10.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1778150314; c=relaxed/simple;
+	bh=ydmTmsjfRJ0hth7ILhAiLaP0jMYvJoZgq1tSBlpEHq8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FZyB/y3eF5z7KVUBxof27isj8XfLO6UhfJT4bliA7joPFrbOSNt1p+D4UkMjPl8UmLEcTfomylN1nLTH5R/mVa04UaVeEfja+MATwnu88fy32sK/U6vp6xHFdC64KR/PoBnSS1F2dQTKV92xSKnOdlRTw1q05mWth4/jrWFOVdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=SSLrc/lN; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="pPm9zhAA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1778150196;
-	bh=U2qvUhvca7YAn4TE9hm8vvaV7bUDGvf9K7jZFzPWNAI=;
-	h=From:Subject:Date:Message-Id:MIME-Version:To;
-	b=pPm9zhAAlXtpOm6BoZX4qYpXhwjvB+FCQzQ8gujrpM3bnIz3Ez2FM3tCJ3y4nFDd8
-	 +H83HN+6oz/1X5jDXjaI40C1kHAWzKGdHhkXhXyohRbDIOFRARU8U1/L3Sl7l8Hax3
-	 bAct4QzPrTSStplLcpU3GhsUydp2jDNEE6dNCVGc=
-X-QQ-mid: esmtpgz10t1778150187tf7d04fee
-X-QQ-Originating-IP: yFNw69ncz+AtuuWyoTlmv2W5F2yGPj6skwsJzi6XUCo=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 07 May 2026 18:36:23 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 9081812575552162141
-EX-QQ-RecipientCnt: 21
-From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Subject: [PATCH v5 0/4] dmaengine: Add Peripheral DMA support for SpacemiT
- K3 SoC
-Date: Thu, 07 May 2026 18:36:19 +0800
-Message-Id: <20260507-k3-pdma-v5-0-6b9743038026@linux.spacemit.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="SSLrc/lN"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B7DFB664;
+	Thu,  7 May 2026 12:38:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1778150307;
+	bh=ydmTmsjfRJ0hth7ILhAiLaP0jMYvJoZgq1tSBlpEHq8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=SSLrc/lNt577vc7KdRU5Lp7rvS19wjBj/Atp47wfhnbIQE29QoLJ9Z/c0K9jzOxMV
+	 P+0fOPK2eBeuitkxn2PxO76f2/ceMBkRx+EiwzLx0uHlfYzXQHv2INJ3XT+eJWAvEl
+	 2ToegnWLEYNhE3g++h6115a5yHLIzBGuC3nZoonk=
+Date: Thu, 7 May 2026 13:38:30 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	"magnus.damm" <magnus.damm@gmail.com>,
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH 1/4] dt-bindings: display: renesas,rzg2l-du: Add RZ/T2H
+ and RZ/N2H support
+Message-ID: <20260507103830.GM1778786@killaraus.ideasonboard.com>
+References: <20260429170012.366537-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260429170012.366537-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260506195002.GA1778786@killaraus.ideasonboard.com>
+ <CA+V-a8u8=mfR0zDJRNMEjnjrzFVAkOrqtro05Zgd1JFqGRByKw@mail.gmail.com>
+ <TY3PR01MB1134676FA7479724BDCE40649863C2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XMSw6CMBSF4a2Qji1pe1sqjtyHcVDKRRrlkRYJh
- rB3CxNM1OF/cvLNJKB3GMgpmYnH0QXXtTHUISG2Nu0NqStjE8FExoBregfal42h2nINUgKXkJH
- 47j1WbtqkyzV27cLQ+dcGj3xdv42RU04ryEvAXBcKzPnh2ueUht5YbNyQ2q4hKzaKD0BkOyAoo
- 9bk0hpdFCpXfwHYASnkDkAEsCorgZJLw44/gWVZ3qmLEAQpAQAA
-X-Change-ID: 20260317-k3-pdma-7c1734431436
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Guodong Xu <guodong@riscstar.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- Conor Dooley <conor.dooley@microchip.com>, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778150183; l=3272;
- i=troy.mitchell@linux.spacemit.com; s=20250710; h=from:subject:message-id;
- bh=ldqSgxXBwNiVbDM1IvgqKUTueYaDUJx3Byc33LhWAOM=;
- b=crauHPeI0mIdx6vwQqL8WvpzOBga3EoQhdCyHmS5ieLVfZc/nzjT1BuCoHxHx4CdvoQTArni9
- bLTzDEmaHzJB57b4mqdcIVF/sCejA68rcVo9Di7dCHMen4zWLdftqNh
-X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=ed25519;
- pk=lQa7BzLrq8DfZnChqmwJ5qQk8fP2USmY/4xZ2/MSsXc=
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MpCQQy/6khKPen/hkdZhEGd2VxONjZrFsrRw3OeICzwgyhhhjPF+jdCw
-	MT91bCLgpE/gz5kS/sE4AyjuU037MtZmSg2MociK431sCQEa6Z2jwp6t/d/zl5Su7gNGu2K
-	60rCWrUaXvt3Xdr/xK5byV5ahtZLpnw/k6DLnfbo+tsx0pARZJC5GUjzp4kCuOf/uhJlBli
-	S9uUddS2810LkfNEbp3oL1BR2LCbjBtoafO5NxwN5tdGDysgnw7zV2tNGerUDjRXsXg248K
-	UBRcs7WJHkJJKYGjYPshIUBumi0Xs+m34udyfj+t01dAVVQIaJgx6YHLd9Wr62MO+68VPR/
-	VaLbuQSThUaUb/RC0R/LBw25aJCjlTlxsTrCH85zZFTLjP02E20avloSfxfk+pD1U0MXJwJ
-	c8UK2eVXAfJQTzgP6eOg2e4dhDbuFHKdGhpubbvO1vplhdrC0sg35kI/sBT2OUSR2L25REb
-	eVgnYruAGzg7AlxvFeZ14kUOflT1tyStQIDXzKubXHiSrNdoTBdhKVLyaeQTmv53wAVefI6
-	iXXX9BmLnq3CrHl3rqfsNddnBtt9YR9c3yFX0jtFQzzbtKJzubyKlwjZAiKYsWd0VMEAKIr
-	bvjHHBcGbnuXE0GFJ0jFuOvu+HnI+aSgLgGRhh3MmQZWJmqpXEIXzxGS3Z1cnpb5IxPH5KE
-	1kr1bVswc5gat9kDmFq1naCPmL441FQCj9hfGzbjf2hPpoFD9vQELohtSVYcqhEa9DQRvUM
-	Zm+LRaHHsbhSa9hLsTVb/IaP16lIscBNp7MZ+CInl4gQu4zkedwgf80esQ5kKDn1LZc9Hu2
-	l0Wybd4F1L+cIwmw1SrR4u1+C6oYnCd+TO4w8UHDFjrd1iEmlEmrzV25224AkRy2UBbWVes
-	vyNjkFN76eWVDrmClNVEMWV5XhKQqwZaMpu/+TXSa1vQEI0koLBiLqiNGn7xXy4fQDnH9fv
-	CPtEY7hJsuOtGy7MOKSokujH0vr9GQuJ7nV/vOqsqhs+NRL70k1VC4bJ0Q2MgIKGUrSuTeL
-	FcjS/YeiBmjA60g+bbVjCYhtgVx3WqsA5ijz2bFiq1dCI6zRWMcSAEkypKtidEZweI84CXR
-	seUUM8fAjca6AaS3HGzVlBSPSRaBrCmffivuMSW5OJk7Vyo9UivP5U8N9YvUGD2eg0odJJv
-	rK+d1kGuXhb7NvP4GKCuAdbw5o1WqJSUyLSoklh6MwfZjWu/mR7rZZ/bBif1oKZOoKH6w++
-	U53Fp9ek=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <TY3PR01MB1134676FA7479724BDCE40649863C2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
 
-Hi all,
+On Thu, May 07, 2026 at 09:24:48AM +0000, Biju Das wrote:
+> On 06 May 2026 20:58, Lad, Prabhakar wrote:
+> > On Wed, May 6, 2026 at 8:50 PM Laurent Pinchart wrote:
+> > > On Wed, Apr 29, 2026 at 06:00:09PM +0100, Prabhakar wrote:
+> > > > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > > >
+> > > > Document the Display Unit (DU) support for the RZ/T2H and RZ/N2H SoCs.
+> > > >
+> > > > The DU block on RZ/T2H is functionally equivalent to the RZ/G2UL DU
+> > > > and supports the DPI interface, but includes SoC-specific register differences.
+> > > > Add a dedicated compatible string to represent this variant.
+> > > >
+> > > > As the DU implementation on RZ/N2H matches RZ/T2H, describe it using
+> > > > an RZ/N2H specific compatible string with the RZ/T2H compatible as fallback.
+> > > >
+> > > > Unlike other DU variants which use a multi-port model, the RZ/T2H
+> > > > and RZ/N2H DU has a single output and is modelled using a single
+> > > > port node with one endpoint. Add a port property to support this and
+> > > > update the allOf constraints accordingly.
+> > >
+> > > Wouldn't it be simpler to always have a "ports" node, even for
+> > > variants with a single port ?
+> > >
+> > I agree that, from a binding perspective, always having a "ports" node keeps things simpler and
+> > consistent. Biju suggested this change based on earlier feedback for the RZ/G3E series.
+> 
+> From G3E feedback, I got the impression that going forward all future SoCs needs to have
+> single port and multiple endpoints. That is the reason for suggesting port for new SoCs.
 
-This patch series introduces Peripheral DMA (PDMA) support for the
-SpacemiT K3 SoC, leveraging the existing mmp_pdma driver.
+Right, let's clarify that.
 
-The K3 PDMA IP is largely based on the design found in the previous
-SpacemiT K1 SoC, but introduces a few key architectural differences:
-1. It features a variable extended DRCMR base address for DMA request
-   numbers (>= 64) depending on the hardware implementation.
-2. Unlike the K1 SoC, where some DMA masters had memory addressing
-   limitations (requiring a dedicated dma-bus), the K3 DMA masters
-   have full memory addressing capabilities.
+TL;DR: it depends on the hardware architecture (what a surprise :-))
 
-The series is structured as follows:
-- Patch 1: Introduce the necessary dt-bindings: K3 compatible string.
-- Patch 2-3: Refactor the mmp_pdma driver to support variable extended
-  DRCMR bases, and add the specific implementation/ops for the K3 SoC.
-- Patch 4: Fixes a critical clock issue where the DDR bus clock
-  (top_dclk) could be gated by CCF, which would cause DMA engines to
-  hang and lead to system instability.
-- Patch 5: Finally, instantiates the PDMA controller node in the
-  SpacemiT K3 device tree.
+When reviewing the G3E, I noticed that the LCDC has a single output that
+is connected to one or multiple encoders, depending on the SoC. I think
+this should be modeled in DT with a single port.
 
----
-Changes in v5:
-- drop patch 4/5 (has been merged)
-- add Conor's tag
-- Link to v4: https://lore.kernel.org/all/20260424-k3-pdma-v3-0-efdf2e414a08@linux.spacemit.com/
+Note that this does not preclude using a "ports" node, containing a
+single "port@0". If you're confident enough that no future generation
+will require multiple ports, then it makes sense to standardize on a
+single "port" node and no "ports". If, on the other hand, you think that
+some SoCs would have multiple ports, then using a top-level "ports" node
+unconditionally would lead to simpler bindings.
 
-Changes in v4:
-- patch 4/5:
-  - add Brian's RB tag
-- patch 1/5:
-  - update commit message
-Link to v3: https://lore.kernel.org/all/20260331-k3-pdma-v3-0-a4e60dd8b4b3@linux.spacemit.com/
+I'll let you all decide what you think is the most suitable approach.
 
-Changes in v3:
-- Removed the dt-bindings patches related to the DMA number.
-- patch 1/5:
-  - update commit message
-- patch 2-5: nothing
-- Link to v2: https://lore.kernel.org/r/20260326-k3-pdma-v2-0-ca94ca7bb595@linux.spacemit.com
+-- 
+Regards,
 
-Changes in v2:
-- patch 1-6 are added in this version
-- patch 7/7
-  - update commit message
-  - using k3 compatible string
-  - Link to v1: https://lore.kernel.org/all/20260317-k3-pdma-v1-1-f39d3e97b53a@linux.spacemit.com/
-
-To: Vinod Koul <vkoul@kernel.org>
-To: Frank Li <Frank.Li@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Yixun Lan <dlan@kernel.org>
-To: Guodong Xu <guodong@riscstar.com>
-To: Paul Walmsley <pjw@kernel.org>
-To: Palmer Dabbelt <palmer@dabbelt.com>
-To: Albert Ou <aou@eecs.berkeley.edu>
-To: Alexandre Ghiti <alex@ghiti.fr>
-Cc: dmaengine@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-riscv@lists.infradead.org
-Cc: spacemit@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org
-
----
-Guodong Xu (3):
-      dt-bindings: dmaengine: Add SpacemiT K3 DMA compatible string
-      dmaengine: mmp_pdma: support variable extended DRCMR base
-      dmaengine: mmp_pdma: add Spacemit K3 support
-
-Troy Mitchell (1):
-      riscv: dts: spacemit: Add PDMA controller node for K3 SoC
-
- .../devicetree/bindings/dma/spacemit,k1-pdma.yaml  |  4 ++-
- arch/riscv/boot/dts/spacemit/k3.dtsi               | 11 +++++++
- drivers/dma/mmp_pdma.c                             | 37 ++++++++++++++++++++--
- 3 files changed, 48 insertions(+), 4 deletions(-)
----
-base-commit: 02f90981a67f3b9ee7d6684e7503a4fed7aade0c
-change-id: 20260317-k3-pdma-7c1734431436
-
-Best regards,
---  
-Troy Mitchell <troy.mitchell@linux.spacemit.com>
-
+Laurent Pinchart
