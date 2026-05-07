@@ -1,357 +1,158 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C048319851
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 11:06:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A49037881D
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 11:10:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778151970; cv=none; b=qV2/2AsKOQXdXh6MNO+PeuiQyUBYct+/QHVygjSd5/OK5KweKOZT1xjvaNN6f3nXnbFFK4lW79ffJyH8LzYe5xZybbflHp7CeHMQKT9jk8u0/ndpH1peuz7xyZSpkkaOla/iTordMqN25hBeaHHF1H37uOuRRC9WO2uRK3J/jz0=
+	t=1778152260; cv=none; b=DqgkGsE4mLKmPxcOoXlC7OoB9vf9SXG81OhllcWIIHm22JqyrHqvmMnIAaNLX668FNMZQ89o5d3AZM++UFFEk4OnzSHiIx4iCI+djtAejA7mJprcDor+M9ZfP3WXxUjiSs770GET3DIr9DBbdDaCXveO5nVfVtHc9xVw44tiETI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778151970; c=relaxed/simple;
-	bh=ti060PMT3q/3hquh1ttB+HGSdZG04BJxGRd4ywCRjj8=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tAhjq/fcBYFwOqsQ1187CvmcXgmWoer1tORxgb7e02iITSAOjAqr/ypNpnwAT4pmkHypY06HpL3VZeaPGlC1qg+JkPAS7CJlsKGFVOdGcyldHKTiJPZ+d0DtgDolkq9Qy1NmbYJab82ASItfEOvqpl5JVlfFtBHyfDxZCWBmXTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NO7VkYJB; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778152260; c=relaxed/simple;
+	bh=iwBZ7AtMlhelEvLw+tye8c1q7oBAuTMT4QG11XTcpvs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=S9HwfUQJX46tA1KNBwL3GWj3v5J+p6kAEmVxiAPz7HO7XIgp+6cLfVohQyw4kodLVe37TAChtV7FK8Ze5OEyL2e9mA0JJO5QQzTlViCGS6+xHJVyf4rJHw7PpjcR5mHlmdIAY0Xmf/QD7nh/8TlmUhD6OO+T90WiHCD3KrM+aQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=O8jZkoVA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=g20X+xxt; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NO7VkYJB"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4891e5b9c1fso7196275e9.2
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 04:06:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="O8jZkoVA";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g20X+xxt"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6477pYP81424508
+	for <devicetree@vger.kernel.org>; Thu, 7 May 2026 11:10:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=2Y1kuY6AIGy+U4i/Y7pzL/6z
+	K08GGDx+3n+4jmLdQvU=; b=O8jZkoVAqt+2HLCrU2eOD6YB3L6iTXF67LpCaRSu
+	QAseQv6SNf3eYEndOf+rlKeYTn5xvcmLoniRiabHTBNmoqEMId5tALIdR3xOYLal
+	M80isMChprYO83Hs+kwz+mL4ar0l+0LD04kBgpK1seap2XZ0v0VI+meYkfLPzgo3
+	KBDG4EMuoWNq5Zso9HhvywmqbfipwOrbHtnNVXWsHQgvlbg5GkRkX0VlgFlAuOP/
+	XMvHY5T8+aYuRcvjrt7euN2/KcH6wo7D/lvgSKY71ochyglzsfOMjdPS2CMXeRpC
+	XLTzyjYCysKfoMAX/LiT99/jDAE5AaN5C03ulU4NuObiYA==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0pqfrrh3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 07 May 2026 11:10:52 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-575597e1259so795491e0c.1
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 04:10:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778151967; x=1778756767; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=hpCLhJZC/H4Qpbk7kgqiRtwoNrU27R2wE4dKhhMn9lI=;
-        b=NO7VkYJBKIgy1IeJmWBThnv8JDSJ7hHzHuET060Mhfh7uYvzNS+9CcZOUdF0aPRjU0
-         sxKarq3rBeZN4ekPfUrTN4uGWQLRrHawWkzy5iahPo3cshZXLfcJQ/cDpxuRhXlkEzxK
-         liuwY1buOQuoe5+0pQfXH6bYyYDFMgvqwN5CE6PWy+Au3tVqkohUyxXBs4wvF22ITpJ1
-         wTkgYGffauCgKOeB8yZdNdBW03Cu7jSuVJ7DQ2GY7GkE+Y8ad5/+d+Cy9eMpXzG+HTq+
-         pEhCj6Bn5VE5VAF4UDoWuri3P31Zfq1nvB+pVMT+NgeCQX/p6wWROKChod+Ab35NazWe
-         z2/A==
+        d=oss.qualcomm.com; s=google; t=1778152252; x=1778757052; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=2Y1kuY6AIGy+U4i/Y7pzL/6zK08GGDx+3n+4jmLdQvU=;
+        b=g20X+xxtK858QKAdfgknvaE5wdXkNyjSMvfJhZsM6umA6INVGTekjmpmviDynIAbE7
+         GY0wLAqURl7qTs0JYq3mapcEpWu2Fci6AnGvHS5lWqGGtjLs8omBvAOxFfDObaMfibhF
+         PwM+jNftyf3QhpHC0hygrhI/driWYyGigVa1n8vhZcm/pYz6q4ceKZF/BPx4K6ckm0B3
+         bAxuqhXMrUvK3olSICpxo3v0TDsKXKGpClj5VB/Wav5BaxT0xWZo1kQXQiPQXF/jGCcO
+         UYnUyrkyA2H1y6I7DVw4YAOVH60PjlPH+ZYzE3cyu2qYSL2llSduqNx9xD4WpT/d+f2Z
+         DikQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778151967; x=1778756767;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=hpCLhJZC/H4Qpbk7kgqiRtwoNrU27R2wE4dKhhMn9lI=;
-        b=kkD7S2jMy2096YCFX0FdAdDdu1KPe6QLUigaxI8z5f8QnnLMMwU2VptKMyqQiG2sgt
-         n4h/EUqWeGPzUcN9eF9ylb+5fUsCi+ebYMyDF92T/Mq1T7FNm5VPO3ddOx0ma5ydhBk6
-         MQaIigneedJr7bhm1KE0g3+DGfJFrQvAw5ENqbuMYZjgFREJ4QAqjzowiq+5h7PSsWwB
-         /hy1AIqvWmTFsdBfhORv8hrBGOvCLJcadQPgiS0gdzFmiVqSso5wlPAYeeF1nu/i2pSZ
-         iQ58wKNrjUY4xqhTPc/8ggQlZmCoPCGFKpjFiHcyTrMePn3AZIhbX504g8n5AnxpHKd/
-         3HfA==
-X-Forwarded-Encrypted: i=1; AFNElJ8sjaosXLVpdcMHXXreCKMjanOUTU7WeQnYvqwuTJt9fMvzww27n3dUUgxR79KDHwnyD0ybRV3uD2Gp@vger.kernel.org
-X-Gm-Message-State: AOJu0YwQueRgBiMeAaUlZBLG51Wh1yKpvN/oPnJ3ohP0z1l00WBKpylR
-	WHlG+mbtInO+LKhSKgqTt9F+AmWahFn49is7j8nb9RuyP7vjh/gzIvaG
-X-Gm-Gg: AeBDiet5IJZF03yVRv6W1tx/TSpxswB3z5BEckKGNvyS8xhs1RhUPHX54IUVjkf/reL
-	uEBgVZvjEQtCm1JYZERetXUdAUvB6pox0eH7ABD70McxHcirp4vDfvu1KIRaVnMNZYjmjICmOLI
-	b14vHINUx30ji8maQudmz4KxEDYzGkNfPA413Z4UA2YqgoB2xUd74KG8vFdASogAVSDjrkT9+ra
-	kJqO6YWne+eqyN80Msyf4FnUbPLMUQJkAtoBWRIih4MNHy3vribYG9sX2X3/8xnM5Q3rU4+XmVG
-	qbT2mD8otS69EG/9Yb5oG4RiRXxIrVlt4w/7TBQfwM/W6fooTfputhZLYmpy+2bbf1u41JSYala
-	XnRyrt5+acTvswKz9QUVfP6hBVFlz5LPZDwndnez/FwNwdhaC3nP8JCt2unZByfB4YE5xEVWxLo
-	Awva777Ro0CryelAStBo8XcEkkmz4rKfPsK+FxpnnwfzHJFnvTtUMvSOqj/CpRmcCwq84QAD6K7
-	VlSiDGKtA1A7xWtnkmnJajF/dAYiVurm3Z3g/S9tUJRU5qW5LV/c0p67LTv/9vMvDYWTK8=
-X-Received: by 2002:a05:600c:3208:b0:48a:75b9:b0bc with SMTP id 5b1f17b1804b1-48e51f46c07mr65693395e9.29.1778151965152;
-        Thu, 07 May 2026 04:06:05 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e52f5d299sm59664325e9.0.2026.05.07.04.06.03
+        d=1e100.net; s=20251104; t=1778152252; x=1778757052;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=2Y1kuY6AIGy+U4i/Y7pzL/6zK08GGDx+3n+4jmLdQvU=;
+        b=F5CNCbIR2ieoTTbD5ByGDx3meSND4YRhIPYXqaxmhV8tTQDh1uQerI72+0Pr8IUPGW
+         QqMSZiGpjjvXywZIbqKdTC0D6KXZOYV7+NI/ZtWq5QSmY5eXr8cn1Dw/slRYPTNwFYo9
+         o9idh7AQD7I20jdvXh6jXUuXcMAc40/UHLgTkJQYFFN+Lrgm8eGQ/yHomAO24FC6yQre
+         VI3VgojIrXIKH8dy/OuYY43cy4av3ok7pGyyPLV2eX0FkhmJrbUj3Fggk/B9QYpKvUSk
+         9T5w6SLRKdsk0DICng21I1IrSonOXWcAS66nwOHDsui+OLU8cWb3i/uGEjYDUminO+M6
+         5gVg==
+X-Forwarded-Encrypted: i=1; AFNElJ/3ZjNvmE8/RDPsDSKstw+3pU10a6ZhVHqNrrVDKaPHjjgB3SBz0ZiEtWfxjVjz++4Bzeby81KglBvX@vger.kernel.org
+X-Gm-Message-State: AOJu0YxynlW6gOQPFr36W/NVKZD/3b+w2uDEZLAlwQP749jHqs1STSPO
+	A88ZhBDNo+DItoKHqMyCYxq3K2i7ar+30Yz8Nppno7YwoJNZSiJtPazIWdgBImFa6WViy2rSrp/
+	i8l93+fguEDNo7dBhdhqc7e+XEW1iZ7QfU/ARAgPijB2dAu8PlAL+FQYSJ1wRIT0W
+X-Gm-Gg: AeBDievCbquWiZbxjgPbqUSD61h8ueZHjDAmeHwqTMcLLv1glvMsGplFvreG+AhPh9f
+	c74I/Vek5trV1SFPW9RRdORLjCgmgcjESOdiiY6P81jtKB4tMFeJgS4tLDbfhHMXxdlS2whifXC
+	2DE353hMWH/Rx76AAi31t5fiJN+6GpzXVvg7E5c+Py0jXMVUcpcH3NST7rQEBpCVn7oihXd8V1X
+	F2nNdaSS05foz+cR6V98hu5IuN1zqjKvafSw0e++grVaQOgopdVA/qTEZ9XiiKlLksHd6owCtwN
+	BpCR7cxXF9KUu9O+Rqhv1RcmjdWYaqmMMEW1dEJnpJW781EhGD24LruIu5nFPLHkZB3ZpPo8fsC
+	LcGAIRVMjj7MXq02ZgjMM3RlGaoN6PE9OSBoUS7qZUOZA3IF4MQQJtpZN8ltstwufHaeIiSdYWT
+	01IhY5bkVv/DtU4NXEa/39kodquIswU3kw7I5gf7cKL+jTJdvE5hEJmmdZ
+X-Received: by 2002:a05:6102:84d2:b0:605:38d2:26cc with SMTP id ada2fe7eead31-630f9036c70mr2284826137.26.1778152251754;
+        Thu, 07 May 2026 04:10:51 -0700 (PDT)
+X-Received: by 2002:a05:6102:84d2:b0:605:38d2:26cc with SMTP id ada2fe7eead31-630f9036c70mr2284814137.26.1778152251228;
+        Thu, 07 May 2026 04:10:51 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a85c22de94sm5528582e87.7.2026.05.07.04.10.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 May 2026 04:06:04 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
-Date: Thu, 7 May 2026 12:05:58 +0100
-To: rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-doc@vger.kernel.org
-Cc: Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
-	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Shuah Khan <skhan@linuxfoundation.org>
-Subject: Re: [PATCH v11 07/11] iio: frequency: adf41513: driver implementation
-Message-ID: <5rzmlzst6m2ewcheblimqbv5c64umfhb4mlx34ak65sxpotqgy@jzzmw6cb2vyc>
-References: <20260506-adf41513-iio-driver-v11-0-2b7e99cfe8f2@analog.com>
- <20260506-adf41513-iio-driver-v11-7-2b7e99cfe8f2@analog.com>
+        Thu, 07 May 2026 04:10:50 -0700 (PDT)
+Date: Thu, 7 May 2026 14:10:48 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+Cc: cristian.marussi@arm.com, sudeep.holla@kernel.org, cw00.choi@samsung.com,
+        kyungmin.park@samsung.com, myungjoo.ham@samsung.com,
+        konradybcio@kernel.org, andersson@kernel.org,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        arm-scmi@vger.kernel.org, linux-tegra@vger.kernel.org,
+        linux-pm@vger.kernel.org, jonathanh@nvidia.com,
+        thierry.reding@kernel.org, digetx@gmail.com, conor+dt@kernel.org,
+        krzk+dt@kernel.org, robh@kernel.org
+Subject: Re: [RFC V6 0/8] arm_scmi: vendors: Qualcomm Generic Vendor
+ Extensions
+Message-ID: <nfh7duwh3o6hayhxz4pxwfwng6fi6q4l5rlzlgjjk3atakw4h6@6xbyk3nppdrt>
+References: <20260507062237.78051-1-sibi.sankar@oss.qualcomm.com>
+ <mplk3qvyslzazuolwlcgy6fb6ta7ts63x3dq5wwybyejaxpyh3@fctfzjkyxi55>
+ <605bcc1c-a4ab-4125-a4b9-facf801db26c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260506-adf41513-iio-driver-v11-7-2b7e99cfe8f2@analog.com>
+In-Reply-To: <605bcc1c-a4ab-4125-a4b9-facf801db26c@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=TJB1jVla c=1 sm=1 tr=0 ts=69fc733c cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=kzQ9Fxln275sraQuM_AA:9
+ a=CjuIK1q_8ugA:10 a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDExMSBTYWx0ZWRfXx4n4d4lelMz+
+ 9VU6hKS0uMfDaR2X+oR06wUy8x9sma1fewq9J63eAWDz6CPq/TqwwaJlxiuk8Ntnyk1EkQOm9+m
+ e312jy+radzPfNnWu2S+lVjBUIJMqQ0ioWinY6mjM5fB+HxhBqGjPvJDejIEMORQ52CemLrDO2i
+ h6cVh7p71Frq2/yqeRdO8JwrzwXMsVkYhT8jetbYsnFqXfwHiEXG+wUMaxTaLveTBhXaVubkwrh
+ lVmGgpDIxmdBicI1OsB48kUcbIuoEmEGDSeAqb4wkf2K04FO21hOJPIxaZ9Qu0zGmSaG59jLGHS
+ e4PQyjKgDSpv0swi8D1iumC9HTzzJm+HxDB1wYouBMPycCwDxr1S8ZnfllZABxAJm+OP/kn137G
+ PmX1AY/E2dQUa6tgu0lOflqDzUtcK4fhlXSDSZfqjSURzb+oRTz0v0t5omtrlaazDzr59sstnM3
+ l3L3v7ylkRB9lGQpi8Q==
+X-Proofpoint-GUID: FBiD3am488iNwZebCx-ALzxfO3GlFDpX
+X-Proofpoint-ORIG-GUID: FBiD3am488iNwZebCx-ALzxfO3GlFDpX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-06_02,2026-05-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 lowpriorityscore=0 malwarescore=0 impostorscore=0 bulkscore=0
+ phishscore=0 priorityscore=1501 adultscore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605070111
 
-On 26/05/06 03:08PM, Rodrigo Alencar via B4 Relay wrote:
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+On Thu, May 07, 2026 at 03:28:21PM +0530, Sibi Sankar wrote:
 > 
-> The driver is based on existing PLL drivers in the IIO subsystem and
-> implements the following key features:
+> On 5/7/2026 2:40 PM, Dmitry Baryshkov wrote:
+> > On Thu, May 07, 2026 at 11:52:29AM +0530, Sibi Sankar wrote:
+> > > The QCOM SCMI vendor protocol provides a generic way of exposing a number of
+> > > Qualcomm SoC specific features (like memory bus scaling) through a mixture of
+> > > pre-determined algorithm strings and param_id pairs hosted on the SCMI
+> > > controller. On Qualcomm Glymur and Hamoa SoCs, the memlat governor and the
+> > > mechanism to control the various caches and ram is hosted on the CPU Control
+> > > Processor (CPUCP) and the method to tweak and start the governor is exposed
+> > > through the QCOM SCMI Generic Extension Protocol.
+> > 
+> > Could you please clarify, does this apply to the common commercial
+> > Glymur and Hamoa laptops?
 > 
-> - Integer-N and fractional-N (fixed/variable modulus) synthesis modes
-> - High-resolution frequency calculations using microhertz (µHz) precision
->   to handle sub-Hz resolution across multi-GHz frequency ranges
-> - IIO debugfs interface for direct register access
-> - FW property parsing from devicetree including charge pump settings,
->   reference path configuration and muxout options
-> - Power management support with suspend/resume callbacks
-> - Lock detect GPIO monitoring
+> Yes, they do apply to common commercial Glymur/Hamoa Laptops
+> as is. This is the same solution used on the windows side of things
+> as well. There can be certain cases like Johan has reported earlier
+> where certain oems are stuck with on older version of CPUCP
+> which requires a the memlat string to be sent out in lower case
+> we should be able to handle those as well with overriding those
+> by using driver data and specific compatibles.
 
-Sashiko's feedback:
-https://sashiko.dev/#/patchset/20260506-adf41513-iio-driver-v11-0-2b7e99cfe8f2%40analog.com?part=7
-
-There is a lot of stuff here, most of things are good points, but maybe it
-was not that bad. It could've been worse with those fractional mode calculations.
-
-...
-
-> +static u64 adf41513_pll_get_rate(struct adf41513_state *st)
-> +{
-> +	struct adf41513_pll_settings *cfg = &st->settings;
-> +
-> +	if (cfg->mode != ADF41513_MODE_INVALID)
-> +		return cfg->actual_frequency_uhz;
-> +
-> +	/* get pll settings from regs_hw */
-> +	cfg->int_value = FIELD_GET(ADF41513_REG0_INT_MSK, st->regs_hw[ADF41513_REG0]);
-> +	cfg->frac1 = FIELD_GET(ADF41513_REG1_FRAC1_MSK, st->regs_hw[ADF41513_REG1]);
-> +	cfg->frac2 = FIELD_GET(ADF41513_REG3_FRAC2_MSK, st->regs_hw[ADF41513_REG3]);
-> +	cfg->mod2 = FIELD_GET(ADF41513_REG4_MOD2_MSK, st->regs_hw[ADF41513_REG4]);
-> +	cfg->r_counter = FIELD_GET(ADF41513_REG5_R_CNT_MSK, st->regs_hw[ADF41513_REG5]);
-> +	cfg->ref_doubler = FIELD_GET(ADF41513_REG5_REF_DOUBLER_MSK, st->regs_hw[ADF41513_REG5]);
-> +	cfg->ref_div2 = FIELD_GET(ADF41513_REG5_RDIV2_MSK, st->regs_hw[ADF41513_REG5]);
-> +	cfg->prescaler = FIELD_GET(ADF41513_REG5_PRESCALER_MSK, st->regs_hw[ADF41513_REG5]);
-> +
-> +	/* calculate pfd frequency */
-> +	cfg->pfd_frequency_uhz = (u64)st->ref_freq_hz * MICRO;
-> +	if (cfg->ref_doubler)
-> +		cfg->pfd_frequency_uhz <<= 1;
-> +	if (cfg->ref_div2)
-> +		cfg->pfd_frequency_uhz >>= 1;
-> +	cfg->pfd_frequency_uhz = div_u64(cfg->pfd_frequency_uhz, cfg->r_counter);
-
-	If a user writes 0 to the R_CNT field via debugfs direct register access, won't
-	this cause a division by zero kernel panic?
-
-The 0 value for R counter means 32, so this is a bug indeed.
-
-> +	cfg->actual_frequency_uhz = (u64)cfg->int_value * cfg->pfd_frequency_uhz;
-> +
-> +	/* check if int mode is selected */
-> +	if (FIELD_GET(ADF41513_REG6_INT_MODE_MSK, st->regs_hw[ADF41513_REG6])) {
-> +		cfg->mode = ADF41513_MODE_INTEGER_N;
-> +	} else {
-> +		cfg->actual_frequency_uhz += mul_u64_u32_div(cfg->pfd_frequency_uhz,
-> +							     cfg->frac1,
-> +							     ADF41513_FIXED_MODULUS);
-> +
-> +		/* check if variable modulus is selected */
-> +		if (FIELD_GET(ADF41513_REG0_VAR_MOD_MSK, st->regs_hw[ADF41513_REG0])) {
-> +			cfg->actual_frequency_uhz +=
-> +				mul_u64_u64_div_u64(cfg->frac2,
-> +						    cfg->pfd_frequency_uhz,
-> +						    (u64)cfg->mod2 * ADF41513_FIXED_MODULUS);
-
-	Similarly, if the MOD2 field is written as 0 via debugfs, will this result in
-	a division by zero panic?
-
-I've just checked in hardware and it seems mod2 = 0 behave as mod2 = 1, so it does not fallback to
-fixed modulus. Will adjust so that this is consistent.
-
-...
-
-> +static int adf41513_calc_integer_n(struct adf41513_state *st,
-> +				   struct adf41513_pll_settings *result)
-> +{
-> +	u16 max_int = st->chip_info->has_prescaler_8_9 ?
-> +		      ADF41513_MAX_INT_8_9 : ADF41513_MAX_INT_4_5;
-> +	u64 freq_error_uhz;
-> +	u16 int_value = div64_u64_rem(result->target_frequency_uhz, result->pfd_frequency_uhz,
-> +				      &freq_error_uhz);
-
-	If the target frequency is very high and the PFD frequency is very low, could
-	the 64-bit quotient overflow the u16 int_value and silently truncate?
-	This would bypass the subsequent bounds check on int_value and incorrectly
-	program the hardware instead of returning -ERANGE.
-
-That would be unusual as max_int is way less than U16_MAX, but maybe possible with very low
-ref frequency and very high dividers, so will make int_value as u32.
-
-> +
-> +	/* check if freq error is within a tolerance of 1/2 resolution */
-> +	if (freq_error_uhz > (result->pfd_frequency_uhz >> 1) && int_value < max_int) {
-> +		int_value++;
-> +		freq_error_uhz = result->pfd_frequency_uhz - freq_error_uhz;
-> +	}
-> +
-> +	if (freq_error_uhz > st->data.freq_resolution_uhz)
-> +		return -ERANGE;
-> +
-> +	/* set prescaler */
-> +	if (st->chip_info->has_prescaler_8_9 && int_value >= ADF41513_MIN_INT_8_9 &&
-> +	    int_value <= ADF41513_MAX_INT_8_9)
-> +		result->prescaler = 1;
-> +	else if (int_value >= ADF41513_MIN_INT_4_5 && int_value <= ADF41513_MAX_INT_4_5)
-> +		result->prescaler = 0;
-> +	else
-> +		return -ERANGE;
-
-...
-
-> +static int adf41513_set_frequency(struct adf41513_state *st, u64 freq_uhz, u16 sync_mask)
-> +{
-> +	struct adf41513_pll_settings result;
-> +	int ret;
-> +
-> +	ret = adf41513_calc_pll_settings(st, &result, freq_uhz);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	/* apply computed results to pll settings */
-> +	st->settings = result;
-> +
-> +	dev_dbg(&st->spi->dev,
-> +		"%s mode: int=%u, frac1=%u, frac2=%u, mod2=%u, fpdf=%llu Hz, prescaler=%s\n",
-> +		(result.mode == ADF41513_MODE_INTEGER_N) ? "integer-n" :
-> +		(result.mode == ADF41513_MODE_FIXED_MODULUS) ? "fixed-modulus" : "variable-modulus",
-> +		result.int_value, result.frac1, result.frac2, result.mod2,
-> +		div64_u64(result.pfd_frequency_uhz, MICRO),
-> +		result.prescaler ? "8/9" : "4/5");
-> +
-> +	st->regs[ADF41513_REG0] = FIELD_PREP(ADF41513_REG0_INT_MSK,
-> +					     st->settings.int_value);
-> +	if (st->settings.mode == ADF41513_MODE_VARIABLE_MODULUS)
-> +		st->regs[ADF41513_REG0] |= ADF41513_REG0_VAR_MOD_MSK;
-> +
-> +	st->regs[ADF41513_REG1] = FIELD_PREP(ADF41513_REG1_FRAC1_MSK,
-> +					     st->settings.frac1);
-> +	if (st->settings.mode != ADF41513_MODE_INTEGER_N)
-> +		st->regs[ADF41513_REG1] |= ADF41513_REG1_DITHER2_MSK;
-> +
-> +	st->regs[ADF41513_REG3] = FIELD_PREP(ADF41513_REG3_FRAC2_MSK,
-> +					     st->settings.frac2);
-> +	FIELD_MODIFY(ADF41513_REG4_MOD2_MSK, &st->regs[ADF41513_REG4],
-> +		     st->settings.mod2);
-> +	FIELD_MODIFY(ADF41513_REG5_R_CNT_MSK, &st->regs[ADF41513_REG5],
-> +		     st->settings.r_counter);
-
-	The driver defines ADF41513_MAX_R_CNT as 32, but the ADF41513_REG5_R_CNT_MSK is
-	only 5 bits wide (GENMASK(20, 16)). If r_counter is 32, will this FIELD_MODIFY
-	silently truncate it to 0?
-	If this is truncated to 0, and the device state is invalidated, a subsequent
-	sysfs frequency read would call adf41513_pll_get_rate() and trigger a division
-	by zero panic.
-
-The bitfield with zero value behaves as R_CNT = 32, so this should not be a problem,
-but I suppose that should be explicit and as pointed out above, it is not being taken
-care in adf41513_pll_get_rate().
-
-...
-
-> +static int adf41513_resume(struct adf41513_state *st)
-> +{
-> +	st->regs[ADF41513_REG6] &= ~ADF41513_REG6_POWER_DOWN_MSK;
-> +	return adf41513_sync_config(st, ADF41513_SYNC_DIFF);
-> +}
-
-	If regulators are turned off during system suspend, the hardware registers will
-	be wiped. However, since regs_hw isn't invalidated during suspend, won't
-	ADF41513_SYNC_DIFF falsely assume the hardware is still configured and skip
-	reprogramming it?
-
-Indeed, I might need to use SYNC_ALL here when doing power management.
-
-	Also, doesn't the unconditional clearing of ADF41513_REG6_POWER_DOWN_MSK clobber
-	any prior explicit powerdown request made via sysfs?
-
-Another good point, may need to have a powerdown field in the state struct to
-track this.  
-
-...
-
-> +static int adf41513_parse_fw(struct adf41513_state *st)
-> +{
-
-...
-
-> +	st->data.charge_pump_voltage_mv = ADF41513_DEFAULT_CP_VOLTAGE_mV;
-> +	ret = device_property_read_u32(dev, "adi,charge-pump-current-microamp", &cp_current);
-> +	if (!ret) {
-> +		tmp = DIV_ROUND_CLOSEST(cp_current * cp_resistance, MILLI); /* convert to mV */
-
-	Could cp_current * cp_resistance overflow the 32-bit boundary?
-	If an abnormally large current is provided via devicetree, the overflow could
-	pass the subsequent voltage range checks and configure the hardware with an
-	incorrect charge pump setting. Should this use mul_u32_u32() or a 64-bit cast?
-
-I can add a bound/max check for cp_current first, as it needs to be between 81 and 7200 micro amps.
-
-> +		if (tmp < ADF41513_MIN_CP_VOLTAGE_mV || tmp > ADF41513_MAX_CP_VOLTAGE_mV)
-> +			return dev_err_probe(dev, -ERANGE, "I_CP %u uA (%u Ohms) out of range\n",
-> +					     cp_current, cp_resistance);
-> +		st->data.charge_pump_voltage_mv = tmp;
-> +	}
-
-...
-
-> +static int adf41513_pm_suspend(struct device *dev)
-> +{
-> +	return adf41513_suspend(dev_get_drvdata(dev));
-> +}
-
-	Is it safe to call adf41513_suspend() without acquiring st->lock?
-	This function modifies the shared software register cache and executes SPI
-	writes. It seems this could race concurrently with sysfs reads/writes or
-	IIO core accesses.
-
-Is this a real concern?
-
-...
-
-> +static int adf41513_probe(struct spi_device *spi)
-> +{
-
-...
-
-> +	st->chip_enable = devm_gpiod_get_optional(dev, "enable", GPIOD_OUT_HIGH);
-> +	if (IS_ERR(st->chip_enable))
-> +		return dev_err_probe(dev, PTR_ERR(st->chip_enable),
-> +				     "fail to request chip enable GPIO\n");
-
-...
-
-> +	ret = adf41513_setup(st);
-
-	Is a delay needed between asserting the chip_enable GPIO and sending the first
-	SPI command in adf41513_setup()?
-	Hardware PLLs typically require a wake-up or stabilization time for internal
-	regulators. Without a usleep_range(), could the initial SPI commands be
-	dropped by the hardware?
-
-I havent see the need for this, mostly because a lot seems to be happening before the
-first SPI write and after the chip enable goes high, so I will ignore this.
-
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "failed to setup device\n");
-> +
-> +	ret = devm_add_action_or_reset(dev, adf41513_power_down, st);
-
-	If adf41513_setup() returns an error, the probe function aborts before
-	devm_add_action_or_reset() registers the adf41513_power_down action.
-	Since chip_enable is acquired with GPIOD_OUT_HIGH, devres will disable the
-	regulators but leave the GPIO high. Could this cause the host processor to
-	backpower the unpowered synthesizer IC through its ESD diodes?
-
-Another good point, will separate the reset actions for sw powerdown and chip enable
-gpio.
+Ack, thanks for the confirmation.
 
 -- 
-Kind regards,
-
-Rodrigo Alencar
+With best wishes
+Dmitry
