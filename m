@@ -1,200 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A870030E837;
-	Thu,  7 May 2026 21:22:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5388B326928;
+	Thu,  7 May 2026 21:25:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778188971; cv=none; b=hvXk2qUBArCM0gRSXxKlktwC5qHAHSWgvIE1jvO+h2OK+pU5AWrNnD9puvLIiYtYofM/CJyisGgIFAhOJoe1pA7bG69y9Cenj/9DDtumaYrvJI/E97plPlLY0IuhecgXxlBCMyIwtJVoQUNMVQb7BEj08uNvYNFHS9/XnehTc5E=
+	t=1778189110; cv=none; b=AfEW2E4VsENoaXr8ZUX8BRKrVtqKHjT6FAa/RruSQ1hSOqg38x7qRoU3LReSTvfmiGtHrrQUenuH4fJRuzQ0EcKB7OiTuWMPrz70B8vGTs80TApn7WeUGBpG2k48/9mkne22xiKfle3YdIGgVtrbvwXVBwXEEwWKmKsmDmkCSno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778188971; c=relaxed/simple;
-	bh=fcQuV8WMZWguNDOAHbXa5lYO/Ui/98EqaE3hlGtG44Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=X6VQ1Zsq3EH2F/zJHgVfIpl/bC7i1Jx+UKBHOBFst7+ZAawgFyv52wgWVbFH6orS+IA9U8VepNUf3U5+nNEKnf9FbtsXZlTr0RnNf1G2SUvvG3rxT8/qd7NKyQDckeQdRVt8QokpEwaCvzBvEMAUA9wQXZ7ktmTL6wNOjX5xioc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fm2Gguc/; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778189110; c=relaxed/simple;
+	bh=4xVIrB3BoO25kpWCsGNHbaYhrNjLMgOZJqdAM781Ba0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=n0RDcVjmpVHCAak8NfVXrfTAVvp9qv8WTrD413/RuGZXTEuogo19LHXsGbf+znv9FoK1ef/bUP5aIxrcCMSh6KGHqRspykuMYkPIQK89WqSd8px9XmOfY5B+fDjZ3Ve4cV8rSaANIcvIjLVvz2pDu90+J1nVuLktrgnjl5319dg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sOLHZcyn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fm2Gguc/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31FFBC2BCF5;
-	Thu,  7 May 2026 21:22:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sOLHZcyn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19F25C2BCB2;
+	Thu,  7 May 2026 21:25:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778188971;
-	bh=fcQuV8WMZWguNDOAHbXa5lYO/Ui/98EqaE3hlGtG44Q=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Fm2Gguc/CP29SWELe5aR27miAGHD2sKbHJxjOSO75cX+a9JZ/ttCWEpYK8h4ypTfS
-	 PqNOfQzmZBWWehIHrNRWLl7WhpOCe1wxeVUJl/gDQniKdzneE5NLsuCmTWexZFBiIw
-	 rlDI7o2OS8U+2proT2vNEKDp18oYeooiS28VhN45y8c+BdIXXlpoOf204Ey3AATXAq
-	 7ohK0B8dtjAuSREsFH7RQfNocorPPPjG7Y1iMzU2GWiPOD509deh+KJmtmuRDLmVa2
-	 QGKGq0Q9kd9EjLqyMqSy21uG8NKSy8ku9IDRc0MYMAUAyNzTIRcABxW01Yo6jjA7H9
-	 F37sIzNB1SG0Q==
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-Date: Thu, 07 May 2026 23:21:53 +0200
-Subject: [PATCH net-next v4 10/10] net: airoha: Support multiple LAN/WAN
- interfaces for hw MAC address configuration
+	s=k20201202; t=1778189109;
+	bh=4xVIrB3BoO25kpWCsGNHbaYhrNjLMgOZJqdAM781Ba0=;
+	h=From:To:Cc:Subject:Date:From;
+	b=sOLHZcyng7jEWIx7N1q/jm8C7FHsoVY69SWitvcQ7M2O3YjaRO9f7ONaz7MrP3Wqa
+	 zsOxPtOgvSlQRjbcbARjJBV/yD8Aqs1xPgzFBZLfUeXPOFSEyvJJMsB566vkV3/ZZx
+	 5ldy6tithi+fVbc0+oAG5cpq8XutxP0NFtqvrABUuxyKT7A6rXYBpUK1QP6M2cSIFz
+	 1CQEpg5eA2oUtBWWEpxV8o0iB8+ibyMDGPW58JJdUU/E79Slein8QzNBNHRCZ3aW6J
+	 VRa8cW1ZzlEtBdCkU665GDlHWNTPM4X1S5XsWpDNGi/4HTBxpCcBHux36YsNIMvkfa
+	 FiQl6pTFGzUqg==
+From: Arnd Bergmann <arnd@kernel.org>
+To: netdev@vger.kernel.org
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	"Aaro Koskinen" <aaro.koskinen@iki.fi>,
+	"Andreas Kemnade" <andreas@kemnade.info>,
+	"Bartosz Golaszewski" <brgl@kernel.org>,
+	=?UTF-8?q?Beno=C3=AEt=20Cousson?= <bcousson@baylibre.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	"Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
+	"Eric Dumazet" <edumazet@google.com>,
+	"Felipe Balbi" <balbi@kernel.org>,
+	"Jakub Kicinski" <kuba@kernel.org>,
+	"Johannes Berg" <johannes@sipsolutions.net>,
+	"Kevin Hilman" <khilman@baylibre.com>,
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+	"Linus Walleij" <linusw@kernel.org>,
+	"Paolo Abeni" <pabeni@redhat.com>,
+	"Rob Herring" <robh+dt@kernel.org>,
+	"Roger Quadros" <rogerq@kernel.org>,
+	"Tony Lindgren" <tony@atomide.com>,
+	linux-wireless@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-gpio@vger.kernel.org,
+	linux-omap@vger.kernel.org
+Subject: [PATCH 0/3] [v5 net-next] wireless: p54 devicetree conversion
+Date: Thu,  7 May 2026 23:24:48 +0200
+Message-Id: <20260507212451.3333185-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260507-airoha-eth-multi-serdes-v4-10-af613b61ae02@kernel.org>
-References: <20260507-airoha-eth-multi-serdes-v4-0-af613b61ae02@kernel.org>
-In-Reply-To: <20260507-airoha-eth-multi-serdes-v4-0-af613b61ae02@kernel.org>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Lorenzo Bianconi <lorenzo@kernel.org>
-Cc: Christian Marangi <ansuelsmth@gmail.com>, 
- Benjamin Larsson <benjamin.larsson@genexis.eu>, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- netdev@vger.kernel.org, devicetree@vger.kernel.org, 
- Madhur Agrawal <madhur.agrawal@airoha.com>
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The EN7581 and AN7583 SoCs provide registers to configure hardware LAN/WAN
-MAC addresses, used to determine whether received traffic is destined for
-this host or should be forwarded to another device.
-The SoC hardware design assumes all interfaces configured as LAN (or WAN)
-share a common upper MAC address, which is programmed into the
-REG_FE_{LAN,WAN}_MAC_H register. The lower bytes of 'local' addresses can
-be expressed as a range via the REG_FE_MAC_LMIN and REG_FE_MAC_LMAX
-registers.
-Previously, only a single interface was considered when programming these
-registers. Extend the logic to derive the correct minimum and maximum
-values for REG_FE_MAC_LMIN/REG_FE_MAC_LMAX when two or more interfaces are
-configured as LAN or WAN.
+From: Arnd Bergmann <arnd@arndb.de>
 
-Tested-by: Madhur Agrawal <madhur.agrawal@airoha.com>
-Signed-off-by: Lorenzo Bianconi <lorenzo@kernel.org>
+This is an older patch of mine that I lost track of. We already decided
+a while ago that the OMAP2 platform should probably be removed entirely,
+and this is the only known user, but it's probably a good idea to still
+get the driver changes in, in case there are other out-of-tree users.
+
+We probably don't have to worry about bisectability any more though,
+so the devicetree and driver changes can just get merged independently
+through the OMAP and wireless trees, respectively.
+
+     Arnd
+
 ---
- drivers/net/ethernet/airoha/airoha_eth.c | 73 +++++++++++++++++++++++++++-----
- 1 file changed, 63 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ethernet/airoha/airoha_eth.c
-index 8617dd4f7932..fbfefd0ec355 100644
---- a/drivers/net/ethernet/airoha/airoha_eth.c
-+++ b/drivers/net/ethernet/airoha/airoha_eth.c
-@@ -71,20 +71,67 @@ static void airoha_qdma_irq_disable(struct airoha_irq_bank *irq_bank,
- 	airoha_qdma_set_irqmask(irq_bank, index, mask, 0);
- }
- 
--static void airoha_set_macaddr(struct airoha_gdm_dev *dev, const u8 *addr)
-+static int airoha_set_macaddr(struct airoha_gdm_dev *dev, const u8 *addr)
- {
- 	struct airoha_eth *eth = dev->eth;
--	u32 val, reg;
-+	u8 ref_addr[ETH_ALEN] = {};
-+	u32 reg, val, lmin, lmax;
-+	int i;
-+
-+	lmin = (addr[3] << 16) | (addr[4] << 8) | addr[5];
-+	lmax = lmin;
-+
-+	for (i = 0; i < ARRAY_SIZE(eth->ports); i++) {
-+		struct airoha_gdm_port *port = eth->ports[i];
-+		int j;
-+
-+		if (!port)
-+			continue;
-+
-+		for (j = 0; j < ARRAY_SIZE(port->devs); j++) {
-+			struct airoha_gdm_dev *iter_dev;
-+			struct net_device *netdev;
-+
-+			iter_dev = port->devs[j];
-+			if (!iter_dev || iter_dev == dev)
-+				continue;
-+
-+			if (airoha_is_lan_gdm_dev(iter_dev) !=
-+			    airoha_is_lan_gdm_dev(dev))
-+				continue;
-+
-+			netdev = iter_dev->dev;
-+			if (netdev->reg_state != NETREG_REGISTERED)
-+				continue;
-+
-+			ether_addr_copy(ref_addr, netdev->dev_addr);
-+			val = (netdev->dev_addr[3] << 16) |
-+			      (netdev->dev_addr[4] << 8) | netdev->dev_addr[5];
-+			if (val < lmin)
-+				lmin = val;
-+			if (val > lmax)
-+				lmax = val;
-+		}
-+	}
-+
-+	if (!is_zero_ether_addr(ref_addr) && memcmp(ref_addr, addr, 3)) {
-+		/* According to the HW design, hw mac address MS bits
-+		 * must be the same for each net_device with the same
-+		 * LAN/WAN configuration.
-+		 */
-+		return -EINVAL;
-+	}
- 
- 	reg = airoha_is_lan_gdm_dev(dev) ? REG_FE_LAN_MAC_H : REG_FE_WAN_MAC_H;
- 	val = (addr[0] << 16) | (addr[1] << 8) | addr[2];
- 	airoha_fe_wr(eth, reg, val);
- 
--	val = (addr[3] << 16) | (addr[4] << 8) | addr[5];
--	airoha_fe_wr(eth, REG_FE_MAC_LMIN(reg), val);
--	airoha_fe_wr(eth, REG_FE_MAC_LMAX(reg), val);
-+	airoha_fe_wr(eth, REG_FE_MAC_LMIN(reg), lmin);
-+	airoha_fe_wr(eth, REG_FE_MAC_LMAX(reg), lmax);
- 
- 	airoha_ppe_init_upd_mem(dev);
-+
-+	return 0;
- }
- 
- static void airoha_set_gdm_port_fwd_cfg(struct airoha_eth *eth, u32 addr,
-@@ -1792,13 +1839,18 @@ static int airoha_dev_stop(struct net_device *netdev)
- static int airoha_dev_set_macaddr(struct net_device *netdev, void *p)
- {
- 	struct airoha_gdm_dev *dev = netdev_priv(netdev);
-+	struct sockaddr *addr = p;
- 	int err;
- 
--	err = eth_mac_addr(netdev, p);
-+	err = eth_prepare_mac_addr_change(netdev, p);
- 	if (err)
- 		return err;
- 
--	airoha_set_macaddr(dev, netdev->dev_addr);
-+	err = airoha_set_macaddr(dev, addr->sa_data);
-+	if (err)
-+		return err;
-+
-+	eth_commit_mac_addr_change(netdev, p);
- 
- 	return 0;
- }
-@@ -1903,6 +1955,7 @@ static int airoha_dev_init(struct net_device *netdev)
- {
- 	struct airoha_gdm_dev *dev = netdev_priv(netdev);
- 	struct airoha_gdm_port *port = dev->port;
-+	int err;
- 
- 	switch (port->id) {
- 	case AIROHA_GDM3_IDX:
-@@ -1922,12 +1975,12 @@ static int airoha_dev_init(struct net_device *netdev)
- 	}
- 
- 	airoha_dev_set_qdma(dev);
--	airoha_set_macaddr(dev, netdev->dev_addr);
-+	err = airoha_set_macaddr(dev, netdev->dev_addr);
-+	if (err)
-+		return err;
- 
- 	if (!airoha_is_lan_gdm_dev(dev) &&
- 	    (port->id == AIROHA_GDM3_IDX || port->id == AIROHA_GDM4_IDX)) {
--		int err;
--
- 		err = airoha_set_gdm2_loopback(dev);
- 		if (err) {
- 			dev->flags &= ~PRIV_FLAG_WAN;
+v4 Link: https://lore.kernel.org/all/20260430081242.3686993-1-arnd@kernel.org/
+v3 Link: https://lore.kernel.org/all/20260427142355.2532714-1-arnd@kernel.org/
+v2 Link: https://lore.kernel.org/all/20230404082401.1087835-1-arnd@kernel.org/
+
+Cc: "Aaro Koskinen" <aaro.koskinen@iki.fi>
+Cc: "Andreas Kemnade" <andreas@kemnade.info>
+Cc: "Arnd Bergmann" <arnd@arndb.de>
+Cc: "Bartosz Golaszewski" <brgl@kernel.org>
+Cc: "Benoît Cousson" <bcousson@baylibre.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>
+Cc: "Eric Dumazet" <edumazet@google.com>
+Cc: "Felipe Balbi" <balbi@kernel.org>
+Cc: "Jakub Kicinski" <kuba@kernel.org>
+Cc: "Johannes Berg" <johannes@sipsolutions.net>
+Cc: "Kevin Hilman" <khilman@baylibre.com>
+Cc: "Krzysztof Kozlowski" <krzk+dt@kernel.org>
+Cc: "Linus Walleij" <linusw@kernel.org>
+Cc: "Paolo Abeni" <pabeni@redhat.com>
+Cc: "Rob Herring" <robh+dt@kernel.org>
+Cc: "Roger Quadros" <rogerq@kernel.org>
+Cc: "Tony Lindgren" <tony@atomide.com>
+Cc: linux-wireless@vger.kernel.org
+Cc: netdev@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-gpio@vger.kernel.org
+Cc: linux-omap@vger.kernel.org
+
+
+
+Arnd Bergmann (3):
+  [v5 net-next] dt-bindings: net: add st,stlc4560/p54spi binding
+  [v5 net-next] p54spi: convert to devicetree
+  [v5 omap] ARM: dts: omap2: add stlc4560 spi-wireless node
+
+ .../bindings/net/wireless/st,stlc4560.yaml    | 61 +++++++++++++++++
+ MAINTAINERS                                   |  1 +
+ arch/arm/boot/dts/ti/omap/omap2.dtsi          |  4 ++
+ .../dts/ti/omap/omap2420-n8x0-common.dtsi     | 12 ++++
+ arch/arm/mach-omap2/board-n8x0.c              | 18 -----
+ drivers/net/wireless/intersil/p54/p54spi.c    | 67 +++++++------------
+ drivers/net/wireless/intersil/p54/p54spi.h    |  3 +
+ 7 files changed, 104 insertions(+), 62 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/wireless/st,stlc4560.yaml
 
 -- 
-2.54.0
+2.39.5
 
