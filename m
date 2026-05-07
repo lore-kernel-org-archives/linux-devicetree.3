@@ -1,73 +1,138 @@
 Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B151C3264C2;
-	Thu,  7 May 2026 08:16:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F68E34B1A3;
+	Thu,  7 May 2026 08:18:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778141810; cv=none; b=SNkZv/3sX9AWoIaZLpU1QBZjH79P3DUWQAiP0sgmWVChdWAi/2P2PxSn2tysERkwXUdl0S35qht4XY36Pvfl+WzQszEAZloATGQkFCH35XXYf9XVpIiNof5n1SCJuGOA591h7yKGCMdt+d62RWH/MQXzypHdSERGQbTo2vSKi/4=
+	t=1778141894; cv=none; b=JVq5FPNlbkfeH8KyjKPihccRRV/t3a8PZDAGKWSdO8FKIlrbJO1KeQquXKNO3bCY9tywwGwvN1x/1XuwovkRF2H6YcOU4m8fVI5bT+WAHolXT+vHBXt+FgL5O3uqpMtoL2MHL5jlH5FhvKr+4uIl9YGYsGu0sn895jiva/AzMrw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778141810; c=relaxed/simple;
-	bh=fqmXGl+pWWkBT6X4oeEj264AgLZu8QAHJCSM7okyQug=;
-	h=From:Date:Message-ID:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sCDpvXJ+sZyoZyWM/7Eznz0k0+Zvx4GduUXn5bjBViVwHfqSHf/o4rD2p/EFHXsDm42yPiJ5SVF4kL9SaTHWoTsjYjxJ+LWaHXmbeSwLC0as3jo2jWfx+ZZC2PuLhn5tpCZWVBqy6CKMfRWzlURY15AjR9lSSvIeDUhG9GMRnRg=
+	s=arc-20240116; t=1778141894; c=relaxed/simple;
+	bh=Vfqx5Qig1dY1qweO77x2zmBW12n5J5vgS6VngqGdlZs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FAubX/XnWuiSdkFtnvcU0OwSzSKY93nPnKH5x4WmDsHWuUuhOipJ/QhtKmjODLCbt62Ix8369z8KGWPKxeEFbfvX8o4EBTKk+gwW7pzL5MWZjIkKE8wQriTmgJeoL5HfE13hMUzEK7VIwwwHCBzSJCu5Xl/4BUilpyyyqYJEedU=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from 01-drivers-of-rob-reply.eml (unknown [111.196.245.140])
-	by APP-03 (Coremail) with SMTP id rQCowAD3GOBqSvxpU_hNEA--.31247S2;
-	Thu, 07 May 2026 16:16:42 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Date: Thu, 07 May 2026 16:16:42 +0800
-Message-ID: <20260507161642.1-drivers-of-rob-reply-pengpeng@iscas.ac.cn>
-To: Rob Herring <robh@kernel.org>
-Cc: Saravana Kannan <saravanak@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Pengpeng Hou <pengpeng@iscas.ac.cn>
-Subject: Re: [PATCH v2 1/2] drivers/of: validate live-tree string properties before string use
-In-Reply-To: <20260505180522.GA3265505-robh@kernel.org>
-References: <20260403183501.1-drivers-of-live-tree-pengpeng@iscas.ac.cn> <20260417223003.1-drivers-of-live-tree-v2-pengpeng@iscas.ac.cn> <20260505180522.GA3265505-robh@kernel.org>
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.82])
+	by APP-03 (Coremail) with SMTP id rQCowAC3m+KLSvxpI_pNEA--.42168S2;
+	Thu, 07 May 2026 16:17:16 +0800 (CST)
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Drew Fustini <fustini@kernel.org>,
+	Guo Ren <guoren@kernel.org>,
+	Fu Wei <wefu@redhat.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Jisheng Zhang <jszhang@kernel.org>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-riscv@lists.infradead.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-usb@vger.kernel.org,
+	Icenowy Zheng <uwu@icenowy.me>,
+	Han Gao <rabenda.cn@gmail.com>,
+	Yao Zi <ziyao@disroot.org>,
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Subject: [PATCH 00/12] Add TH1520 USB support
+Date: Thu,  7 May 2026 16:16:58 +0800
+Message-ID: <20260507081710.4090814-1-zhengxingda@iscas.ac.cn>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAD3GOBqSvxpU_hNEA--.31247S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrAr47try5uF4rXF43XF4rAFb_yoWxGwc_Gw
-	1kZa4xJw47tFsYv3s7Kr1Yqr1DGF4UGr1UX34rAanFvw15XF43WFs3Jrn3X34IkFZ8tr90
-	9rZ5Grsrtr13WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbcxFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
-	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcVAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWUAVWU
-	twCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r
-	1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij
-	64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr
-	0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF
-	0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUjuHq7UUUUU==
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+X-CM-TRANSID:rQCowAC3m+KLSvxpI_pNEA--.42168S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAr45Xw17JF4kCw4fGF1xZrb_yoW5GrWkpa
+	9xGF4SyF1qqFnIgr4fJw1UCryFqa18Zrn8Kw13Ga4UZw1a9rW3Xa9IgasrZrWDK3Wxur42
+	kFn8WF17C3WYyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+	zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
+	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
+	CwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCT
+	nIWIevJa73UjIFyTuYvjTRM6wCDUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-Hi Rob,
+This patchset adds support for T-Head TH1520's USB functionality, and
+enabled it on the Lichee Pi 4A board.
 
-Thanks for catching this. You are right, I missed a lock recursion in
-v2: __of_node_is_type() was changed to call of_property_match_string(),
-but that helper takes devtree_lock. __of_node_is_type() is also used
-from paths that already hold devtree_lock, including
-of_find_node_by_type(), of_match_node(), and
-of_find_matching_node_and_match(), so v2 can deadlock during early
-boot.
+The first 3 patches add support for the MISC subsystem clock
+contrtoller, which contains some USB clocks.
 
-I will send a v3 that keeps the device_type string bounded, but uses
-__of_get_property() directly inside __of_node_is_type() so the helper
-remains safe under devtree_lock.
+The next 2 patches add support for the USB PHY of T-Head TH1520, which
+is a wrapped Synopsys USB3.0 FemtoPHY with a little integration quirk;
+the controller itself is a properly configured DWC3 controller with sane
+default register values set.
 
-Sorry about that.
+Then one patch adds the USB PHY and controller nodes to the TH1520 DTSI
+file.
 
-Thanks,
-Pengpeng
+The remaining half of this patchset dedicates to enablement of USB on
+TH1520, because of the onboard hub of that board -- its USB2 signals are
+behind a switch that needs to be toggled on, and Vbus supplies for both
+the hub itself and downstream ports are managed via I2C-expanded GPIOs
+(because the SoC does not have enough GPIO pins).
 
+Emil Renner Berthing (1):
+  riscv: dts: thead: Add Lichee Pi 4A IO expansions
+
+Icenowy Zheng (10):
+  dt-bindings: clock: thead: add TH1520 MISC subsys clock controller
+  clk: thead: th1520-ap: add support for MISC subsys clocks
+  riscv: dts: thead: add device tree node for MISC clock controller
+  dt-bindings: phy: add binding for T-Head TH1520 USB PHY
+  phy: add a driver for T-Head TH1520 USB PHY
+  riscv: dts: thead: add device nodes for USB
+  dt-bindings: gpio: dwapb: allow GPIO hogs
+  dt-bindings: usb: vialab,vl817: allow ports property
+  riscv: dts: thead: lpi4a: sort nodes
+  riscv: dts: thead: enable USB3 ports on Lichee Pi 4A
+
+Thomas Bonnefille (1):
+  riscv: dts: thead: Add TH1520 I2C nodes
+
+ .../bindings/clock/thead,th1520-clk-ap.yaml   |   5 +-
+ .../bindings/gpio/snps,dw-apb-gpio.yaml       |   6 +
+ .../bindings/phy/thead,th1520-usb-phy.yaml    |  74 ++++
+ .../devicetree/bindings/usb/vialab,vl817.yaml |   4 +-
+ .../dts/thead/th1520-lichee-module-4a.dtsi    |  15 +
+ .../boot/dts/thead/th1520-lichee-pi-4a.dts    | 362 +++++++++++++++++-
+ arch/riscv/boot/dts/thead/th1520.dtsi         | 106 ++++-
+ drivers/clk/thead/clk-th1520-ap.c             |  64 ++++
+ drivers/phy/Kconfig                           |   1 +
+ drivers/phy/Makefile                          |   1 +
+ drivers/phy/thead/Kconfig                     |  12 +
+ drivers/phy/thead/Makefile                    |   2 +
+ drivers/phy/thead/phy-th1520-usb.c            | 197 ++++++++++
+ .../dt-bindings/clock/thead,th1520-clk-ap.h   |  10 +
+ 14 files changed, 840 insertions(+), 19 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/phy/thead,th1520-usb-phy.yaml
+ create mode 100644 drivers/phy/thead/Kconfig
+ create mode 100644 drivers/phy/thead/Makefile
+ create mode 100644 drivers/phy/thead/phy-th1520-usb.c
+
+-- 
+2.52.0
 
