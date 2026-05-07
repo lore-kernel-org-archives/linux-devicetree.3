@@ -1,87 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F1A3C3C1E
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 12:24:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66DAA3B7744;
+	Thu,  7 May 2026 12:29:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778156691; cv=none; b=afom7xtimmizU+PWG5PyaNb3z0GL4Q/cvMvX2meffA4x6guEuElnHAw2U/IIqv/5DcRHEHW/yYMjf0lY4HaBSIedX8+JxgFDi5T1uvTflJY5JccCm8pPraFbLgJhcynC8wLRYqsEXZpa/G88W5DrR9xHE2YpGjh6NU2aN7K774s=
+	t=1778156961; cv=none; b=WJ6psgaFJokayiZRcXVx4KVn6LXj8N7r3DY1WIJlsWQJnsAekN7O8ybVsymfM6mQNj4M7Pjapb42RIx/7d6NJUUo/GA55i0afuqHm6M4JxTgM4F5l5AGWZlGRpktoynm2EWd6fLSKdA4fXlI59459Lp06DDV7sUF1LLro/QG1g0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778156691; c=relaxed/simple;
-	bh=QIql3ABFxBxfhPdKS/rwS+nEJrZPiQL67AN4+VOVMso=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=s3DsFOpdtCLFArh+yTFBTmv8gr8zCPeeF5MRKqzN57h0r5KjXcLzokHclgHaDStZ2hGYWzguBBO5LJ6S/ZDawNJtEvw7Begp/k+lrqF8Zj99cwp8HAHM9L5gBQ3IcoFEh3J4xlF1d1H4Gx5SIH8C+Av8pa5YU0EiPII10sO6QXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RKv5nDNm; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778156961; c=relaxed/simple;
+	bh=Y++sXmlSsHai8PAxrMnUKMOgyR38lU9i2YrXRraFovs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bYbp1L1UzOgzsO96MfWajMJ9Gr9hxhFElP35LHJuQfy+/dXEYtoXPgkc/bymc8egHx8X677lKuPPpbtK+EHmdPtjrkRbfFcZmbO1zek5hPg4YL1uLDxBWJFwRuXwQEjaQUdFB1JPn9vfdmxZQz28FxzHaf9PzM0H+QqjpFhmSjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=MY/2xBVp; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RKv5nDNm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61B1BC2BD00
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 12:24:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778156691;
-	bh=QIql3ABFxBxfhPdKS/rwS+nEJrZPiQL67AN4+VOVMso=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=RKv5nDNm8HFBZ/inumudOz8bq/9D0RjWYEYvjZAonv+XeRXE/imJ8Qqy8AMlTq2/3
-	 hiTSyhuBXJEe1/W4ad2WCVpo4YydHtCpkviJfrU6xwIFA0JwyxqjujRuYf9M3mFfgZ
-	 7lIZdnr+Z9aOWGtutXOFLo+ub4pk0mUe+JTqNPeyDm3eQ0h0l3/SSNBuMpfIGRw2AZ
-	 6y6nh+Yf/G0uWxYfAZHMB0VBhBoP2DzpehNT3YjR87Ei7luHPc5avzFuwBUeFTcsPc
-	 /kJgYH0QDk4OdOX+6ZDX7xLOdrnY8yxTOwqZz+ezUcEyuj0XEXfELugJSPs4IQyjWK
-	 5chGoE6TbBt+g==
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5a87edf88b3so594298e87.0
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 05:24:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8F+RwM+iWtIZaP1aJvcGWm+jILSuxvp0f5VlkodGE7NyIxoqp1KxLL7bphsdW8YOWACZ5YKZLcmTw9@vger.kernel.org
-X-Gm-Message-State: AOJu0YwDzZ3fFIHbQTMidpXSMif59F3fJOKuXw75i5yOFg9MxdzgDE8F
-	qX+YqCF142EOFkCd5j5Ixat5eqOuCPXMJwrTVZzbP3m74HOGMiXTvLhPgevpkm34Evn209gLe7Z
-	l41v3oEow1+mB+rbb3/2z7v4TR/iigzU=
-X-Received: by 2002:a05:6512:3c81:b0:5a7:4783:a13a with SMTP id
- 2adb3069b0e04-5a887adfe0cmr2797785e87.6.1778156689988; Thu, 07 May 2026
- 05:24:49 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="MY/2xBVp"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=LmEIVv5Hxh+mKmeuHsN7vP/fAMiciYkPlIj13WZ+oiE=; b=MY/2xBVpjxX2ZXH6RhO3LIF2+N
+	x4csJK/N/xl92PKhwsmp0UjPRbRm/Rrtz4SozNtBf6AqtO5BJoH769H2UhBcDCNP470yRW+O/UVsa
+	pyds4D5Cno6Z40QB5+xOuQhW+Sr4uB2BZ2Pl5t32AxN2j3/AVfxPOL/DF5VxOthAVWf0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wKxqo-001oGr-6c; Thu, 07 May 2026 14:29:10 +0200
+Date: Thu, 7 May 2026 14:29:10 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: lizhi2@eswincomputing.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+	rmk+kernel@armlinux.org.uk, maxime.chevallier@bootlin.com,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, ningyu@eswincomputing.com,
+	linmin@eswincomputing.com, pinkesh.vaghela@einfochips.com,
+	pritesh.patel@einfochips.com, weishangjuan@eswincomputing.com
+Subject: Re: [PATCH net v1 1/2] dt-bindings: ethernet: eswin: refine delay
+ model and HSP register description
+Message-ID: <2436c6e9-4aad-4ffd-9fef-0cbbe38dc66d@lunn.ch>
+References: <20260507083037.152-1-lizhi2@eswincomputing.com>
+ <20260507083136.175-1-lizhi2@eswincomputing.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260429-send-v7-0-b432e00d2db8@gmail.com> <20260429-send-v7-6-b432e00d2db8@gmail.com>
- <CAD++jL=S6DSOuC-PXFn76SA7e-Lgueu9Z2wuF7icXCVX7MBpJw@mail.gmail.com> <5379905.31r3eYUQgx@strix>
-In-Reply-To: <5379905.31r3eYUQgx@strix>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 7 May 2026 14:24:38 +0200
-X-Gmail-Original-Message-ID: <CAD++jLk02QnkXYwJ0b6x=qw9stR4nPrjD3sYPOvWAQz8t9OsUA@mail.gmail.com>
-X-Gm-Features: AVHnY4KG1i7F86ysxgeSAop-bGeT8IWW7pLynGDyGg64qsvOgzwotjy6zksXjl4
-Message-ID: <CAD++jLk02QnkXYwJ0b6x=qw9stR4nPrjD3sYPOvWAQz8t9OsUA@mail.gmail.com>
-Subject: Re: [PATCH v7 6/6] ARM: zte: defconfig: Add a zx29 defconfig file
-To: =?UTF-8?Q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Drew Fustini <fustini@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jiri Slaby <jirislaby@kernel.org>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-serial@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260507083136.175-1-lizhi2@eswincomputing.com>
 
-Hi Stefan,
+>      ethernet@50400000 {
+>          compatible = "eswin,eic7700-qos-eth", "snps,dwmac-5.20";
+>          reg = <0x50400000 0x10000>;
+> -        clocks = <&d0_clock 186>, <&d0_clock 171>, <&d0_clock 40>,
+> -                <&d0_clock 193>;
+> -        clock-names = "axi", "cfg", "stmmaceth", "tx";
+>          interrupt-parent = <&plic>;
+>          interrupts = <61>;
+>          interrupt-names = "macirq";
+> -        phy-mode = "rgmii-id";
+> -        phy-handle = <&phy0>;
+> +        clocks = <&d0_clock 186>, <&d0_clock 171>, <&d0_clock 40>,
+> +                <&d0_clock 193>;
+> +        clock-names = "axi", "cfg", "stmmaceth", "tx";
 
-On Wed, May 6, 2026 at 7:39=E2=80=AFPM Stefan D=C3=B6singer
-<stefandoesinger@gmail.com> wrote:
+Please don't move the clocks around, since they have nothing to do
+with RGMII delays.
 
-> I'll send a v8 with some of Sashiko's (very impressive)
-> findings but keep the defconfig.
 
-Maybe not send all patches to soc@kernel.org right now because they
-end up in the patch tracker.
+>          resets = <&reset 95>;
+>          reset-names = "stmmaceth";
+> -        rx-internal-delay-ps = <200>;
+> -        tx-internal-delay-ps = <200>;
+> -        eswin,hsp-sp-csr = <&hsp_sp_csr 0x100 0x108 0x118>;
+> -        snps,axi-config = <&stmmac_axi_setup>;
+> +        eswin,hsp-sp-csr = <&hsp_sp_csr 0x100 0x108 0x118 0x114 0x11c>;
+> +        phy-handle = <&phy0>;
+> +        phy-mode = "rgmii-id";
+>          snps,aal;
+>          snps,fixed-burst;
+>          snps,tso;
+> -        stmmac_axi_setup: stmmac-axi-config {
+> +        snps,axi-config = <&stmmac_axi_setup_gmac0>;
+> +
+> +        stmmac_axi_setup_gmac0: stmmac-axi-config {
 
-For a new platform that may be OK though...
+And what do these changes have to do with RGMII delays?
 
-Nominall it should be three pull requests:
-1. Platform
-2. DTS files
-3. Defconfig
+    Andrew
 
-But in this case maybe it is better if we cherry-pick them to the
-SoC tree.
-
-Yours,
-Linus Walleij
+---
+pw-bot: cr
