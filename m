@@ -1,131 +1,100 @@
-Received: from mail-m3269.qiye.163.com (mail-m3269.qiye.163.com [220.197.32.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CED473CAE9B;
-	Thu,  7 May 2026 12:05:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D8923BA22C
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 12:08:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778155546; cv=none; b=kSiUu92Cep8RiMTi+EX9EJ4zp4w2NsKCdsxVvUd6m0KnBJkaEBqwtYj8B7lkaXbIoXB4H5wiBoTEodaKhwR6sFrNsRIP9vfPaP47jJbo2Bs5+JZujbP5tVRX4IL7XRJXIfTzBLNZU1Y/DisOMlTAEwjnDZbyd25oah0Cpmf/28g=
+	t=1778155690; cv=none; b=ZBTaumleM4CAP4Ea9bXETPveYtjxJr9DB1GtH3EJJ0YesoANx2RRi4fHSqktmNdEaC0vd6A6/rdRlgZw2z8dEigzUxwoQACZ4L9NycfF8Ib7CYR3Nlvu15HIwJxiEVjD5Zg/nCnsl65E30Enmnvl4oWvT9sp7hNzWvqRJppMk5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778155546; c=relaxed/simple;
-	bh=a5Kgr6O+QYmarerUCLq7h1ROmw++yz0ywUu0KEbtXPY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=hX6to6rgStDzppq6FzvkEJoxDzohWmluUQ6LLqRcPbNK6Ls10t52IWYR59vZcGDTfBPTp7gPXYN2djnzGSSjOBG67KSEGABX3Pr9aADe0UzYFihWepseJqr7B9Loh1FisrtjNTwI/Adr17qImNP3dNsNFaryD/5VUT6BX2AmVMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=aUBckWX7; arc=none smtp.client-ip=220.197.32.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="aUBckWX7"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3d7b63a5d;
-	Thu, 7 May 2026 19:30:06 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: hjc@rock-chips.com,
-	heiko@sntech.de,
-	andy.yan@rock-chips.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	nicolas.frattaroli@collabora.com,
-	cristian.ciocaltea@collabora.com,
-	sebastian.reichel@collabora.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	luca.ceresoli@bootlin.com,
-	dianders@chromium.org,
-	m.szyprowski@samsung.com,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v3 07/10] arm64: dts: rockchip: Add eDP node for RK3576
-Date: Thu,  7 May 2026 19:29:45 +0800
-Message-Id: <20260507112948.1115003-8-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260507112948.1115003-1-damon.ding@rock-chips.com>
-References: <20260507112948.1115003-1-damon.ding@rock-chips.com>
+	s=arc-20240116; t=1778155690; c=relaxed/simple;
+	bh=3hmr6ERBqCfMjSM8iSf7/vzVsOSpjaXIgAdr4FMHpjE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Cyz394C1GSQCjyBlqAYSuaFazoJk0Ip+kUZOHPDxMNRLYWKqimh6HhnolDLp7SOkSGsDiYuZaoHWWQL41wTPoktIWPQfWysWtdyxodfIuKzpqAn1owrtnziyDD7EnySIB3q5EntTJszTnzH1/T2L0iglM75xT2g9rvOxw/EV20w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5751136c561so1470578e0c.1
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 05:08:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778155688; x=1778760488;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hModA89l364XE51tBAuBnwy/if+9avfhQto+MunlAnQ=;
+        b=mGZ/+PEies/x8FlPmDyA+3LurBeZPgPtgEfvN13zm4AKVJkcOQjTYYDXqLpPfZtg5R
+         996M5TIusIKTraJYF8sY5k/vdvs/678iJamCjqALgwfXOftLHPCJJuusT+VaSmQiyxD/
+         f7kTvJ/sZeLGcKbkUxpgxknQJv9rF9u30EF1ZsBoTrqLqaXVG5gPNU6qlO/9F/+TnWGO
+         JaopPv0Ex4d1F99fDVmYEDHW9HUxW/gWN/Yw12bmHCHLzEKpNXnkDAHWnGvLTd6O5XR5
+         y/0DVjAglspgsQYoFKBJIuwBh0MPMiCBWI+dqbv0SVdbeWIQrfL9G0hqr2PfCBvoWlDg
+         RVFg==
+X-Forwarded-Encrypted: i=1; AFNElJ+RqtQCfUxo/hV7OsTYygLJKSMW5gK36LJqCX0L+2SsxSmQ3jC+IBd+/lEzvCnpVEUsIDPDg+SCxQBi@vger.kernel.org
+X-Gm-Message-State: AOJu0YyJqRdwmv046Uh2Q8jjfKP1V09woS66i738Vq21Essc0hxu718u
+	eeSgi3DUPDQCz5nCtu9Gj8dq74LDoHmzcPVvU4rbn0CqUBOzxlrbIOScdlFT09l53h8=
+X-Gm-Gg: AeBDieuO2hCP9RR0JQxJibDjJ3QI5DOQawrx2VQhsKU8T0AJUW/M5rawYVGolyYBhtc
+	DUBC82WIo1eL1bJLh3XaQGssf04WBvks1nVaIP+sl6HMqqoOaVEmU7gNbW/GE3nVPkYwktLvIW2
+	FYrcQT+Ce+7NV5hXZ8bvVAlZUxAkDGKjvI5J4O+FUxboCXTSkS/3okXMNiVquUuvjutylNJiEQK
+	UANA/aNYeQT/KvyBYkumqkFSUTKSnzyUBEh1Hly/nVqlcpfO3ymjpv+Q20otLZqr0ZvzMm/jpvR
+	mIiosLVXfPpXStjW/25PavOtBtmRel11K0IykWb37/SvLuEFzF+wZkiTSit3LGZt0AxkoHhD+fB
+	I4TJUJeAy3JFXUY9OShEEX7UZbWa+SZBQoKVDZ93naa886eN/1d4ToYkipYO99XFIwGZ6FE7e0w
+	eRNS9nZoWyB7myjjP/ENV5dsJoWoMqIupSK/1cRwQ3FqiPjK12zTt56DeLwnJSKPBWedmhHZ8=
+X-Received: by 2002:a05:6123:49:b0:56f:3b3b:eea with SMTP id 71dfb90a1353d-5757011a4e8mr859003e0c.2.1778155688202;
+        Thu, 07 May 2026 05:08:08 -0700 (PDT)
+Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com. [209.85.222.51])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-575757a84d8sm562865e0c.5.2026.05.07.05.08.06
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 07 May 2026 05:08:07 -0700 (PDT)
+Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-95d226e3ed8so1395211241.0
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 05:08:06 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+cpVwzc9i6TkUb4JKqeWsmhp65Gu2ybdEkabV4IQ/gGiFXP8chnh3rjAQJPag3dmzcWbyaQSiJ36Ht@vger.kernel.org
+X-Received: by 2002:a05:6102:2ad6:b0:608:d017:471c with SMTP id
+ ada2fe7eead31-63115de6ef3mr964328137.6.1778155685959; Thu, 07 May 2026
+ 05:08:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e0233bf2003a3kunm4d1cbcd726f5
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSU5NVk9ITEpLGk5PQkseQ1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=aUBckWX7BNQviN8nblX6GtrK24jmRU2aTbKKLReK2RP9SajxQUT/qe+DmJ+0kpwWyt6LdudaAH8gBJ65TlFWDv+TQLX+9fUGDD3MNDf/t0+Mp7M0E4MPXTgmokwtNKMEOthdOxT4Gdt47eTP6mau/eG+qIsqko7za5ugQDHxwQs=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=GDSvHPlyPcJ6RF3pkZCexTDXE82gLd/KQ//N5wCBDUU=;
-	h=date:mime-version:subject:message-id:from;
+References: <20260505125921.149682-1-biju.das.jz@bp.renesas.com> <20260505125921.149682-2-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260505125921.149682-2-biju.das.jz@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 7 May 2026 14:07:53 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXY_ddFtNk9Mwg+19is1MpRCqYZ=Ks+RxQLmnfMOTg4TQ@mail.gmail.com>
+X-Gm-Features: AVHnY4IYMKfhhaXF1qebj-FLr2w5h_ByXFxZrYHrC2npI6D9NhuN-Fm3Bxj5sZU
+Message-ID: <CAMuHMdXY_ddFtNk9Mwg+19is1MpRCqYZ=Ks+RxQLmnfMOTg4TQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] arm64: dts: renesas: r9a08g046: Add wdt device node
+To: Biju <biju.das.au@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Add support for the eDP output on RK3576 SoC.
+On Tue, 5 May 2026 at 14:59, Biju <biju.das.au@gmail.com> wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>
+> The RZ/G3L SOC has 3 watchdog timer channels:
+>  wdt channel0(wdt0) for Cortex-A55-CPU Non-Secure
+>  wdt channel1(wdt1) for Cortex-A55 CPU Secure
+>  wdt channel2(wdt2) for Cortex-M33 CPU
+>
+> Add wdt0 node to RZ/G3L ("R9A08G046") SoC DTSI.
+>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.2.
 
----
+Gr{oetje,eeting}s,
 
-Changes in v2:
-- Add Reviewed-by tag.
----
- arch/arm64/boot/dts/rockchip/rk3576.dtsi | 28 ++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+                        Geert
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-index 28175d8200d5..733449cb88b1 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-@@ -1496,6 +1496,34 @@ hdmi_out: port@1 {
- 			};
- 		};
- 
-+		edp: edp@27dc0000 {
-+			compatible = "rockchip,rk3576-edp";
-+			reg = <0x0 0x27dc0000 0x0 0x1000>;
-+			clocks = <&cru CLK_EDP0_24M>, <&cru PCLK_EDP0>, <&cru HCLK_VO0_ROOT>;
-+			clock-names = "dp", "pclk", "hclk";
-+			interrupts = <GIC_SPI 365 IRQ_TYPE_LEVEL_HIGH>;
-+			phys = <&hdptxphy>;
-+			phy-names = "dp";
-+			power-domains = <&power RK3576_PD_VO0>;
-+			resets = <&cru SRST_EDP0_24M>, <&cru SRST_P_EDP0>;
-+			reset-names = "dp", "apb";
-+			rockchip,grf = <&vo0_grf>;
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				edp_in: port@0 {
-+					reg = <0>;
-+				};
-+
-+				edp_out: port@1 {
-+					reg = <1>;
-+				};
-+			};
-+		};
-+
- 		dp: dp@27e40000 {
- 			compatible = "rockchip,rk3576-dp";
- 			reg = <0x0 0x27e40000 0x0 0x30000>;
 -- 
-2.34.1
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
