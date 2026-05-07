@@ -1,332 +1,186 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012020.outbound.protection.outlook.com [52.101.43.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F7043D504
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 15:44:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778168656; cv=none; b=Tsz7mRUXSzQwT20a2g5pkUQNry0dNCVaxAd2n7JBBSqKsuK0v1ZRWYKUG5+90KZ9eP3cO6WSt/8Ya5AcIuIVW17Y9Su/7SMZ+XeOsT5vFnl4Re9uheZYCH12sfTO5zcLPazQxh7rN1UJLK8MtzlXAUv97L/6+yL+5PwG1xdeIZA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778168656; c=relaxed/simple;
-	bh=gqgpcPPyoYkctF2A9qIrFAW4scyW1u6DRT1WbSeDKyg=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=ZBCVB1wzJgA5pOrNYMJGP9E9ScBXZUEsvuTxQjuXWexZcfq3fDMuwK43ZzNBpEbIFmYDu/LF0PMjgzHoK4ik1c6mCIGxqeiPG3cR0YhHQTj27rcT552Vb3Cng4jY21WXMeaswbZNWqnCIY3wtpz9/ZL0G0L9L/p0mO2dwePmstc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wWb1fRRj; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DCA6256C84;
+	Thu,  7 May 2026 15:45:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.20
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778168712; cv=fail; b=eQvofZ7KXNmfWn3XOqnmhmnpVM4h0dPn+zdQlUR52nwdry3TeUmMIG0H9axfOtoFAPgCpBqWbkdXNLhMZrO8W87AbnsQnJRGsQRi7viH3KDSafHfq7msgUeCkH5ry4zC4j7+4N0s7AE5lBXBjBgjhtCeNz0ByN2Tg5Tl6SO/HZI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778168712; c=relaxed/simple;
+	bh=iqGRLzjgeKHuS8x9DS/vda7BAZMVzaQCCr98gGK5m7E=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IqQytimw6cizC7vKIarLmH57FgR7No+59qwbfjbXiHN6OBmV+/+WBtS4796QyzapB28M4F18I6WyBm8JBlgdjxQjcEIF78zvuKhWqyeb4/NbaK4AvPqKzLJ1o8T3AAohg0RKgcW6fbplpZp8wpbMf5Z1dthtfIZDaZuCzsclyZ4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=S+txlguO; arc=fail smtp.client-ip=52.101.43.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wWb1fRRj"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4891d7164ddso6688625e9.3
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 08:44:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1778168653; x=1778773453; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=MeEODZjRA4liT1mQOVL+XlN6FECQ6ttZUbZtASXBGIA=;
-        b=wWb1fRRjnuILbV+weSoENn1q38jLQaNngtxxES34zSGzmlFJeivBQ68tBjri+kF1z9
-         DBw7q/cPH5wbrlOXKy9UQ8FEM9M/EVxijpDfwMAlrgsrZI2DFALwsb0paJrsI8/naPmN
-         GrHzx9UztjOs/T1v5XJ9GfGM/uX7UA9yxnltMx95AYVsIG6LFVZGHSB9uK095RCvXJaq
-         7HwOTc+31KV32Igcoz+e1sHERj84Z3uTwsBlQhSDwRlm00n2tXV7KPtRCuX7wD+F+3hm
-         +7mLXf+crnikC13oV4ZBafEP3AX62KxPkSqwde3GY37Ms9ZnG3Khj0kuH1PQAOFVOgu4
-         0Opg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778168653; x=1778773453;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=MeEODZjRA4liT1mQOVL+XlN6FECQ6ttZUbZtASXBGIA=;
-        b=dTpyMDs8fIuRKDoMeof6CnJnTdlvUfypfJqHuPTiZuILcrKo1Tc3C0C2cw60RwR9iy
-         Uufn1kzFbF7oyuw/Ragam+h1zuXz9MrH7hPYgeOaGZ+lHXSdXve/jj534Tqne3mg40rV
-         jVVlgE20uCJWFaOvjJ/WfKqDynNmep52FrhG1T8hHQ6bFMpCbdaAGXPVAQjnusMXVUSy
-         sRAoFlN5Lh5M6MvKynf8q60JO9/pRr2pxKvkWo9zDdXAUmsK6y/IvFFdQ4xTZpUuy0H6
-         2o55Y5P7U22TBwEHgETsqJm8WuF2k8gmzrDaPta+ROo8AZySWCcfZwoYZNzQv/5Z+/Zh
-         e0uw==
-X-Forwarded-Encrypted: i=1; AFNElJ/1+DZwS7C05+dblegN1vy0ASN2lYmV4CBwR+/WxF2Ncfwutj20VgsOe1lor1rIQqljqIIma7pRYOsT@vger.kernel.org
-X-Gm-Message-State: AOJu0YzsPYv6ANrQZ2aQ12kQ1FCANrPBhvmE4jCMMcnB18uDVCTdQeYU
-	K9aAXeI0etgq364nT7j5SZA/nDla8gZzHhC136W0E2Jc7Owa44Nd/8F8wZnCXuFIDeU=
-X-Gm-Gg: AeBDies0u6KhhproujS52l9q9ELWD03PJvifPJMdU97PSMMehU+tlW0NQHawgdYJ6rb
-	BivGLr3AzHGRwuzsTipxUQcotCq7RhiBLAsQmwCRqw6ozVVBdntJU4flcT9lwqxM3AY1StdIuAC
-	9Wk+oyYAPTaxmEcVbryvVvIxDsYSaED4jNBMmLJ6OnPGHHftVf5SprgGrIgmAm64YK2zvmxm6fV
-	h0k0wjzvYSNruFZiaJG+Atbo11tnihNlZLwM0ElvE5T5NUerVve7f/QwhdZ6q3UnryhVf+SpMNz
-	V4YjyBRzcHZf+AysiaEmni/gj4z1/mM4uJPh24cP34/ihMHXFR8gpzGlpoKfnNUyZga65ik4aAZ
-	xTdks0EhKpZbdFljSR6Zbcejr75S2zN+M55sRNAT/TBNTcJcRmSP33a3WSnSH/D3K/VUmurdghW
-	GfnisSay7Y/tzylvsotymUniLKOYfxL0aF2lN2Cw6eDXk9ZpAvqZ4/UHZnrnK7b8xMGZ4qZBwyF
-	Gvwj4TpqP+CZaMWKyS6UTNTDd7Y
-X-Received: by 2002:a05:600c:8485:b0:488:af7f:775f with SMTP id 5b1f17b1804b1-48e51f32a64mr146074295e9.18.1778168652626;
-        Thu, 07 May 2026 08:44:12 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:6762:47bb:1e06:ff70? ([2a01:e0a:106d:1080:6762:47bb:1e06:ff70])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e538aaa0fsm161995425e9.7.2026.05.07.08.44.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 07 May 2026 08:44:11 -0700 (PDT)
-Message-ID: <b8dca238-e791-4185-8a0b-cf7a44b9f5f6@linaro.org>
-Date: Thu, 7 May 2026 17:44:10 +0200
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="S+txlguO"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fEFMXKoBh7KI9JqnUKOfMDGvBKo5BPwRMFj3Txq0CBWF3VOXzoVuk3g/5cvWyswF+dOKgZNBcahHO2Z5QHDMPFStd4zWdMzV/Tu1Q+fAUGJPkjmEjq/lO8flFw3ITCu84VOYhY9+yT9NmsdPEW4j3UPItrVGOXd1nTAPDe7f/rgAg574HQ0VVFlvMWFX4Hqr1AU+J8ytidlJKOkAVyCv3f9MNnRuP5UwhuxHvOxfOujur9nx811WT+Giuk6TUBXBaqrhBLDYRqHepGXVqQY/wz7ZFsbqlHrvebtBGg60+ClkaqW+ni95j89WCkAizdUT8zjO38A3Ce+NQoNNUhlE8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xTEBCtCLTc81Gf7zQ2uzXU3CB9wfnDVnv7yBQIHWrSU=;
+ b=CTweHJGT3K5Z8SUqJVWoL+CNNxB56QEbwsTNc69dXldUDHYjYPTUUiuy6Gq7DYhm5RmGeqs3cT9aGvP8l8YDQejly4FVcfXZUusUucoABfTsdCvsquyszdNtGb2IbAt39FW4eV7pD5iH7s0uyynZY6vrump55MPhQ1R7PsoEMfPDFqhdSlzM5B09B/8tOILM5LIwnl9mUjG2uzKsWCRy6qGubAaVJc13yTUhCqYrhqIV0e1duQpbuRKS4LmlXabHIx6/LdkWBdu2WVlAicwYIAjvfYYt0WdxtXasV6sTiTuAt72MrheRkhc4SLN2Y3axQ8G0j5+BY0HF6/ZrmlcO5A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xTEBCtCLTc81Gf7zQ2uzXU3CB9wfnDVnv7yBQIHWrSU=;
+ b=S+txlguOe0U2JB4qXzFiYrZtSPcLHrCqWazMTQT1rU9Und8sOV15qjOfpXG0VZ/X/vU9rxiuFW0t3w3DvmzU8CkLvdDfmLrFwrXLPxIj/6FgGh66Gq/zIx+S01rkAkvpTYV8LtySYbJkgBhG5JIIyMQgCSYefSho6kVZd4LV1bM=
+Received: from BLAPR05CA0008.namprd05.prod.outlook.com (2603:10b6:208:36e::11)
+ by CH0PR10MB4876.namprd10.prod.outlook.com (2603:10b6:610:c9::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Thu, 7 May
+ 2026 15:45:05 +0000
+Received: from BN3PEPF0000B371.namprd21.prod.outlook.com
+ (2603:10b6:208:36e:cafe::65) by BLAPR05CA0008.outlook.office365.com
+ (2603:10b6:208:36e::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9913.7 via Frontend Transport; Thu, 7
+ May 2026 15:45:04 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ BN3PEPF0000B371.mail.protection.outlook.com (10.167.243.168) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.25.1 via Frontend Transport; Thu, 7 May 2026 15:45:03 +0000
+Received: from DFLE207.ent.ti.com (10.64.6.65) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 7 May
+ 2026 10:44:55 -0500
+Received: from DFLE200.ent.ti.com (10.64.6.58) by DFLE207.ent.ti.com
+ (10.64.6.65) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 7 May
+ 2026 10:44:55 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE200.ent.ti.com
+ (10.64.6.58) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Thu, 7 May 2026 10:44:55 -0500
+Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 647Fit1m3630653;
+	Thu, 7 May 2026 10:44:55 -0500
+Date: Thu, 7 May 2026 10:44:54 -0500
+From: Nishanth Menon <nm@ti.com>
+To: Siddharth Vadapalli <s-vadapalli@ti.com>
+CC: Wadim Egorov <w.egorov@phytec.de>, <vigneshr@ti.com>, <kristo@kernel.org>,
+	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+	<josua@solid-run.com>, <matthias.schiffer@ew.tq-group.com>,
+	<d.haller@phytec.de>, <francesco.dolcini@toradex.com>,
+	<joao.goncalves@toradex.com>, <emanuele.ghidoli@toradex.com>,
+	<ernest.vanhoecke@toradex.com>, <rogerq@kernel.org>, <eballetb@redhat.com>,
+	<robertcnelson@gmail.com>, <afd@ti.com>, <u-kumar1@ti.com>,
+	<stable@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<luis.parga@ti.com>, <srk@ti.com>
+Subject: Re: [PATCH v2 02/13] arm64: dts: ti: k3-am642-phyboard-electra-rdk:
+ fix USB clocking for compliance
+Message-ID: <20260507154454.puxr5sjtx4j3k2sb@pasted>
+References: <20260506141040.1368918-1-s-vadapalli@ti.com>
+ <20260506141040.1368918-3-s-vadapalli@ti.com>
+ <d0eb7931-bcbc-4ca6-8ab5-4c12d134545a@phytec.de>
+ <0043574e-6721-445b-ad01-54446dd72395@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 05/16] arm64: dts: amlogic: Add EL2 virtual timer
- interrupt
-To: Marc Zyngier <maz@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Hanjun Guo <guohanjun@huawei.com>, Sudeep Holla <sudeep.holla@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, Daniel Lezcano <daniel.lezcano@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Ge Gordon <gordon.ge@bst.ai>,
- BST Linux Kernel Upstream Group <bst-upstream@bstai.top>,
- Jesper Nilsson <jesper.nilsson@axis.com>,
- Lars Persson <lars.persson@axis.com>, Alim Akhtar <alim.akhtar@samsung.com>,
- Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Dinh Nguyen <dinguyen@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, =?UTF-8?Q?Andreas_F=C3=A4rber?=
- <afaerber@suse.de>, Heiko Stuebner <heiko@sntech.de>,
- Shawn Lin <shawn.lin@rock-chips.com>, Orson Zhai <orsonzhai@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Michal Simek <michal.simek@amd.com>
-References: <20260507125544.2903406-1-maz@kernel.org>
- <20260507125544.2903406-6-maz@kernel.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260507125544.2903406-6-maz@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <0043574e-6721-445b-ad01-54446dd72395@ti.com>
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B371:EE_|CH0PR10MB4876:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4191c654-3381-4a3b-7cd2-08deac4f9aef
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|7416014|376014|82310400026|1800799024|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	45kWMaa2iF0fscWF4ao2OPklXQavXbEtVYRW2diR+jvIebs8Goj+4xqLxofJNp0tu2uzcGzgPGEooKjnbq17KkqCIcSr7KSg5pibhy2rratb+LQIwZpz92LZIO2gQ3y279VPfeMx642A4U7isCpVw0hhIQ1R9qKrv3Peq+AUhfGD+LWi4hLSWQHkGaGPDT2wi733julInNK47xsehnoyARsbr9Guy2h6WhE/sUuuJjdfQkY7E83n3TBaYHjRBhFxzEMJ1WlZRf/1E2rs0asSpHuAPHnN2PodYa+Sz6n12Cf9xmccnv+ded/2VOGqZrupOFkbbe0bj00Wm3cmRKSrqlVeHk8IhN+OtjL3HSJOG64Zfun+YFhVdOIRzTgrx/oFYHvBLfVqps7LNov90vbZZSRef2LjqX7Amw3efy5KOIORuAv33PDtelVCO/JK52K8MtyakpCvWBzqeRqrB7NWEaB3o4eJqTnLn4HLIKRIyP2GoGjUigdqUr7xk9nPzmdrNYsH5o5g2X1ixS9bkcEYESo+GcVuJgaOMwOYzQ1UJYqXKXGzJY84JI1IExuin/afa2xMqu0v5aPg6mmB1S2VY9w8nztd84eaIPSI9Kmvj+C6w6IEzl+hX+Ptg86Wakt34cWXnLKhjZQTyijf7yv9yRUDtzyfd6zt84bIMmJ0uDCc6SoV/KCQYsPl8STkzTr3A8qUkKa4YPMvCeFfNmOyXibQXbnj6V5iIzJ73k+Hm2U=
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(376014)(82310400026)(1800799024)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	0PTyXWALxxAklS08MDPQQKvg/9DNbik09WQ+ccRt34MgumqYyWf6dygPQ1wLeYxH5FsaKQTDSXbIJB2Efw81T3dYKJ22WnFq2jRi1wUiFJtfpIF6FDAfEjvhp6xxka1PoGJkz6vuKwY3n6mT19ajhOaHv+YMWijuABbHxOwu7yTJzL5db8xgzjMCpxzcIrw6lDUFmwslwvXLSDDq1d3ti+NVeI8PohfG1MW+iv+bp+zsPscWIAM+i7GKiYsdnHAeP4s4hwWD3chQ2neRopUfvSVNsgJiLYuL3g1DRNcAEZQ9h+oUuXvxfs8THmYZzJfOy1NIRsPIl8o3mnj3J+B8Gxf6Z60XgPs1szlOrtYOO8qcPZlqAiyp8nDvdirbEkoWR/hh9AMGLdAPb5jAqHxlqew6EiPa+aOFTuqpx1Sh/ioaUMB4aen3o/MLQatCB0t4
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2026 15:45:03.3763
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4191c654-3381-4a3b-7cd2-08deac4f9aef
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B371.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR10MB4876
 
-On 5/7/26 14:55, Marc Zyngier wrote:
-> The ARMv8.2 based CPUs used in a number of Amlogic SoCs are missing
-> the EL2 virtual timer interrupt. Add it.
-> 
-> This requires some surgery in the "common" files to move the timer
-> node to locations that makes it possible to add the interrupt only
-> where it is actually implemented.
-> 
-> Signed-off-by: Marc Zyngier <maz@kernel.org>
-> ---
->   arch/arm64/boot/dts/amlogic/amlogic-a4-common.dtsi |  8 --------
->   arch/arm64/boot/dts/amlogic/amlogic-a4.dtsi        |  8 ++++++++
->   arch/arm64/boot/dts/amlogic/amlogic-a5.dtsi        |  9 +++++++++
->   arch/arm64/boot/dts/amlogic/amlogic-s6.dtsi        |  3 ++-
->   arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi        |  3 ++-
->   arch/arm64/boot/dts/amlogic/amlogic-s7d.dtsi       |  3 ++-
->   arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi  | 13 -------------
->   arch/arm64/boot/dts/amlogic/meson-g12.dtsi         |  9 +++++++++
->   arch/arm64/boot/dts/amlogic/meson-sm1.dtsi         | 10 ++++++++++
->   9 files changed, 42 insertions(+), 24 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-a4-common.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-a4-common.dtsi
-> index 54d7a2d56ef64..6f559e4dd9ee9 100644
-> --- a/arch/arm64/boot/dts/amlogic/amlogic-a4-common.dtsi
-> +++ b/arch/arm64/boot/dts/amlogic/amlogic-a4-common.dtsi
-> @@ -7,14 +7,6 @@
->   #include <dt-bindings/interrupt-controller/arm-gic.h>
->   #include <dt-bindings/gpio/gpio.h>
->   / {
-> -	timer {
-> -		compatible = "arm,armv8-timer";
-> -		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> -			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> -			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> -			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>;
-> -	};
-> -
->   	psci {
->   		compatible = "arm,psci-1.0";
->   		method = "smc";
-> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-a4.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-a4.dtsi
-> index fce45933fa28b..c28fc7fcbae7f 100644
-> --- a/arch/arm64/boot/dts/amlogic/amlogic-a4.dtsi
-> +++ b/arch/arm64/boot/dts/amlogic/amlogic-a4.dtsi
-> @@ -86,6 +86,14 @@ pwrc: power-controller {
->   			#power-domain-cells = <1>;
->   		};
->   	};
-> +
-> +	timer {
-> +		compatible = "arm,armv8-timer";
-> +		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>;
-> +	};
->   };
->   
->   &apb {
-> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-a5.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-a5.dtsi
-> index 2b12d8284594f..c22c0acb4807e 100644
-> --- a/arch/arm64/boot/dts/amlogic/amlogic-a5.dtsi
-> +++ b/arch/arm64/boot/dts/amlogic/amlogic-a5.dtsi
-> @@ -49,6 +49,15 @@ pwrc: power-controller {
->   			#power-domain-cells = <1>;
->   		};
->   	};
-> +
-> +	timer {
-> +		compatible = "arm,armv8-timer";
-> +		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 12 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>;
-> +	};
->   };
->   
->   &apb {
-> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-s6.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-s6.dtsi
-> index ab3acef2b147e..853d32929ff46 100644
-> --- a/arch/arm64/boot/dts/amlogic/amlogic-s6.dtsi
-> +++ b/arch/arm64/boot/dts/amlogic/amlogic-s6.dtsi
-> @@ -56,7 +56,8 @@ timer {
->   		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>,
->   			     <GIC_PPI 14 IRQ_TYPE_LEVEL_LOW>,
->   			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>,
-> -			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>;
-> +			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>,
-> +			     <GIC_PPI 12 IRQ_TYPE_LEVEL_LOW>;
->   	};
->   
->   	psci {
-> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi
-> index a3faf4d188e11..bfaac5f3e22da 100644
-> --- a/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi
-> +++ b/arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi
-> @@ -94,7 +94,8 @@ timer {
->   		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
->   			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
->   			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> -			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>;
-> +			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 12 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>;
->   	};
->   
->   	psci {
-> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-s7d.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-s7d.dtsi
-> index 0c4417bcd6827..32d8683059964 100644
-> --- a/arch/arm64/boot/dts/amlogic/amlogic-s7d.dtsi
-> +++ b/arch/arm64/boot/dts/amlogic/amlogic-s7d.dtsi
-> @@ -58,7 +58,8 @@ timer {
->   		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
->   			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
->   			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> -			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>;
-> +			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 12 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>;
->   	};
->   
->   	psci {
-> diff --git a/arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi b/arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi
-> index 00609d2da6743..a911a5181a88d 100644
-> --- a/arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi
-> +++ b/arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi
-> @@ -2579,19 +2579,6 @@ map {
->   		};
->   	};
->   
-> -	timer {
-> -		compatible = "arm,armv8-timer";
-> -		interrupts = <GIC_PPI 13
-> -			(GIC_CPU_MASK_RAW(0xff) | IRQ_TYPE_LEVEL_LOW)>,
-> -			     <GIC_PPI 14
-> -			(GIC_CPU_MASK_RAW(0xff) | IRQ_TYPE_LEVEL_LOW)>,
-> -			     <GIC_PPI 11
-> -			(GIC_CPU_MASK_RAW(0xff) | IRQ_TYPE_LEVEL_LOW)>,
-> -			     <GIC_PPI 10
-> -			(GIC_CPU_MASK_RAW(0xff) | IRQ_TYPE_LEVEL_LOW)>;
-> -		arm,no-tick-in-suspend;
-> -	};
-> -
->   	xtal: xtal-clk {
->   		compatible = "fixed-clock";
->   		clock-frequency = <24000000>;
-> diff --git a/arch/arm64/boot/dts/amlogic/meson-g12.dtsi b/arch/arm64/boot/dts/amlogic/meson-g12.dtsi
-> index 664912d1beaab..866fc07d1b0ae 100644
-> --- a/arch/arm64/boot/dts/amlogic/meson-g12.dtsi
-> +++ b/arch/arm64/boot/dts/amlogic/meson-g12.dtsi
-> @@ -43,6 +43,15 @@ tdmif_c: audio-controller-2 {
->   		clock-names = "sclk", "lrclk", "mclk";
->   		status = "disabled";
->   	};
-> +
-> +	timer {
-> +		compatible = "arm,armv8-timer";
-> +		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_RAW(0xff) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 14 (GIC_CPU_MASK_RAW(0xff) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 11 (GIC_CPU_MASK_RAW(0xff) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 10 (GIC_CPU_MASK_RAW(0xff) | IRQ_TYPE_LEVEL_LOW)>;
-> +		arm,no-tick-in-suspend;
-> +	};
->   };
->   
->   &apb {
-> diff --git a/arch/arm64/boot/dts/amlogic/meson-sm1.dtsi b/arch/arm64/boot/dts/amlogic/meson-sm1.dtsi
-> index 8f5b850b1774f..77c72936ffdd3 100644
-> --- a/arch/arm64/boot/dts/amlogic/meson-sm1.dtsi
-> +++ b/arch/arm64/boot/dts/amlogic/meson-sm1.dtsi
-> @@ -128,6 +128,16 @@ l2: l2-cache0 {
->   		};
->   	};
->   
-> +	timer {
-> +		compatible = "arm,armv8-timer";
-> +		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_RAW(0xff) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 14 (GIC_CPU_MASK_RAW(0xff) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 11 (GIC_CPU_MASK_RAW(0xff) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 10 (GIC_CPU_MASK_RAW(0xff) | IRQ_TYPE_LEVEL_LOW)>,
-> +			     <GIC_PPI 12 (GIC_CPU_MASK_RAW(0xff) | IRQ_TYPE_LEVEL_LOW)>;
-> +		arm,no-tick-in-suspend;
-> +	};
-> +
->   	cpu_opp_table: opp-table {
->   		compatible = "operating-points-v2";
->   		opp-shared;
+On 14:15-20260507, Siddharth Vadapalli wrote:
+[...]
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+> > > diff --git a/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts b/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts
+> > > index 793538f94942..a85d7d08bd1b 100644
+> > > --- a/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts
+> > > +++ b/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts
+> > > @@ -439,12 +439,21 @@ &sdhci1 {
+> > >   	status = "okay";
+> > >   };
+> > > +&serdes_wiz0 {
+> > > +	ti,core-clk-sel = <1>;  /* Select internal reference clock */
 
-Thanks,
-Neil
+Doesn't the binding give the info?
+> > > +	ti,ssc-enable; /* Enable SSC */
+
+That comment is what the property says
+
+> > > +	ti,ssc-type = <1>; /* 1 for Downspread */
+
+If it is that critical should we have a include header or if the binding
+describes this, that should suffice, no?
+
+> > > +	ti,ssc-frequency-hz = <33000>; /* 33 KHz */
+
+33000 Hz is 33Khz.
+
+> > > +	ti,ssc-depth-per-mil = <5>; /* 0.5% depth */
+
+Binding should describe this?
+
+> > 
+> > I don't think the comments are very helpful. The property names already give a meaning.
+> 
+> The comments have been added for three reasons:
+> 1. The meaning of the following properties isn't obvious:
+> 	ti,core-clk-sel = <1>
+> 	ti,ssc-type = <1>
+> 2. For ease of 'grepping'. Grepping for '33 KHz' for example based on the
+> USB 3.2 Specification's modulation rate will not show '33000' in the
+> results.
+> 3. Completeness / Consistency. Since some of the less obvious properties
+> have been described via comments, the remaining have also been commented on,
+> although it is obvious what it means (ti,ssc-enable for example).
+> 
+> Unless you have a strong objection to removing the comments, I would prefer
+> retaining them. Please let me know.
+
+Just keep the necessary documentation - something that we cannot
+determine by bindings.. If we have to document in ever single dts, it
+might mean, you need a header to make it explicit? IRQ_TYPE_ kind of
+macro? IMHO (I leave it to subsystem maintainers), I feel these are
+better documented in the bindings. Also are these properties expected
+to be exactly same on all evms of a given SoC (wondering it they belong
+to SoC.dtsi instead)?
+
+-- 
+Regards,
+Nishanth Menon
+Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
+https://ti.com/opensource
