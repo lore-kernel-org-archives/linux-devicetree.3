@@ -1,162 +1,174 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013013.outbound.protection.outlook.com [40.93.201.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5EB83C5546;
-	Thu,  7 May 2026 15:47:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778168850; cv=fail; b=DX+pC7Bk73z7ad1/X8FuwZs+JUnE/sYG3+qEp0O4iG9qTTpKoDgLSaPCsK+SbMGflae5UweypXnDzCRFaNwcUWfYhe0xSZmhl47EJ87iBT9tjqxMPJd6i97hnooE5Dq4wo7PO3wjVt+7346/wVpbfSigmFRNEbbJtEYYJhzuqNI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778168850; c=relaxed/simple;
-	bh=EH8vBany5YWPtrEyxsFndMTTmY29E7hTcJ0bvp26ZeU=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mwC/PC5wI+HpxVQL62JXe+twtSe+B0vNd9Azii9byNwUG2x6QovbQfM2Qc/JcW053NebncLIsY8OjIbEEarpqXPNOoGYpkccFlUrbcD20AOScE/g2eNiWZPIlrQCYM2S+BsmseQ6XsWWy1OcDYLdn02BRUTck/fvMBjP8CsMXvc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=Kxop64zZ; arc=fail smtp.client-ip=40.93.201.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C97253F9F2C
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 15:51:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778169081; cv=none; b=BMlF62NJwiz5Vbmw1FuIc3Ppye8FFzZGbHZVDgjylkVxfaRj+0u8hvZEjYjKne+zRPxyqshxdqrfmXHMYtY5Lh4IV/uHZxWxjIMbVtKzXROh0NnxHN7tBCzU8Sbzx8UkC7Ftl5a+Fp+ycJk+zN6cZ3mFGyJqcL/gG/S+8FI0x9s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778169081; c=relaxed/simple;
+	bh=Nh1ttZ7apvcu4spD78Oi7RZ4MQs+MxjT4kjH8gqR2QI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=M/GPkJiQwRrCwfOXpgpe+CRvSmPMXX5dtvzcshI9L6NAS3uNE8t8gxJ0hq5t/IAn0Ueu3fQ1g4LdXhrJkzJ4MM15l3DOS4bSw6dRLv/0+4TtOJ/TKRZxAuzDYl4JWTQYTnopRV0NQTi+7xZsafhBO8krNdjzFmBAaHo2n3qDy+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PYQKnE31; arc=none smtp.client-ip=74.125.224.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="Kxop64zZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=g8Sx+TWEcAgJ3u2KwIqdZnk+7plKe8JeYCRswHr4a3T0RdKv82vVyX6MaXghJZS6iU9PvMTinPoJI3HHRZsoKHtsV6FaoPUTIahHwW4N6E4dWU5OeJQzoqeagrhSDTLKE0z1g/8ZKicAZ8m6kHJN/+9QKHExNw170+HSwjwBSE92qbp8B+VIzinDAqqDCPVOUu4006uBbQO0RrbiJGwGQvtEQjHFfUGmIatJ0AXr8Xri8EEEPiBOpKosdHVcTUWmSxw7xqT3gX34Vrf3ulkaCC5liTrIP5JtAt+XDNZtjVl7iax26Jby4rWVYj3DLuNxy1hioVORfWx+FUzQIDorsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TIf8QG+bbq23tN8htG23QGqiTALYTWmROeUahIonHqc=;
- b=rFwUElPyztXu7FOXs2L74iz/2NSFYWEmpSyDylf/6hfyAMiDhBwWQ8zzp6bJSGuv58fc2TxIUl7xXtVEIQhl7HYDvPQ/NSgzNFFPM/n4HpqLqwXHjZXVqh+P0kIxDFWXTUq28VpRYPub/+qvOcXIH4uVUIKRUf4GGB7ZMBHsnm7wims9t3GFLkAv0uFaWQ8a5Opd1s0OrRsaqqZDCfaiDjZIlB2xrSQlJArxm7SyOranSK7NreF1rFoA8OP9YiVh46NOsfe+IY1ZwnYZ0YDSfXpSji3wuwtFQZj/UxvBoCB2aCmYHHdBO/Zg8nLaSv7qgLReJzSu+nR75oYWEU8hXA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TIf8QG+bbq23tN8htG23QGqiTALYTWmROeUahIonHqc=;
- b=Kxop64zZ3JnJDITb+EiPOaT6ItVhJP3mjee92Ire0artch6tk5Ep3FyLqYS6KRYlzVkCjJ4+oOLRV71+HgPqb5M93kPclIheZIuKL5IfHS9DC40awPZDtb5tIiWzKwkAoRkU/1fxeppmQae80J0TxQx4gAtt/kV2o3zyu2Zz0JU=
-Received: from DM6PR07CA0084.namprd07.prod.outlook.com (2603:10b6:5:337::17)
- by PH0PR10MB5793.namprd10.prod.outlook.com (2603:10b6:510:fa::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.17; Thu, 7 May
- 2026 15:47:25 +0000
-Received: from DS1PEPF0001708E.namprd03.prod.outlook.com
- (2603:10b6:5:337:cafe::a6) by DM6PR07CA0084.outlook.office365.com
- (2603:10b6:5:337::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.17 via Frontend Transport; Thu,
- 7 May 2026 15:47:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- DS1PEPF0001708E.mail.protection.outlook.com (10.167.17.134) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9891.9 via Frontend Transport; Thu, 7 May 2026 15:47:23 +0000
-Received: from DFLE202.ent.ti.com (10.64.6.60) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 7 May
- 2026 10:47:05 -0500
-Received: from DFLE213.ent.ti.com (10.64.6.71) by DFLE202.ent.ti.com
- (10.64.6.60) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 7 May
- 2026 10:47:05 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE213.ent.ti.com
- (10.64.6.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Thu, 7 May 2026 10:47:05 -0500
-Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 647Fl5cb3946841;
-	Thu, 7 May 2026 10:47:05 -0500
-Date: Thu, 7 May 2026 10:47:05 -0500
-From: Nishanth Menon <nm@ti.com>
-To: Siddharth Vadapalli <s-vadapalli@ti.com>
-CC: Josua Mayer <josua@solid-run.com>, "vigneshr@ti.com" <vigneshr@ti.com>,
-	"kristo@kernel.org" <kristo@kernel.org>, "robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, "w.egorov@phytec.de" <w.egorov@phytec.de>,
-	"matthias.schiffer@ew.tq-group.com" <matthias.schiffer@ew.tq-group.com>,
-	"d.haller@phytec.de" <d.haller@phytec.de>, "francesco.dolcini@toradex.com"
-	<francesco.dolcini@toradex.com>, "joao.goncalves@toradex.com"
-	<joao.goncalves@toradex.com>, "emanuele.ghidoli@toradex.com"
-	<emanuele.ghidoli@toradex.com>, "ernest.vanhoecke@toradex.com"
-	<ernest.vanhoecke@toradex.com>, "rogerq@kernel.org" <rogerq@kernel.org>,
-	"eballetb@redhat.com" <eballetb@redhat.com>, "robertcnelson@gmail.com"
-	<robertcnelson@gmail.com>, "afd@ti.com" <afd@ti.com>, "u-kumar1@ti.com"
-	<u-kumar1@ti.com>, "stable@vger.kernel.org" <stable@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "luis.parga@ti.com"
-	<luis.parga@ti.com>, "srk@ti.com" <srk@ti.com>
-Subject: Re: [PATCH v2 01/13] arm64: dts: ti: k3-am642-hummingboard-t: fix
- USB clocking for compliance
-Message-ID: <20260507154705.oisyadsyrrvv53qj@upriver>
-References: <20260506141040.1368918-1-s-vadapalli@ti.com>
- <20260506141040.1368918-2-s-vadapalli@ti.com>
- <c5c8a3a0-c8c3-448c-83a6-99ffe3e6ef11@solid-run.com>
- <440c9069-b8dc-4dba-9dca-3a6c94bfd52e@ti.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PYQKnE31"
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-65c7492a2ceso995685d50.3
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 08:51:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778169079; x=1778773879; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=C2yYmWd9mJdnEyzzwS7hgRL4uZz7swPezTy7TkKWYGI=;
+        b=PYQKnE31qqBqzjTYBs96p+lagvLcynxBhOLappefc0i87O6MwwGDTQkho7EAYN85+m
+         hSYGpBNXRh77sLIkd4cFOQYVkcwYTF9fXpsnmKKSFVU+90Pco7gixGUXsRopWwA/l3Zl
+         u0pXJoSwHNUco3Pn75FcZhjWOczRxpfGOa+cLNXTCFgiedMg9DkRyiJ0/kAQ+i0Ibnpq
+         /V8MhPxXc1nytoxmUVp+9ZFBGc28SYcExWW88SXN8E26R52rT+hkMpEomO1qQhY3fAob
+         q5FcTwUdI0Fxrzg07oNa5rzj6SDiDwgCaugsgHWKS2Oe0u63vWkVMm4GCC0CnfhFATCh
+         UWJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778169079; x=1778773879;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=C2yYmWd9mJdnEyzzwS7hgRL4uZz7swPezTy7TkKWYGI=;
+        b=oNkHH8GIIxrlgQDAU+VlV/SQKi4KgGOou9/a1XO0JoUSnQGz4n8QJBL1zxqIsFeP/+
+         LBqzG5AvHXENYVUhGODKNLB8nYeNqFc2nFD/EnW2IHsuvk+nKJ88sNN/UKGNitX/EXpj
+         rM/mskVoa57YCZmw70iC1yhIOyzvZ6gbWZtruoMHaiDVAWRI4I1HckQqykHDqyuCsZlk
+         Sqh8p2XC5qrT6fqUwlG/0UpXpsUBP9iAv2cEMw0L1lnRbnSoNlyt5w63Nse23Nc3I0yD
+         r5mrLm6G16zXtLy7nYydGEUrfRiccJXa6b5g/UmaMNhDCrdpvMVXeD2HepOZICzjn4i6
+         Jq4Q==
+X-Forwarded-Encrypted: i=1; AFNElJ9p4UyHucE1hJPxUwPPU8Za2gmZ2JJ601zAI4GsTLaMzz511zpKrUXNXjo5OC49LEdnof4AKpArhnZy@vger.kernel.org
+X-Gm-Message-State: AOJu0YyH529yRuLWT5ja0hG5Z4rFUoOqwaL24eD7hgjnX2ITrpDOUuIY
+	2lhcdVgQ6cKBqesxM0GKNKmiQB/ZGQ88RV+THxDL1R4EChIqmUKcFb6t
+X-Gm-Gg: Acq92OGCU+gSctkZKIrsmN2fAqIahhPKoRxMIQAGM+RxI/8FR65OudagSvfE3LfWYEv
+	on/jTYicPbfQ9ZkZbgamz974IQR6JD5p3yPb3cxK0YgZTZwKCltmLLDyT2PXy8xfWOlMoJUiJdZ
+	5Bh5+KTMsXCOeeaZl8bUADgWDIftezH1LEl2QReJhulDv+LZJf0UNRYyom6mY8Pe8AnnjMZAWEy
+	qGsBFpaWE+ErKc4/NZ7e8dJ+6ycFi3lf8Chg8K1UgbpXhdh1mhoDOUN/2zB3V6kj3XvnwF6DC+J
+	g05C4IBBud2YEMBPNdF9ROPZZFRcPZYGlhujSBT4OPQKl3BGmm75NOGQsuyYggIqaM4JyM1uALK
+	bRyh7BosnyM+Qu2+bZrzsUaGCBQ6PHtCVcDZkwWEwZS3zkDwXo2yqDgdctGzWoqM/6zMzfQDi/6
+	P1GJDSNoNIZoJyTJ5rhANekfctcc4mPSNrR+1l
+X-Received: by 2002:a05:690e:144b:b0:65c:febd:c0b7 with SMTP id 956f58d0204a3-65cfebdc8b0mr5697087d50.20.1778169078832;
+        Thu, 07 May 2026 08:51:18 -0700 (PDT)
+Received: from [192.168.0.39] ([79.133.247.80])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-65d901b9275sm73091d50.11.2026.05.07.08.51.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 07 May 2026 08:51:18 -0700 (PDT)
+Message-ID: <0cee27b6-f566-4958-8634-2c43e099281e@gmail.com>
+Date: Thu, 7 May 2026 18:51:11 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <440c9069-b8dc-4dba-9dca-3a6c94bfd52e@ti.com>
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0001708E:EE_|PH0PR10MB5793:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8409058c-fa61-4a3b-ba73-08deac4fee85
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|36860700016|82310400026|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	zhrWn/paEoR/A4tmTJZBEb01Rn7UlSt2wOFxv18Wt4mjCT2R+QLw2GNcVLLzKhbeCuIrk0TZuZj3vm5NThb7I+d4s8FByJJd6SQwq7+naIWngnMnaRANSfe/SSCePIuwqFJkvEfQ5UNkwV0ZHVk7ZLR8C731vLkU5jmRtKqnck0PneU2X8Dc8cLbf1XNgzaVWDcRImSyndjz1jynDRlS5CafaTx6IaWgTJ3imhtd7GcVe16fwSfbpXbEx5NDrz9usJ+w9Nvz+DFYWpuN6T84LkdmFFdYaIbeh4HXceLUhKdP+qP6vngDubKTPjj2MK7ndJh4WUKBK3tIqTiJLZh6yl4Fpb50fg3Fu4ddUYdZ27A5OQDThg/SfWGAosxDKv1Hd2cI3mL0iPJ0AQthIFB++4vHA3F01YnMd4MQRU0yvP7XtPEC+35mANsqt/MfSiFbMkbH4IObq/coxloDgGiR5dJLcmB0asIyBEwHepx8BkcJTf7U0mK6MpXgRuR65rewBzcl4ZLYRYkmfrpyvwVmiHo/KzFILA5mfHQzVSUDFtEwVBDdQ+w/pdiSjsNwT4OBotz4YVCCqRYRRf8ZX5NClXnFcz1ogkqeIozfpB3tlOSe5Mh0zfzLUpqF4dVLVMZL6pd3LvJ7I77O/+Db2JGhKOyR+842ZVPiAlI/6qj9uDhd1pJRD/d1YhGFwytgFPE1YyCWHhGouFcCA7Mo9bBRFxpDkwLV8P45AFK1R7Pif14=
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(36860700016)(82310400026)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	PipU7+bKk2ETqW/q4lBSBJOYU9OYeQ1BeVfJhQ6p1qAsMjfwU/TkNGVGLUloDEt+BnfrerBGySDKaGkjmPoPzhek3MuGwPT6XrkpitxAtfgzvgWeUPOSt39ntrVkOr22gttG0vA+xWzB7B27vLNsWfGKMLcTfVzBVCiyMOLApYiuGfsKMc35PtuugLJx18iqCEEbEGSh+jUld3LZ4sWleaWeuWexOzehRIXb8hDWGHfq3N5VitwW6EiTREueKrtt3uNsIkzxHThDcYiFjzi7/s/SXiBQlL9xwCLtSQIhyYAB1YKHdAh7VCForC7t53M53sq/K0uoUA0KWLy34zkjW5s9E65wssB1/nxoNR4hyhETTUAlhHAFHHU1q/fHZkeax90IdR3QF28f59aM/W1lQ4jZTjWT8mJZA23qCyafRtr5JBXlyEeQBeqaau5iZ9PQ
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2026 15:47:23.6303
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8409058c-fa61-4a3b-ba73-08deac4fee85
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS1PEPF0001708E.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR10MB5793
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 5/8] clk: qcom: gcc-msm8939: mark Venus core GDSCs as
+ hardware controlled
+To: Bryan O'Donoghue <bod@kernel.org>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ phone-devel@vger.kernel.org
+References: <20260507-msm8939-venus-rfc-v5-0-d7b5ea2ce591@gmail.com>
+ <f5TsKnC12rLsH63vAi01aN4oXUFLrfgIhn14IQFDb9gcac6anLzzhJdkGNdQ2dRs4vYbFKUptfEgWuKdgIgGsQ==@protonmail.internalid>
+ <20260507-msm8939-venus-rfc-v5-5-d7b5ea2ce591@gmail.com>
+ <17c4626e-8926-4cad-842d-a1b171d1e962@kernel.org>
+ <CYaHtccGOWlaUtl3QIKva44ybJiRHsPOZmHEkl2KKGmnDxJ8vTH-SVNMGbL7bjkYjI692nplORzOhpfjs3XJfg==@protonmail.internalid>
+ <4f1ab5b8-3bfe-43a6-8b91-317456188544@gmail.com>
+ <7df3bff7-b872-4b20-8e7c-698157a41f33@kernel.org>
+ <tawGGT4rtpw22Ng-MgM--GhoEihBU7tY_TrFUHf8raMKApyqTcSkKHyfSuRIL_bqNp_5zWD4SBG_C4c8CB7_6Q==@protonmail.internalid>
+ <18998766-62fe-4a5e-95d8-1bfae712d8fb@gmail.com>
+ <614a087d-d219-49cb-85ee-772044558649@kernel.org>
+Content-Language: en-US
+From: Erikas Bitovtas <xerikasxx@gmail.com>
+In-Reply-To: <614a087d-d219-49cb-85ee-772044558649@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 12:09-20260507, Siddharth Vadapalli wrote:
-> On 06/05/26 19:47, Josua Mayer wrote:
-> > Am 06.05.26 um 16:09 schrieb Siddharth Vadapalli:
-> > > According to section "6.5.3 Normative Spread Spectrum Clocking (SSC)" of
-> > > the USB 3.2 Specification, SSC should be enabled by default. This protects
-> > > against EMI violations. Hence, enable internal SSC for USB SuperSpeed.
-> > > 
-> > > Fixes: e2b691804319 ("arm64: dts: ti: k3-am642-hummingboard-t: Convert overlay to board dts")
-> > > Fixes: bbef42084cc1 ("arm64: dts: ti: hummingboard-t: add overlays for m.2 pci-e and usb-3")
-> > > Cc: <stable@vger.kernel.org>
-> > > Signed-off-by: Siddharth Vadapalli <s-vadapalli@ti.com>
-> > > Acked-by: Josua Mayer <josua@solid-run.com>
-> > 
-> > Your (submitter) Signed-off should always be last.
-> 
-> I see both patterns in git log (Acked-by before Signed-off-by and Acked-by
-> after Signed-off-by) for arch/arm64/boot/dts. When posting the v2 patch, I
-> looked at a commit with Acked-by following a Signed-off-by and followed the
-> sequence.
 
-Documentation/process/maintainer-tip.rst,
-Documentation/process/submitting-patches.rst etc.. Signed-off-by is the
-last in the chain - always the handling order is maintained.
 
--- 
-Regards,
-Nishanth Menon
-Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
-https://ti.com/opensource
+On 5/7/26 4:37 PM, Bryan O'Donoghue wrote:
+> v4l2-ctl --verbose --set-fmt-video-
+> out=width=1280,height=720,pixelformat=NV12 --set-selection-output
+> target=crop,top=0,left=0,width=1280,height=720 --set-fmt-
+> video=pixelformat=H264 --stream-mmap --stream-out-mmap --stream-
+> from=cyclists_1280x720_92frames.yuv --stream-to=/tmp/
+> cyclists_1280x720_92frames.h264 -d /dev/video1
+
+With the patch kept:
+v4l2-ctl --verbose
+--set-fmt-video-out=width=1280,height=720,pixelformat=NV12
+--set-selection-output target=crop,top=0,left=0,width=1280,height=720
+--set-fmt-video=pixelformat=H26
+4 --stream-mmap --stream-out-mmap
+--stream-from=cyclists_1280x720_92frames.yuv
+--stream-to=/tmp/cyclists_1280x720_92frames.h264 -d /dev/video1
+VIDIOC_QUERYCAP: ok
+VIDIOC_G_FMT: ok
+VIDIOC_S_FMT: ok
+Format Video Capture Multiplanar:
+	Width/Height      : 1280/736
+	Pixel Format      : 'H264' (H.264)
+	Field             : None
+	Number of planes  : 1
+	Flags             :
+	Colorspace        : Default
+	Transfer Function : Default
+	YCbCr/HSV Encoding: Default
+	Quantization      : Default
+	Plane 0           :
+	   Bytes per Line : 0
+	   Size Image     : 708608
+VIDIOC_G_FMT: ok
+VIDIOC_S_FMT: ok
+Format Video Output Multiplanar:
+	Width/Height      : 1280/736
+	Pixel Format      : 'NV12' (Y/UV 4:2:0)
+	Field             : None
+	Number of planes  : 1
+	Flags             :
+	Colorspace        : Default
+	Transfer Function : Default
+	YCbCr/HSV Encoding: Default
+	Quantization      : Default
+	Plane 0           :
+	   Bytes per Line : 1280
+	   Size Image     : 1425408
+VIDIOC_G_SELECTION: ok
+VIDIOC_S_SELECTION: ok
+		VIDIOC_G_FMT returned 0 (No error information)
+		VIDIOC_G_FMT returned 0 (No error information)
+		VIDIOC_G_FMT returned 0 (No error information)
+		VIDIOC_REQBUFS returned -1 (Invalid argument)
+
+With the patch reverted:
+v4l2-ctl --verbose
+--set-fmt-video-out=width=1280,height=720,pixelformat=NV12
+--set-selection-output target=crop,top=0,left=0,width=1280,height=720
+--set-fmt-video=pixelformat=H26
+4 --stream-mmap --stream-out-mmap
+--stream-from=cyclists_1280x720_92frames.yuv
+--stream-to=/tmp/cyclists_1280x720_92frames.h264 -d /dev/video1
+VIDIOC_QUERYCAP: ok
+VIDIOC_G_FMT: ok
+The pixelformat 'H264' is invalid
+VIDIOC_G_FMT: ok
+The pixelformat 'NV12' is invalid
+
+Decoding breaks if I revert the patch as well, it fails with a power
+collapse fail.
