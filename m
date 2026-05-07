@@ -1,164 +1,101 @@
-Received: from mail-pj1-f65.google.com (mail-pj1-f65.google.com [209.85.216.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C21337CD40
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 09:35:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DADC3BF685;
+	Thu,  7 May 2026 09:40:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778146548; cv=none; b=Eur6/7Bz59S8NOYFHZP5KMsxEzC2UE99U0Gaw1onNJUs/o8rYyYlJ1TJ9Ks1KbIeyvswJlQWQEFhV5bB0vgEsYEYv3n1cX3i68J/mSJ/cAmmtH6lNOJ8o2c2P/8H0MTynGR4mw/Xsmti9n+kICbEElqQu4S5O/hxCMXJrSx5wWI=
+	t=1778146847; cv=none; b=CnQ5ELebh5GFHH+f487NWQ81r4A4S2KhAMsS2JW4cdNtXhVBqoccYb10GmJe67jJHtf6DgYZLnKLmWrP6VIv6G66Gw6DpCWZVGgUlc5+Vnu+vu4gLNVr4HuQ5yehPMqVkn91nNAkFpAPiwk4L6Pd6W5hbOXGVFhkgUNhKDY1Y0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778146548; c=relaxed/simple;
-	bh=+3dXKo6HEaUqbiU1d7YF8vYNCW370gD7bBjtPgCjrC8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mYYuPxbKwmX60JdWG4laSErFEtSeT0PkNLscQUJYeUVqY++FYE20dNIdWb8T5rXH/N4G/DgtaFWMMF3V8pVy7JlBGqSO5UT9cK9LaLvSc5GOVyl69Rl7uUSAmLJf0peMXSD535/HhkwuI6LqGgTiv5aQHb+GK3VUzqNBZXhSwXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HToJXD+J; arc=none smtp.client-ip=209.85.216.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778146847; c=relaxed/simple;
+	bh=fE5ye7bjFVeKys4V2lVCXth4QLCgpzqQ5+afoPzNXrE=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=gZ0tk1OoeFSIKvdAUoO6CfgY9zJd59EnlMNsry3ciSs54g5vAOqToZkT5MvbxFhGwYonpSEXOEJxDE8nV/wTCvoNRDFTQEa3OPOvkC6m0gUA9106BKll8G3qW4gnc9JLMofX3U7SxXF7bzOy2hfRWzocw8rJpf9hjrHlW7g/NfA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=akGIsCzH; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HToJXD+J"
-Received: by mail-pj1-f65.google.com with SMTP id 98e67ed59e1d1-364f7c42c62so468550a91.0
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 02:35:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778146544; x=1778751344; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=JUkIjpcmnqAY6snj5K4KsoGXaSrVhFlzy2v4P9fV3pM=;
-        b=HToJXD+J506QCMSh0DddG91zeZL31eJ0besnF2YsJ8yfu62YcvUwSmA0d55atHDhki
-         78abCjPpM3c1o0CoJKt7/ohxBuh1U7AhVHvX1fPB0Am6xwsIfF0oLCxdGX+68b3JinRu
-         3xwYesbeMHMrHFAd7qN7o3OJ4zdHyqiXq3HgwR88I5x/lihLA+VfNNCqmrEyDzLT6uUK
-         JWnlwuZnXaGezzOGFLH3TCwPzEkpaPz/GUJ0jeDbS5wRMySduxyo1U0wIszaiw/Kng1A
-         b3XyyLHAUw5q9SIZ9MSJqT24LGAx5jpmJTmLMTnSI3APGjCcxt92o2nAh45b/tq6Gxkm
-         MKug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778146544; x=1778751344;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=JUkIjpcmnqAY6snj5K4KsoGXaSrVhFlzy2v4P9fV3pM=;
-        b=sbzZXLjF+fzmwpNb99C/KMTLGaxZR8SMgecGBlPV7G+nX/Aoig1SbpAAYxGiM2rmlM
-         Vkg3wCu5C3FLwer3R1CG6GsXKyKnn9t4EBaHc/43WZR7VAQ+gZhTuCzItI9dgv9cKyjO
-         KlSkgaWUvREL4Ro8Vb+fwiQ3H/asFBQrtf8DLYmiNpzZeW6v+5KN9O+0uy2fI+j1yb6k
-         nKNEshOhBHZAZeUKSzH2xgeQOYRQpAuVtfbp2UhH428nB7THoTNFa4oZEJrOdox2agtl
-         bxle3BS1zyDbuwARMpZvxsx2Cq7giDFs94Uo5IIUnUeSknHxxjqKDyI4NBNiOYLHacGd
-         JGpQ==
-X-Forwarded-Encrypted: i=1; AFNElJ++Ha5Ow2rggPb3ZzJclD2IS6h/qm+Mv/Hl3iraz/N6EexVSKoqSY8YsIwpT9Ylx/dy5D+KKIZ60rlM@vger.kernel.org
-X-Gm-Message-State: AOJu0YwOAG4BBXxm+T0gOvAsF33HGLznJ0VHgy5c78is31qSWSY2gudk
-	hW9C4S8f4xO9TaJJHT6x3xBpXUG56oVPVOMQ9XKhDrAxE/v8NQjHJT0g
-X-Gm-Gg: AeBDieuuCNuZnf7ap7JFijvZvZrHsDvtVjaEnN3lZvYE842GsJJk5JqK4an9KPaDXMm
-	6FXhDzJkchTmgU4w8v+yJ9loyFFmbScRIGuJjMN7c8JOkeCIm10bROqjrY7dFezOXpWbFj4i7vO
-	GF8KidPEZOpwG10KBDffg0b3GsZB3aoK47cOdsUsJwvU6OYWVK7wYLMKCQsDX7ND+MiHCoImQZC
-	ohYx5WUd3loJzKz2ON+wUJ8t279LyL57eU2Dt/PHDM8cymdjd/DBFrccWHx5IY7MACjpOK9lPXg
-	Poc0v1H4avaHdNQc1tTM8jtrzmB5sTNqP0Uu6aeKN9cWGlVWf9ouECkd1Q70DYn5x9pS4pDkNN8
-	RXcPr9RUZqwf0OEf0QbR/nr9b/3cLeyssU+/F70rwMcidH120AjDTX3An32h+lYJbHGAykWANHl
-	+Kts3GuRhMOM76X6HfdZAD5/6Zq9vsh8iyHFuS9AnNdA==
-X-Received: by 2002:a17:90b:1c8b:b0:356:35a5:4a64 with SMTP id 98e67ed59e1d1-365ab9b8e5dmr6393838a91.4.1778146543874;
-        Thu, 07 May 2026 02:35:43 -0700 (PDT)
-Received: from [10.125.112.20] ([210.184.73.204])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-365b4c19387sm6651310a91.7.2026.05.07.02.35.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 07 May 2026 02:35:43 -0700 (PDT)
-Message-ID: <1a8af3cf-5edc-4ca4-b340-12ebeb2ed982@gmail.com>
-Date: Thu, 7 May 2026 17:35:33 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="akGIsCzH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9984C2BCB2;
+	Thu,  7 May 2026 09:40:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778146846;
+	bh=fE5ye7bjFVeKys4V2lVCXth4QLCgpzqQ5+afoPzNXrE=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+	b=akGIsCzHgCvyMJ4OmymOKUoABcC5Hko0+caBmCzbnGzKopk1ev/Xz9okwMtaVAjo+
+	 RmnG3NBCjjrKqUSFi8Gt3LS1Wa9/HsgfA8AqMOVs66QKrbu18JzSvQOls/04y4B8OK
+	 Fvw2UYHt6R9lOzqo5rfySjrWutdOX9ad6mRtHkl11FiFn5XLXC3cor6Gl1Wib7o8wB
+	 Dfnf6qLH8cCqPubos7T2eWixIm1/ObXJ19MyX13VLBFutwRhns6MEsrye/8yfHEVJJ
+	 WMSsro3dmitrs6R+8IfiZmlqBHELxmnRyLy0x79q9eCCcaFuzgV1wu9GY8a5xZKVSs
+	 4ne1f1lj2F4Pw==
+Date: Thu, 07 May 2026 04:40:44 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/11] of: reserved_mem: reject reserved memory outside
- physical address range
-To: Rob Herring <robh@kernel.org>
-Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
- devicetree@vger.kernel.org, akpm@linux-foundation.org, bhe@redhat.com,
- rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org,
- ruirui.yang@linux.dev, corbet@lwn.net, skhan@linuxfoundation.org,
- catalin.marinas@arm.com, will@kernel.org, chenhuacai@kernel.org,
- kernel@xen0n.name, pjw@kernel.org, palmer@dabbelt.com,
- aou@eecs.berkeley.edu, saravanak@kernel.org, chenwandun@lixiang.com,
- zhaomeijing@lixiang.com, everyzhao@126.com
-References: <20260429065831.1510858-1-chenwandun@lixiang.com>
- <20260429065831.1510858-3-chenwandun@lixiang.com>
- <20260506015112.GA286568-robh@kernel.org>
-Content-Language: en-US
-From: Wandun <chenwandun1@gmail.com>
-In-Reply-To: <20260506015112.GA286568-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Robert Marko <robimarko@gmail.com>, 
+ Guru Das Srinagesh <linux@gurudas.dev>, Conor Dooley <conor+dt@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ Bjorn Andersson <andersson@kernel.org>, devicetree@vger.kernel.org
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+In-Reply-To: <20260507080727.3227367-2-mukesh.ojha@oss.qualcomm.com>
+References: <20260507080727.3227367-1-mukesh.ojha@oss.qualcomm.com>
+ <20260507080727.3227367-2-mukesh.ojha@oss.qualcomm.com>
+Message-Id: <177814684471.382497.2929713039282886067.robh@kernel.org>
+Subject: Re: [PATCH 1/4] dt-bindings: firmware: qcom,scm: Add minidump SRAM
+ property
 
 
+On Thu, 07 May 2026 13:37:17 +0530, Mukesh Ojha wrote:
+> On most Qualcomm SoCs where minidump is supported, a word in always-on
+> SRAM is shared between the kernel and boot firmware. Before DDR is
+> initialised on the warm reset following a crash, firmware reads this
+> word to decide if minidump is enabled and collect a minidump and where
+>  to deliver it (USB upload to a host, or save to local storage).
+> 
+> Add 'sram' and 'sram-names' properties to the SCM binding to describe
+> a region in always-on SRAM where the minidump download destination
+> value could be written. Boot firmware reads it before DDR is initialised
+> on a warm reset to decide where to store the minidump either to host
+> PC or to on device storage.
+> 
+> Most of the Qualcomm SoC supporting minidump supports this, added the
+> kaanapali SoC for now.
+> 
+> Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> ---
+>  .../bindings/firmware/qcom,scm.yaml           | 57 +++++++++++++++++++
+>  1 file changed, 57 insertions(+)
+> 
 
-On 5/6/26 09:51, Rob Herring wrote:
-> On Wed, Apr 29, 2026 at 02:58:22PM +0800, Chen Wandun wrote:
->> early_init_dt_reserve_memory() does not validate whether the region
->> falls within physical memory. If a device tree incorrectly specifies a
->> reserved memory region outside the physical address range:
->>
->>   - For the non-nomap path, memblock_reserve() blindly adds the region
->>     to memblock.reserved, creating a stale entry that refers to
->>     non-existent memory.
->>
->>   - For the nomap path, memblock_mark_nomap() silently fails to match
->>     any region in memblock.memory, but still returns success.
->>
->> Add a memblock_overlaps_region() check at the entry of
->> early_init_dt_reserve_memory() to reject such regions before any
->> memblock operation takes place. This also simplifies the existing nomap
->> guard: the original "overlaps && is_reserved" condition reduces to just
->> "is_reserved", since the overlap with physical memory is already
->> guaranteed by the new check.
-> While I agree, I suspect we already have cases abusing reserved-memory
-> like this.
-Sashiko reviewed this patch and told me:
-"Historically, the reserved-memory binding is often used to describe 
-hardware
-SRAM, DSP memory, or IOMEM carveouts that reside outside of system RAM."
-IIUC, nowdays using mmio-sram DT binding is more appropriate for SRAM or 
-IOMEM carveouts.
-Should I drop this patch or keep it ?
-Thanks.
->
->> Signed-off-by: Chen Wandun <chenwandun@lixiang.com>
->> Tested-by: Zhao Meijing <zhaomeijing@lixiang.com>
->> ---
->>   drivers/of/of_reserved_mem.c | 15 +++++++++++----
->>   1 file changed, 11 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
->> index 9d1b0193864c..03c676052dab 100644
->> --- a/drivers/of/of_reserved_mem.c
->> +++ b/drivers/of/of_reserved_mem.c
->> @@ -112,14 +112,21 @@ static int fdt_fixup_reserved_mem_node(unsigned long node,
->>   static int __init early_init_dt_reserve_memory(phys_addr_t base,
->>   					       phys_addr_t size, bool nomap)
->>   {
->> +	if (!memblock_overlaps_region(&memblock.memory, base, size)) {
->> +		phys_addr_t end = base + size - 1;
->> +
->> +		pr_warn("Reserved memory region %pa..%pa is outside of physical memory\n",
->> +			&base, &end);
->> +		return -EINVAL;
->> +	}
->> +
->>   	if (nomap) {
->>   		/*
->>   		 * If the memory is already reserved (by another region), we
->> -		 * should not allow it to be marked nomap, but don't worry
->> -		 * if the region isn't memory as it won't be mapped.
->> +		 * should not allow it to be marked nomap. The region being
->> +		 * physical memory is guaranteed by the overlap check above.
->>   		 */
->> -		if (memblock_overlaps_region(&memblock.memory, base, size) &&
->> -		    memblock_is_region_reserved(base, size))
->> +		if (memblock_is_region_reserved(base, size))
->>   			return -EBUSY;
->>   
->>   		return memblock_mark_nomap(base, size);
->> -- 
->> 2.43.0
->>
+My bot found errors running 'make dt_binding_check' on your patch:
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/firmware/qcom,scm.example.dtb: sram@14680000 (qcom,kaanapali-imem): 'minidump-config@1c' does not match any of the regexes: '^([a-z0-9]+-)*sram(-section)?@[a-f0-9]+$', '^pinctrl-[0-9]+$'
+	from schema $id: http://devicetree.org/schemas/sram/sram.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260507080727.3227367-2-mukesh.ojha@oss.qualcomm.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
