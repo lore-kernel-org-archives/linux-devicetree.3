@@ -1,41 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 226543F7A93;
-	Thu,  7 May 2026 13:58:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A49C36A008;
+	Thu,  7 May 2026 14:01:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778162286; cv=none; b=oGXrC2RVP9CGFNGl7h37GyXMFBsT3CGv6qSy8bJB/9/josBhzal44UgcLVHIKgrEIgdJcR1Uxf7DLfZiZ08b4kafdJTGRj82+YjnQFMF1IXKx69WpEiAe4KzdqUlGOIYKt6zSdPhrPlfJeG2yUP6RjRCM202Lz9PosiqPQqdn00=
+	t=1778162488; cv=none; b=Ffey7X3fH7oS9F4zA9GLTZKbsRvlFk4JKuzmJSf9AKE73o4aV7V3o1R/ZINYkCB1Y2sZ9phdQQuGWYBc5SFefBACaf2bJgkzsCcTvdH5udlZu3vNPu/JrVauK/hLbPXiC37oJe4OJKHbSjNgJ7Dbd/hiDWYVKSgR4SOGkGM36IM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778162286; c=relaxed/simple;
-	bh=OlGWb/di+cIBNs760oUnufgVHfwkGavGdQINZlG0LKA=;
+	s=arc-20240116; t=1778162488; c=relaxed/simple;
+	bh=9Q0yyTk8fhXxRkGVuTTrnubEiJEGi19GcYh079J4Fcc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ol8ewF3TX6Dj9EfHJBKFeuA0IY8DFwKub3y9tsKifVd0okO3NISav/rQQjHUJsNB8dREMMJYZmsmV+lpn46X9pOWy3QeF3T3HfkqztNB3UeE95iJuAgo2fKvn+Gmhuu9tfw2m6eGX3LKzopBuBCqRClTz1rpzq1+kJPuhxzhTD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lJjfZPXm; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=Q7D+ZmobyRJlo7JekZ95RYjD6JglWUsUF/zc8spaBpCKNQ4o47Ufta2Hyj/FJu/dWvvlCznKkAliIKQz5KEWCyUWqIQjm3KhOZ4NUm4J+1/GIIEU+tLUuXvxDjksgTg+wup05RKoNX/lkvT47RssBiwFtgUDaYZpRisNX9Pfxwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=muonouMR; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lJjfZPXm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED736C2BCB2;
-	Thu,  7 May 2026 13:58:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="muonouMR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03478C2BCB2;
+	Thu,  7 May 2026 14:01:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778162285;
-	bh=OlGWb/di+cIBNs760oUnufgVHfwkGavGdQINZlG0LKA=;
+	s=k20201202; t=1778162487;
+	bh=9Q0yyTk8fhXxRkGVuTTrnubEiJEGi19GcYh079J4Fcc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lJjfZPXmhfVpQlVDJ50qS0HwTavca/aac71YEzV7zSRAWaiW1pDWIDyj3huXu3XV0
-	 9F99a+KXGZvY+3zWNrV0M65YyByrB5NWad7HbndONYpNc9L824KmP+2o3WkQbyo144
-	 eoWrTnerscA3nffXz6DcIdqJkwfme3BCQ2jC+vNgRm60vQoExIDt7Bo+yDSGWrdrIV
-	 HHbdfDGLbJwwo1nQLrkRyg81VFiSiY5SiRAVAsNpMjU/CnuOqbFaO57vL/gVAG37ky
-	 LrO0oRA1sTeSYpVHoC+C4tuXbfY43zU0VqB4sDqjBdemFekrLhaEqLsxi6m7/zNlL6
-	 tEdjCRCBZb1pQ==
-Date: Thu, 7 May 2026 08:58:01 -0500
+	b=muonouMRmz1mLBSqyt9jAC//B8uXcEGLmbv4abi8Qejf4pOL67pd8eLqbDKMzATtp
+	 Mn+eLLv8KsDv2NXzMBAnU7aMRSGGvP3zUYMuzqDA/nRR5rvUA2KVmzoolGLJgLPPMj
+	 M9Blh8hpS5JlxYadk8NyLTmO6L8AxgOZYpn23ppwl0zFsrCpP8yspdcuwPUv66VVKO
+	 wzYh9D9TQd+h6v9kn75demlc8RnpT789/P0ofi/WcpMJteOzNxYVtqzhwIJ8cPXJ5H
+	 gbjYqBqkZ/9qujoL8iWB525jly0ymZAJRCQZADfj+P6pI3YU98LKfMB0nUnkGHMsDy
+	 iUj8umqKLO1gQ==
+Date: Thu, 7 May 2026 09:01:24 -0500
 From: Bjorn Andersson <andersson@kernel.org>
-To: Qian Zhang <qian.zhang@oss.qualcomm.com>
-Cc: konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] arm64: dts: qcom: Add fixed regulators for WLAN
- supplies
-Message-ID: <afyYaCSFXy-Fm7DR@baldur>
-References: <20260501051918.1990713-1-qian.zhang@oss.qualcomm.com>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] firmware: qcom: scm: use dev_err_probe() for dload
+ address failure
+Message-ID: <afyajZbt1hjEbgvY@baldur>
+References: <20260507080727.3227367-1-mukesh.ojha@oss.qualcomm.com>
+ <20260507080727.3227367-3-mukesh.ojha@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -44,85 +46,44 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260501051918.1990713-1-qian.zhang@oss.qualcomm.com>
+In-Reply-To: <20260507080727.3227367-3-mukesh.ojha@oss.qualcomm.com>
 
-On Fri, May 01, 2026 at 01:19:18PM +0800, Qian Zhang wrote:
+On Thu, May 07, 2026 at 01:37:18PM +0530, Mukesh Ojha wrote:
+> Replace the bare `return ret` after qcom_scm_find_dload_address() with
 
-There shouldn't be a "v1" tag in your subject, and the subject prefix
-should be:
+Describe a problem, not an action.
 
-arm64: dts: qcom: monaco-arduino-monza: ...
+Why is this patch part of this series? I don't see how it relate to
+"minidump SRAM destination support".
 
-> Add GPIO-controlled fixed regulators for the WLAN power rails on the
-> Arduino VENTUNO Q board:
-> 
->   - wlan_reg_3v3: 3.3V supply controlled by GPIO54 (wlan_rf_kill)
->   - wlan_reg_1v8: 1.8V supply controlled by GPIO56 (wlan_en)
 
-Those really sounds like gpios, rather than regulators. Why are they
-represented as regulators. Please start your commit message by
-describing the "problem" that you're solving.
-
-> 
-> Both regulators are enabled at boot to support WLAN initialization.
-> 
-> Signed-off-by: Qian Zhang <qian.zhang@oss.qualcomm.com>
-> ---
-> Changes in v1:
-
-What do you mean? Changes since version 0?
-
->   - Clarified GPIO roles: GPIO54 for wlan_rf_kill, GPIO56 for wlan_en
->   - Improved commit message readability with bullet list format
-
-It's impossible for me to know if the regulator vs gpio was already
-discussed, because you didn't include a link to the previous version.
-
-Use b4 instead of doing your own thing, it will handle the versioning
-for you and it will provide links to previous versions.
-
-> 
->  .../boot/dts/qcom/monaco-arduino-monza.dts    | 21 +++++++++++++++++++
->  1 file changed, 21 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-> index ca14f0ea4dae..1a40ac5bb4bb 100644
-> --- a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-> +++ b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-> @@ -153,6 +153,27 @@ vreg_nvme: regulator-3p3-m2 {
->  		enable-active-high;
->  		startup-delay-us = <20000>;
->  	};
-> +
-> +	wlan_reg_3v3: wlan-3v3-regulator {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "wlan_3v3";
-> +		regulator-min-microvolt = <3300000>;
-> +		regulator-max-microvolt = <3300000>;
-> +		gpio = <&tlmm 54 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +		regulator-boot-on;
-> +	};
-> +
-> +	wlan_reg_1v8: wlan-1v8-regulator {
-
-Shouldn't these two regulators be referenced from a WiFi or PMU node?
+Change looks reasonable.
 
 Regards,
 Bjorn
 
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "wlan_1v8";
-> +		regulator-min-microvolt = <1800000>;
-> +		regulator-max-microvolt = <1800000>;
-> +		gpio = <&tlmm 56 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +		regulator-boot-on;
-> +	};
-> +
->  };
+> dev_err_probe() to produce a consistent, deferred-probe-aware error
+> message when the download-mode address cannot be resolved.
+> 
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> ---
+>  drivers/firmware/qcom/qcom_scm.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
+> index d9ee180388aa..f65b132004a5 100644
+> --- a/drivers/firmware/qcom/qcom_scm.c
+> +++ b/drivers/firmware/qcom/qcom_scm.c
+> @@ -2762,7 +2762,8 @@ static int qcom_scm_probe(struct platform_device *pdev)
+>  	scm->dev = &pdev->dev;
+>  	ret = qcom_scm_find_dload_address(&pdev->dev, &scm->dload_mode_addr);
+>  	if (ret < 0)
+> -		return ret;
+> +		return dev_err_probe(&pdev->dev, ret,
+> +				     "Failed to find download mode address\n");
 >  
->  &ethernet0 {
+>  	mutex_init(&scm->scm_bw_lock);
+>  
 > -- 
-> 2.34.1
+> 2.53.0
 > 
