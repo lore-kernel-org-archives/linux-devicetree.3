@@ -1,222 +1,217 @@
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E24372B28;
-	Thu,  7 May 2026 14:51:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778165478; cv=none; b=IVsvZ3wzHKhkwEpzFMB4aJdjfR9Vevz5rtW/owTC2Uq5WbuXOBfGhXYjALA0xZri1EvJrMk5bgZnIxomHY2dKduoa/8ZrIhzm0C2GhCQaCbpfkY2hmeqJK4AycK77YDEWFLTSLupFISkpD5sudPtbFrtEBqYqyYbEDzhksgUnL4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778165478; c=relaxed/simple;
-	bh=u2BzENob+U0AfUiYF6Z72HYlqrIAOzug7RrdZv9iFNM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=UxbY2VhZG+zs+fyvWbk1dkJQ5nLFgJj041rdn2/2zyhEq0tuTWjoIAbtl4KtcVZUUQqkuZ5SeFWfdbXBxPKAtzhGuJCMfVWesKIWMjZ8Lt1dbk7xz1Qnqjgujlc08yJT7UvLQnUnkUY0sNkdr9+MXGyxFilzuwlRFaBevuwGliQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.206.34.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpgz3t1778165454td66e8873
-X-QQ-Originating-IP: HuGBG3Ml2Caws39TpFtyy9eUy8K149XoQlT7HOxynHE=
-Received: from [192.168.30.32] ( [116.234.74.217])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 07 May 2026 22:50:52 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 5577348788633877168
-EX-QQ-RecipientCnt: 9
-From: Xilin Wu <sophon@radxa.com>
-Date: Thu, 07 May 2026 22:50:52 +0800
-Subject: [PATCH] arm64: dts: qcom: sc8280xp: Mark FastRPC context banks as
- dma-coherent
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 178EE31715F;
+	Thu,  7 May 2026 14:53:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778165582; cv=pass; b=qN3sZJP8djz+1mPzGDfjJFZwbnoDde/eBJ8W1OeT2OG3d7lbJJ9NLn7K4qF64f3AAL6xDPfMiTNiF7fnhFU8OennslbyFX3nrRPL1AA+E6F8rtPdhdQVXCVSxdaseBK8n/uhmBVQu7OktKRo1qx6hio9EQY0E4lxJtvvScc/lyM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778165582; c=relaxed/simple;
+	bh=j5a4eQdwTuHiYaO1bzwW5AlyiL1sg8LGVa9SISVvtmI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ZKWd75P8P+kFmZBYQLo6KBK0uSnUT9/GFJhzhFMDBEcdDjOia9ErANJbIFsWqswMzhz/Ow0zdSiEwXDiqBsglBE1fVIAwVILR4abR/nByh/8N2pFsXbQ6hBMOY9uD6RUSWyaj43n9HlJhoe5mzNWWYthJF+lfzLWrXd1IdEkaRY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b=fOdineQx; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b="fOdineQx"
+ARC-Seal: i=1; a=rsa-sha256; t=1778165549; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=gnoQamEnOtplYB0I+IAslgQbn8pbGYB69jQehTFsGfodQdyEq9N8s+8IaNQKwXL/NDNsawSM/Z24cn1OYsoIL42X1HyPLDQRnaqTCp8EbXe1KuvMvk5LtH+mEi7GRXP3W5KPsCWtActawG/STVReMfEy/yqHt7lFbvRLBwzGCUM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1778165549; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=mD80HyVHazAI7zY5u5ppiXiv/kRQLmFGurqGNhp1Zzg=; 
+	b=AhxTDMRqMIdHYGdQlIxOWo/w5Yz5yPQybWfRB7KQ1G+XgIQR5AJA3uWTDk39YfBwadzwFfM+oo75B9ALzq5a14hn5rLGvoIvrTx3fI+FWIlw96uB17G4kVkwssUehgccD4OFIVq/EeR8ESEfE98d1Z0/BybHWz4mqdIF6H4BYTo=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=louisalexis.eyraud@collabora.com;
+	dmarc=pass header.from=<louisalexis.eyraud@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1778165549;
+	s=zohomail; d=collabora.com; i=louisalexis.eyraud@collabora.com;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=mD80HyVHazAI7zY5u5ppiXiv/kRQLmFGurqGNhp1Zzg=;
+	b=fOdineQxBdsWNaByWoVgw199d+7PDlanFfm3mIwEsyWRlUH/RmGfoI/q97LzGnFF
+	Pmgf2QzTPK0zhkSxGjMMGx7TbjLzXoS0N7L2tSBhWBqurBEKHhmumI2uDwqlYmkXsm6
+	ki/LIERCJEAVU8uJ1GOsXQbZSpcwpdfMack/cvjY=
+Received: by mx.zohomail.com with SMTPS id 1778165548105701.1379238259724;
+	Thu, 7 May 2026 07:52:28 -0700 (PDT)
+Message-ID: <2c441d51f6a865ddb6e67b63cd26a651ed3ff058.camel@collabora.com>
+Subject: Re: [PATCH net-next v2 4/4] net: phy: Introduce Airoha AN8801/R
+ Gigabit Ethernet PHY driver
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>,  Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley	
+ <conor+dt@kernel.org>, AngeloGioacchino Del Regno	
+ <angelogioacchino.delregno@collabora.com>, Heiner Kallweit	
+ <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	kevin-kw.huang@airoha.com, macpaul.lin@mediatek.com,
+ matthias.bgg@gmail.com, 	kernel@collabora.com, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, 	linux-kernel@vger.kernel.org
+Date: Thu, 07 May 2026 16:52:22 +0200
+In-Reply-To: <3688a285-7f98-4afa-80ad-697094cd7b97@lunn.ch>
+References: 
+	<20260326-add-airoha-an8801-support-v2-0-1a42d6b6050f@collabora.com>
+	 <20260326-add-airoha-an8801-support-v2-4-1a42d6b6050f@collabora.com>
+	 <3688a285-7f98-4afa-80ad-697094cd7b97@lunn.ch>
+Organization: Collabora Ltd
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260507-sc8280xp-fastrpc-dma-coherent-v1-1-e92aed797865@radxa.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQrCMAwA0F8ZORuIxc3ir4iHNk1dBbvSVBmM/
- btVj+/yNlCpSRQuwwZV3knTkjuOhwF4dvkumEI3GDITjXRGZWssrQWj01YLY3g65GWWKrnhaSK
- W6EYbvId+lCoxrb//evtbX/4h3L4p7PsHgOox+oEAAAA=
-X-Change-ID: 20260507-sc8280xp-fastrpc-dma-coherent-460cefa58dbb
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Xilin Wu <sophon@radxa.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3701; i=sophon@radxa.com;
- h=from:subject:message-id; bh=u2BzENob+U0AfUiYF6Z72HYlqrIAOzug7RrdZv9iFNM=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDJl/lp1dFVMefHDF/1tTo3kPzpneaqqQwjfJfL0G64yKD
- 5mMvBeTO0pZGMS4GGTFFFkU4hnmslfmXnsqVqoHM4eVCWQIAxenAEzkLjMjwzeXmcIaH8zXebD0
- Fvz/ffxw6sVZt6yYqjICwmenBahJ5TAydDQG7e7epRMd8XKZtzvr3v8FyXmPRL5uX//g7dl5Pn1
- HuAE=
-X-Developer-Key: i=sophon@radxa.com; a=openpgp;
- fpr=205F009D07796DD6E516752E32C31567AD9E324E
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: OVyrbz22gz1neDcTSEL44qsZSeg/C3t6IxFebbXCumOWfSpB/OEr1jgL
-	svSE+vULzIv2KBnFvGwQBiWuhnJpY8yFHCbVyvGYioEhj+CTT0hzYFAuvqWW6m7EKAws3s1
-	9ilYsVdNdVXhyE4Db30kBtOebR2qsp4SnVwZz/zJ5ati9kXI45u44TPDndpbkq+CFu/WPkw
-	EjreiQHFTNj1KCIBvYhuHjFr7Ps7XA3z9PNz93K9rUmghLSHc/NCzFcGQrhjlWdXgHaFnz7
-	LGImVkbPVNtM4+DXDSfpveFa2gK+H9ZagQvwACRpaGjEH7wHGKyk5Cw/1tHk1q+EB0WcQ6g
-	q+bcuOqxBVRMLvA1swnDwIFHXuhxiJ+0kD9/ytW8pnkyaeGNK9owuVoe7gjacMWHhFHH3EO
-	2luri71mX3g56kj+joGajwwU+gkwImSTLuGcXPl9B4BEX5eEBCYmPFOXIqOucvqM7Es6JTU
-	9RNRrg2ddru2d8gEcwXxQS2CKsNuL2ksdULGWZekfxXrAhr6jprpSyhLGXQ4tG2VzTAQ30o
-	XeADXZGYvd69EKI0FY5BNyR/VYDE/CqVUWwaSB8pNKwYBaqPA2YUqnXJAf/G8OdEmnwGGc4
-	LB3vTQQTDCpxGXuE/f86bB4429wiU6FOlxyE12J1l6H3xGerLOaLFW2LTo1wi2aL23bmoYI
-	9QShbYdMd2MdvyAzwzmMSrjPZ5g7PA7oY388wST++ptWkz2lXfzt+9O2msxocJhmV+Y8wzb
-	P3eIUgj+0EAD16EKrcpp1va0Hhi2n73NJuCwyT9ixblaMCd6yp5uiO8xnOIyfZIR0SIt9E0
-	YTeRbAmIDswFVk3thwqQQ77jybITDDQ2TIZJ+wgK2R7+lFr5CyPH2yEIyvA7C8rAwC8RYtR
-	hbc30BfIMK0uU4V/mqv8mdXSQ17YnBwDzxnZysoxhXkz9z0zlBqgXH52sIjJHyfKuf8oko0
-	nxGuLc/f43L2A3drqVq0kW8BEYj61gKTlEm1ZwNYfn1kwYrskIhiI9ZXG0R47+iWV0bqukS
-	1M8c89XB3Qv0VzMcrI
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+X-ZohoMailClient: External
 
-The FastRPC context banks are DMA-coherent on sc8280xp platform. Mark them
-as such.
+Hi Andrew,
 
-This allows running AI applications on the CDSP using the Qualcomm AI
-Runtime (QAIRT) SDK on the sc8280xp platform.
+On Thu, 2026-03-26 at 13:47 +0100, Andrew Lunn wrote:
+> > +static int an8801r_led_blink_set(struct phy_device *phydev, u8
+> > index,
+> > +				 unsigned long *delay_on,
+> > +				 unsigned long *delay_off)
+> > +{
+>=20
+> ...
+>=20
+> > +	ret =3D phy_modify_mmd(phydev, MDIO_MMD_VEND2,
+> > LED_ON_CTRL(index),
+> > +			=C2=A0=C2=A0=C2=A0=C2=A0 LED_ON_EN, blink ? LED_ON_EN : 0);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	return 0;
+>=20
+> Just
+>=20
+>=20
+> 	return phy_modify_mmd(phydev, MDIO_MMD_VEND2,
+> LED_ON_CTRL(index),
+> 			=C2=A0=C2=A0=C2=A0=C2=A0 LED_ON_EN, blink ? LED_ON_EN : 0);
+>=20
+> > +		if (!led_trigger)
+> > +			continue;
+> > +
+> > +		ret =3D an8801r_led_hw_control_set(phydev, led_id,
+> > led_trigger);
+> > +		if (ret)
+> > +			return ret;
+> > +	}
+> > +	return 0;
+> > +}
+>=20
+>=20
+> Please take a look at all your functions. Can the last error check be
+> removed and just use return ret, etc.
+I'll fix this in the next version.
 
-Signed-off-by: Xilin Wu <sophon@radxa.com>
----
- arch/arm64/boot/dts/qcom/sc8280xp.dtsi | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+>=20
+> > +static int an8801r_of_init_leds(struct phy_device *phydev, u8
+> > *led_cfg)
+> > +{
+> > +	struct device *dev =3D &phydev->mdio.dev;
+> > +	struct device_node *np =3D dev->of_node;
+> > +	struct device_node *leds;
+> > +	u32 function_enum_idx;
+> > +	int ret;
+> > +
+> > +	if (!np)
+> > +		return 0;
+> > +
+> > +	/* If devicetree is present, leds configuration is
+> > required */
+> > +	leds =3D of_get_child_by_name(np, "leds");
+> > +	if (!leds)
+> > +		return 0;
+> > +
+> > +	for_each_available_child_of_node_scoped(leds, led) {
+> > +		u32 led_idx;
+> > +
+> > +		ret =3D of_property_read_u32(led, "reg", &led_idx);
+> > +		if (ret)
+> > +			goto out;
+> > +
+> > +		if (led_idx >=3D AN8801R_NUM_LEDS) {
+> > +			ret =3D -EINVAL;
+> > +			goto out;
+> > +		}
+> > +
+> > +		ret =3D of_property_read_u32(led, "function-
+> > enumerator",
+> > +					=C2=A0=C2=A0 &function_enum_idx);
+> > +		if (ret)
+> > +			function_enum_idx =3D AN8801R_LED_FN_NONE;
+> > +
+>=20
+> What is this doing? Is this documented in the binding?
+The `function-enumerator` property is only documented in the led common
+dt-binding file. The an8801 dt-bindings inherits this property from the
+ethernet-phy dt-bindings.
 
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-index 761f229e8f47..480cb85b5792 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-@@ -2910,18 +2910,21 @@ compute-cb@1 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <1>;
- 						iommus = <&apps_smmu 0x0521 0x0>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@2 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <2>;
- 						iommus = <&apps_smmu 0x0522 0x0>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@3 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <3>;
- 						iommus = <&apps_smmu 0x0523 0x0>;
-+						dma-coherent;
- 					};
- 				};
- 			};
-@@ -6029,84 +6032,98 @@ compute-cb@1 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <1>;
- 						iommus = <&apps_smmu 0x3181 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@2 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <2>;
- 						iommus = <&apps_smmu 0x3182 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@3 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <3>;
- 						iommus = <&apps_smmu 0x3183 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@4 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <4>;
- 						iommus = <&apps_smmu 0x3184 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@5 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <5>;
- 						iommus = <&apps_smmu 0x3185 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@6 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <6>;
- 						iommus = <&apps_smmu 0x3186 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@7 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <7>;
- 						iommus = <&apps_smmu 0x3187 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@8 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <8>;
- 						iommus = <&apps_smmu 0x3188 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@9 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <9>;
- 						iommus = <&apps_smmu 0x318b 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@10 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <10>;
- 						iommus = <&apps_smmu 0x318b 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@11 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <11>;
- 						iommus = <&apps_smmu 0x318c 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@12 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <12>;
- 						iommus = <&apps_smmu 0x318d 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@13 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <13>;
- 						iommus = <&apps_smmu 0x318e 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@14 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <14>;
- 						iommus = <&apps_smmu 0x318f 0x0420>;
-+						dma-coherent;
- 					};
- 				};
- 			};
+We aimed to have this PHY have its led behaviour (how many to enable
+and what their role shall be) configurable using devicetree and not to
+rely on a default configuration, hard-coded in the driver (like the
+air_en8811h driver did) and also make use of the led hardware
+offloading (for functions like 100/1000, activity blinking, and others)
+that this PHY is capable of.
 
----
-base-commit: 735d2f48cadaa9a87e7c7601667878de70c771c5
-change-id: 20260507-sc8280xp-fastrpc-dma-coherent-460cefa58dbb
+From the available property list for the led node, this one seems to be
+appropriate to distinguish between the possible LAN functions, that=20
+would mean that a specific LED has either a link or RX/Tx activity=20
+role.=C2=A0That is why we used it but we could be wrong.
+
+The an8801 dt-bindings (in patch 1) misses the possible values and
+should improved in that regard and I'll fix them in next version if
+this implementation seems acceptable to you.
+>=20
+> > +		if (function_enum_idx >=3D AN8801R_LED_FN_MAX) {
+> > +			ret =3D -EINVAL;
+> > +			goto out;
+> > +		}
+> > +
+> > +		led_cfg[led_idx] =3D function_enum_idx;
+> > +	}
+> > +out:
+> > +	of_node_put(leds);
+> > +	return ret;
+> > +}
+>=20
+> > +static int an8801r_read_status(struct phy_device *phydev)
+> > +{
+> > +	int prev_speed, ret;
+> > +	u32 val;
+> > +
+> > +	prev_speed =3D phydev->speed;
+> > +
+> > +	ret =3D genphy_read_status(phydev);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	if (phydev->link && prev_speed !=3D phydev->speed) {
+> > +		val =3D phydev->speed =3D=3D SPEED_1000 ?
+> > +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 AN8801_BPBUS_LINK_MODE_1000 : 0;
+> > +
+> > +		return an8801_buckpbus_reg_rmw(phydev,
+> > +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
+> > AN8801_BPBUS_REG_LINK_MODE,
+> > +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
+> > AN8801_BPBUS_LINK_MODE_1000,
+> > +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 val);
+> > +	};
+>=20
+> This is unusual. What is it doing? Please add a comment.
+This call is to ensure that the PHY switches to the expected 1Gbps=20
+speed when available.=C2=A0
+I'll confirm it and add a comment in v3.
 
 Best regards,
---  
-Xilin Wu <sophon@radxa.com>
-
+Louis-Alexis
+>=20
+> 	Andrew
