@@ -1,159 +1,214 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497A83EF654
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 11:53:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D60ED30F535
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 11:56:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778154833; cv=none; b=eJLPRSnmpp2HcGE+Q8/6SD+ZCZpyk+v913Oc0nrv3PI+G+k19WoHIfZi89Ca7F3sjQA0lgahrGVMNjMDYMmFZwZe3CZP7Qm+dOXaUOCw9ueJllj8BomHZ/92ClKDypm5lrH3Bk3Zbx12kFkQ420IbrH5Y9msPeB/eJ7lf/QpukM=
+	t=1778154967; cv=none; b=YZhoEa9pNIgZ1SnUujUwDIHXps/hbtJfGrhopcKhf7Iuo37lzWiuGQ0wb+csh+cwsQu7AdKRX2uMEBdNmcd8vO0PIAKXV7TzonI4qRCx2Nqav8VJd60ihBUztLkqI6DFDc4e9kNm0lhjjP3TZMK8BPEv8dTsmE0gllRGSU/xF7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778154833; c=relaxed/simple;
-	bh=sfl81u2ifZ0/GKHLGpn31j3VpS1n60GRSgz4W7+kkeo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ED+EiIMwCtkBHA6YA6RKS54vm/ssz2Y9HGaLvn04mU00tnI3XDkbz72mSqD+Ixv9oNi5hY/1zwt5DDac3RbiD5C4iDqJVihENd5MOs6mlqmqZ0CWr5542xSwBtIYncK/jcmzP/E4Q4CDTwIJSVVDix984+juc418Tfmr41l2XGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YR4uC2ax; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HEPyvh3p; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YR4uC2ax";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HEPyvh3p"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64795pHK3463973
-	for <devicetree@vger.kernel.org>; Thu, 7 May 2026 11:53:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=89zFx3dLXtbpfnKkvfW0+OhfkwJkSy5cdCw
-	bfPbXPYw=; b=YR4uC2axPJ3/ATxJXnvfx0wwFSR7ErX3jvrpJHV1fUkumnCt3Ra
-	Q44Y3h3s6uAz7u2pFfr+n5AIU9QZ3o50ZZXFDnR992WckABk+gJ5Ml88JaZKog1X
-	+0YsWSR2ieVbmAtQD0nULmubU3MzVUH1iZmOmaxepe2Bh3zSc586ja28qkyANLi4
-	03U4vJSt6hhl/frrc4Tco19U/OZxPLgbO64zFvFQES2iHBcTIytsS9boZ9FbvBVD
-	m2cEL6DKhEIXaLGBHxACsO6yKvYCTYXph/ErPmTH0Q6GaaFYfceSlTkVPcSy/0th
-	hFAE7NRSTrbXq+BG4GwIAxZb29+ROiz6qGQ==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0hvn1xee-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 07 May 2026 11:53:51 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-82f74f0e3c6so487869b3a.0
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 04:53:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778154831; x=1778759631; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=89zFx3dLXtbpfnKkvfW0+OhfkwJkSy5cdCwbfPbXPYw=;
-        b=HEPyvh3pu78yDoCsc2U8WT4y94HUkpMRw1DfQC16qxiPM2gc4R77ShiCP1zs8fBuuz
-         WYijDaN7I0fwXzWWSZiMhztNCA5KIRwq6blwtKHM6cLweAa9xeESvEHQ2ftx7O2MI7oK
-         2HoC/NOtd9HXApLBr148vyRHKWjwqLsLW40iIDOuWDrIQ4He1l0sVrbKv3XLbuCjetKb
-         Cd4TfPfhZ9WicIvcLSCHv+5gQ36kB3eodZ01CqJ+IT70mXQTbuslcG+I628y03NnENML
-         5bVL2nivyekp6yqY+F96Q7KvcmbpVfdFDq0XbcfghouSQcTeioVFmxSbT6UfONqRo7/e
-         o4Ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778154831; x=1778759631;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=89zFx3dLXtbpfnKkvfW0+OhfkwJkSy5cdCwbfPbXPYw=;
-        b=ewveBniqQfhpyE6axCLFxiBcp4Kyi5wqJehunzonPG8lqO4e/mxTmmCOunsytd2ctq
-         /cie2/6k5W+bfjvxnin4OmLA6Q+opy3djaLHw0I/RqC0ax1iyEIbaVDJZ1/dg2vwe7n/
-         koIqade2kjYYOZIZF0DWHsMZ7Roq/WEshhPtE7nJXoG424mmLoNoNdMaKOyIrzMiJUbp
-         oqe5JuH5f/jk+6CaiVFMV8GCF8LwVAvrdYFpKNwZtaOmOdenq3bN3nxqwjQoySogmpPA
-         IEWmyDtKZG3uSkZ+RZarRewBsH/56gRo12U+5NYEEoNNMVtJjYhjNjhpCmHOGPHu/sW2
-         BGvQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8UqSEEQ3GyQWHn5zbXHSH9ZN3N4vImGrxPYNy51LB7O3ZevlH50imWBpEq/HnkyoXtIctIVp6qhTNA@vger.kernel.org
-X-Gm-Message-State: AOJu0YzCokDie4vXtQe/4U8qyMWxZT4BviZ+hwiunlZCv0hSHDF+FgP1
-	kO/ds4AAm5j5IJmDVWqOCULDTNRhOA4l/5jH4OABspoj6VO2jpnv6JdjISJvRX9xylLr3VSSsYh
-	VTOoOEUP3p5NwwLQKqUgs75DUOeD6R0Cm0JfXELO2Oy6vtXlGum14en+JbZ/3G1As
-X-Gm-Gg: AeBDievsjnzCvNvL12D9SRoZYabAr0k7Hu57QXskBhNmu3lu07Wy1r/zs2ZOLIPhHMy
-	vuZcxpbioZM99n4TUr9UP/+7/KBnrOOGVR/Sl1HUGi7N5HDklouDIH8KZXDhdPkVTsnFA5mg8U5
-	9LpssMPUOWAV+tOlTV0+T2Be6slJ5UM8wcIVpRxnyUhxTgAzIxSoqT+FEHQNfN+lcpLIa7m6+w6
-	g91vdRWZBuKzP8/R9ztk3FrlIWgMynn8r06WVlanKPs3h6SoZC9lAAjpA6hO7Ew/dX0kknWSWDq
-	44hGfMD1WTRvJXnX3rJIqyH9hXRivtQ4Rmidt4kvFJBfMjzbfxuCzT0DgmfGJBHfDeQk9ek6IoJ
-	io8xa60qqyRY9L+KBwweTEqhpVVJUSecM5vhhX6KgBLbrpctni4euYJt188Y/x6Bbxw==
-X-Received: by 2002:a05:6a00:348a:b0:835:6bdf:c87d with SMTP id d2e1a72fcca58-83a5b0dc365mr6912953b3a.10.1778154830720;
-        Thu, 07 May 2026 04:53:50 -0700 (PDT)
-X-Received: by 2002:a05:6a00:348a:b0:835:6bdf:c87d with SMTP id d2e1a72fcca58-83a5b0dc365mr6912928b3a.10.1778154830213;
-        Thu, 07 May 2026 04:53:50 -0700 (PDT)
-Received: from hu-anupkulk-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83965646254sm8976072b3a.10.2026.05.07.04.53.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 May 2026 04:53:49 -0700 (PDT)
-From: Anup Kulkarni <anup.kulkarni@oss.qualcomm.com>
-To: andersson@kernel.org, dmitry.baryshkov@oss.qualcomm.com,
-        konradybcio@kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, mukesh.savaliya@oss.qualcomm.com,
-        viken.dadhaniya@oss.qualcomm.com,
-        Anup Kulkarni <anup.kulkarni@oss.qualcomm.com>
-Subject: [PATCH v2] arm64: dts: qcom: Enable CAN RX via GPIO expander
-Date: Thu,  7 May 2026 17:23:24 +0530
-Message-Id: <20260507115324.1814329-1-anup.kulkarni@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1778154967; c=relaxed/simple;
+	bh=fSsad6JC2tWXR0V8y7aEkbKsYoPNLt1LXqCLLXq9fwk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tuy60lJU03C8kCYTJCGytr/w8uExosHRnW4B7haZHIqOur3mK9xc6Vf6qLmOtNbdP9GdMdkvOslz6tSoSI0BcgBNsZ+a3NFMkJV0MxTXXwH7mOnn7Lmz9WDyrCzZDc4o0vQgtRbMQm7xq89rspiDuORlnDOE70MZTMeOOLTjZT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <mfe@pengutronix.de>)
+	id 1wKxKI-00047R-LW; Thu, 07 May 2026 13:55:34 +0200
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mfe@pengutronix.de>)
+	id 1wKxKG-000unS-0Q;
+	Thu, 07 May 2026 13:55:32 +0200
+Received: from mfe by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <mfe@pengutronix.de>)
+	id 1wKxKG-00000005rBe-1kih;
+	Thu, 07 May 2026 13:55:32 +0200
+Date: Thu, 7 May 2026 13:55:32 +0200
+From: Marco Felsch <m.felsch@pengutronix.de>
+To: Rob Herring <robh@kernel.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, laurentiu.palcu@oss.nxp.com, 
+	victor.liu@nxp.com, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 2/4] Revert "dt-bindings: display: bridge: ldb: Fill in
+ reg property"
+Message-ID: <zbbez4lpme7szgnsd7fqufbuhmvcftw4sqrmwwwzyxu64i2ppb@fh2fgdkc6tat>
+References: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
+ <20260504-v7-1-topic-ldb-fixes-v1-2-0125d937ff7f@pengutronix.de>
+ <20260505141538.GA2547282-robh@kernel.org>
+ <2bl2mwpk57xgkuye2gydliymjkzikiovnb7ovnb73olwtfkjwn@byn3732grvnh>
+ <CAL_JsqLYS1sgU680KNR60+OvtNwEVKWovht7K2APO3sqeJe6Nw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDExOCBTYWx0ZWRfX5yrlwPtXX6+o
- Jy/v4/e0wYGd6cc6Nt7mKwW7JbTGhfJE0wurD+vM9/FXhO4bRHz6AH+Zbj5Z7aSlB/LBZSSoM3n
- WyD0TLyWKfYxy/8KK8LiPzgHV6C+3Y6Rwh8u5MnUZNszymSU6740M7rKg4kWKR2I4oLfqk/rynC
- fYriJQEMfJL84u6K7dfMeW7txlKPjfYboAGolE9go8YI2gwNfAkLR83/vV4L0k559CiZ926oArL
- bbkuRXGkhFSk7TCbAWc1IXi2UQ7gLLETIaLbeahZYHGUsdFvYvqtxzITe5EuXDz1ww3OTnwTsJs
- 7PBwzp+XM+wqe6fkY0mnNFqqun3ncQizBN92CZhpsFP7UOEQdW53T9qvflfMJ9hkegMP1A/QLeM
- Wbqc1OTjYD/kDCriuQKkwojVLDqHkurALiEI68a/weZWAX0VZ2Gs0OPWyTJG8DCcAdp5A7FXZdA
- KPT3jx1MyLdJ97o99gw==
-X-Proofpoint-ORIG-GUID: 7KnUXFuIOKZIWPlTDPvHl2VlWvkAib4S
-X-Proofpoint-GUID: 7KnUXFuIOKZIWPlTDPvHl2VlWvkAib4S
-X-Authority-Analysis: v=2.4 cv=ZZ4t8MVA c=1 sm=1 tr=0 ts=69fc7d4f cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=HURNEOczjUzzROzEHuAA:9 a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-06_02,2026-05-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 spamscore=0 priorityscore=1501 bulkscore=0
- phishscore=0 clxscore=1015 impostorscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605070118
+In-Reply-To: <CAL_JsqLYS1sgU680KNR60+OvtNwEVKWovht7K2APO3sqeJe6Nw@mail.gmail.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: mfe@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Few CAN controllers, part of RTSS sub-system on LeMans, route
-their RX signal through a I2C GPIO expander at address 0x3b.
-RTSS subsystem is an MCU like sub-system on LeMans with independent
-booting capability through OSPI interface and supports peripherals
-like RGMII, CAN-FD, UART, I2C, SPI etc.
+On 26-05-06, Rob Herring wrote:
+> On Tue, May 5, 2026 at 10:46 AM Marco Felsch <m.felsch@pengutronix.de> wrote:
+> >
+> > On 26-05-05, Rob Herring wrote:
+> > > On Mon, May 04, 2026 at 10:21:42PM +0200, Marco Felsch wrote:
+> > > > This reverts commit 16c8d76abe83d75b578d72ee22d25a52c764e14a.
+> > > >
+> > > > Remove the 'reg' and 'reg-names' property from the LDB.
+> > > >
+> > > > The LDB is either part of the IOMUX_GPR (i.MX6SX) or the BLKCTRL
+> > > > (i.MX8MP, i.MX93) register space. Both IOMUX_GPR and BLKCTRL are
+> > > > register ranges with loose register definitions. E.g.
+> > > >
+> > > >   - On the i.MX8MP there is one register which controls the AXI
+> > > >     threshold for two different IPs (BIT(31:16) - IP1, BIT(15:0) - IP2).
+> > > >   - On the i.MX6SX IOMUXC_GPR5 controlls: CSI2 mux, WDOG3 settings, PXP
+> > > >     handshake, ...
+> > > >
+> > > > In conclusion: it can't be ensured that one register belongs to one
+> > > > dedicated IP and the LDB is rather an exception than the rule.
+> > >
+> > > It is fine if there's a child node for LDB if the LDB registers are
+> > > consistent, but the other misc things are represented by the parent
+> > > node. It is certainly not a requirement that either everything be in
+> > > child nodes or nothing be in child nodes.
+> > >
+> > > What I don't see in this series is what problem does this fix? If you
+> > > are going to break compatibility, then there had better be a good
+> > > reason.
+> >
+> > Hi Rob,
+> >
+> > with the upcoming i.MX9x SoCs the parent syscon (BLKCTRL) controlls
+> > multiple other IPs, e.g. a DPI mux added by commit 3feaa4342637
+> > ("dt-bindings: soc: imx93-media-blk-ctrl: Add PDFC subnode to schema and
+> > example").
+> >
+> > During the discussion of the above commit we agreed that the sub-devices
+> > of the syscon shall not use the reg property due to the fact that one
+> > register serves multiple purposes. In the above case the same register
+> > controlling the dpi-mux also controlls MIPI-DSI bits. The MIPI-DSI bits
+> > can be abstracted as drm-bridge as well. Two sub-devs using the same
+> > 'reg' property below the same parent seems odd and I don't know if this
+> > allowed either.
+> 
+> It's not generally. There are some exceptions to define things at the
+> bit-offset level rather than byte level.
 
-Describe LeMans EVK hardware  wiring by configuring the
-expander GPIO 4 pin as hog with output-high, asserting the selected
-line during boot.
+Thanks for the clarification.
 
-Signed-off-by: Anup Kulkarni <anup.kulkarni@oss.qualcomm.com>
----
-v1->v2
-- Fixed commit text to include platform name.
----
- arch/arm64/boot/dts/qcom/lemans-evk.dts | 7 +++++++
- 1 file changed, 7 insertions(+)
+> > Now the LDB is also part of this BLKCTRL syscon device but requires the
+> > reg property. TBH, I don't know why the reg property was added in the
+> > first place, due to the above fact (multiple sub-devs - same register).
+> 
+> Probably because we asked for it, but we don't always get a complete
+> picture of all the h/w functions (though we ask for that too).
 
-diff --git a/arch/arm64/boot/dts/qcom/lemans-evk.dts b/arch/arm64/boot/dts/qcom/lemans-evk.dts
-index c665db6a4595..34dfc8d22b6a 100644
---- a/arch/arm64/boot/dts/qcom/lemans-evk.dts
-+++ b/arch/arm64/boot/dts/qcom/lemans-evk.dts
-@@ -616,6 +616,13 @@ expander3: gpio@3b {
- 		interrupts-extended = <&tlmm 39 IRQ_TYPE_LEVEL_LOW>;
- 		pinctrl-0 = <&expander3_int>;
- 		pinctrl-names = "default";
-+
-+		rtss-can-sel-hog {
-+			gpio-hog;
-+			gpios = <4 GPIO_ACTIVE_HIGH>;
-+			output-high;
-+			line-name = "rtss-can-sel";
-+		};
- 	};
- 
- 	eeprom@50 {
+I get your point completely and I don't blame anyone.
+
+> But nowhere have you said the LDB registers are mixed with other
+> functions. If they aren't, then there is absolutely nothing to change
+> in the binding. If they are, then yes, we shouldn't have 'reg'.
+
+No they aren't mixed with other functions (for now). Can you please
+confirm that mixing 'reg' based sub-device nodes with non 'reg' based
+sub-device nodes  is allowed? E.g. if the below example is allowed?
+
+	system-controller@4ac10000 {
+		compatible = "fsl,imx93-media-blk-ctrl", "syscon";
+		reg = <0x4ac10000 0x10000>;
+		#address-cells = <1>;
+		#size-cells = <1>;
+
+		...
+
+		bridge@5c {
+			compatible = "fsl,imx8mp-ldb";
+			reg = <0x5c 0x4>, <0x128 0x4>;
+			reg-names = "ldb", "lvds";
+
+			...
+		};
+
+		dpi-bridge {
+			compatible = "nxp,imx93-pdfc";
+
+			...
+		};
+	};
+
+Furthermore I thought that for the MMIO bridge@5c device, the 'reg'
+porperty would either require the full register address, e.g. 0x4ac1005c
+or there needs to be a ranges property.
+
+> > Of course, we could limit the breakage to i.MX9* SoCs only which is done
+> > by:
+> >  - https://lore.kernel.org/all/20260329-fsl_ldb_schema_fix-v1-1-351372754bc0@nxp.com/
+> 
+> The rational for that doesn't answer my question either.
+> 
+> >
+> > but I don't think that this would be nice from user and from maintainer
+> > perspective, because:
+> >  1) The same LDB "IP" would have a different dt-binding
+> >     (user perspective)
+> 
+> It's not the same if the register layout is different. The point of
+> having sub nodes is because the sub-block is reused. If that's not the
+> case, then there shouldn't be a sub node in the first place.
+
+You're absolutely right, different register layot == not the same IP.
+
+TBH I didn't payed to much attention to the LDB/LVDS bridge. I've now
+checked the i.MX8MP and i.MX93 reference manual and saw that the they
+are slightly different. The i.MX93 uses registers which are marked as
+"Reserved" on the i.MX8MP to control an asnyc FIFO. So the LDB on the
+i.MX93 could be a slightly improved version of the i.MX8MP.
+
+Also one bit was redefined between the i.MX8MP and the i.MX93 LVDS_CTRL.
+
+We do require the sub-node to wire up the of-graph for the display
+pipeline.
+
+> >  2) It introduces another dimension drivers need to care about
+> >     (maintainer perspective)
+> 
+> I thought Linux didn't even look at 'reg' here.
+
+There are patches which aren't merged yet: 
+https://lore.kernel.org/all/20260104213712.128982-1-marek.vasut@mailbox.org/
+
+Regards,
+  Marco
+
+> 
+> Rob
+> 
+
 -- 
-2.34.1
+#gernperDu 
+#CallMeByMyFirstName
 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | https://www.pengutronix.de/ |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
