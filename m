@@ -1,117 +1,147 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 396F12DFA2F;
-	Thu,  7 May 2026 21:10:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12D3C239E9B;
+	Thu,  7 May 2026 21:22:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778188229; cv=none; b=nmZwd5SOFctRnhBZec6/0oNiOvXmyUPofKkxLQzK0xpWBvgzZ2JrRBk2BUFaVbCQjgIxi5PvIvxll3NmtX9XlpaP74+G/nBFEFTbv6XUDpkE7d0p2wHfRhsmeR4fWL9cJdrsnwlWZfURIaKddTqE671kuP2xIed2pTFYLHGegbo=
+	t=1778188945; cv=none; b=naRc2c6FLFRxV4RNMb3xpw1CfODCF/zwZaq4k8T1UY+G29f/R6yZe+OpVZnCzkNiutUt1tR6R000u73E8v36NsESsNbz/hKWUWi/aC+3Fo1Yy/pLu2Q/KGWlto+mWf2MYqbJvJ7QoJQ1nWIqBejB0LPEcwG/bElg04fOYmTR89Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778188229; c=relaxed/simple;
-	bh=7If945YnjmNb1vSh1NM7KTAE9SgZ+ijmKxw27zTeXVw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JEO20vwz7QLDGpKbyjIq+WP5TnLwbbGY3VWx55EoB5VljrMV77HslTdIzG5Y7jhN0NoIldwDQNsyjQn2HOyC6BWFMpOktf2FDqllDYipDlmFhVN6CfvRdmjqIlLmncqlnJJpY8ybYuertTHnVIdDv2tHe1LFKzu7ANtv83vzB4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nYs+hWFB; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778188945; c=relaxed/simple;
+	bh=9Qkz2j3X3AVE5xUl1I1i/UnZtoIDDxtFoq42XBa7rus=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Aznl3DDPoZDqIBVC70HFHbZWLVKyYzlB/5NEXfMGoeKebIddz87ZPaE+zCAM7mxEqJK79NDYN88HC+QJ6BJzegg6O7OKkAg6bTxmxFk9HJE1nAFBrRuiSxiAR0TH1Y+sui3STlePFbm1TAcEVuIBay0a90iHdvlOukeVYCvc87A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nRxW+dNc; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nYs+hWFB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1101EC2BCB8;
-	Thu,  7 May 2026 21:10:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nRxW+dNc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57670C2BCB2;
+	Thu,  7 May 2026 21:22:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778188228;
-	bh=7If945YnjmNb1vSh1NM7KTAE9SgZ+ijmKxw27zTeXVw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nYs+hWFBb87u+HrYaho1DP2t246yQU0vc3XApb72fH/uME+/AJ4CMfPctXEwPQsyb
-	 VMIVuKSRU2vVL67PcqQD4LShgrEmlrBhv1ql8DgykatmcH5AQ4n/fZRhDn7x/mhL7K
-	 DeqAYBDrto66kw1rXjGPrzL4yvQQeYbAOBszVQ7ftOvfbt9yY7TmyQxvXjGTZwleUh
-	 jG2LHrty3LZdGPW/vSxGEgqZU/FHED1owMF6JMSGxkAGleefS4AtpQGSkUV0vdTBzg
-	 VBU54UE4maQdruglvHLcnDg/fbHkxBNcqHSnIuPlWFV8ihxmntfpluBvZU7NEKrtNR
-	 dc19kZzUzBMJA==
-Date: Thu, 7 May 2026 16:10:25 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Anup Kulkarni <anup.kulkarni@oss.qualcomm.com>
-Cc: dmitry.baryshkov@oss.qualcomm.com, konradybcio@kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	mukesh.savaliya@oss.qualcomm.com, viken.dadhaniya@oss.qualcomm.com
-Subject: Re: [PATCH v2] arm64: dts: qcom: Enable CAN RX via GPIO expander
-Message-ID: <afz-FMEGqMQFw7iH@baldur>
-References: <20260507115324.1814329-1-anup.kulkarni@oss.qualcomm.com>
+	s=k20201202; t=1778188944;
+	bh=9Qkz2j3X3AVE5xUl1I1i/UnZtoIDDxtFoq42XBa7rus=;
+	h=From:Subject:Date:To:Cc:From;
+	b=nRxW+dNcVfpGoABOch1yxf0L9akX1LXhl7pZ78+WApcZtdUDK7EBPgyifWHJIHfGp
+	 XbS3OdeRLhh5eYpSmlS5A29/fGuD6UtYyj+ve/LEkOj5DM4+ymq2SNY7lbtChRYP7D
+	 +MFLScsUNWsSoxXUmyxyAYy0ECCUVhkeOceJIF1Fp8i52GTaQr04VzT/tlylFeTG3o
+	 bfEl37hXUbo36U7TUPpFP2ry32OKQd4Vcnp5YKQyhZsl2CtMvf5/vUU4M1poNCxPfM
+	 x4T2VQ4Dgh2cc/kgCu9UwUA9oemXpW7fCF6s1tYxA//od0987uIKkuGlLJOdBjyHV7
+	 GEShFFCrGI7qQ==
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+Subject: [PATCH net-next v4 00/10] net: airoha: Support multiple
+ net_devices connected to the same GDM port
+Date: Thu, 07 May 2026 23:21:43 +0200
+Message-Id: <20260507-airoha-eth-multi-serdes-v4-0-af613b61ae02@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260507115324.1814329-1-anup.kulkarni@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNwYrDIBgE4FcpnvsXY9SQnvoeSw+ajIls1xR1Q
+ 0vJu68bCu2y5DgM882DJUSPxI67B4uYffJTKEHud6wbTRhAvi+ZCS40r4Uk4+M0GkIe6ev7kj0
+ VoEciZ6VVSgON0qysrxHO31b5gwVkCrhldi7N6FOe4n29nKu1f+rtpj5XxIlzp0Tf1Zp35vSJG
+ HA5THFY0Vm8IMmrbUgUyHRSNAbSAvYfVL9DehuqfyGrYWTbq9a5P9CyLD/Po1kBWwEAAA==
+X-Change-ID: 20260324-airoha-eth-multi-serdes-fb4b556ee756
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lorenzo Bianconi <lorenzo@kernel.org>
+Cc: Christian Marangi <ansuelsmth@gmail.com>, 
+ Benjamin Larsson <benjamin.larsson@genexis.eu>, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+ Xuegang Lu <xuegang.lu@airoha.com>, 
+ Madhur Agrawal <madhur.agrawal@airoha.com>
+X-Mailer: b4 0.14.3
 
-On Thu, May 07, 2026 at 05:23:24PM +0530, Anup Kulkarni wrote:
+EN7581 or AN7583 SoCs support connecting multiple external SerDes (e.g.
+Ethernet or USB SerDes) to GDM3 or GDM4 ports via a hw arbiter that
+manages the traffic in a TDM manner. As a result multiple net_devices can
+connect to the same GDM{3,4} port and there is a theoretical "1:n"
+relation between GDM ports and net_devices.
 
-The subject prefix is there to quickly inform the reader of "git log
---oneline" what area is being changed. Add "lemans-evk" to match other
-changes in this file.
+           ┌─────────────────────────────────┐
+           │                                 │    ┌──────┐
+           │                         P1 GDM1 ├────►MT7530│
+           │                                 │    └──────┘
+           │                                 │      ETH0 (DSA conduit)
+           │                                 │
+           │              PSE/FE             │
+           │                                 │
+           │                                 │
+           │                                 │    ┌─────┐
+           │                         P0 CDM1 ├────►QDMA0│
+           │  P4                     P9 GDM4 │    └─────┘
+           └──┬─────────────────────────┬────┘
+              │                         │
+           ┌──▼──┐                 ┌────▼────┐
+           │ PPE │                 │   ARB   │
+           └─────┘                 └─┬─────┬─┘
+                                     │     │
+                                  ┌──▼──┐┌─▼───┐
+                                  │ ETH ││ USB │
+                                  └─────┘└─────┘
+                                   ETH1   ETH2
 
-> Few CAN controllers, part of RTSS sub-system on LeMans, route
-> their RX signal through a I2C GPIO expander at address 0x3b.
+This series introduces support for multiple net_devices connected to the
+same Frame Engine (FE) GDM port (GDM3 or GDM4) via an external hw
+arbiter. Please note GDM1 or GDM2 does not support the connection with
+the external arbiter.
 
-If only a few of them route their RX signal through some I2C GPIO
-expander, what are the other ones doing? And how does this relate to a
-gpio hog?
+---
+Changes in v4:
+- Make ethernet-port property available just for GDM3 and GDM4 in DTS
+  specification
+- Move cpu_tx_packets, fwd_tx_packets qos_sq_bmap fields in airoha_qdma
+  struct
+- Fix of_node leak removing the net_device in airoha_remove() or
+  airoha_probe() error path
+- Fix nbq backward compatibility
+- Link to v3: https://lore.kernel.org/r/20260406-airoha-eth-multi-serdes-v3-0-ab6ea49d59ff@kernel.org
 
-> RTSS subsystem is an MCU like sub-system on LeMans with independent
-> booting capability through OSPI interface and supports peripherals
-> like RGMII, CAN-FD, UART, I2C, SPI etc.
-> 
+Changes in v3:
+- Fix MTU and VIP configuration when the GDM port is shared between
+  multiple net_devices.
+- Add sanity check for nbq parameter.
+- Add missing of_node_get() for net_device np node.
+- Check if GDM port is shared before decresing device MTU.
+- Move port forward configuration in airoha_dev_stop() before
+  configuring DMA tx/rx engine.
+- Introduce PRIV_FLAG_WAN parameter.
+- Link to v2: https://lore.kernel.org/r/20260401-airoha-eth-multi-serdes-v2-0-ac427ae4beeb@kernel.org
 
-https://docs.kernel.org/process/submitting-patches.html#describe-your-changes
-has the following statement in the first paragraph:
-"Convince the reviewer that there is a problem worth fixing and that it
-makes sense for them to read past the first paragraph."
+Changes in v2:
+- Rename multiplexer in arbiter in the commit logs.
+- Rebase on top of net-next main branch.
+- Add missing PPE cpu port configuration for GDM2 when loopback is
+  enabled.
+- Link to v1: https://lore.kernel.org/r/20260329-airoha-eth-multi-serdes-v1-0-00f52dc360ca@kernel.org
 
-> Describe LeMans EVK hardware  wiring by configuring the
+---
+Lorenzo Bianconi (10):
+      dt-bindings: net: airoha: Add EN7581 ethernet-ports properties
+      net: airoha: Introduce airoha_gdm_dev struct
+      net: airoha: Move airoha_qdma pointer in airoha_gdm_dev struct
+      net: airoha: Rely on airoha_gdm_dev pointer in airhoa_is_lan_gdm_port()
+      net: airoha: Move qos_sq_bmap in airoha_qdma struct
+      net: airoha: Move {cpu,fwd}_tx_packets in airoha_qdma struct
+      net: airoha: Support multiple net_devices for a single FE GDM port
+      net: airoha: Do not stop GDM port if it is shared
+      net: airoha: Introduce WAN device flag
+      net: airoha: Support multiple LAN/WAN interfaces for hw MAC address configuration
 
-Double space...
+ .../devicetree/bindings/net/airoha,en7581-eth.yaml |  52 +-
+ drivers/net/ethernet/airoha/airoha_eth.c           | 778 +++++++++++++++------
+ drivers/net/ethernet/airoha/airoha_eth.h           |  49 +-
+ drivers/net/ethernet/airoha/airoha_ppe.c           |  45 +-
+ 4 files changed, 657 insertions(+), 267 deletions(-)
+---
+base-commit: 6a4c4656b0d2d4056a1f0c35442db4e8a5cf8021
+change-id: 20260324-airoha-eth-multi-serdes-fb4b556ee756
 
-> expander GPIO 4 pin as hog with output-high,
+Best regards,
+-- 
+Lorenzo Bianconi <lorenzo@kernel.org>
 
-You're not describing the wiring, you're hogging a GPIO to be high.
-
-> asserting the selected line during boot.
-
-But does that GPIO relate to RTSS, the CAN controller, the RX signal,
-some form of chip select? Why should this pin be high?
-
-Regards,
-Bjorn
-
-> 
-> Signed-off-by: Anup Kulkarni <anup.kulkarni@oss.qualcomm.com>
-> ---
-> v1->v2
-> - Fixed commit text to include platform name.
-> ---
->  arch/arm64/boot/dts/qcom/lemans-evk.dts | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/lemans-evk.dts b/arch/arm64/boot/dts/qcom/lemans-evk.dts
-> index c665db6a4595..34dfc8d22b6a 100644
-> --- a/arch/arm64/boot/dts/qcom/lemans-evk.dts
-> +++ b/arch/arm64/boot/dts/qcom/lemans-evk.dts
-> @@ -616,6 +616,13 @@ expander3: gpio@3b {
->  		interrupts-extended = <&tlmm 39 IRQ_TYPE_LEVEL_LOW>;
->  		pinctrl-0 = <&expander3_int>;
->  		pinctrl-names = "default";
-> +
-> +		rtss-can-sel-hog {
-> +			gpio-hog;
-> +			gpios = <4 GPIO_ACTIVE_HIGH>;
-> +			output-high;
-> +			line-name = "rtss-can-sel";
-> +		};
->  	};
->  
->  	eeprom@50 {
-> -- 
-> 2.34.1
-> 
