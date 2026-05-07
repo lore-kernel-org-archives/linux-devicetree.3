@@ -1,185 +1,222 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D61F3FD145
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 14:47:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E24372B28;
+	Thu,  7 May 2026 14:51:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778165234; cv=none; b=E5y1bfUYoPOHGhoKygN3P9leu66TXmB7FvIMKdJA4Ciug2elATQkKvrEzEF1o1/0Vm3E63YxKTS3aZYjCGintGyrEtGey9xechwTgogY8OdAmvzvtROq6UzYr7QJ3rkxrpI4+d4Q9a5LpPcn8+i/3Q3f1t9oAqsg+n3ItdNooz0=
+	t=1778165478; cv=none; b=IVsvZ3wzHKhkwEpzFMB4aJdjfR9Vevz5rtW/owTC2Uq5WbuXOBfGhXYjALA0xZri1EvJrMk5bgZnIxomHY2dKduoa/8ZrIhzm0C2GhCQaCbpfkY2hmeqJK4AycK77YDEWFLTSLupFISkpD5sudPtbFrtEBqYqyYbEDzhksgUnL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778165234; c=relaxed/simple;
-	bh=/OysdnbnOtECLkkSa00qUIDUT8c+z8rBTm0QaKE643Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gyTTxOGJ20zd+WLN86YdZJcs3YTJPBpmYKxZNa7SZqE0UJI+2/Ue5OriGW8tWznZ9NgVGXQz1bbd/0KyqJl6YDF6bkQO5u6Dr2bq3frDQwisPyKmxRbRqWn57G/4oxduNdrl7Os6M4xty7AFnRldViWczcVt0xR77EVidjTdbtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=y6sHvENc; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="y6sHvENc"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4852b81c73aso9138095e9.3
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 07:47:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1778165230; x=1778770030; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=QZB38wJGIZd42iBI3srRP0pjjAxDTyyGTqCWJp8RgtQ=;
-        b=y6sHvENcFjVQHrSBavIoyq7oFwxMGglGYH82YKxB3rYUBU2WXPRYsxMkRmjaL8UJtJ
-         8qCHl9DPDYrsxc98WoBL2OVnRxquMXDR7DJkEJ9EsIq4AZGGHrWcAHRBS18gya1ZxKtR
-         EnlmuxisPmWVI/FCv2UT17Z2tvp0mlc86/WG39g8c3YrEIGrOiRRn5f3rGEvIAe9NK4M
-         G3PU4X1W2bs7CtqpYJU4OLJ9+/f8MTwSAHunB19JS2FigfTQbWc1FjXIgGDLFSsZnLYJ
-         srSccQtsHw2YSHp5ap4GUnDf1aUWOpktSnhkWm07DoTgrs60aRygAE7qvb6LOWLgEOL6
-         oFLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778165230; x=1778770030;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=QZB38wJGIZd42iBI3srRP0pjjAxDTyyGTqCWJp8RgtQ=;
-        b=J4okBuao0jTTwzffDUa2CbciA9CrfFomk98WsI0UFRu2s21obdqPOCOXeX04xnBS0y
-         hBphY86Ne90vgYUVLWdJ7cnEeojvSTb0j5Iegkdxj3UzFYWJUe2QLmWYyZRWnOswnMvk
-         +LUZjUMaHDbtHjkh3/4+m3Au8CURZvySpROm1nulA3hqY/v4bw5xBStP6P4BA8dIQdK0
-         Wmyw+MT7ASKS65xUMizFxgF4769MakzcYm2oTRT9K96bKRsNP503Qz6L+1cNFPmEJnCR
-         vbbbk0XHRamRxg4BIpap/XUtfdD19Jh1jeXJV9AjpAan4sf3Q9vf2s8tN3bcwPFCb+hJ
-         TFiw==
-X-Forwarded-Encrypted: i=1; AFNElJ+fF2lS8gcuSM94NcD0InQ/RzBHhS5aMsSgmCQaRqyjaEFKKO+OsjyQl991J946txG+WFZfXRLPohCh@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyhs75cfvFU66v32WTrbavsdpqZ0uxl84Q1Tot0NV/tmuxhZ/7u
-	oZWbuul3HQjISzeeaZ7644WzC0pibqXNzSZnZJ5m2bqE3dnfqYCVHJocz73ruY1gfIc=
-X-Gm-Gg: AeBDietnUz3QufUjH6qIaoZdC0TY95bw40A/pQ9oHnHVhRSxpTg5JS3xGPdbNuLFWhx
-	fU4IYcwH3dTkPKLGYlwtDs5gARcKvK5ZHqyhNP4CnDjlkv1/Pmz7xBCD42mvsP+YItOpIHgQukV
-	/MQVauxxxmCpX9fKJglN4qSmCW8RZSdX7RLbZrwFtWFELAJnJ1o5diI2j+P7nWeJtG2Ok2Zylic
-	bS6HWjDATx+Qn5CTAkyR6vDWjcFweCx0qskLS3zs3uTiltb1DnuS4p7J/VTNRFIbjo6NQiDk5jY
-	fG3a+1Adrbn+r7tHfneiGtsXsj1gDixG6Q7URXBSxjPdJS2+Vtm8UcseFespEhZKM3RdIg3mPe/
-	dpdJrghTu6mh9UH4dZOWeF77W7XS46dMSS41yw99klhfRLTiBb2QwfJ6YE5NDYylJlg1qS0NIii
-	GJ0V6MNAMOZqgtq7uxKF3m4tMsMXk6amnwAnv4HcuQrMEomUEdjS7bG1qKtzjDZIeU/tLeWn44e
-	Yv1Okpsrbl0lJxDa35Zy51KL51SWSt2QN9LkmSfT354Vfz0B4LjzpKs+sIzFeYGFgW767Xe+UUf
-	dsr7wPDVyUaB5SBsBy0=
-X-Received: by 2002:a05:600c:a317:b0:488:a977:8d6 with SMTP id 5b1f17b1804b1-48e52bd4f32mr100824405e9.19.1778165230150;
-        Thu, 07 May 2026 07:47:10 -0700 (PDT)
-Received: from aspen.lan (aztw-34-b2-v4wan-166919-cust780.vm26.cable.virginm.net. [82.37.195.13])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e538a5486sm134813275e9.6.2026.05.07.07.47.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 May 2026 07:47:09 -0700 (PDT)
-Date: Thu, 7 May 2026 15:47:06 +0100
-From: Daniel Thompson <daniel@riscstar.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Alex Elder <elder@riscstar.com>, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, maxime.chevallier@bootlin.com,
-	rmk+kernel@armlinux.org.uk, andersson@kernel.org,
-	konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org,
-	arnd@arndb.de, gregkh@linuxfoundation.org,
-	mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
-	alexandre.torgue@foss.st.com, ast@kernel.org,
-	boon.khai.ng@altera.com, chenchuangyu@xiaomi.com,
-	chenhuacai@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
-	hkallweit1@gmail.com, inochiama@gmail.com, john.fastabend@gmail.com,
-	julianbraha@gmail.com, livelycarpet87@gmail.com,
-	matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
-	prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
-	rohan.g.thomas@altera.com, sdf@fomichev.me,
-	siyanteng@cqsoftware.com.cn, weishangjuan@eswincomputing.com,
-	wens@kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 08/12] dt-bindings: net: toshiba,tc965x-dwmac:
- add TC956x Ethernet bridge
-Message-ID: <afyl6gpHLlAnxir7@aspen.lan>
-References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-9-elder@riscstar.com>
- <20260504-fascinating-teal-tarsier-b116c8@quoll>
+	s=arc-20240116; t=1778165478; c=relaxed/simple;
+	bh=u2BzENob+U0AfUiYF6Z72HYlqrIAOzug7RrdZv9iFNM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=UxbY2VhZG+zs+fyvWbk1dkJQ5nLFgJj041rdn2/2zyhEq0tuTWjoIAbtl4KtcVZUUQqkuZ5SeFWfdbXBxPKAtzhGuJCMfVWesKIWMjZ8Lt1dbk7xz1Qnqjgujlc08yJT7UvLQnUnkUY0sNkdr9+MXGyxFilzuwlRFaBevuwGliQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: zesmtpgz3t1778165454td66e8873
+X-QQ-Originating-IP: HuGBG3Ml2Caws39TpFtyy9eUy8K149XoQlT7HOxynHE=
+Received: from [192.168.30.32] ( [116.234.74.217])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 07 May 2026 22:50:52 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 5577348788633877168
+EX-QQ-RecipientCnt: 9
+From: Xilin Wu <sophon@radxa.com>
+Date: Thu, 07 May 2026 22:50:52 +0800
+Subject: [PATCH] arm64: dts: qcom: sc8280xp: Mark FastRPC context banks as
+ dma-coherent
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260504-fascinating-teal-tarsier-b116c8@quoll>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260507-sc8280xp-fastrpc-dma-coherent-v1-1-e92aed797865@radxa.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQrCMAwA0F8ZORuIxc3ir4iHNk1dBbvSVBmM/
+ btVj+/yNlCpSRQuwwZV3knTkjuOhwF4dvkumEI3GDITjXRGZWssrQWj01YLY3g65GWWKrnhaSK
+ W6EYbvId+lCoxrb//evtbX/4h3L4p7PsHgOox+oEAAAA=
+X-Change-ID: 20260507-sc8280xp-fastrpc-dma-coherent-460cefa58dbb
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Xilin Wu <sophon@radxa.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3701; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=u2BzENob+U0AfUiYF6Z72HYlqrIAOzug7RrdZv9iFNM=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDJl/lp1dFVMefHDF/1tTo3kPzpneaqqQwjfJfL0G64yKD
+ 5mMvBeTO0pZGMS4GGTFFFkU4hnmslfmXnsqVqoHM4eVCWQIAxenAEzkLjMjwzeXmcIaH8zXebD0
+ Fvz/ffxw6sVZt6yYqjICwmenBahJ5TAydDQG7e7epRMd8XKZtzvr3v8FyXmPRL5uX//g7dl5Pn1
+ HuAE=
+X-Developer-Key: i=sophon@radxa.com; a=openpgp;
+ fpr=205F009D07796DD6E516752E32C31567AD9E324E
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: OVyrbz22gz1neDcTSEL44qsZSeg/C3t6IxFebbXCumOWfSpB/OEr1jgL
+	svSE+vULzIv2KBnFvGwQBiWuhnJpY8yFHCbVyvGYioEhj+CTT0hzYFAuvqWW6m7EKAws3s1
+	9ilYsVdNdVXhyE4Db30kBtOebR2qsp4SnVwZz/zJ5ati9kXI45u44TPDndpbkq+CFu/WPkw
+	EjreiQHFTNj1KCIBvYhuHjFr7Ps7XA3z9PNz93K9rUmghLSHc/NCzFcGQrhjlWdXgHaFnz7
+	LGImVkbPVNtM4+DXDSfpveFa2gK+H9ZagQvwACRpaGjEH7wHGKyk5Cw/1tHk1q+EB0WcQ6g
+	q+bcuOqxBVRMLvA1swnDwIFHXuhxiJ+0kD9/ytW8pnkyaeGNK9owuVoe7gjacMWHhFHH3EO
+	2luri71mX3g56kj+joGajwwU+gkwImSTLuGcXPl9B4BEX5eEBCYmPFOXIqOucvqM7Es6JTU
+	9RNRrg2ddru2d8gEcwXxQS2CKsNuL2ksdULGWZekfxXrAhr6jprpSyhLGXQ4tG2VzTAQ30o
+	XeADXZGYvd69EKI0FY5BNyR/VYDE/CqVUWwaSB8pNKwYBaqPA2YUqnXJAf/G8OdEmnwGGc4
+	LB3vTQQTDCpxGXuE/f86bB4429wiU6FOlxyE12J1l6H3xGerLOaLFW2LTo1wi2aL23bmoYI
+	9QShbYdMd2MdvyAzwzmMSrjPZ5g7PA7oY388wST++ptWkz2lXfzt+9O2msxocJhmV+Y8wzb
+	P3eIUgj+0EAD16EKrcpp1va0Hhi2n73NJuCwyT9ixblaMCd6yp5uiO8xnOIyfZIR0SIt9E0
+	YTeRbAmIDswFVk3thwqQQ77jybITDDQ2TIZJ+wgK2R7+lFr5CyPH2yEIyvA7C8rAwC8RYtR
+	hbc30BfIMK0uU4V/mqv8mdXSQ17YnBwDzxnZysoxhXkz9z0zlBqgXH52sIjJHyfKuf8oko0
+	nxGuLc/f43L2A3drqVq0kW8BEYj61gKTlEm1ZwNYfn1kwYrskIhiI9ZXG0R47+iWV0bqukS
+	1M8c89XB3Qv0VzMcrI
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-On Mon, May 04, 2026 at 01:00:07PM +0200, Krzysztof Kozlowski wrote:
-> On Fri, May 01, 2026 at 10:54:16AM -0500, Alex Elder wrote:
-> > From: Daniel Thompson <daniel@riscstar.com>
-> >
-> > Add devicetree bindings for the Toshiba TC956x family of Ethernet-AVB/TSN
-> > bridges.
-> >
-> > Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> > Signed-off-by: Alex Elder <elder@riscstar.com>
+The FastRPC context banks are DMA-coherent on sc8280xp platform. Mark them
+as such.
 
-Alex already replied to most of your comments but on this one
-specifically...
+This allows running AI applications on the CDSP using the Qualcomm AI
+Runtime (QAIRT) SDK on the sc8280xp platform.
 
+Signed-off-by: Xilin Wu <sophon@radxa.com>
+---
+ arch/arm64/boot/dts/qcom/sc8280xp.dtsi | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-> > ---
-> >  .../bindings/net/toshiba,tc956x-dwmac.yaml    | 111 ++++++++++++++++++
-> >  1 file changed, 111 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
-> >
-> > diff --git a/Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml b/Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
-> > new file mode 100644
-> > index 0000000000000..d95d22a3761da
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
-> > @@ -0,0 +1,111 @@
-> > <snip>
-> > +examples:
-> > +  - |
-> > +    pcie {
-> > +      #address-cells = <3>;
-> > +      #size-cells = <2>;
-> > +
-> > +      tc956x_emac0: pci@0,0 {
-> > +        compatible = "pci1179,0220";
-> > +        reg = <0x50000 0x0 0x0 0x0 0x0>;
-> > +        #address-cells = <3>;
-> > +        #size-cells = <2>;
-> > +        device_type = "pci";
-> > +        ranges;
-> > +
-> > +        gpio-controller;
-> > +        #gpio-cells = <2>;
-> > +
-> > +        phy-mode = "10gbase-r";
-> > +        phy-handle = <&tc956x_emac0_phy>;
-> > +
-> > +        mdio {
-> > +          compatible = "snps,dwmac-mdio";
-> > +          #address-cells = <1>;
-> > +          #size-cells = <0>;
-> > +
-> > +          tc956x_emac0_phy: ethernet-phy@1c {
-> > +            compatible = "ethernet-phy-id311c.1c12";
-> > +            reg = <0x1c>;
-> > +          };
-> > +        };
-> > +      };
->
-> Keep only one example, unless you have different properties (not their
-> values, but their presence),
+diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
+index 761f229e8f47..480cb85b5792 100644
+--- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
+@@ -2910,18 +2910,21 @@ compute-cb@1 {
+ 						compatible = "qcom,fastrpc-compute-cb";
+ 						reg = <1>;
+ 						iommus = <&apps_smmu 0x0521 0x0>;
++						dma-coherent;
+ 					};
+ 
+ 					compute-cb@2 {
+ 						compatible = "qcom,fastrpc-compute-cb";
+ 						reg = <2>;
+ 						iommus = <&apps_smmu 0x0522 0x0>;
++						dma-coherent;
+ 					};
+ 
+ 					compute-cb@3 {
+ 						compatible = "qcom,fastrpc-compute-cb";
+ 						reg = <3>;
+ 						iommus = <&apps_smmu 0x0523 0x0>;
++						dma-coherent;
+ 					};
+ 				};
+ 			};
+@@ -6029,84 +6032,98 @@ compute-cb@1 {
+ 						compatible = "qcom,fastrpc-compute-cb";
+ 						reg = <1>;
+ 						iommus = <&apps_smmu 0x3181 0x0420>;
++						dma-coherent;
+ 					};
+ 
+ 					compute-cb@2 {
+ 						compatible = "qcom,fastrpc-compute-cb";
+ 						reg = <2>;
+ 						iommus = <&apps_smmu 0x3182 0x0420>;
++						dma-coherent;
+ 					};
+ 
+ 					compute-cb@3 {
+ 						compatible = "qcom,fastrpc-compute-cb";
+ 						reg = <3>;
+ 						iommus = <&apps_smmu 0x3183 0x0420>;
++						dma-coherent;
+ 					};
+ 
+ 					compute-cb@4 {
+ 						compatible = "qcom,fastrpc-compute-cb";
+ 						reg = <4>;
+ 						iommus = <&apps_smmu 0x3184 0x0420>;
++						dma-coherent;
+ 					};
+ 
+ 					compute-cb@5 {
+ 						compatible = "qcom,fastrpc-compute-cb";
+ 						reg = <5>;
+ 						iommus = <&apps_smmu 0x3185 0x0420>;
++						dma-coherent;
+ 					};
+ 
+ 					compute-cb@6 {
+ 						compatible = "qcom,fastrpc-compute-cb";
+ 						reg = <6>;
+ 						iommus = <&apps_smmu 0x3186 0x0420>;
++						dma-coherent;
+ 					};
+ 
+ 					compute-cb@7 {
+ 						compatible = "qcom,fastrpc-compute-cb";
+ 						reg = <7>;
+ 						iommus = <&apps_smmu 0x3187 0x0420>;
++						dma-coherent;
+ 					};
+ 
+ 					compute-cb@8 {
+ 						compatible = "qcom,fastrpc-compute-cb";
+ 						reg = <8>;
+ 						iommus = <&apps_smmu 0x3188 0x0420>;
++						dma-coherent;
+ 					};
+ 
+ 					compute-cb@9 {
+ 						compatible = "qcom,fastrpc-compute-cb";
+ 						reg = <9>;
+ 						iommus = <&apps_smmu 0x318b 0x0420>;
++						dma-coherent;
+ 					};
+ 
+ 					compute-cb@10 {
+ 						compatible = "qcom,fastrpc-compute-cb";
+ 						reg = <10>;
+ 						iommus = <&apps_smmu 0x318b 0x0420>;
++						dma-coherent;
+ 					};
+ 
+ 					compute-cb@11 {
+ 						compatible = "qcom,fastrpc-compute-cb";
+ 						reg = <11>;
+ 						iommus = <&apps_smmu 0x318c 0x0420>;
++						dma-coherent;
+ 					};
+ 
+ 					compute-cb@12 {
+ 						compatible = "qcom,fastrpc-compute-cb";
+ 						reg = <12>;
+ 						iommus = <&apps_smmu 0x318d 0x0420>;
++						dma-coherent;
+ 					};
+ 
+ 					compute-cb@13 {
+ 						compatible = "qcom,fastrpc-compute-cb";
+ 						reg = <13>;
+ 						iommus = <&apps_smmu 0x318e 0x0420>;
++						dma-coherent;
+ 					};
+ 
+ 					compute-cb@14 {
+ 						compatible = "qcom,fastrpc-compute-cb";
+ 						reg = <14>;
+ 						iommus = <&apps_smmu 0x318f 0x0420>;
++						dma-coherent;
+ 					};
+ 				};
+ 			};
 
-At some point I simplified the example by stripping out excess
-properties from each ethernet-phy. In the process it looks like I
-removed too much and eliminated reason I thought it important to
-include both PCI functions in the example!
+---
+base-commit: 735d2f48cadaa9a87e7c7601667878de70c771c5
+change-id: 20260507-sc8280xp-fastrpc-dma-coherent-460cefa58dbb
 
-Each ethernet-phy will typically describe a reset gpio but we expect
-only eMAC0 to act as a gpio-controller. For that reason I wanted to
-show that. You can see part of that that in the current example because
-tc956x_emac1 is not a gpio-controller.
+Best regards,
+--  
+Xilin Wu <sophon@radxa.com>
 
-In other words tc956x_emac**1**_phy will, in the real world, include a
-reset-gpios property that references tc956x_emac**0**. For example:
-
-    reset-gpios = <&tc956x_emac0 1 GPIO_ACTIVE_LOW>
-
-
-So... is it better to strip it back the example to describe only a
-single PCI function or should I add back the reset-gpios that I
-accidentally removed?
-
-
-Daniel.
