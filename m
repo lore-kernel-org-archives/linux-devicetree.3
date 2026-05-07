@@ -1,115 +1,185 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F40892F8EBD;
-	Thu,  7 May 2026 21:53:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C42EF33BBB9
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 22:09:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778190834; cv=none; b=V4mRk8HLVq+fouTWs6PsX1/eNklVBpTIot1Qe06r6G+8UwD9xZePU6n+aNdfRy8w+FyKCBzvIQ0Bv4hUxbws8mIDz7vc3gCr9G8zdkfMTMGFilGiy/AT0AaYCuhhgqfPUCpXWel4aacjN+FSgljKBfDhbcSoRgsUPDajfKsoqZ0=
+	t=1778191743; cv=none; b=EZTlLipMex1zsXxmBXx8F1SRjm7l6kQBm9VU+auVLzXlEhxgcRzRg1i6YkOH98UzVJuXhjjCFcYHtzjDjUGya4nS9nTuF4l7nINdPjE8+4DMmO9ElYn7AXj/7IaBKcqJUXZ+gwKd3fbRTMkfdW91fEAyZK/haWur8IizUFc4YT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778190834; c=relaxed/simple;
-	bh=dGZ2DZ8oN6uc5ihVECHMatrJC+gGm4uDt3Q9fk2imVM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fnwH9sqKdeKrI4pcnu94z6UDSRYOPZIqiPaWkOh3HOfCY3zHRhZljVYeyUzJZV4d8BLhJLzXfBIFI+jhImIN1Mxu2zk7rbP0yVDjUL3XNQ8TvcRr7eEcIRKuu/pT5PRGL7bDz7vBnz/ujCcKkTgxxrUedgfvWjsTwrpmD6deHSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=XiA+ouV7; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=pRz70iYR; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1778191743; c=relaxed/simple;
+	bh=trZCIv4VUbmZsT+tqtZK8MjDiIjWO57JQfjXqAJtZwc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IOiXSDIwmbW66H5KW4kyXbk3cD+uxXCGrOY+0YUZ9NUPugr4v3N2Mn1RKc4zCxGESLHXBbP+qw4rqMgWeAlKawGFphJyFMyrR4pRxThsDlzpKpScuPHLsSvP0CzKOw3qcLnnmOvVdqntD82d3KBFdeWSMddjAcCivJLlFF4Dtd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TS8RMX/r; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="XiA+ouV7";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="pRz70iYR"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4gBQxT5l6Rz9twx;
-	Thu,  7 May 2026 23:53:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1778190829;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U3x8MabeutXi5u2ZOxPKzmW168+rCRgMi6Wqf4CXVKE=;
-	b=XiA+ouV74XwrFS2c6bCxNrbZF4lGYa1XCo8iercJWPL49ZdSe8kfdzB8tjApOutgCTcpnZ
-	CqTOr8C3Spvpn9VDaukgaO9CEDWMwLOim3rETaGi0WwCgVCz8tORmem4S5klqT71tyGfq6
-	q9/daLb4ik2BJIOnkME32/g+JPXC9XGddaYUMdpa/S+1doN8qVxZ9gZtLWxrxWC8E6as/Z
-	zQT9I63YABLdE8Gixi4HDxY90zjgh2+NesZY6kmJ8NCAI6nLlCilWIqJnsvnMVOLyAqPSO
-	C4FXpf1O/RO41PnpWwNARqkC57IT/LPzEnjQCL0Gq09yLkYwBxbwZXHn7OgaOQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=pRz70iYR;
-	spf=pass (outgoing_mbo_mout: domain of marek.vasut@mailbox.org designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=marek.vasut@mailbox.org
-Message-ID: <39879eae-39dd-4b4d-9469-d238cd7d120a@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1778190828;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U3x8MabeutXi5u2ZOxPKzmW168+rCRgMi6Wqf4CXVKE=;
-	b=pRz70iYRIabwZds/zBkOfIz7ffBSzxWr8QrUffnhoqMNYGWEIlt7PVDu3K3nnZGwTE5Ela
-	c7x1+KJQxV29dro9uGPtoHlPA1Vvt0AqPnuc5w5UIk0iKvhzBQLNCmfudJzjPtK01v18Yi
-	mMes+3se5GI995OFeMmSW7mZK2RQxprHL+1Zh3kfAiX2js5MZR19b/+f5lyxcN/gYX/+Tm
-	+uFD73FkDEVfHCgyks7X07UORDcPuVh/pekhNOJb6qiGjPQgUY5ulXsC99jbh8AMEO/8QT
-	DFax6wvBEM+q01D7qMts5CKlCnHobpbPhD97DUSjnrQ6lOlhNpMBclmzNdgJig==
-Date: Thu, 7 May 2026 23:53:40 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TS8RMX/r"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4891c00e7aeso11860965e9.2
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 15:09:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778191740; x=1778796540; darn=vger.kernel.org;
+        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=trZCIv4VUbmZsT+tqtZK8MjDiIjWO57JQfjXqAJtZwc=;
+        b=TS8RMX/r6PH+MkBNNRfyXf5BvgXb5OkjCBwOOajaDb4vSQLyFCmZviVLdgHj7Fhq7n
+         f86xDcMvdrqvB3fdXWI30Giz8t8XSFpbcSZsEqhyOXxESkjEtorlY5IC7j+IYEiZXDkJ
+         Fhaxhntecj14ga0ZbccIAB3qYDm61ygrZ7N5dGYw7Tgvrv/FkBix/G5b3USGwZjNNnKv
+         I+w2H1MOSfAvO6bfi9YwwdwKqa0yCDQEkSOZg8pD5R/P97/FUFPEwhF4ChUcaw+B4BN3
+         RgVvz4NqxSGvB33yNOzrxbA1VJfzyGXd+v+3Ac8RsQ7DBBoHz9/pq4hzHAmTi4JDGnWq
+         VWtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778191740; x=1778796540;
+        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=trZCIv4VUbmZsT+tqtZK8MjDiIjWO57JQfjXqAJtZwc=;
+        b=W8eAVW+TWev63c2WBcTDgT710n/aGDfWlR+INJ24Q+qCj7Eyacbv6mztBmVUFAcaFo
+         K04UWSyalkO3F2RmCk/6R5dzltBZ/zny/f7J5dMDvPNqqpTkP0YzEDMIx4NcWeu9juRI
+         ZV3kLdb3eTjOZox5s+OYFYZTA43P+G7dLdt5ZoCQMHebYyLILh6wIqSLI8EQzVgx6AQE
+         Xy3Le3yyyQRHSE7/YHEj5Tf5d0LnC2RnT7FZ2G4wjmQ/4rmIVk2/CfTK5paM/VB9IvUR
+         R4cbpbP4VIjkDIjk9AA/fuG9JGzJvX9CX/yJes80W5ftK6Fmn0HsZoRe+7IWYE9QMt1l
+         i+gA==
+X-Forwarded-Encrypted: i=1; AFNElJ/tyOWv9xIcg+FVyRR8YA1rtvkdnffXWR+UtmDqlLrtc1q/x8/+jOzupX1eY4iVqLyAGGqZ+aHhnVnT@vger.kernel.org
+X-Gm-Message-State: AOJu0YxQvh8Vojfn11NMRtxw/YmRVWEcTs6vIrQx+dL32T86B+4HMV+d
+	0AtRQrhQGScZz9MvDjyk2aUv3fDUyat/2Hsqor+lnjwFtwJ9QSFEC75k
+X-Gm-Gg: AeBDies62Ihteic6WPNIWH8dWPfUcWkSom/2RTZrvIWUeKHooyKPxp0gZP5OwL9UAhE
+	fxzToxqtAyuFtQ3Yv2lrEgTPg3GjHwFP7vq2VYlwem+B1A922QzrGPnMDWYP1C6h54/qHOXWpek
+	nW/s6ZYkplHdwvftb277EeNhe8rZZrTAqxlz59J2aDK0+1aM/XhHbyJUEWnVkuq23jYq3ax9GOJ
+	Hm+M6dbRJeP+Pvbg6pSsyBt0M5P34vJtxbzfOlrf8b4EFZ42Qgws1TVp5BfbhS2xQjmx8hdvZ5H
+	PfV3FfjEKC1qvym7cKDflG0/4XJnnd7IgWNI+uCtzFDhOLRRocZkC/Yss/oEF7MFoDzy5bcnYuP
+	wO/bng1c+hogbRjIsEkv+FQafcj/6UtYlFkBsBtjGMSBf6HEswY+0bpmf2Q96YGorsMjOwGLBYV
+	TWuqZnPivkXMm85UsmcOCYvM+/QXGFFi0JQgRBKXyrLl30uGRA
+X-Received: by 2002:a05:600c:3548:b0:487:1108:48b8 with SMTP id 5b1f17b1804b1-48e51e0a60fmr153507315e9.2.1778191740007;
+        Thu, 07 May 2026 15:09:00 -0700 (PDT)
+Received: from silicon.doe.home ([197.250.51.203])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45412de445csm1834705f8f.14.2026.05.07.15.08.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 07 May 2026 15:08:59 -0700 (PDT)
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Drew Fustini <fustini@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-serial@vger.kernel.org
+Subject: Re: [PATCH v7 6/6] ARM: zte: defconfig: Add a zx29 defconfig file
+Date: Fri, 08 May 2026 01:08:49 +0300
+Message-ID: <23095518.EfDdHjke4D@silicon.doe.home>
+In-Reply-To:
+ <CAD++jLk02QnkXYwJ0b6x=qw9stR4nPrjD3sYPOvWAQz8t9OsUA@mail.gmail.com>
+References:
+ <20260429-send-v7-0-b432e00d2db8@gmail.com> <5379905.31r3eYUQgx@strix>
+ <CAD++jLk02QnkXYwJ0b6x=qw9stR4nPrjD3sYPOvWAQz8t9OsUA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH/RFC 10/14] dt-bindings: power: Document Renesas R-Car X5H
- Module Controller
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
- Sudeep Holla <sudeep.holla@kernel.org>,
- Cristian Marussi <cristian.marussi@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Saravana Kannan <saravanak@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Ulf Hansson <ulfh@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Kevin Hilman <khilman@baylibre.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1776793163.git.geert+renesas@glider.be>
- <053c312d07445517d8f9c84bfe3cc8fb72d4cd9a.1776793163.git.geert+renesas@glider.be>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <053c312d07445517d8f9c84bfe3cc8fb72d4cd9a.1776793163.git.geert+renesas@glider.be>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-ID: 2cc6b046b50a6ef62f4
-X-MBO-RS-META: shaqte9razzqy9pddg5m6mj3cujbz7ph
-X-Rspamd-Queue-Id: 4gBQxT5l6Rz9twx
+Content-Type: multipart/signed; boundary="nextPart7940474.EvYhyI6sBW";
+ micalg="pgp-sha256"; protocol="application/pgp-signature"
 
-On 4/21/26 8:11 PM, Geert Uytterhoeven wrote:
+--nextPart7940474.EvYhyI6sBW
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: Linus Walleij <linusw@kernel.org>
+Date: Fri, 08 May 2026 01:08:49 +0300
+Message-ID: <23095518.EfDdHjke4D@silicon.doe.home>
+MIME-Version: 1.0
 
-[...]
+Hi Linus,
 
-> +  '#power-domain-cells':
-> +    description: |
-> +      - The first power domain specifier cell must be either the Module
-> +        Power Domain Gating (MPDG) register index (0x00-0x3f) from the
-> +        datasheet, or a Power Domain number, as defined in
-> +        <dt-bindings/power/renesas,r8a78000-mdlc.h>,
-> +      - The second power domain specifier cell must be the module number
-> +        (0x00-0xff), composed of the Module System Reset (MSRES) register index
-> +        in the high nibble, and the Module Reset Destination bitfield index in
-> +        the low nibble.
-> +    const: 2
-> +
-> +  '#reset-cells':
-> +    description:
-> +      The single reset specifier cell must be the module number (0x00-0xff).
-> +    const: 1
-Just one more question -- the power-domain-cells second cell and 
-reset-cells are always going to be identical values, correct ? If so, it 
-would be nice to keep the description: aligned, and maybe even indicate 
-in the description that those two values have to be the same.
+Am Donnerstag, 7. Mai 2026, 15:24:38 Ostafrikanische Zeit schrieb Linus=20
+Walleij:
+> Hi Stefan,
+>=20
+> On Wed, May 6, 2026 at 7:39=E2=80=AFPM Stefan D=C3=B6singer
+>=20
+> <stefandoesinger@gmail.com> wrote:
+> > I'll send a v8 with some of Sashiko's (very impressive)
+> > findings but keep the defconfig.
+>=20
+> Maybe not send all patches to soc@kernel.org right now because they
+> end up in the patch tracker.
+
+I meant send them to linux-arm-kernel@, not soc@ just yet.
+
+I propose to hold off on adding the new SoC upstream until the clk and pinc=
+trl=20
+drivers had at least an initial review. They are more complicated than this=
+=20
+current patchset and they will be necessary to do anything useful with this=
+=20
+SoC. I expect to send a first version of the clock driver over the weekend.
+
+The important thing with the submission to this mailing list was to get=20
+feedback, so I avoid building a long set of patches on a shaky foundation.
+
+> For a new platform that may be OK though...
+>=20
+> Nominall it should be three pull requests:
+> 1. Platform
+> 2. DTS files
+> 3. Defconfig
+
+So I read https://docs.kernel.org/process/maintainer-soc.html a few times. =
+If=20
+I understand it correctly at this point "pull request" still means emails s=
+ent=20
+with p4, correct? Or does someone create a git repository on git.kernel.org=
+=20
+for me that I can use to send actual pull requests?
+
+As I understand it, my 6 patches then go to the 4 corners of the kernel:
+
+Patch 1 (dt binding) to devicetree@vger.kernel.org
+Patches 2 (platform), 5 (DTS) and 6 (defconfig) to soc@kernel.org, but not =
+in=20
+one series but 3 independent ones
+Patches 3 and 4 (UART) to linux-serial@vger.kernel.org. I think this can an=
+d=20
+should be a series of both patches belonging together
+
+It might make sense to send the DT binding on its way so it is in place whe=
+n=20
+the SoC maintainers look at the patch that adds the new platform.
+
+Do I understand the mechanics correctly?
+
+Thanks,
+Stefan
+--nextPart7940474.EvYhyI6sBW
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmn9DXEbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMywyAAoJED0TvMhUTxoixokQAJhmmO8EPvppOjAKiU0j
+VdiM0KDUx5XdfQy6Y3qibMHrfltre+BU1sXBALudR/Cu6eVqbRG7LnTS/SnW1HJV
+nikfjKT1fNHMgbObi7u6cg/h7vAN8nH5GLgB+cXLO6WO+227c1rusLbDW7ofc3NW
+5B6vIjy7FcGfNv2vLHucbdANPdwqrJWN/Ls5qHMUPmOo6Dqyp4t6KUUdlIHte5QZ
+TwKse0rRM0gc3qkeiL1tAWyDGAsx3l0nkWY8Dbrv38rhF/GbnSo58wv8QGUKEwoj
+7JEmr/4EKArvnpz2Hw3Kstgj2E9e2OUqV0Ba6LCKGhq5oV/+YQ0PPIrepFFznmCf
+dOs0Ek838VCedQ7tTNr689DQiQqcfc9xaU9BZWOBx8c6neW6dqlLXb+Z+PzmcAMc
+qwIMk7D+ryNHp8zKF5zc2P4GXwpeH5W87wU8y/pAscTqkBHe0lJqmqAemRqR5GQ1
+JrpbZ9+q19rh43uWQJDc/gpBm+CqzfFRIpPHpZvgqC+C6tc+IfERZPVzp/qjG6Ee
+QKks/Sw6Ppz24RhR696N1fOadSZpEBM2982UXlpTmBE6SbdMpIwycjtlakyx+qmY
+31Vt8syR+uK7HDGzKaGdXU/IouS4tJ43mfi1uIPAy7OUWlFq+3foENXKECN+E9kQ
+caBl+NzhrviDrlkehVYTcNkx
+=U1tW
+-----END PGP SIGNATURE-----
+
+--nextPart7940474.EvYhyI6sBW--
+
+
+
