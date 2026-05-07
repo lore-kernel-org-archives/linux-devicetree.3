@@ -1,134 +1,213 @@
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2343F345CAB
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 22:17:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EDFF3CF69D;
+	Thu,  7 May 2026 22:42:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778192254; cv=none; b=Pw0rAxz2t7imbV7H5lO+aiTsd5ap+nVqAGW7RhDH8V8Ya0i750SDOLyf3c+ylpydhAfxDUAY67qyW+hHfv+2IlyaRIQY3e2fbhWdKlhx0C52zUJonrd21RKRAW2uXLhRJwz/BHFUej7Wl/xa+2zAkgNdPqjagS/n+IFZ7zrp96Y=
+	t=1778193739; cv=none; b=jn/oF2e4qn6Q3NeADv1SckusvEV4+Dxtx+e2HJk0Kfx8cL4jIxZg6XFZvidVz8cOCdGEFZWcPhq6LoMTAg5LKAElcaw3l1v3Whet2nnzbm+IWzjnrEl442aY1fXTldOY+zG9IVE0AD/4tVGV/UArzjQhM3CppeURftR4yCgM5ec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778192254; c=relaxed/simple;
-	bh=nUqtAeSwtxg2g10Nn3t8JgkOkKTEyo+HUlH2xOySZMw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=j52tsnSM6gAkgIJlSNtwA56vFfGd/seaEzzaWT1N18efhIwdi2ow2lByi47sd10zeMu4SctzzVFn8Z5iScRoKEdkwNNxjjJRBWdbqmVtadcT/SHMwxh01BzKpH6sf17Ds6DW0PUZv02dp64bWqbOF0M3agqLAW32jC67dBD54qg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=Hcrw5OJh; arc=none smtp.client-ip=209.85.222.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1778193739; c=relaxed/simple;
+	bh=J0kRFG9bUaWTTHIU1f8/BZmV72pbWWRzeSv5tn2IJ+Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=qreVWgYtvi809Em1da/n4yDmuID8/BEb8XUTAn9f2lhSF/u/MI8r+Bj/3XcBa4Y0hV+3+mKya1ODNsRMyg7BDWkHLmBAD7+d8eZxENKy+Nxo6UDM/uwb+6+CCbOx3h8tA8is9ULzkc/KLEEX5wW/VS4gB3E1xHRmmkF/HW/u1VY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pZ8OJoJD; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="Hcrw5OJh"
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-8f83efb5729so130009985a.1
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 15:17:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1778192252; x=1778797052; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=V2Ov38+ykmqD6nZk6coLqjQ6cOEYuoDtYD74/Mx9UCo=;
-        b=Hcrw5OJh6PlWZxzRnvFn+UW5odJBcqGZFJAcf1xuY+dVv+t7TCtX/vMaAWFjnVG6Yl
-         s8oCh094BPUtVBIgneGKmDXKHHuzH8VjK4vRJtA4Rl6w91nS9Sa03BErXGDM8Oha97dk
-         DFBaOSG2YwDEK8fJ5SrMSPqxu79cKZLhgnOh89+RnV+k7iyV/GB6Z7JdiAXASADEJvym
-         oylte+CJp0zC4SJBr5DZIudaLYj/Q9TVVIuLGNsdPJISYCzy4uWhcPby4JoMNC8bsoET
-         O9flifkcoqz6p1mZHo5I5LI206l8rwCXTCivGBs2kjGFapbOr5zY4k83j5vAUmXaArLP
-         LNrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778192252; x=1778797052;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=V2Ov38+ykmqD6nZk6coLqjQ6cOEYuoDtYD74/Mx9UCo=;
-        b=V6rPpzM68qUnbrdqG12/xCEsefzr1rCH1rV8kWtOwXNY4F3Rji+MX/DozjNLshSkw4
-         6FjhzMz5vFJrxDvoGCrXjSBCKhnvOjxb9k5dgwomG4W6dB3xxLRQOvvbOQVi3K3Zeec5
-         P7GTPcQE+QI6d6JmK47xZ22rPWgBW34OP6aJij+2ANT2tCXOFGYB4evXIHlRMPPIiWj7
-         9GJjdDrNiYTCV6rZ0yrsoeJElmb7pzwR6D43JBL9o3ct6qXtTikTpos8UmUqxPZzkaiN
-         b6eINTwAUEhrVveo1fkrTNj4vdGjlG1C3dmuWnblAhWc3nf9R0Tjj5wWpnDdiKOfp19e
-         /jIg==
-X-Forwarded-Encrypted: i=1; AFNElJ9SmM2YM8XQGefYFl3PUfPR4iczh0IW5nzpXWx5BAHXeL3FBETwGLuUA1z880o+qBkjyESnP8T+aru6@vger.kernel.org
-X-Gm-Message-State: AOJu0YzlNApELkUXmFcVISIMfxJWiKGq3ZYLYclkEtHncMqGywCrv7vd
-	L4Togem/aAX3bDpmYl7XVl9iIkV2Gq/1l3YwztiaC9mW5KWnd6ploo6mrBw9FJ/4olA=
-X-Gm-Gg: AeBDies1jZnL4n8RO9lyK5MK/LN26lKLvAOXf7ExQOkxGEwJJctB61MG3wXVOxpgM+K
-	dlnWW2jbTeUzFLu/T6cW9PUh7GZZrbFiMAZ4uY1xGjkPRs2a394u54O6W2L8XjBUhnExtbBF3KF
-	tMsLJBoE9ZZmIvgEp122+jgxgDzHEzwru0ZCkxJVj9GH8uGEOISmjv05uWEYNdkjJCoJNovznsb
-	JWBsqrNpkk/X/xfSQ+E21KAWwtvBZqks9TCI3pEV8z5CyvwGNwlaSYkytMNfUklx72mYTk30ANy
-	DFkrwCFQUEvKyR+QD8ecz3pKkDXoe9y/a0ZKALHh7pj9GGMJ3/pdGHpGIUacpkoSHp5m+s1Azz5
-	mEoMZ8vmDZQvlwAEcqG0EqW9xgett7bLJUvVxGfMpNTMun8DAnoyAh4kHfTq3eM0Sy932OcfGIe
-	iUYFeXS1heK9zEP0U7ihgSdbsH6L3QST2c9HIoC3h0aYDM3/vHCIWsCCkcFqUsynxXvk8xkKRJX
-	Yw=
-X-Received: by 2002:a05:620a:29d0:b0:8cd:9033:1724 with SMTP id af79cd13be357-904d3cb8ed7mr1550360785a.9.1778192252020;
-        Thu, 07 May 2026 15:17:32 -0700 (PDT)
-Received: from [172.22.22.234] (c-75-72-117-212.hsd1.mn.comcast.net. [75.72.117.212])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-907b986c371sm9463285a.2.2026.05.07.15.17.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 07 May 2026 15:17:31 -0700 (PDT)
-Message-ID: <967c1d96-9a48-48de-b7d9-58b63e782aee@riscstar.com>
-Date: Thu, 7 May 2026 17:17:28 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pZ8OJoJD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DED86C2BCB2;
+	Thu,  7 May 2026 22:42:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778193739;
+	bh=J0kRFG9bUaWTTHIU1f8/BZmV72pbWWRzeSv5tn2IJ+Y=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=pZ8OJoJDjVp74T5HTAFYAW24ULTzTS5u6XyQpEYzf/fwJ5askHm4Fepx+Mb8uIuBh
+	 TTWkblCiS9WBse7RVNTyWkBEd6TQDKcRX4EFPjrBJ1/wnrNBYScemGuDwm5uQmWla2
+	 F/28EibEfFcTpulfbdWpo4wOhiE4GwjNtSEVwOK9iKai27Zxp2rvtKUTNoPQ+UJR9B
+	 N7G5SWN8B3xOPKcvsiFMQTUaj/25gFtPjx0RFsJAuhRUmDrSRJg5R0nF0XDYF1LUdZ
+	 saU/G2E92XATlbrCE6iN3x0H4Jfxqq+T1rAzFc+lQSLeDTrl0JYmf65tvMbU+dZE+U
+	 or2kQaRwQdKVA==
+Date: Thu, 7 May 2026 17:42:17 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Inochi Amaoto <inochiama@gmail.com>
+Cc: Jingoo Han <jingoohan1@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Alex Elder <elder@riscstar.com>,
+	Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>,
+	Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH 5/5] PCI: spacemit-k1: Add Spacemit K3 PCIe host
+ controller support
+Message-ID: <20260507224217.GA48780@bhelgaas>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 08/12] dt-bindings: net: toshiba,tc965x-dwmac:
- add TC956x Ethernet bridge
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
- rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org,
- brgl@kernel.org, arnd@arndb.de, gregkh@linuxfoundation.org,
- Daniel Thompson <daniel@riscstar.com>, mohd.anwar@oss.qualcomm.com,
- a0987203069@gmail.com, alexandre.torgue@foss.st.com, ast@kernel.org,
- boon.khai.ng@altera.com, chenchuangyu@xiaomi.com, chenhuacai@kernel.org,
- daniel@iogearbox.net, hawk@kernel.org, hkallweit1@gmail.com,
- inochiama@gmail.com, john.fastabend@gmail.com, julianbraha@gmail.com,
- livelycarpet87@gmail.com, matthew.gerlach@altera.com,
- mcoquelin.stm32@gmail.com, me@ziyao.cc,
- prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
- rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
- weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
- bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-9-elder@riscstar.com>
- <1f34cbce-e2dd-4e80-b136-55d0efa50002@lunn.ch>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <1f34cbce-e2dd-4e80-b136-55d0efa50002@lunn.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260502101319.2364052-6-inochiama@gmail.com>
 
-On 5/1/26 12:38 PM, Andrew Lunn wrote:
-> Why not add an subnodes for the ethernet interfaces?
+On Sat, May 02, 2026 at 06:13:18PM +0800, Inochi Amaoto wrote:
+> The PCIe controller on Spacemit K3 is almost a standard Synopsys
+> Designware PCIe IP with extra link and reset control. Unlike
+> the PCIe controller on K1, this controller supports external MSI
+> interrupt controller and can use multiple phy at the same time.
+> 
+> Add driver to support PCIe controller on Spacemit K3 PCIe.
+> 
+> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
 
-We will define "ethernet" devicetree subnodes of the PCIe functions
-in the next version of the series.  Something like what's below.
+Sashiko had some good questions:
+https://sashiko.dev/#/patchset/20260502101319.2364052-1-inochiama%40gmail.com
 
-					-Alex
+Looks like the CONFIG_PCIE_SPACEMIT_K1 menu item and help text
+drivers/pci/controller/dwc/Kconfig should be updated to include K3.
 
-pci@0,1 {
-         compatible = "pci1179,0220";
-         reg = <0x50100 0x0 0x0 0x0 0x0>;
-         #address-cells = <3>;
-         #size-cells = <2>;
-         device_type = "pci";
-         ranges;
+The "CONFIG_PCIE_SPACEMIT_K1" name itself should stay the same.
 
-         ethernet {
-                 phy-mode = "sgmii";
-                 phy-handle = <&tc956x_emac1_phy>;
+s/Designware/DesignWare/, also in 4/5 commit log
+s/phy/PHY/ here and other patches and subject lines
+s/msi/MSI/ in 3/5 subject and commit log when it's a stand-alone word
+s/pci:/PCI:/ in 4/5 subject to match history (and patch 3/5)
 
-                 mdio {
-                         compatible = "snps,dwmac-mdio";
-                         #address-cells = <1>;
-                         #size-cells = <0>;
+> +++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
 
-                         tc956x_emac1_phy: ethernet-phy@1c {
-                                 compatible = "ethernet-phy-id004d.d101";
-				...
-			};
-		};
-	};
-};
+> +#define INTR_STATUS				0x0010
+> +
+>  #define INTR_ENABLE				0x0014
+>  #define MSI_CTRL_INT			BIT(11)
+> +#define RDLH_LINK_UP_INT		BIT(20)
+> +
+> +#define K3_PHY_AHB_IRQSTATUS_INTX		0x0008
+> +
+> +#define K3_PHY_AHB_IRQENABLE_SET_INTX		0x000c
+> +#define LEG_EP_INTERRUPTS		(BIT(6) | BIT(7) | BIT(8) | BIT(9))
+
+Would be nicer to use "INTX" rather than "LEG" here since we use
+"INTX" in K3_PHY_AHB_IRQENABLE_SET_INTX, in the comments, etc.
+
+> +#define K3_PHY_AHB_IRQENABLE_SET_MSI		0x0014
+> +/* MSI defined as BIT(11) in existing INTR_ENABLE, reusing */
+> +
+> +#define K3_ADDR_INTR_STATUS1			0x0018
+> +
+> +#define K3_ADDR_INTR_ENABLE1			0x001C
+
+You're using a mix of upper- and lower-case hex here.  Be consistent
+and match the existing code.
+
+Seems a little weird to have a mix of "IRQ" names (e.g.,
+K1_PHY_AHB_IRQ_EN, K3_PHY_AHB_IRQSTATUS_INTX,
+K3_PHY_AHB_IRQENABLE_SET_INTX) and "INTR" names (e.g., INTR_STATUS,
+INTR_ENABLE, K3_ADDR_INTR_STATUS1, K3_ADDR_INTR_ENABLE1) when I think
+they're really talking about the same concept.
+
+And why do the new K3 names have "ADDR" in the middle when the
+existing "INTR_ENABLE" names don't?  It's obvious these are addresses
+(well, actually I think they're *offsets*, but no need to be that
+detailed).
+
+> +static int k3_pcie_init(struct dw_pcie_rp *pp)
+> +{
+> ...
+> +	val = dw_pcie_readl_dbi(pci, GEN3_EQ_CONTROL_OFF);
+> +	val &= ~(0xffff << 8);
+> +	val |= ((0x1 << 4) << 8);
+
+Can you use FIELD_MODIFY and some #defines here?
+
+> +	dw_pcie_writel_dbi(pci, GEN3_EQ_CONTROL_OFF, val);
+> +
+> +	/* Set the PCI vendor and device ID */
+
+Superfluous comment since the code is obvious.
+
+> +	dw_pcie_dbi_ro_wr_en(pci);
+> +	dw_pcie_writew_dbi(pci, PCI_VENDOR_ID, PCI_VENDOR_ID_SPACEMIT);
+> +	dw_pcie_writew_dbi(pci, PCI_DEVICE_ID, PCI_DEVICE_ID_SPACEMIT_K3);
+> +	dw_pcie_dbi_ro_wr_dis(pci);
+> +
+> +	/* Finally, as a workaround, disable ASPM L1 */
+
+I guess this means a device erratum?  It advertises L1 but it doesn't
+actually work?
+
+> +	k1_pcie_disable_aspm_l1(k1);
+
+> +static int k3_pcie_msi_host_init(struct dw_pcie_rp *pp)
+> +{
+> ...
+> +	val = dw_pcie_readl_dbi(pci, COHERENCY_CONTROL_3_OFF);
+> +	val |= (0xf << 11);
+
+FIELD_MODIFY and some #defines here?
+
+> +static int k3_pcie_start_link(struct dw_pcie *pci)
+> +{
+> +	struct k1_pcie *k1 = to_k1_pcie(pci);
+> +	u32 val;
+> +
+> +	k1_pcie_start_link(pci);
+> +
+> +	/* Enable INTx */
+> +	val = readl_relaxed(k1->link + K3_PHY_AHB_IRQENABLE_SET_INTX);
+> +	val |= LEG_EP_INTERRUPTS;
+> +	writel_relaxed(val, k1->link + K3_PHY_AHB_IRQENABLE_SET_INTX);
+> +
+> +	/* Enable MSI/MSIX specific to K3 */
+
+s/MSIX/MSI-X/ to match spec usage.
+
+> +	val = readl_relaxed(k1->link + K3_ADDR_INTR_ENABLE1);
+> +	val |= (MSI_INT | MSIX_INT);
+> +	writel_relaxed(val, k1->link + K3_ADDR_INTR_ENABLE1);
+
+Generally speaking I think the interrupt setup belongs somewhere other
+than .start_link().  Usually .start_link() only enables LTSSM.
+
+> +	return 0;
+> +}
+
+> +static irqreturn_t k3_pcie_irq_thread(int irq, void *data)
+> +{
+> +	struct k1_pcie *k1 = data;
+> +	struct dw_pcie_rp *pp = &k1->pci.pp;
+> +	struct device *dev = k1->pci.dev;
+> +	u32 status0, status1, status2;
+> +
+> +	k3_pcie_clear_irq_status(k1, &status0, &status1, &status2);
+> +
+> +	writel_relaxed(status0, k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
+> +	writel_relaxed(status1, k1->link + INTR_STATUS);
+> +	writel_relaxed(status2, k1->link + K3_ADDR_INTR_STATUS1);
+> +
+> +	if (FIELD_GET(RDLH_LINK_UP_INT, status1)) {
+> +		msleep(PCIE_RESET_CONFIG_WAIT_MS);
+> +		/* Rescan the bus to enumerate endpoint devices */
+> +		pci_lock_rescan_remove();
+> +		pci_rescan_bus(pp->bridge->bus);
+
+This is the *only* driver that uses pci_rescan_bus() this way, which
+automatically makes it suspicous.  Maybe it's the first hardware that
+implements or is willing to use RDLH_LINK_UP_INT for this, but somehow
+I doubt it.
+
+> +		pci_unlock_rescan_remove();
+> +	} else if (!status0 && !status1 && !status2)
+> +		dev_WARN_ONCE(dev, true,
+> +			      "Received unknown event. status0=0x%08x status1=0x%08x status2=0x%08x\n",
+> +			      status0, status1, status2);
+> +
+> +	return IRQ_HANDLED;
+> +}
