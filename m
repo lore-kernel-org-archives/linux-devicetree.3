@@ -1,89 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A545146AEC6;
-	Thu,  7 May 2026 18:35:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E1F344024
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 18:37:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778178913; cv=none; b=AGE55RXwM9YWgDXyOjIWDsg0ShzoTIGwbisC2fR5VSrgroYjIjJmekm4z6VvkpnGMZfWfz5LNV/caf9XMp/66qyafNGqYXZ9BjS6i2v57AE3we1V3h2854RYCiKAJ13iXdTFs8cpYCJZM3Ii/q4VmJmIRXmry7mNrtFQwSIPD9w=
+	t=1778179037; cv=none; b=Scc5mY9eteBjtkHSpwU4RVcUSADNYtvuZ6rRr//Wa1gKjCApiNX31oD7unos480M5hh6KZDh9uGz26N2Q+yBShJ93bookYcftz0b77wdnVU37Xih2jGwpHpPvTTbuBy6dfq55fL7p0W/G30N3zgCCBmWCP9NWRahxmNbaks8ZaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778178913; c=relaxed/simple;
-	bh=2qwF4RddrRnAyrCAFr8BPF3+43vyrgYxmXo6gc+eABU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ccy5azsQYbbiJ0iTA12tpcMAgiWML+zjMpP12UylhZddSuv+QWYaDjD45vCVjrjStnFUiYYkZRc5Mpq3Q4w+0CpCeXSOybFOqiEZBHk7mwah3l8mew/UQ+AcH4oPwiZ3M38r23cLWmOeSF+IL85cbISUdDYjrSyejuZdYGI8zi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CyvhG/8w; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778179037; c=relaxed/simple;
+	bh=0mU+Gr18j8ctUXlUwK5bdZXpnTobEBXi2+Wby91srKU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kQQc+/5bEa3M6T2aSr3sWvPXYIrXmTJX7IgOxbojw5WmCZZsqqbIM/wd0dcdSw+2MOGkHhy1QCU/nLV7EIt7d+1mpsbdH9ReH20EaAu04sajMNo6RquDDKD94s6q4748BhLbDLRo9i3TV+K616M1gVQZ3K+jxKvwz/XZDbBSQcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=TDHvjKWF; arc=none smtp.client-ip=209.85.128.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CyvhG/8w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B298C2BCB2;
-	Thu,  7 May 2026 18:35:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778178913;
-	bh=2qwF4RddrRnAyrCAFr8BPF3+43vyrgYxmXo6gc+eABU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CyvhG/8wvWMPHMdKBgHJ5oNRsvhRmN/5kD9B5THecpmvMHWovjPepdEMUBuxXPF4n
-	 9dd/ZtkkTiUW1SxjJqnfga7p1rR6ylNllgpJE5ROVtJrk87gQxvp82sF3f8Lz1+OF6
-	 Bm1EY3YLigy/wJNn3OqFI2h4gqSWHBegOs5xcQ/KUW9VcuQBxMHMc+I12KMNlUK/2U
-	 smBfK4QEkchZplTEPM6epYzcwXsyGmHsfJBsBO8bRj9Cai/9JuyVbsjPo9TX9Az9XT
-	 fcGzLFU9isALC+WTrRfoZPOe5GPs275kF4g7qji9y9SeAw430gz4zWpPuHlacECy8p
-	 445JqKkAkaLjA==
-Date: Thu, 7 May 2026 13:35:11 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>
-Subject: Re: [PATCH v2] dt-bindings: PCI: renesas,r9a08g045-pcie: Add RZ/V2N
- support
-Message-ID: <177817891076.2225703.16510779686932087509.robh@kernel.org>
-References: <20260501102407.29462-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="TDHvjKWF"
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-7bd810cdc5dso12883297b3.1
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 11:37:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1778179033; x=1778783833; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=x8i4c2z2WoES1t5qSKN6GUknygX5CCKfGDT1oqYJPeA=;
+        b=TDHvjKWFJoWHC9uFBuMgwiI+qpUqrLa97iwkqGHkK6YH+7KGHpXRfS+PJZl9GG8e6h
+         sw5zkqR2EGuac1g/0qK5Li6+rKi4imr+/0YiOML/PIIdvnT9MirAdTzpx+X6Gel1t1Qh
+         ugXbJ58Q6MDG3W+6jAPopELHVxtJZk4uQu+ynhYF/ovQOygTd/XRfwp+0WSAZaS5+qKf
+         AR2/9OX6zzDyEAa9Jp+65SrygIbNlQICtrz2IQr/QsyIOhII5ilo5DZIcmW+716/+Xfa
+         pFSMvn/IW08crA2OuhcF2t4tbpxvGrbk0O4Jm1PcRrBJVpq24/+tOwi/fuT07WuXa43n
+         qKtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778179033; x=1778783833;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=x8i4c2z2WoES1t5qSKN6GUknygX5CCKfGDT1oqYJPeA=;
+        b=REvr6YkGHiG4tOZqZej8Z/2+ODGBu8lY9h7Bubpn7RJ/B6tnLLBm75AP1Tma5Ajrxh
+         HEl4eRmp2nT7wpUIayXVS8u6NE8QZTgJg7KjTFpk94PgxbjOEkqBhLmOmKL8ZJbFZ39F
+         BMxLImhPnLXH7bxihAMDkIEARikdL0zYfDBNj0mDjbXt8HhIuBiYED+1r5otoKWzsWna
+         JnmKwopSEz1q+VvRJFN3I/1E66aqdJUVLcl4su+6DND43zUtuzS7yuf2uMzX+x+9wTpX
+         YP/XmXTzgvx4oZPYyKV48qh0J0544vkSj4B1eiTPmy7iU8mtMcjwDTM2O1fMLuGeBTEq
+         7Lfw==
+X-Forwarded-Encrypted: i=1; AFNElJ8GBFxKS3qqJfY6bzGml+r4pSO22rGSmpTkn7wP6elz6oQa1WoMTHrUh95f2DgC3/pgQR5DY8oFYcyt@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx6gG+QzJ2ffscNNYkC/VoHqQmQ52THarRr8mCRHh6s6y+1TrGn
+	W09/+NEkTQvXVdoVPOfxg51vKgA290xmEZLrMT1Uld3sqac0Zu7T2lvxkzSmPiGnDXs=
+X-Gm-Gg: Acq92OF4elHjs0haV77Zn84dcCUyLUcA0AIhh52jIazMmuCZHhrsMtHp/2FLbkcNCcM
+	vRDMwFKDEBbvKpYHcTfYMBEybasq6DcWxnY9AhDzM+2bL/g7s7gdx8JwPjkkLj6sCCXVb0o1t5K
+	EXKhRcdjkLfXqE6E78cHY22DcUEUO0/b2IMmGehkM2ZlbScoxBR5vlNqAvl2h3Fq98zCwN1uXtY
+	kYD3OSqDIn04LhwDQY8SkpbQo4ylxHBgKVOwGEK9mk2H6SDas+YDgTXWth6i9I8lwt1jk4tYlcI
+	jKVbCDdiGnVtl7LuqBJrmg0apkAJ9PiKcazhkVO88j50jHb1nPqOQDotZF1bxilgz9RE5vn6M2u
+	Rjwg4ZUFQX4ZwzRg8abIYLMtfa57UgKyeFvm1cCCKwSwJbxyEf3Q8ILR7bc0gcQGU5ibVOpng+t
+	Gocgb2Q4vhFwx+sjW6lkbcHcIUNs0jqcbBRhUY0TlHtd8TL5QgwoO9J4UJqrCHDEeJ
+X-Received: by 2002:a05:690c:6101:b0:7a3:7ad3:3e9e with SMTP id 00721157ae682-7bdf5e7cda0mr98323737b3.32.1778179033551;
+        Thu, 07 May 2026 11:37:13 -0700 (PDT)
+Received: from [172.22.22.234] (c-75-72-117-212.hsd1.mn.comcast.net. [75.72.117.212])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-7bd976fd09asm57064577b3.41.2026.05.07.11.37.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 07 May 2026 11:37:12 -0700 (PDT)
+Message-ID: <3c78f48c-6478-46d0-87c2-581bb58637dd@riscstar.com>
+Date: Thu, 7 May 2026 13:37:09 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260501102407.29462-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 08/12] dt-bindings: net: toshiba,tc965x-dwmac:
+ add TC956x Ethernet bridge
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
+ rmk+kernel@armlinux.org.uk, konradybcio@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org,
+ arnd@arndb.de, gregkh@linuxfoundation.org,
+ Daniel Thompson <daniel@riscstar.com>, mohd.anwar@oss.qualcomm.com,
+ a0987203069@gmail.com, alexandre.torgue@foss.st.com, ast@kernel.org,
+ boon.khai.ng@altera.com, chenchuangyu@xiaomi.com, chenhuacai@kernel.org,
+ daniel@iogearbox.net, hawk@kernel.org, hkallweit1@gmail.com,
+ inochiama@gmail.com, john.fastabend@gmail.com, julianbraha@gmail.com,
+ livelycarpet87@gmail.com, matthew.gerlach@altera.com,
+ mcoquelin.stm32@gmail.com, me@ziyao.cc,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
+ rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
+ weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260501155421.3329862-1-elder@riscstar.com>
+ <20260501155421.3329862-9-elder@riscstar.com> <afycOwz5TpkegkZd@baldur>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <afycOwz5TpkegkZd@baldur>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 5/7/26 9:12 AM, Bjorn Andersson wrote:
+> On Fri, May 01, 2026 at 10:54:16AM -0500, Alex Elder wrote:
+>> diff --git a/Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml b/Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
+> [..]
+>> +
+>> +  gpio-controller: true
+> 
+> I don't have any concern with the use of a proper gpio driver to model
+> the implementation, but if I understand correctly this relationship
+> between gpio controller and gpio consumer is strictly internal to "the
+> PCI device".
 
-On Fri, 01 May 2026 11:24:07 +0100, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> 
-> Document the Renesas RZ/V2N PCIe host controller, which is compatible with
-> the RZ/G3E PCIe IP and therefore uses it as a fallback compatible. The
-> only difference is that it uses device ID 0x003B.
-> 
-> Make the binding title generic to avoid extending the title for each new
-> SoC, and update the description to list the supported SoCs and their
-> capabilities.
-> 
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> ---
-> v1->v2:
-> - Updated the title
-> - device-id value updated to lowercase
-> 
-> Note this patch was originally sent as part of series [0], as RZ/V2H
-> support needs discussion sending this single patch. The RZ/V2N support
-> can be merged independently of RZ/V2H.
-> 
-> [0] https://lore.kernel.org/all/20260318124450.163471-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
-> ---
->  .../bindings/pci/renesas,r9a08g045-pcie.yaml  | 23 ++++++++++++-------
->  1 file changed, 15 insertions(+), 8 deletions(-)
-> 
+(I think you're already cool with this but I still wanted to respond.)
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+That is not correct.  These GPIO lines are used two ways for the
+RB3gen2:
+- drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c uses GPIOs 2 and 3 to
+   assert/deassert the reset lines associated with the two exposed
+   downstream PCIe ports on the PCIe switch within the TC956x.
+
+- Each of the Ethernet PHYs has a reset GPIO.  On the RB3gen2, the
+   GPIOs used for the purpose come from the GPIO controller embedded
+   in the TC9564 (00 and 01).
+
+These are therefore "exposed" (they are *not* strictly internal).
+
+> Is this connection variable or is the link merely expressed in
+> DeviceTree to mitigate the fact that you choose to implement the
+> responsibilities of the two parts split into two device drivers?
+
+It is variable.  These resets might be implemented by other GPIO
+controllers on other platforms.
+
+> Are there other consumers of these TC956x gpios which would result in a
+> board designer (and hence dts author) to ever reference this
+> gpio-controller in a different way?
+
+They could.  Nine of these GPIOs are exposed by the TC956x pins
+(GPIO00-06, GPIO12, GPIO35 and GPIO36).  The RB3gen2 uses 00-03
+(and possibly 04 but that's for a PHY we haven't tested yet).
+
+					-Alex
+
+> Regards,
+> Bjorn
 
