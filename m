@@ -1,93 +1,71 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F5CB3AB275;
-	Thu,  7 May 2026 12:52:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1697A30171A;
+	Thu,  7 May 2026 12:53:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778158351; cv=none; b=XLDBazHXDZhr4P9TlqUI9mZW0VXxKpnjPP3ilamRCOWlys1k9fAzLVn8mRi8taXJUAMJk1mWO9itkHd/h3n4YdRCzXXuir+0mpmhxD1nGukwRpKmXbBUg4Xe4CSaHOpakwyysEv8Xj2/aJvFos0pMVWZzrky6nDFZWOqaRUJzoQ=
+	t=1778158428; cv=none; b=RtTcKk6UrdwFiqW8eNlq7bRWvGBiHY/1qOjff4wRDHSIh1MvNga5a2OiH4Hd84wr8LDNCOzvjCwrmIdDjSBeWLBBBJfP0ntLsBEyzT6Kl1Tm8iEW6lzW4RukphHSNZahpO1BazdmMev5LRnB/zdf36WC3omv3E4lvZR47VM8fGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778158351; c=relaxed/simple;
-	bh=QiQOSWF1x64jlPOqnU1W4KqrhQ2aByMEzV6kw7lCihw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ha6Td+KP6kr6Aej0fNZAZS6lIOvDGwSZnfuqPO4097EiQKbp7fzBIgAAf3V3zTyS6goKEIAudYig7rsbUsyfFoF9PVN9Xv9po5F97owUKY19ZPL4zV23DyhRMz7uhoiIwytQlTwRzFOkRqzgrra5ZyEdsj2ZgUWDDYO0ESUoPo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=POIXU4pZ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778158428; c=relaxed/simple;
+	bh=NDq1yRkDTD9n1Z9MRjKoR/KHoPrasWXZhi/Utqu0UcA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=HB9622b7HrJEwE5CiH974/O2x+aJ6cEuXAXu3EH5577VOZfL23q+DsUct9hvR9+bmNuWX0deLTBkBACPgfEYnYXhZ5nOSwWXAG8ka1tUp7NZyjQVE5ejclOXaK2YlXUII8V8tKv6MJ+kam+KKyAG5Q8/OyH1NbJuzK2ewaZLUn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N1jGAtff; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="POIXU4pZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23072C2BCB2;
-	Thu,  7 May 2026 12:52:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N1jGAtff"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0272BC2BCB2;
+	Thu,  7 May 2026 12:53:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778158350;
-	bh=QiQOSWF1x64jlPOqnU1W4KqrhQ2aByMEzV6kw7lCihw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=POIXU4pZA2FZfYxUmDk7E257EMwYUawh2v/qqcAgbNaphQ5bizEHT8V6dKYNn+zzv
-	 CcbY5uiQuhwyU8IH4YGR8yAxW1MmlgbI8zMc/mh8ADYr8i4/FZPanlj6h0dt7CTxnz
-	 /04Jja6D07yijOPe+SjAc5B98DNi1gsh7ZxNLen6KuFQTnTRd7EwLRI7btPLFqQMcR
-	 XYlTJ3XAKYHMIGqvQ8t544oxwxVWwFpaQ9PwItDAm1ojSfzabbh7L+WDb0tbr8bqFw
-	 06qFOZNAsIYSNyvBPhX6Tx1i5Y90KONmwVWGVoX7QRmk33YBZx7MgaEOS4Xem0s/OT
-	 g8PYiTfwLkSSA==
-Date: Thu, 7 May 2026 13:52:24 +0100
+	s=k20201202; t=1778158427;
+	bh=NDq1yRkDTD9n1Z9MRjKoR/KHoPrasWXZhi/Utqu0UcA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=N1jGAtff4iiwWK8TKDqlW/GLbEyNu3o3HVgehLHfvadTuXxf0BrWwQYQlSTGU0kWc
+	 NRSJH4ZQ9uNyjB5ig8ciNzDaG6IDvDP2IoCHLirfjtUhdGxA03Pwwj6F9mSmDUz5LV
+	 +Ll2TquOmBdV1ZWPAFpUHRQ6158JRSd6XZ4VYB2vvsDzZnHCUimBCuFLIUad5x+BaT
+	 nbN9iG1eXcXzbe8UKNtLfDju67QwMZ3r2a24adutuhe9CDmdlOYdx9TZJ6JQOT7Cbq
+	 3H2ETgluYKH8BwEQW2QtaDyPMzqkMdnE6NZkWsA8omTUdQfmtZdnl6aIDq46kZWVZ6
+	 nzmsj+38KEQYg==
 From: Lee Jones <lee@kernel.org>
-To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-iio@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH v2 05/10] mfd: rz-mtu3: make reset optional
-Message-ID: <20260507125224.GL305027@google.com>
-References: <20260410163530.383818-1-cosmin-gabriel.tanislav.xa@renesas.com>
- <20260410163530.383818-6-cosmin-gabriel.tanislav.xa@renesas.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Beniamino Galvani <b.galvani@gmail.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>, Ronald Claveau <linux-kernel-dev@aliel.fr>
+Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org
+In-Reply-To: <20260421-add-mcu-fan-khadas-vim4-v4-1-447114a28f2d@aliel.fr>
+References: <20260421-add-mcu-fan-khadas-vim4-v4-1-447114a28f2d@aliel.fr>
+Subject: Re: (subset) [PATCH v4 1/8] dt-bindings: mfd: khadas: Add new
+ compatible for Khadas VIM4 MCU
+Message-Id: <177815842272.1844364.17432398965217021542.b4-ty@b4>
+Date: Thu, 07 May 2026 13:53:42 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260410163530.383818-6-cosmin-gabriel.tanislav.xa@renesas.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
-On Fri, 10 Apr 2026, Cosmin Tanislav wrote:
+On Tue, 21 Apr 2026 13:49:18 +0200, Ronald Claveau wrote:
+> The Khadas VIM4 MCU register is slightly different
+> from previous boards' MCU.
+> This board also features a switchable power source for its fan.
 
-> The Renesas RZ/T2H (R9A09G077) and RZ/N2H (R9A09G087) SoCs do not have a
-> reset line for the MTU3 block.
-> 
-> Prepare for them by making it optional.
-> 
-> Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-> ---
-> 
-> V2:
->  * no changes
-> 
->  drivers/mfd/rz-mtu3.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+Applied, thanks!
 
-Also fine.
+[1/8] dt-bindings: mfd: khadas: Add new compatible for Khadas VIM4 MCU
+      commit: a10878e699567d88267200afdb165107567e0287
 
-> diff --git a/drivers/mfd/rz-mtu3.c b/drivers/mfd/rz-mtu3.c
-> index 37d12030e069c..689dbb181d305 100644
-> --- a/drivers/mfd/rz-mtu3.c
-> +++ b/drivers/mfd/rz-mtu3.c
-> @@ -331,7 +331,7 @@ static int rz_mtu3_probe(struct platform_device *pdev)
->  	if (IS_ERR(priv->mmio))
->  		return PTR_ERR(priv->mmio);
->  
-> -	rstc = devm_reset_control_get_exclusive_deasserted(dev, NULL);
-> +	rstc = devm_reset_control_get_optional_exclusive_deasserted(dev, NULL);
->  	if (IS_ERR(rstc))
->  		return PTR_ERR(rstc);
->  
-> -- 
-> 2.53.0
+--
+Lee Jones [李琼斯]
 
--- 
-Lee Jones
