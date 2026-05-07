@@ -1,64 +1,64 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04D132ED58
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 20:50:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2C30336883
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 20:50:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778187050; cv=none; b=Ubf4vVsogCm+3VwCthBsDKwNJX6PYt3ZDgAUmivmdIyy1TdCzBwlp1uqkUzd3yMCj7MJlqXthz2OzOzS9G9dBZZk17p1tFp7TbsF1DUxD7ErV6cXGMM77BjU28bteHgvadUZZ1LpsRJ79OIez2g7bWJ24JLQHTCS+ZUnRO1Rs+8=
+	t=1778187055; cv=none; b=VDwhG+R1rh/YJV7zDdMs8oIpzEZGVNJNoS2MnVOA7onn0c/FWaa/cjbscjKK5ldBQt6nSgq5lRqRulcghWLuA8xSDUaBz+kFgGRijTi+fuuiThjlaqW2BICDAAvzZYDwCNJ9+6NHUo9a0ECRxs2vz1vP7/TkZdvnvMh34FOHvYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778187050; c=relaxed/simple;
-	bh=AOxnWcfWeesRJ4bFE8C5mp3XzQPiFrCWQ1jQQ3BS+ao=;
+	s=arc-20240116; t=1778187055; c=relaxed/simple;
+	bh=sAjpVLKmUk4OoxtMq0bwbqesB9SMP3re8LnNPeucrUE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gMqttvKvVFQTAYVKX9OGhE3NgbEhtKnvpvyQP1IDLDGsKyZDjMEdbqM7D6yF0Yte1lEwb0K81H2GzMyuB2/kZkm1fA1tpUfbbQGKf8K+VE5X6tNG3f7g4YK4VZtVFkAO0frQVIzeuC8oB9exLo7VZgAwnBPNaArIf/UUiATzDuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VXqR7u58; arc=none smtp.client-ip=209.85.221.49
+	 MIME-Version; b=SFyMGfGU+SBpiRx0B6K0vl2LzdsXMEkoi02WyP9C7aD5xQSqgxhSyR7kW4Up/rKrKG/16v+4iZsZrUv3qaBK4p4k/lxMLgZlAQMw4lGx2poueZyt2WPrXs2lCVKpGRD70us+Rex5k4pC+oC0VVq+qOgI1ZJY2Ug34hlPMyNSAuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EEL5XS/i; arc=none smtp.client-ip=209.85.221.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VXqR7u58"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-44a14580111so1012090f8f.0
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 13:50:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EEL5XS/i"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-44a5174670eso842091f8f.1
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 13:50:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778187047; x=1778791847; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1778187051; x=1778791851; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=y481mY9CQVhRv3fozlAOGsM8mhraJQWHsP9dPteZdbU=;
-        b=VXqR7u5896SP44j0c0CXEBPBtTqYNFFViBQUItnKSq5SLZKbb8docDm0BR/N3tWNDW
-         D3EkmWk9f5GKh3+tGsUKoGxfzdpC79k1G3+l54pRjnWP8nYaqb/S2cBqwM1AAfxUg/Yf
-         o1DcbugFtsgocDiPzqV718luq02rDbpR/D+HrUQil9v7qROhuG6EzGzMmWAaPgCiXsxx
-         YiXKMQtFiS6tBTP/1VpvL0hpgm1dZOI4XWPiKGLsjBO+p0nZmor1cfzymbtTMLRugMqb
-         J9BLRNrhZmIivdzX6n8ykKC+ZdvnHmvOOF+8WCzgcEHHSOjknEF1A0oz87a2rreVYEwX
-         Edug==
+        bh=BpDuQ9cx7QhEzoo/dL48UTCS8RAvLx+lVRlWD78IkCs=;
+        b=EEL5XS/i3ctxiBL53z1TTj8y+ZDUfswDDXTkKfaljLI1Tr1z6K7Ho0GS2hVyKDLeDb
+         J/o4wTLYyGow20tizcBOc86EuC9JMUh48KrHlV+zsmcmGLakDoYgQCEckS6F6GxfFyQp
+         5s7zLb41vT0k+RS2uPe2KmY8NhfX+Imkfoibgi/veH9T7B5rpwHNWnFC0s2hZS6pVS0E
+         SfD7eH09oOd+yr3k+N5tdNPUtsQXL2gfOH23QZDhflS9oWvQwMHpLI2SQKHjTtdK6ZV2
+         KJKXBb/xE/XrF7HbbjFdC/0qaX6mGa7DhTtyYav/TGCwOS3DmQHYc0OK3la7b63Xr8F5
+         wRsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778187047; x=1778791847;
+        d=1e100.net; s=20251104; t=1778187051; x=1778791851;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=y481mY9CQVhRv3fozlAOGsM8mhraJQWHsP9dPteZdbU=;
-        b=TOWUD/h49wlCbW9SPDYmWWShWhY0t80a+4Lf6ystUzYX0KdLOLWXROQhvd/m+peGNx
-         JqrsIukI0nqmm26BntwlYn9YY9kAvxW0W/nhdBPnB+LIgiWBQV3v/g7gO9T3HQb8e7kG
-         N6QeXXZJVhqL6DkHSa7LybrvU4a9vVsYtC8vq2gBrrPZ32wTkxUBPRYCACSmm2+UBsmp
-         44frlNiRkyWcNGyDq+JH1vbG8x6Pnvmbt9LySAVuD+vaTmLRT6qAXWfz+Zv/hBmBQT+s
-         g6ZNpMtnN4fkvBqXwidANwOgt2oY6Xv4OM4AN8q9Ek9LpZty4BUuOXILiBjwT9AuPQed
-         gCkA==
-X-Forwarded-Encrypted: i=1; AFNElJ8FVemafuLh+RQzC14W2m9eYbKZ90cznjnMxY30vw3YSaBRl4oMrs0ePgMChNBWKrF5C+iBMggEpf8C@vger.kernel.org
-X-Gm-Message-State: AOJu0YxaFYCON/v9yrMtO3T39WlHVlDiItsgB1Xe4nD9eoeuenh391SJ
-	4iw3dTQqC4zzLdetjjbG1VT3sr+EsKPLtrsnz7Xkey/f659+9qp0MaNi
-X-Gm-Gg: Acq92OE8U16c3n4s+mWuhTNtJKMQdWI4La3S24q7naPtR7Um4Jkz+GPTwKsBFAU5UA7
-	a/1uc0zJ6OPXpdEtYV6QA8p9+lgHz/AglMuAYpFIauo1E+S3G5K99kQKfazFaNo0UTVAdhd6yln
-	jDX/AwxCnLf4bozmk1tCwfrMhYT85X7vG0gsPZcAdDpkuQzGA3xFFlV1sB1rYl/XqjejDeDx7ut
-	Ze4l7S2UFVbzItr/jz3vt/glJe4Mn9bQ7OnlNIzhH/3PF25lYL4yXYr9B8SBqHf8AMhFfmmR9eN
-	FPO3HzaWz3t49FiQLogmhaGeRrQkFooyseBUmQfTANhmyrOsLBSm3AtQh4qtO2Jbdlk/VBwyEA2
-	PMiVQGyWcR2LFfcguIufB0y+GpSpz3UDatmzjNw/FTz/z8WJFHgQg2ud/ETlsAnWDIJnfxyLkvq
-	m2/aWVR2O69K+on069MlSqoWj4052XoTZ8hCgrhMHJ+RrxA6w8LbOKjOfjYY6FSApM1zFvA+/qV
-	VLiNw5fN5zHFsERqNI=
-X-Received: by 2002:a05:6000:144b:b0:43d:714:34e5 with SMTP id ffacd0b85a97d-4515ce1bd58mr15451559f8f.24.1778187047042;
-        Thu, 07 May 2026 13:50:47 -0700 (PDT)
+        bh=BpDuQ9cx7QhEzoo/dL48UTCS8RAvLx+lVRlWD78IkCs=;
+        b=UMBNFqQzTki5eQSH7MODNaJnbVA9hmnB3Xc77oRZKiljSbXzWyx9knrV+tkWQnU4Xj
+         27h1LKgbDLBEypIqqI8LDXhzTL6l+aOcs9WCUuU8AfNk3aAxlyX+byCh6QnzoJKhMh9J
+         rW6YwgrU7awvWgePUjqHG8OujQN1ZeG9V8b/rmmR1FsrhzhFCiEjr+Ejksv/jLzzA8ah
+         ghIMPCIugjz1yxOyOln8lQmw1dUuD7nzaR3MGZRESaoALpSyusv+xgLZyDRMBJDL+ZFL
+         Uc3qpstV9qMABTs+1ZvCBmbMOGf79YeFanrgAc/+jMXVKpVtg88LCEx8PipuDMj2KZRP
+         OA5A==
+X-Forwarded-Encrypted: i=1; AFNElJ80W0+Ax7gkk37PNiIa9TJKXZUNcAvi5zAwscud9NaHd+PgCbbPa/CoC0vAdujeFZy6PxLpw3D3p8iC@vger.kernel.org
+X-Gm-Message-State: AOJu0YwDWOqHAJup1Q6JRRbpjxOg/Y79EXwJ1s7BALz23aIYJQBWPYri
+	sZjwvPMNXYAEWZsCo/Zmk8lMNMEoCbqPzpPCuoIHegrqx5+dynjSsyev
+X-Gm-Gg: Acq92OHBX6hr0JN/OpuBFAm2w7+dGAbbzR+H95ThzrFqssom2Av4FAgD/sxtTAUkxrT
+	xQNe2I9R12R3JqetQIPMhAwThgAKDaD4UKrTFKzp4n/SlYAUp8SAYYN1IUInIfgoaesZA4h1q6o
+	5CUteuP+vYuVDPRU3M78rF1H+bSTjKnngVU5ny/cRfodZyCWZZnYvR46jU5l64SwduupHn4dBAC
+	S3i9l9xutZupryOC6Q1YjrzbHyUNOz3ZpNVIzIwBotnYmLhDSJymp08FKK9W49C0m1r/lynTNJO
+	hBlTKN6Lm2lLPL1h6lNkyGLDhhlmKEy2ByXk8ByXegkA3L/B8jzoHcf+t/hSIVkVUlpFFKSHGlJ
+	0Ivwg0VHswFEScI7BgP1mesSCYda2jbHbgQ2Rds4rijx+7UMmdcGYNSVkr1VALmdPKkrZD5vIe3
+	dEAv/zYs40cGicADMMRJslYRjJ4zSpLbMWE59IDvqR8S8LfuhCMZzIcEBfwxQjlODQGzwZqLshU
+	lcIELt6
+X-Received: by 2002:a05:6000:26c9:b0:44b:d88e:7ceb with SMTP id ffacd0b85a97d-4515d3dc4e0mr15610341f8f.32.1778187050937;
+        Thu, 07 May 2026 13:50:50 -0700 (PDT)
 Received: from ai-node.taila4f726.ts.net (89-139-15-25.bb.netvision.net.il. [89.139.15.25])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-454175f59a5sm1401635f8f.32.2026.05.07.13.50.45
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-454175f59a5sm1401635f8f.32.2026.05.07.13.50.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 May 2026 13:50:46 -0700 (PDT)
+        Thu, 07 May 2026 13:50:50 -0700 (PDT)
 From: Vladislav Kulikov <vlad.kulikov.c@gmail.com>
 To: jic23@kernel.org,
 	dlechner@baylibre.com,
@@ -71,9 +71,9 @@ Cc: linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Vladislav Kulikov <vlad.kulikov.c@gmail.com>
-Subject: [PATCH v2 1/2] dt-bindings: iio: magnetometer: add MEMSIC MMC5983MA
-Date: Thu,  7 May 2026 20:50:31 +0000
-Message-ID: <20260507205033.951990-2-vlad.kulikov.c@gmail.com>
+Subject: [PATCH v2 2/2] iio: magnetometer: add driver for MEMSIC MMC5983MA
+Date: Thu,  7 May 2026 20:50:32 +0000
+Message-ID: <20260507205033.951990-3-vlad.kulikov.c@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260507205033.951990-1-vlad.kulikov.c@gmail.com>
 References: <20260507205033.951990-1-vlad.kulikov.c@gmail.com>
@@ -85,108 +85,422 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a Devicetree binding for the MEMSIC MMC5983MA 3-axis
-magnetometer.
-
-MMC5983MA is not register-compatible with the existing MEMSIC
-magnetometer drivers. It has a different register map, 18-bit output
-data format, and I2C/SPI transport support.
+Add support for the MEMSIC MMC5983MA 3-axis magnetometer. The driver
+provides raw magnetic field readings via IIO sysfs with SET/RESET
+offset cancellation for each measurement.
 
 Signed-off-by: Vladislav Kulikov <vlad.kulikov.c@gmail.com>
 ---
- .../iio/magnetometer/memsic,mmc5983.yaml      | 65 +++++++++++++++++++
- MAINTAINERS                                   |  6 ++
- 2 files changed, 71 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/magnetometer/memsic,mmc5983.yaml
+ MAINTAINERS                        |   1 +
+ drivers/iio/magnetometer/Kconfig   |  11 +
+ drivers/iio/magnetometer/Makefile  |   1 +
+ drivers/iio/magnetometer/mmc5983.c | 351 +++++++++++++++++++++++++++++
+ 4 files changed, 364 insertions(+)
+ create mode 100644 drivers/iio/magnetometer/mmc5983.c
 
-diff --git a/Documentation/devicetree/bindings/iio/magnetometer/memsic,mmc5983.yaml b/Documentation/devicetree/bindings/iio/magnetometer/memsic,mmc5983.yaml
-new file mode 100644
-index 000000000000..e144b4d9b0ca
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/magnetometer/memsic,mmc5983.yaml
-@@ -0,0 +1,65 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/magnetometer/memsic,mmc5983.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: MEMSIC MMC5983MA 3-axis magnetic sensor
-+
-+maintainers:
-+  - Vladislav Kulikov <vlad.kulikov.c@gmail.com>
-+
-+properties:
-+  compatible:
-+    const: memsic,mmc5983
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  vdd-supply:
-+    description: Regulator that provides power to the sensor
-+
-+  vddio-supply:
-+    description: Regulator that provides power to the digital interface and INT pin
-+
-+required:
-+  - compatible
-+  - reg
-+  - vdd-supply
-+
-+allOf:
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    // Example for I2C
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        magnetometer@30 {
-+            compatible = "memsic,mmc5983";
-+            reg = <0x30>;
-+            vdd-supply = <&vdd_3v3_reg>;
-+            vddio-supply = <&vdd_3v3_reg>;
-+        };
-+    };
-+  - |
-+    // Example for SPI
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        magnetometer@0 {
-+            compatible = "memsic,mmc5983";
-+            reg = <0>;
-+            spi-max-frequency = <10000000>;
-+            vdd-supply = <&vdd_3v3_reg>;
-+            vddio-supply = <&vdd_3v3_reg>;
-+        };
-+    };
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 882214b0e7db..952fbf3020a4 100644
+index 952fbf3020a4..b1d9d7b586a1 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -17170,6 +17170,12 @@ F:	drivers/mtd/
- F:	include/linux/mtd/
- F:	include/uapi/mtd/
+@@ -17175,6 +17175,7 @@ M:	Vladislav Kulikov <vlad.kulikov.c@gmail.com>
+ L:	linux-iio@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/magnetometer/memsic,mmc5983.yaml
++F:	drivers/iio/magnetometer/mmc5983.c
  
-+MEMSIC MMC5983 MAGNETOMETER DRIVER
-+M:	Vladislav Kulikov <vlad.kulikov.c@gmail.com>
-+L:	linux-iio@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/iio/magnetometer/memsic,mmc5983.yaml
-+
  MEN A21 WATCHDOG DRIVER
  M:	Johannes Thumshirn <morbidrsa@gmail.com>
- L:	linux-watchdog@vger.kernel.org
+diff --git a/drivers/iio/magnetometer/Kconfig b/drivers/iio/magnetometer/Kconfig
+index fb313e591e85..ea2697fb5ab6 100644
+--- a/drivers/iio/magnetometer/Kconfig
++++ b/drivers/iio/magnetometer/Kconfig
+@@ -151,6 +151,17 @@ config MMC5633
+ 	  To compile this driver as a module, choose M here: the module
+ 	  will be called mmc5633
+ 
++config MMC5983
++	tristate "MEMSIC MMC5983 3-axis magnetic sensor"
++	depends on I2C
++	select REGMAP_I2C
++	help
++	  Say yes here to build support for the MEMSIC MMC5983 3-axis
++	  magnetic sensor.
++
++	  To compile this driver as a module, choose M here: the module
++	  will be called mmc5983
++
+ config IIO_ST_MAGN_3AXIS
+ 	tristate "STMicroelectronics magnetometers 3-Axis Driver"
+ 	depends on (I2C || SPI_MASTER) && SYSFS
+diff --git a/drivers/iio/magnetometer/Makefile b/drivers/iio/magnetometer/Makefile
+index 5bd227f8c120..7fd9b3fd914e 100644
+--- a/drivers/iio/magnetometer/Makefile
++++ b/drivers/iio/magnetometer/Makefile
+@@ -16,6 +16,7 @@ obj-$(CONFIG_MAG3110)	+= mag3110.o
+ obj-$(CONFIG_HID_SENSOR_MAGNETOMETER_3D) += hid-sensor-magn-3d.o
+ obj-$(CONFIG_MMC35240)	+= mmc35240.o
+ obj-$(CONFIG_MMC5633)	+= mmc5633.o
++obj-$(CONFIG_MMC5983)	+= mmc5983.o
+ 
+ obj-$(CONFIG_IIO_ST_MAGN_3AXIS) += st_magn.o
+ st_magn-y := st_magn_core.o
+diff --git a/drivers/iio/magnetometer/mmc5983.c b/drivers/iio/magnetometer/mmc5983.c
+new file mode 100644
+index 000000000000..3b06164fad15
+--- /dev/null
++++ b/drivers/iio/magnetometer/mmc5983.c
+@@ -0,0 +1,351 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * MMC5983 - MEMSIC 3-axis Magnetic Sensor
++ *
++ * Copyright (c) 2026, Vlad Kulikov <vlad.kulikov.c@gmail.com>
++ *
++ * IIO driver for MMC5983
++ */
++
++#include <linux/bits.h>
++#include <linux/cleanup.h>
++#include <linux/delay.h>
++#include <linux/i2c.h>
++#include <linux/iio/iio.h>
++#include <linux/mod_devicetable.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/regmap.h>
++#include <linux/types.h>
++
++#define MMC5983_REG_XOUT0	0x00
++#define MMC5983_REG_XOUT1	0x01
++#define MMC5983_REG_YOUT0	0x02
++#define MMC5983_REG_YOUT1	0x03
++#define MMC5983_REG_ZOUT0	0x04
++#define MMC5983_REG_ZOUT1	0x05
++#define MMC5983_REG_XYZOUT2	0x06
++
++#define MMC5983_REG_STATUS	0x08
++
++#define MMC5983_REG_CTRL0	0x09
++#define MMC5983_REG_CTRL1	0x0A
++#define MMC5983_REG_CTRL2	0x0B
++#define MMC5983_REG_CTRL3	0x0C
++
++#define MMC5983_REG_ID		0x2F
++
++#define MMC5983_PRODUCT_ID	0x30
++
++#define MMC5983_STATUS_MEAS_M_DONE_BIT	BIT(0)
++#define MMC5983_STATUS_OTP_RD_DONE_BIT	BIT(4)
++
++#define MMC5983_CTRL0_TM_M_BIT		BIT(0)
++#define MMC5983_CTRL0_SET_BIT		BIT(3)
++#define MMC5983_CTRL0_RESET_BIT		BIT(4)
++#define MMC5983_CTRL0_OTP_RD_BIT	BIT(6)
++
++#define MMC5983_CTRL1_SW_RST_BIT	BIT(7)
++
++enum mmc5983_axis {
++	MMC5983_AXIS_X,
++	MMC5983_AXIS_Y,
++	MMC5983_AXIS_Z,
++};
++
++struct mmc5983_data {
++	struct regmap *regmap;
++	/* Protects chip access during SET/RESET measurement sequence */
++	struct mutex mutex;
++};
++
++#define MMC5983_CHANNEL(_axis) { \
++	.type = IIO_MAGN, \
++	.modified = 1, \
++	.channel2 = IIO_MOD_##_axis, \
++	.address = MMC5983_AXIS_##_axis, \
++	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW), \
++	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE), \
++}
++
++static const struct iio_chan_spec mmc5983_channels[] = {
++	MMC5983_CHANNEL(X),
++	MMC5983_CHANNEL(Y),
++	MMC5983_CHANNEL(Z),
++};
++
++static int mmc5983_take_measurement(struct mmc5983_data *data, int m[3])
++{
++	unsigned int status;
++	u8 buf[7];
++	int ret;
++
++	ret = regmap_write(data->regmap, MMC5983_REG_CTRL0,
++			   MMC5983_CTRL0_TM_M_BIT);
++	if (ret)
++		return ret;
++
++	/*
++	 * Datasheet page 15: measurement time is 8 ms at BW=00 (default,
++	 * slowest setting). Use a 50 ms timeout for margin.
++	 */
++	ret = regmap_read_poll_timeout(data->regmap, MMC5983_REG_STATUS,
++				       status,
++				       status & MMC5983_STATUS_MEAS_M_DONE_BIT,
++				       10000, 50000);
++	if (ret)
++		return ret;
++
++	ret = regmap_bulk_read(data->regmap, MMC5983_REG_XOUT0, buf,
++			       sizeof(buf));
++	if (ret)
++		return ret;
++
++	m[0] = (buf[0] << 10) | (buf[1] << 2) | ((buf[6] >> 6) & 0x3);
++	m[1] = (buf[2] << 10) | (buf[3] << 2) | ((buf[6] >> 4) & 0x3);
++	m[2] = (buf[4] << 10) | (buf[5] << 2) | ((buf[6] >> 2) & 0x3);
++
++	return 0;
++}
++
++static int mmc5983_read_raw(struct iio_dev *indio_dev,
++			     const struct iio_chan_spec *chan, int *val,
++			     int *val2, long mask)
++{
++	struct mmc5983_data *data = iio_priv(indio_dev);
++	int m1[3], m2[3];
++	int ret;
++
++	switch (mask) {
++	case IIO_CHAN_INFO_RAW: {
++		guard(mutex)(&data->mutex);
++
++		ret = regmap_write(data->regmap, MMC5983_REG_CTRL0,
++				   MMC5983_CTRL0_SET_BIT);
++		if (ret)
++			return ret;
++
++		/*
++		 * Datasheet page 15: SET/RESET coil pulse is 500 ns.
++		 * Vendor sample code waits 500 us before the next operation.
++		 */
++		fsleep(500);
++
++		ret = mmc5983_take_measurement(data, m1);
++		if (ret)
++			return ret;
++
++		ret = regmap_write(data->regmap, MMC5983_REG_CTRL0,
++				   MMC5983_CTRL0_RESET_BIT);
++		if (ret)
++			return ret;
++
++		/*
++		 * Datasheet page 15: SET/RESET coil pulse is 500 ns.
++		 * Vendor sample code waits 500 us before the next operation.
++		 */
++		fsleep(500);
++
++		ret = mmc5983_take_measurement(data, m2);
++		if (ret)
++			return ret;
++
++		*val = (m1[chan->address] - m2[chan->address]) / 2;
++		return IIO_VAL_INT;
++	}
++	case IIO_CHAN_INFO_SCALE:
++		*val = 0;
++		*val2 = 61035;
++		return IIO_VAL_INT_PLUS_NANO;
++	default:
++		return -EINVAL;
++	}
++}
++
++static const struct iio_info mmc5983_info = {
++	.read_raw = mmc5983_read_raw,
++};
++
++static bool mmc5983_is_writeable_reg(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case MMC5983_REG_CTRL0:
++	case MMC5983_REG_CTRL1:
++	case MMC5983_REG_CTRL2:
++	case MMC5983_REG_CTRL3:
++		return true;
++	default:
++		return false;
++	}
++}
++
++static bool mmc5983_is_readable_reg(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case MMC5983_REG_XOUT0:
++	case MMC5983_REG_XOUT1:
++	case MMC5983_REG_YOUT0:
++	case MMC5983_REG_YOUT1:
++	case MMC5983_REG_ZOUT0:
++	case MMC5983_REG_ZOUT1:
++	case MMC5983_REG_XYZOUT2:
++	case MMC5983_REG_STATUS:
++	case MMC5983_REG_CTRL0:
++	case MMC5983_REG_CTRL1:
++	case MMC5983_REG_CTRL2:
++	case MMC5983_REG_CTRL3:
++	case MMC5983_REG_ID:
++		return true;
++	default:
++		return false;
++	}
++}
++
++static bool mmc5983_is_volatile_reg(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case MMC5983_REG_XOUT0:
++	case MMC5983_REG_XOUT1:
++	case MMC5983_REG_YOUT0:
++	case MMC5983_REG_YOUT1:
++	case MMC5983_REG_ZOUT0:
++	case MMC5983_REG_ZOUT1:
++	case MMC5983_REG_XYZOUT2:
++	case MMC5983_REG_STATUS:
++	case MMC5983_REG_CTRL0:
++	case MMC5983_REG_CTRL1:
++		return true;
++	default:
++		return false;
++	}
++}
++
++static const struct regmap_config mmc5983_regmap_config = {
++	.name = "mmc5983_regmap",
++	.reg_bits = 8,
++	.val_bits = 8,
++	.max_register = MMC5983_REG_ID,
++	.writeable_reg = mmc5983_is_writeable_reg,
++	.readable_reg = mmc5983_is_readable_reg,
++	.volatile_reg = mmc5983_is_volatile_reg,
++};
++
++static int mmc5983_init(struct mmc5983_data *data)
++{
++	struct regmap *regmap = data->regmap;
++	struct device *dev = regmap_get_device(regmap);
++	unsigned int reg_id, status;
++	int ret;
++
++	ret = regmap_read(regmap, MMC5983_REG_ID, &reg_id);
++	if (ret)
++		return dev_err_probe(dev, ret, "Error reading product id\n");
++
++	if (reg_id != MMC5983_PRODUCT_ID)
++		dev_info(dev, "unexpected product id 0x%02x\n", reg_id);
++
++	ret = regmap_write(regmap, MMC5983_REG_CTRL1, MMC5983_CTRL1_SW_RST_BIT);
++	if (ret)
++		return ret;
++
++	/* Datasheet page 15: power-on time after SW_RST is 10 ms */
++	fsleep(10000);
++
++	ret = regmap_write(regmap, MMC5983_REG_CTRL0, MMC5983_CTRL0_OTP_RD_BIT);
++	if (ret)
++		return ret;
++
++	/*
++	 * Datasheet page 15: OTP read completes and self-clears. No separate
++	 * OTP refresh timeout is specified, so use the 10 ms power-on time as
++	 * a conservative upper bound.
++	 */
++	ret = regmap_read_poll_timeout(regmap, MMC5983_REG_STATUS, status,
++				       status & MMC5983_STATUS_OTP_RD_DONE_BIT,
++				       1000, 10000);
++	if (ret)
++		return ret;
++
++	ret = regmap_write(regmap, MMC5983_REG_CTRL0, MMC5983_CTRL0_SET_BIT);
++	if (ret)
++		return ret;
++
++	/*
++	 * Datasheet page 15: SET/RESET coil pulse is 500 ns.
++	 * Vendor sample code waits 500 us before the next operation.
++	 */
++	fsleep(500);
++
++	ret = regmap_write(regmap, MMC5983_REG_CTRL0, MMC5983_CTRL0_RESET_BIT);
++	if (ret)
++		return ret;
++
++	/*
++	 * Datasheet page 15: SET/RESET coil pulse is 500 ns.
++	 * Vendor sample code waits 500 us before the next operation.
++	 */
++	fsleep(500);
++
++	return 0;
++}
++
++static int mmc5983_probe(struct i2c_client *i2c)
++{
++	struct device *dev = &i2c->dev;
++	struct mmc5983_data *data;
++	struct iio_dev *indio_dev;
++	int ret;
++
++	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
++	if (!indio_dev)
++		return -ENOMEM;
++
++	data = iio_priv(indio_dev);
++
++	ret = devm_mutex_init(dev, &data->mutex);
++	if (ret)
++		return ret;
++
++	data->regmap = devm_regmap_init_i2c(i2c, &mmc5983_regmap_config);
++	if (IS_ERR(data->regmap))
++		return dev_err_probe(dev, PTR_ERR(data->regmap),
++				     "failed to allocate register map\n");
++
++	indio_dev->info = &mmc5983_info;
++	indio_dev->modes = INDIO_DIRECT_MODE;
++	indio_dev->name = "mmc5983";
++	indio_dev->channels = mmc5983_channels;
++	indio_dev->num_channels = ARRAY_SIZE(mmc5983_channels);
++
++	ret = mmc5983_init(data);
++	if (ret)
++		return dev_err_probe(dev, ret, "mmc5983 chip init failed\n");
++
++	return devm_iio_device_register(dev, indio_dev);
++}
++
++static const struct of_device_id mmc5983_of_match[] = {
++	{ .compatible = "memsic,mmc5983" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, mmc5983_of_match);
++
++static const struct i2c_device_id mmc5983_id[] = {
++	{ "mmc5983" },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, mmc5983_id);
++
++static struct i2c_driver mmc5983_driver = {
++	.driver = {
++		.name = "mmc5983",
++		.of_match_table = mmc5983_of_match,
++	},
++	.probe = mmc5983_probe,
++	.id_table = mmc5983_id,
++};
++module_i2c_driver(mmc5983_driver);
++
++MODULE_AUTHOR("Vladislav Kulikov <vlad.kulikov.c@gmail.com>");
++MODULE_DESCRIPTION("MEMSIC MMC5983 magnetic sensor driver");
++MODULE_LICENSE("GPL");
 -- 
 2.43.0
 
