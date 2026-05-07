@@ -1,124 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11023093.outbound.protection.outlook.com [40.107.159.93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9616C3FCB17;
-	Thu,  7 May 2026 12:56:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778158566; cv=none; b=nmjZKXkXGl7IbBAFWxLsXlxk7P56IWbGrjMbameQ8mWB3mV63sP2aAY/oA5TGizhguokJd78ACF7vsNfOuumFRVyTkTWEP9iAb7aSZRzMUKkTzzs66zGRX5rRRp/T89iWNfZPiy35ajQde65c2gwGVTfejXUR7nW89wwVv93OkI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778158566; c=relaxed/simple;
-	bh=ooIRCgQX5OeUGSAo2/xNpQTbZ9wBCKsVHL/Ug1S38FI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BzS4bVaSwdy1d4ui1qoZvQIj26w8Rwj8ck4I7iQDhPhJ/6JvPnH8junbIq9OwJs8ePMvfela/q5gB8PwQHtQzUhm3yUeCHuOKKr2OULkkJFj9CyxtcnM3beYk+xVaQrWZh7nqi0aQ5cjPQVaH3dguJ1k5yDTCJflf50KcSpzuDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KzFIoyru; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42CAB30171A;
+	Thu,  7 May 2026 12:56:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.93
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778158604; cv=fail; b=cYsOHpZNjIbpHtgpLWT6XLm/lvWimtZ8PpXdjjxN9ye8NK2xcAlXOmb+W6tZGpKupqAjBv+pdlHDMu+hdnmQ7eeeIdoVBvGJckiq8jaKqfQmYfrwdSK0Cjj8m55eyqht0fEpmryupczcbYwfDZ2FmoD7Dr47jWGy1JRZ/ojVKOY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778158604; c=relaxed/simple;
+	bh=z4RuD9NbzI2bQlE11ywykie/Im0HLJUsyMis8npiqfA=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=ljBeeRzlJDmR+aH1p07pddIlGgz37h7Lcd30l9E5EHnuzYLWqtV63ZXOkBbbdPqR2xEp66QQ//nMmpYVcCrSL0DjukkX1S6s+zPePtntomqc+HHGP0RuxhpDuDUDNG+muaQIqDV+VV2MyJUExyPVvqwwQUHYA7+NJyu6RcjcQBM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de; spf=pass smtp.mailfrom=phytec.de; dkim=pass (2048-bit key) header.d=phytec.de header.i=@phytec.de header.b=OobXvUn5; arc=fail smtp.client-ip=40.107.159.93
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytec.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KzFIoyru"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87710C2BCB8;
-	Thu,  7 May 2026 12:56:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778158565;
-	bh=ooIRCgQX5OeUGSAo2/xNpQTbZ9wBCKsVHL/Ug1S38FI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=KzFIoyrug8FgPnGUt1StPWbUHf+Hpwwp4Vzw7KUywhsoFeFL83xkXgdKWwRJuXU77
-	 EPq4L+RTbGVVeN2w/GZFGtB8MbvkPVmmvpDzVn7/heVhOjchuAtzJvSvsCI5x6oRZy
-	 0EFc+72Th74q8PwOvwn7tiD4TPu9PVafm7YOTIfaxGKFl/RCKdExDmFAKIeibDeRV/
-	 10B2hoVmScyTP8CmaW1IL7oGI8DZoe9kKbERhFA4JOQEDIIvHwf17rBet4LnKIjPrr
-	 dIlP8MGjlYF8Q8EktD685BG2N9ikQ1Y3InXYiruUmH8UMJTqVU1moSf+k0sSVrOst3
-	 4C2L1DrJY/xkA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wKyGp-00000000d7d-2fbM;
-	Thu, 07 May 2026 12:56:03 +0000
-From: Marc Zyngier <maz@kernel.org>
-To: linux-arm-kernel@lists.infradead.org,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Ge Gordon <gordon.ge@bst.ai>,
-	BST Linux Kernel Upstream Group <bst-upstream@bstai.top>,
-	Jesper Nilsson <jesper.nilsson@axis.com>,
-	Lars Persson <lars.persson@axis.com>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Dinh Nguyen <dinguyen@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	=?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Michal Simek <michal.simek@amd.com>
-Subject: [PATCH 16/16] arm64: dts: xilinx: Add EL2 virtual timer interrupt
-Date: Thu,  7 May 2026 13:55:44 +0100
-Message-ID: <20260507125544.2903406-17-maz@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260507125544.2903406-1-maz@kernel.org>
-References: <20260507125544.2903406-1-maz@kernel.org>
+	dkim=pass (2048-bit key) header.d=phytec.de header.i=@phytec.de header.b="OobXvUn5"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Avl13UbHFEUe+qudjjqO0in4K9A+dHocrxps8hfMO/8mjlBbsP2UuZj05Q3JdHGq4U3wog5GyTIq/ByATZP2j/1LlAU7nQmKmvJGZ4y3bkgSLOui6oQUhpx2sAi6hkIZOreqAcZeQmlXyCOv6tZ6emui2AVBaHiKqZZt29OGyDKZ7fwoP66vBZTafOBo7EXzppM58G4jWzW8rEsBVaOJSOJGRLuRcQlVCoHubjUlGdK/cqR101BEMKxq8la9GfQMZ8rCv3hinCwFfHnb8VzGo34mPP7hJGU7O8vchEOXqCHZm32Q9ebRwF1l3zYK423lcetWgX5J6GVG37ouVYTHdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ToHG0ImZuU7qfiLVYyvzh0UYOmMSy3wf8sf14WtJAwU=;
+ b=OShTaS2Qqs1nBWMNtHpKe2jH2z6ThRI8KxRNLY3PvbMGVXm04mfsE2B0lfJUHze6uaaSFpgGswQRfabbMDNCLJNXYkz5lDYGb8jmbi2FUEsT/syQgX/1yApIA3mty9HOVXQSTSqxVmipxLUhhhsyGoz5wCDjKkx9CRtCVX2AcgFuCF6T3B/fiJ/zYB3xsMreFkqcXslYw5+IOKh0g4V43GdSU6CudrzX+J2Oni1FFbR0OrQyZMl/XagX5xNybXjsMK2jVxZXSZQMwFp5QfJCwcQSUVoOKJVOkPU8KGYqUUjdkXSIHV/eg7KGnz1Qf9Db5js9SNz0Q9y+jxTSCdXaAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=phytec.de; dmarc=pass action=none header.from=phytec.de;
+ dkim=pass header.d=phytec.de; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phytec.de;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ToHG0ImZuU7qfiLVYyvzh0UYOmMSy3wf8sf14WtJAwU=;
+ b=OobXvUn5IDiJzg8sYoeP1SKKGpDCuJ32CSyL2Iv6vlMKWUJycWlJYBvRGFzPkGMethEmvLbF36ivWSj3EIRwBpNhkS7O3syTCJKkI6nG1rNwfxjNaAqJsncBomYV9s86mKIW2K1kKNhDUWsRXA2EsFaA4Ny6XvAuFhzIREdgTZ/j1CMSx6GoFMtBVee6RdZgrrgEJuiItbc391mfjTdnRVrQf6hTChMS0V5Bb5rWvghWvxe5RRyV5FLvXkM1oJlDF6t6csHhbwrTHVZkdKgqMDZ1tY5Y/Xi0ThrJMcWFwZEMbkdLGZUCw5PK/7orc20xrQuHmiqurxzN6Yq4iw6T4Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=phytec.de;
+Received: from AS4P195MB1456.EURP195.PROD.OUTLOOK.COM (2603:10a6:20b:4b3::21)
+ by PR3P195MB0617.EURP195.PROD.OUTLOOK.COM (2603:10a6:102:31::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.19; Thu, 7 May
+ 2026 12:56:35 +0000
+Received: from AS4P195MB1456.EURP195.PROD.OUTLOOK.COM
+ ([fe80::295f:9a59:b66a:621a]) by AS4P195MB1456.EURP195.PROD.OUTLOOK.COM
+ ([fe80::295f:9a59:b66a:621a%6]) with mapi id 15.20.9891.016; Thu, 7 May 2026
+ 12:56:35 +0000
+Message-ID: <8bff1c7d-e43d-41e6-8b1f-476e8b5caefa@phytec.de>
+Date: Thu, 7 May 2026 15:56:32 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 02/13] arm64: dts: ti: k3-am642-phyboard-electra-rdk:
+ fix USB clocking for compliance
+To: Siddharth Vadapalli <s-vadapalli@ti.com>, nm@ti.com, vigneshr@ti.com,
+ kristo@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ josua@solid-run.com, matthias.schiffer@ew.tq-group.com, d.haller@phytec.de,
+ francesco.dolcini@toradex.com, joao.goncalves@toradex.com,
+ emanuele.ghidoli@toradex.com, ernest.vanhoecke@toradex.com,
+ rogerq@kernel.org, eballetb@redhat.com, robertcnelson@gmail.com, afd@ti.com,
+ u-kumar1@ti.com
+Cc: stable@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ luis.parga@ti.com, srk@ti.com
+References: <20260506141040.1368918-1-s-vadapalli@ti.com>
+ <20260506141040.1368918-3-s-vadapalli@ti.com>
+Content-Language: en-US
+From: Wadim Egorov <w.egorov@phytec.de>
+In-Reply-To: <20260506141040.1368918-3-s-vadapalli@ti.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: VI1P191CA0008.EURP191.PROD.OUTLOOK.COM
+ (2603:10a6:800:1ba::6) To AS4P195MB1456.EURP195.PROD.OUTLOOK.COM
+ (2603:10a6:20b:4b3::21)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: linux-arm-kernel@lists.infradead.org, linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, lpieralisi@kernel.org, guohanjun@huawei.com, sudeep.holla@kernel.org, catalin.marinas@arm.com, will@kernel.org, rafael@kernel.org, mark.rutland@arm.com, daniel.lezcano@kernel.org, tglx@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org, neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, gordon.ge@bst.ai, bst-upstream@bstai.top, jesper.nilsson@axis.com, lars.persson@axis.com, alim.akhtar@samsung.com, ivo.ivanov.ivanov1@gmail.com, Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com, dinguyen@kernel.org, matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com, thierry.reding@kernel.org, jonathanh@nvidia.com, andersson@kernel.org, konradybcio@kernel.org, afaerber@suse.de, heiko@sntech.de, shawn.lin@rock-chips.com, orsonzhai@gmail.com, baolin.wang@linux.alibaba.com, michal.simek@amd.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS4P195MB1456:EE_|PR3P195MB0617:EE_
+X-MS-Office365-Filtering-Correlation-Id: 23d3c793-e3dd-48ad-6f3f-08deac3811eb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|1800799024|7416014|921020|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	duhuxnouFYBoUdUnjov94AzNFx8vn3Z3r3fnSVHV/fk0x2yheFIdWb8KXOeJXdCgRuks5uE/FluumY09xTTTYppz4ldctCrC0d9cKWSlQ23+Q0ZamafQIigo37lbWQAYEeE1DAUKD7eXqxpbd+YNoZIVgVuyQFoH5jTU4axtM2zaOBp9BQIa5qU3F7+3nlOTmyCJfE/+AQ6Qj8LkcCzhUIewkMsdCWNmyzl7TGkbpnl/pc34dxgSyApeMtG/CGGjHYPRF09Bagp5FbBYhVeMaFk2dlqzPlxSgoSVL8T4aoMfADuNAvli+3KQxE4LxAHQ3N3vz9vkLeF8zAAKcDzXm+WrJwwjPbUdizH9g8GtNx0/0O6xO3gm4SlFP98UGJbJ36/rv05hatPywitqoj/M89wU9i1azliaYhTZilecH1b5Jl+hLO3P4ZIBaEnDOPiMgSs5tzx3ksbrF5aqV6Ux0qqa2U809AkwkRepYlGhv/jW1a/EJsSlWjRtnSNpssEVLPxEOQ1zLEj9mUZ3Q/pJgkZjpOE8mY4zQAD8E0qUmh0/yaCcRXNn5jzK1SypWUv34B62Gv49IRYsn69xUdlzICvcOPjLDwToUCjsokNOSxnlzEP8AagqKwrYc5Nk6pl0Ssa/0dqNa5pnJAFnlBX9P2r+VjEraq5RQJYxHzI5eNWgiYGMexNthNxamXI06+xXF6ub/sHB8WKwiPvNFXW/77vNOlRh3zOOhZClHTuWPKrHHx3dS+8w1C4om7iU5A9B
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4P195MB1456.EURP195.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(7416014)(921020)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ekF6a2FZT2ljNHp4NEJINDhHVE5PKzc5ZG55QUcyN25BRnI4N1Y0d2ROWTE1?=
+ =?utf-8?B?aldaUThDcWR2MmxkOWpKVUVtdllKNlNUak40aWtnWW1SZkF2dHEyVlZITFRR?=
+ =?utf-8?B?aTVodEdOajY4dXB4ZFg3eEtyUmhhZFI2eGpZN0FWQmhMZnBoa2dRMkJNWE45?=
+ =?utf-8?B?WTVYQzZVY1lMeU9hdXh4NTJuRDF0QzNjVUwxaTd0b2JXNlE4L09lbjdZNDhC?=
+ =?utf-8?B?OVZWeW80QmMybVU5aEl1M3ZFZDZtSGZ6M3F4ZEdzdGxxQXBJRU9pRXpxVTdj?=
+ =?utf-8?B?U3BBaU45TExoaEYyazZFUmkwYlFhYjdKWFJnV1o2dVhzeEtwQ2htUDNzd0w0?=
+ =?utf-8?B?TVRTYTFtd2NUdEgwRS9ldFI5TS9oUGdTaXpmdDloOE9wZ0tudUFTN05oNWxs?=
+ =?utf-8?B?TnZ2bm9NWVFHTVd2ZDVCVnRpdGRuVTBoYTZnWUpTa0wrR3QyZVE0SUZkbXN2?=
+ =?utf-8?B?cmk5UWhkeTYwRi9oaUU1dkQrV2FoSFRFVjkyemtWd0pmOW5kc2pLcWhtcEdm?=
+ =?utf-8?B?b0Z3aDFGVi9yazI4YmhHc1J2bnZTcGJwSklxU1A0RVVmQ1dSRnVyb0M4ZlVM?=
+ =?utf-8?B?TGQ0SzE3bnpkZzJybnNkUkVmc2ZTTklFaHNUYk5JeGp2UUx4V1pyVGI0MEFy?=
+ =?utf-8?B?elZzbEtOaGhFZFBwam5rcG5PQWJpZm9Pd0FRRm9jakpDRHJJWllhRSs2eEN3?=
+ =?utf-8?B?RWRtMFNyNHdXUkVIMk93cjlTZjZQa0hsNjRiUmpDaWY2YjVkY3hzc01ra09y?=
+ =?utf-8?B?TllQbUtYNzdxa05idFdnbC9ScllrdEhFRHR4aTFnM0FIK3kvUStVMlRtREwr?=
+ =?utf-8?B?NXZVYnprTXNrMzZ4NEJOclNrM0RYUnFrZWVMMVR5QnJBalZPZGhJNGVTa21m?=
+ =?utf-8?B?NUQ5MlpVWC9WcmtrdkZiRXJHbERXSVVZbG52SnEvOUJxM3pnZFk2cWtmWk5n?=
+ =?utf-8?B?RE45bkI4NlZLeE5ZZlE0RlhlZTh4SWhNeGRHVEFXMzY5T282UlFPYlo1RDZp?=
+ =?utf-8?B?bGpvQytvVTF0Vjcva0NNeWFzRnlCVGtJb3JwY1ZCVFRDMHBvUDEzUDMrb2ly?=
+ =?utf-8?B?akVseFE1MjZkUXJBZUtld3BCdTNWU0JzUnFzdmt2WlFyeFdGNHZMcVlBUmxs?=
+ =?utf-8?B?NVJXenAxZWkxVW92M0YySlVqcUUzUmxMNVJLdnp1ZWpIVjdRZ0RSdll6TldN?=
+ =?utf-8?B?VjFRMjZCSlM0Um5CM2R3OFpabHJqdnZ2L2Uvd1Z1b1R3TXlKTk9OcHBNZWZ4?=
+ =?utf-8?B?UWRkWE1wcCtzUWcvSEhhT205Q1JuSXhnM1MybHd1Q3ppWm9ETG5wcUR5cllD?=
+ =?utf-8?B?cjhXWDNhZkkyOXZQQzhMeWdHQUtlanpacEVmUkUwRFRTSml5bDVveS9SMHBV?=
+ =?utf-8?B?VEpmYnpiYmEyRVR0ZW5UcGpQTjViTTRsaXdOTkZGT0o0ZVcvZWZsbi9DRHRk?=
+ =?utf-8?B?UDZyNWlCanYwSmRPQ01Ud0RSWmFHbDlBTVM5dUNtMkhTZ0xJQ091SHc2bmtT?=
+ =?utf-8?B?ZzdTOWE0Z3F1STJPQVZJUk9hZlFVMnlSN0hwbjBDVVkxYVFVVGdrcng5MGEv?=
+ =?utf-8?B?SDBTMTBMWXYrVGtReTlDdjBqUGUvOXBjNEkzWlVWV2tlNXRFMFN2Mk50d21o?=
+ =?utf-8?B?a3lzakVXNzlDTS92bzJwalF3ajhWN2NJRjNnRnd1MnN4ZDA4eFFBRkdYaVJz?=
+ =?utf-8?B?alN0TjhjNEZFNHh3Q2hSTzNDOFNFRkFyYWdCWG9iU1NIb1N0cXU0RmtIdHZQ?=
+ =?utf-8?B?cURvVUFjc0c2R29McDRSdXNLQzEzS0p5RTQ1YU9aWC9xR25OSFFrOGd3SnZj?=
+ =?utf-8?B?cFpQdzFVdnErRmM2UHJLY2M1N0pVL2F4USsvenprYy9Bb25UQlQ1SDduUC9l?=
+ =?utf-8?B?d0hsRFM2Z2dCUStJVjJVd2VrRWJQeWNYSEpOeTdoTDNTRU85eXdCZ3BKV1k5?=
+ =?utf-8?B?U1p3Q2xnNjg3OHAyaTZtVXVQNzZiSTNTV0FjYVAza2FOdElZdFhydi9Wa1Rs?=
+ =?utf-8?B?NXZlQnVmU2ZGSTB2UHdvZTYyVlB2WndpVVRlYklHa0k1VTA4N3c4Q2tUcjh4?=
+ =?utf-8?B?QmlYazNaeUE2OE5uREM5SGxzK2M4Skh5ZDM5eTFNb0RTM0VFQWRqZjR1Qi9p?=
+ =?utf-8?B?YW55cHgvUU54VjR0NllXY1YxSXMrUVRZcWxha1lpb1VEV0xZb2hBQndZa2Q3?=
+ =?utf-8?B?NDNTTmx6REJ1ZCtGOXY3MUEvZ2xTNnRTMnJXRE9neVpOTHByZjVNUnd2UXlU?=
+ =?utf-8?B?OXBoSWVzN290L29qY3BjTmJMY0tQNFoyajl0UHNnaStlVFBMdFViMThLM1FS?=
+ =?utf-8?B?QXFVMytUV0lhNVcvRHZqSVNIU1hZWVhEZUdKa2VQZW5uenNwbmhLdz09?=
+X-OriginatorOrg: phytec.de
+X-MS-Exchange-CrossTenant-Network-Message-Id: 23d3c793-e3dd-48ad-6f3f-08deac3811eb
+X-MS-Exchange-CrossTenant-AuthSource: AS4P195MB1456.EURP195.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2026 12:56:35.3539
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e609157c-80e2-446d-9be3-9c99c2399d29
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7gEo4O8e0fEfwExVeT16oSysaqAgtuvpSzMg2c+mZyZotuMmP1CpFWDQD4TNiAJLJQ5PeE613iwiEKIg4/zbgA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3P195MB0617
 
-The ARMv8.2 based CPUs used in the versal SoC are missing the EL2 virtual
-timer interrupt. Add it.
 
-Signed-off-by: Marc Zyngier <maz@kernel.org>
----
- arch/arm64/boot/dts/xilinx/versal-net.dtsi | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/xilinx/versal-net.dtsi b/arch/arm64/boot/dts/xilinx/versal-net.dtsi
-index 15f767608e67f..0aac93675ad77 100644
---- a/arch/arm64/boot/dts/xilinx/versal-net.dtsi
-+++ b/arch/arm64/boot/dts/xilinx/versal-net.dtsi
-@@ -728,7 +728,8 @@ fpga: fpga-region {
- 
- 	timer: timer {
- 		compatible = "arm,armv8-timer";
--		interrupts = <1 13 4>, <1 14 4>, <1 11 4>, <1 10 4>;
-+		interrupts = <1 13 4>, <1 14 4>, <1 11 4>, <1 10 4>,
-+			     <1 12 4>;
- 	};
- 
- 	versal_fpga: versal-fpga {
--- 
-2.47.3
+On 5/6/26 5:09 PM, Siddharth Vadapalli wrote:
+> According to section "6.5.3 Normative Spread Spectrum Clocking (SSC)" of
+> the USB 3.2 Specification, SSC should be enabled by default. This protects
+> against EMI violations. Hence, enable internal SSC for USB SuperSpeed.
+> 
+> Fixes: c48ac0efe6d7 ("arm64: dts: ti: Add support for phyBOARD-Electra-AM642")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Siddharth Vadapalli <s-vadapalli@ti.com>
+
+Acked-by: Wadim Egorov <w.egorov@phytec.de>
+
+> ---
+> 
+> v1:
+> https://lore.kernel.org/r/20260505110631.1144200-3-s-vadapalli@ti.com/
+> No changes since v1.
+> 
+>  arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts b/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts
+> index 793538f94942..a85d7d08bd1b 100644
+> --- a/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts
+> +++ b/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts
+> @@ -439,12 +439,21 @@ &sdhci1 {
+>  	status = "okay";
+>  };
+>  
+> +&serdes_wiz0 {
+> +	ti,core-clk-sel = <1>;  /* Select internal reference clock */
+> +	ti,ssc-enable; /* Enable SSC */
+> +	ti,ssc-type = <1>; /* 1 for Downspread */
+> +	ti,ssc-frequency-hz = <33000>; /* 33 KHz */
+> +	ti,ssc-depth-per-mil = <5>; /* 0.5% depth */
+> +};
+> +
+>  &serdes0 {
+>  	serdes0_pcie_usb_link: phy@0 {
+>  		reg = <0>;
+>  		cdns,num-lanes = <1>;
+>  		#phy-cells = <0>;
+>  		cdns,phy-type = <PHY_TYPE_USB3>;
+> +		cdns,ssc-mode = <2>; /* 2 for internal SSC */
+>  		resets = <&serdes_wiz0 1>;
+>  	};
+>  };
 
