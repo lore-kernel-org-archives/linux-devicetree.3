@@ -1,52 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D523254A0;
-	Thu,  7 May 2026 17:05:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCE2F32C923;
+	Thu,  7 May 2026 17:07:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778173557; cv=none; b=qoZyRFcoHbj+CzFP1aJpk2zQG6G9em3T8wPKzUSuuHvKYrvi7rdlL4PmWTx+pddEYH+jrzJatwvkdlGQmUQJAltuGNfQLNtvdTBgsYhjOn3CvwI5dZDxTQEbxv1mrG1SNtaTHutWH0KcBZJDnBNXS366ouDF352WVkyKZsOBQFY=
+	t=1778173640; cv=none; b=KusSzLDSrkyZR1Od6FOP/3VvexOaC8pTkCAohDWIJeO9eu1gQoLgmgqjWuK+i3yV7jORramGe2WyNjxXGNewqeX4ms5a26Xjy0PtG9AA8DVxjAzi+sme5mZl2lTWvBqNwwsU93dVSiVDozJyi6EqdB9JJuEjqgIhU+kkcfiVZB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778173557; c=relaxed/simple;
-	bh=xP4kvN20Q4l2M3zAgqCtFzM8COxGNtbqy5n6gljAOkI=;
+	s=arc-20240116; t=1778173640; c=relaxed/simple;
+	bh=c4gV57TC8fT2cJF8+yJXdW2q5GT1M2sibP6Ru132maY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UiauGRnmDl9/ctb8uGJNzr6TGPu+J8LfLhzXVcP3UHkg7XKXeQAKPMW10BGFitQFqfvWI0QQAtTgc+VqnXC9zPfxgbz6J66rY0IR0kvnFHc32xbqjT6At5gHABTDNKJhRzqIDDewTPbAPS2vYkayE6dSiOvqua4VcYfkhDwNwn0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YEYVWUFY; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=DYoJk7drxulYtNWiMJayPZyUQV9hswoqTWZSMh+C8kDtsywNyzvfbDaFrKTgMuo+AomkdLyT59y74O4QQhWDRpW8QvUmB43Y+fhwWIOX6NMBmcwyWfRNKTkx7ENDc3iSPW8uFbmOPVM/sPo7XE8cT12GK5HBUJ45aFKiCPbFO9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C3gMQBJl; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YEYVWUFY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 176F8C2BCB2;
-	Thu,  7 May 2026 17:05:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C3gMQBJl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1875BC4AF09;
+	Thu,  7 May 2026 17:07:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778173557;
-	bh=xP4kvN20Q4l2M3zAgqCtFzM8COxGNtbqy5n6gljAOkI=;
+	s=k20201202; t=1778173640;
+	bh=c4gV57TC8fT2cJF8+yJXdW2q5GT1M2sibP6Ru132maY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YEYVWUFYfs+Hu3bCpGtYs3PemIHPivPhjLOQ+wc2B+b3o8O1XjDIVzjw0cvLRsgTD
-	 gDRycUVn51z/r3FD5XkWutO1NrMxGkCr+3yoPXHKbirSCGN4w2UN3CRG5SsgJ86RrO
-	 Hgt60M0Een1ax9wSussdAFhHLGVBvV/gF/1eWroNbIzjEe46tEF4dU6ErHZb/wgnz6
-	 85JFEi7gcjUAm/AfBOIcALNGPvihLEi/nuPLbDiKHHDjJ1ueYGkuEHOZshyYp6g2m1
-	 6F24te6W73TlhF3v1mqdnCDjs/EOxGuxssr/HMYfbYRjUjhZLakpSbcfAEbbeKK3YG
-	 ZZMA+ERjc2+kA==
-Date: Thu, 7 May 2026 18:05:51 +0100
+	b=C3gMQBJlN1MSWCADLTajo0HPH5qHwTnHu3X1QxAa8OYsCd82DlrohUg2lby1g8oLp
+	 vJIsAsJgGO0eWXLtd/hrLgSCwZtLMEtCkirAC8Rhb0JiKg8LeFk0R0HiGu3+Bj1EoY
+	 iYKoVecuc25eD9UTuIy4vIgaxZBhZJzv+1gFRC2KsLgvVN4eXFd/Jk0VsLLZOI7AhC
+	 t7WmH3ZHH2U/f2Kj34uCUmGDD7hQVxYJCIwuaP0hb1BqjKdvkaVRoZ/Fg6gnCtWJ7Q
+	 PfQ7gUMCD9GrbMgZE+MJOuX+g5iL3oTpDYKfjR7yUOKsdkKTxUpVB88bHGCeSXVyLW
+	 rgruAi7OyFwDA==
+Date: Thu, 7 May 2026 18:07:15 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Gregor Herburger <gregor.herburger@linutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+To: u8813345@gmail.com
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>,
-	Srinivas Kandagatla <srini@kernel.org>, Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v3 1/4] dt-bindings: raspberrypi,bcm2835-firmware: Add
- bcm2712-firmware compatible
-Message-ID: <20260507-wish-acre-1e4389843c75@spud>
-References: <20260506-rpi-otp-driver-v3-0-294602663695@linutronix.de>
- <20260506-rpi-otp-driver-v3-1-294602663695@linutronix.de>
- <20260506-unguided-duty-892b11b7c618@spud>
- <7g6bvlp5fs4bkviiyywqu5wb5hndkczcamgtir5ow262cqkmdo@xyj2otywjepn>
+	Kevin Chang <kevin.chang2@amd.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, Colin Huang <colin.huang2@amd.com>
+Subject: Re: [PATCH v4 1/3] dt-bindings: hwmon: pmbus: add Delta E50SN12051
+ binding
+Message-ID: <20260507-squealing-vanish-16fea3c114f5@spud>
+References: <20260507-add-e50sn12051-v4-0-ff2b3768ac7e@gmail.com>
+ <20260507-add-e50sn12051-v4-1-ff2b3768ac7e@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,88 +49,96 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5ro8e+12XL9fqGZ2"
+	protocol="application/pgp-signature"; boundary="PcTxrWV42aINvzPC"
 Content-Disposition: inline
-In-Reply-To: <7g6bvlp5fs4bkviiyywqu5wb5hndkczcamgtir5ow262cqkmdo@xyj2otywjepn>
+In-Reply-To: <20260507-add-e50sn12051-v4-1-ff2b3768ac7e@gmail.com>
 
 
---5ro8e+12XL9fqGZ2
+--PcTxrWV42aINvzPC
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, May 07, 2026 at 09:42:54AM +0200, Gregor Herburger wrote:
-> On Wed, May 06, 2026 at 05:50:42PM +0100, Conor Dooley wrote:
-> > On Wed, May 06, 2026 at 02:28:15PM +0200, Gregor Herburger wrote:
-> > > Add a compatible string for the bcm2712 firmware.
-> > >=20
-> > > Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
-> > > ---
-> > >  .../bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml      | 13 +++=
-+++++++---
-> > >  1 file changed, 10 insertions(+), 3 deletions(-)
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bc=
-m2835-firmware.yaml b/Documentation/devicetree/bindings/arm/bcm/raspberrypi=
-,bcm2835-firmware.yaml
-> > > index 983ea80eaec9..fbcfa2bc168a 100644
-> > > --- a/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-f=
-irmware.yaml
-> > > +++ b/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-f=
-irmware.yaml
-> > > @@ -21,9 +21,16 @@ select:
-> > > =20
-> > >  properties:
-> > >    compatible:
-> > > -    items:
-> > > -      - const: raspberrypi,bcm2835-firmware
-> > > -      - const: simple-mfd
-> > > +    oneOf:
-> > > +      - items:
-> > > +          - enum:
-> > > +              - raspberrypi,bcm2712-firmware
-> > > +              - raspberrypi,bcm2835-firmware
-> > > +          - const: simple-mfd
-> > > +      - items:
-> > > +          - const: raspberrypi,bcm2712-firmware
-> > > +          - const: raspberrypi,bcm2835-firmware
-> > > +          - const: simple-mfd
-> >=20
-> > This diff doesn't make sense, either the new firmware is compatible with
-> > the old one or it is not. It shouldn't appear twice.
+On Thu, May 07, 2026 at 01:12:26PM +0800, Colin Huang via B4 Relay wrote:
+> From: Colin Huang <u8813345@gmail.com>
 >=20
-> Ok. I will change it to:
-> -    items:
-> -      - const: raspberrypi,bcm2835-firmware
-> -      - const: simple-mfd
-> +    oneOf:
-> +      - items:
-> +          - const: raspberrypi,bcm2835-firmware
-> +          - const: simple-mfd
-> +      - items:
-> +          - const: raspberrypi,bcm2712-firmware
-> +          - const: raspberrypi,bcm2835-firmware
-> +          - const: simple-mfd
+> Add devicetree binding documentation for the Delta E50SN12051
+> PMBus-compliant device.
 >=20
-> While reading the writing-schema.rst documentation I saw that it says most
-> bindings shouldn't need a select. Imho the select in this file doesn't add
-> anything which isn't covered witht the compatible. I wonder if I should d=
-rop the
-> select block?
+> Signed-off-by: Colin Huang <u8813345@gmail.com>
+> ---
+>  .../bindings/hwmon/pmbus/delta,e50sn12051.yaml     | 42 ++++++++++++++++=
+++++++
+>  1 file changed, 42 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/delta,e50sn120=
+51.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/delta,e50sn12051.ya=
+ml
+> new file mode 100644
+> index 000000000000..72aefe212d17
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/delta,e50sn12051.yaml
+> @@ -0,0 +1,42 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/hwmon/pmbus/delta,e50sn12051.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Delta E50SN12051 PMBus Sensor
+> +
+> +maintainers:
+> +  - Kevin Chang <kevin.chang2@amd.com>
+> +
+> +description: |
+> +  Delta E50SN12051 is a non-isolated 1/8th brick DC-DC power module.
+> +  It is a PMBus-compliant device accessible via an I2C/SMBus interface
+> +  and provides standard telemetry such as voltage, current, and
+> +  temperature measurements.
+> +
+> +properties:
+> +  compatible:
+> +    const: delta,e50sn12051
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description: I2C bus address of the PMBus device
+> +
+> +required:
+> +  - compatible
+> +  - reg
 
-That shouldn't be required, other simple-mfd users do not have it.
-Remove it and run dt_binding_check just to be sure. It'd be a separate
-patch from this one FWIW.
+With only these two properties, shouldn't this be in trivial-devices?
 
---5ro8e+12XL9fqGZ2
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        power-module@40 {
+> +            compatible =3D "delta,e50sn12051";
+> +            reg =3D <0x40>;
+> +        };
+> +    };
+>=20
+> --=20
+> 2.34.1
+>=20
+>=20
+
+--PcTxrWV42aINvzPC
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCafzGbAAKCRB4tDGHoIJi
-0jcEAP9De/nmvd7WAcOJiOqJ8uorUaz7Zs4p72tklWAnAe+kZwEAve3uDlZgWZ8X
-+GSEgozVGiK5jmv6gykKHjV7ZQuVLgM=
-=B3W5
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCafzGwwAKCRB4tDGHoIJi
+0qdCAPoDRX/x8dDtyITcvWtPvsglAgujnKJfndPcFrd5MaOiNQEAo3dkj9tX23oA
+5+H451V3Kj9vCQ2sMmUeR8DxzbazqQI=
+=J5lY
 -----END PGP SIGNATURE-----
 
---5ro8e+12XL9fqGZ2--
+--PcTxrWV42aINvzPC--
