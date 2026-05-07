@@ -1,232 +1,191 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3F9844BCB6
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 15:25:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86BA7449EC5
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 15:25:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778167513; cv=none; b=o/BU13C00Mk4EcvcmX4+g/CB+X1OQ5wDldKuQQRNXVonjabre7SrP5DHXLB87YpQjWI4bkxtayldMfpQ4sHu73ThvvV3WhWcOHvIww0EYtCJwTP+HF29Hbvkcf+6SCcnWkP2gsTrfQ2Kc7ozoSBRO+oFbzqvY90O7ds82bGRnNU=
+	t=1778167554; cv=none; b=RHOBTApb5VE5nRzvpaDSF6YflC8kyNZLKdxzkbDc6jbj98clsDYr8Hq1WoAhzp/6cy/6YEXNtKLuxeaUe7dHcBzRvjfHISTFJoNxMqKWmmhpRd6vrpVkMIKxW3BZsG0uczxp6w46BtUfBm1Bqoi0oHc2gM1ydEA+WZshBFXsQNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778167513; c=relaxed/simple;
-	bh=ih3AqtvxdrSPtCldRnisYtzCgyzMAnQ+QYbLGIbAp9g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aJv5CuVeGgRWHtp4D1r2c2x0krufRqs40AftQJM8ynFuuwNQHzepo108RAsf43EOCywTi2uQEgZZLInJqOtDD5gAlLSgQMob5nW3AOhS5YUKALWtRyAIvCfLm8eZL5XMKhw/qQrKACstZk6kINyx1741Hk1OuNRlCLvnvQz5Zb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LWAYSYES; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Vl1cFvsn; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1778167554; c=relaxed/simple;
+	bh=wWbaNgLjvgEK60SoLK00HREVJw2pjszb4CF+qYI0K7w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=APhvYsQcY5yHR/ObRcz7UPpL5EcjeNb3C1BIPZfT99s3+Bf2p92eBQ4+9rO2fXm3KX/8Kj9//VDI1RPTW/8/JHX46imsr5MAiW5PZCZNiMs6CSg/GucLJ+5DGJTjUkBsibQyB0RW5dYl/fJ44Eq7ALvJNNZeFk5rHoeshX3+m9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IiYPc+6m; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LWAYSYES";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Vl1cFvsn"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 647BUnum3924293
-	for <devicetree@vger.kernel.org>; Thu, 7 May 2026 15:25:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+sodB+04y/mdW/cdeZL+z+1VhhOZL3GKbJATgOyNhgQ=; b=LWAYSYESvvmgzGOx
-	ZuGeDCIveSsdJxzhtGMmkhkB9d0hLh5zvSPgCuKllGO2/gjLQ7GoxOvZ+8pdHGUB
-	KJtzP7511f9HHpgyexvDoSArItpj6N9yEWa8EvVoxY+mbm/YNwESbiRdgy6LC9Bu
-	+ZKS3MxdMSncrx3AMJ3gagwV2V0tmpcM8jt5Zk+NelsffYsdqP9zMmfhzZ7Js9tU
-	aHD3bxnBnPoGFwU4MHfaHc2CYKmfFxw0rOQZ/PyVSiNrPwLHBiCKHp/F3GPqaEiI
-	vAsBWgQdVxpPZ4UpZ6kQ2xLOivxSe/Hr3AOqBRjm1//4obbgK3FORcxnClIxjE+S
-	JUKQew==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0c88bs5c-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 07 May 2026 15:25:07 +0000 (GMT)
-Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-56eeff9a41bso2276446e0c.0
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 08:25:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778167507; x=1778772307; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=+sodB+04y/mdW/cdeZL+z+1VhhOZL3GKbJATgOyNhgQ=;
-        b=Vl1cFvsnCItSz7UK2NzulzV7Dme9ELNPmQsrCcOyUMv3N6hONRJyCEzoahw354mlmb
-         tizquJBDh0DHodC/L0zP61qBo/EKl9+ZVAJg4qjSeNMk8gkKVcbFPZpNMx0bQhdBpQXK
-         Liwb8Eg4hFTkUo1t4CBk9okcW7m21h9SwP9zjloq2+k0t9avpdbn7O89e47iWZ4wboZW
-         tniAPuivwYUwdJGptN2hpxknjpxm4PS2fuyKWtZbO/2WTdsac+PbLeX1jvua8uFFoiuL
-         oX0xe0vXG+B6YRLDk72KSeXN3nSc6Fs8aYlJH1++ilEAfxIH8iNEfy4ApPUXjuuzHnbD
-         KgBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778167507; x=1778772307;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=+sodB+04y/mdW/cdeZL+z+1VhhOZL3GKbJATgOyNhgQ=;
-        b=sP95v+tscoYEc5PcL3+1tMb1qoTJmAjsOSFEyODbWjnk/MUxtQrc7r7YfCPSuq62DI
-         VGV8txmuyu2KZPqCUVUlIeQJG+4X/eJJu2DL5lFx7SIe7Mi2nUpaDrunyGnxVTIX0SjU
-         H0Mb6sKQ0xXeCfL6gdeJlbWjYVhpMvz+9cLIOvDI2QT4o2a1VVAsSHYfkXlFc98fWePb
-         EhyKhQRknin9OsuFbtPDCgunMd5Xmf4VTnbXUdjcUSVZXpAet7pG6nRlZXXt+L9v2UkG
-         Xrukjujde1s1EleeLwnIrDcMVb0ImwGv5eOSmS13BhQOiksvNJn4OuHBZciVg/7N87mc
-         NdPQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8G2dZhb2F1lx3YF9jDkrTF7xGxPMhBd9+lqQNWYqBkOHkVaXVq9xiSbx9Wnx+VNBIySLmy5h+NvAiD@vger.kernel.org
-X-Gm-Message-State: AOJu0YxrPsHrBTeracF4a+4ehQ9a27l0OiGFHLi+1nC8ZZvyAqNIXlzL
-	tD6i1eADa+LWlnXqiBg18fu1bbfAJz/m3TPeHsD9V9d9rUY5VY2dSZGRzSpo9VnjsTpdpA6xW5b
-	UUHC8aodW08U534f2KEy8FrWvz3xH/EblNyBx1paqHrTzK6dqZthdXwfDQApjX1UT
-X-Gm-Gg: AeBDieu22Om+P6W4mpik6TWgjatbYgFr4I0u9KBaW71NqJuMLtF5fKZf+Lf1OcCWy4e
-	Xe+2UH1nUvnz/cdWSO35Rwzu7xtC0AhyyGsrJ047jwRK6pqlIZiQgxeEjTx7prStT7zKojmTuaS
-	w8KzyXfAfBMQiB2uLYAOP4rPK9vJERof3ifR17qg17Ggw4sQ2mFl7h2wI6CPzR4puO17Xk9Hpqd
-	ecGDRo5IvkjaAxPdB3plbYaLIb2AGob0rvFqR9dM0Re0h1mcfnh3C4EHx3JDFpdmjXWBN61wLSx
-	4UwYTDpEjKaneuzcPbA/cLhdv2LXLXpU8S5K/luEgLjpJE6UYQxEtTULfPEJz9aVPmxKEeLElVf
-	JGwGrA/yvppOL75w1r9IgpXdLxGW0CSIUtG9WkJEQ7qJmkoi+oFy21TbCtBG6Jj7pEcix3ck6eX
-	HUQnTfM5JFk4uLuKcGvuZRF2mrgbh57bSUz+8hjA==
-X-Received: by 2002:a05:6122:2a13:b0:575:2166:74c3 with SMTP id 71dfb90a1353d-5755960bb57mr5381623e0c.9.1778167506663;
-        Thu, 07 May 2026 08:25:06 -0700 (PDT)
-X-Received: by 2002:a05:6122:2a13:b0:575:2166:74c3 with SMTP id 71dfb90a1353d-5755960bb57mr5381466e0c.9.1778167505322;
-        Thu, 07 May 2026 08:25:05 -0700 (PDT)
-Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:b16a:3475:ec42:bcfa])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bca583dd7e4sm240966b.58.2026.05.07.08.25.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 May 2026 08:25:04 -0700 (PDT)
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Thu, 07 May 2026 17:24:43 +0200
-Subject: [PATCH v2 8/8] arm64: dts: qcom: arduino-imola: Describe NVMEM
- layout for WiFi/BT addresses
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IiYPc+6m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31F87C2BCB8
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 15:25:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778167554;
+	bh=wWbaNgLjvgEK60SoLK00HREVJw2pjszb4CF+qYI0K7w=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=IiYPc+6mLChtKGBenijU6gMwDozISCBsh5s0UVIU39zm0Ba+5cMfNhtyej2cT3POg
+	 8ooc59U+xSIwocabHngDh5KPtmqO78vRzCmxy/h2YsjWFtL/0rBmWevWbRcUsMtE+A
+	 rP5EIo5kx3kWPBEis8SbD9jWDTpmkV4Ni4me8YzqYRLDqJE6Nn8ZF/1sl7DWf3+KGn
+	 Sna6brPjZFimyNKAHYWhvMq8rpo5jCfK8anLeBC3AZiThqFAhu/wcRuXjhUufDxUTZ
+	 4zhI6VvgWLOKHK4JBtHrX2sSY3eRmi2w+/fnhYQKfne/Y1Wl+DLGzr+aH0vJwXIkiW
+	 dWDE+K/b0JHlg==
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-678a16429c6so1460130a12.1
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 08:25:54 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9HhsSxHDVcGZzVQyUJGGIeXjem1fxoABI3K5ZvXQoyBCeidzl9KJu0sTTi/7DQnQ7aueisWDHDzuPw@vger.kernel.org
+X-Gm-Message-State: AOJu0YzQX3Yyl4OPzEMElNhW4bNXPs3upbZpNRWe6tGhFSUHWnuygrx5
+	ALAjrTF5TA6EHs08AzC77K0FTeHRr73lpcfJxAMEb5jct9gLzvExgPK7G1P9ZsWUXxhKLDsrYOq
+	fHSrLVGXkBOlQjUUdZ/UHOs1EQCvvOQ==
+X-Received: by 2002:a05:6402:5344:20b0:67d:98bd:e44e with SMTP id
+ 4fb4d7f45d1cf-67e0efb390emr1326327a12.17.1778167552504; Thu, 07 May 2026
+ 08:25:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260507-block-as-nvmem-v2-8-bf17edd5134e@oss.qualcomm.com>
-References: <20260507-block-as-nvmem-v2-0-bf17edd5134e@oss.qualcomm.com>
-In-Reply-To: <20260507-block-as-nvmem-v2-0-bf17edd5134e@oss.qualcomm.com>
-To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Jeff Johnson <jjohnson@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
-        Rocky Liao <quic_rjliao@quicinc.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-        Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        Saravana Kannan <saravanak@kernel.org>
-Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-block@vger.kernel.org, linux-wireless@vger.kernel.org,
-        ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org,
-        netdev@vger.kernel.org, daniel@makrotopia.org,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Proofpoint-ORIG-GUID: CtMvjf_dgUWRG3T93zlAqke66pewOKQX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDE1NCBTYWx0ZWRfXxmFS5qpp+PdZ
- eh6jy61ubaYIQt/mc28EZpVSZjkLdSUNHQ0/AFvTUfwP3gqRbv/Gi2dqodMzAIRVjtHcjLb+f88
- T/LQd29k7Ll0CXBoTJjMa860YqPtgPOG1Rbvb2zNtTXMpw8h2994RU9XbWqHYXJonlGz06C8v21
- XaUVusy03tyqHDj0ANbXyBmvgn/OgmnNtlxYIiKvQ68pyG30KFfj0lpWNgC0Xs2HTLnrHC+Xy2y
- 1P+QxTGZQ+8razV6+ELdsXtvNKTzvq8vI/1d3ZrEK9qJFXFckU9uNjr0JRhGP1F3I7b9id2jb07
- iTtOY7CE+8Awdip21LKGbEQCSOSq/Po+FLIvuDqeHrGSVDnzhlI56InafJE1FA1i5YXTmqBfLMF
- SjLlNYP7IAYgrZ4/IquNT86Wg2bQy4/DibNFduioSOlSBJ8qmLfVIc4fgwkQE9rIfpre5kc6v93
- Pm58p/8kagwPWNuJECA==
-X-Proofpoint-GUID: CtMvjf_dgUWRG3T93zlAqke66pewOKQX
-X-Authority-Analysis: v=2.4 cv=X8Zi7mTe c=1 sm=1 tr=0 ts=69fcaed3 cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=7004nz7suiqLHAzt4fYA:9 a=QEXdDO2ut3YA:10 a=vmgOmaN-Xu0dpDh8OwbV:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-07_01,2026-05-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 spamscore=0 adultscore=0 malwarescore=0
- lowpriorityscore=0 clxscore=1015 phishscore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605070154
+References: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
+ <20260504-v7-1-topic-ldb-fixes-v1-2-0125d937ff7f@pengutronix.de>
+ <20260505141538.GA2547282-robh@kernel.org> <2bl2mwpk57xgkuye2gydliymjkzikiovnb7ovnb73olwtfkjwn@byn3732grvnh>
+ <CAL_JsqLYS1sgU680KNR60+OvtNwEVKWovht7K2APO3sqeJe6Nw@mail.gmail.com> <zbbez4lpme7szgnsd7fqufbuhmvcftw4sqrmwwwzyxu64i2ppb@fh2fgdkc6tat>
+In-Reply-To: <zbbez4lpme7szgnsd7fqufbuhmvcftw4sqrmwwwzyxu64i2ppb@fh2fgdkc6tat>
+From: Rob Herring <robh@kernel.org>
+Date: Thu, 7 May 2026 10:25:41 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqJWyRPh_hmJW8p7+VvtcqpS0a_azjMO-PyQgkqQUfLAGA@mail.gmail.com>
+X-Gm-Features: AVHnY4K59HFC-Lj0a6_OWOrJwlVTiPxlkDo7ivtKaVL4QyHlHtRcFSTM5LnBqeE
+Message-ID: <CAL_JsqJWyRPh_hmJW8p7+VvtcqpS0a_azjMO-PyQgkqQUfLAGA@mail.gmail.com>
+Subject: Re: [PATCH 2/4] Revert "dt-bindings: display: bridge: ldb: Fill in
+ reg property"
+To: Marco Felsch <m.felsch@pengutronix.de>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, laurentiu.palcu@oss.nxp.com, 
+	victor.liu@nxp.com, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Arduino Uno-Q, the eMMC boot1 partition is factory provisioned
-with device-specific information such as the WiFi MAC address
-and the Bluetooth BD address. This partition can serve as an
-alternative to additional non-volatile memory, such as a
-dedicated EEPROM.
+On Thu, May 7, 2026 at 6:55=E2=80=AFAM Marco Felsch <m.felsch@pengutronix.d=
+e> wrote:
+>
+> On 26-05-06, Rob Herring wrote:
+> > On Tue, May 5, 2026 at 10:46=E2=80=AFAM Marco Felsch <m.felsch@pengutro=
+nix.de> wrote:
+> > >
+> > > On 26-05-05, Rob Herring wrote:
+> > > > On Mon, May 04, 2026 at 10:21:42PM +0200, Marco Felsch wrote:
+> > > > > This reverts commit 16c8d76abe83d75b578d72ee22d25a52c764e14a.
+> > > > >
+> > > > > Remove the 'reg' and 'reg-names' property from the LDB.
+> > > > >
+> > > > > The LDB is either part of the IOMUX_GPR (i.MX6SX) or the BLKCTRL
+> > > > > (i.MX8MP, i.MX93) register space. Both IOMUX_GPR and BLKCTRL are
+> > > > > register ranges with loose register definitions. E.g.
+> > > > >
+> > > > >   - On the i.MX8MP there is one register which controls the AXI
+> > > > >     threshold for two different IPs (BIT(31:16) - IP1, BIT(15:0) =
+- IP2).
+> > > > >   - On the i.MX6SX IOMUXC_GPR5 controlls: CSI2 mux, WDOG3 setting=
+s, PXP
+> > > > >     handshake, ...
+> > > > >
+> > > > > In conclusion: it can't be ensured that one register belongs to o=
+ne
+> > > > > dedicated IP and the LDB is rather an exception than the rule.
+> > > >
+> > > > It is fine if there's a child node for LDB if the LDB registers are
+> > > > consistent, but the other misc things are represented by the parent
+> > > > node. It is certainly not a requirement that either everything be i=
+n
+> > > > child nodes or nothing be in child nodes.
+> > > >
+> > > > What I don't see in this series is what problem does this fix? If y=
+ou
+> > > > are going to break compatibility, then there had better be a good
+> > > > reason.
+> > >
+> > > Hi Rob,
+> > >
+> > > with the upcoming i.MX9x SoCs the parent syscon (BLKCTRL) controlls
+> > > multiple other IPs, e.g. a DPI mux added by commit 3feaa4342637
+> > > ("dt-bindings: soc: imx93-media-blk-ctrl: Add PDFC subnode to schema =
+and
+> > > example").
+> > >
+> > > During the discussion of the above commit we agreed that the sub-devi=
+ces
+> > > of the syscon shall not use the reg property due to the fact that one
+> > > register serves multiple purposes. In the above case the same registe=
+r
+> > > controlling the dpi-mux also controlls MIPI-DSI bits. The MIPI-DSI bi=
+ts
+> > > can be abstracted as drm-bridge as well. Two sub-devs using the same
+> > > 'reg' property below the same parent seems odd and I don't know if th=
+is
+> > > allowed either.
+> >
+> > It's not generally. There are some exceptions to define things at the
+> > bit-offset level rather than byte level.
+>
+> Thanks for the clarification.
+>
+> > > Now the LDB is also part of this BLKCTRL syscon device but requires t=
+he
+> > > reg property. TBH, I don't know why the reg property was added in the
+> > > first place, due to the above fact (multiple sub-devs - same register=
+).
+> >
+> > Probably because we asked for it, but we don't always get a complete
+> > picture of all the h/w functions (though we ask for that too).
+>
+> I get your point completely and I don't blame anyone.
+>
+> > But nowhere have you said the LDB registers are mixed with other
+> > functions. If they aren't, then there is absolutely nothing to change
+> > in the binding. If they are, then yes, we shouldn't have 'reg'.
+>
+> No they aren't mixed with other functions (for now).
 
-The eMMC boot partitions are typically good candidates, as they
-are relatively small, read-only by default (and can be enforced
-as hardware read-only), and are not affected by board reflashing
-procedures, which generally target the eMMC user or GP partitions.
+For now? Is the h/w going to change or is the binding *still* incomplete.
 
-Describe the corresponding nvmem-layout for the WiFi and Bluetooth
-addresses, and point the WiFi and Bluetooth nodes to the appropriate
-NVMEM cells to retrieve them.
+> Can you please
+> confirm that mixing 'reg' based sub-device nodes with non 'reg' based
+> sub-device nodes  is allowed? E.g. if the below example is allowed?
+>
+>         system-controller@4ac10000 {
+>                 compatible =3D "fsl,imx93-media-blk-ctrl", "syscon";
+>                 reg =3D <0x4ac10000 0x10000>;
+>                 #address-cells =3D <1>;
+>                 #size-cells =3D <1>;
+>
+>                 ...
+>
+>                 bridge@5c {
+>                         compatible =3D "fsl,imx8mp-ldb";
+>                         reg =3D <0x5c 0x4>, <0x128 0x4>;
+>                         reg-names =3D "ldb", "lvds";
+>
+>                         ...
+>                 };
+>
+>                 dpi-bridge {
+>                         compatible =3D "nxp,imx93-pdfc";
+>
+>                         ...
 
-Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts | 34 ++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+Depends what is in "...". If only a compatible, then no. If there are
+actual resources defined, then yes.
 
-diff --git a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-index bf088fa9807f040f0c8f405f9111b01790b09377..6ed91cccae2fbf0723629a4db12d2724312d50b2 100644
---- a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-+++ b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
-@@ -409,7 +409,35 @@ &sdhc_1 {
- 	no-sdio;
- 	no-sd;
- 
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
- 	status = "okay";
-+
-+	card@0 {
-+		compatible = "mmc-card";
-+		reg = <0>;
-+
-+		partitions-boot1 {
-+			nvmem-layout {
-+				compatible = "fixed-layout";
-+				#address-cells = <1>;
-+				#size-cells = <1>;
-+
-+				wifi_mac_addr: mac-addr@4400 {
-+					compatible = "mac-base";
-+					reg = <0x4400 0x6>;
-+					#nvmem-cell-cells = <1>;
-+				};
-+
-+				bd_addr: bd-addr@5400 {
-+					compatible = "mac-base";
-+					reg = <0x5400 0x6>;
-+					#nvmem-cell-cells = <1>;
-+				};
-+			};
-+		};
-+	};
- };
- 
- &spi5 {
-@@ -512,6 +540,9 @@ bluetooth {
- 		vddch0-supply = <&pm4125_l22>;
- 		enable-gpios = <&tlmm 87 GPIO_ACTIVE_HIGH>;
- 		max-speed = <3000000>;
-+
-+		nvmem-cells = <&bd_addr 0>;
-+		nvmem-cell-names = "local-bd-address";
- 	};
- };
- 
-@@ -557,6 +588,9 @@ &wifi {
- 	qcom,ath10k-calibration-variant = "ArduinoImola";
- 	firmware-name = "qcm2290";
- 
-+	nvmem-cells = <&wifi_mac_addr 0>;
-+	nvmem-cell-names = "mac-address";
-+
- 	status = "okay";
- };
- 
+>                 };
+>         };
+>
+> Furthermore I thought that for the MMIO bridge@5c device, the 'reg'
+> porperty would either require the full register address, e.g. 0x4ac1005c
+> or there needs to be a ranges property.
 
--- 
-2.34.1
+There should be a ranges property no matter what.
 
+Rob
