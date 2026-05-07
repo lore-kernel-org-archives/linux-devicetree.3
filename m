@@ -1,74 +1,87 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9673440DFC9;
-	Thu,  7 May 2026 17:30:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2493128C6;
+	Thu,  7 May 2026 17:35:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778175031; cv=none; b=jjSDPdIA40/lDtwEqSqCp7Y/nPrkrlacPEKk60wsce9TUKyLhn2bhc5eN3d1u9E8u7pdcEp5SAak3Gf4VpRkTPz+AUw+m42erRvbs8BfanG+TrDsviWiVGLPslUQ1PnrF8TXp3gna/l40vZoIF4rhuPdsTEHKQDVdzWLHdndnpo=
+	t=1778175327; cv=none; b=TXDVZmnCQuPgztq8mz3IszsrvPnRS36D5dkp4vpaePtfm2Tx2PXgsKj3JLI91FDEJCs2wEFc6xH9zJYAplaoConTZf7RaLNyXaEdjsju9dn1RmV/x7ZAZn/qCNEJgB901JBtQtFnCGimzi67GnOFWXOal635zMvoIatFe9ehkF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778175031; c=relaxed/simple;
-	bh=5nRJjYSj9skBBtKc8p7LMzegThg7F4kZ/AVdT0Dz/yA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ap58oys9Ue5xbgA5E4YIfulp4qmY9zirtA6DOHkzDVpTq0HRdgoWx2R5JFVgN+f4u6zgPXv+9o+iFxgIfDo38gOzrxgU1pKnCfcv8yhZRlQ/V6ufF5VGApta1s33kZGvJkKYYca3TbRufGwlnXZwdiLD0owgFovl2TTU7/PkyOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=Irkkow00; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1778175327; c=relaxed/simple;
+	bh=4sogXO8yVe8MTdd4LFVkRhzKfpGjlYWI2a5B1todpO8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kYU9xhGyXRNQWzaxlgQryQ0QhDLVv3DfrRQKVS2/YT9A3krCy3QYZqUOQyvJ8c58UGTBjOva0XrBNdd3etwx0SsKqtpeINs4CQ6Km4pL3GBm1zP4Ok+Odq0B/Oc6UfaQ5b4lt4P99cfsO2EgCsJfWYA7hn84rAR3zbkKJ4ds6SM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MlrvAIc2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="Irkkow00"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3F0E610D27B;
-	Thu,  7 May 2026 19:30:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1778175020;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=StTiP0jxs0ZolzZJWzr2oxQAJ/7SfQsvCtzzIQA1nNg=;
-	b=Irkkow00E7a/shmRGQSvr1Qxbfo3uvhf1Vd6j+dUBVfwL+oxEY9sC56BjNF0+Ysw+fe2UX
-	NczjnGrx4QdaYaurwdD0crifnnfT8Ptr9DTyDCm6DCJP0rWD/sRBrY40vJKCellYK6wm2q
-	l3mX+rsYCFOxXwmaXUdJFAGal6gBrv46QENgle9XPdtuWZPOxA8vKWXc+kIUq2q359zmdG
-	PbrTuOwB55EuR3u/3vtWnHmZPivoxFyFfQqy6QJBBVZzUjwBcANeQnoTT7ArjftDUa9NIp
-	cuj3cS4DmosMhByxnboeL1LlKaEweurm6VtrHGl4dTYxoXQ07EuJtuIkFBi+sQ==
-Message-ID: <f6175aa6-7426-4545-97d1-cffb869e016f@nabladev.com>
-Date: Thu, 7 May 2026 19:30:16 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MlrvAIc2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B14F0C2BCB2;
+	Thu,  7 May 2026 17:35:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778175327;
+	bh=4sogXO8yVe8MTdd4LFVkRhzKfpGjlYWI2a5B1todpO8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MlrvAIc2b86c95Z5ifp+9Uv0G/x7+tU7zDBU9JVJMVVHlK1DoYgyjwyMd9NhrXP9e
+	 B8OKgm8nyYnfWns9PQYJ07ed3IpPSAxYo7UGUHjW6yIFoLhaGywZozhd4L/cERfw5t
+	 YeIOEK/e6CWkTBqqCLHXLHhMpTDxOYFTu3pMUivgelj5fwozrwQpGqOoqVbzMzm5LU
+	 Njsl2kTEJqy7OxdkcAu9jAo3j5NUxZZitdhQLPhmSvUZMzU5ye1iAhrspm6vhIWLO6
+	 hElOXG9kGWRSOiHC+cmPP0JkFDA0a10sLtSpfahkGhd0Ts02pMea9/WhC0z5mn998j
+	 gkakhFnWIBqXg==
+Date: Thu, 7 May 2026 18:35:21 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, Janani Sunil <jan.sun97@gmail.com>
+Subject: Re: [PATCH 1/3] dt-bindings: iio: dac: Add AD5529R
+Message-ID: <20260507-skinless-urchin-750a15abf4b5@spud>
+References: <20260507-ad5529r-driver-v1-0-b4460f3cb44f@analog.com>
+ <20260507-ad5529r-driver-v1-1-b4460f3cb44f@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dt-bindings: display: bridge: lt9211: Require
- data-lanes on DSI input ports
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: devicetree@vger.kernel.org, Andrzej Hajda <andrzej.hajda@intel.com>,
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Robert Foss <rfoss@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260407203109.34302-1-marex@nabladev.com>
- <20260408-eager-millipede-of-aurora-6fcaa4@quoll>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <20260408-eager-millipede-of-aurora-6fcaa4@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Z4xIYm+sqROBgik5"
+Content-Disposition: inline
+In-Reply-To: <20260507-ad5529r-driver-v1-1-b4460f3cb44f@analog.com>
 
-On 4/8/26 9:35 AM, Krzysztof Kozlowski wrote:
-> On Tue, Apr 07, 2026 at 10:31:03PM +0200, Marek Vasut wrote:
->> The Lontium LT9211 is capable of 1..4 DSI lanes per input DSI port,
->> describe the lane count for each input port in the schema.
->>
->> For example Linux kernel driver does already use that information and
->> fails to probe if it is missing.
->>
->> Signed-off-by: Marek Vasut <marex@nabladev.com>
-> 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Can this be applied via drm-misc now ?
+
+--Z4xIYm+sqROBgik5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, May 07, 2026 at 06:28:09PM +0200, Janani Sunil wrote:
+> Devicetree bindings for AD5529R 16 channel 12/16 bit high voltage,
+> buffered voltage output digital-to-analog converter (DAC) with an
+> integrated precision reference.
+>=20
+> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
+
+--Z4xIYm+sqROBgik5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCafzNWQAKCRB4tDGHoIJi
+0oYVAQC/Fi9IxVcvKRhgOWs5STiiJWl0p+WVpOz/8s7NkvQ3iwEA6FQKRUpuC+Sq
+hrLvUJhdUqlLXNNDOg26otXzFYVvkgU=
+=fbHe
+-----END PGP SIGNATURE-----
+
+--Z4xIYm+sqROBgik5--
