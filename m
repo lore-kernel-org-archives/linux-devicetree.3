@@ -1,521 +1,145 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-pg1-f193.google.com (mail-pg1-f193.google.com [209.85.215.193])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B3C9381B08
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 08:37:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F54390C95
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 08:41:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778143029; cv=none; b=l/5Kb5AnDCnsC6ascfW1ApxyM4Txr4qKIXROgxEhApgEbw0MKcn6TslLh7XQCbkArnIL8erflkmeobR7v29vyWpM6zGnmrk30cjcaMNM2oIrLJX9r8W2PN3Q2Yav0KRHh+jMonbCu53PD+qyAEylY6iBf1R/NzxCoHYEufgnKmc=
+	t=1778143295; cv=none; b=TVmxkLb3TNOqg8T96McUNyrM/IRVrZPPR+IvhAwRrrry6Dxg7nh3keUmlFLk9PJciQ4595pAy0yzthIz66wJCrTXZI0uqjAgGHS8rumvgkxmKdv0mwjd3oWwRFaO1g6ThLPTufvSl2ys+57tuc/iMu34gKawh3vCOK7AEV0xKe0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778143029; c=relaxed/simple;
-	bh=20qUqU6geRNwJ62IweCmRJasPofIl9FVMLlclkwe14Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bc4DMnaQ1NgXV5Mz4EjdAuVwDEA+X0kGYwJF1I5hJmH2VgMpSUUQPCXLfdyltnqsEHQljdprlPhwN1Pjn8S84HJ8Vg+OLPXeowMFX1pC71MmigLevky8AtWd0eJsqkpo3Q5hMtlxy3Q5j3lMvWCyWBF892v4sGLyXeyILVrh/ow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=On1h2+mf; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imd-tec.com
+	s=arc-20240116; t=1778143295; c=relaxed/simple;
+	bh=pJgf/8K6i1UqZ4sD9tXxKWjDKHpurXxLzcy/xPBEzko=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YDuzne5s1boo+LwwtWKYr/ZrbaRbda/PfAYcZxqDERzm6NERiahbcUYc2FstCtc6SBlSqcVhqxjbwJDwV4pzFyobxSmf+gcMZM7B1rgHStX2v9YPaNDcyGeCONKOHZ3w8pVaw5/WNGAqQ69/02AJB/CpztD5qXzxptpWVH0Xb88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RixGzQws; arc=none smtp.client-ip=209.85.215.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="On1h2+mf"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4891b0786beso3869825e9.1
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 01:37:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RixGzQws"
+Received: by mail-pg1-f193.google.com with SMTP id 41be03b00d2f7-c822652f82aso377265a12.3
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 01:41:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=imd-tec.com; s=google; t=1778143017; x=1778747817; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=xfSjGuOkPoRJ5r3nwPfmYiEvK6vbaE1rWL+hI81uFn0=;
-        b=On1h2+mfLI5ftdmLa2w20mHIPOVNrbmA3APX/9DdfRRrhCmOvfe1UdjYnc/co5YRNZ
-         RBS7f3iiskvipHH+uSaHj2ymNwdHOuaGc7efowz2kPbyTqtOzDNhOa6IzZTNh8HoJF5p
-         AyNoF1PG2BqTc1AgKOBH02cEX5s0ozX955nLpoT6eJwLa6EyqCfaMPSf9YfjQsXu9PFX
-         cRO9uX7/G84afXZNoBhD3FpTvviVeZW33R4IuTS0bwJuJutq3rlAGInHMhfs3GI9ebJ4
-         jG8dgdN36ZUq91g8x1nl0ut1C7lVDOD7iNqYoOqdrsHxrQIUSSAvwDUCpp1r9rW06gqO
-         L+6Q==
+        d=gmail.com; s=20251104; t=1778143288; x=1778748088; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=tYLd8a4rOgJ0HgA5aFHjScXvqopFgzBf/Pbs3wYF8a8=;
+        b=RixGzQws8d+j4qzEoyL1OKGvUSuKJcEwt5/0lxIHDNkjjg/yenbcA61X/zXZZMqaJe
+         srvuBPdEm2xzE6kC6B7aqk/etSF28FCOT1GRV1gk1Eheujf43eZ5RpMe6hbL81pA0euI
+         QMG1kOxaP3vF3SB48yAnEZj2K5guDzHV68eAGO3UA8My0l+7KeV2Jrh/dgT/ZeFaYxED
+         oBQjGPTFVOWHZkxMEBZYWqaZQSZJY5lj8pTHguPA5YF8qU9q4BNGt+cDZRkQldu41lC4
+         TMZUGkrsgKItuKXsxkVfhnzbd8vhDjGMcNZbCCFwxjzLJBph8tC0B2uui1WX8BYblCmK
+         SQQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778143017; x=1778747817;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=xfSjGuOkPoRJ5r3nwPfmYiEvK6vbaE1rWL+hI81uFn0=;
-        b=FYU+3kMuzVFMOEMspmMjFYdXjEddXHWK/RSLYzv7z8sC1cysorEE3NOtwNxPDzHu7/
-         RPXweMzz72aE+v1AwBePh5ibz0J5nKONCRUDaD/XlcSo6ckhbrftKmO3jpI47f6PZ82B
-         ttcDfCzfewjjHV5v0EkUxrr0vrBnvCn2vZ+YInWFn8rHcfpCkXJMcnfckIO4bnWJQgcd
-         jg0QUwdY21bhYsF0J4vdn+LBPIwqmigrx1yBBKBNjOK6X/6L9h1i8Z+AP4xhDPy+A30J
-         YwET91goeheXNSfHeSGn6x28RxV0jLLylzGIeJbMEMRjYlw8fc6XSA1NVZtZy6q3z61E
-         E28g==
-X-Gm-Message-State: AOJu0YyBq5+Vd2LlrctdMnksGVvPAySnYqPhb5Ygx86KAIgzdNThQg3o
-	zreIBvTyAkza3t1ml+De4NQz+L+XNV1UhRX8G9OjaiLIWBUm5LTNzWUXjwA8bV5oDzY=
-X-Gm-Gg: AeBDieuQ1gZEVhlNgmHB9ldBpMLU2gQ2lpBdPIQjSc8tXVRiwRTCehR1i2sIbXwTIzH
-	QJYWPfK/6yPaPLeL1rIJzlD6QoKQkqEeOdqNF4dKyBoX3Ix9zIgIfz1iYmngWCxIcW8MBBX1HC9
-	MtPFAVHLM0V8RZ50xUkOdcAh1CDJ+Y/+YXQ25bjBi3EJDWH0b6JBv0hW3T46OeqzUt8mVtUQG/q
-	aLHsUC6U2tNgUlbrruPZTlXdzd5cPGuKNRT2A/UB/7TmJVGD3lYnorbVXIWXi3BiC5hQhRydNRX
-	gDTAG9/RkI664dX4C+bPemNqkmQoH3S8gjLyd6KzS3S2ahowVPKVMiwKxK9GbtOHcC9zHXs0ioc
-	kiuvzZ65SZdJNS9Yyd3igJyNCdqesxTg3a7m7s0/TBJbm6pWLq+jXK8I+FrtFP8Nw0UR5k0ep7V
-	eW3heE6zDY6XT0zkTl3Fej4NDEIMm4yaFT229Nfz1RYM6/nquhG7zhBggg+4vunZzwV4D/vWLd7
-	kPDVJwcXB9CaCGEj767jnL6fEM3rfU6Mc+tGsKyT3lZhg==
-X-Received: by 2002:a05:600c:26c8:b0:48a:9562:7a30 with SMTP id 5b1f17b1804b1-48e51f4934cmr69840305e9.24.1778143016552;
-        Thu, 07 May 2026 01:36:56 -0700 (PDT)
-Received: from [127.0.1.1] ([2a00:23c6:2736:8e01:cfa9:e812:def6:e9af])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e5313a158sm35602705e9.24.2026.05.07.01.36.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 May 2026 01:36:56 -0700 (PDT)
-From: William Bright <william.bright@imd-tec.com>
-Date: Thu, 07 May 2026 09:36:43 +0100
-Subject: [PATCH v3 4/4] arm64: dts: qcom: Add IMDT QCS8550 SBC
+        d=1e100.net; s=20251104; t=1778143288; x=1778748088;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=tYLd8a4rOgJ0HgA5aFHjScXvqopFgzBf/Pbs3wYF8a8=;
+        b=dRoNcCCZk1Du5AO56K+6RfhhlfxiV1uX6r9QHnIIv9riBwK6wIRlp5cOJS4Xtk6KtB
+         gElY4ZGCk2XI4YeRQllzHS48IaJCoe18ZlovMQFXOXTyk/u3cmPv+U0z6KWC50Q/50Ay
+         3jexTicBfpIrADF3EGM73dl0LEzfmDPMFeHian3vZHrM+werRVagTZ+x/JGjvXhsBIZ2
+         wFkyOs8bO33vw4L38qNq4JaEy6goltuIHnjZaWSltFOvBOU+AvkxGPXB2gmQLvSbLclU
+         JDbpKoM9JGnWEWqyNzJ7DAaBDki7vYRsVIr+moLbFNt0vYxgzGJv/9ZJpGaH8wJyvxOu
+         /RQg==
+X-Forwarded-Encrypted: i=1; AFNElJ/ezeBskOQJHexyJzjT+BUyDCWqEp2D2pxFXhuhRrWN61Ik9Q5pFaXmOWm2LzdCpfjrNe/W2JqJufNh@vger.kernel.org
+X-Gm-Message-State: AOJu0YyGyxpIlmzn5jbzRL3WRRzMjVf073G5ZX4iQ3t+I8jV7dKfImd6
+	B2wWSbbEJOUvy8tUG8sy1OO8B4bFXl+bw4tJEAtY0QRVy+Nza6hxuY/+uGbSWx0fLHc=
+X-Gm-Gg: AeBDieuLitfSlfHcFXRoqDwORkmS5SnCp7KEUKJkm9pktOvtFArbQrTjTHSv/DblRDM
+	MpmNrqdGFU8wTiKY+ssSjJhietrXZzGSu/LMNS8ZZPvncvsTjYL8tDMFXclHkpyOncafkl66sai
+	c3BBNB7K+MRfDv4s9g+ozyomzg/x6kJUOnCBQnIZk3k1wYcYl9/BGuP9cIffvXnHvGdL4eVZ9An
+	iBm8Bu/gh4LSD8b9XD6mi/zDktTAStfWGyGSZ/pl4ZdT7BqYSRMjvlM3eF/cQo2GqryUZftyJLS
+	7xPqVQVkcI+5WxBZXlp3oipOuA4KSSLJL45w8D/Tij3xApYabSDjsm8tIsERUM8GrOUHzw6L8ds
+	qmcBAKxqSMQ0ayUXORazRPgNhomrHN3GtEilwRrP6Tw/PKHxFqZDbEP7X0uJD/DQ/n0RDZo5TsD
+	jyXyhyVmhPv3cWLreWNH3doAwHc/zNq4AHxtZSp2tlPg==
+X-Received: by 2002:a05:6a20:a106:b0:3a2:dc51:445 with SMTP id adf61e73a8af0-3aa5ab6853cmr7732684637.36.1778143287552;
+        Thu, 07 May 2026 01:41:27 -0700 (PDT)
+Received: from [10.125.112.20] ([210.184.73.204])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c8253586c6asm1305583a12.4.2026.05.07.01.41.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 07 May 2026 01:41:26 -0700 (PDT)
+Message-ID: <126f4fd0-0a1c-41e0-8746-fa7ab85d6773@gmail.com>
+Date: Thu, 7 May 2026 16:41:15 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260507-imdt-qcs8550-sbc-rfc-v3-4-47d3d3372b33@imd-tec.com>
-References: <20260507-imdt-qcs8550-sbc-rfc-v3-0-47d3d3372b33@imd-tec.com>
-In-Reply-To: <20260507-imdt-qcs8550-sbc-rfc-v3-0-47d3d3372b33@imd-tec.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, William Bright <william.bright@imd-tec.com>
-X-Mailer: b4 0.15.2
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/11] of: reserved_mem: fix region count for nodes with
+ multiple reg entries
+To: Rob Herring <robh@kernel.org>
+Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+ devicetree@vger.kernel.org, akpm@linux-foundation.org, bhe@redhat.com,
+ rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org,
+ ruirui.yang@linux.dev, corbet@lwn.net, skhan@linuxfoundation.org,
+ catalin.marinas@arm.com, will@kernel.org, chenhuacai@kernel.org,
+ kernel@xen0n.name, pjw@kernel.org, palmer@dabbelt.com,
+ aou@eecs.berkeley.edu, saravanak@kernel.org, chenwandun@lixiang.com,
+ zhaomeijing@lixiang.com, everyzhao@126.com
+References: <20260429065831.1510858-1-chenwandun@lixiang.com>
+ <20260429065831.1510858-2-chenwandun@lixiang.com>
+ <20260506014752.GA280279-robh@kernel.org>
+Content-Language: en-US
+From: Wandun <chenwandun1@gmail.com>
+In-Reply-To: <20260506014752.GA280279-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-The IMDT QCS8550 SBC is a two-board design from IMD Technologies Ltd
-built around the Qualcomm QCS8550 SoC. An IMDT QCS8550 SoM is soldered
-onto the IMDT QCS8550 carrier board that supplies VPH_PWR and exposes
-the off-module peripherals.
 
-With this DTS, the board can boot to shell with a UFS rootfs with
-debugging through uart7. USB and ethernet also are fully functional.
+在 2026/5/6 09:47, Rob Herring 写道:
+> On Wed, Apr 29, 2026 at 02:58:21PM +0800, Chen Wandun wrote:
+>> When a reserved-memory node contains multiple reg entries (e.g.,
+>> reg = <base1 size1>, <base2 size2>), the count used for
+>> total_reserved_mem_cnt is wrong in two places:
+>>
+>> 1) __reserved_mem_reserve_reg() returns 0 on success regardless of how
+>>     many regions it reserved in memblock. The caller in
+>>     fdt_scan_reserved_mem() then increments count by just 1.
+> Just to make sure, more than 1 worked before the referenced commits? It
+> would be easier to just define we only expect/support 1 entry.
+Looking at the pre-8a6e02d0c00e code, __reserved_mem_reserve_reg()
+reserved memblock memory for all reg entries, but only called
+fdt_reserved_mem_save_node() for the first one (guarded by an 'if 
+(first)' flag).
 
-Features enabled are:
-- On-board regulators
-- uSD
-- UART
-- UFS
-- PCIe0
-- PCIe1
-- USB (gadget only)
-- Ethernet via LAN7430 (PCIe1)
-- ADSP, CDSP
+So multiple reg entries were never fully supported: subsequent entries
+got their memory reserved in memblock, but their metadata was lost
+and driver-specific init callbacks were never invoked for them.
 
-Assisted-by: Claude:claude-opus-4.7
-Signed-off-by: William Bright <william.bright@imd-tec.com>
----
- arch/arm64/boot/dts/qcom/Makefile             |   1 +
- arch/arm64/boot/dts/qcom/qcs8550-imdt-sbc.dts | 392 ++++++++++++++++++++++++++
- 2 files changed, 393 insertions(+)
+The referenced commits made this worse by also breaking the count
+tracking, but the root limitation predates them.
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 88c5c0c1cb8e..d38fb3c43c13 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -181,6 +181,7 @@ qcs8300-ride-el2-dtbs := qcs8300-ride.dtb monaco-el2.dtbo
- 
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs8300-ride-el2.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-aim300-aiot.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-imdt-sbc.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride-r3.dtb
- 
-diff --git a/arch/arm64/boot/dts/qcom/qcs8550-imdt-sbc.dts b/arch/arm64/boot/dts/qcom/qcs8550-imdt-sbc.dts
-new file mode 100644
-index 000000000000..e8afe683c962
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/qcs8550-imdt-sbc.dts
-@@ -0,0 +1,392 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) 2026 IMD Technologies Ltd
-+ */
-+
-+/dts-v1/;
-+
-+#include "qcs8550-imdt-som.dtsi"
-+
-+/ {
-+	model = "IMDT QCS8550 SBC";
-+	compatible = "imdt,qcs8550-sbc", "imdt,qcs8550-som",
-+		     "qcom,qcs8550", "qcom,sm8550";
-+	chassis-type = "embedded";
-+
-+	aliases {
-+		serial0 = &uart7;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	/* Enables 5V_PER, 3V3_PER and 1V8_PER rails. These rails
-+	 * aren't used by anything within the device-tree but are used
-+	 * for on board logic level conversion and as rails for
-+	 * pull-ups.
-+	 */
-+	per_pwr: regulator-per-pwr {
-+		compatible = "regulator-fixed";
-+		regulator-name = "per_pwr";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pwr_per_en_default>;
-+
-+		gpio = <&tlmm 142 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
-+	sdhci_2_vqmmc: regulator-sdhci-2-vqmmc {
-+		compatible = "regulator-gpio";
-+
-+		regulator-name = "sdhci_2_vqmmc";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-type = "voltage";
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&sd_vset_default>;
-+
-+		gpios = <&tlmm 4 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		gpios-states = <0>;
-+		states = <3300000 0>,
-+			 <1800000 1>;
-+
-+		startup-delay-us = <10000>;
-+	};
-+
-+	vph_pwr: regulator-vph-pwr {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vph_pwr";
-+		regulator-min-microvolt = <3700000>;
-+		regulator-max-microvolt = <3700000>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+};
-+
-+&apps_rsc {
-+	regulators-0 {
-+		vdd-bob1-supply = <&vph_pwr>;
-+		vdd-bob2-supply = <&vph_pwr>;
-+	};
-+
-+	regulators-3 {
-+		vdd-s4-supply = <&vph_pwr>;
-+		vdd-s5-supply = <&vph_pwr>;
-+	};
-+
-+	regulators-4 {
-+		vdd-s4-supply = <&vph_pwr>;
-+	};
-+
-+	regulators-5 {
-+		vdd-s1-supply = <&vph_pwr>;
-+		vdd-s2-supply = <&vph_pwr>;
-+		vdd-s3-supply = <&vph_pwr>;
-+		vdd-s4-supply = <&vph_pwr>;
-+		vdd-s5-supply = <&vph_pwr>;
-+		vdd-s6-supply = <&vph_pwr>;
-+	};
-+};
-+
-+&gpi_dma1 {
-+	status = "okay";
-+};
-+
-+&gpu {
-+	status = "okay";
-+};
-+
-+&gpu_zap_shader {
-+	firmware-name = "qcom/sm8550/a740_zap.mbn";
-+	/* Zap shader doesn't load so is disabled */
-+	status = "disabled";
-+};
-+
-+&i2c_master_hub_0 {
-+	status = "okay";
-+};
-+
-+&i2c_hub_2 {
-+	clock-frequency = <400000>;
-+	status = "okay";
-+
-+	ptn3222: redriver@43 {
-+		compatible = "nxp,ptn3222";
-+		reg = <0x43>;
-+		#phy-cells = <0>;
-+
-+		vdd1v8-supply = <&vreg_l15b_1p8>;
-+		vdd3v3-supply = <&vreg_l5b_3p1>;
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&eusb2_repeater_reset_default>;
-+
-+		reset-gpios = <&pm8550vs_d_gpios 4 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
-+&ipa {
-+	qcom,gsi-loader = "self";
-+	memory-region = <&ipa_fw_mem>;
-+	firmware-name = "qcom/sm8550/ipa_fws.mbn";
-+	status = "okay";
-+};
-+
-+&iris {
-+	status = "okay";
-+};
-+
-+&pcie0 {
-+	wake-gpios = <&tlmm 96 GPIO_ACTIVE_HIGH>;
-+	perst-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
-+
-+	/*
-+	 * pcie0 hosts the M.2 Key-E slot. Apply the SDIO
-+	 * reset de-assert here so any module's chip enable is settled
-+	 * before pcie0 trains its link.
-+	 */
-+	pinctrl-0 = <&pcie0_default_state>, <&m2e_sdio_resetn_default>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&pcie0_phy {
-+	vdda-phy-supply = <&vreg_l1e_0p88>;
-+	vdda-pll-supply = <&vreg_l3e_1p2>;
-+
-+	status = "okay";
-+};
-+
-+&pcie1 {
-+	wake-gpios = <&tlmm 99 GPIO_ACTIVE_HIGH>;
-+	perst-gpios = <&tlmm 97 GPIO_ACTIVE_LOW>;
-+
-+	/*
-+	 * pcie_switch_sel_default and gbe_reset_default are board-init
-+	 * lines that must be stable before pcie1 trains its link: the
-+	 * PCIe switch needs its mode-select strap settled, and the
-+	 * downstream LAN743x must be out of reset to enumerate.
-+	 * Applying them via pcie1's pinctrl-0 fires them during
-+	 * qcom-pcie probe, before bus enumeration.
-+	 */
-+	pinctrl-0 = <&pcie1_default_state>,
-+		    <&pcie_switch_sel_default>,
-+		    <&gbe_reset_default>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&pcie1_phy {
-+	vdda-phy-supply = <&vreg_l3c_0p9>;
-+	vdda-pll-supply = <&vreg_l3e_1p2>;
-+	vdda-qref-supply = <&vreg_l1e_0p88>;
-+
-+	status = "okay";
-+};
-+
-+&pm8550_gpios {
-+	sd_card_detect_default: sd-card-detect-default-state {
-+		pins = "gpio12";
-+		function = "normal";
-+		input-enable;
-+		output-disable;
-+		bias-disable;
-+		power-source = <1>; /* 1.8 V */
-+	};
-+};
-+
-+&pm8550vs_d_gpios {
-+	eusb2_repeater_reset_default: eusb2-repeater-reset-default-state {
-+		pins = "gpio4";
-+		function = "normal";
-+
-+		input-enable;
-+		output-enable;
-+		bias-disable;
-+
-+		drive-push-pull;
-+		power-source = <1>; /* 1.8V */
-+		qcom,drive-strength = <3>;
-+	};
-+};
-+
-+&pon_pwrkey {
-+	status = "okay";
-+};
-+
-+&pon_resin {
-+	linux,code = <KEY_VOLUMEDOWN>;
-+
-+	status = "okay";
-+};
-+
-+&qupv3_id_0 {
-+	status = "okay";
-+};
-+
-+&qupv3_id_1 {
-+	status = "okay";
-+};
-+
-+&remoteproc_adsp {
-+	firmware-name = "qcom/sm8550/adsp.mbn",
-+			"qcom/sm8550/adsp_dtb.mbn";
-+	status = "okay";
-+};
-+
-+&remoteproc_cdsp {
-+	firmware-name = "qcom/sm8550/cdsp.mbn",
-+			"qcom/sm8550/cdsp_dtb.mbn";
-+	status = "okay";
-+};
-+
-+&sdc2_default {
-+	clk-pins {
-+		drive-strength = <16>;
-+	};
-+
-+	cmd-pins {
-+		/delete-property/ bias-pull-up;
-+		bias-disable;
-+		drive-strength = <16>;
-+	};
-+
-+	data-pins {
-+		/delete-property/ bias-pull-up;
-+		bias-disable;
-+		drive-strength = <16>;
-+	};
-+};
-+
-+&sdhc_2 {
-+	cd-gpios = <&pm8550_gpios 12 GPIO_ACTIVE_LOW>;
-+
-+	pinctrl-0 = <&sdc2_default>, <&sd_card_detect_default>;
-+	pinctrl-1 = <&sdc2_default>, <&sd_card_detect_default>;
-+	pinctrl-names = "default", "sleep";
-+
-+	vqmmc-supply = <&sdhci_2_vqmmc>;
-+
-+	bus-width = <4>;
-+	no-sdio;
-+	no-mmc;
-+
-+	status = "okay";
-+};
-+
-+&tlmm {
-+	/* Reserved I/Os for NFC */
-+	gpio-reserved-ranges = <32 8>;
-+
-+	pwr_per_en_default: pwr-per-en-default-state {
-+		pwr-per-en-pins {
-+			pins = "gpio142";
-+			function = "gpio";
-+			drive-strength = <16>;
-+			bias-disable;
-+		};
-+	};
-+
-+	sd_vset_default: sd-vset-default-state {
-+		sd-vset-pins {
-+			pins = "gpio4";
-+			function = "gpio";
-+			drive-strength = <16>;
-+			bias-disable;
-+		};
-+	};
-+
-+	/*
-+	 * Drive LAN743x reset high (de-asserted) when pcie1 probes,
-+	 * so the PHY enumerates on the bus.
-+	 */
-+	gbe_reset_default: gbe-reset-default-state {
-+		pins = "gpio138";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+		output-high;
-+	};
-+
-+	/*
-+	 * We drive this GPIO physically high on the M2 Key-E connector
-+	 * to make sure the module is enabled. An M2 Key-E module could
-+	 * be using this pin as a chip enable.
-+	 */
-+	m2e_sdio_resetn_default: m2e-sdio-resetn-default-state {
-+		pins = "gpio41";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+		output-high;
-+	};
-+
-+	/* Force the on-board PCIe switch to select the GbE upstream
-+	 * port.
-+	 */
-+	pcie_switch_sel_default: pcie-switch-sel-default-state {
-+		pins = "gpio16";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+		output-low;
-+	};
-+};
-+
-+&uart7 {
-+	status = "okay";
-+};
-+
-+&ufs_mem_hc {
-+	reset-gpios = <&tlmm 210 GPIO_ACTIVE_LOW>;
-+
-+	vcc-supply = <&vreg_l17b_2p5>;
-+	vcc-max-microamp = <1300000>;
-+	vccq-supply = <&vreg_l1g_1p2>;
-+	vccq-max-microamp = <1200000>;
-+	vdd-hba-supply = <&vreg_l3g_1p2>;
-+
-+	status = "okay";
-+};
-+
-+&ufs_mem_phy {
-+	vdda-phy-supply = <&vreg_l1d_0p88>;
-+	vdda-pll-supply = <&vreg_l3e_1p2>;
-+
-+	status = "okay";
-+};
-+
-+&usb_1 {
-+	/delete-property/ usb-role-switch;
-+	dr_mode = "peripheral";
-+
-+	status = "okay";
-+};
-+
-+&usb_1_hsphy {
-+	vdd-supply = <&vreg_l1e_0p88>;
-+	vdda12-supply = <&vreg_l3e_1p2>;
-+
-+	phys = <&ptn3222>;
-+
-+	status = "okay";
-+};
-+
-+&usb_dp_qmpphy {
-+	vdda-phy-supply = <&vreg_l3e_1p2>;
-+	vdda-pll-supply = <&vreg_l3f_0p88>;
-+
-+	status = "okay";
-+};
+I support documenting "only 1 entry supported" based on the
+following reasons:
 
--- 
-2.43.0
+   - of_reserved_mem_lookup() does a name-based linear scan and returns
+     the *first* matching entry. A node with N reg entries would create
+     N entries with identical names; entries [1..N-1] are permanently
+     unreachable via lookup.
 
+   - Drivers like CMA and DMA coherent are designed to initialize a
+     single contiguous pool per node_init call. Calling node_init
+     multiple times with the same FDT node is not a supported usage.
+
+
+>
+>> 2) fdt_scan_reserved_mem_late() uses of_flat_dt_get_addr_size() which
+>>     only reads the first reg entry. Subsequent entries are never
+>>     initialized via fdt_init_reserved_mem_node(), so their metadata is
+>>     lost.
+>>
+>> Fix both issues:
+>>   - Make __reserved_mem_reserve_reg() return the actual number of
+>>     regions successfully reserved. Update the caller to accumulate
+>>     the returned count.
+>>   - Rewrite fdt_scan_reserved_mem_late() to use
+>>     of_flat_dt_get_addr_size_prop() and iterate all reg entries,
+>>     initializing each one via fdt_init_reserved_mem_node().
+>>
+>> Fixes: 8a6e02d0c00e ("of: reserved_mem: Restructure how the reserved memory regions are processed")
+>> Fixes: 00c9a452a235 ("of: reserved_mem: Add code to dynamically allocate reserved_mem array")
