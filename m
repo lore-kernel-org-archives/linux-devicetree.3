@@ -1,683 +1,214 @@
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33DA406293;
-	Thu,  7 May 2026 14:35:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778164505; cv=none; b=g2ZXZn4kZ4u3CRuhJ7mNWZL3nyF+L5h6IpjX5X1yKNTXXhenweEIx21ItcIZ/hv7WXNR2GKUnVGBZltW8Nx3htM2j8z96RnrjIx7ikUzO8JPsO4v6W3NdZaVBbWmi4byz8HeU83lIDeDVdpYy8kDP+8z3ooL61prEDE5AX1ziv0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778164505; c=relaxed/simple;
-	bh=xofvCSv46PG+P1vhJYNF5HsL/Ghvs7rqB0aB7bomDNg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=EVXVXsDRX5Jkn71ot3LMBCHy06Q6OxrzZyQqo4qxygLEEgQa1Xod4XBaW9X/noZJnr9BmhG/psiqp746S0+s10Caf9dlVa4JBW2vGDQi8X/Y9WshDQNtxHD8Fr2kv8Uyj5jdpfv+VzGIYN8luzvbd0hHWZfEGtOgUH5dLoaDsBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.207.19.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: esmtpsz20t1778164484t21c49ec8
-X-QQ-Originating-IP: 4RzPZa8Knj0Inwzie4sUgEkNa0I5BuIx0bwwHqY0DbY=
-Received: from [192.168.30.32] ( [116.234.74.217])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 07 May 2026 22:34:43 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 17987659072616751745
-EX-QQ-RecipientCnt: 9
-From: Xilin Wu <sophon@radxa.com>
-Date: Thu, 07 May 2026 22:34:36 +0800
-Subject: [PATCH 2/2] arm64: dts: qcom: sc8280xp: Add more thermal zones
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5089D40627F
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 14:36:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778164578; cv=pass; b=qNXGDFIwMBVpX6VYKGI8p8uWlEd3RXGoGPuaevsc1u4EbypvSXSmM2RadQcn5ZjObIwX0XP2ckswUOpklZoKpk564VYW4gqYNrT3HLwBi6AIqDVEiK1OMC3GLNUDyJDYD6yl4fbFBdtaGaIVRdC5uI7n7bbiKYOgw2n5n5y34RY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778164578; c=relaxed/simple;
+	bh=4Q4gVA5Jd1n6uyC1ZvFQ4rucoXxJLhEiilF2amKyVc4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PJ6NxyNYq3cDUpie3n6rLtCEqt9xnNdiXI6tmHjBmDV5MWctJrgFKd1G3W/Pvo1KxoKeKSm0FtPvdJ9FOVq01e3hQKMQPhLvxTOxoiTIJ0CDwRO8XT9XyaJZLmz4a4dgeFSVeleTlqb97NZxkT8BfJ/B9eWKFuwV5Tee9+OGAXQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QDW7JPq7; arc=pass smtp.client-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QDW7JPq7"
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-12c19d23b19so1703155c88.0
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 07:36:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778164575; cv=none;
+        d=google.com; s=arc-20240605;
+        b=AdOpCEConVvEBK/lVUm8M2aWABY2PMOCJV6E7bwNngNbYSKiESOkEqHjFyLaGPtXaW
+         ZX28a7FNl1I9hXSRnb/CiTGezx6v1Qqi7yv1cHDBcGsrekWnRkvvFTlESM2VAuk/n/zs
+         hx5qCTcWpkhfu0h8fwi30rkxDvbPMToO5f2G7eHznvHntYDrfBzd7O5s91Ey44YGnyq1
+         KvV51NeFiYwpPWyGAbbulQs/S/fSMmpZEahhvqxcX4ES/cNM4jUIu2h41aX7LwkIbE9T
+         YkhJSUkffpxbqkwaCXq+lrJYxHSaAMLfyzPan1tF4fZna9w44pq2ImGp7gker49/rCGC
+         bnlA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tTnB6vEkbQqbTnl4MQ8rpdfcud19RDfiJ5lqADHuqcU=;
+        fh=X3Mcy2dC8d3AOqm9IsmLhSXRaH8N3z2RFSzg6aQZwiM=;
+        b=kakWpZ6ozuKNQ4BQKQdrACcCI7r+fhjqgfGDRBl2raTrIvlkL+Iom93WFYDKcMs3fu
+         57meMsLWACNbgnTnJ+SA7uJYcGQ3dZ0Nff1o0GLOoWQ5IEpvq6khfzDdFuhkcaqV4anY
+         aafABeqSyLBAI/ViABOWf+hPmd1u5JpV4nT6nysrU4l6nJ+3VvZurVdO+NqQ16VaVCfn
+         ov76xwQywCAZr+NqL8TREbhtHbeCwEqdpI5yALZKJY1aIoTWfNu6yr9QJDjzZTRTJ9T6
+         Vxy0K2Ku4Aco2G4eZdaxzh15rmCGcRt2Fujiv/IRsi3nDfqPG/jCsgH7CcgQwwg3W46T
+         oY9g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778164575; x=1778769375; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tTnB6vEkbQqbTnl4MQ8rpdfcud19RDfiJ5lqADHuqcU=;
+        b=QDW7JPq7xBsH6lYqhvbKiu78exWMcccuTrYmUhktnNeNzlCp++Ysu3NfDUosZ+MS2n
+         rEJIWPOzavyHTVgeONqo7VoYJ6arOBLNDvT8MiqCoL5f0/CN6bo/RsRcjoz9XQt+CToc
+         LMr3V8dgiwO5LhQ8sn9EyISflfchzqdHKHl3EVGatiOmVw7SL9yolLqDTSbL65475W5B
+         jS0IxwyqW70zAho0srUNBVd54FyEBSxIUgCRknUnYG6n4PuswuRgHFaMqFwZ5Uw9O82+
+         HLCTgAk6ZrqlvGF/hy0HdyGxMyM2HHl+vseN6V43kuRlb09GjTicJeFdV8vEaD0PqmkK
+         7CvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778164575; x=1778769375;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=tTnB6vEkbQqbTnl4MQ8rpdfcud19RDfiJ5lqADHuqcU=;
+        b=qoYqYnIIRtow8QkbKvGMxvGGtK2Vl/OnuapzbCFHE8/Pey9bfwaTx5uqGvq73pVEQy
+         teYiVmVNmtyiQxEYgAPI4w7h5lmXSeCcZnbsjOx4UxsbpBd0NklWofwDMqgCsE8MY1cs
+         njXsPpfqlnaThXAMmGBTr4M8rBRnYnnDccxY2NK6D257TOullRZZrfn0KfPGM2bzr4mM
+         IMOkvoqtntxIb153MT9+IPReoed4LtnNg2SVOUXliIftva+z3i3dygeHaVjlGQUJ8Hfb
+         qDh5Z9onnByu8jg7SYFYdDqvId6bZKQUg4pl/Ag2MGX81AL9/zv5RlNF2T9YIepQB2AI
+         1KsQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+5Qt6Ralc+kzALbWAfrT4Q0jb051ATIR9FAcs1M1a+c+7/AqGAAava4HN5pEpq7bJ2xucn9MOGlrbn@vger.kernel.org
+X-Gm-Message-State: AOJu0YwBuTn8Ce+bHgij4W98fpNaxECwR2M5PWM+x2Ss7DDPkPVdps2G
+	0SChbfbOw0KWf4priae97Msc5CHXrRQ1Ry+SuWqmisXoCmBLHB2CEiJwM9+yWtHUOsH9qqXmvqK
+	bgpAQ8vdO1TSv8+Xe2cYXd2ELAJBHb/U=
+X-Gm-Gg: AeBDietnyqUIZC/OBh/UGeWfml+aRdQ9+ZanHAwHHnVv8YpUYxHEAvpNfjUHUNZpLk+
+	n2gP/OzgGj7b6t6odPjOc/b1OfJC9TYVI773ybJkfhf+E1u4Ja8T2EaQrvs+Yel05sU5HRfHTho
+	gE1xn2BJWwh8HCd7yrJRt4TQokFNN1ObZhbFvHB0v9LZ+VU9ahRFFY9/oPzHdNgP7tAGJBB345W
+	zLL2TJJrcIhAh5Hk88/sZfQexqgidSKkCt8TLw0++Ko7WWcmNo1jUmeDWkkbxdtwGYgeR7Ky2LI
+	5xUMQZOvkbn+S3sPEOA=
+X-Received: by 2002:a05:7301:1018:b0:2ea:ed70:3ea8 with SMTP id
+ 5a478bee46e88-2f54e3802ddmr3907198eec.29.1778164575034; Thu, 07 May 2026
+ 07:36:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260507-sc8280xp-thermal-zones-v1-2-33d4395b1be9@radxa.com>
-References: <20260507-sc8280xp-thermal-zones-v1-0-33d4395b1be9@radxa.com>
-In-Reply-To: <20260507-sc8280xp-thermal-zones-v1-0-33d4395b1be9@radxa.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Xilin Wu <sophon@radxa.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10952; i=sophon@radxa.com;
- h=from:subject:message-id; bh=xofvCSv46PG+P1vhJYNF5HsL/Ghvs7rqB0aB7bomDNg=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDJl/Fv21KirPv/zJ5YTNvilR0yr1d87yX70/bKZ0htBm4
- Uu7hJbO7yhlYRDjYpAVU2RRiGeYy16Ze+2pWKkezBxWJpAhDFycAjCRM78YGX4+E2Y9PGlubvT6
- Xf8nfZ16PVPjFv/OA2sNXpp+/rLaVtqVkeHR4amd3Ad8XjzPnrC24qL/Fc1wAfYzS3dyO2ttil7
- c+YYbAA==
-X-Developer-Key: i=sophon@radxa.com; a=openpgp;
- fpr=205F009D07796DD6E516752E32C31567AD9E324E
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: N0qKxtPla0aMRNhZksJM7I/6AdYP1OVEPf0hK+t+MWqOAmlnFmmnnsst
-	8tTylAkgIaVjSXjkf3DQBolMmzqYMUIIqJJpDv9wvec/Ldzhuv2D6zXP9A2Xbfe/stcRtuL
-	baul0T1PgLLtnJ4zWoox3BJvdtRE1UMbqtX1SvQ31IarIu3yjDXhQQc1dFisB59XViO0pN8
-	DuK4jvgemogn4NVDnIuwhk5v1R0S691uxJfeGfuIna9BsPQKJn574lwYNRM+c/KMCEQ9/Q1
-	AcOXJM3haUlza2ZfM7eswc0IEkBeybSJWIVIp2ftHzEd7H1Fz6+SAoy/oYr1xbwTWIkbBPs
-	45WlUv0fdCIACe/fLhtPbpznGa+9AdJ+35kRxk0NR4wNZ6CQmOuGpi4rDBePc2J9VgG3fAM
-	kbk64hbp7nuLwSlzbJgSGnRMWye2bn8arXKK4yAy5XJQ3DLhcw2mswVBMNomekLduVU1Jid
-	AtGtsHfOtHmeG2XsYtKq6RGF3oHc2aLyoWswSujJSjxik8Vp+eu9vPQRvjR5ITLhOVh0szy
-	NeSHET9MSqLk54CyAQcnr4cT85vkuad/Q0Xocpi9DWaBZzTSzE0noDcMVICW3jVZWprqkn8
-	8XPddKVFupcInUGj/Xfwqeas9hcbHbFEm1Ag0AuefM0emrOub9viVTWNMt184pv6l74CrrP
-	fstKE2eJW6QiiRDux7B00oo6xVi5pMXn3wom1gmU6hjxhP+pM9yo4zss5mb97OKiFicwEjo
-	3EwGxzSVZWAPh93Gx+HEn5jiDB+A5NbuAaSSw2T6q1354RDgHYBWjTOj+QWKnl7QI1MqCMV
-	sb35IzLSvOgVjutZj82RWnZefuKgTP2tq7Bn3EIoQ4o+Ekpo5paPlhApaJdr4ceme5ErGpm
-	lSPt27dTszxXw8IuHQnZJ51q96yIoUWL6iLkJrLtKE3ENRyhkiUz93Gcb2HY3H2EhIi1+4R
-	lwoHUggEs+kxh+aoV//W3WKz1ZVfOMBbPMnij6E3mCeTf3qRl714rb5sA6Flg3oyHMGkSxb
-	U+4cTqAYYPaI5fjXpDlGmAxI0SQvdM941iOz30aYPLlMiI4KQhCXdIa4RmOR8=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
+References: <20260428153611.142816-1-clamor95@gmail.com> <20260428153611.142816-7-clamor95@gmail.com>
+ <20260507140715.GP305027@google.com>
+In-Reply-To: <20260507140715.GP305027@google.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Thu, 7 May 2026 17:36:03 +0300
+X-Gm-Features: AVHnY4Ipu20JTRjb2M-ehjX65DOmdXWZujrR93JWxLxR9_IHfdzLcTQAicaBOVc
+Message-ID: <CAPVz0n2nfRkxg-M+jVfLaXbTO1AR_GtV7e8Vnw32gWTazUjsjQ@mail.gmail.com>
+Subject: Re: [PATCH v4 6/6 RESEND] mfd: motorola-cpcap: add support for Mot
+ CPCAP composition
+To: Lee Jones <lee@kernel.org>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Pavel Machek <pavel@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	Tony Lindgren <tony@atomide.com>, linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The SC8280XP contains a lot of TSENS sensors which are not yet described.
-Add the thermal zones for them.
+=D1=87=D1=82, 7 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 17:07=
+ Lee Jones <lee@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Tue, 28 Apr 2026, Svyatoslav Ryhel wrote:
+>
+> > Add a MFD subdevice composition used in Tegra20 based Mot board
+> > (Motorola Atrix 4G and Droid X2).
+> >
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > ---
+> >  drivers/mfd/motorola-cpcap.c | 50 ++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 50 insertions(+)
+> >
+> > diff --git a/drivers/mfd/motorola-cpcap.c b/drivers/mfd/motorola-cpcap.=
+c
+> > index 516d1e33affa..fdec92f5c6b0 100644
+> > --- a/drivers/mfd/motorola-cpcap.c
+> > +++ b/drivers/mfd/motorola-cpcap.c
+> > @@ -335,6 +335,54 @@ static const struct cpcap_chip_data cpcap_mapphone=
+_data =3D {
+> >       .num_devices =3D ARRAY_SIZE(cpcap_mapphone_mfd_devices),
+> >  };
+> >
+> > +/*
+> > + * The Mot board features a USB-PHY and charger similar to the ones in
+> > + * Mapphone; however, because Mot is based on Tegra20, it is incompati=
+ble
+> > + * with the existing implementation, which is tightly interconnected w=
+ith
+> > + * the OMAP USB PHY.
+> > + */
+> > +static const struct mfd_cell cpcap_mot_mfd_devices[] =3D {
+> > +     {
+> > +             .name          =3D "cpcap_adc",
+> > +             .of_compatible =3D "motorola,mot-cpcap-adc",
+> > +     }, {
+> > +             .name          =3D "cpcap_battery",
+> > +             .of_compatible =3D "motorola,cpcap-battery",
+> > +     }, {
+> > +             .name          =3D "cpcap-regulator",
+> > +             .of_compatible =3D "motorola,mot-cpcap-regulator",
+> > +     }, {
+> > +             .name          =3D "cpcap-rtc",
+> > +             .of_compatible =3D "motorola,cpcap-rtc",
+> > +     }, {
+> > +             .name          =3D "cpcap-pwrbutton",
+> > +             .of_compatible =3D "motorola,cpcap-pwrbutton",
+> > +     }, {
+> > +             .name          =3D "cpcap-led",
+> > +             .id            =3D 0,
+> > +             .of_compatible =3D "motorola,cpcap-led-red",
+> > +     }, {
+> > +             .name          =3D "cpcap-led",
+> > +             .id            =3D 1,
+> > +             .of_compatible =3D "motorola,cpcap-led-green",
+> > +     }, {
+> > +             .name          =3D "cpcap-led",
+> > +             .id            =3D 2,
+> > +             .of_compatible =3D "motorola,cpcap-led-blue",
+> > +     }, {
+> > +             .name          =3D "cpcap-led",
+> > +             .id            =3D 3,
+> > +             .of_compatible =3D "motorola,cpcap-led-adl",
+>
+> MFD_CELL_OF() for all.
+>
+> > +     }, {
+> > +             .name          =3D "cpcap-codec",
+> > +     },
+>
+> MFD_CELL_NAME()
+>
 
-Signed-off-by: Xilin Wu <sophon@radxa.com>
----
- arch/arm64/boot/dts/qcom/sc8280xp.dtsi | 513 ++++++++++++++++++++++++++++++++-
- 1 file changed, 501 insertions(+), 12 deletions(-)
+I was not aware these macros exist. Thank you for pointing to them.
 
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-index af9b3f8a0817..152218186983 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-@@ -6870,7 +6870,19 @@ sound: sound {
- 	};
- 
- 	thermal-zones {
--		cpu0-thermal {
-+		aoss-0-thermal {
-+			thermal-sensors = <&tsens0 0>;
-+
-+			trips {
-+				aoss-critical {
-+					temperature = <110000>;
-+					hysteresis = <0>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cpu0-0-thermal {
- 			thermal-sensors = <&tsens0 1>;
- 
- 			trips {
-@@ -6882,7 +6894,7 @@ cpu-crit {
- 			};
- 		};
- 
--		cpu1-thermal {
-+		cpu1-0-thermal {
- 			thermal-sensors = <&tsens0 2>;
- 
- 			trips {
-@@ -6894,7 +6906,7 @@ cpu-crit {
- 			};
- 		};
- 
--		cpu2-thermal {
-+		cpu2-0-thermal {
- 			thermal-sensors = <&tsens0 3>;
- 
- 			trips {
-@@ -6906,7 +6918,7 @@ cpu-crit {
- 			};
- 		};
- 
--		cpu3-thermal {
-+		cpu3-0-thermal {
- 			thermal-sensors = <&tsens0 4>;
- 
- 			trips {
-@@ -6918,7 +6930,7 @@ cpu-crit {
- 			};
- 		};
- 
--		cpu4-thermal {
-+		cpu4-0-thermal {
- 			thermal-sensors = <&tsens0 5>;
- 
- 			trips {
-@@ -6930,7 +6942,7 @@ cpu-crit {
- 			};
- 		};
- 
--		cpu5-thermal {
-+		cpu5-0-thermal {
- 			thermal-sensors = <&tsens0 6>;
- 
- 			trips {
-@@ -6942,7 +6954,7 @@ cpu-crit {
- 			};
- 		};
- 
--		cpu6-thermal {
-+		cpu6-0-thermal {
- 			thermal-sensors = <&tsens0 7>;
- 
- 			trips {
-@@ -6954,7 +6966,7 @@ cpu-crit {
- 			};
- 		};
- 
--		cpu7-thermal {
-+		cpu7-0-thermal {
- 			thermal-sensors = <&tsens0 8>;
- 
- 			trips {
-@@ -6978,10 +6990,238 @@ cpu-crit {
- 			};
- 		};
- 
--		gpu-thermal {
-+		nsp0-0-thermal {
-+			thermal-sensors = <&tsens0 10>;
-+
-+			trips {
-+				nsp0-crit {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		smss-0-thermal {
-+			thermal-sensors = <&tsens0 12>;
-+
-+			trips {
-+				smss-crit {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		camss-0-thermal {
-+			thermal-sensors = <&tsens0 13>;
-+
-+			trips {
-+				camss-crit {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		aoss-1-thermal {
-+			thermal-sensors = <&tsens1 0>;
-+
-+			trips {
-+				aoss-critical {
-+					temperature = <110000>;
-+					hysteresis = <0>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cpu0-1-thermal {
-+			thermal-sensors = <&tsens1 1>;
-+
-+			trips {
-+				cpu-crit {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cpu1-1-thermal {
-+			thermal-sensors = <&tsens1 2>;
-+
-+			trips {
-+				cpu-crit {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cpu2-1-thermal {
-+			thermal-sensors = <&tsens1 3>;
-+
-+			trips {
-+				cpu-crit {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cpu3-1-thermal {
-+			thermal-sensors = <&tsens1 4>;
-+
-+			trips {
-+				cpu-crit {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cpu4-1-thermal {
-+			thermal-sensors = <&tsens1 5>;
-+
-+			trips {
-+				cpu-crit {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cpu5-1-thermal {
-+			thermal-sensors = <&tsens1 6>;
-+
-+			trips {
-+				cpu-crit {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cpu6-1-thermal {
-+			thermal-sensors = <&tsens1 7>;
-+
-+			trips {
-+				cpu-crit {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cpu7-1-thermal {
-+			thermal-sensors = <&tsens1 8>;
-+
-+			trips {
-+				cpu-crit {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		cluster1-thermal {
-+			thermal-sensors = <&tsens1 9>;
-+
-+			trips {
-+				cpu-crit {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		nsp0-2-thermal {
-+			thermal-sensors = <&tsens1 10>;
-+
-+			trips {
-+				nsp0-crit {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		smss-1-thermal {
-+			thermal-sensors = <&tsens1 12>;
-+
-+			trips {
-+				smss-crit {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		camss-1-thermal {
-+			thermal-sensors = <&tsens1 13>;
-+
-+			trips {
-+				camss-crit {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		pcie-0-thermal {
-+			thermal-sensors = <&tsens1 14>;
-+
-+			trips {
-+				pcie-crit {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		mem-0-thermal {
-+			thermal-sensors = <&tsens1 15>;
-+
-+			trips {
-+				trip-point0 {
-+					temperature = <90000>;
-+					hysteresis = <2000>;
-+					type = "hot";
-+				};
-+			};
-+		};
-+
-+		aoss-2-thermal {
-+			thermal-sensors = <&tsens2 0>;
-+
-+			trips {
-+				aoss-critical {
-+					temperature = <110000>;
-+					hysteresis = <0>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		gpuss-0-thermal {
- 			polling-delay-passive = <250>;
- 
--			thermal-sensors = <&tsens2 2>;
-+			thermal-sensors = <&tsens2 1>;
- 
- 			cooling-maps {
- 				map0 {
-@@ -7005,8 +7245,101 @@ trip-point1 {
- 			};
- 		};
- 
--		mem-thermal {
--			thermal-sensors = <&tsens1 15>;
-+		gpuss-1-thermal {
-+			polling-delay-passive = <250>;
-+
-+			thermal-sensors = <&tsens2 2>;
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&gpu_alert1>;
-+					cooling-device = <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+
-+			trips {
-+				gpu_alert1: trip-point0 {
-+					temperature = <85000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		gpuss-2-thermal {
-+			polling-delay-passive = <250>;
-+
-+			thermal-sensors = <&tsens2 3>;
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&gpu_alert2>;
-+					cooling-device = <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+
-+			trips {
-+				gpu_alert2: trip-point0 {
-+					temperature = <85000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		gpuss-3-thermal {
-+			polling-delay-passive = <250>;
-+
-+			thermal-sensors = <&tsens2 4>;
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&gpu_alert3>;
-+					cooling-device = <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+
-+			trips {
-+				gpu_alert3: trip-point0 {
-+					temperature = <85000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		pcie-1-thermal {
-+			thermal-sensors = <&tsens2 5>;
-+
-+			trips {
-+				pcie-crit {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		mem-1-thermal {
-+			thermal-sensors = <&tsens2 6>;
- 
- 			trips {
- 				trip-point0 {
-@@ -7016,6 +7349,162 @@ trip-point0 {
- 				};
- 			};
- 		};
-+
-+		audio-thermal {
-+			thermal-sensors = <&tsens2 7>;
-+
-+			trips {
-+				audio-crit {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		video-thermal {
-+			thermal-sensors = <&tsens2 8>;
-+
-+			trips {
-+				video-crit {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		nsp0-1-thermal {
-+			thermal-sensors = <&tsens2 9>;
-+
-+			trips {
-+				nsp0-crit {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		aoss-3-thermal {
-+			thermal-sensors = <&tsens3 0>;
-+
-+			trips {
-+				aoss-critical {
-+					temperature = <110000>;
-+					hysteresis = <0>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		gpuss-4-thermal {
-+			polling-delay-passive = <250>;
-+
-+			thermal-sensors = <&tsens3 1>;
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&gpu_alert4>;
-+					cooling-device = <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+
-+			trips {
-+				gpu_alert4: trip-point0 {
-+					temperature = <85000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		gpuss-5-thermal {
-+			polling-delay-passive = <250>;
-+
-+			thermal-sensors = <&tsens3 2>;
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&gpu_alert5>;
-+					cooling-device = <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+
-+			trips {
-+				gpu_alert5: trip-point0 {
-+					temperature = <85000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		gpuss-6-thermal {
-+			polling-delay-passive = <250>;
-+
-+			thermal-sensors = <&tsens3 3>;
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&gpu_alert6>;
-+					cooling-device = <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+
-+			trips {
-+				gpu_alert6: trip-point0 {
-+					temperature = <85000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+
-+		gpuss-7-thermal {
-+			polling-delay-passive = <250>;
-+
-+			thermal-sensors = <&tsens3 4>;
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&gpu_alert7>;
-+					cooling-device = <&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+
-+			trips {
-+				gpu_alert7: trip-point0 {
-+					temperature = <85000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+
-+				trip-point1 {
-+					temperature = <110000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+			};
-+		};
- 	};
- 
- 	timer {
-
--- 
-2.54.0
-
+> > +};
+> > +
+> > +static const struct cpcap_chip_data cpcap_mot_data =3D {
+> > +     .mfd_devices =3D cpcap_mot_mfd_devices,
+> > +     .num_devices =3D ARRAY_SIZE(cpcap_mot_mfd_devices),
+> > +};
+> > +
+> >  static int cpcap_probe(struct spi_device *spi)
+> >  {
+> >       struct cpcap_ddata *cpcap;
+> > @@ -389,6 +437,7 @@ static int cpcap_probe(struct spi_device *spi)
+> >  static const struct of_device_id cpcap_of_match[] =3D {
+> >       { .compatible =3D "motorola,cpcap", .data =3D &cpcap_default_data=
+ },
+> >       { .compatible =3D "motorola,mapphone-cpcap", .data =3D &cpcap_map=
+phone_data },
+> > +     { .compatible =3D "motorola,mot-cpcap", .data =3D &cpcap_mot_data=
+ },
+> >       { /* sentinel */ }
+> >  };
+> >  MODULE_DEVICE_TABLE(of, cpcap_of_match);
+> > @@ -396,6 +445,7 @@ MODULE_DEVICE_TABLE(of, cpcap_of_match);
+> >  static const struct spi_device_id cpcap_spi_ids[] =3D {
+> >       { .name =3D "cpcap", .driver_data =3D (kernel_ulong_t)&cpcap_defa=
+ult_data },
+> >       { .name =3D "mapphone-cpcap", .driver_data =3D (kernel_ulong_t)&c=
+pcap_mapphone_data },
+> > +     { .name =3D "mot-cpcap", .driver_data =3D (kernel_ulong_t)&cpcap_=
+mot_data },
+> >       { /* sentinel */ }
+> >  };
+> >  MODULE_DEVICE_TABLE(spi, cpcap_spi_ids);
+> > --
+> > 2.51.0
+> >
+>
+> --
+> Lee Jones
