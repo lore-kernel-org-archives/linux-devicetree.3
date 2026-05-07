@@ -1,213 +1,286 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EDFF3CF69D;
-	Thu,  7 May 2026 22:42:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7131733032B
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 22:50:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778193739; cv=none; b=jn/oF2e4qn6Q3NeADv1SckusvEV4+Dxtx+e2HJk0Kfx8cL4jIxZg6XFZvidVz8cOCdGEFZWcPhq6LoMTAg5LKAElcaw3l1v3Whet2nnzbm+IWzjnrEl442aY1fXTldOY+zG9IVE0AD/4tVGV/UArzjQhM3CppeURftR4yCgM5ec=
+	t=1778194208; cv=none; b=pIA7VxJRhh1FmlO2q46waEbLXtvHb3QEYrm8joBtaa7eQ1Qj4e/q/YA3Ez3igxJT9mpydRfIdVxMCLO/pIoJAi+ZNNWvtZX9zSxvoqNN34ChOwxxduAQsbPRIeXeVm291Xb4FQx54xp/mplzKukJl+4O520/XByn5vzbXocDKy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778193739; c=relaxed/simple;
-	bh=J0kRFG9bUaWTTHIU1f8/BZmV72pbWWRzeSv5tn2IJ+Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=qreVWgYtvi809Em1da/n4yDmuID8/BEb8XUTAn9f2lhSF/u/MI8r+Bj/3XcBa4Y0hV+3+mKya1ODNsRMyg7BDWkHLmBAD7+d8eZxENKy+Nxo6UDM/uwb+6+CCbOx3h8tA8is9ULzkc/KLEEX5wW/VS4gB3E1xHRmmkF/HW/u1VY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pZ8OJoJD; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778194208; c=relaxed/simple;
+	bh=5GDnKhmBM1yypsTlKGw6vvvavdKBYfnkdInWhp+vMLE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=dfAd/sCHI/aEMZhkRNuR1eZ+8NfG3lP3rTbGUmPI5S70gxyXLFgVwHHRjLwszL0HrXBnWRRTKBMpUlmwctcW44o60n0ayQh1i4QZjXycP0WDPDJ8ZWNbOIoyD8RokFjyPOo5N0eNwlS+ajWyBP6ONx/Gi5dXHQ6gdbTG3VKku88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nJpfz3k3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VJXJTmfb; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pZ8OJoJD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DED86C2BCB2;
-	Thu,  7 May 2026 22:42:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778193739;
-	bh=J0kRFG9bUaWTTHIU1f8/BZmV72pbWWRzeSv5tn2IJ+Y=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=pZ8OJoJDjVp74T5HTAFYAW24ULTzTS5u6XyQpEYzf/fwJ5askHm4Fepx+Mb8uIuBh
-	 TTWkblCiS9WBse7RVNTyWkBEd6TQDKcRX4EFPjrBJ1/wnrNBYScemGuDwm5uQmWla2
-	 F/28EibEfFcTpulfbdWpo4wOhiE4GwjNtSEVwOK9iKai27Zxp2rvtKUTNoPQ+UJR9B
-	 N7G5SWN8B3xOPKcvsiFMQTUaj/25gFtPjx0RFsJAuhRUmDrSRJg5R0nF0XDYF1LUdZ
-	 saU/G2E92XATlbrCE6iN3x0H4Jfxqq+T1rAzFc+lQSLeDTrl0JYmf65tvMbU+dZE+U
-	 or2kQaRwQdKVA==
-Date: Thu, 7 May 2026 17:42:17 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Inochi Amaoto <inochiama@gmail.com>
-Cc: Jingoo Han <jingoohan1@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Alex Elder <elder@riscstar.com>,
-	Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
-	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH 5/5] PCI: spacemit-k1: Add Spacemit K3 PCIe host
- controller support
-Message-ID: <20260507224217.GA48780@bhelgaas>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nJpfz3k3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VJXJTmfb"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 647McYVV1424522
+	for <devicetree@vger.kernel.org>; Thu, 7 May 2026 22:50:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=PkSeNiGbgA7F4Yd46b6MKb
+	ZkR6t+RRbEp49Tj4V3k2k=; b=nJpfz3k3mr8yc6QkzDSrJ92J8inLaEtOezoerF
+	1YOvTJNnzJsD4c6IDiAbJkK+QUa2iE10ZuBTG/kJ8yRApG61t66RL1fKusqpAZpZ
+	nB5NWDf4XIP8WAujf0QrJEeb/sG/fU9lF59daWUa0hYW2rrpEMRoJ9BzIFJzFb4X
+	QQHd3pKjhJWX5yvlH6EIUORB5q2Ao+++87ogW7ULDfrIN9ssbl3tS5PSQ7h1ZB59
+	t7dO0CVcFwZ1zwSd8nM8TY8kseEfjwJnRyqdCxndmU2LqVUPRwA6O3OcSHeirCdk
+	3yr6iYJX44T0sY6/pv8yUc2+xm7hIVpalguiM00/1K7OL8Xg==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0pqfub7d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 07 May 2026 22:50:05 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-95cc77982c5so4277004241.1
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 15:50:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778194205; x=1778799005; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=PkSeNiGbgA7F4Yd46b6MKbZkR6t+RRbEp49Tj4V3k2k=;
+        b=VJXJTmfbMbu2BgO7nr02MNHKROAI12Tca3rGNcKmz/1Vc9jJfr/4ByOzBMEvocwd+N
+         vd7g8ozYOQQeYQM7AuU5hqaGHZ0vQkbf9SBuCU51XKNwlsU5+hr9fV5EQwLp8Ez42p4A
+         T1cG5x8z92EkMvtxwQPsuOPlqGjVBwFLJQr3bibqtaz4PDWFLsb4NfMnweZfdGRlkU2Y
+         qw8vk+NXDanlQtVEcT6+ci16lMWpzV09QfECImko7wBNQ7u+e8dMBqAqnejTEgEEpn2v
+         Ezf2qe3Qu2wyXhZGr5Xj+SM403TL67x45uZjsnrEcJmpluthVo+iUef35VRDMS9HBYnO
+         9t3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778194205; x=1778799005;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PkSeNiGbgA7F4Yd46b6MKbZkR6t+RRbEp49Tj4V3k2k=;
+        b=cVWBkR8iYHQOifVTj6zJdHifP786Knwj7REL53lF/4QDitKx/XZKWwn82HbVdddXTF
+         QlAPRVa4hPXJ7Yvg4Al6n7I0ZUzaZAjipT/qhcQwQ03B5OS5BEICHKZWj1SrkYrqYtEb
+         fZsTi29nuNUvSi+EWI1kp3NypViIHEeDApA7+PCzr76jvvkdQ02/ntkyv7O45p2ao8il
+         g7+KMLfEabgCsVS/tX2cN435QxXSvExrFJW/+XIhXp1ZOmnJQID+5hZOyj4NlYuZY34/
+         YNSAgdI6HeY0tzSbg+ibZTHvRO+LyHliNWXH+CqQ/mwU2nbrjj0QzP+BGK2Vq0HbpkcU
+         pNrA==
+X-Forwarded-Encrypted: i=1; AFNElJ+7SmiicqxJzX4i6Byn/3+n7N6gwJylJWFJ8aUeYcss1oXAWhUvbfBON2fuykbxHPTPC1T3WOx/XF/L@vger.kernel.org
+X-Gm-Message-State: AOJu0YzXXFbtdvVLzmtvZFgfV5g5DYwOAx/G/Vq7XuSR1+t548/iqy46
+	C1Q7Uv7+GyNfH6wakWkzfZI6N6OSJ6V7pjOyTA5lNYK4iAbi2lARLUevU/tRZzRvAjE1BWQxbYs
+	Fmxcv/HW1Upt5/lqol55UoUfwyYAlpL+nFawzrsIq8wNKAeABmaNO4QW8LaAd774o
+X-Gm-Gg: AeBDieuLu4P5i1kQWoijZxV3+umaqTgckhErSMiLqiz/PhMaQv3n/beot0pzhUxo5Ub
+	2rRN2RI/cWVrWShE+w8renjI96DyzxfWW60R7LGmlibzremgy89/LLpuGxW0rTBIYV8gX7hfXGE
+	7bigzXZLzJr0vyFzPHix0QA7usFevi70CPGhTEHI+de/4HBBjpT+ZPiSWFHkH1f3M3cWxIA8Y36
+	mPiPOZsgAzADqMh6ej6qOYmVViV8YFJ9RqyWVYIpyKw8ms0ggZuqDr9I77vwRsQh8lyMhx4E6b3
+	u/baxubQ0F+emRYsUDUSyGgMo/qME6RUvmF4BRmMS7m1ibR0TbU8QUFpq1llSYaak6BEFjxODvN
+	Jb6o/yvh99q7aMnTAhhrUImecv/uiQH3AZhoQfE+9o/Wx88zhZUCYMlkPcBtN8zwLoHRZ/LRSme
+	cUmJulOzHGZk7J+Hu3
+X-Received: by 2002:a05:6102:5813:b0:62f:3686:4b86 with SMTP id ada2fe7eead31-63115d846f7mr2051148137.1.1778194204682;
+        Thu, 07 May 2026 15:50:04 -0700 (PDT)
+X-Received: by 2002:a05:6102:5813:b0:62f:3686:4b86 with SMTP id ada2fe7eead31-63115d846f7mr2051119137.1.1778194204230;
+        Thu, 07 May 2026 15:50:04 -0700 (PDT)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:b16a:3475:ec42:bcfa])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bcac4359dbesm102466b.48.2026.05.07.15.50.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 07 May 2026 15:50:02 -0700 (PDT)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Subject: [PATCH v3 00/15] media: qcom: camss: CAMSS Offline Processing
+ Engine support
+Date: Fri, 08 May 2026 00:49:15 +0200
+Message-Id: <20260508-camss-isp-ope-v3-0-bb1055274603@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260502101319.2364052-6-inochiama@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOwW/WkC/3XOMQ7CMAyF4augzLhK3IQCE/dADCE41FLblBgqE
+ OrdCSwMiMXSP/jTeyqhzCRqu3iqTBMLp6FEvVyo0PrhTMCn0go1rrTFBoLvRYBlhDQS2KNrXIw
+ UkE6q/IyZIt8/3v5QOubUw7XN5L9KjbVBt0ZboTEr48BAlzhUY7p1noddEqkuN9+F1PdVOW+3Z
+ bmm/PjMnPCt/1s0IWiIttbU2LXTevPrHeZ5fgG2JIlV+QAAAA==
+X-Change-ID: 20260427-camss-isp-ope-4b575ffec2ed
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        Bryan O'Donoghue <bod@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+        devicetree@vger.kernel.org, laurent.pinchart@ideasonboard.com,
+        kieran.bingham@ideasonboard.com, johannes.goede@oss.qualcomm.com,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Authority-Analysis: v=2.4 cv=TJB1jVla c=1 sm=1 tr=0 ts=69fd171d cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=NEAV23lmAAAA:8
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=oJE8aRnLwfUkw7FiLPAA:9 a=QEXdDO2ut3YA:10
+ a=1WsBpfsz9X-RYQiigVTh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDIzMSBTYWx0ZWRfX1pTUx63bvzyf
+ 9treWaCB02cxIc+h548FuxlY2Rxy62iR1OlGtQLZPfUkBMWt4T1oeERY9z4wXtogVEZggjJ6qbH
+ 1ooqaKtjejZRdvaCVm45ZWNs2/i+ozAsbWKFvYXiEiH+tyjDYu2DGIgaWMsBmt5Sk/MCMX+ADKE
+ qUVOaIZC5LnKrUOaUhqb/vV6vx1xUcS9Xcqs1KAo+DPXCVmEkScUxPF0xsD10wrs49HETXT0pgD
+ y1ynRhG99CTUD2Hf14c4jCyM+RZNOhUdM8jR1khvexBW/D3rgz41m2wZ8mR5y28RaUftfhT4ejO
+ 7IdK0s3FVADVR2kQw8LogBEv4WmL+2lctN2PfLhJA0xSAupAiGJZF9ljxrs48k9ctSMG4vEdKyh
+ ippjtbkN3Sg9NryhJDrrRfLBE9YMHIy+O+TQUQYaXiWzT0QpYdpMFGhkqamDAjGUWsor6txWHJz
+ /fZ9CTwBf3O89hNE0xA==
+X-Proofpoint-GUID: 7EbZbLFuwrQ4pBuE4T9QKOxC7KLN1oDz
+X-Proofpoint-ORIG-GUID: 7EbZbLFuwrQ4pBuE4T9QKOxC7KLN1oDz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-07_02,2026-05-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 lowpriorityscore=0 malwarescore=0 impostorscore=0 bulkscore=0
+ phishscore=0 priorityscore=1501 adultscore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605070231
 
-On Sat, May 02, 2026 at 06:13:18PM +0800, Inochi Amaoto wrote:
-> The PCIe controller on Spacemit K3 is almost a standard Synopsys
-> Designware PCIe IP with extra link and reset control. Unlike
-> the PCIe controller on K1, this controller supports external MSI
-> interrupt controller and can use multiple phy at the same time.
-> 
-> Add driver to support PCIe controller on Spacemit K3 PCIe.
-> 
-> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+This series introduces support for the Qualcomm CAMSS Offline Processing
+Engine (OPE), as found on Agatti-based platforms. Boards such as Arduino
+UNO-Q use this SoC family and will benefit from hardware-assisted image
+processing enabled by this work.
 
-Sashiko had some good questions:
-https://sashiko.dev/#/patchset/20260502101319.2364052-1-inochiama%40gmail.com
+This represents the first step toward enabling image processing beyond
+raw capture on Qualcomm platforms by using hardware blocks for
+operations such as debayering, color correction, and scaling.
 
-Looks like the CONFIG_PCIE_SPACEMIT_K1 menu item and help text
-drivers/pci/controller/dwc/Kconfig should be updated to include K3.
+The OPE sits outside the live capture pipeline. It operates on frames
+fetched from system memory and writes processed results back to memory.
+Because of this design, the OPE is not tied to any specific capture
+interface: frames may come from CAMSS RDI or PIX paths, or from any
+other producer capable of providing memory-backed buffers.
 
-The "CONFIG_PCIE_SPACEMIT_K1" name itself should stay the same.
+The hardware can sustain up to 580 megapixels per second, which is
+sufficient to process a 9MPix (4K) stream at 60 fps or to handle
+four parallel 2MPix (HD) streams at 60 fps.
 
-s/Designware/DesignWare/, also in 4/5 commit log
-s/phy/PHY/ here and other patches and subject lines
-s/msi/MSI/ in 3/5 subject and commit log when it's a stand-alone word
-s/pci:/PCI:/ in 4/5 subject to match history (and patch 3/5)
+In order to enable reuse across future CAMSS ISP implementations,
+a new camss-isp-common module is introduced, providing common
+helpers for:
+- buffer queue management
+- job scheduling
+- pipeline construction
+- parameter parsing
 
-> +++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
+While currently tailored for CAMSS ISP drivers, these helpers are
+designed in a way that allows further generalization and extension
+into the V4L2 ISP framework.
 
-> +#define INTR_STATUS				0x0010
-> +
->  #define INTR_ENABLE				0x0014
->  #define MSI_CTRL_INT			BIT(11)
-> +#define RDLH_LINK_UP_INT		BIT(20)
-> +
-> +#define K3_PHY_AHB_IRQSTATUS_INTX		0x0008
-> +
-> +#define K3_PHY_AHB_IRQENABLE_SET_INTX		0x000c
-> +#define LEG_EP_INTERRUPTS		(BIT(6) | BIT(7) | BIT(8) | BIT(9))
+The driver is designed to support multiple processing contexts. At
+present, however, only a single context is instantiated, which is
+created on the first media-pipeline open. This keeps the implementation
+simple while ensuring the design is ready for forthcoming multi-context
+support at the V4L2/media framework level.
 
-Would be nicer to use "INTX" rather than "LEG" here since we use
-"INTX" in K3_PHY_AHB_IRQENABLE_SET_INTX, in the comments, etc.
+Since the OPE is a child node of the CAMSS device, the CAMSS driver
+is reworked to properly share and manage power-related resources,
+including power domains and common clocks.
 
-> +#define K3_PHY_AHB_IRQENABLE_SET_MSI		0x0014
-> +/* MSI defined as BIT(11) in existing INTR_ENABLE, reusing */
-> +
-> +#define K3_ADDR_INTR_STATUS1			0x0018
-> +
-> +#define K3_ADDR_INTR_ENABLE1			0x001C
+Graph:
+ope_input ----+
+              +--> ope_proc --> ope_disp --> ope_disp_output
+ope_params ---+
 
-You're using a mix of upper- and lower-case hex here.  Be consistent
-and match the existing code.
+Compliance: v4l2-compliance has been executed without any error on
+the media and video devices.
 
-Seems a little weird to have a mix of "IRQ" names (e.g.,
-K1_PHY_AHB_IRQ_EN, K3_PHY_AHB_IRQSTATUS_INTX,
-K3_PHY_AHB_IRQENABLE_SET_INTX) and "INTR" names (e.g., INTR_STATUS,
-INTR_ENABLE, K3_ADDR_INTR_STATUS1, K3_ADDR_INTR_ENABLE1) when I think
-they're really talking about the same concept.
+Testing: A camss-isp-m2m tool is available at
+https://github.com/loicpoulain/camss-isp-m2m-test
+The tool can be used to exercise and stress-test the OPE engine,
+as well as to observe performance and latency behavior under
+various operating conditions (resolution, format, buf count, etc).
 
-And why do the new K3 names have "ADDR" in the middle when the
-existing "INTR_ENABLE" names don't?  It's obvious these are addresses
-(well, actually I think they're *offsets*, but no need to be that
-detailed).
+./camss-isp-m2m -s 3840x2160 -n 5
 
-> +static int k3_pcie_init(struct dw_pcie_rp *pp)
-> +{
-> ...
-> +	val = dw_pcie_readl_dbi(pci, GEN3_EQ_CONTROL_OFF);
-> +	val &= ~(0xffff << 8);
-> +	val |= ((0x1 << 4) << 8);
+  Name                            Device            Dir       Type
+  --------------------------------------------------------------
+  ope_input                       /dev/video10      output    video
+  ope_params                      /dev/video11      output    meta
+  ope_disp_output                 /dev/video12      capture   video
+  ope_proc                        /dev/v4l-subdev13  -        subdev
+  ope_disp                        /dev/v4l-subdev14  -        subdev
 
-Can you use FIELD_MODIFY and some #defines here?
+Test: 3840x2160 RGGB -> 3840x2160 NV12  [5 frames]
+  Input   /dev/video10  3840x2160 RGGB  bpl=3840  size=8294400
+  Output  /dev/video12  3840x2160 NV12  bpl=5760  size=12441600
 
-> +	dw_pcie_writel_dbi(pci, GEN3_EQ_CONTROL_OFF, val);
-> +
-> +	/* Set the PCI vendor and device ID */
+Buffers:
+  /dev/video10    buf[0]  offset=0x00000000  length=8294400   VA=0xffffbcb87000
+  /dev/video11    buf[0]  offset=0x00000000  length=12441600  VA=0xffffbbfa9000
 
-Superfluous comment since the code is obvious.
+Streaming  5 frames...
+  seq=0      buf: in=0 out=0   14.833 ms  (67.4 fps)
+  seq=1      buf: in=0 out=0   14.874 ms  (67.2 fps)
+  seq=2      buf: in=0 out=0   14.902 ms  (67.1 fps)
+  seq=3      buf: in=0 out=0   14.960 ms  (66.8 fps)
+  seq=4      buf: in=0 out=0   14.896 ms  (67.1 fps)
 
-> +	dw_pcie_dbi_ro_wr_en(pci);
-> +	dw_pcie_writew_dbi(pci, PCI_VENDOR_ID, PCI_VENDOR_ID_SPACEMIT);
-> +	dw_pcie_writew_dbi(pci, PCI_DEVICE_ID, PCI_DEVICE_ID_SPACEMIT_K3);
-> +	dw_pcie_dbi_ro_wr_dis(pci);
-> +
-> +	/* Finally, as a workaround, disable ASPM L1 */
+Changes in v3:
+- Simplified camss_init_pm_clks()- no clk_get, no rate setting;
+- Added Assigned clock rate in devicetree for CAMSS AXI clock
+- Add Kernel Doc for camss-isp-bufq exported functions
+- Added description explaining the 2-cell for CAMSS bus
+- Reworked OPE media topology with intermediate ope_disp subdev
+- Support for crop and compose in ope_proc sink/source
+- Fixed Write Engine violation with some scaling config
+- Fixed input/output custom-stride issue (Hans)
+- Split uapi header (camss-config.h) into its own dedicated commit
+- Patch reordering to respect dependency in regards to ABI/dt-bindings introduction
+- Link to v2: https://lore.kernel.org/r/20260427-camss-isp-ope-v2-0-f430e7485009@oss.qualcomm.com
 
-I guess this means a device erratum?  It advertises L1 but it doesn't
-actually work?
+Changes in v2:
+- Not an RFC anymore
+- Move from v4l2-m2m to multi-devices design
+- Support for parameters
+- Helpers for pipeline, job scheduling, buf-queues
+- OPE as a child node of CAMSS
 
-> +	k1_pcie_disable_aspm_l1(k1);
+---
+Bryan O'Donoghue (1):
+      media: qcom: camss: Populate CAMSS child devices via DT
 
-> +static int k3_pcie_msi_host_init(struct dw_pcie_rp *pp)
-> +{
-> ...
-> +	val = dw_pcie_readl_dbi(pci, COHERENCY_CONTROL_3_OFF);
-> +	val |= (0xf << 11);
+Loic Poulain (14):
+      media: qcom: camss: Add PM clock support and integrate with runtime PM
+      media: qcom: camss: Add PM clock definitions for QCM2290
+      media: qcom: camss: Drop top_ahb/axi from QCM2290 subdevice clocks
+      media: qcom: camss: Add camss-isp-bufq helper
+      media: qcom: camss: Add camss-isp-sched helper
+      media: qcom: camss: Add camss-isp-pipeline helper
+      media: qcom: camss: Add V4L2 meta format for CAMSS ISP parameters
+      media: qcom: camss: Add camss-isp-params helper
+      dt-bindings: media: qcom: Add CAMSS Offline Processing Engine (OPE)
+      dt-bindings: media: qcom,qcm2290-camss: Add OPE ISP subnode
+      media: uapi: Add CAMSS ISP configuration definition
+      media: qcom: camss: Add CAMSS Offline Processing Engine driver
+      arm64: dts: qcom: agatti: Assigned clock rate for CAMSS AXI
+      arm64: dts: qcom: agatti: Add OPE node
 
-FIELD_MODIFY and some #defines here?
+ .../bindings/media/qcom,qcm2290-camss-ope.yaml     |  131 +
+ .../bindings/media/qcom,qcm2290-camss.yaml         |   13 +
+ arch/arm64/boot/dts/qcom/agatti.dtsi               |   73 +
+ drivers/media/platform/qcom/camss/Kconfig          |   32 +
+ drivers/media/platform/qcom/camss/Makefile         |   11 +
+ drivers/media/platform/qcom/camss/camss-isp-bufq.c |  101 +
+ drivers/media/platform/qcom/camss/camss-isp-bufq.h |  122 +
+ drivers/media/platform/qcom/camss/camss-isp-ope.c  | 3025 ++++++++++++++++++++
+ .../media/platform/qcom/camss/camss-isp-params.c   |   67 +
+ .../media/platform/qcom/camss/camss-isp-params.h   |   62 +
+ .../media/platform/qcom/camss/camss-isp-pipeline.c |  372 +++
+ .../media/platform/qcom/camss/camss-isp-pipeline.h |  230 ++
+ .../media/platform/qcom/camss/camss-isp-sched.c    |  223 ++
+ .../media/platform/qcom/camss/camss-isp-sched.h    |  174 ++
+ drivers/media/platform/qcom/camss/camss.c          |   67 +-
+ drivers/media/platform/qcom/camss/camss.h          |    1 +
+ drivers/media/v4l2-core/v4l2-ioctl.c               |    1 +
+ include/uapi/linux/camss-config.h                  |  115 +
+ include/uapi/linux/videodev2.h                     |    3 +
+ 19 files changed, 4807 insertions(+), 16 deletions(-)
+---
+base-commit: cb49dcae0241fb3ea59f42ce2edd69367784b51c
+change-id: 20260427-camss-isp-ope-4b575ffec2ed
 
-> +static int k3_pcie_start_link(struct dw_pcie *pci)
-> +{
-> +	struct k1_pcie *k1 = to_k1_pcie(pci);
-> +	u32 val;
-> +
-> +	k1_pcie_start_link(pci);
-> +
-> +	/* Enable INTx */
-> +	val = readl_relaxed(k1->link + K3_PHY_AHB_IRQENABLE_SET_INTX);
-> +	val |= LEG_EP_INTERRUPTS;
-> +	writel_relaxed(val, k1->link + K3_PHY_AHB_IRQENABLE_SET_INTX);
-> +
-> +	/* Enable MSI/MSIX specific to K3 */
+Best regards,
+-- 
+Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-s/MSIX/MSI-X/ to match spec usage.
-
-> +	val = readl_relaxed(k1->link + K3_ADDR_INTR_ENABLE1);
-> +	val |= (MSI_INT | MSIX_INT);
-> +	writel_relaxed(val, k1->link + K3_ADDR_INTR_ENABLE1);
-
-Generally speaking I think the interrupt setup belongs somewhere other
-than .start_link().  Usually .start_link() only enables LTSSM.
-
-> +	return 0;
-> +}
-
-> +static irqreturn_t k3_pcie_irq_thread(int irq, void *data)
-> +{
-> +	struct k1_pcie *k1 = data;
-> +	struct dw_pcie_rp *pp = &k1->pci.pp;
-> +	struct device *dev = k1->pci.dev;
-> +	u32 status0, status1, status2;
-> +
-> +	k3_pcie_clear_irq_status(k1, &status0, &status1, &status2);
-> +
-> +	writel_relaxed(status0, k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
-> +	writel_relaxed(status1, k1->link + INTR_STATUS);
-> +	writel_relaxed(status2, k1->link + K3_ADDR_INTR_STATUS1);
-> +
-> +	if (FIELD_GET(RDLH_LINK_UP_INT, status1)) {
-> +		msleep(PCIE_RESET_CONFIG_WAIT_MS);
-> +		/* Rescan the bus to enumerate endpoint devices */
-> +		pci_lock_rescan_remove();
-> +		pci_rescan_bus(pp->bridge->bus);
-
-This is the *only* driver that uses pci_rescan_bus() this way, which
-automatically makes it suspicous.  Maybe it's the first hardware that
-implements or is willing to use RDLH_LINK_UP_INT for this, but somehow
-I doubt it.
-
-> +		pci_unlock_rescan_remove();
-> +	} else if (!status0 && !status1 && !status2)
-> +		dev_WARN_ONCE(dev, true,
-> +			      "Received unknown event. status0=0x%08x status1=0x%08x status2=0x%08x\n",
-> +			      status0, status1, status2);
-> +
-> +	return IRQ_HANDLED;
-> +}
