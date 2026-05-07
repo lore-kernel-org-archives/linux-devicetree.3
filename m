@@ -1,240 +1,238 @@
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2120.outbound.protection.partner.outlook.cn [139.219.146.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362B61862A
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 01:03:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44EAD26AF4;
+	Thu,  7 May 2026 01:36:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.120
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778115792; cv=pass; b=HzWxjPwEHY6KwWcWQtOcOEdD6MKwu6RASq+9XdJAwkXUmPXTyZx04nbKBSZcvhfkFnQytUdNfDICCqyj54UE7sWOEpxX0XcvCZKAaO14uXqgrdJ3VG+yYvs2MBVLbY95JU4FUnkGc2IPUDCXE3XiBAYNFtP5hPb2wGd5Q4BmuPI=
+	t=1778117775; cv=fail; b=TY6NtxckyiUW731P+1Xq69IL/iOGlQ9diVsjXFye/ui6pHvoCEOTbAcGxANRvK3MS95F3ExT9EVlIC9ncBtMkA/Gzhdpl/H4j4B8LiUFhVk6fyWWibpkAus470OEjgNMtiJpm4tYbHI/pgFXfKcLs1oghvds84VjmZS2LnhyppU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778115792; c=relaxed/simple;
-	bh=FdBEVtvyyw7sh8L+kclplBQo9RYpBzbSBrmPVrU47iw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fYtlnKQTEVKziBZtEz4bPxQXUkXSaI0MoRgwlt/+luVrea4QhkrmNa60e8siVefjaEjiQOJPYn5CdX0UzyIS63DdAmbSKlE6kUUqPFkj6BXNIfKfDrwkpn8/hQ8xIs5LTkYlGYeGrlBFKgLS8q01iKgephNWWZyK+TSAQSX6QPc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TG1pXc45; arc=pass smtp.client-ip=209.85.161.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TG1pXc45"
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6967080e6c0so176221eaf.2
-        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 18:03:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778115790; cv=none;
-        d=google.com; s=arc-20240605;
-        b=B025oPRyqqsNOA+WDhRf46f4FPZCaAX+7m9E5r8SbEeOaYypWYreRO6oGs9Gj7+Bmd
-         tQXa0aJQt9MCYGm14EsUUsf2HiGvvnI81b6yKSudLwh25ULRpFba3hyaoGWAUgyC0E6m
-         p7jRNYqA4sc11sSZV6CmxEA2vtJ18Gd2vMLSTao4ZUm4/9SEARJhvJ68cE9TlyMKHVSZ
-         6ZgKUSUYYtzuMUClIJD05H/XOJSOjzFw+Up0kwekgrKYUoR75lbBNeSjueKaxk91w+aT
-         5QuYnqs5dXG3cR/0BsLIkVPDVmmn9Bl2cEbyKGdtrku74ZermexGdWr0zx8962CSrZLW
-         h2ZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BjCezK8EDBdoyp0R3o6exrU7QV1NCQnuUfyShKygXeQ=;
-        fh=29E8vUpbQLQSss6U1PTAQTB56MoL7huLRdG3H+Lg8Vg=;
-        b=fLc1/SsEJ2ygpqkbG7NA4IAvRql9NXUVnzVMHf2JecnOYLNsI9+XnW1wgRGR3IUiL9
-         NTmUICixvNNI5r/cTbh4RFTkcLfaYCM5dJ0j0DY9T+LDOZ2gU8rcuHf3NRaGFsPFVxOm
-         2/qdTFXMhXbVdtxUFkmf1XJJQV2FKwliPJ4YKjhfPdgnTEvPnqNvObtuk67Rwlyga2nl
-         BJsQ1sQaPLJMkqhYG5eNNlJtKz2/WcCRVEkG+0L6XjRLD2rT6oatdj/+RJjepemOHLGN
-         TTv4+08FdNq1RFRCI5wA7eNV6C7o0k8INj741k+sms7nZB7EZImFtkPdXKypJG+69CcM
-         kMlw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778115790; x=1778720590; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BjCezK8EDBdoyp0R3o6exrU7QV1NCQnuUfyShKygXeQ=;
-        b=TG1pXc457AwHMeHUQa2PuNddm4WyrfjYb2LUvWjvLHe7D9PAZWHDCLwS4fvTkyoNiU
-         BMJZEiF0OL5MFKOvv5K7Gi3U6tiPtX3dGWXet7D0W5SFNwyNcxcXu5SAHU6EZzsGa8cl
-         5yllvllrqGwTQDWUpCnU7OhfFM+XbKLgM0oxWMlrDugyHmxxnpoM+FTnjsJZdEvOBiNZ
-         aUOUdcG3iQNYeVz7IQcU0IJ6y0NpoTwvxhJP24znHg85Mcjt7gJX5E2fgP6M/nU2S3aJ
-         BtP6C/kLQB0FoYdlGCf3JIab0VrVXt0tpvm/bibs8LCNdJLfuPoJV9fz1M5Mv6jlntQ4
-         Zn8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778115790; x=1778720590;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=BjCezK8EDBdoyp0R3o6exrU7QV1NCQnuUfyShKygXeQ=;
-        b=JfTrrRSI7vpmfYTgH22zQ04C8EmdjtCIl0wdw4CjaFDfj2JSk2c+5mNbkdNDmVv/0K
-         emzGj14ZHHHI5xZ3S5GWRdG5dmg99f5V5CXX4tEowLqk5AWS/gy/tfTlV9POzp88ricX
-         gmKDGYUTtbKh7goLxrNbGdzG1DRxnbp+qFsGwztbCpjh7w09D+xCHAHEhKmaITRbyfug
-         xNFm/BZH1H4V2BIhTmqEwnkL6BEOJjJosHIjM/ji2i67DzgKJkRWqnIQslLMAWFTkLGG
-         c8UFbrD9dWo3VtyoZLJo6iNgr5pBt8xZhG2K1EbTBlKBeGJienLvSTF+Ss2+SCd9KLrA
-         oQRw==
-X-Forwarded-Encrypted: i=1; AFNElJ+W17+cyVxWJE3DvAk4fw7r/2dRn1JcCJKbtP1f6Pi3Sg914VLhwywXOoMMBl9r2SXifetbDi/RXXWa@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx3vklqK9Tht4y+R+ZjgcUB98U9Xxsu3SzrK8ZYVul+FHVqGNpF
-	cwZuPxQYsGkLW2NTyeNsmPTSUacGKibQsapikXW325Gojus9Jh2XBIAdP500JdRa8jsJbk12G0n
-	+6EQNa4bIy4X3KVUDIdt5GGvXPXaZPFw=
-X-Gm-Gg: AeBDies63wgSSiPGeftNZg68tpOrS4RZRo8+LhzIt2u9wtO2yP/8NNT7oDhNWHLgGzm
-	rs1nt/LyxbY/OV+rKA8qChnDlu60QCHz+VUGD+3in7Moh4NSVHx3z/kLKMw6Vvbzr+blACudtBw
-	hne9AobPxR4Yq1LalAIb/+AjkWSfBOzXN8n/1P+drxs6hxDWqo2Q9k2sq348uEKvMRACUJMJ8vw
-	zY6498Wd83/FZQ/3Ey6ePqDodvSetnexhQERnmqM06WdabIwhj2hXmEjrSh+Mn7dG5k5uwJUxD9
-	1y6zVxH1/0+/E9GcPQ==
-X-Received: by 2002:a05:6820:c2d0:10b0:699:a28b:18ed with SMTP id
- 006d021491bc7-699a28b1f15mr1399631eaf.48.1778115790055; Wed, 06 May 2026
- 18:03:10 -0700 (PDT)
+	s=arc-20240116; t=1778117775; c=relaxed/simple;
+	bh=gyr1GKNYt4lm9aOyAOfVesuF5DCUkXeJ0fhov4AXAj4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=UI/Pr2e4zZVsk8kxpcFnMrpK/QiFggSTiNFHN99aOFO/hEVmqtEg8yWp43dG6vtY4nefpwVWxjy7gCBg+u1ixMTHkOz7FqDOlS89p86D40S7gwBYwlXkp1FdZ00EBlOA5YCaN1Jn/FXFDyWTotgWGOnORRL1hMDQR1HTPaWQDNU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VNOuHvK0kjEIxuWblDtbliY9cY8tNhSkMS89PQuWVMYyVft+0vFIedOr1qFT5vFtuTaltkHUBpNYpsNvXojJdSlxxeHjw01Ci1o9BX0WcjADghyB5UPUfVFBQeL+KLYI4IBLepQLRJeo+8n+CK8h8/l3dnvmGNS4D8W2Yhoz0317UnWN7cLYqTTeDsYftdqmLDSOULHXpBKSVxsZ9Sc6tIpf7/9rnVcMWQYjjTxYnT1F3NYAMdMbapeQVNCpMUFHH8KOZTsqQ2O7Zl4Zrt+73Fs/I+jVJwH0GV7LVUhyzbDksrr+0D8lhX+l+/i6cuByB+sesHuTqw2SpLuoFPZzcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bsMAEFVOAfcGd9SZo2lEx3sqED85A6q4WINmvoB324s=;
+ b=fw2gmR8k/o1UfLmdQ1VqfPTNGk8lmUUSWMn65FdkFdnI7cMOhX/Xqs+dI327P7WsN93qhf5HzhIj1zZt2WZ/0YU8rjPDmJZ/oJ67u2zonkmPkj4RlpegdFS9ngepuV7BQF55MU7tjImbPY7Rs7d5TO5RVQ/tpvtvwr/WBT7QGr+/HA2hZ4lVdzdjWiGaI9Pz/5Pn0SoI8Sl5qW09hp8Zd1Cc0jwmdhVZnJSlc5zKFjwmDKaxxHjy5123CvpM1nj9p48oXpzIq48MsJ/foJvDWfcs8SYc3fKZN1ncsLQtT5vjWA64Zo+EQsXOYUet/TTZpx4tJEXnj6YiI7KmOF1Zfw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1331.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:16::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.16; Thu, 7 May
+ 2026 01:36:06 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%5])
+ with mapi id 15.20.9891.015; Thu, 7 May 2026 01:36:06 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Rob Herring <robh@kernel.org>
+CC: Guenter Roeck <linux@roeck-us.net>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v1 1/2] dt-bindings: hwmon: Add starfive,jhb100-fan-tach
+Thread-Topic: [PATCH v1 1/2] dt-bindings: hwmon: Add starfive,jhb100-fan-tach
+Thread-Index: AQHc1uhVBBxMuV54uku78jibDJpGKrYAQMIAgAGVKpA=
+Date: Thu, 7 May 2026 01:36:06 +0000
+Message-ID:
+ <ZQ4PR01MB12029EC472A080E254DC8444F23C2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+References: <20260428082337.743546-1-changhuang.liang@starfivetech.com>
+ <20260428082337.743546-2-changhuang.liang@starfivetech.com>
+ <20260506012556.GB248179-robh@kernel.org>
+In-Reply-To: <20260506012556.GB248179-robh@kernel.org>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1331:EE_
+x-ms-office365-filtering-correlation-id: 7589a3b4-6982-47c6-b3a2-08deabd90228
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|376014|366016|38070700021|56012099003|18002099003|22082099003|3023799003;
+x-microsoft-antispam-message-info:
+ bH/n8d6M0YTTVXvztPX4jL6NztCFUQrlJxtPxhBmmvlC7UDdt8wCxDUowR6hTluQAUn85FJDXZBNHt13HWWdgDr0nzY6UXaNs9G5/3MngDnJxRUYefHb8+4ck4lMgfbv/VYE9e5I4NdXQCC5xBtkXIbqf4k/yBoM6TkDrcFuroRQ6ts0KErE636fmqpyqvfxFdc1Ru/dMm42rDCSlf48nYVr/wOYGar4ciDuUF5dzpsmzgrm826oc9zvvVp/owve9PgvzGgX4f5ZjD2UzMG23AWKo3rtCU/TrcumuSqahzu+Ui8nrg3pGEzSQdWfsqtW5B0PT5k80D/9m6QqsQ7SQZo6PVTSafltyTL/iHBLForABCf2wijK5zw5WkOkJ06/0yEA7JhG6FlQ69g/baylwkGPw8LTM5z36Stl2xm5sXZ1OODV/v/h10z/suFqGXe7bWqRgZHvsPxrrJzbbES1TjIYYRY68wT3AVDpfJQ3GRDRlLG5ig3K7Or6ZUVibJkZ81Rdaxms25jXl6+FCKFmUg2Wzx7jugU9mtU2HtDEWo9vuf2RCuNsFKiiAv3z5RuF
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700021)(56012099003)(18002099003)(22082099003)(3023799003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?4qSKW36WrPL8PFt8D/Wq6HkmNR1ZrG/U6+xU0e+t+0/yHZaJHZQS9QOLiqVO?=
+ =?us-ascii?Q?hhYpwRdJ8tPSpQv3GUliwlYazmUXJ+r5TfPkRperm0O9NJ7aRUDjUGENyDXp?=
+ =?us-ascii?Q?+a7h3WhG5J1iPVshAd7pV2uAYC5Q9ESpYkejkmtLqZGim6yXqB3BcJXjKG2k?=
+ =?us-ascii?Q?hXrIKWVmV/5OdNwn2oHL2PIxFIttdtnHO7seAgdPDbG4u7hKbVAYQu8TByZm?=
+ =?us-ascii?Q?toukASDCL8mDGsmdHx61bq6jC1dO8TaFJ1w0YgLhzOz9q/wFUmsSml+Nh9ji?=
+ =?us-ascii?Q?XYY3toVeHLmnsj/EOlRzr76icsRgrOlzXYS7svaChEVLfnqPG9sIzZZQ4PVF?=
+ =?us-ascii?Q?ctAO/6RtbIWauMKyhwdoCR98mfwqqaKAtU5Sh4xCLZhI8O5NElL69IA7wpUo?=
+ =?us-ascii?Q?Phpcxf3R8GVSMP+yk3CBxcafNTOBCSqjEXg66UrJ+ETB8ffFp8KK0Hnd6Vmv?=
+ =?us-ascii?Q?YcAstcQIDUX43OBI0lAbWpODyhFCiItbPvc/ngUDTtdkueiDBU+kg8myjRd4?=
+ =?us-ascii?Q?seoq+cbJG1K6cNUPWDIp/M8Fn+7abgADXB3mtjJuwv1tQCB7wmxoDGq3zyY4?=
+ =?us-ascii?Q?31o62Rcr2aSpcZ1TQvgI3pWS4H2B39z9jMCmrPmt8ytiLjWIgybrZhEJcKDz?=
+ =?us-ascii?Q?kZ4bEAr8wuZV3mX4Mf3D6DpqQYuRJuIovnOHABhfMwQ+5dOJi1Oefs4MfiYN?=
+ =?us-ascii?Q?P3dvrOLQ17WO5v2vjfPSyoq+C0h9R+PRcp0Eukae9JDdzRaFamIjcTxedAVY?=
+ =?us-ascii?Q?kiBQlaVkQBHX3NzTxlBSSraAiYvhWzJnv8Fx923uhKTTHXGsWXH+9QSOcaaB?=
+ =?us-ascii?Q?nEFW65AX5hSvacXN/PgUqZ9bfFoXYpKXtWsS8efh6on62QsB4bx7vv6NfAI/?=
+ =?us-ascii?Q?/5JNmgFl50eFdcKZp1om2x/n9dIUWt7tHsLYY/VmTOfwyqA9T+irRd+6rut0?=
+ =?us-ascii?Q?p0hVIKAdWrl2B/7SLDbRH29VUw7AAZLqiHGZVdgiRwzj8ju0PBPymcV0T1QJ?=
+ =?us-ascii?Q?U5j5E63ITBZca+OUPKGDqdV6W7eQfNPl24wqjw1jz40/XTTHJhCig9rCRAMi?=
+ =?us-ascii?Q?6cCTzeJElEayb2ggjXKIgCeuvqItNGf5PVx3fpcVehEmGfolGeTiCpzGdS3X?=
+ =?us-ascii?Q?25sxmidymMK21rRunFfccsVVNVr5+I7ih2LK/NC+iS7KsrVG/Kj8jtgR+rHs?=
+ =?us-ascii?Q?sUJvRLqFcHQHmzBdhdx1AeDXTieX8Z4kIo0vUJXTSKgZ5rSf7KN4+F7nhBBb?=
+ =?us-ascii?Q?UFJiH8Sv2HVZNOYVW0kqAorTpnRsVzsQVaFakvJxbTXhEdvV+dJkbczg+ajM?=
+ =?us-ascii?Q?DpcWBf9TshDcF9GK/jKkdBDHoVQsazSUmNz9w8go9CPYhr9KLcsnBmt8Pbuv?=
+ =?us-ascii?Q?xTUrQX6v5hbc/I4h0vG90lxiL41Me8yCq8fC/c8BLltANV4L63xdnPSB40hN?=
+ =?us-ascii?Q?9EpEbk9wRoF/h2b+Rsjjc/giQxbDoHbCOg5dY+3hCmod72xWDI+6Z7Sd/+vv?=
+ =?us-ascii?Q?JyniweP3go0ckJ4orOdOcNFyT0dSl1GM+GtaRgCJxVOP/YLiduQAhiAM9swd?=
+ =?us-ascii?Q?UzGKPgGL3tA2aoGx7VF00Jqm5GJXs1L3qSUPmiHR/LsxKeF40nfM/LmPnIEm?=
+ =?us-ascii?Q?4z/xy/p60v9+dka780CXy8MFGOqwqe4ZGmTpn7aJeeO9H0vJxbEr9k5JYK4s?=
+ =?us-ascii?Q?x80aMLNm1jbOO4rw7Ar7iKwTv7jn4jytZjzX2Bg2nnKQJt6YAwqqprwDZGaO?=
+ =?us-ascii?Q?U589b50KCahMKMX0PyczB97pvoauF80=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260506095100.78998-1-syyang@lontium.com> <20260506095100.78998-3-syyang@lontium.com>
- <zcteqdnovguyiae22jnittje4au5pcohdcyga5l5wk42v5rczk@5x2qs7x5tfq7>
-In-Reply-To: <zcteqdnovguyiae22jnittje4au5pcohdcyga5l5wk42v5rczk@5x2qs7x5tfq7>
-From: =?UTF-8?B?5p2o5a2Z6L+Q?= <yangsunyun1993@gmail.com>
-Date: Thu, 7 May 2026 09:02:58 +0800
-X-Gm-Features: AVHnY4L319oQnDxPhs9arzb739HJx0OKlznkXMgo9epR6XZx-sxEJjzfi2uAB9w
-Message-ID: <CAFQXuNYLZrMCzneK3Lk827vExheBmjzoAw=Wm+u34RxWfFXLdg@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: syyang@lontium.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
-	maarten.lankhorst@linux.intel.com, rfoss@kernel.org, mripard@kernel.org, 
-	Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se, 
-	jernej.skrabec@gmail.com, devicetree@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com, 
-	xbpeng@lontium.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7589a3b4-6982-47c6-b3a2-08deabd90228
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 May 2026 01:36:06.5168
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: W+Ari0/lKy7ugS5LDbrbWaozvv/8aypb3FpS6/EMC1rCBUOgR6hWww4kSd0N+EicHCCKAE3ZdSjQVNwKACrAoXE9CBtavzYouiX3TE27abm6yhefaSo4lzKhc5EuqAr1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1331
 
-Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B4=
-5=E6=9C=887=E6=97=A5=E5=91=A8=E5=9B=9B 04:06=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Wed, May 06, 2026 at 05:51:00PM +0800, syyang@lontium.com wrote:
-> > From: Sunyun Yang <syyang@lontium.com>
+Hi, Rob
+
+Thanks for the review.
+
+> On Tue, Apr 28, 2026 at 01:23:36AM -0700, Changhuang Liang wrote:
+> > Add compatible "starfive,jhb100-fan-tach" for StarFive JHB100 Fan-Tach
+> > controller.
 > >
-> > LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual por=
-t
-> > mipi dsi and output hdmi, differences in hardware features:
-> > - LT9611C: supports 1-port mipi dsi to hdmi 1.4
-> > - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
-> > - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
-> >
-> > Signed-off-by: Sunyun Yang <syyang@lontium.com>
+> > Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
 > > ---
-> >  drivers/gpu/drm/bridge/Kconfig           |   18 +
-> >  drivers/gpu/drm/bridge/Makefile          |    1 +
-> >  drivers/gpu/drm/bridge/lontium-lt9611c.c | 1211 ++++++++++++++++++++++
-> >  3 files changed, 1230 insertions(+)
-> >  create mode 100644 drivers/gpu/drm/bridge/lontium-lt9611c.c
+> >  .../hwmon/starfive,jhb100-fan-tach.yaml       | 98
+> +++++++++++++++++++
+> >  1 file changed, 98 insertions(+)
+> >  create mode 100644
+> > Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-tach.yaml
 > >
-> > diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kc=
-onfig
-> > index c3209b0f4678..32b85a2a65d9 100644
-> > --- a/drivers/gpu/drm/bridge/Kconfig
-> > +++ b/drivers/gpu/drm/bridge/Kconfig
-> > @@ -177,6 +177,24 @@ config DRM_LONTIUM_LT9611
-> >         HDMI signals
-> >         Please say Y if you have such hardware.
+> > diff --git
 > >
-> > +config DRM_LONTIUM_LT9611C
-> > +     tristate "Lontium LT9611C DSI/HDMI bridge"
-> > +     select SND_SOC_HDMI_CODEC if SND_SOC
-> > +     depends on OF
-> > +     select CRC8
-> > +     select FW_LOADER
-> > +     select DRM_PANEL_BRIDGE
-> > +     select DRM_KMS_HELPER
-> > +     select DRM_MIPI_DSI
-> > +     select DRM_DISPLAY_HELPER
-> > +     select DRM_DISPLAY_HDMI_STATE_HELPER
-> > +     select REGMAP_I2C
-> > +     help
-> > +       Driver for Lontium DSI to HDMI bridge
-> > +       chip driver that converts dual DSI and I2S to
-> > +       HDMI signals
-> > +       Please say Y if you have such hardware.
-> > +
-> >  config DRM_LONTIUM_LT9611UXC
-> >       tristate "Lontium LT9611UXC DSI/HDMI bridge"
-> >       select SND_SOC_HDMI_CODEC if SND_SOC
-> > diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/M=
-akefile
-> > index beab5b695a6e..92688be9692f 100644
-> > --- a/drivers/gpu/drm/bridge/Makefile
-> > +++ b/drivers/gpu/drm/bridge/Makefile
-> > @@ -16,6 +16,7 @@ obj-$(CONFIG_DRM_ITE_IT6505) +=3D ite-it6505.o
-> >  obj-$(CONFIG_DRM_LONTIUM_LT8912B) +=3D lontium-lt8912b.o
-> >  obj-$(CONFIG_DRM_LONTIUM_LT9211) +=3D lontium-lt9211.o
-> >  obj-$(CONFIG_DRM_LONTIUM_LT9611) +=3D lontium-lt9611.o
-> > +obj-$(CONFIG_DRM_LONTIUM_LT9611C) +=3D lontium-lt9611c.o
-> >  obj-$(CONFIG_DRM_LONTIUM_LT9611UXC) +=3D lontium-lt9611uxc.o
-> >  obj-$(CONFIG_DRM_LONTIUM_LT8713SX) +=3D lontium-lt8713sx.o
-> >  obj-$(CONFIG_DRM_LVDS_CODEC) +=3D lvds-codec.o
-> > diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm=
-/bridge/lontium-lt9611c.c
+> a/Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-tach.yam
+> > l
+> >
+> b/Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-tach.yam
+> > l
 > > new file mode 100644
-> > index 000000000000..3131f4a32dfd
+> > index 000000000000..fdc8539ec804
 > > --- /dev/null
-> > +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-> > @@ -0,0 +1,1211 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +/*
-> > + * Copyright (C) 2026 Lontium Semiconductor, Inc.
-> > + */
+> > +++
+> b/Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-tach
+> > +++ .yaml
+> > @@ -0,0 +1,98 @@
+> > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause %YAML 1.2
+> > +---
+> > +$id:
+> > +http://devicetree.org/schemas/hwmon/starfive,jhb100-fan-tach.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > > +
-> > +#include <linux/crc8.h>
-> > +#include <linux/firmware.h>
-> > +#include <linux/gpio/consumer.h>
-> > +#include <linux/i2c.h>
-> > +#include <linux/interrupt.h>
-> > +#include <linux/media-bus-format.h>
-> > +#include <linux/module.h>
-> > +#include <linux/mutex.h>
-> > +#include <linux/of_graph.h>
-> > +#include <linux/platform_device.h>
-> > +#include <linux/regmap.h>
-> > +#include <linux/regulator/consumer.h>
-> > +#include <drm/drm_atomic_helper.h>
-> > +#include <drm/drm_bridge.h>
-> > +#include <drm/drm_connector.h>
-> > +#include <drm/drm_drv.h>
-> > +#include <drm/drm_edid.h>
-> > +#include <drm/drm_mipi_dsi.h>
-> > +#include <drm/drm_modes.h>
-> > +#include <drm/drm_of.h>
-> > +#include <drm/drm_print.h>
-> > +#include <drm/drm_probe_helper.h>
-> > +#include <drm/display/drm_hdmi_audio_helper.h>
-> > +#include <drm/display/drm_hdmi_state_helper.h>
-> > +#include <sound/hdmi-codec.h>
+> > +title: StarFive JHB100 Fan-Tach controller
 > > +
-> > +#define FW_SIZE (64 * 1024)
-> > +#define LT_PAGE_SIZE 256
-> > +#define FW_FILE  "lt9611c_fw.bin"
->
-> So, this file doesn't have any subdir (like all other Lontium firmware
-> files), but then you submit a file to linux-firmware with the Lontium/
-> subdir. Could you please settle on one location?
->
-In the next version of the driver (v5),
-I will use  #define FW_FILE "Lontium/lt9611c_fw.bin".
+> > +maintainers:
+> > +  - Changhuang Liang <changhuang.liang@starfivetech.com>
+> > +
+> > +description:
+> > +  The StarFive Fan-Tach controller can support up to 16 fan tach input=
+.
+> > +
+> > +properties:
+> > +  compatible:
+> > +    enum:
+> > +      - starfive,jhb100-fan-tach
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  clocks:
+> > +    maxItems: 1
+> > +
+> > +  resets:
+> > +    maxItems: 1
+> > +
+> > +  interrupts:
+> > +    maxItems: 1
+> > +
+> > +  '#address-cells':
+> > +    const: 1
+> > +
+> > +  '#size-cells':
+> > +    const: 0
+> > +
+> > +patternProperties:
+> > +  "^fan@[0-9]+$":
+>=20
+> Unit-addresses are hex.
+>=20
+> > +    $ref: fan-common.yaml#
+> > +    unevaluatedProperties: false
+> > +    required:
+> > +      - reg
+> > +      - tach-ch
+>=20
+> You need constraints on the 'reg' values. Also, what does 'reg'
+> represent in this case?
 
-> > +#define LT9611C_CRC_POLYNOMIAL 0x31
-> > +#define LT9611C_PAGE_CONTROL 0xff
-> > +
->
-> [...]
->
-> > +
-> > +static const struct drm_bridge_funcs lt9611c_bridge_funcs =3D {
-> > +     .attach =3D lt9611c_bridge_attach,
-> > +     .detect =3D lt9611c_bridge_detect,
-> > +     .edid_read =3D lt9611c_bridge_edid_read,
-> > +     .atomic_enable =3D lt9611c_bridge_atomic_enable,
->
-> There is .atomic_enable, but no atomic state management here. Was it
-> actually tested?
->
-we will fix in next version.
+"reg" is only used to distinguish between different fan instances.
 
+>=20
 > > +
->
-> --
-> With best wishes
-> Dmitry
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - clocks
+> > +  - resets
+> > +  - interrupts
+> > +
+> > +additionalProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    fan-tach-controller@11be0000 {
+> > +        compatible =3D "starfive,jhb100-fan-tach";
+> > +        reg =3D <0x11be0000 0x400>;
+> > +        interrupts =3D <128>;
+> > +        clocks =3D <&per2crg 33>;
+> > +        resets =3D <&per2crg 5>;
+> > +        #address-cells =3D <1>;
+> > +        #size-cells =3D <0>;
+> > +
+> > +        fan@0 {
+> > +            reg =3D <0>;
+> > +            tach-ch =3D /bits/ 8 <0x0>, <0x8>;
+>=20
+> How do you have 1 fan with 2 tach signals?
+
+On our platform, two fans share one PWM channel. It seems there was a misun=
+derstanding earlier.
+I will change it to the form of one tach per fan.
+
+Best Regards,
+Changhuang
