@@ -1,57 +1,35 @@
 Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4085A348896;
-	Thu,  7 May 2026 08:18:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59DD8382397;
+	Thu,  7 May 2026 08:18:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778141899; cv=none; b=KgtDsNY2nHhg86PHXVrqt7vK9hSYsm4qbKklZqUZSV1AAJ+Etbby6l3S2kMNrvcWB6mwRGxdEJdak6TCrPWpwEqqtMwjO4/56DaNjXK3JGKq3sVmGy8X6jnkrb+tx51A07V238SqpEYo1gEMxyfYA+jUdySjpIemGMFJk8BV6O4=
+	t=1778141901; cv=none; b=EjrREvWYx53XvZ1n9huEhEBSltf2iuwUlU54f9OUc6hrLvJ/1TWIkBbMGprlXderryPxc6yCkVhtKx2g/lXnWaa7CjpekHHPIEFrvjqhlO1qRfqjlvqhqxzdWqYNhiys6m1aEwn5nAJzmI0zbow9H809wZafLhYNaC+pYbS2UJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778141899; c=relaxed/simple;
-	bh=7mE1dpU9KkgvRMIHdBTERWW++zAfnJ/tNiKZYPFkIhI=;
+	s=arc-20240116; t=1778141901; c=relaxed/simple;
+	bh=JBYr+BhvTaDlh8ZAuU2RX2I1ndmD3ivRFf7adDPcbJI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ksJaVC04GEbOMpcLtDNwH/Ya2+yG77T/KgP8PC6bwh/+uMywiQwJ2YdrpiNsPNsIPbnY4SHUOdRsTOj9RH+xhDkg7ZH86sprfoUz+W7mmo/9BgkdJK2AhWsWeQ1dTSQ1gVvJsKMndJ8c3b7TIp5Dt7TxzobYOPlRHgVw2B0aflc=
+	 MIME-Version; b=IkiqX05oUhhOPrNbH6ZHlvS5vRU2IaokmtiNm0CkEM9Owf60zH6XLMvCZTVxKZ6NKc0Kr2FeQM+Yi7n7r0Bb46ZY7a0HFchSN4zoyB0b03u8ode4ZhAYwCbqgUJXKaSdEv/f0hPWWIgsk0viIztq7rTar+l4VWmW+JnFmud56MQ=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.82])
-	by APP-03 (Coremail) with SMTP id rQCowAC3m+KLSvxpI_pNEA--.42168S8;
-	Thu, 07 May 2026 16:17:28 +0800 (CST)
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Drew Fustini <fustini@kernel.org>,
-	Guo Ren <guoren@kernel.org>,
-	Fu Wei <wefu@redhat.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Jisheng Zhang <jszhang@kernel.org>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-riscv@lists.infradead.org,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
+Received: from localhost.localdomain (unknown [111.196.245.140])
+	by APP-03 (Coremail) with SMTP id rQCowAD32uHGSvxpM_1NEA--.16716S3;
+	Thu, 07 May 2026 16:18:14 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>
+Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-usb@vger.kernel.org,
-	Icenowy Zheng <uwu@icenowy.me>,
-	Han Gao <rabenda.cn@gmail.com>,
-	Yao Zi <ziyao@disroot.org>,
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: [PATCH 06/12] riscv: dts: thead: add device nodes for USB
-Date: Thu,  7 May 2026 16:17:04 +0800
-Message-ID: <20260507081710.4090814-7-zhengxingda@iscas.ac.cn>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260507081710.4090814-1-zhengxingda@iscas.ac.cn>
-References: <20260507081710.4090814-1-zhengxingda@iscas.ac.cn>
+	Pengpeng Hou <pengpeng@iscas.ac.cn>
+Subject: [PATCH v3 2/2] drivers/of: validate status properties in reconfig state changes
+Date: Thu,  7 May 2026 16:18:11 +0800
+Message-ID: <20260507081812.91838-2-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260507081812.91838-1-pengpeng@iscas.ac.cn>
+References: <20260417223003.1-drivers-of-live-tree-v2-pengpeng@iscas.ac.cn>
+ <20260507081812.91838-1-pengpeng@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -59,84 +37,84 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAC3m+KLSvxpI_pNEA--.42168S8
-X-Coremail-Antispam: 1UD129KBjvJXoW7tF4xWryDXFW5Jr15Cr43Awb_yoW8ZF4kpw
-	47CrZ3ArsagFsa9anIyr1jgFs3XF4rCF1vgFnFka48CrsagrWjvrWxKa1fZFW8Jrs7Zw43
-	CFyUK340kr1qyw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmS14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
-	kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
-	z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
-	4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq
-	3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7
-	IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4U
-	M4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2
-	kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkE
-	bVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67
-	AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI
-	42IY6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF
-	4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBI
-	daVFxhVjvjDU0xZFpf9x0pRQJ5wUUUUU=
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+X-CM-TRANSID:rQCowAD32uHGSvxpM_1NEA--.16716S3
+X-Coremail-Antispam: 1UD129KBjvJXoW7CFyxAFy7KFWkJry7Xw48tFb_yoW8ur15pF
+	Wjvw4Yg3yUJrWrGa9rtw1ruF9xKr1ktFWxtF9rtw1UZ3WYga45AF17JryYgrn8Cr95Z3y5
+	Ja1xuFyDGa1jkr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
+	x26xkF7I0E14v26r1Y6r1xM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+	Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr1j6rxdM2
+	8EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2AI
+	xVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20x
+	vE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xv
+	r2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r126r1DMx
+	AIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_
+	Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwI
+	xGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWx
+	JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcV
+	C2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VU1U3ktUUUUU==
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-The TH1520 SoC contains a Synopsys DesignWare Cores SuperSpeed USB3.0
-Dual Role Device controller in addition to a USB2+USB3 combo PHY based
-on Synopsys USB3.0 FemtoPHY.
+Live-tree reconfiguration properties also carry raw values plus explicit
+lengths. `of_reconfig_get_state_change()` currently treats `status`
+property values as NUL-terminated strings and feeds them straight into
+`strcmp()`.
 
-Add device tree nodes for them. The USB controller is quite generic, new
-and properly configured during silicon design, but the PHY is a little
-quirky.
+Factor the `"okay"` / `"ok"` check out into a helper that first verifies
+that the property contains a bounded C string within `prop->length`.
+Malformed `status` updates should be treated as not enabling the node.
 
-Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 ---
- arch/riscv/boot/dts/thead/th1520.dtsi | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+Changes since v2:
+- no code change; carried with patch 1/2
 
-diff --git a/arch/riscv/boot/dts/thead/th1520.dtsi b/arch/riscv/boot/dts/thead/th1520.dtsi
-index c9930e63bbe93..a6a3e114d0d2f 100644
---- a/arch/riscv/boot/dts/thead/th1520.dtsi
-+++ b/arch/riscv/boot/dts/thead/th1520.dtsi
-@@ -316,6 +316,20 @@ uart0: serial@ffe7014000 {
- 			status = "disabled";
- 		};
+Changes since v1:
+- no change; carried in v2 because patch 1/2 was reworked
+
+ drivers/of/dynamic.c | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/of/dynamic.c b/drivers/of/dynamic.c
+index 1a06175def37..efee59ed371a 100644
+--- a/drivers/of/dynamic.c
++++ b/drivers/of/dynamic.c
+@@ -74,6 +74,20 @@ static const char *action_names[] = {
+ 	[OF_RECONFIG_UPDATE_PROPERTY] = "UPDATE_PROPERTY",
+ };
  
-+		usb: usb@ffe7040000 {
-+			compatible = "snps,dwc3";
-+			reg = <0xff 0xe7040000 0x0 0x10000>;
-+			interrupts = <68 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk_misc CLK_USB>,
-+				 <&clk_misc CLK_USB_CTL_REF>,
-+				 <&clk_misc CLK_USB_SUSPEND>;
-+			clock-names = "bus_early", "ref", "suspend";
-+			resets = <&rst_misc TH1520_RESET_ID_USB3_VCC>;
-+			phys = <&usb_phy>;
-+			phy-names = "usb3-phy";
-+			status = "disabled";
-+		};
++static bool of_property_status_ok(const struct property *prop)
++{
++	const char *status;
 +
- 		gmac1: ethernet@ffe7060000 {
- 			compatible = "thead,th1520-gmac", "snps,dwmac-3.70a";
- 			reg = <0xff 0xe7060000 0x0 0x2000>, <0xff 0xec004000 0x0 0x1000>;
-@@ -540,6 +554,19 @@ clk_misc: clock-controller@ffec02c100 {
- 			#clock-cells = <1>;
- 		};
++	if (!prop || !prop->value || prop->length <= 0)
++		return false;
++
++	status = prop->value;
++	if (strnlen(status, prop->length) >= prop->length)
++		return false;
++
++	return !strcmp(status, "okay") || !strcmp(status, "ok");
++}
++
+ #define _do_print(func, prefix, action, node, prop, ...) ({	\
+ 	func("changeset: " prefix "%-15s %pOF%s%s\n",		\
+ 	     ##__VA_ARGS__, action_names[action], node,		\
+@@ -135,11 +149,9 @@ int of_reconfig_get_state_change(unsigned long action, struct of_reconfig_data *
  
-+		usb_phy: phy@ffec030000 {
-+			compatible = "thead,th1520-usb-phy";
-+			reg = <0xff 0xec030000 0x0 0x10000>;
-+			clocks = <&clk_misc CLK_USB>,
-+				 <&clk_misc CLK_USB_PHY_REF>;
-+			clock-names = "bus", "ref";
-+			resets = <&rst_misc TH1520_RESET_ID_USB3_APB>,
-+				 <&rst_misc TH1520_RESET_ID_USB3_PHY>;
-+			reset-names = "bus", "phy";
-+			#phy-cells = <0>;
-+			status = "disabled";
-+		};
-+
- 		rst_vp: reset-controller@ffecc30000 {
- 			compatible = "thead,th1520-reset-vp";
- 			reg = <0xff 0xecc30000 0x0 0x14>;
+ 	if (prop && !strcmp(prop->name, "status")) {
+ 		is_status = 1;
+-		status_state = !strcmp(prop->value, "okay") ||
+-			       !strcmp(prop->value, "ok");
++		status_state = of_property_status_ok(prop);
+ 		if (old_prop)
+-			old_status_state = !strcmp(old_prop->value, "okay") ||
+-					   !strcmp(old_prop->value, "ok");
++			old_status_state = of_property_status_ok(old_prop);
+ 	}
+ 
+ 	switch (action) {
 -- 
-2.52.0
+2.50.1 (Apple Git-155)
 
