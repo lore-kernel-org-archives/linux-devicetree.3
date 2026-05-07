@@ -1,218 +1,111 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E8CA3612EF;
-	Thu,  7 May 2026 12:10:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778155859; cv=none; b=HWkj3ZjeNdvXyyPmCXlJxmzXmruKfiN5EZ00ZnQTzXOKxur9BUfP7/1TsXg7WRbF1GPMJPalxch+Ks5/PyVTZ8op32rIqS3g6XTT3wO7L7nKRg0Guu2o/qVWlbzgTDmvi9fR34rTMJaKprM45KguqTNcFXtdQeSpPMmQJPemlzc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778155859; c=relaxed/simple;
-	bh=oW6Hq/f1c7nnHXSKe5TyzvPoJWvyESTNg7fUl48Rog0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I9GwbBmCyBG+S70MEavCh2KKZ7dLYdjspSzMaE//ZUio9tHf5cgk/2XU6LBM7wajs6Aentlx3fEpxnDTqkaUBK8czd0j8O9VoK6Di7UiVlFHa20eqa0CQ3DgNqB9kKYo9Ri5qu7TwtmDhFhzODHYnpjPbuVAWa2d30BenAyv0mk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=c7r7tsUr; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=2B4U11ne; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0193399375;
+	Thu,  7 May 2026 12:12:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778155963; cv=pass; b=EwErx0395Aff2PBa2j72t0X3LA4KeR/d+8YsWgzBu/bvv0lsSkcleDV5KgLPyyYdsE/TRQK+lXWuTer/yJqG9ZFvyNZPREKfZ0Rux6QwkjMkWLMo5dKdRVPquHyM9wcmQVHlo761P+AZWh73DB5AUDfDTx7m0UMQWMo2Lz5F13o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778155963; c=relaxed/simple;
+	bh=KGezB8CFKk6umGZCllHLAZYg1/rr7fGfklybicq5nXo=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=AdrYoHbaD6hmPhRMSp9LtI1Aff2PP2STFo7D6pHPscoxyAZw4U4rNkqyH9Wt6WP9jLVbzkYExofKCXWt0Pl9MqmsD3JEusdoPgQpeHBs511U1UlMk1Hqkpu4/1hU3xNHTG13eNQI3Ok2Vb9n5XS6jbsx64MrB9XLImrzrTMmWSg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b=Z25JEbRA; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="c7r7tsUr";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="2B4U11ne"
-Date: Thu, 7 May 2026 14:10:55 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1778155856;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Qnf2eLwM4+kE1SjnDabjK0264s7bGpHMEasvI8tC1Ds=;
-	b=c7r7tsUr+Mfn7uVXgPj25HKQLHBzCNoekFyQiZXMf9vpnnC7aSUpxkjtoxqd6D0WH4jzBX
-	tXNdLFEjtfE9OC7V8T4mYEcwq+Z8Mmhx6uW2eSLLfhOhFJPxRgNUU0y0sBEINT2RVYTQPa
-	vgtA1S/RoqlF1oGRauLvJL1oEZFX14qwi1iTSB5TORowjkRN3+efCwLU0wIrK1xtHfSwmY
-	unYA4Ck2+7vvlqT+tR+s0Fq6P34lc5L6vDl9QOIcikVDoP2grQ+O1Jb0ryCbKTLlq+Y6Te
-	bsqA8NJ4R0NE94B2qcNQMhAiWmyfaupEkPlLCpGsgT/E93eEfmxZZdpua7S4BQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1778155856;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Qnf2eLwM4+kE1SjnDabjK0264s7bGpHMEasvI8tC1Ds=;
-	b=2B4U11ne735cTdYGVFsZmWhT33/A2bEvWvslomWiaABRO5XjhPyBKUVz9sM6dpIIjg9GWw
-	1WCO/shUNfdNgMCA==
-From: Gregor Herburger <gregor.herburger@linutronix.de>
-To: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
-	Scott Branden <sbranden@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
-	Srinivas Kandagatla <srini@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v3 0/4] nvmem: Add Raspberry Pi OTP nvmem driver
-Message-ID: <gbc67d5odk7d4l3rl66dsyeqazuidfiogfsteiwey53jr47tnu@auterzljztgh>
-References: <20260506-rpi-otp-driver-v3-0-294602663695@linutronix.de>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b="Z25JEbRA"
+ARC-Seal: i=1; a=rsa-sha256; t=1778155922; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=SDqglZccFbVPk9LWQ0GXBIIjb5MTR7/+sA4n+fjXZXzD2J20OQUNcGzzI8P2ThMpfbxK0suJSqw8KJoBxUETcpz+Zc1EsGX5POHky3de0r5e5g2HHPRZpf/A66O4+k6/I53xMY74F7R0YsQ7AfWTkzcr6RKxCUardLqYkuBWWMo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1778155922; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=ZrnqX96u+Flxd2Q9FYBoadC2ai7BMu/bBuPcHTaRBc8=; 
+	b=LYk7OweCiBXGFeROcxl94OQydGvYw21aGDkgLo+D1qZw4lSgNAKmsD4LBq99l0c5nxOdVNjUcxb0ZORrKWKRllaWvWOfa0SAtujSYSDKZH9OzQ6BH22mvkJUimyAsUyQzusXbCKMgQ88pUXTz/BGOjLc2qrjZW5lRU70bdIpoIM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=louisalexis.eyraud@collabora.com;
+	dmarc=pass header.from=<louisalexis.eyraud@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1778155922;
+	s=zohomail; d=collabora.com; i=louisalexis.eyraud@collabora.com;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=ZrnqX96u+Flxd2Q9FYBoadC2ai7BMu/bBuPcHTaRBc8=;
+	b=Z25JEbRAuz4jHpuHjKB0FLBVYYQUt9rboPSOl82e/pL+qjfex4RSH2vRvdYw63Ix
+	zq4cfxq08lheqbLqpsL6cC/SUNOrT3BXqQr9WSwsjFWj+f5KbYlmn6rw960vb09NAzS
+	ER90yeFBhvryN8yxHZfczpNpOZdDwFMWxNGocsm4=
+Received: by mx.zohomail.com with SMTPS id 1778155920789528.3783773258275;
+	Thu, 7 May 2026 05:12:00 -0700 (PDT)
+Message-ID: <9f569ba00b959b701a7a51bcd7347c1a108a15ee.camel@collabora.com>
+Subject: Re: [PATCH net-next v2 3/4] net: phy: air_phy_lib: Factorize
+ BuckPBus register accessors
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>,  Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley	
+ <conor+dt@kernel.org>, AngeloGioacchino Del Regno	
+ <angelogioacchino.delregno@collabora.com>, Heiner Kallweit	
+ <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	kevin-kw.huang@airoha.com, macpaul.lin@mediatek.com,
+ matthias.bgg@gmail.com, 	kernel@collabora.com, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, 	linux-kernel@vger.kernel.org
+Date: Thu, 07 May 2026 14:11:54 +0200
+In-Reply-To: <3bd7803d-4c4a-4f61-9434-a6bf25627b58@lunn.ch>
+References: 
+	<20260326-add-airoha-an8801-support-v2-0-1a42d6b6050f@collabora.com>
+	 <20260326-add-airoha-an8801-support-v2-3-1a42d6b6050f@collabora.com>
+	 <3bd7803d-4c4a-4f61-9434-a6bf25627b58@lunn.ch>
+Organization: Collabora Ltd
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260506-rpi-otp-driver-v3-0-294602663695@linutronix.de>
+X-ZohoMailClient: External
 
-Hi,
+Hi=C2=A0Andrew,
 
-replying to sashiko
+On Thu, 2026-03-26 at 13:30 +0100, Andrew Lunn wrote:
+> > @@ -480,8 +287,8 @@ static int en8811h_wait_mcu_ready(struct
+> > phy_device *phydev)
+> > =C2=A0{
+> > =C2=A0	int ret, reg_value;
+> > =C2=A0
+> > -	ret =3D air_buckpbus_reg_write(phydev, EN8811H_FW_CTRL_1,
+> > -				=C2=A0=C2=A0=C2=A0=C2=A0 EN8811H_FW_CTRL_1_FINISH);
+> > +	ret =3D air_phy_buckpbus_reg_write(phydev,
+> > EN8811H_FW_CTRL_1,
+> > +				=09
+> > EN8811H_FW_CTRL_1_FINISH);
+>=20
+> Is a rename required? Is the namespace air_buckpbus_ used somewhere
+> else?
+>=20
+> 	Andrew
+Sorry for the delay.
 
->commit ee93b9620650bb02f494ab88ef4e18464c95770f
->Author: Gregor Herburger <gregor.herburger@linutronix.de>
->nvmem: Add the Raspberry Pi OTP driver
->This commit adds a new nvmem driver to support OTP registers on Raspberry Pi
->platforms. It accesses the OTP memory through the videocore firmware
->interface.
->> diff --git a/drivers/nvmem/raspberrypi-otp.c b/drivers/nvmem/raspberrypi-otp.c
->> new file mode 100644
->> index 0000000000000..1edf2d5538d04
->> --- /dev/null
->> +++ b/drivers/nvmem/raspberrypi-otp.c
->> @@ -0,0 +1,120 @@
->[ ... ]
->> +struct rpi_otp_priv {
->> +	struct rpi_firmware *fw;
->> +	struct device *dev;
->> +	u32 read_tag;
->> +	u32 write_tag;
->> +};
->> +
->> +struct rpi_otp_header {
->> +	__le32 start;
->> +	__le32 count;
->> +	__le32 data[] __counted_by(count);
->Is the __counted_by attribute safe to use with explicitly endian types?
->On big-endian architectures (which are supported via COMPILE_TEST), the
->native bounds checking logic will evaluate the byte-swapped __le32 value as a
->massive integer (e.g., a count of 1 evaluates to 16777216).
->Does this unintentionally bypass the bounds checking defenses?
+The air_buckpbus_ namespace is only used in the air_en8811h driver.
+It seemed better to me that in the new air_phy_lib, all functions (the
+buckpbus accessors and air_phy_read/write_page functions) started with
+the same prefix. That is the reason I renamed them, even if not
+required.
 
-Yes that is right on compile tests on big-endian it will bypass the run time
-check. I can use the __counted_by_le() macro to disable it on big-endian and
-keep it on little-endian.
+As an alternative, to avoid renaming those buckpbus function calls on
+air_en8811h driver and reduce this patch changes, I can add macros at
+the beginning of the file such as:
+```
+#define air_buckpbus_reg_write(_phydev, _pbus_address, _pbus_data) \
+	air_phy_buckpbus_reg_write(_phydev, _pbus_address, _pbus_data)
+```
 
->> +};
->> +
->> +static int rpi_otp_read(void *context, unsigned int offset, void *buf, size_t bytes)
->> +{
->> +	struct rpi_otp_priv *priv = context;
->> +	struct rpi_otp_header *fwbuf;
->> +	u32 count = bytes / 4;
->> +	int ret;
->> +
->> +	fwbuf = kzalloc(struct_size(fwbuf, data, count), GFP_KERNEL);
->Could an unaligned length request cause an out-of-bounds write here?
->If a caller requests an unaligned length (e.g., bytes = 3), count truncates
->to 0, allocating an 8-byte structure.
+Would it be okay?
 
-I first thought that alignment is checked in the nvmem system (with
-nvmem_device::stride and nvmem_device::word_size)  but that is only true for
-sysfs accesses. The nvmem_device_read/nvmem_device_write functions call directly
-into the callback function of the driver. I guess there should be an alignment
-check in this functions as well.
-
-For now I will add an alignment check into my functions.
-
->> +	if (!fwbuf)
->> +		return -ENOMEM;
->> +
->> +	fwbuf->start = cpu_to_le32(offset / 4);
->> +	fwbuf->count = cpu_to_le32(count);
->> +
->> +	ret = rpi_firmware_property(priv->fw, priv->read_tag, fwbuf,
->> +				    sizeof(struct rpi_otp_header) + bytes);
->> +	if (ret)
->> +		goto out;
->> +
->> +	memcpy(buf, fwbuf->data, bytes);
->With an unaligned bytes request, would this memcpy write past the bounds of
->the 0-count fwbuf array? 
->Should there be an explicit alignment check for bytes and offset at the start
->of the function?
-
-Yes see above.
-
->> +
->> +out:
->> +	kfree(fwbuf);
->> +	return ret;
->> +}
->> +
->> +static int rpi_otp_write(void *context, unsigned int offset, void *val, size_t bytes)
->> +{
->> +	struct rpi_otp_priv *priv = context;
->> +	struct rpi_otp_header *fwbuf;
->> +	u32 count = bytes / 4;
->> +	int ret;
->> +
->> +	fwbuf = kzalloc(struct_size(fwbuf, data, count), GFP_KERNEL);
->> +	if (!fwbuf)
->> +		return -ENOMEM;
->> +
->> +	fwbuf->start = cpu_to_le32(offset / 4);
->> +	fwbuf->count = cpu_to_le32(count);
->> +	memcpy(fwbuf->data, val, bytes);
->Similarly, could this memcpy write out-of-bounds if bytes is not aligned to
->a 4-byte boundary?
-
-Yes see above.
-
->> +
->> +	ret = rpi_firmware_property(priv->fw, priv->write_tag, fwbuf,
->> +				    sizeof(struct rpi_otp_header) + bytes);
->> +
->> +	kfree(fwbuf);
->> +	return ret;
->> +}
->> +
->> +static int rpi_otp_probe(struct platform_device *pdev)
->> +{
->> +	struct device *dev = &pdev->dev;
->> +	struct nvmem_device *nvmem;
->> +	struct rpi_otp_priv *priv;
->> +	const struct rpi_otp_driver_data *data;
->> +	struct nvmem_config config = {
->> +		.read_only = false,
->> +		.word_size = 4,
->> +		.stride = 4,
->> +		.reg_read = rpi_otp_read,
->> +		.reg_write = rpi_otp_write,
->> +		.id = NVMEM_DEVID_NONE,
->> +	};
->> +
->> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
->> +	if (!priv)
->> +		return -ENOMEM;
->> +
->> +	data = dev_get_platdata(dev);
->> +	if (!data)
->> +		return -ENODEV;
->> +
->> +	priv->fw = dev_get_drvdata(dev->parent);
->> +	priv->dev = dev;
->> +	priv->read_tag = data->read_tag;
->> +	priv->write_tag = data->write_tag;
->> +	config.dev = dev;
->> +	config.priv = priv;
->> +	config.name = data->name;
->> +	config.size = data->size;
->> +
->> +	nvmem = devm_nvmem_register(dev, &config);
->Does this devres usage introduce a use-after-free risk during device unbind?
->If an in-kernel consumer holds a reference to the nvmem device,
->devm_nvmem_unregister() drops its refcount but returns while the consumer's
->reference keeps the device alive.
->The devres framework will then proceed to free the priv structure.
->If the consumer subsequently calls nvmem_device_read(), will it dereference
->the freed priv pointer inside rpi_otp_read()?
-
-Wow good catch. This took me a while to understand but i guess it can indeed
-cause an use-after-free error error for in-kernel consumers. I will look into
-it.
+Best regards,
+Louis-Alexis
