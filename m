@@ -1,379 +1,224 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E6739479B;
-	Thu,  7 May 2026 08:18:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778141923; cv=none; b=JvM4gIggePp12lz2V0g/t2qi2m/J9oo0D3/M/osA/iv5gzJpK+d5oq5Q/w1agFREaw6OBW1pdEX7aKi/dWhQtapA5F4oyB7geIY+CrqxQCUixyM7sQGRCl26p9J7jsTcY7oxyl33JbrlT45snAmCX2vBiKta/5ChIL3lH83ouXU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778141923; c=relaxed/simple;
-	bh=h7sTvISkUYumragki0w7tNE4xYJN84l/i451JPt25iI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LH8EvkOp4kLCO1Nkc3oPX4NiY/V7s576+8BoaQkyDMy4K+MWxULCGzPNQExtRiMATDTlcctALOLTcgtkDjTMFb7VpV9vTfgZSYNxIsKc2bpfWn9qB9nYBchwkPAj3zGjWMf/rA7khmbdF4yb2vFNEsUPbultq7trXAiTezjyJZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.82])
-	by APP-03 (Coremail) with SMTP id rQCowAC3m+KLSvxpI_pNEA--.42168S14;
-	Thu, 07 May 2026 16:17:42 +0800 (CST)
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Drew Fustini <fustini@kernel.org>,
-	Guo Ren <guoren@kernel.org>,
-	Fu Wei <wefu@redhat.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Jisheng Zhang <jszhang@kernel.org>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-riscv@lists.infradead.org,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-usb@vger.kernel.org,
-	Icenowy Zheng <uwu@icenowy.me>,
-	Han Gao <rabenda.cn@gmail.com>,
-	Yao Zi <ziyao@disroot.org>,
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: [PATCH 12/12] riscv: dts: thead: enable USB3 ports on Lichee Pi 4A
-Date: Thu,  7 May 2026 16:17:10 +0800
-Message-ID: <20260507081710.4090814-13-zhengxingda@iscas.ac.cn>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260507081710.4090814-1-zhengxingda@iscas.ac.cn>
-References: <20260507081710.4090814-1-zhengxingda@iscas.ac.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4632E3783BE
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 08:20:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778142021; cv=pass; b=RLrJV6xQg4yZN6iOwlwONqkSSZIVUjKiFY+vDmRzj73iMl9uwjNfKiMCMcaeGZAEk9ypnjfYVsfT5p80oaabyo32qPj73+fy22BFS5lcNfypQ2ukyVyqyUleJcMqoCeZ2qOiCQ4Ai41+R5cMKBtVk61wsAbOyxBj9BsXhy+CN8E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778142021; c=relaxed/simple;
+	bh=wajiAQ3MdgD5qZ4qOwSJHk+gv8ufR8tUJYp4k5ntU6I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rXtOxJ6PKBOCMC/ATfaddq7Ga+KzGX1NUIKxKESTegxZzATVPeKyMfSQrVjOc0HKLKOsMMNt4dikfXaHYaUDYE/dXmY1LXFtS9WhRCFOHXY5xrK/2Q16mz8VKaUfr7HUOZgzWYD8IAFo0nNEgJbqSLBtn/Puc2jOJJVbKcdpdnc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=ayDfjjBL; arc=pass smtp.client-ip=209.85.161.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="ayDfjjBL"
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-662efd1bdd4so329673eaf.0
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 01:20:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778142018; cv=none;
+        d=google.com; s=arc-20240605;
+        b=NZ5Xg2LpplIVMU22r5gHrvL+RpqN++MEQGxZos91biXlqQ0A9ZUD32cA3YrhyFYH7H
+         fouJV90W4vWFdGPDLUFzNy3NJleMw5/m5W1cW6k03lBc3Lr7MglcyZVUc0HywcQvFA9r
+         CIOCzUo6Pvrp9I24pZmSnl238PYQoIG+EkF4On0lqtYbxLCQ/zq1MMVtKKDTGfTuZ2qk
+         y8mJg2BGUj/zEr+18Bn+terw+mZVwOO80k/jgdK/r5cJha5nqEwU5SjOXNhdhFhKoY2J
+         TMF8HdI6FF9PfmEiwTwal7DdNgm2xG0+FeTmd2fNYZQXL5oS6wxTa6voG80E9RQPTZ+E
+         b7Vg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bWYx5HG66i84XevwfveNmgHdFOQmLx/UvaTFzQl0TiU=;
+        fh=xgTKGLk9Ptae1bdXHqVJQqfG5FNhzQ/9NDjRAWfnfLc=;
+        b=JKz+JGDjlPSOxGxIZM/xwm6dNvoxFD7aX85ZcnV7zwc/iGAv5Zp3Dz4YIk6z6uULy4
+         hI2wRry1buyPgukYms8XC+QZB8Gn6o7YKGqSOMun5gOxVgLG32DyEG24cE6aq3WGGwET
+         nqiXjzIHA86cEIP9SE3v9DodskFDk+13LL+Bw2bl89naUk2mPbBMpyrev3Iq+d9TWqnt
+         4ml+4gm2aIlRgT4ALtBszPc5mukUYxzIUYtc66VjbdU/UFln7/R9NQthDaDFnc1RzROr
+         xqHsFGWBY0Q9Sfze+7EyeYEPhKp3vZpfRMfe5CmffaoYZna5cMd1hbJC63WDK1U4Upj0
+         bO7g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amarulasolutions.com; s=google; t=1778142018; x=1778746818; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bWYx5HG66i84XevwfveNmgHdFOQmLx/UvaTFzQl0TiU=;
+        b=ayDfjjBLlFqLnlZ0PnS5UgOxLtf0PqVoGoJBhpp/7IRF9Nl80kDbMCQEK6cESOII4J
+         t7Jh0oH1qxI9pmhW9AaB31Ak2Oy4I1RTg1fP3y70J7uOTy0UNeyp1XjBjVnlIL0OZ15D
+         BcMbzujuM+vLaRpagHbfk0W6mZsQZy9k1HZxc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778142018; x=1778746818;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=bWYx5HG66i84XevwfveNmgHdFOQmLx/UvaTFzQl0TiU=;
+        b=IHO8SZmNTqragoG2y+JThEuOYGHBrsT3C2MBhxzZtNjnbsbCO74LwAlQ8bvcx4TAnW
+         0lALifGwLx0VUPqDl+7+Jk5aRoUXkG6OTDPtSJdGIgZJv9fI9XhlIfPmjp2tJds9n29c
+         NeKK7ZeA1rRrhdfZRxAbCjAqwRj9AeMwFRgRnQ3g9U708ifFRBYAWCRhya190E/2GDVm
+         hGunZBulCHuk0unxB/3y3t7IWa1PEvxFEyW2gtitMsm4rBgYZeB/W9eDRkcUF2/B20nv
+         mVNyQ8xo9XuOcsu87U5EmSgwU2E1I8s5hJx+QjkmuzptJxbAi0UrgRSbxEv1K4bIbL5I
+         sLkg==
+X-Forwarded-Encrypted: i=1; AFNElJ95cCAq/BQLo/lDFZh3cbIwGaNlC9jt+IqXdkYHT0TP/NzwRPJJuKhiZNxi8xrQQGtvS79G5eXT8JGG@vger.kernel.org
+X-Gm-Message-State: AOJu0YwNOOG7g8ibYtXyyve304zVJn8FJg6Y7/J7kq4sQXfT+6p0GgUZ
+	thU+7iipXGE38Jh2NTSODv95U/2AenTw+yUKihiKL2K5QsmV+FhXID3WV2Gbm6KUNfOTHAK6k9G
+	PMFVm81GYMwhn50no5jwmOzwpglrNhIbAHJXMy1QOgQ==
+X-Gm-Gg: AeBDies60HhOuYDY2N1Mg+ehbqub9PPpKLAYl/t+91oqnFAx4vfuMEoXv3r6caf61xV
+	UOBBKYG3SBb2EkHGS3u0vA/UNwGmyNweNpUjG1+i+/J2XxYh0NgNEtF0ZdrkqYfRobUAxI/5aXZ
+	vmTw4h+gHsDT4PloRCa8dphLI/DtigKvCUn9KXNV/HTkBi/bwOi2ns6hTnoFmYB/ubcvci770/U
+	JBZslKHnFOrVKFwmtMzni9gs0s56FkUU581qqZ4jOh3NCykx1Es07DgB+64HRSNGMkAaAxPzCSB
+	ZzXv7EMF/p4ObfUFyZwo3S/+/eWRmfxr7pPsiWm1kwqQ2vtXgw0=
+X-Received: by 2002:a4a:e60a:0:b0:684:5e35:6091 with SMTP id
+ 006d021491bc7-699ab62b9fbmr808519eaf.26.1778142017994; Thu, 07 May 2026
+ 01:20:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAC3m+KLSvxpI_pNEA--.42168S14
-X-Coremail-Antispam: 1UD129KBjvJXoWxuw1rWw15ZF1rXr4xWF1fXrb_yoW7Cr4Dp3
-	ZxCFsY9FWrCryUKw43Zryvqa15Grs5ua4kCr15GryUA3y7XFZrK34SyFsYyF1kJF4xX3sI
-	yr4DZr1Iqr17K3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUma14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
-	kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
-	z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr1j6r
-	xdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0D
-	M2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjx
-	v20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1l
-	F7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2
-	IY04v7MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY
-	6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17
-	CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6ryUMIIF
-	0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCw
-	CI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsG
-	vfC2KfnxnUUI43ZEXa7sRiHUDtUUUUU==
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+References: <20260413-orangepi-sd-card-uhs-v8-0-c21c40ec16d0@gmail.com> <20260413-orangepi-sd-card-uhs-v8-8-c21c40ec16d0@gmail.com>
+In-Reply-To: <20260413-orangepi-sd-card-uhs-v8-8-c21c40ec16d0@gmail.com>
+From: Margherita Milani <margherita.milani@amarulasolutions.com>
+Date: Thu, 7 May 2026 10:20:06 +0200
+X-Gm-Features: AVHnY4L7xr25tCAps8SxEp-5ZjcE9EGySyy8fEWRsxHZhWT1U2K2LtQjEajPjlU
+Message-ID: <CA+Xcp4nY9GVMOmtMG-PNhY2vqP4Cc_amAMSa+M3vuDjWUkuCHw@mail.gmail.com>
+Subject: Re: [PATCH v8 8/9] riscv: dts: spacemit: k1-bananapi-f3: add SD card
+ support with UHS modes
+To: Iker Pedrosa <ikerpedrosam@gmail.com>
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>, Troy Mitchell <troy.mitchell@linux.dev>, 
+	Michael Opdenacker <michael.opdenacker@rootcommit.com>, 
+	Javier Martinez Canillas <javierm@redhat.com>, linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Anand Moon <linux.amoon@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The Lichee Pi 4A board features an onboard VIA VL817 hub connected to
-the SoC's USB3 as upstream and 4 USB-3.0-capable Type-A ports as
-downstream.
+Good morning Iker,
 
-Enable SoC USB3 and the hub on Lichee Pi 4A.
+> Add complete SD card controller support with UHS high-speed modes.
+>
+> - Enable sdhci0 controller with 4-bit bus width
+> - Configure card detect GPIO with inversion
+> - Connect vmmc-supply to buck4 for 3.3V card power
+> - Connect vqmmc-supply to aldo1 for 1.8V/3.3V I/O switching
+> - Add dual pinctrl states for voltage-dependent pin configuration
+> - Support UHS-I SDR25, SDR50, and SDR104 modes
 
-Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
----
- .../dts/thead/th1520-lichee-module-4a.dtsi    |  15 ++
- .../boot/dts/thead/th1520-lichee-pi-4a.dts    | 231 ++++++++++++++++++
- 2 files changed, 246 insertions(+)
 
-diff --git a/arch/riscv/boot/dts/thead/th1520-lichee-module-4a.dtsi b/arch/riscv/boot/dts/thead/th1520-lichee-module-4a.dtsi
-index 8e76b63e0100a..bfda5a6b56b8f 100644
---- a/arch/riscv/boot/dts/thead/th1520-lichee-module-4a.dtsi
-+++ b/arch/riscv/boot/dts/thead/th1520-lichee-module-4a.dtsi
-@@ -20,6 +20,16 @@ memory@0 {
- 		device_type = "memory";
- 		reg = <0x0 0x00000000 0x2 0x00000000>;
- 	};
-+
-+	/* TODO: Switch to AON regulator when it's available. */
-+	avdd33_usb3: regulator-avdd33-usb3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "AVDD33_USB3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		/* Marked as always on on the schematics */
-+		regulator-always-on;
-+	};
- };
- 
- &osc {
-@@ -202,3 +212,8 @@ &sdio0 {
- 	max-frequency = <198000000>;
- 	status = "okay";
- };
-+
-+&usb_phy {
-+	avdd33-usb3-supply = <&avdd33_usb3>;
-+	status = "okay";
-+};
-diff --git a/arch/riscv/boot/dts/thead/th1520-lichee-pi-4a.dts b/arch/riscv/boot/dts/thead/th1520-lichee-pi-4a.dts
-index 354f3893aa8cf..de38f1f457e6b 100644
---- a/arch/riscv/boot/dts/thead/th1520-lichee-pi-4a.dts
-+++ b/arch/riscv/boot/dts/thead/th1520-lichee-pi-4a.dts
-@@ -4,6 +4,7 @@
-  */
- 
- #include "th1520-lichee-module-4a.dtsi"
-+#include <dt-bindings/gpio/gpio.h>
- 
- / {
- 	model = "Sipeed Lichee Pi 4A";
-@@ -97,6 +98,141 @@ fan: pwm-fan {
- 		cooling-levels = <0 66 196 255>;
- 	};
- 
-+	hub_5v: regulator-hub-5v {
-+		compatible = "regulator-fixed";
-+		regulator-name = "HUB_5V";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		gpio = <&ioexp3 3 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	vcc5v_usb: regulator-vcc5v-usb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VCC5V_USB";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		gpio = <&gpio1 22 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		/*
-+		 * Workaround for Linux currently being not able to power on
-+		 * Vbus for USB Type-A connectors.
-+		 */
-+		regulator-always-on;
-+	};
-+
-+	connector-usb-a-1 {
-+		compatible = "usb-a-connector";
-+		vbus-supply = <&vcc5v_usb>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				usb_a_1_hs_ep: endpoint {
-+					remote-endpoint = <&hub_hs_port1_ep>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				usb_a_1_ss_ep: endpoint {
-+					remote-endpoint = <&hub_ss_port1_ep>;
-+				};
-+			};
-+		};
-+	};
-+
-+	connector-usb-a-2 {
-+		compatible = "usb-a-connector";
-+		vbus-supply = <&vcc5v_usb>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				usb_a_2_hs_ep: endpoint {
-+					remote-endpoint = <&hub_hs_port2_ep>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				usb_a_2_ss_ep: endpoint {
-+					remote-endpoint = <&hub_ss_port2_ep>;
-+				};
-+			};
-+		};
-+	};
-+
-+	connector-usb-a-3 {
-+		compatible = "usb-a-connector";
-+		vbus-supply = <&vcc5v_usb>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				usb_a_3_hs_ep: endpoint {
-+					remote-endpoint = <&hub_hs_port3_ep>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				usb_a_3_ss_ep: endpoint {
-+					remote-endpoint = <&hub_ss_port3_ep>;
-+				};
-+			};
-+		};
-+	};
-+
-+	connector-usb-a-4 {
-+		compatible = "usb-a-connector";
-+		vbus-supply = <&vcc5v_usb>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				usb_a_4_hs_ep: endpoint {
-+					remote-endpoint = <&hub_hs_port4_ep>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				usb_a_4_ss_ep: endpoint {
-+					remote-endpoint = <&hub_ss_port4_ep>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&aogpio {
-+	/* Route USB2 to the onboard hub for normal operation */
-+	sel-usb-hub-hog {
-+		gpio-hog;
-+		gpios = <4 GPIO_ACTIVE_HIGH>;
-+		output-high;
-+	};
- };
- 
- &dpu {
-@@ -262,3 +398,98 @@ &uart0 {
- 	pinctrl-0 = <&uart0_pins>;
- 	status = "okay";
- };
-+
-+&usb {
-+	dr_mode = "host";
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	status = "okay";
-+
-+	hub_hs: hub@1 {
-+		compatible = "usb2109,2817";
-+		reg = <1>;
-+		peer-hub = <&hub_ss>;
-+		vdd-supply = <&hub_5v>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				hub_hs_port1_ep: endpoint {
-+					remote-endpoint = <&usb_a_1_hs_ep>;
-+				};
-+			};
-+
-+			port@2 {
-+				reg = <2>;
-+
-+				hub_hs_port2_ep: endpoint {
-+					remote-endpoint = <&usb_a_2_hs_ep>;
-+				};
-+			};
-+
-+			port@3 {
-+				reg = <3>;
-+
-+				hub_hs_port3_ep: endpoint {
-+					remote-endpoint = <&usb_a_3_hs_ep>;
-+				};
-+			};
-+
-+			port@4 {
-+				reg = <4>;
-+
-+				hub_hs_port4_ep: endpoint {
-+					remote-endpoint = <&usb_a_4_hs_ep>;
-+				};
-+			};
-+		};
-+	};
-+
-+	hub_ss: hub@2 {
-+		compatible = "usb2109,817";
-+		reg = <2>;
-+		peer-hub = <&hub_hs>;
-+		vdd-supply = <&hub_5v>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				hub_ss_port1_ep: endpoint {
-+					remote-endpoint = <&usb_a_1_ss_ep>;
-+				};
-+			};
-+
-+			port@2 {
-+				reg = <2>;
-+
-+				hub_ss_port2_ep: endpoint {
-+					remote-endpoint = <&usb_a_2_ss_ep>;
-+				};
-+			};
-+
-+			port@3 {
-+				reg = <3>;
-+
-+				hub_ss_port3_ep: endpoint {
-+					remote-endpoint = <&usb_a_3_ss_ep>;
-+				};
-+			};
-+
-+			port@4 {
-+				reg = <4>;
-+
-+				hub_ss_port4_ep: endpoint {
-+					remote-endpoint = <&usb_a_4_ss_ep>;
-+				};
-+			};
-+		};
-+	};
-+};
--- 
-2.52.0
+Tested-by: Margherita Milani <margherita.milani@amarulasolutions.com>
 
+However I noticed it only works when CONFIG_I2C_K1 is enabled.
+Michael Opdenacker told me it's necessary to enable the regulators
+used by the mmc controller.
+Should we add the dependency between CONFIG_MMC_SDHCI_OF_K1 and
+CONFIG_I2C_K1? (Unless some boards don't have these dependency?)
+Thank you for your patchset which was really nice!
+
+--=20
+Margherita Milani
+Embedded Software Engineer
+M. +39 334 758 9111
+margherita.milani@amarulasolutions.com
+__________________________________
+
+Amarula Solutions SRL
+Via le Canevare 30, 31100, Treviso, Veneto, IT
+T. +39 (0)42 243 5310
+info@amarulasolutions.com
+www.amarulasolutions.com
+
+On Mon, Apr 13, 2026 at 10:05=E2=80=AFAM Iker Pedrosa <ikerpedrosam@gmail.c=
+om> wrote:
+>
+> Add complete SD card controller support with UHS high-speed modes.
+>
+> - Enable sdhci0 controller with 4-bit bus width
+> - Configure card detect GPIO with inversion
+> - Connect vmmc-supply to buck4 for 3.3V card power
+> - Connect vqmmc-supply to aldo1 for 1.8V/3.3V I/O switching
+> - Add dual pinctrl states for voltage-dependent pin configuration
+> - Support UHS-I SDR25, SDR50, and SDR104 modes
+>
+> This enables full SD card functionality including high-speed UHS modes
+> for improved performance.
+>
+> Suggested-by: Anand Moon <linux.amoon@gmail.com>
+> Tested-by: Anand Moon <linux.amoon@gmail.com>
+> Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
+> ---
+>  arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts | 24 +++++++++++++++++++=
++++--
+>  1 file changed, 22 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv=
+/boot/dts/spacemit/k1-bananapi-f3.dts
+> index 5790d927b93d..a7d88564630f 100644
+> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+> @@ -220,7 +220,7 @@ buck3_1v8: buck3 {
+>                                 regulator-always-on;
+>                         };
+>
+> -                       buck4 {
+> +                       buck4: buck4 {
+>                                 regulator-min-microvolt =3D <500000>;
+>                                 regulator-max-microvolt =3D <3300000>;
+>                                 regulator-ramp-delay =3D <5000>;
+> @@ -241,7 +241,7 @@ buck6 {
+>                                 regulator-always-on;
+>                         };
+>
+> -                       aldo1 {
+> +                       aldo1: aldo1 {
+>                                 regulator-min-microvolt =3D <500000>;
+>                                 regulator-max-microvolt =3D <3400000>;
+>                                 regulator-boot-on;
+> @@ -367,3 +367,23 @@ hub_3_0: hub@2 {
+>                 reset-gpios =3D <&gpio K1_GPIO(124) GPIO_ACTIVE_LOW>;
+>         };
+>  };
+> +
+> +&sdhci0 {
+> +       pinctrl-names =3D "default", "uhs";
+> +       pinctrl-0 =3D <&mmc1_cfg>;
+> +       pinctrl-1 =3D <&mmc1_uhs_cfg>;
+> +       bus-width =3D <4>;
+> +       cd-gpios =3D <&gpio K1_GPIO(80) GPIO_ACTIVE_HIGH>;
+> +       cd-inverted;
+> +       broken-cd;
+> +       no-mmc;
+> +       no-sdio;
+> +       disable-wp;
+> +       cap-sd-highspeed;
+> +       vmmc-supply =3D <&buck4>;
+> +       vqmmc-supply =3D <&aldo1>;
+> +       sd-uhs-sdr25;
+> +       sd-uhs-sdr50;
+> +       sd-uhs-sdr104;
+> +       status =3D "okay";
+> +};
+>
+> --
+> 2.53.0
+>
+>
+
+
+--=20
+Margherita Milani
+Embedded Software Engineer
+M. +39 334 758 9111
+margherita.milani@amarulasolutions.com
+__________________________________
+
+Amarula Solutions SRL
+Via le Canevare 30, 31100, Treviso, Veneto, IT
+T. +39 (0)42 243 5310
+info@amarulasolutions.com
+www.amarulasolutions.com
