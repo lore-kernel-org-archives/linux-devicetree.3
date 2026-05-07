@@ -1,301 +1,154 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49E112F1FC9;
-	Thu,  7 May 2026 21:36:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAE3311C01;
+	Thu,  7 May 2026 21:43:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778189793; cv=none; b=g1OSlTEzTFXtesEO2SJg5r16cjNyPteWywwOxkJ2Pe2wkpF0QfiZcRyZrV9adGWxvXPNZptcEk2gLWum0I9NUXK97mO+bC3phE98uwwxtRxFjXuVNpFhVb6An509qz5vDvgP1Th9baESmwYNUGAlynykRnL2TmCHzkTabUMRM0E=
+	t=1778190215; cv=none; b=lEpNvFtibXW9n/C/C2X19aG4bThhNTg+Xzjrkv+cufU6f/GUjWyQn1MM1gKhBm7ATDQBVambulrMjx0z/I+tXolANUxoMOZEgpqvdxdfp2O6uxo9U2M/HYR3rWC9XPbxdo1TaARL5cOYxorZl7Wfhxr6Gd9STOXY2+yVLMabUNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778189793; c=relaxed/simple;
-	bh=p8BgNvjIw9XM568/P9xc8rYhcRi/3guX3yg9ZaYeUGk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TWwRj2GKavHFj0eM5w+rxdrfKSL6Dzmh2Vnz2dwiU8pSjINrUF/Dm28w6Pe5QfpD0+4+yIAYDCUFA/bMLDyCWoFfW/fNBxh260uQubRYI0CRgRh2YsJDb0G/T5XV2GzD4MwYhTHGDaevXuwipJtl57oROEmStQqUFxsVB4Zwt48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=hid+k1D5; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=DHVO4ux1; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1778190215; c=relaxed/simple;
+	bh=KHrf8YgswpY3hORqbxfvT8V0brsmocrfLNLz1JNUyTg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=q0GwlwuHO5oeWGhiGeFrdLasIfwljG0+7kLsZOqHWbHiIedhEXfjOnWg5f3w3jz6+d0/CgfQ8OMP78w8gKfhMV+2EUMxt+z/Tus337naShob9irgo179I/haa+gpsE1kspvrQG9uB8dECdYIXdg5VisR+det0CJD7wM/kupEpGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=eaatdxi3; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="hid+k1D5";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="DHVO4ux1"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4gBQYR6z4vz9vHM;
-	Thu,  7 May 2026 23:36:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1778189788;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aN/MoGo/0OBj5lX14oDE14F1c1D7CB1rzMZQxCCROZQ=;
-	b=hid+k1D5ogrx5G1lWd7pUQ9CoVlwl9a/2OZM8TPGYYY64ydMa9M+cAHol5Vq69qSY1wD+w
-	c3OAPMLqyGmMPyPaDWwjVQHxfyfrcof9UdlEiKt6pQzfnI7grBUM6NQO6VooYzKrHhMV96
-	zoHb/KRQ44q8MEKR9XMkWRyHcGJRqfuoWyxLIq2/bYM9VeOHNLkK7BzxqL0Zi3ATWfy90O
-	KH2bp7vOzWUHfEaE+caQun7dox5w3HvaVjaHVm31R4oP/LyBgg13gYNlkRuC405HG0/STE
-	U6v54wENsDBgOwzNkT4dAjaTFanls6nJ46k1Yp5ruhNpN9Y3VvUGcNO8aA/+dA==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=DHVO4ux1;
-	spf=pass (outgoing_mbo_mout: domain of marek.vasut@mailbox.org designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=marek.vasut@mailbox.org
-Message-ID: <fa28c6fe-484c-4133-824e-649c52ef2200@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1778189786;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aN/MoGo/0OBj5lX14oDE14F1c1D7CB1rzMZQxCCROZQ=;
-	b=DHVO4ux1H/KOBsyRCO1LJQTL1AsPUk6OH15mgKVB2SR719sbrwLhBqkf0pJwNw2F/u1RCY
-	Xh1DXe05bHIeDCthuo/tmzyeZJtI0jKnm+R5/Shf7GM1aYMEdaOVfuFuScpklPu/EERepj
-	WEeEsEZSS5pAUtOnT0ZsMV0HHcOMRPseJ0+gxoKKrlx/0cgy5HwKejkeo2dHciYNIzAMtL
-	cTPHYXxVywmd6sldoy8hVdioPDpoqEbYQwLRSTBb44R31vSLBkcInog6QLffxaDN1cK24L
-	LRq2M1TQQWvGGxiol6tiquQp8uS+EokFt+VaF15ueTD/H8i6t7cxAoubvrvsBQ==
-Date: Thu, 7 May 2026 23:36:17 +0200
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="eaatdxi3"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=aX36hdB/vSHiUML6vh4mSgGpvQJsS+iDpluEkRtR6aE=; b=ea
+	atdxi3jr/eOn1JZiw5IZVBQjFj2PpSS0+PANzy7hG8LX3Cof1djFbbSkIoFJKTsaNiESIybpaHIIe
+	buaeR2RXDSAyOuFwT5gM/AM+ocltCTsm9NhZjsJHbKdR5+QZuKl6QS5yDCxRxujASK7zvvB9tHBCI
+	S7vBzmszdEb7zrQ=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wL6V6-001s5C-G8; Thu, 07 May 2026 23:43:20 +0200
+Date: Thu, 7 May 2026 23:43:20 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, kevin-kw.huang@airoha.com,
+	macpaul.lin@mediatek.com, matthias.bgg@gmail.com,
+	kernel@collabora.com, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2 4/4] net: phy: Introduce Airoha AN8801/R
+ Gigabit Ethernet PHY driver
+Message-ID: <27ca6b71-18df-4e47-9117-0e503f7e7d5f@lunn.ch>
+References: <20260326-add-airoha-an8801-support-v2-0-1a42d6b6050f@collabora.com>
+ <20260326-add-airoha-an8801-support-v2-4-1a42d6b6050f@collabora.com>
+ <3688a285-7f98-4afa-80ad-697094cd7b97@lunn.ch>
+ <2c441d51f6a865ddb6e67b63cd26a651ed3ff058.camel@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH/RFC 10/14] dt-bindings: power: Document Renesas R-Car X5H
- Module Controller
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Sudeep Holla <sudeep.holla@kernel.org>,
- Cristian Marussi <cristian.marussi@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Saravana Kannan <saravanak@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Ulf Hansson <ulfh@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Kevin Hilman <khilman@baylibre.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1776793163.git.geert+renesas@glider.be>
- <053c312d07445517d8f9c84bfe3cc8fb72d4cd9a.1776793163.git.geert+renesas@glider.be>
- <bf83a028-3ef3-482a-9ce3-8aec16f6ebed@mailbox.org>
- <CAMuHMdWN2zaZrY2jKKXpNqrP8xSqc-uJTr-siTBgaA=-EY_4BQ@mail.gmail.com>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <CAMuHMdWN2zaZrY2jKKXpNqrP8xSqc-uJTr-siTBgaA=-EY_4BQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: zpfhg6i8eyntcpfuwy38ym1zyrgr17gc
-X-MBO-RS-ID: 45b055b3220d0470145
-X-Rspamd-Queue-Id: 4gBQYR6z4vz9vHM
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2c441d51f6a865ddb6e67b63cd26a651ed3ff058.camel@collabora.com>
 
-On 5/7/26 9:37 AM, Geert Uytterhoeven wrote:
-
-Hello Geert,
-
-> On Thu, 7 May 2026 at 00:58, Marek Vasut <marek.vasut@mailbox.org> wrote:
->> On 4/21/26 8:11 PM, Geert Uytterhoeven wrote:
->>> +  '#power-domain-cells':
->>> +    description: |
->>> +      - The first power domain specifier cell must be either the Module
->>> +        Power Domain Gating (MPDG) register index (0x00-0x3f) from the
->>> +        datasheet,
->>
->> I agree with this part.
->>
->>> or a Power Domain number, as defined in
->>> +        <dt-bindings/power/renesas,r8a78000-mdlc.h>,
->>
->> I do not understand this part, please see end of this email ...
->>
->>> +      - The second power domain specifier cell must be the module number
->>> +        (0x00-0xff), composed of the Module System Reset (MSRES) register index
->>> +        in the high nibble, and the Module Reset Destination bitfield index in
->>> +        the low nibble.
->>> +    const: 2
->>
->> I am unsure about this part.
->>
->> There are multiple MDLC blocks, AON, SCP, HSCN, and so on. Each MDLC
->> block contains multiple Module Power Domain Gating registers (MPDGn) and
->> multiple Module System RESet register (MSRES) .
->>
->> I do understand and agree that the first power-domains-cells cell must
->> be the identifier of power domain within the MDLC block.
->>
->> However, I do not understand the second cell. The MDLC bindings already
->> contain reset-cells, which should be used to refer to a reset within the
->> MDLC block. Resets within the MDLC block are operated using the MSRES
->> registers. Why are resets conflated into power-domain-cells ?
+> > > +static int an8801r_of_init_leds(struct phy_device *phydev, u8
+> > > *led_cfg)
+> > > +{
+> > > +	struct device *dev = &phydev->mdio.dev;
+> > > +	struct device_node *np = dev->of_node;
+> > > +	struct device_node *leds;
+> > > +	u32 function_enum_idx;
+> > > +	int ret;
+> > > +
+> > > +	if (!np)
+> > > +		return 0;
+> > > +
+> > > +	/* If devicetree is present, leds configuration is
+> > > required */
+> > > +	leds = of_get_child_by_name(np, "leds");
+> > > +	if (!leds)
+> > > +		return 0;
+> > > +
+> > > +	for_each_available_child_of_node_scoped(leds, led) {
+> > > +		u32 led_idx;
+> > > +
+> > > +		ret = of_property_read_u32(led, "reg", &led_idx);
+> > > +		if (ret)
+> > > +			goto out;
+> > > +
+> > > +		if (led_idx >= AN8801R_NUM_LEDS) {
+> > > +			ret = -EINVAL;
+> > > +			goto out;
+> > > +		}
+> > > +
+> > > +		ret = of_property_read_u32(led, "function-
+> > > enumerator",
+> > > +					   &function_enum_idx);
+> > > +		if (ret)
+> > > +			function_enum_idx = AN8801R_LED_FN_NONE;
+> > > +
+> > 
+> > What is this doing? Is this documented in the binding?
+> The `function-enumerator` property is only documented in the led common
+> dt-binding file. The an8801 dt-bindings inherits this property from the
+> ethernet-phy dt-bindings.
 > 
-> The Module Reset Destination bitfields in the MSRES registers are
-> 2-bit wide, and control both Reset and Module Standby.  Hence the
-> same register bitfields are referred to in the power-domains and
-> resets properties, through the module number.
-> 
-> Module Standby controls the clock(s) going into the module,
-> and is modelled as an SCMI clock (SCP_CLOCK_ID_MDLC_*) by the SCP
-> firmware. This is very similar to how MSTP (Module Stop) clocks are
-> handled on earlier R-Car SoCs (except that the SCP_CLOCK_ID_MDLC_*
-> clocks have a zero rate :-(.
-> 
-> Summarized, the first cell is the power domain part, and the second
-> cell is the clock domain part.
+> We aimed to have this PHY have its led behaviour (how many to enable
+> and what their role shall be) configurable using devicetree and not to
+> rely on a default configuration, hard-coded in the driver (like the
+> air_en8811h driver did) and also make use of the led hardware
+> offloading (for functions like 100/1000, activity blinking, and others)
+> that this PHY is capable of.
 
-Thank you for the clarification.
+What other drivers do is leave the configuration with its reset
+default. They are often sensible. When the netdev trigger loads, it
+should ask the LED how it is configured, and the values in sysfs will
+reflect it. After that you can change it, via udev rules, etc.
 
-Since there are up to 32 MPDG registers, and 256 resets, can we encode 
-both into a single cell ?
+You have to be careful about what you put in DT. DT describes
+hardware, not configuration or policy. How the LED blinks is probably
+configuration, so it does not belong in DT.
 
-(mpdg_register_offset << 16) | (reset_bit_offset << 0)
+> > > +static int an8801r_read_status(struct phy_device *phydev)
+> > > +{
+> > > +	int prev_speed, ret;
+> > > +	u32 val;
+> > > +
+> > > +	prev_speed = phydev->speed;
+> > > +
+> > > +	ret = genphy_read_status(phydev);
+> > > +	if (ret)
+> > > +		return ret;
+> > > +
+> > > +	if (phydev->link && prev_speed != phydev->speed) {
+> > > +		val = phydev->speed == SPEED_1000 ?
+> > > +		      AN8801_BPBUS_LINK_MODE_1000 : 0;
+> > > +
+> > > +		return an8801_buckpbus_reg_rmw(phydev,
+> > > +					      
+> > > AN8801_BPBUS_REG_LINK_MODE,
+> > > +					      
+> > > AN8801_BPBUS_LINK_MODE_1000,
+> > > +					       val);
+> > > +	};
+> > 
+> > This is unusual. What is it doing? Please add a comment.
+> This call is to ensure that the PHY switches to the expected 1Gbps 
+> speed when available. 
 
-I cannot tell whether this is much better, but it at least ties the PD 
-components (power domain and clock domain) into a single value, which 
-matches reality a bit better. The current split power domain and clock 
-domain description in two cells gives me the illusion that it is 
-possible to mix and match power domains and clock domains in DT 
-description, but in fact the two cells are strongly tied together.
+So this is an errata workaround? Please add this in a patch of its
+own, described the problem in the commit message, list the errata etc.
 
-If we cannot encode the two into a single cell, maybe we can at least 
-have some sort of macro for this, e.g. this (0xff as no MPDG register 
-bits for this block):
-#define R8A78000_MDLC_PD_HSCIF0 (0xff << 16) ((0x5 << 4) | (0x3 << 0))
-
-What do you think ?
-
-> So perhaps I will clarify like this:
-> 
->        - The first power domain specifier cell is the power domain part, and
->          must be either the Module Power Domain Gating (MPDG) register index
-
-... for power domains which are backed by MDPG bits, and which can be 
-controlled in that manner ...
-
->          (0x00-0x3f) from the datasheet, or a Power Domain number, as defined in
->          <dt-bindings/power/renesas,r8a78000-mdlc.h>,
-
-... for power domains which are always on, and for which there are no 
-MPDG bits which can be used to control them ...
-
->        - The second power domain specifier cell is the clock domain part, and
->          must be the module number (0x00-0xff), composed of the Module System
->          Reset (MSRES) register index in the high nibble, and the Module Reset
->          Destination bitfield index in the low nibble.
-
-I can understand this.
-
->>> +  '#reset-cells':
->>> +    description:
->>> +      The single reset specifier cell must be the module number (0x00-0xff).
->>> +    const: 1
->>
->> [...]
->>
->>> +#ifndef __DT_BINDINGS_POWER_RENESAS_R8A78000_MDLC_H__
->>> +#define __DT_BINDINGS_POWER_RENESAS_R8A78000_MDLC_H__
->>> +
->>> +/* R-Car X5H MDLC Power Domains */
->>> +
->>> +#define R8A78000_MDLC_PD_AON                 0x40
->>> +#define R8A78000_MDLC_PD_SCP                 0x41
->>> +#define R8A78000_MDLC_PD_APL                 0x42
->>> +#define R8A78000_MDLC_PD_CMN                 0x43
->>> +#define R8A78000_MDLC_PD_ACL                 0x44
->> ... what do these numbers represent ? Shouldn't those be register
->> offsets from MDLC MPDG00 according to power-domain-cells ?
-> 
-> These are Power Domains that are not backed by any of the 64 Module
-> Power Domain Gating (MPDG) registers in MDLC blocks.
-
-I suspect that might not be entirely correct for all of them, please 
-read on and see CMN below.
-
-> It is not clear to me if they can be controlled manually, probably
-> they are just always sequenced automatically on power-up.  As the
-> documentation does treat them as separate domains (see e.g. Table 14.1
-> Power Supply Voltage Monitor Functions), I figured they would better be
-> exposed as separate domains, instead of as a single always-on domain,
-> like on earlier R-Car SoCs (cfr. R8A779*_PD_ALWAYS_ON domains number
-> 32 or 64).
-> 
-> See also the X5H_Power_domain_structure.xlsx attachment in the R-Car
-> X5H documentation.
-
-This is indeed helpful piece of documentation, together with X5H_MS, but 
-I think the later is still being updated.
-
-Let's take PD_AC00 , AP core 0 , as a domain of interest. My 
-understanding is, that the domain structure for PD_AC00 looks as follows:
-
-PD_AON {
-   PD_SCP { };
-   PD_APL {
-     hierarchy is SYSSS
-     always-power-on
-     PD_CMN {
-       hierarchy is CMNN
-       power-gating-bit is MDLC_CMNN 20
-       PD_APU0 {
-         hierarchy is SYSSS
-         power-gating is done by APMU
-         PD_ACL0 {
-           hierarchy is CMNN
-           power-gating-bit is MDLC_CMNN 16
-           PD_AC00 {
-             hierarchy is CMNN
-             power-gating-bit is MDLC_CMNN 0
-           };
-           ...
-         };
-         ...
-       };
-       ...
-     };
-     ...
-     PD_HSCIF0 {
-       hierarchy is PERW
-       power-gating-bit is MDLC_PERW 23
-     };
-   };
-   ...
-};
-
-With this in mind, I think CPU 0 DT node should refer to the PD_AC00 
-power domain this way:
-
-cpu@0 {
-   ...
-   power-domains = <&mdlc_cmnn R8A78000_MDLC_PD_AC00>;
-   ...
-};
-
-The MDLC driver would pass the PD_AC00 domain ID to matching SCMI power 
-domain management protocol call, or, for bare-metal MDLC driver, would 
-have to internally encode PD hierarchy, walk it, and apply PD operations 
-in each step.
-
-I think even for SCIF/HSCIF, the power domain reference should be 
-something along the lines of the following description. The MDLC driver 
-should internally encode that R8A78000_MLDC_PD_HSCIF0 is a sub-domain of 
-R8A78000_MDLC_PD_APL .
-
-serial@c0710000 {
-   ...
-   power-domains = <&mdlc_perw R8A78000_MDLC_PD_HSCIF0>;
-   ...
-};
-
->> If those are power domain IDs, then I am unsure why e.g. for SCIF the
->> domain ID is R8A78000_MDLC_PD_APL in [PATCH/RFC 13/14] arm64: dts:
->> renesas: r8a78000: Add CPG/MDLC nodes . Could you please expand on that ?
-> 
-> See the "Module Standby" attachment X5H_MS.xlsx in the R-Car X5H
-> documentation. The "PERW" tab shows that all PERW devices are located
-> in the PD_APL power domain, which is always-on.
-> This is different from e.g. the UFS controllers: they are located in
-> their own PD_UFS0 and PD_UFS1 power domains, which are controlled
-> through the Module Power Domain Gating registers (MPDGn) (cfr. the
-> "PERE" tab).
-Thank you for this clarification !
+     Andrew
