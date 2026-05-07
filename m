@@ -1,182 +1,142 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2108.outbound.protection.partner.outlook.cn [139.219.17.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E493932ED;
-	Thu,  7 May 2026 11:15:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.108
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778152546; cv=fail; b=A3Qld8HBjMJGptEvLszu5/typXG1qaSUAm4bYvd5AsHVemMqvu99GEezXiqyjqBy1XBjutG6c8lfZ7sDtaXX2mtz4jA2u5mzU/eUgu2mLtcoLaL1NGDJZ+BuQhl8e2PN6fT0tDOlOyonboDBX91fNSdGZS0eTIx9JQLdbG/Owv0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778152546; c=relaxed/simple;
-	bh=j3naYQrOWqa+E7v1efgOSh/+RbBDT4kogKA3FIgrUt0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=UcncIXLGGx7sO1S70XY7zbtRubjbATS85nznLULeWi3c03a/dJyYeB8GrGo/WdHRCx4flzSRY9pycTn9NrxQHoZnTYnpheLZYdmPSOt2vpKRqgVmbTNzmFndOo38YKgSinYIUU//vqNDHqMaC7w9TpxUL/OXottbMyeCKiKE6iM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=J/dK7Ht4cRR9QuAem/T4887vpWGxhD5jBXbFqAIF9BWQHlQ/6pe+d0PIdx3jgJbU8lDYThEjq7woDMqYKH6qSl2jT8XmxvKreEag4azHLJUuleXLVbGYK0ddRXO9yFLh9iP8dJ0J9cXA/l/OVUb0KibU80C9Aa0+kmnKKyJL0HI59GCOiedUXrUSujG+Bogl6djIXr6OaQ1Tn8lkb2AVOYskUn350Zq3GVj/lhFgO3wzshnmPKFapU/QvBQ14pvjPpSQHS/sZ2I3jC3OKrUu+A/K+wc+hK5WJhyEiGEM1VyRIOgrcC3pMsVRN8V+WUR8RpEBIvYzu5TPESWoaDL1rg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=U11VPWbpd4j7TLgXxRtFAs1tqcR9cTHlVxX/m0z/H3Y=;
- b=ZCqJU0Ht45Pwj9E89KSVRe4YyKXts3TZakWMjnuquXFmcpOcC1ySBhXtdZcLxy5bqzPpqlAQODOnWep+1CDgqRGKjjHuZkpBTw9v/MIF9aLSegva9rXa9xFgfx7Dem/yy7BAtymyE7rTRe9Mzvuck1DKuxR85AhoT28jqvhkbVwuqKq8xm2lWCTrjNa8kBUh0DwIGLX1p3PvkLY6AaqrCpbfrNein0qlXxE9nZe0yYzEVWQl76HoUCuhh3l7SiNCOl/8+eoE5O+z8oEYUqesngAlwKmiGxXkzKl+5VZH6iS6hhvedXeNv+vr3Ikp45Uv6mkxy+OdCYhF9sdTPntGtg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from BJXPR01MB0855.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c211:18::12) by BJXPR01MB0870.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c211:14::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.17; Thu, 7 May
- 2026 09:41:25 +0000
-Received: from BJXPR01MB0855.CHNPR01.prod.partner.outlook.cn
- ([fe80::e2de:92aa:4c1c:a829]) by
- BJXPR01MB0855.CHNPR01.prod.partner.outlook.cn ([fe80::e2de:92aa:4c1c:a829%6])
- with mapi id 15.20.9846.025; Thu, 7 May 2026 09:41:25 +0000
-From: Minda Chen <minda.chen@starfivetech.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Emil Renner Berthing <emil.renner.berthing@canonical.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor@kernel.org>,
-	netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	devicetree@vger.kernel.org,
-	Minda Chen <minda.chen@starfivetech.com>
-Subject: [net-next v3 1/5] dt-bindings: net: starfive,jh7110-dwmac: Remove jh8100
-Date: Thu,  7 May 2026 17:41:11 +0800
-Message-Id: <20260507094115.8355-2-minda.chen@starfivetech.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20260507094115.8355-1-minda.chen@starfivetech.com>
-References: <20260507094115.8355-1-minda.chen@starfivetech.com>
-Content-Type: text/plain
-X-ClientProxiedBy: SHXPR01CA0013.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:1b::22) To BJXPR01MB0855.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c211:18::12)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3000337F8D3
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 11:19:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778152795; cv=none; b=R/9o6J3dGRsZVCVrbLcFO6+ghkkSrCnI6N/AE/4biA8WwW3jywj3qACU7kWfAy6AeYztaVJ5ndDZf6EBVl32YHmXXF58Nh/Cubx8tETtDWZa2V3QKxt+hIz0du/zFl70L04IfFj73m3WvRmYD3xHBEN9DlL7q9Q7AGRHL9vh+40=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778152795; c=relaxed/simple;
+	bh=f6dSOOBOrr4Nuqx5fzA2PmCUxgT5hzIFcxKN8w7AU5k=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M4hXwFCnzapwAKWq5YXslLfzXKZO2gAZbg4f2W/bAwlIMYCvX50oPyao2qKkpYByZnb/fdHQmwoaJd1CxIK5u2oTP3xTClKlhlYgNLOCJO2LUX3ajAFvwdRmZOayasXmdcFjAPWjA2aAa3O1WQgUR3GcsvxxVXKb1o7jwOMHKs0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eowm4Ano; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eowm4Ano"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-444826c16ffso671383f8f.1
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 04:19:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778152788; x=1778757588; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=/HfYKdw9t8t7YQxRwq0mAE+fhOLgPCxr7w0hEuXz/ZI=;
+        b=eowm4AnotIEdHPnkk7YexySQiFQR8LPI2oLTSBM6QcF42h027bNccl2wDxyJlTshER
+         MdNSN3K4YN+B0tmd3JfBqk5+7+GbLhyzq7y2kc7F76MwiWNAmxqrts0MrfoxhY7af9S5
+         2vPnU4lNCISYv3eXO9q2djooJD5YQjICE2/uXRzWp5d4EhHTOXZxt9T8D67EO9PX1Gjt
+         Q70MIZY4HunQVXmamluS+Sr88X1y5r5fGpIySZga/CYhMKUk8zY3zG2z4n9X0qgjm0Jz
+         QIQyaPBPSV/lYyZYJHIwsM47Bw77gVTQhImLTHiwEg6VeUA1q6e7tdUmEOR6xAImg0cT
+         uR+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778152788; x=1778757588;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=/HfYKdw9t8t7YQxRwq0mAE+fhOLgPCxr7w0hEuXz/ZI=;
+        b=me6cfuVGSlrao11mdW0/Rc8T4/o9c0es7N+w+i41BV4zWu0oewm3lIhcRCfLm8wBq9
+         U/SNZLDldsAiSAGk8BLM5H6v6R2YZb8Vafc09sNioQ1HfZu7LohChjrG+vx6+Hh8sLHX
+         GLjqWc0Fis2PB+/LYcMVLQtOwmeEDMdpKLjXtBL97Xak+hE4IiCRieKIzhyflimEFCDs
+         69uxQRKe+WQI5j2SGwvVhyUXE/rP7buxQfRLGwwU2C49MQjzZLh9GEzo+lpxcUH2XKIm
+         0dEQ39eMA399Expq44u6gxE+dQ5946MWWkAcH8/UYqUMPsFmcrX474M8uO9kFU28H+Cl
+         85DQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/XNOhht4WYm5IBVq2INn4KF+Q/CKH4NfXwDTHPpNZG/wVmNjpLRV7j5VtqsJSEEPGZMnB4CALM0PG9@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz7YtcW/lWZvK5RR328BBpu4FxzfH+rMT8YAVvtzb17OvharKeI
+	dLrkpCNqou7iKFW6337A/tpdYcPrLvG8HtHLAmcK2zKRW6QaQ89DIsFp
+X-Gm-Gg: AeBDiesDzjEywpJ/bLOKXM0MhYiJWP1Cybn20rHX2GQT9m88+xemrPbsFA/wAHNEHI2
+	lBrb0XxcvhqObmJwWh7bAVcaj0zcHfY26M4ixm3wzqtSS+QYUDlByL5rTE/LIMptmXUD6SZjCNQ
+	7lb8/W5Esi8tVvSBwAonuCasyLavQez5hFh31toAiedzld3yp4ZuTiiXjyok6qE4u7pfwjS0hx9
+	J/sYtyjX8BqMYJEFbceSy+vrlzy9kLxYMtgXcI02Pd0idLiCiF+FByanvuzhPhvDmANUbfpOnj/
+	sD2MRGVNMP92/QwDA1kEF/BX/LzDVXUN50PL/p0cMV+jfOEeiYXrxznRuXciq674mzhJxWt3xcj
+	25R/obX5+zfDdsrplyZnlH00FplkRfP0RkkUOrbH8Eqg9KROEeDKWzi73cRkgW0iW05uj3v+f8g
+	OOaPJ80haXFevGqKGfETKVkXzlFGQFeUwdBChOdl3ifsrCqcpejCTCsSs2ZpDO8YI9OY/F3va3M
+	FxlqN3FbcrcanCPZu5nV1AXtHgug28IxP+ieQ6KWAPIHyUenmgTQh4jBRFJ
+X-Received: by 2002:a05:600c:83c5:b0:488:c683:be89 with SMTP id 5b1f17b1804b1-48e51f2a759mr110026335e9.9.1778152787811;
+        Thu, 07 May 2026 04:19:47 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e5382a327sm209504235e9.0.2026.05.07.04.19.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 07 May 2026 04:19:46 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Thu, 7 May 2026 12:19:40 +0100
+To: rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org, 
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-doc@vger.kernel.org
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
+	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH v11 09/11] iio: frequency: adf41513: features on
+ frequency change
+Message-ID: <j6gysb6cp4cjzvf3erwgmpmltnwsjif5pcr5uxmysqbhbj72ml@svc7ncvercju>
+References: <20260506-adf41513-iio-driver-v11-0-2b7e99cfe8f2@analog.com>
+ <20260506-adf41513-iio-driver-v11-9-2b7e99cfe8f2@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BJXPR01MB0855:EE_|BJXPR01MB0870:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3a89e1a4-d4ce-4322-2331-08deac1cce6f
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|52116014|921020|38350700014|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	3Pt/ZYaEvToWlRXx9sFftKKKSKO6fM41R2mlYtYcR7joK9SEHVBENJbzvjEBucu6KA9oEdYT96ucdHm401PCiBOrhEEsvXqKF0FdSGZU4A1Qrb0P2cfumBfub5qOW5dimhW4T2U4WMIEFBbe6/h864Yqqy/BB1Vkj6EXnXf2Ezj6LlSEXa26cKMk2fqugnp6TuyTZ3CWkttbo0pzO3Qs69My3gLQTUG6v/wDQdhpMZyr8KuN8Im3Ql5qFRa+Q2uQH8Y4XUqbsO3wKLJqXaavWpO4m88a7mzchP/0MJ7MF6tZRpuHdQc2022tkWhuNEG0b+ZUZS7WLt61fxfXBTndiyTOgvqkHXcijXQ5GmryZBtFmN3iWSWxJTrYf+oVk6zGDnnnQWSqNZwsz+gCc0YgmtlXdDwRNrXZx3huSrepNDTXljzqjhcDRM2Gmf5ulDWKe64HomgGn6tU6urOX9QkRuBFjz5HO8QJHg5oc7bPgAUKQcb6Np5cZT5qF4EEXbOxPHftGPqzmzossV8wfAoSAkcu0o8U3a01RoVcz34iW1IChXQ0xogPjw0+rn1uce6n5uhHoKmz44X4L3EFvehUNA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BJXPR01MB0855.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(52116014)(921020)(38350700014)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?2ItyHvCeSBQ9aQL3yECb7f3tcsVF3V/r9wnpn3D0szjlJyLTkTqaqZyDP0er?=
- =?us-ascii?Q?TMTFFX8akm1x3QIoFq2+dR95b1z5QDl00yzIdYhWMuW67Xjyib2solFsW/9E?=
- =?us-ascii?Q?JlLfiR9fxrSKYR+mFnYC2H8+xuULJlmGTEbe8TFfxJ+mhvjlIOoI9A4bNbZw?=
- =?us-ascii?Q?Iby8jeyyHIoS0TnYeuUwA1Jyny5pFJkdkiqBQ+l1CyQxSm7A2X+fLvWBhSek?=
- =?us-ascii?Q?67X7QfKmbamjDFq8k7bGG/jGmsS6XfFvlmP7jRtRiys6BbbVbW5lmmIE0hB4?=
- =?us-ascii?Q?3UiLn1w7zXXpKfiCiEDOrgCMiOT40gzbQxpRJkqZdOBHsXnSklmBywaYk054?=
- =?us-ascii?Q?gXwLBP/gMErnSLCrJy1wmCaRmsc/Rcbm3h48lndIkztlHDSmFh/gHE0F9fDG?=
- =?us-ascii?Q?Oo4g2tgDBS/T0brWW+H71m4EkI9hp6HBNKv9RqE/GKqjitmWsuOiVj7rly0n?=
- =?us-ascii?Q?AMwMeBiQCxWJ23augiyyHvisTbDUcjeqZ2rfff+WlNAEHlK3oMS3Q2efVGQZ?=
- =?us-ascii?Q?pQOxlIjXZoVV7kl9h0z7mAevA0q33UW6vzC7Zep4PNwPeUN5GEM8lf5L9+Tt?=
- =?us-ascii?Q?9NZvomk7w0YTAZupYg3+Dl7xZ72zKLR6ILgSxIDwXLT8RHjK6k8a7jSnCjNv?=
- =?us-ascii?Q?1eLtmjnKLrNrDw7B9Z5K7YA6iEUm9V266YBG1EgJarAlF8vHghO56h7i3pck?=
- =?us-ascii?Q?JManrurKzvShID1ymVzo/HIE4fkbLVa8MGoqahxstTHG0uz1qHyI3Nd9IWXE?=
- =?us-ascii?Q?kEjDr54pz2Y/x9hr+dum+J7EkGn+PF4e/FoJkGikdJLGYbiAyDu293Jihlmf?=
- =?us-ascii?Q?1HAPUUtS9oVTUFWvGOvshCDxASgxiyLUPBCcmP3m3Qg9qrYAbRAjYS9ewbxs?=
- =?us-ascii?Q?RPYMABcf55hWARgmcn1jECK7ZwGWdYXZMisX8jnJufKL/Ff/Rr/XDHiVaIch?=
- =?us-ascii?Q?V2H0qCMt1JfnuqOdt8WZkHLrOuR0flXvS+aK1pkFrvjwJAjdrs+yS8glM+94?=
- =?us-ascii?Q?Efu69IGniUgqEKrRvmsBRlpAARCEEFGrc0Wb5VzlR+Mjmh6Ry1s0ibbZuWnF?=
- =?us-ascii?Q?/qtYbhtHc1V6nbZgb9agsVUMkPJiQP/GMO0UMQCoGTP5k4EipTmddXiqIu0L?=
- =?us-ascii?Q?wR/ZxJjC7jKoqrRpSXzojriVxI5tlWAJtWFC1nZGNBSiDOQ2o5kjiu6Xejo0?=
- =?us-ascii?Q?evW/1uuWUz5M/Ymqx93onwzGSG+o0b5JX2baxs2xdqawGgix+9SYrR20Dxmc?=
- =?us-ascii?Q?o6bBjNK0Q3mfyrHcipwQlDPPCVQj0JMZUrrI/6xZQRr4VydBwwlyQILgnt7y?=
- =?us-ascii?Q?sz2ORSu+8UBDayLXQ6+C+yss3BYA0nRLUS5MQGzpWQQc+7eHr+o2EMfV04Ys?=
- =?us-ascii?Q?vKbNC9eB7mZSlMGkey7PscbAB7WChwWJYzW+LXF8mLF4zwjDJU/sIRk8QZlE?=
- =?us-ascii?Q?6Kp8gfNsOe/giP7NPuDMgoRLAkusoJ3OGOltvu8/8MSe3BvWS0VfmcAVaJih?=
- =?us-ascii?Q?BZ9fNEHC0YFc9kvmKctM9dvhWgvRTvdg6h27AZPxEjl4TPMBg6N0PXiLx5SJ?=
- =?us-ascii?Q?vyN20Qo+DzfCFI9XS5OG73FkvMFxTBGYICThmeQ3dDEJs3GlPG0dN0UEVt1F?=
- =?us-ascii?Q?0GLnwAyivaIqP0woCnVQHBw0DzUd2xvVi4YDc62dSXon0UIcMe7XIessoyqT?=
- =?us-ascii?Q?IPntMGNkvCoYOrjZbEY0o2+3m+rc4QSIkg6Fkz215GYutREMDBlL3bJ9x8s+?=
- =?us-ascii?Q?Uy9JtDMK1BLxsO2VKFVs+x1mnm/45Do=3D?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a89e1a4-d4ce-4322-2331-08deac1cce6f
-X-MS-Exchange-CrossTenant-AuthSource: BJXPR01MB0855.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2026 09:41:25.6709
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: f22Ppz/gITobr7bW5f708Q0LcjAZK6IfjALq157ijd9jN55+CDAVzc0sDIqCz/h1ADYeLLJjdjaVw+mC60y+cRzNBzwqZxZwKLe4WBK8+0A=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BJXPR01MB0870
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260506-adf41513-iio-driver-v11-9-2b7e99cfe8f2@analog.com>
 
-Remove jh8100 dt-bindings because do not support it now.
-StarFive have stopped jh8100 developing and will not release
-it outside.
+On 26/05/06 03:08PM, Rodrigo Alencar via B4 Relay wrote:
+> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> 
+> Set Bleed current when PFD frequency changes (bleed enabled when in
+> fractional mode). Set lock detector window size, handling bias and
+> precision. Add phase resync support, setting clock dividers when
+> PFD frequency changes.
 
-Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
----
- .../bindings/net/starfive,jh7110-dwmac.yaml   | 28 ++++---------------
- 1 file changed, 5 insertions(+), 23 deletions(-)
+Sashiko's feedback:
+https://sashiko.dev/#/patchset/20260506-adf41513-iio-driver-v11-0-2b7e99cfe8f2%40analog.com?part=9
 
-diff --git a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
-index 313a15331661..0d1962980f57 100644
---- a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
-+++ b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
-@@ -30,10 +30,6 @@ properties:
-       - items:
-           - const: starfive,jh7110-dwmac
-           - const: snps,dwmac-5.20
--      - items:
--          - const: starfive,jh8100-dwmac
--          - const: starfive,jh7110-dwmac
--          - const: snps,dwmac-5.20
- 
-   reg:
-     maxItems: 1
-@@ -120,25 +116,11 @@ allOf:
-           minItems: 3
-           maxItems: 3
- 
--      if:
--        properties:
--          compatible:
--            contains:
--              const: starfive,jh8100-dwmac
--      then:
--        properties:
--          resets:
--            maxItems: 1
--
--          reset-names:
--            const: stmmaceth
--      else:
--        properties:
--          resets:
--            minItems: 2
--
--          reset-names:
--            minItems: 2
-+        resets:
-+          minItems: 2
-+
-+        reset-names:
-+          minItems: 2
- 
- unevaluatedProperties: false
- 
+...
+
+> +static void adf41513_set_phase_resync(struct adf41513_state *st)
+> +{
+> +	u32 total_div, clk1_div, clk2_div;
+> +
+> +	if (!st->data.phase_resync_period_ns)
+> +		return;
+> +
+> +	/* assuming both clock dividers hold similar values */
+> +	total_div = mul_u64_u64_div_u64(st->settings.pfd_frequency_uhz,
+> +					st->data.phase_resync_period_ns,
+> +					1ULL * MICROHZ_PER_HZ * NSEC_PER_SEC);
+> +	clk1_div = clamp(int_sqrt(total_div), 1,
+> +			 ADF41513_MAX_CLK_DIVIDER);
+> +	clk2_div = clamp(DIV_ROUND_CLOSEST(total_div, clk1_div), 1,
+> +			 ADF41513_MAX_CLK_DIVIDER);
+> +
+> +	FIELD_MODIFY(ADF41513_REG5_CLK1_DIV_MSK, &st->regs[ADF41513_REG5],
+> +		     clk1_div);
+> +	FIELD_MODIFY(ADF41513_REG7_CLK2_DIV_MSK, &st->regs[ADF41513_REG7],
+> +		     clk2_div);
+> +
+> +	/* enable phase resync */
+> +	st->regs[ADF41513_REG7] |= ADF41513_REG7_CLK_DIV_MODE_MSK;
+
+	Does this accidentally write a reserved hardware state by forcing all bits
+	in the mask to 1? 
+	If ADF41513_REG7_CLK_DIV_MODE_MSK is a multi-bit field, using the bitwise
+	OR operator will set all bits in the field to 1 (e.g., 0b11). Typically,
+	phase resync is 0b10, fast lock is 0b01, and 0b11 is reserved.
+	Should this use FIELD_MODIFY() with a specific phase resync mode value
+	instead of directly OR-ing the mask?
+
+Indeed, it should be using FIELD_MODIFY() here:
+
+	FIELD_MODIFY(ADF41513_REG7_CLK_DIV_MODE_MSK, &st->regs[ADF41513_REG7], 2);
+
 -- 
-2.17.1
+Kind regards,
 
+Rodrigo Alencar
