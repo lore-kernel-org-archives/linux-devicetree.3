@@ -1,306 +1,128 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54DF23F65E0
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 13:50:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778161838; cv=none; b=npcWZZT33S+s5SRlCad8/8YJ2vtnks8mbKtqxaeddSdzwNivp0AJP28WnfW42tbA/U4NCwu9i2pHQJODHY9QRF6wO8OaP27KtIsFmZRHD5mukpuprXHlUzXQOvIDRF+Bbkbfjvan/BH3HY+UaQVdO4hihgF7NfIzewWB8oekVRQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778161838; c=relaxed/simple;
-	bh=zwntjvmIfrAlVTx71N8rEAJVuLSoabrlsSMRE8ARKgw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s5I1bA5GLOrW5WgmkU9MLEEZPXyhT5E0Q3/tjVQPAc1S2j82WGgkNFlr0G6do4VLCsXcy3MYY7mLTYLF8A2FDvAwzNhhROWsDnOcfNPBdzmtPBUaWABYT/WQ5DK6nUYFse+cionSE8fDwpSCsHkAgosJCp3BAgwUk3yCY4hEUsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=L4zToJUV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gGn55Xu/; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36E503890FE
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 13:52:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778161949; cv=pass; b=OTTkIHS8PBYARrStX3vxXnt1Ro9DOD+KG3RL4C1WR3LjzsdQMtSpdu7Pk5gocNXxho4G2+MG+meYalH0v7geol7+gtOo7KpgYufjUZD7DKwRFRexcWa/PqfuLoox5rVgT81F25IaZzrnlVsckNvHi+AFxN4UWnEJZjh6u+m0Ff0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778161949; c=relaxed/simple;
+	bh=KRwaHdksT4aTptGMK5j5s77NrG9FZxEiuA60DYpO1Io=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SVJY0c1y8O6UVHr4UhfADJRYmhsIoHYA75dkvI4p7l5/HPJTwYHZEdqDme9Hn0KZs37G8ZIxxyzAKXpg9XVO7JUtffxBoPznnv2BL5/PrdhmuSuqYisX2QOIuHu7AT3fZnV2NhylQv4OUnO7m2pKpsvF25PwPyrWOXPnE3rlH/Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mG54V4UN; arc=pass smtp.client-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="L4zToJUV";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gGn55Xu/"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 647BZ2vo682842
-	for <devicetree@vger.kernel.org>; Thu, 7 May 2026 13:50:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=WkbTCdJkfzkEnIQAyS7unzhZ
-	5gPwvDI1z/fUnG8v53I=; b=L4zToJUV6nfQgkEbx5q73ob+yn1kRD55WsafmcAb
-	Fr1j6rENuN4oY2pQBJQfbcDSG75m5xQ7X+Mb1hTmTYKG3hy+3JPbTCooL5Ut0W4A
-	7IPLmerRsS4/qJuOWGrmlrngpsW0dmkgmVb6ThszfBDKhZxvohYuA9VUzTcGAL9E
-	Ok2Z4+cUuwNfEn7l0kR2vYCzxNboHiSdit9V/Vnmvdu1Gpt5SemWLY1N90NvJU0P
-	/3+vABYxu4CvETNLRtU48RufZtonu3EWp5IU/SuwlEFmjqF1G0328EHuW4vfEcfB
-	dkiMi+WY3+/skJEupCjcFElnDfZtG6f86ZMvxTc4E0HoPw==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0mhastud-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 07 May 2026 13:50:36 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51009190feeso18021001cf.2
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 06:50:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mG54V4UN"
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-12c8f9846c8so1291078c88.0
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 06:52:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778161947; cv=none;
+        d=google.com; s=arc-20240605;
+        b=ahFgQLD47DFqPtkp2yhi458OfAejUgTFQiZDYXzz409AiEmPHimS5Sb8Wz5jX+QCQH
+         4Q5NB/c3rwsFNrqydiKnvaAw0s7xD7ic3rXs1FyW0hoGTQvxRkAMHUfp7CIqOfoenXn3
+         DDv0ydD0SjceUYAiGFKOFfsOZbeKVgXB0BHrPvuNQ0owNHTpenBt6IfndlHdZ1LwhLAb
+         EOU/SxVmNvFANrpZXmyGYX4Ny2adpTiaJhYefXV1l3lxfI6Tx3QJe3ZLJOo0zNCWZA+E
+         aqxS786hbD78CDds/qTQkRUTbsgqOw2S08G29GJdFe+Wui8tQ/6BCX39NT6awbL3J4Nn
+         6JTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=bGVpGj5HHW+JUpr36++44HV0d9D2Mz6mYHWRKyMr3NE=;
+        fh=gPF6bVuRFlB5WUpHjoOliY9P8LmH3648k3rNVgZS/9I=;
+        b=QUzXFg+8f3cnEh8IvUPN5F8GLNVxZae2AO3BWJh3s7uQS1I058VgG8T8ZcCN3jybA3
+         PM+kdBj7kpHh15gKUfK64mrHmeoFE+BnoiiQ73W5BUZMIE1NPQwoA5Ya6mNTMVwv2VbP
+         6KXYSYO66jJ+yWFNZsKcEZ7Pggt5bc8WnizMavOrXiEV2mqCvpXYn9Mz+O3zomYhEWjV
+         5kA+tGsNZwAXkujyQGZyf4tT+zYBdD1vs7yUuRYS8NSG99k2A5nYUl5BQja4inWerzft
+         kvm/BK2cK+g0TAfyIWIq5IA9yt6AAM/3nTZzoAMNYLr3kJICluZvOzD8JYr808tWWOBz
+         LAZQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778161836; x=1778766636; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=WkbTCdJkfzkEnIQAyS7unzhZ5gPwvDI1z/fUnG8v53I=;
-        b=gGn55Xu/G5ucKSIxuCq+fCPbgGhKIJ2acx0Fo7BuP3Z2XF9Tc7GojqAiqgSJ5db0Ya
-         WLBfi5ytLJJS7caByJuUad9YJG6DP99O3lJ1iO0W0840k0TqhW8ZMHG2nHd8rqY5oymS
-         uGUgjW5p1W7cku73ek9p2MsZKVghIHyim72lmKmRXCFT6nZ9MipYRXay2aHLWlg+krbX
-         ZPFkqxzUv0kJdz5rFZWtFXEnnzpSuW5lp2LOYhwH0AZSylCcEQvkXB33u7C0L+C5QqM4
-         RI8uG9XnMXfwCxBp3GT9t+F8towImsTzpMFCTNWPlIdjk+vsa/UO5EnKuKAc/ALZF+mI
-         Cwcw==
+        d=gmail.com; s=20251104; t=1778161947; x=1778766747; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=bGVpGj5HHW+JUpr36++44HV0d9D2Mz6mYHWRKyMr3NE=;
+        b=mG54V4UNDB5YKenS8iYZYRud1hqoDlh38IFqgTuGJBuoCyflUjZHg+nqTYOsXyyidL
+         rfp6QsjB8XDh/MfdHso8+mw6FOr9NjdajxYvlLdC0JceBpLOkxH4rnmZVrCnX/ZlUsRh
+         L53O8CCgcoJYDk5fXxl6wQkaVTHh2219ZTg5sAPf3LStpKbysdsVIBojXpoWi33oavDb
+         n6z90EHIp9NuqIbnGBlmthT29B4MVoztj6FF+P51VAFI6+DioSj0a20QuCZ2ByDJfUT8
+         MTHSynbxNv/nr/cblCnRDtgTgjBA7F0m3pBFQbGstMXI/JsjR1OsazQcUVzXwQ5ypP30
+         bMpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778161836; x=1778766636;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=WkbTCdJkfzkEnIQAyS7unzhZ5gPwvDI1z/fUnG8v53I=;
-        b=MDHBeM36eNjIeo84/h3ybGgTpW9R68fxCwHT161xGhDyobltwhbvM/A/clAgbgJJ8S
-         +vrUrQ67dEgVMOuOKElTKcLyuhrclSOjBtXlTsq3sxwGRGiY6jAHraoO9p7PsSXqcPBB
-         S4zd3tDrTpRjejCCkbUoHPhbGtG9eLslpxbFG6celW5Zz3o3EGlZynZJHTQ/iHRlsoqD
-         lxYF6cXD+ebzWaDdFst40YBO1GiUfTO+IKT7X2rOdJRKatlk8sdOEbOCWfT6pCjeXlr9
-         niYETkRwe3Y0sHCaJIQaDzRjQviTtJJ8Nwwimfa37pkmszzDsas9H4Ny/ZNRoUnUJann
-         UuHw==
-X-Forwarded-Encrypted: i=1; AFNElJ+CLOGjLeLVajaSUk6AoXP8IdxUD1s4ZIuze0PyKb9VIi6mX82/ZOREhaEv/oh3KKuZqMYNrwTYqb70@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw0G6yMrCasoZb6Y85QHZd8G3AMP3NMwfUvhnad0lQIlwApp3lB
-	O6byhcjvAFVqOWofOelb90pWFNzGYbok4IEHr3bmOcl/o7BULbOSxemD5lBTC+lvMVNRJWb8vgT
-	mxX7m6aqDkiV8Cub3/s4xkDMvYNrxhlhIYdsagZLrYE8fSYgR93A2RNAzvLrGeOAD
-X-Gm-Gg: AeBDieuD9OqEx6fe4S7bRVrWfHIYUp2w7IEPUo4C4hEp3+OI7pOp0K8BNMhttNn9m43
-	2WtukCuT83D5Mcke8aoq2Kg3Cjour95bxOWgRy1FEiSc84BEWHhNegLKwRI0uNNvSncCZ/MuPbO
-	sAlgZ78hFaLf9OOytEL4pNeEGVUq6UGDD2WroqPoh/xgDdp4DYkWcdLnJUPyuNAr0OL+WkLza7f
-	PgRWZELF4B/Evl36JWBlYLMMVJf4qcKWXgGW84RIUFPxMWg/7+8JdLFefXeboTnf9u0RPPk0lXQ
-	ocP3Uv0EUTlz9T5AIHOJac5515BuoHenJdRZzdQo58CWBf2rtXbF4KnaAGif1G+HCyN5Gke/V3c
-	UBCHG80678UNphcPlTPcnN4l5iDmd/64IIs0SWFNx5agBquc4L/ktxZYV8H/RqM7FRDYGeSjul2
-	Hl+iBz98l1Vpg93lj6JnTUXtWhALJy6nGQZbc59o0xllvdqA==
-X-Received: by 2002:a05:622a:558f:b0:50f:c8f9:d5d9 with SMTP id d75a77b69052e-51461fa069fmr111991361cf.39.1778161835463;
-        Thu, 07 May 2026 06:50:35 -0700 (PDT)
-X-Received: by 2002:a05:622a:558f:b0:50f:c8f9:d5d9 with SMTP id d75a77b69052e-51461fa069fmr111990941cf.39.1778161835036;
-        Thu, 07 May 2026 06:50:35 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3939a58fa47sm38708761fa.37.2026.05.07.06.50.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 May 2026 06:50:33 -0700 (PDT)
-Date: Thu, 7 May 2026 16:50:31 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Robert Marko <robimarko@gmail.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH 3/4] firmware: qcom: scm: Add minidump SRAM support
-Message-ID: <3m2bwess4zw3hw2qlkwnmhtclk6ofinxekxfqz5otw65hd6d6q@lfcknrfkacy5>
-References: <20260507080727.3227367-1-mukesh.ojha@oss.qualcomm.com>
- <20260507080727.3227367-4-mukesh.ojha@oss.qualcomm.com>
+        d=1e100.net; s=20251104; t=1778161947; x=1778766747;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bGVpGj5HHW+JUpr36++44HV0d9D2Mz6mYHWRKyMr3NE=;
+        b=i2K6VDS/hoGdctzzUQ9tbhvycFi5swRFkIOge3lwmLS0pqQYxsD3abi/eJVgu08tbv
+         Co4N7FNtaUtsrgo4681Rs/0bs/bl0CUDqt16h+LKwKd9B9YFIoqk7uzF0tLCBR0Osfxd
+         LazqIz2O9irafAECQ9T1sBYIZNGMrq5+gc9jBU9D0C4uMLtURt2SgyD09wiRV1CL+L6q
+         ihfnjj/4SgMKk8eEeLiie06IfCDxeD2FaFmjf1iWUA1YTAP6uvIFWb2R8rIJes9A2x/v
+         vzf1FfEzqQQmDqkgSZ9fYX+KLRPNjKylMZnyPTVrdcJk27PKZ7nKsbWrjAdnSg0G6ZO3
+         IFvw==
+X-Forwarded-Encrypted: i=1; AFNElJ9tBrWarx0oYteiZyVZ2CU8zeArJyOaMVmrLz8QP5uoW9w7s4qlZKG4xb82DWfBPMugP5bs0aLNkhlc@vger.kernel.org
+X-Gm-Message-State: AOJu0YzYeGqT1sLdxFP2F6ijajYTfLKstxpd8H768qA7gJb9oPYEdeMD
+	mQQfRy9evypjXv3iGpzEagYrMFl7Ea1yFapH51ynveeMrMsetBkC+cHscoL9JMOwTBjF8w803Vp
+	sthxdbcuDE6HCSik3RPKHCHe9nw4PxX0=
+X-Gm-Gg: AeBDietF/0Uri2WVvVC/p+YC1tvkP2sFlk2scgqg2v4rIR39wS9/fHzi0pmdwdXW7NV
+	fuRWT7g/rL7EhBsNNteyBHzRtnrjwr3sZBqaNfM8eqvdVZWzroBw0DBM68tYmz7DSkVrt0WU/Qw
+	UrTx9OowHXEIoP6el4e73bSQ78FteNPN591ezRLNrsx9fc2zq1u51Wa+aZr31BqqhBRKxesrFDG
+	xyOBpgv7a3BgkydehR1MsHHUa0Z3Dy9KGeX9IF3Item+sszuVmKsu8HNz/eA/qvtrTY+1JfnS8T
+	9WbQLOpg2CKXAETF2dA=
+X-Received: by 2002:a05:7022:397:b0:12c:34b9:61bc with SMTP id
+ a92af1059eb24-131852d97bbmr3640712c88.5.1778161947269; Thu, 07 May 2026
+ 06:52:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260507080727.3227367-4-mukesh.ojha@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDEzOCBTYWx0ZWRfX4PD1lXfqjSf+
- oXH48MMMaqZKvmXStxKGnBX8ipI1oWHRhzZmaMSK8B3YHCNWAmApajcVA1Ug7ytZxW68l1QMoTe
- E7lXdtdLjn7KP9dIPofIdKbqY4ELlbXoeDnNM5GtucPNP13WwArTUS+ddF9zNsZAKWYz9QYZqLT
- 3c/2ACJw5LrDVJIulbwDQ+Zwgju1ps5F6ceKl4BjXeli9sPtBZ9/l9Xg2QqHiP+S8sbWbBjKK52
- w42WFp2bL5BeGKPdIvx0MORHHI7Nox9IgLkb3yfGhOGpiSbEPuQIr4VTm4lpKD9vzupWwR5tSXz
- kg6wOcYzck8aXp7j9XQpTLUSYFLjLWf4BWz3xUj+E8NxR0UUPKprdtOofmh+MNd0T2v5zbsVD3i
- LDdGD6vHqqeDqnK6Q4uEEr3VOuTGzElXLo8x6ngcAepmxrDhysLSZ66PpfQ7Dg/lDDX1DaO1+oG
- rgBxlp4Yc5ATcayIf8w==
-X-Proofpoint-ORIG-GUID: R04WacgKNlel-aVv8pgBFd80kaz9Od2K
-X-Proofpoint-GUID: R04WacgKNlel-aVv8pgBFd80kaz9Od2K
-X-Authority-Analysis: v=2.4 cv=ReWgzVtv c=1 sm=1 tr=0 ts=69fc98ac cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=L6Hsa3w0Jl0puDdxViIA:9 a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-07_01,2026-05-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 impostorscore=0 lowpriorityscore=0
- spamscore=0 suspectscore=0 adultscore=0 phishscore=0 malwarescore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2605070138
+References: <20260306103614.3208182-1-eagle.alexander923@gmail.com>
+ <20260306103614.3208182-3-eagle.alexander923@gmail.com> <a7daefb2-3ab4-43db-b7cc-c3b7d0c0fae4@q-lab.dev>
+In-Reply-To: <a7daefb2-3ab4-43db-b7cc-c3b7d0c0fae4@q-lab.dev>
+From: Alexander Shiyan <eagle.alexander923@gmail.com>
+Date: Thu, 7 May 2026 16:52:15 +0300
+X-Gm-Features: AVHnY4LdRP5lX1vkb9aowQufKGKoUyQ9w5QdIA-mvvR9K0p37g2wbCIy8KrK3cI
+Message-ID: <CAP1tNvRRk9Qx=PctW4ryBexfyFt6igFQxx9TN0aOHDPtpMSkvg@mail.gmail.com>
+Subject: Re: [RFC PATCH v3 2/2] media: i2c: Add onsemi AR0234 image sensor driver
+To: Quentin Freimanis <quentin@q-lab.dev>
+Cc: linux-media@vger.kernel.org, Isaac Scott <isaac.scott@ideasonboard.com>, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, Dongcheng Yan <dongcheng.yan@intel.com>, 
+	devicetree@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Hans Verkuil <hverkuil@kernel.org>, 
+	Hans de Goede <johannes.goede@oss.qualcomm.com>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Mehdi Djait <mehdi.djait@linux.intel.com>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
+	"Bryan O'Donoghue" <bryan.odonoghue@linaro.org>, Svyatoslav Ryhel <clamor95@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, May 07, 2026 at 01:37:19PM +0530, Mukesh Ojha wrote:
-> On most Qualcomm SoCs where minidump is supported, a word in always-on
-> SRAM is shared between the kernel and boot firmware. Before DDR is
-> initialised on the warm reset following a crash, firmware reads this
-> word to decide if minidump is enabled and collect a minidump and where
-> to deliver it (USB upload to a host, or save to local storage).
-> 
-> The SRAM region is described by a 'sram'/'sram-names' phandle pair on
-> the SCM DT node. If the property is absent the feature is silently
-> disabled, keeping existing SoCs unaffected.
-> 
-> Expose a 'minidump_dest' module parameter (default: usb) so the user can
-> select the destination. Only the string names "usb" or "storage" are
-> accepted; an invalid value is rejected with -EINVAL. Changing the
-> destination while minidump mode is already active updates SRAM immediately.
-> 
-> Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> ---
->  drivers/firmware/qcom/qcom_scm.c | 95 ++++++++++++++++++++++++++++++++
->  1 file changed, 95 insertions(+)
-> 
-> diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
-> index f65b132004a5..b57f8cce7a8c 100644
-> --- a/drivers/firmware/qcom/qcom_scm.c
-> +++ b/drivers/firmware/qcom/qcom_scm.c
-> @@ -57,6 +57,7 @@ struct qcom_scm {
->  	int scm_vote_count;
->  
->  	u64 dload_mode_addr;
-> +	void __iomem *minidump_sram;
->  
->  	struct qcom_tzmem_pool *mempool;
->  	unsigned int wq_cnt;
-> @@ -141,6 +142,18 @@ static const u8 qcom_scm_cpu_warm_bits[QCOM_SCM_BOOT_MAX_CPUS] = {
->  #define QCOM_DLOAD_MINIDUMP	2
->  #define QCOM_DLOAD_BOTHDUMP	3
->  
-> +/* Minidump destination values written to always-on SRAM for boot firmware */
-> +#define QCOM_MINIDUMP_DEST_USB		0x0
-> +#define QCOM_MINIDUMP_DEST_STORAGE	0x2
+Hello Quentin.
 
-This makes one wonder, what is 0x01
+> > +static int ar0234_set_ctrl(struct v4l2_ctrl *ctrl)
+...
+> > +     switch (ctrl->id) {
+> > +     case V4L2_CID_HBLANK:
+> > +             cci_write(ar0234->regmap, AR0234_REG_LINE_LENGTH_PCK,
+> > +                       (ar0234->crop.width / 4) + ctrl->val, &ret);
+>
+> should be (crop->width + ctrl->val) / 4, &ret) to keep the control in
+> units of pixels
 
-> +
-> +static u32 minidump_dest = QCOM_MINIDUMP_DEST_USB;
-> +
-> +static const char * const minidump_dest_name[] = { "usb", "storage" };
-> +static const u32 minidump_dest_val[] = {
-> +	QCOM_MINIDUMP_DEST_USB,
-> +	QCOM_MINIDUMP_DEST_STORAGE,
-> +};
-> +
->  #define QCOM_SCM_DEFAULT_WAITQ_COUNT 1
->  
->  static const char * const qcom_scm_convention_names[] = {
-> @@ -568,6 +581,17 @@ static void qcom_scm_set_download_mode(u32 dload_mode)
->  
->  	if (ret)
->  		dev_err(__scm->dev, "failed to set download mode: %d\n", ret);
-> +
-> +	/*
-> +	 * Mirror the destination into the always-on SRAM so boot firmware
-> +	 * can read it before DDR is initialised on the next warm reset.
-> +	 * Only written when minidump is active; skip if SRAM already holds
-> +	 * the requested destination to avoid unnecessary writes.
+This also results in changes for AR0234_HBLANK_MIN and the step
+to control V4L2_CID_HBLANK, right?
 
-And writes are bad, because?
+> > +             break;
+> > +     case V4L2_CID_VBLANK:
+> > +             cci_write(ar0234->regmap, AR0234_REG_FRAME_LENGTH_LINES,
+> > +                       ar0234->crop.height + ctrl->val, &ret);
+> REG_FRAME_LENGTH_LINES seems to actually be total lines - 5
+>
+> I had to make these 2 changes to be able to get the expected framerate
+> when not using the default 120fps.
 
-> +	 */
-> +	if (__scm->minidump_sram && (dload_mode & QCOM_DLOAD_MINIDUMP)) {
-> +		if (readl_relaxed(__scm->minidump_sram) != minidump_dest)
-> +			writel_relaxed(minidump_dest, __scm->minidump_sram);
-> +	}
->  }
->  
->  /**
-> @@ -2055,6 +2079,37 @@ int qcom_scm_gpu_init_regs(u32 gpu_req)
->  }
->  EXPORT_SYMBOL_GPL(qcom_scm_gpu_init_regs);
->  
-> +static int qcom_scm_map_minidump_sram(struct device *dev, void __iomem **out)
-> +{
-> +	struct device_node *np = dev->of_node;
-> +	struct device_node *sram_np;
-> +	struct resource res;
-> +	int ret;
-> +
-> +	if (of_property_match_string(np, "sram-names", "minidump") < 0)
-> +		return 0;
-
-Do you actually need sram-names? Just to verify that it has one string?
-
-> +
-> +	sram_np = of_parse_phandle(np, "sram", 0);
-> +	if (!sram_np)
-> +		return -EINVAL;
-> +
-> +	ret = of_address_to_resource(sram_np, 0, &res);
-> +	of_node_put(sram_np);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (resource_size(&res) < sizeof(u32)) {
-> +		dev_err(dev, "minidump SRAM region too small\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	*out = devm_ioremap(dev, res.start, resource_size(&res));
-> +	if (!*out)
-> +		return -ENOMEM;
-> +
-> +	return 0;
-> +}
-> +
->  static int qcom_scm_find_dload_address(struct device *dev, u64 *addr)
->  {
->  	struct device_node *tcsr;
-> @@ -2748,6 +2803,41 @@ static const struct kernel_param_ops download_mode_param_ops = {
->  module_param_cb(download_mode, &download_mode_param_ops, NULL, 0644);
->  MODULE_PARM_DESC(download_mode, "download mode: off/0/N for no dump mode, full/on/1/Y for full dump mode, mini for minidump mode and full,mini for both full and minidump mode together are acceptable values");
->  
-> +static int get_minidump_dest(char *buffer, const struct kernel_param *kp)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(minidump_dest_val); i++)
-> +		if (minidump_dest == minidump_dest_val[i])
-> +			return sysfs_emit(buffer, "%s\n", minidump_dest_name[i]);
-> +
-> +	return sysfs_emit(buffer, "unknown\n");
-> +}
-> +
-> +static int set_minidump_dest(const char *val, const struct kernel_param *kp)
-> +{
-> +	int i;
-> +
-> +	i = sysfs_match_string(minidump_dest_name, val);
-> +	if (i < 0)
-> +		return -EINVAL;
-> +
-> +	minidump_dest = minidump_dest_val[i];
-> +	if (__scm && __scm->minidump_sram && (download_mode & QCOM_DLOAD_MINIDUMP) &&
-> +	    readl_relaxed(__scm->minidump_sram) != minidump_dest)
-> +		writel_relaxed(minidump_dest, __scm->minidump_sram);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct kernel_param_ops minidump_dest_param_ops = {
-> +	.get = get_minidump_dest,
-> +	.set = set_minidump_dest,
-> +};
-> +
-> +module_param_cb(minidump_dest, &minidump_dest_param_ops, NULL, 0644);
-> +MODULE_PARM_DESC(minidump_dest, "Minidump SRAM destination: usb (default) or storage");
-> +
->  static int qcom_scm_probe(struct platform_device *pdev)
->  {
->  	struct qcom_tzmem_pool_config pool_config;
-> @@ -2765,6 +2855,11 @@ static int qcom_scm_probe(struct platform_device *pdev)
->  		return dev_err_probe(&pdev->dev, ret,
->  				     "Failed to find download mode address\n");
->  
-> +	ret = qcom_scm_map_minidump_sram(&pdev->dev, &scm->minidump_sram);
-> +	if (ret < 0)
-> +		return dev_err_probe(&pdev->dev, ret,
-> +				     "Failed to map minidump SRAM\n");
-> +
->  	mutex_init(&scm->scm_bw_lock);
->  
->  	scm->path = devm_of_icc_get(&pdev->dev, NULL);
-> -- 
-> 2.53.0
-> 
-
--- 
-With best wishes
-Dmitry
+Yes, I found it in the datasheet, thanks.
