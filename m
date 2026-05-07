@@ -1,40 +1,82 @@
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
+Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67EC232D43C;
-	Thu,  7 May 2026 07:33:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B791335CBD7;
+	Thu,  7 May 2026 07:33:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778139211; cv=none; b=sXSk3Qkq/TDNRy1xVRtbnuczLuiP2MJurNBn7anVoqvrE1MroS5BOa/qCTrrMwNRRiSU16QNjS69u99SsSIlHH7sYBzY+IVuVugX8/aTVQfOhN9bBEmvHMw3rCTwX2Lpsr4SUHwYtCEIgo2oOAJ2KBuOCBwunLVB89c0EHqoQlk=
+	t=1778139212; cv=none; b=pLnfHlR4UNj4p5iu92xF4jILYKQJqBLKC5YD7eBl13CizainJoCgsH5jMBq14SI8GKDPgFraVVK2cJtSb30yLu/8pds6rcy19D5aouygWq8Rn8tuNr3Mc8yFVpivlpdcooJAZfJH8RxRt5eLmAajx0OxSJpbNna4wpu5OpCXpPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778139211; c=relaxed/simple;
-	bh=WCbZ8iopcLSLXkEHIgHHSSkd2u1qQfx30P4JpAz6ZKw=;
+	s=arc-20240116; t=1778139212; c=relaxed/simple;
+	bh=1IVQx6AIB/vfknI1NzcqynJhB4K52mpqTMLBWl1yw0s=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TPIP8gQ05136d4NCp7vXwLwPawI9aWZBMu8ASTZGPhbm5V9tZHf5ZNVxvzy51BrhjL3ntCQQqLVfFryoCyDt1YozEGUdHz744F+7W6CcKFnSp8xzUFVUeJiBtd7G3wnK+JNn3tbdHzt67hYHMfyG6gcClpM6v3keeKcsFkul1O8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=kCuHmDj2; arc=none smtp.client-ip=54.92.39.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	 In-Reply-To:To:Cc; b=gtRzRImUE748kOLlRJGXqN7uhIIeQRduXJdV7w7woMBB1HMhOKvNAtcbESSfbPzyqNcbULyb2prPBesdYMh6AJbFdL64R4YJdfvU7SwsI/C5VOVcapCccEmkSq8NAhLMk87IU/0jesKv8gF1Bp/T8UieLb7hsWbJkzG5gTdOHIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=jw+mAB3n; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Y4IhRj9c; arc=none smtp.client-ip=103.168.172.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="kCuHmDj2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1778139204;
-	bh=TmI0UH8/e3iTldNLhwHi7B9I6Rl5C/JYONWEHU21eJ8=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=kCuHmDj2Se3ExRlUhZp9eIlFE7ja9VfLVWxosjTc/0lwkCAofCfC8KTSxySd0J4z0
-	 ivkBpaznEBJCwzqG1jwQsxi3VFODV7WwFj+x+g7FSCatykv49RnNwBIdsfIq/VeSj4
-	 QdkbTW4bZvP33ZSyAFsUmSTS8E1wkFljD3RjSiOw=
-X-QQ-mid: esmtpsz10t1778139199t214e8fcb
-X-QQ-Originating-IP: uRFn5Pt4sifnfhp5pLw+QVV3Q0soJuo0yK/D2S4v8Pg=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 07 May 2026 15:33:16 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 2117957216347348895
-EX-QQ-RecipientCnt: 15
-From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Date: Thu, 07 May 2026 15:33:09 +0800
-Subject: [PATCH v2 1/2] ASoC: dt-bindings: add SpacemiT K3 SoC compatible
+	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="jw+mAB3n";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Y4IhRj9c"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 08FB514000AD;
+	Thu,  7 May 2026 03:33:30 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Thu, 07 May 2026 03:33:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1778139210;
+	 x=1778225610; bh=3u0oJwcvekIHFlIhYowyYD57pRQNHflAh6NHQg3cFkk=; b=
+	jw+mAB3nfrVj+oCvb6PYqUKt3zlfOy2oc3tCxbAYuLb8CjwOHgcrAbpR+qyTnxuL
+	HctGMd/U3rPK+Jm0oGE1yfsTlAHUXSiCMgrfMAKSKzcJOqHEBhajD48c7kjWpYxG
+	dvHRc5+uQEsR51DAKlRyeZqyMHTC1e8a2GVQsc0H/OU94sSqJuUkX744XEAWMUMH
+	wAdAer36SVV0KQ90R25j3Oigh79+sT6M2Ny10pePH6+PrbhyESPbckWZ5w0YAfp5
+	4iaUw0JPVFmySSn+aDV5NxvAaU/MF3dPwqoaxnz7lKx7bqBDyR2NzNqFuc+Bco0N
+	BtvrGgHXYH5Lxq0e0KzPnw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1778139210; x=
+	1778225610; bh=3u0oJwcvekIHFlIhYowyYD57pRQNHflAh6NHQg3cFkk=; b=Y
+	4IhRj9cS7Z8BtNyW4cqMv1fZtxK+FJbrgmCY8vM0sDFsKM0lUtrmyAzkIISRhhXm
+	T3oIvEJDrm7f2idNNG0dpOMcIfW2peOuDATltOz2wlOVwRYgbQa3K+r6U+MDw4vZ
+	sSIhJfuTtsd5XmZOgPWwmmKSW4QoOd0919d1KriyZTPbdH+GDdTnaCU638d3dRht
+	j1uMyakfNuR63K3Q/HGGSiZZEOuSzgdjVVsS/5OROpSK2DGC3jWoKEIX68fAndUx
+	2Dbd56bcdiGikhSki2LzzSoaW5f+4BJgiJND0n+SfMNieyDAQeS6pmowpNuZBzo2
+	gPSyAUk0YM5DyXJC5xvoA==
+X-ME-Sender: <xms:SUD8aXbNpq35lvoIx9NfZQvtj_GFNgSOig5KuupQ2Nd0_QmdwHa-vg>
+    <xme:SUD8abRWNwZeOhbUqx2NCTxVASd_pe-Qwd-NnLxpwJX6KCjcu079SJKuAiUVvU_3d
+    RGyjnrEYZM7qSVMkBvhfVRJCdy_HkrbdqjKDbLMdo7S16tSe_gIvxQ>
+X-ME-Received: <xmr:SUD8aSjrsZaqXC4E3vNIkFB-1N5kaqfjaJ_WHqumh-GtwLNSXStRJ2hrnSbap19UjGh3BdfJqMImDPhJwhcY_yInmSis5yYEb7MX8A>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgddutdeikeekucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+    gurhephfffufggtgfgkfhfjgfvvefosehtjeertdertdejnecuhfhrohhmpeflrghnnhgv
+    ucfirhhunhgruhcuoehjsehjrghnnhgruhdrnhgvtheqnecuggftrfgrthhtvghrnhepfe
+    ehheeileduffehteeihfdvtdelffdutdeludduiedutedvfeffheekhefgtedtnecuvehl
+    uhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepjhesjhgrnhhnrg
+    hurdhnvghtpdhnsggprhgtphhtthhopeduledpmhhouggvpehsmhhtphhouhhtpdhrtghp
+    thhtohepkhhriihkodgutheskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheplhhinhhugi
+    dqfigrthgthhguohhgsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhrtghpthhtohepshhv
+    vghnsehkvghrnhgvlhdrohhrghdprhgtphhtthhopeguvghvihgtvghtrhgvvgesvhhgvg
+    hrrdhkvghrnhgvlhdrohhrghdprhgtphhtthhopehlihhnuhigqdhkvghrnhgvlhesvhhg
+    vghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthhopehrohgshheskhgvrhhnvghlrdhorh
+    hgpdhrtghpthhtohepnhgvrghlsehgohhmphgrrdguvghvpdhrtghpthhtohepuhhklhgv
+    ihhnvghksehkvghrnhgvlhdrohhrghdprhgtphhtthhopegrshgrhhhisehlihhsthhsrd
+    hlihhnuhigrdguvghv
+X-ME-Proxy: <xmx:SUD8ae5e6lecumkZoTh_AzJB3F9qdRqPN8WuT1dQ7EBjzvPXkIjmvw>
+    <xmx:SUD8aVkmkPA0uGGeG8BFgarLIJtGXK0a8VY061x-Zq_0s4-mOPuVrw>
+    <xmx:SUD8afMzU8vEh_BDrWlAzvQo1qCDrs2hWJt000eKBNehF95O4-3H2w>
+    <xmx:SUD8aXopiWz_PyByJtFXl1bT7toe_Tn7qj39K7sga2vwvey3-u422g>
+    <xmx:SkD8adbwE2FY7ZnTiM-f-UJG3p-yPT-Wzj7MGTCDECj9GHqwU1Dp4_fb>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 7 May 2026 03:33:29 -0400 (EDT)
+From: Janne Grunau <j@jannau.net>
+Date: Thu, 07 May 2026 09:33:10 +0200
+Subject: [PATCH v3 4/5] dt-bindings: arm: apple: Add M3 based devices
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,129 +85,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260507-k3-i2s-v2-1-9cdbf95b7533@linux.spacemit.com>
-References: <20260507-k3-i2s-v2-0-9cdbf95b7533@linux.spacemit.com>
-In-Reply-To: <20260507-k3-i2s-v2-0-9cdbf95b7533@linux.spacemit.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Yixun Lan <dlan@kernel.org>, Jinmei Wei <weijinmei@linux.spacemit.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-sound@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778139191; l=2349;
- i=troy.mitchell@linux.spacemit.com; s=20250710; h=from:subject:message-id;
- bh=WCbZ8iopcLSLXkEHIgHHSSkd2u1qQfx30P4JpAz6ZKw=;
- b=PHU5vuDOslLdTy4s2nXnGFwbJj3d2hTEOIUWwPjfywaGpkYeNcfRDPkElTDuR50U4TaqEXiEn
- Lb5w9D9jKw+DmrDfijJOyiuBYffqMlUaMQGZzuGyePdc2PPZB9BTG0a
-X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=ed25519;
- pk=lQa7BzLrq8DfZnChqmwJ5qQk8fP2USmY/4xZ2/MSsXc=
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MoLdYB8q3DRXzO23bdnFfKwJmUEaJlwc2naxHVP78Sqsa3lsSxC2+vVg
-	txLC7sm85hDqtC4pZNsVwBz5B9liKcYgEMv56I4Bs7NW3ns+xis15hmpE9fCK/Bl3lESwH6
-	EA6MPgWk0rMUoFID3svCL6hER5RZdodcNqRivl/RMHw/iRwIAUupzlnBooHBA1yPPD06T4K
-	lktDU36VGD5+ul76w+vz5Wb+bc+sxnlXd6HrIJ+N0NTIJiODsjezXDeIFv4o1OlHy608zTy
-	3EcLMWe7QxA6K5wLSRMrlY+1lphjvdEJhFIGdG/l9ZiwoWKT/Pjwuj2Z2Ig1NAeiGNjNaIu
-	d9KLoljiAnq5PyyoC3Gprds9oTiR77bQY4btwGMlMAv2IGOD4nqCKcmj6EU6CHQ80AQHG7e
-	/1i451v2JESDZKq+zDaN98u1QG1cM1QeGWX7d6EavhbaA3R2KKN7wEWtljWEd2XT+8kuPxi
-	dq0ee5I9Hy7CFHTyJHChuK7sJmqVRk1NaSGCMaDMQHzLRKpPl4lk+7xxoPAaBChkWscsFWS
-	ECZOFsWl6XR91e5FM8EkBihhfPnIe/rR9w9Y3PfgRoWyl/tIaxztl6Rd15QFHJX1qJF/cny
-	5fJROMpv92pczk6SVeIsamOO+bQnf0uz8l4qO8gCZNTYjyZIGoA3HadliuAFLmX6z/OK72O
-	DAk+TLvW2JA1UykLZq/IPoVJEK5B0vduCks+lnzCA02HMWLGlSj4lqd0fzfiYD2uhh5wSiJ
-	TYHNjnhp2HrlZMwpVWNxmM4M7obKnHnStFMG5vUTYUVeT2fpgbHPkuzniezjzRzwnSAJp8r
-	w9hUeso3CNFo4NJZ0sPpcshJUPd6RsZvKBeJvDBpJCyB22bi3uozUrTmH9N1hsjmC9NKRLC
-	6uKGkXAfgRIo1lRULE1pngOtre7/SiqJ5367ItL2OLmI9GmAxo/1cvsVZnAtl4PeraI0vuM
-	h2HzGs6ANHqnoxJsjTpc6OtWlGjY/RGiB05Tcpxk3FK+9NIGwCw+BfTTwChGvctTaCgDW38
-	FvbptixVo6M/Ykf+Ggw1OAC1yy0CEpbzsIpd67h9+LHg6VocYsSJjpReeC77BOPjd5ZON6a
-	vzLa4qwL6ULjRPCz6B5urPYupWwCeskZCglC9NadngGupHuFHLN9xvkfd4JAtwex4+wcv1q
-	MtdY/eJ/oOIv8o3e2O0SlT79Q9N8zCkZf6Y16MkR0OYc8q8=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
+Message-Id: <20260507-apple-m3-initial-devicetrees-v3-4-ca07c81b5dc7@jannau.net>
+References: <20260507-apple-m3-initial-devicetrees-v3-0-ca07c81b5dc7@jannau.net>
+In-Reply-To: <20260507-apple-m3-initial-devicetrees-v3-0-ca07c81b5dc7@jannau.net>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Sven Peter <sven@kernel.org>, 
+ Neal Gompa <neal@gompa.dev>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Mark Kettenis <kettenis@openbsd.org>, 
+ Sasha Finkelstein <k@chaosmail.tech>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-watchdog@vger.kernel.org, linux-pwm@vger.kernel.org, 
+ Janne Grunau <j@jannau.net>, Joshua Peisach <jpeisach@ubuntu.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1938; i=j@jannau.net;
+ s=yk2025; h=from:subject:message-id;
+ bh=1IVQx6AIB/vfknI1NzcqynJhB4K52mpqTMLBWl1yw0s=;
+ b=owGbwMvMwCW2UNrmdq9+ahrjabUkhsw/DvYNB+YcY7rL03R7TW1F5feZFw+cX/04rEqlZ+Z+A
+ e3ULM7nHSUsDGJcDLJiiixJ2i87GFbXKMbUPgiDmcPKBDKEgYtTACZy24nhn338VBmN3WuroqW+
+ /Te0cjuaxW7gMcOb4V3byVeKRWxF2xg+MmoLO05cMneL4BORU19XnLznu0Nna+JkZ/c3yo8Wevd
+ wAAA=
+X-Developer-Key: i=j@jannau.net; a=openpgp;
+ fpr=8B336A6BE4E5695E89B8532B81E806F586338419
 
-Add the spacemit,k3-i2s compatible string for the K3 SoC I2S
-controller. The K3 I2S IP is the same as K1 but requires additional
-clocks: a dedicated sysclk_div clock, along with common_sysclk and
-common_bclk which are shared across multiple I2S controllers on K3.
+The Apple devices with the t8122 SoC (M3) are very similar to their M1
+and M2 predecessors.
+Only the 13-inch Macbook Pro is replaced by a 14-inch version based on
+the design of the 14-inch Macbook Pro with (M1/M2 Pro/Max). The Mac mini
+was not offered with M3.
 
 Acked-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
+Reviewed-by: Neal Gompa <neal@gompa.dev>
+Signed-off-by: Janne Grunau <j@jannau.net>
 ---
- .../devicetree/bindings/sound/spacemit,k1-i2s.yaml | 31 ++++++++++++++++++++--
- 1 file changed, 29 insertions(+), 2 deletions(-)
+ Documentation/devicetree/bindings/arm/apple.yaml | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/spacemit,k1-i2s.yaml b/Documentation/devicetree/bindings/sound/spacemit,k1-i2s.yaml
-index 55bd0b307d22..240d90402e4f 100644
---- a/Documentation/devicetree/bindings/sound/spacemit,k1-i2s.yaml
-+++ b/Documentation/devicetree/bindings/sound/spacemit,k1-i2s.yaml
-@@ -4,7 +4,7 @@
- $id: http://devicetree.org/schemas/sound/spacemit,k1-i2s.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/Documentation/devicetree/bindings/arm/apple.yaml b/Documentation/devicetree/bindings/arm/apple.yaml
+index 5c2629ec3d4c..e49403c73f9d 100644
+--- a/Documentation/devicetree/bindings/arm/apple.yaml
++++ b/Documentation/devicetree/bindings/arm/apple.yaml
+@@ -96,6 +96,13 @@ description: |
+   - MacBook Pro (13-inch, M2, 2022)
+   - Mac mini (M2, 2023)
  
--title: K1 I2S controller
-+title: SpacemiT K1/K3 I2S controller
++  Devices based on the "M3" SoC:
++
++  - MacBook Air (13-inch, M3, 2024)
++  - MacBook Air (15-inch, M3, 2024)
++  - MacBook Pro (14-inch, M3, 2023)
++  - iMac (24-inch, M3, 2023)
++
+   Devices based on the "M1 Pro", "M1 Max" and "M1 Ultra" SoCs:
  
- description:
-   The I2S bus (Inter-IC sound bus) is a serial link for digital
-@@ -15,27 +15,54 @@ maintainers:
+   - MacBook Pro (14-inch, M1 Pro, 2021)
+@@ -297,6 +304,17 @@ properties:
+           - const: apple,t8112
+           - const: apple,arm-platform
  
- allOf:
-   - $ref: dai-common.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: spacemit,k3-i2s
-+    then:
-+      properties:
-+        clocks:
-+          minItems: 7
-+        clock-names:
-+          minItems: 7
-+    else:
-+      properties:
-+        clocks:
-+          maxItems: 4
-+        clock-names:
-+          maxItems: 4
- 
- properties:
-   compatible:
--    const: spacemit,k1-i2s
-+    enum:
-+      - spacemit,k1-i2s
-+      - spacemit,k3-i2s
- 
-   reg:
-     maxItems: 1
- 
-   clocks:
-+    minItems: 4
-     items:
-       - description: clock for I2S sysclk
-       - description: clock for I2S bclk
-       - description: clock for I2S bus
-       - description: clock for I2S controller
-+      - description: clock for I2S sysclk divider
-+      - description: clock for I2S common sysclk
-+      - description: clock for I2S common bclk
- 
-   clock-names:
-+    minItems: 4
-     items:
-       - const: sysclk
-       - const: bclk
-       - const: bus
-       - const: func
-+      - const: sysclk_div
-+      - const: c_sysclk
-+      - const: c_bclk
- 
-   dmas:
-     minItems: 1
++      - description: Apple M3 SoC based platforms
++        items:
++          - enum:
++              - apple,j433 # iMac (24-inch, 2x USB-C, M3, 2023)
++              - apple,j434 # iMac (24-inch, 4x USB-C, M3, 2023)
++              - apple,j504 # MacBook Pro (14-inch, M3, 2023)
++              - apple,j613 # MacBook Air (13-inch, M3, 2024)
++              - apple,j615 # MacBook Air (15-inch, M3, 2024)
++          - const: apple,t8122
++          - const: apple,arm-platform
++
+       - description: Apple M1 Pro SoC based platforms
+         items:
+           - enum:
 
 -- 
 2.54.0
