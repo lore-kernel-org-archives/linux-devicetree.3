@@ -1,66 +1,67 @@
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAC7F4611C4
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 18:39:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 585813B7B8E
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 18:44:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778179160; cv=none; b=csjqoBmNlJbJMmyFTwjmpewlURk6xbkDLF1t0HhU+Ng2mJBZ4ZnwefvzBM6EqbAaiUFcLmSGWw07M8sT4azqCkKzGGhdzALM30aOZxtsKYuVX15FxX7sB32AizRKlB9z4sOldUvs1bckBYSrh9Uk/Mk/cT0A5hTjfYObINYz9Mw=
+	t=1778179456; cv=none; b=ScZPvw3JhRYR226CNRt0TrqpdUeQWi/qDSa7pEiJBc2X78Z9FT0LQiKn/OSF91bRRMWAfpJTb46oKbuhmlC/qIXlWoL8BiJv8ctw0VE0+K0IiCcVFUeVA+mFafi2/c43nlA+0IiTGJKl72nmZYOAwHjUrZQZG5Uu0PwUUavJSw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778179160; c=relaxed/simple;
-	bh=f/VYt86QfsV33lO5nWhjommtwvlcryeqI+nt7Vqb76c=;
+	s=arc-20240116; t=1778179456; c=relaxed/simple;
+	bh=OSzlYQw2h6gcRQVmUKR53Ckl2/E4R/U/cGa1oPYYTlM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ts/rMptovNoPkppczk2MbekEVbEiMyrgJF7FWa01fDAMJaN6BA9JEv3RiXM5x3bTh8HuG8Wu4TXJ0EG7PnsXKrRhRgevixLg77UIM57spHwMZ3Ftg6uPZnApET1iwq0Ovn+0ol90zho0qi1cnyXws98SWUd9aX6whIHDXpYDpDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=sETjafTP; arc=none smtp.client-ip=209.85.222.178
+	 In-Reply-To:Content-Type; b=mOPBlpIQEQiSVUZwLWQs2qWyC2Nb/3BxyhKcNEyO/RZ1NfqR06ww13rR3eJOnv4nwE6cMUNkMesBgAw8OjA2Qr38F/crVk2spw70mBcDnxk6uYvL4gQ4VebfWyoRs8Zubcl2hfCOmgYhxNLZF7gv0HjM4kozGncXV+jw5us48yk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=XxFN21KK; arc=none smtp.client-ip=209.85.160.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="sETjafTP"
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-8ec9f099fc6so134949585a.0
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 11:39:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="XxFN21KK"
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-50e5bea4045so8499791cf.3
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 11:44:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1778179158; x=1778783958; darn=vger.kernel.org;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1778179453; x=1778784253; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=xAxf1DNF2nC8sz42taPRq/pgsGcKQpqrWaLh7UNAXF0=;
-        b=sETjafTPdUg2ii93kH2SRdQpxIDwlHw++/Udnl0YvFhjKxo3mfpZymbm3zCbgKWwy1
-         ZZTG/CwjDVG41bxom74SCHnJU+/7a9q6J2hC8o83bgco6Dr+7ETgR8oAhevz4ocMQDFX
-         Ljcf7sSF83yMY1IdGcMdSDhhLa5F4ccPXRZr9o4kt7J8RlHc4eMCYebqQvQRTxtJPweY
-         CbSHWFRgCs3jlhl7Ba3jBV+nkiOcv778l8CV5M7TCIdT8z5yhZMO1VXKgy2ghAU+ztSA
-         rPjKoKJOaL9XsTVzUnI29jx+V0ofMTZcgeaBGW+QSjNrvNhH5sSNkCxFd4FPz2sDDIiR
-         oyMw==
+        bh=1OHugVXwVYl4EIQGFzGx4AQVN+wMQGiAhztZolIIb7Q=;
+        b=XxFN21KKeIEUXbAGo/6Ib+7hUGTlZX/8XuZzfJbo4yl6PSap3BZOrtaZqZvc1Woa0x
+         0TvN9aEcZ4+js8z68j+MUt90r3LhtiXIbw6GBdwg9q24mniraMXZ0Vvge1WjQqtz8mQc
+         wnb4NwKJ2So0FhLQ4UU9Ej5D+YrrYrDhweEMM4rfVO5sA+1tuVk7/V+5x72FaCnYpwSY
+         xkoc5EHJoWePAMfv2RAHc4k2vsCVzgkDN8jl02GAzFudANcX7iezGiutl4yi5yWunYrI
+         9pNxEHt5AqTVXWNcfG7GvuP8sOJHtqUQbxIWRmTus46EYlpu0w9nrzY9OcsAahURAauT
+         CcyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778179158; x=1778783958;
+        d=1e100.net; s=20251104; t=1778179453; x=1778784253;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=xAxf1DNF2nC8sz42taPRq/pgsGcKQpqrWaLh7UNAXF0=;
-        b=RTFN2VavqblA/nChEZYpySROcUVE2fIQI2lDYm5tTPEOPGEP8XwwFXbl2YQZ4NlOOI
-         kM4l4pdCdSNYUjFiaBixOGYphQom5UApUdZnIkAje9Ct37i/ONIrPpkuuf0nEX1/Dkkf
-         RTr4nevK8vqgMhqGAw9xAyA4c+sgrLzdlyDkHeUJp0K05Rf1odv5GqZcABzYP2sev1ob
-         /Sq8CVFTeTdU7GOPyrDGk2FitKoHeyYEhC9MlBvP/rHH1CrPrV4mFv8bY6l79M+wxO1n
-         potZ8q3i/ZVQ7LG9aIufeobcx6IBBo/PG469L2MhnBymZM8Pbfpirv/mpHxs3fhEiGYu
-         0wsQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/iUrypSc7mkZBQ5OPutgz8Q3JT6kStu0KVYbC0b81h9ZDLdKa1E57VrrAYjGsw6Z77PtZrFkutaqih@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw+kckWIL3gH4A+VsWGSb89khkldinf783mKGvddSB6cAE6V2zF
-	FRrolxt+wTsHfholOzHZqXrboSf8YqdFVwfDrW9j1m0yNYRseql6tCU9jNzmbwqL90U=
-X-Gm-Gg: AeBDietWLZuchkckLt9IkYo8cGbFiWfY4bdfkW8kL7br/FmC/egj7GJDzRW5QCMY2PL
-	q8Xrdd6pH2PZOnOouvD5ClAFbmES2wkXQIpNaS76ucu15Ar6jNDZNINJyBKQEDk3PyrZSmGx8kF
-	pPOAgCT98IkQW8MjhCi6vbUt1wbujA8Nd4dXlAQBGTmFjfglah2oF2XMsmP46fNehF0SPEN6p9V
-	VMWa1vMD9TqeHotUjX9jDTBepMaO5S0ZOQL0x+NP0TprQq2WLMBa9J+EtJWER1gjAqCMcGZruxe
-	Rx1/6KqoS+qPaXt2t2pjGYP6pWmcOHeHsr0b6q6LGok0Jrb/DDMv2b8MFUQJXqYf0hu1NAtYyAm
-	a0j8muqfetIuFiR8IbHGYRxcFwEmTKeyxtEDQ9ttfuY79JSYleLHr5WEG++Imp6FpRFsqsGnNEp
-	ufJLCjbh7x3cRkxAFnoOXDJMFzhxYnbSwTjVFZMbxMvbIUL3ZTj5nO/H9yzqtJB+sR
-X-Received: by 2002:a05:620a:40c9:b0:8e9:13ea:a0e1 with SMTP id af79cd13be357-904d496d4abmr1387402085a.18.1778179157638;
-        Thu, 07 May 2026 11:39:17 -0700 (PDT)
+        bh=1OHugVXwVYl4EIQGFzGx4AQVN+wMQGiAhztZolIIb7Q=;
+        b=k4kcfxxgZIOXncTLPoTO/XtU4kfN//F594vHBlCqyE6N1IwE1FoqbqpUvXltgE2UA5
+         ve5fGN3bLc4fKFthlEPxMks+8nuwkSmCToi6HRcAscwGA54pJs2DYAieA/p8FbGDiUeR
+         EF6ZzVfhemGcLUpQ8AAOW7F9e2z81FB44tzKJXmQ5Y2xCNrEqN7lQf2tQqA3CjaEL9gf
+         d+mlQvLKAllu6gifdtohngM1lgwZKQx/YM1dKSXT+YJ/usEY3+LcE2e6KZF0BxcZzfkr
+         DnOo2xXQdw7wzHK7/DnGnDKL0OGgGahj0uXTKn7pVVLBiyAL7YYZsaneoxGIEDMtjfn6
+         jNtw==
+X-Forwarded-Encrypted: i=1; AFNElJ9OOmByWVm5mSIxrVhqF4FQHAlJUlhQsXJypd0TEhTrhVjoOaTUncRAqLn7InsuWdN1iUnTm9vBGU7N@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy3TomK0Nwtbw4PqwUQFGoJVW0VgwIPg3zok61VdqHIvbldZNY6
+	UlzdWTDUUwsLjANRGq0SAyi5G4Vf43LE4z5fWxG6hX5pGicaqzPrxxf41baUJWUKnDo=
+X-Gm-Gg: AeBDietO6F8RLhY4ncJp3Cva+j6N7yX2Ur3A97M2w9yrvGOUtw+Ow3/TXyvUdJQqRLG
+	qgDix+0E68zgNoIEQQj/ZbsZNbTS/K5mE5KhUrNwtwa5pKf7vfjLHaDvUz3ExOWn7LTjNylNDOF
+	9tYuK9KJRnKzWCm2yqb1HJfxLJALAPG9ShiqNETF6yG5ckiB/TyGH6nl5/XrTO/Ma5zSCCuVFQT
+	+C3TBfmO5NhehE93gItMy5gwgrSF5MwsT8rwO6FAIM6RdAKMlMXTpkPK3N/UgKDmtuRTKO/h1ju
+	wLpXo5jjyRToMbFjRZeO2r53CrS7DUJNjTAQJM3Z2q51RgPsXusxsjd8sW2OH6FwugIYRL+/+pI
+	JsA1b0wNaa0FhTtRvEmsFkuJLxB8lR2Tw6gRIHvoBf2j45J3SrXKfUZJEuxexK6d5E05HFIvBzQ
+	5TTI2XapWRHGvcCZCeTghjf429r2H/VxwyRaInq3VmRURbXBTtBdzIdARgpB2IfAarBgyTjEbNd
+	5w=
+X-Received: by 2002:a05:622a:8c7:b0:50e:5fe2:83a9 with SMTP id d75a77b69052e-51461bf0515mr133144421cf.5.1778179453134;
+        Thu, 07 May 2026 11:44:13 -0700 (PDT)
 Received: from [172.22.22.234] (c-75-72-117-212.hsd1.mn.comcast.net. [75.72.117.212])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-8fc2c25324esm2298627185a.23.2026.05.07.11.39.14
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-514850d0d82sm5022531cf.5.2026.05.07.11.44.10
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 07 May 2026 11:39:17 -0700 (PDT)
-Message-ID: <20903580-85af-4e7b-b3dc-b8de49bd32c1@riscstar.com>
-Date: Thu, 7 May 2026 13:39:13 -0500
+        Thu, 07 May 2026 11:44:12 -0700 (PDT)
+Message-ID: <ae90a4c9-f027-4373-a378-d0d4b7796ff3@riscstar.com>
+Date: Thu, 7 May 2026 13:44:09 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,19 +69,21 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 09/12] gpio: tc956x: add TC956x/QPS615 support
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
- rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org,
- brgl@kernel.org, arnd@arndb.de, gregkh@linuxfoundation.org,
- daniel@riscstar.com, mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
- alexandre.torgue@foss.st.com, ast@kernel.org, boon.khai.ng@altera.com,
- chenchuangyu@xiaomi.com, chenhuacai@kernel.org, daniel@iogearbox.net,
- hawk@kernel.org, hkallweit1@gmail.com, inochiama@gmail.com,
- john.fastabend@gmail.com, julianbraha@gmail.com, livelycarpet87@gmail.com,
- matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
+Subject: Re: [PATCH net-next 10/12] net: stmmac: tc956x: add TC956x/QPS615
+ support
+To: Xilin Wu <sophon@radxa.com>, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ maxime.chevallier@bootlin.com, rmk+kernel@armlinux.org.uk,
+ andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org,
+ arnd@arndb.de, gregkh@linuxfoundation.org
+Cc: Daniel Thompson <daniel@riscstar.com>, mohd.anwar@oss.qualcomm.com,
+ a0987203069@gmail.com, alexandre.torgue@foss.st.com, ast@kernel.org,
+ boon.khai.ng@altera.com, chenchuangyu@xiaomi.com, chenhuacai@kernel.org,
+ daniel@iogearbox.net, hawk@kernel.org, hkallweit1@gmail.com,
+ inochiama@gmail.com, john.fastabend@gmail.com, julianbraha@gmail.com,
+ livelycarpet87@gmail.com, matthew.gerlach@altera.com,
+ mcoquelin.stm32@gmail.com, me@ziyao.cc,
  prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
  rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
  weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
@@ -89,44 +92,41 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-10-elder@riscstar.com>
- <736fb3b7-c88a-4ec4-96ad-d1b79cc48d30@lunn.ch>
- <30cec7dd-ac3c-47ab-896a-c29992bd5ba5@riscstar.com>
- <3e5a42cc-53b8-4065-a32a-d754be40b4c7@lunn.ch>
+ <20260501155421.3329862-11-elder@riscstar.com>
+ <224E233C593EF171+8c8a43dd-5061-40f8-9eb7-f360eabf2ecc@radxa.com>
 Content-Language: en-US
 From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <3e5a42cc-53b8-4065-a32a-d754be40b4c7@lunn.ch>
+In-Reply-To: <224E233C593EF171+8c8a43dd-5061-40f8-9eb7-f360eabf2ecc@radxa.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 5/2/26 9:48 PM, Andrew Lunn wrote:
->> It's possible gpio-regmap.c *could* be used.  We started with
->> vendor code and this code got separated at some point along
->> the way.  It was working, and I don't think I pursued other
->> options at that point.  I'll look at this possibility before we
->> send out the next version.
+On 5/6/26 7:59 AM, Xilin Wu wrote:
+> On 5/1/2026 11:54 PM, Alex Elder wrote:
+>> +    /* AXI Configuration */
+>> +    axi = &td->axi;
+>> +    axi->axi_lpi_en = 1;
+>> +    axi->axi_wr_osr_lmt = 31;
+>> +    axi->axi_rd_osr_lmt = 31;
+>> +    /* All sizes (2^2..2^8) are supported */
+>> +    axi->axi_blen_regval = DMA_AXI_BLEN_MASK;
+>> +    plat->axi = axi;
+>> +
+>> +    plat->mac_port_sel_speed = speed;
+>> +    plat->flags = STMMAC_FLAG_MULTI_MSI_EN | STMMAC_FLAG_TSO_EN;
 > 
-> The GPIO subsystem has made a big effort to provide generic code,
-> since GPIOs are pretty simple things with a lot in common. So if the
-> generic code works, or can be made to work with minor changes, you
-> should use it.
+> I got WoL working only after adding STMMAC_FLAG_USE_PHY_WOL here. I 
+> guess it's required, since the driver clocks down the MAC/PMA/XPCS in 
+> its suspend hook?
 
-Yes, I can confirm this is what I will use.  As mentioned
-elsewhere, LinusW provided a patch that support the one
-unusual thing this does (input-only GPIO lines).
+I just want to respond to this with a summary of our plans.
 
->> What do you mean instantiate it twice?
-> 
-> I _think_ you need one instance for the first 32 GPIOs, and a second
-> one for the remaining GPIOs. But maybe config->reg_stride might allow
-> it to work with a single instance?
+We will *not* be implementing wake-on-LAN (WoL) initially.  We
+will work to get support for the eMACs upstream for TC956x, and
+then as a separate step, we will enable WoL.
 
-Oh I see.  Looking at it now, I presume the reg_stride will work here.
-
-Thanks.
+It's great to know you have it working, and our plan is to
+implement it via the PHYs and not involve the MAC.  It seems
+it will be relatively easy, but we have no plans to add it to
+the current series.
 
 					-Alex
-
-
->     Andrew
-
