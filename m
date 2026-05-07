@@ -1,144 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F623CAE93;
-	Thu,  7 May 2026 10:07:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A96D3C65F4
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 10:08:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778148425; cv=none; b=nSQQagO8Hyz8kuE0Xtg9x8Es2E8ZO67q0u4I1hzUfUEHCEStmNNZb3B82JWn0KyvHRQuNOlEZlZI1nSptiJH7RZpVx3qXmsFhtEGFoDYXHdSNYtWDAJBh90gNY4kiUJuhSojSx7JMll/kLEYyJJYW8CnHnZlx5wAE5m5PHU9HHw=
+	t=1778148528; cv=none; b=O/SK9lHhJHcXUq3vkT2iHTAdJqgUUDOEL4lAURtkHnKl4DKX0cpp9qrE54X9Bb3OQ1rhYG26trjvBo27dTmHH7c+gviv+tCS75yLQ3V15eBvcxdAmV2/gBF/RCd+2YiAZIZT4g6yH3ryGSXUShv+wr8t8p/N5Qsfti9LGy37I8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778148425; c=relaxed/simple;
-	bh=vpHvtJlf6Pa1uoVLAAbDJTx1AYNqnAZ4JYMq4T1u/E4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fXqMyeF+3R0ZlPudWswTZ1vbB8OggTlCW9bictq0vhqiTCOaM1iyXZaM/KpqWdx8ezxZF/vmGaopDIJ7xudfSDQ/mfTR5KLBSUwnSaOhF+lk+E7uoMo1y33etjDomTeNTZIULsDFq+4aPmyfQvhiRLDdsZoiICMhOyzNwlN2N70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fGX7RyqN; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fGX7RyqN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 466E8C2BCB2;
-	Thu,  7 May 2026 10:07:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778148425;
-	bh=vpHvtJlf6Pa1uoVLAAbDJTx1AYNqnAZ4JYMq4T1u/E4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fGX7RyqN5hWZC+9GDuLZOj+nLDKrskYBXPZGB0z+V532o+z5iFfmGBojZCI4EG/EA
-	 6hIT50uay+fPsLiKPx0rB+SWzVl4yl++PP8JyZ9W4AIMRZDcFx2FuRmoazZLpMTVgd
-	 GBAD8Kf0d6P/Il/7/tVVxnym4e4IDGgIhioa7bX9uc/rqSAiss27MeodYr5UwBOVOJ
-	 QflZMLR61vNEMDnq5tIc4Qxazvfc9RLmGSAtlAeRqUZtHZiBhBGMHYzv/MSHNsOQe1
-	 M2zHypc4p30RkNa8Slwf5B+xwkWTHwK7kfMRVXOw2klYDB++03JLvJwXQfu4+Y+tKS
-	 tBuXqM40eotQQ==
-Message-ID: <7df3bff7-b872-4b20-8e7c-698157a41f33@kernel.org>
-Date: Thu, 7 May 2026 11:06:58 +0100
+	s=arc-20240116; t=1778148528; c=relaxed/simple;
+	bh=kXQspXREuqyEYdjGDjyEBdOTtNmhzbYs7oU0PJZ6TYc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=F2knELEiJQRwrjkqfv1AoCpjPw6wSr8sVVDHtqt/JaK4TELxDtBSCTYVQXwz6Y0AoetUOOFdpE3oAMfD+jnqRG/msulV/lqFSHGTGCuIeDDF7X/Vn9bmRkQwsJyFfCbJKdp0ajFIEwm5/AnZ/1i3SY8wiVdwP6795krdHWRlR6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-610aadb2d9fso192135137.0
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 03:08:47 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778148526; x=1778753326;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jeAWFjgKNZgewmf7+VpB3j6D3JVvBcCkVJPHWNsKgvo=;
+        b=ZKud0xhOjbXWIuXFSYphAF46ylVkBjwFi3jgeWtEPrmMWtCQ0UmyAzujGbKbZdPP/w
+         X2Bx/uB54NsTSrLlYLsixig0bH4YWWUaOB+qz/EtDZfC3lZ0LQOqplkP2iese/0KBLFN
+         JALXIAQOf1sDdLO1NmlT8in4qZOCiKVsCx/3RdbwhNNLWcxhgvyaTey/YdLMSQRA9TIF
+         qoG1RUmfroQxCIE6QtyxpZABL+7X1l5p4u+ZsDRuytXocku6ujoNSq87yi9kWfo9qYFK
+         WleAiG19nHlPFMkccc797QfKRR43OqSjGd1XQWqRHx0btISuRvoThCM5BB3/6w8u9MU8
+         jfIQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/538q3PMMgnvW/Iov239tCYihcgGQTk7AgucNS6RPJzSPpAIHiwC/6KEvKkbFT0j2/9nJbcQ2ymjby@vger.kernel.org
+X-Gm-Message-State: AOJu0YzCanRBUTPn7My49l2KFDbV7WSk8f8RtojTsJ3LankB3+JpRN7Q
+	DOiEJ+UZi9ReYPNM4dVYQPgfMldEigv04AW/dbCSHcyVzK9RHcBo8vAOlLa1yqKBCT8=
+X-Gm-Gg: AeBDievcwMDDrAuqEhFLDDP9+bA4/fb6YDxzzqHnP9200CZrbvJrYW4iDNFeN5rXExl
+	J7WbHGe1B29vZ+YtTiQmKZqqzGJ/rkdFkPlO7Vy2k486ZQjh3rMAFw/4CsJfSS9jQf/VJt+Zp/w
+	hxDirlGfI2+BKHIdn/pmAD7AG7uTxufgrGhkLJY+/Io5iGp5W3n1ALkw0rvUz1KwwhcFz9MBF8E
+	bo+b7gtycGt/oTR3LJyPiS59Nc7FmZwpiiOnm7sAwy9XWuWUeXv+ReooPEm8mJh4GMsFh5bj2pe
+	kWzrfEWb+RV/W1vlqwe4gIUB0dWmFi/ym0xNBT/Ht1Gi1pZe8I47b2YfgI8FZz5hpHI/a84PRJw
+	JXjM9vmIJhol0lngYlW9lmqgQdxMx4vqn5Td6njQPJGz2IJiic0vkzTuT64/lTrvQt7MDmNcCt6
+	9MKO2QdUNMk77Gho1v+wCANAEZuAlbCpyZunnBC5neFNUR2+uSo69ZUJ4SGTMhrbk5JFsnv6vh4
+	X4=
+X-Received: by 2002:a05:6102:149c:b0:612:83d1:1f70 with SMTP id ada2fe7eead31-630f919e930mr2750585137.18.1778148526350;
+        Thu, 07 May 2026 03:08:46 -0700 (PDT)
+Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com. [209.85.221.169])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-95ce08efbcesm11017674241.4.2026.05.07.03.08.46
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 07 May 2026 03:08:46 -0700 (PDT)
+Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-575602688deso204813e0c.1
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 03:08:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8QX5B2rkCtQlzcewLR4o9lSPH26gHWIFZbgnJ8mPjcusRrauMV+nnXup+beCu6fBZW2SgBgX5kPP8J@vger.kernel.org
+X-Received: by 2002:a05:6122:3120:b0:56a:f979:a9d1 with SMTP id
+ 71dfb90a1353d-575593b5a40mr3891168e0c.1.1778148525853; Thu, 07 May 2026
+ 03:08:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 5/8] clk: qcom: gcc-msm8939: mark Venus core GDSCs as
- hardware controlled
-To: Erikas Bitovtas <xerikasxx@gmail.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org
-References: <20260507-msm8939-venus-rfc-v5-0-d7b5ea2ce591@gmail.com>
- <f5TsKnC12rLsH63vAi01aN4oXUFLrfgIhn14IQFDb9gcac6anLzzhJdkGNdQ2dRs4vYbFKUptfEgWuKdgIgGsQ==@protonmail.internalid>
- <20260507-msm8939-venus-rfc-v5-5-d7b5ea2ce591@gmail.com>
- <17c4626e-8926-4cad-842d-a1b171d1e962@kernel.org>
- <CYaHtccGOWlaUtl3QIKva44ybJiRHsPOZmHEkl2KKGmnDxJ8vTH-SVNMGbL7bjkYjI692nplORzOhpfjs3XJfg==@protonmail.internalid>
- <4f1ab5b8-3bfe-43a6-8b91-317456188544@gmail.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <4f1ab5b8-3bfe-43a6-8b91-317456188544@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260430125342.439755-1-biju.das.jz@bp.renesas.com> <20260430125342.439755-5-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260430125342.439755-5-biju.das.jz@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 7 May 2026 12:08:34 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdW7J1VL6KFTt0M3UO_NFmBDnfggi=mSg58svPnRC+Psfw@mail.gmail.com>
+X-Gm-Features: AVHnY4LpmaWS7LXimKPU_njn3ObmYrciwAw7lzjhzA4sY9Hm32MrRpd2gzDNZgY
+Message-ID: <CAMuHMdW7J1VL6KFTt0M3UO_NFmBDnfggi=mSg58svPnRC+Psfw@mail.gmail.com>
+Subject: Re: [PATCH v3 4/6] arm64: dts: renesas: r9a08g046l48-smarc: Add SCIF0 pincontrol
+To: Biju <biju.das.au@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 07/05/2026 10:53, Erikas Bitovtas wrote:
-> Running the following ffmpeg command:
-> ffmpeg -i Videos/big_buck_bunny_1080p_H264_AAC_25fps_7200K.mp4
-> -input_format h264 -c:v vp8_v4l2m2m -pix_fmt nv12
-> big_buck_bunny_1080p_H264_AAC_25fps_7200K.vp8.mp4
-> 
-> Fails with:
-> [vp8_v4l2m2m @ 0xffffb0386870] Using device /dev/video1
-> [vp8_v4l2m2m @ 0xffffb0386870] driver 'qcom-venus' on card 'Qualcomm
-> Venus video encoder' in mplane mode
-> [vp8_v4l2m2m @ 0xffffb0386870] requesting formats: output=NV12/nv12
-> capture=VP80/none
-> [mp4 @ 0xffffb4b3b7e0] Could not find tag for codec vp8 in stream #0,
-> codec not currently supported in container
-This is an ffmpeg error, rejecting saving vp8 in an mp4 file. Anyway 
-this would do nothing on the encoder /dev/video1 is 'Qualcomm Venus 
-video encoder' above
+On Thu, 30 Apr 2026 at 14:53, Biju <biju.das.au@gmail.com> wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>
+> Add device node for SCIF0 pincontrol.
+>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> ---
+> v2->v3:
+>  * Renamed SCIF_{RXD,TXD} -> SCIF0_{RXD,TXD} pins.
 
-Try:
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.2.
 
-v4l2-ctl --verbose 
---set-fmt-video-out=width=1280,height=720,pixelformat=NV12 
---set-selection-output target=crop,top=0,left=0,width=1280,height=720 
---set-fmt-video=pixelformat=H264 --stream-mmap --stream-out-mmap 
---stream-from=/media/cyclists_1280x720_92frames.yuv 
---stream-to=/tmp/cyclists_1280x720_92frames.h264 -d /dev/video1
+Gr{oetje,eeting}s,
 
-v4l2-ctl --verbose 
---set-fmt-video-out=width=1280,height=720,pixelformat=NV12 
---set-selection-output target=crop,top=0,left=0,width=1280,height=720 
---set-fmt-video=pixelformat=HEVC --stream-mmap --stream-out-mmap 
---stream-from=/media/cyclists_1280x720_92frames.yuv 
---stream-to=/tmp/cyclists_1280x720_92frames.hevc -d /dev/video1
+                        Geert
 
----
-bod
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
