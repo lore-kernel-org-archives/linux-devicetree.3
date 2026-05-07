@@ -1,83 +1,83 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE262FE59B
-	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 06:22:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 179C533859A
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 06:23:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778134981; cv=none; b=cYQRgr0vmW8R73k/J9vbAMU+H1i/DxUVxd/dxx2r3kUtaHZvY57UoNbBXst4Dujuvkqw1UFCEd3K6lVkSIrtdenCckMBizK0z/wY0nek+OmRRmup2w1Fz5fY/fgffsUK2h5W8EIoH0aQhrx2QYf9jEBOlqoR9YLoXO6nz2lRA10=
+	t=1778134989; cv=none; b=I5/y4dVwb7xPXqUVrYqbBum4KIqesuzjKoPFQpYvpHaQnbj9TCEIKWrrQVvlZvnu7t887vqadjcd9KjKNExpsZyji7P9HrKwP1E3XaprmIPJEk/g2hMh8Aw3NAnd4APckn6rKHKrof+MrSUMJ809+JCf8C7sbSVrBAq55yCio/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778134981; c=relaxed/simple;
-	bh=trIdMNmVcLDiXsKxuYeCux37DP4Z1YDKXeML5xJdrmk=;
+	s=arc-20240116; t=1778134989; c=relaxed/simple;
+	bh=crif14YmbOExkSC7ZauwFjleVb0oyJmI7QPRCBQarmI=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=kTgttkZkje54L0V19GByhw/XQ4mrOB7FUKme9/Pvecez1+lIlbE1zSF+jVXX/l4UVOudfAhtYrF/jIWK+Fyp5P7hKXoZlsTkcZVUT/7jj6jiEIw+hFEwV9gU1RqdTLLR4E+gSQR68Ds2GZGqRK0/7IcGxqplb5iyIVCcx4e92yc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OlstpMot; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PlgH7U9A; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version; b=ZR1CNx0nT0Jbx5tJE7IQnbwQTASn1OVI1I4yGAIlhToH7+s3IVEWcEsPPEaLsAoM43fdtutHs7r9bPwc+lqPh57lsV/uJjEMLHzFZhY1Cz/dEoWVRQnhAojG7d3mwnl8/r1hwg26y+d/68X/Q1WN2Xa2S2Sn0u9lZbLDVsw6MDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AmU4McbE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JMNeHU9v; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OlstpMot";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PlgH7U9A"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6475wv861927314
-	for <devicetree@vger.kernel.org>; Thu, 7 May 2026 06:22:59 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AmU4McbE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JMNeHU9v"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64742r063036600
+	for <devicetree@vger.kernel.org>; Thu, 7 May 2026 06:23:06 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=fKKG+GaCcws
-	0o/B+y8TpDjd62UuzsjpXKuwFWrqTOkw=; b=OlstpMotKKRmmTs2LftnJBMlcyz
-	Lx63aETl05jFkKgWKv6Nj+NJMlWQC72VN9PoVYfsy/Xk51G+ywiW04n3/N5CrWh4
-	bBlpDZcjZWTXLBm/T761+mZ5imxol6QpvT6hO2JMjLIB/eLXXfjPdAPV6IT7C5Cm
-	Esk+ubuI6T5J8LTz0sAwZ4MSQa7+ItXh9BuPnAaOjLTb4ho/7bzgzUYnLa+3iz+c
-	aH5NMUxIirZVU+j/0mm2Hut3mhvet58GI7GaaxiYZGQoT5rTGGDBdxA0xsibi1eO
-	5rzoaHKl7O+co+KNlmut7z+JDuy7IWPkG4TUjV5SreHIuyQghvrCyJUbPzw==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e0n2g82rg-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=wqlIPTlhmBb
+	CJdFzW+UetDgAOjHAm1lIAxJEuFxtZms=; b=AmU4McbEwZZVev9lpbyDoJqTvkZ
+	hPQDHckicgyHEsO+7eCNACzVUDqFQXOUhqezQRHVclxaFZm+SHG6FRNI/rOlCv2N
+	v84rEOSh/q8us6rcEnKVLT//YfH/KFJ6nLLSYk+lLh1wjNuqaLQBlXlz+uIWGE+t
+	GUp0xGIDMMdKgDuGy2I1FG/2aFj9DZ4fnaJOWoma1snmn/vP+Ql+J/EEgraTZ8e4
+	UHiU4S0sfBGXAdovky7ykT3CikzEM2uhFH5Srs7HTKiFysCPQXPzDptzYJNBxHKD
+	QduVFEoV+rWvGGQ+fVqUM3zhbUefWap01NyQhR/hGxOwdE+RbooicRwOAAQ==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e05bf3gey-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 07 May 2026 06:22:58 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-82f6b984b3aso262536b3a.3
-        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 23:22:58 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 07 May 2026 06:23:06 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-82f6a5b4f88so550687b3a.2
+        for <devicetree@vger.kernel.org>; Wed, 06 May 2026 23:23:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778134978; x=1778739778; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1778134985; x=1778739785; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fKKG+GaCcws0o/B+y8TpDjd62UuzsjpXKuwFWrqTOkw=;
-        b=PlgH7U9ASVy+YlI68M9Q8xgylxuatlrGX6O2kCYseT8VtPWlcHG5pHdrVucqMYoVyi
-         6TR5PxhAdZNNYRpvB7LT3FFqrpe1tV+mjx1hHH1oPhV3SSDwb9/DAM6buA92GyZ5obc6
-         HAS8Dk5UhwCgxzHxcfPEe/hfa1R8StfosuGvaPqVoTquvUL21bOpuUTYpi6bsFEJyGOg
-         OCaoV78hmmSgwsvFa15JAoWSWBH/ek/7jiL2JPEtleKfn3Age5MvUsRaxarsgb8RNbjn
-         xb+jAK9PZBiHCpRfOdZDLCPo+VTFrATnyPIZ20Z4vxgd3jdFVF9MaOUhTLJQsGHMUG8s
-         9Qpw==
+        bh=wqlIPTlhmBbCJdFzW+UetDgAOjHAm1lIAxJEuFxtZms=;
+        b=JMNeHU9vP5YfLEuGdAvlNw2kWQBZyk/eU9h+WET4j3L3XQQ70W03wAJWCVMwG1oFHi
+         nm4xvLnt68znYhKsswianjYOjKXO82CsNkdBPmwnAsXfZIiIcCC5DcBLgPNdaBcVtj2A
+         Un5JRibtlYW3aS0EL2xfd6MSVSTFPq8hI7bbg0qiGdRDgoAJro/mPnESDaXqeavKuzyv
+         qb402P2Dqpgu4UoaQQtOeankZ4DCbJhBwopIN+l7ZWD4fbMfgm8ma9qXgOeLWb7fmdIo
+         3WcW/vyJK6r2yKSuBJrULhadYGWRMBiL7BfSh4Iic1/Za1DBQ59K3VRmb0Jzv3Cn/DsA
+         /few==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778134978; x=1778739778;
+        d=1e100.net; s=20251104; t=1778134985; x=1778739785;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=fKKG+GaCcws0o/B+y8TpDjd62UuzsjpXKuwFWrqTOkw=;
-        b=Pp7fkWHL8y6HuFilya3otovmVWnXi8qr+tgpOtGa9LM5p6vJ5yy9P5/DIMHe2/xjBe
-         6YvaEWnZA/s9RQs5WaAxpQPs3RLn+HAceSfAehcVzvqsRamUJQ4yyNNoqQqzJcaC4zeO
-         df8jD/c5fCud6nas78xCHGxBWzoeMKeAhW5SAB8OM0eOAU852LO7pCp3Bv9y5LSMGAMt
-         Ea1/eU0a/tXKjEf7A6hpApbXhtG26VIsdKx4/gol5UxzzrgebQDjOk0aMJwpEYo61Dlh
-         qDkXQ/KAvP9O4YUDfTusKA4H4ym5pqSaMda5GSv1XJy4UJtbpiZW8bOjNSVC/qgRGWWI
-         +RdQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8coR/QjQ7rxjc+vIkEOJzD23pz7MtCWNm+BSYXgjXnyPBHZYFqyQDcAt7BX/4FZyaF4wvoVCgTwpW3@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywl1J7btd9/sKQ7OrqGGN2zxyQHFseFHE0IgYKfTwpxwC7k5mZ9
-	qNmvPefFvtQd4xpnvTKQEM707d1BnC9FlC9ueVwB0FV2edcUWc5Zm7y1JbiZrQto/SekqybzvXj
-	v0R9o7xDttNmzwAlKiT+1r4EEgZMbjq+VEbzzRuxoDJbKVrJ11KD/mjU+0gz66dDZ
-X-Gm-Gg: AeBDiev0LpyIVCGfGML0cGsGTyynzvfRAho9Rzpr8Dk3QOc350Eob79Bq9VLUXMmyj9
-	cjbMHlI4o17WS4IGP55IyBkjK2Vm58mCpbLXzXJqN/79xHA5LPzLhV1vwS2wKNZvvt8BS2wq6Is
-	zNtXekS35mNLBCOBihQ64Smlg5q3UYx4TLSNuiEQ7ChCntwww+wkxjfemLvHoZ7viOfWu/POAH9
-	0iC4+XTXkVHzqsN17OJf8ESeay5XNoW16fxmxT81BjU0WbracgMp02HbSRFPRKQpadL/+S+xZi5
-	fOx+WSV80oTe74nIxgBNkWJZgAYHBST5Fl2dxSNy04GcladNCBDna7oOGn2Zrjy9ds9qCrFQg6i
-	r0HvoIyeJkmWm0mD4ihqJlfuecC2EGLSh2JO2yGRZfq4kQgmyX5b85fAyGuqg6CKIC9YTyn11Vu
-	OV5CgEgwB0k5KZFk9TCP60RUPyrIC9vCS+6IHcQJ1AnqxoTh0=
-X-Received: by 2002:a05:6a00:1411:b0:838:c01a:7a50 with SMTP id d2e1a72fcca58-83a5d68134fmr6288251b3a.30.1778134977938;
-        Wed, 06 May 2026 23:22:57 -0700 (PDT)
-X-Received: by 2002:a05:6a00:1411:b0:838:c01a:7a50 with SMTP id d2e1a72fcca58-83a5d68134fmr6288208b3a.30.1778134977319;
-        Wed, 06 May 2026 23:22:57 -0700 (PDT)
+        bh=wqlIPTlhmBbCJdFzW+UetDgAOjHAm1lIAxJEuFxtZms=;
+        b=P5HOWv1kGjTgvpJoPHcx8VuZQwnZ1Mb68In1lYYRdNKYYxhLPYWvNET5USIQMiRfZ/
+         742v77j/GmKwhCuhPt7HB3H5vgK71hol+VuNCkhrFXhtZGqRwy/283GTEeESRvNmTAT6
+         YbxAtx4jwA4dpgX9if6VXsI/lyyNae4NLkXS0/VSGYzmve3SWrglKWjv6i52gzfJe5Bm
+         0JQc6xqN+uJ99cRvXHDwRZTQOdAMFdAHtURRG7OUEp2nBYATa8szY91yZwGoOcBqWWbx
+         jDRQt6pkJz/miLwK/QJjnP7TWrstpskrl7YXSgIMN/Dcy6auQmjbqaZI2uvzkt52siW+
+         /N8Q==
+X-Forwarded-Encrypted: i=1; AFNElJ9hneoS6W3C5LIrQCQbCkZpuC83Ij/3UMIdkARTSLkFJhmIpvVwY2tcK9qxBS5e9YdVBNmd/QIrvktl@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywg2rY/0spBNInElSvmp4vCuuLpdFCxkKnPhahT+sgU4rX+EC7o
+	W/VGLulbRc+3/od6jwhZDVLCKR+TlB1z6X23BBtH4IXGUX7FsvJ1Xy4PUqOWrD6BDKhWAsdQrvj
+	FyQZ3PmoWqQHczbzoCW7TlfVT0zgcCsvToUMYtnPPQtHPl8F6Tti441ltlLWcpg2B
+X-Gm-Gg: AeBDietY5/VYuWez3MJ02pODZKGCpXPFNR9YF/4iH6qZN848TsM8PqlPp6SZ32pWRLR
+	jlvEh1ollfdwecMPeSt1jz4pJwYlBjfobNIUy6KMI4pAFn4tyCp0cylB/YZ8ubZyW8BD4MLkBVH
+	BY8cEk+W88bxkDJqe0YlY9nXXkYmYwsCV1wxw7BqK6RE0wHeowfUpF5sEfjWaBOUDZ7ynhnhKGX
+	KD9PdelaceTyl16A2H7ZpOQPVT2RAntvc/F+Rs4qnfwLzHOVXHr87ObVg43VGFtFgOk/vEeS/vn
+	Zpr3EcIWOO7tCto1djfopucS89nVWYiK4Rzxyi/yn0WxtSLFP7AbUqum2G/iselkes6NxVq+cI0
+	rCTf5SuJR5NilOWJezm1ZQLbeoF90VmBH+GSDawgFBjd1pS2n89zSPwu5vuHSadl5QmqphQshfD
+	CA9h/ItHC/wZMJOfJA1uiuDC+bVshbkukipCsgQAI3SgjL7Vs=
+X-Received: by 2002:a05:6a00:c95:b0:82a:65fa:cecf with SMTP id d2e1a72fcca58-83a5bada322mr6431048b3a.4.1778134984996;
+        Wed, 06 May 2026 23:23:04 -0700 (PDT)
+X-Received: by 2002:a05:6a00:c95:b0:82a:65fa:cecf with SMTP id d2e1a72fcca58-83a5bada322mr6431017b3a.4.1778134984445;
+        Wed, 06 May 2026 23:23:04 -0700 (PDT)
 Received: from hu-sibis-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83965945101sm7346557b3a.13.2026.05.06.23.22.51
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83965945101sm7346557b3a.13.2026.05.06.23.22.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 06 May 2026 23:22:56 -0700 (PDT)
+        Wed, 06 May 2026 23:23:04 -0700 (PDT)
 From: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
 To: cristian.marussi@arm.com, sudeep.holla@kernel.org, cw00.choi@samsung.com,
         kyungmin.park@samsung.com, myungjoo.ham@samsung.com,
@@ -87,10 +87,13 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
         arm-scmi@vger.kernel.org, linux-tegra@vger.kernel.org,
         linux-pm@vger.kernel.org, dmitry.baryshkov@oss.qualcomm.com,
         jonathanh@nvidia.com, thierry.reding@kernel.org, digetx@gmail.com,
-        conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org
-Subject: [RFC V6 1/8] firmware: arm_scmi: Add QCOM Generic Vendor Protocol documentation
-Date: Thu,  7 May 2026 11:52:30 +0530
-Message-Id: <20260507062237.78051-2-sibi.sankar@oss.qualcomm.com>
+        conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
+        Shivnandan Kumar <quic_kshivnan@quicinc.com>,
+        Ramakrishna Gottimukkula <quic_rgottimu@quicinc.com>,
+        Amir Vajid <avajid@quicinc.com>
+Subject: [RFC V6 2/8] firmware: arm_scmi: vendors: Add QCOM SCMI Generic Extensions
+Date: Thu,  7 May 2026 11:52:31 +0530
+Message-Id: <20260507062237.78051-3-sibi.sankar@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260507062237.78051-1-sibi.sankar@oss.qualcomm.com>
 References: <20260507062237.78051-1-sibi.sankar@oss.qualcomm.com>
@@ -101,34 +104,43 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=Wv4b99fv c=1 sm=1 tr=0 ts=69fc2fc2 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDA2MCBTYWx0ZWRfX2sBW7J4zl53b
+ 7EAsi4rvTL/TtPCgRFKCky6QvdIO7VrIq5We2HSzNex4YWD9t3OcW8f2tTX/rXPz4G+Y3iRc8w7
+ lt2Luh/IdOPeHiN4OVdzGD2kslSSAMtbhpziKdLZLWVW7cSLZUo4ivL2qeKfOv6GQIpLuSmnxZ7
+ VOhdY0rYB4RV5X65crs/C8+JBsrPnZqeHDzccJIpjCzzZhczicHuDumvmGyBxX+ZRQyLvJryfNt
+ /HLt9x9OQHesP6koMPEqdXRBDxEyGJQcGqsVb9+LaGAmfyW9J68t76ALaC/SlSQJ+HoCxKNzQxf
+ tPplCD4HvX5Q3EBq0X/m8UbVnnYaepua4q7zOJqi8JKY6THCcmWTP9twjWCbh6Jj7WOPTWhm80k
+ twTWrp7BFkekzMabUUGBvcAqXBSD4L1pSqPHJPmYwosGrvbeXXrNw3L7qMjzVq/uwa5khKhM2GH
+ LuYniZTnirbJTELwSQw==
+X-Authority-Analysis: v=2.4 cv=PqmjqQM3 c=1 sm=1 tr=0 ts=69fc2fca cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=COk6AnOGAAAA:8 a=fRH0SyXitDLK6ufOgm8A:9 a=2VI0MkxyNR6bbpdq8BZq:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=COk6AnOGAAAA:8
+ a=EUspDBNiAAAA:8 a=5qo32d-oOMBYuVP3DBMA:9 a=zc0IvFSfCIW2DFIPzwfm:22
  a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: JPX2TYeWiidZ0U3JjsutmZ3FUryWPF6T
-X-Proofpoint-GUID: JPX2TYeWiidZ0U3JjsutmZ3FUryWPF6T
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA3MDA2MCBTYWx0ZWRfXx/EdBjt2kBDb
- R88heGoIsegPB/c4dNegysnmzdJNTW7f80OSL89eayWCjjlO6O5x+WmJavgTB6BSRVdgyiPm90b
- 6sB12zy6A+AqSZNY3dAKBquVhb5BoGlW6BTEFIegh7u4bR1kpu0jIUur1xFtOcUQbwbJQwhHi8x
- PBJ45MPJ/19VepDpqlRdtih8gKOvThicEtAiiNxHTO9iJGFGCN6nN7QphioeUtUb1Puni3XT+eI
- 7sCI19VY2Hq+uVPuE7Hy0EQeUOXHu5Sdzprln58HPc8wY/XMpg8drK3KOh1tS/l1WGmWRLoXgRp
- Gu3BgD9LrroqylIrmZs/PVmLjH05H0MjRWZcnu4QEdLOx6iY4B8LbYu9YMZHG5lCDoujl2D5mW/
- +nXyIfc+vLfOiHsZ+gNzpYNqsY4EbVUCWmBF2a3eDmR6TFAQuSNGjp18xTVltQAWTeyJGCWRNQE
- lKEJF6VtbtRHe8iDUyg==
+X-Proofpoint-GUID: 3-FeKQ9BX58s9wzDLnPqxdbb_TnZweRj
+X-Proofpoint-ORIG-GUID: 3-FeKQ9BX58s9wzDLnPqxdbb_TnZweRj
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-06_02,2026-05-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015
- impostorscore=0 spamscore=0 phishscore=0 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605070060
+ lowpriorityscore=0 impostorscore=0 adultscore=0 priorityscore=1501
+ malwarescore=0 spamscore=0 phishscore=0 suspectscore=0 clxscore=1015
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2605070060
 
-Add QCOM System Control Management Interface (SCMI) Generic Vendor
-Extensions Protocol documentation.
+The QCOM SCMI Generic Extensions Protocol provides a generic way of
+exposing a number of Qualcomm SoC specific features (like memory bus
+scaling) through a mixture of pre-determined algorithm strings and
+param_id pairs hosted on the SCMI controller.
 
+Co-developed-by: Shivnandan Kumar <quic_kshivnan@quicinc.com>
+Signed-off-by: Shivnandan Kumar <quic_kshivnan@quicinc.com>
+Co-developed-by: Ramakrishna Gottimukkula <quic_rgottimu@quicinc.com>
+Signed-off-by: Ramakrishna Gottimukkula <quic_rgottimu@quicinc.com>
+Co-developed-by: Amir Vajid <avajid@quicinc.com>
+Signed-off-by: Amir Vajid <avajid@quicinc.com>
 Signed-off-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
 ---
 
@@ -136,227 +148,255 @@ Signed-off-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
 on the devfreq part of the series. Will add a lot more documentation in the
 next re-spin, so definitely not ignoring your earlier comments :).
 
- .../arm_scmi/vendors/qcom/qcom_generic.rst    | 211 ++++++++++++++++++
- 1 file changed, 211 insertions(+)
- create mode 100644 drivers/firmware/arm_scmi/vendors/qcom/qcom_generic.rst
+ drivers/firmware/arm_scmi/Kconfig             |   1 +
+ drivers/firmware/arm_scmi/Makefile            |   1 +
+ .../firmware/arm_scmi/vendors/qcom/Kconfig    |  15 ++
+ .../firmware/arm_scmi/vendors/qcom/Makefile   |   2 +
+ .../arm_scmi/vendors/qcom/qcom-generic-ext.c  | 135 ++++++++++++++++++
+ include/linux/scmi_qcom_protocol.h            |  37 +++++
+ 6 files changed, 191 insertions(+)
+ create mode 100644 drivers/firmware/arm_scmi/vendors/qcom/Kconfig
+ create mode 100644 drivers/firmware/arm_scmi/vendors/qcom/Makefile
+ create mode 100644 drivers/firmware/arm_scmi/vendors/qcom/qcom-generic-ext.c
+ create mode 100644 include/linux/scmi_qcom_protocol.h
 
-diff --git a/drivers/firmware/arm_scmi/vendors/qcom/qcom_generic.rst b/drivers/firmware/arm_scmi/vendors/qcom/qcom_generic.rst
+diff --git a/drivers/firmware/arm_scmi/Kconfig b/drivers/firmware/arm_scmi/Kconfig
+index e3fb36825978..a52f4d1b8b2c 100644
+--- a/drivers/firmware/arm_scmi/Kconfig
++++ b/drivers/firmware/arm_scmi/Kconfig
+@@ -84,6 +84,7 @@ config ARM_SCMI_QUIRKS
+ 
+ source "drivers/firmware/arm_scmi/transports/Kconfig"
+ source "drivers/firmware/arm_scmi/vendors/imx/Kconfig"
++source "drivers/firmware/arm_scmi/vendors/qcom/Kconfig"
+ 
+ endif #ARM_SCMI_PROTOCOL
+ 
+diff --git a/drivers/firmware/arm_scmi/Makefile b/drivers/firmware/arm_scmi/Makefile
+index 780cd62b2f78..5a0e003c2477 100644
+--- a/drivers/firmware/arm_scmi/Makefile
++++ b/drivers/firmware/arm_scmi/Makefile
+@@ -13,6 +13,7 @@ scmi-module-objs := $(scmi-driver-y) $(scmi-protocols-y) $(scmi-transport-y)
+ 
+ obj-$(CONFIG_ARM_SCMI_PROTOCOL) += transports/
+ obj-$(CONFIG_ARM_SCMI_PROTOCOL) += vendors/imx/
++obj-$(CONFIG_ARM_SCMI_PROTOCOL) += vendors/qcom/
+ 
+ obj-$(CONFIG_ARM_SCMI_PROTOCOL) += scmi-core.o
+ obj-$(CONFIG_ARM_SCMI_PROTOCOL) += scmi-module.o
+diff --git a/drivers/firmware/arm_scmi/vendors/qcom/Kconfig b/drivers/firmware/arm_scmi/vendors/qcom/Kconfig
 new file mode 100644
-index 000000000000..141bc932e30f
+index 000000000000..5dd9e8a6b75f
 --- /dev/null
-+++ b/drivers/firmware/arm_scmi/vendors/qcom/qcom_generic.rst
-@@ -0,0 +1,211 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+.. include:: <isonum.txt>
++++ b/drivers/firmware/arm_scmi/vendors/qcom/Kconfig
+@@ -0,0 +1,15 @@
++# SPDX-License-Identifier: GPL-2.0-only
++menu "ARM SCMI QCOM Vendor Protocols"
 +
-+===============================================================================
-+QCOM System Control and Management Interface(SCMI) Vendor Protocols Extension
-+===============================================================================
++config QCOM_SCMI_GENERIC_EXT
++	tristate "Qualcomm Technologies, Inc. Qcom SCMI vendor Protocol"
++	depends on ARM_SCMI_PROTOCOL || COMPILE_TEST
++	help
++	  The QCOM SCMI vendor protocol provides a generic way of exposing
++	  a number of Qualcomm SoC specific features (like memory bus scaling)
++	  through a mixture of pre-determined algorithm strings and param_id
++	  pairs hosted on the SCMI controller.
 +
-+:Copyright: |copy| 2024, Qualcomm Innovation Center, Inc. All rights reserved.
++	  This driver defines/documents the message ID's used for this
++	  communication and also exposes the operations used by the clients.
++endmenu
+diff --git a/drivers/firmware/arm_scmi/vendors/qcom/Makefile b/drivers/firmware/arm_scmi/vendors/qcom/Makefile
+new file mode 100644
+index 000000000000..6b98fabbebb8
+--- /dev/null
++++ b/drivers/firmware/arm_scmi/vendors/qcom/Makefile
+@@ -0,0 +1,2 @@
++# SPDX-License-Identifier: GPL-2.0-only
++obj-$(CONFIG_QCOM_SCMI_GENERIC_EXT) += qcom-generic-ext.o
+diff --git a/drivers/firmware/arm_scmi/vendors/qcom/qcom-generic-ext.c b/drivers/firmware/arm_scmi/vendors/qcom/qcom-generic-ext.c
+new file mode 100644
+index 000000000000..4f9eba8ff4bd
+--- /dev/null
++++ b/drivers/firmware/arm_scmi/vendors/qcom/qcom-generic-ext.c
+@@ -0,0 +1,135 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) Qualcomm Innovation Center, Inc. All rights reserved.
++ */
 +
-+:Author: Sibi Sankar <quic_sibis@quicinc.com>
++#include <linux/scmi_qcom_protocol.h>
 +
-+SCMI_GENERIC: System Control and Management Interface QCOM Generic Vendor Protocol
-+==================================================================================
++#include "../../common.h"
 +
-+This protocol is intended as a generic way of exposing a number of Qualcomm
-+SoC specific features through a mixture of pre-determined algorithm string and
-+param_id pairs hosted on the SCMI controller. It implements an interface compliant
-+with the Arm SCMI Specification with additional vendor specific commands as
-+detailed below.
++/**
++ * enum qcom_generic_ext_protocol_cmd - vendor specific commands supported by SCMI Qualcomm
++ *                                      generic vendor protocol.
++ *
++ * This protocol is intended as a generic way of exposing a number of Qualcomm SoC
++ * specific features through a mixture of pre-determined algorithm string and param_id
++ * pairs hosted on the SCMI controller.
++ *
++ * The QCOM SCMI Vendor Protocol has the protocol id as 0x80 and vendor id set to
++ * Qualcomm and the supported version is set to 0x10000. The PROTOCOL_VERSION command
++ * returns version 1.0.
++ *
++ * @QCOM_SCMI_SET_PARAM: is used to set the parameter of a specific algo_str hosted on
++ *			 QCOM SCMI Vendor Protocol. The tx len depends on the algo_str used.
++ * @QCOM_SCMI_GET_PARAM: is used to get parameter information of a specific algo_str
++ *			 hosted on QCOM SCMI Vendor Protocol. The tx and rx len depends
++ *			 on the algo_str used.
++ * @QCOM_SCMI_START_ACTIVITY: is used to start the activity performed by the algo_str.
++ * @QCOM_SCMI_STOP_ACTIVITY: is used to stop a pre-existing activity performed by the algo_str.
++ */
++enum qcom_generic_ext_protocol_cmd {
++	QCOM_SCMI_SET_PARAM = 0x10,
++	QCOM_SCMI_GET_PARAM = 0x11,
++	QCOM_SCMI_START_ACTIVITY = 0x12,
++	QCOM_SCMI_STOP_ACTIVITY = 0x13,
++};
 +
-+Commands:
-+_________
++/**
++ * struct qcom_scmi_msg - represents the various parameters to be populated
++ *                        for using the QCOM SCMI Vendor Protocol
++ *
++ * @ext_id: reserved, must be zero
++ * @algo_low: lower 32 bits of the algo_str
++ * @algo_high: upper 32 bits of the algo_str
++ * @param_id: serves as token message id to the specific algo_str
++ * @buf: serves as the payload to the specified param_id and algo_str pair
++ */
++struct qcom_scmi_msg {
++	__le32 ext_id;
++	__le32 algo_low;
++	__le32 algo_high;
++	__le32 param_id;
++	__le32 buf[];
++};
 +
-+PROTOCOL_VERSION
-+~~~~~~~~~~~~~~~~
++static int qcom_scmi_common_xfer(const struct scmi_protocol_handle *ph,
++				 enum qcom_generic_ext_protocol_cmd cmd_id, void *buf,
++				 size_t buf_len, u64 algo_str, u32 param_id, size_t rx_size)
++{
++	struct scmi_xfer *t;
++	struct qcom_scmi_msg *msg;
++	int ret;
 +
-+message_id: 0x0
-+protocol_id: 0x80
++	ret = ph->xops->xfer_get_init(ph, cmd_id, buf_len + sizeof(*msg), rx_size, &t);
++	if (ret)
++		return ret;
 +
-++---------------+--------------------------------------------------------------+
-+|Return values                                                                 |
-++---------------+--------------------------------------------------------------+
-+|Name           |Description                                                   |
-++---------------+--------------------------------------------------------------+
-+|int32 status   |See ARM SCMI Specification for status code definitions.       |
-++---------------+--------------------------------------------------------------+
-+|uint32 version |For this revision of the specification, this value must be    |
-+|               |0x10000.                                                      |
-++---------------+--------------------------------------------------------------+
++	msg = t->tx.buf;
++	msg->algo_low = cpu_to_le32(lower_32_bits(algo_str));
++	msg->algo_high = cpu_to_le32(upper_32_bits(algo_str));
++	msg->param_id = cpu_to_le32(param_id);
++	memcpy(msg->buf, buf, buf_len);
 +
-+PROTOCOL_ATTRIBUTES
-+~~~~~~~~~~~~~~~~~~~
++	ret = ph->xops->do_xfer(ph, t);
++	if (!ret && rx_size)
++		memcpy(buf, t->rx.buf, t->rx.len);
++	ph->xops->xfer_put(ph, t);
 +
-+message_id: 0x1
-+protocol_id: 0x80
++	return ret;
++}
 +
-++---------------+--------------------------------------------------------------+
-+|Return values                                                                 |
-++------------------+-----------------------------------------------------------+
-+|Name              |Description                                                |
-++------------------+-----------------------------------------------------------+
-+|int32 status      |See ARM SCMI Specification for status code definitions.    |
-++------------------+-----------------------------------------------------------+
-+|uint32 attributes |Bits[31:16] Reserved, must be to 0.                        |
-+|                  |Bits[15:8] Number of agents in the system                  |
-+|                  |Bits[7:0] Number of vendor protocols in the system         |
-++------------------+-----------------------------------------------------------+
++static int qcom_scmi_set_param(const struct scmi_protocol_handle *ph, void *buf, size_t buf_len,
++			       u64 algo_str, u32 param_id)
++{
++	return qcom_scmi_common_xfer(ph, QCOM_SCMI_SET_PARAM, buf, buf_len, algo_str,
++				     param_id, 0);
++}
 +
-+PROTOCOL_MESSAGE_ATTRIBUTES
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~
++static int qcom_scmi_get_param(const struct scmi_protocol_handle *ph, void *buf, size_t buf_len,
++			       u64 algo_str, u32 param_id, size_t rx_size)
++{
++	return qcom_scmi_common_xfer(ph, QCOM_SCMI_GET_PARAM, buf, buf_len, algo_str,
++				     param_id, rx_size);
++}
 +
-+message_id: 0x2
-+protocol_id: 0x80
++static int qcom_scmi_start_activity(const struct scmi_protocol_handle *ph, void *buf,
++				    size_t buf_len, u64 algo_str, u32 param_id)
++{
++	return qcom_scmi_common_xfer(ph, QCOM_SCMI_START_ACTIVITY, buf, buf_len, algo_str,
++				     param_id, 0);
++}
 +
-++---------------+--------------------------------------------------------------+
-+|Return values                                                                 |
-++------------------+-----------------------------------------------------------+
-+|Name              |Description                                                |
-++------------------+-----------------------------------------------------------+
-+|int32 status      |See ARM SCMI Specification for status code definitions.    |
-++------------------+-----------------------------------------------------------+
-+|uint32 attributes |For all message id's the parameter has a value of 0.       |
-++------------------+-----------------------------------------------------------+
++static int qcom_scmi_stop_activity(const struct scmi_protocol_handle *ph, void *buf,
++				   size_t buf_len, u64 algo_str, u32 param_id)
++{
++	return qcom_scmi_common_xfer(ph, QCOM_SCMI_STOP_ACTIVITY, buf, buf_len, algo_str,
++				     param_id, 0);
++}
 +
-+QCOM_SCMI_SET_PARAM
-+~~~~~~~~~~~~~~~~~~~
++static struct qcom_generic_ext_ops qcom_proto_ops = {
++	.set_param = qcom_scmi_set_param,
++	.get_param = qcom_scmi_get_param,
++	.start_activity = qcom_scmi_start_activity,
++	.stop_activity = qcom_scmi_stop_activity,
++};
 +
-+message_id: 0x10
-+protocol_id: 0x80
++static int qcom_generic_ext_protocol_init(const struct scmi_protocol_handle *ph)
++{
++	dev_dbg(ph->dev, "QCOM Generic Vendor Version %d.%d\n",
++		PROTOCOL_REV_MAJOR(ph->version), PROTOCOL_REV_MINOR(ph->version));
 +
-++------------------+-----------------------------------------------------------+
-+|Parameters                                                                    |
-++------------------+-----------------------------------------------------------+
-+|Name              |Description                                                |
-++------------------+-----------------------------------------------------------+
-+|uint32 ext_id     |Reserved, must be zero.                                    |
-++------------------+-----------------------------------------------------------+
-+|uint32 algo_low   |Lower 32-bit value of the algorithm string.                |
-++------------------+-----------------------------------------------------------+
-+|uint32 algo_high  |Upper 32-bit value of the algorithm string.                |
-++------------------+-----------------------------------------------------------+
-+|uint32 param_id   |Serves as the token message id for the algorithm string    |
-+|                  |and is used to set various parameters supported by it.     |
-++------------------+-----------------------------------------------------------+
-+|uint32 buf[]      |Serves as the payload for the specified param_id and       |
-+|                  |algorithm string pair.                                     |
-++------------------+-----------------------------------------------------------+
-+|Return values                                                                 |
-++------------------+-----------------------------------------------------------+
-+|Name              |Description                                                |
-++------------------+-----------------------------------------------------------+
-+|int32 status      |SUCCESS: if the param_id and buf[] is parsed successfully  |
-+|                  |by the chosen algorithm string.                            |
-+|                  |NOT_SUPPORTED: if the algorithm string does not have any   |
-+|                  |matches.                                                   |
-+|                  |INVALID_PARAMETERS: if the param_id and the buf[] passed   |
-+|                  |is rejected by the algorithm string.                       |
-++------------------+-----------------------------------------------------------+
++	return 0;
++}
 +
-+QCOM_SCMI_GET_PARAM
-+~~~~~~~~~~~~~~~~~~~
++static const struct scmi_protocol qcom_generic_ext = {
++	.id = SCMI_PROTOCOL_QCOM_GENERIC,
++	.owner = THIS_MODULE,
++	.instance_init = &qcom_generic_ext_protocol_init,
++	.ops = &qcom_proto_ops,
++	.vendor_id = "Qualcomm",
++	.supported_version = 0x10000,
++};
++module_scmi_protocol(qcom_generic_ext);
 +
-+message_id: 0x11
-+protocol_id: 0x80
++MODULE_DESCRIPTION("QCOM SCMI Generic Vendor protocol");
++MODULE_LICENSE("GPL");
+diff --git a/include/linux/scmi_qcom_protocol.h b/include/linux/scmi_qcom_protocol.h
+new file mode 100644
+index 000000000000..465b2522ca29
+--- /dev/null
++++ b/include/linux/scmi_qcom_protocol.h
+@@ -0,0 +1,37 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * SCMI Message Protocol driver QCOM extension header
++ *
++ * Copyright (c) 2024, Qualcomm Innovation Center, Inc. All rights reserved.
++ */
 +
-++------------------+-----------------------------------------------------------+
-+|Parameters                                                                    |
-++------------------+-----------------------------------------------------------+
-+|Name              |Description                                                |
-++------------------+-----------------------------------------------------------+
-+|uint32 ext_id     |Reserved, must be zero.                                    |
-++------------------+-----------------------------------------------------------+
-+|uint32 algo_low   |Lower 32-bit value of the algorithm string.                |
-++------------------+-----------------------------------------------------------+
-+|uint32 algo_high  |Upper 32-bit value of the algorithm string.                |
-++------------------+-----------------------------------------------------------+
-+|uint32 param_id   |Serves as the token message id for the algorithm string.   |
-++------------------+-----------------------------------------------------------+
-+|uint32 buf[]      |Serves as the payload and store of value for the specified |
-+|                  |param_id and algorithm string pair.                        |
-++------------------+-----------------------------------------------------------+
-+|Return values                                                                 |
-++------------------+-----------------------------------------------------------+
-+|Name              |Description                                                |
-++------------------+-----------------------------------------------------------+
-+|int32 status      |SUCCESS: if the param_id and buf[] is parsed successfully  |
-+|                  |by the chosen algorithm string and the result is copied    |
-+|                  |into buf[].                                                |
-+|                  |NOT_SUPPORTED: if the algorithm string does not have any   |
-+|                  |matches.                                                   |
-+|                  |INVALID_PARAMETERS: if the param_id and the buf[] passed   |
-+|                  |is rejected by the algorithm string.                       |
-++------------------+-----------------------------------------------------------+
++#ifndef _LINUX_SCMI_QCOM_PROTOCOL_H
++#define _LINUX_SCMI_QCOM_PROTOCOL_H
 +
-+QCOM_SCMI_START_ACTIVITY
-+~~~~~~~~~~~~~~~~~~~~~~~~
++#include <linux/types.h>
 +
-+message_id: 0x12
-+protocol_id: 0x80
++#define SCMI_PROTOCOL_QCOM_GENERIC    0x80
 +
-++------------------+-----------------------------------------------------------+
-+|Parameters                                                                    |
-++------------------+-----------------------------------------------------------+
-+|Name              |Description                                                |
-++------------------+-----------------------------------------------------------+
-+|uint32 ext_id     |Reserved, must be zero.                                    |
-++------------------+-----------------------------------------------------------+
-+|uint32 algo_low   |Lower 32-bit value of the algorithm string.                |
-++------------------+-----------------------------------------------------------+
-+|uint32 algo_high  |Upper 32-bit value of the algorithm string.                |
-++------------------+-----------------------------------------------------------+
-+|uint32 param_id   |Serves as the token message id for the algorithm string    |
-+|                  |and is generally used to start the activity performed by   |
-+|                  |the algorithm string.                                      |
-++------------------+-----------------------------------------------------------+
-+|uint32 buf[]      |Serves as the payload for the specified param_id and       |
-+|                  |algorithm string pair.                                     |
-++------------------+-----------------------------------------------------------+
-+|Return values                                                                 |
-++------------------+-----------------------------------------------------------+
-+|Name              |Description                                                |
-++------------------+-----------------------------------------------------------+
-+|int32 status      |SUCCESS: if the activity performed by the algorithm string |
-+|                  |starts successfully.                                       |
-+|                  |NOT_SUPPORTED: if the algorithm string does not have any.  |
-+|                  |matches or if the activity is already running.             |
-++------------------+-----------------------------------------------------------+
++struct scmi_protocol_handle;
 +
-+QCOM_SCMI_STOP_ACTIVITY
-+~~~~~~~~~~~~~~~~~~~~~~~
++/**
++ * struct qcom_generic_ext_ops - represents the various operations provided
++ *				 by QCOM Generic Vendor Protocol
++ *
++ * @set_param: set parameter specified by param_id and algo_str pair.
++ * @get_param: retrieve parameter specified by param_id and algo_str pair.
++ * @start_activity: initiate a specific activity defined by algo_str.
++ * @stop_activity: halt previously initiated activity defined by algo_str.
++ */
++struct qcom_generic_ext_ops {
++	int (*set_param)(const struct scmi_protocol_handle *ph, void *buf, size_t buf_len,
++			 u64 algo_str, u32 param_id);
++	int (*get_param)(const struct scmi_protocol_handle *ph, void *buf, size_t buf_len,
++			 u64 algo_str, u32 param_id, size_t rx_size);
++	int (*start_activity)(const struct scmi_protocol_handle *ph, void *buf, size_t buf_len,
++			      u64 algo_str, u32 param_id);
++	int (*stop_activity)(const struct scmi_protocol_handle *ph, void *buf, size_t buf_len,
++			     u64 algo_str, u32 param_id);
++};
 +
-+message_id: 0x13
-+protocol_id: 0x80
-+
-++------------------+-----------------------------------------------------------+
-+|Parameters                                                                    |
-++------------------+-----------------------------------------------------------+
-+|Name              |Description                                                |
-++------------------+-----------------------------------------------------------+
-+|uint32 ext_id     |Reserved, must be zero.                                    |
-++------------------+-----------------------------------------------------------+
-+|uint32 algo_low   |Lower 32-bit value of the algorithm string.                |
-++------------------+-----------------------------------------------------------+
-+|uint32 algo_high  |Upper 32-bit value of the algorithm string.                |
-++------------------+-----------------------------------------------------------+
-+|uint32 param_id   |Serves as the token message id for the algorithm string    |
-+|                  |and is generally used to stop the activity performed by    |
-+|                  |the algorithm string.                                      |
-++------------------+-----------------------------------------------------------+
-+|uint32 buf[]      |Serves as the payload for the specified param_id and       |
-+|                  |algorithm string pair.                                     |
-++------------------+-----------------------------------------------------------+
-+|Return values                                                                 |
-++------------------+-----------------------------------------------------------+
-+|Name              |Description                                                |
-++------------------+-----------------------------------------------------------+
-+|int32 status      |SUCCESS: if the activity performed by the algorithm string |
-+|                  |stops successfully.                                        |
-+|                  |NOT_SUPPORTED: if the algorithm string does not have any   |
-+|                  |matches or if the activity isn't running.                  |
-++------------------+-----------------------------------------------------------+
++#endif /* _LINUX_SCMI_QCOM_PROTOCOL_H */
 -- 
 2.34.1
 
