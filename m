@@ -1,118 +1,108 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from out-189.mta1.migadu.com (out-189.mta1.migadu.com [95.215.58.189])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A15A93D525B;
-	Thu,  7 May 2026 10:38:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C91D2E22B5
+	for <devicetree@vger.kernel.org>; Thu,  7 May 2026 10:45:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.189
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778150314; cv=none; b=RtcpG0V+SfDQOUghjp22HSRKiOqsN/QI+YVJzIYd+LlGmYKR/IKtBrJx2igliR56KsDCc6ke8fr4N6p9eRDj94kThM9Rflu8+X1eNANwI5AolaZKx2bW6TPqpGxfuiQhgZZ8uUn5RVuKBYbVs0KcQ7KnoXS7x5stWHdmm2lniiM=
+	t=1778150745; cv=none; b=pPhMXcSNNHya5a8iYtCvUXo9Sxf7Em7qdWBKcYFn0vNuxfLjbKkEnXNebNZhSl5W4H0tq8e3FA/ip9c+kADFghT3sz7BnHjKtpYFqcimTSAgmXf6S6kjpvWTafpX4Ub7XpcfaS2co2nomvZSUk+buRIrLEh8737fxdkC07f5cgo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778150314; c=relaxed/simple;
-	bh=ydmTmsjfRJ0hth7ILhAiLaP0jMYvJoZgq1tSBlpEHq8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FZyB/y3eF5z7KVUBxof27isj8XfLO6UhfJT4bliA7joPFrbOSNt1p+D4UkMjPl8UmLEcTfomylN1nLTH5R/mVa04UaVeEfja+MATwnu88fy32sK/U6vp6xHFdC64KR/PoBnSS1F2dQTKV92xSKnOdlRTw1q05mWth4/jrWFOVdg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=SSLrc/lN; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1778150745; c=relaxed/simple;
+	bh=312zN6LsAnZx88D9I1aFkKivaozIPa5muYYM2DQoykI=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=cn8WLtgzpj65zONuQxYAD4ip+FuAEZfsIUGBUp9ywP5KgjMZbJP3d19CKIIGgmRbFMMmXIlMs09zLOWOL7yDmoq5XjZdBXriM0bg/KA8DAnYDqvTdKC+g7phKEmpo5XwlLDuXwVouJWeCEItPjsGqafze+yzzYjvvc/3z5j3plM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qPQvdZZ9; arc=none smtp.client-ip=95.215.58.189
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="SSLrc/lN"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B7DFB664;
-	Thu,  7 May 2026 12:38:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1778150307;
-	bh=ydmTmsjfRJ0hth7ILhAiLaP0jMYvJoZgq1tSBlpEHq8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SSLrc/lNt577vc7KdRU5Lp7rvS19wjBj/Atp47wfhnbIQE29QoLJ9Z/c0K9jzOxMV
-	 P+0fOPK2eBeuitkxn2PxO76f2/ceMBkRx+EiwzLx0uHlfYzXQHv2INJ3XT+eJWAvEl
-	 2ToegnWLEYNhE3g++h6115a5yHLIzBGuC3nZoonk=
-Date: Thu, 7 May 2026 13:38:30 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	"magnus.damm" <magnus.damm@gmail.com>,
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH 1/4] dt-bindings: display: renesas,rzg2l-du: Add RZ/T2H
- and RZ/N2H support
-Message-ID: <20260507103830.GM1778786@killaraus.ideasonboard.com>
-References: <20260429170012.366537-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260429170012.366537-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260506195002.GA1778786@killaraus.ideasonboard.com>
- <CA+V-a8u8=mfR0zDJRNMEjnjrzFVAkOrqtro05Zgd1JFqGRByKw@mail.gmail.com>
- <TY3PR01MB1134676FA7479724BDCE40649863C2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qPQvdZZ9"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <TY3PR01MB1134676FA7479724BDCE40649863C2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1778150742;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wfLuyOPRCmmDdUHD7nj8FmD30fIBLkwBsUJFvuCmkBQ=;
+	b=qPQvdZZ9NGUW5GSrDqiO42DiH/zl3tkl6A1e9fYYs1UYUXWFnjsHBfbC/scvJ2rOxMtX6M
+	OU0bhSlvZDm6kNsbvILN5h9ybLDylI6fzaRmXJZBq2/GhPeAxFGOv+TbyRXdS5hXW6KeXn
+	4b3UWDEyiFf1sYzQuWFt5cXI513OGmw=
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 07 May 2026 18:45:07 +0800
+Message-Id: <DICDTHYTPDSP.210EBVHTQ6966@linux.dev>
+Subject: Re: [PATCH v8 8/9] riscv: dts: spacemit: k1-bananapi-f3: add SD
+ card support with UHS modes
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "Troy Mitchell" <troy.mitchell@linux.dev>
+To: "Iker Pedrosa" <ikerpedrosam@gmail.com>, "Margherita Milani"
+ <margherita.milani@amarulasolutions.com>
+Cc: "Ulf Hansson" <ulf.hansson@linaro.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Adrian Hunter" <adrian.hunter@intel.com>, "Paul
+ Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
+ Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Yixun Lan"
+ <dlan@kernel.org>, "Troy Mitchell" <troy.mitchell@linux.dev>, "Michael
+ Opdenacker" <michael.opdenacker@rootcommit.com>, "Javier Martinez Canillas"
+ <javierm@redhat.com>, <linux-mmc@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>, "Anand Moon"
+ <linux.amoon@gmail.com>
+References: <20260413-orangepi-sd-card-uhs-v8-0-c21c40ec16d0@gmail.com>
+ <20260413-orangepi-sd-card-uhs-v8-8-c21c40ec16d0@gmail.com>
+ <CA+Xcp4nY9GVMOmtMG-PNhY2vqP4Cc_amAMSa+M3vuDjWUkuCHw@mail.gmail.com>
+ <CABdCQ=OsPva9=YPdBd=3HW1OO7=_zJtpXjvaiA0WLEDT5Scs_Q@mail.gmail.com>
+In-Reply-To: <CABdCQ=OsPva9=YPdBd=3HW1OO7=_zJtpXjvaiA0WLEDT5Scs_Q@mail.gmail.com>
+X-Migadu-Flow: FLOW_OUT
 
-On Thu, May 07, 2026 at 09:24:48AM +0000, Biju Das wrote:
-> On 06 May 2026 20:58, Lad, Prabhakar wrote:
-> > On Wed, May 6, 2026 at 8:50 PM Laurent Pinchart wrote:
-> > > On Wed, Apr 29, 2026 at 06:00:09PM +0100, Prabhakar wrote:
-> > > > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > > >
-> > > > Document the Display Unit (DU) support for the RZ/T2H and RZ/N2H SoCs.
-> > > >
-> > > > The DU block on RZ/T2H is functionally equivalent to the RZ/G2UL DU
-> > > > and supports the DPI interface, but includes SoC-specific register differences.
-> > > > Add a dedicated compatible string to represent this variant.
-> > > >
-> > > > As the DU implementation on RZ/N2H matches RZ/T2H, describe it using
-> > > > an RZ/N2H specific compatible string with the RZ/T2H compatible as fallback.
-> > > >
-> > > > Unlike other DU variants which use a multi-port model, the RZ/T2H
-> > > > and RZ/N2H DU has a single output and is modelled using a single
-> > > > port node with one endpoint. Add a port property to support this and
-> > > > update the allOf constraints accordingly.
-> > >
-> > > Wouldn't it be simpler to always have a "ports" node, even for
-> > > variants with a single port ?
-> > >
-> > I agree that, from a binding perspective, always having a "ports" node keeps things simpler and
-> > consistent. Biju suggested this change based on earlier feedback for the RZ/G3E series.
-> 
-> From G3E feedback, I got the impression that going forward all future SoCs needs to have
-> single port and multiple endpoints. That is the reason for suggesting port for new SoCs.
+On Thu May 7, 2026 at 5:53 PM CST, Iker Pedrosa wrote:
+> Hi,
+>
+> El jue, 7 may 2026 a las 10:20, Margherita Milani
+> (<margherita.milani@amarulasolutions.com>) escribi=C3=B3:
+>>
+>> Good morning Iker,
+>>
+>> > Add complete SD card controller support with UHS high-speed modes.
+>> >
+>> > - Enable sdhci0 controller with 4-bit bus width
+>> > - Configure card detect GPIO with inversion
+>> > - Connect vmmc-supply to buck4 for 3.3V card power
+>> > - Connect vqmmc-supply to aldo1 for 1.8V/3.3V I/O switching
+>> > - Add dual pinctrl states for voltage-dependent pin configuration
+>> > - Support UHS-I SDR25, SDR50, and SDR104 modes
+>>
+>>
+>> Tested-by: Margherita Milani <margherita.milani@amarulasolutions.com>
+>>
+>> However I noticed it only works when CONFIG_I2C_K1 is enabled.
+>> Michael Opdenacker told me it's necessary to enable the regulators
+>> used by the mmc controller.
+>> Should we add the dependency between CONFIG_MMC_SDHCI_OF_K1 and
+>> CONFIG_I2C_K1? (Unless some boards don't have these dependency?)
+>> Thank you for your patchset which was really nice!
+>
+> Thank you for catching this! You're absolutely right about the dependency=
+.
+>
+> From what I can see, all current SpacemiT K1 boards follow this design
+> pattern where the SD card power is provided by an I2C-controlled PMIC.
+> However, before adding a hard dependency, I'd like to get input from
+> the community, does anyone know of K1-based boards that provide SD
+> card power through fixed regulators or other means that don't require
+> I2C?
+if K1 needs to switch between standard and high-speed (UHS) modes,
+I believe the I2C-controlled PMIC is mandatory to handle the voltage
+switching (typically 3.3V to 1.8V).
 
-Right, let's clarify that.
+I don't think any board would want to be stuck in standard mode permanently=
+.
+If high-speed mode is an option, why not use it? I think adding this
+dependency is a good idea, but keep in mind it also needs to depend on P1.
 
-TL;DR: it depends on the hardware architecture (what a surprise :-))
-
-When reviewing the G3E, I noticed that the LCDC has a single output that
-is connected to one or multiple encoders, depending on the SoC. I think
-this should be modeled in DT with a single port.
-
-Note that this does not preclude using a "ports" node, containing a
-single "port@0". If you're confident enough that no future generation
-will require multiple ports, then it makes sense to standardize on a
-single "port" node and no "ports". If, on the other hand, you think that
-some SoCs would have multiple ports, then using a top-level "ports" node
-unconditionally would lead to simpler bindings.
-
-I'll let you all decide what you think is the most suitable approach.
-
--- 
-Regards,
-
-Laurent Pinchart
+                            - Troy
