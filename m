@@ -1,84 +1,337 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF423264F2
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 19:31:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D17359A8B;
+	Fri,  8 May 2026 19:31:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778268714; cv=none; b=KU/ap2XEvYrPdM371Ta6Kk7Xnx56URUpgFkVesXfZA1r5aJK/SRPh6kIf1wbzNIp7j60OYMtKTn8AR6ISjt+D2VXZTusrsmg+BSwLDf3TAEU7j8jo3UiLxRmE9fJXo42xX62aUF691LOvl43yRjuyxbIcN+DPBKJWtEXMXhfjUU=
+	t=1778268718; cv=none; b=sq1ryqIyGXeG282ZbztOmlPlPCOmroro8YJux/4xu6YQQR4VeLXoLoNNANcrR4txTXBk1dHPYUkhfUhDbF9NUTRUJMJ5L65KGRyk3TXmbQgj2JP4sB0tpMtSLQUW6AgztoVpX3bWSJsOhgpAaecfbhC10R+1cENssLXKsDzbYWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778268714; c=relaxed/simple;
-	bh=aGpX9J7nVnYMiRidthi5gCcU8OCi5wUaJY/TU7AQ0Ew=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=chk8QS6El3LvnsnwPqHZ4pxlJIpv774M61LToyDcgEAcVC/2u3FR76+lSbs2Mcm2fF8G6Fe0ELNpNyoB4krupvRGVDgXEFvdngl3qv1QZG3ollnGqeo3rW2lV1IOn+IU5ze5aUuwN6f4aFs74YEmdW5IUiO3f98FhdEdS8VQyc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ac5h2PWX; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778268718; c=relaxed/simple;
+	bh=nNh4UI8zUdnsYf6c3yY+Rxwff13VAYpHvEdFXX6II5s=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=VAQ39MOcIadGXAt/M3HLSykVe3Qmi/Tt4Fl34ggLCNK2cJXm1BQH2cCODKe/SSPwWWvjWqvlyOqM9HHuE3Pv2ksyGWwsupxAyijcsy8KpgCXe70I/O2mE1cN4BPYbbJBb6BUbCYHIgfgSASBcFlZYliRJ50avv0wbz9B7KDYTYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qj15xbw6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ac5h2PWX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63486C2BCB0;
-	Fri,  8 May 2026 19:31:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qj15xbw6"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7D567C2BCF4;
+	Fri,  8 May 2026 19:31:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778268714;
-	bh=aGpX9J7nVnYMiRidthi5gCcU8OCi5wUaJY/TU7AQ0Ew=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=Ac5h2PWXyysEoCAaPfTiO90mP9NPmq50bT9Y2+BZpYEvNoXDgwFpgu2+u1gPgh9ej
-	 e9BqBiHVqmIzRP5H+tke27mBNg271YTjROozFPEcclhItIatuHurOgHZh2pft5pLKa
-	 62Q6FhuFQn8+0XAa+JDxYhVJ4Pq3GCnFXcEErbWCmYayQLCaEE1HUTAmRwaosk24yD
-	 g7AWkF+chJg+gv+liKrMjOb5xpOEbeIZ5TRa2eahygzrf2Edp6JR+XrKzZPI/GPslk
-	 99nEt0BJPccl6teHpxGFVqfK2cSqPfZX5Ys0zvquiHXy5h0OL7spt0rM82jWF1dole
-	 og8Qcq+5hBL6Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] arm64: dts: qcom: kaanapali: Add camss node
-Reply-To: sashiko@lists.linux.dev
-To: "Hangxiang Ma" <hangxiang.ma@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260508-knp-camera-v1-1-a18e289163fd@oss.qualcomm.com>
-References: <20260508-knp-camera-v1-1-a18e289163fd@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 08 May 2026 19:31:53 +0000
-Message-Id: <20260508193154.63486C2BCB0@smtp.kernel.org>
+	s=k20201202; t=1778268718;
+	bh=nNh4UI8zUdnsYf6c3yY+Rxwff13VAYpHvEdFXX6II5s=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=Qj15xbw6e2wtkF3aGoeOjnYNINoSNugoiYi1rXjIxtUvrRJK3TWBivjpdsOYuhbo4
+	 d7EmjMCCi3kyG79Z6GFB0EY7J7RMCbLNALf7HdyTDeXBpM1Ad/VZDpvf6RkHerTZaJ
+	 /rR0bQ94puv5p7qU917OCG/OwsdbbM+B2+UUvnhv0nnE/imU1oY+3lQnJnOiMU+xmZ
+	 ODaR4AqtD7bp8BrUZoNhgkGzdc38CspCHyplICone7JR3niKucMD8zor/YmICOFbpf
+	 WCjwZdIkb/HkVWAUi6HZYd3HZ496qvMOeM05mAsE9x5hf/CGCuxPOM+M7MeEw9V3sF
+	 9PcdEfbSpw9GA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F584CD37B1;
+	Fri,  8 May 2026 19:31:58 +0000 (UTC)
+From: Michael Riesch via B4 Relay <devnull+michael.riesch.collabora.com@kernel.org>
+Date: Fri, 08 May 2026 21:31:45 +0200
+Subject: [PATCH v4 2/8] media: dt-bindings: add rockchip rk3588 vicap
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260508-rk3588-vicap-v4-2-6a6cd6f7c90b@collabora.com>
+References: <20260508-rk3588-vicap-v4-0-6a6cd6f7c90b@collabora.com>
+In-Reply-To: <20260508-rk3588-vicap-v4-0-6a6cd6f7c90b@collabora.com>
+To: Mehdi Djait <mehdi.djait@linux.intel.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Kever Yang <kever.yang@rock-chips.com>, 
+ Jagan Teki <jagan@amarulasolutions.com>, 
+ =?utf-8?q?=D0=9A=D1=83=D0=B7=D0=BD=D0=B5=D1=86=D0=BE=D0=B2_=D0=9C=D0=B8=D1=85=D0=B0=D0=B8=D0=BB?= <mai.kuznetsov.misha@gmail.com>, 
+ Charalampos Mitrodimas <charmitro@posteo.net>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Michael Riesch <michael.riesch@collabora.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778268716; l=6664;
+ i=michael.riesch@collabora.com; s=20260428; h=from:subject:message-id;
+ bh=MB2lleeaGfpkbdhgTXXp4XKQh5zMC0P0DcNIMyC6fmY=;
+ b=XJoI0fZNnztASZOkRLnbaF1URsqneqh8Mjkub4osBOqzvVU0d5Hd/YHIlRMDFGxYsJIBrzJMs
+ ed6800azDNLDnLxhPBCgBW5eP86DOYEpqlryltYNW/gMbwEksfpKQ4r
+X-Developer-Key: i=michael.riesch@collabora.com; a=ed25519;
+ pk=tAbmpPTE1MELYweXqqDU40fa18uCO6s32GJL/RzyW2Y=
+X-Endpoint-Received: by B4 Relay for michael.riesch@collabora.com/20260428
+ with auth_id=759
+X-Original-From: Michael Riesch <michael.riesch@collabora.com>
+Reply-To: michael.riesch@collabora.com
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The commit adds a new compatible string 'qcom,kaanapali-camss' with=
-out providing the corresponding YAML device tree binding schema.
---
+From: Michael Riesch <michael.riesch@collabora.com>
 
-commit a3fc6582c63ecf6be414df632ff7d8a517115d29
-Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+Add documentation for the Rockchip RK3588 Video Capture (VICAP) unit. To
+that end, make the existing rockchip,rk3568-vicap documentation more
+general and introduce variant specific constraints.
 
-arm64: dts: qcom: kaanapali: Add camss node
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Michael Riesch <michael.riesch@collabora.com>
+---
+ .../bindings/media/rockchip,rk3568-vicap.yaml      | 187 ++++++++++++++++++---
+ 1 file changed, 163 insertions(+), 24 deletions(-)
 
-This commit adds the camss device tree node for the Kaanapali camera
-subsystem, defining its registers, clocks, interrupts, interconnects,
-and power domains.
+diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3568-vicap.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3568-vicap.yaml
+index 18cd0a5a5318174910e04f6ef7558c92cbfec899..897ed00c239bdfe33777a8f8474fb27fa6265e49 100644
+--- a/Documentation/devicetree/bindings/media/rockchip,rk3568-vicap.yaml
++++ b/Documentation/devicetree/bindings/media/rockchip,rk3568-vicap.yaml
+@@ -15,9 +15,15 @@ description:
+   the data from camera sensors, video decoders, or other companion ICs and
+   transfers it into system main memory by AXI bus.
+ 
++  The Rockchip RK3588 Video Capture (VICAP) is similar to its RK3568
++  counterpart, but features six MIPI CSI-2 ports and additional connections
++  to the image signal processor (ISP) blocks.
++
+ properties:
+   compatible:
+-    const: rockchip,rk3568-vicap
++    enum:
++      - rockchip,rk3568-vicap
++      - rockchip,rk3588-vicap
+ 
+   reg:
+     maxItems: 1
+@@ -26,37 +32,23 @@ properties:
+     maxItems: 1
+ 
+   clocks:
+-    items:
+-      - description: ACLK
+-      - description: HCLK
+-      - description: DCLK
+-      - description: ICLK
++    minItems: 4
++    maxItems: 5
+ 
+   clock-names:
+-    items:
+-      - const: aclk
+-      - const: hclk
+-      - const: dclk
+-      - const: iclk
++    minItems: 4
++    maxItems: 5
+ 
+   iommus:
+     maxItems: 1
+ 
+   resets:
+-    items:
+-      - description: ARST
+-      - description: HRST
+-      - description: DRST
+-      - description: PRST
+-      - description: IRST
++    minItems: 5
++    maxItems: 9
+ 
+   reset-names:
+-    items:
+-      - const: arst
+-      - const: hrst
+-      - const: drst
+-      - const: prst
+-      - const: irst
++    minItems: 5
++    maxItems: 9
+ 
+   rockchip,grf:
+     $ref: /schemas/types.yaml#/definitions/phandle
+@@ -67,8 +59,15 @@ properties:
+ 
+   ports:
+     $ref: /schemas/graph.yaml#/properties/ports
++    additionalProperties: false
+ 
+     properties:
++      "#address-cells":
++        const: 1
++
++      "#size-cells":
++        const: 0
++
+       port@0:
+         $ref: /schemas/graph.yaml#/$defs/port-base
+         unevaluatedProperties: false
+@@ -100,13 +99,75 @@ properties:
+ 
+       port@1:
+         $ref: /schemas/graph.yaml#/properties/port
+-        description: Port connected to the MIPI CSI-2 receiver output.
++        description: Port connected to the MIPI CSI-2 receiver 0 output.
++
++        properties:
++          endpoint:
++            $ref: video-interfaces.yaml#
++            unevaluatedProperties: false
++
++      port@2:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Port connected to the MIPI CSI-2 receiver 1 output.
++
++        properties:
++          endpoint:
++            $ref: video-interfaces.yaml#
++            unevaluatedProperties: false
++
++      port@3:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Port connected to the MIPI CSI-2 receiver 2 output.
++
++        properties:
++          endpoint:
++            $ref: video-interfaces.yaml#
++            unevaluatedProperties: false
++
++      port@4:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Port connected to the MIPI CSI-2 receiver 3 output.
++
++        properties:
++          endpoint:
++            $ref: video-interfaces.yaml#
++            unevaluatedProperties: false
++
++      port@5:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Port connected to the MIPI CSI-2 receiver 4 output.
++
++        properties:
++          endpoint:
++            $ref: video-interfaces.yaml#
++            unevaluatedProperties: false
++
++      port@6:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Port connected to the MIPI CSI-2 receiver 5 output.
+ 
+         properties:
+           endpoint:
+             $ref: video-interfaces.yaml#
+             unevaluatedProperties: false
+ 
++      port@10:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Port connected to the ISP0 input.
++
++        properties:
++          endpoint:
++            $ref: video-interfaces.yaml#
++            unevaluatedProperties: false
++
++      port@11:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Port connected to the ISP1 input.
++
++        properties:
++          endpoint:
++            $ref: video-interfaces.yaml#
++            unevaluatedProperties: false
+ required:
+   - compatible
+   - reg
+@@ -114,6 +175,84 @@ required:
+   - clocks
+   - ports
+ 
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: rockchip,rk3568-vicap
++    then:
++      properties:
++        clocks:
++          maxItems: 4
++
++        clock-names:
++          items:
++            - const: aclk
++            - const: hclk
++            - const: dclk
++            - const: iclk
++
++        resets:
++          maxItems: 5
++
++        reset-names:
++          items:
++            - const: arst
++            - const: hrst
++            - const: drst
++            - const: prst
++            - const: irst
++
++        ports:
++          properties:
++            port@2: false
++
++            port@3: false
++
++            port@4: false
++
++            port@5: false
++
++            port@6: false
++
++            port@10: false
++
++            port@11: false
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: rockchip,rk3588-vicap
++    then:
++      properties:
++        clocks:
++          minItems: 5
++
++        clock-names:
++          items:
++            - const: aclk
++            - const: hclk
++            - const: dclk
++            - const: iclk0
++            - const: iclk1
++
++        resets:
++          minItems: 9
++
++        reset-names:
++          items:
++            - const: arst
++            - const: hrst
++            - const: drst
++            - const: irst0
++            - const: irst1
++            - const: irst2
++            - const: irst3
++            - const: irst4
++            - const: irst5
++
+ additionalProperties: false
+ 
+ examples:
 
-> diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dt=
-s/qcom/kaanapali.dtsi
-> index 7cc326aa1a1aa..9d8aee202797f 100644
-> --- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-> @@ -3138,6 +3138,207 @@ opp-202000000 {
->  			};
->  		};
-> =20
-> +		camss: isp@9253000 {
-> +			compatible =3D "qcom,kaanapali-camss";
+-- 
+2.47.3
 
-Is there a corresponding YAML device tree binding patch for this new
-compatible string?
 
-Without the binding schema for qcom,kaanapali-camss, dt_binding_check
-cannot validate the hardware description. Should the schema be included
-in this patch series to ensure the node properties can be verified?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508-knp-camera=
--v1-0-a18e289163fd@oss.qualcomm.com?part=3D1
