@@ -1,197 +1,231 @@
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 032533D5228
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 21:18:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980B23612CF
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 21:22:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778275131; cv=none; b=HJzwkJg14pLbOPYXc/nrsBGp4K4JVvD4tF6fuTITKZ0SVNH/Q4PaoS5Z9N9Kc00uiN6C20QeZT8w6nGctMkkeZBuPadsPNHCh4nBQJZr/8aldsVP5FFvdD+2h74n8o+++NkzjKYVQ/et54gpZMe+75rC6ctFn1TQ720SBpCUgZU=
+	t=1778275334; cv=none; b=EySxcytgOzUtptwwYtRVELPYHXVyJbvtGNK1VabvvSbk9xwGnJ53idbEyvJhGcMNnsH5ptvIrx04OY3iRj4P0W5CLsCNoefG9ojO/jRxZD6S5h6X6ScWbwIdeHSoLyU4YUAN2IVVWFXXI4NFyFrefRSOhsMLY0ujiI2KgkGoq90=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778275131; c=relaxed/simple;
-	bh=pbYkC9CrvM7jp5u9cfMSxAZ5Nm/n21DNkpcPKeg8DmQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=XMayf5YbRhcAhPgKLRxcwNHGJWAhPtlAZjUyUzlcp5fjpWwcXhAHoHD1hvMYYtuTp4/7cEdrI5DKuYx76zWwhZYWfpLUD9go/L9NCLMzWDCBPE/kaUjEO6UYDYRNZomPY9a5f7tcwiz+nYZMur0YM5tgs+sbe6JXMzlRWz7NnQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=Byh7ckd6; arc=none smtp.client-ip=209.85.160.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1778275334; c=relaxed/simple;
+	bh=WDDI0TAFGerkjqc5r4hsuzlVGlILMCOWEaN+J+YyUTU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=YvhpJv+sEg2bL/Gvj8ImUyMDLFLTTAcBnifCyfFdJxj609wAThrgNoNu3QYoZO524UZ/mfgzInnjqaJd3Bm/jTg9Q338x1LhZm+ZkpqrBUMJ5TdoT12LneDVnlvH75lMn8UwhO8nZU6gpMvTekQGcqmBo+EsAuuIttEdkQFJl9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F0yhavm2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="Byh7ckd6"
-Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-51306c36c3eso21896271cf.0
-        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 14:18:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1778275129; x=1778879929; darn=vger.kernel.org;
-        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
-         :from:subject:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=NuDyd+pdDE/YN+9KZpt+S8gMDx02yjwA/CK1DnFyXwo=;
-        b=Byh7ckd6cUehWwYn85WI63for43yII7h//sMOeV1rV4ifZjWQyQENyB9kBJboLgjpU
-         3rkxPZQBE0PcjSS2vyRiK1EALulTpNi0mzRM3HxMkdLexoyIeNWX5XNpy8Uuk04ho7el
-         cKIz39PCrsLKYE9ZnvMvuTk3SxTZC+bisMP0pbQHSsukAaJwD0RLi+e6xosOhV1kZPT3
-         Pyze887yoDYu7HvFXyOMLoTMn/N+ALYoQ9GI0YuJR+y8p3/8ogLgQaAZIn5kqdB5vbZI
-         SplggRI6qUsyyBqfnSGeoxl5758ex7eKJKuFMr0Em5hM1lLYN/YoFx7Q4KvKmGQZGTkq
-         lCPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778275129; x=1778879929;
-        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
-         :from:subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=NuDyd+pdDE/YN+9KZpt+S8gMDx02yjwA/CK1DnFyXwo=;
-        b=ihvA+/fKpvtImTwSq0lWKV/y6enQTwQnLVd21JNWIOq7hTHXHtirm9p2G/3AiEhAPQ
-         EJB+D6KyrKf3xbAlZHQ8mUdoZBz6Do+PRhGXUfTHM4xIij2hwXsoiZmCInCMnT0B9+Jz
-         +cFt9mg+cf6UG2bf7sPIjc35iOWDTiaY29KfBCyRk4OXYwVEWHtBylxspZ0ZulAE2WVq
-         sC8DJGvHWCOI/bxgn/V1/oAmqT07hU0ppst7yRLPnoBvm8uBH2c4mkbgDzpndFCSU2Vj
-         X8ykpP/Uxt0/RLTvNZUc71HYwYIeiDcxMX19/1Qd10guBd1TggZLDfKu+S/xP+I3bNRT
-         Y4BQ==
-X-Forwarded-Encrypted: i=1; AFNElJ//xxvYivGhPKs/6zJAkH64XiVP3NREouxoFwdiaRtUi/Mwj9ECmA6tS3GGqMiyMX1KgOh+27leZM5z@vger.kernel.org
-X-Gm-Message-State: AOJu0YyhLa7M3txbhI3nYdl471OY1BfQlNHHojh/JC8ynRcvmMBn9pr8
-	l3hQt+3qXGuhqUykn87OOO5TfwjiZys6aHOqbjog/iOpHYkgKPhUYDOGhziYG17f6Oc=
-X-Gm-Gg: AeBDievGCitwPoBmx1nqNK1s0lb8LAx0F1VPjt9l6YuSpjUTL4jeTOyS7OZkThhgnd2
-	Jy6N/z3DS8VhKk7K5e9ZB7eqeKhI3PFrpkb/A7rF8R0Ig3WwgaBCgMDfVSk5xchmum0Qo37Ii11
-	wy6aBaXDTjTPAwvFGtfc4OfNa1uBshl+vPpjYs2wNzWhZuP+NgYs3UMD/DzpMY82KKf6RFWjPLM
-	tG8x/XMfKs1ZlFceKN2RsF8iu7mRSFm5PYsf0dVPajLiovYebZUpRsQkaAvKVK/9CS1Wc+JnsXj
-	sVP+Hwzawg/WQoe4jaNgHzkuJQTWdg1JMHQBHiXZ6wm7iq3JAiS3S+zqmBcF8t3fxtFyzGH8z0S
-	mVhiEjEoB4EKmB3hMlLB058+9qwG2r6fyjdRTaouK6rCEuNlUWrQOoQM31Xl/lDT3a/W5VJ0DVI
-	G5zd/tLOiv554qNHGbhdI0/dJnK8i0AiMb5cmjuV8=
-X-Received: by 2002:a05:622a:4d4e:b0:50b:5336:1d20 with SMTP id d75a77b69052e-514621d5127mr196554381cf.53.1778275128704;
-        Fri, 08 May 2026 14:18:48 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:15:e06b::c41? ([2606:6d00:15:e06b::c41])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8bf3b0c7600sm28019116d6.1.2026.05.08.14.18.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 08 May 2026 14:18:47 -0700 (PDT)
-Message-ID: <4f5e481c8883b358ee4cef64f26f3f00f0ac7304.camel@ndufresne.ca>
-Subject: Re: [PATCH v5 12/29] media: rockchip: rga: avoid odd frame sizes
- for YUV formats
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Sven =?ISO-8859-1?Q?P=FCschel?= <s.pueschel@pengutronix.de>, Jacob Chen
-	 <jacob-chen@iotwrt.com>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Mauro Carvalho Chehab
-	 <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Rob Herring
-	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	 <conor+dt@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, kernel@pengutronix.de, 
-	sebastian.reichel@collabora.com
-Date: Fri, 08 May 2026 17:18:46 -0400
-In-Reply-To: <20260428-spu-rga3-v5-12-eb7f5d019d86@pengutronix.de>
-References: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
-	 <20260428-spu-rga3-v5-12-eb7f5d019d86@pengutronix.de>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-qZ2RVVDen/K+BWJk4jzk"
-User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F0yhavm2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED319C2BCB0;
+	Fri,  8 May 2026 21:22:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778275334;
+	bh=WDDI0TAFGerkjqc5r4hsuzlVGlILMCOWEaN+J+YyUTU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=F0yhavm2JbMC2yJLHr7hpdbhlw5GM36/FxFoKcMAXoXhtNq5i2Cnt2kp5O2qBAfhX
+	 dBvEYd2jTa4HCsk2uIXxXJhQwl+cHu48WmF+QLxO612eWge95WERkQYz0GGs2WELZD
+	 LK5qCdM8gL0IzmHWY5/DDkNhz328ZpxXjxHwANR7qbwAE7wlh7rHgR/iOKhcB+bl4Q
+	 VyZn7q1ekd5mmG3AeEXzDEG05MTzPKJ0Ds4uDOfJxs20Uv/A1flgDmnROyJ/BnSnGX
+	 ctHOXA+l/uOsf+QQpz4kF7Z1x/S7X1u0sW/IRv3wp1mpAMkcNdhF/WUtiRs2hkQqji
+	 gtRo7+4ow7DCg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v13 4/5] media: qcom: camss: csid: Add support for CSID
+ gen4
+Reply-To: sashiko@lists.linux.dev
+To: "Hangxiang Ma" <hangxiang.ma@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260508-kaanapali-camss-v13-4-2541d8e55651@oss.qualcomm.com>
+References: <20260508-kaanapali-camss-v13-4-2541d8e55651@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 08 May 2026 21:22:13 +0000
+Message-Id: <20260508212213.ED319C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] Hardcoded virtual channel (VC) parameter breaks multi-VC support a=
+nd leaves dead code.
+- [High] Out-of-bounds array access on `csid->fmt` when configuring the 5th=
+ stream.
+- [High] Concurrent read-modify-write on shared hardware update state witho=
+ut locking.
+- [High] RDI and RUP_DONE interrupts are permanently masked, causing hardwa=
+re update states to drift.
+- [Medium] Integer underflow in `__csid_configure_rx()` when `lane_cnt` is =
+zero causes severe register corruption.
+- [Low] Meaningless back-to-back hardware command triggers due to redundant=
+ loop.
+--
 
---=-qZ2RVVDen/K+BWJk4jzk
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+commit ac71c3367c14093dee35b321f0ec55ce9cc5f586
+Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 
-Le mardi 28 avril 2026 =C3=A0 11:00 +0200, Sven P=C3=BCschel a =C3=A9crit=
-=C2=A0:
-> Avoid odd frame sizes for YUV formats, as they may cause undefined
-> behavior. This is done in preparation for the RGA3, which hangs when the
-> output format is set to 129x129 pixel YUV420 SP (NV12).
->=20
-> This requirement is documented explicitly for the RGA3 in=C2=A0 section 5=
-.6.3
-> of the RK3588 TRM Part 2. For the RGA2 the RK3588 TRM Part 2
-> (section 6.1.2) and RK3568 TRM Part 2 (section 14.2) only mentions the
-> x/y offsets and stride aligning requirements. But the vendor driver for
-> the RGA2 also contains checks for the width and height to be aligned to
-> 2 bytes.
->=20
-> Signed-off-by: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
-> ---
-> =C2=A0drivers/media/platform/rockchip/rga/rga.c | 19 ++++++++++++++-----
-> =C2=A01 file changed, 14 insertions(+), 5 deletions(-)
->=20
-> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
-atform/rockchip/rga/rga.c
-> index f599c992829dd..77b8c7ab74274 100644
-> --- a/drivers/media/platform/rockchip/rga/rga.c
-> +++ b/drivers/media/platform/rockchip/rga/rga.c
-> @@ -337,6 +337,19 @@ static int vidioc_try_fmt(struct file *file, void *p=
-riv, struct v4l2_format *f)
-> =C2=A0	struct rga_ctx *ctx =3D file_to_rga_ctx(file);
-> =C2=A0	const struct rga_hw *hw =3D ctx->rga->hw;
-> =C2=A0	struct rga_fmt *fmt;
-> +	struct v4l2_frmsize_stepwise frmsize =3D {
-> +		.min_width =3D hw->min_width,
-> +		.max_width =3D hw->max_width,
-> +		.min_height =3D hw->min_height,
-> +		.max_height =3D hw->max_height,
-> +		.step_width =3D 1,
-> +		.step_height =3D 1,
-> +	};
+media: qcom: camss: csid: Add support for CSID gen4
+   =20
+Add more detailed resource information for CSID devices along with the
+driver for CSID gen4 that is responsible for CSID register configuration,
+module reset and IRQ handling for BUF_DONE events. And aggregate a common
+definition CSI2_RX_CFG0_PHY_SEL_BASE_IDX into csid header file.
+   =20
+In this CSID version, RUP and AUP update values are split into two
+registers along with a SET register. Accordingly, enhance the CSID
+interface to accommodate both the legacy combined reg_update and the
+split RUP and AUP updates.
+   =20
+Co-developed-by: Atiya Kailany <atiya.kailany@oss.qualcomm.com>
+Signed-off-by: Atiya Kailany <atiya.kailany@oss.qualcomm.com>
+Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+
+[ ... ]
+
+> diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen4.c b/driver=
+s/media/platform/qcom/camss/camss-csid-gen4.c
+> new file mode 100644
+> index 0000000000000..41035352c4bb0
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/camss/camss-csid-gen4.c
+> @@ -0,0 +1,376 @@
+
+[ ... ]
+
+> +static void __csid_aup_rup_clear(struct csid_device *csid, int port_id)
+> +{
+> +	/* Hardware clears the registers upon consuming the settings */
+> +	csid->aup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
+> +	csid->rup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
+> +}
+
+The variables csid->aup_update and csid->rup_update track global hardware
+update bits and are modified via non-atomic operations here and during
+stream configuration.
+
+Since these are accessed from both process context and ISR context, could a
+race condition occur where an interrupt firing during a read-modify-write
+cycle corrupts the shadow states, silently dropping AUP/RUP commands for
+other active ports?
+
+[ ... ]
+
+> +static void __csid_configure_rx(struct csid_device *csid,
+> +				struct csid_phy_config *phy)
+> +{
+> +	int val;
 > +
-> +	if (v4l2_is_format_yuv(v4l2_format_info(pix_fmt->pixelformat))) {
-> +		frmsize.step_width =3D 2;
-> +		frmsize.step_height =3D 2;
+> +	val =3D (phy->lane_cnt - 1) << CSI2_RX_CFG0_NUM_ACTIVE_LANES;
 
-I think its fine like this, so let's start with:
+If phy->lane_cnt is 0, will the subtraction underflow to 0xFFFFFFFF?
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+This would result in writing all 1s to the register, potentially causing
+hardware misconfiguration.
 
-But it does not feel like a hardware alignment to me. When we process in
-software these things, the minimum alignment is bound to the subsampling, s=
-ince
-there is no way to store half or quarter pixels, the padded width/height
-requires a step that follow the subsampling, something like:
+There is a fallback condition explicitly handling a 0 lane count in
+__csid_configure_rdi_stream(), which sets lane_cnt to 4 if it is 0.
+Should a similar check be added here?
 
-		frmsize.step_width =3D finfo->hdiv;
-		frmsize.step_height =3D finfo->vdiv;
+[ ... ]
 
-Nicolas
+> +static void __csid_configure_rdi_stream(struct csid_device *csid, u8 ena=
+ble, u8 port, u8 vc)
+> +{
+> +	u32 val;
+> +	u8 lane_cnt =3D csid->phy.lane_cnt;
+> +
+> +	/* Source pads matching RDI channels on hardware.
+> +	 * E.g. Pad 1 -> RDI0, Pad 2 -> RDI1, etc.
+> +	 */
+> +	struct v4l2_mbus_framefmt *input_format =3D &csid->fmt[MSM_CSID_PAD_FIR=
+ST_SRC + port];
 
+The macro MSM_CSID_MAX_SRC_STREAMS_GEN4 evaluates to 5 for non-lite CSID
+hardware, meaning the loop index port can reach 4.
 
-> +	}
-> =C2=A0
-> =C2=A0	if (V4L2_TYPE_IS_CAPTURE(f->type)) {
-> =C2=A0		const struct rga_frame *frm;
-> @@ -358,11 +371,7 @@ static int vidioc_try_fmt(struct file *file, void *p=
-riv, struct v4l2_format *f)
-> =C2=A0	if (!fmt)
-> =C2=A0		fmt =3D &hw->formats[0];
-> =C2=A0
-> -	pix_fmt->width =3D clamp(pix_fmt->width,
-> -			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hw->min_width, hw->max_width);
-> -	pix_fmt->height =3D clamp(pix_fmt->height,
-> -				hw->min_height, hw->max_height);
-> -
-> +	v4l2_apply_frmsize_constraints(&pix_fmt->width, &pix_fmt->height, &frms=
-ize);
-> =C2=A0	v4l2_fill_pixfmt_mp(pix_fmt, fmt->fourcc, pix_fmt->width, pix_fmt-=
->height);
-> =C2=A0	pix_fmt->field =3D V4L2_FIELD_NONE;
-> =C2=A0
+Since MSM_CSID_PAD_FIRST_SRC is 1, MSM_CSID_PAD_FIRST_SRC + port evaluates
+to 5.
 
---=-qZ2RVVDen/K+BWJk4jzk
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+However, the csid->fmt array is sized by MSM_CSID_PADS_NUM, which remains
+hardcoded to 5, meaning valid indices are 0 through 4.
 
------BEGIN PGP SIGNATURE-----
+Can this result in an out-of-bounds memory read when attempting to process
+the 5th stream?
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaf5TNgAKCRDZQZRRKWBy
-9K22AP9NA5svkOS4YL++qXSzMq8kynIFrKCnDRWKeJx++AbT9AD/dLvKF5HRQ8Cf
-i9PlqWBZXkzVLS+1T8+GiOLpb3UFXAQ=
-=85ga
------END PGP SIGNATURE-----
+[ ... ]
 
---=-qZ2RVVDen/K+BWJk4jzk--
+> +static void csid_configure_stream(struct csid_device *csid, u8 enable)
+> +{
+> +	u8 i, k;
+> +
+> +	__csid_configure_rx(csid, &csid->phy);
+> +
+> +	for (i =3D 0; i < MSM_CSID_MAX_SRC_STREAMS_GEN4; i++) {
+> +		if (csid->phy.en_vc & BIT(i)) {
+> +			__csid_configure_rdi_stream(csid, enable, i, 0);
+> +			__csid_configure_rx_vc(csid, 0);
+
+The functions __csid_configure_rdi_stream() and __csid_configure_rx_vc()
+are invoked with a hardcoded 0 for the vc argument instead of passing the
+actual virtual channel or the loop index i.
+
+Does this force all enabled streams to capture Virtual Channel 0, breaking
+the driver's ability to handle multiple virtual channels?
+
+Additionally, passing 0 to __csid_configure_rx_vc() makes the internal
+condition if (vc > 3) always evaluate to false. Is this code intended
+to be reachable?
+
+> +
+> +			for (k =3D 0; k < CAMSS_INIT_BUF_COUNT; k++)
+> +				__csid_aup_update(csid, i);
+
+CAMSS_INIT_BUF_COUNT is intended for ping-pong buffer queues in the VFE.
+Since CSID does not manage memory buffers, this loop repeatedly triggers
+identical AUP commands to the hardware without any intervening state
+changes.
+
+Is it necessary to repeatedly trigger these commands here?
+
+[ ... ]
+
+> +static irqreturn_t csid_isr(int irq, void *dev)
+> +{
+> +	struct csid_device *csid =3D dev;
+> +	u32 val, buf_done_val;
+> +	u8 reset_done;
+> +	int i;
+> +
+> +	val =3D readl(csid->base + CSID_TOP_IRQ_STATUS);
+> +	writel(val, csid->base + CSID_TOP_IRQ_CLEAR);
+> +
+> +	reset_done =3D val & INFO_RST_DONE;
+> +
+> +	buf_done_val =3D readl(csid->base + CSID_BUF_DONE_IRQ_STATUS);
+> +	writel(buf_done_val, csid->base + CSID_BUF_DONE_IRQ_CLEAR);
+> +
+> +	for (i =3D 0; i < MSM_CSID_MAX_SRC_STREAMS_GEN4; i++) {
+> +		if (csid->phy.en_vc & BIT(i)) {
+> +			val =3D readl(csid->base + CSID_CSI2_RDIN_IRQ_STATUS(i));
+> +			writel(val, csid->base + CSID_CSI2_RDIN_IRQ_CLEAR(i));
+> +
+> +			if (val & INFO_RUP_DONE)
+> +				csid_subdev_reg_update(csid, i, true);
+
+The macro CSID_CSI2_RDIN_IRQ_MASK is defined in the source but never written
+to hardware.
+
+Additionally, in csid_reset() below, only INFO_RST_DONE and
+BUF_DONE_IRQ_STATUS are unmasked in CSID_TOP_IRQ_MASK.
+
+Without unmasking CSI2_RX_IRQ_STATUS at the top level and writing to
+CSID_CSI2_RDIN_IRQ_MASK, will the INFO_RUP_DONE interrupt ever fire?
+
+If this interrupt is permanently masked, __csid_aup_rup_clear() won't be
+called, which might cause the software cache of the hardware triggers
+to permanently drift out of sync.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508-kaanapali-=
+camss-v13-0-2541d8e55651@oss.qualcomm.com?part=3D4
