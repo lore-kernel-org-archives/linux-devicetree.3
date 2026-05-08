@@ -1,40 +1,40 @@
 Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 717DA395254;
-	Fri,  8 May 2026 11:18:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4CFA3947AB;
+	Fri,  8 May 2026 11:18:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778239096; cv=none; b=kEHtsfsAFpH1psl8yxRwHuzHo0C1TD6poWHrRjTavs9ujvy+490az/3BtmUpt4+oktO7k5E1eiSOuGf4zRM3TVMNMy+a5owhEvCLbBpSKn7q4etBu53mzTYHosjVlrnZMHnxXCNgIWySTgHkKhoFIKgls6969uuhx666J9Vkktw=
+	t=1778239097; cv=none; b=CSZ7cWpKCqFW0BJGhYaTKm5hayUvf0mlmMM0Z/7lgq1T5wazA+Jbl+BevvY7Q+HNol7Jgb5XgBCIVd5K14vjDh9cyOkao10AKXpKi8NlzGRjmHbLHCcu5wf/XnlO66Ki0YfeWRmi2AHmK1OT3ahIhdm8+1PeD0yG5lPQiVZbplw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778239096; c=relaxed/simple;
-	bh=IHSul+m5+Jp1XT2afZNQovt92O+7O/ybJF0KOZ+Ps+o=;
+	s=arc-20240116; t=1778239097; c=relaxed/simple;
+	bh=LPtr7w2nYOqw8dfCpcpjIbFy+ffK3EbTobMsBuRYFL0=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EEASVGkbxJny4T7R42G2jWCMp6vz9JIq0S5PtofknAsoex0Iy4hrw19/KVH68Uw+4n/8crlR57uLazMhVRio4u1j3Vmi7fdxSdr7uQMc/JdjrHo9Il8Xv2P41Oommr9DA3iFv0ibyBT43rOtCWR61kLJW5weoYaNeouMsgBYVj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=kLwWbQep; arc=none smtp.client-ip=211.75.126.72
+	 MIME-Version:Content-Type; b=dXATeRP1F9GFux0JpRUKdeyQnQPDOkBtqPKwFS4YE/N48p/KLMI3/yCKxAV6AnzRfSUTudbmIEPWhamQmHW7t9WrqXClZ/NSe4Mj8anwZWSmaKiu9mE7R0+CohwNuhNlq9NzyfG0z7MsxU0KQEe0UyX2FUTvlrlprpq6TtoL5L0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=XZ/8PYWI; arc=none smtp.client-ip=211.75.126.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="kLwWbQep"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 648BGgqG63763945, This message is accepted by code: ctloc85258
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="XZ/8PYWI"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 648BGgTrA3763939, This message is accepted by code: ctloc85258
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1778239002; bh=Sxrnk2VELMjRjObldWAdnNMiWnBK7Bkw4XQqQYXjQy8=;
+	t=1778239002; bh=LVbWJ7YEFqXP/wDP8I/Rz74VaCJkb26ggR3PK+98aHY=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	b=kLwWbQepE3sWsOxJjMXYorrmwRXd1VESRIvcL3i1zvjGkp04HFbRZznOH/FhIFB+E
-	 w0G1HEBKnAV4naDMBBCDOafjGwJKbEb+1rvkNKyBDI6f+QxH8j/+rHqNi6Gl3raIbv
-	 +VsHQONxOxzGYuUYZao/6S9W2M6Mj4+J3EmvdZ2GiXFWBT8ekCcgcRykqkxjsRo0hG
-	 wn2wd0fBMzppB27aD2JmqidvZ9O3lxfD3oAUHeaG65lo4XdAPZ6UPWPnoPt8J29HoQ
-	 Hsi+ud2pwqa829EfU4hcJBZP2GZcaslohG/i25NukNUayJhW2qR5AWyAnaZJ0z9ihA
-	 7LQA9VsxCpstg==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.27/5.94) with ESMTPS id 648BGgqG63763945
+	b=XZ/8PYWITbCRCncsUJobgcNRMdWmFBNzOUHYRBnLkIsmaL7q7+nUhCw9QHE6E4lHr
+	 tpS7IeqDc7O5h8Uw6YAcL+agnb1taG+uU/2I7oY1hMYEmmeTu5c1TPKdxz77oSuOXT
+	 CVZXKNLJ6VSKIr9Wd+W/ee0PIimnrv0vUCkwA3SvTxL7Sscuqh4Q57nNnIKrt0mmzn
+	 eCfsxIVdOioRJURYmKh27RtFR3I3X4k1b4oSVFIC54R+O0UdjxBTK9WnRWZaL32Gii
+	 iE3uAJKQytaGvVD3ZNczxkJyCiKWlPc5hQGFCNLvL1rcnngFSNMEeFCRcgv7sXs+AH
+	 iJcxFwRfQpVNQ==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.27/5.94) with ESMTPS id 648BGgTrA3763939
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
 	Fri, 8 May 2026 19:16:42 +0800
 Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.10; Fri, 8 May 2026 19:16:42 +0800
+ 15.2.2562.17; Fri, 8 May 2026 19:16:42 +0800
 Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
  RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
@@ -51,9 +51,9 @@ CC: <devicetree@vger.kernel.org>, <linux-clk@vger.kernel.org>,
         <linux-realtek-soc@lists.infradead.org>, <james.tai@realtek.com>,
         <cy.huang@realtek.com>, <stanley_chang@realtek.com>,
         <eleanor.lin@realtek.com>, <bmasney@redhat.com>
-Subject: [PATCH v7 03/10] clk: realtek: Introduce a common probe()
-Date: Fri, 8 May 2026 19:16:34 +0800
-Message-ID: <20260508111641.3192177-4-eleanor.lin@realtek.com>
+Subject: [PATCH v7 02/10] reset: Add Realtek basic reset support
+Date: Fri, 8 May 2026 19:16:33 +0800
+Message-ID: <20260508111641.3192177-3-eleanor.lin@realtek.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260508111641.3192177-1-eleanor.lin@realtek.com>
 References: <20260508111641.3192177-1-eleanor.lin@realtek.com>
@@ -68,226 +68,221 @@ Content-Type: text/plain
 
 From: Cheng-Yu Lee <cylee12@realtek.com>
 
-Add rtk_clk_probe() to set up the shared regmap, register clock hardware,
-and add the clock provider.
+Define the reset operations backed by a regmap-based register interface
+and prepare the reset controller to be registered through the reset
+framework.
 
-Additionally, if the "#reset-cells" property is present in the device tree,
-it creates and registers an auxiliary device using the provided aux_name.
-This allows the dedicated reset driver to bind to this device, enabling
-both clock and reset drivers to share the same regmap.
+Since the reset controllers on Realtek SoCs often share the same register
+space with the clock controllers, this common framework is designed to
+extract the regmap and device tree node from the parent device
+(e.g., an auxiliary device parent).
 
 Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
 Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
 Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
 ---
- MAINTAINERS                  |  1 +
- drivers/clk/Kconfig          |  1 +
- drivers/clk/Makefile         |  1 +
- drivers/clk/realtek/Kconfig  | 28 +++++++++++++++
- drivers/clk/realtek/Makefile |  4 +++
- drivers/clk/realtek/common.c | 66 ++++++++++++++++++++++++++++++++++++
- drivers/clk/realtek/common.h | 37 ++++++++++++++++++++
- 7 files changed, 138 insertions(+)
- create mode 100644 drivers/clk/realtek/Kconfig
- create mode 100644 drivers/clk/realtek/Makefile
- create mode 100644 drivers/clk/realtek/common.c
- create mode 100644 drivers/clk/realtek/common.h
+ MAINTAINERS                    |  1 +
+ drivers/reset/Kconfig          |  1 +
+ drivers/reset/Makefile         |  1 +
+ drivers/reset/realtek/Kconfig  |  8 +++
+ drivers/reset/realtek/Makefile |  2 +
+ drivers/reset/realtek/common.c | 90 ++++++++++++++++++++++++++++++++++
+ drivers/reset/realtek/common.h | 29 +++++++++++
+ 7 files changed, 132 insertions(+)
+ create mode 100644 drivers/reset/realtek/Kconfig
+ create mode 100644 drivers/reset/realtek/Makefile
+ create mode 100644 drivers/reset/realtek/common.c
+ create mode 100644 drivers/reset/realtek/common.h
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index ff0347f6556d..b16d2c62ea3d 100644
+index 4af7515664f8..ff0347f6556d 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
 @@ -22434,6 +22434,7 @@ L:	devicetree@vger.kernel.org
  L:	linux-clk@vger.kernel.org
  S:	Supported
  F:	Documentation/devicetree/bindings/clock/realtek*
-+F:	drivers/clk/realtek/*
- F:	drivers/reset/realtek/*
++F:	drivers/reset/realtek/*
  F:	include/dt-bindings/clock/realtek*
  F:	include/dt-bindings/reset/realtek*
-diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
-index b2efbe9f6acb..8bf262dd23a9 100644
---- a/drivers/clk/Kconfig
-+++ b/drivers/clk/Kconfig
-@@ -519,6 +519,7 @@ source "drivers/clk/nuvoton/Kconfig"
- source "drivers/clk/pistachio/Kconfig"
- source "drivers/clk/qcom/Kconfig"
- source "drivers/clk/ralink/Kconfig"
-+source "drivers/clk/realtek/Kconfig"
- source "drivers/clk/renesas/Kconfig"
- source "drivers/clk/rockchip/Kconfig"
- source "drivers/clk/samsung/Kconfig"
-diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
-index a3e2862ebd7e..e226bee2d039 100644
---- a/drivers/clk/Makefile
-+++ b/drivers/clk/Makefile
-@@ -140,6 +140,7 @@ obj-$(CONFIG_COMMON_CLK_PISTACHIO)	+= pistachio/
- obj-$(CONFIG_COMMON_CLK_PXA)		+= pxa/
- obj-$(CONFIG_COMMON_CLK_QCOM)		+= qcom/
- obj-y					+= ralink/
-+obj-$(CONFIG_COMMON_CLK_REALTEK)	+= realtek/
- obj-y					+= renesas/
- obj-$(CONFIG_ARCH_ROCKCHIP)		+= rockchip/
- obj-$(CONFIG_COMMON_CLK_SAMSUNG)	+= samsung/
-diff --git a/drivers/clk/realtek/Kconfig b/drivers/clk/realtek/Kconfig
+ 
+diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
+index d009eb0849a3..45a4227b5f44 100644
+--- a/drivers/reset/Kconfig
++++ b/drivers/reset/Kconfig
+@@ -418,6 +418,7 @@ config RESET_ZYNQMP
+ 
+ source "drivers/reset/amlogic/Kconfig"
+ source "drivers/reset/hisilicon/Kconfig"
++source "drivers/reset/realtek/Kconfig"
+ source "drivers/reset/spacemit/Kconfig"
+ source "drivers/reset/starfive/Kconfig"
+ source "drivers/reset/sti/Kconfig"
+diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
+index 3e52569bd276..7330fee91365 100644
+--- a/drivers/reset/Makefile
++++ b/drivers/reset/Makefile
+@@ -2,6 +2,7 @@
+ obj-y += core.o
+ obj-y += amlogic/
+ obj-y += hisilicon/
++obj-y += realtek/
+ obj-y += spacemit/
+ obj-y += starfive/
+ obj-y += sti/
+diff --git a/drivers/reset/realtek/Kconfig b/drivers/reset/realtek/Kconfig
 new file mode 100644
-index 000000000000..4e042e41f30d
+index 000000000000..bb6dd856a64a
 --- /dev/null
-+++ b/drivers/clk/realtek/Kconfig
-@@ -0,0 +1,28 @@
++++ b/drivers/reset/realtek/Kconfig
+@@ -0,0 +1,8 @@
 +# SPDX-License-Identifier: GPL-2.0-only
-+config COMMON_CLK_REALTEK
-+	tristate "Clock driver for Realtek SoCs"
-+	depends on ARCH_REALTEK || COMPILE_TEST
-+	default ARCH_REALTEK
++config RESET_RTK_COMMON
++	tristate "Realtek common reset driver" if COMPILE_TEST
 +	help
-+	  Enable the common clock framework infrastructure for Realtek
-+	  system-on-chip platforms.
-+
-+	  This provides the base support required by individual Realtek
-+	  clock controller drivers to expose clocks to peripheral devices.
-+
-+	  If you have a Realtek-based platform, say Y.
-+
-+if COMMON_CLK_REALTEK
-+
-+config RTK_CLK_COMMON
-+	tristate "Realtek Clock Common"
-+	select RESET_RTK_COMMON
-+	select AUXILIARY_BUS
-+	help
-+	  Common helper code shared by Realtek clock controller drivers.
-+
-+	  This provides utility functions and data structures used by
-+	  multiple Realtek clock implementations, and include integration
-+	  with reset controllers where required.
-+
-+endif
-diff --git a/drivers/clk/realtek/Makefile b/drivers/clk/realtek/Makefile
++	  This option enables the common reset controller library for
++	  Realtek SoCs. It provides shared reset control operations
++	  (assert, deassert, status) and a registration helper function
++	  that other Realtek-specific reset drivers can use.
+diff --git a/drivers/reset/realtek/Makefile b/drivers/reset/realtek/Makefile
 new file mode 100644
-index 000000000000..377ec776ee47
+index 000000000000..b59a3f7f2453
 --- /dev/null
-+++ b/drivers/clk/realtek/Makefile
-@@ -0,0 +1,4 @@
++++ b/drivers/reset/realtek/Makefile
+@@ -0,0 +1,2 @@
 +# SPDX-License-Identifier: GPL-2.0-only
-+obj-$(CONFIG_RTK_CLK_COMMON) += clk-rtk.o
-+
-+clk-rtk-y += common.o
-diff --git a/drivers/clk/realtek/common.c b/drivers/clk/realtek/common.c
++obj-$(CONFIG_RESET_RTK_COMMON) += common.o
+diff --git a/drivers/reset/realtek/common.c b/drivers/reset/realtek/common.c
 new file mode 100644
-index 000000000000..56f6ba1af6ef
+index 000000000000..2ce20c25377b
 --- /dev/null
-+++ b/drivers/clk/realtek/common.c
-@@ -0,0 +1,66 @@
++++ b/drivers/reset/realtek/common.c
+@@ -0,0 +1,90 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
 + * Copyright (C) 2019-2026 Realtek Semiconductor Corporation
-+ * Author: Cheng-Yu Lee <cylee12@realtek.com>
 + */
 +
-+#include <linux/auxiliary_bus.h>
 +#include <linux/device.h>
 +#include <linux/export.h>
-+#include <linux/mfd/syscon.h>
 +#include <linux/module.h>
-+#include <linux/platform_device.h>
++#include <linux/of.h>
++#include <linux/regmap.h>
 +#include "common.h"
 +
-+static int rtk_reset_controller_register(struct device *dev, const char *aux_name,
-+					 struct regmap *map)
++static inline struct rtk_reset_data *to_rtk_reset_controller(struct reset_controller_dev *r)
 +{
-+	struct auxiliary_device *adev;
-+
-+	if (!of_property_present(dev->of_node, "#reset-cells"))
-+		return 0;
-+
-+	adev = devm_auxiliary_device_create(dev, aux_name, (void *)map);
-+
-+	if (IS_ERR(adev))
-+		return PTR_ERR(adev);
-+
-+	return 0;
++	return container_of(r, struct rtk_reset_data, rcdev);
 +}
 +
-+int rtk_clk_probe(struct platform_device *pdev, const struct rtk_clk_desc *desc,
-+		  const char *aux_name)
++static inline const struct rtk_reset_desc *rtk_reset_get_desc(struct rtk_reset_data *data,
++							      unsigned long idx)
 +{
-+	struct device *dev = &pdev->dev;
-+	struct regmap *regmap;
-+	int i, ret;
++	return &data->descs[idx];
++}
 +
-+	regmap = device_node_to_regmap(dev->of_node);
-+	if (IS_ERR(regmap))
-+		return dev_err_probe(dev, PTR_ERR(regmap), "failed to get regmap\n");
++static int rtk_reset_assert(struct reset_controller_dev *rcdev,
++			    unsigned long idx)
++{
++	struct rtk_reset_data *data = to_rtk_reset_controller(rcdev);
++	const struct rtk_reset_desc *desc;
++	u32 mask, val;
 +
-+	for (i = 0; i < desc->num_clks; i++)
-+		desc->clks[i]->regmap = regmap;
++	desc = rtk_reset_get_desc(data, idx);
++	mask = desc->write_en ? (0x3U << desc->bit) : BIT(desc->bit);
++	val  = desc->write_en ? (0x2U << desc->bit) : 0;
 +
-+	for (i = 0; i < desc->clk_data->num; i++) {
-+		struct clk_hw *hw = desc->clk_data->hws[i];
++	return regmap_update_bits(data->regmap, desc->ofs, mask, val);
++}
 +
-+		if (!hw)
-+			continue;
++static int rtk_reset_deassert(struct reset_controller_dev *rcdev,
++			      unsigned long idx)
++{
++	struct rtk_reset_data *data = to_rtk_reset_controller(rcdev);
++	const struct rtk_reset_desc *desc;
++	u32 mask, val;
 +
-+		ret = devm_clk_hw_register(dev, hw);
-+		if (ret)
-+			return dev_err_probe(dev, ret, "failed to register hw of clk%d\n", i);
-+	}
++	desc = rtk_reset_get_desc(data, idx);
++	mask = desc->write_en ? (0x3U << desc->bit) : BIT(desc->bit);
++	val = mask;
 +
-+	ret = devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get,
-+					  desc->clk_data);
++	return regmap_update_bits(data->regmap, desc->ofs, mask, val);
++}
++
++static int rtk_reset_status(struct reset_controller_dev *rcdev,
++			    unsigned long idx)
++{
++	struct rtk_reset_data *data = to_rtk_reset_controller(rcdev);
++	const struct rtk_reset_desc *desc;
++	u32 val;
++	int ret;
++
++	desc = rtk_reset_get_desc(data, idx);
++	ret = regmap_read(data->regmap, desc->ofs, &val);
 +	if (ret)
-+		return dev_err_probe(dev, ret, "failed to add clock provider\n");
++		return ret;
 +
-+	return rtk_reset_controller_register(dev, aux_name, regmap);
++	return !((val >> desc->bit) & 1);
 +}
-+EXPORT_SYMBOL_NS_GPL(rtk_clk_probe, "REALTEK_CLK");
 +
-+MODULE_DESCRIPTION("Realtek clock infrastructure");
++static const struct reset_control_ops rtk_reset_ops = {
++	.assert   = rtk_reset_assert,
++	.deassert = rtk_reset_deassert,
++	.status   = rtk_reset_status,
++};
++
++/* The caller must initialize data->descs, data->rcdev.nr_resets and
++ * data->rcdev.owner before calling rtk_reset_controller_add().
++ */
++int rtk_reset_controller_add(struct device *dev,
++			     struct rtk_reset_data *data)
++{
++	data->regmap          = dev_get_platdata(dev);
++	data->rcdev.ops       = &rtk_reset_ops;
++	data->rcdev.dev       = dev;
++	data->rcdev.of_node   = dev->parent->of_node;
++
++	return devm_reset_controller_register(dev, &data->rcdev);
++}
++EXPORT_SYMBOL_NS_GPL(rtk_reset_controller_add, "REALTEK_RESET");
++
++MODULE_DESCRIPTION("realtek reset infrastructure");
 +MODULE_LICENSE("GPL");
-diff --git a/drivers/clk/realtek/common.h b/drivers/clk/realtek/common.h
+diff --git a/drivers/reset/realtek/common.h b/drivers/reset/realtek/common.h
 new file mode 100644
-index 000000000000..c52fcdbff5ee
+index 000000000000..42eb41eae2ec
 --- /dev/null
-+++ b/drivers/clk/realtek/common.h
-@@ -0,0 +1,37 @@
++++ b/drivers/reset/realtek/common.h
+@@ -0,0 +1,29 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
-+ * Copyright (C) 2016-2026 Realtek Semiconductor Corporation
-+ * Author: Cheng-Yu Lee <cylee12@realtek.com>
++ * Copyright (C) 2026 Realtek Semiconductor Corporation
++ * Author: Yu-Chun Lin <eleanor.lin@realtek.com>
 + */
 +
-+#ifndef __CLK_REALTEK_COMMON_H
-+#define __CLK_REALTEK_COMMON_H
++#ifndef __RESET_REALTEK_COMMON_H
++#define __RESET_REALTEK_COMMON_H
 +
-+#include <linux/clk-provider.h>
++#include <linux/reset-controller.h>
 +
-+#define __clk_regmap_hw(_p) ((_p)->hw)
-+
-+struct device;
-+struct platform_device;
 +struct regmap;
 +
-+struct clk_regmap {
-+	struct clk_hw hw;
++struct rtk_reset_desc {
++	u32 ofs;
++	u32 bit;
++	bool write_en;
++};
++
++struct rtk_reset_data {
++	struct reset_controller_dev rcdev;
++	const struct rtk_reset_desc *descs;
 +	struct regmap *regmap;
 +};
 +
-+struct rtk_clk_desc {
-+	struct clk_hw_onecell_data *clk_data;
-+	struct clk_regmap * const *clks;
-+	size_t num_clks;
-+};
++int rtk_reset_controller_add(struct device *dev,
++			     struct rtk_reset_data *initdata);
 +
-+static inline struct clk_regmap *to_clk_regmap(struct clk_hw *hw)
-+{
-+	return container_of(hw, struct clk_regmap, hw);
-+}
-+
-+int rtk_clk_probe(struct platform_device *pdev, const struct rtk_clk_desc *desc,
-+		  const char *aux_name);
-+
-+#endif /* __CLK_REALTEK_COMMON_H */
++#endif /* __RESET_REALTEK_COMMON_H */
 -- 
 2.34.1
 
