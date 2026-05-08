@@ -1,164 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E316D2F8E86;
-	Fri,  8 May 2026 20:41:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C4773101A7
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 20:42:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778272870; cv=none; b=B/raaT9xHUvBJlUEXarmrfSR4o0omuYof2ctGYZWekZdx/yrXAgvoiRH6wAT6kZgFa7b59p29HWtYd6SvuG+psuewcTG0UGs7Tk88Or78Lms816iFfVZoz5cRQnrYNTf4L472nWZBZf8ypFUK2ecVXK+TgBkLg4tYk21oGPe7sY=
+	t=1778272958; cv=none; b=mtMqq7cVanz51oVDEF0f6IN1ZNq1CcsRSGDiDL01Y4KZNGxof9FHNKFkDCiKXLK1FqLel339JP+aUZCKaxNKmPYlKXaJUJc1FO558GpI37w6XjHH5LZ9wUnvm64pa/RkD7sdyPyZNAG7k3Qp6xgQ2Zp2iFKTXSJe93EQYCFGVSg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778272870; c=relaxed/simple;
-	bh=0Qce7ji6HZHiSet9KkBcABJoUjVUTi1bg5p1SOdfLfg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IUzDK895HlCJxs59bImFrOZ9M9iouLuneZNRYmz/lacjG1HxzOK2riilEjW7f9Gbh/hvJklMEIFQqOlTXVp76cigcTHH6ATx9orSay34fF85XKu36B8OfzVZlgJpt6x+pG0hhJLRvcWr/vA44Q3tXiJdcClMoN4T7OW8/SRxqLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ezSN5YK0; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778272958; c=relaxed/simple;
+	bh=9Wt//LPMg7PGpk27xz9oWC+u1W58+gc60m5+aaUD910=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ITGtWN548gCO2sJNgrK+i2H1r6pnsjL5U423qnZgnI1Z5iONVdvMQUq19ysx0iXlKULeC8RRdmrvh7pMUSjtcE4XnUPYE0twH5UQSm+TT+EFQSZVd/LZ2NVQS/KIQCAxyqauFESkvaTK1e+Ry8pFjk1EUSTwQllq0D9nlSjZXFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U2gCCTsm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ezSN5YK0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43C4DC2BCB0;
-	Fri,  8 May 2026 20:41:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U2gCCTsm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADF26C2BCB0;
+	Fri,  8 May 2026 20:42:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778272869;
-	bh=0Qce7ji6HZHiSet9KkBcABJoUjVUTi1bg5p1SOdfLfg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ezSN5YK0pMKhStIldJv8EiP70nBtpNpkTVCKb7VHt5mwUg1XfAk79Hi+SZ7rqiOF3
-	 hWaImOhQE3EwM0hkOCpxjVKCm0d0H2FF19x5DSizpH/CSs+OanZig6NS8rgMy1bT4C
-	 ijQgj5jGP8IcDje+1OId7Dp25CLCIzZyOh1Jy1vcmq0PJnIFG03s3ou3XozYjbw3XE
-	 CCVr0hgXI2s6L9nEhx+rmKVUii27gTOf1Pe/ov9PTyPXmjlSZEAESG3B2Fr4KgIT/w
-	 GOpAW28w0oefR9SZMfEKAp2cLXYy2yq4BV7aQD83U1+ca2h3ptrgTDQp1wGHRMqUK2
-	 CjOhCPom9VotA==
-Message-ID: <27a2c0aa-ca50-4bdf-a735-f4375ffdc8bb@kernel.org>
-Date: Fri, 8 May 2026 23:41:01 +0300
+	s=k20201202; t=1778272958;
+	bh=9Wt//LPMg7PGpk27xz9oWC+u1W58+gc60m5+aaUD910=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=U2gCCTsm18x2ipFQZCZKZCfMl6XuCPDG8P5TcJ4xsT0lK4ZC02RUNbkDOypoeCkC5
+	 +5lsAWS1vfdGDhnHh0+BnZdyt6mMqvU8fMWueG+H9jInZosFCgdcISTJ/0phJjFYf0
+	 D0sSQQiAoh0sx0uvKGgbUdupvFpxSltPYQ4OZrCNEOrtjB8IZVd8tPfXcl9wteFoaJ
+	 QR1aNiOByCCENbayJZtVaCw9JwvYxvlwXOemKqSMAHLa8Ows//lmKtiD6SD3Epwd+L
+	 EN/ys1LJelsbIPUMRcgLtBgAnZKc1otIOG/i2Jh/zDNqnpBfBha1mp7AcF8f8jYbGp
+	 sfFnHVz5IxT2w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] arm64: dts: agilex5: add support for debug daughter
+ card
+Reply-To: sashiko@lists.linux.dev
+To: "Adrian Ng Ho Yin" <adrian.ho.yin.ng@altera.com>
+Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <a42751b4c7eb9b4d58f2ef1db3591ff68385a562.1778237639.git.adrian.ho.yin.ng@altera.com>
+References: <a42751b4c7eb9b4d58f2ef1db3591ff68385a562.1778237639.git.adrian.ho.yin.ng@altera.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 08 May 2026 20:42:37 +0000
+Message-Id: <20260508204237.ADF26C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] interconnect: qcom: Add interconnect provider driver
- for Nord SoC
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260420021351.1239355-1-shengchao.guo@oss.qualcomm.com>
- <20260420021351.1239355-3-shengchao.guo@oss.qualcomm.com>
-From: Georgi Djakov <djakov@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20260420021351.1239355-3-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 4/20/26 5:13 AM, Shawn Guo wrote:
-> From: Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>
-> 
-> Add driver for the Qualcomm interconnect buses found on Nord SoC.
-> The topology consists of several NoCs that are controlled by
-> a remote processor that collects the aggregated bandwidth for each
-> master-slave pair.
-> 
-> Signed-off-by: Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
->   drivers/interconnect/qcom/Kconfig  |   11 +
->   drivers/interconnect/qcom/Makefile |    2 +
->   drivers/interconnect/qcom/nord.c   | 2682 ++++++++++++++++++++++++++++
->   3 files changed, 2695 insertions(+)
->   create mode 100644 drivers/interconnect/qcom/nord.c
-> 
-[..]
-> +static struct qcom_icc_node * const aggre1_noc_nodes[] = {
-> +	[MASTER_QSPI_0] = &qhm_qspi,
-> +	[MASTER_SAILSS_MD1] = &qnm_sailss_md1,
-> +	[MASTER_QUP_3] = &qxm_qup02,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] Abuse of the 'rohm,dh2228fv' compatible string to force the 'spidev=
+' driver to bind.
+- [Low] Including a '.dts' file directly instead of using a '.dtsi' include=
+ file.
+--
 
-Maybe this should be qxm_qup3 ?
+commit 3916af69e58bdb9bf4d736172238dd0b03e9465b
+Author: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
 
-> +	[SLAVE_A1NOC_SNOC] = &qns_a1noc_snoc,
+arm64: dts: agilex5: add support for debug daughter card
+
+This commit adds a new device tree for the Agilex 5 SoCDK when fitted with
+the debug daughter card. It disables several peripherals such as gpio0 and
+gmac2 while enabling gmac0 and spi0 for debugging purposes.
+
+> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_debug.dts b/=
+arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_debug.dts
+> new file mode 100644
+> index 0000000000000..3981a9e876b0a
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_debug.dts
+> @@ -0,0 +1,50 @@
+> +// SPDX-License-Identifier:     GPL-2.0
+> +/*
+> + * Copyright (C) 2026, Altera Corporation
+> + */
+> +#include "socfpga_agilex5_socdk.dts"
+
+This isn't a bug, but does this include a final board .dts file instead of a
+shared .dtsi include?
+
+Standard Device Tree conventions typically involve refactoring shared
+configurations into a common .dtsi file, as .dts files are meant to be the
+final top-level compilation unit for a board.
+
+[ ... ]
+
+> +&spi0 {
+> +	status =3D "okay";
+> +	spidev@0 {
+> +		compatible =3D "rohm,dh2228fv";
+
+Is there actually a Rohm DH2228FV hardware device present on this debug
+daughter card?
+
+The commit message indicates this exposes the SPI interface for debugging.
+Does this code use the 'rohm,dh2228fv' compatible string solely to force the
+Linux spidev driver to bind?
+
+The Device Tree is meant for describing hardware, and using fake hardware
+compatible strings to instantiate userspace interfaces bypasses the kernel
+warnings against using a bare 'spidev' compatible string.
+
+> +		reg =3D <0>;
+> +		spi-max-frequency =3D <10000000>;
+> +	};
 > +};
-[..]
-> +static struct qcom_icc_node * const cnoc_cfg_nodes[] = {
-> +	[MASTER_CNOC_CFG] = &qsm_cfg,
-> +	[SLAVE_PS_ETH_0] = &ps_eth_0,
-> +	[SLAVE_PS_ETH_1] = &ps_eth_1,
-> +	[SLAVE_SHS_SERVER] = &ps_shs_server,
-> +	[SLAVE_AHB2PHY_0] = &qhs_ahb2phy0,
-> +	[SLAVE_AHB2PHY_1] = &qhs_ahb2phy1,
-> +	[SLAVE_AHB2PHY_2] = &qhs_ahb2phy2,
-> +	[SLAVE_AHB2PHY_3] = &qhs_ahb2phy3,
-> +	[SLAVE_AHB2PHY_ETH_0] = &qhs_ahb2phy_eth_0,
-> +	[SLAVE_AHB2PHY_ETH_1] = &qhs_ahb2phy_eth_1,
-> +	[SLAVE_CAMERA_CFG] = &qhs_camera_cfg,
-> +	[SLAVE_CLK_CTL] = &qhs_clk_ctl,
-> +	[SLAVE_CRYPTO_0_CFG] = &qhs_crypto0_cfg,
-> +	[SLAVE_CRYPTO_1_CFG] = &qhs_crypto1_cfg,
-> +	[SLAVE_CRYPTO_2_CFG] = &qhs_crypto2_cfg,
-> +	[SLAVE_DISPLAY_1_CFG] = &qhs_display_1_cfg,
-> +	[SLAVE_DISPLAY_CFG] = &qhs_display_cfg,
-> +	[SLAVE_DPRX0] = &qhs_dprx0,
-> +	[SLAVE_DPRX1] = &qhs_dprx1,
-> +	[SLAVE_EVA_CFG] = &qhs_eva_cfg,
-> +	[SLAVE_GFX3D_CFG] = &qhs_gpuss_0_cfg,
-> +	[SLAVE_GFX3D_1_CFG] = &qhs_gpuss_1_cfg,
-> +	[SLAVE_I2C] = &qhs_i2c,
-> +	[SLAVE_IMEM_CFG] = &qhs_imem_cfg,
-> +	[SLAVE_MCW_PCIE] = &qhs_mcw_pcie,
-> +	[SLAVE_MM_RSCC] = &qhs_mm_rscc,
-> +	[SLAVE_NE_CLK_CTL] = &qhs_ne_clk_ctl,
-> +	[SLAVE_NSPSS0_CFG] = &qhs_nspss0_cfg,
-> +	[SLAVE_NSPSS1_CFG] = &qhs_nspss1_cfg,
-> +	[SLAVE_NSPSS2_CFG] = &qhs_nspss2_cfg,
-> +	[SLAVE_NSPSS3_CFG] = &qhs_nspss3_cfg,
-> +	[SLAVE_NW_CLK_CTL] = &qhs_nw_clk_ctl,
-> +	[SLAVE_PRNG] = &qhs_prng,
-> +	[SLAVE_QDSS_CFG] = &qhs_qdss_cfg,
-> +	[SLAVE_QSPI_0] = &qhs_qspi,
-> +	[SLAVE_QUP_0] = &qhs_qup0,
-> +	[SLAVE_QUP_3] = &qhs_qup02,
 
-qhs_qup3 maybe?
-
-> +	[SLAVE_QUP_1] = &qhs_qup1,
-> +	[SLAVE_QUP_2] = &qhs_qup2,
-> +	[SLAVE_SAFEDMA_CFG] = &qhs_safedma_cfg,
-> +	[SLAVE_SDCC_4] = &qhs_sdc4,
-> +	[SLAVE_SE_CLK_CTL] = &qhs_se_clk_ctl,
-> +	[SLAVE_TCSR] = &qhs_tcsr,
-> +	[SLAVE_TLMM] = &qhs_tlmm,
-> +	[SLAVE_TSC_CFG] = &qhs_tsc_cfg,
-> +	[SLAVE_UFS_MEM_CFG] = &qhs_ufs_mem_cfg,
-> +	[SLAVE_USB2] = &qhs_usb2,
-> +	[SLAVE_USB3_0] = &qhs_usb3_0,
-> +	[SLAVE_USB3_1] = &qhs_usb3_1,
-> +	[SLAVE_VENUS_CFG] = &qhs_venus_cfg,
-> +	[SLAVE_COMPUTENOC_CFG] = &qss_computenoc_cfg,
-> +	[SLAVE_PCIE_NOC_CFG] = &qss_pcie_noc_cfg,
-> +	[SLAVE_QTC_CFG] = &qss_qtc_cfg,
-> +	[SLAVE_QDSS_STM] = &xs_qdss_stm,
-> +	[SLAVE_SYS_TCU0_CFG] = &xs_sys_tcu0_cfg,
-> +	[SLAVE_SYS_TCU1_CFG] = &xs_sys_tcu1_cfg,
-> +	[SLAVE_SYS_TCU2_CFG] = &xs_sys_tcu2_cfg,
-> +};
-[..]
-> +static const struct regmap_config nord_hscnoc_regmap_config = {
-> +	.reg_bits = 32,
-> +	.reg_stride = 4,
-> +	.val_bits = 32,
-> +	.max_register = 0x45080,
-
-Is this value correct? The qosbox offsets for some nodes go beyond this.
-
-> +	.fast_io = true,
-> +};
-> +
-
-The rest looks good!
-
-Thanks,
-Georgi
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1778237639.gi=
+t.adrian.ho.yin.ng@altera.com?part=3D2
