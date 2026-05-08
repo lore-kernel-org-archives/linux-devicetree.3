@@ -1,66 +1,67 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C533736166A
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 12:53:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 729EA3DCDBB
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 12:53:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778244808; cv=none; b=T2Ny5oodqGue0hr5ylWevmyEHUHM765ugPYoriRe9qv6g5ZhWkoOZn8xRj1Ez+gGiUI0buCadtH35t+gmH1HbEkPNY/YuvqPipYJw04AXb9GFhQnWz/HHwcY11WeAjXUHiHyf0zpm5/ejTSV76Gp2u+kyov01a4UwwFy5VOKA/c=
+	t=1778244809; cv=none; b=qXdemWZNPUnUOK1cK3az9hod0/29VHoxv58uzKC1R8WlDCohSdw3jiz+UvQ5iYQWrc2h2saWILNdjhEY42ok4Tz8GVnSHNHE1P9cttz7pPsM5RdsqV6UGT14+UO+Vzz7+MlCnG2s9/Viv1OJQiB17C/XIElrKz09BVzMtviZ0IQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778244808; c=relaxed/simple;
-	bh=UyNlqKMM6jxuugzSOHKtl7TjL/HTQpOU8FeQj+AFrv0=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=LVKLZpx9eXJriWgCFUhEO80JEWcdYsk5EM4pJlBHOetPTi5RrCEuGAx6fpcOJ4nSdBloOULIcXdUmJLRwMinQX5Yh3EZNLKb3Vxp9JTBz6mSyOlqeEVgTs2FQ8SwHr68jO+WL7o4xfWhdLhn1K4O765JIBO3FEibaKA9LaO4MTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=suMoSycb; arc=none smtp.client-ip=209.85.218.41
+	s=arc-20240116; t=1778244809; c=relaxed/simple;
+	bh=MNyVJI2hbWvpz28Yan5uNv0jnas35N/Bch/oPiRkTZ8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=pXiVnOnctASMaxW94mqxJVS2YSl53dSMLOAmcbe6bgAsLLuC5fGrEgXZt27hjCytd0nyOJdqDVkyfYIo580tfo508UrSJspdtRb5nZ9CZ5bIy4gaJP/5VnnT7yy6Z7/IlsurODNCQrBNsiqHUWpyBb8hOuyUVgeeIeRJg+qxLaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=xd2FaL8i; arc=none smtp.client-ip=209.85.218.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="suMoSycb"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-b9358bc9c50so323544666b.1
-        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 05:53:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="xd2FaL8i"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-bc47a96d3bbso267840466b.3
+        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 05:53:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1778244805; x=1778849605; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=JHwS4Uc0l7hheA9OAcjg4DeynZW3gYZgbq5AyYeqW7k=;
-        b=suMoSycbVVLo4wrV480BSj+9/LTIilQRcqZYOdJfGJJ7oTQIbrvJ+NSmgSEX/j219H
-         1W+UrS2FM+Z86zf6ECO9InnIKmS4eHMAhSCYUfhFztsWAwS03agZjO9oeArJfwgflrCI
-         33V2mnBbeSHOEnAVL0U8PyO0l7OKylwoNSrBowUS0SYYFYJkIR0YyItzZkQvz9Z/o3pt
-         480DMRvrf87gavzYRIo4z2k5p7WzOFzlhQwjA7acmo6JNAY9MxsswaRVtg6GUHcQPxD+
-         xPEFNYWlFFiEvi2nI4e0m7De/LiRPwVd+9yRFUo2EXdb/613Fs+T+Zq//rM+c6p/lqEL
-         MQXg==
+        d=fairphone.com; s=fair; t=1778244806; x=1778849606; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=2Gh6I/+24agVwX8lBZJvSBSrfNENuBcVK4OqqTCY+cw=;
+        b=xd2FaL8ipK09rHOvK+0TeGCUCQD7w/0h6NVtzNKLZnwKdsUFizVjZ5gbU6Hhbtf/p+
+         0ohY7JK+D39p5/a3ood7fnvRAu3EdgbAkg+0CGPulMCrnlNghu7qkLhzj1Q0XPDbkg/Y
+         cNGhCESThbAYoYealr2na+2EY/RolgjL45cQX/X/I1sSMy5AJMTJgN3dhBUaAF9p/Y0F
+         Uf57WLYXFV3y4q0LiakP4SSpserK+89APuethWGESRnNxE+/h4yk6/fIAv+oyeh1xT1C
+         QvgVfbIiUKwKLb4332XzywSP1vSkPPrBTpgHOJrvccgFgEDGY0KR3NlBGtKU5xrrolbX
+         dx9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778244805; x=1778849605;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JHwS4Uc0l7hheA9OAcjg4DeynZW3gYZgbq5AyYeqW7k=;
-        b=VNAvOipo7bbRKJKgH2aRbCVZyOxyCCt3isa0pH0QwVHv8cft0KjspKhfTGhX0HO07M
-         OUQMoeKkAgV87PoZgg469xxmuY7EvaCoNSj1nu7XsXTP1X8lrMT7W5VMdKjdD4nYfaFB
-         ICn+dLujdPWcTkeYKvDOJMfy1Y/RKDKKVjFDSCyMvFoYwdW6u4qSVkLpapfneyCk4Whj
-         z6R8s3gqUahWR0Na2JtBWqaVexWQ4+oPkfhm/qctSNGa5jEFjWpS/MQakLB82Z14iiCZ
-         8Y+sIpnjxUl53egpBc49r0qNYCFQRCaEASKB2uYN1JBVfxpPM/BKHPZuj3FQIZ1UbrhV
-         BVCg==
-X-Forwarded-Encrypted: i=1; AFNElJ8SzZsb5jPV1L9JRt3+Fw8YNS0oYcP0hQ9FMl7M68pFlicj1tqOuqCnYmIr6eEK9+sbHKcoPFAY1/Ma@vger.kernel.org
-X-Gm-Message-State: AOJu0YzCBylvHVlcFdVAE7HVXO1M4cKCpB1D8+tbZrMciRS7cIGZsazS
-	9IsQFRTxm5VBrAqUfDaEXWjmuKzYga/gjBtdC8eNT6z7IRdFxLTS1h+WY/W+7NcaoNE=
-X-Gm-Gg: AeBDietdq1pQGDIh2GsGIyOWnIfY5P2KyceYpT3qJY4qnMh1USwLZ7zAnZDh05JfJeC
-	DHKi36SaLbXVEwIEEtl/5AGiNX6Y/O7YIXZBCXayqK4AlUedxiqVO0IkvDmn/2Jc4rhg7UUXbnu
-	6TL6GINFIYpzbWpnq3oKrNsU3k6mK/ws3KGAhjlLc5hvB+cPMmoGHx/5OvqWrwnoGB2RhA1L2+Z
-	ZO/+8jeNUNfyvdnDU5Dmz7Dgl/5rrtjc7T9xGRRdKbo7BgygpWqC6aX/lSqmAskszlFqJOAjqIK
-	va7Lp0hizTJgOcTE4cSkbQt88DqJBbfCrepZgS9D6svV8NZPTlUHwwY3qQ1c0rcrhqSZzVjiVkS
-	UMqMZDfLlkB5NXx8Hbgre4BEpOKAFZVqYEMT6b+CjtbpdM2YSa4vijbpvx7sQA9YmsTYcRrUoTk
-	IQznHX6BtgcWYRAjfZVLAfwNhMI8j8qQ/v6CnuWb37dFJvUbl34omLOHo0fzc+NLTpqVGOY1cve
-	v1fSo7+DkJtIUBMdQ0t
-X-Received: by 2002:a17:906:7305:b0:ba6:1412:9326 with SMTP id a640c23a62f3a-bc56cc26af1mr735858866b.19.1778244805154;
+        d=1e100.net; s=20251104; t=1778244806; x=1778849606;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=2Gh6I/+24agVwX8lBZJvSBSrfNENuBcVK4OqqTCY+cw=;
+        b=pj1P6dWrvQCu/pA5NUho0iunnKBkAKM1/AjZknkFeEQMbE6NYqXSiRgw0Sa6xVnioj
+         XJAZf7dFuAuCKDlPRBUxTjbqD29Js5RSP6IdBjuuDwyQWN7oruWEdSOut7yZXRvTYEe2
+         cZZsRkRH+2Y6uK/tQoelYm8ItrwVhyaSbJoLah1ypwP9dJB8xqpGAJpHNRnD9J9QjtNn
+         GVGi6+SfZCm9ddsd8+HydvgOplksDlSRJyf9ecUQaHz04ag71JbaOhj6IP3w0v4Ev8FL
+         uE6B44W2iJ+RzQHr3WlXV2mddWCZgCuw/z7OIEWQePA3VU7nuVU9gfROPEDeL6HV5ej+
+         5b1g==
+X-Forwarded-Encrypted: i=1; AFNElJ/gZp2/RrSgPsKtzDkCcOBwFp+XbZIZaLGu9tO0EKZxkWG+P2Dhi+TlPBexxWOLzfPKHfzTGDan6RND@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw0c0V4MMwiJxJRLxZFANxGrYEjDoAvupbluMiZeCc78DiTrDVR
+	27rT68qMW2CQLzTxfvIBCumYwTta7/Ag/zpJw77ab6kRV6QXXnfGr8oguM0x3c6dEy8=
+X-Gm-Gg: Acq92OFj3ZbbrXujKlnKBBnwMVzj5X82GyXC6jwdw/6XvxJmqSEkFfe9mpCVQSH+kiV
+	jjtrGZKD9qYHJHXOCErCrRJGnp9W3r4Iy1Cw8o8VEICqS/B33GH/OyyHRZtgBVXaUs93h6QVyok
+	xdr9c9PDIH93UDP+Igz1nOg+mK2mpcENqCrfC4cAdMqDizOSk8uqeX9aEpioNp7Lsi4OENtgRo7
+	ypqhpAekZlO64rqiQ87tKhubebR8LVS4mPCMcW7PIyBzqt4Pu4jWXM8vW0o4LuQMfu865kbaXiz
+	SuA7ukwR8Z4hPy2AshOf1YDMCX2Jcz+Wrrs7BZUlLEsCMQ1xz1q+wG6bvLNRzjNTj5dAuI2/GW8
+	+Y8tzATJoBkFRO58HwtUHW+hKD78eXI4o/3YzLMWdvVCI9b62DjlenaLsP0m9H3KzXzW9558cHi
+	4Tjd3CUMDAH74FrkDiuDskc+aIQ8jRf7Do9TOKXzmIyk8KLwjocLg5vHEzGbMaY/Tk2f9n0I2qe
+	OIGvwKnUA==
+X-Received: by 2002:a17:907:7255:b0:bbf:74d7:1c4a with SMTP id a640c23a62f3a-bc56e21ac66mr648201166b.40.1778244805766;
         Fri, 08 May 2026 05:53:25 -0700 (PDT)
 Received: from [172.16.220.224] (144-178-202-139.static.ef-service.nl. [144.178.202.139])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bcb94415c94sm800266b.53.2026.05.08.05.53.24
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bcb94415c94sm800266b.53.2026.05.08.05.53.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 08 May 2026 05:53:24 -0700 (PDT)
+        Fri, 08 May 2026 05:53:25 -0700 (PDT)
 From: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-Subject: [PATCH RFC 0/4] Add regulator support to gpio-keys
-Date: Fri, 08 May 2026 14:53:12 +0200
-Message-Id: <20260508-gpiokeys-vdd-supply-v1-0-0bb32e8e6428@fairphone.com>
+Date: Fri, 08 May 2026 14:53:13 +0200
+Subject: [PATCH RFC 1/4] regulator: add devm_fwnode family of functions
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,10 +70,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIALjc/WkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDE0MD3fSCzPzs1Mpi3bKUFN3i0oKCnEpdC1PTFLPkRAtTY5MkJaDOgqL
- UtMwKsKnRSkFuzkqxtbUAxXz4fWoAAAA=
-X-Change-ID: 20260410-gpiokeys-vdd-supply-855d6ca8534b
+Message-Id: <20260508-gpiokeys-vdd-supply-v1-1-0bb32e8e6428@fairphone.com>
+References: <20260508-gpiokeys-vdd-supply-v1-0-0bb32e8e6428@fairphone.com>
+In-Reply-To: <20260508-gpiokeys-vdd-supply-v1-0-0bb32e8e6428@fairphone.com>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
  Bjorn Andersson <andersson@kernel.org>, 
@@ -83,45 +83,156 @@ Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778244804; l=1461;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778244804; l=5378;
  i=griffin.kroah@fairphone.com; s=20250804; h=from:subject:message-id;
- bh=UyNlqKMM6jxuugzSOHKtl7TjL/HTQpOU8FeQj+AFrv0=;
- b=SdqqAfe52S+/BdIS2Vl3iYr7jgDFH1N/kdT8Q0NQfw/xPPH/GfFgs7FjCMwrvjtA4jJ6DYNzf
- OY6YbQAkQBKCwCIAPk66yencQjLUKS7qlqIa4Ji3PU541vsxmaP2VeW
+ bh=MNyVJI2hbWvpz28Yan5uNv0jnas35N/Bch/oPiRkTZ8=;
+ b=2ewq8NqF216z48g2VXRM684/943ePCqHB6/J7Y5sEVUk7QRpynBqlqD5IcEYTpjWLGO6gJta0
+ mHeVy7YtsdrCiHUXDSUKp5NfBk6zrP+YUWkdFfrAfXfLYRaDb/XLnL7
 X-Developer-Key: i=griffin.kroah@fairphone.com; a=ed25519;
  pk=drSBvqKFiR+xucmLWONHSq/wGrW+YvcVtBXFYnYzn8U=
 
-This patchset adds regulator support to gpio-keys to ensure that the
-regulator powering the Hall Effect sensor IC ("flip cover sensor") is on
-when the input device is used.
+Add devm_fwnode_regulator_get and variants.
 
-Marked as RFC because we may want to represent a Hall Effect sensor with
-a separate compatible + driver, and not use gpio-keys.
-
-There was also a comment around the usage of of_regulator_get() in the
-follow thread:
-https://lore.kernel.org/all/DI5HOWHCCKKD.1SQFAA3L4QFDI@fairphone.com/
+These function wrappers allow regulators to be accessed from the fwnode
+struct without any casts.
 
 Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
 ---
-Griffin Kroah-Hartman (4):
-      regulator: add devm_fwnode family of functions
-      dt-bindings: input: gpio-keys: Add vdd-supply
-      Input: gpio-keys - add regulator to gpio_keys
-      arm64: dts: qcom: milos-fairphone-fp6: add supply for Hall Effect sensor
+ drivers/regulator/devres.c         | 66 ++++++++++++++++++++++++++++++++++++++
+ include/linux/regulator/consumer.h | 30 +++++++++++++++++
+ 2 files changed, 96 insertions(+)
 
- .../devicetree/bindings/input/gpio-keys.yaml       |  4 ++
- arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts   |  4 +-
- drivers/input/keyboard/gpio_keys.c                 | 41 ++++++++++++++
- drivers/regulator/devres.c                         | 66 ++++++++++++++++++++++
- include/linux/gpio_keys.h                          |  2 +
- include/linux/regulator/consumer.h                 | 30 ++++++++++
- 6 files changed, 144 insertions(+), 3 deletions(-)
----
-base-commit: 17c7841d09ee7d33557fd075562d9289b6018c90
-change-id: 20260410-gpiokeys-vdd-supply-855d6ca8534b
+diff --git a/drivers/regulator/devres.c b/drivers/regulator/devres.c
+index 615deba5d22c8ce190c69081c94651d8df93d002..f525b1f48bcf18593798f6fa520ccdfc656f6b6c 100644
+--- a/drivers/regulator/devres.c
++++ b/drivers/regulator/devres.c
+@@ -11,6 +11,7 @@
+ #include <linux/regulator/consumer.h>
+ #include <linux/regulator/driver.h>
+ #include <linux/module.h>
++#include <linux/of.h>
+ 
+ #include "internal.h"
+ 
+@@ -803,4 +804,69 @@ struct regulator *devm_of_regulator_get_optional(struct device *dev, struct devi
+ 	return _devm_of_regulator_get(dev, node, id, OPTIONAL_GET);
+ }
+ EXPORT_SYMBOL_GPL(devm_of_regulator_get_optional);
++
++static struct regulator *_devm_fwnode_regulator_get(struct device *dev,
++						    struct fwnode_handle *fwnode,
++						    const char *id,
++						    enum regulator_get_type get_type)
++{
++	if (is_of_node(fwnode))
++		return _devm_of_regulator_get(dev, to_of_node(fwnode), id, get_type);
++
++	return ERR_PTR(-ENODEV);
++}
++
++/**
++ * devm_fwnode_regulator_get() - get resource managed regulator from firmware node
++ * @dev: device to supply
++ * @fwnode: firmware node to get regulator from
++ * @id: supply name or regulator ID.
++ *
++ * Managed of_regulator_get(). Regulators returned from this
++ * function are automatically regulator_put() on driver detach. See
++ * of_regulator_get() for more information.
++ */
++struct regulator *devm_fwnode_regulator_get(struct device *dev,
++					    struct fwnode_handle *fwnode,
++					    const char *id)
++{
++	return _devm_fwnode_regulator_get(dev, fwnode, id, NORMAL_GET);
++}
++EXPORT_SYMBOL_GPL(devm_fwnode_regulator_get);
++
++/**
++ * devm_fwnode_regulator_get_exclusive() - get resource managed regulator from firmware node
++ * @dev: device to supply
++ * @fwnode: firmware node to get regulator from
++ * @id: supply name or regulator ID.
++ *
++ * Managed of_regulator_get_exclusive(). Regulators returned from this
++ * function are automatically regulator_put() on driver detach. See
++ * of_regulator_get_exclusive() for more information.
++ */
++struct regulator *devm_fwnode_regulator_get_exclusive(struct device *dev,
++						      struct fwnode_handle *fwnode,
++						      const char *id)
++{
++	return _devm_fwnode_regulator_get(dev, fwnode, id, EXCLUSIVE_GET);
++}
++EXPORT_SYMBOL_GPL(devm_fwnode_regulator_get_exclusive);
++
++/**
++ * devm_fwnode_regulator_get_optional() - get resource managed regulator from firmware node
++ * @dev: device to supply
++ * @fwnode: firmware node to get regulator from
++ * @id: supply name or regulator ID.
++ *
++ * Managed of_regulator_get_optional(). Regulators returned from this
++ * function are automatically regulator_put() on driver detach. See
++ * of_regulator_get_optional() for more information.
++ */
++struct regulator *devm_fwnode_regulator_get_optional(struct device *dev,
++						     struct fwnode_handle *fwnode,
++						     const char *id)
++{
++	return _devm_fwnode_regulator_get(dev, fwnode, id, OPTIONAL_GET);
++}
++EXPORT_SYMBOL_GPL(devm_fwnode_regulator_get_optional);
+ #endif
+diff --git a/include/linux/regulator/consumer.h b/include/linux/regulator/consumer.h
+index 56fe2693d9b2284d04ebae50165f9aa7b1b3fee4..7c3aedf7f4902c4e3e8e2f5ecf6e4323b77658f3 100644
+--- a/include/linux/regulator/consumer.h
++++ b/include/linux/regulator/consumer.h
+@@ -691,6 +691,15 @@ struct regulator *__must_check devm_of_regulator_get_optional(struct device *dev
+ 							      const char *id);
+ int __must_check of_regulator_bulk_get_all(struct device *dev, struct device_node *np,
+ 					   struct regulator_bulk_data **consumers);
++struct regulator *__must_check devm_fwnode_regulator_get(struct device *dev,
++							 struct fwnode_handle *fwnode,
++							 const char *id);
++struct regulator *__must_check devm_fwnode_regulator_get_exclusive(struct device *dev,
++								   struct fwnode_handle *fwnode,
++								   const char *id);
++struct regulator *__must_check devm_fwnode_regulator_get_optional(struct device *dev,
++								  struct fwnode_handle *fwnode,
++								  const char *id);
+ #else
+ static inline struct regulator *__must_check of_regulator_get_optional(struct device *dev,
+ 								       struct device_node *node,
+@@ -712,6 +721,27 @@ static inline int of_regulator_bulk_get_all(struct device *dev, struct device_no
+ 	return 0;
+ }
+ 
++static inline struct regulator *__must_check
++devm_fwnode_regulator_get(struct device *dev, struct fwnode_handle *fwnode,
++	const char *id)
++{
++	return NULL;
++}
++
++static inline struct regulator *__must_check
++devm_fwnode_regulator_get_exclusive(struct device *dev, struct fwnode_handle *fwnode,
++	const char *id)
++{
++	return NULL;
++}
++
++static inline struct regulator *__must_check
++devm_fwnode_regulator_get_optional(struct device *dev, struct fwnode_handle *fwnode,
++	const char *id)
++{
++	return NULL;
++}
++
+ #endif
+ 
+ static inline int regulator_set_voltage_triplet(struct regulator *regulator,
 
-Best regards,
 -- 
-Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+2.43.0
 
