@@ -1,105 +1,138 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2D363A4538
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 22:55:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2357E3A1A55
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 22:58:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778280941; cv=none; b=ZmaeIJ0kvXu4mF5o8PGMT2Gy00VmS0BtcrfQdDSCdGuVrNeVZeqe3g94GPfW/GRYcwSCzvdsRjjxHsy056bfLNqjc+uDYYB9RasC8j7ecU+v0NkO26iege/RLm7xjIATZh5R3APWHd/EEMIsspHNGGYNzFT4pJxySLP0ZSgKC+w=
+	t=1778281082; cv=none; b=Vxeo0p/DI4nW3CUDcniFfgfNOO7ByXjUzcNu/E34UcanFP0GnsUr8jKsd16F2zJuvBcpkU1qkaFPr/6+XJM1eUkaD8lCN7WBeNrqvzqLt/zK8FzfxXl2jFSP5WwOSS6Vmxh5DsKLpiSWMGrQJ24f0DjlVz2/+Q+TX6GwIUMPKoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778280941; c=relaxed/simple;
-	bh=9qLVzyRAhrZFZRi8bBrYUSp2+nB6ued4yWJPbj4nmt0=;
+	s=arc-20240116; t=1778281082; c=relaxed/simple;
+	bh=EvjmBmTgXhr4YvlsAfobvyXZg8+4CPFyDcWDiipdlxU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=G4FYKJov5v6mz42RgYlg0Wbq5gwx8JzeVx9Pgis7qdPMsT3q/4mdFaATft1cZUjqZkMNYQgb9O3NsRka/wLULtXupYg6OWJiY/T/UmOcqEGZoY3S3ZtrwKciNybxwxzUEvJItFZDte0q9UWpp4MuzYtyFuVqeyb4J5nVIdX4PRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uE9jddXv; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=Av2YIO9BAnIH10UPPs4abCxe2RL3xrCO45LNwf6LQVI1t+xNifeodtFBCZrL7VjvZIwOk7RunNZmBquSOhB0id+6euV1s1zhLQDxA3DOBK+sDGOonAFfvtdXtn2gRQdEjy9UmnjW2+PcKqktjObG9sDirQNYj4BFtkFeAnOFhRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N2Q13hhl; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uE9jddXv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 243CEC2BCB0;
-	Fri,  8 May 2026 22:55:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N2Q13hhl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8012FC2BCB0;
+	Fri,  8 May 2026 22:58:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778280940;
-	bh=9qLVzyRAhrZFZRi8bBrYUSp2+nB6ued4yWJPbj4nmt0=;
+	s=k20201202; t=1778281081;
+	bh=EvjmBmTgXhr4YvlsAfobvyXZg8+4CPFyDcWDiipdlxU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=uE9jddXv2eNhU32rcwpiOlIqx22VaX0Ww+3xLwBxpxpcvpBwkOkcM/YLBz9TAKS3b
-	 KdzJcmD69wcSbUDYwYDMwagUFcQhtVeyDDeeF0OSroUFMF7ZIDzQWiYs+tjxnhSMsu
-	 u2xH3IF4ZV0v8YlI2YMQyT6C8I8LTKwZTpmKk94epy7CzMvar2P3dkrPV09qeAR/iZ
-	 6fJkRr56vscsjSgAAPgi9+xsWm863+Xg4nMKETs5NS+CoD1sYa58eUHgr0mQt/SH/o
-	 DlGPFTLITlGbOBK2yr4v8KvdbaxOXGGn1TF5kuhQMXmskh//kS3R5Y9BrL3TEcIs0L
-	 Laxkr4B44cTNA==
+	b=N2Q13hhlBRweJJe9RqFqT8eYryg/OMaDyPc4dz0AcZFFHqGapLhoII+7Q7t9zUVWS
+	 zp2eHI3uCUjaDbijYEiypBaHFA/jHeZyIi5GXO07fpsqikXyUVckY9bs5RDi4GcA+z
+	 qEQg9BZvIvzzHoOwJiZgIx0TkVFvxkiqtvhR2b6iPZCOZ3GGGp4AcZxRrBgoDjUCli
+	 65d/vPOEe4Ygte9sKBWah88qAJUOQHPsRYiER4eYFkvcYHai/cK68aPTz5nmQNEak2
+	 9TPAhUAsa0xv2XH4rfadS4e1yaiND/AUYyBtIu4/7G6LPs760fRRZj90ARcBNmDFWo
+	 eu5PRf28WU0cA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: iio: adc: add AD7816/AD7817/AD7818 binding
+Subject: Re: [PATCH v4 2/8] media: dt-bindings: add rockchip rk3588 vicap
 Reply-To: sashiko@lists.linux.dev
-To: "Hungyu Lin" <dennylin0707@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260508202005.76278-1-dennylin0707@gmail.com>
-References: <20260508202005.76278-1-dennylin0707@gmail.com>
+To: "Michael Riesch via B4 Relay" <devnull+michael.riesch.collabora.com@kernel.org>
+Cc: conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260508-rk3588-vicap-v4-2-6a6cd6f7c90b@collabora.com>
+References: <20260508-rk3588-vicap-v4-2-6a6cd6f7c90b@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 08 May 2026 22:55:39 +0000
-Message-Id: <20260508225540.243CEC2BCB0@smtp.kernel.org>
+Date: Fri, 08 May 2026 22:58:00 +0000
+Message-Id: <20260508225801.8012FC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] GPIO properties described as optional are enforced as strictly r=
-equired in the schema.
+- [Medium] The patch removes the `items` definitions from the `clocks` and =
+`resets` properties but fails to make `clock-names` and `reset-names` requi=
+red.
+- [Low] The `ports` node uses `additionalProperties: false` alongside a `$r=
+ef`, which violates the dt-schema meta-schema and will cause `dt_binding_ch=
+eck` to fail.
 --
 
-commit 5e87ac2e842cf4989944934ecd916083ea3da1f7
-Author: Hungyu Lin <dennylin0707@gmail.com>
+commit 9cfb752de7e6c8e4e818ef36f9918a2d0f7ec9d8
+Author: Michael Riesch <michael.riesch@collabora.com>
 
-dt-bindings: iio: adc: add AD7816/AD7817/AD7818 binding
+media: dt-bindings: add rockchip rk3588 vicap
 
-Add Device Tree binding documentation for the Analog Devices
-AD7816, AD7817 and AD7818 SPI ADC devices.
+Add documentation for the Rockchip RK3588 Video Capture (VICAP) unit. To
+that end, make the existing rockchip,rk3568-vicap documentation more
+general and introduce variant specific constraints.
 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml b/=
-Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml
-> new file mode 100644
-> index 0000000000000..490e5338d7b2e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml
+> diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3568-vica=
+p.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3568-vicap.yaml
+> index 18cd0a5a53181..897ed00c239bd 100644
+> --- a/Documentation/devicetree/bindings/media/rockchip,rk3568-vicap.yaml
+> +++ b/Documentation/devicetree/bindings/media/rockchip,rk3568-vicap.yaml
 
 [ ... ]
 
-> +required:
-> +  - compatible
-> +  - reg
-> +  - rdwr-gpios
-> +  - convert-gpios
+> @@ -26,37 +32,23 @@ properties:
+>      maxItems: 1
+> =20
+>    clocks:
+> -    items:
+> -      - description: ACLK
+> -      - description: HCLK
+> -      - description: DCLK
+> -      - description: ICLK
+> +    minItems: 4
+> +    maxItems: 5
+> =20
+>    clock-names:
+> -    items:
+> -      - const: aclk
+> -      - const: hclk
+> -      - const: dclk
+> -      - const: iclk
+> +    minItems: 4
+> +    maxItems: 5
+> =20
+>    iommus:
+>      maxItems: 1
+> =20
+>    resets:
+> -    items:
+> -      - description: ARST
+> -      - description: HRST
+> -      - description: DRST
+> -      - description: PRST
+> -      - description: IRST
+> +    minItems: 5
+> +    maxItems: 9
 
-The commit message states that the devices "may use control GPIOs for RD/WR
-and CONVST", which implies they are optional.=20
+Since the items lists are removed here to allow variant-specific counts,
+does this leave the sequence of clocks and resets unvalidated if a device
+tree omits clock-names and reset-names?
 
-Are rdwr-gpios and convert-gpios strictly required for operation? If they c=
-an
-be left unconnected or hardwired depending on the board's hardware design,
-enforcing them in the global required block will cause valid device trees to
-fail validation.
+Because clock-names and reset-names are not added to the required list,
+device trees can omit them entirely.
 
-> +
-> +allOf:
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - adi,ad7816
-> +              - adi,ad7817
-> +    then:
-> +      required:
-> +        - busy-gpios
+Could clock-names and reset-names be added to the required list, or could
+the items lists be moved into the respective if/then blocks to ensure the
+expected sequences are preserved?
 
-Does the same apply to busy-gpios? The commit message mentions BUSY is
-optional depending on the device variant, but this block enforces it as
-mandatory for the AD7816 and AD7817 variants.
+[ ... ]
+
+> @@ -67,8 +59,15 @@ properties:
+> =20
+>    ports:
+>      $ref: /schemas/graph.yaml#/properties/ports
+> +    additionalProperties: false
+
+Does using additionalProperties: false alongside a $ref here violate the
+dt-schema meta-schema?
+
+The dt-schema meta-schema forbids using additionalProperties when a $ref is
+present on the same level, as it does not account for properties evaluated
+by the reference. This results in a build-time validation failure when
+running make dt_binding_check.
+
+Should this be changed to unevaluatedProperties: false instead?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508202005.7627=
-8-1-dennylin0707@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508-rk3588-vic=
+ap-v4-0-6a6cd6f7c90b@collabora.com?part=3D2
