@@ -1,206 +1,95 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B72103E0C68
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 20:22:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D67493E4C9D
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 20:22:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778271748; cv=none; b=dNJbQ9H2ZjzyU3Rzv14Uy6cojoNagXiZSRY+sAY2X3iBNq2trEzSfcDGviHk1+K4DVBFVwqDZYacToG61r2u1eXZcycqIlhrl/R7IHrNXY2zbBnqs94f2p10OaCOvoIclY4jqP24rgohs48Kr7c6SPxqQZVo0JsSS/GA6GHeOuo=
+	t=1778271753; cv=none; b=pM3RnVgCgAq+HP6DEKy0LovAQC7FGqonNF2XP2+hoUVtEqLWK0nitjNfMJJv9AqGYKj19Wl+nutrz4BUrQAcrQOKVxxPHHkAULht6zoZ4QIloucovPQhPMYS6Rp7ZurrqqXvug7ch5SclYAzvgqviE53Pd/tKklKhHFs/XgjEDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778271748; c=relaxed/simple;
-	bh=+FeoASb8ovnMoSwAHzqvf/4UpoY37EViOCEWLfpnb74=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=amjheyLgT6VB6+u0Zbyb8TkR/EnQsiZgMhHYdE9c1274bfvErxVR2Ou6Gny518cRRH5wX4Li7rw1PjEZrSmEos5C6mtq6Cdulq0ifykr7hJe/kzxRE2UsfStSX3sr7i2wAerjPn8qfLK/Yndx+Z7L8UXF/h8Fk0Hse3ljempgeo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=B5p0s194; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Yz6oCRsw; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1778271753; c=relaxed/simple;
+	bh=psqg2sRJEJcplzJJE8MgMgbQVSvNufy1RCjog95O5DE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=taihZ7jg8BD3aznlJIdmn6dW42YBwPeaprAJrNe/n6YwOwqel3QnpuRirYMVcYO3+n2tOzhPb5xdFUHMGKXgot+SlDaNypypL1BZR4i5C9Gi83mPxjR5PrV+dJ0yAt68fl7bj9aA/EeUvPWax4xYvFAVUqjHQGVkUELEkEVCuMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fO/KH3La; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="B5p0s194";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Yz6oCRsw"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 648HentH1662684
-	for <devicetree@vger.kernel.org>; Fri, 8 May 2026 20:22:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=VvGwdKoiuQ+OZDlMszXSVliH
-	FXLgaU6CLyX9TMT17Ho=; b=B5p0s194aR8s0/a2ojrmD6M8cEfqeXH6atcP/8jk
-	PI7SOP3XLgIJruTqRBntcvcm1q351weYMhw28ITDtVockz1ks+zO2bzMEdOdIGNq
-	UDGERjRzkkJE5BW+w3807tfBNCF3LW4x/FdPu/W245IFQLgd8mHzstqkaQn4IEMg
-	jIRyzpS72pIrfjjWSn+EWG3nc35zJUJkDtw95ScOVKMCkWV7nMjZspWmbAxgjA2/
-	YylzbBv2B8qZUyruZcbwZeM5NxJbLU22XDuixULG5+VIZ4WTpnLzcLobzleAifFa
-	GkoRZDIcViRH7JJTvew3PopGFUp6q9wDtY3Ke3swubKK6g==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e1men0gc7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 08 May 2026 20:22:26 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-95d601ba030so1746763241.3
-        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 13:22:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778271746; x=1778876546; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=VvGwdKoiuQ+OZDlMszXSVliHFXLgaU6CLyX9TMT17Ho=;
-        b=Yz6oCRsw+G+fr2Uo/C4HxfGxifsPewj8ASO4ZTXDa+sFnqq2ZD2EKV/IgTDtF2vc5p
-         wWQSQHU+9Dn4+zi+fQLMMLk4xOjmbszN4Sx1C80iXprY58+QQRvYKZ9GnWa5BwIkmPCh
-         2Sk40b/rQur2kHKn/LkD4JbaRLR3lzaozsV78WCkUwCG0TvBSi35YhsJ8cNG6+On9Ls/
-         2L80zafucUbedA1RVVjew0LE0AW3U4w/rjVOYgXzjeH97vpN3qb6rP/929tSkuCrpWOx
-         mj1GMyttheYXxRM1nyCXLtLhXt3IvsRaJihUEfDYpBVCaylHV86ZqKTul4x0QnTCsYdf
-         b5pA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778271746; x=1778876546;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=VvGwdKoiuQ+OZDlMszXSVliHFXLgaU6CLyX9TMT17Ho=;
-        b=QCCmKjLHfsJ9zw5WeE0NhDyPfAz8utC0MYQ9WAXPWoo5FGR6qe6MvKyODNNc0on1DE
-         pD0ifCSwkv5YEfyF4S3hXq8Ns64HuwcJJj4eORtWFJlJt05SsEwxdqIDnwsTSNHewIXp
-         WFWQgLzq2YLWpkx3jxq1EZrAMOEYKS1rD8kRiGB3uEdowvaLHTLPJUtB8HfjEFQ+30Uo
-         Rk0kykdYW0zbj1NJalhbvLI1SxqdeNU3wL568EzFm5SjslXea0oAoheuRzaV+EKDW7BM
-         4jE9aAmROF7CiZmi+CeqGERQZFIdZuiR+Mf2C1s3PFl4LQwJGyotKFhxuKIQruU+DVO0
-         jUJw==
-X-Forwarded-Encrypted: i=1; AFNElJ8m95C8+gQA2gA965Qp9CitnEmayCOUhmu0AqUdXBDUKIz8SoUmi0wgxOOsZzkNdSCI9PoQA9v4xIXx@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxf5VDtv+IIaX9f+NjqPaDDye7QGLUnoXFdHSLLv4uPGWKzal+B
-	IOlOxz9oO1dhEvEKBBccNkemUSBuM1awdm+ES4QeeGPS2tSQ1ev/eesAD5UWEVlrYOd5BvowpbF
-	ymbqY/K7Y+2JhHWnfsobHgWyintkb/TQBKU3gyy5+DrtYVsGAeK1f/gFLdtJcoQRk
-X-Gm-Gg: Acq92OGJajwq3jFZ84LZAPZ727bVvdErufCITPtnV1oMfYfR1JRYhyUQDV642ODfffi
-	2CdcruXGsAB2DAhnZTpj/59BWqrLZRpysIvlPEg8Eq9pIZmmGl1wt+aPXRdJh5knRRaNfm4IOjZ
-	fodUDXze6npmzIvEVGVCf5VRZvhRfY4MC39jkKJGHnbnGS9pGpjKy228BBp9BL3MvMDLZacz7Cn
-	0gh/U5gsDN2vYVZJCVl2DasP3SF4l4VSo/+KEcQSjZNSEADWlvcaaUV6jtKS4iMm9ZyHxbKdSSz
-	DEf6AYsNgC1zY5/ENsY90YzJJtyfuIC1g6ht17TqgDY9vPXuk9A56owHK6rO8wOteEZ7h4PiAdm
-	ii7IFMvOmllbD7xMl4iN+I9YRMX/7pLI5k1kzfJZn+6qfdmdeFzHWZNl76F8L7mlRju2y2t2Dwk
-	3qsDfYXqQ7E6GMvjZUKVjmd4Dclxr2n/QyJQE=
-X-Received: by 2002:a05:6102:4a83:b0:610:5b9:dde6 with SMTP id ada2fe7eead31-6313e95940emr2510648137.6.1778271745775;
-        Fri, 08 May 2026 13:22:25 -0700 (PDT)
-X-Received: by 2002:a05:6102:4a83:b0:610:5b9:dde6 with SMTP id ada2fe7eead31-6313e95940emr2510629137.6.1778271745340;
-        Fri, 08 May 2026 13:22:25 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a8b3e75c31sm263763e87.18.2026.05.08.13.22.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 08 May 2026 13:22:23 -0700 (PDT)
-Date: Fri, 8 May 2026 23:22:21 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
-        Del Regno <angelogioacchino.delregno@collabora.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-kernel@vger.kernel.org,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        iommu@lists.linux.dev, Krzysztof Kozlowski <krzk@kernel.org>,
-        devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 08/14] media: iris: Rename clock and power domain
- macros to use vcodec prefix
-Message-ID: <6hr42ins65rf6ftdmme5lok6ham67piz3343kdwxaff2acktcz@oipdhket32og>
-References: <20260509-glymur-v5-0-7fbb340c5dbd@oss.qualcomm.com>
- <20260509-glymur-v5-8-7fbb340c5dbd@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fO/KH3La"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47B7DC2BCB0;
+	Fri,  8 May 2026 20:22:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778271753;
+	bh=psqg2sRJEJcplzJJE8MgMgbQVSvNufy1RCjog95O5DE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=fO/KH3Lae8hSXsFsNv9CIEV4aVVsOwcfXWuoTS1LHbPVVFkDOTCCzOtrIY1ioGF2l
+	 AChpPlOf0qhyEC26o07qinQtiQb0tzM0f4hDs4CBNCMymB/+QlD/jy+lJ/FkYvOnR3
+	 9Tll/UIaINksMUNPS1Zh5INMAlB7YLC/cgz2m6AyTWanJbmg43pUJ4REi57SUOArLZ
+	 UV4NnUSV2iYWRZLsg7vAXFnNbPaVSBHyMJLJmip5kJkcI6JF0nGs9getWFOHyJifQv
+	 mNANgSvmOrPhIcZdOau+uFSNEHOq0xAYLS/opGqnsVrHqu6aN6gQJRFzEC9wv50NVA
+	 nIbuI8LIp8llA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/4] dt-bindings: display: renesas,rzg2l-du: Add
+ RZ/T2H and RZ/N2H support
+Reply-To: sashiko@lists.linux.dev
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260508111744.771659-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260508111744.771659-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 08 May 2026 20:22:32 +0000
+Message-Id: <20260508202233.47B7DC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260509-glymur-v5-8-7fbb340c5dbd@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA4MDIwMSBTYWx0ZWRfX+8URuZtXIihI
- 36vKgofE1JddDmPmPKf70NKK4sImD1s4it2ssxRY487bwCeOxaBAZlFfmLe1KWDM9g1uU1lajv4
- 5mOfDSAt0xwkOfvhQ2bIQgr1BdC9mS2kabSrjXC5kLGM1Ex4g6fR9mlI4eJov1o0rBbaw0KRcd9
- O7Q9rDUTyzmOshKBXxXYmg64/BwaXIvty2/n1ftZTTeHaFCt78qbkNHgy5ahCJgkPs8MbPlnXIg
- lfZTDGzB/oh15OvVEn+n3DfSCnzj8aQ13eYvQ43kdeNhFtzBXswrOiLegPngVsdne5sEzfo534u
- 6ZKIFEngVunXNFT9PGZ0+rWZq6tBZah+L+j77MM33pRnroAD9YBOCNGyxkqWZSx+uK7TSQ7zoNl
- nhhfOdhLRSKMdFnZIYgGII9Kj7LN2OJ5dtmO2AxlTO+rhkn8tAGdgNB0B913YZ4DlBTbSdRcwAG
- Ja2ABQS5rIAVQgzCWWg==
-X-Authority-Analysis: v=2.4 cv=LORWhpW9 c=1 sm=1 tr=0 ts=69fe4602 cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=z21jRD9xLDxBhwdHImoA:9 a=CjuIK1q_8ugA:10 a=TD8TdBvy0hsOASGTdmB-:22
-X-Proofpoint-ORIG-GUID: DY6hgW-irG2ZXJYpIs7B8IKY__hPLLd0
-X-Proofpoint-GUID: DY6hgW-irG2ZXJYpIs7B8IKY__hPLLd0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-07_02,2026-05-08_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
- malwarescore=0 clxscore=1015 phishscore=0 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605080201
 
-On Sat, May 09, 2026 at 12:29:57AM +0530, Vishnu Reddy wrote:
-> The current clock and power domain enum names are too generic. Rename
-> them with a vcodec prefix to make the names more meaningful and to easily
-> accommodate vcodec1 enums for the secondary core for glymur platform.
-> 
-> No functional changes intended.
-> 
-> Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> ---
->  .../platform/qcom/iris/iris_platform_common.h      | 12 ++++----
->  .../media/platform/qcom/iris/iris_platform_gen1.c  |  6 ++--
->  .../media/platform/qcom/iris/iris_platform_gen2.c  |  6 ++--
->  .../platform/qcom/iris/iris_platform_sc7280.h      | 10 +++----
->  .../platform/qcom/iris/iris_platform_sm8750.h      | 12 ++++----
->  drivers/media/platform/qcom/iris/iris_vpu3x.c      | 21 +++++++-------
->  drivers/media/platform/qcom/iris/iris_vpu4x.c      | 30 +++++++++++---------
->  drivers/media/platform/qcom/iris/iris_vpu_common.c | 33 +++++++++++-----------
->  8 files changed, 67 insertions(+), 63 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
-> index 55ff6137d9a9..30e9d4d288c6 100644
-> --- a/drivers/media/platform/qcom/iris/iris_platform_common.h
-> +++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-> @@ -49,14 +49,14 @@ extern const struct iris_platform_data sm8650_data;
->  extern const struct iris_platform_data sm8750_data;
->  
->  enum platform_clk_type {
-> -	IRIS_AXI_CLK, /* AXI0 in case of platforms with multiple AXI clocks */
-> +	IRIS_AXI_VCODEC_CLK,
->  	IRIS_CTRL_CLK,
->  	IRIS_AHB_CLK,
-> -	IRIS_HW_CLK,
-> -	IRIS_HW_AHB_CLK,
-> -	IRIS_AXI1_CLK,
-> +	IRIS_VCODEC_CLK,
-> +	IRIS_VCODEC_AHB_CLK,
-> +	IRIS_AXI_CTRL_CLK,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The conditional constraints for renesas,r9a09g077-du fail to explic=
+itly disallow port@1, permitting invalid device trees to silently pass vali=
+dation.
+--
 
-Why AXI_CTRL is better than AXI1?
+commit cd9bf5724c5d57e0dd67fd27e0187153179b0578
+Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
->  	IRIS_CTRL_FREERUN_CLK,
-> -	IRIS_HW_FREERUN_CLK,
-> +	IRIS_VCODEC_FREERUN_CLK,
+dt-bindings: display: renesas,rzg2l-du: Add RZ/T2H and RZ/N2H support
 
-Can we at least group them too?
+This commit documents the Display Unit (DU) support for the RZ/T2H and RZ/N=
+2H
+SoCs. It adds new compatible strings and updates the allOf constraints to
+handle the SoCs' specific register differences and lack of reset control.
 
->  	IRIS_BSE_HW_CLK,
+> diff --git a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.y=
+aml b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> index 2cc66dcef870a..18776ac9e7c7e 100644
+> --- a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> +++ b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+[ ... ]
+> @@ -95,7 +98,9 @@ allOf:
+>        properties:
+>          compatible:
+>            contains:
+> -            const: renesas,r9a07g043u-du
+> +            enum:
+> +              - renesas,r9a07g043u-du
+> +              - renesas,r9a09g077-du
+>      then:
+>        properties:
+>          ports:
+> @@ -137,6 +142,17 @@ allOf:
+> =20
+>            required:
+>              - port@0
 
-Is BSE a core or a codec clock?
+Should we also explicitly set port@1 to false here?
 
->  	IRIS_VPP0_HW_CLK,
->  	IRIS_VPP1_HW_CLK,
-> @@ -206,7 +206,7 @@ struct icc_vote_data {
->  
->  enum platform_pm_domain_type {
->  	IRIS_CTRL_POWER_DOMAIN,
-> -	IRIS_HW_POWER_DOMAIN,
-> +	IRIS_VCODEC_POWER_DOMAIN,
->  	IRIS_VPP0_HW_POWER_DOMAIN,
->  	IRIS_VPP1_HW_POWER_DOMAIN,
->  	IRIS_APV_HW_POWER_DOMAIN,
+The base schema for 'ports' allows both 'port@0' and 'port@1' via the
+patternProperty '^port@[0-1]$'. By not explicitly disallowing port@1 in this
+conditional block for the single-port RZ/T2H DU variant, would a malformed
+device tree containing an extra port@1 incorrectly pass schema validation?
 
--- 
-With best wishes
-Dmitry
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508111744.7716=
+59-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D1
