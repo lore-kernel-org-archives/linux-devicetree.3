@@ -1,191 +1,174 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CECF2272E56
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 02:30:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2809155757
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 02:45:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778207418; cv=none; b=pWQgJxhqMS242De7jUqpKtILo2nA2sNSwQzbrEwhc0amf1sJrPPqydaEuAtzjuWlvb1Ac/YU7+PXkz/IyXabu5lRhsQONmGoeSTJAQOMu3G+oo4qpETKF8dHlrdo0L9ChfBP9+f4tk5YKNDUoz4pvodWtcnT9QyX6Fd9fprTluA=
+	t=1778208335; cv=none; b=R36uJKq8Gi3cXO+pDhTOYlRa5Q0r7MPeVOYP3ITFFMK8pf+ANJsCIydC4YMaPD15I0gXpWp8KfFGsjRmFacC3FDvqt6cVII+gCmBvLCBguOU+34LEPDOSfDPxJx9l0xRSbCGQ3i7Js63sXv12HjLVffJRMTu/IW9WupD74kGASM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778207418; c=relaxed/simple;
-	bh=Bi5rTiz6sS6VYbktgkLsGAorKRiZb8L2whtZyNLeSHI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=q6NVP8Oo1YPBTTRxA2BpGxJlAexvDSfPSXL/0uAaMIFmX/2aR5Ox8BWqUcm8oc7BiKc61h/RVtlGe9YO8v5/3KYhlUOZFlQamwdenMoFwqGDx44cjlF9et+MKxQywSk9h9IpBVmYr3Kd7wzPp/3SMseqyo8cFKXlqVVpB4vpPrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=QRvQyng4; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1778208335; c=relaxed/simple;
+	bh=oEnT/UCXWeDB9vAKPoyngIcFubAI8zzoEf1ZMRsfegE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qjeG0sbFgQkon5T+hoj9/hmViYsDSYmtmU/jvWua2Opy5F2YYrC00j9UwZvRaeWjTV0EGYJ5PS6gYWEalF0Q8iBJBg0j4wksnET9lc6ogMcMQXeMGn8hOsjNI0imRsQMoLtQ1HzTtjmO8zKREaio/lKkbJEYqMon16LScam2Pfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ODWmQijR; arc=none smtp.client-ip=209.85.160.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="QRvQyng4"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-48a7fe4f40bso16036925e9.0
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 19:30:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ODWmQijR"
+Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-42fc6923f38so1849221fac.1
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 19:45:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1778207415; x=1778812215; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=DWFAHdWdNfgetWCnV9jGKJb1CsJQxtNeKq4Xom3RGVw=;
-        b=QRvQyng4+lfb3j0beMhNA8ju//5xED5bBV1b7bepD60Bs6cFJgfHzLRLgPwk0FdEbt
-         BfSxevnoR75m+xOqeqNKySbdEb6C5ewD8JcTIWEyT5nKB0tvpDoG97FSBLFB3GXCH2YR
-         IhOV3x4UgMx1EEXJJchsswYGez0a5wbLTIb+S4wD2evq1M8vgnNeeR6JIfQH10PqDs8Z
-         qH9xftIF9deddOkwramq30d076PeoSKtBR49K2LZsQoLAqPuLhGZfDr5JDl282jiG1GQ
-         yHx5dd9ZjAawfvz1Oy/NoEYtRXSohwBmbEorO4Qj6bF2ed3Q0csrmpBwlEki1qtPfY3t
-         GWcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778207415; x=1778812215;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1778208333; x=1778813133; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=DWFAHdWdNfgetWCnV9jGKJb1CsJQxtNeKq4Xom3RGVw=;
-        b=G2nyhi5w5hlAFVOeD725mfZofV3beUe016eus+/uGkfLiUUV7HUzlX171eISoFbQMj
-         DdFtkMUWqJBQ/AfldDkyVrahTTgKJ8Mv+tuiB1BMw2OazE2G0aBgqdzCgrto09fdfuh7
-         nRHXqpb77B8jDLHfCtwelIAKJO8hUABiUsDaetz0hsyI5bABQMx2wAkXK3qb+D/U3M5w
-         SkjXgBUK/Fq3oQC1p79MavPTDvQPgnmNEXE6q1ljZsiPfzOoDKedMavlGIF+6AT4UZDk
-         Np5PWvCoIVsWFa8uN2Om5J5owPqePlig6vXulY11IL+gG7H68Ri+NxyJG+ZZoPMFZfkg
-         GlAA==
-X-Forwarded-Encrypted: i=1; AFNElJ9ZFrJEVLW/1HhcBzo3dKSiTu+Mi5RYVU+rRusipL+7cdSWW4hqHPP0glyJ0FqahaGEVaQWGZsBTtte@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzu0XCyPx3uZ3MPdTJgP89uMJrjNJmOkkvhnkBLAHt/0JPEzENc
-	JdOJTsy32a3hlNlq5ZkB4I3iAsDMToxx84d59CSO60Vi/i+4pLT9ZrE4fYoYL+KphDn8WTgAuAF
-	oJ3Pu
-X-Gm-Gg: AeBDieuHaBLQ/WAoETRSW76pG/lRdHRoK55vk9Cgy+M07DplLu/1OS3jNbojtj+X1HP
-	FvLOjMAgTrpmYS581e99cTmP3MAIqobQKklFWc0pRttw9cuQjE5tpf4mwT/wQ7Xt0TT++eJwxFE
-	f/ctQIuAkKzZRFE/DhCZyoNrC94O2bWjwqwqCi6MC49vcHV3HLqP5wMe2HX9xYWWT0nTZj+LgYz
-	XIwU+/G5ASrPc/xj4LN104MNHXmdTvYIZQYzneB28vHi10DmRZJ0MxJviEmA288pbPVSeCGNymn
-	rpkoIZhP7I94J+4liNnDM6m98yvu7wazg7saWYSqTY0Pw4gZx6oQl+JiDA9bp53rIsAMRnwOMU5
-	xqcrquQCriCEgUFKX568VQl7j5AZCmsIxDfPCmmWkLz6Pdz53Lphr/XfaskKTZnvjMqgbmmS6S4
-	M8XXrdQYs+kiil3lSixbKNXU7NO/HLkZEgTtEZLIsRhMSh2CEBdEpidBZgcRqMiEIQCquBpgG88
-	mzRvg+dXI7vWGqYuDX7X4I=
-X-Received: by 2002:a05:600d:d:b0:489:1ff5:edda with SMTP id 5b1f17b1804b1-48e51e08240mr141109125e9.6.1778207415092;
-        Thu, 07 May 2026 19:30:15 -0700 (PDT)
-Received: from localhost (host86-170-11-80.range86-170.btcentralplus.com. [86.170.11.80])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e68eb85d7sm1697905e9.7.2026.05.07.19.30.14
+        bh=oEnT/UCXWeDB9vAKPoyngIcFubAI8zzoEf1ZMRsfegE=;
+        b=ODWmQijR/5g1OUlUvDpypgfpilBU8K602ai2NUyBrr9M/7scQhKmf615y/89uP6LZI
+         KwqoY0I8Lxafcj8e/nkm+RgQAOEsZ39CG0rS51thfr0gU6w2fDjYJbqWQFgYZqprL1Aj
+         JYSwzIdont/o9HPqVk49HyV+GKKO2s19Kts29KeTuWIobkNsTTFZ4pKA7n/AF11b4HmH
+         X4ZX+IrFe5D1i8v09UAPhbV3uYwR9quHdjy3lcYTl9eW9tahlqRawaHOWR5f0kQ5WPTD
+         p9mb+xO+5WnnBpxg3M2maFnTYjYu5b75oS+DI9gsVxkukHyPhhnjQ/6cP3MTxGQzbtmn
+         JNMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778208333; x=1778813133;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=oEnT/UCXWeDB9vAKPoyngIcFubAI8zzoEf1ZMRsfegE=;
+        b=F0OF0znElzQN46IFZ59sPkONsD1MoaILGzNYABuy3zQS9IzJ/AtB7NnPWYPaYnhKXw
+         wKaYKFdMB9DNGnSaU44ssjiOUlZXH1Rr+9pJNW755F27uCkMjSF+9ErZpAZMHdopi7Rz
+         PLiUgNk7vW5WQnFV07kDmbLZPzbStioaWMJG/CTuiJgmdubhBRAn+bpO0M6LdV6OG473
+         aqlGJ/ovq24Q5pclkhXUvIW/2oBzNLPF4H0mzqou7VgT+OjN6ebMm1usUt764bSUleqm
+         ZAV1heE/5n5r1RVQZcoP7ZioAGTfR++5uQ+Woo5mAou2jX4sG7qDTqmrU38timIvmE8S
+         nHbA==
+X-Forwarded-Encrypted: i=1; AFNElJ/neTBa6ESVng4Ts96PVwe4pVIaJBg6h22Chvb6ktGNwFlzBap6n2o3eLTnCPQp3sBkzV9c78jzY3N7@vger.kernel.org
+X-Gm-Message-State: AOJu0YwzDRNveEerLyZ9FbJZ+QkBrcLymikZB4QU0sRd7W4xcTLf3mE2
+	nqGzIXuJ3J3NjJTFdA+LVMGbkQq9AEQYnnbE69/9utx9G7bpZaIwFu2g
+X-Gm-Gg: AeBDietIHacSQC9wGMFV4ytmOF6yW4iuyTEp7vE8d5t/c2oV9lnDX0lEY4r6HpRnToO
+	uKcbSCUhZXDIo10dwfWqhyphhZHZP5n6TdI/UXFb1oxlP7Z1plv8az1IDYRM0S/Jf2rbpdi+gvE
+	XTkNLNW7CmKLESp+NaQ+6spnEIeUAkKFP7YLPbc++bBxlR+UJDwzKpM8OnLhpWbk3y5Sd2qFfqC
+	mW6Yt5ZUirNqBb6hcWzcYgcb99Rv6tNl+DF+WxP4rgulqtETmVwtdPlL/YfxhLO4oFaKBvZfbZM
+	VIhjigymjL2elzFWiVVKUsnlouB0gRecXloDuEfiLexBcaptUoZLghF0wjndRBktZAES7XTZhdi
+	QmrtmvvJnkk6yoS81LBV3b7USarANs5C48nksAah5PCs5Ooxr9PG8CetPHbDK23r90FdaWUBL88
+	QZsQYWZYd9vH+5VIGO2vr32NC7okm+g/aOpY0draqCFF/0bN2EXWdz9rytXSLdPXqjPfeA5YZUD
+	XZ849ShensxOnSr2Vg7+5hIm0PxyhOdsw5cnUgA8QnHN/DK
+X-Received: by 2002:a05:6820:190a:b0:696:1a98:bd5 with SMTP id 006d021491bc7-699ab62e838mr2720265eaf.19.1778208332600;
+        Thu, 07 May 2026 19:45:32 -0700 (PDT)
+Received: from nukework.gtech (c-98-34-199-138.hsd1.tx.comcast.net. [98.34.199.138])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-69b25c767d0sm349447eaf.5.2026.05.07.19.45.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 May 2026 19:30:14 -0700 (PDT)
-From: Christopher Obbard <christopher.obbard@linaro.org>
-Date: Fri, 08 May 2026 03:30:06 +0100
-Subject: [PATCH v2] arm64: dts: qcom: msm8996: add blsp2_spi5 node
+        Thu, 07 May 2026 19:45:31 -0700 (PDT)
+From: "Alex G." <mr.nuke.me@gmail.com>
+To: andersson@kernel.org, krzk+dt@kernel.org, mturquette@baylibre.com,
+ linux-remoteproc@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: mathieu.poirier@linaro.org, robh@kernel.org, conor+dt@kernel.org,
+ konradybcio@kernel.org, sboyd@kernel.org, p.zabel@pengutronix.de,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
+Subject:
+ Re: [PATCH v2 0/9] remoteproc: qcom_q6v5_wcss: add native ipq9574 support
+Date: Thu, 07 May 2026 21:45:29 -0500
+Message-ID: <6525179.vuYhMxLoTh@nukework.gtech>
+In-Reply-To: <1397ecd5-89a6-4666-bfe9-014ff8553a97@oss.qualcomm.com>
+References:
+ <20260109043352.3072933-1-mr.nuke.me@gmail.com>
+ <27098742.6Emhk5qWAg@nukework.gtech>
+ <1397ecd5-89a6-4666-bfe9-014ff8553a97@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260508-wip-obbardc-msm8996-blsp2_spi4-v2-1-8b81a95b1ed7@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAK1K/WkC/42NQQ6CMBAAv0J6dk1ZWqCe/IchBkqFTYA2W4Maw
- t+tvMDjzGFmE9ExuSgu2SbYrRTJLwnwlAk7tsvggPrEAiWWskADLwrgu67l3sIc59qYEropBrz
- HQAqq2qDSymqprEiRwO5B72NwaxKPFJ+eP8dvzX/27/SaQw66N1hJLLQzeJ1oadmfPQ+i2ff9C
- /FpWvvNAAAA
-X-Change-ID: 20260329-wip-obbardc-msm8996-blsp2_spi4-7892454c504c
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Christopher Obbard <christopher.obbard@linaro.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2834;
- i=christopher.obbard@linaro.org; h=from:subject:message-id;
- bh=Bi5rTiz6sS6VYbktgkLsGAorKRiZb8L2whtZyNLeSHI=;
- b=owEBbQKS/ZANAwAKAWNNxPBocEb4AcsmYgBp/UqxRkhiTxIL3jEZY15xAb3u7oMG5ixnQ3GsP
- O5Uub+PQV+JAjMEAAEKAB0WIQTxi9yLbCX5CqI9UXRjTcTwaHBG+AUCaf1KsQAKCRBjTcTwaHBG
- +HPED/93hEUzRULqU1+Ec/TAwuuKM29vq4ZXYqPGssodSvkHg4MFNR1IDhie9nIzzYKfMnwJuBU
- J+aXiTB/XkhoiJYxAelyF+4iMBFqwoY5j/aikJ7C03zmQ1xlHivB4BcnBc864plfzfGn3XcFluz
- cp9y59L5ED9MtbyRJWJr7YHHoUBTse++GuO3HtqqAvDtg4kXLWPEBeV4/mnGsL+isYXVKwH3fMn
- Hv1Cz/jmPB/bvWHIRK+HFddcmMdyRfQYmCNk69dju6T9oBGKbuKP3sd11rQ+l5e9FXY02jB35Wc
- Y/8QCmbmtEI3X5pYvg4YV5LEqa37YUa22s4WpEErPp1+WFnVBuq18/uDcVYJ5fE8LWeZykdeDVn
- tplq39HHdNSjfJVmnq0RdBkoiUvB5B9MUslVCUtZlgI9rlnOEgyB14p8NWoNhKakoq4C4FJguEv
- ylqae8cTVIYXS9vAKtlIzpML/KBfdAZ8ByuGWQc9Y6O69jKDD7MnuEu+wRpDKSeXooaDG3AiXhn
- PORrVCmpYMz8HxIPLNrc+vVdCZAS2GpO/fwnUrl9bcRMaFVhYEVj8Uv1TDr8v08It92XTnchMFP
- UqL7vr4Vdo7+juudgPrWxPdAQOmnH9z9lgFNOJjtNy9sXhyFreYXFiAIoaRkFxkU4Kye8Y6LYWx
- VzVWSFm6Hu5Vwrg==
-X-Developer-Key: i=christopher.obbard@linaro.org; a=openpgp;
- fpr=F18BDC8B6C25F90AA23D5174634DC4F0687046F8
 
-Add the blsp2_spi5 SPI controller node together with its default and sleep
-pinctrl states.
+On Friday, April 24, 2026 7:17:05=E2=80=AFAM Central Daylight Time Konrad D=
+ybcio=20
+wrote:
+> On 1/15/26 6:27 AM, Alex G. wrote:
+> > On Wednesday, January 14, 2026 4:26:36 AM CST Konrad Dybcio wrote:
+> >> On 1/14/26 4:54 AM, Alex G. wrote:
+> >>> On Tuesday, January 13, 2026 8:28:11 AM CST Konrad Dybcio wrote:
+> >>>> On 1/9/26 5:33 AM, Alexandru Gagniuc wrote:
+> >>>>> Support loading remoteproc firmware on IPQ9574 with the qcom_q6v5_w=
+css
+> >>>>> driver. This firmware is usually used to run ath11k firmware and
+> >>>>> enable
+> >>>>> wifi with chips such as QCN5024.
+> >>>>>=20
+> >>>>> When submitting v1, I learned that the firmware can also be loaded =
+by
+> >>>>> the trustzone firmware. Since TZ is not shipped with the kernel, it
+> >>>>> makes sense to have the option of a native init sequence, as not all
+> >>>>> devices come with the latest TZ firmware.
+> >>>>>=20
+> >>>>> Qualcomm tries to assure us that the TZ firmware will always do the
+> >>>>> right thing (TM), but I am not fully convinced
+> >>>>=20
+> >>>> Why else do you think it's there in the firmware? :(
+> >>>=20
+> >>> A more relevant question is, why do some contributors sincerely belie=
+ve
+> >>> that the TZ initialization of Q6 firmware is not a good idea for their
+> >>> use case?
+> >>>=20
+> >>> To answer your question, I think the TZ initialization is an
+> >>> afterthought
+> >>> of the SoC design. I think it was only after ther the design stage th=
+at
+> >>> it was brought up that a remoteproc on AHB has out-of-band access to
+> >>> system memory, which poses security concerns to some customers. I thi=
+nk
+> >>> authentication was implemented in TZ to address that. I also think th=
+at
+> >>> in order to prevent clock glitching from bypassing such verification,
+> >>> they had to move the initialization sequence in TZ as well.
+> >>=20
+> >> I wouldn't exactly call it an afterthought.. Image authentication (as =
+in,
+> >> verifying the signature of the ELF) has always been part of TZ, because
+> >> doing so in a user-modifiable context would be absolutely nonsensical
+> >>=20
+> >> qcom_scm_pas_auth_and_reset() which configures and powers up the rproc
+> >> has been there for a really long time too (at least since the 2012 SoCs
+> >> like MSM8974) and I would guesstimate it's been there for a reason - n=
+ot
+> >> all clocks can or should be accessible from the OS (from a SW standpoi=
+nt
+> >> it would be convenient to have a separate SECURE_CC block where all the
+> >> clocks we shouldn't care about are moved, but the HW design makes more
+> >> sense as-is, for the most part), plus there is additional access contr=
+ol
+> >> hardware on the platform that must be configured from a secure context
+> >> (by design) which I assume could be part of this sequence, based on
+> >> the specifics of a given SoC
+> >=20
+> > What was the original use case for the Q6 remoteproc? I see today's use
+> > case is as a conduit for ath11k firmware to control PCIe devices. Was
+> > that always the case? I imagine a more modern design would treat the
+> > remoteproc as untrusted by putting it under a bridge or IOMMU with more
+> > strict memory access control, so that firmware couldn't access OS memor=
+y.
+>=20
+> There is an SMMU on this SoC.
+>=20
+> I don't know the original backstory, but if anything, the through-Q6
+> approach is probably *more* secure, since there's additional access
+> control hardware inbetween
 
-Signed-off-by: Christopher Obbard <christopher.obbard@linaro.org>
----
-Changes in v2:
-- Rebase onto qcom/for-next.
-- Rename node to blsp2_spi5 (Dmitry).
-- Move blsp2_spi5 node in alphabetical order after blsp2_i2c5 (Dmitry).
-- Rename pinctrl nodes for blsp2_spi5.
-- Move pinctrl nodes in alphabetical order after blsp2_i2c5_default.
-- Remove superfluous register property from blsp2_spi5.
-- Remove superfluous interrupt property from blsp2_spi5.
-- Add dmas & dma-names properties to blsp2_spi5.
-- Change blsp2_spi5_default cs-pins function to blsp_spi11.
-- Link to v1: https://lore.kernel.org/r/20260329-wip-obbardc-msm8996-blsp2_spi4-v1-1-5d9270235e92@linaro.org
----
- arch/arm64/boot/dts/qcom/msm8996.dtsi | 41 +++++++++++++++++++++++++++++++++++
- 1 file changed, 41 insertions(+)
+My question is what to do with this series? I think I present a valid appro=
+ach=20
+which has its use cases, irrespective of which approach is better for a giv=
+en=20
+use case.
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8996.dtsi b/arch/arm64/boot/dts/qcom/msm8996.dtsi
-index 2f67e665996f..818e5660df91 100644
---- a/arch/arm64/boot/dts/qcom/msm8996.dtsi
-+++ b/arch/arm64/boot/dts/qcom/msm8996.dtsi
-@@ -1632,6 +1632,30 @@ blsp2_i2c5_default: blsp2-i2c5-state {
- 
- 			/* Sleep state for BLSP2_I2C5 is missing.. */
- 
-+			blsp2_spi5_default: blsp2-spi5-default-state {
-+				spi-pins {
-+					pins = "gpio58", "gpio59", "gpio61";
-+					function = "blsp_spi11";
-+					drive-strength = <12>;
-+					bias-disable;
-+				};
-+
-+				cs-pins {
-+					pins = "gpio60";
-+					function = "blsp_spi11";
-+					drive-strength = <16>;
-+					bias-disable;
-+					output-high;
-+				};
-+			};
-+
-+			blsp2_spi5_sleep: blsp2-spi5-sleep-state {
-+				pins = "gpio58", "gpio59", "gpio60", "gpio61";
-+				function = "gpio";
-+				drive-strength = <2>;
-+				bias-pull-down;
-+			};
-+
- 			cdc_reset_active: cdc-reset-active-state {
- 				pins = "gpio64";
- 				function = "gpio";
-@@ -3433,6 +3457,23 @@ blsp2_i2c5: i2c@75b9000 {
- 			status = "disabled";
- 		};
- 
-+		blsp2_spi5: spi@75b9000 {
-+			compatible = "qcom,spi-qup-v2.2.1";
-+			reg = <0x75b9000 0x600>;
-+			interrupts = <GIC_SPI 105 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&gcc GCC_BLSP2_QUP5_SPI_APPS_CLK>,
-+				 <&gcc GCC_BLSP2_AHB_CLK>;
-+			clock-names = "core", "iface";
-+			pinctrl-names = "default", "sleep";
-+			pinctrl-0 = <&blsp2_spi5_default>;
-+			pinctrl-1 = <&blsp2_spi5_sleep>;
-+			dmas = <&blsp2_dma 20>, <&blsp2_dma 21>;
-+			dma-names = "tx", "rx";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			status = "disabled";
-+		};
-+
- 		blsp2_i2c6: i2c@75ba000 {
- 			compatible = "qcom,i2c-qup-v2.2.1";
- 			reg = <0x75ba000 0x1000>;
+Alex
 
----
-base-commit: ef5930fa9d5d5a1734e9e065d3e29bf1a064cbc3
-change-id: 20260329-wip-obbardc-msm8996-blsp2_spi4-7892454c504c
+> Konrad
 
-Best regards,
--- 
-Christopher Obbard <christopher.obbard@linaro.org>
+
+
 
