@@ -1,129 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DA5C2E2EEE
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 21:45:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16B9032BF5D;
+	Fri,  8 May 2026 21:56:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778276723; cv=none; b=sjWsMOGqS6NuUlc8TKqvKlQjEy8zgu5V1lXdLxvZl05/4+fwKayegTbzza2Pj+6D5LDargYiTkMpI7/kQk28K4nRSX6k2izGBu5B3MAPVuYYcgOp/cpk9OF6xevq5I+XMXaC9CU7QihoD9hKg4tKKY/z1bvJlpMK4hX5RuuJF4A=
+	t=1778277400; cv=none; b=sNp7haAXLrUR+o14Dt5crXvkeOEnXaR2RhzSJQJ8B85MTCmB4mifGJMYkSCzG9Lvr6rjNqoLmR5m1fefd1KAI+LgFqnFRuZ/ge0mBKo/4460LLBzBuvcxrqYGKTOuF3c6GyRE/aDL9cd0i7Qe8qEIBxcTBIe+/b3MN/GVeJ70W0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778276723; c=relaxed/simple;
-	bh=Kc4TU27a69tKrnIe5Dwv1k3/6NOOdNrHRXtt86kBTDA=;
+	s=arc-20240116; t=1778277400; c=relaxed/simple;
+	bh=q0+SHY0qC73hOivLZwbohhJ7pN7Lc5aNx5dZo3S2pxc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AiucvEb0grsPuIbAOd10Xo5/26LAAmf/foUtEVOd9hWhha714WEHmTeLY1cp0kHABuiTGQxAz1s73QHzm9i0L32nfFSvQIyBYtlmfUw/NmnxsDLQXhOUj+SB3QqfRDYv921aj8ZBbYabgPtdGdEF4T0zwyXfXp7cHfjQKDRe/eQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DbYy/YPt; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=hkpCuL0WmpLo6YWwwGkj/kiOLgHKgP3gI8eLU4zNfZxaSvf4E0d0n2eZCCdOU6kwk7lnfqbmVAtMUCx48FkL2WGCGNBaVBS7ivjVz3uTo07nHvQ4b+W/7ZPMc514GlrwmCg4pUThBWTv5+eFrwwmQC4PEEMNqJNKCHCh90wLwdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SbfFULzW; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DbYy/YPt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E09BCC2BCB4;
-	Fri,  8 May 2026 21:45:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SbfFULzW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6746FC2BCB4;
+	Fri,  8 May 2026 21:56:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778276723;
-	bh=Kc4TU27a69tKrnIe5Dwv1k3/6NOOdNrHRXtt86kBTDA=;
+	s=k20201202; t=1778277399;
+	bh=q0+SHY0qC73hOivLZwbohhJ7pN7Lc5aNx5dZo3S2pxc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=DbYy/YPtS7JPNThsGGaaQ+zl1dXe6MhzSAqU+t6QmlgLBmSxwcnPQFPVAxbq4U/sd
-	 V+OZ3Ha4jane1/LaaEsyXYRPUBB2kaXTvhXekJ6WBZavdj/FmDG4rDKYm264GdmEHd
-	 umxuQ5BnE1nH8XeccCmdJNxf964nY7urxEzQ5GVxYjS43wiXDJ1aL3jRkqJhlrWM6T
-	 X02INZE+0LT8LX8+5P/W9wldNtCSmqmswuSybpnWU6aP178xzKCL02QzkG385+fnD/
-	 MCmIfI+sKo1HSM8QFRgXazbkMkFP06wimrLUfT4PgZ6j2MPlH09Wv7veSSsOD95dKX
-	 n08Yo1Fm4imkg==
+	b=SbfFULzWH0kXgp60gI9S45O/epTnQ939THlybn3iDROKZ7+e0cZnw9MeOs/wPyJhQ
+	 5c6Wp6+dFUWfaCfUvJZfk+l1c1lq9G3FQcN09agTHY+nHw0m/6c5Yy20yFUR2OVWuM
+	 KTFHoFZak9B5+eYl+w4ckxkk4o/RFGJSp+/6RxAI490XSBpLtO1pCmuzLTb6gLunDq
+	 iPB2eMR+QlBXYRmck1+o2ikt27TmZkWtcZdUzH7vfwRglrevyrgc6ZYNsP/OGwDnuw
+	 RElzgK+RLsre99isML9t/qu2o+zca5auv81eSGO/3xwwuHUT8XlmRe0fUHYchujy5H
+	 5RP30DhPbXJpQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/5] nvmem: Add the Raspberry Pi OTP driver
+Subject: Re: [PATCH RFC 4/4] arm64: dts: qcom: milos-fairphone-fp6: add
+ supply for Hall Effect sensor
 Reply-To: sashiko@lists.linux.dev
-To: "Gregor Herburger" <gregor.herburger@linutronix.de>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260508-rpi-otp-driver-v4-2-cf8d725d8821@linutronix.de>
-References: <20260508-rpi-otp-driver-v4-2-cf8d725d8821@linutronix.de>
+To: "Griffin Kroah-Hartman" <griffin.kroah@fairphone.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-input@vger.kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, dmitry.torokhov@gmail.com
+In-Reply-To: <20260508-gpiokeys-vdd-supply-v1-4-0bb32e8e6428@fairphone.com>
+References: <20260508-gpiokeys-vdd-supply-v1-4-0bb32e8e6428@fairphone.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 08 May 2026 21:45:22 +0000
-Message-Id: <20260508214522.E09BCC2BCB4@smtp.kernel.org>
+Date: Fri, 08 May 2026 21:56:38 +0000
+Message-Id: <20260508215639.6746FC2BCB4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Critical] The driver exposes sensitive OTP memory (including device-spec=
-ific private keys) with world-readable sysfs permissions.
-- [High] Unchecked firmware response size modifying `fwbuf->count` under `_=
-_counted_by_le()` annotation triggers a fortified memcpy panic.
+- [High] Removing `regulator-always-on` from the Hall sensor's supply cause=
+s interrupt storms, spurious events, and broken system wakeup when the inpu=
+t device is closed.
 --
 
-commit a8dbaf078fc585c391a3307f1adbf25d7433260e
-Author: Gregor Herburger <gregor.herburger@linutronix.de>
+commit 35bf0d08eef4da2139153f5425e351a93d9d591d
+Author: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
 
-nvmem: Add the Raspberry Pi OTP driver
+arm64: dts: qcom: milos-fairphone-fp6: add supply for Hall Effect sensor
 
-Raspberry Pis have OTP registers which can be accessed through the videocore
-firmware. Add a nvmem driver to support these OTP registers.
+This commit adds a vdd-supply property to the Hall Effect sensor and removes
+the regulator-always-on property from vreg_l10b, relying on the gpio-keys
+driver to manage power.
 
-> diff --git a/drivers/nvmem/raspberrypi-otp.c b/drivers/nvmem/raspberrypi-=
-otp.c
-> new file mode 100644
-> index 0000000000000..393640cb9e32b
-> --- /dev/null
-> +++ b/drivers/nvmem/raspberrypi-otp.c
-> @@ -0,0 +1,130 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
+> diff --git a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts b/arch/arm6=
+4/boot/dts/qcom/milos-fairphone-fp6.dts
+> index c1899db46e714..ae6900c3f75c6 100644
+> --- a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
+> +++ b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
+> @@ -32,13 +32,13 @@ gpio-keys {
+>  		pinctrl-0 =3D <&volume_up_default>, <&hall_sensor_default>;
+>  		pinctrl-names =3D "default";
+> =20
+> -		/* Powered by the always-on vreg_l10b */
+>  		event-hall-sensor {
+>  			label =3D "Hall Effect Sensor";
+>  			gpios =3D <&tlmm 70 GPIO_ACTIVE_LOW>;
+>  			linux,input-type =3D <EV_SW>;
+>  			linux,code =3D <SW_LID>;
+>  			linux,can-disable;
+> +			vdd-supply =3D <&vreg_l10b>;
+
+When the device is opened, the driver reads the GPIO state immediately after
+enabling the regulator. Without a startup-delay-us property on the regulator
+to allow the voltage to stabilize, could this read an uninitialized state a=
+nd
+generate spurious lid events?
+
+>  			wakeup-source;
+>  		};
+> =20
 [ ... ]
-> +struct rpi_otp_header {
-> +	__le32 start;
-> +	__le32 count;
-> +	__le32 data[] __counted_by_le(count);
-> +};
-> +
-> +static int rpi_otp_read(void *context, unsigned int offset, void *buf, s=
-ize_t bytes)
-> +{
-[ ... ]
-> +	fwbuf->start =3D cpu_to_le32(offset / 4);
-> +	fwbuf->count =3D cpu_to_le32(count);
-> +
-> +	ret =3D rpi_firmware_property(priv->fw, priv->read_tag, fwbuf,
-> +				    sizeof(struct rpi_otp_header) + bytes);
-> +	if (ret)
-> +		goto out;
-> +
-> +	memcpy(buf, fwbuf->data, bytes);
+> @@ -326,8 +326,6 @@ vreg_l10b: ldo10 {
+>  			regulator-min-microvolt =3D <1800000>;
+>  			regulator-max-microvolt =3D <1800000>;
+>  			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
+> -			/* Hall sensor VDD */
+> -			regulator-always-on;
+>  		};
 
-If the firmware performs a short read or encounters a partial error, does it
-update fwbuf->count to the actual number of words read?
+Could removing this property cause an interrupt storm?
 
-If fwbuf->count is updated to a smaller value, the __counted_by_le() attrib=
-ute
-will dynamically shrink the bounded size of fwbuf->data. Could this cause t=
-he
-memcpy() to trigger a fortified memcpy panic, since it uses the original
-requested bytes size?
+The gpio-keys driver requests and unmasks the GPIO interrupt during probe, =
+but
+only enables the vdd-supply regulator when the input device is explicitly
+opened by userspace.
 
-[ ... ]
-> +static int rpi_otp_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct nvmem_device *nvmem;
-> +	struct rpi_otp_priv *priv;
-> +	const struct rpi_otp_driver_data *data;
-> +	struct nvmem_config config =3D {
-> +		.read_only =3D false,
-> +		.word_size =3D 4,
-> +		.stride =3D 4,
-> +		.reg_read =3D rpi_otp_read,
-> +		.reg_write =3D rpi_otp_write,
-> +		.id =3D NVMEM_DEVID_NONE,
-> +	};
+If the device is closed, the regulator is disabled. Cutting power to the Ha=
+ll
+sensor while its edge-triggered interrupt remains active might cause the GP=
+IO
+line to float. A floating line can pick up electrical noise and trigger a
+continuous interrupt storm.
 
-The commit message notes this driver supports the "device specific private =
-key
-OTP (BCM2712 only)".
+Additionally, does this break the system's ability to wake up?
 
-Does the nvmem subsystem default to creating world-readable sysfs attributes
-unless explicitly restricted? Could this expose hardware private keys to
-unprivileged users via sysfs?
-
-Should the config set .root_only =3D true to prevent this?
+If the system suspends while the device is closed, the sensor remains
+unpowered. Even though the wake IRQ is armed due to the wakeup-source
+property, an unpowered sensor wouldn't be able to detect lid events to wake
+the system.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508-rpi-otp-dr=
-iver-v4-0-cf8d725d8821@linutronix.de?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508-gpiokeys-v=
+dd-supply-v1-0-0bb32e8e6428@fairphone.com?part=3D4
