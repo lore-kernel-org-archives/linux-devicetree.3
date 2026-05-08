@@ -1,217 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B403D646C;
-	Fri,  8 May 2026 13:57:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D9803E63B2
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 13:57:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778248639; cv=none; b=KEBNNqcMF4Th1fi8DVo3lflfWnKBps1tNlKNphHA0uaPzLsut9168FCTDS7inMmTcQsZll01DyyxQoDFUgbsDJP9UptPEYYNYBNxNPwfrZcKUQODiw0Yhhf8lyhn18EGL8ZF5YjCACd1rJ69PGe6iw95dpc/FeKSh2EHU6sHtWA=
+	t=1778248671; cv=none; b=T5VXASAr1StI8Ih1q3+0uF5E9E5A+DeBtwuS5JCG8TCCOhQ1MNuFfTqNwFVIhwk/OREhCZo63Kut5LDDxhS4bZFqnxDL7wVq1Ek7nGeI2LS0yh1wBc7OivW7E738CX6yWFLDsxuAHCfdKaCDRV7uNaU0S8CoVVLI8O689rqCP+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778248639; c=relaxed/simple;
-	bh=joxHu0FV93uMH4e5Bzp95xJasxmA6c6AdKqcG4gkwzU=;
+	s=arc-20240116; t=1778248671; c=relaxed/simple;
+	bh=jm8S5eHYmLUlHSlinkOSY2lIF9Dc6wGjPC5ZNBOT+BY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ks8HHVdCKnnEPYEv/pxWrtC9lKyj9Aago6unNrqUPmi2qLslvWbmBvT3T8PX/amoq7j4k1ukC5DgT2hMKOBrBdsgAeqkZoU//YZqBTeCSaOGamibk2VVL6aKEGnbHFqZ/ICLBkGNG9060ph+oOpBamuXUig0wS1QYuLYLaNQWq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oPX+KzVj; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=BueOhlREa5MFD2a5e07gMyzcusN5GfB2fhYuaYNNkOUv2lTgKsFqtvUybDfyMse5VkkiZ/ljnj9lwl7POUKxO4j4LXBFwooQ2F1pkG/ue/PoDhD5duriW/STBBRLUOv9PfXe7isiaF276TqyCas0/zh+kFm9EZApDCwCblghr7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uwsyz8xS; arc=none smtp.client-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oPX+KzVj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2480EC2BCB0;
-	Fri,  8 May 2026 13:57:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778248639;
-	bh=joxHu0FV93uMH4e5Bzp95xJasxmA6c6AdKqcG4gkwzU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=oPX+KzVjKN7TpD/u+aWdy9CusQ8pgFvnnbhRa0I58SpmdbG9N6oNgSQNa/NgODTc+
-	 bWQflHKuVJVI3GsQDQq4HKGQHm3q4bAWpEnwxBUxbpXlBCpqDGvNQBHzUa8RcmoHCm
-	 t0tvyQtYhscMLbmKo8JQNhiYmPKFQkWwDmR1DUIbr4DC7tdj3/3ArVTfkUMPOPJJ6i
-	 IBodOT59LbmQ9pQSxpwPGuTD130TCfLisZMyfBkkOgsn4S0JD6YQeAHFlGBBvGyVYi
-	 qMQ+fAUcdvMXP+Ap7pDsLScArk4JIWZoD0/HUh+uC6AFyurH9Ejm4Wh6ul0JXVZyOK
-	 179MyEIkMbQAA==
-Date: Fri, 8 May 2026 08:57:17 -0500
-From: Rob Herring <robh@kernel.org>
-To: Edelweise Escala <edelweise.escala@analog.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v7 1/2] dt-bindings: leds: Add LTC3220 18 channel LED
- Driver
-Message-ID: <20260508135717.GA1218557-robh@kernel.org>
-References: <20260508-ltc3220-driver-v7-0-0f092ba54f23@analog.com>
- <20260508-ltc3220-driver-v7-1-0f092ba54f23@analog.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uwsyz8xS"
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-2c15849aa2cso2586770eec.0
+        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 06:57:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778248668; x=1778853468; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=mvH1zlruzUaAUBZaKhp6+2gmZc2N+rNmWQijZPZfi+c=;
+        b=Uwsyz8xSnuoHXlg5P3pv6e6TNKsUnvCu5TH3gtDL14Z+d0B058+EUjF1kns/KNL56l
+         VFpauuGZH+BXuFnd+hN/Uhx1vhd1+gPl9TKajmGaX3XEmCrAwHxJ536tjZKcFYfVut6V
+         yGXhAAfAYeeyRSUjLDSwBjxTkX+kOpUFxcxXY/e43Y43AKNpKaJv2td/AmryDfHfSKfm
+         l/h5WeKu2TeCDDE5trhESIwWVAucN5TZalWACU2YXhT2KLU6DITEA1XXC4Ug9I9pvVum
+         1OujkT6fHmJGNwd2TE+kannqAzOEHRnvH0Lb+yL9XnSDcv5ve8IFQPZqK9FnTLWr0k0x
+         cDwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778248668; x=1778853468;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=mvH1zlruzUaAUBZaKhp6+2gmZc2N+rNmWQijZPZfi+c=;
+        b=UT8tYVZe3Fg/ZrXUB43ni1DpUbyOXAtru2S4ofNaYaQNVeNK6HcyoLK54TpFHFS1mg
+         iBILKL6HIO5aUcWcXCnFT+cTni3DAWWSsnjZmd0L/pKPZtha9nMGRjRV1h/YiWJRSBPH
+         kTKwB3D1WFmyYwRyvevHpVpOI4wg6z1C0jVdMyBCDfCU7SeKWU78WWk49dFOFd2bPbnX
+         aCWMogybUQuYCxZHRqMP9Sn21wnT5OljujbaxIY3RVUR+ot5q2M5hCs9En8PYatMqPLq
+         5vU0VIm66cbhvsnTK7cISkUWQkuy2E0I/NPlpmDu7caKC+9aJo89Khf8Hvp0x2GCpGCv
+         +Xog==
+X-Forwarded-Encrypted: i=1; AFNElJ8Ju/CEmycVLA08Fjag8NncfWBGElFyw7mX1I6QkIxS8rNQAso52i3JBQztE0cGiMOKgKPDAvtAxaah@vger.kernel.org
+X-Gm-Message-State: AOJu0YwJMfWhlsXN9UWifnDU9eD/HhwmhuHvF32sTiexlTzmXUhdGB/j
+	UNoGcq6WgKq7i27vJ3bkiaaeiodKaPs9UBnUmtGfuzNVTIUn+Q1gR6eA
+X-Gm-Gg: Acq92OHv1SQyons76Khrcs7A3Z52CotU+MLYB6cCs4EgLha52vXjOFSL8+ysSL+l49h
+	ZGdzfkgYxyFYkmEnFWQYgpq4YBTEzxhvLud6CIO74OnmLXWPD/okQk/TYw6EGcSpymqH9N/9hMK
+	MngO6w2d3KX1nRS3BbW3a+ZRdHy59J2OhMLwExJLwkPJ18yWZlc1yD9RG/cajuBCpBuT5ZADAAC
+	SFu1Wa0pE+b6Z5vGe3zSF0vFTUVI6y9Sfdx6ic1PDvIcumvzHr2iPS01nKvcvKd2ooF16H6ZCzy
+	OwVSkCk1i64+si1UK/D9paa0TL9CSI+ha4nTcq3IM9r9MnK+itiIyCAI2DUTlR/tbgaXfrCjBtd
+	t97eH/0Qh/1mRFNcQcEuaBeOtulm1o7ajYfYuYszt6YVmObiwDyjojrtykqcRN+YZK1Qfemb1K5
+	yb84LYKZweEzuMtyrWd1YTffZjulvZxOWF0NV2vFPfS99SciQzqvOETC6a3sQEDu9aXgcuZUlW0
+	88=
+X-Received: by 2002:a05:7300:ec08:b0:2ea:c085:44b1 with SMTP id 5a478bee46e88-2f549f838d8mr5657827eec.19.1778248668002;
+        Fri, 08 May 2026 06:57:48 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:852e:ebf3:8de1:32e1])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2f88847502fsm2577588eec.14.2026.05.08.06.57.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 08 May 2026 06:57:47 -0700 (PDT)
+Date: Fri, 8 May 2026 06:57:44 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] Input: isa1200 - new driver for Imagis ISA1200
+Message-ID: <af3rZcrPDtNxM8A-@google.com>
+References: <20260507133948.75704-1-clamor95@gmail.com>
+ <20260507133948.75704-3-clamor95@gmail.com>
+ <afzJUcvQth6v9KGC@google.com>
+ <CAPVz0n1wYMsLLzbQ=4HLT1+Cx8GoxY+n9Q0cJ=dYv9bF=piOVg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260508-ltc3220-driver-v7-1-0f092ba54f23@analog.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPVz0n1wYMsLLzbQ=4HLT1+Cx8GoxY+n9Q0cJ=dYv9bF=piOVg@mail.gmail.com>
 
-On Fri, May 08, 2026 at 12:09:49PM +0800, Edelweise Escala wrote:
-> LTC3220 is a multi-display LED driver with I2C interface.
-> The LTC3220 provides individual brightness control (64-step),
-> blinking, and gradation features for up to 18 LED outputs.
+On Fri, May 08, 2026 at 02:13:43PM +0300, Svyatoslav Ryhel wrote:
+> чт, 7 трав. 2026 р. о 22:26 Dmitry Torokhov <dmitry.torokhov@gmail.com> пише:
+> >
+> > Hi Svyatoslav,
+> >
+> > On Thu, May 07, 2026 at 04:39:48PM +0300, Svyatoslav Ryhel wrote:
+
+...
+
+> > > +}
+> > > +
+> > > +static int isa1200_suspend(struct device *dev)
+> > > +{
+> > > +     struct isa1200 *isa = dev_get_drvdata(dev);
+> > > +
+> > > +     cancel_work_sync(&isa->play_work);
+> >
+> > Move it under input_device_enabled().
+> >
+> > > +
+> > > +     guard(mutex)(&isa->input->mutex);
+> > > +
 > 
-> Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-> Signed-off-by: Edelweise Escala <edelweise.escala@analog.com>
-> ---
->  .../devicetree/bindings/leds/adi,ltc3220.yaml      | 120 +++++++++++++++++++++
->  MAINTAINERS                                        |   7 ++
->  2 files changed, 127 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/leds/adi,ltc3220.yaml b/Documentation/devicetree/bindings/leds/adi,ltc3220.yaml
-> new file mode 100644
-> index 000000000000..62f760d517aa
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/leds/adi,ltc3220.yaml
-> @@ -0,0 +1,120 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/leds/adi,ltc3220.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Analog Devices LTC3220 LED Driver
-> +
-> +maintainers:
-> +  - Edelweise Escala <edelweise.escala@analog.com>
-> +
-> +description:
+> Should I remove mutex locking from both PM functions?
 
-You need a '>' to maintain paragraphs.
+No, you should remove it from isa1200_play_work().
 
-> +  The LTC3220 is a multi-display LED driver, which contains a high-efficiency,
-> +  low-noise charge pump to provide power to up to 18 LED current sources.
-> +  The LEDs are individually configurable to 64-step linear brightness control,
-> +  blinking and gradation control via 2-wire I2C interface.
-> +
-> +  For more product information please see the link below
-> +    https://www.analog.com/en/products/ltc3220.html
-> +
-> +properties:
-> +  compatible:
-> +    const: adi,ltc3220
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 0
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +
-> +patternProperties:
-> +  '^led@([1-9]|1[0-8])$':
+Thanks.
 
-Unit-addresses are hex.
-
-> +    type: object
-> +    $ref: /schemas/leds/common.yaml#
-> +    unevaluatedProperties: false
-> +    properties:
-> +      reg:
-> +        description:
-> +          Output channel for the LED (1-18 maps to LED outputs D1-D18).
-> +          For aggregated LED control, define only one LED node with reg = <1>
-> +          and use led-sources to list all controlled outputs. Only reg 1 should
-> +          be present when using led-sources.
-> +        minimum: 1
-> +        maximum: 18
-> +
-> +    required:
-> +      - reg
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    // Independent LEDs
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    #include <dt-bindings/leds/common.h>
-> +
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        led-controller@1c {
-> +            compatible = "adi,ltc3220";
-> +            reg = <0x1c>;
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +            reset-gpios = <&gpio 17 GPIO_ACTIVE_LOW>;
-> +
-> +            led@1 {
-> +                reg = <1>;
-> +                function = LED_FUNCTION_INDICATOR;
-> +                function-enumerator = <1>;
-> +            };
-> +
-> +            led@2 {
-> +                reg = <2>;
-> +                function = LED_FUNCTION_INDICATOR;
-> +                function-enumerator = <2>;
-> +            };
-> +
-> +            led@3 {
-> +                reg = <3>;
-> +                function = LED_FUNCTION_INDICATOR;
-> +                function-enumerator = <3>;
-> +            };
-> +        };
-> +    };
-> +
-> +  - |
-> +    // Aggregated LED
-> +    #include <dt-bindings/leds/common.h>
-> +
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        led-controller@1c {
-> +            compatible = "adi,ltc3220";
-> +            reg = <0x1c>;
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +
-> +            led@1 {
-> +                reg = <1>;
-> +                led-sources = <1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18>;
-> +                function = LED_FUNCTION_BACKLIGHT;
-> +            };
-> +        };
-> +    };
-> +
-> +...
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 327d74ca7ecb..5c10cc3e3022 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -14955,6 +14955,13 @@ W:	https://ez.analog.com/linux-software-drivers
->  F:	Documentation/devicetree/bindings/iio/temperature/adi,ltc2983.yaml
->  F:	drivers/iio/temperature/ltc2983.c
->  
-> +LTC3220 LED DRIVER
-> +M:	Edelweise Escala <edelweise.escala@analog.com>
-> +L:	linux-leds@vger.kernel.org
-> +S:	Maintained
-> +W:	https://ez.analog.com/linux-software-drivers
-> +F:	Documentation/devicetree/bindings/leds/adi,ltc3220.yaml
-> +
->  LTC4282 HARDWARE MONITOR DRIVER
->  M:	Nuno Sa <nuno.sa@analog.com>
->  L:	linux-hwmon@vger.kernel.org
-> 
-> -- 
-> 2.43.0
-> 
+-- 
+Dmitry
