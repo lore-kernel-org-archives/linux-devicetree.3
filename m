@@ -1,160 +1,178 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C38B737C92C
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 08:12:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778227951; cv=none; b=lOBsqskV847PnX9Xj9GmeV6DOKv87ho0NSCjVqQg4xSBJQC6wlpb3g2hvX4ShDPZhpiQhktXz67EStdKRRAWAZxsl9C7dA/46hjBqrEjlYmZbIeo7NnO19SGHe13bAKy/IE9e5xf+IwO2ppgNA9zt69U90i0MT90U0fCzhWWIWQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778227951; c=relaxed/simple;
-	bh=WVoh3zrIDDVVwO6/Qpr7kFi5is8aeakhIkv9KUqg1ew=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=te1X3XQ1B33hwJae7s5LpHxinJH+VVmIwosorP8RzX1T7VaBWi/cyxkm9rEBLKbNFJwuVsg7SrWLsMNK+pLEfemLSRTG5AKOKcAOYQt8507sE8Gy948oLNF3esZ7vfcoNkltVmewJEnAX+GtOxtwxNOr4BvWJs6d52sKvn8ti8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=IZwdxPBq; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C603845A4
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 08:20:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778228451; cv=pass; b=l9b8Kwa2Q4uxJrBAgNdA7EJGhFd9S+ZPmVRPCEKYyhdS/IjGTn6ufKRFv+U3i3f57ExXlNU82tE8Lm7rx4Vuhjf7+FJLOvuM/xGPdi4ldSnj1dbajpXJxCZCnGauXACZeEtHrX1R61RsmVnyQ03SWMmow+JV3LKjiQ3mx5m2DT8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778228451; c=relaxed/simple;
+	bh=lTkF7Xj1pPLGJApccu/V8Mry4PVrzP0dv5SU+hphSqo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jOwSPNCPBDmi156y1526+jwPtco6uzFMx8CCu15TLvcQZnZMxZaZdPC+BiBHZ3hZCEIcex5aySQLBPz35RZKAx7xV1ilOQcNRkNCtWzukrUCf2zhSpBqfOPc2wh7hXRFt0N4d7Tn42hUUkLxKt2tX15nwQZHBBmcWWaP3k+NEZ8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ovy7WJKb; arc=pass smtp.client-ip=209.85.217.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="IZwdxPBq"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-488a8ca4aadso15670935e9.3
-        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 01:12:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ovy7WJKb"
+Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-62dff2771abso604523137.2
+        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 01:20:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778228448; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Lg5PRYqLgxehGm0vTS/s4YqxbM7zVX3+S83F44sbhmCcwREHRzOqgbKsMAyRyIhBxz
+         O4Ghg5QFxqdHXiqBTP2Fv8Ay09dCcCluofm2P2cSUN2Ds8NDBg76VWh5EK/+b48pSvzR
+         qPFIyi8gqskdyYqisSwhS+BixmPV/Y/40bQLOWy/FBzD3QA8iE3mnV/cCL/h5dj3Kr6H
+         v3n+YlJKu3+Y4TmCq8JFcr3NivOgYLLR6lpEHDiFJLYVgNtQliTddoJtlxUmoIoce2dB
+         TUPmA6wn5xkOn/Yu4mG//detMhbXUPokiH2ZnxhGQAdzp2EmZv+4L4172bpp+NUZG4DC
+         4izw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=HHvqc5QQlNg6QfQkGnDzkz4AP6jx9Mcp6qm5SqdJ5gs=;
+        fh=KnER7XqoK1Q68rKuLlX8/xRcgQZkvE003N2w582m/Y4=;
+        b=NKcFhd8Wwvd+4gVg2LkYN3xTGeESlLm7prg36yOh9ZnTumsPYjIrMfHrwq5zy4Rzgu
+         bAkDnNYD5pSOwDPlWufFvH5JaIjtqqEk3SNMtXk+oq+XMji0iSjHZfp48jWSNvKgSZPB
+         7zUg7Nb/eNu73OvyZPilmjz4Qyk4ekh26kSsIY664OZfOGwZtOce4T11gYfLyMb6HC5b
+         6wrDFVV1sGREdGlIxNh8du6C1egTB9aCWhcLERZQ8wWR04kHjmbTcWSs7rMup1+tj51b
+         +Hl4Nw9GjaRMQaROudx9soafWlYTTf2DUPl1T970xmLxUwpg8gRfAPfuzcuVP8nEBDXO
+         rW3w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1778227948; x=1778832748; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=lCCOIzOkC3aMYU18+NM+L3w+mXvUjU56+VWPG5affHY=;
-        b=IZwdxPBq6DNiwz/7VXhsRRa7ptDQp/OhtWd8hlbTiIPzJBnzflTkV9WfwdHmVbL2/4
-         eNMPLXDED/E+6BP2jB2WA8lUqNzdzMelTYWFwIUG0Xalp8OEB3aeMpwxQai8Uh3KcYyr
-         xkXjtO9regZRISoDpl6LXlVLwNDJMFobkvClaU/Di5505goLTvB8eezQP1sRXvg2aYFu
-         NvpJCm+HTGQPyRFAwL/acgZo5Ce+EKrtYhB4Dz0PL9hgfy+lR0XI5pd054ER8Zjd9QvW
-         YJim5UJ3CgN/IjVOI8gLmwCkvUvtxUf/avTCo5/8XGSzf5ak8hyT2TL19OBiwFYNpNJl
-         chXQ==
+        d=gmail.com; s=20251104; t=1778228448; x=1778833248; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=HHvqc5QQlNg6QfQkGnDzkz4AP6jx9Mcp6qm5SqdJ5gs=;
+        b=ovy7WJKbLUXUpfS9AK2nUoxnoJ9aJC6emEzi+YmThLXN3+ZEuEXrvBzJQGuVY42x+C
+         LrikbL6KCjLDmFV54CKsT+eLXen8f96b8TRh0qwRS6iuazJxpaZNiPO1+t8ZqeSG01/3
+         iKVptjKvNT8Ac62at3juk15Mcc/wEYp4PFs2E/Tg6YnohqQT5LrWCYWyLOir8aqkAtBu
+         1xHn1s36xFW+mmiaqKn7KH6MsGDm1rWMU2X+H9DUfZfP/4G+KgHqTsUiVi0q2TexHLqD
+         rvEigLzLkD5gXEU2j9fTz4cY8ohLJvXfyb/Z2FMKo1iZKvkd1sDYlOkbVki1Umxcskep
+         60+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778227948; x=1778832748;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=lCCOIzOkC3aMYU18+NM+L3w+mXvUjU56+VWPG5affHY=;
-        b=HGVcvNoWJRRvB6HG3RzGS7i/vTCyxsudICmGkGinBxUHMG9dP2oLag266XOY0xkdD8
-         vlHYNyUKskKEmTfcxRETbsH8G7rJw57I8u/AHI/309bo2ndodxBQhtFEjT9UqkdPR9XP
-         cAgSdX5ElRX0D4wkC5AZ/8I9aWexzgAzxtwnOpuz/T+1UR2RuFcdZruVSl6wOpkd7YCy
-         Xa3XJVlxDU6tfgEkeeNcZP6sgX20WGe6QT2W1uxTNuAKLly4aKBd+1ZpipphMVndZH+p
-         Y7CT0ZxbsS0/SMmaypnmWrKso3bDBENAn8LZPTgNUS6ejQ7W9hj8qWmx8gSvH5VKSiG5
-         h2kw==
-X-Forwarded-Encrypted: i=1; AFNElJ/ta2b5sSN3oBGBFbzZUzAzrjyIQKcCwT7hkK2dduBLo4e1az0z8AnnZxMBUOaGmfyD0MX3BdLohn24@vger.kernel.org
-X-Gm-Message-State: AOJu0YyXxmXvRQi9i5TiwY4Ws3vxjQEbxd8cS5YMfbbRdGboWt7KOLMX
-	VBbnvW8niCJBZB8EGr3FZ8nZ1cYdOkmN4MGwujbIhGBqaTMUmwC6FuRZElKaNXlv3IU=
-X-Gm-Gg: AeBDievJkCFwaDJ6j8YPswK5unHOJcH8d0LqCHqweRg9iSoGlQn9jMpg6QIm6whh9n3
-	pjGtf8UG/mMVCBiY6A08/CusYR5Fal+17Ih0W743DF1crfJiGf9S2N0YVJZ5+zQZjNIVgCir0Sr
-	dFnCfd5GKG7WbNyg7dXDi8Pd6JxGfe40F+mMP2zNNI0JnlvNF6LZioU9Z32pz0Me93YCmEQGDOU
-	Y42f1bvV80Fa4Lov+GRBa9DDnyAPl3HD5+o6JrtDiixUK/Pj3qITpGdJ9YxVESTZCtiVexsY1E3
-	K2q2xPjcAPJdKmRU+P+r4Z7ohLTvZLcTZyrOh3mx/ABZd+lovu6jHhe33Q1jsWQF1nsAmR5ib/8
-	a/JwXGTgyCaU4B8U2uM/kBKsq0PjL/XGuInMv9kJ+p9zhtIshTdUOl9Lrg5GUUKKkepTo2BwL23
-	hAsbMbdsxIZd2octnmKEDS
-X-Received: by 2002:a05:600d:849c:20b0:488:a2ac:a34c with SMTP id 5b1f17b1804b1-48e51f220e7mr136524945e9.12.1778227947995;
-        Fri, 08 May 2026 01:12:27 -0700 (PDT)
-Received: from localhost ([195.94.150.46])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e68eaf237sm26988245e9.6.2026.05.08.01.12.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 08 May 2026 01:12:27 -0700 (PDT)
-From: Andrea della Porta <andrea.porta@suse.com>
-X-Google-Original-From: Andrea della Porta <aporta@suse.de>
-Date: Fri, 8 May 2026 10:15:44 +0200
-To: Andrea della Porta <andrea.porta@suse.com>
-Cc: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Naushir Patuck <naush@raspberrypi.com>,
-	Stanimir Varbanov <svarbanov@suse.de>, mbrugger@suse.com
-Subject: Re: [PATCH v3 0/3] Add RP1 PWM controller support
-Message-ID: <af2bsEdAhYY9c4rb@apocalypse>
-References: <cover.1776932336.git.andrea.porta@suse.com>
+        d=1e100.net; s=20251104; t=1778228448; x=1778833248;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=HHvqc5QQlNg6QfQkGnDzkz4AP6jx9Mcp6qm5SqdJ5gs=;
+        b=Mo4JGyPZn8vAiGFlOqKstsZmEJIIk5PsDfNUpaVuwsnJ3sYaC2Np7sMxqMPwyiYtYD
+         2wl10O7NTW+u1LUj65OSVTqCrA0K+1GAXQPPGRiqTCbFq90ynoJLB0p6hDqtCXPONCTt
+         QPaWNqB5iSeFHd5pbxGZpF2434W48/rW1Auop3TrXiaQn1kb9VTaW/RX4asttelXp6Cj
+         IsRSGucJY0eWdKaYZnFkgx583cCelP4ebwm/6USh4NK0MDIsYh1guazUNMpSIDGBrYgY
+         9ekXIIVlho4yxHSTx01nIiWlJuVphQXfMTM9ynCepE8rQqvGAJlelMzODBHEIiGrNs3b
+         vUgg==
+X-Forwarded-Encrypted: i=1; AFNElJ+CtQs8LuA/DmCq8JCwc6nfUIkm+gNbW6eO50kg4kCo602eTjAz5ETC8QBg03/ZTLkWAhIO3ozNPBtF@vger.kernel.org
+X-Gm-Message-State: AOJu0YyEm8S40H7oUOsFPtgMKLdgbRsJBd7rQRWKbT3eEVUSc8f2VT5v
+	m0P6fp/3jQ8zLUxBH9VN19N8uyBLjI2yBjvumADnFx1L5MSfkRtjUcFz6FhL8bYxPWaY6yAdvfy
+	z2QrXxbFi9zhu9FG9fZVvmnL7SnHRmL4=
+X-Gm-Gg: Acq92OF2TBfpOj3AP3Rgvcu8JGKb05iVUhyjkn55w8axzcvu+oQbGovF9nPEX22J6v4
+	dH6G0obDDwxP4bU1JRAQ3qXcHKKuhOyf0I5oL1yffgr2x9t4ivrTTO8VL2S/jCH2axEKqZlFXQy
+	GkWzlu7ZN9jIJ1gDt2EPDmoPODkUJYcNKYf5amTVnTPaBdG80DC8oeWbKc1sQosdA4htMJabMuV
+	Iuefqd2IB0gKI77jQVQQURr+68oCPFHesar4vhhxEcTYlHrrvIHsfNkGOsPR5xcZTzi/c3B75RA
+	w+naFZzNDXQm0+Ql
+X-Received: by 2002:a05:6102:26d1:b0:608:6b33:5bc2 with SMTP id
+ ada2fe7eead31-630f8fc123emr6203272137.18.1778228448423; Fri, 08 May 2026
+ 01:20:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1776932336.git.andrea.porta@suse.com>
+References: <20260507-add-e50sn12051-v4-0-ff2b3768ac7e@gmail.com>
+ <20260507-add-e50sn12051-v4-1-ff2b3768ac7e@gmail.com> <20260507-squealing-vanish-16fea3c114f5@spud>
+In-Reply-To: <20260507-squealing-vanish-16fea3c114f5@spud>
+From: Colin Huang <u8813345@gmail.com>
+Date: Fri, 8 May 2026 16:20:37 +0800
+X-Gm-Features: AVHnY4LY8-27TKesI70xHAUIFe9rb9_MdP2mFDNPu7z3TNgg0dnTs4zeU01pEIQ
+Message-ID: <CAPBH0A_D3siq+_CMM5Ouqemn56eJhU8U7KuL5gTC8h_tvL7kXQ@mail.gmail.com>
+Subject: Re: [PATCH v4 1/3] dt-bindings: hwmon: pmbus: add Delta E50SN12051 binding
+To: Conor Dooley <conor@kernel.org>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Kevin Chang <kevin.chang2@amd.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, linux-hwmon@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, Colin Huang <colin.huang2@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Uwe,
-
-On 10:30 Thu 23 Apr     , Andrea della Porta wrote:
-> This patchset adds support for the PWM controller found on the
-> Raspberry Pi RP1 southbridge. This is necessary to operate the
-> cooling fan connected to one of the PWM channels.
-> 
-> The tachometer pin for the fan speed is managed by the firmware 
-> running on the RP1's M-core. It uses the PHASE2 register
-> to report the RPM, which is then exported by this driver via
-> syscon registers. A subsequent patch will add a new device
-> and driver to read the RPM and export this value via hwmon.
->  
-> Subsequent patches will also add the CPU thermal zone, which
-> acts as a consumer of the PWM device.
-> 
-> Best regards,
-> Andrea
-> 
-> CHANGES in V3:
-> 
-> - Refactored all the register macros. They now have RP1_PWM_ prefix
->   and follow the register name.
-> - Dropped the tab alignment in front of struct declarations (use a space
->   instead).
-> - Added a check in tohw() to test (and bail out quickly) in case that
->   period_length_ns is zero.
-> - Probing now returns an error if clk_rate > 1 GHz.
-> - Added a check on minimum period ticks. Return 1 to signal round-up.
-> - Fixed inverted polarity detection on edge cases.
-> - Fixed rounding errors (in both tohwi() and fromhw()) in inverted
->   polarity calculations.
-> - Dropped a redundant check on period >= duty.
-> - Replaced memset by inline struct init.
-> - Disabling a channel now is faster, skipping the duty/period/polarity
->   setup.
-> - Fixed an error string (s/Fail/Failed)
-> - Used %pe to signal error string instead of an integer.
-> - Added several new sections to the Limitations paragraph to better
->   explain what will happen on edge cases.
-> - Maximum period is now U32_MAX-1 to allow 100% duty cycle on all
->   selectable periods.
-> - The hw period register now takes into account for the extra tick at
->   the end of the period (subtracted one to wfhw->period_ticks in tohw
->   and added 1 in fromhw).
-> - Added .remove() callback to free resources even if the driver is
->   not unbindable/unloadable, to avoid accumulating tech debt.
-> 
-> 
-> Naushir Patuck (2):
->   dt-bindings: pwm: Add Raspberry Pi RP1 PWM controller
->   pwm: rp1: Add RP1 PWM controller driver
-> 
-> Stanimir Varbanov (1):
->   arm64: dts: broadcom: rpi-5: Add RP1 PWM node
-> 
->  .../bindings/pwm/raspberrypi,rp1-pwm.yaml     |  54 +++
->  .../boot/dts/broadcom/bcm2712-rpi-5-b.dts     |  12 +
->  arch/arm64/boot/dts/broadcom/rp1-common.dtsi  |  10 +
->  drivers/pwm/Kconfig                           |   9 +
->  drivers/pwm/Makefile                          |   1 +
->  drivers/pwm/pwm-rp1.c                         | 414 ++++++++++++++++++
->  6 files changed, 500 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
->  create mode 100644 drivers/pwm/pwm-rp1.c
-> 
-> -- 
-> 2.35.3
+Conor Dooley <conor@kernel.org> =E6=96=BC 2026=E5=B9=B45=E6=9C=888=E6=97=A5=
+=E9=80=B1=E4=BA=94 =E4=B8=8A=E5=8D=881:07=E5=AF=AB=E9=81=93=EF=BC=9A
 >
-
-A gentle reminder about this patchset :)
-
-Many thanks,
-Andrea 
+> On Thu, May 07, 2026 at 01:12:26PM +0800, Colin Huang via B4 Relay wrote:
+> > From: Colin Huang <u8813345@gmail.com>
+> >
+> > Add devicetree binding documentation for the Delta E50SN12051
+> > PMBus-compliant device.
+> >
+> > Signed-off-by: Colin Huang <u8813345@gmail.com>
+> > ---
+> >  .../bindings/hwmon/pmbus/delta,e50sn12051.yaml     | 42 ++++++++++++++=
+++++++++
+> >  1 file changed, 42 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/delta,e50sn1=
+2051.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/delta,e50sn12051.=
+yaml
+> > new file mode 100644
+> > index 000000000000..72aefe212d17
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/hwmon/pmbus/delta,e50sn12051.ya=
+ml
+> > @@ -0,0 +1,42 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/hwmon/pmbus/delta,e50sn12051.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Delta E50SN12051 PMBus Sensor
+> > +
+> > +maintainers:
+> > +  - Kevin Chang <kevin.chang2@amd.com>
+> > +
+> > +description: |
+> > +  Delta E50SN12051 is a non-isolated 1/8th brick DC-DC power module.
+> > +  It is a PMBus-compliant device accessible via an I2C/SMBus interface
+> > +  and provides standard telemetry such as voltage, current, and
+> > +  temperature measurements.
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: delta,e50sn12051
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +    description: I2C bus address of the PMBus device
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+>
+> With only these two properties, shouldn't this be in trivial-devices?
+Thanks for your comment.
+I will remove this file, delta,e50sn12051.yaml,
+and add device into trivial-devices.yaml.
+>
+> > +
+> > +additionalProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    i2c {
+> > +        #address-cells =3D <1>;
+> > +        #size-cells =3D <0>;
+> > +
+> > +        power-module@40 {
+> > +            compatible =3D "delta,e50sn12051";
+> > +            reg =3D <0x40>;
+> > +        };
+> > +    };
+> >
+> > --
+> > 2.34.1
+> >
+> >
