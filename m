@@ -1,120 +1,166 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F77221540
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 21:35:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D65202F12B3;
+	Fri,  8 May 2026 21:36:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778276120; cv=none; b=bYgBVhKSTZPLxkF5RPPs97Z5hJ9ndV9ctewMoHIWHQLnqM5iqmitVqRVv7Lhm5umjh3eYKnYLaCelJGujid0Gr97/H214OZINNJOUJHRiq5WJrQGAghmiILDmAMngDtmMzHFlFO4LFgfS3AuAvaOawQW8J2VCNBC3R6kRJTRRDM=
+	t=1778276181; cv=none; b=H2N/Yg83AukQauJGnrIMXpEiZx/u3uw9VYzxf/h3JTaqdO4naPXWR4z8tUA+DuRlfYLKbYgoszXVlPJzhqNlk/dHvJTGsyG/2Zz3RMFvTtq4nmG1pxaRqZH3ZGaDovTymcvTFRcPTQf5Kv0VALgw1o+hlUZRhAdwhYBzCvEbTh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778276120; c=relaxed/simple;
-	bh=B3+/6biVk3M6CvjVVPSDM9L16DohU8S2Ar7G492rdPw=;
+	s=arc-20240116; t=1778276181; c=relaxed/simple;
+	bh=QKkSFmJ43pWVZN55bbO0tUPPVmaGghyU5KTj2RxXGzo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EXMwYCiIey/j9ISnhqsDgcR+JnYNduIyDjuYPGe5d6z4jTvfwXCEJureeGYLzAnfIbkGIswq0dDXTyNXVtSx+GXa9QtCMJ2Bkdx2/cRp3Be7ygSyV8Qabpn1Yszyp3tIXqCPeXcGOLIDjf+th20k8vOix6oy0FTeOAGKcjfA0m8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z3XrAwV3; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=q6MWegFt/X+J/knIz7Pt2hvKoTxNq1P5uWDp8tiJPnjtH9I7ofDUcpcTj9uL9qlPavsopDOvHr5S4FW0SHdqEhwYVxxdQxIFop+4d+JZ4cgyCaYlUtqbOeRpyEmpIYbSgV5q4UbhvQqrnckJmV+4TNkcbJw7wXC1lrlGa8R3TN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H+x3ApsA; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z3XrAwV3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 780E5C2BCB0;
-	Fri,  8 May 2026 21:35:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H+x3ApsA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E6B6C2BCB0;
+	Fri,  8 May 2026 21:36:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778276119;
-	bh=B3+/6biVk3M6CvjVVPSDM9L16DohU8S2Ar7G492rdPw=;
+	s=k20201202; t=1778276181;
+	bh=QKkSFmJ43pWVZN55bbO0tUPPVmaGghyU5KTj2RxXGzo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=Z3XrAwV3OU562nSDkaobZJqDuY6eesjdSKxsmkm5b9T/GlLVfA5Akl4A+ZNdX9OdN
-	 I+GxLeFpsFzYeFtEVfM5Y8AsJ4OHhvy4Fo9ayhxlkKwl7K7JNlVmKrTybAIxzSgjbz
-	 3EBBYzoSUrwNUg4r1xyIgNmHEllYen9FyTRMsEE+B5WRJltppE2JizkF3DMJehmjBb
-	 ga+OgJhF6odTTbOqfQSGQ6LfzWtmYwCd+OgaT8QZzSaLSb6jSlH8ZeIRjARINu3s3Z
-	 IcnYY38GOE2D05A/JMyFcXdfh3THcVhHC5hpWfws9366iIr1vyIzn39dzAmxHhWqOm
-	 vqPL1O+NLOGhQ==
+	b=H+x3ApsAeIh9z4CmnJmnH/F4ltP9A29tTOlprgNOLjV10Fx8iIEs3m3IlMvvGYI//
+	 BOxVjYeAnASDreChZRoXCsph6m8P0RostE4nlsIyGRELUn8U+yWtnx2i2uAx/sVV67
+	 obnLjaYF0glbaDRepJwFTZqfw5Fv9Obfu7DJGTyDFwKN6HI9H6V7kJmgrDGwyWHk9k
+	 VyIuS2CIxLyDXUPI3Iz5DJ08polx8WTtAqC70A4z6SCnQCfURGAxlbW77PfFj6qvXs
+	 pBKlEPBsRY4ilkqXUj/xT3rK+CT74vUo2pbzlId1GsBmAy0i8y2ZKQEtPD2hZOegvi
+	 QwmyW2rFCpyLg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 09/15] can: grcan: Add saving and restoring of CAN FD
- baud-rate registers
+Subject: Re: [PATCH RFC 3/4] Input: gpio-keys - add regulator to gpio_keys
 Reply-To: sashiko@lists.linux.dev
-To: "Arun Muthusamy" <arun.muthusamy@gaisler.com>
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260508070121.6918-10-arun.muthusamy@gaisler.com>
-References: <20260508070121.6918-10-arun.muthusamy@gaisler.com>
+To: "Griffin Kroah-Hartman" <griffin.kroah@fairphone.com>
+Cc: linux-input@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, dmitry.torokhov@gmail.com, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260508-gpiokeys-vdd-supply-v1-3-0bb32e8e6428@fairphone.com>
+References: <20260508-gpiokeys-vdd-supply-v1-3-0bb32e8e6428@fairphone.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 08 May 2026 21:35:18 +0000
-Message-Id: <20260508213519.780E5C2BCB0@smtp.kernel.org>
+Date: Fri, 08 May 2026 21:36:20 +0000
+Message-Id: <20260508213621.2E6B6C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] The patch claims to save and restore CAN FD baud-rate registers up=
-on reset but fails to restore the data bit-timing register (`regs->fdbtr`),=
- causing it to be permanently wiped.
-- [Medium] The `GENMASK` definitions for the GRCANFD `NBTR` register fields=
- overlap, creating a latent bug in the hardware interface definition.
+- [High] Tying the regulator's power state to the input device's open()/clo=
+se() lifecycle leaves interrupts active while the hardware is unpowered, ca=
+using an interrupt storm.
+- [Medium] System wakeup functionality is broken because regulators are dis=
+abled if the input device is closed.
+- [Medium] Unsafe hardware access during system resume causes spurious key =
+events.
+- [Medium] Missing pdata->disable() in the gpio_keys_open() error path lead=
+s to a resource leak.
+- [Low] Incorrect teardown order in gpio_keys_close() violates LIFO symmetr=
+y.
 --
 
-commit c685fd29f8a299a3b71b10448a638f1df08b5e0d
-Author: Daniel Hellstrom <daniel@gaisler.com>
+commit d47e6012a488ac21d0005ba6dd4aa95a285831d3
+Author: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
 
-can: grcan: Add saving and restoring of CAN FD baud-rate registers
+Input: gpio-keys - add regulator to gpio_keys
 
-While reset the GRCAN baud-rates are preserved, since GRCANFD has the
-baud-rate in different registers we need to add saving of those
-registers too.
+This commit allows gpio-keys to have a vdd power supply managed through
+regulators.
 
-> diff --git a/drivers/net/can/grcan.c b/drivers/net/can/grcan.c
-> index 6e0a393785e86..ccf4032ed642e 100644
-> --- a/drivers/net/can/grcan.c
-> +++ b/drivers/net/can/grcan.c
-> @@ -528,6 +528,8 @@ static void grcan_reset(struct net_device *dev)
+> diff --git a/drivers/input/keyboard/gpio_keys.c b/drivers/input/keyboard/=
+gpio_keys.c
+> index e196174856796..2199ce7455cfc 100644
+> --- a/drivers/input/keyboard/gpio_keys.c
+> +++ b/drivers/input/keyboard/gpio_keys.c
+
+[ ... ]
+
+> @@ -729,6 +730,7 @@ static int gpio_keys_open(struct input_dev *input)
+>  	struct gpio_keys_drvdata *ddata =3D input_get_drvdata(input);
+>  	const struct gpio_keys_platform_data *pdata =3D ddata->pdata;
+>  	int error;
+> +	int i;
 > =20
->  	/* Turn off hardware filtering - regs->rxcode set to 0 by reset */
->  	grcan_write_reg(&regs->rxmask, 0);
+>  	if (pdata->enable) {
+>  		error =3D pdata->enable(input->dev.parent);
+> @@ -736,19 +738,48 @@ static int gpio_keys_open(struct input_dev *input)
+>  			return error;
+>  	}
+> =20
+> +	for (i =3D 0; i < pdata->nbuttons; i++) {
+> +		const struct gpio_keys_button *button =3D &pdata->buttons[i];
 > +
-> +	priv->hwcap->set_bittiming(dev);
+> +		if (!button->regulator)
+> +			continue;
+> +		error =3D regulator_enable(button->regulator);
+> +		if (error)
+> +			goto reg_err;
+> +	}
 
-Does this fully restore the CAN FD baud-rate registers?
+Because interrupts are requested unconditionally in gpio_keys_probe() and
+remain unmasked, tying the regulator power state to the input device's
+open()/close() lifecycle leaves the physical button unpowered when the devi=
+ce
+is closed. Could this allow the GPIO pin to float and trigger an interrupt
+storm?
 
-The commit message indicates that the GRCANFD baud-rate registers need
-to be saved and restored, but it looks like set_bittiming() only sets the
-nominal bit-timing register (regs->nbtr):
+Also, if the input device is closed before suspend, the regulator remains
+disabled. Does this prevent an unpowered physical button from generating the
+electrical signal required to trigger a wakeup interrupt?
 
-drivers/net/can/grcan.c:grcanfd_set_bittiming() {
-    ...
-	timing |=3D FIELD_PREP(GRCANFD_NBTR_SJW, sjw);
-	timing |=3D FIELD_PREP(GRCANFD_NBTR_PS1, ps1);
-	timing |=3D FIELD_PREP(GRCANFD_NBTR_PS2, ps2);
-	timing |=3D FIELD_PREP(GRCANFD_NBTR_SCALER, scaler);
-	netdev_dbg(dev, "setting timing=3D0x%x\n", timing);
-	grcan_write_bits(&regs->nbtr, timing, GRCANFD_NBTR_TIMING);
+Additionally, gpio_keys_resume() unconditionally calls
+gpio_keys_report_state(), which reads the current state of all GPIOs. If the
+device is closed, the regulators are powered off. Can reading unpowered GPI=
+Os
+return floating states that inject spurious phantom key press events on eve=
+ry
+resume?
 
-	return 0;
-}
+> +
+>  	/* Report current state of buttons that are connected to GPIOs */
+>  	gpio_keys_report_state(ddata);
+> =20
+>  	return 0;
+> +
+> +reg_err:
+> +	for (--i; i >=3D 0; i--) {
+> +		const struct gpio_keys_button *button =3D &pdata->buttons[i];
+> +
+> +		if (!button->regulator)
+> +			continue;
+> +		regulator_disable(button->regulator);
+> +	}
+> +	return error;
 
-Since the hardware reset clears the registers, and the fast data bit-timing
-register (regs->fdbtr) is not saved before the reset or recalculated here,
-will regs->fdbtr be permanently wiped?
-
-This could cause the data baud-rate scaler to become zero and break CAN FD
-data phase communication if Bit Rate Switch (BRS) is enabled.
-
-Additionally, while looking at the register field definitions used by
-set_bittiming(), do the GENMASK definitions for the GRCANFD NBTR overlap?
-
-drivers/net/can/grcan.c:
-#define GRCANFD_NBTR_SCALER     GENMASK(23, 16)
-#define GRCANFD_NBTR_PS1        GENMASK(17, 10)
-
-Bits 16 and 17 are included in both GRCANFD_NBTR_SCALER and GRCANFD_NBTR_PS=
-1.
-
-While it seems the current maximum phase segment limit prevents active
-collisions at runtime, any future increase or use of FIELD_GET could lead
-to silent data corruption because the scaler and ps1 bits bleed into
-each other.
+If regulator_enable() fails and we jump to reg_err, we return the error but
+fail to call pdata->disable(). Does this leave the platform state permanent=
+ly
+active and leak resources since pdata->enable() was called earlier?
 
 >  }
+> =20
+>  static void gpio_keys_close(struct input_dev *input)
+>  {
+>  	struct gpio_keys_drvdata *ddata =3D input_get_drvdata(input);
+>  	const struct gpio_keys_platform_data *pdata =3D ddata->pdata;
+> +	int i;
+> =20
+>  	if (pdata->disable)
+>  		pdata->disable(input->dev.parent);
+> +
+> +	for (i =3D 0; i < pdata->nbuttons; i++) {
+> +		const struct gpio_keys_button *button =3D &pdata->buttons[i];
+> +
+> +		if (!button->regulator)
+> +			continue;
+> +		regulator_disable(button->regulator);
+> +	}
+>  }
+
+Is the teardown order correct here? In gpio_keys_open(), pdata->enable() is
+called before the regulators are enabled. Should gpio_keys_close() reverse
+this sequence by disabling the regulators before calling pdata->disable() to
+maintain LIFO symmetry?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508070121.6918=
--1-arun.muthusamy@gaisler.com?part=3D9
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508-gpiokeys-v=
+dd-supply-v1-0-0bb32e8e6428@fairphone.com?part=3D3
