@@ -1,150 +1,121 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 24E2E355F22;
-	Fri,  8 May 2026 06:26:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7041236606C
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 06:36:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778221597; cv=none; b=mjLD5vSzacAmLqt6MI3fz5W/E74YtitVRWZ76ndTR/XlnclGe+XBVc1eVzjtyt/k5xDXqNFRyFhX9xDvgOB95u5GW/7EA7tI4f2/DaDzEpCisHQxs0h2cV68kgoBTZxCUeDjiJ/xs0rgW7rSbA759r9d6+xVowAFzi62S6OsJvA=
+	t=1778222209; cv=none; b=pe/7L1XgDzbcR1mUG5EbG55DWJi1n6orUFZjC4PPo5VbYBvVyGkXMExNM2kJYwMl45lrPuQMw1/RmwxsoD/MOwGGWM3gXnSbhYmXGeoY3LOz+aUM8M0Nt7VsC2ArQKQf6twJ7tqm7gp/O+SpHmi+U5ABOhWX2aul5h5TZcNnwz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778221597; c=relaxed/simple;
-	bh=Ydxsd6hZUidkzxIW3fGDiTXZBTSpFb3lbhvgRh09Rjs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=RnZo8zKFjwF+jibF2OI2mGJ6bbyeo9gfrINYaywzgsWMwevYONed5YsCojwb0P6HWr1M56K5mlJRltseLzzuPOMV8r5FO9Usq/G7Ug8IndMYXvCqBNooF92+1GKDjZTvIu4MUXF+wwxi5hobad2joKcA4xakLZeF4wL8QIgUTtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from lizhi2$eswincomputing.com ( [10.11.96.26] ) by
- ajax-webmail-app1 (Coremail) ; Fri, 8 May 2026 14:25:53 +0800 (GMT+08:00)
-Date: Fri, 8 May 2026 14:25:53 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
-To: "Maxime Chevallier" <maxime.chevallier@bootlin.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
-	rmk+kernel@armlinux.org.uk, linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, ningyu@eswincomputing.com,
-	linmin@eswincomputing.com, pinkesh.vaghela@einfochips.com,
-	pritesh.patel@einfochips.com, weishangjuan@eswincomputing.com
-Subject: Re: Re: [PATCH net v1 2/2] net: stmmac: eic7700: fix delay step
- calculation and ensure safe register initialization
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <92e8a3dd-a46a-499f-b5f6-99f7b99f45f5@bootlin.com>
-References: <20260507083037.152-1-lizhi2@eswincomputing.com>
- <20260507083214.192-1-lizhi2@eswincomputing.com>
- <92e8a3dd-a46a-499f-b5f6-99f7b99f45f5@bootlin.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1778222209; c=relaxed/simple;
+	bh=9jqLAACjfGjKanuQVNeQ7eoQMeqQBRzeZ3dpRjunfuQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XvsNoRghi5ZqEXz7bs/uh1nRFNnJ8VonQHqlF+d5BgvTyKGYDLj5uPuofCvAhFoTuP6ZF/sXYfPPAIcU3rsQ76maWpfV1kQ8MpmWf5ETkuwo8AmvUAKQca3cV2LUowz5z/k6hI7upBnKP0g8WdLMcDvabjFq4eNGnGDq7lMUtS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=V4KBoMSO; arc=none smtp.client-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="V4KBoMSO"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-c80148ae949so723321a12.2
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 23:36:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1778222202; x=1778827002; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=22ncQpWLdF2X8pTtJBnqzgTb5DeYk3+PKhZtvYNM/EM=;
+        b=V4KBoMSOVmUilffq/53aV8sUf+yvt7SDCNNXjUJpOemFFhyW9EYBhX91yjFh3+jBOg
+         ifnM4Puk0SkxvCcYvKTCy/oQdJ72WZ5zdA5ULyBiCzYc06/hJ1twPiMLI93GqoCrUdoY
+         szZCnvJqgbcrrMTv8y0yX6I/5AmrF5NEOreBs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778222202; x=1778827002;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=22ncQpWLdF2X8pTtJBnqzgTb5DeYk3+PKhZtvYNM/EM=;
+        b=W7CEAaVkVLfyFu4Lp9093u6SuGf5+MVKLjX6LhbECMcRhiwhfl8XVLLWD3jlKNSvHF
+         AU9R6Z5REZZLcsbr0maE+H1OWbPT/eBIIp8C5J5s/edzL416iEWB2NA5A6dcRhobqee/
+         ns+Cn7ULqSCVJyBYCpprBP2IcgzByeVGT9reFV6mCfHypU2xyOFAvG/ilfcijm++NI+Z
+         tubRZuFnZ5teOFo7F0X28yJifCsUEu3qOqQAwdc7QfnHSDZcOGWm3IxNwhpdi0/a4+7d
+         1OVy/pQ1EJcEE5kIkuylJ374+Z31rIwZXd6LfMbGTRSHH/UFujeCnNZPFsZZQL6Xv5iy
+         qXYg==
+X-Forwarded-Encrypted: i=1; AFNElJ+XFzPY0sIcERTA97v8ZneVXXlVGxhD0y+1pvjgms33UShIChX+3GKLtQ4z1kb7h/Qya47fb0Jypsgq@vger.kernel.org
+X-Gm-Message-State: AOJu0YxNQ0CDS2Fr8ecDMam5gdyqGYGXvg3ISsNgW8I+cZyHQLWfwkHw
+	RouZGPgc/htsJJCuJPJ4AwfFjnH6zdZtKY44zuMnuHpuFlOmRqEeLcF7aVGNsDhqAA==
+X-Gm-Gg: AeBDies8MWqk0xUsSr7fymFpn48UsQ44g/8AvcoWhDoRb7pW/D9f4aDjsCun5BqnpDh
+	tHa4JsAUSvuphv72ciIl6Pkz1sMdL9/bW1cEc1n4yeHDi7tFEtcKXNBxUL4sj8JHSmkGKYMQjIS
+	0IXDmgH45SRknfpQK31m0FsgGiRELxP3Ifn8wRDQQct2TB5Lw0xwuwoUGJzi9IQqo7RWdKuWA+4
+	ZJ+TzDSTxD7dqMBBmXqhaPquwpIv+hph3nufNj6E/15Q2xXcfpAbrT/YnmEHuafFogokWAk92uG
+	6tYPcepZXt9H2JmqbrP1Md8hKsRQ0/lfkSKQO2wWnLrf8ylJPmkRN0RyZ3YSgI9oT8aXaCTBfIH
+	riB7QmoQEu9UIb5XKv6j/YqFf3YqXG5ZHF7qUSSCJjvN1ifiX/AKB6w2auYS/jtB1JaCKkQoN8K
+	M15EFjXmp4R7tDN9RVPb50CJVnlzaPfPuQdcnadds+lQCHdPgnq/ljj2lRF0Bd6FGVloK/Foe4q
+	GcjAsB6oX9WjHLsgw==
+X-Received: by 2002:a05:6a20:939d:b0:398:6ea8:21f7 with SMTP id adf61e73a8af0-3aa5a9559ebmr11751571637.15.1778222202210;
+        Thu, 07 May 2026 23:36:42 -0700 (PDT)
+Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:bac0:e137:a29f:62c])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83967dbee14sm14850717b3a.48.2026.05.07.23.36.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 07 May 2026 23:36:41 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	devicetree@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] dt-bindings: PCI: mediatek-gen3: Allow memory-region for restricted DMA buffer
+Date: Fri,  8 May 2026 14:36:32 +0800
+Message-ID: <20260508063633.3894348-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.54.0.563.g4f69b47b94-goog
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <2cfe5945.7d11.19e064395e0.Coremail.lizhi2@eswincomputing.com>
-X-Coremail-Locale: en_US
-X-CM-TRANSID:TAJkCgBn_HDxgf1pndsXAA--.6347W
-X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/1tbiAgEBDGn8vxET+gAAsc
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+Content-Transfer-Encoding: 8bit
 
-CgoKPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2VzLS0tLS0KPiBGcm9tOiAiTWF4aW1lIENoZXZhbGxp
-ZXIiIDxtYXhpbWUuY2hldmFsbGllckBib290bGluLmNvbT4KPiBTZW5kIHRpbWU6VGh1cnNkYXks
-IDA3LzA1LzIwMjYgMTk6MjE6NDEKPiBUbzogbGl6aGkyQGVzd2luY29tcHV0aW5nLmNvbSwgYW5k
-cmV3K25ldGRldkBsdW5uLmNoLCBkYXZlbUBkYXZlbWxvZnQubmV0LCBlZHVtYXpldEBnb29nbGUu
-Y29tLCBrdWJhQGtlcm5lbC5vcmcsIHBhYmVuaUByZWRoYXQuY29tLCByb2JoQGtlcm5lbC5vcmcs
-IGtyemsrZHRAa2VybmVsLm9yZywgY29ub3IrZHRAa2VybmVsLm9yZywgbmV0ZGV2QHZnZXIua2Vy
-bmVsLm9yZywgZGV2aWNldHJlZUB2Z2VyLmtlcm5lbC5vcmcsIGxpbnV4LWtlcm5lbEB2Z2VyLmtl
-cm5lbC5vcmcsIG1jb3F1ZWxpbi5zdG0zMkBnbWFpbC5jb20sIGFsZXhhbmRyZS50b3JndWVAZm9z
-cy5zdC5jb20sIHJtaytrZXJuZWxAYXJtbGludXgub3JnLnVrLCBsaW51eC1zdG0zMkBzdC1tZC1t
-YWlsbWFuLnN0b3JtcmVwbHkuY29tLCBsaW51eC1hcm0ta2VybmVsQGxpc3RzLmluZnJhZGVhZC5v
-cmcKPiBDYzogbmluZ3l1QGVzd2luY29tcHV0aW5nLmNvbSwgbGlubWluQGVzd2luY29tcHV0aW5n
-LmNvbSwgcGlua2VzaC52YWdoZWxhQGVpbmZvY2hpcHMuY29tLCBwcml0ZXNoLnBhdGVsQGVpbmZv
-Y2hpcHMuY29tLCB3ZWlzaGFuZ2p1YW5AZXN3aW5jb21wdXRpbmcuY29tCj4gU3ViamVjdDogUmU6
-IFtQQVRDSCBuZXQgdjEgMi8yXSBuZXQ6IHN0bW1hYzogZWljNzcwMDogZml4IGRlbGF5IHN0ZXAg
-Y2FsY3VsYXRpb24gYW5kIGVuc3VyZSBzYWZlIHJlZ2lzdGVyIGluaXRpYWxpemF0aW9uCj4gCj4g
-SGksCj4gCj4gT24gMDcvMDUvMjAyNiAxMDozMiwgbGl6aGkyQGVzd2luY29tcHV0aW5nLmNvbSB3
-cm90ZToKPiA+IEZyb206IFpoaSBMaSA8bGl6aGkyQGVzd2luY29tcHV0aW5nLmNvbT4KPiA+IAo+
-ID4gRml4IHNldmVyYWwgaXNzdWVzIGluIHRoZSBFSUM3NzAwIERXTUFDIGdsdWUgZHJpdmVyIHJl
-bGF0ZWQgdG8gZGVsYXkKPiA+IGNvbmZpZ3VyYXRpb24gYW5kIHJlZ2lzdGVyIGluaXRpYWxpemF0
-aW9uLgo+ID4gCj4gPiBUaGUgaGFyZHdhcmUgaW1wbGVtZW50cyBUWC9SWCBkZWxheSB3aXRoIGEg
-Z3JhbnVsYXJpdHkgb2YgMjAgcHMgcGVyCj4gPiBzdGVwLCBidXQgdGhlIGRyaXZlciBwcmV2aW91
-c2x5IGFzc3VtZWQgYSAxMDAgcHMgc3RlcC4gVXBkYXRlIHRoZQo+ID4gZGVmaW5pdGlvbnMgdG8g
-bWF0Y2ggdGhlIGFjdHVhbCBoYXJkd2FyZSBiZWhhdmlvdXIgYW5kIGFsaWduIHdpdGgKPiA+IHRo
-ZSBiaW5kaW5nIGNvbnN0cmFpbnRzLgo+ID4gCj4gPiBJbnRyb2R1Y2UgZXhwbGljaXQgZGVmaW5p
-dGlvbnMgZm9yIHRoZSBtYXhpbXVtIHByb2dyYW1tYWJsZSBkZWxheQo+ID4gcmFuZ2UgYmFzZWQg
-b24gdGhlIGhhcmR3YXJlIGxpbWl0cy4KPiA+IAo+ID4gTW92ZSBIU1AgQ1NSIGNvbmZpZ3VyYXRp
-b24gaW50byB0aGUgaW5pdGlhbGl6YXRpb24gcGF0aCBhZnRlciBjbG9ja3MKPiA+IGFyZSBlbmFi
-bGVkLiBUaGlzIGVuc3VyZXMgdGhhdCBhbGwgcmVnaXN0ZXIgYWNjZXNzZXMgb2NjdXIgd2l0aCB0
-aGUKPiA+IHJlcXVpcmVkIGNsb2NrcyBhY3RpdmUsIGF2b2lkaW5nIHVuZGVmaW5lZCBiZWhhdmlv
-dXIuCj4gPiAKPiA+IENsZWFyIHRoZSBUWEQgYW5kIFJYRCBkZWxheSBjb250cm9sIHJlZ2lzdGVy
-cyBkdXJpbmcgaW5pdGlhbGl6YXRpb24KPiA+IHRvIG92ZXJyaWRlIGFueSByZXNpZHVhbCBjb25m
-aWd1cmF0aW9uIGxlZnQgYnkgdGhlIGJvb3Rsb2FkZXIuIFRoaXMKPiA+IGVuc3VyZXMgZGV0ZXJt
-aW5pc3RpYyBSR01JSSB0aW1pbmcgYW5kIHByZXZlbnRzIHVuaW50ZW5kZWQgZGVsYXkKPiA+IGJl
-aW5nIGFwcGxpZWQuCj4gPiAKPiA+IFRoZSBNQUMgUkdNSUkgZGVsYXkgcHJvZ3JhbW1pbmcgaXMg
-b25seSByZXF1aXJlZCBmb3IgMTAwTWJwcyBhbmQKPiA+IDEwMDBNYnBzIG1vZGVzLCB3aGVyZSBw
-cmVjaXNlIGNsb2NrLXRvLWRhdGEgYWxpZ25tZW50IGlzIG5lY2Vzc2FyeSBmb3IKPiA+IHJlbGlh
-YmxlIHNhbXBsaW5nLgo+ID4gCj4gPiBGb3IgMTBNYnBzIG9wZXJhdGlvbiwgdGltaW5nIG1hcmdp
-bnMgYXJlIHN1ZmZpY2llbnRseSByZWxheGVkIGFuZCBubwo+ID4gYWRkaXRpb25hbCBkZWxheSBj
-b21wZW5zYXRpb24gaXMgcmVxdWlyZWQuIEluIHRoaXMgY2FzZSwgdGhlIGRyaXZlcgo+ID4gZmFs
-bHMgYmFjayB0byBhIHNhZmUgZGVmYXVsdCBjb25maWd1cmF0aW9uIHdpdGggZGVsYXkgZGlzYWJs
-ZWQuCj4gPiAKPiA+IEZvciB1bnN1cHBvcnRlZCBvciB1bmV4cGVjdGVkIGxpbmsgc3BlZWRzLCB0
-aGUgZHJpdmVyIGF2b2lkcwo+ID4gcHJvZ3JhbW1pbmcgaW52YWxpZCBkZWxheSB2YWx1ZXMgYW5k
-IGZhbGxzIGJhY2sgdG8gYSBzYWZlIGRlZmF1bHQKPiA+IHN0YXRlIGJ5IGV4cGxpY2l0bHkgY2xl
-YXJpbmcgdGhlIGRlbGF5IGNvbmZpZ3VyYXRpb24uCj4gPiAKPiA+IEV4cGxpY2l0bHkgcHJvZ3Jh
-bW1pbmcgemVybyBlbnN1cmVzIHRoYXQgbm8gcmVzaWR1YWwgZGVsYXkgc2V0dGluZ3MKPiA+IGZy
-b20gcHJldmlvdXMgY29uZmlndXJhdGlvbnMgb3IgYm9vdGxvYWRlciBzdGF0ZSByZW1haW4gYWN0
-aXZlLgo+ID4gCj4gPiBUaGVzZSBjaGFuZ2VzIGZpeCBpbmNvcnJlY3QgZGVsYXkgcHJvZ3JhbW1p
-bmcgYW5kIGluaXRpYWxpemF0aW9uCj4gPiBvcmRlcmluZyBmb3IgZXhpc3RpbmcgdXNlcnMuCj4g
-PiAKPiA+IFRoaXMgYWxzbyBhbGlnbnMgdGhlIGRyaXZlciBpbXBsZW1lbnRhdGlvbiB3aXRoIHRo
-ZSB1cGRhdGVkIGRldmljZQo+ID4gdHJlZSBiaW5kaW5nLgo+IAo+IFRoZXJlJ3MgYSBsb3QgZ29p
-bmcgb24gaW4gdGhpcyBwYXRjaCwgY2FuIHlvdSBzcGxpdCB0aGlzIGludG8gcGF0Y2hlcwo+IHRo
-YXQgc29sdmVzIGVhY2ggb2YgdGhlc2UgaW5kaXZpZHVhbCBpc3N1ZXMgPwo+IAo+IEl0J3MgYSBt
-aXggb2YgZml4ZXMgKHRoZSByZWcgYWNjZXNzIG1vdmVkIGFmdGVyIGNsayBjb25maWcgZm9yIGV4
-YW1wbGUpCj4gYW5kIG5vbi1maXhlcyAodGhlIFJHTUlJIHRpbWluZ3MsIHlvdSdyZSBpbXByb3Zp
-bmcgdGhlIGdyYW51bGFyaXR5IG9mCj4gdGhlIGRlbGF5cywgaXMgdGhpcyByZXF1aXJlZCB0byBm
-aXggZXhpc3Rpbmcgc2V0dXBzLCBvciBpcyBpdCBhIGdlbmVyaWMKPiBpbXByb3ZlbWVudCA/KSwg
-c3BsaXR0aW5nIHRoaXMgd291bGQgbWFrZSBpdCBib3RoIGVhc2llciB0byByZXZpZXcsIGFuZAo+
-IGVhc2llciB0byBiaXNlY3Qgc2hvdWxkIHByb2JsZW1zIGFyaXNlIGluIHRoZSBmdXR1cmUuCj4g
-CgpUaGFua3MgZm9yIHRoZSBkZXRhaWxlZCByZXZpZXcgYW5kIHN1Z2dlc3Rpb25zLgoKWW91J3Jl
-IHJpZ2h0IHRoYXQgdGhlIGN1cnJlbnQgcGF0Y2ggbWl4ZXMgc2V2ZXJhbCBsb2dpY2FsbHkgaW5k
-ZXBlbmRlbnQKY2hhbmdlcywgYW5kIHNwbGl0dGluZyB0aGVtIHdpbGwgbWFrZSB0aGUgc2VyaWVz
-IGVhc2llciB0byByZXZpZXcgYW5kCmJpc2VjdC4gSSB3aWxsIGZvbGxvdyB5b3VyIHN1Z2dlc3Rp
-b24gYW5kIHNwbGl0IHRoZSBjdXJyZW50IHBhdGNoIGludG8KbXVsdGlwbGUgc21hbGxlciBwYXRj
-aGVzIHdpdGhpbiB0aGUgc2FtZSBzZXJpZXMuCgpBbGwgZml2ZSBjaGFuZ2VzIGJlbG93IGFyZSBj
-b3JyZWN0bmVzcyBmaXhlcyBhZGRyZXNzaW5nIGhhcmR3YXJlIG9yIGRyaXZlcgppc3N1ZXMsIG5v
-dCBpbXByb3ZlbWVudHMgb3IgbmV3IGZlYXR1cmVzLgoKQmFzZWQgb24gdGhlIGN1cnJlbnQgY2hh
-bmdlIHNldCwgdGhlIGluZGl2aWR1YWwgZml4ZXMgYXJlOgoKMS4gVFgvUlggZGVsYXkgZ3JhbnVs
-YXJpdHkgY29ycmVjdGlvbiAoMTAwIHBzIC0+IDIwIHBzIHN0ZXApCiAgIFRoaXMgY29ycmVjdHMg
-YW4gaW5jb3JyZWN0IGhhcmR3YXJlIGNhcGFiaWxpdHkgbW9kZWxpbmcgaW4gdGhlIGRyaXZlci4K
-ICAgVGhlIGRyaXZlciBwcmV2aW91c2x5IGFzc3VtZWQgYSAxMDAgcHMgc3RlcCwgd2hpbGUgdGhl
-IGhhcmR3YXJlIGFjdHVhbGx5CiAgIGltcGxlbWVudHMgMjAgcHMgZ3JhbnVsYXJpdHkuCiAgIFRo
-aXMgZml4ZXMgaW5jb3JyZWN0IGRlbGF5IHByb2dyYW1taW5nIHRoYXQgY291bGQgb2NjdXIgd2hl
-biBmaW5lLWdyYWluZWQKICAgZGVsYXkgdmFsdWVzIGFyZSB1c2VkLCBlbnN1cmluZyBjb3JyZWN0
-IHJlcHJlc2VudGF0aW9uIG9mIHRoZSBoYXJkd2FyZQogICBjYXBhYmlsaXR5LgoKMi4gSW50cm9k
-dWNlIGV4cGxpY2l0IG1heGltdW0gZGVsYXkgcmFuZ2UgZGVmaW5pdGlvbnMKICAgVGhpcyBmaXhl
-cyBtaXNzaW5nIGVuZm9yY2VtZW50IG9mIGhhcmR3YXJlIGNvbnN0cmFpbnRzLCBwcmV2ZW50aW5n
-IGludmFsaWQKICAgZGVsYXkgdmFsdWVzIGZyb20gYmVpbmcgYWNjZXB0ZWQgb3IgcHJvZ3JhbW1l
-ZC4KCjMuIE1vdmUgSFNQIENTUiBjb25maWd1cmF0aW9uIGFmdGVyIGNsb2NrIGVuYWJsZQogICBU
-aGlzIGZpeGVzIGEgcmVnaXN0ZXIgYWNjZXNzIG9yZGVyaW5nIGlzc3VlIHdoZXJlIGFjY2Vzc2lu
-ZyBIU1AgQ1NSIGJlZm9yZQogICBjbG9ja3MgYXJlIGVuYWJsZWQgbWF5IHJlc3VsdCBpbiB1bmRl
-ZmluZWQgYmVoYXZpb3IgZHVyaW5nIGluaXRpYWxpemF0aW9uLgoKNC4gQ2xlYXIgVFhEL1JYRCBk
-ZWxheSBjb250cm9sIHJlZ2lzdGVycyBkdXJpbmcgaW5pdGlhbGl6YXRpb24KICAgVGhpcyBmaXhl
-cyByZXNpZHVhbCBjb25maWd1cmF0aW9uIGxlZnQgYnkgYm9vdGxvYWRlciBzdGF0ZSwgZW5zdXJp
-bmcKICAgZGV0ZXJtaW5pc3RpYyBiZWhhdmlvciBhY3Jvc3MgcmVib290IGFuZCBkcml2ZXIgcmVs
-b2FkLgoKNS4gRGVsYXkgaGFuZGxpbmcgZm9yIDEwTWJwcyBhbmQgaW52YWxpZCBsaW5rIHNwZWVk
-cwogICBUaGlzIGZpeGVzIGluY29ycmVjdCBhcHBsaWNhdGlvbiBvZiBSR01JSSBkZWxheSBwcm9n
-cmFtbWluZyBvdXRzaWRlIHZhbGlkCiAgIG9wZXJhdGluZyBtb2RlcywgcHJldmVudGluZyBpbnZh
-bGlkIGNvbmZpZ3VyYXRpb24gZnJvbSBiZWluZyBhcHBsaWVkLgoKSSB3aWxsIHNwbGl0IHRoZXNl
-IGludG8gc2VwYXJhdGUgcGF0Y2hlcyBpbiB0aGUgbmV4dCByZXZpc2lvbiwgd2hpbGUga2VlcGlu
-Zwp0aGVtIHdpdGhpbiB0aGUgc2FtZSBzZXJpZXMuCgpGb3IgdGhlIERUIGJpbmRpbmcgc2lkZSwg
-d291bGQgeW91IGFsc28gcmVjb21tZW5kIHNwbGl0dGluZyB0aGUgYmluZGluZwpjaGFuZ2VzIHRv
-IG1hdGNoIHRoZSBkcml2ZXItbGV2ZWwgZ3JhbnVsYXJpdHksIG9yIHdvdWxkIGl0IGJlIGJldHRl
-ciB0byBrZWVwCnRoZW0gY29uc29saWRhdGVkIGluIGEgc2luZ2xlIGJpbmRpbmcgcGF0Y2g/CgpJ
-ZiB5b3UgaGF2ZSBhbnkgZnVydGhlciBzdWdnZXN0aW9ucyBvbiB0aGUgc3BsaXQgb3IgY2xhc3Np
-ZmljYXRpb24sIHBsZWFzZQpsZXQgbWUga25vdy4KClRoYW5rcywKWmhpCg==
+On some SoCs without an IOMMU behind the PCIe controller, the PCIe
+controller memory access could be limited to a small region by the
+firmware configuring a memory protection unit. This memory region
+must be assigned to the PCIe controller so that the OS knows to
+use that region. Otherwise PCIe devices would not work properly.
+
+Allow the memory-region property with one item pointing to a
+restricted DMA buffer.
+
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+---
+This patch compliments another patch that moved the memory-region from
+the PCIe device to the PCIe controller [1].
+
+[1] https://lore.kernel.org/all/20260430120725.241779-1-wenst@chromium.org/
+
+ Documentation/devicetree/bindings/pci/mediatek-pcie-gen3.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/pci/mediatek-pcie-gen3.yaml b/Documentation/devicetree/bindings/pci/mediatek-pcie-gen3.yaml
+index 4db700fc36ba..4a9e41d01628 100644
+--- a/Documentation/devicetree/bindings/pci/mediatek-pcie-gen3.yaml
++++ b/Documentation/devicetree/bindings/pci/mediatek-pcie-gen3.yaml
+@@ -115,6 +115,10 @@ properties:
+   power-domains:
+     maxItems: 1
+ 
++  memory-region:
++    maxItems: 1
++    description: phandle to restricted DMA buffer
++
+   mediatek,pbus-csr:
+     $ref: /schemas/types.yaml#/definitions/phandle-array
+     items:
+-- 
+2.54.0.563.g4f69b47b94-goog
+
