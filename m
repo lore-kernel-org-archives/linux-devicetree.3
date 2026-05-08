@@ -1,173 +1,124 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010014.outbound.protection.outlook.com [52.101.193.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5726B3ACA7A;
-	Fri,  8 May 2026 23:03:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.14
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778281432; cv=fail; b=DjDa1KZtfAgR5hn1FR4kfi84/2Psqn52MWFz67ZyhvNA5BEYLrTo/fABwk9rclSr+A/GPc3tJ22KfiJ3WiJnT+xR9ZK9vh1d3fyypHC7qmAV2cn95OxU9TnvXV6HTw4e8Lr/JKnCoiguuN182FOXVfTeNagG5510EggH9zrCil0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778281432; c=relaxed/simple;
-	bh=2BBhhA+fZjMjXC8MtSWUPQjMUGDUJ4pccl2KJu4Cta8=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=I8r3/xMnrF8ZzARGvTKUXfHSpLPgSx9UZj37VxvtUT+1nw7xDKrLeSZASyCIlpTmi46fyyZniGU4VHHJjv1VCRSyqXdA+EwWXnVKh1u2JaBEe5HLZ+t+ueHnNUqXssPTJ0Fdtr5uL0jUGqZvvJFyXAlH++8v+wQX865zUgGXrO4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=h5mjwxcU; arc=fail smtp.client-ip=52.101.193.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E70163A3E87
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 23:08:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778281722; cv=none; b=Vkp6VF0sK8bJWhfwmJ2b7bbsLdud2kCvpvX2ITsCMLYeWsMAzDX5Tq1SvrcrrX/QwDwgKGvSP5C2a1T5lxrlf15rEYfIwoNAF5vIQG4ph7BvtmylR6hUUJ5vMbLSjoGSvFfbS8iezwDNcy6YZpfHyHt5+FIjfRZbT5Y90kOYofw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778281722; c=relaxed/simple;
+	bh=nh5hKtqHW4UE6I+aWS0wVHciNJPi3Drl6X9ibvMWQ8g=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=JDctECB2O9QrkHISMIm2oM5FLuuXRMyZaHdTvJbBpPhd2a61qxWxfzAUYTPdJBH/RbdJyB7502Xoz/hS6JzriHRPKqspyO/00w6Mya/TX9cI/b00wLNat+ruKR2ICqlH6Le1jRahqEEepvmKUC3P1jrPzOybhL2fM/UB2vjjL90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fMiEzDIJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="h5mjwxcU"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZQuX02sNeRthv/qw/VRXhY+nDj2ugsVvjjGFi2juSHqiV715NjVZES3sGNRMOpf/WcntmdZncHlpU9oQTiIdWt+fitrswYdeRIFKGNRcXhSvy26aUp1sA56QHlcdKT2cEk8oONQAQNn0gQEGjHaidGA+2e1FaweYMqibV0dIG2Me0y3Dtzbl3zm0FY6H2bH8H+UsBQj5f1b5Tc3dTelN4SffTh3uvyYl3CHE8nja2DbLOtVqxNm4BYB0t4N12b1Vbc/0ZoA4hm8oWuiUsHlqp3vL6Jyw6ogPNEVauvDD7PnvjcMsgPiTIhDhrjTU6TUYhlT5+K/7dNkBCav7KgBSSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RSJos7Pt4AFif5CjaQ8gdnewPsl10bzfXlws+RKwLH4=;
- b=KeUNcfiCvsX7ACiTppt9jCsXa3YCGAZlSa/JT3AmI1yqPSSQWkF4vf4LWVFB555v8cefa1hbtvmWAjNehfIJnyKBZQlVBlRtJQ5Fi/tFnRE6HK4wCBMLFrOQm82vj9iWWMopGZ+osGRdOB7it2JLIuyhL3SjSZpW8L/2NDcUVVV4jjB/6SIIGlyqBStkHFFVs81FGUS0g6w654ZvXSo2fLhHwUpmJD8L7+4CCRBONMQLEt5s+CG1G5C/WM6LqnMniTUDNEMNM55Fk4au5Nz2RJo13tyjpdIpsF7xaBHHE8au7APmDKL/hpJo2nv8WGCBMsEdSm4SQS2vounce03Skw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RSJos7Pt4AFif5CjaQ8gdnewPsl10bzfXlws+RKwLH4=;
- b=h5mjwxcUMsRdD9iIkKe7eznWZOZyXYDCAV/Dr0/fsd5WbdNiB5P/Llzb9TxJkghapBZIEhoOsFW9wpmSrxG6i6FE/+d0EP7iCYLy8SSSUp1jmX48dIuP5LV7uJ+UQBP8d3rpjsLR1nSk5TYhZwyPTX70OmaFypAagvGa6oZWoB0=
-Received: from CH2PR20CA0001.namprd20.prod.outlook.com (2603:10b6:610:58::11)
- by IA0PR10MB7183.namprd10.prod.outlook.com (2603:10b6:208:401::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.16; Fri, 8 May
- 2026 23:03:45 +0000
-Received: from CH2PEPF0000009D.namprd02.prod.outlook.com
- (2603:10b6:610:58:cafe::2) by CH2PR20CA0001.outlook.office365.com
- (2603:10b6:610:58::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.20 via Frontend Transport; Fri,
- 8 May 2026 23:03:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- CH2PEPF0000009D.mail.protection.outlook.com (10.167.244.25) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9913.8 via Frontend Transport; Fri, 8 May 2026 23:03:43 +0000
-Received: from DFLE201.ent.ti.com (10.64.6.59) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 8 May
- 2026 18:03:42 -0500
-Received: from DFLE208.ent.ti.com (10.64.6.66) by DFLE201.ent.ti.com
- (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 8 May
- 2026 18:03:42 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE208.ent.ti.com
- (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Fri, 8 May 2026 18:03:42 -0500
-Received: from judy-hp.dhcp.ti.com (judy-hp.dhcp.ti.com [128.247.81.105])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 648N3fnp2869024;
-	Fri, 8 May 2026 18:03:42 -0500
-From: Judith Mendez <jm@ti.com>
-To: Judith Mendez <jm@ti.com>, Nishanth Menon <nm@ti.com>, Vignesh Raghavendra
-	<vigneshr@ti.com>
-CC: Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Andrew Davis <afd@ti.com>, Bryan Brattlof
-	<bb@ti.com>
-Subject: [PATCH v2 3/3] arm64: defconfig: Enable drivers for BeagleBadge
-Date: Fri, 8 May 2026 18:03:41 -0500
-Message-ID: <20260508230341.1891450-4-jm@ti.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260508230341.1891450-1-jm@ti.com>
-References: <20260508230341.1891450-1-jm@ti.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fMiEzDIJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51EF6C2BCB0;
+	Fri,  8 May 2026 23:08:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778281721;
+	bh=nh5hKtqHW4UE6I+aWS0wVHciNJPi3Drl6X9ibvMWQ8g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=fMiEzDIJuVgeuVCbUq0/rMxwv92lXEB1fr+WowKJzLtrY50acXoeZeRh02Fh7M7x6
+	 P6KrzEkwVin5ArT9yeYpq+h7ZVqerhj/5rytldgWaaniBz6WJsJ95wv9q7l1U0i6Bn
+	 Jh+c4EgdwP6JU4vQCZN9nKmAk3GyP9L6GaS9l+u9bOW8H4YU3jR1cSS4JXqTKORvy+
+	 8HOxJuGCeH0bAv/80vnoyvOG9FBxDlPu+un3MNcfIXvkQlZfDYaXfy5rHz9JJXtXM3
+	 k3uuww4rLBvvLsNKly2QrRfr/tNCySC2Id3e3D/os31SkAVmpClNEDpW4yBDPvyW4W
+	 zupjvPyn99sEg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 13/15] can: grcan: Add CANFD RX support alongside
+ legacy CAN
+Reply-To: sashiko@lists.linux.dev
+To: "Arun Muthusamy" <arun.muthusamy@gaisler.com>
+Cc: krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260508070121.6918-14-arun.muthusamy@gaisler.com>
+References: <20260508070121.6918-14-arun.muthusamy@gaisler.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 08 May 2026 23:08:40 +0000
+Message-Id: <20260508230841.51EF6C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000009D:EE_|IA0PR10MB7183:EE_
-X-MS-Office365-Filtering-Correlation-Id: 03e8f10f-1d71-4daf-1830-08dead560d47
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|82310400026|376014|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	gLx+qS4KM5+UufIGNz42BKMvx9MltEJTaqX5VN2m4ocvDIkXRcs2lO8jUbbLQfT41u+sC+SThiG9AGFgBhUZrHxTvpuGh4E7cHPBVSrSq17Nw6uynODhhA2tUy5LbeMNoadq3Os0sXsfTjzLFj8Vp88jCcHaGOhYFtwCDYaJbcD3TW1gG5OM7DuaWS1NrBJlqAhNeBR9NE/M+YvIHicwBk769MqzB3OahtNlP8hRz3Kwme/rfZxxUMwisxKADwd3xVTiDbV8PQLfkMCWyUJypURDK3CbAdmTFGzLzgZnOriuV8BmXOYE0aarBbyS0ePfPIE4PJ79xGvWb89yqPyxHteIFkNlQgFXI3vHwyxjQE4vP+JOxt2eTdT7fnCPgF/6LkppIbB1wyV67uRCtBcHdu1rQ6l3I3wU88fSHP0xRm1K1na1YoeGTmBnyqlaRse3j4ROEC5djbFL+zpFcAhIS328bQN8cnUJ+ZZ2uJ6FARnkrTBNI7K6WLvn37nKSh+uKI3K0eCoP6SIAEMxZqG8p0jr9I/m7G5eQRf+nDTe/yknl1fwZowT+OWFwUQIFLAqcCa8ev5o9kk/vx7APUaUdaoVfx06DCQAlDOpAd80oN+qJ3OZZlQwOCmKNkgxsRKrtUcs2o3LuXtJ8sCo56JRSpSebnPQacD2BloGQrQckvdP1QRXNN2I+FCvri7loSCLK2MD1BTzO5kHGQUMngPBl1Hcbsdx4KXpFN0BcTKAlQw=
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(82310400026)(376014)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	wzb6CoLraS40DbWdU4Pi4x+6f6a3thu8TL4Mi2e5lYJ4vAL7/USia77Pk+Ee9INDFAESN9LLZHp3SBe03LAID4BbNnnXgdwiLXlA89xWzncFok2SIeXzucEnUv6+NR7VAJadyYR1rIoTPFTNObIz5yDbCctzoHKVKoL3tdY2KXnneyY8awoqHrm6XY4+WSP/uUNR9JT8pQDEBbGII2XrKolnX8pX6luYAxSstpZShO1Tpv1EnmOB5STDq6Ifzl2yfUNelkQ+ZNxLRbWBBrKZFn7E41XdVehpqcLJ2DHIclXAvJ64Bx0SQ5pQhaZ18hfGHvsUMt8aaWYWJ4HWv17Qtir9aK+flFp3xvJ/xc6kuy5hXjDKHifXUOMfim8SZmC9vyurKQbLjiH0O3gFHtt4cDIqwr2sO+Er9OtRaXwIRehyAQGWKGA2UMCFywljrXNT
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2026 23:03:43.3791
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 03e8f10f-1d71-4daf-1830-08dead560d47
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF0000009D.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR10MB7183
 
-Enable drivers used on BeagleBadge[1]:
-- LED PWM Multicolor driver as a module
-- MCP SPI IO Expander driver as a module
-- Seven Segment display GPIO driver as module
-- Temperature Sensor driver as a module
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Failure to advance the DMA ring read pointer on SKB allocation fai=
+lure causes a CPU livelock.
+- [Medium] The driver silently ignores the Bit Rate Switch (BRS) flag for r=
+eceived CAN FD frames.
+--
 
-[1] https://github.com/beagleboard/BeagleBadge
-Signed-off-by: Judith Mendez <jm@ti.com>
----
-Changelog:
-- Add defconfig patch which enables drivers as modules for beaglebadge
----
- arch/arm64/configs/defconfig | 5 +++++
- 1 file changed, 5 insertions(+)
+commit ce68eaadc0f30d6e6864ce5c3ae7544dc009b802
+Author: Arun Muthusamy <arun.muthusamy@gaisler.com>
 
-diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index d905a0777f93..0e4cf5e01146 100644
---- a/arch/arm64/configs/defconfig
-+++ b/arch/arm64/configs/defconfig
-@@ -634,6 +634,7 @@ CONFIG_PINCTRL_BRCMSTB=y
- CONFIG_PINCTRL_BCM2712=y
- CONFIG_PINCTRL_DA9062=m
- CONFIG_PINCTRL_MAX77620=y
-+CONFIG_PINCTRL_MCP23S08=m
- CONFIG_PINCTRL_RK805=m
- CONFIG_PINCTRL_SINGLE=y
- CONFIG_PINCTRL_SX150X=m
-@@ -764,6 +765,7 @@ CONFIG_SENSORS_MACSMC_HWMON=m
- CONFIG_SENSORS_LM75=m
- CONFIG_SENSORS_LM90=m
- CONFIG_SENSORS_PWM_FAN=m
-+CONFIG_SENSORS_SHT4x=m
- CONFIG_SENSORS_RASPBERRYPI_HWMON=m
- CONFIG_SENSORS_SL28CPLD=m
- CONFIG_SENSORS_AMC6821=m
-@@ -955,6 +957,8 @@ CONFIG_VIDEO_IMX412=m
- CONFIG_VIDEO_OV5640=m
- CONFIG_VIDEO_OV5645=m
- CONFIG_VIDEO_S5KJN1=m
-+CONFIG_AUXDISPLAY=y
-+CONFIG_SEG_LED_GPIO=m
- CONFIG_DRM=m
- CONFIG_DRM_I2C_NXP_TDA998X=m
- CONFIG_DRM_HDLCD=m
-@@ -1333,6 +1337,7 @@ CONFIG_LEDS_PWM=y
- CONFIG_LEDS_SYSCON=y
- CONFIG_LEDS_QCOM_FLASH=m
- CONFIG_LEDS_QCOM_LPG=m
-+CONFIG_LEDS_PWM_MULTICOLOR=m
- CONFIG_LEDS_TRIGGER_TIMER=y
- CONFIG_LEDS_TRIGGER_DISK=y
- CONFIG_LEDS_TRIGGER_HEARTBEAT=y
--- 
-2.54.0
+can: grcan: Add CANFD RX support alongside legacy CAN
 
+This commit adds CAN FD reception capabilities to the grcan driver,
+allowing it to handle extended data payloads and higher bit rates.
+
+> diff --git a/drivers/net/can/grcan.c b/drivers/net/can/grcan.c
+> index 690e07c7b1ef8..eba52701c882e 100644
+> --- a/drivers/net/can/grcan.c
+> +++ b/drivers/net/can/grcan.c
+[ ... ]
+> @@ -1269,47 +1276,62 @@ static int grcan_receive(struct net_device *dev, =
+int budget)
+>  		if (rd =3D=3D wr)
+>  			break;
+> =20
+> -		/* Take care of packet */
+> -		skb =3D alloc_can_skb(dev, &cf);
+> -		if (skb =3D=3D NULL) {
+> -			netdev_err(dev,
+> -				   "dropping frame: skb allocation failed\n");
+> +		hdr =3D grcan_msg_header_at(&dma->rx, rd);
+> +		if (hdr->ctrl & GRCAN_RX_FDF)
+> +			skb =3D alloc_canfd_skb(dev, &cf);
+> +		else
+> +			skb =3D alloc_can_skb(dev, (struct can_frame **)&cf);
+> +
+> +		if (unlikely(!skb)) {
+> +			netdev_err(dev, "dropping frame: skb allocation failed\n");
+>  			stats->rx_dropped++;
+>  			continue;
+>  		}
+
+This isn't a bug introduced by this patch, but if the skb allocation fails
+here under memory pressure, the loop executes a continue without advancing =
+the
+hardware read pointer (rd).
+
+Because rd is not advanced, the next iteration of the loop will attempt to =
+read
+the exact same packet, fail allocation again, and repeat this until the NAPI
+budget is exhausted. Will this cause NAPI to continuously reschedule the po=
+ll
+function, leading to a CPU softirq lockup?
+
+Should the driver calculate the number of descriptors and advance rd
+appropriately before continuing?
+
+> =20
+> -		hdr =3D grcan_msg_header_at(&dma->rx, rd);
+> +		dlc =3D FIELD_GET(GRCAN_MSG_DLC_MASK, hdr->ctrl);
+> +		if (hdr->ctrl & GRCAN_RX_FDF)
+> +			cf->len =3D can_fd_dlc2len(dlc);
+> +		else
+> +			cf->len =3D can_cc_dlc2len(dlc);
+> +
+
+The patch defines GRCAN_RX_BRS as BIT(25) to indicate that the hardware
+received a CAN FD frame with Bit Rate Switch enabled, but the receive path
+does not appear to check this bit.
+
+If hdr->ctrl & GRCAN_RX_BRS is set, does the driver need to set the CANFD_B=
+RS
+bit in cf->flags before passing the frame to the network stack?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508070121.6918=
+-1-arun.muthusamy@gaisler.com?part=3D13
