@@ -1,161 +1,217 @@
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9C8231E857
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 09:15:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D58436AB7B
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 09:18:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778231760; cv=none; b=hzqQNm8SizM2HA4IvQpTV54+BB5irPeHdYf9qI0GHT5qJNKERf6vhWODEmKJFk/8cjzOwiKFKEZ3bWHF7T/lGjOQu/wMYNyinUmPxlKZt/5b8m/I0DAQtdSYslJaSO+Sn0ajLJgCRywKbuiDWfab8KmMJTNSdobXwtqOuJMCFH4=
+	t=1778231906; cv=none; b=dxv5WyM+UfQEUg8+EMSPmaEYvgH5uJcqlcQQJAD8Wk70INiN8qwfX3xWtwffGBdHT4IAPpprQk9z5vRras680jW7Itq3KxPagt7D2JL8RrB1R6I8iX3a56qd0zcNROLEs05vkIQRFzkHesYMbDmJh+JxhVsZSBEcpfZOeIwe+lA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778231760; c=relaxed/simple;
-	bh=Xc5j9CDKlFuLtIb9mG1NWd0Wa+Ic7rYDHKf0WsXQawY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=osvoJobKfb4F6wbxw0KBWIP+kDk/8D/i1yf276SBrAf7GI3gxu60wcVKYfJHfkFSJnHPBVVRI2OfllzE4GopmMx4VUqfHrqO6voyc7rd4gtoQBkEZX4oZSZsHOAnCAayntDrqMuatQJdNWBuo+1Vlkud3uSZ/tj1ln0gmZ6WB1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.210.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	s=arc-20240116; t=1778231906; c=relaxed/simple;
+	bh=x87VvY9k09CMD6ZDoAc6MgD8HfCyyOZtXGs0mQHknbs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FrKXnFY5LhiCet3CFDLTX6DfFshGP6RrnAeXZTvxZRkew1wbWNpEe31EE5VHwvLDwta9FN0/oxRZgN0w8F7AU6YQc6x5TL0Q/F7zPyk3qNV6atW1ohMQOc3kVjaodCOgUgoS5dBJCY+WEQMp3TVUQ101j7x9LnAXyRepfj+GxZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OeYIyQgW; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7de7dc85b74so1529823a34.2
-        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 02:15:58 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OeYIyQgW"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-44a5174670eso1081864f8f.1
+        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 02:18:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778231902; x=1778836702; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=ku/ICma2gxDE2kcR48qisRKKRusKewtK808/1tsRoR8=;
+        b=OeYIyQgWI020jpfSKEuD1phpdmINy0V8DiSQUJzfZtNjOFFq7/ZyTZ/17Mg1NwnLFt
+         deId3MoO2FPEzJLEgLYziJX2rhNP/8iH4PoOfXvDv9jo7FzRFrrDHV1HbkkKaHLTnQ25
+         HkeMsQEqrtw7ZgUyOEiVdFoDGKKp/jHWN2dov3vIStagvvCMrtJV3z9cl64wO2R3xbwU
+         Y0cKuC9CQPrnUtBZEuryKcukh/8NLRQkTRv66msUJa3VWkbBBUZRd8oKgR1m1pSJsu9p
+         FDO2u42MhLZi62jh557xAgJv1SqobCbbj/0OJoAzm95+0plG8BZWFrHzcLZAxvrlSOOj
+         TE7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778231757; x=1778836557;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=freA64yN3LTk8GeI+Wxty1utrJRjkdarC4+05051tIg=;
-        b=Une5enQ+NGGegbP8vCl8MMHlFQ+sBbzmQAupsgib9FHxV+v/6+d24azT218fzn7/AL
-         udEtI2FUPe7OmGOsNLUDmReJvwCfeXrGfHEfnbxCDzt/WzCJuvt+QzEVZmGJhTJQcFnz
-         qJMsrVaiIMk8Gny5k8IqX8uSZ0y3IIhN6TOUCtKRXdUYCXfcogzestyRhj6vSn/mdPGY
-         LTN37CsnUSPUln159/vs5jrJ1W2V6RDu1LsTVXYVYEjjT0xWhDTsCEQYgbDrKQa2iord
-         nJNzQlL/aMbpkZiSLHnDI3/sAW60jAlSpA7dmc3f93v///ZZC5f+wxXY63oEyJYP4V/C
-         4Auw==
-X-Forwarded-Encrypted: i=1; AFNElJ8L1xWionM9wkLJnp90bpCtZTzUJIpLgNi8+aZC8inw1lNDLgh9leCvqS5IlcwJgmxtghk1W68ceh1A@vger.kernel.org
-X-Gm-Message-State: AOJu0YyDV9cUfQIRqE3L0tFXb2MS3x+bctCrfYBnx1ZcNXgIDHuOsX6s
-	8IWUS7H2K1YSB9lBuvMobpZPVF28Bctb0DFt+pFsWI6GqFwS4Fq2DkVkBU+xA5XR7C8=
-X-Gm-Gg: AeBDiesdo4y4xFjZM2l7cyByK5TsuM9pDNxnjqMPPn4ac1AilNUT17PnjeMkVyF5p8Y
-	YyKA9/hxuOtdW6zF9uOQvgSoaD7tq845RHcxejzNgRqwRc/cYx6+E9lLaQJvJc05n9xoDqzJJhn
-	41GBjuhrOTL7hNwXXsiv37IT4F3GEeUJZk4Ou9WgIziUE52KLphPpQzYVTz728U20KVhgDa82L5
-	k3WO9Nx6XyirxvCBdRhwwsSOwbh384gFz0CQg/mJN9wWo5euKwoIQBdUXSdHA+uT93nR79KRg7k
-	d62fxuwaq2DNxSvlTxDYRGwvnOda3lv32OYfd99WWREsDZ4TNsJ+6WVz66J7NXBwORZ85NRgszY
-	8aGA5zLNdb0JbKew8L3QKr2TBTHQUn+BFaIzPxrbbNxreKTqI3uYTCZueL9y0yXeRi61AqJbneE
-	GkagICVTMat0MPWumwWajxKTm4pCeUBjaEpWw/I1aFM/QoxcequFoc49H0UG6QvVSiMfvCRiQ=
-X-Received: by 2002:a05:6830:488b:b0:7d9:7201:1ac1 with SMTP id 46e09a7af769-7e1dee918damr7062921a34.3.1778231757492;
-        Fri, 08 May 2026 02:15:57 -0700 (PDT)
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com. [209.85.210.44])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e367d5061csm831369a34.15.2026.05.08.02.15.56
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 08 May 2026 02:15:56 -0700 (PDT)
-Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7dca5f64e86so1553675a34.0
-        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 02:15:56 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9kg/H3YuLcxHZVdy9lBr7HpZT9zvJJBPKtBuBgRZEXE9iBsmNOB9rTcYHbGi0x7RvxckiIqMRHKPmd@vger.kernel.org
-X-Received: by 2002:a05:6102:854d:20b0:631:2f82:c3ce with SMTP id
- ada2fe7eead31-6312f82cdadmr1563743137.10.1778231440310; Fri, 08 May 2026
- 02:10:40 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1778231902; x=1778836702;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=ku/ICma2gxDE2kcR48qisRKKRusKewtK808/1tsRoR8=;
+        b=ES494YJBpRykmOqkpjPj4suYnUj4rnWZSYfYU7Zdez5T0WEXB4FcriqFscCthcbh6K
+         /xmm2dAR22PNLI5cYklb1jKSFnI3MS6GGyTIzEklG7vhxRVdZhKlCpEb6JAl0zpzFlM+
+         y92NS/9f/8aAKRQIoEwjHJi69sLuhcAPyVOfy67CE7X3YfL5H3AcGSgtyLLeFD7Y4Tlr
+         ZU2rl/k8cZDlhUP4TXBcmK0BDS1TaznGcxJz04wRLBjWLoVpopmxb8UIkKUj4tSdWGGJ
+         R/3C4tSJKN0EiqVO+JjqJ7RsRb+jT9ZXEa31btmf2j8sk1SmUbLw0miUWyeAEGw9ymS1
+         gwmQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8NigMGVAwn3xfDh+FfZMtIMS5XMEvsOQ5hIYqQ+eG7JpQlc0kcWOeT9pDN3dz2INiJAUcJ+smDyUmd@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx+UzwbjAlE0ku1bY8RQpGeIlEmDuKYIjZnlAtK34n/6Wz9PB1z
+	UTgL4J04zrMPFYC5uGFlfMXULT0U0vMw2zhKifWVNWkg+tD649cZM5gY
+X-Gm-Gg: Acq92OETR6BndqzjJe8T0jsB2x1MEMP/QKoBRM/SnO8w/dPUtHYDFfYB/eimAE4WHIg
+	lqasVcDPiYHC2aaDiYT73Zoz7b4BjRWbnwOB8cnNT3d5ytmlCGJAGHXTbhnXdEdKK3pWZ+/3YVg
+	T//QvICRNh37f6gaVCUu4Ah64GKqS81y9onNmfiCtDPjbxEwBQCUMWTMltM/r/iHRJfsftQX/M+
+	6lvCkza4tGSFrkq6RjJHbVXVHH0CEk8HssuwcDD27M1vh1r2559B1HJQwWtvXkHGh+nDkAnmwGJ
+	jskUlt4S587KkWQvphqjMdJYnmNXqQGgudtOKzql6nr/xKsZ0tCzKZ5Y57AowYYErTgXcRRmv8A
+	DJzXwhU+xW2xlyEcYdESO+pxfmNevE0V0VsTsfgRJbvOeP48Jcn3R6Q1xBbLlK8LVXPV9G6l+Nk
+	WFH27KhP8SHBd0g8c=
+X-Received: by 2002:a05:6000:4210:b0:43b:9a9f:8956 with SMTP id ffacd0b85a97d-4515ce1c80fmr18257155f8f.22.1778231902269;
+        Fri, 08 May 2026 02:18:22 -0700 (PDT)
+Received: from nsa ([148.63.225.166])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4548e4bbebdsm3214464f8f.5.2026.05.08.02.18.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 08 May 2026 02:18:21 -0700 (PDT)
+Date: Fri, 8 May 2026 10:19:15 +0100
+From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
+To: "Stan, Liviu" <Liviu.Stan@analog.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>, 
+	"Hennerich, Michael" <Michael.Hennerich@analog.com>, "Sa, Nuno" <Nuno.Sa@analog.com>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] iio: temperature: ltc2983: Add support for ADT7604
+Message-ID: <af2no3bJA9MSjXvV@nsa>
+References: <20260427132526.272716-1-liviu.stan@analog.com>
+ <20260427132526.272716-3-liviu.stan@analog.com>
+ <afCVtXBHIIoLlsRo@nsa>
+ <SA5PR03MB83772D8F6A3CC39094DE5241F63C2@SA5PR03MB8377.namprd03.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260413160331.2611829-1-antoine.bouyer@nxp.com>
- <20260413160331.2611829-10-antoine.bouyer@nxp.com> <CAMuHMdXrvn+kwBsc96SQxWMABZv3Y6EPc3FLU7f-pOi2+J+S1A@mail.gmail.com>
- <96bff2f9-04ef-4272-b408-fefc7d1d5e11@nxp.com>
-In-Reply-To: <96bff2f9-04ef-4272-b408-fefc7d1d5e11@nxp.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 8 May 2026 11:10:27 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdX_O-75kxbqEjLKQ1=5OZpvyCkuWo8CBzpvymzj0i2uUA@mail.gmail.com>
-X-Gm-Features: AVHnY4LHFQ2cNB28JlB_QeYS4eHTz1eigCbditGi6HUZBbCkr7_rXaltq2vUwkU
-Message-ID: <CAMuHMdX_O-75kxbqEjLKQ1=5OZpvyCkuWo8CBzpvymzj0i2uUA@mail.gmail.com>
-Subject: Re: [PATCH v1 09/11] media: platform: Add NXP Neoisp Image Signal Processor
-To: Antoine Bouyer <antoine.bouyer@nxp.com>
-Cc: julien.vuillaumier@nxp.com, alexi.birlinger@nxp.com, daniel.baluta@nxp.com, 
-	peng.fan@nxp.com, frank.li@nxp.com, jacopo.mondi@ideasonboard.com, 
-	laurent.pinchart@ideasonboard.com, mchehab@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, michael.riesch@collabora.com, 
-	anthony.mcgivern@arm.com, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	ai.luthra@ideasonboard.com, paul.elder@ideasonboard.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <SA5PR03MB83772D8F6A3CC39094DE5241F63C2@SA5PR03MB8377.namprd03.prod.outlook.com>
 
-Hi Antoine,
+On Thu, May 07, 2026 at 05:25:58PM +0000, Stan, Liviu wrote:
+> Thank you for the comments, and I apologize for the late reply.
+> 
+> On Mon, Apr 28, 2026,  Nuno Sá wrote:
+> ...
+> > > Both sensor types expose an IIO_RESISTANCE channel reading from
+> > > the resistance result register bank (0x060-0x00AF), added to
+> > > the regmap readable ranges. Scales are 1/1,024,000 for copper
+> > > trace (result in mOhm) and 1/1024 for leak detector (result
+> > > in Ohm).
+> > 
+> > But for userspace we report both in Ohm? That's the ABI AFAICT. In DT,
+> > you also mention IIO_TEMP is used:
+> > "IIO_TEMP reports coverage percentage"
+> > 
+> > Can you expand more on what the above means? Are we reporting milli
+> > degrees celcius to userspace?
+> 
+> Yes, both IIO_RESISTANCE channels report in Ω. The commit message was 
+> misleading, it described the register's native units (mΩ for copper trace,
+> Ω for leak detector), not the userspace output. The scales are chosen to 
+> cancel those units and give Ω in both cases.
+> 
 
-On Thu, 7 May 2026 at 15:48, Antoine Bouyer <antoine.bouyer@nxp.com> wrote:
-> Le 06/05/2026 =C3=A0 16:26, Geert Uytterhoeven a =C3=A9crit :
-> > On Mon, 13 Apr 2026 at 18:10, Antoine Bouyer <antoine.bouyer@nxp.com> w=
-rote:
-> >> First NXP neoisp driver version with the following contents:
-> >>
-> >> This driver was initially inspired from raspberrypi pisp_be driver. It
-> >> reuses same approach for ISP job scheduling.
-> >>
-> >> The Neoisp driver supports:
-> >> * 8, 10, 12, 14 and 16-bits RAW Bayer images input.
-> >> * Monochrome sensors input.
-> >> * RGB/YUV, IR and Greyscale output formats.
-> >>
-> >> The neoisp features are:
-> >> * Provides single context to limit amount of v4l2 devices.
-> >> * Supports M2M operations.
-> >> * Support SDR and HDR modes.
-> >> * Supports generic v4l2-isp framework for extensible Parameters and
-> >> Statistics buffers.
-> >> * Provides a `core_media_register` API to register neoisp's media enti=
-ties
-> >> into another media graph.
-> >> * A module parameter to run in standalone mode with its own media devi=
-ce.
-> >>
-> >> Co-developed-by: Alexi Birlinger <alexi.birlinger@nxp.com>
-> >> Signed-off-by: Alexi Birlinger <alexi.birlinger@nxp.com>
-> >> Signed-off-by: Antoine Bouyer <antoine.bouyer@nxp.com>
+ack
 
-> >> +#define NEO_AUTOFOCUS_FIL0_COEFFS0_CAM0_COEFF2_MASK GENMASK(23, 16)
-> >> +#define NEO_AUTOFOCUS_FIL0_COEFFS0_CAM0_COEFF2_SET(x) (((x) & GENMASK=
-(7, 0)) << 16)
-> >> +#define NEO_AUTOFOCUS_FIL0_COEFFS0_CAM0_COEFF2_GET(x) (((x) >> 16) & =
- GENMASK(7, 0))
-> >
-> > What about just:
-> >
-> >      #define NEO_AUTOFOCUS_FIL0_COEFFS0_CAM0_COEFF2 GENMASK(23, 16)
-> >
-> > and using the helpers from include/linux/bitfield.h in the driver code?
-> >
-> >      FIELD_PREP(NEO_AUTOFOCUS_FIL0_COEFFS0_CAM0_COEFF2, val)
-> >      FIELD_GET(NEO_AUTOFOCUS_FIL0_COEFFS0_CAM0_COEFF2, reg)
->
-> That file was auto generated, so I did not want to change it.
+> As for the IIO_TEMP question, the chip's custom sensor table stores 
+> temperature in Kelvin (same as the LTC2984 custom RTD table). For the 
+> leak detector, coverage data is encoded as (P + 273.15) K, so when the 
+> chip converts Kelvin to Celsius on output, after the driver applies the 
+> 1000/1024 scale, the IIO output is P * 1000 millidegrees C - 0% reads
+> as ~0 millidegrees, 100% reads as ~100000 millidegrees. But yes, the 
+> actual useable quantity is coverage percentage, not temperature. Is there
+> a more suitable existing IIO channel type for coverage percentage?
+> 
 
-Oh, the pleasure of auto-generated files ;-)
-Perhaps you can fix the generator?
+Will defer this to Jonathan but if we can have a real of the coverage
+given the temperature, I guess this is ok. Given that I think we don't have
+a better channel (unless we add one?) for this. Or just extended_info...
 
-Here you have 3 definitions per field, which is worse than the
-auto-generated AMD header files, which have only two (MASK + SHIFT), and
-have been dominating the changed-lines-of-code statistics recently...
 
-> But I agree, these macro would help to save a couple of lines, and
-> probably ease readability too. I need to double check the impact, making
-> sure there is no regression with such update.
+> > I could not find the datasheet so I guess it's not yet public?
+> 
+> Correct, it is not public yet. Will upload the URL once it is.
+> 
+> ...
+> 
+> > >  struct ltc2983_data {
+> > > @@ -272,6 +275,7 @@ struct ltc2983_rtd {
+> > >  	u32 r_sense_chan;
+> > >  	u32 excitation_current;
+> > >  	u32 rtd_curve;
+> > > +	bool sub_ohm;
+> > >  };
+> > >
+> > >  struct ltc2983_thermistor {
+> > > @@ -575,6 +579,10 @@ static int ltc2983_rtd_assign_chan(struct
+> > ltc2983_data *st,
+> > >  		if (ret)
+> > >  			return ret;
+> > >  	}
+> > > +
+> > > +	if (rtd->sub_ohm)
+> > > +		chan_val &= ~GENMASK(17, 0);
+> > > +
+> > >  	return __ltc2983_chan_assign_common(st, sensor, chan_val);
+> > >  }
+> > 
+> > I'm not sure if we shouldn't just treat the new types as new sensors
+> > instead of trying to push them in the existing one. I agree with Andy,
+> > the patch does not look great with respect to if() else() and going to
+> > deep in indentation.
+> > 
+> > >
+> > > @@ -758,83 +766,113 @@ ltc2983_rtd_new(const struct fwnode_handle
+> > *child, struct ltc2983_data *st,
+> > >  		return dev_err_ptr_probe(dev, ret,
+> > >  					 "Property reg must be given\n");
+> > >
+> > > -	ret = fwnode_property_read_u32(child, "adi,number-of-wires",
+> > &n_wires);
+> > > -	if (!ret) {
+> > > -		switch (n_wires) {
+> > > -		case 2:
+> > > -			rtd->sensor_config = LTC2983_RTD_N_WIRES(0);
+> > > -			break;
+> > > -		case 3:
+> > > -			rtd->sensor_config = LTC2983_RTD_N_WIRES(1);
+> > > -			break;
+> > > -		case 4:
+> > > -			rtd->sensor_config = LTC2983_RTD_N_WIRES(2);
+> > > -			break;
+> > > -		case 5:
+> > > -			/* 4 wires, Kelvin Rsense */
+> > > -			rtd->sensor_config = LTC2983_RTD_N_WIRES(3);
+> > > -			break;
+> > > -		default:
+> > > +	/* ADT7604 requires hardcoding sensor configuration bits to 0b1001
+> > */
+> > > +	if (st->info->has_copper_trace &&
+> > > +	    sensor->type == LTC2983_SENSOR_RTD_CUSTOM) {
+> > > +		rtd->sensor_config = 0x9;
+> > > +		if (sensor->chan < LTC2983_DIFFERENTIAL_CHAN_MIN)
+> > 
+> > Like the above, we have the following kind of condition all over the
+> > place. In DT we can just have a different type for these and map it to
+> > real value when creating the sensor.
+> 
+> I understand, I will introduce new adi,sensor-type enum values for 
+> copper trace and leak detector. The driver will map these to the 
+> hardware register values (18 and 27) and handle them in dedicated 
+> switch cases with dedicated functions (ltc2983_copper_trace_new() 
+> and ltc2983_leak_detector_new()), removing the has_copper_trace guards
+> from ltc2983_rtd_new() and ltc2983_thermistor_new() entirely. One 
+> tradeoff is that the adi,sensor-type values for the new sensors will 
+> now not coincide with the hardware register values in the ADT7604 
+> datasheet.
 
-You can compare the generated assembler code, it should be more or
-less the same before/after.
+Yes, I was aware of that but I think (I could be wrong) that the
+simplifications it will bring will justify for the small "fixup" we'll
+need to do on the driver.
 
-> Could that wait for a v3 ? as I was about to send a v2 with other
-> changes first.
-
-Sure, thanks!
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+- Nuno Sá
+> 
+> ...
+> 
+> I will address the rest of the comments in v2 as part of the restructuring.
+> Thank you very much.
+> 
+> Liviu
