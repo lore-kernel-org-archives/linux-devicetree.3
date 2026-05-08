@@ -1,101 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF462402B84
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 17:14:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53A7D40DFBF
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 17:14:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778260473; cv=none; b=Q8ySQLQpiGeYhWrsDhx6wX5KOz/Au0GS9lCUt4JbxgU/1f4jl4x7P/PsGU4qI2VYxpNlSp9jWu/+ih10svY/XfinMWud4hHbqGLnVysqx/E2K8D6fwumgnfd0c0tUlQxlmDo4FJXzc3O2Vfa3c8qKeeeRAI3Ut00Xl9xz+/uAOY=
+	t=1778260490; cv=none; b=oBVCDwtTMYIZ6HS9+AbZyjLTifvntyTkQGkA8uFXJamwo3/t6weaZWQhfBd7VwKaa8otPGhk6QXcFBzSI4pYNSkmQ59vh6br9jyukWoCBfDSUKUKufj/CLWCDHSzyCoUx/f4ZGW7cboK4IbrSPB/9Z1YIAftaYYk1R+HOXhNOMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778260473; c=relaxed/simple;
-	bh=2tjbnqQZfvtkK+SwW5Wi0EQJky6rQOJdXRkg+Nc8w8w=;
+	s=arc-20240116; t=1778260490; c=relaxed/simple;
+	bh=/+5YOWfAyFlc7tSRH9NT31OWdj1ZFZgkOWg9Xnf/xj8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qMGwgkmEXoN+zFQ2QwdNmRJSwGoPLt0bWRT1V1LVECT4+orYafb7PYE81Bg08JC4qgrq3bh4C7Xa4OeCI0pPCHPQG6D9LSbcIAlTAIbxOH/sOZ4Idr8xW2cgcgNzVKvf0TNxRy4deA3PzEag9AkEhMvPdSILUC/F9/6Kk/NzzIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AYyH+Wq8; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=KPf1NtoIJANbh78M0p2TN+CmCr7IrRMB2h7zyPvsUmHAZDpo8jv4nIApraabCUQJLCZKKlzJo6PE2RPlj6BQdSzRg4HB85Z75eBlJkbvAQzwFv/YKT8onMn9jFbHGn7zm0YKSw/lG+WR72UNPAxDVt0M3E4qoeTKf8OZryOCPdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gklyp4PK; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AYyH+Wq8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20F87C2BCC7;
-	Fri,  8 May 2026 17:14:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gklyp4PK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62CACC2BCB0;
+	Fri,  8 May 2026 17:14:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778260473;
-	bh=2tjbnqQZfvtkK+SwW5Wi0EQJky6rQOJdXRkg+Nc8w8w=;
+	s=k20201202; t=1778260489;
+	bh=/+5YOWfAyFlc7tSRH9NT31OWdj1ZFZgkOWg9Xnf/xj8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=AYyH+Wq8CNkwsglVxRexTlmWhmEgOkztKZ24pTD/+uQ3rGLEgJ2TroG+fRU3XHJpa
-	 KIrdLl/alRrflrjDBHiTmG1zJqayDN+Lrp5sTk3/79lQYTkt+KlCAK42GYRjqmwhQs
-	 yzsm1mgJmf2Q8MsY01LqPR2HpbSSUOEHP5dY+S9903ZYSApic5THAxulHb233W0nig
-	 JURIj2Od6uskC4uJY45SggLBBwLRENRbviYorgXEHnJRl8mXOmio2136sm8IKy3FoM
-	 NivYIH7WnCzd6s0ANtkJOYtTOnpprMDo3WIH53SwJ4ei3fIHLUj/4PbxEG7HMMFlnp
-	 6wktD1q7SLmEg==
+	b=Gklyp4PKyejUy0ia3EQy9k4cNwDj0DrhNcVToIRjfS+VYq9mdXTK3nYP7jv/xuR82
+	 SYEP9E2LTerF3fbxWLJEEPZ/Fpn9rVl1UXMd/xXchQevBLjMCZhJy46R1hT78yJik2
+	 XaVx4IjfXdfUm/DYipbNaUJabi1gIChLKkQaW4N7vFKIUGEA0Rc6f85Pfq7QYX6yUX
+	 nccOPC1Z+c9lUfBDehIB/OUYrlqhjCYsMi8p26EIijRXPB9nG57kGWMydFYqXtvHRa
+	 OuqPUzOtgkUbA10/amZiY/Adj9x1b5p5owU8SDHPN2ILInJATlggoMQU/LEYq6sgG9
+	 WiKRanTiJTY/g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net v1 2/2] net: stmmac: eic7700: fix delay step
- calculation and ensure safe register initialization
+Subject: Re: [net-next v3 2/5] dt-bindings: net: starfive,jh7110-dwmac: Add
+ jhb100 support
 Reply-To: sashiko@lists.linux.dev
-To: lizhi2@eswincomputing.com
+To: "Minda Chen" <minda.chen@starfivetech.com>
 Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260507083214.192-1-lizhi2@eswincomputing.com>
-References: <20260507083214.192-1-lizhi2@eswincomputing.com>
+In-Reply-To: <20260507094115.8355-3-minda.chen@starfivetech.com>
+References: <20260507094115.8355-3-minda.chen@starfivetech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 08 May 2026 17:14:32 +0000
-Message-Id: <20260508171433.20F87C2BCC7@smtp.kernel.org>
+Date: Fri, 08 May 2026 17:14:48 +0000
+Message-Id: <20260508171449.62CACC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Critical] Unconditional ABI breakage with older Device Trees
+- [Medium] The compatible string 'starfive,jhb100-dwmac' incorrectly uses '=
+starfive,jh7110-dwmac' as a fallback, violating Device Tree ABI backwards c=
+ompatibility rules.
+- [Medium] The schema logic for 'starfive,jhb100-dwmac' relies on the inval=
+id fallback string, resulting in incorrect nesting and missing 'select' val=
+idation.
 --
 
-commit 8a3e405f7bc380e02d2d33cd362d35a040182e99
-Author: Zhi Li <lizhi2@eswincomputing.com>
+commit 99d98f58cde78e6cc89acf897a5b4bac3713e9c4
+Author: Minda Chen <minda.chen@starfivetech.com>
 
-net: stmmac: eic7700: fix delay step calculation and ensure safe register i=
-nitialization
+dt-bindings: net: starfive,jh7110-dwmac: Add jhb100 support
 
-This commit updates the EIC7700 DWMAC glue driver to match hardware delay
-granularity and moves HSP CSR configuration to the initialization path. It
-also introduces new offsets and clears the TXD/RXD delay control registers
-during setup to ensure deterministic RGMII timing.
+This commit adds support for the jhb100 GMAC, which is based on the Synopsys
+designware GMAC core. It introduces a new compatible string and updates the
+interrupt and reset constraints, as the jhb100 hardware has only one reset
+signal and one interrupt line.
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c b/driver=
-s/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
+> diff --git a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.=
+yaml b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
+> --- a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
+> @@ -30,6 +30,10 @@ properties:
+>        - items:
+>            - const: starfive,jh7110-dwmac
+>            - const: snps,dwmac-5.20
+> +      - items:
+> +          - const: starfive,jhb100-dwmac
+> +          - const: starfive,jh7110-dwmac
+> +          - const: snps,dwmac-5.20
+
+The starfive,jhb100-dwmac hardware physically provides only 1 interrupt and
+1 reset, but the fallback starfive,jh7110-dwmac strictly requires 3
+interrupts and 2 resets. Does this break Device Tree ABI backwards
+compatibility?=20
+
+An unmodified legacy operating system matching the fallback would expect the
+missing resources and might fail to initialize. Should the
+starfive,jh7110-dwmac fallback be removed from this list?
+
 [ ... ]
-> +	ret =3D of_property_read_u32_index(pdev->dev.of_node,
-> +					 "eswin,hsp-sp-csr",
-> +					 3, &dwc_priv->eth_clk_offset);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret,
-> +				     "can't get eth_clk_offset\n");
-> =20
-> +	ret =3D of_property_read_u32_index(pdev->dev.of_node,
-> +					 "eswin,hsp-sp-csr",
-> +					 4, &dwc_priv->eth_txd_offset);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret,
-> +				     "can't get eth_txd_offset\n");
 
-Will this break compatibility with older device trees that only provide 3
-indices for the eswin,hsp-sp-csr property?
+> @@ -107,20 +111,39 @@ allOf:
+>            contains:
+>              const: starfive,jh7110-dwmac
+>      then:
+> -      properties:
+> -        interrupts:
+> -          minItems: 3
+> -          maxItems: 3
+> -
+> -        interrupt-names:
+> -          minItems: 3
+> -          maxItems: 3
+> -
+> -        resets:
+> -          minItems: 2
+> -
+> -        reset-names:
+> -          minItems: 2
+> +      if:
+> +        properties:
+> +          compatible:
+> +            contains:
+> +              const: starfive,jhb100-dwmac
 
-If the driver boots with an older device tree, of_property_read_u32_index
-will return an error when attempting to read index 4, causing the probe to
-fail entirely and resulting in a loss of network functionality.
+These interrupt and reset constraints for jhb100 are nested inside an outer
+condition checking for starfive,jh7110-dwmac. If the invalid fallback is
+removed from the compatible array above, will jhb100 nodes fail this outer
+condition and silently bypass their specific constraints?
 
-Could the new offsets at index 4 and 5 be made optional, or handled with a
-backward-compatible fallback, to preserve the device tree ABI?
+Furthermore, if a device tree correctly drops the jh7110 fallback, will
+dt_binding_check silently ignore the jhb100 node entirely because it is
+missing from the custom select block at the top of the schema?=20
 
-> +	ret =3D of_property_read_u32_index(pdev->dev.of_node,
-> +					 "eswin,hsp-sp-csr",
-> +					 5, &dwc_priv->eth_rxd_offset);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret,
-> +				     "can't get eth_rxd_offset\n");
+Could these constraints be evaluated in an independent if block, and the
+new compatible string be added to the select block?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260507083037.152-=
-1-lizhi2@eswincomputing.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260507094115.8355=
+-1-minda.chen@starfivetech.com?part=3D2
