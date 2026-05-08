@@ -1,129 +1,131 @@
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 936C41F8691;
-	Fri,  8 May 2026 13:09:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 785B53603DF
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 13:11:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778245781; cv=none; b=cRID1vfVWmeytbb6zeY9cfEztyJbVK1ejFaS1jH57wpO+538JgrQAtKPefzfoqfP44NpZYTybX9Cr3OC+KHX2EB+Z7jHOd4k3qFa9cnIJUyz3EjpcQeFGVHJPDV1piDEppJGSzzeiNNe+WD66QiYg3PSlBkq0E6qozAl40MlodU=
+	t=1778245915; cv=none; b=U7j0eNV+SubcAg1z4QSiXX1Sv9eBZSG559ZR2xeeu/3wAlaiW56gkXXu1cHhQSETmK2Zte/3Z1kXJU5sEl1okFXvEFBCGe22uRRH936rDTB6wCSgXqRFlSC1iN3xd1btmvOm76W/d6bTi/WewrX6dE0wq7pDYDJ6VuM/ElS/5bo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778245781; c=relaxed/simple;
-	bh=6S4huXMF9Eta3Yguft6rRPtDlnuPmLRdDWOyNOIjQWk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Zly17A7dUA3i8SjBCZCD42yJB0qiqzBM/lcDacpaeSUAVI7MeywJg6v4DGWzAKt7RP+JmtPSQ1oC2nvxz/6+EsDm0iVmzUOFz9L0RFst8EgoE42cQHDQNfMwSBs+n1kK8X3cwSBrhy8l41RLDU/2kDoEQ6Smtxmo1kTmSu09q9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.206.16.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: esmtpsz21t1778245760te8ff9860
-X-QQ-Originating-IP: oDfTC3UmzXvWtX1d3MtBp/Xfjq9qMy3Zm4+IG/bmLQ4=
-Received: from [127.0.0.1] ( [116.234.74.217])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 08 May 2026 21:09:14 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 10512550886452153488
-Message-ID: <6744F8FEFD290FFD+4973b8ba-7d3b-45e4-8478-0b3334b81960@radxa.com>
-Date: Fri, 8 May 2026 21:09:12 +0800
+	s=arc-20240116; t=1778245915; c=relaxed/simple;
+	bh=9HHz+PZmIU043XQ7rom8DlX5THuo9509KC/LsRGto/I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tZZN9C/zxlbyl5lAVsoD/QQgTlONB3CmH4bhGm+C/f1DSj383AmBdA1X8Hp0I/qydp/b3jDu2zeQfyNx2xwL4gGFuqkt5YeiJlM2fjRW9JhIdL98xBA+L5AXSq1XArZ0+v0A3qpEu6dOpZkBx2UvoXseJ7Lb+OsAFv2zxItqCo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FuBy13Cf; arc=none smtp.client-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FuBy13Cf"
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-2f00a567cfaso1911310eec.0
+        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 06:11:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778245912; x=1778850712; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=95h3r9WDN8xYbN8MdzSzqWBs85R0XD938YswTTlP/Fk=;
+        b=FuBy13CfrTxB8Ntpgp2HWX5Lbx8dQvTS/dqxpWlnvFPR5RRVw6mAImZa2O3ojwkYdx
+         4to2I0SOsBNGlK4MGCrRCa1MF6pYOkcoUJgTgDn7Gg4lzlwdf7GOX2Q2OAlhKUYf6rxp
+         r+VXYqj7XyBvCCI2dexku1fpG6PocAjR4Frzbxf4VDAMtmD6YyfVeU2rt8iQmBy1QvWF
+         jVxmg3d1sde1SFvbeELucG/QU2OnenmkDBX27mMitXAct8YDGoCjLl68asUUc004ojTp
+         2ZLKUYsqTQNm/++I493SMN6sNBJJRzr/6pv+8Dgz0syB+UX4RcrkMtZh/XLonojVufUI
+         WSow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778245912; x=1778850712;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=95h3r9WDN8xYbN8MdzSzqWBs85R0XD938YswTTlP/Fk=;
+        b=MseSfeQu36ueXlYltHbPWmAaHa1+HET1hyxtAgwofXHRmN2GriCeHJVPf349b2R86b
+         tMUv20gVX0vHcfmGOCZZpqd3Fy6Yxt6EcZa8+yjEWYGsdReNqK1430eX6Zpx779r0EH2
+         f2dFW2t6JqxSXteeC7e+/KzkllqMp69UvuKACxyhreOtKn5w/KRYwvGLdQ8U/GTOoVwp
+         rT3DlRheexAXwZ1hnHJaeir9Ewr2BYRDOCmG/rEO5uYKcYfGS6S2EGAxVShHkNKjbJM4
+         LrKfMcmOrnykp3ON4wDU7bkBd4FfVXtVUCVK9SgYFYngwU8XbwBoo7+LxEZ30QvWHCcB
+         lrrQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/OqBo56HTA1gr1t9pSdm8G+WyhAJ/5S4chla5tnW8vK21qX+RC/SmUEfrL0enSjQR+6nfTo/TMafIn@vger.kernel.org
+X-Gm-Message-State: AOJu0YwFo7vP+sCmKD00ERXa0s6FlInLfZB5D/Ox6BKKlavn1jJdOm7m
+	K3vuONqMEkHuYXll8qkD7pdLg11sbY+R+yZo7+y5qarbjNzRjZNxxOx2
+X-Gm-Gg: Acq92OF18THSbGzHaNcb3tUcb5pRnCF4LLJpN9uCwc1HrmJ3NyMWAoJjwdonUUdJIlS
+	KBWz3kGv8uDuLnMpQqV1TYsP7mXpsaucP/kwUs6KjK/yBWPicX2rAKiACS0fjKKZ1BeH13iJMOv
+	CwIuJMG4G4njGnXERszRN4a4dQ58oKebwplexeoMmEOWzbsr68MoCX83iHeM2vxZbHHTPhrGHE2
+	Y0RZiQLpzXZvh1w+XqOYnUNoXL6YrT7tNTHHWu1WTLsvZxrog/Vs5xQGqouCZSEqJE1UWDVd9Tj
+	Z+QZBI2VV4iolgKuLFolli4s8OT+oBKGYJzVmuFLMSBsj34hA8SFciGRmEtKYeSiw4IWZVGUfgO
+	psqUAzQtNF4eYhYdP0gS3QKD3JD8PtMEyTHXU2ezZ5jDRe0Ejr+AbIGcCtGBqa6gZ6gw4krKfpV
+	RHs7Lj9Vlr1CzZDX3/+g==
+X-Received: by 2002:a05:7300:bc83:b0:2d1:9b35:4edb with SMTP id 5a478bee46e88-2f6debccf9emr2873444eec.0.1778245911455;
+        Fri, 08 May 2026 06:11:51 -0700 (PDT)
+Received: from arch.localdomain ([2409:8a28:a53:11::1002])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2f91004b6a2sm683666eec.0.2026.05.08.06.11.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 08 May 2026 06:11:51 -0700 (PDT)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-leds@vger.kernel.org
+Cc: lee@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	luccafachinetti@gmail.com,
+	pzalewski@thegoodpenguin.co.uk,
+	daniel@zonque.org,
+	Jun Yan <jerrysteve1101@gmail.com>
+Subject: [PATCH v5 0/5] leds: Add powerdown gpio for is31fl32xx
+Date: Fri,  8 May 2026 21:11:34 +0800
+Message-ID: <20260508131139.1523597-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 10/12] net: stmmac: tc956x: add TC956x/QPS615
- support
-To: Alex Elder <elder@riscstar.com>, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, maxime.chevallier@bootlin.com,
- rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org,
- brgl@kernel.org, arnd@arndb.de, gregkh@linuxfoundation.org
-Cc: Daniel Thompson <daniel@riscstar.com>, mohd.anwar@oss.qualcomm.com,
- a0987203069@gmail.com, alexandre.torgue@foss.st.com, ast@kernel.org,
- boon.khai.ng@altera.com, chenchuangyu@xiaomi.com, chenhuacai@kernel.org,
- daniel@iogearbox.net, hawk@kernel.org, hkallweit1@gmail.com,
- inochiama@gmail.com, john.fastabend@gmail.com, julianbraha@gmail.com,
- livelycarpet87@gmail.com, matthew.gerlach@altera.com,
- mcoquelin.stm32@gmail.com, me@ziyao.cc,
- prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
- rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
- weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
- bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-11-elder@riscstar.com>
- <224E233C593EF171+8c8a43dd-5061-40f8-9eb7-f360eabf2ecc@radxa.com>
- <ae90a4c9-f027-4373-a378-d0d4b7796ff3@riscstar.com>
-Content-Language: en-US
-From: Xilin Wu <sophon@radxa.com>
-In-Reply-To: <ae90a4c9-f027-4373-a378-d0d4b7796ff3@riscstar.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: Nt+z/y60tPnUntNr0h37IREVots3RaLwrPULh0GA79jGtOpfwKEdcvBB
-	vGDhDCFVCVDGkxyRE2OTvoJ3BAC5PxlqIDN/JJD4AXSK/ikl0jyX/GSVQGKFFkz4ENdEUSS
-	jVXeX8iIz18DyrTydrM2dT8KiFby0YfBminxUOL4J5AlH5kCMgkXuyKePKNiHWGlFK+yBQv
-	SRVy4V6iARJyXlvbI1rbJ1Dngayn4XErNHsXR0Kg6smHfZQdkinU29+j+A6LtvM6yZUbS4t
-	QVQptLZzaaJ4WQvRP74OndQJsbw1vv1nmsXyg0PvpJnR4E3kbenRf7lh2UQrWCAfnYWhxcG
-	hTAd64lSERlfpmuk9ijl7MHnkLFb+kT+JhDfn0EbwWHpNLpnzJlzMszqlfuaXd1hwc4nDs4
-	Ptr2Y85lsLV/akVhLZ1+rrmVHL5PiC3YijY+AWaatV34T0VxlBj6F8/QWgEBQSR7nOH8bXQ
-	XHo4x+A7+OOLAYUoEpxHHu2jQBnq4W40kBbHQZFQcx2uX3k9qxLStign4ItRLp83ezdKGG3
-	rXIy7z63D4JRXnth+L/LMCgCOPIZX6UbSeKhC9UhQunoQKllBcQEkKDh5ygpTooEHPICCWN
-	v0NJ3AVXTCKg6RKp5kRQji0h3ubCOuk69Ca/CWOhkExCsuc7W4Gt18DmMOI73hWUNVt/ZpJ
-	Xegb8FAgVlmlXrGb9znklqo0dwEPFirhVlvSBYtwqFD0A+8ja53Su/2ws9tOkRBaTVgwQ8y
-	9A52Vd9IzSmDXvRutmZ56mbDo0QML6AmH+JXOF1+N98BQ6kl+Oroy003IPxqdeoroKdzWoW
-	7ajNQ78e3UhIMmJwN0Vzj9r/TIEN0VSKF89diPqkVlE0OitsvnUNFQHnnw96hl+q0o7uSQx
-	qPUMp9N0FI5EOZQjZweOFJ9azZ8DPpS884uDoNmmdcnERsJD7LQeKa9uc/wF/706zGwfDfE
-	NvYT+qtbE9RcFiJA28y7jSs17ND2F9A/LO72INNmSpnullpo/DF8C5pCvK/V+oUxNUDaK1L
-	Pplxx2FKqdHoQ5JbP002M+X2JYw0kTRtD1WNuV8r1C1HA66FuZ
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
 
-On 5/8/2026 2:44 AM, Alex Elder wrote:
-> On 5/6/26 7:59 AM, Xilin Wu wrote:
->> On 5/1/2026 11:54 PM, Alex Elder wrote:
->>> +    /* AXI Configuration */
->>> +    axi = &td->axi;
->>> +    axi->axi_lpi_en = 1;
->>> +    axi->axi_wr_osr_lmt = 31;
->>> +    axi->axi_rd_osr_lmt = 31;
->>> +    /* All sizes (2^2..2^8) are supported */
->>> +    axi->axi_blen_regval = DMA_AXI_BLEN_MASK;
->>> +    plat->axi = axi;
->>> +
->>> +    plat->mac_port_sel_speed = speed;
->>> +    plat->flags = STMMAC_FLAG_MULTI_MSI_EN | STMMAC_FLAG_TSO_EN;
->>
->> I got WoL working only after adding STMMAC_FLAG_USE_PHY_WOL here. I 
->> guess it's required, since the driver clocks down the MAC/PMA/XPCS in 
->> its suspend hook?
-> 
-> I just want to respond to this with a summary of our plans.
-> 
-> We will *not* be implementing wake-on-LAN (WoL) initially.  We
-> will work to get support for the eMACs upstream for TC956x, and
-> then as a separate step, we will enable WoL.
-> 
-> It's great to know you have it working, and our plan is to
-> implement it via the PHYs and not involve the MAC.  It seems
-> it will be relatively easy, but we have no plans to add it to
-> the current series.
-> 
->                      -Alex
-> 
+This patch series primarily adds the powerdown-gpios support
+for the IS31FL32xx controller.It also includes a fix and
+dt-bindings updates derived from previous attempts [1].
 
-Hi Alex,
+Patch 1 and patch 2 are based on a previous attempt [1].
+The driver-related updates in patch 2 have already been merged.
 
-Maybe I missed something, but I already have WoL working *without* 
-changes in the tc956x driver.
+Patch 3 and Patch 4 add support for the powerdown-gpios property,
+which corresponds to the SDB pin of the IS31FL32xx series chips.
+This pin is used to enter and exit the hardware powerdown mode.
 
-https://lore.kernel.org/all/859776B5671B36B9+577c19e4-3e66-4036-b26f-fe20287a1d43@radxa.com/
+Patch 5 fixes errors introduced by previous changes. It impacts
+the brightness control function of the IS31FL3236.
 
+[1] https://lore.kernel.org/all/20250723-leds-is31fl3236a-v6-0-210328058625@thegoodpenguin.co.uk/
+
+Changes in v5:
+- Adjust the unit-address in dt-binding to hex addresses, and remove unnecessary if/then constraints.
+- Link to v4: https://lore.kernel.org/all/20260505145354.1267095-1-jerrysteve1101@gmail.com/
+
+Changes in v4:
+- Fixed compilation build errors due to missing header files
+- Link to v3: https://lore.kernel.org/all/20260429154449.730880-1-jerrysteve1101@gmail.com/
+
+Changes in v3:
+- Replace shutdown-gpios with powerdown-gpios, follow gpio-consumer-common binding.
+- Link to v2: https://lore.kernel.org/all/20260428023401.330308-1-jerrysteve1101@gmail.com/
+
+Changes in v2:
+- Fix $id mismatch with file name in dt-binding.
+- Link to v1: https://lore.kernel.org/all/20260428003412.322032-1-jerrysteve1101@gmail.com/
+
+Jun Yan (5):
+  dt-bindings: leds: is31fl32xx: convert the binding to yaml
+  dt-bindings: leds: leds-is31fl32xx: add support for is31fl3236a
+  dt-bindings: leds: leds-is31fl32xx: Add powerdown-gpios property
+  leds: is31fl32xx: Add powerdown pin to exit hardware shutdown mode
+  leds: is31f132xx: Fix missing brightness_steps for is31f13236
+
+ .../bindings/leds/issl,is31fl32xx.yaml        | 187 ++++++++++++++++++
+ .../bindings/leds/leds-is31fl32xx.txt         |  53 -----
+ drivers/leds/leds-is31fl32xx.c                |   8 +
+ 3 files changed, 195 insertions(+), 53 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/leds/issl,is31fl32xx.yaml
+ delete mode 100644 Documentation/devicetree/bindings/leds/leds-is31fl32xx.txt
 
 -- 
-Best regards,
-Xilin Wu <sophon@radxa.com>
+2.53.0
+
