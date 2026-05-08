@@ -1,92 +1,62 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F32F396579
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 11:17:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C93392C20;
+	Fri,  8 May 2026 11:18:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778239079; cv=none; b=TzANJVh/gxSnuQLDmlc8a0YI2LsGDU/YVoD9RD0UD8l//fYiuKHG0HqNjC/P2F87ZUI1lSqiB9IKAKzlxAD/WIuAYDIDvw2gcnt1xekyM48lvPihSln/rm2GC9UrFo0URMcn2VAMtViwwD3ZMiFcXpQltHYHgEVdsqebAe0X1Dg=
+	t=1778239093; cv=none; b=cLbL2zeGlKy3/3tN5sGJK9iYISIQGUuEr5bhHJc/jFzWQAyBRv1ncwZI89OEUTQz72+A65V+kOkiwDJRbDRBYTaxhVMWSIDHyWnAHRUssaS9cD9wYbUX3CcdOJkR6zR/U467QYDYaHxOTmSinJry+qo0Y2V8yMtFSO4Ixt3D+sI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778239079; c=relaxed/simple;
-	bh=6rePoYg9zZjfRvgAGXJYtlK8ma8tlX/oIEwFq/4VEQw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ROlfKYeRvSH6o37vzOvjo7Wh7DbURECAM8tyCtyqdKSNmw3nBbUjvdaPp1Ljse8QXv3l+7U4QbA7QdurYvYU4dAuZxxLU4NYCx9f8wTye3rFxso1a3oTqMEYAD9a/lu2rmSRk4c8jU3Dem+oZQhcRdN0fMQv8pL8kLlab0CWcO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RAeqt9Jn; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778239093; c=relaxed/simple;
+	bh=oA+QkJ6oUbumc1ykPwgnnKxFhD0ovXrsMuwJ6dEAcws=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XammpsmSBgDH2ttftzqlqiLNliohqzFvKXgKBm4FrfbKoT76savwF1+dwNHdFgXy7pWYGGIKjh9wGcmunP+PjPUuatnurQ2aUiWrRcUL86eMm5b4joQAve8WsJdNSUHjQ8IotthgJ2gqeWcBkPI0gIFa1QcBDIm1Kf3ncqXmr3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=ulgyukbF; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RAeqt9Jn"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-43d77f6092eso1217705f8f.2
-        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 04:17:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778239073; x=1778843873; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=h4xhery0lAk3gv+PVUgTZeq25ctOn5hBwj4+jcbkRck=;
-        b=RAeqt9JnI359yOeHb56Mndex4o97DAYwFkW6zz+8jvDyypg07UqyiiJlv8ai843OB1
-         tdGN7j3zRPINVAjEIpVQUvjMzam7jq6x9fhNtRy5eXuejRR9uB1C+DZisCI38jYpp+aH
-         oxHgMLHgXmCuaKqzZZX7RpzUCDHwCfb4hwEf7tvAN2FcDFTRtu4Kxjl5I8UClzSX+z53
-         rHf3yW9gWqRkSYiW9tM927XJIwVtpEz++iNRpW46bPxj97Rt1WibYehLlcioPa++HLIb
-         vXAsvuRVp9NE/ybOYrCAV4ZM/nh7JGCW3inIughoh7s7Jg/87An5UkG6HikaHZlTmUDy
-         5/Ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778239073; x=1778843873;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=h4xhery0lAk3gv+PVUgTZeq25ctOn5hBwj4+jcbkRck=;
-        b=fkeR4y7y0kffEZeqfrTY5QJbvucUj3NCpWWWGxBkKpsNfD6Ql6BG72JMREsCXe6Ju2
-         1qXzwhmfqdKkL4XElgwxpc10SdybZq+HFGn59OSfkgzvFapOHyU9MDNGDwmPXf9hDv7q
-         Ran9kA9fKuplyOS8ncFWLIXrawst+eacmQ9F7gCto5Ek3V/eA1MS3WfduGrR0T5itM2T
-         JxOYtYukIFHnsY5WU+lvqNdDXHETmamhQxdxDqarwcVVJNJ677RUigEiQMDCGl8mNyuF
-         jp5FEBfGiTOQmaa0CgwLZbaauI23ZNk6BxWANyEl7X71LjMTHBBJTAPuuVDRPCZpbhnN
-         v1YA==
-X-Forwarded-Encrypted: i=1; AFNElJ+9fOu3Pn76q570LsMpuT9DFjh//mGheMX0QS/NIczjK8/b0IPIDd3+0M9K/sdXIx3RlXj6tQ9G3mTy@vger.kernel.org
-X-Gm-Message-State: AOJu0YxyFnpPAXbCdrpPIS51SJQKHt8qaSjWpGT4ItC6026xJwMcU5TT
-	k+1F1v72ITAlZKOrtZ5U5G4MlE+ky1Q8LlaL7JIE3rO0rtf1J2J4bXIt
-X-Gm-Gg: Acq92OEYum3bWH+tpcg9hSnWzRWEwQI25Fg+J2BGfyy+dAUtDY7+IWXHuCFtA0hIdeK
-	pi3lubd8Osry3vPMzf1qvSLiBUItn/9VfHv30TcqyE+1VKs7gvcvqlxNJ8zkBS0ymKy8ruhoz66
-	mWMs8b9iyCC0jbnsvxmfrb0HqYAzBPdMdP+CB5JOQ4P9Nj70Ao73KksurvbpRx3T3l95OzM8NAO
-	dfN5B7Oy4GOkzVBVBHnoFgQYRJSHPQkWHpJlyDh+RyhUcWj9WlK6/5YPwTNv4+37bJLx4BsIOPj
-	OGmJ3khWa8UcVyz95cjzLFb/aFTyFEn7RWDbvs8ssoiLhkxmSfVRg6YCFta3Wi8alHe4ZTBbdZx
-	t1nvJgg6Jnjsp7fuuRuHOM45AowLcJuOHszG80FNIn1j/tvx4Mx7tdnD44l8P/4EOvjAQm9v79h
-	izz6L27BwHOswxUS70r1VaRyD9KQbT3W3M9uVBftG/WSNfpUoju1Xn23wArFE0+Upwl4XnnYRTN
-	+PqdM6vfaz9vSYH6yxm52y3+guWh429VZg6zNdURg1l7IuR
-X-Received: by 2002:a05:6000:4010:b0:44b:aca1:f480 with SMTP id ffacd0b85a97d-4515a6c3361mr18785764f8f.8.1778239072877;
-        Fri, 08 May 2026 04:17:52 -0700 (PDT)
-Received: from iku.Home ([2a06:5906:61b:2d00:74ae:919a:e57c:bd9c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-454916df968sm3535563f8f.25.2026.05.08.04.17.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 08 May 2026 04:17:52 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: dri-devel@lists.freedesktop.org,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg@gmail.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v2 4/4] drm: renesas: rz-du: Add support for RZ/T2H SoC
-Date: Fri,  8 May 2026 12:17:44 +0100
-Message-ID: <20260508111744.771659-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260508111744.771659-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260508111744.771659-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="ulgyukbF"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 648BGhyZ63763949, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1778239003; bh=RpziKj4et8rStZxAiwxuwI5rcoDYU7M+cPSWungKGpY=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	b=ulgyukbFjXz/tTVCU0lp+7lh91MUdpxzYD/r9PnY8JyQye42U3dsmZ0nqfDQmlNkf
+	 acmDvpd8rEW81M1ShaJnJ2eoXuww8dNPqQ6RBNaGeq5Cf1r3MR3nUMtWnsAmk1ebiI
+	 yfDwfswwRwRBku27v0x1mWpKBBXBoLD/GwBn3EE1JnKCU++OSOVSWUl4CV26c4f7Fh
+	 AnCzV0H1No1xIVaUi7T77auqvQZr8hXTvuNJzMiSS4MbvQZRE8D5L9mxDXgSgW64xn
+	 3futw4Ut05k8NN8GQt4mD0P2WVABZGmMUVunE4R+72IaSVqha34zWVMiGVV0DwDMov
+	 KJ8H/6hWoPqXA==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.27/5.94) with ESMTPS id 648BGhyZ63763949
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 8 May 2026 19:16:43 +0800
+Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.10; Fri, 8 May 2026 19:16:43 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Fri, 8 May 2026 19:16:42 +0800
+Received: from cn1dhc-k02 (172.21.252.101) by RTKEXHMBS06.realtek.com.tw
+ (10.21.1.56) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Fri, 8 May 2026 19:16:42 +0800
+From: Yu-Chun Lin <eleanor.lin@realtek.com>
+To: <mturquette@baylibre.com>, <sboyd@kernel.org>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <p.zabel@pengutronix.de>,
+        <cylee12@realtek.com>, <afaerber@suse.com>, <jyanchou@realtek.com>
+CC: <devicetree@vger.kernel.org>, <linux-clk@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+        <linux-realtek-soc@lists.infradead.org>, <james.tai@realtek.com>,
+        <cy.huang@realtek.com>, <stanley_chang@realtek.com>,
+        <eleanor.lin@realtek.com>, <bmasney@redhat.com>
+Subject: [PATCH v7 05/10] clk: realtek: Add support for gate clock
+Date: Fri, 8 May 2026 19:16:36 +0800
+Message-ID: <20260508111641.3192177-6-eleanor.lin@realtek.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260508111641.3192177-1-eleanor.lin@realtek.com>
+References: <20260508111641.3192177-1-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -94,121 +64,185 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Cheng-Yu Lee <cylee12@realtek.com>
 
-The RZ/T2H (R9A09G077) SoC includes a DU with a DPI interface,
-supporting resolutions up to WXGA with two RPFs for layer blending.
-Unlike earlier RZ/G2L SoCs, RZ/T2H requires explicit assertion of a
-DPI output-enable signal (DU_MCR0_DPI_EN) during CRTC startup.
+Introduce clk_regmap_gate_ops supporting enable, disable, is_enabled, and
+for standard regmap gate clocks.
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Add clk_regmap_gate_ro_ops as a read-only variant exposing only is_enabled.
+
+Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
+Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
 ---
-v1->v2:
-- Added Reviewed-by tag from Laurent Pinchart.
----
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c |  7 ++++++-
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  | 14 ++++++++++++++
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  | 10 ++++++++++
- 3 files changed, 30 insertions(+), 1 deletion(-)
+ drivers/clk/realtek/Makefile          |  2 +
+ drivers/clk/realtek/clk-regmap-gate.c | 70 +++++++++++++++++++++++++++
+ drivers/clk/realtek/clk-regmap-gate.h | 65 +++++++++++++++++++++++++
+ 3 files changed, 137 insertions(+)
+ create mode 100644 drivers/clk/realtek/clk-regmap-gate.c
+ create mode 100644 drivers/clk/realtek/clk-regmap-gate.h
 
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
-index 48065f4952a3..d0f01aa642a7 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
-@@ -28,6 +28,7 @@
- #include "rzg2l_du_vsp.h"
+diff --git a/drivers/clk/realtek/Makefile b/drivers/clk/realtek/Makefile
+index a89ad77993e9..74375f8127ac 100644
+--- a/drivers/clk/realtek/Makefile
++++ b/drivers/clk/realtek/Makefile
+@@ -2,5 +2,7 @@
+ obj-$(CONFIG_RTK_CLK_COMMON) += clk-rtk.o
  
- #define DU_MCR0			0x00
-+#define DU_MCR0_DPI_EN		BIT(0)
- #define DU_MCR0_DI_EN		BIT(8)
- 
- #define DU_DITR0		0x10
-@@ -217,8 +218,12 @@ static void rzg2l_du_crtc_put(struct rzg2l_du_crtc *rcrtc)
- static void rzg2l_du_start_stop(struct rzg2l_du_crtc *rcrtc, bool start)
- {
- 	struct rzg2l_du_device *rcdu = rcrtc->dev;
-+	u32 val = DU_MCR0_DI_EN;
- 
--	writel(start ? DU_MCR0_DI_EN : 0, rcdu->mmio + DU_MCR0);
-+	if (start && rzg2l_du_has(rcdu, RZG2L_DU_FEATURE_DPIO_OE))
-+		val |= DU_MCR0_DPI_EN;
+ clk-rtk-y += common.o
 +
-+	writel(start ? val : 0, rcdu->mmio + DU_MCR0);
- }
- 
- static void rzg2l_du_crtc_start(struct rzg2l_du_crtc *rcrtc)
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-index 3b7162c6e1f4..fc55dfffebaf 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-@@ -63,10 +63,24 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a09g057_info = {
- 	},
- };
- 
-+static const struct rzg2l_du_device_info rzg2l_du_r9a09g077_info = {
-+	.channels_mask = BIT(0),
-+	.routes = {
-+		[RZG2L_DU_OUTPUT_DPAD0] = {
-+			.possible_outputs = BIT(0),
-+			.port = 0,
-+		},
-+	},
-+	.features = RZG2L_DU_FEATURE_DPIO_OE,
-+	.mode_clock_min = 5000,
-+	.mode_clock_max = 100000,
-+};
+ clk-rtk-y += clk-pll.o
++clk-rtk-y += clk-regmap-gate.o
+ clk-rtk-y += freq_table.o
+diff --git a/drivers/clk/realtek/clk-regmap-gate.c b/drivers/clk/realtek/clk-regmap-gate.c
+new file mode 100644
+index 000000000000..0db0057215e3
+--- /dev/null
++++ b/drivers/clk/realtek/clk-regmap-gate.c
+@@ -0,0 +1,70 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2017-2026 Realtek Semiconductor Corporation
++ * Author: Cheng-Yu Lee <cylee12@realtek.com>
++ */
 +
- static const struct of_device_id rzg2l_du_of_table[] = {
- 	{ .compatible = "renesas,r9a07g043u-du", .data = &rzg2l_du_r9a07g043u_info },
- 	{ .compatible = "renesas,r9a07g044-du", .data = &rzg2l_du_r9a07g044_info },
- 	{ .compatible = "renesas,r9a09g057-du", .data = &rzg2l_du_r9a09g057_info },
-+	{ .compatible = "renesas,r9a09g077-du", .data = &rzg2l_du_r9a09g077_info },
- 	{ /* sentinel */ }
- };
- 
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-index 885558eb9547..baf076d69cda 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-@@ -20,6 +20,8 @@
- struct device;
- struct drm_property;
- 
-+#define RZG2L_DU_FEATURE_DPIO_OE	BIT(0)	/* Has DPIO output enable control */
++#include <linux/bits.h>
++#include <linux/clk-provider.h>
++#include <linux/export.h>
++#include <linux/regmap.h>
++#include "clk-regmap-gate.h"
 +
- enum rzg2l_du_output {
- 	RZG2L_DU_OUTPUT_DSI0,
- 	RZG2L_DU_OUTPUT_DPAD0,
-@@ -46,12 +48,14 @@ struct rzg2l_du_output_routing {
-  * @routes: array of CRTC to output routes, indexed by output (RZG2L_DU_OUTPUT_*)
-  * @mode_clock_min: minimum pixel clock in kHz
-  * @mode_clock_max: maximum pixel clock in kHz
-+ * @features: device features (RZG2L_DU_FEATURE_*)
-  */
- struct rzg2l_du_device_info {
- 	unsigned int channels_mask;
- 	struct rzg2l_du_output_routing routes[RZG2L_DU_OUTPUT_MAX];
- 	u32 mode_clock_min;
- 	u32 mode_clock_max;
-+	unsigned int features;
- };
- 
- #define RZG2L_DU_MAX_CRTCS		1
-@@ -77,6 +81,12 @@ static inline struct rzg2l_du_device *to_rzg2l_du_device(struct drm_device *dev)
- 	return container_of(dev, struct rzg2l_du_device, ddev);
- }
- 
-+static inline bool rzg2l_du_has(struct rzg2l_du_device *rcdu,
-+				unsigned int feature)
++static int clk_regmap_gate_enable(struct clk_hw *hw)
 +{
-+	return rcdu->info->features & feature;
++	struct clk_regmap_gate *clkg = to_clk_regmap_gate(hw);
++	unsigned int mask;
++	unsigned int val;
++
++	mask = BIT(clkg->bit_idx);
++	val = BIT(clkg->bit_idx);
++
++	if (clkg->write_en) {
++		mask |= BIT(clkg->bit_idx + 1);
++		val |= BIT(clkg->bit_idx + 1);
++	}
++
++	return regmap_update_bits(clkg->clkr.regmap, clkg->gate_ofs, mask, val);
 +}
 +
- const char *rzg2l_du_output_name(enum rzg2l_du_output output);
- 
- #endif /* __RZG2L_DU_DRV_H__ */
++static void clk_regmap_gate_disable(struct clk_hw *hw)
++{
++	struct clk_regmap_gate *clkg = to_clk_regmap_gate(hw);
++	unsigned int mask;
++	unsigned int val;
++
++	mask = BIT(clkg->bit_idx);
++	val = 0;
++
++	if (clkg->write_en) {
++		mask |= BIT(clkg->bit_idx + 1);
++		val |= BIT(clkg->bit_idx + 1);
++	}
++
++	regmap_update_bits(clkg->clkr.regmap, clkg->gate_ofs, mask, val);
++}
++
++static int clk_regmap_gate_is_enabled(struct clk_hw *hw)
++{
++	struct clk_regmap_gate *clkg = to_clk_regmap_gate(hw);
++	int ret;
++	u32 val;
++
++	ret = regmap_read(clkg->clkr.regmap, clkg->gate_ofs, &val);
++	if (ret < 0)
++		return ret;
++
++	return !!(val & BIT(clkg->bit_idx));
++}
++
++const struct clk_ops rtk_clk_regmap_gate_ops = {
++	.enable     = clk_regmap_gate_enable,
++	.disable    = clk_regmap_gate_disable,
++	.is_enabled = clk_regmap_gate_is_enabled,
++};
++EXPORT_SYMBOL_NS_GPL(rtk_clk_regmap_gate_ops, "REALTEK_CLK");
++
++const struct clk_ops rtk_clk_regmap_gate_ro_ops = {
++	.is_enabled = clk_regmap_gate_is_enabled,
++};
++EXPORT_SYMBOL_NS_GPL(rtk_clk_regmap_gate_ro_ops, "REALTEK_CLK");
+diff --git a/drivers/clk/realtek/clk-regmap-gate.h b/drivers/clk/realtek/clk-regmap-gate.h
+new file mode 100644
+index 000000000000..711e168071f6
+--- /dev/null
++++ b/drivers/clk/realtek/clk-regmap-gate.h
+@@ -0,0 +1,65 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (C) 2017-2026 Realtek Semiconductor Corporation
++ * Author: Cheng-Yu Lee <cylee12@realtek.com>
++ */
++
++#ifndef __CLK_REALTEK_CLK_REGMAP_GATE_H
++#define __CLK_REALTEK_CLK_REGMAP_GATE_H
++
++#include "common.h"
++
++struct clk_regmap_gate {
++	struct clk_regmap clkr;
++	int gate_ofs;
++	u8 bit_idx;
++	u32 write_en : 1;
++};
++
++#define __clk_regmap_gate_hw(_p) __clk_regmap_hw(&(_p)->clkr)
++
++#define __CLK_REGMAP_GATE(_name, _parent, _ops, _flags, _ofs, _bit_idx,     \
++			  _write_en)                                        \
++	struct clk_regmap_gate _name = {                                    \
++		.clkr.hw.init = CLK_HW_INIT(#_name, _parent, _ops, _flags), \
++		.gate_ofs = _ofs,                                           \
++		.bit_idx = _bit_idx,                                        \
++		.write_en = _write_en,                                      \
++	}
++
++#define CLK_REGMAP_GATE(_name, _parent, _flags, _ofs, _bit_idx, _write_en)    \
++	__CLK_REGMAP_GATE(_name, _parent, &rtk_clk_regmap_gate_ops, _flags, _ofs, \
++			  _bit_idx, _write_en)
++
++#define CLK_REGMAP_GATE_RO(_name, _parent, _flags, _ofs, _bit_idx, _write_en) \
++	__CLK_REGMAP_GATE(_name, _parent, &rtk_clk_regmap_gate_ro_ops, _flags,    \
++			  _ofs, _bit_idx, _write_en)
++
++#define __CLK_REGMAP_GATE_NO_PARENT(_name, _ops, _flags, _ofs, _bit_idx,     \
++				    _write_en)                               \
++	struct clk_regmap_gate _name = {                                     \
++		.clkr.hw.init = CLK_HW_INIT_NO_PARENT(#_name, _ops, _flags), \
++		.gate_ofs = _ofs,                                            \
++		.bit_idx = _bit_idx,                                         \
++		.write_en = _write_en,                                       \
++	}
++
++#define CLK_REGMAP_GATE_NO_PARENT(_name, _flags, _ofs, _bit_idx, _write_en)    \
++	__CLK_REGMAP_GATE_NO_PARENT(_name, &rtk_clk_regmap_gate_ops, _flags, _ofs, \
++				    _bit_idx, _write_en)
++
++#define CLK_REGMAP_GATE_NO_PARENT_RO(_name, _flags, _ofs, _bit_idx, _write_en) \
++	__CLK_REGMAP_GATE_NO_PARENT(_name, &rtk_clk_regmap_gate_ro_ops, _flags,    \
++				    _ofs, _bit_idx, _write_en)
++
++static inline struct clk_regmap_gate *to_clk_regmap_gate(struct clk_hw *hw)
++{
++	struct clk_regmap *clkr = to_clk_regmap(hw);
++
++	return container_of(clkr, struct clk_regmap_gate, clkr);
++}
++
++extern const struct clk_ops rtk_clk_regmap_gate_ops;
++extern const struct clk_ops rtk_clk_regmap_gate_ro_ops;
++
++#endif /* __CLK_REALTEK_CLK_REGMAP_GATE_H */
 -- 
-2.54.0
+2.34.1
 
