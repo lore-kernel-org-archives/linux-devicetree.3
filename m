@@ -1,132 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-m49218.qiye.163.com (mail-m49218.qiye.163.com [45.254.49.218])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC6E2F8E8E;
-	Fri,  8 May 2026 01:32:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F31EF21CA02;
+	Fri,  8 May 2026 01:37:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778203939; cv=none; b=nGQzRd8ZVCUgo/omeZC6XPHoPtpxLwqXF10IzDQso4Pz0nR3qXKIUc7O541K8lChFYJUVDAaHLndQUNN+8RZf6zh0v7oZFYCeeRRJhqbUehxyn1ps5D0oNdx+N7KVZWO9g50dnRoG0ct9IoS4bigx47ZcYbHec7rU9+ERfCRbiE=
+	t=1778204238; cv=none; b=ivwsgSz9+a5zNru73EVoMorirzPzAgtev7I4eQahKYTOGthXR1Nq5uR7CEjuTgj7Wm3R6ojLxDGY0TxXWmUkqj7m1aHQaQMF8UM31IVLN63ve+VZ2/aKAKGGMv/hoU1YbSyGk9jvmQVe2YnhySvME1ae2QujdBnrIR97gCc18JI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778203939; c=relaxed/simple;
-	bh=QP0xG48S9tXmtCpI+YjP2zIBDW86qbdVELRqOAKilqM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ajnXr/LbM7ff/1Db2zfyhJYypwSz2bldbPmzLsrFARqoKR0woraX5D5WJMJ/20yuT1c1f6oZOyrB6HQSax5FsgxyUQrvQELD1frIfrQbe4lZQrcX4af1F5WBAQ0Wz9jl9BHttVoX/NtfR2XCvTheT8HCNniEm2VPT4OemM8AEAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NPtgybFn; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778204238; c=relaxed/simple;
+	bh=QAM9SpNeWcI1nUyZxqgGlepnoFxLFbGQ4Aa2onxagLk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Jp86OHed8vtrYnQqa+jf0s/M6QF+MnDSDsfEQhr6rnTD765auBIiJGf4Ei9sBUSS8MnSr5TBiM1t8PT0ejy1pWPIjmM/K9h6PZrDXGN2ws3uGWrJaJeGSEOQdZ72sFhZY8xMkc+s+hKaffzm8W9xaZ4i2SzbfxTbqorxKbeTjMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=AcZjUBiy; arc=none smtp.client-ip=45.254.49.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NPtgybFn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AE15C2BCB2;
-	Fri,  8 May 2026 01:32:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778203938;
-	bh=QP0xG48S9tXmtCpI+YjP2zIBDW86qbdVELRqOAKilqM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=NPtgybFnxiU/9wqeAjmLiX5jcpkh22KSrUmRWWc0ifwYDfYI5gyFBGwRIM2DZWZ5R
-	 shY1ZvtBAJTVNZs+G9H1+Jixrqyazmct2tfnZNPizRWaTh117NaqjFwo3rzZzFYAo2
-	 g0LzwlQDrL6HZ/LO5JD8KtZvLsuJmjZyl09ax92f6tEKDhuBtfotn2m390TJLJwF1y
-	 EJmhCPrNZaJSdSxyyEMA6T7JrmeM88MgwutZgQHhF2qF2dCfvMnf58uLHCj/yBiT18
-	 mftY56a1uPxo47dT3bpTwaKyvCPEyLqvN6s41QIPpaM72gFxzgTbUkup1Q+0eeKaLc
-	 ykXfd87BDzYTw==
-Date: Thu, 7 May 2026 20:32:13 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Luca Weiss <luca.weiss@fairphone.com>
-Cc: Georgi Djakov <djakov@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Mike Tipton <mike.tipton@oss.qualcomm.com>, 
-	Taniya Das <taniya.das@oss.qualcomm.com>, ~postmarketos/upstreaming@lists.sr.ht, 
-	phone-devel@vger.kernel.org, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v2 1/5] interconnect: Add devm_of_icc_get_by_index() as
- exported API for users
-Message-ID: <af08-zMGzSSsw_NR@baldur>
-References: <20260501-milos-camcc-icc-v2-0-bb83c1256cc3@fairphone.com>
- <20260501-milos-camcc-icc-v2-1-bb83c1256cc3@fairphone.com>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="AcZjUBiy"
+Received: from [172.16.12.43] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 3d8e35828;
+	Fri, 8 May 2026 09:37:09 +0800 (GMT+08:00)
+Message-ID: <dd63b7f7-e891-49f1-a795-861d11c55e48@rock-chips.com>
+Date: Fri, 8 May 2026 09:37:09 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260501-milos-camcc-icc-v2-1-bb83c1256cc3@fairphone.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 01/10] dt-bindings: display: rockchip: analogix-dp:
+ Expand clock-names "hclk" for the third clock
+To: Heiko Stuebner <heiko@sntech.de>, hjc@rock-chips.com,
+ andy.yan@rock-chips.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
+ cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
+ dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
+ dianders@chromium.org, m.szyprowski@samsung.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260507112948.1115003-1-damon.ding@rock-chips.com>
+ <20260507112948.1115003-2-damon.ding@rock-chips.com>
+ <6496645.8F6SAcFxjW@phil> <4528155.7s5MMGUR32@phil>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <4528155.7s5MMGUR32@phil>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e053b3f2703a3kunm1660029036bf9
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGkkeVh5KS0sYTx9CTktMSlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=AcZjUBiyGiz3rie6u5vJ2JopoUch7T3yj8wOtjUtZVppBrALf6lZ9KkR60NM7+TvXv3TdxiPfBRhjsoUTKsslGeSQWWSSudjzo89u+oReBsxSUu72iTVYk5kfduS5SbTrBfwMl0OLw7cvi/YTZtLHr2F2eKmEYQz9peqCUnRqRI=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=BUVBUOz5sUDHUQetR7revEkMQrBOhxD0zn0dGzL4myk=;
+	h=date:mime-version:subject:message-id:from;
 
-On Fri, May 01, 2026 at 11:18:29AM +0200, Luca Weiss wrote:
-> Users can use devm version of of_icc_get_by_index() to benefit from
-> automatic resource release.
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Hi Heiko,
 
-Georgi, can I have an ack on this, or an immutable branch and a ping
-once it's available?
+On 5/7/2026 7:42 PM, Heiko Stuebner wrote:
+> Am Donnerstag, 7. Mai 2026, 13:40:09 Mitteleuropäische Sommerzeit schrieb Heiko Stuebner:
+>> Hi Damon,
+>>
+>> Am Donnerstag, 7. Mai 2026, 13:29:39 Mitteleuropäische Sommerzeit schrieb Damon Ding:
+>>> The RK3588 eDP controller needs the video datapath clock "hclk" to work
+>>> well. Previously, it works without explicitly adding this clock because
+>>> the 'rockchip,vo-grf = <&vo1_grf>' property implicitly enables HCLK_VO1.
+>>>
+>>> Fixes: f855146263b1 ("dt-bindings: display: rockchip: analogix-dp: Add support for RK3588")
+>>> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+>>> ---
+>>>   .../bindings/display/rockchip/rockchip,analogix-dp.yaml       | 4 +++-
+>>>   1 file changed, 3 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>>> index d99b23b88cc5..d2bc8636b626 100644
+>>> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>>> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>>> @@ -26,7 +26,9 @@ properties:
+>>>       items:
+>>>         - const: dp
+>>>         - const: pclk
+>>> -      - const: grf
+>>> +      - enum:
+>>> +          - grf
+>>> +          - hclk
+>>
+>> are you sure about that?
+>>
+>> The edp uses the vo1-grf - so what enables its clock?
+>> For example the hdmi controllers on rk3588 also use the vo1-grf and
+>> explicitly handle that clock.
+>>
+>> So who does it for the eDP?
+> 
+> Ah, ... found the hclk_vo1 in the following patches.
+> 
+> Still the binding commit message could use some more words about what that
+> clock is, and why it can "replace" the GRF clock from earlier SoCs.
+> 
+> 
 
-Thanks,
-Bjorn
+Yes, I will add more descriptions about this in next version. :-)
 
-> ---
->  drivers/interconnect/core.c  | 20 ++++++++++++++++++++
->  include/linux/interconnect.h |  6 ++++++
->  2 files changed, 26 insertions(+)
-> 
-> diff --git a/drivers/interconnect/core.c b/drivers/interconnect/core.c
-> index 8569b78a1851..bc2e416dbcb2 100644
-> --- a/drivers/interconnect/core.c
-> +++ b/drivers/interconnect/core.c
-> @@ -443,6 +443,26 @@ struct icc_path *devm_of_icc_get(struct device *dev, const char *name)
->  }
->  EXPORT_SYMBOL_GPL(devm_of_icc_get);
->  
-> +struct icc_path *devm_of_icc_get_by_index(struct device *dev, int idx)
-> +{
-> +	struct icc_path **ptr, *path;
-> +
-> +	ptr = devres_alloc(devm_icc_release, sizeof(*ptr), GFP_KERNEL);
-> +	if (!ptr)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	path = of_icc_get_by_index(dev, idx);
-> +	if (!IS_ERR(path)) {
-> +		*ptr = path;
-> +		devres_add(dev, ptr);
-> +	} else {
-> +		devres_free(ptr);
-> +	}
-> +
-> +	return path;
-> +}
-> +EXPORT_SYMBOL_GPL(devm_of_icc_get_by_index);
-> +
->  /**
->   * of_icc_get_by_index() - get a path handle from a DT node based on index
->   * @dev: device pointer for the consumer device
-> diff --git a/include/linux/interconnect.h b/include/linux/interconnect.h
-> index 4b12821528a6..75a32ad0482e 100644
-> --- a/include/linux/interconnect.h
-> +++ b/include/linux/interconnect.h
-> @@ -47,6 +47,7 @@ struct icc_path *of_icc_get(struct device *dev, const char *name);
->  struct icc_path *devm_of_icc_get(struct device *dev, const char *name);
->  int devm_of_icc_bulk_get(struct device *dev, int num_paths, struct icc_bulk_data *paths);
->  struct icc_path *of_icc_get_by_index(struct device *dev, int idx);
-> +struct icc_path *devm_of_icc_get_by_index(struct device *dev, int idx);
->  void icc_put(struct icc_path *path);
->  int icc_enable(struct icc_path *path);
->  int icc_disable(struct icc_path *path);
-> @@ -79,6 +80,11 @@ static inline struct icc_path *of_icc_get_by_index(struct device *dev, int idx)
->  	return NULL;
->  }
->  
-> +static inline struct icc_path *devm_of_icc_get_by_index(struct device *dev, int idx)
-> +{
-> +	return NULL;
-> +}
-> +
->  static inline void icc_put(struct icc_path *path)
->  {
->  }
-> 
-> -- 
-> 2.54.0
-> 
+Best regards,
+Damon
+
