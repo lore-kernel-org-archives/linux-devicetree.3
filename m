@@ -1,275 +1,813 @@
-Received: from mx0b-00128a01.pphosted.com (mx0b-00128a01.pphosted.com [148.163.139.77])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A3A3264D2;
-	Fri,  8 May 2026 11:12:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.139.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E660364EA4
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 11:13:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.175
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778238743; cv=fail; b=MGzPimKrRemtA40HutMTg65y1Flx4ig6ET6RQtIWyAryptkEw8bShNKy8Y1Gtt/FHkPRLq/jCACKM7yEYtO/4X/HgcdkhL/0ml+io+gs41mr9w/BUWXPVtQKKXS2THfmM8/aQym8vPiqlynAGQwu7RAKnYbX3XyntGvC+PkMbTQ=
+	t=1778238839; cv=pass; b=QlaciQrSKSFGyqRbEJ62LGvgIw0BsfHHda2eF16pSkqSu20BH+W63gX2rbS//3la0/HCkfApJs0lP4zJCWbhh4dTtKZDviDFx5EEPCqTvVrRE0puLCK1SiBJpJYEaOwQq3wzGFyAHaNBCVuEaF+XxUeQH3hy+kGdp/xF7jBmdfo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778238743; c=relaxed/simple;
-	bh=7u/6a7khQPDd893TCUaHFt1/ZJBZQhT/QH2fDwarH1E=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Ojd6BSjd5+UKUULkT/M7Mag2pgBFxjUPp/0+NI5qgL7ZgxJeVNfUdbHZorWJfuiV9Q8mjEhLnfrg6jFDl1pHgIuUrYjG5OeAswEg0cVVwmXmH6+2x6RWxhnVUlrbwHpYEnHcJus7KQPQtWGzec5lm6jCuVOWa6Vxwk+UnZZxnus=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=DE7+aBkU; arc=fail smtp.client-ip=148.163.139.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1778238839; c=relaxed/simple;
+	bh=XGZ6itGAHG/GC+y8tIx0hD5pNIjcFAkuMPxSNm5qrTA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=o8UFp1bYG6lS4RhtTw1ADIn8npNLZxr88NlwF53iQuiQSLm/oJDNT0zEBG19HXlodNGABBTkRiTlMS9kLIxonlTGYPJnVocK+zNhNu1QFvEmfvAIqcowPcVD9M2h8l14Duv1+xLf0JPlRT2r8GeXB8vY1fSr0eNT/DWKB5wPVyk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BpYQqgQW; arc=pass smtp.client-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="DE7+aBkU"
-Received: from pps.filterd (m0375854.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6488fjY91362963;
-	Fri, 8 May 2026 07:11:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=7u/6a
-	7khQPDd893TCUaHFt1/ZJBZQhT/QH2fDwarH1E=; b=DE7+aBkUjCYR96U3/t0cW
-	+cMWVhiaaLnDYRzu7dccs8ah3MN29S89D5o4Abq2f521tuqtspcJy6CJeNeDM18s
-	o3Rwyq1CmItnV0SPvl4GvUdIdhsfnrvV52t0t/s6jLgvJvrCVyQgMyijzVQh1067
-	nxQS4nSGjvK6CSilvmozel3WD7hIgWfQ/RqH6W9PyxJi+e5zrlI8+D1lE+rp3Dan
-	kAaTDa2EkNJ+kYgVyUnZEwA+0TcyBwGBZyPC01vMdzdf/MUBS18DDyMirI1be3wY
-	8Zsbhqh6E8yjYq2qEQQKLy8YdBNTyzhmiaH5vyBlGoUwdJv0ZMQn7OPS5Bu1Xvq6
-	A==
-Received: from sa9pr02cu001.outbound.protection.outlook.com (mail-southcentralusazon11013042.outbound.protection.outlook.com [40.93.196.42])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4e16y39s6x-2
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 08 May 2026 07:11:47 -0400 (EDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mVeS+b2BMIpF4uqgFDpbmEEYMMoiWMXZp1aiU+SF/qlvJ0ociV1TkCPVLyhGNY1xPynbFp5KhBSTf2BvKBCEHRL5E3Hw3vK4PkMmI+micjLq88vkRaYkM991/jzU/PiC5Me0+ly0DEU6yqvv10eucjjQQ9Tg3RWuSgPd7z4hvy287EwVDCBrNHgPHv77YUZ6WL/fPHOfMGYlOBp9RkqILvu2J+QH/HlHsEb4urkzkp+82pMoP5BGq1bY6FfCwnHlbGJoVFXCfOUPwwd/VioYgWWmzK5Rll9cOPTDhFcoqJfWeVGx11dKFfeVSOQCha0u3Yx0+IkDnAZw0YOpDKfjrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7u/6a7khQPDd893TCUaHFt1/ZJBZQhT/QH2fDwarH1E=;
- b=rHn2DXyQk0FEkHKRtgRlOmFYvbYm3ObAtY/bouEoSDlyu+4gIArE2mPpN9goNbCNlWvO9KG27DI8I80jeFEUq74ocD8RVLMPT1fCfOilCpy3PUmk0/Ejs7Lb4yqWnaz8j6JchQbTNTdQyoiLo6ngwdvwuR+v+WAOuWMdvS1baB6yDRvdqSiBEgtMsRH2I+pyeXSN/xgSOjDSvhqBu+XbV37xR3mbYtA6BpXmzp+SdBIIgRjSSECFQ/0kkzgRMGrLTd2Pr+dRNP9z+fXMlZIQgO304Ltu4Id8DNo8LEBkrQrPedBUMsCzPTunZxqTUhnrmDiJl2OXUDh93hedRKaD2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
- dkim=pass header.d=analog.com; arc=none
-Received: from LV9PR03MB8414.namprd03.prod.outlook.com (2603:10b6:408:367::23)
- by CH2PR03MB5335.namprd03.prod.outlook.com (2603:10b6:610:91::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.19; Fri, 8 May
- 2026 11:11:44 +0000
-Received: from LV9PR03MB8414.namprd03.prod.outlook.com
- ([fe80::d661:7c16:d052:cc81]) by LV9PR03MB8414.namprd03.prod.outlook.com
- ([fe80::d661:7c16:d052:cc81%6]) with mapi id 15.20.9891.008; Fri, 8 May 2026
- 11:11:44 +0000
-From: "Sabau, Radu bogdan" <Radu.Sabau@analog.com>
-To: Jonathan Cameron <jic23@kernel.org>
-CC: Lars-Peter Clausen <lars@metafoo.de>,
-        "Hennerich, Michael"
-	<Michael.Hennerich@analog.com>,
-        David Lechner <dlechner@baylibre.com>,
-        "Sa,
- Nuno" <Nuno.Sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
-        Rob Herring
-	<robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>,
-        =?utf-8?B?VXdlIEtsZWluZS1Lw7ZuaWc=?=
-	<ukleinek@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
-	<broonie@kernel.org>,
-        Linus Walleij <linusw@kernel.org>,
-        Bartosz Golaszewski
-	<brgl@kernel.org>,
-        Philipp Zabel <p.zabel@pengutronix.de>,
-        Jonathan Corbet
-	<corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
-        "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-        "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
-Subject: RE: [PATCH v9 4/6] iio: adc: ad4691: add SPI offload support
-Thread-Topic: [PATCH v9 4/6] iio: adc: ad4691: add SPI offload support
-Thread-Index: AQHc2Ip7GFfgCljdvUysP75/UKS6EbYCetZwgAA7j4CAAU6mgA==
-Date: Fri, 8 May 2026 11:11:44 +0000
-Message-ID:
- <LV9PR03MB8414B6A36417AEE669021828F73D2@LV9PR03MB8414.namprd03.prod.outlook.com>
-References:
- <20260430-ad4692-multichannel-sar-adc-driver-v9-0-33e439e4fb87@analog.com>
-	<20260430-ad4692-multichannel-sar-adc-driver-v9-4-33e439e4fb87@analog.com>
-	<LV9PR03MB8414E7E034F79900A6595750F73C2@LV9PR03MB8414.namprd03.prod.outlook.com>
- <20260507161111.555bba75@jic23-huawei>
-In-Reply-To: <20260507161111.555bba75@jic23-huawei>
-Accept-Language: en-US
-Content-Language: en-GB
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: LV9PR03MB8414:EE_|CH2PR03MB5335:EE_
-x-ms-office365-filtering-correlation-id: 2ce87519-9497-4c00-4a0f-08deacf296a8
-x-ld-processed: eaa689b4-8f87-40e0-9c6f-7228de4d754a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|376014|7416014|38070700021|22082099003|18002099003|56012099003;
-x-microsoft-antispam-message-info:
- tsVYEBQ77IBX6PJw2XsVvlUxehLs+uVYSOnBj0lhOwc9xf1DAcWnKsmw6nhmjImkLxjTz5WmUqUjmLXSrMLHAH2HRrDA4htp5Bt7e+iHsuW/EBf6G9xFLSNepa3sGAmimg/zvOzeDJagJLlT5A1A58ys+3l/BOhV2xEGm+dTcczsdzU2IRmXNt1Zd5Zo5rjreI0NdqMSWsF5220LHLrcQHd6paESIsa/o/limbY4pNZVHfeLHfNFb2VnwWZ8NwzyNYC0zEKibJIOJVEUTlpd7W14jjXRAF1hFKISlk8D7TbLiZ2Jl8sk9bj2mXUTuA2PkTcSDa4XXTqC1YBtUISOfDwyWqUctffjrCHDfoIFR29c8FWB1N9Dp2181tnZFHnGB2zDQ3UrMNnFC5L15hOOLgcZe2vRxkiaeVs49HvDH6thX4ZYDUhgAQg1DFtET5ZtnHUesKwi9Thl8EuLGst11IA9IW/ixm5idmRBpO6Y2EWXRjdEtr+xBSTXL51Vr3fu1bRmA2puS0a7iIzWRet+vKIbF7prgdAnmn2i7h9t0AChfTiQu/jYgytcAfkndfhkUjhe/0XReaGb6VyiNFiDeQHB/ingfU6Bg3NpsT8L0BTi2Yp/RRuOHumNDCceVugHTGUc1b2bp1ouvgRPNqHGUx5ziILLS2Hnwh/VGvmv2GJoRS32+V9TC/COCNefvBwGuFeA7xsCTqKbdpWIq4177Yguzrpgc4mPvCfm9JbJjQoxOvcgheOI97QLfResvG6+
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV9PR03MB8414.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(38070700021)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?Vm9uZ1Nzd0g0NndWRlZkM3FSdGVJV3hrSHVlaWxURWVKTU9RaTRCQk9qUEVr?=
- =?utf-8?B?aTdneVYrVS91WjNQcktrV3VBOFVWRUZqMTRnRUdsZmd3OFZPSlRJVDYvanI0?=
- =?utf-8?B?di85SkFGVXlNc2RIYmw3akxacGU5U0RtN3JrOVZXWE5KT0x0MFoyektKVEk1?=
- =?utf-8?B?SHNWb1R0NHM5YjlhekZsdG5oYjM0WXZwRVFhKzBHNGRSVFo5ZlR2SlFyakk0?=
- =?utf-8?B?NGU1NXVjaHFlWkJLNWNuQUlURlNKUVZEZFowQjB4QW1td0YzZGtPS25HZ3cy?=
- =?utf-8?B?dDlnME1iTWo1OGIzNm9tc0pBaFNjVTY4Sk9Oa0s1Uk5YTTExcXJoVWZiT25N?=
- =?utf-8?B?czVVQUgraldqL0NGdUlEMkxzSW1RMXlFMUdsZkRoeisyUUdPdHFzZDFBMlZs?=
- =?utf-8?B?MUVxWlBlWWNNL1poUGhONFlwS2pDdzMrOEg2dkJ4N3BpdXpqVmN2eVJvL2hK?=
- =?utf-8?B?M0NSY1pTWDNjWW9PY2JsQTUxQnRZNVlKRTFWek15dmJnTUtRczdjemxWdXA0?=
- =?utf-8?B?MUVMVkRiRnNEZ3dyWVlNY1U1WGtNUmE4S1NJNWUvRXJjQXgzZ3h3blV1dHlo?=
- =?utf-8?B?cU8rSEJVRTBvcFZjeHJGUVRJVmpzUW9JeTVHVVZ2VVpIMjBoeFBjV1RRdlhJ?=
- =?utf-8?B?ZkIzR2txbnd6UHdhdW1JQktDMkZONmFTUkkvWHVudzVmK1d5Z2VMRDdvQXNF?=
- =?utf-8?B?aGYvL0haVUw4NEt5V1JlcUh5ZS9GZ1RpcFVRS0phNDZ2K2ZHWmUvQnY2RHBn?=
- =?utf-8?B?Sk1DOHVnYXMyL211ajJzL3duck5ZR0FUZTN2RUlWa08zVE5TSlBtbnRHa1FY?=
- =?utf-8?B?N2V6OXlXaURmQWZUZGRKM0NnOUl2cHhEa3V4cndrMXJ1dFB3VVJUc3BMZHZn?=
- =?utf-8?B?alhVSzUvNlJBSElTUW1HT0hIZWp6eFpJcmRDZTcrSUgrZlNGWW42YSt0M1Ev?=
- =?utf-8?B?NkM2MnByRjF3S1A0QXZPOEJCa1dHVGlFR2drNXFDblBoMWgyZHN2clhLUEVH?=
- =?utf-8?B?U1hDUGhIYW1rVHU2NGxLQU5FVUlDbC9VWG1LZWtZT3VaVU8zQVNXem1VZXk3?=
- =?utf-8?B?NzBieHR0emgzQ3hMMDJZNUlIWUxpb2h0UzIwNmF1L1B1VWJhVVF2MnV2b2pF?=
- =?utf-8?B?UTgwNTVIM1prT1ozTDB5eW90ei9iSWpxcnozNEkrN1cyOGRTTjJqL1RtOVZy?=
- =?utf-8?B?dHEwZzk4U3dzVGNKZjk4aSt4WnZhOGZvbHB1NVdqZ1MvQUtjN2Voc2V6MVBD?=
- =?utf-8?B?cHVtcGNHM2ZmenVldUhYNzlIMlpIVU1zQVJzU2R6ait4d3NQalhJemN2Mi9W?=
- =?utf-8?B?M3BTY3FNcitJdEVoYW51ZHYwek9RMmpma3NWbnlJTkJEekhOb1RiNS9idXlQ?=
- =?utf-8?B?cWlSbjZjY1NGWllMR2Z3NGE0SjJuNTV0ejdNcnF0Y0luM2FJWmJCR1dLSUhh?=
- =?utf-8?B?MFNlUFp5K1F5RUZGRUVFQUY4WE1RVmtubS9tTFFnbnVSYk01b0E3bHBPcGRJ?=
- =?utf-8?B?cXoxYm4wY0JxbUlDd3FTNXJ6c1F2NFZjOHNUZVJMc2dkNkhLejVXVUErenp3?=
- =?utf-8?B?d2pwVkUyNGpEYkJBYnFUVTllWmJzMy8rK2YyYStyRDVSWFhIZ1F4c3RMNDFL?=
- =?utf-8?B?aGVYRFNYYkRFUkR0QzFmaHJVcnVZdDFjSitpc1d6ZGJmbWtuTUFCUm43UFZp?=
- =?utf-8?B?M0tGSzR4OHNaT2x0d0RRQ29PTEhJLzFyY1p0VzZHMzg3VFVJM043MEVwT29i?=
- =?utf-8?B?ZWVVVUJEZnkvMVp1WStZSGZJakM0KzNjRXFGYmpTV3VyM1J2YlRURGRpeVhT?=
- =?utf-8?B?aWpxVzNFWW1VVHVKVlk2STZoZ2tORkc2aUhaU2NSNThyTmVkOWcrUkpuN1dJ?=
- =?utf-8?B?RnFqdVF2SUxQV2txQUZ0aDU4a3JVci90K2RSS0duMCs2L1l0Y3IvMnZKa3Qw?=
- =?utf-8?B?ZDJ4ZEZJTWd5OVJ4WWR6bG9jQUU5ZGlYRFV4aU9iYms0TStaM2paZThLY0pH?=
- =?utf-8?B?MHVZS2kwd1BGeENmQlZxQVRXdTNjN3VPMnZXTWxVRHFzWXRqakpxRGpmWVNJ?=
- =?utf-8?B?aGNFdEVvZ3k3cHpya0RQUHJNeFZLQjVKUHpXQ2FpTnVQeDFmeHNtYy83VmtR?=
- =?utf-8?B?SC9EaFVkWU1RME94QWZCSHhVMnNRZ1VhYWlkK29hYUMrSlpZc3FTNmRXQTdr?=
- =?utf-8?B?SFNUbjBQV0lTT0hKbk9EQ3VqNXFOYmtqMi83QklKdWVKcmxmNkE5ZTlYc3FY?=
- =?utf-8?B?NTZGOWlRdHdpTnNOa1ZHckU2TElzQWRUK09qOEpJemRpQkVWVU45dVJnaFlN?=
- =?utf-8?B?QnlFUjF6ejZTZnZzQUZhS3oybVFPSVVsS2xIZ2tHVVdpSTYzTHBZZz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BpYQqgQW"
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-2f30a4601bbso2031620eec.1
+        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 04:13:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778238836; cv=none;
+        d=google.com; s=arc-20240605;
+        b=cVqsgsaCYJoS6uNMvaDZ/6+P0rkPEBoTzLZZELzq+xosi9kHvjlX1s2b+uTh3NHMGS
+         fejhYRjFLa1kv0flUBWtm1uOYDVDWa9MvQH1ZWIR0s0s/Ub8O+MM654UrXL6TljCsvhp
+         atVsJEgN7G17p41eks+D69U2Ui7KRyVIxRvw4xm0eDj0tGhm465J/fgxKDBr6QeDjctN
+         ImRRXj1p0TpN4nQ3BrcCy0JS/2LSON3vJsmVZdAm0spg8HZZWC8HG4aV7cEU3xWG7y5K
+         u/imE+5Afbc8DyL4l4Mxq0n5qurmLrT0l4l6oNnG3EVj2atJSWFliJGPFosUr7G5Cfxb
+         /qHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZXvM35hoLnJ8gLhox9nKpSCWQqT2QyXjup63loF9EUQ=;
+        fh=DmIuNl8SENWVF6FiMbU5dFxX2e7Ualdf6bv6iTlC4Kc=;
+        b=E5tS1UX5wOG6BQ/0V++7qLvhK8sbC/QXfo0w+ZXXNa+jzRueTuPZbzv5OKmEtRhHTk
+         qrNrolEkJ7y9UWLwgw35tIxO0g44B7FGF7EzwJttDQF1VA9pekqpexGPpjCYGgj1WAHG
+         c56Mb4k3cnyh1RG266X2zhnXp6m8pX9qP1rojKb0GbKtzlMTQ6UEiJP+eg1zOYduQr0H
+         YMQ0g01vnOi8Sp6yLbZtEw2xES7TksZ4BMAd3IJMZdQguAieYb4j2PJgQdoF0UFUAMUC
+         Cj8OMGk2FL+5KwoHygZnwhp+vCeUduieeJ4OHDbxDcn66dPY5buK4bpIewQyr8Jf9sgR
+         eCww==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778238836; x=1778843636; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ZXvM35hoLnJ8gLhox9nKpSCWQqT2QyXjup63loF9EUQ=;
+        b=BpYQqgQW2GC3ujXAtDHf2uqSpfRWcvmue8r1gGgMyPpT5Fxc1T/BhFUpgW18xkcfsY
+         pWn1prTUkoQpyaW2xTDW1FvUWmTen1/VOtOtyR8Tttj6jIVWIEg4Sy3tJ6tIc7pW/3j6
+         I67EwsZ07trzxBk4zCr75ByKan9QpAaDWiY7U6LsZv09sPCvgWUHrJu4r5y3HOtatBKt
+         rLCtk1i4iH/CcBQr84SaoOtTCG8LdLvuICe8w8ekkCNRn6m3/2g5lBQjvXibrtWdL2Sh
+         YSvV/dCuHMkH8aG2iafOogtwujejGKCV7cwlgqUVX34+WsVTcpCFaawEO1TE+Bn8YSKD
+         rXFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778238836; x=1778843636;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ZXvM35hoLnJ8gLhox9nKpSCWQqT2QyXjup63loF9EUQ=;
+        b=MX/tWThPSF6u6Ayype0KfZ32gSGTm8IZ/9vmNWYXVYTmiS2CTSAEU4om4yb6VwzHb2
+         pyK8mPQMPlZ+gIDu7QhINwdO71UE0S77Rvv/gtTUWvlApqPJjNlYm6ahLtUPlro64GOR
+         G1WhBy4knHnfwSyLefz7FuE/zjtycm8DufNwZEgVybAhMsV4uxVfJ7iczeNPNvpgoAxW
+         EdNuLKRVSVbceq+y0FaBy+91BRUVzKrScvYr6W5HI4wMbdREKl9j2f4eutNhwKpbLMoD
+         xYBl0gZrCOLo+TdXpspmVo2ErcLUB7A7nccMIrSwEYIDV9sDu1WNA2d0rnAncDmiDEUT
+         Z/3Q==
+X-Forwarded-Encrypted: i=1; AFNElJ88RZCBtaTHpp1Pbj0E0xJmV25+3zW8tU1nxIfDs/lzHSg4QlA4H+F8P3EyittXLxqLkbZaVwklZbZo@vger.kernel.org
+X-Gm-Message-State: AOJu0YzBMa1OS69XFmrVTgABYWcYW6fDwpZpms/eN/HyJZWdlYewPfUM
+	S/6rucZtlevly9i5A5v8EOHAGG6ebuLyOIVgAGcQU0FyCuRJmmdDffrL8H8tFE4l3UeF+Jq9ehr
+	b9IursWPKJXRm6Jp1nvg57Oc0tuN26Wo=
+X-Gm-Gg: Acq92OGiGf0ImrebqJtedDFu4yrkdPvG67hXz8KscAO2LbD088QXhmuDzTInf1fv5F4
+	SZMjOTUDCjdczAeq8CqKJArJjCnezog3syzzK2XWUA0zK0OqjyRYhxX936mqfVaSLgttUl7QNRU
+	euq4U4/Y/s1nZ3vDn23X2bnxGmoswLj5NpWDl0zavfqwh9g9uTEoHNPGhWbHsXRxjLaTi1sHs94
+	nJLVyU1F7L7CFuhoyluzwH/C+XY1pqu8vcnMbBjynNlHRbXlB8Iomz32xZzH63IMqdvkbze+tQd
+	Ui6T+LJVD7TeG/tEcQY=
+X-Received: by 2002:a05:7301:6793:b0:2f3:986d:2d01 with SMTP id
+ 5a478bee46e88-2f54d79b94dmr4936134eec.19.1778238835805; Fri, 08 May 2026
+ 04:13:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	WDlQtZ3+3eG6KEBhTWGViXLnRLrKOUbIMbehN4MrWkReev/ahGrItZLY9rtM1fWjb/0qXswwnjY4XgqKm34cFLHx2QoHFBHqU+vQjQCteSfaXmgHn0/LXMi6VIW+MdTjOkb4O1/JpFWyXW10evdxYtYyiVqxVblBlrRnrME5peOaUfSgvlpoZCwot6iICVXktKMMLB9LfSbWXdzaTjlLxfQLdi/IctgXyWAZ8ADc03mlNq7+jypCdUWXvCWqEZWHjFR1GYp0xzl7NVPau2KkuMhGUMwboXQtiNa3IyrBzQNNkB1kKFL3a+rxyfjBygfP5Y8NozTGPjQ/kFYMmwJCTw==
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: LV9PR03MB8414.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ce87519-9497-4c00-4a0f-08deacf296a8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 May 2026 11:11:44.2314
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7Lh2uW72Gd8m9YP3NgwccD46G6q0GAAX+8yaeOEm5gBaRUTTZcx/VA2WgNR8OiZjLlE4K/4mTw/y7lI51aLj8g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR03MB5335
-X-Authority-Analysis: v=2.4 cv=FJArAeos c=1 sm=1 tr=0 ts=69fdc4f3 cx=c_pps
- a=BmBYDrMhH73hh332m6kGpQ==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=iZSIUCweCk2Oy3QsdGPA:22 a=VwQbUJbxAAAA:8 a=gAnH3GRIAAAA:8 a=IpJZQVW2AAAA:8
- a=pGLkceISAAAA:8 a=07d9gI8wAAAA:8 a=ag1SF4gXAAAA:8 a=BcUPVCjYFdIBxk_mAWIA:9
- a=QEXdDO2ut3YA:10 a=IawgGOuG5U0WyFbmm1f5:22 a=e2CUPOnPG4QKp8I52DXD:22
- a=Yupwre4RP9_Eg_Bd0iYG:22
-X-Proofpoint-ORIG-GUID: FjTM3vvc6VPw49J4-7mWB_G0ckIvg0FF
-X-Proofpoint-GUID: FjTM3vvc6VPw49J4-7mWB_G0ckIvg0FF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA4MDExNSBTYWx0ZWRfX822CugG5qcOs
- BP6HoZQ/dMFtrEpvfhfraFF7vYeO0mQPaZjY2uQ6tK5sKudLZbc0vI9rMHCSnZwKVGTfZA+uayF
- wHAmyGi4os8ZbUDn6wIwlutJ6YmjAz3mAlWd9LVO+lY+OofivfS2LIhKf2kBztr1s1rWBmHRpqg
- c8dNrExYhRbjFvBX93cK/qAC3CcoyHLM1LhMiC9jP/EsRZhZIyCWZN8EtCz6emlcfR5fb2X+21g
- epsepEm9Ou78I4I7YI/dlhNYxuYRLfn9g0UynHciTfewukRbHC9o5ROh2g9o8WPvKXQmAqZs/WX
- LTwcZUUXMDla50ameSOsnE6Gse3syG1ocoXE92KbcfTEz6f03uNADcs6x9adpo2WHWj/4NHrIG3
- 9Zmk+1CvthnQb86p/mhqjgY0VoInKjMwesZoDW1Lgc0uyvm0ZXEPvxVpgI5p7uf+KhXXYq+gamA
- Lt0nPsG6pX9mjcevR1Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-07_02,2026-05-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
- bulkscore=0 impostorscore=0 phishscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605080115
+References: <20260507133948.75704-1-clamor95@gmail.com> <20260507133948.75704-3-clamor95@gmail.com>
+ <afzJUcvQth6v9KGC@google.com>
+In-Reply-To: <afzJUcvQth6v9KGC@google.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Fri, 8 May 2026 14:13:43 +0300
+X-Gm-Features: AVHnY4KZZEeQcRms6Xprl7rHMrPeXHY4WASSgvU4i6TVxMIQC3mtzGuZ-6IRGrg
+Message-ID: <CAPVz0n1wYMsLLzbQ=4HLT1+Cx8GoxY+n9Q0cJ=dYv9bF=piOVg@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] Input: isa1200 - new driver for Imagis ISA1200
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, linux-input@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBKb25hdGhhbiBDYW1lcm9uIDxq
-aWMyM0BrZXJuZWwub3JnPg0KPiBTZW50OiBUaHVyc2RheSwgTWF5IDcsIDIwMjYgNjoxMSBQTQ0K
-PiBUbzogU2FiYXUsIFJhZHUgYm9nZGFuIDxSYWR1LlNhYmF1QGFuYWxvZy5jb20+DQo+IENjOiBM
-YXJzLVBldGVyIENsYXVzZW4gPGxhcnNAbWV0YWZvby5kZT47IEhlbm5lcmljaCwgTWljaGFlbA0K
-PiA8TWljaGFlbC5IZW5uZXJpY2hAYW5hbG9nLmNvbT47IERhdmlkIExlY2huZXIgPGRsZWNobmVy
-QGJheWxpYnJlLmNvbT47DQo+IFNhLCBOdW5vIDxOdW5vLlNhQGFuYWxvZy5jb20+OyBBbmR5IFNo
-ZXZjaGVua28gPGFuZHlAa2VybmVsLm9yZz47DQo+IFJvYiBIZXJyaW5nIDxyb2JoQGtlcm5lbC5v
-cmc+OyBLcnp5c3p0b2YgS296bG93c2tpIDxrcnprK2R0QGtlcm5lbC5vcmc+Ow0KPiBDb25vciBE
-b29sZXkgPGNvbm9yK2R0QGtlcm5lbC5vcmc+OyBVd2UgS2xlaW5lLUvDtm5pZw0KPiA8dWtsZWlu
-ZWtAa2VybmVsLm9yZz47IExpYW0gR2lyZHdvb2QgPGxnaXJkd29vZEBnbWFpbC5jb20+OyBNYXJr
-IEJyb3duDQo+IDxicm9vbmllQGtlcm5lbC5vcmc+OyBMaW51cyBXYWxsZWlqIDxsaW51c3dAa2Vy
-bmVsLm9yZz47IEJhcnRvc3oNCj4gR29sYXN6ZXdza2kgPGJyZ2xAa2VybmVsLm9yZz47IFBoaWxp
-cHAgWmFiZWwgPHAuemFiZWxAcGVuZ3V0cm9uaXguZGU+Ow0KPiBKb25hdGhhbiBDb3JiZXQgPGNv
-cmJldEBsd24ubmV0PjsgU2h1YWggS2hhbg0KPiA8c2toYW5AbGludXhmb3VuZGF0aW9uLm9yZz47
-IGxpbnV4LWlpb0B2Z2VyLmtlcm5lbC5vcmc7DQo+IGRldmljZXRyZWVAdmdlci5rZXJuZWwub3Jn
-OyBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnOyBsaW51eC0NCj4gcHdtQHZnZXIua2VybmVs
-Lm9yZzsgbGludXgtZ3Bpb0B2Z2VyLmtlcm5lbC5vcmc7IGxpbnV4LWRvY0B2Z2VyLmtlcm5lbC5v
-cmcNCj4gU3ViamVjdDogUmU6IFtQQVRDSCB2OSA0LzZdIGlpbzogYWRjOiBhZDQ2OTE6IGFkZCBT
-UEkgb2ZmbG9hZCBzdXBwb3J0DQo+IA0KPiANCj4gPiA+ICsJCS8qIFRYOiBhZGRyZXNzIHBoYXNl
-LCBDUyBzdGF5cyBhc3NlcnRlZCBpbnRvIGRhdGEgcGhhc2UgKi8NCj4gPiA+ICsJCXN0LT5zY2Fu
-X3hmZXJzWzIgKiBrXS50eF9idWYgPSBvZmZsb2FkLT50eF9jbWRba107DQo+ID4gPiArCQlzdC0+
-c2Nhbl94ZmVyc1syICoga10ubGVuID0gc2l6ZW9mKG9mZmxvYWQtPnR4X2NtZFtrXSk7DQo+ID4g
-PiArCQlzdC0+c2Nhbl94ZmVyc1syICoga10uYml0c19wZXJfd29yZCA9IGJwdzsNCj4gPg0KPiA+
-ICJXaGVuIGJpdHNfcGVyX3dvcmQgaXMgZ3JlYXRlciB0aGFuIDggKGxpa2UgYnB3ID0gMTYgaGVy
-ZSksIHRoZSBTUEkNCj4gZnJhbWV3b3JrDQo+ID4gdHJlYXRzIHR4X2J1ZiBhcyBhbiBhcnJheSBv
-ZiBuYXRpdmUgMTYtYml0IHdvcmRzLg0KPiA+IE9uIGxpdHRsZS1lbmRpYW4gYXJjaGl0ZWN0dXJl
-cywgdGhlIGNvbnRyb2xsZXIgd2lsbCBieXRlLXN3YXAgdGhlIGRhdGEgYmVmb3JlDQo+ID4gdHJh
-bnNtaXR0aW5nIGl0LiBXaWxsIHVzaW5nIGEgdTggYXJyYXkgYW5kIHB1dF91bmFsaWduZWRfYmUx
-NigpIHJlc3VsdCBpbiB0aGUNCj4gPiBjb21tYW5kIGJ5dGVzIGJlaW5nIHJldmVyc2VkIG9uIHRo
-ZSB3aXJlPyINCj4gPg0KPiA+IFN3aXRjaGVkIHRvIGNwdV90b19iZTE2KCkgYXNzaWduZWQgZGly
-ZWN0bHkgaW50byBfX2JlMTYgc2Nhbl90eFtdLA0KPiA+IG1hdGNoaW5nIHRoZSBub24tb2ZmbG9h
-ZCBwYXRoLiBUaGlzIG1ha2VzIHRoZSBpbnRlbmRlZCB3aXJlIGZvcm1hdA0KPiA+IHNlbGYtZXZp
-ZGVudCBhbmQgc2lkZXN0ZXBzIHRoZSBieXRlLW9yZGVyaW5nIHF1ZXN0aW9uIGVudGlyZWx5Lg0K
-PiANCj4gVGhpcyBjb25mdXNlcyBtZSBhIGJpdCBiZWNhdXNlIHRoZSBTUEkgY29udHJvbGxlciBz
-aG91bGQgd29yayB3aXRoDQo+IG5hdGl2ZSBlbmRpYW4gYW5kIGZyb20gdGhhdCBnZW5lcmF0ZSB0
-aGUgZXhwZWN0ZWQgYmlnIGVuZGlhbiBvbiB0aGUgd2lyZS4NCj4gDQo+IFNvIG9uIGEgbGl0dGxl
-IGVuZGlhbiBob3N0IGJ5dGUgb3JkZXIgaW4gYWRkcmVzcyBzcGFjZSBpcyBMSCBidXQgaXQgd2ls
-bA0KPiB3cml0ZSB0b3AgYml0IG9mIEggZmlyc3QgdGh1cyB0aGUgQURDIGNoYW5uZWwgYWRkcmVz
-cyBuZWVkcyB0byBiZSBpbiB0aGUNCj4gc2Vjb25kIGJ5dGUuDQo+IE9uIGEgYmlnIGVuZGlhbiBo
-b3N0IGRlc3BpdGUgdGhlIG9yZGVyaW5nIGluIG1lbW9yeSBiZWluZyBITCwgdGhlIHRvcA0KPiBi
-aXQgb2YgSCBpcyBzdGlsbCB3cml0dGVuIGZpcnN0IHRodXMgaW4gbmVlZHMgdG8gYmUgaW4gdGhl
-IGZpcnN0IGJ5dGUuDQo+IA0KPiANCj4gSWYgeW91IHVzaW5nIGNwdV90b19iZTE2KCkgdG8gYXNz
-aWduIGEgMTYgYml0IHZhbHVlIHN3YXBwaW5nIG9ubHkgb24gbGl0dGxlDQo+IGVuZGlhbg0KPiBh
-bmQgc3RhcnQgd2l0aCB0aGUgY21kIGluIEwgb24gbGl0dGxlIGVuZGlhbiB5b3UnbGwgZW5kIHVw
-IHdpdGggTEggc3dhcHBlZCB0bw0KPiBITCBhbmQgb24gYmlnIGVuZGlhbiBITCBidXQgdGhlIGxp
-dHRsZSBlbmRpYW4gU1BJIGNvbnRyb2xsZXIgc2hvdWxkIHRoZW4gc3dhcA0KPiBpdCBhZ2FpbiBz
-ZW5kaW5nIHdoYXQgaXQgdGhpbmtzIGlzIHRoZSBoaWdoIGJ5dGUgZmlyc3QgKEwpIHdoZXJlYXMg
-dGhlIGJpZyBlbmRpYW4NCj4gc3lzdGVtIHdpbGwgc2VuZCBILg0KPiANCj4gVXBzaG90LiBJIHRo
-aW5rIHRoZSBmaWVsZCBzaG91bGQgYmUgbmF0aXZlIGVuZGlhbi4gSWYgYSBieXRlIHN3YXAgaXMg
-bmVlZGVkDQo+IGl0IHNob3VsZCBiZSB1bmNvbmRpdGlvbmFsIGFuZCBub3QgcmVseSBvbiBlbmRp
-YW5uZXNzIG9mIHRoZSBob3N0Lg0KPiANCg0KQ29ycmVjdC4gV2l0aCBiaXRzX3Blcl93b3JkPTE2
-IHRoZSBTUEkgY29udHJvbGxlciByZWFkcyB0eF9idWYgYXMgYSBuYXRpdmUNCjE2LWJpdCB3b3Jk
-LiBjcHVfdG9fYmUxNigpIHN0b3JlcyBCRSBieXRlcywgYnV0IG9uIGFuIExFIGhvc3QgdGhvc2Ug
-Ynl0ZXMgYXJlDQpyZWFkIGJhY2sgYXMgYSBkaWZmZXJlbnQgbmF0aXZlIGludGVnZXIsIHNlbmRp
-bmcgdGhlIHdyb25nIGJ5dGUgZmlyc3QuDQoNCnNjYW5fdHggaXMgZGVjbGFyZWQgYXMgdTE2LiBC
-b3RoIG9mZmxvYWQgcGF0aHMgc3RvcmUgdGhlIGV4YWN0IHdpcmUgdmFsdWUgYXMgYQ0KcGxhaW4g
-bmF0aXZlIHUxNiDigJQgbm8gZW5kaWFubmVzcyBtYWNyby4gTmF0aXZlIHN0b3JhZ2UgaXMgc2Vs
-Zi1jb25zaXN0ZW50Og0Kc3RvcmUgWCwgcmVhZCBiYWNrIFgsIFNQSSBzaGlmdHMgWCBvdXQgTVNC
-LWZpcnN0IOKGkiBjb3JyZWN0IHdpcmUgYnl0ZXMgb24gYW55DQpob3N0LiBUcmFjZSBmb3IgQVZH
-X0lOKDApID0gMHg4MjAxLCBleHBlY3RlZCB3aXJlIFsweDgyLCAweDAxXToNCg0KICBjcHVfdG9f
-YmUxNigweDgyMDEpLCBMRSBob3N0IOKGkiBuYXRpdmUgMHgwMTgyIOKGkiB3aXJlIFsweDAxLCAw
-eDgyXSAgKGluY29ycmVjdCkNCiAgKHUxNikweDgyMDEsICAgICAgICAgTEUgaG9zdCDihpIgbmF0
-aXZlIDB4ODIwMSDihpIgd2lyZSBbMHg4MiwgMHgwMV0gIChjb3JyZWN0KQ0KICAodTE2KTB4ODIw
-MSwgICAgICAgICBCRSBob3N0IOKGkiBuYXRpdmUgMHg4MjAxIOKGkiB3aXJlIFsweDgyLCAweDAx
-XSAgKGNvcnJlY3QpDQoNCk1hbnVhbCBvZmZsb2FkOiBUWCBhbmQgUlggYXJlIGZ1bGwtZHVwbGV4
-IChzYW1lIGNsb2NrIGN5Y2xlcywgc2hhcmVkIHhmZXIpOg0KDQogICAgc3QtPnNjYW5fdHhba10g
-PSAodTE2KShBRDQ2OTFfQURDX0NIQU4oYml0KSA8PCA4KTsNCiAgICAvKiBlLmcuIGNoPTA6IDB4
-ODAwMCDihpIgd2lyZSBbMHg4MCwgMHgwMF0gKi8NCg0KQ05WIGJ1cnN0IG9mZmxvYWQ6IFRYIGFu
-ZCBSWCBhcmUgc2VwYXJhdGUgeGZlcnMsIGJvdGggdXNlIGJpdHNfcGVyX3dvcmQ9YnB3Og0KDQog
-ICAgc3QtPnNjYW5fdHhba10gPSAweDgwMDAgfCBBRDQ2OTFfQVZHX0lOKGJpdCk7DQogICAgLyog
-ZS5nLiBBVkdfSU4oMCk6IDB4ODIwMSDihpIgd2lyZSBbMHg4MiwgMHgwMV0gKi8NCg0KVGhlIHN0
-YXRlLXJlc2V0IHRyYW5zZmVyIHVzZXMgYSB1OCBidWZmZXIgd2l0aCBiaXRzX3Blcl93b3JkPTgg
-KGRlZmF1bHQpOw0KcHV0X3VuYWxpZ25lZF9iZTE2KCkgd3JpdGVzIGJ5dGVzIGluIG1lbW9yeSBv
-cmRlciwgd2hpY2ggU1BJIHNlbmRzIGFzLWlzLg0KDQo=
+=D1=87=D1=82, 7 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 22:26=
+ Dmitry Torokhov <dmitry.torokhov@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> Hi Svyatoslav,
+>
+> On Thu, May 07, 2026 at 04:39:48PM +0300, Svyatoslav Ryhel wrote:
+> > From: Linus Walleij <linusw@kernel.org>
+> >
+> > The ISA1200 is a haptic feedback unit from Imagis Technology using two
+> > motors for haptic feedback in mobile phones. Used in many mobile device=
+s
+> > c. 2012 including Samsung Galxy S Advance GT-I9070 (Janice), Samsung Be=
+am
+> > GT-I8350 (Gavini), LG Optimus 4X P880 and LG Optimus Vu P895.
+> >
+> > The exact datasheet for the ISA1200 is not available; all data was mode=
+led
+> > based on available downstream kernel sources for various devices and
+> > fragments of information scattered across the internet.
+> >
+> > Tested-by: Linus Walleij <linusw@kernel.org> # GT-I9070 Janice
+> > Signed-off-by: Linus Walleij <linusw@kernel.org>
+> > Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > ---
+> >  drivers/input/misc/Kconfig   |  12 +
+> >  drivers/input/misc/Makefile  |   1 +
+> >  drivers/input/misc/isa1200.c | 540 +++++++++++++++++++++++++++++++++++
+> >  3 files changed, 553 insertions(+)
+> >  create mode 100644 drivers/input/misc/isa1200.c
+> >
+> > diff --git a/drivers/input/misc/Kconfig b/drivers/input/misc/Kconfig
+> > index 94a753fcb64f..52f192104ee2 100644
+> > --- a/drivers/input/misc/Kconfig
+> > +++ b/drivers/input/misc/Kconfig
+> > @@ -852,6 +852,18 @@ config INPUT_IQS7222
+> >         To compile this driver as a module, choose M here: the
+> >         module will be called iqs7222.
+> >
+> > +config INPUT_ISA1200_HAPTIC
+> > +     tristate "Imagis ISA1200 haptic feedback unit"
+> > +     depends on I2C
+> > +     select INPUT_FF_MEMLESS
+> > +     select REGMAP_I2C
+> > +     help
+> > +       Say Y to enable support for the Imagis ISA1200 haptic
+> > +       feedback unit.
+> > +
+> > +       To compile this driver as a module, choose M here: the
+> > +       module will be called isa1200.
+> > +
+> >  config INPUT_CMA3000
+> >       tristate "VTI CMA3000 Tri-axis accelerometer"
+> >       help
+> > diff --git a/drivers/input/misc/Makefile b/drivers/input/misc/Makefile
+> > index 415fc4e2918b..d62bf2e9d85f 100644
+> > --- a/drivers/input/misc/Makefile
+> > +++ b/drivers/input/misc/Makefile
+> > @@ -49,6 +49,7 @@ obj-$(CONFIG_INPUT_IMS_PCU)         +=3D ims-pcu.o
+> >  obj-$(CONFIG_INPUT_IQS269A)          +=3D iqs269a.o
+> >  obj-$(CONFIG_INPUT_IQS626A)          +=3D iqs626a.o
+> >  obj-$(CONFIG_INPUT_IQS7222)          +=3D iqs7222.o
+> > +obj-$(CONFIG_INPUT_ISA1200_HAPTIC)   +=3D isa1200.o
+> >  obj-$(CONFIG_INPUT_KEYSPAN_REMOTE)   +=3D keyspan_remote.o
+> >  obj-$(CONFIG_INPUT_KXTJ9)            +=3D kxtj9.o
+> >  obj-$(CONFIG_INPUT_M68K_BEEP)                +=3D m68kspkr.o
+> > diff --git a/drivers/input/misc/isa1200.c b/drivers/input/misc/isa1200.=
+c
+> > new file mode 100644
+> > index 000000000000..f8dba8a95c7d
+> > --- /dev/null
+> > +++ b/drivers/input/misc/isa1200.c
+> > @@ -0,0 +1,540 @@
+> > +// SPDX-License-Identifier: GPL-2.0+
+> > +
+> > +#include <linux/array_size.h>
+> > +#include <linux/bitmap.h>
+> > +#include <linux/bits.h>
+> > +#include <linux/clk.h>
+> > +#include <linux/delay.h>
+> > +#include <linux/device.h>
+> > +#include <linux/devm-helpers.h>
+> > +#include <linux/err.h>
+> > +#include <linux/gpio/consumer.h>
+> > +#include <linux/i2c.h>
+> > +#include <linux/input.h>
+> > +#include <linux/kernel.h>
+> > +#include <linux/module.h>
+> > +#include <linux/property.h>
+> > +#include <linux/pwm.h>
+> > +#include <linux/regmap.h>
+> > +#include <linux/regulator/consumer.h>
+> > +#include <linux/units.h>
+> > +
+> > +/*
+> > + * System control (LDO regulator)
+> > + *
+> > + * LDO voltage to register mapping is linear, but it is split in two p=
+arts:
+> > + * 2.3V - 3.0V map to 0x08 - 0x0f; 3.1V - 3.8V map to 0x00 - 0x7
+> > + */
+> > +
+> > +#define ISA1200_SCTRL                        0x00
+> > +#define ISA1200_LDO_VOLTAGE_BASE     0x08
+> > +#define ISA1200_LDO_VOLTAGE_STEP     100000
+> > +#define ISA1200_LDO_VOLTAGE_2V3              23
+> > +#define ISA1200_LDO_VOLTAGE_3V1              31
+> > +#define ISA1200_LDO_VOLTAGE_MIN              2300000
+> > +#define ISA1200_LDO_VOLTAGE_MAX              3800000
+> > +
+> > +/*
+> > + * The output frequency is calculated with this formula:
+> > + *
+> > + *                 base clock frequency
+> > + * fout =3D -----------------------------------------
+> > + *        (128 - PWM_FREQ) * 2 * PLLDIV * PWM_PERIOD
+> > + *
+> > + * The base clock frequency is the clock frequency provided on the
+> > + * clock input to the chip, divided by the value in HCTRL0
+> > + *
+> > + * PWM_FREQ is configured in register HCTRL4, it is common to set this
+> > + * to 0 to get only two variables to calculate.
+> > + *
+> > + * PLLDIV is configured in register HCTRL3 (bits 7..4, so 0..15)
+> > + * PWM_PERIOD is configured in register HCTRL6
+> > + * Further the duty cycle can be configured in HCTRL5
+> > + */
+> > +
+> > +/*
+> > + * HCTRL0 configures clock or PWM input and selects the divider for
+> > + * the clock input.
+> > + */
+> > +#define ISA1200_HCTRL0                       0x30
+> > +#define ISA1200_HCTRL0_HAP_ENABLE    BIT(7)
+> > +#define ISA1200_HCTRL0_PWM_GEN_MODE  BIT(4)
+> > +#define ISA1200_HCTRL0_PWM_INPUT_MODE        BIT(3)
+> > +#define ISA1200_HCTRL0_CLKDIV_128    128
+> > +
+> > +/*
+> > + * HCTRL1 configures the motor type and clock sourse
+> > + */
+> > +#define ISA1200_HCTRL1                       0x31
+> > +#define ISA1200_HCTRL1_EXT_CLOCK     BIT(7)
+> > +#define ISA1200_HCTRL1_DAC_INVERT    BIT(6)
+> > +#define ISA1200_HCTRL1_MODE(n)               (((n) & 1) << 5)
+>
+> I wonder if this should simply be BIT(5) and you conditionally use it in
+> the code. The macro is not really usable to disable the setting...
+>
+> > +
+> > +/* HCTRL2 controls software reset of the chip */
+> > +#define ISA1200_HCTRL2                       0x32
+> > +#define ISA1200_HCTRL2_SW_RESET              BIT(0)
+> > +
+> > +/*
+> > + * HCTRL3 controls the PLL divisor
+> > + *
+> > + * Bits [0,1] are always set to 1 (we don't know what they are
+> > + * used for) and bit 4 and upward control the PLL divisor.
+> > + */
+> > +#define ISA1200_HCTRL3                       0x33
+> > +#define ISA1200_HCTRL3_DEFAULT               0x03
+> > +#define ISA1200_HCTRL3_PLLDIV(n)     (((n) & 0xf) << 4)
+> > +
+> > +/* HCTRL4 controls the PWM frequency of external channel */
+> > +#define ISA1200_HCTRL4                       0x34
+> > +
+> > +/* HCTRL5 controls the PWM high duty cycle of internal channel */
+> > +#define ISA1200_HCTRL5                       0x35
+> > +
+> > +/* HCTRL6 controls the PWM period of internal channel */
+> > +#define ISA1200_HCTRL6                       0x36
+> > +#define ISA1200_HCTRL6_PERIOD_SCALE  100
+> > +
+> > +/* The use for these registers is unknown but they exist */
+> > +#define ISA1200_HCTRL7                       0x37
+> > +#define ISA1200_HCTRL8                       0x38
+> > +#define ISA1200_HCTRL9                       0x39
+> > +#define ISA1200_HCTRLA                       0x3a
+> > +#define ISA1200_HCTRLB                       0x3b
+> > +#define ISA1200_HCTRLC                       0x3c
+> > +#define ISA1200_HCTRLD                       0x3d
+> > +
+> > +#define ISA1200_EN_PINS_MAX          2
+> > +
+> > +struct isa1200_config {
+> > +     u32 ldo_voltage;
+> > +     u32 mode;
+> > +     u32 clkdiv;
+> > +     u32 plldiv;
+> > +     u32 freq;
+> > +     u32 period;
+> > +     u32 duty;
+> > +};
+> > +
+> > +struct isa1200 {
+> > +     struct input_dev *input;
+> > +     struct regmap *map;
+> > +
+> > +     struct clk *clk;
+> > +     struct pwm_device *pwm;
+> > +     struct gpio_descs *enable_gpios;
+> > +
+> > +     struct work_struct play_work;
+> > +     struct isa1200_config config;
+> > +
+> > +     int level;
+> > +     bool clk_on;
+>
+> I think you need not only clk_on, but general "active" flag that you
+> would set at the end of isa1200_start().
+>
+> > +};
+> > +
+> > +static const struct regmap_config isa1200_regmap_config =3D {
+> > +     .reg_bits =3D 8,
+> > +     .val_bits =3D 8,
+> > +     .max_register =3D ISA1200_HCTRLD,
+> > +};
+> > +
+> > +static void isa1200_start(struct isa1200 *isa)
+> > +{
+> > +     struct isa1200_config *config =3D &isa->config;
+> > +     struct pwm_state state;
+> > +     u8 hctrl0 =3D 0, hctrl1 =3D 0;
+> > +     DECLARE_BITMAP(values, ISA1200_EN_PINS_MAX);
+> > +     int ret;
+>
+> Please use "error" or "err" for all variables that only hold error codes
+> (or 0) instead of a real value that is used for something.
+>
+> > +
+> > +     if (!isa->clk_on) {
+> > +             ret =3D clk_prepare_enable(isa->clk);
+>
+> This return 0 on success so
+>
+>                 if (error)
+>                         return;
+>
+> > +             if (ret < 0)
+> > +                     return;
+> > +
+> > +             isa->clk_on =3D true;
+> > +     }
+> > +
+> > +     bitmap_fill(values, ISA1200_EN_PINS_MAX);
+> > +     gpiod_multi_set_value_cansleep(isa->enable_gpios, values);
+> > +
+> > +     usleep_range(200, 300);
+> > +
+> > +     regmap_write(isa->map, ISA1200_SCTRL, config->ldo_voltage);
+> > +
+> > +     if (isa->clk) {
+> > +             hctrl0 =3D ISA1200_HCTRL0_PWM_GEN_MODE;
+> > +             hctrl1 =3D ISA1200_HCTRL1_EXT_CLOCK;
+> > +     }
+> > +
+> > +     if (isa->pwm) {
+> > +             hctrl0 =3D ISA1200_HCTRL0_PWM_INPUT_MODE;
+> > +             hctrl1 =3D 0;
+> > +     }
+> > +
+> > +     hctrl0 |=3D __ffs(config->clkdiv / ISA1200_HCTRL0_CLKDIV_128);
+> > +     hctrl1 |=3D ISA1200_HCTRL1_DAC_INVERT;
+> > +     hctrl1 |=3D ISA1200_HCTRL1_MODE(config->mode);
+> > +
+> > +     regmap_write(isa->map, ISA1200_HCTRL0, hctrl0);
+> > +     regmap_write(isa->map, ISA1200_HCTRL1, hctrl1);
+> > +
+> > +     /* Make sure to de-assert software reset */
+> > +     regmap_write(isa->map, ISA1200_HCTRL2, 0x00);
+> > +
+> > +     /* PLL divisor */
+> > +     regmap_write(isa->map, ISA1200_HCTRL3,
+> > +                  ISA1200_HCTRL3_PLLDIV(config->plldiv) |
+> > +                  ISA1200_HCTRL3_DEFAULT);
+> > +
+> > +     /* Frequency */
+> > +     regmap_write(isa->map, ISA1200_HCTRL4, config->freq);
+> > +     /* Duty cycle */
+> > +     regmap_write(isa->map, ISA1200_HCTRL5, config->period >> 1);
+> > +     /* Period */
+> > +     regmap_write(isa->map, ISA1200_HCTRL6, config->period);
+> > +
+> > +     hctrl0 |=3D ISA1200_HCTRL0_HAP_ENABLE;
+> > +     regmap_write(isa->map, ISA1200_HCTRL0, hctrl0);
+> > +
+> > +     if (isa->clk)
+> > +             regmap_write(isa->map, ISA1200_HCTRL5, config->duty);
+> > +
+> > +     if (isa->pwm) {
+> > +             pwm_get_state(isa->pwm, &state);
+> > +             state.duty_cycle =3D config->duty;
+> > +             state.enabled =3D true;
+> > +             pwm_apply_might_sleep(isa->pwm, &state);
+> > +     }
+> > +}
+> > +
+> > +static void isa1200_power_off(void *data)
+> > +{
+> > +     struct isa1200 *isa =3D data;
+> > +
+> > +     DECLARE_BITMAP(values, ISA1200_EN_PINS_MAX);
+> > +
+> > +     bitmap_zero(values, ISA1200_EN_PINS_MAX);
+> > +     gpiod_multi_set_value_cansleep(isa->enable_gpios, values);
+> > +
+> > +     if (isa->clk_on) {
+> > +             clk_disable_unprepare(isa->clk);
+> > +             isa->clk_on =3D false;
+> > +     }
+> > +}
+> > +
+> > +static void isa1200_stop(struct isa1200 *isa)
+> > +{
+> > +     struct pwm_state state;
+> > +
+> > +     if (isa->pwm) {
+> > +             pwm_get_state(isa->pwm, &state);
+> > +             state.duty_cycle =3D 0;
+> > +             state.enabled =3D false;
+> > +             pwm_apply_might_sleep(isa->pwm, &state);
+> > +     }
+> > +
+> > +     regmap_write(isa->map, ISA1200_HCTRL0, 0x00);
+> > +     isa1200_power_off(isa);
+> > +}
+> > +
+> > +static void isa1200_play_work(struct work_struct *work)
+> > +{
+> > +     struct isa1200 *isa =3D
+> > +             container_of(work, struct isa1200, play_work);
+> > +
+> > +     guard(mutex)(&isa->input->mutex);
+>
+> I think this mutex is dangerous here. You really want to stop/cancel
+> work in suspend() and close() instead of blocking on the mutex and then
+> continuing.
+>
+> > +
+> > +     if (isa->level)
+> > +             isa1200_start(isa);
+> > +     else
+> > +             isa1200_stop(isa);
+> > +}
+> > +
+> > +static int isa1200_vibrator_play_effect(struct input_dev *input, void =
+*data,
+> > +                                     struct ff_effect *effect)
+> > +{
+> > +     struct isa1200 *isa =3D input_get_drvdata(input);
+> > +     int level;
+> > +
+> > +     /*
+> > +      * TODO: we currently only support rumble.
+> > +      * The ISA1200 can control two motors and some devices
+> > +      * also have two motors mounted.
+> > +      */
+> > +     level =3D effect->u.rumble.strong_magnitude;
+> > +     if (!level)
+> > +             level =3D effect->u.rumble.weak_magnitude;
+> > +
+> > +     dev_dbg(&input->dev, "FF effect type %d level %d\n",
+> > +             effect->type, level);
+> > +
+> > +     if (isa->level !=3D level) {
+> > +             isa->level =3D level;
+> > +             schedule_work(&isa->play_work);
+> > +     }
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +static void isa1200_vibrator_close(struct input_dev *input)
+> > +{
+> > +     struct isa1200 *isa =3D input_get_drvdata(input);
+> > +
+> > +     cancel_work_sync(&isa->play_work);
+> > +
+> > +     if (isa->level)
+>
+> So here I think you need to check that "active" flag that would represent
+> the committed state.
+>
+> > +             isa1200_stop(isa);
+> > +
+> > +     isa->level =3D 0;
+> > +}
+> > +
+> > +static int isa1200_of_probe(struct i2c_client *client)
+> > +{
+> > +     static const char * const isa1200_supplies[] =3D { "vdd", "vddp" =
+};
+> > +     struct isa1200 *isa =3D i2c_get_clientdata(client);
+> > +     struct isa1200_config *config =3D &isa->config;
+> > +     struct device *dev =3D &client->dev;
+> > +     struct fwnode_handle *ldo_node;
+> > +     int ret;
+> > +
+> > +     isa->clk =3D devm_clk_get_optional(dev, NULL);
+> > +     if (IS_ERR(isa->clk))
+> > +             return dev_err_probe(dev, PTR_ERR(isa->clk),
+> > +                                  "failed to get clock\n");
+> > +
+> > +     isa->pwm =3D devm_pwm_get(dev, NULL);
+> > +     if (IS_ERR(isa->pwm)) {
+> > +             ret =3D PTR_ERR(isa->pwm);
+> > +             if (ret =3D=3D -ENODEV || ret =3D=3D -EINVAL)
+> > +                     isa->pwm =3D NULL;
+> > +             else
+> > +                     return dev_err_probe(dev, ret, "getting PWM\n");
+> > +     }
+> > +
+> > +     if (!isa->clk && !isa->pwm)
+> > +             return dev_err_probe(dev, -EINVAL,
+> > +                                  "clock or PWM are required, none wer=
+e provided\n");
+> > +
+> > +     ret =3D devm_regulator_bulk_get_enable(dev, ARRAY_SIZE(isa1200_su=
+pplies),
+> > +                                          isa1200_supplies);
+> > +     if (ret)
+> > +             return dev_err_probe(dev, ret, "failed to set up supplies=
+\n");
+> > +
+> > +     isa->enable_gpios =3D devm_gpiod_get_array_optional(dev, "control=
+",
+> > +                                                       GPIOD_OUT_LOW);
+> > +     if (IS_ERR(isa->enable_gpios))
+> > +             return dev_err_probe(dev, PTR_ERR(isa->enable_gpios),
+> > +                                  "failed to get enable gpios\n");
+> > +
+> > +     ldo_node =3D device_get_named_child_node(dev, "ldo");
+> > +     if (!ldo_node)
+> > +             return dev_err_probe(dev, -ENODEV,
+> > +                                  "failed to get embedded LDO node\n")=
+;
+> > +
+> > +     ret =3D fwnode_property_read_u32(ldo_node, "regulator-min-microvo=
+lt",
+> > +                                    &config->ldo_voltage);
+> > +     fwnode_handle_put(ldo_node);
+> > +     if (ret)
+> > +             return dev_err_probe(dev, ret,
+> > +                                  "failed to get ldo voltage\n");
+> > +
+> > +     config->ldo_voltage =3D clamp(config->ldo_voltage,
+> > +                                 ISA1200_LDO_VOLTAGE_MIN,
+> > +                                 ISA1200_LDO_VOLTAGE_MAX);
+> > +
+> > +     config->ldo_voltage /=3D ISA1200_LDO_VOLTAGE_STEP;
+> > +     if (config->ldo_voltage < ISA1200_LDO_VOLTAGE_3V1)
+> > +             config->ldo_voltage =3D config->ldo_voltage -
+> > +                                   ISA1200_LDO_VOLTAGE_2V3 +
+> > +                                   ISA1200_LDO_VOLTAGE_BASE;
+> > +     else
+> > +             config->ldo_voltage -=3D ISA1200_LDO_VOLTAGE_3V1;
+> > +
+> > +     config->mode =3D 0; /* LRA_MODE */
+> > +     device_property_read_u32(dev, "imagis,mode", &config->mode);
+> > +
+> > +     config->clkdiv =3D ISA1200_HCTRL0_CLKDIV_128;
+> > +     device_property_read_u32(dev, "imagis,clk-div", &config->clkdiv);
+> > +     if (!config->clkdiv)
+> > +             return dev_err_probe(dev, -EINVAL, "clk-div cannot be zer=
+o\n");
+> > +
+> > +     config->clkdiv =3D clamp(config->clkdiv, ISA1200_HCTRL0_CLKDIV_12=
+8,
+> > +                            ISA1200_HCTRL0_CLKDIV_128 << 3);
+> > +
+> > +     ret =3D device_property_read_u32(dev, "imagis,pll-div", &config->=
+plldiv);
+> > +     if (ret < 0 || !config->plldiv)
+> > +             config->plldiv =3D 1;
+> > +
+> > +     config->period =3D 0;
+> > +     config->freq =3D 0;
+> > +     config->duty =3D 0;
+> > +
+> > +     if (isa->clk) {
+> > +             ret =3D device_property_read_u32(dev, "imagis,period-ns",
+> > +                                            &config->period);
+> > +             if (ret)
+> > +                     return dev_err_probe(dev, ret,
+> > +                                          "failed to get period\n");
+> > +
+> > +             /*
+> > +              * TODO: The scale value is arbitrary, but it fits observ=
+ations
+> > +              * quite well, and the exact conversion method is unknown=
+.
+> > +              * The period property value returned above is the HCTRL6
+> > +              * register value set by the vendor code, multiplied by 1=
+00.
+> > +              */
+> > +             config->period /=3D ISA1200_HCTRL6_PERIOD_SCALE;
+> > +             config->duty =3D config->period >> 1;
+> > +     }
+> > +
+> > +     if (isa->pwm) {
+> > +             struct pwm_state state;
+> > +
+> > +             pwm_init_state(isa->pwm, &state);
+> > +
+> > +             if (!state.period)
+> > +                     return dev_err_probe(dev, -EINVAL,
+> > +                                          "PWM period cannot be zero\n=
+");
+> > +
+> > +             config->freq =3D div64_u64(NANO, state.period * config->c=
+lkdiv);
+> > +             config->duty =3D state.period >> 1;
+> > +
+> > +             ret =3D pwm_apply_might_sleep(isa->pwm, &state);
+> > +             if (ret)
+> > +                     return dev_err_probe(dev, ret,
+> > +                                          "failed to apply initial PWM=
+ state\n");
+> > +     }
+> > +
+> > +     /*
+> > +      * TODO: If device is using a clock, this property should return =
+the
+> > +      * value written to the HCTRL5 register by downstrem code. It lik=
+ely
+> > +      * needs to be converted into a meaningful duty cycle value, thou=
+gh
+> > +      * unfortunately the exact conversion mechanism is unknown. If th=
+e
+> > +      * device uses PWM, this property will return the correct duty cy=
+cle
+> > +      * in nanoseconds.
+> > +      */
+> > +     device_property_read_u32(dev, "imagis,duty-cycle-ns", &config->du=
+ty);
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +static int isa1200_probe(struct i2c_client *client)
+> > +{
+> > +     struct isa1200 *isa;
+> > +     struct device *dev =3D &client->dev;
+> > +     DECLARE_BITMAP(values, ISA1200_EN_PINS_MAX);
+> > +     u32 val;
+> > +     int ret;
+> > +
+> > +     isa =3D devm_kzalloc(dev, sizeof(*isa), GFP_KERNEL);
+> > +     if (!isa)
+> > +             return -ENOMEM;
+> > +
+> > +     isa->input =3D devm_input_allocate_device(dev);
+> > +     if (!isa->input)
+> > +             return -ENOMEM;
+> > +
+> > +     i2c_set_clientdata(client, isa);
+> > +
+> > +     ret =3D isa1200_of_probe(client);
+> > +     if (ret)
+> > +             return ret;
+> > +
+> > +     isa->map =3D devm_regmap_init_i2c(client, &isa1200_regmap_config)=
+;
+> > +     if (IS_ERR(isa->map))
+> > +             return dev_err_probe(dev, PTR_ERR(isa->map),
+> > +                                  "failed to initialize register map\n=
+");
+> > +
+> > +     ret =3D clk_prepare_enable(isa->clk);
+> > +     if (ret < 0)
+> > +             return dev_err_probe(dev, ret, "failed to enable clock\n"=
+);
+> > +
+> > +     isa->clk_on =3D true;
+> > +
+> > +     bitmap_fill(values, ISA1200_EN_PINS_MAX);
+> > +     gpiod_multi_set_value_cansleep(isa->enable_gpios, values);
+>
+> You should factor our isa1200_power_on() from isa1200_start() and use it
+> here.
+>
+> > +
+> > +     ret =3D devm_add_action_or_reset(dev, isa1200_power_off, isa);
+> > +     if (ret)
+> > +             return ret;
+>
+> close() is taking care of powering off the device.
+>
+> > +
+> > +     usleep_range(200, 300);
+> > +
+> > +     /* Read a register so we know that regmap and I2C transport works=
+ */
+> > +     ret =3D regmap_read(isa->map, ISA1200_SCTRL, &val);
+> > +     if (ret)
+> > +             return dev_err_probe(dev, ret, "failed to read SCTRL\n");
+>
+> You should call isa1200_power_off() here. You do not know when the first
+> effect will play. In the meantime the device should be in low power
+> state.
+>
+> > +
+> > +     ret =3D devm_work_autocancel(dev, &isa->play_work, isa1200_play_w=
+ork);
+> > +     if (ret)
+> > +             return dev_err_probe(dev, ret, "failed to init work\n");
+>
+> I do not think you need it here. You supply input->close() and that
+> should take care of stopping/canceling the work. Input core guarantees
+> to call close() if the device is "open" whne unregistering.
+>
+> > +
+> > +     isa->input->name =3D "isa1200-haptic";
+> > +     isa->input->id.bustype =3D BUS_HOST;
+>
+> Not BUS_I2C?
+>
+> > +     isa->input->dev.parent =3D dev;
+>
+> Parent is already set by devm_input_allocate_device().
+>
+> > +     isa->input->close =3D isa1200_vibrator_close;
+> > +
+> > +     input_set_drvdata(isa->input, isa);
+> > +
+> > +     /* TODO: this hardware can likely support more than rumble */
+> > +     input_set_capability(isa->input, EV_FF, FF_RUMBLE);
+> > +
+> > +     ret =3D input_ff_create_memless(isa->input, NULL,
+> > +                                   isa1200_vibrator_play_effect);
+> > +     if (ret)
+> > +             return dev_err_probe(dev, ret, "couldn't create FF dev\n"=
+);
+>
+> "failed ..."
+>
+> > +
+> > +     ret =3D input_register_device(isa->input);
+> > +     if (ret)
+> > +             return dev_err_probe(dev, ret, "couldn't register input d=
+ev\n");
+>
+> "failed ..."
+>
+> > +
+> > +     return ret;
+>
+>         return 0;
+>
+> > +}
+> > +
+> > +static int isa1200_suspend(struct device *dev)
+> > +{
+> > +     struct isa1200 *isa =3D dev_get_drvdata(dev);
+> > +
+> > +     cancel_work_sync(&isa->play_work);
+>
+> Move it under input_device_enabled().
+>
+> > +
+> > +     guard(mutex)(&isa->input->mutex);
+> > +
+
+Should I remove mutex locking from both PM functions?
+
+> > +     if (input_device_enabled(isa->input))
+> > +             if (isa->level)
+> > +                     isa1200_stop(isa);
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +static int isa1200_resume(struct device *dev)
+> > +{
+> > +     struct isa1200 *isa =3D dev_get_drvdata(dev);
+> > +
+> > +     guard(mutex)(&isa->input->mutex);
+> > +
+> > +     if (input_device_enabled(isa->input))
+> > +             if (isa->level)
+> > +                     isa1200_start(isa);
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +static DEFINE_SIMPLE_DEV_PM_OPS(isa1200_pm_ops, isa1200_suspend, isa12=
+00_resume);
+> > +
+> > +static const struct of_device_id isa1200_of_match[] =3D {
+> > +     { .compatible =3D "imagis,isa1200" },
+> > +     { /* sentinel */ }
+> > +};
+> > +MODULE_DEVICE_TABLE(of, isa1200_of_match);
+> > +
+> > +static struct i2c_driver isa1200_i2c_driver =3D {
+> > +     .driver =3D {
+> > +             .name =3D "isa1200",
+> > +             .of_match_table =3D isa1200_of_match,
+> > +             .pm =3D pm_sleep_ptr(&isa1200_pm_ops),
+> > +     },
+> > +     .probe =3D isa1200_probe,
+> > +};
+> > +module_i2c_driver(isa1200_i2c_driver);
+> > +
+> > +MODULE_AUTHOR("Linus Walleij <linusw@kernel.org>");
+> > +MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
+> > +MODULE_DESCRIPTION("Imagis ISA1200 haptic feedback unit");
+> > +MODULE_LICENSE("GPL");
+>
+> Thanks.
+>
+> --
+> Dmitry
