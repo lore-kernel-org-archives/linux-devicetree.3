@@ -1,108 +1,110 @@
-Received: from out28-112.mail.aliyun.com (out28-112.mail.aliyun.com [115.124.28.112])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499A138DF9;
-	Fri,  8 May 2026 14:42:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4430B358381;
+	Fri,  8 May 2026 14:42:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778251327; cv=none; b=dpgjNQgfp4wHgJZe43tr/p/SoWQ5XEs6ardpx3uB4bRM2vX3W9Uo23f9YU1qbISjqBUjOwmPg5QnLMMkScWxStVMQ24h6FDeqdStMLRg1wzTVfP8IAxBlgMYJUULAE2dy41XPN7+fFB0C+seh3jLSFjjnxIK9h2t21kYQeNB37U=
+	t=1778251373; cv=none; b=BCcJYI+XLAJN2yOh69AARw0VehWrzZjPz4A8Ro5ttfgCmzZQuJgvw23Ad8K6E1sO9dQvzNLZ3GQhkyYX3z22Tf+xkkOb/9UfcDgiLskxODl5I4y0RKwZUn7TxO1xvEVeIfpqLOLVcY6wywNqIlaZtDY6BUPRnLczjAqdFwI1XDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778251327; c=relaxed/simple;
-	bh=BKPx+DwWlEDJ4IBSzpF+6CuZw3pIgevIIIrRUziMCEg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=O9JOtNhA17L5x28U54TVX9Rsh6N9VR96rDEir/5OR3Sv5yYZplV87bMX9Z1vCo1mei+EXe0flGOElHPyDSnn8J7nd5CnJEj7Ut/fGnUCNEs8e7fREg2t2gejaNkgYnOuUbzdDdASv+Toem0OwZb0P0J9Lkdr8b0RrP1zvdAhahw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=Gnze0pEN; arc=none smtp.client-ip=115.124.28.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
+	s=arc-20240116; t=1778251373; c=relaxed/simple;
+	bh=+kkWUzDTio/ByhdKzh2wtj7KRg3wTOQXzmfdrn64Jf8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=gkuvH2CZAGSqfDPIhVVcEoY5oiDHQaowOVoNOA71oczTZSdrq+thkz1XQHfK0XvO+c5JvYdwHhUu6SLqVFH8A73qgII5TDkvtXRF5FIXjgSuXPDzFZXwgm+zxiVdNMhKmXv6FUcd0hBCHZJwbqYZT2u6mLHBK2CdzHzcnOv3oGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Hq7fIZZp; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=T4JTklaJ; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="Gnze0pEN"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=lontium.com; s=default;
-	t=1778251317; h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Type;
-	bh=FkIOV7enKNbkeRupd/YkRnYNKVKO217Lx4gtauvA93M=;
-	b=Gnze0pENmawn7rJRl1+lo2eYJOTF1MsKG8Tgu50uo/spFfoqsBCFUVuRZSBhQgc0bOGtYAlRwm++GSKreGN8ukHhSc3PcMglScvq05+GjgLVf31HZrcMKadxeSp0LoEum/fdqWeYeTkh1aSOqGWaCzh3RrYwLoifVUr609cY0rYamTPLmS01xr0fRPDv9wpOYUHW07fjvG35Ft+SE/Il6im3lO2PNYpDQA2+SsDphdMPw11PhsFp5zU5fTo85D3peIZ27tHTKIpZVdYi3Ob/Iox9RUihoiHErtIboxkFAQcNocKFr6IkYvzP1kuXptQr+EHzJ9rTF/NoZtkcoVVagw==
-X-Alimail-AntiSpam:AC=SUSPECT;BC=0.6169025|-1;BR=01201311R151b1;CH=blue;DM=|SUSPECT|false|;DS=CONTINUE|ham_system_inform|0.183518-0.00602126-0.810461;FP=9943956383314203584|14|2|17|0|-1|-1|-1;HT=maildocker-contentspam033045018182;MF=syyang@lontium.com;NM=1;PH=DS;RN=22;RT=22;SR=0;TI=SMTPD_---.hShj9lU_1778250303;
-Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com fp:SMTPD_---.hShj9lU_1778250303 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 08 May 2026 22:25:04 +0800
-From: syyang@lontium.com
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	dmitry.baryshkov@oss.qualcomm.com,
-	maarten.lankhorst@linux.intel.com,
-	rfoss@kernel.org,
-	mripard@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com,
-	tzimmermann@suse.de,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	yangsunyun1993@gmail.com,
-	xmzhu@lontium.corp-partner.google.com,
-	xmzhu@lontium.com,
-	rlyu@lontium.com,
-	xbpeng@lontium.com,
-	Sunyun Yang <syyang@lontium.com>
-Subject: [PATCH v6 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
-Date: Fri,  8 May 2026 22:25:00 +0800
-Message-Id: <20260508142500.4922-1-syyang@lontium.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Hq7fIZZp";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="T4JTklaJ"
+From: Gregor Herburger <gregor.herburger@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1778251370;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZQFNt+9a4A5dfeMowDT9WSpy81hGD3mNS+Yhz4JhQsc=;
+	b=Hq7fIZZpmdqb/0DbT5BBcTSNGjtFgSTBhapTssZ7MaUZC35grTfpkmLjNWc8S2wr2j2ZLu
+	b3ud3HyomsKJ8pO6VoPikbRrxntV8P2jfYaYk7v0jnr1GW76Ay3S3Hlht0lXaUCzHFaHgT
+	PVyCU3aZncDC+GbKKi+7wASTgcdBNB9Gd98ZaqnzEYhiFA8+ZWqMy0GqJC8F7Ob2Dz88Wm
+	Kigs3xtw5LzNqCa9OfTLcRxN8Na9RAHC2t5saL3jLUG13/IvemAVFsFNlFuPslQZyl9ext
+	5vj6l4rIl4hHCoxp/3knf9Fvq1MJtWz8Cmr0nu18asRuzn3xTzLRDmnd6Rg+XQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1778251370;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZQFNt+9a4A5dfeMowDT9WSpy81hGD3mNS+Yhz4JhQsc=;
+	b=T4JTklaJWumJ4Zp9TUC52vo/VxxPnfwanI+f+aw79NywQc0k6ARI/r5eU/En80tqA2zxL7
+	GFOarnerbeMtcYDQ==
+Date: Fri, 08 May 2026 16:42:44 +0200
+Subject: [PATCH v4 1/5] dt-bindings: raspberrypi,bcm2835-firmware: Add
+ bcm2712-firmware compatible
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260508-rpi-otp-driver-v4-1-cf8d725d8821@linutronix.de>
+References: <20260508-rpi-otp-driver-v4-0-cf8d725d8821@linutronix.de>
+In-Reply-To: <20260508-rpi-otp-driver-v4-0-cf8d725d8821@linutronix.de>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
+ Srinivas Kandagatla <srini@kernel.org>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-hardening@vger.kernel.org, 
+ Gregor Herburger <gregor.herburger@linutronix.de>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778251369; l=1195;
+ i=gregor.herburger@linutronix.de; s=20260226; h=from:subject:message-id;
+ bh=+kkWUzDTio/ByhdKzh2wtj7KRg3wTOQXzmfdrn64Jf8=;
+ b=Wd7sEwtQi7ou5NUNCMPp2Z0xVIUb98/tB4VL5L+NVc3h29Sho7Ys9p6ou3E5srJeBtKO6KK8V
+ ME/ebRQiq7BAytj+Ac4LWlRVnZgqnaSHBbIEqfZVgtFxScXCyO4G/E6
+X-Developer-Key: i=gregor.herburger@linutronix.de; a=ed25519;
+ pk=u72Lv7+/lS5CC1hmSrb17lv/6CK7HBh4Lvz77PHA5LM=
 
-From: Sunyun Yang <syyang@lontium.com>
+Add a compatible string for the bcm2712 firmware. The bcm2712-firmware
+is compatible with the bcm2835-firmware so allow the bcm2835-firmware as
+fallback.
 
-LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
-mipi dsi and output hdmi, differences in hardware features:
-- LT9611C: supports 1-port mipi dsi to hdmi 1.4
-- LT9611EX: supports 2-port mipi dsi to hdmi 1.4
-- LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
-
-Signed-off-by: Sunyun Yang <syyang@lontium.com>
+Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
 ---
- .../bindings/display/bridge/lontium,lt9611.yaml           | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ .../bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml        | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
-index 429a06057ae8..e0821a63d9d7 100644
---- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
-+++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
-@@ -4,19 +4,23 @@
- $id: http://devicetree.org/schemas/display/bridge/lontium,lt9611.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
--title: Lontium LT9611(UXC) 2 Port MIPI to HDMI Bridge
-+title: Lontium LT9611(UXC/C/EX/UXD) 2 Port MIPI DSI to HDMI Bridge
- 
- maintainers:
-   - Vinod Koul <vkoul@kernel.org>
- 
- description: |
--  The LT9611 and LT9611UXC are bridge devices which convert DSI to HDMI
-+  The LT9611、LT9611UXC、LT9611C、LT9611EX and LT9611UXD
-+  are bridge devices which convert DSI to HDMI
+diff --git a/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml b/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml
+index 983ea80eaec9..a3a5243b9170 100644
+--- a/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml
++++ b/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml
+@@ -21,9 +21,14 @@ select:
  
  properties:
    compatible:
-     enum:
-       - lontium,lt9611
-+      - lontium,lt9611c
-+      - lontium,lt9611ex
-       - lontium,lt9611uxc
-+      - lontium,lt9611uxd
+-    items:
+-      - const: raspberrypi,bcm2835-firmware
+-      - const: simple-mfd
++    oneOf:
++      - items:
++          - const: raspberrypi,bcm2835-firmware
++          - const: simple-mfd
++      - items:
++          - const: raspberrypi,bcm2712-firmware
++          - const: raspberrypi,bcm2835-firmware
++          - const: simple-mfd
  
-   reg:
+   mboxes:
      maxItems: 1
+
 -- 
-2.34.1
+2.47.3
 
