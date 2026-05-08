@@ -1,123 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F25D1387348
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 22:21:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA81439C011
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 22:22:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778278873; cv=none; b=dL9EJjbshsXSqjBuLFpc04o9kmarJa9jDTQ3g0c7uC8ucgTMToMm/Jd+6IlKT14N+cb3OoN3nfJLNds0m32/QsXKA3k61PmzRFKmPxxBkorobcHs4TuoIpk8KtoVkaPh0zMD0c/gGFHlXg4Jk3wdQUORFcSH/avH007Yz/C11nk=
+	t=1778278946; cv=none; b=iB+OfShkCZnlVPeAlALQELasJZ5LF+LZoQmP2Egq8VBRKH44P/Z013szDofVfDy0ekvl9AnApy2uzLhFcntlNw4p3UiMD/wGG1mva794Isq8ngMY6QH6n47Yg1fF3U18vXvnizwNIAQKdzpet4rNdHKBu7dcZ/wi423po34zF4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778278873; c=relaxed/simple;
-	bh=+wBpdsqElJ4qZtzsZCtM2GEJ3qTayzgaafIlGZWKSLc=;
+	s=arc-20240116; t=1778278946; c=relaxed/simple;
+	bh=yAdEZ5EU8lZ581zGxLIAGEJDKMZb5yAsNiIsnhNE08c=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=W9+OsG8mu/aPn7ZQMZgZPJXqIXbfdWmk23UbBOYOP1gwENduwV7kW2xAOQdvVndf1peJZ/anKqUVeDn3Z20xHbN5uTsKtVC+KGPuKGsKcMBs4/H1hj6W4oa0BfHtWL4gfnnCP62zvZTAbVmDADQ6c8crOVdlrLd1bqiZA1ZbXoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W0Tkde8I; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=lRPDqShkhedU8UK4TUdWCpcEzTDvicHqf60yRzXx1i6TJggdXj4oCgRpoKja3budLp0zuz8BYNOxRT6IC6Mc8vommCXSgQQ0Lvtbp2ghtS0KB2swT5qn4PgwG7/wUqJq7w6e3xseMT1D3Whnc2CORJ1XJeAi1S7t7KGhV7Pn2+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SIY2CHED; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W0Tkde8I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6108EC2BCB0;
-	Fri,  8 May 2026 22:21:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SIY2CHED"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E854C2BCB4;
+	Fri,  8 May 2026 22:22:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778278872;
-	bh=+wBpdsqElJ4qZtzsZCtM2GEJ3qTayzgaafIlGZWKSLc=;
+	s=k20201202; t=1778278945;
+	bh=yAdEZ5EU8lZ581zGxLIAGEJDKMZb5yAsNiIsnhNE08c=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=W0Tkde8IIaGNdo202ruaOdIHIpI1/zazDal8dOrCJ1W2xyAc1o+REwfILweBSPRIR
-	 zCIkFwWfq/g3Yjj5H1N5AfRlHr7iTW9b93VDri6KVt3teJto/TFpUCJw6VqAB3FfxE
-	 H1v7lZYp3FqXBFZ4S9rYXJzCHke9g9LbfTzaexwgCZLASlHQDzmEB0tRE8DHLM8AzU
-	 ipHG/x4yF+j/bk3Y58Bc5p2BGZjx24jzmhmLAuuLXMpF1B4zv1F2PF+kibdCHp4KG5
-	 tS+vy9oSqXANewcT6uKwjjmYb9SaWl+7Dkv6scfLF2rNa94C3z2AOiHXtvYAHm3JzH
-	 MoBPeD2EI8msg==
+	b=SIY2CHEDDrE7+hMk1ApDraaoGXS+vLEhQnxZAO1lhY2YtnIIgZ42ecXODNdc6nxN5
+	 qzWAdyiwJ9f0bSJp4cbwfQZyf7ivVAFnIVFNt3Giwr9n6JOhYmwHszQ2dyQyRQ7d8p
+	 StEAUNVm74Lyd6yxWeTju2O53KBaaa7MhoEffFlG7popLpOYa78yXhRxtIuo4g+rC3
+	 ydnJrnf8mnoWHi9BZJtWMYB4bfxgG5X3f1s1hQq5Qo+9R9cI+nByXU7fpK2JP9FqYb
+	 W+ubV6ZOiG5G+udnmEPMwCwCIkdDeK+KlwWmoe0qVBb+C+IY0bZJurCwQnk99nC5NF
+	 /a8e1+AhH3/jQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 06/10] clk: realtek: Add support for mux clock
+Subject: Re: [PATCH v3 2/2] dt-bindings: mmc: st,sdhci: convert to DT schema
 Reply-To: sashiko@lists.linux.dev
-To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
-Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260508111641.3192177-7-eleanor.lin@realtek.com>
-References: <20260508111641.3192177-7-eleanor.lin@realtek.com>
+To: "Charan Pedumuru" <charan.pedumuru@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260508-st-mmc-v3-2-81c329ed28e8@gmail.com>
+References: <20260508-st-mmc-v3-2-81c329ed28e8@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 08 May 2026 22:21:11 +0000
-Message-Id: <20260508222112.6108EC2BCB0@smtp.kernel.org>
+Date: Fri, 08 May 2026 22:22:24 +0000
+Message-Id: <20260508222225.1E854C2BCB4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] `clk_regmap_mux_get_parent()` masks hardware read errors and inval=
-id states by defaulting to parent index 0.
-- [Medium] Potential signed integer overflow in `clk_regmap_mux_set_parent(=
-)` when shifting the `u8 index` parameter.
+- [Medium] Missing `minItems: 1` for `clock-names` and `reg-names` restrict=
+s them to exactly two items, breaking schema validation for existing device=
+ trees.
 --
 
-commit 462409aad9f9756e1384cae76faf89758f477e12
-Author: Cheng-Yu Lee <cylee12@realtek.com>
+commit 66ec88f9e00b102af921864d0e0bf8b1b9e7f38d
+Author: Charan Pedumuru <charan.pedumuru@gmail.com>
+dt-bindings: mmc: st,sdhci: convert to DT schema
 
-clk: realtek: Add support for mux clock
+This commit converts the STMicroelectronics sdhci-st MMC/SD controller
+binding to DT schema. It updates the clock and register properties to
+support backward compatibility for single-item entries.
 
-This commit adds a regmap-based clk_ops implementation for Realtek mux
-clocks, supporting parent selection and rate determination.
+>     - In the legacy text binding, 'icn' was optional. Keep the clock list
+>       flexible to preserve compatibility, although all existing in-tree D=
+TS
+>       files already provide both clocks.
+>     - Document the optional "top-mmc-delay" register region and correspon=
+ding
+>       reg-name in the YAML binding, as existing in-tree DTS files already=
+ use
+>       both "mmc" and "top-mmc-delay" entries.
 
-> diff --git a/drivers/clk/realtek/clk-regmap-mux.c b/drivers/clk/realtek/c=
-lk-regmap-mux.c
+Are these descriptions accurate regarding all existing in-tree DTS files?
+
+In arch/arm/boot/dts/st/stih407-family.dtsi, the mmc1 node defines only a
+single register name (reg-names =3D "mmc"). Other device trees such as
+arch/powerpc/boot/dts/fsp2.dts also define a single clock and register.
+
+> diff --git a/Documentation/devicetree/bindings/mmc/st,sdhci.yaml b/Docume=
+ntation/devicetree/bindings/mmc/st,sdhci.yaml
 > new file mode 100644
-> index 0000000000000..1b0b8419d651f
+> index 0000000000000..10e0e1ee6d5cd
 > --- /dev/null
-> +++ b/drivers/clk/realtek/clk-regmap-mux.c
+> +++ b/Documentation/devicetree/bindings/mmc/st,sdhci.yaml
+
 [ ... ]
-> +static u8 clk_regmap_mux_get_parent(struct clk_hw *hw)
-> +{
-> +	struct clk_regmap_mux *clkm =3D to_clk_regmap_mux(hw);
-> +	int num_parents =3D clk_hw_get_num_parents(hw);
-> +	u32 val;
-> +	int ret;
+
+> +  reg:
+> +    minItems: 1
+> +    items:
+> +      - description: MMC controller registers
+> +      - description: MMC delay/auxiliary registers
 > +
-> +	ret =3D regmap_read(clkm->clkr.regmap, clkm->mux_ofs, &val);
-> +	if (ret)
-> +		return 0;
+> +  reg-names:
+> +    items:
+> +      - const: mmc
+> +      - const: top-mmc-delay
+
+Because items lists without an explicit minItems default to the length of
+the list, does this strictly require two items for reg-names?
+
+Will this cause make dtbs_check to fail for existing nodes like mmc1 that
+only provide "mmc"? Should minItems: 1 be added here to allow single entrie=
+s?
+
+[ ... ]
+
+> +  clocks:
+> +    minItems: 1
+> +    items:
+> +      - description: Clock for the MMC controller
+> +      - description: Interconnect (ICN) clock
 > +
-> +	val =3D (val >> clkm->shift) & clkm->mask;
-> +
-> +	return val >=3D num_parents ? 0 : val;
+> +  clock-names:
+> +    items:
+> +      - const: mmc
+> +      - const: icn
 
-Does returning 0 on hardware read errors or invalid states mask the error
-from the clock framework?
-
-If 0 is returned here, the framework might cache 0 as the active parent. If
-a consumer later requests to set the parent to 0, the framework could
-incorrectly assume the hardware is already in the correct state and skip the
-set_parent call entirely.
-
-Could this return an out-of-bounds index (like -EINVAL cast to u8) instead,
-so the framework recognizes the parent as unknown and forces a hardware
-update when a valid parent is requested?
-
-> +}
-> +
-> +static int clk_regmap_mux_set_parent(struct clk_hw *hw, u8 index)
-> +{
-> +	struct clk_regmap_mux *clkm =3D to_clk_regmap_mux(hw);
-> +
-> +	return regmap_update_bits(clkm->clkr.regmap, clkm->mux_ofs,
-> +				  clkm->mask << clkm->shift, index << clkm->shift);
-
-Could the shift operation index << clkm->shift cause a signed integer
-overflow?
-
-Since index is a u8, it is implicitly promoted to a signed 32-bit int. If
-the clock mux is configured at the most significant bit of a 32-bit
-register (where clkm->shift is 31), shifting a non-zero index into the sign
-bit triggers undefined behavior.
-
-This might trigger a shift-out-of-bounds splat, which could lead to a panic
-on systems with panic_on_warn enabled.
-
-Would it be safer to explicitly cast index to an unsigned type, such as
-(u32)index << clkm->shift?
-
-> +}
+Similarly, does clock-names require minItems: 1 to match the flexibility
+added to the clocks property and prevent schema validation errors on
+single-clock configurations?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508111641.3192=
-177-1-eleanor.lin@realtek.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508-st-mmc-v3-=
+0-81c329ed28e8@gmail.com?part=3D2
