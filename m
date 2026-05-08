@@ -1,129 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC19E3ED103
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 17:14:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDF43ED103
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 17:14:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778260492; cv=none; b=ePH5lyWXkEeT8sSOfrcpFr/CnAZvqII8p3l9Sl03y9WRwULPzhLP3ac6xBN3EbxGiYzGGKjNOZXlhZsYe5c7dzTTKtHjM/9N6UzJ8jIsqxybjbXN8krUUiQRAkkETgeOO8glElZDVcJWQ5+vQsQ6IBQWmgnrDlPA2sn7CcC5gMA=
+	t=1778260492; cv=none; b=QmQQZjiXDLp+8pDMHmdXjO1yTDeEFavKrvEfBCD6GzjZLHmN2H24qJX34WdpP/pc/xAFc7b0MUvzYeYmAVzl/I5SwR5Xbdv0/2cQOGnS6F/Vb2M+QC5SnlbFsfqGzDW/YhxiPAtLXUYTBCamjzn1g2sGsYaHyVPftn/rOixkmxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1778260492; c=relaxed/simple;
-	bh=EBHlR2F6xylFu01LxMkiEDytAytCgwEoO1eSyDjYG+8=;
+	bh=oclkuQHVTCEyVa3kbvV8ehfJg7gQwDXcAh8lMm1Ug7s=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jp94VMhSe37Fya/gP7PHlsJ7NBDioGtCwk8xNtYPKBb2I5GNX7membnAhfKipan/cckHVBcITUw3GOmzCQgTqpUtxi3Li+M5FhJfCXvZPHt+hLVBi3MnMQq+mypwybug9IDUAonS5luxf14xpY+lNtK9ew2vQVnCiJtAE2XpHWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ERLt8GJd; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=ia+pm/QQtyfX3uVEaaj/0mPiDz8lmFyiuOhufDi02Okkl/bEOQq/XeQvdQ8NiIAO7Gq2LPHt6lCfEZEllz93b6jh1aOwoubZAuzkkfzzrOx8hqDlX2PfT0G0RtYLKROsRTO+vS6DhOU9UbxXtCrrzKt47Sy3sXcSUrsGbv5ahls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C1n6lcUj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ERLt8GJd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62106C2BCB0;
-	Fri,  8 May 2026 17:14:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C1n6lcUj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C08DC2BCB0;
+	Fri,  8 May 2026 17:14:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778260491;
-	bh=EBHlR2F6xylFu01LxMkiEDytAytCgwEoO1eSyDjYG+8=;
+	s=k20201202; t=1778260492;
+	bh=oclkuQHVTCEyVa3kbvV8ehfJg7gQwDXcAh8lMm1Ug7s=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=ERLt8GJdVirF/1Ez1g8bcOb2/zdq9iQbjun8VsNuHdxYsB1mg4cZ+xpwXN5i5Ziov
-	 sQbNDJxhp/SOPcFynfAmf2is2AYOSAEZh8Y86dHrYo9FYcHnzcG7p3PvTeP3L1JoWW
-	 ZOi5Kz4obXZjcUGAviqW33bYYF0kqMgLUCduxhly3WRbsVgaC+Hlrpcb+rMQ+g/ejF
-	 eWick5ntQBGaIOGenCKaSnxbhzoMXMmlsIXSqbe0SjGC6KvYuUS+VExKdtehptEMv5
-	 +xJDHuKDePw72eE203PlbTH2oumrvlwzyvEHKl2FePZCsaA965xwNLfGu2RQ7ZBhlI
-	 O5y+84JUZl8ug==
+	b=C1n6lcUjSlzEaamj4H9w1M9J34/1s6EDcvN91n0hV4dxHMdhAZ0F5DzmUStDKajLK
+	 bktkZQS8BpnolDOLhGH8DCmDFzO9WDa7TeFzXw+feSf+KKpnkYKpOSdE6Qysl2WpQ7
+	 Ql99P5/DYBZAE+RiXel9s0PwxxHDMqmpvl/zhIktj+kdvGPw6bqZ/xdx8v9P8CxRw6
+	 Fm1uuLhEA0NE71zoKD8/gLg/eCLVo+PwnV4O5EO7t3YRXNkuGxlzbmofcxD7rmniyf
+	 MgqrHy/2c3Qz9dKEUnV8f7g3eRwAx0t7XG0PdmgOBGMyZ6kB7cqTNU7KJaFjBbFg/Q
+	 AiMkat4YqZZxQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [net-next v3 3/5] dt-bindings: net: starfive,jh7110-dwmac: Add
- jhb100 sgmii rx clk
+Subject: Re: [PATCH net-next 2/2] net: pse-pd: pd692x0: support disabling
+ disable ports GPIO
 Reply-To: sashiko@lists.linux.dev
-To: "Minda Chen" <minda.chen@starfivetech.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260507094115.8355-4-minda.chen@starfivetech.com>
-References: <20260507094115.8355-4-minda.chen@starfivetech.com>
+To: "Robert Marko" <robert.marko@sartura.hr>
+Cc: robh@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260507104720.262641-2-robert.marko@sartura.hr>
+References: <20260507104720.262641-2-robert.marko@sartura.hr>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 08 May 2026 17:14:50 +0000
-Message-Id: <20260508171451.62106C2BCB0@smtp.kernel.org>
+Date: Fri, 08 May 2026 17:14:51 +0000
+Message-Id: <20260508171452.5C08DC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The patch erroneously relaxes clock constraints for the base `st=
-arfive,jh7110-dwmac` hardware, incorrectly allowing it to specify 6 clocks.
-- [Low] Replacing the global `items` array for `clock-names` with duplicate=
-d conditional blocks is a binding anti-pattern.
+- [High] The driver requests the 'disable-ports' GPIO with `GPIOD_OUT_HIGH`=
+, which logically asserts the disable signal, contradicting the goal of ena=
+bling PoE.
 --
 
-commit 868beb354c5de56282a3dbb82e7d79b8745d272e
-Author: Minda Chen <minda.chen@starfivetech.com>
+commit bef0e9b8a1213b027391963a1e52c45fae73be60
+Author: Robert Marko <robert.marko@sartura.hr>
 
-dt-bindings: net: starfive,jh7110-dwmac: Add jhb100 sgmii rx clk
+net: pse-pd: pd692x0: support disabling disable ports GPIO
 
-This commit updates the starfive,jh7110-dwmac binding to support the jhb100
-SGMII interface. It adds a 6th clock for the new SGMII interface while
-noting that existing RMII/RGMII interfaces still use 5 clocks.
+This commit adds support for parsing a disable-ports GPIO in the
+Microchip PSE controller driver. It attempts to set this GPIO to output
+high by default to enable PoE on all ports during probe.
 
-> --- a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
-> @@ -39,20 +39,18 @@ properties:
+> diff --git a/drivers/net/pse-pd/pd692x0.c b/drivers/net/pse-pd/pd692x0.c
+> --- a/drivers/net/pse-pd/pd692x0.c
+> +++ b/drivers/net/pse-pd/pd692x0.c
+
 [ ... ]
->    clock-names:
-> -    items:
-> -      - const: stmmaceth
-> -      - const: pclk
-> -      - const: ptp_ref
-> -      - const: tx
-> -      - const: gtx
-> +    minItems: 5
-> +    maxItems: 6
 
-This isn't a bug, but does it make sense to keep the full 6-element list
-defined here at the top level and rely purely on minItems and maxItems
-overrides inside the conditional blocks?
+> @@ -1780,6 +1782,11 @@ static int pd692x0_i2c_probe(struct i2c_client *cl=
+ient)
+>  	priv->client =3D client;
+>  	i2c_set_clientdata(client, priv);
+> =20
+> +	disable_ports =3D devm_gpiod_get_optional(dev, "disable-ports", GPIOD_O=
+UT_HIGH);
 
-Standard device tree binding practice usually defines the complete items ar=
-ray
-once at the top level. By removing the items array here and moving it into
-the conditionals, the string constants are duplicated across multiple block=
+Will requesting this GPIO with GPIOD_OUT_HIGH actually disable the ports
+instead of enabling them?
+
+The gpiod API operates on logical states rather than physical voltage level=
 s.
+By requesting a GPIO named disable-ports with GPIOD_OUT_HIGH, the disable
+signal is logically asserted.
 
-[ ... ]
-> @@ -111,6 +121,26 @@ allOf:
->            contains:
->              const: starfive,jh7110-dwmac
->      then:
-> +      properties:
-> +        clocks:
-> +          minItems: 5
-> +          maxItems: 6
+This activates the disable condition and turns off PoE on the ports.
+
+To de-assert the disable signal and enable PoE as intended, should this be
+requested with GPIOD_OUT_LOW instead?
+
+> +	if (IS_ERR(disable_ports))
+> +		return dev_err_probe(&client->dev, PTR_ERR(disable_ports),
+> +				     "Failed to get disable ports GPIO\n");
 > +
-> +        clock-names:
-> +          oneOf:
-> +            - items:
-> +                - const: stmmaceth
-> +                - const: pclk
-> +                - const: ptp_ref
-> +                - const: tx
-> +                - const: gtx
-> +            - items:
-> +                - const: stmmaceth
-> +                - const: pclk
-> +                - const: ptp_ref
-> +                - const: tx
-> +                - const: gtx
-> +                - const: sgmii_rx
-
-Does this inadvertently relax the clock constraints for the base
-starfive,jh7110-dwmac hardware?
-
-The commit message explicitly states that the 6th clock is a requirement
-only for the new jhb100 SGMII interface, while other interfaces use 5 clock=
-s.
-
-Since jhb100 uses starfive,jh7110-dwmac as a fallback, this outer then
-block applies to both hardware variants. Because there is no inner else
-block for the pure starfive,jh7110-dwmac to restrict maxItems back to 5,
-will a pure jh7110 device tree now be erroneously permitted to specify 6
-clocks and silently pass schema validation?
+>  	ret =3D i2c_master_recv(client, (u8 *)&buf, sizeof(buf));
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260507094115.8355=
--1-minda.chen@starfivetech.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260507104720.2626=
+41-1-robert.marko@sartura.hr?part=3D2
