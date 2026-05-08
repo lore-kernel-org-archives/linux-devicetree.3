@@ -1,181 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8028137417B;
-	Fri,  8 May 2026 12:48:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C533736166A
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 12:53:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778244535; cv=none; b=V5lBcLh1UcHOh2i5On3FLM8z8DJbYrGOIIwRQUHN+aRYvOuO7iXxHbKpYwuxKWJ1OctoHa9GU8Q5ojI4UyA9pr5/mS2YWRM03gzrPMbpTWno53Kv9N3ftjMIjnVbh6yO9KuS8AcZHfVk6dF953gOInB8CfbmDQEzusaBJ5oIyyI=
+	t=1778244808; cv=none; b=T2Ny5oodqGue0hr5ylWevmyEHUHM765ugPYoriRe9qv6g5ZhWkoOZn8xRj1Ez+gGiUI0buCadtH35t+gmH1HbEkPNY/YuvqPipYJw04AXb9GFhQnWz/HHwcY11WeAjXUHiHyf0zpm5/ejTSV76Gp2u+kyov01a4UwwFy5VOKA/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778244535; c=relaxed/simple;
-	bh=8Y96R3p8sUNREaenReFTo2/oKclTZ1VW7vYZvOu63XE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=srg8R9it4+O49lqS+pWTsMUVgjtkZnfPxduOy+WfOMiRLtA46ztyEFLDWM7hW/RnwZiVsCTK7sU1v7Zt6fzKlnq4rBzqO7JFQICdHNVITpGRKzyPzL6LzI2YPPQmHkzaxTd4Z79PSEKWz7frHovGcaVzqqDWqB7CDPzmXbT/jN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c1M7DEnR; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778244808; c=relaxed/simple;
+	bh=UyNlqKMM6jxuugzSOHKtl7TjL/HTQpOU8FeQj+AFrv0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=LVKLZpx9eXJriWgCFUhEO80JEWcdYsk5EM4pJlBHOetPTi5RrCEuGAx6fpcOJ4nSdBloOULIcXdUmJLRwMinQX5Yh3EZNLKb3Vxp9JTBz6mSyOlqeEVgTs2FQ8SwHr68jO+WL7o4xfWhdLhn1K4O765JIBO3FEibaKA9LaO4MTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=suMoSycb; arc=none smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c1M7DEnR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C78F8C2BCB0;
-	Fri,  8 May 2026 12:48:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778244535;
-	bh=8Y96R3p8sUNREaenReFTo2/oKclTZ1VW7vYZvOu63XE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=c1M7DEnRcdd+92ZqSAiqlSHHPEKAQWghayvTa7+5HtKFUC64Cv8X/o5bUFo9/dTrF
-	 Uj7MLRYD9YsdWpz+F8Ry9cf6vC4WN1PlFGVc03wBsXh/MQLQ22IVpJg7MFLDNUxDHG
-	 nbSq6UNrBU8e35zXvT//FCRfXOaWH6J/3VxXVavuXzhMTegqjor+CrErWT82CIcWqc
-	 dJm13h0Slv3ZPyJHyjlHZAQsAd6Hhs19ypPBavr6gTtWgBCxzM/x+xEdTZZ60pNI6x
-	 MfDB/9Xe9W99bdY89Aso5Up+trOiuIwQBZtiKwbVvYZVq1G/FNSGXTtYaOgIDPvrx/
-	 IvdPMvLsaPgwA==
-Date: Fri, 8 May 2026 13:48:43 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich
- <Michael.Hennerich@analog.com>, "David Lechner" <dlechner@baylibre.com>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp Zabel
- <p.zabel@pengutronix.de>, "Jonathan Corbet" <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-doc@vger.kernel.org>, Janani Sunil <jan.sun97@gmail.com>,
- rodrigo.alencar@analog.com
-Subject: Re: [PATCH v2 1/3] dt-bindings: iio: dac: Add AD5529R
-Message-ID: <20260508134843.7646c4f5@jic23-huawei>
-In-Reply-To: <20260508-ad5529r-driver-v2-1-e315441685d7@analog.com>
-References: <20260508-ad5529r-driver-v2-0-e315441685d7@analog.com>
-	<20260508-ad5529r-driver-v2-1-e315441685d7@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="suMoSycb"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-b9358bc9c50so323544666b.1
+        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 05:53:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1778244805; x=1778849605; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=JHwS4Uc0l7hheA9OAcjg4DeynZW3gYZgbq5AyYeqW7k=;
+        b=suMoSycbVVLo4wrV480BSj+9/LTIilQRcqZYOdJfGJJ7oTQIbrvJ+NSmgSEX/j219H
+         1W+UrS2FM+Z86zf6ECO9InnIKmS4eHMAhSCYUfhFztsWAwS03agZjO9oeArJfwgflrCI
+         33V2mnBbeSHOEnAVL0U8PyO0l7OKylwoNSrBowUS0SYYFYJkIR0YyItzZkQvz9Z/o3pt
+         480DMRvrf87gavzYRIo4z2k5p7WzOFzlhQwjA7acmo6JNAY9MxsswaRVtg6GUHcQPxD+
+         xPEFNYWlFFiEvi2nI4e0m7De/LiRPwVd+9yRFUo2EXdb/613Fs+T+Zq//rM+c6p/lqEL
+         MQXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778244805; x=1778849605;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JHwS4Uc0l7hheA9OAcjg4DeynZW3gYZgbq5AyYeqW7k=;
+        b=VNAvOipo7bbRKJKgH2aRbCVZyOxyCCt3isa0pH0QwVHv8cft0KjspKhfTGhX0HO07M
+         OUQMoeKkAgV87PoZgg469xxmuY7EvaCoNSj1nu7XsXTP1X8lrMT7W5VMdKjdD4nYfaFB
+         ICn+dLujdPWcTkeYKvDOJMfy1Y/RKDKKVjFDSCyMvFoYwdW6u4qSVkLpapfneyCk4Whj
+         z6R8s3gqUahWR0Na2JtBWqaVexWQ4+oPkfhm/qctSNGa5jEFjWpS/MQakLB82Z14iiCZ
+         8Y+sIpnjxUl53egpBc49r0qNYCFQRCaEASKB2uYN1JBVfxpPM/BKHPZuj3FQIZ1UbrhV
+         BVCg==
+X-Forwarded-Encrypted: i=1; AFNElJ8SzZsb5jPV1L9JRt3+Fw8YNS0oYcP0hQ9FMl7M68pFlicj1tqOuqCnYmIr6eEK9+sbHKcoPFAY1/Ma@vger.kernel.org
+X-Gm-Message-State: AOJu0YzCBylvHVlcFdVAE7HVXO1M4cKCpB1D8+tbZrMciRS7cIGZsazS
+	9IsQFRTxm5VBrAqUfDaEXWjmuKzYga/gjBtdC8eNT6z7IRdFxLTS1h+WY/W+7NcaoNE=
+X-Gm-Gg: AeBDietdq1pQGDIh2GsGIyOWnIfY5P2KyceYpT3qJY4qnMh1USwLZ7zAnZDh05JfJeC
+	DHKi36SaLbXVEwIEEtl/5AGiNX6Y/O7YIXZBCXayqK4AlUedxiqVO0IkvDmn/2Jc4rhg7UUXbnu
+	6TL6GINFIYpzbWpnq3oKrNsU3k6mK/ws3KGAhjlLc5hvB+cPMmoGHx/5OvqWrwnoGB2RhA1L2+Z
+	ZO/+8jeNUNfyvdnDU5Dmz7Dgl/5rrtjc7T9xGRRdKbo7BgygpWqC6aX/lSqmAskszlFqJOAjqIK
+	va7Lp0hizTJgOcTE4cSkbQt88DqJBbfCrepZgS9D6svV8NZPTlUHwwY3qQ1c0rcrhqSZzVjiVkS
+	UMqMZDfLlkB5NXx8Hbgre4BEpOKAFZVqYEMT6b+CjtbpdM2YSa4vijbpvx7sQA9YmsTYcRrUoTk
+	IQznHX6BtgcWYRAjfZVLAfwNhMI8j8qQ/v6CnuWb37dFJvUbl34omLOHo0fzc+NLTpqVGOY1cve
+	v1fSo7+DkJtIUBMdQ0t
+X-Received: by 2002:a17:906:7305:b0:ba6:1412:9326 with SMTP id a640c23a62f3a-bc56cc26af1mr735858866b.19.1778244805154;
+        Fri, 08 May 2026 05:53:25 -0700 (PDT)
+Received: from [172.16.220.224] (144-178-202-139.static.ef-service.nl. [144.178.202.139])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bcb94415c94sm800266b.53.2026.05.08.05.53.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 08 May 2026 05:53:24 -0700 (PDT)
+From: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Subject: [PATCH RFC 0/4] Add regulator support to gpio-keys
+Date: Fri, 08 May 2026 14:53:12 +0200
+Message-Id: <20260508-gpiokeys-vdd-supply-v1-0-0bb32e8e6428@fairphone.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALjc/WkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDE0MD3fSCzPzs1Mpi3bKUFN3i0oKCnEpdC1PTFLPkRAtTY5MkJaDOgqL
+ UtMwKsKnRSkFuzkqxtbUAxXz4fWoAAAA=
+X-Change-ID: 20260410-gpiokeys-vdd-supply-855d6ca8534b
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778244804; l=1461;
+ i=griffin.kroah@fairphone.com; s=20250804; h=from:subject:message-id;
+ bh=UyNlqKMM6jxuugzSOHKtl7TjL/HTQpOU8FeQj+AFrv0=;
+ b=SdqqAfe52S+/BdIS2Vl3iYr7jgDFH1N/kdT8Q0NQfw/xPPH/GfFgs7FjCMwrvjtA4jJ6DYNzf
+ OY6YbQAkQBKCwCIAPk66yencQjLUKS7qlqIa4Ji3PU541vsxmaP2VeW
+X-Developer-Key: i=griffin.kroah@fairphone.com; a=ed25519;
+ pk=drSBvqKFiR+xucmLWONHSq/wGrW+YvcVtBXFYnYzn8U=
 
-On Fri, 8 May 2026 13:55:47 +0200
-Janani Sunil <janani.sunil@analog.com> wrote:
+This patchset adds regulator support to gpio-keys to ensure that the
+regulator powering the Hall Effect sensor IC ("flip cover sensor") is on
+when the input device is used.
 
-> Devicetree bindings for AD5529R 16 channel 12/16 bit high voltage,
-> buffered voltage output digital-to-analog converter (DAC) with an
-> integrated precision reference.
->=20
-> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
-> ---
->  .../devicetree/bindings/iio/dac/adi,ad5529r.yaml   | 96 ++++++++++++++++=
-++++++
->  MAINTAINERS                                        |  7 ++
->  2 files changed, 103 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml b=
-/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
-> new file mode 100644
-> index 000000000000..f531b4865b01
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
-> @@ -0,0 +1,96 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/dac/adi,ad5529r.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Analog Devices AD5529R 16-Channel 12/16-bit High Voltage DAC
+Marked as RFC because we may want to represent a Hall Effect sensor with
+a separate compatible + driver, and not use gpio-keys.
 
-How is one device bother 12 and 16-bit? That sometimes happens for
-ADCs where it is really reflecting oversampling or for device with hardware
-FIFOs where storage space is saved by using lower bit rate. I'm not sure ei=
-ther
-applies here.
+There was also a comment around the usage of of_regulator_get() in the
+follow thread:
+https://lore.kernel.org/all/DI5HOWHCCKKD.1SQFAA3L4QFDI@fairphone.com/
 
-> +
-> +maintainers:
-> +  - Janani Sunil <janani.sunil@analog.com>
-> +
-> +description: |
-> +  The AD5529R is a 16-channel, 12-bit or 16-bit, high voltage, buffered =
-voltage output
-> +  digital-to-analog converter (DAC) with an integrated precision referen=
-ce.
-> +  The device operates from unipolar and bipolar supplies. It is guarante=
-ed
-> +  monotonic and has built-in rail-to-rail output buffers that can source=
- or
-> +  sink up to 25mA.
-> +
-> +  Specifications:
-> +  * 16 independent 12-bit or 16-bit DAC channels
-> +  * Independently programmable output ranges: 0V to 5V, 0V to 10V, 0V to=
- 20V,
-> +    0V to 40V, =C2=B15V, =C2=B110V, =C2=B115V, and =C2=B120V
-> +  * The device supports SPI communication with Mode 0 and Mode 3.
-> +  * 4.096V precision reference, 12ppm/=C2=B0C maximum
-> +  * Built-in function generation: Toggle, Sinusoidal Dither, and Ramp wa=
-veforms
+Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+---
+Griffin Kroah-Hartman (4):
+      regulator: add devm_fwnode family of functions
+      dt-bindings: input: gpio-keys: Add vdd-supply
+      Input: gpio-keys - add regulator to gpio_keys
+      arm64: dts: qcom: milos-fairphone-fp6: add supply for Hall Effect sensor
 
-Interesting - so this is a DDS, be it a simple one. +CC Rodrigo who has been
-wrestling with one of those recently.  Rodrigo, can you take a look at this
-driver and see if it fits in the ABI etc you've been hammering out? Thanks!
+ .../devicetree/bindings/input/gpio-keys.yaml       |  4 ++
+ arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts   |  4 +-
+ drivers/input/keyboard/gpio_keys.c                 | 41 ++++++++++++++
+ drivers/regulator/devres.c                         | 66 ++++++++++++++++++++++
+ include/linux/gpio_keys.h                          |  2 +
+ include/linux/regulator/consumer.h                 | 30 ++++++++++
+ 6 files changed, 144 insertions(+), 3 deletions(-)
+---
+base-commit: 17c7841d09ee7d33557fd075562d9289b6018c90
+change-id: 20260410-gpiokeys-vdd-supply-855d6ca8534b
 
-
-> +  * Multiplexer for output voltage, load current sense and die temperatu=
-re
-> +
-> +  Datasheet: https://www.analog.com/media/en/technical-documentation/dat=
-a-sheets/ad5529r.pdf
-> +
-> +properties:
-> +  compatible:
-> +    const: adi,ad5529r
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  spi-max-frequency:
-> +    maximum: 50000000
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description:
-> +      GPIO connected to the RESET pin. Active low. When asserted low,
-> +      performs a power-on reset and initializes the device to its defaul=
-t state.
-> +
-> +  vdd-supply:
-> +    description: Digital power supply (typically 3.3V)
-> +
-> +  avdd-supply:
-> +    description: Analog power supply (typically 5V)
-> +
-> +  hvdd-supply:
-> +    description: High voltage positive supply (up to 40V for output rang=
-e)
-> +
-> +  hvss-supply:
-> +    description: High voltage negative supply (ground or negative voltag=
-e)
-
-I don't mind doing it this way but in some similar cases where 0 is somethi=
-ng that
-can be considered the 'default' we've made the supply optional.  What was
-your reasoning for requiring it in this case?
-
-dt-bindings should be as complete as we can make them - with that in mind...
-
-There are some more interesting corners on this device the binding doesn't
-currently cover such as mux_out pin.  We'd normally do that by making the
-driver potentially a client of an ADC
-
-Easier though is !alarm which smells like an interrupt.
-!clear probably a gpio. TG0-3 also GPIOs.
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vdd-supply
-> +  - avdd-supply
-> +  - hvdd-supply
-> +  - hvss-supply
+Best regards,
+-- 
+Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
 
