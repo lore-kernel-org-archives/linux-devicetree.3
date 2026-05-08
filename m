@@ -1,217 +1,249 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D58436AB7B
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 09:18:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 145DB35CB87;
+	Fri,  8 May 2026 09:19:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778231906; cv=none; b=dxv5WyM+UfQEUg8+EMSPmaEYvgH5uJcqlcQQJAD8Wk70INiN8qwfX3xWtwffGBdHT4IAPpprQk9z5vRras680jW7Itq3KxPagt7D2JL8RrB1R6I8iX3a56qd0zcNROLEs05vkIQRFzkHesYMbDmJh+JxhVsZSBEcpfZOeIwe+lA=
+	t=1778231965; cv=none; b=gFwGWVu8js/jpcxj/HOvEsioIz1SNeI2LrC9TS11lDn2kw/i0PyNUy49J+KFc4zLYO0MGndmzLq9ShLu+IkRJ9emiMo5r8bG67hyDhBNFl+fv8/zgTnnMuT5HKoRU0j9tygQJU4yUouI/bbrOzNoPv2ZAF0zxFQFQ+Ne9P4N9R4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778231906; c=relaxed/simple;
-	bh=x87VvY9k09CMD6ZDoAc6MgD8HfCyyOZtXGs0mQHknbs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FrKXnFY5LhiCet3CFDLTX6DfFshGP6RrnAeXZTvxZRkew1wbWNpEe31EE5VHwvLDwta9FN0/oxRZgN0w8F7AU6YQc6x5TL0Q/F7zPyk3qNV6atW1ohMQOc3kVjaodCOgUgoS5dBJCY+WEQMp3TVUQ101j7x9LnAXyRepfj+GxZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OeYIyQgW; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778231965; c=relaxed/simple;
+	bh=CDOYZldxweR+3QhtIXhYzYkx634ZtPQBXyhNM5n0ctw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uG6aOynApHcs3/uQ8hmTGF0Le8Je5Q8eKVkuWnGIofE7q/YIVIKYwShGhsU1qeLIsJQmjjlr3mNyvCdR7cuWb5jqVbSTUsjpdBos0K9FxxNCd8gkLqNul6N9IRJDsSdx1l8INSzpEZ82Sj1Ny0YkT9h/arnTcEUzewnI94ShAOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wur1K3h5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OeYIyQgW"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-44a5174670eso1081864f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 02:18:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778231902; x=1778836702; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ku/ICma2gxDE2kcR48qisRKKRusKewtK808/1tsRoR8=;
-        b=OeYIyQgWI020jpfSKEuD1phpdmINy0V8DiSQUJzfZtNjOFFq7/ZyTZ/17Mg1NwnLFt
-         deId3MoO2FPEzJLEgLYziJX2rhNP/8iH4PoOfXvDv9jo7FzRFrrDHV1HbkkKaHLTnQ25
-         HkeMsQEqrtw7ZgUyOEiVdFoDGKKp/jHWN2dov3vIStagvvCMrtJV3z9cl64wO2R3xbwU
-         Y0cKuC9CQPrnUtBZEuryKcukh/8NLRQkTRv66msUJa3VWkbBBUZRd8oKgR1m1pSJsu9p
-         FDO2u42MhLZi62jh557xAgJv1SqobCbbj/0OJoAzm95+0plG8BZWFrHzcLZAxvrlSOOj
-         TE7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778231902; x=1778836702;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ku/ICma2gxDE2kcR48qisRKKRusKewtK808/1tsRoR8=;
-        b=ES494YJBpRykmOqkpjPj4suYnUj4rnWZSYfYU7Zdez5T0WEXB4FcriqFscCthcbh6K
-         /xmm2dAR22PNLI5cYklb1jKSFnI3MS6GGyTIzEklG7vhxRVdZhKlCpEb6JAl0zpzFlM+
-         y92NS/9f/8aAKRQIoEwjHJi69sLuhcAPyVOfy67CE7X3YfL5H3AcGSgtyLLeFD7Y4Tlr
-         ZU2rl/k8cZDlhUP4TXBcmK0BDS1TaznGcxJz04wRLBjWLoVpopmxb8UIkKUj4tSdWGGJ
-         R/3C4tSJKN0EiqVO+JjqJ7RsRb+jT9ZXEa31btmf2j8sk1SmUbLw0miUWyeAEGw9ymS1
-         gwmQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8NigMGVAwn3xfDh+FfZMtIMS5XMEvsOQ5hIYqQ+eG7JpQlc0kcWOeT9pDN3dz2INiJAUcJ+smDyUmd@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx+UzwbjAlE0ku1bY8RQpGeIlEmDuKYIjZnlAtK34n/6Wz9PB1z
-	UTgL4J04zrMPFYC5uGFlfMXULT0U0vMw2zhKifWVNWkg+tD649cZM5gY
-X-Gm-Gg: Acq92OETR6BndqzjJe8T0jsB2x1MEMP/QKoBRM/SnO8w/dPUtHYDFfYB/eimAE4WHIg
-	lqasVcDPiYHC2aaDiYT73Zoz7b4BjRWbnwOB8cnNT3d5ytmlCGJAGHXTbhnXdEdKK3pWZ+/3YVg
-	T//QvICRNh37f6gaVCUu4Ah64GKqS81y9onNmfiCtDPjbxEwBQCUMWTMltM/r/iHRJfsftQX/M+
-	6lvCkza4tGSFrkq6RjJHbVXVHH0CEk8HssuwcDD27M1vh1r2559B1HJQwWtvXkHGh+nDkAnmwGJ
-	jskUlt4S587KkWQvphqjMdJYnmNXqQGgudtOKzql6nr/xKsZ0tCzKZ5Y57AowYYErTgXcRRmv8A
-	DJzXwhU+xW2xlyEcYdESO+pxfmNevE0V0VsTsfgRJbvOeP48Jcn3R6Q1xBbLlK8LVXPV9G6l+Nk
-	WFH27KhP8SHBd0g8c=
-X-Received: by 2002:a05:6000:4210:b0:43b:9a9f:8956 with SMTP id ffacd0b85a97d-4515ce1c80fmr18257155f8f.22.1778231902269;
-        Fri, 08 May 2026 02:18:22 -0700 (PDT)
-Received: from nsa ([148.63.225.166])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4548e4bbebdsm3214464f8f.5.2026.05.08.02.18.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 08 May 2026 02:18:21 -0700 (PDT)
-Date: Fri, 8 May 2026 10:19:15 +0100
-From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
-To: "Stan, Liviu" <Liviu.Stan@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, 
-	"Hennerich, Michael" <Michael.Hennerich@analog.com>, "Sa, Nuno" <Nuno.Sa@analog.com>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/2] iio: temperature: ltc2983: Add support for ADT7604
-Message-ID: <af2no3bJA9MSjXvV@nsa>
-References: <20260427132526.272716-1-liviu.stan@analog.com>
- <20260427132526.272716-3-liviu.stan@analog.com>
- <afCVtXBHIIoLlsRo@nsa>
- <SA5PR03MB83772D8F6A3CC39094DE5241F63C2@SA5PR03MB8377.namprd03.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wur1K3h5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC523C2BCB0;
+	Fri,  8 May 2026 09:19:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778231964;
+	bh=CDOYZldxweR+3QhtIXhYzYkx634ZtPQBXyhNM5n0ctw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Wur1K3h5D4ISzBp5rj0gk1FHf4DIQFw8C+yskYV6ZzfeYjPGETcbQhBcKuHlvNNxu
+	 jKUUU5l7w0qn6/Au2wUugWCdb5YkTLXj/Wv2dxgcB2AlgEckjH7YNxT523rWRuOW4b
+	 I2NU9cpC5w1U265TSyMkAxmqfC3ZQx0u3+lsn/Vbiac19ZyNMdw3U6vOLPWbxrUI8b
+	 Srgs5e/QKue9sLoEeYysBBrOnjzIOSF/hgoNT22f99st3pOWBIaVcTrSD/c+lVpY9Z
+	 T3dIsGhZYednZHrnvm3txxEFzaYgLxUnmqqMBGys/txDnNpo8oCxBhlAvj8lRLcmpz
+	 ilqktPfe98vEw==
+Message-ID: <c6e3237e-7752-4768-9cdf-3f3e89c1b98c@kernel.org>
+Date: Fri, 8 May 2026 10:19:18 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <SA5PR03MB83772D8F6A3CC39094DE5241F63C2@SA5PR03MB8377.namprd03.prod.outlook.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 12/15] media: uapi: Add CAMSS ISP configuration
+ definition
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+ devicetree@vger.kernel.org, laurent.pinchart@ideasonboard.com,
+ kieran.bingham@ideasonboard.com, johannes.goede@oss.qualcomm.com
+References: <20260508-camss-isp-ope-v3-0-bb1055274603@oss.qualcomm.com>
+ <_M7wAThdPN69377jGZSjtTkw52TQVFLRr2noYJinHH3dhvPAQhP_1OfeGBltDz3bYydN737y5AbI7GBdn-qh9w==@protonmail.internalid>
+ <20260508-camss-isp-ope-v3-12-bb1055274603@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20260508-camss-isp-ope-v3-12-bb1055274603@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, May 07, 2026 at 05:25:58PM +0000, Stan, Liviu wrote:
-> Thank you for the comments, and I apologize for the late reply.
+On 07/05/2026 23:49, Loic Poulain wrote:
+> Add the uapi header camss-config.h defining the ISP parameter
+> structures used by the CAMSS Offline Processing Engine (OPE) driver.
+> This includes structures for white balance, chroma enhancement and
+> color correction configuration.
 > 
-> On Mon, Apr 28, 2026,  Nuno Sá wrote:
-> ...
-> > > Both sensor types expose an IIO_RESISTANCE channel reading from
-> > > the resistance result register bank (0x060-0x00AF), added to
-> > > the regmap readable ranges. Scales are 1/1,024,000 for copper
-> > > trace (result in mOhm) and 1/1024 for leak detector (result
-> > > in Ohm).
-> > 
-> > But for userspace we report both in Ohm? That's the ABI AFAICT. In DT,
-> > you also mention IIO_TEMP is used:
-> > "IIO_TEMP reports coverage percentage"
-> > 
-> > Can you expand more on what the above means? Are we reporting milli
-> > degrees celcius to userspace?
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> ---
+>   include/uapi/linux/camss-config.h | 115 ++++++++++++++++++++++++++++++++++++++
+>   1 file changed, 115 insertions(+)
 > 
-> Yes, both IIO_RESISTANCE channels report in Ω. The commit message was 
-> misleading, it described the register's native units (mΩ for copper trace,
-> Ω for leak detector), not the userspace output. The scales are chosen to 
-> cancel those units and give Ω in both cases.
+> diff --git a/include/uapi/linux/camss-config.h b/include/uapi/linux/camss-config.h
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..665406969e66927e8bce83afaa9a3aae53ba2803
+> --- /dev/null
+> +++ b/include/uapi/linux/camss-config.h
+> @@ -0,0 +1,115 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only WITH Linux-syscall-note */
+> +/*
+> + * Qualcomm CAMSS ISP parameters UAPI
+> + *
+> + * Uses the generic V4L2 extensible ISP parameters buffer format defined in
+> + * <uapi/linux/media/v4l2-isp.h>.
+> + *
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#ifndef _UAPI_LINUX_CAMSS_CONFIG_H
+> +#define _UAPI_LINUX_CAMSS_CONFIG_H
+> +
+> +#include <linux/types.h>
+> +#include <linux/media/v4l2-isp.h>
+> +/**
+> + * enum camss_params_block_type - CAMSS ISP parameter block identifiers
+> + *
+> + * Each value identifies one ISP processing block.  The value is placed in
+> + * the @type field of &struct v4l2_isp_params_block_header.
+> + */
+> +enum camss_params_block_type {
+> +	CAMSS_PARAMS_WB_GAIN = 1,
+> +	CAMSS_PARAMS_CHROMA_ENHAN = 2,
+> +	CAMSS_PARAMS_COLOR_CORRECT = 3,
+> +	CAMSS_PARAMS_MAX,
+> +};
+> +
+> +/**
+> + * struct camss_params_wb_gain - White Balance gains
+> + *
+> + * @header:   generic block header; @header.type = CAMSS_PARAMS_WB_GAIN
+> + * @g_gain:   green channel gain (15uQ10)
+> + * @b_gain:   blue channel gain (15uQ10)
+> + * @r_gain:   red channel gain (15uQ10)
+> + */
+> +struct camss_params_wb_gain {
+> +	struct v4l2_isp_params_block_header header;
+> +	__u16 g_gain;
+> +	__u16 b_gain;
+> +	__u16 r_gain;
+> +	__u16 _pad;
+> +} __aligned(8);
+> +
+> +/**
+> + * struct camss_params_chroma_enhan - RGB to YUV colour matrix
+> + *
+> + * Implements the CLC_CHROMA_ENHAN pipeline module. All coefficients are
+> + * signed 12-bit fixed-point Q3.8 (range roughly -8.0 to +7.996).
+> + *
+> + * Luma (Y) row of the matrix:
+> + * @luma_v0:  R-to-Y coefficient (12sQ8, e.g. 0x04d = 0.299)
+> + * @luma_v1:  G-to-Y coefficient (12sQ8, e.g. 0x096 = 0.587)
+> + * @luma_v2:  B-to-Y coefficient (12sQ8, e.g. 0x01d = 0.114)
+> + * @luma_k:   Y output offset    (9s,  0 = no offset)
+> + *
+> + * Chroma (Cb) row:
+> + * @coeff_ap: Cb positive coefficient (12sQ8, e.g. 0x0e6 =  0.886)
+> + * @coeff_am: Cb negative coefficient (12sQ8, e.g. 0xfb3 = -0.338)
+> + * @kcb:      Cb output offset        (11s,   128 = +128)
+> + *
+> + * Chroma (Cr) row:
+> + * @coeff_cp: Cr positive coefficient (12sQ8, e.g. 0x0b3 =  0.701)
+> + * @coeff_cm: Cr negative coefficient (12sQ8, e.g. 0xfe3 = -0.114)
+> + * @coeff_dp: Cr positive coefficient (12sQ8)
+> + * @coeff_dm: Cr negative coefficient (12sQ8)
+> + * @kcr:      Cr output offset        (11s,   128 = +128)
+> + *
+> + * @header: generic block header; @header.type = CAMSS_PARAMS_CHROMA_ENHAN
+> + */
+> +struct camss_params_chroma_enhan {
+> +	struct v4l2_isp_params_block_header header;
+> +	__u16 luma_v0;
+> +	__u16 luma_v1;
+> +	__u16 luma_v2;
+> +	__u16 luma_k;
+> +	__u16 coeff_ap;
+> +	__u16 coeff_am;
+> +	__u16 coeff_cp;
+> +	__u16 coeff_cm;
+> +	__u16 coeff_dp;
+> +	__u16 coeff_dm;
+> +	__u16 kcb;
+> +	__u16 kcr;
+> +} __aligned(8);
+> +
+> +/**
+> + * struct camss_params_color_correct - colour correction matrix
+> + *
+> + * signed 12-bit fixed-point (Qm)
+> + *
+> + * Out_ch0 (g) = A0*G+B0*B+C0*R + K0
+> + * Out_ch1 (b) = A1*G+B1*B+C1*R + K1
+> + * Out_ch2 (r) = A2*G+B2*B+C2*R + K2
+> + *
+> + * m = 0x0 - Coefficients are signed 12sQ7 numbers
+> + * m = 0x1 - Coefficients are signed 12sQ8 numbers
+> + * m = 0x2 - Coefficients are signed 12sQ9 numbers
+> + * m = 0x3 - Coefficients are signed 12sQ10 numbers
+> + */
+> +struct camss_params_color_correct {
+> +	struct v4l2_isp_params_block_header header;
+> +	__u16 a[3];
+> +	__u16 b[3];
+> +	__u16 c[3];
+> +	__u16 k[3];
+> +	__u16 m;
+> +} __aligned(8);
+> +
+> +#define CAMSS_PARAMS_MAX_PAYLOAD		\
+> +	(sizeof(struct camss_params_wb_gain)	+\
+> +	 sizeof(struct camss_params_chroma_enhan)	+\
+> +	 sizeof(struct camss_params_color_correct))
+> +
+> +#endif /* _UAPI_LINUX_CAMSS_CONFIG_H */
+> 
+> --
+> 2.34.1
 > 
 
-ack
+I think this should instead be the comprehensive list from HFI I 
+published recently.
 
-> As for the IIO_TEMP question, the chip's custom sensor table stores 
-> temperature in Kelvin (same as the LTC2984 custom RTD table). For the 
-> leak detector, coverage data is encoded as (P + 273.15) K, so when the 
-> chip converts Kelvin to Celsius on output, after the driver applies the 
-> 1000/1024 scale, the IIO output is P * 1000 millidegrees C - 0% reads
-> as ~0 millidegrees, 100% reads as ~100000 millidegrees. But yes, the 
-> actual useable quantity is coverage percentage, not temperature. Is there
-> a more suitable existing IIO channel type for coverage percentage?
-> 
+There's no point in circumscribing it and HFI is way more widely 
+available than OPE - so if there are adaptations to be done it should be 
+on the OPE side not the HFI/IPE side.
 
-Will defer this to Jonathan but if we can have a real of the coverage
-given the temperature, I guess this is ok. Given that I think we don't have
-a better channel (unless we add one?) for this. Or just extended_info...
-
-
-> > I could not find the datasheet so I guess it's not yet public?
-> 
-> Correct, it is not public yet. Will upload the URL once it is.
-> 
-> ...
-> 
-> > >  struct ltc2983_data {
-> > > @@ -272,6 +275,7 @@ struct ltc2983_rtd {
-> > >  	u32 r_sense_chan;
-> > >  	u32 excitation_current;
-> > >  	u32 rtd_curve;
-> > > +	bool sub_ohm;
-> > >  };
-> > >
-> > >  struct ltc2983_thermistor {
-> > > @@ -575,6 +579,10 @@ static int ltc2983_rtd_assign_chan(struct
-> > ltc2983_data *st,
-> > >  		if (ret)
-> > >  			return ret;
-> > >  	}
-> > > +
-> > > +	if (rtd->sub_ohm)
-> > > +		chan_val &= ~GENMASK(17, 0);
-> > > +
-> > >  	return __ltc2983_chan_assign_common(st, sensor, chan_val);
-> > >  }
-> > 
-> > I'm not sure if we shouldn't just treat the new types as new sensors
-> > instead of trying to push them in the existing one. I agree with Andy,
-> > the patch does not look great with respect to if() else() and going to
-> > deep in indentation.
-> > 
-> > >
-> > > @@ -758,83 +766,113 @@ ltc2983_rtd_new(const struct fwnode_handle
-> > *child, struct ltc2983_data *st,
-> > >  		return dev_err_ptr_probe(dev, ret,
-> > >  					 "Property reg must be given\n");
-> > >
-> > > -	ret = fwnode_property_read_u32(child, "adi,number-of-wires",
-> > &n_wires);
-> > > -	if (!ret) {
-> > > -		switch (n_wires) {
-> > > -		case 2:
-> > > -			rtd->sensor_config = LTC2983_RTD_N_WIRES(0);
-> > > -			break;
-> > > -		case 3:
-> > > -			rtd->sensor_config = LTC2983_RTD_N_WIRES(1);
-> > > -			break;
-> > > -		case 4:
-> > > -			rtd->sensor_config = LTC2983_RTD_N_WIRES(2);
-> > > -			break;
-> > > -		case 5:
-> > > -			/* 4 wires, Kelvin Rsense */
-> > > -			rtd->sensor_config = LTC2983_RTD_N_WIRES(3);
-> > > -			break;
-> > > -		default:
-> > > +	/* ADT7604 requires hardcoding sensor configuration bits to 0b1001
-> > */
-> > > +	if (st->info->has_copper_trace &&
-> > > +	    sensor->type == LTC2983_SENSOR_RTD_CUSTOM) {
-> > > +		rtd->sensor_config = 0x9;
-> > > +		if (sensor->chan < LTC2983_DIFFERENTIAL_CHAN_MIN)
-> > 
-> > Like the above, we have the following kind of condition all over the
-> > place. In DT we can just have a different type for these and map it to
-> > real value when creating the sensor.
-> 
-> I understand, I will introduce new adi,sensor-type enum values for 
-> copper trace and leak detector. The driver will map these to the 
-> hardware register values (18 and 27) and handle them in dedicated 
-> switch cases with dedicated functions (ltc2983_copper_trace_new() 
-> and ltc2983_leak_detector_new()), removing the has_copper_trace guards
-> from ltc2983_rtd_new() and ltc2983_thermistor_new() entirely. One 
-> tradeoff is that the adi,sensor-type values for the new sensors will 
-> now not coincide with the hardware register values in the ADT7604 
-> datasheet.
-
-Yes, I was aware of that but I think (I could be wrong) that the
-simplifications it will bring will justify for the small "fixup" we'll
-need to do on the driver.
-
-- Nuno Sá
-> 
-> ...
-> 
-> I will address the rest of the comments in v2 as part of the restructuring.
-> Thank you very much.
-> 
-> Liviu
+---
+bod
