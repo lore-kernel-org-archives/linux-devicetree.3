@@ -1,84 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D50F33630B7
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 23:38:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8742536494B;
+	Fri,  8 May 2026 23:41:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778283482; cv=none; b=CIYrevU8uqxf5YIF2s/j35JfxnL4OXalHslinp2oneN2mII22+DcSkdNJ12BdCQBPe8tKhlO9ydhtb8b3y+iT37/9a+igqsO2pCu58Dzn32YL5LonlWtRAxWwzeqSMk7MI7XshJrpoaQdsAx4ZmQVWwg7BX2lMKY9qAJpTSPiOo=
+	t=1778283661; cv=none; b=qYmd4PxB7oQw0+klIVR8rUlOSVrvyF3JcU8aguIL3zcyJyzK/p0YzLvxlD6zUxwRa52fW/f/db+d1tjoAkXvEHSt+GGJIavAgqMWmkP7YwAc9j05wq/ZeyfeAYka6+ICzru1nOIwYj/MWeB3gb7VMLGppiwjyWnUJ3ZQHaVHNV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778283482; c=relaxed/simple;
-	bh=8EFFZFKDLlmHSOZPUE2j79AeUscpnwAnXV/yy2Q87SI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=r3qyHt2okD9CEKAmCskTxRnsGv0A8mcFzWuqBgGxS9qw6pztcQtg0evqBtVOV1eFhdC9fdvvXD8Me14LJq6PCd7VO4Yc0Wq95jZySZb+4OOgVifx8NthjGmoMy3F+wxB8429db+b3TbY1eMc8aDxQwk/+Ir7pBxMX8xL9+70+EQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qv8IJct/; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778283661; c=relaxed/simple;
+	bh=Z/8KTR3j+ve+V99wkggaNMSNth3+9ByymkKWAYxhruQ=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=YEJFJ4OC7nd44V6QTEbi1DVI1py79YuH/AXPfMlW8+wwzzM7i+0P59IPdLd+GiFjgSpBptPncV+lhayFYFhcuqV/ckPeBFNWPE6umAV+WeBURcWfumoRJBkJt+0/YhJuvJLnk2BFstGAi1oxIOJ7C9v0wRlEq7V/E1x9DT8agXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dvfl50An; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qv8IJct/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20366C2BCB0;
-	Fri,  8 May 2026 23:38:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dvfl50An"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2141FC2BCB0;
+	Fri,  8 May 2026 23:41:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778283482;
-	bh=8EFFZFKDLlmHSOZPUE2j79AeUscpnwAnXV/yy2Q87SI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=Qv8IJct/DG5TaaB7QOrfOK/hJUpfNjVFmU2W9YI/F+3TSGjAq9y4z0FYfkZKT2RhS
-	 qVuqj2LXdDNi7DkSWsUStS6BbGjrgLlXRXKKI1v4TYaxrZY5R8CCQJ3HOBpFpCy+6X
-	 ePxSJ9Ztp8W7U/qL6utzi8YnQVgZ+CWxzG94Kmz4GCyWUhLRuWINh9Or5EZtm5Pq0j
-	 vj7AwKQ0iuM8o+bbpd5GBbs5OfOO8ZTEzupP81xVffkm/tVFNtg2Z2cYaK8GUTe069
-	 RMvWWDDzKFkcG5LzAq723dIUv6TkGZIC64zhXnTY6TrEAp2lPIMy+/ACD8FU3tbDUf
-	 2aSz+B7y+NHIA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 09/10] phy: qcom-qmp: pcs-pcie: Add v10.60 register
- offsets
-Reply-To: sashiko@lists.linux.dev
-To: "Matthew Leung" <matthew.leung@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, vkoul@kernel.org
-In-Reply-To: <20260508-hawi-phy-pcie-v1-9-237b894353fc@oss.qualcomm.com>
-References: <20260508-hawi-phy-pcie-v1-9-237b894353fc@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 08 May 2026 23:38:01 +0000
-Message-Id: <20260508233802.20366C2BCB0@smtp.kernel.org>
+	s=k20201202; t=1778283661;
+	bh=Z/8KTR3j+ve+V99wkggaNMSNth3+9ByymkKWAYxhruQ=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+	b=Dvfl50AnyAJgNyA/he+IRvFoDyWrWecB0Az4Vig0+vX74ZwitTku1NQBbbYhFE9np
+	 CT2+V5WiFQ3zmCsEwj3PuQqJwjNsCETj5T8cC9qU1IEl8jwW0jug5Ba0VxKLwujjjv
+	 2JMagvng++bLEiM8+dYEsZTVY2RUgAFoMhDjx4aYYSSEWJLDBs9SPOwamYje+Iumuz
+	 EMT7bp9ttkoPNU/USVReeu0ksQqGuXdmBnoUQClWpGshv/TzyBbwcr9dndTv2iJbOc
+	 IpI/P/Jsb2YgO0zH6KxpOc4dZgR4BGrHTxV8PfWzRehWz+GgMT5KmrexAdcqUXsrX5
+	 IBpWaL5RN3LVw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B9EA438119DF;
+	Fri,  8 May 2026 23:40:10 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2 0/2] Add USB Ethernet controller (LAN7500) node in
+ VAR-SOM-OM44 devicetree
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <177828360953.897985.17310434488861318624.git-patchwork-notify@kernel.org>
+Date: Fri, 08 May 2026 23:40:09 +0000
+References: <20260506-b4-var-som-om44-lan7500-v2-0-b8af59ab877c@bootlin.com>
+In-Reply-To: <20260506-b4-var-som-om44-lan7500-v2-0-b8af59ab877c@bootlin.com>
+To: Thomas Richard <thomas.richard@bootlin.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, aaro.koskinen@iki.fi, andreas@kemnade.info,
+ khilman@baylibre.com, rogerq@kernel.org, tony@atomide.com,
+ o.rempel@pengutronix.de, thomas.petazzoni@bootlin.com,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org, nb@tipi-net.de
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The macro `QPHY_PCIE_V10_60_PCS_PCS_TX_RX_CONFIG` contains a redund=
-ant `PCS_` substring.
---
+Hello:
 
-commit fa9d92bd2f41dd643566d490312c4a18a8a68214
-Author: Matthew Leung <matthew.leung@oss.qualcomm.com>
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-phy: qcom-qmp: pcs-pcie: Add v10.60 register offsets
+On Wed, 06 May 2026 14:13:02 +0200 you wrote:
+> In this second version I added LAN7500 and LAN7505 definitions in
+> microchip,lan95xx.yaml as requested by Krzysztof. I also added Nicolai's RB
+> tag in devicetree patch.
+> 
+> Signed-off-by: Thomas Richard <thomas.richard@bootlin.com>
+> ---
+> Changes in v2:
+> - add Nicolai's RB tag in patch 2/2.
+> - add LAN7500 and LAN7505 in microchip,lan95xx.yaml instead of creating a
+>   new file.
+> - Link to v1: https://lore.kernel.org/r/20260403-b4-var-som-om44-lan7500-v1-0-0dadde850143@bootlin.com
+> 
+> [...]
 
-This commit adds a new header file containing the specific PCS PCIe register
-offsets for the QMP phy version v10.60 used in Hawi SoCs.
+Here is the summary with links:
+  - [v2,1/2] dt-bindings: net: microchip: Add LAN7500 and LAN7505 devices
+    https://git.kernel.org/netdev/net-next/c/f3fd582d1705
+  - [v2,2/2] ARM: dts: ti: var-som-om44: Add USB Ethernet controller node
+    (no matching commit)
 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcs-pcie-v10_60.h b/driver=
-s/phy/qualcomm/phy-qcom-qmp-pcs-pcie-v10_60.h
-> new file mode 100644
-> index 0000000000000..e4a2bdc7c3f03
-> --- /dev/null
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcs-pcie-v10_60.h
-> @@ -0,0 +1,26 @@
-[ ... ]
-> +#ifndef QCOM_PHY_QMP_PCS_PCIE_V10_60_H_
-> +#define QCOM_PHY_QMP_PCS_PCIE_V10_60_H_
-> +
-> +/* Only for QMP V10_60 PHY - PCIE PCS registers */
-> +#define QPHY_PCIE_V10_60_PCS_POWER_STATE_CONFIG2		0x00c
-> +#define QPHY_PCIE_V10_60_PCS_PCS_TX_RX_CONFIG			0x018
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-This isn't a bug, but there is a redundant "PCS_" substring in
-QPHY_PCIE_V10_60_PCS_PCS_TX_RX_CONFIG.
 
-Should this be named QPHY_PCIE_V10_60_PCS_TX_RX_CONFIG to remain consistent
-with older PHY version headers like QPHY_PCIE_V8_PCS_TX_RX_CONFIG?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508-hawi-phy-p=
-cie-v1-0-237b894353fc@oss.qualcomm.com?part=3D9
