@@ -1,130 +1,269 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1EB8313534
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 22:05:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778277911; cv=pass; b=COHIVx7QKe2mIVXRI2EyF2pyDhmCMjtCYokc6+yH+YytvW22HjSc+GTt8sCP+kNIZ/mAr3Rggmg7B4ln64FpMYJWwQRFn0OfM5TgoDZdd337Hoai6cxYn5aO03dvaUCUI5/kIZKB919EAVZ51LDAtZoUZ1zmH/hhoVx6K3JJ8WI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778277911; c=relaxed/simple;
-	bh=sFhOkypFgUFtrwO3/lD2eVgWx0KBMQErr2EqNiq9JBE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LrKriMjXKzDWvr8DiSjrLctKWeD5wTT1SuQGkamV5YqM7FlA4uZ/b9LFfhg/GJkDvs4MX/3mrrYFdYQ9aFH305feuJwjHCd/h/2Qb6+/jpp26lBsLSjpIZoH8o9OvyA0Wxq/tF0NYz6uPo9SR2ZBIbl5rIZOBhXO3Dw4TMY6QBo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Te0YCfX3; arc=pass smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB21D306D26
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 22:11:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778278297; cv=none; b=CgQbSmaq/tQ3P7Ryyrefdef3tO+75lzE9ZlA2P4Hu/gA9QHu9XOyElf8+mA12tIgpCTSmTaMy/HNfgysN9a1GGStBU1c1/8Ppf1dVUH/rW5hDidzZEG+uylflcfZ/S/JsnGeyEb/Abbwg35MsoeDzbQqc6HE7+YyY8WgtDlAkmQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778278297; c=relaxed/simple;
+	bh=N93+oVBLzf4PuI4STk7zWzRO4FnwKeBdOBwpGSgDFVs=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=e68/DvyEekijZq1X5nFwMwkfmxjsSTqy7g2eXNVpcB3UZwOWoYMN++SLlEYjYt7ZRgXrTGQzbFjneIT2b4ZFHNhYbEnLFggIGEPnyl7lxbTCEOdudiaHMimV290CuFaUhtBFfcSNwsh/gwOnh4impeKGXgs5ich/IbGNWGt66yU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=kbYYsQnM; arc=none smtp.client-ip=209.85.219.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Te0YCfX3"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-67e43a8996fso2460104a12.0
-        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 15:05:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778277908; cv=none;
-        d=google.com; s=arc-20240605;
-        b=e2Pd7JmCpO3KI2nVEnzD3zvLxOh+PujqF89Zo+Sk0A8jJPYvsYW0iPBL0Du6m5OXzv
-         Rk/oGkAAxrritEzcufjk/ScfDCdKLuxp1Qu+JNdHKy/St07PGF32KAlrfNgTITeTNymz
-         A84b0IpJ2Y8GkOgq96jGeF7ISpjPbj5Ht/KySQu6fO6zL3cA+9YyUh7HUFEjwAVB7SKE
-         4Hga2eKzyA1BR9FvyLhoou+9zrcRGU6wQQ2qbal5mS4x6sxrKXOVIOpo2WmgF9g3uzen
-         oqo/K4wgNrTp1/uIJiJOnV1fTr6Tu8aWtWdF73covFf7alP5M8w0nAftnrkfxemTOop2
-         GhHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=9axHN34RSuU5CsT1lGt5XlZGT/hvy0PsddNDcz/MesI=;
-        fh=a0Ftw+QWObhmAF9P5yioLWeswlTx9hJPuDANtILSg5g=;
-        b=NWcqX97PeJWmEQpF3BeWekfg1/TXHvt8mLDH55SqtFus+3gwikXeFmZLTzMqvc1uog
-         dfw9U1smg4a68d3IdBX+quI5ggIpGb9z3do7XsU0ic5Yr0+W3rR+UsSGuWUoA564+Cjz
-         9F/qEpy0au/2FDag5x28WodDO6htPWPpiq8ubwdwaF84rHQIpldJaNoLFq0JXPrEGByV
-         SII9cWx7RnujtXVZyQ++HK9unecPjXqtONF34cJD1M1jXDmsUFZcvDBp4rrADV2ApMsb
-         scwhIa+7VPBfcv64Y5LXMJydKZvJMXIIWmYemZ1TQQGu4GjoBCf7wL9UV7Y0guQ/Z3SB
-         Kv8g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="kbYYsQnM"
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-8b7f937ef44so14846236d6.0
+        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 15:11:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1778277908; x=1778882708; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=9axHN34RSuU5CsT1lGt5XlZGT/hvy0PsddNDcz/MesI=;
-        b=Te0YCfX3YWorWj7GscIhG16r7LxH79T+UiD+AsvoWWXWPL+85VG+pjrqtb4Zx/zmNe
-         0URm0AEsB/WVu2Vlqs8x39bIGdvfwqWk7ucNGgQ4V23RAHvW6Qa6ILyb8RPVJTiFuvD3
-         ik75Hs7UmbZ8TsN48VnjL3/lciUzIp7ZtXulibrc9RwlpwDB1mDyGVdAVvt/Rfc+Ynxs
-         rKPE5zO2Qewb3jZ7x9pT2Ced7pF6WffFTdpHp6xuTkPhShZLGzxK6Gl/P0/Np13/kjul
-         isFDjs7cGPKlNBa5AVhr0bN897SwuMU2WJGUcNOW2mcDIctbHF2NnC6PzOIIQxKV0XKH
-         ZcBw==
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1778278294; x=1778883094; darn=vger.kernel.org;
+        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
+         :from:subject:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=423hWhSi5+hijWcsdmhIbZKRcVhHLdzm80D5vMOt0CA=;
+        b=kbYYsQnMwYHbInkiA+Yc/kSG8D2mtY0soup/MxxcP2RL7g4SX4M3ffSTvOrH5u3QZM
+         7Krq3/NQjGhqlsLsH3OV95zu/2E3DSWf5QW6Hm+XS8I5Q/PjwcN09xAHbL0BzZ+bhQti
+         2SCkTVS02bhZ5S/6jrrPu05ZWAx6V3JZ7SCfXvW8qRlX0NwPeW11Q5Drgm+td3VktYdM
+         9NMUAxrWeE2dUf8xmIl5D4QkP3OFrVnCpyabUdSMxHcuo5b67+jL23I6Tkb7UiN80I2B
+         AsH2G4AshcjsnD/NR+nDE+NwFg4R7GNGO2B5slMNNpSlh5F+/oaz7cvrB59pJ3pqwayZ
+         XHwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778277908; x=1778882708;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9axHN34RSuU5CsT1lGt5XlZGT/hvy0PsddNDcz/MesI=;
-        b=E0V/0TliadU6HVgN/91KN/7c2/l77bynpiHk3k/WOiDuViVE5G1EipoDXjdUGm7MP5
-         8PuBZ12JsHloIbaISCaSLbauKMDf+wqe5HLe6BNeLodh6KsT7Icis34dsOGbw62x6/7G
-         otHtGHahcmIZTv0lgtlKRMY7qQkqHjF8Qv4i2qqXpLirBvYBzocGwRtIcT5v91svpUB7
-         bbGfGDvSiea2fiKM2YZoxC6FqZicsdLEJvejIbnxFA0KMCZTepHRac2Hm5sViHzn7F9a
-         eDjkpIYaHoscKQfslKT9s37AO3gvGXmKWOWXxaNiAZrDOVhJjJsLzCnK9/6x85sxhWKb
-         fWJQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8ACYXFXesguaOuQQRMiSVXhyC1gpY7S1us9IvRLPOCVc8NelDEfdHwJo17gY2o9DH5zSwmvFQkzgIV@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx+a5hinTghydT09+gLkOVJugz7fiEX59lif1bqtsk57g1jm3sr
-	40deeZZkiUKa7+sGbqhHEJmXabwgUNJb1PKhB5Cl1Dx7/0PgqbXvJMlaKV4DXvjUciFPEYh9fvK
-	wxD8NZCTBFh7muyhVx0PQMfbf120IGuAkDG+tO3ltvKIll/zhJW/KtKURFQ==
-X-Gm-Gg: Acq92OEK4gPPI99TLpvA8dFFhmmL/p96yITyHPp6KfFOnBuGJpoNJbas41M+Kn7Das1
-	BIzaSBMww7x86lGdelqVnmT7V8/s7eFUdX8QMKSAdY8nXo873jnhAtJYygw06OieHaNozAR0JQw
-	K+D4bch8yGOl8iEaVRR0W7lbMwv7JFwgIlFmgy0kJnnzRcEYi0kHULq+wPbyBmhhCzkhHRHzTGc
-	T/A/vJGVuXDBL2p+MWWfqvZbOr6Z2msPsqSEV78NaMeVdKH36xf/K7b0/Yde9Udn4q19WqPp++p
-	gFLdPsZL7vc4NTwUZbA3CiPUcz2XuuKlx0BGBmJITD606BM5fAyJ
-X-Received: by 2002:a05:6402:440f:b0:679:4b89:d348 with SMTP id
- 4fb4d7f45d1cf-67d648b2341mr7555694a12.24.1778277907636; Fri, 08 May 2026
- 15:05:07 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1778278294; x=1778883094;
+        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
+         :from:subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=423hWhSi5+hijWcsdmhIbZKRcVhHLdzm80D5vMOt0CA=;
+        b=lnaHeXruzbtKaw6xTjG5+nw1LSncEhlWVz1iyLddP/gd25hhf/aDmgSjNUOQ7HRLfc
+         EUOG6dgPqzJd8hmlr4qh7RTD5wpO0MrwdytbJgF5KuZ4e9skpGIWfimho1I8Rp8qQCWX
+         QLGrmMXwQMYMwn+jGtD6ycEfp5XZPJWHFqg8G9nTKZUaOLrc1U2ooeO+QqxqG6yujsQx
+         KewWmF2HQsxv9kpFOQFBiCTqTJI8zSeSOqhrB38fNgLlWnA5cU3LDTHaUH8RLhEo1McV
+         TPIu32NXJj45b7RGmdUGmMGjlIMGh8d5deaBg+qW7kM2dKv1mTMX+Ya+nIssUtdsA/ED
+         4RfA==
+X-Forwarded-Encrypted: i=1; AFNElJ/1g9cqvkkoAd3xX+XtjZX+o+5ZBCVnFPi6/dQ99z9BFPNVk4ddufnZ6U1CUYwhIGSzrFNuQdqy0vnm@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxecct/w8oGtxYscb4goftNWWbZwuGM9NXP67hOtBqMC7IIdEHR
+	z+Zm7FqXMPdSSNi7uqR6aykwWH2Qskda5KvllyoV55KrG5IWHBbfrC1CNXseNGMGhN4=
+X-Gm-Gg: Acq92OEw6qH+Pp5fFfY9yZaHhmSdG4ZiXCTpO5lADSyeVQA3o3+vIJENdvRHxZ4L20S
+	fCPaV2LQBPfnnfRZvcz/uthu2MMZ7mJQKq9b2CfNKsZEKwlWmYS9q7AnNKx25bEDseGfLBhf6lu
+	T5j/bou6zRgeewTiF4T9mjUNYd1yri9X8oL/EvT17Lrv3QYuReK+Odeu36/T6VhP6MYhhk4BLEH
+	UjuA5mb3Rj96urIfEI/XGVxQmIhsI9JMCgiKzeyV3sbp4jeO15oY2aAymEp4JqV2LvPpUHF6KcD
+	IYGyk0qSpCTSnu2KSy2H3tHN4kU7SeHVAl/ubVJjAUZSupPj+OfhWRkqXxIFDTgXSJ84cpx/QNZ
+	hIMDIzwdPKYucOW1sCFIyodjBz7gEIYq2vonzj/gDNd+2oi8KHdKdXZ2PZOxX9zt82b34u+A0qL
+	Lv4rSOnbty0Ab6mWoJITPFoJKmHXxk
+X-Received: by 2002:a05:6214:8082:b0:8ac:b1ce:3244 with SMTP id 6a1803df08f44-8bc42f522e5mr198672566d6.19.1778278293937;
+        Fri, 08 May 2026 15:11:33 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:15:e06b::5ac? ([2606:6d00:15:e06b::5ac])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8bf3a43636fsm29335326d6.21.2026.05.08.15.11.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 08 May 2026 15:11:33 -0700 (PDT)
+Message-ID: <ebe5cd6689923eb1e2124e177f694895383fba54.camel@ndufresne.ca>
+Subject: Re: [PATCH v5 16/29] media: rockchip: rga: split flip and rotate
+ into separate function
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Sven =?ISO-8859-1?Q?P=FCschel?= <s.pueschel@pengutronix.de>, Jacob Chen
+	 <jacob-chen@iotwrt.com>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Mauro Carvalho Chehab
+	 <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Rob Herring
+	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	 <conor+dt@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, kernel@pengutronix.de, 
+	sebastian.reichel@collabora.com
+Date: Fri, 08 May 2026 18:11:31 -0400
+In-Reply-To: <20260428-spu-rga3-v5-16-eb7f5d019d86@pengutronix.de>
+References: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
+	 <20260428-spu-rga3-v5-16-eb7f5d019d86@pengutronix.de>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-lVlR1XuC3qO6FqUNpkDq"
+User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CGME20260417115842epcas5p1fb06d6f1663b97b1eae3aafaa6a3de0b@epcas5p1.samsung.com>
- <20260417121452.827054-1-alim.akhtar@samsung.com> <20260417121452.827054-3-alim.akhtar@samsung.com>
-In-Reply-To: <20260417121452.827054-3-alim.akhtar@samsung.com>
-From: Peter Griffin <peter.griffin@linaro.org>
-Date: Fri, 8 May 2026 23:04:56 +0100
-X-Gm-Features: AVHnY4JcC94zWVXrCoUpySC3LgZfp20jXlP-UHsUMtZ7sbT2HpSsWnqgH1G_b7s
-Message-ID: <CADrjBPrD1o40K8_seeaQHzqiZRYMVVteMOPozpTVz+q0zGr3sg@mail.gmail.com>
-Subject: Re: [PATCH v2 2/4] dt-bindings: ufs: exynos: add ExynosAutov920
- compatible string
-To: Alim Akhtar <alim.akhtar@samsung.com>
-Cc: avri.altman@wdc.com, bvanassche@acm.org, robh@kernel.org, 
-	martin.petersen@oracle.com, krzk+dt@kernel.org, sowon.na@samsung.com, 
-	linux-scsi@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+
+--=-lVlR1XuC3qO6FqUNpkDq
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 17 Apr 2026 at 12:58, Alim Akhtar <alim.akhtar@samsung.com> wrote:
->
-> From: Sowon Na <sowon.na@samsung.com>
->
-> Add samsung,exynosautov920-ufs compatible for ExynosAutov920 SoC.
->
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Signed-off-by: Sowon Na <sowon.na@samsung.com>
-> Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
+Le mardi 28 avril 2026 =C3=A0 11:00 +0200, Sven P=C3=BCschel a =C3=A9crit=
+=C2=A0:
+> Split the flip and rotate command configuration into a separate
+> function in preparation of filling the command stream at streamon.
+> As the userspace can change the flipping and rotation controls while
+> streaming, we have to update them with each new frame to prevent the
+> user being unable to change them while streaming.
+>=20
+> Signed-off-by: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
+
+For code point of view, everything seems fine, but the commit message leave=
+ me a
+bit wondering. Any rotation that isn't 180 degree will cause the width and
+height to be reversed, and a new stride is needed to present the buffer
+correctly. Meaning the capture format can be affected by this change.
+
+To stick with the spec, the capture format needs to be updated, and it need=
+s to
+happen in a way user can be able to read it back for the correct frame if
+userspace make use of the queues. I see 3 options, let me know what you thi=
+nk,
+or what is later implemented if you already thought about that.
+
+1. Synchronously update the capture format width/height, document in the
+respective control this behaviour, leaving to userspace to remember which f=
+rames
+the change will apply to.
+
+This works nicely for this type of HW, but would be a bit complicated for a
+deinterlacer, since the buffering might be HW specific. It also make usage =
+of
+queues harder, less independent.
+
+2. Force a drain/stop/start for any 90 degree rotation
+
+This might impose a longer idle time for the converter core, and is kind of
+opposite of your commit message. But requires no spec work.
+
+3. Emit SRC_CH, implement the drain procedure typical to decoder resolution
+change.
+
+Typically it means userspace can keep buffering on the OUTPUT queue, and on=
+ce
+the LAST buffer is met, it can simply read the new format (and new stride, =
+since
+due to alignment, this might be hardware specific) and toggle streamoff/on =
+only
+on capture queue to reactivate the processing.
+
+The 3. is more complex for the driver, but its a proven race-free method fo=
+r
+decoders already. 2 would be statusquo to get this series in, and we could =
+post-
+poned more advance work for seamless 90degree rorations. 1., I don't really=
+ like
+that solution, it not quite generic enough.
+
+feedback welcome,
+Nicolas
+
 > ---
+> =C2=A0drivers/media/platform/rockchip/rga/rga-hw.c | 57 +++++++++++++++++=
+-----------
+> =C2=A01 file changed, 34 insertions(+), 23 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media=
+/platform/rockchip/rga/rga-hw.c
+> index dac3cb6aa17d3..6c1956b04f6ba 100644
+> --- a/drivers/media/platform/rockchip/rga/rga-hw.c
+> +++ b/drivers/media/platform/rockchip/rga/rga-hw.c
+> @@ -156,7 +156,38 @@ static void rga_cmd_set_dst_addr(struct rga_ctx *ctx=
+, dma_addr_t dma_addr)
+> =C2=A0	dest[reg >> 2] |=3D 0x7 << 8;
+> =C2=A0}
+> =C2=A0
+> -static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
+> +static void rga_cmd_set_flip_rotate_info(struct rga_ctx *ctx)
+> +{
+> +	u32 *dest =3D ctx->cmdbuf_virt;
+> +	union rga_src_info src_info;
+> +
+> +	src_info.val =3D dest[(RGA_SRC_INFO - RGA_MODE_BASE_REG) >> 2];
+> +
+> +	if (ctx->vflip)
+> +		src_info.data.mir_mode |=3D RGA_SRC_MIRR_MODE_X;
+> +
+> +	if (ctx->hflip)
+> +		src_info.data.mir_mode |=3D RGA_SRC_MIRR_MODE_Y;
+> +
+> +	switch (ctx->rotate) {
+> +	case 90:
+> +		src_info.data.rot_mode =3D RGA_SRC_ROT_MODE_90_DEGREE;
+> +		break;
+> +	case 180:
+> +		src_info.data.rot_mode =3D RGA_SRC_ROT_MODE_180_DEGREE;
+> +		break;
+> +	case 270:
+> +		src_info.data.rot_mode =3D RGA_SRC_ROT_MODE_270_DEGREE;
+> +		break;
+> +	default:
+> +		src_info.data.rot_mode =3D RGA_SRC_ROT_MODE_0_DEGREE;
+> +		break;
+> +	}
+> +
+> +	dest[(RGA_SRC_INFO - RGA_MODE_BASE_REG) >> 2] =3D src_info.val;
+> +}
+> +
+> +static void rga_cmd_set_format_scale_info(struct rga_ctx *ctx)
+> =C2=A0{
+> =C2=A0	struct rockchip_rga *rga =3D ctx->rga;
+> =C2=A0	u32 *dest =3D ctx->cmdbuf_virt;
+> @@ -219,27 +250,6 @@ static void rga_cmd_set_trans_info(struct rga_ctx *c=
+tx)
+> =C2=A0		}
+> =C2=A0	}
+> =C2=A0
+> -	if (ctx->vflip)
+> -		src_info.data.mir_mode |=3D RGA_SRC_MIRR_MODE_X;
+> -
+> -	if (ctx->hflip)
+> -		src_info.data.mir_mode |=3D RGA_SRC_MIRR_MODE_Y;
+> -
+> -	switch (ctx->rotate) {
+> -	case 90:
+> -		src_info.data.rot_mode =3D RGA_SRC_ROT_MODE_90_DEGREE;
+> -		break;
+> -	case 180:
+> -		src_info.data.rot_mode =3D RGA_SRC_ROT_MODE_180_DEGREE;
+> -		break;
+> -	case 270:
+> -		src_info.data.rot_mode =3D RGA_SRC_ROT_MODE_270_DEGREE;
+> -		break;
+> -	default:
+> -		src_info.data.rot_mode =3D RGA_SRC_ROT_MODE_0_DEGREE;
+> -		break;
+> -	}
+> -
+> =C2=A0	/*
+> =C2=A0	 * Calculate the up/down scaling mode/factor.
+> =C2=A0	 *
+> @@ -431,7 +441,8 @@ static void rga_cmd_set(struct rga_ctx *ctx,
+> =C2=A0
+> =C2=A0	rga_cmd_set_src_info(ctx, &src->offset);
+> =C2=A0	rga_cmd_set_dst_info(ctx, &dst->offset);
+> -	rga_cmd_set_trans_info(ctx);
+> +	rga_cmd_set_format_scale_info(ctx);
+> +	rga_cmd_set_flip_rotate_info(ctx);
+> =C2=A0
+> =C2=A0	rga_write(rga, RGA_CMD_BASE, ctx->cmdbuf_phy);
+> =C2=A0
 
-Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
+--=-lVlR1XuC3qO6FqUNpkDq
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
->  Documentation/devicetree/bindings/ufs/samsung,exynos-ufs.yaml | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/Documentation/devicetree/bindings/ufs/samsung,exynos-ufs.yaml b/Documentation/devicetree/bindings/ufs/samsung,exynos-ufs.yaml
-> index a7eb7ad85a94..710ce493f3b6 100644
-> --- a/Documentation/devicetree/bindings/ufs/samsung,exynos-ufs.yaml
-> +++ b/Documentation/devicetree/bindings/ufs/samsung,exynos-ufs.yaml
-> @@ -19,6 +19,7 @@ properties:
->        - samsung,exynos7-ufs
->        - samsung,exynosautov9-ufs
->        - samsung,exynosautov9-ufs-vh
-> +      - samsung,exynosautov920-ufs
->        - tesla,fsd-ufs
->
->    reg:
-> --
-> 2.34.1
->
+-----BEGIN PGP SIGNATURE-----
+
+iHQEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaf5fkwAKCRDZQZRRKWBy
+9LC3APdmFKAFkqTp6qEPlQCir+NJJOXQVBYZ7bHoVHuXUem7AQC4zPYGkGqV7x4I
+JShJJJ7CiYN1opexRldmsDpBBgQYCA==
+=Cg+D
+-----END PGP SIGNATURE-----
+
+--=-lVlR1XuC3qO6FqUNpkDq--
