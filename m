@@ -1,403 +1,405 @@
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC0D728725A
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 05:58:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778219894; cv=pass; b=r4zAGnfDfVm/fuKGsMEtldry2Acm1O28YHC7yR3a6aaM6YM6X0SSbJpChEVadOwPgR+J7M7G2T7HZU4iETqiDdhxfKrQiAHIiXZXs9sg8K/kGKCd6uyafoFW0wcd14EIUgmsYegaZyevQOKLIaiENIQlOi9g4+ZCqJNAmEKdQU8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778219894; c=relaxed/simple;
-	bh=MsMBfF3Lz9wgG3hIlipB8KN/EOwo+4NtmWMGKWIiCkY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DEfFfpPWNQ1Hhnau00Mv0MDjbnG2pgfOWgmEyRRu027G32NddJ/DGuPXx7PYSATcqfSHQkwfo0sOzVyeOAGjuF62O9SQ0pchQKA5C30JeOLT4BgibE0hz1jKsZGpiky5oMTUCMGUiRTaA1m8pm4Fs4Ywf6ZeB0KIXKcfDYm2uZw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nnqmNfnb; arc=pass smtp.client-ip=74.125.82.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0137027057D
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 06:11:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778220716; cv=none; b=cDlTk1UksiOgZtOFi0J++StKfts0HY1cMi17XOPfq2FcFZhjF8E8vKg+qzLnrPuWmhgucmbqdcrfHJIW5gRZnVfSQb79ooikMq699h/5GENudM5m33Yow4GZCwzAYRUpfvTCetYvsteDtNmlN5C+qvFk2x5A7HxNrYc3fO/AlH4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778220716; c=relaxed/simple;
+	bh=UOMQRXoAVwk70uaufZhCWFNt7EA3VOTwF7G0ARoU3VM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ioolsLWWgkq4V4PoFXqZtApWn4Sr2X/zS+BdhT0gT4GRyl1nyw3pdbsjtvo0PkUM4EHGyTaumy03mpwLhJbugjdTfk1kLgwIt3J6xMgirJf42LL8ll8BtF78WwNV3Ah3FoScUwlhhr6OvQM64vuoB6MVWZc7Ndn7slajHz92pEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=af9Aq9W0; arc=none smtp.client-ip=74.125.82.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nnqmNfnb"
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-12dca45ca21so2526759c88.1
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 22:58:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778219882; cv=none;
-        d=google.com; s=arc-20240605;
-        b=GEbW3lZZ3hLBl6K3yGSII75fu3iz4RaT/JL8SDZg2maj+lzks24m86LrP21m5MptgC
-         PtNxdakNXKLj8TqLaTsbmqqP3TwtUjSZ9lAkdmRByveWe1U5j54QyxGMNsGcaARt0Vmm
-         slPrU8IUtrIUOn3XBFmcOxx7PEZKWozMXzgDf2yAkazirOz2sjy6fHJgRPlwMY4YCE2J
-         Rck19oOGpV463aO8fu1+hZCM/CVJ21MYyc3HlvDJxeBt13VAfhrQ9pJt+CAP/DCJlL9E
-         I3oJ+pnmm0FR6+TttBo/IKs5+/m6ijRFPZvERZLLfKeOZZQr8CfN9l6nIkTULllLjiaE
-         /qkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Xs/nBR3dKtobleEZPJWudOpTPFw2ZtYn+hSkBqqcmXM=;
-        fh=8T7qWl/bpaTjkAUcByIVWWzSDZ8rteXpK3+8fntf73c=;
-        b=K2WsOwi1ohWGJeR1HT6JecPUjiO98WIGKyo7qBZuXmTzza8MItZJ6QGUCblDf4fjLl
-         e3lJYsf7eTzBhOlJ643PUtZuYYnDF/69dvt/Wjn4aC98KfxvAaB8D0Vy0cVR7X0UcrGx
-         Hl2saBjbv68l2SlQ4sAP4S0jauz3IbXbxB95WJgLULDlmVqI+E6SoRQnnlxIbTJft921
-         RrAwYeEyioNV5JPz4vgeL/KCHvehNfmuCmKUthUOE78MB9ny+9f2T7YnzVAriRbPxLNd
-         pPT9r4f1n1kCzBZ2XK/WQzzbQIAUSVFaEu38XyIOFA/2boPU1L1Y4+5gVPW1+n9JI0UP
-         Qi8w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="af9Aq9W0"
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-2ba9c484e5eso1763488eec.1
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 23:11:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778219882; x=1778824682; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Xs/nBR3dKtobleEZPJWudOpTPFw2ZtYn+hSkBqqcmXM=;
-        b=nnqmNfnbZb6kxSSqp9WFgSu++hZYTKH29FYQ1Z1mTeRzeV5tI1ZwD7BmBG/lIPJHZO
-         MauxWoRJWsd4BFFSW0FJNlBw0NROecrBT70DdF7L6g7lsmaMzno1Fj7TR3UtZasy7tSK
-         vTwyOV6hvF4waZAIEX71cRd8ikvLTLeoKYXtjowv4OE43Dcae3iGNonEU//UEycHi666
-         Vw4gzAkOAJGWLWBVhD4B6TkwF9l259ahbKA34VwRhNkJSgjZwX0xUqlTCNtz0Mb5DAtY
-         Y01xTksRXmNVmogWCSPamjxRis9snX6qZX3m/dqesm8QnmAroCcEbCzl8U5GMaKlXtbc
-         +DtQ==
+        d=gmail.com; s=20251104; t=1778220704; x=1778825504; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=jXb0SR/K0dwEQwnGYT+FJTHi8ls55dvpbTwOnKCIOSw=;
+        b=af9Aq9W0YoPBm3194Lof4H08dGP+IF1d0al6sFdkh25soZ66jiCO1V56mxofiQLRJ1
+         eS29CYpT7QFelcSRA652MmQA4IzaC9kXNqM7iiKrvPPacrX3MP+ZwdlSIUs6VOVpYi9B
+         d98xZfJPhigLxZYybmnXEW6phB0VJUA13jsXMmLZekAV94oI0DCV46Zv0NkpTMH4MtQQ
+         NyvdNSRG/TOyc1wlWiwT9tQG8ytP7EqafxbQKQP6zBffcx5QnC9qk/41pQDKKW4PAt7u
+         gh9jzhkmp3sDLj24NDARc8itE86iV1UMnvsDT3U4YP1rfnsFzrsSxRCvfuSbE4lpjxHU
+         HU+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778219882; x=1778824682;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Xs/nBR3dKtobleEZPJWudOpTPFw2ZtYn+hSkBqqcmXM=;
-        b=IRKMJ9QNJRwq9EJGbaKAGN2QjWOmeBb24yEZmbsr13rZkfq45y/w63luYIPJBcTKcq
-         PScBMQ/kQMgfEerCpjWcjXqI5e0tLnTrnqM2n5APW2VhtgIuw4MTmRsTwSoSn6u3HlB2
-         mkkMeYWiA7P41lj5wudQV0J3XX5NHO3ezMiSdQWNX+W7+KP6UcpW3qPhiXrcZc2+650z
-         6UzWH8vLDnhCm3a1VIhrw4JQxqVAdt35JgX9NH6aZFMKf43lmZ1Ny5rSHp+OXoNOUrue
-         V6zS9Lh4RRLaU32x/Z5pD534+B0nSSe0r0UleKz4MXWRF+b68XpfBuKEOIg2WASfM8Tt
-         WIKA==
-X-Forwarded-Encrypted: i=1; AFNElJ8WFklPb4ETRBU6x4PEzj5ax0lh97pUCqER7jjgYCDIOMf/ylS269Vy6PoFinkC/PxMfYIE2URdd2KD@vger.kernel.org
-X-Gm-Message-State: AOJu0YyO3su8vZb3BweKnNCUXhe5rqDA4MUsvvQUPccqRV1GwA9qEV6G
-	tM9uAcpceOmZT0Ei4nnIqGSkJOAt2ZdxpJF15QZ5SToOYTskAI9y6iQKCmI62HUvE3cE44kaKgO
-	KgbdtKqUq3wgR5Ff0gw/pUL/J2JGsXXQ=
-X-Gm-Gg: Acq92OGUU7LH2bbjmPXykxQJd6ibAYPf+0o5HCTJwzWxlcOD+gyweCPt4pM85EsdfJz
-	ordA262uM4cp6Z+fyTMQcV6AXfa12Zsc4vGRioNyRYl0t+hGtN/uXSxIFd5a8cZ4jjn/7xcLK6J
-	YUbQX+wqNaXn1YXKqMGvfoSJWr/6kJXdp3VB2hvEdSFLVwLqpJAZ6v2wTaSYEY22c7dEDiRNTH5
-	bt403Ma24Xam3DQ+52ZO4BUZXrJj5p7eFJL1ZmJFXNVIYHPa+uvrJLNAyhEOEqUhku7Y8VYZJ/o
-	rnQ+LV0h
-X-Received: by 2002:a05:7300:ec08:b0:2ea:c085:44b1 with SMTP id
- 5a478bee46e88-2f549f838d8mr5006415eec.19.1778219881888; Thu, 07 May 2026
- 22:58:01 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1778220704; x=1778825504;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=jXb0SR/K0dwEQwnGYT+FJTHi8ls55dvpbTwOnKCIOSw=;
+        b=sr+GSQc6swdwGVDB+9F5tn6e0tOnIN3fp0PKpzM+OUXDC3zhLm/UOJy6QPaKoH0S/9
+         Q8T6/Tq9z59CxIAS48e0lUO0sZ49jP9+51IpJaR4YwtJiE+Fa976wpbCfIW7LPSUELfh
+         g1RQgya5TaaBCI06GI1mvFsi5mo99yxnYUMErbhpFFIUTctgHqDwpI9XKizd9vFoqAt4
+         FXDEYvLD8FmPT+clfWCu3IHyDZ9vXsrHsghJtJGcNOdmenYnC9GS1TWmUyZgzPI28fmw
+         0by6tqDLOXpg6AEIYcfuMRzBR7HTgIrRtJeSiX4lrT6Mt256QG83dssaAXEsRbR8SwmI
+         IIFg==
+X-Forwarded-Encrypted: i=1; AFNElJ/SXUGrzgHG0hcoNuO5YuX2Bh7Y4WwGqqq2ufgl5KHrTj3ui4fmjCdKZGLyT45gFefFe9BMLQ6tEYw2@vger.kernel.org
+X-Gm-Message-State: AOJu0YzS7+d2FW6coUZkGtDzLhVD3sMnCJhBiRSYvBQrSj5SIK95XoT8
+	BvtbOwoONJkQdrb7XmbHTSEOfUpjtcmGAIupOdwQ9m277LtDy3f2+DZ9
+X-Gm-Gg: Acq92OH6dSaVdfC55ZjZpWoTsdvJ7upRc5XVYnUWa0wGLexI3NbjpWAjwlKx+QiCo8m
+	ldtqdYyn5/FwgOrWcCRdFh6KrMA7uvHaGQHVM2VsC/qpBe/1NLcjERrKtqNYeMl4H8jPacBwVB2
+	7XDtqAkOEy2j2qEGsTJ4ctVCV6z7O1KVFj1araGiojE9gVKJxb5ULAZwNixTzvv3D/5PNVc7rQw
+	TApmCe7UvyCB4LaErlkOdD/Olpbpyc2d8ZDwTF1ZyqYeZQyf1UUHiJm5auZLvIoBh6W/oGKsDT5
+	fJ7YOEXpUB3ncfRwGnpZBjdN86w+P5iVfQsOkuR6TADQZbl4tar55RZPbv6MALKqC77ut3sQL08
+	RPWLCJm95NwCcMsLM+zh7XMZr/cvAJt4XoaFlSHT1yW6CZyV2hn6LTgn6+mlWvb5cbXVXXypmvX
+	2Ldm93fDs9MJsCKU7np0/Ya3NB5DRM6uIbDozXhxddwm9iqTzvLVFcbsSTNXUVRWAt4TrDknLK2
+	ws=
+X-Received: by 2002:a05:693c:2b08:b0:2ea:cd38:f921 with SMTP id 5a478bee46e88-2f54aa78245mr5844784eec.26.1778220703475;
+        Thu, 07 May 2026 23:11:43 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:852e:ebf3:8de1:32e1])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2f888e3e285sm1132502eec.27.2026.05.07.23.11.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 07 May 2026 23:11:42 -0700 (PDT)
+Date: Thu, 7 May 2026 23:11:39 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: david@ixit.cz
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Henrik Rydberg <rydberg@bitmath.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Petr Hodina <petr.hodina@protonmail.com>, 
+	linux-input@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	phone-devel@vger.kernel.org
+Subject: Re: [PATCH v4 10/11] Input: stmfts - support FTS5
+Message-ID: <af13d0-zM8Qjtjcj@google.com>
+References: <20260409-stmfts5-v4-0-64fe62027db5@ixit.cz>
+ <20260409-stmfts5-v4-10-64fe62027db5@ixit.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260507133948.75704-1-clamor95@gmail.com> <20260507133948.75704-3-clamor95@gmail.com>
- <afzJUcvQth6v9KGC@google.com> <CAPVz0n0w98wO_iJBiyvKqATA7a6+mkZG3DfbBwHp8FEExMHPqQ@mail.gmail.com>
- <af115srC-zwjDxzq@google.com>
-In-Reply-To: <af115srC-zwjDxzq@google.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Fri, 8 May 2026 08:57:49 +0300
-X-Gm-Features: AVHnY4Ka4g5enrnsH7UdEAZTD_DVRa4Ty4Z872YK8nV-x8B03A7S0YZ9xugMFZY
-Message-ID: <CAPVz0n3BCmqnZQEj+910-ZPFkh=uWfvxOUvdt8oGepQMRd5tkA@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] Input: isa1200 - new driver for Imagis ISA1200
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, linux-input@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260409-stmfts5-v4-10-64fe62027db5@ixit.cz>
 
-=D0=BF=D1=82, 8 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 08:40=
- Dmitry Torokhov <dmitry.torokhov@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Fri, May 08, 2026 at 08:30:19AM +0300, Svyatoslav Ryhel wrote:
-> > =D1=87=D1=82, 7 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 2=
-2:26 Dmitry Torokhov <dmitry.torokhov@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > Hi Svyatoslav,
-> > >
-> > > On Thu, May 07, 2026 at 04:39:48PM +0300, Svyatoslav Ryhel wrote:
-> > > > From: Linus Walleij <linusw@kernel.org>
-> > > >
-> > > > The ISA1200 is a haptic feedback unit from Imagis Technology using =
-two
-> > > > motors for haptic feedback in mobile phones. Used in many mobile de=
-vices
-> > > > c. 2012 including Samsung Galxy S Advance GT-I9070 (Janice), Samsun=
-g Beam
-> > > > GT-I8350 (Gavini), LG Optimus 4X P880 and LG Optimus Vu P895.
-> > > >
-> > > > The exact datasheet for the ISA1200 is not available; all data was =
-modeled
-> > > > based on available downstream kernel sources for various devices an=
-d
-> > > > fragments of information scattered across the internet.
-> > > >
-> > > > Tested-by: Linus Walleij <linusw@kernel.org> # GT-I9070 Janice
-> > > > Signed-off-by: Linus Walleij <linusw@kernel.org>
-> > > > Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > ---
-> > > >  drivers/input/misc/Kconfig   |  12 +
-> > > >  drivers/input/misc/Makefile  |   1 +
-> > > >  drivers/input/misc/isa1200.c | 540 +++++++++++++++++++++++++++++++=
-++++
-> > > >  3 files changed, 553 insertions(+)
-> > > >  create mode 100644 drivers/input/misc/isa1200.c
-> > > >
-> > > > diff --git a/drivers/input/misc/Kconfig b/drivers/input/misc/Kconfi=
-g
-> > > > index 94a753fcb64f..52f192104ee2 100644
-> > > > --- a/drivers/input/misc/Kconfig
-> > > > +++ b/drivers/input/misc/Kconfig
-> > > > @@ -852,6 +852,18 @@ config INPUT_IQS7222
-> > > >         To compile this driver as a module, choose M here: the
-> > > >         module will be called iqs7222.
-> > > >
-> > > > +config INPUT_ISA1200_HAPTIC
-> > > > +     tristate "Imagis ISA1200 haptic feedback unit"
-> > > > +     depends on I2C
-> > > > +     select INPUT_FF_MEMLESS
-> > > > +     select REGMAP_I2C
-> > > > +     help
-> > > > +       Say Y to enable support for the Imagis ISA1200 haptic
-> > > > +       feedback unit.
-> > > > +
-> > > > +       To compile this driver as a module, choose M here: the
-> > > > +       module will be called isa1200.
-> > > > +
-> > > >  config INPUT_CMA3000
-> > > >       tristate "VTI CMA3000 Tri-axis accelerometer"
-> > > >       help
-> > > > diff --git a/drivers/input/misc/Makefile b/drivers/input/misc/Makef=
-ile
-> > > > index 415fc4e2918b..d62bf2e9d85f 100644
-> > > > --- a/drivers/input/misc/Makefile
-> > > > +++ b/drivers/input/misc/Makefile
-> > > > @@ -49,6 +49,7 @@ obj-$(CONFIG_INPUT_IMS_PCU)         +=3D ims-pcu.=
-o
-> > > >  obj-$(CONFIG_INPUT_IQS269A)          +=3D iqs269a.o
-> > > >  obj-$(CONFIG_INPUT_IQS626A)          +=3D iqs626a.o
-> > > >  obj-$(CONFIG_INPUT_IQS7222)          +=3D iqs7222.o
-> > > > +obj-$(CONFIG_INPUT_ISA1200_HAPTIC)   +=3D isa1200.o
-> > > >  obj-$(CONFIG_INPUT_KEYSPAN_REMOTE)   +=3D keyspan_remote.o
-> > > >  obj-$(CONFIG_INPUT_KXTJ9)            +=3D kxtj9.o
-> > > >  obj-$(CONFIG_INPUT_M68K_BEEP)                +=3D m68kspkr.o
-> > > > diff --git a/drivers/input/misc/isa1200.c b/drivers/input/misc/isa1=
-200.c
-> > > > new file mode 100644
-> > > > index 000000000000..f8dba8a95c7d
-> > > > --- /dev/null
-> > > > +++ b/drivers/input/misc/isa1200.c
-> > > > @@ -0,0 +1,540 @@
-> > > > +// SPDX-License-Identifier: GPL-2.0+
-> > > > +
-> > > > +#include <linux/array_size.h>
-> > > > +#include <linux/bitmap.h>
-> > > > +#include <linux/bits.h>
-> > > > +#include <linux/clk.h>
-> > > > +#include <linux/delay.h>
-> > > > +#include <linux/device.h>
-> > > > +#include <linux/devm-helpers.h>
-> > > > +#include <linux/err.h>
-> > > > +#include <linux/gpio/consumer.h>
-> > > > +#include <linux/i2c.h>
-> > > > +#include <linux/input.h>
-> > > > +#include <linux/kernel.h>
-> > > > +#include <linux/module.h>
-> > > > +#include <linux/property.h>
-> > > > +#include <linux/pwm.h>
-> > > > +#include <linux/regmap.h>
-> > > > +#include <linux/regulator/consumer.h>
-> > > > +#include <linux/units.h>
-> > > > +
-> > > > +/*
-> > > > + * System control (LDO regulator)
-> > > > + *
-> > > > + * LDO voltage to register mapping is linear, but it is split in t=
-wo parts:
-> > > > + * 2.3V - 3.0V map to 0x08 - 0x0f; 3.1V - 3.8V map to 0x00 - 0x7
-> > > > + */
-> > > > +
-> > > > +#define ISA1200_SCTRL                        0x00
-> > > > +#define ISA1200_LDO_VOLTAGE_BASE     0x08
-> > > > +#define ISA1200_LDO_VOLTAGE_STEP     100000
-> > > > +#define ISA1200_LDO_VOLTAGE_2V3              23
-> > > > +#define ISA1200_LDO_VOLTAGE_3V1              31
-> > > > +#define ISA1200_LDO_VOLTAGE_MIN              2300000
-> > > > +#define ISA1200_LDO_VOLTAGE_MAX              3800000
-> > > > +
-> > > > +/*
-> > > > + * The output frequency is calculated with this formula:
-> > > > + *
-> > > > + *                 base clock frequency
-> > > > + * fout =3D -----------------------------------------
-> > > > + *        (128 - PWM_FREQ) * 2 * PLLDIV * PWM_PERIOD
-> > > > + *
-> > > > + * The base clock frequency is the clock frequency provided on the
-> > > > + * clock input to the chip, divided by the value in HCTRL0
-> > > > + *
-> > > > + * PWM_FREQ is configured in register HCTRL4, it is common to set =
-this
-> > > > + * to 0 to get only two variables to calculate.
-> > > > + *
-> > > > + * PLLDIV is configured in register HCTRL3 (bits 7..4, so 0..15)
-> > > > + * PWM_PERIOD is configured in register HCTRL6
-> > > > + * Further the duty cycle can be configured in HCTRL5
-> > > > + */
-> > > > +
-> > > > +/*
-> > > > + * HCTRL0 configures clock or PWM input and selects the divider fo=
-r
-> > > > + * the clock input.
-> > > > + */
-> > > > +#define ISA1200_HCTRL0                       0x30
-> > > > +#define ISA1200_HCTRL0_HAP_ENABLE    BIT(7)
-> > > > +#define ISA1200_HCTRL0_PWM_GEN_MODE  BIT(4)
-> > > > +#define ISA1200_HCTRL0_PWM_INPUT_MODE        BIT(3)
-> > > > +#define ISA1200_HCTRL0_CLKDIV_128    128
-> > > > +
-> > > > +/*
-> > > > + * HCTRL1 configures the motor type and clock sourse
-> > > > + */
-> > > > +#define ISA1200_HCTRL1                       0x31
-> > > > +#define ISA1200_HCTRL1_EXT_CLOCK     BIT(7)
-> > > > +#define ISA1200_HCTRL1_DAC_INVERT    BIT(6)
-> > > > +#define ISA1200_HCTRL1_MODE(n)               (((n) & 1) << 5)
-> > >
-> > > I wonder if this should simply be BIT(5) and you conditionally use it=
- in
-> > > the code. The macro is not really usable to disable the setting...
-> > >
-> >
-> > That was the initial idea but mode is not boolean it is an enum and
-> > macro fits better to handle enum. Code does not enable/disable this
-> > field, this field is configured with every start call.
->
-> OK.
->
-> >
-> > > > +
-> > > > +/* HCTRL2 controls software reset of the chip */
-> > > > +#define ISA1200_HCTRL2                       0x32
-> > > > +#define ISA1200_HCTRL2_SW_RESET              BIT(0)
-> > > > +
-> > > > +/*
-> > > > + * HCTRL3 controls the PLL divisor
-> > > > + *
-> > > > + * Bits [0,1] are always set to 1 (we don't know what they are
-> > > > + * used for) and bit 4 and upward control the PLL divisor.
-> > > > + */
-> > > > +#define ISA1200_HCTRL3                       0x33
-> > > > +#define ISA1200_HCTRL3_DEFAULT               0x03
-> > > > +#define ISA1200_HCTRL3_PLLDIV(n)     (((n) & 0xf) << 4)
-> > > > +
-> > > > +/* HCTRL4 controls the PWM frequency of external channel */
-> > > > +#define ISA1200_HCTRL4                       0x34
-> > > > +
-> > > > +/* HCTRL5 controls the PWM high duty cycle of internal channel */
-> > > > +#define ISA1200_HCTRL5                       0x35
-> > > > +
-> > > > +/* HCTRL6 controls the PWM period of internal channel */
-> > > > +#define ISA1200_HCTRL6                       0x36
-> > > > +#define ISA1200_HCTRL6_PERIOD_SCALE  100
-> > > > +
-> > > > +/* The use for these registers is unknown but they exist */
-> > > > +#define ISA1200_HCTRL7                       0x37
-> > > > +#define ISA1200_HCTRL8                       0x38
-> > > > +#define ISA1200_HCTRL9                       0x39
-> > > > +#define ISA1200_HCTRLA                       0x3a
-> > > > +#define ISA1200_HCTRLB                       0x3b
-> > > > +#define ISA1200_HCTRLC                       0x3c
-> > > > +#define ISA1200_HCTRLD                       0x3d
-> > > > +
-> > > > +#define ISA1200_EN_PINS_MAX          2
-> > > > +
-> > > > +struct isa1200_config {
-> > > > +     u32 ldo_voltage;
-> > > > +     u32 mode;
-> > > > +     u32 clkdiv;
-> > > > +     u32 plldiv;
-> > > > +     u32 freq;
-> > > > +     u32 period;
-> > > > +     u32 duty;
-> > > > +};
-> > > > +
-> > > > +struct isa1200 {
-> > > > +     struct input_dev *input;
-> > > > +     struct regmap *map;
-> > > > +
-> > > > +     struct clk *clk;
-> > > > +     struct pwm_device *pwm;
-> > > > +     struct gpio_descs *enable_gpios;
-> > > > +
-> > > > +     struct work_struct play_work;
-> > > > +     struct isa1200_config config;
-> > > > +
-> > > > +     int level;
-> > > > +     bool clk_on;
-> > >
-> > > I think you need not only clk_on, but general "active" flag that you
-> > > would set at the end of isa1200_start().
-> > >
-> >
-> > Acknowledged.
-> >
-> > > > +};
-> > > > +
-> > > > +static const struct regmap_config isa1200_regmap_config =3D {
-> > > > +     .reg_bits =3D 8,
-> > > > +     .val_bits =3D 8,
-> > > > +     .max_register =3D ISA1200_HCTRLD,
-> > > > +};
-> > > > +
-> > > > +static void isa1200_start(struct isa1200 *isa)
-> > > > +{
-> > > > +     struct isa1200_config *config =3D &isa->config;
-> > > > +     struct pwm_state state;
-> > > > +     u8 hctrl0 =3D 0, hctrl1 =3D 0;
-> > > > +     DECLARE_BITMAP(values, ISA1200_EN_PINS_MAX);
-> > > > +     int ret;
-> > >
-> > > Please use "error" or "err" for all variables that only hold error co=
-des
-> > > (or 0) instead of a real value that is used for something.
-> > >
-> >
-> > Not real value, but return value. Why I cannot use ret aka return
-> > value? It is much more versatile since it can hold any function return
-> > value including errors.
->
-> This is my preference for input. I do not want versatility, I want the
-> opposite: if I see error I do not need to consider whether it holds
-> something of value besides an error code. And if I see "ret" or "retval"
-> I know that caller might be interested the value. And also
->
->         if (error) {
->                 // handle error
->         }
->
-> looks neat.
->
+Hi David,
 
-Ok, noted
+On Thu, Apr 09, 2026 at 12:15:53AM +0200, David Heidelberg via B4 Relay wrote:
+> @@ -101,12 +129,27 @@ struct stmfts_data {
+>  
+>  	struct completion cmd_done;
+>  
+> +	unsigned long touch_id;
+> +	unsigned long stylus_id;
 
-> >
-> > > > +
-> > > > +     if (!isa->clk_on) {
-> > > > +             ret =3D clk_prepare_enable(isa->clk);
-> > >
-> > > This return 0 on success so
-> > >
-> > >                 if (error)
-> > >                         return;
-> > >
-> >
-> > No, code is correct. If clock enable fails, further function execution
-> > should stop since regmap operations on unconfigured device is not
-> > desirable. Since this function is void using general "active" flag as
-> > you suggested to indicate that start reached end would be beneficial.
->
-> I am simply saying that you do not need to check if value is negative,
-> checking that it is non-zero is sufficient.
->
+I wonder why do you track contacts yourself instead of telling input
+core to do it for you and report BTN_TOUCH as needed? You just need to
+call input_mt_sync_frame() when you are done processing input frame.
 
-I have poorly worded. I meant that err < 0 specifically checks for
-error code regardless of function you are checking (in most cases) and
-you don't have to check if the original function documentation. But if
-(err) is fine by me as well.
+Does the device send all contacts state in one transmission or it can
+transmit contacts one by one?
 
-> Thanks.
->
-> --
-> Dmitry
+> +
+> +	/* Boundary check - some devices report max value, adjust */
+> +	if (x >= sdata->prop.max_x)
+> +		x = sdata->prop.max_x - 1;
+> +	if (y >= sdata->prop.max_y)
+> +		y = sdata->prop.max_y - 1;
+
+It is allowed to exceed declared min and max, so this clampin is not
+needed.
+
+>  
+> +static int stmfts5_set_scan_mode(struct stmfts_data *sdata, const u8 val)
+> +{
+> +	int err;
+> +
+> +	u8 scan_mode_cmd[3] = { STMFTS5_SET_SCAN_MODE, 0x00, val };
+> +	struct i2c_msg msg = {
+> +		.addr = sdata->client->addr,
+> +		.len = sizeof(scan_mode_cmd),
+> +		.buf = scan_mode_cmd,
+> +	};
+> +
+> +	err = i2c_transfer(sdata->client->adapter, &msg, 1);
+
+Is this i2c_master_send()?
+
+> +	if (err != 1)
+> +		return err < 0 ? err : -EIO;
+> +
+> +	return 0;
+> +
+> +}
+> +
+>  static int stmfts_input_open(struct input_dev *dev)
+>  {
+>  	struct stmfts_data *sdata = input_get_drvdata(dev);
+> @@ -371,6 +622,28 @@ static int stmfts_input_open(struct input_dev *dev)
+>  	return 0;
+>  }
+>  
+> +static int stmfts5_input_open(struct input_dev *dev)
+> +{
+> +	struct stmfts_data *sdata = input_get_drvdata(dev);
+> +	int err;
+> +
+> +	err = pm_runtime_resume_and_get(&sdata->client->dev);
+> +	if (err)
+> +		return err;
+> +
+> +	mutex_lock(&sdata->mutex);
+> +	sdata->running = true;
+> +	mutex_unlock(&sdata->mutex);
+
+	scoped_guard(mutex, &sdata->mutex)
+		sdata->running;
+
+> +
+> +	err = stmfts5_set_scan_mode(sdata, 0xff);
+> +	if (err) {
+> +		pm_runtime_put_sync(&sdata->client->dev);
+
+Reset "running"?
+
+> +		return err;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  static void stmfts_input_close(struct input_dev *dev)
+>  {
+>  	struct stmfts_data *sdata = input_get_drvdata(dev);
+> @@ -404,6 +677,23 @@ static void stmfts_input_close(struct input_dev *dev)
+>  	pm_runtime_put_sync(&sdata->client->dev);
+>  }
+>  
+> +static void stmfts5_input_close(struct input_dev *dev)
+> +{
+> +	struct stmfts_data *sdata = input_get_drvdata(dev);
+> +	int err;
+> +
+> +	err = stmfts5_set_scan_mode(sdata, 0x00);
+> +	if (err)
+> +		dev_warn(&sdata->client->dev,
+> +			 "failed to disable touchscreen: %d\n", err);
+> +
+> +	mutex_lock(&sdata->mutex);
+> +	sdata->running = false;
+> +	mutex_unlock(&sdata->mutex);
+
+scoped_guard()
+
+> +
+> +	pm_runtime_put_sync(&sdata->client->dev);
+> +}
+> +
+>  static ssize_t stmfts_sysfs_chip_id(struct device *dev,
+>  				struct device_attribute *attr, char *buf)
+>  {
+> @@ -484,10 +774,8 @@ static ssize_t stmfts_sysfs_hover_enable_write(struct device *dev,
+>  	guard(mutex)(&sdata->mutex);
+>  
+>  	if (hover != sdata->hover_enabled) {
+> -		if (sdata->running) {
+> -			err = i2c_smbus_write_byte(sdata->client,
+> -					   value ? STMFTS_SS_HOVER_SENSE_ON :
+> -						   STMFTS_SS_HOVER_SENSE_OFF);
+> +		if (sdata->running && sdata->ops->set_hover) {
+> +			err = sdata->ops->set_hover(sdata, hover);
+>  			if (err)
+>  				return err;
+>  		}
+> @@ -612,7 +900,7 @@ static int stmfts_power_on(struct stmfts_data *sdata)
+>  	if (sdata->reset_gpio)
+>  		stmfts_reset(sdata);
+>  
+> -	err = stmfts_configure(sdata);
+> +	err = sdata->ops->configure(sdata);
+>  	if (err)
+>  		regulator_bulk_disable(ARRAY_SIZE(stmfts_supplies),
+>  				       sdata->supplies);
+> @@ -620,6 +908,29 @@ static int stmfts_power_on(struct stmfts_data *sdata)
+>  	return err;
+>  }
+>  
+> +static int stmfts5_configure(struct stmfts_data *sdata)
+> +{
+> +	u8 event[STMFTS_EVENT_SIZE];
+> +	int ret;
+> +
+> +	/* Verify I2C communication */
+> +	ret = i2c_smbus_read_i2c_block_data(sdata->client,
+> +					    STMFTS_READ_ALL_EVENT,
+> +					    sizeof(event), event);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	enable_irq(sdata->client->irq);
+> +
+> +	return 0;
+> +}
+> +
+> +static void stmfts5_chip_power_off(struct stmfts_data *sdata)
+> +{
+> +	i2c_smbus_write_byte(sdata->client, STMFTS_SLEEP_IN);
+> +	msleep(20);
+> +}
+> +
+>  static void stmfts_power_off(void *data)
+>  {
+>  	struct stmfts_data *sdata = data;
+> @@ -629,10 +940,73 @@ static void stmfts_power_off(void *data)
+>  	if (sdata->reset_gpio)
+>  		gpiod_set_value_cansleep(sdata->reset_gpio, 1);
+>  
+> +	if (sdata->ops->power_off)
+> +		sdata->ops->power_off(sdata);
+> +
+>  	regulator_bulk_disable(ARRAY_SIZE(stmfts_supplies),
+>  			       sdata->supplies);
+>  }
+>  
+> +static int stmfts_setup_input(struct stmfts_data *sdata)
+> +{
+> +	struct device *dev = &sdata->client->dev;
+> +
+> +	input_set_abs_params(sdata->input, ABS_MT_ORIENTATION, 0, 255, 0, 0);
+> +	input_set_abs_params(sdata->input, ABS_DISTANCE, 0, 255, 0, 0);
+> +
+> +	sdata->use_key = device_property_read_bool(dev, "touch-key-connected");
+> +	if (sdata->use_key) {
+> +		input_set_capability(sdata->input, EV_KEY, KEY_MENU);
+> +		input_set_capability(sdata->input, EV_KEY, KEY_BACK);
+> +	}
+> +
+> +	return input_mt_init_slots(sdata->input, STMFTS_MAX_FINGERS,
+> +				   INPUT_MT_DIRECT);
+> +}
+> +
+> +static int stmfts5_setup_input(struct stmfts_data *sdata)
+> +{
+> +	struct device *dev = &sdata->client->dev;
+> +
+> +	sdata->mode_switch_gpio = devm_gpiod_get_optional(dev, "mode-switch",
+> +							  GPIOD_OUT_HIGH);
+> +	if (IS_ERR(sdata->mode_switch_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(sdata->mode_switch_gpio),
+> +				     "Failed to get GPIO 'switch'\n");
+> +
+> +	/* Mark as direct input device for calibration support */
+> +	__set_bit(INPUT_PROP_DIRECT, sdata->input->propbit);
+> +
+> +	/* Set up basic touch capabilities */
+> +	input_set_capability(sdata->input, EV_KEY, BTN_TOUCH);
+
+This will be done by input_mt_init_slots(..., INPUT_MT_DIRECT). 
+
+> +
+> +	/* Set resolution for accurate calibration */
+> +	if (!input_abs_get_res(sdata->input, ABS_MT_POSITION_X)) {
+> +		input_abs_set_res(sdata->input, ABS_MT_POSITION_X, 10);
+> +		input_abs_set_res(sdata->input, ABS_MT_POSITION_Y, 10);
+> +	}
+> +
+> +	input_set_abs_params(sdata->input, ABS_MT_DISTANCE, 0, 255, 0, 0);
+> +
+> +	/* Enable stylus support if requested */
+> +	sdata->stylus_enabled = device_property_read_bool(dev, "stylus-enabled");
+> +
+> +	/* Initialize touch tracking bitmaps */
+> +	sdata->touch_id = 0;
+> +	sdata->stylus_id = 0;
+> +
+> +	/* Initialize MT slots with support for pen tool type */
+> +	return input_mt_init_slots(sdata->input, STMFTS_MAX_FINGERS,
+> +				   INPUT_MT_DIRECT | INPUT_MT_DROP_UNUSED);
+
+Why INPUT_MT_DROP_UNUSED?
+
+> +}
+> +
+> +static int stmfts_set_hover(struct stmfts_data *sdata, bool enable)
+> +{
+> +	return i2c_smbus_write_byte(sdata->client,
+> +				    enable ? STMFTS_SS_HOVER_SENSE_ON :
+> +					     STMFTS_SS_HOVER_SENSE_OFF);
+> +}
+> +
+>  static int stmfts_enable_led(struct stmfts_data *sdata)
+>  {
+>  	int err;
+> @@ -678,6 +1052,8 @@ static int stmfts_probe(struct i2c_client *client)
+>  	mutex_init(&sdata->mutex);
+>  	init_completion(&sdata->cmd_done);
+>  
+> +	sdata->ops = of_device_get_match_data(dev);
+> +
+>  	err = devm_regulator_bulk_get_const(dev,
+>  					    ARRAY_SIZE(stmfts_supplies),
+>  					    stmfts_supplies,
+> @@ -697,8 +1073,8 @@ static int stmfts_probe(struct i2c_client *client)
+>  
+>  	sdata->input->name = STMFTS_DEV_NAME;
+>  	sdata->input->id.bustype = BUS_I2C;
+> -	sdata->input->open = stmfts_input_open;
+> -	sdata->input->close = stmfts_input_close;
+> +	sdata->input->open = sdata->ops->input_open;
+> +	sdata->input->close = sdata->ops->input_close;
+>  
+>  	input_set_capability(sdata->input, EV_ABS, ABS_MT_POSITION_X);
+>  	input_set_capability(sdata->input, EV_ABS, ABS_MT_POSITION_Y);
+> @@ -706,19 +1082,9 @@ static int stmfts_probe(struct i2c_client *client)
+>  
+>  	input_set_abs_params(sdata->input, ABS_MT_TOUCH_MAJOR, 0, 255, 0, 0);
+>  	input_set_abs_params(sdata->input, ABS_MT_TOUCH_MINOR, 0, 255, 0, 0);
+> -	input_set_abs_params(sdata->input, ABS_MT_ORIENTATION, 0, 255, 0, 0);
+>  	input_set_abs_params(sdata->input, ABS_MT_PRESSURE, 0, 255, 0, 0);
+> -	input_set_abs_params(sdata->input, ABS_DISTANCE, 0, 255, 0, 0);
+> -
+> -	sdata->use_key = device_property_read_bool(dev,
+> -						   "touch-key-connected");
+> -	if (sdata->use_key) {
+> -		input_set_capability(sdata->input, EV_KEY, KEY_MENU);
+> -		input_set_capability(sdata->input, EV_KEY, KEY_BACK);
+> -	}
+>  
+> -	err = input_mt_init_slots(sdata->input,
+> -				  STMFTS_MAX_FINGERS, INPUT_MT_DIRECT);
+> +	err = sdata->ops->setup_input(sdata);
+>  	if (err)
+>  		return err;
+>  
+> @@ -789,13 +1155,62 @@ static int stmfts_runtime_suspend(struct device *dev)
+>  	return ret;
+>  }
+>  
+> -static int stmfts_runtime_resume(struct device *dev)
+> +static int stmfts_chip_runtime_resume(struct stmfts_data *sdata)
+> +{
+> +	return i2c_smbus_write_byte(sdata->client, STMFTS_SLEEP_OUT);
+> +}
+> +
+> +static int stmfts5_chip_runtime_resume(struct stmfts_data *sdata)
+>  {
+> -	struct stmfts_data *sdata = dev_get_drvdata(dev);
+>  	struct i2c_client *client = sdata->client;
+> +	struct device *dev = &client->dev;
+> +	u8 int_enable_cmd[4] = {0xB6, 0x00, 0x2C, 0x01};
+> +	struct i2c_msg msg = {
+> +		.addr = client->addr,
+> +		.len = sizeof(int_enable_cmd),
+> +		.buf = int_enable_cmd,
+> +	};
+>  	int ret;
+
+"int err" everywhere where the variable carries error code or 0.
+
+
+Thanks.
+
+-- 
+Dmitry
