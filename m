@@ -1,154 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E765C3659EE
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 23:50:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B760EF9D9
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 23:50:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778284202; cv=none; b=hSpGOgu3quYXABjw9ExlZp6iO39xF8709AY3P8SU2p94V8oa7fPbOukTEGZ2L0Nzuk3XUvSnGg00t5QuNZY1XE+mHidN35dVnpm5ez8h6YwbteY+h+foVHWLbWPKC8MG3I8QwjMOjggLZhuW0cHgm227XpWkYUyCb8Mfd7Z0y9Y=
+	t=1778284215; cv=none; b=NR15S7hNcLQP9xaP78IChLS4e0ZDWhGu1UXHi1fL9v+Gb5vBYZvH7buVf02DNaLfPEYK4Q1Pakmfv2y0meAA0lW+2p7OGR0y5CqlFohrwjX4Xmakaw/EPTF4eGVCKu10bevHWY5Rb0uPIxw+TL9zj79p8p05H5jTLa/Vi/06tYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778284202; c=relaxed/simple;
-	bh=bIt8G2jp/dO8fyv2ysS9T+8b+ZyJHcgBirkRgg1+MZ4=;
+	s=arc-20240116; t=1778284215; c=relaxed/simple;
+	bh=S7qdIZqUbZ1dWx1jdjxJtqFguzR+cwe+joDjIDt6oJc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=f8G4MkHqtoJXGXkYLYh+bocAvQwg+b6EgdQPtpkKeFNzlnH/0eX5A3J/K5tiSLVeT9lFy9qLhN5cd1bFk6v5/bDGim/D83fU57baPEPuJJCuzn8aMTxCVIt8BfJHIeQKOnigIbutgi7NB3OQrDZeI74XvAtDHOkQhxUzCbPu/jk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U8n+D9Ts; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=X40DpbfCTJMx9O0XmJSuvOyDiGyDfTmH6pNS37ArMu7Bww5RJvtvHq4AnYue841NGFKPQDpe7Wmo75NcTB8L5ltCMko6oK2J2kaPQAl2dSOKoQQ3pjnDLNwdqZzmd+rZOSR2dD6re2N/rBSAlfKX4mliomIve+ulyggMFGSI7ao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B+LuKOm0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U8n+D9Ts"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E817C2BCB0;
-	Fri,  8 May 2026 23:50:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B+LuKOm0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B10FC2BCB0;
+	Fri,  8 May 2026 23:50:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778284201;
-	bh=bIt8G2jp/dO8fyv2ysS9T+8b+ZyJHcgBirkRgg1+MZ4=;
+	s=k20201202; t=1778284215;
+	bh=S7qdIZqUbZ1dWx1jdjxJtqFguzR+cwe+joDjIDt6oJc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=U8n+D9Tsn4xUSXlG4IWpPezCwzc4aP4LffVEJnvhlzQYjSRcPRZDyqki5JEABfui1
-	 qkpmmdIwhXlgQG/C8cv570Bo7a9L887TpG2ZJKR7g5UkbONx+tPCeFFd55o6uGQt/X
-	 zqzjhTeitMxvE2n6djxrPpCcO6nm6+2/1U0Wc3KmLasVXfXfqYr68+JC2MFWQVGzXC
-	 xu52edYN7khoCu5OhnX50Jrpe3JWtFXXuI5aQyq+TbsZpPjMnzlGeRL1K9LEGi9PaK
-	 2BdmmnDXxhKIf4500pKwwK+kb09KgtIycYCl+q/1ahVBrS0hgREeVfVtS9bFZymaME
-	 CIniw0h+Yhjvg==
+	b=B+LuKOm0iIRQxTyXxs0EEqKis/41Jkp7dkdNOGZGy7e5B999zl4VUgEWdXSXWqVjy
+	 /6OckiL6+KoYGR5GiPHAmrU5Ss729oYUUPoRIUzqRtdE9JqyfZFK5HM7NNjO80WaJS
+	 8JK5hL+WzldC8RQMwfB/Fx+EVZgM7n68BMK+9JLiOiY/Fobkuy6gRX6GNjUEapJrW/
+	 rXxBBLgUqjIF28zGzgrZqiXAGkicdWfVMSAFrtX6083NoM0LmrgphW5gb0zpMStsAf
+	 FS92TG3DDGWx3Qcge8FslGsSIn3MNjiw57f4isQ9LcChJuCEl+UkSAdDanTdRy3Oav
+	 ypR0yjOdaRjIg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 09/10] clk: realtek: Add RTD1625-ISO clock controller
- driver
+Subject: Re: [PATCH] dt-bindings: iio: dds: Add AD9832/AD9835 binding
 Reply-To: sashiko@lists.linux.dev
-To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260508111641.3192177-10-eleanor.lin@realtek.com>
-References: <20260508111641.3192177-10-eleanor.lin@realtek.com>
+To: "Hungyu Lin" <dennylin0707@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260508233730.77834-1-dennylin0707@gmail.com>
+References: <20260508233730.77834-1-dennylin0707@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 08 May 2026 23:50:00 +0000
-Message-Id: <20260508235001.3E817C2BCB0@smtp.kernel.org>
+Date: Fri, 08 May 2026 23:50:14 +0000
+Message-Id: <20260508235015.3B10FC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Missing MODULE_DEVICE_TABLE for the OF match table in the clock =
-driver.
-- [Medium] Flexible array overallocation and `__counted_by` mismatch in `hw=
-s` array initialization.
-- [Low] Typo in MODULE_DESCRIPTION in the reset driver.
+- [Low] Missing reference to standard SPI peripheral properties schema rest=
+ricts valid SPI configurations.
 --
 
-commit 57dcde089e2dea62cefc3bf2d39edbfbdf75b997
-Author: Cheng-Yu Lee <cylee12@realtek.com>
-Subject: clk: realtek: Add RTD1625-ISO clock controller driver
+commit 05158b905a98b93285ae76fe23056051bd698d9e
+Author: Hungyu Lin <dennylin0707@gmail.com>
 
-Add support for the ISO (Isolation) domain clock controller on the Realtek
-RTD1625 SoC. This controller manages clocks in the always-on power domain.
-It also includes an auxiliary reset driver instantiated by the core clock
-driver to handle the ISO domain resets.
+dt-bindings: iio: dds: Add AD9832/AD9835 binding
 
-> diff --git a/drivers/clk/realtek/clk-rtd1625-iso.c b/drivers/clk/realtek/=
-clk-rtd1625-iso.c
+This commit adds device tree binding documentation for the AD9832 and
+AD9835 SPI-controlled direct digital synthesizers.
+
+> diff --git a/Documentation/devicetree/bindings/iio/dds/adi,ad9832.yaml b/=
+Documentation/devicetree/bindings/iio/dds/adi,ad9832.yaml
 > new file mode 100644
-> index 0000000000000..58c2b147eb019
 > --- /dev/null
-> +++ b/drivers/clk/realtek/clk-rtd1625-iso.c
+> +++ b/Documentation/devicetree/bindings/iio/dds/adi,ad9832.yaml
 
 [ ... ]
 
-> +static struct clk_hw_onecell_data rtd1625_iso_clk_data =3D {
-> +	.num =3D RTD1625_ISO_CLK_MAX,
-> +	.hws =3D {
-
-[ ... ]
-
-> +		[RTD1625_ISO_CLK_EN_MISC_VFD]    =3D &__clk_regmap_gate_hw(&clk_en_mis=
-c_vfd),
-> +		[RTD1625_ISO_CLK_MAX] =3D NULL,
-
-Could this cause a bounds mismatch?
-
-By setting .num to RTD1625_ISO_CLK_MAX but initializing the array at the
-MAX index, the array size is implicitly expanded to MAX + 1 elements. This
-appears to violate the __counted_by(num) contract in struct
-clk_hw_onecell_data.
-
-Should this trailing NULL initialization be removed?
-
-> +	},
-> +};
-
-[ ... ]
-
-> +static struct clk_hw_onecell_data rtd1625_iso_s_clk_data =3D {
-> +	.num =3D RTD1625_ISO_S_CLK_MAX,
-> +	.hws =3D {
-> +		[RTD1625_ISO_S_CLK_EN_IRDA] =3D &__clk_regmap_gate_hw(&clk_en_irda),
-> +		[RTD1625_ISO_S_CLK_EN_UR10] =3D &__clk_regmap_gate_hw(&clk_en_ur10),
-> +		[RTD1625_ISO_S_CLK_MAX] =3D NULL,
-
-Is this trailing NULL initialization needed here as well? Like the above,
-this makes the array size RTD1625_ISO_S_CLK_MAX + 1 elements, which
-doesn't match the .num value.
-
-> +	},
-> +};
-
-[ ... ]
-
-> +static const struct of_device_id rtd1625_iso_match[] =3D {
-> +	{.compatible =3D "realtek,rtd1625-iso-clk", .data =3D &rtd1625_iso_desc=
-},
-> +	{.compatible =3D "realtek,rtd1625-iso-s-clk", .data =3D &rtd1625_iso_s_=
-desc},
-> +	{ /* sentinel */ }
-> +};
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - avdd-supply
+> +  - dvdd-supply
 > +
+> +unevaluatedProperties: false
 
-Should there be a MODULE_DEVICE_TABLE(of, rtd1625_iso_match) here?
+Does this binding need a reference to the standard SPI peripheral properties
+schema?
 
-Without it, the module aliases aren't exported to modules.alias, which
-might prevent udevd from automatically loading the driver at boot. This
-could also cause the auxiliary reset controller to silently fail to probe.
+Since unevaluatedProperties is set to false without including a reference to
+/schemas/spi/spi-peripheral-props.yaml#, standard SPI properties provided by
+a board's device tree (such as spi-cpol, spi-cpha, spi-cs-high, or
+spi-rx-delay-us) will be incorrectly rejected by dtbs_check.
 
-> +static struct platform_driver rtd1625_iso_driver =3D {
-
-[ ... ]
-
-> diff --git a/drivers/reset/realtek/reset-rtd1625-iso.c b/drivers/reset/re=
-altek/reset-rtd1625-iso.c
-> new file mode 100644
-> index 0000000000000..0829a5cb0ac11
-> --- /dev/null
-> +++ b/drivers/reset/realtek/reset-rtd1625-iso.c
-
-[ ... ]
-
-> +module_auxiliary_driver(rtd1625_iso_driver);
-> +
-> +MODULE_DESCRIPTION("Reatek RTD1625 ISO Reset Controller Driver");
-
-This isn't a bug, but there's a typo in the module description.
-"Reatek" should probably be "Realtek".
-
-> +MODULE_LICENSE("GPL");
-> +MODULE_IMPORT_NS("REALTEK_RESET");
+Should this schema include an allOf block to inherit the common SPI
+properties so that different board designs and controller requirements can
+be correctly evaluated?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508111641.3192=
-177-1-eleanor.lin@realtek.com?part=3D9
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508233730.7783=
+4-1-dennylin0707@gmail.com?part=3D1
