@@ -1,78 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA232DB79F;
-	Fri,  8 May 2026 22:20:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F25D1387348
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 22:21:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778278857; cv=none; b=ugSuKhAJZ8m88SVHsTjG3bhqhvR0pvEr3e1PFSfUGT5VT/WGeGnyLd3CBNAJ5G7tQtKudXmXfOLq5GC6id5ucy4lmnekcgFLj9YcjoIGQXWDXVI2Llo6zHCbFze7bbL2bPHERutxidY8p6zxTXYlB4zAsA1SoygmdD7WSwYrB0Q=
+	t=1778278873; cv=none; b=dL9EJjbshsXSqjBuLFpc04o9kmarJa9jDTQ3g0c7uC8ucgTMToMm/Jd+6IlKT14N+cb3OoN3nfJLNds0m32/QsXKA3k61PmzRFKmPxxBkorobcHs4TuoIpk8KtoVkaPh0zMD0c/gGFHlXg4Jk3wdQUORFcSH/avH007Yz/C11nk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778278857; c=relaxed/simple;
-	bh=3c6mBX0SMHIoXIg5ZScaD2+vigKCzxlLsrjdG4XgaNs=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=YYZ30T/Irz5GVr8smtv/cslA3iNBuTM77+Y8XSL9E2YY6xECUTdN2AYPF4kUbGDJQQRVduDY/NBF7mzjN1GUYY9koWhL4JaNukUkg6KXAJQ0sYI1edta/uv9umVxBSXU3+Hcj466UFXn5chJ2AT9FdRhNtXB8U4S6j0lZXjpVQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nhmc5L3e; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778278873; c=relaxed/simple;
+	bh=+wBpdsqElJ4qZtzsZCtM2GEJ3qTayzgaafIlGZWKSLc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=W9+OsG8mu/aPn7ZQMZgZPJXqIXbfdWmk23UbBOYOP1gwENduwV7kW2xAOQdvVndf1peJZ/anKqUVeDn3Z20xHbN5uTsKtVC+KGPuKGsKcMBs4/H1hj6W4oa0BfHtWL4gfnnCP62zvZTAbVmDADQ6c8crOVdlrLd1bqiZA1ZbXoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W0Tkde8I; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nhmc5L3e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 546CEC2BCB0;
-	Fri,  8 May 2026 22:20:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W0Tkde8I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6108EC2BCB0;
+	Fri,  8 May 2026 22:21:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778278857;
-	bh=3c6mBX0SMHIoXIg5ZScaD2+vigKCzxlLsrjdG4XgaNs=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
-	b=nhmc5L3eH/rwvdAWmTPXAE6658pB1a81AYWK9Nl/YnO0dsrjjqi2LNNWQcYtSpbv0
-	 xLfa4uf6owExL564oD9K5erqVZJYBEw2tDoY0IGi395tpgSHu9C85uiFTNV2uZDdKX
-	 gEzB+Sr9SC7ddjGWFX3D1UaUsjmQsU3LEiFgFzZQi+cH99E6VytLl9mAqoZrhmv2GJ
-	 TjJ9BlGMu8N2cb+eCY1PygyiN76k6Z4JrilUe/9Wz1pqgguumYbitCon8OPXbFo/3a
-	 gaLeXcsWEZ2PqVr/YehRy1bRwR3u4HaJICCWqkM6FgbvuDFuF39Mp+nz9OqKTocPy6
-	 PYTWcJlrZnjZw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 02CED38119D1;
-	Fri,  8 May 2026 22:20:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20201202; t=1778278872;
+	bh=+wBpdsqElJ4qZtzsZCtM2GEJ3qTayzgaafIlGZWKSLc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=W0Tkde8IIaGNdo202ruaOdIHIpI1/zazDal8dOrCJ1W2xyAc1o+REwfILweBSPRIR
+	 zCIkFwWfq/g3Yjj5H1N5AfRlHr7iTW9b93VDri6KVt3teJto/TFpUCJw6VqAB3FfxE
+	 H1v7lZYp3FqXBFZ4S9rYXJzCHke9g9LbfTzaexwgCZLASlHQDzmEB0tRE8DHLM8AzU
+	 ipHG/x4yF+j/bk3Y58Bc5p2BGZjx24jzmhmLAuuLXMpF1B4zv1F2PF+kibdCHp4KG5
+	 tS+vy9oSqXANewcT6uKwjjmYb9SaWl+7Dkv6scfLF2rNa94C3z2AOiHXtvYAHm3JzH
+	 MoBPeD2EI8msg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 06/10] clk: realtek: Add support for mux clock
+Reply-To: sashiko@lists.linux.dev
+To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
+Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260508111641.3192177-7-eleanor.lin@realtek.com>
+References: <20260508111641.3192177-7-eleanor.lin@realtek.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 08 May 2026 22:21:11 +0000
+Message-Id: <20260508222112.6108EC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] dt-bindings: net: lan966x: Accept standard ethernet
- prefixes
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <177827880555.872167.9312279380032564115.git-patchwork-notify@kernel.org>
-Date: Fri, 08 May 2026 22:20:05 +0000
-References: <20260507-lan966-binding-v1-1-e99293d2a4ec@kernel.org>
-In-Reply-To: <20260507-lan966-binding-v1-1-e99293d2a4ec@kernel.org>
-To: Linus Walleij <linusw@kernel.org>
-Cc: herve.codina@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, horatiu.vultur@microchip.com,
- netdev@vger.kernel.org, devicetree@vger.kernel.org
 
-Hello:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] `clk_regmap_mux_get_parent()` masks hardware read errors and inval=
+id states by defaulting to parent index 0.
+- [Medium] Potential signed integer overflow in `clk_regmap_mux_set_parent(=
+)` when shifting the `u8 index` parameter.
+--
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+commit 462409aad9f9756e1384cae76faf89758f477e12
+Author: Cheng-Yu Lee <cylee12@realtek.com>
 
-On Thu, 07 May 2026 11:26:01 +0200 you wrote:
-> The dsa.yaml and ethernet-switch.yaml bindings recommend
-> prefixing ethernet switches and ports with "ethernet-" so
-> make the LAN966x do the same.
-> 
-> Reported-by: Herve Codina <herve.codina@bootlin.com>
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-> 
-> [...]
+clk: realtek: Add support for mux clock
 
-Here is the summary with links:
-  - dt-bindings: net: lan966x: Accept standard ethernet prefixes
-    https://git.kernel.org/netdev/net-next/c/4374fc0b89ff
+This commit adds a regmap-based clk_ops implementation for Realtek mux
+clocks, supporting parent selection and rate determination.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+> diff --git a/drivers/clk/realtek/clk-regmap-mux.c b/drivers/clk/realtek/c=
+lk-regmap-mux.c
+> new file mode 100644
+> index 0000000000000..1b0b8419d651f
+> --- /dev/null
+> +++ b/drivers/clk/realtek/clk-regmap-mux.c
+[ ... ]
+> +static u8 clk_regmap_mux_get_parent(struct clk_hw *hw)
+> +{
+> +	struct clk_regmap_mux *clkm =3D to_clk_regmap_mux(hw);
+> +	int num_parents =3D clk_hw_get_num_parents(hw);
+> +	u32 val;
+> +	int ret;
+> +
+> +	ret =3D regmap_read(clkm->clkr.regmap, clkm->mux_ofs, &val);
+> +	if (ret)
+> +		return 0;
+> +
+> +	val =3D (val >> clkm->shift) & clkm->mask;
+> +
+> +	return val >=3D num_parents ? 0 : val;
 
+Does returning 0 on hardware read errors or invalid states mask the error
+from the clock framework?
 
+If 0 is returned here, the framework might cache 0 as the active parent. If
+a consumer later requests to set the parent to 0, the framework could
+incorrectly assume the hardware is already in the correct state and skip the
+set_parent call entirely.
+
+Could this return an out-of-bounds index (like -EINVAL cast to u8) instead,
+so the framework recognizes the parent as unknown and forces a hardware
+update when a valid parent is requested?
+
+> +}
+> +
+> +static int clk_regmap_mux_set_parent(struct clk_hw *hw, u8 index)
+> +{
+> +	struct clk_regmap_mux *clkm =3D to_clk_regmap_mux(hw);
+> +
+> +	return regmap_update_bits(clkm->clkr.regmap, clkm->mux_ofs,
+> +				  clkm->mask << clkm->shift, index << clkm->shift);
+
+Could the shift operation index << clkm->shift cause a signed integer
+overflow?
+
+Since index is a u8, it is implicitly promoted to a signed 32-bit int. If
+the clock mux is configured at the most significant bit of a 32-bit
+register (where clkm->shift is 31), shifting a non-zero index into the sign
+bit triggers undefined behavior.
+
+This might trigger a shift-out-of-bounds splat, which could lead to a panic
+on systems with panic_on_warn enabled.
+
+Would it be safer to explicitly cast index to an unsigned type, such as
+(u32)index << clkm->shift?
+
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508111641.3192=
+177-1-eleanor.lin@realtek.com?part=3D6
