@@ -1,132 +1,166 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3016221DB3
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 22:40:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA1F388395
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 22:42:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778280051; cv=none; b=d6GcBfHZ4QhgbbKEjnzgelHODb3X14OV5blA97XdW0Rz3Mt6kQFsolWqxAEvjjvP6sKEuYgoBWtzaQ1VLUyoqWghRWjclmzpEcDICHsbdrAaAZBurq56WHW4ct7piXcQQQFdIfR9UUmoSG1CBgRFxlRV2dzKQkxBMzWjCJ9J5uw=
+	t=1778280133; cv=none; b=Ruk/QQvQQ9B7wrejzD6dSUc5bskNXZaBBplN949sSHul9LideO3+qU0pRKrtWlMJ8/Lf2xssw2BGoekJU/1R6cGArIbeZtuL35uM9VjuLq0JQ8tUtgToTearMsDIEbL7deOzsaijf1EhoE62t2R+0NcWyr82QcXHJSO1Wf4bZLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778280051; c=relaxed/simple;
-	bh=mYOsj8zE0O3q2y+dnmnJP4GsX07sJwAn/tzTmiA+MTY=;
+	s=arc-20240116; t=1778280133; c=relaxed/simple;
+	bh=7vrS6Z1NKtr23IeFETheMlyctIVgkJRzI3vT80DorH0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DG0MJO2B+ypfkSrzQBAjZ+7mv63XgY3F9dZvWk9WFSAQ2uOhZaBE2BxOOHDkjVouLziECDr7cVv4w4NNzJYe3krD+xBBMB5OHt7A8xceyvifR7rv6eB1wcv4xnC+htqfMua+QvRDCjwCvCo6Cwi3L6VQDVGwJ3cZWK1SVvv/+4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nnfOAlX+; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=T2bP80SUpeD7imjK/MzWUdf9LCjBwuYI0YW+5YAqvbE55nJxstRsmKH2cF750R2Lj6pgTVz4UG1SBOeikS5Bgu9ithM21qFHiMioFVT3uHSGG73rhtTeQpLrQiJP4raueK8+dKloKR20b5ddk2GfANeZw/Nl4T6XUhDmlw27/tI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aqfrDOEA; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nnfOAlX+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3849EC2BCB0;
-	Fri,  8 May 2026 22:40:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aqfrDOEA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A87EC2BCB0;
+	Fri,  8 May 2026 22:42:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778280051;
-	bh=mYOsj8zE0O3q2y+dnmnJP4GsX07sJwAn/tzTmiA+MTY=;
+	s=k20201202; t=1778280133;
+	bh=7vrS6Z1NKtr23IeFETheMlyctIVgkJRzI3vT80DorH0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=nnfOAlX+jFjM+cfOAxBP7wNQMYAXiU7Nvu3QmDsklFj5hWY02pZwLfQKV1CKkNRdY
-	 u2q/9n8lbZQMmcgzzscRP0GVtX+vSphKle+goB72+yNkkj+LaZneDfOgtqvzURmwO9
-	 yOgTQtTTnMyyIe6qNn2nWKeZlvohalpPvATrpveHodVq0JKM6C9HKFIO42eqFhJ1ad
-	 qsoT/7JtpqLfS/Vmpye9zpCxyHzhF9gJ9dPralrHkTXNvxT9B+rgB/qtxWDicFEJJ/
-	 Zy+LVj7AYxbKD+DqgVyguJ3atn2XydOKmrK+P2AHb/VeR2DjZtVGkMHtPxjHS4oUxo
-	 3R0PVKT0mG29Q==
+	b=aqfrDOEAX3tQ/hD+FGP05FCNcZF30+VWz+Zqceaa9Wt2ekcVIyxWS55WdEW1v1LTX
+	 KccCKsYiWDXw78IrYh8emSC6n1nMX7pUBmdq/W8Mv/pSvC9O6OjcVeSt+UnRUohNzn
+	 aSiFICPMSfkCUJ8UaZHPlvs/7pyUPXXlKs3+WZpuDIFdVPGbfuKHidgYWS46LBxW9t
+	 5MtfbjnsydDktXbMV0F6IWFphRPVYG/VhPONO3v2Edgg3P2/lgCTO/CArIv7iE44Ak
+	 VBFuvM/eNnioVkjujda3zTQVSkgtNQCfMyB06BylLtf8PSwg09gUpjXmnw6b749o/S
+	 kMXan+rFQMtUA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 12/15] can: grcan: Add CANFD TX support alongside
- legacy CAN
+Subject: Re: [PATCH v7 07/10] clk: realtek: Add support for MMC-tuned PLL
+ clocks
 Reply-To: sashiko@lists.linux.dev
-To: "Arun Muthusamy" <arun.muthusamy@gaisler.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260508070121.6918-13-arun.muthusamy@gaisler.com>
-References: <20260508070121.6918-13-arun.muthusamy@gaisler.com>
+To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260508111641.3192177-8-eleanor.lin@realtek.com>
+References: <20260508111641.3192177-8-eleanor.lin@realtek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 08 May 2026 22:40:50 +0000
-Message-Id: <20260508224051.3849EC2BCB0@smtp.kernel.org>
+Date: Fri, 08 May 2026 22:42:12 +0000
+Message-Id: <20260508224213.3A87EC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] The patch breaks the `grcan_txbug_workaround` mitigation for a kno=
-wn hardware hang, causing it to bypass the trigger condition or uncondition=
-ally time out.
+- [High] `set_phrt0` uses an incorrect mask in `regmap_update_bits`, breaki=
+ng clock enable/disable.
+- [High] `clk_pll_mmc_set_rate` ignores the requested rate and hardcodes th=
+e hardware configuration.
+- [High] `clk_pll_mmc_recalc_rate` improperly propagates negative error cod=
+es as unsigned clock rates.
+- [Medium] Clock rate calculation in `clk_pll_mmc_recalc_rate` overflows 32=
+-bit integers.
+- [Medium] `clk_pll_mmc_phase_get_phase` invokes undefined behavior via inv=
+alid pointer subtraction.
 --
 
-commit bce48dc84fac934ecb22c0ada575ba8344b8ec53
-Author: Arun Muthusamy <arun.muthusamy@gaisler.com>
+commit 8ee4cf67f3b23e7f96645f8fb8d616be9378d545
+Author: Cheng-Yu Lee <cylee12@realtek.com>
 
-can: grcan: Add CANFD TX support alongside legacy CAN
+clk: realtek: Add support for MMC-tuned PLL clocks
 
-This commit includes CANFD TX support with the legacy CAN support, enabling
-extended data payloads to provide higher bit rates.
+Add clk_pll_mmc_ops for enable/disable, prepare, rate control, and status
+operations on MMC PLL clocks.
 
-> diff --git a/drivers/net/can/grcan.c b/drivers/net/can/grcan.c
-> index 4921da349a0ef..690e07c7b1ef8 100644
-> --- a/drivers/net/can/grcan.c
-> +++ b/drivers/net/can/grcan.c
-
-[ ... ]
-
-> @@ -1441,40 +1484,55 @@ static netdev_tx_t grcan_start_xmit(struct sk_buf=
-f *skb,
->  	spin_lock_irqsave(&priv->lock, flags);
-> =20
->  	txwr =3D grcan_read_reg(&regs->txwr);
->  	space =3D grcan_txspace(dma->tx.size, txwr, priv->eskbp);
-> =20
->  	slotindex =3D txwr / GRCAN_MSG_SIZE;
-> +	bds =3D grcan_numbds(len);
+> diff --git a/drivers/clk/realtek/clk-pll-mmc.c b/drivers/clk/realtek/clk-=
+pll-mmc.c
+> new file mode 100644
+> index 0000000000000..998ab853ffbb7
+> --- /dev/null
+> +++ b/drivers/clk/realtek/clk-pll-mmc.c
 
 [ ... ]
 
-> +	copy_len =3D min_t(u32, len, CAN_MAX_DLEN);
-> +	memcpy(hdr->data, payload, copy_len);
-> +	payload_offset =3D copy_len;
-> =20
-> -	if (dlc > 0)
-> -		memcpy(hdr->data, cf->data, min_t(u32, cf->len, CAN_MAX_DLEN));
-> +	txwr =3D grcan_ring_add(txwr, GRCAN_MSG_SIZE, dma->tx.size);
-> +
-> +	for (i =3D 1; i < bds; i++) {
-> +		frag =3D grcan_msg_frag_at(&dma->tx, txwr);
-> +
-> +		memset(frag, 0, sizeof(*frag));
-> +		copy_len =3D min_t(u32, (u32)len - payload_offset, (u32)GRCAN_MSG_SIZE=
-);
-> +		memcpy(frag->data, payload + payload_offset, copy_len);
-> +		payload_offset +=3D copy_len;
-> +
-> +		txwr =3D grcan_ring_add(txwr, GRCAN_MSG_SIZE, dma->tx.size);
-> +	}
+> @@ -0,0 +1,453 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
 
 [ ... ]
 
->  	/* Bug workaround for old version of grcan where updating txwr
->  	 * in the same clock cycle as the controller updates txrd to
->  	 * the current txwr could hang the can controller
->  	 */
->  	if (priv->need_txbug_workaround) {
->  		txrd =3D grcan_read_reg(&regs->txrd);
->  		if (unlikely(grcan_ring_sub(txwr, txrd, dma->tx.size) =3D=3D 1)) {
+> +static inline int set_phrt0(struct clk_pll_mmc *clkm, u32 val)
+> +{
+> +	return regmap_update_bits(clkm->clkr.regmap, clkm->pll_ofs + PLL_EMMC1_=
+OFFSET,
+> +				  PLL_PHRT0_MASK, val << PLL_PHRT0_SHIFT);
+> +}
 
-Does this break the grcan_txbug_workaround mitigation?
+regmap_update_bits internally performs a bitwise AND of the value and the
+mask. Since PLL_PHRT0_MASK is BIT(0) and the value is shifted by
+PLL_PHRT0_SHIFT (which is 1), will this operation always evaluate to 0?
 
-In the original code, txwr represented the current hardware write pointer=20
-when it was used in this check. Now, txwr is updated in the loop above to=20
-calculate the end of the new message fragments before the workaround check=
-=20
-is evaluated.
+Should the mask be passed as PLL_PHRT0_MASK << PLL_PHRT0_SHIFT so the clock
+can actually be enabled and disabled?
 
-Because txwr is now the new advanced write pointer, won't the trigger
-condition grcan_ring_sub(txwr, txrd, dma->tx.size) =3D=3D 1 evaluate agains=
-t=20
-the wrong offset and fail to prevent the controller hang?
+[ ... ]
 
-Additionally, grcan_txbug_workaround() waits for the hardware read pointer
-to catch up to the provided txwr. Since the advanced txwr hasn't been=20
-written to the hardware yet (it is updated in the hardware at the end of=20
-the function), will this guarantee a timeout, returning -EBUSY and=20
-permanently stalling the TX queue?
+> +static int clk_pll_mmc_phase_get_phase(struct clk_hw *hw)
+> +{
+> +	struct clk_hw *hwp;
+> +	struct clk_pll_mmc *clkm;
+> +	int phase_id;
+> +	int ret;
+> +	u32 val;
+> +
+> +	hwp =3D clk_hw_get_parent(hw);
+> +	if (!hwp)
+> +		return -ENOENT;
+> +
+> +	clkm =3D to_clk_pll_mmc(hwp);
+> +	phase_id =3D (hw - &clkm->phase0_hw) ? 1 : 0;
+
+Does subtracting pointers to distinct struct members invoke undefined
+behavior here, since they do not belong to the same array?
+
+Could this be replaced with an equality check like
+(hw =3D=3D &clkm->phase0_hw) ? 0 : 1, similar to how it is handled in
+clk_pll_mmc_phase_set_phase?
+
+[ ... ]
+
+> +static unsigned long clk_pll_mmc_recalc_rate(struct clk_hw *hw, unsigned=
+ long parent_rate)
+> +{
+> +	struct clk_pll_mmc *clkm =3D to_clk_pll_mmc(hw);
+> +	u32 val, ext_f;
+> +	int ret;
+> +
+> +	ret =3D get_ssc_div_n(clkm, &val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D get_ssc_div_ext_f(clkm, &ext_f);
+> +	if (ret)
+> +		return ret;
+
+If get_ssc_div_n or get_ssc_div_ext_f fail and return a negative error code,
+does this function return that error code directly? Since the return type
+is unsigned long, could this result in an astronomically large positive
+clock rate being reported to the Common Clock Framework?
+
+> +
+> +	return parent_rate / 4 * (val + 2) + (parent_rate / 4 * ext_f) / 8192;
+> +}
+
+On 32-bit architectures, could the expression (parent_rate / 4 * ext_f)
+overflow if parent_rate is a typical clock frequency like 24 MHz and ext_f
+is up to 8191? Should this math be performed using u64 to prevent silent
+overflow?
+
+[ ... ]
+
+> +static int clk_pll_mmc_set_rate(struct clk_hw *hw, unsigned long rate, u=
+nsigned long parent_rate)
+> +{
+> +	struct clk_pll_mmc *clkm =3D to_clk_pll_mmc(hw);
+> +	u32 val =3D PLL_MMC_SSC_DIV_N_VAL;
+> +	int ret;
+
+Does this completely ignore the requested rate and parent_rate parameters
+and always program the hardware with the hardcoded PLL_MMC_SSC_DIV_N_VAL?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508070121.6918=
--1-arun.muthusamy@gaisler.com?part=3D12
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508111641.3192=
+177-1-eleanor.lin@realtek.com?part=3D7
