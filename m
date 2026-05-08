@@ -1,88 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8742536494B;
-	Fri,  8 May 2026 23:41:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C40B363090
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 23:42:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778283661; cv=none; b=qYmd4PxB7oQw0+klIVR8rUlOSVrvyF3JcU8aguIL3zcyJyzK/p0YzLvxlD6zUxwRa52fW/f/db+d1tjoAkXvEHSt+GGJIavAgqMWmkP7YwAc9j05wq/ZeyfeAYka6+ICzru1nOIwYj/MWeB3gb7VMLGppiwjyWnUJ3ZQHaVHNV8=
+	t=1778283741; cv=none; b=PafP1Y1tZ9cgw2OYPm5raE4YDx68njBrD9qLKmeWoELVUG1JzcM7osANTDZDSlCZrNas9wbjXlw9zzB8Em4fSHZ1olVZKL6OAlAchGkzkiTzihlUzwNe/9p71RF8R0xyR52tcNp8fmMD/H/5oTXfMLdkzZ2sSsJj2t30xVvbQtY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778283661; c=relaxed/simple;
-	bh=Z/8KTR3j+ve+V99wkggaNMSNth3+9ByymkKWAYxhruQ=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=YEJFJ4OC7nd44V6QTEbi1DVI1py79YuH/AXPfMlW8+wwzzM7i+0P59IPdLd+GiFjgSpBptPncV+lhayFYFhcuqV/ckPeBFNWPE6umAV+WeBURcWfumoRJBkJt+0/YhJuvJLnk2BFstGAi1oxIOJ7C9v0wRlEq7V/E1x9DT8agXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dvfl50An; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778283741; c=relaxed/simple;
+	bh=JTnuYimd06oX8Ev8lzEYZUWrsmEY/HbCt3EjDsVqvAs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=gNKCL7bs4/GwAEUcOU/ZFCgNRO8ECt/M+ArfHn6052njMMv+Gxm/vIOW9lnpF+hJ0OlvCCEOHHXHH8AencAm3EEZ9n6HHi52RBbRr4wQbp1iG0em7UlC+okazAFPvRdYY3Iv5wC4rUO4L93qDiPWpSel5CUoRc/0v5OIK34kVCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NtKjslFj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dvfl50An"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2141FC2BCB0;
-	Fri,  8 May 2026 23:41:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NtKjslFj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2D7DC2BCB0;
+	Fri,  8 May 2026 23:42:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778283661;
-	bh=Z/8KTR3j+ve+V99wkggaNMSNth3+9ByymkKWAYxhruQ=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
-	b=Dvfl50AnyAJgNyA/he+IRvFoDyWrWecB0Az4Vig0+vX74ZwitTku1NQBbbYhFE9np
-	 CT2+V5WiFQ3zmCsEwj3PuQqJwjNsCETj5T8cC9qU1IEl8jwW0jug5Ba0VxKLwujjjv
-	 2JMagvng++bLEiM8+dYEsZTVY2RUgAFoMhDjx4aYYSSEWJLDBs9SPOwamYje+Iumuz
-	 EMT7bp9ttkoPNU/USVReeu0ksQqGuXdmBnoUQClWpGshv/TzyBbwcr9dndTv2iJbOc
-	 IpI/P/Jsb2YgO0zH6KxpOc4dZgR4BGrHTxV8PfWzRehWz+GgMT5KmrexAdcqUXsrX5
-	 IBpWaL5RN3LVw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B9EA438119DF;
-	Fri,  8 May 2026 23:40:10 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20201202; t=1778283740;
+	bh=JTnuYimd06oX8Ev8lzEYZUWrsmEY/HbCt3EjDsVqvAs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=NtKjslFjBWSCS5hnFkMYEL+pdG0iD81fyefGP25/hEhLtHk/cbX1xzL8a7iTUuMYY
+	 b4wGoN3MKwq/SeCt17bT1hhBbCYJ187YW+klsamqsRfyVIogoz08HSTsbOgpp/UiPF
+	 hmoL05t4lQ/uG8VPB1uRLFKEc7yEk+zuWVS5zZXMbbk6aBCef7nCfrfRj42P8CFWRC
+	 EWNVPGUNkTKNzY17asrsnNK9aUGU5wTn20XjdkSh16OJt3tAC+W0fVJwhyc3Hwfd1m
+	 RFLOmTynp8l5XGYY+h+QgXz2h/QhUs49Td77TGnnjg71xFlXNrDDrzaHDntVqi/Z7N
+	 W/jfGxSixmgLw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 02/14] iommu: Add iris-vpu-bus to iommu_buses
+Reply-To: sashiko@lists.linux.dev
+To: "Vishnu Reddy" <busanna.reddy@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260509-glymur-v5-2-7fbb340c5dbd@oss.qualcomm.com>
+References: <20260509-glymur-v5-2-7fbb340c5dbd@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 08 May 2026 23:42:19 +0000
+Message-Id: <20260508234220.A2D7DC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2 0/2] Add USB Ethernet controller (LAN7500) node in
- VAR-SOM-OM44 devicetree
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <177828360953.897985.17310434488861318624.git-patchwork-notify@kernel.org>
-Date: Fri, 08 May 2026 23:40:09 +0000
-References: <20260506-b4-var-som-om44-lan7500-v2-0-b8af59ab877c@bootlin.com>
-In-Reply-To: <20260506-b4-var-som-om44-lan7500-v2-0-b8af59ab877c@bootlin.com>
-To: Thomas Richard <thomas.richard@bootlin.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, aaro.koskinen@iki.fi, andreas@kemnade.info,
- khilman@baylibre.com, rogerq@kernel.org, tony@atomide.com,
- o.rempel@pengutronix.de, thomas.petazzoni@bootlin.com,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org, nb@tipi-net.de
 
-Hello:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Improper Abstraction and Architectural Violation
+- [Medium] Technical Inaccuracy in Commit Message
+--
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+commit 61e281d574bca776edc5305b6c70e207b44fa3e0
+Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 
-On Wed, 06 May 2026 14:13:02 +0200 you wrote:
-> In this second version I added LAN7500 and LAN7505 definitions in
-> microchip,lan95xx.yaml as requested by Krzysztof. I also added Nicolai's RB
-> tag in devicetree patch.
-> 
-> Signed-off-by: Thomas Richard <thomas.richard@bootlin.com>
-> ---
-> Changes in v2:
-> - add Nicolai's RB tag in patch 2/2.
-> - add LAN7500 and LAN7505 in microchip,lan95xx.yaml instead of creating a
->   new file.
-> - Link to v1: https://lore.kernel.org/r/20260403-b4-var-som-om44-lan7500-v1-0-0dadde850143@bootlin.com
-> 
-> [...]
+iommu: Add iris-vpu-bus to iommu_buses
 
-Here is the summary with links:
-  - [v2,1/2] dt-bindings: net: microchip: Add LAN7500 and LAN7505 devices
-    https://git.kernel.org/netdev/net-next/c/f3fd582d1705
-  - [v2,2/2] ARM: dts: ti: var-som-om44: Add USB Ethernet controller node
-    (no matching commit)
+This commit adds the iris_vpu_bus_type to the iommu_buses array in the core
+IOMMU subsystem. This allows the bus to register notifier callbacks for
+device addition and removal to set up the IOMMU context.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+> Add iris-vpu-bus to iommu_buses[] to register the bus notifier callbacks
+> for device add and removal events. This ensures that when a device is
+> registered on iris-vpu-bus, the notifier triggers dma_configure(),
+> which sets up the IOMMU context for that device.
 
+Is this description of the notifier sequence accurate?
 
+Looking at iommu_bus_notifier() in drivers/iommu/iommu.c, the
+BUS_NOTIFY_ADD_DEVICE event actually triggers iommu_probe_device(), which
+establishes the IOMMU group.
+
+The dma_configure() routine is invoked separately by the driver core,
+specifically via really_probe() in drivers/base/dd.c, during driver binding.
+
+Could the commit message be updated to reflect the actual device model flow?
+
+> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+> index fccdbaf6dbd57..903a8bd118be6 100644
+> --- a/drivers/iommu/iommu.c
+> +++ b/drivers/iommu/iommu.c
+
+[ ... ]
+
+> @@ -179,6 +180,9 @@ static const struct bus_type * const iommu_buses[] =
+=3D {
+>  #ifdef CONFIG_CDX_BUS
+>  	&cdx_bus_type,
+>  #endif
+> +#ifdef CONFIG_QCOM_IRIS_VPU_BUS
+> +	&iris_vpu_bus_type,
+> +#endif
+>  };
+> =20
+>  /*
+
+Does modifying the generic IOMMU framework's iommu_buses[] array to include
+a vendor-specific bus violate abstraction boundaries?
+
+It appears the driver creates a custom bus type (iris_vpu_bus_type) purely
+to provide a custom .dma_configure callback for passing an iommu_fid.=20
+
+Could standard Linux device model methodologies be used instead, such as
+instantiating child platform_device nodes or utilizing the auxiliary_bus
+framework, to avoid tight coupling between the core IOMMU subsystem and
+vendor-specific driver details?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260509-glymur-v5-=
+0-7fbb340c5dbd@oss.qualcomm.com?part=3D2
