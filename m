@@ -1,405 +1,192 @@
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0137027057D
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 06:11:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C84636212F
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 06:24:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778220716; cv=none; b=cDlTk1UksiOgZtOFi0J++StKfts0HY1cMi17XOPfq2FcFZhjF8E8vKg+qzLnrPuWmhgucmbqdcrfHJIW5gRZnVfSQb79ooikMq699h/5GENudM5m33Yow4GZCwzAYRUpfvTCetYvsteDtNmlN5C+qvFk2x5A7HxNrYc3fO/AlH4=
+	t=1778221492; cv=none; b=pAl+4pLzHRslZryUugDcNmStrkMl3KPE+6fKEeNggfnJl4KPYxXBAARbEc05KxaoP3jXiIIlOzYU2pmKPyxdTyd67PFFXMSa70lKdf7nlzkhD1MhllKiQRWxXc/MBnXSX5UKPJDLGVdQtPrQ97KbXi4aBLnIWixt6X8tDbcZ7pE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778220716; c=relaxed/simple;
-	bh=UOMQRXoAVwk70uaufZhCWFNt7EA3VOTwF7G0ARoU3VM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ioolsLWWgkq4V4PoFXqZtApWn4Sr2X/zS+BdhT0gT4GRyl1nyw3pdbsjtvo0PkUM4EHGyTaumy03mpwLhJbugjdTfk1kLgwIt3J6xMgirJf42LL8ll8BtF78WwNV3Ah3FoScUwlhhr6OvQM64vuoB6MVWZc7Ndn7slajHz92pEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=af9Aq9W0; arc=none smtp.client-ip=74.125.82.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778221492; c=relaxed/simple;
+	bh=AYucIGE/XxHjtr30OpowBjVhJAyxN7nxsd80Fvb+b0U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=b2Gs9kbLCHeDBwaUETYICT7PRgd5BwruCupA2cf5pAsQJ5/fqnat/PA8E/9JC9XxTsW+SKStijHGtI9IpAE2bd0bYzFx7EN0vgfIZq9z6MljjZe0qaSTyQm2SzGnnhD0V4mCTX0kLA4wUD5rejGKg5ylETQXTUi1Y5ytHEiYl0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QssvYCmm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QTOqv23r; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="af9Aq9W0"
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-2ba9c484e5eso1763488eec.1
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 23:11:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QssvYCmm";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QTOqv23r"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64867GLb1173914
+	for <devicetree@vger.kernel.org>; Fri, 8 May 2026 06:24:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ObJL9sENHeTc1JXRa+Fb6potoCEo6WZOsrJoz9aAaYE=; b=QssvYCmmJW20hBJv
+	fhGHJM6VU7h1I5BJwrPVZnHXt9udku3Ume7w2zFsCVcdwjBF9u5bB39LX/SL+4Xb
+	7dyqqzHL9avf5OfOSO5WcVNJeKCa65vX3hxh0iKDEp1Y6ZE6PojzqBc1huMHpn0Y
+	2MEwZ8lMKUaXKNt4eSRC4gJQ2uLfEC5mwvVtiAWA9tw8OwKBo0NMTDkFON+3e5Z0
+	KZzZWsjNTwdsXl8QOVvSKQT1WZ2dLi6rcTa2DXtxuf7Lf+Jqybh8Znd0N2hpeQCe
+	g7z2ZFukfT3keloBYocKHTq5CyqHIdQV0HQ9xaPRd0cnXQ5objNa2Ra1UNWrx8RW
+	+ghGPw==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e132h9h29-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 08 May 2026 06:24:44 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-835417ba8c8so941036b3a.0
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 23:24:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778220704; x=1778825504; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=jXb0SR/K0dwEQwnGYT+FJTHi8ls55dvpbTwOnKCIOSw=;
-        b=af9Aq9W0YoPBm3194Lof4H08dGP+IF1d0al6sFdkh25soZ66jiCO1V56mxofiQLRJ1
-         eS29CYpT7QFelcSRA652MmQA4IzaC9kXNqM7iiKrvPPacrX3MP+ZwdlSIUs6VOVpYi9B
-         d98xZfJPhigLxZYybmnXEW6phB0VJUA13jsXMmLZekAV94oI0DCV46Zv0NkpTMH4MtQQ
-         NyvdNSRG/TOyc1wlWiwT9tQG8ytP7EqafxbQKQP6zBffcx5QnC9qk/41pQDKKW4PAt7u
-         gh9jzhkmp3sDLj24NDARc8itE86iV1UMnvsDT3U4YP1rfnsFzrsSxRCvfuSbE4lpjxHU
-         HU+g==
+        d=oss.qualcomm.com; s=google; t=1778221483; x=1778826283; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ObJL9sENHeTc1JXRa+Fb6potoCEo6WZOsrJoz9aAaYE=;
+        b=QTOqv23rqawTOqRpfxLVyFWg8CSxoGJn2kNBnNdusqUw+m0ZFIj9hZhOS/WqlsNqVh
+         38ywT6q681xIA4m/mOeqANq6gymYlY4MBQ1ioNA0DGCcr94rf8I57YyXbMzdE5QAHeI7
+         ryTuuFzr1W+PendXMSI7IDJy4qAf/YQfcFd2hRjdEfrk4kD5Dwk59SOO1exBbmFWXLrh
+         J6MM11W5o+2Oxi4jKUBSWBXihb8AlCqodzB6ugxWYXsAM32X50XMuoTOI7lVMUVZLfrz
+         oHa09f1dxWRTGxy82AovWr+EoGXtXmxlERy0pULdKwtcIeXnkJfliYY6FtHpKkt48Bfz
+         1a+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778220704; x=1778825504;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=jXb0SR/K0dwEQwnGYT+FJTHi8ls55dvpbTwOnKCIOSw=;
-        b=sr+GSQc6swdwGVDB+9F5tn6e0tOnIN3fp0PKpzM+OUXDC3zhLm/UOJy6QPaKoH0S/9
-         Q8T6/Tq9z59CxIAS48e0lUO0sZ49jP9+51IpJaR4YwtJiE+Fa976wpbCfIW7LPSUELfh
-         g1RQgya5TaaBCI06GI1mvFsi5mo99yxnYUMErbhpFFIUTctgHqDwpI9XKizd9vFoqAt4
-         FXDEYvLD8FmPT+clfWCu3IHyDZ9vXsrHsghJtJGcNOdmenYnC9GS1TWmUyZgzPI28fmw
-         0by6tqDLOXpg6AEIYcfuMRzBR7HTgIrRtJeSiX4lrT6Mt256QG83dssaAXEsRbR8SwmI
-         IIFg==
-X-Forwarded-Encrypted: i=1; AFNElJ/SXUGrzgHG0hcoNuO5YuX2Bh7Y4WwGqqq2ufgl5KHrTj3ui4fmjCdKZGLyT45gFefFe9BMLQ6tEYw2@vger.kernel.org
-X-Gm-Message-State: AOJu0YzS7+d2FW6coUZkGtDzLhVD3sMnCJhBiRSYvBQrSj5SIK95XoT8
-	BvtbOwoONJkQdrb7XmbHTSEOfUpjtcmGAIupOdwQ9m277LtDy3f2+DZ9
-X-Gm-Gg: Acq92OH6dSaVdfC55ZjZpWoTsdvJ7upRc5XVYnUWa0wGLexI3NbjpWAjwlKx+QiCo8m
-	ldtqdYyn5/FwgOrWcCRdFh6KrMA7uvHaGQHVM2VsC/qpBe/1NLcjERrKtqNYeMl4H8jPacBwVB2
-	7XDtqAkOEy2j2qEGsTJ4ctVCV6z7O1KVFj1araGiojE9gVKJxb5ULAZwNixTzvv3D/5PNVc7rQw
-	TApmCe7UvyCB4LaErlkOdD/Olpbpyc2d8ZDwTF1ZyqYeZQyf1UUHiJm5auZLvIoBh6W/oGKsDT5
-	fJ7YOEXpUB3ncfRwGnpZBjdN86w+P5iVfQsOkuR6TADQZbl4tar55RZPbv6MALKqC77ut3sQL08
-	RPWLCJm95NwCcMsLM+zh7XMZr/cvAJt4XoaFlSHT1yW6CZyV2hn6LTgn6+mlWvb5cbXVXXypmvX
-	2Ldm93fDs9MJsCKU7np0/Ya3NB5DRM6uIbDozXhxddwm9iqTzvLVFcbsSTNXUVRWAt4TrDknLK2
-	ws=
-X-Received: by 2002:a05:693c:2b08:b0:2ea:cd38:f921 with SMTP id 5a478bee46e88-2f54aa78245mr5844784eec.26.1778220703475;
-        Thu, 07 May 2026 23:11:43 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:852e:ebf3:8de1:32e1])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2f888e3e285sm1132502eec.27.2026.05.07.23.11.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 May 2026 23:11:42 -0700 (PDT)
-Date: Thu, 7 May 2026 23:11:39 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: david@ixit.cz
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Henrik Rydberg <rydberg@bitmath.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Petr Hodina <petr.hodina@protonmail.com>, 
-	linux-input@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	phone-devel@vger.kernel.org
-Subject: Re: [PATCH v4 10/11] Input: stmfts - support FTS5
-Message-ID: <af13d0-zM8Qjtjcj@google.com>
-References: <20260409-stmfts5-v4-0-64fe62027db5@ixit.cz>
- <20260409-stmfts5-v4-10-64fe62027db5@ixit.cz>
+        d=1e100.net; s=20251104; t=1778221483; x=1778826283;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ObJL9sENHeTc1JXRa+Fb6potoCEo6WZOsrJoz9aAaYE=;
+        b=L7kwauAWYSEW2KBd4mJMGp5OwM0lM4i3Kk00D7nO9ebEBBKGifkLQwia7AOoLTeo7M
+         7vdq0ZX19NtK1MK03pLrlCKiu7X9Wz6S/dMzAOEIsiLR4uwL5KpdlINu4oH+Uy/a+O+m
+         LNWrv51xzcBW1JxjuQM5S5YZVXd2/y1kuvDjrFt22Z9JFLXezC2z3lM8Rxipu7Em42il
+         jQC7oK0Xer2ZSbu6v0CuUzChRam0neWDpzKvwQrOtlhBLrLmC3mSlq35JBgHYFVAdLuW
+         5aRJsoW4/dYsgCJYAlt+tp9o5JS4HH+G3zMQ7yLf0c222ULPjTA7TnsVDRXFwl/QKkQo
+         wEaw==
+X-Forwarded-Encrypted: i=1; AFNElJ/GtHhA+6HqfjARGi90f7gTNcUiQZi8JYfm2SpII9F1hCP8VnEU+6MucSflpsyXSoyuRZqbs25LYiFB@vger.kernel.org
+X-Gm-Message-State: AOJu0YwDGBl7GVqmf+urjNPvrYuXbWDQwdbpciU50lrWSDw6kgQjTbmz
+	lfeX8CQ4TitdfaAIxgvSWkepLOX7eGfl7zIlIZliyfsOpRIa8aV3tec+7Vd2WXaj6OhskEKD9az
+	aZnhswXOWVfgffvOIGyGgodK9kTzRB9p/JxrxANURVw0lnlpn6XO0/fETSlipHzIN
+X-Gm-Gg: AeBDietd123+pR4KAEl0Qmved25Y2BFKL6bn0BMda5+2rf9erBdH9/tqGTbIgj5sDf+
+	JDup9sneRnVomp/fdZhuWryhyODiBoF3Xx9mLZmRobVLLwJ9xnEAzb/4lyVtt8MjZDqz8yMs6k2
+	JgzxfP2ckfryVMnq6GRq9DUELCl4ojelGJtljHRZBTkDR1XQwDp6eWd5YpvnySEeCAo8pHLeheT
+	ODoQyt3LheEj+icQakdYt5wWmSYtFQpFkCR/DIA/36Kt9rdtsnTKDh7nbSNhK6tzVoY0VUENZNW
+	W1J4w/wC1VnBK5Yt6ilaYLF+rB0Djlkka3il8ayV49UZyqPNXpj73hNFDSAGdsVGNusvgB32n1Q
+	Bi3TbRs12amNPgiy/tmUkXbIyhe8XYpyN3htVSA3SPVJgDGtj
+X-Received: by 2002:a05:6a00:9096:b0:81d:dd3a:b8f5 with SMTP id d2e1a72fcca58-83a5dc5ed7dmr11395762b3a.38.1778221483233;
+        Thu, 07 May 2026 23:24:43 -0700 (PDT)
+X-Received: by 2002:a05:6a00:9096:b0:81d:dd3a:b8f5 with SMTP id d2e1a72fcca58-83a5dc5ed7dmr11395720b3a.38.1778221482631;
+        Thu, 07 May 2026 23:24:42 -0700 (PDT)
+Received: from [10.219.57.29] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-839682abd39sm10888950b3a.52.2026.05.07.23.24.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 07 May 2026 23:24:41 -0700 (PDT)
+Message-ID: <1d7141d7-3440-4360-bed2-d690fb30a116@oss.qualcomm.com>
+Date: Fri, 8 May 2026 11:54:36 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260409-stmfts5-v4-10-64fe62027db5@ixit.cz>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: firmware: qcom,scm: Document SCM on Shikra
+ SoC
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Robert Marko <robimarko@gmail.com>,
+        Guru Das Srinagesh <linux@gurudas.dev>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260501-shikra-scm-binding-v1-1-93d7faf1b784@oss.qualcomm.com>
+ <20260504-utopian-civet-of-symmetry-ed48a1@quoll>
+Content-Language: en-US
+From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+In-Reply-To: <20260504-utopian-civet-of-symmetry-ed48a1@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA4MDA2MCBTYWx0ZWRfX4x4+OMnQDi/d
+ NnGiRvKXDMFLIDep3ltqx8CXFxGF0PR7eBk7dEyPaocgOqyTpEznDnj6sXPAWTz264fwRF/Fz7b
+ +xs2DgthrRZidMc6dHbuqp6uboqWLAvkLxTvMcAWgtC4o8qggv9D5sF0kPwGHIki6ggRcaEz7Y0
+ l5YQxVsGoCARWMG8Iz9LStgOudf8ftkSxlYD5Sq4DqQljIiwH5DER0+8ij1VBvdaCDmh2vzwViQ
+ 95nGUJXt97WhIp743eTavvaG5W7e6RmtSd2Cm7om0x68bGWbBPTZVx/0fsxhCQ/QiqOQjAHmaNw
+ tEDjzfpOScmFKdi/I4TylRsgova7cvP8LHBpx3VoZkH2yf3SloR33JM8KWwYvhz62UqwuJFDVKm
+ z8OHPc+ERcfZx9eEuyFYK7T8otRta6h1617GZiZfMMXBrYWdlB4Lx3/FiYVDKPsu8rmsR81Z7YX
+ 9+4MBHNnD+HrC52G3nQ==
+X-Proofpoint-ORIG-GUID: vyMb9tnEOibNqsvWCbnXOdEYOFZzfE7J
+X-Proofpoint-GUID: vyMb9tnEOibNqsvWCbnXOdEYOFZzfE7J
+X-Authority-Analysis: v=2.4 cv=McxcfZ/f c=1 sm=1 tr=0 ts=69fd81ac cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=212fnMXnYh6t1oBpmLEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-07_02,2026-05-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 suspectscore=0 spamscore=0 bulkscore=0
+ adultscore=0 priorityscore=1501 lowpriorityscore=0 impostorscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
+ definitions=main-2605080060
 
-Hi David,
+On 5/4/2026 4:33 PM, Krzysztof Kozlowski wrote:
+> On Fri, May 01, 2026 at 11:23:46PM +0530, Komal Bajaj wrote:
+>> Document the SCM compatible for the Shikra SoC.
+>>
+>> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+>> ---
+>>   Documentation/devicetree/bindings/firmware/qcom,scm.yaml | 3 +++
+>>   1 file changed, 3 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/firmware/qcom,scm.yaml b/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
+>> index 7918d31f58b4..bb1e0a0d1d3c 100644
+>> --- a/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
+>> +++ b/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
+>> @@ -65,6 +65,7 @@ properties:
+>>             - qcom,scm-sdx55
+>>             - qcom,scm-sdx65
+>>             - qcom,scm-sdx75
+>> +          - qcom,scm-shikra
+>>             - qcom,scm-sm6115
+>>             - qcom,scm-sm6125
+>>             - qcom,scm-sm6350
+>> @@ -146,6 +147,7 @@ allOf:
+>>                 - qcom,scm-msm8974
+>>                 - qcom,scm-msm8976
+>>                 - qcom,scm-qcm2290
+>> +              - qcom,scm-shikra
+>>                 - qcom,scm-sm6375
+>>       then:
+>>         required:
+>> @@ -165,6 +167,7 @@ allOf:
+>>                 - qcom,scm-msm8660
+>>                 - qcom,scm-msm8960
+>>                 - qcom,scm-qcm2290
+>> +              - qcom,scm-shikra
+>>                 - qcom,scm-sm6375
+> This looks wrong or the diff hunks are confusing. Aren't you changing
+> one if:then: block for clocks and then second different one which
+> disallows clocks?
+>
+> dtbs_check on your DTS would tell you...
 
-On Thu, Apr 09, 2026 at 12:15:53AM +0200, David Heidelberg via B4 Relay wrote:
-> @@ -101,12 +129,27 @@ struct stmfts_data {
->  
->  	struct completion cmd_done;
->  
-> +	unsigned long touch_id;
-> +	unsigned long stylus_id;
+The two hunks touch two separate allOf blocks:
 
-I wonder why do you track contacts yourself instead of telling input
-core to do it for you and report BTN_TOUCH as needed? You just need to
-call input_mt_sync_frame() when you are done processing input frame.
+- Block 1 (required: [clocks, clock-names]): SoCs that need clocks at all
+- Block 2 (clock-names: [core], clocks maxItems: SoCs using exactly one 
+clock named core
 
-Does the device send all contacts state in one transmission or it can
-transmit contacts one by one?
+Both hunks are intentional.
+Verified with dtbs_check — no complaints.
 
-> +
-> +	/* Boundary check - some devices report max value, adjust */
-> +	if (x >= sdata->prop.max_x)
-> +		x = sdata->prop.max_x - 1;
-> +	if (y >= sdata->prop.max_y)
-> +		y = sdata->prop.max_y - 1;
+Thanks
+Komal
 
-It is allowed to exceed declared min and max, so this clampin is not
-needed.
+>
+> Best regards,
+> Krzysztof
+>
 
->  
-> +static int stmfts5_set_scan_mode(struct stmfts_data *sdata, const u8 val)
-> +{
-> +	int err;
-> +
-> +	u8 scan_mode_cmd[3] = { STMFTS5_SET_SCAN_MODE, 0x00, val };
-> +	struct i2c_msg msg = {
-> +		.addr = sdata->client->addr,
-> +		.len = sizeof(scan_mode_cmd),
-> +		.buf = scan_mode_cmd,
-> +	};
-> +
-> +	err = i2c_transfer(sdata->client->adapter, &msg, 1);
-
-Is this i2c_master_send()?
-
-> +	if (err != 1)
-> +		return err < 0 ? err : -EIO;
-> +
-> +	return 0;
-> +
-> +}
-> +
->  static int stmfts_input_open(struct input_dev *dev)
->  {
->  	struct stmfts_data *sdata = input_get_drvdata(dev);
-> @@ -371,6 +622,28 @@ static int stmfts_input_open(struct input_dev *dev)
->  	return 0;
->  }
->  
-> +static int stmfts5_input_open(struct input_dev *dev)
-> +{
-> +	struct stmfts_data *sdata = input_get_drvdata(dev);
-> +	int err;
-> +
-> +	err = pm_runtime_resume_and_get(&sdata->client->dev);
-> +	if (err)
-> +		return err;
-> +
-> +	mutex_lock(&sdata->mutex);
-> +	sdata->running = true;
-> +	mutex_unlock(&sdata->mutex);
-
-	scoped_guard(mutex, &sdata->mutex)
-		sdata->running;
-
-> +
-> +	err = stmfts5_set_scan_mode(sdata, 0xff);
-> +	if (err) {
-> +		pm_runtime_put_sync(&sdata->client->dev);
-
-Reset "running"?
-
-> +		return err;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->  static void stmfts_input_close(struct input_dev *dev)
->  {
->  	struct stmfts_data *sdata = input_get_drvdata(dev);
-> @@ -404,6 +677,23 @@ static void stmfts_input_close(struct input_dev *dev)
->  	pm_runtime_put_sync(&sdata->client->dev);
->  }
->  
-> +static void stmfts5_input_close(struct input_dev *dev)
-> +{
-> +	struct stmfts_data *sdata = input_get_drvdata(dev);
-> +	int err;
-> +
-> +	err = stmfts5_set_scan_mode(sdata, 0x00);
-> +	if (err)
-> +		dev_warn(&sdata->client->dev,
-> +			 "failed to disable touchscreen: %d\n", err);
-> +
-> +	mutex_lock(&sdata->mutex);
-> +	sdata->running = false;
-> +	mutex_unlock(&sdata->mutex);
-
-scoped_guard()
-
-> +
-> +	pm_runtime_put_sync(&sdata->client->dev);
-> +}
-> +
->  static ssize_t stmfts_sysfs_chip_id(struct device *dev,
->  				struct device_attribute *attr, char *buf)
->  {
-> @@ -484,10 +774,8 @@ static ssize_t stmfts_sysfs_hover_enable_write(struct device *dev,
->  	guard(mutex)(&sdata->mutex);
->  
->  	if (hover != sdata->hover_enabled) {
-> -		if (sdata->running) {
-> -			err = i2c_smbus_write_byte(sdata->client,
-> -					   value ? STMFTS_SS_HOVER_SENSE_ON :
-> -						   STMFTS_SS_HOVER_SENSE_OFF);
-> +		if (sdata->running && sdata->ops->set_hover) {
-> +			err = sdata->ops->set_hover(sdata, hover);
->  			if (err)
->  				return err;
->  		}
-> @@ -612,7 +900,7 @@ static int stmfts_power_on(struct stmfts_data *sdata)
->  	if (sdata->reset_gpio)
->  		stmfts_reset(sdata);
->  
-> -	err = stmfts_configure(sdata);
-> +	err = sdata->ops->configure(sdata);
->  	if (err)
->  		regulator_bulk_disable(ARRAY_SIZE(stmfts_supplies),
->  				       sdata->supplies);
-> @@ -620,6 +908,29 @@ static int stmfts_power_on(struct stmfts_data *sdata)
->  	return err;
->  }
->  
-> +static int stmfts5_configure(struct stmfts_data *sdata)
-> +{
-> +	u8 event[STMFTS_EVENT_SIZE];
-> +	int ret;
-> +
-> +	/* Verify I2C communication */
-> +	ret = i2c_smbus_read_i2c_block_data(sdata->client,
-> +					    STMFTS_READ_ALL_EVENT,
-> +					    sizeof(event), event);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	enable_irq(sdata->client->irq);
-> +
-> +	return 0;
-> +}
-> +
-> +static void stmfts5_chip_power_off(struct stmfts_data *sdata)
-> +{
-> +	i2c_smbus_write_byte(sdata->client, STMFTS_SLEEP_IN);
-> +	msleep(20);
-> +}
-> +
->  static void stmfts_power_off(void *data)
->  {
->  	struct stmfts_data *sdata = data;
-> @@ -629,10 +940,73 @@ static void stmfts_power_off(void *data)
->  	if (sdata->reset_gpio)
->  		gpiod_set_value_cansleep(sdata->reset_gpio, 1);
->  
-> +	if (sdata->ops->power_off)
-> +		sdata->ops->power_off(sdata);
-> +
->  	regulator_bulk_disable(ARRAY_SIZE(stmfts_supplies),
->  			       sdata->supplies);
->  }
->  
-> +static int stmfts_setup_input(struct stmfts_data *sdata)
-> +{
-> +	struct device *dev = &sdata->client->dev;
-> +
-> +	input_set_abs_params(sdata->input, ABS_MT_ORIENTATION, 0, 255, 0, 0);
-> +	input_set_abs_params(sdata->input, ABS_DISTANCE, 0, 255, 0, 0);
-> +
-> +	sdata->use_key = device_property_read_bool(dev, "touch-key-connected");
-> +	if (sdata->use_key) {
-> +		input_set_capability(sdata->input, EV_KEY, KEY_MENU);
-> +		input_set_capability(sdata->input, EV_KEY, KEY_BACK);
-> +	}
-> +
-> +	return input_mt_init_slots(sdata->input, STMFTS_MAX_FINGERS,
-> +				   INPUT_MT_DIRECT);
-> +}
-> +
-> +static int stmfts5_setup_input(struct stmfts_data *sdata)
-> +{
-> +	struct device *dev = &sdata->client->dev;
-> +
-> +	sdata->mode_switch_gpio = devm_gpiod_get_optional(dev, "mode-switch",
-> +							  GPIOD_OUT_HIGH);
-> +	if (IS_ERR(sdata->mode_switch_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(sdata->mode_switch_gpio),
-> +				     "Failed to get GPIO 'switch'\n");
-> +
-> +	/* Mark as direct input device for calibration support */
-> +	__set_bit(INPUT_PROP_DIRECT, sdata->input->propbit);
-> +
-> +	/* Set up basic touch capabilities */
-> +	input_set_capability(sdata->input, EV_KEY, BTN_TOUCH);
-
-This will be done by input_mt_init_slots(..., INPUT_MT_DIRECT). 
-
-> +
-> +	/* Set resolution for accurate calibration */
-> +	if (!input_abs_get_res(sdata->input, ABS_MT_POSITION_X)) {
-> +		input_abs_set_res(sdata->input, ABS_MT_POSITION_X, 10);
-> +		input_abs_set_res(sdata->input, ABS_MT_POSITION_Y, 10);
-> +	}
-> +
-> +	input_set_abs_params(sdata->input, ABS_MT_DISTANCE, 0, 255, 0, 0);
-> +
-> +	/* Enable stylus support if requested */
-> +	sdata->stylus_enabled = device_property_read_bool(dev, "stylus-enabled");
-> +
-> +	/* Initialize touch tracking bitmaps */
-> +	sdata->touch_id = 0;
-> +	sdata->stylus_id = 0;
-> +
-> +	/* Initialize MT slots with support for pen tool type */
-> +	return input_mt_init_slots(sdata->input, STMFTS_MAX_FINGERS,
-> +				   INPUT_MT_DIRECT | INPUT_MT_DROP_UNUSED);
-
-Why INPUT_MT_DROP_UNUSED?
-
-> +}
-> +
-> +static int stmfts_set_hover(struct stmfts_data *sdata, bool enable)
-> +{
-> +	return i2c_smbus_write_byte(sdata->client,
-> +				    enable ? STMFTS_SS_HOVER_SENSE_ON :
-> +					     STMFTS_SS_HOVER_SENSE_OFF);
-> +}
-> +
->  static int stmfts_enable_led(struct stmfts_data *sdata)
->  {
->  	int err;
-> @@ -678,6 +1052,8 @@ static int stmfts_probe(struct i2c_client *client)
->  	mutex_init(&sdata->mutex);
->  	init_completion(&sdata->cmd_done);
->  
-> +	sdata->ops = of_device_get_match_data(dev);
-> +
->  	err = devm_regulator_bulk_get_const(dev,
->  					    ARRAY_SIZE(stmfts_supplies),
->  					    stmfts_supplies,
-> @@ -697,8 +1073,8 @@ static int stmfts_probe(struct i2c_client *client)
->  
->  	sdata->input->name = STMFTS_DEV_NAME;
->  	sdata->input->id.bustype = BUS_I2C;
-> -	sdata->input->open = stmfts_input_open;
-> -	sdata->input->close = stmfts_input_close;
-> +	sdata->input->open = sdata->ops->input_open;
-> +	sdata->input->close = sdata->ops->input_close;
->  
->  	input_set_capability(sdata->input, EV_ABS, ABS_MT_POSITION_X);
->  	input_set_capability(sdata->input, EV_ABS, ABS_MT_POSITION_Y);
-> @@ -706,19 +1082,9 @@ static int stmfts_probe(struct i2c_client *client)
->  
->  	input_set_abs_params(sdata->input, ABS_MT_TOUCH_MAJOR, 0, 255, 0, 0);
->  	input_set_abs_params(sdata->input, ABS_MT_TOUCH_MINOR, 0, 255, 0, 0);
-> -	input_set_abs_params(sdata->input, ABS_MT_ORIENTATION, 0, 255, 0, 0);
->  	input_set_abs_params(sdata->input, ABS_MT_PRESSURE, 0, 255, 0, 0);
-> -	input_set_abs_params(sdata->input, ABS_DISTANCE, 0, 255, 0, 0);
-> -
-> -	sdata->use_key = device_property_read_bool(dev,
-> -						   "touch-key-connected");
-> -	if (sdata->use_key) {
-> -		input_set_capability(sdata->input, EV_KEY, KEY_MENU);
-> -		input_set_capability(sdata->input, EV_KEY, KEY_BACK);
-> -	}
->  
-> -	err = input_mt_init_slots(sdata->input,
-> -				  STMFTS_MAX_FINGERS, INPUT_MT_DIRECT);
-> +	err = sdata->ops->setup_input(sdata);
->  	if (err)
->  		return err;
->  
-> @@ -789,13 +1155,62 @@ static int stmfts_runtime_suspend(struct device *dev)
->  	return ret;
->  }
->  
-> -static int stmfts_runtime_resume(struct device *dev)
-> +static int stmfts_chip_runtime_resume(struct stmfts_data *sdata)
-> +{
-> +	return i2c_smbus_write_byte(sdata->client, STMFTS_SLEEP_OUT);
-> +}
-> +
-> +static int stmfts5_chip_runtime_resume(struct stmfts_data *sdata)
->  {
-> -	struct stmfts_data *sdata = dev_get_drvdata(dev);
->  	struct i2c_client *client = sdata->client;
-> +	struct device *dev = &client->dev;
-> +	u8 int_enable_cmd[4] = {0xB6, 0x00, 0x2C, 0x01};
-> +	struct i2c_msg msg = {
-> +		.addr = client->addr,
-> +		.len = sizeof(int_enable_cmd),
-> +		.buf = int_enable_cmd,
-> +	};
->  	int ret;
-
-"int err" everywhere where the variable carries error code or 0.
-
-
-Thanks.
-
--- 
-Dmitry
