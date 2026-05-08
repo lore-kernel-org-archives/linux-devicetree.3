@@ -1,101 +1,238 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBA523CBE9A
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 18:20:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA5EF3803DC
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 18:20:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778264425; cv=none; b=W6iexvmwWpIVkE+c6o0fHjtaVwDYgRJptIi6lpLaW7jOZWUad0Ivkys+nkKTaGa2/HlUYIj2vjcxL70OP+9dslCF5rpl3sohsQv9fZhw70InvYyQ3AZiB8E/xKr80Ei4PB8EmMaqXl1maZ2fa6pJkgD2phcDIH1dmOr71mchAbY=
+	t=1778264425; cv=none; b=X49YkrOLOR5iC7tid6IGOJMJv6cRdQ3Yt71IN8J3Iev9UjVzPbLsCTDUyhYMqVyIDFvoxo5+S1yPu1jLMv8sIqx9sHfYDjDFi4P5+xzYZGDSIAjvmaM+w/AfULtKF3wHJccxefsSM0bHLwChLIDki2SsQCCBzn20OsJFt3HfeQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1778264425; c=relaxed/simple;
-	bh=uHZlyadycP7g+vCQiPGYp9bzrFWfNnlBw9y2PGlxomo=;
+	bh=8lgQe8BPngeJ3VkYyhwGLxxVMtBdrn3kGR5R60j/Vig=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hjqQkdRvelPEXpASSpHu9DMlK9cBQQ9TaQMs2qn3pLl1DoLbeS1LDFuTa6qQEsLxzkfkqfXkjxhmpQ2e+6Xu6OxptHcIKMrIavwpbUeadPtcKrRMBe+BZqiR6/t+o9PiQh7rrjyVLK6gukz6lJib0qyOIptPK7UHzHKZpQw+EaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gLeIMwDC; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=KldPrTfw1ND8hRDPZYQAVe7jHsLwBPChaw8XzregCrYj+U/aR0DZ2QPnNGTvzAMygLI/vnkqDNoEZRkRzFszkEkzR8ngDOdbrTjvQ4tpJILTRep1DmwydYwNEl7sbebPssJjHOLH3XiuNeXyHHHN70yWKFmJblptWpUlw+Say7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g65ptYkn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gLeIMwDC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85C6BC2BCB0;
-	Fri,  8 May 2026 18:20:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g65ptYkn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58ED8C2BCF5;
+	Fri,  8 May 2026 18:20:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778264424;
-	bh=uHZlyadycP7g+vCQiPGYp9bzrFWfNnlBw9y2PGlxomo=;
+	s=k20201202; t=1778264425;
+	bh=8lgQe8BPngeJ3VkYyhwGLxxVMtBdrn3kGR5R60j/Vig=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=gLeIMwDCHkX2yjJy4ONvXsc2UHgEeFOyahw3jurFIchyw6BuabjPHh+/jjB9pzU7J
-	 TlQsPEPzgiWwdSL+nJb92N/BoOBeuH+2q4tEI+sgUAWmioGaHqk2OEdK5+dx//q6m+
-	 H3Ts1slPDHH3uGvcWzyCXHg156DXOIN7nHMlCSFVm3LlTKwnLukgHjZOHLn8Bgya7Z
-	 V+TbYyZBIExBCckCnHFAkBWbk8fpXYzhp3RSs1MGwyaih/+seNsI0K2oDXwE6wSvCt
-	 xAPnKXbM5ZAioW7uEWdZ89M9v/QwcW2PjEWnwcM/nVVeSjE2wAB61qR0JPj2hxQePj
-	 M48MIvLbW4xoQ==
+	b=g65ptYknFivkVS9/fTKvZ0j7fCiWuTr2Mtp18nSeWujT/y0uqGbXhrhXXqJ+COS6I
+	 hvkVzjsF1UA7ylZY1/qv7wdSm8ffX31CgIAqVnCAhAIkkfdzjaq+1TMyECwJc1thEu
+	 r/ItYOVMOxn9wQY2cZXeeMPn6+aG8LhKYq145ZLyKqWdIY7i3IORgbOTdyYv4B1SFP
+	 yNdpIBqmQxPOY2xGG3IWIU0xkoA8NamZZZyeejh6qsd1W/aUFKifgI/rCezu6LlAlx
+	 CmGFJanwHQcLwooeaQ3K/e6XMGwshxgUscVnajpCI3dsIX2HiDuV+v2OOd5HyLO7iT
+	 +vc0ikXeVR+qQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/8] dt-bindings: net: wireless: qcom,ath10k: Add
- NVMEM MAC address cell
+Subject: Re: [PATCH v2 4/8] block: implement NVMEM provider
 Reply-To: sashiko@lists.linux.dev
 To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260507-block-as-nvmem-v2-2-bf17edd5134e@oss.qualcomm.com>
-References: <20260507-block-as-nvmem-v2-2-bf17edd5134e@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260507-block-as-nvmem-v2-4-bf17edd5134e@oss.qualcomm.com>
+References: <20260507-block-as-nvmem-v2-4-bf17edd5134e@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 08 May 2026 18:20:23 +0000
-Message-Id: <20260508182024.85C6BC2BCB0@smtp.kernel.org>
+Date: Fri, 08 May 2026 18:20:24 +0000
+Message-Id: <20260508182025.58ED8C2BCF5@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [Medium] The patch defines `nvmem-cells: maxItems: 1` and `nvmem-cell-nam=
-es: const: mac-address`, which explicitly invalidates and prevents valid de=
-vice tree configurations that use NVMEM for calibration data.
+- [High] Incorrect page offset calculation and iteration logic for large fo=
+lios causes severe data corruption.
+- [High] Dereferencing NULL when reading from a block device page cache all=
+ocated in high memory.
+- [High] Use-after-free of provider private data `bnv` on the `devm_add_act=
+ion` error path.
+- [Medium] Leaked device node reference in `blk_nvmem_register` when checki=
+ng for the layout node.
+- [Medium] A Time-of-Check to Time-of-Use (TOCTOU) race allows cross-device=
+ arbitrary data reads due to `devt` reallocation.
 --
 
-commit fb9ea9036c91c7c939b039f47a6a36361ae2f2fe
-Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
+commit a3bbd821536b45bed34dfa8815ddf9b55f9bb8b9
+Author: Daniel Golle <daniel@makrotopia.org>
+Subject: block: implement NVMEM provider
 
-dt-bindings: net: wireless: qcom,ath10k: Add NVMEM MAC address cell
+This commit adds an NVMEM provider for block devices, allowing partitions on
+embedded devices to be accessed via the NVMEM layer. It introduces an
+nvmem_dev() accessor to safely defer freeing provider private data by adding
+a devm action to the nvmem device.
 
-This commit adds support for an NVMEM cell provider with the standard
-mac-address cell name to allow ath10k to retrieve its MAC address from
-non-volatile storage.
-
-> diff --git a/Documentation/devicetree/bindings/net/wireless/qcom,ath10k.y=
-aml b/Documentation/devicetree/bindings/net/wireless/qcom,ath10k.yaml
-> --- a/Documentation/devicetree/bindings/net/wireless/qcom,ath10k.yaml
-> +++ b/Documentation/devicetree/bindings/net/wireless/qcom,ath10k.yaml
-
+> diff --git a/block/blk-nvmem.c b/block/blk-nvmem.c
+> new file mode 100644
+> index 0000000000000..96c0ffc51b186
+> --- /dev/null
+> +++ b/block/blk-nvmem.c
+> @@ -0,0 +1,188 @@
 [ ... ]
-
-> @@ -92,6 +92,15 @@ properties:
-> =20
->    ieee80211-freq-limit: true
-> =20
-> +  nvmem-cells:
-> +    maxItems: 1
-> +    description:
-> +      Nvmem data cell that contains a 6 byte MAC address with the most
-> +      significant byte first (big-endian).
+> +static int blk_nvmem_reg_read(void *priv, unsigned int from,
+> +			      void *val, size_t bytes)
+> +{
+> +	blk_mode_t mode =3D BLK_OPEN_READ | BLK_OPEN_RESTRICT_WRITES;
+> +	unsigned long offs =3D from & ~PAGE_MASK, to_read;
+> +	pgoff_t f_index =3D from >> PAGE_SHIFT;
+> +	struct blk_nvmem *bnv =3D priv;
+> +	size_t bytes_left =3D bytes;
+> +	struct file *bdev_file;
+> +	struct folio *folio;
+> +	void *p;
+> +	int ret =3D 0;
 > +
-> +  nvmem-cell-names:
-> +    const: mac-address
+> +	if (bnv->removed)
+> +		return -ENODEV;
+> +
+> +	bdev_file =3D bdev_file_open_by_dev(bnv->devt, mode, priv, NULL);
 
-Does this restrict the binding to only allow a single NVMEM cell, and
-force its name to be exactly mac-address?
+Is there a race condition between the removed check and opening the device?
 
-The ath10k driver natively fetches NVMEM calibration data via cells named
-calibration and pre-calibration (see ath10k_download_cal_nvmem() in
-drivers/net/wireless/ath/ath10k/core.c).
+The check for bnv->removed is performed without locks. If
+blk_nvmem_unregister() runs concurrently and the original block device is
+hot-removed, its devt identifier could be freed and reassigned to a newly
+plugged-in, unrelated block device.
 
-Existing upstream device trees, such as
-arch/arm/boot/dts/qcom/qcom-ipq4018-ap120c-ac.dtsi, actively define
-nvmem-cell-names =3D "pre-calibration" for ath10k nodes.
+If this thread is preempted after the lockless check, it could open the new
+block device using the recycled devt and read data from the wrong disk.
 
-Would setting maxItems to 1 and restricting the name to mac-address
-prevent a device from defining both a MAC address and calibration data
-simultaneously, and cause dtbs_check validation failures for existing
-hardware configurations?
+> +	if (!bdev_file)
+> +		return -ENODEV;
+> +
+> +	if (IS_ERR(bdev_file))
+> +		return PTR_ERR(bdev_file);
+> +
+> +	while (bytes_left) {
+> +		folio =3D read_mapping_folio(bdev_file->f_mapping, f_index++, NULL);
+> +		if (IS_ERR(folio)) {
+> +			ret =3D PTR_ERR(folio);
+> +			goto err_release_bdev;
+> +		}
+> +		to_read =3D min_t(unsigned long, bytes_left, PAGE_SIZE - offs);
+> +		p =3D folio_address(folio) + offset_in_folio(folio, offs);
+
+Does this logic handle large folios correctly?
+
+If read_mapping_folio() returns a large folio, it will return the same head
+folio for multiple sequential f_index values.
+
+Because offs is repeatedly reset to 0 in subsequent loop iterations,
+offset_in_folio(folio, 0) will evaluate to 0, causing p to repeatedly point
+to the start of the head page instead of advancing through the subpages of
+the large folio.
+
+Additionally, can this cause a NULL pointer dereference on 32-bit platforms
+with HIGHMEM?
+
+Block device page cache mappings can allocate folios from the HIGHMEM zone,
+and folio_address() relies on page_address(), which returns NULL for
+unmapped high memory pages.
+
+Adding an offset to this NULL pointer and attempting to read from it might
+crash the kernel. Mapping the folio safely with kmap_local_folio() or
+memcpy_from_folio() might be needed here.
+
+> +		memcpy(val, p, to_read);
+> +		offs =3D 0;
+> +		bytes_left -=3D to_read;
+> +		val +=3D to_read;
+> +		folio_put(folio);
+> +	}
+> +
+> +err_release_bdev:
+> +	fput(bdev_file);
+> +
+> +	return ret;
+> +}
+> +
+> +static int blk_nvmem_register(struct device *dev)
+> +{
+> +	struct device_node *np =3D dev_of_node(dev);
+> +	struct block_device *bdev =3D dev_to_bdev(dev);
+> +	struct nvmem_config config =3D {};
+> +	struct blk_nvmem *bnv;
+> +
+> +	/* skip devices which do not have a device tree node */
+> +	if (!np)
+> +		return 0;
+> +
+> +	/* skip devices without an nvmem layout defined */
+> +	if (!of_get_child_by_name(np, "nvmem-layout"))
+> +		return 0;
+
+Does this leak the device node reference? of_get_child_by_name() increments
+the reference count of the returned child device node, but since the pointer
+is not saved, of_node_put() can never be called to release it.
+
+> +
+> +	/*
+> +	 * skip block device too large to be represented as NVMEM devices
+> +	 * which are using an 'int' as address
+> +	 */
+> +	if (bdev_nr_bytes(bdev) > INT_MAX)
+> +		return -EFBIG;
+> +
+> +	bnv =3D kzalloc_obj(*bnv);
+> +	if (!bnv)
+> +		return -ENOMEM;
+> +
+> +	config.id =3D NVMEM_DEVID_NONE;
+> +	config.dev =3D &bdev->bd_device;
+> +	config.name =3D dev_name(&bdev->bd_device);
+> +	config.owner =3D THIS_MODULE;
+> +	config.priv =3D bnv;
+> +	config.reg_read =3D blk_nvmem_reg_read;
+> +	config.size =3D bdev_nr_bytes(bdev);
+> +	config.word_size =3D 1;
+> +	config.stride =3D 1;
+> +	config.read_only =3D true;
+> +	config.root_only =3D true;
+> +	config.ignore_wp =3D true;
+> +	config.of_node =3D to_of_node(dev->fwnode);
+> +
+> +	bnv->devt =3D bdev->bd_device.devt;
+> +	bnv->nvmem =3D nvmem_register(&config);
+> +	if (IS_ERR(bnv->nvmem)) {
+> +		dev_err_probe(&bdev->bd_device, PTR_ERR(bnv->nvmem),
+> +			      "Failed to register NVMEM device\n");
+> +
+> +		kfree(bnv);
+> +		return PTR_ERR(bnv->nvmem);
+> +	}
+> +
+> +	/*
+> +	 * Free bnv only when the nvmem device is fully released (i.e. when
+> +	 * its kref hits zero), not at unregister time. This prevents a
+> +	 * use-after-free if a consumer still holds an nvmem_cell reference
+> +	 * when the block device is removed: nvmem_unregister() only does a
+> +	 * kref_put(), so reg_read could still be called with bnv as priv
+> +	 * until the last consumer drops its cell.
+> +	 */
+> +	if (devm_add_action(nvmem_dev(bnv->nvmem), blk_nvmem_free, bnv)) {
+> +		nvmem_unregister(bnv->nvmem);
+> +		kfree(bnv);
+
+Could this result in a use-after-free if a consumer acquires a reference
+before devm_add_action() fails?
+
+nvmem_register() makes the NVMEM device globally visible. If
+nvmem_unregister() is called on the error path, it only drops the
+provider's reference.
+
+If a consumer has already obtained a reference, calling kfree(bnv)
+immediately will free the provider data while the consumer might still
+invoke blk_nvmem_reg_read().
+
+> +		return -ENOMEM;
+> +	}
+> +
+> +	mutex_lock(&devices_mutex);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260507-block-as-n=
-vmem-v2-0-bf17edd5134e@oss.qualcomm.com?part=3D2
+vmem-v2-0-bf17edd5134e@oss.qualcomm.com?part=3D4
