@@ -1,137 +1,217 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C66AD3815E1
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 07:36:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778225804; cv=pass; b=JbTER6fxjPtNTMAZkN1QXUsbriJl1RT8+VoQ5Oub9vCl/EbEhLKT4slkLmg0JapDe46v07Sn9EYDn3Rh1l3SwuczDGfVgU31Exi5aqkMwM3S9NPR3q7VqVrfRqd8ZXyUYrLeY/BuMuSXd3gF70j/4weX732QZzlgK9LGszhK0nk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778225804; c=relaxed/simple;
-	bh=B/MI03HFz5SSbkX8vKW3+B8Ef0T3tywZD9naDKW3hp0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IK99Eb4f3VagUJPNWpJy5KRUMoO93frVs+YERPWdZxvH5pG1xTmJzAov17N7HjBCcqUUwChIScXSoif6vCD1SyvO2PSUoE7XcwCET5Hq2yvnzgskEnB5cYt3TXaV/nQUx/oE8LNYmNe9ZwPa5pAnpayZMwshGgduHMtDJuFeH2Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pcnGlpeB; arc=pass smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13EB92F8E81;
+	Fri,  8 May 2026 07:36:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778225818; cv=none; b=ugn4QRfL3jwnBHnyLh5fx0YhX2NGkRLls6GavoEJ0tJyYE4CQXwFYGlO0GqhPQ09FVkbUFrjC20VE1dSbxi02Mvgwn5k/J9u/FR8VVtiplFqTuHqNAbKT9MohtJzioM6aKfFWvJpsY4vnSWMjLZLig5NT6vsB+lD/r1KMHy8/eg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778225818; c=relaxed/simple;
+	bh=6orjSlY4lQ5CFkC+hhWVFf1lnIC3pYaTmYzO8tYxwmY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=IYyFQfx+5yVOgUDZIeQ7Iw9iEZBdN5XME2VNIWqUTVZVQHq1imk2qRhZ4nCqHZn+h8fISmiXKwp1c6N98KUYWt6eyRJnX4CJ/oH4FypamIVki8gywgYwdxxHqpYmIUeZVbU/6pYclivqqMyPWepFmspxKqVkiJOKCEyQzKBrT80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VulP8Exm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pcnGlpeB"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-67be871ed3fso3176244a12.1
-        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 00:36:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778225801; cv=none;
-        d=google.com; s=arc-20240605;
-        b=DxZahz9kirczLunTS+lIFTZvXAuXRxTT3ZeHI8yaiqpxsHTXa6XMkPpZcOQ9LWl3Ck
-         ZO2UvoQGBwlWkWr84moeFNTPX/SsiY5px/Ysqz74A0ZNwnl2JJekexfRXROi58T9hBhf
-         FK4GslSua5Awqo/MGfiVb52homQw17DQfbNIWoH3jOmczK5SI4QtQNmFv6vM+P72YRoW
-         KRaE/tVgIK5LS+qxkY3Sl48ct4ki9AqBglV/ynote4FfQzZS5FAh8tRwOG/MIKWvQlqR
-         H/VXEO++e4ePb4IMrF15MqdX6dJ7Hv2UU/ygs0oJsaSI/b3Br/MLe7bQpipuknKLYx/N
-         5Ltg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=DT1bLE07vl0NRGAnaDV0P6+c6Y2ET3SDmigAcN1kcik=;
-        fh=CPSS/t4pUG1Z9B8tgEiAGJ/79dEZMQ/m7C6Dt4WAR/c=;
-        b=J91awaP5au7mSXBDTnNeFNnFyLFhtCdgblbPwsiPhJB1JGOjZiMdbsEhkHXWOfWSmP
-         J9IBLKzOp4wdSLzIjWSlRGZw5eIWklc7LC+tXPWCOD2V8nVRP546MPDqz2whAR/VxrYd
-         qgzB5VzggCZ9P4i6YrC057X4ApP39s+vk0hmmM2wHYzFhOm2Ja4ttNoN9E9EzAvfXWdq
-         rbZNe64AYFIONG/j8pMBN1F6M30iO9a/7DaDH4VehM/V+J7uLi5WD3ux+JJfs77ET10s
-         8kdmbb2cBgVECNXcUXLj5/lJCh8xGTd9MUEZy1TXzTu3s9YMPX4o1cy6DPySV3uFAMbW
-         20Kg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778225801; x=1778830601; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=DT1bLE07vl0NRGAnaDV0P6+c6Y2ET3SDmigAcN1kcik=;
-        b=pcnGlpeBqMcVrF7Tc6NWnrnX83E/a3JdNIvPSWbV5y99rpJfhOWMaKDnZ5+lkyUR23
-         +fVZoF+cnxUhxMbyWa4d1jzXFPSyTsPpzvmNhPQ7iAWiz77isx0t8CAsot/O3kh3MTt0
-         bTEAZyhE/qxnNIDOxK5e18eNlw4Oe/n3/bobhBtzWxm7RPESBPX7T/Gti2d+9Wbz6vFy
-         72yXfvA+4QATtqhR6v90bqcmVeO4lGxTGCgm7HXdpBoayyE2P7iCGwE/mFyA869bt4Rl
-         tapl8A1E7wZx9ownxG43WXTR2IiYMSiOoTovCfOaILWoRiEUdqYSZqP15XJtNg0Y/8Jw
-         f5xQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778225801; x=1778830601;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=DT1bLE07vl0NRGAnaDV0P6+c6Y2ET3SDmigAcN1kcik=;
-        b=sSn+hMz4hn9cMG9ul8uCKLwNIZCs+iwwqhiSiYJz+zEDITCqg/2PYEh779U7l1vk4+
-         cAQCrce7Bn3uxWjVRENy7dv52tkuz1d0a57JZ6WOhQQ/1R7c9zlihSoAd+LmjJ3rB6pF
-         88HxHcAqirRcE+jwCrKmoQ4zBPFKku7CIjJ597Bb5J2SIcZg6SkPEGXCwZiRPcEcQTOL
-         VSggKrfHJdtaDkFP2S7CoQsmE8t3VCKbWflm3OFFzQBP3N9BD5ITHgoGhZszE+NJPaq0
-         SloEbLkWWz090VmDmH2g6n6iGK1rVmOjLgxKBEMN1VuEe2pdYXjLL4ds7krZ7RJdHXup
-         KpGA==
-X-Forwarded-Encrypted: i=1; AFNElJ/7kMU1h4RUclAuilS4dwGq9RqH1ctGizcby+60yHhtVoG8+mJfNqJ+HiNRUxy7gXiemsTQrErkwenw@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz1LG7oW/OXD4ETtMG+6Zur/wEuYT4SUTnz4OfQo+oR5y73pvgJ
-	KVi1x4/GMuK1g8LHhBfUyHJX/cpDUPY+gGlrnJJYulAxPlhFgTBhEtgAG1pHLnMlGprCD/7U2vA
-	PyxBa1DI12hdpHxGQIKUHyyF/hlAfpZo=
-X-Gm-Gg: Acq92OEBE9Gif7gQ9TOSj2z0DatOswE6U6eP0bcpU0ge5g/FqCBbQ55P/Zjg9Y137Ti
-	FmMN+m8d5aSxfQmJblhYrJ7qp7r4XsO5NTr5YXqVkgtJb68Ph3sSPL9yG2qZVUAgBUgUoP8Tqdy
-	cIKHsG+a6eR0S7xuI0Z+DUSuAU9drndY3Mn2c0GY5EQvPx6exZNAAsT9nTichmDVehSTlPFf+Eq
-	BOab8a+Hl1YNVkJcsEgi0FBzASx+Fc4dyGhYG+h+j0fU/Cp5qGC5Zc1M9BfdVtjsrmsxZC5w9t7
-	wTcd
-X-Received: by 2002:a05:6402:321e:b0:67e:43a8:7b82 with SMTP id
- 4fb4d7f45d1cf-67e43a87cb9mr2854983a12.26.1778225800798; Fri, 08 May 2026
- 00:36:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VulP8Exm"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E3513C2BCF4;
+	Fri,  8 May 2026 07:36:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778225817;
+	bh=6orjSlY4lQ5CFkC+hhWVFf1lnIC3pYaTmYzO8tYxwmY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=VulP8Exm/qXA4VrKShU5O687SxxYmxF41/41De5w10oEgby2sQ3x1nrVkCQV7jWWo
+	 d8HAlsTnpZLjmb3oeXSwL0JuA7Ym/O9f0rpTzIAzbzfLgo0C+LDDcyg9uXphRdGjd0
+	 vvPlAsQb7I0++yieL7afAS0WRz/igNcSnlP83NBxG357u3XfqqwbmhNLeIwlbjHkEA
+	 PHb7+2DDLp28QV+NpgQjJxodT1q2m5EmuW9ZL1I9gDasIbxhNwz8evkERSr9jehYzD
+	 RhIKbVxlmTzRCOhRFgCLVQxdONf5JPRlu0JWYCY0GwzxUa19uFyJUdxF7ltcFp5gUf
+	 R2L0ujltuqcrg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D6DC5CD342F;
+	Fri,  8 May 2026 07:36:57 +0000 (UTC)
+From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Date: Fri, 08 May 2026 07:36:56 +0000
+Subject: [PATCH 3/3] irqchip/meson-gpio: Add support for Amlogic A9 SoCs
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260502051906.8160-3-linux.amoon@gmail.com> <20260507064050.1881348-1-amadeus@jmu.edu.cn>
-In-Reply-To: <20260507064050.1881348-1-amadeus@jmu.edu.cn>
-From: Anand Moon <linux.amoon@gmail.com>
-Date: Fri, 8 May 2026 13:06:22 +0530
-X-Gm-Features: AVHnY4K-9ASo3Mc0vrsENtDNPwVrAYJ43tcUlhhO5e_b02Orqs4pqqj-5Q78Vqk
-Message-ID: <CANAwSgSP8W8QH26-X-mdNBtncDAbHR9CtYRO0F+rjmxKfhDt9w@mail.gmail.com>
-Subject: Re: [PATCH v2 2/4] riscv: dts: spacemit: k1-bananapi-f3: Update USB
- regulator on onboard usb and label
-To: Chukun Pan <amadeus@jmu.edu.cn>
-Cc: alex@ghiti.fr, aou@eecs.berkeley.edu, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, dlan@kernel.org, gaohan@iscas.ac.cn, 
-	huang.ze@linux.dev, krzk+dt@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, palmer@dabbelt.com, pjw@kernel.org, 
-	robh@kernel.org, spacemit@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260508-a9-gpio-irqchip-v1-3-9dc5f3e022e0@amlogic.com>
+References: <20260508-a9-gpio-irqchip-v1-0-9dc5f3e022e0@amlogic.com>
+In-Reply-To: <20260508-a9-gpio-irqchip-v1-0-9dc5f3e022e0@amlogic.com>
+To: Thomas Gleixner <tglx@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
+ Xianwei Zhao <xianwei.zhao@amlogic.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778225816; l=5139;
+ i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
+ bh=nAfHIz6N7m4oMjB9PiZJjp678ZGWzDBR5xK3MB5dJRI=;
+ b=LQqjSXVX5QTASAePP+dTc5VePmsxGw865S8yEFVsPZYttboDVp/QTlPgVoCGnoRWa2qnYkkxQ
+ DSMvkv5e2qJAdEt0U+nTcK7fleZv3bDwgY8ic4O05kPcarkQYcRghC/
+X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
+ pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
+X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
+ auth_id=578
+X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Reply-To: xianwei.zhao@amlogic.com
 
-Hi Chukun,
+From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-Thanks for your review comments.
+The Amlogic A9 SoCs support GPIO interrupt lines:
+	A9 IRQ Number:
+        - 95:86   10 pins on bank Y
+        - 85:84    2 pins on bank CC
+        - 83:64   20 pins on bank A
+        - 63:48   16 pins on bank Z
+        - 47:30   18 pins on bank X
+        - 29:22    8 pins on bank H
+        - 21:14    8 pins on bank M
+        - 13:0    14 pins on bank B
 
-On Thu, 7 May 2026 at 12:10, Chukun Pan <amadeus@jmu.edu.cn> wrote:
->
-> Hi,
->
-> > @@ -366,7 +366,7 @@ &usb_dwc3 {
-> >       hub_2_0: hub@1 {
-> >               compatible = "usb2109,2817";
-> >               reg = <0x1>;
-> > -             vdd-supply = <&usb3_hub_5v>;
-> > +             vdd-supply = <&reg_5v_vbus>;
-> >               peer-hub = <&hub_3_0>;
-> >               reset-gpios = <&gpio K1_GPIO(124) GPIO_ACTIVE_LOW>;
-> >       };
-> > @@ -374,7 +374,7 @@ hub_2_0: hub@1 {
-> >       hub_3_0: hub@2 {
-> >               compatible = "usb2109,817";
-> >               reg = <0x2>;
-> > -             vdd-supply = <&usb3_hub_5v>;
-> > +             vdd-supply = <&reg_5v_vbus>;
-> >               peer-hub = <&hub_2_0>;
-> >               reset-gpios = <&gpio K1_GPIO(124) GPIO_ACTIVE_LOW>;
-> >       };
->
-> This is incorrect. The hub is powered by vcc5v0_hub. According
-> to the schematic, 5v_vbus provides the VBUS for the USB3 ports.
+	A9 AO IRQ Number:
+        - 38       1 pins on bank TESTN
+        - 37:31    7 pins on bank C
+        - 30:13   18 pins on bank D
+        - 12:0    13 pins on bank AO
 
-As per the schematics USB3_PWREN (GPIO97) pin is used to power the
-USB hub ports 5V_VBUS, please check this again.
+Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+---
+ drivers/irqchip/irq-meson-gpio.c | 75 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 75 insertions(+)
 
-VCC5V0_SYS -> USB3_PWREN -> 5V_VBUS
+diff --git a/drivers/irqchip/irq-meson-gpio.c b/drivers/irqchip/irq-meson-gpio.c
+index 74a376ef452e..f68476b2c538 100644
+--- a/drivers/irqchip/irq-meson-gpio.c
++++ b/drivers/irqchip/irq-meson-gpio.c
+@@ -27,6 +27,10 @@
+ /* use for A1 like chips */
+ #define REG_PIN_A1_SEL	0x04
+ 
++/* use for A9 like chips */
++#define REG_A9_AO_POL	0x00
++#define REG_A9_AO_EDGE	0x30
++
+ /*
+  * Note: The S905X3 datasheet reports that BOTH_EDGE is controlled by
+  * bits 24 to 31. Tests on the actual HW show that these bits are
+@@ -53,6 +57,8 @@ static void meson_a1_gpio_irq_sel_pin(struct meson_gpio_irq_controller *ctl,
+ static void meson_a1_gpio_irq_init(struct meson_gpio_irq_controller *ctl);
+ static int meson8_gpio_irq_set_type(struct meson_gpio_irq_controller *ctl,
+ 				    unsigned int type, u32 *channel_hwirq);
++static int meson_a9_ao_gpio_irq_set_type(struct meson_gpio_irq_controller *ctl,
++					 unsigned int type, u32 *channel_hwirq);
+ static int meson_s4_gpio_irq_set_type(struct meson_gpio_irq_controller *ctl,
+ 				      unsigned int type, u32 *channel_hwirq);
+ 
+@@ -116,6 +122,18 @@ struct meson_gpio_irq_params {
+ 	.pin_sel_mask = 0xff,					\
+ 	.nr_channels = 2,					\
+ 
++#define INIT_MESON_A9_AO_COMMON_DATA(irqs)			\
++	INIT_MESON_COMMON(irqs, meson_a1_gpio_irq_init,		\
++			  meson_a1_gpio_irq_sel_pin,		\
++			  meson_a9_ao_gpio_irq_set_type)	\
++	.support_edge_both = true,				\
++	.edge_both_offset = 0,					\
++	.edge_single_offset = 0,				\
++	.edge_pol_reg = 0x2c,					\
++	.pol_low_offset = 0,					\
++	.pin_sel_mask = 0xff,					\
++	.nr_channels = 20,					\
++
+ #define INIT_MESON_S4_COMMON_DATA(irqs)				\
+ 	INIT_MESON_COMMON(irqs, meson_a1_gpio_irq_init,		\
+ 			  meson_a1_gpio_irq_sel_pin,		\
+@@ -170,6 +188,14 @@ static const struct meson_gpio_irq_params a5_params = {
+ 	INIT_MESON_S4_COMMON_DATA(99)
+ };
+ 
++static const struct meson_gpio_irq_params a9_params = {
++	INIT_MESON_S4_COMMON_DATA(96)
++};
++
++static const struct meson_gpio_irq_params a9_ao_params = {
++	INIT_MESON_A9_AO_COMMON_DATA(39)
++};
++
+ static const struct meson_gpio_irq_params s4_params = {
+ 	INIT_MESON_S4_COMMON_DATA(82)
+ };
+@@ -203,6 +229,8 @@ static const struct of_device_id meson_irq_gpio_matches[] __maybe_unused = {
+ 	{ .compatible = "amlogic,a4-gpio-ao-intc", .data = &a4_ao_params },
+ 	{ .compatible = "amlogic,a4-gpio-intc", .data = &a4_params },
+ 	{ .compatible = "amlogic,a5-gpio-intc", .data = &a5_params },
++	{ .compatible = "amlogic,a9-gpio-ao-intc", .data = &a9_ao_params },
++	{ .compatible = "amlogic,a9-gpio-intc", .data = &a9_params },
+ 	{ .compatible = "amlogic,s6-gpio-intc", .data = &s6_params },
+ 	{ .compatible = "amlogic,s7-gpio-intc", .data = &s7_params },
+ 	{ .compatible = "amlogic,s7d-gpio-intc", .data = &s7_params },
+@@ -375,6 +403,53 @@ static int meson8_gpio_irq_set_type(struct meson_gpio_irq_controller *ctl,
+ 	return 0;
+ }
+ 
++/*
++ * gpio irq relative registers for a9_ao
++ * -PADCTRL_GPIO_IRQ_CTRL0
++ * bit[31]:    enable/disable all the irq lines
++ * bit[0-19]:  polarity trigger
++ *
++ * -PADCTRL_GPIO_IRQ_CTRL[X]
++ * bit[0-5]: 6 bits to choose gpio source for irq line 2*[X] - 2
++ * bit[16-21]:6 bits to choose gpio source for irq line 2*[X] - 1
++ * where X = 1-10
++ *
++ * -PADCTRL_GPIO_IRQ_CTRL[11]
++ * bit[0-19]: both edge trigger
++ *
++ * -PADCTRL_GPIO_IRQ_CTRL[12]
++ * bit[0-19]: single edge trigger
++ */
++static int meson_a9_ao_gpio_irq_set_type(struct meson_gpio_irq_controller *ctl,
++					 unsigned int type, u32 *channel_hwirq)
++{
++	const struct meson_gpio_irq_params *params = ctl->params;
++	unsigned int idx;
++	u32 val = 0;
++
++	idx = meson_gpio_irq_get_channel_idx(ctl, channel_hwirq);
++
++	type &= IRQ_TYPE_SENSE_MASK;
++
++	meson_gpio_irq_update_bits(ctl, params->edge_pol_reg, BIT(idx), 0);
++
++	if (type == IRQ_TYPE_EDGE_BOTH) {
++		val = BIT(ctl->params->edge_both_offset + idx);
++		meson_gpio_irq_update_bits(ctl, params->edge_pol_reg, val, val);
++		return 0;
++	}
++
++	if (type & (IRQ_TYPE_LEVEL_LOW | IRQ_TYPE_EDGE_FALLING))
++		val = BIT(idx);
++	meson_gpio_irq_update_bits(ctl, REG_A9_AO_POL, BIT(idx), val);
++
++	val = 0;
++	if (type & (IRQ_TYPE_EDGE_RISING | IRQ_TYPE_EDGE_FALLING))
++		val = BIT(idx);
++	meson_gpio_irq_update_bits(ctl, REG_A9_AO_EDGE, BIT(idx), val);
++
++	return 0;
++};
+ /*
+  * gpio irq relative registers for s4
+  * -PADCTRL_GPIO_IRQ_CTRL0
 
-5V_VBUS is used to power all the USB3_TypeA_Dual ports.
+-- 
+2.52.0
 
-Thanks
--Anand
+
