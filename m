@@ -1,186 +1,158 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F65E364043
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 23:17:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A72F2E1EFC
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 23:19:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778282252; cv=none; b=A1qTKD3xO/7KvEkBiOBBcSJ4Y/wiJD9HcOeO5TomrwODtZYpPeNiosp89nswcD/uqRmmEf1a1lY22Qsy0DBAJznD9G6gYaybzdvodSTYYQOOXTXETfcVPXcmGrrHNYSdSaqpUnTc7oc3ztlJjlUlDOMCSSXU96mvYmmhM3bj8BI=
+	t=1778282343; cv=none; b=mUXoJKsaLk1xhRgOw3mt0LtfwiTUG1qL4qw6xfPjFfod/05wSxn/f96dJu95z7hPn3cULQfTkkzWwWlEg0sWNv1FoTyS1q47MuZwFo+OH6YVlV8dKh2YZ7OlpLcCxEZnwYZwQ7az6yhLhOzBdYSTZ1ZCZkEWT6cjQeMsOxZXRKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778282252; c=relaxed/simple;
-	bh=1ud4bRUpySSF2XwtRFUNENt33KL9ZIMPNHUYeitUfC4=;
+	s=arc-20240116; t=1778282343; c=relaxed/simple;
+	bh=FWhB/rQHS5VEZMek7e4mzbpPURvM+6YCO7g24LmO284=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YcyWPBRfFFSD8Qn7853jIX/PiKrrtV5mzqmnrdDt4tB/q5AiuPaSKfiAjAbF4q/5k8lvn/AaDn8Yo+eEKFDEJconiPx7/cgnkeEuWcA2iVM3NUmt80raLLoDFehB8DeJ2SKmz/rDqhMySQDqDbmfKhocjeFNb0xl+KYEhzFRe0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oYfW+7XK; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=rpgjlfFBvcvbOE3dPK/7QhZmWanpDEwkbPebI8b6ml/0ZUAEOrHxY930aipPYKDVyuAN5xHPq4WwL9pnPmJp0cVIiUftgbgkTxxH9oDRGQzCJSEIA+1QBsCJCfe0d+niJEwZYfIJD2iS6H0d2L2gU7/nX08iGulW7T2WcrCchlo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ebUAPoan; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oYfW+7XK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4692BC2BCB0;
-	Fri,  8 May 2026 23:17:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ebUAPoan"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C3C8C2BCB0;
+	Fri,  8 May 2026 23:19:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778282251;
-	bh=1ud4bRUpySSF2XwtRFUNENt33KL9ZIMPNHUYeitUfC4=;
+	s=k20201202; t=1778282342;
+	bh=FWhB/rQHS5VEZMek7e4mzbpPURvM+6YCO7g24LmO284=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=oYfW+7XKH2eufr3wwWW7S74KBwYxwQwzm12feByGYAN1mu8tfCf4zibH/a7S5f52W
-	 h8bX+d0uQKcd66qMCGHz+lmA5xJifRvKdIs2pzYinh3bp84+AprhL+94VEsQHSkPmJ
-	 t57NqXJZDjx0p/WDYFeWZTCJ4mkYJdv4i8ckNaxXTWgOCxjcDsDCUKnfHydeuR48RD
-	 foKGANbNTzcUXbi+h9L22aYegVzR35YqOr+Grm8Tib4QVQ2mpJc2Gyrsup6wr5Y1nH
-	 /uXRzixxaL/TnRPUzlDkXfb5fnDp4C6T0zwLeBbM9ce9aAAMk4OtTymoeVAe10Hucl
-	 9DJTkm5qnQfgw==
+	b=ebUAPoanN3wW5GYJ2VNoKqwu+AJ38IiD95EcQV8QNlGG/IP1qZquX8ngd6rIxS65x
+	 jUqU0Zhrj9qyfbcT2u+cSG5oiL2QPYMnU+GUUDD+MWAeSxe0S8dAjq63A6KhWsIUuN
+	 8jhGdVsgDlckLTgPaX/45cfULlk5O3xP1ePDp9lKvWG7O2U1L5LtVb5lOoSH1ICnq2
+	 DFPJSFAmLYUWAgY6fSlIivA42udL3vDe56l+dojJctNPTXcfzqTk+OBPm1n6ePG8nF
+	 v9NN/20gfC9aetem+pUe4hnYbcZMihj7QPGstAvaONRPuXhqTqzA1Kupct8qCyPQ+m
+	 3cEbisOu5b/Kw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 08/10] clk: realtek: Add RTD1625-CRT clock controller
- driver
+Subject: Re: [PATCH RFC v4 04/10] iio: frequency: ad9910: add basic parallel
+ port support
 Reply-To: sashiko@lists.linux.dev
-To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
-Cc: krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260508111641.3192177-9-eleanor.lin@realtek.com>
-References: <20260508111641.3192177-9-eleanor.lin@realtek.com>
+To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260508-ad9910-iio-driver-v4-4-d26bfd20ee3d@analog.com>
+References: <20260508-ad9910-iio-driver-v4-4-d26bfd20ee3d@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 08 May 2026 23:17:30 +0000
-Message-Id: <20260508231731.4692BC2BCB0@smtp.kernel.org>
+Date: Fri, 08 May 2026 23:19:01 +0000
+Message-Id: <20260508231902.7C3C8C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Hardware race condition due to missing freq_ready_valid initializa=
-tion in PLL structures.
-- [Medium] Missing MODULE_DEVICE_TABLE for the clock controller driver.
-- [Medium] rtk_clk_probe writes per-device regmap state into globally share=
-d static clock structures.
-- [Low] Kconfig dependency propagation violation for CLK_RTD1625.
-- [Low] Typo in MODULE_DESCRIPTION of the reset driver.
+- [High] The AD9910_PP_FREQ_OFFSET write function fails to reject negative =
+fractional values when the integer part is 0, causing a massive integer und=
+erflow when computing the frequency tuning word.
+- [Medium] The parallel port channel exposes an `enable` sysfs attribute bu=
+t lacks support in raw accessors, causing read/write operations to uncondit=
+ionally return `-EINVAL`.
 --
 
-commit 84d35dbda57cf6e9762915011a556ab1a6e99c67
-Author: Cheng-Yu Lee <cylee12@realtek.com>
+commit 6d64943a7cb666034a2bfe3e59647d035b7c3fb6
+Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-clk: realtek: Add RTD1625-CRT clock controller driver
+iio: frequency: ad9910: add basic parallel port support
 
-Add support for the CRT (Clock, Reset, and Test) domain clock controller
-on the Realtek RTD1625 SoC. This driver provides essential clock sources
-(including PLLs), gating, and multiplexing functionalities for the
-platform's peripherals.
+This commit adds a parallel port channel to the AD9910 driver with frequency
+scale, frequency offset, phase offset, and amplitude offset extended
+attributes. Enabling and disabling parallel mode will be implemented later
+with buffer setup ops.
 
-> diff --git a/drivers/clk/realtek/Kconfig b/drivers/clk/realtek/Kconfig
-> index 9efd70094bd27..2eaaa827ae3ac 100644
-> --- a/drivers/clk/realtek/Kconfig
-> +++ b/drivers/clk/realtek/Kconfig
-> @@ -28,4 +28,19 @@ config RTK_CLK_COMMON
->  config RTK_CLK_PLL_MMC
->  	tristate
-> =20
-> +config CLK_RTD1625
-> +	tristate "RTD1625 Clock Controller"
-> +	depends on RESET_CONTROLLER
-> +	select RESET_RTD1625
-
-Should this config also depend on ARCH_REALTEK || COMPILE_TEST?
-
-RESET_RTD1625 has this dependency, and selecting it without inheriting
-the dependencies can cause unmet direct dependency warnings or build
-failures on unsupported architectures.
-
-> +	select RTK_CLK_COMMON
+> diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad991=
+0.c
+> index c75f2ef178c25..b069b849e8d72 100644
+> --- a/drivers/iio/frequency/ad9910.c
+> +++ b/drivers/iio/frequency/ad9910.c
 
 [ ... ]
 
-> diff --git a/drivers/clk/realtek/clk-rtd1625-crt.c b/drivers/clk/realtek/=
-clk-rtd1625-crt.c
-> new file mode 100644
-> index 0000000000000..ec9d8f936199c
-> --- /dev/null
-> +++ b/drivers/clk/realtek/clk-rtd1625-crt.c
-
+> @@ -511,6 +528,121 @@ static ssize_t ad9910_ext_info_write(struct iio_dev=
+ *indio_dev,
 [ ... ]
-
-> +static struct clk_pll pll_acpu =3D {
-> +	.clkr.hw.init =3D CLK_HW_INIT("pll_acpu", "osc27m", &rtk_clk_pll_ops, C=
-LK_GET_RATE_NOCACHE),
-> +	.seq_power_on          =3D pll_acpu_seq_power_on,
-> +	.num_seq_power_on      =3D ARRAY_SIZE(pll_acpu_seq_power_on),
-> +	.seq_power_off         =3D pll_acpu_seq_power_off,
-> +	.num_seq_power_off     =3D ARRAY_SIZE(pll_acpu_seq_power_off),
-> +	.seq_pre_set_freq      =3D pll_acpu_seq_pre_set_freq,
-> +	.num_seq_pre_set_freq  =3D ARRAY_SIZE(pll_acpu_seq_pre_set_freq),
-> +	.seq_post_set_freq     =3D pll_acpu_seq_post_set_freq,
-> +	.num_seq_post_set_freq =3D ARRAY_SIZE(pll_acpu_seq_post_set_freq),
-> +	.freq_reg              =3D RTD1625_REG_PLL_SSC_DIG_ACPU1,
-> +	.freq_tbl              =3D acpu_tbl,
-> +	.freq_mask             =3D FREQ_NF_MASK,
-> +	.freq_ready_reg        =3D RTD1625_REG_PLL_SSC_DIG_ACPU_DBG2,
-> +	.freq_ready_mask       =3D BIT(20),
-> +	.freq_ready_val        =3D BIT(20),
-> +	.power_reg             =3D RTD1625_REG_PLL_ACPU2,
-> +	.power_mask            =3D 0x7,
-> +	.power_val_on          =3D 0x3,
-> +	.lock                  =3D __SPIN_LOCK_UNLOCKED(pll_acpu.lock),
-> +};
-
-Will the clock framework assume this PLL is stable prematurely?
-
-Because this structure is zero-initialized and .freq_ready_valid is not set
-to 1, wait_freq_ready() may return 0 immediately without polling the
-hardware PLL lock status. This could potentially lead to hardware lockups
-or data corruption.
-
-[ ... ]
-
-> +static struct clk_regmap * const rtd1625_crt_regmap_clks[] =3D {
-> +	&clk_en_misc.clkr,
-> +	&clk_en_pcie0.clkr,
-> +	&clk_en_gspi.clkr,
-
-[ ... ]
-
-> +	&clk_gpu.clkr,
-
-Does this array pass statically allocated global clock objects to
-rtk_clk_probe()?
-
-Looking at rtk_clk_probe(), it iterates over desc->clks and writes the
-per-device regmap state:
-
-    for (i =3D 0; i < desc->num_clks; i++)
-        desc->clks[i]->regmap =3D regmap;
-
-If the device is unbound, could this leave a dangling pointer in the global
-clock structures?
-
-[ ... ]
-
-> +static const struct of_device_id rtd1625_crt_match[] =3D {
-> +	{.compatible =3D "realtek,rtd1625-crt-clk", .data =3D &rtd1625_crt_desc=
-,},
-> +	{ /* sentinel */ }
-> +};
+> +static ssize_t ad9910_pp_attrs_write(struct iio_dev *indio_dev,
+> +				     uintptr_t private,
+> +				     const struct iio_chan_spec *chan,
+> +				     const char *buf, size_t len)
+> +{
+> +	struct ad9910_state *st =3D iio_priv(indio_dev);
+> +	int val, val2;
+> +	u32 tmp32;
+> +	int ret;
 > +
-> +static struct platform_driver rtd1625_crt_driver =3D {
+> +	ret =3D iio_str_to_fixpoint(buf, MICRO / 10, &val, &val2);
+> +	if (ret)
+> +		return ret;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	switch (private) {
+> +	case AD9910_PP_FREQ_OFFSET:
+> +		if (!in_range(val, 0, st->data.sysclk_freq_hz / 2))
+> +			return -EINVAL;
+> +
+> +		tmp32 =3D ad9910_rational_scale((u64)val * MICRO + val2, BIT_ULL(32),
+> +					      (u64)MICRO * st->data.sysclk_freq_hz);
 
-Could this driver use a MODULE_DEVICE_TABLE() for rtd1625_crt_match?
+If a negative fraction between 0 and -1 is parsed (for example, "-0.5"),
+won't iio_str_to_fixpoint() set val to 0 and val2 to a negative number like
+-500000?
 
-Because CLK_RTD1625 is a tristate config, this can be built as a loadable
-module. Without the macro, module auto-loading may fail when the device
-tree node is encountered.
+Since the bounds check only verifies the integer part (val), 0 passes. Could
+the offset calculation (u64)val * MICRO + val2 then underflow to an enormous
+unsigned value when adding the negative signed integer to 0ULL?
+
+It looks like this would write a mathematically incorrect, out-of-bounds
+frequency tuning word to the device hardware. Should there be an explicit
+check for negative values here?
+
+> +		ret =3D ad9910_reg32_write(st, AD9910_REG_FTW, tmp32, true);
+> +		if (ret)
+> +			return ret;
+> +		break;
 
 [ ... ]
 
-> diff --git a/drivers/reset/realtek/reset-rtd1625-crt.c b/drivers/reset/re=
-altek/reset-rtd1625-crt.c
-> new file mode 100644
-> index 0000000000000..13553e3224cd3
-> --- /dev/null
-> +++ b/drivers/reset/realtek/reset-rtd1625-crt.c
-
+> @@ -564,6 +707,15 @@ static const struct iio_chan_spec ad9910_channels[] =
+=3D {
 [ ... ]
+>  	[AD9910_CHAN_IDX_PROFILE_7] =3D AD9910_PROFILE_CHAN(7),
+> +	[AD9910_CHAN_IDX_PARALLEL_PORT] =3D {
+> +		.type =3D IIO_ALTVOLTAGE,
+> +		.indexed =3D 1,
+> +		.output =3D 1,
+> +		.channel =3D AD9910_CHANNEL_PARALLEL_PORT,
+> +		.address =3D AD9910_CHAN_IDX_PARALLEL_PORT,
+> +		.info_mask_separate =3D BIT(IIO_CHAN_INFO_ENABLE),
 
-> +MODULE_DESCRIPTION("Reatek RTD1625 CRT Reset Controller Driver");
+Does this expose an enable sysfs attribute that unconditionally returns
+-EINVAL when accessed?
 
-This isn't a bug, but there's a typo in "Reatek" which should be "Realtek".
+Looking at ad9910_read_raw(), the IIO_CHAN_INFO_ENABLE case only handles the
+profile channels:
+
+case IIO_CHAN_INFO_ENABLE:
+	switch (chan->channel) {
+	case AD9910_CHANNEL_PROFILE_0 ... AD9910_CHANNEL_PROFILE_7:
+		[ ... ]
+		break;
+	default:
+		return -EINVAL;
+	}
+
+If parallel mode enabling is planned for the future with buffer setup ops as
+noted in the commit message, should this attribute bit be omitted for now to
+avoid userspace enumeration tool failures?
+
+> +		.ext_info =3D ad9910_pp_ext_info,
+> +	},
+>  };
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508111641.3192=
-177-1-eleanor.lin@realtek.com?part=3D8
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508-ad9910-iio=
+-driver-v4-0-d26bfd20ee3d@analog.com?part=3D4
