@@ -1,269 +1,148 @@
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB21D306D26
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 22:11:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CFA13914E1;
+	Fri,  8 May 2026 22:14:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778278297; cv=none; b=CgQbSmaq/tQ3P7Ryyrefdef3tO+75lzE9ZlA2P4Hu/gA9QHu9XOyElf8+mA12tIgpCTSmTaMy/HNfgysN9a1GGStBU1c1/8Ppf1dVUH/rW5hDidzZEG+uylflcfZ/S/JsnGeyEb/Abbwg35MsoeDzbQqc6HE7+YyY8WgtDlAkmQ=
+	t=1778278454; cv=none; b=RQOsG1lgYEhsgnu5lCW5EV9xE7vfFtfQFfB5AA7TnLaeJPhBlXALksX1a8b4WaWjCgzK/IiXPDlv/HGgHt7N/zz/5CPv6FSkiELJf4iurcIfDDedV95mACcX4NJiyysa8Dz+4jnaW+dzF82ifY9WaV+yrghVHr70QLOtdwgnFEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778278297; c=relaxed/simple;
-	bh=N93+oVBLzf4PuI4STk7zWzRO4FnwKeBdOBwpGSgDFVs=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=e68/DvyEekijZq1X5nFwMwkfmxjsSTqy7g2eXNVpcB3UZwOWoYMN++SLlEYjYt7ZRgXrTGQzbFjneIT2b4ZFHNhYbEnLFggIGEPnyl7lxbTCEOdudiaHMimV290CuFaUhtBFfcSNwsh/gwOnh4impeKGXgs5ich/IbGNWGt66yU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=kbYYsQnM; arc=none smtp.client-ip=209.85.219.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1778278454; c=relaxed/simple;
+	bh=j+3aKlygouCz5b+v8lfYPd6nsKPilgGpE0nlCIZpiSo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ljWkBUR79EeVl7HLxpJ1H75/EtEgvcHwwHwdj3zd3BgnXvm5A9stTk1Gn7ki1ulK4/p5mAPFYwLkC0ZvjJRYvQhpErmfwPdRcKx8P1F5fFasuHXNFcMk8Ee3Xqs2i8hSX8OQj0mb7/4DSQGkHCEiIhuRdVYt0cjr/N+I7teANo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XK13vrcn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="kbYYsQnM"
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-8b7f937ef44so14846236d6.0
-        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 15:11:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1778278294; x=1778883094; darn=vger.kernel.org;
-        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
-         :from:subject:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=423hWhSi5+hijWcsdmhIbZKRcVhHLdzm80D5vMOt0CA=;
-        b=kbYYsQnMwYHbInkiA+Yc/kSG8D2mtY0soup/MxxcP2RL7g4SX4M3ffSTvOrH5u3QZM
-         7Krq3/NQjGhqlsLsH3OV95zu/2E3DSWf5QW6Hm+XS8I5Q/PjwcN09xAHbL0BzZ+bhQti
-         2SCkTVS02bhZ5S/6jrrPu05ZWAx6V3JZ7SCfXvW8qRlX0NwPeW11Q5Drgm+td3VktYdM
-         9NMUAxrWeE2dUf8xmIl5D4QkP3OFrVnCpyabUdSMxHcuo5b67+jL23I6Tkb7UiN80I2B
-         AsH2G4AshcjsnD/NR+nDE+NwFg4R7GNGO2B5slMNNpSlh5F+/oaz7cvrB59pJ3pqwayZ
-         XHwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778278294; x=1778883094;
-        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
-         :from:subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=423hWhSi5+hijWcsdmhIbZKRcVhHLdzm80D5vMOt0CA=;
-        b=lnaHeXruzbtKaw6xTjG5+nw1LSncEhlWVz1iyLddP/gd25hhf/aDmgSjNUOQ7HRLfc
-         EUOG6dgPqzJd8hmlr4qh7RTD5wpO0MrwdytbJgF5KuZ4e9skpGIWfimho1I8Rp8qQCWX
-         QLGrmMXwQMYMwn+jGtD6ycEfp5XZPJWHFqg8G9nTKZUaOLrc1U2ooeO+QqxqG6yujsQx
-         KewWmF2HQsxv9kpFOQFBiCTqTJI8zSeSOqhrB38fNgLlWnA5cU3LDTHaUH8RLhEo1McV
-         TPIu32NXJj45b7RGmdUGmMGjlIMGh8d5deaBg+qW7kM2dKv1mTMX+Ya+nIssUtdsA/ED
-         4RfA==
-X-Forwarded-Encrypted: i=1; AFNElJ/1g9cqvkkoAd3xX+XtjZX+o+5ZBCVnFPi6/dQ99z9BFPNVk4ddufnZ6U1CUYwhIGSzrFNuQdqy0vnm@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxecct/w8oGtxYscb4goftNWWbZwuGM9NXP67hOtBqMC7IIdEHR
-	z+Zm7FqXMPdSSNi7uqR6aykwWH2Qskda5KvllyoV55KrG5IWHBbfrC1CNXseNGMGhN4=
-X-Gm-Gg: Acq92OEw6qH+Pp5fFfY9yZaHhmSdG4ZiXCTpO5lADSyeVQA3o3+vIJENdvRHxZ4L20S
-	fCPaV2LQBPfnnfRZvcz/uthu2MMZ7mJQKq9b2CfNKsZEKwlWmYS9q7AnNKx25bEDseGfLBhf6lu
-	T5j/bou6zRgeewTiF4T9mjUNYd1yri9X8oL/EvT17Lrv3QYuReK+Odeu36/T6VhP6MYhhk4BLEH
-	UjuA5mb3Rj96urIfEI/XGVxQmIhsI9JMCgiKzeyV3sbp4jeO15oY2aAymEp4JqV2LvPpUHF6KcD
-	IYGyk0qSpCTSnu2KSy2H3tHN4kU7SeHVAl/ubVJjAUZSupPj+OfhWRkqXxIFDTgXSJ84cpx/QNZ
-	hIMDIzwdPKYucOW1sCFIyodjBz7gEIYq2vonzj/gDNd+2oi8KHdKdXZ2PZOxX9zt82b34u+A0qL
-	Lv4rSOnbty0Ab6mWoJITPFoJKmHXxk
-X-Received: by 2002:a05:6214:8082:b0:8ac:b1ce:3244 with SMTP id 6a1803df08f44-8bc42f522e5mr198672566d6.19.1778278293937;
-        Fri, 08 May 2026 15:11:33 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:15:e06b::5ac? ([2606:6d00:15:e06b::5ac])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8bf3a43636fsm29335326d6.21.2026.05.08.15.11.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 08 May 2026 15:11:33 -0700 (PDT)
-Message-ID: <ebe5cd6689923eb1e2124e177f694895383fba54.camel@ndufresne.ca>
-Subject: Re: [PATCH v5 16/29] media: rockchip: rga: split flip and rotate
- into separate function
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Sven =?ISO-8859-1?Q?P=FCschel?= <s.pueschel@pengutronix.de>, Jacob Chen
-	 <jacob-chen@iotwrt.com>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Mauro Carvalho Chehab
-	 <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Rob Herring
-	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	 <conor+dt@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, kernel@pengutronix.de, 
-	sebastian.reichel@collabora.com
-Date: Fri, 08 May 2026 18:11:31 -0400
-In-Reply-To: <20260428-spu-rga3-v5-16-eb7f5d019d86@pengutronix.de>
-References: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
-	 <20260428-spu-rga3-v5-16-eb7f5d019d86@pengutronix.de>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-lVlR1XuC3qO6FqUNpkDq"
-User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XK13vrcn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90948C2BCB0;
+	Fri,  8 May 2026 22:14:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778278453;
+	bh=j+3aKlygouCz5b+v8lfYPd6nsKPilgGpE0nlCIZpiSo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=XK13vrcn8bw5uQgKygpHNBE/wQrtn3RVeEJ0GkfJRGJ/cLFfB9EKGj4xdkmM1ZLlH
+	 r6PoQ1XK50wIJfnjg9pPEiwGVf8LUoBibWNT5of5kkmjeIaTQAAv+X7Q9LjGBuYGZ/
+	 B7FWByBEomN5KJq9PbmUPI/uCEDpyn7ya13I0Dr2sEf6VCKx50zgMAf0BVOlbhPTNQ
+	 gNzlxOrrBBSNU0yE4RFLqZvH64qWvpOotffYdotkx/ZfIfdkPKbZFD9WPsqFObrep3
+	 wnS6b/2Lj81241P7fBGG/v8EmknEY7cxuo5UldOl7hZUYdo5KQznX/YzwtwQN6xxfh
+	 T0rB8JGC86fdg==
+Message-ID: <0c116b90-1688-49f6-b97f-fbe78466221f@kernel.org>
+Date: Sat, 9 May 2026 01:14:01 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/5] interconnect: Add devm_of_icc_get_by_index() as
+ exported API for users
+To: Bjorn Andersson <andersson@kernel.org>,
+ Luca Weiss <luca.weiss@fairphone.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Mike Tipton <mike.tipton@oss.qualcomm.com>,
+ Taniya Das <taniya.das@oss.qualcomm.com>,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20260501-milos-camcc-icc-v2-0-bb83c1256cc3@fairphone.com>
+ <20260501-milos-camcc-icc-v2-1-bb83c1256cc3@fairphone.com>
+ <af08-zMGzSSsw_NR@baldur>
+From: Georgi Djakov <djakov@kernel.org>
+Content-Language: en-US
+In-Reply-To: <af08-zMGzSSsw_NR@baldur>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 5/8/26 4:32 AM, Bjorn Andersson wrote:
+> On Fri, May 01, 2026 at 11:18:29AM +0200, Luca Weiss wrote:
+>> Users can use devm version of of_icc_get_by_index() to benefit from
+>> automatic resource release.
+>>
+>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+> 
+> Georgi, can I have an ack on this, or an immutable branch and a ping
+> once it's available?
 
---=-lVlR1XuC3qO6FqUNpkDq
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi Bjorn, please apply it.
 
-Le mardi 28 avril 2026 =C3=A0 11:00 +0200, Sven P=C3=BCschel a =C3=A9crit=
-=C2=A0:
-> Split the flip and rotate command configuration into a separate
-> function in preparation of filling the command stream at streamon.
-> As the userspace can change the flipping and rotation controls while
-> streaming, we have to update them with each new frame to prevent the
-> user being unable to change them while streaming.
->=20
-> Signed-off-by: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
+Acked-by: Georgi Djakov <djakov@kernel.org>
 
-For code point of view, everything seems fine, but the commit message leave=
- me a
-bit wondering. Any rotation that isn't 180 degree will cause the width and
-height to be reversed, and a new stride is needed to present the buffer
-correctly. Meaning the capture format can be affected by this change.
+Thanks,
+Georgi
+> 
+> Thanks,
+> Bjorn
+> 
+>> ---
+>>   drivers/interconnect/core.c  | 20 ++++++++++++++++++++
+>>   include/linux/interconnect.h |  6 ++++++
+>>   2 files changed, 26 insertions(+)
+>>
+>> diff --git a/drivers/interconnect/core.c b/drivers/interconnect/core.c
+>> index 8569b78a1851..bc2e416dbcb2 100644
+>> --- a/drivers/interconnect/core.c
+>> +++ b/drivers/interconnect/core.c
+>> @@ -443,6 +443,26 @@ struct icc_path *devm_of_icc_get(struct device *dev, const char *name)
+>>   }
+>>   EXPORT_SYMBOL_GPL(devm_of_icc_get);
+>>   
+>> +struct icc_path *devm_of_icc_get_by_index(struct device *dev, int idx)
+>> +{
+>> +	struct icc_path **ptr, *path;
+>> +
+>> +	ptr = devres_alloc(devm_icc_release, sizeof(*ptr), GFP_KERNEL);
+>> +	if (!ptr)
+>> +		return ERR_PTR(-ENOMEM);
+>> +
+>> +	path = of_icc_get_by_index(dev, idx);
+>> +	if (!IS_ERR(path)) {
+>> +		*ptr = path;
+>> +		devres_add(dev, ptr);
+>> +	} else {
+>> +		devres_free(ptr);
+>> +	}
+>> +
+>> +	return path;
+>> +}
+>> +EXPORT_SYMBOL_GPL(devm_of_icc_get_by_index);
+>> +
+>>   /**
+>>    * of_icc_get_by_index() - get a path handle from a DT node based on index
+>>    * @dev: device pointer for the consumer device
+>> diff --git a/include/linux/interconnect.h b/include/linux/interconnect.h
+>> index 4b12821528a6..75a32ad0482e 100644
+>> --- a/include/linux/interconnect.h
+>> +++ b/include/linux/interconnect.h
+>> @@ -47,6 +47,7 @@ struct icc_path *of_icc_get(struct device *dev, const char *name);
+>>   struct icc_path *devm_of_icc_get(struct device *dev, const char *name);
+>>   int devm_of_icc_bulk_get(struct device *dev, int num_paths, struct icc_bulk_data *paths);
+>>   struct icc_path *of_icc_get_by_index(struct device *dev, int idx);
+>> +struct icc_path *devm_of_icc_get_by_index(struct device *dev, int idx);
+>>   void icc_put(struct icc_path *path);
+>>   int icc_enable(struct icc_path *path);
+>>   int icc_disable(struct icc_path *path);
+>> @@ -79,6 +80,11 @@ static inline struct icc_path *of_icc_get_by_index(struct device *dev, int idx)
+>>   	return NULL;
+>>   }
+>>   
+>> +static inline struct icc_path *devm_of_icc_get_by_index(struct device *dev, int idx)
+>> +{
+>> +	return NULL;
+>> +}
+>> +
+>>   static inline void icc_put(struct icc_path *path)
+>>   {
+>>   }
+>>
+>> -- 
+>> 2.54.0
+>>
 
-To stick with the spec, the capture format needs to be updated, and it need=
-s to
-happen in a way user can be able to read it back for the correct frame if
-userspace make use of the queues. I see 3 options, let me know what you thi=
-nk,
-or what is later implemented if you already thought about that.
-
-1. Synchronously update the capture format width/height, document in the
-respective control this behaviour, leaving to userspace to remember which f=
-rames
-the change will apply to.
-
-This works nicely for this type of HW, but would be a bit complicated for a
-deinterlacer, since the buffering might be HW specific. It also make usage =
-of
-queues harder, less independent.
-
-2. Force a drain/stop/start for any 90 degree rotation
-
-This might impose a longer idle time for the converter core, and is kind of
-opposite of your commit message. But requires no spec work.
-
-3. Emit SRC_CH, implement the drain procedure typical to decoder resolution
-change.
-
-Typically it means userspace can keep buffering on the OUTPUT queue, and on=
-ce
-the LAST buffer is met, it can simply read the new format (and new stride, =
-since
-due to alignment, this might be hardware specific) and toggle streamoff/on =
-only
-on capture queue to reactivate the processing.
-
-The 3. is more complex for the driver, but its a proven race-free method fo=
-r
-decoders already. 2 would be statusquo to get this series in, and we could =
-post-
-poned more advance work for seamless 90degree rorations. 1., I don't really=
- like
-that solution, it not quite generic enough.
-
-feedback welcome,
-Nicolas
-
-> ---
-> =C2=A0drivers/media/platform/rockchip/rga/rga-hw.c | 57 +++++++++++++++++=
------------
-> =C2=A01 file changed, 34 insertions(+), 23 deletions(-)
->=20
-> diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media=
-/platform/rockchip/rga/rga-hw.c
-> index dac3cb6aa17d3..6c1956b04f6ba 100644
-> --- a/drivers/media/platform/rockchip/rga/rga-hw.c
-> +++ b/drivers/media/platform/rockchip/rga/rga-hw.c
-> @@ -156,7 +156,38 @@ static void rga_cmd_set_dst_addr(struct rga_ctx *ctx=
-, dma_addr_t dma_addr)
-> =C2=A0	dest[reg >> 2] |=3D 0x7 << 8;
-> =C2=A0}
-> =C2=A0
-> -static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
-> +static void rga_cmd_set_flip_rotate_info(struct rga_ctx *ctx)
-> +{
-> +	u32 *dest =3D ctx->cmdbuf_virt;
-> +	union rga_src_info src_info;
-> +
-> +	src_info.val =3D dest[(RGA_SRC_INFO - RGA_MODE_BASE_REG) >> 2];
-> +
-> +	if (ctx->vflip)
-> +		src_info.data.mir_mode |=3D RGA_SRC_MIRR_MODE_X;
-> +
-> +	if (ctx->hflip)
-> +		src_info.data.mir_mode |=3D RGA_SRC_MIRR_MODE_Y;
-> +
-> +	switch (ctx->rotate) {
-> +	case 90:
-> +		src_info.data.rot_mode =3D RGA_SRC_ROT_MODE_90_DEGREE;
-> +		break;
-> +	case 180:
-> +		src_info.data.rot_mode =3D RGA_SRC_ROT_MODE_180_DEGREE;
-> +		break;
-> +	case 270:
-> +		src_info.data.rot_mode =3D RGA_SRC_ROT_MODE_270_DEGREE;
-> +		break;
-> +	default:
-> +		src_info.data.rot_mode =3D RGA_SRC_ROT_MODE_0_DEGREE;
-> +		break;
-> +	}
-> +
-> +	dest[(RGA_SRC_INFO - RGA_MODE_BASE_REG) >> 2] =3D src_info.val;
-> +}
-> +
-> +static void rga_cmd_set_format_scale_info(struct rga_ctx *ctx)
-> =C2=A0{
-> =C2=A0	struct rockchip_rga *rga =3D ctx->rga;
-> =C2=A0	u32 *dest =3D ctx->cmdbuf_virt;
-> @@ -219,27 +250,6 @@ static void rga_cmd_set_trans_info(struct rga_ctx *c=
-tx)
-> =C2=A0		}
-> =C2=A0	}
-> =C2=A0
-> -	if (ctx->vflip)
-> -		src_info.data.mir_mode |=3D RGA_SRC_MIRR_MODE_X;
-> -
-> -	if (ctx->hflip)
-> -		src_info.data.mir_mode |=3D RGA_SRC_MIRR_MODE_Y;
-> -
-> -	switch (ctx->rotate) {
-> -	case 90:
-> -		src_info.data.rot_mode =3D RGA_SRC_ROT_MODE_90_DEGREE;
-> -		break;
-> -	case 180:
-> -		src_info.data.rot_mode =3D RGA_SRC_ROT_MODE_180_DEGREE;
-> -		break;
-> -	case 270:
-> -		src_info.data.rot_mode =3D RGA_SRC_ROT_MODE_270_DEGREE;
-> -		break;
-> -	default:
-> -		src_info.data.rot_mode =3D RGA_SRC_ROT_MODE_0_DEGREE;
-> -		break;
-> -	}
-> -
-> =C2=A0	/*
-> =C2=A0	 * Calculate the up/down scaling mode/factor.
-> =C2=A0	 *
-> @@ -431,7 +441,8 @@ static void rga_cmd_set(struct rga_ctx *ctx,
-> =C2=A0
-> =C2=A0	rga_cmd_set_src_info(ctx, &src->offset);
-> =C2=A0	rga_cmd_set_dst_info(ctx, &dst->offset);
-> -	rga_cmd_set_trans_info(ctx);
-> +	rga_cmd_set_format_scale_info(ctx);
-> +	rga_cmd_set_flip_rotate_info(ctx);
-> =C2=A0
-> =C2=A0	rga_write(rga, RGA_CMD_BASE, ctx->cmdbuf_phy);
-> =C2=A0
-
---=-lVlR1XuC3qO6FqUNpkDq
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHQEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaf5fkwAKCRDZQZRRKWBy
-9LC3APdmFKAFkqTp6qEPlQCir+NJJOXQVBYZ7bHoVHuXUem7AQC4zPYGkGqV7x4I
-JShJJJ7CiYN1opexRldmsDpBBgQYCA==
-=Cg+D
------END PGP SIGNATURE-----
-
---=-lVlR1XuC3qO6FqUNpkDq--
