@@ -1,122 +1,132 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CE2B61C84A6;
-	Fri,  8 May 2026 01:30:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC6E2F8E8E;
+	Fri,  8 May 2026 01:32:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778203819; cv=none; b=DZE2d6R0V3CRJIPZ6B5BN3PyBSjgT3+CLBqZRQXwFQQhuSDnngRTVZc/O8j3rDUrZ/QjZMT5Mf8IJvolI9JybatYEzWo+siFzzanD1UKH4fvEDS1KBD8Nvrp8jjOxx4ta5oLicrD8KqVlcOrm6a7DaTzvgc5zqBx4JnbYKZtD+w=
+	t=1778203939; cv=none; b=nGQzRd8ZVCUgo/omeZC6XPHoPtpxLwqXF10IzDQso4Pz0nR3qXKIUc7O541K8lChFYJUVDAaHLndQUNN+8RZf6zh0v7oZFYCeeRRJhqbUehxyn1ps5D0oNdx+N7KVZWO9g50dnRoG0ct9IoS4bigx47ZcYbHec7rU9+ERfCRbiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778203819; c=relaxed/simple;
-	bh=T6A5vRZ8MOTTsYn5xOYgD4nkYbHCZB5sZBxvdYoiwpo=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=MJzPLAggD6b2hJxzpyQosXw2U0etT00M9nUPG9HI4vVGBPMRycZVZZtU7xffrrOKtJQ8JkQCRJqt6i2iyXhgwdmYHvC9iztdRFWE9Olh0dGcTbN6EwI8ScFzZU8Q7t3uw9TOe9W78lNcVwPBKzeEwZs+I55fBwIdU+gPLx6YiA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.101])
-	by gateway (Coremail) with SMTP id _____8CxReikPP1pu70HAA--.18952S3;
-	Fri, 08 May 2026 09:30:12 +0800 (CST)
-Received: from [10.20.42.101] (unknown [10.20.42.101])
-	by front1 (Coremail) with SMTP id qMiowJDxB8GePP1pIZ58AA--.26821S3;
-	Fri, 08 May 2026 09:30:06 +0800 (CST)
-Subject: Re: [PATCH v2] dt-bindings: i2c: ls2x-i2c: Add clocks and
- clock-frequency properties
-To: Conor Dooley <conor@kernel.org>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, loongarch@lists.linux.dev
-References: <20260507081010.12810-1-wanghongliang@loongson.cn>
- <20260507-idealize-occultist-916fd07fc235@spud>
-From: Hongliang Wang <wanghongliang@loongson.cn>
-Message-ID: <84c37ac1-3a9c-b0d2-f86a-90712b45b806@loongson.cn>
-Date: Fri, 8 May 2026 09:29:08 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1778203939; c=relaxed/simple;
+	bh=QP0xG48S9tXmtCpI+YjP2zIBDW86qbdVELRqOAKilqM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ajnXr/LbM7ff/1Db2zfyhJYypwSz2bldbPmzLsrFARqoKR0woraX5D5WJMJ/20yuT1c1f6oZOyrB6HQSax5FsgxyUQrvQELD1frIfrQbe4lZQrcX4af1F5WBAQ0Wz9jl9BHttVoX/NtfR2XCvTheT8HCNniEm2VPT4OemM8AEAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NPtgybFn; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NPtgybFn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AE15C2BCB2;
+	Fri,  8 May 2026 01:32:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778203938;
+	bh=QP0xG48S9tXmtCpI+YjP2zIBDW86qbdVELRqOAKilqM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=NPtgybFnxiU/9wqeAjmLiX5jcpkh22KSrUmRWWc0ifwYDfYI5gyFBGwRIM2DZWZ5R
+	 shY1ZvtBAJTVNZs+G9H1+Jixrqyazmct2tfnZNPizRWaTh117NaqjFwo3rzZzFYAo2
+	 g0LzwlQDrL6HZ/LO5JD8KtZvLsuJmjZyl09ax92f6tEKDhuBtfotn2m390TJLJwF1y
+	 EJmhCPrNZaJSdSxyyEMA6T7JrmeM88MgwutZgQHhF2qF2dCfvMnf58uLHCj/yBiT18
+	 mftY56a1uPxo47dT3bpTwaKyvCPEyLqvN6s41QIPpaM72gFxzgTbUkup1Q+0eeKaLc
+	 ykXfd87BDzYTw==
+Date: Thu, 7 May 2026 20:32:13 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Luca Weiss <luca.weiss@fairphone.com>
+Cc: Georgi Djakov <djakov@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Mike Tipton <mike.tipton@oss.qualcomm.com>, 
+	Taniya Das <taniya.das@oss.qualcomm.com>, ~postmarketos/upstreaming@lists.sr.ht, 
+	phone-devel@vger.kernel.org, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v2 1/5] interconnect: Add devm_of_icc_get_by_index() as
+ exported API for users
+Message-ID: <af08-zMGzSSsw_NR@baldur>
+References: <20260501-milos-camcc-icc-v2-0-bb83c1256cc3@fairphone.com>
+ <20260501-milos-camcc-icc-v2-1-bb83c1256cc3@fairphone.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260507-idealize-occultist-916fd07fc235@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-CM-TRANSID:qMiowJDxB8GePP1pIZ58AA--.26821S3
-X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoW7tw4UXFW5Jr48JF48GFyUJwc_yoW8tr1DpF
-	nrCF1UGF4jvF17W395ta4UCF1Fvr9xAws7GFZrJFy7KF9rXw1vqr1akFyDuF1rCr4rZFW2
-	9FW0gw4j9FyDZabCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUPYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
-	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWU
-	AwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMx
-	k0xIA0c2IEe2xFo4CEbIxvr21lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l
-	4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxV
-	WUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI
-	7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r
-	1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI
-	42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jOa93UUUUU=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260501-milos-camcc-icc-v2-1-bb83c1256cc3@fairphone.com>
 
+On Fri, May 01, 2026 at 11:18:29AM +0200, Luca Weiss wrote:
+> Users can use devm version of of_icc_get_by_index() to benefit from
+> automatic resource release.
+> 
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 
-On 2026/5/8 上午1:29, Conor Dooley wrote:
-> On Thu, May 07, 2026 at 04:10:09PM +0800, Hongliang Wang wrote:
->> From: wanghongliang <wanghongliang@loongson.cn>
->>
->> clocks property describes the i2c bus reference clock from APB clock.
->> clock-frequency property describes i2c bus speed.
->>
->> Signed-off-by: wanghongliang <wanghongliang@loongson.cn>
->> ---
->>   Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml | 3 +++
->>   1 file changed, 3 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml b/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
->> index ee09c6d9c5f0..4bf89bb97e7d 100644
->> --- a/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
->> +++ b/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
->> @@ -38,10 +38,13 @@ unevaluatedProperties: false
->>   examples:
->>     - |
->>       #include <dt-bindings/interrupt-controller/irq.h>
->> +    #include <dt-bindings/clock/loongson,ls2k-clk.h>
->>   
->>       i2c0: i2c@1fe21000 {
->>           compatible = "loongson,ls2k-i2c";
->>           reg = <0x1fe21000 0x8>;
->> +        clock-frequency = <100000>;
->> +        clocks = <&clk LOONGSON2_APB_CLK>;
-> /stuff/linux-dt/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.example.dtb: i2c@1fe21000 (loongson,ls2k-i2c): Unevaluated properties are not allowed ('clocks' was unexpected)
-> 	from schema $id: http://devicetree.org/schemas/i2c/loongson,ls2x-i2c.yaml
->
->
-> Please test your patches before sending them.
-The error is becasue there is no clocks property in loongson,ls2x-i2c.yaml.
-The patch is based on the following repository and uses the 
-i2c-host-next branch.
-I found the clocks property already exist in loongson,ls2x-i2c.yaml, so 
-I didn't
-add it in my patch
+Georgi, can I have an ack on this, or an immutable branch and a ping
+once it's available?
 
-git://git.kernel.org/pub/scm/linux/kernel/git/andi.shyti/linux.git
->
-> Does this device actually have a clock or not?
-Yes,  the clock actually exists.
->
-> Cheers,
-> Conor.
->
->>           interrupt-parent = <&extioiic>;
->>           interrupts = <22 IRQ_TYPE_LEVEL_LOW>;
->>           #address-cells = <1>;
->> -- 
->> 2.47.2
->>
-Best regards,
-Hongliang Wang
+Thanks,
+Bjorn
 
+> ---
+>  drivers/interconnect/core.c  | 20 ++++++++++++++++++++
+>  include/linux/interconnect.h |  6 ++++++
+>  2 files changed, 26 insertions(+)
+> 
+> diff --git a/drivers/interconnect/core.c b/drivers/interconnect/core.c
+> index 8569b78a1851..bc2e416dbcb2 100644
+> --- a/drivers/interconnect/core.c
+> +++ b/drivers/interconnect/core.c
+> @@ -443,6 +443,26 @@ struct icc_path *devm_of_icc_get(struct device *dev, const char *name)
+>  }
+>  EXPORT_SYMBOL_GPL(devm_of_icc_get);
+>  
+> +struct icc_path *devm_of_icc_get_by_index(struct device *dev, int idx)
+> +{
+> +	struct icc_path **ptr, *path;
+> +
+> +	ptr = devres_alloc(devm_icc_release, sizeof(*ptr), GFP_KERNEL);
+> +	if (!ptr)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	path = of_icc_get_by_index(dev, idx);
+> +	if (!IS_ERR(path)) {
+> +		*ptr = path;
+> +		devres_add(dev, ptr);
+> +	} else {
+> +		devres_free(ptr);
+> +	}
+> +
+> +	return path;
+> +}
+> +EXPORT_SYMBOL_GPL(devm_of_icc_get_by_index);
+> +
+>  /**
+>   * of_icc_get_by_index() - get a path handle from a DT node based on index
+>   * @dev: device pointer for the consumer device
+> diff --git a/include/linux/interconnect.h b/include/linux/interconnect.h
+> index 4b12821528a6..75a32ad0482e 100644
+> --- a/include/linux/interconnect.h
+> +++ b/include/linux/interconnect.h
+> @@ -47,6 +47,7 @@ struct icc_path *of_icc_get(struct device *dev, const char *name);
+>  struct icc_path *devm_of_icc_get(struct device *dev, const char *name);
+>  int devm_of_icc_bulk_get(struct device *dev, int num_paths, struct icc_bulk_data *paths);
+>  struct icc_path *of_icc_get_by_index(struct device *dev, int idx);
+> +struct icc_path *devm_of_icc_get_by_index(struct device *dev, int idx);
+>  void icc_put(struct icc_path *path);
+>  int icc_enable(struct icc_path *path);
+>  int icc_disable(struct icc_path *path);
+> @@ -79,6 +80,11 @@ static inline struct icc_path *of_icc_get_by_index(struct device *dev, int idx)
+>  	return NULL;
+>  }
+>  
+> +static inline struct icc_path *devm_of_icc_get_by_index(struct device *dev, int idx)
+> +{
+> +	return NULL;
+> +}
+> +
+>  static inline void icc_put(struct icc_path *path)
+>  {
+>  }
+> 
+> -- 
+> 2.54.0
+> 
