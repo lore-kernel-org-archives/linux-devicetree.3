@@ -1,189 +1,168 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A6572FFDE1
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 10:32:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A50E230BE9
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 10:32:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778236368; cv=none; b=m63tbfi9JHfbjvNM0TaDmGhk+AIjSnM0O0qMJdIwwbXactxWuvQ9NCN2ueATpabj/c++ARYhi0iIuAgwcXhllgcYfWgD52lNzQzyru8J5UmMLnbH8bDOyKD3LcZPFnUxXy0hVJSF9OF5d1V7P8sMtm3PSgpFnfidYv/lFEQFN+E=
+	t=1778236371; cv=none; b=uACqPWtaimbLO1PxJueD6Jul3j+HcP0qp0jwS3XZxdbhBghMy5s1LLdYsTqCPtgN+uG3hgNcrEGgfO/SGOrgLhW5QK4E0kfEZQ97KdL0SV8TM2qqGVZhwyqC50m5k3puTOY3dcugqw1IYxsRaWlkk6XNYGkv8I4Du/yIFXoNEeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778236368; c=relaxed/simple;
-	bh=XFgOhQSea8H/x0Y1jr/TE2OHafMyIAqEOhW7qRyIjKU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=L2LfO/NKWSdUTWwdIyh+85YFMP4pQnnB6ncrheNrTxxdWp4ZEyXgvlym7zQLfriDO2v6x9zQXey/bl9HUp4tR8A31Ns6X9F5rfZBHoklHKQcCirOE67txT+T4aFNQuHBbk5IhWdhLr9GkUHIFT0Rs+9uUr3/alTd3wsnd37We6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Y3cNzZTy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=D43va9CY; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y3cNzZTy";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="D43va9CY"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6486jGoC257852
-	for <devicetree@vger.kernel.org>; Fri, 8 May 2026 10:32:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	88KTNTZQBYZHxyZCHSKo558FfLLokQHJQxk8gQgi94s=; b=Y3cNzZTyONFzI6nD
-	RRoYSXq4Yo6i/4bvOB0el/qeSnOg0s48t3R5isRqEWv3KtnoXaUgueHiw7OJV5s2
-	WVNKeB+OZ73vAKO+nb2ORPICMlF1bTlWNZDW5IzajqNlhLY/nmUuVSFC4qIjmz3x
-	5Uzur8ETia0DEe54EAzf1TpCli6lunwWBAtsnqtwYwWLdK0Mif448/97sM5uUaHh
-	HdhoCgkkfU+F9Wsw1/8uHai2Mc0vfkgW3eOM5j2I9avOy5b07oZYObgFM1eafnbu
-	O6EVEqzDaXPdHJW8QmMMrx64WAkIWKGsxSmt4u/fhGuU8pomyeFptQqPm9cd+KBs
-	gxd1IQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e1auegu8b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 08 May 2026 10:32:46 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-8eec753a7bdso59647885a.3
-        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 03:32:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778236366; x=1778841166; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=88KTNTZQBYZHxyZCHSKo558FfLLokQHJQxk8gQgi94s=;
-        b=D43va9CYoyrGrUlJDN98ImOIOjlRASiZf/2OL1iCwZ6QU1GsTnPsfJU9i94r9EopeX
-         32PXmEuT2gNk3cGiBe0noUGQ6ixDSmirYY7k0E3ibdc1P8HPOcVbO3KhRhg+xfNaPbFe
-         eeo0mCMOc5GcxqWwpsWbHeyaDhfHpHTLlLH/3UEB2wjh+GLE+hBwFid2Pw4XPYujJBrn
-         b0W4ETU7ZbWiqmWYu0YvDusbQtzvF7jn9cCP2KRLy3sk1kozEOG9M6GgLgFzGIH1NabJ
-         QBMFE0nXcgESdr2TGAZc6oHbEvnNbjcSbtxaJlmqUsEeHDnTgop2LjnqIOhdiDwWRRdZ
-         tDVg==
+	s=arc-20240116; t=1778236371; c=relaxed/simple;
+	bh=36lBpAkEr0H2Wsx1O/r0B32FSIwBe2F6o8wScyIxU0A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=B26GbgQt1SgA/W6bfvwR/LrRBNHcQG3bo/YVfZQJSfjdgI3NXYy+UoZIE5trwaf5b3zF64w6d42rjGGQIeiGbGlOwRH7hdTf87uQuQdVSkBlv+AslTPecXEpqXQ+jBaJcTGzQyLJRYm7JwYQ01/Mnyjl7QrY0yVDcwK/4j6uw+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-62f390b8df7so1172608137.1
+        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 03:32:50 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778236366; x=1778841166;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=88KTNTZQBYZHxyZCHSKo558FfLLokQHJQxk8gQgi94s=;
-        b=RduGvnHdI3OoSJPoK6zEf6E0Z/jG5GLToPWTb9201DaHr9m7Vu1+KdGmiJFrCG2VTl
-         xuDynlkRr2HtlTNEr0y0bJZtCVW5/KXYDAhdK2g+NRhxaeLGL33wUcyVEVRqgqAP4M4T
-         SDJkZC8XkYzXqTFPuAIePLRxLj63TJB+oJ7Dlu2ulagm2cK9iKVMu+MEVPhieEzogozj
-         gIh6hj8xQLvcCs5Yd+IWRmbB9FNJL85w1664yi9QI5xfUM8zPXxCjbvJAKRuY63WrRax
-         4Vb6pbOztkjUkm1dpZlRubVoIcIfZ83QqGBTxH5oONzxi36qLsvNX4IQBKdLpctrNXJ2
-         70tA==
-X-Gm-Message-State: AOJu0Yxqywwf6yWMlApvC4klamvBXKW0DUfCuwHIa4MRS4ALonVuWmRm
-	oso4jQJ15LKNtVoOsiRWq2WRJZr6/KLLWqB/SClq78AFuLgx8ym2O4nW2K2qrBfiJRa9N5MV9M8
-	iASJXrSox5rNHJt5WsFKPj/ot3B2Ypx1N0C55u9rbuClOhLPhY5J7gC4UM+Q8OVOg
-X-Gm-Gg: AeBDietCxck8VcWyLGim+EbQejhfAaaCFGkMjMu7Lfw3Q34KT/77ypYr2AxpecE7hAT
-	BBGvcZmrgDPdYZiqAa97Z/XyfOCvtHhucN5IQAiDTWgndY1spUEygwYwumlpzq/Ek5BTidDBl2H
-	HYDtYKhmUOOaV64qY024ZfITnndhoiCHEmPZ52ptY7E4hhu9aTrKLsizJPJQznzmnrw/fUu78TO
-	t+AsSNg7HNw+wL0J8UVVbcDWRjvFXY/XIYYkYnabw6JKJETEoyfKqrScZReTL0z/xlnHt/5jeUh
-	XoECB64T4H8IccwptyhexnR42d3mz6FLUTCis3VtpiaGCPg/ZEZZNESOurCgaXQuKfmRVonAKP4
-	CY5u66HNT7VD7Q/AxmJ/i9ZivHdTw88XAoDbyb/jMXRUcs1DZ/JVTpTUwFlT21N1KvrcOMJb9Kc
-	sWh5c=
-X-Received: by 2002:a05:620a:469e:b0:8f8:6b36:fad3 with SMTP id af79cd13be357-904d78a863cmr1223117785a.8.1778236365740;
-        Fri, 08 May 2026 03:32:45 -0700 (PDT)
-X-Received: by 2002:a05:620a:469e:b0:8f8:6b36:fad3 with SMTP id af79cd13be357-904d78a863cmr1223116085a.8.1778236365283;
-        Fri, 08 May 2026 03:32:45 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-67ef0b3ba35sm509875a12.2.2026.05.08.03.32.42
+        d=1e100.net; s=20251104; t=1778236369; x=1778841169;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LZIqmD8zZ0qFeOi8hR6tlVmjP85Y0OQ26EIUPvE1H2I=;
+        b=glS75wiCxaBEV08gGDECAAlKzHww0dZv/KGyZiF4GvftIzOBjDmyLc6+kCBoSfBr0+
+         BY18TgVuI2YbyTNftcECUK3lREYDQCXmz9dFicjam5oBA7en0rAQmaDmQUbPocUS+iJF
+         w8DZu/TfQbeiIp4C6A8rh22htvnqMRwZddpj4aI6GnuxpyxxWNtpy1Lmkg6/vX9UQyuC
+         cu+vnWP/u3BvyLQLa/Q1Ou6w8k2v5p2JqkTNmfh38Pw98ppLT1lgV5Q1LgaD+3QHbUs5
+         l5XuVLIGYNC14uVbPWh9t0hmr3HpFBnsZbmmWnwp0HxUKZOW8BQAxTb5Rq+w1v2DgE5e
+         af/Q==
+X-Forwarded-Encrypted: i=1; AFNElJ+gQDjooC9vKVD6ibwpi6oiNa8gNgdugL5IVTT+S+PbKVQxca6dWELAQYLodJSdCNFx3oJ7a7J22Y8j@vger.kernel.org
+X-Gm-Message-State: AOJu0YyF4juwzojqC1DRQWIoSq7QZb1a3aoUX0gNCvs/NSSlMtx3hs39
+	MeKS8PPaaPrR7HWgDXjN8V2zRKRNtNb4OpARojZ/Ujfzx2+sHfOoOPLObXbxm3LtQKs=
+X-Gm-Gg: Acq92OFYF9yKvszWdxXChu7eAjur9MBaJlYfBt3jv6fEO+qXz0yPHxNFsx71fCI3Mtm
+	BRB5re7V92dT9/tVRg4DIpnyYpf2mIBydTWD8uCokeJ8VPgNh1qjPV6R7hFa5GXPVoHJ/baOF6P
+	awaviiaCbX3sNiNLdv24QpXYRaDc0YWIQtsmt6DtLe1CHHSah700XYmbloPz2/ecc0Ii6dwewt0
+	m2CXxhj4bwpzC2iARd8ZgnCdujkEXpXNF4gsUbEcDQnsLTLDPEnF7FktaI+3kdRCcpv+GtV9amG
+	PgbiZh+3Chwqg3u6j8S/QwVM9OnKMEsQMpM9SkEXX//H/86VBZyq50Ok/pB2wUevFiAVsel5g2R
+	7FH9hM199Ek2xR+mLCK2mMfycCZPyTVyo9/B1lbXLyf7Hv12QmMO/VhGsN0ATYN+9+j9AT4058W
+	Jmg73KnLRhBXtLgl78EW3jc+jKShZKglXzK+zX7TQIqgIDZQ55RWq+uzCpEeGH
+X-Received: by 2002:a05:6102:5a95:b0:62f:3c55:d41e with SMTP id ada2fe7eead31-630f9058785mr6559042137.24.1778236369041;
+        Fri, 08 May 2026 03:32:49 -0700 (PDT)
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com. [209.85.217.42])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-631402487f3sm603311137.10.2026.05.08.03.32.48
+        for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 08 May 2026 03:32:43 -0700 (PDT)
-Message-ID: <fa5c5ed6-afd3-4e5d-80bb-921d6f96dfac@oss.qualcomm.com>
-Date: Fri, 8 May 2026 12:32:41 +0200
+        Fri, 08 May 2026 03:32:48 -0700 (PDT)
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-628086439b6so1423184137.2
+        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 03:32:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/jY5lBDovprsJZKGSJg/ZlyCQgCHfG4+efXTVv+HCXP9LCp8O+3UVTHb5BsjdSm/Oxur/XOyDFWgsg@vger.kernel.org
+X-Received: by 2002:a05:6102:3048:b0:614:bef5:637c with SMTP id
+ ada2fe7eead31-630f8c2bb7dmr6450388137.0.1778235990622; Fri, 08 May 2026
+ 03:26:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] of: property: Create devlink between PCI Host bridge
- and Root Port supplies
-To: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        robh@kernel.org, saravanak@kernel.org
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        qiang.yu@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-        Bjorn Andersson <andersson@kernel.org>
-References: <20260506075625.8490-1-manivannan.sadhasivam@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260506075625.8490-1-manivannan.sadhasivam@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA4MDEwOSBTYWx0ZWRfX8aoFwcwqbB9L
- eOXnIHLZ6goQ7JWquvujjAYJ57eajgsf4m3ZUDEljt2HgWItSxc9FGbMhxbilI8G/Q/bRQeTLxP
- jGmpR2ZqPmg9tsmoIpfacQyyBQqJ8sIFrrUwjXd8IZZZ2bE4jnDedT2BeSQsCxYguGVeSwdGm9z
- cF+XF6uNDsqZ+VOagcNwTRn+P7QG+QMbmn4OeN7b/BY77VyzwybeGFdh5dBichfYaRjfvIRIRkc
- wJ8klc/pCFG7yKGZWlEyxhlMWclf910KsXjMjwJ2OLijR0SH/TIn0fSAn8lsW7fp2LwHXJTivSR
- rQ7R1vLX7CNAIKvHFJGJyG+I2oDbM4OCaSVe0DEj3qhsUgPuGMqQbLDI8a/JKhF+1cf/xWX+K6s
- AHuwjjKnjEcprYqY3lgQc2qd+hv/f9wz4SV6R5b01ckTkNjVNasNj5iuv9klJvzq2gyWyx192+f
- lm7311mmJ56JSbNgaLw==
-X-Proofpoint-GUID: 6VCU_5KpBbdcVvboLb9fQcJCNPPtxnTF
-X-Proofpoint-ORIG-GUID: 6VCU_5KpBbdcVvboLb9fQcJCNPPtxnTF
-X-Authority-Analysis: v=2.4 cv=fcydDUQF c=1 sm=1 tr=0 ts=69fdbbce cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=8Pzyt-o0a4R5NFuvPhkA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-07_02,2026-05-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0
- priorityscore=1501 impostorscore=0 adultscore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605080109
+References: <cover.1776793163.git.geert+renesas@glider.be> <72e2a0e7a5abda02fe36b3f5851842f7a77b2593.1776793163.git.geert+renesas@glider.be>
+ <aekXUvIPb8nkhdKu@pluto> <CAMuHMdWJvMH+a1RqozbaCxxH_8M569JcruTFa8PW+87FysnjHw@mail.gmail.com>
+ <ae6Zp54NhKlVes8J@pluto>
+In-Reply-To: <ae6Zp54NhKlVes8J@pluto>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 8 May 2026 12:26:19 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWK3Noh5ZQVWT9C0EKyXZePMaJ97C0A_syK+xCb_=abeQ@mail.gmail.com>
+X-Gm-Features: AVHnY4J3TVnOKvIG81cskhXstanCgVV2EYjhdTAUgyNfFJiiKyj4H0BCwyLVTfY
+Message-ID: <CAMuHMdWK3Noh5ZQVWT9C0EKyXZePMaJ97C0A_syK+xCb_=abeQ@mail.gmail.com>
+Subject: Re: [PATCH/RFC 05/14] firmware: arm_scmi: Add scmi_get_base_info()
+To: Cristian Marussi <cristian.marussi@arm.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Saravana Kannan <saravanak@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Ulf Hansson <ulfh@kernel.org>, 
+	"Rafael J . Wysocki" <rafael@kernel.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, arm-scmi@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 5/6/26 9:56 AM, Manivannan Sadhasivam wrote:
-> Recently, devicetree started to represent the PCI Host bridge supplies like
-> PHY in the Root Port nodes as seen in commit 38fcbfbd4207
-> ("dt-bindings: PCI: qcom: Move PHY & reset GPIO to Root Port node"). But
-> the Host bridge drivers still control the Root Port supplies as a part of
-> their controller initialization/deinitialization sequence.
-> 
-> So the Host bridge drivers end up parsing the Root Port supplies in their
-> probe() and control them. A downside to this approach is that the devlink
-> dependency between the suppliers and Host bridge is completely broken. Due
-> to this, the driver core probes the Host bridge drivers even if the
-> supplies are not ready, causing probe deferrals and setup teardowns in
-> Host bridge probe().
-> 
-> These probe deferrals sometime happen over 1000 times (as reported in Qcom
-> Glymur platform) leading to a waste of CPU resources and increase in boot
-> time. So to fix these unnecessary deferrals, create devlink between the
-> Host bridge and Root Port supplies in of_fwnode_add_links(). This will
-> allow the driver core to probe the Host bridge drivers only when all Root
-> Port supplies are available.
-> 
-> Reported-by: Bjorn Andersson <andersson@kernel.org>
-> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> ---
+Hi Cristian,
 
-[...]
+On Mon, 27 Apr 2026 at 01:03, Cristian Marussi <cristian.marussi@arm.com> wrote:
+> On Fri, Apr 24, 2026 at 02:08:55PM +0200, Geert Uytterhoeven wrote:
+> > On Wed, 22 Apr 2026 at 20:45, Cristian Marussi <cristian.marussi@arm.com> wrote:
+> > > Also because this should be one of the selling point of the SCMI stack
+> > > in a virtualized environment: you can ship the same kernel drivers with
+> > > the same DT and you know that ID=<N> will always identify the specific
+> > > resource that is needed by your driver without worrying about the fact
+> > > that in reality in the backstage the effectively managed physical resource
+> > > could be different across different platforms, because that does not matter
+> >
+> > This sounds strange to me, do I understand it correctly?
+> > So the ID should (1) be tied to the use-case, and not to the underlying
+> > hardware, and (2) be the same for different platforms?
+> >
+> > For (1): Then we must not put these IDs in DT at all, as DT is supposed
+> >     to describe the hardware (and firmware IDs in DT were IMHO already
+> >     a stretch before).
+> > For (2): How can there be a contiguous list of IDs, as not all platforms
+> >     may have the same underlying hardware?
+>
+> I would NOT say that an SCMI FW must behave like this regarding IDs, but it
+> is a possible SCMI deployed setup that can be useful in virtualized setups
+>
+> I mean, the DT describes the hardware of course BUT when you refer to
+> some of this hardware DT bits from some other subsystem by referencing a
+> phandle, even in the non-SCMI world, you are in fact selecting a specific
+> resource that fit you use case, right ? Can we say this ?
+> I mean you needed that specific clock or regulator that you described
+> previously so as to be able to enable some other piece of HW...
+>
+> Now, the SCMI provides an abstraction on top of this, since you really
+> discover domain IDs of a specific class (clocks/regulators etc) you are
+> in fact describing an HW abstraction that you then refer with the usual
+> phandle...also because there is NOT so much SCMI hardware to describe,
+> given that the HW is handled transparently (opaquely really :P) by the
+> driver on the FW side...
+>
+> ...you basically obtain such domain ID, usable as phandles through dynamic
+> SCMI enumeration so that you can use it all over your DT to make use of such
+> resources...
+>
+> ...on top of this, consider that the SCMI server CAN provide to its agents
+> a per-agent-view of the world, IOW it can (and should) expose to a specific
+> agent ONLY the resources needed by that agent, i.e. it can expose the set
+> of resources 1-N to two distinct agents and that does NOT mean that the
+> underlying physical resource mapped by ID=3 in both agents has to be
+> effectively the same piece of hardware: it could be the case, and this
+> would be useful to exposed and managed properly a shared resource, or
+> it could also be that the same ID=3 could refer to completely distinct
+> pieces of the same class of hardware...(same protocol same class of
+> resource...)
 
-> +	/*
-> +	 * Since the host bridge drivers parse and control the Root Port
-> +	 * supplies, create a devlink between host bridge and Root Port
-> +	 * supplies. This will prevent the host bridge drivers from being
-> +	 * probed before the supplies become available.
-> +	 *
-> +	 * For checking the host bridge node, first ensure that it is a PCI node
-> +	 * and its parent is not a PCI node. Only host bridge nodes will have
-> +	 * this structure.
-> +	 */
-> +	if (of_node_is_type(con_np, "pci") && !of_node_is_type(con_np->parent, "pci")) {
-> +		for_each_available_child_of_node_scoped(con_np, child) {
-> +			if (of_node_is_type(child, "pci")) {
+Exposing only the clocks/reset/power domains the agent can use,
+in a contiguous list of IDS, means that the number space changes,
+depending on which resources are exposed.
 
-Doesn't this go a level too deep now? (a change vs v1)
+Suppose you have a system where you want to assign a specific hardware
+block in the SoC to the realtime CPU core instead of the application
+CPU core running Linux.
+That means all resources used by that block must no longer be exposed
+to the Linux agent, and the corresponding IDs must be removed from
+the ID space exposed to Linux.  As the ID space must be sequential
+and contiguous, the IDs must be renumbered, impacting resources that
+are exposed to Linux.  As these IDs are used in the SoC .dtsi, they
+must be changed there, too, However, these IDs have become part of
+the stable DT ABI, and thus cannot be changed.
 
-for example, in x1e80100.dtsi:
+This patch series fixes that issue, too, by describing the actual
+hardware in DT, and doing the mapping to exposed SCMI features in the
+kernel, based on which firmware version is running on the SCP.
 
-con_np = &pcie3_port0
-con_np->parent = &pcie3
+Gr{oetje,eeting}s,
 
-And I think the code now looks for device(such that device_type="pci")
-*under* &pcie3_port0
+                        Geert
 
-Konrad
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-> +				for_each_property_of_node(child, p)
-> +					of_link_property(child, con_np, p->name);
-> +			}
-> +		}
-> +	}
->  
->  	return 0;
->  }
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
