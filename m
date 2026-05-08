@@ -1,218 +1,149 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F094941B370;
-	Fri,  8 May 2026 19:31:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8C6B352921
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 19:32:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778268719; cv=none; b=oiWkBsNPc85UoqyxjwJKDgDNp0HlawKZvs2+kEqUVPLN+2b7va03j1EX7b7Al/0piLxxguZ0LgoTB4fxp5tQGjnXsOy0dVWBIDHdi8jTAOVuOhWpfolGWW1iZ1dC0MLpEgQdb41jD8eQ3vc8slyUDtAbK/gxCr3mdE7wnJBI7cI=
+	t=1778268730; cv=none; b=QqnVBk7z6MGHj/QfHuxWnvaSsdrKFf6iimC62h9lWq/i29HtqiWjgDfLvR8zb9u/+ZACdFkVVtV/M8IMwEKMt5yaXu3WqdNtgrBeeaeTJZE7d7p2nER+dqNSiRQdb0Pnc+iG2ayiqkj5ZPtK99eMSXsPts25cMs7WNzJcNx+CYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778268719; c=relaxed/simple;
-	bh=GvfgvZED8ovEP/sr2vgQj8tDELp0fpA9+wyHVXzY/pY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gLYQMfaiTVtO+t1qEMlwY2i6SpAFQYmHgMN0EfWgW7IoeXEToLvp2inLA/qDJugX4sLvoe1dXJcm4Osju6qCc1QyR0NdMeaEIsiVG5v8Jz2cqq++x+UYqXY+d99usZMAoGTdJ9Vyw0Vw6SaPZPvrOpG39tZ4ywbKckD73dzhm08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SlEgM1MK; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778268730; c=relaxed/simple;
+	bh=YKzSx8KxFZBvMT5ge1nqalozyEpVNAPMZVTauQCnY/c=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Te93R440tSzRZjalNHcLaGm25HH0x+VLfpIR8AlO2/CQwWxZDeid6ftczVdhGcPiaVuRXtwEE6xtRKCodfEYy9mirbCI603N28/KAhe6KB9Z7z0ezHoOnXchTpAaomiy0DrSKDOjpPVF2kCdtu0Bi5vz2KZTkDfbVqS9ryhJ3bU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gZNf3qqi; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SlEgM1MK"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CC91CC4AF0F;
-	Fri,  8 May 2026 19:31:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gZNf3qqi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47903C2BCB0;
+	Fri,  8 May 2026 19:32:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778268718;
-	bh=GvfgvZED8ovEP/sr2vgQj8tDELp0fpA9+wyHVXzY/pY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=SlEgM1MKTX9/Aoru0LTvQzcVSWHcYRdoJy+veEC57gumMxYKLhr4ksX63Ak4GyoC3
-	 S5kUUe5sz3/AHROL1ds13SdJM8sgVxqVZNSyMoXK6r4fLeQXIWJIBTLEW4M6Sl51nu
-	 rU4x6nq9v26cQIf/CtdJMAZegB2/+g+SGflvaabMvGme9sm1rdiEhVcJHHNBBd+Gt5
-	 yB79FdQsH1lmy5u30AKMfz0UnQbwZph6uuhh4MZ2ohno49jTOHq293sci3sqSS9C2k
-	 Kck6fMf8sgVNnRfSyPsHjJHdDXphhY4muECwuVjxaio8Efk5dCRwxdKozNVyDMZYqG
-	 uoBXK+XCoyB4w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C3305CD3445;
-	Fri,  8 May 2026 19:31:58 +0000 (UTC)
-From: Michael Riesch via B4 Relay <devnull+michael.riesch.collabora.com@kernel.org>
-Date: Fri, 08 May 2026 21:31:50 +0200
-Subject: [PATCH v4 7/8] arm64: dts: rockchip: add radxa camera 4k on rock
- 5b+ cam1
+	s=k20201202; t=1778268730;
+	bh=YKzSx8KxFZBvMT5ge1nqalozyEpVNAPMZVTauQCnY/c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=gZNf3qqi9GVccojrl0vJOQmQwwLlcU7TR58mewcqD9uz5SYsFIfNQ8rIk+darAUaW
+	 P3RYw6ia6X09jxW8acxKzpdwhVCvzsZsMnrj2JZG5F6X7fOclSw+B2myQMZRt/3rQl
+	 cjL0nXGA4/BEzLa8Yf/bgBlT49FjN52YGhCRC6Y7jkRWaAYwOGAHOXB9cSwPG2/Vb3
+	 +bUxzOcFsc9zh3uy6tNB5I89O6LLTGGyETFXS/uhqDaauwEuy9Xw5jkWOpIZr6yYIZ
+	 reRXwIXkZvoU7jVMakavfPJN/GHcflzzCH5xtkEqvOUEhPcdBG+Xv/UaIJr3iv7mc/
+	 8c1+uHmkaqZZg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] pinctrl: qcom: Add Shikra pinctrl driver
+Reply-To: sashiko@lists.linux.dev
+To: "Komal Bajaj" <komal.bajaj@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260508-shikra-pinctrl-v3-2-771144cdc411@oss.qualcomm.com>
+References: <20260508-shikra-pinctrl-v3-2-771144cdc411@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 08 May 2026 19:32:09 +0000
+Message-Id: <20260508193210.47903C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260508-rk3588-vicap-v4-7-6a6cd6f7c90b@collabora.com>
-References: <20260508-rk3588-vicap-v4-0-6a6cd6f7c90b@collabora.com>
-In-Reply-To: <20260508-rk3588-vicap-v4-0-6a6cd6f7c90b@collabora.com>
-To: Mehdi Djait <mehdi.djait@linux.intel.com>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Kever Yang <kever.yang@rock-chips.com>, 
- Jagan Teki <jagan@amarulasolutions.com>, 
- =?utf-8?q?=D0=9A=D1=83=D0=B7=D0=BD=D0=B5=D1=86=D0=BE=D0=B2_=D0=9C=D0=B8=D1=85=D0=B0=D0=B8=D0=BB?= <mai.kuznetsov.misha@gmail.com>, 
- Charalampos Mitrodimas <charmitro@posteo.net>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Collabora Kernel Team <kernel@collabora.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Michael Riesch <michael.riesch@collabora.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778268716; l=4388;
- i=michael.riesch@collabora.com; s=20260428; h=from:subject:message-id;
- bh=RftYePeWXUUid7upV6ga5pVg+NAmwZ320HDRp8cMYOc=;
- b=LqOkFNrCoJdcRThCXR/xB4esf5SUk7ytNyot5nc084Lf6fh7Z/KbQMco0QdaBEMTzgtrOkRhk
- s2HmFlLwVAnDr8KSOJcaIg1mN30QX+J39A+Ntb1Qjcx1zhU6bfrlqIE
-X-Developer-Key: i=michael.riesch@collabora.com; a=ed25519;
- pk=tAbmpPTE1MELYweXqqDU40fa18uCO6s32GJL/RzyW2Y=
-X-Endpoint-Received: by B4 Relay for michael.riesch@collabora.com/20260428
- with auth_id=759
-X-Original-From: Michael Riesch <michael.riesch@collabora.com>
-Reply-To: michael.riesch@collabora.com
 
-From: Michael Riesch <michael.riesch@collabora.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Inconsistent eGPIO (Embedded GPIO) hardware configuration.
+--
 
-Add device tree overlay for the Radxa Camera 4K (featuring the Sony IMX415
-image sensor) to applied on the Radxa ROCK 5B+ CAM1 port.
+commit a63bd64b64bae3d595ab0e510830b193aeee7ba6
+Author: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
 
-Signed-off-by: Michael Riesch <michael.riesch@collabora.com>
----
- arch/arm64/boot/dts/rockchip/Makefile              |  4 +-
- .../rk3588-rock-5b-plus-radxa-cam4k-cam1.dtso      | 99 ++++++++++++++++++++++
- 2 files changed, 102 insertions(+), 1 deletion(-)
+pinctrl: qcom: Add Shikra pinctrl driver
 
-diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
-index d4ff476fb9814b18c74c6d59d73cf5d8e6ee9ca7..761d82b4f4f2ac7f0f4ba5e1f94f495b2160a059 100644
---- a/arch/arm64/boot/dts/rockchip/Makefile
-+++ b/arch/arm64/boot/dts/rockchip/Makefile
-@@ -207,6 +207,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-pcie-ep.dtbo
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-pcie-srns.dtbo
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-plus.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-plus-radxa-cam4k-cam0.dtbo
-+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-plus-radxa-cam4k-cam1.dtbo
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5t.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-tiger-haikou.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-tiger-haikou-video-demo.dtbo
-@@ -324,7 +325,8 @@ rk3588-rock-5b-pcie-srns-dtbs := rk3588-rock-5b.dtb \
- 
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-plus-radxa-4k-cam.dtb
- rk3588-rock-5b-plus-radxa-4k-cam-dtbs := rk3588-rock-5b-plus.dtb \
--	rk3588-rock-5b-plus-radxa-cam4k-cam0.dtbo
-+	rk3588-rock-5b-plus-radxa-cam4k-cam0.dtbo \
-+	rk3588-rock-5b-plus-radxa-cam4k-cam1.dtbo
- 
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-tiger-haikou-haikou-video-demo.dtb
- rk3588-tiger-haikou-haikou-video-demo-dtbs := rk3588-tiger-haikou.dtb \
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam1.dtso b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam1.dtso
-new file mode 100644
-index 0000000000000000000000000000000000000000..96b8df4ed3540df69e997aa9967168c4249dbf52
---- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam1.dtso
-@@ -0,0 +1,99 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Device tree overlay for the Radxa Camera 4K attached to the CAM1 port of
-+ * the Radxa ROCK 5B+.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/clock/rockchip,rk3588-cru.h>
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/pinctrl/rockchip.h>
-+
-+&{/} {
-+	savdd_cam1: regulator-savdd-cam1 {
-+		compatible = "regulator-fixed";
-+		regulator-min-microvolt = <2900000>;
-+		regulator-max-microvolt = <2900000>;
-+		regulator-name = "savdd_cam1";
-+		vin-supply = <&vcc_3v3_s3>;
-+	};
-+
-+	sdvdd_cam1: regulator-sdvdd-cam1 {
-+		compatible = "regulator-fixed";
-+		regulator-min-microvolt = <1100000>;
-+		regulator-max-microvolt = <1100000>;
-+		regulator-name = "sdvdd_cam1";
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	siovdd_cam1: regulator-siovdd-cam1 {
-+		compatible = "regulator-fixed";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		regulator-name = "siovdd_cam1";
-+		vin-supply = <&vcc_3v3_s3>;
-+	};
-+};
-+
-+&i2c4 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	status = "okay";
-+
-+	cam1_imx415: camera-sensor@1a {
-+		compatible = "sony,imx415";
-+		reg = <0x1a>;
-+		assigned-clocks = <&cru CLK_MIPI_CAMARAOUT_M4>;
-+		assigned-clock-rates = <37125000>;
-+		avdd-supply = <&savdd_cam1>;
-+		clocks = <&cru CLK_MIPI_CAMARAOUT_M4>;
-+		dvdd-supply = <&sdvdd_cam1>;
-+		orientation = <2>; /* External */
-+		ovdd-supply = <&savdd_cam1>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&cam1_rstn &mipim0_camera4_clk>;
-+		reset-gpios = <&gpio2 RK_PB0 GPIO_ACTIVE_LOW>;
-+
-+		port {
-+			cam1_imx415_output: endpoint {
-+				data-lanes = <1 2 3 4>;
-+				link-frequencies = /bits/ 64 <445500000>;
-+				remote-endpoint = <&csi4_input>;
-+			};
-+		};
-+	};
-+};
-+
-+&pinctrl {
-+	cam1 {
-+		cam1_rstn: cam1-rstn-pinctrl {
-+			rockchip,pins = <2 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+};
-+
-+&csi4 {
-+	status = "okay";
-+};
-+
-+&csi4_in {
-+	csi4_input: endpoint {
-+		data-lanes = <1 2 3 4>;
-+		link-frequencies = /bits/ 64 <445500000>;
-+		remote-endpoint = <&cam1_imx415_output>;
-+	};
-+};
-+
-+&csi_dphy1 {
-+	status = "okay";
-+};
-+
-+&vicap {
-+	status = "okay";
-+};
-+
-+&vicap_mmu {
-+	status = "okay";
-+};
+Add pinctrl driver for TLMM block found in Shikra SoC.
 
--- 
-2.47.3
+> diff --git a/drivers/pinctrl/qcom/pinctrl-shikra.c b/drivers/pinctrl/qcom=
+/pinctrl-shikra.c
+> new file mode 100644
+> index 0000000000000..f063e73e5bbd5
+> --- /dev/null
+> +++ b/drivers/pinctrl/qcom/pinctrl-shikra.c
 
+[ ... ]
 
+> +#define PINGROUP(id, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11)	\
+> +	{						\
+> +		.grp =3D PINCTRL_PINGROUP("gpio" #id,	\
+> +			gpio##id##_pins,		\
+> +			ARRAY_SIZE(gpio##id##_pins)),	\
+> +		.funcs =3D (int[]){			\
+> +			msm_mux_gpio, /* gpio mode */	\
+> +			msm_mux_##f1,			\
+> +			msm_mux_##f2,			\
+> +			msm_mux_##f3,			\
+> +			msm_mux_##f4,			\
+> +			msm_mux_##f5,			\
+> +			msm_mux_##f6,			\
+> +			msm_mux_##f7,			\
+> +			msm_mux_##f8,			\
+> +			msm_mux_##f9,			\
+> +			msm_mux_##f10,			\
+> +			msm_mux_##f11 /* egpio mode */	\
+> +		},					\
+> +		.nfuncs =3D 12,				\
+> +		.ctl_reg =3D REG_SIZE * id,		\
+> +		.io_reg =3D 0x4 + REG_SIZE * id,		\
+> +		.intr_cfg_reg =3D 0x8 + REG_SIZE * id,	\
+> +		.intr_status_reg =3D 0xc + REG_SIZE * id,	\
+> +		.mux_bit =3D 2,			\
+> +		.pull_bit =3D 0,			\
+> +		.drv_bit =3D 6,			\
+> +		.egpio_enable =3D 12,		\
+> +		.egpio_present =3D 11,	\
+
+[ ... ]
+
+> +static const struct msm_pingroup shikra_groups[] =3D {
+> +	[0] =3D PINGROUP(0, qup0_se0, m_voc, _, phase_flag, _, _, _, _, _, _, _=
+),
+> +	[1] =3D PINGROUP(1, qup0_se0, mpm_pwr, ddr_bist, _, phase_flag, atest_t=
+sens, _, _, _, _, _),
+
+[ ... ]
+
+> +static const struct msm_pinctrl_soc_data shikra_tlmm =3D {
+> +	.pins =3D shikra_pins,
+> +	.npins =3D ARRAY_SIZE(shikra_pins),
+> +	.functions =3D shikra_functions,
+> +	.nfunctions =3D ARRAY_SIZE(shikra_functions),
+> +	.groups =3D shikra_groups,
+> +	.ngroups =3D ARRAY_SIZE(shikra_groups),
+> +	.ngpios =3D 166,
+> +	.wakeirq_map =3D shikra_mpm_map,
+> +	.nwakeirq_map =3D ARRAY_SIZE(shikra_mpm_map),
+> +	.egpio_func =3D 11,
+> +};
+
+Is the hardware eGPIO configuration completely implemented?
+
+The driver configures .egpio_func =3D 11 in shikra_tlmm and defines
+egpio_enable =3D 12 and egpio_present =3D 11 bits in the PINGROUP macro, in=
+dicating
+that eGPIO is mapped to function index 11.
+
+However, the driver does not define the msm_mux_egpio enum, the egpio_groups
+array, or MSM_PIN_FUNCTION(egpio). Instead, it passes the dummy function _ =
+for
+the 11th mux slot (f11) across all pins in shikra_groups.
+
+Because .egpio_func is non-zero, the core pinctrl-msm driver will actively
+clear bit 12 (egpio_enable) of ctl_reg during any pin mux operation if bit =
+11
+is set.
+
+If the SoC does not support eGPIO and these bits serve another purpose, cou=
+ld
+this unexpectedly change the hardware state on every pin mux change? Conver=
+sely,
+if it does support eGPIO, it appears the feature would be unusable because =
+it
+cannot be selected via the device tree since the function is not exposed.
+
+Could you clarify if eGPIO is intended to be supported on this SoC?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508-shikra-pin=
+ctrl-v3-0-771144cdc411@oss.qualcomm.com?part=3D2
