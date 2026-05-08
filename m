@@ -1,118 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FFC5366548;
-	Fri,  8 May 2026 11:14:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C4B1393DFB
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 11:17:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778238892; cv=none; b=V1PQWeltmnuaStkB0E2XDJdciL4X2MfDq+e25hyKNzDj8/F/PjFXCvCVetjNHE75VgW+EpparjycMRXLi48MzQOT2SLQ3NkK87CV/f3+hcgpfGSR2nbOLdnwjXF6dMH2h173lGfiChmu6zaUVUWT6trXv0qwqmXprGaHCVAFCV0=
+	t=1778239073; cv=none; b=PEQk8LxkBU+P8caJ1EAtUbBYlVyFPKEjODFkQfWimyzZghUJrNoCaUmcSvET6/TbWVDwtNdLqazUh/8IWeACZfu25IeRKXOgKUrwsTah5KZioEOz6Z64G+M/FviIjuxeQUAiBOsHp1wdGuYzgF1LlwT+Y/1V/A8p4ZgMka46oK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778238892; c=relaxed/simple;
-	bh=N8/TlknTCIAmm7VK5XnWcLlnoXQaSSgG0+J5zy49JWI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gDX5CoHDsT2AwDcf5EEw6KRfelxJ5lx/+F2z7lS8GZG72ydczaAD3B31HvlRtmi6GLHBQl7yOXmp71SG/aY4wb9Nn7VW65ZAj1e+xDcpcTFCFAcHLE+t2XJAOEo8gKWJXDFLS9eFNsHtOMwYXVwUCMk1IVbVlL4N7ry8NlnrQUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kOrU2gjT; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778239073; c=relaxed/simple;
+	bh=cih7KlGPpFgUEiNss2zxTKa0s7P9pJ/t9FSqGyajF5Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OSKA8CV+QPmTNw3RQjjFpJ2UkrWnpLB3gXScdIvMDLXzsSSpbJMTAqlPjQ9+i2uCP+Zhl4Ri90N/X60d0IZE37dKbPu3Ig9pjMCKpbiMdu3Vr2sMxXsxJ8LiZHtVKC1uwph3GFq26lYjg2dWPkiNmTFEygrq9s195mOCeCwImoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qoQW5PU/; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kOrU2gjT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9707BC2BCB0;
-	Fri,  8 May 2026 11:14:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778238891;
-	bh=N8/TlknTCIAmm7VK5XnWcLlnoXQaSSgG0+J5zy49JWI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=kOrU2gjTEW5egjRZVCOcLfeDnnDB+KpdFQtgFMqBuUqVYaanWXsFvARvYBzrYLloh
-	 mZUUO50hZ6MGQH1u1jlzw8Z2j6I65tX3B2q6zAaxV4AeqCV3WE/pDOw4fwbH97BBer
-	 GEqBKvxN2t8l5Sb6qrlkCULxQCEgyDAEtrGNjmq1KRGGyQ2m0RyKFd1NUWNX6E/ky7
-	 4KAwWo+Zg3an/ANgO2Mivtw73pqy5hdItasST57vNfFj7fCGn5NUuaAZk0YZXS5TSs
-	 nxzXg3LsB5GRB7ScPSnDqy0/7VfLjOHHjlLREZU5B9x7vWT+cAJ8H6AUEdUPOgn77w
-	 DxS/d8q3a75IA==
-Date: Fri, 8 May 2026 12:14:41 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Nuno =?UTF-8?B?U8Oh?= <noname.nuno@gmail.com>
-Cc: "Stan, Liviu" <Liviu.Stan@analog.com>, Lars-Peter Clausen
- <lars@metafoo.de>, "Hennerich, Michael" <Michael.Hennerich@analog.com>,
- "Sa, Nuno" <Nuno.Sa@analog.com>, David Lechner <dlechner@baylibre.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/2] iio: temperature: ltc2983: Add support for ADT7604
-Message-ID: <20260508121441.39ad9f65@jic23-huawei>
-In-Reply-To: <af2no3bJA9MSjXvV@nsa>
-References: <20260427132526.272716-1-liviu.stan@analog.com>
-	<20260427132526.272716-3-liviu.stan@analog.com>
-	<afCVtXBHIIoLlsRo@nsa>
-	<SA5PR03MB83772D8F6A3CC39094DE5241F63C2@SA5PR03MB8377.namprd03.prod.outlook.com>
-	<af2no3bJA9MSjXvV@nsa>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qoQW5PU/"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-44a044cb827so1481676f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 04:17:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778239069; x=1778843869; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=a++Qkbe0N+QcN8OOW7PnS6Fd5+vAfw/HCIN0DGOehPI=;
+        b=qoQW5PU/ocOIDWH4Y4s1oi2scwRHbI8lKD7J12PTQ0ZI/1EbMKUbd0vmPDxKRnzcGH
+         CptoQxgBX8jNYjliO8zdQqt9xei8gixbQsEICZjIwOTFnqSXZ5vcMaVmzDWQ1vWmI7m+
+         p4EGjSVPGkK5p71KlZpfTwaOEZOrNI44RyNtdSdcdwshkg+Yu5VYejBRtnfLexKYTHgm
+         J3Zm4vywuGXGxVg7Hia8pYvG/4XL7l3WsXDMFH2KpUMVHq+Q1nsik/1sLr4EPxBblpWW
+         1weuKoY4+8YhSWwkiisXfPP+892r+Mq5ihScQKOTpexCFizXhu4xSqHeKtMH88Z7lfZb
+         40fA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778239069; x=1778843869;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=a++Qkbe0N+QcN8OOW7PnS6Fd5+vAfw/HCIN0DGOehPI=;
+        b=FOzj4bDc/3/r7rv2WiM2cSmIEZtUKM4Dl8CAu2trmO6PDTR0S7wICEX7ONI5aL6OvS
+         HQT+uyk8NMhvnxaEfkzmqYbI86KPzq1eR7/uTKvxf2wqS7BNbHweve3d6DuZ0GHasVWO
+         feTxQrbSTloE83Je7VJCOUPZZ2wboQ/tbMJaBdWS2co2WLRFD8V32IJQXEkfVP8GfZaw
+         4uXn4YPOucXhe+KuaEZZ6NY9TBc5aoluZRYXpQzf8K2n+h0Hv0QVP46bE19Il1xm3o3G
+         wQ/t5jggJdmwqdyQLkWBCjkc07sAur06or1pykL77HXp8CK3op2+lsDYcMzTZTI8aSj1
+         7owQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+eNOc9H57kVHamkRyLGtE7DskI8mEL2H9iYm8INWszdcmuS9SGdfCg6wfrK6vdwALGNGVs4c5Hoa47@vger.kernel.org
+X-Gm-Message-State: AOJu0YzSeit7RUcyfy69cDERaT3F1y9coYmtCdPTPG0HF7WxqyjDygu3
+	T7RIgLp14tBjlf56ddKY/BrchZIAVHyyT7xy3cLoxrnvTl8N8L9ReAw0
+X-Gm-Gg: Acq92OEy3oPGCYBw8T7z7iTT3RkyGIwf+FV7dTljSCNdPjrT23bavnedfcwvzKiFywh
+	HuYuIoehEsMF2ei6d8nui82x55Yi+OZUAMHfrXYcdmtoKt1nuOp4Q7dxOnF1RNgryw6hcmae54g
+	zf4GMZr2/MyH9hx7yCa8tHGoUGevqtDvVRddsce/8UL0UIjIWLdTw2vdiQEPQOSlkU76eYbn46c
+	r+7tqpS0+wnVfReQhxWpSKL15JmfyAtNNqfQ46YurHPGHa/fHAa7bxOYtrcc6Im5hUBDHiqTpxb
+	ZsughbMDokoyd9H6egQFyFK1441DMH/y5e2E041iGgqNWCn/dXO4HTSyVvsk6u4kK0C8NmBCa02
+	giNEcmzj9mGgIZGQWFLoMKhWj6I1oQjUcug/U+liN0qSMHG4dQQKPDexRbNedcVfLfOg9Fw1k/3
+	KcwMND7FDU/Z9hjyQzuiS4kUdpsksTwZL6Sde9tEeWrRzHmFaWWU/EKFqsbUYzXMroeapFraTQL
+	p+PRou8WsimfYJX/TXlYkHXmLuSPdnZ6oerA3+F5DM8H779
+X-Received: by 2002:a05:6000:288f:b0:43e:a8ad:975e with SMTP id ffacd0b85a97d-4515ce1c8damr20978761f8f.27.1778239068762;
+        Fri, 08 May 2026 04:17:48 -0700 (PDT)
+Received: from iku.Home ([2a06:5906:61b:2d00:74ae:919a:e57c:bd9c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-454916df968sm3535563f8f.25.2026.05.08.04.17.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 08 May 2026 04:17:48 -0700 (PDT)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Biju Das <biju.das.jz@bp.renesas.com>,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: dri-devel@lists.freedesktop.org,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar <prabhakar.csengg@gmail.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v2 0/4] Add DU support for RZ/T2H and RZ/N2H SoCs
+Date: Fri,  8 May 2026 12:17:40 +0100
+Message-ID: <20260508111744.771659-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, 8 May 2026 10:19:15 +0100
-Nuno S=C3=A1 <noname.nuno@gmail.com> wrote:
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-> On Thu, May 07, 2026 at 05:25:58PM +0000, Stan, Liviu wrote:
-> > Thank you for the comments, and I apologize for the late reply.
-> >=20
-> > On Mon, Apr 28, 2026,  Nuno S=C3=A1 wrote:
-> > ... =20
-> > > > Both sensor types expose an IIO_RESISTANCE channel reading from
-> > > > the resistance result register bank (0x060-0x00AF), added to
-> > > > the regmap readable ranges. Scales are 1/1,024,000 for copper
-> > > > trace (result in mOhm) and 1/1024 for leak detector (result
-> > > > in Ohm). =20
-> > >=20
-> > > But for userspace we report both in Ohm? That's the ABI AFAICT. In DT,
-> > > you also mention IIO_TEMP is used:
-> > > "IIO_TEMP reports coverage percentage"
-> > >=20
-> > > Can you expand more on what the above means? Are we reporting milli
-> > > degrees celcius to userspace? =20
-> >=20
-> > Yes, both IIO_RESISTANCE channels report in =CE=A9. The commit message =
-was=20
-> > misleading, it described the register's native units (m=CE=A9 for coppe=
-r trace,
-> > =CE=A9 for leak detector), not the userspace output. The scales are cho=
-sen to=20
-> > cancel those units and give =CE=A9 in both cases.
-> >  =20
->=20
-> ack
->=20
-> > As for the IIO_TEMP question, the chip's custom sensor table stores=20
-> > temperature in Kelvin (same as the LTC2984 custom RTD table). For the=20
-> > leak detector, coverage data is encoded as (P + 273.15) K, so when the=
-=20
-> > chip converts Kelvin to Celsius on output, after the driver applies the=
-=20
-> > 1000/1024 scale, the IIO output is P * 1000 millidegrees C - 0% reads
-> > as ~0 millidegrees, 100% reads as ~100000 millidegrees. But yes, the=20
-> > actual useable quantity is coverage percentage, not temperature. Is the=
-re
-> > a more suitable existing IIO channel type for coverage percentage?
-> >  =20
->=20
-> Will defer this to Jonathan but if we can have a real of the coverage
-> given the temperature, I guess this is ok. Given that I think we don't ha=
-ve
-> a better channel (unless we add one?) for this. Or just extended_info...
->=20
+Hi All,
 
-I have no idea what coverage percentage means in this case.
-Can you provide some more details or a reference?  Google isn't giving me
-anything useful.
+This series adds support for the Display Unit (DU) on the RZ/T2H
+and RZ/N2H (R9A09G087) SoCs. The DU on these platforms is
+functionally similar to the RZ/G2UL DU but includes some SoC
+specific differences such as a single output port and explicit
+DPI output enable control. The series includes the following
+changes:
+1. Add device tree bindings for the RZ/T2H and RZ/N2H DU variants,
+   including a new compatible string.
+2. Make the DU reset control optional to allow probing on RZ/T2H
+   where the DU does not have a reset line.
+3. Move pixel clock validation logic to per-SoC constraints in
+   rzg2l_du_device_info to accommodate different clock limits
+   across SoCs.
+4. Implement support for the RZ/T2H DU variant in the driver,
+   including handling of the DPI output enable signal.
 
->=20
-> > > I could not find the datasheet so I guess it's not yet public? =20
-> >=20
-> > Correct, it is not public yet. Will upload the URL once it is.
-> >=20
+Patches are rebased on next-20260507 and apply on drm-next.
+
+v1->v2:
+- Dropped the "port" property in favor of "ports" with a single port@0
+  child, to align with the existing RZ/G2L bindings and simplify the
+  device tree structure.
+- Updated the commit message to reflect the change from "port" to "ports".
+- Dropped storing info pointer in struct rzg2l_du_encoder as it's not
+  needed.
+- Add Reviewed-by tags from Laurent for patches 2-4.
+- Rebase on latest next-20260507.
+
+Cheers,
+Prabhakar
+
+Lad Prabhakar (4):
+  dt-bindings: display: renesas,rzg2l-du: Add RZ/T2H and RZ/N2H support
+  drm: renesas: rz-du: Make DU reset control optional for RZ/T2H support
+  drm: renesas: rz-du: Move mode_valid logic to per-SoC clock limits
+  drm: renesas: rz-du: Add support for RZ/T2H SoC
+
+ .../bindings/display/renesas,rzg2l-du.yaml    | 20 +++++++++++++++++--
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c |  9 +++++++--
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  | 16 +++++++++++++++
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  | 14 +++++++++++++
+ .../gpu/drm/renesas/rz-du/rzg2l_du_encoder.c  |  6 +++++-
+ 5 files changed, 60 insertions(+), 5 deletions(-)
+
+-- 
+2.54.0
 
