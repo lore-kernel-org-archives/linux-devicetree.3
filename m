@@ -1,167 +1,84 @@
-Received: from mail-dy1-f193.google.com (mail-dy1-f193.google.com [74.125.82.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22970364046
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 23:37:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D50F33630B7
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 23:38:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778283470; cv=none; b=lhZdEOHGZbpFxB35DURMj3CDTi5G/trmjvvFbLbT+wiZHF29AqbcCscVHgdXF2aLbvb+xMYISVEvQhIaDMfdUOym2qRtvpX9anOvIkc7wTaqH0+GxhnhKW5Io5OI4hSZTKmg+57hkPLrc3nzMQi8RcPFwiRJqVvvlYR+G7A4p18=
+	t=1778283482; cv=none; b=CIYrevU8uqxf5YIF2s/j35JfxnL4OXalHslinp2oneN2mII22+DcSkdNJ12BdCQBPe8tKhlO9ydhtb8b3y+iT37/9a+igqsO2pCu58Dzn32YL5LonlWtRAxWwzeqSMk7MI7XshJrpoaQdsAx4ZmQVWwg7BX2lMKY9qAJpTSPiOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778283470; c=relaxed/simple;
-	bh=AXqNsoW217lGfE77JCCRFiEok9jdH7/UFsUx+z+NPyw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QVHunLCn+jt92kDT0G7wxLCzuFgjBinR/6FZpWn6SdFdgLmLGFQZykro8Zh0L4bm751mMof/412fxEcOqwxyuWWF0GXI5aakDP1cR7e3L2gobLgb1EGwwIurhl+kQz8/itZYxRVvOgkKW3EXecmmaqfCiO1f5/VBfxiHfHLDw00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JCtD4YtE; arc=none smtp.client-ip=74.125.82.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778283482; c=relaxed/simple;
+	bh=8EFFZFKDLlmHSOZPUE2j79AeUscpnwAnXV/yy2Q87SI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=r3qyHt2okD9CEKAmCskTxRnsGv0A8mcFzWuqBgGxS9qw6pztcQtg0evqBtVOV1eFhdC9fdvvXD8Me14LJq6PCd7VO4Yc0Wq95jZySZb+4OOgVifx8NthjGmoMy3F+wxB8429db+b3TbY1eMc8aDxQwk/+Ir7pBxMX8xL9+70+EQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qv8IJct/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JCtD4YtE"
-Received: by mail-dy1-f193.google.com with SMTP id 5a478bee46e88-2f7020a928eso3543601eec.1
-        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 16:37:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778283468; x=1778888268; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=zpKwuDs0j68b87eKPB/Fimbw0GJQpFhTCSxpTkiRu0E=;
-        b=JCtD4YtEgS2SVnf6mrzXSPzzvCAOUZDkgzgMfYolYDnWwT1Z8Bttlp6Xl5dP35OTqV
-         HAicJGfD8oVBjPcsUiDqsyUaXqsQguhj72W8zjMc1m1a/u/srW59JSwraQdwPwUhj85/
-         sVcAyByZyW2MZudPDcWmPytekMmaHM9ZiX4iaQo7u5nopST3IqycBjWkJI+KyZ/rHysr
-         G+fTaaNq/E//QzGr7YhrRnUe9hgZiwk/+IkfAPqGlo0YzUrJ5dGE+j0eL9qMbPJAvKuw
-         maXlHmpXQPHXq4ndAc7cSDi289w5zLjO4o3IZg9jET1bIr3IoF0cBdRo5S+RTwhcdi5g
-         dI7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778283468; x=1778888268;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=zpKwuDs0j68b87eKPB/Fimbw0GJQpFhTCSxpTkiRu0E=;
-        b=YVoHPv7wG8kUOPDv76aTmHUIcd+tLtDALGcbIqTo0TErrx6a66R64bIEl3HTmz5NMn
-         ax1qG1uD3H1TF7QyCEredRMxk90E7y1V/zZS5w0+hAlY01bQUy3e0dEMQ4UkRWxZpIKi
-         6oCOehlZgxK+7VUBRcH7CQggO6TF3e07FfLsEUpaOZpzi0xMzZBNnNkQ5kYtPyMwx+bu
-         ISc0Nvm8QoMkYZ8QF3jUJ0R1L2E3bYhNO+FUaJy+SovQ49a6+MvpMTU+frX+VicUfchI
-         kT86euTNJQ19ZGZ7NH2Mp+TL8A7Bfh3bI4R995cr5Kyt4dK+bTvtwleVtTPIoXyKwP37
-         kCWA==
-X-Forwarded-Encrypted: i=1; AFNElJ825XyRdyjMhSj+0hyXMVW4OMvzNiDLbi2bN9DuN/Y5wbamlxbdUiFn6i8UeCfC1dVfZNSGQgZzzzGc@vger.kernel.org
-X-Gm-Message-State: AOJu0YxM9y4dJDVxpS9fGnQlO8U2i0YodSi22B06ja0tBBfUfCp1QHKi
-	WvB8zg3NYQk3+NtdcOLgJsfLtcjRmQelev1li92MxIE6s0tZ1yPpzDmu
-X-Gm-Gg: Acq92OFevHd9gYVasFcOZ56S0fmOqSj+xj4Bi0EfyZf957NCASS6n9nn3iO9Xsr2ZUc
-	GyFDDeTGwV5QAte6EIln9O/yCdt/q5pA+GU5kKD1d+JtFxLwk5ky8cDKH9cbvaw8tw0WTcp8BTB
-	IiOwKZdT2npFNbrSh6PxyGIb1utlnByV3WRpKAUiJ3eguw/KBVGX65CMaNHc6TyVVlyipf978Ic
-	JUsMmvmtaBGugakvvJ0LSMVYDTTSnBjKA0ccqtqLjJY+rKv7+BLzIEN/TvQM/18o52FcJ5KUQt8
-	zDu5RRdqpssJPJE3DWSG0x4xo3qXTFmxEG9rAvgmPjGwFKLJ0dfuCIno8lZ1kXTBw2vD5oPmV6V
-	48yn74iwiQ7rNqNZDQaLW7Kd6Y70qIo6/cboRvFz0f7ytUXzWCR4rG+DphKd+RCeFoxFBjUHAEI
-	UidtiDC58xNxekw8E3D93Gs2D+w0DJXdF8L4hbYBt2yKNqtGXUCj5ywxD45OXib3CKxA==
-X-Received: by 2002:a05:7300:8623:b0:2e2:d94d:6186 with SMTP id 5a478bee46e88-2f548e95823mr6547009eec.11.1778283468092;
-        Fri, 08 May 2026 16:37:48 -0700 (PDT)
-Received: from localhost.localdomain ([76.32.119.210])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2f888e4016asm4269036eec.28.2026.05.08.16.37.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 08 May 2026 16:37:47 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: jic23@kernel.org,
-	lars@metafoo.de,
-	michael.hennerich@analog.com,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] dt-bindings: iio: dds: Add AD9832/AD9835 binding
-Date: Fri,  8 May 2026 23:37:30 +0000
-Message-Id: <20260508233730.77834-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qv8IJct/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20366C2BCB0;
+	Fri,  8 May 2026 23:38:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778283482;
+	bh=8EFFZFKDLlmHSOZPUE2j79AeUscpnwAnXV/yy2Q87SI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=Qv8IJct/DG5TaaB7QOrfOK/hJUpfNjVFmU2W9YI/F+3TSGjAq9y4z0FYfkZKT2RhS
+	 qVuqj2LXdDNi7DkSWsUStS6BbGjrgLlXRXKKI1v4TYaxrZY5R8CCQJ3HOBpFpCy+6X
+	 ePxSJ9Ztp8W7U/qL6utzi8YnQVgZ+CWxzG94Kmz4GCyWUhLRuWINh9Or5EZtm5Pq0j
+	 vj7AwKQ0iuM8o+bbpd5GBbs5OfOO8ZTEzupP81xVffkm/tVFNtg2Z2cYaK8GUTe069
+	 RMvWWDDzKFkcG5LzAq723dIUv6TkGZIC64zhXnTY6TrEAp2lPIMy+/ACD8FU3tbDUf
+	 2aSz+B7y+NHIA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 09/10] phy: qcom-qmp: pcs-pcie: Add v10.60 register
+ offsets
+Reply-To: sashiko@lists.linux.dev
+To: "Matthew Leung" <matthew.leung@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, vkoul@kernel.org
+In-Reply-To: <20260508-hawi-phy-pcie-v1-9-237b894353fc@oss.qualcomm.com>
+References: <20260508-hawi-phy-pcie-v1-9-237b894353fc@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 08 May 2026 23:38:01 +0000
+Message-Id: <20260508233802.20366C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add devicetree binding documentation for AD9832 and AD9835 DDS devices.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The macro `QPHY_PCIE_V10_60_PCS_PCS_TX_RX_CONFIG` contains a redund=
+ant `PCS_` substring.
+--
 
-These devices are SPI-controlled direct digital synthesizers
-requiring AVDD, DVDD supplies and an external master clock.
+commit fa9d92bd2f41dd643566d490312c4a18a8a68214
+Author: Matthew Leung <matthew.leung@oss.qualcomm.com>
 
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- .../bindings/iio/dds/adi,ad9832.yaml          | 66 +++++++++++++++++++
- 1 file changed, 66 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/dds/adi,ad9832.yaml
+phy: qcom-qmp: pcs-pcie: Add v10.60 register offsets
 
-diff --git a/Documentation/devicetree/bindings/iio/dds/adi,ad9832.yaml b/Documentation/devicetree/bindings/iio/dds/adi,ad9832.yaml
-new file mode 100644
-index 000000000000..7e2eece086d0
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/dds/adi,ad9832.yaml
-@@ -0,0 +1,66 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/dds/adi,ad9832.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Analog Devices AD9832 / AD9835 DDS
-+
-+maintainers:
-+  - Hungyu Lin <dennylin0707@gmail.com>
-+
-+description: |
-+  Analog Devices AD9832 and AD9835 are SPI-controlled direct digital
-+  synthesizers (DDS) capable of generating programmable frequency and
-+  phase output signals using an external master clock.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - adi,ad9832
-+      - adi,ad9835
-+
-+  reg:
-+    maxItems: 1
-+
-+  spi-max-frequency:
-+    maximum: 20000000
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-names:
-+    const: mclk
-+
-+  avdd-supply:
-+    description: Analog power supply
-+
-+  dvdd-supply:
-+    description: Digital power supply
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - avdd-supply
-+  - dvdd-supply
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        ad9832@0 {
-+            compatible = "adi,ad9832";
-+            reg = <0>;
-+            spi-max-frequency = <20000000>;
-+            clocks = <&mclk>;
-+            clock-names = "mclk";
-+            avdd-supply = <&vdd_3v3>;
-+            dvdd-supply = <&vdd_3v3>;
-+        };
-+    };
--- 
-2.34.1
+This commit adds a new header file containing the specific PCS PCIe register
+offsets for the QMP phy version v10.60 used in Hawi SoCs.
 
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcs-pcie-v10_60.h b/driver=
+s/phy/qualcomm/phy-qcom-qmp-pcs-pcie-v10_60.h
+> new file mode 100644
+> index 0000000000000..e4a2bdc7c3f03
+> --- /dev/null
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcs-pcie-v10_60.h
+> @@ -0,0 +1,26 @@
+[ ... ]
+> +#ifndef QCOM_PHY_QMP_PCS_PCIE_V10_60_H_
+> +#define QCOM_PHY_QMP_PCS_PCIE_V10_60_H_
+> +
+> +/* Only for QMP V10_60 PHY - PCIE PCS registers */
+> +#define QPHY_PCIE_V10_60_PCS_POWER_STATE_CONFIG2		0x00c
+> +#define QPHY_PCIE_V10_60_PCS_PCS_TX_RX_CONFIG			0x018
+
+This isn't a bug, but there is a redundant "PCS_" substring in
+QPHY_PCIE_V10_60_PCS_PCS_TX_RX_CONFIG.
+
+Should this be named QPHY_PCIE_V10_60_PCS_TX_RX_CONFIG to remain consistent
+with older PHY version headers like QPHY_PCIE_V8_PCS_TX_RX_CONFIG?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508-hawi-phy-p=
+cie-v1-0-237b894353fc@oss.qualcomm.com?part=3D9
