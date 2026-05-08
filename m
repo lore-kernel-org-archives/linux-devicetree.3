@@ -1,95 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C66388395;
-	Fri,  8 May 2026 22:27:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3016221DB3
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 22:40:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778279237; cv=none; b=DqFdjxkRH1C/vnIKRpxFf/xcOOCDTlHZONY29Wn72SYSJg7l9r8VAZ/gp6z3Yulmy8/P3pY8OxD4neWOXPsioDk7dtXYaNRmMuag/BpD2yK7WHufLPp/c+KcGVQEwbyB5KuAYBRMLqys21AN/R4iiUbxZBpiNCNOEJE0S67n+WQ=
+	t=1778280051; cv=none; b=d6GcBfHZ4QhgbbKEjnzgelHODb3X14OV5blA97XdW0Rz3Mt6kQFsolWqxAEvjjvP6sKEuYgoBWtzaQ1VLUyoqWghRWjclmzpEcDICHsbdrAaAZBurq56WHW4ct7piXcQQQFdIfR9UUmoSG1CBgRFxlRV2dzKQkxBMzWjCJ9J5uw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778279237; c=relaxed/simple;
-	bh=ARXB7IXHajXNXClhcBq3h8oAt0A8+aZDLCr3/8KxfqY=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nAKxPNjLudmXGa5rDLHKUesiewrwB83P6Ckza1GdZC8gJ0uXf7dBDlPrFES5VaW7K2L38JsOiBOvvCUOdCZPeQH8cHANBBU9Ck+2WQ/PvvDgzoCFMYQjr92S6oos1US83bEzrKE0jPfLGX4XuOJ4qGopCfAJygxw2Ly/KYrgmrs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q14sNOL/; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778280051; c=relaxed/simple;
+	bh=mYOsj8zE0O3q2y+dnmnJP4GsX07sJwAn/tzTmiA+MTY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=DG0MJO2B+ypfkSrzQBAjZ+7mv63XgY3F9dZvWk9WFSAQ2uOhZaBE2BxOOHDkjVouLziECDr7cVv4w4NNzJYe3krD+xBBMB5OHt7A8xceyvifR7rv6eB1wcv4xnC+htqfMua+QvRDCjwCvCo6Cwi3L6VQDVGwJ3cZWK1SVvv/+4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nnfOAlX+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q14sNOL/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7953C2BCB0;
-	Fri,  8 May 2026 22:27:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nnfOAlX+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3849EC2BCB0;
+	Fri,  8 May 2026 22:40:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778279237;
-	bh=ARXB7IXHajXNXClhcBq3h8oAt0A8+aZDLCr3/8KxfqY=;
-	h=Date:From:To:Subject:References:In-Reply-To:From;
-	b=Q14sNOL/eiPwdP3e+3zHr0JzszikuMTxc6cRHiRSPs4RiC6YNtwehVosdJWfo4gSJ
-	 NF8iCTtzbnvpTjyBeo4l2jEvTCvrJcDOVFlRkmKMDjewpV/P1FEBtfcPtXdCA3iJnW
-	 2z4MjcJC9S+Ywfwx62aiQ3O4BJnBlnVwWqoGSFc5CSTbGT52RmKzWyKhzl32msJ1pc
-	 9V5RWKv4QpiP1PPKSm6WJjsqx4dfnxQMNM/Ne2ciHLGf3DTuXzkNXXu//wFQXMFg1Y
-	 dfPgrXQfbDFd98LFcr4xQ78caV/fGPKhOHZ+kfITSv/nAE17xrpsloMLz5/N53m2cU
-	 S/BlIJbLTz8eQ==
-Date: Fri, 8 May 2026 22:27:14 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Iker Pedrosa <ikerpedrosam@gmail.com>,
-	Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Troy Mitchell <troy.mitchell@linux.dev>,
-	Michael Opdenacker <michael.opdenacker@rootcommit.com>,
-	Javier Martinez Canillas <javierm@redhat.com>,
-	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Anand Moon <linux.amoon@gmail.com>
-Subject: Re: [PATCH v8 8/9] riscv: dts: spacemit: k1-bananapi-f3: add SD card
- support with UHS modes
-Message-ID: <20260508222714-GKA3590877@kernel.org>
-References: <20260413-orangepi-sd-card-uhs-v8-0-c21c40ec16d0@gmail.com>
- <20260413-orangepi-sd-card-uhs-v8-8-c21c40ec16d0@gmail.com>
- <afzZ6Fjdt4puGjZ6@aurel32.net>
+	s=k20201202; t=1778280051;
+	bh=mYOsj8zE0O3q2y+dnmnJP4GsX07sJwAn/tzTmiA+MTY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=nnfOAlX+jFjM+cfOAxBP7wNQMYAXiU7Nvu3QmDsklFj5hWY02pZwLfQKV1CKkNRdY
+	 u2q/9n8lbZQMmcgzzscRP0GVtX+vSphKle+goB72+yNkkj+LaZneDfOgtqvzURmwO9
+	 yOgTQtTTnMyyIe6qNn2nWKeZlvohalpPvATrpveHodVq0JKM6C9HKFIO42eqFhJ1ad
+	 qsoT/7JtpqLfS/Vmpye9zpCxyHzhF9gJ9dPralrHkTXNvxT9B+rgB/qtxWDicFEJJ/
+	 Zy+LVj7AYxbKD+DqgVyguJ3atn2XydOKmrK+P2AHb/VeR2DjZtVGkMHtPxjHS4oUxo
+	 3R0PVKT0mG29Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 12/15] can: grcan: Add CANFD TX support alongside
+ legacy CAN
+Reply-To: sashiko@lists.linux.dev
+To: "Arun Muthusamy" <arun.muthusamy@gaisler.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260508070121.6918-13-arun.muthusamy@gaisler.com>
+References: <20260508070121.6918-13-arun.muthusamy@gaisler.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 08 May 2026 22:40:50 +0000
+Message-Id: <20260508224051.3849EC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <afzZ6Fjdt4puGjZ6@aurel32.net>
 
-Hi Iker,  Aurelien 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The patch breaks the `grcan_txbug_workaround` mitigation for a kno=
+wn hardware hang, causing it to bypass the trigger condition or uncondition=
+ally time out.
+--
 
-On 20:28 Thu 07 May     , Aurelien Jarno wrote:
-> Hi,
-..
-> > +&sdhci0 {
-> > +	pinctrl-names = "default", "uhs";
-> > +	pinctrl-0 = <&mmc1_cfg>;
-> > +	pinctrl-1 = <&mmc1_uhs_cfg>;
-> > +	bus-width = <4>;
-> > +	cd-gpios = <&gpio K1_GPIO(80) GPIO_ACTIVE_HIGH>;
-> > +	cd-inverted;
-> > +	broken-cd;
-> 
-> Card detect is marked as broken as a proper definition requires pull-up 
-> support in pinctrl. Support for that went into 7.1, so I guess it's not 
-> safe to use the proper definition. That means using the following 
-> changes on to of this patch:
-> 
-> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> @@ -406,9 +406,7 @@ &sdhci0 {
->  	pinctrl-0 = <&mmc1_cfg>;
->  	pinctrl-1 = <&mmc1_uhs_cfg>;
->  	bus-width = <4>;
-> -	cd-gpios = <&gpio K1_GPIO(80) GPIO_ACTIVE_HIGH>;
-> -	cd-inverted;
-> -	broken-cd;
-> +	cd-gpios = <&gpio K1_GPIO(80) (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-I agree, please see this patch which was merged
+commit bce48dc84fac934ecb22c0ada575ba8344b8ec53
+Author: Arun Muthusamy <arun.muthusamy@gaisler.com>
 
-https://lore.kernel.org/all/20260312-k1-gpio-set-config-v1-0-8c3541da16b1@pigmoral.tech/
+can: grcan: Add CANFD TX support alongside legacy CAN
 
+This commit includes CANFD TX support with the legacy CAN support, enabling
+extended data payloads to provide higher bit rates.
 
--- 
-Yixun Lan (dlan)
+> diff --git a/drivers/net/can/grcan.c b/drivers/net/can/grcan.c
+> index 4921da349a0ef..690e07c7b1ef8 100644
+> --- a/drivers/net/can/grcan.c
+> +++ b/drivers/net/can/grcan.c
+
+[ ... ]
+
+> @@ -1441,40 +1484,55 @@ static netdev_tx_t grcan_start_xmit(struct sk_buf=
+f *skb,
+>  	spin_lock_irqsave(&priv->lock, flags);
+> =20
+>  	txwr =3D grcan_read_reg(&regs->txwr);
+>  	space =3D grcan_txspace(dma->tx.size, txwr, priv->eskbp);
+> =20
+>  	slotindex =3D txwr / GRCAN_MSG_SIZE;
+> +	bds =3D grcan_numbds(len);
+
+[ ... ]
+
+> +	copy_len =3D min_t(u32, len, CAN_MAX_DLEN);
+> +	memcpy(hdr->data, payload, copy_len);
+> +	payload_offset =3D copy_len;
+> =20
+> -	if (dlc > 0)
+> -		memcpy(hdr->data, cf->data, min_t(u32, cf->len, CAN_MAX_DLEN));
+> +	txwr =3D grcan_ring_add(txwr, GRCAN_MSG_SIZE, dma->tx.size);
+> +
+> +	for (i =3D 1; i < bds; i++) {
+> +		frag =3D grcan_msg_frag_at(&dma->tx, txwr);
+> +
+> +		memset(frag, 0, sizeof(*frag));
+> +		copy_len =3D min_t(u32, (u32)len - payload_offset, (u32)GRCAN_MSG_SIZE=
+);
+> +		memcpy(frag->data, payload + payload_offset, copy_len);
+> +		payload_offset +=3D copy_len;
+> +
+> +		txwr =3D grcan_ring_add(txwr, GRCAN_MSG_SIZE, dma->tx.size);
+> +	}
+
+[ ... ]
+
+>  	/* Bug workaround for old version of grcan where updating txwr
+>  	 * in the same clock cycle as the controller updates txrd to
+>  	 * the current txwr could hang the can controller
+>  	 */
+>  	if (priv->need_txbug_workaround) {
+>  		txrd =3D grcan_read_reg(&regs->txrd);
+>  		if (unlikely(grcan_ring_sub(txwr, txrd, dma->tx.size) =3D=3D 1)) {
+
+Does this break the grcan_txbug_workaround mitigation?
+
+In the original code, txwr represented the current hardware write pointer=20
+when it was used in this check. Now, txwr is updated in the loop above to=20
+calculate the end of the new message fragments before the workaround check=
+=20
+is evaluated.
+
+Because txwr is now the new advanced write pointer, won't the trigger
+condition grcan_ring_sub(txwr, txrd, dma->tx.size) =3D=3D 1 evaluate agains=
+t=20
+the wrong offset and fail to prevent the controller hang?
+
+Additionally, grcan_txbug_workaround() waits for the hardware read pointer
+to catch up to the provided txwr. Since the advanced txwr hasn't been=20
+written to the hardware yet (it is updated in the hardware at the end of=20
+the function), will this guarantee a timeout, returning -EBUSY and=20
+permanently stalling the TX queue?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508070121.6918=
+-1-arun.muthusamy@gaisler.com?part=3D12
