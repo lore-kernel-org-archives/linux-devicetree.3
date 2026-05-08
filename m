@@ -1,99 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F0A34F25C;
-	Fri,  8 May 2026 13:08:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 936C41F8691;
+	Fri,  8 May 2026 13:09:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778245706; cv=none; b=lJdEC9nB5CCchbTLuhqpHLc7oDiMfz7Qt224fxna7fKoLDRhlvEZRLpDmZZRPbN04qsPPSDw3XKmPw5vbf4it6sV/hYK0egTYxy0/GGqwXKIhCOxwE/uBm48x8DJzC7fzKd1kIW+fnvmq+fwlwuFW/d2Bio7SGLMAeo/Vf6l9z0=
+	t=1778245781; cv=none; b=cRID1vfVWmeytbb6zeY9cfEztyJbVK1ejFaS1jH57wpO+538JgrQAtKPefzfoqfP44NpZYTybX9Cr3OC+KHX2EB+Z7jHOd4k3qFa9cnIJUyz3EjpcQeFGVHJPDV1piDEppJGSzzeiNNe+WD66QiYg3PSlBkq0E6qozAl40MlodU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778245706; c=relaxed/simple;
-	bh=bFhsQUUgbH4CR1FXDxZX6IdtumKmj/CzQUkHgqKyqoE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aQQ76pPp+S1ajlmBSndYfDwN+D6c0mg97vEOXDHELdjUIt8hwA32zNqurVADGuIPSdvm/cWEOYwdq1ixyzGaXLnbCKCcqeog7mf1WEkKm5KI2065Ff9AOahdVC2C6Rv3pZKlNzK1X6g0uM1i9il80BXqiNIdg/+srm07TT5tAdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a2xbvvRz; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a2xbvvRz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7282AC2BCB0;
-	Fri,  8 May 2026 13:08:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778245706;
-	bh=bFhsQUUgbH4CR1FXDxZX6IdtumKmj/CzQUkHgqKyqoE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=a2xbvvRzwgTBTG2ae30TeZeSoNFqlATe8KpcHeaei5ULg2iokFXE9xPZHgl5CJBCJ
-	 MxLJxLAZQ392k+zPSvyyc6n3gCuCEV8+C1DoO/8fFtGFT0HN9fQ1qcQYzEqVbIGSK7
-	 HLMV/ruczRcjxkg49I9pCd4zctvxFPHXAx6bO6lmdqP21aAJKJGkWo8GmqgwHgUQ0b
-	 fgy1kUPCPK3tYqmN4OOAHRxnzoKnMMyZfqSWr+1eKMPux+QM2//UzphBpvCqTcQXvp
-	 xYzWmeGYZjaatSDLjP/Ve1EG4VpY9pS7yfqsV+60rgdNowuBu5MGezk5R1nkHyQwhP
-	 AGx8+/PwviAUQ==
-Date: Fri, 8 May 2026 14:08:14 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich
- <Michael.Hennerich@analog.com>, "David Lechner" <dlechner@baylibre.com>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp Zabel
- <p.zabel@pengutronix.de>, "Jonathan Corbet" <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-doc@vger.kernel.org>, Janani Sunil <jan.sun97@gmail.com>,
- rodrigo.alencar@analog.com
-Subject: Re: [PATCH v2 1/3] dt-bindings: iio: dac: Add AD5529R
-Message-ID: <20260508140814.67800e4a@jic23-huawei>
-In-Reply-To: <20260508134843.7646c4f5@jic23-huawei>
-References: <20260508-ad5529r-driver-v2-0-e315441685d7@analog.com>
-	<20260508-ad5529r-driver-v2-1-e315441685d7@analog.com>
-	<20260508134843.7646c4f5@jic23-huawei>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1778245781; c=relaxed/simple;
+	bh=6S4huXMF9Eta3Yguft6rRPtDlnuPmLRdDWOyNOIjQWk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Zly17A7dUA3i8SjBCZCD42yJB0qiqzBM/lcDacpaeSUAVI7MeywJg6v4DGWzAKt7RP+JmtPSQ1oC2nvxz/6+EsDm0iVmzUOFz9L0RFst8EgoE42cQHDQNfMwSBs+n1kK8X3cwSBrhy8l41RLDU/2kDoEQ6Smtxmo1kTmSu09q9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.206.16.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: esmtpsz21t1778245760te8ff9860
+X-QQ-Originating-IP: oDfTC3UmzXvWtX1d3MtBp/Xfjq9qMy3Zm4+IG/bmLQ4=
+Received: from [127.0.0.1] ( [116.234.74.217])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 08 May 2026 21:09:14 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 10512550886452153488
+Message-ID: <6744F8FEFD290FFD+4973b8ba-7d3b-45e4-8478-0b3334b81960@radxa.com>
+Date: Fri, 8 May 2026 21:09:12 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 10/12] net: stmmac: tc956x: add TC956x/QPS615
+ support
+To: Alex Elder <elder@riscstar.com>, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, maxime.chevallier@bootlin.com,
+ rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org,
+ brgl@kernel.org, arnd@arndb.de, gregkh@linuxfoundation.org
+Cc: Daniel Thompson <daniel@riscstar.com>, mohd.anwar@oss.qualcomm.com,
+ a0987203069@gmail.com, alexandre.torgue@foss.st.com, ast@kernel.org,
+ boon.khai.ng@altera.com, chenchuangyu@xiaomi.com, chenhuacai@kernel.org,
+ daniel@iogearbox.net, hawk@kernel.org, hkallweit1@gmail.com,
+ inochiama@gmail.com, john.fastabend@gmail.com, julianbraha@gmail.com,
+ livelycarpet87@gmail.com, matthew.gerlach@altera.com,
+ mcoquelin.stm32@gmail.com, me@ziyao.cc,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
+ rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
+ weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260501155421.3329862-1-elder@riscstar.com>
+ <20260501155421.3329862-11-elder@riscstar.com>
+ <224E233C593EF171+8c8a43dd-5061-40f8-9eb7-f360eabf2ecc@radxa.com>
+ <ae90a4c9-f027-4373-a378-d0d4b7796ff3@riscstar.com>
+Content-Language: en-US
+From: Xilin Wu <sophon@radxa.com>
+In-Reply-To: <ae90a4c9-f027-4373-a378-d0d4b7796ff3@riscstar.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: Nt+z/y60tPnUntNr0h37IREVots3RaLwrPULh0GA79jGtOpfwKEdcvBB
+	vGDhDCFVCVDGkxyRE2OTvoJ3BAC5PxlqIDN/JJD4AXSK/ikl0jyX/GSVQGKFFkz4ENdEUSS
+	jVXeX8iIz18DyrTydrM2dT8KiFby0YfBminxUOL4J5AlH5kCMgkXuyKePKNiHWGlFK+yBQv
+	SRVy4V6iARJyXlvbI1rbJ1Dngayn4XErNHsXR0Kg6smHfZQdkinU29+j+A6LtvM6yZUbS4t
+	QVQptLZzaaJ4WQvRP74OndQJsbw1vv1nmsXyg0PvpJnR4E3kbenRf7lh2UQrWCAfnYWhxcG
+	hTAd64lSERlfpmuk9ijl7MHnkLFb+kT+JhDfn0EbwWHpNLpnzJlzMszqlfuaXd1hwc4nDs4
+	Ptr2Y85lsLV/akVhLZ1+rrmVHL5PiC3YijY+AWaatV34T0VxlBj6F8/QWgEBQSR7nOH8bXQ
+	XHo4x+A7+OOLAYUoEpxHHu2jQBnq4W40kBbHQZFQcx2uX3k9qxLStign4ItRLp83ezdKGG3
+	rXIy7z63D4JRXnth+L/LMCgCOPIZX6UbSeKhC9UhQunoQKllBcQEkKDh5ygpTooEHPICCWN
+	v0NJ3AVXTCKg6RKp5kRQji0h3ubCOuk69Ca/CWOhkExCsuc7W4Gt18DmMOI73hWUNVt/ZpJ
+	Xegb8FAgVlmlXrGb9znklqo0dwEPFirhVlvSBYtwqFD0A+8ja53Su/2ws9tOkRBaTVgwQ8y
+	9A52Vd9IzSmDXvRutmZ56mbDo0QML6AmH+JXOF1+N98BQ6kl+Oroy003IPxqdeoroKdzWoW
+	7ajNQ78e3UhIMmJwN0Vzj9r/TIEN0VSKF89diPqkVlE0OitsvnUNFQHnnw96hl+q0o7uSQx
+	qPUMp9N0FI5EOZQjZweOFJ9azZ8DPpS884uDoNmmdcnERsJD7LQeKa9uc/wF/706zGwfDfE
+	NvYT+qtbE9RcFiJA28y7jSs17ND2F9A/LO72INNmSpnullpo/DF8C5pCvK/V+oUxNUDaK1L
+	Pplxx2FKqdHoQ5JbP002M+X2JYw0kTRtD1WNuV8r1C1HA66FuZ
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-RECHKSPAM: 0
 
-On Fri, 8 May 2026 13:48:43 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
-
-> On Fri, 8 May 2026 13:55:47 +0200
-> Janani Sunil <janani.sunil@analog.com> wrote:
+On 5/8/2026 2:44 AM, Alex Elder wrote:
+> On 5/6/26 7:59 AM, Xilin Wu wrote:
+>> On 5/1/2026 11:54 PM, Alex Elder wrote:
+>>> +    /* AXI Configuration */
+>>> +    axi = &td->axi;
+>>> +    axi->axi_lpi_en = 1;
+>>> +    axi->axi_wr_osr_lmt = 31;
+>>> +    axi->axi_rd_osr_lmt = 31;
+>>> +    /* All sizes (2^2..2^8) are supported */
+>>> +    axi->axi_blen_regval = DMA_AXI_BLEN_MASK;
+>>> +    plat->axi = axi;
+>>> +
+>>> +    plat->mac_port_sel_speed = speed;
+>>> +    plat->flags = STMMAC_FLAG_MULTI_MSI_EN | STMMAC_FLAG_TSO_EN;
+>>
+>> I got WoL working only after adding STMMAC_FLAG_USE_PHY_WOL here. I 
+>> guess it's required, since the driver clocks down the MAC/PMA/XPCS in 
+>> its suspend hook?
 > 
-> > Devicetree bindings for AD5529R 16 channel 12/16 bit high voltage,
-> > buffered voltage output digital-to-analog converter (DAC) with an
-> > integrated precision reference.
-> > 
-> > Signed-off-by: Janani Sunil <janani.sunil@analog.com>
-> > ---
-> >  .../devicetree/bindings/iio/dac/adi,ad5529r.yaml   | 96 ++++++++++++++++++++++
-> >  MAINTAINERS                                        |  7 ++
-> >  2 files changed, 103 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml b/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
-> > new file mode 100644
-> > index 000000000000..f531b4865b01
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
-> > @@ -0,0 +1,96 @@
-> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/iio/dac/adi,ad5529r.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Analog Devices AD5529R 16-Channel 12/16-bit High Voltage DAC  
+> I just want to respond to this with a summary of our plans.
 > 
-> How is one device bother 12 and 16-bit? That sometimes happens for
-> ADCs where it is really reflecting oversampling or for device with hardware
-> FIFOs where storage space is saved by using lower bit rate. I'm not sure either
-> applies here.
+> We will *not* be implementing wake-on-LAN (WoL) initially.  We
+> will work to get support for the eMACs upstream for TC956x, and
+> then as a separate step, we will enable WoL.
+> 
+> It's great to know you have it working, and our plan is to
+> implement it via the PHYs and not involve the MAC.  It seems
+> it will be relatively easy, but we have no plans to add it to
+> the current series.
+> 
+>                      -Alex
+> 
 
-Having read the driver I now understand. This is supporting two parts and
-doing device ID based detection.  In an unusual step for Analog they have
-the same base part number with a post fix.  Whilst this approach works today
-it fundamentally breaks fallback dt-compatibles being used in future (the
-driver fails for any non match of WHOAMI value as it needs them to look
-up device specific data)  As such I think you need to have separate
-compatibles for the 12 and 16 bit versions.
+Hi Alex,
+
+Maybe I missed something, but I already have WoL working *without* 
+changes in the tc956x driver.
+
+https://lore.kernel.org/all/859776B5671B36B9+577c19e4-3e66-4036-b26f-fe20287a1d43@radxa.com/
+
+
+-- 
+Best regards,
+Xilin Wu <sophon@radxa.com>
