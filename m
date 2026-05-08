@@ -1,98 +1,79 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1FDE317167;
-	Fri,  8 May 2026 12:15:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13DBF3DCD98;
+	Fri,  8 May 2026 12:23:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778242560; cv=none; b=c7T1TXaRbiYAUiip/dp4ed+uWQWh8iD/3OIoqco4Iug0Ha4m5q2Ycl6V1YUeTr8GqAfMujPetiD2APyOe1xmVyA9LsXVqcAiyvGZ1KaAJLjzUy1+rw04S3vHXgbVRadu3UoBkvTlbgVMYxQVYx4SCH5hBhwt1HR2VN5NaTyqLKE=
+	t=1778242998; cv=none; b=P/pCb5UfI0bNkW2KJG7JS4Dhz2pQ6e30I0V5hk3CGFyBy8ryOtJKB3a48GnMzYg+83CLzoX/5FOndeCu6xRC1bTxPnG3UOOpj5P9dd9TT8PPnl92279XxZuyWtYxhdR0KH8+cFBpWyZwztavNzejfNEnrC8f8n8ZSADDcpxwksQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778242560; c=relaxed/simple;
-	bh=tv7e5xKm8dmPFj6w559nG3N6yw7HaDW7AfF8V5ZgLok=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ZfGcmvXDJ8eCX/mbJENG2ft8dXVxTbw6Gy65tFY3t3IyoUTwl8w8/55I8nwye+y0DijqBqOr+lWkUQzblh82YHyNNijAengLQruNT2eVw9fX/jVx80+W3hZqQw+QptX92az1mUmyQf69gSk13Gn1MC/k4JkHgAFe6LQE8+H5jXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=cqTLal99; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1778242998; c=relaxed/simple;
+	bh=n1EoZXYaGhjao37jkHJyX8h7nF3Gjw3TV/O0yZ8tQUg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WP8+k5j7Fx//b0q9D5fN42rGnk18dAbO3MSPxJ4uwnlzpXJd5q8JCWYQrKl4XmYJuG7MRtaTIeKYcmDyQtolSB3W+33YeJjiAbl1EcaPippFK9KqSvwIqJinGg3d81WpcPRiiOkukd+jl/AiCypQDymrXBwhaXPW9K220CgEf+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZHV8h/Y+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="cqTLal99"
-X-UUID: a75d37044ad711f1a4e839cc21f16abe-20260508
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=wxp2NTpjEGAl1WZuVMHNm69/goC1fsF9Ilh4ewlLsms=;
-	b=cqTLal99xo6QYt15dZSbVMy3wx16WuvVIpHZyLUaMMg9HY3N9GwnWLSk3USmz69ognnw2W+qmsKBP42WOR++kQIOfjA0hjJrsBf9cFtKJKZuDLNCATc3KEVwv0ZB6Hd2ggp02voIZd+aKK0pRaBgl/cEEerTj0/JnEjNsGMBs+I=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:23f3a25a-4a47-4ba1-928c-2ad21904cbe7,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:e7bac3a,CLOUDID:56bb12bf-65a8-4b41-ac18-3671578a914d,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:102|836|865|888|898,TC:-5,Content:0|
-	15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0
-	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: a75d37044ad711f1a4e839cc21f16abe-20260508
-Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by mailgw02.mediatek.com
-	(envelope-from <arnab.layek@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1391867302; Fri, 08 May 2026 20:15:51 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Fri, 8 May 2026 20:15:49 +0800
-Received: from mtksitap99.mediatek.inc (10.233.130.16) by
- mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Fri, 8 May 2026 20:15:49 +0800
-From: Arnab Layek <arnab.layek@mediatek.com>
-To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
-	<mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias
- Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>
-CC: <linux-remoteproc@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-mediatek@lists.infradead.org>,
-	<Project_Global_Chrome_Upstream_Group@mediatek.com>, Arnab Layek
-	<arnab.layek@mediatek.com>
-Subject: [PATCH v2 0/1] dt-bindings: remoteproc: mtk,scp: Allow multiple memory regions for MT8188
-Date: Fri, 8 May 2026 20:15:46 +0800
-Message-ID: <20260508121547.516634-1-arnab.layek@mediatek.com>
-X-Mailer: git-send-email 2.45.2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZHV8h/Y+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D960C2BCB8;
+	Fri,  8 May 2026 12:23:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778242997;
+	bh=n1EoZXYaGhjao37jkHJyX8h7nF3Gjw3TV/O0yZ8tQUg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZHV8h/Y+lxgiEXJjOcHZ++8rOwA/3fkFeel9/LUMsXdJ41SxGPk2X3zX2FO9xISQM
+	 nzIYUmr8Xa4WEiIAXHFqNNBdKiXibmd6WsKO/Tkmiei0ycB+ND3pqb4Kf+qrMXqZK9
+	 cNGt6Sr1HhpW34U1cWj/FBgLkN51neFOHe7kGVk/TP3fdgPAWBkQduuymCH8XAzsZ3
+	 suEfqMQRFxIPkR7PkcWb2zUgIzXO+yn7Bc6A04V8XfgPwV/6+0bgnaFxOTbH/Y7Ifo
+	 BF1bwjAASIDJQBLiaHWHUKsR+FFc4pPKjfxnuIt4aFZ2ajPLIjQh5Im5KqYZuQY2zD
+	 CsOFZOx2LnE9Q==
+Date: Fri, 8 May 2026 20:23:11 +0800
+From: Nathan Chancellor <nathan@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Cc: Daniel Golle <daniel@makrotopia.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Aleksander Jan Bajkowski <olek2@wp.pl>,
+	Test User <test@example.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] dt-bindings: wire style checker into
+ dt_binding_check
+Message-ID: <20260508122311.GC208829@ax162>
+References: <cover.1777471439.git.daniel@makrotopia.org>
+ <ed254ed45f19f37a7e7933a33f2f00195d8e5f20.1777471439.git.daniel@makrotopia.org>
+ <20260506184447.GA2816439-robh@kernel.org>
+ <20260507092641.GA1785345@ax162>
+ <20260507170021.GA2060923-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260507170021.GA2060923-robh@kernel.org>
 
-This patch updates the MediaTek SCP device tree binding to support
-multiple memory regions for MT8188 SoCs, addressing review feedback
-from v1.
+On Thu, May 07, 2026 at 12:00:21PM -0500, Rob Herring wrote:
+> On Thu, May 07, 2026 at 05:26:41PM +0800, Nathan Chancellor wrote:
+> > In general, scripts should be called with an explicit interpreter to
+> > 
+> > 1. not rely on the file being executable (I think quilt has issues with
+> > this at times?)
+> 
+> Does that apply to external scripts? Not the case here, but for the rest 
+> of this file that is the case.
 
-The MT8188 SCP requires two memory regions (SRAM + L1TCM) while other
-MediaTek SoCs use only one. This patch follows the proper pattern of
-using conditional schemas with explicit descriptions.
-
-Changes in v2:
-- Use conditional schema (if/then in allOf) to restrict multiple
-  memory regions only to MT8188 variants, keeping maxItems: 1 as
-  default for other SoCs (addresses Krzysztof's review)
-- Add explicit item descriptions for each memory region (Main SRAM
-  and optional L1TCM) instead of just setting minItems/maxItems
-- Apply to both top-level and patternProperties
-
-Based on linux-next, tag: next-20260505
-
-Arnab Layek (1):
-  dt-bindings: remoteproc: mtk,scp: Allow multiple memory regions for
-    MT8188
-
- .../bindings/remoteproc/mtk,scp.yaml          | 21 +++++++++++++++++++
- 1 file changed, 21 insertions(+)
+I guess it depends on if anyone notices? :) but realistically, if it is
+coming from somewhere where it is guaranteed to be executable, then I
+assume it does not matter.
 
 -- 
-2.45.2
-
+Cheers,
+Nathan
