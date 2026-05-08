@@ -1,249 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 145DB35CB87;
-	Fri,  8 May 2026 09:19:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88343392C3A;
+	Fri,  8 May 2026 09:19:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778231965; cv=none; b=gFwGWVu8js/jpcxj/HOvEsioIz1SNeI2LrC9TS11lDn2kw/i0PyNUy49J+KFc4zLYO0MGndmzLq9ShLu+IkRJ9emiMo5r8bG67hyDhBNFl+fv8/zgTnnMuT5HKoRU0j9tygQJU4yUouI/bbrOzNoPv2ZAF0zxFQFQ+Ne9P4N9R4=
+	t=1778231980; cv=none; b=ZYxKg2ZQM+W2Y10y6nCmBMRg8GhAiHtA105EoTl6MO5n6DKqojL7mJhsrJYUOt1R9YqbZy8V9GxsXW9Zn3XC45utr9jS74LUWvPVAwfjBnzAcaJoTHe+PKilfR4OHkhnKFaDwUgfGo+AgntYf0tkWaSi2QxtoKFo9jtT5BKnh6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778231965; c=relaxed/simple;
-	bh=CDOYZldxweR+3QhtIXhYzYkx634ZtPQBXyhNM5n0ctw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uG6aOynApHcs3/uQ8hmTGF0Le8Je5Q8eKVkuWnGIofE7q/YIVIKYwShGhsU1qeLIsJQmjjlr3mNyvCdR7cuWb5jqVbSTUsjpdBos0K9FxxNCd8gkLqNul6N9IRJDsSdx1l8INSzpEZ82Sj1Ny0YkT9h/arnTcEUzewnI94ShAOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wur1K3h5; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778231980; c=relaxed/simple;
+	bh=evgdrf1uUbXqKdff9nbCCOTZC5KS9mqxfsfg/KUKK40=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xzm5AcrDLQcj4JQvIBw+OEzjfYl1uCMYC1cAqPmPzR7+UrM5r7CMcVLpXUU/NVeOA78vdp9EAWLt20cvyY+oIFJiENGLArRwAC/G5QQsNl16FqYMzQIj2QeNCK4OoXxN5Rgg+exmg9UigrGwEGRMnA/C1ujd3t3qM8l5Cq6HoAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cXS1hxeb; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wur1K3h5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC523C2BCB0;
-	Fri,  8 May 2026 09:19:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778231964;
-	bh=CDOYZldxweR+3QhtIXhYzYkx634ZtPQBXyhNM5n0ctw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Wur1K3h5D4ISzBp5rj0gk1FHf4DIQFw8C+yskYV6ZzfeYjPGETcbQhBcKuHlvNNxu
-	 jKUUU5l7w0qn6/Au2wUugWCdb5YkTLXj/Wv2dxgcB2AlgEckjH7YNxT523rWRuOW4b
-	 I2NU9cpC5w1U265TSyMkAxmqfC3ZQx0u3+lsn/Vbiac19ZyNMdw3U6vOLPWbxrUI8b
-	 Srgs5e/QKue9sLoEeYysBBrOnjzIOSF/hgoNT22f99st3pOWBIaVcTrSD/c+lVpY9Z
-	 T3dIsGhZYednZHrnvm3txxEFzaYgLxUnmqqMBGys/txDnNpo8oCxBhlAvj8lRLcmpz
-	 ilqktPfe98vEw==
-Message-ID: <c6e3237e-7752-4768-9cdf-3f3e89c1b98c@kernel.org>
-Date: Fri, 8 May 2026 10:19:18 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cXS1hxeb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1778231977; x=1809767977;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=evgdrf1uUbXqKdff9nbCCOTZC5KS9mqxfsfg/KUKK40=;
+  b=cXS1hxebfMrpYZsbgo6kGPKnzHiwFy3mWfQdMDEoOKBqTAogzo5zGNwR
+   qKtaOs9gWWBc8bSuifxg3bWeGivH25BzNa3IskRlWqy5hc7XQwstVtHPp
+   8f5JfOc6MKGp5WTshl8Z8e6stQ22/zj/RJ6RVuVDNpNJ33J4Y9xsQ1ogh
+   HwQVwa1SolwjZKwLRAtdvBVCRGVAZe8giuXfsrmdVP5JnRJXHgNVyjnv3
+   viP6G2yD9uM0sjDiWH0s/ItK806Hpoz3Q9r83M1arLRmsoeNEh59M7V8j
+   mgz2wq4k6UlYc/wchKjrLH7HRsrWlRzUQHrFlrefpRZSdRV0dj8TYy0co
+   Q==;
+X-CSE-ConnectionGUID: WHEKf4zORqiLYClR5bAEyw==
+X-CSE-MsgGUID: E5J5RakfRae0AY6I3ehKaw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11779"; a="89897109"
+X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; 
+   d="scan'208";a="89897109"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 May 2026 02:19:35 -0700
+X-CSE-ConnectionGUID: YT11dSKiT+qeksO4fNui/w==
+X-CSE-MsgGUID: WXlKqgP6Q7yuCMPNtxCa4A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; 
+   d="scan'208";a="241064668"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.237])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 May 2026 02:19:32 -0700
+Date: Fri, 8 May 2026 12:19:29 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Vladislav Kulikov <vlad.kulikov.c@gmail.com>
+Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+	andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/3] iio: magnetometer: add MEMSIC MMC5983MA driver
+Message-ID: <af2qoVNumFdxlXkS@ashevche-desk.local>
+References: <20260507124724.813043-1-vlad.kulikov.c@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 12/15] media: uapi: Add CAMSS ISP configuration
- definition
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
- devicetree@vger.kernel.org, laurent.pinchart@ideasonboard.com,
- kieran.bingham@ideasonboard.com, johannes.goede@oss.qualcomm.com
-References: <20260508-camss-isp-ope-v3-0-bb1055274603@oss.qualcomm.com>
- <_M7wAThdPN69377jGZSjtTkw52TQVFLRr2noYJinHH3dhvPAQhP_1OfeGBltDz3bYydN737y5AbI7GBdn-qh9w==@protonmail.internalid>
- <20260508-camss-isp-ope-v3-12-bb1055274603@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20260508-camss-isp-ope-v3-12-bb1055274603@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260507124724.813043-1-vlad.kulikov.c@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 07/05/2026 23:49, Loic Poulain wrote:
-> Add the uapi header camss-config.h defining the ISP parameter
-> structures used by the CAMSS Offline Processing Engine (OPE) driver.
-> This includes structures for white balance, chroma enhancement and
-> color correction configuration.
+On Thu, May 07, 2026 at 12:47:21PM +0000, Vladislav Kulikov wrote:
+> Add an IIO driver for the MEMSIC MMC5983MA 3-axis magnetometer over
+> I2C. The driver provides raw magnetic field readings with per-measurement
+> SET/RESET offset cancellation, giving 18-bit output with a full-scale
+> range of +/-8 Gauss.
 > 
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> ---
->   include/uapi/linux/camss-config.h | 115 ++++++++++++++++++++++++++++++++++++++
->   1 file changed, 115 insertions(+)
+> Tested on a Raspberry Pi 2B with the sensor on I2C-1 at 0x30.
 > 
-> diff --git a/include/uapi/linux/camss-config.h b/include/uapi/linux/camss-config.h
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..665406969e66927e8bce83afaa9a3aae53ba2803
-> --- /dev/null
-> +++ b/include/uapi/linux/camss-config.h
-> @@ -0,0 +1,115 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only WITH Linux-syscall-note */
-> +/*
-> + * Qualcomm CAMSS ISP parameters UAPI
-> + *
-> + * Uses the generic V4L2 extensible ISP parameters buffer format defined in
-> + * <uapi/linux/media/v4l2-isp.h>.
-> + *
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#ifndef _UAPI_LINUX_CAMSS_CONFIG_H
-> +#define _UAPI_LINUX_CAMSS_CONFIG_H
-> +
-> +#include <linux/types.h>
-> +#include <linux/media/v4l2-isp.h>
-> +/**
-> + * enum camss_params_block_type - CAMSS ISP parameter block identifiers
-> + *
-> + * Each value identifies one ISP processing block.  The value is placed in
-> + * the @type field of &struct v4l2_isp_params_block_header.
-> + */
-> +enum camss_params_block_type {
-> +	CAMSS_PARAMS_WB_GAIN = 1,
-> +	CAMSS_PARAMS_CHROMA_ENHAN = 2,
-> +	CAMSS_PARAMS_COLOR_CORRECT = 3,
-> +	CAMSS_PARAMS_MAX,
-> +};
-> +
-> +/**
-> + * struct camss_params_wb_gain - White Balance gains
-> + *
-> + * @header:   generic block header; @header.type = CAMSS_PARAMS_WB_GAIN
-> + * @g_gain:   green channel gain (15uQ10)
-> + * @b_gain:   blue channel gain (15uQ10)
-> + * @r_gain:   red channel gain (15uQ10)
-> + */
-> +struct camss_params_wb_gain {
-> +	struct v4l2_isp_params_block_header header;
-> +	__u16 g_gain;
-> +	__u16 b_gain;
-> +	__u16 r_gain;
-> +	__u16 _pad;
-> +} __aligned(8);
-> +
-> +/**
-> + * struct camss_params_chroma_enhan - RGB to YUV colour matrix
-> + *
-> + * Implements the CLC_CHROMA_ENHAN pipeline module. All coefficients are
-> + * signed 12-bit fixed-point Q3.8 (range roughly -8.0 to +7.996).
-> + *
-> + * Luma (Y) row of the matrix:
-> + * @luma_v0:  R-to-Y coefficient (12sQ8, e.g. 0x04d = 0.299)
-> + * @luma_v1:  G-to-Y coefficient (12sQ8, e.g. 0x096 = 0.587)
-> + * @luma_v2:  B-to-Y coefficient (12sQ8, e.g. 0x01d = 0.114)
-> + * @luma_k:   Y output offset    (9s,  0 = no offset)
-> + *
-> + * Chroma (Cb) row:
-> + * @coeff_ap: Cb positive coefficient (12sQ8, e.g. 0x0e6 =  0.886)
-> + * @coeff_am: Cb negative coefficient (12sQ8, e.g. 0xfb3 = -0.338)
-> + * @kcb:      Cb output offset        (11s,   128 = +128)
-> + *
-> + * Chroma (Cr) row:
-> + * @coeff_cp: Cr positive coefficient (12sQ8, e.g. 0x0b3 =  0.701)
-> + * @coeff_cm: Cr negative coefficient (12sQ8, e.g. 0xfe3 = -0.114)
-> + * @coeff_dp: Cr positive coefficient (12sQ8)
-> + * @coeff_dm: Cr negative coefficient (12sQ8)
-> + * @kcr:      Cr output offset        (11s,   128 = +128)
-> + *
-> + * @header: generic block header; @header.type = CAMSS_PARAMS_CHROMA_ENHAN
-> + */
-> +struct camss_params_chroma_enhan {
-> +	struct v4l2_isp_params_block_header header;
-> +	__u16 luma_v0;
-> +	__u16 luma_v1;
-> +	__u16 luma_v2;
-> +	__u16 luma_k;
-> +	__u16 coeff_ap;
-> +	__u16 coeff_am;
-> +	__u16 coeff_cp;
-> +	__u16 coeff_cm;
-> +	__u16 coeff_dp;
-> +	__u16 coeff_dm;
-> +	__u16 kcb;
-> +	__u16 kcr;
-> +} __aligned(8);
-> +
-> +/**
-> + * struct camss_params_color_correct - colour correction matrix
-> + *
-> + * signed 12-bit fixed-point (Qm)
-> + *
-> + * Out_ch0 (g) = A0*G+B0*B+C0*R + K0
-> + * Out_ch1 (b) = A1*G+B1*B+C1*R + K1
-> + * Out_ch2 (r) = A2*G+B2*B+C2*R + K2
-> + *
-> + * m = 0x0 - Coefficients are signed 12sQ7 numbers
-> + * m = 0x1 - Coefficients are signed 12sQ8 numbers
-> + * m = 0x2 - Coefficients are signed 12sQ9 numbers
-> + * m = 0x3 - Coefficients are signed 12sQ10 numbers
-> + */
-> +struct camss_params_color_correct {
-> +	struct v4l2_isp_params_block_header header;
-> +	__u16 a[3];
-> +	__u16 b[3];
-> +	__u16 c[3];
-> +	__u16 k[3];
-> +	__u16 m;
-> +} __aligned(8);
-> +
-> +#define CAMSS_PARAMS_MAX_PAYLOAD		\
-> +	(sizeof(struct camss_params_wb_gain)	+\
-> +	 sizeof(struct camss_params_chroma_enhan)	+\
-> +	 sizeof(struct camss_params_color_correct))
-> +
-> +#endif /* _UAPI_LINUX_CAMSS_CONFIG_H */
+> The following chip features are intentionally left out of the initial
+> driver because the public datasheet does not provide enough detail to
+> expose them confidently through stable IIO ABI, or because they still
+> need more validation:
 > 
-> --
-> 2.34.1
+> - SPI transport: deferred because SET/RESET polarity behavior has been
+>   reported to differ between I2C and SPI, especially around SET/RESET
+>   timing and/or SPI mode.
+> - Temperature channel: deferred until the temperature output behavior is
+>   better validated.
+> - Continuous measurement mode and Auto SET/RESET: deferred because the
+>   datasheet does not clearly define the interaction between CMM, TM_M,
+>   Meas_M_Done, and SET/RESET sequencing.
+> - Saturation/self-test bits: deferred because the applied test field
+>   strength and bit lifetime are not specified.
+> - BW/decimation filter tuning: only the documented measurement timing is
+>   used; no filter response is exposed because the filter topology and
+>   coefficients are not documented.
 > 
+> The driver uses a conservative 500 us post-SET/RESET delay before
+> starting the following measurement. The datasheet describes a 500 ns
+> SET/RESET coil pulse, but existing sample code and practical testing
+> indicate that a longer software delay is needed before taking the next
+> measurement.
 
-I think this should instead be the comprehensive list from HFI I 
-published recently.
+Missed section for a new driver. Id est answer the question "Why a new brand
+driver? Do we have something similar in IIO  already to be expanded to cover
+this HW part?"
 
-There's no point in circumscribing it and HFI is way more widely 
-available than OPE - so if there are adaptations to be done it should be 
-on the OPE side not the HFI/IPE side.
+-- 
+With Best Regards,
+Andy Shevchenko
 
----
-bod
+
