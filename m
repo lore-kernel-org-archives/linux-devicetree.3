@@ -1,97 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1785D358D00;
-	Fri,  8 May 2026 07:36:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24CBD26F2A0;
+	Fri,  8 May 2026 07:37:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778225818; cv=none; b=FQ6pQvGMteLbgiQUnAmjixjXcbWpwGjLHgO/XNmL/rbwLRKU8ShLSJ+VBMDpWhFcdfe/k0hhehhau3vGv9R5fcPdNzUy2BOfwbaaTcSMLOg0KIc7k1UwkeujOSsnqMMZWIU8dvjCFk7MGVRC1FxQBuposZ59NgzKbjynvA5Ua20=
+	t=1778225881; cv=none; b=swzZhGj55SEzkuaLyx+NyLaxjQ+TqTMCfIbQg3ipcGEePHMz6QmJXz3LjoWz0JWyBeH2OIwQrhrlMwdeoX4lsTdnmFcko0ApK+cJsdHUUJ81nXQPJxtdDmhQeEVqFb9mTJUtpM0+lPf0IRhOPBIvYpMtcsSKz5bbKgEEorW/BYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778225818; c=relaxed/simple;
-	bh=5P3oB3t/H+M/VWPcldvUPMKT0Ow+fk7RIqkl6O2cI+0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ukcjdOgIr6vx+FJhqOH/E/VQHQlKzyFQYMeVTxKyYFBoKbzdSvDuPrGNoGm2pj7dX21MaEYoc3bNmcgZyx9MSkhO0ufN782upY2+LOIrqZOwpV+jLRDKJG5Fmq8MguOLX2EZJz0pCU8TuNHOfESLHyjExsbRh4f9b9V6LzJ2Qng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XACC5UYV; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778225881; c=relaxed/simple;
+	bh=NRhqpO0rWWTJQZAs7QEzV5sSKAJNdZGNTpfZ2fgN4xw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bzkeWjIMfQc9nmkxqIXCryVZY9P16WkGR6aV+gfc7s7AXCsyqkBJCfCHzIws90Dx5IRyoTGZjIYyeYXkK5zEW87r3kgjF8NvPjgMTMWgpvA6V2GUvc78Nna3BspkPOCjzvCNIqVQtwJkAmbKwJ34AFCvdRDAJvJvo+O3kg/URZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Af6tTmYX; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XACC5UYV"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C3DE5C2BCB4;
-	Fri,  8 May 2026 07:36:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778225817;
-	bh=5P3oB3t/H+M/VWPcldvUPMKT0Ow+fk7RIqkl6O2cI+0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=XACC5UYVvyKFUulCycU3Xkxd9WIMzOW58lMm1E+C/YcMTgBi7IcvSQ3K45jL/6KuB
-	 ihT9Nz8+sMLW0HxY9pC1bfSMu1YtSNh8iFCMAvrELKbN4jr8Ft+tHh2rF5FPXp5zQu
-	 OeRH97st8/PLPZcd2nHO9JN8etQiVCcFKjZNsFKd/qPXvWgbQsuoUDT5qee2WPG7IR
-	 HcXbKZhQTSYC37BBQ9buX22G8WRQUgiFKCFgPWSEL3BE+h5ox0VnGw1wunLpAJS0b3
-	 t/90ZISWWr1y3Bjlp6QyG0hyc/wHaEyA8rXTRwhhbhp1t30S2W4F+JWAUQJpqNV90L
-	 NyY4PG2h9Vxzg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B4515CD3436;
-	Fri,  8 May 2026 07:36:57 +0000 (UTC)
-From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Date: Fri, 08 May 2026 07:36:54 +0000
-Subject: [PATCH 1/3] irqchip/meson-gpio: fix incorrect register address
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Af6tTmYX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1778225880; x=1809761880;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=NRhqpO0rWWTJQZAs7QEzV5sSKAJNdZGNTpfZ2fgN4xw=;
+  b=Af6tTmYXXlMbtgTjef+DUdN23Z5tlojj4AzFLqoownDTBEb83MJAjDS/
+   M8UVXTXuiArIlJNzyglRZaK+D76N/KtdvnsmgPvYA9zzurosxjcm/sIJZ
+   nB6hstynqZxOx/vYvkcBS6oju+iD4U3pvGHoqM0nDHnxzK03VQhmryhIt
+   XQux/5pzuEghwF2fyk6mIqMkeLMd4AQo7V6DM/SNoJPir9Tu1C3586tiH
+   nrWiKKPS0e08oNi0V1YeiMkkQ0/m6xgkf8BOcqVSFgTkmL6JIq6a2ZYnx
+   hOo1jMggpMB14tIPCj70NoXTPW62ar6VQgbAyInMdudOp7wvjqcKzJl2y
+   Q==;
+X-CSE-ConnectionGUID: QQ/hh3sDTreiHv9ZCtjzKw==
+X-CSE-MsgGUID: hGE1wk46Sx2ntQjJRTaXLQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11779"; a="66716276"
+X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; 
+   d="scan'208";a="66716276"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 May 2026 00:37:59 -0700
+X-CSE-ConnectionGUID: D+9fE+sqSgO0SUvGSNuNCw==
+X-CSE-MsgGUID: W/HElhn4SGqBre2ryzpISw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; 
+   d="scan'208";a="238483501"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.237])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 May 2026 00:37:55 -0700
+Date: Fri, 8 May 2026 10:37:53 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, Janani Sunil <jan.sun97@gmail.com>
+Subject: Re: [PATCH 0/3] iio: dac: Add support for AD5529R DAC
+Message-ID: <af2S0eIia76c4m2K@ashevche-desk.local>
+References: <20260507-ad5529r-driver-v1-0-b4460f3cb44f@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260508-a9-gpio-irqchip-v1-1-9dc5f3e022e0@amlogic.com>
-References: <20260508-a9-gpio-irqchip-v1-0-9dc5f3e022e0@amlogic.com>
-In-Reply-To: <20260508-a9-gpio-irqchip-v1-0-9dc5f3e022e0@amlogic.com>
-To: Thomas Gleixner <tglx@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
- Xianwei Zhao <xianwei.zhao@amlogic.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778225816; l=1007;
- i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=M9zM13CLYOdG+lkNB/tDdOWTKQ5cZ8tHYqZIsNYUo+4=;
- b=qZctPN2tSMJSPBgkkvRhlV2W+Ntn38soTuIOLXMPw7l1tQGc2KIYT5X8SsQjTaTjoAzgCj9i+
- 3tfomMZgj8gASyXaPOMb3Rs1X/ws7vR2ku7AfIfYNw9mKkB/EB2f9SQ
-X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
- pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
-X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
- auth_id=578
-X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Reply-To: xianwei.zhao@amlogic.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260507-ad5529r-driver-v1-0-b4460f3cb44f@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+On Thu, May 07, 2026 at 06:28:08PM +0200, Janani Sunil wrote:
+> This patch series adds support for Analog Devices AD5529R, a 16 channel
+> 16 and 12 bit voltage Digital-to-Analog Converter (DAC) with integrated
+> precision reference. The AD5529R operates from both unipolar and
+> bipolar supplies. The device communicates via SPI interface.
+> 
+> **Device Overview:**
+> The AD5529R features 16 independent DAC channels, with 16 or 12 bit
+> resolution, allowing independently programmable output ranges. The
+> internal 4.096V precision reference sets the accuracy of the output
+> voltage.
+> 
+> **Features Implemented:**
+> - Automatic detection of 12/16 bit generic with product ID read.
+> - Reset support via GPIO.
+> - Dual regmap configuration to handle 8 and 16 bit registers.
+> 
+> **Patch Summary:**
+> 1. **dt-bindings**: Binding documentation with channel configuration.
+> 2. **driver**: Implement IIO DAC Driver with regmap support.
+> 3. **documentation**: Add driver documentation with usage examples.
+> 
+> **Testing:**
+> The driver was compiled and tested on the EVAL-AD5529R-ARDZ using a
+> coraZ7 with a mainline v7.0 kernel.
 
-When set gpio irq type(level and single-edge) for S4, register address is
-REG_EDGE_POL, not both-edge trigger register. This patch fix it.
-
-Fixes: bbd6fcc76b39 ("irqchip: Add support for Amlogic A4 and A5 SoCs")
-Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
----
- drivers/irqchip/irq-meson-gpio.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/irqchip/irq-meson-gpio.c b/drivers/irqchip/irq-meson-gpio.c
-index f722e9c57e2e..74a376ef452e 100644
---- a/drivers/irqchip/irq-meson-gpio.c
-+++ b/drivers/irqchip/irq-meson-gpio.c
-@@ -415,8 +415,7 @@ static int meson_s4_gpio_irq_set_type(struct meson_gpio_irq_controller *ctl,
- 	if (type & (IRQ_TYPE_EDGE_RISING | IRQ_TYPE_EDGE_FALLING))
- 		val |= BIT(ctl->params->edge_single_offset + idx);
- 
--	meson_gpio_irq_update_bits(ctl, params->edge_pol_reg,
--				   BIT(idx) | BIT(12 + idx), val);
-+	meson_gpio_irq_update_bits(ctl, REG_EDGE_POL, BIT(idx) | BIT(12 + idx), val);
- 	return 0;
- };
- 
+Missed section for a new driver. Id est answer the question "Why a new brand
+driver? Do we have something similar in IIO  already to be expanded to cover
+this HW part?"
 
 -- 
-2.52.0
+With Best Regards,
+Andy Shevchenko
 
 
