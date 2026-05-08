@@ -1,64 +1,64 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E92395D87
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 11:17:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F32F396579
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 11:17:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778239077; cv=none; b=aw05SY41hm/Ba5x8qTYbdTYSJuNWyRgYGE/g16R4uNBu0ub9XCLf4DIS3W6uSedyynYVBf6Ps17xPS+OR0HlW5E3RCO7WH0F+RIwQQmQcWRCdz22lIEijhzqJdPzOCOp6lYgavSi3Jx2vDqpPSg13REJlXfa9WeXAH/v55fx8Tc=
+	t=1778239079; cv=none; b=TzANJVh/gxSnuQLDmlc8a0YI2LsGDU/YVoD9RD0UD8l//fYiuKHG0HqNjC/P2F87ZUI1lSqiB9IKAKzlxAD/WIuAYDIDvw2gcnt1xekyM48lvPihSln/rm2GC9UrFo0URMcn2VAMtViwwD3ZMiFcXpQltHYHgEVdsqebAe0X1Dg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778239077; c=relaxed/simple;
-	bh=+TSTHFtFLuuB6HazSo0/aJnEWaGHqLHJYHChrI/1coE=;
+	s=arc-20240116; t=1778239079; c=relaxed/simple;
+	bh=6rePoYg9zZjfRvgAGXJYtlK8ma8tlX/oIEwFq/4VEQw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Kr2gJXNewyJeE57FahyopMbesTCf3HbfaYDGMQoIoSAq31ztp3uLOkMunWU9650gf7NuvST7BvQp3cz9JL9vIXc5IKu0yOrUT1ng7y2AGzzkMsRNrVVyQq85pacJZaiziTnl3Q0Ux1GEhxLver6pBS/h2oY14zBRc/SXY7FlbJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TuLr2mqE; arc=none smtp.client-ip=209.85.221.50
+	 MIME-Version; b=ROlfKYeRvSH6o37vzOvjo7Wh7DbURECAM8tyCtyqdKSNmw3nBbUjvdaPp1Ljse8QXv3l+7U4QbA7QdurYvYU4dAuZxxLU4NYCx9f8wTye3rFxso1a3oTqMEYAD9a/lu2rmSRk4c8jU3Dem+oZQhcRdN0fMQv8pL8kLlab0CWcO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RAeqt9Jn; arc=none smtp.client-ip=209.85.221.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TuLr2mqE"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-449de065cb3so1745958f8f.2
-        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 04:17:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RAeqt9Jn"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-43d77f6092eso1217705f8f.2
+        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 04:17:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778239072; x=1778843872; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1778239073; x=1778843873; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yPP4JL0RAe1XpX/h7T3lnNJ3/faSIVf5jmqwVJovOao=;
-        b=TuLr2mqEK5CMwdN9VxUdr7QC2X8UiW0YDiE694TysVE5MOSfn+4KL35gbMZqNmj9rb
-         xU8rAVo31irnv4H1Ob/68w2i8V9KpW1fAsuMnv2cyRPMhxpBmSVaDTcBLa0MdEGIyqZl
-         fg66dmCz3CHHjzF57aXATYKg2u+5tw3gWqx5p6GGA7PoTE5ei0xfYHYbyzZseXRaDJdV
-         Sx51t0z5cj3ZPwbPZOaCJH9fM2Po/KmP5IaG7o5gnJy6l0BSWqiNf/HmbKk5Y8IiTujH
-         SE3kjrRX+gS9IU5+8kKY7oyQVdO4Ysvkl9LTnbrZGe661BVKh1eLEd6qA8K9fZ/eiK9o
-         cIPA==
+        bh=h4xhery0lAk3gv+PVUgTZeq25ctOn5hBwj4+jcbkRck=;
+        b=RAeqt9JnI359yOeHb56Mndex4o97DAYwFkW6zz+8jvDyypg07UqyiiJlv8ai843OB1
+         tdGN7j3zRPINVAjEIpVQUvjMzam7jq6x9fhNtRy5eXuejRR9uB1C+DZisCI38jYpp+aH
+         oxHgMLHgXmCuaKqzZZX7RpzUCDHwCfb4hwEf7tvAN2FcDFTRtu4Kxjl5I8UClzSX+z53
+         rHf3yW9gWqRkSYiW9tM927XJIwVtpEz++iNRpW46bPxj97Rt1WibYehLlcioPa++HLIb
+         vXAsvuRVp9NE/ybOYrCAV4ZM/nh7JGCW3inIughoh7s7Jg/87An5UkG6HikaHZlTmUDy
+         5/Ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778239072; x=1778843872;
+        d=1e100.net; s=20251104; t=1778239073; x=1778843873;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=yPP4JL0RAe1XpX/h7T3lnNJ3/faSIVf5jmqwVJovOao=;
-        b=HzKTXdrS4nDpG5QJLVaY+QypMy5k3rprrBr6+/jupY3ZaJMgRQGJ80mAVptHZE3O1i
-         vJaTxhbp0oJPd5yBu3X4+dYtNnjaYF+ByJfN345Pfx7IZyialzErSo/obILmvgQM4V5D
-         NOE/4SYgJelu02A9481J31uljddvTh9CuOfZwi/uj6OQez1lx0UddRFaSphGGUneyTMv
-         i9hK2xWmV4H1PWAt+i4ZpOT8fWe4ir+vPFz1pnCkgA+l/8inIzdFxxupTHuV966fJACF
-         ALskTju0gzf68ZQM4ihVq/AnHF8Yi6EGqF2OzeoqE+I4k93pagGOINJejMpSjjOWQxC2
-         PNIQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+FcYAwNPaUfB5xjRVGY18NRqzKeCtU9LDZY+3YBQ1EfGgxuLeFXJuLZhrAHYPeWmkm1j/ouiJJh8tA@vger.kernel.org
-X-Gm-Message-State: AOJu0YwYTN8WjRyeBOyWNBaPxP/oQe99pS2RCwvU2YgYJKNbTyr5zrfK
-	cLr7XkhT9xelf1fcI0gJXq2EbmPX1yzYzV0mrJ5CwtVMy0GBTk2c2sQ/
-X-Gm-Gg: Acq92OH+WWr4E0YC9GrgnthjQ746w+gBpNvjrNzJNO4A+CU7JO7dKuLv4lHm8tWi4am
-	7klCh0s1DDK7JPTmRmKUoAP/xBVbtbH31f9dXVOuBsnEDwM4LPuUpsu4BesVQ0ni2KBrolcRUdq
-	dBNk40HIcaD86wkUpiN0guD1e1Qz89/6lq82IE19Wat03Y8sI0WUVeI5bCyZwvf8AjbBNbz17TJ
-	htpIp8SuS/wC4j1uYUbvvXLq1Dq1rz6dvrrl8DOvSbvc55ZzSE3p4QMYEckvLaWxomQegQBniTC
-	01REszH/KUi645a5ze0DiWuXSVz+QoWdAxx1mqMN2AZeieE9KuMOu3XhoFnhPmu00aTrbV8mLrb
-	k0DKLMwuzAo08vf6YtoV3Kkd45s2JpNaSiSpKnLXBoCiguMF885skXWMCszPOWtxHYRvw/3pU/W
-	uNxhKqBjYYKbEctRvJhX8YP2galri8W3NYSDnvnEZf/f1Ct10S+2gxvRVaSJ0jklIK4Mzg+PtvH
-	2oNtJieXGGJsT77au5br1wq0Q7toJtgxxjPcQ==
-X-Received: by 2002:a05:6000:1868:b0:44f:da54:da6c with SMTP id ffacd0b85a97d-4515ce1c84emr20981373f8f.26.1778239071736;
-        Fri, 08 May 2026 04:17:51 -0700 (PDT)
+        bh=h4xhery0lAk3gv+PVUgTZeq25ctOn5hBwj4+jcbkRck=;
+        b=fkeR4y7y0kffEZeqfrTY5QJbvucUj3NCpWWWGxBkKpsNfD6Ql6BG72JMREsCXe6Ju2
+         1qXzwhmfqdKkL4XElgwxpc10SdybZq+HFGn59OSfkgzvFapOHyU9MDNGDwmPXf9hDv7q
+         Ran9kA9fKuplyOS8ncFWLIXrawst+eacmQ9F7gCto5Ek3V/eA1MS3WfduGrR0T5itM2T
+         JxOYtYukIFHnsY5WU+lvqNdDXHETmamhQxdxDqarwcVVJNJ677RUigEiQMDCGl8mNyuF
+         jp5FEBfGiTOQmaa0CgwLZbaauI23ZNk6BxWANyEl7X71LjMTHBBJTAPuuVDRPCZpbhnN
+         v1YA==
+X-Forwarded-Encrypted: i=1; AFNElJ+9fOu3Pn76q570LsMpuT9DFjh//mGheMX0QS/NIczjK8/b0IPIDd3+0M9K/sdXIx3RlXj6tQ9G3mTy@vger.kernel.org
+X-Gm-Message-State: AOJu0YxyFnpPAXbCdrpPIS51SJQKHt8qaSjWpGT4ItC6026xJwMcU5TT
+	k+1F1v72ITAlZKOrtZ5U5G4MlE+ky1Q8LlaL7JIE3rO0rtf1J2J4bXIt
+X-Gm-Gg: Acq92OEYum3bWH+tpcg9hSnWzRWEwQI25Fg+J2BGfyy+dAUtDY7+IWXHuCFtA0hIdeK
+	pi3lubd8Osry3vPMzf1qvSLiBUItn/9VfHv30TcqyE+1VKs7gvcvqlxNJ8zkBS0ymKy8ruhoz66
+	mWMs8b9iyCC0jbnsvxmfrb0HqYAzBPdMdP+CB5JOQ4P9Nj70Ao73KksurvbpRx3T3l95OzM8NAO
+	dfN5B7Oy4GOkzVBVBHnoFgQYRJSHPQkWHpJlyDh+RyhUcWj9WlK6/5YPwTNv4+37bJLx4BsIOPj
+	OGmJ3khWa8UcVyz95cjzLFb/aFTyFEn7RWDbvs8ssoiLhkxmSfVRg6YCFta3Wi8alHe4ZTBbdZx
+	t1nvJgg6Jnjsp7fuuRuHOM45AowLcJuOHszG80FNIn1j/tvx4Mx7tdnD44l8P/4EOvjAQm9v79h
+	izz6L27BwHOswxUS70r1VaRyD9KQbT3W3M9uVBftG/WSNfpUoju1Xn23wArFE0+Upwl4XnnYRTN
+	+PqdM6vfaz9vSYH6yxm52y3+guWh429VZg6zNdURg1l7IuR
+X-Received: by 2002:a05:6000:4010:b0:44b:aca1:f480 with SMTP id ffacd0b85a97d-4515a6c3361mr18785764f8f.8.1778239072877;
+        Fri, 08 May 2026 04:17:52 -0700 (PDT)
 Received: from iku.Home ([2a06:5906:61b:2d00:74ae:919a:e57c:bd9c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-454916df968sm3535563f8f.25.2026.05.08.04.17.50
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-454916df968sm3535563f8f.25.2026.05.08.04.17.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 08 May 2026 04:17:51 -0700 (PDT)
+        Fri, 08 May 2026 04:17:52 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Biju Das <biju.das.jz@bp.renesas.com>,
@@ -81,9 +81,9 @@ Cc: dri-devel@lists.freedesktop.org,
 	Prabhakar <prabhakar.csengg@gmail.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v2 3/4] drm: renesas: rz-du: Move mode_valid logic to per-SoC clock limits
-Date: Fri,  8 May 2026 12:17:43 +0100
-Message-ID: <20260508111744.771659-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v2 4/4] drm: renesas: rz-du: Add support for RZ/T2H SoC
+Date: Fri,  8 May 2026 12:17:44 +0100
+Message-ID: <20260508111744.771659-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260508111744.771659-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20260508111744.771659-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -97,83 +97,118 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Move pixel clock validation from a fixed encoder check to per SoC
-constraints stored in rzg2l_du_device_info.
-
-Pixel clock limits differ across SoCs in the RZ DU family and cannot be
-expressed by a single shared rule. For example, RZ/G2UL (R9A07G043U)
-limits the DPAD0 pixel clock to 83.5 MHz, while other SoCs such as
-RZ/T2H require a wider operating range.
-
-Add mode_clock_min and mode_clock_max fields to rzg2l_du_device_info to
-describe the supported pixel clock range for each SoC. Update
-rzg2l_du_encoder_mode_valid() to return MODE_CLOCK_LOW when the pixel
-clock falls below mode_clock_min and MODE_CLOCK_HIGH when it exceeds
-mode_clock_max.
-
-Set the pixel clock limits for RZ/G2UL(R9A07G043U) to 20.875MHz minimum
-and 83.5MHz maximum.
+The RZ/T2H (R9A09G077) SoC includes a DU with a DPI interface,
+supporting resolutions up to WXGA with two RPFs for layer blending.
+Unlike earlier RZ/G2L SoCs, RZ/T2H requires explicit assertion of a
+DPI output-enable signal (DU_MCR0_DPI_EN) during CRTC startup.
 
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 ---
 v1->v2:
-- Dropped storing info pointer in struct rzg2l_du_encoder as it's not needed.
+- Added Reviewed-by tag from Laurent Pinchart.
 ---
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c     | 2 ++
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h     | 4 ++++
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c | 6 +++++-
- 3 files changed, 11 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c |  7 ++++++-
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  | 14 ++++++++++++++
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  | 10 ++++++++++
+ 3 files changed, 30 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
+index 48065f4952a3..d0f01aa642a7 100644
+--- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
++++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
+@@ -28,6 +28,7 @@
+ #include "rzg2l_du_vsp.h"
+ 
+ #define DU_MCR0			0x00
++#define DU_MCR0_DPI_EN		BIT(0)
+ #define DU_MCR0_DI_EN		BIT(8)
+ 
+ #define DU_DITR0		0x10
+@@ -217,8 +218,12 @@ static void rzg2l_du_crtc_put(struct rzg2l_du_crtc *rcrtc)
+ static void rzg2l_du_start_stop(struct rzg2l_du_crtc *rcrtc, bool start)
+ {
+ 	struct rzg2l_du_device *rcdu = rcrtc->dev;
++	u32 val = DU_MCR0_DI_EN;
+ 
+-	writel(start ? DU_MCR0_DI_EN : 0, rcdu->mmio + DU_MCR0);
++	if (start && rzg2l_du_has(rcdu, RZG2L_DU_FEATURE_DPIO_OE))
++		val |= DU_MCR0_DPI_EN;
++
++	writel(start ? val : 0, rcdu->mmio + DU_MCR0);
+ }
+ 
+ static void rzg2l_du_crtc_start(struct rzg2l_du_crtc *rcrtc)
 diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-index 0fef33a5a089..3b7162c6e1f4 100644
+index 3b7162c6e1f4..fc55dfffebaf 100644
 --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
 +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-@@ -35,6 +35,8 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a07g043u_info = {
- 			.port = 0,
- 		},
+@@ -63,10 +63,24 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a09g057_info = {
  	},
-+	.mode_clock_min = 20875,
-+	.mode_clock_max = 83500,
  };
  
- static const struct rzg2l_du_device_info rzg2l_du_r9a07g044_info = {
++static const struct rzg2l_du_device_info rzg2l_du_r9a09g077_info = {
++	.channels_mask = BIT(0),
++	.routes = {
++		[RZG2L_DU_OUTPUT_DPAD0] = {
++			.possible_outputs = BIT(0),
++			.port = 0,
++		},
++	},
++	.features = RZG2L_DU_FEATURE_DPIO_OE,
++	.mode_clock_min = 5000,
++	.mode_clock_max = 100000,
++};
++
+ static const struct of_device_id rzg2l_du_of_table[] = {
+ 	{ .compatible = "renesas,r9a07g043u-du", .data = &rzg2l_du_r9a07g043u_info },
+ 	{ .compatible = "renesas,r9a07g044-du", .data = &rzg2l_du_r9a07g044_info },
+ 	{ .compatible = "renesas,r9a09g057-du", .data = &rzg2l_du_r9a09g057_info },
++	{ .compatible = "renesas,r9a09g077-du", .data = &rzg2l_du_r9a09g077_info },
+ 	{ /* sentinel */ }
+ };
+ 
 diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-index 58806c2a8f2b..885558eb9547 100644
+index 885558eb9547..baf076d69cda 100644
 --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
 +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-@@ -44,10 +44,14 @@ struct rzg2l_du_output_routing {
-  * struct rzg2l_du_device_info - DU model-specific information
-  * @channels_mask: bit mask of available DU channels
+@@ -20,6 +20,8 @@
+ struct device;
+ struct drm_property;
+ 
++#define RZG2L_DU_FEATURE_DPIO_OE	BIT(0)	/* Has DPIO output enable control */
++
+ enum rzg2l_du_output {
+ 	RZG2L_DU_OUTPUT_DSI0,
+ 	RZG2L_DU_OUTPUT_DPAD0,
+@@ -46,12 +48,14 @@ struct rzg2l_du_output_routing {
   * @routes: array of CRTC to output routes, indexed by output (RZG2L_DU_OUTPUT_*)
-+ * @mode_clock_min: minimum pixel clock in kHz
-+ * @mode_clock_max: maximum pixel clock in kHz
+  * @mode_clock_min: minimum pixel clock in kHz
+  * @mode_clock_max: maximum pixel clock in kHz
++ * @features: device features (RZG2L_DU_FEATURE_*)
   */
  struct rzg2l_du_device_info {
  	unsigned int channels_mask;
  	struct rzg2l_du_output_routing routes[RZG2L_DU_OUTPUT_MAX];
-+	u32 mode_clock_min;
-+	u32 mode_clock_max;
+ 	u32 mode_clock_min;
+ 	u32 mode_clock_max;
++	unsigned int features;
  };
  
  #define RZG2L_DU_MAX_CRTCS		1
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-index 0e567b57a408..5c672549bc84 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c
-@@ -50,8 +50,12 @@ rzg2l_du_encoder_mode_valid(struct drm_encoder *encoder,
- 			    const struct drm_display_mode *mode)
- {
- 	struct rzg2l_du_encoder *renc = to_rzg2l_encoder(encoder);
-+	struct rzg2l_du_device *rcdu = to_rzg2l_du_device(renc->base.dev);
-+	const struct rzg2l_du_device_info *info = rcdu->info;
+@@ -77,6 +81,12 @@ static inline struct rzg2l_du_device *to_rzg2l_du_device(struct drm_device *dev)
+ 	return container_of(dev, struct rzg2l_du_device, ddev);
+ }
  
--	if (renc->output == RZG2L_DU_OUTPUT_DPAD0 && mode->clock > 83500)
-+	if (info->mode_clock_min && mode->clock < info->mode_clock_min)
-+		return MODE_CLOCK_LOW;
-+	if (info->mode_clock_max && mode->clock > info->mode_clock_max)
- 		return MODE_CLOCK_HIGH;
++static inline bool rzg2l_du_has(struct rzg2l_du_device *rcdu,
++				unsigned int feature)
++{
++	return rcdu->info->features & feature;
++}
++
+ const char *rzg2l_du_output_name(enum rzg2l_du_output output);
  
- 	return MODE_OK;
+ #endif /* __RZG2L_DU_DRV_H__ */
 -- 
 2.54.0
 
