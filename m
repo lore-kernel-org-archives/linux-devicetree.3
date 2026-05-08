@@ -1,87 +1,138 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36163225413;
-	Fri,  8 May 2026 19:42:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CB123242AC
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 19:44:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778269342; cv=none; b=ID6YaYXV3UW/Xrb9Q64LZOIbYKWk1cfcBNoumJog/VFwUclajq7jg6v3HkjhjGGSJfgWLMX5/3+ng67Oiih/SRU9NQ5V2Qw+w3RfrBjwPrKCH6eJCJDWM6xBU+4K0muU2YfndxtiK01jYjLGj9VuXP0b125pkN7A57mQChKiNsY=
+	t=1778269483; cv=none; b=qma6rwKZZbd0a+1D8ZpkYThfrDZ2xoXXz7cWHh7kDADFutuI/pumcreVnns2F4ah5fcgRIsLikCIKeECeWx5iAlyg+HM0OWyizgr3rwO2ufkUQwBcAjW5ESjl5pjLpsvbOmUHScOJAsAxO09MuRaLO+QEHfpFV7WWXPuW7IAfoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778269342; c=relaxed/simple;
-	bh=6LLThgPsKCo4luhvYam3g4HUxa2qra3r87IZq2X3Gf8=;
+	s=arc-20240116; t=1778269483; c=relaxed/simple;
+	bh=wiNXPP+4KyBElZz66J1pONugI2UWQP9eIktjaTTO/nI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gMDhDajYAczsNKnSL3X0G2D8cv2QKrGq7lqALjaWtqJ8eos/qbe8gYcKoVJml8WLUMduEg6RAuaLjZefPKVRhNKl393wSUaII2EXgPyO9s9BuH2m8dsRr0r1awPnN5qMZm+2JY/ZPwvTWqHKwvgH2AQpFexsK3ygm7gJc7RUnlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UQwjSJHQ; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=Avgtc0Fa3o8Kz0B7DSAmrJT3OvE+qaLjZ/c34MjBtgnuGB2TceL2IWkTsF0txwmm5XQlMbH39S62QqynmXsXBB59mIfNa6Sg9yeBiFuce2dKBrdIh4MbPAHYcf1UiQ1Z9oO55LKeq7wA2qco/syubv4UZ+tV8+Ugq0aWzPiu+8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S4+GXe7+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UQwjSJHQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94438C2BCB0;
-	Fri,  8 May 2026 19:42:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S4+GXe7+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6DECC2BCC7;
+	Fri,  8 May 2026 19:44:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778269341;
-	bh=6LLThgPsKCo4luhvYam3g4HUxa2qra3r87IZq2X3Gf8=;
+	s=k20201202; t=1778269483;
+	bh=wiNXPP+4KyBElZz66J1pONugI2UWQP9eIktjaTTO/nI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=UQwjSJHQczO7JZ+A9XT9Oe1OExFO+XAzrjX6DsxP8lnrHA03ydBGQFLGmIY34vCQT
-	 RHwDBqKrttaDgldlh1mbWxoHmYkbNqE6KdnaUocHTnW9MejddI9tn/6/il/o64w8w7
-	 nXPQ2mif72y3/A2rSp4fh+dR90lzpI83BZ8H4uq/aCohwVnKGEYRK60spU5qVbCUS3
-	 MaT8vgjJpyKyOiTgEZLJLkzG/t+bE5+x6nPcxnznMzWOeK5uq1TRQiJt6uJ5mPCeUU
-	 W7p3PqeTXk2HQP9OpYPoeFZ/BUK3+9MAzerF3tEXTgHnLri8qBBVQ57XPbuKtCooih
-	 JU87dk5f1hj+Q==
+	b=S4+GXe7+XoyxrivlTBsspOfblmHOBn7CK+uqUybaMCVrNZrF6EUDM2qS+rlgtpHFa
+	 s9G1j+Bk+XhCZSuoIVr+1dXbSdDOLwtezBEqgpQ6sEmHvTwrzFnNqtc8PuYVTovSS8
+	 d6opigqzU07cVtgpMrE8rxp7a3L5CEhMxpX15XmQMN7K8JwLaDTqlaSsjYE7w0rMjG
+	 Kv95my1ug1kYLxEJzloG4/8N4q45Sffq52xheDhLdI5edEX+/FUCFtRGYuHbnuHTvP
+	 qMRX6QxGJCIN66Yt6NDrMLwhPDhh+c2mZe/Y9mCHbAetgpA5DC0eCAfo2V9etar53x
+	 z3Ox94t1SIMvw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/3] dt-bindings: trivial-devices: Add Delta
- E50SN12051
+Subject: Re: [PATCH 3/3] irqchip/meson-gpio: Add support for Amlogic A9 SoCs
 Reply-To: sashiko@lists.linux.dev
-To: "Colin Huang via B4 Relay" <devnull+u8813345.gmail.com@kernel.org>
-Cc: linux-hwmon@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260508-add-e50sn12051-v5-1-abebdcc29665@gmail.com>
-References: <20260508-add-e50sn12051-v5-1-abebdcc29665@gmail.com>
+To: "Xianwei Zhao via B4 Relay" <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Cc: conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260508-a9-gpio-irqchip-v1-3-9dc5f3e022e0@amlogic.com>
+References: <20260508-a9-gpio-irqchip-v1-3-9dc5f3e022e0@amlogic.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 08 May 2026 19:42:20 +0000
-Message-Id: <20260508194221.94438C2BCB0@smtp.kernel.org>
+Date: Fri, 08 May 2026 19:44:42 +0000
+Message-Id: <20260508194442.D6DECC2BCC7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] The new compatible string and its description comment are inserted =
-incorrectly, resulting in mismatched descriptions for two devices.
+- [Low] Fragile bitmask logic when clearing the both-edge trigger bit.
+- [Low] Extraneous trailing semicolon after the function definition.
 --
 
-commit 9996702d5ece9eeefae380c70a0a1d77e2a9cf5a
-Author: Colin Huang <u8813345@gmail.com>
+commit 295d9fc711855b4e0f9dd4bdc918ad1908141ca0
+Author: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-dt-bindings: trivial-devices: Add Delta E50SN12051
-   =20
-This commit adds the Delta E50SN12051 600W Non-isolated 1/8th Brick DC/DC
-Power Module to the list of trivial devices.
+irqchip/meson-gpio: Add support for Amlogic A9 SoCs
 
-> diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Doc=
-umentation/devicetree/bindings/trivial-devices.yaml
-> index 23fd4513933a4..0f10368a13865 100644
-> --- a/Documentation/devicetree/bindings/trivial-devices.yaml
-> +++ b/Documentation/devicetree/bindings/trivial-devices.yaml
-> @@ -100,6 +100,8 @@ properties:
->              # Delta Electronics DPS920AB 920W 54V Power Supply
->            - delta,dps920ab
->              # 1/4 Brick DC/DC Regulated Power Module
-> +          - delta,e50sn12051
-> +            # 600W Non-isolated 1/8th Brick DC/DC Power Modules
->            - delta,q54sj108a2
+This commit adds GPIO interrupt support for the Amlogic A9 SoCs. It defines
+the mappings for the main and AO interrupt lines and implements the
+interrupt type setting behavior for the A9 AO domain.
 
-This isn't a bug, but it looks like the comment and the compatible string
-are inserted in the wrong order. In this file, comments describe the
-compatible string that immediately follows them.
+> diff --git a/drivers/irqchip/irq-meson-gpio.c b/drivers/irqchip/irq-meson=
+-gpio.c
+> index 74a376ef452e2..f68476b2c5382 100644
+> --- a/drivers/irqchip/irq-meson-gpio.c
+> +++ b/drivers/irqchip/irq-meson-gpio.c
 
-By inserting the new string before the new comment, the existing "1/4 Brick"
-comment now appears to describe the new delta,e50sn12051 string, and the new
-"600W" comment describes the existing delta,q54sj108a2 string.=20
+[ ... ]
 
-Should the new comment be placed above delta,e50sn12051 instead to keep the
-descriptions aligned with their respective devices?
+> @@ -375,6 +403,53 @@ static int meson8_gpio_irq_set_type(struct meson_gpi=
+o_irq_controller *ctl,
+>  	return 0;
+>  }
+> =20
+> +/*
+> + * gpio irq relative registers for a9_ao
+> + * -PADCTRL_GPIO_IRQ_CTRL0
+> + * bit[31]:    enable/disable all the irq lines
+> + * bit[0-19]:  polarity trigger
+> + *
+> + * -PADCTRL_GPIO_IRQ_CTRL[X]
+> + * bit[0-5]: 6 bits to choose gpio source for irq line 2*[X] - 2
+> + * bit[16-21]:6 bits to choose gpio source for irq line 2*[X] - 1
+> + * where X =3D 1-10
+> + *
+> + * -PADCTRL_GPIO_IRQ_CTRL[11]
+> + * bit[0-19]: both edge trigger
+> + *
+> + * -PADCTRL_GPIO_IRQ_CTRL[12]
+> + * bit[0-19]: single edge trigger
+> + */
+> +static int meson_a9_ao_gpio_irq_set_type(struct meson_gpio_irq_controlle=
+r *ctl,
+> +					 unsigned int type, u32 *channel_hwirq)
+> +{
+> +	const struct meson_gpio_irq_params *params =3D ctl->params;
+> +	unsigned int idx;
+> +	u32 val =3D 0;
+> +
+> +	idx =3D meson_gpio_irq_get_channel_idx(ctl, channel_hwirq);
+> +
+> +	type &=3D IRQ_TYPE_SENSE_MASK;
+> +
+> +	meson_gpio_irq_update_bits(ctl, params->edge_pol_reg, BIT(idx), 0);
+
+Is this asymmetric bitmask logic intentional?
+
+The both-edge trigger bit is cleared using BIT(idx), but it is set using
+BIT(ctl->params->edge_both_offset + idx) just below.
+
+While edge_both_offset is initialized to 0 for the A9 AO domain, will this
+clearing operation target the wrong bit if the code is ever reused with a
+non-zero offset?
+
+> +
+> +	if (type =3D=3D IRQ_TYPE_EDGE_BOTH) {
+> +		val =3D BIT(ctl->params->edge_both_offset + idx);
+> +		meson_gpio_irq_update_bits(ctl, params->edge_pol_reg, val, val);
+> +		return 0;
+> +	}
+> +
+> +	if (type & (IRQ_TYPE_LEVEL_LOW | IRQ_TYPE_EDGE_FALLING))
+> +		val =3D BIT(idx);
+> +	meson_gpio_irq_update_bits(ctl, REG_A9_AO_POL, BIT(idx), val);
+> +
+> +	val =3D 0;
+> +	if (type & (IRQ_TYPE_EDGE_RISING | IRQ_TYPE_EDGE_FALLING))
+> +		val =3D BIT(idx);
+> +	meson_gpio_irq_update_bits(ctl, REG_A9_AO_EDGE, BIT(idx), val);
+> +
+> +	return 0;
+> +};
+
+This isn't a bug, but there is an extraneous trailing semicolon after the
+function definition.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508-add-e50sn1=
-2051-v5-0-abebdcc29665@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508-a9-gpio-ir=
+qchip-v1-0-9dc5f3e022e0@amlogic.com?part=3D3
