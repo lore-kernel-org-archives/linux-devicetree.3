@@ -1,82 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB9E36B06A
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 20:49:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778273356; cv=none; b=dz5m0vBq4szNrYq3Q5Np3OwHj0MLy37ZlqTMjg4kL8TC6+YMk2hfFMJwH12vwhCT/ERfQ49fx9Rz4w581kLULYtR4QgGT0dSD16QFv0bNvWYopNpvMkJQKxAo9teFVg2P4teRjwtDBs5yQ9ugO+i8OrJ87zlP2LqLV2If1G0V/M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778273356; c=relaxed/simple;
-	bh=MOcaTpJ/QJfwdYc5UKVJR9gCi3vTzmlEaN96gVw2b6c=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bd2Bq5GZ61L8i/tpa8RKNJG8pDcmUm01nv+PECOfBNUGQjxKOrEguj4dWcev7UkggELeCnfCJRXgaE6MREIpZh8dOpIfmSsX2W5xoQYVMg98ZjiayUgjA/UisEzqo6f1XkDVgxluU6x0ONeCTYiiHVyBGVtjZqq5wpCBYRI1ykM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I8JezJfO; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEBBB2147E6
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 20:50:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778273404; cv=pass; b=aA0iPih33RUW5eRHvBxtEhRSavOi7BYg61nPXWn2g/WU4ZOwZ3FbaML+/NQHMF71Hw1855maSEk+YZ+vFK8r7MVok3rWbMly4C9SidhIUYvwiPJAdp5JtfpxAeh4uNVfPGKqilrrcL33qQ2yFy+mwj+MDtBolviD9vcbkQEgQ4o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778273404; c=relaxed/simple;
+	bh=fdyYtJLtjKBQJv4jqRopDa32X1ZpejqoxxymTnmIn78=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NCTseh8OKRw/G/0Gmlg1s2Dp3p1cIjwM5/l0CtbokWugH38WsBYVgA4wWRkophyri/RBka3GbJQG8NtcdhVupwpdYtIa7ipkkvOGoiaLFGxlsWQr7aba16d9sN5Np+IjM7ezlUpqu5p9YdBzaLXyj9lISYShkf1stZvcq2UL/Wg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=kcP5rIBW; arc=pass smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I8JezJfO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E99C2C2BCB0;
-	Fri,  8 May 2026 20:49:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778273356;
-	bh=MOcaTpJ/QJfwdYc5UKVJR9gCi3vTzmlEaN96gVw2b6c=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=I8JezJfOX9u8Vuxb8BS2BL6k/1TxighbeJl2kQXr/2nzYgrPGbS2TUuFx7SzL+yeV
-	 E1AVcpfENXCQRBMTAhRTbOlJc1ViKtqsWH70008fUcuWTKRKnKANi8ULOC5WuusWPP
-	 ttHhqf9Wpd9sEsXDsgzZEbIvUy1FOXOFT00G5S94i7+FMWEhP4xmJ/xZUCjyQY6CMf
-	 XGXiZUgZGHjlsH/6NzQxO3Zcf2e4H0oIPioa1btHBvdWhNVWsh7EPRuPAxOjE9J3bn
-	 GddCsirJhgOID8dj0ibXnhyG/UY4sRierOrQqZJRqOUD1KJUYlRePBvWwX3jH/Rp+z
-	 CWYVl3MXeHJQw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/5] dt-bindings: leds: is31fl32xx: convert the
- binding to yaml
-Reply-To: sashiko@lists.linux.dev
-To: "Jun Yan" <jerrysteve1101@gmail.com>
-Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260508131139.1523597-2-jerrysteve1101@gmail.com>
-References: <20260508131139.1523597-2-jerrysteve1101@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 08 May 2026 20:49:14 +0000
-Message-Id: <20260508204915.E99C2C2BCB0@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="kcP5rIBW"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-67c9616b4feso3605993a12.1
+        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 13:50:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778273400; cv=none;
+        d=google.com; s=arc-20240605;
+        b=R8qpWPwM2TY/Ny8jGNS/4YKMPaAMHzwCOyMXvIFG3DRi62GZRnJaHKnBo3YXxasFbX
+         ahdc3qU2yzQ6ZYEpEYf8WJhucDVCaxV/O58SnNPikxVPyQ3CnhzosyHFyFFR8sGfJR0H
+         PCqJClPrgsE1MiVzubTQ6c6qNs1TcgamlPqVCllcAXMMPcNUCXYZGL/rlp6bByJPyz60
+         VivlCcbPK5RNnYIRLBhWDZ/F09rdTys/gXmzBkXKann7Y//+EP299ue3TArg/j8NeSjG
+         kyVfpCPwLgKPLs8SQDSenFM2LWhQDQpvYehgpzx6zr2JoAw6hnRuhhT3VceRZn34CWMT
+         jZYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=zh/wQFPQhzkWv9+w9rGw8P4xXokXo+IJUUz/nVEgQFQ=;
+        fh=tTK7tlIIn8uV5tOmwO+9ftNHQ2Ow812jHx/gmBlJZLA=;
+        b=RW4/yu+XKF93TGUxmQDLNKHtJ3qKrUrxGcaWdQc5J9uSv7agHQjvCvIhHcM3uWcvwo
+         q+/XUJxopKeTNtYasyZ1tB7lwZ8gLaV49nYVJIntXCw9X0b4on/dX08evJtln5WrzCeo
+         soasP8EaAEKVVFFUD+rH2zpZhUOQ8ogT1waTbufVI2BktIm/+9YrUBh71mFGMC35zjhf
+         5Ycw1TSNUOHvbDvlsCWtRLHV/bdIEMIInKQRx4mP4kouK4hKAu2vsTO9VuIXtadYQ+l8
+         Nc6oc6iAx6Mm/d1oU3cyxg3DraMowMDi2WcSYjBI6l/wBFX3bXuXDfmtfIAsHY7CPQrF
+         258A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1778273400; x=1778878200; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=zh/wQFPQhzkWv9+w9rGw8P4xXokXo+IJUUz/nVEgQFQ=;
+        b=kcP5rIBW6gqOiJl5twjlvffUxmDWx7P3xNydjQnO6Ii2QVeQ5eG5HdMM2IJ+84qUq8
+         66jGN8pkwX3RIbXR1B5DSsE5vS3bYqOvlNhP8J12UG0nxfrFQHLrreMTB8Z5S4E+VDj8
+         1JALz3xtPNLEWP8lU3HIXF2Bo/97fx6JzsMUuNW9KOlCy0L8P94UAmw+zjfyU4li9wCS
+         fs8paWrwXOAqA1Ag1YWDDN4pKoYyIYwFeRYzVK/HfFoplfLQIsldygHE4pq4q7XnmshT
+         1bgZoloIZcOX0cqMxSbxtdZwq3yTlYzR6llq53IvBIqwuhxGUmfHsRYuuAJvnUt0kZJe
+         nEBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778273400; x=1778878200;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=zh/wQFPQhzkWv9+w9rGw8P4xXokXo+IJUUz/nVEgQFQ=;
+        b=eYSN6VrTYX4suNCDfUQ56Ta/5ORwIQu4mOUOHOvQPkhLIT3sUkS1+jjtNMsSUV1Y6R
+         87vqiItK3gPxYdbNOO3jcYsG//W5ooKqBAfB3+58ULOKq8ivtD3XV1kqWTRLdrpQVigl
+         uX60JN08D1gmV7xNcq7vGRwyWLyBJVlS8iIOgMZcxLimJ+vWl2ROEsKn+4YRrA9MCylQ
+         JQUQCuJCUaOPXBlndWAxciqmVb9SmqlHZQbtcco9WVi9QBnMIMM61A5fqod+6OvJeObq
+         UMjHiDcx37Fkm3XI27LBIgrnsMrts59nfaSYoVGfSQL7X7xYIBikQ28SiIeAnxcQtPsP
+         KoKw==
+X-Forwarded-Encrypted: i=1; AFNElJ847bgOAif9I2f8MzyxzGZC//e1z71uIxfyuLcw+9YvVODVopZWmUOxc/ppC88jQTLo8RpGR6XU0zIS@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxd46H9+7kLlMukYfWPwU1nd/my+vzvCizvlJDl8oGsjKg+VS4C
+	iQv2FopuSzF0sfQQtXF36oEMHz+uzedTa/CdQ8J0S0Gmel29VTbV1l4aQLxZH4fMqmfrQq/Vc3f
+	2WNluocBKTTZjgIj3fLsDE34x6QUfk85Gi9KmI2RN9w==
+X-Gm-Gg: Acq92OF9L0ns4uLrFSrOnoNxDflPwjDbgobDFwNVXQZ/G6Gz4RJEMcFFAndFYXdK+qX
+	tm/n9rXOJAo79h2ohxVJVJwM8oGmRaIb6LDtCmCFmiMcuZis20nUYYfRYqvLFRDYRBhJRBhbEkt
+	vAAotLxHzdwfJ6g9M4RJXa0L8z4aIFCxp9Xaw/IpzFXm12LuY19p6n7sq3N4BTBohD1A+sZzzzd
+	ryL5vsdaB2KJjHqGJwBGUQLSFasMrONQ2l6g68ksg6xfUF7BJM/Vn++z8JOLDxMrQmTWOMF0WYW
+	1r5ndC83t/I6UdxkK2CCTc72XhQtvUR5p72/52Lq+w==
+X-Received: by 2002:aa7:dacd:0:b0:678:960d:cb34 with SMTP id
+ 4fb4d7f45d1cf-67d63d85428mr5050590a12.6.1778273400285; Fri, 08 May 2026
+ 13:50:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260430-exynos850-cpuhotplug-v3-0-fd6251d02a17@linaro.org> <20260430-exynos850-cpuhotplug-v3-2-fd6251d02a17@linaro.org>
+In-Reply-To: <20260430-exynos850-cpuhotplug-v3-2-fd6251d02a17@linaro.org>
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Fri, 8 May 2026 21:49:48 +0100
+X-Gm-Features: AVHnY4IaFcTZPm9giV6Jc_QJYDLmEM1tYy3GvJxgbZ4vj91rTyPTj-YVRCvMm3o
+Message-ID: <CADrjBPoSiZU_BzXxQiU8unJNSqE8EFR1YPQe25rN7fhfLP2DqA@mail.gmail.com>
+Subject: Re: [PATCH v3 2/6] dt-bindings: soc: samsung: exynos-pmu: Require
+ pmu-intr-gen-syscon for Exynos850
+To: Alexey Klimov <alexey.klimov@linaro.org>
+Cc: Sam Protsenko <semen.protsenko@linaro.org>, linux-samsung-soc@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The YAML binding filename and its `$id` use an incorrect vendor pre=
-fix (`issl` instead of `issi`).
---
+On Thu, 30 Apr 2026 at 02:56, Alexey Klimov <alexey.klimov@linaro.org> wrote:
+>
+> Update the Exynos PMU schema to mandate the 'google,pmu-intr-gen-syscon'
+> property for the 'samsung,exynos850-pmu' compatible so the driver can
+> obtain the necessary syscon regmap.
+>
+> The Exynos850 PMU relies on a separate system controller block to handle
+> interrupts generation, similar to the hardware design of the GS101
+> SoC. To ensure the hardware is correctly described, this syscon phandle
+> must be explicitly provided.
+>
+> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+> ---
 
-commit e7636bd58d531019b888ef291c9c0d2fe4fa5e0c
-Author: Jun Yan <jerrysteve1101@gmail.com>
+Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
 
-dt-bindings: leds: is31fl32xx: convert the binding to yaml
-   =20
-Convert leds-is31fl32xx to DT schema format.
-
-> diff --git a/Documentation/devicetree/bindings/leds/issl,is31fl32xx.yaml =
-b/Documentation/devicetree/bindings/leds/issl,is31fl32xx.yaml
-> new file mode 100644
-> index 0000000000000..f4a6ef99b4777
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/leds/issl,is31fl32xx.yaml
-
-This isn't a bug, but there appears to be a typo in the new filename. The
-correct vendor prefix for Integrated Silicon Solution, Inc. is issi, but the
-filename uses issl.
-
-> @@ -0,0 +1,151 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/leds/issl,is31fl32xx.yaml#
-
-Should this $id URI also be updated to use issi instead of issl to match the
-correct vendor prefix used in the compatible strings below?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508131139.1523=
-597-1-jerrysteve1101@gmail.com?part=3D1
+>  Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml b/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
+> index 76ce7e98c10f..6550c3736a3b 100644
+> --- a/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
+> +++ b/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
+> @@ -182,6 +182,7 @@ allOf:
+>            contains:
+>              enum:
+>                - google,gs101-pmu
+> +              - samsung,exynos850-pmu
+>      then:
+>        required:
+>          - google,pmu-intr-gen-syscon
+>
+> --
+> 2.51.0
+>
