@@ -1,157 +1,361 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2123.outbound.protection.partner.outlook.cn [139.219.146.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48ADD37996C;
-	Fri,  8 May 2026 05:38:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.123
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778218753; cv=fail; b=YgWeDNuYq51mNDpRAhQ+jiiuzqaUhbur0mUOsXgF00qxWd6Tqaj/s72z+jUvZS7Uo9ZQ/veopCFtmr1dolGXGh0d60VqvpFMtmNLWoS+7ilSsODGeHbZxuhOb+9nd9/I6CHCC/KR5d9e52Q4cKkjIEBFeD4CWS3Bfm0V4gNQnN0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778218753; c=relaxed/simple;
-	bh=Lz8/OXggjAxegZ01OOBHT7eXE1ccR9/HVnPitlOgrWc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QbhdQn2UTS6ZIkvtGO63RpuWbuGnUxZptuRRKjghTO0VUJMUOcXxZOz16GmAeT1omlV5pX4Yq5+XRRMdqyG4T6nv7wWCHMCgzCCx6x2NYM5qzf08Uv0DZKDipgMMesImatiPiH2bwU+lWrDFYmdcUqxbEK+RldCh8N+qsqOkiV8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RcL7Bs9eOYefNHQtYzGZJ0jjziYPiKv7bklAC/C46KE+wC6woN43D+Xq4fJcL0j94NvQzBDCRnf0vCuztNRwXAB3a1g75xG1LZGjrL0fnJgqtJO63+dCHYer11Qy5s/qvWKKcPdwxp7RVRHf48yNpgNiR8aqpYGeffDOwLIM+t3Nsq7jNO24crNEEDH98QXcf9zkx3/Rfe6uiiIua+5GKr1Qx/Zu6BZtacA6PUQWSrg/7T24LAD32yQ2sOu3hc4DWh037LksWwP45PZY25LxwcdHYueO3nlv2ax9fsuGplCVpcwOAGjzWZ7dClWfKN7UHv74bBXY0uG8ZX2us1qP6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QoTb3IZeWbwhXr9g18+PsLvVlXvaB/UwBAZFZAHvzIk=;
- b=YHa6tHqhCslJ2XNTZvO6+py4oDW9lFCwNvUofOtJ0zM6Y2LmeZbWf13X7O1FydaSXBKj0RN4lNMrUJHO6ZWRpLgLfoiWxXmkoeAqkpMlhduLXPXVXTeAUpvGuUfuyBHPhfzu99ShtIZuKqKtI8GnvbgVzhwVxWJcZz8yPzgu+ALO5HQKdn0d2R41UMEY9FdlnOdKyv/18qAc7Cio6o8XSKXFFD6p6eKwD9hkYl5bNJSe7Bu9m4RAxsBNUSB++keWN2dhTkQz56iwjgl3BQqxFHf8GFlkmANgSFYPRsngR6B9SGhDOFwpwjK3zMuoGnvrKplTP8DyzcYkFlJoGkppoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1267.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:16::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.18; Fri, 8 May
- 2026 05:37:04 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%5])
- with mapi id 15.20.9891.019; Fri, 8 May 2026 05:37:04 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Michael Turquette <mturquette@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>
-Cc: linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-hardening@vger.kernel.org,
-	netdev@vger.kernel.org,
-	Sia Jee Heng <jeeheng.sia@starfivetech.com>,
-	Hal Feng <hal.feng@starfivetech.com>,
-	Ley Foon Tan <leyfoon.tan@starfivetech.com>,
-	Changhuang Liang <changhuang.liang@starfivetech.com>
-Subject: [PATCH v2 13/22] clk: starfive: Expand the storage of clock parent index
-Date: Thu,  7 May 2026 22:36:23 -0700
-Message-Id: <20260508053632.818548-14-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260508053632.818548-1-changhuang.liang@starfivetech.com>
-References: <20260508053632.818548-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: NT0PR01CA0035.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:c::12) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3092736D9F6
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 05:40:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778218853; cv=none; b=jucJH4q8ZH59y2M7xQ+ujSXYis5DBwflpbNZWO1uVZMP/R153sgc0VtEMN5rQAW4sP/5Q/X/vkCSG4hWH3sCTdSeh6HOimz+dpc/gij20TY1MfG+6X2vX8pnGxBpgLEOJ7oDVJ8PNNcVbCq9G5lZrDdpzC7m8/a3VOAnpo+wNng=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778218853; c=relaxed/simple;
+	bh=aHH5sVtLipwO2ZtQ6wTNhUu9NOHfSFOwMWxkCdycvTE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Kx1AT3VVsM7ThQybuRuQjOox779TbLfeFKQmLp1LoMN0WBFhou+vIRW42I6UrPO8KuBWDg1jOywiIOtNorm3R2BBhRVQYh0DomUe3xJBWZUWkwlhUMkpTqvu8wWhOk/Y7BpO1jFvin1RLSvUcG/ZHI1p3EnOxvlw4kcbo+ib5Fw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aMEAXCAV; arc=none smtp.client-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aMEAXCAV"
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-2c156c4a9efso2228410eec.1
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 22:40:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778218834; x=1778823634; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=ksmwXaiHory2UHn0wP49erDqYkPYenClnhvYzwICpYw=;
+        b=aMEAXCAV5LJo2unBanuqRp0Dwqx1NrWl/bCNaxWyf0rQirZ8yTmuCl+EfFHUdkc1AV
+         axjmZKDV5PkX5BnerH+hcQ3HOb3emnPDkUANSU9Sk7Jfpwho7Ee/5bhRc5jAZya2Z2Y0
+         FSTZjxSe7FNyoAEh85BRISsutaFm7ddSjf9aJiP86cPPV6snHDO9YmvTSCYNb61LBKLV
+         AnZRBBsUC3C+sahS/dT5yZ6kwbx5b2vyOg0VHZ9F/yfegul4q518T+N/Yf7+JyN5J709
+         jXZLQ2XeDHeLVc4VifdPPPsC65Vs+LEuC6IMf8uriUTcJ8x98lrNx3bnyG8gpp/55+AQ
+         fZQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778218834; x=1778823634;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=ksmwXaiHory2UHn0wP49erDqYkPYenClnhvYzwICpYw=;
+        b=lv/ZJNDOFzrUtyozdtFt4utTdgFm7KJ27iIs0AcdkLTSKcoSH3NzuUAQqqOOKsNUCB
+         RjiQryi23Vn6mOjpdW88ufHF16ApPR0i3zuMcwkQVXED5UyCginhtM0fXbKXyvdGhZWo
+         jJWCU4CPHhfAW5VUVLh61leG5H5ckFSzmW+gD0IfTEHd7z/HIr6YLVzjZliHDgZFWfLa
+         /iD5N3zls2gtX2eY1Ik2Zr4y5MTWzRKjNZosN1W25odBSrM84O0z8Xt8ibz2697egEcC
+         5/jeysz3rEQIekLa+QyilyRBBn9aQDio08yDr2hM8PP0uX7fUnvE90CBApHsGeXn3A71
+         7hiw==
+X-Forwarded-Encrypted: i=1; AFNElJ8kVkIwTlbs2+KvJhKUeaCQeX4eM8vOFG8S9BSyayD2cQWZNKuabJId3XuyaJUqC7X15f+DouYgxGai@vger.kernel.org
+X-Gm-Message-State: AOJu0YyhyNO949XHPaw0qdKBYRMWfuvVl98RMFeImUabpvcTneiIaORU
+	GSSQzlJvwR7wKYrxTBynmd+N01S7FRc3jj+5LjPK1KVCLX17EXKgYkJRcsRtQA==
+X-Gm-Gg: Acq92OFxVMljcOtvtraLGkdKXzzKifbCUvY8ejLWd487th2O640oip3RMniRgm3jIqf
+	N0ZnkZI9DvsQ+q8mkwsKV8CwiLchLs8LVSSBBJNQI/4w35A00/CuPHnGTjE11q378QHsVHSK+RT
+	knOZyFc7JeaHyJjCuuJpcONX60O4sBYXhAWaJTd10uZBNE60UXQBAo8ijTZk5UOBHugBGM2Jp7z
+	tqb6z63mJDZSK1WeXbqDCEvSNFWUCGoTvSWT2punZMWUgS0P9JNQJOKeG/G3CUf8bCiwWebhgfk
+	6zzjXLW8u46kwOZDdEHFcTiT9dVVBpbvJJet9ndEJYAw7J9d9OjOnb1Y5LN1nSYlv0XvT37U+J2
+	XlYZcxW4fdWlG98X7jNQtNCzK5G50CnYRn7OrbCCNcybK1VdUCMxXJpyB58D2PW1Wc/NlDa+Tux
+	uMM6zVfIu0xzCFrIVMTPe18Gt30pSliiA47m1XAHcYl+bp0XsCWBQ6mCKsB0B5iRlhmvX0riF62
+	TU=
+X-Received: by 2002:a05:7300:2146:b0:2e6:e77d:7bcf with SMTP id 5a478bee46e88-2f54f9442edmr5665866eec.22.1778218833571;
+        Thu, 07 May 2026 22:40:33 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:852e:ebf3:8de1:32e1])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2f8859e8389sm903075eec.3.2026.05.07.22.40.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 07 May 2026 22:40:32 -0700 (PDT)
+Date: Thu, 7 May 2026 22:40:29 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] Input: isa1200 - new driver for Imagis ISA1200
+Message-ID: <af115srC-zwjDxzq@google.com>
+References: <20260507133948.75704-1-clamor95@gmail.com>
+ <20260507133948.75704-3-clamor95@gmail.com>
+ <afzJUcvQth6v9KGC@google.com>
+ <CAPVz0n0w98wO_iJBiyvKqATA7a6+mkZG3DfbBwHp8FEExMHPqQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1267:EE_
-X-MS-Office365-Filtering-Correlation-Id: e094c72b-3e83-4603-5fd6-08deacc3d5f5
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|52116014|376014|56012099003|38350700014|921020|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	eH5Bq3Sf5Ye6OuU+ovM/hTvleaeS/UBau+wde8EBkAl0552cmB9zGUYp9MAfpFtmRiiB9oA0Qx1cWXBAHpkdndUwzCRhD++Z4YJ6fEFT27qkUYCbZAWPApYbCae4/nMux+laGY0FyJ3aFTdyVdR/mDDtDJj6IrQYiJaVHZRfvKTTdkruG2VRpfNLQoAb/TxplJuTQKEGv4/BblClXxII//AI2NrzsAbJ3W0gCBzpO1UZVaZW8mqPwCijQvU4SPcGOC1HTD7g6JReDFDLsfBB+7HFHPoLKjnufS+y7UN9bKPp3saSwHG+zZIuNUncdhqVXOrj4/OjWyEe0GzEvFCrM1VSOO6T/Hj/Zvvr+8Q5pjK5owwW9PzdW+hFRKBN+l9W+HUU1ijBLJ3tc5LEOTq+a0uClpdqVORkcMa5RIBSSzWg1FNMUCDHe7m3E4pHEExvbDXaF2wS4+/o8aqSXT/afmbWsesvdRWZ7qxNTgcjm/f8DpXahHECMYuvtdDIndkASyIm3qa9xM+pssgL2q/w/mK5tM0n5LqH/2J9ZF51twZZna3w6OEh2s8TnLQxpTQT5tEjWSTEtIdtQAXFc64juw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(52116014)(376014)(56012099003)(38350700014)(921020)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?NWbo+S7dcJFhBsvsEjv04bN6cSJhnhoLnBaQ9fVMtz3rLYfwEU44PHrXu6Ej?=
- =?us-ascii?Q?KNd6P7pIcYHqhzKY1lvdm8ttlrw0WmSusfR1nnlnmXzN0j/UlIFnJJzzqIzl?=
- =?us-ascii?Q?MTAYcKBpX5plQz8UPX0heu3Gg7zihSZt9qc2Mey0BboGgWmvo4gqjwZ2AIrW?=
- =?us-ascii?Q?qzodgz8HzUxAptuxd+jAxay9KY2pUvJQ5I1TtSPxo9wA3FaU7PKhEit0fPYj?=
- =?us-ascii?Q?u1tpTjEkYvPeGgztivHohPYnTctXzLWd4dL/F8yXtVkdXDUZOivZRsx/71LB?=
- =?us-ascii?Q?5riFYU4WjCv+S1aiin1uKc/qU9Pmj1QWv/eyWoeKx0HeCAdBgbZzfhHz5ZGG?=
- =?us-ascii?Q?c5VmPrbddCrFPBlxILGAMf8jKuEJJV4ZVntl7I6Z0MughGjiXQuWoficIid9?=
- =?us-ascii?Q?fRT1VtIykEb+pJcnzyt80kwiSQ3UWqZ8lP4obMUZ1zlEvBPTXP8rANajj/ga?=
- =?us-ascii?Q?jbJC0CMWO6sR3XhGz1gfbTYoq0muM1E6YKQFA9KxoKKkJgo31Wpb7IhiEcJ6?=
- =?us-ascii?Q?U5blkIZw8b6EQlA+IDjGJflf55h+eXalQZc+8CA692RwFGCXgCRSIU1ecBta?=
- =?us-ascii?Q?a71gWMifhsbeylv8qdotZEPmUkOoshczHMZXp61VbbLfZsw2jc0M7E5aLHJr?=
- =?us-ascii?Q?clmzuzuCBXuy42VZuVE3ZUrmbsHbvHJBcsfr99PVSjXOA8sz2FpZsrEMcn8r?=
- =?us-ascii?Q?G3SyNYFukeQyJFuzFkof6weNFXx9hXGhRyxShrsdBiJTgZN/kkAPrG06Tatt?=
- =?us-ascii?Q?TeCDnp8OA8ZqKWQAAOlClcjCFuTsJFlV5YkwkV3R+UIMlr5vs2jm2ca4O7Df?=
- =?us-ascii?Q?+m321HhY+T/3JrNkHknr6ey/cj8zm2qI26pAmg1GESYEsr+cdZXoPNnyINTn?=
- =?us-ascii?Q?xqSe69wEHD/IrHLlMyiZjofGWZ/ViGcZdOwbVWEDFKFpMMlWxMzc2ohuDB7T?=
- =?us-ascii?Q?q+oLD8YO0lfVqCH3JP4SuNQRxAAtXhHdQjjSZRv9uKcJHy/oMiZBcK4Axe8y?=
- =?us-ascii?Q?UgxVWNiIcA25VLVc9YGPf1MqMIJzJuyck3BJIc9Lxpxu23XBcP6fXb2fxpza?=
- =?us-ascii?Q?f0PsRjmGHeA+pZ7oSjNvimi0D0lnMcuYeasvajCNZFyzbmAqXSx6IzHD4Lc5?=
- =?us-ascii?Q?sel69rYkA8I/wTI2ln9/tIFHVfzO9KUDyw/jz79oVUdaYu0hTW/Vx3Xt6vey?=
- =?us-ascii?Q?fuG0j1bjl2noRDaRJLqRlaCF9OxJfTup9s/+Ee7RimA6Yh1oNI1svsECsEOB?=
- =?us-ascii?Q?VDBAap9ZdOI8EhfIyNerZLOZ9F/H9w1Q5mhucy6z3EY6VZJaaZnwrH9J3w9H?=
- =?us-ascii?Q?FNWWsIfY9mTrfZXCpFIDZ7DOwO9LM+otuwg61inevh+ac+l0lkCSp5Pt6B0+?=
- =?us-ascii?Q?uRHj/glhEWXYcVKbg9gOKNlZx9wk6HJu67XPBUfaffSXoVQyFIsDjNJY/1Ex?=
- =?us-ascii?Q?0W5BOMXk7DQQxJOClkoN5jX7IS5idGHeg0Sz2Kyg9wDsOBXdwTk5DIRhr1mM?=
- =?us-ascii?Q?0E6XHlkXb/yrE9/OiuBHbJNKlctzpRWt1+Qmyf7H8wAcvwS2F9TzSS84T2aT?=
- =?us-ascii?Q?dwMLWeaYwU1vCECdRvINNBBkBNCzhMZQura7c9FdQQ7Mc+9MKbCEUMAyETK+?=
- =?us-ascii?Q?MZsw6OmUrVnSg0m0c7+298ATlN/KbSIDOTvmV4EJxnW19/pBiq6+RNO57MAL?=
- =?us-ascii?Q?G+PsJWqYXu+Wc/m5Bxntymkiru9G4ImGM9LunXtSJ5qhHmuQ7fxMla40jUq7?=
- =?us-ascii?Q?YR3d6bsoJ44RqtCIA75JDwIWMXsVME6Sugh5heJbbTqQg0l+FAk1?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e094c72b-3e83-4603-5fd6-08deacc3d5f5
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2026 05:37:04.2918
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ViGsuc4dsTnqbRgH03J3osg7hVbZjHstWyX9+lKqFT0EGxcBFaWm2t6PQhXnq0vrAdzSvIs8lztYMKwmyCmAOIZsoWkgsJN+zGT2Vbq4EmvGQn6mTdRLUdoxBZYZ10eT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1267
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPVz0n0w98wO_iJBiyvKqATA7a6+mkZG3DfbBwHp8FEExMHPqQ@mail.gmail.com>
 
-Expand the storage of clock parent index for per0 domain, which parent
-index over 255. So change u8 to u16.
+On Fri, May 08, 2026 at 08:30:19AM +0300, Svyatoslav Ryhel wrote:
+> чт, 7 трав. 2026 р. о 22:26 Dmitry Torokhov <dmitry.torokhov@gmail.com> пише:
+> >
+> > Hi Svyatoslav,
+> >
+> > On Thu, May 07, 2026 at 04:39:48PM +0300, Svyatoslav Ryhel wrote:
+> > > From: Linus Walleij <linusw@kernel.org>
+> > >
+> > > The ISA1200 is a haptic feedback unit from Imagis Technology using two
+> > > motors for haptic feedback in mobile phones. Used in many mobile devices
+> > > c. 2012 including Samsung Galxy S Advance GT-I9070 (Janice), Samsung Beam
+> > > GT-I8350 (Gavini), LG Optimus 4X P880 and LG Optimus Vu P895.
+> > >
+> > > The exact datasheet for the ISA1200 is not available; all data was modeled
+> > > based on available downstream kernel sources for various devices and
+> > > fragments of information scattered across the internet.
+> > >
+> > > Tested-by: Linus Walleij <linusw@kernel.org> # GT-I9070 Janice
+> > > Signed-off-by: Linus Walleij <linusw@kernel.org>
+> > > Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > ---
+> > >  drivers/input/misc/Kconfig   |  12 +
+> > >  drivers/input/misc/Makefile  |   1 +
+> > >  drivers/input/misc/isa1200.c | 540 +++++++++++++++++++++++++++++++++++
+> > >  3 files changed, 553 insertions(+)
+> > >  create mode 100644 drivers/input/misc/isa1200.c
+> > >
+> > > diff --git a/drivers/input/misc/Kconfig b/drivers/input/misc/Kconfig
+> > > index 94a753fcb64f..52f192104ee2 100644
+> > > --- a/drivers/input/misc/Kconfig
+> > > +++ b/drivers/input/misc/Kconfig
+> > > @@ -852,6 +852,18 @@ config INPUT_IQS7222
+> > >         To compile this driver as a module, choose M here: the
+> > >         module will be called iqs7222.
+> > >
+> > > +config INPUT_ISA1200_HAPTIC
+> > > +     tristate "Imagis ISA1200 haptic feedback unit"
+> > > +     depends on I2C
+> > > +     select INPUT_FF_MEMLESS
+> > > +     select REGMAP_I2C
+> > > +     help
+> > > +       Say Y to enable support for the Imagis ISA1200 haptic
+> > > +       feedback unit.
+> > > +
+> > > +       To compile this driver as a module, choose M here: the
+> > > +       module will be called isa1200.
+> > > +
+> > >  config INPUT_CMA3000
+> > >       tristate "VTI CMA3000 Tri-axis accelerometer"
+> > >       help
+> > > diff --git a/drivers/input/misc/Makefile b/drivers/input/misc/Makefile
+> > > index 415fc4e2918b..d62bf2e9d85f 100644
+> > > --- a/drivers/input/misc/Makefile
+> > > +++ b/drivers/input/misc/Makefile
+> > > @@ -49,6 +49,7 @@ obj-$(CONFIG_INPUT_IMS_PCU)         += ims-pcu.o
+> > >  obj-$(CONFIG_INPUT_IQS269A)          += iqs269a.o
+> > >  obj-$(CONFIG_INPUT_IQS626A)          += iqs626a.o
+> > >  obj-$(CONFIG_INPUT_IQS7222)          += iqs7222.o
+> > > +obj-$(CONFIG_INPUT_ISA1200_HAPTIC)   += isa1200.o
+> > >  obj-$(CONFIG_INPUT_KEYSPAN_REMOTE)   += keyspan_remote.o
+> > >  obj-$(CONFIG_INPUT_KXTJ9)            += kxtj9.o
+> > >  obj-$(CONFIG_INPUT_M68K_BEEP)                += m68kspkr.o
+> > > diff --git a/drivers/input/misc/isa1200.c b/drivers/input/misc/isa1200.c
+> > > new file mode 100644
+> > > index 000000000000..f8dba8a95c7d
+> > > --- /dev/null
+> > > +++ b/drivers/input/misc/isa1200.c
+> > > @@ -0,0 +1,540 @@
+> > > +// SPDX-License-Identifier: GPL-2.0+
+> > > +
+> > > +#include <linux/array_size.h>
+> > > +#include <linux/bitmap.h>
+> > > +#include <linux/bits.h>
+> > > +#include <linux/clk.h>
+> > > +#include <linux/delay.h>
+> > > +#include <linux/device.h>
+> > > +#include <linux/devm-helpers.h>
+> > > +#include <linux/err.h>
+> > > +#include <linux/gpio/consumer.h>
+> > > +#include <linux/i2c.h>
+> > > +#include <linux/input.h>
+> > > +#include <linux/kernel.h>
+> > > +#include <linux/module.h>
+> > > +#include <linux/property.h>
+> > > +#include <linux/pwm.h>
+> > > +#include <linux/regmap.h>
+> > > +#include <linux/regulator/consumer.h>
+> > > +#include <linux/units.h>
+> > > +
+> > > +/*
+> > > + * System control (LDO regulator)
+> > > + *
+> > > + * LDO voltage to register mapping is linear, but it is split in two parts:
+> > > + * 2.3V - 3.0V map to 0x08 - 0x0f; 3.1V - 3.8V map to 0x00 - 0x7
+> > > + */
+> > > +
+> > > +#define ISA1200_SCTRL                        0x00
+> > > +#define ISA1200_LDO_VOLTAGE_BASE     0x08
+> > > +#define ISA1200_LDO_VOLTAGE_STEP     100000
+> > > +#define ISA1200_LDO_VOLTAGE_2V3              23
+> > > +#define ISA1200_LDO_VOLTAGE_3V1              31
+> > > +#define ISA1200_LDO_VOLTAGE_MIN              2300000
+> > > +#define ISA1200_LDO_VOLTAGE_MAX              3800000
+> > > +
+> > > +/*
+> > > + * The output frequency is calculated with this formula:
+> > > + *
+> > > + *                 base clock frequency
+> > > + * fout = -----------------------------------------
+> > > + *        (128 - PWM_FREQ) * 2 * PLLDIV * PWM_PERIOD
+> > > + *
+> > > + * The base clock frequency is the clock frequency provided on the
+> > > + * clock input to the chip, divided by the value in HCTRL0
+> > > + *
+> > > + * PWM_FREQ is configured in register HCTRL4, it is common to set this
+> > > + * to 0 to get only two variables to calculate.
+> > > + *
+> > > + * PLLDIV is configured in register HCTRL3 (bits 7..4, so 0..15)
+> > > + * PWM_PERIOD is configured in register HCTRL6
+> > > + * Further the duty cycle can be configured in HCTRL5
+> > > + */
+> > > +
+> > > +/*
+> > > + * HCTRL0 configures clock or PWM input and selects the divider for
+> > > + * the clock input.
+> > > + */
+> > > +#define ISA1200_HCTRL0                       0x30
+> > > +#define ISA1200_HCTRL0_HAP_ENABLE    BIT(7)
+> > > +#define ISA1200_HCTRL0_PWM_GEN_MODE  BIT(4)
+> > > +#define ISA1200_HCTRL0_PWM_INPUT_MODE        BIT(3)
+> > > +#define ISA1200_HCTRL0_CLKDIV_128    128
+> > > +
+> > > +/*
+> > > + * HCTRL1 configures the motor type and clock sourse
+> > > + */
+> > > +#define ISA1200_HCTRL1                       0x31
+> > > +#define ISA1200_HCTRL1_EXT_CLOCK     BIT(7)
+> > > +#define ISA1200_HCTRL1_DAC_INVERT    BIT(6)
+> > > +#define ISA1200_HCTRL1_MODE(n)               (((n) & 1) << 5)
+> >
+> > I wonder if this should simply be BIT(5) and you conditionally use it in
+> > the code. The macro is not really usable to disable the setting...
+> >
+> 
+> That was the initial idea but mode is not boolean it is an enum and
+> macro fits better to handle enum. Code does not enable/disable this
+> field, this field is configured with every start call.
 
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
----
- drivers/clk/starfive/clk-starfive-common.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+OK.
 
-diff --git a/drivers/clk/starfive/clk-starfive-common.h b/drivers/clk/starfive/clk-starfive-common.h
-index 05352dbb6b87..51afa7405c6b 100644
---- a/drivers/clk/starfive/clk-starfive-common.h
-+++ b/drivers/clk/starfive/clk-starfive-common.h
-@@ -27,7 +27,7 @@ struct starfive_clk_data {
- 	const char *name;
- 	unsigned long flags;
- 	u32 max;
--	u8 parents[4];
-+	u16 parents[4];
- };
- 
- #define STARFIVE_GATE(_idx, _name, _flags, _parent)				\
+> 
+> > > +
+> > > +/* HCTRL2 controls software reset of the chip */
+> > > +#define ISA1200_HCTRL2                       0x32
+> > > +#define ISA1200_HCTRL2_SW_RESET              BIT(0)
+> > > +
+> > > +/*
+> > > + * HCTRL3 controls the PLL divisor
+> > > + *
+> > > + * Bits [0,1] are always set to 1 (we don't know what they are
+> > > + * used for) and bit 4 and upward control the PLL divisor.
+> > > + */
+> > > +#define ISA1200_HCTRL3                       0x33
+> > > +#define ISA1200_HCTRL3_DEFAULT               0x03
+> > > +#define ISA1200_HCTRL3_PLLDIV(n)     (((n) & 0xf) << 4)
+> > > +
+> > > +/* HCTRL4 controls the PWM frequency of external channel */
+> > > +#define ISA1200_HCTRL4                       0x34
+> > > +
+> > > +/* HCTRL5 controls the PWM high duty cycle of internal channel */
+> > > +#define ISA1200_HCTRL5                       0x35
+> > > +
+> > > +/* HCTRL6 controls the PWM period of internal channel */
+> > > +#define ISA1200_HCTRL6                       0x36
+> > > +#define ISA1200_HCTRL6_PERIOD_SCALE  100
+> > > +
+> > > +/* The use for these registers is unknown but they exist */
+> > > +#define ISA1200_HCTRL7                       0x37
+> > > +#define ISA1200_HCTRL8                       0x38
+> > > +#define ISA1200_HCTRL9                       0x39
+> > > +#define ISA1200_HCTRLA                       0x3a
+> > > +#define ISA1200_HCTRLB                       0x3b
+> > > +#define ISA1200_HCTRLC                       0x3c
+> > > +#define ISA1200_HCTRLD                       0x3d
+> > > +
+> > > +#define ISA1200_EN_PINS_MAX          2
+> > > +
+> > > +struct isa1200_config {
+> > > +     u32 ldo_voltage;
+> > > +     u32 mode;
+> > > +     u32 clkdiv;
+> > > +     u32 plldiv;
+> > > +     u32 freq;
+> > > +     u32 period;
+> > > +     u32 duty;
+> > > +};
+> > > +
+> > > +struct isa1200 {
+> > > +     struct input_dev *input;
+> > > +     struct regmap *map;
+> > > +
+> > > +     struct clk *clk;
+> > > +     struct pwm_device *pwm;
+> > > +     struct gpio_descs *enable_gpios;
+> > > +
+> > > +     struct work_struct play_work;
+> > > +     struct isa1200_config config;
+> > > +
+> > > +     int level;
+> > > +     bool clk_on;
+> >
+> > I think you need not only clk_on, but general "active" flag that you
+> > would set at the end of isa1200_start().
+> >
+> 
+> Acknowledged.
+> 
+> > > +};
+> > > +
+> > > +static const struct regmap_config isa1200_regmap_config = {
+> > > +     .reg_bits = 8,
+> > > +     .val_bits = 8,
+> > > +     .max_register = ISA1200_HCTRLD,
+> > > +};
+> > > +
+> > > +static void isa1200_start(struct isa1200 *isa)
+> > > +{
+> > > +     struct isa1200_config *config = &isa->config;
+> > > +     struct pwm_state state;
+> > > +     u8 hctrl0 = 0, hctrl1 = 0;
+> > > +     DECLARE_BITMAP(values, ISA1200_EN_PINS_MAX);
+> > > +     int ret;
+> >
+> > Please use "error" or "err" for all variables that only hold error codes
+> > (or 0) instead of a real value that is used for something.
+> >
+> 
+> Not real value, but return value. Why I cannot use ret aka return
+> value? It is much more versatile since it can hold any function return
+> value including errors.
+
+This is my preference for input. I do not want versatility, I want the
+opposite: if I see error I do not need to consider whether it holds
+something of value besides an error code. And if I see "ret" or "retval"
+I know that caller might be interested the value. And also
+
+	if (error) {
+		// handle error
+	}
+
+looks neat.
+
+> 
+> > > +
+> > > +     if (!isa->clk_on) {
+> > > +             ret = clk_prepare_enable(isa->clk);
+> >
+> > This return 0 on success so
+> >
+> >                 if (error)
+> >                         return;
+> >
+> 
+> No, code is correct. If clock enable fails, further function execution
+> should stop since regmap operations on unconfigured device is not
+> desirable. Since this function is void using general "active" flag as
+> you suggested to indicate that start reached end would be beneficial.
+
+I am simply saying that you do not need to check if value is negative,
+checking that it is non-zero is sufficient.
+
+Thanks.
+
 -- 
-2.25.1
-
+Dmitry
