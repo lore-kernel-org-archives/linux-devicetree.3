@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D65202F12B3;
-	Fri,  8 May 2026 21:36:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 338F8313E1D
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 21:41:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778276181; cv=none; b=H2N/Yg83AukQauJGnrIMXpEiZx/u3uw9VYzxf/h3JTaqdO4naPXWR4z8tUA+DuRlfYLKbYgoszXVlPJzhqNlk/dHvJTGsyG/2Zz3RMFvTtq4nmG1pxaRqZH3ZGaDovTymcvTFRcPTQf5Kv0VALgw1o+hlUZRhAdwhYBzCvEbTh4=
+	t=1778276511; cv=none; b=GJsGeTS7e/pGqq5x4HtmlUfuZR6wFFhd2XoDVhW2zGcyKozCEUh+dNTjtW9oQerCqjlIyB7ptSPsbTpa+aTB/YWlBL+tjbKN/E7MvfBWrgx4JIVcpPWIbDrDXSZYxjAtLZkHfUBKynEPtuyMkwpfHQ3rCblKFkqpTi7Z11hcnto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778276181; c=relaxed/simple;
-	bh=QKkSFmJ43pWVZN55bbO0tUPPVmaGghyU5KTj2RxXGzo=;
+	s=arc-20240116; t=1778276511; c=relaxed/simple;
+	bh=NsNd9/PnD3eIEdkJxOzeyB6Hy/Jney/mw6eClvaG4nc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=q6MWegFt/X+J/knIz7Pt2hvKoTxNq1P5uWDp8tiJPnjtH9I7ofDUcpcTj9uL9qlPavsopDOvHr5S4FW0SHdqEhwYVxxdQxIFop+4d+JZ4cgyCaYlUtqbOeRpyEmpIYbSgV5q4UbhvQqrnckJmV+4TNkcbJw7wXC1lrlGa8R3TN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H+x3ApsA; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=sJ0W/nL8mx7qhiPloZsrlcMmWNpc5oEQubzYKSr9AKlarCvX0lb+QtayhLpAcmrEs13iLYrlGHRFWGKLROP/vLOYq1SJJ4x+KOW/QLbCDBeLM7jlEfq4iKyXszbAraT4R0XxvMseXKUP47JAVmZw40ZMZDcjt4Spr3pTgNGZwAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GRDqFOdf; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H+x3ApsA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E6B6C2BCB0;
-	Fri,  8 May 2026 21:36:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GRDqFOdf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6064C2BCB0;
+	Fri,  8 May 2026 21:41:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778276181;
-	bh=QKkSFmJ43pWVZN55bbO0tUPPVmaGghyU5KTj2RxXGzo=;
+	s=k20201202; t=1778276510;
+	bh=NsNd9/PnD3eIEdkJxOzeyB6Hy/Jney/mw6eClvaG4nc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=H+x3ApsAeIh9z4CmnJmnH/F4ltP9A29tTOlprgNOLjV10Fx8iIEs3m3IlMvvGYI//
-	 BOxVjYeAnASDreChZRoXCsph6m8P0RostE4nlsIyGRELUn8U+yWtnx2i2uAx/sVV67
-	 obnLjaYF0glbaDRepJwFTZqfw5Fv9Obfu7DJGTyDFwKN6HI9H6V7kJmgrDGwyWHk9k
-	 VyIuS2CIxLyDXUPI3Iz5DJ08polx8WTtAqC70A4z6SCnQCfURGAxlbW77PfFj6qvXs
-	 pBKlEPBsRY4ilkqXUj/xT3rK+CT74vUo2pbzlId1GsBmAy0i8y2ZKQEtPD2hZOegvi
-	 QwmyW2rFCpyLg==
+	b=GRDqFOdf6U8HCkD2qDwX77CYlKLUpV9vbAJ+4T6ZyAZNHqVpA6lD34CL+dGyRQyzu
+	 Q/eD2BM1gQszSKQjJVQaojAnAG6V2KKI8kpfhn3IvaEQie5uxGfd6U2VeJntuYaMC8
+	 CVkRmPdNPtXvFHBauDW/rX2A59FKMwwhapKvrrWkPeKBWDdp6GinwNfmtMl2Z7Cjic
+	 L4jNo9mMyclpxFji05qYooyg/vbq8v+yYGP1cbFEW9MAo6DJ14cyR6PjbqDiN5v9Jp
+	 9tYw+y9cgpRhmgImlqY/RRiQaZ47rHoLmGRvAvQVUMH8KIKzg7QbeBcTWJVSJJ5yA1
+	 4iW7x67mH/cOQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 3/4] Input: gpio-keys - add regulator to gpio_keys
+Subject: Re: [PATCH v7 04/10] clk: realtek: Add support for phase locked
+ loops (PLLs)
 Reply-To: sashiko@lists.linux.dev
-To: "Griffin Kroah-Hartman" <griffin.kroah@fairphone.com>
-Cc: linux-input@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, dmitry.torokhov@gmail.com, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260508-gpiokeys-vdd-supply-v1-3-0bb32e8e6428@fairphone.com>
-References: <20260508-gpiokeys-vdd-supply-v1-3-0bb32e8e6428@fairphone.com>
+To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
+Cc: conor+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260508111641.3192177-5-eleanor.lin@realtek.com>
+References: <20260508111641.3192177-5-eleanor.lin@realtek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 08 May 2026 21:36:20 +0000
-Message-Id: <20260508213621.2E6B6C2BCB0@smtp.kernel.org>
+Date: Fri, 08 May 2026 21:41:50 +0000
+Message-Id: <20260508214150.A6064C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,122 +46,140 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] Tying the regulator's power state to the input device's open()/clo=
-se() lifecycle leaves interrupts active while the hardware is unpowered, ca=
-using an interrupt storm.
-- [Medium] System wakeup functionality is broken because regulators are dis=
-abled if the input device is closed.
-- [Medium] Unsafe hardware access during system resume causes spurious key =
-events.
-- [Medium] Missing pdata->disable() in the gpio_keys_open() error path lead=
-s to a resource leak.
-- [Low] Incorrect teardown order in gpio_keys_close() violates LIFO symmetr=
-y.
+- [Critical] Missing spinlock release and IRQ restore in `clk_pll_recalc_ra=
+te()` error path.
+- [High] Severe scheduling latency due to up to 2ms delay in atomic context=
+ with interrupts disabled.
+- [High] `is_power_on()` masks hardware read errors, leading to silent hard=
+ware failures.
+- [High] Valid register offset `0x0` is treated as 'no register' in `is_pow=
+er_on()`.
+- [Medium] `clk_pll_determine_rate()` fails to enforce frequency bounds.
 --
 
-commit d47e6012a488ac21d0005ba6dd4aa95a285831d3
-Author: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+commit df23b935aa675a5465a9a387a1eecbe47915033e
+Author: Cheng-Yu Lee <cylee12@realtek.com>
+clk: realtek: Add support for phase locked loops (PLLs)
 
-Input: gpio-keys - add regulator to gpio_keys
+This commit introduces support for realtek programmable and fixed or
+hardware-managed PLLs. It provides operations for programmable PLLs and
+a read-only variant for fixed or hardware-managed PLLs.
 
-This commit allows gpio-keys to have a vdd power supply managed through
-regulators.
-
-> diff --git a/drivers/input/keyboard/gpio_keys.c b/drivers/input/keyboard/=
-gpio_keys.c
-> index e196174856796..2199ce7455cfc 100644
-> --- a/drivers/input/keyboard/gpio_keys.c
-> +++ b/drivers/input/keyboard/gpio_keys.c
+> diff --git a/drivers/clk/realtek/clk-pll.c b/drivers/clk/realtek/clk-pll.c
+> new file mode 100644
+> index 0000000000000..b63f3aa92d3f4
+> --- /dev/null
+> +++ b/drivers/clk/realtek/clk-pll.c
 
 [ ... ]
 
-> @@ -729,6 +730,7 @@ static int gpio_keys_open(struct input_dev *input)
->  	struct gpio_keys_drvdata *ddata =3D input_get_drvdata(input);
->  	const struct gpio_keys_platform_data *pdata =3D ddata->pdata;
->  	int error;
-> +	int i;
-> =20
->  	if (pdata->enable) {
->  		error =3D pdata->enable(input->dev.parent);
-> @@ -736,19 +738,48 @@ static int gpio_keys_open(struct input_dev *input)
->  			return error;
->  	}
-> =20
-> +	for (i =3D 0; i < pdata->nbuttons; i++) {
-> +		const struct gpio_keys_button *button =3D &pdata->buttons[i];
+> +static int wait_freq_ready(struct clk_pll *clkp)
+> +{
+> +	u32 pollval;
 > +
-> +		if (!button->regulator)
-> +			continue;
-> +		error =3D regulator_enable(button->regulator);
-> +		if (error)
-> +			goto reg_err;
-> +	}
+> +	if (!clkp->freq_ready_valid)
+> +		return 0;
+> +
+> +	return regmap_read_poll_timeout_atomic(clkp->clkr.regmap, clkp->freq_re=
+ady_reg, pollval,
+> +		(pollval & clkp->freq_ready_mask) =3D=3D clkp->freq_ready_val, 1, TIME=
+OUT);
+> +}
 
-Because interrupts are requested unconditionally in gpio_keys_probe() and
-remain unmasked, tying the regulator power state to the input device's
-open()/close() lifecycle leaves the physical button unpowered when the devi=
-ce
-is closed. Could this allow the GPIO pin to float and trigger an interrupt
-storm?
+Is a 2000 microsecond (2ms) timeout safe in an atomic context? wait_freq_re=
+ady()
+is called from clk_pll_enable() and clk_pll_set_rate(), both of which hold=
+=20
+clkp->lock and disable interrupts via spin_lock_irqsave(). Spinning for 2ms=
+=20
+with local interrupts disabled could degrade system responsiveness and trig=
+ger=20
+NMI watchdogs.
 
-Also, if the input device is closed before suspend, the regulator remains
-disabled. Does this prevent an unpowered physical button from generating the
-electrical signal required to trigger a wakeup interrupt?
+Should multi-millisecond hardware waits be moved to sleepable callbacks (li=
+ke
+.prepare() instead of .enable()) using mutexes?
 
-Additionally, gpio_keys_resume() unconditionally calls
-gpio_keys_report_state(), which reads the current state of all GPIOs. If the
-device is closed, the regulators are powered off. Can reading unpowered GPI=
-Os
-return floating states that inject spurious phantom key press events on eve=
-ry
-resume?
+> +static bool is_power_on(struct clk_pll *clkp)
+> +{
+> +	u32 val;
+> +
+> +	if (!clkp->power_reg)
+> +		return true;
+
+Does this check inadvertently treat the valid register offset 0x0 as 'no
+register'?
+
+In regmap-based MMIO devices, offset 0x0 is a common and valid register add=
+ress.
+If a PLL maps its power register to offset 0, will the driver skip reading =
+it
+and incorrectly assume the clock is powered on?
 
 > +
->  	/* Report current state of buttons that are connected to GPIOs */
->  	gpio_keys_report_state(ddata);
-> =20
->  	return 0;
-> +
-> +reg_err:
-> +	for (--i; i >=3D 0; i--) {
-> +		const struct gpio_keys_button *button =3D &pdata->buttons[i];
-> +
-> +		if (!button->regulator)
-> +			continue;
-> +		regulator_disable(button->regulator);
-> +	}
-> +	return error;
+> +	if (regmap_read(clkp->clkr.regmap, clkp->power_reg, &val))
+> +		return true;
 
-If regulator_enable() fails and we jump to reg_err, we return the error but
-fail to call pdata->disable(). Does this leave the platform state permanent=
-ly
-active and leak resources since pdata->enable() was called earlier?
+Does returning true on a regmap_read() error mask hardware read failures?
 
->  }
-> =20
->  static void gpio_keys_close(struct input_dev *input)
->  {
->  	struct gpio_keys_drvdata *ddata =3D input_get_drvdata(input);
->  	const struct gpio_keys_platform_data *pdata =3D ddata->pdata;
-> +	int i;
-> =20
->  	if (pdata->disable)
->  		pdata->disable(input->dev.parent);
-> +
-> +	for (i =3D 0; i < pdata->nbuttons; i++) {
-> +		const struct gpio_keys_button *button =3D &pdata->buttons[i];
-> +
-> +		if (!button->regulator)
-> +			continue;
-> +		regulator_disable(button->regulator);
-> +	}
->  }
+If this fails, clk_pll_enable() will interpret the clock as already powered
+on, skip the seq_power_on sequence, and return success while the hardware
+remains unpowered. Could this lead to silent failures and crashes when
+dependent drivers access unclocked registers?
 
-Is the teardown order correct here? In gpio_keys_open(), pdata->enable() is
-called before the regulators are enabled. Should gpio_keys_close() reverse
-this sequence by disabling the regulators before calling pdata->disable() to
-maintain LIFO symmetry?
+> +
+> +	return (val & clkp->power_mask) =3D=3D clkp->power_val_on;
+> +}
+
+[ ... ]
+
+> +static int clk_pll_determine_rate(struct clk_hw *hw,
+> +				  struct clk_rate_request *req)
+> +{
+> +	struct clk_pll *clkp =3D to_clk_pll(hw);
+> +	const struct freq_table *ftblv =3D NULL;
+> +
+> +	ftblv =3D ftbl_find_by_rate(clkp->freq_tbl, req->rate);
+> +	if (!ftblv)
+> +		return -EINVAL;
+> +
+> +	req->rate =3D ftblv->rate;
+
+Does this callback need to enforce frequency bounds?
+
+The determine_rate callback is generally expected to select a valid frequen=
+cy
+that satisfies req->min_rate <=3D rate <=3D req->max_rate. It looks like th=
+e closest
+rate is assigned without checking if it falls within the requested bounds.
+
+> +
+> +	return 0;
+> +}
+> +
+> +static unsigned long clk_pll_recalc_rate(struct clk_hw *hw,
+> +					 unsigned long parent_rate)
+> +{
+> +	struct clk_pll *clkp =3D to_clk_pll(hw);
+> +	const struct freq_table *fv;
+> +	unsigned long flags;
+> +	u32 freq_val;
+> +
+> +	spin_lock_irqsave(&clkp->lock, flags);
+> +
+> +	if (regmap_read(clkp->clkr.regmap, clkp->freq_reg, &freq_val))
+> +		return 0;
+
+Is there a missing spin_unlock_irqrestore() in this error path?
+
+If regmap_read() fails, the function returns immediately, leaving the spinl=
+ock
+acquired and interrupts disabled. Any future attempt to acquire this lock w=
+ould
+deadlock.
+
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508-gpiokeys-v=
-dd-supply-v1-0-0bb32e8e6428@fairphone.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508111641.3192=
+177-1-eleanor.lin@realtek.com?part=3D4
