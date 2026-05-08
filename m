@@ -1,142 +1,164 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB54367F26
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 23:51:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 243C8368294
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 23:53:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778284261; cv=none; b=pCPGOCw+sVv+82DPS9RQUmmAmTF+SLL+QM+TKGkNLp+PrTBrG0RsjMx942yG2nXUSi3C3t3Kj1nG+utcu7WooGp2njJQPHiykkZ+DQdO/INbNMvztkmVkop6UTus5HLMT3cnahtxv7PAVczmHkKNvBqiDCIx6V1SD0eJGyuXcrY=
+	t=1778284414; cv=none; b=a7MgZ7anj6XSQLyFeo+oh5ATb1TRJO0BXyImHwKw708Kqekyv14E0iQQYKZ6skkAD+C2aBG5XisBJrwoB6AUTjnZvPyugelBqJGUdUPdl1eoytvQL9lElWASuXZ6BvLoxzV4lIeXVGqoyS7B/zHlxTccIcIuADXUWexoPG8gk0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778284261; c=relaxed/simple;
-	bh=mcckM0bp06M2H/95BiohV3DlAg9nxCRbHv2XK89mC8E=;
+	s=arc-20240116; t=1778284414; c=relaxed/simple;
+	bh=xj2QPEM659jnGBmrWC/5DKp28mscjfADmzOAPnTRXJ8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Lp6zRhXOgd/ZnyJ8LMr7WPZwTKt1/CoEv0EEEQNrvB/iCm0GlPEC1ja+Itavx6fJb7zQnPCSD6kkOnX0+xlE28PubPLlrNvkYWQgTsQvccq3Lsule0sDUFRzvQU0mB4wFR+3ph7OyosUTo5/6i5UVKPUuWMgIULjbfBLRL7JjSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iUPHSDvK; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=KV9XaVepSFsRUTd5uHj8QHOLJDwVnXRy6ZjSYy41DlRu9mFK5npYUFkjEMw4uFrh64GhyR0xoGofmWDNt8QMBxmLCnetVUX51XVuHJEbdVUS4J1abNdesRrXz3sb4n2CpWFeYacLeegHeOpGFx6L7xNX7m03fDkAxfKqfYc5yDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hVvF0CPN; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iUPHSDvK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5609BC2BCB0;
-	Fri,  8 May 2026 23:51:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hVvF0CPN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76247C2BCB0;
+	Fri,  8 May 2026 23:53:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778284260;
-	bh=mcckM0bp06M2H/95BiohV3DlAg9nxCRbHv2XK89mC8E=;
+	s=k20201202; t=1778284413;
+	bh=xj2QPEM659jnGBmrWC/5DKp28mscjfADmzOAPnTRXJ8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=iUPHSDvKUuV75SqQWnTo7XeFj8JiCJhc0lJzls4paWetg6ndJ3sByO3hxINtZ57wk
-	 p65kwSnvQP4IXR77HsP9AEwNgVujug1jQHWihUoL6rz/Uwz6MnckB6ZSl59e4WjEn1
-	 nUOHZOufV/BGz3cRBgTWo0PZzv2fcGvSdgQyVuRTHK43wrZFYOO6iKclwCGCUVpUlo
-	 AsB8g3/lRs/cV1ddQnH5eiABMgtMq9TOIIxskUpiYxymgo3rfRpvqmRG1dOOEj1+zI
-	 JTgKgxNfrDElY/mlsP5iNanayEBrN39UW2XLg9Akv3TskOdHau9eBrqMhu+mVZ+BLe
-	 mdSZ+NTMEay+w==
+	b=hVvF0CPNwdKMps1mozbLVGo72LAzCvLz9YayGlcUggwupkOLx3nDS1XqT9PA/RdLo
+	 Q9OchxWSBy+muyeHWj99T0PztAKqsVJmVJQSLpJMZukmdQxYmDicI41dz3MRdBVjCj
+	 mf5UbrFIdxKA2SqX1nosQRX4+Fqyc+L81nOQszgLRwn7SClxX3RdiT7IzqUW9FdNvg
+	 hnR0bsv/WPwtidCdNJLyFqtUAhB5Aue8LTSC8IE0Vco5lJur5Cqh/Zr++NKSfUfuOY
+	 V9DkCp4NUFMnA5Y/6G9lxqAj45rFJWiAIWw8pgyj18gPUr75jyrm3turkNZ03E6Nnd
+	 nRt9sJeDx95jg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 15/15] can: grcan: Advertise CANFD capability
+Subject: Re: [PATCH RFC v4 05/10] iio: frequency: ad9910: add digital ramp
+ generator support
 Reply-To: sashiko@lists.linux.dev
-To: "Arun Muthusamy" <arun.muthusamy@gaisler.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260508070121.6918-16-arun.muthusamy@gaisler.com>
-References: <20260508070121.6918-16-arun.muthusamy@gaisler.com>
+To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260508-ad9910-iio-driver-v4-5-d26bfd20ee3d@analog.com>
+References: <20260508-ad9910-iio-driver-v4-5-d26bfd20ee3d@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 08 May 2026 23:50:59 +0000
-Message-Id: <20260508235100.5609BC2BCB0@smtp.kernel.org>
+Date: Fri, 08 May 2026 23:53:32 +0000
+Message-Id: <20260508235333.76247C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Missing CAN FD Data Phase hardware configuration.
-- [High] Advertised data bit timing constraints exceed hardware register li=
-mits.
-- [High] Socket buffer allocation failures permanently stall the NAPI recei=
-ve queue (infinite loop).
-- [Medium] The CANFD_BRS flag is lost on received CAN FD frames.
-- [Medium] Unconditional exposure of CAN FD data bit timing to userspace fo=
-r non-FD hardware.
+- [High] Missing bounds check for negative fractional inputs causes integer=
+ underflow, silently configuring hardware to maximum limits.
+- [Medium] The `IIO_CHAN_INFO_ENABLE` attribute is exposed for DRG ramp cha=
+nnels but unconditionally returns `-EINVAL`.
+- [Low] Incompatible pointer type mismatch when passing `int *` to `div_u64=
+_rem()`.
 --
 
-commit 73799692e455f9bd1a3d6243e60de78467c0a58b
-Author: Arun Muthusamy <arun.muthusamy@gaisler.com>
+commit 81e59a90f90a26812172e27f2860e2027f281ffb
+Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Subject: iio: frequency: ad9910: add digital ramp generator support
 
-can: grcan: Advertise CANFD capability
+This commit adds Digital Ramp Generator channels with destination selection
+based on attribute writes, dwell mode control, configurable upper/lower
+limits, step size controlled with rate of change config, and step rate
+controlled as sampling frequency.
 
-Advertise CANFD capability for GRCANFD hardware by enabling
-CAN_CTRLMODE_FD flag and providing CANFD timing operations.
+> diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad991=
+0.c
+> index b069b849e8d72..d6c88ec51145e 100644
+> --- a/drivers/iio/frequency/ad9910.c
+> +++ b/drivers/iio/frequency/ad9910.c
 
-> diff --git a/drivers/net/can/grcan.c b/drivers/net/can/grcan.c
-> index 06ef081970a24..060031df81924 100644
-> --- a/drivers/net/can/grcan.c
-> +++ b/drivers/net/can/grcan.c
-> @@ -1766,11 +1766,14 @@ static int grcan_setup_netdev(struct platform_dev=
-ice *ofdev,
->  	priv->ofdev_dev =3D &ofdev->dev;
->  	priv->regs =3D base;
->  	priv->can.bittiming_const =3D hwcap->bt_const;
-> +	priv->can.fd.data_bittiming_const =3D hwcap->bt_const;
+[ ... ]
 
-Are the data bit timing constraints advertised here too large for the
-hardware registers? It looks like hwcap->bt_const (which sets
-tseg1_max =3D 63) is assigned, but the hardware macro for the Data Bit
-Timing Register (GRCANFD_FDBTR_PS1) defines only a 4-bit field (max value
-15). Could this result in bitwise truncation and corrupted baud rates if the
-register is programmed?
+> @@ -716,6 +986,40 @@ static const struct iio_chan_spec ad9910_channels[] =
+=3D {
+>  		.info_mask_separate =3D BIT(IIO_CHAN_INFO_ENABLE),
+>  		.ext_info =3D ad9910_pp_ext_info,
+>  	},
+> +	[AD9910_CHAN_IDX_DRG] =3D {
+> +		.type =3D IIO_ALTVOLTAGE,
+> +		.indexed =3D 1,
+> +		.output =3D 1,
+> +		.channel =3D AD9910_CHANNEL_DRG,
+> +		.address =3D AD9910_CHAN_IDX_DRG,
+> +		.info_mask_separate =3D BIT(IIO_CHAN_INFO_ENABLE),
+> +	},
+> +	[AD9910_CHAN_IDX_DRG_RAMP_UP] =3D {
+> +		.type =3D IIO_ALTVOLTAGE,
+> +		.indexed =3D 1,
+> +		.output =3D 1,
+> +		.channel =3D AD9910_CHANNEL_DRG_RAMP_UP,
+> +		.address =3D AD9910_CHAN_IDX_DRG_RAMP_UP,
+> +		.info_mask_separate =3D BIT(IIO_CHAN_INFO_ENABLE) |
 
-Also, is it safe to assign data_bittiming_const unconditionally, even for
-hardware that does not support CAN FD? Since hwcap->fd is not checked
-before this assignment, this seems to unconditionally expose
-IFLA_CAN_DATA_BITTIMING_CONST to userspace tools for classic CAN controller=
-s.
+The channel definition for AD9910_CHAN_IDX_DRG_RAMP_UP and
+AD9910_CHAN_IDX_DRG_RAMP_DOWN includes BIT(IIO_CHAN_INFO_ENABLE) in the
+info_mask_separate.
 
->  	priv->can.do_set_mode =3D grcan_set_mode;
->  	priv->can.do_get_berr_counter =3D grcan_get_berr_counter;
->  	priv->can.clock.freq =3D ambafreq;
->  	priv->can.ctrlmode_supported =3D
->  		CAN_CTRLMODE_LISTENONLY | CAN_CTRLMODE_ONE_SHOT;
-> +	if (hwcap->fd)
-> +		priv->can.ctrlmode_supported |=3D CAN_CTRLMODE_FD;
+However, in ad9910_read_raw() and ad9910_write_raw(), only
+AD9910_CHANNEL_DRG is handled for IIO_CHAN_INFO_ENABLE.
 
-With CAN FD being enabled here, there appear to be a few issues in other
-parts of the code handling the FD functionality.
+Will reads and writes to the ramp channels' enable attributes fall
+through to the default case and unconditionally return -EINVAL? Should
+the enable bit be removed from the ramp channels' info mask?
 
-First, does the hardware timing configuration callback grcanfd_set_bittimin=
-g()
-omit programming the CAN FD data phase? It seems to only read the nominal
-bit timing (priv->can.bittiming) and write it to the Nominal Bit Timing
-Register (regs->nbtr), completely ignoring priv->can.fd.data_bittiming
-and never programming the Fast/Data Bit Timing Register (regs->fdbtr).
-Will this cause immediate communication failures on the bus when transmitti=
-ng
-CAN FD frames with Bit Rate Switching (BRS)?
+> +				      BIT(IIO_CHAN_INFO_FREQUENCY) |
+> +				      BIT(IIO_CHAN_INFO_PHASE) |
+> +				      BIT(IIO_CHAN_INFO_SCALE) |
+> +				      BIT(IIO_CHAN_INFO_SAMP_FREQ),
+> +		.ext_info =3D ad9910_drg_ramp_ext_info,
+> +	},
 
-Second, is the CANFD_BRS flag lost on received CAN FD frames?
-In grcan_receive(), when a CAN FD frame is received:
+[ ... ]
 
-    hdr =3D grcan_msg_header_at(&dma->rx, rd);
-    if (hdr->ctrl & GRCAN_RX_FDF)
-        skb =3D alloc_canfd_skb(dev, &cf);
+> @@ -767,6 +1092,26 @@ static int ad9910_read_raw(struct iio_dev *indio_de=
+v,
+>  			*val =3D tmp32 / MICRO;
+>  			*val2 =3D tmp32 % MICRO;
+>  			return IIO_VAL_INT_PLUS_MICRO;
+> +		case AD9910_CHANNEL_DRG_RAMP_UP:
+> +			ret =3D ad9910_drg_destination_assert(st, AD9910_DEST_PHASE);
+> +			if (ret)
+> +				return ret;
+> +
+> +			tmp64 =3D FIELD_GET(AD9910_DRG_LIMIT_UPPER_MSK,
+> +					  st->reg[AD9910_REG_DRG_LIMIT].val64);
+> +			tmp64 =3D (tmp64 * AD9910_PI_NANORAD) >> 31;
+> +			*val =3D div_u64_rem(tmp64, NANO, val2);
 
-It doesn't look like the hardware's BRS bit (GRCAN_RX_BRS, BIT(25)) is
-ever checked to set cf->flags |=3D CANFD_BRS. Does this mean userspace is
-incorrectly informed that no received frames used bit-rate switching?
+Here val2 is provided by the IIO core as an int *, but div_u64_rem()
+expects its third argument to be a u32 *remainder.
 
-Finally, this code exists in grcan_receive():
+Does passing a signed integer pointer to a function expecting an unsigned
+integer pointer cause a compiler warning or strict aliasing violation?
+Should a local u32 variable be used to capture the remainder before
+assigning it to *val2?
 
-    if (unlikely(!skb)) {
-        netdev_err(dev, "dropping frame: skb allocation failed\n");
-        stats->rx_dropped++;
-        continue;
-    }
+> +			return IIO_VAL_INT_PLUS_NANO;
 
-If alloc_can_skb() or alloc_canfd_skb() fails, the code continues to the
-next loop iteration. However, because rd is not advanced (via
-grcan_ring_add()), won't the next iteration read the exact same message,
-fail allocation again, and repeat until the NAPI budget is exhausted? Could
-this permanently stall the receive ring and cause a NAPI livelock under
-memory pressure?
+[ ... ]
 
->  	priv->need_txbug_workaround =3D txbug;
->  	priv->hwcap =3D hwcap;
+>  	case IIO_CHAN_INFO_SAMP_FREQ:
+> -		return ad9910_set_sysclk_freq(st, val, true);
+> +		if (chan->channel =3D=3D AD9910_CHANNEL_PHY)
+> +			return ad9910_set_sysclk_freq(st, val, true);
+> +
+> +		tmp64 =3D ((u64)val * MICRO + val2) * 4;
+
+If a negative fractional string like "-0.5" is provided by userspace, the
+IIO core sets val to 0 and val2 to a negative value (like -500000).
+
+Since val2 is signed and (u64)val * MICRO is unsigned, won't adding them
+together cause a sign-extended underflow, resulting in a very large tmp64
+value that is then clamped to the hardware maximums?
+
+Should there be a bounds check to ensure val2 >=3D 0, or an in_range()
+check for these attributes before calculating tmp64?
+
+> +		if (!tmp64)
+> +			return -EINVAL;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508070121.6918=
--1-arun.muthusamy@gaisler.com?part=3D15
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508-ad9910-iio=
+-driver-v4-0-d26bfd20ee3d@analog.com?part=3D5
