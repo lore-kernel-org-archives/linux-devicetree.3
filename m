@@ -1,174 +1,210 @@
-Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2809155757
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 02:45:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01E8A272E56
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 03:06:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778208335; cv=none; b=R36uJKq8Gi3cXO+pDhTOYlRa5Q0r7MPeVOYP3ITFFMK8pf+ANJsCIydC4YMaPD15I0gXpWp8KfFGsjRmFacC3FDvqt6cVII+gCmBvLCBguOU+34LEPDOSfDPxJx9l0xRSbCGQ3i7Js63sXv12HjLVffJRMTu/IW9WupD74kGASM=
+	t=1778209603; cv=none; b=hMS6UxPGkBjailxFpr/1tvOMMABrnolGxUp8rhJ8KxGj7VOlxZU7bLmE72usX56jMYZxnFotHqJ2WvSbHGNysKYTSBz2Mvo86xse7GYLV8QZiQE5/oVS4V/53Yjlfk4MF8mt9xAF/meWWZMVvlaY9A/vBjVLr51dZB7ZaGPUqQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778208335; c=relaxed/simple;
-	bh=oEnT/UCXWeDB9vAKPoyngIcFubAI8zzoEf1ZMRsfegE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qjeG0sbFgQkon5T+hoj9/hmViYsDSYmtmU/jvWua2Opy5F2YYrC00j9UwZvRaeWjTV0EGYJ5PS6gYWEalF0Q8iBJBg0j4wksnET9lc6ogMcMQXeMGn8hOsjNI0imRsQMoLtQ1HzTtjmO8zKREaio/lKkbJEYqMon16LScam2Pfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ODWmQijR; arc=none smtp.client-ip=209.85.160.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778209603; c=relaxed/simple;
+	bh=HOaLBVwOi2SeNx/rpT5yplhV+BCsdrhoEmKfmE8GNP0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PjG3R4BgxITcmNZDrIxeDE11RzqSm1XWDAe/3Bhq4BtTyFPXlkbd45EnKwknvfZJlB0EkZHsQcstTfI+WsXt5t55rwnqiLGuODAi+mmzOYvi1Bdjufg4foLZ/gQUs9Tzj2YaSdviT/NHX7LcmkGb3q3fxfkh4ddpF1ntHuOVUD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O+8xwZry; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ODWmQijR"
-Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-42fc6923f38so1849221fac.1
-        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 19:45:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778208333; x=1778813133; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=oEnT/UCXWeDB9vAKPoyngIcFubAI8zzoEf1ZMRsfegE=;
-        b=ODWmQijR/5g1OUlUvDpypgfpilBU8K602ai2NUyBrr9M/7scQhKmf615y/89uP6LZI
-         KwqoY0I8Lxafcj8e/nkm+RgQAOEsZ39CG0rS51thfr0gU6w2fDjYJbqWQFgYZqprL1Aj
-         JYSwzIdont/o9HPqVk49HyV+GKKO2s19Kts29KeTuWIobkNsTTFZ4pKA7n/AF11b4HmH
-         X4ZX+IrFe5D1i8v09UAPhbV3uYwR9quHdjy3lcYTl9eW9tahlqRawaHOWR5f0kQ5WPTD
-         p9mb+xO+5WnnBpxg3M2maFnTYjYu5b75oS+DI9gsVxkukHyPhhnjQ/6cP3MTxGQzbtmn
-         JNMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778208333; x=1778813133;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=oEnT/UCXWeDB9vAKPoyngIcFubAI8zzoEf1ZMRsfegE=;
-        b=F0OF0znElzQN46IFZ59sPkONsD1MoaILGzNYABuy3zQS9IzJ/AtB7NnPWYPaYnhKXw
-         wKaYKFdMB9DNGnSaU44ssjiOUlZXH1Rr+9pJNW755F27uCkMjSF+9ErZpAZMHdopi7Rz
-         PLiUgNk7vW5WQnFV07kDmbLZPzbStioaWMJG/CTuiJgmdubhBRAn+bpO0M6LdV6OG473
-         aqlGJ/ovq24Q5pclkhXUvIW/2oBzNLPF4H0mzqou7VgT+OjN6ebMm1usUt764bSUleqm
-         ZAV1heE/5n5r1RVQZcoP7ZioAGTfR++5uQ+Woo5mAou2jX4sG7qDTqmrU38timIvmE8S
-         nHbA==
-X-Forwarded-Encrypted: i=1; AFNElJ/neTBa6ESVng4Ts96PVwe4pVIaJBg6h22Chvb6ktGNwFlzBap6n2o3eLTnCPQp3sBkzV9c78jzY3N7@vger.kernel.org
-X-Gm-Message-State: AOJu0YwzDRNveEerLyZ9FbJZ+QkBrcLymikZB4QU0sRd7W4xcTLf3mE2
-	nqGzIXuJ3J3NjJTFdA+LVMGbkQq9AEQYnnbE69/9utx9G7bpZaIwFu2g
-X-Gm-Gg: AeBDietIHacSQC9wGMFV4ytmOF6yW4iuyTEp7vE8d5t/c2oV9lnDX0lEY4r6HpRnToO
-	uKcbSCUhZXDIo10dwfWqhyphhZHZP5n6TdI/UXFb1oxlP7Z1plv8az1IDYRM0S/Jf2rbpdi+gvE
-	XTkNLNW7CmKLESp+NaQ+6spnEIeUAkKFP7YLPbc++bBxlR+UJDwzKpM8OnLhpWbk3y5Sd2qFfqC
-	mW6Yt5ZUirNqBb6hcWzcYgcb99Rv6tNl+DF+WxP4rgulqtETmVwtdPlL/YfxhLO4oFaKBvZfbZM
-	VIhjigymjL2elzFWiVVKUsnlouB0gRecXloDuEfiLexBcaptUoZLghF0wjndRBktZAES7XTZhdi
-	QmrtmvvJnkk6yoS81LBV3b7USarANs5C48nksAah5PCs5Ooxr9PG8CetPHbDK23r90FdaWUBL88
-	QZsQYWZYd9vH+5VIGO2vr32NC7okm+g/aOpY0draqCFF/0bN2EXWdz9rytXSLdPXqjPfeA5YZUD
-	XZ849ShensxOnSr2Vg7+5hIm0PxyhOdsw5cnUgA8QnHN/DK
-X-Received: by 2002:a05:6820:190a:b0:696:1a98:bd5 with SMTP id 006d021491bc7-699ab62e838mr2720265eaf.19.1778208332600;
-        Thu, 07 May 2026 19:45:32 -0700 (PDT)
-Received: from nukework.gtech (c-98-34-199-138.hsd1.tx.comcast.net. [98.34.199.138])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-69b25c767d0sm349447eaf.5.2026.05.07.19.45.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 May 2026 19:45:31 -0700 (PDT)
-From: "Alex G." <mr.nuke.me@gmail.com>
-To: andersson@kernel.org, krzk+dt@kernel.org, mturquette@baylibre.com,
- linux-remoteproc@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: mathieu.poirier@linaro.org, robh@kernel.org, conor+dt@kernel.org,
- konradybcio@kernel.org, sboyd@kernel.org, p.zabel@pengutronix.de,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
-Subject:
- Re: [PATCH v2 0/9] remoteproc: qcom_q6v5_wcss: add native ipq9574 support
-Date: Thu, 07 May 2026 21:45:29 -0500
-Message-ID: <6525179.vuYhMxLoTh@nukework.gtech>
-In-Reply-To: <1397ecd5-89a6-4666-bfe9-014ff8553a97@oss.qualcomm.com>
-References:
- <20260109043352.3072933-1-mr.nuke.me@gmail.com>
- <27098742.6Emhk5qWAg@nukework.gtech>
- <1397ecd5-89a6-4666-bfe9-014ff8553a97@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O+8xwZry"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A503AC2BCB2
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 03:06:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778209602;
+	bh=HOaLBVwOi2SeNx/rpT5yplhV+BCsdrhoEmKfmE8GNP0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=O+8xwZryG4b8MwVM4FROcBwwzUmjbTd0s6mA2lFZZss2Wck1yvTmHLiQa1GjBGqDz
+	 lKZ7ntYMBEpDixBGpNFLETAyW9EXD0hMXzfCc3sP6ed2pNBfjU2U/bzoxssJZBsR1+
+	 x3MusTroJqb9FsDaAP/DScmeV4m4zlNMxCJ1lms412OEX/cqU71iLpu+9Yw4LoHy3p
+	 rCg4h5D9VoPDMsFRVnQH3rEXYxbcB1KAjizpLSd8+ZacaiM8aFxcURRTByQMx8sVVg
+	 qPN+jjbsxXii5T2pTYCyxWRWZiz/srnkm3wpb2kvsLGlOaIqAPkY3BebaWf5zjBcXw
+	 bFsbDfPltGKlA==
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-67c2b4809baso2737254a12.3
+        for <devicetree@vger.kernel.org>; Thu, 07 May 2026 20:06:42 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+N3W71KPP/MdszHTCss7obUBDkKp+z5w/rtSXw19wz7xhzLtLzs1QNJkJHyXzLRfcWOtFnnIV75Bav@vger.kernel.org
+X-Gm-Message-State: AOJu0YxH6ZIwO6aoH9INKr6qxHefFT/jmp75XJlZzyST7DS/oVoJJJeQ
+	FIrLPt3ZuWXJ3cYiTX1k7FjTbbCPSatz3GnAXj9nDBou6+wyaF1lswi8BUY6j/JZEp88BQfqP1b
+	Jl2d3yoJhAP6LEHAIxFVNC/dvIpwUInk=
+X-Received: by 2002:a17:906:5187:10b0:bc4:9acf:f53 with SMTP id
+ a640c23a62f3a-bc56c62c6d8mr554913966b.20.1778209601248; Thu, 07 May 2026
+ 20:06:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260507081010.12810-1-wanghongliang@loongson.cn> <20260507081010.12810-2-wanghongliang@loongson.cn>
+In-Reply-To: <20260507081010.12810-2-wanghongliang@loongson.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Fri, 8 May 2026 11:06:29 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H46sOPPAoH31DijWYK+v5fEzgq7ZVucCuoyRTwTgUHYxA@mail.gmail.com>
+X-Gm-Features: AVHnY4J_-aYxSREAluBXlm9Bi9SsaJaacOWMVK_KUGdF5m_vVZ-0b_vQKA1iI84
+Message-ID: <CAAhV-H46sOPPAoH31DijWYK+v5fEzgq7ZVucCuoyRTwTgUHYxA@mail.gmail.com>
+Subject: Re: [PATCH v2] i2c: ls2x: Add clocks property parsing and adjust bus speed
+To: Hongliang Wang <wanghongliang@loongson.cn>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Andi Shyti <andi.shyti@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org, 
+	devicetree@vger.kernel.org, loongarch@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 
-On Friday, April 24, 2026 7:17:05=E2=80=AFAM Central Daylight Time Konrad D=
-ybcio=20
-wrote:
-> On 1/15/26 6:27 AM, Alex G. wrote:
-> > On Wednesday, January 14, 2026 4:26:36 AM CST Konrad Dybcio wrote:
-> >> On 1/14/26 4:54 AM, Alex G. wrote:
-> >>> On Tuesday, January 13, 2026 8:28:11 AM CST Konrad Dybcio wrote:
-> >>>> On 1/9/26 5:33 AM, Alexandru Gagniuc wrote:
-> >>>>> Support loading remoteproc firmware on IPQ9574 with the qcom_q6v5_w=
-css
-> >>>>> driver. This firmware is usually used to run ath11k firmware and
-> >>>>> enable
-> >>>>> wifi with chips such as QCN5024.
-> >>>>>=20
-> >>>>> When submitting v1, I learned that the firmware can also be loaded =
-by
-> >>>>> the trustzone firmware. Since TZ is not shipped with the kernel, it
-> >>>>> makes sense to have the option of a native init sequence, as not all
-> >>>>> devices come with the latest TZ firmware.
-> >>>>>=20
-> >>>>> Qualcomm tries to assure us that the TZ firmware will always do the
-> >>>>> right thing (TM), but I am not fully convinced
-> >>>>=20
-> >>>> Why else do you think it's there in the firmware? :(
-> >>>=20
-> >>> A more relevant question is, why do some contributors sincerely belie=
-ve
-> >>> that the TZ initialization of Q6 firmware is not a good idea for their
-> >>> use case?
-> >>>=20
-> >>> To answer your question, I think the TZ initialization is an
-> >>> afterthought
-> >>> of the SoC design. I think it was only after ther the design stage th=
-at
-> >>> it was brought up that a remoteproc on AHB has out-of-band access to
-> >>> system memory, which poses security concerns to some customers. I thi=
-nk
-> >>> authentication was implemented in TZ to address that. I also think th=
-at
-> >>> in order to prevent clock glitching from bypassing such verification,
-> >>> they had to move the initialization sequence in TZ as well.
-> >>=20
-> >> I wouldn't exactly call it an afterthought.. Image authentication (as =
-in,
-> >> verifying the signature of the ELF) has always been part of TZ, because
-> >> doing so in a user-modifiable context would be absolutely nonsensical
-> >>=20
-> >> qcom_scm_pas_auth_and_reset() which configures and powers up the rproc
-> >> has been there for a really long time too (at least since the 2012 SoCs
-> >> like MSM8974) and I would guesstimate it's been there for a reason - n=
-ot
-> >> all clocks can or should be accessible from the OS (from a SW standpoi=
-nt
-> >> it would be convenient to have a separate SECURE_CC block where all the
-> >> clocks we shouldn't care about are moved, but the HW design makes more
-> >> sense as-is, for the most part), plus there is additional access contr=
-ol
-> >> hardware on the platform that must be configured from a secure context
-> >> (by design) which I assume could be part of this sequence, based on
-> >> the specifics of a given SoC
-> >=20
-> > What was the original use case for the Q6 remoteproc? I see today's use
-> > case is as a conduit for ath11k firmware to control PCIe devices. Was
-> > that always the case? I imagine a more modern design would treat the
-> > remoteproc as untrusted by putting it under a bridge or IOMMU with more
-> > strict memory access control, so that firmware couldn't access OS memor=
-y.
->=20
-> There is an SMMU on this SoC.
->=20
-> I don't know the original backstory, but if anything, the through-Q6
-> approach is probably *more* secure, since there's additional access
-> control hardware inbetween
+Hi, Hongliang,
 
-My question is what to do with this series? I think I present a valid appro=
-ach=20
-which has its use cases, irrespective of which approach is better for a giv=
-en=20
-use case.
+On Thu, May 7, 2026 at 4:11=E2=80=AFPM Hongliang Wang <wanghongliang@loongs=
+on.cn> wrote:
+>
+> From: wanghongliang <wanghongliang@loongson.cn>
+>
+> The i2c-ls2x driver supports dts and acpi parameter passing.
+> In dts, uses clock framework, by parsing clocks property to
+> get i2c bus reference clock, and define factor by device data.
+> In acpi, by passing clocks property to describe i2c bus reference
+> clock and clock-div property to describe factor.
+> Based on i2c bus reference clock(clock_a), i2c bus speed(clock_s)
+> and factor, calculate the prcescale of i2c divider register.
+> The calculation formula is
+> prcescale =3D clock_a/(factor*clock_s)-1
+>
+> Signed-off-by: wanghongliang <wanghongliang@loongson.cn>
+> ---
+>  drivers/i2c/busses/i2c-ls2x.c | 42 ++++++++++++++++++++++++++++++++---
+>  1 file changed, 39 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/i2c/busses/i2c-ls2x.c b/drivers/i2c/busses/i2c-ls2x.=
+c
+> index b475dd27b7af..7db91e7a5d78 100644
+> --- a/drivers/i2c/busses/i2c-ls2x.c
+> +++ b/drivers/i2c/busses/i2c-ls2x.c
+> @@ -13,6 +13,7 @@
+>  #include <linux/bitfield.h>
+>  #include <linux/bits.h>
+>  #include <linux/completion.h>
+> +#include <linux/clk.h>
+This should be before completion.h.
 
-Alex
+>  #include <linux/device.h>
+>  #include <linux/iopoll.h>
+>  #include <linux/i2c.h>
+> @@ -63,11 +64,16 @@
+>  /* The default bus frequency, which is an empirical value */
+>  #define LS2X_I2C_FREQ_STD      (33 * HZ_PER_KHZ)
+>
+> +struct ls2x_i2c_chip_data {
+> +       unsigned int    factor;
+> +};
+> +
+>  struct ls2x_i2c_priv {
+>         struct i2c_adapter      adapter;
+>         void __iomem            *base;
+>         struct i2c_timings      i2c_t;
+>         struct completion       cmd_complete;
+> +       const struct ls2x_i2c_chip_data *chip_data;
+Use "unsigned int    factor" directly?
 
-> Konrad
+>  };
+>
+>  /*
+> @@ -96,6 +102,8 @@ static irqreturn_t ls2x_i2c_isr(int this_irq, void *de=
+v_id)
+>  static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
+>  {
+>         u16 val;
+> +       u32 pclk, factor;
+factor or div? If factor is better, then rename clock-div to
+clock-factor; if div is better, then rename factor to div.
 
+> +       struct clk *clk;
+>         struct i2c_timings *t =3D &priv->i2c_t;
+>         struct device *dev =3D priv->adapter.dev.parent;
+>         u32 acpi_speed =3D i2c_acpi_find_bus_speed(dev);
+> @@ -107,12 +115,30 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i=
+2c_priv *priv)
+>         else
+>                 t->bus_freq_hz =3D LS2X_I2C_FREQ_STD;
+>
+> +       if (dev_of_node(dev)) {
+> +               clk =3D devm_clk_get_optional_enabled(dev, NULL);
+> +               if (IS_ERR(clk) || !clk)
+> +                       pclk =3D LS2X_I2C_PCLK_FREQ;
+> +               else
+> +                       pclk =3D clk_get_rate(clk);
+Reverse the "if & else" so the default case will be the last one, this
+is also the same as the ACPI case below.
 
+Huacai
 
-
+> +
+> +               factor =3D priv->chip_data->factor;
+> +
+> +               val =3D (pclk * 10) / (factor * t->bus_freq_hz) - 1;
+> +       } else {
+> +               if (!device_property_read_u32(dev, "clocks", &pclk) &&
+> +                   !device_property_read_u32(dev, "clock-div", &factor) =
+&&
+> +                   factor !=3D 0)
+> +                       val =3D (pclk * 10) / (factor * t->bus_freq_hz) -=
+ 1;
+> +               else
+> +                       val =3D LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz)=
+ - 1;
+> +       }
+> +
+>         /*
+>          * According to the chip manual, we can only access the registers=
+ as bytes,
+>          * otherwise the high bits will be truncated.
+>          * So set the I2C frequency with a sequential writeb() instead of=
+ writew().
+>          */
+> -       val =3D LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
+>         writeb(FIELD_GET(GENMASK(7, 0), val), priv->base + I2C_LS2X_PRER_=
+LO);
+>         writeb(FIELD_GET(GENMASK(15, 8), val), priv->base + I2C_LS2X_PRER=
+_HI);
+>  }
+> @@ -295,6 +321,8 @@ static int ls2x_i2c_probe(struct platform_device *pde=
+v)
+>         if (!priv)
+>                 return -ENOMEM;
+>
+> +       priv->chip_data =3D device_get_match_data(dev);
+> +
+>         /* Map hardware registers */
+>         priv->base =3D devm_platform_ioremap_resource(pdev, 0);
+>         if (IS_ERR(priv->base))
+> @@ -348,9 +376,17 @@ static int ls2x_i2c_resume(struct device *dev)
+>  static DEFINE_RUNTIME_DEV_PM_OPS(ls2x_i2c_pm_ops,
+>                                  ls2x_i2c_suspend, ls2x_i2c_resume, NULL)=
+;
+>
+> +static const struct ls2x_i2c_chip_data ls2x_i2c_2k_data =3D {
+> +       .factor =3D 4,
+> +};
+> +
+> +static const struct ls2x_i2c_chip_data ls2x_i2c_7a_data =3D {
+> +       .factor =3D 5,
+> +};
+> +
+>  static const struct of_device_id ls2x_i2c_id_table[] =3D {
+> -       { .compatible =3D "loongson,ls2k-i2c" },
+> -       { .compatible =3D "loongson,ls7a-i2c" },
+> +       { .compatible =3D "loongson,ls2k-i2c", .data =3D &ls2x_i2c_2k_dat=
+a, },
+> +       { .compatible =3D "loongson,ls7a-i2c", .data =3D &ls2x_i2c_7a_dat=
+a, },
+>         { /* sentinel */ }
+>  };
+>  MODULE_DEVICE_TABLE(of, ls2x_i2c_id_table);
+> --
+> 2.47.2
+>
+>
