@@ -1,195 +1,126 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5ECC39B4AD
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 22:51:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4507E3A5426;
+	Fri,  8 May 2026 22:53:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778280692; cv=none; b=Av3V3NESwBsLc1SLr0Dt59yiSBVdF7iW+/flfJ2IJD7a3U4F20t+6E2Jcvz/oaugX8Gbj75ycztEeWB5TtdRW6Z7VyRbo6qmAIYlWlRfBOMqxdD4QuL8ycod/fsu1uHIX/hDHJV2gbx8mxO5Rs/6sTKhS1S0Mg5f1IX8xbWYFmI=
+	t=1778280824; cv=none; b=XtBvAH72VbwxxMdGOB9WS5PLT0BIS9uslJnoH1/h/YZHrsd3/J8ygFyu2m4e2IjOF3/u5uFqC9Rt/5kc9Om3Ir18YQcQKjKkzG9AC/gevwm6SKP4sVcytk+oNiz314MJomK1jv8Ut8bgOZJdj1iKQmOEWKmHZ12HRjrlwO7e3zc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778280692; c=relaxed/simple;
-	bh=Lqh9bnVj0MkrALaSv+P58iS4ehhufCa6AE59Zim3E9w=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WWeg+Qvg1K4afl88OMQgh5zPX1QTj0Vo0Ozen3e/CLr5rlU8rAPFBNdZbM59fJ4OjQYzirfU0I300zzvhFx72lptMG+NvwEqGhj3ozkUY1YpzpgrhihvC2qXR57nKNe92UURyj2lCENDmLMEakOrXomlrSdjwnee2LXCoKr9dpc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sR3vtwnV; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778280824; c=relaxed/simple;
+	bh=Z5WQpb+zG4G33yJj25V1N+RhuvaxlLgROCG8p0ek70k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jdbgFCHBT3BN/UAUXwnJSdh/70NCDkoEawp1tHd5gpg3hwRl0oWagTrALuA0q4tu87jKFxftZxsWNgZG6g2GIPvO9hW5gL6LOVeVdr9QkamfF+qeWzRAnoV479zeBRz9Zvx452f3Io0K9481yGDzodjNbn+z+LXVfzB69uX/pgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e6rodGnX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sR3vtwnV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EA5FC2BCF4;
-	Fri,  8 May 2026 22:51:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e6rodGnX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74681C2BCB0;
+	Fri,  8 May 2026 22:53:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778280691;
-	bh=Lqh9bnVj0MkrALaSv+P58iS4ehhufCa6AE59Zim3E9w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=sR3vtwnV+I1nv03UCcL7k3tMOIhBEf4BuPKYLYyAEHDdEKI0+x4a3TIuXltBHu0KF
-	 eT7aEApg2DpACVRbgi68tJCy3mUMmQU2aqr4Dv7p6oWmGL4xvO3yjmF1tM3KA7mE1B
-	 nPdjpfdaEhcDvgTuDAOmKy4Du7VnrtFcYQchti8LDBt+R/7XfQfIyC2NNEm0hni5FF
-	 4PEISKxwYSn0EUPDCQwFCVEQCTcUn4KKMQJkzftHfYVdeHkfZwhyUliQBl9MEtY34M
-	 Z4O3tj10KxCPW6DLrUAiRSduiW+Se/lNOyt9wPG3qXnF22jw0w9nVND6DuMuAw2Cxa
-	 Bf5WjU5lzow9g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v4 03/10] iio: frequency: ad9910: initial driver
- implementation
-Reply-To: sashiko@lists.linux.dev
-To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260508-ad9910-iio-driver-v4-3-d26bfd20ee3d@analog.com>
-References: <20260508-ad9910-iio-driver-v4-3-d26bfd20ee3d@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 08 May 2026 22:51:31 +0000
-Message-Id: <20260508225131.8EA5FC2BCF4@smtp.kernel.org>
+	s=k20201202; t=1778280823;
+	bh=Z5WQpb+zG4G33yJj25V1N+RhuvaxlLgROCG8p0ek70k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=e6rodGnXzFO5fLA2F6JvLhozKTvSQAgFt5h9gxycbIS81LrClQFRAwWBva2odBhlr
+	 EUBj8Wj05n5iXvQl45xOziN5x8j5oSr0nHKbZOtq9i9R/5z1XH3HE4bbzAZFsDFPQa
+	 oqDXZwOh7B0vh6KEXpIZhS1T1/J3WZ9hLasCugGnf4ZqFWbvI6BzP8Z8EzwadcFA/7
+	 Xgl/xwGbzOzgow50cvBYxgqqqIirmEDCxBuYz7S/H1sNZx++cuCCY0mv1EULhhT3xh
+	 lwH1P1hn4UqSKsfCbqcnpDWUHJOxzi8veIwidTZ5qppZX9so2PWQf9aoV6t4ORRONw
+	 3Z6LDKIJ53AnA==
+Date: Fri, 8 May 2026 22:53:41 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Iker Pedrosa <ikerpedrosam@gmail.com>,
+	Troy Mitchell <troy.mitchell@linux.dev>
+Cc: Margherita Milani <margherita.milani@amarulasolutions.com>,
+	Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Michael Opdenacker <michael.opdenacker@rootcommit.com>,
+	Javier Martinez Canillas <javierm@redhat.com>,
+	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Anand Moon <linux.amoon@gmail.com>
+Subject: Re: [PATCH v8 8/9] riscv: dts: spacemit: k1-bananapi-f3: add SD card
+ support with UHS modes
+Message-ID: <20260508225341-GKB3590877@kernel.org>
+References: <20260413-orangepi-sd-card-uhs-v8-0-c21c40ec16d0@gmail.com>
+ <20260413-orangepi-sd-card-uhs-v8-8-c21c40ec16d0@gmail.com>
+ <CA+Xcp4nY9GVMOmtMG-PNhY2vqP4Cc_amAMSa+M3vuDjWUkuCHw@mail.gmail.com>
+ <CABdCQ=OsPva9=YPdBd=3HW1OO7=_zJtpXjvaiA0WLEDT5Scs_Q@mail.gmail.com>
+ <DICDTHYTPDSP.210EBVHTQ6966@linux.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <DICDTHYTPDSP.210EBVHTQ6966@linux.dev>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] Writing 0 to the `samp_freq` attribute causes a kernel panic due t=
-o division by zero.
-- [High] Setting the profile frequency implicitly mutes the DAC output due =
-to a 0-initialized register cache.
-- [High] Negative fractional inputs for frequency and scale cause unsigned =
-integer underflow, applying maximum settings.
-- [High] Probe fails for standard reference clocks due to `DIV_ROUND_CLOSES=
-T` overshooting the maximum PLL frequency.
-- [High] The initialization of the CFR3 hardware register is silently skipp=
-ed if the PLL is disabled and the divider is even.
-- [Medium] The driver unconditionally hardcodes the AD9910 into 4-wire SPI =
-mode, breaking 3-wire SPI configurations.
---
+Hi Iker, Troy,
 
-commit ca91efe2fa4d4b296d7ac7c8f6d66ef193e1a2a0
-Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+On 18:45 Thu 07 May     , Troy Mitchell wrote:
+> On Thu May 7, 2026 at 5:53 PM CST, Iker Pedrosa wrote:
+> > Hi,
+> >
+> > El jue, 7 may 2026 a las 10:20, Margherita Milani
+> > (<margherita.milani@amarulasolutions.com>) escribió:
+> >>
+> >> Good morning Iker,
+> >>
+> >> > Add complete SD card controller support with UHS high-speed modes.
+> >> >
+> >> > - Enable sdhci0 controller with 4-bit bus width
+> >> > - Configure card detect GPIO with inversion
+> >> > - Connect vmmc-supply to buck4 for 3.3V card power
+> >> > - Connect vqmmc-supply to aldo1 for 1.8V/3.3V I/O switching
+> >> > - Add dual pinctrl states for voltage-dependent pin configuration
+> >> > - Support UHS-I SDR25, SDR50, and SDR104 modes
+> >>
+> >>
+> >> Tested-by: Margherita Milani <margherita.milani@amarulasolutions.com>
+> >>
+> >> However I noticed it only works when CONFIG_I2C_K1 is enabled.
+> >> Michael Opdenacker told me it's necessary to enable the regulators
+> >> used by the mmc controller.
+> >> Should we add the dependency between CONFIG_MMC_SDHCI_OF_K1 and
+> >> CONFIG_I2C_K1? (Unless some boards don't have these dependency?)
+> >> Thank you for your patchset which was really nice!
+> >
+> > Thank you for catching this! You're absolutely right about the dependency.
+> >
+> > From what I can see, all current SpacemiT K1 boards follow this design
+> > pattern where the SD card power is provided by an I2C-controlled PMIC.
+> > However, before adding a hard dependency, I'd like to get input from
+> > the community, does anyone know of K1-based boards that provide SD
+> > card power through fixed regulators or other means that don't require
+> > I2C?
+I would object to add CONFIG_I2C_K1 as hard dependency, the reason is
+that the spacemit sdhci driver (sdhci-of-k1.c) has no used i2c
+api/function, it's just need I2C function via an indirect requirement,
+which sdhci -> regulator(p1) -> i2c, besides, from the hardware design
+perspective, it just happens that K1 use P1(via I2C) as PMIC, it's
+totally possible(even in theory) to use other PMIC as power supply
+control which may not be I2C interface (maybe use SPI, for example)
 
-iio: frequency: ad9910: initial driver implementation
+If we want to solve this more gracefully, I'm in favor to add explict
+option enabled in defconfig..
 
-Add the core AD9910 DDS driver infrastructure with single tone mode
-support. This includes SPI register access, profile management via GPIO
-pins, PLL/DAC configuration from firmware properties, and single tone
-frequency/phase/amplitude control through IIO attributes.
+> if K1 needs to switch between standard and high-speed (UHS) modes,
+> I believe the I2C-controlled PMIC is mandatory to handle the voltage
+> switching (typically 3.3V to 1.8V).
+> 
+> I don't think any board would want to be stuck in standard mode permanently.
+> If high-speed mode is an option, why not use it? I think adding this
+> dependency is a good idea, but keep in mind it also needs to depend on P1.
+> 
+No, as above
+>                             - Troy
+> 
 
-> diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad991=
-0.c
-> new file mode 100644
-> index 0000000000000..c75f2ef178c25
-> --- /dev/null
-> +++ b/drivers/iio/frequency/ad9910.c
-[ ... ]
-> +static int ad9910_set_sysclk_freq(struct ad9910_state *st, u32 freq_hz,
-> +				  bool update)
-> +{
-[ ... ]
-> +	if (st->data.pll_enabled) {
-[ ... ]
-> +	} else {
-> +		tmp32 =3D DIV_ROUND_CLOSEST(refclk_freq_hz, freq_hz);
-> +		tmp32 =3D clamp(tmp32, 1, 2);
-
-If a user writes 0 to the samp_freq sysfs attribute, freq_hz will be 0.
-Could this cause a division by zero panic here when the PLL is disabled?
-
-[ ... ]
-> +static int ad9910_write_raw(struct iio_dev *indio_dev,
-> +			    struct iio_chan_spec const *chan,
-> +			    int val, int val2, long info)
-> +{
-[ ... ]
-> +	case IIO_CHAN_INFO_FREQUENCY:
-> +		if (!in_range(val, 0, st->data.sysclk_freq_hz / 2))
-> +			return -EINVAL;
-> +
-> +		tmp64 =3D ad9910_rational_scale((u64)val * MICRO + val2, BIT_ULL(32),
-> +					      (u64)MICRO * st->data.sysclk_freq_hz);
-
-The IIO core parses inputs between 0 and -1 (e.g., -0.5) as val =3D 0 and
-val2 =3D -500000.=20
-
-Does this bypass the bounds check since val is 0, and cause an unsigned
-integer underflow when adding the negative val2 to (u64)val * MICRO? This
-could misconfigure the device with maximum physical values.
-
-> +		tmp64 =3D min(tmp64, U32_MAX);
-> +		switch (chan->channel) {
-> +		case AD9910_CHANNEL_PROFILE_0 ... AD9910_CHANNEL_PROFILE_7:
-> +			tmp32 =3D chan->channel - AD9910_CHANNEL_PROFILE_0;
-> +			tmp64 =3D FIELD_PREP(AD9910_PROFILE_ST_FTW_MSK, tmp64);
-> +			return ad9910_reg64_update(st, AD9910_REG_PROFILE(tmp32),
-> +						   AD9910_PROFILE_ST_FTW_MSK,
-> +						   tmp64, true);
-
-Since the profile registers in the st->reg cache are zero-initialized
-during probe, will updating only the frequency word here merge it with an
-Amplitude Scale Factor (ASF) of 0, inadvertently muting the DAC output?
-
-[ ... ]
-> +	case IIO_CHAN_INFO_SCALE:
-> +		if (val < 0 || val > 1 || (val =3D=3D 1 && val2 > 0))
-> +			return -EINVAL;
-> +
-> +		switch (chan->channel) {
-> +		case AD9910_CHANNEL_PROFILE_0 ... AD9910_CHANNEL_PROFILE_7:
-> +			tmp32 =3D chan->channel - AD9910_CHANNEL_PROFILE_0;
-> +			tmp64 =3D ((u64)val * MICRO + val2) << 14;
-
-Similar to the frequency attribute, could a negative fractional input like
--0.5 pass the val < 0 check here because val =3D=3D 0, leading to unsigned
-wrap-around when applying the negative val2?
-
-[ ... ]
-> +static int ad9910_cfg_sysclk(struct ad9910_state *st, bool update)
-> +{
-> +	u32 cfr3 =3D AD9910_CFR3_OPEN_MSK;
-> +	u32 tmp32;
-> +
-> +	cfr3 |=3D AD9910_CFR3_VCO_SEL_MSK |
-> +		FIELD_PREP(AD9910_CFR3_DRV0_MSK, st->data.refclk_out_drv);
-> +
-> +	if (st->data.pll_enabled) {
-[ ... ]
-> +	} else {
-> +		cfr3 |=3D AD9910_CFR3_REFCLK_DIV_RESETB_MSK |
-> +			AD9910_CFR3_PFD_RESET_MSK;
-> +	}
-> +	st->reg[AD9910_REG_CFR3].val32 =3D cfr3;
-> +
-> +	return ad9910_set_sysclk_freq(st, AD9910_PLL_OUT_MAX_FREQ_HZ, update);
-> +}
-
-If the PLL is disabled, ad9910_set_sysclk_freq() is called with
-update =3D false.
-
-Inside that function, ad9910_reg32_update() checks if the new value matches
-st->reg. Since cfr3 was just written to st->reg[AD9910_REG_CFR3].val32,
-will this cause ad9910_reg32_update() to return 0 without executing the
-SPI write, silently skipping the CFR3 hardware initialization?
-
-Also, for standard reference clocks, is it possible that requesting
-AD9910_PLL_OUT_MAX_FREQ_HZ (1000 MHz) causes a probe failure?=20
-
-For example, with a 24 MHz clock, DIV_ROUND_CLOSEST(1000, 24) is 42,
-which produces 1008 MHz. This exceeds the 1000 MHz maximum and causes
-ad9910_set_sysclk_freq() to return -ERANGE.
-
-[ ... ]
-> +static int ad9910_setup(struct device *dev, struct ad9910_state *st,
-> +			struct reset_control *dev_rst)
-> +{
-> +	int ret;
-> +
-> +	ret =3D reset_control_deassert(dev_rst);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D ad9910_reg32_write(st, AD9910_REG_CFR1,
-> +				 AD9910_CFR1_SDIO_INPUT_ONLY_MSK, false);
-
-Does hardcoding AD9910_CFR1_SDIO_INPUT_ONLY_MSK unconditionally force the
-device into 4-wire SPI mode? If the system relies on 3-wire SPI and
-specifies spi-3wire in the device tree, could this break all subsequent
-SPI reads?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508-ad9910-iio=
--driver-v4-0-d26bfd20ee3d@analog.com?part=3D3
+-- 
+Yixun Lan (dlan)
