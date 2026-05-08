@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13EB92F8E81;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 178E8372662;
 	Fri,  8 May 2026 07:36:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778225818; cv=none; b=ugn4QRfL3jwnBHnyLh5fx0YhX2NGkRLls6GavoEJ0tJyYE4CQXwFYGlO0GqhPQ09FVkbUFrjC20VE1dSbxi02Mvgwn5k/J9u/FR8VVtiplFqTuHqNAbKT9MohtJzioM6aKfFWvJpsY4vnSWMjLZLig5NT6vsB+lD/r1KMHy8/eg=
+	t=1778225818; cv=none; b=VtJDl5sy+adA6xkxRmVwrARzKlp+w6jP2Fho8LJ3jRHF2RgckK7mW+QxwxfHsLUMHY614BtwuF9bHDPRaNIGii/D+1oAwrzwqewzC1WwkzZoB604qPamA/6MiXEtm4MYXZqAZdMYdmgkZ0kX2h1CHE/cQSkLIvtINICqiQATTQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1778225818; c=relaxed/simple;
-	bh=6orjSlY4lQ5CFkC+hhWVFf1lnIC3pYaTmYzO8tYxwmY=;
+	bh=KzRKiBbR6C7gp1fPdQcsXZjAFHQM3qTiU5u+nEQqa/c=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=IYyFQfx+5yVOgUDZIeQ7Iw9iEZBdN5XME2VNIWqUTVZVQHq1imk2qRhZ4nCqHZn+h8fISmiXKwp1c6N98KUYWt6eyRJnX4CJ/oH4FypamIVki8gywgYwdxxHqpYmIUeZVbU/6pYclivqqMyPWepFmspxKqVkiJOKCEyQzKBrT80=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VulP8Exm; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=Ivm3BY6HM7KydCCazWqu75zl235wp9tiPzT0qoOUz0my5PrgLmJkuudjAvfpFy5lPOOP7ME0if6unog1qYHP7pqCDu/0O7v83gY9rn9zyR8rPqPQ5aBeeI5yl/tYS2o2CyKYi8MOkKADrZpdlunEEKqs4T68s7Xforh4Uvpq3dU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UkDeS5oC; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VulP8Exm"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E3513C2BCF4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UkDeS5oC"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DA2F6C2BCF6;
 	Fri,  8 May 2026 07:36:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1778225817;
-	bh=6orjSlY4lQ5CFkC+hhWVFf1lnIC3pYaTmYzO8tYxwmY=;
+	bh=KzRKiBbR6C7gp1fPdQcsXZjAFHQM3qTiU5u+nEQqa/c=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=VulP8Exm/qXA4VrKShU5O687SxxYmxF41/41De5w10oEgby2sQ3x1nrVkCQV7jWWo
-	 d8HAlsTnpZLjmb3oeXSwL0JuA7Ym/O9f0rpTzIAzbzfLgo0C+LDDcyg9uXphRdGjd0
-	 vvPlAsQb7I0++yieL7afAS0WRz/igNcSnlP83NBxG357u3XfqqwbmhNLeIwlbjHkEA
-	 PHb7+2DDLp28QV+NpgQjJxodT1q2m5EmuW9ZL1I9gDasIbxhNwz8evkERSr9jehYzD
-	 RhIKbVxlmTzRCOhRFgCLVQxdONf5JPRlu0JWYCY0GwzxUa19uFyJUdxF7ltcFp5gUf
-	 R2L0ujltuqcrg==
+	b=UkDeS5oCrNrzxKQew+G53HGTxB1MYTx6Co7IWuM1XckGXng9KljcoUY9S/RSCW/tB
+	 j0jq8sEbjzj07FjhVVXSMIwwMARkBn4uKKiKlu7E+TMyEIcbOa1w8mAwNQam2YUkre
+	 ZqGtXWltExH/LLOYNnpJpj3drEvn5XQD9onjUnVKxeMwlbDXfElz0j9s8WeyAZ+btW
+	 IQn/D597gzVsfopuCPhQ2a1ZlH+is02YtVWTmgKBks16RoOVpFIf0IFrfPXrfdLteE
+	 TwNQWdlwlxZqF0/+o1mYK1e4nS/zGQgI2FSu1ISEzaa6R/bzDNTqggy406akahzia2
+	 m8NIJjjdyGS4g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D6DC5CD342F;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C5573CD37AA;
 	Fri,  8 May 2026 07:36:57 +0000 (UTC)
 From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Date: Fri, 08 May 2026 07:36:56 +0000
-Subject: [PATCH 3/3] irqchip/meson-gpio: Add support for Amlogic A9 SoCs
+Date: Fri, 08 May 2026 07:36:55 +0000
+Subject: [PATCH 2/3] dt-bindings: interrupt-controller: Add support for
+ Amlogic A9 SoCs
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260508-a9-gpio-irqchip-v1-3-9dc5f3e022e0@amlogic.com>
+Message-Id: <20260508-a9-gpio-irqchip-v1-2-9dc5f3e022e0@amlogic.com>
 References: <20260508-a9-gpio-irqchip-v1-0-9dc5f3e022e0@amlogic.com>
 In-Reply-To: <20260508-a9-gpio-irqchip-v1-0-9dc5f3e022e0@amlogic.com>
 To: Thomas Gleixner <tglx@kernel.org>, 
@@ -53,11 +54,11 @@ Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
  Xianwei Zhao <xianwei.zhao@amlogic.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778225816; l=5139;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778225816; l=1795;
  i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=nAfHIz6N7m4oMjB9PiZJjp678ZGWzDBR5xK3MB5dJRI=;
- b=LQqjSXVX5QTASAePP+dTc5VePmsxGw865S8yEFVsPZYttboDVp/QTlPgVoCGnoRWa2qnYkkxQ
- DSMvkv5e2qJAdEt0U+nTcK7fleZv3bDwgY8ic4O05kPcarkQYcRghC/
+ bh=6Ljc1slqURABvNOkxflZQUxRIhozTfJrbGsFoDMyXeA=;
+ b=FGj3PF7NeRbke8xYI6Q3J8mraEC49BIYBCUw3ET5JId6vNWy/5ET7h6d/GXrJJR3ROg1CM244
+ Ix0Lkab3dU4Au7D4014LTpdOow2YnWClYCdjc0VvCspyBWm2aqbmrT7
 X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
  pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
 X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
@@ -67,149 +68,60 @@ Reply-To: xianwei.zhao@amlogic.com
 
 From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-The Amlogic A9 SoCs support GPIO interrupt lines:
-	A9 IRQ Number:
-        - 95:86   10 pins on bank Y
-        - 85:84    2 pins on bank CC
-        - 83:64   20 pins on bank A
-        - 63:48   16 pins on bank Z
-        - 47:30   18 pins on bank X
-        - 29:22    8 pins on bank H
-        - 21:14    8 pins on bank M
-        - 13:0    14 pins on bank B
-
-	A9 AO IRQ Number:
-        - 38       1 pins on bank TESTN
-        - 37:31    7 pins on bank C
-        - 30:13   18 pins on bank D
-        - 12:0    13 pins on bank AO
+Update dt-binding document for GPIO interrupt controller
+of Amlogic A9 SoCs.
 
 Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
 ---
- drivers/irqchip/irq-meson-gpio.c | 75 ++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 75 insertions(+)
+ .../amlogic,meson-gpio-intc.yaml                    | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/irqchip/irq-meson-gpio.c b/drivers/irqchip/irq-meson-gpio.c
-index 74a376ef452e..f68476b2c538 100644
---- a/drivers/irqchip/irq-meson-gpio.c
-+++ b/drivers/irqchip/irq-meson-gpio.c
-@@ -27,6 +27,10 @@
- /* use for A1 like chips */
- #define REG_PIN_A1_SEL	0x04
+diff --git a/Documentation/devicetree/bindings/interrupt-controller/amlogic,meson-gpio-intc.yaml b/Documentation/devicetree/bindings/interrupt-controller/amlogic,meson-gpio-intc.yaml
+index d0fad930de9d..d26671913e89 100644
+--- a/Documentation/devicetree/bindings/interrupt-controller/amlogic,meson-gpio-intc.yaml
++++ b/Documentation/devicetree/bindings/interrupt-controller/amlogic,meson-gpio-intc.yaml
+@@ -38,6 +38,8 @@ properties:
+               - amlogic,a4-gpio-intc
+               - amlogic,a4-gpio-ao-intc
+               - amlogic,a5-gpio-intc
++              - amlogic,a9-gpio-intc
++              - amlogic,a9-gpio-ao-intc
+               - amlogic,c3-gpio-intc
+               - amlogic,s6-gpio-intc
+               - amlogic,s7-gpio-intc
+@@ -56,7 +58,7 @@ properties:
+   amlogic,channel-interrupts:
+     description: Array with the upstream hwirq numbers
+     minItems: 2
+-    maxItems: 12
++    maxItems: 20
+     $ref: /schemas/types.yaml#/definitions/uint32-array
  
-+/* use for A9 like chips */
-+#define REG_A9_AO_POL	0x00
-+#define REG_A9_AO_EDGE	0x30
-+
- /*
-  * Note: The S905X3 datasheet reports that BOTH_EDGE is controlled by
-  * bits 24 to 31. Tests on the actual HW show that these bits are
-@@ -53,6 +57,8 @@ static void meson_a1_gpio_irq_sel_pin(struct meson_gpio_irq_controller *ctl,
- static void meson_a1_gpio_irq_init(struct meson_gpio_irq_controller *ctl);
- static int meson8_gpio_irq_set_type(struct meson_gpio_irq_controller *ctl,
- 				    unsigned int type, u32 *channel_hwirq);
-+static int meson_a9_ao_gpio_irq_set_type(struct meson_gpio_irq_controller *ctl,
-+					 unsigned int type, u32 *channel_hwirq);
- static int meson_s4_gpio_irq_set_type(struct meson_gpio_irq_controller *ctl,
- 				      unsigned int type, u32 *channel_hwirq);
+ required:
+@@ -76,9 +78,20 @@ then:
+     amlogic,channel-interrupts:
+       maxItems: 2
+ else:
+-  properties:
+-    amlogic,channel-interrupts:
+-      minItems: 8
++  if:
++    properties:
++      compatible:
++        contains:
++          const: amlogic,a9-gpio-ao-intc
++  then:
++    properties:
++      amlogic,channel-interrupts:
++        minItems: 20
++  else:
++    properties:
++      amlogic,channel-interrupts:
++        minItems: 8
++        maxItems: 12
  
-@@ -116,6 +122,18 @@ struct meson_gpio_irq_params {
- 	.pin_sel_mask = 0xff,					\
- 	.nr_channels = 2,					\
+ additionalProperties: false
  
-+#define INIT_MESON_A9_AO_COMMON_DATA(irqs)			\
-+	INIT_MESON_COMMON(irqs, meson_a1_gpio_irq_init,		\
-+			  meson_a1_gpio_irq_sel_pin,		\
-+			  meson_a9_ao_gpio_irq_set_type)	\
-+	.support_edge_both = true,				\
-+	.edge_both_offset = 0,					\
-+	.edge_single_offset = 0,				\
-+	.edge_pol_reg = 0x2c,					\
-+	.pol_low_offset = 0,					\
-+	.pin_sel_mask = 0xff,					\
-+	.nr_channels = 20,					\
-+
- #define INIT_MESON_S4_COMMON_DATA(irqs)				\
- 	INIT_MESON_COMMON(irqs, meson_a1_gpio_irq_init,		\
- 			  meson_a1_gpio_irq_sel_pin,		\
-@@ -170,6 +188,14 @@ static const struct meson_gpio_irq_params a5_params = {
- 	INIT_MESON_S4_COMMON_DATA(99)
- };
- 
-+static const struct meson_gpio_irq_params a9_params = {
-+	INIT_MESON_S4_COMMON_DATA(96)
-+};
-+
-+static const struct meson_gpio_irq_params a9_ao_params = {
-+	INIT_MESON_A9_AO_COMMON_DATA(39)
-+};
-+
- static const struct meson_gpio_irq_params s4_params = {
- 	INIT_MESON_S4_COMMON_DATA(82)
- };
-@@ -203,6 +229,8 @@ static const struct of_device_id meson_irq_gpio_matches[] __maybe_unused = {
- 	{ .compatible = "amlogic,a4-gpio-ao-intc", .data = &a4_ao_params },
- 	{ .compatible = "amlogic,a4-gpio-intc", .data = &a4_params },
- 	{ .compatible = "amlogic,a5-gpio-intc", .data = &a5_params },
-+	{ .compatible = "amlogic,a9-gpio-ao-intc", .data = &a9_ao_params },
-+	{ .compatible = "amlogic,a9-gpio-intc", .data = &a9_params },
- 	{ .compatible = "amlogic,s6-gpio-intc", .data = &s6_params },
- 	{ .compatible = "amlogic,s7-gpio-intc", .data = &s7_params },
- 	{ .compatible = "amlogic,s7d-gpio-intc", .data = &s7_params },
-@@ -375,6 +403,53 @@ static int meson8_gpio_irq_set_type(struct meson_gpio_irq_controller *ctl,
- 	return 0;
- }
- 
-+/*
-+ * gpio irq relative registers for a9_ao
-+ * -PADCTRL_GPIO_IRQ_CTRL0
-+ * bit[31]:    enable/disable all the irq lines
-+ * bit[0-19]:  polarity trigger
-+ *
-+ * -PADCTRL_GPIO_IRQ_CTRL[X]
-+ * bit[0-5]: 6 bits to choose gpio source for irq line 2*[X] - 2
-+ * bit[16-21]:6 bits to choose gpio source for irq line 2*[X] - 1
-+ * where X = 1-10
-+ *
-+ * -PADCTRL_GPIO_IRQ_CTRL[11]
-+ * bit[0-19]: both edge trigger
-+ *
-+ * -PADCTRL_GPIO_IRQ_CTRL[12]
-+ * bit[0-19]: single edge trigger
-+ */
-+static int meson_a9_ao_gpio_irq_set_type(struct meson_gpio_irq_controller *ctl,
-+					 unsigned int type, u32 *channel_hwirq)
-+{
-+	const struct meson_gpio_irq_params *params = ctl->params;
-+	unsigned int idx;
-+	u32 val = 0;
-+
-+	idx = meson_gpio_irq_get_channel_idx(ctl, channel_hwirq);
-+
-+	type &= IRQ_TYPE_SENSE_MASK;
-+
-+	meson_gpio_irq_update_bits(ctl, params->edge_pol_reg, BIT(idx), 0);
-+
-+	if (type == IRQ_TYPE_EDGE_BOTH) {
-+		val = BIT(ctl->params->edge_both_offset + idx);
-+		meson_gpio_irq_update_bits(ctl, params->edge_pol_reg, val, val);
-+		return 0;
-+	}
-+
-+	if (type & (IRQ_TYPE_LEVEL_LOW | IRQ_TYPE_EDGE_FALLING))
-+		val = BIT(idx);
-+	meson_gpio_irq_update_bits(ctl, REG_A9_AO_POL, BIT(idx), val);
-+
-+	val = 0;
-+	if (type & (IRQ_TYPE_EDGE_RISING | IRQ_TYPE_EDGE_FALLING))
-+		val = BIT(idx);
-+	meson_gpio_irq_update_bits(ctl, REG_A9_AO_EDGE, BIT(idx), val);
-+
-+	return 0;
-+};
- /*
-  * gpio irq relative registers for s4
-  * -PADCTRL_GPIO_IRQ_CTRL0
 
 -- 
 2.52.0
