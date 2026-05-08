@@ -1,199 +1,211 @@
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A63F8308F07;
-	Fri,  8 May 2026 03:41:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=60.244.123.138
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778211676; cv=fail; b=CuPa239ynY54bklnNQ4YJRTAlXAtU9zy7TRg+uIb/b9zba+vf7rXc7dJeMgeP/fKdLp+Dh8hdPTLGaPVWuiABfB9R4IbVPyuCY7UxJFUuPAdq+giZPj9etroFBhbMtimNlAX/UZ5OV4uaoJftyGAiwELXSXn2Q1d+WZ/feI9HY0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778211676; c=relaxed/simple;
-	bh=0ar8IH4qYOv7hdFxJ195Uraw29D2wSB+rFiNyGxbjdQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=FXmPCc0MJV7ro+HFql7cCD8nK54fo/0VdNZ8t1auy3Pm4q2gSNun7vRXRDUb5bJcel8BJoxrZy58Gv3jBspk/G/rusdUgdbCzFJ4g5ax7vYjHW952vVf7ujvkhreGQRdbg7I9nF0TIjyoGtgEL8ejnyd89pHK5YCvwzOmYCWtbc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=SZQwX4M5; dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b=uxSmbq/G; arc=fail smtp.client-ip=60.244.123.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9246C19D07A;
+	Fri,  8 May 2026 04:10:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778213413; cv=none; b=kNbdcSl5lfDj7noxJC7PxG7tUflSXIu10swc/OIA36sCZ7ZGdCUxzsCOip8HdRxa8eStofIuhb0ffj1T8H+RBxo4ej/2XKJkwsXmf4aeKOJXAIFf4HU3UPcYC61+Og2Xo9+Ckh2rfmOMNHqdtAT31rKpmcFiParZzWMOHIwmh3A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778213413; c=relaxed/simple;
+	bh=Lov8zRi4ZdDJ6Rf2hL3bUCdLZv/jumyeWBcj6dsNe3o=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=kvtAo3/Pyr9naosybK6M4x9I+lieMA+O6TxZsr0Uk+ZoTbpKzZR0W1DgCeVOprFEjnYJiwFjWhrgxvP3Fxu0WSjJGRl+NayzrVSqzpQcWBtvKMOXFXLgf3LV+2k5cg4Qq55DeYuNvOd69dCXwSPbYEbVJmWZaM9OWc8P/tBL27c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=Zst17sfd; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="SZQwX4M5";
-	dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="uxSmbq/G"
-X-UUID: bddf07164a8f11f1b96f91537e34a508-20260508
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From; bh=0ar8IH4qYOv7hdFxJ195Uraw29D2wSB+rFiNyGxbjdQ=;
-	b=SZQwX4M5ZrNRPwbAq+MJxABNuPRcfijAf5nQEBOdqZkpv8VS/ICi8fvmjuzauWshWNcTK76N8XpRoxhcv7BgkW1X8I4qZPTF5FMFsdvWPkj6wM5ZUh2iK2/QGAlYW6WNSvYa+KLWBS61zJn7QKnrnwaTdKyYDV8UBsyMOLjrdzE=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:8885908b-f8ce-4ed7-8bc8-7b7c4d062ee9,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:e7bac3a,CLOUDID:fbde0bbf-65a8-4b41-ac18-3671578a914d,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:80|81|82|83|102|110|111|836|865|888|
-	898,TC:-5,Content:0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:ni
-	l,BEC:-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: bddf07164a8f11f1b96f91537e34a508-20260508
-Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by mailgw01.mediatek.com
-	(envelope-from <ck.hu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 31508799; Fri, 08 May 2026 11:41:05 +0800
-Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
- MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Fri, 8 May 2026 11:41:03 +0800
-Received: from SI4PR04CU002.outbound.protection.outlook.com (172.21.101.237)
- by mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Fri, 8 May 2026 11:41:03 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b/8ZcpQFMHXDarhiA5xeU4v3sTbfl63S98vzxBmtVVeWteBbN1enGYMsDyR9H627RtCrhFHgh9aI4vJxQexvuD51M7B23JOFVFDZd+2J4bhY/tzSYItnNmNVl+uHCFWtrxFd2uU5BDdAUdsYpBYCryRsDwTJjkxYhrrAHXuE0mEybWoj8jIcHhNkpm6fp+KYZMVuneQNmnq3Gw0xjsFgkwEgtyWCmGUKCcYNIJGCt7qZ7LHPKSFvsYeGC7Ywg1nmeUZgA0aO93D8VHWN8OW0OtuInQelJzG7WrI0ZuCAW99qaVOVVisUN1cpqsXeQEiYfcgUvsfv4XeU3XFVTcKHNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0ar8IH4qYOv7hdFxJ195Uraw29D2wSB+rFiNyGxbjdQ=;
- b=dlqYSdRjhQcENFbMX3MC2gP24tmaEmlU246rCFytmxtGQNFdhvde9zA9jWo6o9Ck/jcKs21hEoTgBznYIzj6bnz/RIa260hevwkbrAbC9UyQSVBCbx1Dfkk4shSEK/T+apNeaxqZcxBNZENvdAw34yIxHdMk7J9MNxScTjtvo3ovbjq+Gn2GbPcD0RZywRNHhWUm6wLVy6RcfA0xSg1ayXVba4MWVdX3qT+Tlz/rt+dvhW3R9nx8iXzHD4brszBtIep25ELx4sTvRYioTkZKAFetnFKlam9BRDy5n8HBw7IHac3nh5poVqsjGJaXueRkrQpGqte30W5v4QBdKptzPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0ar8IH4qYOv7hdFxJ195Uraw29D2wSB+rFiNyGxbjdQ=;
- b=uxSmbq/GMRqvFHTh11+eDDaYmQOv3mGFFY7jZIWGSlzVuRpnMmgPBByOSME4g58xQZKDp0URB59rzKJhifuogw783Cn8G3VWewrsEINCX8TmDqH/11KjlD16DgjDTpezP5dSZl14wSNRu/mwZHKZjRc/ST0mffLslORes/H7iyQ=
-Received: from TYZPR03MB6624.apcprd03.prod.outlook.com (2603:1096:400:1f4::13)
- by TYSPR03MB8627.apcprd03.prod.outlook.com (2603:1096:405:8a::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.7; Fri, 8 May
- 2026 03:41:00 +0000
-Received: from TYZPR03MB6624.apcprd03.prod.outlook.com
- ([fe80::a3c2:b94a:70f:e640]) by TYZPR03MB6624.apcprd03.prod.outlook.com
- ([fe80::a3c2:b94a:70f:e640%4]) with mapi id 15.20.9891.008; Fri, 8 May 2026
- 03:41:00 +0000
-From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
-To: "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>, "tzimmermann@suse.de"
-	<tzimmermann@suse.de>, "simona@ffwll.ch" <simona@ffwll.ch>,
-	"chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>, "AngeloGioacchino Del
- Regno" <angelogioacchino.delregno@collabora.com>,
-	=?utf-8?B?SmF5IExpdSAo5YiY5Y2aKQ==?= <Jay.Liu@mediatek.com>,
-	"airlied@gmail.com" <airlied@gmail.com>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "robh@kernel.org" <robh@kernel.org>,
-	"p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
-	"maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
-	"mripard@kernel.org" <mripard@kernel.org>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"krzysztof.kozlowski@linaro.org" <krzysztof.kozlowski@linaro.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH v5 3/6] dt-bindings: display: mediatek: ccorr: Add support
- for MT8196
-Thread-Topic: [PATCH v5 3/6] dt-bindings: display: mediatek: ccorr: Add
- support for MT8196
-Thread-Index: AQHc1jgorEi7+lEnakyv8KrGKks/2rYDjIeA
-Date: Fri, 8 May 2026 03:41:00 +0000
-Message-ID: <37598269fdee4f0b4905e048c55e2d45de704d19.camel@mediatek.com>
-References: <20260427112131.23423-1-jay.liu@mediatek.com>
-	 <20260427112131.23423-4-jay.liu@mediatek.com>
-In-Reply-To: <20260427112131.23423-4-jay.liu@mediatek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.52.3-0ubuntu1 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYZPR03MB6624:EE_|TYSPR03MB8627:EE_
-x-ms-office365-filtering-correlation-id: 81ed52a5-5e66-48c6-9dc5-08deacb39f2e
-x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|42112799006|366016|7416014|376014|1800799024|22082099003|56012099003|18002099003|38070700021|921020;
-x-microsoft-antispam-message-info: XG/8H/JY62I8rUE/wJfNevhnwQ83AAMxQxAupFeyzygs2LTbsx3eECWMoQ0xTwczJ0dXWKdplA2PP1tCQdkpLBlaxyLJUExG1whbxIeqzlOE+sHjhU3k1C0b/JyROwGwTrPl3KagcMdIHVzgw2MNpmG65DGKCcWEaNLeWA6lgBIFBWZz+t7NXWds7CtGvdE7DrN+hqlBkB21aEHdg1PcwLE643KNVIm6TRgx3+GGYG2EhOx1sILFBx5fXOghI/P0ImzL6B308/6nvRUgIdbkzXLKhvVglGN7ebi7rJ0xl/xbJOgcDov5XalU3wEKU+HuRTv4VdvqETZfHcd81iCPUd7MEdS3U76nf3wRYhBAYmjEPtNi9iw5ZBxoply3iR9dV9qTSpgznF96L4fnmZpj9G9aZ36Q5u8LBYmyvwoz7Y1rhto2YjhaLPiQxBsDywBVDCI4mYwge9Lmelb8P5mFj56GGXTjnzzCIlyVs0IftzcUiHQXWlfy/ml/k3ad4lxxJJIuX92pDpa2CtI7LYXsxIWfvfHpHn5eY9o+qNYFJeil1VpO8RaHPr8UDHM4g5gGz3gh8mwc2f+H09vC8ap3g9mMGF1yAnCI67TyoqBxhACfyTFNfW6amyFcdcjQXFlKdhdoFyqb0DF5BjvzjgySodlNPKcqScdX8lSfcfnDTYFkpRaGbBtqLL7O7+HMCh8cjc8dGp/kZBaQytb3D6CgmwOtDRSf/FKU6e+Vzy/urytX7HHkHIKwjYXSF2xbJEKmYGE3JuWg56QOqcmIa9euLA==
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6624.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(42112799006)(366016)(7416014)(376014)(1800799024)(22082099003)(56012099003)(18002099003)(38070700021)(921020);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Y1VxNk9STUhLRnlXNHRoQ2thRTErZVVIdktuYUprU2l5V0pQNkhmOEE1WUZ1?=
- =?utf-8?B?SDZOVFhPSFJjMlphb1NWYXB6bUM3d215bERwalpDQitvb0tTanYrRkdWMUR0?=
- =?utf-8?B?QkIvL2RVeUNWVmhnZW5MTWxYUURzUk83OHdHajJDZWpkbjErR3RYQ2ExVU42?=
- =?utf-8?B?WjFUQ2gwb1IzQ0E3UWZHQ1I5Q09MazlGTzlsTTVvcVFRYVd5RW52UUxJQVYr?=
- =?utf-8?B?VDhSaGtjaU5lWkVwbkF1dUEwWjI1OWttaWRwRTVEdDlnVkw5cE4zcXMrMlIz?=
- =?utf-8?B?dlluWVFiQTNXNVpOek91WWpqYmVKNVU3UzZWNmp3ZXorMFBzaUN6QnpXSWRq?=
- =?utf-8?B?ZURzT3Fxa2JTakl2Y1JpL0FXRTUrcnhLeVVEZGs3SkVGK3kzMCtzbzhBODRN?=
- =?utf-8?B?Y3Y3aTlVQU1HeERCdmpsUm5vVEwxZXlVRWJjSzJNWmlKRFFTelkxcEo3WFMr?=
- =?utf-8?B?K2VIK1JqeWdwYmUvV3dRZS9PZEhRTkg1czU4a3gxQzhXdDRpbXhqMWlTaGYw?=
- =?utf-8?B?QU5CMkJaWG92c1NwbVdnWm14Ylk0QUxDR3ZhcDJaRU15ZU1CMkJRVGlUVmd0?=
- =?utf-8?B?SnlEZ1VuZ0s5aXFIbEJZOEgza1gvSFloWjNRQVo1aVh0MWp2WkVza0VRVzVi?=
- =?utf-8?B?cWdjTG92OW9WZWpLU3RMWEtKa3dWbVNsMEIzY0o2Nmc2OWk4TmdkR2RtU3V6?=
- =?utf-8?B?TG0yakpLakpIZkxjWjR2Q1pDcG1TZjV5bXpnRklTR2EyQ2VNTDRvSk1MZC9v?=
- =?utf-8?B?ZkFEejVsZjFqZFc3QnVEVzEzOVB3MnFVYVNIRG92aXU5blpBMnVwSHE5TmdK?=
- =?utf-8?B?OHRKWnBmYkFnLzhYTlgzczd1Uzh2dUhqZnV2c05kbjdFUVNaN1Flc2J4WVdm?=
- =?utf-8?B?ampIcmJ0cWlxT25VdE56VUNqY1RXRHRaM0RhZkEySUhhMEwxdjluREJZTTV6?=
- =?utf-8?B?NXd0bUlTMy9zQXZYTzNpcTVPbDRBSENNeUdJSlcxUTBPUzJQaUtybGRSdWJ4?=
- =?utf-8?B?MlhkR1p1dWlUR0ZnaXNVeFJ1c1EzOUl5K0RpSTMyc1IwdUc3ZGhFUmc5UFpp?=
- =?utf-8?B?dGFROStIWjByQUJvdHZKb01FM3p0S3F1UCtlWFZ2RWZpdS9zMEFrWDlYOUc4?=
- =?utf-8?B?SWtvUWc5elJwYUF2dm1rcFRyTnBHUU1UVWZqNVBSbTdFbHhid1J1YVVsazV4?=
- =?utf-8?B?VkwwWWtPbzZaRy9UZTh5cG9ZeWxpM1o2YUp3VWMrajRNUjFBZ251eUtzYndT?=
- =?utf-8?B?ZFlsOGxoSmpEN0QyWG9USk92WHQ3RnRNdHBVUHZjUzZvaW50UjJoejdNRng2?=
- =?utf-8?B?UjcyOHZSTHovd3ZoSXo1enJkay8xZ2RscXMvRGdSVGVhWTdpYXlRVkJNclN4?=
- =?utf-8?B?ellJT1JLVjF0QkhUQUZtUkRNc09POWdjM0R4d0RCSEpYRDBVOXBYYkJuNnp0?=
- =?utf-8?B?YjIzMGJGQklJZzRCUXRWWUloTEZic21jano0V1JUajB5V3hINXQ3QWFNSFV0?=
- =?utf-8?B?U0gzNzJMNzZaTHMwZWVyRThSY1B0MWN4TGRKSXpHQ0MrNHpSYmVRR0xkQWJy?=
- =?utf-8?B?OFd2MXpvU1piRGpHY0ZkVHNWVjA2KzZvMENtOWQ2a0pkb2tRUWVKdUlPTTJp?=
- =?utf-8?B?a3AyOE1kSTZiaHB0THFUN3orbzJvQTRBZnFFOGtYM1JiT3dqM2pwWVVpN21Y?=
- =?utf-8?B?cnI4NFJQVFh5Yld5Tk5LTmVDRmZyaEFKS3J6VTFCT0ZrblZrc3F2aXpiQWxj?=
- =?utf-8?B?OWlXQUNydlM5Z2M2cXoxbGdseThGNE0wdmZ3dWJadXNLNUs0SWo2QWorOW5p?=
- =?utf-8?B?SUplTDhidHZESUhQNm1EWmd3eHlabThKRXJpcTZlQTRVSURyb0ZxeFV3VUJ2?=
- =?utf-8?B?TXF5ZUxBUSttVnZ5Y3RINzFjUi85ZytHWlhYWTliY0Zqbk9JbUZuTzVrZm5p?=
- =?utf-8?B?c3lqbVJpUnZkcmU2TU55d3ZwVkE5dWRBR292ZWQvamZsUEhER1U5YXl5WkhK?=
- =?utf-8?B?NmY2ZXVsM0pIVjlIQzg3ZWgrRjJQZ0cwVHFiY0FjVDFsNVRVc1VLMG9EaDh6?=
- =?utf-8?B?NmQ0RXIwUXgva3QyMWI3WWVpTFNqZEdHSU9PTktoRHREZ01XdVVpcFhEaFp2?=
- =?utf-8?B?bmdSK0RUMXFhcXdZL3NiQW56UkM0R29EdG1NVXczSS83M0Q3Z2wvWE1tT2cy?=
- =?utf-8?B?Y2dkYlhNVzVWMzBzUHpsejlleUM0WVQ5d2c1eisyWDRTUzlTZC9UVExUSWM0?=
- =?utf-8?B?WUZIRU9DNFdNcVV2bjd0NlpZaGRpNFBuVGZacFY1QzJVUm5ZYzQ2dHN2ZWhy?=
- =?utf-8?B?cnIyTU1XV3dySUZ5eHo3WXc0TzZoWHIzUGcwL0JoRWxMNUIrSi9Pdz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <2BEA16F454A332469F758045807CF897@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="Zst17sfd"
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6483vatR2003066;
+	Fri, 8 May 2026 00:10:06 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=f+2NDxC4UzUBzeqx5m6Mpj4HpPr
+	9g4VtJVVPS1O4Os4=; b=Zst17sfdVcRqABQCdriMcXn1YbS4cpRldBgRPBwpWqY
+	wK4gbGFGlYF/3kXS/r3ZqGqHXHpyulnOma7thtrb8ax/rLMIRZowiIAzeQgsciS8
+	789uQC+i6m4R4JBtflsk+DP0T6H+Z0tjQXEFRJbhgzC33LGty1rbUGbAPiFfRWUS
+	JCQHukwKO9HO53JutU5mfTgpUgF8ygKlC/RdZLpBWWmIYqkzpKTiqEMdj2BH3MF9
+	yioab4nG08xaXEzMg7glqOp+AGjxxa8v0v8aC3CMSjbWy/B6Mt4Vac4JafVuophR
+	8hW754nmu5AYhrp4+jEYGv623Ths4POlcK6dAdiqLqA==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4dyv3ra85e-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 08 May 2026 00:10:05 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6484A4hh039197
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 8 May 2026 00:10:04 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Fri, 8 May
+ 2026 00:10:04 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Fri, 8 May 2026 00:10:04 -0400
+Received: from HYB-7P5GeKnsiiX.ad.analog.com (HYB-7P5GeKnsiiX.ad.analog.com [10.118.4.71])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 64849pqo001480;
+	Fri, 8 May 2026 00:09:54 -0400
+From: Edelweise Escala <edelweise.escala@analog.com>
+Subject: [PATCH v7 0/2] Add Support for LTC3220 18 Channel LED Driver
+Date: Fri, 8 May 2026 12:09:48 +0800
+Message-ID: <20260508-ltc3220-driver-v7-0-0f092ba54f23@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: I4492QdrcqNftJKQI+yDgftthX0RJ8Ucpkl/AsJQ6Y8t4FRMfgA7hyIpAfZBjR2Um9FdkZsin9+2GsqKQYjc+ICHK/kuWaNkezX06gSq15tknS6vtFhZbrsSh/nHDSjTZo16WJzwbKYzLCcq6t41oXXjgDhkr3UJD5Oti/DRmVsMNgHXwBNSHUzdPoIEJ3EcKS8sRSXOPiZ7/tJZTNzTdw5pL7b2D+jEWOIvoXHR8OeL/01kEw/eR5dWtFJxlCf03fTmzYQliSUBrAdKyszelDfS7K6IgGjQwz82yp3YimoBzXt7KGNBOGT/9Yq8fpZe6jwLuD0QiDxaPBJ/muwk2w==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6624.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 81ed52a5-5e66-48c6-9dc5-08deacb39f2e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 May 2026 03:41:00.2587
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: QOnJu2PQSayKaCMd0t5Q8qwnARVT36tAhKTAoWLDl/J+ozWFFYPXhQwCD1hoizLwaih8uMUdLb6RH2dkSFo96Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYSPR03MB8627
-X-MTK: N
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAxi/WkC/33OTU7DMBCG4atUXmPkGf8lrLgHYuHa49ZSSZBTW
+ aAqd2fSDQELlt9YzyvfxEK10CKeDjdRqZWlzBMP/3AQ8RymE8mSeAtU6BQoJy/XqBGVTLU0qjK
+ P4ehiHBOQEYzeK+XycQ++vPI+l+U61897v8F2/TPVQCrpNb8ll8GZ8TlM4TKfHuP8JrZWw50H7
+ DyyT8poZYccTcqd1zvP7rfX7DNlB0jR5BA6b/a+/79hH+1owaNyEU3n7f/esgeLQSsah3D0nXf
+ f3oDvvNv8ANYPHiil9MOv6/oFf+O6g+0BAAA=
+X-Change-ID: 20260106-ltc3220-driver-f9ab6cc9d1e4
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+        Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>
+CC: <linux-leds@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>,
+        Edelweise Escala
+	<edelweise.escala@analog.com>,
+        Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778213392; l=4182;
+ i=edelweise.escala@analog.com; s=20260106; h=from:subject:message-id;
+ bh=Lov8zRi4ZdDJ6Rf2hL3bUCdLZv/jumyeWBcj6dsNe3o=;
+ b=aH2jqZ16LZyCS5e0mT/DaEJAFN9dcjC5cZ+2NgMgrEotbXKXdABGZbTUBof82u0+gCJiqNaSW
+ Yu4qlZ599AeBafm+gGSvVXrtaqXKwbQFvDyCYtFenpxJIHwX3/UHRVR
+X-Developer-Key: i=edelweise.escala@analog.com; a=ed25519;
+ pk=lf5HLFe8ZeQjXZgkBkFMK+u9qH5/tqZhCIushTKduNQ=
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Authority-Analysis: v=2.4 cv=O7UJeh9W c=1 sm=1 tr=0 ts=69fd621d cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=uXIjobp8t2wMuQ0fPvqm:22 a=VwQbUJbxAAAA:8
+ a=gAnH3GRIAAAA:8 a=XYAwZIGsAAAA:8 a=W0g7KsB6ccMaKQzJvQQA:9 a=QEXdDO2ut3YA:10
+ a=E8ToXWR_bxluHZ7gmE-Z:22
+X-Proofpoint-GUID: jtR-rUk1ZZMzUBX5F5dRXKe_RFAiKT12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTA4MDAzNiBTYWx0ZWRfX97hsfg4RnoyG
+ wMoZ5Y/MHJk319/KOgnaO/ninXNEHv7ZUWDgZnQV2GQgusShRI32qqwkoUKFhViYCcyWGoIePd4
+ 3givMx2NRSNFa75PVZfjnH3asmCeYITxFKZcDjoYodGM7stcH2sbYOyt3K2EfEiwvCqKLVJQkoJ
+ r3cX1RcyRO0Q4p9dRkpcyl7w2+6Pb5QSnGcO8+ZEGVnnamLf/Ov6XMArcSdh+thSSG4OLzBBVoG
+ vbT0olTvh57i+zNZBFB/Recs28VLmO174QBZiR5H5RwbCU/5i7dFDJoHeIZ4/+8z1yYgKf8xxsf
+ L1YGQC+YgYIGBQoZO2L9hD55pNsJlH8gpl/Wdn8nT+AFuoyWoyt09P+IpaLCufvx6doYEmhcDkp
+ trfQtgRd79obj0xAeaqj/ZL2TeR7hZWIkoYh1JwVMddUFynLvsUjkARa/DA2pIxj+S2/2Qb6ubb
+ e5ePPutr8qKct50+KOg==
+X-Proofpoint-ORIG-GUID: jtR-rUk1ZZMzUBX5F5dRXKe_RFAiKT12
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-07_02,2026-05-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
+ priorityscore=1501 suspectscore=0 clxscore=1015 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605080036
 
-T24gTW9uLCAyMDI2LTA0LTI3IGF0IDE5OjIwICswODAwLCBKYXkgTGl1IHdyb3RlOg0KPiBBZGQg
-YSBjb21wYXRpYmxlIHN0cmluZyBmb3IgdGhlIENDT1JSIElQIGZvdW5kIGluIHRoZSBNVDgxOTYg
-U29DLg0KPiBFYWNoIENDT1JSIElQIG9mIHRoaXMgU29DIGlzIGZ1bGx5IGNvbXBhdGlibGUgd2l0
-aCB0aGUgb25lcyBmb3VuZA0KPiBpbiBNVDgxOTIuDQoNClJldmlld2VkLWJ5OiBDSyBIdSA8Y2su
-aHVAbWVkaWF0ZWsuY29tPg0KDQo+IA0KPiBSZXZpZXdlZC1ieTogQW5nZWxvR2lvYWNjaGlubyBE
-ZWwgUmVnbm8gPGFuZ2Vsb2dpb2FjY2hpbm8uZGVscmVnbm9AY29sbGFib3JhLmNvbT4NCj4gQWNr
-ZWQtYnk6IEtyenlzenRvZiBLb3psb3dza2kgPGtyenlzenRvZi5rb3psb3dza2lAbGluYXJvLm9y
-Zz4NCj4gU2lnbmVkLW9mZi1ieTogSmF5IExpdSA8amF5LmxpdUBtZWRpYXRlay5jb20+DQo+IC0t
-LQ0KPiAgLi4uL2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS9tZWRpYXRlay9tZWRpYXRlayxj
-Y29yci55YW1sICAgICB8IDEgKw0KPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspDQo+
-IA0KPiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3Bs
-YXkvbWVkaWF0ZWsvbWVkaWF0ZWssY2NvcnIueWFtbCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJl
-ZS9iaW5kaW5ncy9kaXNwbGF5L21lZGlhdGVrL21lZGlhdGVrLGNjb3JyLnlhbWwNCj4gaW5kZXgg
-NWM1MDY4MTI4ZDBjLi5hOTdlNzU4ZjY1NzEgMTAwNjQ0DQo+IC0tLSBhL0RvY3VtZW50YXRpb24v
-ZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5L21lZGlhdGVrL21lZGlhdGVrLGNjb3JyLnlhbWwN
-Cj4gKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvbWVkaWF0
-ZWsvbWVkaWF0ZWssY2NvcnIueWFtbA0KPiBAQCAtMzQsNiArMzQsNyBAQCBwcm9wZXJ0aWVzOg0K
-PiAgICAgICAgICAgICAgICAtIG1lZGlhdGVrLG10ODE4Ni1kaXNwLWNjb3JyDQo+ICAgICAgICAg
-ICAgICAgIC0gbWVkaWF0ZWssbXQ4MTg4LWRpc3AtY2NvcnINCj4gICAgICAgICAgICAgICAgLSBt
-ZWRpYXRlayxtdDgxOTUtZGlzcC1jY29ycg0KPiArICAgICAgICAgICAgICAtIG1lZGlhdGVrLG10
-ODE5Ni1kaXNwLWNjb3JyDQo+ICAgICAgICAgICAgLSBjb25zdDogbWVkaWF0ZWssbXQ4MTkyLWRp
-c3AtY2NvcnINCj4gIA0KPiAgICByZWc6DQoNCg==
+The LTC3220/LTC3220-1 is a multi-display LED driver, which contains a
+high-efficiency, low-noise charge pump to provide power to up to
+18 LED current sources. The LEDs are individually configurable to
+64-step linear brightness control, blinking and gradation control
+via 2-wire I2C interface. The blinking and gradation configuration
+is shared across all LED.
+
+LTC3220 has a quick write function which allows changing the brightness
+on all LEDS simultaneously when the brightness is changed on led 1.
+For this leds are aggregated in the device tree and on probe we check
+if led-sources exist to enable quick write. 
+We would like to know if this approach is alright?
+Another way we might want to know is, is it alright to just make a
+virtual led for the quick write function. Changing brightness on 
+the virtual led will change the brightness for all.
+
+Signed-off-by: Edelweise Escala <edelweise.escala@analog.com>
+---
+Changes in v7:
+- Add cahcetype on regmap
+- Dropped struct ltc3220_state *ltc3220_state and use container_of()
+- Rename ltc3220_state to ltc3220
+- Dropped functions only used once and used inline instead.
+- Loop variable changes
+- Consistent decalaration for container_of
+- Tabbing fixes
+- Link to v6: https://lore.kernel.org/r/20260417-ltc3220-driver-v6-0-18157871eddd@analog.com
+
+Changes in v6:
+- Fix commit message
+- Add manufacturer on Kconfig and improve description
+- Rearrange register map and bitmask and improve naming
+- Use regmap, also use update bits of regmap to avoid unnecessary
+  structs
+- Alignment and spacing fixes
+- Use Define for magic naumbers
+- Fix blink calculation
+- Add comments on aggregated LED
+- Fix variable name to something more understandable like i to led_index
+- Link to v5: https://lore.kernel.org/r/20260126-ltc3220-driver-v5-0-152a30e98ab7@analog.com
+
+Changes in v5:
+- Missed rename on bindings filename in MAINTAINERS file
+- Link to v4: https://lore.kernel.org/linux-leds/20260126-ltc3220-driver-v4-0-c59517206c24@analog.com
+
+Changes in v4:
+- Rename leds-ltc3220.yaml to adi,ltc3220.yaml
+- Add Reviewed-by: Conor Dooley <conor.dooley@microchip.com> on
+  adi,ltc3220.yaml
+Other V1 comments I think already addressed
+- Subject commit message was already changed to match hardware
+- Fixed wrapping after description
+- Dropped "Bindings for" in descriptions and improved description to match hardware
+- Dropped adi,ltc3220-1
+- Dropped redundant description on reset-gpios
+- Dropped adi,force-cpo-level
+- Dropped adi,quick-write in favor of aggregated LED
+- Used consistent quotes ^led@([1-9]|1[0-8])$
+- Fixed wrapping on error messages
+
+- Link to v3: https://lore.kernel.org/r/20260120-ltc3220-driver-v3-0-fef612ec4faa@analog.com
+
+Changes in v3:
+- Dropped quick-write on bindings and added aggregated led instead.
+- Add aggregated led example.
+- Modify quick write to check if there is aggregated led, if there is
+  aggregated led enable quick write.
+- Use DEFINE_SIMPLE_DEV_PM_OPS instead of SIMPLE_DEV_PM_OPS.
+- Link to v2: https://lore.kernel.org/r/20260112-ltc3220-driver-v2-0-d043058fc4df@analog.com
+
+Changes in v2:
+leds-ltc3220.yaml changes
+- Fix wrapping on description
+- Improve description and commit messge to describe hardware
+- Drop ltc3220-1
+- Drop charge pump
+ltc3220.c changes
+- Fix wrapping
+- Drop ltc3220-1
+- Drop devname_mandatory
+- Link to v1: https://lore.kernel.org/r/20260106-ltc3220-driver-v1-0-73601d6f1649@analog.com
+
+---
+Edelweise Escala (2):
+      dt-bindings: leds: Add LTC3220 18 channel LED Driver
+      leds: ltc3220: Add Support for LTC3220 18 channel LED Driver
+
+ .../devicetree/bindings/leds/adi,ltc3220.yaml      | 120 ++++++
+ MAINTAINERS                                        |   8 +
+ drivers/leds/Kconfig                               |  12 +
+ drivers/leds/Makefile                              |   1 +
+ drivers/leds/leds-ltc3220.c                        | 413 +++++++++++++++++++++
+ 5 files changed, 554 insertions(+)
+---
+base-commit: 8856d7fe1758937ac528770f552ec58c388c255b
+change-id: 20260106-ltc3220-driver-f9ab6cc9d1e4
+
+Best regards,
+-- 
+Edelweise Escala <edelweise.escala@analog.com>
+
