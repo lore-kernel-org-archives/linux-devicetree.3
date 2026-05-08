@@ -1,29 +1,30 @@
-Received: from out198-13.us.a.mail.aliyun.com (out198-13.us.a.mail.aliyun.com [47.90.198.13])
+Received: from out28-170.mail.aliyun.com (out28-170.mail.aliyun.com [115.124.28.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93A63E8686;
-	Fri,  8 May 2026 13:45:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752A027FB37;
+	Fri,  8 May 2026 13:47:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778247954; cv=none; b=BcfYGfS8pW2dYTuL9qdrOczL5emRqEXcIKPQpJR5Q636MDVHGiNnKMiZmYxQkhyE/NkIlUZulrml77zXN5h9hqJp77shOx9PD+8M9zQj2lnePul/Jqc7y+T2iqUT9xGqBhZ80W7eRMlQfpB/BpyNsuUKCBjfkOPIdrbbkydgUrU=
+	t=1778248043; cv=none; b=LvC/ceQtDgrFRe0ZmlOxCusHLHwijq1/oOVYAvigzW2JC5zggjC1MRqDPVRB34zYeuWapEC4GGLbR41lkoHwpiwsmugJxKkGQiPFP+zmD2JjYZzhIWJIy7msWfwHk5oEBJIRCyCQf/35HWyFt7g5kJn9foNdTcG7lqwzLxAFiUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778247954; c=relaxed/simple;
-	bh=8MqTignjHeZbCZK5aCA3g15x/cEHHVhoMyoT/R3Sk8w=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kI4GDVrXiK2gvHvqVjdO25MX5Rf1yY3t6YNj01L2Q99PmaKtevut4mwi03FS2HoORZTW8SRHdnE7pOiV3eeuisis9vSbb6o4jvjYWFQ7l6vqO08JnD9RACRNK/Mq9t5xJTY/6bed+bFreT2W5xO0ywVDfcjv7Yu0QaDA+K91DGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=rejfkizc; arc=none smtp.client-ip=47.90.198.13
+	s=arc-20240116; t=1778248043; c=relaxed/simple;
+	bh=p0urNjm41sZeAN6q7Acv0PPrW6hXjInS+UEK+XxkjEc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=rpsqV0TsfWwM7jiHs+mmNOrza7yc2mIr2qDJZnlBsruA+YTOfGhZMX+2CYGpyvV50iXL6J+HTQOz4ZQlH7gJWKQwEfkctDwte/ugxwg5w039TdmLY50OCuGi1Ap2zteO5v7MeXXEZ3sgBWQUj1fYbBfGx3UhJdw2VwfOaHsI/dA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=LM5/cmNz; arc=none smtp.client-ip=115.124.28.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="rejfkizc"
+	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="LM5/cmNz"
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=lontium.com; s=default;
-	t=1778247936; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=d7Uslja1Ym7lBcVwPQge7z1MVfX8IP2xtP1NyzY5Js4=;
-	b=rejfkizczNOPEhpgeES6RqT6ezIkeHEc3CQvUokV+wPSMrpva0+vbJPVjtPT3wHTI0WerpqTglZx8NJI8B3j93vAKNz977eAAr1Q02UetbpGvRWFk5h4kMlVcFpj8FIXbLTC9Yp3Ry7/6+kF5+7/EspqfFuFszn5DGfigle8h2hTKNxmvEeit+++DelxPIXlDA+CjVFAioHYHXa1arU9nzZav0PS6k358jbU1lwZjUpT+tsmATmJg4F8Ke2VDGbcA9GXQHpahklysb6OG+z9+ueg7UUaI7cCRrKGSfIJHEZL6vQJ6BWYmVL1/hvYkKNxe9H3AU55l6cnrkCLwwnU3A==
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07496928|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0161796-0.000456651-0.983364;FP=12562828617249967865|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032062159;MF=syyang@lontium.com;NM=1;PH=DS;RN=22;RT=22;SR=0;TI=SMTPD_---.hSbomjM_1778247612;
-Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com fp:SMTPD_---.hSbomjM_1778247612 cluster:ay29)
+	t=1778248033; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=po4JbBzlVnZWMf/PF4TZcy9SSjh11o50cvR1wsP/N14=;
+	b=LM5/cmNzKETnG2f9WBzI4i+f98sdAdvdVHUk5uZJbbYbD7+25cv22t9CNsuhsEhePSKW4KYk+XeCcWJZuJMXnah/W8G2dhtfeidCbRSxtqhoqvrJsC5j5KkHvYGAhSJZfHjScIOomWJJSOq4+k9tOBfzI6jzw+6XJlpjox/vQK81BdAaI26xwx+/hDsxLRGCtq7GqSekqq6+/jTlz8BiCevtDR/jrhfgeTkZPuCl27cqECzp+EP3xE1Tex+i7rAT46yMcROIyBXArXnCtSbEu9Zna5jg1nVLh4899xo0dceVeguNjAmlFHevIwKthalrfwBZfarAjZDGwbzvbAG+xw==
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.0955468|-1;BR=01201311R191ec;CH=green;DM=|CONTINUE|false|;DS=SPAM|spam_ad|0.867174-0.00121929-0.131607;FP=12538499638350542130|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037031241;MF=syyang@lontium.com;NM=1;PH=DS;RN=23;RT=23;SR=0;TI=SMTPD_---.hSic1-g_1778248030;
+Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com fp:SMTPD_---.hSic1-g_1778248030 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Fri, 08 May 2026 21:40:14 +0800
+          Fri, 08 May 2026 21:47:11 +0800
 From: syyang@lontium.com
 To: robh@kernel.org,
 	krzk+dt@kernel.org,
@@ -46,11 +47,14 @@ Cc: Laurent.pinchart@ideasonboard.com,
 	xmzhu@lontium.com,
 	rlyu@lontium.com,
 	xbpeng@lontium.com,
-	Sunyun Yang <syyang@lontium.com>
-Subject: [PATCH v6 0/2] Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
-Date: Fri,  8 May 2026 21:40:07 +0800
-Message-Id: <20260508134009.4582-1-syyang@lontium.com>
+	Sunyun Yang <syyang@lontium.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v6 1/2] dt-bindings: bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
+Date: Fri,  8 May 2026 21:47:01 +0800
+Message-Id: <20260508134702.4713-2-syyang@lontium.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260508134702.4713-1-syyang@lontium.com>
+References: <20260508134702.4713-1-syyang@lontium.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -61,91 +65,111 @@ Content-Transfer-Encoding: 8bit
 
 From: Sunyun Yang <syyang@lontium.com>
 
-This series introduces:
-- A device tree binding YAML file describing the hardware
-- A new DRM bridge driver implementing the basic functionality
+The LT7911EXC is an I2C-controlled bridge that Receiver eDP1.4
+and output signal/dual port mipi dsi.
 
-LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
-mipi dsi and output hdmi, differences in hardware features:
-- LT9611C: supports 1-port mipi dsi to hdmi 1.4
-- LT9611EX: supports 2-port mipi dsi to hdmi 1.4
-- LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
-
-Signed-off-by: Sunyun Yang<syyang@lontium.com>
+Signed-off-by: Sunyun Yang <syyang@lontium.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
-Changes in v6:
-- dt-binding:
- 1. sorted the compatible list alphabetically.                     [Dmitry]
-- drm/bridge:
-- Link to v5: https://lore.kernel.org/lkml/20260507024214.97708-1-syyang@lontium.com/
+ .../display/bridge/lontium,lt7911exc.yaml     | 89 +++++++++++++++++++
+ 1 file changed, 89 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
 
-Changes in v5:
-- dt-binding:
-- drm/bridge:
- 1. use #define FW_FILE  "Lontium/lt9611c_fw.bin" to match linux-firmware    [Dmitry]
- 2. add atomic state management
-- Link to v4: https://lore.kernel.org/lkml/20260506095100.78998-1-syyang@lontium.com/
-
-Changes in v4:
-- dt-binding:
- 1. fix commit message                                                    [Krzysztof]
-- drm/bridge:
- 1. use lt9611c_fw.bin                                                     [Dmitry]
- 2. use drm_bridge::next_bridge
- 3. use enum lt9611_chip_type
- 4. remove *fw from the lt9611c struct
- 5. "bool hdmi_connected;" variable add comment
- 6. use read_poll_timeout and -ETIMEDOUT in the "lt9611c_read_write_flow" function
- 7. replace mutex_lock(&lt9611c->ocm_lock) with guard(mutex)(&lt9611c->ocm_lock) in some place
- 8. switch to ARRAY_SIZE instead of specifying lengths directly
- 9. use dev_err_probe
- 10. add clear functions for AVI and audio infoframes
- 11. add DRM_BRIDGE_OP_HDMI  and remove .hpd_notify
- 12. remove the sample_rate validation code
- 13. fix MODULE_DESCRIPTION
- 14. replace "GPL v2" with "GPL"
-- Link to v3: https://lore.kernel.org/lkml/20260420061644.1251070-1-syyang@lontium.com/
-
-Changes in v3:
-- dt-binding:
- 1. lt9611c(ex/uxd) content merged into lontium,lt9611.yaml
-- drm/bridge:
- 1. Drop the licence text, only use SPDX header
- 2. Sort the headers
- 3. Use library functions for crc8
- 4. Drop i2c_read_byte and i2c_write_byte
- 5. Lowercase all hex values
- 6. Use paged writes as implemented for LT9611C(EX/UXD)
- 7. Drop dev_info, use dev_dbg
- 8. Modify lt9611c_get_edid_block, don't store EDID in the long-term structures
- 9. Use HDMI audio helpers.
- 10. Remove unnecessary flags,Implement proper cleanup path, unwinding resources one by one.
- 11. Replace devm_kzalloc with devm_drm_bridge_alloc.
- 12. Remove extra kthread.
-- Link to v1: https://lore.kernel.org/lkml/20250903123825.1721443-1-syyang@lontium.com/
-
-Changes in v2:
- 1. Forget modify code, operation error, Please disregard this submit.
-
-Changes in v1:
-- dt-binding:
- 1. Submit the first version of the code.
-- drm/bridge:
- 1. Submit the first version of the code.
-
----
-Sunyun Yang (2):
-  dt-bindings: bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI
-    driver
-  drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
-
- .../display/bridge/lontium,lt9611.yaml        |    8 +-
- drivers/gpu/drm/bridge/Kconfig                |   18 +
- drivers/gpu/drm/bridge/Makefile               |    1 +
- drivers/gpu/drm/bridge/lontium-lt9611c.c      | 1241 +++++++++++++++++
- 4 files changed, 1266 insertions(+), 2 deletions(-)
- create mode 100644 drivers/gpu/drm/bridge/lontium-lt9611c.c
-
+diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
+new file mode 100644
+index 000000000000..3290b10ce883
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
+@@ -0,0 +1,89 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/bridge/lontium,lt7911exc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Lontium LT7911EXC eDP to MIPI DSI Bridge
++
++maintainers:
++  - Sunyun Yang <syyang@lontium.com>
++
++properties:
++  compatible:
++    enum:
++      - lontium,lt7911exc
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    maxItems: 1
++    description: GPIO connected to RST_ pin.
++
++  vdd-supply:
++    description: Regulator for 1.2V MIPI phy power.
++
++  vcc-supply:
++    description: Regulator for 3.3V IO power.
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Video port for eDP input.
++
++      port@1:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Video port for MIPI DSI output.
++
++    required:
++      - port@0
++      - port@1
++
++required:
++  - compatible
++  - reg
++  - reset-gpios
++  - vdd-supply
++  - vcc-supply
++  - ports
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        mipi-bridge@41 {
++            compatible = "lontium,lt7911exc";
++            reg = <0x41>;
++            reset-gpios = <&gpy8 8 GPIO_ACTIVE_LOW>;
++            vdd-supply = <&lt7911exc_1v2>;
++            vcc-supply = <&lt7911exc_3v3>;
++
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                port@0 {
++                    reg = <0>;
++                    bridge_in: endpoint {
++                        remote-endpoint = <&edp_out>;
++                    };
++                };
++
++                port@1 {
++                    reg = <1>;
++                    bridge_out: endpoint {
++                        remote-endpoint = <&panel_in>;
++                    };
++                };
++            };
++        };
++    };
 -- 
 2.34.1
 
