@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16A644502F
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 21:32:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5E514502F
+	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 21:32:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778275976; cv=none; b=pCfD6ozI8dNMcPImoAM2Gt1ccf4j86TZQIqoKkykIJTssy2BZPGipDrx/lowel4ta0zy2t6kzfisAARgUhZ99nKOSJ/V1+bWmr/RHAkkRuaMLhZ/d872+dP2bnYaLX9WxDjseLDiDMYp5stk0ikpCP5zhnwgraCdrK/wTGJltl0=
+	t=1778275976; cv=none; b=Ce102YeRDKBgMb8qMpYTjmGnZXGu50CRnss75KrSbsnAgIvlbRo6WN5LWe6isD22AkWfF4C+x17j6X3PE56hoSwxBfWZSF2xvas2jppV7LShac/E+eWLXCcDGqY0chxw83xihL61yLlSTXwzTqcV4zlPguzZzZcpPl5Ilo1gPXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1778275976; c=relaxed/simple;
-	bh=4lUUZe4nKVvRQ9PIMtEXXkYFrpQUxLm0TYRlrE77RPU=;
+	bh=Tt7qF8ZR6WcVX8mr/wQWTmXakFzw4eFinUocZMS2wZI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Mu4xv9AXKNdcER9TpSF9XGwehspni6bQ+KcBtp6/XboWgaWhyEP/ZYyMvq8fNDsl1nK1oK0QKniZo21DVydRr7r74EmY9a7UssLbXD4nKaqEr9M50HTpQ6QV2S3Bo+HTvQWnXazZnxsi3ycc8p8XnFgzDR1zPCwqBcXNgqO594U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IChMFvYe; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=PlAAF0xZHpsmbi0fdJB1sYbtV2QqfAxSWhFQSIQAhCWtqfSmJrinNLH+ndBw/vdovMB+LRS9wrdfx0e3PRmA5gPI2d2XKCmE7XAiZY5MxMiVnhuJ2v75xpnjz57cxbK5dgK8o/xun0uKSartruKjBz8a+ZhbyV1CCFhBb3rGKKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nDA4XIjM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IChMFvYe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60491C2BCB0;
-	Fri,  8 May 2026 21:32:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nDA4XIjM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45BE6C2BCB0;
+	Fri,  8 May 2026 21:32:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778275975;
-	bh=4lUUZe4nKVvRQ9PIMtEXXkYFrpQUxLm0TYRlrE77RPU=;
+	s=k20201202; t=1778275976;
+	bh=Tt7qF8ZR6WcVX8mr/wQWTmXakFzw4eFinUocZMS2wZI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=IChMFvYexcJjQZVXrgwnKbkuGV3CN2HbFT0fglNM9ZUh/PAyu0r78aiVF1M+UQA4u
-	 ajBQaythc8R6m/aiQsFkeW1BwUigEiop3l/j36TtHhylAg/cpaT6PNQ3b82xPs20Kt
-	 S7wUnTBUd5BvdqqR6Dw3xx9Jz73BpMxZlo0JiU9+tgIBuytp+5bUWPMAsUN2FPfBfY
-	 BdrGmcpKeNxxKwHRO5noKAmpbrRx8tjAIOnJPtQb0QX5m/h65IHlXyIi5psDxaZH1g
-	 JA3IICPPzdQBeHPda5yAWTjlYREB2bECvBCy01tj3D7/vv5mP0cpW4s46AkkBZJcPl
-	 UY487m0zHkDCw==
+	b=nDA4XIjMJ0m+myz/QmsncMtPFNLZFyzSKCxuR4mHFIrJuelbomYAGSLkXygjwsTfO
+	 ygNrl2g5ccz/OGofr0blCeb3DrPGYRq5bopOAhUBAmFcBsBv2fYDhOs/y/HKIMF7KG
+	 1sEa5tQolPywcrznH4JvKw/CVT4YIleB9m3Qqg/p6D6HlmPitULGpbzyw0xA+W7N7+
+	 +KIAE6/EYa7Ftvykw37uVzysau+OHHSWinccVepNfCY2b4/baGna4AtsPISn/RZSP4
+	 z6f3YoWQ7tyjTQL0QJ1a3Vw7RkF92NGyqnr/KApZEQiW9I2Fj0GcyEkyMtjCTq78BN
+	 QEyjbfbh72Xzw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] [v5 net-next] dt-bindings: net: add
- st,stlc4560/p54spi binding
+Subject: Re: [PATCH 2/3] [v5 net-next] p54spi: convert to devicetree
 Reply-To: sashiko@lists.linux.dev
 To: "Arnd Bergmann" <arnd@kernel.org>
-Cc: conor+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260507212451.3333185-2-arnd@kernel.org>
-References: <20260507212451.3333185-2-arnd@kernel.org>
+Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260507212451.3333185-3-arnd@kernel.org>
+References: <20260507212451.3333185-3-arnd@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 08 May 2026 21:32:54 +0000
-Message-Id: <20260508213255.60491C2BCB0@smtp.kernel.org>
+Date: Fri, 08 May 2026 21:32:55 +0000
+Message-Id: <20260508213256.45BE6C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,73 +45,114 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] Typo in the binding description: 'STLC5460' is used instead of 'STL=
-C4560'.
-- [Low] The `interrupts-extended` and `powerdown-gpios` specifiers in the e=
-xample lack standard secondary cells (flags/triggers).
+- [High] The `p54spi_spi_read` function performs an SPI transfer using a st=
+ack-allocated buffer, which violates DMA mapping rules.
+- [High] Missing validation for `spi->irq` before calling `request_irq()`.
 --
 
-commit b803e7cb976e6f9f5ea1b9d2c76cdffbb8fe0d67
+commit fa2ad50656ff32f99005056eb774d07bdf3f221c
 Author: Arnd Bergmann <arnd@arndb.de>
 
-dt-bindings: net: add st,stlc4560/p54spi binding
+p54spi: convert to devicetree
 
-This commit adds a device tree binding for the SPI version of the Prism54
-wireless device. It documents the known names of this device and the
-properties sufficient for its use.
+This commit converts the Prism54 SPI driver from using hardcoded GPIO
+module parameters to using the GPIO descriptor interface and device tree
+probing.
 
-Link: https://lore.kernel.org/all/e8dc9acb-6f85-e0a9-a145-d101ca6da201@gmai=
-l.com/
-
-> diff --git a/Documentation/devicetree/bindings/net/wireless/st,stlc4560.y=
-aml b/Documentation/devicetree/bindings/net/wireless/st,stlc4560.yaml
-> new file mode 100644
-> index 0000000000000..a32265c07350d
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/wireless/st,stlc4560.yaml
-> @@ -0,0 +1,61 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/net/wireless/st,stlc4560.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: ST/Intersil/Conexant stlc45xx/p54spi/cx3110x SPI wireless device
-> +
-> +maintainers:
-> +  - Christian Lamparter <chunkeey@gmail.com>
-> +
-> +description:
-> +  The SPI variant of the Intersil Prism54 wireless device was sold
-> +  under a variety of names, including Conexant CX3110x and
-> +  ST Microelectronics STLC5460.
-
-This isn't a bug, but there's a typo in the description (STLC5460 instead
-of STLC4560).
+> diff --git a/drivers/net/wireless/intersil/p54/p54spi.c b/drivers/net/wir=
+eless/intersil/p54/p54spi.c
+> index 9d66dcae54e02..d18be25450285 100644
+> --- a/drivers/net/wireless/intersil/p54/p54spi.c
+> +++ b/drivers/net/wireless/intersil/p54/p54spi.c
 
 [ ... ]
 
-> +examples:
-> +  - |
-> +    spi {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        wifi@0 {
-> +            compatible =3D "st,stlc4560";
-> +            reg =3D <0>;
-> +            spi-max-frequency =3D <48000000>;
-> +            interrupts-extended =3D <&gpio 23>;
-> +            powerdown-gpios =3D <&gpio 1>;
+> @@ -30,19 +31,6 @@
+>  MODULE_FIRMWARE("3826.arm");
+>  MODULE_FIRMWARE("3826.eeprom");
+> =20
+> -/* gpios should be handled in board files and provided via platform data,
+> - * but because it's currently impossible for p54spi to have a header file
+> - * in include/linux, let's use module parameters for now
+> - */
+> -
+> -static int p54spi_gpio_power =3D 97;
+> -module_param(p54spi_gpio_power, int, 0444);
+> -MODULE_PARM_DESC(p54spi_gpio_power, "gpio number for power line");
+> -
+> -static int p54spi_gpio_irq =3D 87;
+> -module_param(p54spi_gpio_irq, int, 0444);
+> -MODULE_PARM_DESC(p54spi_gpio_irq, "gpio number for irq line");
+> -
+>  static void p54spi_spi_read(struct p54s_priv *priv, u8 address,
+>  			      void *buf, size_t len)
+>  {
 
-Do these specifiers need standard secondary cells for flags and triggers?
+This problem wasn't introduced by this patch, but I noticed a pre-existing
+issue in the context here. Does the p54spi_spi_read() function perform an S=
+PI
+transfer using a stack-allocated buffer?
 
-Real-world GPIO controllers typically require #gpio-cells =3D <2> or
-#interrupt-cells =3D <2> to specify trigger types and active levels. While
-dt_binding_check accepts this since the phandle cell sizes are unknown,
-copying this example into a real device tree will result in a compilation
-error.
+Looking at p54spi_spi_read(), the addr variable is allocated on the stack a=
+nd
+passed as a transfer buffer to spi_sync(). The SPI framework maps transfer
+buffers for DMA. Passing a stack-allocated buffer is illegal, particularly =
+with
+CONFIG_VMAP_STACK enabled, because stack memory resides in vmalloc space and
+cannot be safely DMA-mapped.
+
+Could this cause memory corruption or a kernel panic during the transfer?
+
+[ ... ]
+
+> @@ -608,31 +596,20 @@ static int p54spi_probe(struct spi_device *spi)
+>  		goto err_free;
+>  	}
+> =20
+> -	ret =3D gpio_request(p54spi_gpio_power, "p54spi power");
+> -	if (ret < 0) {
+> -		dev_err(&priv->spi->dev, "power GPIO request failed: %d", ret);
+> +	priv->gpio_powerdown =3D gpiod_get_optional(&spi->dev, "powerdown", GPI=
+OD_OUT_HIGH);
+> +	if (IS_ERR(priv->gpio_powerdown)) {
+> +		ret =3D dev_err_probe(&priv->spi->dev, PTR_ERR(priv->gpio_powerdown),
+> +				    "powerdown GPIO request failed\n");
+>  		goto err_free;
+>  	}
+> =20
+> -	ret =3D gpio_request(p54spi_gpio_irq, "p54spi irq");
+> -	if (ret < 0) {
+> -		dev_err(&priv->spi->dev, "irq GPIO request failed: %d", ret);
+> -		goto err_free_gpio_power;
+> -	}
+> -
+> -	gpio_direction_output(p54spi_gpio_power, 0);
+> -	gpio_direction_input(p54spi_gpio_irq);
+> -
+> -	ret =3D request_irq(gpio_to_irq(p54spi_gpio_irq),
+> -			  p54spi_interrupt, IRQF_NO_AUTOEN, "p54spi",
+> -			  priv->spi);
+> +	ret =3D request_irq(spi->irq, p54spi_interrupt, IRQF_NO_AUTOEN, "p54spi=
+", priv->spi);
+
+Is there missing validation for spi->irq before calling request_irq()?
+
+If the device tree node lacks an interrupts property, the SPI core may set
+spi->irq to 0 or a negative error code.
+
+Passing this directly to request_irq() without validation can successfully
+hijack a core system interrupt like the system timer on some architectures,
+leading to system instability or deadlocks.
+
+Should there be a check like if (spi->irq <=3D 0) to fail the probe gracefu=
+lly?
+
+>  	if (ret < 0) {
+>  		dev_err(&priv->spi->dev, "request_irq() failed");
+> -		goto err_free_gpio_irq;
+> +		goto err_free_gpio_power;
+>  	}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260507212451.3333=
-185-1-arnd@kernel.org?part=3D1
+185-1-arnd@kernel.org?part=3D2
