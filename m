@@ -1,185 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2D9A3C3C10;
-	Fri,  8 May 2026 09:44:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0AC335E95F;
+	Fri,  8 May 2026 09:45:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778233496; cv=none; b=VWgfu+nQTVrkkHFkgtpCKLhbzhUQS9NcZY1df3EX665lt6L1yiY1jkQL0y/AvIypJ+KPa9us/+NfidZJSupkp7ZQqCSvfSMrAGTCD/73frBv936xRmzQ7e26nDP2uhsamdDGZgxloZ+Quz+Wr0FHGmtLeYyUl+pIMrhElcuUIsQ=
+	t=1778233550; cv=none; b=r9KqFn1sJ0Vcuz3vJk6HkYFjV7tWjfaK8nh0ZAys8hUa1T3j4aewjILlAM7jpf1oIfBoCVe4sMB5wG06UzG3gh6xI8XKQAljTQXPih8tHUxixoyyijda57b3B/C/Mf6fEw4VAdEaZVlvVirKde0RK5/c70dM6sME0cECTGHZPrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778233496; c=relaxed/simple;
-	bh=ZG6EAt6QuyZEF5Q1C1YnthssCRpvs7iwMwqrX4o7QwQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lqF6Kvgq0tNfXIE1lfmhjJAriBzq4ihvdeRSr3Ps1M5w4v/TXkDYltVeaT3n1DvT4+ARlrd7LzCcON6WIiIqRkqKWfTpbfJq70U5egnndpTupbfGu/nCo28MpZGho53Ag1iR266ZrLcyjz7bKXavNBq+faEPMy8c2bE41jkIlm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jTYLnXQk; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jTYLnXQk"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7D490C2BCB8;
-	Fri,  8 May 2026 09:44:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778233495;
-	bh=ZG6EAt6QuyZEF5Q1C1YnthssCRpvs7iwMwqrX4o7QwQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=jTYLnXQklLo6Jo6z0Vp/9egJadeNsqqJHayXXtz4ObWiF45j/DrkpkLLSKCI3N5S6
-	 VuJDfxzZbI/i8MH4KFWF4dOAteGfi84ebiMufn6CfKRaBEJiehrqYnCAb+wqo0sBLH
-	 mOkHO3Cg5ClJfrAFi+jzzPy8/k+Z08KqzR/VbrxKhmnU9MLbSlT5oFM+KGcXx8a8cJ
-	 Ms5pWCv+XHVDl3YyqCyi9l/ACKeAShyHBNjux23p3xcboUe6w8sapHBXKGtKZ9N3dV
-	 //73tsnW6/S/BMcWTZ7IjATXKsxzY0Xo9eaWaMG82RNnTT20pyz52r+JRCcDL3iZNL
-	 0TvN1zwbhuiBw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F04DCD342F;
-	Fri,  8 May 2026 09:44:55 +0000 (UTC)
-From: Colin Huang via B4 Relay <devnull+u8813345.gmail.com@kernel.org>
-Date: Fri, 08 May 2026 17:44:29 +0800
-Subject: [PATCH v5 2/3] Documentation/hwmon: add Delta E50SN12051
- documentation
+	s=arc-20240116; t=1778233550; c=relaxed/simple;
+	bh=yD5mv6i4XMyQskiJ3T7ao4rCkZieXYZR+zBpBWzxKkA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kv0He/SNhkf2Fb0Q+FDTKWH8aSoK8gcWRBsc31XwUTXIGRTg1yV0xQAeC+SNlGig7MlLa7aN4yhZEWFpw3Tbeo9xmjPO7KHzO8kFBZm77UaE9WZpg4b067RVmvd791GpREzriBcbsm2qcLI7p80M/iAliVVlkL4qWshnhBBbNYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: esmtpgz11t1778233516t88494dd4
+X-QQ-Originating-IP: FYDRL9+aHSkAoSrjKpeQafotodHwpkqzbik6NOTWWAo=
+Received: from [127.0.0.1] ( [116.234.74.217])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 08 May 2026 17:45:13 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 6858079310630328061
+Message-ID: <63E2E0FAF03FD04D+90daade8-e129-42a7-9ad9-ef9394a8b00e@radxa.com>
+Date: Fri, 8 May 2026 17:45:12 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: sc8280xp: Add missing
+ qcom,non-secure-domain property
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Johan Hovold <johan+linaro@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260507-sc8280xp-non-secure-domain-v1-1-b6f75783c831@radxa.com>
+ <37b80f4b-4824-4e03-b129-b0687a6b9023@oss.qualcomm.com>
+Content-Language: en-US
+From: Xilin Wu <sophon@radxa.com>
+In-Reply-To: <37b80f4b-4824-4e03-b129-b0687a6b9023@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260508-add-e50sn12051-v5-2-abebdcc29665@gmail.com>
-References: <20260508-add-e50sn12051-v5-0-abebdcc29665@gmail.com>
-In-Reply-To: <20260508-add-e50sn12051-v5-0-abebdcc29665@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Kevin Chang <kevin.chang2@amd.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- Colin Huang <colin.huang2@amd.com>, Colin Huang <u8813345@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778233493; l=3975;
- i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
- bh=AWrzobGEVmZ1wrQzAaH1cnIviz5MTfwrqcs9SVlqod0=;
- b=lOOD0P0q6aihz3wfzfJ6LXDlhPcrctSUcx9m0bvT3sa2V8R6rRtG0Obq0MC0aIOhuQNAFzQFn
- E8XMcP49ij7Ay9rdgrsEi6086CFQE9AGLZ1ZZUOIApAazf1mbE0Oga3
-X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
- pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
-X-Endpoint-Received: by B4 Relay for u8813345@gmail.com/20260202 with
- auth_id=761
-X-Original-From: Colin Huang <u8813345@gmail.com>
-Reply-To: u8813345@gmail.com
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: MRlJlBnjh5AJnR186AzCI4uWfKj6dTbj96QEngsoA6H2rMDQ1pbw+uOz
+	1DzTX9+irq2fbR17JzE/IJLGwHrWy67reLfPO9bnetGpftmIcSeNb9wltH56+Le/Fh1JlZa
+	VIQrWV3/fxGeRJD0lWfY7W+fAzd0KOSUlHkApkq+Qq+DyDVnzxQij1+U7Nm26zUoT+U6fvn
+	96ZgOvqUh/9a/effrhzHsM9ORQhSQh/5T/ZpSzcj/yzpvGxw95mvb1Vz+wiTHe32jUMc/VF
+	zzsM8lSO/aHmWJaxgvsl0w2AKG/BgcSzrCsCzukYRaxPXpTdDdv77p0lHFz4jRZCh7eUBX3
+	rqZ7SC+mENh4FR20806t4iQ7cqg+BqPkwxBLEtPxcW8mDXq38jhiAKf7BN5mhVqs0Neg602
+	spXk/8Ax0a1ZUPg+oeH+eJ9WqHGkqnmnXKnVbLqhde/7v24uZ7mTKQcthTB25xq76Han94X
+	V+2bwj3dSMRG+23Hqce4NDg/SpCgIrqAfJb1nJeOcuxYVrnuSMlmj84PK1en3g/NG+XbvuG
+	MelkxDhYg4yq1eKVB5TmSV19fKbOWoQANhle0IYjFPndfnhM6aKEgdh4y6/4z49sYOq2CJ/
+	ON2MjWzdxvJYZnW10GpfNdxE4one3CUdsyTl7SXDqm8ki+LPmrUQTlOX/C9Nud2MvmZ45cz
+	UWmmcZ99DPfQ6ksmlIGL8DRcmCb6DcFic5/rLxAybon58XB7NtbGe0owfyhgkEpH+OzolWU
+	PzFTngx28LOLbTAk29ZEOjE3LhwJp4iVB0hOc84F7QBmYO8+xVnmMQive14e1B1ZExMyHAi
+	753+TpXWc0EEaCk7lDm3TRCMNdyumnhukoOxzfRGomPCgcfwqOAKWF6Zjc/+SlFFqZy6yJt
+	g8L670sC1xvEWsbhFPBUjJ9ZdlkFj1rSiKbJ8Nh9+Hj2axianPzXOGw7MJtUFTNUzDFhLYU
+	hxxaqZU1zEKgqkr77gkrE5jj8HBUuQrSgKPvgfMbu7O7i77ZfeaUfHQVJagpiHNbdmUKNIJ
+	4MdtcPPw==
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-From: Colin Huang <u8813345@gmail.com>
+On 5/8/2026 5:40 PM, Konrad Dybcio wrote:
+> On 5/7/26 4:54 PM, Xilin Wu wrote:
+>> By default the DSP domains are secure, add the missing
+>> qcom,non-secure-domain property to mark them as non-secure.
+>>
+>> Fixes: 152d1faf1e2f ("arm64: dts: qcom: add SC8280XP platform")
+>> Signed-off-by: Xilin Wu <sophon@radxa.com>
+>> ---
+> 
+> The CDSP accepts both secure and non-secure code and the driver creates
+> both "endpoints" regardless of this property
 
-Document the hardware monitoring support for the Delta E50SN12051
-device.
+Yes you are right. I guess we can drop this patch.
 
-The documentation describes the supported sensors exposed via the
-hwmon subsystem, including voltage, current, and temperature measurements.
+> 
+> Konrad
+> 
 
-Signed-off-by: Colin Huang <u8813345@gmail.com>
-Reviewed-by: Guenter Roeck <linux@roeck-us.net>
----
- Documentation/hwmon/e50sn12051.rst | 81 ++++++++++++++++++++++++++++++++++++++
- Documentation/hwmon/index.rst      |  1 +
- 2 files changed, 82 insertions(+)
-
-diff --git a/Documentation/hwmon/e50sn12051.rst b/Documentation/hwmon/e50sn12051.rst
-new file mode 100644
-index 000000000000..cbbfa7895d82
---- /dev/null
-+++ b/Documentation/hwmon/e50sn12051.rst
-@@ -0,0 +1,81 @@
-+.. SPDX-License-Identifier: GPL-2.0-or-later
-+
-+Kernel driver e50sn12051
-+========================
-+
-+Supported chips:
-+
-+  * Delta E50SN12051
-+
-+    Prefix: 'e50sn12051'
-+
-+    Addresses scanned: -
-+
-+    Datasheet:
-+
-+      Provided by Delta upon request and NDA
-+
-+Description
-+-----------
-+
-+E50SN12051 is a 600W non-isolated 1/8th brick DC-DC power module.
-+
-+This driver supports the E50SN12051 PMBus compliant monitor device.
-+
-+The device provides measurements for:
-+
-+* Input voltage
-+* Output current
-+* Output voltage
-+* Temperature
-+
-+The driver is based on the PMBus core and exposes standard hwmon
-+sysfs attributes.
-+
-+Sysfs attributes
-+----------------
-+
-+======================= =======================================================
-+curr1_label             "iout1"
-+curr1_crit              Critical maximum current.
-+                        From IOUT_OC_FAULT_LIMIT register.
-+curr1_crit_alarm        Current critical high alarm.
-+                        From IOUT_OC_FAULT status.
-+curr1_input             Measured current.
-+                        From READ_IOUT register.
-+curr1_max               Maximum current.
-+                        From IOUT_OC_WARN_LIMIT register.
-+curr1_max_alarm         Current high alarm.
-+                        From IOUT_OC_WARN_LIMIT status.
-+
-+in1_label               "vin"
-+in1_alarm               Input voltage alarm.
-+in1_input               Measured voltage.
-+                        From READ_VIN register.
-+
-+in2_label               "vout1"
-+in2_crit                Critical maximum voltage.
-+                        From VOUT_OV_FAULT_LIMIT register.
-+in2_crit_alarm          Voltage critical high alarm.
-+                        From VOLTAGE_OV_FAULT status.
-+in2_input               Measured voltage.
-+                        From READ_VOUT register.
-+in2_max                 Maximum voltage.
-+                        From VOUT_OV_WARN_LIMIT register.
-+in2_max_alarm           Voltage high alarm.
-+                        From VOLTAGE_OV_WARNING status.
-+
-+temp1_crit              Critical high temperature.
-+                        From OT_FAULT_LIMIT register.
-+temp1_crit_alarm        Module temperature critical high alarm.
-+                        Set by comparing READ_TEMPERATURE_1 with OT_FAULT_LIMIT
-+                        if TEMP_OT_FAULT status is set.
-+temp1_input             Measured module's hot spot temperature.
-+                        From READ_TEMPERATURE_1 register.
-+temp1_max               Maximum temperature.
-+                        From OT_WARN_LIMIT register.
-+temp1_max_alarm         Module temperature high alarm.
-+                        Set by comparing READ_TEMPERATURE_1 with OT_WARN_LIMIT if
-+                        TEMP_OT_WARNING status is set.
-+======================= =======================================================
-+
-diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-index 8b655e5d6b68..ba08655fc496 100644
---- a/Documentation/hwmon/index.rst
-+++ b/Documentation/hwmon/index.rst
-@@ -68,6 +68,7 @@ Hardware Monitoring Kernel Drivers
-    drivetemp
-    ds1621
-    ds620
-+   e50sn12051
-    emc1403
-    emc2103
-    emc2305
 
 -- 
-2.34.1
-
+Best regards,
+Xilin Wu <sophon@radxa.com>
 
