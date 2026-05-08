@@ -1,145 +1,115 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02A3B3603D5
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 07:43:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778226230; cv=pass; b=IEZUqSoXCDH8HRNI/Jzd/o+OyrPTpCUJWsGhdItsRlYZHRu1gIL7XLkDvEvQSEJd52Er2SM7p1qDSLkCPry10mWdhxI68K0gmOeGpE7fs9/4wzka5tYp288LjW9X9H1OlpzCMnXqi77FU8takafsfBu0cJy4oPO9gyHwk5cWdCk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778226230; c=relaxed/simple;
-	bh=Iw22eUoGp1D4r0AHZTcHg3b+hM9yukk2NIOisBGH+5o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Fvok9srogQ7mkj5LOAt6rKfhhQTgBytfB8ha8QO/ZJmfV8ec1QmP3RTNUk1joYAfyuAI6giDvwyZ+3hbsu21ihCfMyR1eGfuCJ/zpt33Y7nUqr0YHHIYuC9oK2QwORb4jPH/jlNHy2vMOlgwKhlXiMzORyqTZs8jfN4PSbJmhTA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UPDZEWAo; arc=pass smtp.client-ip=209.85.208.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A67B1358D00;
+	Fri,  8 May 2026 07:44:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778226251; cv=none; b=nvvc07rI5ZoBX+v5INF3IDXdsJ3i+o7/y6g4IyamVZj7h4GB+DVWcvhbAVjVmVKqK7RUII2ojizznWLQM7OArIrP4uRftwNJuuQWH1JfyzNe+Cq8on/cs+3zAN95AN6ATaGGgpngLYlJH4vrITaJR7vUo2qZNatVzh1SGR9j5J8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778226251; c=relaxed/simple;
+	bh=CrsXYFpqHYrZaXj9ChLf5+1itY93SlAB4pux08nvjmw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Wsm0WLDSVq2SWPJzLGpuZztzJtTcba2AgpCQgBPFK9gmpcFt4HOFYQkfxsItpOBdPheliJZDcAbOfiNSFBCelH6W+9QpaDBBJxZnpAeN45COOFyNdtUlo/zj7nlCLdClG1KsaVMzCxFZIKRbNRPgW5oRNgf8fy3KJN/RjirI1X0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BaA0kvgO; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UPDZEWAo"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-65c0891f4e9so2690772a12.1
-        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 00:43:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778226227; cv=none;
-        d=google.com; s=arc-20240605;
-        b=ZeddDlfoLDibIT9vzSTRIfnvv6+eYT9Q1+v27sfYkQxzRG6YBIgLhISAbLpi7ZLyOB
-         uHlJnaBCQxseWO7W/0ZqVZGGN+PrLOtcC6D7irlDK+X2WQbh1Ug2ck9OlfNIKAB/E+Bi
-         3QGyN7HqH0M0zF/eXcW/Gm9DdgyoVVKYr/WvZ/dp1bTwIfrkeI7LHqE6caEvyP3/qZWU
-         fj/KIJuO6RzHb2NWPy4YlTUYzf7RsWXuQqBpiEUG4t/pyj8dcXJ/kNQPvntJopz+CfWp
-         w/SndJMqRH2aBNLJQvcaaYJovk5MZNCjm5aAaV2Vadu7mme/Yuj0dlFv05r3zFXM1ydU
-         nv2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=RvfEhNCkx1Dd9Nb7GO1+BBfvDbuW9Tnr5NBRBlIyPKU=;
-        fh=zSn6dwmZBDflZKtZRqTVY9DpRfjD5YioSqzGPBwGVIU=;
-        b=ak5gLJ/JwT0zJBxgGRwQKWhPusR+2xfg540KAE/lAyBuzxXP9jIJUfiK68QQ+91ZdD
-         t7A7B7SL9XGkYwuLYneP/NuUApW9u3o0uqbIwMERcQemFDfOtm5xb/r8+tRyegFVlZwv
-         3VcuJCXcu2S5ZYEe98LFAvvgCknMA1zVHOTh7R06EV+PRutHo6jevg/s15w1ytHgbiBM
-         zqwYMUx2OTab5iw0pS7ek8vhg6GeOIy2BUTPtidy2d03eruvbu9OXexUr/CeA17nUT3B
-         bGsZSLXqhW8OtjNTMqcLg+MAfJ6RuQCBgBqHSLFOyg+/Ms8x0PKZUKaHsSScNzfjMwU+
-         6GHQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778226227; x=1778831027; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=RvfEhNCkx1Dd9Nb7GO1+BBfvDbuW9Tnr5NBRBlIyPKU=;
-        b=UPDZEWAoXOtVVYxF+2KzE6KkWvP+clogDzsODuEzFLxe5ecOcIu867kNCcaf7XdNqK
-         FuEOzTvWNwlf5x6DoPIS/43WUbuVZ0nSH44CwYaoCCcgQyGcRf4vvWioLkkzcFZ7c5oz
-         z8OAObjMng2PB+Klzg6rxZ484DhgHZJ+rSczIffupBuNPeAJYmh2HIQpJfNp/EJBg2Jv
-         PTx5I8aPZPkPghyCc54PyoredfGhsSKvfwQ4JPKw+Ko7HZcK95hsSoRVY4TeQbUlrHJF
-         wbD7S93xhy4K54UefPdkN/YPXrjdoF8LgwA+sXrpHPMiTggVAvCSTTXoVIfcCR8qwcbK
-         g9+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778226227; x=1778831027;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=RvfEhNCkx1Dd9Nb7GO1+BBfvDbuW9Tnr5NBRBlIyPKU=;
-        b=hwPaCMP51OMN2jeUhRB1h7ZnMnvD1coRAwT0lq4W9sD/Xr4Cek28Wg9JxOem+V/5JO
-         3YI2UuzUUf/Q8jRm2WmXaHPWqKdl/+E8rLiTJ1p39ZEZgnZ6TVIR3G8ehc2rgpVruRpy
-         wnV0LVefkEZP5aweU4OF3DrnPP7NQ+uemJNxXu+vWBlW4sxDhe5S0bWaJ4sU5ahTDKgl
-         5WGssuiEnego1ZYLwzCBg3NgbKYZoEuT2EY00r/9gzXduK32Go4aGVFBT+LqLgx/ql7r
-         VRI8YMiN2peWbnN1Pgi4Z3dzEgyXOn/dJSghDLnNbZoGDEw73cPGNHrTGvAC3AEL+UzN
-         8K0Q==
-X-Forwarded-Encrypted: i=1; AFNElJ/vDfx9f2Ps+FUPpcaFsAVfmB1MoU4diliuRynNGdN8pC10mrawTLscPSyIkBV0Lz7la1utgqZrnCTP@vger.kernel.org
-X-Gm-Message-State: AOJu0YxcjjO451jyNy6rMc5CMrMwAsNYVKPmSiIk3ztL+y8w67tV/mfw
-	imr6Gn94fq3JzCtWIf8q9cSrFKwntcSKpjjahTY1CZULQ3214N+Yf7eCDRYA1QbAK07UgSzE8yA
-	va8vQRYkaD8GBogqwbNcjJxLA4AX9APA=
-X-Gm-Gg: Acq92OH2WX2Sh6aItDKtAKh8bUDQ/NOP7/38ODdGFTlDGsEMp8TTp9BLG78FRiIWahB
-	N/1hR+Wf99cxKdS1FTD8ezzGNZoIbxbh6gQmooe6vz5+Gi3w0ECvwXxCr2jKfKcpKwvnV2oVCzd
-	Ag6Z3ypeEkuRMj3vg4gi6/oai1QbLZca8bdPeQz8dO9J5oO1wvVoo6ZExp1i9lRYb5DyZXTMTaQ
-	2Z8uFfxw8dvYVdncg2r4B5s47+SlTEyrWSpcCymylV0JTDv2GXK4ETxwEkd+PZ/ucOfmVnS/KBH
-	9ZFA
-X-Received: by 2002:a05:6402:3137:b0:67c:4e1b:9134 with SMTP id
- 4fb4d7f45d1cf-67d642c320fmr4048316a12.14.1778226226925; Fri, 08 May 2026
- 00:43:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BaA0kvgO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1778226250; x=1809762250;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=CrsXYFpqHYrZaXj9ChLf5+1itY93SlAB4pux08nvjmw=;
+  b=BaA0kvgOs3WxAbCNLZEM1cA3lRcDCOfqld3y++m6nqgfx0nkqci5y09A
+   U/oAJGfIbzJ0L8l6xs/zU5HJfFXBp/sYmnLWN3TZLWRaM28ZdiVBwBwas
+   CL9HlldSQnckx2zFJSSxTRbL0DNkoLrzS/IpKGKYSIYVOl0LiJ5bdsjk3
+   zNEeCBFvPDaaBwlwH2omodd3j1IqgVljlLxKfOFxKSmWFsSxytTbKjzo4
+   L7FRH5ZYsD4c67oHe/0sErreioTD1CYDtP5LjZeVN3Zdt+dJ0nevl7p1R
+   o4h7dydwPLSgbwH0hp6SPYNmGOb0TTK9R1loHJzgIksVa2WszLJQoYwL3
+   w==;
+X-CSE-ConnectionGUID: x8NLZ7xgTSq0f6YpqG7qtA==
+X-CSE-MsgGUID: DLNyqjWJR8m+qKXozLaDqQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11779"; a="79044684"
+X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; 
+   d="scan'208";a="79044684"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 May 2026 00:44:09 -0700
+X-CSE-ConnectionGUID: 2sOjOMRGR4qWhlzl+qM7uw==
+X-CSE-MsgGUID: WU7+5RjsT+2TqnLXElsUGw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; 
+   d="scan'208";a="240692275"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.237])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 May 2026 00:44:06 -0700
+Date: Fri, 8 May 2026 10:44:03 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: "Stan, Liviu" <Liviu.Stan@analog.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+	"Hennerich, Michael" <Michael.Hennerich@analog.com>,
+	"Sa, Nuno" <Nuno.Sa@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] iio: temperature: ltc2983: Add support for ADT7604
+Message-ID: <af2UQ7ZLA2DL4FWY@ashevche-desk.local>
+References: <20260427132526.272716-1-liviu.stan@analog.com>
+ <20260427132526.272716-3-liviu.stan@analog.com>
+ <ae-pvxKhqmkWwXdX@ashevche-desk.local>
+ <SA5PR03MB837776014440C2594B811BF7F63C2@SA5PR03MB8377.namprd03.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260502051906.8160-1-linux.amoon@gmail.com> <20260502051906.8160-5-linux.amoon@gmail.com>
-In-Reply-To: <20260502051906.8160-5-linux.amoon@gmail.com>
-From: Anand Moon <linux.amoon@gmail.com>
-Date: Fri, 8 May 2026 13:13:29 +0530
-X-Gm-Features: AVHnY4JlnCRZnKTvTMdYqQJwi8x36a1HcWfn2B5BacrqHqsRYonr5CXEMpLcf3o
-Message-ID: <CANAwSgREs-Ai5RxuiD4Ue-8OGGdrhnLSBmSePBrjN3x9=59zrA@mail.gmail.com>
-Subject: Re: [PATCH v2 4/4] riscv: dts: spacemit: k1-bananapi-f3: Add
- vin-supply for PCIe 3.3V regulator
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, 
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, 
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>, 
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>, open list <linux-kernel@vger.kernel.org>
-Cc: Han Gao <gaohan@iscas.ac.cn>, Ze Huang <huang.ze@linux.dev>, 
-	Chukun Pan <amadeus@jmu.edu.cn>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <SA5PR03MB837776014440C2594B811BF7F63C2@SA5PR03MB8377.namprd03.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi All,
+On Thu, May 07, 2026 at 03:31:14PM +0000, Stan, Liviu wrote:
+> On Mon, Apr 27, 2026 Andy Shevchenko wrote:
 
-On Sat, 2 May 2026 at 10:49, Anand Moon <linux.amoon@gmail.com> wrote:
->
-> The PCIe 3.3V fixed regulator node (pcie_vcc_3v3) lacked a parent
-> supply reference. Wire it to the 5V system rail (reg_vcc5v0_sys)
-> via the vin-supply property to reflect the actual board power tree.
-> This ensures correct regulator hierarchy in DTS and allows drivers
-> to resolve supply dependencies cleanly during probe.
->
-Plese check power tree page 4
+...
 
-USBVBUS->SY8386J UXXX -> PCIE_VCC3V3 for pcie vin source
+> > > +	bool sub_ohm;
+> > 
+> > What does this mean? Perhaps rename to is_in_milliohms or something like
+> > that?
+> 
+> The datasheet describes two cases for the copper trace sensor type: < 1ohm and > 1 
+> ohm copper traces. The difference between the two is that < 1 ohm copper traces
+> have bits 17:0 zeroed (excitation current and custom sensor data pointer configuration
+> bits). For > 1 ohm copper traces an excitation current needs to be specified and the 
+> custom table bits are optional. "Sub_ohm" reflects the selection of the sub-ohm variant,
+> not the result units. For me "sub_ohm" or "is_sub_ohm" feels more in relation to the 
+> datasheet, but if something like "is_in_milliohms" feels more understandable to you I can
+> change it in v2.
 
-USBVBUS is power source from the typec port.
+So, this needs a good comment. And is_sub_ohm is definitely better.
 
-Thanks
--Anand
+...
 
-> Cc: Han Gao <gaohan@iscas.ac.cn>
-> Cc: Ze Huang <huang.ze@linux.dev>
-> Cc: Chukun Pan <amadeus@jmu.edu.cn>
-> Signed-off-by: Anand Moon <linux.amoon@gmail.com>
-> ---
-> v2: new patch in this series.
-> ---
->  arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> index 3dbdf53b6d8e..6c06480ba100 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> @@ -39,6 +39,7 @@ pcie_vcc_3v3: regulator-pcie-vcc3v3 {
->                 regulator-min-microvolt = <3300000>;
->                 regulator-max-microvolt = <3300000>;
->                 regulator-always-on;
-> +               vin-supply = <&reg_vcc5v0_sys>;
->         };
->
->         reg_dc_in: regulator-dc-in-12v {
-> --
-> 2.50.1
->
+> > chann? Perhaps just "chan"?
+> 
+> This, also, was present in the original code, the error messages I introduced 
+> for leak detector and copper trace follow the same pattern though. Should I
+> modify it everywhere?
+
+Maybe the idea was to represent 'chan<N>'? Either way, the current message is
+unclear, please add a preparatory patch that fixes that ambiguity and use the
+same pattern in your new code.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
