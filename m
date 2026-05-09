@@ -1,41 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF60816132A;
-	Sat,  9 May 2026 15:56:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B11016132A;
+	Sat,  9 May 2026 15:56:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778342197; cv=none; b=upJkNvmyeZELSLdRV2n2wvLyi6c5qTz9gv0Gd0Kg0HbAP27lWEj93UOT30cC8R7QuoqZzmg8QZtg/iqclrsxud413HjKggosIA0VvkUm6NdtjRH1xVeD2115HL4Yt6SLwcrBXukjBszjE8vaU5XKS2bGlcksGcMeEru+FPiIDi4=
+	t=1778342218; cv=none; b=tPV+Ty7xj9Es9ADX7c+HEV7qE6MtUUcSlHenpNZsOLpHnKteKtcvE8AyzwaTL+s8Yv0l8Di9mYoO83FwlSogHGae3x+DT5ZCX8nDTNG8y1o9Wm8D8tou34z9m8ccfXjSSAVRQcvi6HXld/RWPN86/tx/oR/ioMz37C9FyDQwc4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778342197; c=relaxed/simple;
-	bh=J7xfoErg0M9bRKy1dNgrxcNZ10saKgbcbMhweq31ygo=;
+	s=arc-20240116; t=1778342218; c=relaxed/simple;
+	bh=Zr4m8EO3YhFxN6CoauY25unQTyVYNNdKNzU/2dfC/f8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pR2MrfSfHy7CRUsW5yvCHvClVx3wcA2JoNMRLiZ5ocSOYyBtumdJHW4/2UImODkjXF6ewLTVLZ5NhtKvCvtdM48hUJTr1DbkZ83rjUc08Jh9Fj5vIELJaOXwf+Nh91euvHcUzVW8BqDGzVDPWCA7nh6aeSODO94r3rCLtNAvNbQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BAHOq2LU; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=p34nYHtmWv9c/1WVTEi2lr8SvUbMTuTSm6hDhL+ZiclDUBFnQ/0rcOBHEhqUR5WV0kwQyRrVg4F3MGWxsYehj9oyyIEOWXSpwRUiUDqvA/TbDQfyIGRUyloqRIfPd7Ap3OpU8t7dvEJKFZghwXBpz8ttricHKpQN3CfPo+2wKRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HmO/0+iL; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BAHOq2LU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3968BC2BCB2;
-	Sat,  9 May 2026 15:56:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HmO/0+iL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8372C2BCB2;
+	Sat,  9 May 2026 15:56:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778342197;
-	bh=J7xfoErg0M9bRKy1dNgrxcNZ10saKgbcbMhweq31ygo=;
+	s=k20201202; t=1778342218;
+	bh=Zr4m8EO3YhFxN6CoauY25unQTyVYNNdKNzU/2dfC/f8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=BAHOq2LU9evi4P+L7j+TqnukrEX0CORErJWx+CVMhkGhmrEOyXgJhxJ6sj7vxRAZ1
-	 iPLOUK+1EJGwMWqLQP7hOJ0TK+klF0Lwxva3m5sUuDWJc73IW/4qUSaJZikPIVdsi1
-	 pdzstJVLo8plQ0+BZDFlkA9Tsr4xZm6tcCbbprEkE/k/jcnz1isf06vO0kFxs17h1U
-	 9gXaQk6fagBXy8nM3y4aq4hfKIfp1FxnOHYKKNTx7oXJ2QEadqM1nd7K5lVzvEx+LB
-	 hIyMO7aIlf97xK4b1U9ECQh1o4o204vH5zGKgI5+oLP7kWGdtYY+JDBaSuyA2Hpc2s
-	 PIMt1E5IW0UiA==
-Date: Sat, 9 May 2026 16:56:34 +0100
+	b=HmO/0+iLYfR73DzP+ymTgRYt6HckcF7rGoQCiVrmhwQiB7Q/CSEV6AQkBymmR6tOh
+	 /+obMeqDlir2WdtBtazs3Aa202G61ojjW8Jc1vP/G0pjvL8yC3QlyANWnvZIiRgMeK
+	 gmsRnv9xkVqh9mK1iOl9ff1pNMsTSTlb8SlYGnqMRBx5gw63l3QODppExMutvykqTL
+	 VibxNq4BLvWWYtVOhtBgTwvv3RYZG/uC+Bqi0maZS1FbZydBAdfq2ixAY+QuDUbmJX
+	 x0DBvzSUXuX11IcRgoKvizVaL0X7QN3bYhWhZrXXoYb8RhTOQvYsL/8nOm1ob8DJNr
+	 hDduTp1VNd85w==
+Date: Sat, 9 May 2026 16:56:52 +0100
 From: Conor Dooley <conor@kernel.org>
-To: sashiko@lists.linux.dev
-Cc: Arnd Bergmann <arnd@kernel.org>, conor+dt@kernel.org,
-	krzk+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-Subject: Re: [PATCH 1/3] [v5 net-next] dt-bindings: net: add
- st,stlc4560/p54spi binding
-Message-ID: <20260509-magnifier-varnish-b948ef563e79@spud>
-References: <20260507212451.3333185-2-arnd@kernel.org>
- <20260508213255.60491C2BCB0@smtp.kernel.org>
+To: Gregor Herburger <gregor.herburger@linutronix.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>,
+	Srinivas Kandagatla <srini@kernel.org>, Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v4 5/5] dt-bindings: raspberrypi,bcm2835-firmware: Drop
+ unnecessary select
+Message-ID: <20260509-polio-barrette-07f4368a0cc6@spud>
+References: <20260508-rpi-otp-driver-v4-0-cf8d725d8821@linutronix.de>
+ <20260508-rpi-otp-driver-v4-5-cf8d725d8821@linutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,103 +52,36 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bJrnYPUhUfooe3mG"
+	protocol="application/pgp-signature"; boundary="cT+9g1ZKW4ABma7Y"
 Content-Disposition: inline
-In-Reply-To: <20260508213255.60491C2BCB0@smtp.kernel.org>
+In-Reply-To: <20260508-rpi-otp-driver-v4-5-cf8d725d8821@linutronix.de>
 
 
---bJrnYPUhUfooe3mG
-Content-Type: text/plain; charset=iso-8859-1
+--cT+9g1ZKW4ABma7Y
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, May 08, 2026 at 09:32:54PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
-e(s) to consider:
-> - [Low] Typo in the binding description: 'STLC5460' is used instead of 'S=
-TLC4560'.
-> - [Low] The `interrupts-extended` and `powerdown-gpios` specifiers in the=
- example lack standard secondary cells (flags/triggers).
-> --
+On Fri, May 08, 2026 at 04:42:48PM +0200, Gregor Herburger wrote:
+> The select schema is not necessary because the
+> raspberrypi,bcm2835-firmware compatible is already matched by the
+> compatible string values. The documentation says "Most bindings should
+> not need select", so remove it.
 >=20
-> commit b803e7cb976e6f9f5ea1b9d2c76cdffbb8fe0d67
-> Author: Arnd Bergmann <arnd@arndb.de>
->=20
-> dt-bindings: net: add st,stlc4560/p54spi binding
->=20
-> This commit adds a device tree binding for the SPI version of the Prism54
-> wireless device. It documents the known names of this device and the
-> properties sufficient for its use.
->=20
-> Link: https://lore.kernel.org/all/e8dc9acb-6f85-e0a9-a145-d101ca6da201@gm=
-ail.com/
->=20
-> > diff --git a/Documentation/devicetree/bindings/net/wireless/st,stlc4560=
-=2Eyaml b/Documentation/devicetree/bindings/net/wireless/st,stlc4560.yaml
-> > new file mode 100644
-> > index 0000000000000..a32265c07350d
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/net/wireless/st,stlc4560.yaml
-> > @@ -0,0 +1,61 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/net/wireless/st,stlc4560.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: ST/Intersil/Conexant stlc45xx/p54spi/cx3110x SPI wireless device
-> > +
-> > +maintainers:
-> > +  - Christian Lamparter <chunkeey@gmail.com>
-> > +
-> > +description:
-> > +  The SPI variant of the Intersil Prism54 wireless device was sold
-> > +  under a variety of names, including Conexant CX3110x and
-> > +  ST Microelectronics STLC5460.
->=20
-> This isn't a bug, but there's a typo in the description (STLC5460 instead
-> of STLC4560).
->=20
-> [ ... ]
->=20
-> > +examples:
-> > +  - |
-> > +    spi {
-> > +        #address-cells =3D <1>;
-> > +        #size-cells =3D <0>;
-> > +
-> > +        wifi@0 {
-> > +            compatible =3D "st,stlc4560";
-> > +            reg =3D <0>;
-> > +            spi-max-frequency =3D <48000000>;
-> > +            interrupts-extended =3D <&gpio 23>;
-> > +            powerdown-gpios =3D <&gpio 1>;
->=20
-> Do these specifiers need standard secondary cells for flags and triggers?
->=20
-> Real-world GPIO controllers typically require #gpio-cells =3D <2> or
-> #interrupt-cells =3D <2> to specify trigger types and active levels. While
-> dt_binding_check accepts this since the phandle cell sizes are unknown,
-> copying this example into a real device tree will result in a compilation
-> error.
+> Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
 
-Can we make this thing not whinge about stuff like this? It's an
-/example/ and these fields cannot be copy-pasted anyway.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
->=20
-> --=20
-> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260507212451.33331=
-85-1-arnd@kernel.org?part=3D1
-
---bJrnYPUhUfooe3mG
+--cT+9g1ZKW4ABma7Y
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaf9ZMQAKCRB4tDGHoIJi
-0k9sAP9stjxEJKElSiyFpgtpPyogLYkUC2URiqGCBB27DRvy+wD+JiRxVbN0wI+O
-Jz/5lAgWxxjvcZs3/yJq1jssLcqWGgY=
-=gywH
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaf9ZRAAKCRB4tDGHoIJi
+0iz8AP4wQV7fiXVYvXG5n3LuNtCriQQf9xbaAci0C0/7BYAu+gD/euZqqTLSAhLr
+dHptMO1Ira9axxHjVUdsdRL1HNUEcgY=
+=8zrw
 -----END PGP SIGNATURE-----
 
---bJrnYPUhUfooe3mG--
+--cT+9g1ZKW4ABma7Y--
