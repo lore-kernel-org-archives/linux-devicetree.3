@@ -1,91 +1,158 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBDD38B7D5;
-	Sat,  9 May 2026 21:25:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 698CE34DB46
+	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 21:31:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778361932; cv=none; b=R5EOZY6k/w+jWOSEQI7zk+1l94FwmTnF/ueNb1GLKZya6edaFJkIQyBQIBAN30anH8YsBwq4OhEBrHg9amARsB0L9IbnnM9sii4YAmreY1NXPAWqtLc9GRSP4idr8AN91UQTPMsIgv0j+IgUDGAG7KjESkLB5Q+TzV5HxT3feTE=
+	t=1778362302; cv=none; b=SCdJQWgkl5/Jpg7aER7Dx39cVzYU0uR2nD1spxI7CBHImr0vwpcGQ6hQ7BZDSlN4kmWI75ioNPTQKlqwgri+ToCVJqwy3NxXwtXHKRnRr0L3zBdc9gJZ3pJbIoGW+q6p3SaQt7k/MjuiwI8QlqVgb2B3SyFExzng5AAtLGy98/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778361932; c=relaxed/simple;
-	bh=kqHOrbJyhA/27njgwMH67BMSnrFaEGEAU6ESTHsUOMY=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=NW6SzcUtHCtEn1kEtpU6mATpkZSKpVY6YNLoy5lRNzhrZj40MqTmPHBAwTgYwFg/DBdIxRHb/xHxuRnfo5HM4RYSEk+Rni4AY82+VYx91ro+hiCujBR8pN4pLh+uaxm+NVA1YJOLJ/HkeBfCM9SSDjLilhBocZMJXPMAVD2JON8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lhRNa9U6; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778362302; c=relaxed/simple;
+	bh=iIiFwhV8b+47B2yWzX/rdLJz20C4xklxYwvwAvBpvmg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=L7o5TvRvrFmesbLU5lUYtxU8POmE+5KHYowW/Qxc77BMaeqjV4g6hQ9eN6iMpJGMgTMpX30uFIM7tOEyZiqxLTDjOvBMDs7Hh42gIzuR7p3NojnIZQZBqTvOtalqQzZfP8O17U9ak/X94xZH2CTAdWgRzlHT+xUvNJEdM+8oSyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GecC0mHL; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lhRNa9U6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C787DC2BCB2;
-	Sat,  9 May 2026 21:25:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GecC0mHL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF026C2BCB2;
+	Sat,  9 May 2026 21:31:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778361932;
-	bh=kqHOrbJyhA/27njgwMH67BMSnrFaEGEAU6ESTHsUOMY=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
-	b=lhRNa9U6a6Yx6f+isl46Vmo87cARQlOGnSA39+RCjZwb7G7vS9Jn993kdHdc4C+dI
-	 CcuXkUOfxsvWT9dghrcgwFTRziEqVSl7qe9l61EG98WgsSA7qe83n7eNHsUfKaNtq2
-	 qTLnZobTNrv0Q6BJvEKc0RvR9OxD/A2AzDSda1Ey5v7KPDSVvq75WxsjKgU6+nWc/g
-	 fk1uREqrGrqgKHOhTytbV/yLzkIHWPgpQbDSCS+axh07yu8UqLmD802yxHMlHzl5uO
-	 MJvEh+390TGDEUn4OvJ/4Ti8noknu+/c1dsw4UYk+2aixCt4Dc5MlauXS2wJgw5mh+
-	 crXMeft5QpJ9g==
-Date: Sat, 09 May 2026 16:25:29 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20201202; t=1778362302;
+	bh=iIiFwhV8b+47B2yWzX/rdLJz20C4xklxYwvwAvBpvmg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=GecC0mHL2ojfSwDJnWzUqo/1noATu0I5TUuGCZPjugOrjdNGeD8sUGQFThi3+y0DJ
+	 g0KzjOSwFyyOsQpyiVoTE15GjXQk5qFSAmozmPvEsGLdkI+V/6GPzdWvhSSUJAvgia
+	 9SEVln2+0pSI9TB37cuI4o+zBWCbyvf5XziHWscD1VfcM9Kku06ZhEgDY6UOfGev0g
+	 ZMuGCWw/lcsfmg4Ok+2ykEpYFQQr6PEp6y4qmMH04gI1tAte+r5oNnIy8lG/BHURWD
+	 agIk4uSET+IHCaKGTA1Tm8ZYbJarjohn0DptktU+t91UJA2QB8z0vQhalvTx7Ed8Sl
+	 XUSd+EGaKyUoA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 6/8] drm/sun4i: Add planes driver
+Reply-To: sashiko@lists.linux.dev
+To: "Jernej Skrabec" <jernej.skrabec@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260509190015.79086-7-jernej.skrabec@siol.net>
+References: <20260509190015.79086-7-jernej.skrabec@siol.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 09 May 2026 21:31:41 +0000
+Message-Id: <20260509213141.BF026C2BCB2@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-kernel@vger.kernel.org, 
- Jessica Zhang <jesszhan0024@gmail.com>, devicetree@vger.kernel.org, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>
-To: Aaron Kling <webgeek1234@gmail.com>
-In-Reply-To: <20260509-icna35xx-v1-1-688d3d4e10f9@gmail.com>
-References: <20260509-icna35xx-v1-0-688d3d4e10f9@gmail.com>
- <20260509-icna35xx-v1-1-688d3d4e10f9@gmail.com>
-Message-Id: <177836192983.1140170.1302751195131262657.robh@kernel.org>
-Subject: Re: [PATCH 1/2] dt-bindings: display: panel: Add Chipone ICNA 35xx
- OLED driver bindings
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Use-After-Free vulnerability when the `sun50i-planes` driver is un=
+bound via sysfs.
+- [Medium] Race condition during probe exposing uninitialized hardware stat=
+e.
+- [Low] Multiple definition build failure due to duplicate `module_platform=
+_driver()` in the same module.
+--
 
-On Sat, 09 May 2026 15:18:57 -0500, Aaron Kling wrote:
-> The Chipone ICNA35xx series of DDICs are high refresh, low power
-> MIPI-DSI drivers for OLED panels. The icna3512 is used by the Ayn Odin 2
-> Portal and the icna3520 is used by the Ayn Thor top panel and the Ayn
-> Odin 3.
-> 
-> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> ---
->  .../bindings/display/panel/chipone,icna35xx.yaml   | 77 ++++++++++++++++++++++
->  1 file changed, 77 insertions(+)
-> 
+commit 19bad84553b057724d61d90ba01ff45aacdcaa90
+Author: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-My bot found errors running 'make dt_binding_check' on your patch:
+drm/sun4i: Add planes driver
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/display/panel/chipone,icna35xx.yaml:28:13: [warning] wrong indentation: expected 14 but found 12 (indentation)
+This driver serves just as planes sharing manager, needed for Display Engine
+3.3 and newer.
 
-dtschema/dtc warnings/errors:
+> diff --git a/drivers/gpu/drm/sun4i/Makefile b/drivers/gpu/drm/sun4i/Makef=
+ile
+> index bad7497a0d11e..501e3d8679185 100644
+> --- a/drivers/gpu/drm/sun4i/Makefile
+> +++ b/drivers/gpu/drm/sun4i/Makefile
+> @@ -16,7 +16,8 @@ sun8i-drm-hdmi-y		+=3D sun8i_hdmi_phy_clk.o
+> =20
+>  sun8i-mixer-y			+=3D sun8i_mixer.o sun8i_ui_layer.o \
+>  				   sun8i_vi_layer.o sun8i_ui_scaler.o \
+> -				   sun8i_vi_scaler.o sun8i_csc.o
+> +				   sun8i_vi_scaler.o sun8i_csc.o \
+> +				   sun50i_planes.o
 
-doc reference errors (make refcheckdocs):
+[ ... ]
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260509-icna35xx-v1-1-688d3d4e10f9@gmail.com
+> diff --git a/drivers/gpu/drm/sun4i/sun50i_planes.c b/drivers/gpu/drm/sun4=
+i/sun50i_planes.c
+> new file mode 100644
+> index 0000000000000..6469de1baf030
+> --- /dev/null
+> +++ b/drivers/gpu/drm/sun4i/sun50i_planes.c
+> @@ -0,0 +1,201 @@
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+[ ... ]
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+> +static int sun50i_planes_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct sun50i_planes *planes;
+> +	void __iomem *regs;
+> +
+> +	planes =3D devm_kzalloc(dev, sizeof(*planes), GFP_KERNEL);
+> +	if (!planes)
+> +		return -ENOMEM;
+> +
+> +	planes->quirks =3D of_device_get_match_data(&pdev->dev);
+> +	if (!planes->quirks)
+> +		return dev_err_probe(dev, -EINVAL, "Unable to get quirks\n");
+> +
+> +	planes->mapping =3D syscon_regmap_lookup_by_phandle(dev->of_node,
+> +							  "allwinner,plane-mapping");
+> +	if (IS_ERR(planes->mapping))
+> +		return dev_err_probe(dev, PTR_ERR(planes->mapping),
+> +				     "Unable to get mapping\n");
+> +
+> +	regs =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(regs))
+> +		return PTR_ERR(regs);
+> +
+> +	planes->regs =3D devm_regmap_init_mmio(dev, regs, &sun50i_planes_regmap=
+_config);
 
-pip3 install dtschema --upgrade
+If the sun50i-planes driver is unbound via sysfs, devres will clean up this
+regmap. Since the driver doesn't seem to integrate with the component
+framework or establish device links with the DRM master, could the active D=
+RM
+device dereference the freed regmap pointer during atomic plane updates and
+cause a use-after-free?
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+> +	if (IS_ERR(planes->regs))
+> +		return PTR_ERR(planes->regs);
+> +
+> +	dev_set_drvdata(dev, planes);
+> +
+> +	sun50i_planes_init_mapping(planes);
 
+Is there a potential race condition here? If the DRM mixer driver checks for
+the availability of this driver data to determine if the planes driver has
+finished probing, it might proceed to use the DRM planes while the hardware=
+'s
+channel-to-core mapping is still uninitialized.
+
+Should dev_set_drvdata() be called after sun50i_planes_init_mapping()?
+
+> +
+> +	return 0;
+> +}
+> +
+> +static struct platform_driver sun50i_planes_platform_driver =3D {
+> +	.probe		=3D sun50i_planes_probe,
+> +	.driver		=3D {
+> +		.name		=3D "sun50i-planes",
+> +		.of_match_table	=3D sun50i_planes_of_table,
+> +	},
+> +};
+> +module_platform_driver(sun50i_planes_platform_driver);
+
+Since sun50i_planes.o is added to sun8i-mixer-y in the Makefile, it will be
+linked into the same module as sun8i_mixer.o. Will invoking
+module_platform_driver() here cause a multiple definition linker error for
+init_module and cleanup_module?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260509190015.7908=
+6-1-jernej.skrabec@siol.net?part=3D6
