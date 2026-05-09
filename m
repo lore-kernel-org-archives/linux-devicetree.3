@@ -1,98 +1,124 @@
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A875626B75B
-	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 15:40:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE7FE2147F9;
+	Sat,  9 May 2026 15:51:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778341254; cv=none; b=GnT7oyCbPeQwQpZ9O1WX9shXQ01RdlyiA6YgsF3ZwgV0X4IvZyymGZGr74VzelSFamY5fdqpdUC4honCEFtWWuUN7sHWa1/1ce4H3x4d8jtPxkPFZq+lqXXyVUVl/5QyFTUjpXsRxHuIxEmgwUxFk3R7a2Jc82uKfVTME1WHVVQ=
+	t=1778341916; cv=none; b=pnOOdrQoAo/OWpgYXXpbWy40Ei31lvXyrjTzyRZJ6uKKHvO8TnPl54P2JkH9bW4vAFSV8wkdWTPLaKBHVW3+AHdLqNJxBlw0jmSROekQ+API0xveqYDOHnY0M/HurC5+dEPMOWikOAyfFGuTE7nP0y+MURP0lIgszJtZ0ywzwFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778341254; c=relaxed/simple;
-	bh=DO0uuXw4XHQbU70ojqf9zPsomYorV9Oj36hGoursxqQ=;
+	s=arc-20240116; t=1778341916; c=relaxed/simple;
+	bh=zJjKKHTb4SrtLoHbaArm6GPOqqA4Ze5oIcY9LLBALRw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cjeq3fYmS7lHNbd4uHKfl6Llr2H6Gw8cnQL0lom/1eIuikaGIRj6SAAGkahHtkWisVG7rHPY1dS0pgujNDiMGi64CxIQhJ0Nb/hj6ywoKDQmUE4d4sHBVFR4JHj/RVOm8dTLxD1N1QRsmDWpuZ5+TNLsATdC+VOrZn9B1n0WZJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cmlpNz4E; arc=none smtp.client-ip=74.125.82.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=oMlAQZpeMT01JZq8PAIk4alq4PLSKTjInXsV1KTFP7FKdjEOh50xbLGTxk416XbKxoD3+leo5aoeH6fHvA/SMA/7S8iJtYMgcIYoNNqb+suI4khrVdQuN5xH66yWt2ch+Mjp4+qq0M7xWP9e0VY1IPJ6NLDK7NNFAiSrjMRKsUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RbT33PAp; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cmlpNz4E"
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-12c1a170a50so4112155c88.0
-        for <devicetree@vger.kernel.org>; Sat, 09 May 2026 08:40:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778341253; x=1778946053; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=4xYjp8R8MGjk1tvhBBohAtI6RYlnEbpBj/HtDKZx7fw=;
-        b=cmlpNz4EZ2YnVQZycu2frjLyjTDK3E3awfeaONQ665OACts5B68i7kZV29ZFGxbw1I
-         bAbLehvPA1swjzExpe1Y2zwBh92J+Mfs/uxtFK98XCGGlMDzkRtu6Db933ZKLjQGksXy
-         uzd9g4rdxrZcrReSM5Znyf9BGQsMQyveyKv67dZEB9Och9OO0r0LiUs3EwcywPA+QKDU
-         NFDpRfesjK3A5RvUc+OKUq792o+SQA6yPeTFK8DccEp8QnIQwHz1/7Blq8pr1xYg3xZ2
-         g8dHj6WCWJXY/pVEEVjV3CGJS87J3pCEjnJiNEehuh+61BaaYde89MR/kc6Q2vqCJRpE
-         y2sQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778341253; x=1778946053;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=4xYjp8R8MGjk1tvhBBohAtI6RYlnEbpBj/HtDKZx7fw=;
-        b=lDWy+Ew38IUl4KvehnQE10ZNDP+wKdjN96OOUc2wi2DuXFdVg0WQuuLjeuYgoZ6p1f
-         qPIVUzqDvq583sgvWv1u/lDNAE9skHiSlRsnNkuWDrqfk/qHPraoQczhZ8H9axYAuo+4
-         2mItnvrIQPbDg/sJ/rpzHb1909tGt4XUWhGCPhSRi52TA10wBSHrLCbiKgcc96ieEDq6
-         B853WfgacV5XsHMdWLaKRhspxfF7eK5Y3LO8gXiba1T3Iy6srCBAiQzqsLdY9zl9RNA5
-         2bkaqbysKF0TBdqQ4SQv0GhVvGVJ2GkeaNRuZralQvJuk9xXDXkI+iapOtnzYxXUsn7J
-         3ntQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9qmwoWAr921/HKTJXqgMnFu8q7x2O8CYXW7aPdNxyrsqhv1wKhd9ZWWMY5G2xuHKqxeYiooTAtJI2k@vger.kernel.org
-X-Gm-Message-State: AOJu0YyTJlBY+xZ0oKRsCMnFU7X8Hg8ON+mgQquS8+r2AOsEvaF8q7jz
-	IrpMdDrm+mIiAx7I6gfOnqFCtpOGiH8xfIC6W04P/RWmOrjQ23PA1Gf9
-X-Gm-Gg: Acq92OH6BF1Kst5djXmC8NAqv73LbmN5sXegdhH5CWBOz3bmf/M3LFi0t4SDQNErl+4
-	G4rT9hE/UzYY5b+ZXNvZgq05/0WDwuCqDooLrTqE8ClM1wZGASYzeDl/tMW+vL+YLjxNzZTpa0j
-	nxFAfH5pu6g1aNcmCp1UBgSw3OB+D3LEmpPrMyuVtfxZeQ6TDkCA+MeSOzTooRqjQ2Dik91dN3+
-	8nX87e/wkQaroO0qXQAyTZAeHklMDCSVTR98g9EPvQqKQlaMxkT+SLweDIUhT1byVyzSxFM6qEY
-	VhMCorCQPepVukNMLSJG3dkLlb/NG6e9jT9twzsNx1GfCHWGWFr8bkt2u6d+HUBy9xuSWXjBuC9
-	DNvF4w3RBjIRDNfnRaXibRlRWY3Wijc1Rg1nqkAUB/lSuhxiLllN/uG0fjF7IpqQydoq3yHo+oM
-	IsfFH4fPwBFfOZibenpWRcYyYciX+yd6myu36jPPy2E/v5K5o=
-X-Received: by 2002:a05:7022:f411:b0:128:ccb7:7fa3 with SMTP id a92af1059eb24-1319d14f7efmr9154077c88.34.1778341252823;
-        Sat, 09 May 2026 08:40:52 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13278210d40sm8386334c88.4.2026.05.09.08.40.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 09 May 2026 08:40:52 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Sat, 9 May 2026 08:40:51 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Colin Huang <u8813345@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Kevin Chang <kevin.chang2@amd.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, Colin Huang <colin.huang2@amd.com>
-Subject: Re: [PATCH v5 3/3] hwmon: (pmbus) add support for Delta E50SN12051
-Message-ID: <355daf0c-afb7-43b2-b6a2-fa25426eedc1@roeck-us.net>
-References: <20260508-add-e50sn12051-v5-0-abebdcc29665@gmail.com>
- <20260508-add-e50sn12051-v5-3-abebdcc29665@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RbT33PAp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E771CC2BCB2;
+	Sat,  9 May 2026 15:51:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778341916;
+	bh=zJjKKHTb4SrtLoHbaArm6GPOqqA4Ze5oIcY9LLBALRw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=RbT33PApIs5B0I+9kaRW3dfbAvw0hnBQRgXUrraiS4mz+tUNy6HGIhWEyoRojA3zu
+	 3bT4Cx9OavPqdFxC3wnc4Ay8US/CPZ8zC97kHwQBCcH+VOSZmdfk1duP9vmB8vRc+5
+	 bHiVO2ltNen1BvbHjQN8aAIVcGAbK6j12pi6/ULaXjMqpOQMT3RS6JQI0rxkzVQ76z
+	 G8s4n6+CVb+oTUq0CoRHa8k09SZEtpjdfXKMQoRq8oId3LkiF3Hc7DMPBqKbZICKMb
+	 s6W0/agg/bqzw0QwkGfbx07pGewZQfuabbjJxta2kkCTh8NmIGdiN1TtDO7bPT4cIn
+	 YLTSAaLFZ5EaQ==
+Date: Sat, 9 May 2026 16:51:52 +0100
+From: Conor Dooley <conor@kernel.org>
+To: sashiko@lists.linux.dev
+Cc: Udaya Kiran Challa <challauday369@gmail.com>, krzk+dt@kernel.org,
+	devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+Subject: Re: [PATCH v2] dt-bindings: rtc: epson,rx6110: Convert to DT Schema
+Message-ID: <20260509-undusted-impromptu-d10fa94834ea@spud>
+References: <20260509095713.5818-1-challauday369@gmail.com>
+ <20260509102703.33ED1C2BCB2@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="RAZUb+SGi9k0iY6l"
+Content-Disposition: inline
+In-Reply-To: <20260509102703.33ED1C2BCB2@smtp.kernel.org>
+
+
+--RAZUb+SGi9k0iY6l
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260508-add-e50sn12051-v5-3-abebdcc29665@gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, May 08, 2026 at 05:44:30PM +0800, Colin Huang wrote:
-> From: Colin Huang <u8813345@gmail.com>
-> 
-> Add the pmbus driver for Delta E50SN12051 600W Non-isolated
-> 1/8th Brick DCDC Power Modules.
-> 
-> Signed-off-by: Colin Huang <u8813345@gmail.com>
-> Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+On Sat, May 09, 2026 at 10:27:02AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+> - [Medium] The YAML binding omits a reference to the core RTC subsystem s=
+chema (`rtc.yaml`).
+> - [Medium] The strict requirement for SPI-specific properties was lost du=
+ring the schema conversion.
+> --
+>=20
+> commit 83ad9493a42cbad1f11db8ac3498c9be50a357d1
+> Author: Udaya Kiran Challa <challauday369@gmail.com>
+>=20
+> dt-bindings: rtc: epson,rx6110: Convert to DT Schema
+>=20
+> This commit converts the Epson RX6110 Real Time Clock devicetree binding
+> from the legacy text format to DT schema.
+>=20
+> > diff --git a/Documentation/devicetree/bindings/rtc/epson,rx6110.yaml b/=
+Documentation/devicetree/bindings/rtc/epson,rx6110.yaml
+> > new file mode 100644
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/rtc/epson,rx6110.yaml
+> [ ... ]
+> > +allOf:
+> > +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+>=20
+> Should this also include a reference to rtc.yaml# in the allOf block?
+> Without it, since unevaluatedProperties is false, won't valid standard RTC
+> properties like start-year or aux-voltage-chargeable cause validation
+> errors? This omission appears to introduce a functional regression by
+> bypassing the standard nodename checks provided by the core schema.
+>=20
+> [ ... ]
+> > +  spi-cpha: true
+> > +  spi-cpol: true
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +
+> > +unevaluatedProperties: false
+>=20
+> The legacy text binding listed spi-cs-high, spi-cpha, and spi-cpol as
+> mandatory required properties when the device operates in SPI mode.
 
-Applied.
++ the fact that cpha/cpol are listed with : true, and spi-cs-high isn't
+which is confusing IMO.
 
-Thanks,
-Guenter
+> Because they are omitted from the required list to support I2C mode, won't
+> misconfigured SPI nodes missing these hardware configuration flags now
+> silently pass validation? Would adding a conditional allOf/if block be
+> appropriate to enforce these properties for SPI configurations and avoid
+> this regression?
+
+Don't do this, since it requires knowing what the parent node is.
+If anything, make it something like
+if: oneOf: <> then: allOf: <>
+
+--RAZUb+SGi9k0iY6l
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaf9YEgAKCRB4tDGHoIJi
+0unrAPwMiCoAkQF0fT3m/O/baC8hdg3ydWz0NlslfeO/Mk/2lwD/dhaZ26m1AtRG
+S+PkxUC7bQNeI3E0OsPcVINdThq2Wgs=
+=NAap
+-----END PGP SIGNATURE-----
+
+--RAZUb+SGi9k0iY6l--
