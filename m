@@ -1,150 +1,174 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.175.55.52])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 26E09253958;
-	Sat,  9 May 2026 02:53:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.175.55.52
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0C6D1AF0BB
+	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 02:56:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778295211; cv=none; b=QToEvvuI82PeElvCKESJ9lEbZcxU2dLXwaxDydcZ8j3fgOeqMSZEc6GKaPHKTwm2ut2FGFb0oiq0Lb/jlpGcVZJaig8g3pEtkeh/rCSsix+pPCI6T8wUHYkmKnUz5V43VOP8ouXbhOa3YmLKKk8zpK5M0rqKKhDbBirbJqxZ2xw=
+	t=1778295405; cv=none; b=XYA0a2ck8nkl9XJ/qDXaATgoxEe+0QRcUejgGecr9Xj8dMxqN3XujA1/LL4sNS1luVjR1oE3BuoJC9f1iSwt0YWar/2QKhaYJmxe2G30SzJ3Fgh6thGSj2i5H7zkr9jkEXNctg0l+lao3LPSILHhmpM5D0frhaYsq58R2OIsnRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778295211; c=relaxed/simple;
-	bh=7JXlZDMBCkxnAhqKsLwQIqVTj+Eh173BdCa4ql1nJdA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=XeDa9aHDtuH9921w9PLOF1fjlMZBGBT9yJ4+UNIHIRGhy06VQyB3+TeC9+0h3BJKvYlqYO4KSu5vtxhDZJ0Ypz4nanb/L7goLu0I11L5wErvRqZAYoh6NS6tAuBPMMlxgBs9KMvsNgJxbviYeC2jY9s52/h+vrRh68vUIoROtnI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=52.175.55.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from dongxuyang$eswincomputing.com ( [10.12.96.41] ) by
- ajax-webmail-app2 (Coremail) ; Sat, 9 May 2026 10:53:11 +0800 (GMT+08:00)
-Date: Sat, 9 May 2026 10:53:11 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: "Xuyang Dong" <dongxuyang@eswincomputing.com>
-To: "Brian Masney" <bmasney@redhat.com>
-Cc: "Stephen Boyd" <sboyd@kernel.org>, mturquette@baylibre.com,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, p.zabel@pengutronix.de,
-	huangyifeng@eswincomputing.com, benoit.monin@bootlin.com,
-	ningyu@eswincomputing.com, linmin@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com
-Subject: Re: Re: Re: Re: Re: Re: [PATCH v3 2/3] clk: eswin: Add eic7700 HSP
- clock driver
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <afPc66GcXiSzQ6uN@redhat.com>
-References: <20260423091114.2326-1-dongxuyang@eswincomputing.com>
- <aeo8nn-eigzlojWx@redhat.com>
- <4e5c887.5a31.19dbf179fb6.Coremail.dongxuyang@eswincomputing.com>
- <CABx5tqK7p_XJHfXZ70gXhR88PzAteV7cVSFPoRzccgmjanADMw@mail.gmail.com>
- <177733570840.5403.12558106273673899411@lazor>
- <7a76d8cb.5bab.19dd3645d4e.Coremail.dongxuyang@eswincomputing.com>
- <177742748214.5403.15526965667317467444@localhost.localdomain>
- <4257942f.5c6d.19dd89b06f8.Coremail.dongxuyang@eswincomputing.com>
- <afINjhKluCxeb9LK@redhat.com>
- <1f0a2d11.5cd2.19ddcf8114a.Coremail.dongxuyang@eswincomputing.com>
- <afPc66GcXiSzQ6uN@redhat.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1778295405; c=relaxed/simple;
+	bh=1aq9jS+fdqV0I1Ce1Wz80U/NPMdcsjRzGoRscb+1O5E=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=uW4YLELdRWfKvWEI6t3GlvKypr4OiWfovIcpplZaytwXFlBlOUVmeRVIYINjw/MJiiLfcMKqVe1r/+v6YDp6hnFqn8A/Blx9iVnqNnGjjgueWf6ngOb1wKHjJ1I9xifBwua64R2KTFHUkgH/7OVDiso4gpnYefWJ31sGhsgoeWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XQgEgUQv; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XQgEgUQv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 559EFC2BCB0;
+	Sat,  9 May 2026 02:56:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778295404;
+	bh=1aq9jS+fdqV0I1Ce1Wz80U/NPMdcsjRzGoRscb+1O5E=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=XQgEgUQvoLYQ3Cg3baxu38gPkDUUFjsDV/UxCjJgiM728qODLOfSGQNzo6MTpSVXF
+	 RZ1wIRabP4rN1TCvFeFhO81VUWp7+PR5/9Sgrmys3YJrjo0qSiA3V8Ls62nC649ba4
+	 MepVDfHx/MmaEpWjM6bRFwqO4+qENy8BVCxsGOWsK16CN2Tdo/QwPiIuPOPpYBYhb2
+	 7AvCHkxXBTni7sgfSvlxImeHoo7KWaUmb6L30wARIqAKK6+wqO6Bv1qY1cWcYrolG9
+	 tF5RnFNJRtnic4dIpIctZHw4uhvggdB4YCFdhTIvW3IF1ibUZRtCxMZEzl+ZWMzFgc
+	 tae+SeVyfGAtg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 10/14] media: iris: Add power sequence for Glymur
+Reply-To: sashiko@lists.linux.dev
+To: "Vishnu Reddy" <busanna.reddy@oss.qualcomm.com>
+Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260509-glymur-v5-10-7fbb340c5dbd@oss.qualcomm.com>
+References: <20260509-glymur-v5-10-7fbb340c5dbd@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 09 May 2026 02:56:43 +0000
+Message-Id: <20260509025644.559EFC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Message-ID: <ccff677.5f98.19e0aa7365e.Coremail.dongxuyang@eswincomputing.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:TQJkCgA3TJ+Xof5prwgYAA--.3673W
-X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/1tbiAgECAmn+EJEDs
-	wABsk
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
 
-PiAKPiBPbiBUaHUsIEFwciAzMCwgMjAyNiBhdCAwMTo1ODo1OFBNICswODAwLCBYdXlhbmcgRG9u
-ZyB3cm90ZToKPiA+ID4gT24gV2VkLCBBcHIgMjksIDIwMjYgYXQgMDU6Mzg6NTFQTSArMDgwMCwg
-WHV5YW5nIERvbmcgd3JvdGU6Cj4gPiA+ID4gPiA+IAo+ID4gPiA+ID4gPiBUaGUgY29tbW9uIGdh
-dGUgQVBJLCB0aGUgSFNQIHByaXZhdGUgQVBJLCBhbmQgdGhlIHJlc2V0IGRyaXZlciBhbGwgYWNj
-ZXNzwqAKPiA+ID4gPiA+ID4gdGhlIHNhbWUgcmVnaXN0ZXIgc3BhY2UuCj4gPiA+ID4gPiA+IFRo
-ZXJlZm9yZSwgdGhleSBuZWVkIHRvIGJlIHByb3RlY3RlZCBieSB0aGUgc2FtZSBkYXRhLT5sb2Nr
-Lgo+ID4gPiA+ID4gPiAKPiA+ID4gPiA+IAo+ID4gPiA+ID4gSWYgZXZlcnl0aGluZyBpcyBhY2Nl
-c3NpbmcgcmVnaXN0ZXJzIHRocm91Z2ggcmVnbWFwIHdoeSBhcmVuJ3Qgd2UgdXNpbmcKPiA+ID4g
-PiA+IHRoZSBidWlsdGluIGxvY2sgd2l0aCBzdHJ1Y3QgcmVnbWFwX2NvbmZpZzo6dXNlX3Jhd19z
-cGlubG9jaz8gSSBkb24ndAo+ID4gPiA+ID4gdW5kZXJzdGFuZCB3aHkgd2UncmUgcm9sbGluZyBv
-dXIgb3duIGhlcmUuCj4gPiA+ID4gCj4gPiA+ID4gSGkgU3RlcGhlbiwKPiA+ID4gPiAKPiA+ID4g
-PiBJbiB0aGUgSFNQIGNsb2NrIGRyaXZlciBhbmQgcmVzZXQgZHJpdmVyLCB0aGVyZSBhcmUgdGhy
-ZWUgY29tcG9uZW50cyB0aGF0Cj4gPiA+ID4gYWNjZXNzIHRoZSBIU1AgcmVnaXN0ZXIgc3BhY2U6
-IGEgY29tbW9uIGdhdGUgY2xvY2ssIGEgY3VzdG9tIGdhdGUgY2xvY2vCoAo+ID4gPiA+IChpLmUu
-LCAweDgwMCksIGFuZCBhIHJlc2V0Lgo+ID4gPiA+IAo+ID4gPiA+IDEuIFRoZSBjb21tb24gZ2F0
-ZSB1c2VzIGVzd2luX2Nsa19yZWdpc3Rlcl9nYXRlKCkgdG8gcmVnaXN0ZXIgYSBnYXRlIGNsb2Nr
-wqAKPiA+ID4gPiB2aWEgZGV2bV9jbGtfaHdfcmVnaXN0ZXJfZ2F0ZV9wYXJlbnRfZGF0YSgpLiBJ
-dCBhY2Nlc3NlcyB0aGUgcmVnaXN0ZXLCoAo+ID4gPiA+IHVzaW5nIGNsa19nYXRlX2VuZGlzYWJs
-ZSgpLgo+ID4gPiA+IAo+ID4gPiA+IHN0YXRpYyB2b2lkIGNsa19nYXRlX2VuZGlzYWJsZShzdHJ1
-Y3QgY2xrX2h3ICpodywgaW50IGVuYWJsZSkKPiA+ID4gPiB7Cj4gPiA+ID4gCXN0cnVjdCBjbGtf
-Z2F0ZSAqZ2F0ZSA9IHRvX2Nsa19nYXRlKGh3KTsKPiA+ID4gPiAJdW5zaWduZWQgbG9uZyBmbGFn
-czsKPiA+ID4gPiAKPiA+ID4gPiAJaWYgKGdhdGUtPmxvY2spCj4gPiA+ID4gCQlzcGluX2xvY2tf
-aXJxc2F2ZShnYXRlLT5sb2NrLCBmbGFncyk7Cj4gPiA+ID4gCWVsc2UKPiA+ID4gPiAJCV9fYWNx
-dWlyZShnYXRlLT5sb2NrKTsKPiA+ID4gPiAuLi4KPiA+ID4gPiAJaWYgKGdhdGUtPmxvY2spCj4g
-PiA+ID4gCQlzcGluX3VubG9ja19pcnFyZXN0b3JlKGdhdGUtPmxvY2ssIGZsYWdzKTsKPiA+ID4g
-PiAJZWxzZQo+ID4gPiA+IAkJX19yZWxlYXNlKGdhdGUtPmxvY2spOwo+ID4gPiA+IH0KPiA+ID4g
-PiAKPiA+ID4gPiBUaGUgZ2F0ZS0+bG9jayBpbiB1c2UgaXMgdGhlIGRhdGEtPmxvY2sgcGFzc2Vk
-IGluIGZyb20gdGhlIGNsb2NrIGRyaXZlci4KPiA+ID4gPiAKPiA+ID4gPiAyLiBUaGUgY3VzdG9t
-IGdhdGUgdXNlcyBoc3BfY2xrX3JlZ2lzdGVyX2dhdGUoKSB0byByZWdpc3RlciBhIGdhdGUgY2xv
-Y2suIAo+ID4gPiA+IEl0IGFjY2Vzc2VzIHRoZSByZWdpc3RlciB1c2luZyBoc3BfY2xrX2dhdGVf
-ZW5kaXNhYmxlKCkuCj4gPiA+ID4gCj4gPiA+ID4gc3RhdGljIHZvaWQgaHNwX2Nsa19nYXRlX2Vu
-ZGlzYWJsZShzdHJ1Y3QgY2xrX2h3ICpodywgaW50IGVuYWJsZSkKPiA+ID4gPiB7Cj4gPiA+ID4g
-CXN0cnVjdCBlaWM3NzAwX2hzcF9jbGtfZ2F0ZSAqZ2F0ZSA9IHRvX2dhdGVfY2xrKGh3KTsKPiA+
-ID4gPiAKPiA+ID4gPiAJZ3VhcmQoc3BpbmxvY2tfaXJxc2F2ZSkoZ2F0ZS0+bG9jayk7Cj4gPiA+
-ID4gLi4uCj4gPiA+ID4gfQo+ID4gPiA+IAo+ID4gPiA+IFRoZSBnYXRlLT5sb2NrIGluIHVzZSBp
-cyB0aGUgc2FtZSBkYXRhLT5sb2NrIHBhc3NlZCBpbiBmcm9tIHRoZSBjbG9ja8KgCj4gPiA+ID4g
-ZHJpdmVyLgo+ID4gPiA+IAo+ID4gPiA+IDMuIFRoZSByZXNldCB1c2VzIGVpYzc3MDBfaHNwX3Jl
-c2V0X2Fzc2VydCgpIGFuZMKgCj4gPiA+ID4gZWljNzcwMF9oc3BfcmVzZXRfZGVhc3NlcnQoKSwg
-d2hpY2ggY2FsbCByZWdtYXBfYXNzaWduX2JpdHMoKSB0byBhY2Nlc3PCoAo+ID4gPiA+IHRoZSBy
-ZWdpc3Rlci4KPiA+ID4gPiAKPiA+ID4gPiBBbGwgdGhyZWUgbWV0aG9kcyBhY2Nlc3MgdGhlIHNh
-bWUgcmVnaXN0ZXIgc3BhY2U7IHRoZXJlZm9yZSwgdGhleSBtdXN0IGJlwqAKPiA+ID4gPiBwcm90
-ZWN0ZWQgYnkgdGhlIHNhbWUgbG9jayAoZGF0YS0+bG9jaykuCj4gPiA+ID4gCj4gPiA+ID4gVGhh
-dCdzIHdoeSB3ZSBpbnRyb2R1Y2VkIGVpYzc3MDBfaHNwX3JlZ21hcF9sb2NrL3VubG9jayBmb3LC
-oAo+ID4gPiA+IGVpYzc3MDBfaHNwX3JlZ21hcF9jb25maWcuCj4gPiA+ID4gCWVpYzc3MDBfaHNw
-X3JlZ21hcF9jb25maWcgPSB7Cj4gPiA+ID4gCQkubG9jayA9IGVpYzc3MDBfaHNwX3JlZ21hcF9s
-b2NrLAo+ID4gPiA+IAkJLnVubG9jayA9IGVpYzc3MDBfaHNwX3JlZ21hcF91bmxvY2ssCj4gPiA+
-ID4gCQkubG9ja19hcmcgPSBsb2NrX2N0eCwKPiA+ID4gPiAJfTsKPiA+ID4gPiAKPiA+ID4gPiBU
-aGUgJ2xvY2tfY3R4LT5sb2NrJyBpbiBlaWM3NzAwX2hzcF9yZWdtYXBfbG9jay91bmxvY2sgaXMg
-dGhlICdkYXRhLT5sb2NrJy4KPiA+ID4gPiAJc3RhdGljIHZvaWQgZWljNzcwMF9oc3BfcmVnbWFw
-X2xvY2sodm9pZCAqYXJnKQo+ID4gPiA+IAlfX2FjcXVpcmVzKGxvY2tfY3R4LT5sb2NrKQo+ID4g
-PiA+IAl7Cj4gPiA+ID4gCQlzdHJ1Y3QgZWljNzcwMF9oc3BfcmVnbWFwX2xvY2sgKmNvbnN0IGxv
-Y2tfY3R4ID0gYXJnOwo+ID4gPiA+IAkJdW5zaWduZWQgbG9uZyBmbGFnczsKPiA+ID4gPiAJCj4g
-PiA+ID4gCQlzcGluX2xvY2tfaXJxc2F2ZShsb2NrX2N0eC0+bG9jaywgZmxhZ3MpOwo+ID4gPiA+
-IAkJbG9ja19jdHgtPmZsYWdzID0gZmxhZ3M7Cj4gPiA+ID4gCX0KPiA+ID4gPiAKPiA+ID4gPiBU
-aGUgc2ltaWxhciBhcHByb2FjaCBjYW4gYmUgZm91bmQgaW4gY2xrLWlteDh1bHAtc2ltLWxwYXYu
-Yy4KPiA+ID4gPiAKPiA+ID4gPiBUaGUgYW5ub3RhdGlvbnMgd2hhdCB3ZSBtZW50aW9uZWQgcHJl
-dmlvdXNseSBpcyB0aGUgYWJvdmXCoAo+ID4gPiA+ICJfX2FjcXVpcmVzKGxvY2tfY3R4LT5sb2Nr
-KSIuCj4gPiA+IAo+ID4gPiBJIHNlZSB3aGF0IFN0ZXBoZW4gaXMgc2F5aW5nLiBUYWtlIGEgbG9v
-ayBhdCBfX3JlZ21hcF9pbml0KCkgaW4KPiA+ID4gZHJpdmVycy9iYXNlL3JlZ21hcC9yZWdtYXAu
-Yy4gSWYgdGhlIGxvY2svdW5sb2NrIG9wcyBhcmUgbm90IHNwZWNpZmllZCwKPiA+ID4gdGhlbiB0
-aGUgZmluYWwgZWxzZSB3aWxsIGF1dG9tYXRpY2FsbHkgc2V0dXAgbG9ja2luZy4gQnkgZGVmYXVs
-dCwgaXQnbGwKPiA+ID4gdXNlIGEgbXV0ZXgsIGJ1dCB0aGVyZSBpcyB0aGUgYWJpbGl0eSB0byB1
-c2UgYSBzcGlubG9jay4KPiA+ID4gCj4gPiA+IFNvIHlvdSBjYW4gZHJvcCB0aGUgbG9jay91bmxv
-Y2sgb3BzIGZyb20gdGhlIGRyaXZlciwgYW5kIGFkZCB0byB0aGUgb3BzOgo+ID4gPiAKPiA+ID4g
-CWZhc3RfaW86IDEsCj4gPiA+IAl1c2VfcmF3X3NwaW5sb2NrOiAxLAo+ID4gPiAKPiA+ID4gR2l2
-ZW4gdGhlIGNyaXRjYWwgbmF0dXJlIG9mIGNsa3MsIEkgYWdyZWUgd2l0aCBTdGVwaGVuIHRoYXQg
-YSByYXcKPiA+ID4gc3BpbmxvY2sgc2hvdWxkIGJlIHVzZWQgaGVyZS4KPiA+ID4gCj4gPiAKPiA+
-IEhpIFN0ZXBoZW4gYW5kIEJyaWFuLAo+ID4gCj4gPiBJbiB0aGUgSFNQIGNsb2NrIGRyaXZlciwg
-aHNwX2Nsa19nYXRlX2VuZGlzYWJsZSgpIG9ubHkgYWNjZXNzZXMgdGhlwqAKPiA+IHJlZ2lzdGVy
-cyBhdCAweDgwMC8weDkwMCwgYW5kIHJlc2V0IGFjY2Vzc2VzIHRoZSBzYW1lIHJlZ2lzdGVycyBh
-cyB3ZWxsLMKgCj4gPiB3aGljaCBsZWFkcyB0byBjb25jdXJyZW50IFJNVyAocmVhZC1tb2RpZnkt
-d3JpdGUpIHJhY2VzLgo+ID4gCj4gPiBUaGVyZSBhcmUgdHdvIGFwcHJvYWNoZXMgdG8gc29sdmUg
-dGhlc2UgcmFjZXMuCj4gPiAKPiA+IFRoZSBmaXJzdCBtZXRob2QgaXMgdGhlIGN1cnJlbnQgaW1w
-bGVtZW50YXRpb24uIEFsbCB0aHJlZSBmdW5jdGlvbnPCoAo+ID4gKGNsa19nYXRlX2VuZGlzYWJs
-ZSgpLCBoc3BfY2xrX2dhdGVfZW5kaXNhYmxlKCkswqAKPiA+IGFuZCBlaWM3NzAwX2hzcF9yZXNl
-dF9hc3NlcnQoKSkgdXNlIGRhdGEtPmxvY2sgdG8gcHJldmVudCBjb25jdXJyZW50wqAKPiA+IFJN
-VyByYWNlcy4KPiA+IAo+ID4gVGhlIHNlY29uZCBtZXRob2QgaXMgYXMgU3RlcGhlbiBzYWlkLiBJ
-ZiBJIHVuZGVyc3RhbmQgY29ycmVjdGx5LCBpdCBpcyB0b8KgCj4gPiBjaGFuZ2UgdGhlIHJlZ2lz
-dGVyIHJlYWQvd3JpdGUgb3BlcmF0aW9ucyBpbiBoc3BfY2xrX2dhdGVfZW5kaXNhYmxlKCkgdG/C
-oAo+ID4gdXNlIHRoZSByZWdtYXAgQVBJIGFuZCB1c2UgdGhlIHNhbWUgbG9jayAobWFwLT5yYXdf
-c3BpbmxvY2spIGFzIHJlc2V0Lgo+ID4gCj4gPiBJcyB0aGUgc2Vjb25kIGFwcHJvYWNoIHByZWZl
-cmFibGU/Cj4gCj4gVXNlIHRoZSBzYW1lIHJlZ21hcCBldmVyeXdoZXJlLiBBbHNvIHlvdSBkb24n
-dCBoYXZlIHRvIGV4cGxpY2l0bHkgZGVmaW5lCj4gdGhlIHJhdyBzcGlubG9jayBpbiB5b3VyIGRy
-aXZlciBzaW5jZSB0aGUgcmVnbWFwIEFQSSB3aWxsIGNyZWF0ZSBhIHJhdwo+IHNwaW5sb2NrIGZv
-ciB5b3UgaWYgeW91IHVzZSB0aGUgZmFzdF9pbyAvIHVzZV9yYXdfc3BpbmxvY2sgb3B0aW9ucyBJ
-Cj4gZGVzY3JpYmVkIGFib3ZlLgo+IAoKSGkgQnJpYW4sCgpUaGFuayB5b3UgZm9yIHlvdXIgdGlt
-ZSBhbmQgY29tbWVudHMuIFNvcnJ5IGZvciB0aGUgbGF0ZSByZXBseS4KVGhpcyB3aWxsIGJlIGZp
-eGVkIGluIHRoZSBuZXh0IHZlcnNpb24uCgpCZXN0IHJlZ2FyZHMsClh1eWFuZyBEb25nCg==
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] Improper hardware teardown sequence violates LIFO ordering.
+- [High] Hardware state leak on NOC LPI polling timeout error path.
+- [High] Missing back-off and retry loop for VCODEC1 NOC LPI handshake.
+- [High] Missing `.program_bootup_registers` callback in `iris_vpu36_ops`.
+--
+
+commit d719c9ef4e0bf644111aeab34b3241be37fcf9c4
+Author: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+
+media: iris: Add power sequence for Glymur
+
+Glymur has a secondary video codec core (vcodec1), equivalent to the
+primary core (vcodec0), but with independent power domains, clocks,
+and reset lines. Reuse the existing code wherever possible and add
+power sequence for vcodec1.
+
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu3x.c b/drivers/medi=
+a/platform/qcom/iris/iris_vpu3x.c
+> index 13fbb21c21824..ff90c375e805c 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vpu3x.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu3x.c
+
+[ ... ]
+
+> @@ -254,6 +264,124 @@ static void iris_vpu35_power_off_hw(struct iris_cor=
+e *core)
+
+[ ... ]
+
+> +static void iris_vpu36_power_off_hw1(struct iris_core *core)
+> +{
+> +	u32 value, i;
+> +	int ret;
+> +
+> +	if (iris_vpu36_hw1_power_collapsed(core))
+> +		goto disable_power;
+> +
+> +	value =3D readl(core->reg_base + WRAPPER_CORE_CLOCK_CONFIG);
+> +	if (value)
+> +		writel(CORE_CLK_RUN, core->reg_base + WRAPPER_CORE_CLOCK_CONFIG);
+> +
+> +	for (i =3D 0; i < core->iris_platform_data->num_vpp_pipe; i++) {
+> +		ret =3D readl_poll_timeout(core->reg_base + VCODEC1_SS_IDLE_STATUSN + =
+4 * i,
+> +					 value, value & DMA_NOC_IDLE, 2000, 20000);
+> +		if (ret)
+> +			goto disable_power;
+> +	}
+> +
+> +	writel(REQ_VCODEC1_POWER_DOWN_PREP, core->reg_base + AON_WRAPPER_MVP_NO=
+C_LPI_CONTROL);
+> +	ret =3D readl_poll_timeout(core->reg_base + AON_WRAPPER_MVP_NOC_LPI_STA=
+TUS,
+> +				 value, value & NOC_LPI_VCODEC1_STATUS_DONE, 2000, 20000);
+> +	if (ret)
+> +		goto disable_power;
+
+Should this implement a back-off and retry loop? A single poll without clea=
+ring
+the request bit and retrying might timeout when the NOC is busy, causing an
+unclean hardware shutdown.
+
+Also, if the readl_poll_timeout() fails and takes the goto, the code skips
+clearing the request bit in AON_WRAPPER_MVP_NOC_LPI_CONTROL. Because this
+register resides in the Always-On wrapper, will the power-down request bit
+remain asserted across power cycles and prevent the hardware from properly
+resuming on the next boot?
+
+> +
+> +	writel(0, core->reg_base + AON_WRAPPER_MVP_NOC_LPI_CONTROL);
+> +
+> +	writel(VCODEC1_BRIDGE_SW_RESET | VCODEC1_BRIDGE_HW_RESET_DISABLE, core-=
+>reg_base +
+> +	       CPU_CS_AHB_BRIDGE_SYNC_RESET);
+> +	writel(VCODEC1_BRIDGE_HW_RESET_DISABLE, core->reg_base + CPU_CS_AHB_BRI=
+DGE_SYNC_RESET);
+> +	writel(0x0, core->reg_base + CPU_CS_AHB_BRIDGE_SYNC_RESET);
+> +
+> +disable_power:
+> +	iris_genpd_set_hwmode(core, IRIS_VCODEC1_POWER_DOMAIN, false);
+> +	iris_disable_unprepare_clock(core, IRIS_VCODEC1_CLK);
+> +	iris_disable_unprepare_clock(core, IRIS_VCODEC1_FREERUN_CLK);
+> +	iris_disable_unprepare_clock(core, IRIS_AXI_VCODEC1_CLK);
+> +	iris_disable_power_domains(core, IRIS_VCODEC1_POWER_DOMAIN);
+> +}
+> +
+> +static void iris_vpu36_power_off_hw(struct iris_core *core)
+> +{
+> +	iris_vpu35_power_off_hw(core);
+> +	iris_vpu36_power_off_hw1(core);
+> +}
+
+Does this hardware teardown sequence violate LIFO ordering? The power-on
+sequence initializes the primary codec before the secondary codec, so teari=
+ng
+down the primary codec first in iris_vpu35_power_off_hw() triggers a full
+video NOC reset and disables the shared primary clock domains.
+
+Consequently, when vcodec1's teardown sequence executes, will its attempts =
+to
+read registers trigger bus hangs or timeouts?
+
+[ ... ]
+
+> @@ -281,3 +409,12 @@ const struct vpu_ops iris_vpu35_ops =3D {
+>  	.calc_freq =3D iris_vpu3x_vpu4x_calculate_frequency,
+>  	.set_hwmode =3D iris_vpu_set_hwmode,
+>  };
+> +
+> +const struct vpu_ops iris_vpu36_ops =3D {
+> +	.power_off_hw =3D iris_vpu36_power_off_hw,
+> +	.power_on_hw =3D iris_vpu36_power_on_hw,
+> +	.power_off_controller =3D iris_vpu35_vpu4x_power_off_controller,
+> +	.power_on_controller =3D iris_vpu35_vpu4x_power_on_controller,
+> +	.calc_freq =3D iris_vpu3x_vpu4x_calculate_frequency,
+> +	.set_hwmode =3D iris_vpu36_set_hwmode,
+> +};
+
+Is the .program_bootup_registers callback intentionally omitted here?
+It is present in the closely related iris_vpu35_ops struct. Without it,
+the core framework function might skip writing to
+WRAPPER_IRIS_VCODEC_VPU_WRAPPER_SPARE_0, which could leave the hardware
+improperly configured.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260509-glymur-v5-=
+0-7fbb340c5dbd@oss.qualcomm.com?part=3D10
