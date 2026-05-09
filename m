@@ -1,451 +1,185 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013057.outbound.protection.outlook.com [40.107.162.57])
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB783A3E96;
-	Sat,  9 May 2026 10:29:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.57
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778322569; cv=fail; b=T1ZrfdJhY4rNjCfB++8siu8IBuSezm/T4eXuCYwGUApcIG0rVtEf01FkXgkW1yG+Fi9/lWxZGDGI1GJ7MtVzSFUxRWVl+oZjVAJLuvWRy4W3cZeSmMfv61Lyc7Y/K6Vci5k1wCD+Lh8pxu2G8xDVoVQsjPUhAF198CcsLBeSJF8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778322569; c=relaxed/simple;
-	bh=vm6w9BX2K45FFVTEENUG/You0sUJUDZnsZoFA7+COO0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uK3SX+nTXocieEtLoSDanfqmx6GhVYhZDKU9A8zJlmACEIhKWfmMMLZU4OOHpVToq+/lGj4fMs1wogm++mFUlm8kFZr+uFVmHQ7ZWNYdb1SPOePcKuvOE6B/J38ro+RzMv0lpN1Otypdlr17mZ1GZot0nXqzfrBOZkWQxRmsB08=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=VlwFsBjJ; arc=fail smtp.client-ip=40.107.162.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D82E2F8EA5;
+	Sat,  9 May 2026 11:16:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.19
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778325398; cv=none; b=NYlGmoL9CvE46B0r5QCKIhoBQIsRlA70+cwSqiEykeGyj9+BQ4Fiyg6ys+3cjfiMnVLRQS32LBZGi6GCF5iF6C0uLWLsGg3QuHCNb+VEBbF48iGRZ0AkRD2xXoo8IPVqQSjhTvK3RTG94pQWJ3xi60BDpiPMBPmNxW8ab4Y1hsA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778325398; c=relaxed/simple;
+	bh=ZggqwoVeMvkkJbMsPzwWP/UdVuYmsc++L6TUEQo+7DA=;
+	h=From:To:Cc:References:In-Reply-To:Subject:Date:Message-ID:
+	 MIME-Version:Content-Type; b=dgeWyWl6rRMRou9HqEe25FTJ7E6/40GnTaBVxnc6eGbeEhtP6ZtGTx5kCSw4kdPsYQ3QixclHYKUYEK7MlRpTL3JRFawD6z2VfnhCiRlPe3OyPnMoeJ0qASMEPCB0oQ0gPAWfImActuEZG0AXrzYN4tA5Dv4deZno0+yUxfcFGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=jGwHgJ+1; arc=none smtp.client-ip=212.227.15.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="VlwFsBjJ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YCjPZZ78hrkeo0iKma49Vod0bdnUMIljltWMMc9ThuQMX8NxsXaf9KB614Zhmxg5kU7bzsJrWNvM5nrYtWcLdpSaoJQarz+/YtnVCUm3cp9AS7kTQ+uMFGzIMFnv07ChFlnJ8BCwA6xVH/jdWdAEU/LRC2WFbmQq2DupGCp19rpeiZnyqZPLtLVgTFuJWNjzfDfAHoJvmvmSi18OUHlyiuAhUvQlmOU+O9FfAsLLLw7u3jjygOtUPG7A+F0donsbzBNbTB8Si6ZykFg4+xgm1pJbT24vmnHQNiqAZpIKLDt5MDanR/MFnFIl0pBXJcByJaWjvEakguhxjBsB+eCmFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bLL8kR60HWiGfBZjWm/4TuxGBOepa12A1njCqZE/dOg=;
- b=t/0JqkHFmsH9cqAPR7DqujLyrBDW1uPiUf4+FEoug3lR+Vv0EcLv36ThawwcHVpRz8tAg4ugzcxlSSg1RVk6laWjjzTU6wFV95hCX81a6/OuQMF0UqlB8bR4ylrjs8Im7Vs1VhP1yW0v/k2eDVmM8pY6bBq8wKXu2HFJWx77AdanIpE/ddVkezyaPz8v8PPeOxy2g+z3zsJxFow5YFScYyV0k/Y32pN/PJR/9lr1imn3neTtP/X+FsKpP0ZsO5xeZM5+1o6hSoxCgz6fnHLFFpdBSELW6mMuktaAeVCn9NNDLA4x3T+Zfj1NF3x7GS9yODD5bhblS7tIW7jrO5pw2w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bLL8kR60HWiGfBZjWm/4TuxGBOepa12A1njCqZE/dOg=;
- b=VlwFsBjJl5yyqBLBen3LVV7dqI8MnpKqYNVfVx1VHKol/UXCKEMl/cB12Tpq3veMjbPbVpYhkqqUAp8tmKpttuK1HWmivY3nz8sNzado1mFF3obKN0LARkIkaec9BwPNft6SCofq7Mu1+dsR03YdVThVFcyBCDgJQ8PqgtMwOrstKLQEnBQlQ4NLEwbkwZTdzgfKP7w+lfqR4sGzTe3Hu3XELBp5nbWM8HMrSi9LmKlFNm8hvnyMi0WD17tx4cIRQxydhocm/EUwKahyUJUKmeQA+yS2neX9DtcbsUjyCqBxWbrYUqy9pN0riDWZkJ25OzQuo4RWZAaiNlZ6rmz9ow==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from DBBPR04MB7500.eurprd04.prod.outlook.com (2603:10a6:10:1f4::16)
- by DU4PR04MB10385.eurprd04.prod.outlook.com (2603:10a6:10:56d::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.20; Sat, 9 May
- 2026 10:29:24 +0000
-Received: from DBBPR04MB7500.eurprd04.prod.outlook.com
- ([fe80::c291:543b:4bde:cee7]) by DBBPR04MB7500.eurprd04.prod.outlook.com
- ([fe80::c291:543b:4bde:cee7%6]) with mapi id 15.20.9891.019; Sat, 9 May 2026
- 10:29:24 +0000
-From: Wei Fang <wei.fang@nxp.com>
-To: claudiu.manoil@nxp.com,
-	vladimir.oltean@nxp.com,
-	xiaoning.wang@nxp.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	f.fainelli@gmail.com,
-	frank.li@nxp.com,
-	chleroy@kernel.org,
-	horms@kernel.org,
-	linux@armlinux.org.uk,
-	maxime.chevallier@bootlin.com,
-	andrew@lunn.ch,
-	olteanv@gmail.com
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev
-Subject: [PATCH v6 net-next 15/15] net: dsa: netc: add support for ethtool private statistics
-Date: Sat,  9 May 2026 18:29:54 +0800
-Message-Id: <20260509102954.4116624-16-wei.fang@nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260509102954.4116624-1-wei.fang@nxp.com>
-References: <20260509102954.4116624-1-wei.fang@nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2PR01CA0030.apcprd01.prod.exchangelabs.com
- (2603:1096:4:192::15) To DBBPR04MB7500.eurprd04.prod.outlook.com
- (2603:10a6:10:1f4::16)
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="jGwHgJ+1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1778325390; x=1778930190;
+	i=markus.stockhausen@gmx.de;
+	bh=TUHszCJjkuNHnG8SeOfSBEkYhtg2lNGMEiSuDJ/B88k=;
+	h=X-UI-Sender-Class:From:To:Cc:References:In-Reply-To:Subject:Date:
+	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=jGwHgJ+167ZW5kQUYq2s4yWZtO0VJoxiANME0XjwKoeoyVyru4c3/49U3HMmBwLd
+	 5bhC52VOvbmG1nM42lpqadHcHQ+PNbr1WiLu2czZ5BRdPnAHpri36XLG3H8QBkbPu
+	 3YzNEDw/ES5d0btiS6tKznl5GbUT2V0f+KGFkqUq5AgQfsUVMtgcZ9T09GPQf5Avo
+	 tnqTagVA2OkBL3JU00y5p9ZBj94t6LhyxarWVvXHKwCON3wiHAdDyTwh7DzP7N2Hh
+	 q+kyhUITqJZSKqm2N/VYKu5u6ekQcI52VKBvg4bn/MBwBsvhOZOjN9Fj/wtJ5EsMa
+	 DlZ9lf+ph2NZ2ggKog==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MJmGZ-1w1fqJ0UeX-00Tv00; Sat, 09
+ May 2026 13:16:30 +0200
+From: <markus.stockhausen@gmx.de>
+To: "'Rob Herring'" <robh@kernel.org>
+Cc: <andi.shyti@kernel.org>,
+	<krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>,
+	<linux-i2c@vger.kernel.org>,
+	<devicetree@vger.kernel.org>
+References: <20260507181711.2696783-1-markus.stockhausen@gmx.de> <20260507181711.2696783-2-markus.stockhausen@gmx.de> <20260508131830.GA1135235-robh@kernel.org>
+In-Reply-To: <20260508131830.GA1135235-robh@kernel.org>
+Subject: AW: [PATCH 1/2] dt-bindings: i2c: Add i2c-shared-gpio
+Date: Sat, 9 May 2026 13:16:29 +0200
+Message-ID: <007301dcdfa5$490a1e30$db1e5a90$@gmx.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DBBPR04MB7500:EE_|DU4PR04MB10385:EE_
-X-MS-Office365-Filtering-Correlation-Id: f6ef3643-d5a7-4446-ab8b-08deadb5d731
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|52116014|366016|1800799024|19092799006|18002099003|22082099003|921020|38350700014|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	exYvn6AuEFCaSZM5pa7I6DvsxideEJv7NSKTGBGt0rwSZMEs87Sswe7YWKOhijFHz16wY8ZO+Mia5tIXe8wPpcV7otvUGVaoXO+kyNvdey5Ukn5W2FDtD+fCwPWto+67+T8Cgdg9KtK6Df+00TOyHbDPGM2HhZKrAW2+MVijR2184RGZBSTCzzWSAKnEtkqwgIlaziq8d98QP53/8sNLXIdMyCmLsmyuR+x7M2dIeoa5HeDH2y70ooKcm5POLQr0UVrkx92V8tmYgIbj8M9FVoEDlckSNc94epZwf9c0VoWp1lc/rw+YAnXJHnORevRflOayLITUMkp16awkl2DzsriBVt4Iy+iybQ6/w50Gdq/kQcNKPtDX0mGAEh85shi7/xk8WC2RwDL72W8PWkYbbrnym0sSn9OoVlAg2Yj1OTwAaeojt38Jjc9/5jSzD65a6oiAG9JJWELysIKiSdPrar4TVHqjwVxS5hCta4DGIxO3iZeyllQDqyvMrtnLzToQeq5Aq94JJWv9EwFx3fpi3jeclMdK++yu/Ft5OVuQRTAmGb9yhuFZkc9mkRB39VsaYcV4ftG3uVjY+p7AZVozdGS0uKbrD6IWOThyNwMHojym6it9MFyxDFYCUdBNM6p4OaC9dTA6Yj5zsI2k5FggH66FWGD6yTuJrEihf/8aYTZDDOEVITzDCIa/Oezb7sx/TsAanBO8iqQ2cHmwZNPm9QYAI64EfYqoQPGESre6L9qWRo1ABpIWGGcFIFmBd4/eK155RNA/u9QmcvL8IJQQOA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DBBPR04MB7500.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(52116014)(366016)(1800799024)(19092799006)(18002099003)(22082099003)(921020)(38350700014)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?sVzY5zPlVSodKxIFy/g9nrDb8gvISTtV8+gubsrBOIXzhXhrrB/QoFKd24Xh?=
- =?us-ascii?Q?ro3V2nPrCsS22OR2bw1CEtttavupzsAGz7zuR0orLu31qHpHcjgBa1hPiiJ6?=
- =?us-ascii?Q?2+pBCPoxDL/HTOwMIoC1B3hkdfeHmEShLNdrhKVbQKW+ddIf/w5wJNdkL9aF?=
- =?us-ascii?Q?R1hPHgpCWdQ05aDq/v2b3BAwFBFiteq/Ux7230OtwKZ+XUTm7LC/f7LUpI09?=
- =?us-ascii?Q?h8ugzpwEhIQBN8GMpNMMejhiUPiN37+vgiVU889NoJAoRGB/oMxV+sf/U1nz?=
- =?us-ascii?Q?TTWGRGzVDmgzfDEKK4gZNm8O+Damcys7jjl0WMVZ8xR5lRU8GQXUOQBfHO06?=
- =?us-ascii?Q?uuAEdlFYWlvO+JjdI3Nt5SBt6xqQloOtXIUhUCM2Ys/+rEwTE9Dk9pBc+kU3?=
- =?us-ascii?Q?xDwXBt8evgxP4c0Q5ohkqrnOtaZ5CmdcGqMAKJeQ+UBxtovym038YzYUBa7E?=
- =?us-ascii?Q?3PGkJk6mwyRAjZTO07b3G14H594LKti0IZFgataKgzj5QHS+0a49zCKdQOvp?=
- =?us-ascii?Q?q0zHjfqPCYXVgkx7nZqpfWYcOvQESuhEC0iAQCCNbbOkN21tHgrQdXRbtVDE?=
- =?us-ascii?Q?cOr+Py5DQsT+46xnUz2d0wfEAXlwPc7/jiKDxFtYBf0zO8jfRpEeV0UF0SVP?=
- =?us-ascii?Q?/sE+XeiYUvsKgInqm67UzgWFS3+ME0ivjOOP6XoafVHEydVo+PbVChN66VR7?=
- =?us-ascii?Q?UZi+JC9ipHTgbrgnhPVkbq8iTzekw1XyqZj2TRoYd+gFEvxQ37WkqDs80lWv?=
- =?us-ascii?Q?sHRtIDH4RySH75xNxb6ggc7J/gZ9E5FJFixr6wgFRWNwZLq9ZM6ci5Ihs1fH?=
- =?us-ascii?Q?rPWt6MmUn1RAAGz60/tF3nCQmUHN70MdPXyMnXcCg8aB4fhzDnAfFIDCwgeq?=
- =?us-ascii?Q?+97+ZFz4eX2r9Uaw1VRLHj21lIbNqU0drWzoQSdSlU1jM+KEBBpEKbD3iNQ5?=
- =?us-ascii?Q?cIrq/sya7Nu9UVQJYhkp7USA1reNG45qvkmVGCrGOGPfpjjMdfXgtxVaSDXJ?=
- =?us-ascii?Q?RnERdC7ukAwRwEqOsS7ABCmEKTxtXozpMmt7JXtRZybm1Q3NQfwMwSpeV+oZ?=
- =?us-ascii?Q?bUvfmblHaLhn1zEk6+Q8Sf16B7yV2fuDwaLPCQmRoCb0y6cJB487fzjqph6S?=
- =?us-ascii?Q?awEmdCuUx6+XPPl1wI+/Lri8aar9meywwA0ZcJYcMfF56o6h6iIfqDUDDUhy?=
- =?us-ascii?Q?n3leJCJguZZ1+wUZEc6OITfC1hGjnGtepPZEH+ScU2Q015+Fh6Oi/26GvKce?=
- =?us-ascii?Q?Hu9DrARCNISfC6NKauGwB/xRCBShz4Fn4HnvE0a07ebu+KZRV3V5tMGsJOE5?=
- =?us-ascii?Q?iEOk6rhEMgPK+Ec8AooCONwH9/VgZ1lkHsTVHBOsiPVnuZ1d9GXL3n6ORmms?=
- =?us-ascii?Q?EfDEPFM/H13hhOQlQYwCXWxIw/xhMI/kz6NKqOy6j2JUMePPzPQgDsjSZEvH?=
- =?us-ascii?Q?niTzVxhdObUWBRgzPl1ywu5ca7ewKPoMxCNOQUlrdiqQgFexBiLYndhx6HTA?=
- =?us-ascii?Q?SrO0EAFYYUxe7s+WxvUlf8J/TKwDXKdiOziT0xAgsKjXpqPZNeiypL60XO85?=
- =?us-ascii?Q?Der2Z4ZYtWessO0ibJt2iqEmq7uusCZKGFvaU3j6zGwbBcMf3FbVIrXFd8cq?=
- =?us-ascii?Q?Mgb5rA5I6v9MaLWi0B0+lHXHTLsAYDHZ7M2nnnr5LjQWQZm15MeKj50RCpiy?=
- =?us-ascii?Q?du6NdCUTBV1FzvfKJ95cNb2UTGqAuiBkaLp1+bXiR1Eh+knd?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6ef3643-d5a7-4446-ab8b-08deadb5d731
-X-MS-Exchange-CrossTenant-AuthSource: DBBPR04MB7500.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2026 10:29:24.5954
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: x76wFTtaY7In+pPQvFu+phUSPU5TR+Z/ak9tmp2gox6l9QVw3L7yHjfKOT4UZt5f8WrLLs7eQ1ZbqnP+Y+IKAw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB10385
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQIKgUW0k0IN4HI9csbwIs8kp6Kp3wLKDayEAPY4WTC1jETtgA==
+Content-Language: de
+X-Provags-ID: V03:K1:OiJlsFSTmU95KgADqm+MwCka6vpr+8eNm6kuLu8vtZag3KzM4iJ
+ 2sZ4PBpkUIpR70FFd7oVdU7mmZ3jiWjxOVOJj4sT6fTng8XfwJRcwogB2mD8f4RBiT1v2yD
+ ZnbEeASny0ZIji0mMQyy3cOK+LeVJusNq26xjgQAx4TIhLZtq5YKTmheTx2PYvcVRsVu+Vr
+ X6nr6ZyfPe5Y6T1GOYeUg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:t1IUmPucOkk=;aCvs7sBEfRgYCVyT5hsDrZvJu0R
+ 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
 
-Implement the ethtool private statistics interface to expose additional
-port-level and MAC-level counters that are not covered by the standard
-IEEE 802.3 statistics. The pMAC counters are only reported when the port
-supports Frame Preemption (802.1Qbu/802.3br).
+> Von: Rob Herring <robh@kernel.org>=20
+> Gesendet: Freitag, 8. Mai 2026 15:19
+> An: Markus Stockhausen <markus.stockhausen@gmx.de>
+> Cc: andi.shyti@kernel.org; krzk+dt@kernel.org; conor+dt@kernel.org;
+linux-i2c@vger.kernel.org; devicetree@vger.kernel.org
+> Betreff: Re: [PATCH 1/2] dt-bindings: i2c: Add i2c-shared-gpio
+> ...
+> > +      sda-gpios:
+> > +        maxItems: 1
+> > +        description:
+> > +          GPIO used for the SDA signal of this I2C bus. Must be
+> > +          configured as open-drain.
+>
+> I would move this to the parent and make it multiple entries.=20
 
-Signed-off-by: Wei Fang <wei.fang@nxp.com>
----
- drivers/net/dsa/netc/netc_ethtool.c   | 107 ++++++++++++++++++++++++++
- drivers/net/dsa/netc/netc_main.c      |   3 +
- drivers/net/dsa/netc/netc_switch.h    |   9 +++
- drivers/net/dsa/netc/netc_switch_hw.h |  58 ++++++++++++++
- 4 files changed, 177 insertions(+)
+Just to be sure. You are saying that the following is good way to go?
 
-diff --git a/drivers/net/dsa/netc/netc_ethtool.c b/drivers/net/dsa/netc/netc_ethtool.c
-index ac8940b5a85c..8d04db534347 100644
---- a/drivers/net/dsa/netc/netc_ethtool.c
-+++ b/drivers/net/dsa/netc/netc_ethtool.c
-@@ -19,6 +19,56 @@ static const struct ethtool_rmon_hist_range netc_rmon_ranges[] = {
- 	{ }
- };
- 
-+static const struct netc_port_stat netc_port_counters[] = {
-+	{ NETC_PTGSLACR,	"port gate late arrival frames" },
-+	{ NETC_PSDFTCR,	"port SDF transmit frames" },
-+	{ NETC_PSDFDDCR,	"port SDF drop duplicate frames" },
-+	{ NETC_PRXDCR,		"port rx discard frames" },
-+	{ NETC_PRXDCRRR,	"port rx discard read-reset" },
-+	{ NETC_PRXDCRR0,	"port rx discard reason 0" },
-+	{ NETC_PRXDCRR1,	"port rx discard reason 1" },
-+	{ NETC_PTXDCR,		"port tx discard frames" },
-+	{ NETC_PTXDCRRR,	"port tx discard read-reset" },
-+	{ NETC_PTXDCRR0,	"port tx discard reason 0" },
-+	{ NETC_PTXDCRR1,	"port tx discard reason 1" },
-+	{ NETC_BPDCR,		"bridge port discard frames" },
-+	{ NETC_BPDCRRR,	"bridge port discard read-reset" },
-+	{ NETC_BPDCRR0,	"bridge port discard reason 0" },
-+	{ NETC_BPDCRR1,	"bridge port discard reason 1" },
-+};
-+
-+static const struct netc_port_stat netc_emac_counters[] = {
-+	{ NETC_PM_ROCT(0),	"eMAC rx octets" },
-+	{ NETC_PM_RVLAN(0),	"eMAC rx VLAN frames" },
-+	{ NETC_PM_RERR(0),	"eMAC rx frame errors" },
-+	{ NETC_PM_RUCA(0),	"eMAC rx unicast frames" },
-+	{ NETC_PM_RDRP(0),	"eMAC rx dropped packets" },
-+	{ NETC_PM_RPKT(0),	"eMAC rx packets" },
-+	{ NETC_PM_TOCT(0),	"eMAC tx octets" },
-+	{ NETC_PM_TVLAN(0),	"eMAC tx VLAN frames" },
-+	{ NETC_PM_TFCS(0),	"eMAC tx FCS errors" },
-+	{ NETC_PM_TUCA(0),	"eMAC tx unicast frames" },
-+	{ NETC_PM_TPKT(0),	"eMAC tx packets" },
-+	{ NETC_PM_TUND(0),	"eMAC tx undersized packets" },
-+	{ NETC_PM_TIOCT(0),	"eMAC tx invalid octets" },
-+};
-+
-+static const struct netc_port_stat netc_pmac_counters[] = {
-+	{ NETC_PM_ROCT(1),	"pMAC rx octets" },
-+	{ NETC_PM_RVLAN(1),	"pMAC rx VLAN frames" },
-+	{ NETC_PM_RERR(1),	"pMAC rx frame errors" },
-+	{ NETC_PM_RUCA(1),	"pMAC rx unicast frames" },
-+	{ NETC_PM_RDRP(1),	"pMAC rx dropped packets" },
-+	{ NETC_PM_RPKT(1),	"pMAC rx packets" },
-+	{ NETC_PM_TOCT(1),	"pMAC tx octets" },
-+	{ NETC_PM_TVLAN(1),	"pMAC tx VLAN frames" },
-+	{ NETC_PM_TFCS(1),	"pMAC tx FCS errors" },
-+	{ NETC_PM_TUCA(1),	"pMAC tx unicast frames" },
-+	{ NETC_PM_TPKT(1),	"pMAC tx packets" },
-+	{ NETC_PM_TUND(1),	"pMAC tx undersized packets" },
-+	{ NETC_PM_TIOCT(1),	"pMAC tx invalid octets" },
-+};
-+
- static void netc_port_pause_stats(struct netc_port *np, int mac,
- 				  struct ethtool_pause_stats *stats)
- {
-@@ -188,3 +238,60 @@ void netc_port_get_eth_mac_stats(struct dsa_switch *ds, int port,
- 		break;
- 	}
- }
-+
-+int netc_port_get_sset_count(struct dsa_switch *ds, int port, int sset)
-+{
-+	struct netc_port *np = NETC_PORT(ds, port);
-+	int size;
-+
-+	if (sset != ETH_SS_STATS)
-+		return -EOPNOTSUPP;
-+
-+	size = ARRAY_SIZE(netc_port_counters) +
-+	       ARRAY_SIZE(netc_emac_counters);
-+
-+	if (np->caps.pmac)
-+		size += ARRAY_SIZE(netc_pmac_counters);
-+
-+	return size;
-+}
-+
-+void netc_port_get_strings(struct dsa_switch *ds, int port,
-+			   u32 sset, u8 *data)
-+{
-+	struct netc_port *np = NETC_PORT(ds, port);
-+	int i;
-+
-+	if (sset != ETH_SS_STATS)
-+		return;
-+
-+	for (i = 0; i < ARRAY_SIZE(netc_port_counters); i++)
-+		ethtool_cpy(&data, netc_port_counters[i].name);
-+
-+	for (i = 0; i < ARRAY_SIZE(netc_emac_counters); i++)
-+		ethtool_cpy(&data, netc_emac_counters[i].name);
-+
-+	if (!np->caps.pmac)
-+		return;
-+
-+	for (i = 0; i < ARRAY_SIZE(netc_pmac_counters); i++)
-+		ethtool_cpy(&data, netc_pmac_counters[i].name);
-+}
-+
-+void netc_port_get_ethtool_stats(struct dsa_switch *ds, int port, u64 *data)
-+{
-+	struct netc_port *np = NETC_PORT(ds, port);
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(netc_port_counters); i++)
-+		*data++ = netc_port_rd(np, netc_port_counters[i].reg);
-+
-+	for (i = 0; i < ARRAY_SIZE(netc_emac_counters); i++)
-+		*data++ = netc_port_rd64(np, netc_emac_counters[i].reg);
-+
-+	if (!np->caps.pmac)
-+		return;
-+
-+	for (i = 0; i < ARRAY_SIZE(netc_pmac_counters); i++)
-+		*data++ = netc_port_rd64(np, netc_pmac_counters[i].reg);
-+}
-diff --git a/drivers/net/dsa/netc/netc_main.c b/drivers/net/dsa/netc/netc_main.c
-index 338f2421ccb4..a82e156ce86e 100644
---- a/drivers/net/dsa/netc/netc_main.c
-+++ b/drivers/net/dsa/netc/netc_main.c
-@@ -1467,6 +1467,9 @@ static const struct dsa_switch_ops netc_switch_ops = {
- 	.get_rmon_stats			= netc_port_get_rmon_stats,
- 	.get_eth_ctrl_stats		= netc_port_get_eth_ctrl_stats,
- 	.get_eth_mac_stats		= netc_port_get_eth_mac_stats,
-+	.get_sset_count			= netc_port_get_sset_count,
-+	.get_strings			= netc_port_get_strings,
-+	.get_ethtool_stats		= netc_port_get_ethtool_stats,
- };
- 
- static int netc_switch_probe(struct pci_dev *pdev,
-diff --git a/drivers/net/dsa/netc/netc_switch.h b/drivers/net/dsa/netc/netc_switch.h
-index 40e54af0c356..740e1f307c45 100644
---- a/drivers/net/dsa/netc/netc_switch.h
-+++ b/drivers/net/dsa/netc/netc_switch.h
-@@ -94,6 +94,11 @@ struct netc_fdb_entry {
- 	struct hlist_node node;
- };
- 
-+struct netc_port_stat {
-+	int reg;
-+	char name[ETH_GSTRING_LEN] __nonstring;
-+};
-+
- struct netc_switch {
- 	struct pci_dev *pdev;
- 	struct device *dev;
-@@ -160,5 +165,9 @@ void netc_port_get_eth_ctrl_stats(struct dsa_switch *ds, int port,
- 				  struct ethtool_eth_ctrl_stats *ctrl_stats);
- void netc_port_get_eth_mac_stats(struct dsa_switch *ds, int port,
- 				 struct ethtool_eth_mac_stats *mac_stats);
-+int netc_port_get_sset_count(struct dsa_switch *ds, int port, int sset);
-+void netc_port_get_strings(struct dsa_switch *ds, int port,
-+			   u32 sset, u8 *data);
-+void netc_port_get_ethtool_stats(struct dsa_switch *ds, int port, u64 *data);
- 
- #endif
-diff --git a/drivers/net/dsa/netc/netc_switch_hw.h b/drivers/net/dsa/netc/netc_switch_hw.h
-index f8d436ad9623..1b016e7dd03e 100644
---- a/drivers/net/dsa/netc/netc_switch_hw.h
-+++ b/drivers/net/dsa/netc/netc_switch_hw.h
-@@ -87,6 +87,17 @@
- #define  PSR_TX_BUSY			BIT(0)
- #define  PSR_RX_BUSY			BIT(1)
- 
-+#define NETC_PTGSLACR			0x130
-+
-+#define NETC_PRXDCR			0x1c0
-+#define NETC_PRXDCRRR			0x1c4
-+#define NETC_PRXDCRR0			0x1c8
-+#define NETC_PRXDCRR1			0x1cc
-+#define NETC_PTXDCR			0x1e0
-+#define NETC_PTXDCRRR			0x1e4
-+#define NETC_PTXDCRR0			0x1e8
-+#define NETC_PTXDCRR1			0x1ec
-+
- #define NETC_PTCTMSDUR(a)		(0x208 + (a) * 0x20)
- #define  PTCTMSDUR_MAXSDU		GENMASK(15, 0)
- #define  PTCTMSDUR_SDU_TYPE		GENMASK(17, 16)
-@@ -94,6 +105,9 @@
- #define   SDU_TYPE_MPDU			1
- #define   SDU_TYPE_MSDU			2
- 
-+#define NETC_PSDFTCR			0x4c4
-+#define NETC_PSDFDDCR			0x4c8
-+
- #define NETC_BPCR			0x500
- #define  BPCR_DYN_LIMIT			GENMASK(15, 0)
- #define  BPCR_MLO			GENMASK(22, 20)
-@@ -142,6 +156,11 @@ enum netc_stg_stage {
- 	NETC_STG_STATE_FORWARDING,
- };
- 
-+#define NETC_BPDCR			0x580
-+#define NETC_BPDCRRR			0x584
-+#define NETC_BPDCRR0			0x588
-+#define NETC_BPDCRR1			0x58c
-+
- /* Definition of Switch ethernet MAC port registers */
- #define NETC_PMAC_OFFSET		0x400
- #define NETC_PM_CMD_CFG(a)		(0x1008 + (a) * 0x400)
-@@ -176,6 +195,9 @@ enum netc_stg_stage {
- /* Port MAC 0/1 Receive Ethernet Octets Counter */
- #define NETC_PM_REOCT(a)		(0x1100 + (a) * 0x400)
- 
-+/* Port MAC 0/1 Receive Octets Counter */
-+#define NETC_PM_ROCT(a)			(0x1108 + (a) * 0x400)
-+
- /* Port MAC 0/1 Receive Alignment Error Counter Register */
- #define NETC_PM_RALN(a)			(0x1110 + (a) * 0x400)
- 
-@@ -188,12 +210,27 @@ enum netc_stg_stage {
- /* Port MAC 0/1 Receive Frame Check Sequence Error Counter */
- #define NETC_PM_RFCS(a)			(0x1128 + (a) * 0x400)
- 
-+/* Port MAC 0/1 Receive VLAN Frame Counter */
-+#define NETC_PM_RVLAN(a)		(0x1130 + (a) * 0x400)
-+
-+/* Port MAC 0/1 Receive Frame Error Counter */
-+#define NETC_PM_RERR(a)			(0x1138 + (a) * 0x400)
-+
-+/* Port MAC 0/1 Receive Unicast Frame Counter */
-+#define NETC_PM_RUCA(a)			(0x1140 + (a) * 0x400)
-+
- /* Port MAC 0/1 Receive Multicast Frame Counter */
- #define NETC_PM_RMCA(a)			(0x1148 + (a) * 0x400)
- 
- /* Port MAC 0/1 Receive Broadcast Frame Counter */
- #define NETC_PM_RBCA(a)			(0x1150 + (a) * 0x400)
- 
-+/* Port MAC 0/1 Receive Dropped Packets Counter */
-+#define NETC_PM_RDRP(a)			(0x1158 + (a) * 0x400)
-+
-+/* Port MAC 0/1 Receive Packets Counter */
-+#define NETC_PM_RPKT(a)			(0x1160 + (a) * 0x400)
-+
- /* Port MAC 0/1 Receive Undersized Packet Counter */
- #define NETC_PM_RUND(a)			(0x1168 + (a) * 0x400)
- 
-@@ -236,6 +273,9 @@ enum netc_stg_stage {
- /* Port MAC 0/1 Transmit Ethernet Octets Counter */
- #define NETC_PM_TEOCT(a)		(0x1200 + (a) * 0x400)
- 
-+/* Port MAC 0/1 Transmit Octets Counter */
-+#define NETC_PM_TOCT(a)			(0x1208 + (a) * 0x400)
-+
- /* Port MAC 0/1 Transmit Excessive Deferral Packet Counter */
- #define NETC_PM_TEDFR(a)		(0x1210 + (a) * 0x400)
- 
-@@ -245,15 +285,30 @@ enum netc_stg_stage {
- /* Port MAC 0/1 Transmit Frame Counter */
- #define NETC_PM_TFRM(a)			(0x1220 + (a) * 0x400)
- 
-+/* Port MAC 0/1 Transmit Frame Check Sequence Error Counter */
-+#define NETC_PM_TFCS(a)			(0x1228 + (a) * 0x400)
-+
-+/* Port MAC 0/1 Transmit VLAN Frame Counter */
-+#define NETC_PM_TVLAN(a)		(0x1230 + (a) * 0x400)
-+
- /* Port MAC 0/1 Transmit Frame Error Counter */
- #define NETC_PM_TERR(a)			(0x1238 + (a) * 0x400)
- 
-+/* Port MAC 0/1 Transmit Unicast Frame Counter */
-+#define NETC_PM_TUCA(a)			(0x1240 + (a) * 0x400)
-+
- /* Port MAC 0/1 Transmit Multicast Frame Counter */
- #define NETC_PM_TMCA(a)			(0x1248 + (a) * 0x400)
- 
- /* Port MAC 0/1 Transmit Broadcast Frame Counter */
- #define NETC_PM_TBCA(a)			(0x1250 + (a) * 0x400)
- 
-+/* Port MAC 0/1 Transmit Packets Counter */
-+#define NETC_PM_TPKT(a)			(0x1260 + (a) * 0x400)
-+
-+/* Port MAC 0/1 Transmit Undersized Packet Counter */
-+#define NETC_PM_TUND(a)			(0x1268 + (a) * 0x400)
-+
- /* Port MAC 0/1 Transmit 64-Octet Packet Counter */
- #define NETC_PM_T64(a)			(0x1270 + (a) * 0x400)
- 
-@@ -293,6 +348,9 @@ enum netc_stg_stage {
- /* Port MAC 0/1 Transmit Excessive Collisions Counter */
- #define NETC_PM_TECOL(a)		(0x12f0 + (a) * 0x400)
- 
-+/* Port MAC 0/1 Transmit Invalid Octets Counter */
-+#define NETC_PM_TIOCT(a)		(0x12f8 + (a) * 0x400)
-+
- #define NETC_PEMDIOCR			0x1c00
- #define NETC_EMDIO_BASE			NETC_PEMDIOCR
- 
--- 
-2.34.1
+examples:
+  - |
+    #include <dt-bindings/gpio/gpio.h>
+
+    i2c-gpio-shared {
+        compatible =3D "i2c-gpio-shared";
+        scl-gpios =3D <&gpio1 31 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+        sda-gpios =3D <&gpio1 6 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>,
+                    <&gpio1 7 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+        #address-cells =3D <1>;
+        #size-cells =3D <0>;
+
+        i2c@0 {
+            reg =3D <0>;
+            clock-frequency =3D <400000>;
+        };
+
+        i2c@1 {
+            reg =3D <1>;
+            clock-frequency =3D <400000>;
+        };
+    };
+
+
 
