@@ -1,182 +1,224 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BAE2382281
-	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 18:10:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF6228642B;
+	Sat,  9 May 2026 18:11:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778350210; cv=none; b=ImJahGIpuu/SbNJBeAd6/c4BQbVQTWMXx0JtReA75XjrQO0+pCuND77nSxHiVoE3K90qtMeO5LKVftl3owGJdJ2S7AF+v8+e4cjKBUxnnbUO/xFS1JEccR2WvGNfJbjN1OID8uV7unN6v7BhJIZ+aiwDBiA+wPTPtsUN6wpCqmI=
+	t=1778350289; cv=none; b=WQQrRmTGGSeq4dTv/ty8Dq7FYktZoMBm1kA30fbGdt8tGcy+2FmQ5JKjePTBNZM9u1fPFG6buo6QIJr+FBRndNOt051tbDV+yhiYDex4U0jz+jky2OxoIm0Fwh1ltxBwB8CU7E/twY8aPX+SCCqLwEe04sMi8envf+9I/o0usaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778350210; c=relaxed/simple;
-	bh=HHHAx0iSIpv2QA8LnoMZ0aYyITjmuApL3hfq/LoUnaA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aDta2x/mpu1WFdb+Wq3zXEoseryMBlCmjBS0XTa03AQi6y8sXEWUCpGdDosqUFVaNcXzji+Cfs++KTlwRqZKBLJp7b4sOJztZVBxlDbLeuVWQuSJRDkylrEgZt0gmU1BAbMK1KI52SF1YF6E1DA5LHnM1UVnIoO/XA1GxX0o9Hk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iharWL+z; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778350289; c=relaxed/simple;
+	bh=gDMWrWGRMA+bNB2IM5vWVlWNAEk0uIF5LKAFfCzDFp8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JFGc3MQRkk7P60MU8Hu66P3xWuftMbB4ZNIJONjFuuqTjpt4kzfBZyzBlT6BFpOgYVsO22cc6l1Xcc4hUGHBK7pG/e6pnR9Jk9hVmSm0FioFmEgjkLObrd5yG+2oXW4m4BF8EG0upWyyK35W5ingEvCNUc2X3r/8HhLGRPZndk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dYZ2tVVV; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iharWL+z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5E6AC2BCC4;
-	Sat,  9 May 2026 18:10:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dYZ2tVVV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC663C2BCB2;
+	Sat,  9 May 2026 18:11:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778350210;
-	bh=HHHAx0iSIpv2QA8LnoMZ0aYyITjmuApL3hfq/LoUnaA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=iharWL+zMqpLyGnWv8wmLrbG3ftrBfk79kN1OBRy7Ryz9gaAo5BlCrs9z/WEZffGB
-	 WqhZakvV0+uawcQbFoBGixfIp9855VzAwmTFVAj9aBHhudzEQUnA4C8uhnB4gf9wUQ
-	 nQSFV0C5dEzdQQLOtTDHMdTaJ2dWHnvayFU2Dz/X6PyL3o4IKh9mNxV/ctBC4jyH+q
-	 t+sE/W3XJR2vrAKPC9otHbrfcz8uRh9R/L+c2hhzygkChg8nmQw8ivyR7pzjYtuldr
-	 3MJZH50Jl0QyaBNGD3Gc0CKrMXD/pic8/f1AQxXrzQ7RWzlF2bY3310vR9haFg2f0r
-	 cPOvuNu1HlK5A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: Add Airoha AN7583 SoC and AN7583
- Evaluation Board
-Reply-To: sashiko@lists.linux.dev
-To: "Lorenzo Bianconi" <lorenzo@kernel.org>
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260509-airoha-7583-v1-2-e5ad085b258e@kernel.org>
-References: <20260509-airoha-7583-v1-2-e5ad085b258e@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 09 May 2026 18:10:09 +0000
-Message-Id: <20260509181009.E5E6AC2BCC4@smtp.kernel.org>
+	s=k20201202; t=1778350289;
+	bh=gDMWrWGRMA+bNB2IM5vWVlWNAEk0uIF5LKAFfCzDFp8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dYZ2tVVVhi89Sy3JQaOCEq6cPaESn81RV0I7Vf5nRAXOE1P9JeQn2uRD3X2KdYcSI
+	 0woak/4ZoQ7l0mNS1UEqSgJfUdz4GMbjHqd+DIeZyST2nN75xBW/NFvr0RnzLYyj4S
+	 fCwVDz4ly9Wr5RoJp0DEtN/UzP5HgUPqps3PvjlZQjfx1dnZ5jduieumbcBSJPEB8o
+	 SaE76jjsGvOmps0ggAnCRVdJLDw998wdquxQTq18lN5YccQEDVwWpucCJxJYJSrq+I
+	 2MO80EL4wxBXhV+WmQ/gdDGGcq4tnP3MeidZSqnQ34DhEnAfsUoFarvT3PU/AZURN+
+	 N26Hxwtbgo21A==
+Date: Sat, 9 May 2026 19:11:25 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Pramod Maurya <pramod.nexgen@gmail.com>
+Cc: robh@kernel.org, jacobsfeder@gmail.com,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: misc: Add binding for Xilinx AXI-Stream FIFO
+Message-ID: <20260509-railcar-cornfield-6d850a1b8119@spud>
+References: <20260509171648.46933-1-pramod.nexgen@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="sKpmVidQQS2+vGT5"
+Content-Disposition: inline
+In-Reply-To: <20260509171648.46933-1-pramod.nexgen@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] The memory node specifies a physical size of 8GB, which is a typo =
-that will cause a fatal boot panic.
-- [Medium] The UART compatible string 'ns16550' will disable hardware FIFOs.
-- [Medium] The GIC maintenance interrupt polarity is incorrectly specified =
-as active-low.
-- [Low] Missing SoC-specific compatible string for the watchdog timer.
-- [Low] Unnecessary address and size cells in the GIC node will trigger com=
-piler warnings.
-- [Low] CPU nodes declare cooling capabilities but lack required frequency =
-scaling properties.
---
 
-commit f0ce6065ddf4c46b3e0a82baac122d34553f5f4c
-Author: Lorenzo Bianconi <lorenzo@kernel.org>
+--sKpmVidQQS2+vGT5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-arm64: dts: Add Airoha AN7583 SoC and AN7583 Evaluation Board
+On Sat, May 09, 2026 at 01:16:46PM -0400, Pramod Maurya wrote:
+> Add a YAML schema for the Xilinx AXI-Stream FIFO IP core (PG080).
+> The binding documents the three supported compatible strings and all
+> vendor-specific properties that the axis-fifo driver reads from the
+> device tree.
+>=20
+> This resolves the following checkpatch.pl warnings in
+> drivers/staging/axis-fifo/axis-fifo.c:
+>   WARNING: DT compatible string "xlnx,axi-fifo-mm-s-4.1" appears un-docum=
+ented
+>   WARNING: DT compatible string "xlnx,axi-fifo-mm-s-4.2" appears un-docum=
+ented
+>   WARNING: DT compatible string "xlnx,axi-fifo-mm-s-4.3" appears un-docum=
+ented
+>=20
+> Signed-off-by: Pramod Maurya <pramod.nexgen@gmail.com>
 
-Introduce the Airoha AN7583 SoC's dtsi and the Airoha AN7583 Evaluation
-Board's dts file.
+Someone else submitted this conversion (which it is, despite you not
+removing the old file), and the commentary I provided for that patch
+applies here too:
+https://lore.kernel.org/all/20260227-unboxed-customary-7ce6eda1858c@spud/
 
-> diff --git a/arch/arm64/boot/dts/airoha/an7583-evb.dts b/arch/arm64/boot/=
-dts/airoha/an7583-evb.dts
+pw-bot: changes-requested
+
+Thanks,
+Conor.
+
+> ---
+>  .../bindings/misc/xlnx,axi-fifo-mm-s.yaml     | 92 +++++++++++++++++++
+>  MAINTAINERS                                   |  6 ++
+>  2 files changed, 98 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/misc/xlnx,axi-fifo-=
+mm-s.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.ya=
+ml b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
 > new file mode 100644
-> index 0000000000000..76b3d94434f63
+> index 000000000000..1e07db9cd456
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/airoha/an7583-evb.dts
-
-[ ... ]
-
-> +	memory@80000000 {
-> +		device_type =3D "memory";
-> +		reg =3D <0x0 0x80000000 0x2 0x00000000>;
-> +	};
-
-Because #size-cells =3D <2>, the size array <0x2 0x00000000> sets the upper
-32 bits to 0x2, which evaluates to an enormous 8GB memory range.
-
-Is this a typo for 512MB (<0x0 0x20000000>) or 2GB (<0x0 0x80000000>)?
-
-While an identical value exists in the predecessor board's DT, it was
-safely masked there by a restrictive linux,usable-memory-range property
-in the chosen node.
-
-Since this board lacks that protective limit, will the kernel attempt to
-map and access the full 8GB of memory and trigger unbacked physical
-memory accesses, resulting in a fatal bus fault during early boot?
-
-> diff --git a/arch/arm64/boot/dts/airoha/an7583.dtsi b/arch/arm64/boot/dts=
-/airoha/an7583.dtsi
-> new file mode 100644
-> index 0000000000000..64b2c7533aff6
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/airoha/an7583.dtsi
-
-[ ... ]
-
-> +		cpu0: cpu@0 {
-> +			device_type =3D "cpu";
-> +			compatible =3D "arm,cortex-a53";
-> +			reg =3D <0x0>;
-> +			enable-method =3D "psci";
-> +			next-level-cache =3D <&l2>;
-> +			#cooling-cells =3D <2>;
-> +		};
-
-Are required frequency scaling properties missing here?
-
-Both CPU nodes define #cooling-cells, but the cpufreq_cooling subsystem
-requires properties like clocks or operating-points-v2 to bind. Without
-them, is this cooling declaration functionally dead code that generates
-validation warnings?
-
-[ ... ]
-
-> +		gic: interrupt-controller@9000000 {
-> +			compatible =3D "arm,gic-v3";
-> +			interrupt-controller;
-> +			#interrupt-cells =3D <3>;
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <1>;
-
-Do we need these address and size cells here? According to device tree
-compiler rules, specifying them without any children or a ranges property
-causes an avoid_unnecessary_addr_size warning.
-
-> +			reg =3D <0x0 0x09000000 0x0 0x20000>,
-> +			      <0x0 0x09080000 0x0 0x80000>,
-> +			      <0x0 0x09400000 0x0 0x2000>,
-> +			      <0x0 0x09500000 0x0 0x2000>,
-> +			      <0x0 0x09600000 0x0 0x20000>;
-> +			interrupts =3D <GIC_PPI 9 IRQ_TYPE_LEVEL_LOW>;
-
-Should this maintenance interrupt be active-high?
-
-The ARM Generic Interrupt Controller architecture specification explicitly
-mandates that the GIC maintenance interrupt is an active-high,
-level-sensitive interrupt (IRQ_TYPE_LEVEL_HIGH).
-
-Incorrect polarity might prevent it from firing properly and break
-hardware virtualization support.
-
-> +		};
+> +++ b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+> @@ -0,0 +1,92 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/misc/xlnx,axi-fifo-mm-s.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +		uart1: serial@1fbf0000 {
-> +			compatible =3D "ns16550";
-
-Could this compatible string unintentionally disable hardware FIFOs?
-
-In the Linux 8250 serial driver, ns16550 restricts the fifo_size to 1
-byte due to known hardware bugs in the original 16550 chip. Since modern
-UART IPs include working FIFOs, should this be declared as ns16550a to
-avoid excessive interrupt load?
-
-> +			reg =3D <0x0 0x1fbf0000 0x0 0x30>;
-> +			reg-io-width =3D <4>;
-> +			reg-shift =3D <2>;
-> +			interrupts =3D <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
-> +			clock-frequency =3D <1843200>;
-> +		};
+> +title: Xilinx AXI-Stream FIFO
 > +
-> +		watchdog@1fbf0100 {
-> +			compatible =3D "airoha,en7581-wdt";
+> +maintainers:
+> +  - Jacob Feder <jacobsfeder@gmail.com>
+> +
+> +description:
+> +  The Xilinx AXI-Stream FIFO (PG080) provides a memory-mapped interface =
+to
+> +  an AXI-Stream FIFO IP core. It allows a processor to transmit and rece=
+ive
+> +  AXI-Stream packets via simple MMIO register reads and writes.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - xlnx,axi-fifo-mm-s-4.1
+> +      - xlnx,axi-fifo-mm-s-4.2
+> +      - xlnx,axi-fifo-mm-s-4.3
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  xlnx,axi-str-rxd-tdata-width:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Width of the receive AXI-Stream data bus in bits. Currently only 32
+> +      is supported.
+> +    const: 32
+> +
+> +  xlnx,axi-str-txd-tdata-width:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Width of the transmit AXI-Stream data bus in bits. Currently only =
+32
+> +      is supported.
+> +    const: 32
+> +
+> +  xlnx,rx-fifo-depth:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Depth of the receive FIFO in words.
+> +
+> +  xlnx,tx-fifo-depth:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Depth of the transmit FIFO in words.
+> +
+> +  xlnx,use-rx-data:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Set to 1 if the receive data FIFO is enabled, 0 otherwise.
+> +    enum: [0, 1]
+> +
+> +  xlnx,use-tx-data:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Set to 1 if the transmit data FIFO is enabled, 0 otherwise.
+> +    enum: [0, 1]
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - xlnx,axi-str-rxd-tdata-width
+> +  - xlnx,axi-str-txd-tdata-width
+> +  - xlnx,rx-fifo-depth
+> +  - xlnx,tx-fifo-depth
+> +  - xlnx,use-rx-data
+> +  - xlnx,use-tx-data
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    axi_fifo: fifo@43c00000 {
+> +        compatible =3D "xlnx,axi-fifo-mm-s-4.3";
+> +        reg =3D <0x43c00000 0x10000>;
+> +        interrupts =3D <0 30 4>;
+> +        interrupt-parent =3D <&gic>;
+> +        xlnx,axi-str-rxd-tdata-width =3D <32>;
+> +        xlnx,axi-str-txd-tdata-width =3D <32>;
+> +        xlnx,rx-fifo-depth =3D <0x1000>;
+> +        xlnx,tx-fifo-depth =3D <0x1000>;
+> +        xlnx,use-rx-data =3D <1>;
+> +        xlnx,use-tx-data =3D <1>;
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 9b107057ad8c..84be7c8ae257 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -29130,6 +29130,12 @@ S:	Maintained
+>  F:	Documentation/devicetree/bindings/net/xlnx,axi-ethernet.yaml
+>  F:	drivers/net/ethernet/xilinx/xilinx_axienet*
+> =20
+> +XILINX AXI-STREAM FIFO DRIVER
+> +M:	Jacob Feder <jacobsfeder@gmail.com>
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+> +F:	drivers/staging/axis-fifo/
+> +
+>  XILINX CAN DRIVER
+>  M:	Appana Durga Kedareswara rao <appana.durga.rao@xilinx.com>
+>  L:	linux-can@vger.kernel.org
+> --=20
+> 2.52.0
+>=20
 
-Would it be better to include the SoC-specific compatible string alongside
-the fallback?
+--sKpmVidQQS2+vGT5
+Content-Type: application/pgp-signature; name="signature.asc"
 
-The dt-binding schema typically dictates using a string like
-"airoha,an7583-wdt", "airoha,en7581-wdt" to accurately describe the
-specific SoC and ensure any future platform-specific driver quirks can be
-cleanly applied.
+-----BEGIN PGP SIGNATURE-----
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260509-airoha-758=
-3-v1-0-e5ad085b258e@kernel.org?part=3D2
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaf94zQAKCRB4tDGHoIJi
+0r7cAQDuAbGOJUXUHqt1y+o4MpDTbTZcfnp/7hGZZmMM8GSynAEAwdse4tqpFo9c
+vyo8MdLp7BKJs32Lo50Z1NaMnXayHg0=
+=kLlH
+-----END PGP SIGNATURE-----
+
+--sKpmVidQQS2+vGT5--
