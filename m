@@ -1,194 +1,235 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FA3C1E8320;
-	Sat,  9 May 2026 07:52:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB853537C7;
+	Sat,  9 May 2026 07:54:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778313125; cv=none; b=A0nQ0TrNMTQjmOBlo2aNMwo6pP0Dw2mXgrAaCuxOSdc8bMr9FYuhDxjy4r0VMKXHkYTQe97E47lpQBxo12kfUzGab1c2ZD41ExGvc8DXMI2Zao/U/33dzJmYSh07JN2hrBE7D1STAUWDDKErqZ5t+uYi8Q21sidRe/q+UK1GyJc=
+	t=1778313280; cv=none; b=P5/c4ipWdQJoVK3/HidjMRRGZKdSHTGLsxxLXFnsei73NMppNqDh9QgQXfPmJvJc7o/UdDMLx692pdHABcRBvzyd+hJlShrEq3uMPxETQrOMmgMNbafsmRUlL3V48lRs5a9xHLmrpGxwlhc4fNAG8I4w6g/LwSbqJHXxJvr7Z50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778313125; c=relaxed/simple;
-	bh=Q+5aEMnMqZ9rPSshP3zxmEfWAw2dlBy3fSi9kqzaCuU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KHkTQIk/T7KtT9Gu2ocYr2PUWCASLp6SSkgs2H0R2vmvInZV4XaOj1czNZG+Gna99acTnk7JilQLuvEIIeMmYSvv7xEh8x0XAr8wuz5Z2fEJvBKAQE3QOBHKqBoHRwuKb8gRmEW6qiUTnrOfPthLCc+FWZ0zhJU6R4Hewj+0jeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kQKXoafT; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778313280; c=relaxed/simple;
+	bh=zxyz8FDN5UzWDUVCt3tWqjRCa0K5HokRsZajA9FWsek=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LK0ioQUI9fytSqsNRQhqeCQz5vtZ74l/eqiuokIJujGle2GrWXOei40GCaZSQfmISnb0zf3vAA9ttVOuKzGJdk5jN2sCXvMzD+1V0saeEmhR2KVcRVd4V9rgoLWq5N7yI1Kl1yNz6iZbq4489+iA14iGkWHTeCSOrv67GMm+t3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J0rzUBvT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kQKXoafT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B916AC2BCB2;
-	Sat,  9 May 2026 07:52:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J0rzUBvT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A89AC2BCB2;
+	Sat,  9 May 2026 07:54:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778313125;
-	bh=Q+5aEMnMqZ9rPSshP3zxmEfWAw2dlBy3fSi9kqzaCuU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=kQKXoafTnw/REVG8fWymKMJ7a7f1Db82bElndzdHY31/j8qNaqv/9tIHhhcbe9fdu
-	 ++2VypwFzPHEn2Xf/0IyL9FWWcOgUo27plbDjarmss6T7oh5SX6kJRLOz5+dYSmY5N
-	 LnMvyjoYRzFJEE4+XBu2R5K/dZ42iycEaS4mGkf1WAGSuJSu32wp+XH2XK/Tm7wTEV
-	 /mfA/sIzQqbfewhq+p4lzPijQrx+ELTwwzdGM/LT1cLUMNY0jXHcAEwPh4qOsCCynf
-	 040/TnFhgHjI55ufSOnAh3a/7v5AvLdD2L59tuTVSBR86MWXAJjF3buvzV046eruGV
-	 PYNEYBSelr3iA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] arm64: dts: freescale: add i.MX95 19x19 FRDM PRO
- board dts
-Reply-To: sashiko@lists.linux.dev
-To: "Joseph Guo" <qijian.guo@nxp.com>
-Cc: Frank.Li@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260509-imx95_frdm_pro-v3-2-96290b471396@nxp.com>
-References: <20260509-imx95_frdm_pro-v3-2-96290b471396@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 09 May 2026 07:52:04 +0000
-Message-Id: <20260509075204.B916AC2BCB2@smtp.kernel.org>
+	s=k20201202; t=1778313280;
+	bh=zxyz8FDN5UzWDUVCt3tWqjRCa0K5HokRsZajA9FWsek=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=J0rzUBvTmVfwTVwe7CTcEVYs2+fRAl+LvX7Voh1dmP5UGx4KZ+7xkZLgR0KsHByP+
+	 2WsukQoAQ2WdzXCU4g9J/XIFmPr7qwiCjTok/Sm0ctfGdPq+cW7YULTR7VRzbycW4r
+	 mMur2I3fBXKo7hwVWOelVhqGnK4icBPDEVBpgzN6Yng39xHunQM7WlHBCGZ6zvoTRd
+	 FGI9eRAYM6GEMIkRLRv0Q8S7gGxf75se8CG0mHWF5Xc0fx7y4H9m/ep+Fsr7VPmwzU
+	 YgvczEoW8dyerxHy0ZQGJwNYCBF0Y48vrtYZFeMJbDe//5a9QQ7fSwBklvWfXZzy1O
+	 kfVIjRHxOzBcw==
+Date: Sat, 9 May 2026 09:54:37 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, ansuelsmth@gmail.com,
+	benjamin.larsson@genexis.eu, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, madhur.agrawal@airoha.com
+Subject: Re: [PATCH net-next v4 05/10] net: airoha: Move qos_sq_bmap in
+ airoha_qdma struct
+Message-ID: <af7oPWp43eMDmolL@lore-desk>
+References: <20260507-airoha-eth-multi-serdes-v4-5-af613b61ae02@kernel.org>
+ <20260509014609.3558041-1-kuba@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Xd5dB8WzQ5hyc0ai"
+Content-Disposition: inline
+In-Reply-To: <20260509014609.3558041-1-kuba@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] The `silent-gpios` for `flexcan1_phy` and `flexcan3_phy` (which us=
-e the `nxp,tja1057` CAN transceiver) are defined with the `GPIO_ACTIVE_LOW`=
- polarity. This is incorrect for the TJA1057.
-- [High] The pad configuration for the `pcal6416` I2C GPIO expander's inter=
-rupt pin (`IMX95_PAD_GPIO_IO34__GPIO5_IO_BIT14`) in `pinctrl_pcal6416` is i=
-ncorrectly set to `0x31` instead of the expected `0x31e`.
-- [Low] The `pcie0` and `pcie1` nodes use the deprecated `reset-gpio` prope=
-rty instead of the standard `reset-gpios`.
-- [Low] Device tree node names contain underscores, which violates DT namin=
-g specifications.
---
 
-commit e8bda174f6b9f1f5508fbd640dcc59ff092dd5cd
-Author: Joseph Guo <qijian.guo@nxp.com>
+--Xd5dB8WzQ5hyc0ai
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-arm64: dts: freescale: add i.MX95 19x19 FRDM PRO board dts
+On May 08, Jakub Kicinski wrote:
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> ---
+>     net: airoha: Move qos_sq_bmap in airoha_qdma struct
+>=20
+> The change moves the HTB-offload channel-allocation bitmap from the
+> per-netdev airoha_gdm_port to the per-QDMA airoha_qdma, so sibling
+> netdevs attached to different QDMA blocks no longer clobber each other's
+> bitmap.
+>=20
+> > diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/eth=
+ernet/airoha/airoha_eth.c
+> > index 080705e2f58d..69a4c2e0d58b 100644
+> > --- a/drivers/net/ethernet/airoha/airoha_eth.c
+> > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
+> > @@ -2600,7 +2600,7 @@ static int airoha_tc_htb_alloc_leaf_queue(struct =
+net_device *netdev,
+> >  	u32 rate =3D div_u64(opt->rate, 1000) << 3; /* kbps */
+> >  	int err, num_tx_queues =3D netdev->real_num_tx_queues;
+> >  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+> > -	struct airoha_gdm_port *port =3D dev->port;
+> > +	struct airoha_qdma *qdma =3D dev->qdma;
+> > =20
+> >  	if (opt->parent_classid !=3D TC_HTB_CLASSID_ROOT) {
+> >  		NL_SET_ERR_MSG_MOD(opt->extack, "invalid parent classid");
+> > @@ -2627,7 +2627,7 @@ static int airoha_tc_htb_alloc_leaf_queue(struct =
+net_device *netdev,
+> >  		return err;
+> >  	}
+> > =20
+> > -	set_bit(channel, port->qos_sq_bmap);
+> > +	set_bit(channel, qdma->qos_sq_bmap);
+> >  	opt->qid =3D AIROHA_NUM_TX_RING + channel;
+> > =20
+> >  	return 0;
+>=20
+> [High]
+> Now that qos_sq_bmap is per-QDMA, can two sibling netdevs that share the
+> same QDMA block collide on allocation?  On EN7581, GDM2/GDM3/GDM4 all
+> select the same qdma pointer via:
+>=20
+>     drivers/net/ethernet/airoha/airoha_eth.c:
+>         /* QDMA0 is used for lan ports while QDMA1 is used for WAN ports =
+*/
+>         dev->qdma =3D &eth->qdma[!airoha_is_lan_gdm_dev(dev)];
+>=20
+> and airoha_is_lan_gdm_dev() returns true only for port->id =3D=3D 1, so
+> every non-LAN GDM netdev resolves to eth->qdma[1] and shares
+> qdma->qos_sq_bmap.
+>=20
+> The allocation path does not test the bit before setting it:
+>=20
+>     channel =3D TC_H_MIN(opt->classid) % AIROHA_NUM_QOS_CHANNELS;
+>     ...
+>     set_bit(channel, qdma->qos_sq_bmap);
+>     opt->qid =3D AIROHA_NUM_TX_RING + channel;
+>=20
+> If two sibling netdevs on the same QDMA pick classids whose TC_H_MIN
+> maps to the same channel, both airoha_qdma_set_tx_rate_limit() calls
+> program the same HW TRTCM egress slot, the later caller silently
+> overwrites the earlier configuration, and both netdevs receive the same
+> opt->qid.  Should this path use test_and_set_bit() (or similar owner
+> tracking) to reject a channel already owned by a sibling netdev?
 
-NXP i.MX95 19x19 FRDM PRO is cost-effective with extensive expansion
-capabilities based on the i.MX95 19x19 SoC. Add device tree for this board.
+ack, I think we should move qos_sq_bmap in airoha_gdm_dev struct and track =
+if a
+shared qdma qos channel is already in use. I will fix it in v5.
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx95-19x19-frdm-pro.dts b/arc=
-h/arm64/boot/dts/freescale/imx95-19x19-frdm-pro.dts
-> new file mode 100644
-> index 0000000000000..ce638ed8dc0f9
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx95-19x19-frdm-pro.dts
-> @@ -0,0 +1,1021 @@
+>=20
+> > @@ -2811,11 +2811,11 @@ static int airoha_dev_setup_tc_block(struct net=
+_device *dev,
+> >  static void airoha_tc_remove_htb_queue(struct net_device *netdev, int =
+queue)
+> >  {
+> >  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+> > -	struct airoha_gdm_port *port =3D dev->port;
+> > +	struct airoha_qdma *qdma =3D dev->qdma;
+> > =20
+> >  	netif_set_real_num_tx_queues(netdev, netdev->real_num_tx_queues - 1);
+> >  	airoha_qdma_set_tx_rate_limit(netdev, queue + 1, 0, 0);
+> > -	clear_bit(queue, port->qos_sq_bmap);
+> > +	clear_bit(queue, qdma->qos_sq_bmap);
+> >  }
+>=20
+> [High]
+> airoha_tc_remove_htb_queue() operates unconditionally on the caller's
+> netdev but clears a bit that may be owned by a sibling netdev on the
+> same QDMA.  The effects that follow look like cross-netdev interference:
+>=20
+>   - netif_set_real_num_tx_queues(netdev, real_num_tx_queues - 1)
+>     decrements the caller's tx-queue count for a queue it never
+>     allocated, and its return value is discarded (eventually the txq<1
+>     EINVAL guard in netif_set_real_num_tx_queues() will trip silently).
+>=20
+>   - airoha_qdma_set_tx_rate_limit(netdev, queue + 1, 0, 0) zeros the
+>     egress TRTCM rate-limit registers for a channel that the sibling
+>     netdev still considers active.
+>=20
+>   - clear_bit(queue, qdma->qos_sq_bmap) then hides the channel from the
+>     legitimate owner's later test_bit() checks.
 
-[ ... ]
+This issue will be fixed by the change described above. I will fix it in v5.
 
-> +	aliases {
-> +		ethernet0 =3D &enetc_port0;
-> +		ethernet1 =3D &enetc_port1;
+>=20
+> > @@ -2838,10 +2838,10 @@ static int airoha_tc_htb_delete_leaf_queue(stru=
+ct net_device *netdev,
+> >  static int airoha_tc_htb_destroy(struct net_device *netdev)
+> >  {
+> >  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+> > -	struct airoha_gdm_port *port =3D dev->port;
+> > +	struct airoha_qdma *qdma =3D dev->qdma;
+> >  	int q;
+> > =20
+> > -	for_each_set_bit(q, port->qos_sq_bmap, AIROHA_NUM_QOS_CHANNELS)
+> > +	for_each_set_bit(q, qdma->qos_sq_bmap, AIROHA_NUM_QOS_CHANNELS)
+> >  		airoha_tc_remove_htb_queue(netdev, q);
+> > =20
+> >  	return 0;
+> >  }
+>=20
+> [High]
+> Does airoha_tc_htb_destroy() now walk bits owned by sibling netdevs?
+> The iteration no longer filters by owning netdev:
+>=20
+>     for_each_set_bit(q, qdma->qos_sq_bmap, AIROHA_NUM_QOS_CHANNELS)
+>         airoha_tc_remove_htb_queue(netdev, q);
+>=20
+> Previously each netdev had a private bitmap, so destroy could only
+> touch its own channels.  After this change, tearing down HTB on one
+> GDM netdev appears to remove channels and clear rate-limit HW state
+> belonging to every sibling GDM netdev on the same QDMA.  A subsequent
+> tc-htb delete or get on the legitimate owner then hits:
+>=20
+>     if (!test_bit(channel, qdma->qos_sq_bmap)) {
+>         NL_SET_ERR_MSG_MOD(opt->extack, "invalid queue id");
+>         return -EINVAL;
+>     }
+>=20
+> Should the bitmap track the owning netdev alongside the bit (for
+> example a per-channel owner pointer, or a per-netdev sub-bitmap inside
+> airoha_qdma), so that destroy/delete can only touch channels owned by
+> the caller?
 
-[ ... ]
+This issue will be fixed by the change described above. I will fix it in v5.
 
-> +		serial0 =3D &lpuart1;
-> +		serial4 =3D &lpuart5;
-> +	};
-> +
-> +	bt_sco_codec: bt_sco_codec {
-> +		compatible =3D "linux,bt-sco";
-> +		#sound-dai-cells =3D <1>;
-> +	};
+Regards,
+Lorenzo
 
-This isn't a bug, but should this node name use hyphens instead of
-underscores to comply with Devicetree naming specifications?
+>=20
+> > @@ -2852,9 +2852,9 @@ static int airoha_tc_get_htb_get_leaf_queue(struc=
+t net_device *netdev,
+> >  {
+> >  	u32 channel =3D TC_H_MIN(opt->classid) % AIROHA_NUM_QOS_CHANNELS;
+> >  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+> > -	struct airoha_gdm_port *port =3D dev->port;
+> > +	struct airoha_qdma *qdma =3D dev->qdma;
+> > =20
+> > -	if (!test_bit(channel, port->qos_sq_bmap)) {
+> > +	if (!test_bit(channel, qdma->qos_sq_bmap)) {
+> >  		NL_SET_ERR_MSG_MOD(opt->extack, "invalid queue id");
+> >  		return -EINVAL;
+> >  	}
 
-> +
-> +	flexcan1_phy: can-phy0 {
-> +		compatible =3D "nxp,tja1057";
-> +		#phy-cells =3D <0>;
-> +		max-bitrate =3D <5000000>;
-> +		silent-gpios =3D <&i2c4_gpio_expander_22 11 GPIO_ACTIVE_LOW>;
-> +	};
-> +
-> +	flexcan3_phy: can-phy2 {
-> +		compatible =3D "nxp,tja1057";
-> +		#phy-cells =3D <0>;
-> +		max-bitrate =3D <5000000>;
-> +		silent-gpios =3D <&i2c4_gpio_expander_22 13 GPIO_ACTIVE_LOW>;
-> +	};
+--Xd5dB8WzQ5hyc0ai
+Content-Type: application/pgp-signature; name=signature.asc
 
-Does this incorrectly configure the TJA1057 transceiver?
+-----BEGIN PGP SIGNATURE-----
 
-The hardware's silent pin is active-high, so when the driver deasserts the
-silent GPIO to enable transmission (logical 0), setting the polarity to
-active-low will drive a physical high level.
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaf7oPQAKCRA6cBh0uS2t
+rN3RAQCwaawlr2yErx3LmHhe0E+rMXHt3D2fiJwpOoWIsi7hiQEAi8DO4s7DF7IM
+P/IEb6FGOSDFfHmE1ucbwpvLwHIbngg=
+=tFrn
+-----END PGP SIGNATURE-----
 
-This would force the transceiver into silent mode and prevent any CAN
-transmissions.
-
-Should the polarity be set to active-high instead?
-
-[ ... ]
-
-> +	sound-mqs {
-> +		compatible =3D "audio-graph-card2";
-> +		links =3D <&sai1_port1>;
-> +		label =3D "mqs-audio";
-> +	};
-> +
-> +	usdhc3_pwrseq: usdhc3_pwrseq {
-> +		compatible =3D "mmc-pwrseq-simple";
-> +		reset-gpios =3D <&i2c4_gpio_expander_22 9 GPIO_ACTIVE_LOW>;
-> +	};
-
-This isn't a bug, but should this node name also use hyphens instead of
-underscores?
-
-[ ... ]
-
-> +&netcmix_blk_ctrl {
-> +	status =3D "okay";
-> +};
-> +
-> +&pcie0 {
-> +	pinctrl-0 =3D <&pinctrl_pcie0>;
-> +	pinctrl-names =3D "default";
-> +	reset-gpio =3D <&i2c4_gpio_expander_22 19 GPIO_ACTIVE_LOW>;
-> +	vpcie-supply =3D <&reg_m2_mkey_1_pwr>;
-> +	status =3D "okay";
-> +};
-> +
-> +&pcie1 {
-> +	pinctrl-0 =3D <&pinctrl_pcie1>;
-> +	pinctrl-names =3D "default";
-> +	reset-gpio =3D <&i2c3_gpio_expander_20 9 GPIO_ACTIVE_LOW>;
-> +	vpcie-supply =3D <&reg_m2_mkey_2_pwr>;
-> +	status =3D "okay";
-> +};
-
-This isn't a bug, but should these properties use the standard reset-gpios
-name instead of the deprecated reset-gpio?
-
-Using the singular form violates strict DT schema definitions and might
-trigger validation warnings.
-
-[ ... ]
-
-> +	pinctrl_mqs1: mqs1grp {
-> +		fsl,pins =3D <
-> +			IMX95_PAD_SAI1_TXFS__AONMIX_TOP_MQS1_LEFT		0x31e
-> +			IMX95_PAD_SAI1_RXD0__AONMIX_TOP_MQS1_RIGHT		0x31e
-> +		>;
-> +	};
-> +
-> +	pinctrl_pcal6416: pcal6416grp {
-> +		fsl,pins =3D <
-> +			IMX95_PAD_GPIO_IO34__GPIO5_IO_BIT14			0x31
-> +		>;
-> +	};
-
-Is this pad missing the pull-up enable bit?
-
-In i.MX95 pad configurations, the trailing 0xe enables the pull-up resistor.
-
-Since the pcal6416 interrupt output is open-drain and configured as
-active-low, leaving it floating could cause an interrupt storm or missed
-interrupts.
-
-Should this be 0x31e instead of 0x31?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260509-imx95_frdm=
-_pro-v3-0-96290b471396@nxp.com?part=3D2
+--Xd5dB8WzQ5hyc0ai--
