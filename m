@@ -1,118 +1,89 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 810CE368294
-	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 14:43:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B31E140E5F
+	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 14:45:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778337831; cv=none; b=HmLO//RrmznkiUEte7Qdc2Z4MgZxnfVUTE6/Vy3jGRhn06kERiqFAXarFcoSvwltiiMiEuCpjh3i/xHlC/S1jiVYfgP9t8bnpbz269nrJOYMUr2U6KVg6FwYV6O3odABYnw4Zq8db76W1sKaHXgbPN6s1IQvF7Yx2CNocoxxQuA=
+	t=1778337942; cv=none; b=G9GlswSjXwgjzd7zAlvFmV4EmG19tGQszF2YOgLHvE3vRyeZH5ZlTsoCoIoDgeduzrMX2uPOr09C2Xp+OTayVz39XVc2U7lMszcFwLs4soAuPHHlRbXi2D4sT1PRm8xDmu9vN8y+r7/NBAZ5EIRHTBRv/vC5+GFnjbA0/6i6UMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778337831; c=relaxed/simple;
-	bh=dO/mpADzMV7Bgz+dNLvnHa5uezPUyzJiV1A8vcfRjcA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CQqjBkybe3fB5EgSdPnoRq/QeMbJRJM5mwrScL6uJzU86UwPvZGoNSo9+AGIUMl4dOFOA96qjkEB598CeO73fQFLA8cEoTG69A55P0TMewEJOOmmqdBp4SoQNXZjImewOHWFCrFx9kuQXFBzDnp46sIkphgSw579mmgCuQHA22A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cc+NYHr8; arc=none smtp.client-ip=209.85.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778337942; c=relaxed/simple;
+	bh=mO6eTRSpfJU9LUrMgyN8cXGu9lb9Fxzyjya0OBZxw7Q=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=HcNqQ5Ko3ek5Z4sGj3c3krHSAfJXnmg+QNM5SmBYCmaYS9TcAJ4AKLdh0Qj5TrUYg4Stx20k5bDnqo5jSv3vxAzmnELGP04jVZawlEhLGCca+tnQ6Qu/nXuR+ip5RiS82cdjuz1+7Sg5JdgBa05KN/7BeSBH5fDpHh71G9tWHP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AnW+vRxk; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cc+NYHr8"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6746d0b2b4aso4405633a12.3
-        for <devicetree@vger.kernel.org>; Sat, 09 May 2026 07:43:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778337828; x=1778942628; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=rTagnauLE+hhKKiT1zAZaD+hPibc/QQjA6EWs3KI5oU=;
-        b=Cc+NYHr8FMBLyFMItErNkK+Jr7HYawtfq+4HjEjytz9cyTd6sMGoZeUA8uJcDgdXka
-         8rR2ERGQ+ne3e9jFvzGg+Hz0Dnk/VIlbKewFnGRQdgd+vYfq7DWhbpo42T0kZoXOgto3
-         iGOWyIq1G1TbndkFjIeJJk11jlp5CS+oxW0mCJcVVzEXOtV/B479qDvpTXsTLCR03DkP
-         XXxPKcwpWzQEDqVV1SNR+GLSZEDl8lRyUGRo4paFZis32Z/mPJzTByEgt1RGkYU6+tVG
-         eIzVZjBY8UQk1VnfV9DGkKMw35DKTfJ6HC+Mbqil/6a8+QIPmVmcWk06b5ZVhFACl2Az
-         089A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778337828; x=1778942628;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=rTagnauLE+hhKKiT1zAZaD+hPibc/QQjA6EWs3KI5oU=;
-        b=js6UfSR0VmcdgGGr7c0uDXbLQhSPInJV2sl82k4kar1B8u1yigwdq5A16UNI1WTkHv
-         wBAvvqiw4VDFVCL2X1T0dNdILuZZ/CIYbRRQHRlexWZYpL/6xh5NDVtHrfWXvRlwLo5R
-         kg8C6cfoppykMVb+kFBJhBaFKZAIkMH1JhZpj97QHjQZ0nD20+Dwvyo8UAbWSxlP0wVM
-         I1nF8lZTigLLREF3xBksuuZVjchBNcTRmUc58hpdxU6E4m50bl49vDffdT8YoG3B4h6Y
-         a1MddCRR3RB+olsN13DIAxAsQQWk+lfiyQ0M2dOzQQtcG5twa01MRNvgc1JC06D13tdV
-         +pyw==
-X-Forwarded-Encrypted: i=1; AFNElJ9LTlEVr2pOu8TgK4lPWa2DiacdLVsxWz1A/ZjJVIGopzH9V+YCpzIJ1jfD75q0S1vJmKZbOGabUKR1@vger.kernel.org
-X-Gm-Message-State: AOJu0YwA4SoLFiVtUaxz23kB73mZ5fYNdwtVx8jnUHs8S/Q7Ct9ewjZI
-	xtI385+OvDUgODAqlnhat3lkJZjeEycPYUyuUJjPt0sFR4xiONp7Fmru
-X-Gm-Gg: Acq92OGyIYUmPhTwsyAI6jQ+vdkA7QZtnI8yuRxmvytCKYDUGw57NVHNPZ5V5jQzk+H
-	b6BY41QULj4pxwQYxP+ZmvDF3xsRixxelFTtmQ5HNdbnJi3xstHIdUcVWBRCQg8uq3aAYGfScZm
-	fuivACE75SbICJsARg0dRA2coJLSBXoI5UIPkN/kqVnTm1Wc16GvOL8yKumTF9SFag+BN3325dm
-	/afa4RlPzNE20Qu5X7CrpN2qCGaOhN7BoikaNrPIYePH5WuQeBvQhNwvO5V6R8ztmsl0H3NsE7u
-	+uFz2VEZ9RW4fIHWDF70TW+vglOMi+GhcL9aOpjyw35QA4+tYwIzC53euZNUhskOVExsa0HRo/B
-	01d1jvVDG5WDQdjE4hWhO0hUnWPNPiypgtbRg6YseYJLSTxs1LDv1i8lPyzRnOHDm+WeJVtaCQD
-	n9YE5B6Z+KQV1CmrkRtwsypimeJPDCUH6v4msk/YMJ6ymzS2Pf+FP3gNPlZed0HJYkNqH/
-X-Received: by 2002:a05:6402:5407:b0:673:9b15:39d3 with SMTP id 4fb4d7f45d1cf-67d642b04ddmr8185100a12.16.1778337827665;
-        Sat, 09 May 2026 07:43:47 -0700 (PDT)
-Received: from ?IPV6:2a00:f502:160:4e2:a099:cad9:2ecd:93de? ([2a00:f502:160:4e2:a099:cad9:2ecd:93de])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-67ef0b6a11asm1820101a12.8.2026.05.09.07.43.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 09 May 2026 07:43:47 -0700 (PDT)
-Message-ID: <1ee77cbb-9894-4b16-ae2b-8e9035fd6cd5@gmail.com>
-Date: Sat, 9 May 2026 17:43:42 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AnW+vRxk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB5E5C2BCB2;
+	Sat,  9 May 2026 14:45:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778337942;
+	bh=mO6eTRSpfJU9LUrMgyN8cXGu9lb9Fxzyjya0OBZxw7Q=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=AnW+vRxkp0+eYxQ2vV6KqU7akB39ys9HYilG1tUBQWqjENqhbak9o4wnJQDUkLSbw
+	 HgHcuccUrq1IBAJOz5Ubsu40OsPwmP03nTm7cl4q923ZncPwIquBKbRQciv+JRrfge
+	 wWwN9c08R3AZiCQsf9oGfOBEShIsAUOcfWcH/2BLPlld0cgWP42EfpG0BtVYUBIGfw
+	 KZonKLeE8a4abQoER7kSYjLG2UQnqdgWiBzrP+DR3YsO4rVmADsIsAZqAw7+92A8hS
+	 ejNszSSKiH+shWrp5NWN66GI7Eu1909kCbzs059ExMQgzxmSi4sRuGaWi1euDfsf73
+	 mOEJaKCzfvtgQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/5] dt-bindings: iio: dac: ad5504: add output-range
+ and missing gpios
+Reply-To: sashiko@lists.linux.dev
+To: "Taha Ed-Dafili" <0rayn.dev@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260509142047.30302-2-0rayn.dev@gmail.com>
+References: <20260509142047.30302-2-0rayn.dev@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 09 May 2026 14:45:41 +0000
+Message-Id: <20260509144541.BB5E5C2BCB2@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 5/8] clk: qcom: gcc-msm8939: mark Venus core GDSCs as
- hardware controlled
-To: Bryan O'Donoghue <bod@kernel.org>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org
-References: <20260507-msm8939-venus-rfc-v5-0-d7b5ea2ce591@gmail.com>
- <17c4626e-8926-4cad-842d-a1b171d1e962@kernel.org>
- <CYaHtccGOWlaUtl3QIKva44ybJiRHsPOZmHEkl2KKGmnDxJ8vTH-SVNMGbL7bjkYjI692nplORzOhpfjs3XJfg==@protonmail.internalid>
- <4f1ab5b8-3bfe-43a6-8b91-317456188544@gmail.com>
- <7df3bff7-b872-4b20-8e7c-698157a41f33@kernel.org>
- <tawGGT4rtpw22Ng-MgM--GhoEihBU7tY_TrFUHf8raMKApyqTcSkKHyfSuRIL_bqNp_5zWD4SBG_C4c8CB7_6Q==@protonmail.internalid>
- <18998766-62fe-4a5e-95d8-1bfae712d8fb@gmail.com>
- <614a087d-d219-49cb-85ee-772044558649@kernel.org>
- <Jxt4BbN1dL8VKh_Zjah1xecAjz3c9VfbhKSm4a0K2D1MNKfJKIFnCPLj2VvdW1q4LnMIQy8bCzV3YoVnLFYUlA==@protonmail.internalid>
- <0cee27b6-f566-4958-8634-2c43e099281e@gmail.com>
- <dd435489-0cf7-4274-99bf-a591a15e91e4@kernel.org>
- <-hM6afm_Cu_8Cha9U-hrlrg6CGDEb5D3PFpPPCfIh-QgkdFJp_r0Ah9k1dvAF4zkju2dPc3FZJxvOA4V4hupAA==@protonmail.internalid>
- <69f9a6b7-7431-442a-82a2-6305635a508a@gmail.com>
- <9bf43e04-f834-45b6-8942-bcae2e480371@kernel.org>
-Content-Language: en-US
-From: Erikas Bitovtas <xerikasxx@gmail.com>
-In-Reply-To: <9bf43e04-f834-45b6-8942-bcae2e480371@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-> OTOH if Core1 can't be coaxed into working in either mode, we are better
-> off either holding off on this series until the breakages is root caused
-> or leaving out Core1 entirely for now.
-> 
-> i.e. there is no utility in declaring an encoder or decoder to userspace
-> that is known to be broken.
-> Last time I tried to enable only 1 of the cores, the following would happen:
-- If core0 is enabled, HEVC decoding would work, but not the other codecs.
-- If core1 is enabled, the rest of codecs would work, but not HEVC.
-Given we don't really have a way to power up a core based on which codec
-we are dealing with, I suggest we leave both cores in the binding and
-enable them indiscriminately.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The `vlogic-supply` property is missing from the device tree exampl=
+e despite the commit message claiming to provide a complete usage example.
+--
+
+commit c85189a6dcd792e207cd5be70833e861a180c568
+Author: Taha Ed-Dafili <0rayn.dev@gmail.com>
+
+dt-bindings: iio: dac: ad5504: add output-range and missing gpios
+
+This commit introduces properties for configuring the R_SEL pin on AD5504
+devices. It also adds vlogic-supply, clr-gpios, ldac-gpios, datasheet links,
+and updates the usage example.
+
+> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5504.yaml b/=
+Documentation/devicetree/bindings/iio/dac/adi,ad5504.yaml
+> index 9c2c038683b4d..e0123dceaa336 100644
+> --- a/Documentation/devicetree/bindings/iio/dac/adi,ad5504.yaml
+> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5504.yaml
+
+[ ... ]
+
+> @@ -45,6 +78,10 @@ examples:
+>              compatible =3D "adi,ad5504";
+>              vcc-supply =3D <&dac_vcc>;
+>              interrupts =3D <55 IRQ_TYPE_EDGE_FALLING>;
+> +
+> +            output-range-microvolt =3D <0 60000000>;
+> +            clr-gpios =3D <&gpio 4 GPIO_ACTIVE_LOW>;
+> +            ldac-gpios =3D <&gpio 5 GPIO_ACTIVE_LOW>;
+
+This isn't a bug, but the commit message states it provides a complete usage
+example including the newly added vlogic-supply. Should vlogic-supply be
+included in this example node?
+
+>          };
+>      };
+>  ...
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260509142047.3030=
+2-1-0rayn.dev@gmail.com?part=3D1
