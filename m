@@ -1,108 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6AACCA4E
-	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 21:12:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBDD38B7D5;
+	Sat,  9 May 2026 21:25:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778361162; cv=none; b=TruW+JwypbCosd7ktkL/2YEkgTvKDwNqF1pQ+B+E4sWpEGYhxY+fNNl7dZc0XEfrXQ7AYIzSBzkrv/Yl3PM7ZKT0pHtNBSihp6Ebu1b9geRUabza7mA/ScVyTGTVGZ85xe9IBfN3p8PCqPuOfkscEmS1mCG6XC1TbC7JBfxqhBs=
+	t=1778361932; cv=none; b=R5EOZY6k/w+jWOSEQI7zk+1l94FwmTnF/ueNb1GLKZya6edaFJkIQyBQIBAN30anH8YsBwq4OhEBrHg9amARsB0L9IbnnM9sii4YAmreY1NXPAWqtLc9GRSP4idr8AN91UQTPMsIgv0j+IgUDGAG7KjESkLB5Q+TzV5HxT3feTE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778361162; c=relaxed/simple;
-	bh=PnWfTNYzvd7ZGvmZAxFmxEpY4LOK2wx6t/koD3P9sX8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=D861y4AfxNcKjOwGjfNo1tQ0f822kWcYbAC0M+OXfFXrlGdhfFZ45Lr3skHvsFlNcfxizLOOObZ54NI3v9cvOgvQjrlRa7C5UkZusy/C+DkUo1hc3zbedhahVJRObFqzRvThea6HTFz3znC281kBgjk+6GYEAtPSw4lsLv0/eXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YFx5oCfn; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778361932; c=relaxed/simple;
+	bh=kqHOrbJyhA/27njgwMH67BMSnrFaEGEAU6ESTHsUOMY=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=NW6SzcUtHCtEn1kEtpU6mATpkZSKpVY6YNLoy5lRNzhrZj40MqTmPHBAwTgYwFg/DBdIxRHb/xHxuRnfo5HM4RYSEk+Rni4AY82+VYx91ro+hiCujBR8pN4pLh+uaxm+NVA1YJOLJ/HkeBfCM9SSDjLilhBocZMJXPMAVD2JON8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lhRNa9U6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YFx5oCfn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9D02C2BCB2;
-	Sat,  9 May 2026 21:12:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lhRNa9U6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C787DC2BCB2;
+	Sat,  9 May 2026 21:25:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778361162;
-	bh=PnWfTNYzvd7ZGvmZAxFmxEpY4LOK2wx6t/koD3P9sX8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=YFx5oCfnAqGf2lgpF7AwR5uow/ZqbQSMdu/Xw9lxGtYgAxHvOrrRrC8LSeF6us4Uh
-	 G4Ej6tQfBylFEGQQQ5WL78L9E2hWp2nd8u7gkQm7SC2cV6Lol3xTq8mG1+WvijZH0B
-	 et5cJczZ6wivpTZZEiXSOPw35k2aKSQwMNxw7zyTBT9wTTo+nYHya1aaGPo6R7UXuo
-	 k6jK8xvKEmR70Pmexp6i/66JSp4pGQoSKqIpYcPZW4vZGXL9j68x1PCX61ZeUOky8k
-	 FVEdH+w2gm2sRhav0MzKv0nwes8Zt36SKh64+o0DeYZxvISnBSkHbkYYcFWqJbqC4t
-	 1bP6gcrPsrQpA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 5/8] dt-bindings: display: allwinner: Add DE33 planes
-Reply-To: sashiko@lists.linux.dev
-To: "Jernej Skrabec" <jernej.skrabec@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260509190015.79086-6-jernej.skrabec@siol.net>
-References: <20260509190015.79086-6-jernej.skrabec@siol.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 09 May 2026 21:12:41 +0000
-Message-Id: <20260509211241.E9D02C2BCB2@smtp.kernel.org>
+	s=k20201202; t=1778361932;
+	bh=kqHOrbJyhA/27njgwMH67BMSnrFaEGEAU6ESTHsUOMY=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+	b=lhRNa9U6a6Yx6f+isl46Vmo87cARQlOGnSA39+RCjZwb7G7vS9Jn993kdHdc4C+dI
+	 CcuXkUOfxsvWT9dghrcgwFTRziEqVSl7qe9l61EG98WgsSA7qe83n7eNHsUfKaNtq2
+	 qTLnZobTNrv0Q6BJvEKc0RvR9OxD/A2AzDSda1Ey5v7KPDSVvq75WxsjKgU6+nWc/g
+	 fk1uREqrGrqgKHOhTytbV/yLzkIHWPgpQbDSCS+axh07yu8UqLmD802yxHMlHzl5uO
+	 MJvEh+390TGDEUn4OvJ/4Ti8noknu+/c1dsw4UYk+2aixCt4Dc5MlauXS2wJgw5mh+
+	 crXMeft5QpJ9g==
+Date: Sat, 09 May 2026 16:25:29 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+ Jessica Zhang <jesszhan0024@gmail.com>, devicetree@vger.kernel.org, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>
+To: Aaron Kling <webgeek1234@gmail.com>
+In-Reply-To: <20260509-icna35xx-v1-1-688d3d4e10f9@gmail.com>
+References: <20260509-icna35xx-v1-0-688d3d4e10f9@gmail.com>
+ <20260509-icna35xx-v1-1-688d3d4e10f9@gmail.com>
+Message-Id: <177836192983.1140170.1302751195131262657.robh@kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel: Add Chipone ICNA 35xx
+ OLED driver bindings
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The binding specifies an independent memory-mapped region (`reg`) =
-but completely omits required hardware dependencies like `clocks` and `rese=
-ts`.
---
 
-commit c4cb2c3df2e7559ecf6e92deffc259a4516494c5
-Author: Jernej Skrabec <jernej.skrabec@gmail.com>
+On Sat, 09 May 2026 15:18:57 -0500, Aaron Kling wrote:
+> The Chipone ICNA35xx series of DDICs are high refresh, low power
+> MIPI-DSI drivers for OLED panels. The icna3512 is used by the Ayn Odin 2
+> Portal and the icna3520 is used by the Ayn Thor top panel and the Ayn
+> Odin 3.
+> 
+> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> ---
+>  .../bindings/display/panel/chipone,icna35xx.yaml   | 77 ++++++++++++++++++++++
+>  1 file changed, 77 insertions(+)
+> 
 
-dt-bindings: display: allwinner: Add DE33 planes
+My bot found errors running 'make dt_binding_check' on your patch:
 
-This commit adds a new device tree binding for the Allwinner Display Engine
-3.3 planes. These planes act as shared resources between mixers and are
-assigned using registers within the display clocks MMIO space.
+yamllint warnings/errors:
+./Documentation/devicetree/bindings/display/panel/chipone,icna35xx.yaml:28:13: [warning] wrong indentation: expected 14 but found 12 (indentation)
 
-> diff --git a/Documentation/devicetree/bindings/display/allwinner,sun50i-h=
-616-de33-planes.yaml b/Documentation/devicetree/bindings/display/allwinner,=
-sun50i-h616-de33-planes.yaml
-> new file mode 100644
-> index 0000000000000..0a07cb8a5f798
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/allwinner,sun50i-h616-de3=
-3-planes.yaml
-[ ... ]
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - allwinner,sun50i-h616-de33-planes
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  allwinner,plane-mapping:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description:
-> +      Phandle of the device responsible for assigning (mapping) planes
-> +      between mixers.
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - allwinner,plane-mapping
+dtschema/dtc warnings/errors:
 
-Does this binding also need to specify clocks and resets as required
-properties?
+doc reference errors (make refcheckdocs):
 
-Since this node represents an independent MMIO hardware block, omitting its
-hardware dependencies relies on the sibling mixer driver to implicitly power
-the bus.
+See https://patchwork.kernel.org/project/devicetree/patch/20260509-icna35xx-v1-1-688d3d4e10f9@gmail.com
 
-If the sun8i-mixer driver is unbound or fails to probe, the shared display
-bus clock is left disabled. Would a subsequent read of the planes regmap
-exposed to userspace via debugfs perform an MMIO read on an unclocked bus
-and result in a fatal external abort (SError)?
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-Should clocks and resets be added to the binding so the planes driver can
-manage its own bus access safely (for example, by using
-regmap_mmio_attach_clk())?
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260509190015.7908=
-6-1-jernej.skrabec@siol.net?part=3D5
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
