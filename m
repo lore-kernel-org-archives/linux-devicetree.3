@@ -1,277 +1,194 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB768800
-	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 07:33:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FA3C1E8320;
+	Sat,  9 May 2026 07:52:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778311995; cv=none; b=acw/QQXpJFg1A64k4GejX0hVkb4KVYkMyyrqUMtyOC795S+y5aP0+DPfKjyl8BNjHa5msjGEfwzmBoCNuEYbrUOGgYmTpeFYOS2JDVCVsotNwY52/wjpnJN9l7M1u9HVCpamKWVqvjbjXBmtJ26cMR4zn2K54eJVCvAMjGv9ILg=
+	t=1778313125; cv=none; b=A0nQ0TrNMTQjmOBlo2aNMwo6pP0Dw2mXgrAaCuxOSdc8bMr9FYuhDxjy4r0VMKXHkYTQe97E47lpQBxo12kfUzGab1c2ZD41ExGvc8DXMI2Zao/U/33dzJmYSh07JN2hrBE7D1STAUWDDKErqZ5t+uYi8Q21sidRe/q+UK1GyJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778311995; c=relaxed/simple;
-	bh=WsXgQqttQr6IBvVqKvxBRYRaHQiBAFIC9t5MITEoVeY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fqu1cEkLJUH2GqFeiHAEr3Er4dqswYKaiVX4Io3DAGrCx7xwwNYLRyIBq/y0eDwXHg6VUHZv0BCIfi1PI+er9sNcRmtKvlYzORXWe3wuS0cJqRq1S/VofajX3ljUplWrvST8SQPlsRrbfedvPmFT60cCvTLfM7L9SyOUK3wUvb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kZSShXei; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778313125; c=relaxed/simple;
+	bh=Q+5aEMnMqZ9rPSshP3zxmEfWAw2dlBy3fSi9kqzaCuU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=KHkTQIk/T7KtT9Gu2ocYr2PUWCASLp6SSkgs2H0R2vmvInZV4XaOj1czNZG+Gna99acTnk7JilQLuvEIIeMmYSvv7xEh8x0XAr8wuz5Z2fEJvBKAQE3QOBHKqBoHRwuKb8gRmEW6qiUTnrOfPthLCc+FWZ0zhJU6R4Hewj+0jeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kQKXoafT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kZSShXei"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-83975e992e1so1395535b3a.2
-        for <devicetree@vger.kernel.org>; Sat, 09 May 2026 00:33:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778311993; x=1778916793; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=4rrWX8PR+HWUg34CwgZ0qTRfJ+rZargOz41FLZiRD60=;
-        b=kZSShXei4Ke0NduTO91R8eSghN32Rai9VSLu/a7oHud0p71W4+tTDzHlVTX2lNO8uV
-         wOX5K7X5ExG+etRTbSuk1Equky+HtdN9FOG8+MFPQQDlERQvI0cWdKGGZuaIzZxp8nR7
-         RhxQGIP7W1451PtK/5kNwTInXzYiR/Hvldw1S3Y/tkC3HmZEJsD8Lm/nCKmVtRh2nSB7
-         el0lDMc0fw8aR6R8nB3DN8zemQET7dJNBcd3UwqgdrBqsodpt945jOpjEhS/cLfDVvr9
-         UNgqt9hrs5XQ14OsqalOolDYDcMp4NHZoFgXXJV8eMff6q4iAfB5cqjL3+4OZOeuOv6d
-         PkEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778311993; x=1778916793;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=4rrWX8PR+HWUg34CwgZ0qTRfJ+rZargOz41FLZiRD60=;
-        b=f2SZ8FvYiACwF6Kvx9oXQuVq9XoMTrSQxloMaVcpfY/Bidh0ATzrlBona6gbNHqbzk
-         hs8Ym+EUAJERRyb2Tt7HqjyIUJfGNoF5lFj1mdKJgIOOa7aIvtNeQsxs8kvEaLPhkQYe
-         0tBwYsHT89w8WNtEkUVoKlQMcXbMUpBIe3n3sToToCh+f1+KwPrQazKpCDgFVRegmD3p
-         a5nndlW+3e7S0Zdy3AtzUAZLI6Y7vatZRDiU/MRojlJhYv46+TGPItKbFAbuODtrXLNq
-         AP8MZD5vo9QWcOxhCLoNHqBk22rmA9fvXS4XqLfTlhM/d9wh0qU2I50Wjx5kp6xJQROS
-         nFeQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8jPnPkyJKE3BxRdt6+vqjy8GUwayDZi2fAgFqBuBiScMEPzvObi4sCuKdTimlYwlKTfZEuQrIFebB/@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywl8DYBKx5Uqi+0aizp4yPdJcv1bAniTbKD8bHkqV3mAN9NbAyg
-	8j7+CFE/roSxN80K6sy4s3Q9cYFdUP47lObybEFv9VQ6dc0c0Ma2Se3G
-X-Gm-Gg: Acq92OHhifHW9bGbJHSMlL2T25cjU4C4UMSm/7s1IiNONDH9Rik+iarcLLb4KiUi92D
-	VSUftF2mJuGCZH+EjmpwCGdbF5SfBIbJEQ4J274uxkeEc+o9jrdnIhMFO7sHsAyC9RxKqdH7+m6
-	WZid4Yin0TlSmAZYxwROKqIy2oNZ6ZRCr4fCWjK0kNGHX+iXwgBRRQPg6VCvzgsRjHPMIPfiMO9
-	tu+rkCG2WSlh1Ry1ikFFUXbq6R/bF23LXkDW5us9cW393dPkMgzb8LTE0NRko3MWtRFhfK3vnoM
-	4QN1UVGGnn7qsTkc7wFih9RDZoS84zinA3BXi8Gv3sVtEjUc5yaUM82LZQ1FVzwBKQ8TZdPqy1S
-	rAg8kXQLYeo4gyvBxb/EujiL/MRlTXIndi8tj1Nz5U9wyx+ic/vQlvGNsJ8JhBtV5gsS6lBLPQn
-	qHKOx3Vnpc0yy+b8N71hanzDcxBhtyZo/I/A==
-X-Received: by 2002:a05:6a00:1407:b0:837:eaa9:381f with SMTP id d2e1a72fcca58-83a57c7782dmr15579899b3a.0.1778311993011;
-        Sat, 09 May 2026 00:33:13 -0700 (PDT)
-Received: from localhost ([2001:19f0:8001:1b2d:5400:5ff:fefa:a95d])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83967dbf67fsm14681697b3a.47.2026.05.09.00.33.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 09 May 2026 00:33:12 -0700 (PDT)
-Date: Sat, 9 May 2026 15:32:52 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Bjorn Helgaas <helgaas@kernel.org>, 
-	Inochi Amaoto <inochiama@gmail.com>
-Cc: Jingoo Han <jingoohan1@gmail.com>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Alex Elder <elder@riscstar.com>, 
-	Gustavo Pimentel <gustavo.pimentel@synopsys.com>, linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
-	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH 5/5] PCI: spacemit-k1: Add Spacemit K3 PCIe host
- controller support
-Message-ID: <af7fu8xuv3faMhPe@inochi.infowork>
-References: <20260502101319.2364052-6-inochiama@gmail.com>
- <20260507224217.GA48780@bhelgaas>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kQKXoafT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B916AC2BCB2;
+	Sat,  9 May 2026 07:52:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778313125;
+	bh=Q+5aEMnMqZ9rPSshP3zxmEfWAw2dlBy3fSi9kqzaCuU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=kQKXoafTnw/REVG8fWymKMJ7a7f1Db82bElndzdHY31/j8qNaqv/9tIHhhcbe9fdu
+	 ++2VypwFzPHEn2Xf/0IyL9FWWcOgUo27plbDjarmss6T7oh5SX6kJRLOz5+dYSmY5N
+	 LnMvyjoYRzFJEE4+XBu2R5K/dZ42iycEaS4mGkf1WAGSuJSu32wp+XH2XK/Tm7wTEV
+	 /mfA/sIzQqbfewhq+p4lzPijQrx+ELTwwzdGM/LT1cLUMNY0jXHcAEwPh4qOsCCynf
+	 040/TnFhgHjI55ufSOnAh3a/7v5AvLdD2L59tuTVSBR86MWXAJjF3buvzV046eruGV
+	 PYNEYBSelr3iA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] arm64: dts: freescale: add i.MX95 19x19 FRDM PRO
+ board dts
+Reply-To: sashiko@lists.linux.dev
+To: "Joseph Guo" <qijian.guo@nxp.com>
+Cc: Frank.Li@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260509-imx95_frdm_pro-v3-2-96290b471396@nxp.com>
+References: <20260509-imx95_frdm_pro-v3-2-96290b471396@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 09 May 2026 07:52:04 +0000
+Message-Id: <20260509075204.B916AC2BCB2@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260507224217.GA48780@bhelgaas>
 
-On Thu, May 07, 2026 at 05:42:17PM -0500, Bjorn Helgaas wrote:
-> On Sat, May 02, 2026 at 06:13:18PM +0800, Inochi Amaoto wrote:
-> > The PCIe controller on Spacemit K3 is almost a standard Synopsys
-> > Designware PCIe IP with extra link and reset control. Unlike
-> > the PCIe controller on K1, this controller supports external MSI
-> > interrupt controller and can use multiple phy at the same time.
-> > 
-> > Add driver to support PCIe controller on Spacemit K3 PCIe.
-> > 
-> > Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
-> 
-> Sashiko had some good questions:
-> https://sashiko.dev/#/patchset/20260502101319.2364052-1-inochiama%40gmail.com
-> 
-> Looks like the CONFIG_PCIE_SPACEMIT_K1 menu item and help text
-> drivers/pci/controller/dwc/Kconfig should be updated to include K3.
-> 
-> The "CONFIG_PCIE_SPACEMIT_K1" name itself should stay the same.
-> 
-> s/Designware/DesignWare/, also in 4/5 commit log
-> s/phy/PHY/ here and other patches and subject lines
-> s/msi/MSI/ in 3/5 subject and commit log when it's a stand-alone word
-> s/pci:/PCI:/ in 4/5 subject to match history (and patch 3/5)
-> 
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] The `silent-gpios` for `flexcan1_phy` and `flexcan3_phy` (which us=
+e the `nxp,tja1057` CAN transceiver) are defined with the `GPIO_ACTIVE_LOW`=
+ polarity. This is incorrect for the TJA1057.
+- [High] The pad configuration for the `pcal6416` I2C GPIO expander's inter=
+rupt pin (`IMX95_PAD_GPIO_IO34__GPIO5_IO_BIT14`) in `pinctrl_pcal6416` is i=
+ncorrectly set to `0x31` instead of the expected `0x31e`.
+- [Low] The `pcie0` and `pcie1` nodes use the deprecated `reset-gpio` prope=
+rty instead of the standard `reset-gpios`.
+- [Low] Device tree node names contain underscores, which violates DT namin=
+g specifications.
+--
 
-See it, thanks, I will take care of that
+commit e8bda174f6b9f1f5508fbd640dcc59ff092dd5cd
+Author: Joseph Guo <qijian.guo@nxp.com>
 
-> > +++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> 
-> > +#define INTR_STATUS				0x0010
-> > +
-> >  #define INTR_ENABLE				0x0014
-> >  #define MSI_CTRL_INT			BIT(11)
-> > +#define RDLH_LINK_UP_INT		BIT(20)
-> > +
-> > +#define K3_PHY_AHB_IRQSTATUS_INTX		0x0008
-> > +
-> > +#define K3_PHY_AHB_IRQENABLE_SET_INTX		0x000c
-> > +#define LEG_EP_INTERRUPTS		(BIT(6) | BIT(7) | BIT(8) | BIT(9))
-> 
-> Would be nicer to use "INTX" rather than "LEG" here since we use
-> "INTX" in K3_PHY_AHB_IRQENABLE_SET_INTX, in the comments, etc.
-> 
-> > +#define K3_PHY_AHB_IRQENABLE_SET_MSI		0x0014
-> > +/* MSI defined as BIT(11) in existing INTR_ENABLE, reusing */
-> > +
-> > +#define K3_ADDR_INTR_STATUS1			0x0018
-> > +
-> > +#define K3_ADDR_INTR_ENABLE1			0x001C
-> 
-> You're using a mix of upper- and lower-case hex here.  Be consistent
-> and match the existing code.
-> 
-> Seems a little weird to have a mix of "IRQ" names (e.g.,
-> K1_PHY_AHB_IRQ_EN, K3_PHY_AHB_IRQSTATUS_INTX,
-> K3_PHY_AHB_IRQENABLE_SET_INTX) and "INTR" names (e.g., INTR_STATUS,
-> INTR_ENABLE, K3_ADDR_INTR_STATUS1, K3_ADDR_INTR_ENABLE1) when I think
-> they're really talking about the same concept.
-> 
-> And why do the new K3 names have "ADDR" in the middle when the
-> existing "INTR_ENABLE" names don't?  It's obvious these are addresses
-> (well, actually I think they're *offsets*, but no need to be that
-> detailed).
-> 
+arm64: dts: freescale: add i.MX95 19x19 FRDM PRO board dts
 
-In fact I have no detailed document about these name, but reference
-to their comments, I think it is a register for some link features.
-So it could be more accurate to be named with "LINK"
+NXP i.MX95 19x19 FRDM PRO is cost-effective with extensive expansion
+capabilities based on the i.MX95 19x19 SoC. Add device tree for this board.
 
-> > +static int k3_pcie_init(struct dw_pcie_rp *pp)
-> > +{
-> > ...
-> > +	val = dw_pcie_readl_dbi(pci, GEN3_EQ_CONTROL_OFF);
-> > +	val &= ~(0xffff << 8);
-> > +	val |= ((0x1 << 4) << 8);
-> 
-> Can you use FIELD_MODIFY and some #defines here?
+> diff --git a/arch/arm64/boot/dts/freescale/imx95-19x19-frdm-pro.dts b/arc=
+h/arm64/boot/dts/freescale/imx95-19x19-frdm-pro.dts
+> new file mode 100644
+> index 0000000000000..ce638ed8dc0f9
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx95-19x19-frdm-pro.dts
+> @@ -0,0 +1,1021 @@
 
-It is fine for me.
+[ ... ]
 
-> 
-> > +	dw_pcie_writel_dbi(pci, GEN3_EQ_CONTROL_OFF, val);
-> > +
-> > +	/* Set the PCI vendor and device ID */
-> 
-> Superfluous comment since the code is obvious.
-> 
+> +	aliases {
+> +		ethernet0 =3D &enetc_port0;
+> +		ethernet1 =3D &enetc_port1;
 
-OK, I will remove it
+[ ... ]
 
-> > +	dw_pcie_dbi_ro_wr_en(pci);
-> > +	dw_pcie_writew_dbi(pci, PCI_VENDOR_ID, PCI_VENDOR_ID_SPACEMIT);
-> > +	dw_pcie_writew_dbi(pci, PCI_DEVICE_ID, PCI_DEVICE_ID_SPACEMIT_K3);
-> > +	dw_pcie_dbi_ro_wr_dis(pci);
-> > +
-> > +	/* Finally, as a workaround, disable ASPM L1 */
-> 
-> I guess this means a device erratum?  It advertises L1 but it doesn't
-> actually work?
-> 
-> > +	k1_pcie_disable_aspm_l1(k1);
-> 
-> > +static int k3_pcie_msi_host_init(struct dw_pcie_rp *pp)
-> > +{
-> > ...
-> > +	val = dw_pcie_readl_dbi(pci, COHERENCY_CONTROL_3_OFF);
-> > +	val |= (0xf << 11);
-> 
-> FIELD_MODIFY and some #defines here?
-> 
+> +		serial0 =3D &lpuart1;
+> +		serial4 =3D &lpuart5;
+> +	};
+> +
+> +	bt_sco_codec: bt_sco_codec {
+> +		compatible =3D "linux,bt-sco";
+> +		#sound-dai-cells =3D <1>;
+> +	};
 
-OK.
+This isn't a bug, but should this node name use hyphens instead of
+underscores to comply with Devicetree naming specifications?
 
-> > +static int k3_pcie_start_link(struct dw_pcie *pci)
-> > +{
-> > +	struct k1_pcie *k1 = to_k1_pcie(pci);
-> > +	u32 val;
-> > +
-> > +	k1_pcie_start_link(pci);
-> > +
-> > +	/* Enable INTx */
-> > +	val = readl_relaxed(k1->link + K3_PHY_AHB_IRQENABLE_SET_INTX);
-> > +	val |= LEG_EP_INTERRUPTS;
-> > +	writel_relaxed(val, k1->link + K3_PHY_AHB_IRQENABLE_SET_INTX);
-> > +
-> > +	/* Enable MSI/MSIX specific to K3 */
-> 
-> s/MSIX/MSI-X/ to match spec usage.
-> 
-> > +	val = readl_relaxed(k1->link + K3_ADDR_INTR_ENABLE1);
-> > +	val |= (MSI_INT | MSIX_INT);
-> > +	writel_relaxed(val, k1->link + K3_ADDR_INTR_ENABLE1);
-> 
-> Generally speaking I think the interrupt setup belongs somewhere other
-> than .start_link().  Usually .start_link() only enables LTSSM.
-> 
+> +
+> +	flexcan1_phy: can-phy0 {
+> +		compatible =3D "nxp,tja1057";
+> +		#phy-cells =3D <0>;
+> +		max-bitrate =3D <5000000>;
+> +		silent-gpios =3D <&i2c4_gpio_expander_22 11 GPIO_ACTIVE_LOW>;
+> +	};
+> +
+> +	flexcan3_phy: can-phy2 {
+> +		compatible =3D "nxp,tja1057";
+> +		#phy-cells =3D <0>;
+> +		max-bitrate =3D <5000000>;
+> +		silent-gpios =3D <&i2c4_gpio_expander_22 13 GPIO_ACTIVE_LOW>;
+> +	};
 
-Yes, this logic are not needed any more after I recheck the vendor
-code. Only thing related to the link will be left.
+Does this incorrectly configure the TJA1057 transceiver?
 
-With this, the macro like LEG_EP_INTERRUPTS can be removed.
+The hardware's silent pin is active-high, so when the driver deasserts the
+silent GPIO to enable transmission (logical 0), setting the polarity to
+active-low will drive a physical high level.
 
-> > +	return 0;
-> > +}
-> 
-> > +static irqreturn_t k3_pcie_irq_thread(int irq, void *data)
-> > +{
-> > +	struct k1_pcie *k1 = data;
-> > +	struct dw_pcie_rp *pp = &k1->pci.pp;
-> > +	struct device *dev = k1->pci.dev;
-> > +	u32 status0, status1, status2;
-> > +
-> > +	k3_pcie_clear_irq_status(k1, &status0, &status1, &status2);
-> > +
-> > +	writel_relaxed(status0, k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
-> > +	writel_relaxed(status1, k1->link + INTR_STATUS);
-> > +	writel_relaxed(status2, k1->link + K3_ADDR_INTR_STATUS1);
-> > +
-> > +	if (FIELD_GET(RDLH_LINK_UP_INT, status1)) {
-> > +		msleep(PCIE_RESET_CONFIG_WAIT_MS);
-> > +		/* Rescan the bus to enumerate endpoint devices */
-> > +		pci_lock_rescan_remove();
-> > +		pci_rescan_bus(pp->bridge->bus);
-> 
-> This is the *only* driver that uses pci_rescan_bus() this way, which
-> automatically makes it suspicous.  Maybe it's the first hardware that
-> implements or is willing to use RDLH_LINK_UP_INT for this, but somehow
-> I doubt it.
->
+This would force the transceiver into silent mode and prevent any CAN
+transmissions.
 
-I am going to remove this. At least I do not think it is very proper
-to add this in the first version. 
-The vendor explained that they use this interrupt to speed up the
-device link up check. This depends on a feature that make dwc skip
-the link up delay. And this feature is removed in v7.0. In commit
-142d5869f6ee ("Revert "PCI: dwc: Don't wait for link up if driver
-can detect Link Up event"")
+Should the polarity be set to active-high instead?
 
-Regards,
-Inochi
- 
-> > +		pci_unlock_rescan_remove();
-> > +	} else if (!status0 && !status1 && !status2)
-> > +		dev_WARN_ONCE(dev, true,
-> > +			      "Received unknown event. status0=0x%08x status1=0x%08x status2=0x%08x\n",
-> > +			      status0, status1, status2);
-> > +
-> > +	return IRQ_HANDLED;
-> > +}
+[ ... ]
+
+> +	sound-mqs {
+> +		compatible =3D "audio-graph-card2";
+> +		links =3D <&sai1_port1>;
+> +		label =3D "mqs-audio";
+> +	};
+> +
+> +	usdhc3_pwrseq: usdhc3_pwrseq {
+> +		compatible =3D "mmc-pwrseq-simple";
+> +		reset-gpios =3D <&i2c4_gpio_expander_22 9 GPIO_ACTIVE_LOW>;
+> +	};
+
+This isn't a bug, but should this node name also use hyphens instead of
+underscores?
+
+[ ... ]
+
+> +&netcmix_blk_ctrl {
+> +	status =3D "okay";
+> +};
+> +
+> +&pcie0 {
+> +	pinctrl-0 =3D <&pinctrl_pcie0>;
+> +	pinctrl-names =3D "default";
+> +	reset-gpio =3D <&i2c4_gpio_expander_22 19 GPIO_ACTIVE_LOW>;
+> +	vpcie-supply =3D <&reg_m2_mkey_1_pwr>;
+> +	status =3D "okay";
+> +};
+> +
+> +&pcie1 {
+> +	pinctrl-0 =3D <&pinctrl_pcie1>;
+> +	pinctrl-names =3D "default";
+> +	reset-gpio =3D <&i2c3_gpio_expander_20 9 GPIO_ACTIVE_LOW>;
+> +	vpcie-supply =3D <&reg_m2_mkey_2_pwr>;
+> +	status =3D "okay";
+> +};
+
+This isn't a bug, but should these properties use the standard reset-gpios
+name instead of the deprecated reset-gpio?
+
+Using the singular form violates strict DT schema definitions and might
+trigger validation warnings.
+
+[ ... ]
+
+> +	pinctrl_mqs1: mqs1grp {
+> +		fsl,pins =3D <
+> +			IMX95_PAD_SAI1_TXFS__AONMIX_TOP_MQS1_LEFT		0x31e
+> +			IMX95_PAD_SAI1_RXD0__AONMIX_TOP_MQS1_RIGHT		0x31e
+> +		>;
+> +	};
+> +
+> +	pinctrl_pcal6416: pcal6416grp {
+> +		fsl,pins =3D <
+> +			IMX95_PAD_GPIO_IO34__GPIO5_IO_BIT14			0x31
+> +		>;
+> +	};
+
+Is this pad missing the pull-up enable bit?
+
+In i.MX95 pad configurations, the trailing 0xe enables the pull-up resistor.
+
+Since the pcal6416 interrupt output is open-drain and configured as
+active-low, leaving it floating could cause an interrupt storm or missed
+interrupts.
+
+Should this be 0x31e instead of 0x31?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260509-imx95_frdm=
+_pro-v3-0-96290b471396@nxp.com?part=3D2
