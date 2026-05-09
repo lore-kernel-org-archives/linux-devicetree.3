@@ -1,41 +1,54 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A83612F8EAD;
-	Sat,  9 May 2026 16:00:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF0A20ADF8;
+	Sat,  9 May 2026 16:01:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778342439; cv=none; b=RcFGL9tJUl/JyDcuCxD7g27Ivx+E3fIk7Gxczy+RSvwzdXcOwpyKI1GjTDlQ+Y8gJcjKl8rlKVkFktkXoa+Qcgb8eBg3PBpaPHmeYs/63MTM3q7PqbIFwAaMMC64PGtCNMcFvoMcSotYqgZOGpX0CbS7jG8Xj7s4fIHrMaK4I/M=
+	t=1778342466; cv=none; b=ulW1JJFeyK0c5gGOnc80zniYnbuTT5cCRbnB/zBZhT9FlFnHNShc64+bkIxGT7b+gZdemCKRpI0/e3qKb0SIwIr2DIwAfcrZxaH1DG7LmDm2uObDc3vyn1DP67M3WMfpsbInyPmfqv2EO1DG5T+GrhYbKwi5oU43SkuZmOHzNNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778342439; c=relaxed/simple;
-	bh=CL4fsrQ7OZHOmIgWZ43mltPIiknY6x3+CwZ9wFrY6+A=;
+	s=arc-20240116; t=1778342466; c=relaxed/simple;
+	bh=RGetAZVR5W/l0Zsnr/kYQLvvPTBdNxC5bNYVlWymdhQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nkv2I9kInp+tLoft8H8cs9FdTiAnAjl6099NXXZiYj2nlw/LuxwsPXZ9rTWC1dCP1IEkxu90EFz7ZXBRhsbSc59iPBq4zxYDRgqIyhLbnArNUxV3odpHo5wVDdht0tJ+GGw8vG0BWUfrx//CSWk5IXDR5clH03dGeYzQWgucZx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lx/Eir+C; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=OwHx5vfatlVsHP85Mpb9hte9dogxCJssDWFd6PlS3foR1j45nzCXCmORh5k19T3W1jvb0l4BL+kaUb9vaJC3clpP2Fa42joB5PSR67UUroyphB2fLJEFS5pIKr1AZguGrPyc7BGvgMq+uJqyiGGyu5gNeCTxKCae3kusu3oOzK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iEDCqhqV; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lx/Eir+C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5860CC2BCB2;
-	Sat,  9 May 2026 16:00:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iEDCqhqV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1AB1C2BCB2;
+	Sat,  9 May 2026 16:01:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778342439;
-	bh=CL4fsrQ7OZHOmIgWZ43mltPIiknY6x3+CwZ9wFrY6+A=;
+	s=k20201202; t=1778342466;
+	bh=RGetAZVR5W/l0Zsnr/kYQLvvPTBdNxC5bNYVlWymdhQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Lx/Eir+CfVng74DD5h3Zk49dyri9wYg8oCG8n24MTfUxsYdW0sehtD+yAM+Ua8P/1
-	 rtVD/fAY9JpHf5FG+AqP5dObFVcZr09Ij/Bw0XPI7F1+6sWEBQlcDEu0LK9fVAD4Xi
-	 yVAfe5R6SV2nbeuuyWYwcZ8nQ4sM9wp8plhqaP1VYtlzkDAzlZrLrZCWgNeLneTUnI
-	 2vnmmYMdoYdTxO1gGTxcsNicoWYvLeFJdWB4QN47i1oEgspzepd55xFi+1aYBuGACX
-	 XN1CnvddJSMsAIxGWVahzUYEAZdPzglnA/CtD4wFaz2f8M3X6FTJYChm1G8F+AA4jn
-	 frT3ciTtuPtnw==
-Date: Sat, 9 May 2026 17:00:35 +0100
+	b=iEDCqhqV6kjsB31UJ5E/es2BHorRLdzgPaMid3VusVvSbsoGrahg1qwj6rCnVoWYJ
+	 rs3U1ylgFZiBGUwLuhf61CvVYUXvEw/oQKslxNMHm0UyMImphHVv1AGSvrfHIANeGA
+	 tWleBImoey1oLoZYYgJXhiwr3UIXgWpzpg1NmnsgCUiyxR6ZhN39QLS7PX6zAKqvLL
+	 agMDFyAuMdyF9O/7vm14WGyziGkVR5avHcLSdkHEG2WQzII3fwTTJfZQuyf6hkQiki
+	 i1w1flJu0fKaA04xed2GlX25sAcRDW9YEqVvJjB5P/dvqnQFWvy6TnFTtuM9uz3rJv
+	 7vF/0F4boyJ4w==
+Date: Sat, 9 May 2026 17:01:00 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	jic23@kernel.org, lars@metafoo.de, michael.hennerich@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: iio: dds: Add AD9832/AD9835 binding
-Message-ID: <20260509-backdrop-contented-b81438c518f4@spud>
-References: <20260508233730.77834-1-dennylin0707@gmail.com>
+To: Frank Li <Frank.Li@nxp.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev
+Subject: Re: [PATCH 1/1] dt-bindings: display/lvds-codec: add ti,sn75lvds93
+Message-ID: <20260509-tingling-squirt-4c0126c9e729@spud>
+References: <20260508214444.255992-1-Frank.Li@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,122 +56,37 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lVmGhPeJik6vMtkp"
+	protocol="application/pgp-signature"; boundary="9g5u3xAR5F2vWSMq"
 Content-Disposition: inline
-In-Reply-To: <20260508233730.77834-1-dennylin0707@gmail.com>
+In-Reply-To: <20260508214444.255992-1-Frank.Li@nxp.com>
 
 
---lVmGhPeJik6vMtkp
+--9g5u3xAR5F2vWSMq
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Jonathan,
-
-What's the story with adding bindings for things that are in staging?
-
-Cheers,
-Conor.
-
-On Fri, May 08, 2026 at 11:37:30PM +0000, Hungyu Lin wrote:
-> Add devicetree binding documentation for AD9832 and AD9835 DDS devices.
+On Fri, May 08, 2026 at 05:44:43PM -0400, Frank Li wrote:
+> Add compatible strings for TI SN75LVDS93, a FlatLink LVDS transmitter to
+> fix below CHECK_DTBS warnings:
+> arm/boot/dts/nxp/imx/imx6ul-var-som-concerto.dtb: lvds-encoder (ti,sn75lv=
+ds93): compatible: 'oneOf' conditional failed, one must be fixed:
+> 	['ti,sn75lvds93', 'lvds-encoder'] is too long
 >=20
-> These devices are SPI-controlled direct digital synthesizers
-> requiring AVDD, DVDD supplies and an external master clock.
->=20
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-> ---
->  .../bindings/iio/dds/adi,ad9832.yaml          | 66 +++++++++++++++++++
->  1 file changed, 66 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/dds/adi,ad9832.=
-yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/iio/dds/adi,ad9832.yaml b/=
-Documentation/devicetree/bindings/iio/dds/adi,ad9832.yaml
-> new file mode 100644
-> index 000000000000..7e2eece086d0
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/dds/adi,ad9832.yaml
-> @@ -0,0 +1,66 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/dds/adi,ad9832.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Analog Devices AD9832 / AD9835 DDS
-> +
-> +maintainers:
-> +  - Hungyu Lin <dennylin0707@gmail.com>
-> +
-> +description: |
-> +  Analog Devices AD9832 and AD9835 are SPI-controlled direct digital
-> +  synthesizers (DDS) capable of generating programmable frequency and
-> +  phase output signals using an external master clock.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - adi,ad9832
-> +      - adi,ad9835
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  spi-max-frequency:
-> +    maximum: 20000000
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  clock-names:
-> +    const: mclk
-> +
-> +  avdd-supply:
-> +    description: Analog power supply
-> +
-> +  dvdd-supply:
-> +    description: Digital power supply
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - avdd-supply
-> +  - dvdd-supply
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    spi {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        ad9832@0 {
-> +            compatible =3D "adi,ad9832";
-> +            reg =3D <0>;
-> +            spi-max-frequency =3D <20000000>;
-> +            clocks =3D <&mclk>;
-> +            clock-names =3D "mclk";
-> +            avdd-supply =3D <&vdd_3v3>;
-> +            dvdd-supply =3D <&vdd_3v3>;
-> +        };
-> +    };
-> --=20
-> 2.34.1
->=20
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 
---lVmGhPeJik6vMtkp
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
+
+--9g5u3xAR5F2vWSMq
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaf9aIwAKCRB4tDGHoIJi
-0ggOAP9CmJCGd6Uj4zBRYUly+mXIukd5sy/+OgKrJFBIuUCmzAD/eJeRYZLEbtRc
-qSUC56+Io5LCWQT5BaKCt4yQwBepqgI=
-=35P5
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaf9aPAAKCRB4tDGHoIJi
+0tXlAQDTJDvyOSOUE1Io7I5H3lN/+TuzMeZQuwmNDDgv2Q4p4wEA2oGdTkq+zc3N
+AuOKpz8WQ7IG2jwNy5ZLVxMtPFU+fwA=
+=OvgR
 -----END PGP SIGNATURE-----
 
---lVmGhPeJik6vMtkp--
+--9g5u3xAR5F2vWSMq--
