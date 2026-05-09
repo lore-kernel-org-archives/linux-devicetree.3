@@ -1,219 +1,189 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4987317A2F6;
-	Sat,  9 May 2026 11:58:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE59E23EAB0
+	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 12:00:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778327883; cv=none; b=L7sVsMYaC7EKApFPBCUuQVl7K1WodvndfCMTOwxZG7f9I3Tbe4EbWVDdj7EPfWleU2kEW5fUKJ0QpQh14yEYV/u+dSSjQqWWxTlnqNo+JIfEw7iUj8ZKoyHCclVUKFYLd3aXc5trY2yZFVlyzSj4500fVg7cz5wQq4UdW9v+Zww=
+	t=1778328041; cv=none; b=Uv6XmE0yZMGBc9mbbgsBuoCYEKEikyfto1EIjVtjHJaQPqJhMau5NdSQUsqW+aXKQXAqQEdiikmXDdEBAQhZiyv8vVl0TIBXXZn7K2VV4K4DrjUxnknqnr1cRgq3AzdjGcIf7hL1nVfEg06ggCPifQQjrXoyUhj+oCOjwhPRm0c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778327883; c=relaxed/simple;
-	bh=+kyeoNx5SiAfpEbCxeY8IdHHEPk/F+CGq69tXbZwlEM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JD70whDjoo6PBbGHOfVB8I71Ax4AN7yj2890iD6zqKlojGgHpUAlhmuFKoLaemPLQrSLZJN83VUp3ATTa3RBbvIURvTBYQs0faRoEr1bjGxnx1mILhsOKs8r4gXBUWUoQY1LHljA/sqOICBje9kgZyYBgnIU2g5RV81WmvBih/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PcEF8t5k; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778328041; c=relaxed/simple;
+	bh=iemCui2l8qqvzux3lam3RV5hSucVjjAACXX7LzCZHcA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=K7lbEElEqM/2zOL7c+RjE5AEqxV0y5UBDdrkJCpSWU8Ged5L6FH9stnIlIZ5thBKfqAWp53dHNgoX1gXR+kSOs9bpqef055K5I0hzpZV+vA/gqRQ/o1lJ+xklfFvZtuTTPx5qUzSNIs+GwTlRpDW0ISG74uVRueEdm7dMfjUpFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A7TN+NgJ; arc=none smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PcEF8t5k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A110FC2BCB2;
-	Sat,  9 May 2026 11:58:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778327883;
-	bh=+kyeoNx5SiAfpEbCxeY8IdHHEPk/F+CGq69tXbZwlEM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=PcEF8t5k6VqDZ6MdDBPQUeQyQaK9hltJGEAmDInpBrF4Yp8ClEhcV3MGGC263ErJ5
-	 qsyWi7icnNOC5xoC4PtYBQo5QY0/Lu4l95SUBTMKxF6D1wdZLz5IGoB23s0MQDCNGP
-	 7hU9CA/oKvxU4lEhzHEtsQtA/TPwsKAAvvgRlwTFDU+/cCDD5UKAqCyT02MeqYRGHu
-	 dK8VaO0IlEOVAcFDFWwL6/MWk410YinV5EMq1hmrT3cNb/q8mCk3niN7docqetXaeM
-	 qJgf33RV/hWTiTib1d70RaBPcdqBUk2PEHzxrgBldyk3V1V/wgqYHPO2c/Jiz2utRA
-	 MaKVDnNFXA9jA==
-Date: Sat, 9 May 2026 13:58:00 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Christian Marangi <ansuelsmth@gmail.com>,
-	Benjamin Larsson <benjamin.larsson@genexis.eu>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, Xuegang Lu <xuegang.lu@airoha.com>
-Subject: Re: [PATCH net-next v4 08/10] net: airoha: Do not stop GDM port if
- it is shared
-Message-ID: <af8hSCcd2GyfbeuE@lore-desk>
-References: <20260507-airoha-eth-multi-serdes-v4-0-af613b61ae02@kernel.org>
- <20260507-airoha-eth-multi-serdes-v4-8-af613b61ae02@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A7TN+NgJ"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-bcb69c8b30bso159214966b.1
+        for <devicetree@vger.kernel.org>; Sat, 09 May 2026 05:00:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778328038; x=1778932838; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=zmUf6SNpF4clO18ErlUoo6BNS+Vk6nKV8PcksNLHfkQ=;
+        b=A7TN+NgJDOiROdSbAmP7uh/zrwBSV+nGEFjf6F2Gp9Wbx1FCzxQxNvTT9cfw7JLzmd
+         gq+isEPxiAl7kKjsjKvZEYOxPBv/446cLEKUun52UKzI4zCbw/0tw8UmDSWANXcgP4y3
+         Cf8UcV3gdKmhKzUp9TTd4ZbngpmyZo8eDl7s3tQ+xGlbyf6qxMCBsSxkGH23W3oIHAcX
+         nP/fcModN7+s0dVCP4b9YtD4khIqFG5uoZDQa9ofKOTpmFHNyJ/ijVodp1PeU9K+6y9e
+         C4ZQECaBbPzW/XubM7Ijk4gG0JG5cfyg85ToHzxwqdi4i3UM01T4gaStKNbEzQYNc5Uw
+         yGlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778328038; x=1778932838;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=zmUf6SNpF4clO18ErlUoo6BNS+Vk6nKV8PcksNLHfkQ=;
+        b=Nf0MAD3hhzBFcxaZr38gRK9VyTGdpalw3fNmXzQTw6ix2tuGW/0NRf6ZiueSqVz6bm
+         X07iAO0947sEWR02HA9yBWgKH4fQPws+jTYv5EfAyFA8s1DPOaHWsgYTCC1Y2RBgEuVo
+         HU//OSke9xuHcf02jxRBLzIzVl5Y5MUyrzzURBTgfaVRgdI4ezAMY3TJ+Ehel5UdFSP2
+         YydTjoKvzXDfEqh3QEjOqZj+d2w3R/UUJ2twd7uTN+GkbD4zlXE1Ver32J7ANzAFWo1S
+         lSa21XPvx8qjJb4L1vGhzyefVZhp8/KnuKuUbq4waASYzYXfKdcMEljVSv0jAVIlHKgQ
+         KczA==
+X-Forwarded-Encrypted: i=1; AFNElJ/7vVDaOytiby4Z0qjuEyMjQDOQ2XFTwOBEbFXDvkACzXvxCI88m2iMBVLyYo/XDLd1sJwymI9JazuW@vger.kernel.org
+X-Gm-Message-State: AOJu0YzYye+4pZogcFg4oZ3WarUm19FMdEG+RC7gWP9QR4DiociUJLtO
+	/0CBfMYU0tF6s+ZkdtjgwWK79/GodvA9fokQdoBS1DVZQ1vv912R+lEo
+X-Gm-Gg: Acq92OEC+4ZU93hLdtufYuD6Dv33sGCGw5OoyPuBJgWX8ge1J4eszJEd829zJZwkgWp
+	437SSKaT0x2RpxX9CuiHahVw5LQWM6STRel2+BuwGrUUuj7lHBelBtxpIP2sDEKEB2HEfeMeuHH
+	KH3F7NB00Jwv54IJ/ik537u61Anoa9XH+zp9HVR8aP6pg7xkJGWyja0CjSs8Qo6xykmGym51hQw
+	ojcYLoFVxQYFKM6Us0amH+y3aDy5t9Ode5yEk9D5oTi0aGVW1jDQuCH+FrUGZf6TK3Qi0VWkqOk
+	b45bBkUl4kTiCbZKD6RTc/fLNuYVI2Qw/xi/YImfeP7LNzZ+2XqCWZpUw4A/UvrFmmqa4dYg9Ah
+	K4nuqxrr1zKYHX7ysmGMBlJXvZ8qqQwaaJdsNgbONUU9EvHPzdDHZAbyXoZicP0RaMwlGiNXG/z
+	jlO2Li4r3GsnwJ1pdmYxHQDAmKsTtIZOWOw2OCCqitHje2LZDf02ByNnZ3zw1oISVwC0MT
+X-Received: by 2002:a17:907:c817:b0:bae:456f:fbb2 with SMTP id a640c23a62f3a-bc56cd3b1ccmr1054228966b.23.1778328037744;
+        Sat, 09 May 2026 05:00:37 -0700 (PDT)
+Received: from ?IPV6:2a00:f502:160:4e2:a099:cad9:2ecd:93de? ([2a00:f502:160:4e2:a099:cad9:2ecd:93de])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bcac4359ea4sm219872166b.50.2026.05.09.05.00.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 09 May 2026 05:00:37 -0700 (PDT)
+Message-ID: <69f9a6b7-7431-442a-82a2-6305635a508a@gmail.com>
+Date: Sat, 9 May 2026 15:00:34 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="f/l86ZsPISNBd6cb"
-Content-Disposition: inline
-In-Reply-To: <20260507-airoha-eth-multi-serdes-v4-8-af613b61ae02@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 5/8] clk: qcom: gcc-msm8939: mark Venus core GDSCs as
+ hardware controlled
+To: Bryan O'Donoghue <bod@kernel.org>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ phone-devel@vger.kernel.org
+References: <20260507-msm8939-venus-rfc-v5-0-d7b5ea2ce591@gmail.com>
+ <f5TsKnC12rLsH63vAi01aN4oXUFLrfgIhn14IQFDb9gcac6anLzzhJdkGNdQ2dRs4vYbFKUptfEgWuKdgIgGsQ==@protonmail.internalid>
+ <20260507-msm8939-venus-rfc-v5-5-d7b5ea2ce591@gmail.com>
+ <17c4626e-8926-4cad-842d-a1b171d1e962@kernel.org>
+ <CYaHtccGOWlaUtl3QIKva44ybJiRHsPOZmHEkl2KKGmnDxJ8vTH-SVNMGbL7bjkYjI692nplORzOhpfjs3XJfg==@protonmail.internalid>
+ <4f1ab5b8-3bfe-43a6-8b91-317456188544@gmail.com>
+ <7df3bff7-b872-4b20-8e7c-698157a41f33@kernel.org>
+ <tawGGT4rtpw22Ng-MgM--GhoEihBU7tY_TrFUHf8raMKApyqTcSkKHyfSuRIL_bqNp_5zWD4SBG_C4c8CB7_6Q==@protonmail.internalid>
+ <18998766-62fe-4a5e-95d8-1bfae712d8fb@gmail.com>
+ <614a087d-d219-49cb-85ee-772044558649@kernel.org>
+ <Jxt4BbN1dL8VKh_Zjah1xecAjz3c9VfbhKSm4a0K2D1MNKfJKIFnCPLj2VvdW1q4LnMIQy8bCzV3YoVnLFYUlA==@protonmail.internalid>
+ <0cee27b6-f566-4958-8634-2c43e099281e@gmail.com>
+ <dd435489-0cf7-4274-99bf-a591a15e91e4@kernel.org>
+Content-Language: en-US
+From: Erikas Bitovtas <xerikasxx@gmail.com>
+In-Reply-To: <dd435489-0cf7-4274-99bf-a591a15e91e4@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+On 5/8/26 6:55 PM, Bryan O'Donoghue wrote:
+> On 07/05/2026 16:51, Erikas Bitovtas wrote:
+>>
+>>
+>> On 5/7/26 4:37 PM, Bryan O'Donoghue wrote:
+>>> v4l2-ctl --verbose --set-fmt-video-
+>>> out=width=1280,height=720,pixelformat=NV12 --set-selection-output
+>>> target=crop,top=0,left=0,width=1280,height=720 --set-fmt-
+>>> video=pixelformat=H264 --stream-mmap --stream-out-mmap --stream-
+>>> from=cyclists_1280x720_92frames.yuv --stream-to=/tmp/
+>>> cyclists_1280x720_92frames.h264 -d /dev/video1
+>>
+>> With the patch kept:
+>> v4l2-ctl --verbose
+>> --set-fmt-video-out=width=1280,height=720,pixelformat=NV12
+>> --set-selection-output target=crop,top=0,left=0,width=1280,height=720
+>> --set-fmt-video=pixelformat=H26
+>> 4 --stream-mmap --stream-out-mmap
+>> --stream-from=cyclists_1280x720_92frames.yuv
+>> --stream-to=/tmp/cyclists_1280x720_92frames.h264 -d /dev/video1
+>> VIDIOC_QUERYCAP: ok
+>> VIDIOC_G_FMT: ok
+>> VIDIOC_S_FMT: ok
+>> Format Video Capture Multiplanar:
+>>     Width/Height      : 1280/736
+>>     Pixel Format      : 'H264' (H.264)
+>>     Field             : None
+>>     Number of planes  : 1
+>>     Flags             :
+>>     Colorspace        : Default
+>>     Transfer Function : Default
+>>     YCbCr/HSV Encoding: Default
+>>     Quantization      : Default
+>>     Plane 0           :
+>>        Bytes per Line : 0
+>>        Size Image     : 708608
+>> VIDIOC_G_FMT: ok
+>> VIDIOC_S_FMT: ok
+>> Format Video Output Multiplanar:
+>>     Width/Height      : 1280/736
+>>     Pixel Format      : 'NV12' (Y/UV 4:2:0)
+>>     Field             : None
+>>     Number of planes  : 1
+>>     Flags             :
+>>     Colorspace        : Default
+>>     Transfer Function : Default
+>>     YCbCr/HSV Encoding: Default
+>>     Quantization      : Default
+>>     Plane 0           :
+>>        Bytes per Line : 1280
+>>        Size Image     : 1425408
+>> VIDIOC_G_SELECTION: ok
+>> VIDIOC_S_SELECTION: ok
+>>         VIDIOC_G_FMT returned 0 (No error information)
+>>         VIDIOC_G_FMT returned 0 (No error information)
+>>         VIDIOC_G_FMT returned 0 (No error information)
+>>         VIDIOC_REQBUFS returned -1 (Invalid argument)
+>>
+>> With the patch reverted:
+>> v4l2-ctl --verbose
+>> --set-fmt-video-out=width=1280,height=720,pixelformat=NV12
+>> --set-selection-output target=crop,top=0,left=0,width=1280,height=720
+>> --set-fmt-video=pixelformat=H26
+>> 4 --stream-mmap --stream-out-mmap
+>> --stream-from=cyclists_1280x720_92frames.yuv
+>> --stream-to=/tmp/cyclists_1280x720_92frames.h264 -d /dev/video1
+>> VIDIOC_QUERYCAP: ok
+>> VIDIOC_G_FMT: ok
+>> The pixelformat 'H264' is invalid
+>> VIDIOC_G_FMT: ok
+>> The pixelformat 'NV12' is invalid
+>>
+>> Decoding breaks if I revert the patch as well, it fails with a power
+>> collapse fail.
+> 
+> If you declare both as decoders can you successfully decode @ video0 and
+> video1 ?
+> Apparently device nodes for encoder and decoder are not persistent
+across reboots, so when I reverted the patch, I was actually testing
+against decoder, not encoder.
 
---f/l86ZsPISNBd6cb
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-> Theoretically, in the current codebase, two independent net_devices can
-> be connected to the same GDM port so we need to check the GDM port is not
-> used by any other running net_device before setting the forward
-> configuration to FE_PSE_PORT_DROP.
->=20
-> Tested-by: Xuegang Lu <xuegang.lu@airoha.com>
-> Signed-off-by: Lorenzo Bianconi <lorenzo@kernel.org>
-> ---
->  drivers/net/ethernet/airoha/airoha_eth.c | 36 +++++++++++++++++++++++++-=
-------
->  drivers/net/ethernet/airoha/airoha_eth.h |  2 ++
->  2 files changed, 30 insertions(+), 8 deletions(-)
->=20
-> diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ether=
-net/airoha/airoha_eth.c
-> index 0253919714e0..1c4927c1aeb0 100644
-> --- a/drivers/net/ethernet/airoha/airoha_eth.c
-> +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-> @@ -1714,8 +1714,8 @@ static int airoha_dev_open(struct net_device *netde=
-v)
->  	int err, len =3D ETH_HLEN + netdev->mtu + ETH_FCS_LEN;
->  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
->  	struct airoha_gdm_port *port =3D dev->port;
-> +	u32 cur_len, pse_port =3D FE_PSE_PORT_PPE1;
->  	struct airoha_qdma *qdma =3D dev->qdma;
-> -	u32 pse_port =3D FE_PSE_PORT_PPE1;
-> =20
->  	netif_tx_start_all_queues(netdev);
->  	err =3D airoha_set_vip_for_gdm_port(dev, true);
-> @@ -1729,10 +1729,14 @@ static int airoha_dev_open(struct net_device *net=
-dev)
->  		airoha_fe_clear(qdma->eth, REG_GDM_INGRESS_CFG(port->id),
->  				GDM_STAG_EN_MASK);
-> =20
-> -	airoha_fe_rmw(qdma->eth, REG_GDM_LEN_CFG(port->id),
-> -		      GDM_SHORT_LEN_MASK | GDM_LONG_LEN_MASK,
-> -		      FIELD_PREP(GDM_SHORT_LEN_MASK, 60) |
-> -		      FIELD_PREP(GDM_LONG_LEN_MASK, len));
-> +	cur_len =3D airoha_fe_get(qdma->eth, REG_GDM_LEN_CFG(port->id),
-> +				GDM_LONG_LEN_MASK);
-> +	if (!atomic_read(&port->users) || len > cur_len)
-> +		airoha_fe_rmw(qdma->eth, REG_GDM_LEN_CFG(port->id),
-> +			      GDM_SHORT_LEN_MASK | GDM_LONG_LEN_MASK,
-> +			      FIELD_PREP(GDM_SHORT_LEN_MASK, 60) |
-> +			      FIELD_PREP(GDM_LONG_LEN_MASK, len));
-> +	atomic_inc(&port->users);
-> =20
->  	airoha_qdma_set(qdma, REG_QDMA_GLOBAL_CFG,
->  			GLOBAL_CFG_TX_DMA_EN_MASK |
-> @@ -1762,8 +1766,12 @@ static int airoha_dev_stop(struct net_device *netd=
-ev)
->  	for (i =3D 0; i < netdev->num_tx_queues; i++)
->  		netdev_tx_reset_subqueue(netdev, i);
-> =20
-> -	airoha_set_gdm_port_fwd_cfg(qdma->eth, REG_GDM_FWD_CFG(port->id),
-> -				    FE_PSE_PORT_DROP);
-> +	if (atomic_dec_and_test(&port->users)) {
-> +		airoha_set_vip_for_gdm_port(dev, false);
-> +		airoha_set_gdm_port_fwd_cfg(qdma->eth,
-> +					    REG_GDM_FWD_CFG(port->id),
-> +					    FE_PSE_PORT_DROP);
-> +	}
-> =20
->  	if (atomic_dec_and_test(&qdma->users)) {
->  		airoha_qdma_clear(qdma, REG_QDMA_GLOBAL_CFG,
-> @@ -1915,10 +1923,22 @@ static void airoha_dev_get_stats64(struct net_dev=
-ice *netdev,
->  static int airoha_dev_change_mtu(struct net_device *netdev, int mtu)
->  {
->  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
-> +	u32 cur_len, len =3D ETH_HLEN + mtu + ETH_FCS_LEN;
->  	struct airoha_gdm_port *port =3D dev->port;
-> -	u32 len =3D ETH_HLEN + mtu + ETH_FCS_LEN;
->  	struct airoha_eth *eth =3D dev->eth;
-> =20
-> +	cur_len =3D airoha_fe_get(eth, REG_GDM_LEN_CFG(port->id),
-> +				GDM_LONG_LEN_MASK);
-> +	if (len < cur_len) {
-> +		u8 port_refcnt =3D atomic_read(&port->users);
-> +
-> +		/* We can decrease the device MTU just if the GDM port is
-> +		 * not shared or if the other device is not running.
-> +		 */
-> +		if (port_refcnt > 1 || (port_refcnt && !netif_running(netdev)))
-> +			return -EBUSY;
-> +	}
-> +
->  	airoha_fe_rmw(eth, REG_GDM_LEN_CFG(port->id),
->  		      GDM_LONG_LEN_MASK,
->  		      FIELD_PREP(GDM_LONG_LEN_MASK, len));
-> diff --git a/drivers/net/ethernet/airoha/airoha_eth.h b/drivers/net/ether=
-net/airoha/airoha_eth.h
-> index 207c75152fde..3a313ac439e7 100644
-> --- a/drivers/net/ethernet/airoha/airoha_eth.h
-> +++ b/drivers/net/ethernet/airoha/airoha_eth.h
-> @@ -553,6 +553,8 @@ struct airoha_gdm_port {
->  	struct airoha_gdm_dev *devs[AIROHA_MAX_NUM_GDM_DEVS];
->  	int id;
-> =20
-> +	atomic_t users;
-> +
->  	struct airoha_hw_stats stats;
-> =20
->  	struct metadata_dst *dsa_meta[AIROHA_MAX_DSA_PORTS];
->=20
-> --=20
-> 2.54.0
->=20
-
-Commenting on shashiko report:
-https://sashiko.dev/#/patchset/20260507-airoha-eth-multi-serdes-v4-0-af613b=
-61ae02%40kernel.org
-
-- Is this call to airoha_set_vip_for_gdm_port() redundant?
-  Looking at airoha_dev_stop(), airoha_set_vip_for_gdm_port(dev, false) is
-  already called unconditionally earlier in the function. Since get_vip_por=
-t()
-  returns a device-specific bitmask based on dev->nbq, does the uncondition=
-al
-  call correctly clear the hardware bits for the specific device being stop=
-ped
-  without affecting other devices on the same shared port?
-  - I will fix it in v5.
-
-- Does returning -EBUSY here improperly prevent valid software MTU configur=
-ations?=20
-  Instead of failing the ndo_change_mtu callback and preventing the software
-  netdev->mtu from updating, should this code unconditionally allow the sof=
-tware
-  update (netdev->mtu =3D mtu) and simply skip the hardware register
-  (REG_GDM_LEN_CFG) downgrade to safely preserve the larger hardware limit
-  required by active shared siblings?
-  - I will fix it in v5.
-
-- Is the use of an atomic_t necessary for tracking users here?
-  The port->users reference count appears to only be modified in ndo_open a=
-nd
-  ndo_stop, and read in ndo_change_mtu. Since all of these callback paths a=
-re
-  inherently strictly serialized by the kernel's rtnl_lock(), could a simple
-  integer be used instead to avoid unnecessary atomic overhead?
-  - I will fix it in v5.
-
---f/l86ZsPISNBd6cb
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaf8hSAAKCRA6cBh0uS2t
-rIAVAP40XN/xVxenB27WTAZQFLE3D1aOZEx4226QciUyPoghTAEA5Q+pwNyELBEQ
-C2PWBhwiUFSdhonKXDUiPaijAreZyw4=
-=IPQU
------END PGP SIGNATURE-----
-
---f/l86ZsPISNBd6cb--
+So, the result is the same when the patch is applied, when it is
+reverted, and when testing against v1 where the cores are enabled only
+for decoding.
