@@ -1,234 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC83345CD8;
-	Sat,  9 May 2026 09:00:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA60738A73A
+	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 09:01:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778317233; cv=none; b=bd+WhkovCpMCpXUWeyY8Y3KQwrUtXFNFI8re5jkcJanSZzGht4pTxHCeWdXmt7VcqZoTKC2DmfSuFAZZHa8X87li0fwSwBxlWUM6rO0mQjnqoojm4EJmJG2+e5uKKrz0fIvUi5s2Sf2lIIp4slD0MXvM/7SnuAat6Tm/v9Y8Mvk=
+	t=1778317291; cv=none; b=RKpl34WpeBJ/UuwIKB3R0gUkNNJNkKil3oZdABakEBl6H+EUvqa35Vheb9jv5wTXwIFZW488RvvLppp7uEvlmPx/elzyBpV0Z+Zv3NGaFtkJdR0YeIDZlA0H9o6k7Xz75vySI6/rBSWUgLPB0OGzBaKr+adG0fGyNTjjLNaZfQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778317233; c=relaxed/simple;
-	bh=ZqLpz2CFj28iASBq5rq8tyYLR7o5ybdmwFhd94Td2m0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X4kaDlgMURLKIlXQr9KbElxH19stHfh4Tk9X69m7vlaXH68iYUg7QXBjNLROsgy5dA6kmuFwMBBvfEdt1t7gC4+zJgY2ZDVMXJqJ1wZdMbzeK0iuzLnbJAK7wkzFmfCsGmPVgMBQ8dia1YWjS0fiJ7gz42a7ZtLIAO6t1AfhCy4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pP5r8Bhp; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778317291; c=relaxed/simple;
+	bh=Pd+PixTClmq9iDjE0tJeEHz/5/XszPl+RTnZIH5Zz3U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DwXTWYw9U58JhWZ9D+kcRMw3BoRtUjwzTeq3loBilrv3AB3dQHP7b0rTXsH1/gqu1EIEMb2Y4RDPD511YitDbWmuaZhnEn2ktLC6duriQhwJH9gA6ozLbMLIPZcbYzi5YB6iMiijnPO1wjeg+g8ocKFMRzpgdU2Gi5ZMJ9y3gCU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=exiQ1VmW; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pP5r8Bhp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87068C2BCB2;
-	Sat,  9 May 2026 09:00:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778317233;
-	bh=ZqLpz2CFj28iASBq5rq8tyYLR7o5ybdmwFhd94Td2m0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pP5r8Bhpm0NTMhVIzUfWOtGIwxDRr+p9wyNO5ZIeT0iScG9QjezvbYUzRJIH6hos/
-	 LV1CTwl0sCAFeVQudLmrYvT+gMk1zNxdf+dq12q0Kdw26VkxWuaru4xA0u65jLr4ps
-	 2rtxmqu1gQZpgHQ/zkgGJvGZOJ8O/zpJz1L3UeLs1H0wIPeKLe3V5v0kAigf+/D3V6
-	 S72mUlJbtwzA9rnCzqnkmcRT9AtoxXiwEjFX1M8Igj1wiPHkijfBahVrAfAL6pH3AQ
-	 nSZHmF1177Rk6g5rX9IFvJG3I2qbw7K6KUDSbV3fAABWfQWFhMoJ1uU0pCy2VBj2G2
-	 XJsSFDSNoBGYA==
-Date: Sat, 9 May 2026 11:00:30 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ansuelsmth@gmail.com,
-	benjamin.larsson@genexis.eu, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, madhur.agrawal@airoha.com
-Subject: Re: [PATCH net-next v4 08/10] net: airoha: Do not stop GDM port if
- it is shared
-Message-ID: <af73rqYK1xCL-XsK@lore-desk>
-References: <20260507-airoha-eth-multi-serdes-v4-8-af613b61ae02@kernel.org>
- <20260509014613.3558087-1-kuba@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="exiQ1VmW"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-366375c4076so1126580a91.3
+        for <devicetree@vger.kernel.org>; Sat, 09 May 2026 02:01:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778317290; x=1778922090; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=g5vfP1p0UyOrzp9I9vPGFNM8zPArC9vYWCv2720j8ng=;
+        b=exiQ1VmWoM4WA01mYva7D42yO/ANN589Labolo7NOGXNIgRgQv6+xM8tV+YG1s2cAd
+         o7CmFvq+rNmaw7Y11uyTV5EmP6das2QWFWukc97GlJcQp9tM3XHUlXWuwus+lmsioM76
+         F9Zb56BRXSA/FgpFrm6HwXHmdQb1RbkB3pk8IyelHaBv2knOTLo7LjmSoTMRO/SYJe/b
+         ij/WoNPQ8L+0DVXxDBReQnhUWcCV5fWya0VtQWVSGT3hQhtKFhh5TyOlW606aRBBIYOS
+         dQwkNZULMhfTOwcHvINHKkuhdaAmDuaysBuZ8fe8Wf476czTSK8TIp3Pit9FPMKF03qe
+         +h0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778317290; x=1778922090;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=g5vfP1p0UyOrzp9I9vPGFNM8zPArC9vYWCv2720j8ng=;
+        b=SjAI4tlIErouAGqqtI2G1cgq9OP9oclZr+9ppoX3FHmlCwpVJTQgXFbzuOtWet0u0Q
+         gNqJl81fWjNFd1ERTrDwnIyvIjGo+BTxYOMWGsV0DBgSdZxW3Vi7beWbRrXuGiEXjyRV
+         Vp5jXK96ec8VE80cpgSi0Iv3Mr3zfAKxmXrQqevEgfq9qilViJODbTn3p0ZhdzurpfPK
+         Ygl0b1cLaI3+7QaMhvx+myGdhe3e6v4vWQLI++BUxJzezMHLFa9v32j2/sWWCPkNox0A
+         TrSo3J16vlXqCjumvDZsbtWkT45rPFT5jeh13eV9LR6nka8q5hH6Vo2cF4vSPGdE+gTW
+         9jhg==
+X-Forwarded-Encrypted: i=1; AFNElJ+TxmP+fQMQqnhBB8LVezkR8CaHGL/Hxzyxk0l5Q7RZLfUuPClFndLV7DmSKUdtbQwoNON7ySWeuHL3@vger.kernel.org
+X-Gm-Message-State: AOJu0YzeEGGHAOzWucf85GqMs+J9adTlAtTeK0qooGoCT+AMB9RpzVpv
+	bHXicEv3MLl4wcEzngAoMDvsmkHoHYWHrHadnGztj1EiNbm53tQodQnu
+X-Gm-Gg: Acq92OE+MPUO6SJ+xCc4uOokfMWLVkGyDXE/ELF8M9nJozdyL1u5Q7BPsoFhQl9dET4
+	XbofqK0ifoPFKXVtWjUaOsc1cvqTEuvDzJm0hXl2hRo4ENnQKSM9xI6pZ3gCgi2pYlZKF5WBEZq
+	Wcpp/lmXCZxrCpVEVX1CK+Y9Fo9FCYlW8drk5zkgcnLoEsxTmr2KoJgLfpm9yjYzOgv/gUGhXYe
+	k+P5dwYASUiWtv/wLyENOIICYkXJuKOHquQtMPOlKCJ2ZoTxWwSIs6aqlJd21y6gq3JJZKL4muJ
+	SB+To0k6SpeDP69Y0ggv2MFosdXNtnr8uTLFwNQjnoeYNkOJsycLKy5iCx6CK7RRiwq75JP1VT8
+	wshxpTLT2a/azTECHAYIhh4WWZ2QypGcjxV50Fzdc3oPpisk6rAOx97PMr+kGJpXtMsvVtBkrME
+	VsbV3FLvGZ3DIPSkoJ7jBNIOYiUGAHV2xnaoPQlGtTwUU2Cs0y
+X-Received: by 2002:a17:90b:2ccd:b0:366:4782:1376 with SMTP id 98e67ed59e1d1-367d49bd409mr2028354a91.21.1778317289891;
+        Sat, 09 May 2026 02:01:29 -0700 (PDT)
+Received: from ultimate.. ([58.84.61.253])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-367d625ef70sm1577080a91.1.2026.05.09.02.01.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 09 May 2026 02:01:29 -0700 (PDT)
+From: Udaya Kiran Challa <challauday369@gmail.com>
+To: alexandre.belloni@bootlin.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Udaya Kiran Challa <challauday369@gmail.com>
+Subject: [PATCH v2] dt-bindings: rtc: epson,rx6110: Convert to DT Schema
+Date: Sat,  9 May 2026 14:30:51 +0530
+Message-ID: <20260509090051.77603-1-challauday369@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Lk/TFdVeNBlgNVPK"
-Content-Disposition: inline
-In-Reply-To: <20260509014613.3558087-1-kuba@kernel.org>
+Content-Transfer-Encoding: 8bit
 
+Convert the Epson RX6110 Real Time Clock devicetree binding
+from the legacy text format to DT schema.
 
---Lk/TFdVeNBlgNVPK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
+---
+Changelog:
+Changes since v1:
+- Reuse common SPI peripheral properties
+- Drop redundant SPI-specific comment
+- Remove unused labels from examples
 
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> ---
-> net: airoha: Do not stop GDM port if it is shared
->=20
-> This patch adds a per-port users refcount so the GDM forward configuration
-> is only reset to FE_PSE_PORT_DROP when the last netdev attached to the
-> shared GDM port stops, and it adjusts the MTU/length register updates to
-> cope with the shared case.
->=20
-> > diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/eth=
-ernet/airoha/airoha_eth.c
-> > index 0253919714e0..1c4927c1aeb0 100644
-> > --- a/drivers/net/ethernet/airoha/airoha_eth.c
-> > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-> > @@ -1714,8 +1714,8 @@ static int airoha_dev_open(struct net_device *net=
-dev)
-> >  	int err, len =3D ETH_HLEN + netdev->mtu + ETH_FCS_LEN;
-> >  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
-> >  	struct airoha_gdm_port *port =3D dev->port;
-> > +	u32 cur_len, pse_port =3D FE_PSE_PORT_PPE1;
-> >  	struct airoha_qdma *qdma =3D dev->qdma;
-> > -	u32 pse_port =3D FE_PSE_PORT_PPE1;
-> > =20
-> >  	netif_tx_start_all_queues(netdev);
-> >  	err =3D airoha_set_vip_for_gdm_port(dev, true);
-> > @@ -1729,10 +1729,14 @@ static int airoha_dev_open(struct net_device *n=
-etdev)
-> >  		airoha_fe_clear(qdma->eth, REG_GDM_INGRESS_CFG(port->id),
-> >  				GDM_STAG_EN_MASK);
-> > =20
-> > -	airoha_fe_rmw(qdma->eth, REG_GDM_LEN_CFG(port->id),
-> > -		      GDM_SHORT_LEN_MASK | GDM_LONG_LEN_MASK,
-> > -		      FIELD_PREP(GDM_SHORT_LEN_MASK, 60) |
-> > -		      FIELD_PREP(GDM_LONG_LEN_MASK, len));
-> > +	cur_len =3D airoha_fe_get(qdma->eth, REG_GDM_LEN_CFG(port->id),
-> > +				GDM_LONG_LEN_MASK);
-> > +	if (!atomic_read(&port->users) || len > cur_len)
-> > +		airoha_fe_rmw(qdma->eth, REG_GDM_LEN_CFG(port->id),
-> > +			      GDM_SHORT_LEN_MASK | GDM_LONG_LEN_MASK,
-> > +			      FIELD_PREP(GDM_SHORT_LEN_MASK, 60) |
-> > +			      FIELD_PREP(GDM_LONG_LEN_MASK, len));
-> > +	atomic_inc(&port->users);
->=20
-> [Medium]
-> When a second netdev opens with a larger MTU, this unconditionally
-> widens GDM_LONG_LEN_MASK for the already-running sibling that has a
-> smaller MTU:
->=20
-> 	if (!atomic_read(&port->users) || len > cur_len)
-> 		airoha_fe_rmw(qdma->eth, REG_GDM_LEN_CFG(port->id),
-> 			      GDM_SHORT_LEN_MASK | GDM_LONG_LEN_MASK,
-> 			      FIELD_PREP(GDM_SHORT_LEN_MASK, 60) |
-> 			      FIELD_PREP(GDM_LONG_LEN_MASK, len));
->=20
-> Meanwhile airoha_dev_change_mtu() rejects shrinks (len < cur_len) with
-> -EBUSY when the port is shared. Is this asymmetry intentional?
+Link to v1:https://lore.kernel.org/all/20260504183728.27412-1-challauday369@gmail.com/
+---
+ .../devicetree/bindings/rtc/epson,rx6110.yaml | 23 +++++++------------
+ 1 file changed, 8 insertions(+), 15 deletions(-)
 
-This is done intentionally since we do not want to break traffic of already
-running net_device if we want to increase the MTU on a sibling net_device.
+diff --git a/Documentation/devicetree/bindings/rtc/epson,rx6110.yaml b/Documentation/devicetree/bindings/rtc/epson,rx6110.yaml
+index 32d15a014f91..b51d39ef75e4 100644
+--- a/Documentation/devicetree/bindings/rtc/epson,rx6110.yaml
++++ b/Documentation/devicetree/bindings/rtc/epson,rx6110.yaml
+@@ -14,6 +14,9 @@ description: |
+ maintainers:
+   - Alexandre Belloni <alexandre.belloni@bootlin.com>
+ 
++allOf:
++  - $ref: /schemas/spi/spi-peripheral-props.yaml#
++
+ properties:
+   compatible:
+     const: epson,rx6110
+@@ -21,24 +24,14 @@ properties:
+   reg:
+     maxItems: 1
+ 
+-  # SPI-specific properties
+-  spi-cs-high:
+-    type: boolean
+-    description: RX6110 needs chipselect high
+-
+-  spi-cpha:
+-    type: boolean
+-    description: RX6110 works with SPI shifted clock phase
+-
+-  spi-cpol:
+-    type: boolean
+-    description: RX6110 works with SPI inverse clock polarity
++  spi-cpha: true
++  spi-cpol: true
+ 
+ required:
+   - compatible
+   - reg
+ 
+-additionalProperties: false
++unevaluatedProperties: false
+ 
+ examples:
+   # I2C mode
+@@ -47,7 +40,7 @@ examples:
+       #address-cells = <1>;
+       #size-cells = <0>;
+ 
+-      rtc1: rtc@32 {
++      rtc@32 {
+         compatible = "epson,rx6110";
+         reg = <0x32>;
+       };
+@@ -59,7 +52,7 @@ examples:
+       #address-cells = <1>;
+       #size-cells = <0>;
+ 
+-      rtc2: rtc@3 {
++      rtc@3 {
+         compatible = "epson,rx6110";
+         reg = <3>;
+         spi-cs-high;
+-- 
+2.43.0
 
->=20
-> With the new policy the hardware long-length ends up as the maximum of
-> the two MTUs, so the smaller-MTU sibling silently accepts frames larger
-> than its advertised MTU at the MAC level. Should opens that would
-> increase the shared length also be gated (symmetric policy), or should
-> the commit message and a comment document the chosen ceiling/floor
-> behaviour?
-
-I will add a comment in the code in v5.
-
->=20
-> > =20
-> >  	airoha_qdma_set(qdma, REG_QDMA_GLOBAL_CFG,
-> >  			GLOBAL_CFG_TX_DMA_EN_MASK |
-> > @@ -1762,8 +1766,12 @@ static int airoha_dev_stop(struct net_device *ne=
-tdev)
-> >  	for (i =3D 0; i < netdev->num_tx_queues; i++)
-> >  		netdev_tx_reset_subqueue(netdev, i);
-> > =20
-> > -	airoha_set_gdm_port_fwd_cfg(qdma->eth, REG_GDM_FWD_CFG(port->id),
-> > -				    FE_PSE_PORT_DROP);
-> > +	if (atomic_dec_and_test(&port->users)) {
-> > +		airoha_set_vip_for_gdm_port(dev, false);
-> > +		airoha_set_gdm_port_fwd_cfg(qdma->eth,
-> > +					    REG_GDM_FWD_CFG(port->id),
-> > +					    FE_PSE_PORT_DROP);
-> > +	}
->=20
-> [Low]
-> Is the airoha_set_vip_for_gdm_port(dev, false) call inside the
-> atomic_dec_and_test() block intentional?
->=20
-> Looking at airoha_dev_stop() as a whole, the same call is already made
-> unconditionally a few lines above:
->=20
-> 	netif_tx_disable(netdev);
-> 	airoha_set_vip_for_gdm_port(dev, false);
-> 	for (i =3D 0; i < netdev->num_tx_queues; i++)
-> 		netdev_tx_reset_subqueue(netdev, i);
->=20
-> 	if (atomic_dec_and_test(&port->users)) {
-> 		airoha_set_vip_for_gdm_port(dev, false);
-> 		...
-> 	}
->=20
-> Since get_vip_port() derives the bit mask per-(port, dev->nbq) and
-> airoha_fe_clear() of already-cleared bits is a no-op, the second call
-> looks like dead code today. The commit log only mentions the
-> FE_PSE_PORT_DROP gating, not VIP handling. Should the duplicate be
-> dropped in v2?
-
-ack, I will fix in v5.
-
->=20
-> > =20
-> >  	if (atomic_dec_and_test(&qdma->users)) {
-> >  		airoha_qdma_clear(qdma, REG_QDMA_GLOBAL_CFG,
-> > @@ -1915,10 +1923,22 @@ static void airoha_dev_get_stats64(struct net_d=
-evice *netdev,
-> >  static int airoha_dev_change_mtu(struct net_device *netdev, int mtu)
-> >  {
-> >  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
-> > +	u32 cur_len, len =3D ETH_HLEN + mtu + ETH_FCS_LEN;
-> >  	struct airoha_gdm_port *port =3D dev->port;
-> > -	u32 len =3D ETH_HLEN + mtu + ETH_FCS_LEN;
-> >  	struct airoha_eth *eth =3D dev->eth;
-> > =20
-> > +	cur_len =3D airoha_fe_get(eth, REG_GDM_LEN_CFG(port->id),
-> > +				GDM_LONG_LEN_MASK);
-> > +	if (len < cur_len) {
-> > +		u8 port_refcnt =3D atomic_read(&port->users);
-> > +
-> > +		/* We can decrease the device MTU just if the GDM port is
-> > +		 * not shared or if the other device is not running.
-> > +		 */
-> > +		if (port_refcnt > 1 || (port_refcnt && !netif_running(netdev)))
-> > +			return -EBUSY;
-> > +	}
-> > +
->=20
-> [Low]
-> Why is port_refcnt typed as u8 here when atomic_read() returns int?
->=20
-> 	u8 port_refcnt =3D atomic_read(&port->users);
->=20
-> With AIROHA_MAX_NUM_GDM_DEVS currently 2 this cannot overflow, but a
-> future bump of AIROHA_MAX_NUM_GDM_DEVS, or a refcount leak, that pushed
-> port->users to 256 would wrap to 0 and quietly bypass both the
-> port_refcnt > 1 and port_refcnt && !netif_running(netdev) checks,
-> permitting MTU shrinks that are meant to be rejected. Would using int
-> here (the type atomic_read() returns) be preferable?
-
-ack, I will fix in v5.
-
-Regards,
-Lorenzo
-
->=20
-> >  	airoha_fe_rmw(eth, REG_GDM_LEN_CFG(port->id),
-> >  		      GDM_LONG_LEN_MASK,
-> >  		      FIELD_PREP(GDM_LONG_LEN_MASK, len));
-
---Lk/TFdVeNBlgNVPK
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaf73rgAKCRA6cBh0uS2t
-rGHbAQCU4qZQKNGV5iqcff0D6MaDhyAsSLJmi/W5EouwYcqncAEAmNiuT5ZIzpcH
-4Mt+NqzHqJyEkeLUhvnoyxX86GhLUg8=
-=akYS
------END PGP SIGNATURE-----
-
---Lk/TFdVeNBlgNVPK--
