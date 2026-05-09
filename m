@@ -1,122 +1,197 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 044CA29D268
-	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 02:04:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 867901F37D3
+	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 02:05:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778292268; cv=none; b=tWaBR9UpIz8CVVPMSbJ3birAbhLdbDx4t8bG56noGxGs75I46JrJOH9NURo8xX450ixP8/4VEw7Fhr7IS0oF9M5Q+gq+kV1ikUN+1DN61/P1cS532ay6NU/vzWCugzBImIvkOdIc/bXmEDXsoo1hNNTC77HpMgE/W1QUvUHgzys=
+	t=1778292356; cv=none; b=G4y/BucbhxOL7kZk2wyXeIOVEOCXtwFABc1Fi3ZkdmGuRZD7wJhaPBPdT9FfDl4h3xXH1DB2btLrkP4Xv/JlqbqgMSLX43oYGBBzDKHA7GzHDytyqKAN7lKQgsJTbzu6HQ1cpLCEUvME7twORlH/bleSk2qfXFpNRdPynxgq8po=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778292268; c=relaxed/simple;
-	bh=67cQx5h5EfVqCG/fdK6oUL+AYJQaEpxH3q2e02Z+Ytw=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=PAmL+jszyyViCrPFcDdTnZebnB/EsGirgam6CqlBMsfmaUfhatYwfiC1wLYyOlRucqH9A5nprFVZUksWO+ZszMHKHiHY9Fbm1WGDqx1ywVhF+kLvtSPUh5zqkjyh2ATTaiX+KVRqHV+YeSYDYMSHY1RLpMicrB6FF9HgEGOJ4MM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XW/+A+SF; arc=none smtp.client-ip=209.85.210.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778292356; c=relaxed/simple;
+	bh=dis+AFywl6J6StzpuUKyVLmblXHO+8Whz6OQjPEA7Kg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=JKohp0KvRy+3xElYwF3ZrwMmkRoD2x/5kmn4g5jea0Af6bd5/qP8V9pWOSaZ0F8cANfWh29IdlBHLNzKSFHccpa9nWocFfdnJN4kLm3QgQZlQ4lfDmRtVE0Q6wa82FYeaoFotgrGIXFbmuB7ZfISvfifYApgTOSibD1Btl3Q6G8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BY7eehM/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XW/+A+SF"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-837cd669be0so2030424b3a.0
-        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 19:04:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778292266; x=1778897066; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:references
-         :in-reply-to:user-agent:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=90WqjeRA8ThNFX5d+11lotpk8MoHTD4XnnqbeBD8jm0=;
-        b=XW/+A+SF2yz4v20/VK++5SBeu1GirwM6QB/R5K81x+NzC/YewyFFueMcWrl3N10OGl
-         WP1kpx/HcMHo357+fTqHiUpxHA0qmmLrRBmCqKtcIVYmTJaT0/8tOfaV0LBO6CwU+eiU
-         aP3jKRiWTv4xcfzV7xhuuPi52ujyLW9kM/5GBtu331qYbuycWwv7BpiZQGFBDOwC+77D
-         uRvV6lzJB9R1xQSSbDHrIYKY/IPMgcJfNMZC0k/QACLAQoD7PgirRtupwE7tziTUuFBg
-         iVOnwPYoJpX+SG5AbcXsXGEe8E+86iX6oKihdk0pMGK4sJvnqLbypOq2/VxlPna3w0Vc
-         e6zg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778292266; x=1778897066;
-        h=content-transfer-encoding:mime-version:message-id:references
-         :in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=90WqjeRA8ThNFX5d+11lotpk8MoHTD4XnnqbeBD8jm0=;
-        b=WeKQmv9rZFrOOsQQVtR+ENeDcO4eXwHeRuOZUIqLNVFfoc4NaKAxib1OfTXOJYAc0r
-         4082bfhn+lE8kd0HMw1pY3i77SgHkzJ5rhL87dW0GodqLO1RqDDExEjNKFZJ0rPs6+0a
-         sixhjd65TOJESQ0CCgG4q245VPU/Wz9V7mVsRSgvKM69U8qJ+Entsh+WH3uQrPq/I1MH
-         BpbR73RGLWXjURat4QhpVPeW1pheqWu2Gkkt+7hIicsjuTXgg7Lfl+7hdBEtZpFmnku1
-         +KHgh+ot1xxvkt2VfQY3JLJsKOWlop5Mxz9JeSS2kGrZ9IXKsRIS6dnyFeJ/Eyb/kY3U
-         1cUQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8AxjVBHMspeY/HuqbNnu42KCPh47vlFoxdDomR2wug5IckPxAjxTT8lhhVD7g/efg0y1itZE8w11MN@vger.kernel.org
-X-Gm-Message-State: AOJu0YxLqUuvnQnksDSFvggnYnTKZkNoJTq4uYDQ8eUjPuyB6ZSa/Lw2
-	hAyaQzNq5tPxRHP01JfdpkLD2Hb/mvsX+YPw5SnXVrndQuq4E9my73E+
-X-Gm-Gg: AeBDiesFDuz2hZNnFfJGxoxoI8e4W2GJ4qRvs/dNMAis+qoh45HleCQWmWKSfoF4g30
-	q49NhQuACRQ5PjBt1OtcszhToz0OPI+0nFWO+qoKXdetNrLxOozLO4u1BvyqPVMGyBupbyj6Vj6
-	V6RGmxj3ZbAAYq2CLrqZUJS8cKVjdhMMY4rOTk9IrZsmGG2jTUOgVSRz22dbnP8NXDu2653e1Xc
-	IN7tdKr6HWpoIxT+YNtCOoxV8lu15ux+efvYZO0bG3sKTQW/IYaFv2KVnFMbNGaI9fSXFv1NciS
-	1GoxQUgxS11BKPOs9ZstQLvHxoTntM+mfKsNvTUl4SheCf3dex0tCglQoSIFonrIv/AsKQ68Esl
-	P5cMoCyIzzmL3mzvugSqb56niGLYRjjxibA+AzQKq7CKSI5aOcbEYDxYhV9YXgSRSFzHjhLOj5F
-	lPU4soNs3ItK4R5u0Nutd5Euejy6Ht4BwrNOjtMV6P/zwBNV0=
-X-Received: by 2002:a05:6a00:8014:b0:82c:2555:b9b2 with SMTP id d2e1a72fcca58-83a5b6d0a28mr15321522b3a.10.1778292266253;
-        Fri, 08 May 2026 19:04:26 -0700 (PDT)
-Received: from ehlo.thunderbird.net ([2401:4900:791b:cfa1:9b60:879e:786b:b8d8])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-839683a088fsm13566241b3a.58.2026.05.08.19.04.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 08 May 2026 19:04:25 -0700 (PDT)
-Date: Sat, 09 May 2026 07:34:17 +0530
-From: Sanjay Chitroda <sanjayembeddedse@gmail.com>
-To: Hungyu Lin <dennylin0707@gmail.com>, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-CC: jic23@kernel.org, lars@metafoo.de, Michael.Hennerich@analog.com,
- dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2_0/1=5D_dt-bindings=3A_iio=3A_?=
- =?US-ASCII?Q?adc=3A_add_AD7816/AD7817/AD7818_binding?=
-User-Agent: Thunderbird for Android
-In-Reply-To: <20260508231147.77044-1-dennylin0707@gmail.com>
-References: <20260508231147.77044-1-dennylin0707@gmail.com>
-Message-ID: <0D2B5076-A5D7-4D14-B58B-E500585DD465@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BY7eehM/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9238C2BCB0;
+	Sat,  9 May 2026 02:05:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778292356;
+	bh=dis+AFywl6J6StzpuUKyVLmblXHO+8Whz6OQjPEA7Kg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=BY7eehM/vcKYQZGdpTsmNIr/mcslmjjAO9UfFlt+PvuzV+DbyiY3f3G1AF4VZTVnM
+	 2mrhxmc0+jBgmufnMJ2qEsrSIOLk3dQnB7kGddqLK5jJm8IZfDPx1O4O+6PaAFV6r4
+	 fyCigdbaLhgp/up9CS/dgawTqSPlYs9xYT7wAxfTo1n6X3evE8+ZBMqV4ccN/n/hTF
+	 cw0V6dZmzRG3YxVKuj1GMeDJ4ZTcgIynJyA7NInmWLN6+Uv576ITSsYTSzk47bFu/9
+	 hBVQJ7SGOe0zEH0XaLTvVoec5kWqJJu7zVX3mrT/nCOXxpkDNSCHzSiSw0J3MLPP1m
+	 /adLzARX0g7TQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 07/14] media: iris: Enable Secure PAS support with
+ IOMMU managed by Linux
+Reply-To: sashiko@lists.linux.dev
+To: "Vishnu Reddy" <busanna.reddy@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260509-glymur-v5-7-7fbb340c5dbd@oss.qualcomm.com>
+References: <20260509-glymur-v5-7-7fbb340c5dbd@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 09 May 2026 02:05:55 +0000
+Message-Id: <20260509020555.D9238C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] Missing `qcom_scm_pas_metadata_release()` causes PAS metadata buff=
+er memory leak.
+- [High] Unbounded memory leak due to dynamic `devm_qcom_scm_pas_context_al=
+loc()` inside `iris_load_fw_to_memory()`.
+- [High] Skipped `iris_fw_iommu_unmap()` if `qcom_scm_pas_shutdown()` fails=
+ causes permanent device failure.
+- [High] Directly calling `iommu_map()` on a default DMA domain bypasses th=
+e DMA API.
+- [Medium] Original error codes from `iris_load_fw_to_memory()` are uncondi=
+tionally masked with `-ENOMEM`.
+--
 
+commit f84ed6beb9478a59d8db52c92115b570f4c199ba
+Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-On 9 May 2026 4:41:46=E2=80=AFam IST, Hungyu Lin <dennylin0707@gmail=2Ecom=
-> wrote:
->v2:
->- Fix commit message to match binding requirements
->
-Hi,
+media: iris: Enable Secure PAS support with IOMMU managed by Linux
 
-Thank you for the change=2E
+This commit extends the Iris driver to handle IOMMU and SHM bridge
+configurations for firmware load and resources mapping in the absence
+of a proprietary hypervisor.
 
-Ideally, multiple logical changes should be split into series=2E For a sin=
-gle patch you can include changelog like this:
+[ ... ]
+> --- a/drivers/media/platform/qcom/iris/iris_firmware.c
+> +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
+[ ... ]
+> @@ -29,14 +33,18 @@ static int iris_load_fw_to_memory(struct iris_core *c=
+ore, const char *fw_name)
+>  	if (strlen(fw_name) >=3D MAX_FIRMWARE_NAME_SIZE - 4)
+>  		return -EINVAL;
+> =20
+> -	ret =3D of_reserved_mem_region_to_resource(dev->of_node, 0, &res);
+> +	ret =3D of_reserved_mem_region_to_resource(core->dev->of_node, 0, &res);
+>  	if (ret)
+>  		return ret;
+> =20
+>  	mem_phys =3D res.start;
+>  	res_size =3D resource_size(&res);
+> =20
+> -	ret =3D request_firmware(&firmware, fw_name, dev);
+> +	pas_ctx =3D devm_qcom_scm_pas_context_alloc(fw_dev, pas_id, mem_phys, r=
+es_size);
+> +	if (IS_ERR(pas_ctx))
+> +		return PTR_ERR(pas_ctx);
 
-Signed-off-by: =2E=2E=2E=2E
----
-Changes in v2:
-- Fix commit message to match binding requirements
----
- =2E=2E=2E/bindings=2E=2E
-         | 94 +++++++++++++++++++
+devm_qcom_scm_pas_context_alloc() ties the memory to the fw_dev unbind even=
+t.
+If iris_load_fw_to_memory() is called dynamically (e.g., when userspace ope=
+ns
+the device) and fails later in the function, this devres allocation isn't
+freed. Could repeated failures here lead to an unbounded memory leak?
 
-If reviewer specifically asked to update commit message, you can mention i=
-n the changelog as well=2E for examle:
+> +
+> +	ret =3D request_firmware(&firmware, fw_name, fw_dev);
+>  	if (ret)
+>  		return ret;
+> =20
+[ ... ]
+> @@ -52,9 +60,27 @@ static int iris_load_fw_to_memory(struct iris_core *co=
+re, const char *fw_name)
+>  		goto err_release_fw;
+>  	}
+> =20
+> -	ret =3D qcom_mdt_load(dev, firmware, fw_name,
+> -			    pas_id, mem_virt, mem_phys, res_size, NULL);
+> +	pas_ctx->use_tzmem =3D !!core->fw_dev;
+> +	ret =3D qcom_mdt_pas_load(pas_ctx, firmware, fw_name, mem_virt, NULL);
+> +	if (ret)
+> +		goto err_mem_unmap;
+> +
+> +	if (pas_ctx->use_tzmem) {
+> +		domain =3D iommu_get_domain_for_dev(fw_dev);
+> +		if (!domain) {
+> +			ret =3D -ENODEV;
+> +			goto err_mem_unmap;
+> +		}
+> +
+> +		ret =3D iommu_map(domain, IRIS_FW_START_ADDR, mem_phys, res_size,
+> +				IOMMU_READ | IOMMU_WRITE | IOMMU_PRIV, GFP_KERNEL);
 
-- Fix commit message based on input from <Reviewer Name>
+iommu_get_domain_for_dev() will return the default DMA domain attached to
+fw_dev. Is it safe to call iommu_map() directly on a DMA domain?=20
 
-Replace <Reviewer Name> with the actual reviewer=2E
+This bypasses the DMA API's IOVA allocator and might trigger a kernel warni=
+ng.
+Should the driver allocate and attach an unmanaged domain instead?
 
->Hungyu Lin (1):
->  dt-bindings: iio: adc: add AD7816/AD7817/AD7818 binding
->
-> =2E=2E=2E/bindings/iio/adc/adi,ad7816=2Eyaml          | 94 +++++++++++++=
-++++++
-> 1 file changed, 94 insertions(+)
-> create mode 100644 Documentation/devicetree/bindings/iio/adc/adi,ad7816=
-=2Eyaml
->
+> +		if (ret)
+> +			goto err_mem_unmap;
+> +	}
+> =20
+> +	core->pas_ctx =3D pas_ctx;
+> +
+> +err_mem_unmap:
+>  	memunmap(mem_virt);
+>  err_release_fw:
+>  	release_firmware(firmware);
+[ ... ]
+> @@ -79,10 +117,10 @@ int iris_fw_load(struct iris_core *core)
+>  		return -ENOMEM;
+>  	}
+
+Now that iris_load_fw_to_memory() has been updated to return specific error
+codes like -EINVAL, -ENODEV, or PTR_ERR(), is there a reason to continue
+masking all of them with -ENOMEM here?
+
+> =20
+> -	ret =3D qcom_scm_pas_auth_and_reset(core->iris_platform_data->pas_id);
+> +	ret =3D qcom_scm_pas_prepare_and_auth_reset(core->pas_ctx);
+
+qcom_mdt_pas_load() allocates a secure DMA buffer for firmware metadata via
+qcom_scm_pas_init_image(). Does this driver need to call
+qcom_scm_pas_metadata_release() after authentication here to avoid leaking =
+the
+metadata buffer?
+
+>  	if (ret)  {
+>  		dev_err(core->dev, "auth and reset failed: %d\n", ret);
+> -		return ret;
+> +		goto err_unmap;
+>  	}
+> =20
+[ ... ]
+> @@ -93,17 +131,31 @@ int iris_fw_load(struct iris_core *core)
+[ ... ]
+>  int iris_fw_unload(struct iris_core *core)
+>  {
+> -	return qcom_scm_pas_shutdown(core->iris_platform_data->pas_id);
+> +	int ret;
+> +
+> +	ret =3D qcom_scm_pas_shutdown(core->pas_ctx->pas_id);
+> +	if (ret)
+> +		return ret;
+> +
+> +	iris_fw_iommu_unmap(core);
+> +
+> +	return ret;
+
+If qcom_scm_pas_shutdown() fails and returns early, iris_fw_iommu_unmap() is
+skipped. Will this leave the IOMMU mapping active at IRIS_FW_START_ADDR,
+causing the next iommu_map() attempt during initialization to fail with
+-EEXIST?
+
+>  }
+> =20
+>  int iris_set_hw_state(struct iris_core *core, bool resume)
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260509-glymur-v5-=
+0-7fbb340c5dbd@oss.qualcomm.com?part=3D7
