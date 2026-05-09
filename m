@@ -1,200 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from out-179.mta0.migadu.com (out-179.mta0.migadu.com [91.218.175.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775EC307AF0
-	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 17:52:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BB6B2D592C
+	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 17:56:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778349177; cv=none; b=J6Z4SezvHRIeMlg9Zy3JtwHSzwLg19NKFDxsbYo2WBLI3ZKp/9zy31SxZNPbetacEwyrl2yFmf4pVdreMSWHWR2OAkJDanFWOoXt36MC64nycfom/i29faauJE63V0Xbnr8W0gk4UTOsPueHneEmnDDKlqfyNPEqSY1I8qSolWg=
+	t=1778349407; cv=none; b=AA2eESgFSN/vdWN1r9wDtX3QrJR4P1kPihSvXS5Nxto7A7uTfXYL65hlvANkcIfg61ng7M9UVURWR2SJBx8Zq7BbNVKYcjb4707l/VotC+ai+dt92MN4tUaZ6UwPzb26UCjim7nRKZ4c8EDtI3Na9NGtHyIAjO7NIaQknvCgJeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778349177; c=relaxed/simple;
-	bh=Nl8eJnu/Res1qrZEdyUHK0JGc8zJ7t+HSR4o/pb+HGo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sdR8ZSuUlXEDi1vguscF7aBLT5dEqPm4YKfBl/+l4D4WqhprFisaPR9aasFCfBWKESNSCdWvOEW3qROjFTVZp7B62EFJylKEyn550Qk41Nr3jZqWzAI+STr7I9+reTjbwdaaxcGIrg6qaxw5d1HPInJkhYcQacMnE1W0P4NfAqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ckTTcKcN; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778349407; c=relaxed/simple;
+	bh=6Dx5Ivk2dUgZlsc0ikWY+XsRb81CBEQG/iCXu/vtNQM=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=aK84b5E8/IExmlvEQlSpt05BjLLeREjhjGNRtk5b7Y0braHuV4i45CNKV09SpdWlK+rT/wmGwauiH5V04NxWXS8hjxfZNagQVO7nMnZcCzT5MRYnKPfIwyr+XIOWIbF5waq1huCSMinvhK9HNGqpZObPFAv7HNnVtPIqxEAE8L4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=MPD2dCcm; arc=none smtp.client-ip=91.218.175.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ckTTcKcN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9ABBC2BCB2;
-	Sat,  9 May 2026 17:52:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778349177;
-	bh=Nl8eJnu/Res1qrZEdyUHK0JGc8zJ7t+HSR4o/pb+HGo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=ckTTcKcNjbwpMX4clB2fxWTsO0JkOWGrC2BxJG2LEX38DWoFZf3w5bpWAvjn7QYvV
-	 KBV2zbMijIMsaXh0Z7hKwCk0QuTjq76z4tK8yjDVco0jLkXQONIHSSvZ+qdzWd/sUV
-	 qH1IF9glB6tp7Jo/l16iiC/4vclfXVp6FK86TeG+v/J4Cac/5cgQIQBDn7/fx0dm+v
-	 lrRqpzgU49ifvkFxoAKGzO5XkQgTGdcqelINecTxS3VgUEuoajdlGcU1N+97yAkJ3H
-	 rc5VQPpTxQRgxk7wsRjdIvBNgTtZz89CqrOWU/MQiIkMXCqQvRD0jO/V0eAsTn78rp
-	 KMRa/sUXe4PPw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: misc: Add binding for Xilinx AXI-Stream
- FIFO
-Reply-To: sashiko@lists.linux.dev
-To: "Pramod Maurya" <pramod.nexgen@gmail.com>
-Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260509171648.46933-1-pramod.nexgen@gmail.com>
-References: <20260509171648.46933-1-pramod.nexgen@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 09 May 2026 17:52:56 +0000
-Message-Id: <20260509175256.D9ABBC2BCB2@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="MPD2dCcm"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
+	s=key1; t=1778349401;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jIh60pxxvGKOUsnTbxcu3v39dVCI3FE1FnfA1fpg1iA=;
+	b=MPD2dCcmz3mdk8VygCqc9i2PHEr4TZNN9lNCBmKzcxGHZ+eWZ+AuNUgrvZXxXTlqHwdXS9
+	wx7CycvLytT3JhZ8axiRlRYLDxxuoBCb9qD6djOQe+86kK2bCeo2lkFLpN2ANV14xXjT5L
+	pccNsYyuvstsAo8Na6Faab8YRnpWDwwQpJt6sZrpMXFeH8uMctcmAa8SdnZSDwRZVDWHNz
+	5stVLgqHcGfEohu6HqOjmJCrk4NLHKgJgStX+NCXk7IrOF2T1yy3icRH7qmwwqQRarbgIc
+	+YLJyETMWPEFvHAQ0fNd05zlzs8yF8Jm+fQHZZkxI7FhRkPx32RcQfdOaOIw2A==
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 09 May 2026 19:56:37 +0200
+Message-Id: <DIEC8YT0XK4O.VAG6G4H31KJM@cknow-tech.com>
+Subject: Re: [PATCH v14 1/5] dt-bindings: vendor-prefixes: Add Verisilicon
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Benjamin Gaignard" <benjamin.gaignard@collabora.com>,
+ <joro@8bytes.org>, <will@kernel.org>, <robin.murphy@arm.com>,
+ <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <heiko@sntech.de>
+Cc: <iommu@lists.linux.dev>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-rockchip@lists.infradead.org>, <kernel@collabora.com>, "Conor
+ Dooley" <conor.dooley@microchip.com>
+References: <20260415072349.44237-1-benjamin.gaignard@collabora.com>
+ <20260415072349.44237-2-benjamin.gaignard@collabora.com>
+In-Reply-To: <20260415072349.44237-2-benjamin.gaignard@collabora.com>
+X-Migadu-Flow: FLOW_OUT
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] DT Binding ABI Breakage and Duplicate Documentation
-- [High] IRQ Race Condition Dropping Unhandled Interrupts
-- [High] Incorrect MMIO Accessor Semantics for FIFOs
-- [High] Missing Clock Definition and Enablement
---
+On Wed Apr 15, 2026 at 9:23 AM CEST, Benjamin Gaignard wrote:
+> Verisilicon Microelectronics is a company based in Shanghai, China,
+> developping hardware blocks for SoC.
+>
+> https://verisilicon.com/
+>
+> Add their name to the list of vendors.
+>
+> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> ---
+>  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Doc=
+umentation/devicetree/bindings/vendor-prefixes.yaml
+> index ee7fd3cfe203..ebd9072300a8 100644
+> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> @@ -1761,6 +1761,8 @@ patternProperties:
+>      description: Variscite Ltd.
+>    "^vdl,.*":
+>      description: Van der Laan b.v.
+> +  "^verisilicon,.*":
+> +    description: VeriSilicon Microelectronics
+>    "^vertexcom,.*":
+>      description: Vertexcom Technologies, Inc.
+>    "^via,.*":
 
-commit 31b86c7f3095299d0d2eedef1065b0b06442005b
-Author: Pramod Maurya <pramod.nexgen@gmail.com>
-
-dt-bindings: misc: Add binding for Xilinx AXI-Stream FIFO
-
-Add a YAML schema for the Xilinx AXI-Stream FIFO IP core (PG080).
-The binding documents the three supported compatible strings and all
-vendor-specific properties that the axis-fifo driver reads from the
-device tree.
-
-> diff --git a/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.ya=
-ml b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
-> new file mode 100644
-> index 0000000000000..1e07db9cd4565
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
-> @@ -0,0 +1,92 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/misc/xlnx,axi-fifo-mm-s.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Xilinx AXI-Stream FIFO
-> +
-> +maintainers:
-> +  - Jacob Feder <jacobsfeder@gmail.com>
-> +
-> +description:
-> +  The Xilinx AXI-Stream FIFO (PG080) provides a memory-mapped interface =
-to
-> +  an AXI-Stream FIFO IP core. It allows a processor to transmit and rece=
-ive
-> +  AXI-Stream packets via simple MMIO register reads and writes.
-
-Does the driver use the correct MMIO accessors for the FIFO data?
-
-drivers/staging/axis-fifo/axis-fifo.c:axis_fifo_write() {
-    ...
-	for (int i =3D 0; i < words_to_write; ++i)
-        // driver loops over the stream data offsets using iowrite32
-    ...
-}
-
-According to the I/O Accessors subsystem guidelines, FIFOs and stream-orien=
-ted
-hardware must exclusively use stream accessors (e.g., ioread32_rep(), reads=
-l())
-to preserve memory-to-device byte order.
-
-Since the driver loops over the stream data offsets using ioread32() and
-iowrite32(), won't these accessors enforce CPU-to-device endianness convers=
-ion
-and cause data payloads to be incorrectly byte-swapped on big-endian
-architectures?
-
-[ ... ]
-
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - xlnx,axi-fifo-mm-s-4.1
-> +      - xlnx,axi-fifo-mm-s-4.2
-> +      - xlnx,axi-fifo-mm-s-4.3
-> +
-> +  reg:
-> +    maxItems: 1
-
-Does the binding need a clocks property to avoid a regression on power
-management?
-
-The Xilinx AXI-Stream FIFO is an AXI peripheral that requires an active AXI
-clock (e.g., s_axi_aclk) to perform register transactions.
-
-In the driver, axis_fifo_probe() maps the registers and performs MMIO writes
-without requesting or enabling a clock via clk_prepare_enable().
-
-If the clock is disabled by the bootloader or a power management unit, won't
-these register accesses cause a synchronous external abort and crash or hang
-the system?
-
-> +
-> +  interrupts:
-> +    maxItems: 1
-
-Does the driver's interrupt handler have a regression where unhandled
-interrupts are dropped?
-
-drivers/staging/axis-fifo/axis-fifo.c:axis_fifo_irq() {
-    ...
-	ier =3D ioread32(fifo->base_addr + XLLF_IER_OFFSET);
-	isr =3D ioread32(fifo->base_addr + XLLF_ISR_OFFSET);
-	intr =3D ier & isr;
-    ...
-	iowrite32(XLLF_INT_CLEAR_ALL, fifo->base_addr + XLLF_ISR_OFFSET);
-
-	return IRQ_HANDLED;
-}
-
-Because XLLF_ISR_OFFSET is a Write-1-to-Clear register, unconditionally wri=
-ting
-0xFFFFFFFF (XLLF_INT_CLEAR_ALL) acknowledges and clears all interrupts, inc=
-luding
-any new ones that the hardware asserted between the read and the write.
-
-If a TX or RX complete interrupt fires in this narrow window, won't it be c=
-leared
-without being handled, causing the wait_event_interruptible() threads to ha=
-ng?
-
-[ ... ]
-
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - xlnx,axi-str-rxd-tdata-width
-> +  - xlnx,axi-str-txd-tdata-width
-> +  - xlnx,rx-fifo-depth
-> +  - xlnx,tx-fifo-depth
-> +  - xlnx,use-rx-data
-> +  - xlnx,use-tx-data
-> +
-> +additionalProperties: false
-
-Will this cause a regression for existing device trees?
-
-The original text binding in drivers/staging/axis-fifo/axis-fifo.txt requir=
-ed
-properties such as interrupt-names, xlnx,axi-str-rxd-protocol,
-xlnx,has-axis-tkeep, and many others describing physical hardware parameters
-generated by Xilinx synthesis tools.
-
-By omitting these properties while setting additionalProperties to false, w=
-on't
-this cause spurious dtbs_check validation errors for existing, correctly fo=
-rmed
-device trees?
-
-Additionally, since the legacy axis-fifo.txt file is not deleted in this
-commit, does this create duplicate and conflicting sources of truth for the
-hardware?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260509171648.4693=
-3-1-pramod.nexgen@gmail.com?part=3D1
+FTR: Another version of this patch is already present in Linus' tree:
+c131d78840d7 ("dt-bindings: vendor-prefixes: add verisilicon")
