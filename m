@@ -1,158 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F90739D6DA
-	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 22:00:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A25B636B05E
+	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 22:07:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778364046; cv=none; b=h/bfJmpQ/mblO7Zz5AU3DcKVjNO/X3WDAufiKwRcNRQAJqIdX/F8tNLWuJdFQ/maebzZCcIn+H6n+y6oj0p7bhu/IpwfxfC0gq0JZkjnbA7KZ5NJWBblUjx1Szjl8oFFzq3dxdCflr6OyvTXiatRlgd/VWPsr9pVdMduwRUk43k=
+	t=1778364425; cv=none; b=MBvfuhsTKbbXHD5YGg9ZlXVSale2q7/W6QugTadzlCoicghBkHFOYzQIrLk4cxE/w6+4iJBR+KR/Kotgexm7oJLxCROOYbFCaYGvjm+zUWbnLsmgZHBvkQOmb0KjHMfrjqdiJrPKSlvWSdubJk5rVS9G/IL2qPUHHXmRmfeN9q4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778364046; c=relaxed/simple;
-	bh=C6PzPyGhvEaRPukUNJO0JB11CUrNctA4pebLgnQYMsE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FMqLFlsWDAZTWgktwRkLoJfNraDaonArWzSybTgTDMpxtoLY93QV/MVSzB4yiOsnmLPbIoYKPFte/pTODHddTDhL6KCKysjdjWJwGP8nsPbh51/VT708IszNQHdImSnT7TuYUzjFzGWJfPbxhr/mflBDogFmU1u6rPZ+s3DHU2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cCMU7mIZ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778364425; c=relaxed/simple;
+	bh=xYyxxtDlsONFPs1wxs7WBi3U24/H7vuYm+AFdU2VYCs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fNBByaDKpu9ltcn6gw7NGhK6vMJ81wVOwtUCpauL5UIFnjYdV1chTAaSgzLyy55IOztTc3xzdMbWHeF1DI0yaESJAGBS5v1USpPvCIcto/awwjm4sFsWDjvrG1ssDl5roH6N7Fx/L5XPCJX707pdzShB1egPEp9T+5IjGC3qOjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=q+OMnOdy; arc=none smtp.client-ip=209.85.210.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cCMU7mIZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9044CC2BCB2;
-	Sat,  9 May 2026 22:00:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778364045;
-	bh=C6PzPyGhvEaRPukUNJO0JB11CUrNctA4pebLgnQYMsE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=cCMU7mIZwucb07YO5O5OXofnenYGn1jAJo0iXg51FtRSSus9w+eDTkV9aUY0mSfsA
-	 bjm13mL67p1hjmcCMcI1l8gV5EhweKfRC0t9wT+u18gheVADJS5jRexeGd8tB3iHwg
-	 0ll5JHPQTgdNGCtoFHlMq/5Hv4XPmxz2WqP/NBurOGH7Xj+sSfK9a77/CBA7shca2o
-	 E4mQ26d/Qi8H9fm9K58zqiGKWw3o/GVe3lOtIlcVtNtCqDJC7hvrSILWlsBOddui49
-	 8J6B3ckGYmLF/ba07ROS77Dch8QjQhmUmYsvWJea8OQtnILksM+brU6CpEHA2r0cs5
-	 0AIwlnXhFbsOg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 8/8] drm/sun4i: switch DE33 to new bindings
-Reply-To: sashiko@lists.linux.dev
-To: "Jernej Skrabec" <jernej.skrabec@gmail.com>
-Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260509190015.79086-9-jernej.skrabec@siol.net>
-References: <20260509190015.79086-9-jernej.skrabec@siol.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 09 May 2026 22:00:44 +0000
-Message-Id: <20260509220045.9044CC2BCB2@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="q+OMnOdy"
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-7dbec19732eso2784422a34.3
+        for <devicetree@vger.kernel.org>; Sat, 09 May 2026 15:07:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1778364421; x=1778969221; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=9bCT3ubr3H1wQ17zOsYqif8TnMtNy7ycioefPRWsFsA=;
+        b=q+OMnOdyPAPrBpb+UHQN3e3avpyFE3nhiRY9VDxIEMskImjj6KSCSEoCvTgDKU/vm1
+         h0p79/MsnNp2dxGDmOzIz9dZ5c3cZRD/97dxfNmWfviJyY4HQFinOGLyw1Gx8W0s/t9+
+         uWJPJEuPAN7zsYBPzGe7cQ+ttUh9wJwhVKlgLTlETbHE/U1eFOpR773izdR4KSK1hYFP
+         Rf6QgFSU7O/xzSGaVvH+sXQ42jxTTH85rv9+9PvPzOv6YZie/jzMOwlc+pm8l0xPT/Io
+         9IKKhjj4f/n3mHlJ6uXkdjbNXgmCjBBsvfvOE6nideaWYlvqERts99800vx/yYy5evWQ
+         Ignw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778364421; x=1778969221;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=9bCT3ubr3H1wQ17zOsYqif8TnMtNy7ycioefPRWsFsA=;
+        b=rMbKKCvj+ORZPBmmwP+dRuLRfflhhS7/8xFN2Nyd67TE1bftdanuhUidhxXkDwK7ox
+         Dfqsm4rDEr+a5vC0lagd07yrvJMkkG90HXWQ34LGPp7bNsEaVmHongJPfKTFIn5w5PBQ
+         ZrJy2M0XyMdSZkTv890EdOTDp+3qp/iY8z34faAes/vxSNlcL9eIc1CGg8XNvS6ccQti
+         QCMquDXB8AFDhUaTKw6qs4maRFl5THXXMezw+3t4ADphyWIVI8v3Nkcbv6jIVpVaxco9
+         lWKwJhFHjUhasiiJCnHMj6aoXNaF01f/my7auhPZWHlbqEYx5kV1VyIxXI4ReuJ3Wcyp
+         4xbQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/qBiSuGyj6ILmRCjBltQGguDsmB8bpV86eIMaoRhCdEQrf7KEAh8JBZGuaQrB0V0QnjU0NcnkTtEHg@vger.kernel.org
+X-Gm-Message-State: AOJu0YyVtzbu+FztiCLj1Hofb6YLX4DDU2U9NoIFuBq5BmeI9AnUUsVC
+	QkmwVPKgEgu6Dan3b7X3S8LEcED1y5Rtb4WQwzqMvgBADJfil3RIW2OA3icsw0iNxNs=
+X-Gm-Gg: Acq92OF42oVGIQj4/6zg6cKgtzPvzngw6le7AG15FDJk72Umj1/GkcefXGdveSJCs8k
+	/4ItWTDLLTsnlg0cen9kDtMRW8ZMsL1YVYeIsGa7qGj/Uvz9VrlSrdH43XajbxVg9cHpOahpC2V
+	y7HfArIbwHGYSNE+EI/Ps5fswTbw6ByXM4C4kb9vAeWYqjjAqNvSiSddMf55n2uL4SPNzBJsDIh
+	HOBxb2XTEqc5shdzl7FPFlBOd/bYyS+cGodUQArB7gu3eOMSMBYyt8tm4efCYjy9SHsWrSi+s7j
+	ymYfuyt/+pqZNPjJo4rDhJzcQrWla0mxoNqGyAP+cLiqwQbufkhCk58uEoQ0DvvDItBnCP2l09M
+	vrdyfNommthGalk+DG3pebIgblRaYpX5pZg0fDx2/lqYFY+MqIUHNTgLPQdhrFFrLEW2U1+ke7c
+	o4TqIaUuo47kzkUgWYsRJMHRwPVpu7SaybA0sC+EJqhM9iXZhE7wfeZant0cm2gPKt3HiOLlc=
+X-Received: by 2002:a05:6820:1987:b0:694:9fa0:aa4a with SMTP id 006d021491bc7-69998d31d1emr10956693eaf.44.1778364421638;
+        Sat, 09 May 2026 15:07:01 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:12a0:9178:ab4:39cc? ([2600:8803:e7e4:500:12a0:9178:ab4:39cc])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-69b25c9a23fsm3260297eaf.7.2026.05.09.15.06.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 09 May 2026 15:07:00 -0700 (PDT)
+Message-ID: <87e5f4e6-557d-4036-8e6a-8abceff58154@baylibre.com>
+Date: Sat, 9 May 2026 17:06:58 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/2] iio: magnetometer: add MEMSIC MMC5983MA driver
+To: Vladislav Kulikov <vlad.kulikov.c@gmail.com>, jic23@kernel.org,
+ nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260507205033.951990-1-vlad.kulikov.c@gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260507205033.951990-1-vlad.kulikov.c@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Uninitialized blender mode registers for DE33 due to zero plane_cn=
-t.
-- [High] Missing device link to the planes device creates a Use-After-Free =
-vulnerability.
---
+On 5/7/26 3:50 PM, Vladislav Kulikov wrote:
+> Add an IIO driver for the MEMSIC MMC5983MA 3-axis magnetometer over
+> I2C. The driver provides raw magnetic field readings with
+> per-measurement SET/RESET offset cancellation, giving 18-bit output
+> with a full-scale range of +/-8 Gauss.
+> 
+I wish all new drivers looked this good. :-)
 
-commit c691a21629b6216c482f2beb09752658d71b6425
-Author: Jernej Skrabec <jernej.skrabec@gmail.com>
+Reviewed-by: David Lechner <dlechner@baylibre.com>
 
-drm/sun4i: switch DE33 to new bindings
 
-Now that everything is in place, switch DE33 to new bindings.
-
-> diff --git a/drivers/gpu/drm/sun4i/sun8i_mixer.c b/drivers/gpu/drm/sun4i/=
-sun8i_mixer.c
-> index 4071ab38b4ae5..957db09384552 100644
-> --- a/drivers/gpu/drm/sun4i/sun8i_mixer.c
-> +++ b/drivers/gpu/drm/sun4i/sun8i_mixer.c
-[ ... ]
-> @@ -638,6 +624,34 @@ static int sun8i_mixer_bind(struct device *dev, stru=
-ct device *master,
-> =20
->  	clk_prepare_enable(mixer->mod_clk);
-> =20
-> +	if (mixer->cfg->de_type =3D=3D SUN8I_MIXER_DE33) {
-> +		struct platform_device *pdev;
-> +		struct device_node *np;
-> +		void *data;
-> +
-> +		np =3D of_parse_phandle(dev->of_node, "allwinner,planes", 0);
-> +		if (!np) {
-> +			ret =3D -ENODEV;
-> +			goto err_disable_mod_clk;
-> +		}
-> +
-> +		pdev =3D of_find_device_by_node(np);
-> +		of_node_put(np);
-> +		if (!pdev) {
-> +			ret =3D -EPROBE_DEFER;
-> +			goto err_disable_mod_clk;
-> +		}
-> +
-> +		data =3D platform_get_drvdata(pdev);
-> +		if (!data) {
-> +			put_device(&pdev->dev);
-> +			ret =3D -EPROBE_DEFER;
-> +			goto err_disable_mod_clk;
-> +		}
-> +
-> +		mixer->planes_dev =3D &pdev->dev;
-
-Does this code need a device link (e.g., using device_link_add()) to the
-planes device?
-
-Without a device link, unbinding the planes driver via sysfs could free
-its devres-managed memory.
-
-Later, sun50i_planes_setup() extracts the planes driver's regmap
-(planes->regs) and stores it directly in the DRM layer structures.
-
-If the planes driver is unbound, wouldn't subsequent atomic commits
-dereference the dangling layer->regs pointer and cause a use-after-free
-regression?
-
-> +	}
-> +
->  	list_add_tail(&mixer->engine.list, &drv->engine_list);
-> =20
->  	/* Reset registers and disable unused sub-engines */
-[ ... ]
-> @@ -867,16 +886,8 @@ static const struct sun8i_mixer_cfg sun50i_h6_mixer0=
-_cfg =3D {
->  };
-> =20
->  static const struct sun8i_mixer_cfg sun50i_h616_mixer0_cfg =3D {
-> -	.lay_cfg =3D {
-> -		.de_type	=3D SUN8I_MIXER_DE33,
-> -		.scaler_mask	=3D 0xf,
-> -		.scanline_yuv	=3D 4096,
-> -	},
->  	.de_type	=3D SUN8I_MIXER_DE33,
->  	.mod_rate	=3D 600000000,
-> -	.ui_num		=3D 3,
-> -	.vi_num		=3D 1,
-
-With ui_num and vi_num removed, they will default to 0.
-
-In sun8i_mixer_init(), we compute the total planes:
-
-    plane_cnt =3D mixer->cfg->vi_num + mixer->cfg->ui_num;
-
-And then initialize the blending modes:
-
-    for (i =3D 0; i < plane_cnt; i++)
-        regmap_write(mixer->engine.regs,
-                     SUN8I_MIXER_BLEND_MODE(base, i),
-                     SUN8I_MIXER_BLEND_MODE_DEF);
-
-Because plane_cnt will be 0, wouldn't this skip the blender initialization
-loop entirely for DE33 hardware?
-
-Could this regression break display composition and alpha blending by leavi=
-ng
-the blender pipes without their default modes?
-
-> -	.map		=3D {0, 6, 7, 8},
->  };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260509190015.7908=
-6-1-jernej.skrabec@siol.net?part=3D8
