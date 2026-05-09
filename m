@@ -1,106 +1,239 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C3F3A872D;
-	Sat,  9 May 2026 18:14:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E81C58003D
+	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 18:19:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778350443; cv=none; b=SPUxDVOm1DHlXXUU+agwJElKmaRSEZYbbiDMF1oM40DWcoSt7xDnPQuTxFV3zDqAtF6G6znv49b8G0idIiBtmeZPsINPw9oj/mZASS6sRXA5TaSnlc0NuKKOq/1yfPH9DJj3HP07emN+UtxYf2yfFbMgNQDSJvCvXoZyAY9esRk=
+	t=1778350794; cv=none; b=jLXGoOdV5lXI9BrhnhbImNd9y680PzCGYsGgEnURbaMJMxqMPfgc+PnhzC0ukBIgp2Yu6/bDPfF4TNNlSuXiqigUrUp2xXiprwHJTkfI4TfQQR60EcR7PKbbfzq0Xl6JtGcOqCv5aMxJDWiDw/x0yPN/QN77+uY2hU79mlWuY78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778350443; c=relaxed/simple;
-	bh=G9TFV1PVG6NI2S0qJ0aNxwi2yPtCxcKvJP/Wz5wBgCs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=llSwFdscCSXrv84GF8xSBg+XOnFBGVp3g+VNY5EUKHDBorjA7WovlXlx++Q7Gyyrw/5af2FTCaohXe8rK4uW8OSMx6UuQcZevf7DO2VMxyrnNQ+KMpyf5QFEIGMBtPI+Jrvn2jCJZWQ0hGVA8RSLfEtLCTM58ppKzHE6hKY57Kg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bil5B/Vp; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778350794; c=relaxed/simple;
+	bh=czzcavk29id9M4UhdT5VweJ32WxTo3MgrbsazJMzg0M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ahS71shc+Hw1qIRHeFgb0mrPv7/Ca9rEVRkloBBpuKJJ4q5AleqNezzeq+kUuj6KcK2D5WsEjA4Ay7l64FE3sTofsCpqcPrDfb0elWIPOYD+4zkCSqFaLcdj/ND4vc00jqzrxq4s4+UUp2bma28tShLGnqsmYYCUiDJFIPVY1Ho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X319pr1C; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bil5B/Vp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 490E5C2BCB2;
-	Sat,  9 May 2026 18:14:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778350443;
-	bh=G9TFV1PVG6NI2S0qJ0aNxwi2yPtCxcKvJP/Wz5wBgCs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Bil5B/VpKYyaWF3T8uSzF81XU7g6N90Q8E/CUl4XA5KN1AbiEhW2vuAJFysqnTI2W
-	 Ef730hSOr6ifnPzm5U+igrdMFPYn38cnQyvndz5RJigQ0p0/8MqndrZom2xR+ZPvlW
-	 EhhFYRCY29/5hfjQ1sSaQZPU5b3CQIsojXxxFJ+wsrb7j1OTgpGX9oxOk33tm/bpon
-	 DnpFfPSESpJdM5mMAxyB7x6VIBmGRDXrQj8jMRqGAyGNtMcnhY8yj8cWtEH28ib6Ce
-	 5MXTwiTnT/IJBW1p0EMtgqWel6x45Wf0j4Fol5PUAjVEYDYZQef1LcSk0kznE32MDj
-	 2RPCiwfkjWYLQ==
-Date: Sat, 9 May 2026 19:13:59 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Rustam Adilov <adilov@disroot.org>
-Cc: Sander Vanheule <sander@svanheule.net>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-watchdog@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] dt-bindings: watchdog: realtek,otto-wdt: add
- compatible for RTL9607C
-Message-ID: <20260509-rebuild-snowboard-e82a3adc5a27@spud>
-References: <20260509163101.722793-1-adilov@disroot.org>
- <20260509163101.722793-3-adilov@disroot.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X319pr1C"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-367d88b9940so313157a91.1
+        for <devicetree@vger.kernel.org>; Sat, 09 May 2026 11:19:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778350792; x=1778955592; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=frOdwOepJTp+ZENuZWChoJcmDuk9+nILW6mXjQtPtmw=;
+        b=X319pr1CNBcamLZ2TfgHkdXcXfU6V+1eWBcEdGe+9QsY6wl3fmFsBvnpi+MAgLHHtp
+         zfCaZmFcprbAOO+pfPbKQ/fdU+UJuiKH+aRBznjs+nvwM2CQNeF763oiyJuxw0NekBLM
+         B+96vRgGnTTJEuAmtazWWMGoU98bYra36YVbCFKhoo4RfCET5VYfToZB+rwNVca5ul9r
+         axjWgtkhBd+Ng16RCxRGBVCbycNHWJICpxiPXORrbMKtEg9fQp06+FhKFtsqKrR+39Z9
+         +ByF2Kb7mhnBbCQ+8mqwSVmfa3LBZdDSS5P7NFRPwklI3pBEefS1eu4NONVFEhtb3veQ
+         40Tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778350792; x=1778955592;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=frOdwOepJTp+ZENuZWChoJcmDuk9+nILW6mXjQtPtmw=;
+        b=sfKejopizPDTV1KAfdLxf8/PgP6eX5Aw8Qb5izWjc4K16+oN5M3mwYkLxtHntzL5ck
+         dEde/3fQ+gBnDsHSws59x78AgPXF+o7peEdvckPDMv8mEHoAAs6x0l0Lv+aRYGnF+J31
+         Ml7uizPPBMe8xPQSFEQ+SbSh/GcisCA9Xxs3Ryt9lGFo//RMei5rcnCmMLcxPYTK+WVn
+         66YijZHKFpM7OjH3LF1jk/Ml7anXZW/jjdnZczMPKEz8TpC1iY7e8Igxup/YR/iUScJQ
+         w7qQXs0Do8Kp+sjXCO+NUTMVp5HgCxn6Opm9HlqrMYkIk5yBTXDDGHO/DKsxMcikHDDH
+         FK1g==
+X-Forwarded-Encrypted: i=1; AFNElJ9vhznmb+wxgjtkz21N5oI9qwUGE39SYOug5PBNaL8OvIsPAwC4JoycGI5CsEvxlmcSQmtlNTVORPJ/@vger.kernel.org
+X-Gm-Message-State: AOJu0YzOQ1SUJuPTyr4ntq5RKjA3iwWn2tP1nFa16CyVYJZ4V97IeXNK
+	3RHRevZAPKM4aqccamg9gZZtf+mANAqtu+NECe93A98b+FOCMiugKGEy
+X-Gm-Gg: Acq92OEDwW0nfapOzDAyUT03YAO31vBTR9ySMtBlPwt9eYn2LB93hkQz/NyVyq/gv8a
+	hmlK6wiG2e6ZH0CQzHEf/ZBimCsKx+axOimc4tIxqIPfI7quoLYByEiHdT492v6j352Tv914U++
+	Jo7hqTfTUSS52FnhtDy3GeC6oAgTfU9joq2QLbtJDxLyyCr6X973oqpwkrF0+qqWKYyTVYGZMvM
+	MSQUl4MyCdyMrF12QvhZRhXpuxIGVPIVF0bHwN70pPIuYhTa/6cXeftrZtGgw3UeglcWms6/3cY
+	xnqp85P3pSEMOeQMV2Dva2N5vC94Y3M/bk2FkjOgWn7c2M1riF44I+KP1wsveLvNyWeIoVKGccf
+	ec9OWv+iDSOMuWcK8tonsHpAYsjAE5FhiLNbBl6tBjhcl8nu+bOyn+wb3+sPprXoj38tQ86eSF6
+	zZG6mqnRQ3ImoD3AUOpZ7wvCgpiTH8mxjP8VU=
+X-Received: by 2002:a17:90b:1c0a:b0:366:479e:63a5 with SMTP id 98e67ed59e1d1-3664c8db251mr8171762a91.2.1778350792243;
+        Sat, 09 May 2026 11:19:52 -0700 (PDT)
+Received: from ultimate.. ([58.84.60.2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-367d63bad27sm3414683a91.10.2026.05.09.11.19.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 09 May 2026 11:19:51 -0700 (PDT)
+From: Udaya Kiran Challa <challauday369@gmail.com>
+To: alexandre.belloni@bootlin.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Udaya Kiran Challa <challauday369@gmail.com>
+Subject: [PATCH v3] dt-bindings: rtc: epson,rx6110: Convert to DT Schema
+Date: Sat,  9 May 2026 23:48:08 +0530
+Message-ID: <20260509181909.21871-1-challauday369@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="GJ7OXt7j0wXpFDPp"
-Content-Disposition: inline
-In-Reply-To: <20260509163101.722793-3-adilov@disroot.org>
+Content-Transfer-Encoding: 8bit
 
+Convert the Epson RX6110 Real Time Clock devicetree binding
+from the legacy text format to DT schema.
 
---GJ7OXt7j0wXpFDPp
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
+---
+Changelog:
+Changes since v2:
+- Reference rtc.yaml for common RTC properties
+- Add conditional validation for SPI mode properties
 
-On Sat, May 09, 2026 at 09:31:00PM +0500, Rustam Adilov wrote:
-> Add the realtek,rtl9607-wdt compatible to the Realtek Otto watchdog
-> binding.
->=20
-> Signed-off-by: Rustam Adilov <adilov@disroot.org>
-> ---
->  Documentation/devicetree/bindings/watchdog/realtek,otto-wdt.yaml | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/watchdog/realtek,otto-wdt.=
-yaml b/Documentation/devicetree/bindings/watchdog/realtek,otto-wdt.yaml
-> index 1f5390a67cdb..ac9db40b12dc 100644
-> --- a/Documentation/devicetree/bindings/watchdog/realtek,otto-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/realtek,otto-wdt.yaml
-> @@ -30,6 +30,7 @@ properties:
->        - realtek,rtl8390-wdt
->        - realtek,rtl9300-wdt
->        - realtek,rtl9310-wdt
-> +      - realtek,rtl9607-wdt
+Link to v2:https://lore.kernel.org/all/20260509095713.5818-1-challauday369@gmail.com/
 
-Please explain in your commit message why this new device is not
-compatible with the existing ones, particularly given the driver patch
-implies that it would be.
-pw-bot: changes-requested
+Changes since v1:
+- Reuse common SPI peripheral properties
+- Drop redundant SPI-specific comment
+- Remove unused labels from examples
 
-Thanks,
-Conor.
+Link to v1:https://lore.kernel.org/all/20260504183728.27412-1-challauday369@gmail.com/
+---
+ .../devicetree/bindings/rtc/epson,rx6110.txt  | 39 ---------
+ .../devicetree/bindings/rtc/epson,rx6110.yaml | 79 +++++++++++++++++++
+ 2 files changed, 79 insertions(+), 39 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/rtc/epson,rx6110.txt
+ create mode 100644 Documentation/devicetree/bindings/rtc/epson,rx6110.yaml
 
-> =20
->    reg:
->      maxItems: 1
-> --=20
-> 2.54.0
->=20
+diff --git a/Documentation/devicetree/bindings/rtc/epson,rx6110.txt b/Documentation/devicetree/bindings/rtc/epson,rx6110.txt
+deleted file mode 100644
+index 3dc313e01f77..000000000000
+--- a/Documentation/devicetree/bindings/rtc/epson,rx6110.txt
++++ /dev/null
+@@ -1,39 +0,0 @@
+-Epson RX6110 Real Time Clock
+-============================
+-
+-The Epson RX6110 can be used with SPI or I2C busses. The kind of
+-bus depends on the SPISEL pin and can not be configured via software.
+-
+-I2C mode
+---------
+-
+-Required properties:
+-  - compatible: should be: "epson,rx6110"
+-  - reg : the I2C address of the device for I2C
+-
+-Example:
+-
+-	rtc: rtc@32 {
+-		compatible = "epson,rx6110"
+-		reg = <0x32>;
+-	};
+-
+-SPI mode
+---------
+-
+-Required properties:
+-  - compatible: should be: "epson,rx6110"
+-  - reg: chip select number
+-  - spi-cs-high: RX6110 needs chipselect high
+-  - spi-cpha: RX6110 works with SPI shifted clock phase
+-  - spi-cpol: RX6110 works with SPI inverse clock polarity
+-
+-Example:
+-
+-	rtc: rtc@3 {
+-		compatible = "epson,rx6110"
+-		reg = <3>
+-		spi-cs-high;
+-		spi-cpha;
+-		spi-cpol;
+-	};
+diff --git a/Documentation/devicetree/bindings/rtc/epson,rx6110.yaml b/Documentation/devicetree/bindings/rtc/epson,rx6110.yaml
+new file mode 100644
+index 000000000000..09578de45d8d
+--- /dev/null
++++ b/Documentation/devicetree/bindings/rtc/epson,rx6110.yaml
+@@ -0,0 +1,79 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/rtc/epson,rx6110.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Epson RX6110 Real Time Clock
++
++description: |
++  The Epson RX6110 can be used with SPI or I2C busses.
++  The kind of bus depends on the SPISEL pin and can not be
++  configured via software.
++
++maintainers:
++  - Alexandre Belloni <alexandre.belloni@bootlin.com>
++
++allOf:
++  - $ref: rtc.yaml#
++  - $ref: /schemas/spi/spi-peripheral-props.yaml#
++
++properties:
++  compatible:
++    const: epson,rx6110
++
++  reg:
++    maxItems: 1
++
++  spi-cs-high: true
++  spi-cpha: true
++  spi-cpol: true
++
++required:
++  - compatible
++  - reg
++
++if:
++  oneOf:
++    - required:
++        - spi-cs-high
++    - required:
++        - spi-cpha
++    - required:
++        - spi-cpol
++
++then:
++  required:
++    - spi-cs-high
++    - spi-cpha
++    - spi-cpol
++
++unevaluatedProperties: false
++
++examples:
++  # I2C mode
++  - |
++    i2c {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      rtc@32 {
++        compatible = "epson,rx6110";
++        reg = <0x32>;
++      };
++    };
++
++  # SPI mode
++  - |
++    spi {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      rtc@3 {
++        compatible = "epson,rx6110";
++        reg = <3>;
++        spi-cs-high;
++        spi-cpha;
++        spi-cpol;
++      };
++    };
+-- 
+2.43.0
 
---GJ7OXt7j0wXpFDPp
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaf95ZgAKCRB4tDGHoIJi
-0o6OAQCmzeGTVLvkC5psIwzzWEXpbBK/URfjZld6Pi9R36QWEAEAiBHJIndQhn9N
-/NL2deuI90wXkiZsQrFlqgA0ER+MvQ8=
-=BZXH
------END PGP SIGNATURE-----
-
---GJ7OXt7j0wXpFDPp--
