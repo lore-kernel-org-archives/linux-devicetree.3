@@ -1,228 +1,192 @@
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+Received: from panther.cherry.relay.mailchannels.net (panther.cherry.relay.mailchannels.net [23.83.223.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96C702F8E97;
-	Sat,  9 May 2026 10:17:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778321838; cv=none; b=gaPtccJgO3AoJzD/UVgtZwlIQzKkH+TRFMeraLe6UmwjnHMS+xmfi+l25L6bYlioMDyZm15F2ew17QmBagVWvIDqXUXIAZvR9AaN3C54iKbBHWcyJtTfw4eg6un1DNVMjb+uk7cJ0oCSGAsUXyRIs4/QIrhMHyKT2jcNnAOr9l8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778321838; c=relaxed/simple;
-	bh=OMyY6EIN0uYFyyXk3dI0sS4NBaaUT7qzp1bucwRMzOU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=l2WanAYZAsdCHh1ktFvXD4wQGvSEy39fpHxn1hG7hG4Ws2k5vVQY9bta3nMD29ra/rNCCZvY6KqG5Zb0lftgxt87AwdTaDpwVAY1iJ4eyI2UV2GHvZWbWrhQdfVGyRDluyYPOZJtSWM0pHZXzbdni5FCaiNqdr/l0cIHssbCGGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.207.19.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: esmtpsz18t1778321792t460a2d05
-X-QQ-Originating-IP: zjkOROJYI4ZbQ+7Ufdl7ieLzq4bCCEXbPMMJo2dR4Dw=
-Received: from [127.0.0.1] ( [116.234.74.217])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Sat, 09 May 2026 18:16:29 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 7643366966760275687
-Message-ID: <FE38EFC340D52748+8a9351df-df99-48d1-8d59-8c72b7153ef0@radxa.com>
-Date: Sat, 9 May 2026 18:16:27 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0AF13A1E7E;
+	Sat,  9 May 2026 10:18:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.223.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778321896; cv=pass; b=mUH2zplGoa8lJ8XiyzzmdYAzChY2UVEMsfrM8QSAvTDBADxtNAGnDZt9oMk0dQZpWhNvVxLR9oah0Dgx4Z2C3YXDETas5IpoUBCFNpfEkyUorEJEqEr5TKFW1LJNGCQxU+OpYTaZNHG0AB90B1yb6fuB4T1R77QsBvR+Kvu+O2U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778321896; c=relaxed/simple;
+	bh=Ae03Oz6MCSn+3b26vmABckKdtCuD+FQVcr7L3BULr64=;
+	h=From:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:Date; b=YvYz26t19zSGP26jkrMSM65NKBCT4c6qsYqBVgfOaO0cO3Rmr11Q9jmgHBjOmadIAGVT+ppFTOPR92TillD8rFEmFqx+tTqPqhOenDCoCRuTkaaOhEY5WqS9rYZbWMAvspsz1SH2EVtWy8EM71AS2VcXjVwrX6AAmlQfFmkUesk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com; spf=pass smtp.mailfrom=smankusors.com; dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b=Ypw0FK6M; arc=pass smtp.client-ip=23.83.223.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smankusors.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b="Ypw0FK6M"
+X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id 0959F8C22B9;
+	Sat, 09 May 2026 10:18:06 +0000 (UTC)
+Received: from fr-int-smtpout11.hostinger.io (trex-green-5.trex.outbound.svc.cluster.local [100.98.8.159])
+	(Authenticated sender: hostingeremail)
+	by relay.mailchannels.net (Postfix) with ESMTPA id A07968C2195;
+	Sat, 09 May 2026 10:18:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; d=mailchannels.net; s=arc-2022; cv=none;
+	t=1778321883;
+	b=KbP3/J7l3mzpS8jKVJ9zikWYBVbu2SffrKwbAUyl0ub6IsVvmeEr3TtIljuuevJfqpufah
+	cNIsI+ZySVnm4mNQqslES3IxT16NhIz2QSeaEUQx4U6wNLC5paAw5+rUPn0baB50d1uVy4
+	H5ADa89Ffeg+lgSicHI9dDSSaGwDm327GweXR77x4fNHXaI6wedyT8GxkuMXpEqTCKeXyh
+	/eCX2DfhNyUtmpzAxtaQ1s9KVs+/zSGJie5YB6bW23zW/31Ym+OeobDz+WykhjgyFHRXLo
+	r4ZDTUrSdIGYpFfYFa9N9e6VSRy9qydkdiKBADEPByZUCS+2pSp3hli1dn7fzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailchannels.net;
+	s=arc-2022; t=1778321883;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:dkim-signature;
+	bh=JRwIbdwwsFBG1zeZHZJUr8fkW1KbEdeQx5xEi+4OZro=;
+	b=1rFMHK88Wg/ULEItMjHeFj1vZjnMokNwCpn6s67JY6zRZrgifOdZoWPEm4da68cQY//G2Z
+	xcHD30KsJ2vCfxPtuxQtH7M01p8UgD93RnX4MeMyKESAJ1yy+wifg53LuQZLCIkP3KcQj1
+	lJmJGmkUfopXmUh49O+NnDDFIgHY/l/8q7QfZGgFPwSiSgECliqm4D76rGNChhjH2+dizK
+	EA4KcRH6Db/x98Xrx+0FTgl674n8Von2bZzN4Svr7fukA/cjL6toLCDbHzryBWuOKi7G3O
+	sL5Okw2avqbGKpt1kJkYeREiICDY6EmCuWpvuGYRmSd4SmITGjnJKVC24Faiww==
+ARC-Authentication-Results: i=1;
+	rspamd-5c5444c55f-rvsz6;
+	auth=pass smtp.auth=hostingeremail smtp.mailfrom=linux@smankusors.com
+X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: hostingeremail|x-authuser|linux@smankusors.com
+X-MailChannels-Auth-Id: hostingeremail
+X-Callous-Shoe: 78f5c6d677ec9f01_1778321885807_2390101064
+X-MC-Loop-Signature: 1778321885807:3112988065
+X-MC-Ingress-Time: 1778321885807
+Received: from fr-int-smtpout11.hostinger.io ([TEMPUNAVAIL]. [148.222.54.47])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.98.8.159 (trex/7.1.5);
+	Sat, 09 May 2026 10:18:05 +0000
+Received: from [172.17.0.2] (unknown [125.163.203.7])
+	(Authenticated sender: linux@smankusors.com)
+	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4gCMPX2WX5zySS;
+	Sat,  9 May 2026 10:17:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smankusors.com;
+	s=hostingermail-a; t=1778321874;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=JRwIbdwwsFBG1zeZHZJUr8fkW1KbEdeQx5xEi+4OZro=;
+	b=Ypw0FK6MexmHU7DSb/CmoL2gusLmASvb3cKYhegxX6E+F7WYHHcmC5q7OHccUmRLaT6XXt
+	p6KIofeNNC0xC1UQYmtxjXvdodHSH/KREW92QJkJPNYinIvdqsIF48vW9ewj0DzsGCfCyX
+	Rhj2KekGcm80mellpjLuLgPdUbZhmZId6StcBvG06QZMeAm8iz83FnP8+OG4bp3ScYVoeU
+	pBdai4q94FCl1ZgSj8mXot2zzV+Eda14qzq7mQhNMXJEbuLHKMJpJs/kmTqWcH9AmHQHwu
+	BYApnqSn8ZeZT7hPvJ4LZVPCdydtwxm15djjMS5/qoHqKLYClKMyZixiGCbAxw==
+From: Antony Kurniawan Soemardi <linux@smankusors.com>
+Subject: [PATCH] dt-bindings: usb: ci-hdrc-usb2: allow up to 3 clocks for
+ qcom,ci-hdrc
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/7] media: iris: introduce SM8350 and SC8280XP support
-To: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Bjorn Andersson <andersson@kernel.org>, David Heidelberg <david@ixit.cz>,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Johan Hovold <johan+linaro@kernel.org>
-References: <20260125-iris-sc8280xp-v3-0-d21861a9ea33@oss.qualcomm.com>
- <20260125-iris-sc8280xp-v3-2-d21861a9ea33@oss.qualcomm.com>
- <8c5cd9ff-e549-00ab-60c6-814b52f50949@oss.qualcomm.com>
- <rhsmmvbxjzb4ylxryo3n6j6wf52tjpxxon6fww6tsfhxttc2g7@xfsnyfkqh3ke>
- <ec4348fc-b27c-9b56-2967-222e4e280c8a@oss.qualcomm.com>
- <d67faniik7jrlnq2a2wsyku3agpezh5qj4g4rip3j6pbeagmkj@xax6nuginypu>
- <a71e3bc2-23dc-fa02-0dbf-0a9d779dca76@oss.qualcomm.com>
-Content-Language: en-US
-From: Xilin Wu <sophon@radxa.com>
-In-Reply-To: <a71e3bc2-23dc-fa02-0dbf-0a9d779dca76@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: OFWsfmE1GYcuJSFOBi1vsp9uZeMEGHAkiR9Qgvpl8Ig6hTMFeGKrL+AD
-	3XXYnlsNU+BD8/oGmThmewZnAA/kd7qWIEfykFBjFZAitY7gzeHTfD45aRRDSpldESlLn/O
-	uv5O/Q60ajvgs3z4DRGJ6WHBad4bKXC3qwZvKMSWa7BzrT6/z5j4tQ+eBO5i++Qh4WpiyT5
-	jF777zSXkj/dcLW+wKJZrtdgp0GB3kBbuheL3b25zqV8uaEnt4jyRD0ukctHo/FjjW+lXLA
-	tpXAVRIFVBH1iqWrzeJEO2tmNBWyZmjbuwH9GkWY+1RicTFE+I7JVF+c0pGo1s9XZzO2dMw
-	iBFbtmK2W94acGJL2SlLv0x/YgI1J33dFnJf5Pnt+m1rtG1UknDR41al9vQ1ADThM9FsUrt
-	9/r94k9RnYn1wcSd7+0UVly0xxhZ5GS1desFjjHwGODHA/75gC0icFPtwCGKufsfe89y1T5
-	+pCH2ZeWMv4pNmp8a2gaO39rAE0zyLkdE5EAKk6zpWIgrFTTbeJZEBRzfp2iAPyyF3bq5SE
-	DmjcXL3Fi/yt+Ix7rHCE9euIDinJJRuGFwzY5zKgS0lbR3esBdjldfDJtymlXalS1iMHFWm
-	Kt9xo0psSb/EID3OVIQOUWJbCY/DYJcDz19n+RjE5NnWX5dE+eYecDOVKBPCj/l8p1YW4Qi
-	0ismzV/liPSkFx8mi1oYlXlznq6vawU50Vovy6KqTiNVC751JO2U3LneOUIjyc91cHNXeCN
-	Y+uuAOiRFtnOG8B/2G5f1VgvGdSQHabnhWGu/xIiAClNX1F74mzp6Kfpky6+bE4POAqEp9B
-	XwpcX/0SF6uEUDIZHqBvkk/2sI+ocqPSKe/thwSx9smU+oHPozQjF7zPb1lTvrFJFR71V0B
-	OavWxPb9LqFnmVXj/xB1hfV4cjMdlbsy07XnARCiVc1kHaREcRgHHQuoiJS9TtS+mDXgefa
-	gzTxV83dQ56jO0xmIEK47K4fMb2Q7hsJKSLAsKrqpr6FBshU4vxnS07IQwvEyvPDyHArW80
-	pTZkzluKb6omcmvZUi
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260509-qcom-ci-hdrc-clock-fix-v1-1-f52386bf85da@smankusors.com>
+X-B4-Tracking: v=1; b=H4sIALwJ/2kC/yXMQQqDMBCF4avIrDsQFdPaq5Qu4mTUadXYREUQ7
+ 26sy+/B+zcI7IUDPJMNPC8SxA0R6S0Bas3QMIqNhkxlWhWqxB+5HkmwtZ6QOkdfrGXFh7HFvVS
+ GdK4hnkfPcf6HX+/LYa4+TNNZg30/APSfZ8Z6AAAA
+X-Change-ID: 20260509-qcom-ci-hdrc-clock-fix-8ad5790ac636
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Xu Yang <xu.yang_2@nxp.com>, 
+ Peng Fan <peng.fan@nxp.com>
+Cc: MINETTE Alexandre <contact@alex-min.fr>, linux-usb@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, 
+ Antony Kurniawan Soemardi <linux@smankusors.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778321872; l=2659;
+ i=linux@smankusors.com; s=20250609; h=from:subject:message-id;
+ bh=Ae03Oz6MCSn+3b26vmABckKdtCuD+FQVcr7L3BULr64=;
+ b=hXLcOrN1Bk+KuZgrIY2UGG1W1A0EySRQg2AibuAG6Qvqzdo6y5qaG2CGzRp1SfGIJ1joCFXMC
+ CV2TTGREUwFBe4kSsfqsp6a56OAoM3SJO9if3hAzf7octY2BDEpS94N
+X-Developer-Key: i=linux@smankusors.com; a=ed25519;
+ pk=65wTy06fJl2/h/EJwjr704YG+yjHFhZObJBWzzK+N00=
+Date: Sat,  9 May 2026 10:17:52 +0000 (UTC)
+X-CM-Envelope: MS4xfCJzAKg39dRpVmpPl2fqY2jQxvNw6DTgHNzyl0TN0lkDvLIwr2GZsDyZDV+Wf99IGxN6RT+e8VSv2mp55kpCddn1ffxFtqyvNXqmKsG1+MZ0Obs4yeh3 oBmG1ohgAeE6UMUiZskeiM0eDyPNzkOjBgB/JV1JwFF5zffBbuorYZzH2J41r+ETbX4Y5rT+dy/Z40blw5XqkpZ3C3sikbZXuP+Ef42lhNc/hBR2IzymyPu8 Ktf6O6iI0WZZJflHDEspjKAGItayh6+UJmF7ekriZIAwvm/KdPj4A6C71PF3oCvzoeAFyJ5Ok6kl5esrtMjD0bVLO3sJaAbO7vgusIhaZEtBRj7qgNqvVOsS t3qVlw2mE88whcaTomXwh/ypr6diPQOY7W55VnHo8Wt8AC/JE6VVW+aku8nD7MXQNue1KA9mGSdJawY7xPiHIbWtWZw2HUHpQYZexcv5Z8xIvS4Zn7tWyWoo kExOqghLRgplyhoekcjiXbixe4m+QNgef0AO21xK8p+tQbd1ankNkVrvWYCp+WmP5N8QwyaDOEG+86uC
+X-CM-Analysis: v=2.4 cv=UN2PHzfy c=1 sm=1 tr=0 ts=69ff09d2 a=aYg++IQuMqL9NhcFIsEovw==:117 a=aYg++IQuMqL9NhcFIsEovw==:17 a=IkcTkHD0fZMA:10 a=VwQbUJbxAAAA:8 a=wxLWbCv9AAAA:8 a=Z8CMZ-RkyekkVbdE0TUA:9 a=QEXdDO2ut3YA:10 a=QJY96suAAestDpCc5Gi9:22
+X-AuthUser: linux@smankusors.com
 
-On 2/10/2026 1:35 PM, Dikshita Agarwal wrote:
-> 
-> 
-> On 2/5/2026 4:24 PM, Dmitry Baryshkov wrote:
->> On Thu, Feb 05, 2026 at 02:40:39PM +0530, Dikshita Agarwal wrote:
->>>
->>>
->>> On 1/31/2026 12:58 PM, Dmitry Baryshkov wrote:
->>>> On Fri, Jan 30, 2026 at 06:46:04PM +0530, Dikshita Agarwal wrote:
->>>>>
->>>>>
->>>>> On 1/25/2026 9:02 PM, Dmitry Baryshkov wrote:
->>>>>> SM8350 and SC8280XP have an updated version of the Iris2 core also
->>>>>> present on the SM8250 and SC7280 platforms. Add necessary platform data
->>>>>> to utilize the core on those two platforms.
->>>>>>
->>>>>> The iris_platform_gen1.c is now compiled unconditionally, even if Venus
->>>>>> driver is enabled, but SM8250 and SC7280 are still disabled in
->>>>>> iris_dt_match.
->>>>>>
->>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->>>>>> ---
->>>>>>   drivers/media/platform/qcom/iris/Makefile          |   5 +-
->>>>>>   .../platform/qcom/iris/iris_platform_common.h      |   2 +
->>>>>>   .../media/platform/qcom/iris/iris_platform_gen1.c  | 111 +++++++++++++++++++++
->>>>>>   .../platform/qcom/iris/iris_platform_sm8350.h      |  20 ++++
->>>>>>   drivers/media/platform/qcom/iris/iris_probe.c      |  10 ++
->>>>>>   5 files changed, 144 insertions(+), 4 deletions(-)
->>>>>>
->>>>>> @@ -392,6 +393,61 @@ const struct iris_platform_data sm8250_data = {
->>>>>>   	.enc_ip_int_buf_tbl_size = ARRAY_SIZE(sm8250_enc_ip_int_buf_tbl),
->>>>>>   };
->>>>>>   
->>>>>> +const struct iris_platform_data sm8350_data = {
->>>>>> +	.get_instance = iris_hfi_gen1_get_instance,
->>>>>> +	.init_hfi_command_ops = &iris_hfi_gen1_command_ops_init,
->>>>>> +	.init_hfi_response_ops = iris_hfi_gen1_response_ops_init,
->>>>>> +	.get_vpu_buffer_size = iris_vpu_buf_size,
->>>>>> +	.vpu_ops = &iris_vpu2_ops,
->>>>>> +	.set_preset_registers = iris_set_sm8350_preset_registers,
->>>>>> +	.icc_tbl = sm8250_icc_table,
->>>>>> +	.icc_tbl_size = ARRAY_SIZE(sm8250_icc_table),
->>>>>> +	.clk_rst_tbl = sm8350_clk_reset_table,
->>>>>> +	.clk_rst_tbl_size = ARRAY_SIZE(sm8350_clk_reset_table),
->>>>>> +	.bw_tbl_dec = sm8250_bw_table_dec,
->>>>>> +	.bw_tbl_dec_size = ARRAY_SIZE(sm8250_bw_table_dec),
->>>>>> +	.pmdomain_tbl = sm8250_pmdomain_table,
->>>>>> +	.pmdomain_tbl_size = ARRAY_SIZE(sm8250_pmdomain_table),
->>>>>> +	.opp_pd_tbl = sm8250_opp_pd_table,
->>>>>> +	.opp_pd_tbl_size = ARRAY_SIZE(sm8250_opp_pd_table),
->>>>>> +	.clk_tbl = sm8250_clk_table,
->>>>>> +	.clk_tbl_size = ARRAY_SIZE(sm8250_clk_table),
->>>>>> +	.opp_clk_tbl = sm8250_opp_clk_table,
->>>>>> +	/* Upper bound of DMA address range */
->>>>>> +	.dma_mask = 0xe0000000 - 1,
->>>>>> +	.fwname = "qcom/vpu/vpu20_p4.mbn",
->>>>>
->>>>> This firmware is not compatible with SM8350.
->>>>> SM8350 firmware is not released to linux-firmware yet.
->>>>
->>>> What would be the name for the firmware? The downstream uses vpu20_4v
->>>> here, so, I guess, in upstream we should be using vpu20_p4, but a newer
->>>> version?
->>>>
->>>
->>> Using a newer version won't work as the firmware for SM8250 and SM8350 are
->>> different binaries generated from different firmware source branch.
->>> You can give it a try, but AFAIK it won't work.
->>
->> Ugh...
->>
->>>>>> +	.fwname = "qcom/vpu/vpu20_p2.mbn",
->>>>>
->>>>> this firmware doesn't exist on linux-firmware.
->>>>
->>>> It was based on the assumption of having 2 pipes. If Iris here has 2
->>>> pipes, then probably we should still point to vpu20_p4.mbn?
->>>>
->>>
->>> SC8280XP also uses the Iris2 4‑pipe configuration, though its firmware
->>> comes from a different source branch compared to SM8250 and SM8350. This
->>> means we have multiple firmwares with identical VPU and pipe configurations
->>> but different origins. Could you propose a suitable naming scheme that can
->>> differentiate such firmware?
->>
->> Can we have a single binary that works on all Iris2 4-pipe cores?
-> 
-> That is not possible as it is older VPU.
-> For newer ones, the plan is have single source branch for same VPU to avoid
-> such issues in future.
-> 
->> Or are there any differences between Iris2 on SM8250 / SM8350 /
->> SC8280XP? Are they stil vpu20_something or should we use different VPU
->> versions in the firmware name?
-> 
-> I think we can keep vpu20_4p_* with some way to different among SM8250,
-> SM8350, SC8280XP.
-> 
+Some Qualcomm SoCs such as apq8064 and msm8960 require a third "fs"
+clock in addition to "iface" and "core", needed to propagate resets
+through the controller and wrapper logic. Later SoCs such as msm8974
+dropped this requirement and only use two clocks.
 
-Hi Dikshita,
+Signed-off-by: Antony Kurniawan Soemardi <linux@smankusors.com>
+---
+This patch updates the ci-hdrc-usb2 binding to allow up to 3 clocks for
+qcom,ci-hdrc, to accommodate Qualcomm SoCs that require an additional
+"fs" clock for reset propagation.
 
-We have some upcoming products based on SC8280XP that mainly run Linux. 
-I was wondering whether Qualcomm still plans to submit the latest 
-SC8280XP Iris firmware to linux-firmware.
+This is a prerequisite for the following patch series currently under
+review:
+  - ARM: dts: qcom: apq8064: Fix USB controller clocks [1]
+  - ARM: dts: qcom: msm8960: add RPM clock controller and fix USB
+    clocks [2]
 
-If not, would it be acceptable for us OEM to submit it under the name 
-vpu20_4p_sc8280xp.mbn?
+Without this binding change, those series produce dtbs_check errors
+due to the 3-clock entries in their respective device tree sources.
 
->>
->>>>>> diff --git a/drivers/media/platform/qcom/iris/iris_platform_sm8350.h b/drivers/media/platform/qcom/iris/iris_platform_sm8350.h
->>>>>> new file mode 100644
->>>>>> index 000000000000..74cf5ea2359a
->>>>>> --- /dev/null
->>>>>> +++ b/drivers/media/platform/qcom/iris/iris_platform_sm8350.h
->>>>>> @@ -0,0 +1,20 @@
->>>>>> +/* SPDX-License-Identifier: GPL-2.0-only */
->>>>>> +/*
->>>>>> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->>>>>> + */
->>>>>> +
->>>>>> +#ifndef __IRIS_PLATFORM_SM8350_H__
->>>>>> +#define __IRIS_PLATFORM_SM8350_H__
->>>>>> +
->>>>>> +static void iris_set_sm8350_preset_registers(struct iris_core *core)
->>>>>> +{
->>>>>> +	u32 val;
->>>>>> +
->>>>>> +	val = readl(core->reg_base + 0xb0088);
->>>>>> +	val &= ~0x11;
->>>>>> +	writel(val, core->reg_base + 0xb0088);
->>>>>> +}
->>>>>
->>>>> you can reuse this from SM8250. That would work.
->>>>
->>>> Hmm, downstream driver was explicit about clearing only these two bits.
->>>> Is it really fine to clear all the bits?
->>>>
->>>
->>> Yes it is. We are doing the same for other SOCs as well.
->>
->> Wouldn't this also ungate / start the second core?
->>
+[1] https://lore.kernel.org/all/20260427-mainline-send-v1-sending-v2-6-dcaa9178007b@alex-min.fr/
+[2] https://lore.kernel.org/all/20260414-msm8960-wifi-v1-5-007fda9d6134@smankusors.com/
+---
+ .../devicetree/bindings/usb/ci-hdrc-usb2.yaml      | 29 ++++++++++++++++------
+ 1 file changed, 21 insertions(+), 8 deletions(-)
 
+diff --git a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml b/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
+index 691d6cf02c27..5d18d47efaed 100644
+--- a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
++++ b/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
+@@ -43,14 +43,6 @@ properties:
+               - nxp,s32g3-usb
+           - const: nxp,s32g2-usb
+ 
+-  clocks:
+-    minItems: 1
+-    maxItems: 2
+-
+-  clock-names:
+-    minItems: 1
+-    maxItems: 2
+-
+   operating-points-v2:
+     description: A phandle to the OPP table containing the performance states.
+     $ref: /schemas/types.yaml#/definitions/phandle
+@@ -91,6 +83,27 @@ allOf:
+   - $ref: chipidea,usb2-common.yaml#
+   - $ref: usb-hcd.yaml#
+   - $ref: usb-drd.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: qcom,ci-hdrc
++    then:
++      properties:
++        clocks:
++          minItems: 1
++          maxItems: 3
++        clock-names:
++          minItems: 1
++          maxItems: 3
++    else:
++      properties:
++        clocks:
++          minItems: 1
++          maxItems: 2
++        clock-names:
++          minItems: 1
++          maxItems: 2
+ 
+ unevaluatedProperties: false
+ 
 
--- 
+---
+base-commit: 70390501d1944d4e5b8f7352be180fceb3a44132
+change-id: 20260509-qcom-ci-hdrc-clock-fix-8ad5790ac636
+
 Best regards,
-Xilin Wu <sophon@radxa.com>
+--  
+Antony Kurniawan Soemardi <linux@smankusors.com>
 
