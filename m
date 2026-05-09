@@ -1,76 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9F0E36E466;
-	Sat,  9 May 2026 12:05:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FB561A3165;
+	Sat,  9 May 2026 12:07:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778328303; cv=none; b=RUQVSEzLOJ+EH3EENn6oItnHDr3qDgqOMXitD4pQBhzOpzZ4nPeZ0wX6GWq/Jw6vAXlfz+5vLq5gBYemqahPWTwfShjC/VMbqYNG4tb/Sq+nN+mTwKjol6/RPjGSw1BSSmHer8VlRF2GPpuuAUA9LUi/4xllJ76tOf+ucdf3nJY=
+	t=1778328449; cv=none; b=r4smNHstf4HAdp4phddOdCfE36kdzLDWX1X1ple9XsrT6e3GGhN6vzD/it/zBXHfgMXgD/5/w5Db33MGF+xUio88mFGx4pKwcBf2aqSfHu7MKOKfqARdSpaiQPLJNc8P7dlmBCzSUce5RmCO0g65fmK3Gj+TyJ99PhyilfgnjX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778328303; c=relaxed/simple;
-	bh=CpXnj5Xgur8UuVrX5bJeosa1ALPId9xslXi/guftDlI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=jjEL52cTdQTQPeo9Hl+IODr2gwhD/m1BVa0gG/QamjtxyNw069MZ46wYq6Hk3K+RNiBXPjFa7AJetCICmy5ktJyY04Us1a0YcMuDi+40AxOntDHV+vGVg+nJaVmLXeV6Ky6smolkajxW0y0FOKzM1/PYbLtLoua0KhX2W+iBHcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=foXFMEur; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778328449; c=relaxed/simple;
+	bh=+OOyDX3IQBKlPPnum+OZiZP/b9YGU/MTfJLeZadekkQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GiVDbjHzAWhA8HkgONOkTJRowCadIdVO3hqwARAndz+ADFuMH/FOMz4rIlmJjVGhQh36W5komkagVOvOkcx5B/4BVfCnjhQwhkAIl06+MV3aLIql1QxlsyM8OKP1ShYKxyL/Zz70e4dx4YlslwahNJpyv5GR7iWhS/Gnfwvno+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vJULz4BD; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="foXFMEur"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF9EFC2BCB2;
-	Sat,  9 May 2026 12:05:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vJULz4BD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66FB6C2BCB2;
+	Sat,  9 May 2026 12:07:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778328303;
-	bh=CpXnj5Xgur8UuVrX5bJeosa1ALPId9xslXi/guftDlI=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=foXFMEurqY5p5Kjr8yIoVUVW1TOyQbmx4kX5Uv91dVB3sH06ZJOYl6ElZiobqrNRr
-	 jzaq06bgnRdWsCg7gRdJYDC0CtP9QL5LAf3mRHHBXWKj7G+0v7vwl70cwjLOpvBThz
-	 /ogk1OpXpugz3krxSB2iBEFXgaTq/nyr4WNKUJb/phOI/MFV1ygHnKBI39lUk4euMR
-	 2KlRk/07PpcIUo8gQTijgd+7uNW/JDaXRNtQ3epwg6toQGx2K4rSaqmEGiHfL769/M
-	 lkjPVJ9HitcvyhynFdyBJB+fhlZbeBcZoKSyyHo7UI5snxyXXlxtyd3bUsW6BL69/S
-	 qKrCwxN9wxHtQ==
-Message-ID: <ec0633a6-30f6-4db6-875d-69a4f0f140ca@kernel.org>
-Date: Sat, 9 May 2026 07:05:01 -0500
+	s=k20201202; t=1778328448;
+	bh=+OOyDX3IQBKlPPnum+OZiZP/b9YGU/MTfJLeZadekkQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=vJULz4BDAIAcuxRXUQ84SFU7F4fQNpTThsNVgLwNgZckeaod6u9/Ng6JiBb80VNLr
+	 y9vbMuBv2C1wTXozl0UHEx+TZVG/Dm4i1wxQlLXXhiFRwz95XRUaFIShavsqvirD4H
+	 PmsOmXyo3gGTv24sLHUOpsIuqou85IzYSSM84ps7Tr5MumkIVrY6RCbBReznpsrtTM
+	 2lvaF8s0bVYrdAqpYrhrtD6D0x96Q/hYBDoK2ozNfI77xTINXD8h2sw13ANVTWXnug
+	 xQZ1GBVjWMjr0TTSUyZcmaN+Kv5+1387YuEeNjmsQQ/QQuwqYEOAXR/poCE1x0kYi6
+	 nnm0C7HxCdmOA==
+Date: Sat, 9 May 2026 12:07:26 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Chukun Pan <amadeus@jmu.edu.cn>
+Cc: Rob Herring <robh@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, spacemit@lists.linux.dev
+Subject: Re: [PATCH 1/1] riscv: dts: spacemit: enable eMMC for OrangePi RV2
+Message-ID: <20260509120726-GKA3601591@kernel.org>
+References: <20260509100000.3315109-1-amadeus@jmu.edu.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] arm64: dts: agilex5: add support for debug daughter
- card
-Content-Language: en-US
-To: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1778237639.git.adrian.ho.yin.ng@altera.com>
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <cover.1778237639.git.adrian.ho.yin.ng@altera.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260509100000.3315109-1-amadeus@jmu.edu.cn>
 
+Hi Chukun, 
 
-
-On 5/8/26 05:57, Adrian Ng Ho Yin wrote:
-> The Agilex5 SoCDK supports an optional debug daughter card that requires
-> a dedicated device tree variant due to differences in peripheral
-> connectivity compared to the standard SoCDK configuration.
+On 18:00 Sat 09 May     , Chukun Pan wrote:
+> The OrangePi RV2 board has one eMMC slot, so enable eMMC.
+> Tested using a 16 GiB AJTD4R eMMC module.
 > 
-> When the debug daughter card is fitted:
->    - gpio0 and gmac2 are disabled
->    - gmac0 is enabled with RGMII PHY connectivity
->    - spi0 is enabled with a <device> peripheral at chip select 0
->    - The HPS LED is rewired from gpio0/porta to gpio1/portb
+> Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
+
+Reviewed-by: Yixun Lan <dlan@kernel.org>
+
+> ---
+>  arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
 > 
-> The new DTS inherits from socfpga_agilex5_socdk.dts and overrides only
-> the nodes that differ, keeping the delta minimal.
+> diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+> index 3a829e3c9cbc..c95ca38e3d4a 100644
+> --- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+> @@ -78,6 +78,16 @@ &combo_phy {
+>  	status = "okay";
+>  };
+>  
+> +&emmc {
+> +	bus-width = <8>;
+> +	mmc-hs400-1_8v;
+> +	mmc-hs400-enhanced-strobe;
+> +	no-sd;
+> +	no-sdio;
+> +	non-removable;
+> +	status = "okay";
+> +};
+> +
+>  &eth0 {
+>  	phy-handle = <&rgmii0>;
+>  	phy-mode = "rgmii-id";
+> -- 
+> 2.34.1
 > 
-> Adrian Ng Ho Yin (2):
->    dt-bindings: altera: add compatible for agilex5 socdk debug daughter
->      card
->    arm64: dts: agilex5: add support for debug daughter card
 > 
 
-Applied!
-
-Thanks,
-Dinh
+-- 
+Yixun Lan (dlan)
