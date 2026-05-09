@@ -1,154 +1,103 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9300F3CC9EA
-	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 19:39:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BC5039DBE4
+	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 19:41:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778355583; cv=none; b=i9mIn9IhC22uyA2KYdYO6Bk1dYeMDtKPoWuieVQaOCT9KDbpWGyJ3Qppa3VwgDErhxYxqEmcmUzHm7eXOWwBMapmXCs2oEtXMilDGoIKQVFeZfhqvgjWg7lBH9lsGYpTC0SQfosQ90tr2s4H20abrbV3qj1hBewi2LS2WjKwRK0=
+	t=1778355708; cv=none; b=JsntnyLwykF030lOJc1zYg4U/CRW0S2lcx0eY8iiyQLkHM8xqXsZyj6GTcNd8HRgSZnfFEcD0UocSi72yQ3kpCMYmfBhyL5xSaa20kfhPKnmmF004LhEWlFRVWwNdrLFmn1dGD4vBFrOtIdkwgZ83n1TyeNX6QhyBKSsNHrkt5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778355583; c=relaxed/simple;
-	bh=BtlNkM7JtRsr4H1APlBzmmd0+2E3WucFpktmbWjT2nk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nvi+jFegfI09QsbnEx0vET4MT+FgzffBV/ENEiafoCOW0CNSWczcPMu5GklJ0Wta0DHVUPvYkb9PKGqURkiPa+Shtd1C4da1X7KT9uk4ytp7S30I2tBdJQY68fb/WbJlv9ZU5jKIqMofhbV/cNb+kZF9BTaPeZtQY7Xw76uzJM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gc0Di/VS; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778355708; c=relaxed/simple;
+	bh=3VJ4xdMEKtzx+yrVv52AeVk6+9Kk5I6v3j22iWy1eb8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=N1MMWIqI3P2AYGrulDTIrHIlF1imAWtRLSGuTk24jNW4M0UJgtVc6wpjKxxCuvM3LHzLEiumGZN7CcUrQtUhTS2/RSeTFGE0k3jeqNvZBjW/5mve+yJgewMN3TtmjUw51CpAnGYCM5nTl2UEAwv7+yP2TDrv/RhS9LwjCEfPnWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c914jLRS; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gc0Di/VS"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2bab82d75fdso16755525ad.2
-        for <devicetree@vger.kernel.org>; Sat, 09 May 2026 12:39:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778355579; x=1778960379; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=a5cMbOemj5qCKf6YMBNAikh7EtC1awKMtCwgmYlIPnw=;
-        b=Gc0Di/VSstcweSCs5yxkMpmFrjkx/C1uLmKLVodySybSg8ToVCnPo82IZ9Sqn0tpWc
-         fcG11j22/I/AP1/j0bc4omBsuGWQRdLIzMmF5AGWnd3rKP5UV9HlYQdbVOiOYLPWjE9+
-         1HGU7VrU/d/qUTWdoZuzDm5f+rujr0uhQUUon4GrHwoGJYD6SA2VgLYsA83jG1CYePSh
-         YbSjuPQZWgd2fErPcnaT3eoUw3iSv3tsFzWoxKWXjAgu/b0392nJU4vE0ERsGJwrcKvK
-         doFyFuX/8yZvMZUO4WMkJs60BVYLpWIizolAFJmpsgQzPj05f17a1sEkf3TuOVJmRSV6
-         m3Gg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778355579; x=1778960379;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=a5cMbOemj5qCKf6YMBNAikh7EtC1awKMtCwgmYlIPnw=;
-        b=F0LPEc4t4mcnIHqekdjvTYq82iteKstuhEAgel+oZroL0/ReYSWqSLpdYTfhv+95mD
-         KiCPxNdRQ/JDZOP4Y0x/BsH110D4+Gp5k31PIaecyTthEpPcYNdDNL+I2HF2ind17nGp
-         beO36dgkRDv3ayt+mLD9ueiyXlIBrvOrM9sJoK3sHhUYO5vDM9lpjKBLiHm0BTd7h4QA
-         T+3Nb65JedHM2TbsU6CRsFN6rI20aqC45XwH5rHugFPkQ5skaqdqg0yk8mUhcWfEz/d3
-         HvbHsfVlO5SPjhhRGUahP0UuwDrK9r88wHmkgHGFPBXsLyEfXP84Dt/SLLYud152ay6P
-         og8Q==
-X-Forwarded-Encrypted: i=1; AFNElJ9OYgNeynZcUNov7n/hbvGfLc3pxXNCeQ0DGbqHnzFKbhizHeieQ3sj+MyzBokEWmO1CAyCVUntmtM1@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxt0+VW23vN6frVyLkq6TR7JYxRfrBT2tihrfoU0LOrxbs0G3zW
-	MdeordfD5GlKfSFw99Ep31xDRTbOEzUl2Awb56Pkkn4XPF0vZhRK3lId
-X-Gm-Gg: Acq92OGuLXrnFavhInxZvep8G0LJ+g8AG39BqzhzadZnsV8SkKfMTD2f1YxoxLyFZFE
-	jG5uabpIvsNCjGZonwbPIaDV2TDO+/gHa9TE38e/bRTd4f+3c+M8SIeZvVcRJ6pBD5r3WZwISGN
-	T9Xhns201VMk6O1rTe/zTbhJKke5qAitl/ncQ87dApr6JZw1NmaB5H2kHODMOcJL80FOXWN9pbm
-	0ZPa3kpPLV4Qgo3g3l7H7ZBw6qqPXu6QnE9wrKxqFl8ljLV0dK+q2Me6xLZYe0pnU1j3wTo8NdH
-	9p6Q/rdOCTbCwHaTpTpUOScrejnYSp65MgGy06dOVtRvTf7ALq81sjR2YonzFkMGW5cj81YzBNw
-	y2uR8CIjvF5OrroX8CWUu/XPDfF73XU1oH4YYm87OJKPK5HFmbJNr+wNFu9VGEBtaEUG57tO2Wb
-	zt0oDe+U0f2mu3Zihax0Ep1zESMjy0ImHm5spDT1bAwMLjF7PYP1vypiB5zFJ5zMMCxRAT9x5mE
-	DIn
-X-Received: by 2002:a17:902:e750:b0:2b2:5258:a23d with SMTP id d9443c01a7336-2bc7a9ba9c0mr33335675ad.14.1778355578556;
-        Sat, 09 May 2026 12:39:38 -0700 (PDT)
-Received: from Ubuntu.. ([49.37.169.14])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2baf1d3fed8sm59690265ad.27.2026.05.09.12.39.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 09 May 2026 12:39:37 -0700 (PDT)
-From: Manish Baing <manishbaing2789@gmail.com>
-To: lee@kernel.org,
-	ukleinek@kernel.org,
-	linusw@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com,
-	devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-pwm@vger.kernel.org,
-	manishbaing2789@gmail.com
-Subject: [PATCH v3] dt-bindings: mfd: st,stmpe: fix PWM schema and drop legacy binding
-Date: Sat,  9 May 2026 19:39:28 +0000
-Message-ID: <20260509193928.19030-1-manishbaing2789@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c914jLRS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C360C2BCB2;
+	Sat,  9 May 2026 19:41:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778355707;
+	bh=3VJ4xdMEKtzx+yrVv52AeVk6+9Kk5I6v3j22iWy1eb8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=c914jLRSgJFSLz/PEs4kdJqlr86/+mXkUL4mDvFNd4DI+uzLVVARXZKaZO3vARpTq
+	 yczvnKEpbCasRfB5C5gCa/t7Igvq2oqrzFOfwlRI49R4Z+93CTq/vNdybhfx5OkVkI
+	 UKqoROEJ6GZ27A6I1kPPOf84ZiEafxJVLBabZ1uEvwX8pJRDtGb527V+zJ/dHaNZF/
+	 00qUjmeWOoDPHQPbixfaKq4i0i7yMNrRjfbJQHcGhQNUGnMNQdDNX7zKJmqUCpolBK
+	 N8I+X0Qkuo9h1EHvpmWsnAAarFCzJDwVgX51y58y+CkrXOQDnJem446DrRVkmwyPwh
+	 5An3N5n6MP5Mg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V5 03/11] iio: imu: inv_icm42607: Add inv_icm42607 Core
+ Driver
+Reply-To: sashiko@lists.linux.dev
+To: "Chris Morgan" <macroalpha82@gmail.com>
+Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260509191907.24734-4-macroalpha82@gmail.com>
+References: <20260509191907.24734-4-macroalpha82@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 09 May 2026 19:41:46 +0000
+Message-Id: <20260509194147.6C360C2BCB2@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The st,stmpe-pwm binding is already covered by the MFD schema in
-Documentation/devicetree/bindings/mfd/st,stmpe.yaml. However, the
-PWM subnode was missing a 'required' properties block. This allowed
-Device Tree nodes to pass validation even if the 'compatible'
-string was omitted. This omission could lead to probe failures
-at runtime.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The return value of `dev_warn_probe()` is discarded when a WHOAM=
+I mismatch occurs.
+--
 
-Fix the schema by adding the missing 'required' block and
-remove the obsolete and redundant text binding file.
+commit 6349b0a7b12b07b3aed999d0609cbcf30437d378
+Author: Chris Morgan <macromorgan@hotmail.com>
 
-Signed-off-by: Manish Baing <manishbaing2789@gmail.com>
----
-Changes in v3:
-- Added 'required' properties to the pwm subnode in st,stmpe.yaml
-  to close a validation gap identified by the Sashiko.
-- Updated commit message and description to reflect MFD subsystem changes.
+iio: imu: inv_icm42607: Add inv_icm42607 Core Driver
 
-Changes in v2:
- - Droppped the TXT file instead of converting to YAML, as the
-   functionality is already covered by st,stmpe.yaml.
-   
- .../devicetree/bindings/mfd/st,stmpe.yaml      |  4 ++++
- .../devicetree/bindings/pwm/st,stmpe-pwm.txt   | 18 ------------------
- 2 files changed, 4 insertions(+), 18 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/pwm/st,stmpe-pwm.txt
+This commit adds the core component of a new inv_icm42607 driver, including
+setup functions and full register definitions in the header file.
 
-diff --git a/Documentation/devicetree/bindings/mfd/st,stmpe.yaml b/Documentation/devicetree/bindings/mfd/st,stmpe.yaml
-index df43878fbe18..4bb05d544901 100644
---- a/Documentation/devicetree/bindings/mfd/st,stmpe.yaml
-+++ b/Documentation/devicetree/bindings/mfd/st,stmpe.yaml
-@@ -127,6 +127,10 @@ properties:
-       "#pwm-cells":
-         const: 2
- 
-+    required:
-+      - compatible
-+      - "#pwm-cells"
-+
-   touchscreen:
-     type: object
-     $ref: /schemas/input/touchscreen/touchscreen.yaml#
-diff --git a/Documentation/devicetree/bindings/pwm/st,stmpe-pwm.txt b/Documentation/devicetree/bindings/pwm/st,stmpe-pwm.txt
-deleted file mode 100644
-index f401316e0248..000000000000
---- a/Documentation/devicetree/bindings/pwm/st,stmpe-pwm.txt
-+++ /dev/null
-@@ -1,18 +0,0 @@
--== ST STMPE PWM controller ==
--
--This is a PWM block embedded in the ST Microelectronics STMPE
--(ST Multi-Purpose Expander) chips. The PWM is registered as a
--subdevices of the STMPE MFD device.
--
--Required properties:
--- compatible: should be:
--  - "st,stmpe-pwm"
--- #pwm-cells: should be 2. See pwm.yaml in this directory for a description of
--  the cells format.
--
--Example:
--
--pwm0: pwm {
--	compatible = "st,stmpe-pwm";
--	#pwm-cells = <2>;
--};
--- 
-2.43.0
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/i=
+io/imu/inv_icm42607/inv_icm42607_core.c
+> new file mode 100644
+> index 0000000000000..e84e84416dab5
+> --- /dev/null
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
 
+[ ... ]
+
+> +static int inv_icm42607_setup(struct inv_icm42607_state *st,
+> +			      inv_icm42607_bus_setup bus_setup)
+> +{
+> +	const struct device *dev =3D regmap_get_device(st->map);
+> +	unsigned int val;
+> +	int ret;
+> +
+> +	ret =3D regmap_read(st->map, INV_ICM42607_REG_WHOAMI, &val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (val !=3D st->hw->whoami)
+> +		dev_warn_probe(dev, -ENODEV,
+> +			       "invalid whoami %#02x expected %#02x (%s)\n",
+> +			       val, st->hw->whoami, st->hw->name);
+> +
+> +	ret =3D regmap_write(st->map, INV_ICM42607_REG_SIGNAL_PATH_RESET,
+> +			   INV_ICM42607_SIGNAL_PATH_RESET_SOFT_RESET);
+
+Was the return keyword accidentally omitted here?
+
+The return value of dev_warn_probe() is silently discarded. If the chip's
+WHOAMI register does not match the expected value, the driver will proceed
+to perform a soft reset and configure what is potentially an unsupported or
+unresponsive device.
+
+If the intent was to abort the probe on a mismatch, it should probably retu=
+rn
+dev_warn_probe(...). If the intent was merely to log a non-fatal warning and
+continue, would a standard dev_warn() be more appropriate?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260509191907.2473=
+4-1-macroalpha82@gmail.com?part=3D3
