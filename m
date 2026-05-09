@@ -1,195 +1,175 @@
-Received: from mail-dl1-f67.google.com (mail-dl1-f67.google.com [74.125.82.67])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A9E1B4156
-	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 00:28:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.67
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2119D1D54FA
+	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 00:33:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778286510; cv=none; b=qgr012SG2/itKnJUU9bbKSRTixF9ncfiITujBRFMwtlSswZBh+TN1UxydVm9+hfElUdZNR3kO4QGTmsLUfeV55fSMtKU+ml3K1jQiEJL6bS4/0b85vsURc8hZG5yUHW902UHWbt+Rt5FJU1Fh+QcltK7o+tawO7bWrGvt0p3/SQ=
+	t=1778286794; cv=none; b=oakrMEjiEtMtuG+y804LLmCg3GBTxrZnfh2+St1QN/wQFrEU5jm2qeo226dHIquPC00Yte0Af7g1brgn0RTpB11lzWPbmY+0vrBd9v6ft3P9x323zrJe1+Lvd5+V+YBoyDOvghuloPvQFBMjK5dMfArV8RW+R4aiDK08knSdoxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778286510; c=relaxed/simple;
-	bh=krKCyrAKFIC5EL9Q1YnrE+uzJ56qyD1S2ilkMbdCeMA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=eB5s8TWLh7I5oDYg9AC0UZhlHN5j+k4cHhyKEADBMt3aheGf7Vp2hXGiVkjY7du/Ry0teuBXGXG8M10EuUCqDOx1IJ8JguP8nqNIUSfrCXCZUYomk9abFkjQY5TjS6Y+K0UxSK9FezhhlIaW8KlLm+c5XbOe4Iyr0Vr2YTp7XlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZMYsCbeK; arc=none smtp.client-ip=74.125.82.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778286794; c=relaxed/simple;
+	bh=RtoMKBOvH3wyeeTg8XyNDEEK+wgPQnQzoR57y26oAN4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=spPw6eMbYJk4XEUuw0K2Ubxhr7Ux+a+Vkgp30an7WnshV4+Fpw+az+/OE7K2dTtNomPBjf6Sn6P12maIgEp1i5j+ihowau+r97NpVQ8MTh+z2wSd4kcw5s+i8g0iwjsTCytJuMAw654gePhL4oqT098H4Aic4SXVEvJXqs1Z894=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IN14q4hx; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZMYsCbeK"
-Received: by mail-dl1-f67.google.com with SMTP id a92af1059eb24-1329fc4bf77so831662c88.1
-        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 17:28:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778286508; x=1778891308; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qDwIE60W0mXeu2WpR+wEI1Y9fvjpyHov5WakopHMXbo=;
-        b=ZMYsCbeKRhZg/k39oSZxqV1AKMtlb0/aY4Vspe2tDI1Y2smIGydCO0ulGHr1t29d5b
-         p5kmsRLvIFsOPk3pqbkUNpFfJ+2CC0aWxx2lqufoboUrQGYaeYFvysj6L3+jwZC9mtg1
-         56uaYeWgOOi7WYjrftoTeQxu/cAvF/sRIwjINpX1Hb7StzacKL7RZYSdGM5HDku5OGLu
-         etPuhdtC91r/4J5zsbOb8hmhT192zgpPJdZNHFVGJuA/dv9gBNb8MtgEihTMfOymjW0u
-         sQYAIB/XFe4eHhHuTj4BzoKsD7QpoBpEKT58q+yqdK7Zz9+UYVFH7oMWwAoScYViVwl9
-         296w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778286508; x=1778891308;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=qDwIE60W0mXeu2WpR+wEI1Y9fvjpyHov5WakopHMXbo=;
-        b=Lmkn0XBLI0QAZQksKRpBhB0D83Aw2hSpskKdP1GtUgFGlievIcFfw8iwSgVFdh7DwG
-         kqnWpdhAefinptqQY0M4Do12eltpz4c0z+KCmcsf/cmPOSd0gsxQicnlvVts87K7bPI8
-         BepJU+tiESi5Snp8VcqeIEZx4Y+dMnG55JX3S0mHMfWM2odHRcsuprgdAitfCg3URat6
-         YcwiaqOxKSV5iFlEr+k/4kX9cLKPUSthRp+8R+AvwNJMGTcIbBHYeGHxw1AZtEdg7RJO
-         Yz6b1m5dfxbc1RERcS7sVBqnFoXrapSTcy3N1ma3kEfcEuTwR1/7kKD93NZPstR/7m2F
-         7FDA==
-X-Forwarded-Encrypted: i=1; AFNElJ+znXLIpNW9QfCbfYfJP7VXVedF2gP9HiZSIhkqxEH9v+KJmi5O7u0AQWNHpcCvMfaeb2mV6bQVt2v1@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw0BPs0gc7+ULZZvq+yC0D+nQDDGwUlTsFbYOsIkZ62GT2NdbhN
-	etKaPzLW1pIxrQ7+BTD19XqMdOfG4FSl8zAH7Oe9GNAbkC+mhPRLesHt
-X-Gm-Gg: AeBDievjtKBqYP7ldZGxRbEW7E6at+FyTsb3NckKbf6ks6gbYOCUsoSKSutHXuWnLQp
-	cyeYw4wVyQ3m6jisd4MVLAFLtAFeYJgxh4Xss6QLUCBz74UqLGK5o0SmNElc2yeknCPL/eVVo9c
-	S+9WKnxUJb1WFpKZLJ0cJlqd53HInQj/CA+C2vd3Rko0Rf06K+AUTUscy9C94i/WoYjmskNFtRq
-	T9TE3QpJPhFgizxM3ZudQRRuowAiGCw8aunqdY8rzF7UAHRON97q8FLMuEVMU+JRLK0we9xAze3
-	sHk+xko1cPXirDC7JDtd1fzxSCeQl5iPPHt0F4DHgyKtSXj5c9Bl4mHHj8wB+DmbkWwIra5IY76
-	WYbg5bWjCC3uRRcAhriafPK2VueE+icPPRxTF04jsD69X23EhS7lwf9gMu/N4+vLwt372qOdGA3
-	GN5cEkvb33/ShT5XN8al51rJ7ssCExivuXGT+qsAi5P1NFP9fO+03Xvhs=
-X-Received: by 2002:a05:7022:1b0e:b0:12c:44a5:fb54 with SMTP id a92af1059eb24-131852d2fbfmr7892176c88.7.1778286508407;
-        Fri, 08 May 2026 17:28:28 -0700 (PDT)
-Received: from localhost.localdomain ([76.32.119.210])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1327810ffb9sm5979234c88.2.2026.05.08.17.28.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 08 May 2026 17:28:27 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: jic23@kernel.org,
-	lars@metafoo.de,
-	Michael.Hennerich@analog.com,
-	dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH v2 1/1] dt-bindings: iio: dds: Add AD9832/AD9835 binding
-Date: Sat,  9 May 2026 00:28:10 +0000
-Message-Id: <20260509002810.78372-2-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260509002810.78372-1-dennylin0707@gmail.com>
-References: <20260509002810.78372-1-dennylin0707@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IN14q4hx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8CD3C2BCB0;
+	Sat,  9 May 2026 00:33:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778286794;
+	bh=RtoMKBOvH3wyeeTg8XyNDEEK+wgPQnQzoR57y26oAN4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=IN14q4hx9UhbqccJyVwVQ1M1uWbVq66AE8Q2s3RPCV20MHQbtzDu7P8PkBSjLpCjY
+	 GK/2Gt8j2HXZIQjN8gl7e6WBVu8m2vNYIwxF46nolzL960/vdEXelC1UfIL6XlmRog
+	 9Hfe8WkJOH05Z5n43vZ6gUsDbBnYje8rpLv1H/oZwtDVa8ihERnB5UXPEuQiB9bVsY
+	 YQsFWFeM+xi0lemibSVw9dPA/Ah9mCEqvquqRYYYzGXxOcRwkYp/RqH3UYph6lzcCD
+	 Vid77y8IKhSe9UaNJh3HbLK0DTWmOLIwODS9XIbU+YnCqkvMN57Xf2971rZvidboyF
+	 mrAfWFI7w33Fg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC v4 06/10] iio: frequency: ad9910: add RAM mode
+ support
+Reply-To: sashiko@lists.linux.dev
+To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260508-ad9910-iio-driver-v4-6-d26bfd20ee3d@analog.com>
+References: <20260508-ad9910-iio-driver-v4-6-d26bfd20ee3d@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 09 May 2026 00:33:13 +0000
+Message-Id: <20260509003313.C8CD3C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add devicetree binding documentation for AD9832 and AD9835 DDS devices.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] State Corruption on Hardware Write Failure during RAM mode toggle
+- [High] Integer Underflow from negative fraction bypasses bounds checks
+- [Medium] Missing IIO_CHAN_INFO_SCALE interface for RAM channel prevents s=
+ingle-tone amplitude configuration
+--
 
-These devices are SPI-controlled direct digital synthesizers
-requiring AVDD, DVDD supplies and an external master clock.
+commit faac9fb534e90f61a8a63acf8162a1789a0da104
+Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- .../bindings/iio/dds/adi,ad9832.yaml          | 87 +++++++++++++++++++
- 1 file changed, 87 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/dds/adi,ad9832.yaml
+iio: frequency: ad9910: add RAM mode support
 
-diff --git a/Documentation/devicetree/bindings/iio/dds/adi,ad9832.yaml b/Documentation/devicetree/bindings/iio/dds/adi,ad9832.yaml
-new file mode 100644
-index 000000000000..95b20ed4f9c0
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/dds/adi,ad9832.yaml
-@@ -0,0 +1,87 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/dds/adi,ad9832.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Analog Devices AD9832 / AD9835 DDS
-+
-+maintainers:
-+  - Hungyu Lin <dennylin0707@gmail.com>
-+
-+description: |
-+  Binding for Analog Devices AD9832 and AD9835 SPI-controlled direct
-+  digital synthesizers (DDS). The devices use an external master clock
-+  and are controlled over a serial SPI-compatible interface.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - adi,ad9832
-+      - adi,ad9835
-+
-+  reg:
-+    maxItems: 1
-+
-+  spi-max-frequency:
-+    maximum: 20000000
-+
-+  clocks:
-+    maxItems: 1
-+    description:
-+      External master clock input.
-+
-+  clock-names:
-+    const: mclk
-+
-+  avdd-supply:
-+    description:
-+      Analog power supply.
-+
-+  dvdd-supply:
-+    description:
-+      Digital power supply.
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - avdd-supply
-+  - dvdd-supply
-+
-+allOf:
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    mclk: clock {
-+      compatible = "fixed-clock";
-+      #clock-cells = <0>;
-+      clock-frequency = <25000000>;
-+    };
-+
-+    vdd_3v3: regulator {
-+      compatible = "regulator-fixed";
-+      regulator-name = "vdd_3v3";
-+      regulator-min-microvolt = <3300000>;
-+      regulator-max-microvolt = <3300000>;
-+      regulator-always-on;
-+    };
-+
-+    spi {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+
-+      ad9832@0 {
-+        compatible = "adi,ad9832";
-+        reg = <0>;
-+        spi-max-frequency = <20000000>;
-+        clocks = <&mclk>;
-+        clock-names = "mclk";
-+        avdd-supply = <&vdd_3v3>;
-+        dvdd-supply = <&vdd_3v3>;
-+      };
-+    };
--- 
-2.34.1
+This commit adds RAM control channel support to the AD9910 driver. It
+introduces RAM data loading via firmware upload, profile configuration,
+and profile parameter caching when RAM mode is active.
 
+> diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad991=
+0.c
+> index d6c88ec51145e..a153cd01e6f58 100644
+> --- a/drivers/iio/frequency/ad9910.c
+> +++ b/drivers/iio/frequency/ad9910.c
+
+[ ... ]
+
+> @@ -1020,6 +1091,17 @@ static const struct iio_chan_spec ad9910_channels[=
+] =3D {
+>  				      BIT(IIO_CHAN_INFO_SAMP_FREQ),
+>  		.ext_info =3D ad9910_drg_ramp_ext_info,
+>  	},
+> +	[AD9910_CHAN_IDX_RAM] =3D {
+> +		.type =3D IIO_ALTVOLTAGE,
+> +		.indexed =3D 1,
+> +		.output =3D 1,
+> +		.channel =3D AD9910_CHANNEL_RAM,
+> +		.address =3D AD9910_CHAN_IDX_RAM,
+> +		.info_mask_separate =3D BIT(IIO_CHAN_INFO_ENABLE) |
+> +				      BIT(IIO_CHAN_INFO_FREQUENCY) |
+> +				      BIT(IIO_CHAN_INFO_PHASE) |
+> +				      BIT(IIO_CHAN_INFO_SAMP_FREQ),
+> +	},
+>  };
+
+Is BIT(IIO_CHAN_INFO_SCALE) missing from this mask?
+
+ad9910_write_raw_get_fmt() expects AD9910_CHANNEL_RAM to support
+IIO_CHAN_INFO_SCALE for single-tone amplitude configuration. Without the bit
+set here, and without handling it in ad9910_read_raw() and ad9910_write_raw=
+(),
+users cannot adjust the single-tone amplitude while RAM mode is enabled.
+
+[ ... ]
+
+> @@ -1207,6 +1306,26 @@ static int ad9910_write_raw(struct iio_dev *indio_=
+dev,
+>  			return ad9910_reg32_update(st, AD9910_REG_CFR2,
+>  						   AD9910_CFR2_DRG_ENABLE_MSK,
+>  						   tmp32, true);
+> +		case AD9910_CHANNEL_RAM:
+> +			if (AD9910_RAM_ENABLED(st) =3D=3D !!val)
+> +				return 0;
+> +
+> +			/* switch profile configs */
+> +			for (i =3D 0; i < AD9910_NUM_PROFILES; i++) {
+> +				tmp64 =3D st->reg[AD9910_REG_PROFILE(i)].val64;
+> +				ret =3D ad9910_reg64_write(st,
+> +							 AD9910_REG_PROFILE(i),
+> +							 st->reg_profile[i],
+> +							 false);
+> +				if (ret)
+> +					return ret;
+
+Can this loop corrupt the software state if an SPI write fails partway thro=
+ugh?
+
+If ad9910_reg64_write() returns an error, the function exits immediately wi=
+thout
+rolling back the profiles that were already swapped. A subsequent retry wou=
+ld
+then iterate over the profiles again, swapping the previously swapped profi=
+les
+back and moving the remaining ones forward. This leaves the hardware and
+software caches permanently desynchronized.
+
+> +				st->reg_profile[i] =3D tmp64;
+> +			}
+> +
+> +			tmp32 =3D FIELD_PREP(AD9910_CFR1_RAM_ENABLE_MSK, !!val);
+> +			return ad9910_reg32_update(st, AD9910_REG_CFR1,
+> +						   AD9910_CFR1_RAM_ENABLE_MSK,
+> +						   tmp32, true);
+>  		default:
+>  			return -EINVAL;
+>  		}
+
+[ ... ]
+
+> @@ -1246,6 +1370,8 @@ static int ad9910_write_raw(struct iio_dev *indio_d=
+ev,
+>  			return ad9910_reg64_update(st, AD9910_REG_DRG_LIMIT,
+>  						   AD9910_DRG_LIMIT_LOWER_MSK,
+>  						   tmp64, true);
+> +		case AD9910_CHANNEL_RAM:
+> +			return ad9910_reg32_write(st, AD9910_REG_FTW, tmp64, true);
+
+Does the IIO_CHAN_INFO_FREQUENCY block handle negative fractional inputs
+correctly when the integer part is zero?
+
+If a user writes a value like -0.1, IIO parses it as val =3D 0 and
+val2 =3D -100000. Earlier in the IIO_CHAN_INFO_FREQUENCY block, the bounds
+check only inspects val:
+
+	case IIO_CHAN_INFO_FREQUENCY:
+		if (!in_range(val, 0, st->data.sysclk_freq_hz / 2))
+			return -EINVAL;
+
+		tmp64 =3D ad9910_rational_scale((u64)val * MICRO + val2, ...);
+
+Since val is 0, the check passes. The mathematical operation then adds a
+negative integer to an unsigned 64-bit integer, underflowing to a massive
+value. This bypasses the bounds check and silently configures a huge RF
+frequency instead of safely returning -EINVAL.
+
+This same underflow pattern appears to affect IIO_CHAN_INFO_SCALE and
+IIO_CHAN_INFO_SAMP_FREQ.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508-ad9910-iio=
+-driver-v4-0-d26bfd20ee3d@analog.com?part=3D6
