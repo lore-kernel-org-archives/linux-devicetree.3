@@ -1,224 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013050.outbound.protection.outlook.com [40.107.162.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAB2E26E710
-	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 01:49:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778291349; cv=none; b=BXFp6KAmjgbHh9maQN5kbdq4PnHRb2nGyofeabEtoXOFzyW3UaCX6S+2mbBU1moJqdgXTyHGJKXWsBtNom3NHRtp880DQwNxGaK39En8n97KwWrOuLcPlbibn/P/tBuxQm71f0wuefJTdRVoMknef7t9/8xA7sBAHb1a0X9HR4w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778291349; c=relaxed/simple;
-	bh=0bzDWs/kyHQNWbIhECqnEIdbwgFJQHjLTNnUjirxkTI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tjLeGBfHeNTwN6c6AcdrN3DbgRIWoMhbhTXM6Dg8JpNSWprDWb43NkdEEuH0zoICjsgUyLZamq0vaH+28JOm3wk8dG8EJoEbk3aJQ/F27nCO4aCzV4YvL4lxl/Inu5vgC3eRWPeGqUonydqxfTU2Z608si9nv9nZ4J7VO09vkq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LgBdZ5Jq; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EEA824B28;
+	Sat,  9 May 2026 01:52:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778291533; cv=fail; b=JIglXASJmcjyozU71UX1Yd450k+zVYHYSs+yhWbjLooZjJie5s6vDTKD5ASw0276ng92AourdXrXNOhLAtRI6sg5NeddA8PQtx+A6NSSd19ucZd4wtwkpou8R82TitPUkqhmabCj6XF+X/AbZ/jdr/+yAOdSMC1u7SpK+N/BqBE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778291533; c=relaxed/simple;
+	bh=O/zmWT8yWdKTjErmqsGzNPLKnKJ4gKnnpP2PZ6GhWc4=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=eF/v7ZnHOSXWqJ5urS8CY9gr7lYeP8UP3bMpkFfLc/d1kMSPXU8fprIEVnEs4wgY5qepvFjhT+SImys/Dl1c2PG7hK6QIBt8nmnCuJGXUcbPoJIDaMrCc46dm+m212HPEEBJByqP9BL8C2Nfjs+uX08I5/q3Qyfo3PYhI/BoXjw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=YpUNJwkE; arc=fail smtp.client-ip=40.107.162.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LgBdZ5Jq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4616CC2BCB0;
-	Sat,  9 May 2026 01:49:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778291348;
-	bh=0bzDWs/kyHQNWbIhECqnEIdbwgFJQHjLTNnUjirxkTI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=LgBdZ5JqMCwPAGqgxRnnj1woB+RyBAnTZq6+uZLmqipbC72BH1FmzlsCUqXw5bK2c
-	 FpLlazsCF44AwSHbtE2YLy/TPqvGfV2RMwKe9T+evq3wRQDLKzmSsqrkDTIO/6FoFP
-	 GQ6OGee86PujFkqzh+LGlNMAuW+oJ45kyyiJnanN9ZeVwPelP3LgBdbNDMbfZpxnEc
-	 YoBk5cGry7G2Rj/okz7JcNqftWENpNC5e/THecn5cvqkNVsdJwbZOMYCCJHqf58lQK
-	 trg1AjD/csfqoG5eRld3SPfJgB3r8TdeS81+TgxZmUtLY7v7DI+0waclGxmTXO1jPN
-	 LHWkMaVoKfZsA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v4 08/10] iio: frequency: ad9910: show channel
- priority in debugfs
-Reply-To: sashiko@lists.linux.dev
-To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260508-ad9910-iio-driver-v4-8-d26bfd20ee3d@analog.com>
-References: <20260508-ad9910-iio-driver-v4-8-d26bfd20ee3d@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 09 May 2026 01:49:07 +0000
-Message-Id: <20260509014908.4616CC2BCB0@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="YpUNJwkE"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FyvgdB1bVk+GrHf93bb0L6umbSILVCVgF+QZkCGPeTysZoDREl7KZ4JHulxGZgOYOjqWyUaaPRZRW/mxyKonZDiB14+735/wihhIbmwYIaGksn/G0bFHLGHfHHGpN4VVvAsh6PvZ23vaSzrE18K0HmNitMpUGrgQDjXeC9iEF+mytgDA0xLlwVl09pU8fmCUcr50XPbFMsq/9Al+d/KWwu8fPRWVJCicmsDzh4us5hNSjR5b+iRFroRHuCM5qfFfuV3TVW89SIV9PVW7b42NIWA0XowP7WgoinZznG2YEkS0RuIVoY06hS7XEQxXNCxdCzWBpDZILuDaVwLL7M1K2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FgjmJeN3DRBZXfeI0Fm/mkQkblj8Nrt2vmNxgYZSUog=;
+ b=TLXwGBCFmo0YRFkXuKe8JbdSKdu7qh3nzkkvPtA4jsMeCruModb/TBuzha8IN29svfPiWkAzBcPIWri395JtNACa/wlDhYbrxf4nQ+z/Nhi0cmjckUAmjk8Fh9NSg68jucO617zW5Wcs0WHRynEa4F7kGcu+/N49FuenAhFA8cwhHg7M9/iFTLmnMbViBBwvDcG35d6uwLvDGz6Jyv7djVp3Khpala0ITyxVGfSCPoQo09hkwpVLKMQMUrQsyP8Vy3L71zzt5CSSk6TP7j39LNMYkSAkM15Xs92Gcw/WMNeBJ2risBey2SA7krT/SN9OCx4tRXltrvLg7EAPt1NR7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FgjmJeN3DRBZXfeI0Fm/mkQkblj8Nrt2vmNxgYZSUog=;
+ b=YpUNJwkE9ouwLhKjcvE5aboe33/uhuNdlUuwOjTOmKSIAzKBGxLOzcIbhErQl4JEcTCT47sgwe53KY4MyPMsFN4F0XHMVO31Qbgvf1dnYygSaqkApIlWEux9QU7kmChpTxxNTWB0pTe5shC2K97eRle8dL+AzocOiw1oFiwEbh+5RCGj8k3xFZkoXVLBEn6zW7Ti158WINy5tnWhOachGg9MeWLPMPR1gFGziR/Sv47WIO5kQMj2/j+jiRyhB9vpwjOgJ3PbNItZW3FafgGYRBPb9w+f9zNjyEUId7SVRbZsIuGc+JTinq+8DUTQvxeEvpMLSdetbOQnwZuFKYI/wA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from VI0PR04MB12114.eurprd04.prod.outlook.com
+ (2603:10a6:800:315::13) by VI2PR04MB11027.eurprd04.prod.outlook.com
+ (2603:10a6:800:276::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.19; Sat, 9 May
+ 2026 01:52:08 +0000
+Received: from VI0PR04MB12114.eurprd04.prod.outlook.com
+ ([fe80::feda:fd0e:147f:f994]) by VI0PR04MB12114.eurprd04.prod.outlook.com
+ ([fe80::feda:fd0e:147f:f994%6]) with mapi id 15.20.9891.016; Sat, 9 May 2026
+ 01:52:08 +0000
+From: Sherry Sun <sherry.sun@nxp.com>
+To: Frank.Li@nxp.com,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	hongxing.zhu@nxp.com,
+	shawnguo@kernel.org
+Cc: imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] arm64: dts: imx: Fix PCIe EP vpcie-supply properties
+Date: Sat,  9 May 2026 09:54:08 +0800
+Message-Id: <20260509015411.3218700-1-sherry.sun@nxp.com>
+X-Mailer: git-send-email 2.37.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI2PR02CA0049.apcprd02.prod.outlook.com
+ (2603:1096:4:196::7) To VI0PR04MB12114.eurprd04.prod.outlook.com
+ (2603:10a6:800:315::13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI0PR04MB12114:EE_|VI2PR04MB11027:EE_
+X-MS-Office365-Filtering-Correlation-Id: a0315a90-fb71-42f6-7655-08dead6d93dd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|52116014|7416014|376014|19092799006|366016|1800799024|38350700014|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	amfM/cN5uABK3KfU9EQKYRkvCvuc2OljJmuMRq41Nsps1++TxFKhCoKC5WWjfIehkcVLgRuK2cZyXpgISduf2t52+KlwZDLDK2oCggtl+GHuh46oYC+FFIHmzh3V5NcIi/FxW/8XZTLtXAPzN8kS3EUjIf2/VS/Vv4MtBapBJ3rw7/Kjmdgl4ecf4CroN52Zk+Pl723lrUPtBCkyYsi6uJuEEH0NtAwPPkceqQ6AZiAT17usDgSt7JRaFRjzR2/DorIkTWB+xM6ef4nvFpcwbIhAc0EYD6kiQzBgh5nX4tcFH8Okr1MJGdlGK2D/evvMKrJrZ53APQQBhtqBrjZVVVnuAhdoHWD7/sUkF2P6BCA/JYOYjNk+uAMrrb4CS+HG9q4UArsKjV6xhcRiwyFVJXTdBNyL5P0ISZTIUg9XJRo4R0e8/lAx8ZZ/kkLQHC0iQRa3vJQF6Tk1mhGsT6h6Ygw0kaSPhwqM8jMH4nM7vRNrzqNzGPWuwjul/O5WQoUC9xNbrmc2xsj22OtS5RTFs0xBYB94NL6ZW8LSkLM8gltfsNcXLA2cQNn3LWor79UEjN7DUgMEtKPph3KUAeEfKjdvtdPw9BlVLhHq/GNyInzOy8AwGF+tT4EaMi3tG6luG4JTICDLsRuWXdvgbMIr14V+09+vjPfkch7P4srDVAP3MyI1KEePgRE1+D6N33a0c9nouZ4vCYpkSF3gvvlbG/NbBMnTvVVeo2lBenNWyy/XjYJjUtY4KPnrofXJ3VQ7
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI0PR04MB12114.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(7416014)(376014)(19092799006)(366016)(1800799024)(38350700014)(56012099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?+jrzMF/nBfxwh8df33nzw4i7sl2i4oLfma2q6sUX/TwYDzBLQhNlm67hYNvB?=
+ =?us-ascii?Q?pqtc5JcNMUpQKzWY2EhzMY8gKDnBPY4dpm/2X05OvKL78ytOASli/5FKuKNz?=
+ =?us-ascii?Q?p/SI0E87ot4HUfwtZBNkVZ9MZo/fi5t9mysnIfA//HU/JBSNm0nANEFWTliG?=
+ =?us-ascii?Q?yBUJaLQ/jJHp6C08wT3Vk+faIBCjVBCDfLldwYy8lAZ0picabz6Z4dxCg1+W?=
+ =?us-ascii?Q?GbnGQuN/tOa587OGpmPAXiWiPB6AvGQmZQk9KtZ//x/VJbPwdSbDQnQjM9td?=
+ =?us-ascii?Q?0+CUdYxVqsHkp6p4Zd+6dAMiLonwV6dFYLuDTpL78AiXaMX8s9Kt53p4caXc?=
+ =?us-ascii?Q?zjSBPmqAtC7MORBkmDtxK1gc1gCtEjIfbxP2m+BQyT2SyScYKjyMEhGJK+hR?=
+ =?us-ascii?Q?93hh0tYDE95ghTC7d0v7gncJUj3PJRVRgqp5zHPs5R8NttAz2SkprGeygSbX?=
+ =?us-ascii?Q?DV2njx7aPmkomYDqy1iFFfIKoWQAkk2jpjOEnMatOpn/71y4bNy+WJSYlgLN?=
+ =?us-ascii?Q?06oF003Bi0TpEP/Zvod9IEP8Or7P4FQ8+7u2vPIgDhEdnq7/x3U8ZQwd1ZfL?=
+ =?us-ascii?Q?I/flSXnQ24pTPmpPiTISa6hUEikHqFhqmGeWWQ+Edx/pa3RFrvSQudBvdg3r?=
+ =?us-ascii?Q?B6+NtbSuCzY/mxylmJcv4LwofxNmzXOuGngkMVlul+fVLb99ZeVG4zGVCM6f?=
+ =?us-ascii?Q?zNbXNhlh20m6mH99HpXkwldipduhz2rAMAtnCywfbJ0eWTxh8JDNcxdxooPP?=
+ =?us-ascii?Q?POURBJo/IbDLuAuGD5d2Jr6Wd+MlY8VEt18ruxlRSVowK731hUi/J+uHf8zE?=
+ =?us-ascii?Q?r9CwFGWGoyqMrgREnH6WQLV46YdUW9uO4RclbU2RM9VRf+Ecl6PDWgA39kR4?=
+ =?us-ascii?Q?uI3WkjrEEfPWHKDM833+mjfZeP9Vg7lwHQwE7pQgPpi7XfpM7OjIJiLPKrrD?=
+ =?us-ascii?Q?zJoNc3/klAJ6Qp/wL4TRsZwDaIVUfypMi2yODKTdgewctf9FP2xk6bLrclnd?=
+ =?us-ascii?Q?vqSe5+sGPn2zFZpSn0Jo+t/jdNgz//GK2syNpTqbghBVk5ANbfo9suZG7DAh?=
+ =?us-ascii?Q?kC0ddR4lI2EDaOT2iuiLLz3RwSCJ3MBXspR0sjnMs70UHPASjhlXJzwWzh7K?=
+ =?us-ascii?Q?usISbprB0tjIPDNWltYyCkw17kCWgI2k/2yeVhxHEd/D7V9yEdZJGrRE9ni7?=
+ =?us-ascii?Q?10IozfarjFz2aZaxKwT24nbux/dYwjOwqdriLF2osJrJU/ONHLEjEEQQ0Um+?=
+ =?us-ascii?Q?ADYAJPOE4iF0D21oTq5ysWlykcnpnHGNKKzIhNoaQHYxpJC3JolYfHZNVxe2?=
+ =?us-ascii?Q?P9AFA6+z64yuhomzTNkAhIaZAG+2HrgVnvdGH/mAp/IiKGA8WbQdZdJsn7mZ?=
+ =?us-ascii?Q?ZuAFFQF5UUqdRoKITlZG9jW7dkNZKUY599PzHdcLkewWjc+VJIrQyxiH2TsP?=
+ =?us-ascii?Q?rmnoDVQ9jPEL54tv1PUDVo+0SLPcjoOXFeYmv+a5qyP2YKlIdXBf/6qWpFn5?=
+ =?us-ascii?Q?fXfeXtaimwcvVgkapKMJ28E2y6PQSwzWJK0WXGFaxA6MzgvwK6n6Fj/yq5IM?=
+ =?us-ascii?Q?tL99kRNkF8WQRd476ZJcdhpXQNHR1B1fkeAb6LTnUVgrBB+zBTWP8E4lWafW?=
+ =?us-ascii?Q?nOXUBCBbbHttIDHje99Wt+xzsuZVt8PK9SFkD2EeKpyQk+xPnYhW9uTbZXFy?=
+ =?us-ascii?Q?MsjUurd00KJ1SBkfi+z4AxvsRrYhR7eYwNkTvXu1AyflCJMuV1gvNycjc6JI?=
+ =?us-ascii?Q?ay+bpQcN2w=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a0315a90-fb71-42f6-7655-08dead6d93dd
+X-MS-Exchange-CrossTenant-AuthSource: VI0PR04MB12114.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2026 01:52:08.0018
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: R+iOwM7+vXEV4hAU234JC8/NgMHRzpq75Y0So2jq9+5EYCi4WxFkJ8pVaGNT0IYz4PX8F/q8xYOaqrzSo6OJ4Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB11027
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [Critical] Missing `.open` callback in debugfs `file_operations` leads to=
- a guaranteed NULL pointer dereference.
-- [High] Function prototype mismatch in `file_operations` `.read` callbacks=
- causes build failures and CFI panics.
-- [Medium] Register bitmasks are applied to the wrong control registers, le=
-ading to corrupted state evaluation.
-- [Low] Using `simple_read_from_buffer` with dynamically evaluated string p=
-ointers creates a TOCTOU race condition.
-- [Low] The strings exposed through debugfs lack a trailing newline.
---
+This series fixes PCIe endpoint mode vpcie-supply properties across
+multiple i.MX platforms.
 
-commit f3ad86f1b54a4f67b1e1ded4fa3bd327c17e7ba9
-Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+For PCIe endpoint mode, the vpcie-supply should either control the
+actual M.2 power supply or be omitted if the power is always on and
+uncontrollable.
 
-iio: frequency: ad9910: show channel priority in debugfs
+Current issues:
+- imx8dxl-evk and imx8qxp-mek: vpcie-supply references regulators that
+  only control W_DISABLE1# signal, not actual power (which is always on)
+- imx95-19x19-evk: vpcie-supply references wrong regulator (W_DISABLE1#
+  instead of actual M.2 power)
 
-Expose frequency_source, phase_source and amplitude_source attributes in
-debugfs to indicate which channel the specific DDS parameter is being sourc=
-ed
-from.
+So remove unnecessary properties for imx8dxl-evk and imx8qxp-mek, also
+fix vpcie-supply to use correct regulator on imx95-19x19-evk.
 
-> diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad991=
-0.c
-> index 1fdbaba356d73..d8fe88259f22d 100644
-> --- a/drivers/iio/frequency/ad9910.c
-> +++ b/drivers/iio/frequency/ad9910.c
-> @@ -2082,6 +2082,170 @@ static int ad9910_setup(struct device *dev, struc=
-t ad9910_state *st,
-[ ... ]
-> +	/* Parallel data port enabled and data destination is frequency */
-> +	mode_en =3D FIELD_GET(AD9910_CFR2_PARALLEL_DATA_PORT_EN_MSK,
-> +			    st->reg[AD9910_REG_CFR1].val32);
+Sherry Sun (3):
+  arm64: dts: imx8dxl-evk: Remove unnecessary PCIe EP properties
+  arm64: dts: imx8qxp-mek: Remove unnecessary PCIe EP vpcie-supply
+  arm64: dts: imx95-19x19-evk: Fix PCIe EP vpcie-supply
 
-Does this apply a CFR2 mask to a CFR1 register? It seems
-AD9910_CFR2_PARALLEL_DATA_PORT_EN_MSK should be evaluated against
-st->reg[AD9910_REG_CFR2].
+ arch/arm64/boot/dts/freescale/imx8dxl-evk.dts     | 2 --
+ arch/arm64/boot/dts/freescale/imx8qxp-mek.dts     | 1 -
+ arch/arm64/boot/dts/freescale/imx95-19x19-evk.dts | 2 +-
+ 3 files changed, 1 insertion(+), 4 deletions(-)
 
-> +	if (mode_en) /* TODO: get destination from backend once it is supported=
- */
-> +		return ad9910_channel_str[AD9910_CHAN_IDX_PARALLEL_PORT];
-[ ... ]
-> +static int ad9910_frequency_source_show(struct file *file, char __user *=
-userbuf,
-> +					size_t count, loff_t *ppos)
 
-Does the .read callback in struct file_operations require a return type of
-ssize_t instead of int? Could this mismatch cause build failures or
-Control Flow Integrity (CFI) kernel panics?
+base-commit: 5f9e9f83aee0fa8f2124c6f192505de2cdf7c5dc
+-- 
+2.37.1
 
-> +{
-> +	struct iio_dev *indio_dev =3D file->private_data;
-
-Without an .open handler like simple_open(), the VFS and debugfs proxy
-layers leave file->private_data initialized to NULL. Does this lead to a NU=
-LL
-pointer dereference when iio_priv() extracts the state from indio_dev?
-
-> +	const char *src =3D ad9910_frequency_source_get(indio_dev);
-
-Do the static strings returned here lack a trailing newline (\n)? Reading
-this file might overwrite or corrupt the user's shell prompt.
-
-> +
-> +	return simple_read_from_buffer(userbuf, count, ppos, src, strlen(src));
-
-If userspace performs a partial read and the hardware state changes before
-the next read(), could ad9910_frequency_source_get() return a different,
-shorter string?
-
-If this occurs, simple_read_from_buffer() would apply the old *ppos to the
-new string, potentially returning garbage. Would using seq_file
-via DEFINE_SHOW_ATTRIBUTE() safely cache the output buffer upon open()?
-
-> +}
-> +
-> +static inline const char *ad9910_phase_source_get(struct iio_dev *indio_=
-dev)
-> +{
-[ ... ]
-> +	/* Parallel data port enabled and data destination is phase */
-> +	mode_en =3D FIELD_GET(AD9910_CFR2_PARALLEL_DATA_PORT_EN_MSK,
-> +			    st->reg[AD9910_REG_CFR1].val32);
-
-Is this another case where a CFR2 mask is applied to a CFR1 register?
-
-> +	if (mode_en) /* TODO: get destination from backend once it is supported=
- */
-> +		return ad9910_channel_str[AD9910_CHAN_IDX_PARALLEL_PORT];
-[ ... ]
-> +static int ad9910_phase_source_show(struct file *file, char __user *user=
-buf,
-> +				    size_t count, loff_t *ppos)
-
-Could this return type also be ssize_t instead of int to match the .read
-callback signature?
-
-> +{
-> +	struct iio_dev *indio_dev =3D file->private_data;
-
-Does this have the same NULL pointer dereference issue as the frequency show
-function due to missing simple_open()?
-
-> +	const char *src =3D ad9910_phase_source_get(indio_dev);
-> +
-> +	return simple_read_from_buffer(userbuf, count, ppos, src, strlen(src));
-> +}
-> +
-> +static inline const char *ad9910_amplitude_source_get(struct iio_dev *in=
-dio_dev)
-> +{
-> +	struct ad9910_state *st =3D iio_priv(indio_dev);
-> +	bool ram_en, mode_en;
-> +	u32 destination;
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	/* OSK enabled */
-> +	mode_en =3D FIELD_GET(AD9910_CFR1_OSK_ENABLE_MSK,
-> +			    st->reg[AD9910_REG_CFR2].val32);
-
-Does this apply a CFR1 mask to a CFR2 register?
-
-> +	if (mode_en)
-> +		return ad9910_channel_str[AD9910_CHAN_IDX_OSK];
-> +
-[ ... ]
-> +	/* Parallel data port enabled and data destination is phase */
-> +	mode_en =3D FIELD_GET(AD9910_CFR2_PARALLEL_DATA_PORT_EN_MSK,
-> +			    st->reg[AD9910_REG_CFR1].val32);
-
-Is this a third instance of applying a CFR2 mask to a CFR1 register?
-
-> +	if (mode_en) /* TODO: get destination from backend once it is supported=
- */
-> +		return ad9910_channel_str[AD9910_CHAN_IDX_PARALLEL_PORT];
-[ ... ]
-> +static int ad9910_amplitude_source_show(struct file *file, char __user *=
-userbuf,
-> +					size_t count, loff_t *ppos)
-
-Could this return type also be ssize_t instead of int?
-
-> +{
-> +	struct iio_dev *indio_dev =3D file->private_data;
-
-Does this have the same NULL pointer dereference issue as the other show
-functions?
-
-> +	const char *src =3D ad9910_amplitude_source_get(indio_dev);
-> +
-> +	return simple_read_from_buffer(userbuf, count, ppos, src, strlen(src));
-> +}
-> +
-> +static const struct file_operations ad9910_frequency_source_fops =3D {
-> +	.owner =3D THIS_MODULE,
-> +	.read =3D ad9910_frequency_source_show,
-> +};
-
-Should this struct include an .open callback, such as simple_open(), to ens=
-ure
-that file->private_data is initialized correctly before .read is called?
-
-> +
-> +static const struct file_operations ad9910_phase_source_fops =3D {
-> +	.owner =3D THIS_MODULE,
-> +	.read =3D ad9910_phase_source_show,
-> +};
-> +
-> +static const struct file_operations ad9910_amplitude_source_fops =3D {
-> +	.owner =3D THIS_MODULE,
-> +	.read =3D ad9910_amplitude_source_show,
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508-ad9910-iio=
--driver-v4-0-d26bfd20ee3d@analog.com?part=3D8
