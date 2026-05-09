@@ -1,174 +1,209 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0C6D1AF0BB
-	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 02:56:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AD2C028C037;
+	Sat,  9 May 2026 03:07:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778295405; cv=none; b=XYA0a2ck8nkl9XJ/qDXaATgoxEe+0QRcUejgGecr9Xj8dMxqN3XujA1/LL4sNS1luVjR1oE3BuoJC9f1iSwt0YWar/2QKhaYJmxe2G30SzJ3Fgh6thGSj2i5H7zkr9jkEXNctg0l+lao3LPSILHhmpM5D0frhaYsq58R2OIsnRU=
+	t=1778296050; cv=none; b=PyeyrEKI+0Xld4uIioPCeTQlLmEVAmwwE6kUnBxR1cjHvxaJf9+1kdVpOHTOXpo2UZpHD1eeStNaVihub9JtPSca2uCpXPJOkFtGoxsa+3TWrhtOqy1tRWsg7GwdmzphlkFKFlgVxorAHCQuFEhBFZGvca8tFdd0maTzJCeclDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778295405; c=relaxed/simple;
-	bh=1aq9jS+fdqV0I1Ce1Wz80U/NPMdcsjRzGoRscb+1O5E=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uW4YLELdRWfKvWEI6t3GlvKypr4OiWfovIcpplZaytwXFlBlOUVmeRVIYINjw/MJiiLfcMKqVe1r/+v6YDp6hnFqn8A/Blx9iVnqNnGjjgueWf6ngOb1wKHjJ1I9xifBwua64R2KTFHUkgH/7OVDiso4gpnYefWJ31sGhsgoeWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XQgEgUQv; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XQgEgUQv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 559EFC2BCB0;
-	Sat,  9 May 2026 02:56:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778295404;
-	bh=1aq9jS+fdqV0I1Ce1Wz80U/NPMdcsjRzGoRscb+1O5E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=XQgEgUQvoLYQ3Cg3baxu38gPkDUUFjsDV/UxCjJgiM728qODLOfSGQNzo6MTpSVXF
-	 RZ1wIRabP4rN1TCvFeFhO81VUWp7+PR5/9Sgrmys3YJrjo0qSiA3V8Ls62nC649ba4
-	 MepVDfHx/MmaEpWjM6bRFwqO4+qENy8BVCxsGOWsK16CN2Tdo/QwPiIuPOPpYBYhb2
-	 7AvCHkxXBTni7sgfSvlxImeHoo7KWaUmb6L30wARIqAKK6+wqO6Bv1qY1cWcYrolG9
-	 tF5RnFNJRtnic4dIpIctZHw4uhvggdB4YCFdhTIvW3IF1ibUZRtCxMZEzl+ZWMzFgc
-	 tae+SeVyfGAtg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 10/14] media: iris: Add power sequence for Glymur
-Reply-To: sashiko@lists.linux.dev
-To: "Vishnu Reddy" <busanna.reddy@oss.qualcomm.com>
-Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260509-glymur-v5-10-7fbb340c5dbd@oss.qualcomm.com>
-References: <20260509-glymur-v5-10-7fbb340c5dbd@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 09 May 2026 02:56:43 +0000
-Message-Id: <20260509025644.559EFC2BCB0@smtp.kernel.org>
+	s=arc-20240116; t=1778296050; c=relaxed/simple;
+	bh=lR9p275Ck8plWCYXsNKeLqev36Uhe2gbnt1Be/AHsA4=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=dwWZfPN1dxGOEsgwtBLScG0Ey1zwX4mVz+wBjUuQk+xM7W10CZjEF1s+mrLHplTGmIGqPtU79tRpINbDZJiGtz1b0wkxYDTdMHUKQWc8ZPP06g748ckTU3cOROylfDSINJ9ohy7E3TeEw4jfqYBx8iS9NLPSMQn1x021hTvxhdI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.101])
+	by gateway (Coremail) with SMTP id _____8BxzsDspP5pdhsIAA--.1932S3;
+	Sat, 09 May 2026 11:07:24 +0800 (CST)
+Received: from [10.20.42.101] (unknown [10.20.42.101])
+	by front1 (Coremail) with SMTP id qMiowJBx78LopP5pxFJ9AA--.42505S3;
+	Sat, 09 May 2026 11:07:23 +0800 (CST)
+Subject: Re: [PATCH v2] i2c: ls2x: Add clocks property parsing and adjust bus
+ speed
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Andi Shyti <andi.shyti@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, loongarch@lists.linux.dev
+References: <20260507081010.12810-1-wanghongliang@loongson.cn>
+ <20260507081010.12810-2-wanghongliang@loongson.cn>
+ <CAAhV-H46sOPPAoH31DijWYK+v5fEzgq7ZVucCuoyRTwTgUHYxA@mail.gmail.com>
+From: Hongliang Wang <wanghongliang@loongson.cn>
+Message-ID: <e1a77c4d-b347-e378-ead8-b641560d8bc7@loongson.cn>
+Date: Sat, 9 May 2026 11:06:22 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+In-Reply-To: <CAAhV-H46sOPPAoH31DijWYK+v5fEzgq7ZVucCuoyRTwTgUHYxA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-CM-TRANSID:qMiowJBx78LopP5pxFJ9AA--.42505S3
+X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxCFykCF4xXrWrKFy5KFyUArc_yoW7Jry5pF
+	WDCF4rGF4qqF12qrnIqw17ZFyYvws5JFZ2yr47t3WxK3sa9r1DZa1ftr90kF1kCFW8u3yx
+	Xa1qgrsxuFyqvrgCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AK
+	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07AlzV
+	AYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
+	14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIx
+	kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAF
+	wI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r
+	4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8zwZ7UU
+	UUU==
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Improper hardware teardown sequence violates LIFO ordering.
-- [High] Hardware state leak on NOC LPI polling timeout error path.
-- [High] Missing back-off and retry loop for VCODEC1 NOC LPI handshake.
-- [High] Missing `.program_bootup_registers` callback in `iris_vpu36_ops`.
---
+Hi, Huacai,
 
-commit d719c9ef4e0bf644111aeab34b3241be37fcf9c4
-Author: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+On 2026/5/8 上午11:06, Huacai Chen wrote:
+> Hi, Hongliang,
+>
+> On Thu, May 7, 2026 at 4:11 PM Hongliang Wang <wanghongliang@loongson.cn> wrote:
+>> From: wanghongliang <wanghongliang@loongson.cn>
+>>
+>> The i2c-ls2x driver supports dts and acpi parameter passing.
+>> In dts, uses clock framework, by parsing clocks property to
+>> get i2c bus reference clock, and define factor by device data.
+>> In acpi, by passing clocks property to describe i2c bus reference
+>> clock and clock-div property to describe factor.
+>> Based on i2c bus reference clock(clock_a), i2c bus speed(clock_s)
+>> and factor, calculate the prcescale of i2c divider register.
+>> The calculation formula is
+>> prcescale = clock_a/(factor*clock_s)-1
+>>
+>> Signed-off-by: wanghongliang <wanghongliang@loongson.cn>
+>> ---
+>>   drivers/i2c/busses/i2c-ls2x.c | 42 ++++++++++++++++++++++++++++++++---
+>>   1 file changed, 39 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/i2c/busses/i2c-ls2x.c b/drivers/i2c/busses/i2c-ls2x.c
+>> index b475dd27b7af..7db91e7a5d78 100644
+>> --- a/drivers/i2c/busses/i2c-ls2x.c
+>> +++ b/drivers/i2c/busses/i2c-ls2x.c
+>> @@ -13,6 +13,7 @@
+>>   #include <linux/bitfield.h>
+>>   #include <linux/bits.h>
+>>   #include <linux/completion.h>
+>> +#include <linux/clk.h>
+> This should be before completion.h.
+>
+OK.
+>>   #include <linux/device.h>
+>>   #include <linux/iopoll.h>
+>>   #include <linux/i2c.h>
+>> @@ -63,11 +64,16 @@
+>>   /* The default bus frequency, which is an empirical value */
+>>   #define LS2X_I2C_FREQ_STD      (33 * HZ_PER_KHZ)
+>>
+>> +struct ls2x_i2c_chip_data {
+>> +       unsigned int    factor;
+>> +};
+>> +
+>>   struct ls2x_i2c_priv {
+>>          struct i2c_adapter      adapter;
+>>          void __iomem            *base;
+>>          struct i2c_timings      i2c_t;
+>>          struct completion       cmd_complete;
+>> +       const struct ls2x_i2c_chip_data *chip_data;
+> Use "unsigned int    factor" directly?
+>
+OK,  I will adjust it
+>>   };
+>>
+>>   /*
+>> @@ -96,6 +102,8 @@ static irqreturn_t ls2x_i2c_isr(int this_irq, void *dev_id)
+>>   static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
+>>   {
+>>          u16 val;
+>> +       u32 pclk, factor;
+> factor or div? If factor is better, then rename clock-div to
+> clock-factor; if div is better, then rename factor to div.
+div is better,  I will adjust it
+>> +       struct clk *clk;
+>>          struct i2c_timings *t = &priv->i2c_t;
+>>          struct device *dev = priv->adapter.dev.parent;
+>>          u32 acpi_speed = i2c_acpi_find_bus_speed(dev);
+>> @@ -107,12 +115,30 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
+>>          else
+>>                  t->bus_freq_hz = LS2X_I2C_FREQ_STD;
+>>
+>> +       if (dev_of_node(dev)) {
+>> +               clk = devm_clk_get_optional_enabled(dev, NULL);
+>> +               if (IS_ERR(clk) || !clk)
+>> +                       pclk = LS2X_I2C_PCLK_FREQ;
+>> +               else
+>> +                       pclk = clk_get_rate(clk);
+> Reverse the "if & else" so the default case will be the last one, this
+> is also the same as the ACPI case below.
+OK
+> Huacai
+>
+>> +
+>> +               factor = priv->chip_data->factor;
+>> +
+>> +               val = (pclk * 10) / (factor * t->bus_freq_hz) - 1;
+>> +       } else {
+>> +               if (!device_property_read_u32(dev, "clocks", &pclk) &&
+>> +                   !device_property_read_u32(dev, "clock-div", &factor) &&
+>> +                   factor != 0)
+>> +                       val = (pclk * 10) / (factor * t->bus_freq_hz) - 1;
+>> +               else
+>> +                       val = LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
+>> +       }
+>> +
+>>          /*
+>>           * According to the chip manual, we can only access the registers as bytes,
+>>           * otherwise the high bits will be truncated.
+>>           * So set the I2C frequency with a sequential writeb() instead of writew().
+>>           */
+>> -       val = LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
+>>          writeb(FIELD_GET(GENMASK(7, 0), val), priv->base + I2C_LS2X_PRER_LO);
+>>          writeb(FIELD_GET(GENMASK(15, 8), val), priv->base + I2C_LS2X_PRER_HI);
+>>   }
+>> @@ -295,6 +321,8 @@ static int ls2x_i2c_probe(struct platform_device *pdev)
+>>          if (!priv)
+>>                  return -ENOMEM;
+>>
+>> +       priv->chip_data = device_get_match_data(dev);
+>> +
+>>          /* Map hardware registers */
+>>          priv->base = devm_platform_ioremap_resource(pdev, 0);
+>>          if (IS_ERR(priv->base))
+>> @@ -348,9 +376,17 @@ static int ls2x_i2c_resume(struct device *dev)
+>>   static DEFINE_RUNTIME_DEV_PM_OPS(ls2x_i2c_pm_ops,
+>>                                   ls2x_i2c_suspend, ls2x_i2c_resume, NULL);
+>>
+>> +static const struct ls2x_i2c_chip_data ls2x_i2c_2k_data = {
+>> +       .factor = 4,
+>> +};
+>> +
+>> +static const struct ls2x_i2c_chip_data ls2x_i2c_7a_data = {
+>> +       .factor = 5,
+>> +};
+>> +
+>>   static const struct of_device_id ls2x_i2c_id_table[] = {
+>> -       { .compatible = "loongson,ls2k-i2c" },
+>> -       { .compatible = "loongson,ls7a-i2c" },
+>> +       { .compatible = "loongson,ls2k-i2c", .data = &ls2x_i2c_2k_data, },
+>> +       { .compatible = "loongson,ls7a-i2c", .data = &ls2x_i2c_7a_data, },
+>>          { /* sentinel */ }
+>>   };
+>>   MODULE_DEVICE_TABLE(of, ls2x_i2c_id_table);
+>> --
+>> 2.47.2
+>>
+>>
+Best regards,
+Hongliang Wang
 
-media: iris: Add power sequence for Glymur
-
-Glymur has a secondary video codec core (vcodec1), equivalent to the
-primary core (vcodec0), but with independent power domains, clocks,
-and reset lines. Reuse the existing code wherever possible and add
-power sequence for vcodec1.
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_vpu3x.c b/drivers/medi=
-a/platform/qcom/iris/iris_vpu3x.c
-> index 13fbb21c21824..ff90c375e805c 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vpu3x.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vpu3x.c
-
-[ ... ]
-
-> @@ -254,6 +264,124 @@ static void iris_vpu35_power_off_hw(struct iris_cor=
-e *core)
-
-[ ... ]
-
-> +static void iris_vpu36_power_off_hw1(struct iris_core *core)
-> +{
-> +	u32 value, i;
-> +	int ret;
-> +
-> +	if (iris_vpu36_hw1_power_collapsed(core))
-> +		goto disable_power;
-> +
-> +	value =3D readl(core->reg_base + WRAPPER_CORE_CLOCK_CONFIG);
-> +	if (value)
-> +		writel(CORE_CLK_RUN, core->reg_base + WRAPPER_CORE_CLOCK_CONFIG);
-> +
-> +	for (i =3D 0; i < core->iris_platform_data->num_vpp_pipe; i++) {
-> +		ret =3D readl_poll_timeout(core->reg_base + VCODEC1_SS_IDLE_STATUSN + =
-4 * i,
-> +					 value, value & DMA_NOC_IDLE, 2000, 20000);
-> +		if (ret)
-> +			goto disable_power;
-> +	}
-> +
-> +	writel(REQ_VCODEC1_POWER_DOWN_PREP, core->reg_base + AON_WRAPPER_MVP_NO=
-C_LPI_CONTROL);
-> +	ret =3D readl_poll_timeout(core->reg_base + AON_WRAPPER_MVP_NOC_LPI_STA=
-TUS,
-> +				 value, value & NOC_LPI_VCODEC1_STATUS_DONE, 2000, 20000);
-> +	if (ret)
-> +		goto disable_power;
-
-Should this implement a back-off and retry loop? A single poll without clea=
-ring
-the request bit and retrying might timeout when the NOC is busy, causing an
-unclean hardware shutdown.
-
-Also, if the readl_poll_timeout() fails and takes the goto, the code skips
-clearing the request bit in AON_WRAPPER_MVP_NOC_LPI_CONTROL. Because this
-register resides in the Always-On wrapper, will the power-down request bit
-remain asserted across power cycles and prevent the hardware from properly
-resuming on the next boot?
-
-> +
-> +	writel(0, core->reg_base + AON_WRAPPER_MVP_NOC_LPI_CONTROL);
-> +
-> +	writel(VCODEC1_BRIDGE_SW_RESET | VCODEC1_BRIDGE_HW_RESET_DISABLE, core-=
->reg_base +
-> +	       CPU_CS_AHB_BRIDGE_SYNC_RESET);
-> +	writel(VCODEC1_BRIDGE_HW_RESET_DISABLE, core->reg_base + CPU_CS_AHB_BRI=
-DGE_SYNC_RESET);
-> +	writel(0x0, core->reg_base + CPU_CS_AHB_BRIDGE_SYNC_RESET);
-> +
-> +disable_power:
-> +	iris_genpd_set_hwmode(core, IRIS_VCODEC1_POWER_DOMAIN, false);
-> +	iris_disable_unprepare_clock(core, IRIS_VCODEC1_CLK);
-> +	iris_disable_unprepare_clock(core, IRIS_VCODEC1_FREERUN_CLK);
-> +	iris_disable_unprepare_clock(core, IRIS_AXI_VCODEC1_CLK);
-> +	iris_disable_power_domains(core, IRIS_VCODEC1_POWER_DOMAIN);
-> +}
-> +
-> +static void iris_vpu36_power_off_hw(struct iris_core *core)
-> +{
-> +	iris_vpu35_power_off_hw(core);
-> +	iris_vpu36_power_off_hw1(core);
-> +}
-
-Does this hardware teardown sequence violate LIFO ordering? The power-on
-sequence initializes the primary codec before the secondary codec, so teari=
-ng
-down the primary codec first in iris_vpu35_power_off_hw() triggers a full
-video NOC reset and disables the shared primary clock domains.
-
-Consequently, when vcodec1's teardown sequence executes, will its attempts =
-to
-read registers trigger bus hangs or timeouts?
-
-[ ... ]
-
-> @@ -281,3 +409,12 @@ const struct vpu_ops iris_vpu35_ops =3D {
->  	.calc_freq =3D iris_vpu3x_vpu4x_calculate_frequency,
->  	.set_hwmode =3D iris_vpu_set_hwmode,
->  };
-> +
-> +const struct vpu_ops iris_vpu36_ops =3D {
-> +	.power_off_hw =3D iris_vpu36_power_off_hw,
-> +	.power_on_hw =3D iris_vpu36_power_on_hw,
-> +	.power_off_controller =3D iris_vpu35_vpu4x_power_off_controller,
-> +	.power_on_controller =3D iris_vpu35_vpu4x_power_on_controller,
-> +	.calc_freq =3D iris_vpu3x_vpu4x_calculate_frequency,
-> +	.set_hwmode =3D iris_vpu36_set_hwmode,
-> +};
-
-Is the .program_bootup_registers callback intentionally omitted here?
-It is present in the closely related iris_vpu35_ops struct. Without it,
-the core framework function might skip writing to
-WRAPPER_IRIS_VCODEC_VPU_WRAPPER_SPARE_0, which could leave the hardware
-improperly configured.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260509-glymur-v5-=
-0-7fbb340c5dbd@oss.qualcomm.com?part=3D10
