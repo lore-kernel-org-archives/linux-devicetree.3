@@ -1,333 +1,216 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 587CD3845A9;
-	Sat,  9 May 2026 09:42:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07DD839A071
+	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 09:58:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778319723; cv=none; b=U34VKonyK6xyiFKSOqVEYCnGMkLHj3qtpqfrEbPOsnTzxExTc5cHO01iTVPwDxtTuPKyuAwXCE7UqrQ5XW6cW7e/1EbuxkDPXhMUPib9bKUEKRfp4H+Lh+L3WgazE5T3UMiJLniUQkHhhhh+F3aogczoUHfORtFTVAVt9cZKKGA=
+	t=1778320701; cv=none; b=Gow5GeyGAGXds1DQPDs7Y0tT2g4u+eAksEDO0UZqpSjG8qK3+qeygoboSdOZQU9+7eaXBh3WfAVYotABJqm/7ogFUa2q4f8J7ioXsEsUmefOO+hPD3gKaamwLab9O9Dlh6DcJ2PdpcZ9KXwOr55/YhXWD2eE3Rx+bcdPeGHl1S8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778319723; c=relaxed/simple;
-	bh=K7XW3fDrAi/SJUEYupM1iZBtmsSrwJ2WcBoDs0GiXxg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t++gXGExnCew1/yZhGjd6Nyi+qpoJAbN0l174mSm+i3q2G/tf8hEgI4SOU1D+3Pz8xryJhe6j8TXTxYNWiH4TonkXFYbDIGggkAamFA72BALKXDE/NBY31k46e+CpOxJMk8RDfs5t8EqF/TIQDCAChxHcArcGMKzGVK9v/WR1Dc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lk+pKtRg; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778320701; c=relaxed/simple;
+	bh=OSgeigJrC/LmOWDzFokC2wzqJC4CmOLy+39xvEvBcu8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iP31e8ZHqo6d/WCjGwCfvH4xiLcCgtpYvcbhr7VG0rv4cxC8HVNQ2oP7V2wyQ+6IBe2O3Nbyco3Z6CiJxjVmmDzyUIVye68kllLqI3Cpe6pdelOSDuH0Jj4vVKNaoRnagYcPLGSBhm/pRCKCTm6L1Msu0LXWhxnBls2AITh1dNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V/pnS9rC; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lk+pKtRg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9F23C2BCB2;
-	Sat,  9 May 2026 09:42:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778319723;
-	bh=K7XW3fDrAi/SJUEYupM1iZBtmsSrwJ2WcBoDs0GiXxg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Lk+pKtRgFMongdzhfKR4yRp3XwmtqK900PBJqUpGpyvNcTkt8ZYsevmTxvRsL3O2z
-	 o7lW7WOaYHmWG1Ya+c/32+njK33gfkUEpVz5aRhqZ9DldJwXvKXzes+L6vSOLitcnh
-	 JvDMNOenzFLp6IhorBIwVUlEzOheS4ILqATLz2B/WEqmThCKq7aTskkgoV/Y4Hjejl
-	 wBtjkZdAWTT+jFwGvt9d86cfq39OINSSfEejj/uO9y9Ahrf6gVZr1X0rEncKSA1CkH
-	 yMTDRkk13xaMIgZvflOLW01hRock4FvFRM3wbN1NyNBl/ZUy3IzrEkyno5l3zGgaY3
-	 2dB7F7C5Vq1Yg==
-Date: Sat, 9 May 2026 11:42:00 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ansuelsmth@gmail.com,
-	benjamin.larsson@genexis.eu, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, madhur.agrawal@airoha.com
-Subject: Re: [PATCH net-next v4 09/10] net: airoha: Introduce WAN device flag
-Message-ID: <af8BaMnL9oXttB1t@lore-desk>
-References: <20260507-airoha-eth-multi-serdes-v4-9-af613b61ae02@kernel.org>
- <20260509014615.3558164-1-kuba@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V/pnS9rC"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-c7980c060cfso1250717a12.2
+        for <devicetree@vger.kernel.org>; Sat, 09 May 2026 02:58:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778320699; x=1778925499; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=BGnEaNywaaQdrKkMOeCsl1nlp6Rj/8u/91oXFsfmlSA=;
+        b=V/pnS9rCmd9xZnlfR3WdAzetEpTI6s6CNnltiLtC8WBSST//VxYwgS/AJoKFAowATa
+         1wFq01CiUmgpfalHMQ69+Or6203W9xsdwo3BFQojmo1uL3GWfxxDd7GWMgxEHoWhff2q
+         pddSzCwyat2DXSNA6U71EvQUEdsKL8GdKAGa8o8JAywrSD143Qt9nAAcbFkaR3vFM8SI
+         DXTQCJcVWA3xGUfL9oCA3cLbJm4iDzKKkX4/svwfpnb6oNuNEl1m7FUU8jyf0XMBdyJj
+         /aieB4oScdM5dpYx8jyXLSM3TnO6sP3h/U0gouTKm04NumwRmXPqgflZkE6icimV8Wd2
+         /pWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778320699; x=1778925499;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BGnEaNywaaQdrKkMOeCsl1nlp6Rj/8u/91oXFsfmlSA=;
+        b=IDhg2rkABnAr7AboSk9SB6WcMHMu10cY+b1cxpzqHfPcdPMwAYqirmBfM30i5+zx5C
+         +QGzBe9eUiPLTlmz9gfsg5/eqvyP/7ihXvHD4nlt71K4MIQh8dxBCN3HioySkj3ylr/p
+         3zqFBdD1G3uOopFbhWGKda5YXKHL4jIynCyLgEUyfD2PAStq8vB4IjuI2cNBnPzG13iL
+         hsvegt3GeUHOmxawPSxFzS/tGcJ7TBhQuEOeM6J4wuq7/64GVBZCP8IRJk8dWVIoN64k
+         M9rP9o/oqYVnYxNfZD/qerCWcaXSylrd4VyOk8pQARNaGQ/nMKUAUBSqYveDmXMKrfkU
+         5yMw==
+X-Forwarded-Encrypted: i=1; AFNElJ9S75xu/fwMMviGGXpzUBjBn5xYOds1Tpa+/ZTdTueMy3kD3n5QMraKYho6ImHUEcuun7tjFO1oqXyU@vger.kernel.org
+X-Gm-Message-State: AOJu0YzXv+MokkBpqLUOm05k43P+NW+5Re4Lhn6UbGp+nqugMzGfFxHY
+	uhArKmx8FUmBSCK0c/9Vbp6ERx6abwxje5Rlw7H5yLsbTF9ufglB3s0M
+X-Gm-Gg: Acq92OFLV91Eky/mFAkF9dktYo+5AEftsC29cH9YKnv1zx4Es+J2sFiKn/rZuKWKI0a
+	Ea0woeDSxTbZpuHTTd0widMsf9DZhWJf1iFI9Alrkwca0/w3F0KVb9UXHbSiWMx6dOcfU39Mtb2
+	tAaAS8Q3q4qUBn0WVjtHjC4vzjoH+L6TF5Hbs9jSLi72BVJz3hTR34DAGmodtjkUbUlSTl7ykGd
+	E7gf7MpPWntiSX9DkVNfyFot3hueRZ0VE5DRS4jTzYVfyU0sSVCJt/z9uC2MQVvjdNyK0/0bhkL
+	fCtDBPrrD3GYjiMIXpGMlgAsx0uYd96d+mPQJ430A/dXqxyVHBRw/djzmRLJ5ldzrJrUD83BEik
+	LYdWfLIfnpF9b6VHSZVSyr3hDaYqO1gHixzjz7cn3OyYE1SuzXOmx5uSt8Kui9H/pn3EkKsOxjv
+	OCQ28e8sQ8Uh8MyAHyiExP09Wb028P9ASx5sXhfg==
+X-Received: by 2002:a05:6a20:3c90:b0:3a1:90fd:dcd6 with SMTP id adf61e73a8af0-3aab16e9e2bmr7224406637.31.1778320699201;
+        Sat, 09 May 2026 02:58:19 -0700 (PDT)
+Received: from ultimate.. ([58.84.60.186])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c826767be55sm4045885a12.1.2026.05.09.02.58.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 09 May 2026 02:58:18 -0700 (PDT)
+From: Udaya Kiran Challa <challauday369@gmail.com>
+To: alexandre.belloni@bootlin.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Udaya Kiran Challa <challauday369@gmail.com>
+Subject: [PATCH v2] dt-bindings: rtc: epson,rx6110: Convert to DT Schema
+Date: Sat,  9 May 2026 15:17:41 +0530
+Message-ID: <20260509095713.5818-1-challauday369@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cVtlXQ1B6cbL+hCZ"
-Content-Disposition: inline
-In-Reply-To: <20260509014615.3558164-1-kuba@kernel.org>
+Content-Transfer-Encoding: 8bit
 
+Convert the Epson RX6110 Real Time Clock devicetree binding
+from the legacy text format to DT schema.
 
---cVtlXQ1B6cbL+hCZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
+---
+Changelog:
+Changes since v1:
+- Reuse common SPI peripheral properties
+- Drop redundant SPI-specific comment
+- Remove unused labels from examples
 
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> ---
-> net: airoha: Introduce WAN device flag
->=20
-> This commit replaces the port->id =3D=3D 1 LAN/WAN test with a per-dev
-> PRIV_FLAG_WAN bit that is set during airoha_dev_init() based on the
-> port id and the presence of other WAN devices. It also extracts the
-> QDMA selection/PPE cpu port programming into a new helper and reworks
-> the GDM2 loopback path to key off the new flag.
->=20
-> A few questions about the new policy and error paths.
->=20
-> [Medium]
-> The commit message says:
->=20
->     Introduce WAN flag to specify if a given device is used to
->     transmit/receive WAN or LAN traffic. [...] Please note it is possible
->     to specify multiple LAN devices but just a single WAN one.
->=20
-> Under the old helper (port->id =3D=3D 1), GDM2/GDM3/GDM4 were all treated=
- as
-> WAN. Under the new logic, when GDM2 (eth->ports[1]) is present, the
-> GDM3/GDM4 case breaks out of the switch without setting PRIV_FLAG_WAN, so
-> GDM3 and GDM4 are now classified as LAN. That flips the MAC register
-> (REG_FE_WAN_MAC_H -> REG_FE_LAN_MAC_H in airoha_set_macaddr()), the QDMA
-> binding (qdma[1] -> qdma[0] in airoha_dev_set_qdma()), and the PPE cpu
-> port (CDM2 -> CDM1). Is that role change intentional, and could the
-> commit message call it out so bisecting a board that relied on the old
-> GDM3/GDM4=3DWAN semantics is easier?
+Link to v1:https://lore.kernel.org/all/20260504183728.27412-1-challauday369@gmail.com/
+---
+ .../devicetree/bindings/rtc/epson,rx6110.txt  | 39 ------------
+ .../devicetree/bindings/rtc/epson,rx6110.yaml | 62 +++++++++++++++++++
+ 2 files changed, 62 insertions(+), 39 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/rtc/epson,rx6110.txt
+ create mode 100644 Documentation/devicetree/bindings/rtc/epson,rx6110.yaml
 
-This change is intentional and this is currently not visible to the user
-since airoha_eth driver currently supports just the internal phy available
-via the MT7530 DSA switch and there are no WAN interfaces officially
-supported since PCS/external phy is not merged mainline yet (it is posted j=
-ust
-as RFC in [0]). I will add this info in the commimit log in v5.
+diff --git a/Documentation/devicetree/bindings/rtc/epson,rx6110.txt b/Documentation/devicetree/bindings/rtc/epson,rx6110.txt
+deleted file mode 100644
+index 3dc313e01f77..000000000000
+--- a/Documentation/devicetree/bindings/rtc/epson,rx6110.txt
++++ /dev/null
+@@ -1,39 +0,0 @@
+-Epson RX6110 Real Time Clock
+-============================
+-
+-The Epson RX6110 can be used with SPI or I2C busses. The kind of
+-bus depends on the SPISEL pin and can not be configured via software.
+-
+-I2C mode
+---------
+-
+-Required properties:
+-  - compatible: should be: "epson,rx6110"
+-  - reg : the I2C address of the device for I2C
+-
+-Example:
+-
+-	rtc: rtc@32 {
+-		compatible = "epson,rx6110"
+-		reg = <0x32>;
+-	};
+-
+-SPI mode
+---------
+-
+-Required properties:
+-  - compatible: should be: "epson,rx6110"
+-  - reg: chip select number
+-  - spi-cs-high: RX6110 needs chipselect high
+-  - spi-cpha: RX6110 works with SPI shifted clock phase
+-  - spi-cpol: RX6110 works with SPI inverse clock polarity
+-
+-Example:
+-
+-	rtc: rtc@3 {
+-		compatible = "epson,rx6110"
+-		reg = <3>
+-		spi-cs-high;
+-		spi-cpha;
+-		spi-cpol;
+-	};
+diff --git a/Documentation/devicetree/bindings/rtc/epson,rx6110.yaml b/Documentation/devicetree/bindings/rtc/epson,rx6110.yaml
+new file mode 100644
+index 000000000000..b51d39ef75e4
+--- /dev/null
++++ b/Documentation/devicetree/bindings/rtc/epson,rx6110.yaml
+@@ -0,0 +1,62 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/rtc/epson,rx6110.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Epson RX6110 Real Time Clock
++
++description: |
++  The Epson RX6110 can be used with SPI or I2C busses.
++  The kind of bus depends on the SPISEL pin and can not be
++  configured via software.
++
++maintainers:
++  - Alexandre Belloni <alexandre.belloni@bootlin.com>
++
++allOf:
++  - $ref: /schemas/spi/spi-peripheral-props.yaml#
++
++properties:
++  compatible:
++    const: epson,rx6110
++
++  reg:
++    maxItems: 1
++
++  spi-cpha: true
++  spi-cpol: true
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  # I2C mode
++  - |
++    i2c {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      rtc@32 {
++        compatible = "epson,rx6110";
++        reg = <0x32>;
++      };
++    };
++
++  # SPI mode
++  - |
++    spi {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      rtc@3 {
++        compatible = "epson,rx6110";
++        reg = <3>;
++        spi-cs-high;
++        spi-cpha;
++        spi-cpol;
++      };
++    };
+-- 
+2.43.0
 
-[0] https://lore.kernel.org/netdev/20260505182713.27644-1-ansuelsmth@gmail.=
-com/
-
->=20
-> > diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/eth=
-ernet/airoha/airoha_eth.c
-> > index 1c4927c1aeb0..8617dd4f7932 100644
-> > --- a/drivers/net/ethernet/airoha/airoha_eth.c
-> > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-> > @@ -1863,36 +1863,77 @@ static int airoha_set_gdm2_loopback(struct airo=
-ha_gdm_dev *dev)
-> >  	return 0;
-> >  }
-> > =20
-> > -static int airoha_dev_init(struct net_device *netdev)
-> > +static struct airoha_gdm_dev *
-> > +airoha_get_wan_gdm_dev(struct airoha_eth *eth)
-> > +{
-> > +	int i;
-> > +
-> > +	for (i =3D 0; i < ARRAY_SIZE(eth->ports); i++) {
-> > +		struct airoha_gdm_port *port =3D eth->ports[i];
-> > +		int j;
-> > +
-> > +		if (!port)
-> > +			continue;
-> > +
-> > +		for (j =3D 0; j < ARRAY_SIZE(port->devs); j++) {
-> > +			struct airoha_gdm_dev *dev =3D port->devs[j];
-> > +
-> > +			if (dev && !airoha_is_lan_gdm_dev(dev))
-> > +				return dev;
-> > +		}
-> > +	}
-> > +
-> > +	return NULL;
-> > +}
->=20
-> [High]
-> airoha_register_gdm_devices() invokes airoha_dev_init() for each dev in
-> port->devs[] sequentially. On EN7581 GDM3 supports two devs (nbq 4/5 for
-> PCIE0/PCIE1 in airoha_alloc_gdm_device()). When both devs are registered,
-> devs[0] sets PRIV_FLAG_WAN and then devs[1] sees the first via
-> airoha_get_wan_gdm_dev() and falls through to LAN. Is that the intended
-> result for two devs on the same physical GDM3/GDM4 port?
->=20
-> The two devs then diverge:
->=20
->   airoha_dev_set_qdma()
->     dev->qdma =3D &eth->qdma[!airoha_is_lan_gdm_dev(dev)];
->=20
-> so devs[1] binds to qdma[0] while devs[0] is on qdma[1];
->=20
->   airoha_set_macaddr()
->     reg =3D airoha_is_lan_gdm_dev(dev) ? REG_FE_LAN_MAC_H
->                                      : REG_FE_WAN_MAC_H;
->=20
-> so devs[1] writes into the LAN MAC range that belongs to GDM1; and in
-> airoha_ppe_foe_entry_prepare() pse_port becomes port->id instead of 2
-> (GDM2 loopback) only for devs[1]. Is there an assumption that sibling
-> devs on the same port must share the WAN/LAN classification?
-
-A subsequent patch in the series adds suppport for multiple net_device that
-share the same LAN/WAN mac address register space.
-Moreover, I will post subsequent patches (not in the series) to dynamically
-set/get net_device LAN/WAN configuration.
-
->=20
-> > +
-> > +static void airoha_dev_set_qdma(struct airoha_gdm_dev *dev)
-> >  {
-> > -	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
-> > -	struct airoha_gdm_port *port =3D dev->port;
-> >  	struct airoha_eth *eth =3D dev->eth;
-> >  	int i;
-> > =20
-> >  	/* QDMA0 is used for lan ports while QDMA1 is used for WAN ports */
-> >  	dev->qdma =3D &eth->qdma[!airoha_is_lan_gdm_dev(dev)];
-> >  	dev->dev->irq =3D dev->qdma->irq_banks[0].irq;
-> > -	airoha_set_macaddr(dev, netdev->dev_addr);
-> > +
-> > +	for (i =3D 0; i < eth->soc->num_ppe; i++)
-> > +		airoha_ppe_set_cpu_port(dev, i, airoha_get_fe_port(dev));
-> > +}
-> > +
-> > +static int airoha_dev_init(struct net_device *netdev)
-> > +{
-> > +	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
-> > +	struct airoha_gdm_port *port =3D dev->port;
-> > =20
-> >  	switch (port->id) {
-> >  	case AIROHA_GDM3_IDX:
-> > -	case AIROHA_GDM4_IDX:
-> > -		/* If GDM2 is active we can't enable loopback */
-> > -		if (!eth->ports[1]) {
-> > -			int err;
-> > +	case AIROHA_GDM4_IDX: {
-> > +		struct airoha_eth *eth =3D dev->eth;
-> > =20
-> > -			err =3D airoha_set_gdm2_loopback(dev);
-> > -			if (err)
-> > -				return err;
-> > -		}
-> > +		if (eth->ports[1] || airoha_get_wan_gdm_dev(eth))
-> > +			break;
->=20
-> [Medium]
-> Is the eth->ports[1] check equivalent to asking whether a GDM2 dev
-> actually exists? airoha_alloc_gdm_port() assigns eth->ports[p] before
-> iterating the "airoha,eth-port" child nodes, so with all GDM2 child nodes
-> marked status=3D"disabled" and GDM3 or GDM4 enabled, eth->ports[1] is
-> non-NULL but port->devs[] is empty. In that case this branch still breaks
-> out of the switch and the uplink GDM3/GDM4 dev ends up LAN. Would checking
-> for an actual dev under eth->ports[1] be safer than checking the port
-> pointer alone?
-
-ack, I will fix it in v5.
-
->=20
-> [Medium, Low]
-> The policy that "just a single WAN one" is allowed is enforced by silently
-> breaking here when airoha_get_wan_gdm_dev() returns non-NULL. Would a
-> netdev_warn() or -EINVAL help an administrator notice that a second WAN
-> candidate was demoted to LAN? Also, with both GDM3 and GDM4 enabled and
-> GDM2 absent, the winner of PRIV_FLAG_WAN depends on eth->ports[] iteration
-> order and the port/dev allocation order; is there a deterministic,
-> documented way to choose which dev becomes WAN (DT property, for example)?
-
-We can't return -EINVAL here since we still need to run airoha_dev_set_qdma=
-()
-and airoha_set_macaddr(). Moreover, I will post subsequent patches (not in =
-the
-series) to dynamically set/get net_device LAN/WAN configuration.
-
->=20
-> > +		fallthrough;
-> > +	}
-> > +	case AIROHA_GDM2_IDX:
-> > +		/* GDM2 is always used as wan */
-> > +		dev->flags |=3D PRIV_FLAG_WAN;
-> >  		break;
-> >  	default:
-> >  		break;
-> >  	}
-> > =20
-> > -	for (i =3D 0; i < eth->soc->num_ppe; i++)
-> > -		airoha_ppe_set_cpu_port(dev, i, airoha_get_fe_port(dev));
-> > +	airoha_dev_set_qdma(dev);
-> > +	airoha_set_macaddr(dev, netdev->dev_addr);
-> > +
-> > +	if (!airoha_is_lan_gdm_dev(dev) &&
-> > +	    (port->id =3D=3D AIROHA_GDM3_IDX || port->id =3D=3D AIROHA_GDM4_I=
-DX)) {
-> > +		int err;
-> > +
-> > +		err =3D airoha_set_gdm2_loopback(dev);
-> > +		if (err) {
-> > +			dev->flags &=3D ~PRIV_FLAG_WAN;
-> > +			return err;
-> > +		}
-> > +	}
->=20
-> [Medium]
-> On the error path, is clearing PRIV_FLAG_WAN sufficient? By the time
-> airoha_set_gdm2_loopback() returns a failure, airoha_dev_set_qdma() has
-> already pointed dev->qdma at &eth->qdma[1] and set dev->dev->irq to the
-> WAN IRQ, airoha_set_macaddr() has written into REG_FE_WAN_MAC_H,
-> airoha_ppe_set_cpu_port() has programmed CDM2 as the PPE cpu port, and
-> airoha_set_gdm2_loopback() itself may have already programmed
-> REG_GDM_FWD_CFG(GDM2), REG_GDM_TXCHN_EN/RXCHN_EN, REG_GDM_LPBK_CFG,
-> REG_GDM_LEN_CFG, REG_FE_VIP_PORT_EN and REG_FE_IFC_PORT_EN before the
-> get_sport() branch failed.
->=20
-> After clearing the flag airoha_is_lan_gdm_dev(dev) reports LAN but
-> dev->qdma and the hardware registers above still describe the WAN setup.
-> Would it be cleaner to either unwind those steps or drop the flag clear?
-
-In this case net_device registration will fail and the pending hw configura=
-tion
-will not affect other running devices. I guess we can avoid to add unnecess=
-ary
-code complexity.
-
->=20
-> > =20
-> >  	return 0;
-> >  }
-> > diff --git a/drivers/net/ethernet/airoha/airoha_eth.h b/drivers/net/eth=
-ernet/airoha/airoha_eth.h
-> > index 3a313ac439e7..5715b03e630b 100644
-> > --- a/drivers/net/ethernet/airoha/airoha_eth.h
-> > +++ b/drivers/net/ethernet/airoha/airoha_eth.h
-> > @@ -540,12 +540,17 @@ struct airoha_qdma {
-> >  	u64 fwd_tx_packets;
-> >  };
-> > =20
-> > +enum airoha_priv_flags {
-> > +	PRIV_FLAG_WAN =3D BIT(0),
-> > +};
->=20
-> [Low]
-> This isn't a bug, but PRIV_FLAG_WAN and the u32 flags field below overlap
-> conceptually with struct net_device::priv_flags and the IFF_* namespace.
-> Would a driver-prefixed name such as AIROHA_DEV_F_WAN make the
-> driver-local scope obvious to future readers?
-
-ack, I will fix it in v5.
-
-Regards,
-Lorenzo
-
->=20
-> > +
-> >  struct airoha_gdm_dev {
-> >  	struct airoha_gdm_port *port;
-> >  	struct airoha_qdma *qdma;
-> >  	struct airoha_eth *eth;
-> >  	struct net_device *dev;
-> > =20
-> > +	u32 flags;
-> >  	int nbq;
-> >  };
->=20
-> [ ... ]
-
---cVtlXQ1B6cbL+hCZ
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaf8BaAAKCRA6cBh0uS2t
-rJSeAP0QBnXEgLvI07F2C7GkDzkU+BlJ80LyIyCiwOmzBYCIZAEAtQDBtjNFBFVg
-QO9/RuVlx3Ku7yx9L95neIwOm3mJDws=
-=k9t2
------END PGP SIGNATURE-----
-
---cVtlXQ1B6cbL+hCZ--
