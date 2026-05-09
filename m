@@ -1,76 +1,87 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71746383C77
-	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 18:58:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAC0137BE6A
+	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 19:00:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778353125; cv=none; b=Q7+cZbyc/UrvSLKfRvsewp+pCdqWpLawqO4CLKIuS/i+9rCyTdchBrh/gO+Z77r1EtphR6iJBC0nUeZrwrAYM5umEr4HR+ezDoFUDGL2WB6cGAuAIFKTOW1MX+e54gFn/BH091Ur3XSMdHztoJyUfSXhep4xOkl0Lv8/hfTHLyk=
+	t=1778353223; cv=none; b=iOCn9rA+kqGo7AnOgK59HM7yNPDiypOrF3lgUQ9mk9AWmJnNg6Gdj4qffrB4KZVn1NrY91ytFaNB1q1An61ntWqOaktTvJly94u7iGlrY++JSpDzsvLEGjR1yB90XMQ3v9vH30aDcLM4Qd77IpwO7lB4c3W/DqIF9jcH5Ngg6Vc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778353125; c=relaxed/simple;
-	bh=hqGFzcRAEPnMTd/jfO+lOHuetEfMmFQ2/+xsz4yB2YY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HJV5B1xwQnDsuXND6ZNqtaIyrfFvkN4wNgNMbIeNCCGGb2nV8bieWszmAlC4pYGAT9xOaiDgD5YSAhDoU/rC4rjkcHGbCM79/E+qK/HdX3Sn8rGWQvsOZ+r4t65akSKV4GaVyoljZbTAoeJBXhBR60rdElbiK6BkCr6bhY4DxBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XjNnrrP7; arc=none smtp.client-ip=209.85.216.45
+	s=arc-20240116; t=1778353223; c=relaxed/simple;
+	bh=xA4oLUwYAJfz0ySyu4MhuVl6/+1Zb1gL0iL0dGi6qZI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p3hfUJetpPOmGrr0TQISW6hCnnvNluosJa7KVmRVUwpLvyT6p55Ql3nUclEcP5YE4BKR6Kj8CgbV+5J/nE/amqmvIPgqJYFcyCBrjAt0wcSC8IqDKUe0SIXKiaEt1o+Q2zQJnVNr5GIezPMeP02dnuvuyw1eEigtCF05FBaIJNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IFoatCIM; arc=none smtp.client-ip=209.85.128.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XjNnrrP7"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3660ab73adbso1787817a91.1
-        for <devicetree@vger.kernel.org>; Sat, 09 May 2026 11:58:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IFoatCIM"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-48a3e9862f0so19859965e9.1
+        for <devicetree@vger.kernel.org>; Sat, 09 May 2026 12:00:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778353122; x=1778957922; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1778353220; x=1778958020; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=pp6CLbJl76WQm15M0o32CAsBSD/I1ik0M5zbpMwsEQw=;
-        b=XjNnrrP7zWRN8bZyZZcuSLDENd8015p+z8zAtL8+MU7nPkw3AmhI71yQ7kpk32y8Nd
-         HXG+tA6xU31Na1F3O/4oXPUnSMvCOOZFZUsW6F1vDA8yD9zA1TE8fj+Uj/BI440+tHZw
-         4WUnwjy2xkM5hD1fwMzbLQR/S28Qtl4JVEpelTLjqq5gYwZ3K7sXgSdCQprgU1ak1szW
-         QHMCR+vjc7rwxrlJUN551LZI8xkd4EDs8AoJgo8iBOI5T9mCjQqyMnnmxL9/rR5/ptCC
-         XwNc6WfXbs/dEZWITe3EltuqrUbz6hitP1pwtRPimNTxZiOI1FtOXIP7iPuXQnk+WRTo
-         nERA==
+        bh=xJOgLdtwku62ymp2K2MnoFiWaCIU8dOodRBTGK0ZfaI=;
+        b=IFoatCIMLwKRXYU6Vu4f95i7zZP05wYpFd8fIyeqn2cbtZqsQ05VgOjXK0JExzqREz
+         vv6luRifXFvPFuWW/Kh5mOYHMRqARWDuo4CbZaCTNdf4xfREEWOg/6ZovdQ87jzaoY4G
+         CnkQkzg53fcuyDhinHLEJLxVi/YJaQM7wGTqFCzM04FqqmYWHnAI9Nu2j0ufvn+AcRAI
+         ApUo9ZzjjVaD7dKEvsOl2H7Oz9DPrPjnFEaIAbNHoCXC+AVb99JFG5y+ERusGdkLPGJO
+         qghgR6k7tn5Nk6+VLIMAoow6NVexZRYwBSuqOIALCF29h9leuBRkphKYS1sAt7KlPx/0
+         7gWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778353122; x=1778957922;
+        d=1e100.net; s=20251104; t=1778353220; x=1778958020;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=pp6CLbJl76WQm15M0o32CAsBSD/I1ik0M5zbpMwsEQw=;
-        b=Jdu2A/ive3r8Z9pmAym0DQP0OJDNhOxU/EKw2+EhAoJmanlb/AliyMTMCuugD/f/ce
-         CZlZ6Mcl0C5uQ+Ffge1pJd8Cm5qkihcv2cZ3cgIpqk46WFAanE52q2mYF4w1gd4iMdNE
-         iGKdo4dEaIc0wMQps2I7vYri0ZHMGnom5iftD7Q7aeothQsIztRhvRMvUqjwQyR8SYVQ
-         nvQz67YNX9tnRemz+m77+luTnsXIkCLoGCeD/Acxr3QLCp2E3y+SCiy/Ha0Mh8y5eVtz
-         1pVKWnLs6A20hy79EJt+uLxUwasLH0PzrULlrJayTyZD2SxCJa4ud8pn7KwW1cFtRdCp
-         xEkQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9Bot1s24GrOiaNjGhDlWh/vIlhClevk+stT28yAMLBBFKvzQzY7Ue8wpqW/LZuk2ZM/ht4hxQBZAky@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw4Oj/NAKCvABERLwiBxz8gkIg0jA7K6wzFZKr3XYpQptgwodPZ
-	uhK40+nxcpVMuV8vnIvxxRR7706Pr/1UynfOU2RJIByK1W6pPVHfybsT
-X-Gm-Gg: Acq92OFRVkMdrjzroluVKbAC92TJzWlAIvkkFByfCRQ8ltm6qr+CXmT0j5WsakcD5ru
-	ZmJC0GDaE9B9eBUm8/Qxii9RzA25rLq7uKLJH8E62PGZWC3/ur29M9EHySDAup5cH6ZSC/xNFbY
-	UXbX8pCG5tCgwVssHUlBCkDil2AxKi58wyxAMHEdfF/wb7A3y+KvIoryFLWafuIEh+l6uWl4guW
-	W4HhAQpJn7qjb5oUj+gVLit5EOfZgvNIb8O/A/5k3tS5D8r/seToLFK479SQ+KM2U24jeTSQRoU
-	XRo8e7UeF8sXMbNBj+GJ+Vw0ndnrpU2n0HvDbDGLMJImT4GWn7HtZGbvN0sqq7fCOT7V0aM8iYS
-	lqY01n8ghxLQ+owcmYM+M56nk1LAms0pgtRqu4tAqnsY8TMhc7b7AS/q2xTtUM7RNqnJjHCmGOG
-	VaM0e9HHV9CeIONsPbJ+fBv+RNUtysjDf1p1ysF3a5LzfNzQ==
-X-Received: by 2002:a17:90b:37ce:b0:35e:579a:7e9a with SMTP id 98e67ed59e1d1-366053f7f37mr10321916a91.7.1778353121682;
-        Sat, 09 May 2026 11:58:41 -0700 (PDT)
-Received: from ultimate.. ([58.84.60.2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-367d628474dsm2703647a91.8.2026.05.09.11.58.37
+        bh=xJOgLdtwku62ymp2K2MnoFiWaCIU8dOodRBTGK0ZfaI=;
+        b=F6Yo4ADE7eZ/snzHa1ZIxlRFLw+xYfxlDlvBuIQzHqFRSQLkmTFt5oV66S8yK7p9ON
+         3xyvM75wqDOLZr9MeO38EucL9n3HA9lfOTAVKcpqQV1oyb+mtrAs/F5RkGZVe6CqkGcT
+         jx36rvvO1j2jgaBBrLdJghm/jQLTp7C/NMDz5f1fJcxbSpFN3moJLkdoeKry3C51yGtI
+         76z9m4Rh+GeK19P7772a5o50x7aGA5WOaSS3v2ijdovFT4qQeJagyiOuf/q+ePfLqL8u
+         V8jF6Ji+/6b09p2ySBEetkwnkTkonItAoN1/YTLX4rwPF9ZeG438m5/6vcNpLRxIW6J3
+         5kbQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8G4/Hlkb+tV8krNhmlgfz6Wg5GZZhujksJ7yRVFw5OAZlVoLy8OxjgOGsGLR6QGSgO8ATtVrgKxRAJ@vger.kernel.org
+X-Gm-Message-State: AOJu0YwJa5xsxkUPdjrozJF19ZnNuDmsV4O1LRCaWYth9Ga5MYDaAg35
+	MONzCOk07wCMlOjPkja2VnTECjgfrmiUTGtbVQKr1Tp6WdmwJStTear5
+X-Gm-Gg: Acq92OFm7uQva/3ZDp3sYqcAtYtA7x7FgIGbcrYzvzoTA3QD6GVU7o1ui+HW/KDi1yh
+	abiFCgvmBx6LYCF/8bhwQTzXHV9HAzoX01sOY7FZztqBivhMBm6urWsAeLtEpBkywlSr80o622f
+	HJ5TEv9tb7W1IDGdCkMy/yfyIOT9nFkHUVRcC3W+R3vwHd+OaqpcHMIcK3EjtlSlFyzR4oiBbhh
+	GWHHXX+zJmyLatLA7yDDyN8Ivgc38gabRAsGOkMRbTgumrvCQZcv2X52w0TtCoWvrU5zKgTwBcs
+	atzMeVRh1P8dGWYxpNlgLbhvPncXElVPO/urg0b9aWtiyZEjBVrP3gbKPxkrYP0oyGgpeCrWahQ
+	Fd5bc9vBBfTLFb+okiEnPYL/ApKI/Wc4VmwGf5VwvA/qQL/SI90XDxkewYI1dLUs2PdLXoUjDeG
+	FA7mS3+b3oCCfMQ1G6XmxQtnGJACGw4GpEVgM93vQxlbqsrdSqRTTT+Ew6bHkVz5ZwHYM=
+X-Received: by 2002:a05:600c:3b20:b0:489:1d7a:4537 with SMTP id 5b1f17b1804b1-48e5dfcd4a9mr171071145e9.3.1778353220094;
+        Sat, 09 May 2026 12:00:20 -0700 (PDT)
+Received: from jernej-laptop (46-150-62-216.dynamic.telemach.net. [46.150.62.216])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-454913049ecsm13254407f8f.19.2026.05.09.12.00.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 09 May 2026 11:58:40 -0700 (PDT)
-From: Udaya Kiran Challa <challauday369@gmail.com>
-To: alexandre.belloni@bootlin.com,
+        Sat, 09 May 2026 12:00:19 -0700 (PDT)
+From: Jernej Skrabec <jernej.skrabec@gmail.com>
+X-Google-Original-From: Jernej Skrabec <jernej.skrabec@siol.net>
+To: wens@csie.org,
+	samuel@sholland.org
+Cc: mripard@kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
 	robh@kernel.org,
 	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: skhan@linuxfoundation.org,
-	me@brighamcampbell.com,
-	linux-rtc@vger.kernel.org,
+	conor+dt@kernel.org,
+	mturquette@baylibre.com,
+	sboyd@kernel.org,
+	dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Udaya Kiran Challa <challauday369@gmail.com>
-Subject: [PATCH v4] dt-bindings: rtc: epson,rx6110: Convert to DT Schema
-Date: Sun, 10 May 2026 00:26:39 +0530
-Message-ID: <20260509185735.21557-1-challauday369@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	linux-clk@vger.kernel.org,
+	jernej.skrabec@gmail.com,
+	Jernej Skrabec <jernej.skrabec@siol.net>
+Subject: [PATCH v2 0/8] drm/sun4i: update DE33 support
+Date: Sat,  9 May 2026 21:00:07 +0200
+Message-ID: <20260509190015.79086-1-jernej.skrabec@siol.net>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -79,166 +90,59 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Convert the Epson RX6110 Real Time Clock devicetree binding
-from the legacy text format to DT schema.
+This is second series out of tree which aims at properly introducing
+support for H616 Display Engine 3.3. Previous series [1] reorganized
+driver so proper DE33 support can be easily implemented.
 
-Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
----
-Changelog:
-Changes since v3:
-- Add conditional validation for SPI mode properties using anyOf
+H616 DE33 support was actually introduced a while back, but it was done
+without fully understanding hardware design. Fortunately, no user of
+H616 DE33 binding was introduced, so we have a chance to update bindings
+and introduce proper DE33 support. Issue with existing binding is that it
+considers planes as resource which is hardwired to each mixer as it was
+done on older Display Engine generations (DE3 and lower). That is not the
+case anymore. This series introduces new driver for planes management,
+which allows doing proper plane assignments.
 
-Link to v3:https://lore.kernel.org/all/20260509181909.21871-1-challauday369@gmail.com/
+Remaining patches, which introduce all the missing bits to fully support
+display pipeline on H616 SoC, will be sent once this series is merged.
+WIP patches, which can be used for testing purposes, can be found at [2].
 
-Changes since v2:
-- Reference rtc.yaml for common RTC properties
-- Add conditional validation for SPI mode properties
+Please take a look.
 
-Link to v2:https://lore.kernel.org/all/20260509095713.5818-1-challauday369@gmail.com/
+Best regards,
+Jernej
 
-Changes since v1:
-- Reuse common SPI peripheral properties
-- Drop redundant SPI-specific comment
-- Remove unused labels from examples
+Link to v1: https://lore.kernel.org/linux-sunxi/20251115141347.13087-1-jernej.skrabec@gmail.com/
 
-Link to v1:https://lore.kernel.org/all/20260504183728.27412-1-challauday369@gmail.com/
----
- .../devicetree/bindings/rtc/epson,rx6110.txt  | 39 ---------
- .../devicetree/bindings/rtc/epson,rx6110.yaml | 79 +++++++++++++++++++
- 2 files changed, 79 insertions(+), 39 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/rtc/epson,rx6110.txt
- create mode 100644 Documentation/devicetree/bindings/rtc/epson,rx6110.yaml
+[1] https://lore.kernel.org/linux-sunxi/20251104180942.61538-1-jernej.skrabec@gmail.com/T/#t
+[2] https://github.com/jernejsk/linux-1/commits/sun4i-drm-refactor/
 
-diff --git a/Documentation/devicetree/bindings/rtc/epson,rx6110.txt b/Documentation/devicetree/bindings/rtc/epson,rx6110.txt
-deleted file mode 100644
-index 3dc313e01f77..000000000000
---- a/Documentation/devicetree/bindings/rtc/epson,rx6110.txt
-+++ /dev/null
-@@ -1,39 +0,0 @@
--Epson RX6110 Real Time Clock
--============================
--
--The Epson RX6110 can be used with SPI or I2C busses. The kind of
--bus depends on the SPISEL pin and can not be configured via software.
--
--I2C mode
----------
--
--Required properties:
--  - compatible: should be: "epson,rx6110"
--  - reg : the I2C address of the device for I2C
--
--Example:
--
--	rtc: rtc@32 {
--		compatible = "epson,rx6110"
--		reg = <0x32>;
--	};
--
--SPI mode
----------
--
--Required properties:
--  - compatible: should be: "epson,rx6110"
--  - reg: chip select number
--  - spi-cs-high: RX6110 needs chipselect high
--  - spi-cpha: RX6110 works with SPI shifted clock phase
--  - spi-cpol: RX6110 works with SPI inverse clock polarity
--
--Example:
--
--	rtc: rtc@3 {
--		compatible = "epson,rx6110"
--		reg = <3>
--		spi-cs-high;
--		spi-cpha;
--		spi-cpol;
--	};
-diff --git a/Documentation/devicetree/bindings/rtc/epson,rx6110.yaml b/Documentation/devicetree/bindings/rtc/epson,rx6110.yaml
-new file mode 100644
-index 000000000000..3466f74736d2
---- /dev/null
-+++ b/Documentation/devicetree/bindings/rtc/epson,rx6110.yaml
-@@ -0,0 +1,79 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/rtc/epson,rx6110.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Epson RX6110 Real Time Clock
-+
-+description: |
-+  The Epson RX6110 can be used with SPI or I2C busses.
-+  The kind of bus depends on the SPISEL pin and can not be
-+  configured via software.
-+
-+maintainers:
-+  - Alexandre Belloni <alexandre.belloni@bootlin.com>
-+
-+allOf:
-+  - $ref: rtc.yaml#
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+
-+properties:
-+  compatible:
-+    const: epson,rx6110
-+
-+  reg:
-+    maxItems: 1
-+
-+  spi-cs-high: true
-+  spi-cpha: true
-+  spi-cpol: true
-+
-+required:
-+  - compatible
-+  - reg
-+
-+if:
-+  anyOf:
-+    - required:
-+        - spi-cs-high
-+    - required:
-+        - spi-cpha
-+    - required:
-+        - spi-cpol
-+
-+then:
-+  required:
-+    - spi-cs-high
-+    - spi-cpha
-+    - spi-cpol
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  # I2C mode
-+  - |
-+    i2c {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+
-+      rtc@32 {
-+        compatible = "epson,rx6110";
-+        reg = <0x32>;
-+      };
-+    };
-+
-+  # SPI mode
-+  - |
-+    spi {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+
-+      rtc@3 {
-+        compatible = "epson,rx6110";
-+        reg = <3>;
-+        spi-cs-high;
-+        spi-cpha;
-+        spi-cpol;
-+      };
-+    };
+Jernej Skrabec (8):
+  clk: sunxi-ng: de2: Fix Display Engine 3.3 definitions
+  clk: sunxi-ng: de2: Export register regmap for DE33
+  drm/sun4i: Add support for DE33 CSC
+  drm/sun4i: vi_layer: Limit formats for DE33
+  dt-bindings: display: allwinner: Add DE33 planes
+  drm/sun4i: Add planes driver
+  dt-bindings: display: allwinner: Split H616 DE33 layer reg space
+  drm/sun4i: switch DE33 to new bindings
+
+ .../allwinner,sun50i-h616-de33-planes.yaml    |  46 ++++
+ .../allwinner,sun8i-a83t-de2-mixer.yaml       |  16 +-
+ drivers/clk/sunxi-ng/ccu-sun8i-de2.c          |  87 +++++++-
+ drivers/gpu/drm/sun4i/Makefile                |   3 +-
+ drivers/gpu/drm/sun4i/sun50i_planes.c         | 201 ++++++++++++++++++
+ drivers/gpu/drm/sun4i/sun50i_planes.h         |  41 ++++
+ drivers/gpu/drm/sun4i/sun8i_csc.c             |  71 +++++++
+ drivers/gpu/drm/sun4i/sun8i_csc.h             |   5 +
+ drivers/gpu/drm/sun4i/sun8i_mixer.c           | 131 ++++++------
+ drivers/gpu/drm/sun4i/sun8i_mixer.h           |  10 +-
+ drivers/gpu/drm/sun4i/sun8i_vi_layer.c        |  40 +++-
+ 11 files changed, 567 insertions(+), 84 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/allwinner,sun50i-h616-de33-planes.yaml
+ create mode 100644 drivers/gpu/drm/sun4i/sun50i_planes.c
+ create mode 100644 drivers/gpu/drm/sun4i/sun50i_planes.h
+
 -- 
-2.43.0
+2.54.0
 
