@@ -1,106 +1,159 @@
-Received: from zg8tmja5ljk3lje4mi4ymjia.icoremail.net (zg8tmja5ljk3lje4mi4ymjia.icoremail.net [209.97.182.222])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AF952282F17
-	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 05:28:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.97.182.222
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4310325F994;
+	Sat,  9 May 2026 06:17:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778304537; cv=none; b=DbfmM9YkibNc56fsM9PY3z6tzpFqU4QFi3W8M3/XbadWhNS1snUZ3lrFHepqTUkczAUmUGNhxoC+nAepko8vELL9IMmwFs/gXd7DHrRRqky0Xg9Wv2uf9DJdMhW/nAhxaLruNxL0kuu5rDNJt3T1vK67vzlgevjvQ4FykaWvgD0=
+	t=1778307476; cv=none; b=NcMkar+lr8zxIH7cRICGUjnW8llfFymEsAiAEGsgdEWNe+IVtSAt66U+xehYZluE5XFv8eVWgk1X9XLi9+hniF/52sjjHoCiDmFcTgeOlKlg9jNcOJv0NXZYvbErFFEN8gdMYOACjw7ALDtaIzPJwLNiHiVxSnoo+0vXXM4AHis=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778304537; c=relaxed/simple;
-	bh=YxCExB2durtz4CQcZ01XSPHb9t5CrusssfFiLoDVszw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=OoNfYBEuHpzbMGuI5Rr2aYk+ib6r90gwGpeIWPZX52PFyofJBBjcq/ljSSd/iwKkQw16OesHlHkeIxBT9Wr7vzlb6hZqoQ7fROoI7m/SNSgbB8TU7w/G+VQBp3rS2cQB1XElv4Entrz3VUjFIzEwWN8A+8OaefDNVp6VY6iRAZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=209.97.182.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from lizhi2$eswincomputing.com ( [10.11.96.26] ) by
- ajax-webmail-app1 (Coremail) ; Sat, 9 May 2026 13:28:30 +0800 (GMT+08:00)
-Date: Sat, 9 May 2026 13:28:30 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
-To: sashiko@lists.linux.dev, conor+dt@kernel.org
-Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	linmin@eswincomputing.com
-Subject: Re: Re: [PATCH net v1 2/2] net: stmmac: eic7700: fix delay step
- calculation and ensure safe register initialization
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <20260508171433.20F87C2BCC7@smtp.kernel.org>
-References: <20260507083214.192-1-lizhi2@eswincomputing.com>
- <20260508171433.20F87C2BCC7@smtp.kernel.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1778307476; c=relaxed/simple;
+	bh=Ha3F77ZzJvbbXJghzBav9RP08S2XsFPL0mAqPG3sWq0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WsolI1K2CfwDZlZRA1PwOlYOhsWzHNyKRrG+WXuCY/YS0GE2vuFxduibbP7L89S065BTSOGfR4BI9myeCHy/QVIMx1nMS+KqGHDW5ihyREY8V5C8tZ3zi3GrwLfdly0uB3SAiMpr5tuMBYlLN1yY63cHA01lv6xP4SxIJ5H5S0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YKBSGwRp; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YKBSGwRp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E5F6C2BCC9;
+	Sat,  9 May 2026 06:17:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778307475;
+	bh=Ha3F77ZzJvbbXJghzBav9RP08S2XsFPL0mAqPG3sWq0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=YKBSGwRpYqyD70zhjanuhZJpXWzniSsj3lj4xs9kAwAdNzvRphOehTmcqOPy6XqoM
+	 8y2aY+nbxABHNT37pO5bABH4KMlDQalClOqrFXpJXe72croYHlC675k1O+duTX8Ci1
+	 OrwRrGpu9nkfGlLhb5VYqeHqH+kPHR5JWoutoOQj8sk3jeVeeVlxnydqHv7ZG99xMI
+	 DACWFQXov4WRp1oeuwdEy/u9oE0DBzD7PIYzH7JmrZNkoZ/IcjP4IVxwhTrthOwFvY
+	 WbC5XdRr/R1SNjlrtrCvZ3EMo/ztqsvS/LLBToxtJigIcay6F1yjhsefLOKDXN1HI4
+	 8qLsRGzsTC3bQ==
+Date: Sat, 9 May 2026 08:17:53 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, ansuelsmth@gmail.com,
+	benjamin.larsson@genexis.eu, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, madhur.agrawal@airoha.com
+Subject: Re: [PATCH net-next v4 03/10] net: airoha: Move airoha_qdma pointer
+ in airoha_gdm_dev struct
+Message-ID: <af7Rkf5Awk1q6lQo@lore-desk>
+References: <20260507-airoha-eth-multi-serdes-v4-3-af613b61ae02@kernel.org>
+ <20260509014606.3558018-1-kuba@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <55e2b11f.7dd4.19e0b356ba4.Coremail.lizhi2@eswincomputing.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:TAJkCgDHW3D_xf5pXRMYAA--.4666W
-X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/1tbiAQECDGn+EBwM2wABsD
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="CKkjltz6LSKR9NjK"
+Content-Disposition: inline
+In-Reply-To: <20260509014606.3558018-1-kuba@kernel.org>
 
-CgoKPiAtLS0tLeWOn+Wni+mCruS7ti0tLS0tCj4g5Y+R5Lu25Lq6OiBzYXNoaWtvLWJvdEBrZXJu
-ZWwub3JnCj4g5Y+R6YCB5pe26Ze0OjIwMjYtMDUtMDkgMDE6MTQ6MzIgKOaYn+acn+WFrSkKPiDm
-lLbku7bkuro6IGxpemhpMkBlc3dpbmNvbXB1dGluZy5jb20KPiDmioTpgIE6IGRldmljZXRyZWVA
-dmdlci5rZXJuZWwub3JnLCBjb25vcitkdEBrZXJuZWwub3JnLCByb2JoQGtlcm5lbC5vcmcsIGty
-emsrZHRAa2VybmVsLm9yZwo+IOS4u+mimDogUmU6IFtQQVRDSCBuZXQgdjEgMi8yXSBuZXQ6IHN0
-bW1hYzogZWljNzcwMDogZml4IGRlbGF5IHN0ZXAgY2FsY3VsYXRpb24gYW5kIGVuc3VyZSBzYWZl
-IHJlZ2lzdGVyIGluaXRpYWxpemF0aW9uCj4gCj4gVGhhbmsgeW91IGZvciB5b3VyIGNvbnRyaWJ1
-dGlvbiEgU2FzaGlrbyBBSSByZXZpZXcgZm91bmQgMSBwb3RlbnRpYWwgaXNzdWUocykgdG8gY29u
-c2lkZXI6Cj4gLSBbQ3JpdGljYWxdIFVuY29uZGl0aW9uYWwgQUJJIGJyZWFrYWdlIHdpdGggb2xk
-ZXIgRGV2aWNlIFRyZWVzCj4gLS0KPiAKPiBjb21taXQgOGEzZTQwNWY3YmMzODBlMDJkMmQzM2Nk
-MzYyZDM1YTA0MDE4MmU5OQo+IEF1dGhvcjogWmhpIExpIDxsaXpoaTJAZXN3aW5jb21wdXRpbmcu
-Y29tPgo+IAo+IG5ldDogc3RtbWFjOiBlaWM3NzAwOiBmaXggZGVsYXkgc3RlcCBjYWxjdWxhdGlv
-biBhbmQgZW5zdXJlIHNhZmUgcmVnaXN0ZXIgaW5pdGlhbGl6YXRpb24KPiAKPiBUaGlzIGNvbW1p
-dCB1cGRhdGVzIHRoZSBFSUM3NzAwIERXTUFDIGdsdWUgZHJpdmVyIHRvIG1hdGNoIGhhcmR3YXJl
-IGRlbGF5Cj4gZ3JhbnVsYXJpdHkgYW5kIG1vdmVzIEhTUCBDU1IgY29uZmlndXJhdGlvbiB0byB0
-aGUgaW5pdGlhbGl6YXRpb24gcGF0aC4gSXQKPiBhbHNvIGludHJvZHVjZXMgbmV3IG9mZnNldHMg
-YW5kIGNsZWFycyB0aGUgVFhEL1JYRCBkZWxheSBjb250cm9sIHJlZ2lzdGVycwo+IGR1cmluZyBz
-ZXR1cCB0byBlbnN1cmUgZGV0ZXJtaW5pc3RpYyBSR01JSSB0aW1pbmcuCj4gCj4gPiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtZWljNzcwMC5j
-IGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtZWljNzcwMC5jCj4g
-PiAtLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1laWM3NzAw
-LmMKPiA+ICsrKyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLWVp
-Yzc3MDAuYwo+IFsgLi4uIF0KPiA+ICsJcmV0ID0gb2ZfcHJvcGVydHlfcmVhZF91MzJfaW5kZXgo
-cGRldi0+ZGV2Lm9mX25vZGUsCj4gPiArCQkJCQkgImVzd2luLGhzcC1zcC1jc3IiLAo+ID4gKwkJ
-CQkJIDMsICZkd2NfcHJpdi0+ZXRoX2Nsa19vZmZzZXQpOwo+ID4gKwlpZiAocmV0KQo+ID4gKwkJ
-cmV0dXJuIGRldl9lcnJfcHJvYmUoJnBkZXYtPmRldiwgcmV0LAo+ID4gKwkJCQkgICAgICJjYW4n
-dCBnZXQgZXRoX2Nsa19vZmZzZXRcbiIpOwo+ID4gIAo+ID4gKwlyZXQgPSBvZl9wcm9wZXJ0eV9y
-ZWFkX3UzMl9pbmRleChwZGV2LT5kZXYub2Zfbm9kZSwKPiA+ICsJCQkJCSAiZXN3aW4saHNwLXNw
-LWNzciIsCj4gPiArCQkJCQkgNCwgJmR3Y19wcml2LT5ldGhfdHhkX29mZnNldCk7Cj4gPiArCWlm
-IChyZXQpCj4gPiArCQlyZXR1cm4gZGV2X2Vycl9wcm9iZSgmcGRldi0+ZGV2LCByZXQsCj4gPiAr
-CQkJCSAgICAgImNhbid0IGdldCBldGhfdHhkX29mZnNldFxuIik7Cj4gCj4gV2lsbCB0aGlzIGJy
-ZWFrIGNvbXBhdGliaWxpdHkgd2l0aCBvbGRlciBkZXZpY2UgdHJlZXMgdGhhdCBvbmx5IHByb3Zp
-ZGUgMwo+IGluZGljZXMgZm9yIHRoZSBlc3dpbixoc3Atc3AtY3NyIHByb3BlcnR5Pwo+IAo+IElm
-IHRoZSBkcml2ZXIgYm9vdHMgd2l0aCBhbiBvbGRlciBkZXZpY2UgdHJlZSwgb2ZfcHJvcGVydHlf
-cmVhZF91MzJfaW5kZXgKPiB3aWxsIHJldHVybiBhbiBlcnJvciB3aGVuIGF0dGVtcHRpbmcgdG8g
-cmVhZCBpbmRleCA0LCBjYXVzaW5nIHRoZSBwcm9iZSB0bwo+IGZhaWwgZW50aXJlbHkgYW5kIHJl
-c3VsdGluZyBpbiBhIGxvc3Mgb2YgbmV0d29yayBmdW5jdGlvbmFsaXR5Lgo+IAo+IENvdWxkIHRo
-ZSBuZXcgb2Zmc2V0cyBhdCBpbmRleCA0IGFuZCA1IGJlIG1hZGUgb3B0aW9uYWwsIG9yIGhhbmRs
-ZWQgd2l0aCBhCj4gYmFja3dhcmQtY29tcGF0aWJsZSBmYWxsYmFjaywgdG8gcHJlc2VydmUgdGhl
-IGRldmljZSB0cmVlIEFCST8KPiAKCkdvb2QgcG9pbnQsIHRoYW5rcyBmb3IgY2F0Y2hpbmcgdGhp
-cy4KCllvdSdyZSByaWdodCB0aGF0IHJlcXVpcmluZyB0aGUgYWRkaXRpb25hbCBvZmZzZXRzIHdv
-dWxkIGJyZWFrCmNvbXBhdGliaWxpdHkgd2l0aCBvbGRlciBkZXZpY2UgdHJlZXMgdGhhdCBvbmx5
-IHByb3ZpZGUgdGhlIG9yaWdpbmFsCnRocmVlIG9mZnNldHMgaW4gdGhlIGVzd2luLGhzcC1zcC1j
-c3IgcHJvcGVydHkuCgpUbyBwcmVzZXJ2ZSB0aGUgRGV2aWNldHJlZSBBQkkgKOKAnG5ldyBrZXJu
-ZWxzIG11c3QgY29udGludWUgdG8gd29yayB3aXRoCm9sZCBkZXZpY2UgdHJlZXPigJ0pLCBJIHBs
-YW4gdG8gbWFrZSB0aGUgVFhEIGFuZCBSWEQgb2Zmc2V0cyBvcHRpb25hbCBpbgpib3RoIHRoZSBi
-aW5kaW5nIGFuZCB0aGUgZHJpdmVyLgoKSW4gdGhlIGJpbmRpbmcsIEkgcGxhbiB0byB1cGRhdGUg
-ZXN3aW4saHNwLXNwLWNzciB0byBzdXBwb3J0IGJvdGggdGhlCmxlZ2FjeSByZXByZXNlbnRhdGlv
-biBhbmQgdGhlIGV4dGVuZGVkIHJlcHJlc2VudGF0aW9uICh1cCB0byA2IGNlbGxzKQpieSBhZGRp
-bmc6CgotIG1pbkl0ZW1zOiA0CgphbmQgbWFya2luZyB0aGUgbGFzdCB0d28gZW50cmllcyBhcyBv
-cHRpb25hbDoKCi0gT3B0aW9uYWwgb2Zmc2V0IG9mIHJlZ2lzdGVyIGNvbnRyb2xsaW5nIFRYRCBk
-ZWxheQotIE9wdGlvbmFsIG9mZnNldCBvZiByZWdpc3RlciBjb250cm9sbGluZyBSWEQgZGVsYXkK
-CkluIHRoZSBkcml2ZXIsIGlmIGluZGljZXMgNCBhbmQgNSBhcmUgbm90IHByZXNlbnQsIEkgd2ls
-bCBmYWxsIGJhY2sgdG8KdGhlIGV4aXN0aW5nIHNoYXJlZCBUWC9SWCBjbG9jayBkZWxheSByZWdp
-c3RlciBvZmZzZXQuIFRoaXMgZW5zdXJlcwpvbGRlciBkZXZpY2UgdHJlZXMgcmVtYWluIGZ1bGx5
-IGZ1bmN0aW9uYWwgd2l0aCBuZXdlciBrZXJuZWxzLgoKQ29ub3IsIGRvZXMgdGhpcyBsb29rIGFj
-Y2VwdGFibGUgdG8geW91LCBhbmQgd291bGQgdGhpcyBiYWNrd2FyZC0KY29tcGF0aWJsZSBjbGFy
-aWZpY2F0aW9uIGFmZmVjdCB5b3VyIHByZXZpb3VzIEFja2VkLWJ5PwoKUGxlYXNlIGxldCBtZSBr
-bm93IGlmIHlvdSBzZWUgYW55IG90aGVyIGlzc3VlcyB3aXRoIHRoaXMgYXBwcm9hY2guCg==
+
+--CKkjltz6LSKR9NjK
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> ---
+> Subject: net: airoha: Move airoha_qdma pointer in airoha_gdm_dev struct
+>=20
+> This patch moves the airoha_qdma pointer from struct airoha_gdm_port into
+> struct airoha_gdm_dev, as a preparation for allowing multiple net_devices
+> to share the same GDM{3,4} port via an external hw arbiter.
+>=20
+> > diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/eth=
+ernet/airoha/airoha_eth.c
+> > index 4af64f182968..1798b4a6cf5d 100644
+> > --- a/drivers/net/ethernet/airoha/airoha_eth.c
+> > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
+>=20
+> [ ... ]
+>=20
+> > @@ -854,7 +855,8 @@ static void airoha_qdma_wake_netdev_txqs(struct air=
+oha_queue *q)
+> >  		if (!port)
+> >  			continue;
+> > =20
+> > -		if (port->qdma !=3D qdma)
+> > +		dev =3D port->dev;
+> > +		if (dev->qdma !=3D qdma)
+> >  			continue;
+> > =20
+> >  		dev =3D port->dev;
+>=20
+> [Low]
+> The resulting loop body assigns dev =3D port->dev; twice with nothing in
+> between that could change port->dev:
+>=20
+> 	dev =3D port->dev;
+> 	if (dev->qdma !=3D qdma)
+> 		continue;
+>=20
+> 	dev =3D port->dev;
+> 	for (j =3D 0; j < dev->dev->num_tx_queues; j++) {
+
+ack, I will fix it in v5.
+
+>=20
+> Is the second dev =3D port->dev; intentional, or leftover from the
+> refactor that should be removed?
+>=20
+> [Medium]
+> Can the new dev->qdma dereference run while port->dev is still NULL?
+>=20
+> Looking at airoha_alloc_gdm_port(), eth->ports[p] =3D port is stored befo=
+re
+> airoha_alloc_gdm_device() runs, and airoha_alloc_gdm_device() only sets
+> port->dev =3D dev at its very end, after several failure points
+> (devm_alloc_etherdev_mqs, netif_set_real_num_tx_queues,
+> of_get_ethdev_address).
+>=20
+> The existing cleanup in airoha_probe's error_napi_stop path and in
+> airoha_remove guards accesses with if (dev && ...) when reading
+> port->dev, which suggests port->dev can legitimately be NULL while
+> eth->ports[i] is non-NULL.
+>=20
+> Before the patch the equivalent check read port->qdma (an embedded field
+> zeroed by devm_kzalloc), so the compare was NULL-tolerant. After the
+> patch:
+>=20
+> 	struct airoha_gdm_port *port =3D eth->ports[i];
+> 	struct airoha_gdm_dev *dev;
+> 	...
+> 	if (!port)
+> 		continue;
+>=20
+> 	dev =3D port->dev;
+> 	if (dev->qdma !=3D qdma)
+> 		continue;
+>=20
+> would dereference a NULL dev if port->dev has not yet been assigned when
+> airoha_qdma_wake_netdev_txqs() runs. Would a NULL check on port->dev (or
+> reverting to the original port-field-based test) be appropriate here to
+> preserve the prior robustness?
+
+Even if this is not a real issue since it will be fixed by a following patc=
+h=20
+in the series ("Support multiple net_devices for a single FE GDM port "), I
+will fix it in v5.
+
+Regards,
+Lorenzo
+
+--CKkjltz6LSKR9NjK
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaf7RkQAKCRA6cBh0uS2t
+rEvZAPwNLCYo6gifsw7IBi5TUpI/fYB0BDXDjZOQY4h9opH7RQEAy70E8bmN0A9P
+Q3BudcGBRukuFAKQ9nclWBOKAlm0hwo=
+=plcV
+-----END PGP SIGNATURE-----
+
+--CKkjltz6LSKR9NjK--
