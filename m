@@ -1,287 +1,228 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627DE208D0;
-	Sat,  9 May 2026 10:08:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96C702F8E97;
+	Sat,  9 May 2026 10:17:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778321281; cv=none; b=gSIL08X5mGCPAiAXCWBEEkWNUKOYUl/19es9/cCcQ01flfR1oHDykK0ijjaLZYDHA86eAFlRRfpVBRQe4zDxhz379+BWhBNO6mNts2YYt0e8ZBBMDgEN1FdHaqEmHoZPeEshApL8/IuwRSAvV7m98M4c/7Vm5gXYOi4Wz23iu6E=
+	t=1778321838; cv=none; b=gaPtccJgO3AoJzD/UVgtZwlIQzKkH+TRFMeraLe6UmwjnHMS+xmfi+l25L6bYlioMDyZm15F2ew17QmBagVWvIDqXUXIAZvR9AaN3C54iKbBHWcyJtTfw4eg6un1DNVMjb+uk7cJ0oCSGAsUXyRIs4/QIrhMHyKT2jcNnAOr9l8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778321281; c=relaxed/simple;
-	bh=DrVObXvVSvJ6Qh3ggMiOeo7pce3nKF+OLq2GUfFw0YE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QD7b0STLYD/XUwPb7ScKJdK1cuNZ4vzuuiEBQMW/idtyPpFczmc5aMx8JSin4ZFyxsQCYjCmeJQY6HQn48ZgaIL6PM4dxH/hkjv8QB3CMHLHO1uzLUWFXlqmn/4A/zCZLIPTt1k3Shl/QPY2GubJ/4wUM+PZeIu25wF/tsZezkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=leuQxIIG; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="leuQxIIG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEB13C2BCB2;
-	Sat,  9 May 2026 10:08:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778321281;
-	bh=DrVObXvVSvJ6Qh3ggMiOeo7pce3nKF+OLq2GUfFw0YE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=leuQxIIGtL3ySmiM8r5mjMlZARE6dzdT/vnEblM99cn6q33QGI+M//l8mhH1tVRik
-	 qW44qun4uM4o9P/wQC8aR7XEPNxLiuxUZR+d1RuachQXa97iWgYAfgt5YHTbzpcX7c
-	 KCzR/czetJFcaiBkWeZjfaDLql0F4scJzYDwQxGUDDcLi2TwHrM+p4Utk2WSPdleY8
-	 jCl5i119bdw/3KvuZRhJxETpB3xUK+QDCSXShe32v65GNbScFKbxUSyJCP/3K3mIyQ
-	 DasZs8wAvGZ1hQLVr63crBdR95qNDS3JhiIBHWnu0iWTdFMcypVu6Zr4YPLG2Q7frZ
-	 8B1qWoWZEUpeA==
-Date: Sat, 9 May 2026 12:07:58 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ansuelsmth@gmail.com,
-	benjamin.larsson@genexis.eu, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, madhur.agrawal@airoha.com
-Subject: Re: [PATCH net-next v4 10/10] net: airoha: Support multiple LAN/WAN
- interfaces for hw MAC address configuration
-Message-ID: <af8HfuSZ1hkJGA2O@lore-desk>
-References: <20260507-airoha-eth-multi-serdes-v4-10-af613b61ae02@kernel.org>
- <20260509014617.3558185-1-kuba@kernel.org>
+	s=arc-20240116; t=1778321838; c=relaxed/simple;
+	bh=OMyY6EIN0uYFyyXk3dI0sS4NBaaUT7qzp1bucwRMzOU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=l2WanAYZAsdCHh1ktFvXD4wQGvSEy39fpHxn1hG7hG4Ws2k5vVQY9bta3nMD29ra/rNCCZvY6KqG5Zb0lftgxt87AwdTaDpwVAY1iJ4eyI2UV2GHvZWbWrhQdfVGyRDluyYPOZJtSWM0pHZXzbdni5FCaiNqdr/l0cIHssbCGGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.207.19.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: esmtpsz18t1778321792t460a2d05
+X-QQ-Originating-IP: zjkOROJYI4ZbQ+7Ufdl7ieLzq4bCCEXbPMMJo2dR4Dw=
+Received: from [127.0.0.1] ( [116.234.74.217])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Sat, 09 May 2026 18:16:29 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 7643366966760275687
+Message-ID: <FE38EFC340D52748+8a9351df-df99-48d1-8d59-8c72b7153ef0@radxa.com>
+Date: Sat, 9 May 2026 18:16:27 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lg/EUJE1MTlDMtub"
-Content-Disposition: inline
-In-Reply-To: <20260509014617.3558185-1-kuba@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/7] media: iris: introduce SM8350 and SC8280XP support
+To: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Bjorn Andersson <andersson@kernel.org>, David Heidelberg <david@ixit.cz>,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Johan Hovold <johan+linaro@kernel.org>
+References: <20260125-iris-sc8280xp-v3-0-d21861a9ea33@oss.qualcomm.com>
+ <20260125-iris-sc8280xp-v3-2-d21861a9ea33@oss.qualcomm.com>
+ <8c5cd9ff-e549-00ab-60c6-814b52f50949@oss.qualcomm.com>
+ <rhsmmvbxjzb4ylxryo3n6j6wf52tjpxxon6fww6tsfhxttc2g7@xfsnyfkqh3ke>
+ <ec4348fc-b27c-9b56-2967-222e4e280c8a@oss.qualcomm.com>
+ <d67faniik7jrlnq2a2wsyku3agpezh5qj4g4rip3j6pbeagmkj@xax6nuginypu>
+ <a71e3bc2-23dc-fa02-0dbf-0a9d779dca76@oss.qualcomm.com>
+Content-Language: en-US
+From: Xilin Wu <sophon@radxa.com>
+In-Reply-To: <a71e3bc2-23dc-fa02-0dbf-0a9d779dca76@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: OFWsfmE1GYcuJSFOBi1vsp9uZeMEGHAkiR9Qgvpl8Ig6hTMFeGKrL+AD
+	3XXYnlsNU+BD8/oGmThmewZnAA/kd7qWIEfykFBjFZAitY7gzeHTfD45aRRDSpldESlLn/O
+	uv5O/Q60ajvgs3z4DRGJ6WHBad4bKXC3qwZvKMSWa7BzrT6/z5j4tQ+eBO5i++Qh4WpiyT5
+	jF777zSXkj/dcLW+wKJZrtdgp0GB3kBbuheL3b25zqV8uaEnt4jyRD0ukctHo/FjjW+lXLA
+	tpXAVRIFVBH1iqWrzeJEO2tmNBWyZmjbuwH9GkWY+1RicTFE+I7JVF+c0pGo1s9XZzO2dMw
+	iBFbtmK2W94acGJL2SlLv0x/YgI1J33dFnJf5Pnt+m1rtG1UknDR41al9vQ1ADThM9FsUrt
+	9/r94k9RnYn1wcSd7+0UVly0xxhZ5GS1desFjjHwGODHA/75gC0icFPtwCGKufsfe89y1T5
+	+pCH2ZeWMv4pNmp8a2gaO39rAE0zyLkdE5EAKk6zpWIgrFTTbeJZEBRzfp2iAPyyF3bq5SE
+	DmjcXL3Fi/yt+Ix7rHCE9euIDinJJRuGFwzY5zKgS0lbR3esBdjldfDJtymlXalS1iMHFWm
+	Kt9xo0psSb/EID3OVIQOUWJbCY/DYJcDz19n+RjE5NnWX5dE+eYecDOVKBPCj/l8p1YW4Qi
+	0ismzV/liPSkFx8mi1oYlXlznq6vawU50Vovy6KqTiNVC751JO2U3LneOUIjyc91cHNXeCN
+	Y+uuAOiRFtnOG8B/2G5f1VgvGdSQHabnhWGu/xIiAClNX1F74mzp6Kfpky6+bE4POAqEp9B
+	XwpcX/0SF6uEUDIZHqBvkk/2sI+ocqPSKe/thwSx9smU+oHPozQjF7zPb1lTvrFJFR71V0B
+	OavWxPb9LqFnmVXj/xB1hfV4cjMdlbsy07XnARCiVc1kHaREcRgHHQuoiJS9TtS+mDXgefa
+	gzTxV83dQ56jO0xmIEK47K4fMb2Q7hsJKSLAsKrqpr6FBshU4vxnS07IQwvEyvPDyHArW80
+	pTZkzluKb6omcmvZUi
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
+
+On 2/10/2026 1:35 PM, Dikshita Agarwal wrote:
+> 
+> 
+> On 2/5/2026 4:24 PM, Dmitry Baryshkov wrote:
+>> On Thu, Feb 05, 2026 at 02:40:39PM +0530, Dikshita Agarwal wrote:
+>>>
+>>>
+>>> On 1/31/2026 12:58 PM, Dmitry Baryshkov wrote:
+>>>> On Fri, Jan 30, 2026 at 06:46:04PM +0530, Dikshita Agarwal wrote:
+>>>>>
+>>>>>
+>>>>> On 1/25/2026 9:02 PM, Dmitry Baryshkov wrote:
+>>>>>> SM8350 and SC8280XP have an updated version of the Iris2 core also
+>>>>>> present on the SM8250 and SC7280 platforms. Add necessary platform data
+>>>>>> to utilize the core on those two platforms.
+>>>>>>
+>>>>>> The iris_platform_gen1.c is now compiled unconditionally, even if Venus
+>>>>>> driver is enabled, but SM8250 and SC7280 are still disabled in
+>>>>>> iris_dt_match.
+>>>>>>
+>>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>>>>>> ---
+>>>>>>   drivers/media/platform/qcom/iris/Makefile          |   5 +-
+>>>>>>   .../platform/qcom/iris/iris_platform_common.h      |   2 +
+>>>>>>   .../media/platform/qcom/iris/iris_platform_gen1.c  | 111 +++++++++++++++++++++
+>>>>>>   .../platform/qcom/iris/iris_platform_sm8350.h      |  20 ++++
+>>>>>>   drivers/media/platform/qcom/iris/iris_probe.c      |  10 ++
+>>>>>>   5 files changed, 144 insertions(+), 4 deletions(-)
+>>>>>>
+>>>>>> @@ -392,6 +393,61 @@ const struct iris_platform_data sm8250_data = {
+>>>>>>   	.enc_ip_int_buf_tbl_size = ARRAY_SIZE(sm8250_enc_ip_int_buf_tbl),
+>>>>>>   };
+>>>>>>   
+>>>>>> +const struct iris_platform_data sm8350_data = {
+>>>>>> +	.get_instance = iris_hfi_gen1_get_instance,
+>>>>>> +	.init_hfi_command_ops = &iris_hfi_gen1_command_ops_init,
+>>>>>> +	.init_hfi_response_ops = iris_hfi_gen1_response_ops_init,
+>>>>>> +	.get_vpu_buffer_size = iris_vpu_buf_size,
+>>>>>> +	.vpu_ops = &iris_vpu2_ops,
+>>>>>> +	.set_preset_registers = iris_set_sm8350_preset_registers,
+>>>>>> +	.icc_tbl = sm8250_icc_table,
+>>>>>> +	.icc_tbl_size = ARRAY_SIZE(sm8250_icc_table),
+>>>>>> +	.clk_rst_tbl = sm8350_clk_reset_table,
+>>>>>> +	.clk_rst_tbl_size = ARRAY_SIZE(sm8350_clk_reset_table),
+>>>>>> +	.bw_tbl_dec = sm8250_bw_table_dec,
+>>>>>> +	.bw_tbl_dec_size = ARRAY_SIZE(sm8250_bw_table_dec),
+>>>>>> +	.pmdomain_tbl = sm8250_pmdomain_table,
+>>>>>> +	.pmdomain_tbl_size = ARRAY_SIZE(sm8250_pmdomain_table),
+>>>>>> +	.opp_pd_tbl = sm8250_opp_pd_table,
+>>>>>> +	.opp_pd_tbl_size = ARRAY_SIZE(sm8250_opp_pd_table),
+>>>>>> +	.clk_tbl = sm8250_clk_table,
+>>>>>> +	.clk_tbl_size = ARRAY_SIZE(sm8250_clk_table),
+>>>>>> +	.opp_clk_tbl = sm8250_opp_clk_table,
+>>>>>> +	/* Upper bound of DMA address range */
+>>>>>> +	.dma_mask = 0xe0000000 - 1,
+>>>>>> +	.fwname = "qcom/vpu/vpu20_p4.mbn",
+>>>>>
+>>>>> This firmware is not compatible with SM8350.
+>>>>> SM8350 firmware is not released to linux-firmware yet.
+>>>>
+>>>> What would be the name for the firmware? The downstream uses vpu20_4v
+>>>> here, so, I guess, in upstream we should be using vpu20_p4, but a newer
+>>>> version?
+>>>>
+>>>
+>>> Using a newer version won't work as the firmware for SM8250 and SM8350 are
+>>> different binaries generated from different firmware source branch.
+>>> You can give it a try, but AFAIK it won't work.
+>>
+>> Ugh...
+>>
+>>>>>> +	.fwname = "qcom/vpu/vpu20_p2.mbn",
+>>>>>
+>>>>> this firmware doesn't exist on linux-firmware.
+>>>>
+>>>> It was based on the assumption of having 2 pipes. If Iris here has 2
+>>>> pipes, then probably we should still point to vpu20_p4.mbn?
+>>>>
+>>>
+>>> SC8280XP also uses the Iris2 4‑pipe configuration, though its firmware
+>>> comes from a different source branch compared to SM8250 and SM8350. This
+>>> means we have multiple firmwares with identical VPU and pipe configurations
+>>> but different origins. Could you propose a suitable naming scheme that can
+>>> differentiate such firmware?
+>>
+>> Can we have a single binary that works on all Iris2 4-pipe cores?
+> 
+> That is not possible as it is older VPU.
+> For newer ones, the plan is have single source branch for same VPU to avoid
+> such issues in future.
+> 
+>> Or are there any differences between Iris2 on SM8250 / SM8350 /
+>> SC8280XP? Are they stil vpu20_something or should we use different VPU
+>> versions in the firmware name?
+> 
+> I think we can keep vpu20_4p_* with some way to different among SM8250,
+> SM8350, SC8280XP.
+> 
+
+Hi Dikshita,
+
+We have some upcoming products based on SC8280XP that mainly run Linux. 
+I was wondering whether Qualcomm still plans to submit the latest 
+SC8280XP Iris firmware to linux-firmware.
+
+If not, would it be acceptable for us OEM to submit it under the name 
+vpu20_4p_sc8280xp.mbn?
+
+>>
+>>>>>> diff --git a/drivers/media/platform/qcom/iris/iris_platform_sm8350.h b/drivers/media/platform/qcom/iris/iris_platform_sm8350.h
+>>>>>> new file mode 100644
+>>>>>> index 000000000000..74cf5ea2359a
+>>>>>> --- /dev/null
+>>>>>> +++ b/drivers/media/platform/qcom/iris/iris_platform_sm8350.h
+>>>>>> @@ -0,0 +1,20 @@
+>>>>>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>>>>>> +/*
+>>>>>> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+>>>>>> + */
+>>>>>> +
+>>>>>> +#ifndef __IRIS_PLATFORM_SM8350_H__
+>>>>>> +#define __IRIS_PLATFORM_SM8350_H__
+>>>>>> +
+>>>>>> +static void iris_set_sm8350_preset_registers(struct iris_core *core)
+>>>>>> +{
+>>>>>> +	u32 val;
+>>>>>> +
+>>>>>> +	val = readl(core->reg_base + 0xb0088);
+>>>>>> +	val &= ~0x11;
+>>>>>> +	writel(val, core->reg_base + 0xb0088);
+>>>>>> +}
+>>>>>
+>>>>> you can reuse this from SM8250. That would work.
+>>>>
+>>>> Hmm, downstream driver was explicit about clearing only these two bits.
+>>>> Is it really fine to clear all the bits?
+>>>>
+>>>
+>>> Yes it is. We are doing the same for other SOCs as well.
+>>
+>> Wouldn't this also ungate / start the second core?
+>>
 
 
---lg/EUJE1MTlDMtub
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+-- 
+Best regards,
+Xilin Wu <sophon@radxa.com>
 
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> ---
-> net: airoha: Support multiple LAN/WAN interfaces for hw MAC address confi=
-guration
->=20
-> This patch extends airoha_set_macaddr() to derive REG_FE_MAC_LMIN and
-> REG_FE_MAC_LMAX by iterating over all sibling LAN/WAN net_devices, and
-> rejects addresses whose upper 3 bytes do not match the already-registered
-> peers. airoha_dev_set_macaddr() is also changed to split eth_mac_addr()
-> into eth_prepare_mac_addr_change() and eth_commit_mac_addr_change() around
-> the hardware programming step.
->=20
-> > diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/eth=
-ernet/airoha/airoha_eth.c
-> > index 8617dd4f7932..fbfefd0ec355 100644
-> > --- a/drivers/net/ethernet/airoha/airoha_eth.c
-> > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-> > @@ -71,20 +71,67 @@ static void airoha_qdma_irq_disable(struct airoha_i=
-rq_bank *irq_bank,
-> >  	airoha_qdma_set_irqmask(irq_bank, index, mask, 0);
-> >  }
-> > =20
-> > -static void airoha_set_macaddr(struct airoha_gdm_dev *dev, const u8 *a=
-ddr)
-> > +static int airoha_set_macaddr(struct airoha_gdm_dev *dev, const u8 *ad=
-dr)
-> >  {
-> >  	struct airoha_eth *eth =3D dev->eth;
-> > -	u32 val, reg;
-> > +	u8 ref_addr[ETH_ALEN] =3D {};
-> > +	u32 reg, val, lmin, lmax;
-> > +	int i;
-> > +
-> > +	lmin =3D (addr[3] << 16) | (addr[4] << 8) | addr[5];
-> > +	lmax =3D lmin;
-> > +
-> > +	for (i =3D 0; i < ARRAY_SIZE(eth->ports); i++) {
-> > +		struct airoha_gdm_port *port =3D eth->ports[i];
-> > +		int j;
-> > +
-> > +		if (!port)
-> > +			continue;
-> > +
-> > +		for (j =3D 0; j < ARRAY_SIZE(port->devs); j++) {
-> > +			struct airoha_gdm_dev *iter_dev;
-> > +			struct net_device *netdev;
-> > +
-> > +			iter_dev =3D port->devs[j];
-> > +			if (!iter_dev || iter_dev =3D=3D dev)
-> > +				continue;
-> > +
-> > +			if (airoha_is_lan_gdm_dev(iter_dev) !=3D
-> > +			    airoha_is_lan_gdm_dev(dev))
-> > +				continue;
-> > +
-> > +			netdev =3D iter_dev->dev;
-> > +			if (netdev->reg_state !=3D NETREG_REGISTERED)
-> > +				continue;
-> > +
-> > +			ether_addr_copy(ref_addr, netdev->dev_addr);
-> > +			val =3D (netdev->dev_addr[3] << 16) |
-> > +			      (netdev->dev_addr[4] << 8) | netdev->dev_addr[5];
-> > +			if (val < lmin)
-> > +				lmin =3D val;
-> > +			if (val > lmax)
-> > +				lmax =3D val;
-> > +		}
-> > +	}
-> > +
-> > +	if (!is_zero_ether_addr(ref_addr) && memcmp(ref_addr, addr, 3)) {
-> > +		/* According to the HW design, hw mac address MS bits
-> > +		 * must be the same for each net_device with the same
-> > +		 * LAN/WAN configuration.
-> > +		 */
-> > +		return -EINVAL;
-> > +	}
->=20
-> [Medium]
-> The NETREG_REGISTERED filter here means the check only sees peers that
-> have already completed register_netdev(). airoha_dev_init() is invoked
-> as ndo_init from register_netdev() before dev->reg_state transitions
-> to NETREG_REGISTERED, so the constraint is only enforced across
-> already-registered siblings.
->=20
-> When the device tree does not supply a mac-address property,
-> airoha_alloc_gdm_device() falls back to eth_hw_addr_random() and each
-> sibling gets an independently generated random MAC. With two or more
-> LAN (or two or more WAN) net_devices going through this fallback, the
-> second and later siblings' upper 3 bytes will almost always differ
-> from the first, so airoha_set_macaddr() returns -EINVAL:
->=20
-> 	if (!is_zero_ether_addr(ref_addr) && memcmp(ref_addr, addr, 3))
-> 		return -EINVAL;
->=20
-> airoha_dev_init() now propagates that error, which fails
-> register_netdev() and airoha_register_gdm_devices(), aborting probe.
->=20
-> Before this patch the same configuration still came up (with the single
-> REG_FE_{LAN,WAN}_MAC_H being last-writer-wins). Should the random
-> fallback path derive sibling MACs from a shared base, or should the
-> upper-3-bytes constraint only be enforced for user-triggered
-> ndo_set_mac_address rather than for init-time programming?
-
-Hw design requires that if two (or more) net_devices are configured as LAN
-(or theoretically as WAN), they need to share the mac address upper-3-bytes.
-If the user wants to use multiple devices with the same LAN/WAN configurati=
-on,
-he/she will need to properly store the net_device mac address int the device
-eeprom/nvme or in the dts.
-Please note this series is not introducing any regression since the user was
-not able to run this configuration before this series.
-
->=20
-> > =20
-> >  	reg =3D airoha_is_lan_gdm_dev(dev) ? REG_FE_LAN_MAC_H : REG_FE_WAN_MA=
-C_H;
-> >  	val =3D (addr[0] << 16) | (addr[1] << 8) | addr[2];
-> >  	airoha_fe_wr(eth, reg, val);
-> > =20
-> > -	val =3D (addr[3] << 16) | (addr[4] << 8) | addr[5];
-> > -	airoha_fe_wr(eth, REG_FE_MAC_LMIN(reg), val);
-> > -	airoha_fe_wr(eth, REG_FE_MAC_LMAX(reg), val);
-> > +	airoha_fe_wr(eth, REG_FE_MAC_LMIN(reg), lmin);
-> > +	airoha_fe_wr(eth, REG_FE_MAC_LMAX(reg), lmax);
-> > =20
-> >  	airoha_ppe_init_upd_mem(dev);
-> > +
-> > +	return 0;
-> >  }
-> > =20
-> >  static void airoha_set_gdm_port_fwd_cfg(struct airoha_eth *eth, u32 ad=
-dr,
-> > @@ -1792,13 +1839,18 @@ static int airoha_dev_stop(struct net_device *n=
-etdev)
-> >  static int airoha_dev_set_macaddr(struct net_device *netdev, void *p)
-> >  {
-> >  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
-> > +	struct sockaddr *addr =3D p;
-> >  	int err;
-> > =20
-> > -	err =3D eth_mac_addr(netdev, p);
-> > +	err =3D eth_prepare_mac_addr_change(netdev, p);
-> >  	if (err)
-> >  		return err;
-> > =20
-> > -	airoha_set_macaddr(dev, netdev->dev_addr);
-> > +	err =3D airoha_set_macaddr(dev, addr->sa_data);
-> > +	if (err)
-> > +		return err;
-> > +
-> > +	eth_commit_mac_addr_change(netdev, p);
-> > =20
-> >  	return 0;
-> >  }
->=20
-> [High]
-> After this reordering, does airoha_ppe_init_upd_mem() end up
-> programming the PPE update memory with the old MAC rather than the new
-> one?
->=20
-> eth_prepare_mac_addr_change() only validates the sockaddr and does not
-> touch netdev->dev_addr; the actual write to netdev->dev_addr happens in
-> eth_commit_mac_addr_change() via eth_hw_addr_set():
->=20
-> net/ethernet/eth.c:eth_prepare_mac_addr_change() {
-> 	if (!(dev->priv_flags & IFF_LIVE_ADDR_CHANGE) && netif_running(dev))
-> 		return -EBUSY;
-> 	if (!is_valid_ether_addr(addr->sa_data))
-> 		return -EADDRNOTAVAIL;
-> 	return 0;
-> }
->=20
-> net/ethernet/eth.c:eth_commit_mac_addr_change() {
-> 	eth_hw_addr_set(dev, addr->sa_data);
-> }
->=20
-> airoha_set_macaddr() is invoked between those two, so when it reaches
-> airoha_ppe_init_upd_mem(dev) the commit has not yet run. That helper
-> reads netdev->dev_addr directly rather than using the addr argument:
->=20
-> drivers/net/ethernet/airoha/airoha_ppe.c:airoha_ppe_init_upd_mem() {
-> 	const u8 *addr =3D netdev->dev_addr;
-> 	...
-> 	val =3D (addr[2] << 24) | (addr[3] << 16) | (addr[4] << 8) | addr[5];
-> 	airoha_fe_wr(eth, REG_UPDMEM_DATA(0), val);
-> 	...
-> 	val =3D (addr[0] << 8) | addr[1];
-> 	airoha_fe_wr(eth, REG_UPDMEM_DATA(0), val);
-> 	...
-> }
->=20
-> So the FE registers REG_FE_{LAN,WAN}_MAC_H / REG_FE_MAC_LMIN /
-> REG_FE_MAC_LMAX are written from the new addr parameter, but the PPE
-> REG_UPDMEM_DATA/REG_UPDMEM_CTRL entries are written from the still-old
-> netdev->dev_addr.
->=20
-> Previously eth_mac_addr() (prepare + commit combined) ran first, so
-> netdev->dev_addr was the new MAC by the time airoha_set_macaddr() and
-> airoha_ppe_init_upd_mem() ran, keeping the two blocks in sync.
->=20
-> Would it be cleaner to either pass addr through to
-> airoha_ppe_init_upd_mem(), or invoke eth_commit_mac_addr_change() before
-> airoha_set_macaddr() (with a rollback path if the hardware programming
-> fails)?
-
-ack, I will fix it in v5.
-
-Regards,
-Lorenzo
-
->=20
-> > @@ -1903,6 +1955,7 @@ static int airoha_dev_init(struct net_device *net=
-dev)
-> [ ... ]
-
---lg/EUJE1MTlDMtub
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaf8HfgAKCRA6cBh0uS2t
-rCrFAQC4cypXPyLYpkfCjZ+8fARSlLo1SxcqMz7kvKN7sd0RnAEAx5U4W8tYhksn
-GK2mSoplDd6MwDsxrrEmtIg5gaY9ogw=
-=61qR
------END PGP SIGNATURE-----
-
---lg/EUJE1MTlDMtub--
