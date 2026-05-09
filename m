@@ -1,346 +1,260 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E4B93CBE69
-	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 19:44:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D946732720D
+	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 19:52:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778355892; cv=none; b=Mq3cLCLpefVNHEdNju4m+IkZvodv5VXjNY0/3BEYs6wvAuIf6ZsEDHWHql9XUMSU42+NJaVx/HP+KnP2jlZWFCmjNmKgzzv0BmIBCb+H3KTgBSw/1UFUIbCU1rpZHCqAzoCFkyvsQOl4ZACT4G3TnZNCOF6Uv8RwE7c9ptTbXXA=
+	t=1778356367; cv=none; b=ZcqeEZzceSPZ/yQfwqXIWZp6k/tFgQuJwSfnlkxjAsCRoADJE4J1G+J5MLGSvjTTD2s8jDdCvm6L6ILoWGDmR2u6Kq6t12gLmj/XYdhzJTp6+CUN+A0cj340+KwgFezigdz9xPa9JopjwwNuafy/oi2EYddM2+mhGn3kuXrSNU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778355892; c=relaxed/simple;
-	bh=BbKvTPhXoOjDiFS4A4lQuAFCWews5/6YYotzKPWy9KQ=;
+	s=arc-20240116; t=1778356367; c=relaxed/simple;
+	bh=jDlnVk9hGSpRwarxytlyXyfzqc2cWz0vGBLdqtEZog0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FVpncBFnneY6Sl8072kwld0t4EFPhDstGQp62fkLa+lQ3kGL56mjwz7rcCVmHwU73v45nXyn9yV0TkshaD5ok7/f5djEL+NXkZLC/L5GtDPZXgG1FL5pFyiP9sHUDuW0ef8Sz+cQGaEgn0L9rywBb7t02tF3MMMcKy7Mv0v1fF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hDuy2hsH; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=kjq4rO4SU2KwGlyZGftj5Ec79HAnoK8kICbwYhiMgJHoL22Y2LwIu+Qqc7h9zQJNZmBbjyffHlQySrJZZBkU2I0O3Xn2hLMi6IqFCip9h2AyrClAIC4nCtSBI9btaOUPBRRx7bEtgXcPosJYb9o22LDeHS8BxOLK/QyXcZ4/D9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kxsPn56q; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hDuy2hsH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E82A1C2BCB2;
-	Sat,  9 May 2026 19:44:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kxsPn56q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66B49C2BCB2;
+	Sat,  9 May 2026 19:52:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778355892;
-	bh=BbKvTPhXoOjDiFS4A4lQuAFCWews5/6YYotzKPWy9KQ=;
+	s=k20201202; t=1778356367;
+	bh=jDlnVk9hGSpRwarxytlyXyfzqc2cWz0vGBLdqtEZog0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=hDuy2hsH/XVGX7ZlGnwYH24oT1W7L1L7YyBYnzk61nAbLuNV1mltfQqmiceaCrUR5
-	 V3uEeTREshVHxLsEpgLf+Vba3G8NVHAGhezPprexkub+n1NFdQlI4BzqnPHCRq4P2a
-	 Qr/duYzKSSBE54oyosMJRQLsBHW0u/YN18ewSWvt31Lk+Up+0OJQm2YjBTAtK8cdVX
-	 OlH1EnLjCuP2V7sjOkqsFMFNvmLESz7Y2XdKu53spZ468k4HZOw7BM3vhMgymqtJmp
-	 2wJDwax3T03+tmfj6dye0BDo5cMtpgTd06+d1vdmq6Nskk34Xs2/icurGAVKzNKchJ
-	 Hj7HlWVdiArag==
+	b=kxsPn56qjeUfgUP40dFWeJlW5eYrxt5MjmX5VfO/SP6kaDM1cvNKg/DcMmbIu5KKs
+	 DGN2rkzBx99vPqp/YVka5cv6GL9VhIvF6Bt9Chc+0P3BM3fYwCsWnNSOKV8iO8kwmX
+	 8jOObz7Xi+bTaL/LERt4cNTnhG8vAuqnvKcaMH34CbLZjhrOI2VMmG/A+oDOok+aFr
+	 myD6FduQqcMrkcMzFgwGSnrHIjLvV74/KtgzodtyFdyb1maCjoVzWOWeygzScxqaRo
+	 QWZVBioofO8MlLM+r8w7RLObUXnnP634eNjremnGFRIT0JuKDXnujQZaZUDyKKoCMc
+	 fB93kke9DTtbA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V5 06/11] iio: imu: inv_icm42607: Add Buffer support for
- icm42607
+Subject: Re: [PATCH V5 09/11] iio: imu: inv_icm42607: Add Wake on Movement
+ to icm42607
 Reply-To: sashiko@lists.linux.dev
 To: "Chris Morgan" <macroalpha82@gmail.com>
-Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260509191907.24734-7-macroalpha82@gmail.com>
-References: <20260509191907.24734-7-macroalpha82@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260509191907.24734-10-macroalpha82@gmail.com>
+References: <20260509191907.24734-10-macroalpha82@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 09 May 2026 19:44:51 +0000
-Message-Id: <20260509194451.E82A1C2BCB2@smtp.kernel.org>
+Date: Sat, 09 May 2026 19:52:46 +0000
+Message-Id: <20260509195247.66B49C2BCB2@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 10 potential issue=
-(s) to consider:
-- [Critical] Uninitialized variable usage and kernel heap buffer overflow d=
-uring FIFO read.
-- [Critical] Uninitialized pointer dereference and infinite loop vulnerabil=
-ity due to integer type mismatch.
-- [High] Hardware FIFO stream corruption due to oversized register read.
-- [High] Logic inversion completely breaks watermark truncation.
-- [High] Integer underflow on internal state variable permanently disables =
-the device on error rollback.
-- [High] Race condition due to missing lock in `hwfifo_flush` callback.
-- [High] Data corruption due to missing bounds check on partial hardware FI=
-FO packets.
-- [Medium] Missing hardware delays during buffer postdisable.
-- [Medium] Watermark interrupt is leaked/permanently disabled on regmap err=
-or path.
-- [Medium] Ignored return value leads to silent failure during system resum=
-e.
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] Self-deadlock in inv_icm42607_accel_write_event_config() due to ne=
+sted mutex locking.
+- [High] ABBA deadlock in inv_icm42607_suspend() between the driver mutex a=
+nd disable_irq().
+- [High] Data corruption and uninitialized memory access due to using a __b=
+e16 array for 8-bit regmap I/O.
+- [High] TOCTOU race condition in inv_icm42607_accel_write_event_config() c=
+auses PM usage counter imbalances.
+- [Medium] Integer overflow in Wake-on-Motion threshold calculation.
+- [Medium] IIO device is registered before its interrupt handler is fully i=
+nitialized.
 --
 
-commit bdccadc0097311be50ac67b485f5dccd2b087eff
+commit c90077c0769c3ddde8afd25e1494bccd1e0f18d4
 Author: Chris Morgan <macromorgan@hotmail.com>
 
-iio: imu: inv_icm42607: Add Buffer support for icm42607
+iio: imu: inv_icm42607: Add Wake on Movement to icm42607
 
-This commit adds FIFO parsing and reading functions to support buffer
-transfers on the inv_icm42607 hardware.
+Add support for wake on movement for the icm42607 driver.
 
-diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c b/drivers/i=
-io/imu/inv_icm42607/inv_icm42607_buffer.c
---- /dev/null
-+++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
-@@ -148,15 +148,12 @@
-=20
- [ ... ]
-=20
-> +static unsigned int inv_icm42607_wm_truncate(unsigned int watermark,
-> +					     size_t packet_size)
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c b/drivers/=
+iio/imu/inv_icm42607/inv_icm42607_accel.c
+> index f90ba46bd7e48..99aaa370bd124 100644
+> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
+[ ... ]
+> @@ -209,6 +221,178 @@ static int inv_icm42607_accel_read_sensor(struct ii=
+o_dev *indio_dev,
+[ ... ]
+> +static unsigned int inv_icm42607_accel_convert_roc_to_wom(u64 roc,
+> +							  int accel_hz, int accel_uhz)
 > +{
-> +	size_t wm_size;
-> +
-> +	wm_size =3D watermark * packet_size;
-> +	wm_size =3D max(wm_size, INV_ICM42607_FIFO_WATERMARK_MAX);
+[ ... ]
+> +	freq_uhz =3D (u64)accel_hz * MICRO + (u64)accel_uhz;
+> +	value =3D div64_u64(roc * MICRO, freq_uhz * (u64)convert);
 
-Is this max() intentional? It forces the watermark to always be greater
-than or equal to the maximum hardware limit. Should this be min() instead?
+Is there a risk of integer overflow when multiplying roc by MICRO?
 
-> +
-> +	return wm_size / packet_size;
-> +}
-> +
-> +/**
-> + * inv_icm42607_buffer_update_watermark - update watermark FIFO threshold
+If the user-supplied rate of change exceeds approximately 18,446, roc * MIC=
+RO
+will exceed U64_MAX. Could this wrap-around lead to applying a miscalculated
+threshold to the sensor?
 
 [ ... ]
+> +static int inv_icm42607_accel_set_wom_threshold(struct inv_icm42607_stat=
+e *st,
+> +						u64 value,
+> +						int accel_hz, int accel_uhz)
+> +{
+[ ... ]
+> +	/* set accel WoM threshold for the 3 axes */
+> +	st->buffer[0] =3D threshold;
+> +	st->buffer[1] =3D threshold;
+> +	st->buffer[2] =3D threshold;
+> +	ret =3D regmap_bulk_write(st->map, INV_ICM42607_REG_ACCEL_WOM_X_THR, st=
+->buffer, 3);
 
-> +	/* changing FIFO watermark requires to turn off watermark interrupt */
-> +	ret =3D regmap_update_bits_check(st->map, INV_ICM42607_REG_INT_SOURCE0,
-> +				       INV_ICM42607_INT_SOURCE0_FIFO_THS_INT1_EN,
-> +				       0, &restore);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* compute watermark value in bytes */
-> +	wm_size =3D watermark * packet_size;
-> +	raw_wm =3D INV_ICM42607_FIFO_WATERMARK_VAL(wm_size);
-> +	memcpy(st->buffer, &raw_wm, sizeof(raw_wm));
-> +	ret =3D regmap_bulk_write(st->map, INV_ICM42607_REG_FIFO_CONFIG2,
-> +				st->buffer, sizeof(raw_wm));
-> +	if (ret)
-> +		return ret;
+Can this write corrupted data?=20
 
-If this regmap_bulk_write() fails, the function returns immediately without
-restoring the interrupt. Could this leave the watermark interrupt permanent=
-ly
-disabled?
+st->buffer is declared as __be16 buffer[3]. Assigning an 8-bit threshold
+to st->buffer[0], st->buffer[1], and st->buffer[2] writes 16-bit values.
 
-> +
-> +	/* restore watermark interrupt */
-> +	if (restore) {
-> +		ret =3D regmap_update_bits(st->map, INV_ICM42607_REG_INT_SOURCE0,
-> +					 INV_ICM42607_INT_SOURCE0_FIFO_THS_INT1_EN,
-> +					 INV_ICM42607_INT_SOURCE0_FIFO_THS_INT1_EN);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
-> +}
+A 3-byte regmap_bulk_write() then reads only the first 3 bytes from memory,
+which writes the first byte of st->buffer[0], the second byte of
+st->buffer[0], and the first byte of st->buffer[1]. Could this write 0 and
+misaligned data to the WoM threshold registers?
 
 [ ... ]
-
-> +static int inv_icm42607_buffer_predisable(struct iio_dev *indio_dev)
+> +static int inv_icm42607_accel_write_event_config(struct iio_dev *indio_d=
+ev,
+> +						 const struct iio_chan_spec *chan,
+> +						 enum iio_event_type type,
+> +						 enum iio_event_direction dir,
+> +						 bool state)
 > +{
 > +	struct inv_icm42607_state *st =3D iio_device_get_drvdata(indio_dev);
-> +	int ret;
 > +
-> +	guard(mutex)(&st->lock);
+> +	/* handle only WoM (roc rising) event */
+> +	if (type !=3D IIO_EV_TYPE_ROC || dir !=3D IIO_EV_DIR_RISING)
+> +		return -EINVAL;
 > +
-> +	if (st->fifo.on > 1) {
-> +		st->fifo.on--;
-> +		return 0;
+> +	scoped_guard(mutex, &st->lock) {
+> +		if (st->apex.wom.enable =3D=3D state)
+> +			return 0;
+> +
+> +	if (state)
+> +		return inv_icm42607_accel_enable_wom(indio_dev);
+
+Will this sequence cause a self-deadlock?
+
+This function acquires st->lock via scoped_guard. It then calls
+inv_icm42607_accel_enable_wom(), which calls pm_runtime_resume_and_get().
+
+If the device is suspended, this synchronously invokes inv_icm42607_resume(=
+),
+which also attempts to acquire st->lock. Additionally,
+_inv_icm42607_accel_enable_wom() explicitly acquires st->lock again.
+
+Since kernel mutexes are not recursive, does this guarantee a deadlock?
+
 > +	}
 > +
-> +	/* set FIFO in bypass mode */
-> +	ret =3D regmap_write(st->map, INV_ICM42607_REG_FIFO_CONFIG1,
-> +			   INV_ICM42607_FIFO_CONFIG1_BYPASS);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* flush FIFO data */
-> +	ret =3D regmap_write(st->map, INV_ICM42607_REG_SIGNAL_PATH_RESET,
-> +			   INV_ICM42607_SIGNAL_PATH_RESET_FIFO_FLUSH);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* disable FIFO threshold interrupt */
-> +	ret =3D regmap_update_bits(st->map, INV_ICM42607_REG_INT_SOURCE0,
-> +				 INV_ICM42607_INT_SOURCE0_FIFO_THS_INT1_EN, 0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	st->fifo.on--;
+> +	return inv_icm42607_accel_disable_wom(indio_dev);
 
-If inv_icm42607_buffer_postenable() fails early before incrementing
-st->fifo.on, and the IIO core rolls back by calling this predisable
-function, st->fifo.on would be 0 here. Since it is unsigned, could this
-decrement cause it to underflow to UINT_MAX, leaving the device permanently
-disabled for future calls?
+Does this drop the lock before disabling WoM, opening a race condition?
 
-> +
-> +	return 0;
+If multiple threads write 0 to the sysfs node simultaneously, they could all
+pass the st->apex.wom.enable =3D=3D state check inside the lock, then
+sequentially call inv_icm42607_accel_disable_wom() outside the lock.
+
+Could this cause unbalanced pm_runtime_put_autosuspend() calls and
+underflow st->apex.on?
+
 > +}
-> +
-> +static int inv_icm42607_buffer_postdisable(struct iio_dev *indio_dev)
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/i=
+io/imu/inv_icm42607/inv_icm42607_core.c
+> index ce59f9337ed9b..e5d031ca631d6 100644
+> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+[ ... ]
+> @@ -343,6 +375,112 @@ static int inv_icm42607_setup(struct inv_icm42607_s=
+tate *st,
+[ ... ]
+> +static irqreturn_t inv_icm42607_irq_handler(int irq, void *_data)
 > +{
-> +	struct inv_icm42607_state *st =3D iio_device_get_drvdata(indio_dev);
-> +	struct device *dev =3D regmap_get_device(st->map);
-> +	unsigned int sensor;
-> +	unsigned int *watermark;
-> +	unsigned int sleep_temp =3D 0;
-> +	unsigned int sleep_sensor =3D 0;
-> +	unsigned int sleep;
-> +	int ret;
+[ ... ]
+> +	if (st->apex.on) {
+> +		unsigned int status2, status3;
+> +
+> +		/* read INT_STATUS2 and INT_STATUS3 in 1 operation */
+> +		ret =3D regmap_bulk_read(st->map, INV_ICM42607_REG_INT_STATUS2, st->bu=
+ffer, 2);
+> +		if (ret) {
+> +			dev_err(dev, "Interrupt status read error %d\n", ret);
+> +			return IRQ_HANDLED;
+> +		}
+> +
+> +		status2 =3D st->buffer[0];
+> +		status3 =3D st->buffer[1];
+
+Can this read uninitialized memory?=20
+
+st->buffer is declared as __be16 buffer[3], so its elements are 16 bits.
+A 2-byte regmap_bulk_read() populates only the first two bytes of the array.
+
+Assigning status2 =3D st->buffer[0] reads both bytes as a single 16-bit int=
+eger,
+and status3 =3D st->buffer[1] reads bytes 2 and 3, which contain uninitiali=
+zed
+memory.
 
 [ ... ]
-
-> +	*watermark =3D 0;
-> +	ret =3D inv_icm42607_buffer_update_watermark(st);
+> @@ -437,6 +580,11 @@ int inv_icm42607_core_probe(struct regmap *regmap, c=
+onst struct inv_icm42607_hw
+>  	if (IS_ERR(st->indio_accel))
+>  		return PTR_ERR(st->indio_accel);
+> =20
+> +	/* Initialize interrupt handling */
+> +	ret =3D inv_icm42607_irq_init(st, irq, irq_type, open_drain);
 > +	if (ret)
-> +		goto out_unlock;
+> +		return ret;
 > +
-> +out_unlock:
-> +	mutex_unlock(&st->lock);
-> +
-> +	/* sleep maximum required time */
-> +	sleep =3D max(sleep_sensor, sleep_temp);
-> +	if (sleep)
-> +		msleep(sleep);
+>  	return 0;
 
-Both sleep_temp and sleep_sensor are initialized to 0 and never modified
-before this check. Does this mean the required hardware shutdown
-power-transition delays are skipped completely?
+Is the IIO device registered before its interrupt handler is fully initiali=
+zed?
+
+st->indio_accel is initialized, which calls devm_iio_device_register(), bef=
+ore
+inv_icm42607_irq_init() is called.
+
+Could userspace open the device and enable events or buffers before the
+hardware interrupt is ready?
 
 [ ... ]
+> @@ -448,6 +596,9 @@ EXPORT_SYMBOL_NS_GPL(inv_icm42607_core_probe, "IIO_IC=
+M42607");
+>  static int inv_icm42607_suspend(struct device *dev)
+>  {
+>  	struct inv_icm42607_state *st =3D dev_get_drvdata(dev);
+[ ... ]
+>  	guard(mutex)(&st->lock);
+[ ... ]
+> -	ret =3D inv_icm42607_set_pwr_mgmt0(st, INV_ICM42607_SENSOR_MODE_OFF,
+> -					 INV_ICM42607_SENSOR_MODE_OFF,
+> -					 false, NULL);
+> -	if (ret)
+> -		return ret;
+> -	regulator_disable(st->vddio_supply);
+> +	/* keep chip on and wake-up capable if APEX and wakeup on */
+> +	accel_dev =3D &st->indio_accel->dev;
+> +	wakeup =3D st->apex.on && device_may_wakeup(accel_dev);
+> +	if (wakeup) {
+> +		/* keep accel on and setup irq for wakeup */
+> +		accel_conf =3D st->conf.accel.mode;
+> +		enable_irq_wake(st->irq);
+> +		disable_irq(st->irq);
 
-> +int inv_icm42607_buffer_fifo_read(struct inv_icm42607_state *st,
-> +				  unsigned int max)
-> +{
-> +	const void *accel, *gyro, *timestamp;
-> +	size_t i, max_count, size;
-> +	const s8 *temp;
-> +	int ret;
-> +
-> +	/* reset all samples counters */
-> +	st->fifo.count =3D 0;
-> +	st->fifo.nb.gyro =3D 0;
-> +	st->fifo.nb.accel =3D 0;
-> +	st->fifo.nb.total =3D 0;
-> +
-> +	/* compute maximum FIFO read size */
-> +	if (max =3D=3D 0)
-> +		max_count =3D sizeof(st->fifo.data);
-> +	else
-> +		max_count =3D clamp(max_count,
-> +				  (max * inv_icm42607_get_packet_size(st->fifo.en)),
-> +				  sizeof(st->fifo.data));
+Could this cause a deadlock between the driver mutex and the interrupt hand=
+ler?
 
-If max !=3D 0, max_count is passed uninitialized to clamp(). Could this lead
-to undefined behavior?
+inv_icm42607_suspend() takes st->lock via guard(mutex) and then calls
+disable_irq().
 
-> +
-> +	/* read FIFO count value */
-> +	ret =3D regmap_bulk_read(st->map, INV_ICM42607_REG_FIFO_COUNTH,
-> +			       st->buffer, sizeof(st->buffer));
-
-Is it safe to use sizeof(st->buffer) here? st->buffer is declared as an
-array of 3 __be16 elements (6 bytes). The hardware FIFO count register is 2
-bytes, so a 6-byte read would spill over into the adjacent FIFO_DATA
-registers, unintentionally popping 4 bytes of data and breaking alignment.
-
-> +	if (ret)
-> +		return ret;
-> +	st->fifo.count =3D be16_to_cpup(st->buffer);
-> +
-> +	/* check and clamp FIFO count value */
-> +	if (st->fifo.count =3D=3D 0)
-> +		return 0;
-> +
-> +	st->fifo.count =3D max(st->fifo.count, max_count);
-
-Should this be min() instead of max()? Using max() forces the count to be
-at least the potentially uninitialized max_count value. This could cause
-regmap_noinc_read() to read past the hardware count and overflow the
-st->fifo.data buffer.
-
-> +
-> +	/* read all FIFO data in internal buffer */
-> +	ret =3D regmap_noinc_read(st->map, INV_ICM42607_REG_FIFO_DATA,
-> +				st->fifo.data, st->fifo.count);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* compute number of samples for each sensor */
-> +	for (i =3D 0; i < st->fifo.count; i +=3D size) {
-> +		size =3D inv_icm42607_fifo_decode_packet(&st->fifo.data[i],
-> +				&accel, &gyro, &temp, &timestamp);
-> +		if (size <=3D 0)
-> +			break;
-
-inv_icm42607_fifo_decode_packet() returns a ssize_t which can be -EINVAL.
-Since size is of type size_t, the negative error code becomes a huge
-unsigned integer. The size <=3D 0 check will evaluate to false, skipping
-error handling.
-
-Since decode_packet() does not initialize accel and gyro on error, could
-this result in dereferencing uninitialized pointers below?
-
-Also, if the hardware returns a byte count that ends with a partial packet,
-could this loop access memory beyond what was populated from the hardware
-since there is no check for i + size > st->fifo.count?
-
-> +		if (gyro !=3D NULL && inv_icm42607_fifo_is_data_valid(gyro))
-> +			st->fifo.nb.gyro++;
-> +		if (accel !=3D NULL && inv_icm42607_fifo_is_data_valid(accel))
-> +			st->fifo.nb.accel++;
-> +		st->fifo.nb.total++;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +int inv_icm42607_buffer_hwfifo_flush(struct inv_icm42607_state *st,
-> +				     unsigned int count)
-> +{
-> +	s64 gyro_ts, accel_ts;
-> +	int ret;
-> +
-> +	gyro_ts =3D iio_get_time_ns(st->indio_gyro);
-> +	accel_ts =3D iio_get_time_ns(st->indio_accel);
-
-These timestamps appear to be unused. Should they be passed to the buffer
-logic or are they just dead code?
-
-> +
-> +	ret =3D inv_icm42607_buffer_fifo_read(st, count);
-
-Does this need to be protected by mutex_lock(&st->lock)? Since this
-callback can be triggered via sysfs concurrently with the normal interrupt
-handler, it seems possible to have interleaved regmap reads or corrupted
-internal FIFO sample counters.
-
-> +
-> +	return ret;
-> +}
-
-diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/iio=
-/imu/inv_icm42607/inv_icm42607_core.c
---- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-+++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-@@ -404,8 +404,11 @@
- 	if (ret)
- 		return ret;
-=20
--	/* Nothing else to restore at this time. */
-+	if (st->fifo.on) {
-+		ret =3D regmap_write(st->map, INV_ICM42607_REG_FIFO_CONFIG1,
-+				   INV_ICM42607_FIFO_CONFIG1_MODE);
-+	}
-=20
- 	return 0;
- }
-
-Is the return value from regmap_write() meant to be checked? Currently, ret
-is assigned but not used, so the function unconditionally returns 0 even if
-the write fails.
+Since disable_irq() waits for any currently executing interrupt handlers
+to finish, and the threaded handler inv_icm42607_irq_handler() also attempts
+to acquire st->lock, will this deadlock if the handler is running during
+suspend?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260509191907.2473=
-4-1-macroalpha82@gmail.com?part=3D6
+4-1-macroalpha82@gmail.com?part=3D9
