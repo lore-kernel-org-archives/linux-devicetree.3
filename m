@@ -1,94 +1,106 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f193.google.com (mail-dy1-f193.google.com [74.125.82.193])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C1822B2D7;
-	Sat,  9 May 2026 01:24:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A0D264FBD
+	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 01:38:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778289867; cv=none; b=c8bFk45qYf4c0kFsE7prxSPPxVywKhQEGKo8LZqMmN3/nGTH05gYlSsfRF9qfUg8dS0jqA2JjNDAuD02P85zdy0RZxIQcc8akrwgRbhLuCGTBJPtpJVA6l0Q520awq+NRpCH5tnORNMzHEHinVXULvnKaiQI20uxfuXY6rfyKeM=
+	t=1778290682; cv=none; b=YxAnHyhqLx6rjRNfdR7X17ASMfXvmRZ1ilolOOM3O0kl8m9BLxdTY/iOCGg33xzhZFjKJuZuxVa70Lq2CejxeeAOUdaYJGS/6ONVTf7TmxXRejrVWVMSk2IV0AkUaU4GtlRywrRr18HCvTI7l9cugkqpvoIWQ9tNF6gd2qCt+os=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778289867; c=relaxed/simple;
-	bh=bGvLkQAWUeluJwFLbkrFRYlfbhdNC9Zv8QpnEgZde50=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jNQKu6dKFMXDK32H0HmD2WobnjjqrpB9Yxw0nmYQkzRUCLBqP2nwE23UGNhaavbrrPqN8lHa+E+F4vc4txPWNqSTe8ft9+aynhAOJpbfexGBhH/VfUSro4MZQcKfaUT5DDLKX0xrPMNUtJQ7Ye077gVULQcavWBu3vKa2oS7chU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=fwhziwnS; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1778290682; c=relaxed/simple;
+	bh=ZafSK/ffN4O0S95cmgYFO4DqFob5YI2zLrZF+3z1VYI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=f6rf2ahPtY3egfplPKSbqjDOb2bzUsnhOjNtnwLPmzNfR05tLDlMyBiDbGDR8HsAvWwxQ/4thlqfnnYTAIqwpauoAbDv/Pcw5Z2tvHQzuMOgQjoEZNM68GNOn5VJoNHPFKAnk4CQ5bCfmW5J87j5L0VIEB+wNlIL7x4YTYW6WTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aSQOygyO; arc=none smtp.client-ip=74.125.82.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="fwhziwnS"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=5ACAHlhc8wdXure4xEmTXBco8HgiMQSDTZo02rH24uU=; 
-	b=fwhziwnSs6sG6Dm2WKW84kRRlol7+ZTOu5Cgz/6B1QDDRvu3GcyhONDGgPRwFZiP/9DMW+kHDw9
-	6hc6vjLDNBMrgrjhp9dYp/YEQOFmloRfxACvRZJC8R9V2qH2OEa7W0/NfuZCgUYpIUpqBRJ9N8Ifz
-	fYQWnEPA/9wMKV0AsOlsn3DnvZejO3b3aXpnWgCW+5fG4NfbcJ8e4Cap9TfWxiDVKCFG89A8iNJe5
-	khLU2bNsIZvLxNyN7H7TgaeDExp84jt84Nct59L4kzu4jGTs0IGfAh/9emRS9R5oeUXnPwvS4Ts+Z
-	04mbZNYsOhAtBMh0zoFYtxV8kdv4x3MHc0LA==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.96 #2 (Debian))
-	id 1wLWQC-00CZXK-09;
-	Sat, 09 May 2026 09:24:01 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Sat, 09 May 2026 09:24:00 +0800
-Date: Sat, 9 May 2026 09:24:00 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Harshal Dev <harshal.dev@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	cros-qcom-dts-watchers@chromium.org,
-	Eric Biggers <ebiggers@google.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-	Tengfei Fan <tengfei.fan@oss.qualcomm.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	David Wronek <davidwronek@gmail.com>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Melody Olvera <quic_molvera@quicinc.com>,
-	Alexander Koskovich <akoskovich@pm.me>,
-	Abel Vesa <abelvesa@kernel.org>, Brian Masney <bmasney@redhat.com>,
-	Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
-	Gaurav Kashyap <gaurav.kashyap@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v5 01/13] dt-bindings: crypto: qcom,ice: Fix missing
- power-domain and iface clk
-Message-ID: <af6MsD1wDs9EZl5q@gondor.apana.org.au>
-References: <20260416-qcom_ice_power_and_clk_vote-v5-0-5ccf5d7e2846@oss.qualcomm.com>
- <20260416-qcom_ice_power_and_clk_vote-v5-1-5ccf5d7e2846@oss.qualcomm.com>
- <afmuncmBrrvddHTU@gondor.apana.org.au>
- <b8805117-d54f-4e42-a7d4-6fa18af63e69@oss.qualcomm.com>
- <CC0E438D-5544-4BB8-8512-7F93A7FA4DC1@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aSQOygyO"
+Received: by mail-dy1-f193.google.com with SMTP id 5a478bee46e88-2bdcf5970cdso1960361eec.0
+        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 18:38:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778290680; x=1778895480; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Z0amy2Ap/oF/82M4xJn8jCwNeFxH+1UppM6CazgFzx0=;
+        b=aSQOygyOt/HIE2DKVbwnreNiRxB3AYNQUDL7s1TuzIucK1r+Mv7Yqoih9K52Hlpyfp
+         6VTRueINgtAgOvXhSKKpWG1rh6dR08BkbvAFskiA3kvZGMV+ACtHj7oDnFKgfbSBYwkj
+         +v4Qn2AGY5sPO3Lpar2cRLonGzlzQBiPtjmXPIMJrtw2FTBUWogm0vG4ujiZbr+Kdgwu
+         DCWmnE5DOrLTCoGM1KXq18KGF+FEliVUvCJ4hhnE0qI+sz4yqPqQeMnZgVw/kB9zpVbD
+         KX0XEluAtzc3K+45K9bsiMPqOz+Z0QdpX29inQk1vwtRXjK6oxLNTmIYXDVa4QnAXu0K
+         AdEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778290680; x=1778895480;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Z0amy2Ap/oF/82M4xJn8jCwNeFxH+1UppM6CazgFzx0=;
+        b=jvnpMoydWWdek59Vin4N8cXyWHs2lhjq7Ml6VOc26uFMvnwe2zp7D3sL5K+VngmDXc
+         uHq/q+S3fTHouunWEaVR4MSBunbK+81R6yzam11PQSV714ccxjboq97a9G+EEK+wMpET
+         lqX+xveq7nBlirN42aD+HoZzybHekrIcbHMqnNkiUzWAPqoFlU3xApJNrDxjinaz4aHw
+         1KdUpHuPt2MSzifjos1VzWQBpa4J1HGMJ6UpK3xO6X9mdIhFOh0qw6yjQlszUG5hf5Ia
+         G7s0Km3ep3cLD4EZ8SBppQ2sJuNPizIeZsUaehHLrfFtMy3fHwM+KeOkVloe9eIrGEMk
+         Q/HQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+kn3yBTrZAEHYxEGU9O0FDAWroSYPKJYYJc5IocGsUrztUcnjd3h0O1P7zX+9vKaE5O/OMPc8fIvgB@vger.kernel.org
+X-Gm-Message-State: AOJu0YwR9f2E+bt625zMMrlXvabpOGq4vHJNNyX02oDziIsUUP2oQTqD
+	DqOAVO54fQ8VmnxOByX8hYiTBWT5Xbc2wF9Ioa8wHySgsLDwhSWgJlvs
+X-Gm-Gg: Acq92OGnf9NKqJ3T3tI9BWiuQD/kJfMTk2b+XlfRIewcGHjjo5W/jS9bNyrHZJllI//
+	NMtVBY0pIYNY8MBD4NbBbw1T7q8GN4oi/j2B3bguPoq9BGSV0/ICX2Se78xYi/t4DDAaUiilp4E
+	EuQlvcNTalzMoeejYobyqLEL48bE0eMKbbQjP7MgQZcUmQFew/rcpHMMehSXgK7vCD80NVE58Og
+	52Q6ieoPrhxWXhFu5lWilTqZ6/r969VKOt4W1hqvrxKwWpsHLT4nKE41dRHPKBW1pojxCKO0EQQ
+	4ZusKL0eBesc5CvPkI/klOUWHQwiua7nDmgyD88zqrWM9C6TK+3OPnEV7iJd4GWtDchP1i2mwOv
+	GW9TMGcvHxF0aF+fs4YIo+xukw6FnJ853I6haEEpMI87MUzg7eLPWwCMn/iKohojlsOacR3Fetq
+	G1+KR8k0PXRJUsGLiL4BrW4ZVOW8+1THEhDmQMB1Jm3XgOLk2xqM75rb4UfaPEepWISg==
+X-Received: by 2002:a05:7300:148c:b0:2c1:67e1:61a9 with SMTP id 5a478bee46e88-2f6e4374892mr3977101eec.13.1778290679860;
+        Fri, 08 May 2026 18:37:59 -0700 (PDT)
+Received: from localhost.localdomain ([76.32.119.210])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2f8862d43b4sm4503230eec.11.2026.05.08.18.37.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 08 May 2026 18:37:59 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: lars@metafoo.de,
+	Michael.Hennerich@analog.com,
+	jic23@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH v3 0/1] dt-bindings: iio: dds: Add AD9832/AD9835 binding
+Date: Sat,  9 May 2026 01:37:44 +0000
+Message-Id: <20260509013745.80478-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CC0E438D-5544-4BB8-8512-7F93A7FA4DC1@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, May 08, 2026 at 08:11:45PM +0530, Harshal Dev wrote:
->
-> Can you please confirm for Bjorn once
-> that you're not picking this up and he
-> can pick it from his tree? 
+This series adds devicetree binding documentation for the
+Analog Devices AD9832 and AD9835 DDS devices.
 
-Bjorn, please feel free to pick this patch up.
+v3:
+  - Require spi-cpol in binding and example
+  - Use generic node name (dds@0) in example
 
-Thanks,
+v2:
+  - Add SPI peripheral schema reference
+  - Fix example by adding clock and regulator providers
+  - Fix SPDX license format
+
+Hungyu Lin (1):
+  dt-bindings: iio: dds: Add AD9832/AD9835 binding
+
+ .../bindings/iio/dds/adi,ad9832.yaml          | 91 +++++++++++++++++++
+ 1 file changed, 91 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/dds/adi,ad9832.yaml
+
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.34.1
+
