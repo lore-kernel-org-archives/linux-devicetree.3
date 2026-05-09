@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92178368968
-	for <devicetree@vger.kernel.org>; Fri,  8 May 2026 23:59:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1AC864
+	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 00:01:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778284774; cv=none; b=gX8VwD6tK8G0/twarZJFXBt/uEc5QBeRUysP6AoNiiUqik7k237Vl/2BJS9Pl4cRATw/9qlBIfKVcqSZMOq/TvtNIE92ujF2+/Wbk0h2NHwwcY+tj7w1K+pDHbym+nJ4lMmaWeyNlbATeUQ0kA1Qme7UjGgOaJ+x5UuqBKr/m8g=
+	t=1778284913; cv=none; b=YK8R0+FrRxNND/3TSi8Br5Tlhme7KnPcGcxS62iSh9IY5kcWMwfJ+FPfu2z6IGimY/iCLZ1Hzwvm+iyH7LUui0zUfZGKKb64yntjYibUHrOHPPgmL3pGfWoVkdjW9LlnxJCj6qO+Ki2aGMora4uIZb23stPyTbqZWBp+SM6JCE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778284774; c=relaxed/simple;
-	bh=PDt6hK3u6d4whX9RSLq+kXGyQPtOoISE/8gVD66iJ3w=;
+	s=arc-20240116; t=1778284913; c=relaxed/simple;
+	bh=6KOmX9ViBl2pJJfgS1Nxx46zArF4dazObleXND9Qgw0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cuxrEjBuLbSAvZTlDvGqrYfl/aC/b43o15KyJcsJeyT/lVSgk5RRTFNU0+LWcc1/EdTch8086uF5yhsZPSBNyNQ1ixnfjYA941T3orzuDcAkhcmJFir0yqAqe0WgzyQZcoo5ligN8lZA39MDsdtk5yhd0Ymtt/4ChjRnwNQHx5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=huwwA0Rj; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=hQVheDSEXe2MnhfC/W5bOqew8EUk9ygob5VPPQagYF8WfFmt4FQQZyt3R5IM5Xs68HOsYd6AVjnDBQgK3UbFGF09X6sojWelXZzNK0J/Kc5AVEE8CivMVIcd3HaT+3633OKSNbtWU0aM4jts4q7tGgn6u2A/oQsCYvmphbtbLhY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gbWXcgC2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="huwwA0Rj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EF3DC2BCB4;
-	Fri,  8 May 2026 23:59:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gbWXcgC2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 363BFC2BCB0;
+	Sat,  9 May 2026 00:01:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778284774;
-	bh=PDt6hK3u6d4whX9RSLq+kXGyQPtOoISE/8gVD66iJ3w=;
+	s=k20201202; t=1778284913;
+	bh=6KOmX9ViBl2pJJfgS1Nxx46zArF4dazObleXND9Qgw0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=huwwA0RjxJDaqEc/k36qAkkDDhXrUu1eQ74Zv0YEqqRyOCZUSiCqX0WC1skLyArR5
-	 8q1SixnsSviIMAWOpCW64URmV2vkvAKA6zMoXzD/H6k8SKg1A0qTEF5bxzNjz34Vym
-	 bAPzvMdR2Lvi1s3M6/wW2+NJN97pDQw5fUDMGJ+cQ8FxPxn/lm4FEynnS4C/k/sI6E
-	 gqvdVmgAgYqoEDxC0bzUSMwV5y0oKIhaOy3Okwo6rq5fCPen4KykJ20BrYbPSbPKSu
-	 CC019g75qruIiR/fbkvuQrN78ay/m2puI7DTis4vVvygF0R/zWESRtBcAkEB6Q1BnC
-	 A9b9mNyKqePfw==
+	b=gbWXcgC24LXqq8LCPlFh7NlQH+Tn56lkqJAZDCR1xudHCjpF9Y3bTg6TRt4u7S74B
+	 vDPOKagoCVXL1bgPpHt2i/KTEa7VcOhjyefw83ronbadw7aGYUgZZLcBo/Tr/CqWmm
+	 jnaTd9s0GGhfE5e+mVNWxDSffXlySPzGyq9C5n08GAgadIZJzCCyzO91hjRt2T581q
+	 BSP3mCPjpROiRjmEqyQaUXtSXvJi5H2OQ8OGAv/YjJ6ah8wzGWvJA9lPVwISyHy6aw
+	 WpeStMtmNqL7MR3fsH4tGMoo8C7xG6oumap0/R0uzNynP+MIppZpJWCD3Hqx2wPBpz
+	 nYYpoOtjAtjlQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] arm64: defconfig: Enable drivers for BeagleBadge
+Subject: Re: [PATCH v4 6/8] arm64: dts: rockchip: add radxa camera 4k on
+ rock 5b+ cam0
 Reply-To: sashiko@lists.linux.dev
-To: "Judith Mendez" <jm@ti.com>
-Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260508230341.1891450-4-jm@ti.com>
-References: <20260508230341.1891450-4-jm@ti.com>
+To: "Michael Riesch via B4 Relay" <devnull+michael.riesch.collabora.com@kernel.org>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260508-rk3588-vicap-v4-6-6a6cd6f7c90b@collabora.com>
+References: <20260508-rk3588-vicap-v4-6-6a6cd6f7c90b@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 08 May 2026 23:59:33 +0000
-Message-Id: <20260508235934.1EF3DC2BCB4@smtp.kernel.org>
+Date: Sat, 09 May 2026 00:01:52 +0000
+Message-Id: <20260509000153.363BFC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,54 +46,47 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The newly added configurations `CONFIG_SENSORS_SHT4x` and `CONFIG_L=
-EDS_PWM_MULTICOLOR` are not placed in the correct `savedefconfig` sequence.
+- [Low] The CSI-2 receiver input endpoint (`&csi2_in`) is missing the manda=
+tory `bus-type` property.
 --
 
-commit 6f7a4afa4cd800dc21fa4233eabb09b5e3390bc1
-Author: Judith Mendez <jm@ti.com>
+commit 3116df0f04df5ee4f52ff3fd8e1f890c40b802e7
+Author: Michael Riesch <michael.riesch@collabora.com>
 
-arm64: defconfig: Enable drivers for BeagleBadge
+arm64: dts: rockchip: add radxa camera 4k on rock 5b+ cam0
 
-This commit enables several drivers as modules or built-in for the
-BeagleBadge device. The enabled drivers include LED PWM Multicolor, MCP SPI
-IO Expander, Seven Segment display GPIO, and Temperature Sensor.
+This commit adds a device tree overlay for the Radxa Camera 4K (featuring
+the Sony IMX415 image sensor) to be applied on the Radxa ROCK 5B+ CAM0 port.
 
-> diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-> index d905a0777f939..0e4cf5e01146f 100644
-> --- a/arch/arm64/configs/defconfig
-> +++ b/arch/arm64/configs/defconfig
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b-plus-radxa-cam4k=
+-cam0.dtso b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b-plus-radxa-cam4k-c=
+am0.dtso
+> new file mode 100644
+> index 0000000000000..ee9ecf68a8866
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam0.d=
+tso
+
 [ ... ]
-> @@ -764,6 +765,7 @@ CONFIG_SENSORS_MACSMC_HWMON=3Dm
->  CONFIG_SENSORS_LM75=3Dm
->  CONFIG_SENSORS_LM90=3Dm
->  CONFIG_SENSORS_PWM_FAN=3Dm
-> +CONFIG_SENSORS_SHT4x=3Dm
 
-This isn't a bug, but was this defconfig updated using make savedefconfig?
+> +&csi2_in {
+> +	csi2_input: endpoint {
+> +		data-lanes =3D <1 2 3 4>;
+> +		link-frequencies =3D /bits/ 64 <445500000>;
+> +		remote-endpoint =3D <&imx415_output>;
 
-Manual insertions can disrupt the canonical Kconfig parsing order. Based on
-the definitions in drivers/hwmon/Kconfig, SENSORS_SHT4x is defined after
-SENSORS_SL28CPLD and before SENSORS_AMC6821, so its proper canonical
-placement would be between those two entries.
+Is the bus-type property missing here?
 
->  CONFIG_SENSORS_RASPBERRYPI_HWMON=3Dm
->  CONFIG_SENSORS_SL28CPLD=3Dm
->  CONFIG_SENSORS_AMC6821=3Dm
-[ ... ]
-> @@ -1333,6 +1337,7 @@ CONFIG_LEDS_PWM=3Dy
->  CONFIG_LEDS_SYSCON=3Dy
->  CONFIG_LEDS_QCOM_FLASH=3Dm
->  CONFIG_LEDS_QCOM_LPG=3Dm
-> +CONFIG_LEDS_PWM_MULTICOLOR=3Dm
+The rockchip,rk3568-mipi-csi2.yaml binding requires the bus-type property
+in the input port endpoint (e.g., bus-type =3D <4>; for D-PHY).=20
 
-Similarly, should CONFIG_LEDS_PWM_MULTICOLOR precede CONFIG_LEDS_QCOM_LPG
-to match the order in drivers/leds/rgb/Kconfig?
+While the V4L2 core detects the data-lanes property and gracefully defaults
+the bus type to V4L2_MBUS_CSI2_DPHY at runtime, omitting bus-type here
+violates the device tree schema and triggers a dtbs_check warning.
 
->  CONFIG_LEDS_TRIGGER_TIMER=3Dy
->  CONFIG_LEDS_TRIGGER_DISK=3Dy
->  CONFIG_LEDS_TRIGGER_HEARTBEAT=3Dy
+> +	};
+> +};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508230341.1891=
-450-1-jm@ti.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508-rk3588-vic=
+ap-v4-0-6a6cd6f7c90b@collabora.com?part=3D6
