@@ -1,101 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBDD21A3160
-	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 01:21:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9841918A93F
+	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 01:24:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778289672; cv=none; b=lid7QSzf1LwhdG6DlJhYWKWNlsWbiLLYgi4RFpDRIVAwCDUaubC5tT+eht7CqlEZRkcmfBboqh1vtgapPEU3RYCy8X2KJURc73H0lOvgK7KxqwDhJ3C9107eDBeRbqs+u2H2qVYmspaTaF1xegmXWKd/PwDnWIqZlqoZsPJIUmg=
+	t=1778289859; cv=none; b=X0VZUqyGCwte53K3qD7xTCGDrzEeEUY3K5K33x6kbvOWDQeHJpFqCo+qNaCQngbG08Y732oPHX7wU7J/5iAdkrRSzpLMzhBoa6MsQL5QbteNrSuWEeDm2RmmKO2YXXkRqEsgAFE9vcSykCX2lRI/JFAlpdQ/H620FO+Pj/FulGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778289672; c=relaxed/simple;
-	bh=D7OZ42SK4pI9b3Uof8eAwD54MtSUTquzyNJ4PAWCOXs=;
+	s=arc-20240116; t=1778289859; c=relaxed/simple;
+	bh=hqxVYh0cpp6UeLUg/C0hsorr0WIhhLJ2YbpaRBdGmqI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=l8GBB78ZrY71NQs2zaM2Yd0185KFA4tPH5dAxVgrl7prauf2ffdkp6jV3cyRsq9HhpzAjd1J6CiV6gEATPkpvYAIr1K+EcTZZqWFlnAw2bo2a6UxHU65jardI54+HH9r1F2tKjTK8UGpUGKAeRCzoAXU+CfSja/2UhvGlUSYVkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c648u9Ow; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=EDsv/2X1v+wCNvO5VoJb/wkVxTEOjpIZvLV9PIh40qfS3CXgabWQ85qLz1QPjErBjhvGHsgJLBbbZLkhxNlBTN47XsBxIpFMmZzckG1Bqg10kGr0Lo6lSoBDPhSRI28yrED8s2fOdq6x2rk+o8ZWsbIM93G/WEPA+8nUPhxD3Qc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nNSZPrPm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c648u9Ow"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56957C2BCB0;
-	Sat,  9 May 2026 01:21:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nNSZPrPm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C61CC2BCB0;
+	Sat,  9 May 2026 01:24:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778289671;
-	bh=D7OZ42SK4pI9b3Uof8eAwD54MtSUTquzyNJ4PAWCOXs=;
+	s=k20201202; t=1778289859;
+	bh=hqxVYh0cpp6UeLUg/C0hsorr0WIhhLJ2YbpaRBdGmqI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=c648u9OwhiQD6/+XMA/kMEKMaEljIQij+gyQhFZKat+fqE8vi7ZFHFddaRixZZVqX
-	 SOsifv30cC1mJGu9QTMVQJJgERtm1KdAXU70lDvwsvJMOhN+D3gdCGsVfbAb99t3Nm
-	 nkBrZnAR8MItI0vop2fDkbKKANEnjNsAg3wTUZVvHZRjqDQ77twcU9JD2RIvdsdyEe
-	 rErYy+3zZKJYkD7mDcsuqeCvQf5/AtgiAsTodevqQTZJgROjsduQTfC6o3ESKb+05d
-	 /JZ2Q/5nDxrRW+zp3ogI5fJ9chFZ8mXfHNrEfZOnVXo6UOGzra2CyU+iYL2QOki9v8
-	 pq+N2lFT7ewdw==
+	b=nNSZPrPmgMdt1oKeZbbfFSHhOZQUNYCMK0dErgmNqg9llU9pGXSepgl6TU8z7wRQJ
+	 uipzVrH0oxclgfFsetr+Ccv9SAuYjqN/StMBsLBzqHjWG9xYwOZDgXJU4QAQFRSI0V
+	 7J8y5jESXvu8P5MBlCnWU8J20dMZpYDOW4EUARUPY0xizPP7/gN2GJy7dAMbnPN8Aj
+	 cchaA8gaTYREEUSQtXE1qHpHU4MxpZ1WkSIehF8+qbUPjg4ugEZzLp2zKNCYB44wkN
+	 1yyCJY9Boos8hQRhV7Rw20puLxEbRf2SVd/hsEkCErkVjG943yIV6K/95yyzGGnozs
+	 tmHkVWgoXQv2w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v4 10/10] docs: iio: add documentation for ad9910
- driver
+Subject: Re: [PATCH RFC v4 09/10] Documentation: ABI: testing: add docs for
+ ad9910 sysfs entries
 Reply-To: sashiko@lists.linux.dev
 To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260508-ad9910-iio-driver-v4-10-d26bfd20ee3d@analog.com>
-References: <20260508-ad9910-iio-driver-v4-10-d26bfd20ee3d@analog.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260508-ad9910-iio-driver-v4-9-d26bfd20ee3d@analog.com>
+References: <20260508-ad9910-iio-driver-v4-9-d26bfd20ee3d@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 09 May 2026 01:21:10 +0000
-Message-Id: <20260509012111.56957C2BCB0@smtp.kernel.org>
+Date: Sat, 09 May 2026 01:24:18 +0000
+Message-Id: <20260509012419.4C61CC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] The parallel port channel ID used in the usage example does not mat=
-ch the documented channel hierarchy.
+- [Low] The newly added ABI documentation file omits the `Date:` field and =
+leaves the `KernelVersion:` field empty for all entries.
+- [Low] Awkward and confusing phrasing in the descriptions of multiple ABI =
+attributes: 'is a result with the sum of this value'.
 --
 
-commit 734cfe5a204649de75b2933d43b7a6c5df484c59
+commit a42d44a5e6db95765e7fc42b4509b02bd033fda8
 Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-docs: iio: add documentation for ad9910 driver
+Documentation: ABI: testing: add docs for ad9910 sysfs entries
 
-This commit adds documentation for the AD9910 DDS IIO driver. It describes
-the channels, DDS operating modes, attributes, and provides ABI usage
-examples.
+This commit adds a custom ABI documentation file for the DDS AD9910 with
+sysfs entries to control Parallel Port, Digital Ramp Generator and OSK
+parameters.
 
-> diff --git a/Documentation/iio/ad9910.rst b/Documentation/iio/ad9910.rst
+> diff --git a/Documentation/ABI/testing/sysfs-bus-iio-frequency-ad9910 b/D=
+ocumentation/ABI/testing/sysfs-bus-iio-frequency-ad9910
 > new file mode 100644
-> index 0000000000000..7c5dad054d5fa
 > --- /dev/null
-> +++ b/Documentation/iio/ad9910.rst
-[ ... ]
-> +  * ``out_altvoltage108``: ``profile[7]``: Single tone control for profi=
-le 7:
-> +    frequency, phase, amplitude
-> +
-> +  * ``out_altvoltage110``: ``parallel_port``: Parallel port modulation c=
-hannel
-> +
-> +  * ``out_altvoltage120``: ``digital_ramp_generator``: DRG control: enab=
-le
-[ ... ]
-> +Usage examples
-> +^^^^^^^^^^^^^^
-> +
-> +Set parallel port frequency modulation with a scale of 16 and a 50 MHz
-> +offset:
-> +
-> +.. code-block:: bash
-> +
-> +  echo 16 > /sys/bus/iio/devices/iio:device0/out_altvoltage113_frequency=
-_scale
-> +  echo 50000000 > /sys/bus/iio/devices/iio:device0/out_altvoltage113_fre=
-quency_offset
+> +++ b/Documentation/ABI/testing/sysfs-bus-iio-frequency-ad9910
+> @@ -0,0 +1,73 @@
+> +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency_offset
+> +KernelVersion:
 
-This isn't a bug, but the parallel port channel ID used in the usage example
-does not match the earlier documented channel hierarchy. The example uses
-out_altvoltage113, while the hierarchy section documents the parallel port
-channel as out_altvoltage110.
+This isn't a bug, but the Date field is missing and the KernelVersion field
+is empty for this and all subsequent entries in the file. Should these be
+populated with the creation date and the expected kernel release?
 
-Could the example be updated to use out_altvoltage110 to keep the
-documentation consistent?
+> +Contact:	linux-iio@vger.kernel.org
+> +Description:
+> +		For a channel that allows frequency control through buffers, this
+> +		represents the base frequency value in Hz. The actual output frequency
+> +		is a result with the sum of this value.
+
+This isn't a bug, but the phrasing "is a result with the sum of this value"
+is slightly confusing. Would it be clearer to phrase this as "is the sum of
+this value and the input value"?
+
+This same phrasing is also used below in the descriptions for
+out_altvoltageY_phase_offset and out_altvoltageY_scale_offset.
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508-ad9910-iio=
--driver-v4-0-d26bfd20ee3d@analog.com?part=3D10
+-driver-v4-0-d26bfd20ee3d@analog.com?part=3D9
