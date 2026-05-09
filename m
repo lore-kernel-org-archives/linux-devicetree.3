@@ -1,179 +1,231 @@
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 034421E1A33;
-	Sat,  9 May 2026 08:01:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=60.244.123.138
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778313669; cv=fail; b=HCrFlIAa4FCrNK3f/DTiseuX8A/1hwM/2DkQm679ZwTIdi/cX1pq5OCsOOuW5MkRINSFPJN13Rzqxnt4Ajtn376Ds1agS86CZheybdS8lt/lqur9caNcxXpsd6XSHoPqJPh8mELTMLRzcOP1y+FeN9QotOYW+SrYCkTtZDhjKd4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778313669; c=relaxed/simple;
-	bh=Fc03Gu8eMGQDK+oOxQfvqEu92pxqwdYZTtDJA3AdJO0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=kpKoZUvP3NslxO6t9SIMGe+IjZMhaESbM4leKAvAaj0zynsBa2ZjDg92jHkzogR+mnRdbRX8fMoQHPq3pvQk/5qdpfh2Ronv6Klz6S6lHDKcEDVRQOC1GU5cLPHLMKIq9PqNjVNhyrEdM1iqYa1BNJnXTj2U46YbEbfUK/34DEY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=MIBeWheZ; dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b=m+Wf8i1b; arc=fail smtp.client-ip=60.244.123.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D59D2384231;
+	Sat,  9 May 2026 08:25:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778315157; cv=none; b=vEqQrkLmkIBHjNF7l4UaMw5ztF1+dkuOy9/4fJooY86EsmgdZYdlUNwpeCwQacgFWXHQalKjuaJjSt1ZAjXKHZ4/oBb8ifp+B6g4bGPTcY8xbsmke3XTtPAFu1AM1RywkZnYHnXg3SKVoCmO9aAYUZum87dM0DxwSYT6sOlDPlw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778315157; c=relaxed/simple;
+	bh=nczlNiIr/A9xdNyg6rE5uVSARRuTIZ7Uz1A5NFRANqE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mkCAf+4SYt6zLT0/uhfz1XkUzdDglsooBHAScfjXM82zapxp8NSb47E3S8AHVrCskoDpMUbl9AtWC/NNHcUo9xpArcsSkhh63oTl8loCVQ1Az2aAU4tht++VALMtCMSOH19Vijev4oCIMKISP+kazVgspuW+CLP48LkwIjVZL5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eCVVtO4G; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="MIBeWheZ";
-	dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.b="m+Wf8i1b"
-X-UUID: 355d747e4b7d11f1b96f91537e34a508-20260509
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From; bh=Fc03Gu8eMGQDK+oOxQfvqEu92pxqwdYZTtDJA3AdJO0=;
-	b=MIBeWheZqJ2mOei6ueoHtsmEg/ShuwvuXvPfY7SVXdaKiGp/gduEn7FeRXorkMJ9aCgnkh9hLdenuFfTJv5lPudy2E3+Blea7FtiohpxySreXPr4q6SzE2/57rOQlRS6JO7gUSUHNBO6ZLdNxDYNoKGATYwfsfS8QPJ7/k8tnxk=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:bd822aab-28c6-41d0-b31a-b6543503a50e,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:e7bac3a,CLOUDID:dd5d2d71-3b7f-4b26-b2f9-40f0deecb36d,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:80|81|82|83|102|110|111|836|865|888|
-	898,TC:-5,Content:0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:ni
-	l,BEC:-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 355d747e4b7d11f1b96f91537e34a508-20260509
-Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by mailgw01.mediatek.com
-	(envelope-from <yong.wu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 567270216; Sat, 09 May 2026 16:00:56 +0800
-Received: from mtkmbs10n1.mediatek.inc (172.21.101.34) by
- MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Sat, 9 May 2026 16:00:55 +0800
-Received: from SI4PR04CU002.outbound.protection.outlook.com (172.21.101.237)
- by mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Sat, 9 May 2026 16:00:55 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O8p7zqOBx7reeE17Gg6zFEc0U010WIiA27bVViF50vfJ9Q+ZSqS86NsMOZtqgyh26Yrpb5VlApa+RYxc4Gs/qd3VK7GPl7Qhop8E6JPLsMZ2D4DWTYhAVCojL71hI5GoY8hBlkRqoaclAdqNn0QD/gbITlJJNcGUm6ZAAZ9Wl9Vk/DSOZKDByfv0gwwif5+Ml6pUi0GHgtlgx8huDib8TTwE+93NOVE485BSlIWF0Q9wJ41+uLF/92edPWrWU6LWinujfZEe2WX8B42W1ypeQZXKpjMoCNbjtGsPHdFFljo7idyDWvk6aH/jIfMz+Z1WpJc+WC7KV195rLSMbR9t4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Fc03Gu8eMGQDK+oOxQfvqEu92pxqwdYZTtDJA3AdJO0=;
- b=SfcgGL0hG1IrHlw39UyTice3QmOwn/VgpJFlTcYyldNW0BiGMqZhhty6BoAFZccoI7JzSoIDKfBmZnzc1HI+oMbWcg1KCJLr9cn/jYxc5BqzeNUZu4yNqchzeEIk657eFRe6JJV4nEoSDISQAdrmICQPIVJjSZwPRp5zQi7fLzmKMmo7lQFpqIshdC2YtROvZzJDAC/LhOIT4+v8V54HHAxQ1oEvXZQiiosVcicZcHktLYy1I4VmtdLstZWOuC52t5wDQXByY3y4KxdK/05hMwnfq1mgBkKyzGmVhOykJpmXLeSuC1Nu9RlcLR6j8oU6vKNc60qAA0B+hCADsFEZwQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
- dkim=pass header.d=mediatek.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Fc03Gu8eMGQDK+oOxQfvqEu92pxqwdYZTtDJA3AdJO0=;
- b=m+Wf8i1b2Dz1RJ8Ft56VwP3bpbQyZtzI9RttNSsPQKad6jsiqykgiY/n52MIUl8iS+vzZlrCL+++JDyudVLueOyXf7yEzhAJCUhkSYM0wCE8mIwj7ZnxkpKZgEihvPojz+ruXR9DEcce/XH63MfXtQ9YC/NF+hrERL8KgQQ6xLM=
-Received: from SI2PR03MB5885.apcprd03.prod.outlook.com (2603:1096:4:142::7) by
- TYZPR03MB7412.apcprd03.prod.outlook.com (2603:1096:400:41b::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.10; Sat, 9 May 2026
- 08:00:52 +0000
-Received: from SI2PR03MB5885.apcprd03.prod.outlook.com
- ([fe80::3dee:7e1:7d2:c310]) by SI2PR03MB5885.apcprd03.prod.outlook.com
- ([fe80::3dee:7e1:7d2:c310%7]) with mapi id 15.21.0025.012; Sat, 9 May 2026
- 08:00:51 +0000
-From: =?utf-8?B?WW9uZyBXdSAo5ZC05YuHKQ==?= <Yong.Wu@mediatek.com>
-To: "robh@kernel.org" <robh@kernel.org>, "matthias.bgg@gmail.com"
-	<matthias.bgg@gmail.com>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	=?utf-8?B?WmhlbmduYW4gQ2hlbiAo6ZmI5b6B5Y2XKQ==?=
-	<Zhengnan.Chen@mediatek.com>, "krzk@kernel.org" <krzk@kernel.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-CC: "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-mediatek@lists.infradead.org"
-	<linux-mediatek@lists.infradead.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, Project_Global_Chrome_Upstream_Group
-	<Project_Global_Chrome_Upstream_Group@mediatek.com>
-Subject: Re: [RESEND,v2 2/2] memory: mtk-smi: Add mt8189 support
-Thread-Topic: [RESEND,v2 2/2] memory: mtk-smi: Add mt8189 support
-Thread-Index: AQHc1hREs93+U0jvT02AKfBVa6OqUrYFZ74A
-Date: Sat, 9 May 2026 08:00:51 +0000
-Message-ID: <270f6f8845c5009e5bc96f8a4c4b947aaf89131e.camel@mediatek.com>
-References: <20260427070444.20247-1-zhengnan.chen@mediatek.com>
-	 <20260427070444.20247-3-zhengnan.chen@mediatek.com>
-In-Reply-To: <20260427070444.20247-3-zhengnan.chen@mediatek.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=mediatek.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SI2PR03MB5885:EE_|TYZPR03MB7412:EE_
-x-ms-office365-filtering-correlation-id: 5e0dc2f0-c914-4bcf-8491-08deada11689
-x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|376014|366016|38070700021|18002099003|22082099003|56012099003;
-x-microsoft-antispam-message-info: P7X85pZzPJwczpPtj52kM5j4NJFCXDazuuesQTFH3O4HB6x/l3bTylQTM9Vd06ul05m+cYF7oqE4ioBBsqBNrWXrcGFoX+9OK2IqMu/D9zF/TKVaEsL6vjY2ZCJZs60+q8VKLoCUWJrU+hwFu3nBXzgsIJ9VF20JD4Kxwyg0QCl8n93qnczdeEfOPyVwnY1YE0+Ah2+GaYd7o4nTppMJ2Mer56dqT1tUS5mezFxJBNUICEu63a6yg/NAm8bLMTUL9vhzx/Qv4fYaQFuG17WwV6DaRrtbucDTnaB292NSPmpUg/vpKop5WY+rRj1lZhUnHPyXjFtZ3fXctr953kZIBuykNRZgazcaAOMZnnkTZgJU57zoMsJ0HyI+dhGrTwy+9Bq3zNFgUOYFoTSzk5TBrpCcJ5Fg+2UxGY4lCLn1dSJi3xzmsNqog4lgriDv8+wEU03QOJmqFcRgrcWiEE+SWGBblisHqd16RKFECBWgLWOoxVdBobWBAsbi5gZGAe2mPBWBwXdYmupBwUb+gGQCQt5MlrQ8HifBs3YSaWUD3iedK/aJThR3PoRxa1R2MbNZO4D+bNnwzmCxHVuv7w6GnM2sr71wdnBKmkGCrAc8ueNHQ+zDvdqfe1u6qE9RpCHN+K/P/Byv1aQcJ1Un+pNY1vJ/Nj7h63PnvSWqhZxG2C8Noq3Ej5FeI1qD7ObYAeIab2hyPf8KxYiIX9mnn/PHHuhYwefS828butBeVFhodJ7yQ7j81D7xvPwbQDhjiHP7
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SI2PR03MB5885.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700021)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?K1JYZGNURkhmOGNLS21RWHRKMU5ILzFQYmU1OGNybEJVTTBSRmU0blIvRDVt?=
- =?utf-8?B?Mlh1eGcwRmxaRDVtREdkcjAxWUFFWWpyWXNidGdoVUlwMEhxRzZQT1lrcUJP?=
- =?utf-8?B?RFd2WG5SL05vemN1eWlMYlpvcUo2VnpFKzBMOVJISVZlZWNNUTR1Q2syVVZ2?=
- =?utf-8?B?RFdWcG1OSDNMRnU1VmtDQkpWSEt4OGx6bTlMVTQyL2xGU3IxK2x2UjI5U0Fh?=
- =?utf-8?B?ZUZjbXZNd3BYcithYTAxQzloTnBTRmt6L3E3dVAxdk1HVGVMZzZBSlZ5Tjlp?=
- =?utf-8?B?OVFsUXVjclRTL2Ric281cGRnUWdtT09Sd1FON1ljTnVwR1BKNktvUlZFU094?=
- =?utf-8?B?SkErOFFmOFZUd2FKTnNZTUpJdGp2eVJNR0dwVUtBMG9ua1l1VkhSeFJUbFJF?=
- =?utf-8?B?d0JiR0RIWmZ6VXJQeUdZTE9SWXdVdkM3QjBTNHNTK1ZoOFlHazdEZVdYR0Rq?=
- =?utf-8?B?cEhwNlNoUG9QbnpHQ05pZkM3R1Mrdm9veks2WHpSL09xWHdicXJ1R3lCVytz?=
- =?utf-8?B?YnpYY2wxOUs2SzRvQW1IaDdzbU8vVVBaSWNkcjlMcmk2VjdIWW1PQm9YL0Jj?=
- =?utf-8?B?YzNzWlZsSFQ2cjh1YVcrV2Z3b1NBdWZPZmQwZEcwaG1PQzR5TkgzWTN1VGQ4?=
- =?utf-8?B?WnNJMmNpZWZyMjNoMVZvZndGT2JWeXRHTml3aGlhZUt2RVIwQXF6amllZHdK?=
- =?utf-8?B?UDNNYnU4Sk1ndnNYa1l4SzNQWGljVWVUa1RVRFhDNXFhbGQwU080QW9tazFN?=
- =?utf-8?B?eGwxUUhkV2srYkpWcElMeTE4dzdac1dYNExOV3Ryc0g0U0ozRUNZWDRIanY0?=
- =?utf-8?B?Z2VaUHNsUEprbnlvZTA3UlZaOGFIYkdmcDZIdXYyT3k3Z2F6cDZ5S0owY3o5?=
- =?utf-8?B?VWZyd2cxQmcrVGpSMTJWN040MjgvWHdBMUhUOGE4blNKQTZsSFpTOXA5ZXNu?=
- =?utf-8?B?bnZ1bUJSMjQvS0Z0RENKVFVZMHExeWMrUXVUZlkwUXhmTEpoZTVaVDFOaWdi?=
- =?utf-8?B?M202THJpQ1ZFbTI0Wmtid2hqK0pzKzJFczlaZzdzWXFKbEVvQzZ1K21nK3pu?=
- =?utf-8?B?NlZIT3JrRXNDM0xkR25zSnZqdVJGN3BtdkZBcWpJSGtkbm9lM25oOGZSdG00?=
- =?utf-8?B?U0ZZeFRSdVdOelJiM21oRWVCL0ZYellUYndtOFpHa1BONThZRzl1ZE8wdU9S?=
- =?utf-8?B?R2k5YUJTbElFQW5LdHN3Uk51VytIeHNHb0wySVZKeEFGdm95ZmJzRzVPNDBx?=
- =?utf-8?B?cHVOekxvTnJ5WHRDcEtpNzcyY0NDQXhUMkVpQVNxNlpmY3FKeHEzQ2tJaWFk?=
- =?utf-8?B?bHVVWWIxeGNCUExpNng3YmpJcmFFZXdUdUt0SnBHbjZkQ3AzbS83dHBsZHVX?=
- =?utf-8?B?ZTNuRDR2MGZZeVJreDI0eHl4TSszY3RGdWVpdjZodkdVQnd1SHBSbVBZeVZz?=
- =?utf-8?B?bUJXNzlLK2tGRDR3clh6aWlyK0dtNFFsWXJXck9UaFNsUzJFQURLTEdZQ1Bp?=
- =?utf-8?B?cWMrUUZmSjMxZ2xIRXBjbGplZUxhUGFIeGY3aXg3YnVLdHJkT1pEcHREcmVx?=
- =?utf-8?B?aDhkUkJVb21Fc21vNmwvSGF2SllES0U0NVRodEhWTlU2aFBiWlNWdS9mZ0Jp?=
- =?utf-8?B?OHpIUHRlTXB2K0RQUUlWdFRzcGxsSzRlOUFhSnFQcWliU2hXNlc4dWpuUEJw?=
- =?utf-8?B?TUlKOHRyQkMzckVEWVk0SHFSTU9Wak13OVJ0cW9TbVVSTzI5bFpFeUVkYjMz?=
- =?utf-8?B?eVZBSnphQWxmKzVMU2xjbU1jQVdLc29CZDg0aklabjJ5THJ4dnlxSjl1eUxO?=
- =?utf-8?B?UzJRK3pkOVFFanY4bk83Yk55aUhFY0hKUnVXdjZzbU5zWWJwdGdpL0lIVzUz?=
- =?utf-8?B?VklyZENEUWx1b0NLRXZPTE5xNFlGUzdaUGFqMVZYK2hKRXdSYk9PSUI4K3No?=
- =?utf-8?B?NWR4N1loVXpsQjNwWlRENTFPWnZzTExTNHZkVVFZNmxlUThBQkRsUUhuUXc5?=
- =?utf-8?B?RHlpNDhZMjJkcjFLMFlQUFlnQzBkUDlTR1RFWUFnNldFNVhxTjBKNnFWZzlZ?=
- =?utf-8?B?R0lSSlpqOWMrZk4wUWlLUFVhbW1wbUU2dXRuR2pwc2EzRTk0VG1hcE9scjNO?=
- =?utf-8?B?SGFxK3RoVkNCaFg2NUt2RmhZU2Vpb2FqMUI1RlJ4QXhqMDQyQlFQcWt6WGNQ?=
- =?utf-8?B?N3pzVFZZR3BYNzE3YllBdU5KajhoL05RRC9uak1seVE4NEx6OEQrYzF4ajEw?=
- =?utf-8?B?WUtLTnM4RC9KTlVwZm5wVHhvSkxQZitZWDFCQ1lqRG5jVkNheFZNc0x1RnVa?=
- =?utf-8?B?TTJhV0p0ZzA3UVhmR3NkaFJ5SVpqZnpmUU5pbVhSYk1kT01DTEFEQT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <B41E2492EF97394C89B3B32B14A066E0@apcprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eCVVtO4G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 077A5C2BCB4;
+	Sat,  9 May 2026 08:25:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778315157;
+	bh=nczlNiIr/A9xdNyg6rE5uVSARRuTIZ7Uz1A5NFRANqE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=eCVVtO4GspLXm5oU2Y+5HmrgHaQiFURcpPBaQjKOGDVaLDRBN27A8bkvOo394mwtJ
+	 a6liRN/2eMOSZd7Df3DCnUreka/54xDgLu7tAQgtk9B3j//rIFq6oyH9gspoGn2BdC
+	 MWSo54itWTgPWgCNMmXHNez2IsZKTgvMY2K7hvh83lhaXIPQYBu91IFSyluwh+luiD
+	 +ZPIxUoKXYry1c6j30Ut5bhLHkeOmIxbPdhf7cuJXv11GTHNAN6rza+tR2/rC5ABwB
+	 v3TZ0LerSeoUsT4CB9hSHcMcH8CghGTX/VJ1QsgxDqrat8iP7iKHoHUf0G+xw9/n3p
+	 kHIu7Om+b2lTg==
+Date: Sat, 9 May 2026 10:25:54 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, ansuelsmth@gmail.com,
+	benjamin.larsson@genexis.eu, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, madhur.agrawal@airoha.com
+Subject: Re: [PATCH net-next v4 07/10] net: airoha: Support multiple
+ net_devices for a single FE GDM port
+Message-ID: <af7vkpjEY5FhlEyc@lore-desk>
+References: <20260507-airoha-eth-multi-serdes-v4-7-af613b61ae02@kernel.org>
+ <20260509014611.3558060-1-kuba@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: VWAl0wkv6fdwUZQHgKAYmsJOTtgOGGxjFAYMt8vHoHfB3pwmbQsjfCGC8IJZnFlF3pJupLjt4ELykVCqnD+EDJF5cj9icY5JE52cSEA2xf9vFeHx/M5EpGb87e2ztzPa619N6FnHh+w2o0Q5uY1Kk66nFoCt2WRwLCCDDyDZ+E7b7XpDB+ZYXSFTTRgQT+E/2YKDskM+VHx6kWINzLeqcZrD1vK/id7BGJ2BfkKM0OS2u2DsJ2CB3EFERfEyVZn9eLRoa5TOH4k2LO5VyjTIOXZ6UvukR4an7YvMoeT7t6MjU7ppUxqJ5jrz2GSppI02fDmKNzrMH6XCPYogiXj7yA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SI2PR03MB5885.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e0dc2f0-c914-4bcf-8491-08deada11689
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 May 2026 08:00:51.2449
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: pZMrOydq3mkk2Ess4bCPyIQi43A3khKHOp/quL8gXD+2IVC2rgyTPUJK2dwpXa0TAkW5NF3zFSYaluGW9nMcrA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR03MB7412
-X-MTK: N
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="YnCVD7Lr1XicTVN0"
+Content-Disposition: inline
+In-Reply-To: <20260509014611.3558060-1-kuba@kernel.org>
 
-T24gTW9uLCAyMDI2LTA0LTI3IGF0IDE1OjA0ICswODAwLCBtdGsyMDg5OCB3cm90ZToNCj4gRnJv
-bTogWmhlbmduYW4gQ2hlbiA8emhlbmduYW4uY2hlbkBtZWRpYXRlay5jb20+DQo+IA0KPiBBZGQg
-dGhlIG5lY2Vzc2FyeSBwbGF0Zm9ybSBkYXRhIGFuZCBvc3RkbCBzZXR0aW5nIHRvIGVuYWJsZSBz
-dXBwb3J0DQo+IGZvciBtdDgxODkgc21pLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogWmhlbmduYW4g
-Q2hlbiA8emhlbmduYW4uY2hlbkBtZWRpYXRlay5jb20+DQo+IFJldmlld2VkLWJ5OiBBbmdlbG9H
-aW9hY2NoaW5vIERlbCBSZWdubyA8DQo+IGFuZ2Vsb2dpb2FjY2hpbm8uZGVscmVnbm9AY29sbGFi
-b3JhLmNvbT4NCj4gLS0tDQo+ICBkcml2ZXJzL21lbW9yeS9tdGstc21pLmMgfCA0NA0KPiArKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrDQo+ICAxIGZpbGUgY2hhbmdlZCwg
-NDQgaW5zZXJ0aW9ucygrKQ0KDQoNClJldmlld2VkLWJ5OiBZb25nIFd1IDx5b25nLnd1QG1lZGlh
-dGVrLmNvbT4NCg==
+
+--YnCVD7Lr1XicTVN0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> ---
+> net: airoha: Support multiple net_devices for a single FE GDM port
+>=20
+> This commit introduces support for multiple net_devices connected to the
+> same Frame Engine (FE) GDM port (GDM3 or GDM4) via an external hardware
+> arbiter on EN7581 or AN7583 SoCs, and adds a get_dev_from_sport callback
+> to differentiate between the net_devices attached to each port.
+>=20
+> > diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/eth=
+ernet/airoha/airoha_eth.c
+> > index 786bc677af3c..0253919714e0 100644
+> > --- a/drivers/net/ethernet/airoha/airoha_eth.c
+> > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
+>=20
+> [ ... ]
+>=20
+> > @@ -3188,14 +3257,23 @@ static int airoha_probe(struct platform_device =
+*pdev)
+> > =20
+> >  	for (i =3D 0; i < ARRAY_SIZE(eth->ports); i++) {
+> >  		struct airoha_gdm_port *port =3D eth->ports[i];
+> > -		struct airoha_gdm_dev *dev;
+> > +		int j;
+> > =20
+> >  		if (!port)
+> >  			continue;
+> > =20
+> > -		dev =3D port->dev;
+> > -		if (dev && dev->dev->reg_state =3D=3D NETREG_REGISTERED)
+> > -			unregister_netdev(dev->dev);
+> > +		for (j =3D 0; j < ARRAY_SIZE(port->devs); j++) {
+> > +			struct airoha_gdm_dev *dev =3D port->devs[j];
+> > +			struct net_device *netdev;
+> > +
+> > +			if (!dev)
+> > +				continue;
+> > +
+> > +			netdev =3D dev->dev;
+> > +			of_node_put(netdev->dev.of_node);
+> > +			if (netdev->reg_state =3D=3D NETREG_REGISTERED)
+> > +				unregister_netdev(netdev);
+> > +		}
+> >  		airoha_metadata_dst_free(port);
+> >  	}
+> >  	airoha_hw_cleanup(eth);
+>=20
+> [Medium]
+> Is the ordering of of_node_put() and unregister_netdev() here correct?
+>=20
+> airoha_alloc_gdm_device() now does:
+>=20
+> 	netdev->dev.of_node =3D of_node_get(np);
+>=20
+> so the netdev holds its own reference to the of_node for its entire
+> registered lifetime. In this error unwind the of_node_put() runs before
+> unregister_netdev(), and netdev->dev.of_node is not cleared, so any
+> subsequent access to netdev->dev.of_node during unregistration (netdev
+> notifiers, sysfs, overlay-aware code) would be looking at a node whose
+> reference count has already been dropped.
+>=20
+> Other drivers (e.g., drivers/net/ethernet/hisilicon/hns/hns_enet.c in
+> hns_nic_dev_remove()) put the node only after unregister_netdev().
+>=20
+> Would swapping the order to call unregister_netdev() first, then
+> of_node_put(), be more appropriate here?
+
+ack, I will fix it in v5.
+
+>=20
+> > @@ -3216,14 +3294,22 @@ static void airoha_remove(struct platform_devic=
+e *pdev)
+> > =20
+> >  	for (i =3D 0; i < ARRAY_SIZE(eth->ports); i++) {
+> >  		struct airoha_gdm_port *port =3D eth->ports[i];
+> > -		struct airoha_gdm_dev *dev;
+> > +		int j;
+> > =20
+> >  		if (!port)
+> >  			continue;
+> > =20
+> > -		dev =3D port->dev;
+> > -		if (dev)
+> > -			unregister_netdev(dev->dev);
+> > +		for (j =3D 0; j < ARRAY_SIZE(port->devs); j++) {
+> > +			struct airoha_gdm_dev *dev =3D port->devs[j];
+> > +			struct net_device *netdev;
+> > +
+> > +			if (!dev)
+> > +				continue;
+> > +
+> > +			netdev =3D dev->dev;
+> > +			of_node_put(netdev->dev.of_node);
+> > +			unregister_netdev(netdev);
+> > +		}
+> >  		airoha_metadata_dst_free(port);
+> >  	}
+> >  	airoha_hw_cleanup(eth);
+>=20
+> [Medium]
+> Same question in airoha_remove(): the of_node_put() fires before
+> unregister_netdev(), while netdev->dev.of_node is still assigned. Would
+> this be safer with the unregister first and the put afterwards?
+
+ack, I will fix it in v5.
+
+>=20
+> > diff --git a/drivers/net/ethernet/airoha/airoha_eth.h b/drivers/net/eth=
+ernet/airoha/airoha_eth.h
+> > index 3e93919a175c..207c75152fde 100644
+> > --- a/drivers/net/ethernet/airoha/airoha_eth.h
+> > +++ b/drivers/net/ethernet/airoha/airoha_eth.h
+>=20
+> [ ... ]
+>=20
+> > @@ -542,14 +543,15 @@ struct airoha_qdma {
+> >  struct airoha_gdm_dev {
+> >  	struct airoha_gdm_port *port;
+> >  	struct airoha_qdma *qdma;
+> > -	struct net_device *dev;
+> >  	struct airoha_eth *eth;
+> > +	struct net_device *dev;
+> > +
+> > +	int nbq;
+> >  };
+> > =20
+> >  struct airoha_gdm_port {
+> > -	struct airoha_gdm_dev *dev;
+> > +	struct airoha_gdm_dev *devs[AIROHA_MAX_NUM_GDM_DEVS];
+> >  	int id;
+> > -	int nbq;
+> > =20
+> >  	struct airoha_hw_stats stats;
+>=20
+> [Medium]
+> With multiple airoha_gdm_dev instances now sharing a single
+> airoha_gdm_port, do the per-netdev statistics need to become per-netdev
+> rather than per-port?
+>=20
+> airoha_dev_get_stats64(), airoha_ethtool_get_mac_stats() and
+> airoha_ethtool_get_rmon_stats() all read from dev->port->stats, and the
+> underlying hardware counters at REG_FE_GDM_*_CNT(port->id) are per-GDM
+> port rather than per-netdev. When two netdevs share a port (for example
+> PCIE0/PCIE1 on EN7581 GDM3, or ETH/USB on GDM4), both netdevs would
+> report identical port-wide counters via rtnl_link_stats64 (ip -s link
+> show) and via the get_eth_mac_stats/get_rmon_stats ethtool callbacks,
+> and summing across the two netdevs would double-count.
+>=20
+> Would it make sense to maintain per-netdev software counters in the
+> xmit/RX paths for the multi-dev case so each netdev reports its own
+> traffic through the standard uAPI?
+
+We have already a separated patch to address this issue that is not part of=
+ the
+series. I will add it to the v5 in the next iteration.
+
+Regards,
+Lorenzo
+
+--YnCVD7Lr1XicTVN0
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaf7vkgAKCRA6cBh0uS2t
+rNx6AP4vp7fBv+mMgpov4j4sMb2X2lfK18z7Rdr86kjr3iuVkQEA2v2JFYUsriWf
+RBzOd9kloGcV9h2okyFY1MsyXDH1uAY=
+=LwTq
+-----END PGP SIGNATURE-----
+
+--YnCVD7Lr1XicTVN0--
