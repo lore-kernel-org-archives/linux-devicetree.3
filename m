@@ -1,177 +1,234 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 74EBA327BFC;
-	Sat,  9 May 2026 08:29:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC83345CD8;
+	Sat,  9 May 2026 09:00:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778315384; cv=none; b=JAyXlf9csxKQsJPXVRRJYv1vhcH3BE+bLm2X6QF9MBP6NFiIkyDuiK1iNWjiMPaoO6SUW0+h8Tw+UMnucZOsnSzhuBRP7PIJLQVCuK7mt1+gaPBolhD8XBeZyG2PpWI1gZEJOC0UwVSOk3EPqgMHVlNaHtg8uO3zBjM8hASmDoY=
+	t=1778317233; cv=none; b=bd+WhkovCpMCpXUWeyY8Y3KQwrUtXFNFI8re5jkcJanSZzGht4pTxHCeWdXmt7VcqZoTKC2DmfSuFAZZHa8X87li0fwSwBxlWUM6rO0mQjnqoojm4EJmJG2+e5uKKrz0fIvUi5s2Sf2lIIp4slD0MXvM/7SnuAat6Tm/v9Y8Mvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778315384; c=relaxed/simple;
-	bh=z3o91oPJZWzKTXniebv/fBIDyQhyV8YOnNOxrAqvJ3g=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dMj/J3v72jb9Y0yu5T9nJu0oxeOaXCmKpVzsIVQPgawXQpEZNxxBMKZvRe8IbOH+8pKTA4be1EgMJGa6PAcMtIsMphblFSGm14f0d0Oc4NOH78T5sQGli9+qCaKYQTExGqUk5bYNO56FPeyJuXxj9B/BeJTeTotSelmLFeYp/MQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.101])
-	by gateway (Coremail) with SMTP id _____8Dxlnhy8P5p5yUIAA--.1157S3;
-	Sat, 09 May 2026 16:29:38 +0800 (CST)
-Received: from loongson-pc.loongson.cn (unknown [10.20.42.101])
-	by front1 (Coremail) with SMTP id qMiowJBx78Jx8P5pMYl9AA--.42882S2;
-	Sat, 09 May 2026 16:29:37 +0800 (CST)
-From: Hongliang Wang <wanghongliang@loongson.cn>
-To: Binbin Zhou <zhoubinbin@loongson.cn>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Hongliang Wang <wanghongliang@loongson.cn>
-Cc: linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	loongarch@lists.linux.dev
-Subject: [PATCH v3] i2c: ls2x: Add clocks property parsing and adjust bus speed
-Date: Sat,  9 May 2026 16:28:37 +0800
-Message-Id: <20260509082837.28778-1-wanghongliang@loongson.cn>
-X-Mailer: git-send-email 2.20.1
+	s=arc-20240116; t=1778317233; c=relaxed/simple;
+	bh=ZqLpz2CFj28iASBq5rq8tyYLR7o5ybdmwFhd94Td2m0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=X4kaDlgMURLKIlXQr9KbElxH19stHfh4Tk9X69m7vlaXH68iYUg7QXBjNLROsgy5dA6kmuFwMBBvfEdt1t7gC4+zJgY2ZDVMXJqJ1wZdMbzeK0iuzLnbJAK7wkzFmfCsGmPVgMBQ8dia1YWjS0fiJ7gz42a7ZtLIAO6t1AfhCy4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pP5r8Bhp; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pP5r8Bhp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87068C2BCB2;
+	Sat,  9 May 2026 09:00:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778317233;
+	bh=ZqLpz2CFj28iASBq5rq8tyYLR7o5ybdmwFhd94Td2m0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=pP5r8Bhpm0NTMhVIzUfWOtGIwxDRr+p9wyNO5ZIeT0iScG9QjezvbYUzRJIH6hos/
+	 LV1CTwl0sCAFeVQudLmrYvT+gMk1zNxdf+dq12q0Kdw26VkxWuaru4xA0u65jLr4ps
+	 2rtxmqu1gQZpgHQ/zkgGJvGZOJ8O/zpJz1L3UeLs1H0wIPeKLe3V5v0kAigf+/D3V6
+	 S72mUlJbtwzA9rnCzqnkmcRT9AtoxXiwEjFX1M8Igj1wiPHkijfBahVrAfAL6pH3AQ
+	 nSZHmF1177Rk6g5rX9IFvJG3I2qbw7K6KUDSbV3fAABWfQWFhMoJ1uU0pCy2VBj2G2
+	 XJsSFDSNoBGYA==
+Date: Sat, 9 May 2026 11:00:30 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, ansuelsmth@gmail.com,
+	benjamin.larsson@genexis.eu, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, madhur.agrawal@airoha.com
+Subject: Re: [PATCH net-next v4 08/10] net: airoha: Do not stop GDM port if
+ it is shared
+Message-ID: <af73rqYK1xCL-XsK@lore-desk>
+References: <20260507-airoha-eth-multi-serdes-v4-8-af613b61ae02@kernel.org>
+ <20260509014613.3558087-1-kuba@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJBx78Jx8P5pMYl9AA--.42882S2
-X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxJFW8Ar4Duw1xJry5Wry3trc_yoWrXry7pF
-	WUCFZ5Gr4qqF42grsIq3W7ZFyayws5Jay8CFy7tw1xW3Z3Xr98Za4ftFn0kF4kWF97uayU
-	XayDGr45uFyUZrcCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUvIb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
-	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE
-	14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7
-	AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
-	F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GF
-	ylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
-	xVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
-	1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jn
-	SdgUUUUU=
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Lk/TFdVeNBlgNVPK"
+Content-Disposition: inline
+In-Reply-To: <20260509014613.3558087-1-kuba@kernel.org>
 
-From: wanghongliang <wanghongliang@loongson.cn>
 
-The i2c-ls2x driver supports dts and acpi parameter passing.
+--Lk/TFdVeNBlgNVPK
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-In dts, uses clock framework, by parsing clocks property to
-get i2c bus reference clock, and define the div of reference
-clock by device data.
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> ---
+> net: airoha: Do not stop GDM port if it is shared
+>=20
+> This patch adds a per-port users refcount so the GDM forward configuration
+> is only reset to FE_PSE_PORT_DROP when the last netdev attached to the
+> shared GDM port stops, and it adjusts the MTU/length register updates to
+> cope with the shared case.
+>=20
+> > diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/eth=
+ernet/airoha/airoha_eth.c
+> > index 0253919714e0..1c4927c1aeb0 100644
+> > --- a/drivers/net/ethernet/airoha/airoha_eth.c
+> > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
+> > @@ -1714,8 +1714,8 @@ static int airoha_dev_open(struct net_device *net=
+dev)
+> >  	int err, len =3D ETH_HLEN + netdev->mtu + ETH_FCS_LEN;
+> >  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+> >  	struct airoha_gdm_port *port =3D dev->port;
+> > +	u32 cur_len, pse_port =3D FE_PSE_PORT_PPE1;
+> >  	struct airoha_qdma *qdma =3D dev->qdma;
+> > -	u32 pse_port =3D FE_PSE_PORT_PPE1;
+> > =20
+> >  	netif_tx_start_all_queues(netdev);
+> >  	err =3D airoha_set_vip_for_gdm_port(dev, true);
+> > @@ -1729,10 +1729,14 @@ static int airoha_dev_open(struct net_device *n=
+etdev)
+> >  		airoha_fe_clear(qdma->eth, REG_GDM_INGRESS_CFG(port->id),
+> >  				GDM_STAG_EN_MASK);
+> > =20
+> > -	airoha_fe_rmw(qdma->eth, REG_GDM_LEN_CFG(port->id),
+> > -		      GDM_SHORT_LEN_MASK | GDM_LONG_LEN_MASK,
+> > -		      FIELD_PREP(GDM_SHORT_LEN_MASK, 60) |
+> > -		      FIELD_PREP(GDM_LONG_LEN_MASK, len));
+> > +	cur_len =3D airoha_fe_get(qdma->eth, REG_GDM_LEN_CFG(port->id),
+> > +				GDM_LONG_LEN_MASK);
+> > +	if (!atomic_read(&port->users) || len > cur_len)
+> > +		airoha_fe_rmw(qdma->eth, REG_GDM_LEN_CFG(port->id),
+> > +			      GDM_SHORT_LEN_MASK | GDM_LONG_LEN_MASK,
+> > +			      FIELD_PREP(GDM_SHORT_LEN_MASK, 60) |
+> > +			      FIELD_PREP(GDM_LONG_LEN_MASK, len));
+> > +	atomic_inc(&port->users);
+>=20
+> [Medium]
+> When a second netdev opens with a larger MTU, this unconditionally
+> widens GDM_LONG_LEN_MASK for the already-running sibling that has a
+> smaller MTU:
+>=20
+> 	if (!atomic_read(&port->users) || len > cur_len)
+> 		airoha_fe_rmw(qdma->eth, REG_GDM_LEN_CFG(port->id),
+> 			      GDM_SHORT_LEN_MASK | GDM_LONG_LEN_MASK,
+> 			      FIELD_PREP(GDM_SHORT_LEN_MASK, 60) |
+> 			      FIELD_PREP(GDM_LONG_LEN_MASK, len));
+>=20
+> Meanwhile airoha_dev_change_mtu() rejects shrinks (len < cur_len) with
+> -EBUSY when the port is shared. Is this asymmetry intentional?
 
-In acpi, by passing clocks property to describe i2c bus reference
-clock and clock-div property to describe the div of reference clock.
+This is done intentionally since we do not want to break traffic of already
+running net_device if we want to increase the MTU on a sibling net_device.
 
-Based on i2c bus reference clock(clock_a), i2c bus speed(clock_s)
-and div, calculate the prcescale of i2c divider register. The
-calculation formula is
+>=20
+> With the new policy the hardware long-length ends up as the maximum of
+> the two MTUs, so the smaller-MTU sibling silently accepts frames larger
+> than its advertised MTU at the MAC level. Should opens that would
+> increase the shared length also be gated (symmetric policy), or should
+> the commit message and a comment document the chosen ceiling/floor
+> behaviour?
 
-prcescale = (clock_a*10)/(div*clock_s)-1
+I will add a comment in the code in v5.
 
-Signed-off-by: wanghongliang <wanghongliang@loongson.cn>
----
- drivers/i2c/busses/i2c-ls2x.c | 35 ++++++++++++++++++++++++++++++++---
- 1 file changed, 32 insertions(+), 3 deletions(-)
+>=20
+> > =20
+> >  	airoha_qdma_set(qdma, REG_QDMA_GLOBAL_CFG,
+> >  			GLOBAL_CFG_TX_DMA_EN_MASK |
+> > @@ -1762,8 +1766,12 @@ static int airoha_dev_stop(struct net_device *ne=
+tdev)
+> >  	for (i =3D 0; i < netdev->num_tx_queues; i++)
+> >  		netdev_tx_reset_subqueue(netdev, i);
+> > =20
+> > -	airoha_set_gdm_port_fwd_cfg(qdma->eth, REG_GDM_FWD_CFG(port->id),
+> > -				    FE_PSE_PORT_DROP);
+> > +	if (atomic_dec_and_test(&port->users)) {
+> > +		airoha_set_vip_for_gdm_port(dev, false);
+> > +		airoha_set_gdm_port_fwd_cfg(qdma->eth,
+> > +					    REG_GDM_FWD_CFG(port->id),
+> > +					    FE_PSE_PORT_DROP);
+> > +	}
+>=20
+> [Low]
+> Is the airoha_set_vip_for_gdm_port(dev, false) call inside the
+> atomic_dec_and_test() block intentional?
+>=20
+> Looking at airoha_dev_stop() as a whole, the same call is already made
+> unconditionally a few lines above:
+>=20
+> 	netif_tx_disable(netdev);
+> 	airoha_set_vip_for_gdm_port(dev, false);
+> 	for (i =3D 0; i < netdev->num_tx_queues; i++)
+> 		netdev_tx_reset_subqueue(netdev, i);
+>=20
+> 	if (atomic_dec_and_test(&port->users)) {
+> 		airoha_set_vip_for_gdm_port(dev, false);
+> 		...
+> 	}
+>=20
+> Since get_vip_port() derives the bit mask per-(port, dev->nbq) and
+> airoha_fe_clear() of already-cleared bits is a no-op, the second call
+> looks like dead code today. The commit log only mentions the
+> FE_PSE_PORT_DROP gating, not VIP handling. Should the duplicate be
+> dropped in v2?
 
-diff --git a/drivers/i2c/busses/i2c-ls2x.c b/drivers/i2c/busses/i2c-ls2x.c
-index b475dd27b7af..6d332e59452d 100644
---- a/drivers/i2c/busses/i2c-ls2x.c
-+++ b/drivers/i2c/busses/i2c-ls2x.c
-@@ -12,6 +12,7 @@
- 
- #include <linux/bitfield.h>
- #include <linux/bits.h>
-+#include <linux/clk.h>
- #include <linux/completion.h>
- #include <linux/device.h>
- #include <linux/iopoll.h>
-@@ -63,11 +64,18 @@
- /* The default bus frequency, which is an empirical value */
- #define LS2X_I2C_FREQ_STD	(33 * HZ_PER_KHZ)
- 
-+/* The div of i2c reference clock on 2K0500/2K1000/2K2000 */
-+#define LS2X_I2C_2K_CLOCK_DIV	40
-+
-+/* The div of i2c reference clock on 7A1000/7A2000 */
-+#define LS2X_I2C_7A_CLOCK_DIV	50
-+
- struct ls2x_i2c_priv {
- 	struct i2c_adapter	adapter;
- 	void __iomem		*base;
- 	struct i2c_timings	i2c_t;
- 	struct completion	cmd_complete;
-+	unsigned int		div;
- };
- 
- /*
-@@ -96,6 +104,8 @@ static irqreturn_t ls2x_i2c_isr(int this_irq, void *dev_id)
- static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
- {
- 	u16 val;
-+	u32 pclk, div;
-+	struct clk *clk;
- 	struct i2c_timings *t = &priv->i2c_t;
- 	struct device *dev = priv->adapter.dev.parent;
- 	u32 acpi_speed = i2c_acpi_find_bus_speed(dev);
-@@ -107,12 +117,29 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
- 	else
- 		t->bus_freq_hz = LS2X_I2C_FREQ_STD;
- 
-+	if (dev_of_node(dev)) {
-+		clk = devm_clk_get_optional_enabled(dev, NULL);
-+		if (clk && !IS_ERR(clk))
-+			pclk = clk_get_rate(clk);
-+		else
-+			pclk = LS2X_I2C_PCLK_FREQ;
-+
-+		div = priv->div;
-+
-+		val = (pclk * 10) / (div * t->bus_freq_hz) - 1;
-+	} else {
-+		if (!device_property_read_u32(dev, "clocks", &pclk) &&
-+		    !device_property_read_u32(dev, "clock-div", &div))
-+			val = (pclk * 10) / (div * t->bus_freq_hz) - 1;
-+		else
-+			val = LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
-+	}
-+
- 	/*
- 	 * According to the chip manual, we can only access the registers as bytes,
- 	 * otherwise the high bits will be truncated.
- 	 * So set the I2C frequency with a sequential writeb() instead of writew().
- 	 */
--	val = LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
- 	writeb(FIELD_GET(GENMASK(7, 0), val), priv->base + I2C_LS2X_PRER_LO);
- 	writeb(FIELD_GET(GENMASK(15, 8), val), priv->base + I2C_LS2X_PRER_HI);
- }
-@@ -295,6 +322,8 @@ static int ls2x_i2c_probe(struct platform_device *pdev)
- 	if (!priv)
- 		return -ENOMEM;
- 
-+	priv->div = (unsigned int)(unsigned long)device_get_match_data(dev);
-+
- 	/* Map hardware registers */
- 	priv->base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(priv->base))
-@@ -349,8 +378,8 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ls2x_i2c_pm_ops,
- 				 ls2x_i2c_suspend, ls2x_i2c_resume, NULL);
- 
- static const struct of_device_id ls2x_i2c_id_table[] = {
--	{ .compatible = "loongson,ls2k-i2c" },
--	{ .compatible = "loongson,ls7a-i2c" },
-+	{ .compatible = "loongson,ls2k-i2c", .data = (void *)LS2X_I2C_2K_CLOCK_DIV, },
-+	{ .compatible = "loongson,ls7a-i2c", .data = (void *)LS2X_I2C_7A_CLOCK_DIV, },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, ls2x_i2c_id_table);
--- 
-2.47.2
+ack, I will fix in v5.
 
+>=20
+> > =20
+> >  	if (atomic_dec_and_test(&qdma->users)) {
+> >  		airoha_qdma_clear(qdma, REG_QDMA_GLOBAL_CFG,
+> > @@ -1915,10 +1923,22 @@ static void airoha_dev_get_stats64(struct net_d=
+evice *netdev,
+> >  static int airoha_dev_change_mtu(struct net_device *netdev, int mtu)
+> >  {
+> >  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+> > +	u32 cur_len, len =3D ETH_HLEN + mtu + ETH_FCS_LEN;
+> >  	struct airoha_gdm_port *port =3D dev->port;
+> > -	u32 len =3D ETH_HLEN + mtu + ETH_FCS_LEN;
+> >  	struct airoha_eth *eth =3D dev->eth;
+> > =20
+> > +	cur_len =3D airoha_fe_get(eth, REG_GDM_LEN_CFG(port->id),
+> > +				GDM_LONG_LEN_MASK);
+> > +	if (len < cur_len) {
+> > +		u8 port_refcnt =3D atomic_read(&port->users);
+> > +
+> > +		/* We can decrease the device MTU just if the GDM port is
+> > +		 * not shared or if the other device is not running.
+> > +		 */
+> > +		if (port_refcnt > 1 || (port_refcnt && !netif_running(netdev)))
+> > +			return -EBUSY;
+> > +	}
+> > +
+>=20
+> [Low]
+> Why is port_refcnt typed as u8 here when atomic_read() returns int?
+>=20
+> 	u8 port_refcnt =3D atomic_read(&port->users);
+>=20
+> With AIROHA_MAX_NUM_GDM_DEVS currently 2 this cannot overflow, but a
+> future bump of AIROHA_MAX_NUM_GDM_DEVS, or a refcount leak, that pushed
+> port->users to 256 would wrap to 0 and quietly bypass both the
+> port_refcnt > 1 and port_refcnt && !netif_running(netdev) checks,
+> permitting MTU shrinks that are meant to be rejected. Would using int
+> here (the type atomic_read() returns) be preferable?
+
+ack, I will fix in v5.
+
+Regards,
+Lorenzo
+
+>=20
+> >  	airoha_fe_rmw(eth, REG_GDM_LEN_CFG(port->id),
+> >  		      GDM_LONG_LEN_MASK,
+> >  		      FIELD_PREP(GDM_LONG_LEN_MASK, len));
+
+--Lk/TFdVeNBlgNVPK
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaf73rgAKCRA6cBh0uS2t
+rGHbAQCU4qZQKNGV5iqcff0D6MaDhyAsSLJmi/W5EouwYcqncAEAmNiuT5ZIzpcH
+4Mt+NqzHqJyEkeLUhvnoyxX86GhLUg8=
+=akYS
+-----END PGP SIGNATURE-----
+
+--Lk/TFdVeNBlgNVPK--
