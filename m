@@ -1,128 +1,200 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F198003D
-	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 17:52:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775EC307AF0
+	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 17:52:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778349153; cv=none; b=aRusncHGE0546F2B+M7aVcsc1ZAvEiWzjjfQIGVaSwQA78fMBBgMWEjLgA1hlyYzb/snhWjMZZDsS9lX5DvsZ4l0KhkF/rHmCLKw5fmTMQG5tIni94ax+TzF4yrNtYjdfnNdmLpl/YBF/QSmpoDQeOp/Nr2rk82CM6PtCOc1IDg=
+	t=1778349177; cv=none; b=J6Z4SezvHRIeMlg9Zy3JtwHSzwLg19NKFDxsbYo2WBLI3ZKp/9zy31SxZNPbetacEwyrl2yFmf4pVdreMSWHWR2OAkJDanFWOoXt36MC64nycfom/i29faauJE63V0Xbnr8W0gk4UTOsPueHneEmnDDKlqfyNPEqSY1I8qSolWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778349153; c=relaxed/simple;
-	bh=AZyDvBuieCUAg9ZV7RUGRR/29k1YyhI66Zsuo7vNF9k=;
+	s=arc-20240116; t=1778349177; c=relaxed/simple;
+	bh=Nl8eJnu/Res1qrZEdyUHK0JGc8zJ7t+HSR4o/pb+HGo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EGRPBLANJ2Z1uJWRyzPBZsJ2lNpEpl0LyY5bqrmD5TO9XwYcxE0+mwCdzh25DQS5Sqp+3Sf/W9ZrGkecybi8k07Z70t1MF5EhEj26qZHN0+iKDUpxz65feb9ZWg+deesNE8lsaCaAAw4X8xIOmKXJ/0gmAtEyXDJvnNN0ijzD/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eJkUInu3; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=sdR8ZSuUlXEDi1vguscF7aBLT5dEqPm4YKfBl/+l4D4WqhprFisaPR9aasFCfBWKESNSCdWvOEW3qROjFTVZp7B62EFJylKEyn550Qk41Nr3jZqWzAI+STr7I9+reTjbwdaaxcGIrg6qaxw5d1HPInJkhYcQacMnE1W0P4NfAqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ckTTcKcN; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eJkUInu3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E78BC2BCB2;
-	Sat,  9 May 2026 17:52:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ckTTcKcN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9ABBC2BCB2;
+	Sat,  9 May 2026 17:52:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778349152;
-	bh=AZyDvBuieCUAg9ZV7RUGRR/29k1YyhI66Zsuo7vNF9k=;
+	s=k20201202; t=1778349177;
+	bh=Nl8eJnu/Res1qrZEdyUHK0JGc8zJ7t+HSR4o/pb+HGo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=eJkUInu3NCqYtBDN8jswnXWXaIAs2MClsKz8UZ6Y8yRmMDyWbxYOY3poX9F8YWZmR
-	 EoVnGR5g1vrg50X8qOHr2YoPGgLVSdAPb7JNgKHqPyX1+n0gUV8juI3o/JSmowo+iP
-	 T71kCJ10BXpHDBxronUt6qyjijs7J+tCtjq0BU2cdB4QV3guC0+PbDZb3qPcnkRxxB
-	 QuWsrjr2XrLZ+O1Z2pszq4S6Z6fHtp/8MpjGoFH6ySTLS6XbjoxZFl+CrjlI3dJr2s
-	 9QTZY/18fimDTp2Bo/C3+Mz2ZKdAT79s8k8KcQA7iTFuGLUDU7Z3t9fzeyT4QxhgfK
-	 lBagUufXUK6aw==
+	b=ckTTcKcNjbwpMX4clB2fxWTsO0JkOWGrC2BxJG2LEX38DWoFZf3w5bpWAvjn7QYvV
+	 KBV2zbMijIMsaXh0Z7hKwCk0QuTjq76z4tK8yjDVco0jLkXQONIHSSvZ+qdzWd/sUV
+	 qH1IF9glB6tp7Jo/l16iiC/4vclfXVp6FK86TeG+v/J4Cac/5cgQIQBDn7/fx0dm+v
+	 lrRqpzgU49ifvkFxoAKGzO5XkQgTGdcqelINecTxS3VgUEuoajdlGcU1N+97yAkJ3H
+	 rc5VQPpTxQRgxk7wsRjdIvBNgTtZz89CqrOWU/MQiIkMXCqQvRD0jO/V0eAsTn78rp
+	 KMRa/sUXe4PPw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: iio: adc: Convert xilinx-xadc bindings to
- YAML schema
+Subject: Re: [PATCH] dt-bindings: misc: Add binding for Xilinx AXI-Stream
+ FIFO
 Reply-To: sashiko@lists.linux.dev
 To: "Pramod Maurya" <pramod.nexgen@gmail.com>
-Cc: krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260509171453.45844-1-pramod.nexgen@gmail.com>
-References: <20260509171453.45844-1-pramod.nexgen@gmail.com>
+Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260509171648.46933-1-pramod.nexgen@gmail.com>
+References: <20260509171648.46933-1-pramod.nexgen@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 09 May 2026 17:52:31 +0000
-Message-Id: <20260509175232.4E78BC2BCB2@smtp.kernel.org>
+Date: Sat, 09 May 2026 17:52:56 +0000
+Message-Id: <20260509175256.D9ABBC2BCB2@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Medium] Incorrect regex for `patternProperties` matching channel unit ad=
-dresses (expects decimal instead of hex).
-- [Medium] Missing conditional schema validation for `xlnx,external-mux-cha=
-nnel`.
+- [High] DT Binding ABI Breakage and Duplicate Documentation
+- [High] IRQ Race Condition Dropping Unhandled Interrupts
+- [High] Incorrect MMIO Accessor Semantics for FIFOs
+- [High] Missing Clock Definition and Enablement
 --
 
-commit 9cb917c448e17a8e4cd03c2b0f448fe1debfc5c0
+commit 31b86c7f3095299d0d2eedef1065b0b06442005b
 Author: Pramod Maurya <pramod.nexgen@gmail.com>
 
-dt-bindings: iio: adc: Convert xilinx-xadc bindings to YAML schema
+dt-bindings: misc: Add binding for Xilinx AXI-Stream FIFO
 
-This commit converts the Xilinx XADC and UltraScale System Monitor device
-tree binding from the legacy plain-text format to a YAML schema, enabling
-automated validation with dt-schema.
+Add a YAML schema for the Xilinx AXI-Stream FIFO IP core (PG080).
+The binding documents the three supported compatible strings and all
+vendor-specific properties that the axis-fifo driver reads from the
+device tree.
 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml b/D=
-ocumentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+> diff --git a/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.ya=
+ml b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
 > new file mode 100644
-> index 0000000000000..86bdc4920cdbf
+> index 0000000000000..1e07db9cd4565
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
-> @@ -0,0 +1,191 @@
+> +++ b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+> @@ -0,0 +1,92 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/misc/xlnx,axi-fifo-mm-s.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Xilinx AXI-Stream FIFO
+> +
+> +maintainers:
+> +  - Jacob Feder <jacobsfeder@gmail.com>
+> +
+> +description:
+> +  The Xilinx AXI-Stream FIFO (PG080) provides a memory-mapped interface =
+to
+> +  an AXI-Stream FIFO IP core. It allows a processor to transmit and rece=
+ive
+> +  AXI-Stream packets via simple MMIO register reads and writes.
+
+Does the driver use the correct MMIO accessors for the FIFO data?
+
+drivers/staging/axis-fifo/axis-fifo.c:axis_fifo_write() {
+    ...
+	for (int i =3D 0; i < words_to_write; ++i)
+        // driver loops over the stream data offsets using iowrite32
+    ...
+}
+
+According to the I/O Accessors subsystem guidelines, FIFOs and stream-orien=
+ted
+hardware must exclusively use stream accessors (e.g., ioread32_rep(), reads=
+l())
+to preserve memory-to-device byte order.
+
+Since the driver loops over the stream data offsets using ioread32() and
+iowrite32(), won't these accessors enforce CPU-to-device endianness convers=
+ion
+and cause data payloads to be incorrectly byte-swapped on big-endian
+architectures?
+
 [ ... ]
-> +  xlnx,external-mux:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description: |
-> +      Selects the external multiplexer mode.
+
+> +properties:
+> +  compatible:
 > +    enum:
-> +      - none
-> +      - single
-> +      - dual
+> +      - xlnx,axi-fifo-mm-s-4.1
+> +      - xlnx,axi-fifo-mm-s-4.2
+> +      - xlnx,axi-fifo-mm-s-4.3
 > +
-> +  xlnx,external-mux-channel:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: |
-> +      Configures which pair of pins is used to sample data in external
-> +      multiplexer mode. This property is required when the device is
-> +      configured for external multiplexer mode.
+> +  reg:
+> +    maxItems: 1
 
-The description mentions this property is required when the device is
-configured for external multiplexer mode (e.g., when xlnx,external-mux is
-set to "single" or "dual").
+Does the binding need a clocks property to avoid a regression on power
+management?
 
-Should the schema enforce this dynamically using an allOf -> if/then block?
+The Xilinx AXI-Stream FIFO is an AXI peripheral that requires an active AXI
+clock (e.g., s_axi_aclk) to perform register transactions.
 
-Without conditional enforcement, device trees that enable the external
-multiplexer but omit the required channel configuration might silently pass
-automated dt-schema validation.
+In the driver, axis_fifo_probe() maps the registers and performs MMIO writes
+without requesting or enabling a clock via clk_prepare_enable().
+
+If the clock is disabled by the bootloader or a power management unit, won't
+these register accesses cause a synchronous external abort and crash or hang
+the system?
+
+> +
+> +  interrupts:
+> +    maxItems: 1
+
+Does the driver's interrupt handler have a regression where unhandled
+interrupts are dropped?
+
+drivers/staging/axis-fifo/axis-fifo.c:axis_fifo_irq() {
+    ...
+	ier =3D ioread32(fifo->base_addr + XLLF_IER_OFFSET);
+	isr =3D ioread32(fifo->base_addr + XLLF_ISR_OFFSET);
+	intr =3D ier & isr;
+    ...
+	iowrite32(XLLF_INT_CLEAR_ALL, fifo->base_addr + XLLF_ISR_OFFSET);
+
+	return IRQ_HANDLED;
+}
+
+Because XLLF_ISR_OFFSET is a Write-1-to-Clear register, unconditionally wri=
+ting
+0xFFFFFFFF (XLLF_INT_CLEAR_ALL) acknowledges and clears all interrupts, inc=
+luding
+any new ones that the hardware asserted between the read and the write.
+
+If a TX or RX complete interrupt fires in this narrow window, won't it be c=
+leared
+without being handled, causing the wait_event_interruptible() threads to ha=
+ng?
 
 [ ... ]
-> +  xlnx,channels:
-> +    type: object
-> +    description:
-> +      List of external channels connected to the ADC. If this property is
-> +      absent, no external channels are assumed to be connected.
-> +
-> +    properties:
-> +      '#address-cells':
-> +        const: 1
-> +
-> +      '#size-cells':
-> +        const: 0
-> +
-> +    patternProperties:
-> +      "^channel@([0-9]|1[0-6])$":
-> +        type: object
-> +        description:
 
-Device tree unit addresses must be formatted as lowercase hexadecimal.
-A reg value of 10-15 corresponds to the unit addresses @a through @f.
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - xlnx,axi-str-rxd-tdata-width
+> +  - xlnx,axi-str-txd-tdata-width
+> +  - xlnx,rx-fifo-depth
+> +  - xlnx,tx-fifo-depth
+> +  - xlnx,use-rx-data
+> +  - xlnx,use-tx-data
+> +
+> +additionalProperties: false
 
-Does this regex expect decimal numbers instead? If so, it might incorrectly
-reject valid hexadecimal unit addresses like channel@a through channel@f,
-and erroneously allow channel@16 (which corresponds to a reg of 22).
+Will this cause a regression for existing device trees?
 
-Should this regex be updated to match hex values instead?
+The original text binding in drivers/staging/axis-fifo/axis-fifo.txt requir=
+ed
+properties such as interrupt-names, xlnx,axi-str-rxd-protocol,
+xlnx,has-axis-tkeep, and many others describing physical hardware parameters
+generated by Xilinx synthesis tools.
+
+By omitting these properties while setting additionalProperties to false, w=
+on't
+this cause spurious dtbs_check validation errors for existing, correctly fo=
+rmed
+device trees?
+
+Additionally, since the legacy axis-fifo.txt file is not deleted in this
+commit, does this create duplicate and conflicting sources of truth for the
+hardware?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260509171453.4584=
-4-1-pramod.nexgen@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260509171648.4693=
+3-1-pramod.nexgen@gmail.com?part=3D1
