@@ -1,488 +1,165 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E1434750B
-	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 18:07:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8233B19EED3;
+	Sat,  9 May 2026 18:08:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778350070; cv=none; b=JEqJDq5CE1cbITLzPxCBiYKkgFi+w2RjOHw1UXtLm/X8u2J23iExEPbi2EnIXv5TVbrlcnEMNN3g5IMLnketjnNsZJDTVu77h1XIaLWVWzGnEQ4eZRxIPuHN0nREtoinbauE+ZnAjIVktnOHS9ywaag4pmkGWEqeRXcYESW9M3k=
+	t=1778350102; cv=none; b=ILyRHCO3kRwu53W/56ZQtHaSb7V7bvsB8SPHbZFD7VEiOaMBdC6FJQSTCeV4aANrqFIBSoRU7CKM2P20YrmJ6f+ZK/TO+qxt18a4H7hSRBSEBX3bt+NDh5ukZvgX8A5qNNcw7gwyKF09u/8RSH/MBvI9ug+oxOzg+KuEBxbneu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778350070; c=relaxed/simple;
-	bh=GoCoxfzQpBvPwQmuGxwI0C4sTzQ184QwchDvK5L4QJQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eb2LYVt4Ys8ilqD2YSYFmW7DB1hS2orlCihu9WB6N47P3L2G1JJhgEXa8akRNMdGJEwFbFRDptEWnGrkHv6xG8ra3rJoI4NVRkWloC2F4SYpKOCx9/Vb3jjgaEuk5FWGnl0Q/x3AMNjMQJeQU5rc3tPJk6TSusZn4b7+ZKBPNpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UtTubtk9; arc=none smtp.client-ip=209.85.210.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778350102; c=relaxed/simple;
+	bh=JRsrUMf8lSnKXkLmCxNX9Cn/uJ48REVsnLSjuCuU68w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PJIhFsNPMaMS6TrigObGsno+LY66b4Y4+EEtL6L/cLM9HG4iAs1/xkHR8Ku2QS+ni7FEbWEzO9fEDQbWXtTWtQ/gwEhqF0En9IaS4e0HonDt1MonbV5wifE9eiVEf6u/pjEiVWgzy2/EFkuBksXzvlkDKf4SOrlIZDdZ6O4MN7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mHW8T6bQ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UtTubtk9"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-83538fbd0b2so1261923b3a.0
-        for <devicetree@vger.kernel.org>; Sat, 09 May 2026 11:07:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778350068; x=1778954868; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=+5rZ3mxgfICvz9bbe7aRFUF9gV3csPbhzGjwc0x281Y=;
-        b=UtTubtk9rD+jMcu1pZhFwRgd1MKDtfkVWrj9M4APMndiYNRBsq9DZHlMjnMgv1jOJz
-         NPvnn+J2Xb7AgQyOxDE8P0Bu0+fo7byLYba7sr5qYla+1dfXCJJr/2sAvc5id03G5BqG
-         zb2feCN0izKKdAAqbIg09z6TOHgS/osVhd2SgFL4nptNmZm25fwO++K/dqpIUY50HqrJ
-         knRyyaH0XoCgfsOCIV1loFjWdEXpStLe3RYAfGGycXjsXSdW4Jr7n6riVGixPgKeqoAP
-         znXTp0+gmk29HMTxqQbejK2qK3Vvm7zItGLlwC9zXEmXCBtJ1iV9F+4B2trAHjmSIjeK
-         Q5BA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778350068; x=1778954868;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+5rZ3mxgfICvz9bbe7aRFUF9gV3csPbhzGjwc0x281Y=;
-        b=oEI9wwuQoS4gmULMMhn2FnwjoebELJVOwNT/+JbXm5rYzkrzYBYw0cCIanis+C9EHE
-         s8Ixi6PEfwNT+ZxurO8X6FX7IIzbQGCG0H7s3R4jvZO8HDH3juX/p/KJS8XSSJTJp5lr
-         t7B/4Vn0sWrCq9iQMGuNJiVdDK+OKXWR6yONo2oEx45k0CQd+eSuJ9XG3rj1PchS+Fc2
-         HPc+VXzwjMRnsgbF7eCkWs5kI8DDi5pP9AIAxNJOXKm5sUajk2U8xwuLRqJQR6XKXiAL
-         uxc8eGFT7GwLcLkVojjmp/0C2GGpGU1GXRjGg8h8BsBoN4TzkwOWf/+GuqhimWvGh4OQ
-         Bc5Q==
-X-Forwarded-Encrypted: i=1; AFNElJ+02p5Hy8KbowjOwNT/FCJT61GeuLsBHBqmXXKSiwCsIbcg4+2hH6EbZ3Kg5IFCKdzaSWE4kuchz0Gu@vger.kernel.org
-X-Gm-Message-State: AOJu0YzGJCnLvP7Cew9lXN5m0VWW5NaUeojS7Hqh6plRWzrPgtdIs3CW
-	ysnvoS+cKcxvtlucZv2nKQEgnIXCoBykxt7j5+1jiFNxOMSGxkwaLdg6BlpCYTOEmz8=
-X-Gm-Gg: Acq92OFuvDjO5yZx5MRBvVb+x/QZ+fUZNo5uDGGksTEwqapOnIM9UTbV/8N6Qmjuk0Y
-	rmv0ORk5cCbxbvzYY4s6OhT9LFg0I9WtmBCUhzOoUvLtGlbF8HVyK5uc5KomIK4A3T9o06YQtB+
-	QMIS3P1LDWGeBTBzKdKZfm43wf9tgJklt3AUmg0Cgfq+Ihkhxr8GkuHo1ByID72fYHcmN5LAvdc
-	zowu+40GBZRXyAPGmI9ePt0ONKYnQls0wRTGlFuUdZUK5rYnouJ7qD6Eo3m8R+7dnO+OG4lqC+A
-	972FU02Bd9FsdQboSEADiQ738CMjGrtfXLn1r6+kv9BvQ6cbqIieHvX37KhsMhN5AQbslihSwuo
-	8tVnxmV9BbiP2f/LCpAXKkeiE7wgJyHWCEfrjFNxu9L/Ill/C+dgmH1IDkkRQCr+uHiw7qJclcV
-	0kYerZonyteO9qnbfDxEeJ4os/ZfpR2wBDu1ngF+X08CWVkZx0sR4=
-X-Received: by 2002:a05:6a00:929d:b0:82c:6b1b:7ad4 with SMTP id d2e1a72fcca58-83e3955033bmr3066956b3a.3.1778350068047;
-        Sat, 09 May 2026 11:07:48 -0700 (PDT)
-Received: from localhost.localdomain ([2405:201:d008:80b:a00:27ff:feb6:42dd])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83965a3e3ecsm16044884b3a.19.2026.05.09.11.07.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 09 May 2026 11:07:47 -0700 (PDT)
-From: Pramod Maurya <pramod.nexgen@gmail.com>
-To: jic23@kernel.org
-Cc: pramod.nexgen@gmail.com,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] dt-bindings: iio: adc: Convert xilinx-xadc bindings to YAML schema
-Date: Sat,  9 May 2026 14:07:14 -0400
-Message-ID: <20260509180719.53704-1-pramod.nexgen@gmail.com>
-X-Mailer: git-send-email 2.52.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mHW8T6bQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99A75C2BCB2;
+	Sat,  9 May 2026 18:08:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778350102;
+	bh=JRsrUMf8lSnKXkLmCxNX9Cn/uJ48REVsnLSjuCuU68w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=mHW8T6bQeLSIV0/s6e5A6xrpaCdK4OgkY0g+mtYwDbQEe/NUSdRLf4hqCyam32Y/D
+	 2n+IdAkA23T1YqnlvNy43bBG8uyU2dAPQQBVwysSzoSEeRQH/csV/rI+/pMedKJZpG
+	 EVYL36zJ6cZqC6aicDmpf5elr2/DqVMU6se355E9Zqy3rRYywBFFWASFkgrGdyE121
+	 Qao4DK6NfeOBK5OTckpeHybJZtYLMhM274l0xwgl9M89ux+PbDMligcSjZ9j80YF2M
+	 qNJn4x9P9QrODuznhEfQdd8SBtm2/i2/5myHUgQEnuR8pjDn3gm2HlVde9MWYGUqbN
+	 W/ay4Ors46Ouw==
+Date: Sat, 9 May 2026 19:08:18 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: sashiko@lists.linux.dev, Arnd Bergmann <arnd@kernel.org>,
+	conor+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org,
+	robh@kernel.org
+Subject: Re: [PATCH 1/3] [v5 net-next] dt-bindings: net: add
+ st,stlc4560/p54spi binding
+Message-ID: <20260509-chewing-outback-1bc754a871ca@spud>
+References: <20260507212451.3333185-2-arnd@kernel.org>
+ <20260508213255.60491C2BCB0@smtp.kernel.org>
+ <20260509-magnifier-varnish-b948ef563e79@spud>
+ <877bpcmtnn.fsf@linux.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ze/ku3eWboxOyXqO"
+Content-Disposition: inline
+In-Reply-To: <877bpcmtnn.fsf@linux.dev>
 
-Convert the Xilinx XADC and UltraScale System Monitor device tree binding
-from the legacy plain-text format to a YAML schema, enabling automated
-validation with dt-schema.
 
-The new binding covers the same hardware and compatible strings:
-  - xlnx,zynq-xadc-1.00.a (ZYNQ hardmacro)
-  - xlnx,axi-xadc-1.00.a  (AXI softmacro)
-  - xlnx,system-management-wiz-1.3 (UltraScale System Management Wizard)
+--ze/ku3eWboxOyXqO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Pramod Maurya <pramod.nexgen@gmail.com>
----
-Changes in v2:
-- Fix patternProperties regex to use lowercase hex unit addresses
-  (channel@a through channel@f) instead of decimal; correct range
-  is now "^channel@([0-9a-f]|10)$"
-- Add allOf/if/then conditional to enforce xlnx,external-mux-channel
-  is required when xlnx,external-mux is "single" or "dual"
+On Sat, May 09, 2026 at 09:31:24AM -0700, Roman Gushchin wrote:
+> Conor Dooley <conor@kernel.org> writes:
+>=20
+> > On Fri, May 08, 2026 at 09:32:54PM +0000, sashiko-bot@kernel.org wrote:
+> >> Thank you for your contribution! Sashiko AI review found 2 potential i=
+ssue(s) to consider:
+> >> - [Low] Typo in the binding description: 'STLC5460' is used instead of=
+ 'STLC4560'.
+> >> - [Low] The `interrupts-extended` and `powerdown-gpios` specifiers in =
+the example lack standard secondary cells (flags/triggers).
+> >> --
+> >>=20
+> >> commit b803e7cb976e6f9f5ea1b9d2c76cdffbb8fe0d67
+> >> Author: Arnd Bergmann <arnd@arndb.de>
+> >>=20
+> >> dt-bindings: net: add st,stlc4560/p54spi binding
+> >>=20
+> >> This commit adds a device tree binding for the SPI version of the Pris=
+m54
+> >> wireless device. It documents the known names of this device and the
+> >> properties sufficient for its use.
+> >>=20
+> >> Link: https://lore.kernel.org/all/e8dc9acb-6f85-e0a9-a145-d101ca6da201=
+@gmail.com/
+> >>=20
+> >> > diff --git a/Documentation/devicetree/bindings/net/wireless/st,stlc4=
+560.yaml b/Documentation/devicetree/bindings/net/wireless/st,stlc4560.yaml
+> >> > new file mode 100644
+> >> > index 0000000000000..a32265c07350d
+> >> > --- /dev/null
+> >> > +++ b/Documentation/devicetree/bindings/net/wireless/st,stlc4560.yaml
+> >> > @@ -0,0 +1,61 @@
+> >> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> >> > +%YAML 1.2
+> >> > +---
+> >> > +$id: http://devicetree.org/schemas/net/wireless/st,stlc4560.yaml#
+> >> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> >> > +
+> >> > +title: ST/Intersil/Conexant stlc45xx/p54spi/cx3110x SPI wireless de=
+vice
+> >> > +
+> >> > +maintainers:
+> >> > +  - Christian Lamparter <chunkeey@gmail.com>
+> >> > +
+> >> > +description:
+> >> > +  The SPI variant of the Intersil Prism54 wireless device was sold
+> >> > +  under a variety of names, including Conexant CX3110x and
+> >> > +  ST Microelectronics STLC5460.
+> >>=20
+> >> This isn't a bug, but there's a typo in the description (STLC5460 inst=
+ead
+> >> of STLC4560).
+> >>=20
+> >> [ ... ]
+> >>=20
+> >> > +examples:
+> >> > +  - |
+> >> > +    spi {
+> >> > +        #address-cells =3D <1>;
+> >> > +        #size-cells =3D <0>;
+> >> > +
+> >> > +        wifi@0 {
+> >> > +            compatible =3D "st,stlc4560";
+> >> > +            reg =3D <0>;
+> >> > +            spi-max-frequency =3D <48000000>;
+> >> > +            interrupts-extended =3D <&gpio 23>;
+> >> > +            powerdown-gpios =3D <&gpio 1>;
+> >>=20
+> >> Do these specifiers need standard secondary cells for flags and trigge=
+rs?
+> >>=20
+> >> Real-world GPIO controllers typically require #gpio-cells =3D <2> or
+> >> #interrupt-cells =3D <2> to specify trigger types and active levels. W=
+hile
+> >> dt_binding_check accepts this since the phandle cell sizes are unknown,
+> >> copying this example into a real device tree will result in a compilat=
+ion
+> >> error.
+> >
+> > Can we make this thing not whinge about stuff like this? It's an
+> > /example/ and these fields cannot be copy-pasted anyway.
+>=20
+> If you have an idea how to convert it into a rule, I'm happy to merge it
+> into prompts. Something like "fields X and Y are not required for
+> example dt records". Sorry, it's really far from my area of expertise, so
+> I don't know what's right here and what's not.
 
- .../bindings/iio/adc/xilinx-xadc.txt          | 141 ------------
- .../bindings/iio/adc/xlnx,xadc.yaml           | 204 ++++++++++++++++++
- MAINTAINERS                                   |   7 +
- 3 files changed, 211 insertions(+), 141 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
- create mode 100644 Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+"Ignore phandle arguments in examples, when the phandle doesn't
+reference a node in the example"? Although, probably can go as far as
+"ignore phandle arguments in examples", since Rob's bot does
+validation on examples, and should catch a mismatch where the target of
+phandle exists.
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt b/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
-deleted file mode 100644
-index f42e18078376..000000000000
---- a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
-+++ /dev/null
-@@ -1,141 +0,0 @@
--Xilinx XADC device driver
--
--This binding document describes the bindings for the Xilinx 7 Series XADC as well
--as the UltraScale/UltraScale+ System Monitor.
--
--The Xilinx XADC is an ADC that can be found in the Series 7 FPGAs from Xilinx.
--The XADC has a DRP interface for communication. Currently two different
--frontends for the DRP interface exist. One that is only available on the ZYNQ
--family as a hardmacro in the SoC portion of the ZYNQ. The other one is available
--on all series 7 platforms and is a softmacro with a AXI interface. This binding
--document describes the bindings for both of them since the bindings are very
--similar.
--
--The Xilinx System Monitor is an ADC that is found in the UltraScale and
--UltraScale+ FPGAs from Xilinx. The System Monitor provides a DRP interface for
--communication. Xilinx provides a standard IP core that can be used to access the
--System Monitor through an AXI interface in the FPGA fabric. This IP core is
--called the Xilinx System Management Wizard. This document describes the bindings
--for this IP.
--
--Required properties:
--	- compatible: Should be one of
--		* "xlnx,zynq-xadc-1.00.a": When using the ZYNQ device
--		  configuration interface to interface to the XADC hardmacro.
--		* "xlnx,axi-xadc-1.00.a": When using the axi-xadc pcore to
--		  interface to the XADC hardmacro.
--		* "xlnx,system-management-wiz-1.3": When using the
--		  Xilinx System Management Wizard fabric IP core to access the
--		  UltraScale and UltraScale+ System Monitor.
--	- reg: Address and length of the register set for the device
--	- interrupts: Interrupt for the XADC control interface.
--	- clocks: When using the ZYNQ this must be the ZYNQ PCAP clock,
--	  when using the axi-xadc or the axi-system-management-wizard this must be
--	  the clock that provides the clock to the AXI bus interface of the core.
--
--Optional properties:
--	- xlnx,external-mux:
--		* "none": No external multiplexer is used, this is the default
--		  if the property is omitted.
--		* "single": External multiplexer mode is used with one
--		   multiplexer.
--		* "dual": External multiplexer mode is used with two
--		  multiplexers for simultaneous sampling.
--	- xlnx,external-mux-channel: Configures which pair of pins is used to
--	  sample data in external mux mode.
--	  Valid values for single external multiplexer mode are:
--		0: VP/VN
--		1: VAUXP[0]/VAUXN[0]
--		2: VAUXP[1]/VAUXN[1]
--		...
--		16: VAUXP[15]/VAUXN[15]
--	  Valid values for dual external multiplexer mode are:
--		1: VAUXP[0]/VAUXN[0] - VAUXP[8]/VAUXN[8]
--		2: VAUXP[1]/VAUXN[1] - VAUXP[9]/VAUXN[9]
--		...
--		8: VAUXP[7]/VAUXN[7] - VAUXP[15]/VAUXN[15]
--
--	  This property needs to be present if the device is configured for
--	  external multiplexer mode (either single or dual). If the device is
--	  not using external multiplexer mode the property is ignored.
--	- xnlx,channels: List of external channels that are connected to the ADC
--	  Required properties:
--		* #address-cells: Should be 1.
--		* #size-cells: Should be 0.
--
--	  The child nodes of this node represent the external channels which are
--	  connected to the ADC. If the property is no present no external
--	  channels will be assumed to be connected.
--
--	  Each child node represents one channel and has the following
--	  properties:
--		Required properties:
--			* reg: Pair of pins the channel is connected to.
--				0: VP/VN
--				1: VAUXP[0]/VAUXN[0]
--				2: VAUXP[1]/VAUXN[1]
--				...
--				16: VAUXP[15]/VAUXN[15]
--			  Note each channel number should only be used at most
--			  once.
--		Optional properties:
--			* xlnx,bipolar: If set the channel is used in bipolar
--			  mode.
--
--
--Examples:
--	xadc@f8007100 {
--		compatible = "xlnx,zynq-xadc-1.00.a";
--		reg = <0xf8007100 0x20>;
--		interrupts = <0 7 4>;
--		interrupt-parent = <&gic>;
--		clocks = <&pcap_clk>;
--
--		xlnx,channels {
--			#address-cells = <1>;
--			#size-cells = <0>;
--			channel@0 {
--				reg = <0>;
--			};
--			channel@1 {
--				reg = <1>;
--			};
--			channel@8 {
--				reg = <8>;
--			};
--		};
--	};
--
--	xadc@43200000 {
--		compatible = "xlnx,axi-xadc-1.00.a";
--		reg = <0x43200000 0x1000>;
--		interrupts = <0 53 4>;
--		interrupt-parent = <&gic>;
--		clocks = <&fpga1_clk>;
--
--		xlnx,channels {
--			#address-cells = <1>;
--			#size-cells = <0>;
--			channel@0 {
--				reg = <0>;
--				xlnx,bipolar;
--			};
--		};
--	};
--
--	adc@80000000 {
--		compatible = "xlnx,system-management-wiz-1.3";
--		reg = <0x80000000 0x1000>;
--		interrupts = <0 81 4>;
--		interrupt-parent = <&gic>;
--		clocks = <&fpga1_clk>;
--
--		xlnx,channels {
--			#address-cells = <1>;
--			#size-cells = <0>;
--			channel@0 {
--				reg = <0>;
--				xlnx,bipolar;
--			};
--		};
--	};
-diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
-new file mode 100644
-index 000000000000..cfe753e3e8d1
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
-@@ -0,0 +1,204 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/adc/xlnx,xadc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Xilinx XADC and UltraScale System Monitor
-+
-+maintainers:
-+  - Lars-Peter Clausen <lars@metafoo.de>
-+
-+description: |
-+  The Xilinx XADC is an ADC found in the Series 7 FPGAs. It has a DRP
-+  (Dynamic Reconfiguration Port) interface for communication. Two different
-+  frontends for the DRP interface are supported:
-+
-+    - ZYNQ hardmacro: available only on the ZYNQ family as a hardmacro in
-+      the SoC portion of the ZYNQ device.
-+    - AXI softmacro: available on all Series 7 platforms as a softmacro
-+      with an AXI interface (PG019).
-+
-+  The Xilinx System Monitor is an ADC found in UltraScale and UltraScale+
-+  FPGAs. It is accessed through the Xilinx System Management Wizard IP core
-+  via an AXI interface in the FPGA fabric.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - xlnx,zynq-xadc-1.00.a
-+      - xlnx,axi-xadc-1.00.a
-+      - xlnx,system-management-wiz-1.3
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    description: |
-+      When using the ZYNQ this must be the ZYNQ PCAP clock.
-+      When using the axi-xadc or system-management-wiz this must be
-+      the clock that provides the clock to the AXI bus interface.
-+    maxItems: 1
-+
-+  xlnx,external-mux:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: |
-+      Selects the external multiplexer mode.
-+    enum:
-+      - none
-+      - single
-+      - dual
-+
-+  xlnx,external-mux-channel:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: |
-+      Configures which pair of pins is used to sample data in external
-+      multiplexer mode. This property is required when the device is
-+      configured for external multiplexer mode.
-+
-+      Valid values for single external multiplexer mode:
-+        0: VP/VN
-+        1-16: VAUXP[0]/VAUXN[0] through VAUXP[15]/VAUXN[15]
-+
-+      Valid values for dual external multiplexer mode:
-+        1: VAUXP[0]/VAUXN[0] - VAUXP[8]/VAUXN[8]
-+        2: VAUXP[1]/VAUXN[1] - VAUXP[9]/VAUXN[9]
-+        ...
-+        8: VAUXP[7]/VAUXN[7] - VAUXP[15]/VAUXN[15]
-+    minimum: 0
-+    maximum: 16
-+
-+  xlnx,channels:
-+    type: object
-+    description:
-+      List of external channels connected to the ADC. If this property is
-+      absent, no external channels are assumed to be connected.
-+
-+    properties:
-+      '#address-cells':
-+        const: 1
-+
-+      '#size-cells':
-+        const: 0
-+
-+    patternProperties:
-+      "^channel@([0-9a-f]|10)$":
-+        type: object
-+        description:
-+          Represents an external channel connected to the ADC.
-+
-+        properties:
-+          reg:
-+            description: |
-+              Pair of pins the channel is connected to.
-+                0: VP/VN
-+                1: VAUXP[0]/VAUXN[0]
-+                2: VAUXP[1]/VAUXN[1]
-+                ...
-+                16: VAUXP[15]/VAUXN[15]
-+            minimum: 0
-+            maximum: 16
-+
-+          xlnx,bipolar:
-+            $ref: /schemas/types.yaml#/definitions/flag
-+            type: boolean
-+            description:
-+              If set, the channel is used in bipolar mode.
-+
-+        required:
-+          - reg
-+
-+        additionalProperties: false
-+
-+    required:
-+      - '#address-cells'
-+      - '#size-cells'
-+
-+    additionalProperties: false
-+
-+allOf:
-+  - if:
-+      properties:
-+        xlnx,external-mux:
-+          enum:
-+            - single
-+            - dual
-+      required:
-+        - xlnx,external-mux
-+    then:
-+      required:
-+        - xlnx,external-mux-channel
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    /* ZYNQ hardmacro example */
-+    adc@f8007100 {
-+        compatible = "xlnx,zynq-xadc-1.00.a";
-+        reg = <0xf8007100 0x20>;
-+        interrupts = <0 7 4>;
-+        interrupt-parent = <&gic>;
-+        clocks = <&pcap_clk>;
-+
-+        xlnx,channels {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+            channel@0 {
-+                reg = <0>;
-+            };
-+            channel@1 {
-+                reg = <1>;
-+            };
-+            channel@8 {
-+                reg = <8>;
-+            };
-+        };
-+    };
-+
-+  - |
-+    /* AXI softmacro example */
-+    adc@43200000 {
-+        compatible = "xlnx,axi-xadc-1.00.a";
-+        reg = <0x43200000 0x1000>;
-+        interrupts = <0 53 4>;
-+        interrupt-parent = <&gic>;
-+        clocks = <&fpga1_clk>;
-+
-+        xlnx,channels {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+            channel@0 {
-+                reg = <0>;
-+                xlnx,bipolar;
-+            };
-+        };
-+    };
-+
-+  - |
-+    /* UltraScale System Management Wizard example */
-+    adc@80000000 {
-+        compatible = "xlnx,system-management-wiz-1.3";
-+        reg = <0x80000000 0x1000>;
-+        interrupts = <0 81 4>;
-+        interrupt-parent = <&gic>;
-+        clocks = <&fpga1_clk>;
-+
-+        xlnx,channels {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+            channel@0 {
-+                reg = <0>;
-+                xlnx,bipolar;
-+            };
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 2fb1c75afd16..9b107057ad8c 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -29226,6 +29226,13 @@ F:	Documentation/devicetree/bindings/watchdog/xlnx,xps-timebase-wdt.yaml
- F:	drivers/watchdog/of_xilinx_wdt.c
- F:	drivers/watchdog/xilinx_wwdt.c
- 
-+XILINX XADC DRIVER
-+M:	Lars-Peter Clausen <lars@metafoo.de>
-+L:	linux-iio@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
-+F:	drivers/iio/adc/xilinx-xadc*
-+
- XILINX XDMA DRIVER
- M:	Lizhi Hou <lizhi.hou@amd.com>
- M:	Brian Xu <brian.xu@amd.com>
--- 
-2.52.0
+I dunno if "argument" is the correct word for the RHS of the property.
 
+--ze/ku3eWboxOyXqO
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaf94EgAKCRB4tDGHoIJi
+0sZ2AQD6PKfbPd3k+eVwxvewde6nKXd9BCzpnx4kTdklvgIjQAEAnI4oZlHpOHtj
+wcdJg9fN2/4IyQgK7zQxDkrPP4Md/AM=
+=M6WI
+-----END PGP SIGNATURE-----
+
+--ze/ku3eWboxOyXqO--
