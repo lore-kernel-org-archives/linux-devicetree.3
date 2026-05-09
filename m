@@ -1,133 +1,164 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E1021F4C96;
-	Sat,  9 May 2026 12:18:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65B1918A92F;
+	Sat,  9 May 2026 13:05:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778329086; cv=none; b=LVYIKmOcZ53gpQTogFmIyL3NjKIlpA9cy75edRAqZHSbH3nIiXy42bs2d3ya22h2PZZ2NaI7HOGNCHU981GhcV8ljNgHuIXzp3avP8Jvx8PHFCKEd9if7NcpqcoYm5L8U3gN5TULw78IXya7k8KX0bZYr7mT38qcpk69b2wMGBg=
+	t=1778331954; cv=none; b=pIMlY4mhaQW/mGQzMsqqkjP2sp5UEHDSBK+ZBkNh9+VFW52K3mQ6wkTewIcwTUyDUiT+T6g85YmIiuq6LBph0AcZvaR6dG94c/FPtSh0NoFra6YmuXrEF4y/7+oILKthge1+JsvD4NUpKeHkhzJbMqmVGv633T4bVSAnkObuUtE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778329086; c=relaxed/simple;
-	bh=e2oFXTT2JCKAlsxuWsZ6hENzU/VoBbUd/BrLIBFBNP4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YTq1K82KweCk/kCWbbyqlM3+yi3RKAzIvO2EUqrrqtzNkA4942RaR3RKu5ZImkuzQYT6+AHAigu/bS1yD8bGOPSoD5s1/xIuo/wlii3rdOrz1ATmpB9vGqqvr3aKQXk4kr75aBIBd5ytDjaMH/Anhqij8yWWeUutzKdERQjMSEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HGRVQTci; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778331954; c=relaxed/simple;
+	bh=gb7mGI1ybcfQRhKJ1hSBPApVKm8A4ms+Frof0TyZ92w=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=IQvdxBPPDLJfEUHhWGQ567pchwAl464X2xw72Nh8uWEEuv49MebkzVgdJ6qmnTSCZkfG6q0giEHRplcRBKX3jKiG5eaR8wVHMcVbEm8YvlEqMjydNharHkch5zqtsbGCUHIbflOHc1T90MiHn9TS5Er3hoqg2zNZQXWJWjJX47Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fllg43zz; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HGRVQTci"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86A9FC2BCB2;
-	Sat,  9 May 2026 12:18:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fllg43zz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DFFEC2BCB2;
+	Sat,  9 May 2026 13:05:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778329086;
-	bh=e2oFXTT2JCKAlsxuWsZ6hENzU/VoBbUd/BrLIBFBNP4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HGRVQTciuPangxRxax8jZyIRUUotI2KItf+rr+a5pIP/kRPNqBkBffgLG+LPr49j2
-	 Sg/CsTt4o1qiPlKxruGVWNJlhcF0/pN/2uaZBtNzpC5yFQM1YowZQrDGTMP6k1XG9V
-	 jsVqryep0OA0ba/WJ6mfWLmkF1meAicdVTLNXod78+9fyAnh0pYyTo97nQ3x2l8PNj
-	 IRGtblwh54w8OKgoFq3nxuGkCGLukFGi3T882Zk+RrJTrENoU9QcEWtOC3ZDdzHRmE
-	 r+o9vx0PKj02EGFS7Ls3CqZQWJx66H+llTxwvHwqxyvx6rkVWxikxW18DZEv6JQbhD
-	 sHrOPfOpKqHXA==
-Date: Sat, 9 May 2026 12:18:02 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Anand Moon <linux.amoon@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
-	open list <linux-kernel@vger.kernel.org>,
-	Han Gao <gaohan@iscas.ac.cn>, Ze Huang <huang.ze@linux.dev>,
-	Chukun Pan <amadeus@jmu.edu.cn>
-Subject: Re: [PATCH v2 1/4] riscv: dts: spacemit: k1-bananapi-f3: Add
- vcc5v0_sys regulator for Banana Pi F3
-Message-ID: <20260509121802-GKB3601591@kernel.org>
-References: <20260502051906.8160-1-linux.amoon@gmail.com>
- <20260502051906.8160-2-linux.amoon@gmail.com>
- <20260507024524-GKA3579608@kernel.org>
- <CANAwSgQLhgC6puNy2dkMjL=hd+yTYizBBFykd63KJDbw48219w@mail.gmail.com>
+	s=k20201202; t=1778331954;
+	bh=gb7mGI1ybcfQRhKJ1hSBPApVKm8A4ms+Frof0TyZ92w=;
+	h=From:Subject:Date:To:Cc:From;
+	b=fllg43zzCJHEgKEch5dg4knY0W8RVzvBnjM4GCM3VZz0+AbQDdqgwbFrJicN9jvDG
+	 dk+5esMVT6MdZfVuY+iDAGSM3EgGDT4eJPQEdgi0Hw4MPrmTNr7LETZfoGJwDaSzRL
+	 bxNI9h1mTI9d4srcka0rI2QjQYzOCgmCloKTaC/fYeMm7tF0Kcjq2os/GMM5wNaUAi
+	 +VkRW3wDt2ScyMB+4dLRZf2J6//00i6PQsTE580htayBu/DpJBZrHGvvSuFJo2D6wk
+	 LE8u6TsWddccpQxt8vMGdf15IsoPJARokO3AOrEvgLyiz77QmYy6bIwT3GFEas0aM/
+	 YG6+erAiDYXEg==
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+Subject: [PATCH net-next v5 00/12] net: airoha: Support multiple
+ net_devices connected to the same GDM port
+Date: Sat, 09 May 2026 15:05:25 +0200
+Message-Id: <20260509-airoha-eth-multi-serdes-v5-0-805e38edc2aa@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CANAwSgQLhgC6puNy2dkMjL=hd+yTYizBBFykd63KJDbw48219w@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNS2rDMBgE4KsEravy62ncVe9RupDsUSyaykFST
+ Urw3auYQlqCl8Mw31xZQY4o7OVwZRlLLHFOLZinAxsml47gcWyZSZKWlNTcxTxPjqNO/PPrVCN
+ vwIjCg9feGAt0xrK2PmeEeNnkN5ZQecKlsvfWTLHUOX9vl4vY+l+939UXwYkTBSPHQVka3OsHc
+ sLpec7HDV3kHdIk9iHZIDdo2TloD/gHSP2F7D6kbpC3cLofTR/CA6TvkKFuH9I3KFihvBUOJP9
+ B67r+AChiZAykAQAA
+X-Change-ID: 20260324-airoha-eth-multi-serdes-fb4b556ee756
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lorenzo Bianconi <lorenzo@kernel.org>
+Cc: Christian Marangi <ansuelsmth@gmail.com>, 
+ Benjamin Larsson <benjamin.larsson@genexis.eu>, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+ Xuegang Lu <xuegang.lu@airoha.com>, 
+ Madhur Agrawal <madhur.agrawal@airoha.com>
+X-Mailer: b4 0.14.3
 
-Hi Anand,
+EN7581 or AN7583 SoCs support connecting multiple external SerDes (e.g.
+Ethernet or USB SerDes) to GDM3 or GDM4 ports via a hw arbiter that
+manages the traffic in a TDM manner. As a result multiple net_devices can
+connect to the same GDM{3,4} port and there is a theoretical "1:n"
+relation between GDM ports and net_devices.
 
-On 13:06 Fri 08 May     , Anand Moon wrote:
-> Hi Yixun,
-> 
-> Thanks for your review comments.
-> 
-> On Thu, 7 May 2026 at 08:15, Yixun Lan <dlan@kernel.org> wrote:
-> >
-> > Hi Anand,
-> >
-> > On 10:48 Sat 02 May     , Anand Moon wrote:
-> > > Define the system 5V fixed regulator (vcc5v0_sys) supplied by the
-> > > DC input. As per the schematics, vcc5v0_sys is the input power source
-> > > for the VCC5V0_HUB and 5V_VBUS reglators. Update these regulators
-> > > to correctly reference vcc5v0_sys as their parent (vin-supply).
-> > >
-> > > Cc: Han Gao <gaohan@iscas.ac.cn>
-> > > Cc: Ze Huang <huang.ze@linux.dev>
-> > > Cc: Chukun Pan <amadeus@jmu.edu.cn>
-> > > Signed-off-by: Anand Moon <linux.amoon@gmail.com>
-> > > ---
-> > >  arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts | 12 ++++++++++++
-> > >  1 file changed, 12 insertions(+)
-> > >
-> > > diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> > > index 5790d927b93d..9727ecdd9f6b 100644
-> > > --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> > > +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> > > @@ -50,6 +50,16 @@ reg_dc_in: regulator-dc-in-12v {
-> > >               regulator-always-on;
-> > >       };
-> > >
-> > > +     reg_vcc5v0_sys: regulator-vcc5v0-sys {
-> > This will fall into the catogery of "non-controllable & serve no devices"
-> > see similar comment for 'reg_dc_in' which raised by Krzysztof
-> >
-> > https://lore.kernel.org/all/6530526f-59ca-4753-a068-46c62a1a1fed@kernel.org/
-> >
-> > or should I ask, what's the real problem if regulator has no vin-supply?
-> 
-> If the device tree is not configured with the correct power source it
-> will affect performance.
-> 
-Please elaborate, or provide enough evidence to prove this, because the
-conclusion you gave here contradicts with what Krzysztof pointed out
+           ┌─────────────────────────────────┐
+           │                                 │    ┌──────┐
+           │                         P1 GDM1 ├────►MT7530│
+           │                                 │    └──────┘
+           │                                 │      ETH0 (DSA conduit)
+           │                                 │
+           │              PSE/FE             │
+           │                                 │
+           │                                 │
+           │                                 │    ┌─────┐
+           │                         P0 CDM1 ├────►QDMA0│
+           │  P4                     P9 GDM4 │    └─────┘
+           └──┬─────────────────────────┬────┘
+              │                         │
+           ┌──▼──┐                 ┌────▼────┐
+           │ PPE │                 │   ARB   │
+           └─────┘                 └─┬─────┬─┘
+                                     │     │
+                                  ┌──▼──┐┌─▼───┐
+                                  │ ETH ││ USB │
+                                  └─────┘└─────┘
+                                   ETH1   ETH2
 
-> > Any probe failure or something bad happen? (besides /sys/../regulator_summay)
-> 
-> Not really; the regulator summary just confirms the PMIC used the
-> correct power source.
-> with te device ip blocks.
-> 
-then I see it's unnecessary to add this
+This series introduces support for multiple net_devices connected to the
+same Frame Engine (FE) GDM port (GDM3 or GDM4) via an external hw
+arbiter. Please note GDM1 or GDM2 does not support the connection with
+the external arbiter.
 
-> Bananapi F3 schematics.
-> [1] https://drive.google.com/file/d/19iLJ5xnCB_oK8VeQjkPGjzAn39WYyylv/view
-> (page 24)
-> 
-> Please check the shematics VCC5V0_SYS page 4
-> VCC5V0_SYS->USB_VCC5V0->HDMI_VCC5V0->FAN_VCC5V0->VCC3V3_SYS
-> 
-> Please check the shematics VCC5V0_SYS page 24
-> VCC5V0_SYS input for VCC5V0_HUB and 5V_VBUS give the USB hub,
-> which is enabled by USB3_PWREN (gpio pin)>
-> 
-> Plese check power tree page 4
-> USBVBUS->SY8386J UXXX -> PCIE_VCC3V3 for pcie vin source
-> 
-> So, this series tries to fix the vin source for USB 3.0 and PCIe nodes.
-> 
-This is not what I ask..
+---
+Changes in v5:
+- Move qos_sq_bmap bitmap in airoha_gdm_dev struct.
+- Unregister netdevice before running of_node_put().
+- Move stat MIB counters in airoha_gdm_dev struct.
+- Fix airoha_ppe_init_upd_mem() mac address configuration.
+- Do not return -EBUSY if we try to decrease configured MTU of a shared
+  GDM port, just skip hw configuration.
+- use int instead of atomic_t for GDM port users.
+- Add patch "net: airoha: Reserve RX headroom to avoid skb reallocation"
+- Fix typos.
+- Link to v4: https://lore.kernel.org/r/20260507-airoha-eth-multi-serdes-v4-0-af613b61ae02@kernel.org
 
+Changes in v4:
+- Make ethernet-port property available just for GDM3 and GDM4 in DTS
+  specification
+- Move cpu_tx_packets, fwd_tx_packets qos_sq_bmap fields in airoha_qdma
+  struct
+- Fix of_node leak removing the net_device in airoha_remove() or
+  airoha_probe() error path
+- Fix nbq backward compatibility
+- Link to v3: https://lore.kernel.org/r/20260406-airoha-eth-multi-serdes-v3-0-ab6ea49d59ff@kernel.org
+
+Changes in v3:
+- Fix MTU and VIP configuration when the GDM port is shared between
+  multiple net_devices.
+- Add sanity check for nbq parameter.
+- Add missing of_node_get() for net_device np node.
+- Check if GDM port is shared before decresing device MTU.
+- Move port forward configuration in airoha_dev_stop() before
+  configuring DMA tx/rx engine.
+- Introduce PRIV_FLAG_WAN parameter.
+- Link to v2: https://lore.kernel.org/r/20260401-airoha-eth-multi-serdes-v2-0-ac427ae4beeb@kernel.org
+
+Changes in v2:
+- Rename multiplexer in arbiter in the commit logs.
+- Rebase on top of net-next main branch.
+- Add missing PPE cpu port configuration for GDM2 when loopback is
+  enabled.
+- Link to v1: https://lore.kernel.org/r/20260329-airoha-eth-multi-serdes-v1-0-00f52dc360ca@kernel.org
+
+---
+Christian Marangi (1):
+      net: airoha: Better handle MIB for GDM with multiple port attached
+
+Lorenzo Bianconi (11):
+      dt-bindings: net: airoha: Add EN7581 ethernet-ports properties
+      net: airoha: Reserve RX headroom to avoid skb reallocation
+      net: airoha: Introduce airoha_gdm_dev struct
+      net: airoha: Move airoha_qdma pointer in airoha_gdm_dev struct
+      net: airoha: Rely on airoha_gdm_dev pointer in airhoa_is_lan_gdm_port()
+      net: airoha: Move qos_sq_bmap in airoha_gdm_dev struct
+      net: airoha: Move {cpu,fwd}_tx_packets in airoha_gdm_dev struct
+      net: airoha: Support multiple net_devices for a single FE GDM port
+      net: airoha: Do not stop GDM port if it is shared
+      net: airoha: Introduce WAN device flag
+      net: airoha: Support multiple LAN/WAN interfaces for hw MAC address configuration
+
+ .../devicetree/bindings/net/airoha,en7581-eth.yaml |  52 +-
+ drivers/net/ethernet/airoha/airoha_eth.c           | 997 ++++++++++++++-------
+ drivers/net/ethernet/airoha/airoha_eth.h           |  48 +-
+ drivers/net/ethernet/airoha/airoha_ppe.c           |  43 +-
+ 4 files changed, 785 insertions(+), 355 deletions(-)
+---
+base-commit: 8b2feced65cd3aa0597d596ed5733a1abd4c4d78
+change-id: 20260324-airoha-eth-multi-serdes-fb4b556ee756
+
+Best regards,
 -- 
-Yixun Lan (dlan)
+Lorenzo Bianconi <lorenzo@kernel.org>
+
