@@ -1,168 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFA343BFE5C;
-	Sat,  9 May 2026 20:19:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1378CA4E
+	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 20:46:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778357955; cv=none; b=OT9g+ZOdzUprw1EEONP/rtaz+7mvqDDXxCFBaD41t3gYSPdzprJOpGzeLRitGbE2gtYiRgXhDJHkYlDyA18i/VslMfeTeD4sHX/f4XS7xvzcUUvzZ6VWpUerEUd5FUC96LxOkgC6sYabAc2br5hUNEzYANb5Rs0Qzdkc7i87ZVI=
+	t=1778359568; cv=none; b=Yn2WWw3B4rvoWBwfDAOouKx52ci5lsBJYyA+Aqs24XlGFLUczq7qz+ooBTOFQjZkUIdlYvG5WN1JIq7K50K0wk1kW0pyPpJcObRVzk0QJNFpzHB3xwg4NY0357sCBAtw5R8PNaH0/8qnWeOb2rGxiptageqKiKUwIKSYkExhJD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778357955; c=relaxed/simple;
-	bh=sKobk+YDd1KDXHb/w+YQFE4z2kSaytJsYIScKTJIRLI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=J+N3etEjCu3VR3AfygyClClh4o7zwOlHXjdOD1XCXtzbq3Kl9+Pvc3fsMQXL/+fY96mCVWI6dtziFRzT4x//FJ/XRpa7eBCDRFYBxbFMJZLurSsCTpWqCPhzLc+IgZhSJznlPeuDhbiuvIDVeDBqx/K7/JFryBxu7fBK/6UEL8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UWfQQIo7; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778359568; c=relaxed/simple;
+	bh=jItWHos1Hn5XBO11RWjVC8/ok3UcnMAuxALvgTpQQnI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=JlFiKKjW20RIppspUsbewAWdFGJ/11BIahhyjDLmgnEpgqVycZ6Lm4/B4siEY5Vp07GJsE+H1obDujElGmkRAqsvaQxrIbWXvdFYcfDxYsgPfxGVU5pUz/U+yNVQG1QQqvuWtVwA0rH+LenNfjKqqq/kdYo93CDcOMbpPdFOHo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NESeQLXY; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UWfQQIo7"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6D142C2BCC9;
-	Sat,  9 May 2026 20:19:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NESeQLXY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05915C2BCB2;
+	Sat,  9 May 2026 20:46:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778357954;
-	bh=sKobk+YDd1KDXHb/w+YQFE4z2kSaytJsYIScKTJIRLI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=UWfQQIo7N7BIFAHfwaSh9cVO/IfpuidmeWQ77vTLnGdSbgE/+k1D2DUqjavkeLVDp
-	 5XF94OLgIwoo8pETBPfMXNxSQKvbM5RIVgIdUw/pvMP+TRHALvd7XV2oGlB5YW+FO+
-	 pomBBy0IuI3lwOYLqtHYXRaxBcnAqAinf4zJ+JikHuYpfU0KO3d5ZublSp9FwPVqIE
-	 m4K1n+ji74ez+erJC1Cpr4vbzHYI1dEStnaLZtd/GzGPqg5XFxGulsF6n+KFnBs/I2
-	 ceerGR4/ckaVMzzfYsvB7lOsVYJ/bEFCIYcefQbSPxfjEM8TGC7v2BbmLiwOygA1aY
-	 980+XlqefE5jA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F56ACD342F;
-	Sat,  9 May 2026 20:19:14 +0000 (UTC)
-From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Sat, 09 May 2026 15:18:57 -0500
-Subject: [PATCH 1/2] dt-bindings: display: panel: Add Chipone ICNA 35xx
+	s=k20201202; t=1778359568;
+	bh=jItWHos1Hn5XBO11RWjVC8/ok3UcnMAuxALvgTpQQnI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=NESeQLXYgsWX65Ea42v+BuCymkwdtgk0E5YJsIqQmbVBNFcTYktXUVbFK9YWi7hUM
+	 QSe9uq8sWN9Lnwr6RJ6wdNTB8oiy148GKbpOP3VOY95zmCpz9j+S0u2xihcB9bcO0B
+	 OGi3rBch8BOuaZJxNECAk+Emaqy048+OIj6Ok+Z2aiEbA3ZYG239oaBqhC8mr1Rv+b
+	 rKVvQPTuIPoO63Aegd1PC7EFRTXaJHEv8h2uhKDY5gTdQFcRUzqlRXsrHmFS1Ln/0Q
+	 5i5IfrVg3sTZL2T1+9Wmj6u8s+/YSuJ7twtU97Q0TRNzrGXyEojLJ0hkszsHZDzNZV
+	 xfVVBgcBdZ6cQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel: Add Chipone ICNA 35xx
  OLED driver bindings
+Reply-To: sashiko@lists.linux.dev
+To: "Aaron Kling via B4 Relay" <devnull+webgeek1234.gmail.com@kernel.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260509-icna35xx-v1-1-688d3d4e10f9@gmail.com>
+References: <20260509-icna35xx-v1-1-688d3d4e10f9@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 09 May 2026 20:46:07 +0000
+Message-Id: <20260509204608.05915C2BCB2@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260509-icna35xx-v1-1-688d3d4e10f9@gmail.com>
-References: <20260509-icna35xx-v1-0-688d3d4e10f9@gmail.com>
-In-Reply-To: <20260509-icna35xx-v1-0-688d3d4e10f9@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778357952; l=2511;
- i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=OoHb7X7TZvRfCQ5uqL7afSM0e2bjFFLjyQXyOiI00xA=;
- b=6uSNnSYmltzddc/2xXICoPnuSAxj8kHy+BduRcIiwJUtDRsx1fsu9VR9C40I6+EpNuFShQDrM
- waiAsJmX+gdCwfXaOi4846s8iVeqEYP5V6psVRWJrIshu46R3nRsS1i
-X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
- pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
-X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
- auth_id=342
-X-Original-From: Aaron Kling <webgeek1234@gmail.com>
-Reply-To: webgeek1234@gmail.com
 
-From: Aaron Kling <webgeek1234@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The `ayntec` vendor prefix used in the new compatible strings is mi=
+ssing from the device tree vendor prefix registry.
+--
+
+commit 2a0dec37c2745490f796112b94d143b7a694cd12
+Author: Aaron Kling <webgeek1234@gmail.com>
+
+dt-bindings: display: panel: Add Chipone ICNA 35xx OLED driver bindings
 
 The Chipone ICNA35xx series of DDICs are high refresh, low power
-MIPI-DSI drivers for OLED panels. The icna3512 is used by the Ayn Odin 2
-Portal and the icna3520 is used by the Ayn Thor top panel and the Ayn
-Odin 3.
+MIPI-DSI drivers for OLED panels used by Ayn Odin and Thor devices.
 
-Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
----
- .../bindings/display/panel/chipone,icna35xx.yaml   | 77 ++++++++++++++++++++++
- 1 file changed, 77 insertions(+)
+> diff --git a/Documentation/devicetree/bindings/display/panel/chipone,icna=
+35xx.yaml b/Documentation/devicetree/bindings/display/panel/chipone,icna35x=
+x.yaml
+> new file mode 100644
+> index 0000000000000..3c497a4010173
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/chipone,icna35xx.ya=
+ml
+[ ... ]
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - items:
+> +          - const: ayntec,odin2portal-panel
 
-diff --git a/Documentation/devicetree/bindings/display/panel/chipone,icna35xx.yaml b/Documentation/devicetree/bindings/display/panel/chipone,icna35xx.yaml
-new file mode 100644
-index 00000000000000..3c497a40101732
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/chipone,icna35xx.yaml
-@@ -0,0 +1,77 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/chipone,icna35xx.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Chipone ICNA35xx display drivers
-+
-+maintainers:
-+  - Neil Armstrong <neil.armstrong@linaro.org>
-+
-+description:
-+  The Chipone ICNA35xx are a series of DDICs connected
-+  using a MIPI-DSI video interface.
-+
-+allOf:
-+  - $ref: panel-common.yaml#
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - items:
-+          - const: ayntec,odin2portal-panel
-+          - const: chipone,icna3512
-+
-+      - items:
-+          - enum:
-+            - ayntec,odin3-panel
-+            - ayntec,thor-panel-top
-+          - const: chipone,icna3520
-+
-+  reg:
-+    maxItems: 1
-+    description: DSI virtual channel
-+
-+  vdd-supply: true
-+  vddio-supply: true
-+  vci-supply: true
-+  disp-supply: true
-+  blvdd-supply: true
-+
-+  port: true
-+  reset-gpios: true
-+  rotation: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - vdd-supply
-+  - vddio-supply
-+  - vci-supply
-+  - disp-supply
-+  - blvdd-supply
-+  - reset-gpios
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    dsi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        panel@0 {
-+            compatible = "ayntec,odin2portal-panel", "chipone,icna3512";
-+            reg = <0>;
-+            vdd-supply = <&vreg_l11b_1p2>;
-+            vddio-supply = <&vreg_l12b_1p8>;
-+            vci-supply = <&vreg_l13b_3p0>;
-+            disp-supply = <&vdd_disp_2v8>;
-+            blvdd-supply = <&vdd_bl_5v0>;
-+            reset-gpios = <&tlmm 133 GPIO_ACTIVE_LOW>;
-+        };
-+    };
-+
-+...
+Is the ayntec vendor prefix documented in the device tree vendor prefix
+registry?
 
--- 
-2.53.0
+It appears this prefix is missing from
+Documentation/devicetree/bindings/vendor-prefixes.yaml. Although the prefix
+was previously used in another binding without being documented, adding the=
+se
+new compatible strings introduces new dt_binding_check validation warnings =
+for
+this newly added schema.
 
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260509-icna35xx-v=
+1-0-688d3d4e10f9@gmail.com?part=3D1
