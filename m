@@ -1,94 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9841918A93F
-	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 01:24:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C1822B2D7;
+	Sat,  9 May 2026 01:24:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778289859; cv=none; b=X0VZUqyGCwte53K3qD7xTCGDrzEeEUY3K5K33x6kbvOWDQeHJpFqCo+qNaCQngbG08Y732oPHX7wU7J/5iAdkrRSzpLMzhBoa6MsQL5QbteNrSuWEeDm2RmmKO2YXXkRqEsgAFE9vcSykCX2lRI/JFAlpdQ/H620FO+Pj/FulGQ=
+	t=1778289867; cv=none; b=c8bFk45qYf4c0kFsE7prxSPPxVywKhQEGKo8LZqMmN3/nGTH05gYlSsfRF9qfUg8dS0jqA2JjNDAuD02P85zdy0RZxIQcc8akrwgRbhLuCGTBJPtpJVA6l0Q520awq+NRpCH5tnORNMzHEHinVXULvnKaiQI20uxfuXY6rfyKeM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778289859; c=relaxed/simple;
-	bh=hqxVYh0cpp6UeLUg/C0hsorr0WIhhLJ2YbpaRBdGmqI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EDsv/2X1v+wCNvO5VoJb/wkVxTEOjpIZvLV9PIh40qfS3CXgabWQ85qLz1QPjErBjhvGHsgJLBbbZLkhxNlBTN47XsBxIpFMmZzckG1Bqg10kGr0Lo6lSoBDPhSRI28yrED8s2fOdq6x2rk+o8ZWsbIM93G/WEPA+8nUPhxD3Qc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nNSZPrPm; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778289867; c=relaxed/simple;
+	bh=bGvLkQAWUeluJwFLbkrFRYlfbhdNC9Zv8QpnEgZde50=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jNQKu6dKFMXDK32H0HmD2WobnjjqrpB9Yxw0nmYQkzRUCLBqP2nwE23UGNhaavbrrPqN8lHa+E+F4vc4txPWNqSTe8ft9+aynhAOJpbfexGBhH/VfUSro4MZQcKfaUT5DDLKX0xrPMNUtJQ7Ye077gVULQcavWBu3vKa2oS7chU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=fwhziwnS; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nNSZPrPm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C61CC2BCB0;
-	Sat,  9 May 2026 01:24:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778289859;
-	bh=hqxVYh0cpp6UeLUg/C0hsorr0WIhhLJ2YbpaRBdGmqI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=nNSZPrPmgMdt1oKeZbbfFSHhOZQUNYCMK0dErgmNqg9llU9pGXSepgl6TU8z7wRQJ
-	 uipzVrH0oxclgfFsetr+Ccv9SAuYjqN/StMBsLBzqHjWG9xYwOZDgXJU4QAQFRSI0V
-	 7J8y5jESXvu8P5MBlCnWU8J20dMZpYDOW4EUARUPY0xizPP7/gN2GJy7dAMbnPN8Aj
-	 cchaA8gaTYREEUSQtXE1qHpHU4MxpZ1WkSIehF8+qbUPjg4ugEZzLp2zKNCYB44wkN
-	 1yyCJY9Boos8hQRhV7Rw20puLxEbRf2SVd/hsEkCErkVjG943yIV6K/95yyzGGnozs
-	 tmHkVWgoXQv2w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v4 09/10] Documentation: ABI: testing: add docs for
- ad9910 sysfs entries
-Reply-To: sashiko@lists.linux.dev
-To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260508-ad9910-iio-driver-v4-9-d26bfd20ee3d@analog.com>
-References: <20260508-ad9910-iio-driver-v4-9-d26bfd20ee3d@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 09 May 2026 01:24:18 +0000
-Message-Id: <20260509012419.4C61CC2BCB0@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="fwhziwnS"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=5ACAHlhc8wdXure4xEmTXBco8HgiMQSDTZo02rH24uU=; 
+	b=fwhziwnSs6sG6Dm2WKW84kRRlol7+ZTOu5Cgz/6B1QDDRvu3GcyhONDGgPRwFZiP/9DMW+kHDw9
+	6hc6vjLDNBMrgrjhp9dYp/YEQOFmloRfxACvRZJC8R9V2qH2OEa7W0/NfuZCgUYpIUpqBRJ9N8Ifz
+	fYQWnEPA/9wMKV0AsOlsn3DnvZejO3b3aXpnWgCW+5fG4NfbcJ8e4Cap9TfWxiDVKCFG89A8iNJe5
+	khLU2bNsIZvLxNyN7H7TgaeDExp84jt84Nct59L4kzu4jGTs0IGfAh/9emRS9R5oeUXnPwvS4Ts+Z
+	04mbZNYsOhAtBMh0zoFYtxV8kdv4x3MHc0LA==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.96 #2 (Debian))
+	id 1wLWQC-00CZXK-09;
+	Sat, 09 May 2026 09:24:01 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Sat, 09 May 2026 09:24:00 +0800
+Date: Sat, 9 May 2026 09:24:00 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Harshal Dev <harshal.dev@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	cros-qcom-dts-watchers@chromium.org,
+	Eric Biggers <ebiggers@google.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+	Tengfei Fan <tengfei.fan@oss.qualcomm.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	David Wronek <davidwronek@gmail.com>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Melody Olvera <quic_molvera@quicinc.com>,
+	Alexander Koskovich <akoskovich@pm.me>,
+	Abel Vesa <abelvesa@kernel.org>, Brian Masney <bmasney@redhat.com>,
+	Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
+	Gaurav Kashyap <gaurav.kashyap@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v5 01/13] dt-bindings: crypto: qcom,ice: Fix missing
+ power-domain and iface clk
+Message-ID: <af6MsD1wDs9EZl5q@gondor.apana.org.au>
+References: <20260416-qcom_ice_power_and_clk_vote-v5-0-5ccf5d7e2846@oss.qualcomm.com>
+ <20260416-qcom_ice_power_and_clk_vote-v5-1-5ccf5d7e2846@oss.qualcomm.com>
+ <afmuncmBrrvddHTU@gondor.apana.org.au>
+ <b8805117-d54f-4e42-a7d4-6fa18af63e69@oss.qualcomm.com>
+ <CC0E438D-5544-4BB8-8512-7F93A7FA4DC1@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CC0E438D-5544-4BB8-8512-7F93A7FA4DC1@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] The newly added ABI documentation file omits the `Date:` field and =
-leaves the `KernelVersion:` field empty for all entries.
-- [Low] Awkward and confusing phrasing in the descriptions of multiple ABI =
-attributes: 'is a result with the sum of this value'.
---
+On Fri, May 08, 2026 at 08:11:45PM +0530, Harshal Dev wrote:
+>
+> Can you please confirm for Bjorn once
+> that you're not picking this up and he
+> can pick it from his tree? 
 
-commit a42d44a5e6db95765e7fc42b4509b02bd033fda8
-Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Bjorn, please feel free to pick this patch up.
 
-Documentation: ABI: testing: add docs for ad9910 sysfs entries
-
-This commit adds a custom ABI documentation file for the DDS AD9910 with
-sysfs entries to control Parallel Port, Digital Ramp Generator and OSK
-parameters.
-
-> diff --git a/Documentation/ABI/testing/sysfs-bus-iio-frequency-ad9910 b/D=
-ocumentation/ABI/testing/sysfs-bus-iio-frequency-ad9910
-> new file mode 100644
-> --- /dev/null
-> +++ b/Documentation/ABI/testing/sysfs-bus-iio-frequency-ad9910
-> @@ -0,0 +1,73 @@
-> +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency_offset
-> +KernelVersion:
-
-This isn't a bug, but the Date field is missing and the KernelVersion field
-is empty for this and all subsequent entries in the file. Should these be
-populated with the creation date and the expected kernel release?
-
-> +Contact:	linux-iio@vger.kernel.org
-> +Description:
-> +		For a channel that allows frequency control through buffers, this
-> +		represents the base frequency value in Hz. The actual output frequency
-> +		is a result with the sum of this value.
-
-This isn't a bug, but the phrasing "is a result with the sum of this value"
-is slightly confusing. Would it be clearer to phrase this as "is the sum of
-this value and the input value"?
-
-This same phrasing is also used below in the descriptions for
-out_altvoltageY_phase_offset and out_altvoltageY_scale_offset.
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260508-ad9910-iio=
--driver-v4-0-d26bfd20ee3d@analog.com?part=3D9
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
