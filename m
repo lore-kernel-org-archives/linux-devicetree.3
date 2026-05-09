@@ -1,61 +1,63 @@
-Received: from mail-dy1-f193.google.com (mail-dy1-f193.google.com [74.125.82.193])
+Received: from mail-dy1-f194.google.com (mail-dy1-f194.google.com [74.125.82.194])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A0D264FBD
-	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 01:38:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29A0826E142
+	for <devicetree@vger.kernel.org>; Sat,  9 May 2026 01:38:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.194
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778290682; cv=none; b=YxAnHyhqLx6rjRNfdR7X17ASMfXvmRZ1ilolOOM3O0kl8m9BLxdTY/iOCGg33xzhZFjKJuZuxVa70Lq2CejxeeAOUdaYJGS/6ONVTf7TmxXRejrVWVMSk2IV0AkUaU4GtlRywrRr18HCvTI7l9cugkqpvoIWQ9tNF6gd2qCt+os=
+	t=1778290684; cv=none; b=plKhriTe24Ze5JQwBHLYNCNdtMeg9Ql4aYkuiEesLUj44yBheaCM0B/MrQiHGwv4Kn5fFzVCSuKwtfI+Q3rtPmOG4WBuI5fokRxDqaldVCXpeL6A2/cjvVKfQzN3lcoTAicx1JeQScnaG78tY7sa4vldNpAnVvYPjb1lz0z2CVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778290682; c=relaxed/simple;
-	bh=ZafSK/ffN4O0S95cmgYFO4DqFob5YI2zLrZF+3z1VYI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=f6rf2ahPtY3egfplPKSbqjDOb2bzUsnhOjNtnwLPmzNfR05tLDlMyBiDbGDR8HsAvWwxQ/4thlqfnnYTAIqwpauoAbDv/Pcw5Z2tvHQzuMOgQjoEZNM68GNOn5VJoNHPFKAnk4CQ5bCfmW5J87j5L0VIEB+wNlIL7x4YTYW6WTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aSQOygyO; arc=none smtp.client-ip=74.125.82.193
+	s=arc-20240116; t=1778290684; c=relaxed/simple;
+	bh=8AprB/cMUBt+pEMNoNB01bka+Ef2XKR3JwTcZPiklMc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=s8z/QvbqAHQGwG/DpeqqOATN03Jswco7bFj1IySDwZZ8HKo9stRcBljUTnDeTCsqCp1FufpecgAIpgomFFkilATjoU1rdy7qWXoWT1aXxtOAR44XXhgd4gabPhtbADOBsVj6PXht9PBuEjGJhZdZ6nwOLUPLX8Uitkahe+2UZnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pQMVqhMZ; arc=none smtp.client-ip=74.125.82.194
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aSQOygyO"
-Received: by mail-dy1-f193.google.com with SMTP id 5a478bee46e88-2bdcf5970cdso1960361eec.0
-        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 18:38:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pQMVqhMZ"
+Received: by mail-dy1-f194.google.com with SMTP id 5a478bee46e88-2f7020a928eso3605749eec.1
+        for <devicetree@vger.kernel.org>; Fri, 08 May 2026 18:38:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778290680; x=1778895480; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Z0amy2Ap/oF/82M4xJn8jCwNeFxH+1UppM6CazgFzx0=;
-        b=aSQOygyOt/HIE2DKVbwnreNiRxB3AYNQUDL7s1TuzIucK1r+Mv7Yqoih9K52Hlpyfp
-         6VTRueINgtAgOvXhSKKpWG1rh6dR08BkbvAFskiA3kvZGMV+ACtHj7oDnFKgfbSBYwkj
-         +v4Qn2AGY5sPO3Lpar2cRLonGzlzQBiPtjmXPIMJrtw2FTBUWogm0vG4ujiZbr+Kdgwu
-         DCWmnE5DOrLTCoGM1KXq18KGF+FEliVUvCJ4hhnE0qI+sz4yqPqQeMnZgVw/kB9zpVbD
-         KX0XEluAtzc3K+45K9bsiMPqOz+Z0QdpX29inQk1vwtRXjK6oxLNTmIYXDVa4QnAXu0K
-         AdEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778290680; x=1778895480;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1778290681; x=1778895481; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Z0amy2Ap/oF/82M4xJn8jCwNeFxH+1UppM6CazgFzx0=;
-        b=jvnpMoydWWdek59Vin4N8cXyWHs2lhjq7Ml6VOc26uFMvnwe2zp7D3sL5K+VngmDXc
-         uHq/q+S3fTHouunWEaVR4MSBunbK+81R6yzam11PQSV714ccxjboq97a9G+EEK+wMpET
-         lqX+xveq7nBlirN42aD+HoZzybHekrIcbHMqnNkiUzWAPqoFlU3xApJNrDxjinaz4aHw
-         1KdUpHuPt2MSzifjos1VzWQBpa4J1HGMJ6UpK3xO6X9mdIhFOh0qw6yjQlszUG5hf5Ia
-         G7s0Km3ep3cLD4EZ8SBppQ2sJuNPizIeZsUaehHLrfFtMy3fHwM+KeOkVloe9eIrGEMk
-         Q/HQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+kn3yBTrZAEHYxEGU9O0FDAWroSYPKJYYJc5IocGsUrztUcnjd3h0O1P7zX+9vKaE5O/OMPc8fIvgB@vger.kernel.org
-X-Gm-Message-State: AOJu0YwR9f2E+bt625zMMrlXvabpOGq4vHJNNyX02oDziIsUUP2oQTqD
-	DqOAVO54fQ8VmnxOByX8hYiTBWT5Xbc2wF9Ioa8wHySgsLDwhSWgJlvs
-X-Gm-Gg: Acq92OGnf9NKqJ3T3tI9BWiuQD/kJfMTk2b+XlfRIewcGHjjo5W/jS9bNyrHZJllI//
-	NMtVBY0pIYNY8MBD4NbBbw1T7q8GN4oi/j2B3bguPoq9BGSV0/ICX2Se78xYi/t4DDAaUiilp4E
-	EuQlvcNTalzMoeejYobyqLEL48bE0eMKbbQjP7MgQZcUmQFew/rcpHMMehSXgK7vCD80NVE58Og
-	52Q6ieoPrhxWXhFu5lWilTqZ6/r969VKOt4W1hqvrxKwWpsHLT4nKE41dRHPKBW1pojxCKO0EQQ
-	4ZusKL0eBesc5CvPkI/klOUWHQwiua7nDmgyD88zqrWM9C6TK+3OPnEV7iJd4GWtDchP1i2mwOv
-	GW9TMGcvHxF0aF+fs4YIo+xukw6FnJ853I6haEEpMI87MUzg7eLPWwCMn/iKohojlsOacR3Fetq
-	G1+KR8k0PXRJUsGLiL4BrW4ZVOW8+1THEhDmQMB1Jm3XgOLk2xqM75rb4UfaPEepWISg==
-X-Received: by 2002:a05:7300:148c:b0:2c1:67e1:61a9 with SMTP id 5a478bee46e88-2f6e4374892mr3977101eec.13.1778290679860;
-        Fri, 08 May 2026 18:37:59 -0700 (PDT)
+        bh=6kJjPazFhKl4AEbgyP7l4SZncr5vrrdtv6/1UCgkvoI=;
+        b=pQMVqhMZT4nl67BUBrD8fSxCnpPE9nINctw6jlx5xlwWyESCpAlrNmU4gehWBGJOHE
+         7KPck7tOuV2w0a32NljrBrLFtYF4BSD3/iiLdLddIldiOx1u7ShlDJzr8YJnw4urPMSq
+         lXZqIuVPn6PQmP9VQfqh6tTtCFuUHOfuPgoPFG8aG+Tc+Ziybz3P6PTZUu/lvQjsyyM0
+         /+hq8ZrRjqlcLGypzsL31NPvXILQZX6KFZJtbG1tH1fgHJxQRUU1Fcul+S/v6MSgtAVr
+         UxH7YJigv7/sYZb87L3U74GrG22OVWLb7g1RBZZoQE6tAvUusHn24hBMbO0VNyyEQgmY
+         l5gQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778290681; x=1778895481;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=6kJjPazFhKl4AEbgyP7l4SZncr5vrrdtv6/1UCgkvoI=;
+        b=FJsp6pLe5YRXKKDapXjUNZX5inr0QCqoXE1+bmafYX+S6ufz7/aA/9V/999efsW4W2
+         SNL6uBWsaNECJGIWFcgcnYfYWe1CyK4ogqL/h/cu2KoSEMjT/NULbHCB8vsYyffJp1CQ
+         eScipjxToog0/dp1vz9OKrxE4C1D4wewW04Pv82U7ogAIIn+XeU4iBCE0FkhkOBBEoAx
+         HYmPGCp49P+J9lPF0ewwOVk3MgcboWBo+JnQBlitsqw2LrXlzUSf4B8xxSsnmF4lEm5i
+         u8SD2Aw04uzPYHZWAuR9xkMQD/tr0Q9SMd1cXQ7nHTLEbaSwsWm8u3UJelL9vdxtlCrD
+         lb4g==
+X-Forwarded-Encrypted: i=1; AFNElJ+DVIgjzPMxgF3XJEWUPtzPW+w7NmNWSXiYHZYZoPpWwikAMkvvTbR7qVRIsliXOlvgbDEY5H+c95cm@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzzbn8P95sWzgTYgwJe/wn2+I5zApZUq46+kREktRhmNBShQ4K6
+	Z5RiC9clLC+e1tc+0d4mr1fzBkUoO10+m9puhbDf8y7Xmxw2Vku2wUfR
+X-Gm-Gg: Acq92OEwCAAzXDSJOFCdKbyikdmjaablfLfge5j0YViBMt7ymb2lNA+NSug6hu46szW
+	oNUvH3DgtH5us3o2zErkrKkuU30OnpATsYsyJ2xufLNHmh2uo0jeLWoLIVxgZ44x4f8/t9xDRfz
+	H3FozLib9qJpPm1bwpjpYiL7xOKvvdwMqSBg5Cmv3clGFGB003ojAq6OS2bknBEC6kUl30QNnGH
+	u1RfE+Wt1JNiGDoZvlAa1Dtf3HMrSu4hfBQT94uCHflF6dVdXafzOEJ+Kqtuz+JISdcJOyYQf/q
+	UdusHWrXlnfJpyQXhwnNUZJFpzTIsAF1WSDw5iq3MnEGk+KZrAD5gCVnCQOxmVyXUZAX9fx+oZ9
+	TSTV5wTer2LGpDWsqcXjkr3veBbydE4Y3Pw0r6Sgt12kFhEtEXNfVQ8mbE8vFjRAxc83q7UfuHQ
+	wKMiRssPOwdmMNj7XgqeAKLZgH3L5VMgT6ykuBsJ9cuBA5MN+tXIyA8E8=
+X-Received: by 2002:a05:7300:ac82:b0:2ed:e14:7f5f with SMTP id 5a478bee46e88-2f54b89a1a3mr7346685eec.35.1778290681258;
+        Fri, 08 May 2026 18:38:01 -0700 (PDT)
 Received: from localhost.localdomain ([76.32.119.210])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2f8862d43b4sm4503230eec.11.2026.05.08.18.37.58
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2f8862d43b4sm4503230eec.11.2026.05.08.18.38.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 08 May 2026 18:37:59 -0700 (PDT)
+        Fri, 08 May 2026 18:38:00 -0700 (PDT)
 From: Hungyu Lin <dennylin0707@gmail.com>
 To: lars@metafoo.de,
 	Michael.Hennerich@analog.com,
@@ -70,10 +72,12 @@ Cc: dlechner@baylibre.com,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH v3 0/1] dt-bindings: iio: dds: Add AD9832/AD9835 binding
-Date: Sat,  9 May 2026 01:37:44 +0000
-Message-Id: <20260509013745.80478-1-dennylin0707@gmail.com>
+Subject: [PATCH v3 1/1] dt-bindings: iio: dds: Add AD9832/AD9835 binding
+Date: Sat,  9 May 2026 01:37:45 +0000
+Message-Id: <20260509013745.80478-2-dennylin0707@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260509013745.80478-1-dennylin0707@gmail.com>
+References: <20260509013745.80478-1-dennylin0707@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -82,25 +86,117 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds devicetree binding documentation for the
-Analog Devices AD9832 and AD9835 DDS devices.
+Add devicetree binding documentation for AD9832 and AD9835 DDS devices.
 
-v3:
-  - Require spi-cpol in binding and example
-  - Use generic node name (dds@0) in example
+These devices are SPI-controlled direct digital synthesizers
+requiring AVDD, DVDD supplies and an external master clock.
 
-v2:
-  - Add SPI peripheral schema reference
-  - Fix example by adding clock and regulator providers
-  - Fix SPDX license format
+Require spi-cpol since AD9832/AD9835 use SPI mode 2.
+Update the example to include spi-cpol and use a generic node name.
 
-Hungyu Lin (1):
-  dt-bindings: iio: dds: Add AD9832/AD9835 binding
-
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
  .../bindings/iio/dds/adi,ad9832.yaml          | 91 +++++++++++++++++++
  1 file changed, 91 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/iio/dds/adi,ad9832.yaml
 
+diff --git a/Documentation/devicetree/bindings/iio/dds/adi,ad9832.yaml b/Documentation/devicetree/bindings/iio/dds/adi,ad9832.yaml
+new file mode 100644
+index 000000000000..9f3e41cb0a0d
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/dds/adi,ad9832.yaml
+@@ -0,0 +1,91 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/dds/adi,ad9832.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Analog Devices AD9832 / AD9835 DDS
++
++maintainers:
++  - Hungyu Lin <dennylin0707@gmail.com>
++
++description: |
++  Binding for Analog Devices AD9832 and AD9835 SPI-controlled direct
++  digital synthesizers (DDS). The devices use an external master clock
++  and are controlled over a serial SPI-compatible interface.
++
++properties:
++  compatible:
++    enum:
++      - adi,ad9832
++      - adi,ad9835
++
++  reg:
++    maxItems: 1
++
++  spi-max-frequency:
++    maximum: 20000000
++
++  spi-cpol: true
++
++  clocks:
++    maxItems: 1
++    description:
++      External master clock input.
++
++  clock-names:
++    const: mclk
++
++  avdd-supply:
++    description:
++      Analog power supply.
++
++  dvdd-supply:
++    description:
++      Digital power supply.
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - avdd-supply
++  - dvdd-supply
++  - spi-cpol
++
++allOf:
++  - $ref: /schemas/spi/spi-peripheral-props.yaml#
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    mclk: clock {
++      compatible = "fixed-clock";
++      #clock-cells = <0>;
++      clock-frequency = <25000000>;
++    };
++
++    vdd_3v3: regulator {
++      compatible = "regulator-fixed";
++      regulator-name = "vdd_3v3";
++      regulator-min-microvolt = <3300000>;
++      regulator-max-microvolt = <3300000>;
++      regulator-always-on;
++    };
++
++    spi {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      dds@0 {
++        compatible = "adi,ad9832";
++        reg = <0>;
++        spi-max-frequency = <20000000>;
++        spi-cpol;
++        clocks = <&mclk>;
++        clock-names = "mclk";
++        avdd-supply = <&vdd_3v3>;
++        dvdd-supply = <&vdd_3v3>;
++      };
++    };
 -- 
 2.34.1
 
