@@ -1,119 +1,270 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C06263CB;
-	Sun, 10 May 2026 02:25:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 396E935979;
+	Sun, 10 May 2026 03:02:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778379925; cv=none; b=VYNBMYSQ5yCZIX+afyPaDhFPED4GwsworXwI7soW4z2isHHpgA9Gr49zwwJF3FMi4t+2tKYpnyi7ss8dykUJyNVpOtVb/pEcf6tp8T7LP2sxOcP+EaM23UpgvbKAV8DZmP5epr7FIPUs3yCA/JcM6gV4M8MzTPD0kSRIeb/yta8=
+	t=1778382177; cv=none; b=eJl3gHEWJRiqU43UquQziXWcydjaPOU9BIwmCCYm2WAn/r6OCDo4+YjSK/zQS3HedHZe3YWG/6q14VU2vTfKadfmflbQ90RgtmpusDbDiqiRjh4qJVnTvZGFrHTp73jci5gd1xz8/IRTYxDDAPvsPo/WDfRAgMsr1zCjPLaV9tc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778379925; c=relaxed/simple;
-	bh=DuPHI1LqOFfQCPwSGvE4XxVWrva8Uk84ODEwZHi72xU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qDthOCx1hjB4wtUbH7QD+lhf7laJs3isYUsV3b3L1hoeQEgpV433gt0fFA2if/beEMC2+EmfPzx7fcPnLVYaR1+okP72/SU3Jyo+fxZ6A+uEVz+oPVhZFfM3tcOdBIhp0geQGDdWmQOmKEHxKFeJmJqJyk9RMi7sKhntecFsmX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e79y6hL/; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778382177; c=relaxed/simple;
+	bh=r+v71hsEte8pWEv2C7BSE3iTj76Ojm2jtEj0SA6Z1RE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oChNf+lKEh4+apI8UTvjwFz9I7r+Op9gDNTg8tYkgoGsj9J5fIvLuwWMPFku+voorpqtWK2Zs8pp8W1YL+xEUj5yo99J092cBGePpoUCzF3Xb1AVUjJG5BuJUlJsZmO6U/0Vxnezc+lZ2/SCi/qbpvKTH2ZxpdLzf0XgqKiTxk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=fdAObIBP; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e79y6hL/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DAE5C2BCC7;
-	Sun, 10 May 2026 02:25:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778379924;
-	bh=DuPHI1LqOFfQCPwSGvE4XxVWrva8Uk84ODEwZHi72xU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=e79y6hL/mgDvOZD8UHrjx/yvvGE14Vi42uRup1vVa+BwGGuz0tI3FboKrX6KCcHYW
-	 RzREP9nAcxXgbOLsICt59PEujBZfc43refGEy/MqJqsWO96s+Q3AgEvXjdaDOJlAAS
-	 iXt5onlnEIiRTPA221E7iqjKkNnVa/ou5prZT51yvrxvmamwRnnTONClO46LkwR6wZ
-	 t2IFlN52kGo0lvKsca1tHoXbtX8d3ZNYB/HRYPyRw5jkTtawLddwbKxR+1rJEj3vIi
-	 eoZSgqm4WxQI4AKYACjQH26b7yHJFcZfpkAvmuGCkgkL1k/4LZuGB+A3395nol8DbQ
-	 i0nDH3HyM9r4g==
-Date: Sat, 9 May 2026 21:25:16 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Alex Elder <elder@riscstar.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com, 
-	rmk+kernel@armlinux.org.uk, konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org, arnd@arndb.de, 
-	gregkh@linuxfoundation.org, Daniel Thompson <daniel@riscstar.com>, 
-	mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com, alexandre.torgue@foss.st.com, 
-	ast@kernel.org, boon.khai.ng@altera.com, chenchuangyu@xiaomi.com, 
-	chenhuacai@kernel.org, daniel@iogearbox.net, hawk@kernel.org, hkallweit1@gmail.com, 
-	inochiama@gmail.com, john.fastabend@gmail.com, julianbraha@gmail.com, 
-	livelycarpet87@gmail.com, matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, 
-	me@ziyao.cc, prabhakar.mahadev-lad.rj@bp.renesas.com, 
-	richardcochran@gmail.com, rohan.g.thomas@altera.com, sdf@fomichev.me, 
-	siyanteng@cqsoftware.com.cn, weishangjuan@eswincomputing.com, wens@kernel.org, 
-	netdev@vger.kernel.org, bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 08/12] dt-bindings: net: toshiba,tc965x-dwmac:
- add TC956x Ethernet bridge
-Message-ID: <af_sarCs9E5M7NLE@baldur>
-References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-9-elder@riscstar.com>
- <afycOwz5TpkegkZd@baldur>
- <3c78f48c-6478-46d0-87c2-581bb58637dd@riscstar.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="fdAObIBP"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4gCnj12XFbz9ttT;
+	Sun, 10 May 2026 05:02:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1778382165;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9AG2mPgAOtJ8Me87PpVSnI+nay5U0EzVOgMVFYD/YiE=;
+	b=fdAObIBPln9zwt+xeHEPvt1bMvDO8JRvcTJPTX2mTY2J0WgZUFLZhsPyzpYNf06biWicyw
+	ptoiNBpq/YGPmw1Te1qySZ+QpzwTzoWX6WAcJfZF/deAobppogx1TrpBppUv0JhuC0I5U1
+	AZFbl4R/fbiQuDK6fnkU4+SbAAWEIxh6sCPRAEokqV/28NMezlffi68DwEFhXMpBtMDiDP
+	lNGhHwvkI53wWbFW8DKVlymF8MIfOIG3lJ2+SUyNSjZifsTKZ+0xa+1zg9eNGYD42AJA0u
+	Bq5BTd3155LGgq6ZCnFa5fg8gBF1Hba6Ayng2cj2WBLIrXcpiwY8A/cafFQBQw==
+Message-ID: <73602f40-45f0-4e4e-86cb-4a2c025f0491@mailbox.org>
+Date: Sun, 10 May 2026 05:02:39 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3c78f48c-6478-46d0-87c2-581bb58637dd@riscstar.com>
+Subject: Re: [PATCH/RFC 10/14] dt-bindings: power: Document Renesas R-Car X5H
+ Module Controller
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>,
+ Cristian Marussi <cristian.marussi@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Ulf Hansson <ulfh@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1776793163.git.geert+renesas@glider.be>
+ <053c312d07445517d8f9c84bfe3cc8fb72d4cd9a.1776793163.git.geert+renesas@glider.be>
+ <bf83a028-3ef3-482a-9ce3-8aec16f6ebed@mailbox.org>
+ <CAMuHMdWN2zaZrY2jKKXpNqrP8xSqc-uJTr-siTBgaA=-EY_4BQ@mail.gmail.com>
+ <fa28c6fe-484c-4133-824e-649c52ef2200@mailbox.org>
+ <CAMuHMdUU=RohST4LDDD27W5dj=HwJFApMcDpsXATQ1MaMH-tUA@mail.gmail.com>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <CAMuHMdUU=RohST4LDDD27W5dj=HwJFApMcDpsXATQ1MaMH-tUA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: fbwz36b893qz5jidenhstwmckkgabocb
+X-MBO-RS-ID: 685120301b26aeb58c6
 
-On Thu, May 07, 2026 at 01:37:09PM -0500, Alex Elder wrote:
-> On 5/7/26 9:12 AM, Bjorn Andersson wrote:
-> > On Fri, May 01, 2026 at 10:54:16AM -0500, Alex Elder wrote:
-> > > diff --git a/Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml b/Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
-> > [..]
-> > > +
-> > > +  gpio-controller: true
-> > 
-> > I don't have any concern with the use of a proper gpio driver to model
-> > the implementation, but if I understand correctly this relationship
-> > between gpio controller and gpio consumer is strictly internal to "the
-> > PCI device".
-> 
-> (I think you're already cool with this but I still wanted to respond.)
-> 
+On 5/8/26 10:26 AM, Geert Uytterhoeven wrote:
 
-Thank you for the further clarifications, and added details, Alex. This
-does look reasonable to me.
+Hello Geert,
 
-Regards,
-Bjorn
+>> Since there are up to 32 MPDG registers, and 256 resets, can we encode
+>> both into a single cell ?
+>>
+>> (mpdg_register_offset << 16) | (reset_bit_offset << 0)
+> 
+> We could.  I did consider it (with a shift of 8 cfr. 256 modules),
+> but see below...
+> 
+>> I cannot tell whether this is much better, but it at least ties the PD
+>> components (power domain and clock domain) into a single value, which
+>> matches reality a bit better. The current split power domain and clock
+>> domain description in two cells gives me the illusion that it is
+>> possible to mix and match power domains and clock domains in DT
+>> description, but in fact the two cells are strongly tied together.
+> 
+> They are only tied together in the sense that a module (hardware block)
+> is part of a power domain, and has module standby (clock) control.
+> Some power domains are backed by MDLC hardware registers,
+> others are not, hence the need for the additional definitions in
+> <dt-bindings/power/renesas,r8a78000-mdlc.h>.
+> I am not aware (yet) of modules that are part of a power domain,
+> but do not have module standby control. If these exist, we
+> need an additional definition (R8A78000_MDLC_MODULE_NONE?) in
+> <dt-bindings/power/renesas,r8a78000-mdlc.h>.
 
-> That is not correct.  These GPIO lines are used two ways for the
-> RB3gen2:
-> - drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c uses GPIOs 2 and 3 to
->   assert/deassert the reset lines associated with the two exposed
->   downstream PCIe ports on the PCIe switch within the TC956x.
+Maybe TAUJ3 in AON domain? I think HSCN also has abundance of examples.
+
+> Due to this separation, and due to a possible future need for expansion
+> (R8A78000_MDLC_MODULE_NONE, MDLCs with more than 256 modules, ...),
+> I went for two cells.
+
+I think I won't push for a single cell either, two cells are OK with me too.
+
+>> If we cannot encode the two into a single cell, maybe we can at least
+>> have some sort of macro for this, e.g. this (0xff as no MPDG register
+>> bits for this block):
+>> #define R8A78000_MDLC_PD_HSCIF0 (0xff << 16) ((0x5 << 4) | (0x3 << 0))
+>>
+>> What do you think ?
 > 
-> - Each of the Ethernet PHYs has a reset GPIO.  On the RB3gen2, the
->   GPIOs used for the purpose come from the GPIO controller embedded
->   in the TC9564 (00 and 01).
+> I (and I believe the DT maintainers) are not so fond of defines for
+> numbers that can be (more or less) just read from the documentation.
+
+OK
+
+> (and 0xff should be R8A78000_MDLC_PD_APL?)
+
+I think AON would have to be 0xff , since it is superdomain of APL ?
+
+>>> So perhaps I will clarify like this:
+>>>
+>>>         - The first power domain specifier cell is the power domain part, and
+>>>           must be either the Module Power Domain Gating (MPDG) register index
+>>
+>> ... for power domains which are backed by MDPG bits, and which can be
+>> controlled in that manner ...
 > 
-> These are therefore "exposed" (they are *not* strictly internal).
+> OK.
 > 
-> > Is this connection variable or is the link merely expressed in
-> > DeviceTree to mitigate the fact that you choose to implement the
-> > responsibilities of the two parts split into two device drivers?
+>>>           (0x00-0x3f) from the datasheet, or a Power Domain number, as defined in
+>>>           <dt-bindings/power/renesas,r8a78000-mdlc.h>,
+>>
+>> ... for power domains which are always on, and for which there are no
+>> MPDG bits which can be used to control them ...
 > 
-> It is variable.  These resets might be implemented by other GPIO
-> controllers on other platforms.
+> OK,
 > 
-> > Are there other consumers of these TC956x gpios which would result in a
-> > board designer (and hence dts author) to ever reference this
-> > gpio-controller in a different way?
+>>
+>>>         - The second power domain specifier cell is the clock domain part, and
 > 
-> They could.  Nine of these GPIOs are exposed by the TC956x pins
-> (GPIO00-06, GPIO12, GPIO35 and GPIO36).  The RB3gen2 uses 00-03
-> (and possibly 04 but that's for a PHY we haven't tested yet).
+> Upon second thought: s/clock domain/module standby/
+
+If you could even mention that this refers to "Module STOP" column bit, 
+that would even clearer.
+
+>>>           must be the module number (0x00-0xff), composed of the Module System
+>>>           Reset (MSRES) register index in the high nibble, and the Module Reset
+>>>           Destination bitfield index in the low nibble.
+>>
+>> I can understand this.
+>>
+>>>>> +  '#reset-cells':
+>>>>> +    description:
+>>>>> +      The single reset specifier cell must be the module number (0x00-0xff).
+>>>>> +    const: 1
+>>>>
+>>>> [...]
+>>>>
+>>>>> +#ifndef __DT_BINDINGS_POWER_RENESAS_R8A78000_MDLC_H__
+>>>>> +#define __DT_BINDINGS_POWER_RENESAS_R8A78000_MDLC_H__
+>>>>> +
+>>>>> +/* R-Car X5H MDLC Power Domains */
+>>>>> +
+>>>>> +#define R8A78000_MDLC_PD_AON                 0x40
+>>>>> +#define R8A78000_MDLC_PD_SCP                 0x41
+>>>>> +#define R8A78000_MDLC_PD_APL                 0x42
+>>>>> +#define R8A78000_MDLC_PD_CMN                 0x43
+>>>>> +#define R8A78000_MDLC_PD_ACL                 0x44
+>>>> ... what do these numbers represent ? Shouldn't those be register
+>>>> offsets from MDLC MPDG00 according to power-domain-cells ?
+>>>
+>>> These are Power Domains that are not backed by any of the 64 Module
+>>> Power Domain Gating (MPDG) registers in MDLC blocks.
+>>
+>> I suspect that might not be entirely correct for all of them, please
+>> read on and see CMN below.
 > 
-> 					-Alex
+> Thanks, looks like R8A78000_MDLC_PD_CMN should be dropped.
 > 
-> > Regards,
-> > Bjorn
+>> Let's take PD_AC00 , AP core 0 , as a domain of interest. My
+>> understanding is, that the domain structure for PD_AC00 looks as follows:
+>>
+>> PD_AON {
+>>     PD_SCP { };
+>>     PD_APL {
+>>       hierarchy is SYSSS
+>>       always-power-on
+>>       PD_CMN {
+>>         hierarchy is CMNN
+>>         power-gating-bit is MDLC_CMNN 20
+>>         PD_APU0 {
+>>           hierarchy is SYSSS
+>>           power-gating is done by APMU
+>>           PD_ACL0 {
+>>             hierarchy is CMNN
+>>             power-gating-bit is MDLC_CMNN 16
+>>             PD_AC00 {
+>>               hierarchy is CMNN
+>>               power-gating-bit is MDLC_CMNN 0
+>>             };
+>>             ...
+>>           };
+>>           ...
+>>         };
+>>         ...
+>>       };
+>>       ...
+>>       PD_HSCIF0 {
+>>         hierarchy is PERW
+>>         power-gating-bit is MDLC_PERW 23
+>>       };
+>>     };
+>>     ...
+>> };
+>>
+>> With this in mind, I think CPU 0 DT node should refer to the PD_AC00
+>> power domain this way:
+>>
+>> cpu@0 {
+>>     ...
+>>     power-domains = <&mdlc_cmnn R8A78000_MDLC_PD_AC00>;
+>>     ...
+>> };
 > 
+> So we do have a few modules (I found a few more) that are part of
+> power domains, but do no support module standby.  One more reason to
+> decouple them in power-domains.
+
+I think HSCN is a really good example ?
+
+> However, CPU cores are controlled through PSCI (the slightly less evil
+> brother of SCMI? ;-), so
+> Documentation/devicetree/bindings/arm/psci.yaml applies, too?
+
+We can indeed control cores purely via PSCI , yes.
+
+(Upstream TFA needs one more platform patch to make this operable)
+
+>> The MDLC driver would pass the PD_AC00 domain ID to matching SCMI power
+>> domain management protocol call, or, for bare-metal MDLC driver, would
+>> have to internally encode PD hierarchy, walk it, and apply PD operations
+>> in each step.
+>>
+>> I think even for SCIF/HSCIF, the power domain reference should be
+>> something along the lines of the following description. The MDLC driver
+>> should internally encode that R8A78000_MLDC_PD_HSCIF0 is a sub-domain of
+>> R8A78000_MDLC_PD_APL .
+>>
+>> serial@c0710000 {
+>>     ...
+>>     power-domains = <&mdlc_perw R8A78000_MDLC_PD_HSCIF0>;
+>>     ...
+>> };
+> 
+> R8A78000_MLDC_PD_HSCIF0 is a not a full sub-domain, but merely standby
+> (clock) control inside the PD_APL clock domain?
+Do you consider R8A78000_MDLC_PD_AC00 a full sub-domain ? Because that 
+one looks very similar to R8A78000_MDLC_PD_HSCIF0 , except the former 
+controls a core, the later an UART IP.
