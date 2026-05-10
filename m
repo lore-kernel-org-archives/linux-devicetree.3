@@ -1,99 +1,83 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7BD3ACA6A;
-	Sun, 10 May 2026 16:06:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14FD33A5443;
+	Sun, 10 May 2026 16:07:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778429161; cv=none; b=pTGYq/F2fVTfet3oISDS1sNDl8aWUcJQb2mnqu7wjV1lIu90GSDGTfRdRIc4//wGSRLyq9QFTB4BnpxggNcorx7IwTZ50i80njxYTnvJQlPn7qd/zSxydHJvJF/CHH0qLhtEzzji/9iC7KOVWGaAq94WSMAQjIMYmYyig2FiC04=
+	t=1778429266; cv=none; b=FXClZvNjI7LPAPdKVSzsoTAwp6muSlQXVxA8E5nQifjhVni4ukXDWVldjIkMzlMQScdLfbGA6Rmi/oFHoeq3/b2rLQN0s9PrYEwsIWsk2IhtiLyrXCP+irC6K21rWe9ciH/h4pEOVds1EuXCPYDCsfTlxp4CKADgjalyhFzukNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778429161; c=relaxed/simple;
-	bh=zWM0yjWhrBGeyNEsiYlhIjWmf8MR0q9DFMYfprO6DpQ=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=lt6ewYcVSuWDL816Akf2WJ0LgERZfbmVYWFLPGW3AmOSDGCrb4sjbk94hzibjezztKS0xnJN65yQhpqNswz9RyiEvsGxaNTyFhP9ZLxQoIsIen5bvjk0BQL6G0YCgkmT7QDQXiSifRlTjL0ywLaIpV2B9Yk5L6wZFNFB//najHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DG8I9DV2; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778429266; c=relaxed/simple;
+	bh=RkPVqx48rs4K1zkDh6WUjdU2isQPzyyoS+E6EGc7IjI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EDwcBpPW8lu6T4vyTt7IRTIhr0Mr5Z+JCVgsYuSO6OpILslCvNTlAwSRE9ab6FDghKOVRxn4vIovYVwQGNOFICcNfYCD3MCKbMHlqcjgISsqJZEfP72caDrNaLtCEMj31OFsfKiPBvVfTvRq8QTRIokVNATijtDfPuQwKisxXmw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=CCCikHA7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DG8I9DV2"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DE9F0C2BCFA;
-	Sun, 10 May 2026 16:06:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778429160;
-	bh=zWM0yjWhrBGeyNEsiYlhIjWmf8MR0q9DFMYfprO6DpQ=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=DG8I9DV2QdCtrpKsYOtl51qqd+m5rjCh12nh6LXvS5HRu/KCqWIJJPUSK1F6e+yMJ
-	 0F1JYD1beooKWmOr+eqGNZqVJXmka536TCtVtkvCNaIUg7IsOVtAtrviMb/35J6Tff
-	 ay/MjV2l2et62wFm5xuUyPVV5/ebeAF5azBJorIpf2SH2F765lmTYrS2AKtnK8GsvL
-	 1J2ci1pO3ju1OUEEj24CpASjumYMuO7T1H1hcUwqlN4M5hYgZzFoeI1jYONWNw5KCM
-	 VlhycbYqfQywi/TZsCGqZQM76p+yjeb/haywdN4zcpq1PxHJF2kgys6e5dc9oiqQj5
-	 9DcJB4Kv+2uVw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D6300CD37B2;
-	Sun, 10 May 2026 16:06:00 +0000 (UTC)
-From: Alexandre Hamamdjian via B4 Relay <devnull+azkali.limited.gmail.com@kernel.org>
-Subject: [PATCH 0/2] arm64: qcom: add Ayaneo Pocket DS gaming console
-Date: Sun, 10 May 2026 23:05:55 +0700
-Message-Id: <20260510-pocketds-v1-0-cf05acec06af@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CCCikHA7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 268E9C2BCB8;
+	Sun, 10 May 2026 16:07:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1778429265;
+	bh=RkPVqx48rs4K1zkDh6WUjdU2isQPzyyoS+E6EGc7IjI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=CCCikHA7kL6tiDQ+rSKzCWY0ckaUfxClb+y5QD6NqfW/rH5ugtKx2aIGaX9yXD/f8
+	 GeowDZ2055FcDZXx+sXa2xg7BbwBXapMVDHd7sDFYoh6hLRM+55kxJhQClgZQCZcdr
+	 q96QmRYgR3expgDjLC4y8sEhuaDP+u7tAm4KXM4Q=
+Date: Sun, 10 May 2026 18:07:01 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Pramod Maurya <pramod.nexgen@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	jacobsfeder@gmail.com, devicetree@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: misc: Add binding for Xilinx AXI-Stream
+ FIFO
+Message-ID: <2026051050-marathon-fragrant-edbf@gregkh>
+References: <20260510084458.73685-1-pramod.nexgen@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QpAQBSE4VfRuba1CK1XkQvW4FBoD1Ly7haXX
- /0zFwkcQ6gILnI4WHiZPaIwIDvUcw/FrTfFOs50Gmm1LnbC1oqCRt4YY7skM+Tz1aHj87sqq9+
- yNyPs9u7pvh9tj0WwbAAAAA==
-X-Change-ID: 20260510-pocketds-e0e7b99cf369
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Alexandre Hamamdjian <azkali.limited@gmail.com>, 
- Teguh Sobirin <teguh@sobir.in>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778429157; l=1248;
- i=azkali.limited@gmail.com; s=20260510; h=from:subject:message-id;
- bh=zWM0yjWhrBGeyNEsiYlhIjWmf8MR0q9DFMYfprO6DpQ=;
- b=pAr7WUGqunWuaodzubJ4K97YlUN6/wr7s/x78Tdh18R7mtAjc6EJbe0vIoF7nnuqe6MooiF2E
- JqqvhAk/kNeCDO+uA+uhpbJLwpl1cPbuiMJhevB43lJ2z35qlK4gVui
-X-Developer-Key: i=azkali.limited@gmail.com; a=ed25519;
- pk=I0Z0IdCdQJqNGX+FQUnXhrHg950u3cM6Xzz3YT6JOyQ=
-X-Endpoint-Received: by B4 Relay for azkali.limited@gmail.com/20260510 with
- auth_id=774
-X-Original-From: Alexandre Hamamdjian <azkali.limited@gmail.com>
-Reply-To: azkali.limited@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260510084458.73685-1-pramod.nexgen@gmail.com>
 
-This series adds initial support for the Ayaneo Pocket DS, a handheld
-gaming console built around the Qualcomm QCS8550 SoC.
+On Sun, May 10, 2026 at 04:44:57AM -0400, Pramod Maurya wrote:
+> Add a YAML schema for the Xilinx AXI-Stream FIFO IP core (PG080).
+> The binding documents the three supported compatible strings and all
+> vendor-specific properties that the axis-fifo driver reads from the
+> device tree.
+> 
+> This resolves the following checkpatch.pl warnings in
+> drivers/staging/axis-fifo/axis-fifo.c:
+>   WARNING: DT compatible string "xlnx,axi-fifo-mm-s-4.1" appears un-documented
+>   WARNING: DT compatible string "xlnx,axi-fifo-mm-s-4.2" appears un-documented
+>   WARNING: DT compatible string "xlnx,axi-fifo-mm-s-4.3" appears un-documented
+> 
+> Signed-off-by: Pramod Maurya <pramod.nexgen@gmail.com>
+> ---
+> Changes in v2:
+> - Delete drivers/staging/axis-fifo/axis-fifo.txt as part of the
+>   conversion (was missing from v1)
+> - Add all Vivado-generated properties to the schema so that real
+>   hardware DT nodes pass validation with additionalProperties: false
+> - Update example to match a realistic Vivado-generated DT node
+>   including all properties
+> 
+>  .../bindings/misc/xlnx,axi-fifo-mm-s.yaml     | 265 ++++++++++++++++++
+>  MAINTAINERS                                   |   6 +
+>  drivers/staging/axis-fifo/axis-fifo.txt       |  96 -------
+>  3 files changed, 271 insertions(+), 96 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
 
-This introduces the device tree itself, split into:
-- qcs8550-ayaneo-pocket-common.dtsi: shared QCS8550 board base
-  intended to be reused by future siblings in the same family.
-- qcs8550-ayaneo-pocketds.dts: This device's DTS
+No, staging drivers need to be self-contained.  When/if the axis-fifo
+driver moves out of drivers/staging/ this can happen, but not until
+then.
 
-Only the basics are wired up at this stage (boot to console, core
-peripherals enabled in the common dtsi); additional functionality
-will follow in later submissions.
+You can convert this to yaml in-place if you want, AND you can test that
+the conversion is correct.  Do you have this hardware to test this with?
 
-Signed-off-by: Alexandre Hamamdjian <azkali.limited@gmail.com>
----
-Teguh Sobirin (2):
-      dt-bindings: arm: qcom: document the Ayaneo Pocket DS
-      arm64: dts: qcom: add basic devicetree for Ayaneo Pocket DS gaming console
+thanks,
 
- Documentation/devicetree/bindings/arm/qcom.yaml    |    6 +
- arch/arm64/boot/dts/qcom/Makefile                  |    1 +
- .../dts/qcom/qcs8550-ayaneo-pocket-common.dtsi     | 1596 ++++++++++++++++++++
- .../boot/dts/qcom/qcs8550-ayaneo-pocketds.dts      |  170 +++
- 4 files changed, 1773 insertions(+)
----
-base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
-change-id: 20260510-pocketds-e0e7b99cf369
-
-Best regards,
---  
-Alexandre Hamamdjian <azkali.limited@gmail.com>
-
-
+greg k-h
