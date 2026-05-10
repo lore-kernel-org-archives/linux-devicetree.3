@@ -1,158 +1,408 @@
-Received: from polaris.svanheule.net (polaris.svanheule.net [84.16.241.116])
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E26830C608
-	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 09:18:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.241.116
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778404682; cv=none; b=lNHLx6vGCdFXhCY9D5ko5Wu/7n32zD+zj+6Mq/TQxY5kLVSaTKTKeQi/NLyaHILRtlYMKmsHLjJ+tdruoAG3bHtIbboeFy47NtFR40aiu08RsGVdYARhGl4Yk2iA6MY4NHu4BUmR4WdrxJrzgE1Oyl1OnwTD4qg7J48iwjOtQCQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778404682; c=relaxed/simple;
-	bh=VawkETnX8PoJzHvUasVU2WbedSBrxD6+b377xMUR2tY=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134AE1A9FBC;
+	Sun, 10 May 2026 09:18:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778404729; cv=pass; b=DJLQhKu1TO0jQ15a6NSFbj7oX58BlZZBMQt7NSLjcjGVoatpzijjZ4UQohYvdCJgk4y1q/AJDyWWZ8u4ohmnCpwqTrflZ16u1/901gga1+RO57Dg/ZNUvs5XHqiMd32U7FTlibMLvGDEkoGAGaDcurWaXwrvJRc7yEHHul9RPro=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778404729; c=relaxed/simple;
+	bh=4RvJQAtKAEQmYjKPkscFIii3Dot9Cnt6YFZgKaLkjiQ=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pCoe5dDpUPcEeGXOvWxpeeX25DQ2BZr9cao6QmqYrIdqxF5VlZKepPagw5LrEKp/OWD/KAi71Vjir1G2tv8izq3FSFQcB0Fs6uwigeVVCx/TMEcS2AtsexNPaaxj81Ps5Qnxl0Hr3QZvbrQl0mNITMp1NCfPQHmKI1L0SQEs/M8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net; spf=pass smtp.mailfrom=svanheule.net; dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b=GOLPhyCv; arc=none smtp.client-ip=84.16.241.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=svanheule.net
+	 Content-Type:MIME-Version; b=s8XRCvS/2qTjo5OouxAc+hW0VORhdg9QCsRgl4zQlaQBQTnaRD7TysoG8QvUF3yQcGIWg1EQ1hS2oNNc0ZmOCygrccYILSvyazm40pVPXHn9J/UY6rUV/VkgfZCrHCj13hFAtESOKGAthMd1PSbllpn/8m7gwacdOmbd/mPOTTc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=W+CXC9SL; arc=pass smtp.client-ip=136.143.188.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b="GOLPhyCv"
-Received: from [IPv6:2a02:1812:162d:3d00:649f:659d:f6c1:d42] (2a02-1812-162d-3d00-649f-659d-f6c1-d42.ip6.access.telenet.be [IPv6:2a02:1812:162d:3d00:649f:659d:f6c1:d42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sander@svanheule.net)
-	by polaris.svanheule.net (Postfix) with ESMTPSA id 825D377C82E;
-	Sun, 10 May 2026 11:07:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=svanheule.net;
-	s=mail1707; t=1778404069;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sOyjSRnXMke/uMfYW5oFYQefgV2luLs/zo2rvA+MaDE=;
-	b=GOLPhyCvxpCgmMnPMqLWIzQn7yjmN33oZErIHT6PpCPMp8U4lZgn3V+hM0S20GpQ9rKeLl
-	VZ6IFyVCEiy+F/QmSqidAD1E/2B3c4jvqazzee9T4t48UtXV1WeXEsPIaWuZAg4Ba9YP0K
-	qYvguvPaLAnvLFdogQCaE2czZclPmSTKBdVbHiKPnwo80P1UWYV4NNgris7PrYft6GInMZ
-	9fhEqwUuoNawg1UPhnfoNgXUDk4Qcqm03jpP7mZGX+9v2fRiXGpvwgAWlYScq0er10LknJ
-	b3SQuFtPX37W99AgGv/Rb5XBv5pAwoEi9YnChVL4nMlXUHWbToPKO1YMk7LxHQ==
-Message-ID: <32d4a57c074c766c8ad83e4b220e44b1df9ae485.camel@svanheule.net>
-Subject: Re: [PATCH v7 2/2] leds: ltc3220: Add Support for LTC3220 18
- channel LED Driver
-From: Sander Vanheule <sander@svanheule.net>
-To: Edelweise Escala <edelweise.escala@analog.com>, Lee Jones
- <lee@kernel.org>,  Pavel Machek <pavel@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
- <conor+dt@kernel.org>
-Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Sun, 10 May 2026 11:07:48 +0200
-In-Reply-To: <20260508-ltc3220-driver-v7-2-0f092ba54f23@analog.com>
-References: <20260508-ltc3220-driver-v7-0-0f092ba54f23@analog.com>
-	 <20260508-ltc3220-driver-v7-2-0f092ba54f23@analog.com>
+	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="W+CXC9SL"
+ARC-Seal: i=1; a=rsa-sha256; t=1778404694; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=NpW9zYa1oHpFoduv/89cZTj3IJVyCerCeDbLG4x9oS+mbTvHFWv6zdqBHGRJ5OuOb9ZnWZp7cpMNNdxkdUVIbgFsVWakmfpjPdOFwMIN+ioghStdyD2qmupZPpSz/F62ANIb6fF3kv6spU/7jt7znzgxrx5RYkNwOQVaBCrmAtg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1778404694; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=pF/MAuFbMXTlizcjlRu52Hks3i0WzgCLalQH82GrqJE=; 
+	b=kmao7xBi/Jn+yysjZJ5vJyg5RB7n0NfMt2IiZtYV7hGiKoLcXkt8h5nOjm/wfdZ6s/PtoBL7Lk5yEZq4EMJ/zvI7HqRKniWiIrynEn4Ahku/pwnyIocrwXUnX5poqs1BekrKaoXXWxRlKABe/p5lqIWubB7Csk43VtOdeWg12rU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=icenowy.me;
+	spf=pass  smtp.mailfrom=uwu@icenowy.me;
+	dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1778404694;
+	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=pF/MAuFbMXTlizcjlRu52Hks3i0WzgCLalQH82GrqJE=;
+	b=W+CXC9SLhWU1ajzYyABpo4ZyrX1N3ffKjJp76YPGw0adafG/X5iUuy1KIWhiGE+c
+	H0ePDR+io+VumZmz43JPYbqg8UQevq+S4uKHMB5XT+N3zw9zJulsTdPw1uhm7ZkbmT/
+	6HgjJDN4iwR42Nu5yYIBlB1pv2+0vbqnze0YvblrQenWFVZ5Wy6ulJFSjXkM+Fqsh5s
+	PauViM9Z4Q3WJHyhpALIpBqCbAvhexklGr4eap6Lrk5JUoy+b6sOjUJaHXRVFN5blYI
+	zik3jsKT1KAUZtnJmTlNKYDrEScscuRe0dztWVS7dzesJJJhP1JmJVOgf5i8KMv8lei
+	Ws7p1QIj0Q==
+Received: by mx.zohomail.com with SMTPS id 1778404691210603.5709819095284;
+	Sun, 10 May 2026 02:18:11 -0700 (PDT)
+Message-ID: <244b01b015ffd8e859ff30101d7743ff1c0fd899.camel@icenowy.me>
+Subject: Re: [PATCH 05/12] phy: add a driver for T-Head TH1520 USB PHY
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>, Fu Wei	
+ <wefu@redhat.com>, Michael Turquette <mturquette@baylibre.com>, Stephen
+ Boyd	 <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Neil
+ Armstrong	 <neil.armstrong@linaro.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>,  Paul Walmsley	 <pjw@kernel.org>, Palmer
+ Dabbelt <palmer@dabbelt.com>, Albert Ou	 <aou@eecs.berkeley.edu>, Alexandre
+ Ghiti <alex@ghiti.fr>, Jisheng Zhang	 <jszhang@kernel.org>, Philipp Zabel
+ <p.zabel@pengutronix.de>, 	linux-riscv@lists.infradead.org,
+ linux-clk@vger.kernel.org, 	devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 	linux-gpio@vger.kernel.org,
+ linux-phy@lists.infradead.org, 	linux-usb@vger.kernel.org, Han Gao
+ <rabenda.cn@gmail.com>, Yao Zi	 <ziyao@disroot.org>
+Date: Sun, 10 May 2026 17:17:59 +0800
+In-Reply-To: <agA3URhGA1u6R7LD@vaman>
+References: <20260507081710.4090814-1-zhengxingda@iscas.ac.cn>
+	 <20260507081710.4090814-6-zhengxingda@iscas.ac.cn> <agA3URhGA1u6R7LD@vaman>
+Organization: Anthon Open-Source Community
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-ZohoMailClient: External
 
-Hi Edelweise,
+=E5=9C=A8 2026-05-10=E6=97=A5=E7=9A=84 13:14 +0530=EF=BC=8CVinod Koul=E5=86=
+=99=E9=81=93=EF=BC=9A
+> On 07-05-26, 16:17, Icenowy Zheng wrote:
+> > The USB PHY on T-Head TH1520 SoC is a Synopsys USB 3.0 FemtoPHY,
+> > with
+> > some PHY parameters exported as another system controller along
+> > with it.
+> >=20
+> > As a few PHY parameters' default value isn't ready to work, add a
+> > driver
+> > configuring them before letting the PHY run, in addition to
+> > clock/reset/regulator management.
+>=20
+> Is there any dependency on the rest of series, if not please split
+> up!
 
-On Fri, 2026-05-08 at 12:09 +0800, Edelweise Escala wrote:
-> +static const struct regmap_config ltc3220_regmap_config =3D {
-> +	.reg_bits =3D 8,
-> +	.val_bits =3D 8,
-> +	.max_register =3D LTC3220_GRAD_BLINK_REG,
-> +	.cache_type =3D REGCACHE_FLAT,
-> +	.volatile_reg =3D ltc3220_volatile_reg,
-> +};
+I want to give reviewers a whole view of the implementation, although
+the phy driver doesn't depends on other patches.
 
-With this config, you are assuming that all register values will default to=
- 0,
-otherwise the cache will not work properly. While the datasheet seems to
-indicate this is the case, I also suspect you are now seeing the warning
+I am okay to split it out in the next revision.
 
-    "using zero-initialized flat cache, this may cause unexpected behavior"
+>=20
+> Some warnings flagged by sashiko, please check
+> https://sashiko.dev/#/patchset/20260507081710.4090814-1-zhengxingda%40isc=
+as.ac.cn
+>=20
+>=20
+> >=20
+> > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> > ---
+> > =C2=A0drivers/phy/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> > =C2=A0drivers/phy/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> > =C2=A0drivers/phy/thead/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 |=C2=A0 12 ++
+> > =C2=A0drivers/phy/thead/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 2 +
+> > =C2=A0drivers/phy/thead/phy-th1520-usb.c | 197
+> > +++++++++++++++++++++++++++++
+> > =C2=A05 files changed, 213 insertions(+)
+> > =C2=A0create mode 100644 drivers/phy/thead/Kconfig
+> > =C2=A0create mode 100644 drivers/phy/thead/Makefile
+> > =C2=A0create mode 100644 drivers/phy/thead/phy-th1520-usb.c
+> >=20
+> > diff --git a/drivers/phy/Kconfig b/drivers/phy/Kconfig
+> > index 227b9a4c612e8..ea1a52e14b839 100644
+> > --- a/drivers/phy/Kconfig
+> > +++ b/drivers/phy/Kconfig
+> > @@ -164,6 +164,7 @@ source "drivers/phy/st/Kconfig"
+> > =C2=A0source "drivers/phy/starfive/Kconfig"
+> > =C2=A0source "drivers/phy/sunplus/Kconfig"
+> > =C2=A0source "drivers/phy/tegra/Kconfig"
+> > +source "drivers/phy/thead/Kconfig"
+> > =C2=A0source "drivers/phy/ti/Kconfig"
+> > =C2=A0source "drivers/phy/xilinx/Kconfig"
+> > =C2=A0
+> > diff --git a/drivers/phy/Makefile b/drivers/phy/Makefile
+> > index f49d83f00a3d8..4604522548c91 100644
+> > --- a/drivers/phy/Makefile
+> > +++ b/drivers/phy/Makefile
+> > @@ -48,5 +48,6 @@ obj-$(CONFIG_GENERIC_PHY)		+=3D
+> > allwinner/	\
+> > =C2=A0					=C2=A0=C2=A0 starfive/	\
+> > =C2=A0					=C2=A0=C2=A0 sunplus/	\
+> > =C2=A0					=C2=A0=C2=A0 tegra/	\
+> > +					=C2=A0=C2=A0 thead/	\
+> > =C2=A0					=C2=A0=C2=A0 ti/		\
+> > =C2=A0					=C2=A0=C2=A0 xilinx/
+> > diff --git a/drivers/phy/thead/Kconfig b/drivers/phy/thead/Kconfig
+> > new file mode 100644
+> > index 0000000000000..14012db5973c4
+> > --- /dev/null
+> > +++ b/drivers/phy/thead/Kconfig
+> > @@ -0,0 +1,12 @@
+> > +# SPDX-License-Identifier: GPL-2.0-only
+> > +config PHY_TH1520_USB
+> > +	tristate "USB PHY driver for T-Head TH1520 SoC"
+> > +	depends on ARCH_THEAD || COMPILE_TEST
+> > +	depends on COMMON_CLK
+> > +	depends on HAS_IOMEM
+> > +	depends on OF
+> > +	depends on RESET_CONTROLLER
+> > +	select GENERIC_PHY
+> > +	default ARCH_THEAD
+>=20
+> Why should this be default?
 
-I would suggest to use REGCACHE_FLAT_S instead.
+Okay, I will drop the default clause.
 
-[...]
+>=20
+> > +	help
+> > +	=C2=A0 Enable support for the USB PHY on the T-Head TH1520 SoC.
+> > diff --git a/drivers/phy/thead/Makefile
+> > b/drivers/phy/thead/Makefile
+> > new file mode 100644
+> > index 0000000000000..5b459bc7004bd
+> > --- /dev/null
+> > +++ b/drivers/phy/thead/Makefile
+> > @@ -0,0 +1,2 @@
+> > +# SPDX-License-Identifier: GPL-2.0-only
+> > +obj-$(CONFIG_PHY_TH1520_USB) +=3D phy-th1520-usb.o
+> > diff --git a/drivers/phy/thead/phy-th1520-usb.c
+> > b/drivers/phy/thead/phy-th1520-usb.c
+> > new file mode 100644
+> > index 0000000000000..c87bd779bbb74
+> > --- /dev/null
+> > +++ b/drivers/phy/thead/phy-th1520-usb.c
+> > @@ -0,0 +1,197 @@
+> > +// SPDX-License-Identifier: GPL-2.0-only
+> > +/*
+> > + * Copyright (C) 2026 Institute of Software, Chinese Academy of
+> > Sciences (ISCAS)
+> > + *
+> > + * Authors:
+> > + * Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> > + */
+> > +
+> > +#include <linux/clk.h>
+> > +#include <linux/module.h>
+> > +#include <linux/of.h>
+> > +#include <linux/phy/phy.h>
+> > +#include <linux/platform_device.h>
+> > +#include <linux/regmap.h>
+> > +#include <linux/regulator/consumer.h>
+> > +#include <linux/reset.h>
+> > +
+> > +#define USB_SYSCON_OFFSET		0xf000
+> > +
+> > +/* All the below registers are in the USB syscon region */
+> > +#define USB_CLK_GATE_STS		0x0
+> > +#define USB_LOGIC_ANALYZER_TRACE_STS0	0x4
+> > +#define USB_LOGIC_ANALYZER_TRACE_STS1	0x8
+> > +#define USB_GPIO			0xc
+> > +#define USB_DEBUG_STS0			0x10
+> > +#define USB_DEBUG_STS1			0x14
+> > +#define USB_DEBUG_STS2			0x18
+> > +#define USBCTL_CLK_CTRL0		0x1c
+> > +#define USBPHY_CLK_CTRL1		0x20
+> > +#define USBPHY_TEST_CTRL0		0x24
+> > +#define USBPHY_TEST_CTRL1		0x28
+> > +#define USBPHY_TEST_CTRL2		0x2c
+> > +#define USBPHY_TEST_CTRL3		0x30
+> > +#define USB_SSP_EN			0x34
+> > +#define USB_HADDR_SEL			0x38
+> > +#define USB_SYS				0x3c
+> > +#define USB_HOST_STATUS			0x40
+> > +#define USB_HOST_CTRL			0x44
+> > +#define USBPHY_HOST_CTRL		0x48
+> > +#define USBPHY_HOST_STATUS		0x4c
+> > +#define USB_TEST_REG0			0x50
+> > +#define USB_TEST_REG1			0x54
+> > +#define USB_TEST_REG2			0x58
+> > +#define USB_TEST_REG3			0x5c
+>=20
+> Why do need these test registers, they seem unused?
 
-> +static int ltc3220_reset(struct ltc3220 *ltc3220, struct i2c_client *cli=
-ent)
-> +{
-> +	struct gpio_desc *reset_gpio;
-> +	int ret;
-> +
-> +	reset_gpio =3D devm_gpiod_get_optional(&client->dev, "reset",
-> GPIOD_OUT_HIGH);
-> +	if (IS_ERR(reset_gpio))
-> +		return dev_err_probe(&client->dev, PTR_ERR(reset_gpio),
-> "Failed on reset GPIO\n");
-> +
-> +	if (reset_gpio) {
-> +		gpiod_set_value_cansleep(reset_gpio, 0);
-> +
-> +		return devm_add_action_or_reset(&client->dev,
-> ltc3220_reset_gpio_action,
-> +						reset_gpio);
-> +	}
-> +
-> +	ret =3D regmap_write(ltc3220->regmap, LTC3220_COMMAND_REG, 0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	for (int i =3D 0; i < LTC3220_NUM_LEDS; i++) {
-> +		ret =3D regmap_write(ltc3220->regmap, LTC3220_ULED_REG(i), 0);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return regmap_write(ltc3220->regmap, LTC3220_GRAD_BLINK_REG, 0);
-> +}
+The register list is copied from the SoC manual, although most of them
+are unused.
 
-regmap_write() will always go to hardware, so this feels a bit like you're
-manually forcing the hardware to match the cache state. The implied all-0 c=
-ache
-could otherwise prevent later regmap_update_bits() calls from actually
-performing a write.=20
+Should I remove all unused registers, as the manual is publicly
+available?
 
-> +static DEFINE_SIMPLE_DEV_PM_OPS(ltc3220_pm_ops, ltc3220_suspend,
-> ltc3220_resume);
-> +
-> +static int ltc3220_probe(struct i2c_client *client)
-> +{
-> +	struct ltc3220 *ltc3220;
-> +	bool aggregated_led_found =3D false;
-> +	int num_leds =3D 0;
-> +	u8 led_index =3D 0;
-> +	int ret;
-> +
-> +	ltc3220 =3D devm_kzalloc(&client->dev, sizeof(*ltc3220), GFP_KERNEL);
-> +	if (!ltc3220)
-> +		return -ENOMEM;
-> +
-> +	ltc3220->regmap =3D devm_regmap_init_i2c(client,
-> &ltc3220_regmap_config);
-> +	if (IS_ERR(ltc3220->regmap))
-> +		return dev_err_probe(&client->dev, PTR_ERR(ltc3220->regmap),
-> +				=C2=A0=C2=A0=C2=A0=C2=A0 "Failed to initialize regmap\n");
-> +
-> +	i2c_set_clientdata(client, ltc3220);
-> +
-> +	ret =3D ltc3220_reset(ltc3220, client);
-> +	if (ret)
-> +		return dev_err_probe(&client->dev, ret, "Failed to reset
-> device\n");
-
-Up to you if you want to clear the device configuration (maybe this causes =
-LED
-flickering?), but with REGCACHE_FLAT_S, you should be able to maintain the =
-boot
-state of the device.
-
-Best,
-Sander
+Thanks,
+Icenowy
+>=20
+> > +
+> > +#define USB_SYS_COMMONONN		BIT(0)
+> > +
+> > +#define USB_SSP_EN_REF_SSP_EN		BIT(0)
+> > +
+> > +struct th1520_usb_phy {
+> > +	struct platform_device *pdev;
+> > +	struct phy *phy;
+> > +	struct regmap *regmap;
+> > +	struct clk *ref_clk;
+> > +	struct reset_control *phy_reset;
+> > +};
+> > +
+> > +static int th1520_usb_phy_init(struct phy *phy)
+> > +{
+> > +	struct th1520_usb_phy *th1520_phy =3D phy_get_drvdata(phy);
+> > +	int ret;
+> > +
+> > +	ret =3D clk_prepare_enable(th1520_phy->ref_clk);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ret =3D reset_control_assert(th1520_phy->phy_reset);
+> > +	if (ret)
+> > +		goto err_disable_clk;
+> > +
+> > +	/*
+> > +	 * Do some initial PHY setup:
+> > +	 * - Set COMMONONN to allow the PHY to automatically power
+> > down.
+> > +	 * - Set REF_SSP_EN to enable feeding reference clock to
+> > SuperSpeed
+> > +	 *=C2=A0=C2=A0 PHY clock PLL.
+> > +	 */
+> > +	regmap_set_bits(th1520_phy->regmap, USB_SYS,
+> > USB_SYS_COMMONONN);
+> > +	regmap_set_bits(th1520_phy->regmap, USB_SSP_EN,
+> > USB_SSP_EN_REF_SSP_EN);
+> > +
+> > +	ret =3D reset_control_deassert(th1520_phy->phy_reset);
+> > +	if (ret)
+> > +		goto err_disable_clk;
+> > +
+> > +	udelay(10);
+> > +
+> > +	return 0;
+> > +
+> > +err_disable_clk:
+> > +	clk_disable_unprepare(th1520_phy->ref_clk);
+> > +	return ret;
+> > +}
+> > +
+> > +static int th1520_usb_phy_exit(struct phy *phy)
+> > +{
+> > +	struct th1520_usb_phy *th1520_phy =3D phy_get_drvdata(phy);
+> > +	int ret;
+> > +
+> > +	ret =3D reset_control_assert(th1520_phy->phy_reset);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	clk_disable_unprepare(th1520_phy->ref_clk);
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static const struct phy_ops th1520_usb_phy_ops =3D {
+> > +	.init		=3D th1520_usb_phy_init,
+> > +	.exit		=3D th1520_usb_phy_exit,
+> > +	.owner		=3D THIS_MODULE,
+> > +};
+> > +
+> > +static const struct regmap_config phy_regmap_config =3D {
+> > +	.reg_bits =3D 32,
+> > +	.val_bits =3D 32,
+> > +	.reg_stride =3D 4,
+> > +	.max_register =3D USB_TEST_REG3,
+> > +};
+> > +
+> > +static int th1520_usb_phy_probe(struct platform_device *pdev)
+> > +{
+> > +	struct phy_provider *phy_provider;
+> > +	struct device *dev =3D &pdev->dev;
+> > +	struct th1520_usb_phy *th1520_phy;
+> > +	struct reset_control *bus_reset;
+> > +	void __iomem *base;
+> > +	int ret;
+> > +
+> > +	th1520_phy =3D devm_kzalloc(dev, sizeof(*th1520_phy),
+> > GFP_KERNEL);
+> > +	if (!th1520_phy)
+> > +		return -ENOMEM;
+> > +
+> > +	th1520_phy->pdev =3D pdev;
+> > +
+> > +	base =3D devm_platform_ioremap_resource(pdev, 0);
+> > +	if (IS_ERR(base))
+> > +		return PTR_ERR(base);
+> > +
+> > +	th1520_phy->ref_clk =3D devm_clk_get(dev, "ref");
+> > +	if (IS_ERR(th1520_phy->ref_clk))
+> > +		return PTR_ERR(th1520_phy->ref_clk);
+> > +
+> > +	/* De-assert the bus reset and leave it that way */
+> > +	bus_reset =3D
+> > devm_reset_control_get_exclusive_deasserted(dev, "bus");
+> > +	if (IS_ERR(bus_reset))
+> > +		return PTR_ERR(bus_reset);
+> > +
+> > +	th1520_phy->phy_reset =3D
+> > devm_reset_control_get_exclusive(dev, "phy");
+> > +	if (IS_ERR(th1520_phy->phy_reset))
+> > +		return PTR_ERR(th1520_phy->phy_reset);
+> > +
+> > +	/*
+> > +	 * Schematics of several boards (Lichee Module 4A/Milk-V
+> > Meles)
+> > +	 * describe this power rail as always-on.
+> > +	 */
+> > +	ret =3D devm_regulator_get_enable(dev, "avdd33-usb3");
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	th1520_phy->regmap =3D devm_regmap_init_mmio_clk(dev, "bus",
+> > +						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 base +
+> > USB_SYSCON_OFFSET,
+> > +						=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
+> > &phy_regmap_config);
+> > +	if (IS_ERR(th1520_phy->regmap))
+> > +		return dev_err_probe(dev, PTR_ERR(th1520_phy-
+> > >regmap),
+> > +				=C2=A0=C2=A0=C2=A0=C2=A0 "Failed to init regmap\n");
+> > +
+> > +	th1520_phy->phy =3D devm_phy_create(dev, dev->of_node,
+> > &th1520_usb_phy_ops);
+> > +	if (IS_ERR(th1520_phy->phy)) {
+> > +		dev_err(dev, "failed to create PHY\n");
+> > +		return PTR_ERR(th1520_phy->phy);
+> > +	}
+> > +
+> > +	phy_set_drvdata(th1520_phy->phy, th1520_phy);
+> > +
+> > +	phy_provider =3D devm_of_phy_provider_register(dev,
+> > of_phy_simple_xlate);
+> > +
+> > +	return PTR_ERR_OR_ZERO(phy_provider);
+> > +}
+> > +
+> > +static const struct of_device_id th1520_usb_phy_of_table[] =3D {
+> > +	{ .compatible =3D "thead,th1520-usb-phy" },
+> > +	{ }
+> > +};
+> > +MODULE_DEVICE_TABLE(of, th1520_usb_phy_of_table);
+> > +
+> > +static struct platform_driver th1520_usb_phy_driver =3D {
+> > +	.driver =3D {
+> > +		.name =3D "th1520-usb-phy",
+> > +		.of_match_table =3D th1520_usb_phy_of_table,
+> > +	},
+> > +	.probe =3D th1520_usb_phy_probe,
+> > +};
+> > +
+> > +module_platform_driver(th1520_usb_phy_driver);
+> > +
+> > +MODULE_DESCRIPTION("T-Head TH1520 USB PHY driver");
+> > +MODULE_LICENSE("GPL");
+> > --=20
+> > 2.52.0
