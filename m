@@ -1,143 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A239A331A4C;
-	Sun, 10 May 2026 10:03:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2BB11EE01A;
+	Sun, 10 May 2026 10:07:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778407388; cv=none; b=awS07/dqxPSf9bi51H5J70Q/zjvqhKZ3cIIZa2inFNYWNfik3MU2WPq0NPfZB+LGSv+OtXsacxyfxjga4WRxRVKVZ9EWqQCy1f4A2eUBvn6i241EhuRt+aYduD5mVmg9/8ManLbrmB+kJT9jDbC5PgS8Mb9GRanM64cXJZIafS4=
+	t=1778407661; cv=none; b=SQNBFsCsXimA0bTdgExM9vUqJRfI/bE8yNpd/V3IrhmRgaZE9MmYhcW/ySdsbGzatnjv6MUB/aHESvKHiFxhpms4Lwbf9kvt+EP2daiHEHoGriRpHUcRlTcKWCo1FpBujHyzsqLpYj/RKg2OZAPshJjTVmTk3Ov/m2Sq7R/49/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778407388; c=relaxed/simple;
-	bh=1qjetCb9nyHAgz1azduiTldADs81qEPMKLQKl2HxP30=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k/q1LzT2F/IHJUdbF5x7tyYIBbrF8+VpEs9wLUKdGo8tfaEp241UjHM2N8SITZjr/Ie6tDI1cJRQUns6TuEqV8cd9hDdN4Otnz6zJwcwZIVPdP3EuVmw5wMNvy0y8zT1Dw20XiKrzFGWTdnt3TF7a73G7IKpn5xXQCtZ/Rndw/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bV7UWHua; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778407661; c=relaxed/simple;
+	bh=4tph0zy3cNEHlCYe18lSKwujBZx0a7J4karvXTYGrE8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IC/T7N9DjmSFa82AJDWGx37woNF2idNGzf08n8wNe1Qb25gR+D8OrxWWHLZu1BJWsgRECMOYdrx6nqBpB9IK6UknECq1gpK5oCEudpMfiA5XMTc0835WD8JPEUnlIy2tiu5x++4irXHj3M50VxgaWlxopbOOE0IznZH+LIBdPYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=e5RMGs0+; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bV7UWHua"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0388C2BCB8;
-	Sun, 10 May 2026 10:03:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778407388;
-	bh=1qjetCb9nyHAgz1azduiTldADs81qEPMKLQKl2HxP30=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=bV7UWHua9q2V2fx8hfjPjOVffkLRgVrld4zA5VefBIgOJnljU76GUxuWHJEMwEjlL
-	 5518IlvhaxoXcdWGrRSWv9ifzrH5HDlXgHrnf8J+jWaw8K9cCyYLgv2OtW6MawDtak
-	 c+sbswevhJUWcwwBDtSevvOqs159IAkZF+OBd90bD1L+DJCbCbGjjIGoyzmljVstQd
-	 QDcsPKl91p35n82fyagZpuA7u1hjKftlcthFvX+NX2xoafH1e7Kyw4qMFRpekc9/T4
-	 TOlocFx44ozzzMV38WHr42lsWbq8NmouEoXDxI9VlWsn+jcdLUPYS5XpQFbsq4eOPV
-	 I8bgS22+1VeSQ==
-Message-ID: <6cbb9b37-9560-482a-9fa6-15d5370d258f@kernel.org>
-Date: Sun, 10 May 2026 11:03:02 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="e5RMGs0+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1778407660; x=1809943660;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=4tph0zy3cNEHlCYe18lSKwujBZx0a7J4karvXTYGrE8=;
+  b=e5RMGs0+3bWK6V26AckrwiGvF+WD6nLwLjsb6u/GM1YUY3h+MzHNQXzw
+   +g3tynYEkccdbw8KJpxFakBwIyLnSqqmnejgMTUnpgR901woOITIUl4WI
+   pc0E8PLmROjyJ2tHeKiMvyhJFAlP8ij0kmW8A8tru1JoEyHKC/bYr9XW1
+   myWF6qNtLYvOevWCJ48Sm1wibI189iIZZWQyCaD1n0vYhERcztWR6InBC
+   tOLYxu4PoT+BP+Jff2Qg0R9krdRQ0cWSK9SYk3H2ws9HjmoH1tYF1v6PG
+   sZRHdBKxf/YVuZrEDthoWqt+miYU92m1DRQg22R5KaVwiox9dmFgdjaPK
+   Q==;
+X-CSE-ConnectionGUID: 84pCywhOQy2jWBRNQ6r/jw==
+X-CSE-MsgGUID: /90UUjQRRc+bFVk7GCdgtQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11781"; a="96744709"
+X-IronPort-AV: E=Sophos;i="6.23,227,1770624000"; 
+   d="scan'208";a="96744709"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 May 2026 03:07:39 -0700
+X-CSE-ConnectionGUID: 3OnfRC1yQxiv9c42gUcypg==
+X-CSE-MsgGUID: 5kbNoDiKSfi7LeB6WpsP1g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,227,1770624000"; 
+   d="scan'208";a="237414075"
+Received: from dhhellew-desk2.ger.corp.intel.com (HELO localhost) ([10.245.244.171])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 May 2026 03:07:35 -0700
+Date: Sun, 10 May 2026 13:07:32 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: rodrigo.alencar@analog.com
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH RFC v4 02/10] iio: core: support 64-bit register through
+ debugfs
+Message-ID: <agBY5K4qN3jda2up@ashevche-desk.local>
+References: <20260508-ad9910-iio-driver-v4-0-d26bfd20ee3d@analog.com>
+ <20260508-ad9910-iio-driver-v4-2-d26bfd20ee3d@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 5/8] clk: qcom: gcc-msm8939: mark Venus core GDSCs as
- hardware controlled
-To: Erikas Bitovtas <xerikasxx@gmail.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org
-References: <20260507-msm8939-venus-rfc-v5-0-d7b5ea2ce591@gmail.com>
- <4f1ab5b8-3bfe-43a6-8b91-317456188544@gmail.com>
- <7df3bff7-b872-4b20-8e7c-698157a41f33@kernel.org>
- <tawGGT4rtpw22Ng-MgM--GhoEihBU7tY_TrFUHf8raMKApyqTcSkKHyfSuRIL_bqNp_5zWD4SBG_C4c8CB7_6Q==@protonmail.internalid>
- <18998766-62fe-4a5e-95d8-1bfae712d8fb@gmail.com>
- <614a087d-d219-49cb-85ee-772044558649@kernel.org>
- <Jxt4BbN1dL8VKh_Zjah1xecAjz3c9VfbhKSm4a0K2D1MNKfJKIFnCPLj2VvdW1q4LnMIQy8bCzV3YoVnLFYUlA==@protonmail.internalid>
- <0cee27b6-f566-4958-8634-2c43e099281e@gmail.com>
- <dd435489-0cf7-4274-99bf-a591a15e91e4@kernel.org>
- <-hM6afm_Cu_8Cha9U-hrlrg6CGDEb5D3PFpPPCfIh-QgkdFJp_r0Ah9k1dvAF4zkju2dPc3FZJxvOA4V4hupAA==@protonmail.internalid>
- <69f9a6b7-7431-442a-82a2-6305635a508a@gmail.com>
- <9bf43e04-f834-45b6-8942-bcae2e480371@kernel.org>
- <eiZczGoYszhu5QDfm96oeViUfzDjhlJ8JLLIm2YmOU6S2gfCQoBeo9K2T65EzVLvv9B4lSo0k1KCVWMGLnzL6Q==@protonmail.internalid>
- <1ee77cbb-9894-4b16-ae2b-8e9035fd6cd5@gmail.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <1ee77cbb-9894-4b16-ae2b-8e9035fd6cd5@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260508-ad9910-iio-driver-v4-2-d26bfd20ee3d@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 09/05/2026 15:43, Erikas Bitovtas wrote:
->> OTOH if Core1 can't be coaxed into working in either mode, we are better
->> off either holding off on this series until the breakages is root caused
->> or leaving out Core1 entirely for now.
->>
->> i.e. there is no utility in declaring an encoder or decoder to userspace
->> that is known to be broken.
->> Last time I tried to enable only 1 of the cores, the following would happen:
-> - If core0 is enabled, HEVC decoding would work, but not the other codecs.
-> - If core1 is enabled, the rest of codecs would work, but not HEVC.
+On Fri, May 08, 2026 at 06:00:18PM +0100, Rodrigo Alencar via B4 Relay wrote:
 
-Can you be a little clearer here do you mean - doesn't work on that core 
-or doesn't work on all cores ?
+> Add debugfs_reg64_access function pointer field into iio_info and modify
+> file operation callbacks to favor 64-bit variant when it is available.
 
-> Given we don't really have a way to power up a core based on which codec
-> we are dealing with, I suggest we leave both cores in the binding and
-> enable them indiscriminately.
+To write a value with bit 63 set it will require negative number, right?
+Isn't this  counter intuitive and may lead to rejection of the (correct)
+values?
 
-OK the 8916 to 8939 migration guide says HEVC decoder - encoder is not 
-mentioned.
 
-You can have a bitmask flag of whitelist or blacklist per core then - 
-select which codecs are supported on which cores and then declare those 
-to user-space.
+-- 
+With Best Regards,
+Andy Shevchenko
 
----
-bod
+
