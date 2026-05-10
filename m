@@ -1,120 +1,159 @@
-Received: from mail-lf1-f67.google.com (mail-lf1-f67.google.com [209.85.167.67])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 277FA3FF1
-	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 01:37:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778377049; cv=pass; b=KxZup9mf5u8RxgjkjNc7zcHDQ2hiHJBEyu3ljezg4B2ZqgQbjvfwb6FVy9nCC5TixCCYUs6/AsfUVYDAWF6T93IeQTZXw17iWpBOWcbMV1PAomvW854i1O7uLr/8k+IzlnG+wtqWtK7w5bc78vNC73Y9PD9Fcc//xZrhtLeiZ+4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778377049; c=relaxed/simple;
-	bh=+dm3X3AxAH1CzBT9u3abmQDU7H/A0h7PeHVEJ7QCLcc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=okNj2z6C8KJLJx3+K6EHCmTK05BnYcktd1i/u8WXDYs5hDFETmm9GRXk0dFzuZ7sJb49HfAWSw/9kVHLZkRgnWYXrE1bHixcOu0RYl69OR8PwZJq4sQCeggI9jp1J+/qFYerO1pC3Fji4s9BxHG5/VKdrFiodY/nUxBjP6eJ/A0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N2I8Et+e; arc=pass smtp.client-ip=209.85.167.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E791DE2AD
+	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 02:06:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778378801; cv=none; b=XYWYfQp/+5GL0qoSqNhgFFRToM2ur9z68wUhxius1Giiyh++KMnrYGvqcTmfwPa+OAbNnezQJQvtz7Rbvl8ORRXcZQNXi91s/39B7v6Je8EIGrKCSmMrG3JFXgdyk8ibGmXJg3PSU7JoS6cgolg0SEdtVOZDGFXeXulRLjiZhOs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778378801; c=relaxed/simple;
+	bh=W+DCCrpFowryX11pvJt2K1EBF8G5AAjkOkkiR7AQKV4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gznTV6AjiKPRPXg9bHhi/rLGAidVbdQMevJizfL7h0jmpnYQkBtp9SSLwdKSN+EHLb8Hc+qtMPrYILJBjPyemFdAoiMf51zG6Va2RZmFtgZUKHkmsaJgCW4D/cZ9IzgJXOOWlgib5jjNUmz67MUxxfWsIbeNXXUMViJJgGhy4Qg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GsEenpeq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=K4WzNLyn; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N2I8Et+e"
-Received: by mail-lf1-f67.google.com with SMTP id 2adb3069b0e04-5a887ebb416so3078591e87.2
-        for <devicetree@vger.kernel.org>; Sat, 09 May 2026 18:37:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778377046; cv=none;
-        d=google.com; s=arc-20240605;
-        b=C7L9ET9Kk5MjJVWPkM7GiUm0b1N1tkpWZ19SUi6xh8Y2BQch9KZwUr6Nyf5nlZwafc
-         +uCNq29vIbiSWJEdnA7dyGe0wPbk0sC422bIew1Ia6m0H4OMT4rHVKDGkJ2y+TUSl5gc
-         IHVG/bwlpSThYsAm9nmp1EkXSHyelGOzzoUsKUI5oA8G7wgH2JsTiurgCFiaOEJD+JJK
-         OxXyiOyWbPT5wpbRnqFopDieWgvI5ttSn6KKbgsJivqlRti336yRppRmwL4FKYuJFY49
-         gInW+SbPx3ibip8P80pm9hfYIcRd9f/A7cbCw/dMiHqKoiJYUrewgAI/q4BSPGaaMiRp
-         L41w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+dm3X3AxAH1CzBT9u3abmQDU7H/A0h7PeHVEJ7QCLcc=;
-        fh=QA80a6XUYIo7/d8kd5g4aSBkkzvjTE5UD+CdRpS3zSU=;
-        b=Vl90sD7dOn1ZTGuU1Zpyurp8tEgIW+BGHHet2L0BfYwU4bAnRt2tQohg/o+//SZ7v5
-         p+O592cio6SQUc/nEKPoMh4pWyaxjScFmqNIALaVVJsqCJZ8k8Ja3FFWNV1o2k7Km4EY
-         3oSaaquNzICSFAtq6jyaSLmesDN9QcOXypvW+nExAXNJ/eqBH1AC/ZblJ/UhuZDDtWR9
-         p/ygwAQKUIUwDzVYiXgxFbxHRZN5UBk+oDVRWF+DXaN20CREVc3h7uXPX44EUFaulcp4
-         kxZI0SkeBFIGxtTebvRqQYMhq5khIT0ucqNHC4aRo/jBD5nm8Bq86QwXl6xHlJfzh8sq
-         gDng==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GsEenpeq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="K4WzNLyn"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64A1C2Dr1305541
+	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 02:06:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=Hc+dMOlXO4kmwhGVPeyOL2/tHkuEgcbSLt8
+	7GgpCmL8=; b=GsEenpeqGi0LnK8U5YdTsMsdz4WGa4i8gCIxSSZUGnBK+rU+Xu7
+	o3DeIahfJe38v2dL6XT0Kt47c1VRMtdn1G1lohHW3lQzCofJrVyygYgeXrsYJvN4
+	CQJf6af2Y5AxzTO3am2Z1tEmVUH4WswzQ4/QNTYse75yksHuU6i+zfbg2NqpNe60
+	+I4zBaqbQIpazCC17ev44u4j2Hfd310UZG61Ff8Vn/dtiCE+bCNWFE5WkOEEuA/R
+	urgEDpuOQftR5V5cVqk/q4+V32CGXsnAQPiVRTskvvjIpXy4V8mhyiITapixawMH
+	8ET0WidxVP9sk/YOcxLDXeUk7d/XTES/vEg==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e240h18t1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 02:06:37 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-2c0f6593ef5so4280847eec.1
+        for <devicetree@vger.kernel.org>; Sat, 09 May 2026 19:06:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778377046; x=1778981846; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+dm3X3AxAH1CzBT9u3abmQDU7H/A0h7PeHVEJ7QCLcc=;
-        b=N2I8Et+eVZW5Ar2PLI0f3pweur6sqzQslIevxzmVuQqc0vuBTMRw2RqfovL2MJTFoe
-         NL5wywEcrJ9xuuUjTmeGyRHntVljIqVWvU2u0uLy0dCsKEGSC9lBDZSla2/BnMWAs6Oj
-         Ues0w0tyrVLwkttINlzyqNCKx36gS0pd3U2nbnlGf376jhsFC74JnZK+3/8cC+PpDi7P
-         QY3eIYXy1ZD/jmvWNjyEye1BUS+Ezvw4XP/WumZLheozjDreytG8CVud5ujs0UMQI+Ma
-         BGsO5fQG899Uus0anca4D2C3aX5x7DgVNG9Nxl0dPKY1DYlu1XtJXL7elQjaAfV1iyT/
-         Emgw==
+        d=oss.qualcomm.com; s=google; t=1778378797; x=1778983597; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Hc+dMOlXO4kmwhGVPeyOL2/tHkuEgcbSLt87GgpCmL8=;
+        b=K4WzNLynl5mwFssbwycpdsAlj+u5KnWdvVp8Fm9+ctDG+xDf5iU1uWW4co/amLjCZx
+         OF52hOElOtRnexrdr4q4niNKUCy+hYe2hPnhOvOF5SzdWljFzx2/FWt0rDbWs6kxqSyl
+         jfoxqtT6Co9C+OP5OI+oz0GgUmAoUORMKNrYSxPeE2DB+Wxkv9t19rtMXKGy1rBheV3z
+         npD1YEf7xc/2EvAjf2JMraPj2+wBC8A6ktQiBvlGKvHQa5RNd0KwL3z+ex/a7/XmULJk
+         cqKpdCsWEqWNxfn8qSCnByEtdiVUIcjA9iF1bW+yN3eoHOHsCD8MG2502DRQEl9ohR7i
+         ChHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778377046; x=1778981846;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=+dm3X3AxAH1CzBT9u3abmQDU7H/A0h7PeHVEJ7QCLcc=;
-        b=YG0FQBedxN6xEXI93WXQK2P1Gw6CgQbMxm91f0e+s/ZWR/Vou9b/lgXRb255gvqIMs
-         OCEEXb/XBHVe8CETY8ovB2BB0O3No6jiinF37O2Pc8UpF6shhwArKJqfLjE63b6Gc64I
-         RS/THMJ9Gl7qpd0dz9yQb3sd3okUGoLtkk7mEez8VKwEYki+dBrrzcvb6U0gX66UmXNo
-         CB8wVtwhng3VDbxOyxn4tv9+nzzOZzUkHFgJMOKS4u0lhlBI1f2TCQotDcD8cb1F/Z+Q
-         JNmXpgEBi13RsGpxZYQDN5J54lVJVWIjig9+aBCSZi30H0q/3WWnKahUtpZUazU2BP37
-         PKTw==
-X-Forwarded-Encrypted: i=1; AFNElJ823zk+WwO/ZYDyasfWNGT34JAZ5DwtZ9CO1ANhHCzE2+zbhWcEaAXkcwLugSjYlFM5b6/q1U0YLpnO@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw75UCk9XgMvk4Z6jXQxBLEk5SdJkp30Ww16fji8/gdosas5Mjw
-	ntJgK3OFTwBlabcEXERkqgvnPvr0ffEWgZ8erEAfx7mqQYvQa9hztUX9NQhAbkXF+2fSDdmJ1Sk
-	2znFBpDVtw8CAlED+L1Z2ydYB7mCiAwKdSNlDbPQ=
-X-Gm-Gg: Acq92OGpG7dE/Ucqn1nBXMhIOcu/3M8bUxNqoyTIvOvcRcPaBuOlURLRL1VT6eN43BV
-	XdNAwAevYNoTLh/ly8YWKwi1q09MHrFT80YnG2O6DXecfgWYEyn1BBIx9wU6X3pfp2ga0MxE7iL
-	E6oYktMaF7lSs3GvwgxONc5LzgR2MYy17RiyOFCl8fkTNV3nPnr9YA2JG+kcH8PGVOi27eN0pdu
-	kvpyFt6QYtRl+qIpzbH0Ld7mby6eJk2osaizFz18a2JfCkPxWuH0UM2FjqNbG0M7w+Nt9BTziFj
-	gd1oKiPEFjWoOXsLdvApWswDAp0y+WIqvUL6rKHJsQ==
-X-Received: by 2002:a05:6512:1587:b0:5a4:1672:59d0 with SMTP id
- 2adb3069b0e04-5a887cdf1e9mr6037401e87.19.1778377046045; Sat, 09 May 2026
- 18:37:26 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1778378797; x=1778983597;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Hc+dMOlXO4kmwhGVPeyOL2/tHkuEgcbSLt87GgpCmL8=;
+        b=pEhc1Irga/eLrZOgzHLSx/dk/Gu11khf6kbJzLowFL+rm7XLr0FNlxJ1K57PTF76Ke
+         ODt0VBqPuINsEyB649LUhcitqbUtCYAM7BnBSeIiWi8dGFDqqtIOl2t+bx+IU4WuFoGH
+         qnUsmvSzKh06rGBrjGtdNgH18K6m73KHBsDzDNNR2xH4Wb/5vW4fRs//Sig6dUPartI/
+         X0Kw0smeeMwvKf5eQdBqUqnYLJwtzAvgGinPTC4FR47F5LLgDyvoYS2xp09I8kK/8vKH
+         klT49yk7CiIqOxNhsucBcxfnX9gTN2dpiCiG13woLoi9tWXuiXOrgU6H5AV9djj4oJun
+         UFcQ==
+X-Forwarded-Encrypted: i=1; AFNElJ84tTLb3ZqU4OYboZbsZxgXtrb1u5HbmzYtYH0YeR8K/arKm2oekRqsZ8cGDaNwB6lAxVUXOEUGG4Je@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywg7IkfpLJFYHilCd7KXRDG36WECFtwNxNsrh1tHMAtjdeEvmXd
+	ZjL+9N+jNCfDd0tggfYYzWJ23b2AvuZu7nsIiUIKvUVhXg3HR3fi5fz00xEAQ6mYQhV9Z+CRUh+
+	FvnGwSHXUKDLZkR2AZWZgnEDgZGDeD1A/8tCcOqmraBNMI7U9lhyGFB8MMgFQ5I3RwS/CjZxy
+X-Gm-Gg: Acq92OFB1zdj44H3T0FBZSRmj4wUFghujt6w7xVDxMp1OmKL2eh0coHIT1XiPpfIfsY
+	7tQufiJVhj6PjPmH8oXXE4tHa0AhcnM/aE8cFUxC5KeSmLMWmAOwWeBtl5uVvf5e/btQcOI0Em5
+	5lpanWQynreYQ/WAU80NydK1MkKh1EnGKmHt7TDqxY4T1CfJE5vaXwryDzp0yXYH3lkbOz9WVSz
+	Osk+aWrmqB/iTtvcP5aaf2/enaT3U5dyUiIyJZZC6ASlVVYmph0YFjKw8nUUkHzVUNSXkyjb+Qm
+	YYSVERctoijvz4jsHBUCPwo11yDGSvIyxvJkyGTTqho/6O9Sac9cm5byunCUTsxJJSz4/j15QkD
+	aWl+GE3ckwsiNKP6PerJQ8idmREfnOvWVwBJzqow1GFAzGUaeU9iTFMkXA6Gv2FRyltNctCX6Of
+	69q0Ay+w==
+X-Received: by 2002:a05:7300:ac82:b0:2ee:f85:ec3c with SMTP id 5a478bee46e88-2f54b466443mr7716717eec.30.1778378796539;
+        Sat, 09 May 2026 19:06:36 -0700 (PDT)
+X-Received: by 2002:a05:7300:ac82:b0:2ee:f85:ec3c with SMTP id 5a478bee46e88-2f54b466443mr7716695eec.30.1778378795363;
+        Sat, 09 May 2026 19:06:35 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2f8862d3047sm9645257eec.10.2026.05.09.19.06.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 09 May 2026 19:06:35 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Georgi Djakov <djakov@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH v2 0/2] Add interconnect support for Qualcomm Nord SoC
+Date: Sun, 10 May 2026 10:06:05 +0800
+Message-ID: <20260510020607.1129773-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260509022718.82957-1-dennylin0707@gmail.com>
- <20260509022718.82957-2-dennylin0707@gmail.com> <f6e2a4de-4c1d-46ef-b383-db62091fd0f4@baylibre.com>
-In-Reply-To: <f6e2a4de-4c1d-46ef-b383-db62091fd0f4@baylibre.com>
-From: Denny Lin <dennylin0707@gmail.com>
-Date: Sat, 9 May 2026 18:37:14 -0700
-X-Gm-Features: AVHnY4ICXEJPO9AIPLuyZ2gn1SDEAJLed5IGd-wpenxd8q9TNAgPUllmcOqkbtI
-Message-ID: <CAGEkeHfeZWi99TMvkXHhMSrUS8PshuekqjszBXaS39VsLUZ4eA@mail.gmail.com>
-Subject: Re: [PATCH v3 1/1] dt-bindings: iio: adc: add AD7816/AD7817/AD7818 binding
-To: David Lechner <dlechner@baylibre.com>
-Cc: lars@metafoo.de, Michael.Hennerich@analog.com, jic23@kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, nuno.sa@analog.com, 
-	andy@kernel.org, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEwMDAxOSBTYWx0ZWRfXyztQaNpjh8hx
+ quizQanGjAU5xphIWXGahW9bodx0mzFrFzVHFmgQQuYzAaimmyGj4A22v2X1SO8JIYRBusBx1WC
+ BJeYOqaG/Nd8u70UBDeAxfcu9dPGK7qqw8pBiIbcuTJaNZngPJPMYtkVWzuVlBUMqBtDY5e5XB/
+ DTVcWujhqvs9zrUbwJiK9NO+7pZ4IhiPFdPQhjawOLo9Cb9G0EzkPRhIsFELmx5Qv/6hJVkLqp/
+ WjWmpRdh9rai4tLNz1Zs+TNbUSCOYnY0DVRgzg5Pq1qbgMNX2iaXIn5o2CgOom5SccjqAh7iEjp
+ Bme/uSDYvpbsTDSUjAdey+5WR0fDWCufb7l1hqi7N0ruO4ak5osZ/z4dVsc/r8961B4rNxjhl+h
+ MvL2p/MT3e4OJJE7Lw/Halo3A1/O8NtjeYXXprrUov7oo5jJ09XguMiVwlRYLYixbCv6htRj0+7
+ YM2asujcF+YbS5J8gUQ==
+X-Proofpoint-GUID: a6fQNHwVXZ0jhplnCV0Nvsur5TY59xhL
+X-Authority-Analysis: v=2.4 cv=X5Bi7mTe c=1 sm=1 tr=0 ts=69ffe82d cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=fJYZd5zOr1s3VisSgZEA:9 a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-ORIG-GUID: a6fQNHwVXZ0jhplnCV0Nvsur5TY59xhL
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-10_01,2026-05-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 priorityscore=1501 impostorscore=0 clxscore=1015
+ malwarescore=0 bulkscore=0 phishscore=0 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605100019
 
-Hi David,
+This series adds RPMh-based interconnect support for the Qualcomm Nord SoC.
 
-> Why are we adding bindings without a driver to use them?
+The Nord SoC features a rich Network-on-Chip topology comprising 19 NoCs
+including aggregate NoCs, a high-speed configuration NoC (HSCNOC),
+a multimedia NoC, four NSP data NoCs for AI/ML workloads, PCIe inbound and
+outbound NoCs, a system NoC, and virtual clock/MC nodes. Bandwidth requests
+are communicated to the RPMh hardware through Bus Clock Manager (BCM)
+resources via the Resource State Coordinator (RSC).
 
-There is already a driver for these devices in
-drivers/staging/iio/adc/ad7816.c, which includes OF match entries
-for "adi,ad7816", "adi,ad7817", and "adi,ad7818".
+Changes in v2:
+ - Fix .max_register of nord_hscnoc_regmap_config (Thanks Georgi!)
+ - Fix .port_offsets of alm_qtc, qnm_pcie, qnm_mnoc_hf, alm_sys_tcu1
+   and qnm_mnoc_sf
+ - Name QUP_3 nodes with '_qup3' rather than '_qup02'
+ - Link to v1: https://lore.kernel.org/all/20260420021351.1239355-1-shengchao.guo@oss.qualcomm.com/
 
-This binding is intended to document the existing DT interface.
+Odelu Kukatla (2):
+  dt-bindings: interconnect: Document RPMh Network-On-Chip for Qualcomm
+    Nord SoC
+  interconnect: qcom: Add interconnect provider driver for Nord SoC
 
-Thanks,
-Hungyu
+ .../bindings/interconnect/qcom,nord-rpmh.yaml |  131 +
+ drivers/interconnect/qcom/Kconfig             |   11 +
+ drivers/interconnect/qcom/Makefile            |    2 +
+ drivers/interconnect/qcom/nord.c              | 2682 +++++++++++++++++
+ .../dt-bindings/interconnect/qcom,nord-rpmh.h |  217 ++
+ 5 files changed, 3043 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/interconnect/qcom,nord-rpmh.yaml
+ create mode 100644 drivers/interconnect/qcom/nord.c
+ create mode 100644 include/dt-bindings/interconnect/qcom,nord-rpmh.h
 
-On Sat, May 9, 2026 at 3:13=E2=80=AFPM David Lechner <dlechner@baylibre.com=
-> wrote:
->
-> On 5/8/26 9:27 PM, Hungyu Lin wrote:
-> > Add Device Tree binding documentation for the Analog Devices
-> > AD7816, AD7817 and AD7818 SPI ADC devices.
-> >
-> Why are we adding bindings without a driver to use them?
+-- 
+2.43.0
+
