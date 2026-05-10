@@ -1,818 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from polaris.svanheule.net (polaris.svanheule.net [84.16.241.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BB732C08DC;
-	Sun, 10 May 2026 18:09:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 861552F6188
+	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 18:12:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.241.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778436592; cv=none; b=Y8Nyzo/kw304KjSakhhFqJtnJwZkt8XFn011OvtaWkAydpTr184ckHz5KdPq/eWv/xZSb8NWi3LFAlx7BXdKykco4LpLqhdI9lU3/vEKF3Gl1QrY1VTSKc9GAhHZhsft9bza2oU8OE8KslQOxa/ssTgQb8TLl/NOdAITwpW/k6Y=
+	t=1778436783; cv=none; b=dRE5FICSIpdzib2kZd+SmrZoZodaYPzfYNUv/IXoETIdtfEbRLypSHg1yNDvA4OaKXiNhJ7ZzV4i9DQn95tcjR9iSISuMrHY5nYJ6s+CKMpnThKRCgszoKCIAdK+6SfV9vUGZ2uHHvz83HC4iSPJBtwdIHh1baf6nrdphugZ2Pg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778436592; c=relaxed/simple;
-	bh=fJy1niSp4bSAe0oB5nnVrHI4pgagN+d+CDStZQ5N200=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ummIc+fIC0QnqyXJQuTEmN0k5bYQxBmMQxHR1KgQCyo1CXOg1zXfJoWHsJKEbQASlTZ115WAMIr0uJbLsoyGEv/L/sAxtcCM2H0Wb5aq9yaadnV0fzmMEbq0yhel4LERXVWiprzCmew1nM60sSQoTeD2e+77BmEE9jAJHGO+3MI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VcHR0HjQ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778436783; c=relaxed/simple;
+	bh=qsyD3I6m0aYHwlbpWVtGkgGX/TkgLNlICdUUhmBiUGY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=UbV++yTtH14DaAvXRSem5apL1eFDbnMPGP9WDu+MFiayno0F9dl5/hc92CLT1Hbv+laAP4oFDK+szgt2pxERFFjVtujI2OEtKlvElv3cFFVibNqHgpuurnm6/QmJisSmsV3rrm3scNVebl1MUhRt+4IGrj6L/hcVjOfi7s/TSDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net; spf=pass smtp.mailfrom=svanheule.net; dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b=T29cU3w/; arc=none smtp.client-ip=84.16.241.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=svanheule.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VcHR0HjQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C4043C2BCC7;
-	Sun, 10 May 2026 18:09:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778436591;
-	bh=fJy1niSp4bSAe0oB5nnVrHI4pgagN+d+CDStZQ5N200=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=VcHR0HjQ5liTZ1d8JS2dlJ2YH2/1zrL0MHDXsLGow1poZmYlq82V1gcdido7WJ0mc
-	 Ni5a8RaR3OK27Qvt+7VzghQoFfZM/8zrNuXugsXE64T7ZA+Txkp2q+n86kaR4g/zzT
-	 bcDOram10IW158/9xHQNqB6GO9+gusb3E/g0hqL4olckt6OtKtZ61QbVPZs0QohW9s
-	 BtT22kFssVYI5n05Y8BYqN/iF19Vf2Li1L9INelXv1HPkGwr7u9KtmCMnIwoC8zn83
-	 9S2xcBPzwjZMnLqdwEBuVYuo9LM2Mp6jsfiPa5iJCSv0aVuVOtJ4Edx4QFgrsiwL+g
-	 7hOboHaeyAaxA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B2C85CD37B2;
-	Sun, 10 May 2026 18:09:51 +0000 (UTC)
-From: Alexandre Hamamdjian via B4 Relay <devnull+azkali.limited.gmail.com@kernel.org>
-Date: Mon, 11 May 2026 01:09:50 +0700
-Subject: [PATCH 2/2] iio: light: bh1730: Add bh1730 light sensor driver
+	dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b="T29cU3w/"
+Received: from [IPv6:2a02:1812:162d:3d00:649f:659d:f6c1:d42] (2a02-1812-162d-3d00-649f-659d-f6c1-d42.ip6.access.telenet.be [IPv6:2a02:1812:162d:3d00:649f:659d:f6c1:d42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sander@svanheule.net)
+	by polaris.svanheule.net (Postfix) with ESMTPSA id 57FDC77CBCB;
+	Sun, 10 May 2026 20:12:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=svanheule.net;
+	s=mail1707; t=1778436777;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=sPDSwDWYGFC4ZvqTJL7L1M9W/nS9QedFSnGeXH+buYo=;
+	b=T29cU3w/ivCu6KMnlDb+v9KZHaCb5K6iKlxQaRcNu7ur8ieQWZpKShnHNL12+vml7g34aj
+	qfVyiFppFFhhHuqVNQUdxlWlhR0pUG22FgKUhIHub2Qh76bPHJkfdKmXm0+vAynQ06c/kM
+	HQeLZFiJcuWstC3bUi4s+cLewW51I0MyWblAkMqs9cFSxA+fMz6RISlZpDYZUvjlfdvCD+
+	SYCXCL8ur7IfMajWtVaTC2v8LfE5QY6X/vGBrYGUbZH7SnMD/uDZfdMaR1MTcj/fh+NjDO
+	ZkPNU96QpVTmnyfpgCWy/p9LdUR2uTG9EYtQsJm7+up4VfkEfDYFFac8rINvqQ==
+Message-ID: <fdc1a60dcde1cf8c36877be062badbf2a7f72835.camel@svanheule.net>
+Subject: Re: [PATCH 3/3] watchdog: realtek-otto: add RTL9607C support
+From: Sander Vanheule <sander@svanheule.net>
+To: sashiko@lists.linux.dev, Rustam Adilov <adilov@disroot.org>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
+	 <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Sun, 10 May 2026 20:12:56 +0200
+In-Reply-To: <20260509172748.54B33C2BCB2@smtp.kernel.org>
+References: <20260509163101.722793-4-adilov@disroot.org>
+	 <20260509172748.54B33C2BCB2@smtp.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260511-bh1730-v1-2-e0df1f499135@gmail.com>
-References: <20260511-bh1730-v1-0-e0df1f499135@gmail.com>
-In-Reply-To: <20260511-bh1730-v1-0-e0df1f499135@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, CTCaer <ctcaer@gmail.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Alexandre Hamamdjian <azkali.limited@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778436589; l=19034;
- i=azkali.limited@gmail.com; s=20260510; h=from:subject:message-id;
- bh=ksZX5QAXT+duO+t5tIB8ie6HGoEo6QtEYkuCEUIi9NU=;
- b=gU01r6TMHv7mI+yTXA7pjT5HojTmv3H5NAAHRP2QLf+ajepGv7srw/9zCbACMgEHFXb+tyzo9
- mllnAOFc6yOCStmXYQ1uTrD9laYzN/V5U1aH2AOR+8zTLyTY7Jymv/W
-X-Developer-Key: i=azkali.limited@gmail.com; a=ed25519;
- pk=I0Z0IdCdQJqNGX+FQUnXhrHg950u3cM6Xzz3YT6JOyQ=
-X-Endpoint-Received: by B4 Relay for azkali.limited@gmail.com/20260510 with
- auth_id=774
-X-Original-From: Alexandre Hamamdjian <azkali.limited@gmail.com>
-Reply-To: azkali.limited@gmail.com
 
-From: CTCaer <ctcaer@gmail.com>
-
-Add a driver for the ROHM BH1730FVC ambient light sensor. The device
-is a 16-bit I2C digital sensor with separate visible and infrared
-photodiodes, four selectable gains (1x/2x/64x/128x) and a programmable
-integration time.
-
-The driver exposes illuminance via IIO, performs runtime gain and
-integration-time tracking to keep the ADC in range, and supports
-optional als-vdd / als-vid regulators. Per-board lux calibration data
-(integration cycles, lux multiplier, optical-window coefficients, and
-gain sensitivity coefficients) can be supplied via device tree;
-sensible defaults are used otherwise.
-
-Signed-off-by: CTCaer <ctcaer@gmail.com>
-Signed-off-by: Alexandre Hamamdjian <azkali.limited@gmail.com>
----
- drivers/iio/light/Kconfig  |   9 +
- drivers/iio/light/Makefile |   1 +
- drivers/iio/light/bh1730.c | 686 +++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 696 insertions(+)
-
-diff --git a/drivers/iio/light/Kconfig b/drivers/iio/light/Kconfig
-index eff33e456c70..3869060567dd 100644
---- a/drivers/iio/light/Kconfig
-+++ b/drivers/iio/light/Kconfig
-@@ -135,6 +135,15 @@ config AS73211
- 	 This driver can also be built as a module.  If so, the module
- 	 will be called as73211.
- 
-+config BH1730
-+	tristate "ROHM BH1730 ambient light sensor"
-+	depends on I2C
-+	help
-+	  Say Y here to build support for the ROHM BH1730 ambient light sensor.
-+
-+	  To compile this driver as a module, choose M here: the module will
-+	  be called bh1730.
-+
- config BH1745
- 	tristate "ROHM BH1745 colour sensor"
- 	depends on I2C
-diff --git a/drivers/iio/light/Makefile b/drivers/iio/light/Makefile
-index c0048e0d5ca8..27ef7906a02a 100644
---- a/drivers/iio/light/Makefile
-+++ b/drivers/iio/light/Makefile
-@@ -15,6 +15,7 @@ obj-$(CONFIG_APDS9300)		+= apds9300.o
- obj-$(CONFIG_APDS9306)		+= apds9306.o
- obj-$(CONFIG_APDS9960)		+= apds9960.o
- obj-$(CONFIG_AS73211)		+= as73211.o
-+obj-$(CONFIG_BH1730)		+= bh1730.o
- obj-$(CONFIG_BH1745)		+= bh1745.o
- obj-$(CONFIG_BH1750)		+= bh1750.o
- obj-$(CONFIG_BH1780)		+= bh1780.o
-diff --git a/drivers/iio/light/bh1730.c b/drivers/iio/light/bh1730.c
-new file mode 100644
-index 000000000000..c93290ff5661
---- /dev/null
-+++ b/drivers/iio/light/bh1730.c
-@@ -0,0 +1,686 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * ROHM BH1730 ambient light sensor driver
-+ *
-+ * Copyright (c) 2021 CTCaer <ctcaer@gmail.com>
-+ *
-+ * Based on previous iio BH1730FVC drivers from:
-+ * Copyright (c) 2018 Google, Inc.
-+ * Author: Pierre Bourdon <delroth@google.com>
-+ *
-+ * Copyright (C) 2012 Samsung Electronics. All rights reserved.
-+ * Author: Won Huh <won.huh@samsung.com>
-+ *
-+ * Data sheets:
-+ *  http://www.rohm.com/web/global/datasheet/BH1730FVC/bh1730fvc-e
-+ */
-+
-+#include <linux/delay.h>
-+#include <linux/i2c.h>
-+#include <linux/iio/iio.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/time.h>
-+#include <linux/regulator/consumer.h>
-+
-+#define BH1730_NAME	"bh1730fvc"
-+
-+#define BH1730_CMD_BIT BIT(7)
-+
-+#define BH1730_REG_CONTROL	0x00
-+#define BH1730_REG_TIMING	0x01
-+#define BH1730_REG_INTERRUPT	0x02
-+#define BH1730_REG_THLLOW	0x03
-+#define BH1730_REG_THLHIGH	0x04
-+#define BH1730_REG_THHLOW	0x05
-+#define BH1730_REG_THHHIGH	0x06
-+#define BH1730_REG_GAIN		0x07
-+#define BH1730_REG_ID		0x12
-+#define BH1730_REG_DATA0LOW	0x14
-+#define BH1730_REG_DATA0HIGH	0x15
-+#define BH1730_REG_DATA1LOW	0x16
-+#define BH1730_REG_DATA1HIGH	0x17
-+
-+#define BH1730_CONTROL_POWER		BIT(0)
-+#define BH1730_CONTROL_ADC_EN		BIT(1)
-+#define BH1730_CONTROL_DATA0_ONLY	BIT(2)
-+#define BH1730_CONTROL_ONE_TIME		BIT(3)
-+#define BH1730_CONTROL_ADC_VALID	BIT(4)
-+#define BH1730_CONTROL_INTR		BIT(5)
-+
-+#define BH1730_INTERNAL_CLOCK_NS	2800
-+/* BH1730_INTERNAL_CLOCK_MS * 714 */
-+#define BH1730_ADC_CALC_DELAY_US	2000
-+/* BH1730_INTERNAL_CLOCK_MS * 964 */
-+#define BH1730_ITIME_TO_US		2700
-+
-+#define BH1730_DEFAULT_INTEG_CYCLE	38
-+#define BH1730_DEFAULT_ITIME_MS		100
-+
-+#define BH1730_POWER_ON_DELAY_US	10000
-+
-+#define BH1730_MAX_MEASURED_LUX		100000
-+
-+enum bh1730_gain {
-+	BH1730_GAIN_1X = 0,
-+	BH1730_GAIN_2X,
-+	BH1730_GAIN_64X,
-+	BH1730_GAIN_128X,
-+};
-+#define BH1730_MAX_GAIN_MULTIPLIER 128
-+
-+struct gain_coeff_t {
-+	u32 cl;
-+	u32 fl;
-+};
-+
-+struct opt_win_coeff_t {
-+	u32 rc;
-+	u32 cv;
-+	u32 ci;
-+};
-+
-+struct lux_cal_data_t {
-+	struct gain_coeff_t *gain_coeff;
-+	struct opt_win_coeff_t *opt_win_coeff;
-+	u32 opt_win_coeff_count;
-+	u32 itime_cycle;
-+	u32 mul;
-+};
-+
-+/*
-+ * No optical window or optical window that has flat transmittance
-+ * from visible light to infrared light.
-+ */
-+static struct opt_win_coeff_t def_lux_coeff[] = {
-+	{  260, 1290, 2733 },
-+	{  550,  795,  859 },
-+	{ 1090,  510,  345 },
-+	{ 2130,  276,  130 }
-+};
-+
-+static struct gain_coeff_t def_gain_coeff[] = {
-+	{ 3000,    -1 }, /* 1x */
-+	{ 2000,  9800 }, /* 2x */
-+	{   15, 60000 }, /* 64x */
-+	{    0,  1300 }  /* 128x */
-+};
-+
-+static struct lux_cal_data_t def_lux_data = {
-+	.gain_coeff = def_gain_coeff,
-+	.opt_win_coeff = def_lux_coeff,
-+	.opt_win_coeff_count = ARRAY_SIZE(def_lux_coeff),
-+	.itime_cycle = BH1730_DEFAULT_INTEG_CYCLE,
-+	.mul = 1000
-+};
-+
-+struct bh1730_data {
-+	struct i2c_client *client;
-+	struct lux_cal_data_t cal;
-+	struct regulator *reg_vdd;
-+	struct regulator *reg_vid;
-+	enum bh1730_gain gain;
-+	u32 itime_us;
-+	u32 tmt_us;
-+};
-+
-+static int bh1730_read_word(struct bh1730_data *bh1730, u8 reg)
-+{
-+	int ret = i2c_smbus_read_word_data(bh1730->client,
-+					   BH1730_CMD_BIT | reg);
-+	if (ret < 0)
-+		dev_err(&bh1730->client->dev,
-+			"i2c read failed error %d, register %01x\n",
-+			ret, reg);
-+
-+	return ret;
-+}
-+
-+static int bh1730_write(struct bh1730_data *bh1730, u8 reg, u8 val)
-+{
-+	int ret = i2c_smbus_write_byte_data(bh1730->client,
-+					    BH1730_CMD_BIT | reg,
-+					    val);
-+	if (ret < 0)
-+		dev_err(&bh1730->client->dev,
-+			"i2c write failed error %d, register %01x\n",
-+			ret, reg);
-+
-+	return ret;
-+}
-+
-+static int bh1730_gain_multiplier(struct bh1730_data *bh1730)
-+{
-+	int multiplier;
-+
-+	switch (bh1730->gain) {
-+	case BH1730_GAIN_1X:
-+		multiplier = 1;
-+		break;
-+	case BH1730_GAIN_2X:
-+		multiplier = 2;
-+		break;
-+	case BH1730_GAIN_64X:
-+		multiplier = 64;
-+		break;
-+	case BH1730_GAIN_128X:
-+		multiplier = 128;
-+		break;
-+	default:
-+		multiplier = -EINVAL;
-+		break;
-+	}
-+
-+	if (multiplier < 0) {
-+		dev_warn(&bh1730->client->dev,
-+			 "invalid gain multiplier settings: %d\n",
-+			 bh1730->gain);
-+		bh1730->gain = BH1730_GAIN_1X;
-+		multiplier = 1;
-+	}
-+
-+	return multiplier;
-+}
-+
-+static int bh1730_set_gain(struct bh1730_data *bh1730, enum bh1730_gain gain)
-+{
-+	int ret = bh1730_write(bh1730, BH1730_REG_GAIN, gain);
-+
-+	if (ret < 0)
-+		return ret;
-+
-+	bh1730->gain = gain;
-+
-+	return 0;
-+}
-+
-+static int bh1730_itime_us(struct bh1730_data *bh1730, int cycle)
-+{
-+	return (BH1730_ITIME_TO_US * cycle);
-+}
-+
-+
-+static int bh1730_set_integration_time_cycle(struct bh1730_data *bh1730,
-+					  u32 cycle)
-+{
-+	int ret, itime;
-+
-+	itime = 256 - cycle;
-+
-+	/* ITIME == 0 is reserved for manual integration mode. */
-+	if (itime <= 0 || itime > 255) {
-+		dev_warn(&bh1730->client->dev,
-+		"integration time out of range: %d cycles\n",
-+		 cycle);
-+
-+		return -ERANGE;
-+	}
-+
-+	ret = bh1730_write(bh1730, BH1730_REG_TIMING, itime);
-+	if (ret < 0)
-+		return ret;
-+
-+	bh1730->itime_us = bh1730_itime_us(bh1730, cycle);
-+	bh1730->tmt_us = bh1730->itime_us + BH1730_ADC_CALC_DELAY_US;
-+
-+	return 0;
-+}
-+
-+static int bh1730_adjust_gain(struct bh1730_data *bh1730)
-+{
-+	int visible, ir, highest, gain, ret;
-+
-+	visible = bh1730_read_word(bh1730, BH1730_REG_DATA0LOW);
-+	if (visible < 0)
-+		return visible;
-+
-+	ir = bh1730_read_word(bh1730, BH1730_REG_DATA1LOW);
-+	if (ir < 0)
-+		return ir;
-+
-+	highest = max(visible, ir);
-+
-+	/* Adjust gain based on sensitivity calibration */
-+	gain = bh1730->gain;
-+	if (highest > bh1730->cal.gain_coeff[gain].fl &&
-+	    gain != BH1730_GAIN_1X) {
-+		gain--; /* Decrease sensitivity */
-+	} else if (highest < bh1730->cal.gain_coeff[gain].cl &&
-+		   gain != BH1730_GAIN_128X) {
-+		gain++; /* Increase sensitivity */
-+	}
-+
-+	/* Clamp to proper gain values */
-+	if (gain < 0)
-+		gain = BH1730_GAIN_1X;
-+	else if (gain > BH1730_GAIN_128X)
-+		gain = BH1730_GAIN_128X;
-+
-+	if (gain != bh1730->gain) {
-+		ret = bh1730_set_gain(bh1730, gain);
-+		if (ret < 0)
-+			return ret;
-+
-+		usleep_range(bh1730->tmt_us, bh1730->tmt_us + 1000);
-+	}
-+
-+	return 0;
-+}
-+
-+static int bh1730_get_lux(struct bh1730_data *bh1730)
-+{
-+	int i, visible, ir;
-+	struct opt_win_coeff_t *opt_win_coeff;
-+	u64 lux = 0;
-+
-+	visible = bh1730_read_word(bh1730, BH1730_REG_DATA0LOW);
-+
-+	/* If visible is 0, skip calculations */
-+	if (visible <= 0)
-+		return visible;
-+
-+	ir = bh1730_read_word(bh1730, BH1730_REG_DATA1LOW);
-+	if (ir < 0)
-+		return ir;
-+
-+	/* Calibrate based on optical window */
-+	for (i = 0; i < bh1730->cal.opt_win_coeff_count; i++) {
-+		opt_win_coeff = &bh1730->cal.opt_win_coeff[i];
-+		if (1000 * ir / visible < opt_win_coeff->rc) {
-+			lux = ((u64)opt_win_coeff->cv * visible) -
-+				   (opt_win_coeff->ci * ir);
-+			break;
-+		}
-+	}
-+
-+	/* Calculate lux */
-+	lux *= BH1730_DEFAULT_ITIME_MS;
-+	lux /= bh1730_gain_multiplier(bh1730) * bh1730->itime_us;
-+	lux = (lux * bh1730->cal.mul) / 1000;
-+
-+	if (lux > BH1730_MAX_MEASURED_LUX)
-+		lux = BH1730_MAX_MEASURED_LUX;
-+
-+	return (int)lux;
-+}
-+
-+static int bh1730_power_ctrl(struct bh1730_data *bh1730, bool enable)
-+{
-+	struct device *dev = &bh1730->client->dev;
-+	static bool enabled;
-+	int ret = 0;
-+
-+	if (enabled == enable)
-+		return ret;
-+
-+	if (enable) {
-+		if (!IS_ERR_OR_NULL(bh1730->reg_vdd)) {
-+			ret = regulator_enable(bh1730->reg_vdd);
-+			if (ret) {
-+				dev_err(dev, "%s: Failed to enable vdd: %d\n",
-+					__func__, ret);
-+				return ret;
-+			}
-+		}
-+
-+		if (!IS_ERR_OR_NULL(bh1730->reg_vid)) {
-+			ret = regulator_enable(bh1730->reg_vid);
-+			if (ret) {
-+				dev_err(dev, "%s: Failed to enable vid: %d\n",
-+					__func__, ret);
-+				return ret;
-+			}
-+		}
-+
-+		usleep_range(BH1730_POWER_ON_DELAY_US, BH1730_POWER_ON_DELAY_US + 1000);
-+	} else {
-+		if (!IS_ERR_OR_NULL(bh1730->reg_vdd)) {
-+			ret = regulator_disable(bh1730->reg_vdd);
-+			if (ret) {
-+				dev_err(dev, "%s: Failed to disable vdd: %d\n",
-+					__func__, ret);
-+				return ret;
-+			}
-+		}
-+
-+		if (!IS_ERR_OR_NULL(bh1730->reg_vid)) {
-+			ret = regulator_disable(bh1730->reg_vid);
-+			if (ret) {
-+				dev_err(dev, "%s: Failed to disable vid: %d\n",
-+					__func__, ret);
-+				return ret;
-+			}
-+		}
-+	}
-+
-+	enabled = enable;
-+
-+	return ret;
-+}
-+
-+static int bh1730_power_on(struct bh1730_data *bh1730)
-+{
-+	int ret = bh1730_power_ctrl(bh1730, true);
-+
-+	if (ret < 0)
-+		return ret;
-+
-+	return bh1730_write(bh1730, BH1730_REG_CONTROL,
-+			    BH1730_CONTROL_POWER | BH1730_CONTROL_ADC_EN);
-+}
-+
-+static int bh1730_init_config(struct bh1730_data *bh1730)
-+{
-+	int ret;
-+
-+	ret = bh1730_set_gain(bh1730, BH1730_GAIN_64X);
-+	if (ret < 0)
-+		return ret;
-+
-+	return bh1730_set_integration_time_cycle(bh1730,
-+						bh1730->cal.itime_cycle);
-+}
-+
-+static int bh1730_power_off(struct bh1730_data *bh1730)
-+{
-+	int ret = bh1730_write(bh1730, BH1730_REG_CONTROL, 0);
-+
-+	if (ret < 0)
-+		return ret;
-+
-+	return bh1730_power_ctrl(bh1730, false);
-+}
-+
-+static int bh1730_read_raw(struct iio_dev *indio_dev,
-+			   struct iio_chan_spec const *chan,
-+			   int *val, int *val2, long mask)
-+{
-+	struct bh1730_data *bh1730 = iio_priv(indio_dev);
-+	int data_reg, ret;
-+
-+	ret = bh1730_adjust_gain(bh1730);
-+	if (ret < 0)
-+		return ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_PROCESSED:
-+		ret = bh1730_get_lux(bh1730);
-+		if (ret < 0)
-+			return ret;
-+		*val = ret;
-+		return IIO_VAL_INT;
-+	case IIO_CHAN_INFO_RAW:
-+		switch (chan->channel2) {
-+		case IIO_MOD_LIGHT_CLEAR:
-+			data_reg = BH1730_REG_DATA0LOW;
-+			break;
-+		case IIO_MOD_LIGHT_IR:
-+			data_reg = BH1730_REG_DATA1LOW;
-+			break;
-+		default:
-+			return -EINVAL;
-+		}
-+		ret = bh1730_read_word(bh1730, data_reg);
-+		if (ret < 0)
-+			return ret;
-+		ret = ret * 1000 / bh1730_gain_multiplier(bh1730);
-+		*val = ret / 1000;
-+		*val2 = (ret % 1000) * 1000;
-+		return IIO_VAL_INT_PLUS_MICRO;
-+	case IIO_CHAN_INFO_INT_TIME:
-+		*val = 0;
-+		*val2 = bh1730->itime_us;
-+		return IIO_VAL_INT_PLUS_MICRO;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int bh1730_parse_dt(struct bh1730_data *bh1730, struct device_node *dn)
-+{
-+	struct device *dev = &bh1730->client->dev;
-+	int ret;
-+	u32 *opt_win_coeff = NULL;
-+	u32 *gain_coeff = NULL;
-+	int opt_win_coeff_count = 0, gain_coeff_count = 0, cycle = 0, mul = 0;
-+
-+	memcpy(&bh1730->cal, &def_lux_data, sizeof(struct lux_cal_data_t));
-+
-+	if (dn) {
-+		/* Get regulators */
-+		bh1730->reg_vdd = regulator_get(dev, "als-vdd");
-+		if (IS_ERR_OR_NULL(bh1730->reg_vdd)) {
-+			bh1730->reg_vdd = NULL;
-+			dev_warn(dev, "failed to get als-vdd");
-+		}
-+
-+		bh1730->reg_vid = regulator_get(dev, "als-vid");
-+		if (IS_ERR_OR_NULL(bh1730->reg_vid)) {
-+			bh1730->reg_vid = NULL;
-+			dev_warn(dev, "failed to get als-vid");
-+		}
-+
-+		/* Get calibration */
-+		ret = of_property_read_u32(dn,
-+				"rohm,integration-cycle", &cycle);
-+		if (ret < 0)
-+			goto out;
-+
-+		ret = of_property_read_u32(dn,
-+				"rohm,lux-multiplier", &mul);
-+		if (ret < 0)
-+			goto out;
-+
-+		if (cycle == 0 || mul == 0)
-+			goto out;
-+
-+		/* Get optical window coefficients */
-+		opt_win_coeff_count = of_property_count_elems_of_size(dn,
-+					"rohm,opt-win-coeff", sizeof(u32));
-+		if (opt_win_coeff_count > 0) {
-+			opt_win_coeff = devm_kzalloc(dev,
-+						sizeof(u32) * opt_win_coeff_count,
-+						GFP_KERNEL);
-+			if (!opt_win_coeff) {
-+				dev_err(dev, "failed to allocate mem for opt_win_coeff");
-+				return -ENOMEM;
-+			}
-+
-+			ret = of_property_read_u32_array(dn, "rohm,opt-win-coeff",
-+					opt_win_coeff, opt_win_coeff_count);
-+
-+			if (ret) {
-+				devm_kfree(dev, opt_win_coeff);
-+				goto out;
-+			}
-+		}
-+
-+		/* Get gain sensitivity coefficients */
-+		gain_coeff_count = of_property_count_elems_of_size(dn,
-+					"rohm,gain-coeff", sizeof(u32));
-+
-+		if (gain_coeff_count == 8) { /* 2 for each gain supported */
-+			gain_coeff = devm_kzalloc(dev,
-+					sizeof(u32) * gain_coeff_count,
-+					GFP_KERNEL);
-+			if (!gain_coeff) {
-+				dev_err(dev, "failed to allocate mem for gain_coeff");
-+				return -ENOMEM;
-+			}
-+
-+			ret = of_property_read_u32_array(dn, "rohm,gain-coeff",
-+					gain_coeff, gain_coeff_count);
-+			if (ret) {
-+				if (opt_win_coeff)
-+					devm_kfree(dev, opt_win_coeff);
-+				devm_kfree(dev, gain_coeff);
-+				goto out;
-+			}
-+		}
-+
-+		if (opt_win_coeff) {
-+			bh1730->cal.opt_win_coeff =
-+					(struct opt_win_coeff_t *)opt_win_coeff;
-+			bh1730->cal.opt_win_coeff_count =
-+					opt_win_coeff_count /
-+					(sizeof(struct opt_win_coeff_t) /
-+					sizeof(u32));
-+		}
-+
-+		if (gain_coeff)
-+			bh1730->cal.gain_coeff = (struct gain_coeff_t *)gain_coeff;
-+
-+		bh1730->cal.itime_cycle = cycle;
-+		bh1730->cal.mul = mul;
-+
-+		return 0;
-+	}
-+
-+out:
-+	dev_info(&bh1730->client->dev, "using default calibration");
-+
-+	return 0;
-+}
-+
-+static const struct iio_info bh1730_info = {
-+	.read_raw = bh1730_read_raw,
-+};
-+
-+static const struct iio_chan_spec bh1730_channels[] = {
-+	{
-+		.type = IIO_LIGHT,
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_PROCESSED) |
-+				      BIT(IIO_CHAN_INFO_INT_TIME),
-+	},
-+	{
-+		.type = IIO_INTENSITY,
-+		.modified = 1,
-+		.channel2 = IIO_MOD_LIGHT_CLEAR,
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
-+	},
-+	{
-+		.type = IIO_INTENSITY,
-+		.modified = 1,
-+		.channel2 = IIO_MOD_LIGHT_IR,
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
-+	},
-+};
-+
-+static int bh1730_probe(struct i2c_client *client)
-+{
-+	struct bh1730_data *bh1730;
-+	struct i2c_adapter *adapter = to_i2c_adapter(client->dev.parent);
-+	struct iio_dev *indio_dev;
-+	int ret;
-+
-+	if (!i2c_check_functionality(adapter, I2C_FUNC_SMBUS_BYTE))
-+		return -EIO;
-+
-+	indio_dev = devm_iio_device_alloc(&client->dev, sizeof(*bh1730));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	bh1730 = iio_priv(indio_dev);
-+	bh1730->client = client;
-+	i2c_set_clientdata(client, indio_dev);
-+
-+	ret = bh1730_parse_dt(bh1730, client->dev.of_node);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = bh1730_power_on(bh1730);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = bh1730_init_config(bh1730);
-+	if (ret < 0)
-+		return ret;
-+
-+	indio_dev->dev.parent = &client->dev;
-+	indio_dev->info = &bh1730_info;
-+	indio_dev->name = "bh1730";
-+	indio_dev->channels = bh1730_channels;
-+	indio_dev->num_channels = ARRAY_SIZE(bh1730_channels);
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+
-+	ret = iio_device_register(indio_dev);
-+	if (ret)
-+		goto out_power_off;
-+
-+	return 0;
-+
-+out_power_off:
-+	dev_info(&client->dev, "%s: failed\n", __func__);
-+	bh1730_power_off(bh1730);
-+	return ret;
-+}
-+
-+#ifdef CONFIG_PM_SLEEP
-+static int bh1730_suspend(struct device *dev)
-+{
-+	struct i2c_client *client = to_i2c_client(dev);
-+	struct iio_dev *indio_dev = i2c_get_clientdata(client);
-+	struct bh1730_data *bh1730 = iio_priv(indio_dev);
-+
-+	bh1730_power_off(bh1730);
-+
-+	return 0;
-+}
-+
-+static int bh1730_resume(struct device *dev)
-+{
-+	struct i2c_client *client = to_i2c_client(dev);
-+	struct iio_dev *indio_dev = i2c_get_clientdata(client);
-+	struct bh1730_data *bh1730 = iio_priv(indio_dev);
-+	int ret;
-+
-+	ret = bh1730_power_on(bh1730);
-+	if (ret < 0)
-+		return ret;
-+
-+	return bh1730_init_config(bh1730);
-+}
-+
-+static SIMPLE_DEV_PM_OPS(bh1730_pm_ops, bh1730_suspend, bh1730_resume);
-+#endif
-+
-+static void bh1730_remove(struct i2c_client *client)
-+{
-+	struct iio_dev *indio_dev = i2c_get_clientdata(client);
-+	struct bh1730_data *bh1730 = iio_priv(indio_dev);
-+
-+	iio_device_unregister(indio_dev);
-+	bh1730_power_off(bh1730);
-+}
-+
-+static const struct i2c_device_id bh1730_i2c_device_id[] = {
-+	{ BH1730_NAME, 0 },
-+	{}
-+};
-+
-+MODULE_DEVICE_TABLE(i2c, bh1730_i2c_device_id);
-+
-+static const struct of_device_id of_bh1730_match[] = {
-+	{ .compatible = "rohm,bh1730fvc" },
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, of_bh1730_match);
-+
-+static struct i2c_driver bh1730_driver = {
-+	.probe = bh1730_probe,
-+	.remove = bh1730_remove,
-+	.driver = {
-+		.name = BH1730_NAME,
-+		.owner		= THIS_MODULE,
-+		.of_match_table = of_bh1730_match,
-+#ifdef CONFIG_PM_SLEEP
-+		.pm		= &bh1730_pm_ops,
-+#endif
-+	},
-+	.id_table = bh1730_i2c_device_id,
-+};
-+module_i2c_driver(bh1730_driver);
-+
-+MODULE_AUTHOR("CTCaer <ctcaer@gmail.com>");
-+MODULE_DESCRIPTION("ROHM BH1730FVC driver");
-+MODULE_LICENSE("GPL v2");
-
--- 
-2.54.0
+As a general remark, it would be good if this bot could use the original To=
+/Cc
+list of the message this was sent in reply to.
 
 
+On Sat, 2026-05-09 at 17:27 +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential issu=
+e(s)
+> to consider:
+> - [High] Registers accessed before peripheral clock is enabled
+> - [High] Sleeping function `disable_irq()` called in atomic restart handl=
+er
+> - [High] Integer underflow in timeout calculation causes massively delaye=
+d
+> watchdog reset
+> --
+>=20
+> commit be1a33571f33f241ada324d2648ec90cdf1e9b91
+> Author: Rustam Adilov <adilov@disroot.org>
+>=20
+> watchdog: realtek-otto: add RTL9607C support
+>=20
+> The RTL9607C SoC has a watchdog timer identical to the already
+> supported SoCs. The peripheral is memory mapped at 0x18003260
+> and driven by the Lexra bus clock.
+>=20
+> > diff --git a/drivers/watchdog/realtek_otto_wdt.c
+> > b/drivers/watchdog/realtek_otto_wdt.c
+> > index e5e9cb480f4f9..7ad196802eeb5 100644
+> > --- a/drivers/watchdog/realtek_otto_wdt.c
+> > +++ b/drivers/watchdog/realtek_otto_wdt.c
+> > @@ -355,6 +355,7 @@ static const struct of_device_id otto_wdt_ids[] =3D=
+ {
+> > =C2=A0	{ .compatible =3D "realtek,rtl8390-wdt" },
+> > =C2=A0	{ .compatible =3D "realtek,rtl9300-wdt" },
+> > =C2=A0	{ .compatible =3D "realtek,rtl9310-wdt" },
+> > +	{ .compatible =3D "realtek,rtl9607-wdt" },
+>=20
+> This isn't a bug introduced by this patch, but enabling this driver for t=
+he
+> new SoC exposes a few existing regressions in the code.
+>=20
+> For example, can the driver safely access the peripheral's memory-mapped
+> registers before its clock domain is enabled?
+>=20
+> otto_wdt_probe() {
+> [ ... ]
+> 	/* Clear any old interrupts and reset initial state */
+> 	regmap_write(ctrl->regmap, OTTO_WDT_REG_INTR,
+> 		=C2=A0=C2=A0=C2=A0=C2=A0 OTTO_WDT_INTR_PHASE_1 | OTTO_WDT_INTR_PHASE_2)=
+;
+> 	regmap_write(ctrl->regmap, OTTO_WDT_REG_CTRL, OTTO_WDT_CTRL_DEFAULT);
+>=20
+> 	ret =3D otto_wdt_probe_clk(ctrl);
+> [ ... ]
+> }
+>=20
+> Writing to OTTO_WDT_REG_INTR and OTTO_WDT_REG_CTRL before calling
+> otto_wdt_probe_clk() might violate hardware access requirements and could
+> cause a synchronous external bus abort or system hang during driver probe=
+.
+
+otto_wdt_probe_clk() can be moved up to come before the first bus accesses.
+
+This would not cause issues on real hardware, as the bootloader will have
+ensured the watchdog's bus is up since it is shared with the UART=C2=A0cons=
+ole.
+
+
+
+> Also, does the system restart handler sleep in an atomic context?
+>=20
+> otto_wdt_restart() {
+> [ ... ]
+> 	disable_irq(ctrl->irq_phase1);
+> [ ... ]
+> }
+>=20
+> The otto_wdt_restart() function is a system restart handler executed in a=
+n
+> atomic context with local interrupts disabled. Since disable_irq() intern=
+ally
+> invokes synchronize_irq(), which uses wait_event() to wait for executing
+> interrupt handlers to finish, it can sleep.
+>=20
+> Calling a sleeping function with local interrupts disabled triggers a ker=
+nel
+> panic, and waiting for an IRQ handler to complete while other CPUs are st=
+opped
+> during a machine restart can result in a hard deadlock. Should this use
+> disable_irq_nosync() instead?
+
+I don't see why it couldn't use disable_irq_nosync().
+
+
+> Finally, is there an integer underflow in the timeout calculation?
+>=20
+> otto_wdt_determine_timeouts() {
+> [ ... ]
+> 		total_ticks =3D div_round_ticks(timeout_ms, tick_ms, 2);
+> 		phase1_ticks =3D div_round_ticks(timeout_ms - pretimeout_ms,
+> tick_ms, 1);
+> 		phase2_ticks =3D total_ticks - phase1_ticks;
+> [ ... ]
+> 	val |=3D FIELD_PREP(OTTO_WDT_CTRL_PHASE2, phase2_ticks - 1);
+> [ ... ]
+> }
+>=20
+> If the pretimeout is configured to 0 (or a value small enough that it map=
+s to
+> the same tick interval), total_ticks and phase1_ticks evaluate to the exa=
+ct
+> same value, resulting in phase2_ticks =3D 0.
+>=20
+> Since phase2_ticks is an unsigned integer, 0 - 1 underflows to 0xFFFFFFFF=
+,
+> which FIELD_PREP masks to the maximum field value of 31. Does this config=
+ure
+> the hardware to delay the system reset by 32 ticks (over 5 seconds) inste=
+ad
+> of the intended minimum of 1 tick?
+
+While this does indeed delay the system reset to the maximum time, the
+pretimeout interrupt (end of PHASE1) would still occur at the intended time=
+.
+During PHASE2, the watchdog cannot be pinged anymore and system reset remai=
+ns
+inevitable.
+
+I'll send a set of patches to resolve these issues, as they don't really re=
+late
+to adding RTL9706C support.
+
+Best,
+Sander
