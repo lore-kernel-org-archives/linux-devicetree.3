@@ -1,146 +1,140 @@
-Received: from s106b.cyber-folks.pl (s106b.cyber-folks.pl [195.78.66.88])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83687DDCD;
-	Sun, 10 May 2026 13:02:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.78.66.88
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B1F39A067
+	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 14:05:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778418171; cv=none; b=p9XnIB+lj27gcbw027ZHJQHWg4FztVnKFy1G3QMAEjgE1ESpzwyeH2cEbwXftjHGqD05i1BtI+NjXJGDn7LaTitYNBTPJgu9G300UGxh1J7AiW4ttHaN10y5nrOLV0ayuAxTl0WGQrRJUvxIYKYlCS2f8ERwV1uPaT7MKz+ZRlA=
+	t=1778421902; cv=none; b=D0xJixojCBD3WKUj9qRxuUuLuaJ15XBrjUagwEQ6EYDq6MViQA+fTqLi2uEvxqX6uq8vOPndIEqS0mQ8d+DFzz49727xVheutpeyPh40U6ANBBHHla47V/8sSG9bqS65+2fRU6CZfFbU6+4mwjvUxbaW/7Sga/31aVK9/S8nUMY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778418171; c=relaxed/simple;
-	bh=xdbmT5ZW7GBoQzuCduM7GoLy1ivg6Gv7iVshcr4SKOE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BqxqDkpThDW/EaIUyrRtGD0ug1Q5ylI2h3l+a0QckhPzuKC8X9gf8a8G5nPaSdFFTb1LrDTAQQ7Ywj/8I+koJojc65dnBS0OkGIuUIHqM7IB30oCiYiN0UBalBd2xfi0WP7SYjXHkO8LqbfJKeSYdx5k/REIPQFrPKZDGgiWhWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mmpsystems.pl; spf=pass smtp.mailfrom=mmpsystems.pl; dkim=pass (2048-bit key) header.d=mmpsystems.pl header.i=@mmpsystems.pl header.b=JXtnoFOT; arc=none smtp.client-ip=195.78.66.88
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mmpsystems.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mmpsystems.pl
+	s=arc-20240116; t=1778421902; c=relaxed/simple;
+	bh=dJYaCi+yn4ax/081epn6bndSg6r0SUT554W11XYxbkY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=NNRiyTlj/pay8EQzRjYsUNJWB8wpFjdvsr+60jPfkSMeEMivlPwv3zCiFyfOI+FHMy2YXFUEGccD+KAvfL93/NvBNn2qh1L4OiWtzCvRxGIvkXTivcOJj6U2b3F58H43tG0FXZNExRhiotyAzW9QmYNcojM2H+YqXPwYQ3gE3GA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dnqif3n0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mmpsystems.pl header.i=@mmpsystems.pl header.b="JXtnoFOT"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=mmpsystems.pl; s=x; h=Cc:To:In-Reply-To:References:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
-	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
-	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=sQf9HV1kJe9QuSV63atEChSm9EINfgHOzkniR1z+XIk=; b=JXtnoFOTyvcCFbcT5mx3MDXD1j
-	fi/m5EU3GBPzTFUFimzzNUeohg8xvNmoXOASWvb2MKR7KHo1XdiuEwYrnY+enjjKKX/juVRBxQMTh
-	8Mnf86+/og/CSuMp/8vKqCee39VBfK6BHuyeEyoG5b2qfHGlG0qyUffRWmlq6qinguG0Qusdcdywv
-	DrDaPp1W1p3j+0iMFUfn1V+wp/Ni8+BH5MuIAdrJHUP2OJT5skvMS2stgJ8pyaXyV8SYsPfEAwiLN
-	5R9gR2+waAyuvpjfNgh20AyYZQbR6mD3l2KasZTt1Kgx2YaH5hfKPqOLxTl97cabM4A0ujsQZncMp
-	Dw8nZCAA==;
-Received: from user-188-33-36-99.play-internet.pl ([188.33.36.99] helo=localhost)
-	by s106.cyber-folks.pl with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <michal.piekos@mmpsystems.pl>)
-	id 1wM3nS-0000000DQb8-2khN;
-	Sun, 10 May 2026 15:02:14 +0200
-From: Michal Piekos <michal.piekos@mmpsystems.pl>
-Date: Sun, 10 May 2026 14:57:22 +0200
-Subject: [PATCH 1/3] dt-bindings: iio: adc: Add GPADC for Allwinner A523
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dnqif3n0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF190C2BCC9;
+	Sun, 10 May 2026 14:05:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778421902;
+	bh=dJYaCi+yn4ax/081epn6bndSg6r0SUT554W11XYxbkY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=Dnqif3n00ZHUvBxojh9ViM0ZeVb7cRro2zUt5YI2MpSPtHi57Ada+YwwtMMWASXbA
+	 PI1Z4cn4y2J100bhPw/zk2u1hTIHDCdllfRVQ7E/L2yny7rubkUHZh9kYZW9/ALS2G
+	 5+KyKvIM5GCI1qEIQiY8dxBZD8PzV8/Sd4dzyWe341Jgr5mGLJJs8p0pzcyAZ362+H
+	 vOA1wBKBtPaB8TS7hetSJthNZYnN31QtGayC+f5DRoOUIBqCKH5xsvHgoU78cM5f0i
+	 NXuOtQly2YhveX/OLHt1a1YrJlSgboMiFZdDvd6CdcEb2jt1LTEP2/B/GsqofJehE3
+	 7OT2p8oVlE47w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v5 01/12] dt-bindings: net: airoha: Add EN7581
+ ethernet-ports properties
+Reply-To: sashiko@lists.linux.dev
+To: "Lorenzo Bianconi" <lorenzo@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260509-airoha-eth-multi-serdes-v5-1-805e38edc2aa@kernel.org>
+References: <20260509-airoha-eth-multi-serdes-v5-1-805e38edc2aa@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 10 May 2026 14:05:01 +0000
+Message-Id: <20260510140501.AF190C2BCC9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260510-sunxi-a523-gpadc-v1-1-4f6b0f4000fb@mmpsystems.pl>
-References: <20260510-sunxi-a523-gpadc-v1-0-4f6b0f4000fb@mmpsystems.pl>
-In-Reply-To: <20260510-sunxi-a523-gpadc-v1-0-4f6b0f4000fb@mmpsystems.pl>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Maksim Kiselev <bigunclemax@gmail.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Michal Piekos <michal.piekos@mmpsystems.pl>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778417853; l=1939;
- i=michal.piekos@mmpsystems.pl; s=20260301; h=from:subject:message-id;
- bh=xdbmT5ZW7GBoQzuCduM7GoLy1ivg6Gv7iVshcr4SKOE=;
- b=+fLEdNfcGSL6q7kzk+Ig5Sr2kuXJVWe3+SHYOmbUDS87rrnQ6fhMO9DC/AKCCxgCFF3Q10qPu
- X+6KaQkpiD+AIwZYYzl51hk38WXOrIVbGw13bG+w05h71LjATWN5uwv
-X-Developer-Key: i=michal.piekos@mmpsystems.pl; a=ed25519;
- pk=Aixyx03If7ZDamiKKN0lsa+0mtA+WjIuIf2ZQVYNBqg=
-X-Authenticated-Id: michal.piekos@mmpsystems.pl
 
-Add support for the GPADC for the Allwinner A523. It differs from the
-D1/T113s/R329/T507 by having two clocks.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The `reg` property check in the conditional `if` block uses an inv=
+alid JSON schema sequence that will always evaluate to false, causing valid=
+ device trees to fail validation.
+- [High] The `ethernet-port@[0-5]` nodes model a `net_device` but strictly =
+forbid standard network configuration properties like `mac-address` and `ph=
+y-handle`.
+- [Low] Missing `#address-cells` and `#size-cells` in the `required` list f=
+or conditional child nodes.
+--
 
-Signed-off-by: Michal Piekos <michal.piekos@mmpsystems.pl>
----
- .../iio/adc/allwinner,sun20i-d1-gpadc.yaml         | 37 +++++++++++++++++++++-
- 1 file changed, 36 insertions(+), 1 deletion(-)
+commit 270a641148bef0e32520efd84b62bf6b97aa5a63
+Author: Lorenzo Bianconi <lorenzo@kernel.org>
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/allwinner,sun20i-d1-gpadc.yaml b/Documentation/devicetree/bindings/iio/adc/allwinner,sun20i-d1-gpadc.yaml
-index da605a051b94..89da96cd705f 100644
---- a/Documentation/devicetree/bindings/iio/adc/allwinner,sun20i-d1-gpadc.yaml
-+++ b/Documentation/devicetree/bindings/iio/adc/allwinner,sun20i-d1-gpadc.yaml
-@@ -17,6 +17,7 @@ properties:
-       - items:
-           - enum:
-               - allwinner,sun50i-h616-gpadc
-+              - allwinner,sun55i-a523-gpadc
-           - const: allwinner,sun20i-d1-gpadc
- 
-   "#io-channel-cells":
-@@ -29,7 +30,12 @@ properties:
-     const: 0
- 
-   clocks:
--    maxItems: 1
-+    minItems: 1
-+    maxItems: 2
-+
-+  clock-names:
-+    minItems: 1
-+    maxItems: 2
- 
-   interrupts:
-     maxItems: 1
-@@ -40,6 +46,35 @@ properties:
-   resets:
-     maxItems: 1
- 
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          items:
-+            - const: allwinner,sun55i-a523-gpadc
-+            - const: allwinner,sun20i-d1-gpadc
-+    then:
-+      properties:
-+        clocks:
-+          minItems: 2
-+          maxItems: 2
-+          items:
-+            - description: Bus clock
-+            - description: Module clock
-+        clock-names:
-+          minItems: 2
-+          maxItems: 2
-+          items:
-+            - const: bus
-+            - const: mod
-+      required:
-+        - clock-names
-+    else:
-+      properties:
-+        clocks:
-+          maxItems: 1
-+        clock-names: false
-+
- patternProperties:
-   "^channel@[0-9a-f]+$":
-     $ref: adc.yaml
+dt-bindings: net: airoha: Add EN7581 ethernet-ports properties
 
--- 
-2.43.0
+This commit introduces the ethernet-port property for EN7581 and AN7583
+SoCs to model multiple net_devices connected via an external arbiter to
+GDM3 or GDM4 ports.
 
+> diff --git a/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml=
+ b/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
+> --- a/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
+> +++ b/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
+[ ... ]
+> @@ -130,6 +130,38 @@ patternProperties:
+>          maximum: 4
+>          description: GMAC port identifier
+> =20
+> +      '#address-cells':
+> +        const: 1
+> +      '#size-cells':
+> +        const: 0
+> +
+> +    allOf:
+> +      - if:
+> +          properties:
+> +            reg:
+> +              items:
+> +                - enum:
+> +                    - 3
+> +                    - 4
+
+Will this schema condition evaluate as expected?
+
+In dt-schema, reg properties are parsed into a matrix format, which is an
+array of arrays of integers like [[3]]. This schema checks if the first
+element of the outer array matches the scalar values 3 or 4, but since
+the first element is an inner array, it won't match a scalar.
+
+Could this cause the if block to always evaluate to false, causing valid
+ethernet-port nodes to be incorrectly rejected because the parent node
+sets unevaluatedProperties: false?
+
+> +        then:
+
+Since #address-cells and #size-cells are needed for the ethernet@[3-4]
+variants to act as buses for the new ethernet-port children, should they
+be included in a required list within this conditional block?
+
+Without them, an incomplete device tree could omit these properties and
+silently pass schema validation.
+
+> +          patternProperties:
+> +            "^ethernet-port@[0-5]$":
+> +              type: object
+> +              unevaluatedProperties: false
+
+Does setting unevaluatedProperties: false here without referencing
+ethernet-controller.yaml# forbid standard network properties?
+
+Since this models a net_device, driver code often expects to parse standard
+properties like mac-address or phy-handle. Device tree authors might not
+be able to configure them without triggering schema validation errors.
+
+> +              description: External ethernet port ID available on the GD=
+M port
+> +
+> +              properties:
+> +                compatible:
+> +                  const: airoha,eth-port
+> +
+> +                reg:
+> +                  maxItems: 1
+> +                  description: External ethernet port identifier
+> +
+> +              required:
+> +                - compatible
+> +                - reg
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260509-airoha-eth=
+-multi-serdes-v5-0-805e38edc2aa@kernel.org?part=3D1
