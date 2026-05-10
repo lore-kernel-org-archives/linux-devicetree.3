@@ -1,270 +1,145 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 396E935979;
-	Sun, 10 May 2026 03:02:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B749175A7C;
+	Sun, 10 May 2026 03:28:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778382177; cv=none; b=eJl3gHEWJRiqU43UquQziXWcydjaPOU9BIwmCCYm2WAn/r6OCDo4+YjSK/zQS3HedHZe3YWG/6q14VU2vTfKadfmflbQ90RgtmpusDbDiqiRjh4qJVnTvZGFrHTp73jci5gd1xz8/IRTYxDDAPvsPo/WDfRAgMsr1zCjPLaV9tc=
+	t=1778383686; cv=none; b=KLS07+Ix/mWmc8SRzG2sggQnnhxkJ7hdIq7KzpJ2eXVqYtZr1YtEfS3YP7ftg2hyIzP8uixqqUN82Wx0+Rf9vbiBUeRl5Rgt8S11GTrJa9eMO2BC3N4PfFaDVpGThi5V0vioOsI66PHnahz16DKuuMT8g8hNxaawr/721kKrBM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778382177; c=relaxed/simple;
-	bh=r+v71hsEte8pWEv2C7BSE3iTj76Ojm2jtEj0SA6Z1RE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oChNf+lKEh4+apI8UTvjwFz9I7r+Op9gDNTg8tYkgoGsj9J5fIvLuwWMPFku+voorpqtWK2Zs8pp8W1YL+xEUj5yo99J092cBGePpoUCzF3Xb1AVUjJG5BuJUlJsZmO6U/0Vxnezc+lZ2/SCi/qbpvKTH2ZxpdLzf0XgqKiTxk8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=fdAObIBP; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1778383686; c=relaxed/simple;
+	bh=YWPSVrJSk9to5+GJb6slS1Gcg11UmRRBr3afpfQuQoU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bJ2E1A6XVKoWGzTgK7j0o2bMvignkKk6o/GY4PCyKftRlaRpAWBzkYjsbUacw9poms+/fi6qifuCIiKjd5WK5XUAWsc0N98wtYMIAmFZ1oGE0BEXoBOT7kiRDyzoWWfEduRL7bZV0N622qfhU/KaKVqQ6lHBoBf6zEHyrQumpCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h9OPIIG4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="fdAObIBP"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4gCnj12XFbz9ttT;
-	Sun, 10 May 2026 05:02:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1778382165;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9AG2mPgAOtJ8Me87PpVSnI+nay5U0EzVOgMVFYD/YiE=;
-	b=fdAObIBPln9zwt+xeHEPvt1bMvDO8JRvcTJPTX2mTY2J0WgZUFLZhsPyzpYNf06biWicyw
-	ptoiNBpq/YGPmw1Te1qySZ+QpzwTzoWX6WAcJfZF/deAobppogx1TrpBppUv0JhuC0I5U1
-	AZFbl4R/fbiQuDK6fnkU4+SbAAWEIxh6sCPRAEokqV/28NMezlffi68DwEFhXMpBtMDiDP
-	lNGhHwvkI53wWbFW8DKVlymF8MIfOIG3lJ2+SUyNSjZifsTKZ+0xa+1zg9eNGYD42AJA0u
-	Bq5BTd3155LGgq6ZCnFa5fg8gBF1Hba6Ayng2cj2WBLIrXcpiwY8A/cafFQBQw==
-Message-ID: <73602f40-45f0-4e4e-86cb-4a2c025f0491@mailbox.org>
-Date: Sun, 10 May 2026 05:02:39 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h9OPIIG4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59B55C2BCF5;
+	Sun, 10 May 2026 03:28:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778383685;
+	bh=YWPSVrJSk9to5+GJb6slS1Gcg11UmRRBr3afpfQuQoU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=h9OPIIG4EctLH09eTqvIiPF4HhyGkw4eKml9aBTYtMgNl9g42K4fdxPjYfzH31MZW
+	 0qSiYMvbMfP82ZzVIYn51+2K/Hr+8vFdxXGEOfyk9oRyJM7PMVFst5fFZlnIijQP2Y
+	 xp3E0BBCgL2vVVp/Uu/S0c6rQDauPhW7UR7kXG+JwhpSr9TmVEa5e1jsXocB8U4JsY
+	 N124cTZjD6N/5JxGQ8hUjNCCY+6j1HQ4QEES2I8KTjZ6tSjxiL4X+I7aDREFc0iIGJ
+	 dWzAc1BFUUhs5wJAN6g7d+SXX8vcMb3U61ysF0eqISAPjhzIuQsw+AZFQULEfHUMo8
+	 XgDb3ae+U0aZA==
+Date: Sat, 9 May 2026 22:28:01 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: glymur: Add psci reboot-mode edl
+Message-ID: <af_49utiHCPDlbEd@baldur>
+References: <20260505-glymur_reboot_mode-v1-1-59fe3e9a6868@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH/RFC 10/14] dt-bindings: power: Document Renesas R-Car X5H
- Module Controller
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Sudeep Holla <sudeep.holla@kernel.org>,
- Cristian Marussi <cristian.marussi@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Saravana Kannan <saravanak@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Ulf Hansson <ulfh@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Kevin Hilman <khilman@baylibre.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1776793163.git.geert+renesas@glider.be>
- <053c312d07445517d8f9c84bfe3cc8fb72d4cd9a.1776793163.git.geert+renesas@glider.be>
- <bf83a028-3ef3-482a-9ce3-8aec16f6ebed@mailbox.org>
- <CAMuHMdWN2zaZrY2jKKXpNqrP8xSqc-uJTr-siTBgaA=-EY_4BQ@mail.gmail.com>
- <fa28c6fe-484c-4133-824e-649c52ef2200@mailbox.org>
- <CAMuHMdUU=RohST4LDDD27W5dj=HwJFApMcDpsXATQ1MaMH-tUA@mail.gmail.com>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <CAMuHMdUU=RohST4LDDD27W5dj=HwJFApMcDpsXATQ1MaMH-tUA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: fbwz36b893qz5jidenhstwmckkgabocb
-X-MBO-RS-ID: 685120301b26aeb58c6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260505-glymur_reboot_mode-v1-1-59fe3e9a6868@oss.qualcomm.com>
 
-On 5/8/26 10:26 AM, Geert Uytterhoeven wrote:
+On Tue, May 05, 2026 at 07:07:27PM +0530, Pankaj Patil wrote:
+> Add PSCI SYSTEM_RESET2 reboot-modes for glymur to be invoked by the psci
 
-Hello Geert,
+"Glymur"
 
->> Since there are up to 32 MPDG registers, and 256 resets, can we encode
->> both into a single cell ?
->>
->> (mpdg_register_offset << 16) | (reset_bit_offset << 0)
+> reboot-mode driver.
+
+https://docs.kernel.org/process/submitting-patches.html#describe-your-changes
+states that you should start your commit message by describing the
+"problem" your patch is addressing. This commit message fully assumes
+that the reader already knows everything about this topic and why this
+should be added.
+
 > 
-> We could.  I did consider it (with a shift of 8 cfr. 256 modules),
-> but see below...
+> The following modes are defined:
+> - edl: reboot into emergency download mode for image loading via
+> the Firehose protocol.
+
+I presume that would be the Sahara protocol, but you don't need to be
+specific about how that implementation works. It's sufficient to say
+that "edl" reboots the device into "emergency download mode (EDL)".
+
 > 
->> I cannot tell whether this is much better, but it at least ties the PD
->> components (power domain and clock domain) into a single value, which
->> matches reality a bit better. The current split power domain and clock
->> domain description in two cells gives me the illusion that it is
->> possible to mix and match power domains and clock domains in DT
->> description, but in fact the two cells are strongly tied together.
+> Support for these modes is dependent on the psci firmware
+
+What are the implications of that?
+
 > 
-> They are only tied together in the sense that a module (hardware block)
-> is part of a power domain, and has module standby (clock) control.
-> Some power domains are backed by MDLC hardware registers,
-> others are not, hence the need for the additional definitions in
-> <dt-bindings/power/renesas,r8a78000-mdlc.h>.
-> I am not aware (yet) of modules that are part of a power domain,
-> but do not have module standby control. If these exist, we
-> need an additional definition (R8A78000_MDLC_MODULE_NONE?) in
-> <dt-bindings/power/renesas,r8a78000-mdlc.h>.
-
-Maybe TAUJ3 in AON domain? I think HSCN also has abundance of examples.
-
-> Due to this separation, and due to a possible future need for expansion
-> (R8A78000_MDLC_MODULE_NONE, MDLCs with more than 256 modules, ...),
-> I went for two cells.
-
-I think I won't push for a single cell either, two cells are OK with me too.
-
->> If we cannot encode the two into a single cell, maybe we can at least
->> have some sort of macro for this, e.g. this (0xff as no MPDG register
->> bits for this block):
->> #define R8A78000_MDLC_PD_HSCIF0 (0xff << 16) ((0x5 << 4) | (0x3 << 0))
->>
->> What do you think ?
+> Signed-off-by: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/glymur-crd.dtsi | 6 ++++++
+>  arch/arm64/boot/dts/qcom/glymur.dtsi     | 2 +-
+>  2 files changed, 7 insertions(+), 1 deletion(-)
 > 
-> I (and I believe the DT maintainers) are not so fond of defines for
-> numbers that can be (more or less) just read from the documentation.
+> diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> index 2852d257ac8c..397519e95ca1 100644
+> --- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> @@ -560,6 +560,12 @@ &pon_resin {
+>  	status = "okay";
+>  };
+>  
+> +&psci {
+> +	reboot-mode {
+> +		mode-edl = <0x80000000 0x1>;
 
-OK
+Does the statement about "psci firmware" somehow relate to the fact that
+this is defined in the crd.dtsi?
 
-> (and 0xff should be R8A78000_MDLC_PD_APL?)
-
-I think AON would have to be 0xff , since it is superdomain of APL ?
-
->>> So perhaps I will clarify like this:
->>>
->>>         - The first power domain specifier cell is the power domain part, and
->>>           must be either the Module Power Domain Gating (MPDG) register index
->>
->> ... for power domains which are backed by MDPG bits, and which can be
->> controlled in that manner ...
+> +	};
+> +};
+> +
+>  &tlmm {
+>  	gpio-reserved-ranges = <4 4>, /* EC TZ Secure I3C */
+>  			       <10 2>, /* OOB UART */
+> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
+> index f23cf81ddb77..7f426efe40ab 100644
+> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
+> @@ -382,7 +382,7 @@ pmu {
+>  		interrupts = <GIC_PPI 7 IRQ_TYPE_LEVEL_LOW>;
+>  	};
+>  
+> -	psci {
+> +	psci: psci {
+>  		compatible = "arm,psci-1.0";
+>  		method = "smc";
+>  
 > 
-> OK.
-> 
->>>           (0x00-0x3f) from the datasheet, or a Power Domain number, as defined in
->>>           <dt-bindings/power/renesas,r8a78000-mdlc.h>,
->>
->> ... for power domains which are always on, and for which there are no
->> MPDG bits which can be used to control them ...
-> 
-> OK,
-> 
->>
->>>         - The second power domain specifier cell is the clock domain part, and
-> 
-> Upon second thought: s/clock domain/module standby/
+> ---
+> base-commit: 9d0d467c3572e93c5faa2e5906a8bbcd70b24efd
+> change-id: 20260407-glymur_reboot_mode-4441770e6a8a
+> prerequisite-message-id: <20260427-arm-psci-system_reset2-vendor-reboots-v21-0-dcf937775e73@oss.qualcomm.com>
 
-If you could even mention that this refers to "Module STOP" column bit, 
-that would even clearer.
+As far as I can tell from the discussion, that's not settled yet.
+Not sure what you want me to do with this patch then...
 
->>>           must be the module number (0x00-0xff), composed of the Module System
->>>           Reset (MSRES) register index in the high nibble, and the Module Reset
->>>           Destination bitfield index in the low nibble.
->>
->> I can understand this.
->>
->>>>> +  '#reset-cells':
->>>>> +    description:
->>>>> +      The single reset specifier cell must be the module number (0x00-0xff).
->>>>> +    const: 1
->>>>
->>>> [...]
->>>>
->>>>> +#ifndef __DT_BINDINGS_POWER_RENESAS_R8A78000_MDLC_H__
->>>>> +#define __DT_BINDINGS_POWER_RENESAS_R8A78000_MDLC_H__
->>>>> +
->>>>> +/* R-Car X5H MDLC Power Domains */
->>>>> +
->>>>> +#define R8A78000_MDLC_PD_AON                 0x40
->>>>> +#define R8A78000_MDLC_PD_SCP                 0x41
->>>>> +#define R8A78000_MDLC_PD_APL                 0x42
->>>>> +#define R8A78000_MDLC_PD_CMN                 0x43
->>>>> +#define R8A78000_MDLC_PD_ACL                 0x44
->>>> ... what do these numbers represent ? Shouldn't those be register
->>>> offsets from MDLC MPDG00 according to power-domain-cells ?
->>>
->>> These are Power Domains that are not backed by any of the 64 Module
->>> Power Domain Gating (MPDG) registers in MDLC blocks.
->>
->> I suspect that might not be entirely correct for all of them, please
->> read on and see CMN below.
+Regards,
+Bjorn
+
+> prerequisite-patch-id: 70829f19896a982ef4ac19fa82bf571b9eb6defa
+> prerequisite-patch-id: 600337ba5717c51204c4f426acb28bd6287e56ec
+> prerequisite-patch-id: e7a6e85c94e35b71c9813c322e811a270233c854
+> prerequisite-patch-id: 7bb3e4b151f32129e8ce5d3c1015150cbd741d13
+> prerequisite-patch-id: a61561c5070b9485399a840ff48252842393f01a
+> prerequisite-patch-id: c7f5c86cf5f88c6d5dd576565bcce25ee3848b19
+> prerequisite-patch-id: e4d851cd0a6dfb96d62e4c9d3ebfa1422b9571a6
+> prerequisite-patch-id: e6ffbbec586e6c4b508bd366615e33928a910190
+> prerequisite-patch-id: 8ae267aee51f48992d2232f18dc5795b08fd8e54
+> prerequisite-patch-id: 10b585e49a96767c3324c9e3c623a4716a641fda
+> prerequisite-patch-id: 5abbfae8b6577899e0423b36b4690adf1046cac2
+> prerequisite-patch-id: edb89ac23b7a3d5ade9b9cc1e1a77ee4d1a663cf
+> prerequisite-patch-id: 555f1b64be3631d6286f2f1e140dc38c6935d646
 > 
-> Thanks, looks like R8A78000_MDLC_PD_CMN should be dropped.
+> Best regards,
+> -- 
+> Pankaj Patil <pankaj.patil@oss.qualcomm.com>
 > 
->> Let's take PD_AC00 , AP core 0 , as a domain of interest. My
->> understanding is, that the domain structure for PD_AC00 looks as follows:
->>
->> PD_AON {
->>     PD_SCP { };
->>     PD_APL {
->>       hierarchy is SYSSS
->>       always-power-on
->>       PD_CMN {
->>         hierarchy is CMNN
->>         power-gating-bit is MDLC_CMNN 20
->>         PD_APU0 {
->>           hierarchy is SYSSS
->>           power-gating is done by APMU
->>           PD_ACL0 {
->>             hierarchy is CMNN
->>             power-gating-bit is MDLC_CMNN 16
->>             PD_AC00 {
->>               hierarchy is CMNN
->>               power-gating-bit is MDLC_CMNN 0
->>             };
->>             ...
->>           };
->>           ...
->>         };
->>         ...
->>       };
->>       ...
->>       PD_HSCIF0 {
->>         hierarchy is PERW
->>         power-gating-bit is MDLC_PERW 23
->>       };
->>     };
->>     ...
->> };
->>
->> With this in mind, I think CPU 0 DT node should refer to the PD_AC00
->> power domain this way:
->>
->> cpu@0 {
->>     ...
->>     power-domains = <&mdlc_cmnn R8A78000_MDLC_PD_AC00>;
->>     ...
->> };
-> 
-> So we do have a few modules (I found a few more) that are part of
-> power domains, but do no support module standby.  One more reason to
-> decouple them in power-domains.
-
-I think HSCN is a really good example ?
-
-> However, CPU cores are controlled through PSCI (the slightly less evil
-> brother of SCMI? ;-), so
-> Documentation/devicetree/bindings/arm/psci.yaml applies, too?
-
-We can indeed control cores purely via PSCI , yes.
-
-(Upstream TFA needs one more platform patch to make this operable)
-
->> The MDLC driver would pass the PD_AC00 domain ID to matching SCMI power
->> domain management protocol call, or, for bare-metal MDLC driver, would
->> have to internally encode PD hierarchy, walk it, and apply PD operations
->> in each step.
->>
->> I think even for SCIF/HSCIF, the power domain reference should be
->> something along the lines of the following description. The MDLC driver
->> should internally encode that R8A78000_MLDC_PD_HSCIF0 is a sub-domain of
->> R8A78000_MDLC_PD_APL .
->>
->> serial@c0710000 {
->>     ...
->>     power-domains = <&mdlc_perw R8A78000_MDLC_PD_HSCIF0>;
->>     ...
->> };
-> 
-> R8A78000_MLDC_PD_HSCIF0 is a not a full sub-domain, but merely standby
-> (clock) control inside the PD_APL clock domain?
-Do you consider R8A78000_MDLC_PD_AC00 a full sub-domain ? Because that 
-one looks very similar to R8A78000_MDLC_PD_HSCIF0 , except the former 
-controls a core, the later an UART IP.
