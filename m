@@ -1,63 +1,63 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E96FD27732
-	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 17:14:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 227B727732
+	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 17:14:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778433262; cv=none; b=FpJBEXgXJzSZPLMtFn9nhlA7DTZgipUbuFBTh6qqff4Bt/4ImeDB36CMxf18NVGM0Rktu7y2aqfBzwvh7r4y79AD1kknnt2Dari/hUh17T8onWiqT1Q4v1BiT1poHdJvp282Guii7wS82DAD29ClA61SGeEC3LEmMBONtTN11Q4=
+	t=1778433265; cv=none; b=MQxojdm8zR1pneq0TllMzZJO0NXz9lPsSwIkldOrJrTkZEGsKRlqr1gYEBGlUZQzbYN4sWJyxRFL369bMrfrIP8N3IvbvDokOa4ey388wu/R9mgOTF3d0vzFeqwawlnnvV3JwaSLdOiOOLNZb9WLVccKv9gXihxGurfPin31hW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778433262; c=relaxed/simple;
-	bh=gxsMxa+7bOiJ/lDPJMvUarawGmDnhc42KlrWc5UapPw=;
+	s=arc-20240116; t=1778433265; c=relaxed/simple;
+	bh=FsVD20XStkH7dQoGgoAT5fw1oW8irCKLqi9Nh+ovXPY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u29mJ1EkMyMMMsF10/3vi3uWlbW9IEZpyeJEUqt9UCkbnFq5h0DOuGI4c57Hzp+2yuFeC2X4gq710l0eVplphy4chHXZoyy09Xj8qDUzqj7p3GGe3+RtoeOUfi/fHkgykBFq7reCAA9eAyDSDUUeIVIFGcBh3hvvseki66Qms+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QZafmxip; arc=none smtp.client-ip=209.85.210.178
+	 MIME-Version; b=GWSb6dtrIuylTdzlC1yYVg2Q0Z+kdlFZLIdqW0WeTeNS5iUlorJ3+uPipTkd1VL4D3pHaAWPpRdSVPRMC0sodiWT5/Bd/++//B2D55Ga7o6+/ROMQ8l/dU8a2mUuEAng9BXl/JGDKlGqkFH1lY9sTIv8utiUjF0hbm3dvAkZQE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a9/4dbk3; arc=none smtp.client-ip=209.85.215.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QZafmxip"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-83538fbd0b2so1411360b3a.0
-        for <devicetree@vger.kernel.org>; Sun, 10 May 2026 10:14:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a9/4dbk3"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c82471904fcso1453883a12.2
+        for <devicetree@vger.kernel.org>; Sun, 10 May 2026 10:14:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778433260; x=1779038060; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1778433263; x=1779038063; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=AdiKoqOYaOQxpnoifZq+HXTmHH4BYLymY6DfpNxMI/U=;
-        b=QZafmxipHfuRM4jhS/Y6CImomNKb9y2sQE4Mg0vLkQhjeuIUAUEpD9SJmmKpsRvTKs
-         +h/IaUn18hZ0g0UkVmzWMbVZk/8AOPF5RwZbcF0kKbRYqhRC71rwUm4j6Iv0XDA+UPtY
-         TQwqQvUppGL016lRsz9sRVJ6iTRjE3H02COziGiyYSGyiDKqpAgdKW7H25Dk094CvqhG
-         aY7uUR2zQW85maStLAgqlVoc+XpX1zx1PPDVPWliln4BJ3U1cQFjeUeFSzm4IUCEvxWd
-         q9vVce3E7snvpebVagt/h3yE0LbQJTb+XUUrsjXpz7YsunnK8YnWJwRs3bbRP1rmhVll
-         Rsrg==
+        bh=iuaa/iv38+EpjRtmaMrOBvX+X90TeEo1RpmrNxck1uE=;
+        b=a9/4dbk3+KFc8UMexccgpeqicfeGdfQta0XwWrFGEWLucxf7/ktMPY1+QKa6CC7dhH
+         D0o9gGXJCqGNxFpO3saILRgVaFGkpkpF1enz0J6gsQA4fd+V99UC3s2608OnN0Sfg9Oy
+         9rgHcLsyK1wtLkp50lS30jR4NJVSN3WgoGDyD+fxYPNRDQOgfUFvHQ9R41eZwCZ1dKAV
+         KAQTNIxfFBrgAKc6oSq2yVDDF4KKaE8UqDJpkML0rd0PBVEzYc2dPjoRnarx2k8P1fta
+         QpdYPM4xqK8aegcvQ0DwdiY9EvxFWSzyh+VzILYbVAzvMlQYJJuJQzzHJ3AHYn41rHju
+         QPpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778433260; x=1779038060;
+        d=1e100.net; s=20251104; t=1778433263; x=1779038063;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=AdiKoqOYaOQxpnoifZq+HXTmHH4BYLymY6DfpNxMI/U=;
-        b=BxKHJtRjNP9qetD+RDLFdzGHqeST8Je2DyD5eATLAVQqas46otnknDSDvgLNxTQ2lM
-         fcdmCv55ABTK5nROd756kaVA0t66z/7S1wqNjHsq1IpzV81qD9dMQCzk27dQi3Ygz/mo
-         iiEQo1oLMsGyzyDU9ho9WKwgbYAzMj6wQcz3IF5433Ix0dWAjxKOoGA9WpxPN1BfZb5t
-         9es2lBOJWO+wem4vUWOxF9XWiG8saTiNhdtlQ5cdvuGirTnxfa9dKMdjneNnIWDd93Jg
-         FmaZktIPQndri1SXy0ftswD3tKUbB1/7WENzLPuibRlTC+I0AxPJC+fWw/42BpyO7cUa
-         k/9A==
-X-Forwarded-Encrypted: i=1; AFNElJ+MmWNgyB4ZIbqREZZe7GWPiFbukG9rXRW8sBG5umn/+2WU0mug3ETCjSQlowBhWjjV7rE7lDiFd1gy@vger.kernel.org
-X-Gm-Message-State: AOJu0YzkNovXwiq0N0pRmgtFFwbfWEdlvt53LFQz3SQfhsmSvGdbVD4J
-	pii3X+v2mMV2EkPRg9MrEFgVV5JlB93nb670knBFjbzoofoCWASKxDm+
-X-Gm-Gg: Acq92OHCCgIAhl5slrxtwaFMU0yBRec7NmSnK1ymKNg6V/lMWN6WwaNxm1eXVMd4zY9
-	vw/sQ6UETjjqy1nO5fjkTr4U0nZcSir153M8pjTYWBd3X+aZEC/eJ5kkvRYxf04BNDXQNKM9DMH
-	0CezHOTLgBJsFGofYodLM+uUV1y+NXAkopHpv7wQPFSIhvW20vVnJaiaGpmygbvFZoMdxW2fcIw
-	WXTFjF8ic6CtdPj/JIDLRObeZ0RBvfAAILvVTsOZdrEvIeoxI0Em0a5Mcka+6n9q2/fbgLoLbud
-	Fuk2D1iz+rkzjE708Z7IFVvkkc+rhanUiX1XUcq1WGDJqNnuh/T3ugVY3d7udyA7NLo2oTB3fwG
-	kZnYR+CPr4GW8BE2HQrK+dqPqEAAQj+Y1VHimdmTDs2ElGB5Puq61Hd+4z/7ITfOMZ4TvWry6Bl
-	kOTZNncUUleSWkleaMfw==
-X-Received: by 2002:a05:6a00:4389:b0:82f:9985:d4a1 with SMTP id d2e1a72fcca58-83e3b2da632mr6556120b3a.24.1778433260105;
-        Sun, 10 May 2026 10:14:20 -0700 (PDT)
+        bh=iuaa/iv38+EpjRtmaMrOBvX+X90TeEo1RpmrNxck1uE=;
+        b=hkQjYknjY0Q6Je5YH+1HJl9YibnMZ/3HfN2fiRwtpW8eIOyctJLvWSQyc1TziKk2QF
+         70hAy6XMS3G+jWa1AZs5kK0jFMnApJkjLa6sOL3dX471WtceXmCYvKWhOUE8l13umIho
+         l/2Fe9vlgkzf8LTrpreZsgl7zkhvBpHpmV7393l3VIfO9SeQgZLlkyveo5MTQc9SW0gL
+         sFv4Q9Y6Ahpr6Rtt9pc/Ply/ypSJJxDtJYKNjW/Z+A+NXaECpf0bGddd+9JNzPYPmLTa
+         cuqAT2hVSdWZmmS94tAFZbhKI5hSwwq5kHCGIMTL6o9SdcDmyeGkxFstv0r82h3TO6Zy
+         KjbQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/6rmSQP5u4IhAe3m6snpphn15s5XetmNtIMp8pssVIngRzwF8YZhVmtT7iwlN6RvknWUqi54znHshX@vger.kernel.org
+X-Gm-Message-State: AOJu0YwHMrEw5iJxnhzluGFVzBnYdEaa4oGfNL0IWgf2JH1FYHlIW3v0
+	Byl/vvS+om7YVnmaeXjYvJ/aIhyf+cIx++VGr6gTTqT+or89JAmXjm4R
+X-Gm-Gg: Acq92OHjLZAsTa4Bv0Dk3cyhgpFu72Xe7TTCcYvSnR6hhEg+QRa1jAz60QX1pAZMmEZ
+	yuKAv+OAZryPt9jJwVthXvaAhZketgFXlrTBLpLrBlFaPucUtNsNZ8jWuXaL90GKCgOISukbnIN
+	HYWbzwa+mKrIpNzz+GCaokV0wImcxuPQYfuQVq3w6sPNXDLaC/DKV2E4xwmE+nrS2uifakRFHy7
+	Aaym69b7N6SmdaNwo16UYvOhJufbAJYoBMjtK2rqLETdS7Cq1qH7+p/IkBX2qBisV1OKhnUVLhD
+	ZXPLksbxhdPkruTphe5P+9zE+QxPvQVOZzoVVVseWxYOWyzhvPnQxTfUAB1f/Qe3f5uyCVNlFqu
+	dI5U/zct/gpFUTslcM+du7SMJ5f/aeLXOdW0Jhuish3f7MfHa5GF39wb1gE0XnRcybkatyciM1Z
+	cLx6NeKU3S+M777PR6Axz/Xw7KKyv2
+X-Received: by 2002:a05:6a21:328e:b0:398:a76e:4ad4 with SMTP id adf61e73a8af0-3aa5a915f0emr23841929637.21.1778433263409;
+        Sun, 10 May 2026 10:14:23 -0700 (PDT)
 Received: from ubuntu.. ([110.9.142.4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8396563f381sm21799778b3a.6.2026.05.10.10.14.18
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8396563f381sm21799778b3a.6.2026.05.10.10.14.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 10 May 2026 10:14:19 -0700 (PDT)
+        Sun, 10 May 2026 10:14:23 -0700 (PDT)
 From: Sang-Heon Jeon <ekffu200098@gmail.com>
 To: maddy@linux.ibm.com,
 	mpe@ellerman.id.au,
@@ -68,9 +68,9 @@ To: maddy@linux.ibm.com,
 Cc: linuxppc-dev@lists.ozlabs.org,
 	devicetree@vger.kernel.org,
 	Sang-Heon Jeon <ekffu200098@gmail.com>
-Subject: [PATCH 1/2] powerpc/prom: fix /chosen properties read from wrong node
-Date: Mon, 11 May 2026 02:13:52 +0900
-Message-ID: <20260510171353.1406018-2-ekffu200098@gmail.com>
+Subject: [PATCH 2/2] of/fdt: make early_init_dt_scan_chosen() return void
+Date: Mon, 11 May 2026 02:13:53 +0900
+Message-ID: <20260510171353.1406018-3-ekffu200098@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260510171353.1406018-1-ekffu200098@gmail.com>
 References: <20260510171353.1406018-1-ekffu200098@gmail.com>
@@ -82,102 +82,83 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 60f20d84dc81 ("of/fdt: Rework early_init_dt_scan_chosen() to
-call directly") changed early_init_dt_scan_chosen() to be called
-directly instead of via of_scan_flat_dt(). After this change,
-early_init_dt_scan_chosen_ppc() does not behave as intended in either
-case below:
+Since commit 064e32dc5b03 ("of: fdt: Honor CONFIG_CMDLINE* even
+without /chosen node, take 2"), early_init_dt_scan_chosen() always
+returns 0, so the return value checks at its callers have become
+dead code.
 
-- /chosen(or /chosen@0) exists: early_init_dt_scan_chosen() always 
-  succeeds, so early_init_dt_scan_chosen_ppc() then reads properties
-  from the root node (first iteration) instead of chosen node.
+Drop the return value, change the function to return void, and
+update its declaration and callers accordingly. No functional
+change.
 
-- /chosen does not exist:
-  - Until commit 064e32dc5b03 ("of: fdt: Honor CONFIG_CMDLINE* even without
-    /chosen node, take 2"), early_init_dt_scan_chosen() returns -ENOENT
-    and early_init_dt_scan_chosen_ppc() returns 0. So of_scan_flat_dt()
-    iterates over all remaining nodes. Not a bug but unnecessary.
-  - After above commit, early_init_dt_scan_chosen() returns 0 and
-    early_init_dt_scan_chosen_ppc() returns 1. So it reads properties
-    from the root node (first iteration) instead of chosen node, same as
-    the chosen node exist case above.
-
-Instead of using of_scan_flat_dt() for chosen node handling, first call
-early_init_dt_scan_chosen() directly to handle common chosen node
-properties. Then call early_init_dt_scan_chosen_ppc(), which is updated
-to handle powerpc-specific chosen node properties.
-
-Both now look up chosen node directly to avoid reading from the wrong node.
-
-Fixes: 60f20d84dc81 ("of/fdt: Rework early_init_dt_scan_chosen() to call directly")
 Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
 ---
-QEMU-based test results
+dt-test result
 
-$ fdtput -t bx chosen.dtb /chosen linux,crashkernel-base 00 00 00 10 00 00 00 00
-$ fdtput -t bx chosen.dtb /chosen linux,crashkernel-size 00 00 00 02 00 00 00 00
-$ qemu-system-ppc64 -M powernv9,dtb=chosen.dtb ...
+[    0.684136] ### dt-test ### start of unittest - you will see error messages
+[    0.685849] ### dt-test ### EXPECT \ : Duplicate name in testcase-data, renamed to "duplicate-name#1"
+[    0.685870] Duplicate name in testcase-data, renamed to "duplicate-name#1"
+[    0.689496] ### dt-test ### EXPECT / : Duplicate name in testcase-data, renamed to "duplicate-name#1"
 
-1) AS-IS (before fix)
-# cat /sys/kernel/kexec_crash_size
-0
+...
 
-2) TO-BE (after fix)
-# cat /sys/kernel/kexec_crash_size
-33554432
-
+[    1.693384] ### dt-test ### EXPECT / : OF: resolver: overlay phandle fixup failed: -22
+[    1.693386] ### dt-test ### EXPECT / : OF: resolver: node label 'this_label_does_not_exist' not found in live devicetree symbols table
+[    1.694968] ### dt-test ### end of unittest - 405 passed, 0 failed
 ---
- arch/powerpc/kernel/prom.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ drivers/of/fdt.c       | 10 ++--------
+ include/linux/of_fdt.h |  2 +-
+ 2 files changed, 3 insertions(+), 9 deletions(-)
 
-diff --git a/arch/powerpc/kernel/prom.c b/arch/powerpc/kernel/prom.c
-index 9ed9dde7d231..34318ddb4a73 100644
---- a/arch/powerpc/kernel/prom.c
-+++ b/arch/powerpc/kernel/prom.c
-@@ -450,15 +450,17 @@ static int __init early_init_dt_scan_cpus(unsigned long node,
- 	return 0;
+diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
+index ba65e36e183c..1b2cf5b29926 100644
+--- a/drivers/of/fdt.c
++++ b/drivers/of/fdt.c
+@@ -1087,7 +1087,7 @@ int __init early_init_dt_scan_memory(void)
+ 	return found_memory;
  }
  
--static int __init early_init_dt_scan_chosen_ppc(unsigned long node,
--						const char *uname,
--						int depth, void *data)
-+static void __init early_init_dt_scan_chosen_ppc(void)
+-int __init early_init_dt_scan_chosen(char *cmdline)
++void __init early_init_dt_scan_chosen(char *cmdline)
  {
-+	const void *fdt = initial_boot_params;
- 	const unsigned long *lprop; /* All these set by kernel, so no need to convert endian */
-+	int node;
+ 	int l, node;
+ 	const char *p;
+@@ -1144,8 +1144,6 @@ int __init early_init_dt_scan_chosen(char *cmdline)
+ #endif /* CONFIG_CMDLINE */
  
--	/* Use common scan routine to determine if this is the chosen node */
--	if (early_init_dt_scan_chosen(data) < 0)
--		return 0;
-+	node = fdt_path_offset(fdt, "/chosen");
-+	if (node < 0)
-+		node = fdt_path_offset(fdt, "/chosen@0");
-+	if (node < 0)
-+		return;
- 
- #ifdef CONFIG_PPC64
- 	/* check if iommu is forced on or off */
-@@ -491,9 +493,6 @@ static int __init early_init_dt_scan_chosen_ppc(unsigned long node,
- 	if (lprop)
- 		crashk_res.end = crashk_res.start + *lprop - 1;
- #endif
+ 	pr_debug("Command line is: %s\n", (char *)cmdline);
 -
--	/* break now */
--	return 1;
+-	return 0;
  }
  
- /*
-@@ -818,7 +817,8 @@ void __init early_init_devtree(void *params)
- 	 * device-tree, including the platform type, initrd location and
- 	 * size, TCE reserve, and more ...
- 	 */
--	of_scan_flat_dt(early_init_dt_scan_chosen_ppc, boot_command_line);
-+	early_init_dt_scan_chosen(boot_command_line);
-+	early_init_dt_scan_chosen_ppc();
+ #ifndef MIN_MEMBLOCK_ADDR
+@@ -1226,12 +1224,8 @@ bool __init early_init_dt_verify(void *dt_virt, phys_addr_t dt_phys)
  
- 	/* Append additional parameters passed for fadump capture kernel */
- 	fadump_append_bootargs();
+ void __init early_init_dt_scan_nodes(void)
+ {
+-	int rc;
+-
+ 	/* Retrieve various information from the /chosen node */
+-	rc = early_init_dt_scan_chosen(boot_command_line);
+-	if (rc)
+-		pr_warn("No chosen node found, continuing without\n");
++	early_init_dt_scan_chosen(boot_command_line);
+ 
+ 	/* Setup memory, calling early_init_dt_add_memory_arch */
+ 	early_init_dt_scan_memory();
+diff --git a/include/linux/of_fdt.h b/include/linux/of_fdt.h
+index 51dadbaa3d63..09e9d45f432b 100644
+--- a/include/linux/of_fdt.h
++++ b/include/linux/of_fdt.h
+@@ -68,7 +68,7 @@ extern int of_flat_dt_is_compatible(unsigned long node, const char *name);
+ extern unsigned long of_get_flat_dt_root(void);
+ extern uint32_t of_get_flat_dt_phandle(unsigned long node);
+ 
+-extern int early_init_dt_scan_chosen(char *cmdline);
++extern void early_init_dt_scan_chosen(char *cmdline);
+ extern int early_init_dt_scan_memory(void);
+ extern void early_init_dt_check_for_usable_mem_range(void);
+ extern int early_init_dt_scan_chosen_stdout(void);
 -- 
 2.43.0
 
