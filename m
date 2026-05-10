@@ -1,119 +1,122 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F169E2DE70D;
-	Sun, 10 May 2026 18:20:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A0CE2FF641;
+	Sun, 10 May 2026 18:32:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778437216; cv=none; b=Dt+nC9Mku7nNelrhi9jyixhMmZEsfHJ4dLQ2eph853cN5qapyFvK/ZeXWeecHGrmVjilJYkQenwxT0//giCWWPxd8A6xjSsb4DSTKPy7zcD6YL3dIvnEX2ynldx59C+uI2St+Oo7Od7Ko4xOM1yydrxx/rhVyAnbFTR3XuIhces=
+	t=1778437937; cv=none; b=qpGDNMRNji76FPXjtQsQ/2tVlpj7cpwzkbty6DXis/RcGc1jaLZy5qeQGf8FLsobIkd8KNsj0SQvq8RCu42DyPZS7GB80SpCpHkrg6HtLI5zl7aAoP5YymDPRtuDlzE7jM3hzQ+ZTEiqp7VpSXUEyFWjcyuEptLLOfpl2JozSeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778437216; c=relaxed/simple;
-	bh=E8ppbuZt4N1nON1sTQimhlSqJa/zeS+VNylMN584xf4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SMWhtVGby/9c12Iwq210D2vGMtLTIdFYQ3gIQZDstjuF04Lz0QAsBTn/VXPZlzvYhLyYaTjfYqF1pj0jkzQttqPbh/cVEGvdJ1DVODRIXbt6ib1563/rhQxBj0qWTl1Ai5H4oDEbLhylFBE/7Z1B/gCt7HBUjMne9iswFA9jnaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GoieQq3q; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1778437937; c=relaxed/simple;
+	bh=zhf2v3Fxq81QYgVX0wuET1y38n//e4jTE1V3yZEXPG4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=TUtmqzWHhprZiNmhjogkK/LL/8V6SqS3ku9aw+LYvBdPyYM0KpOHBcKoS9H/Zt/kFR0zra9PE6BkTcdinbbBfe6BtHEGAIsO7u74dt0S9e8XgtFHt0ugVbl8riDuY3fDNEdjjx3uoQVSvtF/LwlyaPawksdO76tWVEQ1ivkq11Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U/d+1Uvv; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GoieQq3q"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1778437215; x=1809973215;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=E8ppbuZt4N1nON1sTQimhlSqJa/zeS+VNylMN584xf4=;
-  b=GoieQq3qj3W9PhjDml14Gr0ehNKaTo70jsvbUqe7H3ZTMSECIjpBmIyn
-   holOioEBfIUIfhiby7wthInRxLGEjslZRGAf64O/ddaxr2n9vOieHj4Q0
-   CR7sJqJ6eoEQBta8Hc5ssluwBPUW4FjmYzH4Ku8P8MVK5BQfGN8IRD3gJ
-   qNHT60utoCgjXeGJbHITqo0dTiwfIlToBVjrKJIU5K4dfuTY3bcN2ROMT
-   A0jYBaikmPXDjsDWIdZH+uxtsfMEGG1unuBYAxp+DL9swo+7vYK2ntowJ
-   FYmQgcWb4U/QuI4P/CxmnUYEB5THdA5B7xtQVtUs/ItU14tmmwUSxU/ZE
-   g==;
-X-CSE-ConnectionGUID: 907B0bluTS2z/nNQgkjmnw==
-X-CSE-MsgGUID: XwWPILd8Ro2eGCxdK/Et+A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11782"; a="78366194"
-X-IronPort-AV: E=Sophos;i="6.23,227,1770624000"; 
-   d="scan'208";a="78366194"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 May 2026 11:20:14 -0700
-X-CSE-ConnectionGUID: QqqwtE87T1aI+SclKIGOXQ==
-X-CSE-MsgGUID: HqmcqqcdTKOBFOIsc9vbcw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,227,1770624000"; 
-   d="scan'208";a="242230279"
-Received: from dhhellew-desk2.ger.corp.intel.com (HELO localhost) ([10.245.244.171])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 May 2026 11:20:11 -0700
-Date: Sun, 10 May 2026 21:20:09 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: azkali.limited@gmail.com, Matti Vaittinen <mazziesaccount@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, CTCaer <ctcaer@gmail.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] iio: light: bh1730: Add bh1730 light sensor driver
-Message-ID: <agDMWcCYLCvX8vy_@ashevche-desk.local>
-References: <20260511-bh1730-v1-0-e0df1f499135@gmail.com>
- <20260511-bh1730-v1-2-e0df1f499135@gmail.com>
- <agDMAiBUtXLamFHY@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U/d+1Uvv"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2FE74C2BCB8;
+	Sun, 10 May 2026 18:32:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778437937;
+	bh=zhf2v3Fxq81QYgVX0wuET1y38n//e4jTE1V3yZEXPG4=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=U/d+1UvvQJw+09H4SOt8zwwq5cT/AdOnx7yIlslHaasPafOpRLkoL0jh1W+wnAklt
+	 hPspXFmmHSHz82mmZsb55L1k9ha7rQnoVy6jJgd8AFvAQ3vI/qI7bAuVRCE8Ssv4aD
+	 A4USBnPhTIR3eGBj2ORZ4ZfIs3leGcHk6DKqvunX5zmR3P/3rWkJLqRQ4VFvMU5YZt
+	 fj37VWBLL7jlmcKFivyWHpzSJaynu4FfFNpcwh+IbArBQTRhEQULLvg2yCJJS0P3Po
+	 cxcU1jue4yaPrc9U/273px3BgSSIIu/H/VrcW9nu63z/sh20jNVHXII8bPzE0zjMeW
+	 7Rx03+lUOGMhg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1850ECD4840;
+	Sun, 10 May 2026 18:32:17 +0000 (UTC)
+From: Alexandre Hamamdjian via B4 Relay <devnull+azkali.limited.gmail.com@kernel.org>
+Subject: [PATCH v2 0/3] usb: typec: add Rohm BM92TXX Type-C / PD controller
+ driver
+Date: Mon, 11 May 2026 01:32:08 +0700
+Message-Id: <20260511-bm92t-v2-0-2145e4f4386b@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <agDMAiBUtXLamFHY@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12NQQ6CMBBFr0JmbU07VbSuvIdhAe0UxlgwLTYaw
+ t0F3Ll8yfvvT5AoMiW4FBNEypx46BfAXQG2q/uWBLuFASWW8qikaILBUejTuVbGam1Iw+I+I3l
+ +b51b9eP0au5kx3W8Gh2ncYif7Sir1ftvZiWkcN5raxziActrG2p+7O0QoJrn+Qs/7YNLrAAAA
+ A==
+X-Change-ID: 20260510-bm92t-378a19c339e3
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, CTCaer <ctcaer@gmail.com>, 
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+ Alexandre Hamamdjian <azkali.limited@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778437929; l=1928;
+ i=azkali.limited@gmail.com; s=20260510; h=from:subject:message-id;
+ bh=zhf2v3Fxq81QYgVX0wuET1y38n//e4jTE1V3yZEXPG4=;
+ b=kFodGNoh7i42PTlga1DXS3gjvphT79mvS9m5p75ugk5y5GXgzHHPClLOLam0RuCgVuBM4mAy3
+ RklHpfzsM9ZCgNPfH+x+UBZgY2pCo409RZsHT3zcVQoyy0j5C6DFK3R
+X-Developer-Key: i=azkali.limited@gmail.com; a=ed25519;
+ pk=I0Z0IdCdQJqNGX+FQUnXhrHg950u3cM6Xzz3YT6JOyQ=
+X-Endpoint-Received: by B4 Relay for azkali.limited@gmail.com/20260510 with
+ auth_id=774
+X-Original-From: Alexandre Hamamdjian <azkali.limited@gmail.com>
+Reply-To: azkali.limited@gmail.com
 
-On Sun, May 10, 2026 at 09:18:48PM +0300, Andy Shevchenko wrote:
-> On Mon, May 11, 2026 at 01:09:50AM +0700, Alexandre Hamamdjian via B4 Relay wrote:
-> 
-> > Add a driver for the ROHM BH1730FVC ambient light sensor. The device
-> > is a 16-bit I2C digital sensor with separate visible and infrared
-> > photodiodes, four selectable gains (1x/2x/64x/128x) and a programmable
-> > integration time.
-> > 
-> > The driver exposes illuminance via IIO, performs runtime gain and
-> > integration-time tracking to keep the ADC in range, and supports
-> > optional als-vdd / als-vid regulators. Per-board lux calibration data
-> > (integration cycles, lux multiplier, optical-window coefficients, and
-> > gain sensitivity coefficients) can be supplied via device tree;
-> > sensible defaults are used otherwise.
-> 
-> > +#include <linux/delay.h>
-> > +#include <linux/i2c.h>
-> > +#include <linux/iio/iio.h>
-> > +#include <linux/module.h>
-> 
-> > +#include <linux/of.h>
-> 
-> Regular drivers do not to be OF-centric. This won't allow them to be used
-> outside of OF-only platforms.
-> 
-> > +#include <linux/time.h>
-> > +#include <linux/regulator/consumer.h>
-> 
-> Missing a lot of headers, follow IWYU.
+This series adds initial support for the Rohm Semiconductor BM92TXX
+family of USB Type-C and Power Delivery controllers.
 
-...
+This chipset is found on Nintendo Switch hardware, where it handles
+charger and dock USB-C / PD negotiation, DisplayPort alternate-mode
+entry through the dock and VBUS / VCONN control.
 
-> Here I stop my review and recommend you first to review others' patches and
-> learn from other reviews. This will help you a lot with avoiding typical
-> mistakes.
-> 
-> Also Matti would be the best reviewer for this as he worked (still works?)
-> for ROHM and knows the HW a bit more than average kernel developer.
+Further patches will follow to wire the driver up on Nintendo Switch
+device trees and to address review feedback.
 
-Forgot to Cc Matti since I mentioned him. Now done.
+Signed-off-by: Alexandre Hamamdjian <azkali.limited@gmail.com>
+---
+Changes in v2:
+- dt-bindings: usb: rohm,bm92t: fix properties type
+- Link to v1: https://patch.msgid.link/20260510-bm92t-v1-0-dff3c9d22426@gmail.com
 
--- 
-With Best Regards,
-Andy Shevchenko
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: CTCaer <ctcaer@gmail.com>
+To: Alexandre Hamamdjian <azkali.limited@gmail.com>
+To: Linus Walleij <linusw@kernel.org>
+To: Bartosz Golaszewski <brgl@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-usb@vger.kernel.org
+Cc: linux-gpio@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+
+---
+Alexandre Hamamdjian (2):
+      dt-bindings: usb: add Rohm BM92TXX Type-C controller
+      dt-bindings: usb: fix properties type
+
+CTCaer (1):
+      usb: typec: bm92txx: add Rohm BM92TXX support
+
+ .../devicetree/bindings/usb/rohm,bm92t.yaml        |  132 +
+ MAINTAINERS                                        |    8 +
+ drivers/usb/typec/Kconfig                          |   11 +
+ drivers/usb/typec/Makefile                         |    1 +
+ drivers/usb/typec/bm92txx.c                        | 2634 ++++++++++++++++++++
+ 5 files changed, 2786 insertions(+)
+---
+base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
+change-id: 20260510-bm92t-378a19c339e3
+
+Best regards,
+--  
+Alexandre Hamamdjian <azkali.limited@gmail.com>
 
 
