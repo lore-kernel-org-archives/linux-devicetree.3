@@ -1,140 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B1F39A067
-	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 14:05:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CBB0382373
+	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 14:05:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778421902; cv=none; b=D0xJixojCBD3WKUj9qRxuUuLuaJ15XBrjUagwEQ6EYDq6MViQA+fTqLi2uEvxqX6uq8vOPndIEqS0mQ8d+DFzz49727xVheutpeyPh40U6ANBBHHla47V/8sSG9bqS65+2fRU6CZfFbU6+4mwjvUxbaW/7Sga/31aVK9/S8nUMY=
+	t=1778421903; cv=none; b=Kv76tqKkSki//3D9sL2+z27SKG5VjhB/MD4pkEzlGMYb7MuFI2QOU325uzOzui26EMaXuaeYxHvCrtW7n74z8JfWE0dDzVTSAc1nf1Z/EoomaD7qN+YRdGZIWIRK2hGoIycm1YVtBv6pZfZK33GlSfrjnIgbmZcMz/Fzo0sP5lo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778421902; c=relaxed/simple;
-	bh=dJYaCi+yn4ax/081epn6bndSg6r0SUT554W11XYxbkY=;
+	s=arc-20240116; t=1778421903; c=relaxed/simple;
+	bh=GtWKs1KCV3wtWROYH/iJOkN3c51gaY7h3o+yVBnZh4g=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NNRiyTlj/pay8EQzRjYsUNJWB8wpFjdvsr+60jPfkSMeEMivlPwv3zCiFyfOI+FHMy2YXFUEGccD+KAvfL93/NvBNn2qh1L4OiWtzCvRxGIvkXTivcOJj6U2b3F58H43tG0FXZNExRhiotyAzW9QmYNcojM2H+YqXPwYQ3gE3GA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dnqif3n0; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=puMXjdgV5YV52VuijczEa/w2WPtk//SWBoZ1QFPnI3FS9iV3b/1Dc3BQvv1n8h7D39nMrRa2o9c71wAf+HzUJJyL8jIstoa4bydrW+j7JPAu5ZVUDyvmjfV23/sAmzTN/1HSSAtmxb0yyi9zHTU7xyuPXY/4nMRPvottjQb+9U8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MryFUhi6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dnqif3n0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF190C2BCC9;
-	Sun, 10 May 2026 14:05:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MryFUhi6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B244EC4AF0B;
+	Sun, 10 May 2026 14:05:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778421902;
-	bh=dJYaCi+yn4ax/081epn6bndSg6r0SUT554W11XYxbkY=;
+	s=k20201202; t=1778421903;
+	bh=GtWKs1KCV3wtWROYH/iJOkN3c51gaY7h3o+yVBnZh4g=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=Dnqif3n00ZHUvBxojh9ViM0ZeVb7cRro2zUt5YI2MpSPtHi57Ada+YwwtMMWASXbA
-	 PI1Z4cn4y2J100bhPw/zk2u1hTIHDCdllfRVQ7E/L2yny7rubkUHZh9kYZW9/ALS2G
-	 5+KyKvIM5GCI1qEIQiY8dxBZD8PzV8/Sd4dzyWe341Jgr5mGLJJs8p0pzcyAZ362+H
-	 vOA1wBKBtPaB8TS7hetSJthNZYnN31QtGayC+f5DRoOUIBqCKH5xsvHgoU78cM5f0i
-	 NXuOtQly2YhveX/OLHt1a1YrJlSgboMiFZdDvd6CdcEb2jt1LTEP2/B/GsqofJehE3
-	 7OT2p8oVlE47w==
+	b=MryFUhi6//eWENZO0R+JsmCOdqptl89NelIOCnKL8nrPrlL7/8aKBeiDYHINPjPl7
+	 YQkFUCQvjVlMKlWKGmIsfLgDnmRT6TQfvdf5kihYZaXTqnETTmVZNth+NO6pNY8CCW
+	 NdH4HlLkkWLe7iqzEOtbKoXJzcCEELmldeUkEMZy9laNzJbY15TwF5x6xa2dJDNX6u
+	 BKJ8ogSxxnNpY0R5YNxirR6hrg53q9tqtd1U1p1zt5TKqOBN8rZWHhrQ5LqQPdhupV
+	 u9AZwsgZa8cgQ4GaGaWN/7kyf8iw8zdbrqZ2S/xe1kYSkM+kHK9e2/B1b0nXImmiNw
+	 x/SnRNPo1h7CQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v5 01/12] dt-bindings: net: airoha: Add EN7581
- ethernet-ports properties
+Subject: Re: [PATCH net-next v5 02/12] net: airoha: Reserve RX headroom to
+ avoid skb reallocation
 Reply-To: sashiko@lists.linux.dev
 To: "Lorenzo Bianconi" <lorenzo@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260509-airoha-eth-multi-serdes-v5-1-805e38edc2aa@kernel.org>
-References: <20260509-airoha-eth-multi-serdes-v5-1-805e38edc2aa@kernel.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260509-airoha-eth-multi-serdes-v5-2-805e38edc2aa@kernel.org>
+References: <20260509-airoha-eth-multi-serdes-v5-2-805e38edc2aa@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 10 May 2026 14:05:01 +0000
-Message-Id: <20260510140501.AF190C2BCC9@smtp.kernel.org>
+Date: Sun, 10 May 2026 14:05:02 +0000
+Message-Id: <20260510140502.B244EC4AF0B@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The `reg` property check in the conditional `if` block uses an inv=
-alid JSON schema sequence that will always evaluate to false, causing valid=
- device trees to fail validation.
-- [High] The `ethernet-port@[0-5]` nodes model a `net_device` but strictly =
-forbid standard network configuration properties like `mac-address` and `ph=
-y-handle`.
-- [Low] Missing `#address-cells` and `#size-cells` in the `required` list f=
-or conditional child nodes.
+- [High] Missing bounds check adjustment for RX packet length allows buffer=
+ overflows
 --
 
-commit 270a641148bef0e32520efd84b62bf6b97aa5a63
+commit f34e8812cb62dd63f96801a39b0d65ee905cd258
 Author: Lorenzo Bianconi <lorenzo@kernel.org>
 
-dt-bindings: net: airoha: Add EN7581 ethernet-ports properties
+net: airoha: Reserve RX headroom to avoid skb reallocation
 
-This commit introduces the ethernet-port property for EN7581 and AN7583
-SoCs to model multiple net_devices connected via an external arbiter to
-GDM3 or GDM4 ports.
+This commit reserves NET_SKB_PAD + NET_IP_ALIGN bytes of headroom for
+received packets to avoid skb head reallocation when pushing protocol
+headers into the skb.
 
-> diff --git a/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml=
- b/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
-> --- a/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
-> +++ b/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
+> diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ether=
+net/airoha/airoha_eth.c
+> --- a/drivers/net/ethernet/airoha/airoha_eth.c
+> +++ b/drivers/net/ethernet/airoha/airoha_eth.c
 [ ... ]
-> @@ -130,6 +130,38 @@ patternProperties:
->          maximum: 4
->          description: GMAC port identifier
+> @@ -627,10 +629,12 @@ static int airoha_qdma_rx_process(struct airoha_que=
+ue *q, int budget)
 > =20
-> +      '#address-cells':
-> +        const: 1
-> +      '#size-cells':
-> +        const: 0
-> +
-> +    allOf:
-> +      - if:
-> +          properties:
-> +            reg:
-> +              items:
-> +                - enum:
-> +                    - 3
-> +                    - 4
+>  		port =3D eth->ports[p];
+>  		if (!q->skb) { /* first buffer */
+> -			q->skb =3D napi_build_skb(e->buf, q->buf_size);
+> +			q->skb =3D napi_build_skb(e->buf - AIROHA_RX_HEADROOM,
+> +						q->buf_size);
+>  			if (!q->skb)
+>  				goto free_frag;
+> =20
+> +			skb_reserve(q->skb, AIROHA_RX_HEADROOM);
+>  			__skb_put(q->skb, len);
 
-Will this schema condition evaluate as expected?
+Does this code overlook adjusting the bounds check for the RX packet
+length?
 
-In dt-schema, reg properties are parsed into a matrix format, which is an
-array of arrays of integers like [[3]]. This schema checks if the first
-element of the outer array matches the scalar values 3 or 4, but since
-the first element is an inner array, it won't match a scalar.
+Earlier in airoha_qdma_rx_process(), the software validation check
+uses the unadjusted lengths:
 
-Could this cause the if block to always evaluate to false, causing valid
-ethernet-port nodes to be incorrectly rejected because the parent node
-sets unevaluatedProperties: false?
+        data_len =3D q->skb ? q->buf_size
+                          : SKB_WITH_OVERHEAD(q->buf_size);
+        if (!len || data_len < len)
+                goto free_frag;
 
-> +        then:
+If the hardware descriptor returns a len that is larger than the newly
+adjusted dma_len but smaller than or equal to the old data_len, the
+check will pass.
 
-Since #address-cells and #size-cells are needed for the ethernet@[3-4]
-variants to act as buses for the new ethernet-port children, should they
-be included in a required list within this conditional block?
+Since skb_reserve() shifts the skb->tail forward by AIROHA_RX_HEADROOM,
+will calling __skb_put(q->skb, len) with this unvalidated oversized len
+push skb->tail past skb->end and overflow the skb_shared_info structure?
 
-Without them, an incomplete device tree could omit these properties and
-silently pass schema validation.
-
-> +          patternProperties:
-> +            "^ethernet-port@[0-5]$":
-> +              type: object
-> +              unevaluatedProperties: false
-
-Does setting unevaluatedProperties: false here without referencing
-ethernet-controller.yaml# forbid standard network properties?
-
-Since this models a net_device, driver code often expects to parse standard
-properties like mac-address or phy-handle. Device tree authors might not
-be able to configure them without triggering schema validation errors.
-
-> +              description: External ethernet port ID available on the GD=
-M port
-> +
-> +              properties:
-> +                compatible:
-> +                  const: airoha,eth-port
-> +
-> +                reg:
-> +                  maxItems: 1
-> +                  description: External ethernet port identifier
-> +
-> +              required:
-> +                - compatible
-> +                - reg
+Similarly for scattered fragments, could an oversized len passed to
+skb_add_rx_frag() cause out-of-bounds memory accesses beyond the allocated
+page fragment?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260509-airoha-eth=
--multi-serdes-v5-0-805e38edc2aa@kernel.org?part=3D1
+-multi-serdes-v5-0-805e38edc2aa@kernel.org?part=3D2
