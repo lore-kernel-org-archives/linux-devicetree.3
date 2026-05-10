@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 779E83932DC;
-	Sun, 10 May 2026 16:45:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC51253B42;
+	Sun, 10 May 2026 17:08:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778431532; cv=none; b=hdy9NTV5VLNqXP4+rbNXq3O7O+LS2cKxypyZfNASAjfXI9D65H1WeOqxpU4JV0OQ0KDGz3fEQmpl/IhGEGUFkfnIx+L2YIEt1TtRtvgEqEijsvVEsE8BkPVOImlxHYrhZVGQd+xgCIYU4+zbORE4COPv4RbeP9398cowNgWdlms=
+	t=1778432886; cv=none; b=IJ6n0Kr8psBVt9MprO1XEnRYAlfy5kKGJ2CaR/tDXQGPfr6XnsF8tterEKJWZZFv5a6nRjnN41odk4CtPQuRQCkMaLSW2k3jz3PV2izmYv0h5TE/B7m7FBg+Mvz1sI4zlFgwT2suPZuuXlvkSMjmf/3NCk0XOREXw5fDQZ5erNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778431532; c=relaxed/simple;
-	bh=C/b9UkKCbj8jWttvXi9T57BjZscwnF6nIS3MnQPWZMk=;
+	s=arc-20240116; t=1778432886; c=relaxed/simple;
+	bh=DmaaqQ+1IvWQqu/QWIYcpgG+vPszNRveAj7JBVSE7Jc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dQ25St0Rn1PGqAaGhaSpk4OIhGfL38o4aM6kJsXbBVDENsKiYvvdIJzFA1NOI2o7Mt3W9IsID68p6jadlIOoqN27ILOr3xM9hyLoE09NJIh9r+i7on/807qixrDNL7FH2AIKzbOwcyBZxDnQ+g91w0u06yuEMCGEs83aslKz/kM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FdUWX6+A; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=DcMT2ogx4YuvXkEylEOy1JgUZvifSvQYmZba0BVax98OCQ9g/7VLO5zvquMRt8IK6/H2VWLIgOHOjU88rP5JEY2oZqMPGtEQ+sNp3vLMkkiVZkE4+KeXUxZdZ8krDE1X3i1Mn7N9wtkBzaTZwXsWyua5QAMAO+eSdtJhflxvS4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vItAYTbN; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FdUWX6+A"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3ADC4C2BCC7;
-	Sun, 10 May 2026 16:45:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vItAYTbN"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E7400C2BCFD;
+	Sun, 10 May 2026 17:08:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778431532;
-	bh=C/b9UkKCbj8jWttvXi9T57BjZscwnF6nIS3MnQPWZMk=;
+	s=k20201202; t=1778432886;
+	bh=DmaaqQ+1IvWQqu/QWIYcpgG+vPszNRveAj7JBVSE7Jc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=FdUWX6+AI8fEIHmea2zbUSZLnUyUEeYLmg1rhd7vxtgS2wfd8AHcK/yPNeOQiBfMG
-	 LTfewUYvvPW4DZRcQZ3lSdRkpWBe7eg7lCRoIdXE+6oyMjQCQrADQVX9puxMZNFtF1
-	 PFILaXN7iMKg73p1kqV+bYY5mAZXOke7H4jWYiOq/k/BTJQxxsxlF5BLkw3fmTFpjC
-	 5StSuEtFNsA4cJ3Vsi7DJG1pjWiYfyfuBMzIjZXI/pU6zphGRif1dNGm7oVr8XfAI8
-	 ksnXMKc9Yi4K9wmXv8ykPEH0lAfXnnJvgNKJmlr3pII0EHszb9MaQrbKsXIh4GqMyo
-	 Qd3WjxsMqcr/A==
+	b=vItAYTbNtUJb1wu0vLc92nOO+85liWr+hYHETrAoA52Wzop7+b+8F/zNCZu1xaP0m
+	 tGR1qeiUyuNJP7Qek48MrpdNxezbiywVVw64yEbstiABMYllTf02pLOPN8ZJT1A1K+
+	 SREH2gIszn6B9Xxenc79xtUCXitIIKvzfHM0K8CeQZFUgW9kqFn22H4p8TRMo/R1/4
+	 O/szN2FhobHNoqncXUshGmqUaNR6c/Cyh6bJbJZaok5+cmhsTW6f65i4EyhQ56Ag08
+	 ik3lQlT0MJT8gHMvd0gIVT1wQEa3JjDfvTXnS5ouFMgX5bzKm/ph5c7uYMapZ2l+Jx
+	 QdbWKCOoJ3NwQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 32587CD37B2;
-	Sun, 10 May 2026 16:45:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D9724CD37BE;
+	Sun, 10 May 2026 17:08:05 +0000 (UTC)
 From: Alexandre Hamamdjian via B4 Relay <devnull+azkali.limited.gmail.com@kernel.org>
-Date: Sun, 10 May 2026 23:45:27 +0700
-Subject: [PATCH 2/2] regulator: sgm3804: add SGMicro SGM3804 charge-pump
- regulator driver
+Date: Mon, 11 May 2026 00:08:03 +0700
+Subject: [PATCH 2/2] backlight: sy7758: add Silergy SY7758 backlight driver
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,21 +40,24 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260510-sgm3804-v1-2-e5e8799e0aa0@gmail.com>
-References: <20260510-sgm3804-v1-0-e5e8799e0aa0@gmail.com>
-In-Reply-To: <20260510-sgm3804-v1-0-e5e8799e0aa0@gmail.com>
-To: Philippe Simons <simons.philippe@gmail.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+Message-Id: <20260511-sy7758-v1-2-999a33081304@gmail.com>
+References: <20260511-sy7758-v1-0-999a33081304@gmail.com>
+In-Reply-To: <20260511-sy7758-v1-0-999a33081304@gmail.com>
+To: Philippe Simons <simons.philippe@gmail.com>, Lee Jones <lee@kernel.org>, 
+ Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>
+Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-fbdev@vger.kernel.org, 
  Alexandre Hamamdjian <azkali.limited@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778431530; l=7075;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778432883; l=7264;
  i=azkali.limited@gmail.com; s=20260510; h=from:subject:message-id;
- bh=E41RJwBDNAULV6SEI17A9O0P6Si0eY2vOQkwOD/TtCE=;
- b=H38fPMAp6FRQn5M9M13oPGUVbVK+VvGLJ7jaWnpqj//Ua9Yvn78n3WJzMESAS1ovSac0bVNhy
- Nj4WHOlRjIhAVe8W7O7tGOp6Wv/hFr+Q9YkOaCSJ19Aheot4KLhBcjC
+ bh=9XCTIbMoV49y1xex8SxBrgLyf7GaS0QW2nGCwz+d0Fo=;
+ b=w4H2miBquw/vmK2oBk/P8SIhaq7vtIOc/wuxLqy86jD5m7ltkZiQxcjgmCFBNgBFKnldsN/BO
+ fcTis5LJoKpBXYppCZ6M53MTP2DNEAyOuwxpjFdBL2UR9TNFq50R97r
 X-Developer-Key: i=azkali.limited@gmail.com; a=ed25519;
  pk=I0Z0IdCdQJqNGX+FQUnXhrHg950u3cM6Xzz3YT6JOyQ=
 X-Endpoint-Received: by B4 Relay for azkali.limited@gmail.com/20260510 with
@@ -65,227 +67,236 @@ Reply-To: azkali.limited@gmail.com
 
 From: Alexandre Hamamdjian <azkali.limited@gmail.com>
 
-Add a driver for the SGMicro SGM3804, an I2C-controlled positive and
-negative output charge-pump regulator. The chip is typically used to
-generate the AVDD/AVEE rails of display panels, and is for example
-present on the Ayaneo Pocket DS handheld where it powers the panel.
+Add a driver for the Silergy SY7758 I2C-controlled multi-channel LED
+backlight controller. The chip drives the edge-lit LED strings of LCD
+panels in handheld and embedded devices, and is for example present on
+the Ayaneo Pocket DS handheld where it drives the panel backlight.
 
-The driver exposes a single 5V regulator and uses two reset GPIOs to
-sequence the positive and negative outputs. Initialisation values for
-the charge-pump configuration registers are written on enable, and the
-GPIOs are dropped on disable.
+The driver registers a backlight class device with a 12-bit linear
+brightness range. On the first non-zero update, the chip's mode and
+current configuration registers are programmed; subsequent brightness
+updates only rewrite the two brightness registers. A mutex serialises
+concurrent updates against the deferred init path.
 
 Co-developed-by: Philippe Simons <simons.philippe@gmail.com>
 Signed-off-by: Philippe Simons <simons.philippe@gmail.com>
 Signed-off-by: Alexandre Hamamdjian <azkali.limited@gmail.com>
 ---
- drivers/regulator/Kconfig             |  11 +++
- drivers/regulator/Makefile            |   1 +
- drivers/regulator/sgm3804-regulator.c | 164 ++++++++++++++++++++++++++++++++++
- 3 files changed, 176 insertions(+)
+ drivers/video/backlight/Kconfig  |  14 ++++
+ drivers/video/backlight/Makefile |   1 +
+ drivers/video/backlight/sy7758.c | 169 +++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 184 insertions(+)
 
-diff --git a/drivers/regulator/Kconfig b/drivers/regulator/Kconfig
-index d71dac9436e3..e1adb0bda75d 100644
---- a/drivers/regulator/Kconfig
-+++ b/drivers/regulator/Kconfig
-@@ -1490,6 +1490,17 @@ config REGULATOR_SC2731
- 	  This driver provides support for the voltage regulators on the
- 	  SC2731 PMIC.
+diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
+index a7a3fbaf7c29..c529d2861525 100644
+--- a/drivers/video/backlight/Kconfig
++++ b/drivers/video/backlight/Kconfig
+@@ -461,6 +461,20 @@ config BACKLIGHT_SKY81452
+ 	  To compile this driver as a module, choose M here: the module will
+ 	  be called sky81452-backlight
  
-+config REGULATOR_SGM3804
-+	tristate "SGMicro sgm3804 voltage regulator"
-+	depends on I2C && OF
++config BACKLIGHT_SY7758
++	tristate "Backlight Driver for Silergy SY7758"
++	depends on I2C
++	select REGMAP_I2C
 +	help
-+	  This driver supports the SGMicro SGM3804 I2C-controlled positive
-+	  and negative output charge-pump regulator, commonly used to supply
-+	  AVDD/AVEE rails to display panels. Two reset GPIOs are used to
-+	  sequence the positive and negative outputs.
++	  This enables support for the Silergy SY7758 I2C-controlled
++	  multi-channel LED backlight driver, commonly used to drive the
++	  edge-lit LED strings of LCD panels in handheld and embedded
++	  devices. The driver exposes a 12-bit linear brightness control
++	  through the standard backlight class.
 +
-+	  Say M here to build the driver as a module called sgm3804-regulator.
++	  To compile this driver as a module, choose M here: the module
++	  will be called sy7758.
 +
- config REGULATOR_SKY81452
- 	tristate "Skyworks Solutions SKY81452 voltage regulator"
- 	depends on MFD_SKY81452
-diff --git a/drivers/regulator/Makefile b/drivers/regulator/Makefile
-index 35639f3115fd..98ecbbc3c6b7 100644
---- a/drivers/regulator/Makefile
-+++ b/drivers/regulator/Makefile
-@@ -172,6 +172,7 @@ obj-$(CONFIG_REGULATOR_S2MPA01) += s2mpa01.o
- obj-$(CONFIG_REGULATOR_S2MPS11) += s2mps11.o
- obj-$(CONFIG_REGULATOR_S5M8767) += s5m8767.o
- obj-$(CONFIG_REGULATOR_SC2731) += sc2731-regulator.o
-+obj-$(CONFIG_REGULATOR_SGM3804) += sgm3804-regulator.o
- obj-$(CONFIG_REGULATOR_SKY81452) += sky81452-regulator.o
- obj-$(CONFIG_REGULATOR_SLG51000) += slg51000-regulator.o
- obj-$(CONFIG_REGULATOR_SPACEMIT_P1) += spacemit-p1.o
-diff --git a/drivers/regulator/sgm3804-regulator.c b/drivers/regulator/sgm3804-regulator.c
+ config BACKLIGHT_TPS65217
+ 	tristate "TPS65217 Backlight"
+ 	depends on MFD_TPS65217
+diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
+index 794820a98ed4..00d3e379b297 100644
+--- a/drivers/video/backlight/Makefile
++++ b/drivers/video/backlight/Makefile
+@@ -57,6 +57,7 @@ obj-$(CONFIG_BACKLIGHT_QCOM_WLED)	+= qcom-wled.o
+ obj-$(CONFIG_BACKLIGHT_RT4831)		+= rt4831-backlight.o
+ obj-$(CONFIG_BACKLIGHT_SAHARA)		+= kb3886_bl.o
+ obj-$(CONFIG_BACKLIGHT_SKY81452)	+= sky81452-backlight.o
++obj-$(CONFIG_BACKLIGHT_SY7758)		+= sy7758.o
+ obj-$(CONFIG_BACKLIGHT_TPS65217)	+= tps65217_bl.o
+ obj-$(CONFIG_BACKLIGHT_WM831X)		+= wm831x_bl.o
+ obj-$(CONFIG_BACKLIGHT_ARCXCNN) 	+= arcxcnn_bl.o
+diff --git a/drivers/video/backlight/sy7758.c b/drivers/video/backlight/sy7758.c
 new file mode 100644
-index 000000000000..c52f0596acf3
+index 000000000000..6a318bd62030
 --- /dev/null
-+++ b/drivers/regulator/sgm3804-regulator.c
-@@ -0,0 +1,164 @@
++++ b/drivers/video/backlight/sy7758.c
+@@ -0,0 +1,169 @@
 +// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Backlight driver for the Silergy sy7758
++ *
++ * Copyright (C) 2025 Kancy Joe <kancy2333@outlook.com>
++ */
 +
++#include <linux/backlight.h>
 +#include <linux/err.h>
++#include <linux/gpio/consumer.h>
 +#include <linux/i2c.h>
 +#include <linux/module.h>
++#include <linux/of.h>
 +#include <linux/regmap.h>
-+#include <linux/regulator/driver.h>
-+#include <linux/regulator/of_regulator.h>
-+#include <linux/gpio/consumer.h>
 +
-+struct sgm3804_data {
++#define DEFAULT_BRIGHTNESS 1500
++#define MAX_BRIGHTNESS 4080
++#define REG_MAX 0xa9
++
++#define BL_BRT_L 0x10
++#define BL_BRT_H 0x11
++
++static DEFINE_MUTEX(sy7758_update_backlight_mutex);
++
++struct sy7758 {
++	struct i2c_client *client;
 +	struct regmap *regmap;
-+	struct gpio_desc *reset_gpio[2];
-+	bool enabled;
++	bool led_on;
 +};
 +
-+static const struct regmap_config sgm3804_regmap_config = {
++static void sy7758_init(struct sy7758 *sydev);
++
++static const struct regmap_config sy7758_regmap_config = {
 +	.reg_bits = 8,
 +	.val_bits = 8,
-+	.max_register = 0x03,
++	.max_register = REG_MAX,
 +};
 +
-+static int sgm3804_enable(struct regulator_dev *rdev)
++static int sy7758_write(struct sy7758 *sydev, unsigned int reg,
++			 unsigned int val)
 +{
-+	struct sgm3804_data *data = rdev_get_drvdata(rdev);
-+	struct regmap *regmap = data->regmap;
-+	int ret = 0;
++	return regmap_write(sydev->regmap, reg, val);
++}
 +
-+	/* Set reset GPIO high to enable the device if available */
-+	if (data->reset_gpio[0])
-+		gpiod_set_value_cansleep(data->reset_gpio[0], 1);
++static int sy7758_backlight_update_status(struct backlight_device *backlight_dev)
++{
++	struct sy7758 *sydev = bl_get_data(backlight_dev);
++	unsigned int brightness = backlight_get_brightness(backlight_dev);
 +
-+	if (data->reset_gpio[1])
-+		gpiod_set_value_cansleep(data->reset_gpio[1], 1);
++	mutex_lock(&sy7758_update_backlight_mutex);
 +
-+	ret |= regmap_write(regmap, 0x00, 0x0c);
-+	ret |= regmap_write(regmap, 0x01, 0x0c);
-+	ret |= regmap_write(regmap, 0x03, 0x03);
-+	if (ret) {
-+		dev_err(rdev->dev.parent,
-+			"Failed to enable SGM3804 regulator\n");
-+		return ret;
++	if (!sydev->led_on && brightness > 0) {
++		sy7758_init(sydev);
++		sydev->led_on = true;
++	} else if (brightness == 0) {
++		sydev->led_on = false;
 +	}
 +
-+	data->enabled = true;
++	sy7758_write(sydev, BL_BRT_L, brightness & 0xf0);
++
++	sy7758_write(sydev, BL_BRT_H, (brightness >> 8) & 0xf);
++
++	mutex_unlock(&sy7758_update_backlight_mutex);
 +	return 0;
 +}
 +
-+static int sgm3804_disable(struct regulator_dev *rdev)
-+{
-+	struct sgm3804_data *data = rdev_get_drvdata(rdev);
-+
-+	if (data->reset_gpio[0])
-+		gpiod_set_value_cansleep(data->reset_gpio[0], 0);
-+
-+	if (data->reset_gpio[1])
-+		gpiod_set_value_cansleep(data->reset_gpio[1], 0);
-+
-+	data->enabled = false;
-+	return 0;
-+}
-+
-+static int sgm3804_is_enabled(struct regulator_dev *rdev)
-+{
-+	struct sgm3804_data *data = rdev_get_drvdata(rdev);
-+
-+	return data->enabled;
-+}
-+
-+static int sgm3804_get_voltage(struct regulator_dev *rdev)
-+{
-+	return 5000000;
-+}
-+
-+static const struct regulator_ops sgm3804_ops = {
-+	.enable = sgm3804_enable,
-+	.disable = sgm3804_disable,
-+	.is_enabled = sgm3804_is_enabled,
-+	.get_voltage = sgm3804_get_voltage,
++static const struct backlight_ops sy7758_backlight_ops = {
++	.options = BL_CORE_SUSPENDRESUME,
++	.update_status = sy7758_backlight_update_status,
 +};
 +
-+static const struct regulator_desc sgm3804_reg = {
-+	.name = "SGM3804",
-+	.id = 0,
-+	.ops = &sgm3804_ops,
-+	.type = REGULATOR_VOLTAGE,
-+	.n_voltages = 1,
-+	.min_uV = 5000000,
-+	.owner = THIS_MODULE,
-+};
-+
-+static int sgm3804_i2c_probe(struct i2c_client *i2c)
++static void sy7758_init(struct sy7758 *sydev)
 +{
-+	struct device *dev = &i2c->dev;
-+	struct regulator_config config = {};
-+	struct regulator_dev *rdev;
-+	struct sgm3804_data *data;
-+	int error;
++	sy7758_write(sydev, 0x01, 0x85);
++	sy7758_write(sydev, 0x10, 0x00);
++	sy7758_write(sydev, 0x11, 0x00);
++	sy7758_write(sydev, 0xa5, 0x64);
++	sy7758_write(sydev, 0xa0, 0x55);
++	sy7758_write(sydev, 0xa1, 0x9a);
++	sy7758_write(sydev, 0xa9, 0x80);
++	sy7758_write(sydev, 0xa2, 0x28);
 +
-+	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
++	usleep_range(10000, 11000);
++
++	sy7758_write(sydev, 0x10, 0x40);
++	sy7758_write(sydev, 0x11, 0x01);
++	// Max brightness
++	// 0x10: 0xf0 Low
++	// 0x11: 0x0f High
++
++	// Min brightness
++	// 0x10: 0x10  Low
++	// 0x11: 0x00  High
++	sydev->led_on = true;
++}
++
++static int sy7758_probe(struct i2c_client *client)
++{
++	struct backlight_device *backlight_dev;
++	struct backlight_properties props;
++	struct sy7758 *sydev;
++
++	sydev = devm_kzalloc(&client->dev, sizeof(*sydev), GFP_KERNEL);
++	if (!sydev)
 +		return -ENOMEM;
 +
-+	data->regmap = devm_regmap_init_i2c(i2c, &sgm3804_regmap_config);
-+	if (IS_ERR(data->regmap))
-+		return dev_err_probe(dev, PTR_ERR(data->regmap),
-+				     "failed to init regmap\n");
++	sydev->client = client;
++	sydev->regmap = devm_regmap_init_i2c(client, &sy7758_regmap_config);
++	if (IS_ERR(sydev->regmap))
++		return dev_err_probe(&client->dev, PTR_ERR(sydev->regmap),
++			"failed to init regmap\n");
 +
-+	/* Get reset-gpio from device tree */
-+	data->reset_gpio[0] =
-+		devm_gpiod_get_index(dev, "reset", 0, GPIOD_OUT_HIGH);
-+	if (IS_ERR(data->reset_gpio[0]))
-+		return dev_err_probe(dev, PTR_ERR(data->reset_gpio[0]),
-+				     "failed to get first reset GPIO\n");
++	memset(&props, 0, sizeof(props));
++	props.type = BACKLIGHT_RAW;
++	props.max_brightness = MAX_BRIGHTNESS;
++	props.brightness = DEFAULT_BRIGHTNESS;
++	props.scale = BACKLIGHT_SCALE_LINEAR;
 +
-+	data->reset_gpio[1] =
-+		devm_gpiod_get_index(dev, "reset", 1, GPIOD_OUT_HIGH);
-+	if (IS_ERR(data->reset_gpio[1]))
-+		dev_warn(dev, "failed to get second reset GPIO\n");
++	backlight_dev = devm_backlight_device_register(&client->dev, "sy7758-backlight",
++					&client->dev, sydev, &sy7758_backlight_ops, &props);
++	if (IS_ERR(backlight_dev))
++		return dev_err_probe(&client->dev, PTR_ERR(backlight_dev),
++				"failed to register backlight device\n");
 +
-+	config.dev = dev;
-+	config.regmap = data->regmap;
-+	config.driver_data = data;
-+	config.of_node = dev->of_node;
-+	config.init_data =
-+		of_get_regulator_init_data(dev, dev->of_node, &sgm3804_reg);
-+	if (!config.init_data)
-+		return -ENOMEM;
-+	data->enabled = false;
-+	rdev = devm_regulator_register(dev, &sgm3804_reg, &config);
-+	if (IS_ERR(rdev)) {
-+		error = PTR_ERR(rdev);
-+		dev_err(dev, "Failed to register SGM3804 regulator: %d\n",
-+			error);
-+		return error;
-+	}
++	sy7758_init(sydev);
++
++	i2c_set_clientdata(client, backlight_dev);
++	backlight_update_status(backlight_dev);
 +
 +	return 0;
 +}
 +
-+static const struct i2c_device_id sgm3804_i2c_id[] = { { "sgm3804" }, {} };
-+MODULE_DEVICE_TABLE(i2c, sgm3804_i2c_id);
++static void sy7758_remove(struct i2c_client *client)
++{
++	struct backlight_device *backlight_dev = i2c_get_clientdata(client);
 +
-+static const struct of_device_id sgm3804_i2c_of_match[] = {
-+	{ .compatible = "sgmicro,sgm3804" },
++	backlight_dev->props.brightness = 0;
++	backlight_update_status(backlight_dev);
++}
++
++static const struct i2c_device_id sy7758_ids[] = {
++	{ "sy7758" },
 +	{}
 +};
-+MODULE_DEVICE_TABLE(of, sgm3804_i2c_of_match);
++MODULE_DEVICE_TABLE(i2c, sy7758_ids);
 +
-+static struct i2c_driver sgm3804_regulator_driver = {
-+	.driver = {
-+		.name = "sgm3804",
-+		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
-+		.of_match_table = sgm3804_i2c_of_match,
++static const struct of_device_id sy7758_match_table[] = {
++	{
++		.compatible = "silergy,sy7758",
 +	},
-+	.probe = sgm3804_i2c_probe,
-+	.id_table = sgm3804_i2c_id,
++	{},
++};
++MODULE_DEVICE_TABLE(of, sy7758_match_table);
++
++static struct i2c_driver sy7758_driver = {
++	.driver = {
++		.name = "sy7758",
++		.of_match_table = sy7758_match_table,
++	},
++	.probe = sy7758_probe,
++	.remove = sy7758_remove,
++	.id_table = sy7758_ids,
 +};
 +
-+module_i2c_driver(sgm3804_regulator_driver);
++module_i2c_driver(sy7758_driver);
 +
-+MODULE_DESCRIPTION("SGMicro sgm3804 regulator Driver");
++MODULE_DESCRIPTION("Silergy sy7758 Backlight Driver");
 +MODULE_AUTHOR("Kancy Joe <kancy2333@outlook.com>");
 +MODULE_LICENSE("GPL");
 
