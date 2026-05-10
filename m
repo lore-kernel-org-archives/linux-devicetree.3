@@ -1,137 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1798372698;
-	Sun, 10 May 2026 10:48:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF9736683B
+	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 11:08:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778410121; cv=none; b=uIJAEPadGx+i+i88rPzb9d6FWiqaQWDGLVvMPGjvrZH6nD3JH/tcMdf7YJL/xaTlwwTGlcO9rdJTqUREfSuRAzy+JJa0Wx78wBU9Q8cbQLR1y9lkXGwwYKCy5Ly6U3cKbRqYs3SzaSb7irjGVXkS/v3jUNKKQfcB9Rq2Pl/Q34U=
+	t=1778411313; cv=none; b=cCjH8bQ8Cvyf0t4/nVGz9rK28A7Wsyyg+q2viLLE2ebk5JkbIl+KGDgkh2X7EQFYn8NB6ZfGwTyLrkKSr9r9s6lWXhdqNZpDbCBvJcheXBYrL8bcgR8Ihj9OFPUrJAou5arGfhrBwqqbZPaMPnqjTfA6vdFMPB36rxFMqn4SVhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778410121; c=relaxed/simple;
-	bh=XBktwcwzVvUa40X5khKrpsu8UJsfY2FRLoqhwY0yM38=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jQ+7enqXxtirmTdGJXnrSfHzX+NKOFY+jwVBitfR8Zc3AqOo9xXOF7fQBKO4y5H62nEmNF7V2XTjqsvUUqC7sbFd2lApHdaqmoYxGTpOPMKK17DtMx3wyBq6b4CJ4EJE7IBBz5Jag9aMvRPzvgOuVn0JUsNhIg2hj0sqEPxJEvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mkssIs6j; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778411313; c=relaxed/simple;
+	bh=VZr/KgDt/hGxG6GZ4EDdLnrAIFerfJ7PgEKpMx+t91E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=b1j3vZQt+VwcPE9kbAtDUOEb7nt5NzKhoUBhygC7aYkHQRpzMQ8AMWD909/dPDmVsSVcITJuFMDYHjq8mHyzQKGStK/d81VapfILVNCcrzidEebhZMwAfqum1xvl6VeK7DTM2i8klWABgg8QJ5JXOJVH/MzToiFpdNPzBHywneo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BwL/I45x; arc=none smtp.client-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mkssIs6j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11938C2BCB8;
-	Sun, 10 May 2026 10:48:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778410121;
-	bh=XBktwcwzVvUa40X5khKrpsu8UJsfY2FRLoqhwY0yM38=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=mkssIs6jG6nQ9SHx4jXN/OPA3yEHoZm0yqilk+Qe56L7rpJwQ0VvU7NfyWX+ilowp
-	 gQU4luVJm9whLg5BHsA8A1rVqP7qrrNA95hpEPkmpdkDW5vYICxYbc70X9fZ821esX
-	 LaOWwPIb4jRXO7flJd9bZSSGkI4rjebAbjGI4MxT7olzhHsrUFUlg0QjVxHbneryHv
-	 io16yPhoxab8sjvON1A30l6SJ0iLvWzZguB852G+qTM6hoxt+ojrdopb222fIMs9CL
-	 OX78LG2/hDMxTr6TzK6g1S1bzeXduiXDyVgg2ZlIM/H7yzINcKhxX6QG8mt8VLLQVt
-	 7VyRZni3BLYGg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 net-next 15/15] net: dsa: netc: add support for
- ethtool private statistics
-Reply-To: sashiko@lists.linux.dev
-To: "Wei Fang" <wei.fang@nxp.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org, krzk+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20260509102954.4116624-16-wei.fang@nxp.com>
-References: <20260509102954.4116624-16-wei.fang@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 10 May 2026 10:48:40 +0000
-Message-Id: <20260510104841.11938C2BCB8@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BwL/I45x"
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-67e24b8ef55so4499351a12.1
+        for <devicetree@vger.kernel.org>; Sun, 10 May 2026 04:08:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778411310; x=1779016110; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=w7VsOIce7RBjPGjcbUBZuNu1NQetW/4tiS7UIOUx/bI=;
+        b=BwL/I45xrnylbMqje1bY0+ecBHS2i5T6II4g3p6x4SZpptZPt+nVNYhzfHK/36i2n6
+         SzuZQGyctdMCvxKzuISXL0tZ8V3+e4C9x0eEQ9hNfyACkkyBjn/exrp5kCFti5eUG3Cp
+         KftpP95gAb/SKaXLrdXgJk0ZCD6p2aADJFWkgW7dHKQtjUKcFQXkE6hv1rawZcDsLHpl
+         2+M1urt3dFs4U9HdEhYtyPRXQL1pysQBahEVJ6F0OEgGC8RHA1U6FzF0Xwkn0Dtz4Q05
+         jjBvhpFFSca6cXG7mlfyQJMPVwLtSaFj1We2WZE2ROIvG/7za6csN4Yrn4NfS7gcDkvR
+         Ablg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778411310; x=1779016110;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=w7VsOIce7RBjPGjcbUBZuNu1NQetW/4tiS7UIOUx/bI=;
+        b=moqftFvu3neXsXdKXgM/5xl+FHv6wZqej8rUuNGkVpsobwHFk8Od0aQ9OaMvjSGyzb
+         S50QIjHWvhhxKFV5WNUlK1KcE8OfWU9zZfTwcmA+D4I48wEl64YUYDIPPrhLjr7jMlh0
+         On5TjyJA80gnB1yBUv77o+lWHafpcWx5x1YfstQE0O+EJJ9CBpT1y+kXOcft7/jna8nG
+         bCO6EfgbCAucVR+WUuzvdwpW8b+akIfubxx05VOtdwyzhNMbOWBM5PZyZHcO9aKTvUpj
+         RhHoUl0Cs/wdznn7iXzWpKW+wDKsOm2XXl0ysAZUKx77Mnfzilf+qYoNncwf1y7OsZTo
+         vKDw==
+X-Forwarded-Encrypted: i=1; AFNElJ+GKGWA3vYpF5tQn+7T/2RmoU3ZGrAbrDmVhBCAzpS22dMhwFs0NXD3k7nGxpLjsOZDCgtY5t6JdN34@vger.kernel.org
+X-Gm-Message-State: AOJu0YwMkxt3C7TUnEd5sDCbnhPXZaUrb2qgEprH4ldpLxfLPVgPzB/w
+	L0DNraUK/yq4ZZFiSILbmGrpFBXoqvP9rm0ynWNSUY9RuBAR8l+V6ZEu
+X-Gm-Gg: Acq92OGHTL2IvWY3R0NaZu17ML2u0ZP4uAoFutdLTxiZ6EAeXykcRnjcXMf5u6s0k1x
+	UVaGRh+s7cRvNsXtSWqiTZH2kEMv/LkmKTt4E0/morTfUY9wg0rNJB+S+Paf72JAqxTyu7SQalC
+	GtCVLmkLhYitM+xZegAgNKFOQSPU+fvh1nzKFplNa5+yUQV8jyPbnoKIWVSNGyUhHBy+0Jdk8u9
+	gm6xxfwpD2LHHNWRnCM2UwL5ObVTQxtZxdEp72nYkv93S8B30tQb03fb9+PTygn3qlRVw/ZiIMN
+	4W7zV5UhkAm1GFpQYDf9ZHckwv+iWvfZHG3FabFK1FAVYgxaPmbJUlpvCH5lwuFIGB9aUTxYa79
+	Vu6QIFKIy9AOKPgxmrTH13wrl1XaN/c868QGlR13UFP7BKmdVSsJJc+lxs8+OrXfDB2TWGzlSHI
+	6/Q1pgGEXPGxqBEm5aL/3W6dg=
+X-Received: by 2002:a17:906:f58e:b0:bce:e7ac:3682 with SMTP id a640c23a62f3a-bcee7ac45c8mr61385966b.33.1778411309862;
+        Sun, 10 May 2026 04:08:29 -0700 (PDT)
+Received: from xeon ([188.163.112.56])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bce7a3fcb57sm68146866b.60.2026.05.10.04.08.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 10 May 2026 04:08:29 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Tony Lindgren <tony@atomide.com>
+Cc: linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-leds@vger.kernel.org
+Subject: [PATCH v5 0/6] mfd: cpcap: convert documentation to schema and add Mot board support
+Date: Sun, 10 May 2026 14:07:58 +0300
+Message-ID: <20260510110804.33045-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The patch duplicates standard network statistics into the privat=
-e ethtool (-S) interface.
---
+The initial goal was only to add support for the CPCAP used in the Mot
+Tegra20 board; however, since the documentation was already partially
+converted, I decided to complete the conversion to schema too.
 
-commit 66f17e671c095a381aeff77d1d8c0cae1e43722c
-Author: Wei Fang <wei.fang@nxp.com>
+The CPCAP regulator, leds, rtc, pwrbutton and core files were converted
+from TXT to YAML while preserving the original structure. Mot board
+compatibility was added to the regulator and core schema. Since these
+were one-line patches, they were not separated into dedicated commits;
+however, the commit message notes this for both cases.
 
-net: dsa: netc: add support for ethtool private statistics
+Finally, the CPCAP MFD was slightly refactored to improve support for
+multiple subcell compositions.
 
-Implement the ethtool private statistics interface to expose additional
-port-level and MAC-level counters that are not covered by the standard
-IEEE 802.3 statistics. The pMAC counters are only reported when the port
-supports Frame Preemption (802.1Qbu/802.3br).
+---
+Changes in v2:
+- fixed code style
+- rtc conversion was picked, so patch dropped
+- added audio ports description into mfd schema
+- splitted schema conversion and compatible addition
+- minor style improvements and typo fixes
 
-> diff --git a/drivers/net/dsa/netc/netc_ethtool.c b/drivers/net/dsa/netc/n=
-etc_ethtool.c
-> index ac8940b5a85c6..8d04db534347c 100644
-> --- a/drivers/net/dsa/netc/netc_ethtool.c
-> +++ b/drivers/net/dsa/netc/netc_ethtool.c
-> @@ -19,6 +19,56 @@ static const struct ethtool_rmon_hist_range netc_rmon_=
-ranges[] =3D {
->  	{ }
->  };
-> =20
-> +static const struct netc_port_stat netc_port_counters[] =3D {
-> +	{ NETC_PTGSLACR,	"port gate late arrival frames" },
-> +	{ NETC_PSDFTCR,	"port SDF transmit frames" },
-> +	{ NETC_PSDFDDCR,	"port SDF drop duplicate frames" },
-> +	{ NETC_PRXDCR,		"port rx discard frames" },
-> +	{ NETC_PRXDCRRR,	"port rx discard read-reset" },
-> +	{ NETC_PRXDCRR0,	"port rx discard reason 0" },
-> +	{ NETC_PRXDCRR1,	"port rx discard reason 1" },
-> +	{ NETC_PTXDCR,		"port tx discard frames" },
-> +	{ NETC_PTXDCRRR,	"port tx discard read-reset" },
-> +	{ NETC_PTXDCRR0,	"port tx discard reason 0" },
-> +	{ NETC_PTXDCRR1,	"port tx discard reason 1" },
-> +	{ NETC_BPDCR,		"bridge port discard frames" },
-> +	{ NETC_BPDCRRR,	"bridge port discard read-reset" },
-> +	{ NETC_BPDCRR0,	"bridge port discard reason 0" },
-> +	{ NETC_BPDCRR1,	"bridge port discard reason 1" },
-> +};
-> +
-> +static const struct netc_port_stat netc_emac_counters[] =3D {
-> +	{ NETC_PM_ROCT(0),	"eMAC rx octets" },
-> +	{ NETC_PM_RVLAN(0),	"eMAC rx VLAN frames" },
-> +	{ NETC_PM_RERR(0),	"eMAC rx frame errors" },
-> +	{ NETC_PM_RUCA(0),	"eMAC rx unicast frames" },
-> +	{ NETC_PM_RDRP(0),	"eMAC rx dropped packets" },
-> +	{ NETC_PM_RPKT(0),	"eMAC rx packets" },
-> +	{ NETC_PM_TOCT(0),	"eMAC tx octets" },
-> +	{ NETC_PM_TVLAN(0),	"eMAC tx VLAN frames" },
-> +	{ NETC_PM_TFCS(0),	"eMAC tx FCS errors" },
-> +	{ NETC_PM_TUCA(0),	"eMAC tx unicast frames" },
-> +	{ NETC_PM_TPKT(0),	"eMAC tx packets" },
-> +	{ NETC_PM_TUND(0),	"eMAC tx undersized packets" },
-> +	{ NETC_PM_TIOCT(0),	"eMAC tx invalid octets" },
-> +};
-> +
-> +static const struct netc_port_stat netc_pmac_counters[] =3D {
-> +	{ NETC_PM_ROCT(1),	"pMAC rx octets" },
-> +	{ NETC_PM_RVLAN(1),	"pMAC rx VLAN frames" },
-> +	{ NETC_PM_RERR(1),	"pMAC rx frame errors" },
-> +	{ NETC_PM_RUCA(1),	"pMAC rx unicast frames" },
-> +	{ NETC_PM_RDRP(1),	"pMAC rx dropped packets" },
-> +	{ NETC_PM_RPKT(1),	"pMAC rx packets" },
-> +	{ NETC_PM_TOCT(1),	"pMAC tx octets" },
-> +	{ NETC_PM_TVLAN(1),	"pMAC tx VLAN frames" },
-> +	{ NETC_PM_TFCS(1),	"pMAC tx FCS errors" },
-> +	{ NETC_PM_TUCA(1),	"pMAC tx unicast frames" },
-> +	{ NETC_PM_TPKT(1),	"pMAC tx packets" },
-> +	{ NETC_PM_TUND(1),	"pMAC tx undersized packets" },
-> +	{ NETC_PM_TIOCT(1),	"pMAC tx invalid octets" },
-> +};
+Changes in v3:
+- added regulator node names list into pattern
+- filled spi_device_id with driver data
+- ADC patches were picked, so changes dropped
 
-Should these standard MAC statistics be exposed as private ethtool strings?
+Changes in v4:
+- dropped regulator patches (applied)
 
-Many of the counters defined in netc_emac_counters and netc_pmac_counters,
-such as rx octets, rx packets, rx dropped packets, and tx FCS errors,
-appear to correspond directly to existing standard uAPIs like
-struct rtnl_link_stats64 or struct ethtool_eth_mac_stats.
+Changes in v5:
+- switched to MFD_CELL_* macros
+- switched to use determinator of model
+- switched to spi_get_device_match_data
+---
 
-Since the driver already implements netc_port_get_eth_mac_stats(), which
-supports both eMAC and pMAC sources, could these standard counters be
-reported through the standard interfaces instead to avoid duplicating
-them in ethtool -S?
+Svyatoslav Ryhel (6):
+  dt-bindings: leds: leds-cpcap: convert to DT schema
+  dt-bindings: input: cpcap-pwrbutton: convert to DT schema
+  dt-bindings: mfd: motorola-cpcap: convert to DT schema
+  dt-bindings: mfd: motorola-cpcap: document Mapphone and Mot CPCAP
+  mfd: motorola-cpcap: diverge configuration per-board
+  mfd: motorola-cpcap: add support for Mot CPCAP composition
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260509102954.4116=
-624-1-wei.fang@nxp.com?part=3D15
+ .../bindings/input/cpcap-pwrbutton.txt        |  20 -
+ .../input/motorola,cpcap-pwrbutton.yaml       |  32 ++
+ .../devicetree/bindings/leds/leds-cpcap.txt   |  29 --
+ .../bindings/leds/motorola,cpcap-leds.yaml    |  42 ++
+ .../bindings/mfd/motorola,cpcap.yaml          | 419 ++++++++++++++++++
+ .../bindings/mfd/motorola-cpcap.txt           |  78 ----
+ drivers/mfd/motorola-cpcap.c                  | 172 ++++---
+ include/linux/mfd/motorola-cpcap.h            |   7 +
+ 8 files changed, 611 insertions(+), 188 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/input/cpcap-pwrbutton.txt
+ create mode 100644 Documentation/devicetree/bindings/input/motorola,cpcap-pwrbutton.yaml
+ delete mode 100644 Documentation/devicetree/bindings/leds/leds-cpcap.txt
+ create mode 100644 Documentation/devicetree/bindings/leds/motorola,cpcap-leds.yaml
+ create mode 100644 Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml
+ delete mode 100644 Documentation/devicetree/bindings/mfd/motorola-cpcap.txt
+
+-- 
+2.51.0
+
