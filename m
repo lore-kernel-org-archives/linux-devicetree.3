@@ -1,63 +1,63 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 979A036C9C0
-	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 08:44:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E01636BCE8
+	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 08:44:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778402663; cv=none; b=Lw0OpBguzcq5RYBH6yhqT53mFIhbt+ML+bTGl6Kn4ST12QAhXYUcbTV8HG4pEtOdBGE4Vplh/Ul3QDRwcbLe1KiXT8Vku2eEBKPugd3mM01wKOb9k5JnnIEq1uTu1TLdLheVWwTDnIizlIQRn4K8RF4RN0EACSevQKdMZVuXqMc=
+	t=1778402667; cv=none; b=auKYBH/R4c60dIisYVA7z0jwy3RQnYp0rHcbKWs3xPQjs4P9YIChRNLC2H9BfxpJgCLGoLc+gKmlYw4N+sUV4EHYNT07jMHh5ZKIDFZWQfCCeNU8ZUmb8/O/TNLsW2ynNXmJADDtIS7Iqe+IQNdMPkwmnZlAHG9WZfMnoswDyns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778402663; c=relaxed/simple;
-	bh=hAz9cVk/REbCqtvF14qK2qb5B2E/7eVaibiWkjmIo8g=;
+	s=arc-20240116; t=1778402667; c=relaxed/simple;
+	bh=QvovCQmJ+gNwOKXmFubp1pSBgHFF8PAaDYbodfMiqpM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gZQVhvx9TcWeH5mVBWLKkoAi5iUjEl/dl9xy8G7AJC0hy61hy/0hNxzmQnt6XxnZC1odRg3hUMKVk/JxYRxgrAutXNWkFlVcC/SpMmAriMmwPScVtIgaadYHUoIT5sjWF07hic3bLIrEEDF6AhkPDPkp4onZLArUIG+/ns1CEbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZuqfS2kt; arc=none smtp.client-ip=209.85.214.178
+	 MIME-Version; b=MBdDdsQ0lTXT6E26kxf1QlUwCWr/eIvHJK5fNoKDGKTyyEcyD3rAsizIMRB3FKgId3CuVDGoGvTAqLpAOUQZ3pFnx2XgwEKq7eWk3SMQ18y5g43ybK8umWQ66qd5MfH/+15kLyqpARkdsKNOeDwPKnel/NLFxHuSzLZ2TaJMOz8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CZLJjTuF; arc=none smtp.client-ip=209.85.214.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZuqfS2kt"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ba4efedbeaso24113045ad.1
-        for <devicetree@vger.kernel.org>; Sun, 10 May 2026 01:44:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CZLJjTuF"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2ba21d32776so22522465ad.2
+        for <devicetree@vger.kernel.org>; Sun, 10 May 2026 01:44:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778402661; x=1779007461; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1778402665; x=1779007465; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=R2/zYcrseTTot6/6qcImxSuA8kM1CWD/r6OyNv/RP/c=;
-        b=ZuqfS2ktak3H8/wpGlvN/oR9G6PeJSWihXJxKqWvWGVMWTFmxHF7+GItfSk3Uvh9oj
-         Xbtphv/I0JYqohufOtIvjd6KXQLIlYkbqWWZgiCZkAnkKnI58uFSlAWXjhkpPjkIDunB
-         mHHj13HFY68B1GdNDkvhzA/S7K+gy+iBmQgsMP6MwyYdqpLzpyNP4ycmiCP5L9517Imb
-         BJe7TWabFuErDbIW5AhupqjotMmwpTMgSB72yyPOLxET2iBUUigpKSA/pO1ASgCfYCZu
-         jUyxSezrjOliE8onjutuay6Bmjy2fuPts7IFRHwxStJWVMI10hJPRDGhYVw+vAcpQIQl
-         GrHQ==
+        bh=CZTpCoLEIdwznMLuQjUiCorab+JEwmfq0roatC9e14g=;
+        b=CZLJjTuFWFe0/9JkJ77ScGRPDSqFksBX6HeLmJ3JFiJ3owlDrgBZW3rvEN+4M3k1cN
+         6MVZM9CFNBiDhx6fKhgPPvS+4U7Y+Bsvy084fmWV0j/64zG7xdQs69vzsLeEa1JXZtNd
+         zakQvtf11NsFX/wcGNzSNPZUYYcDv8BtgDN9MtG7ZXFms8100BfHiTrMw01qlY47MIsF
+         XhMWeB6evIgRk3KzSF9+tK1nliL2jIyJfeTm5NcTnnxDPWhz2CiMdUSjMHf7A/dMn2Zb
+         TEpnNaFxic3CAjmKkCJTzM7oB0i1/SGVsLJcwsWJfBQyL7S+HnwUTMUSwGDZzNzkRPd3
+         qUkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778402661; x=1779007461;
+        d=1e100.net; s=20251104; t=1778402665; x=1779007465;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=R2/zYcrseTTot6/6qcImxSuA8kM1CWD/r6OyNv/RP/c=;
-        b=rYo4LQRdS7F8+ePHtrLekCON9g8shwcsDNobQI+4LZUos8X937k3dxVbFEfHfRlhUT
-         R1K9bnC6q1h8xw8rAWwXJ4mIkkP/SGGEW2ab6Cy9rkXGyjcN9D8TJAswug3fC6/3RRSX
-         KyFDqqEItrE+rN5GPu4XzNWGT36G1suzB1j0Lb07T3RWjinWJ8vfaTTuhA2bLlYZLWLh
-         wGnbN/DsIxPpNqCvwwCS8Q0ajh2K1qDaY/O5dnxAkB/sAMR8VbVvqbjIYvEMKHZR2sx1
-         8yqi2pJJi9H7X4tPv8ie9PzNbeQQbhhIou+bGMcvyfKzgd8dZsVAbxA99a3Mm19izLQw
-         Cwlg==
-X-Forwarded-Encrypted: i=1; AFNElJ90iPbeSkCGBt8etjWk8GAxxjpcMrEvpp9X730v5kGD0q0xeU0Yg5szhw+hJzMG42aQ2iPnBsgyx1tn@vger.kernel.org
-X-Gm-Message-State: AOJu0YwEzMEUu0T6mGv8i9uU+gru25Y0wcpHYj5CwYbwihD3CIdHtt0n
-	aLNpUMCdoNDBW3aHvxSrLiQm3JbHOXc4mjiExggnANbhb68RiWC86Dk1
-X-Gm-Gg: Acq92OEoSkUysWY0vMh1mAoGm+/rF0gtrIFN+rWXm54Nuc5kFKDeiwOwFqUq1fNsNvZ
-	s/1e7n2OGyA1ayQouINVS5o4a2NrdAMMq1NEaceV+b0wbLB0OQsusIpyBCaFOBg/7i6JlRyzz1P
-	DLvS5fFAw2Jb4/woorqiO1HX0MRqtZEt6NvgCCKhqK3JWnqfmuc+Jh+Hkq7G6fx/LyI3irdUAHS
-	GhB7PXccTjVyG71l2ds7AusSUj6OO6Y5/WR17pGNDcHx5L6HIEVd1zC3sPkVqh9TW3rUurnBsz+
-	uxvSg1fWi9EYlaVjqYFeW+8cK0C9ixi8lPtYoB9emtAS8wRgDsDmDSKeoQPk8Z2qb4lq20lgNh6
-	ZLZkyZ0turyhaJtKAQuNDz+TbKkhsDfd8YwA4ZNC8mj/73EpWaGNXRgmytOm2jkCJ9B+JfUO4hV
-	apLTjBaFr9c8YwGykxaUvB0kmRdLmtYr1zKUp6m41g1UXaJ3BfdkePzpPf+g==
-X-Received: by 2002:a17:902:fb0f:b0:2ba:6ca2:bca with SMTP id d9443c01a7336-2ba79c20dd6mr140989945ad.26.1778402660935;
-        Sun, 10 May 2026 01:44:20 -0700 (PDT)
+        bh=CZTpCoLEIdwznMLuQjUiCorab+JEwmfq0roatC9e14g=;
+        b=nfKH0ppnn+iQcLUZMh+WDnHOtwt5v4l79Tc/9YKzgYKjS/ZXC2CC6lN4ryaBcsHzV+
+         qIOrkoKJXBFoIhR5QHpIukpwhCsMlcILDQYkMzdRtbAVa86GYSH6xKc69XE6OUEw20ES
+         oY63R9eFAIDtdvzr2E1h1ImzSmwjVqqgf8/DPhJysbFp9hBfLXk3ETFvzplVQVSw7XPw
+         6wXqcl4vCW6LLXEbsjYkTR2vNOVHanFaF0t08A7fIQrj2Hh78g0nGtHRRJXsN+OtF3Qu
+         k4DFdzBUGitI5yaBBO3+j9DwTUVnCm4R3bWLPpQ/IiONm1qCavjTzYzcxrgMTrYPsK2P
+         mXYQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/BuTc6fac9OmE7BT/q6cJuq3+cNjq2FhDyiW4F9dIjjnZFetWb9jD0MJRygw4aXU0kAe1Mr/cVrW/O@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywzocn9YvlK9vg8R0Rb70LB14yfUAe0JJG1+UHnrn8vtlgjsvcp
+	rg3Mpxduco95jRBWthMyppjFuI5+p9TDvsifltpTgdHjRNG+QqVwIRHt
+X-Gm-Gg: Acq92OFqDsH4i1dm7q2Fomoq6smYXzkKALqAdsQ6wzlEPc3jFXIg8D8QUD8xH67BUlI
+	kOpOZAAA3EAJuEXqWEyfIklWoS1G2dbhAYmsMwZRb8o4mTvsrxPO04B0vf1r+55DqyFRbVIR9Zg
+	iEVh/HUvMZkhaGAD0Vf+7goRVtw5nLusl1LIIyA9aUbFkgCn10KS4NGtCQZmPAk+cNcMXpC/191
+	pCMRenfbchPu1VPjUzWFUirH775BHyyoTYW8iM+wo5EZX/RLSqR7cTy6Y1JHjuaqJ+A/Md5Na8t
+	KrYH4zmbfSXjValnb8SD1xyAyzU/O9KFXyvukIGJRXewBIAiWw2FvHDPGmsn8H31it3i0u0VLas
+	Vc97m3otlQJtlsxhqqTFMh2f6gqUg+BRCfcQX6wzz4Z9Qk8TEQ4HCaB10Nv7smifUbWD/JU4j0w
+	e0c3hi4WNAF42tXCsthCKpAxpar6lrqpbhOqfC/nFEYmqgufUg/mmShCcYAg==
+X-Received: by 2002:a17:902:ea0e:b0:2b4:5743:2395 with SMTP id d9443c01a7336-2ba79287ac5mr216845705ad.19.1778402665317;
+        Sun, 10 May 2026 01:44:25 -0700 (PDT)
 Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2baf1d3ffa0sm70471005ad.25.2026.05.10.01.44.17
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2baf1d3ffa0sm70471005ad.25.2026.05.10.01.44.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 10 May 2026 01:44:20 -0700 (PDT)
+        Sun, 10 May 2026 01:44:25 -0700 (PDT)
 From: phucduc.bui@gmail.com
 To: kuninori.morimoto.gx@renesas.com
 Cc: broonie@kernel.org,
@@ -74,9 +74,9 @@ Cc: broonie@kernel.org,
 	robh@kernel.org,
 	tiwai@suse.com,
 	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v3 08/10] ASoC: renesas: fsi: add fsi_clk_prepare/unprepare()
-Date: Sun, 10 May 2026 15:43:01 +0700
-Message-ID: <20260510084303.122426-9-phucduc.bui@gmail.com>
+Subject: [PATCH v3 09/10] ASoC: renesas: fsi: Use clock prepare handling in startup/shutdown
+Date: Sun, 10 May 2026 15:43:02 +0700
+Message-ID: <20260510084303.122426-10-phucduc.bui@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260510084303.122426-1-phucduc.bui@gmail.com>
 References: <20260510084303.122426-1-phucduc.bui@gmail.com>
@@ -90,95 +90,48 @@ Content-Transfer-Encoding: 8bit
 
 From: bui duc phuc <phucduc.bui@gmail.com>
 
-Add helper functions for preparing and unpreparing FSI clocks.
+Use fsi_clk_prepare() and fsi_clk_unprepare() in dai_startup()
+and dai_shutdown().
 
-These helpers centralize clock prepare/unprepare handling and
-will be used by subsequent patches to move clock management
-into sleepable contexts.
+Prepare clocks only during active audio streams to reduce
+unnecessary power usage, and ensure clk_prepare() and
+related operations run in non-atomic contexts.
 
-Suggested-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
- sound/soc/renesas/fsi.c | 66 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 66 insertions(+)
+ sound/soc/renesas/fsi.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
 diff --git a/sound/soc/renesas/fsi.c b/sound/soc/renesas/fsi.c
-index 8c46d6806958..b93809b5da15 100644
+index b93809b5da15..c3ac8b30f342 100644
 --- a/sound/soc/renesas/fsi.c
 +++ b/sound/soc/renesas/fsi.c
-@@ -732,6 +732,72 @@ static int fsi_clk_is_valid(struct fsi_priv *fsi)
- 		fsi->clock.rate;
- }
- 
-+static int fsi_clk_prepare(struct fsi_priv *fsi)
-+{
-+	struct fsi_clk *clock = &fsi->clock;
-+	struct clk *spu = fsi->master->clk_spu;
-+	struct clk *xck = clock->xck;
-+	struct clk *ick = clock->ick;
-+	struct clk *div = clock->div;
+@@ -1644,9 +1644,16 @@ static int fsi_dai_startup(struct snd_pcm_substream *substream,
+ 			   struct snd_soc_dai *dai)
+ {
+ 	struct fsi_priv *fsi = fsi_get_priv(substream);
 +	int ret;
-+
-+	if (!IS_ERR_OR_NULL(spu) && fsi->master->spu_count == 0) {
-+		ret = clk_prepare(spu);
+ 
+ 	fsi_clk_invalid(fsi);
+ 
++	if (fsi->clock.count == 0) {
++		ret = fsi_clk_prepare(fsi);
 +		if (ret)
 +			return ret;
 +	}
 +
-+	if (!IS_ERR_OR_NULL(xck)) {
-+		ret = clk_prepare(xck);
-+		if (ret)
-+			goto err_spu;
-+	}
-+
-+	if (!IS_ERR_OR_NULL(ick)) {
-+		ret = clk_prepare(ick);
-+		if (ret)
-+			goto err_xck;
-+	}
-+
-+	if (!IS_ERR_OR_NULL(div)) {
-+		ret = clk_prepare(div);
-+		if (ret)
-+			goto err_ick;
-+	}
-+
-+	return 0;
-+
-+err_ick:
-+	clk_unprepare(ick);
-+err_xck:
-+	clk_unprepare(xck);
-+err_spu:
-+	clk_unprepare(spu);
-+
-+	return ret;
-+}
-+
-+static void fsi_clk_unprepare(struct fsi_priv *fsi)
-+{
-+	struct fsi_clk *clock = &fsi->clock;
-+	struct clk *spu = fsi->master->clk_spu;
-+	struct clk *xck = clock->xck;
-+	struct clk *ick = clock->ick;
-+	struct clk *div = clock->div;
-+
-+	if (!IS_ERR_OR_NULL(div))
-+		clk_unprepare(div);
-+
-+	if (!IS_ERR_OR_NULL(ick))
-+		clk_unprepare(ick);
-+
-+	if (!IS_ERR_OR_NULL(xck))
-+		clk_unprepare(xck);
-+
-+	if (!IS_ERR_OR_NULL(spu) && fsi->master->spu_count == 0)
-+		clk_unprepare(spu);
-+}
-+
- static int fsi_clk_enable(struct device *dev,
- 			  struct fsi_priv *fsi)
+ 	return 0;
+ }
+ 
+@@ -1655,6 +1662,8 @@ static void fsi_dai_shutdown(struct snd_pcm_substream *substream,
  {
+ 	struct fsi_priv *fsi = fsi_get_priv(substream);
+ 
++	if (fsi->clock.count == 0)
++		fsi_clk_unprepare(fsi);
+ 	fsi_clk_invalid(fsi);
+ }
+ 
 -- 
 2.43.0
 
