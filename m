@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 909AC26AE5;
-	Sun, 10 May 2026 17:45:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11EE2296BC1;
+	Sun, 10 May 2026 17:45:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778435127; cv=none; b=VOZlKpf+gwNd3nId+ldRni0RDm/qxpSOy9F0ZrThnrLi1OmyY9+dIDWVLEBhc7LYLbFBXDsJ+xk/VYOVoldXHrb1kZJk7rXitfGMMF8qPJbz6vzncoufMLT808stgK2n18EDJbDOtFORhW0LKqkrATC08UuqGzpHsP0owjAtPLo=
+	t=1778435129; cv=none; b=mQcc0HEFmrKI8q7dhkn+m0Jt4wHiOLbreiEmho0eLT5eZ3FPNGm84/LejVt+MY6V0jdIvW7BNMdkbnTb+xk1OFAls7ZAkh2NZHK9lzVzdaB+OQNAh68zA/yfxFWziHWfPSmij6ciRHYUMdL8EYhaRuBhs2WDXk8hI7zNIcB14fk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778435127; c=relaxed/simple;
-	bh=B6E9No4SCVSJAl8E5S1LCZYcTRmsUulHW5gm8aNmWtA=;
+	s=arc-20240116; t=1778435129; c=relaxed/simple;
+	bh=v8tjPqJayiaNCgrRc6AGcAmRFyUS5dSgQnulgFX4+Y8=;
 	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=uG6qcCx5rDKBBi2Q8g7GSEzHi5a3o4LNIn9EeyVLHlo6yUUN4xIQl70N1a+0Zm2Zkl+wKzB08EBYAKjjcSIz11uQCQybKcIQdlptsxCgSLf3U1M9cHknCmk9Fit7bkSIo/9SP6KqP4GwCdBdj4FgC6qf7dVDP1Avs1cXBIUcmCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ckd9x7ni; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id:Subject; b=bOcVeDWVo8wb5Q02Jw4bY7fbtv+agZsRzzodDRrlMmxD7wee98umGTi+zGNuC2OKbep6yVF0bfbRmLj5Yq5tTqFIKppEiLQbP1tWi3OpXwdpSqMtyrPebpAcQ+b37frocNthDnaiVRcz72pQQNWjJRv5fct8CpvBNBNoHDflzoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nqSHgJQm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ckd9x7ni"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD9B4C2BCB8;
-	Sun, 10 May 2026 17:45:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nqSHgJQm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD821C2BCB8;
+	Sun, 10 May 2026 17:45:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778435127;
-	bh=B6E9No4SCVSJAl8E5S1LCZYcTRmsUulHW5gm8aNmWtA=;
+	s=k20201202; t=1778435129;
+	bh=v8tjPqJayiaNCgrRc6AGcAmRFyUS5dSgQnulgFX4+Y8=;
 	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
-	b=ckd9x7niuqivZoMQktLwlPFgFlVGpR21eJV8ttNJJ8kH9/g2nI3r50SDXOcnP8ju2
-	 F0zijok0SZTGVYn9x8k+sM/gh0/fG4wUuXiFnJoTZ2Mp8HVqOQJ1FWg1dcjY1OmarT
-	 bovWJCYXRfw9mbMASEoXMpbf9Z1WZ20d5D5FlSkdTt3LSX+okpwi1PRhwjUcbR3wzC
-	 rejMKRzFcVCYIEbIF5uJF057iHTBGRym5n72OYc/MTI8DCRVOMTeZ/CDwqTPPsxJnV
-	 GY+oyBrUtlGvB3ESh+/wC2VO+CKKSDWbeWFIPL3zD/WfFCMKpXBHytH0xlMepwJSc9
-	 7rt0nD9pXTXuA==
-Date: Sun, 10 May 2026 12:45:24 -0500
+	b=nqSHgJQmVur+TYghaQt0RaDSfZPJNsX0/krSTlPzrMrD7tSd79o4brCsLkF3X6CRW
+	 4O0H4t5pJdxNIAUNOZiBDMViqK/3FZiHEBSZYs1OaHbOcSYQk5tiF9AxHMxmWN/cTz
+	 llzgi1d35Q1Y9mnPzEE1NfgGXCqW2CeUjW7q/XItZ/d7yFQHAmEl19lq2GfrByTy6q
+	 POsC4/8/OYYakZlw4KaciXnuwxGgFz+CC14xjEfJafV0hrYQXDTXZvTn0/aRF8k8LM
+	 AYDItioNK2EQYYy+cE3ryhJ5SfS/15VxX/2aYMm1+WzuBoWJuRz/GGRnuWyYGyQwBn
+	 2Mu9swwpuzO4A==
+Date: Sun, 10 May 2026 12:45:27 -0500
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -36,41 +36,36 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-kernel@vger.kernel.org, 
- Conor Dooley <conor+dt@kernel.org>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- linux-gpio@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org, 
- CTCaer <ctcaer@gmail.com>, Linus Walleij <linusw@kernel.org>, 
- devicetree@vger.kernel.org
+Cc: Conor Dooley <conor+dt@kernel.org>, 
+ Philippe Simons <simons.philippe@gmail.com>, 
+ Mark Brown <broonie@kernel.org>, devicetree@vger.kernel.org, 
+ Liam Girdwood <lgirdwood@gmail.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-kernel@vger.kernel.org
 To: Alexandre Hamamdjian <azkali.limited@gmail.com>
-In-Reply-To: <20260510-bm92t-v1-2-dff3c9d22426@gmail.com>
-References: <20260510-bm92t-v1-0-dff3c9d22426@gmail.com>
- <20260510-bm92t-v1-2-dff3c9d22426@gmail.com>
-Message-Id: <177843512403.3129177.1242304266533062844.robh@kernel.org>
-Subject: Re: [PATCH 2/2] dt-bindings: usb: add Rohm BM92TXX Type-C
- controller
+In-Reply-To: <20260510-sgm3804-v1-1-e5e8799e0aa0@gmail.com>
+References: <20260510-sgm3804-v1-0-e5e8799e0aa0@gmail.com>
+ <20260510-sgm3804-v1-1-e5e8799e0aa0@gmail.com>
+Message-Id: <177843512496.3129220.15229933494716911310.robh@kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: regulator: add SGMicro SGM3804
 
 
-On Sun, 10 May 2026 23:08:55 +0700, Alexandre Hamamdjian wrote:
-> Add the device-tree binding documentation for the Rohm BM92TXX family
-> of USB Type-C and Power Delivery controllers. The device is controlled
-> over I2C and signals state changes through a dedicated interrupt line.
+On Sun, 10 May 2026 23:45:26 +0700, Alexandre Hamamdjian wrote:
+> The SGMicro SGM3804 is an I2C-controlled positive and negative output
+> charge-pump regulator. It is commonly used to provide the AVDD and AVEE
+> supplies for display panels, and exposes two reset GPIOs to sequence the
+> positive and negative output rails independently.
 > 
-> Document the rohm,* properties consumed by the driver: the optional
-> VCONN-enable GPIO, the DisplayPort alternate-mode toggles
-> (rohm,dp-disable, rohm,dp-alerts-enable, rohm,dp-signal-toggle-on-resume,
-> rohm,dp-lanes), the suspend/dock tunables (rohm,led-static-on-suspend,
-> rohm,dock-power-limit-disable) and the four
-> rohm,pd-{5,9,12,15}v-current-limit-ma per-PDO charging current limits.
-> A graph port is required to link the controller to a USB role switch
-> consumer.
+> Document the binding for the new compatible "sgmicro,sgm3804" so it can
+> be referenced by board device trees and the matching driver, and add a
+> MAINTAINERS entry covering both the binding and the upcoming driver.
 > 
+> Co-developed-by: Philippe Simons <simons.philippe@gmail.com>
+> Signed-off-by: Philippe Simons <simons.philippe@gmail.com>
 > Signed-off-by: Alexandre Hamamdjian <azkali.limited@gmail.com>
 > ---
->  .../devicetree/bindings/usb/rohm,bm92t.yaml        | 128 +++++++++++++++++++++
->  MAINTAINERS                                        |   1 +
->  2 files changed, 129 insertions(+)
+>  .../bindings/regulator/sgmicro,sgm3804.yaml        | 60 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  7 +++
+>  2 files changed, 67 insertions(+)
 > 
 
 My bot found errors running 'make dt_binding_check' on your patch:
@@ -78,14 +73,12 @@ My bot found errors running 'make dt_binding_check' on your patch:
 yamllint warnings/errors:
 
 dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/usb/rohm,bm92t.yaml: rohm,pd-5v-current-limit-ma: missing type definition
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/usb/rohm,bm92t.yaml: rohm,pd-9v-current-limit-ma: missing type definition
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/usb/rohm,bm92t.yaml: rohm,pd-12v-current-limit-ma: missing type definition
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/usb/rohm,bm92t.yaml: rohm,pd-15v-current-limit-ma: missing type definition
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/regulator/sgmicro,sgm3804.example.dtb: regulator@3e (sgmicro,sgm3804): reset-gpios: [[4294967295, 10, 0], [4294967295, 11, 0]] is too long
+	from schema $id: http://devicetree.org/schemas/gpio/gpio-consumer-common.yaml
 
 doc reference errors (make refcheckdocs):
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260510-bm92t-v1-2-dff3c9d22426@gmail.com
+See https://patchwork.kernel.org/project/devicetree/patch/20260510-sgm3804-v1-1-e5e8799e0aa0@gmail.com
 
 The base for the series is generally the latest rc1. A different dependency
 should be noted in *this* patch.
