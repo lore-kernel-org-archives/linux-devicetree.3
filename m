@@ -1,67 +1,67 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FF137C93D
-	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 09:48:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F170E3009F6
+	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 09:48:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778406488; cv=none; b=TrmEv8dvJyO0mbSiF6FXYUT9KdnRdGd54XUMW7f1Lzy1LE7acNZBScqPNJRdaqaOEF89vZRJCV0J17gBH7yYIFx2ivzYwpEZGe9VyEVn1KQmBxjrICdNPFIVT8BoBng3lc1CQtkAe+rbqvVgc9FLoz9pVFdAHsYn065HohEIAMo=
+	t=1778406491; cv=none; b=Xwp1LnSGICuTCN0T6bGPhnvSTImTCtmZXrpl/QSAZw6+7NRGU3lPNuV5QoJ2tKu5OSmuBIrtaxlOCg6ISqfU53tSJU6KrTIb1biKF7ASpJk63D1vlPikD75o84H2ItHOyXK41/37FT6SITV/TqD887gQzHc4CcQpQFCGN3OrOLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778406488; c=relaxed/simple;
-	bh=LVWWWUYdv9PCfUhr1DTi4tk8Hze1kjyRj4+I8oegEow=;
+	s=arc-20240116; t=1778406491; c=relaxed/simple;
+	bh=gXVvFeOiszOtLNi8thoXHWhThbz8pXYYCqEAg8kpU0I=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=r0AXJtZGK/UfqzQLMWI2bJVnNTr5SkQp3PgVl7PBGEQFLdak4wicIxZb0VpauMssTnHxzy7eCT2wgELUtTy5kgoGyD+jKQCEepfEzraGy/BY9K5Zos4KHa0zP9nW8vWlATFuTbZaVss2/vgq4G1Eldt4BxtAl2z0mlPaX7BjTWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RKvODCBM; arc=none smtp.client-ip=209.85.128.54
+	 In-Reply-To:To:Cc; b=eo3F1N2FCh7QMZ+jToG+3ZBCO0sbIq4H5uztFwxG18P6A9+XBfytQLE4uCzvMThdV3kxgHNsxuUdTJo790acTjUsWqoOLc6B0wVd1tAbXnHuE192BpCAch9xfMhSOGX92/vT2d5fRegdgOw7XCtZEaRFxmM4hREvUDtFt8clcgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mOj1Wjsm; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RKvODCBM"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4891f625344so32553805e9.0
-        for <devicetree@vger.kernel.org>; Sun, 10 May 2026 02:48:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mOj1Wjsm"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-488a88aeec9so37793185e9.2
+        for <devicetree@vger.kernel.org>; Sun, 10 May 2026 02:48:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778406485; x=1779011285; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1778406487; x=1779011287; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=pgYHSDLzlb7ot3DGMDiEetIcL4BenND3LUUZjAQekh8=;
-        b=RKvODCBMXGHFhmD+8r3Nqe0oYd2nUXpE3d7VKaUzaj9Bla3JjpSb90JCwiz9ASi50Q
-         Smhy3PQ9U6t3WSsF3BtGjAMHkmkAl1ZmCAW5U9T/qhigXX0qym9bsOLR1X5mMCL5p00+
-         6OVrDcHWOgw6L2Hr8eCa624MwnriX8hH2T3e7zeRsfkHANW3Y8maceDumTCd1kiYk6Ht
-         ig90YfLXoT/qTRt7/1aw9AoQvD5V35xxnOWDfuLD/k6sv/skdG+ArFpNfQEh5t+lx2Wh
-         +/WB6/MxKSvzCz4680wdVnZeT+jVJkLfYKWOLu92HULup4Z0tlmoha+umPFXK4xTCZln
-         V/OA==
+        bh=4OmykB+UZ6UVbeiOb57zqKjObziO9aek18m21I2ISj0=;
+        b=mOj1WjsmEqzlwnp+yLiCAaKuIQ5j/krioE/LuOpEGVH0E0KvQMcdenuFdda1GNqywa
+         IO4p5JpeVwhflz8OBXpIySsIHOjoqBAg5K6LpJX4HCaMsJg1eiQVTESWnpVjz6vt0FHk
+         tDWOkQnbGnmSGnz2br2tnkECPhpAI1bFrakJjVVU3qkuDTxTv74BZTLb1oe++0Uc0Spz
+         K+dK/Os/hWZc1CYGeeVcYNMpKtNAcRwukH6arwETOBdY7cIf8Pdb9jfxjMUsWrHsaX1i
+         alubOK7LGUr1GIVf0FFrnFZXD93DwtkOTd9Tl2GHiK93X8MiUa6JWg4oqFTERqHXN5/4
+         vA+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778406485; x=1779011285;
+        d=1e100.net; s=20251104; t=1778406487; x=1779011287;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=pgYHSDLzlb7ot3DGMDiEetIcL4BenND3LUUZjAQekh8=;
-        b=lOYmdcD/u74+mfBOox7KzUuB+aBnFlzXsQy6V0kRebebpNB5OzcKrVjkXd0urPL4Qu
-         OzsF9LRGnwKYVVD6tpt/oWi7ts2zJXqLrMsXMKwBySLK0gMLClnVWAi+/zkWFwGDK5Rz
-         PSIZNpMv+MGoWTnaJmwfzD09pwErgsOiwxpon+yvLj0Qq5UWqSlTtQuOEab5os/gV4CW
-         dF6G+/ePEjns+T9jIde6XILas0SR0SsglHfdJQHFisr+5QHELYj6zUszZscX78bO8pTJ
-         G7g++9pmzlh1LisOpahx6uXssHsjzYb31MdY+tVI17ujyWstfGq2ht9i7w7FZF0Y1rHL
-         JBeg==
-X-Forwarded-Encrypted: i=1; AFNElJ/bKo7/RLWvh1ULxvK62hmm0oSzRMceS9qHFJywv+UEzQzqQZkegoeF64Az5kSFVOHuM6Eu5bNHZK9A@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy0chruhJmD+K/+ib5bahUU89dXk1wTBNSMqxY0TiOj+ONR+EUm
-	YAn1kbehgGM+V1EqV1+X5UDj0NlaD1P31LrK57IYWbhiF4E2SxxQLYVi
-X-Gm-Gg: Acq92OEAHx2NzGfLwafyzA5h8lUcyIrZ5V4vTvZwEt6/5639PcUfT5MruZds9fKkZec
-	zlSGjKO2K5A5u7wUuQ7xWvhH39NFUtzx7DkmC2vAqzE7TSvrT/umV6xTTdPF3GQHdqowQs+6Qwo
-	WiGQAY0teyXxo7ISqiFBVa2OWkKu5FP4Q0XCI26Om6ZnEMtegLuLMRh80cvmT0DkPm6BKOa0FFy
-	iwq57qwFZeFJD7IWzdU6Zay7GUaPd1kLrMBzr6O4v5VWjaQxeLvBPDVPaYLV1BgPZ4YymndOqJX
-	uncYbT6VD90MGV3UVvy8e2ELBFXFJ7Iq+9pFT7hJtC7aBBHJgvrFYswZlRFwkMBSGxpCDq0MxBd
-	sjerHLzYV+f8W2lEgBdmDop+pvA0kOV51vB9OQqfex7NZHmttTbt10PfJ2sarEPTVtK9f/hU8uZ
-	B4KHG7ezPmpHevI00YahGPgv3hWxHl
-X-Received: by 2002:a05:600c:3b8f:b0:48a:79d8:a8d6 with SMTP id 5b1f17b1804b1-48e642deefamr174341785e9.7.1778406485414;
-        Sun, 10 May 2026 02:48:05 -0700 (PDT)
+        bh=4OmykB+UZ6UVbeiOb57zqKjObziO9aek18m21I2ISj0=;
+        b=qT5xA2SBEnky0n4k5LyncG0MzwOHCtmmbUiqmwzIC5AtTk0dnajprUOVUo/QcrOeMA
+         XUSC0f07/bDwDfqi4RSEmDySV3hTXvpiRMmqltZAbBxDhUE22adgUHqzQ7OhQEaFX/oB
+         E/XmvDQU4f4USEpU1oGpHWPfeHY8GdBeLtb4XeTQ4yPg+2Ge6sYa6JKXIm2AGLbInpvr
+         vZIEE5lpATrlo3TjM09gk4QBmc9+jCjcLnPfKKwzWb5FG/t43824srinT8jQJ1jO+TG6
+         9fxhm3lqEZ1cs3nxJ+LUFKLSPPdkcAltjjvmFfXhRiHs8dc1yVVjfz2NcYLUvUbGB6Hc
+         McVQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/r2drr4fP9dX2YRbL8ADY7Rg7swXXMX79syolqy3kck2Ytx+0fk6JXT4Ug2+u3s92jwu5HAAKilB41@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx6dXz/7xq+KnaPHAscS2walKwxQ1YaSqaG88UsLZtHU7mXRspt
+	cSPGV5fOWMqVqtCDGuIfjtCHTkZMIKKC9gQw6NUGKHbpCpUgIZJauCbG
+X-Gm-Gg: Acq92OH2mNzznztSBalGaQ6Hyf8/VBse9gyM5hfVwL7QS+3G1yE7ynMg86rcMaTTPVf
+	Yevh4J19ucq1xrj4R/RNzwUQycUObM2b5SL66mxcmcg5Ql5xgjap1s0bZ4lXjTlGkMxxVrO2Ssq
+	wDIZcnRm6uDSyBThvCMPOJzEvKd+4bx5BFQB0cm92QZEgBEh++e5bho6NNHaAwWhJ+5stfrrkgT
+	LM+Hgp5rL8n5AiTHCL5rrt8C+a9Hs3vjMxnuVFgiI4LX2trUXRuv0fa2v0y2JHJftVQY1b3IDuJ
+	uO8f8MBOTsHWPrZb2GmwcNn+2XihhwEXAEiqqKMOQVDh49yJsry1RR5uBggdcLObiPl0N4J1HPq
+	AxSYMTNIToaHU7iQA7dmzz1dzCoWB8xoNEVQxIOzlzDj3JnlNwwnkf79Ok1fNbmt2NpGvamSnsO
+	xFJcjdjbrLPELlmBOAQ7qWQHaUC2Gk
+X-Received: by 2002:a05:600c:34cd:b0:489:1c5f:3a9e with SMTP id 5b1f17b1804b1-48e706f3688mr90854495e9.13.1778406487439;
+        Sun, 10 May 2026 02:48:07 -0700 (PDT)
 Received: from [192.168.8.79] ([2a00:f502:160:4e2:a099:cad9:2ecd:93de])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e702e0bf2sm182807925e9.4.2026.05.10.02.48.03
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e702e0bf2sm182807925e9.4.2026.05.10.02.48.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 10 May 2026 02:48:05 -0700 (PDT)
+        Sun, 10 May 2026 02:48:07 -0700 (PDT)
 From: Erikas Bitovtas <xerikasxx@gmail.com>
-Date: Sun, 10 May 2026 12:47:43 +0300
-Subject: [PATCH v6 5/8] clk: qcom: gcc-msm8939: mark Venus core GDSCs as
- hardware controlled
+Date: Sun, 10 May 2026 12:47:44 +0300
+Subject: [PATCH v6 6/8] media: qcom: venus: add power domain enable logic
+ for Venus cores
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +70,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260510-msm8939-venus-rfc-v6-5-e69465375900@gmail.com>
+Message-Id: <20260510-msm8939-venus-rfc-v6-6-e69465375900@gmail.com>
 References: <20260510-msm8939-venus-rfc-v6-0-e69465375900@gmail.com>
 In-Reply-To: <20260510-msm8939-venus-rfc-v6-0-e69465375900@gmail.com>
 To: Bryan O'Donoghue <bod@kernel.org>, 
@@ -90,55 +90,210 @@ Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  phone-devel@vger.kernel.org, Erikas Bitovtas <xerikasxx@gmail.com>
 X-Mailer: b4 0.15.2
 
-Since in downstream kernel VENUS_CORE0_GDSC and VENUS_CORE1_GDSC have a
-device tree property "qcom,supports-hw-trigger", add a HW_CTRL flag
-to these GDSCs to pass their control to hardware.
+Attach power domains for vdec and venc cores and power them up if a vdec
+or venc session is started.
 
-Venus core clock cannot be enabled if Venus core GDSCs are switched off.
-But since they are set to be hardware controlled, they can be switched
-off at any moment. Vote for the Venus core clock to enable it later when
-GDSCs get turned on.
-
+Reviewed-by: Bryan O'Donoghue <bod@kernel.org>
 Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
 ---
- drivers/clk/qcom/gcc-msm8939.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/media/platform/qcom/venus/pm_helpers.c | 149 ++++++++++++++++++++++++-
+ 1 file changed, 145 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/clk/qcom/gcc-msm8939.c b/drivers/clk/qcom/gcc-msm8939.c
-index 45193b3d714b..420997b00ae0 100644
---- a/drivers/clk/qcom/gcc-msm8939.c
-+++ b/drivers/clk/qcom/gcc-msm8939.c
-@@ -3664,6 +3664,7 @@ static struct clk_branch gcc_venus0_vcodec0_clk = {
+diff --git a/drivers/media/platform/qcom/venus/pm_helpers.c b/drivers/media/platform/qcom/venus/pm_helpers.c
+index f0269524ac70..5ed7cbef8149 100644
+--- a/drivers/media/platform/qcom/venus/pm_helpers.c
++++ b/drivers/media/platform/qcom/venus/pm_helpers.c
+@@ -297,10 +297,31 @@ static int load_scale_v1(struct venus_inst *inst)
+ 	return ret;
+ }
  
- static struct clk_branch gcc_venus0_core0_vcodec0_clk = {
- 	.halt_reg = 0x4c02c,
-+	.halt_check = BRANCH_HALT_SKIP,
- 	.clkr = {
- 		.enable_reg = 0x4c02c,
- 		.enable_mask = BIT(0),
-@@ -3681,6 +3682,7 @@ static struct clk_branch gcc_venus0_core0_vcodec0_clk = {
++static int vcodec_domains_get_v1(struct venus_core *core)
++{
++	struct device *dev = core->dev;
++	const struct venus_resources *res = core->res;
++	const struct dev_pm_domain_attach_data vcodec_data = {
++		.pd_names = res->vcodec_pmdomains,
++		.num_pd_names = res->vcodec_pmdomains_num,
++		.pd_flags = PD_FLAG_NO_DEV_LINK,
++	};
++
++	if (!res->vcodec_pmdomains)
++		return 0;
++
++	return dev_pm_domain_attach_list(dev, &vcodec_data,
++					 &core->pmdomains);
++}
++
+ static int core_get_v1(struct venus_core *core)
+ {
+ 	int ret;
  
- static struct clk_branch gcc_venus0_core1_vcodec0_clk = {
- 	.halt_reg = 0x4c034,
-+	.halt_check = BRANCH_HALT_SKIP,
- 	.clkr = {
- 		.enable_reg = 0x4c034,
- 		.enable_mask = BIT(0),
-@@ -3753,6 +3755,7 @@ static struct gdsc venus_core0_gdsc = {
- 	.pd = {
- 		.name = "venus_core0",
- 	},
-+	.flags = HW_CTRL,
- 	.pwrsts = PWRSTS_OFF_ON,
++	ret = vcodec_domains_get_v1(core);
++	if (ret < 0)
++		return ret;
++
+ 	ret = core_clks_get(core);
+ 	if (ret)
+ 		return ret;
+@@ -319,12 +340,128 @@ static void core_put_v1(struct venus_core *core)
+ static int core_power_v1(struct venus_core *core, int on)
+ {
+ 	int ret = 0;
++	struct device *pd_dev = core->res->vcodec_pmdomains ?
++		core->pmdomains->pd_devs[0] : NULL;
+ 
+-	if (on == POWER_ON)
++	if (on == POWER_ON) {
++		if (pd_dev) {
++			ret = pm_runtime_resume_and_get(pd_dev);
++			if (ret)
++				return ret;
++		}
+ 		ret = core_clks_enable(core);
+-	else
++		if (ret) {
++			pm_runtime_put_sync(pd_dev);
++			return ret;
++		}
++	} else {
++		if (pd_dev)
++			pm_runtime_put_sync(pd_dev);
+ 		core_clks_disable(core);
++	}
++
++	return 0;
++}
++
++static int vcodec_domains_enable(struct venus_core *core)
++{
++	const struct venus_resources *res = core->res;
++	struct device *pd_dev;
++	int i = 1, ret;
++
++	if (!res->vcodec_pmdomains)
++		return 0;
++
++	for (; i < res->vcodec_pmdomains_num; i++) {
++		pd_dev = core->pmdomains->pd_devs[i];
++		ret = pm_runtime_resume_and_get(pd_dev);
++		if (ret)
++			goto err;
++	}
++
++	return 0;
++err:
++	while (i-- > 1)
++		pm_runtime_put_sync(core->pmdomains->pd_devs[i]);
++	return ret;
++}
++
++static void vcodec_domains_disable(struct venus_core *core)
++{
++	const struct venus_resources *res = core->res;
++	struct device *pd_dev;
++	int i = 1;
++
++	if (!res->vcodec_pmdomains)
++		return;
++
++	for (; i < res->vcodec_pmdomains_num; i++) {
++		pd_dev = core->pmdomains->pd_devs[i];
++		pm_runtime_put_sync(pd_dev);
++	}
++}
++
++static int vdec_get_v1(struct device *dev)
++{
++	struct venus_core *core = dev_get_drvdata(dev);
++
++	return vcodec_clks_get(core, core->dev, core->vcodec0_clks,
++			       core->res->vcodec0_clks);
++}
++
++static int vdec_power_v1(struct device *dev, int on)
++{
++	struct venus_core *core = dev_get_drvdata(dev);
++	int ret;
++
++	if (on == POWER_ON) {
++		ret = vcodec_domains_enable(core);
++		if (ret)
++			return ret;
++
++		ret = vcodec_clks_enable(core, core->vcodec0_clks);
++		if (ret)
++			goto err;
++	} else {
++		vcodec_domains_disable(core);
++		vcodec_clks_disable(core, core->vcodec0_clks);
++	}
++
++	return 0;
++err:
++	vcodec_domains_disable(core);
++	return ret;
++}
+ 
++static int venc_get_v1(struct device *dev)
++{
++	struct venus_core *core = dev_get_drvdata(dev);
++
++	return vcodec_clks_get(core, core->dev, core->vcodec1_clks,
++			       core->res->vcodec1_clks);
++}
++
++static int venc_power_v1(struct device *dev, int on)
++{
++	struct venus_core *core = dev_get_drvdata(dev);
++	int ret;
++
++	if (on == POWER_ON) {
++		ret = vcodec_domains_enable(core);
++		if (ret)
++			return ret;
++
++		ret = vcodec_clks_enable(core, core->vcodec1_clks);
++		if (ret)
++			goto err;
++	} else {
++		vcodec_domains_disable(core);
++		vcodec_clks_disable(core, core->vcodec1_clks);
++	}
++
++	return 0;
++err:
++	vcodec_domains_disable(core);
+ 	return ret;
+ }
+ 
+@@ -332,6 +469,10 @@ static const struct venus_pm_ops pm_ops_v1 = {
+ 	.core_get = core_get_v1,
+ 	.core_put = core_put_v1,
+ 	.core_power = core_power_v1,
++	.vdec_get = vdec_get_v1,
++	.vdec_power = vdec_power_v1,
++	.venc_get = venc_get_v1,
++	.venc_power = venc_power_v1,
+ 	.load_scale = load_scale_v1,
  };
  
-@@ -3761,6 +3764,7 @@ static struct gdsc venus_core1_gdsc = {
- 	.pd = {
- 		.name = "venus_core1",
- 	},
-+	.flags = HW_CTRL,
- 	.pwrsts = PWRSTS_OFF_ON,
- };
+@@ -875,7 +1016,7 @@ static int venc_power_v4(struct device *dev, int on)
+ 	return ret;
+ }
+ 
+-static int vcodec_domains_get(struct venus_core *core)
++static int vcodec_domains_get_v4(struct venus_core *core)
+ {
+ 	int ret;
+ 	struct device *dev = core->dev;
+@@ -993,7 +1134,7 @@ static int core_get_v4(struct venus_core *core)
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = vcodec_domains_get(core);
++	ret = vcodec_domains_get_v4(core);
+ 	if (ret)
+ 		return ret;
  
 
 -- 
