@@ -1,169 +1,106 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from polaris.svanheule.net (polaris.svanheule.net [84.16.241.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BA1731F9B4
-	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 19:11:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06ACB233704
+	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 19:23:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.241.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778440314; cv=none; b=H4giPkIv2PIQu3qy9XQJJGpyqb8iwXiVjrT8RoFgozhHfYWduEx7E1P6USnbgZ9S5rahL83IaYIrkJKSmZ3pcF4ZnPjDM+JjQlJGuiL0T07y85rMUMDUJxDS+hYrcNA9mXQPAx6wlYK2ntN8KpyeOPsuHz6xkj12DwczVdrslf4=
+	t=1778441008; cv=none; b=LjHmQ24TCZcg7nWgDaihzyAJ9YPK0xsbPQHRnnTh/p1WIIHl/Y8HNJyy0rSJXb/8fUugVR4iFnklEth7IvrJ0cvR20an3ww3klZopPZE+hK5oXLLJjj0LKd2j/x9o2TJLSsHJTRmmFrNobBK0Rg61dy/pr3aDWylkEjNVaBArLI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778440314; c=relaxed/simple;
-	bh=AyGz9so4c6OwRNB0n9cDDWEbXteFpW8uza+zO1Fw3XE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bWCT8REDdQ02VrCX+r0Wr+KwuDw18wYrI1hWua44+wSp3jrxOtEE5H/3YmmxdP2BQDgdOiWzA9awNHRjYrD+vRsGTv/W5iLYOYUiJThjpkMS9WDQCzKiLSBhtBkolzrb3v0PdaoJr3T4PWo/kyvnolifsnkS0iT/T6f49F/Vqm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mih+cbQm; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778441008; c=relaxed/simple;
+	bh=7h7VEb1IQalYk3uf8LvceW/ggx/Bm2wE13XAeEQw3aU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=BJQQ+wjqTkJ1iMVxbdHJZMwp0VGKXxgrmTE5GhCfFPwp2MLRRfSje0NWl7AqYNSPIk9bnlcy99NI7EAZjb43sLI975EwhiK1km7KTAc+ub5xhdFYwVVYXq2E5RJ+KekIxkCVnXxJBLQPdQ3SnFsu2OIMJGdLHw3dN6VGgkzif9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net; spf=pass smtp.mailfrom=svanheule.net; dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b=8NpTHEeY; arc=none smtp.client-ip=84.16.241.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=svanheule.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mih+cbQm"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4891c00e7aeso29905095e9.2
-        for <devicetree@vger.kernel.org>; Sun, 10 May 2026 12:11:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778440312; x=1779045112; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=iqXXwGhWAIu7FOeb/7si1xrgwWH1dKQB5oTnVjCGc+c=;
-        b=mih+cbQmuDEJnurrvvt2P6H9pz0eNC7TfKiR3gGghpCrQrmWGj6TlNbu+Zx0RaWjMz
-         HaBaKhufpHHIxZ3xc2ootLMrmoDEIxLdlAXlWxEaZslE1FoZeemd95zxzC/nroLi8SOt
-         SFnJjQkD7l1OSuva5BB2MlDMf4KLYcAngLym8JkeItlI6+B3gMXmBxEVNVl+5bsPZp4k
-         KMR273XBJCJLAxB1NTt6oHba6PqzL+dh3ei5wSyJSZaAaDs3lG42Bi5rP3z4SuZEcmrY
-         a1PMmTW2YwyR2RtTHUxECY73QlydpAF7gOgVJRd+1IJZgql9xnRLnwC7+oKXDrsOY2GW
-         bi3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778440312; x=1779045112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=iqXXwGhWAIu7FOeb/7si1xrgwWH1dKQB5oTnVjCGc+c=;
-        b=d9/fQnF0MI29qgclpbIkRSp2MwyJPrWtP4KMY9Ox6UOR2nQCE9wlbE3qLivq0mPMyS
-         4MhKxd5fGyaIMgQ81X+iMg2IpmsJVIOr4DutwnWT1PGZpA2dm5+4F0F9Gb2YcrFV5DpR
-         avbClYg1uqmZY7nIuZ9stqD2TOQ6NuqyoDIC+w3GAoemhjwaTJ8JtCGEpSAa/Rv18cyt
-         QYwl/SanGmdLmEbCCisIfaXxvGPVK/RFt7GBLYVVo8K1whMIg9iaAQ8sP+dRZ6VltxXW
-         9j1Q1l7FFU4nO2I4nILPQpWCm2pTYHORzkjLVsJJUvVz1mrbmaGg5UbHNwhCbLyxsLO7
-         yYUg==
-X-Gm-Message-State: AOJu0Yyrq8I8p+b284YfR87ZXzaqN+VNhgTi9hJNqZQoXkh0DInlCpa6
-	7drEU4FkeIbTZT4Y47gvfzNxcGUbVGn8lHDVDzqXpmb+RqT9AucyR6Pa
-X-Gm-Gg: Acq92OHa+J0Fz8yCz/7F7YdtYs17+y4ClTKe89xlKizXn0OiSnYQks4uRBsqpcVERks
-	Dzb0vjROk99mE9AZV1fl09w2c1VJMhDOXV7GJqz+wCJjsm9aPDed28Vr+tRwvQF6qWmTg/HMa1a
-	Rcx1ar8iLy2YOv5fVlIXADKGpMlB6zx3/3RGZjIUH2N8HqT4Ms9K41FPdXHpGaP//9L3wZVfGd7
-	Krvn7g5MqqJcF8yONX2FBj4JRLRjujnSDvc4tXg43QI4heHZNZbCW81gEnxhVoXmgEq5RE5J54a
-	RoUrR/A6Gl2SWTLwezXwL0VvDhz/B6Ahy5yCVnITiy5BPGyCtQVEvwhokyV1M1Lr1amcBbtHBFQ
-	II/7Pc86xwwexlT5neR5mkmlmWW541mh6+cWrKZM9OMjlmyUjldKHbshLbHosFjVMgyCP0hf9Te
-	swx8+qiShmt2kdpH3gP8G045SScC6bhAoaAiHjaIN60jeD1wAZVwIHIG1AcWQx5vap3uLp6PYzZ
-	eQJRtwNgepoygx54A==
-X-Received: by 2002:a05:600c:c166:b0:48e:6f39:f7be with SMTP id 5b1f17b1804b1-48e6f39f7d2mr125053585e9.10.1778440311754;
-        Sun, 10 May 2026 12:11:51 -0700 (PDT)
-Received: from jernej-laptop.localnet (46-150-62-216.dynamic.telemach.net. [46.150.62.216])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45491da03a7sm20304842f8f.33.2026.05.10.12.11.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 10 May 2026 12:11:51 -0700 (PDT)
-From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: sashiko@lists.linux.dev
-Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, robh@kernel.org,
- conor+dt@kernel.org
-Subject:
- Re: [PATCH v2 1/8] clk: sunxi-ng: de2: Fix Display Engine 3.3 definitions
-Date: Sun, 10 May 2026 21:11:50 +0200
-Message-ID: <2WzKBHuPSreDENZ3eIUvdg@gmail.com>
-In-Reply-To: <20260509194402.EB552C2BCB2@smtp.kernel.org>
-References:
- <20260509190015.79086-2-jernej.skrabec@siol.net>
- <20260509194402.EB552C2BCB2@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b="8NpTHEeY"
+Received: from [IPv6:2a02:1812:162d:3d00:649f:659d:f6c1:d42] (2a02-1812-162d-3d00-649f-659d-f6c1-d42.ip6.access.telenet.be [IPv6:2a02:1812:162d:3d00:649f:659d:f6c1:d42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sander@svanheule.net)
+	by polaris.svanheule.net (Postfix) with ESMTPSA id 3DA5F77CC34;
+	Sun, 10 May 2026 21:23:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=svanheule.net;
+	s=mail1707; t=1778441004;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7h7VEb1IQalYk3uf8LvceW/ggx/Bm2wE13XAeEQw3aU=;
+	b=8NpTHEeY2o4dBpEVcqUq8ICJgutuH6yyoDsCIy7TzOgZZv4AfISsxBrao5+7qh80XOljiz
+	vqWjXgy/udziPzgiAtYpnmC8A+W8fMp2NhZXmSM85pl0BPt9ss7c8sbb/nXM/hopzQQ1mQ
+	IlWPFj//DI/zlQBNCrqIc64mS9Qzof6DRaJH/z1zwghqW8xpYWuWlrNLtFK6XWhn2TsBDw
+	kuBr8AQnDmV8v3cUvJ3+xyJBo8MrPvWyC1GMVTlUgfZq79fY2mt/D2iqzmrX7Bag63UKiy
+	sNusMvDQHDSBu6PqTdkKIVV0Ejm7t4xosruriYkltWc8584kQkCt+S5ozGlS/A==
+Message-ID: <a6d6f58a09aa3e787f3f24406b76aa5a5b6f8200.camel@svanheule.net>
+Subject: Re: [PATCH 2/3] dt-bindings: watchdog: realtek,otto-wdt: add
+ compatible for RTL9607C
+From: Sander Vanheule <sander@svanheule.net>
+To: Conor Dooley <conor@kernel.org>, Rustam Adilov <adilov@disroot.org>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
+	 <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Sun, 10 May 2026 21:23:23 +0200
+In-Reply-To: <20260509-rebuild-snowboard-e82a3adc5a27@spud>
+References: <20260509163101.722793-1-adilov@disroot.org>
+	 <20260509163101.722793-3-adilov@disroot.org>
+	 <20260509-rebuild-snowboard-e82a3adc5a27@spud>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 
-Dne sobota, 9. maj 2026 ob 21:44:02 Srednjeevropski poletni =C4=8Das je sas=
-hiko-bot@kernel.org napisal(a):
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [High] The new DE33 clock definitions omit the bus clocks for MIXER1 an=
-d WB, leaving their bus interfaces unclocked and breaking hardware support.
-> --
->=20
-> commit 7e5df4616faf2d32c9447b44291572215aac8a17
-> Author: Jernej Skrabec <jernej.skrabec@gmail.com>
->=20
-> clk: sunxi-ng: de2: Fix Display Engine 3.3 definitions
->=20
-> This commit fixes the Display Engine 3.3 resets and clocks to match
-> the vendor driver, as the positions of clocks and resets changed in
-> version 3.3.
->=20
-> > diff --git a/drivers/clk/sunxi-ng/ccu-sun8i-de2.c b/drivers/clk/sunxi-n=
-g/ccu-sun8i-de2.c
-> > index a6cd0f988859d..6ec6c0dc4c261 100644
-> > --- a/drivers/clk/sunxi-ng/ccu-sun8i-de2.c
-> > +++ b/drivers/clk/sunxi-ng/ccu-sun8i-de2.c
->=20
-> [ ... ]
->=20
-> > @@ -54,6 +61,9 @@ static SUNXI_CCU_M(wb_div_a83_clk, "wb-div", "pll-de"=
-, 0x0c, 8, 4,
-> >  static SUNXI_CCU_M(rot_div_a83_clk, "rot-div", "pll-de", 0x0c, 0x0c, 4,
-> >  		   CLK_SET_RATE_PARENT);
-> > =20
-> > +static SUNXI_CCU_GATE(bus_mixer0_h616_clk, "bus-mixer0", "bus-de",
-> > +		      0x08, BIT(0), 0);
-> > +
->=20
-> Will this omission cause a regression for mixer1 and wb?
+Hi,
 
-No, I should explain in commit message that there is only one bus clock,
-shared among mixer0, mixer1 and wb. CLK_BUS_MIXER0 is used for all
-cores.
+On Sat, 2026-05-09 at 19:13 +0100, Conor Dooley wrote:
+> On Sat, May 09, 2026 at 09:31:00PM +0500, Rustam Adilov wrote:
+> > Add the realtek,rtl9607-wdt compatible to the Realtek Otto watchdog
+> > binding.
+> >=20
+> > Signed-off-by: Rustam Adilov <adilov@disroot.org>
+> > ---
+> > =C2=A0Documentation/devicetree/bindings/watchdog/realtek,otto-wdt.yaml =
+| 1 +
+> > =C2=A01 file changed, 1 insertion(+)
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/watchdog/realtek,otto-
+> > wdt.yaml b/Documentation/devicetree/bindings/watchdog/realtek,otto-wdt.=
+yaml
+> > index 1f5390a67cdb..ac9db40b12dc 100644
+> > --- a/Documentation/devicetree/bindings/watchdog/realtek,otto-wdt.yaml
+> > +++ b/Documentation/devicetree/bindings/watchdog/realtek,otto-wdt.yaml
+> > @@ -30,6 +30,7 @@ properties:
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - realtek,rtl8390-wdt
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - realtek,rtl9300-wdt
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - realtek,rtl9310-wdt
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - realtek,rtl9607-wdt
+>=20
+> Please explain in your commit message why this new device is not
+> compatible with the existing ones, particularly given the driver patch
+> implies that it would be.
+> pw-bot: changes-requested
 
->=20
-> It looks like the bus clocks for mixer1 (BIT(1)) and wb (BIT(4)) at regis=
-ter
-> offset 0x08 are missing here.
->=20
-> Since RST_MIXER1 was previously mapped to 0x08 BIT(1), the DRM driver
-> deasserting that reset was inadvertently enabling the DE33 bus clock for
-> mixer1.
->=20
-> Now that RST_MIXER1 is correctly moved to 0x00, will accessing the
-> unclocked MIXER1 or WB hardware blocks cause a hard system hang due to MM=
-IO
-> access failures?
+Back when I originally wrote this driver, device-specific compatibles were
+encouraged "just in case" the hardware would turn out to behave differently=
+.
+Has this changed to minimizing the number of compatibles?
 
-There are no such issues, as hardware testing showed. Old code worked by lu=
-ck.
-
-Best regards,
-Jernej
-
->=20
-> [ ... ]
->=20
-> > @@ -147,6 +163,17 @@ static struct clk_hw_onecell_data sun50i_a64_de2_h=
-w_clks =3D {
-> >  	.num	=3D CLK_NUMBER_WITH_ROT,
-> >  };
-> > =20
-> > +static struct clk_hw_onecell_data sun50i_h616_de33_hw_clks =3D {
-> > +	.hws	=3D {
-> > +		[CLK_MIXER0]		=3D &mixer0_h616_clk.common.hw,
-> > +		[CLK_MIXER1]		=3D &mixer1_h616_clk.common.hw,
-> > +		[CLK_WB]		=3D &wb_h616_clk.common.hw,
-> > +
-> > +		[CLK_BUS_MIXER0]	=3D &bus_mixer0_h616_clk.common.hw,
->=20
-> Similarly, should the bus clocks for mixer1 and wb be populated in this
-> array so the DRM driver can properly request and enable them?
->=20
-> > +	},
-> > +	.num	=3D CLK_NUMBER_WITHOUT_ROT,
-> > +};
->=20
->=20
+FWIW this platform's GPIO driver does have both SoC-specific compatibles an=
+d a
+fallback, but for reasons lost to time this binding has no fallback. I'll s=
+ubmit
+a patch to add a fallback for this binding too.
 
 
-
-
+Best,
+Sander
