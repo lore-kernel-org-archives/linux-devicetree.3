@@ -1,116 +1,121 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA8802F8EB7;
-	Sun, 10 May 2026 07:19:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3270D35C1BC;
+	Sun, 10 May 2026 07:33:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778397586; cv=none; b=Bfl2uk+2+7HTDP6dGd8MpStTOHq9+YWQm08nzd9wQOzKyxDGXmiTKiXW3z5TuhmyTYHiAJrD3GSHFfIFwu24oRNQBEE0tbP/nqK+msVi9pg1v8ziz/fVfZypikFtDD0stvDmOFSrmJcNLC4ISMdiSOYSmL9JnaazUehUpCrFwtc=
+	t=1778398383; cv=none; b=Ts6Mk6kHNJ726NTi84KHjsNCJXNdFEXwAnXICdZlS1hCa22q6WPDhZSgjMfecdv23Q+uhrYhqFytM7E6VPXu/MhhFJHlgdn6zWthJU3Nyf6oUWxtqzKRn44svG/p84pIKP5nEMnva+S2hCT7BnrZs96Y9Z2VZGwHboh4xAz/YWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778397586; c=relaxed/simple;
-	bh=eohYJHwoejrU/BXmKoOTeozRPO2vN5Bzmy9y7RhES0M=;
+	s=arc-20240116; t=1778398383; c=relaxed/simple;
+	bh=C5SWgmyd3p/JbXe/hJzJcoVgQTuM5eiVn5t8MpCXkAQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LDhHNiUO7ynGb+Vu1WS9FwF0xaJ4lJ1xPgQGJ9cLWO06drphRM+lZVAdjhsLZzE5felc44nqVcD6/UFRn1747wF5fRvODiK2FIBWYclR5EFc+6p0qWJAxRysLVkXOMVJwHf2D7OAt/SVL7RDtY0VnWz3lRA1vfPvfeHN3G8AJSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=h1AiuAu5; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=akRY921MHOT8CgPooNQkQ30lfWu+FZGXgGqfF1AAbXjPiDZEGIdol97uw5aII3Kk/t8jtpWt4QmVXryg4oFA0t0dvZRxMK4hseooyjzl4yUtpIZ9gS/AERs1HsDAnUqa6wFYsRW9Bh5tL72fvsW2hF7ljPUpbV48BxhwZMBZvH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IeDmc2U3; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="h1AiuAu5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1778397585; x=1809933585;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=eohYJHwoejrU/BXmKoOTeozRPO2vN5Bzmy9y7RhES0M=;
-  b=h1AiuAu55/KNr3uVvxL+/yGJmKo7IwfJ6FnB4t2T3CK3BwT2CwSn5cVg
-   OECEnB/cp41cheu7DPfYCISj+g3fhcRa8Fti81iMN68lx8cgutGgf15IK
-   j79XC9DafqNBLWzwzRZOP0nFMvWXWBbgDhbi3o0j1qvLGkwrq7pNEtWqA
-   DaL/uRk/jkTOU58ACgzKjB+NhUjnbhS/M5dZoFx7LRLlzJF2qQXAUixIs
-   POJ9Mzar18Jw+L9nRrxg49hZ1aFmr1CUR7Fyzzp7NRvN0XKCipT2Y1Cdk
-   8OzPvEs0GdfepiooE7pOgpB9fq0LUfd5zoPPFTkbUjb5QATbfRf39eC0l
-   g==;
-X-CSE-ConnectionGUID: o4n/zY+KTruEZDRf9MMFIQ==
-X-CSE-MsgGUID: QKQeaYEQQe622zZvJR88IA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11781"; a="81883150"
-X-IronPort-AV: E=Sophos;i="6.23,227,1770624000"; 
-   d="scan'208";a="81883150"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 May 2026 00:19:40 -0700
-X-CSE-ConnectionGUID: Q6NL2Ul6RrWvEv4v96Pz4Q==
-X-CSE-MsgGUID: 9B1zZ9kDQaawGMPUIXQGdw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,227,1770624000"; 
-   d="scan'208";a="237390094"
-Received: from dhhellew-desk2.ger.corp.intel.com (HELO localhost) ([10.245.244.171])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 May 2026 00:19:36 -0700
-Date: Sun, 10 May 2026 10:19:33 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Antony Kurniawan Soemardi <linux@smankusors.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IeDmc2U3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECE93C2BCB8;
+	Sun, 10 May 2026 07:33:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778398382;
+	bh=C5SWgmyd3p/JbXe/hJzJcoVgQTuM5eiVn5t8MpCXkAQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IeDmc2U313JxDmIy7pAMv8WvsQDMPnypLTpuLxlqXZbTJci7+8m5Tb6IunjOLRt1/
+	 CSxjLqMyrCDEGVLanta3FLe77aH8DgZ0bjIWHm49SZoqX7C/moS3675Z2R5obt+QlX
+	 PWGXnvAToiQ8ZT9mp7Vpt6WANglTtwI1AXdL882iSg2Rrgh1h2lsm4N12ZGjwhStil
+	 w7Sa1jDGNJI/4jU3rOcnmxI2Ud50QyrZGcJBwvZ6OOTVPHz+aP5DIECN8SsXvBjFtq
+	 u0r7SvzT3EONCMfCc3oOxeA2Dq/zhGx3191MfpFxsftfwBDx2EUDhbF5prmQP+AR8X
+	 UswgkjZ+8riTA==
+Date: Sun, 10 May 2026 13:02:58 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Frank Wang <frank.wang@rock-chips.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Linus Walleij <linusw@kernel.org>, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, phone-devel@vger.kernel.org,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v6 4/4] iio: adc: qcom-pm8xxx-xoadc: add support for
- reading channel labels
-Message-ID: <agAxhcwXH4jCnJLO@ashevche-desk.local>
-References: <20260510-pm8xxx-xoadc-label-v6-0-49700fd03005@smankusors.com>
- <20260510-pm8xxx-xoadc-label-v6-4-49700fd03005@smankusors.com>
+	Andy Yan <andy.yan@rock-chips.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Yubing Zhang <yubing.zhang@rock-chips.com>,
+	Alexey Charkov <alchark@gmail.com>, linux-phy@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+	kernel@collabora.com, devicetree@vger.kernel.org,
+	William Wu <william.wu@rock-chips.com>
+Subject: Re: [PATCH v4 00/16] phy: rockchip: usbdp: Fixes, DP 1-lane support
+ and cleanups
+Message-ID: <agA0qhQakjlqvl2x@vaman>
+References: <20260428-rockchip-usbdp-cleanup-v4-0-7775671ece22@collabora.com>
+ <afd8xMS2hz208Lcl@vaman>
+ <6960660.0VBMTVartN@phil>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260510-pm8xxx-xoadc-label-v6-4-49700fd03005@smankusors.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6960660.0VBMTVartN@phil>
 
-On Sun, May 10, 2026 at 07:01:45AM +0000, Antony Kurniawan Soemardi wrote:
-> Implement the .read_label callback to allow userspace to identify ADC
 
-I would write in a usual pattern here, id est .read_label().
-But no need to resend just for that.
+Hi Heiko,
 
-> channels via the "label" property in the device tree. The name field in
-> pm8xxx_chan_info is renamed to label to better reflect its purpose. If
-> no label is provided in the device tree, it defaults to the hardware
-> datasheet name.
+On 03-05-26, 21:12, Heiko Stuebner wrote:
+> Hi Vinod,
 > 
-> The change has been tested on Sony Xperia SP (PM8921).
+> Am Sonntag, 3. Mai 2026, 18:50:12 Mitteleuropäische Sommerzeit schrieb Vinod Koul:
+> > Hi Sebastian,
+> > 
+> > On 28-04-26, 18:13, Sebastian Reichel wrote:
+> > > This series overhauls the Rockchip USBDP driver; apart from a
+> > > a bunch of cleanups and small improvements the main goal is to
+> > > get the driver ready for proper USB-C DP AltMode support.
+> > > 
+> > > Once this series has landed, it unblocks enabling proper USB-C
+> > > DP AltMode on the RK3588 and RK3576 platforms incl. runtime PM
+> > > for the Synopsys DesignWare DisplayPort controller.
+> > > 
+> > > Apart from this series, further changes are required on the
+> > > DRM side. There are no compile-time dependencies between the
+> > > DRM side and the PHY side, but the PHY side must be applied
+> > > to avoid SErrors once runtime PM is added to the DisplayPort
+> > > controller driver. Thus it would be really good to land this
+> > > series in the next merge window.
+> > 
+> > Looks like sasiko has flagged 8 high warning, can you please check them
+> 
+> (1) as mentioned in a different patch thread, review should be happening
+> on the lists. Tools regularly dump old results, so anyone looking at the
+> mailinglist thread might now be able to follow along with what happened
+> in 2 months or so.
+> 
+> Also other robot tools can reply on the lists just fine.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+It was not available in past, have enabled email reply as that is best
+way for us. It should happen going forward
 
-...
+> (2) if 1. is so hugely impossible, please at least provide some reference
+> to what you mean. Not everybody knows all the hype-tools-of-the-week and
+> simply searching for that mysterious "sasiko" [0] did not provide any
+> meaningful results for me, despite some amazon or youtube links for some
+> non-kernel uses of that term ;-)
 
-> +{
-> +	struct pm8xxx_xoadc *adc = iio_priv(indio_dev);
-> +	const struct pm8xxx_chan_info *ch;
-> +
-> +	ch = pm8xxx_get_channel(adc, chan->address);
-> +	if (!ch)
-> +		return -EINVAL;
+I am surprised that the hype of the week seems to missing for you or
+Sebastian as Sashiko has been, IMO covered quite well. Instead of a random
+web search I would have looked at lwn [1], [2].
 
-Usually we add blank line here (and in similar cases).
+> So a link should be present at least please.
 
-> +	return sysfs_emit(label, "%s\n", ch->label);
-> +}
+Agree, I have sent to people who I thought might not be aware. I guess
+better to not assume. In any case here are the comments, which maybe
+valid or maybe not. As usual with tools we should use our discretion
+https://sashiko.dev/#/patchset/20260428-rockchip-usbdp-cleanup-v4-0-7775671ece22%40collabora.com
 
-Again, no need to resend, I hope these can be fixed by Jonathan whilst
-applying.
+[1]: https://lwn.net/Articles/1063292/
+[2]: https://lwn.net/Articles/1063303/
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+~Vinod
