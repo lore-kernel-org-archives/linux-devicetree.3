@@ -1,352 +1,190 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from slategray.cherry.relay.mailchannels.net (slategray.cherry.relay.mailchannels.net [23.83.223.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 724D83603D3;
-	Sun, 10 May 2026 07:44:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778399061; cv=none; b=qKDf0mimbHgrwYsrWbp+53xj/rfEplWE0jSmqyumyKxLTi2m/g3lvU5X6nQXZnoi9CaP+iTpllaYIOu9qVHYBgZln8Smku4Qvnn0Ba3aEcCW4A3xqrBdjsa6ZoJUBvdTLHX7f4/ZUrtE/+biit8Bzroq9tVZ4dMNsmaA9NXx1j8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778399061; c=relaxed/simple;
-	bh=JdzQ4anNbdp6hZvOcAV+vpR6o5TNnOw3BRE3u7jPJ3I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fdY6rirlFDtpJv35mXfweyLD1Nhj8tyR+/aOoPS6HREt+YbTm0g4080LjphaYGyNJhIMa3wZdH8PQd0LKFUfGTMH2bxY06Xhg2jaJfrlu7OIPIhRRDsxM5OCpIZJxeoVO/Bh8RGeEgP/jUl5Izj8niVJRof/aW2UZUAg/2jMl5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Srw5A2bC; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE0372F8EB7;
+	Sun, 10 May 2026 08:08:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.223.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778400539; cv=pass; b=BTaOjmikDWN4zHshflFhpMAoeddY7GYMsu7Ct9ZU7HoNLpeHi/SpVU15TaSrU6Sxs+w2STcemyYoZmhQelDRMF+ufYOsQswW8OwbANzT7iwGAQBY0N1ita7mUYHOC6qSZx2CTvcU7JT8r+hlyWBQdcwymlQNpqTENuVeTjaybtA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778400539; c=relaxed/simple;
+	bh=P/22JueRT2YcfwST+Ai7cWP0aGRqFirus+R0SB45WMI=;
+	h=From:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc:Date; b=QUr/0NasPAPnoVxs7ggQuDFOqFnRU5LrEyZNWUeZxbgxA94x0Ut8WFHCSqAFC91zrQDXNoCxEeCo6TfFXiEU2GabxseiURiMNhFwcrtrF56wW58cDcBXyUONqDFhyy5ZcZfLqicJSzjj04zKP1I1deBrFwXhR5YJG9vczgNwf80=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com; spf=pass smtp.mailfrom=smankusors.com; dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b=ct9WOJPT; arc=pass smtp.client-ip=23.83.223.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smankusors.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Srw5A2bC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 418C4C2BCB8;
-	Sun, 10 May 2026 07:44:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778399061;
-	bh=JdzQ4anNbdp6hZvOcAV+vpR6o5TNnOw3BRE3u7jPJ3I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Srw5A2bCOfwk/jitLq7nfgkj2WCDxxbD2FIBLb/TQTOLxKHcxidSYyuEZ03osjmdr
-	 L2IwVt0iQHGEMwt3ajEdM28j7rl+pXTUfjkDXJpRNoTX5T7UtMAd1hA3+UElo/ftTl
-	 GxbOZ6eIY30unSLP0f08qKwX6VbzVh7A3m2pJov14i86Qq4xSgZeO/A775E3tFmWIK
-	 vnApd2+1/75BEmcmurPKNeJU7HFX11y76Wd/dFytTW5BGfXWPz+RUzza3mXvoVryXe
-	 HqHDRV3w8lReiaKoZjwCjs0cUXLMw673Uco1IorVW50vL8YSf0DgjZl81FCpwXOgUu
-	 emf7xO9RWG0rA==
-Date: Sun, 10 May 2026 13:14:17 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Cc: Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>,
-	Fu Wei <wefu@redhat.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Jisheng Zhang <jszhang@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-riscv@lists.infradead.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-phy@lists.infradead.org,
-	linux-usb@vger.kernel.org, Icenowy Zheng <uwu@icenowy.me>,
-	Han Gao <rabenda.cn@gmail.com>, Yao Zi <ziyao@disroot.org>
-Subject: Re: [PATCH 05/12] phy: add a driver for T-Head TH1520 USB PHY
-Message-ID: <agA3URhGA1u6R7LD@vaman>
-References: <20260507081710.4090814-1-zhengxingda@iscas.ac.cn>
- <20260507081710.4090814-6-zhengxingda@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b="ct9WOJPT"
+X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id B727E413B0;
+	Sun, 10 May 2026 07:01:46 +0000 (UTC)
+Received: from de-fra-smtpout6.hostinger.io (trex-green-3.trex.outbound.svc.cluster.local [100.103.33.89])
+	(Authenticated sender: hostingeremail)
+	by relay.mailchannels.net (Postfix) with ESMTPA id D873F41226;
+	Sun, 10 May 2026 07:01:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; d=mailchannels.net; s=arc-2022; cv=none;
+	t=1778396501;
+	b=41XfNHc0jg1FqK9ypanM7oJEOAkRASZzvjzeJ3YQoT5j42i9mWI5/lCudTkPeKTjCKsDI5
+	aoCuUnW5HfF8CZYCWp8FeU6N9lnr1YcYb38p92EoK26D0mCPACr3sPf1JVZoQb1S/tGrOB
+	xEJtz+/+Jx9ySRiMCqJcEmkN2MMCNr+CBve79bSRt1zADxf3GuoV9ENor3FwoaO0WVt2Ox
+	8MeKD/mrzahowNQ8RB4HSid2FZ1CN1yu4WJYXVAOdsFwwKe32TgT/NDEM9FJQ+o3IKP7Wm
+	tc9/qj8czDHnAQTifTuLRARFy+Hk/K1oU75BW1TEziA/tkIlZABhYYTVFN6kHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailchannels.net;
+	s=arc-2022; t=1778396501;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:dkim-signature;
+	bh=nHTwWN16ekffh0PsCuHvfyu0Z3TUsh+Kl9hX0JiCNZg=;
+	b=7KHtAeHbwR3U7e1fN+Sb1qIcX+67BJoEQFzRtdy5ZT1P/REx/i9LNuqC6j2ykBezQetRPF
+	nHYUIRKpgy1Cnz0AI0iVxqWiYIAJQOLv7bWZQbtDMVIAEQFApNj3qE6podEq5KhCesXJlS
+	TOVVOnQ93NvFNpXMNsXqtugZLkERXeqjvPCXyGvU1yXhPqVygr/9fB+43jpPmkDnI8zhmX
+	6yzo+yNOUO4PIfDkaPphfWzHZCZV564SN1wJIuhuuPQ+T5uJxEdSQu6nOBpaEqfZW4WHNp
+	oPV0zrCzbcU2KVMavkRZrJyYBHV4ZptJ8ITsiN7bvQ/BeOMki7x5zNpY5r+MKg==
+ARC-Authentication-Results: i=1;
+	rspamd-79cfc4d687-w9599;
+	auth=pass smtp.auth=hostingeremail smtp.mailfrom=linux@smankusors.com
+X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: hostingeremail|x-authuser|linux@smankusors.com
+X-MailChannels-Auth-Id: hostingeremail
+X-Trade-Bubble: 2a619c8d5bad1f09_1778396506631_2140836899
+X-MC-Loop-Signature: 1778396506631:710262432
+X-MC-Ingress-Time: 1778396506630
+Received: from de-fra-smtpout6.hostinger.io (de-fra-smtpout6.hostinger.io
+ [148.222.55.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.103.33.89 (trex/7.1.5);
+	Sun, 10 May 2026 07:01:46 +0000
+Received: from [172.17.0.2] (unknown [125.163.203.7])
+	(Authenticated sender: linux@smankusors.com)
+	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4gCv0Z02fnz3x62;
+	Sun, 10 May 2026 07:01:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smankusors.com;
+	s=hostingermail-a; t=1778396497;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nHTwWN16ekffh0PsCuHvfyu0Z3TUsh+Kl9hX0JiCNZg=;
+	b=ct9WOJPTJmUc7OfF+riApYu0t5jC/5zI/lOYW97HgO9fnFrf/7JyoJ0+uCUJHflOxRgvjU
+	1iMbBPKZJNwcnpvCW4ItOQZgCUEMy7l3Xbym3ED3HABmlCVzz2zha4nSfoNLINzJB0EjPS
+	Fw4CUEBUnqJ1FW4LcGGVSHzubfyrjnovVt3GzKbjWO5hChfNDoaA3cR6GRFdlehljZh7FJ
+	gtOfy326YM5A/QpfMr1pFBiomytAxTd2o+UXrSkTTbsbgUBJ6yxaAWjHaW4Q4vrCPWdtDU
+	Y7HeTaGmLlcOoQflxuAYYT3QYaXBa+zDsfuQ+n9FnkYzDoHu83zmyY3LEmVqJw==
+From: Antony Kurniawan Soemardi <linux@smankusors.com>
+Subject: [PATCH v6 1/4] dt-bindings: iio: adc: qcom,pm8018-adc: add label
+ property for ADC channels
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260507081710.4090814-6-zhengxingda@iscas.ac.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260510-pm8xxx-xoadc-label-v6-1-49700fd03005@smankusors.com>
+References: <20260510-pm8xxx-xoadc-label-v6-0-49700fd03005@smankusors.com>
+In-Reply-To: <20260510-pm8xxx-xoadc-label-v6-0-49700fd03005@smankusors.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Linus Walleij <linusw@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
+ phone-devel@vger.kernel.org, 
+ Antony Kurniawan Soemardi <linux@smankusors.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778396489; l=2438;
+ i=linux@smankusors.com; s=20250609; h=from:subject:message-id;
+ bh=P/22JueRT2YcfwST+Ai7cWP0aGRqFirus+R0SB45WMI=;
+ b=6WkbgOkF+FKRgU1dnN25pJchwAv5UfY9nQ/kQupVKFQkDQLfKzk3tsCKQi52LMV5NEQQ7O2t3
+ altWw3MiywlDPFmg+RjU32rl+ozgayr4o4L40IEfU+Ue//RcpcyM4eN
+X-Developer-Key: i=linux@smankusors.com; a=ed25519;
+ pk=65wTy06fJl2/h/EJwjr704YG+yjHFhZObJBWzzK+N00=
+Date: Sun, 10 May 2026 07:01:33 +0000 (UTC)
+X-CM-Envelope: MS4xfCPlUJzwSlZL7XgGFiWhQ00b15zlAW70QSrJYjidBWCEeE4w0EdBEqOlU5KTLdbzBLdr/xK4Cd+h++R42fAqCmtakXdYdd3St7Whkdf4IWlBwTuIgAxk 51LgG97bmh9ft9irkKcqcJa2Kgpp8m/4VkSU+0R0ts34mi9UaE1PLylg21kM73nwI1O7umTy0JeapOypYRH4SO7guPw+84Bv6yGWl1JSxwNTaUKzVz0Iy2SA wImJ6RqGPTZffup2FZR433ibL4Hz3JmHFAdcCM2ez+0rTBOOydHD0OurKdKy2UMdz8FjoeM9rdO2Ynh3eNVZMs9APOV6RW6qEBBIiQ+0+sZtwBVzT+RykWOy DDMIuview3DhwSMEEt0Bqm22nLzikYOIFClYHUKRvfW6KbUXz3WuL35QS8cnWbBtY7hkGBZ1J6RFZ/BpYxIJVTR2JUJBQ8NQfrhVEufnVBSJVJSETp3rMUUH uxrANpZ+Q8uP/+v/4vSVTDuUyQBk6WoODVv/TEU1JEVf3h7Ij1cwa18O+dQ0zfFpWhIKjkPCbKHpCpAuFrt7UOwdWswD5+sNSGLOnlUQ1jwf/Tl/EqnQ+80p tPgpsOYNWjCxKMrGy8X0luQgZ58djrEkQ1ElweoQbDTqhKINFr4gijBOC4OMpOUU+1Aesn11HVZ1CGo1lSSn2KAf
+X-CM-Analysis: v=2.4 cv=etGNzZpX c=1 sm=1 tr=0 ts=6a002d51 a=aYg++IQuMqL9NhcFIsEovw==:117 a=aYg++IQuMqL9NhcFIsEovw==:17 a=IkcTkHD0fZMA:10 a=wxLWbCv9AAAA:8 a=Y5Iuzig1aeAEnQA3VkkA:9 a=QEXdDO2ut3YA:10 a=vyqAJ5GITisAxiZ2Wwa1:22 a=QJY96suAAestDpCc5Gi9:22
+X-AuthUser: linux@smankusors.com
 
-On 07-05-26, 16:17, Icenowy Zheng wrote:
-> The USB PHY on T-Head TH1520 SoC is a Synopsys USB 3.0 FemtoPHY, with
-> some PHY parameters exported as another system controller along with it.
-> 
-> As a few PHY parameters' default value isn't ready to work, add a driver
-> configuring them before letting the PHY run, in addition to
-> clock/reset/regulator management.
+Add a new optional label property for ADC channels to help users
+identify each channel when reading values from the sysfs interface.
 
-Is there any dependency on the rest of series, if not please split up!
+Signed-off-by: Antony Kurniawan Soemardi <linux@smankusors.com>
+---
+ .../devicetree/bindings/iio/adc/qcom,pm8018-adc.yaml      | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-Some warnings flagged by sashiko, please check
-https://sashiko.dev/#/patchset/20260507081710.4090814-1-zhengxingda%40iscas.ac.cn
-
-
-> 
-> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> ---
->  drivers/phy/Kconfig                |   1 +
->  drivers/phy/Makefile               |   1 +
->  drivers/phy/thead/Kconfig          |  12 ++
->  drivers/phy/thead/Makefile         |   2 +
->  drivers/phy/thead/phy-th1520-usb.c | 197 +++++++++++++++++++++++++++++
->  5 files changed, 213 insertions(+)
->  create mode 100644 drivers/phy/thead/Kconfig
->  create mode 100644 drivers/phy/thead/Makefile
->  create mode 100644 drivers/phy/thead/phy-th1520-usb.c
-> 
-> diff --git a/drivers/phy/Kconfig b/drivers/phy/Kconfig
-> index 227b9a4c612e8..ea1a52e14b839 100644
-> --- a/drivers/phy/Kconfig
-> +++ b/drivers/phy/Kconfig
-> @@ -164,6 +164,7 @@ source "drivers/phy/st/Kconfig"
->  source "drivers/phy/starfive/Kconfig"
->  source "drivers/phy/sunplus/Kconfig"
->  source "drivers/phy/tegra/Kconfig"
-> +source "drivers/phy/thead/Kconfig"
->  source "drivers/phy/ti/Kconfig"
->  source "drivers/phy/xilinx/Kconfig"
->  
-> diff --git a/drivers/phy/Makefile b/drivers/phy/Makefile
-> index f49d83f00a3d8..4604522548c91 100644
-> --- a/drivers/phy/Makefile
-> +++ b/drivers/phy/Makefile
-> @@ -48,5 +48,6 @@ obj-$(CONFIG_GENERIC_PHY)		+= allwinner/	\
->  					   starfive/	\
->  					   sunplus/	\
->  					   tegra/	\
-> +					   thead/	\
->  					   ti/		\
->  					   xilinx/
-> diff --git a/drivers/phy/thead/Kconfig b/drivers/phy/thead/Kconfig
-> new file mode 100644
-> index 0000000000000..14012db5973c4
-> --- /dev/null
-> +++ b/drivers/phy/thead/Kconfig
-> @@ -0,0 +1,12 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +config PHY_TH1520_USB
-> +	tristate "USB PHY driver for T-Head TH1520 SoC"
-> +	depends on ARCH_THEAD || COMPILE_TEST
-> +	depends on COMMON_CLK
-> +	depends on HAS_IOMEM
-> +	depends on OF
-> +	depends on RESET_CONTROLLER
-> +	select GENERIC_PHY
-> +	default ARCH_THEAD
-
-Why should this be default?
-
-> +	help
-> +	  Enable support for the USB PHY on the T-Head TH1520 SoC.
-> diff --git a/drivers/phy/thead/Makefile b/drivers/phy/thead/Makefile
-> new file mode 100644
-> index 0000000000000..5b459bc7004bd
-> --- /dev/null
-> +++ b/drivers/phy/thead/Makefile
-> @@ -0,0 +1,2 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +obj-$(CONFIG_PHY_TH1520_USB) += phy-th1520-usb.o
-> diff --git a/drivers/phy/thead/phy-th1520-usb.c b/drivers/phy/thead/phy-th1520-usb.c
-> new file mode 100644
-> index 0000000000000..c87bd779bbb74
-> --- /dev/null
-> +++ b/drivers/phy/thead/phy-th1520-usb.c
-> @@ -0,0 +1,197 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2026 Institute of Software, Chinese Academy of Sciences (ISCAS)
-> + *
-> + * Authors:
-> + * Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> + */
-> +
-> +#include <linux/clk.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/phy/phy.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/reset.h>
-> +
-> +#define USB_SYSCON_OFFSET		0xf000
-> +
-> +/* All the below registers are in the USB syscon region */
-> +#define USB_CLK_GATE_STS		0x0
-> +#define USB_LOGIC_ANALYZER_TRACE_STS0	0x4
-> +#define USB_LOGIC_ANALYZER_TRACE_STS1	0x8
-> +#define USB_GPIO			0xc
-> +#define USB_DEBUG_STS0			0x10
-> +#define USB_DEBUG_STS1			0x14
-> +#define USB_DEBUG_STS2			0x18
-> +#define USBCTL_CLK_CTRL0		0x1c
-> +#define USBPHY_CLK_CTRL1		0x20
-> +#define USBPHY_TEST_CTRL0		0x24
-> +#define USBPHY_TEST_CTRL1		0x28
-> +#define USBPHY_TEST_CTRL2		0x2c
-> +#define USBPHY_TEST_CTRL3		0x30
-> +#define USB_SSP_EN			0x34
-> +#define USB_HADDR_SEL			0x38
-> +#define USB_SYS				0x3c
-> +#define USB_HOST_STATUS			0x40
-> +#define USB_HOST_CTRL			0x44
-> +#define USBPHY_HOST_CTRL		0x48
-> +#define USBPHY_HOST_STATUS		0x4c
-> +#define USB_TEST_REG0			0x50
-> +#define USB_TEST_REG1			0x54
-> +#define USB_TEST_REG2			0x58
-> +#define USB_TEST_REG3			0x5c
-
-Why do need these test registers, they seem unused?
-
-> +
-> +#define USB_SYS_COMMONONN		BIT(0)
-> +
-> +#define USB_SSP_EN_REF_SSP_EN		BIT(0)
-> +
-> +struct th1520_usb_phy {
-> +	struct platform_device *pdev;
-> +	struct phy *phy;
-> +	struct regmap *regmap;
-> +	struct clk *ref_clk;
-> +	struct reset_control *phy_reset;
-> +};
-> +
-> +static int th1520_usb_phy_init(struct phy *phy)
-> +{
-> +	struct th1520_usb_phy *th1520_phy = phy_get_drvdata(phy);
-> +	int ret;
-> +
-> +	ret = clk_prepare_enable(th1520_phy->ref_clk);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = reset_control_assert(th1520_phy->phy_reset);
-> +	if (ret)
-> +		goto err_disable_clk;
-> +
-> +	/*
-> +	 * Do some initial PHY setup:
-> +	 * - Set COMMONONN to allow the PHY to automatically power down.
-> +	 * - Set REF_SSP_EN to enable feeding reference clock to SuperSpeed
-> +	 *   PHY clock PLL.
-> +	 */
-> +	regmap_set_bits(th1520_phy->regmap, USB_SYS, USB_SYS_COMMONONN);
-> +	regmap_set_bits(th1520_phy->regmap, USB_SSP_EN, USB_SSP_EN_REF_SSP_EN);
-> +
-> +	ret = reset_control_deassert(th1520_phy->phy_reset);
-> +	if (ret)
-> +		goto err_disable_clk;
-> +
-> +	udelay(10);
-> +
-> +	return 0;
-> +
-> +err_disable_clk:
-> +	clk_disable_unprepare(th1520_phy->ref_clk);
-> +	return ret;
-> +}
-> +
-> +static int th1520_usb_phy_exit(struct phy *phy)
-> +{
-> +	struct th1520_usb_phy *th1520_phy = phy_get_drvdata(phy);
-> +	int ret;
-> +
-> +	ret = reset_control_assert(th1520_phy->phy_reset);
-> +	if (ret)
-> +		return ret;
-> +
-> +	clk_disable_unprepare(th1520_phy->ref_clk);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct phy_ops th1520_usb_phy_ops = {
-> +	.init		= th1520_usb_phy_init,
-> +	.exit		= th1520_usb_phy_exit,
-> +	.owner		= THIS_MODULE,
-> +};
-> +
-> +static const struct regmap_config phy_regmap_config = {
-> +	.reg_bits = 32,
-> +	.val_bits = 32,
-> +	.reg_stride = 4,
-> +	.max_register = USB_TEST_REG3,
-> +};
-> +
-> +static int th1520_usb_phy_probe(struct platform_device *pdev)
-> +{
-> +	struct phy_provider *phy_provider;
-> +	struct device *dev = &pdev->dev;
-> +	struct th1520_usb_phy *th1520_phy;
-> +	struct reset_control *bus_reset;
-> +	void __iomem *base;
-> +	int ret;
-> +
-> +	th1520_phy = devm_kzalloc(dev, sizeof(*th1520_phy), GFP_KERNEL);
-> +	if (!th1520_phy)
-> +		return -ENOMEM;
-> +
-> +	th1520_phy->pdev = pdev;
-> +
-> +	base = devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(base))
-> +		return PTR_ERR(base);
-> +
-> +	th1520_phy->ref_clk = devm_clk_get(dev, "ref");
-> +	if (IS_ERR(th1520_phy->ref_clk))
-> +		return PTR_ERR(th1520_phy->ref_clk);
-> +
-> +	/* De-assert the bus reset and leave it that way */
-> +	bus_reset = devm_reset_control_get_exclusive_deasserted(dev, "bus");
-> +	if (IS_ERR(bus_reset))
-> +		return PTR_ERR(bus_reset);
-> +
-> +	th1520_phy->phy_reset = devm_reset_control_get_exclusive(dev, "phy");
-> +	if (IS_ERR(th1520_phy->phy_reset))
-> +		return PTR_ERR(th1520_phy->phy_reset);
-> +
-> +	/*
-> +	 * Schematics of several boards (Lichee Module 4A/Milk-V Meles)
-> +	 * describe this power rail as always-on.
-> +	 */
-> +	ret = devm_regulator_get_enable(dev, "avdd33-usb3");
-> +	if (ret)
-> +		return ret;
-> +
-> +	th1520_phy->regmap = devm_regmap_init_mmio_clk(dev, "bus",
-> +						       base + USB_SYSCON_OFFSET,
-> +						       &phy_regmap_config);
-> +	if (IS_ERR(th1520_phy->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(th1520_phy->regmap),
-> +				     "Failed to init regmap\n");
-> +
-> +	th1520_phy->phy = devm_phy_create(dev, dev->of_node, &th1520_usb_phy_ops);
-> +	if (IS_ERR(th1520_phy->phy)) {
-> +		dev_err(dev, "failed to create PHY\n");
-> +		return PTR_ERR(th1520_phy->phy);
-> +	}
-> +
-> +	phy_set_drvdata(th1520_phy->phy, th1520_phy);
-> +
-> +	phy_provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
-> +
-> +	return PTR_ERR_OR_ZERO(phy_provider);
-> +}
-> +
-> +static const struct of_device_id th1520_usb_phy_of_table[] = {
-> +	{ .compatible = "thead,th1520-usb-phy" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, th1520_usb_phy_of_table);
-> +
-> +static struct platform_driver th1520_usb_phy_driver = {
-> +	.driver = {
-> +		.name = "th1520-usb-phy",
-> +		.of_match_table = th1520_usb_phy_of_table,
-> +	},
-> +	.probe = th1520_usb_phy_probe,
-> +};
-> +
-> +module_platform_driver(th1520_usb_phy_driver);
-> +
-> +MODULE_DESCRIPTION("T-Head TH1520 USB PHY driver");
-> +MODULE_LICENSE("GPL");
-> -- 
-> 2.52.0
+diff --git a/Documentation/devicetree/bindings/iio/adc/qcom,pm8018-adc.yaml b/Documentation/devicetree/bindings/iio/adc/qcom,pm8018-adc.yaml
+index c978c3a3e31a..63aac8de22ad 100644
+--- a/Documentation/devicetree/bindings/iio/adc/qcom,pm8018-adc.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/qcom,pm8018-adc.yaml
+@@ -78,6 +78,10 @@ patternProperties:
+       reg:
+         maxItems: 1
+ 
++      label:
++        description: |
++          Unique name to identify which channel this is.
++
+       qcom,decimation:
+         $ref: /schemas/types.yaml#/definitions/uint32
+         description: |
+@@ -130,36 +134,47 @@ examples:
+ 
+             vcoin: adc-channel@0 {
+                 reg = <0x00 0x00>;
++                label = "vcoin";
+             };
+             vbat: adc-channel@1 {
+                 reg = <0x00 0x01>;
++                label = "vbat";
+             };
+             dcin: adc-channel@2 {
+                 reg = <0x00 0x02>;
++                label = "dcin";
+             };
+             ichg: adc-channel@3 {
+                 reg = <0x00 0x03>;
++                label = "ichg";
+             };
+             vph_pwr: adc-channel@4 {
+                 reg = <0x00 0x04>;
++                label = "vph_pwr";
+             };
+             usb_vbus: adc-channel@a {
+                 reg = <0x00 0x0a>;
++                label = "usb_vbus";
+             };
+             die_temp: adc-channel@b {
+                 reg = <0x00 0x0b>;
++                label = "die_temp";
+             };
+             ref_625mv: adc-channel@c {
+                 reg = <0x00 0x0c>;
++                label = "ref_625mv";
+             };
+             ref_1250mv: adc-channel@d {
+                 reg = <0x00 0x0d>;
++                label = "ref_1250mv";
+             };
+             ref_325mv: adc-channel@e {
+                 reg = <0x00 0x0e>;
++                label = "ref_325mv";
+             };
+             ref_muxoff: adc-channel@f {
+                 reg = <0x00 0x0f>;
++                label = "ref_muxoff";
+             };
+         };
+     };
 
 -- 
-~Vinod
+2.34.1
+
