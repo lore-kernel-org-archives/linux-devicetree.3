@@ -1,169 +1,173 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cornsilk.ash.relay.mailchannels.net (cornsilk.ash.relay.mailchannels.net [23.83.222.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10BA4359A6F
-	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 07:11:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778397091; cv=none; b=fHT+nMPT2qRFIs+ofJo6ecib1FgHJN3b2SUbZDRtRLF5V08yqiA/9dOOGfyyWhKbBag+2BC1GUp1nYj37L7Iwvgy66KWki4MLKuiNmkj6uCrzB+wKeGX7g5Ejr7l/uTFl9JnFVjLFXRyBAuMpuzuDwEPZbNXyIlxF6sbk42PDiI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778397091; c=relaxed/simple;
-	bh=EleGY3vgTfeFTin94EwbWKxMKGx9dC00TvNm+PCjBFg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f/h/GN6weEqx9cE4C4TDy9ItT7o9NWb0EV1yBgyu9zaqO2CATxci+ffJNAKY+DFnD9xvXKrShPBzjOGAm0niPUonffcoUGkHu52bn9WXQfY9rrUS7/U+RBgG/nmgD9o3k6x9omjaWKmQl4DuNc2DlGNv3JeSszn7S3uNWpwimCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SW96mx06; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A3B3359A6F;
+	Sun, 10 May 2026 07:11:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=23.83.222.40
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778397100; cv=pass; b=cGTHA93jpeepZcdR4wVQenX2Fch4Yq6CyXI18PJWpUi4jQYub1MZm7645rxU67cKdQldknxv1YAKgVnGvGi3emRnuSMQzF+9+ZmcoFzVoG1eLKJzTmVbP2dTP4M24GHmuUrAtTdSijBSuXSNiiPbQgBwbm9mHsQGSHSh+sauL1s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778397100; c=relaxed/simple;
+	bh=BfoQkq9zsGb3LpXeo+WBXpUgej8+fVaUH4fHdH1YCA8=;
+	h=From:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc:Date; b=fLm38CVn+y4JYQGtwhw3y8D0hKKjNKB983EZY9bQi1AY4+POlDMiPIjwPF9v3DCQKD3VlkdLXb7xAQm8YsJ0vt3SsKnPnFk+NF4FB2gtnjXlsuiioYspi+C/phVlBPOf+py9HwnxVSEwKpcnSQswM2bFNkpJWUVB8s+dD499idQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com; spf=pass smtp.mailfrom=smankusors.com; dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b=lrqbnWJr; arc=pass smtp.client-ip=23.83.222.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smankusors.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SW96mx06"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3664df32e91so1813862a91.3
-        for <devicetree@vger.kernel.org>; Sun, 10 May 2026 00:11:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778397089; x=1779001889; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=NBksUd3TRhC53VHUdaPee5fHFL6bRQ8cdTbc+yWXtmA=;
-        b=SW96mx06o0pNpOnHmcKaLPN0tLpCmk5Dsv2cx0/v/Q5MB+a/c1SqztMuVyGnd1Q+Wi
-         DzqQZCIa9TNu33j+kvEWYp5+Orb0vX5UTofuIGI8ijv/p22dL6flnZkcGRF8QQJVv7cL
-         qTmloesHRofRp7pPRlC87LZ02OVT3rrEwjK+y8BSCXrJuoPkSrv/O8qWLKYFpgMI75iJ
-         xObpJyFLHFwNEyQwYGYgsvq0ZTbQ9Xj5ULOpuckKAY/7HCn9z9qSZ9hSQ3tQa1kUwCba
-         vvIok0dcUpN0gLAXJtYudB4HxuwBTjBcJooJIhXU0/9Bx17/tHGdcOT6oR1/HLQsMEks
-         GfPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778397089; x=1779001889;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=NBksUd3TRhC53VHUdaPee5fHFL6bRQ8cdTbc+yWXtmA=;
-        b=jXOcFX98TR7bzuvDAjHySAqQRSYFt7CuXKgEv6JlQ4g/I8El93Gm2chb5pUD9cg6Zo
-         8LlLvf6zLZJTAVwJJq/QbIVXU2PmdZRBTdddzAqgM1Gc/w0BeriKS97Op49po8LJ3gvr
-         /RAe2qAe7z/YgON1h4g5oKoAFNxnJX8iNVzJgxmv1JTF8wnbMeuJiTXSOd+rMViro72q
-         7ZEOfRpbJ/2I4yWMHIXYw8xYfylZyG3yDszppS+C+5D+01Sx0jhcVjhADlJBDvjnsfTS
-         tdw4S3lxWuqzBajfEO4143WJsL+5PKL7t6mN0L2BbFeEOXuC2Clt60Ca/+Z1ODP0IkZc
-         1ScA==
-X-Forwarded-Encrypted: i=1; AFNElJ9XT4U/hgy0sKsR0tQws24RVOkGPf7TGbnjWMKwG3eFlsK4vFK03DAPW43AmG+NzDVTR77oJs0mH7om@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz0PNySKVJ/pPvbd3njOrYdJecUetMJ0iMtbovzgKviPr7lfEuM
-	HMtLQUVKKEGYtB9YO4ZsoSzStEoozrkTBM6m0/mK/DQn0ItwkcEblR/G
-X-Gm-Gg: Acq92OHqEyFH3KVTNV/EzE7f/pwIecDLkzxQGC1Q4N9lYb4Un5WStNNOO90ShuZTlIz
-	r+ETGuu8C5Grx9NlDu7Z4vhzWIRWhmpfBATGnq4Ie97HasGXgIA3PAcDneRAZoMXaZoFuMPMuCT
-	zkZvbg5aYn1hyJAAdbm5FEkIOmi+7OEQQnVMsd+t3scFnVOnV2O2VdiiZioDtjN8wZz+y3d7Bo/
-	qK6P2FA7hFmVQ68bbYDIK1iGO3i1CVUDWxElW3sVbAv/L4m0YKVf/TkOWalVK3i2KsZ4kdajQ0Z
-	6USGQQbMwBPCavIzyYEDZ6o5WMiaviIIhzj30ELoKraLR9ruW8VCIOwMN/IwYMVu8fn5aMiDebM
-	oZUZ+AFGJ8EyVan7jpW51PmdlZFf9woOk+RxLufV+dT7Kf8FKzowRbxdBID/xKKRKx6J4sh44Xk
-	3Mps4bai8ixYuhCI762pQeQemv75CUGvjHC94ZUsRzeiqheA==
-X-Received: by 2002:a17:90b:1651:b0:366:3d97:74a9 with SMTP id 98e67ed59e1d1-367d3c7153amr5332804a91.0.1778397089420;
-        Sun, 10 May 2026 00:11:29 -0700 (PDT)
-Received: from [192.168.1.5] ([60.243.224.75])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-367d629c17esm3678111a91.6.2026.05.10.00.11.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 10 May 2026 00:11:28 -0700 (PDT)
-Message-ID: <6235faf8-fbdd-468a-ae2d-a4a3f7ee50fa@gmail.com>
-Date: Sun, 10 May 2026 12:41:25 +0530
+	dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b="lrqbnWJr"
+X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id E26E37207BC;
+	Sun, 10 May 2026 07:01:53 +0000 (UTC)
+Received: from de-fra-smtpout6.hostinger.io (trex-green-8.trex.outbound.svc.cluster.local [100.104.1.130])
+	(Authenticated sender: hostingeremail)
+	by relay.mailchannels.net (Postfix) with ESMTPA id F1DB572069D;
+	Sun, 10 May 2026 07:01:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; d=mailchannels.net; s=arc-2022; cv=none;
+	t=1778396511;
+	b=tD+pWIDYxiJ9hP9u4KKHzOouW4G3dRbvsk/c3tE9N8BmMRpAQ6g7v9Z6SpaBkZpZrB/2KR
+	v6X+77f24YNjP/lydb5jeLJi9pyliZtCzQa73GToeEHFlkjcNpWKB0DtLQzTHTZ0dsenyp
+	asZz2p0LHTszKPf7q7yMAmTWyGV0OT0pYLwreZWW8I4ZsbqXhpUU8GNVwYWY+V69GE0B1l
+	rMGw9/rGfgZf70R3d1othA4FCr6F18Cj/NXrz2sJXtMnAEUtk8dEMg1X9ocaHtpjaXOtGf
+	BMIBf4od3B/fLpoxCQ9GeZ59olJonPyj8RDdF+7G4LLQYBz0wYQF9uysOfylyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailchannels.net;
+	s=arc-2022; t=1778396511;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:dkim-signature;
+	bh=OZDao5V9oBT2XcGEiVVYN8SW0LoX0+kwClLtsDs+Byg=;
+	b=9NKbBtp6ge0jV1+xHtSoPDjuhtGKGYlainY1S3o2P6UXfSM3zaw6ikfJx1mYsyKqwG2/2D
+	Bb0UWzV8uamun/vHq1bdy5hA0EHWwdFLmRJoVPqUdXgqkPjptWRAAB/rmnPbuOb9oOpFmu
+	M7ZulBHcxv0MrdAOxV13sAAhSSwh8q3BKZsmY5Nz7VgUCqvftaYJzGS+ir1ZMi5yUwqSuz
+	h0QTMMOUBWtP6Z3rA+mtCOsCHJ6FTCTkkepcKBKzwcCtGq9uXZ+d5OQ2TyYsz46oW0Vqe9
+	S0iK03UMVcOZ02+RA05POWGRpj6CMOVB8F3QCgkhM9n+U04XlVjpIrfYQRvqew==
+ARC-Authentication-Results: i=1;
+	rspamd-79cfc4d687-w9599;
+	auth=pass smtp.auth=hostingeremail smtp.mailfrom=linux@smankusors.com
+X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: hostingeremail|x-authuser|linux@smankusors.com
+X-MailChannels-Auth-Id: hostingeremail
+X-Cooperative-Squirrel: 2f7cded044141df9_1778396513640_3966104598
+X-MC-Loop-Signature: 1778396513640:3164689174
+X-MC-Ingress-Time: 1778396513639
+Received: from de-fra-smtpout6.hostinger.io (de-fra-smtpout6.hostinger.io
+ [148.222.55.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.104.1.130 (trex/7.1.5);
+	Sun, 10 May 2026 07:01:53 +0000
+Received: from [172.17.0.2] (unknown [125.163.203.7])
+	(Authenticated sender: linux@smankusors.com)
+	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4gCv0j49Bkz3x6D;
+	Sun, 10 May 2026 07:01:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smankusors.com;
+	s=hostingermail-a; t=1778396505;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OZDao5V9oBT2XcGEiVVYN8SW0LoX0+kwClLtsDs+Byg=;
+	b=lrqbnWJrB+r6GT1UsQry7Sprk9hM3646ALYGxjDfJP1JHEtdA3SRv8VnpKedG3HpAFPRe/
+	DsQGcAc/7l7/5hmXSd2wx2RjycC+RiFj0sUJisKgbD1LoyM67cspqPvyoZAjwWcd8A2Tz9
+	Ku+vFqd6QkqUkUmB0+FmUiLcEwdZVmy7T66xC1Sk27Ew4HAFMC81czFZ+v5FV0yEIhBMu+
+	l327CLmFnCU01/t4V1OD86/s/wKjL1k8MwdGjQLv79aZ+N02ant0Q4dVNgRtL+YpNoDdee
+	MjUosYmJzoTAMAadiws5uc1jJ8x4cno5gvrxMWfGoexD1pxUphY/oH7BaWsuUw==
+From: Antony Kurniawan Soemardi <linux@smankusors.com>
+Subject: [PATCH v6 3/4] iio: adc: qcom-pm8xxx-xoadc: remove redundant error
+ logs when reading values
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] dt-bindings: mmc: st,sdhci: convert to DT schema
-To: sashiko@lists.linux.dev
-Cc: robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-References: <20260508-st-mmc-v3-2-81c329ed28e8@gmail.com>
- <20260508222225.1E854C2BCB4@smtp.kernel.org>
-Content-Language: en-US
-From: Charan Pedumuru <charan.pedumuru@gmail.com>
-In-Reply-To: <20260508222225.1E854C2BCB4@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260510-pm8xxx-xoadc-label-v6-3-49700fd03005@smankusors.com>
+References: <20260510-pm8xxx-xoadc-label-v6-0-49700fd03005@smankusors.com>
+In-Reply-To: <20260510-pm8xxx-xoadc-label-v6-0-49700fd03005@smankusors.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Linus Walleij <linusw@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
+ phone-devel@vger.kernel.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>, 
+ Antony Kurniawan Soemardi <linux@smankusors.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778396489; l=1850;
+ i=linux@smankusors.com; s=20250609; h=from:subject:message-id;
+ bh=BfoQkq9zsGb3LpXeo+WBXpUgej8+fVaUH4fHdH1YCA8=;
+ b=YRJ0v4vd6N8Xmw6fwND23P5TYMi9ioRWxQzlXoEIJ7UYFd4bd0YKOfuID+Ki5usE2uD8ym3S4
+ /lWvb7w5nesCfYLfcxMHkdxWhcpCl75Xb8nCgdT95GTTkj/RUjLneIT
+X-Developer-Key: i=linux@smankusors.com; a=ed25519;
+ pk=65wTy06fJl2/h/EJwjr704YG+yjHFhZObJBWzzK+N00=
+Date: Sun, 10 May 2026 07:01:41 +0000 (UTC)
+X-CM-Analysis: v=2.4 cv=Ceda56rl c=1 sm=1 tr=0 ts=6a002d59 a=aYg++IQuMqL9NhcFIsEovw==:117 a=aYg++IQuMqL9NhcFIsEovw==:17 a=IkcTkHD0fZMA:10 a=EUspDBNiAAAA:8 a=QyXUC8HyAAAA:8 a=wxLWbCv9AAAA:8 a=KgMSzCYp6QPDUwhpC-EA:9 a=QEXdDO2ut3YA:10 a=QJY96suAAestDpCc5Gi9:22
+X-CM-Envelope: MS4xfD21kICSRfvwI0jGfBpeorBVDLqcJK6I7s5oyZj0WtZeMelXA70Mxf9vT1Vy0PtUHt28doEGf/1ULjsNnqXuJRkWWWNKmhU8X7sjYsrfPAaHwcHXuoSf vcpVUjtgWPGix2eINmddZWDvN+V9ONcgzMMKc8Xusn3oXVSh/1npgLazh45O0E571BCdBTc91ZZYHtXsZx5alm0ITgxVRqzpFhJMhgyT/3Aw6HKc8q5hYNxR OJB2SGj+LzQOKzSMY6BZzowXoFBXXCeYVfT3vzyFozyVZkMv5Z9A4A1zAy5hyJ11a/QVpU7RgyViAhe8uI7DX0b3RO6hRW1w+8DTkNggGL5AyzAGcIO+nKZg EXAJj0HWcvLjELZMNOkQY6SgmjxIRE0W8sWaeakmX7dr14KZbEGXRrOy/I4hq13S8TX3zqcJ85iya6qkY+hzYNqo3GPG1l/A7bix/+etUPLeF57uCeHdfo1r KYB7ua/YM8Z995mjsOSJVdYGQqhmdMRyARZ2klY9+xpbQREBieo6jWdEg0JTGqen9ptRyvRrHXCz3CHT8clqOipiGbCYWdj5SCB2YDN1zglxTktKbsB67nPn SPBtscEpAj2OdlaFO9c616mFp3or6LOmUEFG1LFImGHhWVnA2S231Uy7bPSI2+/v/8tLhWR+aC+w0t9LxdGbeRb2EnfoikVVxwB/uVlDb/a6Hb+VU/qLUM13 cWcT6XggRrXInTzcslA2RSpwi3sdqTRg3t0cEgJgTEHUConocHeFFRmh1yuBnQRerqIRtF1dzJc=
+X-AuthUser: linux@smankusors.com
 
+Drop dev_err() logging for -EINVAL and -ETIMEDOUT cases and rely on
+return values to report errors, reducing unnecessary log noise.
 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Antony Kurniawan Soemardi <linux@smankusors.com>
+---
+ drivers/iio/adc/qcom-pm8xxx-xoadc.c | 15 +++------------
+ 1 file changed, 3 insertions(+), 12 deletions(-)
 
-On 09-05-2026 03:52, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] Missing `minItems: 1` for `clock-names` and `reg-names` restricts them to exactly two items, breaking schema validation for existing device trees.
-> --
-> 
-> commit 66ec88f9e00b102af921864d0e0bf8b1b9e7f38d
-> Author: Charan Pedumuru <charan.pedumuru@gmail.com>
-> dt-bindings: mmc: st,sdhci: convert to DT schema
-> 
-> This commit converts the STMicroelectronics sdhci-st MMC/SD controller
-> binding to DT schema. It updates the clock and register properties to
-> support backward compatibility for single-item entries.
-> 
->>     - In the legacy text binding, 'icn' was optional. Keep the clock list
->>       flexible to preserve compatibility, although all existing in-tree DTS
->>       files already provide both clocks.
->>     - Document the optional "top-mmc-delay" register region and corresponding
->>       reg-name in the YAML binding, as existing in-tree DTS files already use
->>       both "mmc" and "top-mmc-delay" entries.
-> 
-> Are these descriptions accurate regarding all existing in-tree DTS files?
-
-Yes
-
-> 
-> In arch/arm/boot/dts/st/stih407-family.dtsi, the mmc1 node defines only a
-> single register name (reg-names = "mmc"). Other device trees such as
-> arch/powerpc/boot/dts/fsp2.dts also define a single clock and register.
-> 
->> diff --git a/Documentation/devicetree/bindings/mmc/st,sdhci.yaml b/Documentation/devicetree/bindings/mmc/st,sdhci.yaml
->> new file mode 100644
->> index 0000000000000..10e0e1ee6d5cd
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/mmc/st,sdhci.yaml
-> 
-> [ ... ]
-> 
->> +  reg:
->> +    minItems: 1
->> +    items:
->> +      - description: MMC controller registers
->> +      - description: MMC delay/auxiliary registers
->> +
->> +  reg-names:
->> +    items:
->> +      - const: mmc
->> +      - const: top-mmc-delay
-> 
-> Because items lists without an explicit minItems default to the length of
-> the list, does this strictly require two items for reg-names?
-
-Yes, but I can add minItems as 1 to accept the nodes that define only 1 reg-names. but the existing DTS uses both.
-
-> 
-> Will this cause make dtbs_check to fail for existing nodes like mmc1 that
-> only provide "mmc"? Should minItems: 1 be added here to allow single entries?
-
-Yes, I will add minItmes to allow singe entries.
-
-> 
-> [ ... ]
-> 
->> +  clocks:
->> +    minItems: 1
->> +    items:
->> +      - description: Clock for the MMC controller
->> +      - description: Interconnect (ICN) clock
->> +
->> +  clock-names:
->> +    items:
->> +      - const: mmc
->> +      - const: icn
-> 
-> Similarly, does clock-names require minItems: 1 to match the flexibility
-> added to the clocks property and prevent schema validation errors on
-> single-clock configurations?
-
-I can add minItmes as 1 if the node only requires 1 clock, but the current DTS uses both of them.
-
-> 
+diff --git a/drivers/iio/adc/qcom-pm8xxx-xoadc.c b/drivers/iio/adc/qcom-pm8xxx-xoadc.c
+index 31f88cf7f7f1..282a67b46a5e 100644
+--- a/drivers/iio/adc/qcom-pm8xxx-xoadc.c
++++ b/drivers/iio/adc/qcom-pm8xxx-xoadc.c
+@@ -535,10 +535,7 @@ static int pm8xxx_read_channel_rsv(struct pm8xxx_xoadc *adc,
+ 		goto unlock;
+ 
+ 	/* Next the interrupt occurs */
+-	ret = wait_for_completion_timeout(&adc->complete,
+-					  VADC_CONV_TIME_MAX_US);
+-	if (!ret) {
+-		dev_err(adc->dev, "conversion timed out\n");
++	if (!wait_for_completion_timeout(&adc->complete, VADC_CONV_TIME_MAX_US)) {
+ 		ret = -ETIMEDOUT;
+ 		goto unlock;
+ 	}
+@@ -657,11 +654,8 @@ static int pm8xxx_read_raw(struct iio_dev *indio_dev,
+ 	switch (mask) {
+ 	case IIO_CHAN_INFO_PROCESSED:
+ 		ch = pm8xxx_get_channel(adc, chan->address);
+-		if (!ch) {
+-			dev_err(adc->dev, "no such channel %lu\n",
+-				chan->address);
++		if (!ch)
+ 			return -EINVAL;
+-		}
+ 		ret = pm8xxx_read_channel(adc, ch, &adc_code);
+ 		if (ret)
+ 			return ret;
+@@ -677,11 +671,8 @@ static int pm8xxx_read_raw(struct iio_dev *indio_dev,
+ 		return IIO_VAL_INT;
+ 	case IIO_CHAN_INFO_RAW:
+ 		ch = pm8xxx_get_channel(adc, chan->address);
+-		if (!ch) {
+-			dev_err(adc->dev, "no such channel %lu\n",
+-				chan->address);
++		if (!ch)
+ 			return -EINVAL;
+-		}
+ 		ret = pm8xxx_read_channel(adc, ch, &adc_code);
+ 		if (ret)
+ 			return ret;
 
 -- 
-Best Regards,
-Charan.
+2.34.1
 
