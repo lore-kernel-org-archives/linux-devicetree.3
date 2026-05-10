@@ -1,73 +1,77 @@
-Received: from mail-pj1-f65.google.com (mail-pj1-f65.google.com [209.85.216.65])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F12B031F9B4
-	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 19:09:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD91331F9B3
+	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 19:10:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778440167; cv=none; b=oqWEZheIZ5yKj1ENejFiuU5lLgMc5ZiGHA/j/0lMYRkVcpXPyf93oG4/Cvk+i3wIddPtvFzTRCZzH6tCBphCZmCxZfVAjXsEn7nYN2ALu3jy/QLbdCtFqzx41ep5oAPxg2u69CIY4CvhdgdYYQxhuLsDRb03493GFgzCSoP8LuE=
+	t=1778440222; cv=none; b=WHuulgTeujuMmFTviu+Dn+13Bip4maQ2LP7+oTOWHjveoxLB7BrY0EHCVEpLLQVJbFFGPRPF8c07EQIYJiJDgKZh0b0Lc0V2grDcmtBlGHrP6B0yP89+9ZHphwUWxu6COTjXq0tcg/5M218AyNKlIzD4nHKuOI22YLMTdF+bwlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778440167; c=relaxed/simple;
-	bh=MlaqB++2vElGDvD0ve18O4Ua1b+BZ8aoUMQ5F3ZMf0E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NO0l5Bex4SqSG3eH7h8Y/D4WCHTxV3j/KyTnIHNKugBR3FuFAUcJVmrXHUSc668m3boG8SiN11wjYTnW54ZI3rxs/u1hvzD4uUZgQdJYQUlblZIZ1bZfcH8o2stSLjL9x36+5RIUp65k8IMgbbOw+KmK7JsYLqGo4mIDoUY0sNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j98YS0fu; arc=none smtp.client-ip=209.85.216.65
+	s=arc-20240116; t=1778440222; c=relaxed/simple;
+	bh=4M89Z1PtLYhg7xWrkhOWRzVhNaUlFaflseDuSOzEK6w=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QY5wgRJjqy2cCIPRkdp+Talxc+REUqcLGx2Do7L3+WfyHFKHYg1zifXq4LOnjqCAfTvfBl5dDcKbbMQS14gC9a2fP2NFnYDYy16WED/Q60AIQqMp2Le4ZUSyO2BoGtpjTGFwyVw2usE2lAHifZD2kbsDwmdYE4NLEmnY7b/AnYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s3WzgFUx; arc=none smtp.client-ip=209.85.214.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j98YS0fu"
-Received: by mail-pj1-f65.google.com with SMTP id 98e67ed59e1d1-3660b84347dso2110306a91.1
-        for <devicetree@vger.kernel.org>; Sun, 10 May 2026 12:09:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s3WzgFUx"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2bc85eda6b6so4024685ad.1
+        for <devicetree@vger.kernel.org>; Sun, 10 May 2026 12:10:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778440165; x=1779044965; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1778440221; x=1779045021; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=beMpOGr21Do0GmgSWnYf7S53YhuXcb7o9G97kPTeipQ=;
-        b=j98YS0fuLgHMQ55sUmlF8wVIw7FZzvT4ecXy53gfgyLQrrZ7vQH2XaMROGb3ZA1Zyo
-         /GGaMowuAqXu6t28WKdo9yiCuHyN2FGu08TsrxZYZCQ0LcHKjSjX6efk8dbhZ8kCc5OB
-         7ze5qrB2uOVwreAAJdw2BFzl8WSBsRZT4JldisQT+mCCMGMpY93QKqjCAUwUG9Lnnx4w
-         7NZr5DP1sHL5vyrDj99lANVn7Bo4/XOfWYz7QZVOU0+7y9QrBCy5/Is6mG3/guqRqzHZ
-         0X4eR80E/JQ7axHUMvwXfVmyUkQIYIc9bVLmR2uIyoiqpDea9oNsiGmAO6g+4vRFqQ6f
-         nvrg==
+        bh=ob0ZbbyCxM8PinaaIzSEYPIxsXFv1SXQq5I/2s/H6uQ=;
+        b=s3WzgFUxV0KXSGwP5oaQC2Na9uDpt7o/M4avHf2LW4n+iyKvQ90Y6w3YsIHqblPJJY
+         +DM9IGmK+PUycQrQeVJ+A7R8nRty/wpgsP9dqbhH2bZ1pGlj5Ff9oPdQZzftbBnSTzR/
+         2LZi6w3cVVkmjKT5cP4A212CTnT+RwXwcGz7dgvLmiCjDxI5WzCwHjtnIg2V46DogbzL
+         FvQBCwA6Fk3AVukaptseidxuhi+w6hoJDr/p6ktvxEFzRUxSnBfjjfHiHZwANJFt+uO9
+         nEQfedifsywO83HwOHPxopRJq2T5KdPgv/wvqQ9s0qKQY6zOjJb0VHrBRdjYN8zM7CXq
+         qANg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778440165; x=1779044965;
+        d=1e100.net; s=20251104; t=1778440221; x=1779045021;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=beMpOGr21Do0GmgSWnYf7S53YhuXcb7o9G97kPTeipQ=;
-        b=hxQLVVdX0v4J/7zN5NDLhtnRU8RWqVRtexPxqZEyedAnLRMVWTwusO6yELViJn9TRm
-         90qFsTJtNBPwYpuNWT4SPUSTWV5AFuetvSX21BOd2OtoIXE1BnFsDGXUFdjGh/iLgQjo
-         grAlVJOlzuCmDgGIN+tBnshsGgvsr6fsbspeCmNLfkrcp0xJc+zTh3G431+0TesKzMfJ
-         0YHAXEmX+FLH+N9Wy+tzqZhMQ7YuhksNoFTyuUiJll3eLgNiYh12XQ0DdLCetU3oGt6F
-         rh5t5dNMxmIZ/lN9jg7pxkAb2afYaTrrtvKEFhAOll0KosghiIf61YmxHgNQG6h4QjXD
-         +IPQ==
-X-Forwarded-Encrypted: i=1; AFNElJ97MJPwDtlo0OYMUcBKiKyUrzJhAIryiXEsMPWCO0iyRID/UXjoYdpZYV+MKvJTe/q9P6Cbv+JMmNVx@vger.kernel.org
-X-Gm-Message-State: AOJu0YwI4wiGJ/RMBvYI32sGznCTyes+PyWQTXR+KqNreo2FK8WKIZCY
-	NPDDtxDOt2EEOz/CCkMdqH3upnqiogucN6h45BO/jhxeuLVmabx+Esjn
-X-Gm-Gg: Acq92OEZuk9Exc4yrHnnVKEMGTm2JGwVLZUkw2VPhcsnaSNZPvPGsJyH/l6EqmFOFrC
-	yDXu9wOEPNjLS7A+ctRTBnDRSAdYxLloh8XJeoPKGouMhFrH0aWhd6O7pTDTMQABGo2Tz18+et0
-	xvOVdJUPxp+N/reQxmsyNa+VybBNMLKbpvVxA55YGy141O9iBjVhPgw+PKSoSo2RgPwiY7ojoK4
-	4z21gLKbBFo/t/BauSykkfYK0rBhAPmVWqt/mOVcUVzlVLswzRVtiRZ/NQkuvwULQ3niLHujmja
-	5FwTnj+VFmjV0Sc5xJGzoU9+tvTVtuMHeL+g14sxJURkzvPodWICNaAYD62IgL7OUzf04wjZrbq
-	PtTvYzqb4ERF5lf7dyGxwtQbZwGc7E+oxBrvUXK+fFSoJs+FTLXcpV8v4VeHxQ9dT04zhXOIvKf
-	lwaY3sBL9ACGMk1FFG+r7iLBW+Qf2AF30sbhdGHrzy/mGG1FWiXjAP/JqhX93ENtX8tIM=
-X-Received: by 2002:a17:90a:4ca7:b0:367:c367:7e19 with SMTP id 98e67ed59e1d1-367c3678e61mr5841944a91.21.1778440165112;
-        Sun, 10 May 2026 12:09:25 -0700 (PDT)
-Received: from localhost.localdomain ([2409:40f2:38:d6b4:286e:7088:fd10:80a0])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-367d623fd6csm6598782a91.1.2026.05.10.12.09.20
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 10 May 2026 12:09:24 -0700 (PDT)
-From: Kartik Nair <contact.kartikn@gmail.com>
-To: robh@kernel.org,
+        bh=ob0ZbbyCxM8PinaaIzSEYPIxsXFv1SXQq5I/2s/H6uQ=;
+        b=eL9G61VijXqGQf/k12s7dF17S33z/APolPnSf3IDRXJ8fOQiSh740xSx5TRNgKfKeM
+         OxxRvaChIpY4fxBmV0gg2gutzZVsOqvT9Dj4PUWr+KA/a8p2VxEERsvX8JSxxAA0P9bi
+         jq5koLZMkllFfH3JGSbJpDZF5mzdLqZwb4SvhZjBJdsAe5IBlpiaeXx9nW183B0ojmaa
+         1SqP/Z4t19cg9miRpcjyozGLV3unrB6PS7Dz/wEmX8DLjaleVnjIjr+K4TTsklN4tE+7
+         h0JEaiaQ5gEdZBHhG8Rhc0so7uj27sjjGmHm8R7QVX1NyUvHvrEGnz2WX47S+CZW56/z
+         erHQ==
+X-Forwarded-Encrypted: i=1; AFNElJ98ZYe5mzL5b6fi1Nnlq1RxujysLWOhBqJ1E21hQz7ZyBK9suMQ+Zr7fUONrpbxSWUGl7H2B9fAc1VQ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx9xXgCUAd0KcDWhZYsfWE7/mMYxka/n3zASDri3LeH5SQxsSfO
+	aIqvo8XiarO/aaFPZYbMk/mMiNSGgZTZgzzfyPHWWEsh2wM8Dbh35glD2aKVreol9w==
+X-Gm-Gg: Acq92OGhycAT5s2q6aqC54h7CtmeqVSBLeq91M5M3rzKpOsJIaUN9DJxXhHrR3FyF2+
+	qOoL8b3+C1D3GpJ547ynS1LnAjxWf1Fc+n39zI71sGZtuhLas7ETgd/MCy+4yzAPO3XMTyyY22K
+	qfzS+M0mSFiHWsbfi+rCjpAYbW4W0hmID1VF20AyKYpnI0eljBlatdulPRBqqLdIpXuheDmIDOF
+	Zo9sY2pCpx92E7o8BXoXTqC2DLPvBAIJ2z+YdZX93IA2hZsYGKLtPOfsaTbA+iRn0Mlie0SstX7
+	uv/JKknwAn27v74SldjcblnWI6M5Lm0Ss1hkZHalGDCzKB7I6JOp5VYzFCBG6eFqILxYuF4nSOW
+	KLr43wCmz0qpz9GVhmliWcLzdHz8+m9o0hm959a2dC0fdiLNbgcU0mpivE5Ooxa5UdxLiI2yWk0
+	qKSmewg/ljiZCBr2U2hx+d2o9izN2hH1mOrHdIij0ipcUnQ2LoRtyKaiLcR4BHxsQw
+X-Received: by 2002:a17:902:e314:b0:2b9:86ca:5bf2 with SMTP id d9443c01a7336-2baf0e04a83mr84516495ad.30.1778440220905;
+        Sun, 10 May 2026 12:10:20 -0700 (PDT)
+Received: from localhost.localdomain ([103.76.103.36])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2baf1c5466bsm81817305ad.0.2026.05.10.12.10.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 10 May 2026 12:10:19 -0700 (PDT)
+From: Nikhil Gautam <nikhilgtr@gmail.com>
+To: jic23@kernel.org
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	robh@kernel.org,
 	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: jacobsfeder@gmail.com,
+	conor+dt@kernel.org,
+	linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Kartik Nair <contact.kartikn@gmail.com>
-Subject: [PATCH] dt-bindings: misc: add documentation for Xilinx AXI-Stream FIFO IP core
-Date: Mon, 11 May 2026 00:39:08 +0530
-Message-ID: <20260510190908.400-1-contact.kartikn@gmail.com>
-X-Mailer: git-send-email 2.50.0
+	Nikhil Gautam <nikhilgtr@gmail.com>
+Subject: [RFC PATCH 0/2] iio: magnetometer: add support for Melexis MLX90393
+Date: Mon, 11 May 2026 00:40:08 +0530
+Message-Id: <20260510191010.155380-1-nikhilgtr@gmail.com>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -76,72 +80,64 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add device tree binding documentation for the Xilinx AXI-Stream FIFO
-IP core (PG080). This documents the compatible strings used in
-drivers/staging/axis-fifo/axis-fifo.c which were previously flagged
-as undocumented by checkpatch.
+Hi,
 
-Documented compatible strings:
-- xlnx,axi-fifo-mm-s-4.1
-- xlnx,axi-fifo-mm-s-4.2
-- xlnx,axi-fifo-mm-s-4.3
+This series adds initial Industrial I/O subsystem support for the
+Melexis MLX90393 3-axis magnetometer and temperature sensor.
 
-Signed-off-by: Kartik Nair <contact.kartikn@gmail.com>
----
- .../bindings/misc/xlnx,axi-fifo-mm-s.yaml     | 44 +++++++++++++++++++
- 1 file changed, 44 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+The MLX90393 supports both I2C and SPI interfaces. This RFC
+implements support for the I2C interface while keeping the driver
+structure transport-independent to simplify future SPI support.
 
-diff --git a/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
-new file mode 100644
-index 000000000..597699034
---- /dev/null
-+++ b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
-@@ -0,0 +1,44 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/misc/xlnx,axi-fifo-mm-s.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Xilinx AXI-Stream FIFO IP Core
-+
-+maintainers:
-+  - Jacob Feder <jacobsfeder@gmail.com>
-+
-+description:
-+  The Xilinx AXI-Stream FIFO IP core allows memory-mapped access to an
-+  AXI-Stream interface. It supports both transmit and receive FIFO
-+  operations via a memory-mapped register interface. See Xilinx PG080
-+  for full IP details.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - xlnx,axi-fifo-mm-s-4.1
-+      - xlnx,axi-fifo-mm-s-4.2
-+      - xlnx,axi-fifo-mm-s-4.3
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    axi_fifo: fifo@43c00000 {
-+        compatible = "xlnx,axi-fifo-mm-s-4.1";
-+        reg = <0x43c00000 0x10000>;
-+        interrupts = <0 58 4>;
-+    };
+Currently supported features:
+
+raw magnetic field measurements for X/Y/Z axes
+raw temperature measurements
+configurable gain/scale selection
+configurable oversampling ratio
+direct mode operation through the IIO subsystem
+initially I2C support for this driver
+
+The driver has been tested on Raspberry Pi 5 hardware using an
+actual MLX90393 sensor connected over I2C. Raw magnetic field and
+temperature values were verified through the IIO sysfs interface.
+
+A custom transport abstraction was used instead of regmap due to
+the MLX90393 command/response protocol semantics and repeated-start
+transfer behavior. This approach was discussed previously on the
+mailing list and seemed preferable for this device.
+Link: https://lore.kernel.org/linux-iio/20260424114818.1290b029@jic23-huawei/
+
+The implementation intentionally focuses on a minimal and reviewable
+feature set for the initial RFC submission. Support for SPI,
+buffered capture, triggers, interrupts and runtime PM can be added
+incrementally in follow-up work.
+
+The DT binding schema has been validated using dt_binding_check and
+the driver has been checked using checkpatch.pl --strict.
+
+Feedback on the overall driver structure, transport abstraction,
+IIO ABI usage and DT binding would be appreciated.
+
+Thanks,
+Nikhil Gautam
+
+Nikhil Gautam (2):
+  dt-bindings: iio: magnetometer: add Melexis MLX90393
+  iio: magnetometer: add support for Melexis MLX90393
+
+ .../iio/magnetometer/melexis,mlx90393.yaml    |  39 +
+ drivers/iio/magnetometer/Kconfig              |  10 +
+ drivers/iio/magnetometer/Makefile             |   2 +
+ drivers/iio/magnetometer/mlx90393.h           |  76 ++
+ drivers/iio/magnetometer/mlx90393_core.c      | 724 ++++++++++++++++++
+ drivers/iio/magnetometer/mlx90393_i2c.c       |  71 ++
+ 6 files changed, 922 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/magnetometer/melexis,mlx90393.yaml
+ create mode 100644 drivers/iio/magnetometer/mlx90393.h
+ create mode 100644 drivers/iio/magnetometer/mlx90393_core.c
+ create mode 100644 drivers/iio/magnetometer/mlx90393_i2c.c
+
 -- 
-2.50.0
+2.39.5
 
