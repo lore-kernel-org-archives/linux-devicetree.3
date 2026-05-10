@@ -1,143 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from polaris.svanheule.net (polaris.svanheule.net [84.16.241.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99443175A95
-	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 09:10:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E26830C608
+	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 09:18:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.241.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778404258; cv=none; b=Np0xKeBElTo6k9PJlhZj872IyzfFIlRCkjZ3MqQANEGEOar3agIHcHQ/Clpd8qlCJQA3XaG6S4cbViWnXUr74WWqIK3ZzDV6rAbkf8QBBDaKCGMIf9mj/lAjZIiQwZnP2j1YRQ0LZZfnzmu908k+OUaNJLku2OBg7Q1vQpThb/A=
+	t=1778404682; cv=none; b=lNHLx6vGCdFXhCY9D5ko5Wu/7n32zD+zj+6Mq/TQxY5kLVSaTKTKeQi/NLyaHILRtlYMKmsHLjJ+tdruoAG3bHtIbboeFy47NtFR40aiu08RsGVdYARhGl4Yk2iA6MY4NHu4BUmR4WdrxJrzgE1Oyl1OnwTD4qg7J48iwjOtQCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778404258; c=relaxed/simple;
-	bh=z3Oi3IQsvBWthRbv2Hmln74to7IRd5XStLa/H0pFmBU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nXmcPoq1Uj/6VmefrASNCIB5YKloIEunBfjkvBqF/FEhLufOsuDHtPv1c1GjxVeJkbde2cMHAAkEaW6XPz7thhkD+0gPLRSsQVVl8Fjo5eO+F1LvhIjP7ppjvd3kZQCoALSw6zvteR/+QKuzTxl6f8bhDAm2Nr31WxYLKR32+fc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ezW3gcY+; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778404682; c=relaxed/simple;
+	bh=VawkETnX8PoJzHvUasVU2WbedSBrxD6+b377xMUR2tY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=pCoe5dDpUPcEeGXOvWxpeeX25DQ2BZr9cao6QmqYrIdqxF5VlZKepPagw5LrEKp/OWD/KAi71Vjir1G2tv8izq3FSFQcB0Fs6uwigeVVCx/TMEcS2AtsexNPaaxj81Ps5Qnxl0Hr3QZvbrQl0mNITMp1NCfPQHmKI1L0SQEs/M8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net; spf=pass smtp.mailfrom=svanheule.net; dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b=GOLPhyCv; arc=none smtp.client-ip=84.16.241.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=svanheule.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ezW3gcY+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35C9DC2BCB8;
-	Sun, 10 May 2026 09:10:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778404258;
-	bh=z3Oi3IQsvBWthRbv2Hmln74to7IRd5XStLa/H0pFmBU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=ezW3gcY+eooOf/uyMNoYQDVNLRBCX/A37X1Us4gPeYeVTA5f/XFqtndFkFRS7rdhD
-	 gCejJy2BNoxgbHLrMggtewm/RfwdUtSxMUnvJh/tTGQ/2iKOzADF7Eei5IjNiEriYU
-	 GNrH2KPR+a8B3IpV7+IZsR0xR9K2UKDbvp6vvgVzYmg/oRzcKO1Ub9LcDBNclT7Tvz
-	 c+oiXVmeIl5TasKnI1ZliAOd2M6AVinzpD++VNW23+eYNnO08lh164gzcJMOfUT13l
-	 SGjYodX2M79HsAnMbUsxPfBtOluVHK2BHkUhB+zNPV3LWsQsLAbEdhlUG17O5hPWtB
-	 3Py/MYoBLEyIA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next 4/4] net: dsa: hms: Add ethtool statistics
- support
-Reply-To: sashiko@lists.linux.dev
-To: "Minghuan Lian" <minghuan.lian@nxp.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260509090632.2959553-5-minghuan.lian@nxp.com>
-References: <20260509090632.2959553-5-minghuan.lian@nxp.com>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b="GOLPhyCv"
+Received: from [IPv6:2a02:1812:162d:3d00:649f:659d:f6c1:d42] (2a02-1812-162d-3d00-649f-659d-f6c1-d42.ip6.access.telenet.be [IPv6:2a02:1812:162d:3d00:649f:659d:f6c1:d42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sander@svanheule.net)
+	by polaris.svanheule.net (Postfix) with ESMTPSA id 825D377C82E;
+	Sun, 10 May 2026 11:07:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=svanheule.net;
+	s=mail1707; t=1778404069;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=sOyjSRnXMke/uMfYW5oFYQefgV2luLs/zo2rvA+MaDE=;
+	b=GOLPhyCvxpCgmMnPMqLWIzQn7yjmN33oZErIHT6PpCPMp8U4lZgn3V+hM0S20GpQ9rKeLl
+	VZ6IFyVCEiy+F/QmSqidAD1E/2B3c4jvqazzee9T4t48UtXV1WeXEsPIaWuZAg4Ba9YP0K
+	qYvguvPaLAnvLFdogQCaE2czZclPmSTKBdVbHiKPnwo80P1UWYV4NNgris7PrYft6GInMZ
+	9fhEqwUuoNawg1UPhnfoNgXUDk4Qcqm03jpP7mZGX+9v2fRiXGpvwgAWlYScq0er10LknJ
+	b3SQuFtPX37W99AgGv/Rb5XBv5pAwoEi9YnChVL4nMlXUHWbToPKO1YMk7LxHQ==
+Message-ID: <32d4a57c074c766c8ad83e4b220e44b1df9ae485.camel@svanheule.net>
+Subject: Re: [PATCH v7 2/2] leds: ltc3220: Add Support for LTC3220 18
+ channel LED Driver
+From: Sander Vanheule <sander@svanheule.net>
+To: Edelweise Escala <edelweise.escala@analog.com>, Lee Jones
+ <lee@kernel.org>,  Pavel Machek <pavel@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
+ <conor+dt@kernel.org>
+Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Sun, 10 May 2026 11:07:48 +0200
+In-Reply-To: <20260508-ltc3220-driver-v7-2-0f092ba54f23@analog.com>
+References: <20260508-ltc3220-driver-v7-0-0f092ba54f23@analog.com>
+	 <20260508-ltc3220-driver-v7-2-0f092ba54f23@analog.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 10 May 2026 09:10:57 +0000
-Message-Id: <20260510091058.35C9DC2BCB8@smtp.kernel.org>
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Stack-allocated buffers are passed directly to SPI transfer functi=
-ons, violating DMA memory safety rules.
-- [High] 64-bit statistic values and 32-bit SPI command headers are exchang=
-ed with the hardware without byte-order conversion.
-- [Medium] The driver adds driver-private ethtool -S strings for standard d=
-evice statistics, violating networking subsystem guidelines.
---
+Hi Edelweise,
 
-commit 61954301ddb9081ce56697d8d4fd8e465791f9ac
-Author: Minghuan Lian <minghuan.lian@nxp.com>
+On Fri, 2026-05-08 at 12:09 +0800, Edelweise Escala wrote:
+> +static const struct regmap_config ltc3220_regmap_config =3D {
+> +	.reg_bits =3D 8,
+> +	.val_bits =3D 8,
+> +	.max_register =3D LTC3220_GRAD_BLINK_REG,
+> +	.cache_type =3D REGCACHE_FLAT,
+> +	.volatile_reg =3D ltc3220_volatile_reg,
+> +};
 
-net: dsa: hms: Add ethtool statistics support
-   =20
-Add ethtool statistics support for the HMS switch. This provides
-per-port statistics including RX/TX counters, error counters, and
-per-queue statistics retrieved from the RT1180 MCU via SPI.
+With this config, you are assuming that all register values will default to=
+ 0,
+otherwise the cache will not work properly. While the datasheet seems to
+indicate this is the case, I also suspect you are now seeing the warning
 
-> diff --git a/drivers/net/dsa/hms/hms_ethtool.c b/drivers/net/dsa/hms/hms_=
-ethtool.c
-> new file mode 100644
-> index 0000000000000..00c8406b12862
-> --- /dev/null
-> +++ b/drivers/net/dsa/hms/hms_ethtool.c
+    "using zero-initialized flat cache, this may cause unexpected behavior"
 
-[ ... ]
+I would suggest to use REGCACHE_FLAT_S instead.
 
-> +static const char hms_stat_name[][ETH_GSTRING_LEN] =3D {
-> +	/* RX stats */
-> +	[HMS_STAT_RX_BYTES] =3D "in-bytes",
-> +	[HMS_STAT_RX_VALID_BYTES] =3D "in-valid-bytes",
-> +	[HMS_STAT_RX_PAUSE_FRAMES] =3D "in-pause-frames",
-> +	[HMS_STAT_RX_VALID_FRAMES] =3D "in-valid-frames",
+[...]
 
-[ ... ]
-
-Does this add driver-private ethtool strings for standard device statistics=
-?=20
-
-The networking subsystem guidelines specify that driver patches must not add
-new counters to ethtool -S for values that have a standard uapi. Standard
-statistics like in-bytes, in-pause-frames, and per-queue frames should be
-exposed using standardized interfaces such as ndo_get_stats64, the ethtool
-pause api, or standard netlink per-queue statistics. Duplicating these in
-private string lists bypasses standard tooling.
-
-Could these standard metrics be migrated to the appropriate uapi?
-
-[ ... ]
-
-> +void hms_get_ethtool_stats(struct dsa_switch *ds, int port, u64 *data)
+> +static int ltc3220_reset(struct ltc3220 *ltc3220, struct i2c_client *cli=
+ent)
 > +{
-> +	struct hms_private *priv =3D ds->priv;
-> +	struct hms_cmd_port_ethtool_stats stats;
-> +	int rc;
-> +	enum hms_stat_index i;
+> +	struct gpio_desc *reset_gpio;
+> +	int ret;
 > +
-> +	rc =3D hms_xfer_get_cmd(priv, HMS_CMD_PORT_ETHTOOL_STATS_GET,
-> +			      port, &stats, sizeof(stats));
-
-Is it safe to pass a stack-allocated buffer (stats) to the spi transfer
-functions?=20
-
-If the underlying spi layer maps this buffer for dma and vmap stacks
-are enabled, stack addresses are not physically contiguous and will cause
-the underlying dma_map_single() to fail or panic. Even without vmap stacks,
-unaligned stack buffers risk memory corruption of adjacent variables due to
-dma cache invalidation.
-
-Should this buffer be dynamically allocated using kzalloc() instead?
-
+> +	reset_gpio =3D devm_gpiod_get_optional(&client->dev, "reset",
+> GPIOD_OUT_HIGH);
+> +	if (IS_ERR(reset_gpio))
+> +		return dev_err_probe(&client->dev, PTR_ERR(reset_gpio),
+> "Failed on reset GPIO\n");
 > +
-> +	if (rc) {
-> +		memset(data, 0, sizeof(u64) * HMS_STAT_NUM);
-> +		dev_err(ds->dev, "Failed to get port %d stats\n", port);
-> +		return;
+> +	if (reset_gpio) {
+> +		gpiod_set_value_cansleep(reset_gpio, 0);
+> +
+> +		return devm_add_action_or_reset(&client->dev,
+> ltc3220_reset_gpio_action,
+> +						reset_gpio);
 > +	}
 > +
-> +	for (i =3D 0; i < HMS_STAT_NUM; i++)
-> +		data[i] =3D stats.values[i];
+> +	ret =3D regmap_write(ltc3220->regmap, LTC3220_COMMAND_REG, 0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	for (int i =3D 0; i < LTC3220_NUM_LEDS; i++) {
+> +		ret =3D regmap_write(ltc3220->regmap, LTC3220_ULED_REG(i), 0);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return regmap_write(ltc3220->regmap, LTC3220_GRAD_BLINK_REG, 0);
 > +}
 
-Does this code need byte-order conversion?
+regmap_write() will always go to hardware, so this feels a bit like you're
+manually forcing the hardware to match the cache state. The implied all-0 c=
+ache
+could otherwise prevent later regmap_update_bits() calls from actually
+performing a write.=20
 
-Since the statistics are retrieved from the hardware over a spi byte stream,
-reading directly into host-order u64 values means the transmission byte
-order depends on the cpu architecture's endianness. If the host cpu has a
-different endianness than the switch mcu, the multi-byte values will be
-mangled.
+> +static DEFINE_SIMPLE_DEV_PM_OPS(ltc3220_pm_ops, ltc3220_suspend,
+> ltc3220_resume);
+> +
+> +static int ltc3220_probe(struct i2c_client *client)
+> +{
+> +	struct ltc3220 *ltc3220;
+> +	bool aggregated_led_found =3D false;
+> +	int num_leds =3D 0;
+> +	u8 led_index =3D 0;
+> +	int ret;
+> +
+> +	ltc3220 =3D devm_kzalloc(&client->dev, sizeof(*ltc3220), GFP_KERNEL);
+> +	if (!ltc3220)
+> +		return -ENOMEM;
+> +
+> +	ltc3220->regmap =3D devm_regmap_init_i2c(client,
+> &ltc3220_regmap_config);
+> +	if (IS_ERR(ltc3220->regmap))
+> +		return dev_err_probe(&client->dev, PTR_ERR(ltc3220->regmap),
+> +				=C2=A0=C2=A0=C2=A0=C2=A0 "Failed to initialize regmap\n");
+> +
+> +	i2c_set_clientdata(client, ltc3220);
+> +
+> +	ret =3D ltc3220_reset(ltc3220, client);
+> +	if (ret)
+> +		return dev_err_probe(&client->dev, ret, "Failed to reset
+> device\n");
 
-Could this struct use explicit __le64 or __be64 types and apply the
-corresponding conversions like le64_to_cpu()?
+Up to you if you want to clear the device configuration (maybe this causes =
+LED
+flickering?), but with REGCACHE_FLAT_S, you should be able to maintain the =
+boot
+state of the device.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260509090632.2959=
-553-1-minghuan.lian@nxp.com?part=3D4
+Best,
+Sander
