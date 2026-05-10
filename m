@@ -1,117 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ACC939A808
-	for <devicetree@vger.kernel.org>; Sun, 10 May 2026 14:05:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E73B39BFFA;
+	Sun, 10 May 2026 14:29:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778421907; cv=none; b=PuwwAaZR3kVEnTlQriTM+bRHZxdOTlM+3o/d8l6xkGq0WZOAyyIKnOfljgYt39S2prWnzTglKkHYtjJURGFsv9a2Qt/drCs16HK72rG7R9eOBT3j620x8LG6POknoXj972MeikA6J3gb7RyR0UEFziFh44ji45/7Hv7wsiBJILM=
+	t=1778423378; cv=none; b=OVWHhiV3/sEmIA/Mv6h+hy53cDD3rK8EAdTEUuNtYfWhMEmh4ppzpNLSwgeQjE/Bz4pKhoxGC/Oc0o3y5TcE9FaCf6seOwK+t1Wo4oFF4hKx2QTtZYV2WppM6fIjiI8bDe1vHmG0GsXuBdyTlE2OicqsiMvKNMQCisNVooLTW6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778421907; c=relaxed/simple;
-	bh=+uaG9XBdEQVb1wh/b9uTV7pw6O01oqHi9oqUKIMosho=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TGNmsl0ggF2tZc3G6TRXMHS+61KEP8Hk5nHZuqcs68GPB5YDSw2czibFkVpF+FOgL+aeIqw0nWit4m5+Oy8bpr+p5/yFBesT5vV18/m0pwOcaeQgm0Hu/rlP0nPzVx5gEpYoiXH2Mp6wsO76wC/RR+vy8qG+Rb2tpLnUqY1/+9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F4rssbiI; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778423378; c=relaxed/simple;
+	bh=J9x5Zq1feVMCz1e9blpo9bKtXjLvRhT6RXenXzKJpf8=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=HdeQX73nci6Savscuq6TVP/J8tfAbojJAmL/znmPAfyCMcN10QvfoDp6bnXORKH7885+8paMBk8M5TULg0dHunupa4MWNnkoVs2/nhgPwtCb8Z4pV5tXr8C/V8Wdm5PIeUfBZh1n0pxoRf+vLInffwnQ7MWoo+/zMD/UfftbOcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fsNoK5Jf; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F4rssbiI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBBDCC2BCC9;
-	Sun, 10 May 2026 14:05:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fsNoK5Jf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0D56C2BCB8;
+	Sun, 10 May 2026 14:29:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778421907;
-	bh=+uaG9XBdEQVb1wh/b9uTV7pw6O01oqHi9oqUKIMosho=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=F4rssbiIvRpDDu+ttZ/xJLYwE8r4E5Djme0MuEncgzuuvX2t9hSszAau6Dwg3FhP5
-	 UlLgTwnkDetOiteWkunyZQy6STk0aXCg1GOVknHHLHjJYQ6r0VRuv6XpgWorhvT1Ap
-	 Yd/JxG8stJY2moc4tI3kUpmN1aJ8KlWsGCEVoYslpR0hWlEgwammvdjEH/ckTGwd0E
-	 SXCf5owLoy9w+rCiLqsqMD9Ose7zkMSMOcj5fxyrp06azCohYV4inCnyq/w9rkb8uk
-	 j9e67jVIc50RVTXFEcPLqQXkwUtBkdYPL6RR57MIngbpGsZqn+6tL6dyPYAy5bRH4b
-	 qtqbIX4oFl0AQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v5 12/12] net: airoha: Better handle MIB for
- GDM with multiple port attached
-Reply-To: sashiko@lists.linux.dev
-To: "Lorenzo Bianconi" <lorenzo@kernel.org>
-Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260509-airoha-eth-multi-serdes-v5-12-805e38edc2aa@kernel.org>
-References: <20260509-airoha-eth-multi-serdes-v5-12-805e38edc2aa@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 10 May 2026 14:05:06 +0000
-Message-Id: <20260510140506.DBBDCC2BCC9@smtp.kernel.org>
+	s=k20201202; t=1778423378;
+	bh=J9x5Zq1feVMCz1e9blpo9bKtXjLvRhT6RXenXzKJpf8=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+	b=fsNoK5JfADw841vdnXE/g+KKIiFiOXAKlxi9AuHUdkXsjaQ/j8lxfVEAbKdf833qW
+	 bBdqvL1tKquII/vyO5XfBwD2uYKLFDuaQWCGKT2aEU8fmN91zKponkZfFz2W4eSAa+
+	 kmt1a4lJ3JyxLqMrn4buMFyHKUvbtjidRElrrpKR0Yn9doEYlUjXiUJQHfT2A49gsu
+	 E+0a6rRVYGS3FU8hya851KL2vcZKrGfiFEh30g0jAIOQxi/gex7ToTIh9q48mTQwH9
+	 gd6LaQi4gsTYROFNhgINY9PnhwC2CAGsWQZEX63RHCHDhOxGj+08uApiameLjOvFZu
+	 eDos1MjST5rqw==
+Date: Sun, 10 May 2026 09:29:35 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, 
+ Samuel Holland <samuel@sholland.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, 
+ Jonathan Cameron <jic23@kernel.org>, Maksim Kiselev <bigunclemax@gmail.com>, 
+ Andy Shevchenko <andy@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-iio@vger.kernel.org, 
+ linux-sunxi@lists.linux.dev, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ devicetree@vger.kernel.org
+To: Michal Piekos <michal.piekos@mmpsystems.pl>
+In-Reply-To: <20260510-sunxi-a523-gpadc-v1-1-4f6b0f4000fb@mmpsystems.pl>
+References: <20260510-sunxi-a523-gpadc-v1-0-4f6b0f4000fb@mmpsystems.pl>
+ <20260510-sunxi-a523-gpadc-v1-1-4f6b0f4000fb@mmpsystems.pl>
+Message-Id: <177842337581.2778271.6474369403443019233.robh@kernel.org>
+Subject: Re: [PATCH 1/3] dt-bindings: iio: adc: Add GPADC for Allwinner
+ A523
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Moving the statistics lock from the port level to the device lev=
-el introduces a race condition on shared hardware registers, causing cross-=
-interface statistics corruption.
---
 
-commit 29334a9bde18f0777df549f0d135356a4b8bd3ee
-Author: Christian Marangi <ansuelsmth@gmail.com>
+On Sun, 10 May 2026 14:57:22 +0200, Michal Piekos wrote:
+> Add support for the GPADC for the Allwinner A523. It differs from the
+> D1/T113s/R329/T507 by having two clocks.
+> 
+> Signed-off-by: Michal Piekos <michal.piekos@mmpsystems.pl>
+> ---
+>  .../iio/adc/allwinner,sun20i-d1-gpadc.yaml         | 37 +++++++++++++++++++++-
+>  1 file changed, 36 insertions(+), 1 deletion(-)
+> 
 
-net: airoha: Better handle MIB for GDM with multiple port attached
+My bot found errors running 'make dt_binding_check' on your patch:
 
-This commit enables a split MIB feature for GDM3/4 to track counters per
-hardware channel instead of per GDM port. It moves the statistics structure,
-including its protecting lock, from the port level to the device level.
+yamllint warnings/errors:
 
-> diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ether=
-net/airoha/airoha_eth.c
-> index 623cac42dfb71..b1a6586293457 100644
-> --- a/drivers/net/ethernet/airoha/airoha_eth.c
-> +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-> @@ -1621,143 +1621,150 @@ static void airoha_update_hw_stats(struct airoh=
-a_gdm_dev *dev)
->  	struct airoha_eth *eth =3D dev->eth;
->  	u32 val, i =3D 0;
-> =20
-> -	spin_lock(&port->stats.lock);
-> -	u64_stats_update_begin(&port->stats.syncp);
-> +	spin_lock(&dev->stats.lock);
-> +	u64_stats_update_begin(&dev->stats.syncp);
-> +
-> +	/* Read relevant MIB for GDM with multiple port attached */
-> +	if (port->id =3D=3D AIROHA_GDM3_IDX || port->id =3D=3D AIROHA_GDM4_IDX)
-> +		airoha_fe_rmw(eth, REG_FE_GDM_MIB_CFG(port->id),
-> +			      FE_TX_MIB_ID_MASK | FE_RX_MIB_ID_MASK,
-> +			      FIELD_PREP(FE_TX_MIB_ID_MASK, dev->nbq) |
-> +			      FIELD_PREP(FE_RX_MIB_ID_MASK, dev->nbq));
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/iio/adc/allwinner,sun20i-d1-gpadc.yaml: allOf:0:then:properties:clocks: {'minItems': 2, 'maxItems': 2, 'items': [{'description': 'Bus clock'}, {'description': 'Module clock'}]} should not be valid under {'required': ['maxItems']}
+	hint: "maxItems" is not needed with an "items" list
+	from schema $id: http://devicetree.org/meta-schemas/items.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/iio/adc/allwinner,sun20i-d1-gpadc.yaml: allOf:0:then:properties:clocks: 'oneOf' conditional failed, one must be fixed:
+	False schema does not allow 2
+	[{'description': 'Bus clock'}, {'description': 'Module clock'}] is too long
+	[{'description': 'Bus clock'}, {'description': 'Module clock'}] is too short
+	1 was expected
+	hint: "minItems" is only needed if less than the "items" list length
+	from schema $id: http://devicetree.org/meta-schemas/items.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/iio/adc/allwinner,sun20i-d1-gpadc.yaml: allOf:0:then:properties:clock-names: {'minItems': 2, 'maxItems': 2, 'items': [{'const': 'bus'}, {'const': 'mod'}]} should not be valid under {'required': ['maxItems']}
+	hint: "maxItems" is not needed with an "items" list
+	from schema $id: http://devicetree.org/meta-schemas/items.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/iio/adc/allwinner,sun20i-d1-gpadc.yaml: allOf:0:then:properties:clock-names: 'oneOf' conditional failed, one must be fixed:
+	False schema does not allow 2
+	[{'const': 'bus'}, {'const': 'mod'}] is too long
+	[{'const': 'bus'}, {'const': 'mod'}] is too short
+	1 was expected
+	hint: "minItems" is only needed if less than the "items" list length
+	from schema $id: http://devicetree.org/meta-schemas/items.yaml
 
-Does moving the lock from the port to the device level introduce a race
-condition on the shared port MIB registers?
+doc reference errors (make refcheckdocs):
 
-Because ndo_get_stats64 can be called concurrently without the RTNL lock, i=
-f two
-CPUs request stats for two different devices on the same port:
+See https://patchwork.kernel.org/project/devicetree/patch/20260510-sunxi-a523-gpadc-v1-1-4f6b0f4000fb@mmpsystems.pl
 
-CPU1 calls airoha_update_hw_stats() for dev_A:
-    spin_lock(&dev_A->stats.lock);
-    airoha_fe_rmw(..., REG_FE_GDM_MIB_CFG(port->id), ... dev_A->nbq);
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-CPU2 concurrently calls airoha_update_hw_stats() for dev_B:
-    spin_lock(&dev_B->stats.lock);
-    airoha_fe_rmw(..., REG_FE_GDM_MIB_CFG(port->id), ... dev_B->nbq);
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-Could CPU1 then read the hardware counters for dev_B instead of dev_A?
+pip3 install dtschema --upgrade
 
-[ ... ]
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
->  	/* reset mib counters */
->  	airoha_fe_set(eth, REG_FE_GDM_MIB_CLEAR(port->id),
->  		      FE_GDM_MIB_RX_CLEAR_MASK | FE_GDM_MIB_TX_CLEAR_MASK);
-
-When CPU1 then clears the counters here, could it wipe out the unread
-hardware statistics for dev_B?
-
-Is a port-level lock still needed to exclusively protect access to these sh=
-ared
-hardware MIB registers across multiple devices?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260509-airoha-eth=
--multi-serdes-v5-0-805e38edc2aa@kernel.org?part=3D12
