@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB8C3ACA71;
-	Sun, 10 May 2026 16:09:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 778BD388E72;
+	Sun, 10 May 2026 16:45:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778429342; cv=none; b=KLI3LSc5e9Sur7X4qg2aTSVFrZYcp85QA61mwKyvYdpXF61621t4a8De/WTARTE8V8s6mpoXpOsohVNU47SqIdLEE9MvfR1f68JRH5yy+j0A78Fzp1tgT189kTC8nlWp6l6xkiqH/HnAZMhwQobdcrzcQQs6cBeuVtQ/stXZo2A=
+	t=1778431532; cv=none; b=ask/m3y5UBQ4W59J5myg3C1hW8xlNYs5oCfVpAickYM+WWuWhAfTan2UIOM8hufpZkkQOkR+RbFjSitXSWw53t6evdw+pRasRNPjvzUWC5CpxdmEugCF6ABW8zVCvijssSSAkjMdat7Os/R2BGjuYXlvazyviVBlyqM4elufyHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778429342; c=relaxed/simple;
-	bh=/PkzzLvSPOXiK3/ODiyuapfBuRKWWlFUuOhJ1kbzYrk=;
+	s=arc-20240116; t=1778431532; c=relaxed/simple;
+	bh=nr2PNmnoE55WAs+wO5a7ozSbaw9DnvmevSQ4RFVMUvc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RUGbzVJ9GRysEdKSLOH9bqhw5sCoD748U7qzc1cxQNMxSUxayCANwgy0500tsEIXcSpfzLfFIxQXGF+EaEZ1oF7HanJUaq8kG/9Tzh8h4el60/gDfba7wZGfwEsTbKSKSTedt6QAy693hm3ht+DsiLVvmbuvtbMdcJ07aiS4kXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bBS+bBU/; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=cMa7TLJqMBxIKgZctwaBZw5D7xdKYG7kxZ996WnLv564C4zoPNf2dwfwd5gdRAiYwIZPOHiRXYIdXi+/6XbsItvG560A/iip8HN1/C6NNfX+L2H0yv7Pk72AjYoIhMPAL7Gu3wGhFCQl9lOTHd7rBYNsdrUfEZgBNXqwGGf0ARg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V/TqtAfw; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bBS+bBU/"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 18825C2BCC7;
-	Sun, 10 May 2026 16:09:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V/TqtAfw"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2FD39C2BCF7;
+	Sun, 10 May 2026 16:45:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778429342;
-	bh=/PkzzLvSPOXiK3/ODiyuapfBuRKWWlFUuOhJ1kbzYrk=;
+	s=k20201202; t=1778431532;
+	bh=nr2PNmnoE55WAs+wO5a7ozSbaw9DnvmevSQ4RFVMUvc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=bBS+bBU/WMZ4B0IhjMjbe+52fkVPGu/+oW/+9+zdYW9F6oHAr9UjRIoiNKod8g4mT
-	 A4mELEEYOtmyWcbAaYMPsVL4dFCL7qSrkONXvm4vHgp86WAQrM3UeXEqfDbK2qiZUB
-	 AzbimDN/0pSyeb2uXc6QskbcZ9ecx6up2d5Jd0ilQWPmbDy1LpbTsPbs+RLwa+J2+D
-	 3GM1vm8I+4ua8tvbQUmT7frTDa5/VOvnV8hsXSoTzPbn1X7i/KSAdv9233kF4NqDPn
-	 V2uFkNwD8y7QI48eLfdKC+sC5dAfj1cVzh8C6oazhoIulPLSS30sB4b66Rda1EBP16
-	 XIfcK1k2veYIA==
+	b=V/TqtAfwYPtp6hyYBBznqHlWUTL0ZMLwuAh0GVRdD9GhS46Y9Hoy7beFN16JMN8Rr
+	 rpQ7h558YRQmVJ91KQRi+wL9MbATmPmDuohhKB9Yv4M3I0UeRFGAdWLdZMn3aiMDDb
+	 UcX/ftW9YjysQ4Opsw03keHZ1atRS4m47vOB0uHSNezd/Kj+LedNergrzsswaN13RT
+	 tRpGhtpWHEiGLJEc7TpGiPT1sqcKKdSVHSRkpmCRHusFsx3VgoudpCNir+4Ck6abA2
+	 0p35lA9YDsyx0x8+bJQWhzHZMnv3lUibYeKxHu1zHL+VaLD9na+789QFmmg8waJx57
+	 rVFYqGP8313Ag==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 06A98CD3427;
-	Sun, 10 May 2026 16:09:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D53BCD3427;
+	Sun, 10 May 2026 16:45:32 +0000 (UTC)
 From: Alexandre Hamamdjian via B4 Relay <devnull+azkali.limited.gmail.com@kernel.org>
-Date: Sun, 10 May 2026 23:08:55 +0700
-Subject: [PATCH 2/2] dt-bindings: usb: add Rohm BM92TXX Type-C controller
+Date: Sun, 10 May 2026 23:45:26 +0700
+Subject: [PATCH 1/2] dt-bindings: regulator: add SGMicro SGM3804
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,23 +40,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260510-bm92t-v1-2-dff3c9d22426@gmail.com>
-References: <20260510-bm92t-v1-0-dff3c9d22426@gmail.com>
-In-Reply-To: <20260510-bm92t-v1-0-dff3c9d22426@gmail.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, CTCaer <ctcaer@gmail.com>, 
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+Message-Id: <20260510-sgm3804-v1-1-e5e8799e0aa0@gmail.com>
+References: <20260510-sgm3804-v1-0-e5e8799e0aa0@gmail.com>
+In-Reply-To: <20260510-sgm3804-v1-0-e5e8799e0aa0@gmail.com>
+To: Philippe Simons <simons.philippe@gmail.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  Alexandre Hamamdjian <azkali.limited@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778429339; l=5274;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778431530; l=3403;
  i=azkali.limited@gmail.com; s=20260510; h=from:subject:message-id;
- bh=ozSJxakD3nLP0mwcFo/HHRulxXgmVTFqvb1G9vOg8aA=;
- b=5UedgQhPGodFtSd/RZPXCz4svuo7xyrzsx02xAKjnxj8A1rklJ/tuGf7fgJ46ypmUoYHYG8Rz
- UsZPZ2gUehIDgMOPhc+xKGB3i+Q0QWyaXKJuMU2RJcX3zMp45WOFqLN
+ bh=XWCit0ZA8mWCGZuR1y+fa+IVWSjOU74cPNIGW9a/Ktg=;
+ b=q+S2dD3+5X5wiS4eT8yx5WrFzrWAMjwfyP7tLlbhkN/NMfC15a/0lX3B7erDP9wzJsLsBfzJG
+ Ozp7cAjPws9A7AaLohjX6+5Wqx02KVdZCtwcR2VTSzhH2YuQfljTisV
 X-Developer-Key: i=azkali.limited@gmail.com; a=ed25519;
  pk=I0Z0IdCdQJqNGX+FQUnXhrHg950u3cM6Xzz3YT6JOyQ=
 X-Endpoint-Received: by B4 Relay for azkali.limited@gmail.com/20260510 with
@@ -66,171 +64,107 @@ Reply-To: azkali.limited@gmail.com
 
 From: Alexandre Hamamdjian <azkali.limited@gmail.com>
 
-Add the device-tree binding documentation for the Rohm BM92TXX family
-of USB Type-C and Power Delivery controllers. The device is controlled
-over I2C and signals state changes through a dedicated interrupt line.
+The SGMicro SGM3804 is an I2C-controlled positive and negative output
+charge-pump regulator. It is commonly used to provide the AVDD and AVEE
+supplies for display panels, and exposes two reset GPIOs to sequence the
+positive and negative output rails independently.
 
-Document the rohm,* properties consumed by the driver: the optional
-VCONN-enable GPIO, the DisplayPort alternate-mode toggles
-(rohm,dp-disable, rohm,dp-alerts-enable, rohm,dp-signal-toggle-on-resume,
-rohm,dp-lanes), the suspend/dock tunables (rohm,led-static-on-suspend,
-rohm,dock-power-limit-disable) and the four
-rohm,pd-{5,9,12,15}v-current-limit-ma per-PDO charging current limits.
-A graph port is required to link the controller to a USB role switch
-consumer.
+Document the binding for the new compatible "sgmicro,sgm3804" so it can
+be referenced by board device trees and the matching driver, and add a
+MAINTAINERS entry covering both the binding and the upcoming driver.
 
+Co-developed-by: Philippe Simons <simons.philippe@gmail.com>
+Signed-off-by: Philippe Simons <simons.philippe@gmail.com>
 Signed-off-by: Alexandre Hamamdjian <azkali.limited@gmail.com>
 ---
- .../devicetree/bindings/usb/rohm,bm92t.yaml        | 128 +++++++++++++++++++++
- MAINTAINERS                                        |   1 +
- 2 files changed, 129 insertions(+)
+ .../bindings/regulator/sgmicro,sgm3804.yaml        | 60 ++++++++++++++++++++++
+ MAINTAINERS                                        |  7 +++
+ 2 files changed, 67 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/usb/rohm,bm92t.yaml b/Documentation/devicetree/bindings/usb/rohm,bm92t.yaml
+diff --git a/Documentation/devicetree/bindings/regulator/sgmicro,sgm3804.yaml b/Documentation/devicetree/bindings/regulator/sgmicro,sgm3804.yaml
 new file mode 100644
-index 000000000000..007f70a8f5bb
+index 000000000000..f1de17bd5395
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/usb/rohm,bm92t.yaml
-@@ -0,0 +1,128 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++++ b/Documentation/devicetree/bindings/regulator/sgmicro,sgm3804.yaml
+@@ -0,0 +1,60 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/usb/rohm,bm92t.yaml#
++$id: http://devicetree.org/schemas/regulator/sgmicro,sgm3804.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: Rohm BM92TXX USB Type-C and Power Delivery controller
++title: SGMicro SGM3804 I2C charge-pump regulator
 +
 +maintainers:
-+  - CTCaer <ctcaer@gmail.com>
 +  - Alexandre Hamamdjian <azkali.limited@gmail.com>
++  - Philippe Simons <simons.philippe@gmail.com>
 +
 +description:
-+  The Rohm BM92TXX is a family of USB Type-C and Power Delivery
-+  controllers with an integrated MCU. The host communicates with the
-+  device over I2C and is notified of state changes through a dedicated
-+  interrupt line.
++  The SGM3804 is an I2C-controlled positive and negative output charge-pump
++  regulator typically used to provide the AVDD and AVEE supplies for display
++  panels. Two reset GPIOs are used to sequence the positive and negative
++  outputs independently.
++
++allOf:
++  - $ref: regulator.yaml#
 +
 +properties:
 +  compatible:
-+    const: rohm,bm92t
++    const: sgmicro,sgm3804
 +
 +  reg:
 +    maxItems: 1
 +
-+  interrupts:
-+    maxItems: 1
-+
-+  vbus-supply:
-+    description: VBUS sink regulator.
-+
-+  vbus-source-supply:
-+    description: VBUS source (provider) regulator.
-+
-+  pd_bat_chg-supply:
-+    description: Battery charger regulator gated by Power Delivery state.
-+
-+  rohm,vconn-en-gpio:
-+    maxItems: 1
-+    description: GPIO controlling the external VCONN switch.
-+
-+  rohm,dp-disable:
-+    type: boolean
-+    description: Disable DisplayPort alternate-mode handling.
-+
-+  rohm,dp-alerts-enable:
-+    type: boolean
-+    description: Enable DisplayPort status alerts.
-+
-+  rohm,dp-signal-toggle-on-resume:
-+    type: boolean
++  reset-gpios:
++    minItems: 1
++    maxItems: 2
 +    description:
-+      Toggle the DisplayPort signal on resume to work around sinks that
-+      do not re-train after system resume.
-+
-+  rohm,dp-lanes:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [2, 4]
-+    default: 2
-+    description: Number of DisplayPort lanes to negotiate.
-+
-+  rohm,led-static-on-suspend:
-+    type: boolean
-+    description:
-+      Keep the charge LED in a static state during system suspend
-+      instead of letting the controller animate it.
-+
-+  rohm,dock-power-limit-disable:
-+    type: boolean
-+    description:
-+      Disable the lower power limit applied when a dock is detected.
-+
-+  rohm,pd-5v-current-limit-ma:
-+    description: Charging current limit in mA when 5V PD contract is active.
-+
-+  rohm,pd-9v-current-limit-ma:
-+    description: Charging current limit in mA when 9V PD contract is active.
-+
-+  rohm,pd-12v-current-limit-ma:
-+    description: Charging current limit in mA when 12V PD contract is active.
-+
-+  rohm,pd-15v-current-limit-ma:
-+    description: Charging current limit in mA when 15V PD contract is active.
-+
-+  port:
-+    $ref: /schemas/graph.yaml#/properties/port
-+    description:
-+      Output port linking to a USB role switch consumer endpoint.
++      Reset/enable GPIOs for the positive (index 0) and, optionally, the
++      negative (index 1) output rails.
 +
 +required:
 +  - compatible
 +  - reg
-+  - interrupts
-+  - port
++  - reset-gpios
 +
-+additionalProperties: false
++unevaluatedProperties: false
 +
 +examples:
 +  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/gpio/gpio.h>
 +
 +    i2c {
 +        #address-cells = <1>;
 +        #size-cells = <0>;
 +
-+        typec@18 {
-+            compatible = "rohm,bm92t";
-+            reg = <0x18>;
-+            interrupt-parent = <&gpio>;
-+            interrupts = <42 IRQ_TYPE_LEVEL_LOW>;
-+
-+            vbus-supply = <&vbus_reg>;
-+            vbus-source-supply = <&vbus_src_reg>;
-+            pd_bat_chg-supply = <&pd_bat_chg_reg>;
-+
-+            rohm,dp-lanes = <4>;
-+            rohm,pd-5v-current-limit-ma = <2000>;
-+            rohm,pd-9v-current-limit-ma = <2000>;
-+            rohm,pd-12v-current-limit-ma = <1500>;
-+            rohm,pd-15v-current-limit-ma = <1200>;
-+
-+            port {
-+                bm92t_ep: endpoint {
-+                    remote-endpoint = <&usb_role_sw>;
-+                };
-+            };
++        regulator@3e {
++            compatible = "sgmicro,sgm3804";
++            reg = <0x3e>;
++            reset-gpios = <&tlmm 10 GPIO_ACTIVE_HIGH>,
++                          <&tlmm 11 GPIO_ACTIVE_HIGH>;
++            regulator-name = "panel-avdd";
++            regulator-min-microvolt = <5000000>;
++            regulator-max-microvolt = <5000000>;
 +        };
 +    };
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 01e06d87b926..8e8a23cad7c8 100644
+index f877e5aaf2c7..394216175d2e 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -23311,6 +23311,7 @@ M:	CTCaer <ctcaer@gmail.com>
- M:	Alexandre Hamamdjian <azkali.limited@gmail.com>
- L:	linux-usb@vger.kernel.org
+@@ -24391,6 +24391,13 @@ M:	Steve Wahl <steve.wahl@hpe.com>
  S:	Maintained
-+F:	Documentation/devicetree/bindings/usb/rohm,bm92t.yaml
- F:	drivers/usb/typec/bm92txx.c
+ F:	drivers/misc/sgi-xp/
  
- ROHM BU270xx LIGHT SENSOR DRIVERs
++SGMICRO SGM3804 REGULATOR DRIVER
++M:	Alexandre Hamamdjian <azkali.limited@gmail.com>
++M:	Philippe Simons <simons.philippe@gmail.com>
++S:	Maintained
++F:	Documentation/devicetree/bindings/regulator/sgmicro,sgm3804.yaml
++F:	drivers/regulator/sgm3804-regulator.c
++
+ SHARED MEMORY COMMUNICATIONS (SMC) SOCKETS
+ M:	D. Wythe <alibuda@linux.alibaba.com>
+ M:	Dust Li <dust.li@linux.alibaba.com>
 
 -- 
 2.54.0
