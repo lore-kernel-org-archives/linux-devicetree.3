@@ -1,171 +1,109 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A924330EF8F;
-	Mon, 11 May 2026 16:02:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B36A4421F0F;
+	Mon, 11 May 2026 16:03:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778515343; cv=none; b=PmHryeli62mWNZUp9MHk+9XymHKCqnMw0QQhYM3ZsN9DIr3dF+yqrtaOrL+AIrjtECxWoQxt6ivKWr4T+dAa95vmwppeJUS59ASS9EcWUl9q4zPUMfBu3v34za/NPvAXiYAm4adL/CLqsMUeVYmN9Pt7LVRbrnXCBZjqH0nherA=
+	t=1778515387; cv=none; b=rBuaXq+dNUmUjn9n8GeR5BURlySqcULs5FPeievGorx/GOABjSKb/j0wx5HTbVsCstfb+Pfk1/I9n+cX8BoSf0lTQ6HX+iYMRJFuvvqQpUR1uS1nVr4jSG3qo3tGLNEx9t7u6tAAnz+C38YcMIxfjxQ7XTIuTOhOGRWsMSxO7UY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778515343; c=relaxed/simple;
-	bh=d8WItIwthuDEpX/UiQlfKMc9royYtzyV+pGcQrzVbPU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tjrBXks+XDd3kabapx7dW6bq9IhE8LIO0Y3mPp/1SsXPrnZtvc1KNuaRHYyeISM7JnoIPoJyQf7EX/tI32JI6JXTo1ZQNafvfm9Jt/B5V5qsPXI3pC3gliq2x9rfWRFYWhA4H2y4IJHwZadZl5ZQx8l2gxq3urrtipxsZdHAOpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=GvQN5vbE; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1778515387; c=relaxed/simple;
+	bh=BsBc4RLCe0pZ1tapkSrfPmLjK+4hJx4ENCrw3f1tS0A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GRbRX9q9GPQRWtgiIMRjKCixSFEyw7MmGNXuhFDeb2X0oiv5DJNFsR1qxvpnS8dBN/VVbN9TTR95i3AovOzkZ14okgOQYgQ1wtWb5nq1Flu+sYR8FqwsIinKsYgMueWXK11MHhLS5qUR41F4l5AcuGieDhWsYfyhA7/IHO+XfYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RsxFeY8q; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="GvQN5vbE"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AD43B16F3;
-	Mon, 11 May 2026 09:02:15 -0700 (PDT)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 67AD03F836;
-	Mon, 11 May 2026 09:02:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1778515341; bh=d8WItIwthuDEpX/UiQlfKMc9royYtzyV+pGcQrzVbPU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=GvQN5vbEqBrW0wVLOoCaZCwYaB+zRsucAkYwhhEFXPQKUICM7t7svrPEDy5uaj+ns
-	 koT6QL4ySkLHNb8hlT0lW7CUe/p8+ozsHkVDoem0J+IMLPLrb8zunUwkoguvPjtPiQ
-	 LU6mDfZgyMRgjD6pA5Fr64Sd6Zr6hbl/BrrcWKu4=
-Message-ID: <e7269822-afc4-4a80-8408-297f9dbd6791@arm.com>
-Date: Mon, 11 May 2026 18:02:16 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RsxFeY8q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCC24C2BCB0;
+	Mon, 11 May 2026 16:03:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778515387;
+	bh=BsBc4RLCe0pZ1tapkSrfPmLjK+4hJx4ENCrw3f1tS0A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=RsxFeY8qOVENKd9VBkUy21SWWd+nV1JIZyGjBjdjlgsdXF7e9O3m8/FIGBEsoQULg
+	 oYMUjXGECrAqMtYEDJJ0qC1bx28UTAUE7NMqIQ0GA7fyDsrM4un/ucOIOL4wDRr4aM
+	 HkjUCKqiU6kxl7Jgo/xAc8Ag8qKQEtG5MJYUb++kyFnyBJ4WVbO78KcPGti+lAgZsd
+	 3QvzvjWhQOpBvoNk258KWofRduwjd0mjxUSdq0DpxRwnQS2RhTh1cHJKmP3qgADdZE
+	 OFgpEQd76uc/K3t+t3yle06sKVUsR7bbh5/pxnhGqtRgR0/9mItaWEK5Evh35kXA7g
+	 o7u08YbyJBwPA==
+Date: Mon, 11 May 2026 17:03:02 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Yixun Lan <dlan@kernel.org>
+Cc: Stephen Boyd <sboyd@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Inochi Amaoto <inochiama@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	linux-clk@vger.kernel.org, linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] clk: spacemit: k3: Fix PCIe clock register offset
+Message-ID: <20260511-emperor-washtub-15fba36bad60@spud>
+References: <20260511-06-pci-clk-fix-v2-0-c9a5e563bab3@kernel.org>
+ <20260511-06-pci-clk-fix-v2-2-c9a5e563bab3@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: iio: adc: Add GPADC for Allwinner A523
-To: Michal Piekos <michal.piekos@mmpsystems.pl>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Maksim Kiselev <bigunclemax@gmail.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260510-sunxi-a523-gpadc-v1-0-4f6b0f4000fb@mmpsystems.pl>
- <20260510-sunxi-a523-gpadc-v1-1-4f6b0f4000fb@mmpsystems.pl>
-Content-Language: en-US
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20260510-sunxi-a523-gpadc-v1-1-4f6b0f4000fb@mmpsystems.pl>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fWRW5TuUHiA2tmNM"
+Content-Disposition: inline
+In-Reply-To: <20260511-06-pci-clk-fix-v2-2-c9a5e563bab3@kernel.org>
 
-Hi Michal,
 
-thanks for adding this!
+--fWRW5TuUHiA2tmNM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 5/10/26 14:57, Michal Piekos wrote:
-> Add support for the GPADC for the Allwinner A523. It differs from the
-> D1/T113s/R329/T507 by having two clocks.
-> 
-> Signed-off-by: Michal Piekos <michal.piekos@mmpsystems.pl>
+On Mon, May 11, 2026 at 02:59:10AM +0000, Yixun Lan wrote:
+> The offset of PCIe Clock CTRL register for port B and C controller was
+> wrongly swapped, correct it here.
+>=20
+> Fixes: 091d19cc2401 ("clk: spacemit: k3: extract common header")
+> Signed-off-by: Yixun Lan <dlan@kernel.org>
 > ---
->   .../iio/adc/allwinner,sun20i-d1-gpadc.yaml         | 37 +++++++++++++++++++++-
->   1 file changed, 36 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/allwinner,sun20i-d1-gpadc.yaml b/Documentation/devicetree/bindings/iio/adc/allwinner,sun20i-d1-gpadc.yaml
-> index da605a051b94..89da96cd705f 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/allwinner,sun20i-d1-gpadc.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/allwinner,sun20i-d1-gpadc.yaml
-> @@ -17,6 +17,7 @@ properties:
->         - items:
->             - enum:
->                 - allwinner,sun50i-h616-gpadc
-> +              - allwinner,sun55i-a523-gpadc
->             - const: allwinner,sun20i-d1-gpadc
 
-As Jernej already mentioned, the A523 GPADC is not fully compatible, 
-since it adds another clock. The question to ask is: Can a driver only 
-knowing about the fallback device handle this new device? For which the 
-answer here is: No, it misses a clock.
-So add just a single entry for the A523 (plus adding it to the driver).
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-So looking at this I wonder if we should add some property to describe 
-the number of supported channels, since they are slightly different 
-between the SoCs:
-- The D1 manual mentions 2 channels.
-- The T113s manual (same die as the D1?) describes 1 channel only.
-- The T507 manual (same die as the H616) reports 4 channels.
-- The A733 has 6 channels.
-- The A133 has 1 channel, but it's channel 1, not 0.
+>  include/soc/spacemit/k3-syscon.h | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/include/soc/spacemit/k3-syscon.h b/include/soc/spacemit/k3-s=
+yscon.h
+> index 0299bea065a0..a68255dd641f 100644
+> --- a/include/soc/spacemit/k3-syscon.h
+> +++ b/include/soc/spacemit/k3-syscon.h
+> @@ -168,8 +168,8 @@
+>  #define APMU_CPU_C2_CLK_CTRL		0x394
+>  #define APMU_CPU_C3_CLK_CTRL		0x208
+>  #define APMU_PCIE_CLK_RES_CTRL_A	0x1f0
+> -#define APMU_PCIE_CLK_RES_CTRL_B	0x1c8
+> -#define APMU_PCIE_CLK_RES_CTRL_C	0x1d0
+> +#define APMU_PCIE_CLK_RES_CTRL_B	0x1d0
+> +#define APMU_PCIE_CLK_RES_CTRL_C	0x1c8
+>  #define APMU_PCIE_CLK_RES_CTRL_D	0x1e0
+>  #define APMU_PCIE_CLK_RES_CTRL_E	0x1e8
+>  #define APMU_EMAC0_CLK_RES_CTRL		0x3e4
+>=20
+> --=20
+> 2.54.0
+>=20
 
-So all of this is somewhat covered as channels are described as child 
-nodes, and have a reg property. Ideally non-existing channels just 
-wouldn't be listed, but I don't know if we want to rely on that.
+--fWRW5TuUHiA2tmNM
+Content-Type: application/pgp-signature; name="signature.asc"
 
-So I am wondering if we should introduce a limit, or rather a mask (to 
-cover the A133 oddity)?
-Either a DT property (channel-mask, as a single sell representing the 
-bit mask), or derived in the driver from the compatible string.
-The former would avoid introducing different compatible strings just 
-because of that, though I think this type of property is somewhat 
-discouraged?
+-----BEGIN PGP SIGNATURE-----
 
-Any thoughts?
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagH9tgAKCRB4tDGHoIJi
+0vaQAP48Kryv4oiIIywKTZrtlJBoXWha9X2EIyDK9bNcucrjQAEA6h0D6DGM7ZQH
+rRGPLGzFqFWbZnchRVV2n43wt3IX3gA=
+=zt8J
+-----END PGP SIGNATURE-----
 
->   
->     "#io-channel-cells":
-> @@ -29,7 +30,12 @@ properties:
->       const: 0
->   
->     clocks:
-> -    maxItems: 1
-> +    minItems: 1
-> +    maxItems: 2
-> +
-> +  clock-names:
-> +    minItems: 1
-> +    maxItems: 2
->   
->     interrupts:
->       maxItems: 1
-> @@ -40,6 +46,35 @@ properties:
->     resets:
->       maxItems: 1
->   
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          items:
-> +            - const: allwinner,sun55i-a523-gpadc
-> +            - const: allwinner,sun20i-d1-gpadc
-> +    then:
-> +      properties:
-> +        clocks:
-> +          minItems: 2
-> +          maxItems: 2
-> +          items:
-> +            - description: Bus clock
-> +            - description: Module clock
-
-I am not a YAML expert, but I think you can drop the min and max 
-properties, if you just enumerate the cases. Same for the names.
-
-Cheers,
-Andre
-
-> +        clock-names:
-> +          minItems: 2
-> +          maxItems: 2
-> +          items:
-> +            - const: bus
-> +            - const: mod
-> +      required:
-> +        - clock-names
-> +    else:
-> +      properties:
-> +        clocks:
-> +          maxItems: 1
-> +        clock-names: false
-> +
->   patternProperties:
->     "^channel@[0-9a-f]+$":
->       $ref: adc.yaml
-> 
-
+--fWRW5TuUHiA2tmNM--
