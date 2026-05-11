@@ -1,230 +1,206 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2D41383337
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 22:34:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73879356745
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 22:36:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778538848; cv=none; b=WY5hYEpwDgKJ+E61datoNfTV/p7UhBAUpeeTtOBdja+cKlXZimHshbolQc4iuBTTAlByjGeqiGqkG5lLi4CUqpiX9rqTBNHF3bsPXdkN39hAVSzNWpzwLTgHcRcmMDUQEmg4xTj/vKE0vD3du3RP7CdweOsnCAM6MG2gm1So0tA=
+	t=1778538965; cv=none; b=F0k+nkGiTyMkdp0x9r5IR8FmcZ55LS2yLfx9KJtgGNxX69hyf0kRSD+V/bv8ahZKsJNDOnivjCWqcfyjZQ3eYX0Th51npwKBrHjUwJWaSRbttXXejpwVQX+D3esxv5xEq6h2TDoqW6bu6bL+Ygw1+fySHrEqjWuk6METzR9rNak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778538848; c=relaxed/simple;
-	bh=pMnzZBA+4au+bwNqaXc97scwcb090BWa9uUmKmeXq9M=;
+	s=arc-20240116; t=1778538965; c=relaxed/simple;
+	bh=gexWv0KJ5pxMDDdSaorBG/70P9UHG+zY8UdK2eGrUUU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qE9wvsPm6tBsefIruHhfIc/qxKFLmfLvYsVja7TQXbOxsCnZsAkiqZfhcjliDF8rkvCjlJyVNQEgmIlGSnOHaN3IeYrFtyezi80hR3cseqhqpEBqcDNoZ9Yn7m72G3daD7CZBZZgaYBQ5lNEzr8486jMGAmfYy7rZkq7RRBNs4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hkq2swrt; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=Ns/jFcuJqeUzGfFMiRHcAllEFp7YUXIbazqooiQmJS+7UHYPofpC6ezw06CpeVhxd9yVeaNPoT0gPlHzXovQM98gDNWoka3i7UPthKBHB9SPdlZwqPqlbEVTYRGiWx8l8SxI2giPprq2ZwbsnNKxa23RTRL8p4pv5UusiUKmqS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yzxuez6V; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hkq2swrt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62EDBC2BCB0;
-	Mon, 11 May 2026 22:34:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yzxuez6V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6BB8C2BCB0;
+	Mon, 11 May 2026 22:36:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778538847;
-	bh=pMnzZBA+4au+bwNqaXc97scwcb090BWa9uUmKmeXq9M=;
+	s=k20201202; t=1778538965;
+	bh=gexWv0KJ5pxMDDdSaorBG/70P9UHG+zY8UdK2eGrUUU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=Hkq2swrtAlJyg0PwpvVnF5ar7c5w3zp4C4oxIy2Ci/IuQdSBFernftZ2AvC2qKOn7
-	 WXdRIdgwKAPPPHnCbaLzFM1FgSsaSHVKh8H7bBXzQlXEaidkkQCN6tJ3aHlNWV2cM/
-	 Afb2LKj+jqvRsAiUDBCNPHCJym4ivM7mcQDGTHGgL9hP73BND0mlQ7lMtgtWwFJj9w
-	 MaS9+HWafM6TTP9DUU6AOtzbXpqJrlR6/7VHgkDcIVISzgWl3oZWVf+HUbxLmH65SX
-	 6aXE9mNjClWDlJOqu4VYu/pJ8q+JVALvnktgJ4B+tznZv1xqhbNcOjd1zGgvKcqrZW
-	 /OKFa1cR5/47g==
+	b=Yzxuez6V5f7xkDkQwsWd2vErA1tn4+c+ceKU4lh4s+bk2acInLGyGrj0hRihRML1/
+	 r/PV5zitZcMUEmIJkv050GCDHU6owR6nON+cdblTZF/ZliqAPpxXYwQLLZo/RSs7bo
+	 6RCoNdRmOyc+IoYGOHZMrcHg/UGOl4DfUPsw7PwgHXmSKR2kpxu9scM+N0CTXWkVSS
+	 50UBnN21dEs9f/IFUAYhLPv9jGtEkTeyBUofGxnJhBCCneNRrsKQ19JLsbQjr33GfG
+	 uW8L3uoX3P8ubZTe6F2RDxJiJ681T9Wt0eRuwWTOHf4uY61kdpiY/inSGPgWXpe83m
+	 g90WHzPo92cwg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 3/4] clk: zte: Introduce a driver for zx297520v3
- matrix clocks and resets.
+Subject: Re: [PATCH v3 1/3] dt-bindings: add DTS style checker
 Reply-To: sashiko@lists.linux.dev
-To: =?utf-8?b?U3RlZmFuIETDtnNpbmdlcg==?= <stefandoesinger@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260510-zx29clk-v1-3-e1bacfffe967@gmail.com>
-References: <20260510-zx29clk-v1-3-e1bacfffe967@gmail.com>
+To: "Daniel Golle" <daniel@makrotopia.org>
+Cc: krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <dba9d5612e7435da84a95fd85ec404f803bbbdfd.1778454442.git.daniel@makrotopia.org>
+References: <dba9d5612e7435da84a95fd85ec404f803bbbdfd.1778454442.git.daniel@makrotopia.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 11 May 2026 22:34:06 +0000
-Message-Id: <20260511223407.62EDBC2BCB0@smtp.kernel.org>
+Date: Mon, 11 May 2026 22:36:04 +0000
+Message-Id: <20260511223604.C6BB8C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] Incorrect error checking for `devm_platform_ioremap_resource()` re=
-turn value leads to an invalid pointer dereference.
-- [High] The critical `PDCFG` clock shares mux register bits with `EDCP` an=
-d defines an invalid mux parent size.
-- [High] Missing cleanup for OF clock provider causes a use-after-free on p=
-robe failure or module unbind.
-- [High] Error codes from clock registration are masked by a hardcoded `-EN=
-ODEV`, breaking deferred probing.
-- [High] Reset assert and deassert operations perform read-modify-write on =
-shared hardware registers without holding locks.
-- [Medium] Duplicate DT index mapping for `ZX297520V3_GMAC_RMII` overwrites=
- clock provider array data.
-- [Medium] Unchecked return value from `devm_clk_hw_register_mux()` for `td=
-m_mux`.
-- [Low] Multiple `module_platform_driver()` macros in a single file cause a=
- build error.
-- [Low] Unacceptable use of `#if 0` blocks to store dead code.
+- [High] The line classifier fails to handle trailing inline comments and w=
+hitespace, corrupting block depth and AST parsing.
+- [High] The `mixed-indent-chars` rule directly conflicts with `continuatio=
+n-alignment`, causing it to flag properly aligned continuation lines.
+- [High] `check_continuation_alignment` incorrectly compares raw string len=
+gth instead of visual display columns.
+- [Medium] Regex patterns wrongly reject valid Devicetree identifiers start=
+ing with digits.
+- [Medium] `check_value_whitespace` fails to validate cell array contents t=
+hat span multiple lines.
 --
 
-commit 2a00ceb112a3ae2f6a880753c5234263bae84bcf
-Author: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
-Date:   Sun May 10 19:01:02 2026 +0000
+commit fa5d5813b5bacc079c40709e0ab8be2c7e12de57
+Author: Daniel Golle <daniel@makrotopia.org>
 
-    clk: zte: Introduce a driver for zx297520v3 matrix clocks and resets.
-   =20
-    This controls the CPU, DSP, DDR RAM, ethernet, SDIO controllers and a
-    few more devices. It also contains a number of clock gates to pass
-    clock signals down to the next controller.
+dt-bindings: add DTS style checker
 
-> diff --git a/drivers/clk/zte/clk-zx297520v3.c b/drivers/clk/zte/clk-zx297=
-520v3.c
-> index f73f5c006641f..0c06add433ee9 100644
-> --- a/drivers/clk/zte/clk-zx297520v3.c
-> +++ b/drivers/clk/zte/clk-zx297520v3.c
-[ ... ]
-> @@ -579,6 +579,219 @@ static struct platform_driver clk_zx297520v3_topclk=
- =3D {
->  };
->  module_platform_driver(clk_zx297520v3_topclk);
-> =20
-[ ... ]
-> +static const struct zx297520v3_composite matrix_clocks[] =3D {
-[ ... ]
-> +	ZX_CLK(EDCP,        0x68,  0,  0x64,  2,  1, 0x50, 16, 2, edcp_sel,    =
-0,     0, 0),
-> +	/* PDCFG. Like PMM, either clock bit will allow the device to function.=
- */
-> +	ZX_CLK_CRIT(PDCFG,  0x94, 20,  0x88,  0,  1, 0x50, 16, 2, clk_unknown, =
-0,     0, 0),
+This commit adds a Python tool that checks DTS coding style on examples in =
+YAML
+binding files and on .dts/.dtsi/.dtso source files. Rules are kept in a sma=
+ll
+declarative registry and can be run in relaxed or strict modes.
 
-Can changing the rate or parent of the EDCP clock inadvertently modify the =
-PDCFG
-parent? Both clocks appear to share the same mux register and shift
-(0x50, 16, 2).
-
-Since PDCFG is a critical clock with only a single parent (clk_unknown), wo=
-uld
-it be safer to use 0, 0, 0 for its mux registers to prevent it from being
-accidentally disabled?
+> diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
+> new file mode 100755
+> index 0000000000000..e1dd548fe9486
+> --- /dev/null
+> +++ b/scripts/dtc/dt-check-style
+> @@ -0,0 +1,1063 @@
 
 [ ... ]
-> +static const struct zx297520v3_gate matrix_gates[] =3D {
-[ ... ]
-> +	{ZX297520V3_GMAC_PCLK,	"gmac_pclk",		"gpll_d4",	0x110,	  0},
-> +	{ZX297520V3_GMAC_RMII,	"gmac_rmii",		"gpll_d4",	0x110,	  1},
-> +	{ZX297520V3_GMAC_RMII,	"gmac_wclk",		"gmac_rmii",	0x110,	  2},
 
-Does this unintentionally assign the identical ID ZX297520V3_GMAC_RMII to b=
-oth
-gmac_rmii and gmac_wclk?
+> +re_node_header =3D re.compile(
+> +    r'^(?:([a-zA-Z_][a-zA-Z0-9_]*):\s*)?'
+> +    r'([a-zA-Z][a-zA-Z0-9,._+-]*|/)'
+> +    r'(?:@([0-9a-fA-F,]+))?'
+> +    r'\s*\{$')
 
-During registration, gmac_wclk might silently overwrite gmac_rmii in the
-clocks->hws array, making the first clock inaccessible via direct DT provid=
-er
-lookup.
+The Devicetree specification allows node names to begin with numeric digits.
+Does this regex reject valid hardware nodes like 1wire@... or 3d-engine@...=
+ by
+mandating that node names start with a letter?
 
 [ ... ]
-> +	/* This code is commented out until the next patch because disabling un=
-used clocks without
-> +	 * an LSP consumer breaks the UART.
-> +	 */
-> +#if 0
-> +	{ZX297520V3_LSP_MPLL_D5_WCLK,	"lsp_mpll_d5",	"mpll_d5",	0x7c,	  0},
-> +	{ZX297520V3_LSP_MPLL_D4_WCLK,	"lsp_mpll_d4",	"mpll_d4",	0x7c,	  1},
+
+> +def parse_property_name(dl):
+> +    m =3D re.match(r'^([a-zA-Z#][a-zA-Z0-9,._+#-]*)\s*[=3D;]', dl.stripp=
+ed)
+> +    if m:
+> +        dl.prop_name =3D m.group(1)
+
+Similarly, does this regex incorrectly reject property names that begin with
+numeric digits by requiring them to start with a letter or #?
+
 [ ... ]
-> +	{ZX297520V3_LSP_DPLL_D4_WCLK,	"lsp_dpll_d4",	"dpll_d4",	0x7c,	  9},
-> +#endif
-> +};
 
-Is it strictly necessary to include this block of code inside an #if 0 bloc=
-k?
-Usually, code is removed entirely until it is fully functional to adhere to
-mainline coding standards.
-
+> +def classify_lines(text):
+> +    """Return a list of DtsLine. Tracks { } depth and groups
+> +    continuation lines onto their leading PROPERTY line."""
+> +    out =3D []
+> +    in_block_comment =3D False
+> +    prev_complete =3D True
+> +    depth =3D 0
 > +
-> +static int zx297520_matrixclk_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	matrix->base =3D devm_platform_ioremap_resource(pdev, 0);
-> +	WARN_ON(!matrix->base);
-
-Does this correctly handle failure? devm_platform_ioremap_resource() return=
-s an
-error pointer like -EINVAL on failure, not NULL.
-
-A WARN_ON(!matrix->base) would evaluate to false, allowing the code to cont=
-inue
-and subsequently dereference an invalid pointer. Should this check
-IS_ERR(matrix->base) instead?
-
+> +    # Split preserving the indent string verbatim
+> +    re_lead =3D re.compile(r'^([ \t]*)(.*)$')
 > +
-> +	/* One stray mux: The TDM mux is in matrixclk and it is passed to the L=
-SP controller. In a
-> +	 * way the link gate (LSP_TDM_WCLK) could be considered a matching gate=
-, but there is no
-> +	 * reset and no pclk.
-> +	 */
-> +	hw =3D devm_clk_hw_register_mux(dev, "tdm_mux", tdm_sel, ARRAY_SIZE(tdm=
-_sel), 0,
-> +				      matrix->base + 0x50, 24, 2, 0, &reg_lock);
+> +    for i, raw in enumerate(text.split('\n'), start=3D1):
+> +        m =3D re_lead.match(raw)
+> +        indent_str =3D m.group(1)
+> +        stripped =3D m.group(2)
 
-Is it intentional to ignore the return value of devm_clk_hw_register_mux()?
+It appears the stripped variable retains trailing inline comments and
+whitespace. Will lines formatted with trailing comments such as
+node { /* comment */ or prop =3D <1>; // comment fail the subsequent suffix
+checks like stripped.endswith('{') and stripped.endswith(';')?
 
-If this registration fails and returns an error pointer, the error is never
-checked, which might silently break clocks depending on tdm_mux as a parent.
-
-[ ... ]
-> +	for (i =3D 0; i < ZX297520V3_MATRIXCLK_END; i++) {
-> +		if (IS_ERR(matrix->clocks->hws[i])) {
-> +			pr_err("zx297520 clk %d: register failed with %ld\n",
-> +				i, PTR_ERR(matrix->clocks->hws[i]));
-> +			return -ENODEV;
-> +		}
-> +	}
-
-Will returning a hardcoded -ENODEV break deferred probing?
-
-If a required parent clock is not yet available, masking the actual error c=
-ode
-from PTR_ERR() prevents -EPROBE_DEFER from propagating to the driver core,
-causing the probe to fail permanently.
-
-> +
-> +	res =3D of_clk_add_hw_provider(dev->of_node, of_clk_hw_onecell_get, mat=
-rix->clocks);
-> +	if (res)
-> +		return res;
-
-Could this leak the provider registration or cause a use-after-free on probe
-failure?
-
-If the subsequent call to devm_reset_controller_register() fails, the
-devm-managed matrix->clocks will be freed, but the global OF provider remai=
-ns
-registered since of_clk_add_hw_provider() doesn't tie cleanup to the driver=
-'s
-lifecycle.
-
-Would devm_of_clk_add_hw_provider() be better suited here?
+If so, it seems node openings would be misclassified as properties, and
+properties would erroneously set prev_complete =3D False, turning subsequent
+lines into continuation lines.
 
 [ ... ]
-> +static struct platform_driver clk_zx297520v3_matrixclk =3D {
-> +	.probe =3D zx297520_matrixclk_probe,
-> +	.driver =3D {
-> +		.name =3D "clk-zx297520v3-matrixclk",
-> +		.of_match_table =3D of_match_zx297520v3_matrixclk,
-> +	},
-> +};
-> +module_platform_driver(clk_zx297520v3_matrixclk);
 
-Since module_platform_driver(clk_zx297520v3_topclk) already exists earlier =
-in
-this file, does adding another module_platform_driver() here cause a build
-error?
+> +def check_mixed_indent_chars(ctx):
+> +    """Indent must be all-spaces or all-tabs, never mixed on one line."""
+> +    for dl in ctx.lines:
+> +        if not dl.indent_str:
+> +            continue
+> +        if dl.linetype =3D=3D LineType.PREPROCESSOR:
+> +            continue
+> +        if ' ' in dl.indent_str and '\t' in dl.indent_str:
+> +            yield (dl.lineno, 'mixed tabs and spaces in indent')
 
-The macro expands to module_init() and module_exit(), and using it more than
-once typically causes a redefinition failure when compiled as a loadable mo=
-dule.
+Will this rule flag properly aligned continuation lines?
+
+The standard practice for aligning multi-line properties in DTS is to use
+tabs for base indentation and spaces for fine-grained alignment (e.g., to a=
+lign
+precisely under a < character). Unlike check_indent_consistent(), this rule
+doesn't seem to exclude continuation lines.
+
+[ ... ]
+
+> +def check_value_whitespace(ctx):
+> +    """Inside a <...> cell list use single spaces between values; no
+> +    leading or trailing whitespace inside the brackets. Outside
+> +    strings and comments only."""
+> +    for dl in ctx.lines:
+> +        if dl.linetype not in (LineType.PROPERTY, LineType.CONTINUATION):
+> +            continue
+> +        text =3D _strip_strings_and_comments(dl.raw)
+> +        for m in re.finditer(r'<([^<>]*)>', text):
+
+If a cell array declaration is split across multiple lines, will it bypass =
+this
+whitespace validation entirely?
+
+Since this rule operates strictly on a line-by-line basis, neither line wou=
+ld
+contain both < and > characters, which would cause the regex match to fail.
+
+[ ... ]
+
+> +def check_continuation_alignment(ctx):
+> +    """A multi-line property's continuation lines must align their
+> +    first non-whitespace character to the column of the first '<' or
+> +    '"' after the '=3D' in the leading line."""
+> +    for dl in ctx.lines:
+> +        if dl.linetype !=3D LineType.PROPERTY:
+> +            continue
+> +        if not dl.continuations:
+> +            continue
+> +        eq =3D dl.raw.find('=3D')
+> +        if eq < 0:
+> +            continue
+> +        # First '<' or '"' after '=3D'
+> +        rest =3D dl.raw[eq + 1:]
+> +        m =3D re.search(r'[<"]', rest)
+> +        if not m:
+> +            continue
+> +        target_col =3D eq + 1 + m.start()
+> +        for cont in dl.continuations:
+> +            if len(cont.indent_str) !=3D target_col:
+> +                yield (cont.lineno,
+> +                       'continuation should align to column %d '
+> +                       '(under "<" or \\")' % (target_col + 1))
+
+Does this logic accurately calculate display columns for lines using tab
+indentation?
+
+A properly aligned continuation line in a DTS file utilizing tabs will
+naturally have a string length significantly shorter than target_col. This
+checks len(cont.indent_str), which counts tab characters as length 1,
+instead of calculating visual display width, which might result in false
+positives for correctly aligned lines.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510-zx29clk-v1=
--0-e1bacfffe967@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1778454442.gi=
+t.daniel@makrotopia.org?part=3D1
