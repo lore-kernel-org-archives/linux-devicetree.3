@@ -1,146 +1,150 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC61C313551
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 06:40:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C09D929B78D;
+	Mon, 11 May 2026 06:51:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778481637; cv=none; b=UsmJyjy+A5jLGku7qfbzkpWPtl3249nz7YAS7eLVHOtxlQxSgAZ79D+2BeWEU+9Ungmy83INWmdDwTLf6mCMTTgbvvAo4xIOXdF86Q7zMRkaQF86LVrekqd7+DtSjtfMjvFuSPo3kj/sfQ15F10C/tW2WfDaBo6tZ9HXEF1sQNc=
+	t=1778482269; cv=none; b=GnUFN7WUxxZNj9axcHkcjcdKyZa5jDD8MUiZ1AXnSdaWVxO8uIPsVZZ7W7GkOXrebfe2abFz7YgagXHFeHJYAyhbSvBXgbMPFkAW5YyewjVtRiDiNKi2xGD+c/jhbqffFdgdTN2K2qfc+ZZ5lYBrlMxSTzmLTbutaetpm3c0+BI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778481637; c=relaxed/simple;
-	bh=NmkPyrRTIjWyClkVXUQzYwO7m/ITRKRWvNzOoU9dgQo=;
+	s=arc-20240116; t=1778482269; c=relaxed/simple;
+	bh=wqD98MO+dMAu60i5VFJSDqQmQqZN+ELhw7sRVp/bcAU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DABalNwpXADHlcqlpxVV2691/Z7FVwsLOGI+D6qJDkcsJ7qolPTwMLCmNISG01Ah5x+y7wWSp2zYEMT7phffFm7J0eCqKSiaoiUYgAtjTFT2Zxg97BLFtKA0hIfXDk4JhzUWciCz1CjsOB65GXdYXh492D+ytfxTTLaLeCpT7mw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eQRjZkB9; arc=none smtp.client-ip=209.85.210.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=QfjSNSuvTdr8vaiNIsWCuiIPdD7J97Kj+Del9CQllx17E5uS3z6qkZ+LvCp9dIMM7PediaQpEKfwvcdytLmsGwA4VDGLG85uCbDa/yMzyINQTdcrWMRWr7r6HfzovfnAKOkxTJ13b3xRqtQR4xymInbiGZKbtG0SCg1hxKp+2jA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sgoQUKY+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eQRjZkB9"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-834f1075805so2755788b3a.2
-        for <devicetree@vger.kernel.org>; Sun, 10 May 2026 23:40:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778481636; x=1779086436; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Bp1SzHVVQniSVO1ea05q69qwUsggmYx1Vtvah/rM9Og=;
-        b=eQRjZkB9w5qI0rFyq8OHkUwXWRLwKcYIkrBEywihUBZfTgeEvk4yOxP7HKlcGegCMc
-         LUf0Yech4r9d2HYyCMKL9hXWNhxUa686nnhHvxZ+Nceb9xEUubboDmXRJf2DWnYSWszy
-         re53OVHCPtUav1Ws7OB0gh3TIHlvc/2El1U2QuNKosR5sNB2ZyJwVUbnz/H13GnDK8n+
-         CRc1H+HgK6Sggkr0o7IYerPxuFidqBKq0og121Mriwh5FeFm/39FTXN/qI7TNeg3HugW
-         /8m+N3K64UrD9qvIAmLVPXXb7QC+OTjYi+EbK2LmQ99ZcRrCpR+gOd+ShVWwvOoDVoLW
-         L56A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778481636; x=1779086436;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Bp1SzHVVQniSVO1ea05q69qwUsggmYx1Vtvah/rM9Og=;
-        b=JjB01Pzo8syk1uQ7IEzd9p9TBkiI7U821gzKs+b5fnLVNKB66p2tIKICeRUPUoimK+
-         mW5TCX68GK5cQm83BYhoGM6kIu2bALsrhhlV3rebHH2Gp+z2hS8Y2q8EHvNdC2wEhF+A
-         4527g0irlgNN1o+0NCgNCUb8Ne+lRYqcDga6o8hRE2aoN5DTV2XEma7fZWoPNwZWVtPG
-         DLpsC8KScwCatLXHv3/DldZFUB9Is67Zt/V2xblYtl13TpkdV6YfTteclIlwjUAoCL/T
-         J5BgiNlyC9numVeso55OGEtdbTQQYIE8Wh+0n+6YADu2IVjWrjpkNkLVED6hUjG2vPnH
-         +/+A==
-X-Forwarded-Encrypted: i=1; AFNElJ+BPfQkfHKnoDVVKCcWwSHbG5I5bjGtNHUxT8XAsdV/QMVhw+mtItG8+EvGbtiS3UCKgJk1hkrv6a5V@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy2gq/YzqmI/tMGbeF0e+1/+KucZVU9zKbCSF5iPkcjaX9oxkPb
-	Dfl7Xu2HZVMFXSwIgs4qkg+m1usPrgB0e2dptNM0WPyh3v+nfpx8eQzl
-X-Gm-Gg: Acq92OEVhD5+v4DESSEGOkH+C/3MPfJ3qJ1VBoIcNpzemb3fMeci7qDyjg3do1eVCZC
-	1KYQCb+a6blV2loutlPAnlmlRHA0mPyjD8Mmp2KK4kGugrTF/Yq8WZndVwy7E5XnuIZ8rn9xCNn
-	Rw/SXi3i/JINEuZjAex53y7OBTs0SkCEielQBEQa8PxPg8pp24ZwOlsUk55/vfMZcF94NpzdBAr
-	TJrhC08YHrhvJLmd/2N7fWPLK560NSZXfvEle4hSzlno9FNZkvz8kfESegKj2Ftgd2F/FYXhK9o
-	tg6Ro6MHIKNCrd/TkJ6Nr9ZTQOwMz4S+pznGlLtmcRFnX+9wCx1m3bMl8LXmRycRZ+b9HfZjcQk
-	mka5VfNC2/ji7XY5TVN6S1cRPdhUxTWBWpn9wljl5WGynhk6gUd8HTfUY+UdDVJG0ptpCb5zsE3
-	Ic5jLEwPgZeH3IkxjHwfyMrvg=
-X-Received: by 2002:a05:6a20:1582:b0:3a3:a6fd:7fc1 with SMTP id adf61e73a8af0-3aa5a8fc80dmr25500333637.14.1778481635951;
-        Sun, 10 May 2026 23:40:35 -0700 (PDT)
-Received: from localhost ([2001:19f0:8001:1b2d:5400:5ff:fefa:a95d])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c8267689d76sm7967107a12.11.2026.05.10.23.40.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 10 May 2026 23:40:35 -0700 (PDT)
-Date: Mon, 11 May 2026 14:40:12 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chen Wang <unicorn_wang@outlook.com>, Inochi Amaoto <inochiama@gmail.com>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Alexander Sverdlin <alexander.sverdlin@gmail.com>, Longbin Li <looong.bin@gmail.com>, 
-	"Anton D. Stavinskii" <stavinsky@gmail.com>
-Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, sophgo@lists.linux.dev, linux-riscv@lists.infradead.org, 
-	Yixun Lan <dlan@gentoo.org>
-Subject: Re: [PATCH 0/2] riscv: sophgo: allow DMA multiplexer set channel
- number for DMA controller
-Message-ID: <agF5dRASi8ombhFM@inochi.infowork>
-References: <20260511063719.460049-1-inochiama@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sgoQUKY+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C666C2BCB0;
+	Mon, 11 May 2026 06:51:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778482269;
+	bh=wqD98MO+dMAu60i5VFJSDqQmQqZN+ELhw7sRVp/bcAU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=sgoQUKY+dNMX4qe0bwx56KsZt1+o1oCVmbamrfA/i8MIeLcGzKOOvlUz5fT68zfDg
+	 Nx2R/065A3nb6QP5ZvZUpYbhj8aWIZxc48+p2DswiOs2l/JSJSb9AfXjQb9JrBN/Rg
+	 9/Fpltgjic1sELX+YeNVUp1AYC0MyLLjF0nvZz4bBwxcUed5ZKieXCpmFwgleng3HR
+	 Is3Ks7DwuWa9kJQ8QLAxhYYzZB4BBB541SewjgYBO8rAor4e+Az3MvJpFZV2cqru9u
+	 ezYLWloIvOQ31eU8noTtxp7Cer0B0KJ4ODGR+hud7ZVT0LH0sxpsRPq4PopcnDoHyj
+	 VzkNWD37CLi1g==
+Date: Mon, 11 May 2026 08:51:06 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: sashiko@lists.linux.dev
+Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH net-next v5 12/12] net: airoha: Better handle MIB for GDM
+ with multiple port attached
+Message-ID: <agF8WhrU8lTIyOjX@lore-desk>
+References: <20260509-airoha-eth-multi-serdes-v5-12-805e38edc2aa@kernel.org>
+ <20260510140506.DBBDCC2BCC9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Yak5kKSg5+tzS0K4"
 Content-Disposition: inline
-In-Reply-To: <20260511063719.460049-1-inochiama@gmail.com>
+In-Reply-To: <20260510140506.DBBDCC2BCC9@smtp.kernel.org>
 
-On Mon, May 11, 2026 at 02:37:16PM +0800, Inochi Amaoto wrote:
-> As the DMA controller on Sophgo CV1800 series SoC only has 8 channels,
-> the SoC provides a dma multiplexer to reuse the DMA channel. However,
-> the dma multiplexer also controlls the DMA interrupt multiplexer, which
-> means that the dma multiplexer needs to know the channel number.
-> 
-> Change the DMA phandle args parsing logic so it can use handshake
-> number as channel number if necessary.
-> 
-> This patch series add fallback compatiable according to the disscussion.
-> 
-> Link: https://lore.kernel.org/all/MA5PR01MB1250079A8884D4F6245B955B9FE51A@MA5PR01MB12500.INDPRD01.PROD.OUTLOOK.COM
-> 
-> Change from v5:
-> - https://lore.kernel.org/all/20260426012921.673953-1-inochiama@gmail.com
-> 1. Add dt-bindings patch for fallback compatiable
-> 2. patch 2: Adapt the binding change.
-> 
-> Change from v4:
-> - https://lore.kernel.org/all/20260225104042.1138901-1-inochiama@gmail.com/
-> 1. drop patch 1 and patch 2 as they are merged
-> 2. Add ABI break statement and clarification for this patch.
-> 
-> Change from v3:
-> - https://lore.kernel.org/all/20260120013706.436742-1-inochiama@gmail.com/
-> 1. rebase to v7.0-rc1
-> 2. patch 1: Apply Conor's tag
-> 3. patch 2: Apply Frank's tag
-> 
-> Change from v2:
-> - https://lore.kernel.org/all/20251214224601.598358-1-inochiama@gmail.com/
-> 1. patch 2: rename "AXI_DMA_FLAG_HANDSHAKE_AS_CHAN" to "ARG0_AS_CHAN"
-> 
-> Change from v1:
-> - https://lore.kernel.org/all/20251212020504.915616-1-inochiama@gmail.com/
-> 1. rebase to v6.19-rc1
-> 2. patch 1: remove a comment placed in wrong place.
-> 3. patch 2: fix typo in comments.
-> 4. patch 2: initialize chan as NULL in dw_axi_dma_of_xlate.
-> Inochi Amaoto (2):
->   dt-bindings: dma: snps,dw-axi-dmac: Add fallback compatible for
->     CV1800B
->   riscv: dts: sophgo: cv180x: Allow the DMA multiplexer to set channel
->     number for DMA controller
-> 
->  Documentation/devicetree/bindings/dma/snps,dw-axi-dmac.yaml | 5 +++--
->  arch/riscv/boot/dts/sophgo/cv180x.dtsi                      | 2 +-
->  2 files changed, 4 insertions(+), 3 deletions(-)
-> 
+
+--Yak5kKSg5+tzS0K4
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] Moving the statistics lock from the port level to the device l=
+evel introduces a race condition on shared hardware registers, causing cros=
+s-interface statistics corruption.
 > --
-> 2.54.0
-> 
+>=20
+> commit 29334a9bde18f0777df549f0d135356a4b8bd3ee
+> Author: Christian Marangi <ansuelsmth@gmail.com>
+>=20
+> net: airoha: Better handle MIB for GDM with multiple port attached
+>=20
+> This commit enables a split MIB feature for GDM3/4 to track counters per
+> hardware channel instead of per GDM port. It moves the statistics structu=
+re,
+> including its protecting lock, from the port level to the device level.
+>=20
+> > diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/eth=
+ernet/airoha/airoha_eth.c
+> > index 623cac42dfb71..b1a6586293457 100644
+> > --- a/drivers/net/ethernet/airoha/airoha_eth.c
+> > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
+> > @@ -1621,143 +1621,150 @@ static void airoha_update_hw_stats(struct air=
+oha_gdm_dev *dev)
+> >  	struct airoha_eth *eth =3D dev->eth;
+> >  	u32 val, i =3D 0;
+> > =20
+> > -	spin_lock(&port->stats.lock);
+> > -	u64_stats_update_begin(&port->stats.syncp);
+> > +	spin_lock(&dev->stats.lock);
+> > +	u64_stats_update_begin(&dev->stats.syncp);
+> > +
+> > +	/* Read relevant MIB for GDM with multiple port attached */
+> > +	if (port->id =3D=3D AIROHA_GDM3_IDX || port->id =3D=3D AIROHA_GDM4_ID=
+X)
+> > +		airoha_fe_rmw(eth, REG_FE_GDM_MIB_CFG(port->id),
+> > +			      FE_TX_MIB_ID_MASK | FE_RX_MIB_ID_MASK,
+> > +			      FIELD_PREP(FE_TX_MIB_ID_MASK, dev->nbq) |
+> > +			      FIELD_PREP(FE_RX_MIB_ID_MASK, dev->nbq));
+>=20
+> Does moving the lock from the port to the device level introduce a race
+> condition on the shared port MIB registers?
+>=20
+> Because ndo_get_stats64 can be called concurrently without the RTNL lock,=
+ if two
+> CPUs request stats for two different devices on the same port:
+>=20
+> CPU1 calls airoha_update_hw_stats() for dev_A:
+>     spin_lock(&dev_A->stats.lock);
+>     airoha_fe_rmw(..., REG_FE_GDM_MIB_CFG(port->id), ... dev_A->nbq);
+>=20
+> CPU2 concurrently calls airoha_update_hw_stats() for dev_B:
+>     spin_lock(&dev_B->stats.lock);
+>     airoha_fe_rmw(..., REG_FE_GDM_MIB_CFG(port->id), ... dev_B->nbq);
+>=20
+> Could CPU1 then read the hardware counters for dev_B instead of dev_A?
 
-Please ignore this broken version, the right version is 
-https://lore.kernel.org/all/20260511063818.463877-1-inochiama@gmail.com
+ack, I will fix it in v6.
 
-Sorry for this noise.
+>=20
+> [ ... ]
+>=20
+> >  	/* reset mib counters */
+> >  	airoha_fe_set(eth, REG_FE_GDM_MIB_CLEAR(port->id),
+> >  		      FE_GDM_MIB_RX_CLEAR_MASK | FE_GDM_MIB_TX_CLEAR_MASK);
+>=20
+> When CPU1 then clears the counters here, could it wipe out the unread
+> hardware statistics for dev_B?
+>=20
+> Is a port-level lock still needed to exclusively protect access to these =
+shared
+> hardware MIB registers across multiple devices?
 
-Regard,
-Inochi
+ack, I will fix it in v6.
+
+Regards,
+Lorenzo
+
+>=20
+> --=20
+> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260509-airoha-eth-=
+multi-serdes-v5-0-805e38edc2aa@kernel.org?part=3D12
+
+--Yak5kKSg5+tzS0K4
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCagF8WgAKCRA6cBh0uS2t
+rLKuAQCVHo9zxxc0/M/2vdNjL4owOrzT2rbvhRnV2L78lFsMGQEAwZmw0aUtbQ2O
+JQuPuqSO4Bf8fRR28FMUTzXWBp1DRgM=
+=4akk
+-----END PGP SIGNATURE-----
+
+--Yak5kKSg5+tzS0K4--
