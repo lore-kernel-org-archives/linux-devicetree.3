@@ -1,201 +1,108 @@
-Received: from out198-25.us.a.mail.aliyun.com (out198-25.us.a.mail.aliyun.com [47.90.198.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F9163D904E
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 10:46:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA572343D66
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 10:47:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778496364; cv=none; b=lbA07UBsCfZkadvQAtA45k1fqB3M+VxfqGTlukUUka5Qr+a67mbr6is19A/iLhxl/JjOKm3UjZQHT7skZB+MqYYOTGivi34lrIziZp0A+WemA5jWDK96MQcXy2tnJ5mWRoH7AiayNrgdglwaSrFluDZRtl6LqX30AI5MxghJBqE=
+	t=1778496434; cv=none; b=iP3fLh1TC7khSk/FXOo7wBzJCjEOjGOw83ozsnfNBJ3WuGg0X1AS1nyQjHohQtsluPxGhtIQuFaEZWyln8tXTsQtA1kSHvmchUJDXY049dulJZbRqT6LTdIezag26+ARFr1NEPZVIJdORNXG+OY6Ja827R8Wb+YMTxGDLZ4pTEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778496364; c=relaxed/simple;
-	bh=+FzMvQb4MdBLg2poLLmYZLCBXT7YYR/myliiZpEl2IE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oaBi+3x6VjsLTNqYkMKKwoBCZTnSTqtzUy4AFpu/qPoEOHQeLASwnRLE11eJQSLMogXcClxpfiwLTI7jTqln1d74gqxm//pHuTXhG0GegiDcdlJY55NP80IQjd3zfzy7Tits9D9dleItOUrQOIOknvzFEbRDFqdMvwUKehaNRbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=ZtdLqlxi; arc=none smtp.client-ip=47.90.198.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
+	s=arc-20240116; t=1778496434; c=relaxed/simple;
+	bh=y8ANxseZcjXB0D/a9PMQdY4ylscTf10eyL70cW6tP+w=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FN3UYwe+BC3iERm2C5BCYOCt3f8kpMKzqn15MMkBvRZV8qXYjdbc1CLajNsWPptydEEDNaObAGnXTPFT5SEhxIt542MknoQir+sBAAlkOzNYh+ajTshxqbCty4V0ybcZ7wyvXJhxW1W3oDSSlfrwt8Io+fJCjhBpKsT/wkpv248=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OTAt0m1d; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="ZtdLqlxi"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=lontium.com; s=default;
-	t=1778496344; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=pmL+lVNpCGss+MJnaEWZqXv6SfG2d1Q1lYhntlEGSwU=;
-	b=ZtdLqlxiUHBFhSY59s3L7P9Hx7tuoYmEvM8PZMfd9xawmWs4hKNtp9rhjER4vWe/9U3uqqZuoRHndj7998gM2Wahz0NflB0qbP2/vSP7xZKaiHo9MEsK0BYXkMkAN4K32moAJHQm+J1RflKGAO3M7te4nv5/BVCjYS3fylXuoOpDbzrAL39CadvxCYkfy8xK2rdD3Sa8nL29wqL8H7c/IY+1xFuP1LVjaNgtXiRBT4z5IqjFYvBI+EOkRTx6ZLOIoijrsUVgwOlVH9xRw3LMGPz7PkFJobt6GYslaHooC/IGnR6mwutlIdVd20dAo8ut/HKZZZa9fN+uf8DDgTDBrg==
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07442881|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0446486-0.00264091-0.952711;FP=12617529493597837242|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032053168;MF=syyang@lontium.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.hUZo5c7_1778496343;
-Received: from 192.168.51.146(mailfrom:syyang@lontium.com fp:SMTPD_---.hUZo5c7_1778496343 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Mon, 11 May 2026 18:45:44 +0800
-Message-ID: <f9781fbb-ea5c-4697-92df-34faa1889e1c@lontium.com>
-Date: Mon, 11 May 2026 18:45:42 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OTAt0m1d"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-488e1a8ac40so41029895e9.2
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 03:47:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778496431; x=1779101231; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=e96lh8A8aYVtvEFVfiS50ol4K/XN4qkYpcoofOpmoIE=;
+        b=OTAt0m1dbZtZfk4M4u/Atrtex9+xcXgOp0eyOkk5xGNlVJc1ezPa+pv8kaP+r14D//
+         mYIQfHCUcjQk/2B3+lfbBKBb8y8JKk5pGMdhb7z4hIrNYht2SHFmjivcmVeJbNbDleRp
+         ncq8nqifNNu+EcuJpIgDtTrAQyqChRfcI/bNEPNYSmdK0bkpkhxWBkKdy6V6DudIyqCz
+         qexVsUnB1onGwBS35VKgSUi99J/ZA/rpj9J8k36sjamMDIawlYracknQBYNeySFf0Ocs
+         mhSvU3yvxq1VJlf1IAPv2xQXO7rHRbHN7GmUYV7fxeQ8V7Pha+DaV9xBrDIrqO3Hcfoi
+         FH/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778496431; x=1779101231;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=e96lh8A8aYVtvEFVfiS50ol4K/XN4qkYpcoofOpmoIE=;
+        b=qkum7PM1VTbHwXK0UMNRJBlambsy6oFQzTlSfGzkPdhNxuY3WFUVLCq9zIyi12KImK
+         T8i8UhSULE/F0h3OnuRZ+EzxpjKxzN0H7j6y+zeUI7Zbx4bZGGq9gMSDDoWKV7qQkMZP
+         1y42nQQ/4bWUoZXgidMlZlnUdSnQG1vw1723g5QGTWQG7fnZJEBpc+kp9cmB6YW9Zngv
+         +GgJzob8xQs9ih98ttAjkewvyuKldq2ZO4qp4loBS9K/k5Q77lYxcYeG44nAlJEbeFbB
+         k5GBTXiLKeHlhhUzfTEJEl16E13kW/aFnMsNbOb5I6m6Q1WqPtfdyiAlwwENgV7k8uXW
+         uDCg==
+X-Forwarded-Encrypted: i=1; AFNElJ/CLcw0e3LU9Tqj7wjl7v0ZFKhw+MMq4qjfkLq7CL8CpaUkBjvfMUNerfQnFy6K16sgrbKMaYWIgnyY@vger.kernel.org
+X-Gm-Message-State: AOJu0YylvDJquTYDwhLyhuDSrH9CAhMBBENqQmF1qBdFjtmi1QKtBWPh
+	Zrxt7N47Hm6SpoHNObZhpVMcxdyIFa10od1PIiX7d4XclvUSQRqtwuqm
+X-Gm-Gg: Acq92OHkSeZK8he9cIP1aLfoxB/3wyHULYEdSTCBV5DLKP7q5PtNxxZJ2Sl/tSsReqV
+	6l+2KHZy106Ce5rJ0GEMYKRS0lMKnD/87Ds668Vp8zbVVFXvN9XhKnTfS97a7XEwCKDxk9AUAmd
+	ceSYfpwMkaUSEZnAF41yUvUzzaEcPHzhfPG5vA6QwmdDM08fEiC7XVca25E15+N0dSp2EnLvORz
+	eB1Zvi0i3puTNDqXjQs9MEL7Rq6zCajJW3TQLYaaVrUXcQB190XSKQwbpvxpbQs8cDZgtO1MGYp
+	s1Bkrteq9rYFGJwPC3KCSUK1j+MzWSaulHSqEhNEfxe7PAeSGfIYYkQF4pJYzYs8FDOfNpBrM0S
+	1PxGOzJl8n+BVc8AsIewAs7QWmA8sONPDVHStdtExHVayfGeXCjWyQkWD/nuNcd69acUNZNtkSq
+	Aow7P0UVxxal6QXPreh/Ti0dEVt9eHjOQP/hzrp0G+gMMh+k9A3sbf5Yuil5QQMesOSyNoVF4y+
+	LV3lwtHCf2tezoXYjH5g+zLRyQAf7Mqo60u/4si/1O8BNiTfg==
+X-Received: by 2002:a05:600c:3b96:b0:48a:66a8:9981 with SMTP id 5b1f17b1804b1-48e51f55272mr391731065e9.27.1778496431033;
+        Mon, 11 May 2026 03:47:11 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e6dafa61esm78368735e9.4.2026.05.11.03.47.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 11 May 2026 03:47:10 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Mon, 11 May 2026 11:47:05 +0100
+To: Andy Shevchenko <andriy.shevchenko@intel.com>, 
+	rodrigo.alencar@analog.com
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH RFC v4 02/10] iio: core: support 64-bit register through
+ debugfs
+Message-ID: <4lljp4qxuxqpanjnacteto3pqasjytjp3jysbgntv2jsuzlbsk@2fnit3aiecnv>
+References: <20260508-ad9910-iio-driver-v4-0-d26bfd20ee3d@analog.com>
+ <20260508-ad9910-iio-driver-v4-2-d26bfd20ee3d@analog.com>
+ <agBY5K4qN3jda2up@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI
- bridge
-To: sashiko@lists.linux.dev
-Cc: robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org,
- conor+dt@kernel.org
-References: <20260508134702.4713-3-syyang@lontium.com>
- <20260508211343.C6CB8C2BCB0@smtp.kernel.org>
-Content-Language: en-US
-From: Sunyun Yang <syyang@lontium.com>
-Organization: Lontium
-In-Reply-To: <20260508211343.C6CB8C2BCB0@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <agBY5K4qN3jda2up@ashevche-desk.local>
 
-在 2026/5/9 5:13, sashiko-bot@kernel.org 写道:
-> Thank you for your contribution! Sashiko AI review found 6 potential issue(s) to consider:
-> - [High] Regulators enabled in `probe()` are never disabled on the success path, causing a permanent power leak.
-    it will be fixed in next version.> - [High] Reset GPIO is driven 
-high after cutting off power, violating power sequencing and risking 
-hardware backpowering.
-> - [High] Synchronous `request_firmware` in `probe` can cause permanent probe failure if the driver is built-in.
-> - [Medium] Missing `depends on I2C` and `select REGMAP_I2C` in Kconfig.
-> - [Medium] The return value of `devm_drm_bridge_add()` is ignored in `probe()`.
-> - [Low] Missing header includes for core kernel APIs.
-> --
+On 26/05/10 01:07PM, Andy Shevchenko wrote:
+> On Fri, May 08, 2026 at 06:00:18PM +0100, Rodrigo Alencar via B4 Relay wrote:
 > 
-> commit d9cebea8e10096b0200ef8f220724550dd554963
-> Author: Sunyun Yang <syyang@lontium.com>
-> drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
+> > Add debugfs_reg64_access function pointer field into iio_info and modify
+> > file operation callbacks to favor 64-bit variant when it is available.
 > 
-> This commit adds support for the Lontium LT7911EXC eDP to MIPI DSI
-> bridge. It implements I2C-based setup, display configuration, and
-> provides a firmware update mechanism.
-> 
->> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
->> index c3209b0f46786..fe45a9052aa0d 100644
->> --- a/drivers/gpu/drm/bridge/Kconfig
->> +++ b/drivers/gpu/drm/bridge/Kconfig
->> @@ -132,6 +132,19 @@ config DRM_ITE_IT6505
->>   	help
->>   	  ITE IT6505 DisplayPort bridge chip driver.
->>   
->> +config DRM_LONTIUM_LT7911EXC
->> +	tristate "Lontium eDP/MIPI DSI bridge"
->> +	depends on OF
-> 
-> Should this config also depend on I2C and select REGMAP_I2C?
-> 
-> The driver explicitly registers an I2C driver and utilizes
-> devm_regmap_init_i2c(). Building without I2C enabled might cause
-> compilation or linker errors.
-> 
-> [ ... ]
->> diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
->> new file mode 100644
->> index 0000000000000..d50fc979ebd4b
->> --- /dev/null
->> +++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
->> @@ -0,0 +1,493 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * Copyright (C) 2026 Lontium Semiconductor, Inc.
->> + */
->> +
->> +#include <linux/crc32.h>
->> +#include <linux/firmware.h>
->> +#include <linux/gpio/consumer.h>
->> +#include <linux/i2c.h>
->> +#include <linux/module.h>
->> +#include <linux/mutex.h>
->> +#include <linux/of_graph.h>
->> +#include <linux/platform_device.h>
->> +#include <linux/regmap.h>
-> 
-> This isn't a bug, but it looks like some core headers are missing.
-> 
-> The driver uses kzalloc() and kfree(), msleep() and usleep_range(), as well
-> as regulator_bulk_enable(). Could linux/slab.h, linux/delay.h, and
-> linux/regulator/consumer.h be included directly to avoid relying on
-> transitive includes?
-> 
-it will be fixed in next version.
+> To write a value with bit 63 set it will require negative number, right?
+> Isn't this  counter intuitive and may lead to rejection of the (correct)
+> values?
 
-> [ ... ]
->> +static int lt7911exc_firmware_upgrade(struct lt7911exc *lt7911exc)
->> +{
->> +	struct device *dev = lt7911exc->dev;
->> +	const struct firmware *fw;
->> +	u8 *buffer;
->> +	size_t total_size = FW_SIZE - 4;
->> +	u32 crc32;
->> +	int ret;
->> +
->> +	/*1. load firmware*/
->> +	ret = request_firmware(&fw, FW_FILE, dev);
-> 
-> Can this synchronous request_firmware() call cause a permanent probe failure
-> if the driver is built-in?
-> 
-> When built into the kernel, probe executes before the root filesystem is
-> mounted, which would cause this to fail with -ENOENT. Because the error
-> is propagated without returning -EPROBE_DEFER, the subsystem might not
-> retry the probe later.
-> 
-it will be fixed in next version.> [ ... ]
->> +static void lt7911exc_atomic_post_disable(struct drm_bridge *bridge, struct drm_atomic_state *state)
->> +{
->> +	struct lt7911exc *lt7911exc = bridge_to_lt7911exc(bridge);
->> +	int ret;
->> +
->> +	ret = regulator_bulk_disable(ARRAY_SIZE(lt7911exc->supplies), lt7911exc->supplies);
->> +	if (ret)
->> +		return;
->> +
->> +	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 1);
->> +}
-> 
-> Does driving the reset GPIO high after cutting off the regulator power
-> violate power sequencing?
-> 
-> Driving a logic high signal into an unpowered IC can sometimes backpower
-> the device through its internal ESD protection diodes.
-> 
-it will be fixed in next version.
+In two's complement systems it works in practice, but it might be UB.
+However scanf with %i accepts hex and octal, which is desirable for register
+addresses and values.
+ 
+-- 
+Kind regards,
 
-> [ ... ]
->> +static int lt7911exc_probe(struct i2c_client *client)
->> +{
->> +	struct device *dev = &client->dev;
->> +	struct lt7911exc *lt7911exc;
->> +	bool fw_updated = false;
->> +	int ret;
-> [ ... ]
->> +	ret = regulator_bulk_enable(ARRAY_SIZE(lt7911exc->supplies), lt7911exc->supplies);
->> +	if (ret)
->> +		return ret;
->> +
->> +	lt7911exc_reset(lt7911exc);
->> +	lt7911exc_lock(lt7911exc);
-> [ ... ]
->> +	lt7911exc_unlock(lt7911exc);
->> +
->> +	lt7911exc->bridge.of_node = dev->of_node;
->> +	devm_drm_bridge_add(dev, &lt7911exc->bridge);
->> +
->> +	return 0;
-> 
-> Is there a resource leak for the regulators here?
-> 
-> The regulator_bulk_enable() call at the beginning of probe increments the
-> use count to power the device, but it appears the success path returns 0
-> without calling regulator_bulk_disable().
-> 
-> If lt7911exc_atomic_post_disable() later decrements the count, it seems
-> the count might still remain elevated by 1, leaving the hardware permanently
-> powered on.
-> 
-> Additionally, should the return value of devm_drm_bridge_add() be checked?
-> 
-> If it fails, the bridge is internally removed, but returning 0 here would
-> lead the driver to successfully bind to the I2C device without exposing
-> a functional DRM bridge.
-it will be fixed in next version.
-> 
-
+Rodrigo Alencar
