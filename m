@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00C601E9B3D
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 20:47:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A89913B38A2
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 20:55:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778532472; cv=none; b=Hne/gSbZO7FcH8QU+rfJrwnMv46iiecivM7b1vC8vISN6JRwIctxYwQsxErNtKWb36PyY9UrEdPftopBqRyYvAfx3j/GIQNVb8gLs/uaopTservdQhqH0xxfGnGh37ry7TgIWY9VqX3q/06RSSsAd6e6xSAfyjGmLjV2KrNWEOU=
+	t=1778532925; cv=none; b=hhpiOxxEVNcHRExvOFYAZIjJnUey8ULn+pDSzVKQz0k2Pgq+4w1QGqvW5Z2n5vSYX3yxusXCMva9r1kYVKYL4b8j+bq83OKWKVArF8oGJQ2NEg3Y9t+zNTmRlbLRerziHR4lZ0LYIM8mTPPZXD3/tHpeD6L31frdEN5oYzqoAtg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778532472; c=relaxed/simple;
-	bh=HOOstmbO935LIcdIMmBMDWrwbQ5zoNTtFohMBkVFvEE=;
+	s=arc-20240116; t=1778532925; c=relaxed/simple;
+	bh=1tm+dfJuD/h4D/2FFNNK4rTlhHi6le2t/aCZqno9VU8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mB+DsasU7Cz/8Pem1/fZV1j01e3tUTU6DWLSDWeq1pGgcCBhD6Pna/L4SQzlzYfNYL9UIQu3HV3ddnZ2b9m6C6TBIuFHyCYZFYsod4n0Tkjjcz+2woRwKUHnTT/j+JZzEivT0H/tbec2QTA1Gys/Xq/FTQivE3Zd3w19FkNJskI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IPA4Ra9Y; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=PCxqG0fWXGiL4CpXhAgjc0JzRabpSl8+ujEBm5kVJaACMXW5hNGQMgPW1yG+BGMyDqSolB76yapeYyBUP4ELK8UMp1vBCYlXMrlcRZoyIinB4t5GlKuJXSb4qgzKpx5TQpHzv5VYriO3/gLZWcVdJ/t7bjS8i7SxhSFO/Devx6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AzvFV5TH; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IPA4Ra9Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61DFCC2BCB0;
-	Mon, 11 May 2026 20:47:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AzvFV5TH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04A49C2BCB0;
+	Mon, 11 May 2026 20:55:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778532471;
-	bh=HOOstmbO935LIcdIMmBMDWrwbQ5zoNTtFohMBkVFvEE=;
+	s=k20201202; t=1778532925;
+	bh=1tm+dfJuD/h4D/2FFNNK4rTlhHi6le2t/aCZqno9VU8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=IPA4Ra9YPlGvv0/laTnUhrem5ZL1rrB2JX/J9z1OPWMlBdq3QDyLGY9cAv93NlCP2
-	 2qnL/6LAXNaBxXw/fNja7KbB1paz82UDE48gFmptXk9CkiPYJMPh++YlCjyuboIf8C
-	 crAZ5sPJSMF960vVobDlmoQ/+KTApLd4yW5GIjBkw43tzlRQuEXiJcmllVAbqjwA0m
-	 6knx3by8LJ6deSN+pYcB0xevAnz35Oca2NFMULRTJGOOYnjyPmumLgNRknfAlXClZb
-	 AUpykO+3cNVlyLgoGSbGnD/XdDlYGKJbfymZvRn4wAHXzHE5UOcBmqH4f9ktayuhAx
-	 swgO4g3MI2JTQ==
+	b=AzvFV5THNV7No5da6rgm6A9KZOwpYUxTohaHUNqKZ8xH2l4UDPpvTp9c8G3Ata2eD
+	 7JXJIfhwGGVIV3m68xnWVUhCdkjPfJSW0LyXVicHuVUTeYK6KdwVBtmlWdKAWGTjBq
+	 pOmjon6JjCH5jzaDOBhZUbZ1WVryOvkB2Rk8wyulhMqDy5V0N+3RjtbNiJigBWJUC1
+	 FUKNZkj9eNYdtuBO6DNGiwUDEdyEFycW8G6sQyKm/rx3MQY0BLgL7SRv2yvxpqqsfO
+	 FYLD46yJt5/GOCY5ZKg3TzExWf70JUTstkEaXDcbdgMpcz31x4KykNgpmXqtWA8bAi
+	 lOmZScUuSNZ2Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 3/4] iio: adc: qcom-pm8xxx-xoadc: remove redundant
- error logs when reading values
+Subject: Re: [PATCH v3] dt-bindings: iio: adc: Convert xilinx-xadc bindings
+ to YAML schema
 Reply-To: sashiko@lists.linux.dev
-To: "Antony Kurniawan Soemardi" <linux@smankusors.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260510-pm8xxx-xoadc-label-v6-3-49700fd03005@smankusors.com>
-References: <20260510-pm8xxx-xoadc-label-v6-3-49700fd03005@smankusors.com>
+To: "Pramod Maurya" <pramod.nexgen@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260510120141.118057-1-pramod.nexgen@gmail.com>
+References: <20260510120141.118057-1-pramod.nexgen@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 11 May 2026 20:47:50 +0000
-Message-Id: <20260511204751.61DFCC2BCB0@smtp.kernel.org>
+Date: Mon, 11 May 2026 20:55:24 +0000
+Message-Id: <20260511205525.04A49C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,73 +46,83 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] The timeout value passed to wait_for_completion_timeout() is in mi=
-croseconds but the function expects jiffies, resulting in a massively infla=
-ted wait time.
-- [High] The timeout error path in pm8xxx_read_channel_rsv() fails to disab=
-le the ADC arbiter, which can cause delayed interrupts to corrupt subsequen=
-t readings.
-- [Medium] Removing the error log for -ETIMEDOUT hides legitimate hardware =
-and driver failures from dmesg.
+- [Low] Invalid scalar constraints and missing length bounds on the `reg` p=
+roperty inside channel nodes.
+- [Low] Fixed-string property `^xlnx,channels$` is defined in `patternPrope=
+rties` instead of `properties`.
+- [Low] Redundant `type: boolean` declaration for the `xlnx,bipolar` proper=
+ty.
 --
 
-commit 24271541e5551b415dc4bb4616582d63863e0096
-Author: Antony Kurniawan Soemardi <linux@smankusors.com>
+commit eb30bdd7a415cc66765c82f5a5300f2adb66fb3c
+Author: Pramod Maurya <pramod.nexgen@gmail.com>
 
-iio: adc: qcom-pm8xxx-xoadc: remove redundant error logs when reading values
+dt-bindings: iio: adc: Convert xilinx-xadc bindings to YAML schema
 
-This commit drops dev_err() logging for -EINVAL and -ETIMEDOUT cases and re=
-lies
-on return values to report errors, reducing unnecessary log noise.
+This commit converts the Xilinx XADC and UltraScale System Monitor device
+tree bindings from the legacy plain-text format to a YAML schema. The new
+schema covers the same hardware and compatible strings while enabling
+automated validation with dt-schema.
 
-> diff --git a/drivers/iio/adc/qcom-pm8xxx-xoadc.c b/drivers/iio/adc/qcom-p=
-m8xxx-xoadc.c
-> index 31f88cf7f7f18..282a67b46a5eb 100644
-> --- a/drivers/iio/adc/qcom-pm8xxx-xoadc.c
-> +++ b/drivers/iio/adc/qcom-pm8xxx-xoadc.c
-> @@ -535,10 +535,7 @@ static int pm8xxx_read_channel_rsv(struct pm8xxx_xoa=
-dc *adc,
->  		goto unlock;
-> =20
->  	/* Next the interrupt occurs */
-> -	ret =3D wait_for_completion_timeout(&adc->complete,
-> -					  VADC_CONV_TIME_MAX_US);
-> -	if (!ret) {
-> -		dev_err(adc->dev, "conversion timed out\n");
-> +	if (!wait_for_completion_timeout(&adc->complete, VADC_CONV_TIME_MAX_US)=
-) {
+> diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml b/D=
+ocumentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+> new file mode 100644
+> index 0000000000000..ab6f16109aebd
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+[ ... ]
+> +patternProperties:
+> +  "^xlnx,channels$":
 
-This is a pre-existing issue, but wait_for_completion_timeout() expects a
-timeout in jiffies. Does passing VADC_CONV_TIME_MAX_US directly result in a
-massively inflated wait time instead of the intended microseconds?
+Is it intentional to place "^xlnx,channels$" in patternProperties? Since th=
+is
+is a fixed string without any variable or wildcard components, defining it
+under patternProperties bypasses explicit property tracking in dt-schema and
+usually triggers a dt_binding_check linter warning. Should this be placed in
+the properties block instead?
 
-Also, while removing the log for an invalid channel addresses user input
-noise, does completely suppressing the -ETIMEDOUT error hide legitimate
-hardware or interrupt failures from dmesg? Would dev_err_ratelimited() be a
-better alternative here?
+> +    type: object
+> +    description:
+> +      List of external channels connected to the ADC. If this property is
+> +      absent, no external channels are assumed to be connected.
+[ ... ]
+> +    patternProperties:
+> +      "^channel@([0-9a-f]|10)$":
+> +        type: object
+> +        description:
+> +          Represents an external channel connected to the ADC.
+> +
+> +        properties:
+> +          reg:
+> +            description: |
+> +              Pair of pins the channel is connected to.
+> +                0: VP/VN
+> +                1: VAUXP[0]/VAUXN[0]
+> +                2: VAUXP[1]/VAUXN[1]
+> +                ...
+> +                16: VAUXP[15]/VAUXN[15]
+> +            minimum: 0
+> +            maximum: 16
 
->  		ret =3D -ETIMEDOUT;
->  		goto unlock;
+Will this fail dt_binding_check validation? The reg property is intrinsical=
+ly
+an array type in device tree schemas. Applying scalar JSON schema validation
+keywords like minimum and maximum directly to an array type is invalid.
 
-This is also a pre-existing issue, but if the timeout occurs and the code
-jumps directly to the unlock label, it bypasses turning off the ADC arbiter
-which is handled later in the function:
+Since the node name regex ^channel@([0-9a-f]|10)$ already enforces bounds on
+the unit address, should the scalar bounds be removed and replaced with
+maxItems: 1?
 
-pm8xxx_read_channel_rsv() {
-    ...
-    /* Turn off the ADC by setting the arbiter to 0 twice */
-    ret =3D regmap_write(adc->map, ADC_ARB_USRP_CNTRL, 0);
-    if (ret)
-        goto unlock;
-    ...
-}
+> +
+> +          xlnx,bipolar:
+> +            $ref: /schemas/types.yaml#/definitions/flag
+> +            type: boolean
 
-Does jumping to unlock leave the hardware running with its interrupt armed,
-potentially causing a delayed interrupt to fire and corrupt a subsequent
-reading?
-
->  	}
+This isn't a bug, but the type: boolean declaration here appears redundant.
+The reference to /schemas/types.yaml#/definitions/flag intrinsically defines
+the node as a boolean-typed property without a value. Can the type: boolean
+line be removed to align with standard dt-schema linting rules?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510-pm8xxx-xoa=
-dc-label-v6-0-49700fd03005@smankusors.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510120141.1180=
+57-1-pramod.nexgen@gmail.com?part=3D1
