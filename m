@@ -1,89 +1,174 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D155538331E
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 22:27:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D057383330;
+	Mon, 11 May 2026 22:29:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778538423; cv=none; b=hstTJ56C7J52/pVrQprz3b/kz3dLsqTHf5aFM1DT30Cq7k9PJ8EkC++/vsWNWyKy5Ndl7dYR2K6wytSb4IDtjbnuSH5BiQZ9wr6sdH+kzs34MkuxrMcS7wZsEsgoHOXpFjshmfYTE1n8zJ08re/1/dlxaXdgeVsepWakmUmAQd8=
+	t=1778538575; cv=none; b=Zdo67acJF0oQbHKeZyMRU4237mXBpG0h7SY8dJFUYu/9FRM3vPR9p/Amiem/8BigTrrsxG6qfXew6bBpinkRNVCg7VWEfH/ww/3+Dl0QcwdqKvmcgSgXXPnPgvjGxKrANNK+npbG0V8Hw4FM4vqI4ktV1EJsGrv0X60NYjYsUf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778538423; c=relaxed/simple;
-	bh=Rlk4tIX6m6yhy4WXjSYoFXe0A8/S+sQRdMD+oNg8YQs=;
+	s=arc-20240116; t=1778538575; c=relaxed/simple;
+	bh=T5vegv+Ra1BOiQM6FZTVswz7GcOGymlwn93D9cWZuPY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=N2aMj4D3jD3oLLE6ZPG7jsTxod8RWRtnLyoWxPN7w9zU2Ik0YXFhI8ZFrXDBDkujUcEZD0MMr5PLSLUM/gsOjGyvJ7Dqsn7kADtzNDPJT7E2ZmBdgUtuRJXgJ1ZfXHbSz+zN8WGAK9sJBj+FmIYa8DmyL2qwHH/0yEV3nO+CajE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bqJ/m0Ku; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=OSMVaRHC3NYt0aZ/rjqi2m8R6j1MAz9/o+UIrF6uO+ba5jogtgxZerHaM4ZB+EuakuGU7RhYQHODBAJH4TCuavV+lB92D141bpdDYZZbK8T+Anw3aQtOFDHo0f6Xs9DBlXVmLlirpNL4FjSJQ9A+O1d3mki2y2mo0S1qtiOsGfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QGTvrvGu; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bqJ/m0Ku"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FDCEC2BCB0;
-	Mon, 11 May 2026 22:27:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QGTvrvGu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91EA4C2BCB0;
+	Mon, 11 May 2026 22:29:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778538423;
-	bh=Rlk4tIX6m6yhy4WXjSYoFXe0A8/S+sQRdMD+oNg8YQs=;
+	s=k20201202; t=1778538574;
+	bh=T5vegv+Ra1BOiQM6FZTVswz7GcOGymlwn93D9cWZuPY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=bqJ/m0KuPrlABSMSfJYPGZ6XkWMaBOrv+c3nFDDxypMQAfpXWdYAHe7TrxNNSTfTI
-	 PRdrbOlu2uD0WvFv/Grf7ykWM+GSeh+K7yk1Ky/g/+bIv8U5O7MGKo9uw+UL2933wd
-	 BsbcjwMFJTNLW6/Wr/3UTmOJ+O/7JKziXxfUSis35gfg5+JCu7W23KkyPCHYESzcAj
-	 GfBRWZ0eJ6QQCDDIMO7nsl8eFuwoDZx6OSGrKIrC8pgw6XYhRaP7YUEof9ny74kuFF
-	 ihWpha6d14we91A2W4CGjLmISd789YjvQ9Ck6nnYUSn8PrLf7ykI1Fwp2Zljzn5EHm
-	 T+RuFYNO5D4Ow==
+	b=QGTvrvGuetfkPe3IxMSvHoBfwKkMp+pQx/GJnMAQe4bq1G/BftU+5D+FRlMpibMX+
+	 9SG9qncijfUZaVr9EJNI9C4lKGfUzM/YLvXwRTknkwUDrR0jUo3you+sh7mq6TqC8m
+	 IG58yk3P8Fio1CpK2wz+JmXWq9vq/saDirluUATdNbr0Wcu/VWRoAGnEXM9OLiN5P7
+	 tlhShPNZ2vxVXpy85YSOx5hLUEdg4bX64vJmjHVa1d9U0jHXkNilmIEv8FRceriY33
+	 KcRDaJXg0XV7KgqvAQShQuuID3M3Xw3RD4huJcgsmb7PTcFolIPXbSXNYrVyJyEzQQ
+	 cOKZQkv8a7b9g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 06/11] iio: adc: hx711: introduce hx711_chip_info
- structure
+Subject: Re: [PATCH v5 10/10] arm64: dts: Add support for LX2160 Twins board
+ in single configuration
 Reply-To: sashiko@lists.linux.dev
-To: "Piyush Patle" <piyushpatle228@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260510194947.31997-7-piyushpatle228@gmail.com>
-References: <20260510194947.31997-7-piyushpatle228@gmail.com>
+To: "Josua Mayer" <josua@solid-run.com>
+Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260510-lx2160-pci-v5-10-540b83852227@solid-run.com>
+References: <20260510-lx2160-pci-v5-10-540b83852227@solid-run.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 11 May 2026 22:27:02 +0000
-Message-Id: <20260511222703.4FDCEC2BCB0@smtp.kernel.org>
+Date: Mon, 11 May 2026 22:29:33 +0000
+Message-Id: <20260511222934.91EA4C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] Probe unconditionally fails for legacy platform device instantiati=
-on, breaking backwards compatibility.
+- [High] Undocumented and unrelated SoC revision change for the Clearfog CX=
+ board.
+- [High] The PCI-E OCP card connector is not enabled in the device tree.
+- [Low] Duplicate `function-enumerator` value in the SFP LED definitions.
+- [Low] The `dpmac` nodes referenced as LED `trigger-sources` lack the mand=
+atory `#trigger-source-cells` property.
+- [Low] The `gpio-mux` configured for PWM fan monitoring has no label and n=
+o consumer node.
 --
 
-commit df7c142f973e9e00df00559065a303371d262619
-Author: Piyush Patle <piyushpatle228@gmail.com>
+commit e131b341e534ec21c95289bd4bedcef8bb6fcf54
+Author: Josua Mayer <josua@solid-run.com>
 
-iio: adc: hx711: introduce hx711_chip_info structure
+arm64: dts: Add support for LX2160 Twins board in single configuration
+   =20
+This commit adds support for the SolidRun LX2160A Twins board in its
+single CPU configuration. The board features several connectors including
+SFP, PCIe OCP, USB-3.0, and microSD.
 
-This commit introduces a per-variant static configuration structure to
-populate IIO device fields at probe time. This prepares the driver for
-supporting additional hardware variants while intending to keep existing
-functionality unchanged.
+> - PCI-E OCP card connector
 
-> diff --git a/drivers/iio/adc/hx711.c b/drivers/iio/adc/hx711.c
-> index 2da128c1caf36..913e1a50529ad 100644
-> --- a/drivers/iio/adc/hx711.c
-> +++ b/drivers/iio/adc/hx711.c
+The commit message explicitly lists the PCI-E OCP card connector as a
+supported feature. However, looking at the device tree, are there any PCIe
+host controller nodes enabled?
+
+All PCIe host controller nodes default to disabled in the base SoC device
+trees, and this device tree doesn't seem to override their status to "okay".
+
+> diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-clearfog-cx.dts b/=
+arch/arm64/boot/dts/freescale/fsl-lx2160a-clearfog-cx.dts
+> index 802d7611c6479..6078ce47fabf1 100644
+> --- a/arch/arm64/boot/dts/freescale/fsl-lx2160a-clearfog-cx.dts
+> +++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-clearfog-cx.dts
+> @@ -6,7 +6,7 @@
+> =20
+>  /dts-v1/;
+> =20
+> -#include "fsl-lx2160a.dtsi"
+> +#include "fsl-lx2160a-rev2.dtsi"
+
+Does this commit intend to change the SoC revision for the Clearfog CX boar=
+d?
+
+This hardware definition change is not documented in the commit message.
+
+> diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-half-twins.dts b/a=
+rch/arm64/boot/dts/freescale/fsl-lx2160a-half-twins.dts
+> new file mode 100644
+> index 0000000000000..434b3f4873008
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-half-twins.dts
+
 [ ... ]
-> @@ -473,6 +498,12 @@ static int hx711_probe(struct platform_device *pdev)
-> =20
->  	mutex_init(&hx711_data->lock);
-> =20
-> +	chip_info =3D device_get_match_data(dev);
-> +	if (!chip_info)
-> +		return dev_err_probe(dev, -ENODEV, "missing driver data\n");
 
-For legacy platform devices instantiated without a firmware node like Device
-Tree or ACPI, device_get_match_data() returns NULL.
+> +	leds {
+> +		compatible =3D "gpio-leds";
 
-Will this unconditional error return cause the probe to fail for those lega=
-cy
-users?
+[ ... ]
 
-Since the commit message notes there are no functional changes for existing
-users, should this fallback to the default hx711_chip structure when
-chip_info is NULL?
+> +		led_ht_c3_bb: led-sfp-2 {
+> +			color =3D <LED_COLOR_ID_GREEN>;
+> +			default-state =3D "off";
+> +			function =3D LED_FUNCTION_LAN;
+> +			function-enumerator =3D <2>;
+> +			gpios =3D <&expander3 13 GPIO_ACTIVE_LOW>;
+> +			trigger-sources =3D <&dpmac15>;
+> +			linux,default-trigger =3D "netdev";
+> +		};
+> +
+> +		led_ht_c3_at: led-sfp-3 {
+> +			color =3D <LED_COLOR_ID_GREEN>;
+> +			default-state =3D "off";
+> +			function =3D LED_FUNCTION_LAN;
+> +			function-enumerator =3D <2>;
+
+Does this node have a duplicate function-enumerator?
+
+It shares the same value as the preceding led_ht_c3_bb (led-sfp-2) node.
+
+> +			gpios =3D <&expander3 11 GPIO_ACTIVE_LOW>;
+> +			trigger-sources =3D <&dpmac6>;
+
+Do the referenced dpmac nodes lack the #trigger-source-cells property?
+
+According to the standard LED trigger-source binding, any provider node must
+define this property. The base dpmac nodes in fsl-lx2160a.dtsi do not appear
+to define it.
+
+[ ... ]
+
+> +	mux-controller {
+> +		compatible =3D "gpio-mux";
+> +		#mux-control-cells =3D <0>;
+> +		/*
+> +		 * This gpio controlled mux can route the tacho signals of 6 PWM FAN c=
+onnectors
+> +		 * to the tacho inputs of both CEX-7 modules (twins).
+> +		 *
+> +		 * The first twin controls this mux and monitors four fan connectors, =
+two intended
+> +		 * for itself, and two for the OCP card.
+> +		 *
+> +		 * The second twin monitors only two fan connectors intended for itsel=
+f.
+> +		 *
+> +		 * The table below maps selector GPIO states to monitored fan connecto=
+r per twin:
+> +		 *
+> +		 * | SEL1 | SEL0 | Twin 1 | Twin 2 |
+> +		 * | ---: | ---: | :------| ------ |
+> +		 * |    0 |    0 | J10    |  J5024 |
+> +		 * |    0 |    1 | J5016  |  J5024 |
+> +		 * |    1 |    0 | J5026  |  J5025 |
+> +		 * |    1 |    1 | J5013  |  J5025 |
+> +		 */
+> +		mux-gpios =3D <&expander0 8 GPIO_ACTIVE_HIGH>, /* SEL0 */
+> +			    <&expander0 15 GPIO_ACTIVE_HIGH>; /* SEL1 */
+> +	};
+
+Is this mux-controller missing a label and a consumer node?
+
+There are no hwmon, fan, or other consumer nodes defined that reference it.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510194947.3199=
-7-1-piyushpatle228@gmail.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510-lx2160-pci=
+-v5-0-540b83852227@solid-run.com?part=3D10
