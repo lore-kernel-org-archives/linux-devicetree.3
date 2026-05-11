@@ -1,78 +1,142 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6CE3A254D
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 20:34:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED75C3AD50F
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 20:45:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778531688; cv=none; b=t9gGc4NlTge5XqyJvzd364eFESZ/yc0FA7f5samD8A/pHJw17vGiN7F0UdZejnN4woxs4Q2NNdnbVJFnT8le6D9gfsvhrv8KEWWp2TTGjUg6J2PWLJRd89QrAVAozTJiXZX+d3psoDJgo9Zubdp244lT9PNtQtZ5rG50TZM1hdk=
+	t=1778532329; cv=none; b=JiGmVHcwfZaEznxpXzmPIFpHnu0Obx2Z5sSq2Eicmk2aCdFmpLjJlZv0jhUvNZoR2nbYUdxAgSbOznwxYdoVpBbbQ997AJEAoFxoyYqLDPsUwfZgO5Rc9h4nCzgSTIP4rI0HQWOBwbVbqr8T4ittTOuqI83FD1FA+ATJjykifeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778531688; c=relaxed/simple;
-	bh=pfDxlUWWZJepOCZjfdEmEkPzN7o0zQAK0IZPSz7H81M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Rb862nij6u3CTJskXlrznM5oE1FClD+HxOa3BTAYhpZAX0KtFrg98bFM2dsaf02CXkgWLrojldZ+nu+aC/HrRTA40724qxVPJIKM7h/SWVT1dVMP5Sad3UgnF/SxBMDrJuGKKV437RaKLsFqV4jdhwneZkm7LkYZ+Cn2NLpp3LA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l5IWnmns; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778532329; c=relaxed/simple;
+	bh=T+qxdqc45IgPnIcfAeNbL3svtTgjm31fyXpnPSwKacA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=La8n4FafdqYTc8rQs6+ehU/ccRhu1jXyHH+Gmx9l2NXfX/Rkkh8vZH5L9KEaN0O6bfDIpdbS10cnOS697kOJGF4A3RcFnG1NjO4Vk4GMuYchlCT854WYMzJ6lUqgsRtEJzgwxHhc66j8q4hM9WswIyRRk78fFJwV8ZABm3LzO4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sJDtgdaK; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l5IWnmns"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F748C4AF0D
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 20:34:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sJDtgdaK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14632C2BCB0;
+	Mon, 11 May 2026 20:45:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778531688;
-	bh=pfDxlUWWZJepOCZjfdEmEkPzN7o0zQAK0IZPSz7H81M=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=l5IWnmnszX4yIlsBRwcZauDRDjLsshju3WeQ8Mfnk7HKw8C4aOvGcekN56lNTA761
-	 zHnwpsT5guPRrb372CdGuH1XRzjJsWAjX+CFc0yqjuRfFNnH0QsHrXN6FDD062YsLz
-	 MDOlqoL+JtTt20cTc/YgGBnUqZQGJSEJjgkN919VgdSU90p2W9QEBoMBs5j9JMfzHO
-	 tzPRoORvk2B2zcajxNqtRcoYPM6xGw2LT7MN1RNJWH93+D2S6o0LB1A1gU0L9Sd93A
-	 hgnASXHjDNKPcCvIsZ7a/5+xHRa81a5udY/K9yiH+Z7IYLTraMnVDyfEtZFfQhJmcb
-	 rbdVbcfSHZBCg==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5a748d5ece4so4580449e87.2
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 13:34:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ86+iAnUdd1T7NSPYE3jK8ntGO/VFNLh/TeFScTrBCx47+yLk+8YKhUQQ3mKU7pxWJvoTqhFy+FiQ7F@vger.kernel.org
-X-Gm-Message-State: AOJu0YznoYQzvrBmiLSrV43ONQWtmMiWIjfoeJm/XqAaZZ7lwZ+WpBQj
-	XjgbGB9EtulMltoipZ/zlQvXzm5SSHRUYDrWr/NdXc5S0jCD1f4NYNA01Sphfz43pw8Jo6y3dHy
-	ImCOgVKHldpuxjwmpHc1KbXXsLii1y3s=
-X-Received: by 2002:a05:6512:3ca1:b0:5a8:7be1:24c8 with SMTP id
- 2adb3069b0e04-5a887ceaa65mr9872399e87.37.1778531686850; Mon, 11 May 2026
- 13:34:46 -0700 (PDT)
+	s=k20201202; t=1778532328;
+	bh=T+qxdqc45IgPnIcfAeNbL3svtTgjm31fyXpnPSwKacA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=sJDtgdaKDyiJ6J1uyZBxjcrTX6gXncwP7udOcfNhqB57L/dZbp7V2XKPwryGM7Gvy
+	 1DQ8dBE9Wmi1wcg5kdxRin3Vu1j8v036kvRXcEyb6l8S/GtU1wZi18LMzm77rqe8rp
+	 I008Egbx2xb4cYnq9SPl2tTv9IDreZlMV0RS8KiEbQlJyeXGFI7OaE87heZ40i8M2y
+	 EbQ4A0s9q71HwBh+63oUfXtOTcpiJKEkpNR5vt70SfkxDKi72/79E3IftGKNBrl+2z
+	 8a0SE3WhRO8dzGBeCj9M5e2WKGAZ8gHpynn91knS7S0VGzeQLR7k191aPHklXXtbCt
+	 TWpFuDMGwUyJw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 01/10] ASoC: dt-bindings: renesas,fsi: add support
+ multiple clocks
+Reply-To: sashiko@lists.linux.dev
+To: phucduc.bui@gmail.com
+Cc: devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260510084303.122426-2-phucduc.bui@gmail.com>
+References: <20260510084303.122426-2-phucduc.bui@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 11 May 2026 20:45:27 +0000
+Message-Id: <20260511204528.14632C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260504-pinctrl-mux-v6-0-8ea858ba3a5b@nxp.com>
- <CAD++jLmXvnf6sSWsGe+++u37ONJpFFvxFMUkLdvvxiiaWuf9gQ@mail.gmail.com> <agIwOYrKXlnKbpII@lizhi-Precision-Tower-5810>
-In-Reply-To: <agIwOYrKXlnKbpII@lizhi-Precision-Tower-5810>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 11 May 2026 22:34:35 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=eqEaTcG7P=++Md7fqosmrGbRRPDb90+=Q4q8oQ=xqRA@mail.gmail.com>
-X-Gm-Features: AVHnY4ISeOUwTMvzSWT7CmqN0mVa50nOH_KekHRgu0RCcEYz-W900TVY-Ai2s7k
-Message-ID: <CAD++jL=eqEaTcG7P=++Md7fqosmrGbRRPDb90+=Q4q8oQ=xqRA@mail.gmail.com>
-Subject: Re: [PATCH v6 0/7] pinctrl: Add generic pinctrl for board-level mux chips
-To: Frank Li <Frank.li@nxp.com>
-Cc: Peter Rosin <peda@axentia.se>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	=?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, linux-kernel@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Haibo Chen <haibo.chen@nxp.com>, 
-	Conor Dooley <conor.dooley@microchip.com>, Ahmad Fatoum <a.fatoum@pengutronix.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, May 11, 2026 at 9:38=E2=80=AFPM Frank Li <Frank.li@nxp.com> wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The schema fails to enforce the mandatory SPU clock for the r8a774=
+0 hardware variant, and the example provides a functionally broken configur=
+ation.
+- [Medium] Mismatch between strictly positional `clocks` descriptions and u=
+nordered `clock-names`, combined with missing `clock-names` enforcement.
+--
 
-> I fixed a build warning by missing doc 'np',
-> https://lore.kernel.org/imx/20260507152117.240612-1-Frank.Li@nxp.com/
->
-> Anything need me to do futher?
+commit 3adcf4902a5e62b71566ef5381f002fd5338a399
+Author: bui duc phuc <phucduc.bui@gmail.com>
 
-Sorry was busy!
+    ASoC: dt-bindings: renesas,fsi: add support multiple clocks
 
-Applied this fixup on top of the branch and merged it into my
-devel branch for v7.2!
+This commit updates the FSI bindings to support multiple clocks to properly
+describe the hardware clock tree. It adds the SPU bus/bridge clock required
+for the r8a7740 SoC, as well as definitions for functional clocks, internal
+dividers, and external clock inputs.
 
-Yours,
-Linus Walleij
+> diff --git a/Documentation/devicetree/bindings/sound/renesas,fsi.yaml b/D=
+ocumentation/devicetree/bindings/sound/renesas,fsi.yaml
+> index df91991699a72..c50e7115b21a0 100644
+> --- a/Documentation/devicetree/bindings/sound/renesas,fsi.yaml
+> +++ b/Documentation/devicetree/bindings/sound/renesas,fsi.yaml
+> @@ -38,7 +38,32 @@ properties:
+>      maxItems: 1
+> =20
+>    clocks:
+> -    maxItems: 1
+> +    minItems: 1
+> +    items:
+> +      - description: Main FSI module clock
+> +      - description: |
+> +          SPU bus/bridge clock. On R8A7740, this clock must be enabled t=
+o allow
+> +          register access as the FSI block is connected behind the SPU b=
+us.
+
+Should we add an allOf block with an if-then condition to enforce the
+presence of the SPU clock for the renesas,fsi2-r8a7740 hardware variant?
+
+Without it, incomplete device trees might silently pass schema validation b=
+ut
+fail catastrophically at runtime, as the commit message notes that missing
+this clock causes a system hang.
+
+The examples section of this file demonstrates this:
+
+    sh_fsi2: sound@fe1f0000 {
+            compatible =3D "renesas,fsi2-r8a7740", "renesas,sh_fsi2";
+            ...
+            clocks =3D <&mstp3_clks R8A7740_CLK_FSI>;
+
+This example only supplies a single clock and omits both the required SPU
+clock and the clock-names property, which contradicts the commit message.
+
+> +      - description: CPG DIV6 functional clocks for FSI port A
+> +      - description: CPG DIV6 functional clocks for FSI port B
+> +      - description: Internal FSI dividers for port A used for audio clo=
+ck generation
+> +      - description: Internal FSI dividers for port B used for audio clo=
+ck generation
+> +      - description: External clock inputs for FSI port A provided by th=
+e board
+> +      - description: External clock inputs for FSI port B provided by th=
+e board
+> +
+> +  clock-names:
+> +    minItems: 1
+> +    maxItems: 8
+> +    items:
+> +      enum:
+> +        - fck  # Main FSI module clock
+> +        - spu  # optional SPU bus/bridge clock
+
+Does defining clock-names with an enum correctly map sparse clocks?
+
+Because clocks defines an items array with eight fixed descriptions, it
+acts as a strict positional tuple. If a board provides the Main clock and
+the icka clock but omits the optional spu clock, icka shifts to index
+1. The dt-schema tooling will then incorrectly map it to the SPU descriptio=
+n.
+
+Additionally, using an enum here allows arbitrary ordering and does not
+enforce uniqueItems: true.
+
+Could we add clock-names to the required list when multiple clocks are
+provided? Since it is not required, a device tree could specify multiple cl=
+ocks
+without names, leaving the driver unable to reliably map the phandles to th=
+eir
+respective internal functions.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510084303.1224=
+26-1-phucduc.bui@gmail.com?part=3D1
