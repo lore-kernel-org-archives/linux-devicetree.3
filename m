@@ -1,115 +1,172 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1941137F72A
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 21:39:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD69637F72A
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 21:40:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778535586; cv=none; b=sJJGXveyu4JibbQK6TsIVib9aPMIN2KEpRNUVGvT0fbi4vUQrSPgHVdQgZfiTttQO96x9y+eERHiO4i29XgSpGsU1mm1xuSLWndn/GD6F2ntIQ61VI1A3RLnU3GPeL86+77Q6I2P4lglZgXPUG055Ioiei7FhCiMiXvpATCgKzU=
+	t=1778535642; cv=none; b=FVIIVAp7o5v1cWV7otZcxZWIVakkJ8myMVMufcyjyt8YJN40GT3O2pxY7iOBZs+QqVq6/a7qD/LTdFS30BrEN99mRZ7omEbo4QJedAgGQqp4mG/j99T4BxzzpXvpXuDN9AIAW+GyksM57v6OMzcwqoOehQKZrYidvBXo2KwXIOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778535586; c=relaxed/simple;
-	bh=D4EgHDk9xQ0CQSZ9uCqa9IoydiJHS14pOqRBWHOb6xA=;
+	s=arc-20240116; t=1778535642; c=relaxed/simple;
+	bh=3LzAofv+LQG9Fp0qbhC3qAsGygIC5tOH4m2QX7t2GEg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=I2F5WBNqXFum5jSRuisubGHaAW8bsSvJVJx0ZZlzlxyL8/6xMm7aR+34C9kJYQ2EoPgUrNQwB5YQegJH/4DZKN0Zn6WUP2LGK+nvXPMH2dsbtRuNuo38/fRor8hD8QSmZKZO9yS1vNEvwqGwQI86vMpywOBNq4mG8skK6iTWIeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lCrWvq8r; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=S1aADPEPWTBZ3V3LN/+Uy9+49CVWrcYv8RrOqN+ucqgSvDAl3iYbGChcQ5nmDRzZ9a/52l0xyez1bMWIXjCXRzuDmYUIQAZWpSnHw5ah8QIFtIdD/Q0P1tQtkm48IUpsFzfAZ4wHoUdBjvA/5cZ169izikykj8RP5Q++RxdPn1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IjyHzPZg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lCrWvq8r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0B80C2BCB0;
-	Mon, 11 May 2026 21:39:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IjyHzPZg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BEA9C2BCB0;
+	Mon, 11 May 2026 21:40:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778535585;
-	bh=D4EgHDk9xQ0CQSZ9uCqa9IoydiJHS14pOqRBWHOb6xA=;
+	s=k20201202; t=1778535642;
+	bh=3LzAofv+LQG9Fp0qbhC3qAsGygIC5tOH4m2QX7t2GEg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=lCrWvq8rJBwXObFg1u6ZTFms92o/i/uafdytRu+s7aYOSCPgnGx9tQYwjYFC+2Cpz
-	 1Ks7Ncslu+km5qf1aOjpF+mQcWRx0MrycMETI4b41LiOP7q6HN3dCVE1bAFMgBRCLQ
-	 2Hp+wVriQu4XXKLfM3QvEIBuU/TKlrMamqyGkS1npPPWbkJWFObVEPDrwEC3Xtcx6o
-	 adCDpcV9LBvknSQJAiga2dlLar6PgDeds6vGf5pH1NNwbleqD4AxPy/V73DHWyml8E
-	 3AgRvbpjQh4QxeSs8WvXMoByLufV3ymuXxBKTHp8PazxvxqJi0gDBeBq6/nCedr5J8
-	 zbJJjN4KXMAlw==
+	b=IjyHzPZgiQv1jIzVte30CUPfUT8K/EiZlCeIE/SZjZPPXzAAKp79D2uYMbUaE5buc
+	 Zq3VDSyWGAjpTuuB53/++D4MVdAgfjYpnMI4uRde5mUDJxL3yZUPB/+t8lYLuobfa9
+	 GrFuUirBngoNtitQnv4RLBxCpMgOEtWgik8idFFzaB68vqlDNFoDPYiKI7/TyQw17o
+	 3iWlncdU1UZQRWS7rUF4GgLzAYEMKzSGV9XZTahzv3t5w1jsLOlTEVd9b5W+kqgHJO
+	 thuo62NTE3gDxG/LfKpHQqKwkH5pEBVgQDWoXLHNgrgfyPjR+MJgjDxJL+YGTA2HTV
+	 Ewk01CLFVcwrg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: misc: add documentation for Xilinx
- AXI-Stream FIFO IP core
+Subject: Re: [PATCH RFC 1/4] dt-bindings: clk: zte: Add zx297520v3 clock and
+ reset bindings.
 Reply-To: sashiko@lists.linux.dev
-To: "Kartik Nair" <contact.kartikn@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260510190908.400-1-contact.kartikn@gmail.com>
-References: <20260510190908.400-1-contact.kartikn@gmail.com>
+To: =?utf-8?b?U3RlZmFuIETDtnNpbmdlcg==?= <stefandoesinger@gmail.com>
+Cc: krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260510-zx29clk-v1-1-e1bacfffe967@gmail.com>
+References: <20260510-zx29clk-v1-1-e1bacfffe967@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 11 May 2026 21:39:45 +0000
-Message-Id: <20260511213945.A0B80C2BCB0@smtp.kernel.org>
+Date: Mon, 11 May 2026 21:40:41 +0000
+Message-Id: <20260511214042.5BEA9C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] The YAML binding schema is incomplete and sets `additionalProperti=
-es: false`, which rejects valid device trees and breaks driver probing.
-- [Low] The commit introduces a new YAML binding but fails to remove the ex=
-isting text-based binding, leading to duplicated and conflicting documentat=
-ion.
+- [Medium] Incomplete Device Tree modeling and schema validation for the ma=
+trix clock controller.
+- [Low] The 'osc26m' and 'osc32k' fixed-clock example nodes are missing the=
+ mandatory 'clock-frequency' property.
+- [Low] Non-standard generic node names in schema examples.
 --
 
-commit a25eb1af928bc942c4ddef43a8d5e91efa619819
-Author: Kartik Nair <contact.kartikn@gmail.com>
+commit 241b89034c405c46e2b45636517463ab2381b279
+Author: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
 
-dt-bindings: misc: add documentation for Xilinx AXI-Stream FIFO IP core
+dt-bindings: clk: zte: Add zx297520v3 clock and reset bindings.
 
-This patch adds device tree binding documentation for the Xilinx AXI-Stream
-FIFO IP core. It introduces a new YAML schema to document the compatible
-strings used by the axis-fifo driver.
+This commit introduces device tree bindings for the ZTE zx297520v3 clock
+and reset controllers. It defines compatible strings for the top, matrix,
+and lsp controllers, along with required properties and standard macros.
 
-Does this update also need to remove the existing text-based binding at
-drivers/staging/axis-fifo/axis-fifo.txt? Keeping the legacy text file
-alongside the new YAML schema introduces duplicated and conflicting
-documentation.
-
-> diff --git a/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.ya=
-ml b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+> diff --git a/Documentation/devicetree/bindings/clock/zte,zx297520v3-clk.y=
+aml b/Documentation/devicetree/bindings/clock/zte,zx297520v3-clk.yaml
 > new file mode 100644
-> index 0000000000000..597699034f134
+> index 0000000000000..3b7084a18a975
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
-> @@ -0,0 +1,44 @@
+> +++ b/Documentation/devicetree/bindings/clock/zte,zx297520v3-clk.yaml
+
 [ ... ]
+
+> +  The matrix controller consumes clocks generated by PLLs in the top
+> +  controller, but there are no controls in the top controller to sever t=
+his
+> +  link. The interface between these controllers is not expressed in the =
+device
+> +  tree, but the matrix controller cannot work without the clock handles
+> +  registered by the top controller.
+
+Should this hardware dependency be explicitly modeled in the device tree?
+Device tree design principles generally rely on explicitly modeled
+connections to handle probe ordering correctly.
+
+[ ... ]
+
 > +properties:
 > +  compatible:
 > +    enum:
-> +      - xlnx,axi-fifo-mm-s-4.1
-> +      - xlnx,axi-fifo-mm-s-4.2
-> +      - xlnx,axi-fifo-mm-s-4.3
+> +      - zte,zx297520v3-topclk
+> +      - zte,zx297520v3-matrixclk
+> +      - zte,zx297520v3-lspclk
 > +
-> +  reg:
-> +    maxItems: 1
+> +  clocks:
+> +    minItems: 2
+> +    maxItems: 10
 > +
-> +  interrupts:
-> +    maxItems: 1
+> +  clock-names:
+> +    minItems: 2
+> +    maxItems: 10
 
-The drivers/staging/axis-fifo/axis-fifo.c driver requires several vendor
-specific properties to probe successfully, such as
-xlnx,axi-str-rxd-tdata-width, xlnx,axi-str-txd-tdata-width,
-xlnx,rx-fifo-depth, xlnx,tx-fifo-depth, xlnx,use-rx-data, and
-xlnx,use-tx-data.
+[ ... ]
 
-Are these properties missing from the schema?
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: zte,zx297520v3-topclk
 
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
+[ ... ]
+
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: zte,zx297520v3-lspclk
+
+Since clocks and clock-names are defined globally in the schema, but there
+is no conditional block explicitly forbidding them for the matrix controller
+using zte,zx297520v3-matrixclk, will the schema silently permit invalid clo=
+ck
+assignments for the matrix node?
+
+Could an if/then block be added to set clocks to false for the matrix
+controller?
+
+[ ... ]
+
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/zte,zx297520v3-clk.h>
 > +
-> +additionalProperties: false
+> +    osc26m: osc26m {
+> +      compatible =3D "fixed-clock";
+> +      clock-output-names =3D "osc26m";
+> +      #clock-cells =3D <0>;
+> +    };
+> +
+> +    osc32k: osc32k {
+> +      compatible =3D "fixed-clock";
+> +      clock-output-names =3D "osc32k";
+> +      #clock-cells =3D <0>;
+> +    };
 
-If the vendor properties are added to the device tree to allow the driver
-to probe, won't setting additionalProperties to false cause the schema
-validation to fail?
+Are these fixed-clock example nodes missing the mandatory clock-frequency
+property? Omitting it might cause dt_binding_check to report schema
+validation errors.
 
-Device trees that pass this strict schema would then fail at runtime since
-the driver will abort the probe when the missing properties are not found.
+> +
+> +    topclk: topclk@13b000 {
+> +        compatible =3D "zte,zx297520v3-topclk";
+
+[ ... ]
+
+> +    matrixclk: matrixclk@1306000 {
+> +        compatible =3D "zte,zx297520v3-matrixclk";
+
+[ ... ]
+
+> +    lspclk: lspclk@1400000 {
+> +        compatible =3D "zte,zx297520v3-lspclk";
+
+This isn't a bug, but should these node names reflect the generic class
+of the device, like clock-controller@13b000, instead of hardware block
+designations like topclk, matrixclk, and lspclk? Standard conventions
+require generic node names, and dt_binding_check might warn about this.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510190908.400-=
-1-contact.kartikn@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510-zx29clk-v1=
+-0-e1bacfffe967@gmail.com?part=3D1
