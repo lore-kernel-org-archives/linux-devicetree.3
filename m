@@ -1,87 +1,203 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C5B3374E71
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 11:31:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85963372675;
+	Mon, 11 May 2026 11:33:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778499063; cv=none; b=toij2R9JYAitRhkg9yZbdBDMXC6ccZIoUGbSHf27TQOVdtddN2SV+djnA+DLjQBGrdyxlJs02KOT2ukf7TimFDX9YC9exRvimJuo0dgSEyPY9Q77bcbqOwt8pxaJ1uUPfxylG2JjFEW+ffMcBOWOQ9l8kV/gGtQC225k+y3ulMc=
+	t=1778499234; cv=none; b=bBXchkdHsVWAjFWzBoiELQCAobCLd9RK/fdhRbxEJik38Upvx3EBraEPfff/ZVPE3gsSFV6rK99BYVS65HhEAQku+c84iW3ME4xURdgBaYGiOMDLFK9GjsvsjxDmduDrZlDahLCwRjK9WdAeNs80UkPECt8W2jxoqURNpp6GV8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778499063; c=relaxed/simple;
-	bh=EKKfwmDWueuzuiwLmDiqHwAUuKDTiRg25fPDMxAtu3I=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WVfqOl9hpy0o/l8VI4qiG6nZ8slEM+EN6SLf+bmtGwlnSHjY47OXlgDBT//whivKkxFm4Iu3GZYxOEbn7TVM41AsZpc2H0KavSymtgGGux29PCNYySdShENi2LhBo2+fd3grNIscV5JojfPj4fK4zoKcuEayswi3I53+T+/gsCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ndaf6Okb; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778499234; c=relaxed/simple;
+	bh=BvRaXHhUVTMKvhP8w+N3DX0eHRHTjSG0mWPxoEwGH2A=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=oY4TgiWff4632FJoF2X6QIrzo04u4I6aUOFb9aX3C+h299Nb/ghZciCUoMK4aAKJ4hs7YTfkf/UusQiia6KKLyPj4y5rtRWUEkSm46X8Ws3PWTA+GUkIY6qsEQoVYWuc2cfyVhkHelLZzzlbRVC6odW4AZHYdyglI3x9ynTiQAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JIZaC71e; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ndaf6Okb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21100C2BD05
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 11:31:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JIZaC71e"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 560D4C2BCF7;
+	Mon, 11 May 2026 11:33:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778499063;
-	bh=EKKfwmDWueuzuiwLmDiqHwAUuKDTiRg25fPDMxAtu3I=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc:From;
-	b=Ndaf6Okb8sk0A8O7VL3aBsk0ONkOoBV714yHk6/dZQl1jlV/1eKAE9dRNOp9cBaRE
-	 oSicQNFzSi63gMWcQjyBj7ALHHOsKMQNy/DkmJBrk84C5kXsKd4iHdpoMiDNfEQR6m
-	 9T5ynO9CX+A67VySvl/YM891b+6++c0Cz3sDZc2ZZ/O8tbjI0h4kiBTJofBhkZuFvx
-	 zJcCXgj7y+afgvWRIKGS7D34JC29RgLIPoVv5TTP7rW6QNTfotzWaeBj8zkdteLjUN
-	 OegFcEWhkCYBg0KEZ6qCvAuruUlzQgbG7d19IO11CR5mBfMdoLVWiN/nAhSW1Q2TJ3
-	 eS3xMcJM1t8hw==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5a860667fabso3769081e87.0
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 04:31:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/6BLJmKZzIYuyplyl5o76mIOl8kWIJL0MV923K1t2zwoCTP+V1+YEY0cITO7hB/I6Ckf6o2KWFXrOF@vger.kernel.org
-X-Gm-Message-State: AOJu0YwhHPAFqREw2SQZir+7TcQ4mUbpySFgTr0w97V8s+21w6ARmjSz
-	yuQY5I7zDTd9Np87oowpLYsTIXyljtLruyQHcpD2+fwGx9dM9WmDF1GVps6ri7KOZrQx1sL6vjK
-	mkaxFMPa/0nwFYzpe+hU9OGYp/4b32nnfjxtu6f4NEw==
-X-Received: by 2002:a05:6512:8013:20b0:5a8:9909:50a3 with SMTP id
- 2adb3069b0e04-5a8a94c1fc3mr3003771e87.32.1778499061711; Mon, 11 May 2026
- 04:31:01 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 11 May 2026 04:31:00 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 11 May 2026 04:30:59 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260507212451.3333185-3-arnd@kernel.org>
+	s=k20201202; t=1778499234;
+	bh=BvRaXHhUVTMKvhP8w+N3DX0eHRHTjSG0mWPxoEwGH2A=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=JIZaC71eIIbsLFjW9h7dzZ13xv7CzxaPHsv0XveXn+LaKXSRHLhlvbgAbTD/0IKIH
+	 H/HXinnfDkIP2XQNVr9FhfkAiKutqL7Zzae7laswqGdtbQAPJtiQ70EHtSrKcOscBf
+	 dzNCZY/xqGErUnuVVtO3P2KMZrC1u+p3G1fsMEe5ym5aysemlaDseqYOviY6ONsfEc
+	 UuIrdp31DiSVnHZZQxs1PMeWOXfY8JuG1PAq8T1gK6nkFNDFxvF7lyiHLRWAcQ5KwJ
+	 pR+R42A7bPK/Lo8Taenl8I6udt3ehB5BHRaa5z9D9QPtOODYeQp8hzNOZA/sUZQ6nV
+	 hyqSiGN8D2phg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 46F71CD4843;
+	Mon, 11 May 2026 11:33:54 +0000 (UTC)
+From: Alexandre Hamamdjian via B4 Relay <devnull+azkali.limited.gmail.com@kernel.org>
+Date: Mon, 11 May 2026 18:33:54 +0700
+Subject: [PATCH v2 2/3] arm64: dts: qcom: sm8550: add labels for thermal
+ zones
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260507212451.3333185-1-arnd@kernel.org> <20260507212451.3333185-3-arnd@kernel.org>
-Date: Mon, 11 May 2026 04:30:59 -0700
-X-Gmail-Original-Message-ID: <CAMRc=McjwW-LfB8+jAF7zGkThCzSWgWWbgRR8_4UFCZLGjrGGA@mail.gmail.com>
-X-Gm-Features: AVHnY4JxFqpXMEt4_ocDaPjTOBgIpI7Eah18wC4y2ej7QetMh_kqZpgwKUVhjKE
-Message-ID: <CAMRc=McjwW-LfB8+jAF7zGkThCzSWgWWbgRR8_4UFCZLGjrGGA@mail.gmail.com>
-Subject: Re: [PATCH 2/3] [v5 net-next] p54spi: convert to devicetree
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: netdev@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>, 
-	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
-	Bartosz Golaszewski <brgl@kernel.org>, =?UTF-8?Q?Beno=C3=AEt_Cousson?= <bcousson@baylibre.com>, 
-	"David S. Miller" <davem@davemloft.net>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Eric Dumazet <edumazet@google.com>, Felipe Balbi <balbi@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Johannes Berg <johannes@sipsolutions.net>, Kevin Hilman <khilman@baylibre.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Rob Herring <robh+dt@kernel.org>, Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
-	linux-wireless@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-gpio@vger.kernel.org, linux-omap@vger.kernel.org, 
-	Christian Lamparter <chunkeey@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260511-pocketds-v2-2-299dd4247f2f@gmail.com>
+References: <20260511-pocketds-v2-0-299dd4247f2f@gmail.com>
+In-Reply-To: <20260511-pocketds-v2-0-299dd4247f2f@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Alexandre Hamamdjian <azkali.limited@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778499232; l=3018;
+ i=azkali.limited@gmail.com; s=20260510; h=from:subject:message-id;
+ bh=CXTAgnet4ppJsOM7v8NkuaJ4ZX4sBruKC6TxmpiZmV8=;
+ b=CDL/2mDZG+mA5bItxVRFwPfv0/q43HpDGxgv1f09vZhMBwSNp4gAlDkysYg9dVSRXXVcm6/e0
+ dCoB0282p5JC5/13PSs3/hsV099oojLV+LqnUuX/lVnDJJQNmp0TreG
+X-Developer-Key: i=azkali.limited@gmail.com; a=ed25519;
+ pk=I0Z0IdCdQJqNGX+FQUnXhrHg950u3cM6Xzz3YT6JOyQ=
+X-Endpoint-Received: by B4 Relay for azkali.limited@gmail.com/20260510 with
+ auth_id=774
+X-Original-From: Alexandre Hamamdjian <azkali.limited@gmail.com>
+Reply-To: azkali.limited@gmail.com
 
-On Thu, 7 May 2026 23:24:50 +0200, Arnd Bergmann <arnd@kernel.org> said:
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> The Prism54 SPI driver hardcodes GPIO numbers and expects users to
-> pass them as module parameters, apparently a relic from its life as a
-> staging driver. This works because there is only one user, the Nokia
-> N8x0 tablet.
->
-> Convert this to the gpio descriptor interface and DT based probing
-> to improve this and simplify the code at the same time.
->
-> Acked-by: Christian Lamparter <chunkeey@gmail.com>
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
+From: Alexandre Hamamdjian <azkali.limited@gmail.com>
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Add labels for the cpuss, cpu and gpuss thermal zones so board files
+can extend them with trip points and cooling maps through the &label
+override syntax, instead of redeclaring the zones by path.
+
+Signed-off-by: Alexandre Hamamdjian <azkali.limited@gmail.com>
+---
+ arch/arm64/boot/dts/qcom/sm8550.dtsi | 26 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+index 912525e9bca6..a9c678fc9cb2 100644
+--- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+@@ -5764,7 +5764,7 @@ reset-mon-config {
+ 			};
+ 		};
+ 
+-		cpuss0-thermal {
++		cpuss0_thermal: cpuss0-thermal {
+ 			thermal-sensors = <&tsens0 1>;
+ 
+ 			trips {
+@@ -5782,7 +5782,7 @@ reset-mon-config {
+ 			};
+ 		};
+ 
+-		cpuss1-thermal {
++		cpuss1_thermal: cpuss1-thermal {
+ 			thermal-sensors = <&tsens0 2>;
+ 
+ 			trips {
+@@ -5800,7 +5800,7 @@ reset-mon-config {
+ 			};
+ 		};
+ 
+-		cpuss2-thermal {
++		cpuss2_thermal: cpuss2-thermal {
+ 			thermal-sensors = <&tsens0 3>;
+ 
+ 			trips {
+@@ -5818,7 +5818,7 @@ reset-mon-config {
+ 			};
+ 		};
+ 
+-		cpuss3-thermal {
++		cpuss3_thermal: cpuss3-thermal {
+ 			thermal-sensors = <&tsens0 4>;
+ 
+ 			trips {
+@@ -6028,7 +6028,7 @@ cpu6_bottom_crit: cpu-critical {
+ 			};
+ 		};
+ 
+-		cpu7-top-thermal {
++		cpu7_top_thermal: cpu7-top-thermal {
+ 			thermal-sensors = <&tsens0 13>;
+ 
+ 			trips {
+@@ -6536,7 +6536,7 @@ reset-mon-config {
+ 			};
+ 		};
+ 
+-		gpuss-0-thermal {
++		gpuss0_thermal: gpuss-0-thermal {
+ 			polling-delay-passive = <10>;
+ 
+ 			thermal-sensors = <&tsens2 1>;
+@@ -6569,7 +6569,7 @@ trip-point2 {
+ 			};
+ 		};
+ 
+-		gpuss-1-thermal {
++		gpuss1_thermal: gpuss-1-thermal {
+ 			polling-delay-passive = <10>;
+ 
+ 			thermal-sensors = <&tsens2 2>;
+@@ -6602,7 +6602,7 @@ trip-point2 {
+ 			};
+ 		};
+ 
+-		gpuss-2-thermal {
++		gpuss2_thermal: gpuss-2-thermal {
+ 			polling-delay-passive = <10>;
+ 
+ 			thermal-sensors = <&tsens2 3>;
+@@ -6635,7 +6635,7 @@ trip-point2 {
+ 			};
+ 		};
+ 
+-		gpuss-3-thermal {
++		gpuss3_thermal: gpuss-3-thermal {
+ 			polling-delay-passive = <10>;
+ 
+ 			thermal-sensors = <&tsens2 4>;
+@@ -6668,7 +6668,7 @@ trip-point2 {
+ 			};
+ 		};
+ 
+-		gpuss-4-thermal {
++		gpuss4_thermal: gpuss-4-thermal {
+ 			polling-delay-passive = <10>;
+ 
+ 			thermal-sensors = <&tsens2 5>;
+@@ -6701,7 +6701,7 @@ trip-point2 {
+ 			};
+ 		};
+ 
+-		gpuss-5-thermal {
++		gpuss5_thermal: gpuss-5-thermal {
+ 			polling-delay-passive = <10>;
+ 
+ 			thermal-sensors = <&tsens2 6>;
+@@ -6734,7 +6734,7 @@ trip-point2 {
+ 			};
+ 		};
+ 
+-		gpuss-6-thermal {
++		gpuss6_thermal: gpuss-6-thermal {
+ 			polling-delay-passive = <10>;
+ 
+ 			thermal-sensors = <&tsens2 7>;
+@@ -6767,7 +6767,7 @@ trip-point2 {
+ 			};
+ 		};
+ 
+-		gpuss-7-thermal {
++		gpuss7_thermal: gpuss-7-thermal {
+ 			polling-delay-passive = <10>;
+ 
+ 			thermal-sensors = <&tsens2 8>;
+
+-- 
+2.54.0
+
+
