@@ -1,169 +1,87 @@
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1B5374E66;
-	Mon, 11 May 2026 11:30:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C5B3374E71
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 11:31:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778499056; cv=none; b=BmS3sD45xvYYZRGyuMMc+ybznwnGRU/E4UuFaTJnfcHSLU5G2q7ZgUpIDnFgd8JrtQpYHky9mHa/QfiOQ7ifNbfzZnDhGaxZ/C3S2xLFuic9TWN6GIvkpKXe7SqQodtOwac5YviUuF4p4smuOS6CsuME5xXEk1KnNJH4a5xG1Ro=
+	t=1778499063; cv=none; b=toij2R9JYAitRhkg9yZbdBDMXC6ccZIoUGbSHf27TQOVdtddN2SV+djnA+DLjQBGrdyxlJs02KOT2ukf7TimFDX9YC9exRvimJuo0dgSEyPY9Q77bcbqOwt8pxaJ1uUPfxylG2JjFEW+ffMcBOWOQ9l8kV/gGtQC225k+y3ulMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778499056; c=relaxed/simple;
-	bh=+yjkn4HBuA/UyhKfR+d394Bjxs+3MnkK17zGluVy8hs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=kYCGnVkNY0zBq/1PD5D94qcPDcjFBXgHCb79pi4cA1oKA4b9GQKIQZ3m29MViGFn/YoWsyRw725GWBNSwU4JFhILArRSuj26k+cYt/KfDR9gRt1dghF9jI/3WHsNqwwzZ8zTmRjkKQzwXcEvCDnTloQBVX7K+GI/ZuGkWryzx8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=A7gfGf9I; arc=none smtp.client-ip=113.46.200.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1778499063; c=relaxed/simple;
+	bh=EKKfwmDWueuzuiwLmDiqHwAUuKDTiRg25fPDMxAtu3I=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WVfqOl9hpy0o/l8VI4qiG6nZ8slEM+EN6SLf+bmtGwlnSHjY47OXlgDBT//whivKkxFm4Iu3GZYxOEbn7TVM41AsZpc2H0KavSymtgGGux29PCNYySdShENi2LhBo2+fd3grNIscV5JojfPj4fK4zoKcuEayswi3I53+T+/gsCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ndaf6Okb; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="A7gfGf9I"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=hZY77WY1R4lZKqkiJYVx90NM7cypXm7b/K/Dl6ostWU=;
-	b=A7gfGf9I2mWtoGk1twpeKdsTWxHRCoqkxK6h8sqAufJacFPxPk7J5UV8oj4BBjTyooxVD2Cki
-	IZBX0lyWqVPhijn1Ra4jjJgWV2oQvMFsHXLFq2R6ycKWvoUQXNa+lNIZBbmfXSzS+9wfOLM4NXI
-	bc1oxF4bSdMbsjNUg+iYH3U=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4gDcm153LszLlSL;
-	Mon, 11 May 2026 19:23:13 +0800 (CST)
-Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id 2B9494048B;
-	Mon, 11 May 2026 19:30:49 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Mon, 11 May 2026 19:30:44 +0800
-Message-ID: <79c14bee-b1f5-4d70-8345-6582d6cf0128@huawei.com>
-Date: Mon, 11 May 2026 19:30:44 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ndaf6Okb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21100C2BD05
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 11:31:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778499063;
+	bh=EKKfwmDWueuzuiwLmDiqHwAUuKDTiRg25fPDMxAtu3I=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc:From;
+	b=Ndaf6Okb8sk0A8O7VL3aBsk0ONkOoBV714yHk6/dZQl1jlV/1eKAE9dRNOp9cBaRE
+	 oSicQNFzSi63gMWcQjyBj7ALHHOsKMQNy/DkmJBrk84C5kXsKd4iHdpoMiDNfEQR6m
+	 9T5ynO9CX+A67VySvl/YM891b+6++c0Cz3sDZc2ZZ/O8tbjI0h4kiBTJofBhkZuFvx
+	 zJcCXgj7y+afgvWRIKGS7D34JC29RgLIPoVv5TTP7rW6QNTfotzWaeBj8zkdteLjUN
+	 OegFcEWhkCYBg0KEZ6qCvAuruUlzQgbG7d19IO11CR5mBfMdoLVWiN/nAhSW1Q2TJ3
+	 eS3xMcJM1t8hw==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5a860667fabso3769081e87.0
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 04:31:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/6BLJmKZzIYuyplyl5o76mIOl8kWIJL0MV923K1t2zwoCTP+V1+YEY0cITO7hB/I6Ckf6o2KWFXrOF@vger.kernel.org
+X-Gm-Message-State: AOJu0YwhHPAFqREw2SQZir+7TcQ4mUbpySFgTr0w97V8s+21w6ARmjSz
+	yuQY5I7zDTd9Np87oowpLYsTIXyljtLruyQHcpD2+fwGx9dM9WmDF1GVps6ri7KOZrQx1sL6vjK
+	mkaxFMPa/0nwFYzpe+hU9OGYp/4b32nnfjxtu6f4NEw==
+X-Received: by 2002:a05:6512:8013:20b0:5a8:9909:50a3 with SMTP id
+ 2adb3069b0e04-5a8a94c1fc3mr3003771e87.32.1778499061711; Mon, 11 May 2026
+ 04:31:01 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 11 May 2026 04:31:00 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 11 May 2026 04:30:59 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260507212451.3333185-3-arnd@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 04/15] arm64: kexec_file: Fix potential buffer
- overflow in prepare_elf_headers()
-To: Breno Leitao <leitao@debian.org>
-CC: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
-	<maddy@linux.ibm.com>, <mpe@ellerman.id.au>, <npiggin@gmail.com>,
-	<chleroy@kernel.org>, <pjw@kernel.org>, <palmer@dabbelt.com>,
-	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <robh@kernel.org>, <saravanak@kernel.org>,
-	<akpm@linux-foundation.org>, <bhe@redhat.com>, <rppt@kernel.org>,
-	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
-	<rdunlap@infradead.org>, <pmladek@suse.com>, <dapeng1.mi@linux.intel.com>,
-	<kees@kernel.org>, <elver@google.com>, <kuba@kernel.org>,
-	<ebiggers@kernel.org>, <lirongqing@baidu.com>, <paulmck@kernel.org>,
-	<sourabhjain@linux.ibm.com>, <coxu@redhat.com>, <jbohac@suse.cz>,
-	<ryan.roberts@arm.com>, <osandov@fb.com>, <cfsworks@gmail.com>,
-	<tangyouling@kylinos.cn>, <ritesh.list@gmail.com>, <adityag@linux.ibm.com>,
-	<guoren@kernel.org>, <songshuaishuai@tinylab.org>, <kevin.brodsky@arm.com>,
-	<vishal.moola@gmail.com>, <junhui.liu@pigmoral.tech>,
-	<wangruikang@iscas.ac.cn>, <namcao@linutronix.de>, <chao.gao@intel.com>,
-	<seanjc@google.com>, <fuqiang.wang@easystack.cn>, <ardb@kernel.org>,
-	<chenjiahao16@huawei.com>, <hbathini@linux.ibm.com>,
-	<takahiro.akashi@linaro.org>, <james.morse@arm.com>, <lizhengyu3@huawei.com>,
-	<x86@kernel.org>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
-	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<kexec@lists.infradead.org>
-References: <20260511030454.1730881-1-ruanjinjie@huawei.com>
- <20260511030454.1730881-5-ruanjinjie@huawei.com> <agGkvrg06KNDNfDi@gmail.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <agGkvrg06KNDNfDi@gmail.com>
+References: <20260507212451.3333185-1-arnd@kernel.org> <20260507212451.3333185-3-arnd@kernel.org>
+Date: Mon, 11 May 2026 04:30:59 -0700
+X-Gmail-Original-Message-ID: <CAMRc=McjwW-LfB8+jAF7zGkThCzSWgWWbgRR8_4UFCZLGjrGGA@mail.gmail.com>
+X-Gm-Features: AVHnY4JxFqpXMEt4_ocDaPjTOBgIpI7Eah18wC4y2ej7QetMh_kqZpgwKUVhjKE
+Message-ID: <CAMRc=McjwW-LfB8+jAF7zGkThCzSWgWWbgRR8_4UFCZLGjrGGA@mail.gmail.com>
+Subject: Re: [PATCH 2/3] [v5 net-next] p54spi: convert to devicetree
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: netdev@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>, 
+	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
+	Bartosz Golaszewski <brgl@kernel.org>, =?UTF-8?Q?Beno=C3=AEt_Cousson?= <bcousson@baylibre.com>, 
+	"David S. Miller" <davem@davemloft.net>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Eric Dumazet <edumazet@google.com>, Felipe Balbi <balbi@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Johannes Berg <johannes@sipsolutions.net>, Kevin Hilman <khilman@baylibre.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh+dt@kernel.org>, Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+	linux-wireless@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-gpio@vger.kernel.org, linux-omap@vger.kernel.org, 
+	Christian Lamparter <chunkeey@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- dggpemf500011.china.huawei.com (7.185.36.131)
 
+On Thu, 7 May 2026 23:24:50 +0200, Arnd Bergmann <arnd@kernel.org> said:
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> The Prism54 SPI driver hardcodes GPIO numbers and expects users to
+> pass them as module parameters, apparently a relic from its life as a
+> staging driver. This works because there is only one user, the Nokia
+> N8x0 tablet.
+>
+> Convert this to the gpio descriptor interface and DT based probing
+> to improve this and simplify the code at the same time.
+>
+> Acked-by: Christian Lamparter <chunkeey@gmail.com>
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
 
-
-On 5/11/2026 5:46 PM, Breno Leitao wrote:
-> On Mon, May 11, 2026 at 11:04:43AM +0800, Jinjie Ruan wrote:
->> There is a race condition between the kexec_load() system call
->> (crash kernel loading path) and memory hotplug operations that can
->> lead to buffer overflow and potential kernel crash.
->>
->> During prepare_elf_headers(), the following steps occur:
->> 1. The first for_each_mem_range() queries current System RAM memory ranges
->> 2. Allocates buffer based on queried count
->> 3. The 2st for_each_mem_range() populates ranges from memblock
->>
->> If memory hotplug occurs between step 1 and step 3, the number of ranges
->> can increase, causing out-of-bounds write when populating cmem->ranges[].
->>
->> This happens because kexec_load() uses kexec_trylock (atomic_t) while
->> memory hotplug uses device_hotplug_lock (mutex), so they don't serialize
->> with each other.
->>
->> Add the explicit bounds checking to prevent out-of-bounds access.
-> 
-> It seems you have a TOCTOU type of issue, and this seems to be shrinking
-> the window, but not fully solving it?
-
-Hi Breno,
-
-Thanks for your comments regarding the TOCTOU issue.
-
-You are correct that the current bounds checking only "shrinks the
-window" and prevents a kernel crash, but doesn't fully guarantee header
-consistency if a race occurs.
-
-In my local environment, this race is extremely difficult to reproduce,
-but it is theoretically possible.
-
-To address this properly for arm64, I am considering two steps:
-
-- For this patch: I will change the return value to -EAGAIN and keep the
-bounds check. This ensures that even if a race happens, the kernel
-remains safe (no OOB access), and user-space is notified to retry.
-
-- Long-term solution: A better way to solve this is to implement ARM64
-CRASH_HOTPLUG support (similar to x86). With crash hotplug, the kernel
-will automatically re-generate the crash headers whenever a memory
-hotplug event occurs. This makes the TOCTOU during the initial
-kexec_load less critical, as any transient inconsistency will be
-immediately corrected by the subsequent hotplug handler.
-
-Does it make sense to you to use this patch as a safety guard first, and
-then I (or someone else) follow up with the full CRASH_HOTPLUG support
-for arm64 as [1]?
-
-[1]:
-https://lore.kernel.org/all/20260402081459.635022-1-ruanjinjie@huawei.com/
-
-Best regards,
-Jinjie
-
-> 
->> Cc: Catalin Marinas <catalin.marinas@arm.com>
->> Cc: Will Deacon <will.deacon@arm.com>
->> Cc: Andrew Morton <akpm@linux-foundation.org>
->> Cc: Baoquan He <bhe@redhat.com>
->> Cc: Breno Leitao <leitao@debian.org>
->> Cc: stable@vger.kernel.org
->> Fixes: 3751e728cef2 ("arm64: kexec_file: add crash dump support")
->> Closes: https://sashiko.dev/#/patchset/20260323072745.2481719-1-ruanjinjie%40huawei.com
->> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->> ---
->>  arch/arm64/kernel/machine_kexec_file.c | 5 +++++
->>  1 file changed, 5 insertions(+)
->>
->> diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
->> index e31fabed378a..a67e7b1abbab 100644
->> --- a/arch/arm64/kernel/machine_kexec_file.c
->> +++ b/arch/arm64/kernel/machine_kexec_file.c
->> @@ -59,6 +59,11 @@ static int prepare_elf_headers(void **addr, unsigned long *sz)
->>  	cmem->max_nr_ranges = nr_ranges;
->>  	cmem->nr_ranges = 0;
->>  	for_each_mem_range(i, &start, &end) {
->> +		if (cmem->nr_ranges >= cmem->max_nr_ranges) {
->> +			ret = -ENOMEM;
-> 
-> -ENOMEM seems to be the the wrong errno. This isn't an allocation
-> failure; it's a transient race. -EBUSY or -EAGAIN would be more honest
-
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
