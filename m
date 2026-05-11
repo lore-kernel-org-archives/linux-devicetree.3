@@ -1,136 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117C239D6D1
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 08:36:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E44303A8743;
+	Mon, 11 May 2026 08:46:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778488599; cv=none; b=TTAVK5cyuFIf6jtnujDkUE9E2oWJMjYykMGP+3HQ8ZEDfuFB0/Agme9LDatE9T82haCaJ4cmf8U4jfFvS1Ag0eEbW96XkEO1XdPQG7fkxvLog7GueVr5AsEuKjzXcQVEi4oa6ITEOiO5+GlMYfZlNWJMw+AIAoOSPXvBmwGJcI4=
+	t=1778489184; cv=none; b=DMw7iiyVZGZuQ73tzCw2oee50u/fCJqBOBQjMplxB2cxGUZ8hqiaoeColMKx/ph/2Mwyq8MlzyH5XCZmR7vkuBxQPCeqBIAhVZhTgfTr08SNlYZuuhhnCHoykphGCqz/b9YvkZ7fY8hpVhkPMvB/w8jIniU3xDJCkGyghfRyZwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778488599; c=relaxed/simple;
-	bh=4PF51G6c0G6Gi1ayiZRPE7NCSn5Hkpz/tk0EfS0p0yM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ECLxMyRYNU8UcT1nrogQTHTH2pMexGvB+J4C1asRSfxpGGIhZH4+6GXfc5XbF4aC1/UH8LorsokCZHbq2DcaXK6wteozB3+0t8nh1zAIZ+SsSVcDbN4AdqjgA1XhX7QbjJgKUGHtj0Kj0VDB9ymJnG0bJ74EAIDL16KcScK/tDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E06F+O+4; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778489184; c=relaxed/simple;
+	bh=RdSBpaqet860zCtTuyM54Cs+0V8Gz2Qgpm7xAl4gNyM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HQksirBlx0J5A4Y8UqbGvEoMl/ioSQ0aNRtmAxo7mhpaMnnPTzW1H75hf5BA4175StAcaPdyd8oGAvLcndQbhBSTV4EDeaekDo5hFfPpfQ4ZIRTOrdbpTZj5Ns1TmYQgokdHbJz8Er5AJRzkG7ob1tuCW++Nktetwbbj99VEu8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=S1PGxoAP; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E06F+O+4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 166BFC2BCF5
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 08:36:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778488597;
-	bh=4PF51G6c0G6Gi1ayiZRPE7NCSn5Hkpz/tk0EfS0p0yM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=E06F+O+4HxqCDU69Q2RZ4XRqFkC+C3AktblKIhN+NySNVGkBAeqwV75jFY8Y8iEP/
-	 8DGhvJ88CHZoGUAw8uxY3TqmVi3pO+VzE2hb/wn6oUF3Cu/GcXRHSod4878//2wPU9
-	 hlbP093r+faF6cGw+0jJSIakT42eS1D4UsVtfedLqXFyv97xgQb+rfhUhmvtweng+0
-	 eNbPQPVV6gTY0KrGn0rhfdHuq9vDxZ2g/mVPgBcSQM0YyC80dNQHf76DDGxCI6teSY
-	 vHcYNzSmZfDTSHIT6VYF7t+k25EH63+Z/NTEgt9h1gbQ3D1O+cK5egmiUznouI3ZyE
-	 kFavRoZLWeCRw==
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5a858881ad2so4197796e87.3
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 01:36:36 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ87u8SuAGKyw0koXT+5grH8mLM/V6oPKsmxsgftEpzQmu6fG4TKp1Z/GQ6Ins19POYdW3qhPAYkxJ2q@vger.kernel.org
-X-Gm-Message-State: AOJu0YwjkW1Lw3/VLih9Z8h9hZyW0RlSotJGi17P2soR4cCusCL6HMZa
-	NynAl6EVqqq8NtXaaegsW2ySQgORBnd8gk3TUBsAN9g6/hBcjo2niHs6LSN6PIqstjY0NUODjzW
-	7I2fTzGT76unYDGkMiCBjzgTLujmXjd4=
-X-Received: by 2002:a05:6512:3d03:b0:5a8:99bd:12dd with SMTP id
- 2adb3069b0e04-5a899bd13aamr5773584e87.31.1778488595742; Mon, 11 May 2026
- 01:36:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="S1PGxoAP"
+Received: from francesco-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
+	by mail11.truemail.it (Postfix) with ESMTPA id 879791FA0B;
+	Mon, 11 May 2026 10:46:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1778489173;
+	bh=TA048/r0Me1GXrKVGIUon2gAJMRu+ZNYAkK6UX0cWiQ=; h=From:To:Subject;
+	b=S1PGxoAP3piLZ7dZMj8FXJl+rf4h1YA5JiCz3IsNc+7p62bpLZfRAH1k9+zRQyRro
+	 MV5UM6lVg64H0CdA1nDiEPGYOw91wCbfrdVC23X/vER4iQdQnU3bfHg7sE7eGEfOyU
+	 Lr4NSSFTVLKdkGSQxaLsJZ5RyZZEqqm4cDSZEZfp/5Q0hGK0kMyrKplbQm68e5ZzMI
+	 djsZ4tVUa30rcat3IHv0F1+YpyargJt1c47hKYjGMYNJy2zLtX8AlV6nqGmnr0plL0
+	 A0NloMnEj4mYJVyeV5MDotmyTzYrvwG6FANxIwA10wUxddgBHGY20kQCEM1mGimmGt
+	 CG8LfwEk15WzA==
+Date: Mon, 11 May 2026 10:46:11 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Antoine Gouby <antoine.gouby@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Antoine Gouby <antoine.gouby@toradex.com>
+Subject: Re: [PATCH] arm64: dts: freescale: imx95-toradex-smarc: replace
+ deprecated gpio property
+Message-ID: <20260511084611.GB29876@francesco-nb>
+References: <20260508-replace-gpio-property-v1-1-ec67cc64e576@toradex.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260414-axiado-ax3000-sgpio-controller-v1-0-b5c7e4c2e69b@axiado.com>
- <20260414-axiado-ax3000-sgpio-controller-v1-1-b5c7e4c2e69b@axiado.com>
- <CAD++jL=yc4rmNELLKUpreUqRbQ1Krg95C-o1xSrnD9Aicm4wgw@mail.gmail.com>
- <106b7b64-ed6e-499f-b5ac-60c1277f2f03@axiado.com> <CAD++jLn4R9ubqHsek-56s1sF9YhxYt4-C2TPdYGcYjy2MC6q_Q@mail.gmail.com>
- <fd2ee102-db52-4a37-b96e-c16211e3d8e3@axiado.com>
-In-Reply-To: <fd2ee102-db52-4a37-b96e-c16211e3d8e3@axiado.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 11 May 2026 10:36:23 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=51iWK2SyxoWOTxSQHAq-Frd0mm6cPxqYu81qifFfHGg@mail.gmail.com>
-X-Gm-Features: AVHnY4IfT9q6KDLm-dZHjUsaH-0X6qvevfw7aCysYd229WzlzaOSgUqxkeXu0ro
-Message-ID: <CAD++jL=51iWK2SyxoWOTxSQHAq-Frd0mm6cPxqYu81qifFfHGg@mail.gmail.com>
-Subject: Re: [PATCH 1/3] dt-bindings: gpio: add Axiado SGPIO controller
-To: Petar Stepanovic <pstepanovic@axiado.com>
-Cc: Tzu-Hao Wei <twei@axiado.com>, Swark Yang <syang@axiado.com>, 
-	Prasad Bolisetty <pbolisetty@axiado.com>, Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Harshit Shah <hshah@axiado.com>, SriNavmani A <srinavmani@axiado.com>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260508-replace-gpio-property-v1-1-ec67cc64e576@toradex.com>
 
-On Fri, May 8, 2026 at 9:57=E2=80=AFAM Petar Stepanovic <pstepanovic@axiado=
-.com> wrote:
+On Fri, May 08, 2026 at 01:26:36PM +0200, Antoine Gouby wrote:
+> From: Antoine Gouby <antoine.gouby@toradex.com>
+> 
+> Replace deprecated "gpio" property with "gpios" in
+> regulator-vmmc-usdhc2 fixed regulator node.
+> 
+> Signed-off-by: Antoine Gouby <antoine.gouby@toradex.com>
 
-> For example, when SGPIO is configured for 128 lines, the hardware provide=
-s
-> 128 input bits (DIN) and 128 output bits (DOUT). If modeled directly, thi=
-s
-> corresponds to 256 GPIOs in Linux, since the input and output signals are
-> independent and are not bidirectional.
+Reviewed-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-I don't get it.
-
-Linux internals are modeled after physical GPIO lines, actual rails
-you can control. ngpios for example means the number of controllable
-physical lines.
-
-What kind of bits exist in some registers does not concern this
-concept.
-
-Please check this presentation page 24 for example:
-https://www.df.lth.se/~triad/papers/pincontrol.pdf
-
-The fact that there exist many weird things inside the SoC
-doesn't alter the fact that "a GPIO" is an abstraction for a single
-physical I/O entity such as a line/pad/pin.
-
-> Similar to the gpio-aspeed-sgpio.c driver, the input and output paths are
-> fixed by hardware and cannot be configured dynamically per line. These ar=
-e
-> not interchangeable directions of the same GPIO line;
-
-Are they connected to the same physical output line/pin or
-not? That is the only thing that matters. If they in the end control
-the same physical entitiy, it *is* the same GPIO line from Linux'
-point of view.
-
-> Because the direction is fixed by hardware, the standard
-> lines-initial-states property, which encodes both direction and initial s=
-tate,
-> does not map cleanly to this design.
-
-GPIOs with fixed direction is nothing new for Linux, we've had
-that for ages.
-
-I would just have the driver reject configurations that does
-not apply and bail out.
-
-If you absolutely want to enforce the lines-initial-states to match what th=
-e
-hardware can do, then use YAML schema restriuctions on what
-values can be encoded into that array.
-
-> For the output lines (DOUT), should their initial values be described in =
-the
-> device tree, or should they be configured by userspace, with the driver o=
-nly
-> providing default initialization?
-
-I don't see why userspace should deal with that. The Linux userspace
-ABI is for hacking and odd usecases (like industrial). The nominal
-use is kernel-internal consumers and those must be able to
-request their GPIOs as well without any userspace shenanigans.
-
-But avoiding to deal with initial line states at all is a solution
-of course.
-
-What I don't understand is what purpose this dout-init actually
-does and why it cannot be set dynamically by the driver at runtime.
-
-Yours,
-Linus Walleij
