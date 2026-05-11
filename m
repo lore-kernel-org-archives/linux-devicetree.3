@@ -1,112 +1,143 @@
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A4D04D8D8D
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 21:12:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F6A32AADC
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 21:13:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778533975; cv=none; b=iYvdu0+6Iic/t9IJAlHJCMKFb8Tr61Dw4UIMKvrISCAVzWDdFh4dmOP7Z/BOpT+vNev4++2Mlh9tleGNKq+QmmOMgmwy3QRJ/kBDpXmIB1H79QU9nCgq+zG4aPMZ0HAYz3NQ4qzvKHW05DoSwJr5jSTjteGHEEMLujCsfpNmgfs=
+	t=1778534022; cv=none; b=edwN9TW43NQwfDKlsPM1gMulNUdqijS1rnqvlvhcO0tT1BOJU13BiRdkfsPj9se+ONCJPSP3yg6PQVyDxiTGNDSFKQOvhaIryZWTn2qapS45e/xrzeQRSnPgQ5eyX8spw2Y/vTx40vPVHn5P/7a2C34n6IMbl6FJX1zhdNfCfzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778533975; c=relaxed/simple;
-	bh=Ml8+WIXJmSGrbqib0u5ulf7PiZ8NZS12P3rO01gEh/8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=haYewP5001d13tYZHfh2W+AyX1d0CJBNEmPOuJBC9e0VfcY3DUUabQNAjX69VSX/+3Ez8R9h1P3+b03oDMJKEdZ6fF3OE0tn7yAqhDKJP7NICfX7BV0LOsQ01kMVOj1ZFHgnx3cKHYAwK+Wqfyutz0WqCl14LC1zge6GVXfM2NE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BKt73Ppn; arc=none smtp.client-ip=209.85.128.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778534022; c=relaxed/simple;
+	bh=dXC043kF1i/9QUGmIWXlYj/uJcLQAyomZNu5T2c+lIY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qsZ3gzUIMgwWvUiuRAWILGcg2kp/zTKm/wNBYrNsJtXo8Ku1Q/NNimpwji/nfubwZaM3eCBE/qsrWzqzHQRkGFFOlbw8L6pPx08qlPfUlDbpJ3WQMRllm/pY80GMNFt2gnYTgP6Wxj2RgKeBvT9XQYh6b8BAitjq69LYb85OTOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uydrTcHx; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BKt73Ppn"
-Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-7bf02533706so43607827b3.0
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 14:12:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778533972; x=1779138772; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rwF/HhmYwf5QBeLN9SEfEOEh9juP5SjaaFwH3isu8iY=;
-        b=BKt73PpncZ0dVhQJNqKIj8j95R39VSikmdRMcpVd6wIimAgVysHkXCYnGsFIFeKks+
-         CyHBeuY4U8UI8Nw2EHXSMd2GnVD760ZO1n1Xo6y4gy4t7rsAn+OT4pjknLKBxfHFAPq4
-         NcaF8xAJJmR7YOY6sdvZ86Km2hsm6Fb/7OgY9WOcwaWrdL/3GoCCm4GbeqQtzhjFBC6X
-         fPFJwGitV/AH1XC1BszVgQArX/ueT/bX0LPa5FnPfIjQJOaLCAZdtf9JXAkXLE5ky7WD
-         5iDlnKTkcmkqh1M7rd7RgwbE37wSNR+nCOJ6tLfnCM0LfCQx3DA7P71vqOo3tI/FsVdo
-         7fKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778533972; x=1779138772;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=rwF/HhmYwf5QBeLN9SEfEOEh9juP5SjaaFwH3isu8iY=;
-        b=cfrNLRfXT4BYgucC8QZy6rq0VjNt5fifFVmFEcbo0xx536IUVLIqLMDyiRza/m7MqD
-         o8BITC2Cc2wKbdtfOWz/9wO5X1ecGQ6E4byUNKvXshW49ESTiZpbGSWzaA50BwgdkUvG
-         4f8RYZmYdrYYsqN48THFZNtRnB3XTmb4EficF+wC/8orWA3mYIWe6iE1GnRRDjYJw+sM
-         jYnItaKngboeV/w2yNNgi480QUnls/AEEC/xpmA6ZJtzR35K+P+FKNNSB6n5V8MWkzz+
-         C82qrDrkW1uCSeaXT8THFAd9GDsOpYKCP1nlasQ9ULEkXRJzEY0WhXqJBQwPKvyv0K0v
-         +rVw==
-X-Forwarded-Encrypted: i=1; AFNElJ9eVwqTeEJUuiL3UVG7eMZXayEHTBaqBNzl7IhL14IDcPLW5qusF1fJJsGPDvG/s2o8M1KLUfsEbTDo@vger.kernel.org
-X-Gm-Message-State: AOJu0YyrQoV4jIz8GKcPAGS+iKPXP/g7VIXxIuEJbq4fTKb3KiH2qlBw
-	5ewGR3xJ2Q5LwMvw49aICYVTrab5ni20WjptzzKPb2NQoU4EZrz8YVk=
-X-Gm-Gg: Acq92OHMZjn7W3P4adM690I9s4SsYnmitUH0PsYZtrC5Kd1T0rrY5bxW72BJ/7tiND3
-	wYJTD6qmUoyyZkJ59EPQ6I/sdOrM6chIqCYd2o2bqnX+R6yEATmMfKi59f+s+Aa0HLlmt82gUKo
-	jvNxu9EemJ5SDqJSaCvDB3cHum4PjHUHGnroojK2ZEYrpE+xi2KjsKn+lv44iQ4qsAbKQt4p/R2
-	kWn03myzMNZNSgnOE29NVKumw6U1OG8pE69sBYpgMBczKURHa7mzqOKsONDejet4JkiC9eSqJuN
-	V+tC0MLCcpDbG7P4Of2iiXh+39vF7fy9hkqpWi9f8l+zIkYW+K93yctrnVdQnm2nU8GblbU/qiL
-	uYFAlpj08LYAo2D1tmTUz8QjlDD/a0KWs5osuKqkpJ+BY/9+tRFJ5Wp77L2u6z/FRA3iE3KOxtp
-	et8/sMX9d6XIUYxLM6eQGdDd/BAR0c6MWi1Rx/bx2IT2DsEg==
-X-Received: by 2002:a05:690c:ed5:b0:7b8:5f91:65b8 with SMTP id 00721157ae682-7bdf5d99133mr270835987b3.9.1778533972346;
-        Mon, 11 May 2026 14:12:52 -0700 (PDT)
-Received: from alir-mac.sitimecorp.com ([12.1.37.172])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-7bd976fd09asm114553617b3.41.2026.05.11.14.12.50
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 11 May 2026 14:12:51 -0700 (PDT)
-From: Ali Rouhi <rouhi.ali@gmail.com>
-X-Google-Original-From: Ali Rouhi <arouhi@sitime.com>
-To: jiri@resnulli.us
-Cc: vadim.fedorenko@linux.dev,
-	arkadiusz.kubalewski@intel.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	cjubran@nvidia.com,
-	Oleg.Zadorozhnyi@devoxsoftware.com,
-	devicetree@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ali Rouhi <arouhi@sitime.com>
-Subject: [PATCH net-next 1/3] dt-bindings: vendor-prefixes: add SiTime Corporation
-Date: Mon, 11 May 2026 14:11:41 -0700
-Message-Id: <20260511211143.19792-2-arouhi@sitime.com>
-X-Mailer: git-send-email 2.39.2 (Apple Git-143)
-In-Reply-To: <20260511211143.19792-1-arouhi@sitime.com>
-References: <20260511211143.19792-1-arouhi@sitime.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uydrTcHx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 630C9C2BCB0;
+	Mon, 11 May 2026 21:13:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778534021;
+	bh=dXC043kF1i/9QUGmIWXlYj/uJcLQAyomZNu5T2c+lIY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=uydrTcHxWx0FsKCPG/ld+sLGRKVhZ11ghxxk+7fAkColGsBRRpyzizOjJYUaZC9wv
+	 zilxywFR6HvtFU7w85EQ2A0+ouH5pG0euIkO0HHYVHGQAE/uHfFZ5xCuV4rq0XrHkq
+	 8ieiBCh/WA8u6dYbfjn3tbGQIoanQWV4Emn3T54GM/NB7I8/FLY8bGVAGlEC8QCH97
+	 f+at2oq2aHj4jf4ySN5rJY84jn7uOMN4lucwSgqwncCnwtThg/dIsRlP21wBaVVfQw
+	 J6iI0mcJhvb8PgXgF15ogQRGlch+X6vVuEr6MKTeKpQMSUzE7p+kTUkcXr08itip0X
+	 bsPKqX9FhUgoQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 4/4] iio: adc: qcom-pm8xxx-xoadc: add support for
+ reading channel labels
+Reply-To: sashiko@lists.linux.dev
+To: "Antony Kurniawan Soemardi" <linux@smankusors.com>
+Cc: krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260510-pm8xxx-xoadc-label-v6-4-49700fd03005@smankusors.com>
+References: <20260510-pm8xxx-xoadc-label-v6-4-49700fd03005@smankusors.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 11 May 2026 21:13:40 +0000
+Message-Id: <20260511211341.630C9C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add vendor prefix for SiTime Corporation, manufacturer of
-programmable clock generators and MEMS oscillators.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The new `.read_label` callback and pre-existing `.read_raw` fail t=
+o uniquely identify channels, causing incorrect labels and voltage readings.
+- [High] Race condition in probe exposes uncalibrated device, risking divid=
+e-by-zero kernel panic.
+--
 
-Signed-off-by: Ali Rouhi <arouhi@sitime.com>
----
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+commit 50e7569708562dacb984c644e8571f2c7c6624cb
+Author: Antony Kurniawan Soemardi <linux@smankusors.com>
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 28784d66ae7b..5e81b9bfa3d0 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1527,6 +1527,8 @@ patternProperties:
-     description: SiRF Technology, Inc.
-   "^sis,.*":
-     description: Silicon Integrated Systems Corp.
-+  "^sitime,.*":
-+    description: SiTime Corporation
-   "^sitronix,.*":
-     description: Sitronix Technology Corporation
-   "^skov,.*":
--- 
-2.43.0
+iio: adc: qcom-pm8xxx-xoadc: add support for reading channel labels
 
+This commit implements the .read_label callback to allow userspace to
+identify ADC channels via the device tree label property. The name field
+in pm8xxx_chan_info is renamed to label, defaulting to the datasheet name.
+
+> diff --git a/drivers/iio/adc/qcom-pm8xxx-xoadc.c b/drivers/iio/adc/qcom-p=
+m8xxx-xoadc.c
+> index 282a67b46a5eb..4a1a0cfb4699d 100644
+> --- a/drivers/iio/adc/qcom-pm8xxx-xoadc.c
+> +++ b/drivers/iio/adc/qcom-pm8xxx-xoadc.c
+
+[ ... ]
+
+> @@ -716,8 +716,21 @@ static int pm8xxx_fwnode_xlate(struct iio_dev *indio=
+_dev,
+>  	return -EINVAL;
+>  }
+> =20
+> +static int pm8xxx_read_label(struct iio_dev *indio_dev,
+> +			     struct iio_chan_spec const *chan, char *label)
+> +{
+> +	struct pm8xxx_xoadc *adc =3D iio_priv(indio_dev);
+> +	const struct pm8xxx_chan_info *ch;
+> +
+> +	ch =3D pm8xxx_get_channel(adc, chan->address);
+
+Is amux_channel guaranteed to be a unique identifier?
+
+Looking at the hardware definition array, multiple channels (like vcoin and
+atest_8) use amux_channel =3D 0x00 and differ only in their pre_scale_mux
+values.
+
+Since pm8xxx_get_channel() only checks chan->address against
+ch->hwchan->amux_channel:
+
+pm8xxx_get_channel() {
+    ...
+    for (i =3D 0; i < adc->nchans; i++) {
+        struct pm8xxx_chan_info *ch =3D &adc->chans[i];
+        if (ch->hwchan->amux_channel =3D=3D chan)
+            return ch;
+    }
+    ...
+}
+
+Could this return the first matching channel instead of the correct one if
+multiple overlapping channels are configured, causing this new callback to
+return incorrect labels?
+
+This also appears to be a pre-existing issue in pm8xxx_read_raw() which
+might configure the multiplexer incorrectly and read the wrong hardware
+voltages.
+
+Since adc->chans and adc->iio_chans are allocated together, could the
+correct channel be resolved using pointer arithmetic, such as
+&adc->chans[chan - adc->iio_chans]?
+
+> +	if (!ch)
+> +		return -EINVAL;
+> +	return sysfs_emit(label, "%s\n", ch->label);
+> +}
+> +
+>  static const struct iio_info pm8xxx_xoadc_info =3D {
+
+While reviewing this driver, I also noticed a pre-existing race condition in
+pm8xxx_xoadc_probe().
+
+Does calling iio_device_register() before pm8xxx_calibrate_device() expose
+the IIO sysfs attributes to userspace too early?
+
+If userspace reads a processed channel value concurrently, pm8xxx_read_raw()
+will invoke qcom_vadc_scale().
+
+Since adc->graph is allocated via devm_iio_device_alloc() and hasn't been
+populated by the calibration routine yet, calib_graph->dy will be 0.
+
+Could this result in a divide-by-zero panic in qcom_vadc_scale_calib()
+when computing div64_s64(*scale_voltage, calib_graph->dy)?
+
+Should iio_device_register() be moved to the end of the probe function,
+after all hardware initialization and calibration are complete?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510-pm8xxx-xoa=
+dc-label-v6-0-49700fd03005@smankusors.com?part=3D4
