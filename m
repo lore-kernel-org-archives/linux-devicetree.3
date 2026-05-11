@@ -1,116 +1,136 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC1B9356765
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 23:11:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F006C383326
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 23:12:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778541078; cv=none; b=seRuOQei9YJYUTD7pMg8YiEoqET5o7296M8GrwhtlJZyVzyRomcLTHKQAw0ckzSURuZ08Cmb2KlNITQEP8RqzbGWubUHjvu7oyfS7JKab/U5XqLvM4gDGELdSExZH53VEjMaAG/JaziQYdhhE6fKRVCuBTuyHpXMhPQEuAEMBao=
+	t=1778541121; cv=none; b=X2Srfd067sLTG402bbqb+8lM683Img6aiiaKZw4hoPV8GAr816g4n/n97jmRbWDKL2DP9Eem70E/NTQ/GRCxJsHgOchQeorj+91ZgEikk4aSUw8owNrqoaUvtn6L877a/Vk+BBUBhrRfMecNl1Kr4OW+IUzL8LwdUtMNT2dkblQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778541078; c=relaxed/simple;
-	bh=Waz171SpZ05TQWAFgEL6EfIzWPyI60frbTqNfMJuB+U=;
+	s=arc-20240116; t=1778541121; c=relaxed/simple;
+	bh=+z+E5+m6cbTBZPzHuqmAzt+ndtiKCx7tPIdP58O3Jf8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aAiU3dM12aSOzXxh5Zap+8saziS4du69gux3rN3a4Gj2Xtg75slHVEBc20FUSAnKACiZLhtKH4Je24nGWloCA2YNZzMCid+8/s1gxjRNfsug8zIggaMVSd85wMT1RBHDkTr4sEr1umkVgjtNZq+iWaAHufuy8YcFWRDxTRz95Zg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rufmf3me; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=tXH3BQvRQiBHv1rtZZkACdAvXZUW2EAGuMQdPayq+Q91djjmSMnmDJijgQ7Nl63rOMXBMDLJyq8qwCR+551z1nrWsHj87Zv64DDaOeltdvoZx6VUIvEF/tgzBpuWn2wO8kzmMEt9kQRMLWjvnLCzot8mGVZEYURlxqn9uzgIPhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G3D9r0S8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rufmf3me"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3084BC2BCB0;
-	Mon, 11 May 2026 23:11:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G3D9r0S8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED783C2BCB0;
+	Mon, 11 May 2026 23:11:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778541078;
-	bh=Waz171SpZ05TQWAFgEL6EfIzWPyI60frbTqNfMJuB+U=;
+	s=k20201202; t=1778541120;
+	bh=+z+E5+m6cbTBZPzHuqmAzt+ndtiKCx7tPIdP58O3Jf8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=Rufmf3mey9I9Y853L9zOEqBtxlRyhe0ZK40ureaUGVBZDmh0dcUHlPPgdGz57DEEf
-	 cueZqPsDZhNl5U7yCf0JJItlbJOogSGKAfTGdVW6WQzXaMXhGs4Vyw+M3JJ8DLB7vy
-	 gMnLa/EwJ/3v5FmyRGdtfOqnzbZBSz3toN79BolPQ5fqJ0HLIET9olPhPW0S0M1mLC
-	 fYP6q7g0cJGcZ+1PDhacpc0s4+BJTtF+6dpZr91X1y4YTcC36hXGiq0tufWt8a7Gfp
-	 EKV4YYjens1ixIW1A5PKrOTIOhomRFlf7y+uiUgYzOgE6EyorlFHLDR00+l0Cd64nC
-	 sjiBVP425o53A==
+	b=G3D9r0S87gRN++lVgvmWvB/iuFGHlHeY7RTREFKaWi8Z+M6PHHllqGtSuQmG7xdgb
+	 4AzjsBy4Zkc1k48k56rjKNmRL/PZhZNo0Z1bIuPA30f2++Hl8+E/xIkVk11WSEmjeO
+	 iMxb9AGS1YMLald77cihda0PnrQcKAXqpr/uodHNmSPup+QoPJ0O/zoh2vGKL9H7am
+	 rtO6tImoMhuw2wVrHueGKeMv3llwVLOXZ1vCgFawhv3YXrW3xP7coMempPLepcitZD
+	 KxLpHAeycEBp7GiiXDbp2/HtydjJWyOoBkt6N+PtGoaO87ECAup0occyX/qI6GqquL
+	 gIouVdlHXRNfQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/3] dt-bindings: add self-test fixtures for style
- checker
+Subject: Re: [PATCH v12 08/11] iio: frequency: adf41513: handle LE
+ synchronization feature
 Reply-To: sashiko@lists.linux.dev
-To: "Daniel Golle" <daniel@makrotopia.org>
+To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
 Cc: conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <963a1a0a46cccf924f44243534852db13083692b.1778454442.git.daniel@makrotopia.org>
-References: <963a1a0a46cccf924f44243534852db13083692b.1778454442.git.daniel@makrotopia.org>
+In-Reply-To: <20260510-adf41513-iio-driver-v12-8-34af2ed2779f@analog.com>
+References: <20260510-adf41513-iio-driver-v12-8-34af2ed2779f@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 11 May 2026 23:11:17 +0000
-Message-Id: <20260511231118.3084BC2BCB0@smtp.kernel.org>
+Date: Mon, 11 May 2026 23:11:59 +0000
+Message-Id: <20260511231159.ED783C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The test runner script `run.sh` uses bash-specific process subst=
-itution (`<()`) but specifies `#!/bin/sh` as the interpreter.
-- [Medium] The test runner script `run.sh` ignores the exit status of the `=
-dt-check-style` tool, contradicting its own documented requirements.
+- [High] The driver modifies the cached register state (`st->regs`) before =
+performing SPI transactions, but fails to revert these changes if the SPI t=
+ransaction fails. This leaves the shadow register state corrupted and viola=
+tes hardware sequencing constraints on subsequent retries.
 --
 
-commit 395b561606d87e6d15dae9a82c1d4e309bfe406d
-Author: Daniel Golle <daniel@makrotopia.org>
+commit a7ad01199feb60254a514f4aa41d379243946b28
+Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-dt-bindings: add self-test fixtures for style checker
+iio: frequency: adf41513: handle LE synchronization feature
 
-This commit provides good and bad DTS and YAML fixtures along with a test
-runner to verify the behavior of dt-check-style. It also wires this up to a
-new top-level make target, dt_style_selftest.
+This commit introduces support for the LE synchronization feature on the
+ADF41513. It enables the feature during device setup and handles
+enabling/disabling it during resume and suspend.
 
-> diff --git a/scripts/dtc/dt-style-selftest/run.sh b/scripts/dtc/dt-style-=
-selftest/run.sh
-> new file mode 100755
-> index 0000000000000..821d635ddc151
-> --- /dev/null
-> +++ b/scripts/dtc/dt-style-selftest/run.sh
-> @@ -0,0 +1,67 @@
-> +#!/bin/sh
-
-Since this script specifies /bin/sh, which on systems like Debian and Ubuntu
-points to dash, will this cause a syntax error when evaluating the
-bash-specific process substitution used later in the script?
-
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +#
-> +# Run dt-check-style against fixtures under good/ and bad/.
-> +# good/ files must produce no output and exit 0 in both modes.
-> +# bad/ files must produce the expected output (in expected/<name>.txt)
-> +# and exit 1.
+> diff --git a/drivers/iio/frequency/adf41513.c b/drivers/iio/frequency/adf=
+41513.c
+> index b8a8b9fb81d9d..397e859170cc0 100644
+> --- a/drivers/iio/frequency/adf41513.c
+> +++ b/drivers/iio/frequency/adf41513.c
 
 [ ... ]
 
-> +for f in "$here"/good/*; do
-> +    [ -e "$f" ] || continue
-> +    for mode in relaxed strict; do
-> +        out=3D$(run "$f" "$mode") || true
+> @@ -634,13 +635,27 @@ static int adf41513_set_frequency(struct adf41513_s=
+tate *st, u64 freq_uhz, u16 s
+>  static int adf41513_suspend(struct adf41513_state *st)
+>  {
+>  	st->regs[ADF41513_REG6] |=3D FIELD_PREP(ADF41513_REG6_POWER_DOWN_MSK, 1=
+);
+> +	st->regs[ADF41513_REG12] &=3D ~ADF41513_REG12_LE_SELECT_MSK;
+>  	return adf41513_sync_config(st, ADF41513_SYNC_DIFF);
 
-Does ignoring the exit status here and below conflict with the requirements
-documented at the top of the script?
+If adf41513_sync_config() fails, is it possible for st->regs[] to be left w=
+ith
+these updated values?
 
-By appending || true, the script seems to rely only on the output string
-matching. This would allow tests to silently pass even if dt-check-style
-exits with an incorrect code or crashes entirely.
+If the SPI transaction fails when writing ADF41513_REG12 (which happens bef=
+ore
+ADF41513_REG6), the state in st->regs is not reverted. A subsequent frequen=
+cy
+change might then inadvertently power down the device because the dirty
+st->regs state is pushed to the hardware during adf41513_sync_config().
 
-[ ... ]
+>  }
+> =20
+>  static int adf41513_resume(struct adf41513_state *st)
+>  {
+> +	int ret;
+> +
+>  	st->regs[ADF41513_REG6] &=3D ~ADF41513_REG6_POWER_DOWN_MSK;
+> -	return adf41513_sync_config(st, ADF41513_SYNC_ALL);
+> +	ret =3D adf41513_sync_config(st, ADF41513_SYNC_ALL);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (st->data.le_sync_en) {
+> +		st->regs[ADF41513_REG12] |=3D ADF41513_REG12_LE_SELECT_MSK;
+> +		ret =3D adf41513_sync_config(st, ADF41513_SYNC_DIFF);
+> +		if (ret)
+> +			return ret;
 
-> +for f in "$here"/bad/*; do
+Could this cause a regression on a subsequent retry of adf41513_resume() if
+the SPI write fails here?
 
-[ ... ]
+If adf41513_sync_config(st, ADF41513_SYNC_DIFF) fails, the function returns
+an error, but st->regs[ADF41513_REG12] retains the
+ADF41513_REG12_LE_SELECT_MSK bit.
 
-> +    out=3D$(run "$f" "$mode") || true
-> +    # Strip the directory prefix so expected files are portable.
-> +    out=3D$(printf '%s\n' "$out" | sed "s|$here/bad/|bad/|g")
-> +    if [ "$out" !=3D "$body" ]; then
-> +        echo "FAIL bad/$mode: $name:"
-> +        diff -u <(printf '%s\n' "$body") <(printf '%s\n' "$out") | \
+On a subsequent retry of adf41513_resume(), the first call to
+adf41513_sync_config(st, ADF41513_SYNC_ALL) writes all registers in reverse
+order (ADF41513_REG13 down to ADF41513_REG0). Since st->regs[ADF41513_REG12]
+already has the ADF41513_REG12_LE_SELECT_MSK bit set from the previous fail=
+ed
+attempt, it will write ADF41513_REG12 with this bit set before writing
+ADF41513_REG6 to power up the device.
 
-Can this process substitution syntax <() cause a fatal syntax error on
-systems where /bin/sh is a strict POSIX shell?
+Does this violate the hardware constraint mentioned in the commit message t=
+hat
+LE sync must be set after powering up?
+
+> +	}
+> +
+> +	return 0;
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1778454442.gi=
-t.daniel@makrotopia.org?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510-adf41513-i=
+io-driver-v12-0-34af2ed2779f@analog.com?part=3D8
