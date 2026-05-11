@@ -1,167 +1,121 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB45C4218A4
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 15:59:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B89423A87;
+	Mon, 11 May 2026 16:01:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778515160; cv=none; b=Zc7ls3xOComLix5EmVlLx4yocJXTafzHb6CUQEXgeoEqcqSfR3enn3ERkSIBDAdqGsZ3khGNOoAwMGse5vMPQeP5YzXTK3FQnWKjP5Vm3MkRJoSB2lbEZYtnl4inrACHeLmzAst9pIB159BDb9RAaqsZUmEfB4fF9D3qyK1Ulj0=
+	t=1778515268; cv=none; b=dO7xwHsTzzcHwaHw1f17OCA5pQHPUTEBOdTPr7zizIHc269Bi1HMc0NGWvFrVfIgsewYVN19Wmf2+o3pB0yS4KjwYaGagdC2/sW9PfNHJxVZN13CBA7vAzomF6auSS37OCdmln39Rcj+5IhjE7vVr6byA74K5uO1j4QxYl0hHeM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778515160; c=relaxed/simple;
-	bh=w3bzU5+fI005BUSDFvDAmi3e1zzqSzsVWsUAnGjFQic=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u8Yw1k+41qBkaPdew2LXjqz3rjYgK93vK8Y995JyLikFKQDBPAM7V7Z0LkDig/57GyA20sO7KhyTxOYChasJoQ0TEVvt6bVuvSUC1ZuxLxrtjxygcA7K975lqrVNYFM8EsRZEbB9Yz0YMTB/os/O65w/NDtWPzeD0vmsN/0l6U0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=YfZZptih; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1778515268; c=relaxed/simple;
+	bh=2HuFrmcqmrOVVVEJLWAsX3GcJ54PviZDnJzTCse+KvM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Bt9AA+dXpiXqFN8kYCXqDwHc+/vkLkjxbDPoxWTqgjqmjt1QVGXzWMKOvbe87gHw6OjrDJAj56bQl6V7TtSdy9TI6fJa9BOQXhNJgcabCsTlXLVdQUNN56lo5P5FTJihVXKWG1wwbGSEOmSS1oOtXw28nP7TYrWhRmyIInhWtaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OIw+P1WJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="YfZZptih"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 6E1E34E42BF3;
-	Mon, 11 May 2026 15:59:17 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4393560646;
-	Mon, 11 May 2026 15:59:17 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 57F0511AF9F19;
-	Mon, 11 May 2026 17:59:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1778515156; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=f43D8ATRX3ZZph2a3Y4bwWOu8qESFbudFIHWHnMpJY0=;
-	b=YfZZptihTRlYwdSRQHCQLDvkQ2jWLRDBZz2ttBXSVwglXYbKb/G8UM8AG/eqBlyx18kIzB
-	hAIa4P7oXrI/Q0orbZQbcxsTmKKi5/Z4Ev8pKxGSM8hVs4nILDCSWOQYl6CFMFrv8XuNqa
-	jGx2I7MoAnA7c+q6aaKuQueGyETxufE1j59UJQcsMKZCbRQ/0KDNQSksl6AoWHCSHnEJQI
-	0mwzRDiBq2GufSS8/qVrpNKrY51qH2vCNtAUPNk/8iaPTXR7tgjsYc4DhSpMjSdeiAr+OP
-	rcAtQpYhsyzkezU0KQ5Eh4jvFIQeGEkkT1AsKMOovLbFQ+R3dT+B83Q8Sz/C0g==
-From: Herve Codina <herve.codina@bootlin.com>
-To: Andrew Lunn <andrew@lunn.ch>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OIw+P1WJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B91CC4AF10;
+	Mon, 11 May 2026 16:01:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778515268;
+	bh=2HuFrmcqmrOVVVEJLWAsX3GcJ54PviZDnJzTCse+KvM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OIw+P1WJ139ZdeZh18cFAJgEPOzYZKXkq5NY9vuGIONy0I0bVmS+1zNOZxc6axGm7
+	 FrR1h4nW2Fsnx7z1AYAKyeFwn79bR9r9qLB7CYkfm64KAoqTi5Ar8+HLbMQX53brIe
+	 UJK8AvCuglU3Hb4nfKUzSk27r0HPln9hLX1zoWqzLGXXjLGwMuXootMyMoPedBBi2w
+	 acZTlgmkAOo3Wg3RfmP+J4hGWajuifA1VDy1zqyOMgdFXn0ZUXdpe7laLp6K85S3Zg
+	 D4PPXd31yz6JkoY/gQBO/r7KZppkYvimHrCEI5nDsQLLxHJpF+2G87woLrEeGp8xol
+	 NiP5DzGgUk1LA==
+Date: Mon, 11 May 2026 17:01:01 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Inochi Amaoto <inochiama@gmail.com>
+Cc: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
 	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Kalle Niemi <kaleposti@gmail.com>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: driver-core@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Allan Nielsen <allan.nielsen@microchip.com>,
-	Horatiu Vultur <horatiu.vultur@microchip.com>,
-	Daniel Machon <daniel.machon@microchip.com>,
-	Steen Hegelund <steen.hegelund@microchip.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Herve Codina <herve.codina@bootlin.com>
-Subject: [PATCH v7 2/2] bus: simple-pm-bus: Populate child nodes at probe
-Date: Mon, 11 May 2026 17:59:00 +0200
-Message-ID: <20260511155902.34534-3-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260511155902.34534-1-herve.codina@bootlin.com>
-References: <20260511155902.34534-1-herve.codina@bootlin.com>
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen Wang <unicorn_wang@outlook.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Alexander Sverdlin <alexander.sverdlin@gmail.com>,
+	Longbin Li <looong.bin@gmail.com>, Yixun Lan <dlan@kernel.org>,
+	"Anton D. Stavinskii" <stavinsky@gmail.com>,
+	dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, sophgo@lists.linux.dev,
+	linux-riscv@lists.infradead.org, Yixun Lan <dlan@gentoo.org>
+Subject: Re: [PATCH v6 1/2] dt-bindings: dma: snps,dw-axi-dmac: Add fallback
+ compatible for CV1800B
+Message-ID: <20260511-crave-sworn-3b43371ce11a@spud>
+References: <20260511063818.463877-1-inochiama@gmail.com>
+ <20260511063818.463877-2-inochiama@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="c2fbZeqJoc29vaDy"
+Content-Disposition: inline
+In-Reply-To: <20260511063818.463877-2-inochiama@gmail.com>
 
-The simple-pm-bus driver handles several simple busses. When it is used
-with busses other than a compatible "simple-pm-bus", it doesn't populate
-its child devices during its probe.
 
-This confuses fw_devlink and results in wrong or missing devlinks.
+--c2fbZeqJoc29vaDy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Once a driver is bound to a device and the probe() has been called,
-device_links_driver_bound() is called.
+On Mon, May 11, 2026 at 02:38:16PM +0800, Inochi Amaoto wrote:
+> The previous version of the binding change only add compatible
+> string without adding the fallback compatible, this breaks
+> backward compatibility. Add the needed fallback compatible to
+> fix this.
 
-This function performs operation based on the following assumption:
-    If a child firmware node of the bound device is not added as a
-    device, it will never be added.
+I don't understand how adding a specific comaptible affected backwards
+compatibility. Did the dts originally use the snps compatible before the
+device specific one was added?
 
-Among operations done on fw_devlinks of those "never be added" devices,
-device_links_driver_bound() changes their supplier.
+>=20
+> Fixes: be3e2a0419c6 ("dt-bindings: dma: snps,dw-axi-dmac: Add CV1800B com=
+patible")
+> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/dma/snps,dw-axi-dmac.yaml | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/dma/snps,dw-axi-dmac.yaml =
+b/Documentation/devicetree/bindings/dma/snps,dw-axi-dmac.yaml
+> index 804514732dbe..0a30a455b0ee 100644
+> --- a/Documentation/devicetree/bindings/dma/snps,dw-axi-dmac.yaml
+> +++ b/Documentation/devicetree/bindings/dma/snps,dw-axi-dmac.yaml
+> @@ -21,11 +21,12 @@ properties:
+>        - enum:
+>            - snps,axi-dma-1.01a
+>            - intel,kmb-axi-dma
+> -          - sophgo,cv1800b-axi-dma
+>            - starfive,jh7110-axi-dma
+>            - starfive,jh8100-axi-dma
+>        - items:
+> -          - const: altr,agilex5-axi-dma
+> +          - enum:
+> +              - altr,agilex5-axi-dma
+> +              - sophgo,cv1800b-axi-dma
+>            - const: snps,axi-dma-1.01a
+> =20
+>    reg:
+> --=20
+> 2.54.0
+>=20
 
-With devices attached to a simple-bus compatible device, this change
-leads to wrong devlinks where supplier of devices points to the device
-parent (i.e. simple-bus compatible device) instead of the device itself
-(i.e. simple-bus child).
+--c2fbZeqJoc29vaDy
+Content-Type: application/pgp-signature; name="signature.asc"
 
-When the device attached to the simple-bus is removed, because devlinks
-are not correct, its consumers are not removed first.
+-----BEGIN PGP SIGNATURE-----
 
-In order to have correct devlinks created, make the simple-pm-bus driver
-compliant with the devlink assumption and create its child devices
-during its probe.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagH9PQAKCRB4tDGHoIJi
+0n/6APwOg5niWfMpu4WYU6LySqCZ3EEoA3wCehMsY5KQ/dRYEAD/TfNSikQqeftQ
+UpdvGLy8bfVYXPoeZ5291/4e3aIz7gQ=
+=fW1f
+-----END PGP SIGNATURE-----
 
-Signed-off-by: Herve Codina <herve.codina@bootlin.com>
----
- drivers/bus/simple-pm-bus.c | 21 ++++++++++++---------
- 1 file changed, 12 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/bus/simple-pm-bus.c b/drivers/bus/simple-pm-bus.c
-index 4b2a793dfbd9..d969bf19a4e9 100644
---- a/drivers/bus/simple-pm-bus.c
-+++ b/drivers/bus/simple-pm-bus.c
-@@ -42,14 +42,15 @@ static int simple_pm_bus_probe(struct platform_device *pdev)
- 	match = of_match_device(dev->driver->of_match_table, dev);
- 	/*
- 	 * These are transparent bus devices (not simple-pm-bus matches) that
--	 * have their child nodes populated automatically.  So, don't need to
--	 * do anything more. We only match with the device if this driver is
--	 * the most specific match because we don't want to incorrectly bind to
--	 * a device that has a more specific driver.
-+	 * need to have their child nodes populated. So, don't need to do
-+	 * anything more except populate child nodes during this probe(). We
-+	 * only match with the device if this driver is the most specific match
-+	 * because we don't want to incorrectly bind to a device that has a more
-+	 * specific driver.
- 	 */
- 	if (match && match->data) {
- 		if (of_property_match_string(np, "compatible", match->compatible) == 0)
--			return 0;
-+			goto populate;
- 		else
- 			return -ENODEV;
- 	}
-@@ -64,13 +65,14 @@ static int simple_pm_bus_probe(struct platform_device *pdev)
- 
- 	dev_set_drvdata(&pdev->dev, bus);
- 
--	dev_dbg(&pdev->dev, "%s\n", __func__);
--
- 	pm_runtime_enable(&pdev->dev);
- 
-+populate:
- 	if (np)
- 		of_platform_populate(np, NULL, lookup, &pdev->dev);
- 
-+	dev_dbg(&pdev->dev, "%s\n", __func__);
-+
- 	return 0;
- }
- 
-@@ -78,7 +80,7 @@ static void simple_pm_bus_remove(struct platform_device *pdev)
- {
- 	const void *data = of_device_get_match_data(&pdev->dev);
- 
--	if (device_has_driver_override(&pdev->dev) || data)
-+	if (device_has_driver_override(&pdev->dev))
- 		return;
- 
- 	dev_dbg(&pdev->dev, "%s\n", __func__);
-@@ -86,7 +88,8 @@ static void simple_pm_bus_remove(struct platform_device *pdev)
- 	if (pdev->dev.of_node)
- 		of_platform_depopulate(&pdev->dev);
- 
--	pm_runtime_disable(&pdev->dev);
-+	if (!data)
-+		pm_runtime_disable(&pdev->dev);
- }
- 
- static int simple_pm_bus_runtime_suspend(struct device *dev)
--- 
-2.54.0
-
+--c2fbZeqJoc29vaDy--
