@@ -1,248 +1,300 @@
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010025.outbound.protection.outlook.com [52.101.69.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 989D337C0E2;
-	Mon, 11 May 2026 03:06:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778468797; cv=none; b=RNzg2Y+HnSg+ClXATHQFq0V8tiFYSm1k9r4PuMrM92wC+sRhd0boHng3kUFyAuiX5Ii16nNnfsxHRvT2lQaPMvGdb4+QIX7Sr6G293Fl1zo4OOye5Qn0KyECjWaoZkrIKillo/nGBVSDEArl4IcLbyqi7sbHV/1PIXchKZGnsLo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778468797; c=relaxed/simple;
-	bh=YpsvKLz2zraBzmN6TGfzaWbuD2WiSbed3cMjJQAU2Kg=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UYiLuO2I99oiZKmt5NAg3IkVpbiJhukwf8LZV4QqJUK3ZD8lDmevqz5PFqmxj5WeimOBUDToR7aKfIxeHlI3/C/ov7rz+MzFQesb2uzHJ2jGE7sHUsVbQuVCSwlMUCgjSmLqpNtfWTWlIcdDp9b8tMYszI2THl3nI3JM9LPgTZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=TigCqAoX; arc=none smtp.client-ip=113.46.200.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562701684BE;
+	Mon, 11 May 2026 03:14:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.25
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778469285; cv=fail; b=pBJht1WlF0qQGp9nnC4B61se1VJYtNact/ebX37WkASy6OTJWbhei/Adycaud5WC3TtWwVS4St3sEsxDffksDtbQrj5JjXAFlJ++dmA2ZRxag+9+kxGAMss7TM1ieonSaXO5r+Lad9QbaPSDDl9yjhacUhv2nEIV4O1Ub4ccqwk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778469285; c=relaxed/simple;
+	bh=iqTAuW2Se1nBDqvl9tAKb82A/sK1jGE6R67OhI+GNmo=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=tAOSeQ8zcnR4XBPG9bgsDVjze1jk/KdPPkjxXpvJapsnzN6EyhFuBNCE8kF3rjjC6Y1IaFLhNQJC4b625qyAHHFhXoArYn8T5XxBGyEx17TCflPygvqg2zwD+qVZn4v7iIpZT8EoXXe9Xffm/R04Lcm6PAGnt1ofmKPJgD5pLOQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=P94sOQnr; arc=fail smtp.client-ip=52.101.69.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="TigCqAoX"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=0CuFlZQc1cwGlvwjDkqLt39tUaTnNhvMmSgjeaod5RM=;
-	b=TigCqAoXJO/+LtKNrOtRVMIDeLRfZBOgrlEMbM/LwZ6+q8oj20SFVy9wRNhEn7OraBVBItoPY
-	XFne+liXrVUTW8d/9j6rk3EySKMupbg3sAInQFcHwSKUH/NYE1Rmu5+FfnWS18yagF1dqRImHMr
-	aaVfl+jL52YKL60859QK/wc=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4gDPZ20Xp3zmVCZ;
-	Mon, 11 May 2026 10:58:50 +0800 (CST)
-Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id E4D6140573;
-	Mon, 11 May 2026 11:06:26 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by dggpemf500011.china.huawei.com
- (7.185.36.131) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Mon, 11 May
- 2026 11:06:23 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
-	<maddy@linux.ibm.com>, <mpe@ellerman.id.au>, <npiggin@gmail.com>,
-	<chleroy@kernel.org>, <pjw@kernel.org>, <palmer@dabbelt.com>,
-	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <robh@kernel.org>, <saravanak@kernel.org>,
-	<akpm@linux-foundation.org>, <bhe@redhat.com>, <rppt@kernel.org>,
-	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
-	<rdunlap@infradead.org>, <pmladek@suse.com>, <dapeng1.mi@linux.intel.com>,
-	<kees@kernel.org>, <elver@google.com>, <kuba@kernel.org>,
-	<ebiggers@kernel.org>, <lirongqing@baidu.com>, <paulmck@kernel.org>,
-	<ruanjinjie@huawei.com>, <sourabhjain@linux.ibm.com>, <coxu@redhat.com>,
-	<leitao@debian.org>, <jbohac@suse.cz>, <ryan.roberts@arm.com>,
-	<osandov@fb.com>, <cfsworks@gmail.com>, <tangyouling@kylinos.cn>,
-	<ritesh.list@gmail.com>, <adityag@linux.ibm.com>, <guoren@kernel.org>,
-	<songshuaishuai@tinylab.org>, <kevin.brodsky@arm.com>,
-	<vishal.moola@gmail.com>, <junhui.liu@pigmoral.tech>,
-	<wangruikang@iscas.ac.cn>, <namcao@linutronix.de>, <chao.gao@intel.com>,
-	<seanjc@google.com>, <fuqiang.wang@easystack.cn>, <ardb@kernel.org>,
-	<chenjiahao16@huawei.com>, <hbathini@linux.ibm.com>,
-	<takahiro.akashi@linaro.org>, <james.morse@arm.com>, <lizhengyu3@huawei.com>,
-	<x86@kernel.org>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
-	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<kexec@lists.infradead.org>
-Subject: [PATCH v13 14/15] arm64: kexec: Add support for crashkernel CMA reservation
-Date: Mon, 11 May 2026 11:04:53 +0800
-Message-ID: <20260511030454.1730881-15-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260511030454.1730881-1-ruanjinjie@huawei.com>
-References: <20260511030454.1730881-1-ruanjinjie@huawei.com>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="P94sOQnr"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LOv8GSBEAqVRHMFtU9fodHd1Ay8iE0jxcEu+TYK9YtcZwu2Afe3z8V17xopOSeO67TzOGsjH/qWEj09xVabg2TpvfsaXoSH2w1ZSLRsedBFedJj7lplelEHbwK+IAJt1uclDYrQUhDJECBpPRx5UCiceX4Dwee6cp+l97UEndGvJUXt3JSQ18hL2X3wXtsDZaPk+VhLlsvWiFhE9jVG6pF7+ovFHfaRyTsJP0q47KcJBFEFQnRSNFPlq1jPStrAt3FeD2Sg6o19TCJEex0prK5o/XrrZPqfbNKJVizF5iYyoky/IxMb7JwzbSio1orf/npDo0q8uXEETwSBlex2t5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=s+T+NALi8eKjps8Rx7LU1yMxmFMmrqoHmeGjfboVY8k=;
+ b=dzOXttmt5jJqBU/5FlAiD1nufAgGu1VnEok+gPaNrxAPxEF/HS3vDsiUJZz181SUB/AkQHNq+EgRc1xXo5/48JcWhP11lHjyQIABvQPidi9/FwBxiHPdzroPRRv9tNGKT15zRMftdLFBc+69CWoeE2egpzHwKRODN7W+c6RVUJj+u2dlUpaUAi3+vWlXoEOGUmzPo0RdqLZEuqba2OBdQ0jGW3ZWD2703xQcw7CSY30U5wxkPX4WJpDNcwD0OUGVi1luXGyg8zv1d/7fy3L52pn65L2JwhLeCY9l/9Wsr/l83xnrLuPi2Raf2yhkzTxwQPt51cw5d/wphhqdi3rFHA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=s+T+NALi8eKjps8Rx7LU1yMxmFMmrqoHmeGjfboVY8k=;
+ b=P94sOQnrOfmriyzbZhcl6UhdTSJ43RkNQvEKAQTJ0EVKf87YNaHs4BTWBHxPm/H06o9k9yY8v+3o80FPweeosg0H2WueT8E6SJuOirE36I2V6DphaKzFaftoOZK+uvo+pIAilSiCCHnXV6vb3C7VAjskvN8uWzwvP0Wb62lglzT/AYzMiLVLCwYzApYzgoK3dYeIJzZTOKHPmW0TYxd5c5rw9kqkUcYZOZQmjnNzSTFWkRuE8qdsEhdjJeaNclps5SntPL2/DLEzrOdfNx2eI82JPwIm1IRjaZFNuIozJG/Av6DSz34k+xC12+QV48qx2X7v9MEDROn7e4B6HqyC2g==
+Received: from DBBPR04MB7500.eurprd04.prod.outlook.com (2603:10a6:10:1f4::16)
+ by DB5PR04MB12203.eurprd04.prod.outlook.com (2603:10a6:10:64b::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.22; Mon, 11 May
+ 2026 03:14:40 +0000
+Received: from DBBPR04MB7500.eurprd04.prod.outlook.com
+ ([fe80::c291:543b:4bde:cee7]) by DBBPR04MB7500.eurprd04.prod.outlook.com
+ ([fe80::c291:543b:4bde:cee7%6]) with mapi id 15.20.9891.021; Mon, 11 May 2026
+ 03:14:40 +0000
+From: Wei Fang <wei.fang@nxp.com>
+To: "sashiko@lists.linux.dev" <sashiko@lists.linux.dev>
+CC: "imx@lists.linux.dev" <imx@lists.linux.dev>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>, "conor+dt@kernel.org"
+	<conor+dt@kernel.org>, "Frank.Li@kernel.org" <Frank.Li@kernel.org>,
+	Networking <netdev@vger.kernel.org>
+Subject: RE: [PATCH v6 net-next 12/15] net: dsa: netc: add FDB, STP, MTU, port
+ setup and host flooding support
+Thread-Topic: [PATCH v6 net-next 12/15] net: dsa: netc: add FDB, STP, MTU,
+ port setup and host flooding support
+Thread-Index: AQHc356oJ+jsDHmt5Eqn9ujFEA7UKbYHFeAAgAEMFuA=
+Date: Mon, 11 May 2026 03:14:40 +0000
+Message-ID:
+ <DBBPR04MB75004982323B70E4E942331688382@DBBPR04MB7500.eurprd04.prod.outlook.com>
+References: <20260509102954.4116624-13-wei.fang@nxp.com>
+ <20260510104838.8514DC2BCB8@smtp.kernel.org>
+In-Reply-To: <20260510104838.8514DC2BCB8@smtp.kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DBBPR04MB7500:EE_|DB5PR04MB12203:EE_
+x-ms-office365-filtering-correlation-id: 75a0fb54-f26f-44af-090d-08deaf0b70a1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|366016|19092799006|1800799024|38070700021|3023799003|56012099003|22082099003|18002099003;
+x-microsoft-antispam-message-info:
+ SH4Yb/5M+finmqj7OfQvBn9n/KcHVcjvMJa27ltQMeNyuZIQd3YopIpwpjzzkpY83kD4M95YhKcKSmfgAwt5j223DPZSlGSp1c+OThH3v6RxPfUCaguZjyhMi6SDlsvZFv6evGjIQXw5fOTypbuzYock32PAkUSTTbY3CqfgTK55tHRDai3eLVyAeioOjonwRtPpRchx68Hv3+UgEmpC7qZVuVykvoSSWMdlzJSWQhkXUzTCWX40jv376vdV5RWZ9JcNRqkAaI1iHTLNMB9SQZbnyRyo02Ew8m6LKgQC1sxYaFLnM1nE8Oe/9SdLVQ+UFrafVbPDLwjfuE/JOM1y7xEF6Xf31cTx5vyY2mViO9mjd2gIWVglfuVZeLg797RmFmCUQuLL8xZmOgFXVWsJTOq9b9nYtamgpVUMmSFzJW8R3E12LrpZL6rGphIh54fepbWR8on65ILOJ+gZRVZ9xczmY4msesOl9/UNLtcFKJEfXihkV9AVuzh56v+u3JsnAySP/URARAQiPQJGQBZNAj/pftFUTFnkR0zgoGn3ZUzbm5V+HYgQoe176f9/Kg4LAM29wLl+QJ+LmndD+kjkNQQQD86ASX5naxZM4wNeLLysdWY1CbYjmtFMdY4dwruWO8fC2gkOCkXw8iZtodZ1LHMan6cDGnTOVMPUmVajUDmc7ywMsnZ8RIEE9Lh23FHLMGC/h4tFgaphQsa2nKE9QEowEKddb1Z2SRj4yjThllFSU8UUc5RnALanMzxFXVal
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DBBPR04MB7500.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(19092799006)(1800799024)(38070700021)(3023799003)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?o98GmBOCT0+0UBINaMpewNSGq6dXfvrGe0gTEoaJsZ1rorz3Fe2Et9ANt01Z?=
+ =?us-ascii?Q?3l8/GuvckNwZwyvokTjD8gRduuyeKY+qMdsGVkwQeJkJhqjK6qbaLHnKfkgL?=
+ =?us-ascii?Q?QcQr4uKKFsHT5VtXT7qMk1rWryri+6l67Q9f4904yiKZO9x0dCJQKf615JkQ?=
+ =?us-ascii?Q?IZRRQO/6enXswwMGWOlYaEICKAQU4J358f0xFzrx9hBJtTTNgb4Q3lLc8CX6?=
+ =?us-ascii?Q?OuaLhaimAP2LkKEg5ZePsCBdKcw1fZBhiSP5iEe7fbWrfbn9P3++w6sOKWfw?=
+ =?us-ascii?Q?cMUscpfyqxvCAYmdduN/mYWmB2GfwhvbmZhbKQXSnrs5YpXvbEHTCf0ZNjcb?=
+ =?us-ascii?Q?DBaE7UZ7gQiApeXj5fPQPy9/c4IjfJVR/90Uuw6FZExKGBlKWtOvWsFzcusa?=
+ =?us-ascii?Q?JC+tmd7B59nXQ/wPES2i1nfhpg9Mi3rRXIRC0DCPY7CQk3L1gT/xOcW+JNFJ?=
+ =?us-ascii?Q?IbS4WIer+seeTQrwlY/aGUEnsj4o5EIRZJgmqHgPrHvnW9HoqSVHfTIITLty?=
+ =?us-ascii?Q?2NaOITmrrMpOWglgSoe9eQ3x4n1Dga6K3gZeP8xVd/bWAUz7lKS/zCCMMf/+?=
+ =?us-ascii?Q?IBko+POIZUShjccbTuFtfH0xqk4uWmlyWjjyIaxi9ImYGSor5DAOeSKZkfNr?=
+ =?us-ascii?Q?LAqgyNXNl53GYBzV7BrhmOA+zQYH16J/sU9tzYna65Vh3JK+gyTuiW+UjCRU?=
+ =?us-ascii?Q?4GPttJxjHypbe40KahtFiFvhaatqhleBPC9cousO/qXBcpyCF2KoZDzaUta/?=
+ =?us-ascii?Q?bUxBI+qqTmUkJgWkMAUXletvi5+VBkdmT7kUiccqoFLy4AshSzy5ZyLcankK?=
+ =?us-ascii?Q?gZ0wJKLNEwpgRBgySSwuSoiy+DgdCv9ugSWErLUCMw9L1vqx9K8sfBzXeHY0?=
+ =?us-ascii?Q?kXnSVvJQ0cs3EyYrJl8f09yogbWuC4DmJRAzP52iXWakfQlcS6IQQ3k2C9N4?=
+ =?us-ascii?Q?zOIrOY3Lt0bBRA2bdCSJJXCF9C4142L4prbryTw8jVO5CBYZMb8w5G4CJUnH?=
+ =?us-ascii?Q?OwZJcJFe0w4+qG72RRLdqF8aS8JerE0B4oxhNbImVMokL6/9ubmyudKBKW8Z?=
+ =?us-ascii?Q?H6+uGJkWSXDTAvBHXXRjwZnnC83ElvhEkp84l6sFOcvjtqzv14QbSZbcY9vh?=
+ =?us-ascii?Q?+BzZ8VWa533Q1PujtUT/jImihA/9YIJ9G1kPTlq4+e/2Sc/G7ohVzxNF833a?=
+ =?us-ascii?Q?aMoZucVYEvE9lLW7b1N33A9l7cqCeNUafex2w9fMP0skolErGmzjhvOr4+pw?=
+ =?us-ascii?Q?2s2sP5CVZReCiX3dpnRHmD56X04ivNDqNOgBy5z1BOSF+83B7KjYtVKcBiZS?=
+ =?us-ascii?Q?uDSlr5BRELmrDs7tvBDSznmh3ag9RxNF7yaj+A83igmBTzXY8JsK6PKU0/9s?=
+ =?us-ascii?Q?4OMewbnlURCdCURz4iGUnroehBiiTw3xG/hK9rJ+DcXowkCncv0jxO239Mki?=
+ =?us-ascii?Q?it96Laai3BErQ+7A5PzdfWa9xAQGNmILrH3zByrbMGCerL5ZzYBerfV3toOx?=
+ =?us-ascii?Q?0sPVHABtltWnq9Dea8sJ028fh1wJMaF+xkSi+Ez5dC1AERlsRPUkNaaEYvee?=
+ =?us-ascii?Q?9qb5druUQqE4oYiVCBArx0bR5ZD0cSwP22YdksLcKyfemRdbCbXBvrQ8P441?=
+ =?us-ascii?Q?NkEqStwhj+eN156d7pWPnKUJE7jNUJ13ujS7jPOkwWDrWjU5lakkpUb1j54E?=
+ =?us-ascii?Q?QtIRYqqMGSF5hh/2xi2yFSiYkGMGV7M/z0cyTUNfE7X+2RVR?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- dggpemf500011.china.huawei.com (7.185.36.131)
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DBBPR04MB7500.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75a0fb54-f26f-44af-090d-08deaf0b70a1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 May 2026 03:14:40.2206
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Pp5SHJxnPKBLLV8Zv2cR3ONquehysWiPIcUaUGDYVlprw0vbkc23XsUUtct1wUdYaSW2d5OEeG1ZiFkg5BWdKA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB5PR04MB12203
 
-Commit 35c18f2933c5 ("Add a new optional ",cma" suffix to the
-crashkernel= command line option") and commit ab475510e042 ("kdump:
-implement reserve_crashkernel_cma") added CMA support for kdump
-crashkernel reservation.
+> Thank you for your contribution! Sashiko AI review found 3 potential issu=
+e(s) to
+> consider:
+> - [High] Incorrect FDB port bitmap update causes roaming unicast entries =
+to be
+> flooded to multiple ports.
+> - [High] Local `u8` arrays `bcast` and `dmac_mask` are passed to
+> `ether_addr_copy` without ensuring 16-bit alignment.
+> - [Medium] The driver silently fails to delete dynamically learned FDB en=
+tries.
+> --
+>=20
+> commit 5ef406cd4ab0e5005f26e470e33265be68b4fe54
+> Author: Wei Fang <wei.fang@nxp.com>
+>=20
+> net: dsa: netc: add FDB, STP, MTU, port setup and host flooding support
+>=20
+> Expand the NETC switch driver with foundational features including FDB
+> management, STP, MTU configuration, and host flooding support. The driver
+> operates in standalone port mode.
+>=20
+> diff --git a/drivers/net/dsa/netc/netc_main.c
+> b/drivers/net/dsa/netc/netc_main.c
+> --- a/drivers/net/dsa/netc/netc_main.c
+> +++ b/drivers/net/dsa/netc/netc_main.c
+> [ ... ]
+> > @@ -363,6 +418,206 @@ static void netc_port_default_config(struct
+> netc_port *np)
+> [ ... ]
+> > +static int netc_port_set_fdb_entry(struct netc_port *np,
+> > +				   const unsigned char *addr, u16 vid)
+> > +{
+> [ ... ]
+> > +	cfge =3D &entry->cfge;
+> > +	/* If the entry already exists on the port, return 0 directly */
+> > +	if (unlikely(cfge->port_bitmap & cpu_to_le32(BIT(port))))
+> > +		goto unlock_fdbt;
+> > +
+> > +	/* If the entry already exists, but not on this port, we need to
+> > +	 * update the port bitmap. In general, it should only be valid
+> > +	 * for multicast or broadcast address.
+> > +	 */
+> > +	cfge->port_bitmap |=3D cpu_to_le32(BIT(port));
+>=20
+> Does this correctly handle roaming unicast MAC addresses?
+>=20
+> When a unicast MAC address roams from one port to another, or when a user
+> replaces a static unicast FDB entry using bridge fdb replace, the bridge =
+core
+> requests adding the entry on the new port.
+>=20
+> Because this unconditionally ORs the port into the bitmap, the unicast ad=
+dress
+> becomes associated with both the old and new ports simultaneously. This w=
+ill
+> cause the switch hardware to duplicate and flood unicast frames to multip=
+le
+> ports.
+>=20
+> Should this check is_multicast_ether_addr() and replace the port_bitmap
+> instead of ORing it for unicast addresses?
 
-Crash kernel memory reservation wastes production resources if too
-large, risks kdump failure if too small, and faces allocation difficulties
-on fragmented systems due to contiguous block constraints. The new
-CMA-based crashkernel reservation scheme splits the "large fixed
-reservation" into a "small fixed region + large CMA dynamic region": the
-CMA memory is available to userspace during normal operation to avoid
-waste, and is reclaimed for kdump upon crash—saving memory while
-improving reliability.
+netc_port_set_fdb_entry() is an interface shared by single port mode and br=
+idge
+mode. Currently, since only single port mode is supported, it doesn't have =
+any
+impact, as this mode only allows setting FDB entries on CPU ports. However,=
+ for
+future support of bridge mode, this is indeed a potential issue, and I will=
+ improve
+this shared interface in the next version.
 
-So extend crashkernel CMA reservation support to arm64. The following
-changes are made to enable CMA reservation:
+>=20
+> > +	err =3D ntmp_fdbt_update_entry(&priv->ntmp, entry->entry_id, cfge);
+> [ ... ]
+> > +static int netc_port_del_fdb_entry(struct netc_port *np,
+> > +				   const unsigned char *addr, u16 vid)
+> > +{
+> > +	struct netc_switch *priv =3D np->switch_priv;
+> > +	struct ntmp_user *ntmp =3D &priv->ntmp;
+> > +	struct netc_fdb_entry *entry;
+> > +	struct fdbt_cfge_data *cfge;
+> > +	int port =3D np->dp->index;
+> > +	int err =3D 0;
+> > +
+> > +	mutex_lock(&priv->fdbt_lock);
+> > +
+> > +	entry =3D netc_lookup_fdb_entry(priv, addr, vid);
+> > +	if (unlikely(!entry))
+> > +		goto unlock_fdbt;
+>=20
+> Can this silently fail to delete dynamically learned FDB entries?
+>=20
+> The netc_lookup_fdb_entry() function searches priv->fdb_list, which only
+> tracks static entries explicitly added by software.
+>=20
+> If the bridge core or user attempts to delete a hardware-learned dynamic =
+MAC
+> address, the lookup will return NULL. The function will then jump to
+> unlock_fdbt and silently return 0 (success) without actually issuing a de=
+lete
+> command to the hardware FDB.
 
-- Parse and obtain the CMA reservation size along with other crashkernel
-  parameters.
-- Call reserve_crashkernel_cma() to allocate the CMA region for kdump.
-- Include the CMA-reserved ranges for kdump kernel to use.
-- Exclude the CMA-reserved ranges from the crash kernel memory to
-  prevent them from being exported through /proc/vmcore, which is already
-  done in the crash core.
+Currently, this patch set only supports single port mode, the MAC learning =
+is
+disabled, so there is no dynamically learned FDB entry. This interface will
+be improved when the bridge mode support is added. So please ignore this
+warning as we do not support bridge mode yet.
 
-Update kernel-parameters.txt to document CMA support for crashkernel on
-arm64 architecture.
+>=20
+> > +
+> > +	cfge =3D &entry->cfge;
+> [ ... ]
+> > +static int netc_add_standalone_fdb_bcast_entry(struct netc_switch *pri=
+v)
+> > +{
+> > +	const u8 bcast[ETH_ALEN] =3D {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
+>=20
+> Are local byte arrays guaranteed to be 16-bit aligned?
+>=20
+> The ether_addr_equal() macro (used inside netc_lookup_fdb_entry which is
+> subsequently called by netc_port_set_fdb_entry) expects its pointer argum=
+ents
+> to be 16-bit aligned.
+>=20
+> Because bcast is declared as a simple u8 array on the stack, the compiler
+> only guarantees a 1-byte alignment by default. On architectures with stri=
+ct
+> alignment requirements, this could trigger an unaligned access exception.
+>=20
 
-Tested-by: Breno Leitao <leitao@debian.org>
-Acked-by: Catalin Marinas <catalin.marinas@arm.com>
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-Acked-by: Baoquan He <bhe@redhat.com>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Acked-by: Ard Biesheuvel <ardb@kernel.org>
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
-v7:
-- Correct the inclusion of CMA-reserved ranges for kdump
-  kernel in of/kexec.
-v3:
-- Add Acked-by.
-v2:
-- Free cmem in prepare_elf_headers()
-- Add the mtivation.
----
- Documentation/admin-guide/kernel-parameters.txt | 2 +-
- arch/arm64/kernel/machine_kexec_file.c          | 2 +-
- arch/arm64/mm/init.c                            | 5 +++--
- drivers/of/fdt.c                                | 9 +++++----
- drivers/of/kexec.c                              | 9 +++++++++
- include/linux/crash_reserve.h                   | 4 +++-
- 6 files changed, 22 insertions(+), 9 deletions(-)
+The switch runs on ARM64 SoCs, CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS
+is always selected, so there is no need to align bcast to 16-bit. This is a=
+ false
+positive, please ignore it
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 4d0f545fb3ec..52742fab49a9 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -1119,7 +1119,7 @@ Kernel parameters
- 			It will be ignored when crashkernel=X,high is not used
- 			or memory reserved is below 4G.
- 	crashkernel=size[KMG],cma
--			[KNL, X86, ppc] Reserve additional crash kernel memory from
-+			[KNL, X86, ARM64, PPC] Reserve additional crash kernel memory from
- 			CMA. This reservation is usable by the first system's
- 			userspace memory and kernel movable allocations (memory
- 			balloon, zswap). Pages allocated from this memory range
-diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
-index 8d72038f206d..0590ff9eeab4 100644
---- a/arch/arm64/kernel/machine_kexec_file.c
-+++ b/arch/arm64/kernel/machine_kexec_file.c
-@@ -42,7 +42,7 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
- #ifdef CONFIG_CRASH_DUMP
- unsigned int arch_get_system_nr_ranges(void)
- {
--	unsigned int nr_ranges = 2; /* for exclusion of crashkernel region */
-+	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* for exclusion of crashkernel region */
- 	phys_addr_t start, end;
- 	u64 i;
- 
-diff --git a/arch/arm64/mm/init.c b/arch/arm64/mm/init.c
-index 97987f850a33..227f58522dad 100644
---- a/arch/arm64/mm/init.c
-+++ b/arch/arm64/mm/init.c
-@@ -96,8 +96,8 @@ phys_addr_t __ro_after_init arm64_dma_phys_limit;
- 
- static void __init arch_reserve_crashkernel(void)
- {
-+	unsigned long long crash_base, crash_size, cma_size = 0;
- 	unsigned long long low_size = 0;
--	unsigned long long crash_base, crash_size;
- 	bool high = false;
- 	int ret;
- 
-@@ -106,11 +106,12 @@ static void __init arch_reserve_crashkernel(void)
- 
- 	ret = parse_crashkernel(boot_command_line, memblock_phys_mem_size(),
- 				&crash_size, &crash_base,
--				&low_size, NULL, &high);
-+				&low_size, &cma_size, &high);
- 	if (ret)
- 		return;
- 
- 	reserve_crashkernel_generic(crash_size, crash_base, low_size, high);
-+	reserve_crashkernel_cma(cma_size);
- }
- 
- static phys_addr_t __init max_zone_phys(phys_addr_t zone_limit)
-diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
-index 82f7327c59ea..0470acbd1fcf 100644
---- a/drivers/of/fdt.c
-+++ b/drivers/of/fdt.c
-@@ -880,11 +880,12 @@ static unsigned long chosen_node_offset = -FDT_ERR_NOTFOUND;
- /*
-  * The main usage of linux,usable-memory-range is for crash dump kernel.
-  * Originally, the number of usable-memory regions is one. Now there may
-- * be two regions, low region and high region.
-- * To make compatibility with existing user-space and older kdump, the low
-- * region is always the last range of linux,usable-memory-range if exist.
-+ * be 2 + CRASHK_CMA_RANGES_MAX regions, low region, high region and cma
-+ * regions. To make compatibility with existing user-space and older kdump,
-+ * the high and low region are always the first two ranges of
-+ * linux,usable-memory-range if exist.
-  */
--#define MAX_USABLE_RANGES		2
-+#define MAX_USABLE_RANGES		(2 + CRASHK_CMA_RANGES_MAX)
- 
- /**
-  * early_init_dt_check_for_usable_mem_range - Decode usable memory range
-diff --git a/drivers/of/kexec.c b/drivers/of/kexec.c
-index b6837e299e7f..029903b986cb 100644
---- a/drivers/of/kexec.c
-+++ b/drivers/of/kexec.c
-@@ -458,6 +458,15 @@ void *of_kexec_alloc_and_setup_fdt(const struct kimage *image,
- 			if (ret)
- 				goto out;
- 		}
-+
-+		for (int i = 0; i < crashk_cma_cnt; i++) {
-+			ret = fdt_appendprop_addrrange(fdt, 0, chosen_node,
-+					"linux,usable-memory-range",
-+					crashk_cma_ranges[i].start,
-+					crashk_cma_ranges[i].end - crashk_cma_ranges[i].start + 1);
-+			if (ret)
-+				goto out;
-+		}
- #endif
- 	}
- 
-diff --git a/include/linux/crash_reserve.h b/include/linux/crash_reserve.h
-index f0dc03d94ca2..30864d90d7f5 100644
---- a/include/linux/crash_reserve.h
-+++ b/include/linux/crash_reserve.h
-@@ -14,9 +14,11 @@
- extern struct resource crashk_res;
- extern struct resource crashk_low_res;
- extern struct range crashk_cma_ranges[];
-+
-+#define CRASHK_CMA_RANGES_MAX 4
- #if defined(CONFIG_CMA) && defined(CONFIG_ARCH_HAS_GENERIC_CRASHKERNEL_RESERVATION)
- #define CRASHKERNEL_CMA
--#define CRASHKERNEL_CMA_RANGES_MAX 4
-+#define CRASHKERNEL_CMA_RANGES_MAX (CRASHK_CMA_RANGES_MAX)
- extern int crashk_cma_cnt;
- #else
- #define crashk_cma_cnt 0
--- 
-2.34.1
+> > +	struct dsa_port *dp, *cpu_dp =3D NULL;
+> > +
+> > +	dsa_switch_for_each_cpu_port(dp, priv->ds) {
+> > +		cpu_dp =3D dp;
+> > +		break;
+> > +	}
+> > +
+> > +	if (!cpu_dp)
+> > +		return -ENODEV;
+> > +
+> > +	/* If the user port acts as a standalone port, then its PVID is 0,
+> > +	 * MLO is set to "disable MAC learning" and MFO is set to "discard
+> > +	 * frames if no matching entry found in FDB table". Therefore, we
+> > +	 * need to add a broadcast FDB entry on the CPU port so that the
+> > +	 * broadcast frames received on the user port can be forwarded to
+> > +	 * the CPU port.
+> > +	 */
+> > +	return netc_port_set_fdb_entry(NETC_PORT(priv->ds, cpu_dp->index),
+> > +				       bcast, NETC_STANDALONE_PVID);
+> > +}
+> [ ... ]
+> > +static int netc_port_add_host_flood_rule(struct netc_port *np,
+> > +					 bool uc, bool mc)
+> > +{
+> > +	const u8 dmac_mask[ETH_ALEN] =3D {0x1, 0, 0, 0, 0, 0};
+>=20
+> This has the same alignment concern as the bcast array above.
+>=20
+> The ether_addr_copy() macro expects its pointer arguments to be 16-bit
+> aligned. Passing a stack-allocated u8 array without explicit alignment co=
+uld
+> cause unaligned access faults on certain architectures.
 
+Likewise.
+
+--
+pw-bot: cr
