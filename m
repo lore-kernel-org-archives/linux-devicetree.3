@@ -1,204 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F34E2D9EC2
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 23:17:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B21DD313534
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 23:18:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778541455; cv=none; b=E3vm05z6tyBiriNQVOT0n12FwbWX8fmPq7RYN6XHh0y37mXxyFoRMo/eKGym6IbityPOebjHiw61MpuIrgdIqhahqAbTFc08sD1wZnTBmk1qcCv88S5zOxIzFazWlwVC7kjm9r29NK21wXRHzsuQwHBf1LXoG7F6djOzGbyIB7g=
+	t=1778541491; cv=none; b=YWQYyCPBzJK6d1immTcs1Z07H908/H1TMwXPOBdqqv4of9+7hMK3plMEzZa29KaWTtZrUmB7rqt9IYrE8UvpVXadduwbwbKpbaA+2fG2bU1UZ8WYV6dq/Cca0aqqgkGVOUHR7i9WLOrJCDX7KQCaE6yKPCUA/K1mnHlj6yi9gJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778541455; c=relaxed/simple;
-	bh=xyFbLrj6sJ4djgNrXRlNAgdb2lsqlL24KNd5VUSviNg=;
+	s=arc-20240116; t=1778541491; c=relaxed/simple;
+	bh=/0vdf8KzkQFy2G1K8NcTXiM4Eo7I3GzuSEiUdg+8Kgk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Lj+YZbM+58Y7P6Y5yjSTk+MjFpPyMXQOrRstWTMjfobZRE3US9edQX+NPT5jHiy5N24rRqWUpVwiQB+f0F8j2axPfWLMOVvMt6ssfeFxbSeLom30MkWSIc58Q3Qc5+T29hk+PinceRPFMZtdYSekyhZnLv+m+PRPWzYxEoOWpHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KcQu6Lse; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=ExpwU4IqIQ3Te6ztlQda3fDi6n8PEnSAHK1f9PIbQvi9MTwzMzPbfxILMSt08sH1cM8GiVLysie1dv91+/NurAdV679JOmAInCE8SNyyscMvVCrqr43LRWUrEO+uu+y9YirHOMyHn/SIEIrMWLIWEz6tSL0F2YocUdEdOYUQ9/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MvqhqYwc; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KcQu6Lse"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BDBCC2BCB0;
-	Mon, 11 May 2026 23:17:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MvqhqYwc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02C49C2BCB0;
+	Mon, 11 May 2026 23:18:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778541454;
-	bh=xyFbLrj6sJ4djgNrXRlNAgdb2lsqlL24KNd5VUSviNg=;
+	s=k20201202; t=1778541491;
+	bh=/0vdf8KzkQFy2G1K8NcTXiM4Eo7I3GzuSEiUdg+8Kgk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=KcQu6LsejLH6URXUBSoevsxoz9a0ljvLTWGw5mOrbVuDjFXPFY4fIjEVCegQTMh/a
-	 W9Mz1h3EJhvcYrTlYIsc12lcUpvLg47K6Dir2IDQweeAJzPpmONKTVFAGiLX3lBS88
-	 dO5nEGCGqTRoA216PwWLrdDdk7ktCTl9KxBANQHXbv5MFjDjwFWK4fsCv/Yu0epG7U
-	 kZktnjX0As9mhlGpxTkDpfCjP0PUgPnYCZdq+7DpjQuWcAOWrsJeQAhoVRQu1ukqi7
-	 KoxRgr9hQ1nFezj4sxLGA75ExLLFVhmXhUBUyVlAh9bcfP9wvv+Ss0mtcm9mZfxeav
-	 VXev2ti10JLig==
+	b=MvqhqYwcJxfK5JPBeuVfVjlnvuD2qGm4ZoIHKlOB4qa91EgIc1/4eucKovV+Zb7GE
+	 Egg0eIW7yscl8FmIiPWiCGArVjXoWYTMsyZbXJQMCc4yadGLCZdrcT4b0e9B+RNsw4
+	 Igbl0170D1dlhXE+zO9RwgDWM/N0zoa8IxHEcBV+JT/gJ8Kfp/sCdNzzInHXCTlf0M
+	 XXjG+hhpAovqylav+C0clQQU+MoxnVwXCNkfL55F1JHLPxjkwcUpJ8S07G6QKuMxly
+	 hgrohpgctbH+E3rxz1Z4IZn8EH7yQFWkMbAapqjUqRniKMAbU+d5TtNPauIvW63KKm
+	 T9JN65Xa+8KDA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] usb: cdns3: sky1: Add cdnsp-sky1 glue driver
+Subject: Re: [PATCH 2/2] spi: cadence-xspi: support 4bytes sdma-io-width
 Reply-To: sashiko@lists.linux.dev
-To: "Peter Chen" <peter.chen@cixtech.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260511024244.981941-3-peter.chen@cixtech.com>
-References: <20260511024244.981941-3-peter.chen@cixtech.com>
+To: "Jisheng Zhang" <jszhang@kernel.org>
+Cc: krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260511031732.3199-3-jszhang@kernel.org>
+References: <20260511031732.3199-3-jszhang@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 11 May 2026 23:17:34 +0000
-Message-Id: <20260511231734.9BDBCC2BCB0@smtp.kernel.org>
+Date: Mon, 11 May 2026 23:18:10 +0000
+Message-Id: <20260511231811.02C49C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Probe returns success (0) when memory resource retrieval fails, le=
-ading to a NULL pointer dereference.
-- [High] Probe forcefully overwrites the mode strap configuration for all U=
-SB controllers on the SoC.
-- [Medium] Resource leak of clocks on early probe error paths.
-- [Medium] Unconditional assignment of dev_pm_ops violates Power Management=
- Subsystem rules.
-- [Medium] Commit message and implementation mismatch regarding hardware re=
-sets.
-- [Low] Using of_match_ptr() with a statically allocated array causes compi=
-ler warnings.
+- [High] Mixing 32-bit and 8-bit stream accessors on the same SDMA port cau=
+ses data corruption on big-endian systems and potential bus faults.
+- [Low] Casting an __iomem pointer directly to uintptr_t drops the __iomem =
+annotation and the alignment check on sdmabase is redundant.
 --
 
-commit a626bc93f86adbca6a4dce0b669265133a32a8cb
-Author: Peter Chen <peter.chen@cixtech.com>
+commit e78d668225027044d0694ef2be9788b6fddb0ef3
+Author: Jisheng Zhang <jszhang@kernel.org>
 
-usb: cdns3: sky1: Add cdnsp-sky1 glue driver
+spi: cadence-xspi: support 4bytes sdma-io-width
 
-Add a CIX sky1 platform glue driver with Kconfig and Makefile entry.
-It calls APIs exported from cdns3-plat.c for probe/remote/suspend/resume
-routines.
+This commit adds support for 4-byte SDMA I/O width to the Cadence XSPI
+controller. It introduces new read and write functions that utilize 32-bit
+I/O accessors when the buffer is aligned and the hardware width is configur=
+ed
+to 4 bytes.
 
-> 	  Glue driver for the Cadence USB dual-role controllers on CIX Sky1
-> 	  (device tree compatible cix,sky1-usb3). It enables clocks and resets
-> 	  from the SoC, then uses the shared cdns3 platform core (cdns.ko).
-
-The commit message mentions it enables clocks and resets from the SoC, but =
-is
-there missing code to handle the resets? The implementation includes linux/=
-reset.h
-but doesn't appear to request or interact with any reset lines.
-
-> diff --git a/drivers/usb/cdns3/cdnsp-sky1.c b/drivers/usb/cdns3/cdnsp-sky=
-1.c
-> new file mode 100644
-> index 0000000000000..049044e3d09bd
-> --- /dev/null
-> +++ b/drivers/usb/cdns3/cdnsp-sky1.c
+> diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xsp=
+i.c
+> index 895b4b3276a56..c1fb749540e7a 100644
+> --- a/drivers/spi/spi-cadence-xspi.c
+> +++ b/drivers/spi/spi-cadence-xspi.c
 
 [ ... ]
 
-> +static int cdnsp_sky1_set_all_controllers_otg(struct regmap *syscon)
+> @@ -578,6 +579,38 @@ static int cdns_xspi_controller_init(struct cdns_xsp=
+i_dev *cdns_xspi)
+>  	return 0;
+>  }
+> =20
+> +static inline void cdns_xspi_sdma_read(struct cdns_xspi_dev *cdns_xspi, =
+size_t len)
 > +{
-> +	int id, ret;
+> +	void __iomem *src =3D cdns_xspi->sdmabase;
+> +	void *buf =3D cdns_xspi->in_buffer;
+> +	size_t offset =3D 0;
 > +
-> +	for (id =3D 0; id < SKY1_USB_S5_NUM; id++) {
-> +		ret =3D cdnsp_sky1_set_mode_by_id(syscon, id, MODE_STRAP_OTG);
-> +		if (ret)
-> +			return ret;
+> +	if (cdns_xspi->sdma_io_width =3D=3D 4) {
+> +		if (IS_ALIGNED((uintptr_t)src, 4) && IS_ALIGNED((uintptr_t)buf, 4)) {
+
+This isn't a bug, but does casting the __iomem pointer to uintptr_t drop the
+address space annotation and trigger a sparse warning?
+
+Since sdmabase is mapped via devm_ioremap_resource, is the alignment check =
+on
+src redundant?
+
+> +			ioread32_rep(src, buf, len >> 2);
+> +			offset =3D len & ~0x3;
+> +			len -=3D offset;
+> +		}
 > +	}
+> +	ioread8_rep(src, (u8 *)buf + offset, len);
+
+Can mixing 32-bit and 8-bit stream accessors on the same SDMA port cause da=
+ta
+corruption on big-endian architectures?
+
+On big-endian systems, reading memory in 32-bit native words places bytes i=
+n a
+different order than processing them sequentially in 8-bit chunks.
+
+Additionally, if the hardware port is explicitly configured for 32-bit I/O,
+could falling back to 8-bit accessors for remainders or unaligned buffers
+trigger bus faults?
+
+Using 32-bit stream accessors exclusively with a temporary 32-bit variable =
+and
+memcpy for unaligned buffers or remainders would resolve this.
+
+> +}
 > +
-> +	return 0;
+> +static inline void cdns_xspi_sdma_write(struct cdns_xspi_dev *cdns_xspi,=
+ size_t len)
+> +{
+> +	void __iomem *dst =3D cdns_xspi->sdmabase;
+> +	const void *buf =3D cdns_xspi->out_buffer;
+> +	size_t offset =3D 0;
+> +
+> +	if (cdns_xspi->sdma_io_width =3D=3D 4) {
+> +		if (IS_ALIGNED((uintptr_t)dst, 4) && IS_ALIGNED((uintptr_t)buf, 4)) {
+> +			iowrite32_rep(dst, buf, len >> 2);
+> +			offset =3D len & ~0x3;
+> +			len -=3D offset;
+> +		}
+> +	}
+> +	iowrite8_rep(dst, (const u8 *)buf + offset, len);
+
+Does the same accessor mixing issue apply here when writing to the SDMA por=
+t?
+
 > +}
 
-Does this code unintentionally alter the state of other independent USB
-controllers? It appears to iterate through all controllers on the SoC and
-updates them to MODE_STRAP_OTG, which might affect concurrent controllers
-that are explicitly configured as host-only (like U2_HOST0_ID).
-
-[ ... ]
-
-> +static int cdnsp_sky1_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct cdnsp_sky1 *priv;
-> +	struct cdns *cdns;
-> +	struct cdns3_probe_data probe_data;
-> +	struct resource *res;
-> +	int ret;
-> +
-> +	priv =3D devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
-> +	priv->dev =3D dev;
-> +	priv->num_clks =3D ARRAY_SIZE(cdnsp_sky1_cdns_core_clks);
-> +	priv->clks =3D devm_kmemdup(dev, cdnsp_sky1_cdns_core_clks,
-> +				   sizeof(cdnsp_sky1_cdns_core_clks), GFP_KERNEL);
-> +	if (!priv->clks)
-> +		return -ENOMEM;
-> +
-> +	ret =3D devm_clk_bulk_get(dev, priv->num_clks, priv->clks);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to get clocks\n");
-> +
-> +	ret =3D clk_bulk_prepare_enable(priv->num_clks, priv->clks);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to enable clocks\n");
-> +
-> +	priv->usb_syscon =3D syscon_regmap_lookup_by_phandle(dev->of_node,
-> +							   "cix,syscon-usb");
-> +	if (IS_ERR(priv->usb_syscon))
-> +		return dev_err_probe(dev, PTR_ERR(priv->usb_syscon),
-> +				     "failed to get cix,syscon-usb regmap\n");
-> +
-> +	ret =3D cdnsp_sky1_set_all_controllers_otg(priv->usb_syscon);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "failed to set USB controllers to OTG strap\n");
-
-Can these error paths cause a resource leak? The clocks were previously ena=
-bled
-via clk_bulk_prepare_enable(), but these direct returns bypass the err_clk
-label where clk_bulk_disable_unprepare() is called.
-
-> +
-> +	res =3D platform_get_resource_byname(pdev, IORESOURCE_MEM, "glue");
-> +	if (!res)
-> +		goto err_clk;
-
-If this resource retrieval fails, does the probe function return success?
-
-The ret variable was previously set to 0 by the successful call to
-cdnsp_sky1_set_all_controllers_otg(), so jumping to err_clk without updating
-ret to an error code like -ENODEV would result in returning 0.
-
-Could this lead to a NULL pointer dereference during subsequent power
-management operations? Since the device would be considered bound without
-calling cdns3_core_probe(), dev_get_drvdata() might return NULL in
-callbacks like cdnsp_sky1_runtime_suspend().
-
-[ ... ]
-
-> +static const struct of_device_id cdnsp_sky1_of_match[] =3D {
-> +	{ .compatible =3D "cix,sky1-usb3" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, cdnsp_sky1_of_match);
-> +
-> +static struct platform_driver cdnsp_sky1_driver =3D {
-> +	.probe		=3D cdnsp_sky1_probe,
-> +	.remove		=3D cdnsp_sky1_remove,
-> +	.driver		=3D {
-> +		.name		=3D "cdnsp-sky1",
-> +		.of_match_table	=3D of_match_ptr(cdnsp_sky1_of_match),
-
-If the kernel is built with CONFIG_OF disabled, of_match_ptr() evaluates to
-NULL. Since the cdnsp_sky1_of_match array is declared statically and without
-__maybe_unused annotations, will this result in an unused variable compiler
-warning?
-
-> +		.pm		=3D &cdnsp_sky1_pm_ops,
-
-Does unconditionally assigning the pm callback structure produce dead code =
-when
-CONFIG_PM is disabled? According to the power management subsystem guidelin=
-es,
-this should likely be wrapped with the pm_ptr() macro so it evaluates to NU=
-LL
-without PM support.
-
-> +	},
-> +};
-
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511024244.9819=
-41-1-peter.chen@cixtech.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511031732.3199=
+-1-jszhang@kernel.org?part=3D2
