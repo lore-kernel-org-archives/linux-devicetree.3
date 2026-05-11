@@ -1,114 +1,161 @@
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71EC93B47E2
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 07:51:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778485916; cv=pass; b=TMcx9yi25iaGVaQ+MzU4MlGnLj0dcN59uAqgrfn0blp6jO+LxBCkuX9Z9y18cT/P3EPppZl5t57HNygkFZmdeUqilTrIW9Wqppeio0Lj8zpSiCOe4kwFkD5v2hV2acInkuoXJHTMW8fWE/kzvwNt0dtVQfC0r94dDLpW87nxXsk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778485916; c=relaxed/simple;
-	bh=bCx3idiUgw6FJ/orVDV8cPd6ZVl8C6kyuoO1CVbDxWo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=losUrlVttZafjlQwDzHO5PVrOaCpEucvxugQdfSArB4BNL5LwN15GFkvKeCAjdttlX5CAw63t2oQ4w5cMz7qFzd6FIZMLCjvwRAhHg11zSz/g4SwqPBK8BiQt9hA6a3ZoMJE5GK/rz1odMgNG0uEA/l8LSEMVJZe/V4TjWkXMYw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OqEcliXn; arc=pass smtp.client-ip=74.125.82.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1065B3A759E
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 07:51:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778485919; cv=none; b=rjc5EKEqBHcKy7/4KpiyaL+sp2yPgtOxzQhN9bJdWOS4HBj/g162rBEJ2NRyQtyv3L1IsB+hAE6ktUOkbYcryTsf5fCQ+8E9u1Oh8wDXuCcQNfwArCdmorUejSsd5kD+wzkSuMM5oVvDqhIm5dbL9yfR0Fq0cuSIqHjhIpr8rKU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778485919; c=relaxed/simple;
+	bh=67HnxI753NLHXR1GpaWOpgQNKuqCPgBo7iuNOYDU9Z8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PiiWA3VR1dafoXlMfoW+kL3yNfrFMmUR22yezhmfgLwiNlfr6hCaUbcdGUjTCAvuUK/0J0Frz6oT2zZdb5j8aCre0blIozhxbv4+g3SC0UkGKFkH54Tq/ayLUqjw5eaWMD8qN3O4k0NOJLtsT0+61tdU1649d4mqLsu0DLBPUXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OTuvXGVv; arc=none smtp.client-ip=209.85.210.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OqEcliXn"
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-2ef8d6ba48bso2310453eec.1
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 00:51:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778485908; cv=none;
-        d=google.com; s=arc-20240605;
-        b=jXzHli3+4mU/5PhkZJ5P8n9vxK7RCzVBeOX7u7XGtaYuj9D1/W+e+XnKu7fjsIWKlE
-         p7Nt/6lvrB8NpXRadRwAiC1vMTzjDqew5eMOSaldrrdaqUtLS1LnAG5NWb7nQzd6YD64
-         bcWXAxcjixiKxK7XrvEAl/HtOVUihvXawJIfoddZO27nkfnjKCIRqjEcxDAE8SbvaC64
-         n1fb1qQ8/a+MJADvRgaVygciBijypqB/u3MCFKR2FdUiK5EKQCemRQc065JseKeYfSRu
-         DGLYVa/uDYsaouNqD6i2RzP314+x6ReRAp77+nCX3gtC2p2sNsCHAVmXI0EQWz/PPKtj
-         GagQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HfSXgZ6aPkpcMY0bgCjU5DFBgjmnCeqKhXkXLLdbLpc=;
-        fh=MIIjKpfBEZwWPv16oI7u0/9951h5hOfDd2WN5Rc6we4=;
-        b=Gswlw7eZ/fQJT2uAqRWINq/mopp9EHN3m8zYZAaIQ+kaKEpaATSV69CzYHWL2cwuD8
-         /KGGtrieZlQm2ftPvuwLx69wHvulOZzGzka4gPldnOsuCMmmXTW28Jo68TZwD9Byjxm7
-         XBq8axrOQTk/RFhNKBJeGcx8amKzkB3sOlOWxL9o8X65BO5+lJi+RBwTyT88oudlHVXW
-         yKUiZXf8mf+TaiHV7z1Kk7jJQLHe1Y1y53DR63OKYEwuDHW2XL5ijEHI+Ety6RmNF+Rg
-         5CSRVKdwQ2NfhfLkoelIphutsEED+cIInv53Ob+ibhqEGiAhKdkG8YGEVZSPWnhHPKHV
-         iTfQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OTuvXGVv"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-82fbf5d4dc2so2810521b3a.1
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 00:51:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778485908; x=1779090708; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HfSXgZ6aPkpcMY0bgCjU5DFBgjmnCeqKhXkXLLdbLpc=;
-        b=OqEcliXnh5R3VBLlUVzq4/J5A3grhtY+4qJFZr3CYtqcI64hxeyZh2dSF5vv0cU6o6
-         Eykk5DtmU9t5u8MGWohv8ZMKwvBeQSYFpjudIcG+HXM4QdjFhoT4N3PhMsLY0eovH8J3
-         zbHYbGcRD49VVvMK/JR/eQdPuWFR7bM1TATIFyFYYDhDwYTKrF+Eq8Vd44lJWrPcpn5v
-         5TPF4sBHilYJIxcX8F4jBB+lEE5020+WYK0gHLAo4yT6fiiqfqy8yk+2k2vMcLRrGu07
-         sY97dJ8N42BtXFDpfGLG7TmvLla3dQfrf0vUVXtRQ1hKFL2iZbs6e+XxQ4haMf/GfwCx
-         F3YA==
+        d=gmail.com; s=20251104; t=1778485910; x=1779090710; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=8qQ0ZL0QLxICeDqID+huefvNgUTc9prsoWIoKknFrC8=;
+        b=OTuvXGVvxHwPRiS+vfXkI1AvGuuz4gB7vZo+lM7yXcMLiGb/CU1bTSyFbn7y0ZYvvH
+         MsAaQ35ZwLjCNaM0F34lHj9hP+ImiEmo/aS9QRJWydIp0Jqa6J5EM2qmHXH5qV94QTz/
+         Iadl8AYry3XfaOA5MBHEL6nwRK6ANMaP2FbERH1kKUKyn+3mhWEoAgLwuG6EMios9wcz
+         u3dGdPAK0dlY7uN1lfrDnGpJO+FrHrGvma1qRR5+YXGLcjoMnmDalV73BPCGBAUHWWnh
+         wFCfK10gCambuDS29adTuk7F4XzBJwQkMiUdjK0L3icvJZlvPNSq1P21czbWdVFwBOox
+         uFFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778485908; x=1779090708;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=HfSXgZ6aPkpcMY0bgCjU5DFBgjmnCeqKhXkXLLdbLpc=;
-        b=cHQVWZMtbNL+547A+osJjpqFVJSYIZ6pk/17UENLz4HrFSn4JPYoMyBpG76AtwejE7
-         ubRWu1B4WbH0bhKJHtaQrsWFcl1PfWcHCkeQrj4yO3AGYjqe40I7b1hFaoQEIzwBFg4R
-         neam/Q1OPJZeZWY5ahAKl5EWjNYRLNEQjYQqvnFQmH4yssvKHsWrbCDIxsJcZwdmoOrk
-         iv6iJEME35ClzRpunPhQufeLqqPB6ufQYPvkltuxFmB+rUTmphkp9WqIfCSBunmKuCJ6
-         cVBcaM8mQajNZRJKsKySG6VBWP4zxCgp8Qp7hPTfsLqdDOSDhVtYVtZ0lp6mgIqqbsek
-         o37w==
-X-Gm-Message-State: AOJu0Yw4r/K9qLmpZtgL7IZ8fRz/ucsKnZHdQFoUHGYO+yEn89to8z1s
-	s1c5UpXnSUHzw6vHSjarhm8MNHFcJDFhMSIvS2RLM0JrLA4TI6k8t56itamF3Xdissf1iVXmY8I
-	W7Jv4VEJBO9pYVQ8d2BdpqKKESIP4A5M=
-X-Gm-Gg: Acq92OEqxoWNjHIVRiBNrxStbXpdUvhVBN/nD3U5P3vpUBIM514hLbL9Sh94MFycaAg
-	te13+WbnT2wvPAmSpLyT1pvCSIPbiDGsWSnaNLq9INLE+3YtcKitlCqKDAEP6FhgpjScc7O9AK5
-	zsvD/7bK5fnc1C60nkSWMY4gF5WB4nVevKpkSjsxwRzwZkiJSmDTB27CPfz3jukQ9abye1mwA2q
-	YurYLIgIHrgDpw1AZ3yzo+dsklvQIps+TBNZtOujVV3RtSy+Mzd0LXWbrM1ffJVnUbCNfczFNvZ
-	QLppxJYKVHaUnIfuQEI=
-X-Received: by 2002:a05:7300:bc83:b0:2f0:c593:986a with SMTP id
- 5a478bee46e88-2f6debcee11mr6739515eec.0.1778485907772; Mon, 11 May 2026
- 00:51:47 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1778485910; x=1779090710;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8qQ0ZL0QLxICeDqID+huefvNgUTc9prsoWIoKknFrC8=;
+        b=f7CueeRxvh5gOQv9RsBz/ZF50jyPr5ECtLJVB+RdKIyXuv73tEByT1WyAsI0rQi7dj
+         go0BdY5VFwLrLUpdsgaLi9PGlhB1gAdtC0m+3AW3xUI/y2KsyiXnCQ6Svg4mr+Q7fpyw
+         psjm8jnvR4JNHLaRixOsxNXlSUoSewfDh5P+25EcGuGEZxHmkIYnOOUjCFFj0W4dotbT
+         OmId8rFagZChC+TvH7oaIXyha86xoJVxbPy4WNx2bizX77ALZr8xwyatDQBa2OqTyqhA
+         MwGb1BPrJHLoe2avE1VXDyTVzgJJ26x5okBBQQMrEPKNsdbB1NFYtt3tY6PIwdjTgfVM
+         jTEQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/71UB9oftlw710S79LSwmsUH/Pc0Cboqw11uR+kyct+dph4SLXSZYk886TQepLCd3rauiR7FQC8We9@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzb9DRPxRWoiUXaHAGB+oiUWBdmdDONz587BE6Xf5PZPgCON7rK
+	wLKC78y9/nMs7jizmgPZ1NF80IhMn7skyM844FdEO/5ilw09qhg1MOxs
+X-Gm-Gg: Acq92OFX7TdzD3BtOLzre7m8OBhoh9yCO61cTlWxzal24FZ3ywZiD/x38M5opvquSeA
+	0MZ6/EyCzCGUYj4NKhpZOLnCoi0lf+gFF26lKxGNOrAatVZLNEZmpozeRUwPNdCqxDsln6u59dR
+	hgM6sFHKLMRD4fNFlR+uLgWwFmLZhiFhORMk+QJsQqwUsuwfw++iuAr/+tPgTkGKTSO3NiXpM0/
+	DBf+0TajKm2Wz1G0MwCms0wHcMCIrntQGXntOzEZ8sNK2aTiYP7thsZdwt3mPWOlxLJlaDdVZIL
+	jqVg/wA4axNDe5ikjoMCy9fX+tkhViS7TkdlgzggD7Nlbye7C6iJ9YM4kWe0/CMnMVQ4nOf+P4m
+	gXkOPFTWaUqsrhDZIe3n7VOpE86QVITlAXkBiMejZebcIIqnnzPtCSGXSYA6Wb62nqcOH+yW9Jw
+	hCJNBj5BCeVgc5eyiuLIQc22jJ2oOu7yv86w2oEYIev0AkDHTNx3D7nu456roTCQFeeMfGd7YQz
+	7cad9EeXGcl
+X-Received: by 2002:a05:6a00:3016:b0:82f:a89e:e16f with SMTP id d2e1a72fcca58-83a5c2be01cmr21310489b3a.14.1778485909975;
+        Mon, 11 May 2026 00:51:49 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83965d36a12sm17694642b3a.27.2026.05.11.00.51.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 11 May 2026 00:51:49 -0700 (PDT)
+From: Joey Lu <a0987203069@gmail.com>
+To: zhengxingda@iscas.ac.cn,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com,
+	schung@nuvoton.com,
+	yclu4@nuvoton.com,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Joey Lu <a0987203069@gmail.com>
+Subject: [PATCH 0/2] drm/verisilicon: add Nuvoton MA35D1 DCUltra Lite support
+Date: Mon, 11 May 2026 15:51:40 +0800
+Message-ID: <20260511075142.54752-1-a0987203069@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260511074752.24745-1-clamor95@gmail.com> <20260511074752.24745-4-clamor95@gmail.com>
-In-Reply-To: <20260511074752.24745-4-clamor95@gmail.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Mon, 11 May 2026 10:51:36 +0300
-X-Gm-Features: AVHnY4KL4_Xj5WSC6cZ4ru0Vt3ilf_DPaUiiJoBVqluNaOn2k_t2uTZaJjI3xIw
-Message-ID: <CAPVz0n22wg=71LkMSP-_N7opwdLU5yxRBbXYboh_x6WMvDFL2g@mail.gmail.com>
-Subject: Re: [PATCH v1 3/5] gpu/drm: host1x: mipi: add Tegra20/Tegra30 MIPI
- calibration logic
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Svyatoslav Ryhel <clamor95@gmail.com>, Ion Agorria <ion@agorria.com>, 
-	=?UTF-8?Q?Jonas_Schw=C3=B6bel?= <jonasschwoebel@yahoo.de>
-Cc: devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-=D0=BF=D0=BD, 11 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 10:4=
-8 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> Tegra20/Tegra30 have no dedicated MIPI calibration device and calibration
-> registers are incorporated into CSI. Lets reuse Tegra114 calibration
-> framework and add Tegra20/Tegra30 as a special case.
->
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  drivers/gpu/host1x/mipi.c | 82 +++++++++++++++++++++++++++++++++++++++
->  1 file changed, 82 insertions(+)
->
+This series adds support for the Verisilicon DCUltra Lite display
+controller as integrated in the Nuvoton MA35D1 SoC.
 
-Please ignore this. This patch was send by mistake. Sorry for inconvenience=
-.
+The Verisilicon DC driver and its DT binding were originally written by
+Icenowy Zheng <zhengxingda@iscas.ac.cn> for the TH1520 SoC, which
+carries a DC8000 IP block.  The present series builds on that foundation
+with gratitude to Icenowy for the original work.
+
+The DCUltra Lite is a previous generation of the DC8000 series.  While
+the two IPs share a broadly similar register layout, a number of
+differences prevent the existing driver from working on the MA35D1
+without modification:
+
+  - No chip identity registers: the DCUltra Lite does not expose
+    model/revision/customer_id hardware registers, so variant detection
+    must come from platform data rather than register reads.
+
+  - No CONFIG_EX commit path: the DC8000 staging registers
+    (FB_CONFIG_EX, FB_TOP_LEFT, FB_BOTTOM_RIGHT, FB_BLEND_CONFIG,
+    PANEL_CONFIG_EX) are absent; the DCUltra Lite uses enable and reset
+    bits in FB_CONFIG (bit 0 / bit 4) for direct framebuffer updates.
+
+  - No PANEL_START register: panel output begins when
+    PANEL_CONFIG.RUNNING is set; the DC8000 multi-display sync start
+    register at 0x1CCC does not exist.
+
+  - Different IRQ registers: IRQ_STA at 0x147C / IRQ_EN at 0x1480,
+    versus the DC8000's IRQ_ACK at 0x0010 / IRQ_EN at 0x0014.
+
+  - Simpler clock/reset topology: two clocks ("core" bus gate and "pix0"
+    pixel divider), no driver-managed resets.  The DC8000 requires
+    core/axi/ahb clocks and three reset lines.
+
+  - Single display output: no per-output indexing is needed.
+
+  - Smaller register space: max_register 0x2000 vs. DC8000's 0x2544.
+
+Patch 1 extends the verisilicon,dc DT binding to accommodate variants
+with flexible clock/reset counts and adds a new sub-schema for
+nuvoton,ma35d1-dcu.
+
+Patch 2 introduces the vs_dc_info platform data structure, selects the
+correct code paths based on the detected IP family, extends Kconfig for
+ARCH_MA35, and wires up the "nuvoton,ma35d1-dcu" OF compatible string.
+
+Both patches have been tested on Nuvoton MA35D1 hardware and are
+functioning correctly.
+
+Joey Lu (2):
+  dt-bindings: display: verisilicon,dc: generalize for DCUltra Lite
+    variant
+  drm/verisilicon: add support for Nuvoton MA35D1 DCUltra Lite display
+    controller
+
+ .../bindings/display/nuvoton,ma35d1-dcu.yaml  |  94 +++++++++++++
+ .../bindings/display/verisilicon,dc.yaml      |  64 +++++----
+ drivers/gpu/drm/verisilicon/Kconfig           |   2 +-
+ drivers/gpu/drm/verisilicon/vs_bridge.c       |  28 ++--
+ drivers/gpu/drm/verisilicon/vs_crtc.c         |  13 +-
+ drivers/gpu/drm/verisilicon/vs_dc.c           | 129 ++++++++++++------
+ drivers/gpu/drm/verisilicon/vs_dc.h           |   1 +
+ drivers/gpu/drm/verisilicon/vs_drm.c          |  16 ++-
+ drivers/gpu/drm/verisilicon/vs_hwdb.c         |   2 +-
+ drivers/gpu/drm/verisilicon/vs_hwdb.h         |  25 ++++
+ .../gpu/drm/verisilicon/vs_primary_plane.c    |  43 +++---
+ .../drm/verisilicon/vs_primary_plane_regs.h   |   2 +
+ 12 files changed, 318 insertions(+), 101 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/nuvoton,ma35d1-dcu.yaml
+
+-- 
+2.43.0
+
