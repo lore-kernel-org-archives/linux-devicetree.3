@@ -1,172 +1,334 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 704B74DB563
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 22:12:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFD8237EFE0
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 22:13:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778537556; cv=none; b=MPlL91tUp3EfS9zuWeNXX31OQR3+M+Cf1hUUbTpIyiC09QaB1qqhd7r+ZyNdXS97P4vS8YGOTSCxPAagTgAPpHw+9Ge7wGAwbhXeB510xcJwkTYHIyTMInEhQOaHQZWmvMn+2mhrYgtE6mfm2hRRSoS8zAVeHh/qCDTgaxrvy4o=
+	t=1778537632; cv=none; b=qIadJlRzDySVpbBdXhb67+bGD1ecVAgR1BZ5QWdslsfJxwCPC02Da3NIXT2RtzLUoS9xtpKn0Q0fWjRmUgILLeRK2VzEguWR1uOtL9NmoPCki0QoF9XlPLL0HZRNnPIC/53hX2iFHlLy8vBG2O8i+Yb8VsPVb9Xui0Nt6Ncof/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778537556; c=relaxed/simple;
-	bh=TW5fFWPOmM1OnqKQstKJXz2DYAW15Bq3Kb4XLf5J7cE=;
+	s=arc-20240116; t=1778537632; c=relaxed/simple;
+	bh=3O1ByTEnAZ2FpFFUu2owcr1KxMYITL073QLU32NbH4Y=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PN9z9lk8NbjzL8gBsJA3HOHB3OoSzn2oACPF/KpMkmsX26UWCbtQCpnTcTtGV9jRM8VJ0Q47/mlYZI+iTOmg44qkFBteYA/K1OwdWcaFowuQza39Qu8voacIh9aVRkEN72RFwR+Mq5cmOdHq1v2b//q8sES0z/Ix+4S4txXlubo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ICxW5wKU; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=Ne97n4zbNspjyffL4FjUM5u1qbJRtZ68pYDsvM76QdkdYhfcMMAubsgUkxqfjMFbZgkBtijtiL0AhmTcjQa7RjvMDy25PPzLaeJAJhegGqeKL67b9s2WLflv91YLwa4K/ZjRWGuDqv25MH09hvi+whM4RvLOSLotxYoji/lZs/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PsIHTDoy; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ICxW5wKU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 960EFC2BCB0;
-	Mon, 11 May 2026 22:12:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PsIHTDoy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BBDCC2BCB0;
+	Mon, 11 May 2026 22:13:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778537556;
-	bh=TW5fFWPOmM1OnqKQstKJXz2DYAW15Bq3Kb4XLf5J7cE=;
+	s=k20201202; t=1778537632;
+	bh=3O1ByTEnAZ2FpFFUu2owcr1KxMYITL073QLU32NbH4Y=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=ICxW5wKUoXM34Pc+p3XRj7fK2MUB80m0m+duI/dYkD9zpgUUunp5Z1DgYo9mF8zho
-	 6KpM/IXVmCFYvQYVE3/cM6dADpwr7VKFUEzvhcpAVtKFfkHsoUbCktWPZ7yM6f4Noj
-	 U1E4MqDi9OklikU50GC3g7sk8dCgUsEtSZk1hXYKiT3dQPsMOcOV32j+x7FbTHwB8a
-	 Xw7H0Ru68nCjKBaGnsk/ZHKGrCP9TlHRXCyIBn5ef79KqikMsr2BseVDv20P5ONnPn
-	 aUZVD0fFf4egxcMlOB1HZG8KAgrnkDp9yMUq5p5jYDN3F8OToGsM/TCAC1RQfx6TFj
-	 +qbkOxS08KAow==
+	b=PsIHTDoyP2A1E5KLOQZXYStNjo2kDOCqttKlVlz4JvF25ExFleMc2UX69k4EICNVD
+	 BcC/B1vdIiULcC360yIng7X+uc0CHHUSY5cnSh9cgANna6l5STiuT3rNeCN+GXGyzX
+	 UprWAkr0EEDIwmyEupc1qk77G/TH95tIl9sRvozQ3tbvws77NlnRKpf4ZQLHyPdOS7
+	 hjeyuXdPDNClZIDmj3cN/KRgUI2MS3YGFUPKwImslKXiEyxbLZZqErk6+RFuaWsNHb
+	 JPauGCh+KejHpDkeyguFaOrwHmXn6XsfKaKoZBBaWE+HfsRuoGgT7Koebw/JYGtyPo
+	 ncWZXtynS6l3A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v2 1/4] dt-bindings: clk: zte: Add zx297520v3 clock
- and reset bindings.
+Subject: Re: [RFC PATCH 2/2] iio: magnetometer: add support for Melexis
+ MLX90393
 Reply-To: sashiko@lists.linux.dev
-To: =?utf-8?b?U3RlZmFuIETDtnNpbmdlcg==?= <stefandoesinger@gmail.com>
-Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260511-zx29clk-v2-1-29f0edc300f5@gmail.com>
-References: <20260511-zx29clk-v2-1-29f0edc300f5@gmail.com>
+To: "Nikhil Gautam" <nikhilgtr@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260510191010.155380-3-nikhilgtr@gmail.com>
+References: <20260510191010.155380-3-nikhilgtr@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 11 May 2026 22:12:35 +0000
-Message-Id: <20260511221235.960EFC2BCB0@smtp.kernel.org>
+Date: Mon, 11 May 2026 22:13:51 +0000
+Message-Id: <20260511221352.4BBDCC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 9 potential issue(=
 s) to consider:
-- [Medium] The device tree binding intentionally omits the hardware clock d=
-ependency between the top controller and the matrix controller.
-- [Low] Missing 'clock-frequency' property in 'fixed-clock' example nodes.
-- [Low] The `zte,zx297520v3-matrixclk` compatible string lacks an `if-then`=
- block to explicitly forbid `clocks` and `clock-names`.
-- [Low] The node names in the example block do not follow generic naming st=
-andards.
+- [High] Data race on static `scale_avail` array in `mlx90393_read_avail`
+- [High] `mlx90393_check_status` unconditionally rejects valid full-sensor =
+measurements
+- [High] Stack-allocated buffers are passed to I2C transfer, violating DMA =
+safety rules
+- [High] Unprotected state reads in `mlx90393_read_raw` lead to data races
+- [Medium] IIO ABI violation: Magnetometer and temperature scales use incor=
+rect units
+- [Medium] `mlx90393_write_raw` improperly allows modifying the magnetomete=
+r gain via the temperature scale attribute
+- [Medium] Magnetometer scale is exported as separate attributes despite ut=
+ilizing a global hardware register
+- [Low] Temperature channel exposes internal hardware register values for o=
+versampling ratios
+- [Low] Incorrect use of `usleep_range` for delays exceeding 200ms
 --
 
-commit dcd964f6e480b59678a5c8aefa3f700c7eec5d64
-Author: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
+commit b098ee066ea285eea196aa30f9837e81df63b980
+Author: Nikhil Gautam <nikhilgtr@gmail.com>
 
-dt-bindings: clk: zte: Add zx297520v3 clock and reset bindings.
+iio: magnetometer: add support for Melexis MLX90393
 
-This commit introduces device tree bindings for the ZTE zx297520v3 SoC
-clock and reset controllers. It defines the top, matrix, and lsp
-controllers, along with their respective clock and reset definitions.
+This commit adds Industrial I/O subsystem support for the Melexis MLX90393
+3-axis magnetometer and temperature sensor.
 
-> diff --git a/Documentation/devicetree/bindings/clock/zte,zx297520v3-clk.y=
-aml b/Documentation/devicetree/bindings/clock/zte,zx297520v3-clk.yaml
-> new file mode 100644
-> index 0000000000000..3b7084a18a975
+> diff --git a/drivers/iio/magnetometer/mlx90393_core.c b/drivers/iio/magne=
+tometer/mlx90393_core.c
+> index 0000000000000..c79f2b8c20d8e
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/zte,zx297520v3-clk.yaml
-[ ... ]
-> +description: |
-> +  The zx297520v3's clock controller consists of 3 controllers, which gen=
-erate
-> +  clocks for internal SoC devices. In addition to clocks it also has res=
-et
-> +  controls for most, but not all, devices.
-[ ... ]
-> +  The matrix controller consumes clocks generated by PLLs in the top
-> +  controller, but there are no controls in the top controller to sever t=
-his
-> +  link. The interface between these controllers is not expressed in the =
-device
-> +  tree, but the matrix controller cannot work without the clock handles
-> +  registered by the top controller.
-
-Does omitting the clock relationship between the top and matrix controllers
-hide the physical hardware topology? Device tree bindings should typically
-describe the actual hardware connections.
-
-By leaving out the clocks property from the matrixclk node to reference the
-topclk outputs, could this force the driver to rely on implicit dependencies
-for probe ordering and break proper frequency propagation in the clock
-framework?
+> +++ b/drivers/iio/magnetometer/mlx90393_core.c
 
 [ ... ]
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: zte,zx297520v3-lspclk
-> +    then:
-> +      properties:
-> +        clocks:
-[ ... ]
-> +      required:
-> +        - clocks
-> +        - clock-names
-> +
-> +additionalProperties: false
 
-Since clocks and clock-names are defined at the top level of this binding,
-would an invalid matrixclk device tree node mistakenly including those
-properties silently pass validation?
+> +static const int mlx90393_osr2_avail[MLX90393_OSR2_MAX] =3D {
+> +	0, 1, 2, 3,
+> +};
 
-Because additionalProperties: false only rejects completely undefined
-properties, should there be an if-then block for matrixclk that explicitly
-sets clocks: false and clock-names: false to prevent this?
+Is it intentional to expose internal hardware register index limits directly
+to userspace instead of the actual physical oversampling ratios?
 
 [ ... ]
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/zte,zx297520v3-clk.h>
-> +
-> +    osc26m: osc26m {
-> +      compatible =3D "fixed-clock";
-> +      clock-output-names =3D "osc26m";
-> +      #clock-cells =3D <0>;
-> +    };
-> +
-> +    osc32k: osc32k {
-> +      compatible =3D "fixed-clock";
-> +      clock-output-names =3D "osc32k";
-> +      #clock-cells =3D <0>;
-> +    };
 
-Do these fixed-clock examples need the clock-frequency property? The core
-schema for fixed clocks mandates this property, which might cause
-dt_binding_check to fail if it is missing here.
+> +#define MLX90393_CHAN(idx, axis, addr) { \
+> +	.type =3D IIO_MAGN, \
+> +	.modified =3D 1, \
+> +	.channel =3D idx, \
+> +	.address =3D addr, \
+> +	.channel2 =3D IIO_MOD_##axis, \
+> +	.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |	\
+> +		BIT(IIO_CHAN_INFO_SCALE), \
 
-> +    topclk: topclk@13b000 {
-> +        compatible =3D "zte,zx297520v3-topclk";
-> +        reg =3D <0x0013b000 0x400>;
-> +        #clock-cells =3D <1>;
-> +        #reset-cells =3D <1>;
-> +        clocks =3D <&osc26m>, <&osc32k>;
-> +        clock-names =3D "osc26m", "osc32k";
-> +    };
+Does using info_mask_separate for IIO_CHAN_INFO_SCALE correctly represent
+the hardware capabilities? Writing to the scale of one axis will alter the
+global GAIN_SEL hardware register in mlx90393_set_scale(), altering the
+scale for all axes.
+
+[ ... ]
+
+> +static int mlx90393_check_status(u8 cmd, u8 status)
+> +{
+> +	/* Always validate error bit */
+> +	if (status & MLX90393_STATUS_ERROR)
+> +		return -EIO;
 > +
-> +    matrixclk: matrixclk@1306000 {
-> +        compatible =3D "zte,zx297520v3-matrixclk";
-> +        reg =3D <0x01306000 0x400>;
-> +        #clock-cells =3D <1>;
-> +        #reset-cells =3D <1>;
-> +    };
+> +	switch (cmd & MLX90393_CMD_MASK) {
+> +	case MLX90393_CMD_RM:
+> +		/*
+> +		 * D1:D0 indicates response availability
+> +		 * 00 means invalid/no measurement
+> +		 */
+> +		if ((status & MLX90393_STATUS_RESP) =3D=3D 0)
+> +			return -EIO;
+
+If MLX90393_MEASURE_ALL requests all 4 channels (T, X, Y, Z), resulting in
+4 words, does the 2-bit D[1:0] field truncate this to 00? This check might
+unconditionally reject valid full-sensor measurements and return -EIO.
+
+[ ... ]
+
+> +static int mlx90393_read_reg(struct mlx90393_data *data,
+> +			     u8 reg, u16 *val)
+> +{
+> +	u8 tx[2];
+> +	u8 rx[3];
+> +	int ret;
 > +
-> +    lspclk: lspclk@1400000 {
-> +        compatible =3D "zte,zx297520v3-lspclk";
-> +        reg =3D <0x01400000 0x100>;
+> +	tx[0] =3D MLX90393_CMD_RR;
+> +	/* Register address is encoded in bits [7:2] */
+> +	tx[1] =3D reg << 2;
+> +
+> +	ret =3D mlx90393_xfer(data,
+> +			    tx, sizeof(tx),
+> +			    rx, sizeof(rx));
 
-Are these node names deviating from generic naming standards? The devicetree
-specification requires node names to describe the generic class of a device
-rather than specific block names.
+Are these stack-allocated buffers DMA-safe?
 
-Could these be renamed using the clock-controller@... pattern to comply
-with conventions and avoid schema warnings?
+When passed to ops->xfer which calls i2c_transfer(), this can lead to memory
+corruption or panics if the host controller maps buffers for DMA (especially
+with CONFIG_VMAP_STACK=3Dy).
+
+[ ... ]
+
+> +static int mlx90393_read_measurement(struct mlx90393_data *data,
+> +				     enum mlx90393_channels chan, int *val)
+> +{
+> +	u8 cmd;
+> +	u8 rx[9];
+
+Can this stack allocated buffer also cause DMA safety issues?
+
+> +	int ret;
+> +	int tconv_us =3D mlx90393_get_tconv_us(data);
+> +
+> +	/* Start measurement */
+> +	cmd =3D MLX90393_CMD_SM | MLX90393_MEASURE_ALL;
+> +
+> +	ret =3D mlx90393_write_cmd(data, cmd);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Wait conversion */
+> +	usleep_range(tconv_us, tconv_us + 1000);
+
+Depending on the configured oversampling ratio and digital filters, tconv_us
+can exceed 200,000 microseconds. Is usleep_range() appropriate for delays
+exceeding 20ms, or should msleep() be used here instead to avoid
+unnecessarily taxing the hrtimer subsystem?
+
+[ ... ]
+
+> +static int mlx90393_get_scale(struct mlx90393_data *data,
+> +			      const struct iio_chan_spec *chan,
+> +			      int *val, int *val2)
+> +{
+> +	enum mlx90393_axis_type axis;
+> +	u8 res;
+> +
+> +	if (chan->channel2 =3D=3D IIO_MOD_Z) {
+> +		axis =3D MLX90393_AXIS_TYPE_Z;
+> +		res =3D data->res_z;
+> +	} else {
+> +		axis =3D MLX90393_AXIS_TYPE_XY;
+> +		res =3D data->res_xy;
+> +	}
+> +
+> +	/*
+> +	 * Convert:
+> +	 * =C2=B5T =C3=97 1000 =E2=86=92 nT
+> +	 */
+> +	*val =3D 0;
+> +	*val2 =3D mlx90393_scale_table[axis][data->gain_sel][res];
+> +
+> +	return IIO_VAL_INT_PLUS_NANO;
+
+Does this scale comply with the IIO ABI requirements? Returning
+IIO_VAL_INT_PLUS_NANO with these values produces Tesla rather than the Gauss
+units required for magnetometers.
+
+[ ... ]
+
+> +static int mlx90393_write_raw(struct iio_dev *indio_dev,
+> +			      const struct iio_chan_spec *chan,
+> +			      int val, int val2,
+> +			      long mask)
+> +{
+> +	struct mlx90393_data *data =3D iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SCALE:
+> +		mutex_lock(&data->lock);
+> +		ret =3D mlx90393_set_scale(data, chan, val, val2);
+> +		mutex_unlock(&data->lock);
+> +		return ret;
+
+Does this safely handle writes to the temperature scale?=20
+
+The temperature channel exposes IIO_CHAN_INFO_SCALE, but mlx90393_set_scale=
+()
+modifies the GAIN_SEL hardware register, which might inadvertently corrupt =
+the
+magnetometer's sensitivity when a user writes to in_temp_scale.
+
+[ ... ]
+
+> +static int mlx90393_read_raw(struct iio_dev *indio_dev,
+> +			     const struct iio_chan_spec *chan,
+> +			     int *val, int *val2, long mask)
+> +{
+> +	struct mlx90393_data *data =3D iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		mutex_lock(&data->lock);
+> +		ret =3D mlx90393_read_measurement(data, chan->address, val);
+> +		mutex_unlock(&data->lock);
+> +		if (ret)
+> +			return ret;
+> +
+> +		return IIO_VAL_INT;
+> +
+> +	case IIO_CHAN_INFO_SCALE:
+> +		switch (chan->type) {
+> +		case IIO_MAGN:
+> +			return mlx90393_get_scale(data, chan, val, val2);
+
+Can this read race with concurrent sysfs writes?=20
+
+mlx90393_get_scale() reads shared state like data->gain_sel without acquiri=
+ng
+data->lock, while mlx90393_write_raw() modifies these fields while holding =
+the
+lock.
+
+> +
+> +		case IIO_TEMP:
+> +			/* Datasheet: 22124 millidegC/LSB */
+> +			*val =3D 0;
+> +			*val2 =3D 22124;
+> +			return IIO_VAL_INT_PLUS_MICRO;
+
+Does returning IIO_VAL_INT_PLUS_MICRO with 22124 yield Celsius rather than
+the milli-Celsius required for temperature channels by the IIO ABI?
+
+> +
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +
+> +	case IIO_CHAN_INFO_OFFSET:
+> +		if (chan->type =3D=3D IIO_TEMP) {
+> +			/* Datasheet: temperature offset */
+> +			*val =3D -45114;
+> +			return IIO_VAL_INT;
+> +		}
+> +		return -EINVAL;
+> +
+> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
+> +		if (chan->type =3D=3D IIO_TEMP)
+> +			return mlx90393_get_temp_osr2(data, val);
+> +		if (chan->type =3D=3D IIO_MAGN)
+> +			return mlx90393_get_osr(data, val);
+
+Can these reads of data->osr and data->osr2 also race with concurrent sysfs
+writes, as data->lock is not acquired here?
+
+[ ... ]
+
+> +static int mlx90393_read_avail(struct iio_dev *indio_dev,
+> +			       const struct iio_chan_spec *chan,
+> +			       const int **vals,
+> +			       int *type,
+> +			       int *length,
+> +			       long mask)
+> +{
+> +	struct mlx90393_data *data =3D iio_priv(indio_dev);
+> +
+> +	static int scale_avail[MLX90393_GAIN_MAX][MLX90393_AXIS_MAX];
+> +	enum mlx90393_axis_type axis;
+> +	int i;
+> +	u8 res;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SCALE:
+> +		axis =3D chan->channel2 =3D=3D IIO_MOD_Z;
+> +		res =3D axis ? data->res_z : data->res_xy;
+> +
+> +		for (i =3D 0; i < MLX90393_GAIN_MAX; i++) {
+> +			scale_avail[i][0] =3D 0;
+> +			scale_avail[i][1] =3D
+> +				mlx90393_scale_table[axis][i][res];
+> +		}
+> +
+> +		*vals =3D &scale_avail[0][0];
+
+Is it safe to use a global static array here?
+
+Since scale_avail is dynamically populated based on the requested channel
+axis, concurrent sysfs reads across different axes or device instances could
+overwrite the array mid-operation, causing a data race and corrupted scale
+values to be returned.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511-zx29clk-v2=
--0-29f0edc300f5@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510191010.1553=
+80-1-nikhilgtr@gmail.com?part=3D2
