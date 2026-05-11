@@ -1,509 +1,509 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9EDF38F22D
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 12:26:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 565123939B0;
+	Mon, 11 May 2026 12:26:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778502402; cv=none; b=U9XSvbIUMLQjCUVFp59n5d5HeUQ//3IqGdxZeZNP0dpoWlNvmKMcw3k5ROXX1mKXcRfpp9v5auwJZ7fdDi9mdouJiwM2akZjqXIBbHI3anPZgvdPM77IH0hiG3sarpfyFMd0OEe+4f5+/OvuB9j+nmD29STLsuTxBL1pwIz65rQ=
+	t=1778502404; cv=none; b=ZU5PWSW8uWu4axe+sSM4Rh5pfpDtMdDgd32muuH6F9FRRYGE/+QBF9RtNVXtPovcvoeW5Y1IINawDq8UpVm9CxyhB4GJH7Bvg92cEJas0gT3GSJs3Bj4XC3oXTRnxg0XOFuCjbpvaFdVE7I/XnetL+E7wDVshqR4cqZT6TBFEpg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778502402; c=relaxed/simple;
-	bh=9qsLMKQvz1KlAOfBA/GqoUc9883e19KliNSG3Uq57nk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PWY/ujuA2sc//zbLbcUYXxHJL5ovb5TUEp8NHj9tXn3jpEHJd+WYbmIzMJCH6xVOPzUkbpNsYEGaeQBlzaVs3UMNG6Iuk9sYikAM10Ru4xEyA/xC9OjF4G5ha0iQC4nIeesjs8D/q+gThWRKAuPvIdUKzZopCjjuaiMsrDbUyCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LMqPvxHy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iCR1Ouyz; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1778502404; c=relaxed/simple;
+	bh=2SffxXx6+XCIgb1TpZncu9YH1DzHXjlduZb+EdR7NlU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Vo9lKlU781N5yihA25xvIXxId8dTVlp9D2pnhjiuwI2ZK7zsGptg4qCHt06N+MsudMs/A+vzTMLpKrcHzPFxofMhgNSWuOD8JqbBM7d49DySfWDhjr1BznSHJtF3bkf3IZRYVQDyCNzIsEPMnZPpPCbwXl4zanr/4vrF+VbSeb0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pDClmUzX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LMqPvxHy";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iCR1Ouyz"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64BC4Hfl108021
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 12:26:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	UUp7pMKM4oCC7ZeQbB4lXBHSBYcVfDN9XJldmroooRw=; b=LMqPvxHysshjZ3vy
-	RD0Y2BEdz2z7jn9j+WGioExiZvutFtsosQdNnpqH1xy5/RJfO6tSaUN5Sh+tF/Yh
-	WSNaf4OKEVHYdXM7cr3erJBsCmFRlpgsI+SYx665YohRashI44fF2MAGo7YJb0wg
-	0xNEIxYg1wU1a+JpWep9s2ejK/nR5fEb5gl9Q41/rx8lnYBXPrCUeFe78cUvm6qd
-	1NQDGqB6GKOsZDKun4jJM1XxAFK9yod69kb7yYuBvfuGYgyE3oxMEbSiukdj5GgY
-	qw9p1Ylfjc26ok24VRaafixMDfhsZp1kjVGrCe0WFb+bh9ryNzJja5355aWfwNJd
-	6BHu0Q==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e3esyr292-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 12:26:39 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-367d73504f0so3094694a91.1
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 05:26:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778502399; x=1779107199; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=UUp7pMKM4oCC7ZeQbB4lXBHSBYcVfDN9XJldmroooRw=;
-        b=iCR1OuyzvUI4DFOqmS578lhEOBDvm9yU5XnUlRUhOOt9Yoi5354g96A5k1KGP1NI+8
-         g3A/Pejl9+M0A0Avn1PrWXqOqaRKd2NoFJ++f3ig1AWG98fowE6zrFKjd6rgzDtB4GWm
-         UGtPU1cv84RaiDeGOnAbFWQRNOMlEfo1tbVXc5MFd5NS8999AKK767PIet7tTsnhAlFx
-         e2TpUc2AruczaU0t9qe65BP2g0fhCQ3QvafkZB21l8QyKyfruVc0ayjr+4RHEwMfh4VP
-         a6WkIqEdQ14yiOwSZtRZEYTP5+bmUFnqpGxcp6Ce/GHG+CYf2bYqYKQ6QEDfWTGYuA/f
-         WCWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778502399; x=1779107199;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=UUp7pMKM4oCC7ZeQbB4lXBHSBYcVfDN9XJldmroooRw=;
-        b=ci6e4XwIOgi7MvajWR7K9MOZg/p5XPS7+wwpJTNl6jefKyCEqvN8e0z6qOVOt6Lv/c
-         i4RnmNxn6hBm+nh1eyhR+9igv/Pe3rlweHHi+CSM+hX2XTHHT1E9R5QoKhgAF7r1A0dP
-         IWAoSejGbIh9yQJUwI2DzQ1bZwlj9o5d6XdBpQd3DGcxBrMvVJUo4btsiqANmGE9gpNB
-         eTPhWfN6FjoSrNCdV0bZBLAN3sRVIKS7+vXDmlfReN9mCYe2YwS/ElxCkFBvk/LQNtXU
-         Frxeo5WyjH1A6wnpojm+r3eIH6qZO4GM2pW1nFqE1gvKrEHBEDh5WF/+pWVwhvLfQU8A
-         8zvQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/dPLVFdiY1BBrOYKobICwUZ07S/Ez1VpuDCrT2EBLY0oLYpVTqsPF8UakJqI6iKN8Y73h+Dg0AD03K@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzcv67l7sedXHRyqAd8jqLaF7OZkPBud48asrRnjyoQlMGfFE9F
-	ypssP5lUgP5M+H0YrodLI1lSxJpRYWNarOp7JSdViaQkP3RK+Z/jRb3gciW6xdu7PaMiqKTzFLO
-	Al7SD2UpjxysMHYC57QEijKakmlChvTF+gzrjwWccB9sKg5htdC/nN//BiJhb2sIG
-X-Gm-Gg: Acq92OFkaQNrHhg8fwujf6Q3u/vVe7+2iXsfMxAfPIQBPl5y/R07MWtt/CvLF0eRij5
-	NU+2EhouziQcwZJkyDGfxniUKZRazCZZYVWg9q6CXYrZAZlv2TfaGuCRQf4PifzJwu/tyaPYVUE
-	uax4+SZed7EHrkZqGaUeNgLoXgV3M3yIMhJcqp5xHP8aoa5G9/5TMwMJ6CeZtEe9WVVmVLUwFkJ
-	ydL/RF7LfeyWqDdspOf6zWSLHOremf6Mtutuwd8aS27U7mOsaKafj52N2lLEfYOAglatqTa8clN
-	h/t2XUGxqf9Iz25r3/uq0rrNGZzxVs1Yv75Lsb8WabIp3vWxeF6ZEbuKrwEnLYLmGr4EQqpqRTU
-	pUoCuOwgDPiT8ObCSHTwC8QIs/XIoUXXixC9Oy8ol1grDh40M5PI34dIjeMorzy0nvf1LK+RFnH
-	/l3yl36T1BgYGfWScIOn95/P2fjKP4/OGH
-X-Received: by 2002:a17:90b:3ecd:b0:366:1172:597e with SMTP id 98e67ed59e1d1-367d46b8236mr8976313a91.9.1778502398882;
-        Mon, 11 May 2026 05:26:38 -0700 (PDT)
-X-Received: by 2002:a17:90b:3ecd:b0:366:1172:597e with SMTP id 98e67ed59e1d1-367d46b8236mr8976248a91.9.1778502397593;
-        Mon, 11 May 2026 05:26:37 -0700 (PDT)
-Received: from [10.79.194.67] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-367d687bedesm9798710a91.16.2026.05.11.05.26.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 11 May 2026 05:26:37 -0700 (PDT)
-Message-ID: <798c90ec-9873-484a-a38d-be30581d3c43@oss.qualcomm.com>
-Date: Mon, 11 May 2026 17:56:29 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pDClmUzX"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DDA15C2BCF7;
+	Mon, 11 May 2026 12:26:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778502403;
+	bh=2SffxXx6+XCIgb1TpZncu9YH1DzHXjlduZb+EdR7NlU=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=pDClmUzXOcsUpaHOfbtplNjonzB9Z/t6YIJ/Czj29PZaO4u47EVoUByKXzvJlkvqg
+	 suytXXqgDJiguB14pRArIgRpToYAZmmpMjujQDsjDPljAKxqgaddH8BVZNY7NlEDkp
+	 AGwDU/dYqWywdheVx62k8mHgAdGjdnXV8IPDhhUw9Mgxa/7MRsRahBMM3V+cMeJBmj
+	 5wDr+A3IazkY2RRF7TexORKN56hn6wAiAHne/1tXvqkXlgxSTuAwxzdxMKLGQTL8hQ
+	 RWbgHT0sPggLQcrc1+mHdTp0Fu06E0w5n2zE0aI07v54dqpASuHxrD2woMv/D4wOY6
+	 2aqyvzYIppZ4Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CB02ACD4842;
+	Mon, 11 May 2026 12:26:43 +0000 (UTC)
+From: Dumitru Ceclan via B4 Relay <devnull+dumitru.ceclan.analog.com@kernel.org>
+Subject: [PATCH v11 00/22] media: i2c: add Maxim GMSL2/3 serializer and
+ deserializer drivers
+Date: Mon, 11 May 2026 15:26:23 +0300
+Message-Id: <20260511-gmsl2-3_serdes-v11-0-fc163073c16b@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/6] platform: arm64: Add driver for EC found on
- Qualcomm reference devices
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Rob Herring
- <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Randy Dunlap
- <rdunlap@infradead.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
-        platform-driver-x86@vger.kernel.org,
-        Maya Matuszczyk <maccraft123mc@gmail.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>
-References: <20260427-add-driver-for-ec-v8-0-702f74e495f7@oss.qualcomm.com>
- <20260427-add-driver-for-ec-v8-2-702f74e495f7@oss.qualcomm.com>
- <91523c61-bd03-2d96-823e-78ecd9e3798f@linux.intel.com>
- <17397c91-53e2-4786-b7c8-88c302821e22@oss.qualcomm.com>
- <88ce2f85-5d8f-9845-cdb8-77051989e57f@linux.intel.com>
-Content-Language: en-US
-From: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-In-Reply-To: <88ce2f85-5d8f-9845-cdb8-77051989e57f@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTExMDEzOCBTYWx0ZWRfX1ZFfiH3o6J0T
- WdHloKSiHPCOLyF6YwTtAq/bfdgGHgO1i1mdEc6QUzjZEhd4YECjXOC6k9Gz22Zfc0KmG6PceEh
- RtISYpCnLuaJFS84GZq/nOyPo0KMKQfwqZ8CMqc9sKH+GqvH9q2g7FwpBbgWZt/jtsdjc5TJDUt
- ANKSc+TJ9lGt3XhmiBC1SKMYG/eYk7vHSTiTHjmGuNvV1gvLJsaWhYRc2A3HrwDabzhQl0TwSsC
- t12DuDXu8Kt1vmybMTGn5saCwb646OqBcU4hci4/ZPD9vikB8gXKL3JwX1BG3/vx48zMunAcW/o
- bIK+j2YR4FtQ6M0mvBKXVSzSDEngRQLaeXZ69A9C7NuDvn2dQEkjiAT97+NGMbD3777VUwEPgHp
- mqiLAJRm+OVPWj74Cvx3ugytf/bd1vqID0nNcsK2bGEFUWpTyef0jOT0ucY+FFT8+6qEXF6V5cX
- 2oNerrNfatuwlSO9gIQ==
-X-Authority-Analysis: v=2.4 cv=AI/DAN7A c=1 sm=1 tr=0 ts=6a01caff cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=HzHGujpu9rWnXTY9dJ0A:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-GUID: qL-zaCU0-IQ7SoMjvIJ_TH1DT1Cxzeko
-X-Proofpoint-ORIG-GUID: qL-zaCU0-IQ7SoMjvIJ_TH1DT1Cxzeko
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-11_03,2026-05-08_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 adultscore=0 spamscore=0 bulkscore=0
- clxscore=1015 phishscore=0 priorityscore=1501 malwarescore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2605110138
+X-B4-Tracking: v=1; b=H4sIAO/KAWoC/2XN3QqCQBCG4VuRPW5jZt1Vp6PuIyJsf3TBn3BDC
+ vHeW6WI8vAbeJ+ZWLCDt4EdkokNdvTB910ciLuE6brsKsu9iQcmQChEyHnVhkbw9BJDYwNPnbg
+ WhRJAOmUxug3W+ccqns5x1z7c++G5PhiL5fqmUP5TY8GBy1wSGYKcCI5lVzZ9tdd9yxZrpE+fQ
+ Yq46WnpMfYOCEC6TY/wBSRkGwAhCplUKgNnjS7VjzDP8wsEnf4yMAEAAA==
+X-Change-ID: 20251107-gmsl2-3_serdes-3f2b885209c3
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>, 
+ =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Cosmin Tanislav <cosmin.tanislav@analog.com>
+Cc: mitrutzceclan@gmail.com, linux-media@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-staging@lists.linux.dev, linux-gpio@vger.kernel.org, 
+ =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, 
+ Martin Hecht <Martin.Hecht@avnet.eu>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Cosmin Tanislav <demonsingur@gmail.com>, 
+ Vivekananda Dayananda <vivekana@amd.com>, 
+ Dumitru Ceclan <dumitru.ceclan@analog.com>, Cory Keitz <ckeitz@amazon.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778502401; l=18739;
+ i=dumitru.ceclan@analog.com; s=20240313; h=from:subject:message-id;
+ bh=2SffxXx6+XCIgb1TpZncu9YH1DzHXjlduZb+EdR7NlU=;
+ b=M7s4PNDQUu3ALC/MkrVluu2Qz4/aD95lPczXwVUMXPgEbnt40EXhboXVjANOT3JrTEd3VWWBG
+ Sa7UUOysYwQD88uncSszi/6gZFit37cfNKIcb0iFK1gBEYSt8TpeYbe
+X-Developer-Key: i=dumitru.ceclan@analog.com; a=ed25519;
+ pk=HdqMlVyrcazwoiai7oN6ghU+Bj1pusGUFRl30jhS7Bo=
+X-Endpoint-Received: by B4 Relay for dumitru.ceclan@analog.com/20240313
+ with auth_id=140
+X-Original-From: Dumitru Ceclan <dumitru.ceclan@analog.com>
+Reply-To: dumitru.ceclan@analog.com
 
+This series adds new drivers for multiple Maxim GMSL2 and GMSL3 devices,
+replacing the few GMSL2 drivers already in upstream, and introducing a
+common framework that can be used to implement such GMSL chips, which
+avoids code duplication while also adding support for previously
+unsupported features.
 
+While the normally acceptable and polite way would be to extend the
+current mainline drivers, the choice was made here to add a totally new
+set of drivers. The current drivers support only a small subset of the
+possible features, and only a few devices, so the end result after
+extending them would in any case be essentially fully rewritten, new
+drivers.
 
-On 5/11/2026 5:37 PM, Ilpo Järvinen wrote:
-> On Mon, 11 May 2026, Anvesh Jain P wrote:
-> 
->>
->>
->> On 5/8/2026 11:03 PM, Ilpo Järvinen wrote:
->>> On Mon, 27 Apr 2026, Anvesh Jain P wrote:
->>>
->>>> From: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
->>>>
->>>> Add Embedded controller driver support for Hamoa/Purwa/Glymur qualcomm
->>>> reference boards. It handles fan control, temperature sensors, access
->>>> to EC state changes and supports reporting suspend entry/exit to the
->>>> EC.
->>>
->>> Thanks, this seems mostly ready now. A few minor things still noted below.
->>>
->>
->> Hi Ilpo,
->>
->> Thanks for the review! Addressed all points below.
->>>> Co-developed-by: Maya Matuszczyk <maccraft123mc@gmail.com>
->>>> Signed-off-by: Maya Matuszczyk <maccraft123mc@gmail.com>
->>>> Signed-off-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
->>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->>>> Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->>>> Tested-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->>>> Co-developed-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
->>>> Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
->>>> ---
->>>>  MAINTAINERS                            |   8 +
->>>>  drivers/platform/arm64/Kconfig         |  13 +
->>>>  drivers/platform/arm64/Makefile        |   1 +
->>>>  drivers/platform/arm64/qcom-hamoa-ec.c | 452 +++++++++++++++++++++++++++++++++
->>>>  4 files changed, 474 insertions(+)
->>>>
->>>> diff --git a/MAINTAINERS b/MAINTAINERS
->>>> index 62b89d0013d2..0bf0d6d55550 100644
->>>> --- a/MAINTAINERS
->>>> +++ b/MAINTAINERS
->>>> @@ -21980,6 +21980,14 @@ F:	Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
->>>>  F:	drivers/misc/fastrpc.c
->>>>  F:	include/uapi/misc/fastrpc.h
->>>>  
->>>> +QUALCOMM HAMOA EMBEDDED CONTROLLER DRIVER
->>>> +M:	Anvesh Jain P <anvesh.p@oss.qualcomm.com>
->>>> +M:	Sibi Sankar <sibi.sankar@oss.qualcomm.com>
->>>> +L:	linux-arm-msm@vger.kernel.org
->>>> +S:	Maintained
->>>> +F:	Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-crd-ec.yaml
->>>> +F:	drivers/platform/arm64/qcom-hamoa-ec.c
->>>> +
->>>>  QUALCOMM HEXAGON ARCHITECTURE
->>>>  M:	Brian Cain <brian.cain@oss.qualcomm.com>
->>>>  L:	linux-hexagon@vger.kernel.org
->>>> diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfig
->>>> index 10f905d7d6bf..e32e01b2a9bd 100644
->>>> --- a/drivers/platform/arm64/Kconfig
->>>> +++ b/drivers/platform/arm64/Kconfig
->>>> @@ -90,4 +90,17 @@ config EC_LENOVO_THINKPAD_T14S
->>>>  
->>>>  	  Say M or Y here to include this support.
->>>>  
->>>> +config EC_QCOM_HAMOA
->>>> +	tristate "Embedded Controller driver for Qualcomm Hamoa/Glymur reference devices"
->>>> +	depends on ARCH_QCOM || COMPILE_TEST
->>>> +	depends on I2C
->>>> +	depends on THERMAL || THERMAL=n
->>>> +	help
->>>> +	  Say M or Y here to enable the Embedded Controller driver for Qualcomm
->>>> +	  Snapdragon-based Hamoa/Glymur reference devices. The driver handles fan
->>>> +	  control, temperature sensors, access to EC state changes and supports
->>>> +	  reporting suspend entry/exit to the EC.
->>>> +
->>>> +	  This driver currently supports Hamoa/Purwa/Glymur reference devices.
->>>> +
->>>>  endif # ARM64_PLATFORM_DEVICES
->>>> diff --git a/drivers/platform/arm64/Makefile b/drivers/platform/arm64/Makefile
->>>> index 60c131cff6a1..7681be4a46e9 100644
->>>> --- a/drivers/platform/arm64/Makefile
->>>> +++ b/drivers/platform/arm64/Makefile
->>>> @@ -9,3 +9,4 @@ obj-$(CONFIG_EC_ACER_ASPIRE1)	+= acer-aspire1-ec.o
->>>>  obj-$(CONFIG_EC_HUAWEI_GAOKUN)	+= huawei-gaokun-ec.o
->>>>  obj-$(CONFIG_EC_LENOVO_YOGA_C630) += lenovo-yoga-c630.o
->>>>  obj-$(CONFIG_EC_LENOVO_THINKPAD_T14S) += lenovo-thinkpad-t14s.o
->>>> +obj-$(CONFIG_EC_QCOM_HAMOA) += qcom-hamoa-ec.o
->>>> diff --git a/drivers/platform/arm64/qcom-hamoa-ec.c b/drivers/platform/arm64/qcom-hamoa-ec.c
->>>> new file mode 100644
->>>> index 000000000000..253f927c9aca
->>>> --- /dev/null
->>>> +++ b/drivers/platform/arm64/qcom-hamoa-ec.c
->>>> @@ -0,0 +1,452 @@
->>>> +// SPDX-License-Identifier: GPL-2.0-only
->>>> +/*
->>>> + * Copyright (c) 2024 Maya Matuszczyk <maccraft123mc@gmail.com>
->>>> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->>>> + */
->>>> +
->>>> +#include <linux/bitfield.h>
->>>> +#include <linux/bits.h>
->>>> +#include <linux/device.h>
->>>> +#include <linux/dev_printk.h>
->>>> +#include <linux/err.h>
->>>> +#include <linux/i2c.h>
->>>> +#include <linux/interrupt.h>
->>>> +#include <linux/kernel.h>
->>>> +#include <linux/module.h>
->>>> +#include <linux/pm.h>
->>>> +#include <linux/slab.h>
->>>> +#include <linux/thermal.h>
->>>> +
->>>> +#define EC_SCI_EVT_READ_CMD	0x05
->>>> +#define EC_FW_VERSION_CMD	0x0e
->>>> +#define EC_MODERN_STANDBY_CMD	0x23
->>>> +#define EC_FAN_DBG_CONTROL_CMD	0x30
->>>> +#define EC_SCI_EVT_CONTROL_CMD	0x35
->>>> +#define EC_THERMAL_CAP_CMD	0x42
->>>> +
->>>> +#define EC_FW_VERSION_RESP_LEN	4
->>>> +#define EC_THERMAL_CAP_RESP_LEN	3
->>>> +#define EC_FAN_DEBUG_CMD_LEN	6
->>>> +#define EC_FAN_SPEED_DATA_SIZE	4
->>>> +
->>>> +#define EC_MODERN_STANDBY_ENTER	0x01
->>>> +#define EC_MODERN_STANDBY_EXIT	0x00
->>>> +
->>>> +#define EC_FAN_DEBUG_MODE_OFF   0
->>>> +#define EC_FAN_DEBUG_MODE_ON    BIT(0)
->>>> +#define EC_FAN_ON               BIT(1)
->>>> +#define EC_FAN_DEBUG_TYPE_PWM   BIT(2)
->>>> +#define EC_MAX_FAN_CNT		2
->>>> +#define EC_FAN_NAME_SIZE	20
->>>> +#define EC_FAN_MAX_PWM		255
->>>> +
->>>> +enum qcom_ec_sci_events {
->>>> +	EC_FAN1_STATUS_CHANGE_EVT = 0x30,
->>>> +	EC_FAN2_STATUS_CHANGE_EVT,
->>>> +	EC_FAN1_SPEED_CHANGE_EVT,
->>>> +	EC_FAN2_SPEED_CHANGE_EVT,
->>>> +	EC_NEW_LUT_SET_EVT,
->>>> +	EC_FAN_PROFILE_SWITCH_EVT,
->>>> +	EC_THERMISTOR_1_THRESHOLD_CROSS_EVT,
->>>> +	EC_THERMISTOR_2_THRESHOLD_CROSS_EVT,
->>>> +	EC_THERMISTOR_3_THRESHOLD_CROSS_EVT,
->>>> +	/* Reserved: 0x39 - 0x3c/0x3f */
->>>> +	EC_RECOVERED_FROM_RESET_EVT = 0x3d,
->>>> +};
->>>> +
->>>> +struct qcom_ec_version {
->>>> +	u8 main_version;
->>>> +	u8 sub_version;
->>>> +	u8 test_version;
->>>> +};
->>>> +
->>>> +struct qcom_ec_thermal_cap {
->>>> +#define EC_THERMAL_FAN_CNT(x)		(FIELD_GET(GENMASK(1, 0), (x)))
->>>> +#define EC_THERMAL_FAN_TYPE(x)		(FIELD_GET(GENMASK(4, 2), (x)))
->>>> +#define EC_THERMAL_THERMISTOR_MASK(x)	(FIELD_GET(GENMASK(7, 0), (x)))
->>>> +	u8 fan_cnt;
->>>> +	u8 fan_type;
->>>> +	u8 thermistor_mask;
->>>> +};
->>>> +
->>>> +struct qcom_ec_cooling_dev {
->>>> +	struct thermal_cooling_device *cdev;
->>>> +	struct device *parent_dev;
->>>> +	u8 fan_id;
->>>> +	u8 state;
->>>> +};
->>>> +
->>>> +struct qcom_ec {
->>>> +	struct qcom_ec_cooling_dev *ec_cdev;
->>>> +	struct qcom_ec_thermal_cap thermal_cap;
->>>> +	struct qcom_ec_version version;
->>>> +	struct i2c_client *client;
->>>> +};
->>>> +
->>>> +static int qcom_ec_read(struct qcom_ec *ec, u8 cmd, u8 resp_len, u8 *resp)
->>>> +{
->>>> +	int ret;
->>>> +
->>>> +	ret = i2c_smbus_read_i2c_block_data(ec->client, cmd, resp_len, resp);
->>>> +
->>>> +	if (ret < 0)
->>>
->>> Call and its error handling belong together so please remove the empty line.
->>>
->>
->> Ack, will remove the blank line in the next revision.
->>
->>>> +		return ret;
->>>> +	else if (ret == 0 || ret == 0xff)
->>>> +		return -EOPNOTSUPP;
->>>> +
->>>> +	if (resp[0] >= resp_len)
->>>> +		return -EINVAL;
->>>> +
->>>> +	return 0;
->>>> +}
->>>> +
->>>> +/*
->>>> + * EC Device Firmware Version:
->>>> + *
->>>> + * Read Response:
->>>> + * ----------------------------------------------------------------------
->>>> + * | Offset	| Name		| Description				|
->>>> + * ----------------------------------------------------------------------
->>>> + * | 0x00	| Byte count	| Number of bytes in response		|
->>>> + * |		|		| (excluding byte count)		|
->>>> + * ----------------------------------------------------------------------
->>>> + * | 0x01	| Test-version	| Test-version of EC firmware		|
->>>> + * ----------------------------------------------------------------------
->>>> + * | 0x02	| Sub-version	| Sub-version of EC firmware		|
->>>> + * ----------------------------------------------------------------------
->>>> + * | 0x03	| Main-version	| Main-version of EC firmware		|
->>>> + * ----------------------------------------------------------------------
->>>> + *
->>>> + */
->>>> +static int qcom_ec_read_fw_version(struct device *dev)
->>>> +{
->>>> +	struct i2c_client *client = to_i2c_client(dev);
->>>> +	struct qcom_ec *ec = i2c_get_clientdata(client);
->>>> +	struct qcom_ec_version *version = &ec->version;
->>>> +	u8 resp[EC_FW_VERSION_RESP_LEN];
->>>> +	int ret;
->>>> +
->>>> +	ret = qcom_ec_read(ec, EC_FW_VERSION_CMD, EC_FW_VERSION_RESP_LEN, resp);
->>>> +	if (ret < 0)
->>>> +		return ret;
->>>> +
->>>> +	version->main_version = resp[3];
->>>> +	version->sub_version = resp[2];
->>>> +	version->test_version = resp[1];
->>>> +
->>>> +	dev_dbg(dev, "EC Version %d.%d.%d\n",
->>>> +		version->main_version, version->sub_version, version->test_version);
->>>> +
->>>> +	return 0;
->>>> +}
->>>> +
->>>> +/*
->>>> + * EC Device Thermal Capabilities:
->>>> + *
->>>> + * Read Response:
->>>> + * ------------------------------------------------------------------------------
->>>> + * | Offset		| Name		| Description				|
->>>> + * ------------------------------------------------------------------------------
->>>> + * | 0x00		| Byte count	| Number of bytes in response		|
->>>> + * |			|		| (excluding byte count)		|
->>>> + * ------------------------------------------------------------------------------
->>>> + * | 0x02 (LSB)	| EC Thermal	| Bit 0-1: Number of fans		|
->>>> + * | 0x03		| Capabilities	| Bit 2-4: Type of fan			|
->>>> + * |			|		| Bit 5-6: Reserved			|
->>>> + * |			|		| Bit 7: Data Valid/Invalid		|
->>>> + * |			|		|	 (Valid - 1, Invalid - 0)	|
->>>> + * |			|		| Bit 8-15: Thermistor 0 - 7 presence	|
->>>> + * |			|		|	    (1 present, 0 absent)	|
->>>> + * ------------------------------------------------------------------------------
->>>> + *
->>>> + */
->>>> +static int qcom_ec_thermal_capabilities(struct device *dev)
->>>> +{
->>>> +	struct i2c_client *client = to_i2c_client(dev);
->>>> +	struct qcom_ec *ec = i2c_get_clientdata(client);
->>>> +	struct qcom_ec_thermal_cap *cap = &ec->thermal_cap;
->>>> +	u8 resp[EC_THERMAL_CAP_RESP_LEN];
->>>> +	int ret;
->>>> +
->>>> +	ret = qcom_ec_read(ec, EC_THERMAL_CAP_CMD, EC_THERMAL_CAP_RESP_LEN, resp);
->>>> +	if (ret < 0)
->>>> +		return ret;
->>>> +
->>>> +	cap->fan_cnt = min(EC_MAX_FAN_CNT, EC_THERMAL_FAN_CNT(resp[1]));
->>>> +	cap->fan_type = EC_THERMAL_FAN_TYPE(resp[1]);
->>>> +	cap->thermistor_mask = EC_THERMAL_THERMISTOR_MASK(resp[2]);
->>>> +
->>>> +	dev_dbg(dev, "Fan count: %d Fan Type: %d Thermistor Mask: %x\n",
->>>> +		cap->fan_cnt, cap->fan_type, cap->thermistor_mask);
->>>> +
->>>> +	return 0;
->>>> +}
->>>> +
->>>> +static irqreturn_t qcom_ec_irq(int irq, void *data)
->>>> +{
->>>> +	struct qcom_ec *ec = data;
->>>> +	struct device *dev = &ec->client->dev;
->>>> +	int val;
->>>> +
->>>> +	val = i2c_smbus_read_byte_data(ec->client, EC_SCI_EVT_READ_CMD);
->>>> +	if (val < 0) {
->>>> +		dev_err_ratelimited(dev, "Failed to read EC SCI Event: %d\n", val);
->>>> +		return IRQ_HANDLED;
->>>> +	}
->>>> +
->>>> +	switch (val) {
->>>> +	case EC_FAN1_STATUS_CHANGE_EVT:
->>>> +		dev_dbg_ratelimited(dev, "Fan1 status changed\n");
->>>> +		break;
->>>> +	case EC_FAN2_STATUS_CHANGE_EVT:
->>>> +		dev_dbg_ratelimited(dev, "Fan2 status changed\n");
->>>> +		break;
->>>> +	case EC_FAN1_SPEED_CHANGE_EVT:
->>>> +		dev_dbg_ratelimited(dev, "Fan1 speed crossed low/high trip point\n");
->>>> +		break;
->>>> +	case EC_FAN2_SPEED_CHANGE_EVT:
->>>> +		dev_dbg_ratelimited(dev, "Fan2 speed crossed low/high trip point\n");
->>>> +		break;
->>>> +	case EC_NEW_LUT_SET_EVT:
->>>> +		dev_dbg_ratelimited(dev, "New LUT set\n");
->>>> +		break;
->>>> +	case EC_FAN_PROFILE_SWITCH_EVT:
->>>> +		dev_dbg_ratelimited(dev, "FAN Profile switched\n");
->>>> +		break;
->>>> +	case EC_THERMISTOR_1_THRESHOLD_CROSS_EVT:
->>>> +		dev_dbg_ratelimited(dev, "Thermistor 1 threshold crossed\n");
->>>> +		break;
->>>> +	case EC_THERMISTOR_2_THRESHOLD_CROSS_EVT:
->>>> +		dev_dbg_ratelimited(dev, "Thermistor 2 threshold crossed\n");
->>>> +		break;
->>>> +	case EC_THERMISTOR_3_THRESHOLD_CROSS_EVT:
->>>> +		dev_dbg_ratelimited(dev, "Thermistor 3 threshold crossed\n");
->>>> +		break;
->>>> +	case EC_RECOVERED_FROM_RESET_EVT:
->>>> +		dev_dbg_ratelimited(dev, "EC recovered from reset\n");
->>>> +		break;
->>>> +	default:
->>>> +		dev_notice_ratelimited(dev, "Unknown EC event: %d\n", val);
->>>> +		break;
->>>> +	}
->>>> +
->>>> +	return IRQ_HANDLED;
->>>> +}
->>>> +
->>>> +static int qcom_ec_sci_evt_control(struct device *dev, bool enable)
->>>> +{
->>>> +	struct i2c_client *client = to_i2c_client(dev);
->>>> +
->>>> +	return i2c_smbus_write_byte_data(client, EC_SCI_EVT_CONTROL_CMD, !!enable);
->>>
->>> This converts bool -> u8 using C's implicit conversion rules (plus on top 
->>> of that does unnecessary !!). Please write the conversion explicitly, you 
->>> can use ?: syntax for brevity.
->>>
->>
->> The original v4 code used `enable ? 1 : 0` explicitly, but Konrad Dybcio
->> suggested switching to `!!enable` during his review [1]. Happy to revert
->> to the explicit form if that's the preferred style — just want to flag
->> the conflict so everyone is aligned.
->>
->> [1]
->> https://lore.kernel.org/all/6eb3a173-c364-431f-93e4-7bbb7a32431e@oss.qualcomm.com/
-> 
-> I prefer to have the boolean to binary conversion done explicitly 
-> (with the platform drivers maintainer hat on).
->
+This series depends on support for internal pads, for which a patch has
+been added.
 
-Understood, will update to `enable ? 1 : 0` in the next revision.
+The previous version is at:
+v10: https://lore.kernel.org/r/20260406-gmsl2-3_serdes-v10-0-645560fedca5@analog.com
 
+Since the previous series, Cosmin has left Analog Devices.
+Because included changes from previous version are trivial, his sign-off
+and tags were retained.
+
+The following deserializers are supported:
+* MAX96712 (already exists in staging)
+* MAX96714 (already exists)
+* MAX96714F (already exists)
+* MAX96714R (GMSL2)
+* MAX96716 (GMSL2)
+* MAX96724 (already exists as part of existing MAX96712 driver)
+* MAX96724F (GMSL2)
+* MAX96724R (GMSL2)
+* MAX9296A (GMSL2)
+* MAX96792A (GMSL3)
+
+The following serializers are supported:
+* MAX96717 (already exists)
+* MAX9295A (GMSL2)
+* MAX96793 (GMSL3)
+
+The following list enumerates new features that are supported by the
+common framework and their respective chip-specific drivers:
+* Full Streams API support. Most deserializers have support for more
+than one link, and more than one PHY. Streams support allows
+configuration of routing between these links and PHYs.
+
+* .get_frame_desc() support. Both the serializers and deserializers
+implement this to query and provide frame descriptor data. This is
+used in features explained in-depth below.
+
+* .get_mbus_config() support. The deserializers implement this to allow
+upstream devices to query the link frequency of its pads.
+
+* Address translation with I2C ATR for the serializers.
+
+* I2C ATR translation - some deserializers cannot do muxing since I2C
+communication channel masking is not available per-link, and the only
+other way to select links is to turn them off, causing link resets.
+For such cases, I2C ATR is used to change the address of the
+serializers at probe time.
+
+* Automatic GMSL link version negotiation between GMSL3, GMSL2 6Gbps, GMSL2
+3Gbps.
+
+* Automatic stream id selection for deserializers which need serializers to
+stream on unique stream ids.
+
+* Automatic VC remapping on the deserializers. VCs are picked so that
+if they were unique on the sink pad, they will end up as unique on
+the source pad they are routed to too, prioritizing using the same
+VC ID as the sink pad, to facilitate the possibility of using tunnel
+mode.
+
+* Automatic pixel mode / tunnel mode selection. Tunnel mode is used
+when VC IDs do not need to be changed and all hardware supports
+tunnel mode, otherwise, pixel mode is used. The serializers are
+automatically switched between the two by using a private API.
+
+* Automatic double mode selection. In pixel mode, double mode can be
+used to pack two pixels into a single data unit, optimizing bandwidth
+usage. The serializers are automatically set up to support the double
+modes determined by the deserializers using a private API.
+
+* Automatic data padding. In pixel mode, if the data being transferred
+uses two different BPPs, data needs to be padded. The serializers
+automatically set this up depending on the configured double mode
+settings and incoming data types.
+
+* Logging. Both the deserializers and serializers implement the V4L2
+.log_status() ops to allow debugging of the internal state and
+important chip status registers.
+
+* PHY modes. Deserializer chips commonly have more than a single PHY.
+The firmware ports are parsed to determine the modes in which to
+configure the PHYs (2x4, 4x2, 1x4+2x2, 2x2+1x4, and variations using
+fewer lanes).
+
+* Serializer pinctrl. Serializers implement pinctrl to allow setting
+configs which would otherwise be inaccessible through GPIO: TX/RX via
+GMSL link, pull-up & pull-down (with strength), open-drain &
+push-pull, slew rate, RCLK pin selection.
+
+* TPG with selectable formats, resolutions and framerates for both
+serializers and deserializers.
+
+The drivers have been tested on the following hardware combinations, but
+further testing is welcome to ensure no / minimal breakage:
+* Raspberry Pi 5 + MAX9296A + 2xMAX96717 + 2xIMX219
+* Raspberry Pi 5 + MAX96714 + 1xMAX96717 + 1xIMX219
+* Raspberry Pi 5 + MAX96716A + 2xMAX96717 + 2xIMX219
+* Raspberry Pi 5 + MAX96712 + 4xMAX96717 + 4xIMX219
+* Raspberry Pi 5 + MAX96724 + 4xMAX96717 + 4xIMX219
+* Raspberry Pi 5 + MAX96792A + 1xMAX96793 + 1xMAX96717 + 2xIMX219
+* Raspberry Pi 5 + MAX96792A + 2xMAX96717 + 2xIMX219
+* Renesas V4H + MAX96712 + 2xMAX96717 + 2xIMX219
+
+Analog Devices is taking responsibility for the maintenance of these
+drivers and common framework, and plans to add support for new
+broad-market chips on top of them.
+
+Special thanks go to Tomi Valkeinen <
+tomi.valkeinen+renesas@ideasonboard.com>
+for testing the drivers, helping debug and coming up with ideas /
+implementations for various features.
+
+V11:
+* max96724: preserve cc_port_cfg in select_links()
+
+V10:
+* dt-bindings: add control-channel property
+* max96724: add configurable control-channel port selection
+* max-ser/max-des: fix VIDIOC_SUBDEV_G/S_FMT, detect ~0U format
+ (v4l2-test-subdevs.cpp:448: s_fmt.format.code == ~0U)
+* max-ser/max-des: fix VIDIOC_SUBDEV_G/S_FRAME_INTERVAL fail:
+	 add max_(ser/des)_get_frame_interval returning -ENOTTY
+	for non-TPG pads and streams
+ (v4l2-test-subdevs.cpp:302: node->enum_frame_interval_pad != (int)pad)
+
+V9:
+* split max_des_ops into *_info and *_ops
+* use read_poll_timeout macro in *_wait_for_device()
+* return read_poll_timeout error -ETIMEDOUT in *_wait_for_device()
+* remove use_atr duplicate from max9296a_chip_info, present in max_des_info
+* fix max9296a DPLL register offset
+* fix C-PHY DPLL frequency in max9296a and max96724
+    reported by: Cory Keitz <ckeitz@amazon.com>
+* use MAX9296A_COMMON_INFO and MAX9296A_COMMON_OPS to simplify
+  probe ops init
+* fix borked patches in previous version, actually remove MAX96717 and
+  MAX96714 drivers
+
+V8:
+* max96717: use the renamed PIN_CONFIG_OUTPUT to _LEVEL
+* max96717: use the renamed set_rv ops from struct gpio_chip
+* dt-bindings: set minItems lane-polarities to 2
+* dt-bindings: "add myself as maintainer" commits were removed
+* max_des & max_ser: use a default format for set_routing
+* max_des & max_ser: return ENNOTTY in *_frame_interval for non-TPG pads
+
+V7:
+* dt-bindings: max9296a: use full max96717 compatible
+* max9296a: make max96714_rlms_reg_sequence static
+* explicitly include linux/bitfield.h
+* explicitly depend on I2C and PINCTRL
+* sort media_entity_operations
+* add has_pad_interdep to media_entity_operations
+
+V6:
+* max9296a: put rlms sequence in max9296a_chip_info
+* max_des: reflow stream id a comment
+* max_ser: remove exported symbols not used in other modules
+* max_ser: init mode to a supported value
+* add default routing
+* MAX_SERDES_GMSL_3 -> MAX_SERDES_GMSL_3_12GBPS
+* guard reg_read/write with CONFIG_VIDEO_ADV_DEBUG
+* put exported symbols in MAXIM_SERDES namespace
+
+V5:
+* dt-bindings: max96717: restrict RCLKOUT to pins 2 & 4
+* dt-bindings: max96717: remove confusing rclksel pinconf property
+* dt-bindings: max96717: remove maxim,gmsl-tx/rx pinconf property
+* dt-bindings: max96717: remove gmsl prefix from maxim,gmsl-tx-id/rx-id
+* dt-bindings: max96717: remove minimum: 0
+* dt-bindings: max96717: better document slew-rate
+* dt-bindings: max96717: better document maxim,jitter-compensation
+* dt-bindings: max96717: better document maxim,tx-id/rx-id
+
+* max_serdes: add default TPG values
+* max_serdes: remove MAX_MIPI_FMT macro
+* max_serdes: EXPORT_SYMBOL -> EXPORT_SYMBOL_GPL
+* max_serdes: remove EXPORT_SYMBOL_GPL from symbols not used in other
+modules
+* max_serdes: rename symbols/macros/types to have max_serdes prefix
+* max_serdes: slim down TPG functions
+
+* max_des: fix may be used uninitialized errors
+* max_des: fix misplaced TPG validation
+* max_des: fix setting pipe PHY in tunnel mode for chips that support
+both set_pipe_phy() and set_pipe_tunnel_phy()
+* max_des: move doubled_bpp/sink_bpps variables to usage place
+* max_des: do not dynamically control PHY enable, letting lanes be in
+LP-11 when not streaming
+* max_des: refactor get/set_pipe_stream_id() logic
+* max_des: remove explicit ret = 0
+
+* max_ser: make VC remaps not pipe-specific, allocate dynamically
+
+* max9296a: add missing 1080p30 TPG entry
+* max9296a: move BIT() left shift into macro
+* max9296a: move BIT() ternary into macro
+* max9296a: reuse max_des_ops for chip-specific ops\
+* max9296a: document and compress RLMS register writes
+
+* max96717: restrict RCLKOUT to pins 2 & 4 because of hardware
+capabilities
+* max96717: add support for XTAL/1, XTAL/2, XTAL/4 clocks
+* max96717: set RX_EN/TX_EN automatically
+* max96717: reorder custom pinconf flags
+* max96717: drop OF dependency
+
+* drop of_match_ptr
+* re-do some indentation
+* implement TPG pattern control
+* remove pr_info() usage
+* inline lane polarity val = 0
+* inline returns
+* rewrite some Kconfig docs
+* split up patches for easier review
+
+V4:
+* max_des: fix infinite version loop
+* max_des: fix pipe link id when there are more pipes than links
+* max_des: implement setting pipe link
+* max_des: do not pass routing to phy update
+* max_des: move GMSL version strings to max_serdes
+* max_des: split finding existing VC remap from adding a new one
+* max_des: add tracking for in-use pipes
+* max_des: skip unused pipes when finding / setting pixel/tunnel mode
+* max_des: simplify remap code
+* max_des: split set_pipe_phy() into set_pipe_tunnel_phy()
+
+* max_ser: clean up i2c_xlates printing
+* max_ser: fix changing serializer address
+* max_ser: move non-continuous mode check into max96717 driver
+
+* max96724: use regmap_set_bits for STREAM_SEL_ALL
+* max96724: match surrounding indent for MAX96724_PHY1_ALT_CLOCK
+* max96724: fix setting invalid PHY to 1 when PHY 0 is in 4-lane mode
+* max96724: remove support for setting pipe phy from max96712
+* max96724: fix setting double mode on pipes 4-7
+* max96724: drop powerdown gpios
+
+* max96717: use gpio_chip's set_rv
+
+* max9296a: switch versions to unsigned int
+* max9296a: remove parantheses from MAX9296A_MIPI_PHY18/20
+* max9296a: fix printing of PHY packet counts
+* max9296a: fix phy_hw_ids size
+
+* remove usage of cammel case in defines
+* move field_get/prep to max_serdes.h
+* rework stream id setup
+* rework tunnel/pixel mode finding
+* rework bpps retrieval
+* pass whole subdev state around
+* add helper for retrieving a route's hw components / frame desc
+* update pipe enable based on active routes
+* add support for tunnel-only chips and VC remaps in tunnel mode
+* simplify max_get_streams_masks()
+* add support for TPG
+
+V3:
+* dt-bindings: drop reflow text patches
+
+* dt-bindings: max96717: move pinctrl configuration into main file
+* dt-bindings: max96717: allow a single level of pins configuration
+* dt-bindings: max96717: use regex for matching pins nodes
+* dt-bindings: max96717: drop extra allOf in pinctrl configuration
+* dt-bindings: max96717: fix i2c-atr channel name regex
+* dt-bindings: max96717: limit pinctrl functions to gpio / rclkout
+* dt-bindings: max96717: limit pins for gpio / rclkout
+* dt-bindings: max96717: add description for bias-pull-up/down
+* dt-bindings: max96717: require pins and function properties
+* dt-bindings: max96717: turn single compatible strings into an enum
+
+* dt-bindings: max9296a: include indices in port descriptions
+* dt-bindings: max9296a: remove property-less schema from input ports
+* dt-bindings: max9296a: use ATR for MAX96716A too, removing MUX entirely
+
+* dt-bindings: max96712: include indices in port descriptions
+* dt-bindings: max96712: deprecate enable-gpios in favor of powerdown-gpios
+* dt-bindings: max96712: switch from MUX to ATR
+
+* dt-bindings: max96714: add support for MAX96714R
+
+* max_des: fix POC NULL check
+* max_des: remove index var in POC enable
+* max_des: fix writing empty remaps
+* max_des: skip mode setting in tunnel mode
+* max_des: remove a duplicate source->sd NULL check
+* max_des: set pipe tunnel mode even for disabled links
+
+* max_ser: apply TX ID changes irrespective of serializer ID
+
+* max9296a: fix typo in BACKTOP22
+* max9296a: make register macros more consistent
+* max9296a: switch MAX96716 from MUX to ATR
+* max9296a: deduplicate max9296a_phy_id() logic
+* max9296a: use proper PHY id in remaps
+* max9296a: fix DPLL reset clear
+* max9296a: limit MAX96714F to GMSL2 3Gbps
+* max9296a: add support for MAX96714R
+* max9296a: do not write GMSL3 link select registers in GMSL2 devices
+* max9296a: use field_prep when setting RX_RATE
+* max9296a: simplify setting SEL_STREAM for MAX96714
+* max9296a: max96716_set_pipe_phy -> max96716a_set_pipe_phy
+* max9296a: fix off-by-one in lane polarity when using
+polarity_on_physical_lanes
+
+* max96724: fix typo in BACKTOP22
+* max96724: switch from MUX to ATR
+* max96724: add support for powerdown GPIO
+* max96724: remove support for tunneling from MAX96712
+* max96724: only set tunnel-related bits when in tunnel mode
+* max96724: add support for MAX96724F/R
+* max96724: oneshot reset links after link selection
+
+* remove GMSL2 version defaults, set all supported versions explicitly
+* reorder GMSL versions to start from 0
+* add support for GMSL2 3Gbps
+* support GMSL version finding for devices using MUX / GATE
+* add support for deserializers which don't have individual control
+of each link's GMSL version
+* add support for deserializers that need unique stream ids across all
+serializers
+* select_link_version -> set_link_version
+* select_resets_link -> use_atr
+
+V2:
+* add missing compatible for MAX96717F
+* fix embarrassing dt-bindings mistakes
+* move MAX9296A/MAX96716/MAX96792A to a separate file as they have two
+links / PHYs, and adding those conditionally seems impossible
+
+---
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Julien Massot <julien.massot@collabora.com>
+To: Rob Herring <robh@kernel.org>
+To: Niklas Söderlund <niklas.soderlund@ragnatech.se>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Cosmin Tanislav <cosmin.tanislav@analog.com>
+Cc: mitrutzceclan@gmail.com
+Cc: linux-media@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-staging@lists.linux.dev
+Cc: linux-gpio@vger.kernel.org
+Cc: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+Cc: Martin Hecht <Martin.Hecht@avnet.eu>
+
+---
+Cosmin Tanislav (20):
+      dt-bindings: media: i2c: max96717: add support for I2C ATR
+      dt-bindings: media: i2c: max96717: add support for pinctrl/pinconf
+      dt-bindings: media: i2c: max96717: add support for MAX9295A
+      dt-bindings: media: i2c: max96717: add support for MAX96793
+      dt-bindings: media: i2c: max96712: use pattern properties for ports
+      dt-bindings: media: i2c: max96712: add support for I2C ATR
+      dt-bindings: media: i2c: max96712: add support for POC supplies
+      dt-bindings: media: i2c: max96712: add support for MAX96724F/R
+      dt-bindings: media: i2c: max96714: add support for MAX96714R
+      dt-bindings: media: i2c: add MAX9296A, MAX96716A, MAX96792A
+      media: i2c: add Maxim GMSL2/3 serializer and deserializer framework
+      media: i2c: add Maxim GMSL2/3 serializer framework
+      media: i2c: add Maxim GMSL2/3 deserializer framework
+      media: i2c: maxim-serdes: add MAX96717 driver
+      media: i2c: maxim-serdes: add MAX96724 driver
+      media: i2c: maxim-serdes: add MAX9296A driver
+      arm64: defconfig: disable deprecated MAX96712 driver
+      staging: media: remove MAX96712 driver
+      media: i2c: remove MAX96717 driver
+      media: i2c: remove MAX96714 driver
+
+Dumitru Ceclan (1):
+      dt-bindings: media: i2c: max96712: add control-channel-port property
+
+Sakari Ailus (1):
+      media: mc: Add INTERNAL pad flag
+
+ .../bindings/media/i2c/maxim,max9296a.yaml         |  242 ++
+ .../bindings/media/i2c/maxim,max96712.yaml         |   73 +-
+ .../bindings/media/i2c/maxim,max96714.yaml         |    5 +-
+ .../bindings/media/i2c/maxim,max96717.yaml         |  154 +-
+ .../userspace-api/media/mediactl/media-types.rst   |    9 +
+ MAINTAINERS                                        |   10 +-
+ arch/arm64/configs/defconfig                       |    1 -
+ drivers/media/i2c/Kconfig                          |   34 +-
+ drivers/media/i2c/Makefile                         |    3 +-
+ drivers/media/i2c/max96714.c                       | 1017 -------
+ drivers/media/i2c/max96717.c                       | 1102 -------
+ drivers/media/i2c/maxim-serdes/Kconfig             |   60 +
+ drivers/media/i2c/maxim-serdes/Makefile            |    6 +
+ drivers/media/i2c/maxim-serdes/max9296a.c          | 1358 +++++++++
+ drivers/media/i2c/maxim-serdes/max96717.c          | 1686 ++++++++++
+ drivers/media/i2c/maxim-serdes/max96724.c          | 1261 ++++++++
+ drivers/media/i2c/maxim-serdes/max_des.c           | 3205 ++++++++++++++++++++
+ drivers/media/i2c/maxim-serdes/max_des.h           |  156 +
+ drivers/media/i2c/maxim-serdes/max_ser.c           | 2155 +++++++++++++
+ drivers/media/i2c/maxim-serdes/max_ser.h           |  147 +
+ drivers/media/i2c/maxim-serdes/max_serdes.c        |  413 +++
+ drivers/media/i2c/maxim-serdes/max_serdes.h        |  183 ++
+ drivers/media/mc/mc-entity.c                       |   15 +-
+ drivers/staging/media/Kconfig                      |    2 -
+ drivers/staging/media/Makefile                     |    1 -
+ drivers/staging/media/max96712/Kconfig             |   14 -
+ drivers/staging/media/max96712/Makefile            |    2 -
+ drivers/staging/media/max96712/max96712.c          |  487 ---
+ include/uapi/linux/media.h                         |    1 +
+ 29 files changed, 11116 insertions(+), 2686 deletions(-)
+---
+base-commit: a15a902a91b78f1544760fb52ef0151f83815f81
+change-id: 20251107-gmsl2-3_serdes-3f2b885209c3
+
+Best regards,
 -- 
-Best Regards,
-Anvesh
+Dumitru Ceclan <dumitru.ceclan@analog.com>
+
 
