@@ -1,112 +1,89 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3D3A3815DB;
-	Mon, 11 May 2026 14:14:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AFA83F20F0;
+	Mon, 11 May 2026 14:17:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778508879; cv=none; b=Xe6FB+2zzgtXyxSx36lW23Ae4oIuMOWdmfTudd6/AusdLA9snhZmW9UOcw75euqD8yMXa5mWrkB5ued5qFjBRdoSOG15QtkxoaiuhTw8L73wb49HvGw/WynExXkB5eFtgUTXVpnsiUKtTdOyO1Mbq/Amm/fHmXDtVdoJuRcZjFQ=
+	t=1778509055; cv=none; b=fwSkOLY1hDxORjyPPeh587LcfRTKLFiydVELwslrvUcLFQ+KoV45EQt5nTGZXBsU9X0yl/aYUhhVSKCY5lRxMP3LzTmBUpOWvf9jY2y27uVll445a5+YVQXbuel9TK8v5U+KwEAf7mWPO8ebT5DLB7yK6Rohk9tr3zbL/s4ccTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778508879; c=relaxed/simple;
-	bh=/xqH7NH5OnIsXIFChpqYZdEouHpjFOVq5k8bHoem5oY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ciwOfsgflSsS95NinRRytHds/36IsJA58whb1eIyyA3B53RZd+CzEqhmQk9oVer/dE6dUf2/xb+4p/b33B5cQLVz1qtf5qV5edjl/dD827190Fc50dBSGZ5Of3SoRU0sXfvVUfOHY8EJ77e1paXxoE9R91jDe4VrU1iTxCd+jSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Pq+lRQ6Y; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1778509055; c=relaxed/simple;
+	bh=TZVIkTWypVnbl2R7t67+UGjLujcG3Pr5gHQWQnJ0BJ0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Cw4PMbvQm63Xurm2KxwMHyAXktONEU68FJPE7h1WwsDpnnvJ48SFAlhs282mQJVsVlbPo4u9IQW5dClhK1pqiOccEwMuHxvvsAfhjBE6MGLm8xOUbP/45k818g2Cfma/3Qnt43gRbPqoatPX2oNMoH2ERFYRNfztIrZ/lpP98W8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oVtudW/f; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Pq+lRQ6Y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1778508878; x=1810044878;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=/xqH7NH5OnIsXIFChpqYZdEouHpjFOVq5k8bHoem5oY=;
-  b=Pq+lRQ6Y9twxsYBGGNxM/8Lp3YMHRBU6HI5iFLBUFDaWkTydLrEqS/ak
-   S5I2vPa5gRL4ciszzBDMmY35wmSnKIiFS3utA0ZuweqfI9v7nxdg72CVj
-   lSq0ltCVgwdSBSz13pnUs5L0ncd99YluGwtgIyKQ8Z8tM6ILLpVfKCgev
-   RZJoJHRq4wPPxGtTaMjgm9Azo6V+TwirzWWWpTxMADSDfB5nV2oF6c/TS
-   CMCye9rWWnF9M8Tb0iYL07/HGWw8nFik15Mv7HaVJVxGZdXiWKQ7XWlxk
-   O8ti7QFWzSccqAdJWH6RwngbrCwhfmx3fNZ2U8DQs937Yj5y/sXGPDV1S
-   w==;
-X-CSE-ConnectionGUID: Xp/fQgx0Tg+KH6MOAdyamQ==
-X-CSE-MsgGUID: YYMjq0R5S6SwMLq8l/tWPQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="79577328"
-X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; 
-   d="scan'208";a="79577328"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 May 2026 07:14:37 -0700
-X-CSE-ConnectionGUID: IGMkto1nQuq+i2PCwp8hSg==
-X-CSE-MsgGUID: joc20km3Sn+zISkQ0Tcj4A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; 
-   d="scan'208";a="232986212"
-Received: from dawidgla-mobl.ger.corp.intel.com (HELO [10.94.250.159]) ([10.94.250.159])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 May 2026 07:14:34 -0700
-Message-ID: <15956b70-c6c2-4e3d-8f15-471a274d6e2d@linux.intel.com>
-Date: Mon, 11 May 2026 16:14:25 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oVtudW/f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66A35C2BCB0;
+	Mon, 11 May 2026 14:17:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778509055;
+	bh=TZVIkTWypVnbl2R7t67+UGjLujcG3Pr5gHQWQnJ0BJ0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=oVtudW/fwYikiLYs7HmKWu48phxkvVJQkmMlCEMR9RWbC36Zlyqy19bcbOFLHyS30
+	 GLeYoJ5kVZYPDwWT+Zz/WC9Yv2ggVFWSdNr7fXh3IalrySG22DN/0tEsuB2YPvpiTW
+	 8tTb81yPUHIIDcV/u7PEz4x8WCGXD/n+cX1E7/XZJ8HkQ/c4PFeTx4PfC2/BlhBZab
+	 /qWm5/eQ1WWRS/621tHHH5b0USM0jWa6vjip88NHS+6j//shqNlKjVE3iJ/vdj19TH
+	 VWjsY5T1imeCfVMxzT5VJRz93ZvGu93o//NeB/6pdrba5yrNAshG013705Azb7GA/o
+	 ibYiy4JwSpU2g==
+Date: Mon, 11 May 2026 09:17:28 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Harshal Dev <harshal.dev@oss.qualcomm.com>, 
+	"David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, cros-qcom-dts-watchers@chromium.org, 
+	Eric Biggers <ebiggers@google.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Jingyi Wang <jingyi.wang@oss.qualcomm.com>, Tengfei Fan <tengfei.fan@oss.qualcomm.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, David Wronek <davidwronek@gmail.com>, 
+	Luca Weiss <luca.weiss@fairphone.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Melody Olvera <quic_molvera@quicinc.com>, Alexander Koskovich <akoskovich@pm.me>, 
+	Abel Vesa <abelvesa@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+	Neeraj Soni <neeraj.soni@oss.qualcomm.com>, Gaurav Kashyap <gaurav.kashyap@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v5 01/13] dt-bindings: crypto: qcom,ice: Fix missing
+ power-domain and iface clk
+Message-ID: <agHkmKq-q7_6m4nl@baldur>
+References: <20260416-qcom_ice_power_and_clk_vote-v5-0-5ccf5d7e2846@oss.qualcomm.com>
+ <20260416-qcom_ice_power_and_clk_vote-v5-1-5ccf5d7e2846@oss.qualcomm.com>
+ <afmuncmBrrvddHTU@gondor.apana.org.au>
+ <b8805117-d54f-4e42-a7d4-6fa18af63e69@oss.qualcomm.com>
+ <CC0E438D-5544-4BB8-8512-7F93A7FA4DC1@oss.qualcomm.com>
+ <af6MsD1wDs9EZl5q@gondor.apana.org.au>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/3] ARM: dts: aspeed-g6: add AST2600 I3C nodes and
- bindings
-To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>, linux-aspeed@lists.ozlabs.org
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, maciej.lawniczak@intel.com
-References: <cover.1777058942.git.dawid.glazik@linux.intel.com>
-Content-Language: en-US
-From: Dawid Glazik <dawid.glazik@linux.intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
- Gdansk - KRS 101882 - NIP 957-07-52-316
-In-Reply-To: <cover.1777058942.git.dawid.glazik@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <af6MsD1wDs9EZl5q@gondor.apana.org.au>
 
-On 4/24/2026 10:20 PM, Dawid Glazik wrote:
-> This series reworks and resubmits AST2600 I3C DTS updates that were
-> originally posted in 2024, but stalled without further upstream
-> progress.[1] The series was rebased onto the current tree and merge
-> conflicts were resolved.
+On Sat, May 09, 2026 at 09:24:00AM +0800, Herbert Xu wrote:
+> On Fri, May 08, 2026 at 08:11:45PM +0530, Harshal Dev wrote:
+> >
+> > Can you please confirm for Bjorn once
+> > that you're not picking this up and he
+> > can pick it from his tree? 
 > 
-> The patches first move I2C controller nodes under the APB simple-bus
-> for layout consistency, then document aspeed,ast2600-i3c-global in
-> the syscon binding, and finally add AST2600 I3C controller nodes in
-> aspeed-g6.dtsi.
+> Bjorn, please feel free to pick this patch up.
 > 
-> Jeremy agreed in a separate email thread that I can continue this
-> series under my authorship.
-> 
-> Link: https://lore.kernel.org/all/9d8c03d742fa9767f30e23d75ddf0baf4296c88e.1714647917.git.jk@codeconstruct.com.au/
-> 
-> Dawid Glazik (3):
->    ARM: dts: aspeed-g6: move i2c controllers directly into apb node
->    dt-bindings: mfd: syscon: add aspeed,ast2600-i3c-global compatible
->    ARM: dts: aspeed-g6: Add nodes for i3c controllers
-> 
->   .../devicetree/bindings/mfd/syscon.yaml       |   2 +
->   arch/arm/boot/dts/aspeed/aspeed-g6.dtsi       | 543 ++++++++++--------
->   2 files changed, 318 insertions(+), 227 deletions(-)
-> 
-> 
-> base-commit: 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
 
-Hi all,
+Thanks Herbert, I've picked the binding up.
+If you need it, you can find it at:
 
-Gentle ping for this series:
-https://lore.kernel.org/all/cover.1777058942.git.dawid.glazik@linux.intel.com/#t
+  https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git 20260416-qcom_ice_power_and_clk_vote-v5-1-5ccf5d7e2846@oss.qualcomm.com
 
-I received Reviewed-by from Krzysztof Kozlowski (thank you).
-Could I please get feedback/ack from maintainers on the remaining parts,
-especially ASPEED DTS?
+Regards,
+Bjorn
 
-If preferred, I can respin/rebase the series.
-
-Thanks,
-Dawid Glazik
+> Thanks,
+> -- 
+> Email: Herbert Xu <herbert@gondor.apana.org.au>
+> Home Page: http://gondor.apana.org.au/~herbert/
+> PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
