@@ -1,125 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94573BF675;
-	Mon, 11 May 2026 17:28:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50ED84508FC;
+	Mon, 11 May 2026 17:37:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778520526; cv=none; b=Mlm+BFHE8wDrTyBJXcUxUR3586y/uDwKwuaeXoDcUO1vdMUOl5Zcjppo8rIHfx6xaMp6Swqbi4cve4UtCtf19mgZLxgKRJIihIdyG2JnEgN+nboq3mhZ+fTxETfoJzp3AepWI0/9CijWjFaSSPqbJWRCsZHfhek6hoeqtIqeCmM=
+	t=1778521021; cv=none; b=XBrDqdlQ0rY1lKYg2hS9AfA2c7OZnamx7Z/y3FaMqXcYZhkEbrw9BTV7QxXDkxpYhGPIwWBEzOK67xbzVsrUillF5fkYXHYB6FXi235Oj34Lr5UNxyQqhHnIUMpYdO7G285IPUqIolFsdn8ga6rajdaMzvK6XnVi8IyIa5jVscU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778520526; c=relaxed/simple;
-	bh=/7lcKVtHcO2bade24O1Ns8KyvOdt6ALKGo8fUbFVtN4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EdO1TyiTf58PbY/207D00Ei4nLWGZ6l+nzohJngrC95NJJcrjObPIpBr9bEG+CcGRVp2xCkuBA9/Racq7XXGqcB4AxPDiFTQkrtW0Wd/Z0SJeB1Rktksn59XQU6jCDduivMs8nA4bibtF99NCYFqtwi+O0wD7Z8TWz3ZuPBzQsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XTtvDwwI; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778521021; c=relaxed/simple;
+	bh=VcOf6WSKT8uto3OOizIhoS3aC3hlK7uxX+e86+wrvSE=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=qgFjzt2ZAlo7lIeOZwuX4AC8bA0uThw//6V/cap60KDdvN7fYpTI5yeI4aI5R3Yls2NymHoGS/Eo9UpnGmtKqzW+VebDI09lCpmTeNyXGj0IcB9fsIdMUtiBCOJx5mIGfzk1U8bCIOMO+YRKuHudYwgxDqU4BtT3tngHUqkHtiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PClwj9Bh; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XTtvDwwI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94B30C2BCB0;
-	Mon, 11 May 2026 17:28:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PClwj9Bh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC0CCC2BCC9;
+	Mon, 11 May 2026 17:37:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778520525;
-	bh=/7lcKVtHcO2bade24O1Ns8KyvOdt6ALKGo8fUbFVtN4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=XTtvDwwI79E4njgtXHfNOGBpIzWYX0SBy1hs4DHwer35jw3Gn2GCI8USWitGgTbp+
-	 S0qkO1LX5z3i78TNeAwvJHokU9IpGH7L2IYPrpZ5OouVJtihV35sgoPNj5yo9IUVed
-	 Ge5rJ2QAw9QOIBrt9eXFaxCKvonam4Z3NWzTSlUY8XR28N8KaEKBLOQBrD+Y4w0KhC
-	 fmmsZ+u9VrzUsQrj1odv0pGaxCnFCf7Fwoj2cSrjukGRrbWtOK5JBn0K4oLEOyjWCC
-	 PgFe4Vc9835XliGjND/gyc/bgXFFxM6KK+sp2jX8rjz8EtK5+W5M+PH6QnxfvyHbo7
-	 9WrS+GBMI008w==
-Date: Mon, 11 May 2026 18:28:35 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Chris Morgan <macroalpha82@gmail.com>
-Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
- dlechner@baylibre.com, jean-baptiste.maneyrol@tdk.com,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
- andriy.shevchenko@intel.com, Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH V5 03/11] iio: imu: inv_icm42607: Add inv_icm42607 Core
- Driver
-Message-ID: <20260511182835.3754c543@jic23-huawei>
-In-Reply-To: <20260509191907.24734-4-macroalpha82@gmail.com>
-References: <20260509191907.24734-1-macroalpha82@gmail.com>
-	<20260509191907.24734-4-macroalpha82@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20201202; t=1778521020;
+	bh=VcOf6WSKT8uto3OOizIhoS3aC3hlK7uxX+e86+wrvSE=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+	b=PClwj9Bhr9Vf5+gIq3+a4D4N2jn5F4TQ4eE3UuVK5BuHVwySeD6qmG7OGaH2DeUda
+	 hIJuw9JGJNXfNT+VWPinruIHiLpFghtWCUk+RTSf4CwmsIhIMSmtzAxVlfC6uJ7w/4
+	 QZDU/tQY50mFqlMsryyrfWXpEAFDHYSU7KRvCm5NB3jEis8xPi52YY8dFlnC2egz2U
+	 db4F2kwPZZR1s1LWXGKs0v4L50P+3lkZJFZ/UotAwlqEiZuhcV3mslkH8zpJJZzLGR
+	 kEg9EUVv4YaIzBm2uW+PO/nmtboHy7JrTG6Xy/1T5zwBzwiKPuYi69QfKdLL0kChZs
+	 8WGF8/5qXIPmw==
+Date: Mon, 11 May 2026 12:36:58 -0500
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-i2c@vger.kernel.org, brgl@kernel.org, devicetree@vger.kernel.org, 
+ krzk+dt@kernel.org, wsa+renesas@sang-engineering.com, andi.shyti@kernel.org, 
+ conor+dt@kernel.org
+To: Markus Stockhausen <markus.stockhausen@gmx.de>
+In-Reply-To: <20260511162528.84508-2-markus.stockhausen@gmx.de>
+References: <20260511162528.84508-1-markus.stockhausen@gmx.de>
+ <20260511162528.84508-2-markus.stockhausen@gmx.de>
+Message-Id: <177852101859.2925549.3640378519742547152.robh@kernel.org>
+Subject: Re: [PATCH v2 1/2] dt-bindings: i2c: Add i2c-shared-gpio
 
-On Sat,  9 May 2026 14:18:57 -0500
-Chris Morgan <macroalpha82@gmail.com> wrote:
 
-> From: Chris Morgan <macromorgan@hotmail.com>
+On Mon, 11 May 2026 18:25:27 +0200, Markus Stockhausen wrote:
+> Document the driver for bitbanged gpio I2C busses
+> with shared SCL lines.
 > 
-> Add the core component of a new inv_icm42607 driver. This includes
-> a few setup functions and the full register definition in the
-> header file.
-> 
-> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
-Hi Chris
-
-The sashiko bot has taken a look and had some comments
-and one in this patch is valid.
-
-https://sashiko.dev/#/patchset/20260509191907.24734-1-macroalpha82%40gmail.com
-
-It's minor though so if everything else looks good I might
-just tweak whilst applying.
-
-
+> Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
 > ---
->  drivers/iio/imu/inv_icm42607/inv_icm42607.h   | 332 ++++++++++++++++++
->  .../iio/imu/inv_icm42607/inv_icm42607_core.c  | 210 +++++++++++
->  2 files changed, 542 insertions(+)
->  create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607.h
->  create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+>  .../bindings/i2c/i2c-gpio-shared.yaml         | 105 ++++++++++++++++++
+>  1 file changed, 105 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/i2c/i2c-gpio-shared.yaml
 > 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607.h b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-> new file mode 100644
-> index 000000000000..10dcd3473e9c
-> --- /dev/null
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> new file mode 100644
-> index 000000000000..e84e84416dab
-> --- /dev/null
-> +/**
-> + *  inv_icm42607_setup() - check and setup chip
-> + *  @st:	driver internal state
-> + *  @bus_setup:	callback for setting up bus specific registers
-> + *
-> + *  Returns 0 on success, a negative error code otherwise.
-> + */
-> +static int inv_icm42607_setup(struct inv_icm42607_state *st,
-> +			      inv_icm42607_bus_setup bus_setup)
-> +{
-> +	const struct device *dev = regmap_get_device(st->map);
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	ret = regmap_read(st->map, INV_ICM42607_REG_WHOAMI, &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (val != st->hw->whoami)
-> +		dev_warn_probe(dev, -ENODEV,
-> +			       "invalid whoami %#02x expected %#02x (%s)\n",
-> +			       val, st->hw->whoami, st->hw->name);
-Sashiko correctly called this out as a bit nonsensical.
-dev_warn_probe() is useful for dealing with deferral or that can't happen
-with allowing a return dev_warn_probe() type call.
 
-In this particular case it brings us nothing over dev_warn() so better
-to just use that.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-> +
-> +	ret = regmap_write(st->map, INV_ICM42607_REG_SIGNAL_PATH_RESET,
-> +			   INV_ICM42607_SIGNAL_PATH_RESET_SOFT_RESET);
-> +	if (ret)
-> +		return ret;
+yamllint warnings/errors:
 
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/i2c/i2c-gpio-shared.example.dtb: i2c (i2c-gpio-shared): sda-gpios: [[4294967295, 6, 6], [4294967295, 7, 6]] is too long
+	from schema $id: http://devicetree.org/schemas/i2c/i2c-controller.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260511162528.84508-2-markus.stockhausen@gmx.de
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
