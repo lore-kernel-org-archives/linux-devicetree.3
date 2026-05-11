@@ -1,93 +1,194 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011047.outbound.protection.outlook.com [52.101.65.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142F028CF6F;
-	Mon, 11 May 2026 19:37:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778528256; cv=none; b=laJ8AWVJboYTG/wS4lRFxHZvS4hJXz7B1NWc3AUGU643NS54jHBfl6ZJBOa5cG0WEL9u/f5FBtkeirn5vqdjA7T8I7Dxq0fbRkHydM4ju5ZwoKU9yPsbgeCKV14an3KV+iwIoymF6d7/c1yz6psrbYiGgxTEMb6vkp6CZx/BwBw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778528256; c=relaxed/simple;
-	bh=+fkX8ch+UmTsBNPmFgIrPKzryfgs1BYRqqYMtff7BYE=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=sfrpo1M/IfLtzg0k36YfpPbyt5lbDBp0DlwhKp/u4P04nluVp0LRpn9FjJvz14pABcFn+ztynxKngkXcXTXLTHi2JbaalIz/BxeGd9kr9tX2VfnOIozNxHvnNyZKOXoCTR6rEh05STHfU+dW3S/LPG0vMSfG0Mbk4ZRakLrfIJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MggLitrl; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D64347A0C3;
+	Mon, 11 May 2026 19:38:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778528327; cv=fail; b=oE1j/rjBq6QtbthyosOpCC9+t+9cVHv4E5MQTHsJC3V1F+92f4nRGy67gVybh6PaB9EShqnyV3kivkmQKlVQsteAMJsM0LGFfaaHwBx3Kx6ITEqxywIFPP+Wh8Tvxhhyb+l2t7JAj9NZSVG2Z/5LobUA+xL/fRFcXdLlyiaK8b8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778528327; c=relaxed/simple;
+	bh=c4ffoR4YUbe0GtXOgtxXlzH/13W5O0Qi2Q9yq9diJjc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=W3LEqgG3rU33+BHABsRQyGb3+dJ2PzuU51nyzpYjyQeO9OMHgg0A7Sa8waONyA2NGdPgefOmsij0IlQq35sDTLYDg86r4hLH1e4aj4C9ZhnrLW1c3o6xi2f2LlG57Op8IV4PUXn0xy/GGKGI3+BxhQ4ttYtj0uPshfyxijZOjww=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=H0qO1g0L; arc=fail smtp.client-ip=52.101.65.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MggLitrl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68BE4C2BCB0;
-	Mon, 11 May 2026 19:37:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778528255;
-	bh=+fkX8ch+UmTsBNPmFgIrPKzryfgs1BYRqqYMtff7BYE=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
-	b=MggLitrl4F4UBEqtDz0bNN7FylwT9KnisKRCsjOsy+658PxPQzgceX0Z6qsuoUDyo
-	 2Wbuc626zqFW0ODXUeUBEvt41gtkN0KB03gfUe6Ny2gXEev4fRKceWjPJchZ4twUOU
-	 rCM2Nre4eZFy0zn7PMchK6N0tBGQTGHue94gL+le3gc0B/3Y3Qqd415ELt0rGHBVAC
-	 7udYYq+ZF8ePaRq5XeVk7DRjN+/Gq9mOi02VD1UQtlHIPRLb5NikJEJgrR6YbFxM6s
-	 4k0GZEGfQY7TPelq0nnY+UdjcGadwjSScOKX9xjg6R8VqZLbgx+iTU5oS4hV6Hwem4
-	 5ub5D4t/GXlkw==
-Date: Mon, 11 May 2026 14:37:32 -0500
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="H0qO1g0L"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=f/lt7uXCgNF+ETU8CFkw/21EailWjH0jfUjzhmXLBleC42XTT81mm0B/dwoo5oFl96v2swGY7y4Xh9wwwmMZwPmLk688biB6k7VxoF8W52jk37iJGzNenCcfbHH9UuPWeRS4qQo0kl9juDkC2rCBwX0be7uwTntnQCVbGdfF/e9DiVUmbdqXqXVtFWqH4gS+5p4eWmpF5KOWLFaXrDwOJmjfKs2aWxIPA5qL8jfcTOQ5RmNBNGk6isbgQplLkGDbXVS/yBEAbpna4/YPebfxIpdUnlXc69aB7OpDlcskjfJq60h4gpTJp3H7Sfy3F7zmXjV0Bw81OcOcl83JuyyDOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1cru/PifwDYDBIPwaagUdHg0Sa//tTVH6HYZs3RP+Xw=;
+ b=FOWPXPqWvji/+mhgHANDkeKa3fsAxPuLKon6jxROY0vclRODdO+3L/E7ee6ncuKlmiyR7CR/aDAZdGN25cNuyf/rr8u3NZwm+QEP8An0mS1WNrnnqwxSkN10UYxSeRC36g3jx04pynIOgQUMCJBgnihxs3Gc3ZDquHgNuNbUQAGzvj/hOXUSjaZ48saJqDBpF0rIxCwE6S3zDaDGqpVhJSk6caleicgPPAHSqkpFAwW5DkGuehU/5u48R0RRyWIDE2+6SAvhRRWlK2bYZR89dDGpjq1BFKnzSwj58lDb2xDIgHw4i/b6qocZBgc5151UdNjCU7EYaZ6w/0nOYIhEuQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1cru/PifwDYDBIPwaagUdHg0Sa//tTVH6HYZs3RP+Xw=;
+ b=H0qO1g0LSHcJeAZvcGQx2So/1Pm/6PVzORMF7xSsQIzapfBYFanv2p6Y4Nfj+CEWH1the6GzxsnqGb9HehiXRvsJfgEErAQ5jJxG7up6Tfq3onuOpZ6LO9LvQHPICFREVmhRc4WfbVLRAIEwIknPUpjXXhPQl/MzLZ40BbrTFSrZqis5WjdpL1/8KlA5D7+X2cnW3Nc7GjN9tQ4VKfiWHd6r0JgdXY3GWQfeKaJm9AwfmMxJR1QYNJ+yvGseM55SvvHAZZ+tAk12qPbw4Llaek+ieUr1OuSSKv1qTXyby9Yk3iGtpne4MvWticQ8qdc235bOG445mgl/FpSfTijXvQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by DB8PR04MB7177.eurprd04.prod.outlook.com (2603:10a6:10:127::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Mon, 11 May
+ 2026 19:38:42 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%3]) with mapi id 15.20.9891.021; Mon, 11 May 2026
+ 19:38:42 +0000
+Date: Mon, 11 May 2026 15:38:33 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Peter Rosin <peda@axentia.se>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Haibo Chen <haibo.chen@nxp.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Ahmad Fatoum <a.fatoum@pengutronix.de>
+Subject: Re: [PATCH v6 0/7] pinctrl: Add generic pinctrl for board-level mux
+ chips
+Message-ID: <agIwOYrKXlnKbpII@lizhi-Precision-Tower-5810>
+References: <20260504-pinctrl-mux-v6-0-8ea858ba3a5b@nxp.com>
+ <CAD++jLmXvnf6sSWsGe+++u37ONJpFFvxFMUkLdvvxiiaWuf9gQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD++jLmXvnf6sSWsGe+++u37ONJpFFvxFMUkLdvvxiiaWuf9gQ@mail.gmail.com>
+X-ClientProxiedBy: PH8P220CA0036.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:348::16) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Piergiorgio Beruto <Pier.Beruto@onsemi.com>, conor+dt@kernel.org, 
- kuba@kernel.org, devicetree@vger.kernel.org, andrew+netdev@lunn.ch, 
- edumazet@google.com, krzk+dt@kernel.org, linux-kernel@vger.kernel.org, 
- netdev@vger.kernel.org, pabeni@redhat.com, davem@davemloft.net
-To: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-In-Reply-To: <CY8PR02MB924920C8825C7AE5D22EFA4483382@CY8PR02MB9249.namprd02.prod.outlook.com>
-References: <CY8PR02MB924920C8825C7AE5D22EFA4483382@CY8PR02MB9249.namprd02.prod.outlook.com>
-Message-Id: <177852825232.3200669.6844878153877471816.robh@kernel.org>
-Subject: Re: [PATCH net-next v2 1/9] dt-bindings: net: add onsemi's S2500
- 10BASE-T1S MACPHY
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|DB8PR04MB7177:EE_
+X-MS-Office365-Filtering-Correlation-Id: e3159b21-d387-4d48-4e34-08deaf94e86e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|52116014|376014|366016|1800799024|19092799006|18002099003|22082099003|38350700014|56012099003|11063799003;
+X-Microsoft-Antispam-Message-Info:
+	JkIPkJQs2uFbHDJE4Fn8wh5/nKKTJS3vskg4KMfcW8GpmvJl519rEibAJ5pynMJV7LuZFadbfCQ377KzSfXQpSEDijJgWGNDmj3wxbdvJiHh1v+CrlrpdMcl8ADBzp9x19Rq3l9d4TocaDCWnOy+BT4yxDLjZ2lEeUD/+OjZkEFjPWcA19xCzO2TlMAwDgrXDlS1QUlbl/aMqPi+d/9hb8dk7Cdc3DKcXrX+YSGX+n+vV1Qpf6gjKUivbJd+08CaqjLdYuy/3v67bRUxDw4IcW1BYxmb3ZuX+Fk7m9Yzl6PG1NsbH+aVQTysuaDimsU8wJlXJr4lZzCHXabKGGDfp1L1K5oZsGwpgHbdVD1PxsoWdcFLnNk9V6MBoinMx8NnnDi+oRPr04bNwRUrbQMpmSQwQyhHDIXJpr7oX1apHyeLsIcKTzVQX/PZ/8jzgk7Cz5ZZNHrbUy5Bw12lcgWcDe7VjT1eC2KCXV1tMGkSHvwtggmK57T/zbGR+3yQf65+uOIOOe4J/EoFpb0K+PkP/yFK+2aRqKZlGxUlpS74HNBWDUIbZAsZeX9JLOZkCtZzoUxyVYJ6lHHof6mtAGnLR+QL1gC4/PdwKeSpjxFJF85KBdxm1Uh07Kku67axwH+GnWd7F3e0iW6qOXVZAcpScIFxzG0KsT4CjCmaqsqu6JE7kKinHUZD8Krnzg/PTxIKWG16iCUHsVwpUSZGpYsS9BPfdt0Mv6FP9E2Mx7kqaUgGU/XZMDGplqyX4xwCYYke
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(52116014)(376014)(366016)(1800799024)(19092799006)(18002099003)(22082099003)(38350700014)(56012099003)(11063799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dkZHbFNnWHE1RGpwNzJ2NjA1V0hHTDcvVjJidURsamNYWTVzeXJTYkdGUGxG?=
+ =?utf-8?B?M0o2cEhEUENpSUlsNDRTY3pNWm1lNnpoTmNENzZ5VzlaTmRLQ1VoYktiaDRE?=
+ =?utf-8?B?dkNWbXJlM3kwL0dOVklzM3FoS1R2YlpiL1BxQlV6bWdPNURTWkVJSExXWnV0?=
+ =?utf-8?B?UEtyMU1ZTENIL2U3MUd1OVdHdXM1eUdoZlVTdnlZS2ovcXM4WFlqQlpjMkxQ?=
+ =?utf-8?B?VUpOUEw4SC9lRlh5OVRRcUtabVgyUUxmbHBHRUFaQnZzMS9HczY1cU5FajJL?=
+ =?utf-8?B?bHFrSmdQdVV3Yit6OWlJd3RqNnVxTmlCb0h3YytFK1lwSDNpUEsxVHU5TGsv?=
+ =?utf-8?B?MkUvcVhKbDVsNXVyK1IyUkJTVEhoSUxTVnFiekU2NzA1d0htVXh2N2U4V1k3?=
+ =?utf-8?B?b3VXaHFlWldoOCtqTVhrUTlUbllMc3VyWmcxRWRmR0xROFpNbXZZbmVlU0R2?=
+ =?utf-8?B?WEZFR1FHSm5RTy9uaTJGMlFZK2MrMVJSZGVQZEQ2RVZoYlpxeFhzK3Jhajl5?=
+ =?utf-8?B?U0hwajhKNVZyK3VsTlhTcmZkamE0aXJCNDlvT2N4Z0FsVnhIcjAyRFhQcnNo?=
+ =?utf-8?B?cENUNnNxZVRtZEFvZEhXc1o5K0lzbFVWN0lsaFZMMWNKZWd1ZGtwK0plUjls?=
+ =?utf-8?B?SG9IYWRZNzZESGx0TkpXRHZWdUZRZ1VQWEdEQ0s0NnpzOUJVZzk2RHZzZ3BD?=
+ =?utf-8?B?YnFxZ3ZvV1BIUzhrT2l5Q09wRFp3TS9TakVRdE1xL3RSZGMzTnU2ejhtOEdM?=
+ =?utf-8?B?a2dYemZZeTRRUFlZc3BpSGJ0SDNOdXZ3WUk3bGwyaitKZW5Lc0FIUHRaK2Ra?=
+ =?utf-8?B?RVpKeURoRUt1cm1wemFoWEExUWU3TzhWbTJFWEFEdjIvaldPSzREcG1uRm4y?=
+ =?utf-8?B?WEQzZXZjdlB6T0R2WmNIOXpjdzJNekV3U1FvUkpUckV6VzJuUmo2SURHTE1o?=
+ =?utf-8?B?OVV2Wmp6em81WUMvSU9vZlNsMkYwcmMzZlY4MmE1dExFS2cxeXFDd0FVZXpm?=
+ =?utf-8?B?M0VtcDBmZFFvVDlLU3U0LzdhSDgwaDJuNm1qTUNvaWpxazV5RzU0eWhHWW9Y?=
+ =?utf-8?B?MG96dDcyTEhmc05GTzdaZ1ExVTZFWVk0Zit0UlptcEYxMmt5bnVYSHQ4ODEv?=
+ =?utf-8?B?YjlPVENXYU81dTBxaXQxK3dxUzExL1o1Zm5oOGdCZDdOd0VJM2gwZWJrQXQ0?=
+ =?utf-8?B?SXVSK3k3T0ZTaUI0dGVUeGhiRGx1K3VCV0NjRDFGT3AxV3pkemQ2cTl0ODk0?=
+ =?utf-8?B?a2Y1K084OTdhd2FxTnR0Rzg2eTQxVWdKWjdXZVQyZkk1MXI0aXpHUDB3eVhM?=
+ =?utf-8?B?RUNVeE14KzZxQ0drSnFraVNhM0F1elkzTUVaVzhUb2RIaFFOVFZCa3FSYzY1?=
+ =?utf-8?B?ZEZFTS9sRWFFNndWM28yN21Dem9IWUl3Q1ZMSUpNeVRwbEo5cENFMlV6bEtK?=
+ =?utf-8?B?ZkhiVy8yVjB1SzAzNWp1MzlLbnRwSkpPVnVGN3YwbVJLS0I3QndiZkY0YjNi?=
+ =?utf-8?B?WUV1S2JiTGt6dmZMUWRxUllIS2NqbUt3YjNxU3JoOTdYVnFxdHJqMXdiSGxh?=
+ =?utf-8?B?bWh5bDI2YzlRbjlHVzc2Vkhrb2IzWHJFQ3RCaTY0enU0SHU5S2ovUGRJUkxa?=
+ =?utf-8?B?ZGVOWHcvcXQvWnpYanNFMkVhWjJZL0ROK1NzTS83UkU3RTAyVWhJKzJJclZx?=
+ =?utf-8?B?WUhwTkl3cU5JK0dpUjlpNzRXRHBQU0M3OUVMQnFJb1liV3pQRWNwbUlGVkYz?=
+ =?utf-8?B?NGtBbDJIcEh3WWhvZ2J2MkI1OGUrRFJIcEEwbDJURDZIWmF6NTRGZEQxVVAz?=
+ =?utf-8?B?dFloc0NLYzlyd00zR1RwVytQV3BnbHZ5QzRpU3c1cWRrdGFlZDJibDRSY25T?=
+ =?utf-8?B?U2lyWFE2amF4YnltN2tyb3NEOGNkemFRU0RpVjZ4ZzRKTzBKSWREeU9YQVR6?=
+ =?utf-8?B?QnU2eDlNZU5NUzJzWDl1WWlSTkRuSjJNRXp5YWdsOUZVbWF5a3c1dUV0Vkl3?=
+ =?utf-8?B?R0ZSVmFkMVB5T2tJUHhTL1hxcktGcHNuSGkzSHcxSjRNWXRiZmJEdkRyWE8w?=
+ =?utf-8?B?MDBUTXFxMG9hYjlNeG5UN05wbWZpeHlvTUx6VGVHeXl4UjJXQVJLNG5mZlds?=
+ =?utf-8?B?Y0NmSmFjKzUwdS9VV2t1RGQ4ZXJkTkpBaERSU0ZCbndDckxPYnFvZDFibkVI?=
+ =?utf-8?B?aXd3Z1RZRm9xK3poSDFuRWFCdllaUS9hSG5Ga2V5L2dTbjhRSzlqMUk5eDNT?=
+ =?utf-8?B?b2ROeUswNVV2VDBYOThRSm9nRE14ekNQRU9jRzVxRlUySThhV1BuZEQ5L2hm?=
+ =?utf-8?Q?+hc3jnNwcnY8MQbwLJ?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e3159b21-d387-4d48-4e34-08deaf94e86e
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2026 19:38:42.5881
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5B7kY+IrDgbdgWTwQfY8ZG9X5UHfPgShLaC+VkkUwZndrtXlo1j/kKVuLtI/1834TDreLxAWATCxjLgciBFe9A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB7177
 
+On Tue, May 05, 2026 at 02:50:17PM +0200, Linus Walleij wrote:
+> Hi Frank!
+>
+> On Tue, May 5, 2026 at 1:55 AM Frank Li <Frank.Li@nxp.com> wrote:
+>
+> > Add a generic pinctrl binding for board-level pinmux chips that are
+> > controlled through the multiplexer subsystem.
+> >
+> > On some boards, especially development boards, external mux chips are used
+> > to switch SoC signals between different peripherals (e.g. MMC and UART).
+> > The mux select lines are often driven by a GPIO expander over I2C,
+> > as illustrated below:
+> >
+> >         ┌──────┐      ┌─────┐
+> >         │ SOC  │      │     │    ┌───────┐
+> >         │      │      │     │───►│ MMC   │
+> >         │      │      │ MUX │    └───────┘
+> >         │      ├─────►│     │    ┌───────┐
+> >         │      │      │     │───►│ UART  │
+> >         │      │      └─────┘    └───────┘
+> >         │      │         ▲
+> >         │      │    ┌────┴──────────────┐
+> >         │ I2C  ├───►│ GPIO Expander     │
+> >         └──────┘    └───────────────────┘
+> >
+> > Traditionally, gpio-hog is used to configure the onboard mux at boot.
+> > However, the GPIO expander may probe later than consumer devices such as
+> > MMC. As a result, the MUX might not be configured when the peripheral
+> > driver probes, leading to initialization failures or data transfer errors.
+> >
+> > Introduce a generic pinctrl binding that models the board-level MUX as a
+> > pin control provider and builds proper device links between the MUX, its
+> > GPIO controller, and peripheral devices. This ensures correct probe
+> > ordering and reliable mux configuration.
+> >
+> > The implementation leverages the standard multiplexer subsystem, which
+> > provides broad support for onboard mux controllers and avoids the need for
+> > per-driver custom MUX handling
+> >
+> > Signed-off-by: Frank Li <Frank.Li@nxp.com>
+>
+> I put the pinctrl patches on an immutable branch for testing again,
+> if nothing explodes I will try to merge it for linux-next ASAP!
 
-On Mon, 11 May 2026 18:18:55 +0000, Selvamani Rajagopal wrote:
-> Add YAML device tree binding for the onsemi S2500
-> IEEE 802.3cg compliant Ethernet transceiver devices.
-> 
-> Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-> ---
->  .../devicetree/bindings/net/onnn,s2500.yaml   | 64 +++++++++++++++++++
->  1 file changed, 64 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/net/onnn,s2500.yaml
-> 
+I fixed a build warning by missing doc 'np',
+https://lore.kernel.org/imx/20260507152117.240612-1-Frank.Li@nxp.com/
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Anything need me to do futher?
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/net/onnn,s2500.yaml:22:49: [error] syntax error: mapping values are not allowed here (syntax)
+Frank
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/onnn,s2500.yaml: ignoring, error parsing file
-./Documentation/devicetree/bindings/net/onnn,s2500.yaml:22:49: mapping values are not allowed here
-make[2]: *** Deleting file 'Documentation/devicetree/bindings/net/onnn,s2500.example.dts'
-Documentation/devicetree/bindings/net/onnn,s2500.yaml:22:49: mapping values are not allowed here
-make[2]: *** [Documentation/devicetree/bindings/Makefile:26: Documentation/devicetree/bindings/net/onnn,s2500.example.dts] Error 1
-make[2]: *** Waiting for unfinished jobs....
-make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1639: dt_binding_check] Error 2
-make: *** [Makefile:248: __sub-make] Error 2
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/CY8PR02MB924920C8825C7AE5D22EFA4483382@CY8PR02MB9249.namprd02.prod.outlook.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+>
+> Yours,
+> Linus Walleij
