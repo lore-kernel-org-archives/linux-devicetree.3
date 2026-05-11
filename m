@@ -1,115 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06FAD346E5E;
-	Mon, 11 May 2026 09:49:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6308925F7A9;
+	Mon, 11 May 2026 09:50:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778492987; cv=none; b=sK+56ahjECHMKNjeLcgOygQMz+yyXgmqUhEuD2c/gRhDZJ6+6huPKxqWrLcMJgrcvJ3+gIeg6A0g6mm5bQX1kfSCL8XtyWAm+82cA4G013YCr05YX8YxCFN4xDAabwOIyW/s9/ayRLOENRm6WYswAesDSuNQVf/cNdeWAXsDz/k=
+	t=1778493039; cv=none; b=W7vuxoRikeFSP6o7Wj34yHZ1anwDSfpKhqaC5lBKEB7t7otItqGeO4A9ax/P/UPQoztcfYYRsn2HHvxQyimGTxY8cWVXZzme3+Cm7lWf75dE36WlBcWRuAjnO9iMo3Hwg9kG02W1DHy8XlEwXgzPzFcReYskj3EroTVYYqjEeek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778492987; c=relaxed/simple;
-	bh=y5DSKdKa37aBlgtVU8TQCHisc72vONuDAdNEJjEkS30=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=KrfE8NcpB6norVN6BCSclT4WbNAZg/LTH4fbT+QMzKPp/QF/OEUdRTsaMJgEAumaqQs9o/e6BNvOhmWOZwRFdMzw4JvgKW2+ZiTT4ZEJgCj7JJyeNjTmx06WmFu3GCqKOsDiWzR93qMdoOfoGxGSR3yEgA4QkHJM0OqdTAMcOoY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L97yCQn4; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778493039; c=relaxed/simple;
+	bh=Z4f8Be3tvf+DeFSTMlalpRJHUnyRF5MgEUMBJBp4awk=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=nYxqC3RhCx1jxoURpwCD5pY1vbvjZQuOVal0J58scB5YXZHxZH5UAsGUzLunFEYCZlriaY5uZKInDDFleMuCZdyaEi7GeX2R0jxrt49i5VLc9T4gUdRZvA3swXS8nacLEnF5ym9fYdxMc48sKW1qwbKHczU979PWqYLOBXOzrnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=JyBmQRNU; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L97yCQn4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79EDEC2BCC9;
-	Mon, 11 May 2026 09:49:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778492986;
-	bh=y5DSKdKa37aBlgtVU8TQCHisc72vONuDAdNEJjEkS30=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
-	b=L97yCQn4V0sBM1wSVEzW36yrUHOpUbdkwS9k9T4P8TSIgrlSvuOP2Jx8RyN7Q8e8o
-	 44dI5MJ4jCGJrE3nEmNavNvSIXmLyG95NOxHF7Ihcffb1W7G9tyyLxiEwgDu3D4nVT
-	 qG9AnMr9AC6H0Nx/y6NiPwLCxoDyBFff9IK0rUwr962OEoaVT0HRjyb0iV4U4rfaoL
-	 6GPWUrPdWcMS6afSUfI9yS795wvh1IIM+XZAzD++XYEDNtElvYrm514GWC0imfzqrX
-	 1QH5SFpyAldi11MH5tvHYqE6OyFU/t+KQ2lMwhoFc7uTOm+YyhDEv0PUJKzLWaCLZK
-	 Xs3Nlqeol/ZqA==
-Date: Mon, 11 May 2026 04:49:44 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="JyBmQRNU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=pXp0B+DtFOhFG5oHIfyHHz0VpIQInvWd4
+	5+4nuEQISQ=; b=JyBmQRNUIT+K1L054Eo3UZdxiRCKj/KBl1ECoFwe1r/SAcQkv
+	YA8o5O7hP0E4IjLCtrnv8C/CCMIw7LJ+vi+xOrxyjB0BLKuNBMhFYqpx3nW5lcsO
+	PrVVsBv+h6U+XQh1A1im7lwVXbTrcbrw36calT93QWeti01RuohMxAKYzg=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnYUJ3pgFqlwMEAA--.3534S2;
+	Mon, 11 May 2026 17:50:48 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: maarten.lankhorst@linux.intel.com, devicetree@vger.kernel.org, 
- yclu4@nuvoton.com, simona@ffwll.ch, ychuang3@nuvoton.com, 
- tzimmermann@suse.de, krzk+dt@kernel.org, zhengxingda@iscas.ac.cn, 
- schung@nuvoton.com, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, conor+dt@kernel.org, mripard@kernel.org, 
- airlied@gmail.com, dri-devel@lists.freedesktop.org
-To: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <20260511075142.54752-2-a0987203069@gmail.com>
-References: <20260511075142.54752-1-a0987203069@gmail.com>
- <20260511075142.54752-2-a0987203069@gmail.com>
-Message-Id: <177849298427.1066847.3849705835228409800.robh@kernel.org>
-Subject: Re: [PATCH 1/2] dt-bindings: display: verisilicon,dc: generalize
- for DCUltra Lite variant
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v7 4/4] serial: 8250_dw: Use a fixed CPR value for
+ UltraRISC DP1000 UART
+From: Jia Wang <wangjia@ultrarisc.com>
+To: =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Jia Wang <wangjia@ultrarisc.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
+ linux-serial <linux-serial@vger.kernel.org>, 
+ linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
+In-Reply-To: <66f322a7-70c5-13f9-3e97-6d0b18193f91@linux.intel.com>
+References: <20260429-ultrarisc-serial-v7-0-e475cce9e274@ultrarisc.com>
+ <20260429-ultrarisc-serial-v7-4-e475cce9e274@ultrarisc.com>
+ <66f322a7-70c5-13f9-3e97-6d0b18193f91@linux.intel.com>
+Date: Mon, 11 May 2026 17:50:05 +0800
+Message-Id: <177849300569.62727.6686772792675107792.b4-reply@b4>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778493005; l=2656;
+ i=wangjia@ultrarisc.com; s=20260309; h=from:subject:message-id;
+ bh=Z4f8Be3tvf+DeFSTMlalpRJHUnyRF5MgEUMBJBp4awk=;
+ b=vfCokh6bFqZ+ax0cWnwoM+VdZGWYQ0/P0aQZlubUa1RX5FmYEMav3Og4jjfuFYnCCnyAf769m
+ Xb64k1dcNjGCFNK6uczeyPiIjCLdoUqrvCldL/z2Ql8ovPdrWD0Lhef
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=XvYkrelqJIIzobY7j+nIg8rsfv5kzaOzuc1UPhd087U=
+X-CM-TRANSID:AQAAfwAnYUJ3pgFqlwMEAA--.3534S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJF4fJrWDtF1Uur43urW3Jrb_yoW5GrWfpF
+	4UGFWYyF9agF13u3Z2v3WvyFZaqa129342kwsrK347tFn0kryDJFnakrWfC3Zruryjgw1a
+	yF1j93y7Ca1UuFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9l14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
+	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I
+	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
+	xVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
+	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8I
+	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
+	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUonmRUUUUU
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAEEWoBUkIAAwAEso
 
-
-On Mon, 11 May 2026 15:51:41 +0800, Joey Lu wrote:
-> Extend the verisilicon,dc base schema to accommodate the Nuvoton MA35D1
-> DCUltra Lite (a previous generation of the DC8000 series) which has a
-> different clock topology, no reset control, and a single output.
+On 2026-04-29 13:55 +0300, Ilpo Järvinen wrote:
+> On Wed, 29 Apr 2026, Jia Wang wrote:
 > 
-> - Replace the fixed clock/reset item lists with minItems/maxItems ranges
->   so sub-schemas can enforce variant-specific constraints
-> - Add a 'port' property (single-port alias) alongside the existing 'ports'
->   for single-output variants
-> - Remove the mandatory 'ports' requirement from the base schema; sub-schemas
->   shall enforce their own port topology
-> - Add a 'select' stanza so the validator matches any node whose compatible
->   contains a known Verisilicon DC string, including SoC-specific glue
-> - Relax additionalProperties to allow unevaluatedProperties enforcement in
->   sub-schemas
-> - Fix a minor whitespace issue in the port@0 description
+> > The UltraRISC DP1000 UART does not provide the standard CPR register used
+> > by 8250_dw to discover port capabilities.
+> > 
+> > Provide a fixed CPR value for the DP1000-specific compatible so the
+> > driver can configure the port correctly.
+> > 
+> > Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> > Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> > ---
+> >  drivers/tty/serial/8250/8250_dw.c | 10 ++++++++++
+> >  1 file changed, 10 insertions(+)
+> > 
+> > diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+> > index 480f82d89856..55e40c10f46a 100644
+> > --- a/drivers/tty/serial/8250/8250_dw.c
+> > +++ b/drivers/tty/serial/8250/8250_dw.c
+> > @@ -959,6 +959,15 @@ static const struct dw8250_platform_data dw8250_intc10ee = {
+> >  	.quirks = DW_UART_QUIRK_IER_KICK,
+> >  };
+> >  
+> > +static const struct dw8250_platform_data dw8250_ultrarisc_dp1000_data = {
+> > +	.usr_reg = DW_UART_USR,
+> > +	.cpr_value = FIELD_PREP_CONST(DW_UART_CPR_ABP_DATA_WIDTH, 2) |
+> > +		     DW_UART_CPR_THRE_MODE |
+> > +		     DW_UART_CPR_DMA_EXTRA |
+> > +		     DW_UART_CPR_FIFO_MODE_FROM_SIZE(32),
+> > +	.quirks = DW_UART_QUIRK_CPR_VALUE,
 > 
-> Add nuvoton,ma35d1-dcu.yaml as a sub-schema for the Nuvoton MA35D1 DCUltra
-> Lite display controller:
+> Thanks for all the effort you put to this series,
 > 
-> The Nuvoton MA35D1 integrates the Verisilicon DCUltra Lite display
-> controller. It is a single-output display controller with a 32-bit
-> RGB (DPI) interface. Unlike the DC8000, it does not have discoverable
-> chip identity registers, does not support the CONFIG_EX commit path,
-> and uses dedicated IRQ status/enable registers at offsets 0x147C/0x1480.
-> The clock topology uses two clocks (bus gate and pixel divider) and
-> does not require explicit reset control from the driver.
+> Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 > 
-> Signed-off-by: Joey Lu <a0987203069@gmail.com>
-> ---
->  .../bindings/display/nuvoton,ma35d1-dcu.yaml  | 94 +++++++++++++++++++
->  .../bindings/display/verisilicon,dc.yaml      | 64 +++++++------
->  2 files changed, 131 insertions(+), 27 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/display/nuvoton,ma35d1-dcu.yaml
+> Unrelated to this patch, I suppose we wouldn't strictly need to have 
+> DW_UART_QUIRK_CPR_VALUE in this driver as non-zero .cpr_value should be 
+> enough to decide if the CPR quirk should be used or not (if the code is 
+> adapted, obviously).
 > 
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Thanks for the review and the tag, Ilpo.
 
-yamllint warnings/errors:
+The idea of dropping the quirk flag sounds reasonable to me. I'll keep
+it in mind for a future cleanup patch once this series is merged.
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/nuvoton,ma35d1-dcu.yaml: allOf:0:$ref: 'http://devicetree.org/schemas/display/verisilicon,dc.yaml#' should not be valid under {'pattern': '^https?://'}
-	hint: References must start with '/schemas' or be relative to current schema's path.
-	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml
+> > +};
+> > +
+> >  static const struct of_device_id dw8250_of_match[] = {
+> >  	{ .compatible = "snps,dw-apb-uart", .data = &dw8250_dw_apb },
+> >  	{ .compatible = "cavium,octeon-3860-uart", .data = &dw8250_octeon_3860_data },
+> > @@ -966,6 +975,7 @@ static const struct of_device_id dw8250_of_match[] = {
+> >  	{ .compatible = "renesas,rzn1-uart", .data = &dw8250_renesas_rzn1_data },
+> >  	{ .compatible = "sophgo,sg2044-uart", .data = &dw8250_skip_set_rate_data },
+> >  	{ .compatible = "starfive,jh7100-uart", .data = &dw8250_skip_set_rate_data },
+> > +	{ .compatible = "ultrarisc,dp1000-uart", .data = &dw8250_ultrarisc_dp1000_data },
+> >  	{ /* Sentinel */ }
+> >  };
+> >  MODULE_DEVICE_TABLE(of, dw8250_of_match);
+> > 
+> > 
+> 
+> -- 
+>  i.
 
-doc reference errors (make refcheckdocs):
+Best Regards,
+Jia Wang
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260511075142.54752-2-a0987203069@gmail.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
 
