@@ -1,84 +1,182 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 776DE3D3318;
-	Mon, 11 May 2026 16:10:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3C4B426D17;
+	Mon, 11 May 2026 16:11:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778515803; cv=none; b=VI9+0jyeC/FWDkHtCHG/CGi3QKRvWpc1TUThTGWaSwp8g8R1e08RMhUFiJxlAMmBdrpwHcc4hYBdO7D455DaZUXKjNn3MPL5mwtgEc5x4Tf/vLTJRYWngX1zgJW9vJMAKV3rycOQc/sp8AFHHMyJKoPcUoNdbIcDM61ib9psy+s=
+	t=1778515897; cv=none; b=la1cUMtF+BKtY5P4as4LJJ5vwU85DdjdxDtMBr7Q+pk1SVKTCWH+dNC6Xr35D1/+UZKvWl6/R/D1cY59y7Q+H8ZW6y3tUu5x/qWw5csOAWl9JNhPxGw9y7uVop9bEbBo4y4n5q45hzO+cjsqiL/Y6sxFYXCxOhkQlvoRp63CjIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778515803; c=relaxed/simple;
-	bh=ZIVTaiQY15Qk217QlmofoDUyNKYn5F9r+/EJ2vqYhvE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lWy+be5vlP5IVm5VsSJrWqQPupSxawIn/tVC525RkEJ71C21e0cOCdbsdPJBejZiYnqt3QGykgXeeQsim5d6koKeveiX2hRBDp+tyY5jdrMofLdIiUY1k4ed7OwLjhZVCAFvUFQfoAt9iJHtlGAaL/bBiGq7uN0lthU2LhDR61s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bqiKCmDa; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778515897; c=relaxed/simple;
+	bh=TXzIw50Ubej2grT0J9j5w81loy36TIzYfxvj4Vt5Kao=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=DqD/8/JxP4YFRfHpg4h/W76WHxcIg8a8ZL18xsYkyrYCB0nZ4Fy8p3n+rWUiGOJODLmsMHZ5KDe4rdxPidRknOK9a94OTT8KZY6CI4rHZYGRsqWeEsTgXF10ZNLRNRv2b8Yt8+IZfG9RFjcVZf0AiyX5o9PiuGYrxN0sqkMKnTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tOYaqRnM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bqiKCmDa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC759C2BCB0;
-	Mon, 11 May 2026 16:10:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tOYaqRnM"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 84D22C2BCB0;
+	Mon, 11 May 2026 16:11:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778515803;
-	bh=ZIVTaiQY15Qk217QlmofoDUyNKYn5F9r+/EJ2vqYhvE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bqiKCmDaatgGiJNAa3NraNdQ67HvJJyuoVaFtljmEOtYauJ7jCg/gomRPDWRZfLME
-	 0hHrTejZQequGTD/pO9cwP8b/Em+lhTNoEe7N4SyN/l7V0RE/QJWHeciQgYbA0dV1F
-	 4ynNuxSH0Ar2STCeFk7OS6pl/wVYVxOyoFWrc7CepZtszYhxeIj4nefarM+vO6Bo0I
-	 xejF26STJbfHvKrdWCGrrUVWh4vNZaeJZjxIovj6YITZAWrzPdiKfKHlD3V9TtwBEu
-	 bMovNZGeyrqju9sWf4kj5x4y252vkwJ2o5gue7GNkVqCYBwT0dSYVqdjLsLhEGr0Qo
-	 MIZ5JAvQsn1BA==
-Date: Mon, 11 May 2026 17:09:58 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Piyush Patle <piyushpatle228@gmail.com>
-Cc: ak@it-klinger.de, jic23@kernel.org, andriy.shevchenko@intel.com,
-	dlechner@baylibre.com, nuno.sa@analog.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 04/11] dt-bindings: iio: adc: hx711: add HX710B support
-Message-ID: <20260511-vacation-unscented-16435eb03dcd@spud>
-References: <20260510194947.31997-1-piyushpatle228@gmail.com>
- <20260510194947.31997-5-piyushpatle228@gmail.com>
+	s=k20201202; t=1778515897;
+	bh=TXzIw50Ubej2grT0J9j5w81loy36TIzYfxvj4Vt5Kao=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=tOYaqRnMnZpjApGIDeLX1I6OtZ/M3eYipRCKu+y2mWPrZOWlGmgd+jt9oOGjqKVTq
+	 rI8kTcCp8T/il25A3nYDKauYN6GcJg6fgqNBU04vkQJx7lAX0ziQgV/mLSw2Tt7+vf
+	 mzFghg6KrozNo2G748JUaTwvIAG4mXohoW7dJ5QBhp/pLeHwcYUTZJAfBPCohDDg0p
+	 TdTi49vbdZ2r58h/uChLGfAHLozvyuXhCPTBVGyay++zJdZJlXyjSD6ARrKDfk7spE
+	 oG5L+pOlLHyU319RxTKgLiZ0IkWmfPSk8uNd01u3XAXabGVbIPVaQyeM3w3u3owile
+	 jTLfZPDSule2g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7CB09CD4840;
+	Mon, 11 May 2026 16:11:37 +0000 (UTC)
+From: Frank Li via B4 Relay <devnull+Frank.Li.nxp.com@kernel.org>
+Date: Mon, 11 May 2026 12:11:32 -0400
+Subject: [PATCH v2] ASoC: dt-bindings: Convert eukrea-tlv320.txt to yaml
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="EdDXGWrGks3RfHbm"
-Content-Disposition: inline
-In-Reply-To: <20260510194947.31997-5-piyushpatle228@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260511-eukrea-v2-1-cac317290978@nxp.com>
+X-B4-Tracking: v=1; b=H4sIALP/AWoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyjHQUlJIzE
+ vPSU3UzU4B8JSMDIzMDU0ND3dTS7KLURN1Uw1STFLOUNAtTg2QloOKCotS0zAqwQdGxtbUAvv0
+ jIlgAAAA=
+X-Change-ID: 20260511-eukrea-e1e4d6df850c
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+ Frank Li <Frank.Li@nxp.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778515897; l=3623;
+ i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
+ bh=Rwk/LOK0vxBQRx6CqkcwOGhaMlXZZ3H+Gmi3nQ8Ktjk=;
+ b=yfLg9ZvkAKOdqtkLmmxjVBHQDEJoPg6f4s9MKabAOeMpcMsz63Modt+sltRQVkvuMojoNyw6/
+ 6y9bKqbFnHnCLkSVeziMmnJYU6xtSUMaxat65v2JW5HoDTBNuduF9sW
+X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
+ pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
+X-Endpoint-Received: by B4 Relay for Frank.Li@nxp.com/20240130 with
+ auth_id=121
+X-Original-From: Frank Li <Frank.Li@nxp.com>
+Reply-To: Frank.Li@nxp.com
+
+From: Frank Li <Frank.Li@nxp.com>
+
+Convert eukrea-tlv320.txt to yaml format.
+
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+change in v2
+- Add comments about "The AUDMUX port numbering should start at 1"
+  v1: https://lore.kernel.org/linux-devicetree/CAEnQRZACes8EptdEgg0i0vzdcxgUJwZAfQHU0DEhMnXtA-g01Q@mail.gmail.com/
+---
+ .../bindings/sound/eukrea,asoc-tlv320.yaml         | 55 ++++++++++++++++++++++
+ .../devicetree/bindings/sound/eukrea-tlv320.txt    | 26 ----------
+ 2 files changed, 55 insertions(+), 26 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/eukrea,asoc-tlv320.yaml b/Documentation/devicetree/bindings/sound/eukrea,asoc-tlv320.yaml
+new file mode 100644
+index 0000000000000000000000000000000000000000..a95cd0323f6e489765deb8c1d1eee966750ac7aa
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/eukrea,asoc-tlv320.yaml
+@@ -0,0 +1,55 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/eukrea,asoc-tlv320.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Audio complex for Eukrea boards with tlv320aic23 codec.
++
++maintainers:
++  - Frank Li <Frank.Li@nxp.com>
++
++properties:
++  compatible:
++    const: eukrea,asoc-tlv320
++
++  eukrea,model:
++    $ref: /schemas/types.yaml#/definitions/string
++    description:
++      The user-visible name of this sound complex.
++
++  ssi-controller:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      The phandle of the SSI controller.
++
++  fsl,mux-int-port:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: |
++      The internal port of the i.MX audio muxer (AUDMUX).
++      Note: The AUDMUX port numbering should start at 1, which is consistent with
++      hardware manual.
++
++  fsl,mux-ext-port:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: |
++      The external port of the i.MX audio muxer.
++      Note: The AUDMUX port numbering should start at 1, which is consistent with
++      hardware manual.
++
++required:
++  - compatible
++  - eukrea,model
++  - ssi-controller
++
++additionalProperties: false
++
++examples:
++  - |
++    sound {
++        compatible = "eukrea,asoc-tlv320";
++        eukrea,model = "imx51-eukrea-tlv320aic23";
++        ssi-controller = <&ssi2>;
++        fsl,mux-int-port = <2>;
++        fsl,mux-ext-port = <3>;
++    };
+diff --git a/Documentation/devicetree/bindings/sound/eukrea-tlv320.txt b/Documentation/devicetree/bindings/sound/eukrea-tlv320.txt
+deleted file mode 100644
+index 6dfa88c4dc1e8b3aea1e39b79eaa62185e64c240..0000000000000000000000000000000000000000
+--- a/Documentation/devicetree/bindings/sound/eukrea-tlv320.txt
++++ /dev/null
+@@ -1,26 +0,0 @@
+-Audio complex for Eukrea boards with tlv320aic23 codec.
+-
+-Required properties:
+-
+-  - compatible		: "eukrea,asoc-tlv320"
+-
+-  - eukrea,model	: The user-visible name of this sound complex.
+-
+-  - ssi-controller	: The phandle of the SSI controller.
+-
+-  - fsl,mux-int-port	: The internal port of the i.MX audio muxer (AUDMUX).
+-
+-  - fsl,mux-ext-port	: The external port of the i.MX audio muxer.
+-
+-Note: The AUDMUX port numbering should start at 1, which is consistent with
+-hardware manual.
+-
+-Example:
+-
+-	sound {
+-		compatible = "eukrea,asoc-tlv320";
+-		eukrea,model = "imx51-eukrea-tlv320aic23";
+-		ssi-controller = <&ssi2>;
+-		fsl,mux-int-port = <2>;
+-		fsl,mux-ext-port = <3>;
+-	};
+
+---
+base-commit: b7719f5647f279b131c888e70c77dd9287b322d8
+change-id: 20260511-eukrea-e1e4d6df850c
+
+Best regards,
+--
+Frank Li <Frank.Li@nxp.com>
 
 
---EdDXGWrGks3RfHbm
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, May 11, 2026 at 01:19:26AM +0530, Piyush Patle wrote:
-> Add the avia,hx710b compatible and document the HX710B-specific
-> DVDD and VREF supplies.
->=20
-> Add constraints that forbid HX711-only properties on HX710B nodes and
-> require vref-supply for HX710B, then add a separate HX710B example.
->=20
-> Keep the existing HX711-only binding extensions in earlier patches so
-> this change is limited to the new variant.
->=20
-> Signed-off-by: Piyush Patle <piyushpatle228@gmail.com>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
-
---EdDXGWrGks3RfHbm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagH/VgAKCRB4tDGHoIJi
-0lo7AQDVooTvAd4hw1BaKlcodJNBTryz6hZswDdhEXXai7z3rgD/T0QXDgJQZOS8
-lH86fPkrQ2g5Q7FCKk3B78qakt046AE=
-=a4pQ
------END PGP SIGNATURE-----
-
---EdDXGWrGks3RfHbm--
