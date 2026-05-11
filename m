@@ -1,101 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 332054D990D
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 21:59:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0413BE147
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 22:03:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778536749; cv=none; b=X4eYn6oGHu3TTDlHofldAKJ0A+zD28kaD3eAnyfe58N4uoWNvaPSlKbOetz2rMDLWDVtJgcIqYwJazB7q6/FB2Th6T80sCVgtRUdw00Nd7vD0GM0nUX355MaJuCZG0aNCBElaUElME9FJ34dZkltLrBZCmgbKPfTmcrbxkULjdM=
+	t=1778537035; cv=none; b=etwsNe/oocBwEWiy4bjybU+fRsxSyDAwXtshCru2TCDeDfJ7UA+Rt4Yxs96ZUxPo934DDTLIqpZAEDNnMdkDGqAUHbDL9Xrr3xgFOVZMLio7yIuinp+ZUJkkbVnK/28/2vwM0jc4YzSDAyy9xXjaMlkmKT9lobHeduAaGSmHUAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778536749; c=relaxed/simple;
-	bh=5HJ2lBDxn7p9NPgaRwmV9UwgCOtIs2QJ/vTDkbPBPTg=;
+	s=arc-20240116; t=1778537035; c=relaxed/simple;
+	bh=Yw8vIOlTJUcKw8aN6gOX/6XaY7ulhtc+ZC/OE/QR+gk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=G08Ei170cOJ8SOu9OKTH2OXxPslYFltAs9ZkPS0dnoc30qJ7zX/r9HpD6jQLVUJZdNJCEGIorDSbkEWhO8+9wRuPQiiLtcIno41hT4mKiiOdOEf7Rq19mIIT5R77p/q6bPyM428OVWgc6s1Yp2k0eqVzH6CtsZYrqr8hJi3RXfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EvGLqHS8; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=focNyZZ7c0TjU9oIH3rlwMIEWdQsUe+x2ZHiy4iY07cxfi//mm9andzt9CECyOrciy874OSySP9w1p1G5hSJKFJWvUmY6H+0PWIX9AKtUpI+t4OENhs988iqpCjS/+lcfItvS1jx/fR/78E59rGoMCld46WpAY65QcGkKwCQRfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ngDdGgSw; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EvGLqHS8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55567C2BCB0;
-	Mon, 11 May 2026 21:59:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ngDdGgSw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCDCBC2BCB0;
+	Mon, 11 May 2026 22:03:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778536748;
-	bh=5HJ2lBDxn7p9NPgaRwmV9UwgCOtIs2QJ/vTDkbPBPTg=;
+	s=k20201202; t=1778537035;
+	bh=Yw8vIOlTJUcKw8aN6gOX/6XaY7ulhtc+ZC/OE/QR+gk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=EvGLqHS8IZH6GD15Iz0JhcC6NnM0q2OKOaI6mKLep84jMbSGy/i7bNmRIG28Lb3vF
-	 4biHSO6Ym8KqRrFPSrmOAXnf34GlsVM6YBtduc+pFPd9HHuHQVlGMnT/yvxn17U3EU
-	 0F6TlJL/4uTYrZKzxOPUt6Pb7Drb2kAMQSCEBdaqyaA37PZajYSJqbvOuSBDW+K34d
-	 EGKH8ei/UP3Ece+6GC2kcPd3n4A1QRxzwa84OX2mr//uydbn+vjlaIA5rc1Wqsc9Iq
-	 iR3zirTjI5Km/IA/qE4+mFl13Iz11Uyd+6nj+syNm56C7QWEcknK1+911sAM11uKTO
-	 rJMvauIEIvx6g==
+	b=ngDdGgSwvbpv0uGAGdMSLH6DwlEucfRL9mG4ZycC9odjk8CTVLUB7MjtKNn0j8LUm
+	 Mdd3R77eWNjHYawp8NDRvHEK4LZdCnuH1Bd4B8+PeqjxaraGI6TwPnoJ3KpYz3qZ8k
+	 +VuzFsTDmLRn7Cr5exSpsSlZZhqiIMRx1scKl2fqGWKr5H0dAwZHeJ8+9xX2n+h1Oh
+	 91My67ajCtC+M6zMBWC7GcoWqWuY6edayxv1whjQiO+WRbkNk+BP03mujZbJwHk6T2
+	 EYqnHKa9B6dM8oVSMCVrkmpkviiBJ+6/tb5c2cvI6oO6/Pm6+PFeEKD/ag+Ahc3ubk
+	 CsBKE6SpOeueA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 05/11] iio: core: add decimal value formatting into
- 64-bit value
+Subject: Re: [PATCH v3 02/10] arm: dts: renesas: r8a7740: Add clocks for FSI
 Reply-To: sashiko@lists.linux.dev
-To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260510-adf41513-iio-driver-v12-5-34af2ed2779f@analog.com>
-References: <20260510-adf41513-iio-driver-v12-5-34af2ed2779f@analog.com>
+To: phucduc.bui@gmail.com
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260510084303.122426-3-phucduc.bui@gmail.com>
+References: <20260510084303.122426-3-phucduc.bui@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 11 May 2026 21:59:07 +0000
-Message-Id: <20260511215908.55567C2BCB0@smtp.kernel.org>
+Date: Mon, 11 May 2026 22:03:54 +0000
+Message-Id: <20260511220354.CCDCBC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] Format specifier `*` in `sysfs_emit_at` expects an `int` argument, =
-but an `unsigned int` is provided.
+- [High] System hang regression due to bisectability breakage (clock disabl=
+ed by framework).
+- [Low] DT Binding Schema Violation due to skipped positional items in the =
+`clocks` array.
 --
 
-commit b6e4aabfddeab683c1c7680ea9a056d0b185ccd2
-Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+commit 2d24adee7eadd7ba80ff4dc222250fe7259e1d9e
+Author: bui duc phuc <phucduc.bui@gmail.com>
 
-iio: core: add decimal value formatting into 64-bit value
+arm: dts: renesas: r8a7740: Add clocks for FSI
 
-This commit introduces new IIO format types to represent fixed decimal point
-values as single 64-bit numbers. It also adds helpers for composing and
-decomposing these values and updates the parsing logic to use kstrtodec64().
+Add the SPU clock to the FSI node to ensure it is enabled before register
+access, preventing potential system hangs.
+Add missing clocks for FSI (icka/b, xcka/b).
 
-> diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-c=
-ore.c
-> --- a/drivers/iio/industrialio-core.c
-> +++ b/drivers/iio/industrialio-core.c
+> diff --git a/arch/arm/boot/dts/renesas/r8a7740.dtsi b/arch/arm/boot/dts/r=
+enesas/r8a7740.dtsi
+> index d13ab86c3ab47..6f9d9bbfd159a 100644
+> --- a/arch/arm/boot/dts/renesas/r8a7740.dtsi
+> +++ b/arch/arm/boot/dts/renesas/r8a7740.dtsi
+> @@ -393,7 +393,11 @@ sh_fsi2: sound@fe1f0000 {
+>  		compatible =3D "renesas,fsi2-r8a7740", "renesas,sh_fsi2";
+>  		reg =3D <0xfe1f0000 0x400>;
+>  		interrupts =3D <GIC_SPI 9 0x4>;
+> -		clocks =3D <&mstp3_clks R8A7740_CLK_FSI>;
+> +		clocks =3D <&mstp3_clks R8A7740_CLK_FSI>, <&spu_clk>,
+> +			<&fsia_clk>, <&fsib_clk>, <&fsiack_clk>,
+> +			<&fsibck_clk>;
 
-[ ... ]
+Will adding the spu clock to the device tree without the corresponding driv=
+er
+support cause the common clock framework to automatically disable it during
+system initialization?
 
-> @@ -707,8 +707,25 @@ static ssize_t __iio_format_value(char *buf, size_t =
-offset, unsigned int type,
->  	case IIO_VAL_CHAR:
->  		return sysfs_emit_at(buf, offset, "%c", (char)vals[0]);
->  	case IIO_VAL_INT_64:
-> -		tmp2 =3D (s64)((((u64)vals[1]) << 32) | (u32)vals[0]);
-> +		tmp2 =3D iio_val_s64_from_array(vals);
->  		return sysfs_emit_at(buf, offset, "%lld", tmp2);
-> +	case IIO_VAL_DECIMAL64_MILLI:
-> +	case IIO_VAL_DECIMAL64_MICRO:
-> +	case IIO_VAL_DECIMAL64_NANO:
-> +	case IIO_VAL_DECIMAL64_PICO:
-> +	{
-> +		s64 frac;
-> +		unsigned int scale =3D type - IIO_VAL_DECIMAL64_BASE;
-> +
-> +		tmp2 =3D div64_s64_rem(iio_val_s64_from_array(vals),
-> +				     int_pow(10, scale), &frac);
-> +		if (tmp2 =3D=3D 0 && frac < 0)
-> +			return sysfs_emit_at(buf, offset, "-0.%0*lld", scale,
-> +					     abs(frac));
-> +		else
-> +			return sysfs_emit_at(buf, offset, "%lld.%0*lld", tmp2,
-> +					     scale, abs(frac));
+If the bootloader leaves the spu clock enabled, and the kernel disables it
+because the driver hasn't claimed it yet, could this cause a regression whe=
+re
+the system hangs on subsequent register accesses by the fsi driver?
 
-Does passing the unsigned int scale to the * format specifier cause a
-compiler warning?
+To maintain bisectability, should the driver be updated to manage the spu
+clock before or in the same commit as this device tree update? I see this
+regression was addressed in a later commit adding spu clock control in
+hw_startup/shutdown, but it may break bisectability here.
 
-The * width specifier expects an argument of type int.
+> +		clock-names =3D "fck", "spu", "icka", "ickb", "xcka",
+> +				"xckb";
+
+Does appending the external clocks (xcka and xckb) here without the internal
+dividers (diva and divb) violate the strict positional order defined in the
+device tree binding schema?
+
+The dt-binding schema for renesas,sh_fsi2 defines the clocks property as an
+ordered list where the 5th and 6th items are the internal dividers, and the
+7th and 8th are the external clocks.
+
+Since dt-validate evaluates array items positionally, will it evaluate the
+external clocks against the internal divider descriptions? Should the array
+be padded with dummy elements (like <0>) to maintain the strict positional
+order?
+
+>  		power-domains =3D <&pd_a4mp>;
+>  		status =3D "disabled";
+>  	};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510-adf41513-i=
-io-driver-v12-0-34af2ed2779f@analog.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510084303.1224=
+26-1-phucduc.bui@gmail.com?part=3D2
