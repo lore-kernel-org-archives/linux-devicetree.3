@@ -1,66 +1,255 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E44303A8743;
-	Mon, 11 May 2026 08:46:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D6F33689F;
+	Mon, 11 May 2026 08:47:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778489184; cv=none; b=DMw7iiyVZGZuQ73tzCw2oee50u/fCJqBOBQjMplxB2cxGUZ8hqiaoeColMKx/ph/2Mwyq8MlzyH5XCZmR7vkuBxQPCeqBIAhVZhTgfTr08SNlYZuuhhnCHoykphGCqz/b9YvkZ7fY8hpVhkPMvB/w8jIniU3xDJCkGyghfRyZwQ=
+	t=1778489244; cv=none; b=Evgv1QSy0wAoA/wvC/uNxFyCZxiezyuoLeHtr5CNkvEmZVv8X5hil9uWp3nyNIiIojiLI5PCNDdn1cye4G7nscpi/UhXlF+8/MFDwhcqD0zjrnxDCQK48hPIGmL5A1QFRtQeY+xD7sOkjs44L6Lq1x45UfsJMSi1EoT5SLbuEsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778489184; c=relaxed/simple;
-	bh=RdSBpaqet860zCtTuyM54Cs+0V8Gz2Qgpm7xAl4gNyM=;
+	s=arc-20240116; t=1778489244; c=relaxed/simple;
+	bh=CXTt0tSeCFW4xBtUicag62EoWcQIhZ48Jxj24qD9sFY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HQksirBlx0J5A4Y8UqbGvEoMl/ioSQ0aNRtmAxo7mhpaMnnPTzW1H75hf5BA4175StAcaPdyd8oGAvLcndQbhBSTV4EDeaekDo5hFfPpfQ4ZIRTOrdbpTZj5Ns1TmYQgokdHbJz8Er5AJRzkG7ob1tuCW++Nktetwbbj99VEu8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=S1PGxoAP; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	 Content-Type:Content-Disposition:In-Reply-To; b=pzYutsZ+4QxlYwfawGhPO97Ok4R1DdQl5JcgoU6dL171o8Jnsi5BLNUG+fDv4wU4udoyhNU5lflaUiCtk/VqbEzcjXrx+jfaPXS1OuIirXSNTKI4dfA8FTziaC9EAh+Lxk4WCa+3fd2XLPsXBKZ+O6l0Zx7k9Crkv05koIbXiyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fy2DNjps; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="S1PGxoAP"
-Received: from francesco-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
-	by mail11.truemail.it (Postfix) with ESMTPA id 879791FA0B;
-	Mon, 11 May 2026 10:46:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1778489173;
-	bh=TA048/r0Me1GXrKVGIUon2gAJMRu+ZNYAkK6UX0cWiQ=; h=From:To:Subject;
-	b=S1PGxoAP3piLZ7dZMj8FXJl+rf4h1YA5JiCz3IsNc+7p62bpLZfRAH1k9+zRQyRro
-	 MV5UM6lVg64H0CdA1nDiEPGYOw91wCbfrdVC23X/vER4iQdQnU3bfHg7sE7eGEfOyU
-	 Lr4NSSFTVLKdkGSQxaLsJZ5RyZZEqqm4cDSZEZfp/5Q0hGK0kMyrKplbQm68e5ZzMI
-	 djsZ4tVUa30rcat3IHv0F1+YpyargJt1c47hKYjGMYNJy2zLtX8AlV6nqGmnr0plL0
-	 A0NloMnEj4mYJVyeV5MDotmyTzYrvwG6FANxIwA10wUxddgBHGY20kQCEM1mGimmGt
-	 CG8LfwEk15WzA==
-Date: Mon, 11 May 2026 10:46:11 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Antoine Gouby <antoine.gouby@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Antoine Gouby <antoine.gouby@toradex.com>
-Subject: Re: [PATCH] arm64: dts: freescale: imx95-toradex-smarc: replace
- deprecated gpio property
-Message-ID: <20260511084611.GB29876@francesco-nb>
-References: <20260508-replace-gpio-property-v1-1-ec67cc64e576@toradex.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fy2DNjps"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55008C2BCB0;
+	Mon, 11 May 2026 08:47:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778489243;
+	bh=CXTt0tSeCFW4xBtUicag62EoWcQIhZ48Jxj24qD9sFY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=fy2DNjpsc6zpNJyyl8e+ziX2OC1dUkqm4wqEY0LGp+JhAkXtoFptptSuN3721jJ7I
+	 2qg9kRWqLW2GymTX6R4Y4ZdItM5EgRyXV3CUlYiwofwnnQjRmjJ220lFWBFNZ/mGfx
+	 12U+52KgO8QoiWP9J3GXyJ7rNppi+ZXNtxXB5QsQfN/vl7w86bP7M8oad16YkFOihz
+	 cDOSTWpkpAFlHI8ig0FAjGYwvH8KYJPu83ByqscnOWhJrknfiGoilQtD56ZA7V+LTz
+	 wfY8RjXUup7yS2xJYde7FDEQRC8ZoPFg38Tk+HEUhlvnX5yCLXd75WLHZoGGq6EuqE
+	 +maFGGDJcoD0Q==
+Date: Mon, 11 May 2026 10:47:21 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: sashiko@lists.linux.dev
+Cc: krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+	robh@kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH net-next v5 06/12] net: airoha: Move qos_sq_bmap in
+ airoha_gdm_dev struct
+Message-ID: <agGXmZ4mVqn8BPU8@lore-desk>
+References: <20260509-airoha-eth-multi-serdes-v5-6-805e38edc2aa@kernel.org>
+ <20260510140504.5D5A6C2BCC9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="EIdAEi/jQ2SpOuYP"
 Content-Disposition: inline
-In-Reply-To: <20260508-replace-gpio-property-v1-1-ec67cc64e576@toradex.com>
+In-Reply-To: <20260510140504.5D5A6C2BCC9@smtp.kernel.org>
 
-On Fri, May 08, 2026 at 01:26:36PM +0200, Antoine Gouby wrote:
-> From: Antoine Gouby <antoine.gouby@toradex.com>
-> 
-> Replace deprecated "gpio" property with "gpios" in
-> regulator-vmmc-usdhc2 fixed regulator node.
-> 
-> Signed-off-by: Antoine Gouby <antoine.gouby@toradex.com>
 
-Reviewed-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+--EIdAEi/jQ2SpOuYP
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+> - [High] HTB node modification unconditionally fails with -EBUSY and its =
+error path can silently corrupt global channel ownership.
+> - [High] Hardware teardown failures cause a permanent leak of shared QDMA=
+ channels.
+> --
+>=20
+> commit 1b146a034660fa016267e6a142564dd1ddeb17b1
+> Author: Lorenzo Bianconi <lorenzo@kernel.org>
+>=20
+> net: airoha: Move qos_sq_bmap in airoha_gdm_dev struct
+>=20
+> This commit moves the qos_sq_bmap field from airoha_gdm_port to airoha_gd=
+m_dev
+> to prevent configuration overwrites when multiple net_devices share a GDM=
+ port.
+> It also adds a qos_channel_map bitmap to airoha_qdma to track shared QDMA
+> channels.
+>=20
+> > diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/eth=
+ernet/airoha/airoha_eth.c
+> > index f9cb49f0529a0..33a0f7b98d52e 100644
+> > --- a/drivers/net/ethernet/airoha/airoha_eth.c
+> > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
+> > @@ -2606,19 +2606,28 @@ static int airoha_tc_htb_alloc_leaf_queue(struc=
+t net_device *netdev,
+> >  	u32 rate =3D div_u64(opt->rate, 1000) << 3; /* kbps */
+> >  	int err, num_tx_queues =3D netdev->real_num_tx_queues;
+> >  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+> > -	struct airoha_gdm_port *port =3D dev->port;
+> > +	struct airoha_qdma *qdma =3D dev->qdma;
+> > =20
+> >  	if (opt->parent_classid !=3D TC_HTB_CLASSID_ROOT) {
+> >  		NL_SET_ERR_MSG_MOD(opt->extack, "invalid parent classid");
+> >  		return -EINVAL;
+> >  	}
+> > =20
+> > +	/* Here we need to check the requested QDMA channel is not already
+> > +	 * in use by another net_device running on the same QDMA block.
+> > +	 */
+> > +	if (test_and_set_bit(channel, qdma->qos_channel_map)) {
+> > +		NL_SET_ERR_MSG_MOD(opt->extack,
+> > +				   "qdma qos channel already in use");
+> > +		return -EBUSY;
+> > +	}
+> > +
+>=20
+> Since this function handles both TC_HTB_LEAF_ALLOC_QUEUE and
+> TC_HTB_NODE_MODIFY, won't the bit already be set in qdma->qos_channel_map
+> for modify operations?
+>=20
+> If so, will modify operations now always fail with -EBUSY here,
+> breaking HTB rate limit updates?
+
+ack, I will fix it in v6
+
+>=20
+> >  	err =3D airoha_qdma_set_tx_rate_limit(netdev, channel, rate,
+> >  					    opt->quantum);
+> >  	if (err) {
+> >  		NL_SET_ERR_MSG_MOD(opt->extack,
+> >  				   "failed configuring htb offload");
+> > -		return err;
+> > +		goto error;
+> >  	}
+> > =20
+> >  	if (opt->command =3D=3D TC_HTB_NODE_MODIFY)
+> > @@ -2630,13 +2639,17 @@ static int airoha_tc_htb_alloc_leaf_queue(struc=
+t net_device *netdev,
+> >  					      opt->quantum);
+> >  		NL_SET_ERR_MSG_MOD(opt->extack,
+> >  				   "failed setting real_num_tx_queues");
+> > -		return err;
+> > +		goto error;
+> >  	}
+> > =20
+> > -	set_bit(channel, port->qos_sq_bmap);
+> > +	set_bit(channel, dev->qos_sq_bmap);
+> >  	opt->qid =3D AIROHA_NUM_TX_RING + channel;
+> > =20
+> >  	return 0;
+> > +error:
+> > +	clear_bit(channel, qdma->qos_channel_map);
+> > +
+> > +	return err;
+> >  }
+>=20
+> If a modify operation (TC_HTB_NODE_MODIFY) fails at
+> airoha_qdma_set_tx_rate_limit(), it jumps to the error label.
+>=20
+> Won't this unconditionally clear the bit in the shared qdma->qos_channel_=
+map?
+>=20
+> Could this accidentally release ownership of the shared QDMA channel while
+> the device is still using it, allowing another net_device to claim it?
+
+ack, I will fix it in v6
+
+>=20
+> [ ... ]
+>=20
+> > @@ -2814,14 +2827,28 @@ static int airoha_dev_setup_tc_block(struct net=
+_device *dev,
+> >  	}
+> >  }
+> > =20
+> > -static void airoha_tc_remove_htb_queue(struct net_device *netdev, int =
+queue)
+> > +static int airoha_tc_remove_htb_queue(struct net_device *netdev, int q=
+ueue)
+> >  {
+> >  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+> > -	struct airoha_gdm_port *port =3D dev->port;
+> > +	struct airoha_qdma *qdma =3D dev->qdma;
+> > +	int err;
+> > =20
+> > -	netif_set_real_num_tx_queues(netdev, netdev->real_num_tx_queues - 1);
+> > -	airoha_qdma_set_tx_rate_limit(netdev, queue + 1, 0, 0);
+> > -	clear_bit(queue, port->qos_sq_bmap);
+> > +	err =3D netif_set_real_num_tx_queues(netdev,
+> > +					   netdev->real_num_tx_queues - 1);
+> > +	if (err)
+> > +		return err;
+> > +
+> > +	err =3D airoha_qdma_set_tx_rate_limit(netdev, queue + 1, 0, 0);
+> > +	if (err) {
+> > +		netif_set_real_num_tx_queues(netdev,
+> > +					     netdev->real_num_tx_queues + 1);
+> > +		return err;
+> > +	}
+> > +
+> > +	clear_bit(queue, qdma->qos_channel_map);
+> > +	clear_bit(queue, dev->qos_sq_bmap);
+> > +
+> > +	return 0;
+> >  }
+>=20
+> If a hardware teardown failure occurs and airoha_tc_remove_htb_queue()
+> returns early with an error, the bits in qdma->qos_channel_map and
+> dev->qos_sq_bmap are never cleared.
+
+ack, I will fix it in v6
+
+>=20
+> >  static int airoha_tc_htb_destroy(struct net_device *netdev)
+> >  {
+> >  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+> > -	struct airoha_gdm_port *port =3D dev->port;
+> >  	int q;
+> > =20
+> > -	for_each_set_bit(q, port->qos_sq_bmap, AIROHA_NUM_QOS_CHANNELS)
+> > -		airoha_tc_remove_htb_queue(netdev, q);
+> > +	for_each_set_bit(q, dev->qos_sq_bmap, AIROHA_NUM_QOS_CHANNELS) {
+> > +		int err;
+> > +
+> > +		err =3D airoha_tc_remove_htb_queue(netdev, q);
+> > +		if (err)
+> > +			return err;
+> > +	}
+> > =20
+> >  	return 0;
+> >  }
+>=20
+> In this loop, an error on a single queue immediately aborts the loop, lea=
+ving
+> any remaining queues unprocessed.
+>=20
+> Since the core networking stack (net/sched/sch_htb.c) ignores the return =
+value
+> of TC_HTB_DESTROY and fully destroys the software qdisc regardless, will =
+this
+> permanently leak the limited QDMA hardware channels?
+>=20
+> Could these bits remain set forever in the globally shared qdma->qos_chan=
+nel_map,
+> preventing other net_devices from using them until the driver is reloaded?
+
+ack, I will fix it in v6
+
+Regards,
+Lorenzo
+
+>=20
+> --=20
+> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260509-airoha-eth-=
+multi-serdes-v5-0-805e38edc2aa@kernel.org?part=3D6
+
+--EIdAEi/jQ2SpOuYP
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCagGXmQAKCRA6cBh0uS2t
+rJOjAP9rhs2kkxiegggDAlgI+bM+WZGoB/Xx5QWTbM9uCJ8DugD9EItJYotJxs5T
+Xb4rPMkMCQMxoSR3AqzGAxWEC/W21AM=
+=Oupv
+-----END PGP SIGNATURE-----
+
+--EIdAEi/jQ2SpOuYP--
