@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F006C383326
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 23:12:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B62F352C2B
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 23:13:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778541121; cv=none; b=X2Srfd067sLTG402bbqb+8lM683Img6aiiaKZw4hoPV8GAr816g4n/n97jmRbWDKL2DP9Eem70E/NTQ/GRCxJsHgOchQeorj+91ZgEikk4aSUw8owNrqoaUvtn6L877a/Vk+BBUBhrRfMecNl1Kr4OW+IUzL8LwdUtMNT2dkblQ=
+	t=1778541213; cv=none; b=VVjQ1DlkNfYfhS3i/k/KuR8EUR8JFzNX5HAk2Gf/Ox5pj6lZh0HcT9q42vcgLe1WbDX/pD46JYoY5JLuWM9raArx7L+OrPEqRV0rw1gmnT/q0Jv5IJMnOmTmgpnpHfsLXgFo3YfCGtAcX4RTLZDfDXwM0llyWkc2c7ZrkZd6Cm4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778541121; c=relaxed/simple;
-	bh=+z+E5+m6cbTBZPzHuqmAzt+ndtiKCx7tPIdP58O3Jf8=;
+	s=arc-20240116; t=1778541213; c=relaxed/simple;
+	bh=MbW1Yjh0MaeYKCEfw/5y9B4YFx7dDOgp+HVnjGkZsLg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tXH3BQvRQiBHv1rtZZkACdAvXZUW2EAGuMQdPayq+Q91djjmSMnmDJijgQ7Nl63rOMXBMDLJyq8qwCR+551z1nrWsHj87Zv64DDaOeltdvoZx6VUIvEF/tgzBpuWn2wO8kzmMEt9kQRMLWjvnLCzot8mGVZEYURlxqn9uzgIPhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G3D9r0S8; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=HUjk1jBU3SB7jacbOHE9JOI8wGdAammafr/QFnmQa/8jmHvFNGgGpo+312bRmALoFHgaXnfHBHp9E8eZJ6mO9+i/I6YzALrSbMa8F79AzGn2nGhNtrruY5pWF+QO8X1MFXU5N2oGVBmS/3gRc9VP9mr00s04uo/4X+8GRBmdbrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TR16uTUU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G3D9r0S8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED783C2BCB0;
-	Mon, 11 May 2026 23:11:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TR16uTUU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4185C2BCFA;
+	Mon, 11 May 2026 23:13:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778541120;
-	bh=+z+E5+m6cbTBZPzHuqmAzt+ndtiKCx7tPIdP58O3Jf8=;
+	s=k20201202; t=1778541213;
+	bh=MbW1Yjh0MaeYKCEfw/5y9B4YFx7dDOgp+HVnjGkZsLg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=G3D9r0S87gRN++lVgvmWvB/iuFGHlHeY7RTREFKaWi8Z+M6PHHllqGtSuQmG7xdgb
-	 4AzjsBy4Zkc1k48k56rjKNmRL/PZhZNo0Z1bIuPA30f2++Hl8+E/xIkVk11WSEmjeO
-	 iMxb9AGS1YMLald77cihda0PnrQcKAXqpr/uodHNmSPup+QoPJ0O/zoh2vGKL9H7am
-	 rtO6tImoMhuw2wVrHueGKeMv3llwVLOXZ1vCgFawhv3YXrW3xP7coMempPLepcitZD
-	 KxLpHAeycEBp7GiiXDbp2/HtydjJWyOoBkt6N+PtGoaO87ECAup0occyX/qI6GqquL
-	 gIouVdlHXRNfQ==
+	b=TR16uTUU/BQhbs1zjv9VS6AviLdMfzE+hc87zkAf384fU42sph7yv+9H9tew6mBcF
+	 HpUP66G4w+TS3QF0lSkSyAfMZnv29lr4R07ooWXyOYZsnk9T7WL9Rd/u/xiSWVFgvg
+	 dHNYfb6vqgQXTgXkWRLmSeypZjUlwaRI0EJB8BSoFxbfva+dkwz3rTsNU7l9QJ+WHt
+	 s1Ptf58OboAHxZcimVLT8HR3vnBUb+opyfnnt2droYYYyj3I2SN/zIzS8CBfOKG0hQ
+	 CykXKfZ+5Tc3o+O0ItCH4nlTX9ibjwo2oMYRoJ01qFf22kBgCFKLjxEcWMW1zu2Wfh
+	 Uw4UapIewBwUQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 08/11] iio: frequency: adf41513: handle LE
- synchronization feature
+Subject: Re: [PATCH v2 3/3] i3c: dw: Add apb reset support
 Reply-To: sashiko@lists.linux.dev
-To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260510-adf41513-iio-driver-v12-8-34af2ed2779f@analog.com>
-References: <20260510-adf41513-iio-driver-v12-8-34af2ed2779f@analog.com>
+To: "Jisheng Zhang" <jszhang@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260511031945.3228-4-jszhang@kernel.org>
+References: <20260511031945.3228-4-jszhang@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 11 May 2026 23:11:59 +0000
-Message-Id: <20260511231159.ED783C2BCB0@smtp.kernel.org>
+Date: Mon, 11 May 2026 23:13:32 +0000
+Message-Id: <20260511231332.D4185C2BCFA@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,91 +45,65 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The driver modifies the cached register state (`st->regs`) before =
-performing SPI transactions, but fails to revert these changes if the SPI t=
-ransaction fails. This leaves the shadow register state corrupted and viola=
-tes hardware sequencing constraints on subsequent retries.
+- [High] The assertion and deassertion ordering of `core_rst` and `apb_rst`=
+ violates correct bus-peripheral hardware sequencing and LIFO resource mana=
+gement symmetry.
 --
 
-commit a7ad01199feb60254a514f4aa41d379243946b28
-Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+commit 9be063129d3014c8590f046b253447e4090e7f37
+Author: Jisheng Zhang <jszhang@kernel.org>
 
-iio: frequency: adf41513: handle LE synchronization feature
+i3c: dw: Add apb reset support
 
-This commit introduces support for the LE synchronization feature on the
-ADF41513. It enables the feature during device setup and handles
-enabling/disabling it during resume and suspend.
+This commit adds support for the optional APB reset in the DesignWare I3C
+master driver. The reset is acquired during probe and asserted or
+deasserted during runtime PM suspend and resume cycles.
 
-> diff --git a/drivers/iio/frequency/adf41513.c b/drivers/iio/frequency/adf=
-41513.c
-> index b8a8b9fb81d9d..397e859170cc0 100644
-> --- a/drivers/iio/frequency/adf41513.c
-> +++ b/drivers/iio/frequency/adf41513.c
+> diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i=
+3c-master.c
+> --- a/drivers/i3c/master/dw-i3c-master.c
+> +++ b/drivers/i3c/master/dw-i3c-master.c
+> @@ -1596,6 +1596,11 @@ int dw_i3c_common_probe(struct dw_i3c_master *mast=
+er,
+>  	if (IS_ERR(master->core_rst))
+>  		return PTR_ERR(master->core_rst);
+> =20
+> +	master->apb_rst =3D devm_reset_control_get_optional_exclusive_deasserte=
+d(&pdev->dev,
+> +									       "apb_rst");
+> +	if (IS_ERR(master->apb_rst))
+> +		return PTR_ERR(master->apb_rst);
+> +
+
+Should apb_rst be requested before core_rst?
+
+Since devm handles cleanup in reverse allocation order, requesting core_rst
+first means apb_rst will be asserted before core_rst during driver unload
+or probe failure. This would shut down the bus interface while the IP core
+is still active, contradicting the safe shutdown sequence correctly
+implemented in dw_i3c_master_runtime_suspend().
+
+Additionally, since devm_reset_control_get_optional_exclusive_deasserted()
+automatically deasserts the reset, this ordering brings the IP core out of
+reset before the APB bus interface is active.
 
 [ ... ]
 
-> @@ -634,13 +635,27 @@ static int adf41513_set_frequency(struct adf41513_s=
-tate *st, u64 freq_uhz, u16 s
->  static int adf41513_suspend(struct adf41513_state *st)
->  {
->  	st->regs[ADF41513_REG6] |=3D FIELD_PREP(ADF41513_REG6_POWER_DOWN_MSK, 1=
-);
-> +	st->regs[ADF41513_REG12] &=3D ~ADF41513_REG12_LE_SELECT_MSK;
->  	return adf41513_sync_config(st, ADF41513_SYNC_DIFF);
+> @@ -1796,6 +1802,7 @@ static int __maybe_unused dw_i3c_master_runtime_res=
+ume(struct device *dev)
+>  	pinctrl_pm_select_default_state(dev);
+>  	dw_i3c_master_enable_clks(master);
+>  	reset_control_deassert(master->core_rst);
+> +	reset_control_deassert(master->apb_rst);
 
-If adf41513_sync_config() fails, is it possible for st->regs[] to be left w=
-ith
-these updated values?
+Is this deassertion order correct?
 
-If the SPI transaction fails when writing ADF41513_REG12 (which happens bef=
-ore
-ADF41513_REG6), the state in st->regs is not reverted. A subsequent frequen=
-cy
-change might then inadvertently power down the device because the dirty
-st->regs state is pushed to the hardware during adf41513_sync_config().
+Deasserting core_rst before apb_rst brings the IP core out of reset before
+its APB bus interface is active. Could this cause the IP to run while
+disconnected from the bus, leading to unpredictable states?
 
->  }
-> =20
->  static int adf41513_resume(struct adf41513_state *st)
->  {
-> +	int ret;
-> +
->  	st->regs[ADF41513_REG6] &=3D ~ADF41513_REG6_POWER_DOWN_MSK;
-> -	return adf41513_sync_config(st, ADF41513_SYNC_ALL);
-> +	ret =3D adf41513_sync_config(st, ADF41513_SYNC_ALL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (st->data.le_sync_en) {
-> +		st->regs[ADF41513_REG12] |=3D ADF41513_REG12_LE_SELECT_MSK;
-> +		ret =3D adf41513_sync_config(st, ADF41513_SYNC_DIFF);
-> +		if (ret)
-> +			return ret;
-
-Could this cause a regression on a subsequent retry of adf41513_resume() if
-the SPI write fails here?
-
-If adf41513_sync_config(st, ADF41513_SYNC_DIFF) fails, the function returns
-an error, but st->regs[ADF41513_REG12] retains the
-ADF41513_REG12_LE_SELECT_MSK bit.
-
-On a subsequent retry of adf41513_resume(), the first call to
-adf41513_sync_config(st, ADF41513_SYNC_ALL) writes all registers in reverse
-order (ADF41513_REG13 down to ADF41513_REG0). Since st->regs[ADF41513_REG12]
-already has the ADF41513_REG12_LE_SELECT_MSK bit set from the previous fail=
-ed
-attempt, it will write ADF41513_REG12 with this bit set before writing
-ADF41513_REG6 to power up the device.
-
-Does this violate the hardware constraint mentioned in the commit message t=
-hat
-LE sync must be set after powering up?
-
-> +	}
-> +
-> +	return 0;
->  }
+Would it be safer to deassert apb_rst before core_rst?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510-adf41513-i=
-io-driver-v12-0-34af2ed2779f@analog.com?part=3D8
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511031945.3228=
+-1-jszhang@kernel.org?part=3D3
