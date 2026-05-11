@@ -1,372 +1,267 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011018.outbound.protection.outlook.com [40.93.194.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB2581ACA;
-	Mon, 11 May 2026 04:58:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778475527; cv=fail; b=PHBfkeJ4MNnuLZ2XcDz539QohUDLf6aFU/DQEChJ2vVIBSUxc+G75CYomqhQGEuYX7doTqzNpTFhrztKBHyYREcX2vzKlTJqi8rDqJ++V9ffdDrFH61AdB0U+wWC84dBxN1bG3ftKosrmaYlTGD1sjXyQuk0HcvT0GAMAnHQsXw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778475527; c=relaxed/simple;
-	bh=bkRDw7aU/ZER+EJZUXSfpzw3WIShzdWXONJoI2FKiFg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=qduNZrHRbrrwUr+XV7/glrW940PNpKrJsbdODaJLzND8s9fENLRUSOBJo0XgyQvoYDOFmQWlC8VdaLgA1NNcSwr1MBxrpbDftfKUSmkXoJk9syFovOCV+t9EDcP8TBjwMdNdGp44OhI6LhOujCVpyI701ewnKJ4v18xwMtWvvQA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=MOt3OaHm; arc=fail smtp.client-ip=40.93.194.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F12B248881;
+	Mon, 11 May 2026 05:11:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778476269; cv=none; b=ATmt/VePOz3pnJ3AWSBRjVAwqsfgjjz3MxPZHGq/ikGhGEISq3VnxSOXhOUlGDuFCA1Dh+MIQDKsddy9HDVczulaPJtqbrlOLj/+j9HeoBcM7QW9y1JHeBk03l5eRpJzR7BZxpD6dnfkQxqTbd3Lyk/PqlLQLLM3G7c6Ih4KR44=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778476269; c=relaxed/simple;
+	bh=1bjEctrKc8U3pwHQ7F6COx+333aais51yWOAJe1WnU8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=PBM7EAGcmW8A/Byy+Lq1ovfHbMvOwSzyWErsZe5zgv09JFgf6kUGtbljMDLGbt5ag+yLgksKcBfSYGLTlaZ4+uRdUoFs01omSeGktPTBAVoHHB6/Nnoro3LIY7Hc1cegEr+QS1Sfq5OhKljTKYxFk1aNKs6EGFmFVNz0Tq2Y2YM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oMFanZHW; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="MOt3OaHm"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hVRhc8U4c5KcsVajCsZgoWdi/giJElYDzIBiUSCfNreiK1gMLoZGfOWFO1xgUecv2Kws5p9SiiAUaTc6NOqQByICCfdpLGBbQK3Qtn85v/C6lyInuNy60Pl9BzojxPfGovpXIBpSaFs+Xs42W1BEHeAQhtkb5CBIdylsbhMhfhH5tGeXQEWnWf/90Mb8jDifJuRmcKJbxMpQ9j5A249SLEs/3rmUsHmthIQswXgpAR8/vkyo40rrMYA7btOzn/s1ik1+fjBZpE6Xz6T46FwLTEWHCzNyt+go9otCmVhbXN2T+1+CTHND0EuBc+3u9eaO06DnWHZtIcLdyg8SscXTig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kuzrfR/Mxgy+d8rXhjvSkFvDcWPZJwXKSWBS7v4vGbQ=;
- b=ZS12Sf3cpl7TqThCwvUK5GIfDJrWaeD9+Z39Eqjt5XzGEQarWa1B9XWB9ZxC1mag0dLHvbyk8UDDTuVmEmSMDUpRwJ1PcwmbYMqKJJ3isJ7a4gffbu4TEE6H28zZ3xN7HvXeP2jn7WkhSsITAfr8ic/6jXYHI2vg0veqlWr+Yv2KYMQZaGh6DQebM0IU5c5Ql4VhxRbDcX2yYKmnAG6FS+hk/ubsyLHnjHuiULYjOlrgAPdC3dRsiily4t9Ta1e7eFOdD3cCvfwFU96B7ag7EHUjz203kDHp1BAF/AS8MxVktYpW2rvxZOYlXktfHfV5+JxFNw41OOErJjX1PBYG5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=bgdev.pl smtp.mailfrom=ti.com; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kuzrfR/Mxgy+d8rXhjvSkFvDcWPZJwXKSWBS7v4vGbQ=;
- b=MOt3OaHms7OTBsCywHsmoFHeYdUjFhWrN9mCIieb41ERLQMU123vQl+xwXQVoF+vQymx41nfwfru57FzllEdJ7iWFbrPP8X1laYcZUgCRc7JqoO6MDJy1d41rpWhVVNexYtFy+nXnwdiuJV6jyuV0zQPkjTad6fXD/yT43hUqOo=
-Received: from BYAPR05CA0004.namprd05.prod.outlook.com (2603:10b6:a03:c0::17)
- by CO6PR10MB5634.namprd10.prod.outlook.com (2603:10b6:303:149::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Mon, 11 May
- 2026 04:58:43 +0000
-Received: from MWH0EPF000C6191.namprd02.prod.outlook.com
- (2603:10b6:a03:c0:cafe::a1) by BYAPR05CA0004.outlook.office365.com
- (2603:10b6:a03:c0::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.14 via Frontend Transport; Mon, 11
- May 2026 04:58:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- MWH0EPF000C6191.mail.protection.outlook.com (10.167.249.106) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.13 via Frontend Transport; Mon, 11 May 2026 04:58:39 +0000
-Received: from DFLE204.ent.ti.com (10.64.6.62) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Sun, 10 May
- 2026 23:58:38 -0500
-Received: from DFLE202.ent.ti.com (10.64.6.60) by DFLE204.ent.ti.com
- (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Sun, 10 May
- 2026 23:58:38 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE202.ent.ti.com
- (10.64.6.60) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Sun, 10 May 2026 23:58:38 -0500
-Received: from [172.24.18.18] (ltpw09g66v.dhcp.ti.com [172.24.18.18])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64B4wQLD2625874;
-	Sun, 10 May 2026 23:58:27 -0500
-Message-ID: <99819177-5911-4271-96b2-6f0eb7f9c42d@ti.com>
-Date: Mon, 11 May 2026 10:28:25 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oMFanZHW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ED82C2BCB0;
+	Mon, 11 May 2026 05:11:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778476269;
+	bh=1bjEctrKc8U3pwHQ7F6COx+333aais51yWOAJe1WnU8=;
+	h=From:Subject:Date:To:Cc:From;
+	b=oMFanZHW2UGbGWDX6uzQAqxBjvTVtm3e4VdQ/GrAqpib6KdtmicTIPbF7/B4HQmDN
+	 qnpRJ8D3SL4p9pz299iyvOskfF5RbJtTqa5u8Wvj8UjzC+IkYS67kz9htI1xvthcCt
+	 5WHPrgdGmNNK7XbqyYGeDR1zO8/qb1vVRor/G2O5EFMCcN6bFglLK7BRuM72Y+8LnJ
+	 aK8NoIcFL5MtDnvxaJo0cv6uet4kfkZL14jXqW/Cr/KGj/J1/LbWhrXbSQHe3XnJOj
+	 huaLnqHu4+SwteyMPiVhHJftAwcF33+040fCX+85UQUpMZVZOwY7B5yreGT+EYzkW2
+	 VsTUBkymbjMEg==
+From: Drew Fustini <fustini@kernel.org>
+Subject: [PATCH RFC v4 00/18] riscv: add Ssqosid and CBQRI resctrl support
+Date: Sun, 10 May 2026 22:10:56 -0700
+Message-Id: <20260510-ssqosid-cbqri-rqsc-v7-0-v4-0-eb53831ef683@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 3/4] gpio: rpmsg: add generic rpmsg GPIO driver
-To: Mathieu Poirier <mathieu.poirier@linaro.org>, Arnaud POULIQUEN
-	<arnaud.pouliquen@foss.st.com>
-CC: Shenwei Wang <shenwei.wang@nxp.com>, Andrew Lunn <andrew@lunn.ch>, "Linus
- Walleij" <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-	"Jonathan Corbet" <corbet@lwn.net>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn
- Andersson <andersson@kernel.org>, Frank Li <frank.li@nxp.com>, Sascha Hauer
-	<s.hauer@pengutronix.de>, Shuah Khan <skhan@linuxfoundation.org>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Pengutronix
- Kernel Team" <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
-	"Peng Fan" <peng.fan@nxp.com>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-remoteproc@vger.kernel.org"
-	<linux-remoteproc@vger.kernel.org>, "imx@lists.linux.dev"
-	<imx@lists.linux.dev>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, dl-linux-imx <linux-imx@nxp.com>,
-	Bartosz Golaszewski <brgl@bgdev.pl>
-References: <CANLsYkwvL0Z3+12MD=J+Dc2yAU2T8ypizyG=6AhYoWOh55odHA@mail.gmail.com>
- <472f85bd-42c2-40c6-abfd-b76924797069@ti.com>
- <CANLsYkzt9xUczxSU28u-TfZAAjr0ufZKXAj8Eqfq=45gufXW3w@mail.gmail.com>
- <f7ef3417-eb84-4467-ac72-a9bc8b0c81e8@foss.st.com>
- <21de8440-adf7-454b-acfc-06e50882e075@ti.com>
- <4c526816-b127-43e7-86e9-eee4dc1152bc@foss.st.com>
- <268f8e00-91bc-43ea-ba95-077cf859e7f3@ti.com>
- <9e2492d3-8753-46c7-8db6-5f1a80b4f2e9@foss.st.com>
- <db4c18be-1c8d-4227-9fcc-1d25cec50e37@ti.com>
- <6917e3d7-8c6c-4e63-8eca-5308621ec3e8@foss.st.com> <afzIABSh1xtMEGbf@p14s>
-Content-Language: en-US
-From: "Padhi, Beleswar" <b-padhi@ti.com>
-In-Reply-To: <afzIABSh1xtMEGbf@p14s>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6191:EE_|CO6PR10MB5634:EE_
-X-MS-Office365-Filtering-Correlation-Id: a713aac1-a590-47ff-2ff8-08deaf19f7d3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|36860700016|82310400026|3023799003|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	0l8M33VNjrJmmAL1vlwh62ffIswToR2MzaHhF3jrP/dRQ/sAiRPRJHJ54zN3LuYDpqNVX344iMXqZ75GC+XPbriowahUJBvBkUAXviEWRm2s1yhrn4ScalsV92n43Ib9RRZiwrbrXSvEcI2REpTXQ/wZ/69cejdMlSoLbYDFJpTLyZALgJf2K+flyD40fvVFUD8o9tEyHcacL63Odqt2oqCPJAYioSzhAp0Nm/rfx2LA2W2i8gQwZuiPaMI2+pVjZap1JXMQAV4wJQz2Hc9/OmNW7cTVmTuNWWseijjxdLxzMmeh7U36Fnkr3YOieb9MSUHtOHwsSB0zpM2SyIIC8V38e4zp1495F+HbUYuhZ7y2yJiOKpLMXp0Fzlq+vJbd2PYuIDWAJD9BQlgGIzw7sCwwGkKO35+VJOQc/dodHuDRg4zOHbS23PNXkV5DGKRIRhFI9mH65IiCmM34xz+et16MW9ruW528u8WUFHuIRTazG8bnegOqZtaDVurRQ+qHiyIjBsiy5YRNHiZlPheDQ7Ch/4V7VpTyrpEfyCaaw6wNxvYgyBtttuUuZKpNlg6s1RANV7fohoA4iCOJLyB7qbmh1vbAwmUAFAT0PaNZhPP1LbIJPiy5lz0iPSr8ygXHgzCJTmwvqvVfM12tCbtHmsCffwikK44TKBaFWTrdNcvDGLIH7r+IbgMkU6ZuVDkKOMY5vRM6+ngppxXsPh3IbK5R9cG4COdUOWU4kvO5i2U=
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(36860700016)(82310400026)(3023799003)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	tIGpsyd34siFj55QdOsRPFCB+7ljgbt8aE/CpnyLzhKFxKo4Na0+ocO4eabSXR6hahjJGHz2La1+ID2DDhJYw8D0qbe0k9C4FNvDMZVt66cXVOT4p5BiPCoALUr6If0LvNp1ibXzQvqqy2rLA9VLtiQmVGFH3R+IRai4SHKUbOoGSUBND5AMw5a85VuUSCpyOXAktxVgkFOERfb8BmxaHJtzQOMJrOqegsBpV7aqvVAzHuD89+NTbWsESSyCS00zl5CRjNwk1pWArAqMqzm0hai32NeeoXOsLEwPCCdndKpCdljnspB5/BmSwLYuyeSdYHdzstl7fKvuTj1JJpipgU02dqaRQ3eZeXFkDL8oUm6u3kgCDuz5cB3gDoA+dKHxLTZzk3k9wNNWEAz5ZLT8kPsKsZMdySeel/Sy6g0L3uVXX98dn3yVGGhwflIy6jC+
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2026 04:58:39.8752
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a713aac1-a590-47ff-2ff8-08deaf19f7d3
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000C6191.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR10MB5634
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOFkAWoC/3WNQQ7CIBREr9L8tRgEItSViYkHcGu6APptiaZYv
+ iGapncX2bt8M5k3CxCmgASHZoGEOVCIUwG1acCPdhqQhb4wCC72XIqWEc2RQs+8m1NgaSbPsma
+ cOe61Mc46ZSyU9TPhLbyr+QqX8wm6Eo6BXjF96luWtapitVN/xVn+7NIJ1Ngape3xjmnCxzamA
+ bp1Xb/0CMGTxAAAAA==
+X-Change-ID: 20260329-ssqosid-cbqri-rqsc-v7-0-b0c788bab48a
+To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ =?utf-8?q?Radim_Kr=C4=8Dm=C3=A1=C5=99?= <rkrcmar@ventanamicro.com>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Adrien Ricciardi <aricciardi@baylibre.com>, 
+ Nicolas Pitre <npitre@baylibre.com>, 
+ =?utf-8?q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>, 
+ Atish Patra <atish.patra@linux.dev>, 
+ Atish Kumar Patra <atishp@rivosinc.com>, 
+ Vasudevan Srinivasan <vasu@rivosinc.com>, Ved Shanbhogue <ved@rivosinc.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ yunhui cui <cuiyunhui@bytedance.com>, Chen Pei <cp0613@linux.alibaba.com>, 
+ Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, Weiwei Li <liwei1518@gmail.com>, 
+ guo.wenjia23@zte.com.cn, Gong Shuai <gong.shuai@sanechips.com.cn>, 
+ Gong Shuai <gsh517@gmail.com>, liu.qingtao2@zte.com.cn, 
+ Reinette Chatre <reinette.chatre@intel.com>, 
+ Tony Luck <tony.luck@intel.com>, Babu Moger <babu.moger@amd.com>, 
+ Peter Newman <peternewman@google.com>, Fenghua Yu <fenghua.yu@intel.com>, 
+ James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>, 
+ Dave Martin <Dave.Martin@arm.com>, Rob Herring <robh@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+ Robert Moore <robert.moore@intel.com>, Sunil V L <sunilvl@ventanamicro.com>, 
+ Drew Fustini <fustini@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Jonathan Corbet <corbet@lwn.net>
+Cc: linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ x86@kernel.org, linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev, 
+ devicetree@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
+ Conor Dooley <conor@kernel.org>, linux-rt-devel@lists.linux.dev, 
+ linux-doc@vger.kernel.org, Palmer Dabbelt <palmer@sifive.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8738; i=fustini@kernel.org;
+ h=from:subject:message-id; bh=1bjEctrKc8U3pwHQ7F6COx+333aais51yWOAJe1WnU8=;
+ b=owGbwMvMwCV2+43O4ZsaG3kYT6slMWQxpjyd01HBcu1DhpG5rR/flIfBu69nfG9w+qhfYVB+Y
+ 9285SeDO0pZGMS4GGTFFFk2fci7sMQr9OuC+S+2wcxhZQIZwsDFKQATyeRhZDgWp+Y4efa+JSwx
+ YZZFW8/WHTx/aHUG62E2h0USj5wfs/ox/PexfhmQ+HPKIkUGsdB6wZz/ik1vr0kcnJk8welfk+i
+ mmcwA
+X-Developer-Key: i=fustini@kernel.org; a=openpgp;
+ fpr=1B6F948213EA489734F3997035D5CD577C1E6010
 
-Hi Mathieu,
+This RFC series adds RISC-V QoS support: the Ssqosid extension [1]
+(srmcfg CSR), the CBQRI controller interface [2] integrated with
+resctrl [3], and ACPI RQSC [4] for controller discovery. DT support
+is possible but no platform drivers are included. The series is
+also available as a branch [5].
 
-On 5/7/2026 10:42 PM, Mathieu Poirier wrote:
-> On Tue, May 05, 2026 at 10:46:11AM +0200, Arnaud POULIQUEN wrote:
->> Hi Beleswar
->>
->> On 5/5/26 07:25, Beleswar Prasad Padhi wrote:
->>> Hi Arnaud,
->>>
->>> On 04/05/26 22:34, Arnaud POULIQUEN wrote:
->>>> Hi Beleswar,
->>>>
->>>> On 5/4/26 10:17, Beleswar Prasad Padhi wrote:
->>>>
->>> [...]
->>>
->>>>>> I may have misunderstood your solution. Could you please help me
->>>>>> understand your proposal by explaining how you would handle three
->>>>>> GPIO ports defined in the DT, considering that the endpoint
->>>>>> addresses on the Linux side can be random?
->>>>>> If I assume there is a unique endpoint on the remote side,
->>>>>> I do not understand how you can match, on the firmware side,
->>>>>> the Linux endpoint address to the GPIO port.
->>>>>
->>>>> Sure, let me take an example:
->>>>> Assumptions: 3 GPIO ports in DT, 3 endpoints in Linux (one per port),
->>>>> 1 endpoint in remote (0xd) and 1 rpmsg channel (rpmsg-io)
->>>>>
->>>>>           rpmsg {
->>>>>             rpmsg-io {
->>>>>               #address-cells = <1>;
->>>>>               #size-cells = <0>;
->>>>>
->>>>>               gpio@25 {
->>>>>                 compatible = "rpmsg-gpio";
->>>>>                 reg = <25>;
->>>>>                 gpio-controller;
->>>>>                 #gpio-cells = <2>;
->>>>>                 #interrupt-cells = <2>;
->>>>>                 interrupt-controller;
->>>>>               };
->>>>>
->>>>>               gpio@32 {
->>>>>                 compatible = "rpmsg-gpio";
->>>>>                 reg = <32>;
->>>>>                 gpio-controller;
->>>>>                 #gpio-cells = <2>;
->>>>>                 #interrupt-cells = <2>;
->>>>>                 interrupt-controller;
->>>>>               };
->>>>>
->>>>>               gpio@35 {
->>>>>                 compatible = "rpmsg-gpio";
->>>>>                 reg = <35>;
->>>>>                 gpio-controller;
->>>>>                 #gpio-cells = <2>;
->>>>>                 #interrupt-cells = <2>;
->>>>>                 interrupt-controller;
->>>>>               };
->>>>>             };
->>>>>           };
->>>>>
->>>>> Code Flow:
->>>>> 1. "rpmsg-io" channel is announced from remote firmware with unique dst
->>>>>        ept = 0xd.
->>>>>
->>>>> 2. rpmsg_core.c creates the default dynamic local ept for the channel
->>>>>        ept = 0x405.
->>>>>
->>>>> 3. rpmsg_core.c assigns the allocated addr to rpdev device:
->>>>>        rpdev->src = 0x405 and rpdev->dst = 0xd.
->>>>>
->>>>> 4. rpmsg_gpio_channel_probe() is triggered. For *each* of the GPIO ports
->>>>>        in DT, it will trigger rpmsg_gpiochip_register() which will now:
->>>>>           a. Call port->ept = rpmsg_create_ept(rpdev,
->>>>>                                                                       rpmsg_gpio_channel_callback,
->>>>>                                                                       port,
->>>>>                                                                      {rpdev.id.name,
->>>>>                                                                       RPMSG_ADDR_ANY,
->>>>>                                                                       RPMSG_ADDR_ANY});
->>>>>               Ex- port->ept->addr = 0x408
->>>>>
->>>>>           b. Prepare a 8-byte message having 2 fields:
->>>>>               port->ept->addr (0x408) and port->idx (25)
->>>>>
->>>>>           c. Send this message to remote firmware on default channel ept
->>>>>               (0x405 -> 0xd) by:
->>>>>               rpmsg_send(rpdev->ept, &message, sizeof(message));
->>>>>
->>>>>           d. Remote side receives this message and creates a map of the
->>>>>               linux_ept_addr to gpio_port. (0x408 <-> 25)
->>>>>
->>>>> 5. After this point, any gpio messages sent from Linux from gpio port
->>>>>        endpoints (Ex- 0x408) can be decoded at remote side by looking up
->>>>>        its map (Ex- map[0x408] = 25).
->>>>>
->>>>> 6. Any messages sent from remote to Linux for a particular gpio port can
->>>>>        also be decoded at Linux by simply fetching the priv pointer to get
->>>>>        the per-port device:
->>>>>        struct rpmsg_gpio_port *port = priv;
->>>>>
->>>> Thanks for the details!
->>>>
->>>> To sum up:
->>>> - the default endpoint acts as the GPIO controller (0x405),
->>>> - one extra Linux endpoint is created per port defined in DT.
->>>>
->>>> This should work, but my concerns remain the same:
->>>>
->>>>     1) This implementation forces the remote processor to handle a single
->>>>        endpoint instead of one endpoint per port. This may add complexity to
->>>>        the remote firmware if each port is managed in a separate thread.
->>>
->>> A. Not really, I just chose 1 remote endpoint for this example as you
->>>       suggested to. We can scale it for two-way communication via the
->>>       get_config message like you suggested below.
->>>
->>> B. Isn't it a bad design of the firmware if it is handling 10 gpio ports
->>>       in 10 threads? The logic to handle all the ports is the same, only
->>>       the parameters (e.g. line number, msg) is different.
->>>
->>>>     2) Linux, as a consumer, should not expose its capabilities to the remote
->>>>        side (in your proposal it enumerates the ports defined in the DT).     In my view, the remote processor should expose its capabilities as the
->>>>        provider.
->>>
->>> Agreed on this.
->>>
->>>>   From my perspective, based on your proposal:
->>>>    1) Linux should send a get_config message to the remote proc (0x405 -> 0xD). 2) The remote processor would respond with the list of ports, associated
->>>>       with an remote endpoint addresses.
->>>
->>> Agreed, we can scale it for multiple remote endpoints like this.
->>>
->>>>    3) Linux would parse the response, compare it with the DT, enable the GPIO
->>>>       ports accordingly, creating it local endpoint and associating it with
->>>>       the remote endpoint.
->>>> Using name service to identify the ports should avoid step 1 & 2 ...
->>>
->>> Yes, but won't that make a lot of hard-codings in the driver?
->>>
->>> +static struct rpmsg_device_id rpmsg_gpio_channel_id_table[] = {
->>> +    { .name = "rpmsg-io-25" },
->>> +    { .name = "rpmsg-io-32" },
->>> +    { .name = "rpmsg-io-35" },
->>> +    { },
->>> +};
->>>
->>> What if tomorrow another vendor decides to add more remoteproc
->>> controlled GPIO ports to Linux, they would have to update this struct in
->>> the driver everytime. And the port indexes (25/32/35) could also differ
->>> between vendors. We should make the driver dynamic i.e. vendor
->>> agnostic.
->>>
->>> I think querying the remote firmware at runtime (step 1 & 2 above) is a
->>> common design pattern and makes the driver vendor agnostic. But feel
->>> free to correct me.
->>>
->> You are right. My proposal would require a patch in rpmsg-core. The idea of
->> allowing a postfix in the compatible string has been discussed before, but,
->> if I remember correctly, it was not concluded.
->>
-> I also remember discussing this.  I even reviewed one of Arnaud's patch
-> and submitted one myself.  This must have been in 2020 and the reason why it
-> wasn't merged has escaped my memory.
->   
->> /* rpmsg devices and drivers are matched using the service name */
->> static inline int rpmsg_id_match(const struct rpmsg_device *rpdev,
->> 				  const struct rpmsg_device_id *id)
->> {
->> 	size_t len;
->>
->> +	len = strnlen(id->name, RPMSG_NAME_SIZE);
->> +	if (len && id->name[len - 1] == '*')
->> +		return !strncmp(id->name, rpdev->id.name, len - 1);
->>
->> 	return strncmp(id->name, rpdev->id.name, RPMSG_NAME_SIZE) == 0;
->> }
->>
->> Then, in rpmsg-gpio, and possibly in other drivers such as rpmsg-tty and
->> a future rpmsg-i2c, we could use:
->> static struct rpmsg_device_id rpmsg_gpio_channel_id_table[] = {
->>      { .name = "rpmsg-io" },
->>      { .name = "rpmsg-io-*" },
->>      { },
->> };
-> That was my initial approach.  We don't even need an additional "rpmsg-io-*" in
-> rpmsg_gpio_channel_id_table[].  All we need is:
->
-> /* rpmsg devices and drivers are matched using the service name */
-> static inline int rpmsg_id_match(const struct rpmsg_device *rpdev,
->                                   const struct rpmsg_device_id *id)
-> {
->   +     size_t len = strnlen(id->name, RPMSG_NAME_SIZE);
->
->   -     return strncmp(id->name, rpdev->id.name, RPMSG_NAME_SIZE) == 0;
->   +     return strncmp(id->name, rpdev->id.name, len) == 0;
-> }
+QEMU support for Ssqosid and CBQRI lives in [6], with ACPI RQSC as
+a follow-on series [7]. There is also a combined branch [8].
 
+Series organization
+-------------------
+01      DT binding for Ssqosid extension
+02-03   Ssqosid ISA support (detection, srmcfg CSR, switch_to)
+04-06   fs/resctrl helpers and resource type additions
+07-10   CBQRI device ops (cbqri_devices.c): capacity probe +
+        allocation, capacity monitoring, bandwidth probe +
+        allocation, bandwidth monitoring
+11-15   CBQRI resctrl integration (cbqri_resctrl.c): cache
+        allocation, L3 cache occupancy monitoring, MB_MIN
+        bandwidth allocation, MB_WGHT bandwidth allocation,
+        mbm_total_bytes monitoring
+16-17   ACPI RQSC parser and init
+18      Enable resctrl filesystem for Ssqosid (Kconfig)
 
-This wildcard channel matching is interesting. It would be good to know
-the reasons/cons why this patch was not concluded.
+Refer to the v3 cover letter [9] for the test setup including the
+reference SoC layout and the corresponding QEMU command line.
 
->
-> And let the rpmsg-virtio-gpio driver parse @rpdev->id.name to match with a
-> GPIO controller in the DT.
->
->> If exact name matching is strongly required, then this proposal would not be
->> suitablea.
->>
->> A third option would be a combination of both approaches: instantiate the
->> device using the same name service from the remote side, as done in
->> rpmsg-tty. In that case, a get_config message, or a similar mechanism, would
->> also be needed to retrieve the port information from the remote side.
->>
-> I'm not overly fond of a get_config message because it is one more thing we
-> have to define and maintain.
->
-> Arnaud: is there a get_config message already defined for rpmsg_tty?
->
-> Beleswar: Can you provide a link to a virtio device that would use a get_config
-> message?
+[1] https://github.com/riscv/riscv-ssqosid/releases/tag/v1.0
+[2] https://github.com/riscv-non-isa/riscv-cbqri/releases/tag/v1.0
+[3] https://docs.kernel.org/filesystems/resctrl.html
+[4] https://github.com/riscv-non-isa/riscv-rqsc/blob/main/src/
+[5] https://git.kernel.org/pub/scm/linux/kernel/git/fustini/linux.git/log/?h=b4/ssqosid-cbqri-rqsc
+[6] https://lore.kernel.org/qemu-devel/20260105-riscv-ssqosid-cbqri-v4-0-9ad7671dde78@kernel.org/
+[7] https://lore.kernel.org/qemu-devel/20260202-riscv-rqsc-v1-0-dcf448a3ed73@kernel.org/
+[8] https://github.com/tt-fustini/qemu/tree/b4/riscv-rqsc
+[9] https://lore.kernel.org/r/20260414-ssqosid-cbqri-rqsc-v7-0-v3-0-b3b2e7e9847a@kernel.org
 
+Key design decisions
+--------------------
+- Create new resource types as RDT_RESOURCE_MBA cannot represent the
+  semantics of the CBQRI bandwidth controllers:
 
-VirtIO typically uses the feature bits for negotiation and discovery.
-And such a get_config message would not be needed in VirtIO layer, as
-there is no multiplexing. It's a 1:1 mapping of device to driver
-instance.
+  - RDT_RESOURCE_MB_MIN matches CBQRI Rbwb (reserved bandwidth
+    blocks). The sum of Rbwb across all control groups must be
+    <= MRBWB (maximum number of reserved bandwidth blocks).
 
-Thanks,
-Beleswar
+  - RDT_RESOURCE_MB_WGHT matches CBQRI Mweight, the weighted shared of
+    the remaining bandwidth blocks. Values are in [0, 255]: 0 disables
+    work-conserving sharing for the group, 1..255 compete for the
+    leftover pool.
 
-[...]
+- mbm_total_bytes is supported but only on platforms that expose one
+  mon-capable bandwidth controller. That single BC pairs with every L3
+  monitoring domain on the assumption that all memory traffic flows
+  through it.
+
+Open issues
+-----------
+ - RDT_RESOURCE_MB_MIN and RDT_RESOURCE_MB_WGHT are intended to drive
+   discussion, not as the final solution. I plan to rebase onto
+   Reinette's proof of concept once it is posted.
+
+ - resctrl monitoring scope limitations:
+   - monitor-only L3 capacity controllers are not supported.
+   - CBQRI capacity controllers can monitor any cache level, but resctrl
+     only supports occupancy on L3.
+   - resctrl needs to gain a non-CPU scope level in order for
+     mbm_total_bytes to be supported on platforms with multiple
+     bandwidth controllers.
+
+ - cc_cunits is not supported. cc_block_mask maps well onto resctrl's
+   existing CBM schema, but there is no existing equivalent for
+   capacity units.
+
+ - RQSC structs live in drivers/acpi/riscv/rqsc.h until the spec is
+   ratified and the ACPICA upstream submission lands. They will then move
+   to include/acpi/actbl2.h. The spec is in the final phase
+   before ratification.
+
+Changes in v4:
+--------------
+resctrl:
+ - Add RDT_RESOURCE_MB_MIN and RDT_RESOURCE_MB_WGHT
+ - Add default_to_min to resctrl_membw so MB_MIN defaults to min_bw
+ - Add L3 cache occupancy monitoring for L3-scoped capacity controllers
+ - Add mbm_total_bytes bandwidth monitoring when there is a single
+   bandwidth controller
+ - Move domain creation into cpuhp callbacks so that cpu_mask reflects
+   only online CPUs
+ - resctrl_arch_reset_rmid() returns early when called with IRQs
+   disabled.
+
+CBQRI:
+ - Replace per-controller spinlock with mutex. Each CBQRI op is a
+   write-then-poll-busy cycle of up to 1 ms. A sleeping mutex paired
+   with readq_poll_timeout() keeps preemption enabled across the
+   busy-wait. All resctrl-arch entry points run in process context.
+ - Replace struct cbqri_config with direct params in helper functions.
+ - max_rmid = min(max_rmid, ctrl->mcid_count) now gated on
+   ctrl->mon_capable.
+ - Validate that the sum of Rbwb does not exceed MRBWB.
+ - Move CDP enable state from file-scope globals to per-resource
+   cdp_enabled / cdp_capable.
+ - Configure both AT_CODE and AT_DATA limits when CDP is supported but
+   not enabled.
+
+Ssqosid:
+ - __switch_to_srmcfg() emits RISCV_FENCE(rw, o) before and (o, rw)
+   after csrw to drain old-task stores and order new-task loads.
+ - Invalidate per-cpu cpu_srmcfg on hart online via CPUHP_AP_ONLINE_DYN.
+   Also seed already-online CPUs synchronously at init.
+
+ACPI:
+ - Drop the PPTT helper patch and resolve cache_size via cacheinfo at
+   cbqri_resctrl_setup() time.
+ - ACPI driver now calls riscv_cbqri_register_controller() and the
+   cbqri_controller internals stay in cbqri_internal.h.
+
+Refer to v3 for previous change logs:
+https://lore.kernel.org/r/20260414-ssqosid-cbqri-rqsc-v7-0-v3-0-b3b2e7e9847a@kernel.org
+
+---
+Drew Fustini (18):
+      dt-bindings: riscv: Add Ssqosid extension description
+      riscv: detect the Ssqosid extension
+      riscv: add support for srmcfg CSR from Ssqosid extension
+      fs/resctrl: Add resctrl_is_membw() helper
+      fs/resctrl: Add RDT_RESOURCE_MB_MIN and RDT_RESOURCE_MB_WGHT
+      fs/resctrl: Let bandwidth resources default to min_bw at reset
+      riscv_cbqri: Add capacity controller probe and allocation device ops
+      riscv_cbqri: Add capacity controller monitoring device ops
+      riscv_cbqri: Add bandwidth controller probe and allocation device ops
+      riscv_cbqri: Add bandwidth controller monitoring device ops
+      riscv_cbqri: resctrl: Add cache allocation via capacity block mask
+      riscv_cbqri: resctrl: Add L3 cache occupancy monitoring
+      riscv_cbqri: resctrl: Add MB_MIN bandwidth allocation via Rbwb
+      riscv_cbqri: resctrl: Add MB_WGHT bandwidth allocation via Mweight
+      riscv_cbqri: resctrl: Add mbm_total_bytes bandwidth monitoring
+      ACPI: RISC-V: Parse RISC-V Quality of Service Controller (RQSC) table
+      ACPI: RISC-V: Add support for RISC-V Quality of Service Controller (RQSC)
+      riscv: enable resctrl filesystem for Ssqosid
+
+ .../devicetree/bindings/riscv/extensions.yaml      |    6 +
+ MAINTAINERS                                        |   15 +
+ arch/riscv/Kconfig                                 |   20 +
+ arch/riscv/include/asm/acpi.h                      |   10 +
+ arch/riscv/include/asm/csr.h                       |    5 +
+ arch/riscv/include/asm/hwcap.h                     |    1 +
+ arch/riscv/include/asm/processor.h                 |    3 +
+ arch/riscv/include/asm/qos.h                       |   64 +
+ arch/riscv/include/asm/resctrl.h                   |  152 +++
+ arch/riscv/include/asm/switch_to.h                 |    3 +
+ arch/riscv/kernel/Makefile                         |    2 +
+ arch/riscv/kernel/cpufeature.c                     |    1 +
+ arch/riscv/kernel/qos.c                            |   49 +
+ drivers/acpi/riscv/Makefile                        |    1 +
+ drivers/acpi/riscv/init.c                          |   21 +
+ drivers/acpi/riscv/rqsc.c                          |  147 +++
+ drivers/acpi/riscv/rqsc.h                          |   52 +
+ drivers/resctrl/Kconfig                            |   33 +
+ drivers/resctrl/Makefile                           |    6 +
+ drivers/resctrl/cbqri_devices.c                    | 1016 ++++++++++++++
+ drivers/resctrl/cbqri_internal.h                   |  240 ++++
+ drivers/resctrl/cbqri_resctrl.c                    | 1388 ++++++++++++++++++++
+ fs/resctrl/ctrlmondata.c                           |    3 +-
+ fs/resctrl/internal.h                              |    2 +
+ fs/resctrl/rdtgroup.c                              |   16 +-
+ include/linux/resctrl.h                            |   13 +-
+ include/linux/riscv_cbqri.h                        |   66 +
+ 27 files changed, 3326 insertions(+), 9 deletions(-)
+---
+base-commit: ef5f46b630235b75beec43174348c3d01d6fc49a
+change-id: 20260329-ssqosid-cbqri-rqsc-v7-0-b0c788bab48a
+
+Best regards,
+--  
+Drew Fustini <fustini@kernel.org>
 
