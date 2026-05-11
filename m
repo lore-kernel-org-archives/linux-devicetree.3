@@ -1,320 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011012.outbound.protection.outlook.com [52.101.70.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A3EA47CC96
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 22:09:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778537383; cv=none; b=RKQ8eVOvJAsKgz/dtjFrJhA1M8tF7eHGXMlFUPOGCZTbt3Vx5MhJzRxTS9rlxcsSV7um6bBuzvdIWDZ81qmXBYGP3e4YOUY0vZ8VvEEHwZ7sTdoLazUmtoFYS6FNh+KULZqEjRg7YJLTPJDq0UOywj8OWPQ8LvuCZ/26HfYmZmY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778537383; c=relaxed/simple;
-	bh=F8868X5hQwCbocEZqVmc2emWPNTTIJuDB6eG0i46waQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jlEu5Pg5cqiNSH1DVY2b5RaHxXabrYbsgMpp00s/UgigHtcwghd7Dg49q5SC0nHGWDwVm7n+7kA4nHfifprl8RESZtbQHT/Z979YgS7pGA8NGpsN0meHsOSd8bRWTUtfN8D+7rCKeWNYCxHUKu+fS6hwuJf+3qDjsyAnT4vtMo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dgB5G7cx; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2D4C4D8D8E;
+	Mon, 11 May 2026 22:09:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778537390; cv=fail; b=HpZpZ8IpkKel5A1lRUzyD5SzDtYpuCd4it6FaNgistXl3OBG3h4vS0LM57zSseJoaRX71l5e2wJK/7shRG9FpTUjZgcZrlduOOnvNpMjYwUY/jGYCg4rRUkktxFLccCERPPsbvFB1iV+uM4yqtTGuLtGpwedIU4yvTKwJXZQDmk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778537390; c=relaxed/simple;
+	bh=H5GWf76ZjTRT+q+bupAUZJ2SEFtU4G/QMWb5N46F9UY=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=obcOWbT2x3jWXCMec4qHWUgpXL7RO9RhDHhYpI2RpJ8qKZLXdr1DW3RtI51ZbprHD1u6UrrZzgzgENAlHKBrmmx7ZmQP7EOz2xYM3GDn2e7H7oMa6TFpAKhItZ7n4pIjsFHzUr4P8wYEB10OrYjLA9B6KezagUo4/iTb1o4nlRA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=eUk+ADWF; arc=fail smtp.client-ip=52.101.70.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dgB5G7cx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B824EC2BCF5;
-	Mon, 11 May 2026 22:09:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778537383;
-	bh=F8868X5hQwCbocEZqVmc2emWPNTTIJuDB6eG0i46waQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=dgB5G7cxJY0o3JHvNkRVFsFCn0bcij8AzPYTq/Uye9mPYJf6B6mkh+M55YcMTo0Fc
-	 mo1XmBH6VzDDBKO24KbTNaGWGo9Uf6mCItObzNZf6JFSNU1vvA+bS9CJLr/NgGpJo9
-	 UyvR1MJl/GDHASEwkI+tnSmnylYBsd0j45xy5G8KWCfjwQBdkjbnrA/nWjBTp18QYK
-	 jpGvKlipIEgkUUdM6UbkrFQiXS9bhnhqhxoRuQ6IUoRfSNrJBugh8JuMEIp9bueZGK
-	 YFS9rGD2uPLi/2CwZpX7TMn3hgtq5KKc+CaDR6yE40ywjkVH6mu+tfaEAdL6YbmG3o
-	 RWZf9J+JHrYDg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] iio: light: bh1730: Add bh1730 light sensor driver
-Reply-To: sashiko@lists.linux.dev
-To: "Alexandre Hamamdjian via B4 Relay" <devnull+azkali.limited.gmail.com@kernel.org>
-Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260511-bh1730-v1-2-e0df1f499135@gmail.com>
-References: <20260511-bh1730-v1-2-e0df1f499135@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 11 May 2026 22:09:42 +0000
-Message-Id: <20260511220942.B824EC2BCF5@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="eUk+ADWF"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YdLqdNv2hwZEuh3zbWD77Gz0S/Fymj+cjpUZEPBRV22nPGs2AuKIf+FtlSssHYdo2Cm8mFHEIE759C2cuG28Jm0UX9maDFJLeWsN26AsBujw2hjT8JdolS0YKdMj8bKvfWZOmojL8dYntkRz4x4x4Q8anBfOGxNHs411bk/bpmtk9bPYfosk/2jkbaZVTidFyZHkbltHDigDx4qR/htAG7QtgrB/MFCDRd2/uZLUg/jAfguZL8vE7TCkFcpqM0TZX9YODcmcB45ngtkYOEe6Oiar+0/zf0iBzVK3cigXFfuDDi9OYWlfkQBujYB13EdZosVcMW5sMSCx0nrdun1nNQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ekoRYnK4z55lFVyhTkG15nV4sfaeKTQNLBqvN0G2Z7Q=;
+ b=StxamrdjCUmgnaxgBUbj6cfWoSzaU5yZEwe63CXrGJsqyNf2B6HpnOwkS4C6tVAfvVXMhWrsa/6mz22Ee1ZFwvRnH0OWJlyybsls2B+VlWXmoSRy+WQncTmk0pK7X5DSAsMiq22xq2GqPuaoaqBnnP+baEudrfeGeBuUZBTt4b95td9K28ujeSQ2ZinNKrV3gxFmzHUJyZ+cOEXHEEZRQiGmoE/zy1kYMWjFNB/Ff+mCE+zNPWMg93YVMsRC3lrly3zyPcxL3+05oRlPFfLQ27+CLAJRrNcfM+npRmY3Za59mD6f6pxUW8r5gx2jbwLu/0fgSZUIpqqR1pWwrP68Yg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ekoRYnK4z55lFVyhTkG15nV4sfaeKTQNLBqvN0G2Z7Q=;
+ b=eUk+ADWFiSA9ltxLI8umQBUFUhPi7wU4+U0KIkt0cs5MteKcMYhRCu7X05k85e0pt8JqK76DgMN2oLIUUIPqGGwf/+hbZpYCEj/MTAyJS+xKFOlc2+sJujbLlO1VntzsXm8h3T9rSc9lq6pOggf06Y6Q0hJRJO2/UR6sWLjTTNR81MfHTbkdmIN5yHb39e6Q0RX17b9lgmAfZQhZOadv0ibVzJ2NZTbPfXtfFs9kttRbXr4mS1mjyPsVZ2zrh53KvUl811zZnhkfB4KK1vnVHwv/qvWL22sHhuZqMuNVJdmx+pMYf3UDR57Zv8PK8pbxufVQ3v1g7EyfQ4dNqq5QKA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by PAXPR04MB8895.eurprd04.prod.outlook.com (2603:10a6:102:20e::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 11 May
+ 2026 22:09:45 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%3]) with mapi id 15.20.9891.021; Mon, 11 May 2026
+ 22:09:45 +0000
+From: Frank Li <Frank.Li@nxp.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	dri-devel@lists.freedesktop.org (open list:DRM DRIVERS FOR FREESCALE IMX 5/6),
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	imx@lists.linux.dev (open list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE),
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev
+Subject: [PATCH 1/1] dt-bindings: display: imx: add deprecated property 'port' and 'display-timings'
+Date: Mon, 11 May 2026 18:09:24 -0400
+Message-ID: <20260511220924.1905571-1-Frank.Li@nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SN6PR05CA0009.namprd05.prod.outlook.com
+ (2603:10b6:805:de::22) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|PAXPR04MB8895:EE_
+X-MS-Office365-Filtering-Correlation-Id: 37bc014d-0e7e-4c34-9509-08deafaa026b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|52116014|366016|19092799006|376014|7416014|38350700014|921020|11063799003|18002099003|56012099003|3023799003;
+X-Microsoft-Antispam-Message-Info:
+	g5wtLrhNE9nJ4BmIMsG4fmvjME3wFcB0wTSGRV85R6XfgEoCsuw+L3dTwZpHmmwXAEqkXV3ZX2DiEgAYwmdll2s+wF/rq4LZ25XIJ05IKlrjgZJxufF50jn38KZbfaT0I9OvxLYawkQu1NtF5TLTN8UICXg4ToYRNArEkypFJ6lmjOXSBq4U5M3rJ84/ZwsO+CCCrOJTqyOV4Zte2w0MBNLPB2+Q6h5zWSbKcJUWh4Rsuk5K0A6K0OLXbiSZeA++IWgGT6Et7o3SVwrAQndSwARdu6kHC3OLBOuxBo4qGvh5ys6AO2YEE1kQsdbM7mQULz+FyxeT+wapUHze6h5HCq66wcd8bC+yw250cSoNkMQw3OO1ZNdxUk9+ZrLwqE2ekFDiErJaYynZaeCXGvrClWqEMIuOrZaLqRpbltITOVQ+mRFFFCRTmQSpXCtZQberMhII5pMuu30SvlFKnu06UYZaXHDUVvgi5pHXVxKKbZnG8d/iJDfIEhCqZyEyREJTbv8fbx9szgPIOC00mJYil0BucAWbuJcDoDrfV3C6QpiZt1XAk8mbq21wIQ8Jwly5WioK4PMLZXzc6AUEWHtd9CDCWusx6ukNjV/XrDeQDqC3yGkYP2NbCEnGZAy9ysYz6arGxZwh/qjJQ0Sv3SlRHw4yAqdm/UgHxEPDBS4IoqbQh+iIXPK3/rG8+tiW5HE71F4QG6AiZJrykzlpapeDYLkt42ii/wVDb9cMkLRQiu96Mqe2EXmMQJBMX8i4aYHnDA9R+tdGzDuZlUinFQMF0w==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(52116014)(366016)(19092799006)(376014)(7416014)(38350700014)(921020)(11063799003)(18002099003)(56012099003)(3023799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?qoaanQrChxkfJ2rnOuTgxea2ADzsj1X8ebIaGjdQzu7CApIABErvIv0iD9JD?=
+ =?us-ascii?Q?soWx3Xjwjdg1kru/wILy8U3fc6VSStdID1pFCfFnuqLx9e29VLgw4TI6BFmK?=
+ =?us-ascii?Q?Z6jYRwumHysc97Ltc/c5t4X0QYjDyuveHOA8unRJCrEQcaRMWeV+uynPAs7D?=
+ =?us-ascii?Q?uXfrm1EhucvM+zYMEiSCF5GS3TQbjZ0dmncWVLWpIZzNRoukQRSWoosluyob?=
+ =?us-ascii?Q?q3ThHc6CA6H56lE78g3e0ajdr7gM8QQlPqUg1gMJm/MmMNKKDr4jbNkrqC0O?=
+ =?us-ascii?Q?7+vNAK53HJVN5h73ewNif3ipFUcgkcDt5GKwIwhQiCwSKGzVvpmAwBhjSrTQ?=
+ =?us-ascii?Q?ynn/WuyOEFrcL3yVg/p9HpmOUUvX7ej434YTeNZ9KelG+es40zWHaOKzjGlR?=
+ =?us-ascii?Q?uAqD8nDrBWKNGKiSEmDr3GnnfrYYX5Aqv/zJ2gdFxYrClYup9HnMRJ7h24wZ?=
+ =?us-ascii?Q?kbLBAjCnvY5nFZEOJZNoWa9rmZ1M4zMyMaVPwNd6BiBeODyu5BKw+6MXT8A2?=
+ =?us-ascii?Q?ihuGPmf1AzTz93PyPwnO1Em0lkpRJiAsFl+n2KND3YdQdpC+MGq7rmJKArWx?=
+ =?us-ascii?Q?gZ11ZCprvHZklHLAfa9d0sH5ITgE/KAH6OTLsSBxR153POVCmKP6m9g5ntdE?=
+ =?us-ascii?Q?OIL5SJFjc4hPqvovHxYuSwo/ojBg0/p1dZsqu+w3dQftj42WxPE5ymmc2AYs?=
+ =?us-ascii?Q?Zh6bN7rNq2Js0f6rg0uJEETTZRjRfpD5JyoVTyhQl7lESwRnX9ObWTAWhR8X?=
+ =?us-ascii?Q?MMPhVqqVzz1nfEJpPZjOyeqWy9c/5iYilhdgJt3gbKXE91WzS5nR4p6HMKMM?=
+ =?us-ascii?Q?nk2RoV3SgKGzwZy55PO2zLJHlnZVJTUEF4pUjHW4tq8RbmiALy9uj4P9DDs8?=
+ =?us-ascii?Q?366/+DnkfDHKuy+4JUw3usggH0xgo4IVFvt/jxbFz5kasMbUBTrEzuBwpkNZ?=
+ =?us-ascii?Q?uAXk4aZrMY9FZI8NeQPnEOv1F26/wE6N8HZ3r/XQQxjqCveM+6us7oN48ELw?=
+ =?us-ascii?Q?UFtDylEwb65eNvmVsr4+GY3kIcot5+C469EwY9o6oDySkTSKz01hCd+TJ0gV?=
+ =?us-ascii?Q?AXLJT7f/jK/8qPll/XKE++bmcjW81NnRWIz2RdosmCsNuRWibdlzxwJAPHE8?=
+ =?us-ascii?Q?MTzJejc/mFeKGC5QYBcE8cBWdTqa2v+M+PtcSIUTGAt0vyc+7x0jP6JZMiQV?=
+ =?us-ascii?Q?JBC2X3zgOaPZ/PfpkXG0orOeyI7jgCvVnKqC/eOoB+WRq6WIIKH4IXddVwPN?=
+ =?us-ascii?Q?yWJgk+mCcY4XmZqv0AZzzGe3s+aswTO/SN7M0Xs/NVLqfFOKlIBHHSiAd5/Y?=
+ =?us-ascii?Q?rBT5De6Zd6aJKw+eqwSRr6gGCTVGmLpBta4m9qtDVYQQVyNLz/3tPn5aUMdH?=
+ =?us-ascii?Q?2eRvbG4lBIJMaWB0247iMhzBmPTExC1WiRXbDoWMQXjyjQc4OImon0T5javi?=
+ =?us-ascii?Q?DPOAmGB86/1FmxoOY6QtPPLgFpkRjy+yCOytrxsuS/VyNEnCiRKxxvk1xuJo?=
+ =?us-ascii?Q?42353PXCjg78mwmpzR+i57OoxOg7tzl50sanBLvh/bciLEFHePjmHwg3+8v+?=
+ =?us-ascii?Q?tXkSO2Ls4w54kV4on6E7/pIXkDIxt9GebtJgro8VLwItIERgv52H4zvNds5/?=
+ =?us-ascii?Q?E1lzv6tQLIOJjQ0U4o5g/HFVMealXFSlJQF7KKNJpjjVavp3aFLxaQl6s5JN?=
+ =?us-ascii?Q?faW8Y7sAEZuKP4SUhtjPw8O9r268wdYfv7V7KWKArCSq3amGahlspI4KxfgZ?=
+ =?us-ascii?Q?evq3RI8ALA=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 37bc014d-0e7e-4c34-9509-08deafaa026b
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2026 22:09:45.5401
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2if90W5BeexmJ162QWgB2/QvyRHxqnKrwyqq8lTss07LGjMlqWJShvpLY5a06jAFXe2KcCqXl+GHJusVmzuO0w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8895
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
-s) to consider:
-- [High] Global shared state breaks power management for multiple devices.
-- [High] Regulator resource leak and probe deferral mishandling.
-- [High] Unsigned integer underflow in lux calculation causes erroneous max=
-imum brightness readings.
-- [High] Missing mutex protecting concurrent IIO sysfs reads causes race co=
-nditions.
-- [High] Probe error path leaves the device powered on.
-- [High] Unbalanced regulator enable counts in error handling paths.
-- [Medium] Incorrect I2C functionality check in probe.
-- [Medium] RAW IIO channel violates ABI by returning scaled fractional valu=
-es.
-- [Medium] Missing integration-time tracking logic as claimed in the commit=
- message.
---
+Add deprecated property 'port' and 'display-timings' for i.MX5 SoCs (over
+15 years) to fix below CHECK_DTBS warnings:
+  arm/boot/dts/nxp/imx/imx51-apf51dev.dtb: disp1 (fsl,imx-parallel-display): 'display-timings', 'port' do not match any of the regexes: '^pinctrl-[0-9]+$'
+        from schema $id: http://devicetree.org/schemas/display/imx/fsl,imx-parallel-display.yaml
 
-commit 92646ec6b1c5614b002c3fd3629112d1e7719033
-Author: CTCaer <ctcaer@gmail.com>
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+ .../display/imx/fsl,imx-parallel-display.yaml         | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-iio: light: bh1730: Add bh1730 light sensor driver
+diff --git a/Documentation/devicetree/bindings/display/imx/fsl,imx-parallel-display.yaml b/Documentation/devicetree/bindings/display/imx/fsl,imx-parallel-display.yaml
+index bbcfe7e2958b7..b0c5869771fae 100644
+--- a/Documentation/devicetree/bindings/display/imx/fsl,imx-parallel-display.yaml
++++ b/Documentation/devicetree/bindings/display/imx/fsl,imx-parallel-display.yaml
+@@ -42,6 +42,17 @@ properties:
+     unevaluatedProperties: false
+     description: output port connected to a panel
+ 
++  port:
++    $ref: /schemas/graph.yaml#/properties/port
++    unevaluatedProperties: false
++    deprecated: true
++    description: input port connected to the IPU display interface, see port@0
++
++  display-timings:
++    $ref: /schemas/display/panel/display-timings.yaml#
++    unevaluatedProperties: false
++    deprecated: true
++
+ required:
+   - compatible
+ 
+-- 
+2.43.0
 
-Add a driver for the ROHM BH1730FVC ambient light sensor with runtime gain
-tracking and configurable integration time.
-
->    The driver exposes illuminance via IIO, performs runtime gain and
->    integration-time tracking to keep the ADC in range, and supports
-
-This isn't a bug, but the commit message mentions runtime integration-time
-tracking. While runtime gain tracking is implemented in bh1730_adjust_gain(=
-),
-is there equivalent runtime logic to track or adjust the integration time,
-or is it only configured once during bh1730_init_config()?
-
-> diff --git a/drivers/iio/light/bh1730.c b/drivers/iio/light/bh1730.c
-> new file mode 100644
-> index 0000000000000..c93290ff5661f
-> --- /dev/null
-> +++ b/drivers/iio/light/bh1730.c
-> @@ -0,0 +1,686 @@
-[ ... ]
-> +static int bh1730_get_lux(struct bh1730_data *bh1730)
-> +{
-[ ... ]
-> +	/* Calibrate based on optical window */
-> +	for (i =3D 0; i < bh1730->cal.opt_win_coeff_count; i++) {
-> +		opt_win_coeff =3D &bh1730->cal.opt_win_coeff[i];
-> +		if (1000 * ir / visible < opt_win_coeff->rc) {
-> +			lux =3D ((u64)opt_win_coeff->cv * visible) -
-> +				   (opt_win_coeff->ci * ir);
-> +			break;
-> +		}
-> +	}
-> +
-> +	/* Calculate lux */
-> +	lux *=3D BH1730_DEFAULT_ITIME_MS;
-> +	lux /=3D bh1730_gain_multiplier(bh1730) * bh1730->itime_us;
-> +	lux =3D (lux * bh1730->cal.mul) / 1000;
-> +
-> +	if (lux > BH1730_MAX_MEASURED_LUX)
-> +		lux =3D BH1730_MAX_MEASURED_LUX;
-> +
-> +	return (int)lux;
-> +}
-
-Can the subtraction underflow if the infrared component (ci * ir) is greater
-than the visible component (cv * visible)? Since lux is an unsigned 64-bit
-integer, this could result in a massive positive number.
-
-The subsequent clamping logic would then set lux to
-BH1730_MAX_MEASURED_LUX (100,000). Would this cause the sensor to report
-maximum brightness instead of 0 lux in environments where IR light dominate=
-s?
-
-[ ... ]
-> +static int bh1730_power_ctrl(struct bh1730_data *bh1730, bool enable)
-> +{
-> +	struct device *dev =3D &bh1730->client->dev;
-> +	static bool enabled;
-> +	int ret =3D 0;
-> +
-> +	if (enabled =3D=3D enable)
-> +		return ret;
-
-Will this global static variable break power management for multiple device=
-s?
-
-If a system contains multiple BH1730 sensors, powering on the first sensor =
-sets
-enabled =3D true. When the second sensor attempts to power on during probe,
-would the enabled =3D=3D enable check evaluate to true and return immediate=
-ly
-without enabling the regulators for the second device?
-
-> +	if (enable) {
-> +		if (!IS_ERR_OR_NULL(bh1730->reg_vdd)) {
-> +			ret =3D regulator_enable(bh1730->reg_vdd);
-> +			if (ret) {
-> +				dev_err(dev, "%s: Failed to enable vdd: %d\n",
-> +					__func__, ret);
-> +				return ret;
-> +			}
-> +		}
-> +
-> +		if (!IS_ERR_OR_NULL(bh1730->reg_vid)) {
-> +			ret =3D regulator_enable(bh1730->reg_vid);
-> +			if (ret) {
-> +				dev_err(dev, "%s: Failed to enable vid: %d\n",
-> +					__func__, ret);
-> +				return ret;
-> +			}
-> +		}
-
-If regulator_enable(bh1730->reg_vdd) succeeds but the subsequent
-regulator_enable(bh1730->reg_vid) fails, will this return without
-disabling the vdd regulator and leave an unbalanced enable count?
-
-[ ... ]
-> +static int bh1730_power_off(struct bh1730_data *bh1730)
-> +{
-> +	int ret =3D bh1730_write(bh1730, BH1730_REG_CONTROL, 0);
-> +
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	return bh1730_power_ctrl(bh1730, false);
-> +}
-
-If the initial I2C write fails here, the function returns early without cal=
-ling
-bh1730_power_ctrl(..., false). Will this permanently leak the regulator
-enable references upon an I2C error during device removal or suspend?
-
-[ ... ]
-> +static int bh1730_read_raw(struct iio_dev *indio_dev,
-> +			   struct iio_chan_spec const *chan,
-> +			   int *val, int *val2, long mask)
-> +{
-> +	struct bh1730_data *bh1730 =3D iio_priv(indio_dev);
-> +	int data_reg, ret;
-> +
-> +	ret =3D bh1730_adjust_gain(bh1730);
-> +	if (ret < 0)
-> +		return ret;
-
-Is a mutex needed here to protect concurrent IIO sysfs reads?
-
-Without a driver-level lock, if multiple userspace threads read from the IIO
-sysfs attributes concurrently, their executions will interleave.
-
-Could concurrent access allow threads to trample the hardware gain state
-in bh1730_adjust_gain(), corrupt I2C read sequences, and read invalid
-mid-integration data?
-
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_PROCESSED:
-> +		ret =3D bh1730_get_lux(bh1730);
-> +		if (ret < 0)
-> +			return ret;
-> +		*val =3D ret;
-> +		return IIO_VAL_INT;
-> +	case IIO_CHAN_INFO_RAW:
-> +		switch (chan->channel2) {
-> +		case IIO_MOD_LIGHT_CLEAR:
-> +			data_reg =3D BH1730_REG_DATA0LOW;
-> +			break;
-> +		case IIO_MOD_LIGHT_IR:
-> +			data_reg =3D BH1730_REG_DATA1LOW;
-> +			break;
-> +		default:
-> +			return -EINVAL;
-> +		}
-> +		ret =3D bh1730_read_word(bh1730, data_reg);
-> +		if (ret < 0)
-> +			return ret;
-> +		ret =3D ret * 1000 / bh1730_gain_multiplier(bh1730);
-> +		*val =3D ret / 1000;
-> +		*val2 =3D (ret % 1000) * 1000;
-> +		return IIO_VAL_INT_PLUS_MICRO;
-
-Is it permissible to return a scaled fractional value for IIO_CHAN_INFO_RAW=
-?=20
-
-The IIO ABI specifies that IIO_CHAN_INFO_RAW must return the exact, unscaled
-integer value from the hardware. Should the driver expose the raw ADC count
-using IIO_VAL_INT and provide a separate IIO_CHAN_INFO_SCALE attribute so t=
-hat
-userspace can properly interpret and scale the value?
-
-[ ... ]
-> +static int bh1730_parse_dt(struct bh1730_data *bh1730, struct device_nod=
-e *dn)
-> +{
-> +	struct device *dev =3D &bh1730->client->dev;
-> +	int ret;
-> +	u32 *opt_win_coeff =3D NULL;
-> +	u32 *gain_coeff =3D NULL;
-> +	int opt_win_coeff_count =3D 0, gain_coeff_count =3D 0, cycle =3D 0, mul=
- =3D 0;
-> +
-> +	memcpy(&bh1730->cal, &def_lux_data, sizeof(struct lux_cal_data_t));
-> +
-> +	if (dn) {
-> +		/* Get regulators */
-> +		bh1730->reg_vdd =3D regulator_get(dev, "als-vdd");
-> +		if (IS_ERR_OR_NULL(bh1730->reg_vdd)) {
-> +			bh1730->reg_vdd =3D NULL;
-> +			dev_warn(dev, "failed to get als-vdd");
-> +		}
-
-Are the regulator resources leaked here? regulator_get() is used to acquire
-them, but there are no corresponding regulator_put() calls in bh1730_remove=
-()
-or any of the probe error paths.
-
-Also, does checking the return value with IS_ERR_OR_NULL incorrectly swallow
-the -EPROBE_DEFER error code?=20
-
-If a regulator is not yet available, the pointer is set to NULL and the dri=
-ver
-proceeds instead of properly deferring the probe, which could break power
-management. Could devm_regulator_get_optional() be used here instead?
-
-[ ... ]
-> +static int bh1730_probe(struct i2c_client *client)
-> +{
-> +	struct bh1730_data *bh1730;
-> +	struct i2c_adapter *adapter =3D to_i2c_adapter(client->dev.parent);
-> +	struct iio_dev *indio_dev;
-> +	int ret;
-> +
-> +	if (!i2c_check_functionality(adapter, I2C_FUNC_SMBUS_BYTE))
-> +		return -EIO;
-
-Is I2C_FUNC_SMBUS_BYTE the correct functionality to check? The driver activ=
-ely
-uses i2c_smbus_read_word_data() and i2c_smbus_write_byte_data().
-
-Should this verify I2C_FUNC_SMBUS_BYTE_DATA | I2C_FUNC_SMBUS_WORD_DATA
-instead? Relying on I2C_FUNC_SMBUS_BYTE might cause the driver to bind to an
-I2C adapter that does not support the required operations.
-
-> +
-> +	indio_dev =3D devm_iio_device_alloc(&client->dev, sizeof(*bh1730));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	bh1730 =3D iio_priv(indio_dev);
-> +	bh1730->client =3D client;
-> +	i2c_set_clientdata(client, indio_dev);
-> +
-> +	ret =3D bh1730_parse_dt(bh1730, client->dev.of_node);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret =3D bh1730_power_on(bh1730);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret =3D bh1730_init_config(bh1730);
-> +	if (ret < 0)
-> +		return ret;
-
-If bh1730_init_config() fails, does this return early and leave the
-device powered on?=20
-
-Returning directly here would leak the regulator enable count instead of
-jumping to the out_power_off label to properly clean up the state.
-
-> +
-> +	indio_dev->dev.parent =3D &client->dev;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511-bh1730-v1-=
-0-e0df1f499135@gmail.com?part=3D2
