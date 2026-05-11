@@ -1,93 +1,92 @@
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79FB240242C
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 15:40:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57364402B87
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 15:40:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778514046; cv=pass; b=jexXjekajzfTvQ+cOku6piVS2fGsiSJFwxq43p0ki3hMaYy0OGFzQxj1ShYF3QWtPUFcePN6QRrI/GJzZHQzBuUCTp19F2jHOJhTLeleHb86AffmcCUaqF0Sww4pW1drLM6MZJnQVMxSbUPTbyAPN+YORA08AarL35PRO8RMSNo=
+	t=1778514049; cv=pass; b=cTgIhl+/to+mYpWogx1sRmbwFFGzKWGTbNWbfX/XqDbSVL7wEFoEnu7sHfUcYkmJb9rG6lqJeXfoWDZl/VRmjB46Wd1oURFvN9ml0KYEU8RotuTeVHXKXSMGCtb47lbVl9qnm6lAvomO7mEgTdPCLRjHXEY2FxG3VnlnEMPqYLw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778514046; c=relaxed/simple;
-	bh=pYW7RgYPb/aitZu0xIOw+1rg+iW8B1yMUnmb+fIb5/I=;
+	s=arc-20240116; t=1778514049; c=relaxed/simple;
+	bh=iCAqFcT9NX3fZjkDKNrQDg8D+ochKGSkZTc2/qvY8WI=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iB0zrJ7fL7QpsQv5BWT5GifnuXcslC9Ck1zKY5xebr7E0S6Go/ddTBXY8pV7IRI7VpKmSH/h/sXbEMPYcZEJZbRTLRH1e+Xp24ZskVXnoufVxffNWcrmTFjCNwKVQz5lc1YvJTfu9rrLNQgTZFHoDbbRFsXz/28uVT2rsLlPDZ4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=a1ukhUyj; arc=pass smtp.client-ip=209.85.208.169
+	 To:Cc:Content-Type; b=uWUvHTKdkypNMDbX8Kj8VLsUIQ/h0/e5y+AlKsaQKpj1Ve0E1mgLXEGUEjWH+7qtwRdHMO8uOr88a8EZby3WweRKMuVsTSDVW4YH7HRlNzivrnmPTP3FCZ88E7ZJx94clYI9Xy/VXy8aT4VZuD5UxWcQczd7OxxBmxYNchoXL1Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=gtTNE/CY; arc=pass smtp.client-ip=209.85.167.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="a1ukhUyj"
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-38e7d983f79so39156391fa.0
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 08:40:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778514043; cv=none;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="gtTNE/CY"
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5a746f9c092so7038826e87.1
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 08:40:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778514045; cv=none;
         d=google.com; s=arc-20240605;
-        b=lp3y92s9qpwdkFdcE7//0staq669ajtMwak6pXaP/iH05AgFMZLnOFI8jIVHTpwY13
-         xBD6jGXd+c+WxkvE/RmUrJtagQ8YcSQobS1aMlFdikpekc9SVldP1Tc+RBf8/OmnYV4T
-         zu9D88jeW0JoNORJ30K/j9HpdiYgOn3AIc3wDYCqtvF1Ab86rD5/PGTWVL3dopnPJ7RN
-         /eQaBZaieoA20VrEqyjt3BWkQ61a2vLEBWhGaHfHxQxK2biOAtXOPr431XAqnY56z65i
-         sVrbua9UawE4pk2YeIF/p9MfVBqdzhwUS0YY/J5ouzm+lM3qetE3EI4lxFUZjv7lsENf
-         92Yw==
+        b=j+xmh25gZdekGWnyZIoBBaWupasK5vMwZl50pwDPpoj70Nm6JJwEutF/Lv3sJ9vZa3
+         sFKs/XOVayllt6VSPGulxaXPfyJoLOdPGTj/tDcP9CJJ5i8riyhzLhlwQKvqVh7HfyWo
+         8NMvWo8l8wSimuan8/cax9UEXfGUXG4iGkP9GLg3iEw/xtRMfzYymbvug20ae4yhuWKB
+         l/Wh6hVtXORcwxXAYgtemkfWJQxUO1BpU1UnarQvgVAgR3aiLWN+QEh++61nnEt1ZPyV
+         HEwAKlYdB7CRvUtTLytNPni3HHX/xZMNP/D3lTp8TiDavsuQfXx6C2ttqGEFER+H6ulT
+         tlCA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=KjChFc16W6YK3fibnourBR78yR1fv1+j9VkzA0wOe20=;
-        fh=BUfias5P/CI7Vl3nb3j5anW3OZU3Vvwn1MOMPxt0+Bs=;
-        b=Wa4IIkD22J1CL1sED10FCal+/GLH8tQBG1vJdOqPjXcV5z05tySZbBq974TP0XOLnS
-         BioUUbHUuHDBcmOz6v1cOBdWLG/ng/nflqKTbX1R7uH1o1vsE8L+visxGV7aC7aHz/Hw
-         1BnvVo/rpGFSW9iHGyuAM3vYAYTXZ2FN/bjpPdf0+NrfCo6vtMGWrHng0kY/zncdP8We
-         Kktc6oWsh4jzvx/8ePi9a9M/fixdxRqU5Rg29OrfER+KGQ4prMTk+XUPhqo98ZUxWFVF
-         a7c3fgqFpaNez1DFIg+3CROYwO0s09aN0om2FyLwTcveTWXAO6+tWMqVT6FjpWZ+JBcj
-         dFAw==;
+        bh=3JWMhWSTBa1St/FT9EYONC8eNpWkZ18pjlnscArsjYQ=;
+        fh=XIroHigwyo/Y6tMCSKgBCZrQcLIlq0IBhpb9stAJjCU=;
+        b=OQnTj+NxIAN8l6zXZAfKnjWEXNDaL/aRdLmdkp7Wp1KIH4I1ZX4FW8byAhGvziT4cf
+         bZ61KpkQn1Y/JBtZPeAcoYlGFSMYidPsmw/vih8GX5gxx9Ey/Y3J1NngijO+DhQj7ia0
+         qUP2vaFt7gc2lOqwxwRLaW2OcFIAi8d6IGA6sIhqSd7YMQzLCpNxbkrZ9+JmIRjf+t3t
+         AzTOooXJbPf872zq130oBFjX5AtTJxHHRGL8VvkG9/6mMCoRUUUt6ZSX+mUTfNB2gjps
+         ftpXe8RZm3sAkCjaL1Pz2YaWpxHuvNC7kmntI0OJnuC4/Ne1vKnT1Du2OhAbJZmuT4H3
+         XDuw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1778514043; x=1779118843; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1778514045; x=1779118845; darn=vger.kernel.org;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=KjChFc16W6YK3fibnourBR78yR1fv1+j9VkzA0wOe20=;
-        b=a1ukhUyjKTE726gtgTOMCKf7F2deXxfK6tsxGlpzHMG8+Y9nwqBOPk22P+dBdjBAqZ
-         VQY/tcZmrT/V96CPMoa6RpKNHns/Gs7dHkzATxu4uT9GTXIqe8FAik6fmzjlpcDOnaM1
-         anGAfKQZLGP8sIcksyFQ4005gQq2kh4cAZUmRA73VVejE7wXfJLvL2vbnGN1Zkj+UNWC
-         PRGZLgJT640sCFtr+VBw/p4EF/kHT1tQ4fIzWhq3bv8xZx7t8sY/DAR2wwRCOvxZ4+T/
-         XCXbXe6upsLV2UPk+94n5aaQvJk5IeuGF7N/3CMVAML1xO7qbdbVvICvIsrfGmm3iqsy
-         eSJA==
+        bh=3JWMhWSTBa1St/FT9EYONC8eNpWkZ18pjlnscArsjYQ=;
+        b=gtTNE/CY9GbJFWB/1LsKXb/Wpr5w7kInVcfUuphMLuS/53gvK4+hTQH9ixl7vdg/oP
+         XB7SyPGemFLi3xo+Wq6zzry6vR45B/MSaFpHmXEoFGtBV4HeXo1kw6iHHnjipPU3DLKQ
+         kv0q+U+LPkk5B07pyUx5P/dx/Dsx5uVcY3I5RDv+L7c0F9LfgfqOwnFihNGoqykti7Vz
+         nyV9gPEgrCMFooYKB2BwtV3l+P/OqIwulxh3FyZn29Ms3TBl1dU9VLB2SsANOK1Q9QBa
+         NClclIG6DxPy6T7sV/U4foTjBgGU1fV+W0WG53HeWYXAQ1Uj3zx/l/CGeCjHmVlmYbvp
+         OrQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778514043; x=1779118843;
+        d=1e100.net; s=20251104; t=1778514045; x=1779118845;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KjChFc16W6YK3fibnourBR78yR1fv1+j9VkzA0wOe20=;
-        b=aB4a6JPOV1Va3XqKgqFOzgsaOl4oyIAEcyMAjwwdQXiao3DCu7jX9BgiX+anmm42Fa
-         SrMJCHy/G4nOsVpRIriq4wq/nw7v6WhWYY0YsNtEiYfRBJnIpJhlnrz1icxJRL2msvP4
-         eAoJdW3INc7jV1h2HWZGFK+v0pZxNbI6MuuHKzJWVy7xkhVfIjstvItlGgWmcedngoBT
-         BocmrpScfmuWF9jIOSgLpAJA9uJtZwW2+CdQHhURJMEJqR2YjxfrQbVvTiwhIPM/3KV6
-         8jzQZLjW9q/Ryhx+5TPPjhiD06ImFlcD2SoK1pmpJYVjYGR1LXasprLZ68fJJgx0/BtJ
-         4ZmA==
-X-Forwarded-Encrypted: i=1; AFNElJ8HqYIU0+CwaOcoedfHsHfOOVDH8zuWzgDidldQRgpoZqvArO/LKVSrI/QYKQdGWL+QZHdLpk5gSlLM@vger.kernel.org
-X-Gm-Message-State: AOJu0YwYDoixzPjmtRD57WAl995aqZ0wb3HIDsVihnujEZZb7/zK89Vt
-	fF4ra7BL91JCwbH4OYKhzWXdApY4w8RGKZn0ItvHgN3nJHE1hzAi649pt2UH2JnxqQvC5lhqVTq
-	a0RwxzWRBLRJgo7JCZk/PlD29MkYJ9AZmalofWPvjlw==
-X-Gm-Gg: Acq92OF2eg6o21b1EzLHxbilvJ8o8VnMNSziePyti3uKuLMl0PrSfOuU7M6S9sxajWZ
-	0X80B6Z5AmaGDCqw8L7tH/0kIqWTmhslvrWV9x3ZJf4Mlwxf1Rj2lYTFWU/0dRgvTSyal/vbip+
-	nEPllqlrAYE9l75Hp3eF27duAWnAqslJdq6EdSvDtt3nZcfRPw2DUmw/BUMWk5XQBevpFSJrU1p
-	qC+3gdhZNoOFWpmhAg4MZ6hSUdM9/6kjymKRfcBXCQc2m+bVf+3L990u1GflHWmaeu99ZYj0FSW
-	Q3SxikTT
-X-Received: by 2002:a05:6512:3a83:b0:5a8:6e64:e88b with SMTP id
- 2adb3069b0e04-5a887add6d3mr7544636e87.4.1778514042559; Mon, 11 May 2026
- 08:40:42 -0700 (PDT)
+        bh=3JWMhWSTBa1St/FT9EYONC8eNpWkZ18pjlnscArsjYQ=;
+        b=dVPuktj0LPKQgke4xKA5hxrbcOF5PAKcdEYgc2fdCnMR4nKUT5sPW4t2elUHfG2nci
+         2VE0ck/qnLSDXu6EwjghbIvWWlMwliBXzqTARbaqHBqAY4t86BV8NSJTI+EaRPl1ssHm
+         Mt+MPrWQ7cg7heHfAC6uO0pGTOazObkYWgSatOHMstzQOYBes3kwB1XFhKnQ4w0741B0
+         lYZla24ZAZEFWz9/NzzpWFTv9x/ElpeOtlBtGbCTm8ighXZ7OCKWA8nyXSRPaY4IcKn6
+         3HpQQOoW4pol8RtDIB7C+4IrUTdIQs51XuluM48WD1jpvKUp3lkCnj+hA//LAr1s+c+t
+         NVuw==
+X-Forwarded-Encrypted: i=1; AFNElJ8/ZkbsAnEVOMqzZtkzgvZBKCW27id5k2RPlD7KwrPyw1/3s2Fiz982La51AddQcmhbGhIWnN7PMXM9@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy1+FXqgyyfkQwPPSivjP5osa5rEOS4k0rFGIHdBzrbej9dMRLo
+	YeVXQiF0Xo1Tby3h7Uuk8L3Vm9zJpR+//beP1T72Vq2U5TMC2UXkCZJrzHPyiKtgikkGzqEShDc
+	Nd2jlYVlO2BufgtQuxjfdsILZ+Y/YhyX7qtUPlFcAZA==
+X-Gm-Gg: Acq92OEhdzSFU4DXDKwsNTEOaGefOK8T00ZLs6aEAqDkJyTC22uYVNQo2f8U+FJC+xc
+	gwIG98Xh1/5g1GjSHvA3PV4Gt5JM7PFp5CZqh121ItgM4a2W6LAkdlWUABshy8xDRTNslxSM1Yg
+	cxd3AmtSUry8Pbut5uPB+reMPpOZZ/BvcwxSlhAdZgcri7SWXwpZQN9x/c1MBlRjPKnWvBdkXUD
+	KExxydnXhnli+8TedBxZC+OItOOo5FQ4TEcJpSeFy6nZLy485A9yW+SMw1p7UG1R5ghKi9ORmNp
+	B/K0DZhK
+X-Received: by 2002:a05:6512:1081:b0:5a7:4912:1a50 with SMTP id
+ 2adb3069b0e04-5a8e0f2ec60mr10052e87.20.1778514045188; Mon, 11 May 2026
+ 08:40:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260504144534.43745-1-marek.vasut+renesas@mailbox.org> <20260504144534.43745-2-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260504144534.43745-2-marek.vasut+renesas@mailbox.org>
+References: <20260504144534.43745-1-marek.vasut+renesas@mailbox.org> <20260504144534.43745-3-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260504144534.43745-3-marek.vasut+renesas@mailbox.org>
 From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Mon, 11 May 2026 17:39:49 +0200
-X-Gm-Features: AVHnY4LAe4jSY9ZIU0Jqqg3bAkBng0JF_5D_OZzU-aQcORXNKnNE7TuCtsiJ2MY
-Message-ID: <CAPDyKFrDzA-dYF58_N05JCTqdgvPUMvXF+FKeyCFivLyhw5_6Q@mail.gmail.com>
-Subject: Re: [PATCH v2 1/7] dt-bindings: mmc: renesas,sdhi: Document R-Car
- M3Le support
+Date: Mon, 11 May 2026 17:39:53 +0200
+X-Gm-Features: AVHnY4LEtYRDfcFkDKKMsfq944FdAC52H0vJFxs1kLbNHgSvbuAlOvG-QOqCQEs
+Message-ID: <CAPDyKFpO5RyaSGRZibAsygRcfs_En-TohTOrO6a7dUdVdzcuxA@mail.gmail.com>
+Subject: Re: [PATCH v2 2/7] mmc: renesas_sdhi: add R-Car M3Le compatibility string
 To: Marek Vasut <marek.vasut+renesas@mailbox.org>
 Cc: linux-arm-kernel@lists.infradead.org, Brian Masney <bmasney@redhat.com>, 
 	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
@@ -102,8 +101,9 @@ Content-Type: text/plain; charset="UTF-8"
 On Mon, 4 May 2026 at 16:46, Marek Vasut
 <marek.vasut+renesas@mailbox.org> wrote:
 >
-> Document support for the SD Card/MMC Interface in the Renesas R-Car M3Le
-> (R8A779MD) SoC.
+> Add support for the SD Card/MMC Interface in the Renesas R-Car M3Le
+> (R8A779MD) SoC. R19UH0260EJ0100 Rev.1.00 , Dec 25, 2025 Notes 7.70.
+> indicates that HS400 mode is not supported.
 >
 > Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
@@ -133,21 +133,21 @@ Uffe
 > ---
 > V2: - New patch
 > ---
->  Documentation/devicetree/bindings/mmc/renesas,sdhi.yaml | 1 +
+>  drivers/mmc/host/renesas_sdhi_internal_dmac.c | 1 +
 >  1 file changed, 1 insertion(+)
 >
-> diff --git a/Documentation/devicetree/bindings/mmc/renesas,sdhi.yaml b/Documentation/devicetree/bindings/mmc/renesas,sdhi.yaml
-> index 64fac0d11329a..4d66966ce2900 100644
-> --- a/Documentation/devicetree/bindings/mmc/renesas,sdhi.yaml
-> +++ b/Documentation/devicetree/bindings/mmc/renesas,sdhi.yaml
-> @@ -52,6 +52,7 @@ properties:
->                - renesas,sdhi-r8a77980  # R-Car V3H
->                - renesas,sdhi-r8a77990  # R-Car E3
->                - renesas,sdhi-r8a77995  # R-Car D3
-> +              - renesas,sdhi-r8a779md  # R-Car M3Le
->            - const: renesas,rcar-gen3-sdhi # R-Car Gen3 or RZ/G2
->        - items:
->            - enum:
+> diff --git a/drivers/mmc/host/renesas_sdhi_internal_dmac.c b/drivers/mmc/host/renesas_sdhi_internal_dmac.c
+> index f6ebb7bc7ede1..b716a518f2650 100644
+> --- a/drivers/mmc/host/renesas_sdhi_internal_dmac.c
+> +++ b/drivers/mmc/host/renesas_sdhi_internal_dmac.c
+> @@ -285,6 +285,7 @@ static const struct of_device_id renesas_sdhi_internal_dmac_of_match[] = {
+>         { .compatible = "renesas,sdhi-r8a77970", .data = &of_r8a77970_compatible, },
+>         { .compatible = "renesas,sdhi-r8a77990", .data = &of_r8a77990_compatible, },
+>         { .compatible = "renesas,sdhi-r8a77995", .data = &of_rcar_gen3_nohs400_compatible, },
+> +       { .compatible = "renesas,sdhi-r8a779md", .data = &of_rcar_gen3_nohs400_compatible, },
+>         { .compatible = "renesas,sdhi-r9a09g011", .data = &of_rzg2l_compatible, },
+>         { .compatible = "renesas,sdhi-r9a09g057", .data = &of_rzg2l_compatible, },
+>         { .compatible = "renesas,rzg2l-sdhi", .data = &of_rzg2l_compatible, },
 > --
 > 2.53.0
 >
