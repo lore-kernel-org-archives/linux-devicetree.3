@@ -1,77 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6142B42316C;
-	Mon, 11 May 2026 16:18:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E9FA33F5BA;
+	Mon, 11 May 2026 16:18:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778516290; cv=none; b=XGMlLgQ+IHH+wJ43o25nq1ebSeAZVXw4HOjuXK1Wj4eyiXUPAz40uu0XaDh4ejb8/+V+UNuEqBRj8btV/en92c/s04Ob3rUQrIe8/l3roh7nrsA/HNdWA7yqRAtLyqslaJ74vWriA2ixXdgz5LAZQlJ+WpwOm6YCyq6rEj4pkqw=
+	t=1778516325; cv=none; b=ixakSLKZCKBi08VzRbW1kLkEf7J9ctEs6xkaRr5SkJG4vNjzyT7P6B9XPvlgm8WhmFLkAAslMmks43X1kPKGKTt76C+6BqUwNdN/YNgfRWMLYRx2dSLdxreHNOsGkIr9tOsIy8qUc0AYYRjVyUu3GtvtBH0naCez/Y0BUrVHavs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778516290; c=relaxed/simple;
-	bh=YxvORiIZBfulrMnrmjoNFiu0qMUXNTX2BFKfPnRUsNc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mS0NRjeqC7S1zzbOoYl1Tf1hFSl6v6qOaXI740rbl4z47N3bxQGAqfnPEBYKqcwPzlJQ2id7TKkl/JxEMt4ZCVfQbt7kRe1RryDr2hEiqkr49dhvjdc2VqctgfJhdbChYlJv+dUP1R9d6FQ0p9rs33Zu2FFKz2jGv+cU8awPs20=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AJR4Hyjs; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778516325; c=relaxed/simple;
+	bh=k4lJJrUTUHcwl0bF97Q2A6/DUefG/qcFjWHTtaPP050=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AhcYrqkGZdaOOndECKsS52Jo9n2Jv2xB6epOe1fH512whieJP8kYX+18odSj8DbXpNYo51qN+/A97zxKsvOsoGyIN0JRDC95u8/dTFqpLXyRnoegvqSK3lqlCrkdvPyZP8hKb+I/xzzT59iWqxC6RW75dWQHOr+GMWurQhQ1m9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qmVKsfIT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AJR4Hyjs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36D5CC2BCB0;
-	Mon, 11 May 2026 16:18:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qmVKsfIT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AB7EC2BCB0;
+	Mon, 11 May 2026 16:18:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778516290;
-	bh=YxvORiIZBfulrMnrmjoNFiu0qMUXNTX2BFKfPnRUsNc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=AJR4Hyjsk4FhXdj2HAqhzZ+l93E+n6xFXon4ZLKmdNtt+WHm72+lo2v7QAb83evev
-	 4RJLqH2QIofV0dZ9x/zFWr0iEDCB3IiFXX+zJJU4o+6B0uKziqmnqAXyvkXGIfsuvf
-	 YTgA9wjg4hVFnSDZ7tO/pTxWIUQVv8tFAF2tkF5ekXyz8/S+LWJyPLpceFy6jYJ5ru
-	 UJMBFl44AEM9RF96zUf5qjCQSd82zBi2KbOo5wrspD5vukEwpJRHgqJ7GnSDyPjjAk
-	 OX7Fs1HsIhBAy735SxPKnV+suhmGaml/Q8kL1jlg/SIepZ/ZwikGFq2Ccp//4+uvTj
-	 0Fcg7cB5f2A3g==
-Date: Mon, 11 May 2026 17:17:59 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Pramod Maurya <pramod.nexgen@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>, Lars-Peter
- Clausen <lars@metafoo.de>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] dt-bindings: iio: adc: Convert xilinx-xadc bindings
- to YAML schema
-Message-ID: <20260511171759.46a95f8d@jic23-huawei>
-In-Reply-To: <20260510120141.118057-1-pramod.nexgen@gmail.com>
-References: <20260510083219.70224-1-pramod.nexgen@gmail.com>
-	<20260510120141.118057-1-pramod.nexgen@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20201202; t=1778516325;
+	bh=k4lJJrUTUHcwl0bF97Q2A6/DUefG/qcFjWHTtaPP050=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=qmVKsfITSG1PvvHIjIhP5AKqUoSQh2upnGxwNnHDWjewDie3LU1WZeGQ0k4Chh4TD
+	 E4r+gBJw8hj4UeZa/pMlX5w+53i1z1jSMlryrGCN+HO0bdn8kauKXBWfMbR/Pr5HtM
+	 85bAHl9Y47hprLp0zUeAQHFrsynGJIXLyyVAFlEwGLZko29/X8laWcRJ+N1zh41GxI
+	 uFwSmfjrb93NCEW/aQijHx7UJ1VKBpg0QehNsdAkjgFjXcUKELf2jcu57t8ZlCSmXj
+	 jM2RpRwmI9SicsNHoCyHGqB+P9vCKTMpDBx7CeGwK6Gd/cNbEUSWJenVLlC8wpxkZ6
+	 9P2YKfK3R0mPQ==
+Date: Mon, 11 May 2026 17:18:41 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Pramod Maurya <pramod.nexgen@gmail.com>, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, jacobsfeder@gmail.com,
+	devicetree@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: misc: Add binding for Xilinx AXI-Stream
+ FIFO
+Message-ID: <20260511-countless-babied-4177a86549ed@spud>
+References: <20260510084458.73685-1-pramod.nexgen@gmail.com>
+ <2026051050-marathon-fragrant-edbf@gregkh>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fwrY/w/smGpCkISn"
+Content-Disposition: inline
+In-Reply-To: <2026051050-marathon-fragrant-edbf@gregkh>
 
-On Sun, 10 May 2026 08:01:36 -0400
-Pramod Maurya <pramod.nexgen@gmail.com> wrote:
 
-> Convert the Xilinx XADC and UltraScale System Monitor device tree binding
-> from the legacy plain-text format to a YAML schema, enabling automated
-> validation with dt-schema.
-> 
-> The new binding covers the same hardware and compatible strings:
->   - xlnx,zynq-xadc-1.00.a (ZYNQ hardmacro)
->   - xlnx,axi-xadc-1.00.a  (AXI softmacro)
->   - xlnx,system-management-wiz-1.3 (UltraScale System Management Wizard)
-> 
-> Signed-off-by: Pramod Maurya <pramod.nexgen@gmail.com>
-On another note - please slow down.  I now see that v1-3 all came in less
-than 2 days.   Typically wait around a week for a significant patch like
-this - that gives time for multiple reviewers to take a look.
+--fwrY/w/smGpCkISn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Maybe we can relax that given the v3 many versions confusion - but I would
-still wait a day or so before sending a v4
+On Sun, May 10, 2026 at 06:07:01PM +0200, Greg KH wrote:
+> On Sun, May 10, 2026 at 04:44:57AM -0400, Pramod Maurya wrote:
+> > Add a YAML schema for the Xilinx AXI-Stream FIFO IP core (PG080).
+> > The binding documents the three supported compatible strings and all
+> > vendor-specific properties that the axis-fifo driver reads from the
+> > device tree.
+> >=20
+> > This resolves the following checkpatch.pl warnings in
+> > drivers/staging/axis-fifo/axis-fifo.c:
+> >   WARNING: DT compatible string "xlnx,axi-fifo-mm-s-4.1" appears un-doc=
+umented
+> >   WARNING: DT compatible string "xlnx,axi-fifo-mm-s-4.2" appears un-doc=
+umented
+> >   WARNING: DT compatible string "xlnx,axi-fifo-mm-s-4.3" appears un-doc=
+umented
+> >=20
+> > Signed-off-by: Pramod Maurya <pramod.nexgen@gmail.com>
+> > ---
+> > Changes in v2:
+> > - Delete drivers/staging/axis-fifo/axis-fifo.txt as part of the
+> >   conversion (was missing from v1)
+> > - Add all Vivado-generated properties to the schema so that real
+> >   hardware DT nodes pass validation with additionalProperties: false
+> > - Update example to match a realistic Vivado-generated DT node
+> >   including all properties
+> >=20
+> >  .../bindings/misc/xlnx,axi-fifo-mm-s.yaml     | 265 ++++++++++++++++++
+> >  MAINTAINERS                                   |   6 +
+> >  drivers/staging/axis-fifo/axis-fifo.txt       |  96 -------
+> >  3 files changed, 271 insertions(+), 96 deletions(-)
+> >  create mode 100644 Documentation/devicetree/bindings/misc/xlnx,axi-fif=
+o-mm-s.yaml
+>=20
+> No, staging drivers need to be self-contained.  When/if the axis-fifo
+> driver moves out of drivers/staging/ this can happen, but not until
+> then.
+>=20
+> You can convert this to yaml in-place if you want, AND you can test that
+> the conversion is correct.  Do you have this hardware to test this with?
 
-Thanks,
+Copy-pasting from v1...
+| Someone else submitted this conversion (which it is, despite you not
+| removing the old file), and the commentary I provided for that patch
+| applies here too:
+| https://lore.kernel.org/all/20260227-unboxed-customary-7ce6eda1858c@spud/
 
-Jonathan
+I suspect that this could be a dma-engine and any patch doing a
+conversion needs to justify why it is not.
+pw-bot: changes-requested
+
+--fwrY/w/smGpCkISn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagIBYQAKCRB4tDGHoIJi
+0sGUAP9oOwdhOIuGN6Jt/OAlzuMkYVCgQ+Swewo9n186/wzbeQD/QC7NSPCJVGm1
+K0HBqtCMARvs0FAzJmhbjW0OCcIDlAQ=
+=eY+A
+-----END PGP SIGNATURE-----
+
+--fwrY/w/smGpCkISn--
