@@ -1,120 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4592DF13F;
-	Mon, 11 May 2026 15:52:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D75603D34A8;
+	Mon, 11 May 2026 15:58:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778514753; cv=none; b=kyFcvTkXQ5N7VKxDmWv7EP2Lj73KwUYmaragM572pxaoOlXC391HaNKEDQJMbce9cRG4qxnKbVwBNrgTP+EoCR6uF2Zrye53brx19Wzs8XcE5eezF0EGhTg5emlaHQmrYlzDTD5gB8qIgck5CqsNpwVCtZYOt2pTMvKarLmYTZ8=
+	t=1778515109; cv=none; b=A6ulPZxUn4ctpkuuSSgO6ioVA7GZaQ/Ia4sUBob1jjFmnN1q8+u9HGROOROQVWGUOW8QJsgxOI2UvIaygKJ4L+8UtDEmyD5lFkGayi+DY35yQHRJDmj8Hp4PZFPY9lVe6YBofSXycvhAMcLUunKElWDmaatEaA1Jprj8XYG6QyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778514753; c=relaxed/simple;
-	bh=CuZWZE/CqP/FQMtts7oBbK4vUvv9Sw3KWWjnKZ6EY5U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MuBSAdirRMoqcn1Pucf2y7AuPM/ksUENUJDeCeTWSqeWCU6YqYsGGnBifAwIC+x7MI5xtzjYze8/yWwiSnJGCNRDmxtOWm2ZsRrn+dHGJzz7nRqDccKg2lt0jPsBf8Scea5Bdh8q8uokTlCFGCSz95aT5+K03bjcHu6t3eMbrF8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iVqorgbZ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778515109; c=relaxed/simple;
+	bh=faV48x66qT9Y451ucIdOMrXgpUrUv733nxGN+U0gWIA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jkmU8aPdPVhZZkVGBDqwgPLaCc8Q8Hqwr3FpXlpH5T1FZuefK8tHgF7J0AkGxdRamXULE613VOIYEz60f2PKaJvAR/g8NSS1ea1rbnBoqz18SnK8FHbusc9vE+d/3whyFk47cIKMtXMuA5kiBWdqrGdrkSHJEp/ZQnhHaTDKuEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=jYe5/IyV; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iVqorgbZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 900A2C2BCC9;
-	Mon, 11 May 2026 15:52:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778514753;
-	bh=CuZWZE/CqP/FQMtts7oBbK4vUvv9Sw3KWWjnKZ6EY5U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iVqorgbZILQ13dDiUOlrOi1t31Xr5yp+dvOo8xi82o/olLv1/90BOU60ySGhhc3SB
-	 i/2kb1KF7L6HTrWGUzUDuVbJti8/qE8yEkldLKHa8SxDRDF7zPHin/xm92leGDRIc6
-	 FTaIPDj94rHhEvE7lhN0+KcNgORVqx4YSCpNFyPmMZeJ9T8FZ8CKQaYnPop/o0ZTyS
-	 QGNKleRo24EQp+aQMDRoKQY7UjIgCDCkNymN+kwiN+GbULEfWA/wQA5dpVxaUR0HlB
-	 ubQu4ELpYu39sSBVeM7ekqFo1GkPrC7ChkhTZt5SFTlnicqwXoQrtb1PtlwnOtnhQU
-	 dkaLsB6Nyi5CA==
-Date: Mon, 11 May 2026 16:52:29 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Rustam Adilov <adilov@disroot.org>
-Cc: Sander Vanheule <sander@svanheule.net>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-watchdog@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] dt-bindings: watchdog: realtek,otto-wdt: add
- compatible for RTL9607C
-Message-ID: <20260511-alienate-guidable-d503194e6a93@spud>
-References: <20260509163101.722793-1-adilov@disroot.org>
- <20260509163101.722793-3-adilov@disroot.org>
- <20260509-rebuild-snowboard-e82a3adc5a27@spud>
- <94a75930847c2b7a221736c41a1da67d@disroot.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="jYe5/IyV"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 6649E1A1DD5;
+	Mon, 11 May 2026 15:58:24 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3184760646;
+	Mon, 11 May 2026 15:58:24 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0FFCD11AF9F17;
+	Mon, 11 May 2026 17:58:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1778515102; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=6PvZiJbdFgg6CfVXI3ZnA/W5wMYdblVvpzZVyQN69HA=;
+	b=jYe5/IyV4+QQoPJhoH7kASCQK5hWPxqcsQRvqBqCShiZy80aw0NHrK/bRUrBiV5WbDCiry
+	/8JLDvNB6TNUw2z1KYOuG43u+dnPBL+j6KyU20SWwuuGIoIL5/ZMss7RWIzfc5fEfQogdg
+	91P65zTkGl/3A8bCLa9FlGNWKPYfQa/+wZyNiB1SHEXeKDXurNSCCJMEgXABD+4FfSoyfH
+	s0DXPDs0iJXUUlljvxnUT2JX0EVBicPQHfIgDilYiACGtiqQkfba7QGiIL/DJViqR86wdY
+	ZPlO2RSX+fQp9jT8ff+AbeAyzZPKUEqiD2ypxBO1MjuQe4+VmR9cAexa5Vtf8Q==
+From: Herve Codina <herve.codina@bootlin.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Kalle Niemi <kaleposti@gmail.com>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Mark Brown <broonie@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Len Brown <lenb@kernel.org>,
+	Shawn Guo <shawnguo@kernel.org>
+Cc: Wolfram Sang <wsa@kernel.org>,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-spi@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	Allan Nielsen <allan.nielsen@microchip.com>,
+	Horatiu Vultur <horatiu.vultur@microchip.com>,
+	Daniel Machon <daniel.machon@microchip.com>,
+	Steen Hegelund <steen.hegelund@microchip.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Herve Codina <herve.codina@bootlin.com>
+Subject: [PATCH v7 0/3] lan966x pci device: Add support for SFPs, core part
+Date: Mon, 11 May 2026 17:57:47 +0200
+Message-ID: <20260511155755.34428-1-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="CjOOWizSNEAiRWCk"
-Content-Disposition: inline
-In-Reply-To: <94a75930847c2b7a221736c41a1da67d@disroot.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hi,
 
---CjOOWizSNEAiRWCk
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Previously, I sent a big picture series adding support for SFP ports
+available on the LAN966x PCI device [0].
 
-On Sun, May 10, 2026 at 08:19:09AM +0000, Rustam Adilov wrote:
-> Hello,
-> On 2026-05-09 18:13, Conor Dooley wrote:
-> > On Sat, May 09, 2026 at 09:31:00PM +0500, Rustam Adilov wrote:
-> >> Add the realtek,rtl9607-wdt compatible to the Realtek Otto watchdog
-> >> binding.
-> >>=20
-> >> Signed-off-by: Rustam Adilov <adilov@disroot.org>
-> >> ---
-> >>  Documentation/devicetree/bindings/watchdog/realtek,otto-wdt.yaml | 1 +
-> >>  1 file changed, 1 insertion(+)
-> >>=20
-> >> diff --git a/Documentation/devicetree/bindings/watchdog/realtek,otto-w=
-dt.yaml b/Documentation/devicetree/bindings/watchdog/realtek,otto-wdt.yaml
-> >> index 1f5390a67cdb..ac9db40b12dc 100644
-> >> --- a/Documentation/devicetree/bindings/watchdog/realtek,otto-wdt.yaml
-> >> +++ b/Documentation/devicetree/bindings/watchdog/realtek,otto-wdt.yaml
-> >> @@ -30,6 +30,7 @@ properties:
-> >>        - realtek,rtl8390-wdt
-> >>        - realtek,rtl9300-wdt
-> >>        - realtek,rtl9310-wdt
-> >> +      - realtek,rtl9607-wdt
-> >=20
-> > Please explain in your commit message why this new device is not
-> > compatible with the existing ones, particularly given the driver patch
-> > implies that it would be.
-> > pw-bot: changes-requested
->=20
-> Is the fact "RTL9607C is different SoC compared to the others in the list=
-" not
-> enough of a reason to include even though the all of them have an identic=
-al watchdog
-> timer device? But yes, i can use any other compatible just as fine.
+In this series patches touch several parts and sub-system in the kernel.
+Reviews have be done and it makes sense to split the series and send
+parts separately.
 
-No. And to be clear, I'm not asking you to use one of the other
-compatibles. I'm asking you to use one of the existing ones as a
-fallback.
+This current series is the extraction of patches related to driver core
+subsystem. It fixes devlink issues when a device-tree overlay is applied
+and avoid a warning when a device is removed.
 
-> Maybe its just difference in maintainers because the RTL9310 [1] was acce=
-pted and
-> had the identical case to this one.
->=20
-> [1]- https://lore.kernel.org/linux-watchdog/84d873d7dd375cd2392f89fa6bd9e=
-0fe5dda4e1c.1656356377.git.sander@svanheule.net/
+It has to be seen as a continuation of the big picture series but
+related to this specific core part.
 
-Probably the same feedback should have been provided there.
+Patches 1 and 2 fixes fw_devlink when it is used with overlay. Those
+patches were previously sent by Saravana [1].
 
---CjOOWizSNEAiRWCk
-Content-Type: application/pgp-signature; name="signature.asc"
+I rebased them on top of v7.1-rc1 and I added a call to
+driver_deferred_probe_trigger() in Saravana's patch (patch 2) to ensure
+that probes are retried after the modification performed on the dangling
+consumers. This allows to fix issues reported by Matti and Geert [2]
+with the previous iteration patches.
 
------BEGIN PGP SIGNATURE-----
+Patch 3 avoids a warning on device removal.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagH7OQAKCRB4tDGHoIJi
-0rumAQDI3U5CjDsU+2tNAsXkZxZi07nfUWWUfEb4Q9dY5UYuNgD/XMJyHoQdZeDu
-+aMMn9Boq0jMooO1OUG/nruJyx8UbAE=
-=l2xp
------END PGP SIGNATURE-----
+Those 3 patches seem ready to land and so having them extracted in this
+current series will help having them applied.
 
---CjOOWizSNEAiRWCk--
+[0] https://lore.kernel.org/all/20260325143555.451852-1-herve.codina@bootlin.com/
+[1] https://lore.kernel.org/lkml/20240411235623.1260061-1-saravanak@google.com/
+[2] https://lore.kernel.org/all/072dde7c-a53c-4525-83ac-57ea38edc0b5@gmail.com/
+
+Best regards,
+Hervé
+
+Changes:
+
+v6 -> v7
+
+  Rebase on top v7.1-rc1
+
+  - Patch 1
+    Fix conflict due to commit f72e77c33e4b ("device property: Make
+    modifications of fwnode "flags" thread safe")
+    Add 'Acked-by: Rob Herring'
+
+  - Patch 2
+    Use fwnode_test_flag() to test fwnode flags value
+    Add 'Acked-by: Rob Herring'
+
+  - Patche 3
+    No changes
+
+Older iterations:
+  Patches 1 to 3 in the big picture series
+  https://lore.kernel.org/all/20260325143555.451852-1-herve.codina@bootlin.com/
+
+Herve Codina (1):
+  driver core: Avoid warning when removing a device while its supplier
+    is unbinding
+
+Saravana Kannan (2):
+  Revert "treewide: Fix probing of devices in DT overlays"
+  of: dynamic: Fix overlayed devices not probing because of fw_devlink
+
+ drivers/base/core.c       | 86 ++++++++++++++++++++++++++++++++++-----
+ drivers/bus/imx-weim.c    |  6 ---
+ drivers/i2c/i2c-core-of.c |  5 ---
+ drivers/of/dynamic.c      |  1 -
+ drivers/of/overlay.c      | 15 +++++++
+ drivers/of/platform.c     |  5 ---
+ drivers/spi/spi.c         |  5 ---
+ include/linux/fwnode.h    |  1 +
+ 8 files changed, 92 insertions(+), 32 deletions(-)
+
+-- 
+2.54.0
+
