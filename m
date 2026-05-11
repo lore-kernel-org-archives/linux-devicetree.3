@@ -1,255 +1,158 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D6F33689F;
-	Mon, 11 May 2026 08:47:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B6431E49F;
+	Mon, 11 May 2026 08:48:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778489244; cv=none; b=Evgv1QSy0wAoA/wvC/uNxFyCZxiezyuoLeHtr5CNkvEmZVv8X5hil9uWp3nyNIiIojiLI5PCNDdn1cye4G7nscpi/UhXlF+8/MFDwhcqD0zjrnxDCQK48hPIGmL5A1QFRtQeY+xD7sOkjs44L6Lq1x45UfsJMSi1EoT5SLbuEsI=
+	t=1778489282; cv=none; b=PwtbbT/bBDyIjjfQVX1J/LYZq6M315JO1HRoX4lhkj+m+1Cs9YrVFI5PLW4xxNUJna8hYq7MT61lr0eS1YvMy+Pslro7l5uuB+hwuCKAqmtUU176J3Dws78ad+EiqIfdMZIEAjU/I1h7jBQKfbR9TqEtiIBQa17EQMbhLUgwaNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778489244; c=relaxed/simple;
-	bh=CXTt0tSeCFW4xBtUicag62EoWcQIhZ48Jxj24qD9sFY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pzYutsZ+4QxlYwfawGhPO97Ok4R1DdQl5JcgoU6dL171o8Jnsi5BLNUG+fDv4wU4udoyhNU5lflaUiCtk/VqbEzcjXrx+jfaPXS1OuIirXSNTKI4dfA8FTziaC9EAh+Lxk4WCa+3fd2XLPsXBKZ+O6l0Zx7k9Crkv05koIbXiyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fy2DNjps; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778489282; c=relaxed/simple;
+	bh=UzqTOaHRU9smzFf4OFemjOEZlOYUA0UfdAOKglWpaJE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MJCYxsQC9lFEE++W6LoZyR3T6fCO4ihgetDbSm65FgVccBqNGRpQ6itcPYDJZS/sXhvJJpyYJUMAs6yCjv/RZWLh8qC8lIh7YUNroBwkE6rOoJY/sHMphWKtFZcE5oc0zZ4bQb5uIl/NF5DitK1VjeOAJS8RcBxrovGwKqL26jM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bhh+sMkL; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fy2DNjps"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55008C2BCB0;
-	Mon, 11 May 2026 08:47:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bhh+sMkL"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B39E3C2BCF5;
+	Mon, 11 May 2026 08:48:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778489243;
-	bh=CXTt0tSeCFW4xBtUicag62EoWcQIhZ48Jxj24qD9sFY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=fy2DNjpsc6zpNJyyl8e+ziX2OC1dUkqm4wqEY0LGp+JhAkXtoFptptSuN3721jJ7I
-	 2qg9kRWqLW2GymTX6R4Y4ZdItM5EgRyXV3CUlYiwofwnnQjRmjJ220lFWBFNZ/mGfx
-	 12U+52KgO8QoiWP9J3GXyJ7rNppi+ZXNtxXB5QsQfN/vl7w86bP7M8oad16YkFOihz
-	 cDOSTWpkpAFlHI8ig0FAjGYwvH8KYJPu83ByqscnOWhJrknfiGoilQtD56ZA7V+LTz
-	 wfY8RjXUup7yS2xJYde7FDEQRC8ZoPFg38Tk+HEUhlvnX5yCLXd75WLHZoGGq6EuqE
-	 +maFGGDJcoD0Q==
-Date: Mon, 11 May 2026 10:47:21 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: sashiko@lists.linux.dev
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
-	robh@kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH net-next v5 06/12] net: airoha: Move qos_sq_bmap in
- airoha_gdm_dev struct
-Message-ID: <agGXmZ4mVqn8BPU8@lore-desk>
-References: <20260509-airoha-eth-multi-serdes-v5-6-805e38edc2aa@kernel.org>
- <20260510140504.5D5A6C2BCC9@smtp.kernel.org>
+	s=k20201202; t=1778489281;
+	bh=UzqTOaHRU9smzFf4OFemjOEZlOYUA0UfdAOKglWpaJE=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=bhh+sMkL1fRKPR2Vsn0FBV2fu5cTKQuKkdQZW/XdNH5PUYAjnp4gj57HgUCtFVKJM
+	 VSyEQn6ElV4XAH2ti54FIexsgxPAsVfKUYgNUMy2Q8x2b+54HQHDKF34PVEOEwEWcW
+	 3dYlur+2eFMFvLSBrpSmLzshR/dD32HvH1IRvCC34JzUcTC+gMFJpWRnkdFyn2kBMr
+	 gvVL1aqXToMHc76yfOUozWuty4y7JHHOjts1Oz0WAS/omD6w8xMUSKSdVTG0g9bSH3
+	 MYSj6XrSOAW3KRujBB1m7XswgIYb7KAtVHoOGJuKFSvzT0lzvbeDzq9w2qdpdjeoNT
+	 m4vQAgNxaMXpg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A170ECD37B5;
+	Mon, 11 May 2026 08:48:01 +0000 (UTC)
+From: Qian Zhang via B4 Relay <devnull+qian.zhang.oss.qualcomm.com@kernel.org>
+Date: Mon, 11 May 2026 14:18:01 +0530
+Subject: [PATCH v3] arm64: dts: qcom: arduino-monza: add WLAN enable and
+ rfkill GPIO
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="EIdAEi/jQ2SpOuYP"
-Content-Disposition: inline
-In-Reply-To: <20260510140504.5D5A6C2BCC9@smtp.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260511-linux-next-v3-1-3e22737e71eb@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAMCXAWoC/y2NQQ6CMBREr0L+2jb9INi68h6GRYUqP4FWWiBVw
+ t0txM0kb5J5s0IwnkyAa7aCNwsFcjZBccqg6bR9GUZtYshFXokSkfVk58isiRMT8lzptpQPjRL
+ S4O3Nk+Ihu9eJOwqT85/DvRR7+9cITCqFkqNS4oIFQzaStvy7P95cCHycdd+4YeApoN627Qfc2
+ K+iqQAAAA==
+X-Change-ID: 20260511-linux-next-0846ad58ba18
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Qian Zhang <qian.zhang@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778489280; l=3025;
+ i=qian.zhang@oss.qualcomm.com; s=20260511; h=from:subject:message-id;
+ bh=UvfCcSS+NNYGPij6dEX9rRsuz5DeGDSI2ga/3v1YAXo=;
+ b=AkqF63xY1DcsQ89bMnQFRi95GL3r7GC9vg6Z2nAOMKskoWE3sZ2QLlq7kVnJeJLqx1QU0RVGR
+ ztolhJlftx3DYso+XE2+F0JaLg+QmJfkPh2xwjssZ5BViI7n8J0q9kP
+X-Developer-Key: i=qian.zhang@oss.qualcomm.com; a=ed25519;
+ pk=bPnvg+qtu7WOMbd5NyWuvI8LCSGKP2BQwbycyqy3gIA=
+X-Endpoint-Received: by B4 Relay for qian.zhang@oss.qualcomm.com/20260511
+ with auth_id=775
+X-Original-From: Qian Zhang <qian.zhang@oss.qualcomm.com>
+Reply-To: qian.zhang@oss.qualcomm.com
+
+From: Qian Zhang <qian.zhang@oss.qualcomm.com>
+
+The QCNFA765 M.2 PCIe WLAN module requires GPIO56 (wlan_en) to be
+asserted before PCIe enumeration, and GPIO54 to control the RF kill
+line.
+
+Model GPIO56 as a regulator-fixed node (wlan_en) referenced from the
+PCIe node via vddpe-3v3-supply to ensure correct power sequencing.
+Model GPIO54 as a rfkill-gpio node to allow the rfkill subsystem to
+manage RF state.
+
+Signed-off-by: Qian Zhang <qian.zhang@oss.qualcomm.com>
+---
+The Arduino VENTUNO Q board uses a QCNFA765 M.2 PCIe WLAN module
+connected to PCIe0. Two GPIOs are required for proper WLAN operation:
+
+- GPIO56 (wlan_en): The WLAN module enable line. It must be asserted
+  before PCIe enumeration begins, otherwise the module is not detected
+  by the PCIe root complex. This is modeled as a regulator-fixed node
+  (wlan_en) referenced from the PCIe node via vddpe-3v3-supply, which
+  ensures the GPIO is asserted with a 20ms startup delay before PCIe
+  enumeration starts.
+
+- GPIO54 (rfkill): The RF kill line. It is modeled as a rfkill-gpio
+  node so that the rfkill subsystem can properly manage RF state,
+  including software-triggered airplane mode.
+
+Testing:
+- WLAN module (QCNFA765) successfully enumerated on PCIe after boot
+- WiFi scan detects available networks
+- rfkill block/unblock correctly toggles GPIO54
+- GPIO56 remains high throughout rfkill block/unblock
+---
+Changes in v3:
+- Replace regulator-fixed with rfkill-gpio for GPIO54 (rfkill)
+- Reference wlan_en from PCIe node via vddpe-3v3-supply
+- Fix subject prefix
+- Link to v2: https://lore.kernel.org/r/20260501051918.1990713-1-qian.zhang@oss.qualcomm.com
+---
+ arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
+index ca14f0ea4dae..e0ffe87bba90 100644
+--- a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
++++ b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
+@@ -153,6 +153,25 @@ vreg_nvme: regulator-3p3-m2 {
+ 		enable-active-high;
+ 		startup-delay-us = <20000>;
+ 	};
++
++	rfkill-wlan {
++		compatible = "rfkill-gpio";
++		label = "wlan";
++		radio-type = "wlan";
++		shutdown-gpios = <&tlmm 54 GPIO_ACTIVE_HIGH>;
++	};
++
++	wlan_reg_3v3: wlan-3v3-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "wlan_en";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		vin-supply = <&vdc_3v3>;
++		gpio = <&tlmm 56 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		startup-delay-us = <20000>;
++		regulator-boot-on;
++	};
+ };
+ 
+ &ethernet0 {
+@@ -326,7 +345,7 @@ &pcie0 {
+ 	pinctrl-0 = <&pcie0_default_state>;
+ 	pinctrl-names = "default";
+ 
+-	vddpe-3v3-supply = <&vdc_3v3>;
++	vddpe-3v3-supply = <&wlan_reg_3v3>;
+ };
+ 
+ &pcie1 {
+
+---
+base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
+change-id: 20260511-linux-next-0846ad58ba18
+
+Best regards,
+-- 
+Qian Zhang <qian.zhang@oss.qualcomm.com>
 
 
---EIdAEi/jQ2SpOuYP
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
-e(s) to consider:
-> - [High] HTB node modification unconditionally fails with -EBUSY and its =
-error path can silently corrupt global channel ownership.
-> - [High] Hardware teardown failures cause a permanent leak of shared QDMA=
- channels.
-> --
->=20
-> commit 1b146a034660fa016267e6a142564dd1ddeb17b1
-> Author: Lorenzo Bianconi <lorenzo@kernel.org>
->=20
-> net: airoha: Move qos_sq_bmap in airoha_gdm_dev struct
->=20
-> This commit moves the qos_sq_bmap field from airoha_gdm_port to airoha_gd=
-m_dev
-> to prevent configuration overwrites when multiple net_devices share a GDM=
- port.
-> It also adds a qos_channel_map bitmap to airoha_qdma to track shared QDMA
-> channels.
->=20
-> > diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/eth=
-ernet/airoha/airoha_eth.c
-> > index f9cb49f0529a0..33a0f7b98d52e 100644
-> > --- a/drivers/net/ethernet/airoha/airoha_eth.c
-> > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-> > @@ -2606,19 +2606,28 @@ static int airoha_tc_htb_alloc_leaf_queue(struc=
-t net_device *netdev,
-> >  	u32 rate =3D div_u64(opt->rate, 1000) << 3; /* kbps */
-> >  	int err, num_tx_queues =3D netdev->real_num_tx_queues;
-> >  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
-> > -	struct airoha_gdm_port *port =3D dev->port;
-> > +	struct airoha_qdma *qdma =3D dev->qdma;
-> > =20
-> >  	if (opt->parent_classid !=3D TC_HTB_CLASSID_ROOT) {
-> >  		NL_SET_ERR_MSG_MOD(opt->extack, "invalid parent classid");
-> >  		return -EINVAL;
-> >  	}
-> > =20
-> > +	/* Here we need to check the requested QDMA channel is not already
-> > +	 * in use by another net_device running on the same QDMA block.
-> > +	 */
-> > +	if (test_and_set_bit(channel, qdma->qos_channel_map)) {
-> > +		NL_SET_ERR_MSG_MOD(opt->extack,
-> > +				   "qdma qos channel already in use");
-> > +		return -EBUSY;
-> > +	}
-> > +
->=20
-> Since this function handles both TC_HTB_LEAF_ALLOC_QUEUE and
-> TC_HTB_NODE_MODIFY, won't the bit already be set in qdma->qos_channel_map
-> for modify operations?
->=20
-> If so, will modify operations now always fail with -EBUSY here,
-> breaking HTB rate limit updates?
-
-ack, I will fix it in v6
-
->=20
-> >  	err =3D airoha_qdma_set_tx_rate_limit(netdev, channel, rate,
-> >  					    opt->quantum);
-> >  	if (err) {
-> >  		NL_SET_ERR_MSG_MOD(opt->extack,
-> >  				   "failed configuring htb offload");
-> > -		return err;
-> > +		goto error;
-> >  	}
-> > =20
-> >  	if (opt->command =3D=3D TC_HTB_NODE_MODIFY)
-> > @@ -2630,13 +2639,17 @@ static int airoha_tc_htb_alloc_leaf_queue(struc=
-t net_device *netdev,
-> >  					      opt->quantum);
-> >  		NL_SET_ERR_MSG_MOD(opt->extack,
-> >  				   "failed setting real_num_tx_queues");
-> > -		return err;
-> > +		goto error;
-> >  	}
-> > =20
-> > -	set_bit(channel, port->qos_sq_bmap);
-> > +	set_bit(channel, dev->qos_sq_bmap);
-> >  	opt->qid =3D AIROHA_NUM_TX_RING + channel;
-> > =20
-> >  	return 0;
-> > +error:
-> > +	clear_bit(channel, qdma->qos_channel_map);
-> > +
-> > +	return err;
-> >  }
->=20
-> If a modify operation (TC_HTB_NODE_MODIFY) fails at
-> airoha_qdma_set_tx_rate_limit(), it jumps to the error label.
->=20
-> Won't this unconditionally clear the bit in the shared qdma->qos_channel_=
-map?
->=20
-> Could this accidentally release ownership of the shared QDMA channel while
-> the device is still using it, allowing another net_device to claim it?
-
-ack, I will fix it in v6
-
->=20
-> [ ... ]
->=20
-> > @@ -2814,14 +2827,28 @@ static int airoha_dev_setup_tc_block(struct net=
-_device *dev,
-> >  	}
-> >  }
-> > =20
-> > -static void airoha_tc_remove_htb_queue(struct net_device *netdev, int =
-queue)
-> > +static int airoha_tc_remove_htb_queue(struct net_device *netdev, int q=
-ueue)
-> >  {
-> >  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
-> > -	struct airoha_gdm_port *port =3D dev->port;
-> > +	struct airoha_qdma *qdma =3D dev->qdma;
-> > +	int err;
-> > =20
-> > -	netif_set_real_num_tx_queues(netdev, netdev->real_num_tx_queues - 1);
-> > -	airoha_qdma_set_tx_rate_limit(netdev, queue + 1, 0, 0);
-> > -	clear_bit(queue, port->qos_sq_bmap);
-> > +	err =3D netif_set_real_num_tx_queues(netdev,
-> > +					   netdev->real_num_tx_queues - 1);
-> > +	if (err)
-> > +		return err;
-> > +
-> > +	err =3D airoha_qdma_set_tx_rate_limit(netdev, queue + 1, 0, 0);
-> > +	if (err) {
-> > +		netif_set_real_num_tx_queues(netdev,
-> > +					     netdev->real_num_tx_queues + 1);
-> > +		return err;
-> > +	}
-> > +
-> > +	clear_bit(queue, qdma->qos_channel_map);
-> > +	clear_bit(queue, dev->qos_sq_bmap);
-> > +
-> > +	return 0;
-> >  }
->=20
-> If a hardware teardown failure occurs and airoha_tc_remove_htb_queue()
-> returns early with an error, the bits in qdma->qos_channel_map and
-> dev->qos_sq_bmap are never cleared.
-
-ack, I will fix it in v6
-
->=20
-> >  static int airoha_tc_htb_destroy(struct net_device *netdev)
-> >  {
-> >  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
-> > -	struct airoha_gdm_port *port =3D dev->port;
-> >  	int q;
-> > =20
-> > -	for_each_set_bit(q, port->qos_sq_bmap, AIROHA_NUM_QOS_CHANNELS)
-> > -		airoha_tc_remove_htb_queue(netdev, q);
-> > +	for_each_set_bit(q, dev->qos_sq_bmap, AIROHA_NUM_QOS_CHANNELS) {
-> > +		int err;
-> > +
-> > +		err =3D airoha_tc_remove_htb_queue(netdev, q);
-> > +		if (err)
-> > +			return err;
-> > +	}
-> > =20
-> >  	return 0;
-> >  }
->=20
-> In this loop, an error on a single queue immediately aborts the loop, lea=
-ving
-> any remaining queues unprocessed.
->=20
-> Since the core networking stack (net/sched/sch_htb.c) ignores the return =
-value
-> of TC_HTB_DESTROY and fully destroys the software qdisc regardless, will =
-this
-> permanently leak the limited QDMA hardware channels?
->=20
-> Could these bits remain set forever in the globally shared qdma->qos_chan=
-nel_map,
-> preventing other net_devices from using them until the driver is reloaded?
-
-ack, I will fix it in v6
-
-Regards,
-Lorenzo
-
->=20
-> --=20
-> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260509-airoha-eth-=
-multi-serdes-v5-0-805e38edc2aa@kernel.org?part=3D6
-
---EIdAEi/jQ2SpOuYP
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCagGXmQAKCRA6cBh0uS2t
-rJOjAP9rhs2kkxiegggDAlgI+bM+WZGoB/Xx5QWTbM9uCJ8DugD9EItJYotJxs5T
-Xb4rPMkMCQMxoSR3AqzGAxWEC/W21AM=
-=Oupv
------END PGP SIGNATURE-----
-
---EIdAEi/jQ2SpOuYP--
