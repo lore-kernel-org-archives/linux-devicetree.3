@@ -1,61 +1,63 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4592C375E
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 06:37:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 272FE3148D2
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 06:37:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778481472; cv=none; b=JBjtps67GILUgqLqTfE94WBtsLom7DMZuSIuvjqVKd1tje10jcgCkI2WCIxpI/+nU/0btMvC34dvEwZ3Ot283Ntiqut1GnM5Fh/0jQM8tLyHWB4bflOZwCNs1aV7QagDEyRNixRuRZuCiXycugfyWvVa0Pk/tjhNEohuJ7wdnUU=
+	t=1778481476; cv=none; b=OXW5gUTbxaN5/5vl3RoNtnYj3IQRuhrHU90I68fEJlaDh7enls55d0Ty7OkzCvCCVDTb57QWO0TWmgjxkYM6UphLQ1h8rgXFF+Tf9LVyWMt+isBKPHNvm5j46a2v6KD0lLtB2Z2DNKq1BdhQX2QISd8lSs8GuCZJWMZ+cmkBizI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778481472; c=relaxed/simple;
-	bh=wh54+hFJBmFzdbHocxMQI0mfnlei85NeRSqpfU5DbWY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TXfUp/9Qywt21VuDp+sN6O+WPq9UPrFxzjIgQdgkaaL2UB8lR9xsPMbee8IGl3k4W/k06u9rloCw225a6LqLCXI8BFVfUxWBN1CSIL6zqUxUM0BMDfs6sB5Atu6l6T7JG3se7peLEvcwG0GoRMnTsuNIeljgzuOEP9vyCDQDCgo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HoOR1mGc; arc=none smtp.client-ip=209.85.215.173
+	s=arc-20240116; t=1778481476; c=relaxed/simple;
+	bh=rp9TUgqWsAEGx8ZoT9kL/TuCnQzCen5V/DE+nTxNcxo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=e+2Hzb3PTRaJmfpimYDv+gjPYVJdfolRglCX020stka+FtuwVnx0zq6ZSxRDNHSfYtc4/Ic0cd85uWSwkiJu/j/53SDCzxFXx0deHfFBuNauEme3+IczPOAJ9ai2wq9twK6MTaoVdPPz+cbO5zE0uE0Dnyzj0S0lB16Ld8ITCno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OBMWipPX; arc=none smtp.client-ip=209.85.214.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HoOR1mGc"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-c8021c8c42fso1469999a12.3
-        for <devicetree@vger.kernel.org>; Sun, 10 May 2026 23:37:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OBMWipPX"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2b4650d5f5cso14559095ad.0
+        for <devicetree@vger.kernel.org>; Sun, 10 May 2026 23:37:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778481471; x=1779086271; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=hG7re9nWf1eNGkdto4Ixyj7RYv5HNsRc+oGfPkcFdsc=;
-        b=HoOR1mGcNQ3ZbHnLo/65srboBtdxpvwyDfWirvG9Aw6KRDCnqGOqJf/MGzE/FypGyQ
-         Ou1g928Hl677bYIpqApuZ+4NOSnEnpDfftfjTIUlCsFl8kdR0fBnI/urBS98A5m8A2Oc
-         2PXdgKdwv+YaDidv8Icf6iirytroihgT24I1g6HWsZHF9YXv+Eus39QRxbaKyTMi5Uw6
-         FQRQDQm+dqSIt215bPof5EeNuxtlIQca/smOQU/Cop0WWY2sYugM8O2dHb+UOiuRu5vS
-         rnnbOxzPlWsd8wAi4hgAi3cNeU9hpm+CGo1CWJkQB8jl6dSIhJxftKBfc3bblEHFIElb
-         z0Rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778481471; x=1779086271;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1778481473; x=1779086273; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hG7re9nWf1eNGkdto4Ixyj7RYv5HNsRc+oGfPkcFdsc=;
-        b=VmMxpwIDbEWiYLh/emFqhYXoHhLIN/BKeOV+rHHogk4L7rHH09ukWZ9zs58+ZEbbdv
-         kDBp65ZHI+NRV7378AyEQSkJyXfuzbeWTrILEgZMB6fFHj4Q2xtsckeXzOAqf+HN9LBv
-         uVhLPrzhluTkYAq39QTKLyddrjfzS8wnBjah+FfsbCoUWkfImDG1HVPHpqgGzj/eED0R
-         mtn+KBInfKFhVFflQBPnxJXmGdpzPQe2On4jx56q/I5GM5lAWAoUCiOt3692Ko4P2Da6
-         F0w+w3mq7CAg2v4QyBjQnA+5HIwwVKyzKgghIztPNlv5kVXX1RVW05tfUpgfxuWEWRvz
-         gxHA==
-X-Forwarded-Encrypted: i=1; AFNElJ/jt+Ams9VS3OiPnNz8nUaBgpUh353V0pJ94dUSJCwCGaM/V3ad7Pb97L+or1uqgfRp4xp0D+PdNBoV@vger.kernel.org
-X-Gm-Message-State: AOJu0YwQEz6IDFQdXkQ6BSaQQXwAVbuwXECb0jtk2vxf20Oa1iVitLwJ
-	Bby1EoKY1KH+OxSvP5QLneUU8SRYKVetqlrqpQwhJn7bsEX1wnefXFWU
-X-Gm-Gg: Acq92OHX4Lj0d2MdBmCPi2ciby7zdfKYuSV6A64V13ohr8TB+2fePOHz+ZFeWUmyjRa
-	MxYfogndr3cpO6zvgJPDOMYsvhpBj8fGiHmmbs3/POoLB4017n+FUHeQKwnjRmwoAdgWahSfhGD
-	al94oK8rHhS+nJGg82f1+MFhvXxbfiATJ1tbqB0BH2Asclr6I2yW2VtoRHxJxv0SYhQBERrl5FL
-	/529TjssAUHZYtVortoDCEaDPNq/U/jP0LjbOQBJXYQddMRKbVlyL280fvstWbNRx4Cg+BGMmzy
-	AIzZSswSlDaxKkuLA7m0g+tD/G2IPBzh/Fbcmx3x1mEX+kIkTonjJCneDGekXvPSN9NH4L2LvxT
-	LD3b7jVkncji7TpY3DT+rOddhyxdX8xFTo9oRG7MYSwJBQW0UlCnD8XzUTqPhKnJcrHxjfxfHiP
-	nyl6cltAeyVAI+slGhS18Hd/2LOO1hRy7DjQ==
-X-Received: by 2002:a05:6300:218d:b0:39f:8b01:d968 with SMTP id adf61e73a8af0-3aab12eab37mr14600912637.11.1778481470932;
-        Sun, 10 May 2026 23:37:50 -0700 (PDT)
+        bh=bU4crZfic9RXpArU6RhLb52aCOiXrQ2Y+zb7DPebOwE=;
+        b=OBMWipPXr48sxrFwvRIhlOuRZ3n4qxZ9o/uGQdN2orJF+wYyRoyQMzjccKZMRDeh+1
+         rKHIV2nk9SUekZUHaU/pdZzixGFiVNAGihHQEC9pshNescKp3vDaJzb5N+hu/FXY+feB
+         2qja/dDlbEZjfw4ixWUgBTuUsw8vPOtay7g5uJBckv46L0hpZqLdPwYkurB55HLNk7VJ
+         64UKdci8sg/Kk+Es04lVFVsSg/HGvu1Sx4FY9Ca7nkddtyAL+eTzcl02L2yh+EL2fOs7
+         Wi0DqmOIS3dGBlAfjm6fJCAa5pX3QY9yVKCYVurR67f/hYM56+2Y8gKDGSHfBQcoVVCA
+         jcfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778481473; x=1779086273;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=bU4crZfic9RXpArU6RhLb52aCOiXrQ2Y+zb7DPebOwE=;
+        b=TeKf9h2btCA5982tQjbSnmdQz2cQV68r/MaKOXeLMFrohKSJqfrqBc34oJVKD67ner
+         xTLbBKl+UpW4hyEvabWVMv9Qp7SDfwz9NwBW8D1PuVWEj12t/w8iHdU89d5n8yhBL8iX
+         TuW2ss0NeLl/hu7Yb1IaKP9jLGk30iQbeOG5UA8pTXi3ScuU2IhKF6E3c0lD6Y25qY8q
+         MSVdjMChzhp9vmy1dVhs2kPAM+Jk1qruwLuRdlnMBB/WUjYX6e43gf7W/l6dAnCCfYBL
+         o/6aFBlHsO4PTkdYexXeQTFgiriE73GWqZvm8qHmrjGDyzAHsLYBZg9S9HZpqrJAFbPj
+         QqIA==
+X-Forwarded-Encrypted: i=1; AFNElJ+MM0Z7XwWB92gb1HuSvO2DBZOgUshY2YxhFT3cBmvunh5LipqSyjgCQOoETPlog84GCW5H7Owdv3mu@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw9rqWmc4c+qEqF8LRRYkkHBF76n4EMLp/SdNaGz7GooBfIfd29
+	cV6gQUKXnKmKK5VDDcNRW4MjatERuaM1S8kUEphh6ApwRZh5nx1k9sln
+X-Gm-Gg: Acq92OEU45zv2g71/Ezqcf8xFb9FulV0EYGwq/NDmQv00vD9xNVeD99Y3u8xVsVZPNZ
+	oValEvS0Eyc3n/C705KaMlXpLgLms1tSVHHiU3jGHL/lPpz+posoGllZM+NpAEl9ZRz4n+mcDYI
+	CDILqijcnqOYhGpded850qO29EeFgxKNdneDmFPqrcRCMS/QEQvZNd5zRTJJKD7GDo9HtoCnzI+
+	LL/4lVPpqH56+c0Newy8GQw5kTyd8OAhsdJlnJRDDMh4ZHZqfkkfrTIPz1KXWs70kzlr1N4XoAj
+	JCtcguekQdMjKOfB5oLeIvhcpEkz/JWZsgH5WBVSnHUcBDCMHA9Die25xclspboNRkG3PwweUnn
+	Mi0d2dYeFSuJoYeDCnKgnXfJblhX7OxlxHMqSzV33XZkWAMT9KMfiyIl+GbbAGUP82zyIP3+RBh
+	fXsdrk7K0Q64RR9tBd8hjWNDo=
+X-Received: by 2002:a17:902:ef06:b0:2bc:8634:c35c with SMTP id d9443c01a7336-2bc8634c747mr79731485ad.21.1778481473488;
+        Sun, 10 May 2026 23:37:53 -0700 (PDT)
 Received: from localhost ([2001:19f0:8001:1b2d:5400:5ff:fefa:a95d])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c82677104b8sm7992570a12.19.2026.05.10.23.37.50
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2baf1d3fee3sm86095085ad.18.2026.05.10.23.37.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 10 May 2026 23:37:50 -0700 (PDT)
+        Sun, 10 May 2026 23:37:53 -0700 (PDT)
 From: Inochi Amaoto <inochiama@gmail.com>
 To: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
 	Vinod Koul <vkoul@kernel.org>,
@@ -78,10 +80,12 @@ Cc: dmaengine@vger.kernel.org,
 	sophgo@lists.linux.dev,
 	linux-riscv@lists.infradead.org,
 	Yixun Lan <dlan@gentoo.org>
-Subject: [PATCH 0/2] riscv: sophgo: allow DMA multiplexer set channel number for DMA controller
-Date: Mon, 11 May 2026 14:37:16 +0800
-Message-ID: <20260511063719.460049-1-inochiama@gmail.com>
+Subject: [PATCH 1/2] dt-bindings: dma: snps,dw-axi-dmac: Add fallback compatible for CV1800B
+Date: Mon, 11 May 2026 14:37:17 +0800
+Message-ID: <20260511063719.460049-2-inochiama@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260511063719.460049-1-inochiama@gmail.com>
+References: <20260511063719.460049-1-inochiama@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,54 +94,36 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-As the DMA controller on Sophgo CV1800 series SoC only has 8 channels,
-the SoC provides a dma multiplexer to reuse the DMA channel. However,
-the dma multiplexer also controlls the DMA interrupt multiplexer, which
-means that the dma multiplexer needs to know the channel number.
+The previous version of the binding change only add compatible
+string without adding the fallback compatible, this breaks
+backward compatibility. Add the needed fallback compatible to
+fix this.
 
-Change the DMA phandle args parsing logic so it can use handshake
-number as channel number if necessary.
-
-This patch series add fallback compatiable according to the disscussion.
-
-Link: https://lore.kernel.org/all/MA5PR01MB1250079A8884D4F6245B955B9FE51A@MA5PR01MB12500.INDPRD01.PROD.OUTLOOK.COM
-
-Change from v5:
-- https://lore.kernel.org/all/20260426012921.673953-1-inochiama@gmail.com
-1. Add dt-bindings patch for fallback compatiable
-2. patch 2: Adapt the binding change.
-
-Change from v4:
-- https://lore.kernel.org/all/20260225104042.1138901-1-inochiama@gmail.com/
-1. drop patch 1 and patch 2 as they are merged
-2. Add ABI break statement and clarification for this patch.
-
-Change from v3:
-- https://lore.kernel.org/all/20260120013706.436742-1-inochiama@gmail.com/
-1. rebase to v7.0-rc1
-2. patch 1: Apply Conor's tag
-3. patch 2: Apply Frank's tag
-
-Change from v2:
-- https://lore.kernel.org/all/20251214224601.598358-1-inochiama@gmail.com/
-1. patch 2: rename "AXI_DMA_FLAG_HANDSHAKE_AS_CHAN" to "ARG0_AS_CHAN"
-
-Change from v1:
-- https://lore.kernel.org/all/20251212020504.915616-1-inochiama@gmail.com/
-1. rebase to v6.19-rc1
-2. patch 1: remove a comment placed in wrong place.
-3. patch 2: fix typo in comments.
-4. patch 2: initialize chan as NULL in dw_axi_dma_of_xlate.
-Inochi Amaoto (2):
-  dt-bindings: dma: snps,dw-axi-dmac: Add fallback compatible for
-    CV1800B
-  riscv: dts: sophgo: cv180x: Allow the DMA multiplexer to set channel
-    number for DMA controller
-
+Fixes: be3e2a0419c6 ("dt-bindings: dma: snps,dw-axi-dmac: Add CV1800B compatible")
+Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+---
  Documentation/devicetree/bindings/dma/snps,dw-axi-dmac.yaml | 5 +++--
- arch/riscv/boot/dts/sophgo/cv180x.dtsi                      | 2 +-
- 2 files changed, 4 insertions(+), 3 deletions(-)
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
---
+diff --git a/Documentation/devicetree/bindings/dma/snps,dw-axi-dmac.yaml b/Documentation/devicetree/bindings/dma/snps,dw-axi-dmac.yaml
+index 804514732dbe..0a30a455b0ee 100644
+--- a/Documentation/devicetree/bindings/dma/snps,dw-axi-dmac.yaml
++++ b/Documentation/devicetree/bindings/dma/snps,dw-axi-dmac.yaml
+@@ -21,11 +21,12 @@ properties:
+       - enum:
+           - snps,axi-dma-1.01a
+           - intel,kmb-axi-dma
+-          - sophgo,cv1800b-axi-dma
+           - starfive,jh7110-axi-dma
+           - starfive,jh8100-axi-dma
+       - items:
+-          - const: altr,agilex5-axi-dma
++          - enum:
++              - altr,agilex5-axi-dma
++              - sophgo,cv1800b-axi-dma
+           - const: snps,axi-dma-1.01a
+ 
+   reg:
+-- 
 2.54.0
 
