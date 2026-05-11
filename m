@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF674D90D5
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 21:41:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BF774D90D7
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 21:42:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778535683; cv=none; b=jdAGAJpAMcNnDVOJJYe2p0NMm8iAZEOhrwSZFhL0U83rRPxIK3DwwYxqApuuOatHqUxby4C+zRbCzKmDYNoCyjSkQns9otAOWG1hA0dqAJ15u+ZGDvmttkvqtcu9GTdaJQ/gmOyqs8qiMpPsxHzDjCHlaYinupS3NCJrWC3oL9I=
+	t=1778535745; cv=none; b=dOVGHmVR6htQO8x971P1i3fe3aM73UisG2D5U1MXWpkrKtrRdl+JL+tOpl+D9qFuevqQJ978bkJWgRXI5Ft4nK5N0loBdhhFEEdc2WE5RFuqmpQZWvz+7ofj1Dd5KnjHD0rdnjzHN69RpdjgjxWy6Mvb494DJvXP98Z1RBMzhz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778535683; c=relaxed/simple;
-	bh=JdACk3DL+Pjn0PTUx+BuKEX9QojfQ39b8C9uXW4SA/E=;
+	s=arc-20240116; t=1778535745; c=relaxed/simple;
+	bh=bMgmH0cX4uqze+aH3mSr3MnSC2EmLLaqnP9xWJUrBAk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CmJDhw+vmx+VzZBqumhOMhL6oqiwLbJqirTjuMYNxIxf/Ppt7ZL792/iGRJstHXBD2ZvnYrnH3rgb9HJw3hrWUbUnLjlCJUbcGLvd0NEPJqVREb3oMKSja34dIxEDfMpIqrwQzMzjHxDcZv/dat8kY69FxwYLgAk0XQiGHfk2B0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nxdds6+9; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=Snt36UtfUx5xxRc0F963c5sAQi1qZm8mepftT8ZY9dhHoZMsbSwhUrBRjdBPlUiWlk1fCrRHnfYerZe8vSd1Ve+3BGxHGU9TFvlVOgvqW2wDi4YZ1pLlI1+6pQ/bTS5IliqOyFu3Wj8kZWOTBxKdXa0aFKzs0iE4YYc+WewY7yY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TXu+AQzi; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nxdds6+9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 492C2C2BCB0;
-	Mon, 11 May 2026 21:41:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TXu+AQzi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47D72C2BCB0;
+	Mon, 11 May 2026 21:42:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778535683;
-	bh=JdACk3DL+Pjn0PTUx+BuKEX9QojfQ39b8C9uXW4SA/E=;
+	s=k20201202; t=1778535744;
+	bh=bMgmH0cX4uqze+aH3mSr3MnSC2EmLLaqnP9xWJUrBAk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=Nxdds6+9+GLX4ji5H9F34ZhKJFA8N+/lImfDRUha1PiDQixN8cpUis+z/KrtRBW2J
-	 cFbs0YKaMYVSWBWhsiOBJSIOdlvqFdXz+shKiYIgMkOrFKHCRQpVjsw4hyDtrOD/ye
-	 cWPec8z2lg5rBKbQi5gb9ejCDKCV/ZOx/BjXWleF0Z+vAV/wtOzdDlQJ9nGeHC/NKd
-	 XN7vJwFw6ml8QmLr2DfA3buEa3uYR8QNRr3XPdXY1xbe1X0KtUPnX9ObDKgY/YhWdd
-	 5xxVCBwijD+WBtOmR0YizvGyIxUB/Z6ZkNbdVDdgS2125KbnN4sjnmLaLEXZn0Sv5F
-	 nb/lo1ka/uu9g==
+	b=TXu+AQzimxrobmDD/HFg3fp6fuSD11g+SJAfwTPZYHFqdbaeqEO5+HDURZeOUh5j3
+	 I0wZpdw0yTUObpqkiR2TG/4pUTkYPzGhCPLfyz+2dBCH5hprNIzc52vmPd9eujU1+5
+	 UwcatnqnWVWixS+DoDE5Dilmptzoh+22FoFfFLwciu0d4MOXeDkgcLJgitVufUxNIz
+	 Pswo4wrwjX0KH59r+mPJM9fbqWhFj+topoMks42sBtCGN2DdgQHsVa80ctwN6P9ink
+	 Qi2Zn7JKS+rE4YDnxRXlw4XVviZizlkOZrq1tDRhtAz2bP/mN4YWPjYkHBTOE2Bbdl
+	 DRKB/8e7ReBhQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] dt-bindings: usb: add Rohm BM92TXX Type-C
- controller
+Subject: Re: [RFC PATCH 1/2] dt-bindings: iio: magnetometer: add Melexis
+ MLX90393
 Reply-To: sashiko@lists.linux.dev
-To: "Alexandre Hamamdjian via B4 Relay" <devnull+azkali.limited.gmail.com@kernel.org>
-Cc: conor+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260510-bm92t-v1-2-dff3c9d22426@gmail.com>
-References: <20260510-bm92t-v1-2-dff3c9d22426@gmail.com>
+To: "Nikhil Gautam" <nikhilgtr@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260510191010.155380-2-nikhilgtr@gmail.com>
+References: <20260510191010.155380-2-nikhilgtr@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 11 May 2026 21:41:22 +0000
-Message-Id: <20260511214123.492C2C2BCB0@smtp.kernel.org>
+Date: Mon, 11 May 2026 21:42:23 +0000
+Message-Id: <20260511214224.47D72C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,78 +46,72 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] Bypassing standard `usb-c-connector` binding in favor of vendor-=
-specific properties.
-- [Low] DT schema naming violations and missing type definitions.
+- [Medium] The devicetree binding documents only the I2C interface for a de=
+vice that supports both I2C and SPI, artificially restricting valid hardwar=
+e descriptions.
+- [Medium] Essential physical hardware connections, such as power supplies =
+and interrupts, are omitted from the schema and actively forbidden by `addi=
+tionalProperties: false`.
 --
 
-commit 186a26fac988413623e6d85b4dd282c2ff87f8bf
-Author: Alexandre Hamamdjian <azkali.limited@gmail.com>
+commit 8e952d4236837623faf2f1c5e7d285f977fcfe5a
+Author: Nikhil Gautam <nikhilgtr@gmail.com>
 
-dt-bindings: usb: add Rohm BM92TXX Type-C controller
+dt-bindings: iio: magnetometer: add Melexis MLX90393
 
-Add the device-tree binding documentation for the Rohm BM92TXX family
-of USB Type-C and Power Delivery controllers. The device is controlled
-over I2C and signals state changes through a dedicated interrupt line.
+This commit adds devicetree bindings for the Melexis MLX90393 3-axis
+magnetometer and temperature sensor. It currently documents the I2C
+interface for the device.
 
-> diff --git a/Documentation/devicetree/bindings/usb/rohm,bm92t.yaml b/Docu=
-mentation/devicetree/bindings/usb/rohm,bm92t.yaml
+> diff --git a/Documentation/devicetree/bindings/iio/magnetometer/melexis,m=
+lx90393.yaml b/Documentation/devicetree/bindings/iio/magnetometer/melexis,m=
+lx90393.yaml
 > new file mode 100644
-> index 0000000000000..007f70a8f5bb1
+> index 0000000000000..b99629ff25855
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/usb/rohm,bm92t.yaml
+> +++ b/Documentation/devicetree/bindings/iio/magnetometer/melexis,mlx90393=
+.yaml
 [ ... ]
-> +  vbus-source-supply:
-> +    description: VBUS source (provider) regulator.
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - melexis,mlx90393
 > +
-> +  pd_bat_chg-supply:
-> +    description: Battery charger regulator gated by Power Delivery state.
-
-Does this violate the DT property naming convention by using underscores
-instead of hyphens? Should this be named pd-bat-chg-supply?
-
-> +
-> +  rohm,vconn-en-gpio:
+> +  reg:
 > +    maxItems: 1
-> +    description: GPIO controlling the external VCONN switch.
 
-This property uses the deprecated -gpio suffix instead of -gpios, which mea=
-ns
-the dtschema core will not automatically assign it the phandle-array type.
-Could this be renamed to rohm,vconn-en-gpios, or alternatively, could an
-explicit type definition be provided?
+Are essential physical hardware connections, such as power supplies
+(vdd-supply, vddio-supply) and optional interrupt pins missing here?
 
-[ ... ]
-> +  rohm,dp-lanes:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum: [2, 4]
-> +    default: 2
-> +    description: Number of DisplayPort lanes to negotiate.
+Because the schema enforces additionalProperties: false, any downstream boa=
+rd
+devicetree that accurately models these physical connections to regulators =
+or
+interrupt controllers will fail schema validation. Could these properties be
+explicitly listed to permit complete hardware descriptions, even if the
+current driver does not yet use them?
 
-This isn't a bug, but should this binding use a connector child node with
-compatible =3D "usb-c-connector" instead of defining custom vendor-specific
-properties for USB Type-C and Power Delivery features like rohm,dp-lanes and
-the current limits?
-
-The standard approach is to use properties like source-pdos, sink-pdos, and
-standard endpoints for data lanes.
-
-[ ... ]
-> +  rohm,dock-power-limit-disable:
-> +    type: boolean
-> +    description:
-> +      Disable the lower power limit applied when a dock is detected.
 > +
-> +  rohm,pd-5v-current-limit-ma:
-> +    description: Charging current limit in mA when 5V PD contract is act=
-ive.
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +additionalProperties: false
 
-These current limit properties do not use a standard unit suffix recognized=
- by
-dtschema (such as -microamp or -milliamp) with auto-typing. Should they
-include an explicit type definition like
-$ref: /schemas/types.yaml#/definitions/uint32?
+Does this artificially restrict valid hardware descriptions by omitting the
+SPI interface?
+
+The commit message and subsequent driver commit (iio: magnetometer: add
+support for Melexis MLX90393) explicitly state that the MLX90393 hardware
+supports both I2C and SPI interfaces. However, the schema enforces
+additionalProperties: false without referencing standard SPI properties like
+spi-max-frequency.
+
+Consequently, any valid board devicetree that connects the device via an
+SPI bus will fail dtbs_check validation. Should the binding describe the
+hardware component's full capabilities rather than just the limits of the
+initial driver implementation?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510-bm92t-v1-0=
--dff3c9d22426@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510191010.1553=
+80-1-nikhilgtr@gmail.com?part=3D1
