@@ -1,202 +1,113 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8EE43C057
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 16:01:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4DCD421F12;
+	Mon, 11 May 2026 16:02:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778515277; cv=none; b=gIpFpwbyi+tJkYYb2ftiOa6N3u9XqJuSWksFEsaINhetEuTacHZUV/q0MsroQD/heSK5kQUQZSSiN9sgEREzpVi0fj8vO2o7E8kIj1+7FXbYNqu745K6MgnMZ0znGi9JdytULLH3DjDMzSu2WXDCU0uP0RXRKnBItVb7RKWW0OQ=
+	t=1778515342; cv=none; b=aKN+07nbtQ/xJeWt8Z8u/gqC04nYXinFZWVCDm4hYhsVdCkfmXM+pi7GlhqT+wzLWkT2NdrCR/+/jq2nknEVD7xMcouOyTg/dZfuNqfglh9mL+JusNR98H0dudzhZ6PeKG2zQbGWimrlfu83fe+khvfsQLTjluuDGx4y5sZZgeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778515277; c=relaxed/simple;
-	bh=nl++y2pvb//UUvo8RmKvBN/IlF4N9wSAx9HwCsTdjHU=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BrbrvzE8JZJ2VMkxYlZ9T2CUhv916QvW1pPQoru4cK83HIMN/QkdUrnAw4vqfIaU+/06Xxbw6ge1QfTQgPbHjjLd1joOISFs2mbPbIN59Dd1YLLYlQWQuhk6pxDgY39BSXuTPlAxW4gVQx0KOTzDEQuGaT2dDzrx7qFd2y4hd7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EPksM0KQ; arc=none smtp.client-ip=209.85.218.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778515342; c=relaxed/simple;
+	bh=uznNZeBvkQNFwgstmmxLx35Y58HlJI7x/00h6NLAsFE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LTmFpdF6rmvwBNyy3b7xpKHmuBciu0TzvUZP+oNIH2Yv+0z4x/mu6nl1+F6Z5L01g+CXOwplNHXeRDSFkmm7H4OMDfbjj/IAyxNdAmDHEfVkx+x/JbkChNNkBp/m3A/2kk4waIKP0+dbshzNVkhq72gmEl2XT5kPGZxmyw48Kc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i2UX9yx9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EPksM0KQ"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-bd1caeba6beso96482466b.3
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 09:01:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778515274; x=1779120074; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=dDajMNhsK8ctloggkRH1qn8pJypaS73T3qG8KCV509o=;
-        b=EPksM0KQt1LbNCli2KGRcMuMkA457QfbDFvV/ouokqbTvVLlDeNC4BjfqamZe4gLIN
-         4e1GRlwzM9d0fevf/fYhWuOuKPVph002ISnQrOiD9CVm7dY7dexk2yA7Enj49RHHMhxz
-         dSF36mABiN9Ce76N4/Dhsc9V8K+O4+Gk8xcWnR15iyDFsM3/cr920kFh8lWPhoRSwTl4
-         nsatV+VG3Mrvjy5q4Pzy7s9w+Uh/l49/Z47tkuXVNyqfNY7xqGgqoSbWF68+H/1EKEV1
-         m5HuIJyOamWKBdYcOv2k+HMw9X1IeFOCgm7uCiluMVuQ75CJb47lDaQE7SPnT4axT3/z
-         Dj6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778515274; x=1779120074;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=dDajMNhsK8ctloggkRH1qn8pJypaS73T3qG8KCV509o=;
-        b=B9bSXeNiyZez6JgI9UHVbxUeSDa+guu+K35ZrfdRDAVt9rsykF3QT8QLM3kTje/itm
-         3g+oCYWNs1w0ZmR4DqU7wQQeULWoby2XoRJSFj030JEl+2yWsrC/QvR8BmGfpcv1j88P
-         yXtzAXyvK3P5xQeXjpH9kTy4ILbAy8iphT2s5iBdTVnI2RqdSMpejNjT+lf6pbPrPXeZ
-         yFdAORImmyGo1B+EZemDw39PDKlx7hSk/NHsTp4QyMb/D8umzp+nrvA77OfzV/v6F6zc
-         Bj/76yHhQTgB9sc4To/iDWfETN4AVkyDWWBS08zYP9vQjfvL+L3oKsgJzbkF9L4DEnVl
-         Ndvg==
-X-Forwarded-Encrypted: i=1; AFNElJ8tZdh8Pt7fK4kk3V+u9J+0en4ir6ybexxzpC1Ef8+//E5+fP7OE/UfSmV1vUXtRHoAK/3OHHEeTyXc@vger.kernel.org
-X-Gm-Message-State: AOJu0YyR0iKik7udQonE1mEElRUc1+AD5G+cbD33p4HZsnrcMsQaoUZn
-	zm3nZstlB000MQbfple4AlE6EYvkavv9ZHuBaJMJoWuPODbHiUq340rG
-X-Gm-Gg: Acq92OGShPp36sSyeoBOHEz5gg0psA1oZbEu+3cS76aBPX6OPZtqJThSO2hBMhtz1ck
-	qh9WNDdGXoKZr0MzHgP6TbD4z0q01eRPNLo2UKfwcUzTaZFQRQmXe+9pv8Y120YgKBocBM1Pj/U
-	hrCcftRRcBfn4xaiyoMtLvWAmxSCtVc/1ArE8no9CLCcej/DstB44gYLR6BLxN9rwh4qF7XUWp9
-	ABEOjDTZNxLKrUx4ySbn3CGoPbIkemIR9/MnwOPKWBOlEaeJqNJcOdOkEJ12D6S3M/uCC6B+MoF
-	wFXPNQwkdMNnycLliSlgGtVsTXtavdRKtkBetU9QmPjs7rA5GQ9LbCgMQ0xEOhKScEk4a9PVFz2
-	zfRlpp1yCGv3Cy0Sv73ETCZUUTskgn0EyBxmN2t396BU2F2O2KJpuvecV19kr9DqhtPDOCCv6ur
-	WPk93e8PICp9uMZTAFORIBVnJvegwN12j5zTeq/S3UjIaAn09k9eQvktU9FoQsTdGlWsHr8fJg4
-	Y34MZ4j/WwhlOTvRA+9HKCf7gY5PDx1IchiJk/f+zEWwwFf4A==
-X-Received: by 2002:a17:907:849:b0:bab:1839:cc61 with SMTP id a640c23a62f3a-bcaacf2b3a8mr762286466b.40.1778515274081;
-        Mon, 11 May 2026 09:01:14 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bcd3cc282d3sm315940466b.4.2026.05.11.09.01.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 11 May 2026 09:01:13 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
-Date: Mon, 11 May 2026 17:01:05 +0100
-To: David Lechner <dlechner@baylibre.com>, 
-	Rodrigo Alencar <455.rodrigo.alencar@gmail.com>, rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-hardening@vger.kernel.org
-Cc: Lars-Peter Clausen <lars@metafoo.de>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH RFC v4 10/10] docs: iio: add documentation for ad9910
- driver
-Message-ID: <wpoiyqezs6lus5o7smlibbxrxqudvijgqh3gwgft2xjpiirwa4@xtdwe3kzleku>
-References: <20260508-ad9910-iio-driver-v4-0-d26bfd20ee3d@analog.com>
- <20260508-ad9910-iio-driver-v4-10-d26bfd20ee3d@analog.com>
- <b8f9a174-f3d0-4cb8-a571-605be79165d6@baylibre.com>
- <zvulxrrvg4sf7m5pjfpfucg7yssgallfu6zi6mcyblu2qy24hn@wdzs7h77vkoz>
- <18c2eab9-c0c7-4e93-b4e8-73b18531e784@baylibre.com>
- <uphcx5zr4lmukuom75g66hp4agurty7yq6mo6ri6otrsscqfek@tn3u5jjszaoy>
- <5bce7868-feca-4c54-a14d-ad4bf4072c29@baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i2UX9yx9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCFD5C2BCB0;
+	Mon, 11 May 2026 16:02:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778515342;
+	bh=uznNZeBvkQNFwgstmmxLx35Y58HlJI7x/00h6NLAsFE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=i2UX9yx9XuOSw0NbAmyJJnddOcPRj8LGLdBV8iH2RihMb9hT6taGFgNzwAlWkGzup
+	 swaJBuE4P4caIU7aQgJ2e8hi0yD7n3C7xM00RyNmIlk/cgQUfcIA3zjXaTVucKygbJ
+	 wUw5iCMt4wncNQVa15Qucj4GwRCf93qBuUwhafh+UeSEliIumpsvEguiRmtC8cwHSi
+	 jBAnz1y/n/9bXj03ovoQMSwE0+hsHQwthPrzjetPX4pyAIA+iw75Ryd66Ntchej6IM
+	 1JK59P7jj0IVvlGIfnnjnH9N98zgmtaQA1E4qOQHHeazoJdPmhpRiW/BI21Lr9ndJ8
+	 9pPHy2gfDJS/g==
+Date: Mon, 11 May 2026 17:02:18 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-i3c@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] dt-bindings: i3c: dw: Add apb reset
+Message-ID: <20260511-amnesty-afoot-84537aafc02c@spud>
+References: <20260511031945.3228-1-jszhang@kernel.org>
+ <20260511031945.3228-3-jszhang@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="CfZp+rhr9WmPbCrF"
+Content-Disposition: inline
+In-Reply-To: <20260511031945.3228-3-jszhang@kernel.org>
+
+
+--CfZp+rhr9WmPbCrF
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <5bce7868-feca-4c54-a14d-ad4bf4072c29@baylibre.com>
+Content-Transfer-Encoding: quoted-printable
 
-On 26/05/11 10:23AM, David Lechner wrote:
-> On 5/11/26 10:02 AM, Rodrigo Alencar wrote:
-> > On 26/05/11 09:46AM, David Lechner wrote:
-> >> On 5/10/26 4:30 AM, Rodrigo Alencar wrote:
-> >>> On 26/05/09 06:42PM, David Lechner wrote:
-> >>>> On 5/8/26 12:00 PM, Rodrigo Alencar via B4 Relay wrote:
-> >>>>> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> >>>>>
-> >>>>> Add documentation for the AD9910 DDS IIO driver, which describes channels,
-> >>>>> DDS modes, attributes and ABI usage examples.
+On Mon, May 11, 2026 at 11:19:44AM +0800, Jisheng Zhang wrote:
+> Add dt-binding for support of apb reset which is to reset the APB
+> interface.
+>=20
+> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
 
-...
+Please squash both dt-binding patches.
 
-> >>>> And a practical note, they should be "frequencyscale". I don't like that it is
-> >>>> harder to read, but it is easier for a machine to parse.
-> >>>
-> >>> Parsers like the ones in libiio is not having problems with that.
-> >>>
-> >>>>> +Usage examples
-> >>>>> +^^^^^^^^^^^^^^
-> >>>>> +
-> >>>>> +Set parallel port frequency modulation with a scale of 16 and a 50 MHz
-> >>>>> +offset:
-> >>>>> +
-> >>>>> +.. code-block:: bash
-> >>>>> +
-> >>>>> +  echo 16 > /sys/bus/iio/devices/iio:device0/out_altvoltage113_frequency_scale
-> >>>>> +  echo 50000000 > /sys/bus/iio/devices/iio:device0/out_altvoltage113_frequency_offset
-> >>>>> +
-> >>>>> +Digital ramp generator (DRG)
-> >>>>> +----------------------------
-> >>>>> +
-> >>>>> +The DRG produces linear frequency, phase or amplitude sweeps using dedicated
-> >>>>> +hardware. It is controlled through three channels: a parent control channel
-> >>>>> +(``digital_ramp_generator``) and two child ramp channels
-> >>>>> +(``digital_ramp_up``, ``digital_ramp_down``). DRG destination is set when
-> >>>>> +ramp attributes are written, i.e. writing to ``frequency`` or ``frequency_roc``
-> >>>>> +sets the destination to frequency.
-> >>>>
-> >>>> Would it be better to say that the destination is set when the the
-> >>>> value is non-zero? Otherwise, how would one change the destination
-> >>>> once set?
-> >>>
-> >>> Destination is only one, so you just need to write phase or phase_roc, if you want
-> >>> to target phase then. Does that not sound intuitive?
-> >>
-> >> I was thinking about if you needed to change the configuration.
-> >> If you set it to phase, then want to change it to frequency, how
-> >> could you do that if 0 is a valid value for phase?
-> >>
-> >> Also how could you know which is selected by reading back the
-> >> values if 0 is a valid value?
-> > 
-> > This is where Jonathan raised some concerns, so it is a good oportunity for you
-> > to provide your inputs! Right now, I am returning -EBUSY on read of an attribute
-> > where its destination is not selected. As pointed out, the destination selection
-> > is happening when writting to the attribute. In the previous patch, Jonathan
-> > suggested frequency_active, phase_active and scale_active to track mode priority,
-> > and It could be leveraged here for DRG destination selection. I havent gone for
-> > that because I was not willing to add that to all the channels given that it is
-> > mostly used for debugging, so I added frequency_source, phase_source and
-> > amplitude_source to debugfs instead.
-> 
-> The "last write wins" with the others changing to EBUSY makes more sense to
-> me now. If the docs said that, I missed it. Otherwise, that would be a helpful
-> thing to add to the docs here.
-> 
-> > 
-> > Destination selection for RAM mode is firmware based at this point.
-> 
-> Seems reasonable.
-> 
-> > Destination selection for Parallel mode is still not clear... could use
-> > those *_active attributes or separate channels.
-> 
-> Since there are _offset attributes proposed for parallel input already,
-> could we just make it the same where you have to write one of those
-> attributes?
+> ---
+>  Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yam=
+l b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
+> index 613dce7757bc..2575442b28ff 100644
+> --- a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
+> +++ b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
+> @@ -38,10 +38,12 @@ properties:
+>    resets:
+>      items:
+>        - description: Reset signal
+> +      - description: APB interface reset signal
+> =20
+>    reset-names:
+>      items:
+>        - const: core_rst
+> +      - const: apb_rst
 
-Different from the DRG, both RAM and Parallel mode has this extra polar
-destination, which targets both amplitude and phase at the same time.
+Drop the _rst here please, not as if these can be anything other than a
+reset!
 
-For parallel mode I have the attributes:
-- frequency_scale: applied when destination is frequency
-- frequency_offset: applied when destination is frequency
-- scale_offset: applied when destination is polar
-- phase_offset: applied when destination is polar
+pw-bot: changes-requested
 
-In parallel mode, there aren't knobs like those for amplitude and phase
-destinations. With the *_active thing or similar, polar can be both
-phase_active and scale_active enabled at the same time. However, this
-would not behave the same way Jonathan suggested, i.e. to be used for
-mode priority indication... it would be used for destination configuration
-instead.
+Cheers,
+Conor.
 
-> 
-> > 
-> >>>
-> >>> Zero is a valid value to be written.
-> >>>
-> >>>>
-> > 
-> 
+> =20
+>    interrupts:
+>      maxItems: 1
+> --=20
+> 2.53.0
+>=20
 
--- 
-Kind regards,
+--CfZp+rhr9WmPbCrF
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Rodrigo Alencar
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagH9igAKCRB4tDGHoIJi
+0j/AAQCY7CZ3OJqPaerq0V45HxlhuImAWjnvZaxXnnw27iRhPQEAlYjvac2dz21i
+83ktp/UsrKOZqGB0Did72sYL+5huWwE=
+=L3cQ
+-----END PGP SIGNATURE-----
+
+--CfZp+rhr9WmPbCrF--
