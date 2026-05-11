@@ -1,137 +1,123 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f195.google.com (mail-lj1-f195.google.com [209.85.208.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46923426688;
-	Mon, 11 May 2026 16:22:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7094735C181
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 16:23:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.195
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778516553; cv=pass; b=VJ1aun763jkwRsJpV9Vl8HQ+DCR/XGVrpGS6HZQXB9GWPrHap2iare4LvsVH7FmswbrvlSHweCfZmHpdEoW9frE6WhqvH35jdMZfhbWqURGcDkqAeWSMr5R8D5cMdoqQOf7BDahAI1ay3/4ZFViF+AKINdZKJdtOTBt7hzJqN1I=
+	t=1778516595; cv=pass; b=SapaBvTTIUMLyDEAAXirfPWtjboGqXe61ElXb3lZS45hgN9L5+WxcC3YVDyrKd2Ol1Ab87SemZmGL27OahIr9lesZ+Flpq9k0WO6LcE1Wzr8iIQLgqjAQzI2iMqEkKnxeCtGyBhKKnvoomdj9YB/nz37q4EAB8QyynJI1S4kmJ8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778516553; c=relaxed/simple;
-	bh=1+xSj/0r2GUZxyrqXhfvgm9GiDZtkYQa8vYuw9N9wsY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eQU8WvsPCRD20BqBpRwRqfUlf/hJnHfkE3nNTOBU6cS9kjAy8KeQsqVGygieQOz3Ido+pjgUcB/img8YxOeq6YuT+1TPs9JkiIY06vDsYfdBTMv2zvs5+nDU0jf9hVoi17XA2W5UxO4o5lAuen9tbTH1oF4UOBHT5Gcz7lNNCd4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b=aVA5ALES; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1778516595; c=relaxed/simple;
+	bh=jKtfd7ltufCd8Kwzt8vVP2Wk3ili/vgHCvXxUlPxLTM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=U0u0p4OI4omsKPerKexsgWQK7x27sFN4BbJeHefNcJ0ppat0/Awxvd/V3Hrceb3vuPFJgrp8EdTThpp4sy9Dw1a23CKNb6kRIAddmV83RsX+ixEKR1S4z1N9F73g/nn1/ktKYNCcNq5JAGtoUQodk1eTVQ2MWAT5uGZLZhmCGwU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RiKztB8M; arc=pass smtp.client-ip=209.85.208.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="aVA5ALES"
-ARC-Seal: i=1; a=rsa-sha256; t=1778516507; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=nQA6Y6JO4vlyV7DDVuzOlG2yGYi5kGtKuIxJfJ9vZW3RaQZ5TZFs3DyVe5doq9QFkadyJ2ahPO27f7Koef+GBoQVlbAmeDB8QXSPFpqxgFpbRPVCC+xaaL+stI5G0Yu/LufPP307oFStV/kWRuSxycNftkCyTN2X5sDq0ItjVGY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1778516507; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=e19MX8CU+PB58q/Ph/E5Ue6KATJv/lo98521aDrCffw=; 
-	b=e62aMLyUokucuOkHduLUqEuFNl3s7rGu+zDhLmM1m/Dq0CPDgyDCzKT9VPciaL9Ug73wcSbzxnKzxe1K0zw+tixBfydWhHN3CWvq/dFxgyqUVol4q03G6RfqTE+jmVRSGLPgwIy+mp9FiTMfVacjZF4Dk1SeQ1/YTM/UZBNz0BU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
-	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1778516507;
-	s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
-	bh=e19MX8CU+PB58q/Ph/E5Ue6KATJv/lo98521aDrCffw=;
-	b=aVA5ALESMkFpnXqD29o2M8OghNp+RcroIizOSQCjgentZBrUVJiZmL9Vn5lOeaxg
-	MlriF7P3GeiNYQRhUmrsAjwLNn8j+hJ6+QPvLWWEgPK/LHV3LRiG31DbX4mzeCg0J3X
-	RdMSvQM6vC6BeT8Z5tjqNuzKmPqy0zzm3tu+Quho=
-Received: by mx.zohomail.com with SMTPS id 17785165060441003.195712507633;
-	Mon, 11 May 2026 09:21:46 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Heiko Stuebner <heiko@sntech.de>
-Cc: kernel@collabora.com, linux-input@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Subject: Re: [PATCH v3 0/4] ROCK 4D audio enablement
-Date: Mon, 11 May 2026 18:21:40 +0200
-Message-ID: <wE1x9P2vQlC8kihOSm9uOA@collabora.com>
-In-Reply-To: <20260408-rock4d-audio-v3-0-49e43c3c2a68@collabora.com>
-References: <20260408-rock4d-audio-v3-0-49e43c3c2a68@collabora.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RiKztB8M"
+Received: by mail-lj1-f195.google.com with SMTP id 38308e7fff4ca-393c93a0166so46294931fa.2
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 09:23:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778516592; cv=none;
+        d=google.com; s=arc-20240605;
+        b=gDTt+y0rCtEGMv1afD7WKGpNRKwkxChe/ed9NyR5ZGUWN9UQOTc1KSMR8HHISDmbqU
+         JTNcyt6al7K15MFrrN/8gWeVbdY2tsetKmKR4HKFA3ojVJ6LisgHtvjYTpAYg5iFOK2M
+         MW/D76ueAZ5GEV3QjnMhKJ9HQeqjXaa8/N3GNaRbF6IFEegtUWv+XTyr7A7sRmrkd6K8
+         rvBVy1RMx+zat44uyTybBpi9t1m301nfs6pBTTogi/u0YM0MIG02Ff/mqbv5W9CxsPLu
+         dEB5h0ZflinUr0G7GKIs2Qym/Y7SPofQg3bNq6cDOFyQCmqIt7BzMrsDSBXaFPxQAwxG
+         4dog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=jKtfd7ltufCd8Kwzt8vVP2Wk3ili/vgHCvXxUlPxLTM=;
+        fh=VSn36dOCh07vpkVU5sldYnCtj4sOl2LQ/qiLoXnaU6c=;
+        b=Ez9PZ48LVHx9mTQHD5yaP7cYqiBABVEGVLfVjNRfRetpZwclC2RVkBGH/2pVdDxIs9
+         RZLmy6A+sTm6kHrQMhyWT66+gNg82Nic+ij6hAmLwjPerBKfyIoR8ZC5fv64ISuQXSTN
+         PadCSdscOb7n514auffmo+W6SS3zr03FSw+0WiTNTeldtnqthobeB7YOrkFhee9K7Eqw
+         qDWt1dlwhxGKA6ACcvzXlPg244G9jasQQ4H1PvK5N0WU7KnCowjLe9coTkLNfMco83a8
+         qSpH5FYrSlPRJUQ+EzrzXjzCYrFATS90ZdtGZIXpyYt3ke7oW/DEO1O5TtstTSHV4t78
+         VJlw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778516592; x=1779121392; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jKtfd7ltufCd8Kwzt8vVP2Wk3ili/vgHCvXxUlPxLTM=;
+        b=RiKztB8MYN7d4+ajKnLbrzyIS3KQiMFT2cYHEiktr75ZE9WxDwWUtkxKvWplKBFkZT
+         RwaQPlXmWcPYOWLiFHb7O+QSd+dM3+mWzn47cDqKBvPWNpLqP09rRd+zlIEp+yHAHgvW
+         FVXaIjka5+HqspLI0qM/VgHZxHALvOB4we+eefc3D0SsRAFCTX+ElDtEtYkQJXfAn/eo
+         CGkaU6B5af+aTqMfbw7vbSYruq7UyKXfC+OeyPSk5GuGxt+KH2OtPPLL9wdoxU9YGpmG
+         0kInyO1FnEAoZfhUHDoaZhiFJZX68l9s3KpITYaUDgTGYKMErStmYIZT3Rjdy4bCx5o8
+         t0pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778516592; x=1779121392;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=jKtfd7ltufCd8Kwzt8vVP2Wk3ili/vgHCvXxUlPxLTM=;
+        b=UPJVwUIAyxhNxPAuwV5FcEscfTDJ4hM0jtOrYStK5jqxzaif0pw0+N1nvbzvi5Jn1c
+         PRYokV5+JrcSyaZRMkwE69MCfZ70x4utMXO+uucB6RwnJ3QT69ubkXxBFCDNhPduyN1d
+         r5WwHTM+81+fEVrev4Z3/YttJO95FsZ6ID0LDNDKRC88LD4mQiHxgCIKUXEv1WYBJLqW
+         lkjQHnGgFm8agOVD+qCJf1aoxd5wMKaoH5mCFDj7RHTuLlPuV3jJfzX1ymJ6opdrEzb5
+         0cgb2gSs5lwysWs6QbUi+2Qe6zq/4p7ctF4ODo5nU+v2RUp/Np/zEKXBfEl+MVjrxRUF
+         cV4A==
+X-Forwarded-Encrypted: i=1; AFNElJ8fqJ5moBb1bYxxUkPfWiFisgKjvGB8Nq7wY48t+9szT3y4EKURcicvh5nygDA4X3FhriqhyNwluztX@vger.kernel.org
+X-Gm-Message-State: AOJu0YxvyvROLx32b6B2Uml2qH+XkAGPpA8td2emjB5NGrnXJfXL6n/o
+	suG29UG9nE97yxKijDi81vSkUHxEF/5VRNHDH1NpughNYOqqt7gkYozpcnUBAqZRFAXt0HBQ56+
+	NsrOLwyX8T1LWXoGioJNPZdawFKju/7/PHr/fiwE=
+X-Gm-Gg: Acq92OF/AmLsS84q8kbmP4lNOuf/qJ+lR/xghZr87vM+WFYDedn/FI3FCvs3DoqHLS1
+	KQsqzgG5MhE4+CuJVgftQc4BQy0cNax8KVsAbS01isuYkMBOFqINv+Qj0kDqBPTVbPcrInwXTIh
+	sDUgA8ga/5mV4uiEJbR0s7rfqSSA5dBIoX5F58XOygW2OPAtpzQs8/jNOZdKsxm45Jt8ZxQZygQ
+	ziiHvr/q/LtlHJxC5NaOdUTGeXSa2AYPXDrbAx0RSre+EUoV/iOQg5oTIKaPvUTAKkdYAEOmOVW
+	4IdiPNtj4LZbT/knIN3kyADuI27yld5K/9BnSRIZ8a/EIsLyAP2n
+X-Received: by 2002:a05:6512:3b84:b0:5a4:11e:5c7e with SMTP id
+ 2adb3069b0e04-5a8b6c9d5c7mr2666988e87.5.1778516592291; Mon, 11 May 2026
+ 09:23:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+References: <20260509022718.82957-1-dennylin0707@gmail.com>
+ <20260509022718.82957-2-dennylin0707@gmail.com> <f6e2a4de-4c1d-46ef-b383-db62091fd0f4@baylibre.com>
+ <CAGEkeHfeZWi99TMvkXHhMSrUS8PshuekqjszBXaS39VsLUZ4eA@mail.gmail.com> <3493d6ef-5f02-4eb1-b81a-89597045acbb@baylibre.com>
+In-Reply-To: <3493d6ef-5f02-4eb1-b81a-89597045acbb@baylibre.com>
+From: Denny Lin <dennylin0707@gmail.com>
+Date: Mon, 11 May 2026 09:23:00 -0700
+X-Gm-Features: AVHnY4If-1z7wpsY5leg3b5K7tW-GzwRZV047ZkiArkvnziT1qHja6pu8cjzndE
+Message-ID: <CAGEkeHcA+aJ_h5APbL_bG3vpyY+rSGEVn=Dk1Abe76MKDdyVpg@mail.gmail.com>
+Subject: Re: [PATCH v3 1/1] dt-bindings: iio: adc: add AD7816/AD7817/AD7818 binding
+To: David Lechner <dlechner@baylibre.com>
+Cc: lars@metafoo.de, Michael.Hennerich@analog.com, jic23@kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, nuno.sa@analog.com, 
+	andy@kernel.org, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Alexandre, and other maintainers,
+On Mon, May 11, 2026 at 7:51=E2=80=AFAM David Lechner <dlechner@baylibre.co=
+m> wrote:
+>
+> Usually, we want to be moving the drivers out of staging when
+> adding the DT bindings so that it all gets reviewed for correctness
+> at the same time.
+>
+> Drivers in staging are usually there because they are doing things
+> that are not actually acceptable for the final stable mainline
+> version of a driver and need more work.
+>
 
-On Wednesday, 8 April 2026 19:49:38 Central European Summer Time Nicolas Frattaroli wrote:
-> The ROCK 4D uses an ADC input to distinguish between a headphone (i.e.,
-> no mic) and a headset (i.e., with mic). After some searching, it appears
-> that the closest we can get to modelling this is by sending a particular
-> switch input event.
-> 
-> So this series modifies the adc-keys bindings, extends the adc-keys
-> driver to allow sending other input types as well, and then adds the
-> analog audio nodes to ROCK 4D's device tree.
-> 
-> It should be noted that analog capture from the TRRS jack currently
-> results in completely digitally silent audio for me, i.e. no data other
-> than 0xFF. There's a few reasons why this could happen, chief among them
-> that my SAI driver is broken or that the ES8328 codec driver is once
-> again broken. The DAPM routes when graphed out look fine though. So the
-> DTS part is correct, and I can fix the broken capture in a separate
-> follow-up patch that doesn't have to include DT people.
-> 
-> Another possibility is that my phone headset, despite being 4 rings and
-> having a little pin hole at the back of the volume doodad, does not
-> actually have a microphone, but in that case I'd still expect some noise
-> in the PCM. Maybe it's just shy.
-> 
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> ---
-> Changes in v3:
-> - bindings: use unevaluatedProperties instead of explicitly mentioning
->   linux,input-type.
-> - Link to v2: https://lore.kernel.org/r/20251215-rock4d-audio-v2-0-82a61de39b4c@collabora.com
-> 
-> Changes in v2:
-> - Drop HDMI audio patch, as it was already merged.
-> - adc-keys: rename "keycode" to "code".
-> - adc-keys: make the keycode (now "code") local a u32 instead of an int
-> - adc-keys: only allow EV_KEY and EV_SW for now. Rename patch
->   accordingly.
-> - adc-keys: Add another patch to rework probe function error logging.
-> - Link to v1: https://lore.kernel.org/r/20250630-rock4d-audio-v1-0-0b3c8e8fda9c@collabora.com
-> 
-> ---
-> Nicolas Frattaroli (4):
->       dt-bindings: input: adc-keys: allow all input properties
->       Input: adc-keys - support EV_SW as well, not just EV_KEY.
->       Input: adc-keys - Use dev_err_probe in probe function
->       arm64: dts: rockchip: add analog audio to ROCK 4D
-> 
->  .../devicetree/bindings/input/adc-keys.yaml        | 17 ++--
->  arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts    | 90 ++++++++++++++++++++++
->  drivers/input/keyboard/adc-keys.c                  | 88 ++++++++++-----------
->  3 files changed, 147 insertions(+), 48 deletions(-)
-> ---
-> base-commit: 8de395f35e79d9168a78504fed495578ec7bac52
-> change-id: 20250627-rock4d-audio-cfc07f168a08
-> 
-> Best regards,
-> --  
-> Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> 
-> 
+Thanks for the explanation.
 
-What's the path forward here? All the patches are reviewed, but it
-has been almost a month without them being applied now.
+I took a look at the driver and noticed it still uses the older
+IIO sysfs-based interface rather than the iio_chan_spec + read_raw
+model.
 
-Which tree(s) would this be applied to, and who should I poke?
+Would you recommend updating the driver first, or is it okay to
+proceed with the binding separately?
 
-Thanks :)
-
-Kind regards,
-Nicolas Frattaroli
-
-
-
+Thanks,
+Hungyu
