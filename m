@@ -1,46 +1,46 @@
 Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013028.outbound.protection.outlook.com [52.101.72.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B07FC2BEFEB;
-	Mon, 11 May 2026 15:00:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 151A82DFA25;
+	Mon, 11 May 2026 15:00:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.28
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778511648; cv=fail; b=p6EbFeBWM2QYXqVPd+OA34dIoT8PqEyItqfb6+y8Hq/VWOpTk7/cWGFHcG2heA7WO3zL7NqFw0IaIIqlJ1EJhHJXdqXdWODR1f6ENdkHZxySWunlf6h0O3jI359Z6uahXpESlNICb1ltcphFAfOzYwrX1sVJai3jLy9m7/3XsTs=
+	t=1778511651; cv=fail; b=r8t+5JnOBiqu2Cf6AIBEDBBPiUKLaihbl4+P6yvvQDgAAAAPtn1RHyxUhtATPpt5tmeMnE5z3TTgP1K5pGDN7dOgrN7IHXcBnaJuXQdfTTFLtZ52EJiS8TeMqh0tFdVQ9mxNpDH5ZibNXWAkgSCApFKkTEkO+RN8ryy4R4Amfs0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778511648; c=relaxed/simple;
-	bh=fxoasg4a0HnGbGsSA0+IG8VmK3GU1obXXXFjDfYE2D4=;
+	s=arc-20240116; t=1778511651; c=relaxed/simple;
+	bh=GSlNHgEKkos+cisfRnD7bRYrMV5mJQ5Rw4Cd1kJPTC4=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Cv2qWYxMveMPc4gvrdgL99pYDfXQ635VuvV2Aie6G9faM7QM78C3eqkTSKXDaLOpWBlNauOnQOchIiGXL6eUSWzgVoKCg804bXl2NFEBfmiUboowOQJ3Bu2HTKhTjBSjqdeKuZXZFhQLcOupEtbKCd7aSfYE0W7O0aV12GKp9CQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=UVOWFBxA; arc=fail smtp.client-ip=52.101.72.28
+	 Content-Type:MIME-Version; b=Mdt5k5veIJRUrdHllpLMiCnOzVN8zRSsupIHLBXbodcs3Xnhpl78ILwrcInaWPgTpm5mcySCvBINKGhd/xHIX+qQjQnh0W7SczulCm9BFCgQSuaM2BUzig6U8W9zXZC3BflPRCm5JWbvbboD52dgkIbEdQfRC8lBW6wbqXpfkSc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=Zj5/MVuQ; arc=fail smtp.client-ip=52.101.72.28
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="UVOWFBxA"
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="Zj5/MVuQ"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GcDEfsNjOCYUCo0GYObYj52mu9d6m9yY/A6WN7kO9d1OrBlj48HjZDWUulfLrkIr120OfAaL/ETZy7tkPWzQT1ikbWQxjN3ZyjBUN9HfGdN6xNSYB2ofzKOTcRunSmFmA1KuNL/zbGvzx6RnnJlmd31ufWgahddv+hHv2PRUUsXFcarXrK3aao3hTTQTdOOWqDZS4a0+zifgPXAy2wEdNtIQ4qMft9TaKepOqw4HBGOQXSP9lWlgP+fNTEDc0cusJE9heKyBu5YMI9NAsh+aDkOuQkfX9Azn9IXHB7FTyJ4lChQP+ry2nSdcHxq3xn/sF/Lsq3paYfGuLQhjBMdkJA==
+ b=Dh8eg4MK3l13+cVNACTeuV6XYzrsE0bg97pm4IgWtI0nwlOa9hKexbIbMEBOzIK/h1CvaAf1FVwZvLx3INHLNN+MMlTsMg8p+gf3bFbw+cgZiUEhhIOb6UIZ+Th8CZjptfDAJJlsFYL6mAhB0U8Bo631sJZA+NiQ2p9UPUI6Om6k3HYfxpI6QuxsGt1ZEOtbwVd93EKTKJTDoIfK4WYfWTyIx10e6DRWCIcb0D5+t9qtJeJVvoaJJifD1G9fEDbQmVLRcHfnG5rVm2pyv7cUBADQrroLdhvS0Fub0Tk7ZkkIk1jQLypC219x8OsPL7pYg1SLkVYxzWg6mXE3Ri1EHg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cERAfxlhJ7ayrncDmYGRCh3+eiBHlX91FXTC41i6nnI=;
- b=pRUm6SwWgZDR6hzX36XY4/Jojs+PwK5NlAw0wdSZy92jrXcUQ88jeuBRgol6WXjOmCJ77kexWlZNpxN9BvxbYP+6hC1zzN8q7jgC7gDwWfaTFsJSYMNfyUcUf4weuSGWlZ4l31uciSx4e+CZ+gGcaJL1Ca7MUWqeqcpMzEJ7W+Ax2klN+rHFJIKCHsf3BXb3tXOFQQsLZsegOnHGwAfU0KW3qZimtYgTj66GdeGKUI/PE6wYCLjF/+upovgkQMvlQIyi0SOoNu2M35D6TTkg7Ov9uBLUB7yop1Ys7RXoFUEqNlj22eK7WCZ5egTGZWYhfcOQlYJnn/WJJNJFL3jTqg==
+ bh=VIzsNa2/XI9U1t21cFFHbt7qVEwxZwK4HrgAmgJIBew=;
+ b=QOMekZP7JZTyTCvUZHBBKjfpjiyrslAfHNMYEya3XXtRblowNDueUt2F+HcmyWOeNh94mQz64gTIvJs0SxqlNsJ4OW+WDvjwIGYl+bJyG3A2sekqKSoTMHZ5Tjq2LWfTEGhkbELdVoFUhXAqFe++3gJWc7yfEEk2td5U0b+bO0xZeBtf6JYb0rM6wkRCMpMOGMUVxkAUnGnDubmdA/bVPJZm0kmMNEiGT83lFv42kp5k7udamhBG682cUJAwNy9nSNxB4tKNpN5cJ6WYf+RlY37gljdCCyLaPY6iZ8wSQK+XgnbzCfVLuolDfiq7NIs+bMus+2G0wSknkZOrRtkluA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
  header.d=nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cERAfxlhJ7ayrncDmYGRCh3+eiBHlX91FXTC41i6nnI=;
- b=UVOWFBxA2rqCTk1XT2dPiEx462iLVmTJv8o41OQaguzRdQRbHnLx4adg8YFYjVt//MkXNKqCjEdtJ8XiIiaieD2SumtIgAOrxyBMaElwhOS7r0ju7Nly3jPNb87isTDAikr0br1TIX/ie5rbMrjBIQBw45Ta49rDvjxIRM8dalOxj4sU1WmEtar4j89lrZ8uBfmAolj3cmtYwnPq/PGdnIJtd2k/Aa/+RTyk1Om+85MigC4BDK38dUqQcF4WcG6axQNdyqdBY9bkpp0kdEzJ3YV5AC2U0jG2bX2aZwbIv6wbadLp2nUc7sPgwfpI5ACQl8e7q21Pfotf3Z+JAYujTQ==
+ bh=VIzsNa2/XI9U1t21cFFHbt7qVEwxZwK4HrgAmgJIBew=;
+ b=Zj5/MVuQzOWavLfYjNTzCrvw4B4it1REXtqdd1GEkW59NXy46rEj5IwXgJTOd7BhWKDgNn+rDtyyQCuNirDklxl1oJ1rwW59fT/BwUbygQGFMMBk1VgaOFks4fcYocyXPRPr0xkb1cJW06JwzbkQMIfBLwz5AtW87/ppc5q8jcZvQWZhNifDcbcaCNKyY9goBZ1pIwGd0KD9l2VD50RoEgpUPzH1a287+16+MIL3kXvyF0sGHePhZVpQj8+0Sxc0XAKOKSRe9/blK3ck3YUele/E/GBkje80oNL2yyLtQ7NmDu7r1caLS9SajpjayNDCDalt4FW2aaCpeuuX9nxADg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nxp.com;
 Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
  by GVXPR04MB9976.eurprd04.prod.outlook.com (2603:10a6:150:117::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Mon, 11 May
- 2026 15:00:40 +0000
+ 2026 15:00:43 +0000
 Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
  ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
  ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9870.023; Mon, 11 May 2026
- 15:00:40 +0000
+ 15:00:43 +0000
 From: Vladimir Oltean <vladimir.oltean@nxp.com>
 To: linux-phy@lists.infradead.org
 Cc: netdev@vger.kernel.org,
@@ -53,16 +53,16 @@ Cc: netdev@vger.kernel.org,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	devicetree@vger.kernel.org
-Subject: [PATCH phy-next 2/5] dt-bindings: phy: lynx-28g: add constraint on LX2162A lane indices
-Date: Mon, 11 May 2026 18:00:20 +0300
-Message-Id: <20260511150023.1903577-3-vladimir.oltean@nxp.com>
+Subject: [PATCH phy-next 4/5] phy: lynx-28g: probe on per-SoC and per-instance compatible strings
+Date: Mon, 11 May 2026 18:00:22 +0300
+Message-Id: <20260511150023.1903577-5-vladimir.oltean@nxp.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260511150023.1903577-1-vladimir.oltean@nxp.com>
 References: <20260511150023.1903577-1-vladimir.oltean@nxp.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: AM4PR0302CA0012.eurprd03.prod.outlook.com
- (2603:10a6:205:2::25) To AM9PR04MB8585.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AM0PR02CA0115.eurprd02.prod.outlook.com
+ (2603:10a6:20b:28c::12) To AM9PR04MB8585.eurprd04.prod.outlook.com
  (2603:10a6:20b:438::13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -72,64 +72,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|GVXPR04MB9976:EE_
-X-MS-Office365-Filtering-Correlation-Id: bc84274a-68df-42a4-19ec-08deaf6e1049
+X-MS-Office365-Filtering-Correlation-Id: 4d258410-4f18-4be1-9589-08deaf6e12b2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|7416014|376014|1800799024|366016|11063799003|56012099003|22082099003|18002099003;
+	BCL:0;ARA:13230040|19092799006|7416014|376014|1800799024|366016|3023799003|11063799003|56012099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	6JfNjHPRuIP8yP5+g+VN5JKcQzsbQCpJo1PsCBTf4yoHkRS2t9zJHrBd2HVphrdqbnaNOpxBsbOw2/qDEWVOUVtSpKrz1hkDt3vDabvjkHRJLoH2ochvtjPJgMe6PZljWkqfQZV0B8hgLpPRsl7bF0g+fvsVETqSmZ1sSWYu1L1tSCmHVIR8D3yrOJpz6/S2clzV+0YvjPkTqmWXHiHaYD7naZpfzisUB7nIETItu9fdgaCDA3VK1+3XpwGLWvd/a7i8e0hqh5KevD3b9XQWVyQUh5g5hDJIlxGPRnZZt/lC2aCBH+SPDpbD273Wd9SwJFqshS1Jl7pkVCph5W535jf1G8EmPXVxn36p0i+88FrP4s351Wd5bI6ud8z2euZQzpv+aVFdYAFEclW250U22vgSL/VWz6q8SRhIXHS9ekm8udhAUfRJ00uGnE7xTqytdZV+sPVNzWKRPHcckdvzZVJDx2ODy/3p1liGL5A8vdX8h7HjSx3wMAsshSebfZsdiJig41il5N5uC4Gg/CEC5x2Ft/xfc3n23u7esaobo5wgPuLta4PKdVmjkYCYr5C+mlo0jjh8NiE5NrTlR/x3dobQALN5J3KANDRzLbYpSS09zIPAMpfn2sIMYVWEqklZmT6rST1VMbg9S1QFEzwd8NAbHrebqew9vSby1l576aIGFEMGXD+G2zQykCdgQ1K5
+	x/EVe8lkToIS556a1BrJhL6BhZJW+kr3M+n98gYhhqotDY8Fw/a4lEoDpC6OkXXe5XOMoQKXCh0aGLr/hAp4/6HBG0Nl0hinpY6xreopa8gMbUP1a9/gBf0EDWssP+Gyj0WvV4QplVEAWFqoRTk9XMd7qy86HuCOaWm30A+wQ0d7qTJl+YGY/GuaGVSO8jaIa+97ky6ZMilughMsGw9ipZ6q08FnQ5lgLNDfpag8BqhurzXLtkTVOyWVzhP4zTXlYst0EKJLIHRZanxWl5CmZdAn7P5Wy8SKn6gT0eHkecEljf7ZX5Lo0sGolLCE65Wb2Df5gQNom9Z7kq30z8JAkFNOA491vL/zfcxgOsGhxbRIsT3RstfeLo2XO91yI8OX2XvpeylaV5aqEBZ7/C2lKZJwmqU030yokcmbC3g7uoU2cddMfJjCI+mMxW60GsVC7xjes2phUJByfh/uxAk9uEfngETsCGBecLNQNyjnoy7lNXQQcKuctXjLYet4ErgugMON+4Cje2dieSTRVXqb4uqwYw1bXt23l1zlh64ug2/t6GTIXpwttdFIyGIOqqag1Xm7W0VE1Q2q3qQCGJJdQPSNKBKXkusQewBEiIVJpxyrxBgyojK2OblTB7OTiLakDhzsx3VE4iGhAfeJqYsdws87fnpMy3tUsj3AtpuffTqhBMYy7HeVqv/Jdwq2OuKtle2bpxOLc/sdU9moRaioWA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8585.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(7416014)(376014)(1800799024)(366016)(11063799003)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8585.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(7416014)(376014)(1800799024)(366016)(3023799003)(11063799003)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?YkQhC85EHlpHpzn+2LE/j06HBJL2bPlEjF5yxss+UpTiu1uVMeiyQOXtTEXZ?=
- =?us-ascii?Q?2MOn5UwQKYgVbTyaMm3iHoptcLmCfDB3vWA6sr0p56g06b+2v0ruj+B9JBp8?=
- =?us-ascii?Q?PBL657pDNocKxey+Dj6MAg7PsFcE/ETgn37ESFre5DydLZYsY1SMaGt/FlzA?=
- =?us-ascii?Q?RkDZtsJo6XGaI+3yxCSgXqDp3kYPgP2PcA6S1LuIoNrqOp2uR4AgqZPPLEwO?=
- =?us-ascii?Q?f4pTU1PRoY1+D0RLX65cNf0ieUnR1zI9e/pXjfz4pXYtDuM8emt7pF61ga5h?=
- =?us-ascii?Q?3rbd3apk7Spwr1AA5S1bhpE3MnfCDd/tYWt4GuAz0nfhtVseg9yfD2JcVN5a?=
- =?us-ascii?Q?3th+YI8E3+ivwB0eCxOrDjMn0tn2JOtZuXzYnbUWVm6yJGV8TKfRh/VETEPk?=
- =?us-ascii?Q?lNVbK8GsQwbClEC9Hcl92NXoK7tvnbgpT399orYrXF+CoX8jh+1efD8R1Ntp?=
- =?us-ascii?Q?hQhi4HvNvp1fXpy5w8RzV93MUgGOZ6anoe2dy36+yYYxhFlEZthfF9UGhf7k?=
- =?us-ascii?Q?HuMONBMt2DZ/1e6Vkd6l3JfKpsShqqlL04CgXBl8w672ZqaYK7fvsRsFUlw6?=
- =?us-ascii?Q?LUu0HjajB94yxHl9sBbW49c3PA3SRmN+8KwYyk4wv1CRSQou0aEO0C19COkZ?=
- =?us-ascii?Q?m8g/mZ1t9+Cq3nngIvGke59nftPpdeSl1qGBFjharhr7fwJrMyY8yCFjKOCX?=
- =?us-ascii?Q?Hx3q3QiBVYr5M3gFxQvITuX4WmU792rewkOJoDPoNtGRcCH7k6kTvc///+/O?=
- =?us-ascii?Q?JMNLFD/nXmOGyPE5nGiKpJ+x4gOx3PF8CJ6fG5OBfd4tKrjrP7K76l1u456t?=
- =?us-ascii?Q?YsH3C+oAJhKHpLhYRJ/QnvUscv8wB9vpGL4kTzt9UF4vigG3sybDHUmOquad?=
- =?us-ascii?Q?lNpqvLNuYhwGIcX1OyoKfqVarXq/4g24PsLL29KkCyv/W4HG2n6EWFRWKPUp?=
- =?us-ascii?Q?r4QUbwte3wQJiiqmqBZfwf4yhUPm9LKpOStYbzmZldm0AyQg8NwDDyk7xgQP?=
- =?us-ascii?Q?tRnXVUzjo+BTLNzVLo2x7VrUgEGyvU8bK7prcTuLTl4IKX29AFAAoOizveu8?=
- =?us-ascii?Q?rO9Ja66I4Gt6NHCelmmkq5FXPfJ0xMQHtnKOH5kSMwVqUasCIfPykLNa4U4m?=
- =?us-ascii?Q?j2xrCZitr3Qv50WUlcWqP+bcYF08UnfuHiQbm8C6F/p2XT9YrOuhxmYUD3z8?=
- =?us-ascii?Q?K6KYkRKwZ5A8OCD9JNkZLM6MBPCdiC0LCjQzBfbyM5UYZ7V7BN11yCxLBx5I?=
- =?us-ascii?Q?H8eGX8i21CtKKJhr595pbgYVfx602h9eM0nBXKzy1GqaMv7+nIHd0eTeJCNb?=
- =?us-ascii?Q?wOOVe/f+OpgUcKwIsOxIRSoKSLhUUiM/BpRqNuHQGRn1BzXIg4r0kVyw0wqp?=
- =?us-ascii?Q?TBz2xehPAB8xYLxKatU2ZFvAEnrLecnh3rtC3nIFT5hN0qMnjPtvffJbEVS9?=
- =?us-ascii?Q?kyiROzzILY+HfIK6b9kkN0g1+YRCiiqWDzLpmrAJdRPPkQVGWgAjBxrkdKWv?=
- =?us-ascii?Q?XqkbhJ9FXdTVKV3pZIR6QUjlx9jq/C9x9wjKEjJNofdlCjNVX8qxZEgSbNUM?=
- =?us-ascii?Q?h9rRTb8TmXNVx5vY6hHbivyV5KaphwCWWhzP22Wf0lSinhwsnPo3mui69UVH?=
- =?us-ascii?Q?nbJlqaqFkYvJR0x7rWGYS4B0IJsg5KemNKtnwQzA9kfBfPamsxEjyKaTdwK2?=
- =?us-ascii?Q?08uYFsOpric6va5KmH2h86xtLDX6c2PH5Do4CrS6zKRqH11wy7O8kWcKUDqN?=
- =?us-ascii?Q?r5AS4b73Aw=3D=3D?=
+	=?us-ascii?Q?9tm/Dr4Jqv9Xrg4NkCeyvTn6DUN/fSUychNTqBhpuS7m2d6Rw0PVAAc1OfOS?=
+ =?us-ascii?Q?xlSwG8bD6NukdMEai8MTRGNZgTuUONCo9NTA3qRP+jjKaQ9LMOI5xypwODPp?=
+ =?us-ascii?Q?/om41EB/wKdt2AMYJ3M4u4emWqDAupx/HDNWAtBl27/H7a/2WcdnhqveZj1s?=
+ =?us-ascii?Q?l8BahFglu+3UU+lr202Km0SeloQhhTDKKUBH82dRxneQW15BaTo5LucleiBx?=
+ =?us-ascii?Q?iPwdq2BoV4ZhrUSX7A5B6adCnnIYaFI/gS8yblE/Z/qwkORL5Gb+Yw9TrDZp?=
+ =?us-ascii?Q?iNqVjHu3h3ow1NIA78KQkLVH03scRP9eXA4nOeK9GuhTtTKkihDAMrEwKXxD?=
+ =?us-ascii?Q?0TrVnD1/YO+J8z1sFW2Pydmcm5sOrZjTM3is2EspYL9TMBalsqHTHYR/t/3s?=
+ =?us-ascii?Q?MdDIebnklS08oagwjcNrjN1nW7Oe5mUq5THob0oRH7xu1UwQo7ldvn+OtOC/?=
+ =?us-ascii?Q?IMjJ9HgKV97IPfTSvPREAtxXqKnZzOpY1qZIXo5udn2Z1RPGsgpM6mOOoxgH?=
+ =?us-ascii?Q?3iWPILChs/cTzO4CN3O1RSMFk+HWcdz2Z8kRbVKRqYSZhKNdA9dTtSHse7jl?=
+ =?us-ascii?Q?VN+L482GAsEC/gqvdoe6oWUNS5SD8lb22HJw+veD2Lq8Eg2GjGCpJouKf2me?=
+ =?us-ascii?Q?ck+WmNwFKsB7qTWcacZkDyZuneG4zLGOa8eYXJYo3HClexz7mAigtbtUvrl4?=
+ =?us-ascii?Q?/mzR8sK1OTkD2zqQdvI+j/aTLMlqNElwmy7U0TW775m41yNdLmby/bYobt33?=
+ =?us-ascii?Q?EikNIYsCzkT6LcG2F+igwRZyDtyHoo8yfHjsPXHSoNPZNqwHhZXBg/dIpk4J?=
+ =?us-ascii?Q?smM99CngUJts6/KgUhzBRy2JRixm5X0PRue53mdB8WTYS1Pi4117s+Ub13Fi?=
+ =?us-ascii?Q?uJ0mXEORGQEyQmmAcimDCcytvbPdOYNLGQecAQ1y+FVi3HWHpSQR+8y0hb/R?=
+ =?us-ascii?Q?pr8u1wm0Fsuj0RuDwoTGloCDg4dxs5SQBxN33ROKwkxzwTyoGr0EMmTT0lFH?=
+ =?us-ascii?Q?aY0mjX+DyJpDWXs1onSeKQrjCMPXjFURP4iNYkJlScrlfqj8p3Bu5p9MJ/1/?=
+ =?us-ascii?Q?+hvOkwC0xKt8gfVE27h9Hmva5I8FfeMGgYLLB+CKG1MQhYYPzb2RFe1pwdMT?=
+ =?us-ascii?Q?59Q2mCsaN2Y4QrNUxkRWlaAqMp/ACXsvB5xtyDfXDCXsvLM90IJ/DcWWXkl0?=
+ =?us-ascii?Q?seM8g6+jS28ulOzSN/bK8koNeH8GE6EXShwPROmFBBWwpmSem4LolKVbHlEj?=
+ =?us-ascii?Q?u/r6qiEKWyPmpcItw8p/iDTvhs/TyY5CBGXbODcU9NMbx/0/g2a0kb3xeNHU?=
+ =?us-ascii?Q?cOsbBvU1n0HXsOuEdOwhQQ4wBWm4kIl/KcjlCGGe2A4Vj7EtnTQ1swn1Evpw?=
+ =?us-ascii?Q?Tp1V0gH8fhwu+IDdNY0UfFLwUQZpJe9lCJVcFmM5BZinw958ubyZV+ky8/z2?=
+ =?us-ascii?Q?gYav9A46nsafBMYmyv3zU4kZ/GGkPo+MRmyBn78Gi9fl1dUAXSghMZ7Y2lO4?=
+ =?us-ascii?Q?UPFUGL/AQ+QGffzGkE6yyJ+Qwo/cQUz5wbqGfXjCJ88LiXxS0gsD/D5QeG64?=
+ =?us-ascii?Q?Z7KggsRjIL/1iPJNxP3n+S46Loc/ukX+ik/Gclmvt7g0hCUpbbLv/364qfnc?=
+ =?us-ascii?Q?eJbpdZD+SxgFLFxtyDh/JovfXz4u9SL93nNtdjqvXkS/P1u9RvLXkm37WcsM?=
+ =?us-ascii?Q?qXf/BUEgr/RhR4Js1uBWltxM5Y4ocQJkaRi6xv+vhs7cz45Q0TaD4Jy2cRSC?=
+ =?us-ascii?Q?qk8onX/SFA=3D=3D?=
 X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc84274a-68df-42a4-19ec-08deaf6e1049
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d258410-4f18-4be1-9589-08deaf6e12b2
 X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2026 15:00:38.9156
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2026 15:00:42.9743
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FNWuYsZOQvrPtZAfWZsQ/M/Xx/N3zLRKmy43RDuDhzrvGHwskKMMqpjWmjLjja3pTQkOu3GIEe+/gXMAvsc25Q==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4kJRHvB8QQ3DcOllxBFyiRsT+7CPQTKUuEyuJLMIcUst+0lVyn9u3VP3QjGi4+KabI/lPZkEFUg5HxtDlaMhfw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB9976
 
-The SerDes 1 of LX2162A has fewer lanes than all other instances, and
-strangely, their indices are not 0-3, but 4-7.
+Add driver support for probing on the new, per-instance and per-SoC
+bindings, which provide the main benefit that they allow rejecting
+unsupported protocols per lane (10GbE on SerDes 2 lanes 0-5), but they
+also allow avoiding the creation of PHYs for lanes that don't exist
+(LX2162A lanes 0-3).
 
-This is a best-effort constraint, since we can only impose it when using
-per-SoC compatible string and per-lane OF nodes.
+For old device trees with just "fsl,lynx-28g", the only things that
+change are:
+
+- a probe time warning/encouragement to update the device tree. This is
+  warranted by the fact that using "fsl,lynx-28g" may already provide
+  incorrect behaviour (undetected absent 10GbE support on LX2160A
+  SerDes 2 lanes 0-5). But we retain bug compatibility nonetheless.
+
+- the feature set is frozen in time (e.g. no 25GbE). Since we cannot
+  guarantee that this protocol will work on a lane, just err on the safe
+  side and don't offer it (and require a device tree update to get it).
+
+In terms of code, the lynx_28g_supports_lane_mode() function prototype
+changes. It was a SerDes-global function and now becomes per lane, to
+reflect the specific capabilities each instance may have. The
+implementation goes through priv->info->lane_supports_mode().
 
 Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
 ---
@@ -138,43 +155,246 @@ Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
 Cc: Conor Dooley <conor+dt@kernel.org>
 Cc: devicetree@vger.kernel.org
 
-Patch previously submitted at:
-https://lore.kernel.org/linux-phy/20260114152111.625350-4-vladimir.oltean@nxp.com/
+Change previously submitted at:
+https://lore.kernel.org/linux-phy/20260114152111.625350-5-vladimir.oltean@nxp.com/
 
 Changes:
-- remove redundant patternProperties: "^phy@[0-7]$": true from the
-  match; having it makes no difference
-- clarify that the constraint is best effort
+- reword commit message
 ---
- .../devicetree/bindings/phy/fsl,lynx-28g.yaml     | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ drivers/phy/freescale/phy-fsl-lynx-28g.c | 126 +++++++++++++++++++++--
+ 1 file changed, 116 insertions(+), 10 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/phy/fsl,lynx-28g.yaml b/Documentation/devicetree/bindings/phy/fsl,lynx-28g.yaml
-index 8375bca810cc..d73591315d4b 100644
---- a/Documentation/devicetree/bindings/phy/fsl,lynx-28g.yaml
-+++ b/Documentation/devicetree/bindings/phy/fsl,lynx-28g.yaml
-@@ -78,6 +78,21 @@ required:
-   - reg
-   - "#phy-cells"
+diff --git a/drivers/phy/freescale/phy-fsl-lynx-28g.c b/drivers/phy/freescale/phy-fsl-lynx-28g.c
+index 6d0c395d20e5..5eddc2723e78 100644
+--- a/drivers/phy/freescale/phy-fsl-lynx-28g.c
++++ b/drivers/phy/freescale/phy-fsl-lynx-28g.c
+@@ -446,9 +446,15 @@ struct lynx_28g_lane {
+ 	enum lynx_lane_mode mode;
+ };
  
-+allOf:
-+  # LX2162A SerDes 1 has fewer lanes than the others
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: fsl,lx2162a-serdes1
-+    then:
-+      patternProperties:
-+        "^phy@[0-7]$":
-+          properties:
-+            reg:
-+              minimum: 4
-+              maximum: 7
++struct lynx_info {
++	bool (*lane_supports_mode)(int lane, enum lynx_lane_mode mode);
++	int first_lane;
++};
 +
- additionalProperties: false
+ struct lynx_28g_priv {
+ 	void __iomem *base;
+ 	struct device *dev;
++	const struct lynx_info *info;
+ 	/* Serialize concurrent access to registers shared between lanes,
+ 	 * like PCCn
+ 	 */
+@@ -513,11 +519,18 @@ static enum lynx_lane_mode phy_interface_to_lane_mode(phy_interface_t intf)
+ 	}
+ }
  
- examples:
+-static bool lynx_28g_supports_lane_mode(struct lynx_28g_priv *priv,
++/* A lane mode is supported if we have a PLL that can provide its required
++ * clock net, and if there is a protocol converter for that mode on that lane.
++ */
++static bool lynx_28g_supports_lane_mode(struct lynx_28g_lane *lane,
+ 					enum lynx_lane_mode mode)
+ {
++	struct lynx_28g_priv *priv = lane->priv;
+ 	int i;
+ 
++	if (!priv->info->lane_supports_mode(lane->id, mode))
++		return false;
++
+ 	for (i = 0; i < LYNX_28G_NUM_PLL; i++) {
+ 		if (PLLnRSTCTL_DIS(priv->pll[i].rstctl))
+ 			continue;
+@@ -783,6 +796,87 @@ static int lynx_28g_get_pcvt_offset(int lane, enum lynx_lane_mode lane_mode)
+ 	}
+ }
+ 
++static bool lx2160a_serdes1_lane_supports_mode(int lane,
++					       enum lynx_lane_mode mode)
++{
++	return true;
++}
++
++static bool lx2160a_serdes2_lane_supports_mode(int lane,
++					       enum lynx_lane_mode mode)
++{
++	switch (mode) {
++	case LANE_MODE_1000BASEX_SGMII:
++		return true;
++	case LANE_MODE_USXGMII:
++	case LANE_MODE_10GBASER:
++		return lane == 6 || lane == 7;
++	default:
++		return false;
++	}
++}
++
++static bool lx2160a_serdes3_lane_supports_mode(int lane,
++					       enum lynx_lane_mode mode)
++{
++	/*
++	 * Non-networking SerDes, and this driver supports only
++	 * networking protocols
++	 */
++	return false;
++}
++
++static bool lx2162a_serdes1_lane_supports_mode(int lane,
++					       enum lynx_lane_mode mode)
++{
++	return true;
++}
++
++static bool lx2162a_serdes2_lane_supports_mode(int lane,
++					       enum lynx_lane_mode mode)
++{
++	return lx2160a_serdes2_lane_supports_mode(lane, mode);
++}
++
++/* Feature set is not expected to grow for the deprecated compatible string */
++static bool lynx_28g_compat_lane_supports_mode(int lane,
++					       enum lynx_lane_mode mode)
++{
++	switch (mode) {
++	case LANE_MODE_1000BASEX_SGMII:
++	case LANE_MODE_USXGMII:
++	case LANE_MODE_10GBASER:
++		return true;
++	default:
++		return false;
++	}
++}
++
++static const struct lynx_info lynx_info_compat = {
++	.lane_supports_mode = lynx_28g_compat_lane_supports_mode,
++};
++
++static const struct lynx_info lynx_info_lx2160a_serdes1 = {
++	.lane_supports_mode = lx2160a_serdes1_lane_supports_mode,
++};
++
++static const struct lynx_info lynx_info_lx2160a_serdes2 = {
++	.lane_supports_mode = lx2160a_serdes2_lane_supports_mode,
++};
++
++static const struct lynx_info lynx_info_lx2160a_serdes3 = {
++	.lane_supports_mode = lx2160a_serdes3_lane_supports_mode,
++};
++
++static const struct lynx_info lynx_info_lx2162a_serdes1 = {
++	.lane_supports_mode = lx2162a_serdes1_lane_supports_mode,
++	.first_lane = 4,
++};
++
++static const struct lynx_info lynx_info_lx2162a_serdes2 = {
++	.lane_supports_mode = lx2162a_serdes2_lane_supports_mode,
++};
++
+ static int lynx_pccr_read(struct lynx_28g_lane *lane, enum lynx_lane_mode mode,
+ 			  u32 *val)
+ {
+@@ -1035,7 +1129,6 @@ static int lynx_28g_lane_enable_pcvt(struct lynx_28g_lane *lane,
+ static int lynx_28g_set_mode(struct phy *phy, enum phy_mode mode, int submode)
+ {
+ 	struct lynx_28g_lane *lane = phy_get_drvdata(phy);
+-	struct lynx_28g_priv *priv = lane->priv;
+ 	int powered_up = lane->powered_up;
+ 	enum lynx_lane_mode lane_mode;
+ 	int err = 0;
+@@ -1047,7 +1140,7 @@ static int lynx_28g_set_mode(struct phy *phy, enum phy_mode mode, int submode)
+ 		return -EOPNOTSUPP;
+ 
+ 	lane_mode = phy_interface_to_lane_mode(submode);
+-	if (!lynx_28g_supports_lane_mode(priv, lane_mode))
++	if (!lynx_28g_supports_lane_mode(lane, lane_mode))
+ 		return -EOPNOTSUPP;
+ 
+ 	if (lane_mode == lane->mode)
+@@ -1083,14 +1176,13 @@ static int lynx_28g_validate(struct phy *phy, enum phy_mode mode, int submode,
+ 			     union phy_configure_opts *opts __always_unused)
+ {
+ 	struct lynx_28g_lane *lane = phy_get_drvdata(phy);
+-	struct lynx_28g_priv *priv = lane->priv;
+ 	enum lynx_lane_mode lane_mode;
+ 
+ 	if (mode != PHY_MODE_ETHERNET)
+ 		return -EOPNOTSUPP;
+ 
+ 	lane_mode = phy_interface_to_lane_mode(submode);
+-	if (!lynx_28g_supports_lane_mode(priv, lane_mode))
++	if (!lynx_28g_supports_lane_mode(lane, lane_mode))
+ 		return -EOPNOTSUPP;
+ 
+ 	return 0;
+@@ -1183,7 +1275,7 @@ static void lynx_28g_cdr_lock_check(struct work_struct *work)
+ 	u32 rrstctl;
+ 	int err, i;
+ 
+-	for (i = 0; i < LYNX_28G_NUM_LANE; i++) {
++	for (i = priv->info->first_lane; i < LYNX_28G_NUM_LANE; i++) {
+ 		lane = &priv->lane[i];
+ 		if (!lane->phy)
+ 			continue;
+@@ -1253,7 +1345,8 @@ static struct phy *lynx_28g_xlate(struct device *dev,
+ 
+ 	idx = args->args[0];
+ 
+-	if (WARN_ON(idx >= LYNX_28G_NUM_LANE))
++	if (WARN_ON(idx >= LYNX_28G_NUM_LANE ||
++		    idx < priv->info->first_lane))
+ 		return ERR_PTR(-EINVAL);
+ 
+ 	return priv->lane[idx].phy;
+@@ -1297,10 +1390,18 @@ static int lynx_28g_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 
+ 	priv->dev = dev;
++	priv->info = of_device_get_match_data(dev);
+ 	dev_set_drvdata(dev, priv);
+ 	spin_lock_init(&priv->pcc_lock);
+ 	INIT_DELAYED_WORK(&priv->cdr_check, lynx_28g_cdr_lock_check);
+ 
++	/*
++	 * If we get here it means we probed on a device tree where
++	 * "fsl,lynx-28g" wasn't the fallback, but the sole compatible string.
++	 */
++	if (priv->info == &lynx_info_compat)
++		dev_warn(dev, "Please update device tree to use per-device compatible strings\n");
++
+ 	priv->base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(priv->base))
+ 		return PTR_ERR(priv->base);
+@@ -1323,7 +1424,7 @@ static int lynx_28g_probe(struct platform_device *pdev)
+ 				return -EINVAL;
+ 			}
+ 
+-			if (reg >= LYNX_28G_NUM_LANE) {
++			if (reg < priv->info->first_lane || reg >= LYNX_28G_NUM_LANE) {
+ 				dev_err(dev, "\"reg\" property out of range for %pOF\n", child);
+ 				of_node_put(child);
+ 				return -EINVAL;
+@@ -1336,7 +1437,7 @@ static int lynx_28g_probe(struct platform_device *pdev)
+ 			}
+ 		}
+ 	} else {
+-		for (int i = 0; i < LYNX_28G_NUM_LANE; i++) {
++		for (int i = priv->info->first_lane; i < LYNX_28G_NUM_LANE; i++) {
+ 			err = lynx_28g_probe_lane(priv, i, NULL);
+ 			if (err)
+ 				return err;
+@@ -1362,7 +1463,12 @@ static void lynx_28g_remove(struct platform_device *pdev)
+ }
+ 
+ static const struct of_device_id lynx_28g_of_match_table[] = {
+-	{ .compatible = "fsl,lynx-28g" },
++	{ .compatible = "fsl,lx2160a-serdes1", .data = &lynx_info_lx2160a_serdes1 },
++	{ .compatible = "fsl,lx2160a-serdes2", .data = &lynx_info_lx2160a_serdes2 },
++	{ .compatible = "fsl,lx2160a-serdes3", .data = &lynx_info_lx2160a_serdes3 },
++	{ .compatible = "fsl,lx2162a-serdes1", .data = &lynx_info_lx2162a_serdes1 },
++	{ .compatible = "fsl,lx2162a-serdes2", .data = &lynx_info_lx2162a_serdes2 },
++	{ .compatible = "fsl,lynx-28g", .data = &lynx_info_compat }, /* fallback, keep last */
+ 	{ },
+ };
+ MODULE_DEVICE_TABLE(of, lynx_28g_of_match_table);
 -- 
 2.34.1
 
