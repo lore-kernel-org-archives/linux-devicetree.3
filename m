@@ -1,64 +1,64 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09C6F3B5303
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 07:51:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A6E23B2FE9
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 07:51:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778485927; cv=none; b=JE2MYVDOmSIIbStwQlbjN6RGfwBxocm0DAl5/6t6076N6dau8p6kaBTq4+NcfT3R1PL5harD2JiGtSZqg1mSj3smTq2NOlwBTwc2/rYh/Q5iHjZM646hZnczQgom67J2gML/GUz5tR1Wk3I726bPX40xyodQzp0aFmHc4/Ii+dE=
+	t=1778485931; cv=none; b=Sq9ENc3dOt56Yz33ndB+5/L298IwLvtHM8JIWqlfFyNsbRlP1I8svIWjY5A4MdvWE0PX8uWt4Jafxcefn9/2XqQ0ix3C1dfqUWHx31kx2UZ9NtsSU7rjGOfvG1h9ChMjcJgLHXVX9YdcrXpLrVl+LgwDVXaQzqbzO7XZIeVxM54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778485927; c=relaxed/simple;
-	bh=5/ttUGrzdmeLoeUxoa5oBXlyW5O3PmxRxt2bnocF6cI=;
+	s=arc-20240116; t=1778485931; c=relaxed/simple;
+	bh=/MLmavJk4/lqJ73GxTD24COxo83kklOQff2Pj/3I2dQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sfldAq15xdfkG2MdgxFyovWYFLmesW7g7JC82FqIvkUi8bN2DAinZ+/sLo/UJBdiL3rimhqncgNweHy5kLgUfjD/tRvX1Bu2GXn3LetBowbslPBQMtWX+jE73+LChwh+Kc/9GglJmLbJy1rWQcbR12TLPQ+I5T246gIDiaSTqk8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XX+sDPMg; arc=none smtp.client-ip=209.85.210.169
+	 MIME-Version; b=f3BOjj7IHvZBQ9FSabi9YUB7pp+TIMiArmJaszCAraPOcmdtQXm7DPZ5R03kIztQ0Y5HpnC/CCF7WdrGoJ0W+24VfCwXMctOsbQ+EeWgMWH4Ibjdanbyu3PhLYSh8bD7qNkgXQLtqzpQ+6uexl8xEC8Tz+uwizPuYUJ1ry+IUAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CtbC/qyA; arc=none smtp.client-ip=209.85.210.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XX+sDPMg"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-835386ff122so3622220b3a.3
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 00:51:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CtbC/qyA"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8353ca0f1f1so1958088b3a.1
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 00:51:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778485917; x=1779090717; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1778485914; x=1779090714; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ncOLD5lTLUziFiCRB20nnJgnBHULNrVrpQmpze3oHIE=;
-        b=XX+sDPMgdlqFR7mZUT5D4qGCm2jsEpSadrurtqnFu7HgpgRwWOmgCrg05lgQHTyR0A
-         nohsjXHF20c4vB6g6isMbmJ8A+TLX9sZ146LxMPpGmf/vkeZD0+zxkRKFCJYxWFeTXWN
-         M5REA+9SmGV8EUIYA2JATECQm901ByqbkJ+U/s4+y95RX00SKxLtjsADQIIgslIa2kow
-         mY+dId9tEECU4gdKiTHhaQ8OzdkeKLOSIWTHEo4wG1V/HLpUzkYPPAyQISUEJNb3WzCm
-         EaQoPuXoVCucENPRHMwyMTnatXQHAAuACdi828k48zHg34RrOFzmSHK2vwAKkCoh+njT
-         RDfA==
+        bh=Fz3/iPbkPkVJpg+21eyeyZQXc8fO7eG+LOXjZ7wm054=;
+        b=CtbC/qyAcWup2iRw9quFjZgWS9HJv9cMuWFUlTjoHNTfclIv4WCl5MH98GmLApFW4n
+         MG+P6qc9PcxdCrNh0Envlf121Ye36GA03XJjFQ3l/pJqedSTis9zONLvZBerZX9JEEre
+         6IczowsRDDzNBPVv7R+yRkJKwT95SBZ7YT7/D7bkd9Jk9sdL4aLAStcV4MmE/XNn0Lpc
+         tzYs+L+Vh34tEN80hWviEpAMtJxSoe4Jxfe/w5LOkAXULUGgsvA5yw+xOwraY4R8DY/W
+         frg2NR8uXPXGS8R/FX6hZfrYIboxWdXpgrpxCQMqJA9aNS2a11t5jfLCfI6AcarjvtMc
+         9I0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778485917; x=1779090717;
+        d=1e100.net; s=20251104; t=1778485914; x=1779090714;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=ncOLD5lTLUziFiCRB20nnJgnBHULNrVrpQmpze3oHIE=;
-        b=DCgUP73bjSJIrLi2/DHoPrK4g6gY8s7j/Nb6btDLCmP5YnjWK+5HP3KbqPXDPJolOj
-         TJWGZWGSMlwxRiN/c/m+pe8fzRWM47ttbv6L0AJBvgZZf/VOJVcj1p0g01Y6Ld9PJdaS
-         Y3r2whpguRcTEzuQz8lFrJNRn40fNsS20WXp6OrKSEZwSJ227JRwMyGnAflpO6QNjOL7
-         OFBmxEmhK8k1ofJCStVjLFJ8CRJWO+mYZUs4cgQV8sfS6FSFqoE1uSPauRDgSJgRAyMf
-         zBKILOG/qhMPpQ6ALCMcapScJCBsbGFS77GfynZZPZZaJ2HWU8irKfJDhIf+Xuk4CuBJ
-         l+jw==
-X-Forwarded-Encrypted: i=1; AFNElJ8WZGUKAiLhXDkJTWUbtPt9J3HcXupD1iNErkDpPpSp5g+qFqlpExvGy4vV7klhuSJFUk0/PFvpebQD@vger.kernel.org
-X-Gm-Message-State: AOJu0YwlhXVYF6qRyLc6R1VJe6CdIqhdsaQR1XvfP9z0cpS6J8tdfyqF
-	EodzD0b6BcfyipHj3Mivemx3ffPYA2f3PyeRc0J/9lpwf7li7mkVR9l6
-X-Gm-Gg: Acq92OFsqDScEReji+ymD3Gtf+M7I5W0oe0sGf4SrFi9EgoctN2Ealv/b1JAtWsNIek
-	2SrKxN5DIJCwqnDRiuzN25wuSoDs7olGJ5c1xoDO6sxIdEayqUnK0EZwUxG8VqzaimvGybQO9ot
-	OX7TYCvg4MXv4zHZzlfPD9RYLbgNWSCzQDDWmSJkapA+lxvEL+tPIHIXFJOSgUyZUGBLX6fL6mM
-	dTzifykw0vmo94RH4EZ5aeFo+AV1Kv6EsWSYjlPvaQa3DnoWKMP9DWR0fhtCXuX7TICVwrcHp74
-	CWFZCT/BKgMPtdiupjuuS0NF4XsFyQUgy3Jcx5Iph3yqtX7Id5G6eczxbFCvxhfHmHfx4GbZ2PO
-	/I/fIhKuQoIFh9cEbIxrHrekCLeX5ASQexVYTJKA3bMrQc523DrMAayv9VYCEcUDGsuICsa7w9F
-	laJwWT3noOCT8aejsbAwqabQKKVbVai8OvRzJpNThV1ljVBJCXj8o1F3XnmWr/VAqWqwa+TZPCl
-	g/CoDkfVFrC
-X-Received: by 2002:a05:6a00:b83:b0:82c:247b:ffdc with SMTP id d2e1a72fcca58-83a5df489c3mr21724738b3a.29.1778485917247;
-        Mon, 11 May 2026 00:51:57 -0700 (PDT)
+        bh=Fz3/iPbkPkVJpg+21eyeyZQXc8fO7eG+LOXjZ7wm054=;
+        b=EESO0dCrrblOd9mTHFyrZLDScnHICA1DO6tgScmw2uxghK+lwLbiOZ/glOGh3Roqrx
+         uC4OulY3bln/rGvXN0Er4Q4wuTMVG7QcCz+sunTD2OdRL2cDeVqm8x7o1GyvRW5OFxEl
+         fu6W58vgSEolKTFhwpXcQ0wuGhW9t0nY/Rhx51+nzTjZVuZ9R+g/HEKt0JZnAJvMKnnx
+         PGAxqt2pL80JcMlsgqMDDpOK/+uTdSeCnnLg0/OsHyBlaJfKb64ZA6u4ZC+bgWm3/VoH
+         1ZrjK8yW7cSmGYlSx7ONSCb8YaJPrERRe9Ags/Ms667g/VLYXI9LjhXr4PkLF657QBK7
+         LKeg==
+X-Forwarded-Encrypted: i=1; AFNElJ+61JJ1A2Tsrw47tNcPn7xN2Oh2V6h0QqWjLavmVqB3a1CjI0CeBvA/ZLJw953bDmNv9o+A906bziYg@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx069c0v/Qczss/QvmiMC3Ib9yony6/OmpUP4Y9C+zkq90z/vsh
+	8qblU11khrX9BlzlkBB55WyQCzmA6dOAnMMe5ZNQJESvCtmEupkc0wBH
+X-Gm-Gg: Acq92OEvK84FjplKvRm/16oG63c5sxMV34r7wN2xPWKYRc7EvvHVuBuIPmBRVM0BvQI
+	/yu0lCV6/d0RwMSji/WViW+WkvVko8kKSigjAfVQTwGieOyz8iNh4MlWfPKxidlKkkKh9B7b2q4
+	+or70vAyNQFAlUuln+k9bFozOKOTXjuzhU9FahzKb6N3ab3mwhY/hQI7uHR3sihl0hDKHOJ/tyd
+	NpRtDjv7oMUUM0XMQVjRC2qN9vlD+n4HS/d7+uDnAvx1CR3Rh9W1o5au4l5fn/ZJDoDvBRy11f0
+	ezxHCohThp0TJtMWUZpDFthbrOZLe3UN5aDU0LLPfiWe/oIB1TjcoKzTUie59kkAoslc1z/w3Tz
+	o6PahEFVz5+XcxIVqeadYL7CRLgD8buJxf1hC/PUUQQj/72SugIyLXwTHFMEPl61BRyJyTQxnIO
+	QtXTmkgNWQv/gbRHtCN8nhhCtW1T34kK8ex2Eu+zblOuu+ucO3j9WpecLd7EanQqjSBbBfjQ9ul
+	/A59EmhiCVT
+X-Received: by 2002:a05:6a00:2304:b0:837:8a0c:8f70 with SMTP id d2e1a72fcca58-83bb8691c49mr14478252b3a.28.1778485913610;
+        Mon, 11 May 2026 00:51:53 -0700 (PDT)
 Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83965d36a12sm17694642b3a.27.2026.05.11.00.51.53
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83965d36a12sm17694642b3a.27.2026.05.11.00.51.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 11 May 2026 00:51:56 -0700 (PDT)
+        Mon, 11 May 2026 00:51:53 -0700 (PDT)
 From: Joey Lu <a0987203069@gmail.com>
 To: zhengxingda@iscas.ac.cn,
 	maarten.lankhorst@linux.intel.com,
@@ -77,9 +77,9 @@ Cc: ychuang3@nuvoton.com,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Joey Lu <a0987203069@gmail.com>
-Subject: [PATCH 2/2] drm/verisilicon: add support for Nuvoton MA35D1 DCUltra Lite display controller
-Date: Mon, 11 May 2026 15:51:42 +0800
-Message-ID: <20260511075142.54752-3-a0987203069@gmail.com>
+Subject: [PATCH 1/2] dt-bindings: display: verisilicon,dc: generalize for DCUltra Lite variant
+Date: Mon, 11 May 2026 15:51:41 +0800
+Message-ID: <20260511075142.54752-2-a0987203069@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260511075142.54752-1-a0987203069@gmail.com>
 References: <20260511075142.54752-1-a0987203069@gmail.com>
@@ -91,598 +91,248 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Nuvoton MA35D1 SoC integrates a Verisilicon DCUltra Lite display
-controller, which is a previous generation of the DC8000 series. While
-the general register layout is similar to the DC8000, there are several
-key differences that require per-variant handling in the driver.
+Extend the verisilicon,dc base schema to accommodate the Nuvoton MA35D1
+DCUltra Lite (a previous generation of the DC8000 series) which has a
+different clock topology, no reset control, and a single output.
 
-Add a vs_dc_info platform data structure (in vs_hwdb.h) to describe
-per-IP-variant capabilities, and use it throughout the driver to select
-the correct code paths at runtime.
+- Replace the fixed clock/reset item lists with minItems/maxItems ranges
+  so sub-schemas can enforce variant-specific constraints
+- Add a 'port' property (single-port alias) alongside the existing 'ports'
+  for single-output variants
+- Remove the mandatory 'ports' requirement from the base schema; sub-schemas
+  shall enforce their own port topology
+- Add a 'select' stanza so the validator matches any node whose compatible
+  contains a known Verisilicon DC string, including SoC-specific glue
+- Relax additionalProperties to allow unevaluatedProperties enforcement in
+  sub-schemas
+- Fix a minor whitespace issue in the port@0 description
 
-Key differences between DC8000 and DCUltra Lite handled:
+Add nuvoton,ma35d1-dcu.yaml as a sub-schema for the Nuvoton MA35D1 DCUltra
+Lite display controller:
 
-1. No chip identity registers (0x0020-0x0030): DCUltra Lite uses static
-   platform data instead of reading model/revision/customer_id from HW.
-
-2. No CONFIG_EX commit mechanism: DC8000 uses registers at 0x1CC0
-   (FB_CONFIG_EX), 0x24D8 (FB_TOP_LEFT), 0x24E0 (FB_BOTTOM_RIGHT),
-   0x2510 (FB_BLEND_CONFIG), 0x2518 (PANEL_CONFIG_EX). DCUltra Lite
-   omits all of these and instead uses enable/reset bits in FB_CONFIG
-   (bit 0 = enable, bit 4 = reset) for direct framebuffer updates.
-
-3. No PANEL_START register (0x1CCC): DCUltra Lite panel output starts
-   when PANEL_CONFIG.RUNNING is set; no separate multi-display sync
-   start register is needed.
-
-4. Different IRQ registers: DCUltra Lite uses 0x147C (IRQ_STA) /
-   0x1480 (IRQ_EN); DC8000 uses 0x0010 (IRQ_ACK) / 0x0014 (IRQ_EN).
-
-5. Different clock/reset topology: DCUltra Lite requires only "core"
-   (bus gate) and "pix0" (pixel divider) clocks with no reset lines
-   managed by the driver. DC8000 needs core/axi/ahb clocks and three
-   resets.
-
-6. Single output only: DCUltra Lite has one display output; per-output
-   index logic is still in place but display_count is fixed at 1.
-
-7. Reduced register space: max_register is 0x2000 vs DC8000's 0x2544.
-
-Add the "nuvoton,ma35d1-dcu" compatible string to the OF match table,
-extend Kconfig to allow building on ARCH_MA35 platforms, and expose
-vs_formats_no_yuv444 as the default format table for DCUltra Lite
-(YUV444 blending is a DC8000-only feature).
-
-All changes have been tested on Nuvoton MA35D1 hardware and are
-functioning correctly.
+The Nuvoton MA35D1 integrates the Verisilicon DCUltra Lite display
+controller. It is a single-output display controller with a 32-bit
+RGB (DPI) interface. Unlike the DC8000, it does not have discoverable
+chip identity registers, does not support the CONFIG_EX commit path,
+and uses dedicated IRQ status/enable registers at offsets 0x147C/0x1480.
+The clock topology uses two clocks (bus gate and pixel divider) and
+does not require explicit reset control from the driver.
 
 Signed-off-by: Joey Lu <a0987203069@gmail.com>
 ---
- drivers/gpu/drm/verisilicon/Kconfig           |   2 +-
- drivers/gpu/drm/verisilicon/vs_bridge.c       |  28 ++--
- drivers/gpu/drm/verisilicon/vs_crtc.c         |  13 +-
- drivers/gpu/drm/verisilicon/vs_dc.c           | 129 ++++++++++++------
- drivers/gpu/drm/verisilicon/vs_dc.h           |   1 +
- drivers/gpu/drm/verisilicon/vs_drm.c          |  16 ++-
- drivers/gpu/drm/verisilicon/vs_hwdb.c         |   2 +-
- drivers/gpu/drm/verisilicon/vs_hwdb.h         |  25 ++++
- .../gpu/drm/verisilicon/vs_primary_plane.c    |  43 +++---
- .../drm/verisilicon/vs_primary_plane_regs.h   |   2 +
- 10 files changed, 187 insertions(+), 74 deletions(-)
+ .../bindings/display/nuvoton,ma35d1-dcu.yaml  | 94 +++++++++++++++++++
+ .../bindings/display/verisilicon,dc.yaml      | 64 +++++++------
+ 2 files changed, 131 insertions(+), 27 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/nuvoton,ma35d1-dcu.yaml
 
-diff --git a/drivers/gpu/drm/verisilicon/Kconfig b/drivers/gpu/drm/verisilicon/Kconfig
-index 7cce86ec8603..295d246eb4b4 100644
---- a/drivers/gpu/drm/verisilicon/Kconfig
-+++ b/drivers/gpu/drm/verisilicon/Kconfig
-@@ -2,7 +2,7 @@
- config DRM_VERISILICON_DC
- 	tristate "DRM Support for Verisilicon DC-series display controllers"
- 	depends on DRM && COMMON_CLK
--	depends on RISCV || COMPILE_TEST
-+	depends on RISCV || ARCH_MA35 || COMPILE_TEST
- 	select DRM_BRIDGE_CONNECTOR
- 	select DRM_CLIENT_SELECTION
- 	select DRM_DISPLAY_HELPER
-diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c b/drivers/gpu/drm/verisilicon/vs_bridge.c
-index 7a93049368db..225af322de32 100644
---- a/drivers/gpu/drm/verisilicon/vs_bridge.c
-+++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
-@@ -164,13 +164,16 @@ static void vs_bridge_enable_common(struct vs_crtc *crtc,
- 			VSDC_DISP_PANEL_CONFIG_CLK_EN);
- 	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
- 			VSDC_DISP_PANEL_CONFIG_RUNNING);
--	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
--			  VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
--	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_START,
--			VSDC_DISP_PANEL_START_RUNNING(output));
- 
--	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG_EX(crtc->id),
--			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
-+	if (dc->info->has_config_ex) {
-+		regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
-+				  VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
-+		regmap_set_bits(dc->regs, VSDC_DISP_PANEL_START,
-+				VSDC_DISP_PANEL_START_RUNNING(output));
+diff --git a/Documentation/devicetree/bindings/display/nuvoton,ma35d1-dcu.yaml b/Documentation/devicetree/bindings/display/nuvoton,ma35d1-dcu.yaml
+new file mode 100644
+index 000000000000..9279004ae27c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/nuvoton,ma35d1-dcu.yaml
+@@ -0,0 +1,94 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/nuvoton,ma35d1-dcu.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+		regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG_EX(crtc->id),
-+				VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
-+	}
- }
- 
- static void vs_bridge_atomic_enable_dpi(struct drm_bridge *bridge,
-@@ -228,14 +231,17 @@ static void vs_bridge_atomic_disable(struct drm_bridge *bridge,
- 	struct vs_dc *dc = crtc->dc;
- 	unsigned int output = crtc->id;
- 
--	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
--			  VSDC_DISP_PANEL_START_MULTI_DISP_SYNC |
--			  VSDC_DISP_PANEL_START_RUNNING(output));
- 	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
- 			  VSDC_DISP_PANEL_CONFIG_RUNNING);
- 
--	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG_EX(crtc->id),
--			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
-+	if (dc->info->has_config_ex) {
-+		regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
-+				  VSDC_DISP_PANEL_START_MULTI_DISP_SYNC |
-+				  VSDC_DISP_PANEL_START_RUNNING(output));
++title: Nuvoton MA35D1 DCUltra Lite display controller
 +
-+		regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG_EX(crtc->id),
-+				VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
-+	}
- }
- 
- static const struct drm_bridge_funcs vs_dpi_bridge_funcs = {
-diff --git a/drivers/gpu/drm/verisilicon/vs_crtc.c b/drivers/gpu/drm/verisilicon/vs_crtc.c
-index 9080344398ca..2f3e6d41c657 100644
---- a/drivers/gpu/drm/verisilicon/vs_crtc.c
-+++ b/drivers/gpu/drm/verisilicon/vs_crtc.c
-@@ -18,6 +18,7 @@
- #include "vs_dc.h"
- #include "vs_dc_top_regs.h"
- #include "vs_drm.h"
-+#include "vs_hwdb.h"
- #include "vs_plane.h"
- 
- static void vs_crtc_atomic_disable(struct drm_crtc *crtc,
-@@ -132,7 +133,11 @@ static int vs_crtc_enable_vblank(struct drm_crtc *crtc)
- 	struct vs_crtc *vcrtc = drm_crtc_to_vs_crtc(crtc);
- 	struct vs_dc *dc = vcrtc->dc;
- 
--	regmap_set_bits(dc->regs, VSDC_TOP_IRQ_EN, VSDC_TOP_IRQ_VSYNC(vcrtc->id));
-+	if (dc->info->family == VS_DC_FAMILY_DCULTRA_LITE)
-+		regmap_write(dc->regs, VSDC_DISP_IRQ_EN, BIT(0));
-+	else
-+		regmap_set_bits(dc->regs, VSDC_TOP_IRQ_EN,
-+				VSDC_TOP_IRQ_VSYNC(vcrtc->id));
- 
- 	return 0;
- }
-@@ -142,7 +147,11 @@ static void vs_crtc_disable_vblank(struct drm_crtc *crtc)
- 	struct vs_crtc *vcrtc = drm_crtc_to_vs_crtc(crtc);
- 	struct vs_dc *dc = vcrtc->dc;
- 
--	regmap_clear_bits(dc->regs, VSDC_TOP_IRQ_EN, VSDC_TOP_IRQ_VSYNC(vcrtc->id));
-+	if (dc->info->family == VS_DC_FAMILY_DCULTRA_LITE)
-+		regmap_write(dc->regs, VSDC_DISP_IRQ_EN, 0);
-+	else
-+		regmap_clear_bits(dc->regs, VSDC_TOP_IRQ_EN,
-+				  VSDC_TOP_IRQ_VSYNC(vcrtc->id));
- }
- 
- static const struct drm_crtc_funcs vs_crtc_funcs = {
-diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c b/drivers/gpu/drm/verisilicon/vs_dc.c
-index dad9967bc10b..82a6a26f6d81 100644
---- a/drivers/gpu/drm/verisilicon/vs_dc.c
-+++ b/drivers/gpu/drm/verisilicon/vs_dc.c
-@@ -9,21 +9,45 @@
- #include <linux/of_graph.h>
- 
- #include "vs_crtc.h"
-+#include "vs_crtc_regs.h"
- #include "vs_dc.h"
- #include "vs_dc_top_regs.h"
- #include "vs_drm.h"
- #include "vs_hwdb.h"
- 
--static const struct regmap_config vs_dc_regmap_cfg = {
-+static const struct regmap_config vs_dc8000_regmap_cfg = {
- 	.reg_bits = 32,
- 	.val_bits = 32,
- 	.reg_stride = sizeof(u32),
--	/* VSDC_OVL_CONFIG_EX(1) */
- 	.max_register = 0x2544,
- };
- 
-+static const struct regmap_config vs_dcultra_lite_regmap_cfg = {
-+	.reg_bits = 32,
-+	.val_bits = 32,
-+	.reg_stride = sizeof(u32),
-+	.max_register = 0x2000,
-+};
++maintainers:
++  - Joey Lu <yclu4@nuvoton.com>
 +
-+static const struct vs_dc_info vs_dc8000_info = {
-+	.family = VS_DC_FAMILY_DC8000,
-+	.has_chip_id = true,
-+	.has_config_ex = true,
-+	.regmap_cfg = &vs_dc8000_regmap_cfg,
-+};
++description:
++  The Nuvoton MA35D1 integrates the Verisilicon DCUltra Lite display
++  controller. It is a single-output display controller with a 32-bit
++  RGB (DPI) interface.
 +
-+static const struct vs_dc_info vs_dcultra_lite_info = {
-+	.family = VS_DC_FAMILY_DCULTRA_LITE,
-+	.display_count = 1,
-+	.has_chip_id = false,
-+	.has_config_ex = false,
-+	.regmap_cfg = &vs_dcultra_lite_regmap_cfg,
-+	.formats = &vs_formats_no_yuv444,
-+};
++select:
++  properties:
++    compatible:
++      contains:
++        enum:
++          - nuvoton,ma35d1-dcu
++  required:
++    - compatible
 +
- static const struct of_device_id vs_dc_driver_dt_match[] = {
--	{ .compatible = "verisilicon,dc" },
-+	{ .compatible = "verisilicon,dc", .data = &vs_dc8000_info },
-+	{ .compatible = "nuvoton,ma35d1-dcu", .data = &vs_dcultra_lite_info },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, vs_dc_driver_dt_match);
-@@ -33,6 +57,13 @@ static irqreturn_t vs_dc_irq_handler(int irq, void *private)
- 	struct vs_dc *dc = private;
- 	u32 irqs;
- 
-+	if (dc->info->family == VS_DC_FAMILY_DCULTRA_LITE) {
-+		regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &irqs);
-+		if (irqs & BIT(0))
-+			vs_drm_handle_irq(dc, VSDC_TOP_IRQ_VSYNC(0));
-+		return IRQ_HANDLED;
-+	}
++allOf:
++  - $ref: http://devicetree.org/schemas/display/verisilicon,dc.yaml#
 +
- 	regmap_read(dc->regs, VSDC_TOP_IRQ_ACK, &irqs);
- 
- 	vs_drm_handle_irq(dc, irqs);
-@@ -43,6 +74,7 @@ static irqreturn_t vs_dc_irq_handler(int irq, void *private)
- static int vs_dc_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-+	const struct vs_dc_info *info;
- 	struct vs_dc *dc;
- 	void __iomem *regs;
- 	unsigned int port_count, i;
-@@ -55,6 +87,10 @@ static int vs_dc_probe(struct platform_device *pdev)
- 		return -ENODEV;
- 	}
- 
-+	info = of_device_get_match_data(dev);
-+	if (!info)
-+		return -ENODEV;
++properties:
++  compatible:
++    const: nuvoton,ma35d1-dcu
 +
- 	port_count = of_graph_get_port_count(dev->of_node);
- 	if (!port_count) {
- 		dev_err(dev, "can't find DC downstream ports\n");
-@@ -75,15 +111,31 @@ static int vs_dc_probe(struct platform_device *pdev)
- 	if (!dc)
- 		return -ENOMEM;
- 
--	dc->rsts[0].id = "core";
--	dc->rsts[1].id = "axi";
--	dc->rsts[2].id = "ahb";
-+	dc->info = info;
- 
--	ret = devm_reset_control_bulk_get_optional_shared(dev, VSDC_RESET_COUNT,
--							  dc->rsts);
--	if (ret) {
--		dev_err(dev, "can't get reset lines\n");
--		return ret;
-+	if (info->family == VS_DC_FAMILY_DC8000) {
-+		dc->rsts[0].id = "core";
-+		dc->rsts[1].id = "axi";
-+		dc->rsts[2].id = "ahb";
++  reg:
++    maxItems: 1
++    description:
++      Register range of the DCUltra Lite controller. The address space
++      is 0x2000 bytes.
 +
-+		ret = devm_reset_control_bulk_get_optional_shared(dev,
-+				VSDC_RESET_COUNT, dc->rsts);
-+		if (ret) {
-+			dev_err(dev, "can't get reset lines\n");
-+			return ret;
-+		}
++  interrupts:
++    maxItems: 1
 +
-+		dc->axi_clk = devm_clk_get_enabled(dev, "axi");
-+		if (IS_ERR(dc->axi_clk)) {
-+			dev_err(dev, "can't get axi clock\n");
-+			return PTR_ERR(dc->axi_clk);
-+		}
++  clocks:
++    items:
++      - description: Bus clock that gates register access (DCU_GATE)
++      - description: Pixel clock divider for display timing (DCUP_DIV)
 +
-+		dc->ahb_clk = devm_clk_get_enabled(dev, "ahb");
-+		if (IS_ERR(dc->ahb_clk)) {
-+			dev_err(dev, "can't get ahb clock\n");
-+			return PTR_ERR(dc->ahb_clk);
-+		}
- 	}
- 
- 	dc->core_clk = devm_clk_get_enabled(dev, "core");
-@@ -92,28 +144,18 @@ static int vs_dc_probe(struct platform_device *pdev)
- 		return PTR_ERR(dc->core_clk);
- 	}
- 
--	dc->axi_clk = devm_clk_get_enabled(dev, "axi");
--	if (IS_ERR(dc->axi_clk)) {
--		dev_err(dev, "can't get axi clock\n");
--		return PTR_ERR(dc->axi_clk);
--	}
--
--	dc->ahb_clk = devm_clk_get_enabled(dev, "ahb");
--	if (IS_ERR(dc->ahb_clk)) {
--		dev_err(dev, "can't get ahb clock\n");
--		return PTR_ERR(dc->ahb_clk);
--	}
--
- 	irq = platform_get_irq(pdev, 0);
- 	if (irq < 0) {
- 		dev_err(dev, "can't get irq\n");
- 		return irq;
- 	}
- 
--	ret = reset_control_bulk_deassert(VSDC_RESET_COUNT, dc->rsts);
--	if (ret) {
--		dev_err(dev, "can't deassert reset lines\n");
--		return ret;
-+	if (info->family == VS_DC_FAMILY_DC8000) {
-+		ret = reset_control_bulk_deassert(VSDC_RESET_COUNT, dc->rsts);
-+		if (ret) {
-+			dev_err(dev, "can't deassert reset lines\n");
-+			return ret;
-+		}
- 	}
- 
- 	regs = devm_platform_ioremap_resource(pdev, 0);
-@@ -123,23 +165,30 @@ static int vs_dc_probe(struct platform_device *pdev)
- 		goto err_rst_assert;
- 	}
- 
--	dc->regs = devm_regmap_init_mmio(dev, regs, &vs_dc_regmap_cfg);
-+	dc->regs = devm_regmap_init_mmio(dev, regs, info->regmap_cfg);
- 	if (IS_ERR(dc->regs)) {
- 		ret = PTR_ERR(dc->regs);
- 		goto err_rst_assert;
- 	}
- 
--	ret = vs_fill_chip_identity(dc->regs, &dc->identity);
--	if (ret)
--		goto err_rst_assert;
-+	if (info->has_chip_id) {
-+		ret = vs_fill_chip_identity(dc->regs, &dc->identity);
-+		if (ret)
-+			goto err_rst_assert;
- 
--	dev_info(dev, "Found DC%x rev %x customer %x\n", dc->identity.model,
--		 dc->identity.revision, dc->identity.customer_id);
-+		dev_info(dev, "Found DC%x rev %x customer %x\n",
-+			 dc->identity.model, dc->identity.revision,
-+			 dc->identity.customer_id);
- 
--	if (port_count > dc->identity.display_count) {
--		dev_err(dev, "too many downstream ports than HW capability\n");
--		ret = -EINVAL;
--		goto err_rst_assert;
-+		if (port_count > dc->identity.display_count) {
-+			dev_err(dev, "too many downstream ports than HW capability\n");
-+			ret = -EINVAL;
-+			goto err_rst_assert;
-+		}
-+	} else {
-+		/* Fill identity from platform data */
-+		dc->identity.display_count = info->display_count;
-+		dc->identity.formats = info->formats;
- 	}
- 
- 	for (i = 0; i < dc->identity.display_count; i++) {
-@@ -168,7 +217,8 @@ static int vs_dc_probe(struct platform_device *pdev)
- 	return 0;
- 
- err_rst_assert:
--	reset_control_bulk_assert(VSDC_RESET_COUNT, dc->rsts);
-+	if (info->family == VS_DC_FAMILY_DC8000)
-+		reset_control_bulk_assert(VSDC_RESET_COUNT, dc->rsts);
- 	return ret;
- }
- 
-@@ -180,7 +230,8 @@ static void vs_dc_remove(struct platform_device *pdev)
- 
- 	dev_set_drvdata(&pdev->dev, NULL);
- 
--	reset_control_bulk_assert(VSDC_RESET_COUNT, dc->rsts);
-+	if (dc->info->family == VS_DC_FAMILY_DC8000)
-+		reset_control_bulk_assert(VSDC_RESET_COUNT, dc->rsts);
- }
- 
- static void vs_dc_shutdown(struct platform_device *pdev)
-diff --git a/drivers/gpu/drm/verisilicon/vs_dc.h b/drivers/gpu/drm/verisilicon/vs_dc.h
-index ed1016f18758..f0613519af37 100644
---- a/drivers/gpu/drm/verisilicon/vs_dc.h
-+++ b/drivers/gpu/drm/verisilicon/vs_dc.h
-@@ -31,6 +31,7 @@ struct vs_dc {
- 	struct clk *pix_clk[VSDC_MAX_OUTPUTS];
- 	struct reset_control_bulk_data rsts[VSDC_RESET_COUNT];
- 
-+	const struct vs_dc_info *info;
- 	struct vs_drm_dev *drm_dev;
- 	struct vs_chip_identity identity;
- };
-diff --git a/drivers/gpu/drm/verisilicon/vs_drm.c b/drivers/gpu/drm/verisilicon/vs_drm.c
-index fd259d53f49f..ff0fc6673006 100644
---- a/drivers/gpu/drm/verisilicon/vs_drm.c
-+++ b/drivers/gpu/drm/verisilicon/vs_drm.c
-@@ -27,6 +27,7 @@
- #include "vs_dc.h"
- #include "vs_dc_top_regs.h"
- #include "vs_drm.h"
-+#include "vs_hwdb.h"
- 
- #define DRIVER_NAME	"verisilicon"
- #define DRIVER_DESC	"Verisilicon DC-series display controller driver"
-@@ -72,12 +73,19 @@ static struct drm_mode_config_helper_funcs vs_mode_config_helper_funcs = {
- 	.atomic_commit_tail = drm_atomic_helper_commit_tail,
- };
- 
--static void vs_mode_config_init(struct drm_device *drm)
-+static void vs_mode_config_init(struct drm_device *drm, struct vs_dc *dc)
- {
- 	drm->mode_config.min_width = 0;
- 	drm->mode_config.min_height = 0;
--	drm->mode_config.max_width = 8192;
--	drm->mode_config.max_height = 8192;
++  clock-names:
++    items:
++      - const: core
++      - const: pix0
 +
-+	if (dc->info->family == VS_DC_FAMILY_DCULTRA_LITE) {
-+		drm->mode_config.max_width = 1920;
-+		drm->mode_config.max_height = 1080;
-+	} else {
-+		drm->mode_config.max_width = 8192;
-+		drm->mode_config.max_height = 8192;
-+	}
++  resets:
++    maxItems: 1
++    description:
++      Optional reset for the display controller. The driver does not
++      assert or deassert this reset; it may be used by firmware or
++      boot loaders to bring the hardware to a clean state.
 +
- 	drm->mode_config.funcs = &vs_mode_config_funcs;
- 	drm->mode_config.helper_private = &vs_mode_config_helper_funcs;
- }
-@@ -125,7 +133,7 @@ int vs_drm_initialize(struct vs_dc *dc, struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
--	vs_mode_config_init(drm);
-+	vs_mode_config_init(drm, dc);
- 
- 	/* Enable connectors polling */
- 	drm_kms_helper_poll_init(drm);
-diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-index 09336af0900a..39402d75d841 100644
---- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
-+++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-@@ -78,7 +78,7 @@ static const u32 vs_formats_array_with_yuv444[] = {
- 	/* TODO: non-RGB formats */
- };
- 
--static const struct vs_formats vs_formats_no_yuv444 = {
-+const struct vs_formats vs_formats_no_yuv444 = {
- 	.array = vs_formats_array_no_yuv444,
- 	.num = ARRAY_SIZE(vs_formats_array_no_yuv444)
- };
-diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.h b/drivers/gpu/drm/verisilicon/vs_hwdb.h
-index 92192e4fa086..655cf93ca3aa 100644
---- a/drivers/gpu/drm/verisilicon/vs_hwdb.h
-+++ b/drivers/gpu/drm/verisilicon/vs_hwdb.h
-@@ -14,6 +14,29 @@ struct vs_formats {
- 	unsigned int num;
- };
- 
-+enum vs_dc_family {
-+	VS_DC_FAMILY_DC8000,
-+	VS_DC_FAMILY_DCULTRA_LITE,
-+};
++  port:
++    $ref: /schemas/graph.yaml#/properties/port
++    description:
++      Output port to the downstream display device (e.g. RGB panel).
++      The DCUltra Lite supports a single parallel RGB output.
 +
-+/**
-+ * struct vs_dc_info - per-SoC DC platform data
-+ * @family:		DC IP family (DC8000, DCUltra Lite, etc.)
-+ * @display_count:	number of display outputs (0 = auto-detect from DT/HW)
-+ * @has_chip_id:	whether chip identity registers exist
-+ * @has_config_ex:	whether CONFIG_EX commit mechanism exists
-+ * @regmap_cfg:		regmap configuration for this variant
-+ * @formats:		supported pixel formats (NULL = auto-detect from chip ID)
-+ */
-+struct vs_dc_info {
-+	enum vs_dc_family family;
-+	u32 display_count;
-+	bool has_chip_id;
-+	bool has_config_ex;
-+	const struct regmap_config *regmap_cfg;
-+	const struct vs_formats *formats;
-+};
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++  - port
 +
- struct vs_chip_identity {
- 	u32 model;
- 	u32 revision;
-@@ -23,6 +46,8 @@ struct vs_chip_identity {
- 	const struct vs_formats *formats;
- };
- 
-+extern const struct vs_formats vs_formats_no_yuv444;
++unevaluatedProperties: false
 +
- int vs_fill_chip_identity(struct regmap *regs,
- 			  struct vs_chip_identity *ident);
- 
-diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-index 1f2be41ae496..197d5d683e22 100644
---- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-+++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-@@ -55,8 +55,9 @@ static int vs_primary_plane_atomic_check(struct drm_plane *plane,
- 
- static void vs_primary_plane_commit(struct vs_dc *dc, unsigned int output)
- {
--	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
--			VSDC_FB_CONFIG_EX_COMMIT);
-+	if (dc->info->has_config_ex)
-+		regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-+				VSDC_FB_CONFIG_EX_COMMIT);
- }
- 
- static void vs_primary_plane_atomic_enable(struct drm_plane *plane,
-@@ -69,11 +70,13 @@ static void vs_primary_plane_atomic_enable(struct drm_plane *plane,
- 	unsigned int output = vcrtc->id;
- 	struct vs_dc *dc = vcrtc->dc;
- 
--	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
--			VSDC_FB_CONFIG_EX_FB_EN);
--	regmap_update_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
--			   VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
--			   VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
-+	if (dc->info->has_config_ex) {
-+		regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-+				VSDC_FB_CONFIG_EX_FB_EN);
-+		regmap_update_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-+				   VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
-+				   VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
-+	}
- 
- 	vs_primary_plane_commit(dc, output);
- }
-@@ -88,8 +91,9 @@ static void vs_primary_plane_atomic_disable(struct drm_plane *plane,
- 	unsigned int output = vcrtc->id;
- 	struct vs_dc *dc = vcrtc->dc;
- 
--	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
--			VSDC_FB_CONFIG_EX_FB_EN);
-+	if (dc->info->has_config_ex)
-+		regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-+				VSDC_FB_CONFIG_EX_FB_EN);
- 
- 	vs_primary_plane_commit(dc, output);
- }
-@@ -126,6 +130,11 @@ static void vs_primary_plane_atomic_update(struct drm_plane *plane,
- 			   VSDC_FB_CONFIG_UV_SWIZZLE_EN,
- 			   vs_state->format.uv_swizzle);
- 
-+	/* DCUltra Lite requires explicit enable/reset bits in FB_CONFIG */
-+	if (!dc->info->has_config_ex)
-+		regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-+				VSDC_FB_CONFIG_ENABLE | VSDC_FB_CONFIG_RESET);
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
++    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
 +
- 	dma_addr = vs_fb_get_dma_addr(fb, &state->src);
++    display@40260000 {
++        compatible = "nuvoton,ma35d1-dcu";
++        reg = <0x40260000 0x2000>;
++        interrupts = <GIC_SPI 20 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&clk DCU_GATE>, <&clk DCUP_DIV>;
++        clock-names = "core", "pix0";
++        resets = <&sys MA35D1_RESET_DISP>;
++
++        port {
++            dpi_out: endpoint {
++                remote-endpoint = <&panel_in>;
++            };
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+index 9dc35ab973f2..00884529f8c1 100644
+--- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
++++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+@@ -9,15 +9,34 @@ title: Verisilicon DC-series display controllers
+ maintainers:
+   - Icenowy Zheng <uwu@icenowy.me>
  
- 	regmap_write(dc->regs, VSDC_FB_ADDRESS(output),
-@@ -133,16 +142,18 @@ static void vs_primary_plane_atomic_update(struct drm_plane *plane,
- 	regmap_write(dc->regs, VSDC_FB_STRIDE(output),
- 		     fb->pitches[0]);
++description:
++  Verisilicon DC-series display controllers.
++
++# Select any node whose compatible contains one of the known Verisilicon DC
++# or DC-derived compatible strings, including SoC-specific glue variants.
++select:
++  properties:
++    compatible:
++      contains:
++        enum:
++          - verisilicon,dc
++          - thead,th1520-dc8200
++          - nuvoton,ma35d1-dcu
++  required:
++    - compatible
++
+ properties:
+   $nodename:
+     pattern: "^display@[0-9a-f]+$"
  
--	regmap_write(dc->regs, VSDC_FB_TOP_LEFT(output),
--		     VSDC_MAKE_PLANE_POS(state->crtc_x, state->crtc_y));
--	regmap_write(dc->regs, VSDC_FB_BOTTOM_RIGHT(output),
--		     VSDC_MAKE_PLANE_POS(state->crtc_x + state->crtc_w,
--					 state->crtc_y + state->crtc_h));
- 	regmap_write(dc->regs, VSDC_FB_SIZE(output),
- 		     VSDC_MAKE_PLANE_SIZE(state->crtc_w, state->crtc_h));
+   compatible:
+-    items:
+-      - enum:
+-          - thead,th1520-dc8200
+-      - const: verisilicon,dc # DC IPs have discoverable ID/revision registers
++    # Enumerated in full so the schema validator can verify any compatible
++    # string against this list, including those from child schemas.
++    contains:
++      enum:
++        - verisilicon,dc
++        - thead,th1520-dc8200
++        - nuvoton,ma35d1-dcu
  
--	regmap_write(dc->regs, VSDC_FB_BLEND_CONFIG(output),
--		     VSDC_FB_BLEND_CONFIG_BLEND_DISABLE);
-+	if (dc->info->has_config_ex) {
-+		regmap_write(dc->regs, VSDC_FB_TOP_LEFT(output),
-+			     VSDC_MAKE_PLANE_POS(state->crtc_x, state->crtc_y));
-+		regmap_write(dc->regs, VSDC_FB_BOTTOM_RIGHT(output),
-+			     VSDC_MAKE_PLANE_POS(state->crtc_x + state->crtc_w,
-+						 state->crtc_y + state->crtc_h));
-+		regmap_write(dc->regs, VSDC_FB_BLEND_CONFIG(output),
-+			     VSDC_FB_BLEND_CONFIG_BLEND_DISABLE);
-+	}
+   reg:
+     maxItems: 1
+@@ -26,32 +45,24 @@ properties:
+     maxItems: 1
  
- 	vs_primary_plane_commit(dc, output);
- }
-diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h b/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
-index cbb125c46b39..288064760b48 100644
---- a/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
-+++ b/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
-@@ -16,6 +16,8 @@
- #define VSDC_FB_STRIDE(n)			(0x1408 + 0x4 * (n))
+   clocks:
+-    items:
+-      - description: DC Core clock
+-      - description: DMA AXI bus clock
+-      - description: Configuration AHB bus clock
+-      - description: Pixel clock of output 0
+-      - description: Pixel clock of output 1
++    minItems: 2
++    maxItems: 5
  
- #define VSDC_FB_CONFIG(n)			(0x1518 + 0x4 * (n))
-+#define VSDC_FB_CONFIG_ENABLE			BIT(0)
-+#define VSDC_FB_CONFIG_RESET			BIT(4)
- #define VSDC_FB_CONFIG_CLEAR_EN			BIT(8)
- #define VSDC_FB_CONFIG_ROT_MASK			GENMASK(13, 11)
- #define VSDC_FB_CONFIG_ROT(v)			((v) << 11)
+   clock-names:
+-    items:
+-      - const: core
+-      - const: axi
+-      - const: ahb
+-      - const: pix0
+-      - const: pix1
++    minItems: 2
++    maxItems: 5
+ 
+   resets:
+-    items:
+-      - description: DC Core reset
+-      - description: DMA AXI bus reset
+-      - description: Configuration AHB bus reset
++    minItems: 1
++    maxItems: 3
+ 
+   reset-names:
+-    items:
+-      - const: core
+-      - const: axi
+-      - const: ahb
++    minItems: 1
++    maxItems: 3
++
++  port:
++    $ref: /schemas/graph.yaml#/properties/port
++    description: Single video output port for single-output variants.
+ 
+   ports:
+     $ref: /schemas/graph.yaml#/properties/ports
+@@ -59,7 +70,7 @@ properties:
+     properties:
+       port@0:
+         $ref: /schemas/graph.yaml#/properties/port
+-        description: The first output channel , endpoint 0 should be
++        description: The first output channel, endpoint 0 should be
+           used for DPI format output and endpoint 1 should be used
+           for DP format output.
+ 
+@@ -75,9 +86,8 @@ required:
+   - interrupts
+   - clocks
+   - clock-names
+-  - ports
+ 
+-additionalProperties: false
++additionalProperties: true
+ 
+ examples:
+   - |
 -- 
 2.43.0
 
