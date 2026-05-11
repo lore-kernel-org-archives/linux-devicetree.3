@@ -1,163 +1,157 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012047.outbound.protection.outlook.com [52.101.66.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1707133F589;
-	Mon, 11 May 2026 19:04:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778526252; cv=fail; b=lScZnPlfvbRRokulRhUPf4F9LPR2OQt3aJ7JMORvSACFMg50ut5ga1b0ZNxpOWSOyfr1sFJE/ZaGvmHVd68eOkJsHLbvF+qD/fkdcfJ/UiCs/C3y0t9KAL0rgjyvMhFqtx7NDQBR1Pgaw6zFoh+1f8q5mfG9fTkEg/NJroyNkMk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778526252; c=relaxed/simple;
-	bh=YLEZKJuRXKamS67qdoehjyJdqoRDI5VZN95/u9XNAUM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ChWR+x1CVM2PppYUjp/E/dAtqPsCYsc3yZGkPQ2nO2ZD2Qv8zBuNlVCZm6AqwgoJ9miU7rLNMHvfWKcoMf3PD283UW7TF7yLAoM/ViaNjWofvk5XmmFVs/mcPKYyKzyItuDe24lf2CzCczmbtxSp29olkEMdzCs0IwYy/DXoSOg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=CQCsI5QG; arc=fail smtp.client-ip=52.101.66.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79DE94BC02E
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 19:11:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778526708; cv=none; b=WX+tDV0022ONftoHzJXhDREsOfM8xqvD3j0TtEo2DjizoYMl48mzPC0MWE7rDB2VtwnAFmzXt/BC8o1NOLwqfpAlSgUPphJW6btC3k7mJTEbgrRY3kFN7g6+3C18SWHaQ+VID7aifzzIqIlxgHjwBlTREDJyu0MnVS9JGwklQdo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778526708; c=relaxed/simple;
+	bh=/bV64msSqSRcKdn5zUAfHwX3xqByCyEZfFcODECYZ5g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HlTvM8ocG5F57YXHAuGLjvxAdjZhHcgNnGID/0ycowtAvovTt4PucNc15K/5EPoCTuUGFVo8kCNM5QbQALmSHaLs1o2TpJCkYjr8CivbxV56kxtPZH7U5UIvHwE9jyZLpyVsayj+pl13neCAboO5Lz1sOaBPfrOwwyEhi2HQ1+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V7bKWAC1; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="CQCsI5QG"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aaIei8H9UUDMNTX/qXJR+HZH5XacxtG6U0OEOoPrT3btF/mEscNckzC7im8ImEhEXQp/6yTRyBdhkfDQgjCcf+l+GcHdY9jK2mVDj5eOQveMBaol8x/FTXS8W7Q/tyWsgt9DAOype4Vm1m+fOaoCtSEeEZQP/lJO6+TKRzkQoV4MvevwyD4PO4Ik/xFC+WgT/Oc94CGPiRYTcx/jZrubncyxu4fJ28RGNHAxZRqXFUOq6dKS5SS+rlGElZyXnSiJTPIQf4m7Vs4HqoHq3pLw+mK3A77lDt6jxs9GuYnmm611I2JCzYjXNlpmEJrD1VXYGWqXqMHa88pGp926Z1smWw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tYhc0hhXWYz+OnZqEB9PqxsEVTpD/mTJY7P1/0DZWqw=;
- b=w9D5DkGhTz9YyjknmR5AeSFE1GIml3JW4DCRUveWsA/ltapjT8gtaSgxlraeDQuuslvChB3cYYLfj4KJ14SOGJ2dxmEwFQ7oUvZ0q0pUCWZzReaUpQSWuQQw1Wlq8YPOMG6n5R7hUxq4t+k6vqXPRDFE43txae9lft5g8o5vq5cbVf8vyQr/r0CXh9HBwblnScFhYHax1OlAC5ihnDsMf3Lm20umb5PTX6TXSeyvUy5t+fGTGf82o8Ih1cOCBbvBIsTQl7oM0QZ4T7zn3j2DjZ+AWYrPzbBDlLOnRhPXtD0/7fX5Q4bp4oS+/dPYtslsfYqoWKxJRJvH6MdKOE5CUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tYhc0hhXWYz+OnZqEB9PqxsEVTpD/mTJY7P1/0DZWqw=;
- b=CQCsI5QGYD3Iz8P3u40+1umniRNkdqJtCXu6wBaZktW8vzQnRor+w80AfcWxcJ0aTiuhl18XanyJztTi1sRQvh67O+o6eRgrVBNEGeOr07uxYIHd/M4FAeqVGHH9c/CosXxRLcvtmiZnV2o9XK+co5juUptOCACuDjIUk5hht55rqMZTsr7H7u+yl4M/2kR4UQCGTfuR+6dslu0MnRLHqIuH+ZbuNu+iPdIUoQgXZ3Mh7e+e0rIuULprwzFVoTHHHHuLm6bQ4NTvD3N/C9j7J/U37D6AEao2/PDQhYL4NB+9LOffGYhd4F5ugRKY8dom+uj8JtUDbUBIq9TnwMiruw==
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by DUZPR04MB9983.eurprd04.prod.outlook.com (2603:10a6:10:4d9::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Mon, 11 May
- 2026 19:04:07 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%3]) with mapi id 15.20.9891.021; Mon, 11 May 2026
- 19:04:07 +0000
-From: Frank Li <frank.li@nxp.com>
-To: Jisheng Zhang <jszhang@kernel.org>, Alexandre Belloni
-	<alexandre.belloni@bootlin.com>, Philipp Zabel <p.zabel@pengutronix.de>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>
-CC: "linux-i3c@lists.infradead.org" <linux-i3c@lists.infradead.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [EXT] [PATCH v2 0/3] i3c: dw: Add apb reset support
-Thread-Topic: [EXT] [PATCH v2 0/3] i3c: dw: Add apb reset support
-Thread-Index: AQHc4PevgCkxendzF0W+79WngzG1f7YJLzaA
-Date: Mon, 11 May 2026 19:04:07 +0000
-Message-ID:
- <PA4PR04MB936627010F8C9C6ABACB1FF488382@PA4PR04MB9366.eurprd04.prod.outlook.com>
-References: <20260511031945.3228-1-jszhang@kernel.org>
-In-Reply-To: <20260511031945.3228-1-jszhang@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PA4PR04MB9366:EE_|DUZPR04MB9983:EE_
-x-ms-office365-filtering-correlation-id: 6a6c2ec6-5206-494d-8594-08deaf9013c3
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|19092799006|1800799024|366016|38070700021|11063799003|56012099003|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- 5BcsKN8jK9LpR1b24B9U+Bq8uNSsB6l4RqUCXAogCKMD6/734uDddKxJTUs+u5Z9VaVWhBav7cN2HpwDWqZPaKCNm2QH45leNwFyeNjV9KWvNQDuOrajHfSKi8TNKLx/ZzN7icxL09EMxr+NmUHBbCgVR06uhFrYaYnkO/TKNRN9ZMlGTsBJdmRDZv1kSczL+YrDjgu3GbJCJv6qpQyMSzhr9KnW98c4IcLvI+2jwDktMpezoaO8BwwqLQPN9NhYHLObnEHTerRUWzE/5+ZKW+ful3HDAMIDsrcU1owW9jEs9ZGw5yAiDYOXFLT3UbMFTjJPGS649ShlUt9pfEjfWhqIbwyXTHcQcBPyr3sM9VKrplI1ADRaPNdifc2414pmLzGvom6bSJQScOlT3ZFudZOigXh6Xi4fhXHbRAKcJKnI9smVCrKPLvvsR2a/s7nqnUmb3AEhGnoEURdxgiwS6CL9oWa+e7No/uB3psjct1KwQJUBc+2jOao3eIV/DoByOzGF70+nn+vV6RJI3R2BFNkw6NSiRsRQ4IVIH9J23huImaWMG1Al2cEX5crig8kcLLSirvQ+4Z1s9dRWkmdJh5Go2mhVQWVd1Nykl1j7EMA1vA+yiHkg5U4yCIMjsltvrEHYn2FzqLTpdDU2CL4IhlB4Qsm57D47eWG0G9gfd2PaXf97i2wGF1QlzXTduG6fDyq3rTufgI3lB8DcjGiLmhu6IHZjrbIa52G25tgvKYb7xvpyxLYiEo40V9BwBydv
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(19092799006)(1800799024)(366016)(38070700021)(11063799003)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?vDWhWiAhAff4Lwdsvy3G0weDCLJCKNHzjWGOTega4UUKt6PBFz9K1OF68fkV?=
- =?us-ascii?Q?C+hl/uH1eHvPs77Z1TW5hK/wxqRZtxdkJW6LbVaKgFAvtKFa196WxHhc6nrd?=
- =?us-ascii?Q?Ltob3bTq7CSPR3mK4RMxMXFya1l+h/iXqRztEiIoLLyWBGkN/iS/XSG4/3d0?=
- =?us-ascii?Q?E0sKVmqU4qyJ7PaDtDOCuuLulLXXAnmuCEBIOHLChIkpTRoHOvZ3ZpH4Z83L?=
- =?us-ascii?Q?TxonvSdsVa6EE6BT6MVGPWuEaDUdZV+MABnw1ZW6j/XuEP254XMkxe0FWrDw?=
- =?us-ascii?Q?it0AyFDbwmyysx5spmvrPLjKNbkj4JYWc+t43TBIBRTEiH5zNWeHyPsp815A?=
- =?us-ascii?Q?gYWME9JWC9XXYqNLysFo8uCxVHRaFr9XrIn7dOGrUniXlTrCL1QJp+j+k+zq?=
- =?us-ascii?Q?gSR9qwoftj+epnaCL20mX7a68In+o0ofVEn0dpBfuCNgzMwXBzOpoZv+y+Cs?=
- =?us-ascii?Q?TLhD6bGMb22eROF+gOAqBhS0O3i/C8cQBkHxEDWgtKkSnLvjTget8ZDgH9+7?=
- =?us-ascii?Q?N9pzU7/eSUOkq63QW1sor3FTUOQ3tZn/rVmzuEVnDBzENW0MaqUgAI+RYpn+?=
- =?us-ascii?Q?QDw019YvT/517C30eX3aN7ZEUm2Sdb3qZlD63yoH1aTKIxgDs3weZjtFvw1v?=
- =?us-ascii?Q?CUm5NpfduMCN0hcoWx+r58Tc/5v4zYa/LwMAw8zRcHkRX0EyzlAppdcHkFXa?=
- =?us-ascii?Q?5SLsl71h11eDJ3CEPPYoRjLM9HWqyTMktemP/LxzaAwxTzmOMV4N8iigbWQd?=
- =?us-ascii?Q?xTlzb4gdpaBYSV+Je5I+uosF4tyhdTjuCqtxulpkOW3JZ48z8Bs778fjhinD?=
- =?us-ascii?Q?uf70IcP5dBBZcqNP/7MO4kkijcVCx+KbBoOK7aRdkWTT8+Z/+uBcsf5HqiBZ?=
- =?us-ascii?Q?rlllmSfBmJjCHw2y/Ky7dmZ1p30qtPjVBBs7laRCKJSRQq52bodey9b6k13O?=
- =?us-ascii?Q?TlnGx7NzaGwm3pQLIhE06wBisMlMKz2o37ky2yX0wd455cpSWu1RROl7nq5a?=
- =?us-ascii?Q?zk4wwe9XNqNz8p0LJKEK6JTN0bEWqgXv6gvHNHWjINP0fIX+ROb1xUeTXiXT?=
- =?us-ascii?Q?bg5zk7boim3eCwltMd6FdZgmEMPh1lnHthQc8RPoU2fY/3oNHBLxrgIVTrdq?=
- =?us-ascii?Q?XGP1sQhYWWDYAwOnxnoaMMyC0bn0CbeAAtWtY4t/0LPGsL4utuPlmlekImbG?=
- =?us-ascii?Q?UHIp8Zd9NMajr4xqzO+skO8JBmxgJl7+WxLyrsgNvE++75AnLUFAP/qq6/fd?=
- =?us-ascii?Q?K1NUPU0FmxGawefEkonXsJ7IY7Lw7t+pg/Pr/G1DwyuuFpmLRsVi5Fe5IlUQ?=
- =?us-ascii?Q?ba+Mr2nQe8P6pdPsDATmuaPlJpR8hlSuUlp6YgvDgWKUEf5/+xzb590fUiwY?=
- =?us-ascii?Q?o3OY9DgPP5yodAzG/sOOFgjZFB+q+Y29/m9uI6iqZ5uLls7NoW4HpWjwfKhD?=
- =?us-ascii?Q?Kdhh4LgLYaMoY0OvAi4JfKOqV9c+lm6vbJwz/D6upeGZA+SKrLPsKD/ANcwx?=
- =?us-ascii?Q?pWpK8inZaYGet8dPB08R4BwJ9ilHEob53Xn5Vs2kqt8Zpk8E4z9a3sP4HA05?=
- =?us-ascii?Q?Bg+j0jFRNNmkRU6RC8FlsbSUD6tCsK/ecCBj43elH/eNnPvXrbsNjtgy9a/c?=
- =?us-ascii?Q?XRup2uNy3Y2bUs8C2GeZSErs9y/0iVvftp7ybVeJNpTHEpUI30aHGPJuSNxf?=
- =?us-ascii?Q?BiREwt25XBNvR3bTfUBLKKoPO6A0u6aUv1kge03rAN3l49HN?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V7bKWAC1"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-44ce78ab5feso4138257f8f.0
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 12:11:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778526705; x=1779131505; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=YmHJticu6I9cJGzHOpTilWbp0zgjsUaADkfyTWFWIYU=;
+        b=V7bKWAC18y0TpSw3qoSuRByWyygvI70FnIIGsNGixqZlBxuP6joMVrGxB9XibOZ1kU
+         zSTpLuGA8MuiIpvj1/jvmZpKHt1kkjGL6fr3rYpL2c6HJtnpDPfcu83mJwVMoLgAtZxO
+         GmE9NoI2CTXtW3VUfYNNZ1q88ae8s+JVR059abwUHUc3JhdY+RkFMOPbpiJqhfmHNAbG
+         PszPQTnVfoS+VSh8qbBKXuKLqWTArVRDJk4/ZjUX4LjV/cMkT+hGi95FAGLqw+oQxcbI
+         mHxBnUOYgTl6IyrNDgM/f39Ba8V2NLw/+fztt0a9zUaYGBofggeQSZOWgoCH9cFi2nkP
+         y0SQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778526705; x=1779131505;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YmHJticu6I9cJGzHOpTilWbp0zgjsUaADkfyTWFWIYU=;
+        b=JVHr7+c4ipoCQRICA/O5P0A0ZtG/NzpYYI12wZ4Xu5rpZxrGrEJwtBR6Dy9BHnGqWf
+         crjd3BOsTTbc/WRRB5h0S6luTYMS9M7+Vq0Cic9EG7pccNvp1dZO4kVDfZZ4QGduodYd
+         +bP4QGAOVE0fe8xB0yj3EZAq+PuHOA7b436LK3qbEiQjDzT4amm9v5aa+IodGcm7hpSi
+         2YF4sQtp6x335p3ADGyEzd4jo85nnCYX1I4AFAJLZ8pm2Qx+XaD49JRC616kq5u/VlRj
+         0srFDhWOvZAsMYLsn/ZxrX35e6d3CJksxoAc/XXVh1Rbr1Q37SP4AsCr0n4+ef9URUXZ
+         8oIw==
+X-Forwarded-Encrypted: i=1; AFNElJ/rnQyFFZR2Ucgwh3gryXWo8slOOk55BFb2BEjwNXDN67HmYNVp6whple5wyKX+ohn1l3J5/9f1Ssya@vger.kernel.org
+X-Gm-Message-State: AOJu0YwGnIwT8wFhgOXfSqJF+3SiBo6lD5dt/nR9DBjvFik8Q94WuTaQ
+	yxya7pKfbiO4DcrWFsfAw6fEPWWo+vHc5IeY1haJe42V1/JtXQtSbAzeWYgVcgKy
+X-Gm-Gg: Acq92OGou8DcjKYyg804WxXPD/pwTvSqmqG/RxIIVhKb1z0O1tACGACVzciFLyy97hS
+	FT3r8heUlxiIYcMWi37flQZKwRfLq7ZEJWty6qr8IpgZ9c4NoElgA7nWA5Ry+z8De27xOmCT0bQ
+	vvZPnvd1jlyuq3+qmNiSjY6b9uESMRdCp96MZ+cAesfwKFsF63iK54vNIIDoOrmQ7PNI+uW7K07
+	my2Dx1uO2lApHTbWUJR4wmXdpWFFAdc7YFuxFeCQZZLczLhp5K+zpptjo/eJEOGGf0+vvl3QUZ9
+	x9JmEHeNp3PdPcLXgaiIbV1OB/zq345E/dJJqdWdHm5HAXBdDk0LwUSvfdft2Mf/vxSSoocaZpl
+	UrUL/xpFO3arsZP6bzP7aJXOWTUHOtcnzvOttnPxKjjo2B1ron5DqrVNUN0L1CFmhK2W+L8IqjI
+	wCccd9hC2Nb7ZnQ6N74+7BEaUNPasIohHSW4fK1Il32R6M5xBtQjfnNLujWmknI8lba2LjCLcIA
+	LiWBeYn
+X-Received: by 2002:a5d:5c84:0:b0:43f:e721:76bf with SMTP id ffacd0b85a97d-4515df66f27mr37344432f8f.41.1778526704678;
+        Mon, 11 May 2026 12:11:44 -0700 (PDT)
+Received: from ai-node.taila4f726.ts.net (89-139-15-25.bb.netvision.net.il. [89.139.15.25])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4548e6a5b65sm28541785f8f.8.2026.05.11.12.11.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 11 May 2026 12:11:44 -0700 (PDT)
+From: Vladislav Kulikov <vlad.kulikov.c@gmail.com>
+To: jic23@kernel.org,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	conor+dt@kernel.org
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	andriy.shevchenko@intel.com,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Vladislav Kulikov <vlad.kulikov.c@gmail.com>
+Subject: [PATCH v3 0/2] iio: magnetometer: add MEMSIC MMC5983MA driver
+Date: Mon, 11 May 2026 19:11:33 +0000
+Message-ID: <20260511191135.36691-1-vlad.kulikov.c@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6a6c2ec6-5206-494d-8594-08deaf9013c3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 May 2026 19:04:07.4429
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: mA+rtAtv4eljxZjcBBrrjYFJu1RY32r1BxEYjMcghgvSS+glAp5JUZR2dRFw4yK5K4lGlMsZiewOQxHfVqNmHw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR04MB9983
+Content-Transfer-Encoding: 8bit
 
->=20
-> Add support of apb reset which is to reset the APB interface.
-> The first patch is to document the exisiting reset dt-binding. 2nd patch
-> is to add apb reset dt-binding. The last patch is to add apb reset
-> support.
->=20
-> Hi Frank,
->=20
-> comments to question "why not name the reset as "apb" instead of "apb_rst=
-":
-> exisiting core reset is named as "core_rst", this is to align with its
-> style.
+Add an IIO driver for the MEMSIC MMC5983MA 3-axis magnetometer over
+I2C. The driver provides raw magnetic field readings with
+per-measurement SET/RESET offset cancellation, giving 18-bit output
+with a full-scale range of +/-8 Gauss.
 
-You add new bind at path 1. It is new reset name. All needn't "_rst" suffix=
-.=20
+MMC5983MA is not register-compatible with the existing MEMSIC
+magnetometer drivers. It has a different register map, 18-bit output
+data format, and I2C/SPI transport support.
 
-Frank
+Tested on a Raspberry Pi 2B with the sensor on I2C-1 at 0x30.
 
->=20
-> Thanks
->=20
-> Since v1:
->   - add dt-binding
->=20
->=20
-> Jisheng Zhang (3):
->   dt-bindings: i3c: dw: Describe core reset
->   dt-bindings: i3c: dw: Add apb reset
->   i3c: dw: Add apb reset support
->=20
->  .../devicetree/bindings/i3c/snps,dw-i3c-master.yaml    | 10 ++++++++++
->  drivers/i3c/master/dw-i3c-master.c                     |  7 +++++++
->  drivers/i3c/master/dw-i3c-master.h                     |  1 +
->  3 files changed, 18 insertions(+)
->=20
-> --
-> 2.53.0
+The initial driver implements the validated I2C single-measurement path.
+Other chip features are left for future work:
+
+- SPI transport: the binding describes SPI wiring, but driver support is
+  left for follow-up validation of the SPI command and SET/RESET
+  sequencing.
+- Temperature channel: left until the temperature output behavior is
+  better validated.
+- Continuous measurement mode and Auto SET/RESET: left until the
+  interaction between CMM, TM_M, Meas_M_Done, and SET/RESET sequencing
+  is better understood.
+- Saturation/self-test bits and BW/decimation tuning: not exposed until
+  their behavior can be described reliably through stable IIO ABI.
+
+The driver uses a conservative 500 us post-SET/RESET delay before
+starting the following measurement. The datasheet describes a 500 ns
+SET/RESET coil pulse, but testing showed that a longer software delay is
+needed before taking the next measurement.
+
+Changes since v2:
+- Driver:
+  - refactored SET/RESET coil pulse into mmc5983_pulse_coil() helper
+  - used USEC_PER_MSEC for regmap_read_poll_timeout and fsleep constants
+- DT binding:
+  - removed redundant comments from examples
+- Cover letter:
+  - added "why a new driver" explanation
+- Collected Reviewed-by and Acked-by tags
+
+Changes since v1:
+- DT binding:
+  - added SPI bus support, interrupts, and vddio-supply
+  - made vdd-supply required
+  - switched to unevaluatedProperties with spi-peripheral-props ref
+- Driver:
+  - replaced scoped_guard() with guard(mutex) in a case block
+  - added datasheet page references for timing values
+  - changed product ID mismatch from probe failure to dev_info()
+  - hardcoded the IIO device name
+  - added trailing commas
+  - added local struct device and regmap pointers in mmc5983_init()
+- MAINTAINERS:
+  - split binding and driver F: entries across the relevant patches
+
+Vladislav Kulikov (2):
+  dt-bindings: iio: magnetometer: add MEMSIC MMC5983MA
+  iio: magnetometer: add driver for MEMSIC MMC5983MA
+
+ .../iio/magnetometer/memsic,mmc5983.yaml      |  63 ++++
+ MAINTAINERS                                   |   7 +
+ drivers/iio/magnetometer/Kconfig              |  11 +
+ drivers/iio/magnetometer/Makefile             |   1 +
+ drivers/iio/magnetometer/mmc5983.c            | 345 ++++++++++++++++++
+ 5 files changed, 427 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/magnetometer/memsic,mmc5983.yaml
+ create mode 100644 drivers/iio/magnetometer/mmc5983.c
+
+
+base-commit: 7fd2df204f342fc17d1a0bfcd474b24232fb0f32
+-- 
+2.43.0
 
