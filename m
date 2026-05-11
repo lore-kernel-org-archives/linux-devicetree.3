@@ -1,67 +1,68 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C81F3BF67E
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 08:54:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C57F3BF680
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 08:54:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778489672; cv=none; b=UPvLH7nUVIbGjCS4Goxui0UnvTVhADeBMURZ1Hr0MIZ3y24XuUJWHZDQpkJm0xpKzyfpweGoYiUI8xIC3vPTxfuQOZBAegzvEW5AVmakk/PKMJ5d5sRplXyQ84mTsFot9Rts6hOovFhp8CPq4reW/yXED6VllY+6YuGCi73HVgk=
+	t=1778489674; cv=none; b=WvntyU889pM2OvpxTy+PKaWe1QmMkrTAJVGg6FiIiJhjPhOdkhYYUzBbs1Mlp0rLNZEBmVHLDfy1R/qGGaXhtsealjnQVlZSo082vC0VYtTFY2yTPG6hBoGMHgm7wH0OfSmE0hIFI3x38S0fAz/9SPEh5gO+BEds3lXj1V8XECM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778489672; c=relaxed/simple;
-	bh=Zbia6kwCaTPqaM7mSuVvAG80BXlogFVq9JLCXZ979Zg=;
+	s=arc-20240116; t=1778489674; c=relaxed/simple;
+	bh=FZsgT/q6hf1B/ykkCHeWphCL5sPAC4d/euFpIhy8yzs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GU3OCqb8BwcvK7znY2fNPw2hMSmmgDEXPM/ySODPs23G8BTCQDkhaKgjBwQ53kRLn1Xi8hBKLQlRt/458KSbmrOMgAzFvfYy1IffDZ/n/jMrKu1dvKc/u9jesaOOcWsNqWA08TreFLvr6RU6IZrSJyGFKHDBdDNl/1qDtaeMpsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a8rx/U7K; arc=none smtp.client-ip=209.85.221.50
+	 In-Reply-To:To:Cc; b=p5QByEHr+ek6SrZ5//u9qtbOGAedQ4SofulePtmNhMgBBXMeC9blwipRx9KnC8yrLZN0kBEP/nmOpzeGvAaNFyxUFc/vOr0hgYZFxrgDfZIYJG9ly8n0sOihf/sbO582xe2SyWPeKqeHMNCp1hjI73ADBOARtCXtccbA4tX87U0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IFbLwjKJ; arc=none smtp.client-ip=209.85.221.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a8rx/U7K"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-43d75312379so3195154f8f.1
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 01:54:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IFbLwjKJ"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-43d734223e4so2490849f8f.0
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 01:54:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778489669; x=1779094469; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1778489670; x=1779094470; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=mNCRp7u8GA5aDjDB3Y0lI0oGuBZ5cilcPaEkSfJ5vdc=;
-        b=a8rx/U7Koo69H+aJgvDCiOozJc/hPFYFj/hZhVXH4C3W+Ss/mEGFB/xotp78+F9RLd
-         QNJzKq0oAQTbujzHx+PioNC2CLgyBgOtaE6uj//MpVGlHk8Moj8ar52em3zkTpQyS88P
-         1jMVquLEa4kgR7ccHtrKi3pstzGc3GJH3jaXjru0lFxjD78mxUCTHLyWJ9tFxOk943YD
-         FLUxaKfM0ZBp231YkgOUSkFZ4aTgQCrgPLlm6fb4f1u3eDFIaXAad/brRUncLZnyvdgU
-         GRP1fOr7GjfeER+MLD+hE6MoH5p3gnjpbrNd+IOPN3Sn9Oua1ewewiEzCyv0RxoWJ4o4
-         LavA==
+        bh=rGycZZ0oxVCkeN0xv1IJG1TkG4N0VwOrQ4cI2sdWgss=;
+        b=IFbLwjKJB4PhJw9I/TruffBy/Zo6zVDcjJyM2LigSV/d1Zv5Y1pJugUFAYYXn9ADQT
+         VXw4jw7N682Cfssoxtep9ZTaqevG3S4OxNy6oI/UkMO+1CdrhsoXDpptfWZlTdlwHOkk
+         702v/jPezez7rnDc07Hi6BLvOI26uRYU1Jw4ZKiays0zFzlMeS1MNMewbp9EWlexUkEw
+         TQM4WT5phjpC7ifjT2DP2KQVhClaQhUyR0wTIHlLUTghBOjj2CFKaaeCuPJxB/DvTwlR
+         l1+G/495FbB2FX/4YfyXtfFGv456XbO/3OwufuI8HWZNqj3M/4bXET0yYyMhozeokEF2
+         6O0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778489669; x=1779094469;
+        d=1e100.net; s=20251104; t=1778489670; x=1779094470;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=mNCRp7u8GA5aDjDB3Y0lI0oGuBZ5cilcPaEkSfJ5vdc=;
-        b=c+i/+QAZO1B7lXzTUQcCgmPz5cp6cztwQRvcdz0VcHT350TtAa3g1n8btVjvLf5WIV
-         vWefbeWatmOiUm+dT7EeUWepWsK8zl6MfVH575MDYtx1HMS08i3yEaDnjmD3CoXC4Cpl
-         WbvyRpX9Qp8QJcbl3MA9wzGGHQbXxpw1l7u0F+kCNQEoE9P7dsnm15WErlXIB56zxoCS
-         tV51X4288D4bFTaVckjsPtwbEeGJsS3UzNMFu2XEM6LB1YqrwwK1SW8NGBUwITWlYaAQ
-         96IxO614TXLNJbPCT9t2R2UpzYo6bBoKXsd7L3A7LudV9jYTAMpR4tX10YjNXRGX1eS2
-         5gyw==
-X-Forwarded-Encrypted: i=1; AFNElJ+w30s1gukDFJFd0bM/62oLn3BwcUjGkoGTTNCTYHHB39bzQFbszo/MpS36sZ1aeBbZOeuU6rPr2D+o@vger.kernel.org
-X-Gm-Message-State: AOJu0YykGv2Kc6LHGICBVxe2EdxdG7ljCxo18nDnQY3Ec8fVI63mEaBm
-	B7na2gSJRhgygBfYrjJ6vAbHtpqNWmXUUhQlPRLoxHeNhlj1vK18Nnx3
-X-Gm-Gg: Acq92OHC3H1Z0pg9g9LCIGtcm6l+MVO+zP70s9EH5eK6sXMU6pveSNag2Oggs75Aag0
-	OCA6ymlEPYNtqp13y4zib558VqoiD1gRyYmGR6uF8T2sSbNRCV0OGKzX8mWpDLVM9EF9AN+XIP0
-	Vd84WL1hud58THVts+Ni99RcwuidvhyP1l3DVHdkvjSFSlDwkr8p6xEw6S1K/mqZXgcJjohW/el
-	/8w6wrGPwTxDqRQofmJjIH4Pf7tcgCKPYnRFNrD8aNdwxj+VVoPHWYUt+M87sMlZZLBtYHuwRGj
-	b1lCRsCuYLKqr4Ya3w3kBLcuTUKG1fhvXmLl2PZgftw9kVgN6zQ/6jh0ZjCulfdLfiRMKPHlSep
-	iZPZLisIpVEuiCmjkMUQuaRqa19a5cpNWLGri6HB1L6O+lhhCx9u8Qezn+UOeEzuQaINZ/eFI/c
-	Fl79vqWiyeXm8cbmpzHYZTI2kea1yALZce7sOt1fxreMdBhswcLgpv4YDe8TFIkiUc1Q==
-X-Received: by 2002:a05:6000:2181:b0:44f:b82f:2d18 with SMTP id ffacd0b85a97d-452e81764a0mr19569331f8f.11.1778489668568;
-        Mon, 11 May 2026 01:54:28 -0700 (PDT)
+        bh=rGycZZ0oxVCkeN0xv1IJG1TkG4N0VwOrQ4cI2sdWgss=;
+        b=WM24xqjj3eKT16bK+gl1TltbQrZENk7Ye5ieVnGKPQcfWXCAQZVibTDT6KlKPonMdy
+         MoScuqpqtIVGr77yF8MGTzxNtrnH8cBpEs3ZU/fnS2/NO9DHPQoOclGOlp2/7g2q4+Yk
+         ywuWgQWWgrRfnWTwdV2clEu6RfDOmysIkFbpBLBnzbqV4+A2mWpfUlyLqIT49dUwTFJX
+         BEleSjPFTlRnRjAuJ4rbiewTtVIWXbFug29yyBAF6puzNbTZ6Cie5fzcvTSSw4OS6G0h
+         qSsGfhe3mztDR56UDUPMw7ZnNVaP7feE0ORpw2BazgZmh0K6LeMmP+JaRUK3RFoq7rDF
+         jdiw==
+X-Forwarded-Encrypted: i=1; AFNElJ+KSIjOAriMKg6HkYTSHaf8nNbXJ1W4xLrKQD7uHUxSflzmJAS5qTJ3DYoY0UVRSq1ZqPzjOlNhbILg@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz2dItLC8ho3XlVz2eO6GGbWNw4wf+7vFmTTif/VDEfh/P3dTN5
+	kJCWhkdFKRQ4ATrFsDRBgegr5J0wiKGqVo5hO669jhgLqM/nqMbvm6u7
+X-Gm-Gg: Acq92OG5RU2ZKZCsA9sWCUZrQ1nGkyVR5xfyU7bCgWZAhIBjmKLFXkDOYzPLpojHqhe
+	fwu5iRiPwFN8yFL5Z+A8UyyX4YfdLFK28JQIqJbDRGajc5/wHekMLhf66UapjslZt9GWDqg1pVd
+	5M67ETihd1eDEAlhxGeiZg54Hdf8K5mL7B0cLA2BUKsezKDk+5KebfBGDHDMCObHCku5XDg0S33
+	N+BwFzuR5/bnQ12RYqFmLi24PvJV2DaWARxuJWAuwbHrL4J+B2z4niqrLcUvwq5NbuehGh7giJm
+	SSaYpQB0uZPlLX/DoSiG/DFodMm1bZxTmTV2xWaFFjiyhmsv0qsh+/pJi4oucnSg9LMJltjMugU
+	WmEuAt6K44Nh9Hj6eZUpfVZXJlaB18l7euwado1r5fC4LLm/NtQ11uLsGC8IcRsrseO2exEU6UX
+	Jczmtf5ljze8EZCcWr9XyhHyHdu5jTP5SWgJqNXeTKWpuaX1gZlQRFmHg3nZ2+bj4iO1c3TufPp
+	nRO
+X-Received: by 2002:adf:fa45:0:b0:441:29cd:a18e with SMTP id ffacd0b85a97d-452ea07e223mr20899118f8f.23.1778489670340;
+        Mon, 11 May 2026 01:54:30 -0700 (PDT)
 Received: from ipedrosa-thinkpadx1carbongen12.rmtes.csb ([67.218.237.202])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45491ca2fd6sm24944189f8f.30.2026.05.11.01.54.27
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45491ca2fd6sm24944189f8f.30.2026.05.11.01.54.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 11 May 2026 01:54:28 -0700 (PDT)
+        Mon, 11 May 2026 01:54:29 -0700 (PDT)
 From: Iker Pedrosa <ikerpedrosam@gmail.com>
-Date: Mon, 11 May 2026 10:53:56 +0200
-Subject: [PATCH v9 1/8] dt-bindings: mmc: spacemit,sdhci: add pinctrl
- support for voltage switching
+Date: Mon, 11 May 2026 10:53:57 +0200
+Subject: [PATCH v9 2/8] mmc: sdhci-of-k1: enable essential clock
+ infrastructure for SD operation
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260511-orangepi-sd-card-uhs-v9-1-ae48c0b2b2cf@gmail.com>
+Message-Id: <20260511-orangepi-sd-card-uhs-v9-2-ae48c0b2b2cf@gmail.com>
 References: <20260511-orangepi-sd-card-uhs-v9-0-ae48c0b2b2cf@gmail.com>
 In-Reply-To: <20260511-orangepi-sd-card-uhs-v9-0-ae48c0b2b2cf@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -84,58 +85,64 @@ Cc: Troy Mitchell <troy.mitchell@linux.dev>,
  Javier Martinez Canillas <javierm@redhat.com>, linux-mmc@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
  spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Iker Pedrosa <ikerpedrosam@gmail.com>, 
- Conor Dooley <conor.dooley@microchip.com>
+ Iker Pedrosa <ikerpedrosam@gmail.com>, Anand Moon <linux.amoon@gmail.com>, 
+ Trevor Gamblin <tgamblin@baylibre.com>, Vincent Legoll <legoll@online.fr>
 X-Mailer: b4 0.14.3
 
-Document pinctrl properties to support voltage-dependent pin
-configuration switching for UHS-I SD card modes.
+Ensure SD card pins receive clock signals by enabling pad clock
+generation and overriding automatic clock gating. Required for all SD
+operation modes.
 
-Add optional pinctrl-names property with two states:
-- "default": For 3.3V operation with standard drive strength
-- "state_uhs": For 1.8V operation with optimized drive strength
+The SDHC_GEN_PAD_CLK_ON setting in LEGACY_CTRL_REG is safe for both SD
+and eMMC operation as both protocols use the same physical MMC interface
+pins and require proper clock signal generation at the hardware level
+for signal integrity and timing.
 
-These pinctrl states allow the SDHCI driver to coordinate voltage
-switching with pin configuration changes, ensuring proper signal
-integrity during UHS-I mode transitions.
+Additional SD-specific clock overrides (SDHC_OVRRD_CLK_OEN and
+SDHC_FORCE_CLK_ON) are conditionally applied only for SD-only
+controllers to handle removable card scenarios.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Tested-by: Anand Moon <linux.amoon@gmail.com>
+Acked-by: Adrian Hunter <adrian.hunter@intel.com>
+Tested-by: Trevor Gamblin <tgamblin@baylibre.com>
+Reviewed-by: Troy Mitchell <troy.mitchell@linux.dev>
+Tested-by: Vincent Legoll <legoll@online.fr>
 Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
 ---
- Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ drivers/mmc/host/sdhci-of-k1.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml b/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
-index 9a055d963a7f..34d202af909f 100644
---- a/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
-+++ b/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
-@@ -44,6 +44,18 @@ properties:
-       - const: axi
-       - const: sdh
+diff --git a/drivers/mmc/host/sdhci-of-k1.c b/drivers/mmc/host/sdhci-of-k1.c
+index 455656f9842d..0dd06fc19b85 100644
+--- a/drivers/mmc/host/sdhci-of-k1.c
++++ b/drivers/mmc/host/sdhci-of-k1.c
+@@ -21,6 +21,13 @@
+ #include "sdhci.h"
+ #include "sdhci-pltfm.h"
  
-+  pinctrl-names:
-+    minItems: 1
-+    items:
-+      - const: default
-+      - const: uhs
++#define SPACEMIT_SDHC_OP_EXT_REG	0x108
++#define  SDHC_OVRRD_CLK_OEN		BIT(11)
++#define  SDHC_FORCE_CLK_ON		BIT(12)
 +
-+  pinctrl-0:
-+    description: Default pinctrl state for 3.3V operation
++#define SPACEMIT_SDHC_LEGACY_CTRL_REG	0x10C
++#define  SDHC_GEN_PAD_CLK_ON		BIT(6)
 +
-+  pinctrl-1:
-+    description: Optional pinctrl state for 1.8V UHS operation with "uhs" name
+ #define SPACEMIT_SDHC_MMC_CTRL_REG	0x114
+ #define  SDHC_MISC_INT_EN		BIT(1)
+ #define  SDHC_MISC_INT			BIT(2)
+@@ -101,6 +108,12 @@ static void spacemit_sdhci_reset(struct sdhci_host *host, u8 mask)
+ 
+ 	if (!(host->mmc->caps2 & MMC_CAP2_NO_MMC))
+ 		spacemit_sdhci_setbits(host, SDHC_MMC_CARD_MODE, SPACEMIT_SDHC_MMC_CTRL_REG);
 +
- required:
-   - compatible
-   - reg
-@@ -62,4 +74,7 @@ examples:
-       interrupt-parent = <&plic>;
-       clocks = <&clk_apmu 10>, <&clk_apmu 13>;
-       clock-names = "core", "io";
-+      pinctrl-names = "default", "uhs";
-+      pinctrl-0 = <&sdhci_default_cfg>;
-+      pinctrl-1 = <&sdhci_uhs_cfg>;
-     };
++	spacemit_sdhci_setbits(host, SDHC_GEN_PAD_CLK_ON, SPACEMIT_SDHC_LEGACY_CTRL_REG);
++
++	if (host->mmc->caps2 & MMC_CAP2_NO_MMC)
++		spacemit_sdhci_setbits(host, SDHC_OVRRD_CLK_OEN | SDHC_FORCE_CLK_ON,
++				       SPACEMIT_SDHC_OP_EXT_REG);
+ }
+ 
+ static void spacemit_sdhci_set_uhs_signaling(struct sdhci_host *host, unsigned int timing)
 
 -- 
 2.54.0
