@@ -1,112 +1,165 @@
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F4E391841
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 07:39:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3B293A5430;
+	Mon, 11 May 2026 07:47:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778485149; cv=none; b=oEeoa18oL8tSv3sM9mw1SrzOq9D5tElQLnsmkCymy0gqIJAJVQ+jZB9AyAKADJevZL9Y2K+yhAcLw8MOv1nk7fUVVFo2Z+rgmslHu3hBj4B7Va0Dxaaw3W4JlAnGgl2AX2/ojjo4hYnHMq3TAJNfJuKNnpmkiB8/OZlbWbwgYQ8=
+	t=1778485629; cv=none; b=WkQr2kidUQcGr4Gym7wkil19N6vVIJABnabAFOWWbIHKxX3CTwjU7+FThX36dATznAgEYrDNqO6xhGHndTWp5n2PWDYpCHlPb9K8IUbsRbwET9gW0AjunnTVwKtpupQff/QAlcuoiuTxYJSyt0JxYmD5+TxwvGxtbQVK04GUwTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778485149; c=relaxed/simple;
-	bh=s65DhKGzlqdgx1hXmqJEwOu0B9ggiJ8RQ9fMSjlzAzc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oxhAdkDodfbwXzmYPUhi4zjBBXHjLsjAF0OteKVDxglyicPUG189cw7aCy9BpIOJzUbxt5diE+tJfv4XZvDnAVQB336dg6Z7DrXgwcKCje6aFUm65v+tZdyyMhne4T9iTHPqQINH4+WepxQNMWPc7ldeyj+hoyzk0ppOgtw/jJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.160.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-5102582e23eso29518551cf.1
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 00:39:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778485141; x=1779089941;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=eJ1YAZJS3C1bc4JV8cVyy/jeADBGGrNxPHy4hNy4Vlo=;
-        b=sqpP/bfyuD8uOEG50GpPQBdE766grpUWdYTEv3ANiSs08tx049r4I7MRleecfn81DP
-         OxCPCTVWaD/xobf3+1/ZUVBMufd7QkV8kQH405EYv7Qr1jaRbA2wbFKx0ZEiaDoObxzS
-         HAFQRAFxMphGvVHaCrmLaDbX/ISKFfv2bnnJZtVui6dw4043MI2h2V9pgCGTkk1VcIaU
-         cLv1pJ1KwjWRTrRobYeNMwV63TGGZolLmaictrmwKJeORL2giUHqTkf4MLS6vxdrYsoo
-         ypD0qu1sPRwb/zQqA5PhuGJPbX0ZTAYB81CKAkPZQkG9h8xGi7M7jJcXsemQfBtxbE8G
-         k8gg==
-X-Forwarded-Encrypted: i=1; AFNElJ90A0zPUXXbFSSM3mRoqD7SCBjg2JxOjE6yEdKYtyo7FZkqSWPJJzOvZ/AMSB4BlEitKiW5EdpMxJ13@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy40C4iPt7UIDa5d3SBNpMc9TkgN5xsQbD7cNhYLWUcEoVhH665
-	ysJdvLIwpuuwi1IjL010kDBALiI0eQ3SpvUzjf06PaCnZLLc+89RPd3xXV02ERAz
-X-Gm-Gg: Acq92OGf94aYD2sWH5hhG9op9aEODnTN9J5hFxmmPioE+Ax8DGqEtJuN0Ztl6MJYdDW
-	/c1uQJMqZ/f6GO0aedpK262fmRsOhlVXPG/yY2ReSJxQsyLEdx45TfnNjhnIDDduFioMEVvbwpq
-	W0y9lX883YovXNd3Go4MPV9GIjCBmWU3rc4/6D3rW8yEAj7NRHq7LRBK5Xce+UpBFQUK8qzbn+4
-	pdH7Ke0ynsY1tz25jNX+86G8xyKnDe4bFkLiTOIVw4dI82jjLstMXta44M+HO0DDyhKLm7ruf++
-	orGNTmTXnI28LQqeSO6N1HQ1tItncw4pdM0mYmxuQiMnXjWPpEEOx6H8wmupdzKW1TdG0swHGjP
-	nY3MzH+maklQERbMgDuKT+wn5iLmBcIy8AvphDIoMjpO09aLTMMkPHtH6LcFPRxIU3aSM3h9Jzx
-	J7PkBTuEOK9sLABy3BO11yCzIJ8BwwQOrZ3EI59Z1WV8GeAFxFuu8Splqiti2KrPkmnLEp4+b7q
-	bhCW/YiLt8RnA==
-X-Received: by 2002:a05:622a:2b08:b0:509:348f:bc1a with SMTP id d75a77b69052e-514a0a91fbamr119326371cf.26.1778485140807;
-        Mon, 11 May 2026 00:39:00 -0700 (PDT)
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com. [209.85.160.176])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-514a956cad9sm50004871cf.9.2026.05.11.00.39.00
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 11 May 2026 00:39:00 -0700 (PDT)
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-50e5b55062fso28976301cf.2
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 00:39:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+RZxQXQ/mwGlHH6PATaw+y5cclXXheGOyqdvFVpy7H0ISyjwByzutKjPsej5vHvf06VhkX/n9YtpRH@vger.kernel.org
-X-Received: by 2002:a05:6102:441e:b0:631:3bbb:f23f with SMTP id
- ada2fe7eead31-631dc2a4197mr2908988137.26.1778484660482; Mon, 11 May 2026
- 00:31:00 -0700 (PDT)
+	s=arc-20240116; t=1778485629; c=relaxed/simple;
+	bh=W6aPnQGxFvV5pxspo8KdT3OU3FU42+Tsl5qJ9Cz1T2s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HMxOJ69tDXMgcGGN7ZNKo45Ac68k5Qjlzj9/HB6j3VNHlCq+uqie9WWeo9ZHgH11dXogN6Wsg0JlO8Zk/VNAGukp4sQj0xIGAZHB2SIXIldzmXFfJPErJYsKIZ55h0FtKjbNKq8n8wLvjsTdgmEWno2llvSgYmUBoeK2MuhksW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qJi/rCct; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qJi/rCct"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFB21C2BCF5;
+	Mon, 11 May 2026 07:47:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778485627;
+	bh=W6aPnQGxFvV5pxspo8KdT3OU3FU42+Tsl5qJ9Cz1T2s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=qJi/rCctlOINEtcmwwKI0m1Qyw7ZipkxQA9/9UewVsJVEH6L32P1GLYxN+jYdeU4S
+	 E3dlLGK5mg8ccrMBBfFw/8QMyUoheooWdP3ZBZpRKkq8J5FoC0oUq4m59sQEirx09Q
+	 7azeMg4EYT+vhpOUQI4PFAToG37dC4kg1WukjV0LgwXtGiFMQYOe/33FmTELtc51jZ
+	 4CauPM4USfteYm9Dt1rrj2c0BLvC7TQ87Qx5GQfrMY4rKjUgiUkXXGjX2dqpUd+jYO
+	 y77V85MCeJCQ6NGVAMvm5EdmswCDkpmSkdKQzqTN1lcwcYTptoADYXU/Dc0an0Ev+B
+	 hqGndeYF7Vr1w==
+Date: Mon, 11 May 2026 09:47:04 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: sashiko@lists.linux.dev
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH net-next v5 09/12] net: airoha: Do not stop GDM port if
+ it is shared
+Message-ID: <agGJeIrmDdRmHoAA@lore-desk>
+References: <20260509-airoha-eth-multi-serdes-v5-9-805e38edc2aa@kernel.org>
+ <20260510140505.2C772C2BCF6@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260510084303.122426-1-phucduc.bui@gmail.com> <20260510084303.122426-2-phucduc.bui@gmail.com>
-In-Reply-To: <20260510084303.122426-2-phucduc.bui@gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 11 May 2026 09:30:49 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVrPChcwzbwrNLZBoRXGQ-Gm4e7UwbOm9gfAzQ-TQzFqw@mail.gmail.com>
-X-Gm-Features: AVHnY4Jl1iI9-jny3Tp3PAtW_VwhT3ITP4kLVRV3eN_UqRHFiAafjgaCkehlGn4
-Message-ID: <CAMuHMdVrPChcwzbwrNLZBoRXGQ-Gm4e7UwbOm9gfAzQ-TQzFqw@mail.gmail.com>
-Subject: Re: [PATCH v3 01/10] ASoC: dt-bindings: renesas,fsi: add support
- multiple clocks
-To: phucduc.bui@gmail.com
-Cc: kuninori.morimoto.gx@renesas.com, broonie@kernel.org, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, krzk+dt@kernel.org, lgirdwood@gmail.com, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-sound@vger.kernel.org, magnus.damm@gmail.com, perex@perex.cz, 
-	robh@kernel.org, tiwai@suse.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="AoE5hKwc3VX7KL8z"
+Content-Disposition: inline
+In-Reply-To: <20260510140505.2C772C2BCF6@smtp.kernel.org>
 
-Hi Phuc,
 
-Thanks for the update!
+--AoE5hKwc3VX7KL8z
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, 10 May 2026 at 10:43, <phucduc.bui@gmail.com> wrote:
-> From: bui duc phuc <phucduc.bui@gmail.com>
->
-> The FSI on r8a7740 requires the SPU bus/bridge clock to be enabled before
-> accessing its registers. Without this clock, any register access leads to
-> a system hang as the FSI block sits behind the SPU bus.
-> Update the binding to support multiple clocks to properly describe the
-> hardware clock tree, including:
->   - SPU bus/bridge clock (spu) for register access.
->   - CPG DIV6 clocks (icka/b) as functional clock parents.
->   - FSI internal dividers (diva/b) for audio clock generation.
->   - External clock inputs (xcka/b) provided by the board.
->
-> Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+> - [High] The `GDM_STAG_EN_MASK` configuration is port-global but is modif=
+ied unconditionally per net_device, leading to silent clobbering when multi=
+ple devices share a port.
+> - [Medium] The hardware MTU (`REG_GDM_LEN_CFG`) is not recalculated when =
+a device sharing the port is stopped, leaving the MAC configured to accept =
+inappropriately large frames.
+> --
+>=20
+> commit b896e320dcf0d56db7e0654191126c23e6f485fd
+> Author: Lorenzo Bianconi <lorenzo@kernel.org>
+> net: airoha: Do not stop GDM port if it is shared
+>=20
+> This commit introduces a users counter to the GDM port structure to allow
+> multiple independent net_device instances to share the same hardware port
+> without prematurely stopping it. It also conditionally updates the MTU so
+> that the largest MTU requested by any sharing device is used.
+>=20
+> > diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/eth=
+ernet/airoha/airoha_eth.c
+> > index be31f639f4be3..ebb24e60f1de3 100644
+> > --- a/drivers/net/ethernet/airoha/airoha_eth.c
+> > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
+> > @@ -1733,10 +1733,20 @@ static int airoha_dev_open(struct net_device *n=
+etdev)
+> >  		airoha_fe_clear(qdma->eth, REG_GDM_INGRESS_CFG(port->id),
+> >  				GDM_STAG_EN_MASK);
+>=20
+> Since GDM_STAG_EN_MASK is a port-global configuration, will this clear th=
+e=20
+> flag for the entire port if a secondary non-DSA net_device is brought up?
+>=20
+> If the primary master device relies on this hardware tag parsing, it appe=
+ars
+> a secondary device could silently break it by clearing the mask during
+> its open routine. Should this configuration be protected or refcounted wh=
+en
+> multiple devices share a port?
 
-Please drop this tag: it is intended for giving credit to the person
-who suggested the creation of this (full) patch, and not for crediting
-review comments on a previous version.
+This is not a real issue since the hw design supports DSA just on GDM1 wher=
+e we
+can't configure multiple net_devices.
 
-> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+>=20
+> > -	airoha_fe_rmw(qdma->eth, REG_GDM_LEN_CFG(port->id),
+> > -		      GDM_SHORT_LEN_MASK | GDM_LONG_LEN_MASK,
+> > -		      FIELD_PREP(GDM_SHORT_LEN_MASK, 60) |
+> > -		      FIELD_PREP(GDM_LONG_LEN_MASK, len));
+> > +	cur_len =3D airoha_fe_get(qdma->eth, REG_GDM_LEN_CFG(port->id),
+> > +				GDM_LONG_LEN_MASK);
+> > +	if (!port->users || len > cur_len) {
+> > +		/* Opening a sibling net_device with a larger MTU updates the
+> > +		 * MTU of already running devices. This is required to allow
+> > +		 * multiple net_devices wht different MTUs to share the same
+> > +		 * QDMA block.
+> > +		 */
+> > +		airoha_fe_rmw(qdma->eth, REG_GDM_LEN_CFG(port->id),
+> > +			      GDM_SHORT_LEN_MASK | GDM_LONG_LEN_MASK,
+> > +			      FIELD_PREP(GDM_SHORT_LEN_MASK, 60) |
+> > +			      FIELD_PREP(GDM_LONG_LEN_MASK, len));
+> > +	}
+> > +	port->users++;
+>=20
+> [ ... ]
+>=20
+> > @@ -1766,8 +1776,10 @@ static int airoha_dev_stop(struct net_device *ne=
+tdev)
+> >  	for (i =3D 0; i < netdev->num_tx_queues; i++)
+> >  		netdev_tx_reset_subqueue(netdev, i);
+> > =20
+> > -	airoha_set_gdm_port_fwd_cfg(qdma->eth, REG_GDM_FWD_CFG(port->id),
+> > -				    FE_PSE_PORT_DROP);
+> > +	if (!--port->users)
+> > +		airoha_set_gdm_port_fwd_cfg(qdma->eth,
+> > +					    REG_GDM_FWD_CFG(port->id),
+> > +					    FE_PSE_PORT_DROP);
+>=20
+> If multiple devices are sharing the port and the device with the largest =
+MTU
+> is stopped, the hardware MTU in REG_GDM_LEN_CFG doesn't appear to be
+> recalculated or shrunk.
+>=20
+> Since the MTU is only expanded in airoha_dev_open() and airoha_dev_change=
+_mtu(),
+> does this leave the MAC configured to accept inappropriately large frames
+> for the remaining devices indefinitely?
 
-Gr{oetje,eeting}s,
+ack, I will fix it in v6.
 
-                        Geert
+Regards,
+Lorenzo
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+>=20
+> --=20
+> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260509-airoha-eth-=
+multi-serdes-v5-0-805e38edc2aa@kernel.org?part=3D9
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+--AoE5hKwc3VX7KL8z
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCagGJeAAKCRA6cBh0uS2t
+rIC0AQCB4vNpyNwAWhilwrdVKDSwmfIC2mmckVm7kjpBYSFVZwD8Cx27ZuqAmZWr
+5tnKUNCiIHou0///+CnTMfZQZvocXwc=
+=XNlR
+-----END PGP SIGNATURE-----
+
+--AoE5hKwc3VX7KL8z--
