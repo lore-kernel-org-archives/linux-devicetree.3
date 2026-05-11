@@ -1,213 +1,211 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E976E383318
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 22:41:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19EA935676A
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 22:43:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778539293; cv=none; b=VsPLMh5tM/CjETElJrm9PsHAEAxI0mMQ4u5dPRCS5CgO8OvMDysxhbp69+TNUhSn7am/+B1NcCa+8Fc6W+GEBmoOp3tivpaLu+dd6CIc++RMjNQgnEe098C8pSEXKlhKuhrbcyFn32ZMiCtsN78VWSZk1sfmw6Tf6mYm48rMFv0=
+	t=1778539436; cv=none; b=YNYOYN0WF9aJx5yiFEDWIUBbRm/r7o5RLkuV1KdQXs5mnpWExhdepgPRadF6deu7PbuceG6kJ0KGgtC6FtRQE477Wt4oBdmDhaq3Vrt9XzPslrr0tIcTwif2hrKi6/7+Hz0dB0UhDPmZglyajd0v6I3OelTV5XBNGsFBoYTXfYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778539293; c=relaxed/simple;
-	bh=UWv+hHq/aOuO1UWu+qVEEHCiygh8+grSbEWsdkJxJQQ=;
+	s=arc-20240116; t=1778539436; c=relaxed/simple;
+	bh=D1IjLmrvVjZAK20ubVo+Q5/KtIK9sCjmA9kI871fuGI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Xmaq4AOlKBBDez3Hvpoqm9RQ9Sfn60zlBTrJMtNGGcLPzgevNTCCSYI2ekXcR7Qvj93l1eKWOXbzeqWM+i6aEKpIRFaPyK85/iS9AnL6tJZpSO2m0bBcM8y2mz+3oFREp6sjk7t09vVimFJ5/HAKPyE/0Y8c2hwpnSU/rOdyNV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pDKX+AJO; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=LfMhXHvNchlkzhEF04XwLbRYqEzT2gMzgPXJgQL+YWyxZxqz6FtoLzqp3LsILf3xdzsmsBj3WPkwYxMCFBmzP8H8Tn9jvcUs7Iy2NbB76ucP9IU9RTsGQenTzkT1FZMwxPjulqNlLrxHEsXMwpuEE1dmHqr055HAddjXC6zRoo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h+9FwTQ9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pDKX+AJO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E9BAC2BCB0;
-	Mon, 11 May 2026 22:41:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h+9FwTQ9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ED49C2BCB0;
+	Mon, 11 May 2026 22:43:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778539292;
-	bh=UWv+hHq/aOuO1UWu+qVEEHCiygh8+grSbEWsdkJxJQQ=;
+	s=k20201202; t=1778539435;
+	bh=D1IjLmrvVjZAK20ubVo+Q5/KtIK9sCjmA9kI871fuGI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=pDKX+AJO+PSpsoy2TgPqyDc62HDh8C74oh3+YDzF57XUmR+JDxfw+iqrNewhDDEKQ
-	 PxK3SY6iKTu8Uq1hHJ4P6ftRnpmikgP4Zp9aLtvugQiz+GUd27rab39Hu7CDkLzqNI
-	 aLIAehwdITYkhMSI58Ei9YMuD8oZ5dB4xMehaMQAFP+BXqNtKCUCDjJ2tEf07gu/kw
-	 9NxMYejyM8ifvsIDxvsbhepBog3LFPz8Cm9i61YObRI9FJpfCOi+8SZTXdpMzLieDW
-	 ALtvZbkkyUKo5alqYjNl4NA8b/Lq1t7wSQtM+AZw6iRnhhsP93UPsC/EzK0e5DVjQQ
-	 ZOFcZhqzhgbDA==
+	b=h+9FwTQ9cq9R3WXMpFjPHRTu51iTovdiIR9+q15haV4cB7lJA3WY8orZ2SNOhUKhH
+	 GbRTc5CVP9cYizEDSW8S4dQ7QDfnbV0te2eHNKJBAkHynPmzukC5ZTHcYtf1lQo98p
+	 5mOyLYrXUO9qhnlwB3r6MbpFIhKJHxexYgniOdK6/dyrM+M5pfglHFqJSWgI/4wCuL
+	 dLiH/muilMOSt0Qq3LHyzGQDpF+kBlbA1KgOZe9hpYKdvdWgPvRlosRO9HG+u8Y68V
+	 SItpmWS/zPVdT59KG0NRcQJGzvXqe7XeQ3YCxRIFEpI/Ukxu/dW4x9JkB+z4xo3O0P
+	 pB4NJSDrluerQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v2 2/4] clk: zte: Introduce a driver for zx297520v3
- top clocks and resets.
+Subject: Re: [PATCH v12 07/11] iio: frequency: adf41513: driver
+ implementation
 Reply-To: sashiko@lists.linux.dev
-To: =?utf-8?b?U3RlZmFuIETDtnNpbmdlcg==?= <stefandoesinger@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260511-zx29clk-v2-2-29f0edc300f5@gmail.com>
-References: <20260511-zx29clk-v2-2-29f0edc300f5@gmail.com>
+To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260510-adf41513-iio-driver-v12-7-34af2ed2779f@analog.com>
+References: <20260510-adf41513-iio-driver-v12-7-34af2ed2779f@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 11 May 2026 22:41:31 +0000
-Message-Id: <20260511224132.4E9BAC2BCB0@smtp.kernel.org>
+Date: Mon, 11 May 2026 22:43:54 +0000
+Message-Id: <20260511224355.6ED49C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] The driver cannot be loaded as a module because it uses the unexpo=
-rted internal function `__clk_lookup()`.
-- [High] The driver leaks the OF clock provider registration on probe failu=
-re or module unload, causing a Use-After-Free.
-- [High] The driver checks for MMIO remapping failure using `!top->base` in=
-stead of `IS_ERR()`, leading to a guaranteed kernel crash if mapping fails.
-- [High] The reset controller's assert and deassert operations perform unpr=
-otected read-modify-write (RMW) operations on shared hardware registers.
-- [High] The reset operations do not verify if a requested reset ID corresp=
-onds to an initialized register pointer before dereferencing it.
-- [Medium] The `zx297520v3_rst_status` function returns inverted status log=
-ic.
-- [Medium] The Kconfig symbol `COMMON_CLK_ZX297520V3` depends on and select=
-s non-existent architecture and SoC configurations.
+- [High] Hardware state is lost if system suspend occurs while device is po=
+wered down.
+- [High] `adf41513_calc_fixed_mod` uses uninitialized `regs_hw` cache durin=
+g probe, causing an incorrect initial output frequency.
+- [High] Arithmetic underflow in `adf41513_calc_fixed_mod` causes valid fre=
+quency configurations to fail with `-ERANGE`.
+- [Medium] The phase adjustment bit (`ADF41513_REG2_PHASE_ADJ_MSK`) is set =
+but never cleared, causing unintended phase shifts on subsequent frequency =
+updates.
+- [Medium] Software state is permanently modified before SPI write succeeds=
+, causing a state mismatch on SPI failure.
 --
 
-commit 907b20d81591d5c194abf35b53c48cd6ec44122c
-Author: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
-clk: zte: Introduce a driver for zx297520v3 top clocks and resets.
+commit 5877506cf62b15b22549417e5996d3ed6f4bfd57
+Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Subject: iio: frequency: adf41513: driver implementation
 
-This patch introduces a clock and reset driver for the ZTE zx297520v3 SoC t=
-op
-clocks. It provides basic clock gating, multiplexing, and reset controls for
-various core devices like PLLs, timers, and USB. The driver also registers a
-restart handler for the board.
+This commit introduces a driver for the Analog Devices ADF41513 PLL
+frequency synthesizer. The driver supports integer-N and fractional-N
+synthesis modes, high-resolution microhertz frequency calculations, and
+includes power management suspend/resume callbacks.
 
-> diff --git a/drivers/clk/zte/Kconfig b/drivers/clk/zte/Kconfig
-> new file mode 100644
-> index 0000000000000..e7acd28832cd7
+> diff --git a/drivers/iio/frequency/adf41513.c b/drivers/iio/frequency/adf=
+41513.c
 > --- /dev/null
-> +++ b/drivers/clk/zte/Kconfig
-> @@ -0,0 +1,18 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +#
-> +# ZTE Clock Drivers
-> +#
-> +menu "Clock driver for ZTE SoC"
-> +	depends on ARCH_ZTE || COMPILE_TEST
-> +
-> +config COMMON_CLK_ZX297520V3
-> +	tristate "Clock driver for ZTE zx297520v3"
-> +	default SOC_ZX297520V3
+> +++ b/drivers/iio/frequency/adf41513.c
 
-Are ARCH_ZTE and SOC_ZX297520V3 defined anywhere in the kernel tree? It
-appears these config symbols do not exist, which might hide this driver unl=
-ess
-COMPILE_TEST is explicitly enabled.
-
-> diff --git a/drivers/clk/zte/clk-zx297520v3.c b/drivers/clk/zte/clk-zx297=
-520v3.c
-> new file mode 100644
-> index 0000000000000..aa304dd34b7ba
-> --- /dev/null
-> +++ b/drivers/clk/zte/clk-zx297520v3.c
 [ ... ]
-> +static int zx297520v3_rst_assert(struct reset_controller_dev *rcdev, uns=
-igned long id)
+
+> +static int adf41513_calc_fixed_mod(struct adf41513_state *st,
+> +				   struct adf41513_pll_settings *result)
 > +{
-> +	struct zx29_clk_controller *data =3D container_of(rcdev, struct zx29_cl=
-k_controller, rcdev);
-> +	u32 val;
-> +
-> +	val =3D readl(data->resets[id].reg);
+> +	u64 resolution_uhz =3D div_u64(result->pfd_frequency_uhz, ADF41513_FIXE=
+D_MODULUS);
+> +	u64 target_frequency_uhz =3D result->target_frequency_uhz;
+> +	u64 freq_error_uhz;
+> +	u32 int_val, frac1;
+> +	bool lsb_p1_offset =3D !FIELD_GET(ADF41513_REG5_LSB_P1_MSK, st->regs_hw=
+[ADF41513_REG5]);
 
-Could an unpopulated reset ID cause a NULL pointer dereference here? Only a
-subset of reset IDs seem to be populated with register pointers in the probe
-function. If a consumer requests an uninitialized ID, this might pass a NULL
-pointer to readl().
+During setup, st->regs_hw is initialized to 0xFFFFFFFF to force a full write
+on the first sync.
 
-> +	val &=3D ~data->resets[id].mask;
-> +	writel(val, data->resets[id].reg);
+Since regs_hw is all 1s, lsb_p1_offset will evaluate to false here, but the
+true intended configuration in st->regs has this bit as 0.
 
-Can these read-modify-write operations race with clock gate operations? It
-looks like multiple reset components and clock gates share the same physical
-register (e.g. offset 0x74), but these reset callbacks don't acquire reg_lo=
-ck
-before modifying the register.
+Will this cause the algorithm to skip subtracting the offset while the hard=
+ware
+actually adds it? Should this check read from st->regs[ADF41513_REG5] inste=
+ad?
 
 [ ... ]
-> +static int zx297520v3_rst_status(struct reset_controller_dev *rcdev,
-> +			       unsigned long id)
+
+> +	/* compute frac1 and fixed modulus error */
+> +	frac1 =3D mul_u64_u64_div_u64(freq_error_uhz, ADF41513_FIXED_MODULUS,
+> +				    result->pfd_frequency_uhz);
+> +	freq_error_uhz -=3D mul_u64_u32_div(result->pfd_frequency_uhz, frac1,
+> +					  ADF41513_FIXED_MODULUS);
+> +
+> +	/* check if freq error is within a tolerance of 1/2 resolution */
+> +	if (freq_error_uhz > (resolution_uhz >> 1) && frac1 < (ADF41513_FIXED_M=
+ODULUS - 1)) {
+> +		frac1++;
+> +		freq_error_uhz =3D resolution_uhz - freq_error_uhz;
+
+The resolution_uhz calculation uses div_u64(), which truncates the true
+frequency step.
+
+Because of this truncation, is it possible for freq_error_uhz to be strictly
+greater than resolution_uhz here?
+
+If so, does the unsigned subtraction resolution_uhz - freq_error_uhz underf=
+low
+and produce a large value that falsely triggers the -ERANGE error below?
+
+[ ... ]
+
+> +static int adf41513_set_frequency(struct adf41513_state *st, u64 freq_uh=
+z, u16 sync_mask)
 > +{
-> +	struct zx29_clk_controller *data =3D container_of(rcdev, struct zx29_cl=
-k_controller, rcdev);
-> +	u32 val;
+> +	struct adf41513_pll_settings result;
+> +	int ret;
 > +
-> +	val =3D readl(data->resets[id].reg);
+> +	ret =3D adf41513_calc_pll_settings(st, &result, freq_uhz);
+> +	if (ret < 0)
+> +		return ret;
 > +
-> +	return (val & data->resets[id].mask) =3D=3D data->resets[id].mask;
-
-Is the status logic inverted here? The reset controller API expects the sta=
-tus
-callback to return a non-zero value when the reset line is asserted, but th=
-is
-appears to return 1 when the reset is deasserted based on the logic in the
-assert and deassert callbacks.
+> +	/* apply computed results to pll settings */
+> +	st->settings =3D result;
 
 [ ... ]
-> +static int zx297520_topclk_probe(struct platform_device *pdev)
+
+> +	if (st->settings.mode =3D=3D ADF41513_MODE_INTEGER_N) {
+> +		st->regs[ADF41513_REG6] |=3D ADF41513_REG6_INT_MODE_MSK;
+> +		st->regs[ADF41513_REG6] &=3D ~ADF41513_REG6_BLEED_ENABLE_MSK;
+> +	} else {
+> +		st->regs[ADF41513_REG6] &=3D ~ADF41513_REG6_INT_MODE_MSK;
+> +		st->regs[ADF41513_REG6] |=3D ADF41513_REG6_BLEED_ENABLE_MSK;
+> +	}
+> +
+> +	return adf41513_sync_config(st, sync_mask | ADF41513_SYNC_REG0);
+> +}
+
+If the adf41513_sync_config() SPI write fails, st->settings and st->regs
+have already been updated with the new configuration.
+
+Will a subsequent read of the frequency channel via adf41513_pll_get_rate()
+return this failed frequency instead of the actual physical hardware freque=
+ncy?
+
+[ ... ]
+
+> +static int adf41513_write_raw(struct iio_dev *indio_dev,
+> +			      struct iio_chan_spec const *chan,
+> +			      int val, int val2, long info)
 > +{
-[ ... ]
-> +	top->base =3D devm_platform_ioremap_resource(pdev, 0);
-> +	WARN_ON(!top->base);
-
-Does devm_platform_ioremap_resource() return an error pointer on failure
-instead of NULL?
-
-If it fails, checking for !top->base will evaluate to false and the driver
-will proceed to pass an error pointer to zx297520v3_pll(), which might
-cause a crash when readl() dereferences it.
 
 [ ... ]
-> +	/* The documentation says 491.52 MHz and measurement with the LSP TDM d=
-evice supports this.
-> +	 * The default value is 0x480C2011. To get to 491.52 with these setting=
-s it needs a 23.04
-> +	 * MHz reference clock, which matches unknownpll_d2. If unknownpll is d=
-isabled, dpll loses
-> +	 * its lock.
-> +	 *
-> +	 * The proprietary LTE driver or coproc enables and disables it. TDM an=
-d I2S can use it.
-> +	 *
-> +	 * FIXME: Isn't there a nicer way to get the struct clk for unknownpll_=
-d2? I don't want to
-> +	 * return all generated clocks from zx297520v3_pll or store them in the=
- controller because
-> +	 * I need one of them here. I could always pass the parent by name thou=
-gh.
-> +	 */
-> +	res =3D zx297520v3_pll(dev, top->base + 0x18, "dpll", __clk_lookup("unk=
-nownpll_d2"));
 
-Will this cause a linker error when built as a module? The driver is
-configured as tristate, but __clk_lookup() is an internal function not
-exported to modules.
-
-Additionally, should this be called with the clock framework prepare_lock
-held to avoid races against concurrent clock registrations?
-
-[ ... ]
-> +	hw =3D devm_clk_hw_register_mux(dev, "m0_wclk", m0_sel, ARRAY_SIZE(m0_s=
-el),
-> +				      0, top->base + 0x38, 0, 2, 0, &reg_lock);
-> +	if (IS_ERR(hw))
-> +		return PTR_ERR(hw);
-> +	top->clocks->hws[ZX297520V3_M0_WCLK] =3D hw;
+> +	case IIO_CHAN_INFO_PHASE:
+> +		if (tmp64 >=3D ADF41513_MAX_PHASE_MICRORAD)
+> +			return -EINVAL;
 > +
-> +	of_clk_add_hw_provider(dev->of_node, of_clk_hw_onecell_get, top->clocks=
-);
+> +		phase_val =3D DIV_U64_ROUND_CLOSEST(tmp64 << 12,
+> +						  ADF41513_MAX_PHASE_MICRORAD);
+> +		phase_val =3D min(phase_val, ADF41513_MAX_PHASE_VAL);
+> +		st->regs[ADF41513_REG2] |=3D ADF41513_REG2_PHASE_ADJ_MSK;
+> +		FIELD_MODIFY(ADF41513_REG2_PHASE_VAL_MSK,
+> +			     &st->regs[ADF41513_REG2], phase_val);
+> +		return adf41513_sync_config(st, ADF41513_SYNC_REG0);
 
-Does this code leak the OF clock provider on probe failure or module unload?
+The ADF41513_REG2_PHASE_ADJ_MSK bit is set in the software shadow register,
+but does not appear to be cleared after the shift completes.
 
-Since it uses of_clk_add_hw_provider() instead of the managed
-devm_of_clk_add_hw_provider(), a failure later in the probe function might
-leave a dangling pointer in the system's global clock provider list, result=
-ing
-in a use-after-free during subsequent clock lookups.
+Because the hardware evaluates the PHASE_ADJ bit in REG2 on every REG0 writ=
+e,
+could this cause unintended phase shifts during future frequency updates?
 
+[ ... ]
+
+> +static int adf41513_pm_resume(struct device *dev)
+> +{
+> +	struct adf41513_state *st =3D dev_get_drvdata(dev);
 > +
-> +	res =3D devm_register_restart_handler(dev, zx_restart_handle, top);
+> +	guard(mutex)(&st->lock);
+> +	if (st->powerdown)
+> +		return 0; /* nothing to do */
+> +
+> +	return adf41513_resume(st);
+> +}
+
+If the system cuts power to the regulators during sleep, the chip wakes up
+in its default Power-On Reset (POR) state.
+
+If st->powerdown is true, this function returns early and st->regs_hw is
+not invalidated.
+
+Could this leave the software state out of sync with the physical hardware,
+causing future partial writes to leave the chip unconfigured?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511-zx29clk-v2=
--0-29f0edc300f5@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510-adf41513-i=
+io-driver-v12-0-34af2ed2779f@analog.com?part=3D7
