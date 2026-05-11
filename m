@@ -1,63 +1,61 @@
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6646E3F9F49
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 13:57:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 322533F65F9
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 13:57:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778507851; cv=none; b=slk81vQY+pJ8HCJylTTmp/zz7f5nleCCcuHicjikBpEY/JrBXTBJewXSxSSq2jcXpMtfqGfEfd9M926FbybaVQ8LnAULJeEj8KBUwl2tkGoHAFKh6eFbowszTzTtq70RcXpbz7QGeiBpUGi+qVlMDiSD/f/Geww6XoZRxiE4PhI=
+	t=1778507849; cv=none; b=E26PSTB3EYZxXmCBFuDf4P591k5IP+oOJS8T1oa+1uCqEX98V4OUHcg0ZhI/EPUxcBsGduC2rzwhZiy/IJFe9/wqBnQw5yU7M7RGxCOYG1r2KWCqbfHe0B6H4nsut068ihcCCkteptnd6FI1lg/zmNk4lrbEG7Lbye0KSdtcGlw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778507851; c=relaxed/simple;
-	bh=ibm/ZDHMWfIYB/a+JVogHL3zgQTqT1cxj2txge0qJK4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rIbETNt9q/3gWZZ5o7v+lEU7FZPiGkvdtObbt0Sb30VT7fvr7EHLQbab5hAG6RmQ5ZXOnbUF8SteFtLt1qSFfGfqUGZ5RUGkM2No5VZufUcjn99p88IzTO1ADiMKYUuZ2ehU15pQrrP6dJu6VdjJyZry7Hg1MNk9eAqfrFHaAX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Oqztsxt0; arc=none smtp.client-ip=209.85.208.43
+	s=arc-20240116; t=1778507849; c=relaxed/simple;
+	bh=kC4DSO7lEOOKLgNDNQTeigNoYcFvo7FOe74XyG/nGrE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=EpFaArbpa5KguKouZk6BXuj2Y5C1NzZeuaKxrYqJU5lSkMNElPjYatuEIxsK+7Q9zQ+s18o3fVWmGxofVc35CaoKt7VLvcjdvJvq9ps3ZWxm0W1y5GifUem0R1NnpDbcDswpT5goTqWjeYd3WwV8dIsaYVglmv5JRqu0PX/YLC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O6s1o+Eo; arc=none smtp.client-ip=209.85.208.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Oqztsxt0"
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-67f7caa33easo2808972a12.1
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 06:57:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O6s1o+Eo"
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-67929ff6dbfso6642986a12.2
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 06:57:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778507844; x=1779112644; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+yZ2RV9klSfc79KrOIT+9nKykbDSPRLRaZkXlnlwwJM=;
-        b=Oqztsxt08VSED0yBq9y7gCvbNeIQsWzh6qCP6bEWpOdaH42iP9LOw/D6fGAQi8O7pP
-         8+T/5rP9lXkGXz2utuy3yO0zDbfmXhzJypfb6BgwM6PSQX0GCpNEM14v5BFNjmOov3Gn
-         vxaPdFefs6gvL0p3aCWOocLQqQo5BTYQrDwktwEq8VWzDpzN8toh2+prb+Ng2NNrP0xz
-         XhX00H0+39dIbVI/dH+NyThiFKEqNozZZR3B+4A0iu+cG+u6cxhhiHfjz21bwZ3E+ghv
-         4ZmQ7dgxb+4CkXeqhSUYaY50vct0v3vg3gyhxjPtxPBDVISq/a2x1EKKCpekXefD/C50
-         KmJQ==
+        d=gmail.com; s=20251104; t=1778507843; x=1779112643; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=jKhdwsAy/86G+JOwXd2p+pdbXnbrja7bwh3PVXwh7m4=;
+        b=O6s1o+EokPZ/vWnPsmsKyx5Ei9uZcDJWti+ZFv8hC+jHsWr6oAPXk0pIAR0Cqv8fDu
+         Xy8CkOJJ30Mx1ekmPtxKUg28YkVeziO8oiMX1cH2iEsMAOdXbKVE1QC+ShJvh2MyHyoQ
+         uuPgIU8AVRu0cNLHP9g3Gi6bkV3ZVIIOWN5vcKzQvxDofG/oXfh0H0NAB6RnQz8H8pTa
+         +5ZGui77KCjsXMSqI4NYjoRgePzAwsJt6xWhVuiDAgm6R8XD5+YqdM3IIjbLF4OtbnnN
+         IC13ErPxw0Ai3qnXNMwbDQ6G67Mlnz4Es9JHQHTLjJl43kEzW7ZYAF7pu9r4Vmq1pRF6
+         I/Fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778507844; x=1779112644;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=+yZ2RV9klSfc79KrOIT+9nKykbDSPRLRaZkXlnlwwJM=;
-        b=IBOzeoCfF3YsOwl7habOE/CoHJhUn4V6q2aHZjqxIE0nb68+i5fVesajHMM6vdEXoq
-         7sd8F5/oQl1bawN4uilt3uMXuIIwrJilN4Sp/mvOCS8cJTz2uspy4GeFXhaZnp4do4zL
-         xtTi1lK6ccWZ6YbpGm/jUpNLANF9RN8QlRTQf0BVFORSuo9i8d2tItkV+IIp2jQ0FTIO
-         BPXLJLy2FvqsD7uJBdTs7zvj5JK1epjU1ZBPX5qNip4P5VANokVvZ5dQgWdymHuUY+TQ
-         ZTImUn0Axjo53zqcR7RokUoitZbTt80krcVg5PfEWAlmkAa0jymllJtofb74GzoEwTVA
-         ehIg==
-X-Forwarded-Encrypted: i=1; AFNElJ+VI2o6uY2QgT6ZZdGs+rarkXKqZSXTkDdCa3XNvkIjKjcd81r6bCMS8qA2fTM7soH42/vCZk7ctZe+@vger.kernel.org
-X-Gm-Message-State: AOJu0YwtrpXXCYQxv3DP+zBZjH4yAxoe1+7GFYAOt8UZ7lqV4DwAsHhJ
-	fG4EDI8hhXeEaOLn+PfNdpDgwapKYXNBj9OLtADzR8FdeEWdUhLQDj7c
-X-Gm-Gg: Acq92OHhijcUSMyBiRsOECNAgvzuPRZqeeukRTGG5ZZmG2Ws9g1UO07nS+90rcGd7kK
-	uS655hSENrzNcHG1jvK2bKJsTaT12WtYalOweqSYwDiQnrgc4hJad2/UKVo4DiqmvcOIhcBaNty
-	SiSwVIMnqAzuRdUpmij7gQa6cYCZGgBfUxcFJZI/CaKW60FQ35jdQdD7i7bwQBZ1xXX/ib/V3Qh
-	6XAl6fufZlDpX7AGzqVuiTjc9xBFMkQB/SbwD8fcz5AwFc1I9p8rgcgBpmWw05dHXB5kPOdn5u+
-	W6lQib1HfZAugknCnAemwAuvE05IN1R5WVJQCBJAsFRqW4Sp8MUKutPiD9oBQm08CAAxYOTtJEh
-	XxG0w5JnjbYIgW+bVXWKW4wrzbJ33kkfsQtOVQWWE2TUCAPI+rDeLubE4MfVar+frG4EW3EGlLT
-	bPTxoqyAse4Nr4
-X-Received: by 2002:a05:6402:5297:b0:67e:2498:dc7e with SMTP id 4fb4d7f45d1cf-67e2498ddc9mr9228829a12.11.1778507844261;
-        Mon, 11 May 2026 06:57:24 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1778507843; x=1779112643;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jKhdwsAy/86G+JOwXd2p+pdbXnbrja7bwh3PVXwh7m4=;
+        b=nXFrp5Z/ZMPoedQf5HB0QO0p9kORbRqX+TyMsE6qnBXq/EVhcvgewPaUK8oFdkZ10k
+         NC94uNGJmQKqIhMYIGl/tK+L6GLF1dz/GA/6xwnRUz0Z80wduFip95z7eiLMLT27lbSD
+         +IAJwa6QKnLOpUgtPaar3CUl3qrrRyiqzNkxmMxDEKFjx8muUaGQ245kmhj3phDmlY72
+         zNsLuckoW48kONxlCwUK1ZvZ9HgLPufYjqXYh9R8y9/BE4LkMpkKK5OLlUGAQVyks8bu
+         IR/R9j3eBJYL0P1ubPFodKiu2d9CoNEKM89VQpMYP1H8tP2KbkgRbzEd0xfJbh0wO9Rl
+         UrKA==
+X-Forwarded-Encrypted: i=1; AFNElJ/DVFTHacNhRuHS31TAP/dV49Uebde57I36su1lfrEmuPz2kAfYjjiU1BbS+XcXokTAFjzjJPDDmSld@vger.kernel.org
+X-Gm-Message-State: AOJu0YxdJDFF/vcgMmhQFk5QSQyI0OkmlHAD8f48lwe+fQHcWK89ou5e
+	DSaDGkN48kNdayIcYQpQ3e7Jpoo+8bINOAVN4F170PdPrxeShbA4I5rT
+X-Gm-Gg: Acq92OHem1vCqfFDoPeRUjn9iRxLPSEJXlkkZ1AsizofhWrrNdjB0gDh96GrOUo13hF
+	gmrE+3kXvjd5V1v/cpyNCPmuWZgUPdxHLSolniGm+zqyIE6y/hR7W+POnyctf2/hnc0m7n3RqNf
+	dyhiMHts9eR40srUBXwB+c+GmCOn7D81iTnoHsPWHp6EXkmFZSK87xvbruIm+ibyCSE1emHJJus
+	wwO1ZHqu8TgcGhp8TeUTp3g5hkFQzFmwKMnRxHmTO0qA7GDBThAGDGP32Jitz0DSilMmLqmNIAh
+	zQRK7l2pfs3qDuNVQXJl/MeMQy3+bE9soSyk1TL3aazFMxxiiiB/KvefXUPr+zTIoNZulor5gUP
+	z1Yb5bgLq75iFJ9URM3/tPgu2W315G0BZ8hD+oUEY+AtvipPMl8Vc0g6MwfDk4jTVzLV70JRZwg
+	UDgCU1Um1/r3ym
+X-Received: by 2002:a05:6402:278c:b0:67d:a63a:deb1 with SMTP id 4fb4d7f45d1cf-67da63adf40mr11744584a12.5.1778507842405;
+        Mon, 11 May 2026 06:57:22 -0700 (PDT)
 Received: from xeon ([188.163.112.56])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-67ef0b3b904sm3685357a12.1.2026.05.11.06.57.22
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-67ef0b3b904sm3685357a12.1.2026.05.11.06.57.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 11 May 2026 06:57:23 -0700 (PDT)
+        Mon, 11 May 2026 06:57:20 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>,
 	"David S. Miller" <davem@davemloft.net>,
@@ -80,48 +78,95 @@ Cc: netdev@vger.kernel.org,
 	linux-phy@lists.infradead.org,
 	linux-tegra@vger.kernel.org,
 	linux-usb@vger.kernel.org
-Subject: [PATCH v1 1/6] dt-bindings: usb: ci-hdrc-usb2: Document nvidia,external-control property
-Date: Mon, 11 May 2026 16:56:56 +0300
-Message-ID: <20260511135703.62470-2-clamor95@gmail.com>
+Subject: [PATCH v1 0/6] Add support for Infineon/Intel XMM6260 modem
+Date: Mon, 11 May 2026 16:56:55 +0300
+Message-ID: <20260511135703.62470-1-clamor95@gmail.com>
 X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260511135703.62470-1-clamor95@gmail.com>
-References: <20260511135703.62470-1-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Document the nvidia,external-control property required, for example, for
-USB lines in HSIC mode connected to a modem, where the modem requires
-precise control over the USB bus to properly enumerate all its stages and
-intermediate devices.
+The Infineon/Intel XMM6260 is a 3G-focused, slim modem platform designed
+for smartphones, data cards, and Machine-to-Machine (M2M) applications.
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml | 7 +++++++
- 1 file changed, 7 insertions(+)
+The modem is typically connected via the application processor's USB line
+in HSIC mode. To function correctly, the modem must control this line, as
+it requires precise timing to initiate or de-initialize the USB connection.
+This control is necessary to successfully enumerate the next stage of the
+USB device loader (moving from firmware loading to the actual device
+interface for example).
 
-diff --git a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml b/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-index 691d6cf02c27..a13c1ef49a57 100644
---- a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-+++ b/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-@@ -75,6 +75,13 @@ properties:
-     type: boolean
-     deprecated: true
- 
-+  nvidia,external-control:
-+    description:
-+      Indicates that the controller is configured externally and that the host
-+      should not attempt to touch it. Usually used by a modem which requires
-+      precise bus configuration.
-+    type: boolean
-+
-   ulpi:
-     type: object
-     additionalProperties: false
+Patches 1 and 2 adjust the Tegra-specific portion of the Chipidea USB
+controller to allow for the disabling of automatic PHY and USB controller
+registration. This is achieved by adding the nvidia,external-control
+property/flag. It does not affect any existing configurations, but it
+allows the USB line to be registered or deregistered by an external
+device — in this case, the modem.
+
+Patches 3 and 4 add support for the generic portion of the
+Infineon XMM6260 baseband modem, which was used in many Tegra-, OMAP-,
+and Exynos-based devices circa 2012. This driver provides power sequences,
+manages initial communication with the application processor, handles the
+SoC-specific modem PHY, and verifies that the modem USB device appears
+correctly.
+
+Patches 5 and 6 implement support for the Tegra-specific modem physical
+layer, which handles the registration and unregistration of the USB
+controller.
+
+While current support is relatively basic, this configuration already
+allows the modem device to appear in the dmesg of my device
+(LG Optimus Vu (P895)):
+
+[    9.427014] ci_hdrc ci_hdrc.1: EHCI Host Controller
+[    9.431488] ci_hdrc ci_hdrc.1: new USB bus registered, assigned bus number 1
+[    9.457197] ci_hdrc ci_hdrc.1: USB 2.0 started, EHCI 1.00
+[    9.460370] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 6.16
+[    9.468470] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    9.475597] usb usb1: Product: EHCI Host Controller
+[    9.480508] usb usb1: Manufacturer: Linux 6.16.0+ ehci_hcd
+[    9.485913] usb usb1: SerialNumber: ci_hdrc.1
+[    9.490862] hub 1-0:1.0: USB hub found
+[    9.494005] hub 1-0:1.0: 1 port detected
+[    9.657191] usb 1-1: new high-speed USB device number 2 using ci_hdrc
+[    9.844726] usb 1-1: New USB device found, idVendor=1519, idProduct=0020, bcdDevice=12.74
+[    9.850530] usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[    9.857594] usb 1-1: Product: HSIC Device
+[    9.861606] usb 1-1: Manufacturer: Comneon
+[    9.865627] usb 1-1: SerialNumber: 0123456789
+[    9.908739] cdc_acm 1-1:1.0: ttyACM0: USB ACM device
+
+Svyatoslav Ryhel (6):
+  dt-bindings: usb: ci-hdrc-usb2: Document nvidia,external-control
+    property
+  usb: chipidea: tegra: Avoid controller/PHY init if bus is externally
+    controlled
+  dt-bindings: net: Document Infineon/Intel XMM6260 modem
+  net: usb: Add Infineon XMM6260 Baseband modem support
+  dt-bindings: phy: tegra: Document Nvidia Tegra XMM6260 PHY
+  phy: tegra: Add support for Nvidia Tegra XMM6260 PHY
+
+ .../bindings/net/infineon,xmm6260.yaml        |  72 ++++
+ .../bindings/phy/nvidia,tegra-xmm6260.yaml    |  58 +++
+ .../devicetree/bindings/usb/ci-hdrc-usb2.yaml |   7 +
+ drivers/net/usb/Kconfig                       |  15 +
+ drivers/net/usb/Makefile                      |   1 +
+ drivers/net/usb/baseband-xmm6260.c            | 335 ++++++++++++++++++
+ drivers/phy/tegra/Kconfig                     |  12 +
+ drivers/phy/tegra/Makefile                    |   1 +
+ drivers/phy/tegra/phy-tegra-xmm6260.c         | 144 ++++++++
+ drivers/usb/chipidea/ci_hdrc_tegra.c          |  36 +-
+ 10 files changed, 667 insertions(+), 14 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/infineon,xmm6260.yaml
+ create mode 100644 Documentation/devicetree/bindings/phy/nvidia,tegra-xmm6260.yaml
+ create mode 100644 drivers/net/usb/baseband-xmm6260.c
+ create mode 100644 drivers/phy/tegra/phy-tegra-xmm6260.c
+
 -- 
 2.51.0
 
