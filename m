@@ -1,122 +1,226 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDDE63033EA
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 15:23:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DC0828643C
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 15:23:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778513000; cv=none; b=eTDlv3fwrQjoOk6RDDQDxPD421A39K5WdA7yLJauO59BK+Fzp6UjgHr0enNFtpUby9Sz2tdhmruFf8w6TWyk4rom1mp0ROxBRKswrfBGX+SfusU5uB7Tql4sc7kAAYV/AFnoJF8A4aIOIxLPnaS+C6t8BS7zcq8K/xNLvDIemEk=
+	t=1778513020; cv=none; b=E2B6NzSsxAx6LZJ7xO6AZyIvD6gGF32Q8IXK888qfdLgfsAAMk657LAeGg8p9NTzvXNxsiwyFjA902UraX0hiyBW4b05spNnou43cwuI7Srezigks+I4WlgbLMfHEIsINodKRdJhXFgFt3m3r0g8/6YyORlBXecEde4LCZsk/vw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778513000; c=relaxed/simple;
-	bh=c8Ubkm1ziEsqek//mhjbW78ei+1dabe/IIQaIcSfvHI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SAOOPLCEIGtQKzZbq1dkDe5e4wu/x6W+pTPDwDGw3ADJ1VrVfCJ03hmTmWZh/Hn4MbWyccOFMQwh/2QiSDXaNKwCTIHfllSI7xzfusSB7swIEkdL4jYlgFD2lg7mAMzSJDTUma+iOnWm3Zskv15SDgqMPwW+Pi3VUW8Jno6ctJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AnwW090b; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ijkD5Brq; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1778513020; c=relaxed/simple;
+	bh=Pkufvs/dVtNcEylnyG+zMMbsZpzFf1lMi69cqrzAAnM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ur7RUGwAAyYMKnlNWROADMpzpoMkqyEyAtZ8u7ybB5oNQPASAJ+Er4jANrlI1hT+5Gv3WmEUpUBED0Ke6UZCryNJlDqlLKgqWZ8lkiq3wuxVR9YWUQ5aELDzCzcF3mZu3P9+w0973DQEY6T4qWZVtHVVhQnwa70SuhQWvZxSWug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=j4xWwH0l; arc=none smtp.client-ip=209.85.160.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AnwW090b";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ijkD5Brq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1778512996;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=omy4WJN0/IH2ixY6PVE8ad6VlcN2e6pibSMeSb5zsMA=;
-	b=AnwW090ba2dfnfam8rbWmx6D2eLzmpRMA3YSN6AdiKz9waLZ9pwwtN3mlzBOgHbELpsa3T
-	1pR9T5OFVs9GnaVHgI1v1TJWnjHFXucGPPdfO5M8+1fdYC/MsWWKTDQScTDjjdlFeGpt2v
-	fowuHfjrHYcTqvqOheJVYC61ckbV3vQ=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-660--JUbyNGmMRqjAfxLRcVGFQ-1; Mon, 11 May 2026 11:23:15 -0400
-X-MC-Unique: -JUbyNGmMRqjAfxLRcVGFQ-1
-X-Mimecast-MFC-AGG-ID: -JUbyNGmMRqjAfxLRcVGFQ_1778512995
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-908ab01aacaso542072085a.1
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 08:23:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="j4xWwH0l"
+Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-40423dbe98bso2280504fac.2
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 08:23:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1778512995; x=1779117795; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=omy4WJN0/IH2ixY6PVE8ad6VlcN2e6pibSMeSb5zsMA=;
-        b=ijkD5BrqXNT+QOhM0+zz1tuuf3O6Dh96S2QahvsCheJTk+ag3aZoaOjbFm4T97FKyN
-         CzoPEDnQH2gPpzR50IGfCeJOYZYiohvoDIdywmjyJpnZQjhpYAXNpkdZ6BF0CSJIIQbN
-         3ZqKsMC/GqcVjLviUM/BeVu7BQa+er5xh4/pkr+MJpP+aOwslV/pKhKDR9U2OAsZt3QT
-         3BJRuCDAco7BgmbrWXHxW+cYnRkRRfkS+/u2ee4i4s+U1dW1s58VS9dsG43R2uCvaPp3
-         fZs9Ge99ZaB+jrtOESqSEn5SsMRpmuzL1siucwnibknJVbmjBapEyu+osiHw6ufEEc9e
-         P2kg==
+        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1778513017; x=1779117817; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=tE2qWdGKWkMukIUo028+cIjsIhIq5QNqnckPQG0zARQ=;
+        b=j4xWwH0lLuw4hLTDHFs2BRPaX0SdIvFK8GT4k4b6lZbnPU9f6IrFVw04eXCiltn3ms
+         LasfZnhQevnUjqegJjYbDjb8WN5HcnbO0s0mNGrC+KWbgYCLO5Bk2cFyocNjiuB0/e3d
+         9QUwyKh+aFPkpCgBED2p5GSVR5wMCq2hqPOtogmKPGGaivCegkv8F+u8mvUk6ZvcLARm
+         0YXtt256lYDJ64sx0kHcrxYf7iIOBpYf0L1my1iXUmpVvAshNA/gRgC6+hqHU6vog8/A
+         BSTsfpPoA5PPjW0HFIiZu8sqfcNHq1ka+TjV19s83KRexwUeMMsHnwWX0Q31cgWqetsV
+         idrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778512995; x=1779117795;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=omy4WJN0/IH2ixY6PVE8ad6VlcN2e6pibSMeSb5zsMA=;
-        b=hk43rjqRsGwU2Ro/REUow0f6serroPJ/HjCP0tbeosi2UylA04J/hEUlUSQKYR8BQA
-         onS03AT6kMTiAGSdYnWDFRuakJhFs9VGzjfeSFVXvAKqOJDWuxxXJPJt1+F6CFUgbyzo
-         vkPmAe2yaOscdWfjUDGI3emI9ftk/7mtmd69WaKmiDj+tGt4/SEn+gc+JKFnzYCirWnx
-         da5+XeOCar70/z9AsnTqBT4hh9sr2hVnvNSIUukpkuFpgAfLVX7IZ5SpFc+TgyjYZOih
-         miSyiV5St35dNE0CI2aeQ4Np2+S4h1P41iFeABfKx1CDDwCOUphwSSAurveN/A+qjXQo
-         nSuA==
-X-Forwarded-Encrypted: i=1; AFNElJ/oUaAuD3rr4GXwGTkYfQCLG+Q9ltOO6gmJRqg8mhmL6q4ZbTLIQ36+/Rcd3meAlnZorCO3OKSGpzBJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YyshUPGWLKECF2OQ7U8mF2oYzhqEpxwibA3mKdj3FrVX+AxwvnY
-	eapu0QBa8cZcWpYWp0170Td/9HqGu79uGoWEZFLvv234tXJEx2DKZVHHQv8oqdrz+IDwrvXtRIK
-	FNK4SdVq1OZ0VKkqo9UzNLpLfwUr1Cgi2WbA9l/M2Pd9Z8z/Qi4Zwwv1koD4qm+s=
-X-Gm-Gg: Acq92OFSKjXVTWkGbwGjKSDU0fpvSF8Ojgb9CFdJElawoBxkuXOTakW7Xno5LclKG1A
-	AdLbCTMczo8zhoSxbWk1jH05qV0G6hu1KkwtDiDHG67Ep9jQ+7gBNM+sN4V6G5qqx7NShHmS22X
-	h6cz8ejEB1R9N8NYLkVkIELkfPy0Es4iIFc3RczgeCkqnLfjZXkqkpyLLZGtszN0LXQoGT+y93U
-	0wFsP+LZL8lPc6IMKbmSf3To7LLjsVtnkf5EHd2PaxNR6BTOExCDeIp3H2SP39jMAa/JVMOuoIp
-	LeX8sKt9l6/iPNrWNsezuTGNHZ0T/mzHWVb9hB8KguZ+5pIrHrUsL4DuOMg0zJBJLP20utTylTY
-	GWFpBtK8FI9SGAqNS4mWp2EDYnWZCSSiQ8cFKkIpzPMUZtP2Jt7v+/McL
-X-Received: by 2002:a05:620a:45a6:b0:8d6:6db0:88de with SMTP id af79cd13be357-90653728e7emr2602270785a.44.1778512994983;
-        Mon, 11 May 2026 08:23:14 -0700 (PDT)
-X-Received: by 2002:a05:620a:45a6:b0:8d6:6db0:88de with SMTP id af79cd13be357-90653728e7emr2602263885a.44.1778512994300;
-        Mon, 11 May 2026 08:23:14 -0700 (PDT)
-Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-907b87c02fbsm1151478785a.25.2026.05.11.08.23.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 11 May 2026 08:23:12 -0700 (PDT)
-Date: Mon, 11 May 2026 11:23:11 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: jian.hu@amlogic.com
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Xianwei Zhao <xianwei.zhao@amlogic.com>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 07/10] clk: amlogic: Support POWER_OF_TWO for PLL
- pre-divider
-Message-ID: <agH0Xy0hD4MHjP7n@redhat.com>
-References: <20260511-b4-a9_clk-v1-0-41cb4071b7c9@amlogic.com>
- <20260511-b4-a9_clk-v1-7-41cb4071b7c9@amlogic.com>
+        d=1e100.net; s=20251104; t=1778513017; x=1779117817;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=tE2qWdGKWkMukIUo028+cIjsIhIq5QNqnckPQG0zARQ=;
+        b=cU2iH/Vxdmy9US7HpPlUI56UO3wjq7kT75VVvGxGPwfnx+6So8I9QysiFsqh+lflE8
+         Y1hlhG08T3I3XFqBw4FjxcMRCZ1M/XAPrMr/epGov550E6HKssdQEnMRLUmyB+/i8Dgr
+         5XuXHUDJy3BTCLCI92uVxBWqlNpxVqGa3gwC/k7Epbf/PUi18JtBbTfCMSPqbnAzZMoF
+         OnGKQYR6j8p29wjHCYCR+0rOLLqrr4/qtEPemAar21I51txGpQ6djOn8zWfzWu8u1sL2
+         kJ1x7ciO0pV/iFIFLuaABc/pFvWZ6/Lf/0RtSyXfqn1KIBROETZ3B6wuDarvLvF930T+
+         G1dQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9/M8MqGQveeOt3bctGJeB6DGbrIW0RPTwvsITVDxDcTaLhritmviPxLJI55qBvK+OKOwCJDZOFoyyj@vger.kernel.org
+X-Gm-Message-State: AOJu0YyRa/jKNBzc8kqc4T5gukHUAZFBBfaVxGKeVpV7GQpMg7r2V4p3
+	CZ4EQEiE7GSiDbTiGtr3AcJeErCZHGyfnmYq/1kaWLyy46eN2H+r1JLPorfSdPbsasc=
+X-Gm-Gg: Acq92OH/tAfrsDhRuOftMu/o1eNDfcFJRQgRIxOGn7AYgqM/5ZSv2kfOWadsPyP8xAa
+	aKm38bPjSFoTxLj2Fki7E8PgpiivS01GGJ6KlcfB+3xnx2kgRtkrwiT6pJ26s22ZfRjrxgg6GPM
+	FYv/LDqbk2Yryqg4mHORPFaX9jc3ng6kYbfaEKgi0J7NVAqnhgl6H9pwG6Ba1fNTYWlM7J0gSwp
+	krepbC81cmGVJSrflBdLmd/tCOrDPeuwbGkpoPSrgtmrEcNQV++FAiXRoyWg81MJF5a9sTZ4Ak2
+	jwtj8ZVQsoKljSyfE3Rm5zzBjX4vb+h8ids1fp0rN4uBJOjAipVAhDMnQpv7PwNOzTGeQ3PuhhH
+	4TJk7TAgYktoNAwEUm7AT6FtQAGsXZnGUist9YAD+ycrsriqd/zyDjFu27UOipovPbZJOy2YLwN
+	rFAOje+BcLPh8YZ9BhCrspAbOwxgATsYkTGv27/ay7IMumQfjFmlwDZ24tqd0EQh7qmRTi1JBLx
+	RT0LiqaWQ==
+X-Received: by 2002:a05:6870:9113:b0:42c:259c:6c8c with SMTP id 586e51a60fabf-434f5674cd9mr17270731fac.3.1778513017221;
+        Mon, 11 May 2026 08:23:37 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:591:4577:3439:3a1e? ([2600:8803:e7e4:500:591:4577:3439:3a1e])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4355736f517sm10164009fac.12.2026.05.11.08.23.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 11 May 2026 08:23:36 -0700 (PDT)
+Message-ID: <5bce7868-feca-4c54-a14d-ad4bf4072c29@baylibre.com>
+Date: Mon, 11 May 2026 10:23:35 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260511-b4-a9_clk-v1-7-41cb4071b7c9@amlogic.com>
-User-Agent: Mutt/2.3.1 (2026-03-20)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v4 10/10] docs: iio: add documentation for ad9910
+ driver
+To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>,
+ rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org
+Cc: Lars-Peter Clausen <lars@metafoo.de>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ Jonathan Cameron <jic23@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
+References: <20260508-ad9910-iio-driver-v4-0-d26bfd20ee3d@analog.com>
+ <20260508-ad9910-iio-driver-v4-10-d26bfd20ee3d@analog.com>
+ <b8f9a174-f3d0-4cb8-a571-605be79165d6@baylibre.com>
+ <zvulxrrvg4sf7m5pjfpfucg7yssgallfu6zi6mcyblu2qy24hn@wdzs7h77vkoz>
+ <18c2eab9-c0c7-4e93-b4e8-73b18531e784@baylibre.com>
+ <uphcx5zr4lmukuom75g66hp4agurty7yq6mo6ri6otrsscqfek@tn3u5jjszaoy>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <uphcx5zr4lmukuom75g66hp4agurty7yq6mo6ri6otrsscqfek@tn3u5jjszaoy>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, May 11, 2026 at 08:47:29PM +0800, Jian Hu via B4 Relay wrote:
-> From: Jian Hu <jian.hu@amlogic.com>
+On 5/11/26 10:02 AM, Rodrigo Alencar wrote:
+> On 26/05/11 09:46AM, David Lechner wrote:
+>> On 5/10/26 4:30 AM, Rodrigo Alencar wrote:
+>>> On 26/05/09 06:42PM, David Lechner wrote:
+>>>> On 5/8/26 12:00 PM, Rodrigo Alencar via B4 Relay wrote:
+>>>>> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+>>>>>
+>>>>> Add documentation for the AD9910 DDS IIO driver, which describes channels,
+>>>>> DDS modes, attributes and ABI usage examples.
+>>>
+>>> ...
+>>>
+>>>>> +       must be a power of 2.
+>>>>> +
+>>>>> +   * - ``frequency_offset``
+>>>>> +     - Hz
+>>>>> +     - Base FTW to which scaled parallel data is added. Range :math:`[0, f_{SYSCLK}/2)`.
+>>>>> +
+>>>>> +   * - ``phase_offset``
+>>>>> +     - rad
+>>>>> +     - Base phase for polar modulation. Lower 8 bits of POW register.
+>>>>> +       Range :math:`[0, 2\pi/256)`.
+>>>>> +
+>>>>> +   * - ``scale_offset``
+>>>>> +     - fractional
+>>>>> +     - Base amplitude for polar modulation. Lower 6 bits of ASF register.
+>>>>> +       Range :math:`[0, 1/256)`.
+>>>>> +
+>>>>
+>>>> I guess there was some discussion on these attributes. I see some of these in the
+>>>> ad9832 driver in staging, but I'm guessing they are new ABI. It isn't clear to
+>>>> me from the documentation here what they actually do though. I guess they are
+>>>> just basic transformations on the input signal?
+>>>
+>>> Not sure how the ABI is not clear:
+>>>
+>>> 	For a channel that allows amplitude control through buffers, this
+>>> 	represents the value for a base amplitude scale. The actual output
+>>> 	amplitude scale is a result with the sum of this value.
+>>>
+>>> So yes, it is a basic transformation.
+>>
+>> I didn't have time to read the ABI docs yet. For scale_offset though,
+>> how is that different from the existing offset attribute?
 > 
-> The A9 PLL pre-divider uses a division factor of 2^n to ensure a clock
-> duty cycle of 50% after predivision.
-> 
-> Add flag 'CLK_MESON_PLL_N_POWER_OF_TWO' to indicate that the PLL
-> pre-divider division factor is 2^n.
-> 
-> Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+> I suppose that existing offset ABI is applied to (raw * scale), mostly for
+> voltage channels, here the scale_offset is an offset to the scale itself.
 
-Reviewed-by: Brian Masney <bmasney@redhat.com>
+
+Ah, so a very general case would be (raw * (scale + scale_offset)) + offset
+
+when the scale can change as a function of time and comes from an external
+source.
+
+>  
+>>>
+>>>>
+>>>> And a practical note, they should be "frequencyscale". I don't like that it is
+>>>> harder to read, but it is easier for a machine to parse.
+>>>
+>>> Parsers like the ones in libiio is not having problems with that.
+>>>
+>>>>> +Usage examples
+>>>>> +^^^^^^^^^^^^^^
+>>>>> +
+>>>>> +Set parallel port frequency modulation with a scale of 16 and a 50 MHz
+>>>>> +offset:
+>>>>> +
+>>>>> +.. code-block:: bash
+>>>>> +
+>>>>> +  echo 16 > /sys/bus/iio/devices/iio:device0/out_altvoltage113_frequency_scale
+>>>>> +  echo 50000000 > /sys/bus/iio/devices/iio:device0/out_altvoltage113_frequency_offset
+>>>>> +
+>>>>> +Digital ramp generator (DRG)
+>>>>> +----------------------------
+>>>>> +
+>>>>> +The DRG produces linear frequency, phase or amplitude sweeps using dedicated
+>>>>> +hardware. It is controlled through three channels: a parent control channel
+>>>>> +(``digital_ramp_generator``) and two child ramp channels
+>>>>> +(``digital_ramp_up``, ``digital_ramp_down``). DRG destination is set when
+>>>>> +ramp attributes are written, i.e. writing to ``frequency`` or ``frequency_roc``
+>>>>> +sets the destination to frequency.
+>>>>
+>>>> Would it be better to say that the destination is set when the the
+>>>> value is non-zero? Otherwise, how would one change the destination
+>>>> once set?
+>>>
+>>> Destination is only one, so you just need to write phase or phase_roc, if you want
+>>> to target phase then. Does that not sound intuitive?
+>>
+>> I was thinking about if you needed to change the configuration.
+>> If you set it to phase, then want to change it to frequency, how
+>> could you do that if 0 is a valid value for phase?
+>>
+>> Also how could you know which is selected by reading back the
+>> values if 0 is a valid value?
+> 
+> This is where Jonathan raised some concerns, so it is a good oportunity for you
+> to provide your inputs! Right now, I am returning -EBUSY on read of an attribute
+> where its destination is not selected. As pointed out, the destination selection
+> is happening when writting to the attribute. In the previous patch, Jonathan
+> suggested frequency_active, phase_active and scale_active to track mode priority,
+> and It could be leveraged here for DRG destination selection. I havent gone for
+> that because I was not willing to add that to all the channels given that it is
+> mostly used for debugging, so I added frequency_source, phase_source and
+> amplitude_source to debugfs instead.
+
+The "last write wins" with the others changing to EBUSY makes more sense to
+me now. If the docs said that, I missed it. Otherwise, that would be a helpful
+thing to add to the docs here.
+
+> 
+> Destination selection for RAM mode is firmware based at this point.
+
+Seems reasonable.
+
+> Destination selection for Parallel mode is still not clear... could use
+> those *_active attributes or separate channels.
+
+Since there are _offset attributes proposed for parallel input already,
+could we just make it the same where you have to write one of those
+attributes?
+
+> 
+>>>
+>>> Zero is a valid value to be written.
+>>>
+>>>>
+> 
 
