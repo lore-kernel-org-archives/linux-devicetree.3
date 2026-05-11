@@ -1,123 +1,369 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC0D370D6C;
-	Mon, 11 May 2026 11:27:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69860371D15
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 11:27:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778498843; cv=none; b=XmZR31++xC2gku1utMrx9NaKbIhGsbLxXLGTUtZ73nJPURI6S5BC1pbzfvEZmSEyW8G8Gv8OaBMRWuR3cN3Mjxch2QaKvarWru4fxoGpb/gHLa4uxh3DJH0gR7Lf+5pK6Rr9E5yLdBwvdQrcW22Py+hEDU8eNJJNiKQbU8EkRD0=
+	t=1778498868; cv=none; b=JOOm8BhYzq4fLCUUBFVxut4CWftQTz1wEaAZmjAxFv1fbOtDt6w5/yIOWBR26jDxQ44/rRM9N6PkgPw9+rw5+DHZyIrX8o+8mPWJgSf3o/q2NRn/GmKhvH5KOAUieXItzt+wKDVP+SfdWx/oz2bCWnqPzV2PlioNnrqYyWjo0zE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778498843; c=relaxed/simple;
-	bh=S2n25drV7o+i0GWQBkS5bwkU3nNipLDZ3PSumJWDLKc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BgqGIfbYYYreBFCoaxLQxB4K3K1K/0cxAhb6vxFdG6CSX4IcRvZysvhAmJpLV5WGHfuw2VR2oWWqXh/oA7qEER/Kxtz9l/rI5NdA1ZkqfNulMh/QVBIPtl4axBx0btRRQTuOs5afCzChur3qjRi5kYYs/wyF+/UL4pBw6Eqq4oY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Nx3beeKk; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1778498868; c=relaxed/simple;
+	bh=eROQJdvZzpzP6omZV4CYaxT1ro01gZWOXGEjjxJfLDg=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SKyUJpbzdHM4gzO6nGybyJlWjeAv9d5PG1GvYcBYrCjTk3MWOS0r9z1L0CBVfWsFJsxI5Hn8doqFHHYBFtFEBE3GW6hfnnR2y9C2j9l3RKkNLT+sN5nl6Jjvg60BVXHf5Hb2iOUdTY2PKlrPme+wqGYYlZooRiT7G1XFn9z6sFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=u0Qisebm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Nx3beeKk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1778498842; x=1810034842;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=S2n25drV7o+i0GWQBkS5bwkU3nNipLDZ3PSumJWDLKc=;
-  b=Nx3beeKk5BIJaal6XPTEOnI6LoKrcChwampyQEbtudTSs9ImcDhTEmGp
-   PDWUfAsqGDl7rMoJxdyA9+82spzvnSoKfOnvPbsCQTBhcvZuvia6MPkcl
-   hJjZbWnHdobl8KYiFECmQynj5J+O7HKl11HN2o6MsTAyK9LkMUo6vyvB0
-   JHrrzDwQeanr1zO58tCx69eC3d5NxTXDcXMjugfU9yeSr2rgYqI0hYJuC
-   /2eVuFBA19AtcCq5+ZEe9vNaq2edKwiSekDiI3mJHDiur60fKZvcNGO6U
-   R1YfRnWSIVCOnucY0+9YrRL+1K4MFlVxbxQHTmFFqVm6CbbzJlTbfBUmN
-   w==;
-X-CSE-ConnectionGUID: BCHEdPRWRn6TKx5sxmDy1w==
-X-CSE-MsgGUID: UDTk7dMsQb2+trMKbkRN3g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11782"; a="79563615"
-X-IronPort-AV: E=Sophos;i="6.23,228,1770624000"; 
-   d="scan'208";a="79563615"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 May 2026 04:27:21 -0700
-X-CSE-ConnectionGUID: JMn5JZlNS5Wy68eyb0mObA==
-X-CSE-MsgGUID: oHfiZRgLSaud5h7O0argEg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,228,1770624000"; 
-   d="scan'208";a="231037044"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.204])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 May 2026 04:27:18 -0700
-Date: Mon, 11 May 2026 14:27:16 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Piyush Patle <piyushpatle228@gmail.com>
-Cc: ak@it-klinger.de, jic23@kernel.org, dlechner@baylibre.com,
-	nuno.sa@analog.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 11/11] iio: adc: hx711: add support for HX710B
-Message-ID: <agG9FAXXiTKDIEDf@ashevche-desk.local>
-References: <20260510194947.31997-1-piyushpatle228@gmail.com>
- <20260510202657.38326-1-piyushpatle228@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="u0Qisebm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F960C2BCC9
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 11:27:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778498868;
+	bh=eROQJdvZzpzP6omZV4CYaxT1ro01gZWOXGEjjxJfLDg=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc:From;
+	b=u0QisebmC3wF3QsbrB29zEqJaZFBryPw0PYH3Qgps6fXb9lvX/LN4jmohJ05yxDnp
+	 KzRFWKiHgBsr6XCzm2kn4FmDe79zFpgDG9HYBsVbvCMNEtt//EZB01GuX9Ds36RKqU
+	 ODRV7vAIhZClvNKkRUdCCTmzF92cDPJ6psIXYoJxI3xH5vRZulchwhj6aqAu9kKMzS
+	 lW8cBUq8T7aimtlfmDuhOBXTWFqU7DY9174tJvsamHIDXngQNf42FsGaifPIZbgsHF
+	 aTxYlf5y5Sca2JdzATd9olwtIs/5vv/A8tHTz3Qp4TeDf/AEcfNd6JqBXJzDmnCVJY
+	 Mboodu7MlmSug==
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-38e84ed22bdso37521671fa.2
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 04:27:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/aiG5BE/tEW65n9uzCl8FhKOUMNrHgSK6I3uCa0AHvFwW6hZ4lV+81B7Oz41a35rLZFPJAC61h16eh@vger.kernel.org
+X-Gm-Message-State: AOJu0YzFGzOEo4wSeLn4Gp1JfeFG6gDKlSQV7nBDr/ytcUrDR9PS6Oak
+	qq2cZlpdjXUf7iIxrDzVQLalTf9HnfZHi1C9ITKW2Oj9sigcuqWebe77qAHOoDQd590423QIJul
+	ynk+yRCyZqcpCkNycIB9xqWZS4hmSwNU6ZvNxyy+2Pg==
+X-Received: by 2002:a05:6512:acf:b0:5a3:eb4b:37a7 with SMTP id
+ 2adb3069b0e04-5a8b6c9c525mr2447446e87.6.1778498866753; Mon, 11 May 2026
+ 04:27:46 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 11 May 2026 04:27:44 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 11 May 2026 04:27:44 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260507-block-as-nvmem-v2-4-bf17edd5134e@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260510202657.38326-1-piyushpatle228@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260507-block-as-nvmem-v2-0-bf17edd5134e@oss.qualcomm.com> <20260507-block-as-nvmem-v2-4-bf17edd5134e@oss.qualcomm.com>
+Date: Mon, 11 May 2026 04:27:44 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MdOJtb2Jc-qXs3qBG+DGeSx=xmeZ0go9zn3gkyMBFnRCA@mail.gmail.com>
+X-Gm-Features: AVHnY4K8k1k3RamLldv5ZwT4_Dz11oLIMFN3mMB1glD0JB_d179ZxB8TasJQaQQ
+Message-ID: <CAMRc=MdOJtb2Jc-qXs3qBG+DGeSx=xmeZ0go9zn3gkyMBFnRCA@mail.gmail.com>
+Subject: Re: [PATCH v2 4/8] block: implement NVMEM provider
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-block@vger.kernel.org, linux-wireless@vger.kernel.org, 
+	ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org, 
+	netdev@vger.kernel.org, daniel@makrotopia.org, Ulf Hansson <ulfh@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Jens Axboe <axboe@kernel.dk>, Johannes Berg <johannes@sipsolutions.net>, 
+	Jeff Johnson <jjohnson@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
+	Balakrishna Godavarthi <quic_bgodavar@quicinc.com>, Rocky Liao <quic_rjliao@quicinc.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Srinivas Kandagatla <srini@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	Saravana Kannan <saravanak@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, May 11, 2026 at 01:56:55AM +0530, Piyush Patle wrote:
-> Add support for the AVIA HX710B ADC, which shares the HX711 GPIO
-> interface but uses trailing PD_SCK pulses to select the active mode.
-> 
-> Model the HX710B with variant-specific channel tables and IIO info,
-> track the active channel across conversions, and use the fixed gain
-> value when computing scale.
-> 
-> Also update the adjacent Kconfig text, file header, and module
-> description so the driver text matches the newly supported variant.
+On Thu, 7 May 2026 17:24:39 +0200, Loic Poulain
+<loic.poulain@oss.qualcomm.com> said:
+> From: Daniel Golle <daniel@makrotopia.org>
+>
+> On embedded devices using an eMMC it is common that one or more partitions
+> on the eMMC are used to store MAC addresses and Wi-Fi calibration EEPROM
+> data. Allow referencing the partition in device tree for the kernel and
+> Wi-Fi drivers accessing it via the NVMEM layer.
+>
+> To safely defer the freeing of the provider private data until all
+> consumers have released their cells, a nvmem_dev() accessor is added to
+> the NVMEM core to expose the struct device embedded in struct nvmem_device.
+> This allows registering a devm action on the nvmem device itself, ensuring
+> the private data outlives any active cell references.
+>
+> Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+> Co-developed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> ---
 
 ...
 
->  #include <linux/slab.h>
->  #include <linux/sched.h>
+> diff --git a/block/blk-nvmem.c b/block/blk-nvmem.c
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..96c0ffc51b1862a75644f3f94add35d59577d86b
+> --- /dev/null
+> +++ b/block/blk-nvmem.c
+> @@ -0,0 +1,188 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * block device NVMEM provider
+> + *
+> + * Copyright (c) 2024 Daniel Golle <daniel@makrotopia.org>
+> + *
+> + * Useful on devices using a partition on an eMMC for MAC addresses or
+> + * Wi-Fi calibration EEPROM data.
+> + */
+> +
+> +#include "blk.h"
 
->  #include <linux/delay.h>
-> +#include <linux/types.h>
+Local includes typically go after system-wide ones. I thought that maybe it's
+a block subsystem thing but no, it too goes after here.
 
-Seems wrong order.
+> +#include <linux/nvmem-provider.h>
+> +#include <linux/nvmem-consumer.h>
+> +#include <linux/of.h>
+> +#include <linux/pagemap.h>
+> +#include <linux/property.h>
+> +
+> +static void blk_nvmem_free(void *data)
+> +{
+> +	kfree(data);
+> +}
+> +
+> +/* List of all NVMEM devices */
+> +static LIST_HEAD(nvmem_devices);
+> +static DEFINE_MUTEX(devices_mutex);
+> +
+> +struct blk_nvmem {
+> +	struct nvmem_device	*nvmem;
+> +	dev_t			devt;
+> +	bool			removed;
+> +	struct list_head	list;
+> +};
+> +
+> +static int blk_nvmem_reg_read(void *priv, unsigned int from,
+> +			      void *val, size_t bytes)
+> +{
+> +	blk_mode_t mode = BLK_OPEN_READ | BLK_OPEN_RESTRICT_WRITES;
+> +	unsigned long offs = from & ~PAGE_MASK, to_read;
+> +	pgoff_t f_index = from >> PAGE_SHIFT;
+> +	struct blk_nvmem *bnv = priv;
+> +	size_t bytes_left = bytes;
+> +	struct file *bdev_file;
+> +	struct folio *folio;
+> +	void *p;
+> +	int ret = 0;
+> +
+> +	if (bnv->removed)
+> +		return -ENODEV;
+> +
+> +	bdev_file = bdev_file_open_by_dev(bnv->devt, mode, priv, NULL);
+> +	if (!bdev_file)
+> +		return -ENODEV;
+> +
+> +	if (IS_ERR(bdev_file))
+> +		return PTR_ERR(bdev_file);
+> +
+> +	while (bytes_left) {
+> +		folio = read_mapping_folio(bdev_file->f_mapping, f_index++, NULL);
+> +		if (IS_ERR(folio)) {
+> +			ret = PTR_ERR(folio);
+> +			goto err_release_bdev;
+> +		}
+> +		to_read = min_t(unsigned long, bytes_left, PAGE_SIZE - offs);
+> +		p = folio_address(folio) + offset_in_folio(folio, offs);
+> +		memcpy(val, p, to_read);
+> +		offs = 0;
+> +		bytes_left -= to_read;
+> +		val += to_read;
+> +		folio_put(folio);
+> +	}
+> +
+> +err_release_bdev:
+> +	fput(bdev_file);
+> +
+> +	return ret;
+> +}
+> +
+> +static int blk_nvmem_register(struct device *dev)
+> +{
+> +	struct device_node *np = dev_of_node(dev);
+> +	struct block_device *bdev = dev_to_bdev(dev);
+> +	struct nvmem_config config = {};
+> +	struct blk_nvmem *bnv;
+> +
+> +	/* skip devices which do not have a device tree node */
+> +	if (!np)
+> +		return 0;
+> +
+> +	/* skip devices without an nvmem layout defined */
+> +	if (!of_get_child_by_name(np, "nvmem-layout"))
+> +		return 0;
+> +
+> +	/*
+> +	 * skip block device too large to be represented as NVMEM devices
+> +	 * which are using an 'int' as address
+> +	 */
+> +	if (bdev_nr_bytes(bdev) > INT_MAX)
+> +		return -EFBIG;
+> +
+> +	bnv = kzalloc_obj(*bnv);
+> +	if (!bnv)
+> +		return -ENOMEM;
+> +
+> +	config.id = NVMEM_DEVID_NONE;
+> +	config.dev = &bdev->bd_device;
+> +	config.name = dev_name(&bdev->bd_device);
+> +	config.owner = THIS_MODULE;
+> +	config.priv = bnv;
+> +	config.reg_read = blk_nvmem_reg_read;
+> +	config.size = bdev_nr_bytes(bdev);
+> +	config.word_size = 1;
+> +	config.stride = 1;
+> +	config.read_only = true;
+> +	config.root_only = true;
+> +	config.ignore_wp = true;
+> +	config.of_node = to_of_node(dev->fwnode);
+> +
+> +	bnv->devt = bdev->bd_device.devt;
+> +	bnv->nvmem = nvmem_register(&config);
+> +	if (IS_ERR(bnv->nvmem)) {
+> +		dev_err_probe(&bdev->bd_device, PTR_ERR(bnv->nvmem),
+> +			      "Failed to register NVMEM device\n");
+> +
+> +		kfree(bnv);
+> +		return PTR_ERR(bnv->nvmem);
+> +	}
+> +
+> +	/*
+> +	 * Free bnv only when the nvmem device is fully released (i.e. when
+> +	 * its kref hits zero), not at unregister time. This prevents a
+> +	 * use-after-free if a consumer still holds an nvmem_cell reference
+> +	 * when the block device is removed: nvmem_unregister() only does a
+> +	 * kref_put(), so reg_read could still be called with bnv as priv
+> +	 * until the last consumer drops its cell.
+> +	 */
+> +	if (devm_add_action(nvmem_dev(bnv->nvmem), blk_nvmem_free, bnv)) {
+> +		nvmem_unregister(bnv->nvmem);
+> +		kfree(bnv);
+> +		return -ENOMEM;
+> +	}
 
-And here + blank line to make linux/iio/* to be a separate group.
+Please take a look at the series[1] I sent, it seems to address this issue at
+the nvmem core level. Help reviewing it is appreciated. :)
 
->  #include <linux/iio/iio.h>
->  #include <linux/iio/sysfs.h>
->  #include <linux/iio/buffer.h>
+In any case: I don't think it will work the way you intend it to: the devres
+action will be executed when the nvmem device is "unbound" not when it's
+"released". Not only that but the device you retrieve here is not the "parent"
+device that's actually bound to the driver but the "logical" nvmem device, the
+nvmem core creates to back the struct nvmem_device's functionality and reference
+counting. In other words: I believe the devres action will never be called.
 
-...
+In general, it's a very bad idea to schedule devres actions on devices you
+don't control and in context different than at probe() time.
 
->  	/*
->  	 * triggered buffer
-> -	 * 2x32-bit channel + 64-bit naturally aligned timestamp
-> +	 * up to 3x32-bit channels + 64-bit naturally aligned timestamp
-> +	 *
-> +	 * aligned_s64 satisfies the 8-byte alignment requirement for the
-> +	 * timestamp. For HX711 (at most 2 active channels), iio_push_to_
-> +	 * buffers_with_timestamp() places the timestamp at offset 8
-> +	 * (scan_bytes=8, already 8-byte aligned), identical to the original
-> +	 * 2-channel layout. The extra channel slot for HX710B does not affect
-> +	 * the HX711 ABI.
->  	 */
->  	struct {
-> -		u32 channel[2];
-> +		u32 channel[3];
->  		aligned_s64 timestamp;
->  	} buffer;
+> +
+> +	mutex_lock(&devices_mutex);
+> +	list_add_tail(&bnv->list, &nvmem_devices);
+> +	mutex_unlock(&devices_mutex);
+> +
+> +	return 0;
+> +}
+> +
+> +static void blk_nvmem_unregister(struct device *dev)
+> +{
+> +	struct blk_nvmem *bnv_c, *bnv = NULL;
+> +
+> +	mutex_lock(&devices_mutex);
+> +	list_for_each_entry(bnv_c, &nvmem_devices, list) {
+> +		if (bnv_c->devt == dev_to_bdev(dev)->bd_device.devt) {
+> +			bnv = bnv_c;
+> +			break;
+> +		}
+> +	}
+> +
+> +	if (!bnv) {
+> +		mutex_unlock(&devices_mutex);
+> +		return;
+> +	}
+> +
+> +	list_del(&bnv->list);
+> +	mutex_unlock(&devices_mutex);
+> +	bnv->removed = true;
+> +	nvmem_unregister(bnv->nvmem);
+> +}
+> +
+> +static struct class_interface blk_nvmem_bus_interface __refdata = {
+> +	.class = &block_class,
+> +	.add_dev = &blk_nvmem_register,
+> +	.remove_dev = &blk_nvmem_unregister,
+> +};
+> +
+> +static int __init blk_nvmem_init(void)
+> +{
+> +	int ret;
+> +
+> +	ret = class_interface_register(&blk_nvmem_bus_interface);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+> +device_initcall(blk_nvmem_init);
+> diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
+> index 311cb2e5a5c02d2c6979d7c9bbb7f94abdfbdad1..ee3481229c20b3063c86d0dd66aabbf6b5e29169 100644
+> --- a/drivers/nvmem/core.c
+> +++ b/drivers/nvmem/core.c
+> @@ -2154,6 +2154,19 @@ const char *nvmem_dev_name(struct nvmem_device *nvmem)
+>  }
+>  EXPORT_SYMBOL_GPL(nvmem_dev_name);
+>
+> +/**
+> + * nvmem_dev() - Get the struct device of a given nvmem device.
+> + *
+> + * @nvmem: nvmem device.
+> + *
+> + * Return: pointer to the struct device of the nvmem device.
+> + */
+> +struct device *nvmem_dev(struct nvmem_device *nvmem)
+> +{
+> +	return &nvmem->dev;
+> +}
+> +EXPORT_SYMBOL_GPL(nvmem_dev);
+> +
 
-Why can't we used a recently introduced macro for this?
-IIO_DECLARE_BUFFER_WITH_TS().
+That should be done in a separate patch but see my response above.
 
--- 
-With Best Regards,
-Andy Shevchenko
+>  /**
+>   * nvmem_dev_size() - Get the size of a given nvmem device.
+>   *
+> diff --git a/include/linux/nvmem-consumer.h b/include/linux/nvmem-consumer.h
+> index 34c0e58dfa26636d2804fcc7e0bc4a875ee73dae..ce387c89dc8e4bc1241f3b6f36be8c6c95e282ed 100644
+> --- a/include/linux/nvmem-consumer.h
+> +++ b/include/linux/nvmem-consumer.h
+> @@ -82,6 +82,7 @@ int nvmem_device_cell_write(struct nvmem_device *nvmem,
+>
+>  const char *nvmem_dev_name(struct nvmem_device *nvmem);
+>  size_t nvmem_dev_size(struct nvmem_device *nvmem);
+> +struct device *nvmem_dev(struct nvmem_device *nvmem);
+>
+>  void nvmem_add_cell_lookups(struct nvmem_cell_lookup *entries,
+>  			    size_t nentries);
+> @@ -220,6 +221,11 @@ static inline const char *nvmem_dev_name(struct nvmem_device *nvmem)
+>  	return NULL;
+>  }
+>
+> +static inline struct device *nvmem_dev(struct nvmem_device *nvmem)
+> +{
+> +	return NULL;
+> +}
+> +
+>  static inline void
+>  nvmem_add_cell_lookups(struct nvmem_cell_lookup *entries, size_t nentries) {}
+>  static inline void
+>
+> --
+> 2.34.1
+>
+>
 
+Thanks,
+Bartosz
 
+[1] https://lore.kernel.org/all/20260429-nvmem-unbind-v3-0-2a694f95395b@oss.qualcomm.com/
