@@ -1,112 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEFCC3BA236
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 08:48:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A97F2D9ECA;
+	Mon, 11 May 2026 08:50:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778489313; cv=none; b=aqdCUVKzlg7r4yTFR9Dp4tygBy3OyxPeItPEa05YibmQ0DOUG1dxtHZJsZ4kB/C8vQ5Spf+DGpPbaxAuPw+xx/JzW+K2mznEjBSnpCF25u2KgwsB0GY6pQUSKE0vf/3e7BBzh6mihLGfWUI2Li9P5y4aAbE4UueMI7EowLyHB/E=
+	t=1778489436; cv=none; b=LD0wzNnYyXTlItAgYqaSK+WIi/uxymxVo72OAGaYz7qCLyuJyztc6DFu+hN88gzXod4JMYD/ly3ikL34ZJfUMOUfkprHrq1JLLl+Ixc/xucpwzudjlblg/hbtwMivL/ql655rz0xIlkhHFSqoR51QWNDtzUhy2eDS0Fmx8oTRiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778489313; c=relaxed/simple;
-	bh=FS9Vcj76U9RM5XIubOjoexo/Q66e6Qb8ezAJTR8qo6Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=X/9bg+4mTCOcjQxQDkiW54Bjge9JMl+9uv9vr9zDM+a0UbU6i7oKgVuJhFia0wo+cDRJibDM2lEOokGV/MoDGS4L+Y7jrRnM230WvLmssls7V0Ugi65L8hfFagHBT+g7P+EPrLpDvld1yG8WDMuJ832Xlm4iGF4hCa4HARNYSeY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BkFL70sk; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778489436; c=relaxed/simple;
+	bh=cRNS8O4aEUgVLd0JWYbG1HN1/tndkrWGyE6fOjt21b0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EADM257oK3UesFwewvncPPscvOcgwReXoNmI0BFS5CbcGWQ3nemmvjws/ZjLVaIAamQR2ZCzGlFsn04piKXUjaKS7PWTZX+vtfpciNG8UEqkUlOp1hp1vFvNiWVGvjps54DNfZAY+lMbwagzAZsriY2ssecJk6oAQh0ABPhhy7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=LOsTO+eQ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=pDcOPxMi; arc=none smtp.client-ip=202.12.124.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BkFL70sk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D222C2BD04
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 08:48:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778489313;
-	bh=FS9Vcj76U9RM5XIubOjoexo/Q66e6Qb8ezAJTR8qo6Y=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=BkFL70skeyMsxsAPovmmjWva/uA7ul3y+pIyc0IbC5Z6jp+X3h/7vsK1rfwOWZwPg
-	 yyof2+cc+0ChQ2ZmGzBckVM4Lho265t0+jpyzOhL0Z85yUbVdXmfJmgY+XWgfVuLx2
-	 XSMQHZ1SPx0FS7PtT6I/Kxdzu1DH/0TiUQvlV1AXSKc5p5bPkLemRqecW64jPWpgUX
-	 zorFbUkVKMMpZZClvBqYJNyNSAFy401fOr/YeNklUYQUHH0RP2e73Asc+fHm7CsYUZ
-	 lMVq0GCD6y86ofaHEztAM0IGwcsCFYuAtc+pTYuzFC128zk8vnCp1QfpB695rL+9Jg
-	 uZ3GOxabECP7A==
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5a40d02b58bso2945576e87.3
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 01:48:33 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9nHdpCDZJwbGhJYwjHwsDCys7zgIZYMC7WAbdLXhVxuuzRkMvhLwiRmx/xYDcKlKKkLoPSuSONssna@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywy7k9wtTYRkttAMdGOie5vHacWvbpr5M/Ai78+dLeD0gJzngEQ
-	HxdBD2T9BAdqer/UUrSuQYKlN+3b6MOsiN3TRX3VHqY8hb7wVb9J2CuisI+4VdNxXNIVxTP51bQ
-	WckgAtgMbu6JuluHMXIYz0ukZLzqJuBw=
-X-Received: by 2002:a05:6512:304b:b0:5a8:6e64:a932 with SMTP id
- 2adb3069b0e04-5a887cea7efmr9393309e87.32.1778489312120; Mon, 11 May 2026
- 01:48:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="LOsTO+eQ";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="pDcOPxMi"
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 430FA7A00CE;
+	Mon, 11 May 2026 04:50:32 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-10.internal (MEProxy); Mon, 11 May 2026 04:50:32 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm2; t=1778489432; x=1778575832; bh=jt9ibOwOB5
+	ZgDpl28+OU1PXCAn8QfJTRE4dkW9Vb3BA=; b=LOsTO+eQtpe3r741xaLkVQzRQd
+	qFVi7ShFZm3E9V4HVFTs2engBB1peCRCTkcsD0yraXQwlRMRKu4s6BvVSBH3pnAo
+	lpXTkMOxwHc++Yu1ePbtlTaWQXmYPLe4znOEnY1PBhwhQ107noiprFPjxFsjWwzs
+	MatNSiXRgMR0sSQVyPkamJdYyaSMl5YxRSPXYuXvfCWNEEHbROVwO3vTaReMABXJ
+	X0gYjzJxzEi+1dlZuovbWAhXEiA0D2oxudPXC40mWUm4b19e7+iFx/40Fa3l3YvC
+	yl57CbxbGqinwINz7roMlvZuOtsEWa0cVFu7NmeeTojctnKREDXtVBIWIR9A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1778489432; x=1778575832; bh=jt9ibOwOB5ZgDpl28+OU1PXCAn8QfJTRE4d
+	kW9Vb3BA=; b=pDcOPxMiiP5ruo2XWMZgzDesICesNWrkVL88okIX5UV3Kt+RM2Y
+	z5zSlB27DO1Mj8/6VZGL81Y2QIPQs+78SPS+aQg/rJTvgIGEsr8Q0iGkGQyvugKp
+	2v5jYFBuAp6dkiTUy7bmJjN4L4jyXWQjMN3QJuAlfIxvMVKc+67e+QqXWaEeFnVl
+	56dY+NJL2BJKGZF2i3Kmr7jk+yXva6vD9F1qmtubeWpLtCroJrtR2T8E3ZRIs7if
+	PdiXC6DUIIjx97YhuQxrs3eb4N2l51zKPSxYN2/FrzkNoKxWLFRObaGXAWa8Icut
+	gTPns1BTdlFdxPEwa35mnsqKYwalSxsPwRw==
+X-ME-Sender: <xms:VpgBanUU0ztE6Rg-LnfF-nLj1cnzfS7IVx_pJfHwnrFunw2lLxjcVA>
+    <xme:VpgBaniKE3NTpGwNZJ7FrgQTac17ZUp80KiEjJu-T9yLVtwm5PK87KWrfCVGw1aDE
+    JeLWDinbwjVeGkuqSLAN8Ddva10mmyA4V5rcZf1j4boMlSC6OHV5Lst>
+X-ME-Received: <xmr:VpgBaqnO_1mo6YLpCVnG5FVMhaiuWArMrQjGIVkhgDObhcOFK40MwaajL9o0Rf1jMVMgp-RV8DjBsvZTmUi22EQFtzOKq8Iwi7k>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdduudekhedvucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+    gurhepfffhvfevuffkfhggtggujgesthdtredttddtjeenucfhrhhomheplfgrnhhnvgcu
+    ifhruhhnrghuuceojhesjhgrnhhnrghurdhnvghtqeenucggtffrrghtthgvrhhnpefgud
+    euffelfeekgeeukedtheekjeettdfftddujefhvdehtefgiefgledtueefjeenucffohhm
+    rghinhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrg
+    hmpehmrghilhhfrhhomhepjhesjhgrnhhnrghurdhnvghtpdhnsggprhgtphhtthhopedu
+    kedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheplhhinhhugiesrhhovggtkhdquh
+    hsrdhnvghtpdhrtghpthhtoheprhhosghhsehkvghrnhgvlhdrohhrghdprhgtphhtthho
+    pehkrhiikhdoughtsehkvghrnhgvlhdrohhrghdprhgtphhtthhopegtohhnohhrodguth
+    eskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheplhhpihgvrhgrlhhishhisehkvghrnhgv
+    lhdrohhrghdprhgtphhtthhopehsvhgvnheskhgvrhhnvghlrdhorhhgpdhrtghpthhtoh
+    epnhgvrghlsehgohhmphgrrdguvghvpdhrtghpthhtohepfihimheslhhinhhugidqfigr
+    thgthhguohhgrdhorhhgpdhrtghpthhtohepkhgvthhtvghnihhssehophgvnhgsshgurd
+    horhhg
+X-ME-Proxy: <xmx:VpgBaowxRkzlJZKgC0vwY4hQTbKM6iO9ervrzIr7KLryQ_5A28NGLg>
+    <xmx:VpgBatsyZlEk804I0LAQVVS7ia5EDKHFyp4-Pwjhw_6Lll0JE7F-MQ>
+    <xmx:VpgBaluhzmo_aN5ikDHnpeRe43hbMSuaKNGZGj4O_BkZY4gVVXhBJA>
+    <xmx:VpgBajlqNeNxTrn4oktYtSPno1O2oZ3jnjrBdX7XdqiF7qzUmQk8hA>
+    <xmx:WJgBavb1dT_Lmt3FGxmTxuK4B-v82xNwO1Npg8Xu56yNR40CrKn5tpUQ>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 11 May 2026 04:50:30 -0400 (EDT)
+Date: Mon, 11 May 2026 10:50:28 +0200
+From: Janne Grunau <j@jannau.net>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Mark Kettenis <kettenis@openbsd.org>,
+	Sasha Finkelstein <k@chaosmail.tech>,
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-watchdog@vger.kernel.org, linux-pwm@vger.kernel.org,
+	Joshua Peisach <jpeisach@ubuntu.com>
+Subject: Re: [PATCH v3 2/5] dt-bindings: watchdog: apple,wdt: Add t8122
+ compatible
+Message-ID: <20260511085028.GA192358@robin.jannau.net>
+References: <20260507-apple-m3-initial-devicetrees-v3-0-ca07c81b5dc7@jannau.net>
+ <20260507-apple-m3-initial-devicetrees-v3-2-ca07c81b5dc7@jannau.net>
+ <85ea46a7-1136-4ea0-9eec-7dfa465df20b@roeck-us.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260504131148.3622697-1-khristineandreea.barbulescu@oss.nxp.com>
- <20260504131148.3622697-7-khristineandreea.barbulescu@oss.nxp.com>
- <CAD++jLnk4q7L_cFzz+1gKkAqwhv=TW1_XSepuii7b_PHF7EPqQ@mail.gmail.com> <704e9e7b-0f45-4ed3-a686-9e20056eab2a@oss.nxp.com>
-In-Reply-To: <704e9e7b-0f45-4ed3-a686-9e20056eab2a@oss.nxp.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 11 May 2026 10:48:18 +0200
-X-Gmail-Original-Message-ID: <CAD++jLk-7UqjCsM4jCdRmBMMaNNXe8Gi_E00fJ_MRMsEGQcMZQ@mail.gmail.com>
-X-Gm-Features: AVHnY4Jgw80MuyK4ZGcKlHCdHrHAFZ3YKz8oTwazlDM_Kdt2Svy6qUsv6clMxog
-Message-ID: <CAD++jLk-7UqjCsM4jCdRmBMMaNNXe8Gi_E00fJ_MRMsEGQcMZQ@mail.gmail.com>
-Subject: Re: [PATCH v9 6/7] pinctrl: s32cc: implement GPIO functionality
-To: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.com>
-Cc: Linus Walleij <linus.walleij@linaro.org>, Bartosz Golaszewski <brgl@bgdev.pl>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>, 
-	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>, Larisa Grigore <larisa.grigore@nxp.com>, 
-	Lee Jones <lee@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Dong Aisheng <aisheng.dong@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Srinivas Kandagatla <srini@kernel.org>, Alberto Ruiz <aruizrui@redhat.com>, 
-	Christophe Lizzi <clizzi@redhat.com>, devicetree@vger.kernel.org, 
-	Enric Balletbo <eballetb@redhat.com>, Eric Chanudet <echanude@redhat.com>, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, NXP S32 Linux Team <s32@nxp.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Vincent Guittot <vincent.guittot@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <85ea46a7-1136-4ea0-9eec-7dfa465df20b@roeck-us.net>
 
-On Fri, May 8, 2026 at 11:07=E2=80=AFAM Khristine Andreea Barbulescu
-<khristineandreea.barbulescu@oss.nxp.com> wrote:
+On Sun, May 10, 2026 at 08:29:39AM -0700, Guenter Roeck wrote:
+> On Thu, May 07, 2026 at 09:33:08AM +0200, Janne Grunau wrote:
+> > The watchdog on the Apple silicon t8122 (M3) SoC is compatible with the
+> > existing driver. Add "apple,t8122-wdt" as SoC specific compatible under
+> > "apple,t8103-wdt" used by the driver.
+> 
+> '"apple,t8103-wdt" used by the driver' is not true. The watchdog driver
+> only supports "apple,wdt".
 
->I don't think the current driver is a good fit for
-> a full gpio-regmap conversion. Direction and GPIO mux are
-> handled through MSCR/pinctrl state (IBE/OBE/SSS), and the GPIO
-> logic spans multiple register regions across two SIUL2 instances.
+It slipped my mind that
+https://lore.kernel.org/linux-watchdog/20251231-watchdog-apple-t8103-base-compat-v1-1-1702a02e0c45@jannau.net/
+wasn't picked up yet.
 
-I don't see the problem with that?
+> 
+> > 
+> > Acked-by: Rob Herring (Arm) <robh@kernel.org>
+> > Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
+> > Reviewed-by: Neal Gompa <neal@gompa.dev>
+> > Signed-off-by: Janne Grunau <j@jannau.net>
+> > ---
+> >  Documentation/devicetree/bindings/watchdog/apple,wdt.yaml | 4 +++-
+> >  1 file changed, 3 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml b/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
+> > index 05602678c070..845b5e8b5abc 100644
+> > --- a/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
+> > +++ b/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
+> > @@ -16,7 +16,9 @@ properties:
+> >    compatible:
+> >      oneOf:
+> >        - items:
+> > -          - const: apple,t6020-wdt
+> > +          - enum:
+> > +              - apple,t6020-wdt
+> > +              - apple,t8122-wdt
+> >            - const: apple,t8103-wdt
+> >        - items:
+> >            - enum:
+> 
+> I second Sashiko's findings that the driver will fail to bind because it
+> only supports "apple,wdt". I would not mind and apply the patch anyway,
+> but the statement in the description is just plain wrong and thus
+> misleading. Please fix.
 
-> A conversion would require stronger separation between
-> GPIO and pinctrl, leaving mux restoration entirely
-> to the pinctrl subsystem.
+I would prefer if the addition of the "apple,t8103-wdt" to the driver is
+picked.
 
-Why is that so? Sorry I don't get the problem here.
+Thanks,
 
-The pinmux operations have these callbacks:
-
-static const struct pinmux_ops s32_pmx_ops =3D {
-(...)
-        .gpio_request_enable =3D s32_pmx_gpio_request_enable,
-        .gpio_disable_free =3D s32_pmx_gpio_disable_free,
-        .gpio_set_direction =3D s32_pmx_gpio_set_direction,
-};
-
-So to me it looks like the pinctrl subsystem is *already*
-handling all the muxing of GPIO lines in these
-callbacks?
-
-> Would it be reasonable to keep the current approach for now
-> and revisit gpio-regmap later if needed?
-
-I'd prefer that you look into it now while you already
-have all the information at hand and fresh in your mind.
-
-You can forward my comments to your project lead
-/ JIRA instance and say it's Linus' fault you have to spend
-more time on this right now.
-
-Yours,
-Linus Walleij
+Janne
