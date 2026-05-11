@@ -1,121 +1,139 @@
-Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C637044D6BD
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 16:31:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68AF6472771;
+	Mon, 11 May 2026 16:34:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778517078; cv=none; b=kEPluNpotYHAZdK7EGCPh+q7rYNSgSgjcXvP0VR5JskCsgVfdB2PsePA5x9q0+rckRfkB4zGMD7iym3epFXdbrCQhSG0lKDko2bCmR2Vx7M000kUDFGsrDiLt7HhRFNgRH9dIMdUdWiU/F7T+iqI/FOjK6bvDzv//OF2icW4t80=
+	t=1778517248; cv=none; b=k1zR5nxRILWgE8J7lNML6tODFPlFyalri4vGneraslxFT8a8XidDz0eCI6jw09xTIGWm+8xJtolTW8sj3goXQwSkjRnoZJKF/rzgbcAlJNcd+W+t5JESmOYgYi9ARbi/XvGxK02HxAie1JOm6tKOK79HEw0V0g44adG3rQ8MbI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778517078; c=relaxed/simple;
-	bh=IIU8wUeI0jxb5eXBdhbsfaDmibH8CEW4NJmO2Li21A8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f4rNyo4+3GxJCJAOd7NBbgCRKYf5Oe8QW4Ji8UR8pzI6Ry2n3Na6EdrNSjBPReN3Dg1uGzn8bm3kSvEMeo45cIfGcDD2lzKCoGq/cHY5qu34iZKU0AfIT50DHB5JbxIe2asmYIF9r5Gz9IQQkKTFK2fNpBP9A9qPV2+LGdXvJnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=HtNQXA+F; arc=none smtp.client-ip=209.85.160.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1778517248; c=relaxed/simple;
+	bh=ylz1oiPhtoKBMsOdw8S6ulCdAQFgME1WIIPYHlvBdSc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M741WsUjknAyvnrhg7D+NbOk0NCbjkPYKJ2qfY/ah4EQKue3YH9z57VC+/g+2CwaDZiFsXyhE+nHKUBE5UAegv2jXlhyvSNgqrHuC2wpdttcV1+M4BMhZveBztHeMnSNEZZ8+vquWCpZH9AZMrgmKuS/Sa0h4GeaNcdQYlghuD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RYG9YS7M; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="HtNQXA+F"
-Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-435428c81a3so2302820fac.1
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 09:31:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1778517076; x=1779121876; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=EM/LUQ0z5ULIMOKs55kf8JAOorhzQl2aX18pg5yn5XQ=;
-        b=HtNQXA+Fd+oMYulYia/J89/TYMJzXVgqIacHucQUi92FfqpG7GHLxHqv4pOuHspCYj
-         K4BixEYYBdXYCUe1/qkZGdySdaDLB8SyhIHcBe4boJ0RVULrV855cMmv3Yrsb/DKSF27
-         IhqE6mKNkjnuSHs4BkOGUokvqFh1EMiCDwK0FREQt4O8jkKiRRkuvL1hmDmfNY+qmuVz
-         4V24EkbnFoy1peSh363VnhN8wZC0zrDDWv4mkJ6ktB0F15f3QC6Qy8lnVGwZU8PUC19f
-         MQwqMszkSKfeyj+ECC3elhNrrlZyrcAd90nDX7NXPgfaD8yzTmbKwcsVtw8f57qKIog2
-         eA2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778517076; x=1779121876;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=EM/LUQ0z5ULIMOKs55kf8JAOorhzQl2aX18pg5yn5XQ=;
-        b=VOHadR5gplCgXwompSYcaKCk81sNG1/ZFt1jwl2K2tUQTTFyGGPGUP5CVhNA7eRUEz
-         OJEWCeL4DUeFMAim2rpTpsnY8/XMCm0bsKnQxpuWK5t5+8WdSLp2Y+XH/9uaRaXgFMki
-         iI3xUSQ3Xme1xG0RdObadoNa+bjgrz1VdNUJghyXuWxJMv5toYiP/BWE4EF0xNA79+nf
-         aaZbxAMezV5aM4CIVPkRjAYv2t8nCH++a7ewahPLGF8qwAcsvDVL6fjinL5r8wMvxhBz
-         GsLArMhKGMIinJh+xpPnkZSf+QZk9VtGzyyAPfdhmbqThiRY8bTosUfmIq7FHL2dN5G/
-         zzxg==
-X-Forwarded-Encrypted: i=1; AFNElJ+8oCW1bREgB2oOqekARqjUalCb6aKI90GQ+vgvHT9fjXTu3200487LTK2uy0Lr/WvvtN0fqer1saq2@vger.kernel.org
-X-Gm-Message-State: AOJu0YxKxAWTnL8sVV2qx4y9WiEO/Kugqp1ynBdO3t+ch+s1qxpRamwp
-	X6slHIJJgi5XWfjssXmxcEexIQodwFvvlvYi+YAvOsw07zI0a24vPWSDG64I07R9bo8=
-X-Gm-Gg: Acq92OGFRKhm1yW60D4w/1ab9hd/v2ipMsLyBF3ag9hENWNPjFLvJmXbfv0kyWilnWK
-	4xJyWy0jE8dRI6x45FhslXMXewzThWNC4qC/Kp37ALk391CktkB4oDbWKdPJSgSrMiQWXBRImSQ
-	pqIHA9kGfmTQmVYJH0GIGxci3nhHGshpHPy5uvBL3mfm0jpBDfDAJ6u/mmhuF9W5P0DDe774uI+
-	IRMmFjFtJV4709FcdEc1yh/oHVFiJesKRh9NsLrarGWOiw9oU7PbyLF5FzJcC8AITIxiA4JnM2x
-	2x29JaN01rOUaZDaek23PyYHdnhlxhYczFs/1YJbONLTybeZHBrjeOT7BC0VgEAiiI7BxfA4q1Z
-	ZoDRyn3Ual6IInJY+iwuKwfJZqxfIn3GQ71qzf63tJJhc0iIEFJdkxHquKypGShOAYNHuztWGX8
-	26jSeVLW/K8B9c5I3SKgckz/gemhn9rwuiUIm9FW4I4MeSPGn0daPAmWB8qAxnIrUjFBkgaNU=
-X-Received: by 2002:a05:6870:242:b0:430:2b69:8e9a with SMTP id 586e51a60fabf-43556b27e81mr8020446fac.5.1778517074483;
-        Mon, 11 May 2026 09:31:14 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:591:4577:3439:3a1e? ([2600:8803:e7e4:500:591:4577:3439:3a1e])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-435570ad8f4sm10106250fac.4.2026.05.11.09.31.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 11 May 2026 09:31:13 -0700 (PDT)
-Message-ID: <f9469c48-ea67-4106-a577-4818cf3dd51d@baylibre.com>
-Date: Mon, 11 May 2026 11:31:13 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RYG9YS7M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1B37C2BCC9;
+	Mon, 11 May 2026 16:34:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778517248;
+	bh=ylz1oiPhtoKBMsOdw8S6ulCdAQFgME1WIIPYHlvBdSc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=RYG9YS7MrteGT1RlB+bEstA5kHW0D78F1ldj3UaIvplq6TQClpeMn0K2VYwKHXVHF
+	 IAoPbUL0/LvPty3d7DovyKMpScfya3e91/n9wQozdm8cwho2urIakok9xyHFrIhwfr
+	 r9EyuYAkCUuGvwnxhKsGNwkB/g2WWtJiUY7ImkAYptjlw9IXqT/dZ3cMv4irGDAAzi
+	 VvoS+luWIZ4NPIcVF1KQ2wA/42/5lhYI/+5SPutWYuITyNhJKjbVHjbYoAn/RKgtHN
+	 XgFlm9TNo6KfYRST9RSl7A8oTGDBP8rmdwv82mKmNysSZMR4frumDULvhzL3Vj8YqC
+	 vuHbXaKpMRDxQ==
+Date: Mon, 11 May 2026 17:34:03 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+Cc: linux-sunxi@lists.linux.dev, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Andre Przywara <andre.przywara@arm.com>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] dt-bindings: arm: sunxi: Add Baijie HelperBoard
+ A133 compatible
+Message-ID: <20260511-startup-subside-343d9f8352f4@spud>
+References: <20260510201644.4143710-1-alexander.sverdlin@gmail.com>
+ <20260510201644.4143710-3-alexander.sverdlin@gmail.com>
+ <20260511-stock-elitism-f1f703bee1a3@spud>
+ <d51ab76d9f658aad542fa24651d1083e31628038.camel@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/1] dt-bindings: iio: adc: add AD7816/AD7817/AD7818
- binding
-To: Denny Lin <dennylin0707@gmail.com>
-Cc: lars@metafoo.de, Michael.Hennerich@analog.com, jic23@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- nuno.sa@analog.com, andy@kernel.org, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260509022718.82957-1-dennylin0707@gmail.com>
- <20260509022718.82957-2-dennylin0707@gmail.com>
- <f6e2a4de-4c1d-46ef-b383-db62091fd0f4@baylibre.com>
- <CAGEkeHfeZWi99TMvkXHhMSrUS8PshuekqjszBXaS39VsLUZ4eA@mail.gmail.com>
- <3493d6ef-5f02-4eb1-b81a-89597045acbb@baylibre.com>
- <CAGEkeHcA+aJ_h5APbL_bG3vpyY+rSGEVn=Dk1Abe76MKDdyVpg@mail.gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <CAGEkeHcA+aJ_h5APbL_bG3vpyY+rSGEVn=Dk1Abe76MKDdyVpg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="cB4Di8dSFm0cWmlk"
+Content-Disposition: inline
+In-Reply-To: <d51ab76d9f658aad542fa24651d1083e31628038.camel@gmail.com>
 
-On 5/11/26 11:23 AM, Denny Lin wrote:
-> On Mon, May 11, 2026 at 7:51 AM David Lechner <dlechner@baylibre.com> wrote:
->>
->> Usually, we want to be moving the drivers out of staging when
->> adding the DT bindings so that it all gets reviewed for correctness
->> at the same time.
->>
->> Drivers in staging are usually there because they are doing things
->> that are not actually acceptable for the final stable mainline
->> version of a driver and need more work.
->>
-> 
-> Thanks for the explanation.
-> 
-> I took a look at the driver and noticed it still uses the older
-> IIO sysfs-based interface rather than the iio_chan_spec + read_raw
-> model.
-> 
-> Would you recommend updating the driver first, or is it okay to
-> proceed with the binding separately?
-> 
-> Thanks,
-> Hungyu
 
-ADI's website says that these parts are obsolete, so unless anyone is
-actually still using these with a mainline kernel, I would suggest that
-we drop the driver rather than spending time fixing it up.
+--cB4Di8dSFm0cWmlk
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-In any case, unless you have the hardware for testing, it would be
-best not to make significant changes. There is a non-standard "oti"
-attribute that we would need to figure out what to do with. This is
-likely why the driver is in staging in the first place.
+On Mon, May 11, 2026 at 06:18:22PM +0200, Alexander Sverdlin wrote:
+> Hi Conor,
+>=20
+> On Mon, 2026-05-11 at 17:08 +0100, Conor Dooley wrote:
+> > > Baijie HelperBoard A133 is a development board around their A133 Core
+> > > board. Introduce a compatible for both the Core and the development
+> > > boards.
+> > >=20
+> > > Signed-off-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+> > > ---
+> > >=20
+> > > Changelog:
+> > > v2:
+> > > - introduced baijie,helper-a133-core compatible for the Core (SoM) bo=
+ard
+> > >=20
+> > > =A0 Documentation/devicetree/bindings/arm/sunxi.yaml | 11 +++++++++++
+> > > =A0 1 file changed, 11 insertions(+)
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/arm/sunxi.yaml b/Docum=
+entation/devicetree/bindings/arm/sunxi.yaml
+> > > index e6443c266fa1..d7b9dec81165 100644
+> > > --- a/Documentation/devicetree/bindings/arm/sunxi.yaml
+> > > +++ b/Documentation/devicetree/bindings/arm/sunxi.yaml
+> > > @@ -96,6 +96,17 @@ properties:
+> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 - const: allwinner,ba10-tvbox
+> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 - const: allwinner,sun4i-a10
+> > > =A0=20
+
+
+> > > +
+> > > +=A0=A0=A0=A0=A0 - description: HelperBoardA133 Core
+> > > +=A0=A0=A0=A0=A0=A0=A0 items:
+> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - const: baijie,helper-a133-core
+> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - const: allwinner,sun50i-a100
+> >=20
+> > Does this make sense? Can the core board be used without a carrier?
+>=20
+> such operation would be impractical at least, that's why in my v1
+> Core board didn't have its own compatible. Maybe I didn't understand
+> you correctly.
+
+I just wanted a comaptible for the SoM, so that there's a common
+compatible for that if it ends up on another carrier. IIRC these Baijie
+folks had another one on their site, but may be misremembering.
+
+>=20
+> Shall I drop the above 4 lines, the compatible property from the
+> root in sun50i-a133-baije-core.dtsi and only leave
+> sun50i-a133-baijie-helper.dtb with 3-strings compatible as it is
+> now in v2?
+
+> > > +=A0=A0=A0=A0=A0 - description: Baijie Helper A133
+> > > +=A0=A0=A0=A0=A0=A0=A0 items:
+> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - const: baijie,helper-a133
+> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - const: baijie,helper-a133-core
+> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - const: allwinner,sun50i-a100
+
+What I wanted was just this, so trim it down to that and you can add
+my Acked-by: Conor Dooley <conor.dooley@microchip.com>
+
+~heers,
+Conor.
+
+
+--cB4Di8dSFm0cWmlk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagIE+wAKCRB4tDGHoIJi
+0nBNAPwK8Yq4uL0Ra+sraV5A47KnNc4KNwG1tD3MeAzxtUaewQD/RU96WmYb98VU
+UBY0rtr749FM3A1Lq53tW1kpdCSISAA=
+=MFgT
+-----END PGP SIGNATURE-----
+
+--cB4Di8dSFm0cWmlk--
