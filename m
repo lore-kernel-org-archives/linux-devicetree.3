@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 759A137DE9E;
-	Mon, 11 May 2026 21:19:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00AA9381B19;
+	Mon, 11 May 2026 21:20:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778534371; cv=none; b=dWR0IYvVZEnyKtwXgZeefjEBmDmc7xJRA6b22myk0Q2vxJhNnCebQMQEJp18qNNK0d7tLHELAiIHTJoifu4uXywMcfUvhNQLQVceBQpLiBWcvE0qNPnpHhSSrc9WuJsi4pFt0vBUh9VNCav9rFzZNX2kLFuVG8YMpYTDQNTml64=
+	t=1778534434; cv=none; b=t3nNT5bvhAoZUehWK4XtZzytHtPOnY+WqXL42eVmKW3U5E+GIcGiBzC/wSoMHKMcfYyPK6xh+diONbotWV9HEbv0t+buXg7MsbFesRbNHlTgm9CGbbLQEOMv6/LIAlIcYwiAcDSQZd3i9POAAi7T4mbxiEWkmtCSwyz8fYHcXLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778534371; c=relaxed/simple;
-	bh=LXBf47To4tnnDhxhX4YEmxV8WIrotm8e5nYJ3ROVLZU=;
+	s=arc-20240116; t=1778534434; c=relaxed/simple;
+	bh=nMrWfzXyejeO9vQWEKORMUEsvjd9Wa774a60OaMvI1w=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TeZs8iAMYJIdbkmLlAeOCo5+KP0aQQwhGHbPISqQesOV7bQPguQtAlLVPDqqbWKhWn17HvgdsPMSCC+crQguaUfs17JPgeqhGX5BAginh0/9jMk2R3z8LmGhtLbSQkQvIRB7yL8FXYoxh2vnRjrknmPA+CuXZFS7ZfZ/Lm1Qq94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=teTCDRYN; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=RUDODBBiyRuZe1qOcE3XoiYCXGuCfJikS31H9JgME80MxioCB+Wza70buO4AfLffRsMLbiZNYSqBnkw87kgpypSubSQDfJlIoxobCxliD3TGujZRxYl6+1vSmcaA8ep53Da47+gdB+mVTljyYUmkjIejI8ubNT8YTl3znZwF/V4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FnF7rNgg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="teTCDRYN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93014C2BCB0;
-	Mon, 11 May 2026 21:19:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FnF7rNgg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23E72C2BCB0;
+	Mon, 11 May 2026 21:20:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778534371;
-	bh=LXBf47To4tnnDhxhX4YEmxV8WIrotm8e5nYJ3ROVLZU=;
+	s=k20201202; t=1778534433;
+	bh=nMrWfzXyejeO9vQWEKORMUEsvjd9Wa774a60OaMvI1w=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=teTCDRYNxnLrGzTHwPC5EZ5OP9++K5zhfHPiQGTQ5CBLFoVa/B+Hw5DSdTblbEjLa
-	 RVDz0OAZuTTdQ0eeAiQeBtFZTre2rSxCELgteAwF5gV8t+3OovmEzYw8BLUQq0YgGY
-	 Sfv043oX0GqaMCZ8v9g3Yx7Xb5oYWkgLwdxvn0BhoPVHxb8iljamyntzWItyTcefz2
-	 jfzNzey21u5Q15cOyacQv754ty+AG3tQwqUMwR33hfcuAZzWeXjBNSGiOoe0jSdzY+
-	 lN0ArvYEcYbLvWMmTf9+UFP9fYZcBRk8knkyUuTC9D/zzlZ075+odRff4XVBt7ilrJ
-	 hWchlqrb4JrYQ==
+	b=FnF7rNgg0jcrSSaPvf0ih/VZO2dfMlQfd72YaEQObevLJSNInR4wh+Zxa3+zlu/9J
+	 CTKSfITwM5amtHQEMbEbG+AipIqC6h1v7GxN93/QWPIVVnG0q/4ycttAbQUhyP+udJ
+	 huTldScecLR7rBiZn12p0Gq/rPSyLbGxQeHI6VvmIY5y46MLIRjTs3ondb1jc/tBsp
+	 2xM7bxgQU0FPeHnGYNTJyoA788HnLjjbYysfuJeN9v0Lzguv87wYiKgRuqdh1l4hQK
+	 EdJm9tQCbRO2fz+n7DRrcvygcNOoCBrYHI6MmDk01N2/mOH1bEpSMVbllvX97xKP6f
+	 02OYCCH4xUNCg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/6] dt-bindings: mfd: motorola-cpcap: convert to DT
- schema
+Subject: Re: [PATCH v5 01/10] arm64: dts: lx2160a: extend 32-bit, and add
+ 64-bit pci regions
 Reply-To: sashiko@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: conor+dt@kernel.org, linux-input@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20260510110804.33045-4-clamor95@gmail.com>
-References: <20260510110804.33045-4-clamor95@gmail.com>
+To: "Josua Mayer" <josua@solid-run.com>
+Cc: imx@lists.linux.dev, Frank.Li@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260510-lx2160-pci-v5-1-540b83852227@solid-run.com>
+References: <20260510-lx2160-pci-v5-1-540b83852227@solid-run.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 11 May 2026 21:19:29 +0000
-Message-Id: <20260511211930.93014C2BCB0@smtp.kernel.org>
+Date: Mon, 11 May 2026 21:20:32 +0000
+Message-Id: <20260511212033.23E72C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,121 +46,111 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Medium] The YAML schema enforces a `ports` wrapper node for `audio-codec=
-`, breaking validation for existing device trees.
-- [Medium] The power button subnode name `key-power` conflicts with existin=
-g device trees, causing validation failures.
-- [Medium] The `spi-cs-high` property was dropped from the `required` list =
-during YAML conversion.
-- [Low] The schema uses `additionalProperties: false` alongside a `$ref` in=
- `allOf`, which is a dt-schema anti-pattern.
+- [High] Incorrect PCI Address Space Code for 64-bit prefetchable memory wi=
+ndows.
+- [High] Fragmenting the 16GB region into 4GB chunks breaks allocation of l=
+arge PCIe BARs.
+- [Medium] Incorrect size for the `pcie4` 64-bit memory region in `fsl-lx21=
+60a-rev2.dtsi`.
+- [Low] Conflation of the Open Firmware `relocatable` bit with the Linux-in=
+ternal `IORESOURCE_BUSY` macro.
 --
 
-commit f0e021d94a5e3dc2af4a93b58f8cc3b052099a76
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+commit bfb49a7c3467d68eca95268c94cbd76b1401fb15
+Author: Josua Mayer <josua@solid-run.com>
 
-dt-bindings: mfd: motorola-cpcap: convert to DT schema
+arm64: dts: lx2160a: extend 32-bit, and add 64-bit pci regions
 
-Convert devicetree bindings for the Motorola CPCAP MFD from TXT to YAML.
+This commit extends the 32-bit PCIe memory regions to 3GB and adds new
+64-bit memory regions up to 16GB for the LX2160A SoC. It also drops the
+relocatable bit from the existing ranges, and splits the 16GB area into
+4GB chunks for silicon revision 1 to avoid an ATU programming limitation.
 
-> diff --git a/Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml b/=
-Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml
-> new file mode 100644
-> index 0000000000000..7f257f3a1a5a2
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml
-> @@ -0,0 +1,414 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/mfd/motorola,cpcap.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Motorola CPCAP PMIC MFD
-> +
-> +maintainers:
-> +  - Svyatoslav Ryhel <clamor95@gmail.com>
-> +
-> +allOf:
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +
-> +properties:
+The commit message states:
 
-[ ... ]
+> - drop IORESOURCE_BUSY flag
+>=20
+> IORESOURCE_BUSY is dropped since it has no effect when specified in dts.
 
-> +  audio-codec:
-> +    type: object
-> +    additionalProperties: false
-> +
-> +    properties:
+Is this description accurate? The bit being dropped (0x80000000, changing
+0x82000000 to 0x02000000) is the Open Firmware 'n' bit, which designates
+whether the region is relocatable or fixed.=20
 
-[ ... ]
+It doesn't appear to be related to the Linux-internal IORESOURCE_BUSY macro.
+Could the commit message be more precise about the flag being modified?
 
-> +      ports:
-> +        $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +        properties:
-> +          port@0:
-> +            $ref: /schemas/graph.yaml#/properties/port
-> +            description: port connected to the Stereo HiFi DAC
-> +
-> +          port@1:
-> +            $ref: /schemas/graph.yaml#/properties/port
-> +            description: port connected to the Voice DAC
+diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-rev2.dtsi b/arch/arm=
+64/boot/dts/freescale/fsl-lx2160a-rev2.dtsi
+--- a/arch/arm64/boot/dts/freescale/fsl-lx2160a-rev2.dtsi
++++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-rev2.dtsi
+@@ -14,8 +14,9 @@ &pcie1 {
+ 	      0x80 0x00000000 0x0 0x00002000>; /* configuration space */
+ 	reg-names =3D "regs", "config";
+=20
+-	ranges =3D <0x81000000 0x0 0x00000000 0x80 0x00010000 0x0 0x00010000
+-		  0x82000000 0x0 0x40000000 0x80 0x40000000 0x0 0x40000000>;
++	ranges =3D <0x42000000 0x84 0x00000000 0x84 0x00000000 0x04 0x00000000>, =
+/* 64-Bit - prefetchable - 16GB */
 
-Will this cause validation failures for existing device trees?
+Does the 0x42000000 value correctly specify a 64-bit memory space?
 
-The new YAML schema defines additionalProperties: false on the
-audio-codec node and expects OF graph ports to be nested strictly
-inside a ports child node. The original TXT binding example and existing
-device trees place port@0 directly under the audio-codec node without
-a ports wrapper.
+In the device tree PCI bindings, bits 24-25 of the phys.hi cell denote
+the address space. The value 0b10 (0x02000000 or 0x42000000) designates
+a 32-bit memory space, while 0b11 (0x43000000) is required for a 64-bit
+memory space.
+
+If it is flagged as 32-bit, the PCI core's of_pci_range_to_resource()
+will omit the IORESOURCE_MEM_64 flag. Will this cause the PCI allocator
+to fail when assigning 64-bit BARs, as shown in the commit log ("failed
+to assign [mem size 0x200000000 64bit pref]")?
 
 [ ... ]
 
-> +  battery:
-> +    $ref: /schemas/power/supply/cpcap-battery.yaml#
-> +
-> +  charger:
-> +    $ref: /schemas/power/supply/cpcap-charger.yaml#
-> +
-> +  key-power:
-> +    $ref: /schemas/input/motorola,cpcap-pwrbutton.yaml#
+@@ -63,8 +66,9 @@ &pcie4 {
+ 	       0x98 0x00000000 0x0 0x00002000>; /* configuration space */
+ 	reg-names =3D "regs", "config";
+=20
+-	ranges =3D <0x81000000 0x0 0x00000000 0x98 0x00010000 0x0 0x00010000
+-		  0x82000000 0x0 0x40000000 0x98 0x40000000 0x0 0x40000000>;
++	ranges =3D <0x42000000 0x9c 0x00000000 0x9c 0x00000000 0x01 0x00000000>, =
+/* 64-Bit - prefetchable - 16GB */
 
-Is this node name conflict expected?
-
-The schema strictly defines the power button child node as key-power,
-but existing upstream device trees name this node button. Since button
-is not explicitly defined in the YAML properties, will it be rejected by
-dtbs_check?
+This isn't a bug, but there might be a typo in the size here. The comment
+says 16GB, but the size cells are 0x01 0x00000000 (4GB). The other PCIe
+controllers in this file use 0x04 0x00000000.
 
 [ ... ]
 
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - interrupt-controller
-> +  - "#interrupt-cells"
-> +  - spi-max-frequency
-> +  - "#address-cells"
-> +  - "#size-cells"
+diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a.dtsi b/arch/arm64/bo=
+ot/dts/freescale/fsl-lx2160a.dtsi
+--- a/arch/arm64/boot/dts/freescale/fsl-lx2160a.dtsi
++++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a.dtsi
+@@ -1193,7 +1193,12 @@ pcie1: pcie@3400000 {
+ 			apio-wins =3D <8>;
+ 			ppio-wins =3D <8>;
+ 			bus-range =3D <0x0 0xff>;
+-			ranges =3D <0x82000000 0x0 0x40000000 0x80 0x40000000 0x0 0x40000000>; =
+/* non-prefetchable memory */
++			ranges =3D <0x42000000 0x87 0x00000000 0x87 0x00000000 0x01 0x00000000>=
+, /* 64-Bit - prefetchable - 4GB chunk */
++				 <0x42000000 0x86 0x00000000 0x86 0x00000000 0x01 0x00000000>, /* 64-B=
+it - prefetchable - 4GB chunk */
++				 <0x42000000 0x85 0x00000000 0x85 0x00000000 0x01 0x00000000>, /* 64-B=
+it - prefetchable - 4GB chunk */
++				 <0x42000000 0x84 0x00000000 0x84 0x00000000 0x01 0x00000000>, /* 64-B=
+it - prefetchable - 4GB chunk */
 
-Was spi-cs-high intentionally omitted from the required list?
+Does fragmenting the 16GB region into multiple 4GB chunks prevent the
+allocation of larger PCIe BARs?
 
-The original TXT binding explicitly listed it under required properties,
-and the hardware requires an active-high SPI chip select to function
-correctly.
+The Linux PCI allocator requires a single contiguous parent window to
+satisfy a BAR allocation request. By splitting the address space here,
+the root bus will have four separate 4GB parent windows.
 
-> +
-> +additionalProperties: false
-
-Should this be unevaluatedProperties: false instead?
-
-In JSON schema, additionalProperties: false ignores properties inherited
-from $ref inclusions inside allOf. This rejects standard SPI properties
-unless they are manually duplicated in the local properties block.
+Will this make it impossible for the kernel to allocate any contiguous
+BAR larger than 4GB, preventing the successful mapping of the 8GB AI
+accelerator BAR mentioned in the commit message?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510110804.3304=
-5-1-clamor95@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510-lx2160-pci=
+-v5-0-540b83852227@solid-run.com?part=3D1
