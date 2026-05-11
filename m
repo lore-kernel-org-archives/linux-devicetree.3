@@ -1,226 +1,121 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010063.outbound.protection.outlook.com [52.101.84.63])
+Received: from out28-98.mail.aliyun.com (out28-98.mail.aliyun.com [115.124.28.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BC4A26E6E1
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 03:26:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.63
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778469969; cv=fail; b=o8rXgL9BQ0T5hoLvlovRn+ZCmSNkaOlx9FmICxUDZ21V5hehmIlo12oPDZivNXsbFw6HVJf8sllVSlQ3McrBoYZNNfZWd9WDAVNTd6xZ95Y4na0eCA92mbyFOyk96ZxCyfGnyrFt+HXgDsET83IdpF1y0l+JeMSSycY8+TPJr18=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778469969; c=relaxed/simple;
-	bh=/PTZHyUlmmt5ZGhMHVO2cckmlicmI+XFgdrkuIOSrow=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=p5oX6ecWi44UiuQnuRBa3/JBDakb1cGZyKPIoETOZS06SB9Qw2IOc401kVUQUNZuX4qzFvFj2Y9XJMOOB+KXdghOVwEMlQgU5BxtVRvqyvgbiq7uD9RbqcrcL90vf8IXe5EfQqngoSL4DFBnSI8yYpJxZLmlIdUAXiJjy5wJk8E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=MtPzxUzX; arc=fail smtp.client-ip=52.101.84.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB8C8225A38
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 03:28:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.98
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778470114; cv=none; b=SmaeCcpCKyEddJn9ZtuZ9cZKopduaqkEN2EGPUio8aoQCu4lht8p5FD1Z9ekG6ASnxfoL9rTz1lMUaUS15pWY7q0Fx0WSek/qgqVZhdkpoHKvKdzgUtdztgkCAlNGUaAMIqPC8gRePv+TB9BILIbJ+wrIPT/oOTKS7YwV2nlq78=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778470114; c=relaxed/simple;
+	bh=OUbOMD1vRdCCXiQeYt2Mz87FWa32wqHnvGGU2rSWfmg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ch1WkWU3j9RjASSbq96DykRajqCE0f6PDC5/WPnp1d0+Jm5OJnGFzcbfL+DPAc3Qf1L2c5zcerByAr0ts/Xum3yVcgDJjk3tIjCen4iqgc6akoQFRS36sBTmIu5PaOpuKPt/dmAku8wHQRPSvP2Ebr9fUlnRAI+L07FZ8oXZzjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=lw3HtUXf; arc=none smtp.client-ip=115.124.28.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="MtPzxUzX"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ju0YZ0S3AkvgkAKA0DTPGGsDzVX2pBQau+wMv+RUJyP1gPfvOuHL+NaXel4OhiUzKsvJgJthjlVMdLILabUT200mSxY7x6OrYdzZ4mqFY/NtU0OPyrJtaUtD+S7vnjA7rfaavfqZkfmEvCzGTSFy/eixRjXvewvE1E8Ilkn85u3Qa9ignOXkjnOZNoQ6d1zwK2MkodQd1q2lLezXpreZGJ0XI7jFLqRRGXRxRK7v4g+k07zXVfCjDW+RUio8tdKBB3maJOwiRz9dJehgs1A+aoAm1JZr0JxSGO67T+JBVpT2707NmQyRaMy+FIhUMaKNsXHRQy/rmdh8S/2UMOwpBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ihBuJHmXc3Jr/CgwTNKvsDwRS0MWYSUL4FCt95Oo3k4=;
- b=AkC7zIIMjSjyuWgG6bvIOwmlnPnZ6bzFm+qnmjSHh0iA8gjiijmKDNJqdgxmPvqKX3Kc6KSIeiLdbySUphzY8YRazWZ9pOIDUp+VJ+xmErpvX1DCV+3D7ANgo75TbRfKkKClFbDcgQsC8betF01TBCEEmlclR2+dlX6RCYNqdeMwyQ3cm/VBC60YltJbn9CZsSHMOAsja6H5aPj6WOmfaaLiIptGNxRKWWlnUrAT/WCsKzw6j8fboYRAWeGkRwtcYg2ZObuZyU7pKfvf/aZRzoqHhfWJkDUT+tPzzWJr60EH2tZNYGQsLbzLHg41p/nV0bQnk/hySqMq8MO4KWVBuQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ihBuJHmXc3Jr/CgwTNKvsDwRS0MWYSUL4FCt95Oo3k4=;
- b=MtPzxUzXxob6SF7VoBRA5LfdmKU6RQiBnDWLrcqGU4y0LIxNf44/EhQC8eGprRF98jduAQilG3iG6bVlknjGxQ3Twlj0Bx2Hbg2xhuE3HaTy33es2GP4Ac9ZE5w2IpRFARB8b2kdXO6TnkorQnA7dZR5oRVaZi17n5WXIw+/LwekSXWatqi35prSyB62TZwnF5r0KcCfWSMHaLxDdK2TucPvnC6v8zpf6evms+Boqsc20nh/5Vta0nxVORTDlugxz0oTdL+AEXxJ8zBasTtVb99CaNz3aZWGzeB2R5+MOG1sE2T2EVoVqXoXK103O/H1wiaNnK+TUxFUCdtuFtRBoQ==
-Received: from DBBPR04MB7500.eurprd04.prod.outlook.com (2603:10a6:10:1f4::16)
- by AS8PR04MB8199.eurprd04.prod.outlook.com (2603:10a6:20b:3f6::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Mon, 11 May
- 2026 03:26:04 +0000
-Received: from DBBPR04MB7500.eurprd04.prod.outlook.com
- ([fe80::c291:543b:4bde:cee7]) by DBBPR04MB7500.eurprd04.prod.outlook.com
- ([fe80::c291:543b:4bde:cee7%6]) with mapi id 15.20.9891.021; Mon, 11 May 2026
- 03:26:04 +0000
-From: Wei Fang <wei.fang@nxp.com>
-To: "sashiko@lists.linux.dev" <sashiko@lists.linux.dev>
-CC: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"robh@kernel.org" <robh@kernel.org>, "imx@lists.linux.dev"
-	<imx@lists.linux.dev>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "Frank.Li@kernel.org"
-	<Frank.Li@kernel.org>
-Subject: RE: [PATCH v6 net-next 15/15] net: dsa: netc: add support for ethtool
- private statistics
-Thread-Topic: [PATCH v6 net-next 15/15] net: dsa: netc: add support for
- ethtool private statistics
-Thread-Index: AQHc3560uEq/mPxEPkyFK/hht0XX6bYHFeIAgAEWOSA=
-Date: Mon, 11 May 2026 03:26:04 +0000
-Message-ID:
- <DBBPR04MB7500DB07950B62C6DBFDEF5688382@DBBPR04MB7500.eurprd04.prod.outlook.com>
-References: <20260509102954.4116624-16-wei.fang@nxp.com>
- <20260510104841.11938C2BCB8@smtp.kernel.org>
-In-Reply-To: <20260510104841.11938C2BCB8@smtp.kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DBBPR04MB7500:EE_|AS8PR04MB8199:EE_
-x-ms-office365-filtering-correlation-id: 337fd520-16f6-4654-1e66-08deaf0d0896
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|19092799006|1800799024|366016|38070700021|56012099003|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- /3Xb4aEAS5RUXx+mJ0tN9jghckeg8fNmc3S59TRX57nLopcBxm2GTl2IBXFqEUOr6ea6vE7ZNadDCxHe7SBPWDPfVmxMv5obzvAlxdlVaZnYmWYM/2UhnsCPYQX5G+GvjFxQNIsqy7MlatMjlASfKKYA9xTRw9HjDMM48sZ3/iN5bn2heX27szNDpOfTgVNVzVnf7mN8lYqLYgCrH2Qz9SnHMSpTdROrcpt0qzIBZq3SN2EsDfwkRyV0e8tAaHgxxEQDy9BThe/61I6ueSviKUq225hZtVaJF5KKwFDcMCR+mGAWT4hrbVr2ZDTUyV0gEZjSMQAA/L3qebYtRB2x0z7LjbF3xtwCZlIMQJi62MYlLQt5NybQeHe57EqsR900Mynk3Le7SI4Z095fO8rFxR8p8gDW20lENCQMT08c+PewrNd4b85Xyyik+secBvCm6Qd3oSakWuRwi8j6eAkoVqPlXUsGNdGGr/ImCqNX9173R6/2Ii6hecpjnFj3cjiHTMMs5tihTlsXHHhf7v/cWjrT1PiYy6HM77gPRfL6EZrFJZ440I56DtzeRyV8otRVEZL67mHixvnthpiZrFdeKXiUO/N7BrNNUS1OPN/JE4wLpg0CxOhOCgJ2H3Vcckngm7V9qK7RIJ6lsvBuaV6uD6AJzzurMlQAM87sVAWAzfMF3AUh7+JAP+M9qs5WV1GP86VeoJwxzKcsJuun1geWTyNJwRY4R6l6uzMeYQJ5pnbE+SaA9zWMibotN/RiVMtF
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DBBPR04MB7500.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(19092799006)(1800799024)(366016)(38070700021)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?LSk1YGiO2LHCqcarmSFIdkLj0VSXF0TA+P7DVIrv5BE4Wb5aTbUr19rJFveX?=
- =?us-ascii?Q?N5pcMvD5uzNEn6VXP28h+JgKr+zxVuRPbReM6bRQV1I9sJnmbNmFfNjBqJ6C?=
- =?us-ascii?Q?9VegzAEJXM2ZP1qMp+qbb8bVMxzNrHuzwB0IRV3HkvESZCVltFsWZWB1itis?=
- =?us-ascii?Q?5de7/x+0clES7L5luxt/79/4JbxUfmWndoYHbtloyHOQdkbVJ7AAEXirnL+w?=
- =?us-ascii?Q?+cFP0XN20lj7MLbhfvvCQzfMriWZz+6FkzZeOeFBjACerxmtNArori6lmgrp?=
- =?us-ascii?Q?myG5ScF32faWIjGdrw5z60vEEc+4FEhFE5mf9fh+mEu67+rdzeSGvDP1t3H+?=
- =?us-ascii?Q?1RZwQ+xWeODm9B8gb9qvzlxbhStF2LKetqewj/rcsJ9MbeirqYQqun4yjvnj?=
- =?us-ascii?Q?tFPfVqzRk+K88kBxGAuiiF495AIobau/Sss4iar1U38doo+Zs7B6kZxho9A9?=
- =?us-ascii?Q?hnQeX+5mBKEAAv0iGUVOo4SGxEiMgXnHfxP8UUN1WryjO19JOZf9iLK3EYu0?=
- =?us-ascii?Q?ZAXNhWjRGU5pMKnj2a/bcIspg7gouDp2uWGdImIZJUcD7QcCBZ95m3qr9qfd?=
- =?us-ascii?Q?6N2BZ5SK7UP43ROWa827rN8Eq0rq42Qhm30UNIwdkeEvRRfS6nMwptfqCIc7?=
- =?us-ascii?Q?8b1aIM5Vx4pxiK2IfWtwu7BtDDfQh9I3GEjG9dBUWRoRaUgyityAAr1wJa4k?=
- =?us-ascii?Q?AHQMh82Slvk3dspwW6AQ+s4rn5ivryRYEQ/xsko5IvRJUOH2ey2BrC1QjNfi?=
- =?us-ascii?Q?s9MIHcciHrPBSB2OsnuhyTXT+JjegRZoN1daLGrHc9gncJW0irbRwND/NZp3?=
- =?us-ascii?Q?FfKipThYcaiCqChxctcDaU+l1SW4LIqmnMhfukn51vjyiabjERIMvF9fIwUp?=
- =?us-ascii?Q?XJED1GBMb5dtcTaOKaoofyYgdko92nJNfsVHPwoofzqY20lGIk4gYkrQ1+96?=
- =?us-ascii?Q?OZXEYju3d6lsYDFq+/qY0z3A5G4blCzjegDiY535ga84kUKOI82OaI10poif?=
- =?us-ascii?Q?iX9/It06Un5xalWyKufdJwFKvopIzdWDfQyAiPBYl7RdLqe9jVg6kYRZvvq/?=
- =?us-ascii?Q?wKbwmYdux9wm/aHYmP9kjnQsjZyeNEmSTxVyylrGhnWdXBt7L2m+1ffO7VPc?=
- =?us-ascii?Q?nb104M7TepXo7qcmxlIym6Zd0e1FnNgMm1ckuqlbJEnhgs3gs/mjxAP6Z1v/?=
- =?us-ascii?Q?xRCDvBDrDGSR8Q3g1K3lVXkwQAoUbgXfH9ktQZQzVhAc72yCtbaA41QTrUI/?=
- =?us-ascii?Q?uGaPcazWVc9SJ0ubRVxrbSTvlDH7I40lDG8ln5hZrjo3pldlJitdAoVoBncf?=
- =?us-ascii?Q?faV2IwDRAFw5/rCJm8zIPAqPDWc3S29WJZRHseIX7XBc4kQu4LEQ7Ytqr0vT?=
- =?us-ascii?Q?hoDPNsrgKRrFZKTAGaH41qffW3z9nkSDAajFXb6mReWHgm4c5bgNgLwxtRar?=
- =?us-ascii?Q?sFW9hDQpW5jevA6WrscbeecWQpJ7jCsVvy+yuwn1u5RElm/bEmtNPQyFCzsv?=
- =?us-ascii?Q?hklw//9PjFH1PY+2RpocKvBY/RONQJKNslZyaAXBgXnt7wCWGUk75UgkRhyi?=
- =?us-ascii?Q?uBH1hh4jNmNNiGSMRss81rH0eH4HUctAXuYicdNZVIbTjBdJy0vNKzti7xd7?=
- =?us-ascii?Q?Ca+iB+Wol1r1yJwWTumg+oth0fzS3vLgJYP/aNBODGHQVVK22Kj+Vb0wlPGM?=
- =?us-ascii?Q?prSB+c1Rr/U7qNVFY6GRXfv8MvpftgljUvH/UEPdMUZFA0Ed?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="lw3HtUXf"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=lontium.com; s=default;
+	t=1778470103; h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type;
+	bh=jfwMaxxdS67rnZ7uDXLCCcnFkL/ISIM8RleOqH0kHq8=;
+	b=lw3HtUXfb9amPW+IbWuCHSEz2x+iNW66YPF9mXV1YYE7lckY3oIFlQfE932AoczyZtfDLqNKZgfmAN80ZYVX1Z9jtkKTM2kfurBg7T11FStPbFAApd/H/wKpKWH/qbiUdAFMVg+LlLbj++nfdXFRH2RJuIeRV2dq59VATpEeNPlxkGriHUMiHAnE1O3dzN1ro8kZdZRfkUyMnrvtNPgaeMq3XowLu3f81HLCTIixgN6fbpO+3++SSSIt5rq6p/6MSRsgqt/jvT5qDuikPofwYAM32zIk5TGQUwtZFOyZoXyOyzeNfGo0CHM71uC/SlnJYa7DJAnYFGC0FqcdIZVS4g==
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.5200654|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0540498-0.00904401-0.936906;FP=13402756081238397904|3|1|7|0|-1|-1|-1;HT=maildocker-contentspam033037017159;MF=syyang@lontium.com;NM=1;PH=DS;RN=1;RT=1;SR=0;TI=SMTPD_---.hUIemWa_1778470100;
+Received: from mail-ot1-f44.google.com(mailfrom:syyang@lontium.com fp:SMTPD_---.hUIemWa_1778470100 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Mon, 11 May 2026 11:28:21 +0800
+Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7dcdca9aa0bso3521829a34.0
+        for <devicetree@vger.kernel.org>; Sun, 10 May 2026 20:28:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9rq1tmMDG418J/BQb7yJetsR6mbwxs4vC4ASReBdSikQ8tUxM0KNd3WmGePtpIMqGzgtWC8O72W2Mq@vger.kernel.org
+X-Gm-Message-State: AOJu0YxuXGFSIhYkfDrthXLOqc4bDIGelabAM2yQm5LwK7odPqjIEkUh
+	h3UIH6gGlL8pnnsjFuemSM2EgdH/lBJZNbYCB5C3B3Qyw5OdeUv43E7sDxL+KuKqHhIcigrr3lS
+	p9NRAFd27ZR5gTBmmwGR4DwwvQm3pjjc=
+X-Received: by 2002:a05:6820:55d4:10b0:696:aedf:bd53 with SMTP id
+ 006d021491bc7-699ab5711c2mr5737051eaf.9.1778470099831; Sun, 10 May 2026
+ 20:28:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DBBPR04MB7500.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 337fd520-16f6-4654-1e66-08deaf0d0896
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 May 2026 03:26:04.6284
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: OXXg9UyMtq+jTu+Hzlb2Zqm31T2aLek2QNyFfOOhIVn2dkiCd5pxgS6Gp0hvOc1Arauy57wC3BAgLHOjhwmgQQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8199
+References: <20260508142500.4922-1-syyang@lontium.com>
+In-Reply-To: <20260508142500.4922-1-syyang@lontium.com>
+From: Sunyun Yang <syyang@lontium.com>
+Date: Mon, 11 May 2026 11:28:06 +0800
+X-Gmail-Original-Message-ID: <CAFQXuNYq5QYAXRzcUBnyvVh5ofPBVYONCs1dM6qPgK0BDja5Ow@mail.gmail.com>
+X-Gm-Features: AVHnY4JrxkEnUWzQqJ698dfc7GDXi_1fOf_0kLN4nLtInSVNnYN34VzELwKRFYY
+Message-ID: <CAFQXuNYq5QYAXRzcUBnyvVh5ofPBVYONCs1dM6qPgK0BDja5Ow@mail.gmail.com>
+Subject: Re: [PATCH v6 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
+ MIPI DSI to HDMI driver
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
+	dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com, 
+	rfoss@kernel.org, mripard@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se, 
+	jernej.skrabec@gmail.com, devicetree@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com, 
+	xbpeng@lontium.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> commit 66f17e671c095a381aeff77d1d8c0cae1e43722c
-> Author: Wei Fang <wei.fang@nxp.com>
->=20
-> net: dsa: netc: add support for ethtool private statistics
->=20
-> Implement the ethtool private statistics interface to expose additional
-> port-level and MAC-level counters that are not covered by the standard
-> IEEE 802.3 statistics. The pMAC counters are only reported when the port
-> supports Frame Preemption (802.1Qbu/802.3br).
->=20
-> > diff --git a/drivers/net/dsa/netc/netc_ethtool.c
-> b/drivers/net/dsa/netc/netc_ethtool.c
-> > index ac8940b5a85c6..8d04db534347c 100644
-> > --- a/drivers/net/dsa/netc/netc_ethtool.c
-> > +++ b/drivers/net/dsa/netc/netc_ethtool.c
-> > @@ -19,6 +19,56 @@ static const struct ethtool_rmon_hist_range
-> netc_rmon_ranges[] =3D {
-> >  	{ }
-> >  };
-> >
-> > +static const struct netc_port_stat netc_port_counters[] =3D {
-> > +	{ NETC_PTGSLACR,	"port gate late arrival frames" },
-> > +	{ NETC_PSDFTCR,	"port SDF transmit frames" },
-> > +	{ NETC_PSDFDDCR,	"port SDF drop duplicate frames" },
-> > +	{ NETC_PRXDCR,		"port rx discard frames" },
-> > +	{ NETC_PRXDCRRR,	"port rx discard read-reset" },
-> > +	{ NETC_PRXDCRR0,	"port rx discard reason 0" },
-> > +	{ NETC_PRXDCRR1,	"port rx discard reason 1" },
-> > +	{ NETC_PTXDCR,		"port tx discard frames" },
-> > +	{ NETC_PTXDCRRR,	"port tx discard read-reset" },
-> > +	{ NETC_PTXDCRR0,	"port tx discard reason 0" },
-> > +	{ NETC_PTXDCRR1,	"port tx discard reason 1" },
-> > +	{ NETC_BPDCR,		"bridge port discard frames" },
-> > +	{ NETC_BPDCRRR,	"bridge port discard read-reset" },
-> > +	{ NETC_BPDCRR0,	"bridge port discard reason 0" },
-> > +	{ NETC_BPDCRR1,	"bridge port discard reason 1" },
-> > +};
-> > +
-> > +static const struct netc_port_stat netc_emac_counters[] =3D {
-> > +	{ NETC_PM_ROCT(0),	"eMAC rx octets" },
-> > +	{ NETC_PM_RVLAN(0),	"eMAC rx VLAN frames" },
-> > +	{ NETC_PM_RERR(0),	"eMAC rx frame errors" },
-> > +	{ NETC_PM_RUCA(0),	"eMAC rx unicast frames" },
-> > +	{ NETC_PM_RDRP(0),	"eMAC rx dropped packets" },
-> > +	{ NETC_PM_RPKT(0),	"eMAC rx packets" },
-> > +	{ NETC_PM_TOCT(0),	"eMAC tx octets" },
-> > +	{ NETC_PM_TVLAN(0),	"eMAC tx VLAN frames" },
-> > +	{ NETC_PM_TFCS(0),	"eMAC tx FCS errors" },
-> > +	{ NETC_PM_TUCA(0),	"eMAC tx unicast frames" },
-> > +	{ NETC_PM_TPKT(0),	"eMAC tx packets" },
-> > +	{ NETC_PM_TUND(0),	"eMAC tx undersized packets" },
-> > +	{ NETC_PM_TIOCT(0),	"eMAC tx invalid octets" },
-> > +};
-> > +
-> > +static const struct netc_port_stat netc_pmac_counters[] =3D {
-> > +	{ NETC_PM_ROCT(1),	"pMAC rx octets" },
-> > +	{ NETC_PM_RVLAN(1),	"pMAC rx VLAN frames" },
-> > +	{ NETC_PM_RERR(1),	"pMAC rx frame errors" },
-> > +	{ NETC_PM_RUCA(1),	"pMAC rx unicast frames" },
-> > +	{ NETC_PM_RDRP(1),	"pMAC rx dropped packets" },
-> > +	{ NETC_PM_RPKT(1),	"pMAC rx packets" },
-> > +	{ NETC_PM_TOCT(1),	"pMAC tx octets" },
-> > +	{ NETC_PM_TVLAN(1),	"pMAC tx VLAN frames" },
-> > +	{ NETC_PM_TFCS(1),	"pMAC tx FCS errors" },
-> > +	{ NETC_PM_TUCA(1),	"pMAC tx unicast frames" },
-> > +	{ NETC_PM_TPKT(1),	"pMAC tx packets" },
-> > +	{ NETC_PM_TUND(1),	"pMAC tx undersized packets" },
-> > +	{ NETC_PM_TIOCT(1),	"pMAC tx invalid octets" },
-> > +};
->=20
-> Should these standard MAC statistics be exposed as private ethtool string=
-s?
->=20
-> Many of the counters defined in netc_emac_counters and netc_pmac_counters=
-,
-> such as rx octets, rx packets, rx dropped packets, and tx FCS errors,
-> appear to correspond directly to existing standard uAPIs like
-> struct rtnl_link_stats64 or struct ethtool_eth_mac_stats.
->=20
-> Since the driver already implements netc_port_get_eth_mac_stats(), which
-> supports both eMAC and pMAC sources, could these standard counters be
-> reported through the standard interfaces instead to avoid duplicating
-> them in ethtool -S?
->=20
+<syyang@lontium.com> =E4=BA=8E2026=E5=B9=B45=E6=9C=888=E6=97=A5=E5=91=A8=E4=
+=BA=94 22:25=E5=86=99=E9=81=93=EF=BC=9A
+>
+> From: Sunyun Yang <syyang@lontium.com>
+>
+> LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
+> mipi dsi and output hdmi, differences in hardware features:
+> - LT9611C: supports 1-port mipi dsi to hdmi 1.4
+> - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
+> - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
+>
+> Signed-off-by: Sunyun Yang <syyang@lontium.com>
+> ---
+>  .../bindings/display/bridge/lontium,lt9611.yaml           | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+>
+> diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9=
+611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.=
+yaml
+> index 429a06057ae8..e0821a63d9d7 100644
+> --- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yam=
+l
+> +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yam=
+l
+> @@ -4,19 +4,23 @@
+>  $id: http://devicetree.org/schemas/display/bridge/lontium,lt9611.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
+>
+> -title: Lontium LT9611(UXC) 2 Port MIPI to HDMI Bridge
+> +title: Lontium LT9611(UXC/C/EX/UXD) 2 Port MIPI DSI to HDMI Bridge
+>
+>  maintainers:
+>    - Vinod Koul <vkoul@kernel.org>
+>
+>  description: |
+> -  The LT9611 and LT9611UXC are bridge devices which convert DSI to HDMI
+> +  The LT9611=E3=80=81LT9611UXC=E3=80=81LT9611C=E3=80=81LT9611EX and LT96=
+11UXD
+> +  are bridge devices which convert DSI to HDMI
+>
+>  properties:
+>    compatible:
+>      enum:
+>        - lontium,lt9611
+> +      - lontium,lt9611c
+> +      - lontium,lt9611ex
+>        - lontium,lt9611uxc
+> +      - lontium,lt9611uxd
+>
+>    reg:
+>      maxItems: 1
+> --
 
-For the NETC switch, its ports support preemption, so each port has two MAC=
-s
-(express MAC and preemptive MAC). The driver-private statistics can help us=
-ers
-obtain statistics for each MAC, just like the standard statistics of ethtoo=
-l.
-However, rtnl_link_stats64 retrieves the combined statistics of the two MAC=
-s.
+Gentle ping.
+Thanks.
 
-In addition, ethtool_eth_mac_stats only has the FCS error counter for RX,
-not TX. what I added to driver-private was TX's FCS error counter.
-
-Please ignore this warning.
-
+> 2.34.1
+>
