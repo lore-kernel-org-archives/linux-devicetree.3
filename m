@@ -1,321 +1,257 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AAD1472767
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 21:55:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3DE034DCC7
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 21:56:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778536506; cv=none; b=ZK23znnLmKXc0EZ9HdeEVGbznTckYqB7L7AjNC3ygoizBiW4EpYuxXGFVm/sDDZC3AmtnIoE95iOTWrVXEYfTJzKuNgCdSQdA4qW70yXR3kXViGCsWuZqQ2W+3llyiXpoPgAhqgB9nJHMqqHvdEv1c7orkBx05sALzxoercr5K8=
+	t=1778536607; cv=none; b=tlWj23v8UZw40r8xbqEs4eFZihekuEHk9z8RSMcowU/RJleg+wlkkqzGe9HiXh1iKKTSkzcq69xsMO6CiUa25rDa7J2Ljg1YiHa4Dywl6d/C52hHhTIRzeRvvoudawcqg/b07aI8RyA6KrPC5nioecLejtXVGGJMPJYR6/6u5zY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778536506; c=relaxed/simple;
-	bh=49UCQF2Mfjjy+jnVHqQ6gMpH2kim7Eyx4ERBDg+X7Lg=;
+	s=arc-20240116; t=1778536607; c=relaxed/simple;
+	bh=35lhpMozp2FemUJxeuU2dzum5DVzDvTC00sMqQZFwo4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=H0Kjs85Hwmb4HMf6nrZdTbBZQlW2CaR1IWgi3UVQRIDekSBkX7Fl8t5ulrSiBse1s3SE/jbZ1fH0KRzF2Ni757NzUq2p0f0McZap/q3cVu1N8luMYHLRrJkF7wnXkGd9YnrvmFeo0sX+KUfaNlf4K6dawhUqmGUJK9zvJNb3wso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HjXGyvcK; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=ECgxxWjozjS/ni2/8nf0rPBrmIWxs16m//brr0ytGdkIHveLibxBb/HW05XLl66PXFjQWD3ZkdvzTSdIPAOk7ybUSPnmGr1JrfGR++9w3eKRhAdY/S4tpjh+7jMZVIMfAFxz5MFZslkaLYh64Ww0r1NWrIWgBKXqMEnH5CZgGuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n2ZRgAt9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HjXGyvcK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3546AC2BCB0;
-	Mon, 11 May 2026 21:55:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n2ZRgAt9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EA74C2BCB0;
+	Mon, 11 May 2026 21:56:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778536506;
-	bh=49UCQF2Mfjjy+jnVHqQ6gMpH2kim7Eyx4ERBDg+X7Lg=;
+	s=k20201202; t=1778536607;
+	bh=35lhpMozp2FemUJxeuU2dzum5DVzDvTC00sMqQZFwo4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=HjXGyvcKTyp9hQ8IoEIgLF2ZSqgyHxZXrhRRw1q3TJRvzXuFkJzt0vRYM2nuLTe+A
-	 VRlqaLN4/T7HlMxeukCQyQKjuqs7DmAXILk4JnhW0AvdFFuo/sD7iKEabO6SDWCCLt
-	 LU4rLmmQzesZxobRQrF28dzFcNr8akZtyjDCak4u8FDVQbe7ZJd7YjpF+4FsjMwKHj
-	 kUwQRwBe7IU69Y2B8O/UJq6Bg4l1cM20B8LtpB7SW2dIZPdYz2hYfVOkcC904Vs2pZ
-	 7idnP7TJB4utNNy4pvGvIZUeix+wBUQliS+w26A7caSvLhc7k8UzveTiZ5BOGMTAdn
-	 32/RTNcgDasnw==
+	b=n2ZRgAt9W9dMbDsRJxgq3zm9gf47jU36wqbqfitAzTt2qV0l4YcS+cNhPIszWK8ZC
+	 WOT/9ypczZ2l2AsDZ4hFZywf1ljFpYR89qT2sVBhEAajx9EIdgLiL0adeQFIM6v4i9
+	 obT++I1pFHU952mq49CwZeAjq2BGKRcb4NtUbUYvEVQV4rvKqki2a1lSYTP+lwWnxn
+	 6wIQtOqD+NSjUxd3NXsmRudCt5UouDmRL6hZQUL9t2Q4PKM0ZHAjNm/dTdIV75MAAO
+	 TY41cpZuCxiUnZ5k8cDkzZbT89qqrlavxxvaQoGn1T1QJj+ZNDYvmA/QPBfCeDWvMe
+	 CGx/LusEeTGKg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/3] usb: typec: bm92txx: add Rohm BM92TXX support
+Subject: Re: [PATCH v2 1/2] clk: Add gpio-locked clock driver
 Reply-To: sashiko@lists.linux.dev
-To: "Alexandre Hamamdjian via B4 Relay" <devnull+azkali.limited.gmail.com@kernel.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260511-bm92t-v2-1-2145e4f4386b@gmail.com>
-References: <20260511-bm92t-v2-1-2145e4f4386b@gmail.com>
+To: "Vyacheslav Yurkov via B4 Relay" <devnull+V.Yurkov.EXT.bruker.com@kernel.org>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260510-feature-clock-guard-v2-1-6c25458d5340@bruker.com>
+References: <20260510-feature-clock-guard-v2-1-6c25458d5340@bruker.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 11 May 2026 21:55:05 +0000
-Message-Id: <20260511215506.3546AC2BCB0@smtp.kernel.org>
+Date: Mon, 11 May 2026 21:56:46 +0000
+Message-Id: <20260511215647.4EA74C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 11 potential issue=
-(s) to consider:
-- [Critical] Missing cleanup in bm92t_remove and error paths leads to use-a=
-fter-free and resource leaks.
-- [Critical] Unvalidated I2C message lengths lead to stack buffer overflow =
-and out-of-bounds reads.
-- [High] Integer underflow in current limit calculation allows over-drawing=
- power from weak sources.
-- [High] bm92t_probe succeeds without full initialization when role switch =
-is NULL, causing NULL pointer dereference.
-- [High] Use of C bitfields to parse hardware responses breaks on big-endia=
-n architectures.
-- [High] Misuse of disable_irq() and queue_work() causes permanent IRQ disa=
-blement.
-- [High] I2C_M_NOSTART is incorrectly set for standard standalone writes, v=
-iolating I2C protocol.
-- [High] Race condition due to unsynchronized access to driver state and gl=
-obal arrays.
-- [High] Incorrect cancellation of power_work can leave charging enabled af=
-ter cable disconnect.
-- [Medium] Undeclared variable pd_switch_name causes build failure if CONFI=
-G_SWITCH is enabled.
-- [Medium] Incorrect return value check for kstrtouint() breaks debugfs int=
-erfaces.
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [Critical] Bypassing the consumer clock API to use `__clk_get_hw()` on pa=
+rent clocks leads to a Use-After-Free condition.
+- [High] The `.is_enabled` callback returns inverted boolean states, breaki=
+ng CCF state tracking.
+- [High] The driver calls `gpiod_get_array_value()` within atomic CCF callb=
+acks, triggering a sleep-in-atomic panic for sleepable GPIOs.
+- [High] The driver registers multiple input clocks as parents of a multipl=
+exer, which permanently disables all but the first input clock.
+- [High] The driver incorrectly assigns local consumer connection IDs to `i=
+nit.parent_names`, causing CCF parent resolution to fail.
+- [Medium] The driver fails to explicitly configure the GPIO pins as inputs=
+, potentially reading output latches.
+- [Medium] The `is_gpio_ready` function prints warnings inside an atomic co=
+ntext and can pass a NULL pointer to a `%s` format specifier.
 --
 
-commit bc2b1e9499614886b3e416da0258ae455e2169d4
-Author: CTCaer <ctcaer@gmail.com>
-usb: typec: bm92txx: add Rohm BM92TXX support
+commit 3bd5345760ec5123d8088eb2dc06d995c3669406
+Author: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 
-This commit introduces the driver for the Rohm BM92TXX USB Type-C and
-Power Delivery controllers. It provides extcon, USB role switch support,
-and VBUS regulation based on PD negotiations.
+clk: Add gpio-locked clock driver
 
-diff --git a/drivers/usb/typec/bm92txx.c b/drivers/usb/typec/bm92txx.c
---- a/drivers/usb/typec/bm92txx.c
-+++ b/drivers/usb/typec/bm92txx.c
-@@ -359,6 +359,13 @@
-> +struct __packed pd_object {
-> +	unsigned int amp:10;
-> +	unsigned int volt:10;
-> +	unsigned int info:10;
-> +	unsigned int type:2;
-> +};
+A gpio-locked clock aggregates one or more input clocks and/or one or
+more GPIOs. Consumers can use the output clock to wait until all input
+clocks are locked and only then initialize dependent peripherals.
 
-Does the use of C bitfields to parse hardware responses via memcpy() break
-protocol parsing on big-endian architectures?
-
+> diff --git a/drivers/clk/clk-gpio-locked.c b/drivers/clk/clk-gpio-locked.c
+> index 0000000000000..79098f9b65326
+> --- /dev/null
+> +++ b/drivers/clk/clk-gpio-locked.c
 [ ... ]
-
-@@ -550,6 +550,13 @@
-> +static int bm92t_write_reg(struct bm92t_info *info,
-> +			   unsigned char *buf, unsigned int len)
+> +static int is_gpio_ready(struct gpio_locked_clk_priv *priv)
 > +{
-> +	struct i2c_msg xfer_msg[1];
+> +	unsigned long values[BITS_TO_LONGS(MAX_INPUT_GPIO_COUNT)] =3D {0};
+> +	int ret =3D 0;
 > +
-> +	xfer_msg[0].addr =3D info->i2c_client->addr;
-> +	xfer_msg[0].len =3D len;
-> +	xfer_msg[0].flags =3D I2C_M_NOSTART;
-> +	xfer_msg[0].buf =3D buf;
-
-Does setting I2C_M_NOSTART on a single-message transfer violate the I2C
-protocol? This might cause standard I2C adapter drivers to reject the write.
-
-[ ... ]
-
-@@ -1285,6 +1285,13 @@
-> +static void bm92t_calculate_current_limit(struct bm92t_info *info,
-> +	unsigned int voltage, unsigned int amperage)
-> +{
-> +	int i;
-> +	unsigned int charging_limit =3D amperage;
-> +	struct bm92t_platform_data *pdata =3D info->pdata;
+> +	if (priv->num_gpios =3D=3D 0)
+> +		return 0;
 > +
-> +	/* Subtract a USB2 or USB3 port current */
-> +	if (voltage > 5000)
-> +		charging_limit -=3D (PD_POWER_RESERVE_UA / voltage);
-> +	else
-> +		charging_limit -=3D (NON_PD_POWER_RESERVE_UA / voltage);
+> +	ret =3D gpiod_get_array_value(priv->gpios->ndescs,
+> +		priv->gpios->desc,
+> +		priv->gpios->info,
+> +		values);
 
-Can this subtraction underflow since charging_limit is unsigned? If the sou=
-rce
-advertises an amperage less than the reserve, this could wrap around to a
-large positive value and bypass the min() checks, potentially setting a lar=
-ge
-current limit on a weak source.
+Will this trigger a sleep-in-atomic panic for sleepable GPIOs?
 
-[ ... ]
+is_gpio_ready() is called from the .enable and .is_enabled callbacks,
+which execute in an atomic context holding the enable_lock spinlock.
 
-@@ -1310,6 +1310,13 @@
-> +static void bm92t_extcon_cable_set_init_state(struct work_struct *work)
-> +{
-> +	struct bm92t_info *info =3D container_of(to_delayed_work(work),
-> +					       struct bm92t_info, oneshot_work);
+If a consumer attaches a GPIO from a sleepable bus controller (e.g., an I2C=
+ or
+SPI expander), the underlying GPIO driver will attempt to sleep while the
+spinlock is held.
+
 > +
-> +	disable_irq(info->i2c_client->irq);
-[ ... ]
-> +	queue_work(info->event_wq, &info->work);
-> +}
-
-And in the interrupt handler:
-
-@@ -1910,6 +1910,13 @@
-> +static irqreturn_t bm92t_interrupt_handler(int irq, void *handle)
-> +{
-> +	struct bm92t_info *info =3D handle;
+> +	if (ret) {
+> +		dev_err(priv->dev, "Failed to read GPIOs");
+> +		return -EIO;
+> +	}
 > +
-> +	disable_irq_nosync(info->i2c_client->irq);
-> +	queue_work(info->event_wq, &info->work);
-> +	return IRQ_HANDLED;
-> +}
+> +	for (int i =3D 0; i < priv->gpios->ndescs; i++) {
+> +		if (!test_bit(i, values)) {
+> +			dev_warn(priv->dev, "GPIO %s is not ready", priv->gpio_names[i]);
 
-Could this sequence permanently disable the interrupt? If the interrupt han=
-dler
-and the delayed work both call disable_irq() and then queue_work(), the
-workqueue might deduplicate the work item. The work will only execute once =
-and
-enable the IRQ once, leaving the disable depth unbalanced.
+Can this spam the kernel log from an atomic context?
 
-[ ... ]
+This warning executes under a spinlock during CCF sysfs reads or consumer
+polling.
 
-@@ -1335,6 +1335,13 @@
-> +static bool bm92t_check_pdo(struct bm92t_info *info)
-> +{
-> +	int i, err, pdos_no;
-> +	struct device *dev;
-> +	unsigned char pdos[29];
-> +	struct pd_object pdo[7];
-[ ... ]
-> +	err =3D bm92t_read_reg(info, READ_PDOS_SRC_REG, pdos, sizeof(pdos));
-> +	pdos_no =3D pdos[0] / sizeof(struct pd_object);
-[ ... ]
-> +	memcpy(pdo, pdos + 1, pdos[0]);
+Also, if the gpio-names DT property is missing, priv->gpio_names[i] will
+be NULL, which is then passed to the %s format specifier.
 
-Does this code overflow the pdo[] array? The size pdos[0] is read directly =
-from
-the I2C device and used in memcpy() into a 28-byte array without validation.
-
-Similarly, in the event handler:
-
-@@ -1765,6 +1765,13 @@
-> +	case VDM_ACCEPT_DISC_SVID_REPLY:
-> +		if (bm92t_is_success(alert_data)) {
-> +			/* Check discovered SVIDs */
-> +			err =3D bm92t_read_reg(info, INCOMING_VDM_REG, vdm,
-> +					     sizeof(vdm));
-> +
-> +			if (vdm[1] =3D=3D (VDM_ACK | VDM_CMD_DISC_SVID)) {
-> +				dev_info(dev, "Supported SVIDs:\n");
-> +				for (i =3D 0; i < ((vdm[0] - 4) / 2); i++) {
-> +					dev_info(dev, "SVID%d %04X\n", i,
-> +						 vdm[5 + i * 2] |
-> +						 (vdm[6 + i * 2] << 8));
-> +				}
-
-Can this loop read past the end of the vdm[] stack buffer? The length vdm[0]
-is read from the hardware and used as the loop bound without bounds checkin=
-g.
-
-[ ... ]
-
-@@ -1550,6 +1550,13 @@
-> +static void bm92t_usbhub_led_cfg_wait(struct bm92t_info *info,
-> +	unsigned char duty, unsigned char time_on,
-> +	unsigned char time_off, unsigned char fade)
-> +{
-> +	int retries =3D 100;
-> +
-> +	if (info->state =3D=3D NINTENDO_CONFIG_HANDLED) {
-> +		bm92t_state_machine(info, VDM_ND_CUSTOM_CMD_SENT);
-> +		bm92t_usbhub_led_cfg(info, duty, time_on, time_off, fade);
-> +		while (info->state !=3D NINTENDO_CONFIG_HANDLED) {
-> +			retries--;
-> +			if (retries < 0)
-> +				break;
-> +			usleep_range(1000, 1500);
+> +			return -EBUSY;
 > +		}
 > +	}
+> +
+> +	return 0;
 > +}
-
-Is there a race condition here? The driver state and global arrays like
-vdm_usbhub_led_msg are modified concurrently from the workqueue, debugfs
-write handlers, and PM suspend/resume callbacks without locking.
-
-[ ... ]
-
-@@ -1682,6 +1682,13 @@
-> +	if (alert_data & ALERT_PLUGPULL) {
-> +		if (!bm92t_is_plugged(status1_data)) { /* Pull event */
-> +src_fault:
-> +			/* Cancel any pending charging enable work */
-> +			cancel_delayed_work(&info->power_work);
 > +
-> +			/* Disable VBUS in case it's enabled */
-> +			bm92t_set_vbus_enable(info, false);
-> +
-> +			/* Disable charging */
-> +			if (info->pd_charging_enabled) {
-
-Should this use cancel_delayed_work_sync()? Using the non-sync version might
-leave bm92t_power_work() executing on another CPU, which could re-enable
-charging right after the unplug handler disables it.
-
-[ ... ]
-
-@@ -1918,6 +1918,13 @@
-> +static void bm92t_remove(struct i2c_client *client)
+> +static int gpio_locked_clk_is_enabled(struct clk_hw *hw)
 > +{
-> +	struct bm92t_info *info =3D i2c_get_clientdata(client);
+> +	struct gpio_locked_clk_priv *priv =3D to_gpio_locked_clk_priv(hw);
+> +	int ret =3D 0;
 > +
-> +#ifdef CONFIG_DEBUG_FS
-> +	debugfs_remove_recursive(info->debugfs_root);
-> +#endif
-> +}
-
-Does this code leak the workqueue, fwnode handles, and switch device?
-
-Furthermore, since the IRQ is non-devm and the work items are not synchrono=
-usly
-canceled, can this cause a use-after-free when the devm-managed memory is f=
-reed
-but the IRQ or delayed works fire later?
-
-[ ... ]
-
-@@ -2110,6 +2110,13 @@
-> +static ssize_t bm92t_cmd_write(struct file *file,
-> +		     const char __user *userbuf, size_t count, loff_t *ppos)
-> +{
-[ ... ]
-> +	ret =3D kstrtouint(buf, 0, &val);
-> +
-> +	if (ret =3D=3D 1) {
-> +		cmd =3D val;
-> +		bm92t_send_cmd(info, &cmd);
-> +	} else {
-> +		dev_err(&info->i2c_client->dev, "Cmd syntax is: cmd\n");
-> +		return -EINVAL;
-> +	}
-
-Does kstrtouint() return 0 on success? Checking for a return value of 1 will
-cause the debugfs interfaces to reject valid inputs with -EINVAL.
-
-[ ... ]
-
-@@ -2413,6 +2413,13 @@
-> +	info->role_sw =3D fwnode_usb_role_switch_get(remote);
-> +	if (IS_ERR_OR_NULL(info->role_sw)) {
-> +		err =3D PTR_ERR(info->role_sw);
-> +		dev_err(&client->dev, "Failed to retrieve fwnode: %d\n", err);
-> +		return err;
+> +	if (priv->num_gpios > 0) {
+> +		ret =3D is_gpio_ready(priv);
+> +		if (ret < 0)
+> +			return ret;
 > +	}
 > +
-> +	i2c_set_clientdata(client, info);
+> +	// Now check for the clocks
+> +	for (int i =3D 0; i < priv->num_clks; i++) {
+> +		struct clk_hw *hw_clk =3D __clk_get_hw(priv->clks[i].clk);
 
-If fwnode_usb_role_switch_get() returns NULL, IS_ERR_OR_NULL is true and err
-is set to PTR_ERR(NULL) which is 0. Does this cause the probe function to
-succeed without calling i2c_set_clientdata(), leading to a NULL pointer
-dereference later when bm92t_remove() retrieves it?
+Does bypassing the consumer clock API lead to a Use-After-Free condition?
+
+The driver acquires consumer clock handles (struct clk *) via
+devm_clk_bulk_get_all(). However, this extracts the provider's
+struct clk_hw * pointer using the internal API __clk_get_hw().
+
+If the parent clock's provider is unbound (e.g., via sysfs), its clk_hw
+memory is freed, but the consumer's struct clk * handle remains valid.
+Subsequent state checks will dereference the freed hw pointer.
+
+> +
+> +		if (!clk_hw_is_enabled(hw_clk)) {
+> +			dev_dbg(priv->dev, "Clock %i (%s) is not ready",
+> +				i, priv->clks[i].id);
+> +			return -EBUSY;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+
+Does this return inverted boolean states?
+
+The Common Clock Framework (CCF) expects the .is_enabled callback to return
+a boolean-like integer (non-zero for enabled, 0 for disabled).
+
+This function returns 0 when all inputs are locked and ready, and -EBUSY
+(which evaluates to a non-zero, true value) when the inputs are not ready.
+This will cause CCF to track the clock as actively enabled when its
+dependencies are unavailable, and disabled when it is fully ready.
 
 [ ... ]
+> +static u8 gpio_locked_clk_get_parent(struct clk_hw *hw)
+> +{
+> +	return 0;
+> +}
+[ ... ]
+> +static int gpio_locked_clk_parse_gpios(struct gpio_locked_clk_priv *priv)
+> +{
+> +	struct device *dev =3D priv->dev;
+> +	struct device_node *np =3D dev->of_node;
+> +	int i;
+> +
+> +	priv->gpios =3D devm_gpiod_get_array_optional(dev, "locked", GPIOD_ASIS=
+);
 
-@@ -2514,6 +2514,13 @@
-> +#ifdef CONFIG_SWITCH
-> +	info->pd_switch.name =3D pd_switch_name;
-> +	err =3D switch_dev_register(&info->pd_switch);
-> +	if (err)
-> +		dev_err(&client->dev, "failed to register pd switch, err=3D%d\n", err);
-> +#endif
+Could this read output latches instead of the physical external signal?
 
-Is pd_switch_name declared anywhere? Referencing an undeclared variable will
-cause a build failure when CONFIG_SWITCH is enabled.
+The GPIOD_ASIS flag leaves the pins in their current or default state.
+If the bootloader or prior configuration left a pin as an output,
+gpiod_get_array_value() will read the output latch value.
+
+Explicitly requesting GPIOD_IN configures the pins safely as inputs.
+
+[ ... ]
+> +static int gpio_locked_clk_parse_outputs(struct gpio_locked_clk_priv *pr=
+iv)
+> +{
+> +	struct device *dev =3D priv->dev;
+> +	struct device_node *np =3D dev->of_node;
+> +	struct clk_init_data init =3D {};
+> +	int ret;
+> +
+> +	of_property_read_string_index(np, "clock-output-names", 0,
+> +		&priv->output_clock_name);
+> +
+> +	if (!priv->output_clock_name)
+> +		priv->output_clock_name =3D dev_name(priv->dev);
+> +
+> +	init.name =3D priv->output_clock_name;
+> +	init.ops =3D &gpio_locked_clk_ops;
+> +	init.flags =3D 0;
+> +	init.num_parents =3D priv->num_clks;
+
+Does this register multiple input clocks as parents of a multiplexer?
+
+By setting init.num_parents =3D priv->num_clks and defining a .get_parent
+callback that strictly returns 0, the driver configures itself as a clock
+multiplexer.
+
+In the CCF topology, a multiplexer only activates its currently selected
+parent (index 0). Any additional input clocks (parents 1 to N) will never
+be prepared or enabled by the framework.
+
+> +
+> +	if (priv->num_clks) {
+> +		const char **parent_names;
+> +		int j;
+> +
+> +		parent_names =3D devm_kcalloc(dev, priv->num_clks,
+> +					    sizeof(*parent_names),
+> +					    GFP_KERNEL);
+> +		if (!parent_names)
+> +			return -ENOMEM;
+> +
+> +		for (j =3D 0; j < priv->num_clks; j++)
+> +			parent_names[j] =3D priv->clks[j].id;
+> +
+> +		init.parent_names =3D parent_names;
+
+Will this cause CCF parent resolution to fail?
+
+The driver assigns priv->clks[j].id to init.parent_names[j]. This id
+string populated by devm_clk_bulk_get_all() is the local consumer name from
+the device tree's clock-names property.
+
+However, init.parent_names requires the globally registered provider names
+of the parent clocks. Supplying the local consumer IDs will cause string
+matching to fail, leaving the clock orphaned.
+
+> +	}
+> +
+> +	priv->output_hw_clk.init =3D &init;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511-bm92t-v2-0=
--2145e4f4386b@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510-feature-cl=
+ock-guard-v2-0-6c25458d5340@bruker.com?part=3D1
