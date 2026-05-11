@@ -1,530 +1,873 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012071.outbound.protection.outlook.com [52.101.48.71])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D1023B8958;
-	Mon, 11 May 2026 14:21:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.71
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778509308; cv=fail; b=Fxrg1Jig1BzeoTEgwd1lyM8W0yQq8B5zTrqavj/0YgiaWqr3puvdfM2Lik0l/uBgQzy99a+Oqip1zBHRAu8EiwUdhH7OAMq5XCBxlS2O+XXAWPIcbi260PYO3wmenGUkX/x1fcXmQftX1i6feBxXs4a/hB60EhJt6Ud6iLtCj4M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778509308; c=relaxed/simple;
-	bh=71Py2D2tLLWzidhaSdmfOfG8bf0xZYGHyYHTlTwMHiw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=ZLzjYxCIMqaumBFFQyzVy4FP1q79zQFQVfeE1GmdbQXKgJXe5gVn0XAvhm3TaXg46zJcjJMpLoR69uXU5uPY8e0CZNsk54+Cao6P8se9N7y+omtJEMGgMI4AsCC9ZlLcoLzpPDe3r9XsI3t0N2wF8siYXllbbn7RetatlXI/riY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=ct+EIQiI; arc=fail smtp.client-ip=52.101.48.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F4C3F9F48;
+	Mon, 11 May 2026 14:23:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778509435; cv=none; b=A7Jb/R8PEeCeAFVaBdxVV0yZL/RmsyQ1txtUd1ZTYCaFnaKo1lk2gA9W8Q4SCd6/Hv7GZvOV4n6RZZ7WgoRobWIzvi9FrtsbcmyRVui+GYshWgPzv0D+FQgEJUt/hUlY9LJzUktCiq9A6L+3eytQED/v5/5uuagXTAXE63Dhi4c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778509435; c=relaxed/simple;
+	bh=jZbt3yxabD4k1PRKtlqaDEtqvU9Ft3tXU6fQFvvjiKs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KiD4g1xszF4TnjhAPDLtDvZ6EwL27WCxhc9mlSUn5cK+8qnJjtVI3WuCOEzplK4+Lt0uah31AYb9bID+tY7m7mIfb05GghM20+yjutYwUGesfFtzJdtC1svuajR9ANWlXczgrU30Su4myHFZaEAbBegRCxbr7/JeBPnyNF7Dlyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KZdReWG3; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="ct+EIQiI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GCJGRgjM4rNJh+am3ewhscF/kDpMYFXP7rfpcqAC97koJts1ysRoD6kSr5yKWNUr8SJvEyEG9bJ67NAvMPwZbbm6J2Wp80KO4hGwLv7zasd8J4K4GVyeHDz66rNe9/QVnNeC6aePHuToOjyMkvL1zGr+jq0DKMyBylBrw+pAtcIfjFMiQrRcrfU36nS4FNibutIGBXmHh08jJRu1W4kYv52ta9vwYBPXqCtSfsRJIVDX/eODBV2YQNUuCmkk6YCx0nmZnRBO4U5YFh25lFMgpwJwv9IpAmf17tEz9kvFo2lXiJuFVcjLplHoQ84ASm+UCwAubF+PHdEvTO9zrqkdrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Bu76wuF5P9NuyRqyhdSWZ1fKudtn00TMO/IQpLEZ8o8=;
- b=N+VyxDngmGggctntnUb29GH/Vzu5F/4qY7NPCdTd29eC5bFXiMP9vd7Hphl436eeLD2dvImVk6Eh5CLlmy3ozOvK1U+vga817Vyan2wraFrPwEqjsgUQYSF91AzvR2To2EcDDteuEVwk45112y5xNq0EWZhpqxhEyt/oKAk0loXQW+yu4H3C12igGe15hq/H9w3GGezGqZX4WrcHJP11EjFxFOMxj1bHgAFMbS+GXu33uu2rs9vv0WU/UE35MF9w28K+O3EC+WTxewvqg0hX8DXnM6xvUieVDpMEyM0I8l9dLSKzZMsMIEWxLRNZrTvnxC3hCZnxOz3MufuBefMSAg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bu76wuF5P9NuyRqyhdSWZ1fKudtn00TMO/IQpLEZ8o8=;
- b=ct+EIQiIXx8hRdcKZBbf+dCUk2HfI1U9AdDQs2oeKQu06v2Pb5spaP/sBNBS6SHv7O+NtXsIUlh2TplQxCrb5phLr7XExJuYgNApxVpUZ/DX0ifmeEpTG2dzFOtHrw67B74rczY8C1Op3mU/hFLwt+7dK/G9b6owYdhlxMlFkEw=
-Received: from SJ0P220CA0014.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::22)
- by CO1PR10MB4580.namprd10.prod.outlook.com (2603:10b6:303:98::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 11 May
- 2026 14:21:43 +0000
-Received: from SJ1PEPF000023D2.namprd02.prod.outlook.com
- (2603:10b6:a03:41b:cafe::a6) by SJ0P220CA0014.outlook.office365.com
- (2603:10b6:a03:41b::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.23 via Frontend Transport; Mon,
- 11 May 2026 14:21:43 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- SJ1PEPF000023D2.mail.protection.outlook.com (10.167.244.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.13 via Frontend Transport; Mon, 11 May 2026 14:21:42 +0000
-Received: from DFLE203.ent.ti.com (10.64.6.61) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 11 May
- 2026 09:21:22 -0500
-Received: from DFLE210.ent.ti.com (10.64.6.68) by DFLE203.ent.ti.com
- (10.64.6.61) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 11 May
- 2026 09:21:22 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE210.ent.ti.com
- (10.64.6.68) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Mon, 11 May 2026 09:21:21 -0500
-Received: from [172.24.233.149] (ws.dhcp.ti.com [172.24.233.149])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64BELFtx3884664;
-	Mon, 11 May 2026 09:21:16 -0500
-Message-ID: <5a5cf9f7-6a9e-47f4-905c-d3a40cb58ac0@ti.com>
-Date: Mon, 11 May 2026 19:51:14 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KZdReWG3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60919C2BCB0;
+	Mon, 11 May 2026 14:23:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778509435;
+	bh=jZbt3yxabD4k1PRKtlqaDEtqvU9Ft3tXU6fQFvvjiKs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=KZdReWG3eJAmnNGmhWNQsijJHg/sRoskRg2exb17D9EsawjI6e2UqKC0vmJPNVYmB
+	 4RwDZ/aJYHuqlBrSPJ5SOZ9AcWY2p+uJXNjHpMW8b0nbIGyyRmUrli33iecNLLmWVN
+	 VgLbve0gZG3Fqv78ngvtJ0IxOguQ/BhtRRkgfuScLlSQkeWhj7Z0kGrwsyevXvQ5E1
+	 NZIxJKxF9FWnlFBntyorJLi4pnteGUXCxkQ3PBVP1Ct7KNj51eNKP2UBbs1JJI2zxA
+	 ZRLF+LkSzyXGHUBpqTMUFzjSAk1YKeHCCOhycfdVj/D771ixMo7V8KZNydGqNGw1P/
+	 Rrt8khGqNqZmw==
+Date: Mon, 11 May 2026 15:23:46 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Nikhil Gautam <nikhilgtr@gmail.com>
+Cc: dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 2/2] iio: magnetometer: add support for Melexis
+ MLX90393
+Message-ID: <20260511152346.14d9bf49@jic23-huawei>
+In-Reply-To: <20260510191010.155380-3-nikhilgtr@gmail.com>
+References: <20260510191010.155380-1-nikhilgtr@gmail.com>
+	<20260510191010.155380-3-nikhilgtr@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 00/17] media: cadence,ti: CSI2RX Multistream Support
-To: <jai.luthra@linux.dev>, <laurent.pinchart@ideasonboard.com>,
-	<mripard@kernel.org>
-CC: <y-abhilashchandra@ti.com>, <devarsht@ti.com>, <s-jain1@ti.com>,
-	<vigneshr@ti.com>, <mchehab@kernel.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <p.zabel@pengutronix.de>, <conor+dt@kernel.org>,
-	<sakari.ailus@linux.intel.com>, <hverkuil-cisco@xs4all.nl>,
-	<tomi.valkeinen@ideasonboard.com>, <jai.luthra@ideasonboard.com>,
-	<changhuang.liang@starfivetech.com>, <sjoerd@collabora.com>,
-	<dan.carpenter@linaro.org>, <hverkuil+cisco@kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
-	<devicetree@vger.kernel.org>
-References: <20260313090701.646534-1-r-donadkar@ti.com>
-Content-Language: en-US
-From: Rishikesh Donadkar <r-donadkar@ti.com>
-In-Reply-To: <20260313090701.646534-1-r-donadkar@ti.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D2:EE_|CO1PR10MB4580:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4bc7806d-b51a-451c-18a1-08deaf689fcd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|36860700016|82310400026|22082099003|56012099003|18002099003|3023799003;
-X-Microsoft-Antispam-Message-Info:
-	tjYUCqwW/QD0Ig8We7Cb9Pb5fkp/lpvhR+eWp4BW9KslaSpOJGgsTKMZXIGgg9mKsu6lUmJ2n1PZ447CTR6RtxHoxXEtBw5dvbX4caFGxXAFj0ZYue3+9XOOI/nE5EhgHL/G065eFcGuKXU34ycLBzli/OB4VaSoWvKd4VtSmobxsTu68MFaja9sE9ZHiEzXXS+PDz+/q5rqF+fKqGoXkpVEBT2kFqVU12PyZl+Th/PjYSXceVph7OWFWGIEPXtGqMEDmphXOOkL57uIoa/jUhM18hBw+W3YSNo49gHqGWC3/FQP2SKSdQGUwU84TVKPEBhTgVKFhgZyuDnM4GVpx3rYpUglrkBTbC2ZAjJsYwxyCfwrJfC9ETG56bfFiyiuEN9+bgd4/EY4WqHYpPcnRHbrX6aLmh0Mz0wsiEVxH9NmbyYEbv1Q2mgnBeqBYM2e2zoZfKSOb/oF8WndV1bLhobdr1Jst+o6RRIh9xHc6d28W/aTCls6aLDo8XDHqd8jlPjtNu6aF4834T303IV09JgaSByY2mqGy/xsEMoTBPCUZHsnrwl1iwu8vF8kpSvTvVf+16skySW/4ZDqbqA+Gk+1obtSUrz3/qvPk1qG4F+TiD0zWjW0GL13EsDW9qKVUrGP7D5fEoLjXi5WCivEG5rm8gn4L0AykmOGW2ZfBqMkK4qryL9x9eoRRTFqeQoALy7xJE85dShAqsVaKGX9jR5r4vfLjlp0CFaUzHaiJQk=
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(36860700016)(82310400026)(22082099003)(56012099003)(18002099003)(3023799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	xChMSc6/UKvpa6txfbsHwvgzRejrV4g0nH+N6EBztlUITyuawSqqTfIarxKOT8k18SFF6PeCAdwYKiG7ChKpivxcV4ktg5aGF7djNg/fYNgJEMo6QqXYEKaVv2sg7Y1dgi/reLFBk8JzIZb95gacQRL1+AVXsUs5h848DrvIl9RGmnfm5G8jbL0WsUcKY41zL4q9xyxGnxYVq4hxijhk4+nINYxyV6KbpIpbas7nF62bcCF83hB38Um9DvfyHkGCln4THk53FZP1M+GfV3Ks+mbUWOhoX76W01QesPFthK8xaIV23nyZaeCd5Y9y1PrV3N7rdwsT8unBNUQGMV6AxdiQzYs5nRhUL3MUeUdnY/Qh3+ZXLS1kmvKlnwBSpOPh8pxyJd3QUHsutVUoM5IFiJF/1cslA64bqB3aGDRZ4A/EVrVYPxsgdO+aLas9/35I
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2026 14:21:42.4438
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4bc7806d-b51a-451c-18a1-08deaf689fcd
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000023D2.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR10MB4580
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, 11 May 2026 00:40:10 +0530
+Nikhil Gautam <nikhilgtr@gmail.com> wrote:
+
+> Add Industrial I/O subsystem support for the Melexis
+> MLX90393 3-axis magnetometer and temperature sensor.
+>=20
+> The driver currently supports:
+>=20
+> raw magnetic field measurements
+> raw temperature measurements
+> configurable gain/scale selection
+> configurable oversampling ratio
+> direct mode operation
+>=20
+> The MLX90393 supports both I2C and SPI interfaces. This
+> initial implementation adds support for the I2C interface.
+>=20
+> The driver is structured around a shared sensor core with
+> a small transport abstraction layer to simplify future SPI
+> support without duplicating sensor logic.
+>=20
+> Signed-off-by: Nikhil Gautam <nikhilgtr@gmail.com>
+
+Hi Nikhil
+
+Quick process reminder - even though I've reviewed this the day you
+sent it out (coincidence of when I am catching up with backlog!),
+wait to send a v2 for at least a week so there is plenty of time
+for others to review.
+
+Various comments inline,
+
+Thanks,
+
+Jonathan
+
+> diff --git a/drivers/iio/magnetometer/mlx90393.h b/drivers/iio/magnetomet=
+er/mlx90393.h
+> new file mode 100644
+> index 000000000000..f3e04aed67de
+> --- /dev/null
+> +++ b/drivers/iio/magnetometer/mlx90393.h
+> @@ -0,0 +1,76 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * MLX90393 magnetometer & temperature sensor driver
+> + *
+> + * Copyright (c) 2026 Nikhil Gautam <nikhilgtr@gmail.com>
+> + */
+> +
+> +#ifndef MLX90393_H
+> +#define MLX90393_H
+> +
+> +#include <linux/bitops.h>
+> +#include <linux/bits.h>
+> +#include <linux/device.h>
+As below - generally don't want to see device.h included in a new driver.
+
+> +#include <linux/types.h>
+> +
+> +#define MLX90393_AXIS_MAX		2
+> +#define MLX90393_GAIN_MAX		8
+> +#define MLX90393_RES_MAX		4
+> +#define MLX90393_OSR2_MAX		4
+> +#define MLX90393_OSR_MAX		4
+> +
+> +#define MLX90393_CMD_MASK	GENMASK(7, 4)
+> +
+> +/* Commands */
+> +#define MLX90393_CMD_SB		0x10
+> +#define MLX90393_CMD_SW		0x20
+> +#define MLX90393_CMD_SM		0x30
+> +#define MLX90393_CMD_RM         0x40
+> +#define MLX90393_CMD_RR         0x50
+> +#define MLX90393_CMD_WR         0x60
+> +#define MLX90393_CMD_EX         0x80
+> +#define MLX90393_CMD_HR         0xD0
+> +#define MLX90393_CMD_HS         0xE0
+> +#define MLX90393_CMD_RT         0xF0
+
+Maybe use a few more characters as those are pretty opaque acronyms!
+Fair enough if they are straight from the datasheet but in that case can we=
+ have
+some comments.
 
 
-On 13/03/26 14:36, Rishikesh Donadkar wrote:
-> This series adds multi-stream support and PM support for Cadence CSI2RX
-> and TI CSI2RX SHIM drivers.
->
-> PM patches are picked from:
-> https://lore.kernel.org/all/20250902-ti_csi_pm-v2-0-59a3be199940@ideasonboard.com/
->
-> PATCH 01 :    Remove word size alignment restriction on frame width
-> PATCH 02-08:  Support multiple DMA contexts/video nodes in TI CSI2RX
-> PATCH 09-10:  Use get_frame_desc to propagate virtual channel
->                information across Cadence and TI CSI-RX subdevs
-> PATCH 11-12:  Use new multi-stream APIs across the drivers to support
->                multiplexed cameras from sources like UB960 (FPDLink)
-> PATCH 13:     Optimize stream on by submitting all queued buffers to DMA
-> PATCH 14:     Change the drain architecture to support multi-stream,
->                implement completion barriers for last drain
-> PATCH 15-17:  Runtime PM and System PM support for CSI-RX.
->
-> Testing for this series has been done on top of media tree with 4x IMX219
-> camera modules connected to TI's AM62A using V3 Link fusion mini board.
->
-> Runtime PM and System PM has been tested with IMX219 camera module
-> connect to TI's AM62.
->
-> Follwing formats and resolutions have been tested:
->
-> Format    | Resolution | Sensor |
-> ----------|------------|--------|
-> SRGGB10   | 1640x1232  | IMX219 |
-> SRGGB10   | 1920x1080  | IMX219 |
-> SRGGB8    | 1640x1232  | IMX219 |
-> SRGGB8    | 1920x1080  | IMX219 |
->
-> Overlay and defconfig changes for the same can be found below:
-> https://github.com/RISHI27-dot/linux/commits/u/multistream_v12
->
-> v4l2-compliance results:
-> https://gist.github.com/Rishikesh-D/85d2f1ceab61fdc4e3340349c12823b4
+> diff --git a/drivers/iio/magnetometer/mlx90393_core.c b/drivers/iio/magne=
+tometer/mlx90393_core.c
+> new file mode 100644
+> index 000000000000..c79f2b8c20d8
+> --- /dev/null
+> +++ b/drivers/iio/magnetometer/mlx90393_core.c
+> @@ -0,0 +1,724 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * MLX90393 magnetometer & temperature sensor driver
+> + *
+> + * Copyright (c) 2026 Nikhil Gautam <nikhilgtr@gmail.com>
+> + */
+> +
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+Generally not needed - try and find more specific relevant includes.
+
+Check to see if you need more - this is a very short set for a driver
+and we generally try to follow include what you use principles in IIO.
+
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/unaligned.h>
+> +#include <linux/units.h>
+> +
+> +#include <linux/iio/iio.h>
+> +
+> +#include "mlx90393.h"
+> +
+> +struct mlx90393_data {
+> +	struct device *dev;
+> +	struct mutex lock;
+Locks should always have a comment saying what data they are protecting.
+
+> +	void *bus_context;
+> +	const struct mlx90393_transfer_ops *ops;
+> +	u8 gain_sel;
+> +	u8 hallconf;
+> +
+> +	u8 res_xy;
+> +	u8 res_z;
+> +
+> +	u8 dig_filt;
+> +	u8 osr;
+> +	u8 osr2;
+> +};
+
+> +
+> +/* Datasheet: Table no.17 */
+> +static const int mlx90393_scale_table[MLX90393_AXIS_MAX]
+> +				[MLX90393_GAIN_MAX]
+> +				[MLX90393_RES_MAX] =3D {
+> +	/* XY axis */
+> +	{
+> +		{751, 1502, 3004, 6009},
+		{ 751, 1502, 3004, 6009 },
+etc
+As noted below I'd prefer this reformatted so you don't have
+to copy it into that local static array.  That way we can greatly
+simplify avoiding some race conditions.
+
+> +		{601, 1202, 2403, 4840},
+> +		{451, 901, 1803, 3605},
+> +		{376, 751, 1502, 3004},
+> +		{300, 601, 1202, 2403},
+> +		{250, 501, 1001, 2003},
+> +		{200, 401, 801, 1602},
+> +		{150, 300, 601, 1202},
+> +	},
+> +	/* Z axis */
+> +	{
+> +		{1210, 2420, 4840, 9680},
+> +		{968, 1936, 3872, 7744},
+> +		{726, 1452, 2904, 5808},
+> +		{605, 1210, 2420, 4840},
+> +		{484, 968, 1936, 3872},
+> +		{403, 807, 1613, 3227},
+> +		{323, 645, 1291, 2581},
+> +		{242, 484, 968, 1936},
+> +	}
+> +};
+
+> +/*
+> + * Calculate total conversion time in microseconds.
+> + *
+> + * Formula derived from datasheet timing equations.
+> + */
+> +
+> +static int mlx90393_get_tconv_us(struct mlx90393_data *data)
+> +{
+> +	const int osr =3D data->osr;
+> +	const int osr2 =3D data->osr2;
+> +	const int df =3D data->dig_filt;
+> +
+> +	int tconvm;
+> +	int tconvt;
+> +
+> +	int m =3D 3; /* X,Y,Z */
+> +
+> +	/*
+> +	 * Datasheet:
+> +	 *
+> +	 * TCONVM =3D
+> +	 * 67 + 64 * 2^OSR * (2 + 2^DIG_FILT)
+> +	 */
+> +	tconvm =3D 67 +
+> +		(64 * BIT(osr) *
+> +		 (2 + BIT(df)));
+> +
+> +	/*
+> +	 * Datasheet:
+> +	 *
+> +	 * TCONVT =3D
+> +	 * 67 + 192 * 2^OSR2
+> +	 */
+> +	tconvt =3D 67 +
+> +		(192 * BIT(osr2));
+> +	/*
+> +	 * Total conversion time:
+> +	 * TSTBY + TACTIVE + m * TCONVM +
+> +	 * TCONVT + TCONV_END
+> +	 */
+> +	return 220 +
+> +		360 +
+> +		(m * tconvm) +
+> +		tconvt +
+> +		100;
+
+If you are going to comment on the maths - match that layout in the
+code rather than having so many line breaks.
 
 
-Hi Sakari, Laurent and everyone,
+> +}
+
+> +
+> +static int mlx90393_check_status(u8 cmd, u8 status)
+> +{
+> +	/* Always validate error bit */
+> +	if (status & MLX90393_STATUS_ERROR)
+> +		return -EIO;
+> +
+> +	switch (cmd & MLX90393_CMD_MASK) {
+> +	case MLX90393_CMD_RM:
+> +		/*
+> +		 * D1:D0 indicates response availability
+> +		 * 00 means invalid/no measurement
+> +		 */
+> +		if ((status & MLX90393_STATUS_RESP) =3D=3D 0)
+> +			return -EIO;
+> +		break;
+return 0;
+similar reasoning to comment below.
+> +
+> +	case MLX90393_CMD_RT:
+> +		/* Reset acknowledge */
+> +		if (!(status & MLX90393_STATUS_RT))
+> +			return -EIO;
+> +		break;
+> +
+> +	default:
+> +		break;
+> +	}
+> +
+> +	return 0;
+> +}
+
+> +
+> +static int mlx90393_write_reg(struct mlx90393_data *data,
+> +			      u8 reg, u16 val)
+> +{
+> +	u8 tx[4];
+> +	u8 status;
+> +	int ret;
+> +
+> +	tx[0] =3D MLX90393_CMD_WR;
+> +	put_unaligned_be16(val, &tx[1]);
+> +	/* Register address is encoded in bits [7:2] */
+> +	tx[3] =3D reg << 2;
+> +
+> +	ret =3D mlx90393_xfer(data,
+> +			    tx, sizeof(tx),
+> +			    &status, 1);
+
+Wrap much less!
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	return mlx90393_check_status(tx[0], status);
+> +}
+
+> +
+> +static int mlx90393_read_measurement(struct mlx90393_data *data,
+> +				     enum mlx90393_channels chan, int *val)
+> +{
+> +	u8 cmd;
+> +	u8 rx[9];
+> +	int ret;
+> +	int tconv_us =3D mlx90393_get_tconv_us(data);
+> +
+> +	/* Start measurement */
+> +	cmd =3D MLX90393_CMD_SM | MLX90393_MEASURE_ALL;
+> +
+> +	ret =3D mlx90393_write_cmd(data, cmd);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Wait conversion */
+> +	usleep_range(tconv_us, tconv_us + 1000);
+
+fsleep() for all 'fuzzy' ranges like this.
+
+> +
+> +	/* Read measurement */
+> +	cmd =3D MLX90393_CMD_RM | MLX90393_MEASURE_ALL;
+Even here I'd put that value inline in the call rather than
+having a local variable for it.
+
+> +
+> +	ret =3D mlx90393_read_cmd(data, cmd, rx, sizeof(rx));
+> +	if (ret)
+> +		return ret;
+> +	/*
+> +	 * Measurement response layout:
+> +	 * [status][temp][x][y][z]
+> +	 */
+> +
+> +	switch (chan) {
+> +	case MLX90393_CHAN_TEMP:
+> +		*val =3D get_unaligned_be16(&rx[1]);
+> +		break;
+> +
+> +	case MLX90393_CHAN_X:
+> +		*val =3D sign_extend32(get_unaligned_be16(&rx[3]), 15);
+> +		break;
+> +
+> +	case MLX90393_CHAN_Y:
+> +		*val =3D sign_extend32(get_unaligned_be16(&rx[5]), 15);
+> +		break;
+> +
+> +	case MLX90393_CHAN_Z:
+> +		*val =3D sign_extend32(get_unaligned_be16(&rx[7]), 15);
+> +		break;
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	return 0;
+Maybe just return early instead of break.  Saves the reader scrolling
+down to see what else is to be done.
+> +}
+> +
+> +static int mlx90393_get_scale(struct mlx90393_data *data,
+> +			      const struct iio_chan_spec *chan,
+> +			      int *val, int *val2)
+> +{
+> +	enum mlx90393_axis_type axis;
+> +	u8 res;
+> +
+> +	if (chan->channel2 =3D=3D IIO_MOD_Z) {
+> +		axis =3D MLX90393_AXIS_TYPE_Z;
+> +		res =3D data->res_z;
+Be consistent - here you use an if / else, below to ternary operators.
+I don't much mind which (slightly preference for this) but mixing
+this sort of thing up just makes for harder code to review.
 
 
-Can this series be picked? Please let me know if any actions are 
-required from my side :)
+
+> +	} else {
+> +		axis =3D MLX90393_AXIS_TYPE_XY;
+> +		res =3D data->res_xy;
+> +	}
+> +
+> +	/*
+> +	 * Convert:
+> +	 * =C2=B5T =C3=97 1000 =E2=86=92 nT
+> +	 */
+> +	*val =3D 0;
+> +	*val2 =3D mlx90393_scale_table[axis][data->gain_sel][res];
+> +
+> +	return IIO_VAL_INT_PLUS_NANO;
+> +}
+> +
+> +static int mlx90393_find_scale(struct mlx90393_data *data,
+> +			       bool z_axis,
+> +			       int val, int val2,
+> +			       int *gain)
+> +{
+> +	int i;
+> +	u8 res;
+> +	enum mlx90393_axis_type axis;
+> +
+> +	axis =3D z_axis ? MLX90393_AXIS_TYPE_Z :
+> +		MLX90393_AXIS_TYPE_XY;
+Go long if it helps readability and here I think it does + it's under
+80 chars anyway!
+
+	axis =3D z_axis ? MLX90393_AXIS_TYPE_Z : MLX90393_AXIS_TYPE_XY;
+
+> +
+> +	res =3D z_axis ? data->res_z : data->res_xy;
+> +
+> +	if (val !=3D 0)
+> +		return -EINVAL;
+> +
+> +	for (i =3D 0; i < ARRAY_SIZE(mlx90393_scale_table[0]); i++) {
+> +		if (mlx90393_scale_table[axis][i][res]
+> +				=3D=3D val2) {
+Here readability is hurt and it fits on one line under 80 chars anyway!
+		if (mlx90393_scale_table[axis][i][res] =3D=3D val2) {
+
+> +			*gain =3D i;
+> +			return 0;
+> +		}
+> +	}
+> +
+> +	return -EINVAL;
+> +}
+> +
+> +static int mlx90393_set_scale(struct mlx90393_data *data,
+> +			      const struct iio_chan_spec *chan,
+> +			      int val, int val2)
+> +{
+> +	bool z_axis;
+> +	int gain;
+> +	int ret;
+> +
+> +	z_axis =3D chan->channel2 =3D=3D IIO_MOD_Z;
+> +
+> +	ret =3D mlx90393_find_scale(data, z_axis,
+> +				  val, val2,
+> +				  &gain);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D mlx90393_update_bits(data,
+> +				   MLX90393_REG_CONF1,
+> +				   MLX90393_CONF1_GAIN_SEL,
+> +				   gain);
+I'd wrap these less
+	ret =3D mlx90393_update_bits(data, MLX90393_REG_CONF1,
+> +				   MLX90393_CONF1_GAIN_SEL, gain);
+For example. Same for other similar cases.
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	data->gain_sel =3D gain;
+> +
+> +	return 0;
+> +}
+
+> +static int mlx90393_find_osr(int val, int *osr)
+> +{
+> +	int i;
+> +
+> +	for (i =3D 0; i < MLX90393_OSR_MAX;  i++) {
+
+For modern kernel code it's acceptable to do
+	for (unsigned int i =3D 0; i < MLX....)
+and avoid needing to define the local variable separately above.
+
+> +		if (mlx90393_osr_avail[i] =3D=3D val) {
+> +			*osr =3D i;
+> +			return 0;
+> +		}
+> +	}
+> +
+> +	return -EINVAL;
+> +}
+
+> +static int mlx90393_write_raw_get_fmt(struct iio_dev *indio_dev,
+> +				      struct iio_chan_spec const *chan,
+> +				      long mask)
+> +{
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SCALE:
+> +		return IIO_VAL_INT_PLUS_NANO;
+> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
+> +		return IIO_VAL_INT;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int mlx90393_write_raw(struct iio_dev *indio_dev,
+> +			      const struct iio_chan_spec *chan,
+> +			      int val, int val2,
+> +			      long mask)
+> +{
+> +	struct mlx90393_data *data =3D iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SCALE:
+> +		mutex_lock(&data->lock);
+
+Less useful but I'd use a guard() here as well just for consistency.
+
+> +		ret =3D mlx90393_set_scale(data, chan, val, val2);
+> +		mutex_unlock(&data->lock);
+> +		return ret;
+> +
+> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
+
+Similar use of guard() + {} to described below.  Then you can return
+directly for each leg.
+
+> +		mutex_lock(&data->lock);
+> +		if (chan->type =3D=3D IIO_TEMP)
+> +			ret =3D mlx90393_set_temp_osr2(data, val);
+> +		else if (chan->type =3D=3D IIO_MAGN)
+> +			ret =3D mlx90393_set_osr(data, val);
+> +		else
+> +			ret =3D -EINVAL;
+> +		mutex_unlock(&data->lock);
+> +		return ret;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int mlx90393_read_raw(struct iio_dev *indio_dev,
+> +			     const struct iio_chan_spec *chan,
+> +			     int *val, int *val2, long mask)
+> +{
+> +	struct mlx90393_data *data =3D iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+
+This is fine but maybe slightly nicer as:
+
+	case IIO_CHAN_INFO_RAW: {
+		guard(mutex)(&data->lock);
+	=09
+		ret =3D mlx90393_read_measurement(data, chan->addrss, val)
+		if (ret)
+			return ret;
+
+		return IIO_VAL_INT;
+	}
+> +		mutex_lock(&data->lock);
+> +		ret =3D mlx90393_read_measurement(data, chan->address, val);
+> +		mutex_unlock(&data->lock);
+> +		if (ret)
+> +			return ret;
+> +
+> +		return IIO_VAL_INT;
+> +
+> +	case IIO_CHAN_INFO_SCALE:
+> +		switch (chan->type) {
+> +		case IIO_MAGN:
+> +			return mlx90393_get_scale(data, chan, val, val2);
+> +
+> +		case IIO_TEMP:
+> +			/* Datasheet: 22124 millidegC/LSB */
+> +			*val =3D 0;
+> +			*val2 =3D 22124;
+> +			return IIO_VAL_INT_PLUS_MICRO;
+> +
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +
+> +	case IIO_CHAN_INFO_OFFSET:
+> +		if (chan->type =3D=3D IIO_TEMP) {
+> +			/* Datasheet: temperature offset */
+> +			*val =3D -45114;
+> +			return IIO_VAL_INT;
+> +		}
+> +		return -EINVAL;
+I'd flip the logic .
+		if (chan->type !=3D IIO_TEMP)
+			return -EINVAL;
+
+> +
+> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
+> +		if (chan->type =3D=3D IIO_TEMP)
+
+Maybe a switch statement would be nicer and consistent at leasts
+with scale above.
+
+> +			return mlx90393_get_temp_osr2(data, val);
+> +		if (chan->type =3D=3D IIO_MAGN)
+> +			return mlx90393_get_osr(data, val);
+> +		return -EINVAL;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int mlx90393_read_avail(struct iio_dev *indio_dev,
+> +			       const struct iio_chan_spec *chan,
+> +			       const int **vals,
+> +			       int *type,
+> +			       int *length,
+> +			       long mask)
+> +{
+> +	struct mlx90393_data *data =3D iio_priv(indio_dev);
+> +
+> +	static int scale_avail[MLX90393_GAIN_MAX][MLX90393_AXIS_MAX];
+> +	enum mlx90393_axis_type axis;
+> +	int i;
+> +	u8 res;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SCALE:
+> +		axis =3D chan->channel2 =3D=3D IIO_MOD_Z;
+> +		res =3D axis ? data->res_z : data->res_xy;
+> +
+> +		for (i =3D 0; i < MLX90393_GAIN_MAX; i++) {
+> +			scale_avail[i][0] =3D 0;
+> +			scale_avail[i][1] =3D
+> +				mlx90393_scale_table[axis][i][res];
+If you support changing rest this can tear mid table write and you
+get half of one table and half of the other. Use a lock.
+
+However, can you just make that mlx90393_scale_table have a datalayout
+that lets you pick between parts of that rather than having to copy it
+in here?
+
+> +		}
+> +
+> +		*vals =3D &scale_avail[0][0];
+> +		*type =3D IIO_VAL_INT_PLUS_NANO;
+> +		*length =3D MLX90393_GAIN_MAX * MLX90393_AXIS_MAX;
+> +		break;
+> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
+> +		if (chan->type =3D=3D IIO_TEMP) {
+> +			*vals =3D mlx90393_osr2_avail;
+> +			*type =3D IIO_VAL_INT;
+> +			*length =3D MLX90393_OSR2_MAX;
+> +		} else {
+> +			*vals =3D mlx90393_osr_avail;
+> +			*type =3D IIO_VAL_INT;
+> +			*length =3D MLX90393_OSR_MAX;
+> +		}
+> +
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +	return IIO_AVAIL_LIST;
+> +}
+
+> +
+> +static int mlx90393_init(struct mlx90393_data *data)
+> +{
+> +	int ret;
+> +	u8 cmd;
+> +	u16 reg;
+> +
+> +	/* Exit mode */
+> +	cmd =3D MLX90393_CMD_EX;
+
+Seems little benefit in the local variable use over
+
+	ret =3D mlx90393_write_cmd(data, MLX90393_CMD_EX);
+
+> +	ret =3D mlx90393_write_cmd(data, cmd);
+> +	if (ret)
+> +		return ret;
+> +
+> +	usleep_range(1000, 1500);
+
+fsleep() + a comment on why this particular sleep time.
+
+> +
+> +	/* Reset device */
+> +	cmd =3D MLX90393_CMD_RT;
+> +	ret =3D mlx90393_write_cmd(data, cmd);
+Similar to above.
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Wait for device to reset */
+> +	usleep_range(5000, 6000);
+and similar to above.
+
+> +
+> +	ret =3D mlx90393_read_reg(data, MLX90393_REG_CONF1, &reg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	data->gain_sel =3D FIELD_GET(MLX90393_CONF1_GAIN_SEL, reg);
+> +	data->hallconf =3D FIELD_GET(MLX90393_CONF1_HALLCONF, reg);
+> +
+> +	ret =3D mlx90393_read_reg(data, MLX90393_REG_CONF3, &reg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	data->res_xy =3D FIELD_GET(MLX90393_CONF3_RES_X, reg);
+> +	data->res_z =3D FIELD_GET(MLX90393_CONF3_RES_Z, reg);
+> +	data->dig_filt =3D FIELD_GET(MLX90393_CONF3_DIG_FILT, reg);
+> +	data->osr =3D FIELD_GET(MLX90393_CONF3_OSR, reg);
+> +	data->osr2 =3D FIELD_GET(MLX90393_CONF3_OSR2, reg);
+> +
+> +	return 0;
+> +}
+> +
+> +int mlx90393_core_probe(struct device *dev,
+> +			const struct mlx90393_transfer_ops *ops,
+> +			void *context)
+> +{
+> +	struct iio_dev *indio_dev;
+> +	struct mlx90393_data *data;
+> +	int ret;
+> +
+> +	indio_dev =3D devm_iio_device_alloc(dev, sizeof(*data));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	data =3D iio_priv(indio_dev);
+> +	mutex_init(&data->lock);
+	ret =3D devm_mutex_init(&data->lock);
+	if (ret)
+		return ret;
+
+Small advantage for lock debugging but now it's near free with that helper
+it's nicer to do the version that actually marks the lock as disabled on ex=
+it.
+
+> +
+> +	data->dev =3D dev;
+> +	data->ops =3D ops;
+> +	data->bus_context =3D context;
+> +
+> +	indio_dev->name =3D "mlx90393";
+> +	indio_dev->info =3D &mlx90393_info;
+> +	indio_dev->modes =3D INDIO_DIRECT_MODE;
+> +	indio_dev->channels =3D mlx90393_channels;
+> +	indio_dev->num_channels =3D ARRAY_SIZE(mlx90393_channels);
+> +
+> +	ret =3D mlx90393_init(data);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "failed to initialize device\n");
+> +		return ret;
+		return dev_err_probe();
+
+> +	}
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+
+> diff --git a/drivers/iio/magnetometer/mlx90393_i2c.c b/drivers/iio/magnet=
+ometer/mlx90393_i2c.c
+> new file mode 100644
+> index 000000000000..09d533a96907
+> --- /dev/null
+> +++ b/drivers/iio/magnetometer/mlx90393_i2c.c
+> @@ -0,0 +1,71 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +#include <linux/module.h>
+> +#include <linux/i2c.h>
+
+mod_devicetable.h for the id table structure definitions.
+
+> +
+> +#include "mlx90393.h"
+> +
+> +/*
+> + * MLX90393 commands use repeated-start transfers where
+> + * every command is followed by a status/data response.
+> + */
+> +static int mlx90393_i2c_xfer(void *context,
+> +			     const u8 *tx, int tx_len,
+> +			     u8 *rx, int rx_len)
+> +{
+> +	struct i2c_client *client =3D context;
+> +	int ret;
+> +	struct i2c_msg msgs[2];
+> +
+> +	msgs[0].addr =3D client->addr;
+> +	msgs[0].flags =3D 0;
+> +	msgs[0].len =3D tx_len;
+> +	msgs[0].buf =3D (u8 *)tx;
+> +
+> +	msgs[1].addr =3D client->addr;
+> +	msgs[1].flags =3D I2C_M_RD;
+> +	msgs[1].len =3D rx_len;
+> +	msgs[1].buf =3D rx;
+
+	struct i2c_msg msgs[2] =3D {
+		[0] =3D {
+			.addr =3D client->addr,
+			.len =3D tx_len,
+			.buf =3D (u8 *)tx,=20
+		},
+		[1] =3D {
+			.addr =3D client->addr,
+			.flags =3D I2C_M_RD,
+			.len =3D rx_len,
+			.buf =3D rx,
+		},
+	};
+> +
+> +	ret =3D i2c_transfer(client->adapter, msgs, 2);
+
+sizeof(msgs)
+
+> +	if (ret !=3D 2)
+
+sizeof(msgs)
+
+> +		return ret < 0 ? ret : -EIO;
+> +
+> +	return 0;
+> +}
+
+> +static int mlx90393_i2c_probe(struct i2c_client *client)
+> +{
+> +	return mlx90393_core_probe(&client->dev,
+> +				  &mlx90393_i2c_ops,
+> +				  client);
+	return mlx90393_core_probe(&client->dev, &mlx90393_i2c_ops, client);
+Definitely wrap less than you have and I'd probably just go a bit long on
+this one and have it all on one line.
 
 
-Regards,
+> +}
+> +
+> +static const struct i2c_device_id mlx90393_id[] =3D {
+> +	{ "mlx90393", 0 },
+	{ "mlx90393" }
 
-Rishikesh
+The , 0 doesn't add anything as if we do ever need to add
+data it will be a pointer and not 0 anyway.
 
->
-> ---
-> Changes in v12:
-> [PATCH v12 06/17] media: ti: j721e-csi2rx: add a subdev for the core
-> device
-> - Report the format not being present as error and use dev_err instead of dev_dbg
-> - Add .has_pad_interdep
-> [PATCH v12 11/17] media: cadence: csi2rx: add multistream support
-> - Add .has_pad_interdep
-> [PATCH v12 14/17] media: ti: j721e-csi2rx: Change the drain architecture for multistream
-> - Remove debug print when wait_for_completion() timeouts
-> [PATCH v12 16/17] media: ti: j721e-csi2rx: Support runtime suspend
-> - Init dma and request channels at probe time
->
-> Link to (v11):
-> https://lore.kernel.org/all/20260209183456.1906327-1-r-donadkar@ti.com/
-> ---
-> Changes in v11:
-> [PATCH v11 04/18] media: ti: j721e-csi2rx: prepare SHIM code for multiple contexts
-> - Remove register write that caused bogus image for SRGGB10
-> [PATCH v11 10/18] media: ti: j721e-csi2rx: add support for processing virtual channels
-> - Update commit message to mention about DT being handled
-> [PATCH v11 12/18] media: ti: j721e-csi2rx: add multistream support
-> - s/form/from
-> - Move code for falling back to default VC and DT inside
->    ti_csi2rx_get_vc_and_dt()
->
-> Link to (v10):
-> https://lore.kernel.org/all/20260121135424.1185710-1-r-donadkar@ti.com/
-> ---
-> Changes in v10:
->
-> # New patches in v10:
-> [PATCH v10 12/18] media: cadence: csi2rx: Use the stream from route
->
-> #Changes
-> [PATCH v10 06/18] media: ti: j721e-csi2rx: add a subdev for the core
-> - Remove unwanted mutex
-> [PATCH v10 10/18] media: ti: j721e-csi2rx: add support for processing
-> - Improve commit message to remove info about get_frame_desc() usage
->    in single/multi stream usecases
-> - Add break when stream found
-> - Report error when no stream found
-> [PATCH v10 11/18] media: cadence: csi2rx: add multistream support
-> - Move the code to set default VC0 inside if statement
-> [PATCH v10 13/18] media: ti: j721e-csi2rx: add multistream support
-> - Make the pixel reset assert and de-assert more symmetric across
->    the start and stop path
-> - Remove the vc_cached variable and associated checks
-> - Move enable_count == 0 check at start of
->    ti_csi2rx_sd_disable_streams() with a WARN_ON
-> - Update the commit message to s/4/32 for number of possible streams
-> [PATCH v10 15/18] media: ti: j721e-csi2rx: Change the drain
->   architecture for multistream
-> - Change the commit message to talk about streams only and not
->    VC/DT
-> - Improve commit message to give better description regarding continuous
->    drain
-> - Squash [PATCH v9 16/19] into this patch
-> [PATCH v10 18/18] media: ti: j721e-csi2rx: Support system suspend
->   using pm_notifier
-> - Add comment before register_pm_notifier() call
->
-> Link to (v9):
-> https://lore.kernel.org/all/20251230083220.2405247-1-r-donadkar@ti.com/
-> ---
-> Changes in v9:
->
-> # New patches in v9:
-> [PATCH v9 08/18] media: staging: starfive: Move to .enable/disable_streams API
-> - Remove the s_stream API and use the enable/disable_streams API in stf
->    drivers
-> [PATCH v9 16/19] media: ti: j721e-csi2rx: Return the partial frame as error
-> - Return the next frame after drain to usersapce as VB2_BUF_STATE_ERROR
->
-> # Changes:
-> [PATCH v9 01/18] media: ti: j721e-csi2rx: Remove word size alignment on frame width
-> - Ad R-by Tomi
-> [PATCH v9 06/18] media: ti: j721e-csi2rx: add a subdev for the core device
-> - Squash [PATCH v8 08/18] into this patch so that we dont have to use
->    s_stream
-> - Use BIT_U64() instead of BIT()
-> [PATCH v9 07/18] media: cadence: csi2rx: Move to .enable/disable_streams API
-> - Use BIT_U64() instead of BIT()
-> [PATCH v9 11/19] media: ti: j721e-csi2rx: add support for processing virtual channels
-> - Update to commit message to s/hardcoded/VC0/
-> - Remove the mention of caching VC data from the commit message as that
->    is done in 13/19
-> - Update the commit message to s/per stream/single stream/
-> [PATCH v9 12/19] media: cadence: csi2rx: add multistream support
-> - Remove the s_stream fallback
-> [PATCH v9 13/19] media: ti: j721e-csi2rx: add multistream support
-> - Move the code that is accessing the state from .start_streaming() call
->    to .enable_streams() call
-> - Remove the check for V4L2_SUBDEV_ROUTE_FL_ACTIVE
-> - Change the logic of for_each_active_route() usage to break the loop
->    when the route is found
-> - Change the format variable to static const
-> - Update the commit message to s/4/32 for number of possible streams
-> [PATCH v9 17/19] media: cadence: csi2rx: Support runtime PM
-> - Shift to goto based error handing in the .enable_streams() function
-> [PATCH v9 18/19] media: ti: j721e-csi2rx: Support runtime suspend
-> - Make variable i and ret unsigned
-> - Move runtime_enable() call before notifier_register() in the .probe()
-> - In the .remove() function if the runtime PM state is active, set it to
->    suspended and remove the pm_runtime_set_suspended() call at the end.
-> - Drop the call to init_dma() from init/cleanup_ctx()
-> - Remove pm_runtime_set_active() and pm_request_idle() from .probe()
->
-> Link to (v8):
-> https://lore.kernel.org/all/20251112115459.2479225-1-r-donadkar@ti.com/#t
-> ---
-> Changes in v8:
->
-> # New patches in v8:
-> [PATCH v8 07/18] media: cadence: csi2rx: Move to .enable/disable_streams API
-> [PATCH v8 08/18] media: ti: j721e-csi2rx: Move to .enable/disable_streams API
-> - Remove the s_stream API and use the enable/disable_streams API right
->    after adding the subdev for core device
->
-> Changes:
-> [PATCH v8 01/18] media: ti: j721e-csi2rx: Remove word size alignment on frame width
-> - Remove define for PSIL_WORD_SIZE_BYTES.
-> [PATCH v8 06/18] media: ti: j721e-csi2rx: add a subdev for the core device
-> - Use v4l2_subdev_state_get_format() instead of using the get_fmt from the
->    subdev pad ops in the ti_csi2rx_link_validate() function.
-> [PATCH v8 11/18] media: ti: j721e-csi2rx: add support for processing virtual channels
-> - Move routing support form this patch to PATCH 13/18.
-> [PATCH v8 12/18] media: cadence: csi2rx: add multistream support
-> - Move support for enable/disable_streams() API that was added in this patch to
->    PATCH 07/18 earlier in this series.
-> - Remove the mutex from the driver
-> [PATCH v8 13/18] media: ti: j721e-csi2rx: add multistream support
-> - Move support for enable/disable_streams() API that was added in this patch to
->    PATCH 08/18 earlier in this series.
-> - Remove csi->mutex protection inside enable/disable_streams() function calls to
->    solve circular locking dependency warning.
-> - Mention that DT filtering is also supported in the commit message.
->
-> Link to (v7):
-> https://lore.kernel.org/all/20250911102832.1583440-1-r-donadkar@ti.com/#t
->
-> ---
-> Changes in v7:
->
-> [PATCH v6 03/16] media: ti: j721e-csi2rx: separate out device and context
-> - Resolve bisect test fail because of undefined 'csi' variable
-> - Resolve bisect test fail because of 'vdev' not being in scope when used
-> [PATCH v6 07/16] media: ti: j721e-csi2rx: get number of contexts from device tree
-> - Resolve compiler warning regarding missing error code 'ret'
-> [PATCH v6 12/16] media: ti: j721e-csi2rx: Submit all available buffers
-> - Remove unused variable
->
-> Link to (v6):
-> https://lore.kernel.org/all/20250908134729.3940366-1-r-donadkar@ti.com/
->
-> ---
-> Changes in v6:
->
-> # New patches in v6:
->
-> [PATCH v6 14/16] media: cadence: csi2rx: Support runtime PM
-> [PATCH v6 15/16] media: ti: j721e-csi2rx: Support runtime suspend
-> [PATCH v6 16/16] media: ti: j721e-csi2rx: Support system suspend
-> using pm_notifier
->
-> # Changes in patches from v5:
-> [PATCH v5 01/16] media: ti: j721e-csi2rx: Remove word size alignment
-> on frame width
-> - Remove restrictions on minimum frame width in ti_csi2rx_fill_fmt()
-> - Add Reviewed-by from Abhilash
-> [PATCH v5 02/16] dt-bindings: media: ti,j721e-csi2rx-shim: Support 32 dma chans
-> - No change
-> [PATCH v5 03/16] media: ti: j721e-csi2rx: separate out device and context
-> - No change
-> [PATCH v5 04/16] media: ti: j721e-csi2rx: prepare SHIM code for multiple contexts
-> - No change
-> [PATCH v5 05/16] media: ti: j721e-csi2rx: allocate DMA channel based on context index
-> - No change
-> [PATCH v5 06/16] media: ti: j721e-csi2rx: add a subdev for the core device
-> - No change
-> [PATCH v5 07/16] media: ti: j721e-csi2rx: get number of contexts from device tree
-> - Solve compilation warnings
-> [PATCH v5 08/16] media: cadence: csi2rx: add get_frame_desc wrapper
-> - No change
-> [PATCH v5 09/16] media: ti: j721e-csi2rx: add support for processing virtual channels
-> - Remove unnecessary call to v4l2_unlock_state()
-> [PATCH v5 10/16] media: cadence: csi2rx: add multistream support
-> - No change
-> [PATCH v5 11/16] media: ti: j721e-csi2rx: add multistream support
-> - No change
-> [PATCH v5 12/16] media: ti: j721e-csi2rx: Submit all available buffers
-> - No change
-> [PATCH v5 13/16] media: ti: j721e-csi2rx: Change the drain architecture for multistream
-> - Squash implementation of completion barriers for last drain cycle
-> - Make struct completion per ctx
->
-> Link to (v5):
-> https://lore.kernel.org/all/20250825142522.1826188-1-r-donadkar@ti.com/
->
-> ---
-> Changes in v5:
->
-> # New patches in v5:
->
-> [PATCH v5 01/14] media: ti: j721e-csi2rx: Remove word size alignment
-> [PATCH v5 14/14] media: ti: j721e-csi2rx: Wait for the last drain
->
-> # Changes in patches from v4:
->
-> [PATCH v4 01/12] dt-bindings: media: ti,j721e-csi2rx-shim: Support 32 dma chans
-> - No change
-> [PATCH v4 02/12] media: ti: j721e-csi2rx: separate out device and context
-> - No change
-> [PATCH v4 03/12] media: ti: j721e-csi2rx: prepare SHIM code for multiple contexts
-> - No change
-> [PATCH v4 04/12] media: ti: j721e-csi2rx: allocate DMA channel based on context index
-> - No change
-> [PATCH v4 05/12] media: ti: j721e-csi2rx: add a subdev for the core device
-> - No change
-> [PATCH v4 06/12] media: ti: j721e-csi2rx: get number of contexts from device tree
-> - No change
-> [PATCH v4 07/12] media: cadence: csi2rx: add get_frame_desc wrapper
-> - No change
-> [PATCH v4 08/12] media: ti: j721e-csi2rx: add support for processing virtual channels
-> - No change
-> [PATCH v4 09/12] media: cadence: csi2rx: add multistream support
-> - No change
-> [PATCH v4 10/12] media: ti: j721e-csi2rx: add multistream support
-> - Serialize stream stop
-> - Remove the break statement to avoid early return in the loop, as
->    reported by Sjoerd
-> [PATCH v4 11/12] media: ti: j721e-csi2rx: Submit all available buffers
-> - Delete the list node on DMA error to avoid kernel panic
-> [PATCH v4 12/12] media: ti: j721e-csi2rx: Change the drain architecture for multistream
-> - Mention about next frame after drain being bogus
->
-> Link to (v4):
->    https://lore.kernel.org/all/20250514112527.1983068-1-r-donadkar@ti.com/
->
-> Changes in v4:
->
-> [PATCH 01/13] dt-bindings: media: ti,j721e-csi2rx-shim: Support 32 dma chans
->    - No change
-> [PATCH 02/13] media: ti: j721e-csi2rx: separate out device and context
->    - Add ctx identifier in the dev_err() message
->    - No change
-> [PATCH 03/13] media: ti: j721e-csi2rx: prepare SHIM code for multiple contexts
->    - Reduced the name string lenght from 32 chars to 5 chars
-> [PATCH 04/13] media: ti: j721e-csi2rx: allocate DMA channel based on context index
->    - No change
-> [PATCH 05/13] media: ti: j721e-csi2rx: add a subdev for the core device
->    - Add .enum_mbus_code callback
->    - Replace statically allocated struct with a global static const struct
->      v4l2_mbus_framefmt and used that in the _init_state() function
-> [PATCH 06/13] media: ti: j721e-csi2rx: get number of contexts from device tree
->    - Fix the drain buffer being leaked
->    - If the shows more number of ctx than the TI_CSI2RX_MAX_CTX, return an error
->      instead of warning
-> [PATCH 07/13] media: cadence: csi2rx: add get_frame_desc wrapper
->    - No change
-> [PATCH 08/13] media: ti: j721e-csi2rx: add support for processing virtual channels
->    - Call ti_csi2rx_get_vc() only once on first stream start and cache the VC data in
->      the driver, use the corresponding VC in all subsequent stream starts.
-> [PATCH 09/13] media: cadence: csi2rx: Use new enable stream APIs
-> [PATCH 10/13] media: cadence: csi2rx: Enable multi-stream support
->    - Squash the above two patches into
->      [PATCH v4 09/12] media: cadence: csi2rx: add multistream support
->    - Use already obtained csi2rx->source_pad in enable_streams() and
->      disable_streams() call
->    - Update commit message with the reason for using a custom helper for s_stream
->      instead of v4l2_subdev_s_stream_helper()
->    - Use v4l2_get_link_freq() variant that takes pad of the source as its first
->      argument instead of the one that takes v4l2_ctrl_handler
->    - Call v4l2_get_link_freq() with bpp = 0 to prevent fallback to V4L2_CID_PIXEL_RATE
->      in multi-stream case
->    - Use lock guards to simplify error handling
->    - Call csi2rx_update_vc_select() at first stream start before enabling the controller
-> [PATCH 11/13] media: ti: j721e-csi2rx: add multistream support
->    - No change
-> [PATCH 12/13] media: ti: j721e-csi2rx: Submit all available buffers
->    - No change
-> [PATCH 13/13] media: ti: j721e-csi2rx: Change the drain architecture for multistream
->    - Fix checkpatch warning
->    - Change commit message to give a better description of the patch
->
-> Link to (v3):
->    https://lore.kernel.org/all/20250417065554.437541-1-r-donadkar@ti.com/
->
-> Changes in v3:
->
-> - Drop [PATCH v2 01/13] media: cadence: csi2rx: Support runtime PM from
->    v2, support for runtime PM will be added in a separate series:
->    https://lore.kernel.org/all/20250224-ti_csi_pm-v1-0-8f8c29ef646d@ideasonboard.com/
-> - Change the drain architecture to prevent FIFO overflow in multistream
->    usecases.
-> - With the new drain architecture, we don't need the the driver to wait
->    for userspace to start streaming on all "actively routed" video nodes
->    before starting streaming on the source. So, revert back to the capture
->    architecture where streams can be started and stopped independent
->    to each other.
->
-> Link to (v2):
->    https://lore.kernel.org/r/20240627-multistream-v2-0-6ae96c54c1c3@ti.com
->
-> Changes in v2:
->
-> - Change the multi-camera capture architecture to be similar to that of
->    Tomi's RPi5 FE series, where the driver will wait for userspace to
->    start streaming on all "actively routed" video nodes before starting
->    streaming on the source. This simplifies things a lot from the HW
->    perspective, which might run into deadlocks due to a shared FIFO
->    between multiple DMA channels.
->
-> - Drop a few fixes that were posted separately and are already merged
-> - Fix dtschema warnings reported by Rob on [02/13]
-> - Fix warnings for uninitialized `used_vc` variable in cdns-csi2rx.c
-> - Return -EBUSY if someone updates routes for j721e-csi2rx subdev while
->    streaming
-> - Only allow single-streams to be routed to the source pads (linked to
->    video nodes) of the j721e-csi2rx device
-> - Squash the patches marked "SQUASH" in the v1 RFC series
->
-> Changhuang Liang (1):
->    media: cadence: csi2rx: Support runtime PM
->
-> Jai Luthra (9):
->    dt-bindings: media: ti,j721e-csi2rx-shim: Support 32 dma chans
->    media: ti: j721e-csi2rx: separate out device and context
->    media: ti: j721e-csi2rx: add a subdev for the core device
->    media: ti: j721e-csi2rx: add support for processing virtual channels
->    media: cadence: csi2rx: add multistream support
->    media: ti: j721e-csi2rx: add multistream support
->    media: ti: j721e-csi2rx: Submit all available buffers
->    media: ti: j721e-csi2rx: Support runtime suspend
->    media: ti: j721e-csi2rx: Support system suspend using pm_notifier
->
-> Pratyush Yadav (4):
->    media: ti: j721e-csi2rx: prepare SHIM code for multiple contexts
->    media: ti: j721e-csi2rx: allocate DMA channel based on context index
->    media: ti: j721e-csi2rx: get number of contexts from device tree
->    media: cadence: csi2rx: add get_frame_desc wrapper
->
-> Rishikesh Donadkar (3):
->    media: ti: j721e-csi2rx: Remove word size alignment on frame width
->    media: cadence: csi2rx: Move to .enable/disable_streams API
->    media: ti: j721e-csi2rx: Change the drain architecture for multistream
->
->   .../bindings/media/ti,j721e-csi2rx-shim.yaml  |   39 +-
->   drivers/media/platform/cadence/Kconfig        |    1 +
->   drivers/media/platform/cadence/cdns-csi2rx.c  |  509 +++++--
->   drivers/media/platform/ti/Kconfig             |    1 +
->   .../platform/ti/j721e-csi2rx/j721e-csi2rx.c   | 1219 ++++++++++++-----
->   5 files changed, 1320 insertions(+), 449 deletions(-)
->
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, mlx90393_id);
+
