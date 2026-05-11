@@ -1,83 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D2E3822A6
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 20:28:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B3D396D28
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 20:32:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778531289; cv=none; b=VAbcLrQtpFJFCalcM34lqr4edtt9QyUBvl5w62EUbwcR7cyc/yghAz4n0dzMsegNbTeWPPR6BQJIqWlvDxUrSKZ9V1I4DC9Kg599jEHMB6NfXcOFerZOVgA/Wmvz4+HbeK3CeXERd5MeSJ5B8wAypVEB27Q0FhV3zNONVDmj1m4=
+	t=1778531539; cv=none; b=pB8mWExDaKtFIw0lW7BycSwD7vUEXxzSXfK1b2Ymb3LPmi6Kq1Ex73nUu9RCRAtgmKa0Sb8SMHbVlIk3onb2haalcLXGIZQgLPV77KVFVfth/9DoesInLXYISffijxTQ9SjAP4z42ZAk8jdokBI6ZC5GrUTk/XC/DtharoN0nYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778531289; c=relaxed/simple;
-	bh=Zufrx/VI2aTaZkc5aI8hQ7bIa937j/pEvPsW/ybHiHE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=t4AULGlhxyZYvdefHtG0rrIS6ErMpGG+3h08vvN2dAptiKMWVVK7QwSOhIu2j/emJfrQoUCjQnvdKqOEI9r4EEoCuKOLnr4OyQLPPesmlaH4UUsFq/kStLk+viGnbct1Z7r5iy7e6lZPJEtXStEqDq8wSXSF13Rv4I7/58pIh14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kY0n0me5; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778531539; c=relaxed/simple;
+	bh=ZUqKrpP85m5QrwlaZSUqg3DvoYWLdvPUSdIGIwLSfVg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Ie5ZDWBtQseXeN3pUpQ5v1PMag4vGZLZqWNoytvYiUCCdXvbekdUROPzWYoxFPpe0652spBfPRNDxJ+xchExDcmS7j1JBYeaB52PBM4ouZTPAh09CBjLgL4kMu4llH0T97vqeZF2nn2WuVXHhNYU5LTy02YIENvPkBoBe9kuM/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hmk40Baw; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kY0n0me5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49E0EC4AF0D
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 20:28:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hmk40Baw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 880AAC2BCB0;
+	Mon, 11 May 2026 20:32:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778531289;
-	bh=Zufrx/VI2aTaZkc5aI8hQ7bIa937j/pEvPsW/ybHiHE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=kY0n0me5gHXh9SQBpm0nawZ5itoni+8MAOqu0APPqli6Q1gWVeenTtLbc7QYrM2XI
-	 gu/zJ6CgYj4Rj+bKfRhnqbs4kim2CfHCSmsE/wddLxU9oIcuvWsMrMxJTepLKh1oX1
-	 0uTRg6SA1yp98tnfeG8It03g16nMgBE9MA/aWNGr9Ht4qPMDrzCTIue7kOVjzgTFf1
-	 +rvC2qwFE61wiOdIoDCOE+fxqmNixJQQ+gFJiUkmHE4fYBrWittGipin0FxwGQUeJF
-	 xVcbdWi7Pxxwc7wmvjGrQHI7arOSyRrr9OtKPbXYCl1kJemmRf4RqnC1T9qHTUNWu8
-	 ZfrvpdlNdMPSQ==
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5a860667fabso4299248e87.0
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 13:28:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+ovJWJ83b8pA2L2o+4/wAspLgmendTP+qQ5Nq5IPaHB2rF0na6BbseXurBLCfW3Ic281E87aQ1ZgbD@vger.kernel.org
-X-Gm-Message-State: AOJu0YxyT6iTC7ejy/Y855HSP2jjJXBK1fyM2Ove5do/s+3GSACmZpBg
-	arOW1qhAMkp58w8/UWUT3RfWYsriGQNXw5XzbuQp9Cx5O19brDy+WOW4lp50v35plV2mHk0oLZo
-	0YqfOplHM3r83pRsnC9hCaP6tdyu23V0=
-X-Received: by 2002:a05:6512:32c5:b0:5a3:fd83:13f7 with SMTP id
- 2adb3069b0e04-5a8a949f147mr5220966e87.6.1778531288026; Mon, 11 May 2026
- 13:28:08 -0700 (PDT)
+	s=k20201202; t=1778531538;
+	bh=ZUqKrpP85m5QrwlaZSUqg3DvoYWLdvPUSdIGIwLSfVg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=Hmk40BawvgmbtTBIviUOvg6nlcVUhJocuLkkZcUcSH50Gcc+5OTPcjLNJIJZ60lq4
+	 +7bXkMOR4S0UPG6sx7l7C6+iVwN0QUVM9juo3V1LuK3J8Xchhcv4QDZ/W9iHQJTAZi
+	 ClfMXuqIENW82rxuL7t2KhBm9Ba54lFODmwB0aJQVihWZYMvXkJW79jb15IV5+GwVg
+	 hSt3/ylJLAeLFwSkq63hk1IjBkiOWHYi3dmOO6Zlez1duc3tFKBENZESlhFxUNz4qo
+	 OX+eTmBrarY82UwoeylrgojleL2/3A2BTDBsKxAVdTcB/xtE3crz1Db6E2D8aKfkLY
+	 eNAUtHE6oXlZQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] dt-bindings: iio: adc: Convert xilinx-xadc bindings
+ to YAML schema
+Reply-To: sashiko@lists.linux.dev
+To: "Pramod Maurya" <pramod.nexgen@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260510083219.70224-1-pramod.nexgen@gmail.com>
+References: <20260510083219.70224-1-pramod.nexgen@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 11 May 2026 20:32:17 +0000
+Message-Id: <20260511203218.880AAC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260424111330.702272-1-changhuang.liang@starfivetech.com>
- <20260424111330.702272-12-changhuang.liang@starfivetech.com>
- <20260424-mumps-foothill-ef122c1029c0@spud> <ZQ4PR01MB120229BE0DAC2658164C066AF2372@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
- <20260428-hardhat-both-1c9aa594a45a@spud> <CAD++jL=96gzBL-VzNi3WtZQvhVgqATV1GwsnyZkTzNC1OiMa5g@mail.gmail.com>
- <NT0PR01MB1216A40D68A84F944F4CEABCF23C2@NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn>
-In-Reply-To: <NT0PR01MB1216A40D68A84F944F4CEABCF23C2@NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 11 May 2026 22:27:56 +0200
-X-Gmail-Original-Message-ID: <CAD++jLk_7wqHYDL3K7s6AGTfLcH+Hs_sr3o53yJOBQ+F+Q4xGQ@mail.gmail.com>
-X-Gm-Features: AVHnY4LemyhdlVVL4fcj1rkaW0eUQWg0zRd1czeP7h1K7aGobHiBihe2v4zvxNE
-Message-ID: <CAD++jLk_7wqHYDL3K7s6AGTfLcH+Hs_sr3o53yJOBQ+F+Q4xGQ@mail.gmail.com>
-Subject: Re: [PATCH v1 11/20] dt-bindings: pinctrl: Add starfive,jhb100-per1-pinctrl
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Conor Dooley <conor@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Emil Renner Berthing <kernel@esmil.dk>, Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Bartosz Golaszewski <brgl@kernel.org>, 
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>, 
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, May 7, 2026 at 11:55=E2=80=AFAM Changhuang Liang
-<changhuang.liang@starfivetech.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Invalid use of 'minimum' and 'maximum' directly on the 'reg' array =
+property within the 'channel@...' subnode.
+--
 
-> Thanks for the criticism. I'm now reworking the binding to use the simple=
-r
-> string-based functions+groups as Conor suggested, instead of overcomplica=
-ting
-> pinmux. Will send a new version soon.
+commit 1ceb6107e206dae61695383d0449f5edc509e233
+Author: Pramod Maurya <pramod.nexgen@gmail.com>
 
-This sounds great, thanks Changhuang!
-Looking forward to the new version.
+dt-bindings: iio: adc: Convert xilinx-xadc bindings to YAML schema
 
-Yours,
-Linus Walleij
+This commit converts the legacy plain-text device tree bindings for the
+Xilinx XADC and UltraScale System Monitor to the YAML schema format to
+enable automated validation.
+
+> diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml b/D=
+ocumentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+[ ... ]
+> +    patternProperties:
+> +      "^channel@([0-9a-f]|10)$":
+> +        type: object
+> +        description:
+> +          Represents an external channel connected to the ADC.
+> +
+> +        properties:
+> +          reg:
+> +            description: |
+> +              Pair of pins the channel is connected to.
+> +                0: VP/VN
+> +                1: VAUXP[0]/VAUXN[0]
+> +                2: VAUXP[1]/VAUXN[1]
+> +                ...
+> +                16: VAUXP[15]/VAUXN[15]
+> +            minimum: 0
+> +            maximum: 16
+
+Are these minimum and maximum constraints taking effect as intended?
+
+In dt-schema, the reg property is inherently typed as an array. According to
+the JSON schema specification, the minimum and maximum validation keywords
+apply only to numeric instances and are silently ignored when applied direc=
+tly
+to an array. Because of this, the intended limits on the channel values mig=
+ht
+be bypassed during dtbs_check.
+
+Could this be updated to specify maxItems: 1 and apply the numeric limits
+inside an items constraint to ensure the correct unit address values are
+strictly enforced?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510083219.7022=
+4-1-pramod.nexgen@gmail.com?part=3D1
