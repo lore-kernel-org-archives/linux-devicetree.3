@@ -1,132 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 326713B530A
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 21:14:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 146BD3B530A
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 21:15:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778534063; cv=none; b=YLt4JSK/rngbMD4PIsFGDB21bX55K/hCK2ETPzN80wp+8IHsn50lCbNgJ6y1XskwR63hdtuxr/YoZ/f3o1ZnQca60hExqLMY3ZO/Z88OQH5MKM6gUABHG8fumcorDy/xzb+Gfm57UrXVUtTEJyg+FRfAYXgv3kA9G3RlP/vQKPs=
+	t=1778534102; cv=none; b=TK8t6ZAOU5pKskftp0DDRDj8oN4PbNxXnqnxErEb1FM3zs5TXowAKK9+0L0k+qxLFc3xWz/RCuiBPXGkYJ/s1bd3KApFYZzwijAtYoAnIPHWDvwrQxB+PSYBx0mcz38eu7MsHKHE+yjyNJ9smpopatO1+omF4IgwtHV0IayWAt0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778534063; c=relaxed/simple;
-	bh=Pz03f8KSKak8DO18gycA8/PjIX5Wd9fJZn4E9O9Swyw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=E72rhJ+nJlpmSZVGQP/JZGO7RmvctD2u+hT90bWA8bSP+xzHvmNIkwawPXSFXGtMbD3OlAp/lTYXpMi2PRr12ObuF0nVMI9l0FZvFA4Gd0v/lMzWSeBH5RrP9HTb7j00GrMORdqOdoIiPaxMDS6yIgzENpLWPKC4yBtpeXo5EEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M3KILTCk; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778534102; c=relaxed/simple;
+	bh=Zc31T/QO9EegTI6B6vuxwKR2XMOEi+0n4zCsru7FsDg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=bcN+SfI2BBSYb8hu5aOMaMhYAF0EuuRDhMu5k9VRs3aPDIDm8EWd+E5rmPGOBpNICPpHE+rl8xr99p0pryRTqq7TbpIenEJJEJpEW6iPrqCSF7RS6y7T/shplXpZmqJlp4UDrqn5RKyLuGD4e0chvYRjwrVOO0EqoiUIazajmMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Osm7Zj4R; arc=none smtp.client-ip=209.85.128.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M3KILTCk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0AC6C2BCB0;
-	Mon, 11 May 2026 21:14:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778534063;
-	bh=Pz03f8KSKak8DO18gycA8/PjIX5Wd9fJZn4E9O9Swyw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=M3KILTCk+bIUohoq8F6ukzxBodXC0NAjI6ikVXXQ7oweFhhMkmGOQCAp59udA6Iq/
-	 /kaTlIcw1Yh4IegxlxMjI3DOmYcUM96kQDebZzP862ntFKydptVnvuFfuRjxiwqX6I
-	 V643U1XhjtdxZ4LN2KMCYDjUlOEkkHsc/a+PVLZBlkntj1+jytKRPRvq/Q3bcyKHcX
-	 oYw5f5T69+OC/ksMTh1h1bKYYtcE4J7T8wqZvidffbPftMy7JoC2NrC+qneRtcFmRa
-	 ho6cxpFJhS29MppVk82WyisiJyBLUTOlIOyd7L63jWljVtJle5JLhXOVNsnvIC5ckD
-	 VGoAJrzDKGgAw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 02/11] lib: kstrtox: add kstrtoudec64() and
- kstrtodec64()
-Reply-To: sashiko@lists.linux.dev
-To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260510-adf41513-iio-driver-v12-2-34af2ed2779f@analog.com>
-References: <20260510-adf41513-iio-driver-v12-2-34af2ed2779f@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 11 May 2026 21:14:22 +0000
-Message-Id: <20260511211422.B0AC6C2BCB0@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Osm7Zj4R"
+Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-7bf0b1a47b1so46969187b3.0
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 14:15:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778534100; x=1779138900; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Q6ldejdVN081D7fwNeDF8ZPrc/XeSO77Rq/+gN7cxYg=;
+        b=Osm7Zj4R4/Yzhii2ocOlG/VyNmsAe0XBXV4RnOPCIbZfldkh/ut3mp5kdKnb3p4nHk
+         gc1BCNDD968g1NfckmAoMUdBtv+53YSdLNEiL9EQSttel/6n3gK01xA6cUsPCsw4HDHx
+         Y21uR1jI4usx89SDMEWraPFEcgiATHoYUsidJjQieVT4jW3u+IYwPLumFoLL06KQxSWj
+         lZLTecb9aJJimgQp/2Q/VLNhZzNkmaFYU2zXE4wYtu5KFRbBvIX4FPveWpbfTtAD2PR0
+         Ncrh6C+Gs1n1HHjMoE44zMbwugQ5uwVq+JDaIsuiCZB/4CXU7WUecEAAfckdWI7llWuz
+         xTBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778534100; x=1779138900;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Q6ldejdVN081D7fwNeDF8ZPrc/XeSO77Rq/+gN7cxYg=;
+        b=SSSmVYGJJai58LSokSuXBGWzWZV2vbgajzD77+3cL5CD6yA5LAl4sARDF5kh0zRA8J
+         Dw0SJyJ7qdWDSTcgjHVgnH8ZE+5CWdak3vEDpvm22etZ59uYI5zCFm7M13QtSVuor6Po
+         glwtTIF11rmdEUkPhIuGQOImvFsZ+qt3VOoIpTTUNiWSSIbo8x1oV9L/CiMC+ELCFcW2
+         aM3cecF6s4h4F5tyUNx28iz9OhEGmO5x5xPNpc7eeU94eu8FGF14dxPwHsfZM/zLGaYN
+         pZ2ba8ElmRUNNCW/NQvvXonPwiqW8EP/JL422ujaDV16Swj7Zq4Xmp4hP4wSvXsORW8H
+         mGtA==
+X-Forwarded-Encrypted: i=1; AFNElJ9LM/LziZU5bGUmbYSZJDOxggau1vygk32DB1HzSNEIh0BMKeikM6A7gz2vXqwrVDHDF+tSuDQtLDcp@vger.kernel.org
+X-Gm-Message-State: AOJu0YwC6etbLAIlbHw86JZQxOaCivwHZkbgM42RVqqRiIjq9zyYG6e+
+	A2eH34rUMiOSvyIr7r6z8Iz7dirpiQma5CORm0xm3HdqIXm8MRfpdzI=
+X-Gm-Gg: Acq92OFfn8V5/oH5t7HhyHZosZSjmVX1nhPwDvAokBUuZs5ejZIovj7aQGK3FqVONNT
+	XRshAKH4ztuZLsYkViL04B+MOTEtrKdxVLXdMZwzaGef8uQipd5Yhq789k7W0oFyTSaPvUufRmD
+	t1754JkY6TD+HKLx4fa+TtidKYj//9jF6hORX3KrByc5tuagLbdEt60kAzSjCUtRyYwxB3/ubiX
+	W1UJDaztRZYJ9UziSzrYRdj4Lzj9QWIdd/65TFnW27uzEz6UYDXT9SIyVD6wXwLKA+c2l5DZhIJ
+	NbLHZDNnyv/IG5/7NgFbSPe+MoHBhGkBi+T80olZv/AbZrE02Vait2dsESXMhHz4B3+32QYgjs5
+	ba+NJ8k5xsnneP36bZKBBZEZGTMXMHMWHo2ieOKypQZMCvbw9mGL/6uJoI0g7GN6vXXdrBIzUpA
+	e+5+CgB62raAmjmiBcGCJFi01cXXV/8F20MXZ1TAqEUrDt8A==
+X-Received: by 2002:a05:690c:399:b0:7bd:9f34:59a3 with SMTP id 00721157ae682-7bdf5debfdemr271707107b3.11.1778534099874;
+        Mon, 11 May 2026 14:14:59 -0700 (PDT)
+Received: from alir-mac.sitimecorp.com ([12.1.37.172])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-7bd665464ccsm154634767b3.11.2026.05.11.14.14.58
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 11 May 2026 14:14:59 -0700 (PDT)
+From: Ali Rouhi <rouhi.ali@gmail.com>
+X-Google-Original-From: Ali Rouhi <arouhi@sitime.com>
+To: jiri@resnulli.us
+Cc: vadim.fedorenko@linux.dev,
+	arkadiusz.kubalewski@intel.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	cjubran@nvidia.com,
+	Oleg.Zadorozhnyi@devoxsoftware.com,
+	devicetree@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ali Rouhi <arouhi@sitime.com>
+Subject: [PATCH net-next 2/3] dt-bindings: dpll: add SiTime SiT9531x clock generator
+Date: Mon, 11 May 2026 14:14:52 -0700
+Message-Id: <20260511211453.20671-1-arouhi@sitime.com>
+X-Mailer: git-send-email 2.39.2 (Apple Git-143)
+In-Reply-To: <20260511211143.19792-1-arouhi@sitime.com>
+References: <20260511211143.19792-1-arouhi@sitime.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] kstrtoudec64() incorrectly returns -EINVAL for strings with a deci=
-mal point when scale is 0, violating the documented truncation behavior.
-- [Medium] kstrtoudec64() incorrectly returns -EINVAL for valid numbers tha=
-t end in a decimal point (e.g., "123.").
---
+Add device tree binding documentation for the SiTime SiT95316
+and SiT95317 DPLL clock generators.
 
-commit 4ece498f1f16417e4dd8a8ebdad47a15b89527ef
-Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Signed-off-by: Ali Rouhi <arouhi@sitime.com>
+---
+ .../bindings/dpll/sitime,sit9531x.yaml        | 82 +++++++++++++++++++
+ 1 file changed, 82 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/dpll/sitime,sit9531x.yaml
 
-lib: kstrtox: add kstrtoudec64() and kstrtodec64()
+diff --git a/Documentation/devicetree/bindings/dpll/sitime,sit9531x.yaml b/Documentation/devicetree/bindings/dpll/sitime,sit9531x.yaml
+new file mode 100644
+index 000000000000..0b05f0de65b9
+--- /dev/null
++++ b/Documentation/devicetree/bindings/dpll/sitime,sit9531x.yaml
+@@ -0,0 +1,82 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/dpll/sitime,sit9531x.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: SiTime SiT9531x DPLL Clock Generator
++
++maintainers:
++  - Ali Rouhi <arouhi@sitime.com>
++
++description: |
++  The SiTime SiT95316 and SiT95317 are I2C-controlled programmable clock
++  generators with integrated DPLL for synchronization applications.  Both
++  variants contain four PLLs with automatic/manual reference selection,
++  DCO frequency adjustment, and phase offset measurement via an on-chip
++  TDC (Time-to-Digital Converter).
++
++  The SiT95317 provides 4 inputs and 8 outputs; the SiT95316 provides
++  4 inputs and 12 outputs.
++
++  Runtime configuration (reference selection, frequency, phase) is managed
++  through the kernel DPLL netlink subsystem; the device tree describes only
++  the hardware wiring.
++
++properties:
++  compatible:
++    enum:
++      - sitime,sit95316
++      - sitime,sit95317
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    maxItems: 1
++    description:
++      GPIO connected to the chip's active-low reset pin.  If present, the
++      driver holds the line deasserted at probe.  Optional; boards that do
++      not route the reset line omit this property.
++
++  interrupts:
++    maxItems: 1
++    description:
++      Interrupt from the chip's active-low INTRB output.  When wired, the
++      driver uses it to trigger immediate status readback instead of
++      relying solely on periodic polling.  Optional.
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        clock-generator@68 {
++            compatible = "sitime,sit95317";
++            reg = <0x68>;
++        };
++    };
++
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        clock-generator@68 {
++            compatible = "sitime,sit95316";
++            reg = <0x68>;
++            reset-gpios = <&gpio 78 GPIO_ACTIVE_LOW>;
++            interrupts = <12 IRQ_TYPE_LEVEL_LOW>;
++        };
++    };
++...
+-- 
+2.43.0
 
-Add helpers that parses decimal numbers into 64-bit number, i.e., decimal
-point numbers with pre-defined scale are parsed into a 64-bit value (fixed
-precision). After the decimal point, digits beyond the specified scale
-are ignored.
-
-> diff --git a/lib/kstrtox.c b/lib/kstrtox.c
-> index 97be2a39f5371..da7b5f83a3c59 100644
-> --- a/lib/kstrtox.c
-> +++ b/lib/kstrtox.c
-
-[ ... ]
-
-> @@ -392,6 +393,112 @@ int kstrtobool(const char *s, bool *res)
->  }
->  EXPORT_SYMBOL(kstrtobool);
-> =20
-> +static int _kstrtoudec64(const char *s, unsigned int scale, u64 *res)
-> +{
-> +	u64 _res =3D 0, _frac =3D 0;
-> +	unsigned int rv;
-> +
-> +	if (scale > 19) /* log10(2^64) =3D 19.26 */
-> +		return -EINVAL;
-> +
-> +	if (*s !=3D '.') {
-> +		rv =3D _parse_integer(s, 10, &_res);
-> +		if (rv & KSTRTOX_OVERFLOW)
-> +			return -ERANGE;
-> +		if (rv =3D=3D 0)
-> +			return -EINVAL;
-> +		s +=3D rv;
-> +	}
-> +
-> +	if (*s =3D=3D '.' && scale) {
-
-Does this cause an issue when parsing a string like "123.45" with a scale
-of 0?
-
-Since scale is 0, this condition is false, leaving the pointer at the
-decimal point. The parser will then fall through to the trailing character
-check:
-
-    if (*s)
-        return -EINVAL;
-
-and fail the conversion entirely. Should this truncate the fractional part
-instead, as described in the documentation?
-
-> +		s++; /* skip decimal point */
-> +		rv =3D _parse_integer_limit(s, 10, &_frac, scale);
-> +		if (rv & KSTRTOX_OVERFLOW)
-> +			return -ERANGE;
-> +		if (rv =3D=3D 0)
-> +			return -EINVAL;
-
-Is it possible for valid numbers ending in a decimal point (like "123.")
-to be rejected here?
-
-If the string has a decimal point but no trailing digits, rv will be 0.
-While this correctly catches invalid strings consisting solely of ".", it
-appears it will also incorrectly fail strings where the integer portion was
-already successfully parsed.
-
-> +		s +=3D rv;
-> +		if (rv < scale)
-> +			_frac *=3D int_pow(10, scale - rv);
-> +		while (isdigit(*s)) /* truncate */
-> +			s++;
-> +	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510-adf41513-i=
-io-driver-v12-0-34af2ed2779f@analog.com?part=3D2
