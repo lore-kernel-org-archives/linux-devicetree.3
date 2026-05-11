@@ -1,161 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6EB033F8B7
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 23:58:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C11E436A357
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 23:59:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778543918; cv=none; b=s3GIe3ZECrQN0vJyhlVdgmBmOoRdKZOrzIhVsXv1Eh/+YPbodd+VYr/9qPchLLGEI9jZ59XeZU0E77q1lrtNIhhDRvhgVjNEbuR2jVx9wOK9yCpUajE0y19R6Vi3gOLbTOY+0axo6j5Wyq0fXMgBzGTKyf6LoM/69voau3T4QlA=
+	t=1778543962; cv=none; b=iJhg1BxZsMiSpFuatJwp48XryaSBq+gdwzCanfmcaGIs8grmb7MvtC/pIu1DWONJTK0VdTKChx6Ydfq/ynrcS3unuoS9rdh3RVu8jD5L5pQ6A+Jymwv1vSnaH5TX4IH0hKgnBxwMaDTlEr974tu4XQG/wtSiuGoENkxynnkJ+dI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778543918; c=relaxed/simple;
-	bh=lLtGmBYuxyFGVz8Qv5Gq+2EAiLqH1RSdM9cxi74rMQ8=;
+	s=arc-20240116; t=1778543962; c=relaxed/simple;
+	bh=tmnqng4jp6jFNO1AFPRHuf11jmge16qy6NsehbOetWY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XAECIgH/Qucs1ecLlr+uJPy7s7XttxQtxPjHVUIRbT2c0RvKaU8GS4L1TBwHo8+EnOwOPDyWNUrubboA3xXNt8/t0FUds85cTccq4dv+C/FLfhJFUwvYC52TQPscFMOvwMDJtIKq333jbd1z22LX9JBzDYIwH7x4zyVaVJiX3eE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YYI/58N3; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=YMHbDzUbKwyYZDPrf5dmMyXpZqgYDzLuLTV19lLXfkGGDQp/qjQdNOBGeQWWVJFJL30DPY+iyyIB5nGcoi5u8Hy2dEljHcAGlIVkW+ZwbXPzcmDf52X+9cKAQXq30xr9Te+e6iSHSAr8J6vZ6VFJtVDhPtFSoWJL+pmGopgb2Lo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qwiO02CF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YYI/58N3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4109FC2BCB0;
-	Mon, 11 May 2026 23:58:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qwiO02CF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10315C2BCB0;
+	Mon, 11 May 2026 23:59:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778543918;
-	bh=lLtGmBYuxyFGVz8Qv5Gq+2EAiLqH1RSdM9cxi74rMQ8=;
+	s=k20201202; t=1778543962;
+	bh=tmnqng4jp6jFNO1AFPRHuf11jmge16qy6NsehbOetWY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=YYI/58N3ITgn2pphqFnMCyh7pHmboSoG3SM7t8KqpWFwIsUr4NTK5fz/Hi4/AjnYN
-	 1zA+rljXnOMVW96U2sgmZchBIinCmwPD3TBOB6VrdNCxXPmYQzZbvkbvftBA+QxXzl
-	 qgVCkd4OsaYYaFWUw81PmpjV6YlmnT/bspzYGhd7Knh03UIjE5MGJG/sp6093gufgn
-	 fFYnSxWFTu/dMgBIiB+GnXJdHxWRaBB0SC7IuVlpH2Q+bSNs/7SZqSuMxEt70Xftfb
-	 rINTEpZhHnTGktSzJ0kHJ4hBLxWaSuRC2qEcgPtFIvor5y+8kplY2RUgCNMlPn/tHa
-	 9vtoq8DBwx6TA==
+	b=qwiO02CFBtOceKdmqEhela5HqepInn2lYt86jJHB0D6OJGDCdi39KImhgjjehNj62
+	 Xf9CpBKU2CITNUyMS8wymMbuvs37v2cU1aSBscXANK1JznQvVt+ExBm5Br5b9OhLZw
+	 salnOn5dWc41aEwJqx0509e3N+i5XLDBnTIrJD6WutrgW/Dwc0BrCZVt+nFHbGktXU
+	 32rc6U2Aftyhpk8Kcj9Q7phDVHh+9gF2LNvNFmHoBR5E39S1y0wX4j0hUoAbN+hL2c
+	 KlIaTwz+yheAmSSII3gaRjLM005K+mefPJmJ/k7EyxBR0GdL4BUi2vn+4wTVcqPhTT
+	 wljWJwMbrD9qw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 10/10] ASoC: renesas: fsi: Add SPU clock control in
- hw_startup/shutdown
+Subject: Re: [PATCH 4/4] arm64: dts: cix: add Sky1 USB4 and USB5 controllers
 Reply-To: sashiko@lists.linux.dev
-To: phucduc.bui@gmail.com
-Cc: krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260510084303.122426-11-phucduc.bui@gmail.com>
-References: <20260510084303.122426-11-phucduc.bui@gmail.com>
+To: "Peter Chen" <peter.chen@cixtech.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260511024244.981941-5-peter.chen@cixtech.com>
+References: <20260511024244.981941-5-peter.chen@cixtech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 11 May 2026 23:58:37 +0000
-Message-Id: <20260511235838.4109FC2BCB0@smtp.kernel.org>
+Date: Mon, 11 May 2026 23:59:21 +0000
+Message-Id: <20260511235922.10315C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] Unreachable SPU clock disable logic for clock masters leads to res=
-ource leak.
-- [High] Shared use of `spu_count` for both clock preparation and enablemen=
-t causes API violations and clock state corruption.
-- [High] Missing rollback of SPU clock enablement on error path causes reso=
-urce leak.
-- [High] Unhandled error in `__fsi_resume` leads to system hang if clock en=
-able fails.
-- [Medium] Unprotected read of `spu_count` causes a data race.
-- [Low] Misleading indentation in `fsi_hw_startup()`.
+- [Medium] Missing `status =3D "disabled";` for `usb4` and `usb5` device no=
+des in the SoC-level device tree.
+- [Medium] Invalid double-vendor prefix in compatible string and squashing =
+of SoC-specific glue layer with generic IP core.
+- [Low] Unnecessary inclusion of `<dt-bindings/phy/phy.h>` in `sky1.dtsi` w=
+ithout associated PHY definitions.
+- [Low] Redundant/duplicate interrupt mappings for the `wakeup` interrupt.
 --
 
-commit f4667d95bec52234e1ed11e120e67be3aae15efd
-Author: bui duc phuc <phucduc.bui@gmail.com>
+commit a270480764c96a27fe2e14e30bfb46b99527fcfb
+Author: Peter Chen <peter.chen@cixtech.com>
 
-ASoC: renesas: fsi: Add SPU clock control in hw_startup/shutdown
+arm64: dts: cix: add Sky1 USB4 and USB5 controllers
 
-This commit enables and disables the SPU clock in fsi_hw_startup()
-and fsi_hw_shutdown() to prevent system hangs caused by hardware
-register accesses while the clock is disabled.
+Add the Sky1 USB4 and USB5 Cadence USB3 controller nodes with their
+registers, interrupts, clocks, resets and S5 syscon control. Enable both
+ports on the Orion O6 board in host mode with the required VBUS pinctrl.
 
-> diff --git a/sound/soc/renesas/fsi.c b/sound/soc/renesas/fsi.c
-> index c3ac8b30f342b..5307085c06158 100644
-> --- a/sound/soc/renesas/fsi.c
-> +++ b/sound/soc/renesas/fsi.c
-> @@ -1579,6 +1579,19 @@ static int fsi_hw_startup(struct fsi_priv *fsi,
->  			  struct device *dev)
->  {
->  	u32 data =3D 0;
-> +	int ret;
-> +
-> +	/* enable spu clock */
-> +	if (fsi->master->clk_spu) {
-> +		scoped_guard(spinlock_irqsave, &fsi->master->lock) {
-> +			if (fsi->master->spu_count =3D=3D 0) {
-> +				ret =3D clk_enable(fsi->master->clk_spu);
-> +				if (ret < 0)
-> +					return ret;
+> diff --git a/arch/arm64/boot/dts/cix/sky1.dtsi b/arch/arm64/boot/dts/cix/=
+sky1.dtsi
+> index bb5cfb1f21133..9f7d9ad6586c3 100644
+> --- a/arch/arm64/boot/dts/cix/sky1.dtsi
+> +++ b/arch/arm64/boot/dts/cix/sky1.dtsi
+> @@ -6,6 +6,8 @@
+> =20
+>  #include <dt-bindings/interrupt-controller/arm-gic.h>
+>  #include <dt-bindings/clock/cix,sky1.h>
+> +#include <dt-bindings/phy/phy.h>
 
-If clk_enable() fails and returns an error here, how does __fsi_resume()
-handle it? Looking at __fsi_resume(), it ignores the return value of
-fsi_hw_startup() and unconditionally calls fsi_stream_start().
+Since there are no phys properties or macros from this header used in the
+patch, is this inclusion needed?
 
-Could this attempt to access hardware registers and trigger a system hang if
-the SPU clock failed to enable?
-
-> +			}
-> +				fsi->master->spu_count++;
-
-This isn't a bug, but the indentation of fsi->master->spu_count++ makes it
-appear as though it is conditionally executed inside the if block.
-
-Does reusing fsi->master->spu_count here conflict with its use in
-fsi_clk_prepare() and fsi_clk_unprepare()?
-
-Since fsi_clk_prepare() checks spu_count without the fsi->master->lock,
-could concurrent stream operations cause a data race?
-
-Also, consider this sequence with concurrent streams:
-
-Stream 1 opens: spu_count is 0, calls clk_prepare()
-Stream 1 starts: spu_count is 0, calls clk_enable(), spu_count becomes 1
-Stream 2 opens: spu_count is 1, skips clk_prepare()
-Stream 1 stops: spu_count drops to 0, calls clk_disable()
-Stream 1 closes: spu_count is 0, calls clk_unprepare()
-Stream 2 starts: spu_count is 0, calls clk_enable()
-
-Will Stream 2 try to call clk_enable() on an unprepared clock? Could a
-separate counter be used for enablement to avoid breaking the clock state
-machine?
-
-> +		}
-> +	}
+> +#include <dt-bindings/reset/cix,sky1-s5-system-control.h>
+>  #include "sky1-power.h"
+> =20
+>  / {
 
 [ ... ]
 
->  	/* start master clock */
->  	if (fsi_is_clk_master(fsi))
->  		return fsi_clk_enable(dev, fsi);
-
-If fsi_clk_enable() fails here, does this code leak the SPU clock enablemen=
-t?
-
-Since the function returns the error directly, is there a need to call
-clk_disable(fsi->master->clk_spu) and decrement fsi->master->spu_count
-before returning?
-
+> @@ -504,6 +506,72 @@ mbox_ap2sfh: mailbox@80a0000 {
+>  			cix,mbox-dir =3D "tx";
+>  		};
 > =20
->  	return 0;
->  }
-> @@ -1636,6 +1649,12 @@ static int fsi_hw_shutdown(struct fsi_priv *fsi,
->  	/* stop master clock */
->  	if (fsi_is_clk_master(fsi))
->  		return fsi_clk_disable(dev, fsi);
-> +	if (fsi->master->clk_spu) {
-> +		scoped_guard(spinlock_irqsave, &fsi->master->lock) {
-> +			if (--fsi->master->spu_count =3D=3D 0)
-> +				clk_disable(fsi->master->clk_spu);
-> +		}
-> +	}
-> =20
->  	return 0;
->  }
+> +		usb4: usb@91d0000 {
+> +			compatible =3D "cix,sky1-usb3", "cix,cdns-usb3";
 
-Does this bypass the SPU clock disable logic entirely when the FSI device
-operates as a clock master?
+Does the "cix,cdns-usb3" string incorrectly combine two vendor prefixes?
+Should the generic fallback be "cdns,usb3"?
 
-Since fsi_clk_disable() returns directly, it looks like fsi->master->clk_spu
-is never disabled and fsi->master->spu_count remains unbalanced.
+> +			reg =3D <0x00 0x91d0000 0x00 0x4000>,
+> +					<0x00 0x91d4000 0x00 0x4000>,
+> +					<0x00 0x91d8000 0x00 0x8000>,
+> +					<0x00 0x91c0314 0x00 0x4>;
+> +			reg-names =3D "otg", "dev", "xhci", "glue";
+
+Does adding the "glue" register and cix,syscon-usb to the generic core
+break the generic upstream schema which expects only three reg entries?
+
+Should the SoC-specific glue logic be implemented as a parent wrapper node
+with a child node for the generic Cadence USB3 core instead?
+
+> +
+> +			interrupts =3D <GIC_SPI 252 IRQ_TYPE_LEVEL_HIGH 0>,	/* host irq */
+> +					<GIC_SPI 252 IRQ_TYPE_LEVEL_HIGH 0>,	/* peripheral irq */
+> +					<GIC_SPI 253 IRQ_TYPE_LEVEL_HIGH 0>,	/* otgirq */
+> +					<GIC_SPI 252 IRQ_TYPE_LEVEL_HIGH 0>;	/* wakeup irq */
+
+The wakeup interrupt uses the same GIC SPI line as the main host and
+peripheral interrupts. Is this redundant, and could it lead to conflicting
+interrupt registration?
+
+[ ... ]
+
+> +			cix,syscon-usb =3D <&s5_syscon>;
+> +			dma-coherent;
+> +			maximum-speed =3D "super-speed-plus";
+> +			dr_mode =3D "otg";
+> +		};
+
+Should this node include a status =3D "disabled" property so the USB driver=
+s do
+not probe unconditionally on all boards using this SoC?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510084303.1224=
-26-1-phucduc.bui@gmail.com?part=3D10
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511024244.9819=
+41-1-peter.chen@cixtech.com?part=3D4
