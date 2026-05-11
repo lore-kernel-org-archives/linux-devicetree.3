@@ -1,38 +1,38 @@
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC46136EA8B;
-	Mon, 11 May 2026 03:05:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C76136494B;
+	Mon, 11 May 2026 03:06:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778468760; cv=none; b=h9sa40xvViRclEUDsZbgllJmyAdrkWlymZfl7E7wr6au9jMLG0dGgmzuiiWDAzxnZvudeK2HoL8ZCMbcH4UBp7eHtnv3KBtEWIiouAK5qByvUVJskfohIlQ1nQsz0CvDBxZ+uhMhPzJCYOpIEDLXcXUxYm04jHmU6f7qbrR+b+c=
+	t=1778468767; cv=none; b=X6jEJENQ/58pbF6X1yWy/W0mzxvQHvg4n8DijVJoRg4zIeZPGk5p+EK44GY42R2k6h9gSws5yfQoFDeOWwyxKTgj5jss+PXbvRxYoC8dEoRDuQelxN7vTGvRecmQ5eC6R0UwqiaLzg9H3q7qjxI7e413CE2J4psIWyW2iY9qJEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778468760; c=relaxed/simple;
-	bh=4JrklAuaL71xs8Fh7DT8STuKEGBgW1Q8EtKabMapkzA=;
+	s=arc-20240116; t=1778468767; c=relaxed/simple;
+	bh=HEYbE05ZJScgWhLKhcEarx2AJ+GEXCX0LjdWvk8gbuk=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UBBBTnWCuHecg0+nIGDQRf5dc6wRZULPdrUfPZqfV030aVSOl0BWpZOxDwDJG1HOFuHkEbIvvGQ80CnweWIexcnIXxWRe1/VWGr3mJB2toVydvQ9YGMnM/jraolYJpAeVpKNq8NN482aTACUBkKVJyU/efUCtzZ6+aNTTjnji9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=0MGx/T1E; arc=none smtp.client-ip=113.46.200.216
+	 MIME-Version:Content-Type; b=anm2KQSt2kNUJl2yKr3a5J4SUMjSVlM2P3hnyjw36qLXRNIhvOashhfhQg/6VItDqcaGNOEHopsXqWRefOdZ9kUOMg1Z2SbsdPyWijNoofmxIbloE2LS2Epnn3/b627EAfpxT1PBbzKgf1bqK4sya8YV1N3yok1lXkTmUNS8+nk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=aC5ld2VG; arc=none smtp.client-ip=113.46.200.225
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="0MGx/T1E"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="aC5ld2VG"
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=+4ILLVBcCmgg2fmuluXGQIe+Wa8wvQwZl0q7wZ0b1wA=;
-	b=0MGx/T1EiFcOPTEH6lF1r992tIy/Q8e3PhaNOPVs5akFPcfXgZZ6oaexT4tzvH4ZpP20dlPf9
-	KVcFbe/8vDwYApyATtOgB5vKBU16tI0ouoHUG/USqZ07jxw5xL2PErsfNCNc1oomEwZaMLb35ce
-	K6f4ZiCeAlhnlGSH+5OhQ6U=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4gDPYJ39rDz1T4FV;
-	Mon, 11 May 2026 10:58:12 +0800 (CST)
+	bh=gP8HfVClTHWeVnZhgkiJHpftRA/L/IH7204wUamvGpI=;
+	b=aC5ld2VGwocK5wNF4kNLWzXRwqGy7VVPy2Y7aT6z1Plew96KuD/b6JVVo5tIpaUsuozqhNEBl
+	Uq5G5iRkNwhE7Lb+guOM8yaJgFcRNxm/1aqoZHpEZ52JHGoLfBZO5hurcijEe7IxeJY4lGg8hJ6
+	MUBIPE/iCbbNEzS2v3yjOWw=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4gDPYR2Cmkz1K993;
+	Mon, 11 May 2026 10:58:19 +0800 (CST)
 Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id 91B6C40537;
-	Mon, 11 May 2026 11:05:50 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id 9CB14402AB;
+	Mon, 11 May 2026 11:05:53 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by dggpemf500011.china.huawei.com
  (7.185.36.131) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Mon, 11 May
- 2026 11:05:47 +0800
+ 2026 11:05:50 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
 	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
@@ -61,9 +61,9 @@ To: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
 	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
 	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
 	<kexec@lists.infradead.org>
-Subject: [PATCH v13 02/15] powerpc/crash: Fix possible memory leak in update_crash_elfcorehdr()
-Date: Mon, 11 May 2026 11:04:41 +0800
-Message-ID: <20260511030454.1730881-3-ruanjinjie@huawei.com>
+Subject: [PATCH v13 03/15] x86/kexec: Fix potential buffer overflow in prepare_elf_headers()
+Date: Mon, 11 May 2026 11:04:42 +0800
+Message-ID: <20260511030454.1730881-4-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260511030454.1730881-1-ruanjinjie@huawei.com>
 References: <20260511030454.1730881-1-ruanjinjie@huawei.com>
@@ -78,36 +78,59 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
  dggpemf500011.china.huawei.com (7.185.36.131)
 
-In get_crash_memory_ranges(), if crash_exclude_mem_range() failed
-after realloc_mem_ranges() has successfully allocated the cmem
-memory, it just returns an error but leaves cmem pointing to
-the allocated memory, nor is it freed in the caller
-update_crash_elfcorehdr(), which cause a memory leak, goto out
-to free the cmem.
+There is a race condition between the kexec_load() system call
+(crash kernel loading path) and memory hotplug operations that can lead
+to buffer overflow and potential kernel crash.
 
-Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
-Cc: Hari Bathini <hbathini@linux.ibm.com>
-Cc: Michael Ellerman <mpe@ellerman.id.au>
-Fixes: 849599b702ef ("powerpc/crash: add crash memory hotplug support")
-Reviewed-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+During prepare_elf_headers(), the following steps occur:
+1. get_nr_ram_ranges_callback() queries current System RAM memory ranges
+2. Allocates buffer based on queried count
+3. prepare_elf64_ram_headers_callback() populates ranges from memblock
+
+If memory hotplug occurs between step 1 and step 3, the number of ranges
+can increase, causing out-of-bounds write when populating cmem->ranges[].
+
+This happens because kexec_load() uses kexec_trylock (atomic_t) while
+memory hotplug uses device_hotplug_lock (mutex), so they don't serialize
+with each other.
+
+Since x86 supports crash hotplug, any data inconsistency caused by
+a race during the initial load will be corrected by the subsequent
+hotplug update. However, we must prevent a buffer overflow if the
+number of memory regions increases between the two passes.
+
+Add a boundary checking in prepare_elf64_ram_headers_callback() to ensure
+that the number of populated ranges does not exceed
+the allocated maximum.
+
+Cc: Thomas Gleixner <tglx@kernel.org>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Baoquan He <bhe@redhat.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: stable@vger.kernel.org
+Fixes: 8d5f894a3108 ("x86: kexec_file: lift CRASH_MAX_RANGES limit on crash_mem buffer")
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- arch/powerpc/kexec/crash.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/x86/kernel/crash.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/arch/powerpc/kexec/crash.c b/arch/powerpc/kexec/crash.c
-index e6539f213b3d..a520f851c3a6 100644
---- a/arch/powerpc/kexec/crash.c
-+++ b/arch/powerpc/kexec/crash.c
-@@ -502,7 +502,7 @@ static void update_crash_elfcorehdr(struct kimage *image, struct memory_notify *
- 	ret = get_crash_memory_ranges(&cmem);
- 	if (ret) {
- 		pr_err("Failed to get crash mem range\n");
--		return;
-+		goto out;
- 	}
+diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
+index cd796818d94d..fa6a1feb1bf1 100644
+--- a/arch/x86/kernel/crash.c
++++ b/arch/x86/kernel/crash.c
+@@ -226,6 +226,9 @@ static int prepare_elf64_ram_headers_callback(struct resource *res, void *arg)
+ {
+ 	struct crash_mem *cmem = arg;
  
- 	/*
++	if (cmem->nr_ranges >= cmem->max_nr_ranges)
++		return -ENOMEM;
++
+ 	cmem->ranges[cmem->nr_ranges].start = res->start;
+ 	cmem->ranges[cmem->nr_ranges].end = res->end;
+ 	cmem->nr_ranges++;
 -- 
 2.34.1
 
