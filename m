@@ -1,172 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD69637F72A
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 21:40:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF674D90D5
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 21:41:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778535642; cv=none; b=FVIIVAp7o5v1cWV7otZcxZWIVakkJ8myMVMufcyjyt8YJN40GT3O2pxY7iOBZs+QqVq6/a7qD/LTdFS30BrEN99mRZ7omEbo4QJedAgGQqp4mG/j99T4BxzzpXvpXuDN9AIAW+GyksM57v6OMzcwqoOehQKZrYidvBXo2KwXIOo=
+	t=1778535683; cv=none; b=jdAGAJpAMcNnDVOJJYe2p0NMm8iAZEOhrwSZFhL0U83rRPxIK3DwwYxqApuuOatHqUxby4C+zRbCzKmDYNoCyjSkQns9otAOWG1hA0dqAJ15u+ZGDvmttkvqtcu9GTdaJQ/gmOyqs8qiMpPsxHzDjCHlaYinupS3NCJrWC3oL9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778535642; c=relaxed/simple;
-	bh=3LzAofv+LQG9Fp0qbhC3qAsGygIC5tOH4m2QX7t2GEg=;
+	s=arc-20240116; t=1778535683; c=relaxed/simple;
+	bh=JdACk3DL+Pjn0PTUx+BuKEX9QojfQ39b8C9uXW4SA/E=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=S1aADPEPWTBZ3V3LN/+Uy9+49CVWrcYv8RrOqN+ucqgSvDAl3iYbGChcQ5nmDRzZ9a/52l0xyez1bMWIXjCXRzuDmYUIQAZWpSnHw5ah8QIFtIdD/Q0P1tQtkm48IUpsFzfAZ4wHoUdBjvA/5cZ169izikykj8RP5Q++RxdPn1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IjyHzPZg; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=CmJDhw+vmx+VzZBqumhOMhL6oqiwLbJqirTjuMYNxIxf/Ppt7ZL792/iGRJstHXBD2ZvnYrnH3rgb9HJw3hrWUbUnLjlCJUbcGLvd0NEPJqVREb3oMKSja34dIxEDfMpIqrwQzMzjHxDcZv/dat8kY69FxwYLgAk0XQiGHfk2B0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nxdds6+9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IjyHzPZg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BEA9C2BCB0;
-	Mon, 11 May 2026 21:40:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nxdds6+9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 492C2C2BCB0;
+	Mon, 11 May 2026 21:41:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778535642;
-	bh=3LzAofv+LQG9Fp0qbhC3qAsGygIC5tOH4m2QX7t2GEg=;
+	s=k20201202; t=1778535683;
+	bh=JdACk3DL+Pjn0PTUx+BuKEX9QojfQ39b8C9uXW4SA/E=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=IjyHzPZgiQv1jIzVte30CUPfUT8K/EiZlCeIE/SZjZPPXzAAKp79D2uYMbUaE5buc
-	 Zq3VDSyWGAjpTuuB53/++D4MVdAgfjYpnMI4uRde5mUDJxL3yZUPB/+t8lYLuobfa9
-	 GrFuUirBngoNtitQnv4RLBxCpMgOEtWgik8idFFzaB68vqlDNFoDPYiKI7/TyQw17o
-	 3iWlncdU1UZQRWS7rUF4GgLzAYEMKzSGV9XZTahzv3t5w1jsLOlTEVd9b5W+kqgHJO
-	 thuo62NTE3gDxG/LfKpHQqKwkH5pEBVgQDWoXLHNgrgfyPjR+MJgjDxJL+YGTA2HTV
-	 Ewk01CLFVcwrg==
+	b=Nxdds6+9+GLX4ji5H9F34ZhKJFA8N+/lImfDRUha1PiDQixN8cpUis+z/KrtRBW2J
+	 cFbs0YKaMYVSWBWhsiOBJSIOdlvqFdXz+shKiYIgMkOrFKHCRQpVjsw4hyDtrOD/ye
+	 cWPec8z2lg5rBKbQi5gb9ejCDKCV/ZOx/BjXWleF0Z+vAV/wtOzdDlQJ9nGeHC/NKd
+	 XN7vJwFw6ml8QmLr2DfA3buEa3uYR8QNRr3XPdXY1xbe1X0KtUPnX9ObDKgY/YhWdd
+	 5xxVCBwijD+WBtOmR0YizvGyIxUB/Z6ZkNbdVDdgS2125KbnN4sjnmLaLEXZn0Sv5F
+	 nb/lo1ka/uu9g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 1/4] dt-bindings: clk: zte: Add zx297520v3 clock and
- reset bindings.
+Subject: Re: [PATCH 2/2] dt-bindings: usb: add Rohm BM92TXX Type-C
+ controller
 Reply-To: sashiko@lists.linux.dev
-To: =?utf-8?b?U3RlZmFuIETDtnNpbmdlcg==?= <stefandoesinger@gmail.com>
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260510-zx29clk-v1-1-e1bacfffe967@gmail.com>
-References: <20260510-zx29clk-v1-1-e1bacfffe967@gmail.com>
+To: "Alexandre Hamamdjian via B4 Relay" <devnull+azkali.limited.gmail.com@kernel.org>
+Cc: conor+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260510-bm92t-v1-2-dff3c9d22426@gmail.com>
+References: <20260510-bm92t-v1-2-dff3c9d22426@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 11 May 2026 21:40:41 +0000
-Message-Id: <20260511214042.5BEA9C2BCB0@smtp.kernel.org>
+Date: Mon, 11 May 2026 21:41:22 +0000
+Message-Id: <20260511214123.492C2C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] Incomplete Device Tree modeling and schema validation for the ma=
-trix clock controller.
-- [Low] The 'osc26m' and 'osc32k' fixed-clock example nodes are missing the=
- mandatory 'clock-frequency' property.
-- [Low] Non-standard generic node names in schema examples.
+- [Medium] Bypassing standard `usb-c-connector` binding in favor of vendor-=
+specific properties.
+- [Low] DT schema naming violations and missing type definitions.
 --
 
-commit 241b89034c405c46e2b45636517463ab2381b279
-Author: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
+commit 186a26fac988413623e6d85b4dd282c2ff87f8bf
+Author: Alexandre Hamamdjian <azkali.limited@gmail.com>
 
-dt-bindings: clk: zte: Add zx297520v3 clock and reset bindings.
+dt-bindings: usb: add Rohm BM92TXX Type-C controller
 
-This commit introduces device tree bindings for the ZTE zx297520v3 clock
-and reset controllers. It defines compatible strings for the top, matrix,
-and lsp controllers, along with required properties and standard macros.
+Add the device-tree binding documentation for the Rohm BM92TXX family
+of USB Type-C and Power Delivery controllers. The device is controlled
+over I2C and signals state changes through a dedicated interrupt line.
 
-> diff --git a/Documentation/devicetree/bindings/clock/zte,zx297520v3-clk.y=
-aml b/Documentation/devicetree/bindings/clock/zte,zx297520v3-clk.yaml
+> diff --git a/Documentation/devicetree/bindings/usb/rohm,bm92t.yaml b/Docu=
+mentation/devicetree/bindings/usb/rohm,bm92t.yaml
 > new file mode 100644
-> index 0000000000000..3b7084a18a975
+> index 0000000000000..007f70a8f5bb1
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/zte,zx297520v3-clk.yaml
-
+> +++ b/Documentation/devicetree/bindings/usb/rohm,bm92t.yaml
 [ ... ]
-
-> +  The matrix controller consumes clocks generated by PLLs in the top
-> +  controller, but there are no controls in the top controller to sever t=
-his
-> +  link. The interface between these controllers is not expressed in the =
-device
-> +  tree, but the matrix controller cannot work without the clock handles
-> +  registered by the top controller.
-
-Should this hardware dependency be explicitly modeled in the device tree?
-Device tree design principles generally rely on explicitly modeled
-connections to handle probe ordering correctly.
-
-[ ... ]
-
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - zte,zx297520v3-topclk
-> +      - zte,zx297520v3-matrixclk
-> +      - zte,zx297520v3-lspclk
+> +  vbus-source-supply:
+> +    description: VBUS source (provider) regulator.
 > +
-> +  clocks:
-> +    minItems: 2
-> +    maxItems: 10
-> +
-> +  clock-names:
-> +    minItems: 2
-> +    maxItems: 10
+> +  pd_bat_chg-supply:
+> +    description: Battery charger regulator gated by Power Delivery state.
 
-[ ... ]
-
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: zte,zx297520v3-topclk
-
-[ ... ]
-
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: zte,zx297520v3-lspclk
-
-Since clocks and clock-names are defined globally in the schema, but there
-is no conditional block explicitly forbidding them for the matrix controller
-using zte,zx297520v3-matrixclk, will the schema silently permit invalid clo=
-ck
-assignments for the matrix node?
-
-Could an if/then block be added to set clocks to false for the matrix
-controller?
-
-[ ... ]
-
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/zte,zx297520v3-clk.h>
-> +
-> +    osc26m: osc26m {
-> +      compatible =3D "fixed-clock";
-> +      clock-output-names =3D "osc26m";
-> +      #clock-cells =3D <0>;
-> +    };
-> +
-> +    osc32k: osc32k {
-> +      compatible =3D "fixed-clock";
-> +      clock-output-names =3D "osc32k";
-> +      #clock-cells =3D <0>;
-> +    };
-
-Are these fixed-clock example nodes missing the mandatory clock-frequency
-property? Omitting it might cause dt_binding_check to report schema
-validation errors.
+Does this violate the DT property naming convention by using underscores
+instead of hyphens? Should this be named pd-bat-chg-supply?
 
 > +
-> +    topclk: topclk@13b000 {
-> +        compatible =3D "zte,zx297520v3-topclk";
+> +  rohm,vconn-en-gpio:
+> +    maxItems: 1
+> +    description: GPIO controlling the external VCONN switch.
+
+This property uses the deprecated -gpio suffix instead of -gpios, which mea=
+ns
+the dtschema core will not automatically assign it the phandle-array type.
+Could this be renamed to rohm,vconn-en-gpios, or alternatively, could an
+explicit type definition be provided?
 
 [ ... ]
+> +  rohm,dp-lanes:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum: [2, 4]
+> +    default: 2
+> +    description: Number of DisplayPort lanes to negotiate.
 
-> +    matrixclk: matrixclk@1306000 {
-> +        compatible =3D "zte,zx297520v3-matrixclk";
+This isn't a bug, but should this binding use a connector child node with
+compatible =3D "usb-c-connector" instead of defining custom vendor-specific
+properties for USB Type-C and Power Delivery features like rohm,dp-lanes and
+the current limits?
+
+The standard approach is to use properties like source-pdos, sink-pdos, and
+standard endpoints for data lanes.
 
 [ ... ]
+> +  rohm,dock-power-limit-disable:
+> +    type: boolean
+> +    description:
+> +      Disable the lower power limit applied when a dock is detected.
+> +
+> +  rohm,pd-5v-current-limit-ma:
+> +    description: Charging current limit in mA when 5V PD contract is act=
+ive.
 
-> +    lspclk: lspclk@1400000 {
-> +        compatible =3D "zte,zx297520v3-lspclk";
-
-This isn't a bug, but should these node names reflect the generic class
-of the device, like clock-controller@13b000, instead of hardware block
-designations like topclk, matrixclk, and lspclk? Standard conventions
-require generic node names, and dt_binding_check might warn about this.
+These current limit properties do not use a standard unit suffix recognized=
+ by
+dtschema (such as -microamp or -milliamp) with auto-typing. Should they
+include an explicit type definition like
+$ref: /schemas/types.yaml#/definitions/uint32?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510-zx29clk-v1=
--0-e1bacfffe967@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510-bm92t-v1-0=
+-dff3c9d22426@gmail.com?part=3D2
