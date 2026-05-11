@@ -1,154 +1,167 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2108.outbound.protection.partner.outlook.cn [139.219.146.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CACB43B7B6E;
-	Mon, 11 May 2026 08:11:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.108
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778487126; cv=fail; b=Y4c7wsOEogVN3LW1opoHmbS7A3Y5MHAJkO3w26FUyLH/w8wqtnZ6NPRIyfBHGjuiAU156TksIP+ibbYja2aHzEFJlurmeTRVe6fhMG8U7Ul08HKGiuPx9nwFy5ApiuZPJnvHFTMfMhNrA1lw1apQL790dH4gxkuANm8K4Zt2cIs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778487126; c=relaxed/simple;
-	bh=qdYGsz36bsgm3wC2fJZFqvtlMW32waWcV57/wEdkwG8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=bdxr/on6pEhaT9yPPCV1NOUnVvp1kBFSxPICh4uSh6Dkbp6bk8y7IXZ3rXhN2IEcp7bBnm1rLtSSizzFoQ7NFu4ACfu+mCr1vBOqLeeyuPSH6UaTDDUFWYkJhGXbt5Dm63e1f9v6jJ5IHeeEIomkP3xUMDsh6I3199gPTAdV90w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GAjaDZ9obOrV77F9lgOKrmt4AUafarliTWq9TYYAVmjlvaWNjXrAv0LtXwvepX8WNlHZp/ktriFKqjR/SuTjuPmzYhwhRysiemy9ZRPbWh3TO5HUV84wRGOZjfN8bR/hYkvuKcy9SCRPap8b/8O5/vo0ONqm5YZN3Gq/IEVOIeHiMbxHDK3OFOf5uTQIqxXNp7HoH6hjpxpNvzeIF3Eh3q9Orcc1CoGqxU8wSrVtCx1Y5nQ6FmPX45u+TlpyRNb3eQQltYemFRDLxDCc+UeqwASYpW8d0mcovhT3FJ0q2RikuqYlhG6VSvO2ZbacAEefcMoJZRraTIrdS+9jqzUIOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qdYGsz36bsgm3wC2fJZFqvtlMW32waWcV57/wEdkwG8=;
- b=j99Xkx/v0YshRWGMQ6I/awr5XY/v0LcBGuyN0wut3oZebhguJqdKqc1oFljALFiOSlWMUOO5oLvaXbiURyknYGmd2MxYHzWq7HYcKvjklTceSFuBWJ0XmTqAZlM9YojsDQLHV5Lj8XAXmX56tYHfBK4C8xInI1+Nr6Tk3W3nyMFg5Nn5LN8iooNLAlQImIzsM8jZg2LAeNn5/8KKsasuCanRxUOZcGKUnV0SG2jSwLg7zSjimllVcU4W9PcTLz8PUw1/BWhrCG2AeEpkHaFIMUgNJpfJ5ESc9F+Jo5yRsMBi31OvxV/7ujKdQktVXWlOhMixA1pp7eMgy4NHkDzWLg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1155.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:15::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.22; Mon, 11 May
- 2026 08:11:43 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%5])
- with mapi id 15.20.9891.021; Mon, 11 May 2026 08:11:43 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Linus Walleij <linusw@kernel.org>
-CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
-	Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>, Palmer
- Dabbelt <palmer@dabbelt.com>, Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel
-	<p.zabel@pengutronix.de>, Bartosz Golaszewski <brgl@kernel.org>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>, Lianfeng
- Ouyang <lianfeng.ouyang@starfivetech.com>
-Subject: Re: [PATCH v1 02/20] pinctrl: starfive: Add StarFive JHB100 sys0
- controller driver
-Thread-Topic: [PATCH v1 02/20] pinctrl: starfive: Add StarFive JHB100 sys0
- controller driver
-Thread-Index: AQHc09toUDrQndxBAkGH32IlCyxtgLX0TCQAgBRHvYA=
-Date: Mon, 11 May 2026 08:11:42 +0000
-Message-ID:
- <ZQ4PR01MB12025653AFBFB213A4744914F2382@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-References: <20260424111330.702272-1-changhuang.liang@starfivetech.com>
- <20260424111330.702272-3-changhuang.liang@starfivetech.com>
- <CAD++jL=Pxz-=cTPCuoL-j0fqJymrHN9BE5w-SCxq4_9S1KDtXw@mail.gmail.com>
-In-Reply-To:
- <CAD++jL=Pxz-=cTPCuoL-j0fqJymrHN9BE5w-SCxq4_9S1KDtXw@mail.gmail.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1155:EE_
-x-ms-office365-filtering-correlation-id: 9c4f3fa9-e059-456e-09a6-08deaf34efcf
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|376014|366016|1800799024|18002099003|22082099003|38070700021|56012099003;
-x-microsoft-antispam-message-info:
- wOr+FW2QTQ2L/Un5wJ/V4sU9EoVze1TgLuxus/RXcljsG2707b4ypdg0oZjs2o7fkqn18CvO23DJNomJfXTJHHpelJPLnRRlzEnXZV+e16zZqUMpvufgLGbRsQPWIzOJP/evH7uVEkdwsqGWnSvWik41I9p/vYThWcyEqdr1Qk9jFvzCkMmeEjpcxn0+a6Wc2F1cfSIqeOWZS79S+7RPdQvT5KPqaCpYbqbWgbtkVBe19I7yUEFAvMFZ/vriD5YJ/CKppMVvAOg+RIvIELzm6Eoe72WDBCkxaQGf4hhYV1d2T7bXCi4ySVeQfSBOokaV8nIwGohnRF+HKXvJ45qm0RGQNWpNPOSEyfUbuCwD5BOaY4/WiSXj4gPEKU0i7+1TmQKt1Ikr23ffRkvgelEPZYNHYrZVw+eIAIw5jnxdztoWN6OrRchI8GUp0yO7epM4F+c+r66uw8UUm0Az6nJwb11zvTBOaklBflBjF9arQb9jNG2PEVQJjjWxdYKjQr+dXDBjQ8jGeQbxaodPNNoxC/m+SANhHuh7z+1zL9aDylUxtoyrKkZor4S/F4bW4Xqm
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(18002099003)(22082099003)(38070700021)(56012099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?SUE1MjlTUVc2SjFkWlVDWUF3TkprU0NFcWs5cnVmT3ZESFlIcjJreitvbWhL?=
- =?utf-8?B?Q0pGTFlqaUxpaDVnUzZDOGxZV0RLckJ2VWorQnNNSXFtZDZFa0NuZzd6MXVK?=
- =?utf-8?B?elNLMEdSR1EySHJYU3l2bUtGYkdNVVhGSkYxWExjRnNKbDdsUGlod3NsV1A0?=
- =?utf-8?B?UjhFdXVkeldzYXkwZFUvUzkyd1JEa3M5alk1YVdSVDRVenZkYmdBZXcwcTJ4?=
- =?utf-8?B?UjFwNWZWWHBVeXNnY1FlR1hBVWJiMnlOZG9xRkRsZkFQOWRDVUMzekM1RzBN?=
- =?utf-8?B?YThIVzBKcG1jMkozWEpYb0pkUzB4UG9uejdUZDFHSmFoUWhDakM1MkNpYUlS?=
- =?utf-8?B?d0llbXNwL2ovZFJTZWkySU41dXpvY3QzQjZQa0txUnhaWHZKdVVzK0ZaUVpY?=
- =?utf-8?B?Y2xwTlIyT1VDSlU0M3B0Nkx2SThEWFpJR3pOZ25QVENkVWpTU3dPV0JNeHE3?=
- =?utf-8?B?M2lBN2tMT0VwRFcyYnN6S3J5SnliQXF2REJUK0lCZkw2ZVkybUJ1eDF1MDN2?=
- =?utf-8?B?OG15cWZDUEZ6YWloZHI3dnNQaWhiMllQcnFhM2xvbGNQTkpzNW05ZFZ2N3FL?=
- =?utf-8?B?YUZCcEMzY1FTN05BTUZWYXFTTkVXUml2cEdNUkN0ZHhuMmlxTnFUdTE0VlUy?=
- =?utf-8?B?dmgzRUtjaWdKU1lGUVdnOUtNSXV2dEt2dFdFUERCbnlPM1IzbkVIcnZVZUNw?=
- =?utf-8?B?RVJYVUZjMW5NNEFZNzVZQnlVR0pPWE9Qb0dqaHJGWDBQSUgwMXJSS0JNeGtj?=
- =?utf-8?B?cW5vZUJqS0E2UTJrVXpyTWpEMjVrNHNtQ05ibi8xRng2TmxEdG4zdVQrZyts?=
- =?utf-8?B?ZERZODVRWEZtZ2xuYjV6VHhKNTM2MnZxekFjT1F0ZWEvbGthZU83bFI5U3Ar?=
- =?utf-8?B?ekNEME8vQ2VKdmhJeUdPZ0E4SjJkUWZMS1ZzdVBxdW1sRnRQclAvRjc2MWx6?=
- =?utf-8?B?b1kvcHgyOHd2N2ovUGtuSm5oWGlDdll0a0JqeFZPVmI3c2JZZktqWm1ZanJj?=
- =?utf-8?B?NlFJSjJjbEQvbVQwL1Jib251eVBnWnZ4UDZnVmxrQWFqRXZBTjBJTFZhSkV3?=
- =?utf-8?B?Q2dDdndNYW9rS2gwdGRRYktLdWUvdDQvS1dxbzR2NFcvaEorRWxvQkdzaEtZ?=
- =?utf-8?B?cTd6OUNSZmptSkZ3TlZDWmtDbzh3SVVYWHgrcmxYZ0xmeWZoMDBmNXVaTWVa?=
- =?utf-8?B?NFdxUURUYU00MlJoelBxak9wNHRoTW5EMFJwZFhVcEFaRXZTNDNDblFZMnBu?=
- =?utf-8?B?SHBpSUhRRjUxVEprR1hoenE3ODRCMFpMQlRVQmNpek4rNkd2N0lCVjJhNGwv?=
- =?utf-8?B?aVRMTGlUVXkyWUNTeGJJTU1XdkNNWi8yTUtYdmlFeEM3S240VFJMcHpaamw5?=
- =?utf-8?B?dE5qL21HR0ZYRndRS21TcXdYZWt5ZGxJTnhzM2JWaFlaVElGUWVWLzRXR2Jt?=
- =?utf-8?B?SFNTeUFPSEsxS3kyTE1VRnVBaXI2c3ZQTkF4RncxZmNvT3FpT2JaeWZTTlN2?=
- =?utf-8?B?WVBuaHIxdzd4UFFkSUJJck5EemJVSk9JTk9RekwzVll2U21qc3VwK1ZqalEx?=
- =?utf-8?B?dDcyZmhUeS8vZjU5WEJVbTZabm5qVDdFK3BDLzlISlc0UCtZMXEyZGJpTzVs?=
- =?utf-8?B?Sloyd0lQZ2ViazlZUEFjS1R1SWJGQ052bkhWbzNIYjFRRTBEQStFazB1MWkv?=
- =?utf-8?B?VmcvNkhnaUFRM0VCRFk1QkNESWFhRldPVXNkK00yRmMybVg3MnVKUkMrZzFn?=
- =?utf-8?B?eXVNUjdQWWNldk4vMlZnb29WdlFuaWJpUlA3cHdUOWhMWnlIek1PYWR6NGNM?=
- =?utf-8?B?S2VrR3hncUxFVVNhUG1JSW1YRklvTUpocG0yU2hVMWxDallNSzROMHE5dThD?=
- =?utf-8?B?NDJqRkNhOGRBVFZ1ZnZUdjlEUVlaVk1nbzdXS3JTUEpaN0lHTlVmZk1WdUJJ?=
- =?utf-8?B?dEJsUzcwbkV2STFkVGxSbFFCamltWVpOMjQrTDVCYmFyc0d5eHlsODdLa2pQ?=
- =?utf-8?B?SVU5cTRsWHF4Z21UTWhaZTAxdEE2Z21YeFZUK2FjVGNoUE9kQVg4bmg1SXNJ?=
- =?utf-8?B?S0RET1pkZW9ET2hiOHlMMVNaUWE2OU1CRkxDZlhPRXpMSjdJd1pmMDBmVHZp?=
- =?utf-8?B?K0xEMGFxTm5QS0w0YjRUeGx6TXBTcDlXa0ViQ1c5ZEJ5ZTlJRi91NjFJMVpp?=
- =?utf-8?B?VWtOWnQvUlI2aEtmc2VLT095Z1Fzc2hPcld0Y3E0d3FIcEFRZW41ci9ldEJ3?=
- =?utf-8?B?R2xaVVhQRm1nYllUVURiOEEyWjRZYkRpYXFqVGF2UWVFV2FXaHh2SkVhaFV4?=
- =?utf-8?B?NENwWXAreWxXOHRqN08wcDhXN0E1L21VM2hOdnlRa0dpeEhhcmQrbGEvK2Fx?=
- =?utf-8?Q?cA9heYZqX9fPY8Oc=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 231353B9D95
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 08:12:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778487138; cv=none; b=NnEOwmX6JWS0u1XZ9sno7+Vj0v7GdJkSD99eI8Im16JLKlKA2BaKYL7Yyk0PJyY+x6MjQ+sqpM9ZkTKvc0jsN7dYtl8o1dJTXh0HR0A2RIE6k6gAtDjS3PpBaul7lTFfWeXOtiVkkSluLUuXjG0lmofYo+1DX44wxYgtWN9oFnk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778487138; c=relaxed/simple;
+	bh=gHf1kCByypJUPgP+JjxmSr6L/RX0X71RNUwmP1xp4rU=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=uaXd23Ecij7dOrC8ZIXdSBkXEe17rO0M2HPn9huhBMZS//kGlYGEzcqdPjxg9a+uQxROld0PvTJ3uNQ+jhUCbMiRspZ8RHVj8fxMUuP7TBZu/rlnGzL5YQ66iJgYg6izCakoTsiKXDkKTxNFHvNjUGHNYC4/sl/Zuqn9ReQSpBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=OXNhHl54; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="OXNhHl54"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-452169ae568so3047249f8f.3
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 01:12:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1778487119; x=1779091919; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=368/MaDXqGLA/8KstOIXQkFV/EZb8wNhtT4QvGJceEc=;
+        b=OXNhHl54DLFO3JO4WtyXEtvuHeukRSu8WklPdvCM2SKBOSE2jbSB42LeFf+Ft2VrKp
+         VUzbLdtagAG5GugFum0H+2YN0YH7LVuIV95n9Yx4rnFusqcnXxya/gnNw62PXXFaeAQv
+         StRlpwqQ3J6S5txUDWuMuZhfxK+nhFOr/pELDhtX4DmNRXv6VPPMhh4+MWQ+QsHnl1iE
+         oYBg2n81Xp1wZ6mGNGe0KoCXwS5EsCu6KvEOjjAq4KEbH9sCWmxQ2xRsAriWIwxfBfW9
+         ci9zbgG6VfueAnEQ566cbOioOTuI2NfxZnxplKJ1WcM8ZC74OL3wsLq5xXP3i8FKB6EE
+         OaJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778487119; x=1779091919;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=368/MaDXqGLA/8KstOIXQkFV/EZb8wNhtT4QvGJceEc=;
+        b=WjVX4WSPNTOkvQZ/zX4YL79F22EWXYEGhAnocROQz4hsSD/aMCSJnjtASUB2NC2pxx
+         vRm1H82/53Y404bNByovM3eGJ8P49vHlSiPrOqu+VlITx5CO1P/szZV3ahPsD3nsCdvE
+         Omsg8WjrlPmHPEGiIyfnvHAq+ao4ThNV8KxVSmVD31xIO87MYCfwHSRahjXQKu1Jefce
+         AYcFlt3UdNOH5i23TNUoFMvqpPTn3F6YsNgfirqHxmtaLdzMRJ3tNE1jd5BQqyXiZjdf
+         K0oiO/Zfab1A2DMogrXnzK6ugUasei+L6TRaSVJNMutVluHp7BZjFaf/91udQGpzj3fg
+         pKRw==
+X-Forwarded-Encrypted: i=1; AFNElJ8wtgOOeZlCjdbTKfZdduu4TqggSplfS2UudUvvVWlWVtX/5t3vGSbc9Ejt0g6wGe2NpXZuABvTca7a@vger.kernel.org
+X-Gm-Message-State: AOJu0YyG6dUWVbdt+NAv1rUaFyxpLwpB0sOFpq6wsycpofOUm3xjeePF
+	eIuHIyIpTHlspdpMI1Ff2IUMSQqCDvCiAqePyxNM9TbhwpDTQrDSNWvEBYzwY8Atvhg=
+X-Gm-Gg: Acq92OG5hczbvufO48+9487w6emQF15nVL2WXX3NEoIAM49YNGEdJ+2y4yHQAeIRY48
+	4BOnsEot+5LxwOSSsP9LFfDg7O+psMWA7RhpuJ8ketvjYTm0XhYyGTvk+tb82zmQCRtwei2Pn23
+	DTUDmSesxI7RMxTgNmPs3YHQcXTQtj+LoeEvvR0fzLjUlQF/8sci79I6D/0M54KZE/+qBEF9e/K
+	r6GaTlk5FzmU4MNTsYCAti0lC6oovFkgZ/OYHaqCAOaaPYRXt3Zgn+/icj7LjjHj96Kvkc1Md6a
+	3gU9N8c6pbRINaGc3jwICTsCDwzkEx5f73/cXgyG/UmlppanSDRq/VAck+GUuJx/eidD1y/Ee1/
+	pb7th56noT4SDDVT5FwHCbspSyUDo5EiCMVvlSoDLa7zkZqvAUymzlQ/NQ0nADQaPsRUTBo8s+c
+	FjsStJuv8dWTG3kn76Au8+4JLO8gGCNg3XzOMB3UpWhHI+cm7wR8h2LAZzzhfCxCXrr3/kQE7Vm
+	jMO2Mw=
+X-Received: by 2002:a5d:5d03:0:b0:441:1c95:17e7 with SMTP id ffacd0b85a97d-4515b5243efmr34866108f8f.15.1778487118641;
+        Mon, 11 May 2026 01:11:58 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:63dd:7879:45c5:21b9? ([2a01:e0a:106d:1080:63dd:7879:45c5:21b9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-454916df968sm24531817f8f.25.2026.05.11.01.11.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 11 May 2026 01:11:58 -0700 (PDT)
+Message-ID: <6a8da5a4-d42f-40ec-a834-b36d6da4431a@linaro.org>
+Date: Mon, 11 May 2026 10:11:57 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c4f3fa9-e059-456e-09a6-08deaf34efcf
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 May 2026 08:11:42.9422
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Ao7SrA4/u0EUnCDdZ9/PiuMmmi1u64PmT7aLVohcmOx4HIV2RnzcOQSfXFJ1iopg91C+v4niWNUXD/NR2vpvA7dPGwwjFGxbzX0EJI6rEkSGe/Qnw9ocVQn4liE8tioV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1155
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 0/2] regulator: add support for SGMicro SGM3804
+To: Mark Brown <broonie@kernel.org>, azkali.limited@gmail.com
+Cc: Philippe Simons <simons.philippe@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20260510-sgm3804-v1-0-e5e8799e0aa0@gmail.com>
+ <agEoC0kdKoOVrjne@sirena.co.uk>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <agEoC0kdKoOVrjne@sirena.co.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-SGksIExpbnVzDQoNClRoYW5rcyBmb3IgdGhlIHJldmlldy4NCg0KPiBIaSBDaGFuZ2h1YW5nLA0K
-PiANCj4gdGhhbmtzIGZvciB5b3VyIHBhdGNoIQ0KPiANCj4gT24gRnJpLCBBcHIgMjQsIDIwMjYg
-YXQgMToxM+KAr1BNIENoYW5naHVhbmcgTGlhbmcNCj4gPGNoYW5naHVhbmcubGlhbmdAc3RhcmZp
-dmV0ZWNoLmNvbT4gd3JvdGU6DQo+IA0KPiA+IEFkZCBwaW5jdHJsIGRyaXZlciBmb3IgU3RhckZp
-dmUgSkhCMTAwIFNvQyBTeXN0ZW0tMChzeXMwKSBwaW5jdHJsDQo+ID4gY29udHJvbGxlci4NCj4g
-Pg0KPiA+IFNpZ25lZC1vZmYtYnk6IExpYW5mZW5nIE91eWFuZyA8bGlhbmZlbmcub3V5YW5nQHN0
-YXJmaXZldGVjaC5jb20+DQo+ID4gU2lnbmVkLW9mZi1ieTogQ2hhbmdodWFuZyBMaWFuZyA8Y2hh
-bmdodWFuZy5saWFuZ0BzdGFyZml2ZXRlY2guY29tPg0KPiANCj4gKC4uLikNCj4gDQo+ID4gK2Nv
-bmZpZyBQSU5DVFJMX1NUQVJGSVZFX0pIQjEwMA0KPiA+ICsgICAgICAgYm9vbA0KPiA+ICsgICAg
-ICAgc2VsZWN0IEdFTkVSSUNfUElOQ09ORg0KPiA+ICsgICAgICAgc2VsZWN0IEdFTkVSSUNfUElO
-Q1RSTF9HUk9VUFMNCj4gPiArICAgICAgIHNlbGVjdCBHRU5FUklDX1BJTk1VWF9GVU5DVElPTlMN
-Cj4gDQo+IE5lYXQgdGhhdCB5b3UgdXNlIHRoZSBnZW5lcmljIHN0dWZmIQ0KPiANCj4gPiArI2lu
-Y2x1ZGUgPGxpbnV4L3BpbmN0cmwvY29uc3VtZXIuaD4NCj4gDQo+IERvIHlvdSByZWFsbHkgbmVl
-ZCB0aGUgY29uc3VtZXIgaGVhZGVyPw0KDQpIZXJlIHlvdSBuZWVkIHRvIHJlZmVyZW5jZSB0aGVz
-ZSB0d28gZnVuY3Rpb25zOg0KDQpwaW5jdHJsX2dwaW9fcmVxdWVzdCgpOw0KcGluY3RybF9ncGlv
-X2ZyZWUoKTsNCg0KQmVzdCBSZWdhcmRzLA0KQ2hhbmdodWFuZw0K
+Hi Alwexandre,
+
+On 5/11/26 02:51, Mark Brown wrote:
+> On Sun, May 10, 2026 at 11:45:25PM +0700, Alexandre Hamamdjian via B4 Relay wrote:
+>> This series adds support for the SGMicro SGM3804, an I2C-controlled
+>> positive/negative output charge-pump regulator. The chip is used to
+>> generate the AVDD/AVEE rails for display panels and is present on the
+>> Ayaneo Pocket DS handheld, where it powers the panel and is required
+>> before any panel driver can light up the display.
+> 
+> There is a separate series from Neil Armstrong (Cced) already in review
+> for the same part.  Please sort out what to do about this between
+> yourselves.
+
+Please find the patchset at https://lore.kernel.org/all/20260506-topic-sm8650-ayaneo-pocket-s2-sgm3804-v4-0-7495e7905693@linaro.org/
+it implements full support for the SGM3804 with voltage control on both
+rails.
+
+I guess most Ayaneo boards uses common components, I also sent patches for:
+- https://lore.kernel.org/all/20260430-topic-sm8650-ayaneo-pocket-s2-sy7758-v2-0-308140640de9@linaro.org/
+- https://lore.kernel.org/all/20260504-topic-sm8650-ayaneo-pocket-s2-r63419-v3-0-9f61cf24aebf@linaro.org/
+- Display DT https://lore.kernel.org/all/20260428-topic-sm8650-ayaneo-pocket-s2-display-dt-v1-1-ff132c00d076@linaro.org/
+
+Neil
+
+> 
+>>
+>> The Ayaneo Pocket DS device tree, posted as a separate series, depends
+>> on the binding introduced here to describe its panel power supply, so
+>> this series is a prerequisite for that work and for any subsequent
+>> panel-related patches targeting the same board.
+>>
+>> Signed-off-by: Alexandre Hamamdjian <azkali.limited@gmail.com>
+>> ---
+>> Alexandre Hamamdjian (2):
+>>        dt-bindings: regulator: add SGMicro SGM3804
+>>        regulator: sgm3804: add SGMicro SGM3804 charge-pump regulator driver
+>>
+>>   .../bindings/regulator/sgmicro,sgm3804.yaml        |  60 ++++++++
+>>   MAINTAINERS                                        |   7 +
+>>   drivers/regulator/Kconfig                          |  11 ++
+>>   drivers/regulator/Makefile                         |   1 +
+>>   drivers/regulator/sgm3804-regulator.c              | 164 +++++++++++++++++++++
+>>   5 files changed, 243 insertions(+)
+>> ---
+>> base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
+>> change-id: 20260510-sgm3804-c37a0ae6d7f3
+>>
+>> Best regards,
+>> --
+>> Alexandre Hamamdjian <azkali.limited@gmail.com>
+>>
+>>
+
