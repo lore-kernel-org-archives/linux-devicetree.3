@@ -1,158 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B6431E49F;
-	Mon, 11 May 2026 08:48:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEFCC3BA236
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 08:48:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778489282; cv=none; b=PwtbbT/bBDyIjjfQVX1J/LYZq6M315JO1HRoX4lhkj+m+1Cs9YrVFI5PLW4xxNUJna8hYq7MT61lr0eS1YvMy+Pslro7l5uuB+hwuCKAqmtUU176J3Dws78ad+EiqIfdMZIEAjU/I1h7jBQKfbR9TqEtiIBQa17EQMbhLUgwaNQ=
+	t=1778489313; cv=none; b=aqdCUVKzlg7r4yTFR9Dp4tygBy3OyxPeItPEa05YibmQ0DOUG1dxtHZJsZ4kB/C8vQ5Spf+DGpPbaxAuPw+xx/JzW+K2mznEjBSnpCF25u2KgwsB0GY6pQUSKE0vf/3e7BBzh6mihLGfWUI2Li9P5y4aAbE4UueMI7EowLyHB/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778489282; c=relaxed/simple;
-	bh=UzqTOaHRU9smzFf4OFemjOEZlOYUA0UfdAOKglWpaJE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MJCYxsQC9lFEE++W6LoZyR3T6fCO4ihgetDbSm65FgVccBqNGRpQ6itcPYDJZS/sXhvJJpyYJUMAs6yCjv/RZWLh8qC8lIh7YUNroBwkE6rOoJY/sHMphWKtFZcE5oc0zZ4bQb5uIl/NF5DitK1VjeOAJS8RcBxrovGwKqL26jM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bhh+sMkL; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778489313; c=relaxed/simple;
+	bh=FS9Vcj76U9RM5XIubOjoexo/Q66e6Qb8ezAJTR8qo6Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=X/9bg+4mTCOcjQxQDkiW54Bjge9JMl+9uv9vr9zDM+a0UbU6i7oKgVuJhFia0wo+cDRJibDM2lEOokGV/MoDGS4L+Y7jrRnM230WvLmssls7V0Ugi65L8hfFagHBT+g7P+EPrLpDvld1yG8WDMuJ832Xlm4iGF4hCa4HARNYSeY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BkFL70sk; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bhh+sMkL"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B39E3C2BCF5;
-	Mon, 11 May 2026 08:48:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BkFL70sk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D222C2BD04
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 08:48:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778489281;
-	bh=UzqTOaHRU9smzFf4OFemjOEZlOYUA0UfdAOKglWpaJE=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=bhh+sMkL1fRKPR2Vsn0FBV2fu5cTKQuKkdQZW/XdNH5PUYAjnp4gj57HgUCtFVKJM
-	 VSyEQn6ElV4XAH2ti54FIexsgxPAsVfKUYgNUMy2Q8x2b+54HQHDKF34PVEOEwEWcW
-	 3dYlur+2eFMFvLSBrpSmLzshR/dD32HvH1IRvCC34JzUcTC+gMFJpWRnkdFyn2kBMr
-	 gvVL1aqXToMHc76yfOUozWuty4y7JHHOjts1Oz0WAS/omD6w8xMUSKSdVTG0g9bSH3
-	 MYSj6XrSOAW3KRujBB1m7XswgIYb7KAtVHoOGJuKFSvzT0lzvbeDzq9w2qdpdjeoNT
-	 m4vQAgNxaMXpg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A170ECD37B5;
-	Mon, 11 May 2026 08:48:01 +0000 (UTC)
-From: Qian Zhang via B4 Relay <devnull+qian.zhang.oss.qualcomm.com@kernel.org>
-Date: Mon, 11 May 2026 14:18:01 +0530
-Subject: [PATCH v3] arm64: dts: qcom: arduino-monza: add WLAN enable and
- rfkill GPIO
+	s=k20201202; t=1778489313;
+	bh=FS9Vcj76U9RM5XIubOjoexo/Q66e6Qb8ezAJTR8qo6Y=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=BkFL70skeyMsxsAPovmmjWva/uA7ul3y+pIyc0IbC5Z6jp+X3h/7vsK1rfwOWZwPg
+	 yyof2+cc+0ChQ2ZmGzBckVM4Lho265t0+jpyzOhL0Z85yUbVdXmfJmgY+XWgfVuLx2
+	 XSMQHZ1SPx0FS7PtT6I/Kxdzu1DH/0TiUQvlV1AXSKc5p5bPkLemRqecW64jPWpgUX
+	 zorFbUkVKMMpZZClvBqYJNyNSAFy401fOr/YeNklUYQUHH0RP2e73Asc+fHm7CsYUZ
+	 lMVq0GCD6y86ofaHEztAM0IGwcsCFYuAtc+pTYuzFC128zk8vnCp1QfpB695rL+9Jg
+	 uZ3GOxabECP7A==
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5a40d02b58bso2945576e87.3
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 01:48:33 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9nHdpCDZJwbGhJYwjHwsDCys7zgIZYMC7WAbdLXhVxuuzRkMvhLwiRmx/xYDcKlKKkLoPSuSONssna@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywy7k9wtTYRkttAMdGOie5vHacWvbpr5M/Ai78+dLeD0gJzngEQ
+	HxdBD2T9BAdqer/UUrSuQYKlN+3b6MOsiN3TRX3VHqY8hb7wVb9J2CuisI+4VdNxXNIVxTP51bQ
+	WckgAtgMbu6JuluHMXIYz0ukZLzqJuBw=
+X-Received: by 2002:a05:6512:304b:b0:5a8:6e64:a932 with SMTP id
+ 2adb3069b0e04-5a887cea7efmr9393309e87.32.1778489312120; Mon, 11 May 2026
+ 01:48:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260511-linux-next-v3-1-3e22737e71eb@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAMCXAWoC/y2NQQ6CMBREr0L+2jb9INi68h6GRYUqP4FWWiBVw
- t0txM0kb5J5s0IwnkyAa7aCNwsFcjZBccqg6bR9GUZtYshFXokSkfVk58isiRMT8lzptpQPjRL
- S4O3Nk+Ihu9eJOwqT85/DvRR7+9cITCqFkqNS4oIFQzaStvy7P95cCHycdd+4YeApoN627Qfc2
- K+iqQAAAA==
-X-Change-ID: 20260511-linux-next-0846ad58ba18
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Qian Zhang <qian.zhang@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778489280; l=3025;
- i=qian.zhang@oss.qualcomm.com; s=20260511; h=from:subject:message-id;
- bh=UvfCcSS+NNYGPij6dEX9rRsuz5DeGDSI2ga/3v1YAXo=;
- b=AkqF63xY1DcsQ89bMnQFRi95GL3r7GC9vg6Z2nAOMKskoWE3sZ2QLlq7kVnJeJLqx1QU0RVGR
- ztolhJlftx3DYso+XE2+F0JaLg+QmJfkPh2xwjssZ5BViI7n8J0q9kP
-X-Developer-Key: i=qian.zhang@oss.qualcomm.com; a=ed25519;
- pk=bPnvg+qtu7WOMbd5NyWuvI8LCSGKP2BQwbycyqy3gIA=
-X-Endpoint-Received: by B4 Relay for qian.zhang@oss.qualcomm.com/20260511
- with auth_id=775
-X-Original-From: Qian Zhang <qian.zhang@oss.qualcomm.com>
-Reply-To: qian.zhang@oss.qualcomm.com
+References: <20260504131148.3622697-1-khristineandreea.barbulescu@oss.nxp.com>
+ <20260504131148.3622697-7-khristineandreea.barbulescu@oss.nxp.com>
+ <CAD++jLnk4q7L_cFzz+1gKkAqwhv=TW1_XSepuii7b_PHF7EPqQ@mail.gmail.com> <704e9e7b-0f45-4ed3-a686-9e20056eab2a@oss.nxp.com>
+In-Reply-To: <704e9e7b-0f45-4ed3-a686-9e20056eab2a@oss.nxp.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 11 May 2026 10:48:18 +0200
+X-Gmail-Original-Message-ID: <CAD++jLk-7UqjCsM4jCdRmBMMaNNXe8Gi_E00fJ_MRMsEGQcMZQ@mail.gmail.com>
+X-Gm-Features: AVHnY4Jgw80MuyK4ZGcKlHCdHrHAFZ3YKz8oTwazlDM_Kdt2Svy6qUsv6clMxog
+Message-ID: <CAD++jLk-7UqjCsM4jCdRmBMMaNNXe8Gi_E00fJ_MRMsEGQcMZQ@mail.gmail.com>
+Subject: Re: [PATCH v9 6/7] pinctrl: s32cc: implement GPIO functionality
+To: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.com>
+Cc: Linus Walleij <linus.walleij@linaro.org>, Bartosz Golaszewski <brgl@bgdev.pl>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>, 
+	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>, Larisa Grigore <larisa.grigore@nxp.com>, 
+	Lee Jones <lee@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Dong Aisheng <aisheng.dong@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Srinivas Kandagatla <srini@kernel.org>, Alberto Ruiz <aruizrui@redhat.com>, 
+	Christophe Lizzi <clizzi@redhat.com>, devicetree@vger.kernel.org, 
+	Enric Balletbo <eballetb@redhat.com>, Eric Chanudet <echanude@redhat.com>, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, NXP S32 Linux Team <s32@nxp.com>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Vincent Guittot <vincent.guittot@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Qian Zhang <qian.zhang@oss.qualcomm.com>
+On Fri, May 8, 2026 at 11:07=E2=80=AFAM Khristine Andreea Barbulescu
+<khristineandreea.barbulescu@oss.nxp.com> wrote:
 
-The QCNFA765 M.2 PCIe WLAN module requires GPIO56 (wlan_en) to be
-asserted before PCIe enumeration, and GPIO54 to control the RF kill
-line.
+>I don't think the current driver is a good fit for
+> a full gpio-regmap conversion. Direction and GPIO mux are
+> handled through MSCR/pinctrl state (IBE/OBE/SSS), and the GPIO
+> logic spans multiple register regions across two SIUL2 instances.
 
-Model GPIO56 as a regulator-fixed node (wlan_en) referenced from the
-PCIe node via vddpe-3v3-supply to ensure correct power sequencing.
-Model GPIO54 as a rfkill-gpio node to allow the rfkill subsystem to
-manage RF state.
+I don't see the problem with that?
 
-Signed-off-by: Qian Zhang <qian.zhang@oss.qualcomm.com>
----
-The Arduino VENTUNO Q board uses a QCNFA765 M.2 PCIe WLAN module
-connected to PCIe0. Two GPIOs are required for proper WLAN operation:
+> A conversion would require stronger separation between
+> GPIO and pinctrl, leaving mux restoration entirely
+> to the pinctrl subsystem.
 
-- GPIO56 (wlan_en): The WLAN module enable line. It must be asserted
-  before PCIe enumeration begins, otherwise the module is not detected
-  by the PCIe root complex. This is modeled as a regulator-fixed node
-  (wlan_en) referenced from the PCIe node via vddpe-3v3-supply, which
-  ensures the GPIO is asserted with a 20ms startup delay before PCIe
-  enumeration starts.
+Why is that so? Sorry I don't get the problem here.
 
-- GPIO54 (rfkill): The RF kill line. It is modeled as a rfkill-gpio
-  node so that the rfkill subsystem can properly manage RF state,
-  including software-triggered airplane mode.
+The pinmux operations have these callbacks:
 
-Testing:
-- WLAN module (QCNFA765) successfully enumerated on PCIe after boot
-- WiFi scan detects available networks
-- rfkill block/unblock correctly toggles GPIO54
-- GPIO56 remains high throughout rfkill block/unblock
----
-Changes in v3:
-- Replace regulator-fixed with rfkill-gpio for GPIO54 (rfkill)
-- Reference wlan_en from PCIe node via vddpe-3v3-supply
-- Fix subject prefix
-- Link to v2: https://lore.kernel.org/r/20260501051918.1990713-1-qian.zhang@oss.qualcomm.com
----
- arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+static const struct pinmux_ops s32_pmx_ops =3D {
+(...)
+        .gpio_request_enable =3D s32_pmx_gpio_request_enable,
+        .gpio_disable_free =3D s32_pmx_gpio_disable_free,
+        .gpio_set_direction =3D s32_pmx_gpio_set_direction,
+};
 
-diff --git a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-index ca14f0ea4dae..e0ffe87bba90 100644
---- a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-+++ b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-@@ -153,6 +153,25 @@ vreg_nvme: regulator-3p3-m2 {
- 		enable-active-high;
- 		startup-delay-us = <20000>;
- 	};
-+
-+	rfkill-wlan {
-+		compatible = "rfkill-gpio";
-+		label = "wlan";
-+		radio-type = "wlan";
-+		shutdown-gpios = <&tlmm 54 GPIO_ACTIVE_HIGH>;
-+	};
-+
-+	wlan_reg_3v3: wlan-3v3-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "wlan_en";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vdc_3v3>;
-+		gpio = <&tlmm 56 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		startup-delay-us = <20000>;
-+		regulator-boot-on;
-+	};
- };
- 
- &ethernet0 {
-@@ -326,7 +345,7 @@ &pcie0 {
- 	pinctrl-0 = <&pcie0_default_state>;
- 	pinctrl-names = "default";
- 
--	vddpe-3v3-supply = <&vdc_3v3>;
-+	vddpe-3v3-supply = <&wlan_reg_3v3>;
- };
- 
- &pcie1 {
+So to me it looks like the pinctrl subsystem is *already*
+handling all the muxing of GPIO lines in these
+callbacks?
 
----
-base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
-change-id: 20260511-linux-next-0846ad58ba18
+> Would it be reasonable to keep the current approach for now
+> and revisit gpio-regmap later if needed?
 
-Best regards,
--- 
-Qian Zhang <qian.zhang@oss.qualcomm.com>
+I'd prefer that you look into it now while you already
+have all the information at hand and fresh in your mind.
 
+You can forward my comments to your project lead
+/ JIRA instance and say it's Linus' fault you have to spend
+more time on this right now.
 
+Yours,
+Linus Walleij
