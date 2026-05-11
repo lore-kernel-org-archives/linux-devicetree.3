@@ -1,151 +1,377 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C97263C3432
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 09:58:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 866E73C3C00;
+	Mon, 11 May 2026 10:00:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778493533; cv=none; b=IIcLnA9x2MDufruA3sy/q9Ltt3f/6AM4AL0vqgi2LYVMC1gcMpxCqiqZQ9zPJJifJi0xSxQAurX0A6YhtAS4XHKzCB3X0BBcFgqy/msZVndMhP6xhU5wJgx5JbFtR9hZmjDRK5oAEsBvVuyecR6anGbhwINsMGI7/xXKgjKVvX8=
+	t=1778493611; cv=none; b=j3x4i4fDPiGZtmT4iU9Q01bICHRXip3X+DL8m9gV2Jh0czXS1uo6vIKgaIXF0qwdOPWaDFJfr6mEzI0gbq5WlY/xo8pWy95mrC3Ysnzjp/SAKa5oD3bHLNQaMIyO5CpxiEZQeCLXBSS6smEvuMNg9tntnxK6fH9beqQjN2Kdhr8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778493533; c=relaxed/simple;
-	bh=Y2OjlnCuQlb1NvQcRqlakOxq6WkVluCIr8bKCkZiNNE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UNxXbLYfas3ZOlqW/pp0z1KOO+DSgl80Bix4ZFaBg3079RBMQwPVcEH3AG3oXGWw+RZ+rMgqlQV2DrXJMev0Czuirwhppd19LxidQZyN3lBYBunSIey0dSYZCEBhRlJsLjW/y++NUGDyDQqAsvarzxIyUqzKJJuGnjJc2c+XOio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WfTrO292; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=R71ugVG8; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WfTrO292";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R71ugVG8"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64B7Kkar439441
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 09:58:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	2GyxyJ8YMHXnlmbNNr4fpkzjHzr/ZBksEYUIqB1ntQ8=; b=WfTrO292h1oyY7SC
-	H4ICKr8oF7tHCFWjcH+eL0ZiE49TmC0BQpNU5g3PJfoTG2u8zWPKPIf5EYwAUVVA
-	nt0cGR1qtAyZLliu/wkNcKQKtOiukarUHvykj6oScQYBdJpf9Kf0nSQhFJGyBjXz
-	V8G62bC7lIXU3a8bTu1GP12w4zahouKasI9ExRrRxzLzb7uguS346OyNx1SBHCoJ
-	lw0W+9ipN6Ldwx1Hotglj+Do2Y1Atup88qBQfFI5gux9derobu0yK/QQxoxjP7Of
-	DBFgXdE2tVU7jr78yLxEFtofZ5dDjvUwN7HO0106vlN4ruS7JtzVZ710hb5j9cG7
-	4s/fTA==
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e1wpedg3n-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 09:58:51 +0000 (GMT)
-Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-95ccc6c5b49so170566241.2
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 02:58:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778493530; x=1779098330; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=2GyxyJ8YMHXnlmbNNr4fpkzjHzr/ZBksEYUIqB1ntQ8=;
-        b=R71ugVG82566FOokZZIe0slLUCGspYrGMbf1yEBNsBzg1UD17npGGozQEJid7EJql5
-         CZWO1A/xbMucjV76QsFn6R+VXU4eoZ6bmJSK7g6scJd5aUgw7peluqFbAL9BYiJDPUJ8
-         rHZqtIbslWc/X3eNjWPORqw6CjD9uK34KBTKcDG5WtlVvPpczWu77fqhADIjwTuYVl3i
-         AY7MCzExWPklyQyHDw6woX4B27Y+SNIDfshook16oZSF8sCyPz12iKqtPNd9KF/SgyK9
-         zDv6APz/EeE/AlSnucEzUaenLbnIwu75pmaH/fk0Q8jpbSkIWnsIj9IAmraNLnev0Q+s
-         OfEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778493530; x=1779098330;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=2GyxyJ8YMHXnlmbNNr4fpkzjHzr/ZBksEYUIqB1ntQ8=;
-        b=AjwOJm05T5vcOgcT38QiS5qrBglT0KJVwjteQHmE4j/qeDEqTtJiuYqGlQKCl4aFY0
-         nAI1iqZQDwKzc7+QvzUZSDPSAuddPwMzKMLxrtONUx8CpK1+QNx6zHBv2TH2lgRgGtFj
-         G5TRqek3aB2kvM1RxSHxRWfnpCPKLv2SI36NmszIMnwPVQWz1Gjt1Y35wJeL8S27yTkh
-         u9o/8Omg/21lMy0gG2Lo6R9IbK9rHWDPeHqWXVjyBl+pKrwVOdy4RDUgR/Ry9ozgEUAw
-         a56u37IKXypqrG6/vdFJ/Wsqk4TTCXWGvh3reWttbMDyqs2NT5m7yZqt80/lJi37vwG6
-         NAOQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/4wIGhFj+7QGQy+xXSrQYNJfwlZsvWeD61t0bP2uNuV6QZ9CQFCXcgAI0/r+KvJyhxBX7v0RCTRj3I@vger.kernel.org
-X-Gm-Message-State: AOJu0YzszBmcxoBy02O6XJo7BaxMqEx4zccfGaiYBFH/ugTJc1CiAYs/
-	6dm1+ydvwArnLqLCzgQCZ5iji7k+XXgCLffE5GwK/aC6CIOc1NysIwyw2Wnbmh/XWXn04PDg0+a
-	ybjVrDVUvlfbthneOLmmhYv/2lwHiitN1nRwMJUwZ220Lm5JyZhR34Ys+ugMFT1Vz
-X-Gm-Gg: Acq92OFpdDs5xN/9QrJ0awGDMmJeGvBB7n3EITdNzqbfMmFokVNFwl4sQCmw5uOYCoW
-	OLHKyLY/yMo6thkLZvSVw1D/58ps2Fre+L9StC9n7XzKRDI4aGkgFLOTqeWYjhmtiyPqLqdOlP+
-	cZ9Y6GuAbHRjpR9ydmNlHiVJSUobq20UTZ/7jo39z3ZUM6rjde//Vxvv+FA+nalJAMOncOlQrZp
-	RLSu75+yL43eASAYxwRz2FOY2ernybGEn24AAFVuU2skHObIXwr6uzh2kJjPy16M7fppgewXV53
-	RZixdziTDoV/sFPMsSUa1F2fb4bK8Sq/240/PKyfKOK26cpADfqfq6HnFI/iwx6KiJzt9hzPzaI
-	Ai4OqTPIAL/rH8CxqUXRQzrKrLhRe/mEhd5z0WQ07Shsnnuxf0omCTYZjOUMOe/4RqbFOtvRN9e
-	QIvSI=
-X-Received: by 2002:a05:6102:31b5:b0:631:437d:be97 with SMTP id ada2fe7eead31-631437dbf33mr1451664137.8.1778493530183;
-        Mon, 11 May 2026 02:58:50 -0700 (PDT)
-X-Received: by 2002:a05:6102:31b5:b0:631:437d:be97 with SMTP id ada2fe7eead31-631437dbf33mr1451644137.8.1778493529767;
-        Mon, 11 May 2026 02:58:49 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bcac11b7084sm468659866b.28.2026.05.11.02.58.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 11 May 2026 02:58:48 -0700 (PDT)
-Message-ID: <1b32c112-916c-4e7e-9600-e2d95bbeca7c@oss.qualcomm.com>
-Date: Mon, 11 May 2026 11:58:46 +0200
+	s=arc-20240116; t=1778493611; c=relaxed/simple;
+	bh=VX9MDCACBKdbe/hyA/vDYls2DAZ0X9rQXDfT1IbXEJ4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=hSKcLqqZUyLaM2HLB6v2U7zHErnuD0/7jUEU57ow8tOP5HZI0ZWPuxmE67oq/FsYOcnn0lKWZR6HPjNivNcMRmuhNmJNdXPO1239ADsc7bVBN3m04oTXY4EJG1tDqVhEo2wkpdWwyjmzwnIyTUcrxlUp0TVRpVgjMpMHz677PKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.82])
+	by APP-01 (Coremail) with SMTP id qwCowAA33GecqAFquQrkDw--.3722S2;
+	Mon, 11 May 2026 17:59:56 +0800 (CST)
+Message-ID: <cb69490652409eb4f07b3ee642d478e1b2e28c5b.camel@iscas.ac.cn>
+Subject: Re: [PATCH 1/2] dt-bindings: display: verisilicon,dc: generalize
+ for DCUltra Lite variant
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Mon, 11 May 2026 17:59:55 +0800
+In-Reply-To: <20260511075142.54752-2-a0987203069@gmail.com>
+References: <20260511075142.54752-1-a0987203069@gmail.com>
+	 <20260511075142.54752-2-a0987203069@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/7] arm64: dts: qcom: hamoa-iot-som: Add pm8010 L4M
- regulator
-To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Bryan O'Donoghue <bod@kernel.org>, Robert Foss <rfoss@kernel.org>,
-        Todor Tomov <todor.too@gmail.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
-        Tingguo Cheng <tingguo.cheng@oss.qualcomm.com>
-References: <20260508-hamoa_evk-v2-0-3ebdca3e4ae2@oss.qualcomm.com>
- <20260508-hamoa_evk-v2-6-3ebdca3e4ae2@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260508-hamoa_evk-v2-6-3ebdca3e4ae2@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: knorD8ObvUzHgrKyz-5f6m9hr6wdhsLH
-X-Proofpoint-ORIG-GUID: knorD8ObvUzHgrKyz-5f6m9hr6wdhsLH
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTExMDEwOSBTYWx0ZWRfX5uUHewshothf
- t5BYOJSoIGnl4Yz/B36TeKD2GAge6nGNwQTDU2v8UMVhxnpA4s1s3zRDdguIjiQhZHc5AANEC4Y
- eJ+pumnkmZdLUq2Xgkz7YJJr4+Jv9QvcHemzJDYOMQWpJxPqMZKxvjB/UkBhBpymRXhcYat25GA
- /s1O+uLAN75IsOnj06L8NrEDfrJdWP+0KmqYRI111p+KTbs6b6KavaJfwX9G3/ccbwpMeRRQnxD
- HQU9hFXTSoIL8PYmIyU2DCR2gJAQSkyoCbP5Ec52irB/p7fxhqKqwSL20J2afKAkqpXszL1ObAS
- OGsdHizKIwV+2Z5seHXnmKB6x7Xi5VbJEMLLzVnI12WBGJuH+Pk9GMlaLbLdt5LnfA+0GD1c5XZ
- MIgzMuiUIiMiNOn7WF0kzJMWmggae+BCroh8guZdcPe0h8+bVbOpRY4IdBjbTW4r1INb972dKa8
- L+c6z/ElYuYqti5oWmg==
-X-Authority-Analysis: v=2.4 cv=EeD4hvmC c=1 sm=1 tr=0 ts=6a01a85b cx=c_pps
- a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=GLZNN3U5Jx1TMTuK2tQA:9 a=QEXdDO2ut3YA:10
- a=TOPH6uDL9cOC6tEoww4z:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-11_03,2026-05-08_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 priorityscore=1501 bulkscore=0 adultscore=0
- lowpriorityscore=0 malwarescore=0 clxscore=1015 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605110109
+X-CM-TRANSID:qwCowAA33GecqAFquQrkDw--.3722S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxKFyDWFyDKrWfZrWUtFWrZrb_yoWfZF1rpF
+	WrJFWUJryxtFn3Xr48tw109Fy5Jw4kJ3WDJr18X3WUJF4DJrW0qr42grn0g3W7Jr48XryU
+	KF1Uur13Zr12yr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+	c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+	14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
+	IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
+	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
+	IFyTuYvjxUqVcEUUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-On 5/8/26 1:40 PM, Wenmeng Liu wrote:
-> From: Tingguo Cheng <tingguo.cheng@oss.qualcomm.com>
-> 
-> Add pm8010 L4M regulator which is used by Camera I2C pull-up.
+=E5=9C=A8 2026-05-11=E4=B8=80=E7=9A=84 15:51 +0800=EF=BC=8CJoey Lu=E5=86=99=
+=E9=81=93=EF=BC=9A
+> Extend the verisilicon,dc base schema to accommodate the Nuvoton
+> MA35D1
+> DCUltra Lite (a previous generation of the DC8000 series) which has a
+> different clock topology, no reset control, and a single output.
+>=20
+> - Replace the fixed clock/reset item lists with minItems/maxItems
+> ranges
+> =C2=A0 so sub-schemas can enforce variant-specific constraints
+> - Add a 'port' property (single-port alias) alongside the existing
+> 'ports'
+> =C2=A0 for single-output variants
+> - Remove the mandatory 'ports' requirement from the base schema; sub-
+> schemas
+> =C2=A0 shall enforce their own port topology
+> - Add a 'select' stanza so the validator matches any node whose
+> compatible
+> =C2=A0 contains a known Verisilicon DC string, including SoC-specific glu=
+e
+> - Relax additionalProperties to allow unevaluatedProperties
+> enforcement in
+> =C2=A0 sub-schemas
+> - Fix a minor whitespace issue in the port@0 description
+>=20
+> Add nuvoton,ma35d1-dcu.yaml as a sub-schema for the Nuvoton MA35D1
+> DCUltra
+> Lite display controller:
+>=20
+> The Nuvoton MA35D1 integrates the Verisilicon DCUltra Lite display
+> controller. It is a single-output display controller with a 32-bit
+> RGB (DPI) interface. Unlike the DC8000, it does not have discoverable
+> chip identity registers, does not support the CONFIG_EX commit path,
+> and uses dedicated IRQ status/enable registers at offsets
+> 0x147C/0x1480.
+> The clock topology uses two clocks (bus gate and pixel divider) and
+> does not require explicit reset control from the driver.
+>=20
+> Signed-off-by: Joey Lu <a0987203069@gmail.com>
+> ---
+> =C2=A0.../bindings/display/nuvoton,ma35d1-dcu.yaml=C2=A0 | 94
+> +++++++++++++++++++
+> =C2=A0.../bindings/display/verisilicon,dc.yaml=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 | 64 +++++++------
+> =C2=A02 files changed, 131 insertions(+), 27 deletions(-)
+> =C2=A0create mode 100644
+> Documentation/devicetree/bindings/display/nuvoton,ma35d1-dcu.yaml
+>=20
+> diff --git
+> a/Documentation/devicetree/bindings/display/nuvoton,ma35d1-dcu.yaml
+> b/Documentation/devicetree/bindings/display/nuvoton,ma35d1-dcu.yaml
+> new file mode 100644
+> index 000000000000..9279004ae27c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/nuvoton,ma35d1-
+> dcu.yaml
+> @@ -0,0 +1,94 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/nuvoton,ma35d1-dcu.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Nuvoton MA35D1 DCUltra Lite display controller
+> +
+> +maintainers:
+> +=C2=A0 - Joey Lu <yclu4@nuvoton.com>
+> +
+> +description:
+> +=C2=A0 The Nuvoton MA35D1 integrates the Verisilicon DCUltra Lite displa=
+y
+> +=C2=A0 controller. It is a single-output display controller with a 32-bi=
+t
+> +=C2=A0 RGB (DPI) interface.
 
-What about other regulators on that PMIC?
+You'd better write this in verisilicon,dc.yaml with if clauses. See
+Documentation/devicetree/bindings/mmc/snps,dwcmshc-sdhci.yaml for an
+example for a generic IP with different integrations, and how it
+constraints different SoC's integration.=20
 
-Konrad
+> +
+> +select:
+> +=C2=A0 properties:
+> +=C2=A0=C2=A0=C2=A0 compatible:
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 contains:
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 enum:
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - nuvoton,ma35d1-=
+dcu
+> +=C2=A0 required:
+> +=C2=A0=C2=A0=C2=A0 - compatible
+> +
+> +allOf:
+> +=C2=A0 - $ref: http://devicetree.org/schemas/display/verisilicon,dc.yaml=
+#
+> +
+> +properties:
+> +=C2=A0 compatible:
+> +=C2=A0=C2=A0=C2=A0 const: nuvoton,ma35d1-dcu
+> +
+> +=C2=A0 reg:
+> +=C2=A0=C2=A0=C2=A0 maxItems: 1
+> +=C2=A0=C2=A0=C2=A0 description:
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Register range of the DCUltra Lite contro=
+ller. The address
+> space
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 is 0x2000 bytes.
+
+Is it really 0x2000 bytes? The next peripherals in the address space,
+the GC520L 2D GPU, is 0x20000 bytes away from the start of DCU
+registers space.
+
+> +
+> +=C2=A0 interrupts:
+> +=C2=A0=C2=A0=C2=A0 maxItems: 1
+> +
+> +=C2=A0 clocks:
+> +=C2=A0=C2=A0=C2=A0 items:
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Bus clock that gates regis=
+ter access (DCU_GATE)
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Pixel clock divider for di=
+splay timing
+> (DCUP_DIV)
+> +
+> +=C2=A0 clock-names:
+> +=C2=A0=C2=A0=C2=A0 items:
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: core
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: pix0
+> +
+> +=C2=A0 resets:
+> +=C2=A0=C2=A0=C2=A0 maxItems: 1
+> +=C2=A0=C2=A0=C2=A0 description:
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Optional reset for the display controller=
+. The driver does not
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 assert or deassert this reset; it may be =
+used by firmware or
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 boot loaders to bring the hardware to a c=
+lean state.
+
+Why is there a reset in hardware but not toggled in the software?
+
+> +
+> +=C2=A0 port:
+> +=C2=A0=C2=A0=C2=A0 $ref: /schemas/graph.yaml#/properties/port
+> +=C2=A0=C2=A0=C2=A0 description:
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Output port to the downstream display dev=
+ice (e.g. RGB panel).
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 The DCUltra Lite supports a single parall=
+el RGB output.
+> +
+> +required:
+> +=C2=A0 - compatible
+> +=C2=A0 - reg
+> +=C2=A0 - interrupts
+> +=C2=A0 - clocks
+> +=C2=A0 - clock-names
+> +=C2=A0 - port
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +=C2=A0 - |
+> +=C2=A0=C2=A0=C2=A0 #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +=C2=A0=C2=A0=C2=A0 #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
+> +=C2=A0=C2=A0=C2=A0 #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
+> +
+> +=C2=A0=C2=A0=C2=A0 display@40260000 {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible =3D "nuvoton,ma35d=
+1-dcu";
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reg =3D <0x40260000 0x2000>;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 interrupts =3D <GIC_SPI 20 IR=
+Q_TYPE_LEVEL_HIGH>;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks =3D <&clk DCU_GATE>, <=
+&clk DCUP_DIV>;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-names =3D "core", "pix0=
+";
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 resets =3D <&sys MA35D1_RESET=
+_DISP>;
+> +
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 port {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dpi_o=
+ut: endpoint {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 remote-endpoint =3D <&panel_in>;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
+> +=C2=A0=C2=A0=C2=A0 };
+> diff --git
+> a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> index 9dc35ab973f2..00884529f8c1 100644
+> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> @@ -9,15 +9,34 @@ title: Verisilicon DC-series display controllers
+> =C2=A0maintainers:
+> =C2=A0=C2=A0 - Icenowy Zheng <uwu@icenowy.me>
+> =C2=A0
+> +description:
+> +=C2=A0 Verisilicon DC-series display controllers.
+> +
+> +# Select any node whose compatible contains one of the known
+> Verisilicon DC
+> +# or DC-derived compatible strings, including SoC-specific glue
+> variants.
+> +select:
+> +=C2=A0 properties:
+> +=C2=A0=C2=A0=C2=A0 compatible:
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 contains:
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 enum:
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - verisilicon,dc
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - thead,th1520-dc=
+8200
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - nuvoton,ma35d1-=
+dcu
+> +=C2=A0 required:
+> +=C2=A0=C2=A0=C2=A0 - compatible
+> +
+> =C2=A0properties:
+> =C2=A0=C2=A0 $nodename:
+> =C2=A0=C2=A0=C2=A0=C2=A0 pattern: "^display@[0-9a-f]+$"
+> =C2=A0
+> =C2=A0=C2=A0 compatible:
+> -=C2=A0=C2=A0=C2=A0 items:
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - enum:
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - thead,th1520-dc=
+8200
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: verisilicon,dc # DC IPs have dis=
+coverable ID/revision
+> registers
+> +=C2=A0=C2=A0=C2=A0 # Enumerated in full so the schema validator can veri=
+fy any
+> compatible
+> +=C2=A0=C2=A0=C2=A0 # string against this list, including those from chil=
+d schemas.
+> +=C2=A0=C2=A0=C2=A0 contains:
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 enum:
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - verisilicon,dc
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - thead,th1520-dc8200
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - nuvoton,ma35d1-dcu
+> =C2=A0
+> =C2=A0=C2=A0 reg:
+> =C2=A0=C2=A0=C2=A0=C2=A0 maxItems: 1
+> @@ -26,32 +45,24 @@ properties:
+> =C2=A0=C2=A0=C2=A0=C2=A0 maxItems: 1
+> =C2=A0
+> =C2=A0=C2=A0 clocks:
+> -=C2=A0=C2=A0=C2=A0 items:
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DC Core clock
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DMA AXI bus clock
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Configuration AHB bus cloc=
+k
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Pixel clock of output 0
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Pixel clock of output 1
+> +=C2=A0=C2=A0=C2=A0 minItems: 2
+> +=C2=A0=C2=A0=C2=A0 maxItems: 5
+> =C2=A0
+> =C2=A0=C2=A0 clock-names:
+> -=C2=A0=C2=A0=C2=A0 items:
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: core
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: axi
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: ahb
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: pix0
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: pix1
+> +=C2=A0=C2=A0=C2=A0 minItems: 2
+> +=C2=A0=C2=A0=C2=A0 maxItems: 5
+> =C2=A0
+> =C2=A0=C2=A0 resets:
+> -=C2=A0=C2=A0=C2=A0 items:
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DC Core reset
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: DMA AXI bus reset
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - description: Configuration AHB bus rese=
+t
+> +=C2=A0=C2=A0=C2=A0 minItems: 1
+> +=C2=A0=C2=A0=C2=A0 maxItems: 3
+> =C2=A0
+> =C2=A0=C2=A0 reset-names:
+> -=C2=A0=C2=A0=C2=A0 items:
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: core
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: axi
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: ahb
+> +=C2=A0=C2=A0=C2=A0 minItems: 1
+> +=C2=A0=C2=A0=C2=A0 maxItems: 3
+> +
+> +=C2=A0 port:
+> +=C2=A0=C2=A0=C2=A0 $ref: /schemas/graph.yaml#/properties/port
+> +=C2=A0=C2=A0=C2=A0 description: Single video output port for single-outp=
+ut
+> variants.
+> =C2=A0
+> =C2=A0=C2=A0 ports:
+> =C2=A0=C2=A0=C2=A0=C2=A0 $ref: /schemas/graph.yaml#/properties/ports
+> @@ -59,7 +70,7 @@ properties:
+> =C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 port@0:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 $ref: /schemas/graph.yam=
+l#/properties/port
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 description: The first output=
+ channel , endpoint 0 should be
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 description: The first output=
+ channel, endpoint 0 should be
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 used for DPI=
+ format output and endpoint 1 should be used
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 for DP forma=
+t output.
+> =C2=A0
+> @@ -75,9 +86,8 @@ required:
+> =C2=A0=C2=A0 - interrupts
+> =C2=A0=C2=A0 - clocks
+> =C2=A0=C2=A0 - clock-names
+> -=C2=A0 - ports
+> =C2=A0
+> -additionalProperties: false
+> +additionalProperties: true
+> =C2=A0
+> =C2=A0examples:
+> =C2=A0=C2=A0 - |
+
