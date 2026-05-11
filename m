@@ -1,60 +1,100 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E2223DA7F7;
-	Mon, 11 May 2026 13:29:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D9353EC2CE
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 13:40:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778506176; cv=none; b=H4Cud4rnI0BZwt2EIFEDURPcm8pL6Z+3ShiEo19lCgnL4Po6PxBtL7h/OgZMTC+KTt5tClUFNIiz2ESitRHc24Ma3RVtjRTm1G8ZDVWCb1ET+vRGlDFJHUwvYwgC+RC8XK15rN4nAMcKj15plWGp2c4pkozTEhDVbO6jr5m9VD0=
+	t=1778506808; cv=none; b=io8OYev56/+EjqRia0yRzwQj7FIhjP9dQkgjMMHZPcFrB1MyxDkJAyjTM9BqNwacv6iXiDl94DE934KIiwUQJZ3BhvS3+86NRoHjGknEvtfHz6crjvOLgtbsg3sAK8nMUjBnpFDZMR56Ck+7gF1Tu7kucswdA96v1twqKFRflWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778506176; c=relaxed/simple;
-	bh=Mc0aqfVM8VIHOaO70RiSO+KqEsBBWzd/VPNTqwzcPls=;
+	s=arc-20240116; t=1778506808; c=relaxed/simple;
+	bh=k8vpbv6E0xaQeIphwi1YwpaLutso5pMe/mHkN2I68go=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AdZLeM2yxfam7hEepfIoP0J3iduDcoobSWYa0gclPsZcuyaeEPjdwb5vVXGB04TEE5NQYbzGg/8vuvJqGcZK/I90ZdJDKc1Lw7sroau9xZ3YISN/YErofxWUxpsXjR+BfIKjPCCHyvEmA9QedcAoZjXQNiqho66RNffkrxFEhf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=MJx4Q6js; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=ebB6OrsLGGaBw+8v91fsQ8BpWCXMkwdDLBrgQx03Tbk8xpiSvROOCMdxmOWDPMAeV9cNknnQqpvhD/iklFZFpRV1roAo24pVDd98Wn23IwUO2L4O0o5iXmHI9hN4x+KunAb6hmqb6vNZf+Xu+NzRCLFxCT10Nc6ou7/rAUU+mVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Am/abfV9; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iGmhIlxr; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="MJx4Q6js"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=7Wy4jvhAkYWU+75UjFdapU9F9JHAgpepN1alzmqoBOY=; b=MJx4Q6jsCD7srZzQ4/uJLOZhqP
-	g3QW+yawqBFesGDVOM7RWS3CjQVCwgQ7sFtn6UnpSY4eCIgMa/sQhpjhQSnVJyOJvOmb3GUVtvK78
-	smO7oXhwFzpwnm9oUAff0Qf5oGrDCeUYFXPqUsIEhFDQjc6CHSUbQ7hHUOe3nIP1Zpyg=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wMQhG-002MmR-Vk; Mon, 11 May 2026 15:29:22 +0200
-Date: Mon, 11 May 2026 15:29:22 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Vladimir Oltean <vladimir.oltean@nxp.com>
-Cc: Josua Mayer <josua@solid-run.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Yazan Shhady <yazan.shhady@solid-run.com>,
-	Mikhail Anikin <mikhail.anikin@solid-run.com>,
-	Alexander Dahl <ada@thorsis.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>, netdev@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] arm64: dts: imx8dxl: Add SolidRun SoM and
- HummingBoard
-Message-ID: <557f7332-42b4-49eb-85ea-76d141a2150f@lunn.ch>
-References: <20260511-imx8dxl-sr-som-v4-0-64381b3bf80d@solid-run.com>
- <20260511-imx8dxl-sr-som-v4-0-64381b3bf80d@solid-run.com>
- <20260511-imx8dxl-sr-som-v4-2-64381b3bf80d@solid-run.com>
- <20260511-imx8dxl-sr-som-v4-2-64381b3bf80d@solid-run.com>
- <20260511112438.4fxvhelf242emzft@skbuf>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Am/abfV9";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iGmhIlxr"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64B9JhEx654469
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 13:40:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=xFVVJzGZ8bN9c3kBkqw5uWj0
+	pG+/dcxhTA6OGEfyeis=; b=Am/abfV956P/01FZ7bqDmUs+y/wxZGsQIMoqwfjC
+	NNoutIMej6mDJ9wvjVMwEHkFcC6b6RgIDdHGj4/LGW7uKFzRcL4ju5F9SoLKn5Y+
+	v19638QGlDolqfD11LDmge3mnY1ixtkAson8V5PhBd8P9XvR8NGIeYZg5oIzIdl/
+	CcQEXvoDTOxO8ayZkRq1jwRSNDU/U3wNOmotRk5egu14JNj0dmpKAuKJaMy42ta1
+	y4eKIv6bKjvqs5cIVmjFuki4vNFghhD2V8xQQkI3KC2H4FLOz48pmX7Sb5O2zNbH
+	kEboSxI/YLh5ip7vzGWyCy44I7fpUpVTXQUIXkbszrbJXw==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e37xu9wx1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 13:40:05 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-6313c9d983fso1072821137.3
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 06:40:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778506804; x=1779111604; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=xFVVJzGZ8bN9c3kBkqw5uWj0pG+/dcxhTA6OGEfyeis=;
+        b=iGmhIlxrmtZLpxH1+Em/g7MwbHObKK3jU5Cxt47t6b69U4p4nkcYCJ46L3Nny//pH9
+         sqt06e3se/eK3otFNj4UvZOOzsTHxjxwyEgR0k0Wcr6Ovt25+BAyzRZ1j0mSUrBVJ6M+
+         7RxQFTNAqV+uaUPdDswHNq1vTwDouyikLdnr3kSt0VI/e61rkNVK6ciXkKLvicEAM1nV
+         Sg3BAimeguWbfO96P7RYAbOXcg7UkWHAuLjdmPxF31/r1brPDIEWGKa18udMRFENvrqI
+         YtoW8F58tsvuJJ7eVWIvF3ASxeOJch0BRXWFKpjXw33496dOsOxkudhlDq1VFED0drRy
+         Nc+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778506804; x=1779111604;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=xFVVJzGZ8bN9c3kBkqw5uWj0pG+/dcxhTA6OGEfyeis=;
+        b=BGRJ4GpcOmLBD0fHmyMiZxojuAqDoSgHS+JYZ++wSV2CqqeU6J07AgDQ98X1NPB2+K
+         rU7/UwIEP8WNKDthI8aBUz6hqj8Vg10WiuDvgekJ3FygCAL3t7gPKlk9U+s01PLb1wSj
+         musofx9P9ERMvL5qwmKNQlvA/zGkhMFTrnxgKral03fgjzsMVUXTvuBBmUHHmDM7OpoD
+         uj6KCkqSfE6q4CUKahP79y5eMkmJYQ8+PvATq8fcpKQXF4KphlC5Uk+/e+fXQ8pghTDv
+         bdv/NC2F4lkBy5wMF8etQCPmFnIQNy/SLMAdHOJFkv/Njcpig6E4vypKZkVxSdGs7gB0
+         WIEA==
+X-Forwarded-Encrypted: i=1; AFNElJ8qtaIuAPPB7KPDQNOElgXc75BYpS2KPrgUUJnp9XiD650jYzSF8paRQn/Oe4gvUAiZEZ20fDJHCEBD@vger.kernel.org
+X-Gm-Message-State: AOJu0YwZS7JKilC/n8oBBoNVqjbbjBNw6FtJSRu1IXdxBmawpa0uyr8P
+	Fmwn00CN7AS2CiKJg3ISFzSOIqpgkutticmSIICCuKrLbLnxQxwvNGU84DlyB7gZY78FMI22AmE
+	rqvadKX92g0+ZrFl03XmSbtT7k4eZfmc2HXHibWt0RnMVu1NRC0d8UYTGvtszbxbq
+X-Gm-Gg: Acq92OG3ue/Q7JzFK/RC19xoVVCFcO/WAGL1nFLMyKwoASHsJ68H1BQ2vFKOUSnGtdi
+	aV8pu8SHzOFf3BhW27MFxP+ZkBuuX473/NRh7YKlTXkAraDl/vXQwQ/vl2WM+VP4n2cxEQduhNZ
+	mvyrnzbd7KRtiiXadxEbrNaK5U+k6B3gYHQf2FA7k+fg4bRusB4YakI7+4xxQXPbhUXmhYDmD9n
+	REjIGjODdi+ZgZo6vRZMFk9qVdCpROE2bYhC3rT3T9lyohHv7aW+oaFj91f5ni5/fRjFCm1x5FA
+	apBo6XlGVJUGZ7r8QXb2DS4DSb8rc0gJVKNX1cN3RNAkCYX5GvdCl7fQ07YTBNFeJVe27G0zsA6
+	89lqZRKbmVFbLnYxlDl5ba1Amy16aqNavQEYv0dRXeo1OVPRVWbpyYRzvdOSw29rvb12tZ0lASC
+	r4cxp0pZO5yAeNuuOSDvAcTIX9KJsPfCaOyNY=
+X-Received: by 2002:a05:6102:5091:b0:632:a3f3:914 with SMTP id ada2fe7eead31-632a3f30b8fmr3055829137.7.1778506804265;
+        Mon, 11 May 2026 06:40:04 -0700 (PDT)
+X-Received: by 2002:a05:6102:5091:b0:632:a3f3:914 with SMTP id ada2fe7eead31-632a3f30b8fmr3055820137.7.1778506803769;
+        Mon, 11 May 2026 06:40:03 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a8c0c22b70sm1360848e87.81.2026.05.11.06.40.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 11 May 2026 06:40:02 -0700 (PDT)
+Date: Mon, 11 May 2026 16:40:01 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+Cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
+        Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Randy Dunlap <rdunlap@infradead.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH v8 6/6] arm64: defconfig: Enable Qualcomm reference
+ device EC driver
+Message-ID: <f3frppcx66vctnnbuogszv3caissgqrnon2kpj2rpdmlpufo6y@vrlgjgisxubb>
+References: <20260427-add-driver-for-ec-v8-0-702f74e495f7@oss.qualcomm.com>
+ <20260427-add-driver-for-ec-v8-6-702f74e495f7@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -63,18 +103,44 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260511112438.4fxvhelf242emzft@skbuf>
+In-Reply-To: <20260427-add-driver-for-ec-v8-6-702f74e495f7@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=EcL4hvmC c=1 sm=1 tr=0 ts=6a01dc35 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=8EeM0g2abuOJCfGMYRMA:9 a=CjuIK1q_8ugA:10 a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTExMDE1MSBTYWx0ZWRfXxG70jVBrm800
+ IwO+YPx2mt4FFtxsuCpaJBmY8r+Aiyx60O3bbTWGvRhharFUAfJ7i5VHDF7C68dc7Sn8l9gCHvX
+ lO1O42aj+HMX226ASWwSEypBZMlHuCl2rILoxg8mQDG/FPlnlsxwK/Dt/w1nfetqEIrBCtkWYNV
+ x4nQRYPexHynmiLnSRSzcasq4++CIYxkh6jVpAu75/QluAXKIqNF/MoyDBFovptS4xTfJz7Ze/w
+ gpOku7Gi940ioEQnkNUvHuq7rsQwJraVxYUqOEXzmWmHw5MKzhxZ4qvv0/XV1YH4CYe2ckbArdH
+ RvkwgWeznHGyMXzn3K/V/22e3kp5CbJJaXT99pe4PBXJRHWP3sVj40PBjdjH861MBNWh5NVq/T4
+ kliOxeMx1J031XxVA+AEIyepFnTEi+jFQCaLeZfsjAJ/mvdZRy7m6Z4dQn9ngjrHgcIoNe4NUVq
+ trBa/Unn1gNkolZVXYg==
+X-Proofpoint-ORIG-GUID: zWlT6GaLnpX84ozQBjWVbA-YIHJxZFUy
+X-Proofpoint-GUID: zWlT6GaLnpX84ozQBjWVbA-YIHJxZFUy
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-11_04,2026-05-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 adultscore=0 spamscore=0 impostorscore=0
+ lowpriorityscore=0 clxscore=1015 malwarescore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2605110151
 
-On Mon, May 11, 2026 at 02:24:38PM +0300, Vladimir Oltean wrote:
-> On Mon, May 11, 2026 at 12:11:31PM +0200, Josua Mayer wrote:
-> > +&eqos {
-> > +	/* delays are added by connected ethernet-switch cpu port */
-> > +	phy-mode = "rgmii";
+On Mon, Apr 27, 2026 at 03:34:57PM +0530, Anvesh Jain P wrote:
+> Enable EC_QCOM_HAMOA as a module to support the embedded controller
+> found on Qualcomm CRD reference devices such as Hamoa and Glymur.
+> 
+> Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+> ---
+>  arch/arm64/configs/defconfig | 1 +
+>  1 file changed, 1 insertion(+)
+> 
 
-For ethernet-phy combinations i'm pretty strict, but i'm more
-forgiving when switches are involved.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-If rx/tx-internal-delays-ps work, that would be better, but i'm
-willing to accept this, with the comment in place.
 
-	Andrew
+-- 
+With best wishes
+Dmitry
