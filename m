@@ -1,79 +1,127 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38C7C21CC51;
-	Mon, 11 May 2026 19:15:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 110F547D945
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 19:19:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778526940; cv=none; b=JV6cG+3B6sNKpmcrrfjNamBb/X0R/FTvXXesHduEzMM+teaW7raxQR8oVqNpNT7V+KcTv9RNavfRp4ZQt6btFzSuW6P6IDQ+wlSoWqXbvE4k86aXo1Jphs8eAZB8Rbl9Qi9Wmvgnr3NZYmRHay/TS4cgjtkl9zK7DuK8cZhKWzE=
+	t=1778527155; cv=none; b=Cjg8DBa2E3SoAE9hoEH83ZMY95d63EVPFZNF7RGXZwiedGjlVkxCa4n2t/V1GnZpaZw5iy4zoF2k9dcHOWqIeH/wH3v1la23SqOcsTjUsxEVw5dlowjg/135bMevSMiaFEqePm4OpAL+QpX037bdzPYlR9PHGeAhcD9Dzcqpy7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778526940; c=relaxed/simple;
-	bh=/sSkSJWxjxHnnYFGRsYIEuQvNjIc4cP6f987WnLzcmg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xdt1w0/TNw6UF6pJrlyaYQUjhH2v6YbmzHmT17bYBNFeY7IvwXpvVaY2taakr/ty2inubF4vEGHLmQb3qsuxTVwf81WcLVzway6tghYQQMv83ok7qV8FiQm/9y12PE4T2PQxmoYjzmK7HdJMFpLv8lLCcCT/vpyIJi21/+9rm2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=vGeKZDAR; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1778527155; c=relaxed/simple;
+	bh=amfR39GXM/RYwIJ89TLxwC1xDMx9DOHbmIVZ1T6/tow=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CA7iwK08zKwFkgo+tJCeFttxPb0ohMOIeL5m+p4iET18/cy84zKFemiYGaMr22n1yT5E4MidlZIzqetGOS9QvyaNmWC7AdrLuRItlHwlT7mRGKDd7NWJaRnYTRo27Y13m46jsLYG3HCibEkXBzG6IrMz5FJsQi8MQO3HDgbUZ2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZSCtR/15; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="vGeKZDAR"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=p2fnzh/9zDePHsEOY6dNmO5mDU+AxcY0IVHc6kCpOyQ=; b=vGeKZDAR41fA7ZZquTd2j4e2OP
-	S6odWdVGsJSwwEvUX0TU2GIUWRjEWaLjUJ5dJPTJJUO7WaPp8WAyaMOC9DzfqyrY/6nYu4qYqWWea
-	OFr/ws15/mkP9L6Vvf8Lc+mq/wCd0RRQ0nt2/kPPocsCZhlqTV21crgCg/yU7D/6X/4I=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wMW6C-002Qbt-18; Mon, 11 May 2026 21:15:28 +0200
-Date: Mon, 11 May 2026 21:15:28 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-Cc: Piergiorgio Beruto <Pier.Beruto@onsemi.com>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
-	"davem@davemloft.net" <davem@davemloft.net>,
-	"edumazet@google.com" <edumazet@google.com>,
-	"kuba@kernel.org" <kuba@kernel.org>,
-	"pabeni@redhat.com" <pabeni@redhat.com>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net-next v2 1/9] dt-bindings: net: add onsemi's S2500
- 10BASE-T1S MACPHY
-Message-ID: <20542d76-6f70-4c2d-9fef-0de620a8d6d1@lunn.ch>
-References: <CY8PR02MB924920C8825C7AE5D22EFA4483382@CY8PR02MB9249.namprd02.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZSCtR/15"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-48984d29fe3so50065305e9.0
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 12:19:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778527152; x=1779131952; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=0VBMYUO8iwKdjLIgQm/2QKqt/0wCxzU8CXHOfJiBo+w=;
+        b=ZSCtR/15+Xn0OJxpi0QnZYkmVo7yzHs3TCpK1W9IPuZZQCtwxH4H8Dv11DtzHGNQJK
+         RTQb5kCsyDQnTFVWKo4EaVvh3cLW7lInIzI2Qbrho8l1aurg1FACjaf6yemeCIiWjnR1
+         AA5poUyoLjDQ/GG3JK++iDhVxSIQJfwVGSIJLoxAnxoq3WAI1r4B6o1t7gwASOJ2fmuv
+         yPY6sW6xGePPhdyb1pZ3vb4t7KyQqZ7lPzfSjqaRJLMu3TZmKUs4pdb4hnp1KLX8GdtR
+         8zp+s393lL+szXW9lMAdegE/mt4/1DKRhOySwGWvKDX8aSuNWt3WcTtcxaqUKrBW8y53
+         doig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778527152; x=1779131952;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0VBMYUO8iwKdjLIgQm/2QKqt/0wCxzU8CXHOfJiBo+w=;
+        b=pq0jJMwWWVb+zpzMNjrpsHyQE1X12GrY7+sf+ftBgLEQJVzGqyuQ4+dpjiD818uqc3
+         5VD9xIuW7wxIezmCvT5rKPnqSv0X8EcEUhnH0trK4WWJCT3u/eGgI+AllvhqFhsWAI4P
+         kKjsE/HnQKY4IuTsI/FLbQI0nszkRl+uOXgyt8AycMP7rRilkDOI2OPPLl424qlVEwt6
+         kAVlHWeAxQvOGlFChSPZBHetCaoVCjs7/hPMoNgEZTbwefeUCbcYc12KDgj0KBVziGsE
+         C+/yUbw0rEhnnA3if9VNoyUYaSEymU/jK8TWSifTZL5jBgtmyQ+86Hp9nuctx+/Xc8O2
+         PiPA==
+X-Forwarded-Encrypted: i=1; AFNElJ/65yvAKazFpkb5rejscKPCaizKNEUgzArOFFwErR05zx2qyKur0CjpoJDG9sX1x38umVlkc52StHEV@vger.kernel.org
+X-Gm-Message-State: AOJu0YyVNz6YebpRF/Gw3Dq01idHrMsHmCFiBEhka6WHgt10MnVDRPt6
+	KG9pbtIAcdNTLPjg73W3La1K9Xzpgq7Bi5m3IXyfXP+zK0BhVzW10StT
+X-Gm-Gg: Acq92OEpoBC4xkhSq62e36yS8SYy68ufrWhmzvqJpY6wDZInQ6DjrxvZQv85hba1X0Y
+	7XW+bveNk+0XSajjMLbTmybwdFBQKlpHyIZiPdxntCqsgWsNuRVfZ2YdKJ4hlW7w1euVdVsyyJ7
+	8R0IoQ5gCoTuB43bW62IX+EsTfveJAnAKtwQxV+aXjs90JxoPs8x5mb/n3u1sEx0nMkqHflHEIQ
+	npOHQagNUdfOQFmsga4c2PP2z96ShK0A1OnT7+TOS+lr+en/vJnIwdKO0EGvJP87MPmJST4cqYw
+	BJN6b04ve7R4pgfsTWYt8e2l4ntNANzsJbYgtIDyX+IyAf20J0S7PPq2YZD5G+u+8vyAt+TF+z/
+	zapyqvmSpbskoLFDvLT/Cc84BbyYP8wLLwJmcHA5UEhYiNOfGqGpiQKEuUWx2HlAGu8HM0ks4Wl
+	wjUNmBd55tzCU/PwIdRs4ruAX1KyqQuy/+etTM73hFRveZAGWMjcJ3kqE2UXF4vAR5hf2GyAW23
+	9T1vkLGcDi7gQLqQ+OlyNHImJysw/+j9AtpuQ==
+X-Received: by 2002:a05:600c:c096:b0:48a:f18:ece4 with SMTP id 5b1f17b1804b1-48e51f50982mr315270505e9.24.1778527152357;
+        Mon, 11 May 2026 12:19:12 -0700 (PDT)
+Received: from iku.Home ([2a06:5906:61b:2d00:e687:6094:b849:9886])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e7e45ff89sm150350725e9.8.2026.05.11.12.19.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 11 May 2026 12:19:12 -0700 (PDT)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-renesas-soc@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Prabhakar <prabhakar.csengg@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH 0/4] Add PLL3 and LCDC_CLKD support for RZ/T2H and RZ/N2H
+Date: Mon, 11 May 2026 20:19:06 +0100
+Message-ID: <20260511191910.1945705-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CY8PR02MB924920C8825C7AE5D22EFA4483382@CY8PR02MB9249.namprd02.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
 
-> +examples:
-> +  - |
-> +    spi {
-> +      #address-cells = <1>;
-> +      #size-cells = <0>;
-> +
-> +      ethernet@0 {
-> +        compatible = "onnn,s2500";
-> +        reg = <0>;
-> +        pinctrl-names = "default";
-> +        pinctrl-0 = <&eth0_pins>;
-> +        interrupt-parent = <&gpio>;
-> +        interrupts = <25 2>;
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-IRQ_TYPE_EDGE_FALLING
+Hi all,
 
-But is edge correct? Should it be level?
+This series adds support for the PLL3 and LCDC_CLKD clocks on Renesas
+RZ/T2H (R9A09G077) and RZ/N2H (R9A09G087) SoCs. These clocks are essential
+for the display pipeline, specifically feeding the LCD controller.
 
-And i hope this illustrates why you should use the defines.
+Key Changes:
+  - PLL Reference Flexibility in  the RZ/V2H(P) CPG driver
+  - MSTP Dummy-Read Mechanism
+  - LCDC implementation in the RZ/T2H CPG driver.
 
-    Andrew
+Cheers,
+Prabhakar
+
+Lad Prabhakar (4):
+  clk: renesas: rzv2h-cpg: Use per-SoC PLL reference frequency for
+    calculations
+  clk: renesas: cpg-mssr: Add table-driven MSTP dummy-read delay for
+    LCDC on RZ/T2H
+  dt-bindings: clock: renesas,r9a09g077/87: Add LCDC_CLKD clock ID
+  clk: renesas: r9a09g077: Add LCDC and PLL3 clock support for RZ/T2H
+    display pipeline
+
+ drivers/clk/renesas/Kconfig                   |   2 +
+ drivers/clk/renesas/r9a09g077-cpg.c           | 369 +++++++++++++++++-
+ drivers/clk/renesas/renesas-cpg-mssr.c        |  65 ++-
+ drivers/clk/renesas/rzv2h-cpg.c               |   7 +-
+ .../clock/renesas,r9a09g077-cpg-mssr.h        |   1 +
+ .../clock/renesas,r9a09g087-cpg-mssr.h        |   1 +
+ include/linux/clk/renesas.h                   |   5 +
+ 7 files changed, 444 insertions(+), 6 deletions(-)
+
+
+base-commit: 5fcbbc1fcc4fa78bb5a184caa2c32db423676577
+-- 
+2.54.0
+
