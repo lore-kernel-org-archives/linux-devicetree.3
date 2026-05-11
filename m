@@ -1,155 +1,142 @@
-Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A97F2D9ECA;
-	Mon, 11 May 2026 08:50:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C81F3BF67E
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 08:54:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778489436; cv=none; b=LD0wzNnYyXTlItAgYqaSK+WIi/uxymxVo72OAGaYz7qCLyuJyztc6DFu+hN88gzXod4JMYD/ly3ikL34ZJfUMOUfkprHrq1JLLl+Ixc/xucpwzudjlblg/hbtwMivL/ql655rz0xIlkhHFSqoR51QWNDtzUhy2eDS0Fmx8oTRiE=
+	t=1778489672; cv=none; b=UPvLH7nUVIbGjCS4Goxui0UnvTVhADeBMURZ1Hr0MIZ3y24XuUJWHZDQpkJm0xpKzyfpweGoYiUI8xIC3vPTxfuQOZBAegzvEW5AVmakk/PKMJ5d5sRplXyQ84mTsFot9Rts6hOovFhp8CPq4reW/yXED6VllY+6YuGCi73HVgk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778489436; c=relaxed/simple;
-	bh=cRNS8O4aEUgVLd0JWYbG1HN1/tndkrWGyE6fOjt21b0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EADM257oK3UesFwewvncPPscvOcgwReXoNmI0BFS5CbcGWQ3nemmvjws/ZjLVaIAamQR2ZCzGlFsn04piKXUjaKS7PWTZX+vtfpciNG8UEqkUlOp1hp1vFvNiWVGvjps54DNfZAY+lMbwagzAZsriY2ssecJk6oAQh0ABPhhy7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=LOsTO+eQ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=pDcOPxMi; arc=none smtp.client-ip=202.12.124.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+	s=arc-20240116; t=1778489672; c=relaxed/simple;
+	bh=Zbia6kwCaTPqaM7mSuVvAG80BXlogFVq9JLCXZ979Zg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=GU3OCqb8BwcvK7znY2fNPw2hMSmmgDEXPM/ySODPs23G8BTCQDkhaKgjBwQ53kRLn1Xi8hBKLQlRt/458KSbmrOMgAzFvfYy1IffDZ/n/jMrKu1dvKc/u9jesaOOcWsNqWA08TreFLvr6RU6IZrSJyGFKHDBdDNl/1qDtaeMpsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a8rx/U7K; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="LOsTO+eQ";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="pDcOPxMi"
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 430FA7A00CE;
-	Mon, 11 May 2026 04:50:32 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-10.internal (MEProxy); Mon, 11 May 2026 04:50:32 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1778489432; x=1778575832; bh=jt9ibOwOB5
-	ZgDpl28+OU1PXCAn8QfJTRE4dkW9Vb3BA=; b=LOsTO+eQtpe3r741xaLkVQzRQd
-	qFVi7ShFZm3E9V4HVFTs2engBB1peCRCTkcsD0yraXQwlRMRKu4s6BvVSBH3pnAo
-	lpXTkMOxwHc++Yu1ePbtlTaWQXmYPLe4znOEnY1PBhwhQ107noiprFPjxFsjWwzs
-	MatNSiXRgMR0sSQVyPkamJdYyaSMl5YxRSPXYuXvfCWNEEHbROVwO3vTaReMABXJ
-	X0gYjzJxzEi+1dlZuovbWAhXEiA0D2oxudPXC40mWUm4b19e7+iFx/40Fa3l3YvC
-	yl57CbxbGqinwINz7roMlvZuOtsEWa0cVFu7NmeeTojctnKREDXtVBIWIR9A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1778489432; x=1778575832; bh=jt9ibOwOB5ZgDpl28+OU1PXCAn8QfJTRE4d
-	kW9Vb3BA=; b=pDcOPxMiiP5ruo2XWMZgzDesICesNWrkVL88okIX5UV3Kt+RM2Y
-	z5zSlB27DO1Mj8/6VZGL81Y2QIPQs+78SPS+aQg/rJTvgIGEsr8Q0iGkGQyvugKp
-	2v5jYFBuAp6dkiTUy7bmJjN4L4jyXWQjMN3QJuAlfIxvMVKc+67e+QqXWaEeFnVl
-	56dY+NJL2BJKGZF2i3Kmr7jk+yXva6vD9F1qmtubeWpLtCroJrtR2T8E3ZRIs7if
-	PdiXC6DUIIjx97YhuQxrs3eb4N2l51zKPSxYN2/FrzkNoKxWLFRObaGXAWa8Icut
-	gTPns1BTdlFdxPEwa35mnsqKYwalSxsPwRw==
-X-ME-Sender: <xms:VpgBanUU0ztE6Rg-LnfF-nLj1cnzfS7IVx_pJfHwnrFunw2lLxjcVA>
-    <xme:VpgBaniKE3NTpGwNZJ7FrgQTac17ZUp80KiEjJu-T9yLVtwm5PK87KWrfCVGw1aDE
-    JeLWDinbwjVeGkuqSLAN8Ddva10mmyA4V5rcZf1j4boMlSC6OHV5Lst>
-X-ME-Received: <xmr:VpgBaqnO_1mo6YLpCVnG5FVMhaiuWArMrQjGIVkhgDObhcOFK40MwaajL9o0Rf1jMVMgp-RV8DjBsvZTmUi22EQFtzOKq8Iwi7k>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdduudekhedvucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
-    gurhepfffhvfevuffkfhggtggujgesthdtredttddtjeenucfhrhhomheplfgrnhhnvgcu
-    ifhruhhnrghuuceojhesjhgrnhhnrghurdhnvghtqeenucggtffrrghtthgvrhhnpefgud
-    euffelfeekgeeukedtheekjeettdfftddujefhvdehtefgiefgledtueefjeenucffohhm
-    rghinhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrg
-    hmpehmrghilhhfrhhomhepjhesjhgrnhhnrghurdhnvghtpdhnsggprhgtphhtthhopedu
-    kedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheplhhinhhugiesrhhovggtkhdquh
-    hsrdhnvghtpdhrtghpthhtoheprhhosghhsehkvghrnhgvlhdrohhrghdprhgtphhtthho
-    pehkrhiikhdoughtsehkvghrnhgvlhdrohhrghdprhgtphhtthhopegtohhnohhrodguth
-    eskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheplhhpihgvrhgrlhhishhisehkvghrnhgv
-    lhdrohhrghdprhgtphhtthhopehsvhgvnheskhgvrhhnvghlrdhorhhgpdhrtghpthhtoh
-    epnhgvrghlsehgohhmphgrrdguvghvpdhrtghpthhtohepfihimheslhhinhhugidqfigr
-    thgthhguohhgrdhorhhgpdhrtghpthhtohepkhgvthhtvghnihhssehophgvnhgsshgurd
-    horhhg
-X-ME-Proxy: <xmx:VpgBaowxRkzlJZKgC0vwY4hQTbKM6iO9ervrzIr7KLryQ_5A28NGLg>
-    <xmx:VpgBatsyZlEk804I0LAQVVS7ia5EDKHFyp4-Pwjhw_6Lll0JE7F-MQ>
-    <xmx:VpgBaluhzmo_aN5ikDHnpeRe43hbMSuaKNGZGj4O_BkZY4gVVXhBJA>
-    <xmx:VpgBajlqNeNxTrn4oktYtSPno1O2oZ3jnjrBdX7XdqiF7qzUmQk8hA>
-    <xmx:WJgBavb1dT_Lmt3FGxmTxuK4B-v82xNwO1Npg8Xu56yNR40CrKn5tpUQ>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 11 May 2026 04:50:30 -0400 (EDT)
-Date: Mon, 11 May 2026 10:50:28 +0200
-From: Janne Grunau <j@jannau.net>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Mark Kettenis <kettenis@openbsd.org>,
-	Sasha Finkelstein <k@chaosmail.tech>,
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-watchdog@vger.kernel.org, linux-pwm@vger.kernel.org,
-	Joshua Peisach <jpeisach@ubuntu.com>
-Subject: Re: [PATCH v3 2/5] dt-bindings: watchdog: apple,wdt: Add t8122
- compatible
-Message-ID: <20260511085028.GA192358@robin.jannau.net>
-References: <20260507-apple-m3-initial-devicetrees-v3-0-ca07c81b5dc7@jannau.net>
- <20260507-apple-m3-initial-devicetrees-v3-2-ca07c81b5dc7@jannau.net>
- <85ea46a7-1136-4ea0-9eec-7dfa465df20b@roeck-us.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a8rx/U7K"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-43d75312379so3195154f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 01:54:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778489669; x=1779094469; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=mNCRp7u8GA5aDjDB3Y0lI0oGuBZ5cilcPaEkSfJ5vdc=;
+        b=a8rx/U7Koo69H+aJgvDCiOozJc/hPFYFj/hZhVXH4C3W+Ss/mEGFB/xotp78+F9RLd
+         QNJzKq0oAQTbujzHx+PioNC2CLgyBgOtaE6uj//MpVGlHk8Moj8ar52em3zkTpQyS88P
+         1jMVquLEa4kgR7ccHtrKi3pstzGc3GJH3jaXjru0lFxjD78mxUCTHLyWJ9tFxOk943YD
+         FLUxaKfM0ZBp231YkgOUSkFZ4aTgQCrgPLlm6fb4f1u3eDFIaXAad/brRUncLZnyvdgU
+         GRP1fOr7GjfeER+MLD+hE6MoH5p3gnjpbrNd+IOPN3Sn9Oua1ewewiEzCyv0RxoWJ4o4
+         LavA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778489669; x=1779094469;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=mNCRp7u8GA5aDjDB3Y0lI0oGuBZ5cilcPaEkSfJ5vdc=;
+        b=c+i/+QAZO1B7lXzTUQcCgmPz5cp6cztwQRvcdz0VcHT350TtAa3g1n8btVjvLf5WIV
+         vWefbeWatmOiUm+dT7EeUWepWsK8zl6MfVH575MDYtx1HMS08i3yEaDnjmD3CoXC4Cpl
+         WbvyRpX9Qp8QJcbl3MA9wzGGHQbXxpw1l7u0F+kCNQEoE9P7dsnm15WErlXIB56zxoCS
+         tV51X4288D4bFTaVckjsPtwbEeGJsS3UzNMFu2XEM6LB1YqrwwK1SW8NGBUwITWlYaAQ
+         96IxO614TXLNJbPCT9t2R2UpzYo6bBoKXsd7L3A7LudV9jYTAMpR4tX10YjNXRGX1eS2
+         5gyw==
+X-Forwarded-Encrypted: i=1; AFNElJ+w30s1gukDFJFd0bM/62oLn3BwcUjGkoGTTNCTYHHB39bzQFbszo/MpS36sZ1aeBbZOeuU6rPr2D+o@vger.kernel.org
+X-Gm-Message-State: AOJu0YykGv2Kc6LHGICBVxe2EdxdG7ljCxo18nDnQY3Ec8fVI63mEaBm
+	B7na2gSJRhgygBfYrjJ6vAbHtpqNWmXUUhQlPRLoxHeNhlj1vK18Nnx3
+X-Gm-Gg: Acq92OHC3H1Z0pg9g9LCIGtcm6l+MVO+zP70s9EH5eK6sXMU6pveSNag2Oggs75Aag0
+	OCA6ymlEPYNtqp13y4zib558VqoiD1gRyYmGR6uF8T2sSbNRCV0OGKzX8mWpDLVM9EF9AN+XIP0
+	Vd84WL1hud58THVts+Ni99RcwuidvhyP1l3DVHdkvjSFSlDwkr8p6xEw6S1K/mqZXgcJjohW/el
+	/8w6wrGPwTxDqRQofmJjIH4Pf7tcgCKPYnRFNrD8aNdwxj+VVoPHWYUt+M87sMlZZLBtYHuwRGj
+	b1lCRsCuYLKqr4Ya3w3kBLcuTUKG1fhvXmLl2PZgftw9kVgN6zQ/6jh0ZjCulfdLfiRMKPHlSep
+	iZPZLisIpVEuiCmjkMUQuaRqa19a5cpNWLGri6HB1L6O+lhhCx9u8Qezn+UOeEzuQaINZ/eFI/c
+	Fl79vqWiyeXm8cbmpzHYZTI2kea1yALZce7sOt1fxreMdBhswcLgpv4YDe8TFIkiUc1Q==
+X-Received: by 2002:a05:6000:2181:b0:44f:b82f:2d18 with SMTP id ffacd0b85a97d-452e81764a0mr19569331f8f.11.1778489668568;
+        Mon, 11 May 2026 01:54:28 -0700 (PDT)
+Received: from ipedrosa-thinkpadx1carbongen12.rmtes.csb ([67.218.237.202])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45491ca2fd6sm24944189f8f.30.2026.05.11.01.54.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 11 May 2026 01:54:28 -0700 (PDT)
+From: Iker Pedrosa <ikerpedrosam@gmail.com>
+Date: Mon, 11 May 2026 10:53:56 +0200
+Subject: [PATCH v9 1/8] dt-bindings: mmc: spacemit,sdhci: add pinctrl
+ support for voltage switching
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <85ea46a7-1136-4ea0-9eec-7dfa465df20b@roeck-us.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260511-orangepi-sd-card-uhs-v9-1-ae48c0b2b2cf@gmail.com>
+References: <20260511-orangepi-sd-card-uhs-v9-0-ae48c0b2b2cf@gmail.com>
+In-Reply-To: <20260511-orangepi-sd-card-uhs-v9-0-ae48c0b2b2cf@gmail.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Yixun Lan <dlan@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+ Ulf Hansson <ulfh@kernel.org>, Yixun Lan <dlan@kernel.org>
+Cc: Troy Mitchell <troy.mitchell@linux.dev>, 
+ Michael Opdenacker <michael.opdenacker@rootcommit.com>, 
+ Javier Martinez Canillas <javierm@redhat.com>, linux-mmc@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Iker Pedrosa <ikerpedrosam@gmail.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
 
-On Sun, May 10, 2026 at 08:29:39AM -0700, Guenter Roeck wrote:
-> On Thu, May 07, 2026 at 09:33:08AM +0200, Janne Grunau wrote:
-> > The watchdog on the Apple silicon t8122 (M3) SoC is compatible with the
-> > existing driver. Add "apple,t8122-wdt" as SoC specific compatible under
-> > "apple,t8103-wdt" used by the driver.
-> 
-> '"apple,t8103-wdt" used by the driver' is not true. The watchdog driver
-> only supports "apple,wdt".
+Document pinctrl properties to support voltage-dependent pin
+configuration switching for UHS-I SD card modes.
 
-It slipped my mind that
-https://lore.kernel.org/linux-watchdog/20251231-watchdog-apple-t8103-base-compat-v1-1-1702a02e0c45@jannau.net/
-wasn't picked up yet.
+Add optional pinctrl-names property with two states:
+- "default": For 3.3V operation with standard drive strength
+- "state_uhs": For 1.8V operation with optimized drive strength
 
-> 
-> > 
-> > Acked-by: Rob Herring (Arm) <robh@kernel.org>
-> > Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
-> > Reviewed-by: Neal Gompa <neal@gompa.dev>
-> > Signed-off-by: Janne Grunau <j@jannau.net>
-> > ---
-> >  Documentation/devicetree/bindings/watchdog/apple,wdt.yaml | 4 +++-
-> >  1 file changed, 3 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml b/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
-> > index 05602678c070..845b5e8b5abc 100644
-> > --- a/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
-> > +++ b/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
-> > @@ -16,7 +16,9 @@ properties:
-> >    compatible:
-> >      oneOf:
-> >        - items:
-> > -          - const: apple,t6020-wdt
-> > +          - enum:
-> > +              - apple,t6020-wdt
-> > +              - apple,t8122-wdt
-> >            - const: apple,t8103-wdt
-> >        - items:
-> >            - enum:
-> 
-> I second Sashiko's findings that the driver will fail to bind because it
-> only supports "apple,wdt". I would not mind and apply the patch anyway,
-> but the statement in the description is just plain wrong and thus
-> misleading. Please fix.
+These pinctrl states allow the SDHCI driver to coordinate voltage
+switching with pin configuration changes, ensuring proper signal
+integrity during UHS-I mode transitions.
 
-I would prefer if the addition of the "apple,t8103-wdt" to the driver is
-picked.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
+---
+ Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-Thanks,
+diff --git a/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml b/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
+index 9a055d963a7f..34d202af909f 100644
+--- a/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
++++ b/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
+@@ -44,6 +44,18 @@ properties:
+       - const: axi
+       - const: sdh
+ 
++  pinctrl-names:
++    minItems: 1
++    items:
++      - const: default
++      - const: uhs
++
++  pinctrl-0:
++    description: Default pinctrl state for 3.3V operation
++
++  pinctrl-1:
++    description: Optional pinctrl state for 1.8V UHS operation with "uhs" name
++
+ required:
+   - compatible
+   - reg
+@@ -62,4 +74,7 @@ examples:
+       interrupt-parent = <&plic>;
+       clocks = <&clk_apmu 10>, <&clk_apmu 13>;
+       clock-names = "core", "io";
++      pinctrl-names = "default", "uhs";
++      pinctrl-0 = <&sdhci_default_cfg>;
++      pinctrl-1 = <&sdhci_uhs_cfg>;
+     };
 
-Janne
+-- 
+2.54.0
+
