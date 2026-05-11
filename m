@@ -1,47 +1,49 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 728DC339B3D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB62833B6F8;
 	Mon, 11 May 2026 09:47:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778492870; cv=none; b=ZlQ9qYjQ6LxfK7yvsjP7TwQreBLYcN0g0jz2KeSYTZEe/hCVFtw7EhUwlpXgXyCvlO2760qucg9LY0El0R8bQkmijV8A1INM1DfK1zdsF0dSSiQxqonFg/WptkFyhIzfDZgrOb0ebiOpLcylAvuqUJ46N9lYPtQm5RoSJI+rph4=
+	t=1778492871; cv=none; b=dteC/CbnEduqjVqtWLI3lyedFvZMUfTEypw6n8k8Regz4+H9+i28A/1MaTLI7vgOVr6QOtQ2wKVOfOoEA/9VC4IkVfIaTASN73NtW5Fch0Dp4BjAfGp9m4mEqo/YhK/aQTZmEcRzsIxRYe+V7e/6v4QrBRFB58v3F4abR0UXtfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778492870; c=relaxed/simple;
-	bh=KAacyabt/cyiwQDZ9EaRG+E1w1FvHnkbqvn0xq5Avbo=;
+	s=arc-20240116; t=1778492871; c=relaxed/simple;
+	bh=S9RiWN9NgxPJbRPcZDB0Q7SHNr9me0DBWxbBSKteiHM=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=at2SwXl0dSz8yorGoUh6v4Pu4yy+VCNoX4Q41x0n0X04ACOG1HoKxlymR4LFnRrmQp+0iPVGfxZIReAxG+Z0nN1OVekjqRfn/iEO4lYx1XnIlTkJPr70XPvz8rwoZVQzYOVxQHF1z7p+QF1g95Ty+O1nvv1C2J8MeWYHSP+InY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=kFumTGzQ; arc=none smtp.client-ip=148.251.105.195
+	 MIME-Version:Content-Type; b=gWzu3WSi7SbmZmklBDwOJSa5uc5fDuy6hdqxuntFukb4bbM7jac88PgUGDjwFVBiE3VRaq28Z6lpovKgJf+dsNcqTz+iJ/eWcTQGhoRfKcm4hT2ZIT2vgUbP02aqlqWz32qwCi34XAh1UW7vY/5XbI3y9o6m4AMWzV+oxDvNHG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=FGBzNP14; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="kFumTGzQ"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="FGBzNP14"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1778492867;
-	bh=KAacyabt/cyiwQDZ9EaRG+E1w1FvHnkbqvn0xq5Avbo=;
+	s=mail; t=1778492868;
+	bh=S9RiWN9NgxPJbRPcZDB0Q7SHNr9me0DBWxbBSKteiHM=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=kFumTGzQRWkaBQrsyuRDrLwqTfv0wZzZ1C8sGz/xu1JGz/O1Hf1teietlC8U2ZdBM
-	 JntsDi1edyLi1IpK4q+cl8ojALmPvrReheW6N5BOIXMdrazt3AEdV3qnh25UqzkZJw
-	 37I1+gnIfb4DbrlwbsLi7JPkFlw7dSko501OF0PutsuCmhkzBVlHglkxqel/GltCvd
-	 UtjPcZNN2LB0iBpWY/VicNhFUTndpvcIphNc1Lv8u8rySGVpPa/bRlAbN2FNTQKfZP
-	 iw+Py3usi+igfOX98gmaMWJUhD4S2HGmqVZGuFuhff/mA4lwSP97pcw34K/YVSJAdx
-	 xuQQ12eNhdjiw==
+	b=FGBzNP1414puPCP2spGk7cPLW3m1YCAMiMjUXPTCHcUn4ZnH6GXTHArAvV4mXf+Fs
+	 2VXPWUbvWkbZXqkMhrhyzHWskuBcNIA4/xbkFacj/X1y7Q7yqY+QYI+oPYplsv/ewW
+	 1Gp8fW3I59qyEsfZMOZzzXZ9y0EgFX2mB4xTVOoMvLhGb73Q+UCijkUUNediBYJ32T
+	 G8bRG4AuaAvNunaFSjSUioMqadblh7t6fufvLH2o7oU7gUhkRdpOgKos9S7DMFhxv0
+	 JHBxgMokwcWfSWQHjF4PrRIZ3ml97R0e5eeIeGXnOA94q/+wEka+LA21dgFeXJ9mmc
+	 baiLw9vdv939A==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4EF7D17E12E5;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D9D4517E13B2;
 	Mon, 11 May 2026 11:47:47 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- matthias.bgg@gmail.com, Akari Tsuyukusa <akkun11.open@gmail.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ David Lechner <dlechner@baylibre.com>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-In-Reply-To: <20260325144500.667385-1-akkun11.open@gmail.com>
-References: <20260325144500.667385-1-akkun11.open@gmail.com>
-Subject: Re: [PATCH] arm: dts: mediatek: mt6589: Add Arm Generic Timer node
-Message-Id: <177849286725.117937.1598232312363149560.b4-ty@collabora.com>
+In-Reply-To: <20260305-mtk-fix-mt7623-pinctl-name-v2-0-a68854a51065@baylibre.com>
+References: <20260305-mtk-fix-mt7623-pinctl-name-v2-0-a68854a51065@baylibre.com>
+Subject: Re: [PATCH v2 0/3] arm: dts: mediatek: fix pinctl node names
+Message-Id: <177849286783.117937.17925857758688096977.b4-ty@collabora.com>
 Date: Mon, 11 May 2026 11:47:47 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -53,17 +55,21 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.3
 
-On Wed, 25 Mar 2026 23:45:00 +0900, Akari Tsuyukusa wrote:
-> Add the Arm Generic Timer node to the MT6589 SoC.
-> "arm,cpu-registers-not-fw-configured;" is required
-> because the bootloader does not initialize the Arm Generic Timer.
+On Thu, 05 Mar 2026 15:03:15 -0600, David Lechner wrote:
+> While passing by, I noticed that the pinctrl nodes in a couple of dtsi
+> files did not match the addresses in their reg properties. Here are some
+> patches to fix that.
 > 
 > 
 
 Applied to v7.1-next/dts32, thanks!
 
-[1/1] arm: dts: mediatek: mt6589: Add Arm Generic Timer node
-      commit: 2a5d54507c68c2a8de9d6f6746f23771d38f4dbc
+[1/3] arm: dts: mediatek: mt7623: fix pinctrl child node names
+      commit: 23d304b97e8e20b8d786b82b4d56257dde95139c
+[2/3] arm: dts: mediatek: mt7623: fix pinctrl controller node name
+      commit: 85fdc6458535d234e54d0968cc816dec9003d341
+[3/3] arm: dts: mediatek: mt8135: fix pinctrl node name
+      commit: ba6afff1d9b70028a5fc3df2d3acbee501c20a53
 
 Cheers,
 Angelo
