@@ -1,174 +1,230 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D057383330;
-	Mon, 11 May 2026 22:29:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2D41383337
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 22:34:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778538575; cv=none; b=Zdo67acJF0oQbHKeZyMRU4237mXBpG0h7SY8dJFUYu/9FRM3vPR9p/Amiem/8BigTrrsxG6qfXew6bBpinkRNVCg7VWEfH/ww/3+Dl0QcwdqKvmcgSgXXPnPgvjGxKrANNK+npbG0V8Hw4FM4vqI4ktV1EJsGrv0X60NYjYsUf4=
+	t=1778538848; cv=none; b=WY5hYEpwDgKJ+E61datoNfTV/p7UhBAUpeeTtOBdja+cKlXZimHshbolQc4iuBTTAlByjGeqiGqkG5lLi4CUqpiX9rqTBNHF3bsPXdkN39hAVSzNWpzwLTgHcRcmMDUQEmg4xTj/vKE0vD3du3RP7CdweOsnCAM6MG2gm1So0tA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778538575; c=relaxed/simple;
-	bh=T5vegv+Ra1BOiQM6FZTVswz7GcOGymlwn93D9cWZuPY=;
+	s=arc-20240116; t=1778538848; c=relaxed/simple;
+	bh=pMnzZBA+4au+bwNqaXc97scwcb090BWa9uUmKmeXq9M=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OSMVaRHC3NYt0aZ/rjqi2m8R6j1MAz9/o+UIrF6uO+ba5jogtgxZerHaM4ZB+EuakuGU7RhYQHODBAJH4TCuavV+lB92D141bpdDYZZbK8T+Anw3aQtOFDHo0f6Xs9DBlXVmLlirpNL4FjSJQ9A+O1d3mki2y2mo0S1qtiOsGfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QGTvrvGu; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=qE9wvsPm6tBsefIruHhfIc/qxKFLmfLvYsVja7TQXbOxsCnZsAkiqZfhcjliDF8rkvCjlJyVNQEgmIlGSnOHaN3IeYrFtyezi80hR3cseqhqpEBqcDNoZ9Yn7m72G3daD7CZBZZgaYBQ5lNEzr8486jMGAmfYy7rZkq7RRBNs4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hkq2swrt; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QGTvrvGu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91EA4C2BCB0;
-	Mon, 11 May 2026 22:29:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hkq2swrt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62EDBC2BCB0;
+	Mon, 11 May 2026 22:34:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778538574;
-	bh=T5vegv+Ra1BOiQM6FZTVswz7GcOGymlwn93D9cWZuPY=;
+	s=k20201202; t=1778538847;
+	bh=pMnzZBA+4au+bwNqaXc97scwcb090BWa9uUmKmeXq9M=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=QGTvrvGuetfkPe3IxMSvHoBfwKkMp+pQx/GJnMAQe4bq1G/BftU+5D+FRlMpibMX+
-	 9SG9qncijfUZaVr9EJNI9C4lKGfUzM/YLvXwRTknkwUDrR0jUo3you+sh7mq6TqC8m
-	 IG58yk3P8Fio1CpK2wz+JmXWq9vq/saDirluUATdNbr0Wcu/VWRoAGnEXM9OLiN5P7
-	 tlhShPNZ2vxVXpy85YSOx5hLUEdg4bX64vJmjHVa1d9U0jHXkNilmIEv8FRceriY33
-	 KcRDaJXg0XV7KgqvAQShQuuID3M3Xw3RD4huJcgsmb7PTcFolIPXbSXNYrVyJyEzQQ
-	 cOKZQkv8a7b9g==
+	b=Hkq2swrtAlJyg0PwpvVnF5ar7c5w3zp4C4oxIy2Ci/IuQdSBFernftZ2AvC2qKOn7
+	 WXdRIdgwKAPPPHnCbaLzFM1FgSsaSHVKh8H7bBXzQlXEaidkkQCN6tJ3aHlNWV2cM/
+	 Afb2LKj+jqvRsAiUDBCNPHCJym4ivM7mcQDGTHGgL9hP73BND0mlQ7lMtgtWwFJj9w
+	 MaS9+HWafM6TTP9DUU6AOtzbXpqJrlR6/7VHgkDcIVISzgWl3oZWVf+HUbxLmH65SX
+	 6aXE9mNjClWDlJOqu4VYu/pJ8q+JVALvnktgJ4B+tznZv1xqhbNcOjd1zGgvKcqrZW
+	 /OKFa1cR5/47g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 10/10] arm64: dts: Add support for LX2160 Twins board
- in single configuration
+Subject: Re: [PATCH RFC 3/4] clk: zte: Introduce a driver for zx297520v3
+ matrix clocks and resets.
 Reply-To: sashiko@lists.linux.dev
-To: "Josua Mayer" <josua@solid-run.com>
-Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20260510-lx2160-pci-v5-10-540b83852227@solid-run.com>
-References: <20260510-lx2160-pci-v5-10-540b83852227@solid-run.com>
+To: =?utf-8?b?U3RlZmFuIETDtnNpbmdlcg==?= <stefandoesinger@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260510-zx29clk-v1-3-e1bacfffe967@gmail.com>
+References: <20260510-zx29clk-v1-3-e1bacfffe967@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 11 May 2026 22:29:33 +0000
-Message-Id: <20260511222934.91EA4C2BCB0@smtp.kernel.org>
+Date: Mon, 11 May 2026 22:34:06 +0000
+Message-Id: <20260511223407.62EDBC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 9 potential issue(=
 s) to consider:
-- [High] Undocumented and unrelated SoC revision change for the Clearfog CX=
- board.
-- [High] The PCI-E OCP card connector is not enabled in the device tree.
-- [Low] Duplicate `function-enumerator` value in the SFP LED definitions.
-- [Low] The `dpmac` nodes referenced as LED `trigger-sources` lack the mand=
-atory `#trigger-source-cells` property.
-- [Low] The `gpio-mux` configured for PWM fan monitoring has no label and n=
-o consumer node.
+- [High] Incorrect error checking for `devm_platform_ioremap_resource()` re=
+turn value leads to an invalid pointer dereference.
+- [High] The critical `PDCFG` clock shares mux register bits with `EDCP` an=
+d defines an invalid mux parent size.
+- [High] Missing cleanup for OF clock provider causes a use-after-free on p=
+robe failure or module unbind.
+- [High] Error codes from clock registration are masked by a hardcoded `-EN=
+ODEV`, breaking deferred probing.
+- [High] Reset assert and deassert operations perform read-modify-write on =
+shared hardware registers without holding locks.
+- [Medium] Duplicate DT index mapping for `ZX297520V3_GMAC_RMII` overwrites=
+ clock provider array data.
+- [Medium] Unchecked return value from `devm_clk_hw_register_mux()` for `td=
+m_mux`.
+- [Low] Multiple `module_platform_driver()` macros in a single file cause a=
+ build error.
+- [Low] Unacceptable use of `#if 0` blocks to store dead code.
 --
 
-commit e131b341e534ec21c95289bd4bedcef8bb6fcf54
-Author: Josua Mayer <josua@solid-run.com>
+commit 2a00ceb112a3ae2f6a880753c5234263bae84bcf
+Author: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
+Date:   Sun May 10 19:01:02 2026 +0000
 
-arm64: dts: Add support for LX2160 Twins board in single configuration
+    clk: zte: Introduce a driver for zx297520v3 matrix clocks and resets.
    =20
-This commit adds support for the SolidRun LX2160A Twins board in its
-single CPU configuration. The board features several connectors including
-SFP, PCIe OCP, USB-3.0, and microSD.
+    This controls the CPU, DSP, DDR RAM, ethernet, SDIO controllers and a
+    few more devices. It also contains a number of clock gates to pass
+    clock signals down to the next controller.
 
-> - PCI-E OCP card connector
-
-The commit message explicitly lists the PCI-E OCP card connector as a
-supported feature. However, looking at the device tree, are there any PCIe
-host controller nodes enabled?
-
-All PCIe host controller nodes default to disabled in the base SoC device
-trees, and this device tree doesn't seem to override their status to "okay".
-
-> diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-clearfog-cx.dts b/=
-arch/arm64/boot/dts/freescale/fsl-lx2160a-clearfog-cx.dts
-> index 802d7611c6479..6078ce47fabf1 100644
-> --- a/arch/arm64/boot/dts/freescale/fsl-lx2160a-clearfog-cx.dts
-> +++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-clearfog-cx.dts
-> @@ -6,7 +6,7 @@
+> diff --git a/drivers/clk/zte/clk-zx297520v3.c b/drivers/clk/zte/clk-zx297=
+520v3.c
+> index f73f5c006641f..0c06add433ee9 100644
+> --- a/drivers/clk/zte/clk-zx297520v3.c
+> +++ b/drivers/clk/zte/clk-zx297520v3.c
+[ ... ]
+> @@ -579,6 +579,219 @@ static struct platform_driver clk_zx297520v3_topclk=
+ =3D {
+>  };
+>  module_platform_driver(clk_zx297520v3_topclk);
 > =20
->  /dts-v1/;
-> =20
-> -#include "fsl-lx2160a.dtsi"
-> +#include "fsl-lx2160a-rev2.dtsi"
+[ ... ]
+> +static const struct zx297520v3_composite matrix_clocks[] =3D {
+[ ... ]
+> +	ZX_CLK(EDCP,        0x68,  0,  0x64,  2,  1, 0x50, 16, 2, edcp_sel,    =
+0,     0, 0),
+> +	/* PDCFG. Like PMM, either clock bit will allow the device to function.=
+ */
+> +	ZX_CLK_CRIT(PDCFG,  0x94, 20,  0x88,  0,  1, 0x50, 16, 2, clk_unknown, =
+0,     0, 0),
 
-Does this commit intend to change the SoC revision for the Clearfog CX boar=
-d?
+Can changing the rate or parent of the EDCP clock inadvertently modify the =
+PDCFG
+parent? Both clocks appear to share the same mux register and shift
+(0x50, 16, 2).
 
-This hardware definition change is not documented in the commit message.
-
-> diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-half-twins.dts b/a=
-rch/arm64/boot/dts/freescale/fsl-lx2160a-half-twins.dts
-> new file mode 100644
-> index 0000000000000..434b3f4873008
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-half-twins.dts
+Since PDCFG is a critical clock with only a single parent (clk_unknown), wo=
+uld
+it be safer to use 0, 0, 0 for its mux registers to prevent it from being
+accidentally disabled?
 
 [ ... ]
+> +static const struct zx297520v3_gate matrix_gates[] =3D {
+[ ... ]
+> +	{ZX297520V3_GMAC_PCLK,	"gmac_pclk",		"gpll_d4",	0x110,	  0},
+> +	{ZX297520V3_GMAC_RMII,	"gmac_rmii",		"gpll_d4",	0x110,	  1},
+> +	{ZX297520V3_GMAC_RMII,	"gmac_wclk",		"gmac_rmii",	0x110,	  2},
 
-> +	leds {
-> +		compatible =3D "gpio-leds";
+Does this unintentionally assign the identical ID ZX297520V3_GMAC_RMII to b=
+oth
+gmac_rmii and gmac_wclk?
+
+During registration, gmac_wclk might silently overwrite gmac_rmii in the
+clocks->hws array, making the first clock inaccessible via direct DT provid=
+er
+lookup.
 
 [ ... ]
+> +	/* This code is commented out until the next patch because disabling un=
+used clocks without
+> +	 * an LSP consumer breaks the UART.
+> +	 */
+> +#if 0
+> +	{ZX297520V3_LSP_MPLL_D5_WCLK,	"lsp_mpll_d5",	"mpll_d5",	0x7c,	  0},
+> +	{ZX297520V3_LSP_MPLL_D4_WCLK,	"lsp_mpll_d4",	"mpll_d4",	0x7c,	  1},
+[ ... ]
+> +	{ZX297520V3_LSP_DPLL_D4_WCLK,	"lsp_dpll_d4",	"dpll_d4",	0x7c,	  9},
+> +#endif
+> +};
 
-> +		led_ht_c3_bb: led-sfp-2 {
-> +			color =3D <LED_COLOR_ID_GREEN>;
-> +			default-state =3D "off";
-> +			function =3D LED_FUNCTION_LAN;
-> +			function-enumerator =3D <2>;
-> +			gpios =3D <&expander3 13 GPIO_ACTIVE_LOW>;
-> +			trigger-sources =3D <&dpmac15>;
-> +			linux,default-trigger =3D "netdev";
-> +		};
+Is it strictly necessary to include this block of code inside an #if 0 bloc=
+k?
+Usually, code is removed entirely until it is fully functional to adhere to
+mainline coding standards.
+
 > +
-> +		led_ht_c3_at: led-sfp-3 {
-> +			color =3D <LED_COLOR_ID_GREEN>;
-> +			default-state =3D "off";
-> +			function =3D LED_FUNCTION_LAN;
-> +			function-enumerator =3D <2>;
+> +static int zx297520_matrixclk_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	matrix->base =3D devm_platform_ioremap_resource(pdev, 0);
+> +	WARN_ON(!matrix->base);
 
-Does this node have a duplicate function-enumerator?
+Does this correctly handle failure? devm_platform_ioremap_resource() return=
+s an
+error pointer like -EINVAL on failure, not NULL.
 
-It shares the same value as the preceding led_ht_c3_bb (led-sfp-2) node.
+A WARN_ON(!matrix->base) would evaluate to false, allowing the code to cont=
+inue
+and subsequently dereference an invalid pointer. Should this check
+IS_ERR(matrix->base) instead?
 
-> +			gpios =3D <&expander3 11 GPIO_ACTIVE_LOW>;
-> +			trigger-sources =3D <&dpmac6>;
+> +
+> +	/* One stray mux: The TDM mux is in matrixclk and it is passed to the L=
+SP controller. In a
+> +	 * way the link gate (LSP_TDM_WCLK) could be considered a matching gate=
+, but there is no
+> +	 * reset and no pclk.
+> +	 */
+> +	hw =3D devm_clk_hw_register_mux(dev, "tdm_mux", tdm_sel, ARRAY_SIZE(tdm=
+_sel), 0,
+> +				      matrix->base + 0x50, 24, 2, 0, &reg_lock);
 
-Do the referenced dpmac nodes lack the #trigger-source-cells property?
+Is it intentional to ignore the return value of devm_clk_hw_register_mux()?
 
-According to the standard LED trigger-source binding, any provider node must
-define this property. The base dpmac nodes in fsl-lx2160a.dtsi do not appear
-to define it.
+If this registration fails and returns an error pointer, the error is never
+checked, which might silently break clocks depending on tdm_mux as a parent.
 
 [ ... ]
+> +	for (i =3D 0; i < ZX297520V3_MATRIXCLK_END; i++) {
+> +		if (IS_ERR(matrix->clocks->hws[i])) {
+> +			pr_err("zx297520 clk %d: register failed with %ld\n",
+> +				i, PTR_ERR(matrix->clocks->hws[i]));
+> +			return -ENODEV;
+> +		}
+> +	}
 
-> +	mux-controller {
-> +		compatible =3D "gpio-mux";
-> +		#mux-control-cells =3D <0>;
-> +		/*
-> +		 * This gpio controlled mux can route the tacho signals of 6 PWM FAN c=
-onnectors
-> +		 * to the tacho inputs of both CEX-7 modules (twins).
-> +		 *
-> +		 * The first twin controls this mux and monitors four fan connectors, =
-two intended
-> +		 * for itself, and two for the OCP card.
-> +		 *
-> +		 * The second twin monitors only two fan connectors intended for itsel=
-f.
-> +		 *
-> +		 * The table below maps selector GPIO states to monitored fan connecto=
-r per twin:
-> +		 *
-> +		 * | SEL1 | SEL0 | Twin 1 | Twin 2 |
-> +		 * | ---: | ---: | :------| ------ |
-> +		 * |    0 |    0 | J10    |  J5024 |
-> +		 * |    0 |    1 | J5016  |  J5024 |
-> +		 * |    1 |    0 | J5026  |  J5025 |
-> +		 * |    1 |    1 | J5013  |  J5025 |
-> +		 */
-> +		mux-gpios =3D <&expander0 8 GPIO_ACTIVE_HIGH>, /* SEL0 */
-> +			    <&expander0 15 GPIO_ACTIVE_HIGH>; /* SEL1 */
-> +	};
+Will returning a hardcoded -ENODEV break deferred probing?
 
-Is this mux-controller missing a label and a consumer node?
+If a required parent clock is not yet available, masking the actual error c=
+ode
+from PTR_ERR() prevents -EPROBE_DEFER from propagating to the driver core,
+causing the probe to fail permanently.
 
-There are no hwmon, fan, or other consumer nodes defined that reference it.
+> +
+> +	res =3D of_clk_add_hw_provider(dev->of_node, of_clk_hw_onecell_get, mat=
+rix->clocks);
+> +	if (res)
+> +		return res;
+
+Could this leak the provider registration or cause a use-after-free on probe
+failure?
+
+If the subsequent call to devm_reset_controller_register() fails, the
+devm-managed matrix->clocks will be freed, but the global OF provider remai=
+ns
+registered since of_clk_add_hw_provider() doesn't tie cleanup to the driver=
+'s
+lifecycle.
+
+Would devm_of_clk_add_hw_provider() be better suited here?
+
+[ ... ]
+> +static struct platform_driver clk_zx297520v3_matrixclk =3D {
+> +	.probe =3D zx297520_matrixclk_probe,
+> +	.driver =3D {
+> +		.name =3D "clk-zx297520v3-matrixclk",
+> +		.of_match_table =3D of_match_zx297520v3_matrixclk,
+> +	},
+> +};
+> +module_platform_driver(clk_zx297520v3_matrixclk);
+
+Since module_platform_driver(clk_zx297520v3_topclk) already exists earlier =
+in
+this file, does adding another module_platform_driver() here cause a build
+error?
+
+The macro expands to module_init() and module_exit(), and using it more than
+once typically causes a redefinition failure when compiled as a loadable mo=
+dule.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510-lx2160-pci=
--v5-0-540b83852227@solid-run.com?part=3D10
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510-zx29clk-v1=
+-0-e1bacfffe967@gmail.com?part=3D3
