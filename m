@@ -1,109 +1,204 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B62F352C2B
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 23:13:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F34E2D9EC2
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 23:17:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778541213; cv=none; b=VVjQ1DlkNfYfhS3i/k/KuR8EUR8JFzNX5HAk2Gf/Ox5pj6lZh0HcT9q42vcgLe1WbDX/pD46JYoY5JLuWM9raArx7L+OrPEqRV0rw1gmnT/q0Jv5IJMnOmTmgpnpHfsLXgFo3YfCGtAcX4RTLZDfDXwM0llyWkc2c7ZrkZd6Cm4=
+	t=1778541455; cv=none; b=E3vm05z6tyBiriNQVOT0n12FwbWX8fmPq7RYN6XHh0y37mXxyFoRMo/eKGym6IbityPOebjHiw61MpuIrgdIqhahqAbTFc08sD1wZnTBmk1qcCv88S5zOxIzFazWlwVC7kjm9r29NK21wXRHzsuQwHBf1LXoG7F6djOzGbyIB7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778541213; c=relaxed/simple;
-	bh=MbW1Yjh0MaeYKCEfw/5y9B4YFx7dDOgp+HVnjGkZsLg=;
+	s=arc-20240116; t=1778541455; c=relaxed/simple;
+	bh=xyFbLrj6sJ4djgNrXRlNAgdb2lsqlL24KNd5VUSviNg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HUjk1jBU3SB7jacbOHE9JOI8wGdAammafr/QFnmQa/8jmHvFNGgGpo+312bRmALoFHgaXnfHBHp9E8eZJ6mO9+i/I6YzALrSbMa8F79AzGn2nGhNtrruY5pWF+QO8X1MFXU5N2oGVBmS/3gRc9VP9mr00s04uo/4X+8GRBmdbrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TR16uTUU; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=Lj+YZbM+58Y7P6Y5yjSTk+MjFpPyMXQOrRstWTMjfobZRE3US9edQX+NPT5jHiy5N24rRqWUpVwiQB+f0F8j2axPfWLMOVvMt6ssfeFxbSeLom30MkWSIc58Q3Qc5+T29hk+PinceRPFMZtdYSekyhZnLv+m+PRPWzYxEoOWpHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KcQu6Lse; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TR16uTUU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4185C2BCFA;
-	Mon, 11 May 2026 23:13:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KcQu6Lse"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BDBCC2BCB0;
+	Mon, 11 May 2026 23:17:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778541213;
-	bh=MbW1Yjh0MaeYKCEfw/5y9B4YFx7dDOgp+HVnjGkZsLg=;
+	s=k20201202; t=1778541454;
+	bh=xyFbLrj6sJ4djgNrXRlNAgdb2lsqlL24KNd5VUSviNg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=TR16uTUU/BQhbs1zjv9VS6AviLdMfzE+hc87zkAf384fU42sph7yv+9H9tew6mBcF
-	 HpUP66G4w+TS3QF0lSkSyAfMZnv29lr4R07ooWXyOYZsnk9T7WL9Rd/u/xiSWVFgvg
-	 dHNYfb6vqgQXTgXkWRLmSeypZjUlwaRI0EJB8BSoFxbfva+dkwz3rTsNU7l9QJ+WHt
-	 s1Ptf58OboAHxZcimVLT8HR3vnBUb+opyfnnt2droYYYyj3I2SN/zIzS8CBfOKG0hQ
-	 CykXKfZ+5Tc3o+O0ItCH4nlTX9ibjwo2oMYRoJ01qFf22kBgCFKLjxEcWMW1zu2Wfh
-	 Uw4UapIewBwUQ==
+	b=KcQu6LsejLH6URXUBSoevsxoz9a0ljvLTWGw5mOrbVuDjFXPFY4fIjEVCegQTMh/a
+	 W9Mz1h3EJhvcYrTlYIsc12lcUpvLg47K6Dir2IDQweeAJzPpmONKTVFAGiLX3lBS88
+	 dO5nEGCGqTRoA216PwWLrdDdk7ktCTl9KxBANQHXbv5MFjDjwFWK4fsCv/Yu0epG7U
+	 kZktnjX0As9mhlGpxTkDpfCjP0PUgPnYCZdq+7DpjQuWcAOWrsJeQAhoVRQu1ukqi7
+	 KoxRgr9hQ1nFezj4sxLGA75ExLLFVhmXhUBUyVlAh9bcfP9wvv+Ss0mtcm9mZfxeav
+	 VXev2ti10JLig==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] i3c: dw: Add apb reset support
+Subject: Re: [PATCH 2/4] usb: cdns3: sky1: Add cdnsp-sky1 glue driver
 Reply-To: sashiko@lists.linux.dev
-To: "Jisheng Zhang" <jszhang@kernel.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260511031945.3228-4-jszhang@kernel.org>
-References: <20260511031945.3228-4-jszhang@kernel.org>
+To: "Peter Chen" <peter.chen@cixtech.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260511024244.981941-3-peter.chen@cixtech.com>
+References: <20260511024244.981941-3-peter.chen@cixtech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 11 May 2026 23:13:32 +0000
-Message-Id: <20260511231332.D4185C2BCFA@smtp.kernel.org>
+Date: Mon, 11 May 2026 23:17:34 +0000
+Message-Id: <20260511231734.9BDBCC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-- [High] The assertion and deassertion ordering of `core_rst` and `apb_rst`=
- violates correct bus-peripheral hardware sequencing and LIFO resource mana=
-gement symmetry.
+- [High] Probe returns success (0) when memory resource retrieval fails, le=
+ading to a NULL pointer dereference.
+- [High] Probe forcefully overwrites the mode strap configuration for all U=
+SB controllers on the SoC.
+- [Medium] Resource leak of clocks on early probe error paths.
+- [Medium] Unconditional assignment of dev_pm_ops violates Power Management=
+ Subsystem rules.
+- [Medium] Commit message and implementation mismatch regarding hardware re=
+sets.
+- [Low] Using of_match_ptr() with a statically allocated array causes compi=
+ler warnings.
 --
 
-commit 9be063129d3014c8590f046b253447e4090e7f37
-Author: Jisheng Zhang <jszhang@kernel.org>
+commit a626bc93f86adbca6a4dce0b669265133a32a8cb
+Author: Peter Chen <peter.chen@cixtech.com>
 
-i3c: dw: Add apb reset support
+usb: cdns3: sky1: Add cdnsp-sky1 glue driver
 
-This commit adds support for the optional APB reset in the DesignWare I3C
-master driver. The reset is acquired during probe and asserted or
-deasserted during runtime PM suspend and resume cycles.
+Add a CIX sky1 platform glue driver with Kconfig and Makefile entry.
+It calls APIs exported from cdns3-plat.c for probe/remote/suspend/resume
+routines.
 
-> diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i=
-3c-master.c
-> --- a/drivers/i3c/master/dw-i3c-master.c
-> +++ b/drivers/i3c/master/dw-i3c-master.c
-> @@ -1596,6 +1596,11 @@ int dw_i3c_common_probe(struct dw_i3c_master *mast=
-er,
->  	if (IS_ERR(master->core_rst))
->  		return PTR_ERR(master->core_rst);
-> =20
-> +	master->apb_rst =3D devm_reset_control_get_optional_exclusive_deasserte=
-d(&pdev->dev,
-> +									       "apb_rst");
-> +	if (IS_ERR(master->apb_rst))
-> +		return PTR_ERR(master->apb_rst);
-> +
+> 	  Glue driver for the Cadence USB dual-role controllers on CIX Sky1
+> 	  (device tree compatible cix,sky1-usb3). It enables clocks and resets
+> 	  from the SoC, then uses the shared cdns3 platform core (cdns.ko).
 
-Should apb_rst be requested before core_rst?
+The commit message mentions it enables clocks and resets from the SoC, but =
+is
+there missing code to handle the resets? The implementation includes linux/=
+reset.h
+but doesn't appear to request or interact with any reset lines.
 
-Since devm handles cleanup in reverse allocation order, requesting core_rst
-first means apb_rst will be asserted before core_rst during driver unload
-or probe failure. This would shut down the bus interface while the IP core
-is still active, contradicting the safe shutdown sequence correctly
-implemented in dw_i3c_master_runtime_suspend().
-
-Additionally, since devm_reset_control_get_optional_exclusive_deasserted()
-automatically deasserts the reset, this ordering brings the IP core out of
-reset before the APB bus interface is active.
+> diff --git a/drivers/usb/cdns3/cdnsp-sky1.c b/drivers/usb/cdns3/cdnsp-sky=
+1.c
+> new file mode 100644
+> index 0000000000000..049044e3d09bd
+> --- /dev/null
+> +++ b/drivers/usb/cdns3/cdnsp-sky1.c
 
 [ ... ]
 
-> @@ -1796,6 +1802,7 @@ static int __maybe_unused dw_i3c_master_runtime_res=
-ume(struct device *dev)
->  	pinctrl_pm_select_default_state(dev);
->  	dw_i3c_master_enable_clks(master);
->  	reset_control_deassert(master->core_rst);
-> +	reset_control_deassert(master->apb_rst);
+> +static int cdnsp_sky1_set_all_controllers_otg(struct regmap *syscon)
+> +{
+> +	int id, ret;
+> +
+> +	for (id =3D 0; id < SKY1_USB_S5_NUM; id++) {
+> +		ret =3D cdnsp_sky1_set_mode_by_id(syscon, id, MODE_STRAP_OTG);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
 
-Is this deassertion order correct?
+Does this code unintentionally alter the state of other independent USB
+controllers? It appears to iterate through all controllers on the SoC and
+updates them to MODE_STRAP_OTG, which might affect concurrent controllers
+that are explicitly configured as host-only (like U2_HOST0_ID).
 
-Deasserting core_rst before apb_rst brings the IP core out of reset before
-its APB bus interface is active. Could this cause the IP to run while
-disconnected from the bus, leading to unpredictable states?
+[ ... ]
 
-Would it be safer to deassert apb_rst before core_rst?
+> +static int cdnsp_sky1_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct cdnsp_sky1 *priv;
+> +	struct cdns *cdns;
+> +	struct cdns3_probe_data probe_data;
+> +	struct resource *res;
+> +	int ret;
+> +
+> +	priv =3D devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	priv->dev =3D dev;
+> +	priv->num_clks =3D ARRAY_SIZE(cdnsp_sky1_cdns_core_clks);
+> +	priv->clks =3D devm_kmemdup(dev, cdnsp_sky1_cdns_core_clks,
+> +				   sizeof(cdnsp_sky1_cdns_core_clks), GFP_KERNEL);
+> +	if (!priv->clks)
+> +		return -ENOMEM;
+> +
+> +	ret =3D devm_clk_bulk_get(dev, priv->num_clks, priv->clks);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to get clocks\n");
+> +
+> +	ret =3D clk_bulk_prepare_enable(priv->num_clks, priv->clks);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to enable clocks\n");
+> +
+> +	priv->usb_syscon =3D syscon_regmap_lookup_by_phandle(dev->of_node,
+> +							   "cix,syscon-usb");
+> +	if (IS_ERR(priv->usb_syscon))
+> +		return dev_err_probe(dev, PTR_ERR(priv->usb_syscon),
+> +				     "failed to get cix,syscon-usb regmap\n");
+> +
+> +	ret =3D cdnsp_sky1_set_all_controllers_otg(priv->usb_syscon);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "failed to set USB controllers to OTG strap\n");
+
+Can these error paths cause a resource leak? The clocks were previously ena=
+bled
+via clk_bulk_prepare_enable(), but these direct returns bypass the err_clk
+label where clk_bulk_disable_unprepare() is called.
+
+> +
+> +	res =3D platform_get_resource_byname(pdev, IORESOURCE_MEM, "glue");
+> +	if (!res)
+> +		goto err_clk;
+
+If this resource retrieval fails, does the probe function return success?
+
+The ret variable was previously set to 0 by the successful call to
+cdnsp_sky1_set_all_controllers_otg(), so jumping to err_clk without updating
+ret to an error code like -ENODEV would result in returning 0.
+
+Could this lead to a NULL pointer dereference during subsequent power
+management operations? Since the device would be considered bound without
+calling cdns3_core_probe(), dev_get_drvdata() might return NULL in
+callbacks like cdnsp_sky1_runtime_suspend().
+
+[ ... ]
+
+> +static const struct of_device_id cdnsp_sky1_of_match[] =3D {
+> +	{ .compatible =3D "cix,sky1-usb3" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, cdnsp_sky1_of_match);
+> +
+> +static struct platform_driver cdnsp_sky1_driver =3D {
+> +	.probe		=3D cdnsp_sky1_probe,
+> +	.remove		=3D cdnsp_sky1_remove,
+> +	.driver		=3D {
+> +		.name		=3D "cdnsp-sky1",
+> +		.of_match_table	=3D of_match_ptr(cdnsp_sky1_of_match),
+
+If the kernel is built with CONFIG_OF disabled, of_match_ptr() evaluates to
+NULL. Since the cdnsp_sky1_of_match array is declared statically and without
+__maybe_unused annotations, will this result in an unused variable compiler
+warning?
+
+> +		.pm		=3D &cdnsp_sky1_pm_ops,
+
+Does unconditionally assigning the pm callback structure produce dead code =
+when
+CONFIG_PM is disabled? According to the power management subsystem guidelin=
+es,
+this should likely be wrapped with the pm_ptr() macro so it evaluates to NU=
+LL
+without PM support.
+
+> +	},
+> +};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511031945.3228=
--1-jszhang@kernel.org?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511024244.9819=
+41-1-peter.chen@cixtech.com?part=3D2
