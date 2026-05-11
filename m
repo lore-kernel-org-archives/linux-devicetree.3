@@ -1,79 +1,79 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1327E366075
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 11:11:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 767FD366DB5
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 11:11:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778497886; cv=none; b=Euc6esk1s6Bwyy46TcrnPVi946PcIHxX8eb5ZIVcAGC5V8eIm3MJYgonygvIxADmG8bpBZkPbTErY1NhGQo0QaYoHiKMNUsIYinILyXOh5qw3XlCMyTHhl3bPNnx0YBW+1GcBnhTZaH/QPxCE/2EqwK52T0Q+YJX37zqXUEXTiU=
+	t=1778497888; cv=none; b=Iri2T90oT/xo+uLuEq4zdShd+iOCiLFZj+Je9euIllSzzUS+WaqwUrePz12sFu5BRsWXvdzaG0YCBPBkzmFQ3DMWimkHN3UPQfA89qENQAVmiqlhFWBZ+KztPKJl8lmE6WgEZJXWVJ8xq3oCyPNEMpNWketBEK0XyocehMxPhJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778497886; c=relaxed/simple;
-	bh=wf5+F3IJ7PHN/4gxwWfDTlalBjHbtHC1YY7hC84qZII=;
+	s=arc-20240116; t=1778497888; c=relaxed/simple;
+	bh=5v3roHgyxPFWJERolB69r03uiYR/bdqt20byUWfycz4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qX60VIKKrAsK3diaxv3K5t5wb4hIo1tYs5a+9xn8qRXigebD7Rlcuf3L93k+Qwssa7ItwJNTO0Laa9QL2HGkqSsv84Icem3GKU9cA+Sc9gduOYYDi91GcDDZjcLzP/TfXXwQpoAxLwvkiOFawTBmrn8g5p+f+VnAHU0eiSxVmp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K2CkroAh; arc=none smtp.client-ip=209.85.128.43
+	 MIME-Version; b=VnzPyVxXEk0EGk6P4T35+9tpnbPpeLvR2DprHiM7/c9f7xjNA6/B5XvoAE7KaCii+T075iW1nU3L1DPTvuj3Sot8qiPhtlYb6jGUWQ/9PI0SwOuXzpVlfSCjXxhSUNfchf3K1kmfD7VRUGkkfX75hy/AVNsO8a7PVmZHHnifYbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O1jr8cXQ; arc=none smtp.client-ip=209.85.221.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K2CkroAh"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-48a7fe4f40bso48604375e9.0
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 04:11:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O1jr8cXQ"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-43d7e23defbso2370606f8f.0
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 04:11:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778497884; x=1779102684; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1778497885; x=1779102685; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=P/ImowRCcqssAiG38GcpnppUO6MMYNPjG1Lujw+hqMY=;
-        b=K2CkroAhC/ziyUvFkQNgHVFkH2wMP/c9rBU/5FaRMLUFrAOo06D0z6/Vfr0LoGEAFY
-         mAceaEQ7Lf4btk+2b1ts33McXX6Jma2wYPvciDCfb/MlKiT9ykZjvYUf9vLfyu81vF1i
-         tQhj5HgXAag4dG3K7Ur64sD2mqmoKHRnwJfTx3bMLjmTUFJk/1KjH1TGaGjytZh0JTdr
-         CEmWMRvOyyfQcN2t5i5j/U6BsLMCqI8XkRW3QAbf13U6nPsTFFInpjwD0DILUIFgclWl
-         M4kCuMkbn+XnaMCIWmgOWgYQMXaPT8MUzT6LWM0ER9zlZj5liOHMYfou4/iAw7zYKNQn
-         Lnvw==
+        bh=uuhQgbnX07N+cc+OsxTKWXB812yLSeaSn+CoDTYEUU0=;
+        b=O1jr8cXQNNupEv+jG2DvAW/CPO/Sd+5dAqL7QxRZYbpp8RJTgsUDUbS2vDcrvLQREC
+         1kvCpurHA7tOX/2xUMQsvscFu5thnVZNl+KSYEYLv3lMbt7dUbYXRAOaWaxtj6+MKsT3
+         RQMUzRIucMpH0i8Jdse3eJMQGEJRVbvilzE/sU9qPHvqqKjiMHklhGFbpItROalo3PbL
+         433hk3C2/updFMVI19AqdYHaODTbkWcJQizpfZRQjDoV3EasguI3WT68m6fQEk/FtyoU
+         yQZ0q7DhYsgjrbEbxk3RdnJURTclEHEup+epyZBzCFMMqmMjgD1nrqblo7Sb1rU0fyEb
+         EuqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778497884; x=1779102684;
+        d=1e100.net; s=20251104; t=1778497885; x=1779102685;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=P/ImowRCcqssAiG38GcpnppUO6MMYNPjG1Lujw+hqMY=;
-        b=CpALvVwh0ofI80f3KFQZ108GEq3lXHV25X5n9sjjBZDahvfPgmlxYJcFA/mjnmJTwx
-         SMFwMXCfMcIE6Y6FnAoVd/HkLdyCLGsTuRojDagVc6O8+tp0qe6M628EifyqLI8bKIO0
-         sgh0keY5iyXdlGB/BhBgkxLdk9a7GFqk4LluouZRl0/3qFCoFTszUDqfn1z1PFtBYtsm
-         HsD+OSXcDl+1JVhIkvYP6Ut09hDIDsuPKkcElfMCe4iTAN6zoAUH+JNW/8svWWa6+jjh
-         tePVEL/Wy85Djj55YZlSWJ7Joq02R6Wia3xFmEqnDs4jK6/g4E3Lls609ZQIMkX7bLA9
-         W7TQ==
-X-Gm-Message-State: AOJu0Yy4XHsIxrqIEgnouJbqZ8PpmdfXxVIeAPzINZgGgThhtKZGkAXz
-	fptYFSRAOzeKK2NWT0VpjwsjR4IN6Qeick0vlrPEnOiWcy7fj1w8MUoY
-X-Gm-Gg: Acq92OFBZcOjiwEI30JwXP0/sDD4QnjIi7MixP3Rd4MrVGmexqJT5hXhK23ymj2KidS
-	72OQzHiq5UFM2SJKCZ7DB+2O607sjEFMGNFMnAi7l9khY+e+cWklEfyb1y+rU4tXIbXKH3eeUUy
-	Kh3BBhRA7PdlNZWWxbviUT9925G3RKaTkHaelEGyMY1cl1xZVYgeahg/Q+GX/QwevxFgMYR6NIK
-	yBud39ttNUzj2Tf5Ce3Lsq3bW4Dd40aQa0e26gA06wKOXUB9i1f3O3L4TV82vPc0uo39EMEJjhN
-	iIohoUuCw4HKiNb+n7tt2Iv6WG9QT+DuUBRDnS/wZgtVlwp4GVZKigNjvGyyiBm8c9oThsppcgO
-	QZIVV7J15MsZtXc/vyOqOUDpeMpTSLvII3rxye1xdJVhNtqo7sPRgahSzGbD+FI6YKgnTjUeODm
-	ohEdvb9DtJuanuVa081d7hZKqDois4Hoxnz/uke8KSAdGw0PnfQ0kB4SCro7I0nGhe5PTzr388w
-	tFi
-X-Received: by 2002:a05:600c:a305:b0:48a:5970:2005 with SMTP id 5b1f17b1804b1-48e51e08362mr251837475e9.2.1778497883359;
-        Mon, 11 May 2026 04:11:23 -0700 (PDT)
+        bh=uuhQgbnX07N+cc+OsxTKWXB812yLSeaSn+CoDTYEUU0=;
+        b=DuD87OkclxbYfGE0OWdf50V4qtWDjgAKgwj48neoPJWwGAp+H/cGuSx2ZZpeSzW9M+
+         ap8DsT9RNLPGkEvDppdLikFbTxRoIC05cjzqQCoRKi/El5Zc5SF0gZXXFCzdPUg6JWQR
+         Usi3BlVopXYM5kVxI9CFjv9OmZV2Ma2zLuuizlnW5IrTlaRiwjZl+i47AHpR2az6DvbN
+         +jhnvjVzcG9QllZWPULoptBuIgocGm6wnT6iB/9o2M2Cs8U89QJ7LVHirx9ceyrWPsFx
+         YTZwRsuKY9HWdYU0D2TPEBnjipWNebQ1kG+SMk/j6CYDYngUyGw5P83UxdnfTNEMwtO4
+         aPHA==
+X-Gm-Message-State: AOJu0Yyhn6OF005G9mQHuyvSIH9YIFpi399ISiKLQJXrCHq668ajbuER
+	c0HEnXL1CnXVBk640EF3XFhKcgsb6bc6wXvHdyVc76q0bHhbHlkGUIQg
+X-Gm-Gg: Acq92OEqoaN7awmxdw0lpod3AxFpCK+gYi3715draX3rvmsGfOxs3xxospLIWM7lEPM
+	inWHrYtbchDXsLxhbaCKqT/ZJ6Fp19AqplBeo3xvPxMc5zKFkPI9rwYWq1132kTOuQYXPMAtQFz
+	FhXoVzLh2D7kPTUJ/DFtHtPz7+8zCpdSdvG29VBkzQAwA82+v5lekqlbDJxiSE+T0in7BJM5XVd
+	Mv7B3dwcQq4P3mJIjbbv9Y5B5MEZIeAwucjD0xl+rM5MT8zhHyqHuSUzgnDH0mj0yo0w4ofy2Kw
+	drpo6cS7FS9OcShbaS/dkGEVs5rv1D3v4fJMtJc2p9mcD9I+0gfC4Yejut6p7b8gMZYmOkKM3ey
+	o3Lx4GEJnlmKl5po2kjoaF3oaEi0IOA4v9nAonCW5H5bfam8FTluYWR8iMxhk0gjmEE8sqK5csM
+	HFO5iPMNHQBsjNddcUO0r0lO3YYgFpTerwZWIK+4W310PIl4vT+PfHMtWfi+R2UFGlif8823dio
+	qOh
+X-Received: by 2002:a05:600c:5296:b0:487:219e:42d with SMTP id 5b1f17b1804b1-48e706932d5mr140407925e9.11.1778497884730;
+        Mon, 11 May 2026 04:11:24 -0700 (PDT)
 Received: from mamamia.internal (a89-182-129-90.net-htp.de. [89.182.129.90])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e701e9585sm175077375e9.5.2026.05.11.04.11.22
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e701e9585sm175077375e9.5.2026.05.11.04.11.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 11 May 2026 04:11:22 -0700 (PDT)
+        Mon, 11 May 2026 04:11:24 -0700 (PDT)
 From: Andre Heider <a.heider@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Yixun Lan <dlan@gentoo.org>,
 	Paul Walmsley <pjw@kernel.org>,
 	Palmer Dabbelt <palmer@dabbelt.com>,
 	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@gentoo.org>
 Cc: devicetree@vger.kernel.org,
 	linux-riscv@lists.infradead.org,
 	spacemit@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/6] riscv: dts: spacemit: k1-musepi-pro: enable QSPI and add SPI NOR
-Date: Mon, 11 May 2026 13:11:10 +0200
-Message-ID: <20260511111116.1109643-4-a.heider@gmail.com>
+Subject: [PATCH v2 4/6] riscv: dts: spacemit: k1-musepi-pro: enable USB 3 ports
+Date: Mon, 11 May 2026 13:11:11 +0200
+Message-ID: <20260511111116.1109643-5-a.heider@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260511111116.1109643-1-a.heider@gmail.com>
 References: <20260511111116.1109643-1-a.heider@gmail.com>
@@ -85,77 +85,92 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the QSPI controller node and describe the attached SPI NOR flash
-(Winbond W25Q64FWSSAQ).
+Enable the DWC3 USB 3.0 controller, its associated combo_phy (USB 3 PHY)
+and usbphy2 (USB 2 PHY) on the MusePi Pro board.
 
-Add a corresponding vendor flash partition layout.
+The board uses a VLI VL817 hub, providing four ports.
 
 Signed-off-by: Andre Heider <a.heider@gmail.com>
 ---
- .../riscv/boot/dts/spacemit/k1-musepi-pro.dts | 43 ++++++++++++++++++-
- 1 file changed, 42 insertions(+), 1 deletion(-)
+ .../riscv/boot/dts/spacemit/k1-musepi-pro.dts | 54 +++++++++++++++++++
+ 1 file changed, 54 insertions(+)
 
 diff --git a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-index 79415d760f162..7ebace0e46edb 100644
+index 7ebace0e46edb..9c90c2817ecb7 100644
 --- a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
 +++ b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-@@ -166,7 +166,7 @@ buck3_1v8: buck3 {
- 				regulator-always-on;
- 			};
- 
--			buck4 {
-+			buck4_3v3: buck4 {
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <3300000>;
- 				regulator-ramp-delay = <5000>;
-@@ -249,6 +249,47 @@ dldo7 {
+@@ -54,6 +54,28 @@ reg_vcc_4v0: regulator-vcc-40v {
+ 		regulator-always-on;
+ 		vin-supply = <&reg_usb_vbus>;
  	};
++
++	reg_5v_vbus: regulator-5v-vbus {
++		compatible = "regulator-fixed";
++		regulator-name = "5V_VBUS";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		regulator-always-on;
++		vin-supply = <&reg_usb_vbus>;
++		gpio = <&gpio K1_GPIO(79) GPIO_ACTIVE_HIGH>; /* USB3_PWREN */
++		enable-active-high;
++	};
++
++	reg_vcc5v_hub: regulator-vcc5v-hub {
++		compatible = "regulator-fixed";
++		regulator-name = "VCC5V0_HUB";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		regulator-always-on;
++		vin-supply = <&reg_usb_vbus>;
++		gpio = <&gpio K1_GPIO(127) GPIO_ACTIVE_HIGH>; /* HUB_PWREN */
++		enable-active-high;
++	};
  };
  
-+&qspi {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&qspi_cfg>;
+ &emmc {
+@@ -66,6 +88,10 @@ &emmc {
+ 	status = "okay";
+ };
+ 
++&combo_phy {
 +	status = "okay";
-+
-+	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
-+		spi-max-frequency = <26500000>;
-+		spi-rx-bus-width = <4>;
-+		spi-tx-bus-width = <4>;
-+		vcc-supply = <&buck4_3v3>; /* QSPI_VCC1833 */
-+		m25p,fast-read;
-+
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			bootinfo@0 {
-+				reg = <0x0 0x10000>;
-+			};
-+			private@10000 {
-+				reg = <0x10000 0x10000>;
-+			};
-+			fsbl@20000 {
-+				reg = <0x20000 0x40000>;
-+			};
-+			env@60000 {
-+				reg = <0x60000 0x10000>;
-+			};
-+			opensbi@70000 {
-+				reg = <0x70000 0x30000>;
-+			};
-+			uboot@a00000 {
-+				reg = <0xa0000 0x760000>;
-+			};
-+		};
-+	};
 +};
 +
- &uart0 {
- 	pinctrl-0 = <&uart0_2_cfg>;
+ &eth0 {
+ 	phy-handle = <&rgmii0>;
+ 	phy-mode = "rgmii-id";
+@@ -295,3 +321,31 @@ &uart0 {
  	pinctrl-names = "default";
+ 	status = "okay";
+ };
++
++&usbphy2 {
++	status = "okay";
++};
++
++&usb_dwc3 {
++	dr_mode = "host";
++	#address-cells = <1>;
++	#size-cells = <0>;
++	vbus-supply = <&reg_5v_vbus>;
++	status = "okay";
++
++	hub_2_0: hub@1 {
++		compatible = "usb2109,2817";
++		reg = <0x1>;
++		vdd-supply = <&reg_vcc5v_hub>;
++		peer-hub = <&hub_3_0>;
++		reset-gpios = <&gpio K1_GPIO(123) GPIO_ACTIVE_LOW>; /* HUB_RST */
++	};
++
++	hub_3_0: hub@2 {
++		compatible = "usb2109,817";
++		reg = <0x2>;
++		vdd-supply = <&reg_vcc5v_hub>;
++		peer-hub = <&hub_2_0>;
++		reset-gpios = <&gpio K1_GPIO(123) GPIO_ACTIVE_LOW>; /* HUB_RST */
++	};
++};
 -- 
 2.53.0
 
