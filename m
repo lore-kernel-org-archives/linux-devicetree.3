@@ -1,204 +1,161 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11E3D280CD2
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 23:53:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6EB033F8B7
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 23:58:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778543581; cv=none; b=BFxoYf37b2TFUoE1S2pcKm31NJDcuoACPDKK0G9nmrxksspZLR8Xq08h2afR1sLKVbDXEATezCOMKP46N35AmfNYtH2L/5Cq7475Yb6DnzIr3NkwffPV4sVVA8HlZnrkuf1JYRvHDsv240AK15UbLhSUbYJ139KVE0c9nNmxslk=
+	t=1778543918; cv=none; b=s3GIe3ZECrQN0vJyhlVdgmBmOoRdKZOrzIhVsXv1Eh/+YPbodd+VYr/9qPchLLGEI9jZ59XeZU0E77q1lrtNIhhDRvhgVjNEbuR2jVx9wOK9yCpUajE0y19R6Vi3gOLbTOY+0axo6j5Wyq0fXMgBzGTKyf6LoM/69voau3T4QlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778543581; c=relaxed/simple;
-	bh=8nbjr3BTlySt/HulPsXjZLMEzscq5eUo83AQ3H+1e8c=;
+	s=arc-20240116; t=1778543918; c=relaxed/simple;
+	bh=lLtGmBYuxyFGVz8Qv5Gq+2EAiLqH1RSdM9cxi74rMQ8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=O9cuP3TrupKk97XRv/MHAIa4ULdahB8EZuKni5jI82x2JfjlTHHtWHJR7yDPrCPG3kvP520OhFiQuK5hgY2lpWP/BZ2zklAJpYckAo35yD0C5o3LzPdpLpk/jS5V1nd0zAE6zc+03670H8vsPTqSuqRbZoIAjJSnxgqm2MkzZ9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gkOkpVpJ; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=XAECIgH/Qucs1ecLlr+uJPy7s7XttxQtxPjHVUIRbT2c0RvKaU8GS4L1TBwHo8+EnOwOPDyWNUrubboA3xXNt8/t0FUds85cTccq4dv+C/FLfhJFUwvYC52TQPscFMOvwMDJtIKq333jbd1z22LX9JBzDYIwH7x4zyVaVJiX3eE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YYI/58N3; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gkOkpVpJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 781C6C2BCB0;
-	Mon, 11 May 2026 23:53:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YYI/58N3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4109FC2BCB0;
+	Mon, 11 May 2026 23:58:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778543580;
-	bh=8nbjr3BTlySt/HulPsXjZLMEzscq5eUo83AQ3H+1e8c=;
+	s=k20201202; t=1778543918;
+	bh=lLtGmBYuxyFGVz8Qv5Gq+2EAiLqH1RSdM9cxi74rMQ8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=gkOkpVpJz4DomwN3afBeX1z3zQkCB5SEbtTAz6isXOajGKdAqJ4NuesixzWcth6vE
-	 gBdGNHGHf1aRLVFbVmYwD5zvkK2ys/JD04Vwv0HQuZVCNjBb8o/ffExrCHZgndpV8J
-	 N3Olvv7M4XXcIqWgO5qd8N0IdNdVznYnLf9FiWn6pWoKmmFEu7bJ/4Va3XWjIvfB88
-	 xf2on4ZlC4WcwaZmc+rrCj70O5jMvj1shYSU3DKeZyP9ENKToB+c5vAheyPtGx7VGR
-	 DVUVKbhqHM3ua3wlAtJ+eE9JTDZnYh0e0CO8JRTNy8T9/bC500Rb4oXLaHX1ufxfAh
-	 mRCmHBXR7fMXA==
+	b=YYI/58N3ITgn2pphqFnMCyh7pHmboSoG3SM7t8KqpWFwIsUr4NTK5fz/Hi4/AjnYN
+	 1zA+rljXnOMVW96U2sgmZchBIinCmwPD3TBOB6VrdNCxXPmYQzZbvkbvftBA+QxXzl
+	 qgVCkd4OsaYYaFWUw81PmpjV6YlmnT/bspzYGhd7Knh03UIjE5MGJG/sp6093gufgn
+	 fFYnSxWFTu/dMgBIiB+GnXJdHxWRaBB0SC7IuVlpH2Q+bSNs/7SZqSuMxEt70Xftfb
+	 rINTEpZhHnTGktSzJ0kHJ4hBLxWaSuRC2qEcgPtFIvor5y+8kplY2RUgCNMlPn/tHa
+	 9vtoq8DBwx6TA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v4 03/18] riscv: add support for srmcfg CSR from
- Ssqosid extension
+Subject: Re: [PATCH v3 10/10] ASoC: renesas: fsi: Add SPU clock control in
+ hw_startup/shutdown
 Reply-To: sashiko@lists.linux.dev
-To: "Drew Fustini" <fustini@kernel.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260510-ssqosid-cbqri-rqsc-v7-0-v4-3-eb53831ef683@kernel.org>
-References: <20260510-ssqosid-cbqri-rqsc-v7-0-v4-3-eb53831ef683@kernel.org>
+To: phucduc.bui@gmail.com
+Cc: krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260510084303.122426-11-phucduc.bui@gmail.com>
+References: <20260510084303.122426-11-phucduc.bui@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 11 May 2026 23:52:59 +0000
-Message-Id: <20260511235300.781C6C2BCB0@smtp.kernel.org>
+Date: Mon, 11 May 2026 23:58:37 +0000
+Message-Id: <20260511235838.4109FC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-- [High] Uninitialized Hardware State / Early Boot Bypass for CSR_SRMCFG
-- [High] Resource Control Bypass via Monitoring Group (MCID) evaluation flaw
-- [High] Hardware/Software State Desync on Boot CPU Resume from Suspend
-- [Medium] Redundant loop and Data Race in hotplug initialization
-- [Medium] Initcall returns positive hotplug state ID on success
+- [High] Unreachable SPU clock disable logic for clock masters leads to res=
+ource leak.
+- [High] Shared use of `spu_count` for both clock preparation and enablemen=
+t causes API violations and clock state corruption.
+- [High] Missing rollback of SPU clock enablement on error path causes reso=
+urce leak.
+- [High] Unhandled error in `__fsi_resume` leads to system hang if clock en=
+able fails.
+- [Medium] Unprotected read of `spu_count` causes a data race.
+- [Low] Misleading indentation in `fsi_hw_startup()`.
 --
 
-commit 0e2697a6f259670c211c47e45e2448410a9ac7b9
-Author: Drew Fustini <fustini@kernel.org>
+commit f4667d95bec52234e1ed11e120e67be3aae15efd
+Author: bui duc phuc <phucduc.bui@gmail.com>
 
-riscv: add support for srmcfg CSR from Ssqosid extension
-   =20
-This commit adds support for the srmcfg CSR defined in the Ssqosid ISA
-extension. It introduces a per-task srmcfg field mirrored to a per-CPU
-cache to optimize context switching and configure resource management IDs.
-   =20
-Link: https://github.com/riscv/riscv-ssqosid/releases/tag/v1.0
+ASoC: renesas: fsi: Add SPU clock control in hw_startup/shutdown
 
-> diff --git a/arch/riscv/include/asm/qos.h b/arch/riscv/include/asm/qos.h
-> new file mode 100644
-> index 0000000000000..6988fe37551ee
-> --- /dev/null
-> +++ b/arch/riscv/include/asm/qos.h
-> @@ -0,0 +1,64 @@
+This commit enables and disables the SPU clock in fsi_hw_startup()
+and fsi_hw_shutdown() to prevent system hangs caused by hardware
+register accesses while the clock is disabled.
+
+> diff --git a/sound/soc/renesas/fsi.c b/sound/soc/renesas/fsi.c
+> index c3ac8b30f342b..5307085c06158 100644
+> --- a/sound/soc/renesas/fsi.c
+> +++ b/sound/soc/renesas/fsi.c
+> @@ -1579,6 +1579,19 @@ static int fsi_hw_startup(struct fsi_priv *fsi,
+>  			  struct device *dev)
+>  {
+>  	u32 data =3D 0;
+> +	int ret;
+> +
+> +	/* enable spu clock */
+> +	if (fsi->master->clk_spu) {
+> +		scoped_guard(spinlock_irqsave, &fsi->master->lock) {
+> +			if (fsi->master->spu_count =3D=3D 0) {
+> +				ret =3D clk_enable(fsi->master->clk_spu);
+> +				if (ret < 0)
+> +					return ret;
+
+If clk_enable() fails and returns an error here, how does __fsi_resume()
+handle it? Looking at __fsi_resume(), it ignores the return value of
+fsi_hw_startup() and unconditionally calls fsi_stream_start().
+
+Could this attempt to access hardware registers and trigger a system hang if
+the SPU clock failed to enable?
+
+> +			}
+> +				fsi->master->spu_count++;
+
+This isn't a bug, but the indentation of fsi->master->spu_count++ makes it
+appear as though it is conditionally executed inside the if block.
+
+Does reusing fsi->master->spu_count here conflict with its use in
+fsi_clk_prepare() and fsi_clk_unprepare()?
+
+Since fsi_clk_prepare() checks spu_count without the fsi->master->lock,
+could concurrent stream operations cause a data race?
+
+Also, consider this sequence with concurrent streams:
+
+Stream 1 opens: spu_count is 0, calls clk_prepare()
+Stream 1 starts: spu_count is 0, calls clk_enable(), spu_count becomes 1
+Stream 2 opens: spu_count is 1, skips clk_prepare()
+Stream 1 stops: spu_count drops to 0, calls clk_disable()
+Stream 1 closes: spu_count is 0, calls clk_unprepare()
+Stream 2 starts: spu_count is 0, calls clk_enable()
+
+Will Stream 2 try to call clk_enable() on an unprepared clock? Could a
+separate counter be used for enablement to avoid breaking the clock state
+machine?
+
+> +		}
+> +	}
+
 [ ... ]
-> +static inline void __switch_to_srmcfg(struct task_struct *next)
-> +{
-> +	u32 thread_srmcfg;
-> +
-> +	thread_srmcfg =3D READ_ONCE(next->thread.srmcfg);
-> +
-> +	/* Default-group tasks (thread.srmcfg =3D=3D 0) follow this CPU's defau=
-lt. */
-> +	if (thread_srmcfg =3D=3D 0)
-> +		thread_srmcfg =3D __this_cpu_read(cpu_srmcfg_default);
 
-Does this logic correctly handle tasks assigned to a specific monitoring
-group but the default resource group?
+>  	/* start master clock */
+>  	if (fsi_is_clk_master(fsi))
+>  		return fsi_clk_enable(dev, fsi);
 
-The srmcfg CSR encodes both the Resource Control ID (RCID) and Monitoring
-Counter ID (MCID).
+If fsi_clk_enable() fails here, does this code leak the SPU clock enablemen=
+t?
 
-If a task is placed in the default resource allocation group (RCID=3D0) but
-is assigned a specific monitoring group (MCID!=3D0), its thread.srmcfg will
-be non-zero.
+Since the function returns the error directly, is there a need to call
+clk_disable(fsi->master->clk_spu) and decrement fsi->master->spu_count
+before returning?
 
-The thread_srmcfg =3D=3D 0 check will fail, bypassing the cpu_srmcfg_default
-override. This would allow the task to escape the CPU's restricted RCID
-allocation.
+> =20
+>  	return 0;
+>  }
+> @@ -1636,6 +1649,12 @@ static int fsi_hw_shutdown(struct fsi_priv *fsi,
+>  	/* stop master clock */
+>  	if (fsi_is_clk_master(fsi))
+>  		return fsi_clk_disable(dev, fsi);
+> +	if (fsi->master->clk_spu) {
+> +		scoped_guard(spinlock_irqsave, &fsi->master->lock) {
+> +			if (--fsi->master->spu_count =3D=3D 0)
+> +				clk_disable(fsi->master->clk_spu);
+> +		}
+> +	}
+> =20
+>  	return 0;
+>  }
 
-Could the RCID and MCID fields be extracted and evaluated independently?
+Does this bypass the SPU clock disable logic entirely when the FSI device
+operates as a clock master?
 
-> diff --git a/arch/riscv/kernel/qos.c b/arch/riscv/kernel/qos.c
-> new file mode 100644
-> index 0000000000000..75bda2ed89e1f
-> --- /dev/null
-> +++ b/arch/riscv/kernel/qos.c
-> @@ -0,0 +1,49 @@
-[ ... ]
-> +/* cached value of srmcfg csr for each cpu */
-> +DEFINE_PER_CPU(u32, cpu_srmcfg);
-
-Will this cause the CSR write to be bypassed during early boot?
-
-DEFINE_PER_CPU places the cache in .bss or implicitly zero-initializes it.
-
-During early boot, context switches occur to threads like idle or init
-before the arch_initcall executes, and these early threads have
-thread.srmcfg =3D=3D 0.
-
-When __switch_to_srmcfg() checks if thread_srmcfg !=3D __this_cpu_read(cpu_=
-srmcfg),
-it will evaluate to 0 !=3D 0 and skip writing the CSR. This means the CPU
-would execute all early boot code with an implementation-defined,
-potentially random hardware CSR state.
-
-Could we statically initialize the per-CPU variable, for example:
-
-DEFINE_PER_CPU(u32, cpu_srmcfg) =3D U32_MAX;
-
-> +
-> +/* default srmcfg value for each cpu, set via resctrl cpu assignment */
-> +DEFINE_PER_CPU(u32, cpu_srmcfg_default);
-> +
-> +/*
-> + * Seed the per-CPU srmcfg cache to a sentinel that no real srmcfg encod=
-ing
-> + * can produce (MCID << 16 | RCID, both fields well under 16 bits) so the
-> + * next __switch_to_srmcfg() unconditionally writes the CSR. Ssqosid v1.0
-> + * leaves CSR state across hart stop/start implementation-defined, so the
-> + * cached value cannot be trusted after online.
-> + */
-> +static int riscv_srmcfg_online(unsigned int cpu)
-> +{
-> +	per_cpu(cpu_srmcfg, cpu) =3D U32_MAX;
-> +	return 0;
-> +}
-
-How is the boot CPU's cache handled during system resume from suspend?
-
-During system suspend, non-boot CPUs are hotplugged out, but the boot CPU
-remains online and enters sleep. The hardware CSR register loses its state
-during sleep, reverting to an undefined power-on state.
-
-Because the boot CPU is never offlined, its cpu_srmcfg software cache is
-not invalidated by the hotplug callback upon resume.
-
-If a task is scheduled with an srmcfg matching the pre-suspend cache,
-__switch_to_srmcfg() will falsely assume the hardware CSR is valid and
-skip the write, leaving the boot CPU executing with an invalid hardware tag.
-
-> +
-> +static int __init riscv_srmcfg_init(void)
-> +{
-> +	unsigned int cpu;
-> +	int err;
-> +
-> +	if (!riscv_has_extension_unlikely(RISCV_ISA_EXT_SSQOSID))
-> +		return 0;
-> +
-> +	/* Seed already-online CPUs. The cpuhp callback covers later onlines. */
-> +	for_each_online_cpu(cpu)
-> +		per_cpu(cpu_srmcfg, cpu) =3D U32_MAX;
-
-Is this manual iteration over online CPUs necessary?
-
-The cpuhp_setup_state() function used below implicitly invokes the
-callback locally on all already-online CPUs. Iterating here is redundant
-and might cause a data race with concurrent context switches.
-
-> +
-> +	err =3D cpuhp_setup_state(CPUHP_AP_ONLINE_DYN, "riscv/srmcfg:online",
-> +				riscv_srmcfg_online, NULL);
-> +	if (err < 0)
-> +		pr_warn("srmcfg cpuhp registration failed (%d), cpus brought online af=
-ter boot will not invalidate the CSR_SRMCFG cache\n",
-> +			err);
-> +	return err;
-> +}
-> +arch_initcall(riscv_srmcfg_init);
-
-Does this return a false failure during boot?
-
-When cpuhp_setup_state() dynamically allocates a hotplug state and succeeds,
-it returns a positive integer ID.
-
-Returning this positive value from an arch_initcall will be interpreted by
-the kernel's initcall infrastructure as a failure, generating a misleading
-boot warning like "initcall returned with error code".
-
-Should this evaluate the return value and explicitly return 0 when err >=3D=
- 0?
+Since fsi_clk_disable() returns directly, it looks like fsi->master->clk_spu
+is never disabled and fsi->master->spu_count remains unbalanced.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510-ssqosid-cb=
-qri-rqsc-v7-0-v4-0-eb53831ef683@kernel.org?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510084303.1224=
+26-1-phucduc.bui@gmail.com?part=3D10
