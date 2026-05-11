@@ -1,195 +1,128 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30CE13FE67E;
-	Mon, 11 May 2026 14:57:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E82B03FE367;
+	Mon, 11 May 2026 15:00:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778511447; cv=none; b=nK6qDfAs575YjXZFA/LE22N1vlK7BQAsIv33QT2dqck1oKekFycgysNFtZHDVHF29lHLhj3eILk3m8pX8Gri4jjeTS/tqNFKozhwJDSfK6MrIt1/FELXxpg2HmMFYanwDKgMcP38H9m/EgX7GNPliEpi9Uu6KAY2i1bAi+IfMro=
+	t=1778511608; cv=none; b=RQyYuW60XnRCRTt3wMMCjXWF8OFZfjVOaB7a/dMLXSNVfMqXsHVuzpZ0rfaERr58gfJBFoyzMlubSv41mCdzznay6mWAOC6pS7+4pY40umKUmvNzLnmcK7be7msBdUehgN42o2HHeCkeMRci59hcuQ9wJ8B9jPLsM5z8a0unGDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778511447; c=relaxed/simple;
-	bh=nNUfo11efGl/MFYIWaja0C+rX50U97WOabQI7mfyOII=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A6eeTsIe61rUr4phw1WrUhdnZcyiXU92lndmbtnqscEUISa4P4V0Kk9lF2tKLVM1PYlCxFTIIsI0ttWBjlkIxs7MiW/WFqFx+BCmzX2yjhpDuT7JK2thJ506/SwGA65t849P7wEKxxsD9B3eBSDa33gbsmGi3kAxLd+1q5l4u7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lV6FuVWC; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1778511608; c=relaxed/simple;
+	bh=Y3S7NebMEgoweWjfFugWq7o4sN1kkLZsS91N38m26Ew=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IgG99oBM3RScfJiLqz4KQ957Twwy0O0GwRfed5iM85kAYRygd+LheBzfYhyvGAcXYbTnXoLIGSY6+jLK4qkjLzD+efJSDs3fmWL0hyv22OVNiJ4RlJClfhlojguzxsNxDlXo/0b7IYvr8WjCQTqX8wE5D5Q2Vq7Ms3/JFVmlfgs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HnbpSZMk; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lV6FuVWC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1778511446; x=1810047446;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=nNUfo11efGl/MFYIWaja0C+rX50U97WOabQI7mfyOII=;
-  b=lV6FuVWCRW0pC9OO1/GQkVgEntWne5PiTA3fNwwLoMcfoxnVPUA55TLr
-   b87Wm/fpovHG9n5qmIaZxvV7SJ5YQKLM8cAsuos4H+tKjcHHL3UwCWAUe
-   C8orYNapHB3N5uDKAke7tRJm79OFadlYZ99A792CEpECuZjgCOFSUPq72
-   c2Wy/nySBRKa8wWQGZI3q51IkbX8jagztjz9o0yg4f9wDP0L66Oay0Vig
-   IMX05q4kOxjC7PzL+Wsj8WxR6mwtjyG/xY77yfv5ou9S9uagJ/RweYINB
-   iIoyWcK/N4CMK5Ds+PW/z1e9ycQt8awB8+tnNQqJoXSRuzZCmzswCPwwy
-   Q==;
-X-CSE-ConnectionGUID: Yk0Te78ASY6L2kTW72Ouww==
-X-CSE-MsgGUID: mHszQ2HfR9ak+TgVgLe8Nw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="90866654"
-X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; 
-   d="scan'208";a="90866654"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 May 2026 07:57:25 -0700
-X-CSE-ConnectionGUID: bXEgldawSreuGb/hXVx2rA==
-X-CSE-MsgGUID: 4eej0KSaSeWgxRJM8Z56uQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,229,1770624000"; 
-   d="scan'208";a="237569835"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa009.jf.intel.com with ESMTP; 11 May 2026 07:57:22 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id A5BDF95; Mon, 11 May 2026 16:57:20 +0200 (CEST)
-Date: Mon, 11 May 2026 17:57:18 +0300
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: azkali.limited@gmail.com
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	CTCaer <ctcaer@gmail.com>, Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org, linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] usb: typec: bm92txx: add Rohm BM92TXX support
-Message-ID: <agHuTtvwnpcjWHEA@kuha>
-References: <20260511-bm92t-v2-0-2145e4f4386b@gmail.com>
- <20260511-bm92t-v2-1-2145e4f4386b@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HnbpSZMk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C312C2BCF6;
+	Mon, 11 May 2026 15:00:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778511607;
+	bh=Y3S7NebMEgoweWjfFugWq7o4sN1kkLZsS91N38m26Ew=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=HnbpSZMkpGIOPcnxWiU952Qk1w2ZySTpCIV5q9x7Kv5vm206TeBNS8oDHpz6L+nMf
+	 bWJPGD1eioHY63JFOBhanFErsq8qGEPVC3sb9gxjy9OFjqBbaYQ2aadkh1iMAfPLGu
+	 HsqFTcdi/cM7wz6Yq1BpLEfkueMMGAnQuQ9/7F8YkjinSq7I+4Vt5amVgiJHQIss64
+	 JjLxvzF/r/+SCFaJuCsHNEYiY1gQJBkDaW+K1j/xd694UE0qzicrIicXY+Mxn/7diZ
+	 0tTtnhp/bSDLNa951G69Pkj1GI9I78rIhIVeF9pNymMRZ5RWaGhgcUfiGnwkU0lq88
+	 v6KTxQEZAnrLQ==
+Date: Mon, 11 May 2026 15:59:58 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Piyush Patle <piyushpatle228@gmail.com>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, ak@it-klinger.de,
+ dlechner@baylibre.com, nuno.sa@analog.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 11/11] iio: adc: hx711: add support for HX710B
+Message-ID: <20260511155958.4fe72038@jic23-huawei>
+In-Reply-To: <CAMB+xkZ4MjhR3jU_L3=a=2+ubJ3oeL=x18dypEbRDa9My=LAzw@mail.gmail.com>
+References: <20260510194947.31997-1-piyushpatle228@gmail.com>
+	<20260510202657.38326-1-piyushpatle228@gmail.com>
+	<agG9FAXXiTKDIEDf@ashevche-desk.local>
+	<CAMB+xkZ4MjhR3jU_L3=a=2+ubJ3oeL=x18dypEbRDa9My=LAzw@mail.gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260511-bm92t-v2-1-2145e4f4386b@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Alexandre,
+On Mon, 11 May 2026 19:19:40 +0530
+Piyush Patle <piyushpatle228@gmail.com> wrote:
 
-On Mon, May 11, 2026 at 01:32:09AM +0700, Alexandre Hamamdjian via B4 Relay wrote:
-> From: CTCaer <ctcaer@gmail.com>
-> 
-> Add a driver for the Rohm Semiconductor BM92TXX family of USB Type-C
-> and Power Delivery controllers. The IC integrates an MCU that runs the
-> PD state machine; the host configures it and observes status over I2C
-> and reacts to a level-triggered ALERT interrupt.
-> 
-> The driver exposes the controller through extcon and a USB role switch,
-> manages the VBUS sink, optional VBUS source and battery-charger
-> regulators along with the VCONN-enable GPIO, and applies per-PDO
-> charging current limits (5 V, 9 V, 12 V, 15 V) sourced from device
-> tree. DisplayPort alternate-mode handling and dock LED behaviour are
-> configurable through rohm,* properties so the same driver can serve
-> boards that wire the part up differently. A debugfs interface under
-> bm92txx/ is provided for register dumps and low-level command access
-> when CONFIG_DEBUG_FS is enabled.
+> On Mon, May 11, 2026 at 4:57=E2=80=AFPM Andy Shevchenko
+> <andriy.shevchenko@intel.com> wrote:
+> >
+> > On Mon, May 11, 2026 at 01:56:55AM +0530, Piyush Patle wrote: =20
+> > > Add support for the AVIA HX710B ADC, which shares the HX711 GPIO
+> > > interface but uses trailing PD_SCK pulses to select the active mode.
+> > >
+> > > Model the HX710B with variant-specific channel tables and IIO info,
+> > > track the active channel across conversions, and use the fixed gain
+> > > value when computing scale.
+> > >
+> > > Also update the adjacent Kconfig text, file header, and module
+> > > description so the driver text matches the newly supported variant. =
+=20
+> >
+> > ...
+> > =20
+> > >  #include <linux/slab.h>
+> > >  #include <linux/sched.h> =20
+> > =20
+> > >  #include <linux/delay.h>
+> > > +#include <linux/types.h> =20
+> >
+> > Seems wrong order.
+> >
+> > And here + blank line to make linux/iio/* to be a separate group. =20
+> will fix the include ordering and grouping if a v8 is needed.
+>=20
+> > =20
+> > >  #include <linux/iio/iio.h>
+> > >  #include <linux/iio/sysfs.h>
+> > >  #include <linux/iio/buffer.h> =20
+> >
+> > ...
+> > =20
+> > >       /*
+> > >        * triggered buffer
+> > > -      * 2x32-bit channel + 64-bit naturally aligned timestamp
+> > > +      * up to 3x32-bit channels + 64-bit naturally aligned timestamp
+> > > +      *
+> > > +      * aligned_s64 satisfies the 8-byte alignment requirement for t=
+he
+> > > +      * timestamp. For HX711 (at most 2 active channels), iio_push_t=
+o_
+> > > +      * buffers_with_timestamp() places the timestamp at offset 8
+> > > +      * (scan_bytes=3D8, already 8-byte aligned), identical to the o=
+riginal
+> > > +      * 2-channel layout. The extra channel slot for HX710B does not=
+ affect
+> > > +      * the HX711 ABI.
+> > >        */
+> > >       struct {
+> > > -             u32 channel[2];
+> > > +             u32 channel[3];
+> > >               aligned_s64 timestamp;
+> > >       } buffer; =20
+> >
+> > Why can't we used a recently introduced macro for this?
+> > IIO_DECLARE_BUFFER_WITH_TS(). =20
+> Yes, this macro can be used here, I will use the
+> IIO_DECLARE_BUFFER_WITH_TS() if a v8 is needed.
+> Also when should I proceed to make v8? Is it needed?
 
-You need to use the USB Type-C framework for everything, not just for
-the switches. The port, the partner when connected, the cable and
-plugs, and all the alternate modes (the port alt modes, the plug
-alt modes, and partner alt modes) need to be registered.
+Yes to being needed.  I replied in parallel thread.
 
-All that needs to be exposed properly inside kernel as well in user
-space.
+> >
+> > --
+> > With Best Regards,
+> > Andy Shevchenko
+> >
+> > =20
+>=20
 
-<snip>
-
-> +/* VDM/VDO */
-> +#define VDM_CMD_RESERVED    0x00
-> +#define VDM_CMD_DISC_ID     0x01
-> +#define VDM_CMD_DISC_SVID   0x02
-> +#define VDM_CMD_DISC_MODE   0x03
-> +#define VDM_CMD_ENTER_MODE  0x04
-> +#define VDM_CMD_EXIT_MODE   0x05
-> +#define VDM_CMD_ATTENTION   0x06
-> +#define VDM_CMD_DP_STATUS   0x10
-> +#define VDM_CMD_DP_CONFIG   0x11
-
-Already defined in include/linux/usb/pd_vdo.h
-
-> +#define VDM_ACK   0x40
-> +#define VDM_NAK   0x80
-> +#define VDM_BUSY  0xC0
-> +#define VDM_UNSTRUCTURED   0x00
-> +#define VDM_STRUCTURED     0x80
-
-Ditto.
-
-> +/* VDM Discover ID */
-> +#define VDO_ID_TYPE_NONE        0
-> +#define VDO_ID_TYPE_PD_HUB      1
-> +#define VDO_ID_TYPE_PD_PERIPH   2
-> +#define VDO_ID_TYPE_PASS_CBL    3
-> +#define VDO_ID_TYPE_ACTI_CBL    4
-> +#define VDO_ID_TYPE_ALTERNATE   5
-> +
-> +/* VDM Discover Mode Caps [From device (UFP_U) to host (DFP_U)] */
-> +#define VDO_DP_UFP_D       BIT(0) /* DisplayPort Sink */
-> +#define VDO_DP_DFP_D       BIT(1) /* DisplayPort Source */
-> +#define VDO_DP_SUPPORT     BIT(2)
-> +#define VDO_DP_RECEPTACLE  BIT(6)
-
-include/linux/usb/typec_dp.h
-
-> +/* VDM DP Configuration [From host (DFP_U) to device (UFP_U)] */
-> +#define VDO_DP_U_DFP_D     BIT(0) /* UFP_U as DisplayPort Source */
-> +#define VDO_DP_U_UFP_D     BIT(1) /* UFP_U as DisplayPort Sink */
-> +#define VDO_DP_SUPPORT     BIT(2)
-> +#define VDO_DP_RECEPTACLE  BIT(6)
-
-Ditto.
-
-> +/* VDM Mode Caps and DP Configuration pins */
-> +#define VDO_DP_PIN_A   BIT(0)
-> +#define VDO_DP_PIN_B   BIT(1)
-> +#define VDO_DP_PIN_C   BIT(2)
-> +#define VDO_DP_PIN_D   BIT(3)
-> +#define VDO_DP_PIN_E   BIT(4)
-> +#define VDO_DP_PIN_F   BIT(5)
-
-Ditto.
-
-> +/* Known VID/SVID */
-> +#define VID_NINTENDO      0x057E
-> +#define PID_NIN_DOCK      0x2003
-> +#define PID_NIN_CHARGER   0x2004
-> +
-> +#define SVID_NINTENDO     VID_NINTENDO
-> +#define SVID_DP           0xFF01
-> 
-> +/* Nintendo dock VDM Commands */
-> +#define VDM_NCMD_LED_CONTROL         0x01 /* Reply size 12 */
-> +#define VDM_NCMD_DEVICE_STATE        0x16 /* Reply size 12 */
-> +#define VDM_NCMD_DP_SIGNAL_DISABLE   0x1C /* Reply size 8 */
-> +#define VDM_NCMD_HUB_RESET           0x1E /* Reply size 8 */
-> +#define VDM_NCMD_HUB_CONTROL         0x20 /* Reply size 8 */
-
-You need a dedicated alternate mode driver for this mode.
-
-It looks like you have a lot of duplication in this code. You really
-have to refactor this whole driver. It probable does not make sense to
-review this any further before that.
-
-Please register all the Type-C (inclide/linux/usb/typec.h) and power
-delivery (include/linux/usb/pd.h) components, and at least try to
-handle the alternate mode VDM communication in the alt mode drivers
-dedicated for each alt mode.
-
-I also really think that that the battery charging information needs
-to be exposed to user space with the power supply device class
-(include/linux/power_supply.h).
-
-Because there is a lot of stuff to be done here, please consider
-splitting this into clear steps. For example, you could start by
-simply registering the port and the partner, and so on.
-
-thanks,
-
--- 
-heikki
