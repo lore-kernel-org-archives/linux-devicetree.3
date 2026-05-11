@@ -1,63 +1,63 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8CE83FD14C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E241E3FD159
 	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 13:57:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778507863; cv=none; b=TSd09BR80AvnWMozARH2f4+6LW7i2ayBQTpWMu5Oh3CYvsgsZEQjfPUadQv91dJkUJtksRdyrtbSvHoVBXGLwqPEPE7zZlB6GoFi3ZWIJVlPg5W4a5VQWHrX3y+bf2tDDN/OSF73xX2EKu5q90nItUmn5QZW4Z9POG8xzhn8874=
+	t=1778507868; cv=none; b=GXbQOz+U8wUwQ1h9ikQLIHoFw+MFWvYRmFXyD8lKZWXf3ILgzD5IsNphPopfNQlRyagPxNQYWlqFiiKDl5D/Yiy3NkBaqtr94SxFywjXu4dY5gVCf09Rai5NvAeTV4kDZZV+RmUGnyh6dc8iJYxonvk82GnkdihIwGcu96BxaQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778507863; c=relaxed/simple;
-	bh=Xp/TUYJI1eAs/D+9Nq+dELgCqu+Ss/welMktAjHcpbk=;
+	s=arc-20240116; t=1778507868; c=relaxed/simple;
+	bh=//xeqBDO+FAC+aa1qPeAepE9RtXXW3YKKxu7v7xKkuw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SVCoMocJNA3E9QSSfIVFNZIzUwbF2MtSTXLoSqTBYZRI0LEN1Qz869eWt11S6Z1NPCJjtFlLykQm6Bt3epLODxrKTLdBiQBuVCmUiZdViueJ2IKTs6AUzwAqeO8xmqDvwJgbmV3DxSbO3fFVdScjAJHv34AEzSF+RC9GvXqvMpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jTVG2x2U; arc=none smtp.client-ip=209.85.208.50
+	 MIME-Version; b=txIjxi4O5q4rpbavDpOkcVz+hzwbP5tyrdkErRSMG5dSkL8Lxaetmiibc3QJUgLFZEcTw1M9sS6kmdgcYDsQbosB9fADxaYnLFIT11hhjeNbIeKRG89qtu0K7NqsplPTXptJSg6s/Z+10H469+3gL0lsR+6uoIswYVN1l/eTpPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cF7H620Y; arc=none smtp.client-ip=209.85.218.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jTVG2x2U"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-678a16429c6so6653090a12.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cF7H620Y"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-bcc1459daddso274505766b.1
         for <devicetree@vger.kernel.org>; Mon, 11 May 2026 06:57:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778507855; x=1779112655; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1778507857; x=1779112657; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BnjnB0/XPfthXcOXqkhM1htDcff/BGb30MwU7TWoKRg=;
-        b=jTVG2x2Uzv7Dt8V8cSlP4y777+8Umg8UZR4qC4X5tWhuFi4FWQFNdi99gObVcIVWYh
-         oLpRMdYIKJRz+zUeMBhJnJe+itGJ90THEwF47hQ+KNBpGdZB6q5rFu9bf59ndsOdvCvM
-         Pe+W8fTkPch001mxqd1ckVyc+AHxBBIQgZcEF0IqMap+LmMV52rvWEiXhqKR8Xn2SgxS
-         SKuwV96wcJpgR+Ocjcc01yCZT91wqWZFCUf7QMF33+IHkiuZWvgV3uA5qGPksBook4i5
-         2BuxZcWbQ9hMYGsLBMuuKGCerc0YwGOI6q9KSl4wRVofStDZ6PQBX7nYY3DJtUeE0fdq
-         t1yg==
+        bh=2O8Su9Gk1Lf9CS4xvd/yWBGZ4wDlTJeCYsl5Z1xTugo=;
+        b=cF7H620YRQdAAB6av+O7l8dQp8lR1njATPv1q3DMnueWOX33L0/xEEN7Gr2Y7up8CK
+         tzAr7mYz2wMEs+QttSiBu+7ddSAnjzpT7VCh/usSCX/MfMCbybBMRxLc0qK/gX1yz6qJ
+         /BBZvl2To8Xkqlyg6lh+l2Y8k+FhTzAHQYTeEh3hd33LAbXREsdHpERz9jckZZIN7g2a
+         vOt1rgXDkHsdBj5NEvJoAYQM5INfe/9zSQz20mG4TX4olcYtig99+8rRakm4vZ0ijNDF
+         UmiJQodssNZrdJKdjMXQf9YluXVnuqUL1z5kjGtaNXYtNDcAD/aCCiGqWizX5+aRFIUW
+         RrEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778507855; x=1779112655;
+        d=1e100.net; s=20251104; t=1778507857; x=1779112657;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=BnjnB0/XPfthXcOXqkhM1htDcff/BGb30MwU7TWoKRg=;
-        b=dALEGeJ7Nfn5ivqsl45byqtMMTZDPDgQQazLxKkbxyzalkEj6gQDvDd0w7XBgdjZra
-         ZvJGgn+lc5kEeBI+rigukTJteuptwx2sdKaC8UVGTIWij5YfU5K2TMBElAXuX/n4nOQz
-         gn6517BKddpmFM6/StvxH0clpiaaUqkYGCkZTYnAZAHT6jq+6aooLE3RzuIzD2d1z65r
-         FzzkuLwXlXg4AOimt1VUnIElLeMzP626G5g4SloVZa/38QdoOu0JiHvZrfC2yrJhMA1u
-         amhhkEdyK/mDtPk6m4gfFa6KWEFcXK5mxtzvt1Xgvlm712IFmggQnzyoQzt2PjjgBcVP
-         RRdA==
-X-Forwarded-Encrypted: i=1; AFNElJ+hWR8+IRXvnAeAi2s8PPF+gbZOqMtVcwbdzkyhFLUIhdCYMYNOynciYCGuUKXvRGAx7tAB2KycUsJI@vger.kernel.org
-X-Gm-Message-State: AOJu0YxDuxNekdiTWqFtDLp+qbnsVgJO9sLcOwrPg2AaK7Tx6qhXalqE
-	0xrjQg19STxmmG3QZuJa3mgxdVNYg6t13EpiUYwQo4IzlRLCg8dfejyJ
-X-Gm-Gg: Acq92OEg9jSRC983Ej8ze9LnDnBMeNy+LrZEvLhq+hhlQCqZFvFiaJ2mH2Mm02VwaEN
-	Fjrjm/Jz76tYV5zaSbtioQKJP+NEtua89HttCar9jeSlyVxYjA/orcK47150UkZow+SP2l+pXEv
-	MAj/iSdAWpgOth7etfoo2VTJxFwaoKF2aC6s565/m8KUoJll15mKBHPJbcpJPaG8tYY5Owx2psT
-	agZj2CYfIgq86ZjeGYGMf4voPsaUs9DYiFRwVnPLpsZA9hyxRxnL1pZfOpsfQTAsnR6ulbDRVsQ
-	DyoB3hpjjijMCdi88xJAfeRp/tgaoT828l4fpWAVrcnoETaVxcI1MddQmuZxdRJa521VWzsmYJ2
-	eSeURoPb38cAcaWiszQlLR3H8BcEfoebrNWgF5NSYK3KSod1lPGdK03dSaGYC82vApm7/URufOJ
-	xPPHeWeKQxBdfv
-X-Received: by 2002:a05:6402:b8a:b0:671:9dec:ba3 with SMTP id 4fb4d7f45d1cf-67e0ee9abb2mr5590673a12.13.1778507854968;
-        Mon, 11 May 2026 06:57:34 -0700 (PDT)
+        bh=2O8Su9Gk1Lf9CS4xvd/yWBGZ4wDlTJeCYsl5Z1xTugo=;
+        b=TyeCepsOlAxAOJlVhgm37cm48GN5Udptb2Gj/ya3sEy9NWuYnF/MleeCq7ou9BZav8
+         fgNyu8m51yXAt4j/XhvI2AHquaRcKi6WQQTwqwbAiE87lPXhf3oNVQQPLx26smaznc6U
+         OkxMFTNbAy6AVZU2NIj3DhfFEoQQXs0Ef63pn1InTPncJEBOWKSItNkR9wOxOkc8yiPJ
+         fJaq19/fd2gvIOvF+wfdxn7WDc3n18aIDx45tyUi2Sqql2QOT94L5YTuIQDiIpnEbEbi
+         QUykdgc3FTB0t8jyHiWc0/785X7tBKEx4jUbl0D2KIuTOzzhCpZ6ykFMvcIAi/b+w250
+         D9VA==
+X-Forwarded-Encrypted: i=1; AFNElJ/6LIhrPfzMqLYD7tS18uZwDaDfsKqfNNTzUNbJbRUYJ0/mHaqVG7faiGMAvNqI3PkHaey6apr7LP/O@vger.kernel.org
+X-Gm-Message-State: AOJu0YyQn3YoXf+9iW0eDlH1SIclxTVH5BJhv/hXnlzj1GCDjByo602q
+	A+U8eoaBYCtEIiK4RtLFC9gbifSkANwEOoj3Ioc53cRiJqPk7zKwMD7m
+X-Gm-Gg: Acq92OHmBdsOylY9j3WYXZOrlQc+GLU5Ynei32i3N4ZZhjVf8Z45z3oSV5AkuZjwIWm
+	DuxjmI6sV15hkPga3W2onwiMSNohAdxQcHNBEyxi34soiKcefIlB4u2QyDa7nYfxoOAp5DZHQTM
+	IyElpA0rU5/jFXmTbZ1K7BQnk7yZMYbyGQkCFr6650gd4E04bTzC3FKwDBFxW9ENgwxazH3jrpz
+	8iMnLOCme2rt2AWizzqXM/64S6d25Lsr3bKCxku1lF6URglVwLi1XCjUVMSsTTsQWrtENI93+pl
+	BIepZFIQSP9kKxwnv4StqI8I7Tvug/eg6tu5vU7Yh1bmvUXmXSUhUWPOiFdh4Pk5bSAFBNuNd7+
+	iGR4P5XaBT31ei6+qTphQJECmT3bzTIc+cQ7n5ND7CPEM65FgneO03WQ2nHVHn5rlKetcTe8IgA
+	P5t2uNaFPJ9o4j
+X-Received: by 2002:a17:907:c18:b0:bb8:b536:55dd with SMTP id a640c23a62f3a-bc56d713f3bmr1489015866b.41.1778507856804;
+        Mon, 11 May 2026 06:57:36 -0700 (PDT)
 Received: from xeon ([188.163.112.56])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-67ef0b3b904sm3685357a12.1.2026.05.11.06.57.32
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-67ef0b3b904sm3685357a12.1.2026.05.11.06.57.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 11 May 2026 06:57:33 -0700 (PDT)
+        Mon, 11 May 2026 06:57:36 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>,
 	"David S. Miller" <davem@davemloft.net>,
@@ -80,9 +80,9 @@ Cc: netdev@vger.kernel.org,
 	linux-phy@lists.infradead.org,
 	linux-tegra@vger.kernel.org,
 	linux-usb@vger.kernel.org
-Subject: [PATCH v1 5/6] dt-bindings: phy: tegra: Document Nvidia Tegra XMM6260 PHY
-Date: Mon, 11 May 2026 16:57:00 +0300
-Message-ID: <20260511135703.62470-6-clamor95@gmail.com>
+Subject: [PATCH v1 6/6] phy: tegra: Add support for Nvidia Tegra XMM6260 PHY
+Date: Mon, 11 May 2026 16:57:01 +0300
+Message-ID: <20260511135703.62470-7-clamor95@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260511135703.62470-1-clamor95@gmail.com>
 References: <20260511135703.62470-1-clamor95@gmail.com>
@@ -94,79 +94,197 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document the XMM6260 PHY used by various devices based on the Nvidia Tegra
-SoC, describing its usage
+Nvidia Tegra XMM6260 PHY is a hardware configuration used in Tegra SoCs
+to provide proper interaction between the application processor and the
+modem, as well as control over one of the SoC's USB lines for the modem.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- .../bindings/phy/nvidia,tegra-xmm6260.yaml    | 58 +++++++++++++++++++
- 1 file changed, 58 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/phy/nvidia,tegra-xmm6260.yaml
+ drivers/phy/tegra/Kconfig             |  12 +++
+ drivers/phy/tegra/Makefile            |   1 +
+ drivers/phy/tegra/phy-tegra-xmm6260.c | 144 ++++++++++++++++++++++++++
+ 3 files changed, 157 insertions(+)
+ create mode 100644 drivers/phy/tegra/phy-tegra-xmm6260.c
 
-diff --git a/Documentation/devicetree/bindings/phy/nvidia,tegra-xmm6260.yaml b/Documentation/devicetree/bindings/phy/nvidia,tegra-xmm6260.yaml
+diff --git a/drivers/phy/tegra/Kconfig b/drivers/phy/tegra/Kconfig
+index 342fb736da4b..41b5ce460f37 100644
+--- a/drivers/phy/tegra/Kconfig
++++ b/drivers/phy/tegra/Kconfig
+@@ -18,3 +18,15 @@ config PHY_TEGRA194_P2U
+ 	help
+ 	  Enable this to support the P2U (PIPE to UPHY) that is part of Tegra 19x
+ 	  and 234 SOCs.
++
++config PHY_TEGRA_XMM6260
++	tristate "NVIDIA Tegra XMM6260 PHY driver"
++	depends on ARCH_TEGRA && USB_NET_XMM6260 && USB_SUPPORT
++	select GENERIC_PHY
++	help
++	  Enable this to support XMM6260 modem found in various Tegra devices
++	  with cellular capabilities, like LG Optimus 4X P880, LG Optimus Vu
++	  P895, Google Nexus 7 (2012) 3G and ASUS Transformer Pad 3G TF300TG.
++
++	  To compile this driver as a module, choose M here: the module will
++	  be called phy-tegra-xmm6260.
+diff --git a/drivers/phy/tegra/Makefile b/drivers/phy/tegra/Makefile
+index eeeea72de117..829e298ee56c 100644
+--- a/drivers/phy/tegra/Makefile
++++ b/drivers/phy/tegra/Makefile
+@@ -9,3 +9,4 @@ phy-tegra-xusb-$(CONFIG_ARCH_TEGRA_186_SOC) += xusb-tegra186.o
+ phy-tegra-xusb-$(CONFIG_ARCH_TEGRA_194_SOC) += xusb-tegra186.o
+ phy-tegra-xusb-$(CONFIG_ARCH_TEGRA_234_SOC) += xusb-tegra186.o
+ obj-$(CONFIG_PHY_TEGRA194_P2U) += phy-tegra194-p2u.o
++obj-$(CONFIG_PHY_TEGRA_XMM6260) += phy-tegra-xmm6260.o
+diff --git a/drivers/phy/tegra/phy-tegra-xmm6260.c b/drivers/phy/tegra/phy-tegra-xmm6260.c
 new file mode 100644
-index 000000000000..0346433c9772
+index 000000000000..7511de1333aa
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/phy/nvidia,tegra-xmm6260.yaml
-@@ -0,0 +1,58 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/phy/nvidia,tegra-xmm6260.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/phy/tegra/phy-tegra-xmm6260.c
+@@ -0,0 +1,144 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +
-+title: Nvidia Tegra PHY for XMM6260 modem
++#include <linux/device.h>
++#include <linux/err.h>
++#include <linux/export.h>
++#include <linux/gpio/consumer.h>
++#include <linux/mod_devicetable.h>
++#include <linux/module.h>
++#include <linux/of_platform.h>
++#include <linux/phy/phy.h>
++#include <linux/platform_device.h>
++#include <linux/regulator/consumer.h>
++#include <linux/usb.h>
++#include <linux/usb/chipidea.h>
++#include <linux/usb/phy.h>
 +
-+description:
-+  A hardware configuration used in Tegra SoCs to provide proper interaction
-+  between the application processor and the modem, as well as control over
-+  one of the SoC's USB lines for the modem.
++struct tegra_usb_device {
++	struct ci_hdrc_platform_data data;
++	struct platform_device *dev;
++};
 +
-+maintainers:
-+  - Svyatoslav Ryhel <clamor95@gmail.com>
++struct tegra_xmm6260_phy {
++	struct device *dev;
++	struct platform_device *usb_dev;
++	struct usb_phy *usb_phy;
++	struct gpio_desc *enable_gpio;
++};
 +
-+properties:
-+  compatible:
-+    const: nvidia,tegra-xmm6260
++static int tegra_xmm6260_phy_power_on(struct phy *phy)
++{
++	struct tegra_xmm6260_phy *mphy = phy_get_drvdata(phy);
++	struct tegra_usb_device *usb = platform_get_drvdata(mphy->usb_dev);
++	int ret;
 +
-+  enable-gpios:
-+    description: GPIO connected to the EINT1 pin
-+    maxItems: 1
++	gpiod_set_value_cansleep(mphy->enable_gpio, 1);
 +
-+  nvidia,usb-bus:
-+    description:
-+      Contains two phandles; the first is pointing to the Host's USB controller
-+      and the second linking to the controller's PHY.
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+    minItems: 2
-+    maxItems: 2
++	ret = usb_phy_init(mphy->usb_phy);
++	if (ret) {
++		gpiod_set_value_cansleep(mphy->enable_gpio, 0);
++		return dev_err_probe(mphy->dev, ret,
++				     "failed to init USB PHY\n");
++	}
 +
-+  phy-supply:
-+    description: Supply powering the PHY.
++	usb->dev = ci_hdrc_add_device(&mphy->usb_dev->dev,
++				      mphy->usb_dev->resource,
++				      mphy->usb_dev->num_resources,
++				      &usb->data);
++	if (IS_ERR(usb->dev)) {
++		gpiod_set_value_cansleep(mphy->enable_gpio, 0);
++		usb_phy_shutdown(mphy->usb_phy);
++		return dev_err_probe(mphy->dev, PTR_ERR(usb->dev),
++				     "failed to register USB controller\n");
++	}
 +
-+  "#phy-cells":
-+    const: 0
++	return 0;
++}
 +
-+required:
-+  - compatible
-+  - nvidia,usb-bus
-+  - "#phy-cells"
++static int tegra_xmm6260_phy_power_off(struct phy *phy)
++{
++	struct tegra_xmm6260_phy *mphy = phy_get_drvdata(phy);
++	struct tegra_usb_device *usb = platform_get_drvdata(mphy->usb_dev);
 +
-+additionalProperties: false
++	ci_hdrc_remove_device(usb->dev);
++	usb_phy_shutdown(mphy->usb_phy);
 +
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
++	gpiod_set_value_cansleep(mphy->enable_gpio, 0);
 +
-+    phy {
-+        compatible = "nvidia,tegra-xmm6260";
++	return 0;
++}
 +
-+        enable-gpios = <&gpio 165 GPIO_ACTIVE_HIGH>;
-+        phy-supply = <&vdd_3v3_vbat>;
++static const struct phy_ops tegra_xmm6260_phy_ops = {
++	.power_on = tegra_xmm6260_phy_power_on,
++	.power_off = tegra_xmm6260_phy_power_off,
++	.owner = THIS_MODULE,
++};
 +
-+        nvidia,usb-bus = <&hsic_usb>, <&phy2>;
-+        #phy-cells = <0>;
-+    };
++static int tegra_xmm6260_phy_probe(struct platform_device *pdev)
++{
++	struct phy_provider *phy_provider;
++	struct device *dev = &pdev->dev;
++	struct device_node *usb_node;
++	struct phy *generic_phy;
++	struct tegra_xmm6260_phy *mphy;
++
++	mphy = devm_kzalloc(dev, sizeof(*mphy), GFP_KERNEL);
++	if (!mphy)
++		return -ENOMEM;
++
++	mphy->enable_gpio = devm_gpiod_get_optional(dev, "enable",
++						    GPIOD_OUT_LOW);
++	if (IS_ERR(mphy->enable_gpio))
++		return dev_err_probe(dev, PTR_ERR(mphy->enable_gpio),
++				     "failed to get enable GPIO\n");
++
++	usb_node = of_parse_phandle(dev->of_node, "nvidia,usb-bus", 0);
++	if (IS_ERR(usb_node))
++		return dev_err_probe(dev, PTR_ERR(usb_node),
++				     "failed to parse modem USB bus\n");
++
++	mphy->usb_dev = of_find_device_by_node(usb_node);
++	of_node_put(usb_node);
++	if (!mphy->usb_dev)
++		return dev_err_probe(dev, -ENODEV,
++				     "failed to get modem USB bus\n");
++
++	mphy->usb_phy = devm_usb_get_phy_by_phandle(dev, "nvidia,usb-bus", 1);
++	if (IS_ERR(mphy->usb_phy))
++		return dev_err_probe(dev, PTR_ERR(mphy->usb_phy),
++				     "failed to get USB PHY");
++
++	generic_phy = devm_phy_create(dev, NULL, &tegra_xmm6260_phy_ops);
++	if (IS_ERR(generic_phy))
++		return dev_err_probe(dev, PTR_ERR(generic_phy),
++				     "failed to create PHY\n");
++
++	phy_set_drvdata(generic_phy, mphy);
++	mphy->dev = dev;
++
++	phy_provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
++	if (IS_ERR(phy_provider))
++		return dev_err_probe(dev, PTR_ERR(phy_provider),
++				     "failed to register PHY\n");
++
++	return 0;
++}
++
++static const struct of_device_id tegra_xmm6260_phy_match[] = {
++	{ .compatible = "nvidia,tegra-xmm6260" },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, tegra_xmm6260_phy_match);
++
++static struct platform_driver tegra_xmm6260_phy_driver = {
++	.driver = {
++		.name = "tegra-xmm6260-phy",
++		.of_match_table = tegra_xmm6260_phy_match,
++	},
++	.probe = tegra_xmm6260_phy_probe,
++};
++module_platform_driver(tegra_xmm6260_phy_driver);
++
++MODULE_AUTHOR("Svyatolsav Ryhel <clamor95@gmail.com>");
++MODULE_DESCRIPTION("Tegra XMM6260 PHY driver");
++MODULE_LICENSE("GPL");
 -- 
 2.51.0
 
