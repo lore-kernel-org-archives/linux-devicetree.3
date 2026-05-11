@@ -1,242 +1,172 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE2AF2FE04E
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 22:11:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 704B74DB563
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 22:12:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778537474; cv=none; b=GMg8akhRXj49wuwgAbIcfV29Xn7bV8wAsyI9MsuVsDGjLcKAYz9B3GK+EvK4LbQm3JjfHW2eYilNJSMJJHNRkKvSJiTyMdNTlnmHzbuAtPoaZaqdZPAIoXkJUr3ogXD283l7r2fXZpzgFhJROPBiTVlXb1F37bAtWOkuE+IuWfw=
+	t=1778537556; cv=none; b=MPlL91tUp3EfS9zuWeNXX31OQR3+M+Cf1hUUbTpIyiC09QaB1qqhd7r+ZyNdXS97P4vS8YGOTSCxPAagTgAPpHw+9Ge7wGAwbhXeB510xcJwkTYHIyTMInEhQOaHQZWmvMn+2mhrYgtE6mfm2hRRSoS8zAVeHh/qCDTgaxrvy4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778537474; c=relaxed/simple;
-	bh=tb0gd4xppC6sVjyXQJTTIkOCidtU9XsrXTX34EGUcCg=;
+	s=arc-20240116; t=1778537556; c=relaxed/simple;
+	bh=TW5fFWPOmM1OnqKQstKJXz2DYAW15Bq3Kb4XLf5J7cE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZA+AirnO5UF6bHuoGblqvsNTM3YSBw12DUW+4tiuar7sMVh7d7b4qko//6FH+6Fd3u4MH38urMQ6F388zDiE2H4JKrTPtVH36HAcn6p7cJbXg7naug1s/wgMFosY7NeyAZJNPC9fUzc5hijGKeTa53O2zZ5eQvQTaZ2+re6VsXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZM9VJcyO; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=PN9z9lk8NbjzL8gBsJA3HOHB3OoSzn2oACPF/KpMkmsX26UWCbtQCpnTcTtGV9jRM8VJ0Q47/mlYZI+iTOmg44qkFBteYA/K1OwdWcaFowuQza39Qu8voacIh9aVRkEN72RFwR+Mq5cmOdHq1v2b//q8sES0z/Ix+4S4txXlubo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ICxW5wKU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZM9VJcyO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58F12C2BCB0;
-	Mon, 11 May 2026 22:11:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ICxW5wKU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 960EFC2BCB0;
+	Mon, 11 May 2026 22:12:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778537474;
-	bh=tb0gd4xppC6sVjyXQJTTIkOCidtU9XsrXTX34EGUcCg=;
+	s=k20201202; t=1778537556;
+	bh=TW5fFWPOmM1OnqKQstKJXz2DYAW15Bq3Kb4XLf5J7cE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=ZM9VJcyOIDe7vdFY5N8puLW0f/d9IDt3zAGGhadwDr7z4fY71yY6Xapf/F70Q545n
-	 9WO/kyks3a3wN/Oyydofz8EPUlqFgh4wYgogAa2hNVzF+PFU9r16hg22r0RhFQoEG/
-	 RZqpHwsUwBMI7oqDeAeyVBGMYrB9AQCNcmas0ldkuuYkj97PCFaVYT9rbqQL4OYLlk
-	 yJdc/XGAM0F2DXunMyOxolZEvC+ZOW8vB90RGfr1qAtSYDd4lS+RHPhyW5Hfehw6pq
-	 1q39MgtaYUE61F09w2ozo+qrGT4TwXWr1RXKAb8l6yONj9OzGZ+gxMZrup5XUqjmHf
-	 qYYBMu5sU9dEA==
+	b=ICxW5wKUoXM34Pc+p3XRj7fK2MUB80m0m+duI/dYkD9zpgUUunp5Z1DgYo9mF8zho
+	 6KpM/IXVmCFYvQYVE3/cM6dADpwr7VKFUEzvhcpAVtKFfkHsoUbCktWPZ7yM6f4Noj
+	 U1E4MqDi9OklikU50GC3g7sk8dCgUsEtSZk1hXYKiT3dQPsMOcOV32j+x7FbTHwB8a
+	 Xw7H0Ru68nCjKBaGnsk/ZHKGrCP9TlHRXCyIBn5ef79KqikMsr2BseVDv20P5ONnPn
+	 aUZVD0fFf4egxcMlOB1HZG8KAgrnkDp9yMUq5p5jYDN3F8OToGsM/TCAC1RQfx6TFj
+	 +qbkOxS08KAow==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: add basic devicetree for Ayaneo
- Pocket DS gaming console
+Subject: Re: [PATCH RFC v2 1/4] dt-bindings: clk: zte: Add zx297520v3 clock
+ and reset bindings.
 Reply-To: sashiko@lists.linux.dev
-To: "Alexandre Hamamdjian via B4 Relay" <devnull+azkali.limited.gmail.com@kernel.org>
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260510-pocketds-v1-2-cf05acec06af@gmail.com>
-References: <20260510-pocketds-v1-2-cf05acec06af@gmail.com>
+To: =?utf-8?b?U3RlZmFuIETDtnNpbmdlcg==?= <stefandoesinger@gmail.com>
+Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260511-zx29clk-v2-1-29f0edc300f5@gmail.com>
+References: <20260511-zx29clk-v2-1-29f0edc300f5@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 11 May 2026 22:11:13 +0000
-Message-Id: <20260511221114.58F12C2BCB0@smtp.kernel.org>
+Date: Mon, 11 May 2026 22:12:35 +0000
+Message-Id: <20260511221235.960EFC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] Missing `compatible` string on the primary display panel.
-- [High] Missing `cooling-maps` for fan thermal trip points.
-- [Medium] PCIe peripheral power and enable signals are hardcoded via pinct=
-rl.
-- [Medium] Conflicting `output-low` pinctrl state for a regulator-managed G=
-PIO.
-- [Medium] Missing `pinctrl-1` property in the `pwm_fan` node.
-- [Low] Inclusion of undocumented, downstream-specific devicetree property =
-`rocknix-u-boot-dt-id`.
-- [Low] Leading spaces in `vph_pwr` regulator name.
-- [Low] Orphaned pinctrl nodes for a missing secondary display.
+- [Medium] The device tree binding intentionally omits the hardware clock d=
+ependency between the top controller and the matrix controller.
+- [Low] Missing 'clock-frequency' property in 'fixed-clock' example nodes.
+- [Low] The `zte,zx297520v3-matrixclk` compatible string lacks an `if-then`=
+ block to explicitly forbid `clocks` and `clock-names`.
+- [Low] The node names in the example block do not follow generic naming st=
+andards.
 --
 
-commit a48e1f08f4a1d52011fe6aeaf547a479fe5b3a94
-Author: Teguh Sobirin <teguh@sobir.in>
-arm64: dts: qcom: add basic devicetree for Ayaneo Pocket DS gaming console
+commit dcd964f6e480b59678a5c8aefa3f700c7eec5d64
+Author: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
 
-This commit adds initial device tree support for the Ayaneo Pocket DS
-gaming console based on the Qualcomm QCS8550 platform.
+dt-bindings: clk: zte: Add zx297520v3 clock and reset bindings.
 
-> diff --git a/arch/arm64/boot/dts/qcom/qcs8550-ayaneo-pocket-common.dtsi b=
-/arch/arm64/boot/dts/qcom/qcs8550-ayaneo-pocket-common.dtsi
+This commit introduces device tree bindings for the ZTE zx297520v3 SoC
+clock and reset controllers. It defines the top, matrix, and lsp
+controllers, along with their respective clock and reset definitions.
+
+> diff --git a/Documentation/devicetree/bindings/clock/zte,zx297520v3-clk.y=
+aml b/Documentation/devicetree/bindings/clock/zte,zx297520v3-clk.yaml
 > new file mode 100644
-> index 0000000000000..8d215a9d31d54
+> index 0000000000000..3b7084a18a975
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/qcs8550-ayaneo-pocket-common.dtsi
+> +++ b/Documentation/devicetree/bindings/clock/zte,zx297520v3-clk.yaml
+[ ... ]
+> +description: |
+> +  The zx297520v3's clock controller consists of 3 controllers, which gen=
+erate
+> +  clocks for internal SoC devices. In addition to clocks it also has res=
+et
+> +  controls for most, but not all, devices.
+[ ... ]
+> +  The matrix controller consumes clocks generated by PLLs in the top
+> +  controller, but there are no controls in the top controller to sever t=
+his
+> +  link. The interface between these controllers is not expressed in the =
+device
+> +  tree, but the matrix controller cannot work without the clock handles
+> +  registered by the top controller.
+
+Does omitting the clock relationship between the top and matrix controllers
+hide the physical hardware topology? Device tree bindings should typically
+describe the actual hardware connections.
+
+By leaving out the clocks property from the matrixclk node to reference the
+topclk outputs, could this force the driver to rely on implicit dependencies
+for probe ordering and break proper frequency propagation in the clock
+framework?
 
 [ ... ]
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: zte,zx297520v3-lspclk
+> +    then:
+> +      properties:
+> +        clocks:
+[ ... ]
+> +      required:
+> +        - clocks
+> +        - clock-names
+> +
+> +additionalProperties: false
 
-> +	thermal-zones {
-> +		cpuss0-thermal {
-> +			polling-delay =3D <200>;
-> +			trips {
-> +				cpuss0_fan0: trip-point2 {
-> +					temperature =3D <40000>;
-> +					hysteresis =3D <3000>;
-> +					type =3D "passive";
-> +					};
+Since clocks and clock-names are defined at the top level of this binding,
+would an invalid matrixclk device tree node mistakenly including those
+properties silently pass validation?
 
-Should these thermal zones include a cooling-maps block? Without it, the
-passive trip points don't seem to bind to the pwm_fan cooling device, meani=
-ng
-the thermal framework won't automatically scale the fan based on temperatur=
-e.
+Because additionalProperties: false only rejects completely undefined
+properties, should there be an if-then block for matrixclk that explicitly
+sets clocks: false and clock-names: false to prevent this?
 
 [ ... ]
-
-> +	vph_pwr: regulator-vph-pwr {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "  vph_pwr";
-
-This isn't a bug, but there are leading spaces in the regulator name. Will
-this cause formatting issues in sysfs or break userspace tools that parse t=
-he
-regulator tree?
-
-> +		regulator-min-microvolt =3D <3700000>;
-> +		regulator-max-microvolt =3D <3700000>;
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/zte,zx297520v3-clk.h>
 > +
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +	};
+> +    osc26m: osc26m {
+> +      compatible =3D "fixed-clock";
+> +      clock-output-names =3D "osc26m";
+> +      #clock-cells =3D <0>;
+> +    };
 > +
-> +	pwm_fan: pwm-fan {
-> +		compatible =3D "pwm-fan";
+> +    osc32k: osc32k {
+> +      compatible =3D "fixed-clock";
+> +      clock-output-names =3D "osc32k";
+> +      #clock-cells =3D <0>;
+> +    };
+
+Do these fixed-clock examples need the clock-frequency property? The core
+schema for fixed clocks mandates this property, which might cause
+dt_binding_check to fail if it is missing here.
+
+> +    topclk: topclk@13b000 {
+> +        compatible =3D "zte,zx297520v3-topclk";
+> +        reg =3D <0x0013b000 0x400>;
+> +        #clock-cells =3D <1>;
+> +        #reset-cells =3D <1>;
+> +        clocks =3D <&osc26m>, <&osc32k>;
+> +        clock-names =3D "osc26m", "osc32k";
+> +    };
 > +
-> +		pinctrl-names =3D "default", "sleep";
-> +		pinctrl-0 =3D <&fan_pwm_active>, <&fan_int>;
-
-Should this node include a pinctrl-1 property? The sleep state is declared =
-in
-pinctrl-names, but the corresponding configuration is missing, which might
-cause the pinctrl framework to fail during power management transitions.
-
+> +    matrixclk: matrixclk@1306000 {
+> +        compatible =3D "zte,zx297520v3-matrixclk";
+> +        reg =3D <0x01306000 0x400>;
+> +        #clock-cells =3D <1>;
+> +        #reset-cells =3D <1>;
+> +    };
 > +
-> +		fan-supply =3D <&vdd_fan_5v0>;
-> +		pwms =3D <&pm8550_pwm 3 40000>;
+> +    lspclk: lspclk@1400000 {
+> +        compatible =3D "zte,zx297520v3-lspclk";
+> +        reg =3D <0x01400000 0x100>;
 
-[ ... ]
+Are these node names deviating from generic naming standards? The devicetree
+specification requires node names to describe the generic class of a device
+rather than specific block names.
 
-> +	fan_pwr_active: fan-pwr-active-state {
-> +		pins =3D "gpio31";
-> +		function =3D "gpio";
-> +		drive-strength =3D <2>;
-> +		bias-disable;
-> +		output-low;
-> +	};
-
-Does the output-low property here conflict with the regulator subsystem? Th=
-is
-state is used by the vdd_fan_5v0 fixed regulator, which already manages the
-GPIO's output direction and logic level natively.
-
-[ ... ]
-
-> +&mdss_dsi0 {
-> +	vdda-supply =3D <&vreg_l3e_1p2>;
-> +	status =3D "okay";
-> +
-> +	display_panel: panel@0 {
-> +		reg =3D <0>;
-> +
-> +		pinctrl-0 =3D <&sde_dsi_active>, <&sde_te_active>;
-
-Is this panel missing a compatible string? Without it, the DRM panel driver
-will not be able to probe and bind to the hardware, rendering the primary
-display non-functional.
-
-> +		pinctrl-1 =3D <&sde_dsi_suspend>, <&sde_te_suspend>;
-> +		pinctrl-names =3D "default", "sleep";
-> +	};
-> +};
-
-[ ... ]
-
-> +&pcie1 {
-> +	wake-gpios =3D <&tlmm 99 GPIO_ACTIVE_HIGH>;
-> +	perst-gpios =3D <&tlmm 97 GPIO_ACTIVE_LOW>;
-> +
-> +	pinctrl-0 =3D <&pcie1_default_state>, <&upd720201_active>, <&gamepad_pw=
-r_en>;
-
-Is it intended to manage the downstream USB controller and gamepad enable
-GPIOs directly at the PCIe host level?
-
-Hardcoding them here bypasses the proper device-specific power management a=
-nd
-might break suspend/resume sequencing since the peripherals will remain
-unconditionally powered while the PCIe controller is active.
-
-> +	pinctrl-names =3D "default";
-> +
-> +	status =3D "okay";
-> +};
-
-[ ... ]
-
-> diff --git a/arch/arm64/boot/dts/qcom/qcs8550-ayaneo-pocketds.dts b/arch/=
-arm64/boot/dts/qcom/qcs8550-ayaneo-pocketds.dts
-> new file mode 100644
-> index 0000000000000..723b027fa73bd
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/qcs8550-ayaneo-pocketds.dts
-
-[ ... ]
-
-> +/ {
-> +	model =3D "AYANEO Pocket DS";
-> +	compatible =3D "ayaneo,pocketds", "qcom,sm8550";
-> +	rocknix-u-boot-dt-id =3D "u-boot-pocket-ds";
-
-Is this downstream-specific property intended to be upstreamed? Devicetrees
-usually describe hardware topology rather than downstream OS or bootloader
-identifiers.
-
-> +
-> +	tca6424_vcc: regulator-tca6424-vcc {
-
-[ ... ]
-
-> +&tlmm {
-> +	gpio-reserved-ranges =3D <32 4>;
-> +	panel_pwr_active: panel-pwr-active-state {
-> +		pins =3D "gpio152", "gpio153";
-> +		function =3D "gpio";
-> +		drive-strength =3D <8>;
-> +		bias-disable;
-> +		output-high;
-> +	};
-> +
-> +	sde_dsi1_active: sde-dsi1-active-state {
-> +		pins =3D "gpio137";
-> +		function =3D "gpio";
-> +		drive-strength =3D <8>;
-> +		bias-disable;
-> +		output-high;
-> +	};
-> +
-> +	sde_dsi1_suspend: sde-dsi1-suspend-state {
-> +		pins =3D "gpio137";
-> +		function =3D "gpio";
-> +		drive-strength =3D <2>;
-> +		bias-pull-down;
-> +	};
-
-Are these pinctrl states needed? They appear to be orphaned since the
-secondary display node (&mdss_dsi1) is not defined in this devicetree.
-
-> +
-> +	ts_rst_default: ts-rst-default-state {
+Could these be renamed using the clock-controller@... pattern to comply
+with conventions and avoid schema warnings?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510-pocketds-v=
-1-0-cf05acec06af@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511-zx29clk-v2=
+-0-29f0edc300f5@gmail.com?part=3D1
