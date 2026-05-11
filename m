@@ -1,89 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AFA83F20F0;
-	Mon, 11 May 2026 14:17:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37F2A3793A8;
+	Mon, 11 May 2026 14:18:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.18.0.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778509055; cv=none; b=fwSkOLY1hDxORjyPPeh587LcfRTKLFiydVELwslrvUcLFQ+KoV45EQt5nTGZXBsU9X0yl/aYUhhVSKCY5lRxMP3LzTmBUpOWvf9jY2y27uVll445a5+YVQXbuel9TK8v5U+KwEAf7mWPO8ebT5DLB7yK6Rohk9tr3zbL/s4ccTI=
+	t=1778509090; cv=none; b=G0gGg24PxPRenxfErervtnG6Nb60CeDvDjxCBZ+Y/SvHfctwm7+U+aibfVkaTeoLC1wzsKN8LBd06N3RSNyyaVPgeevGgUijsPaD+GXIpahbGvjvLKeqYGhZdcgxfBSExN8AEyzvUqEBk7Hzk/0/925+975w746Yb8u9gGVjKcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778509055; c=relaxed/simple;
-	bh=TZVIkTWypVnbl2R7t67+UGjLujcG3Pr5gHQWQnJ0BJ0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cw4PMbvQm63Xurm2KxwMHyAXktONEU68FJPE7h1WwsDpnnvJ48SFAlhs282mQJVsVlbPo4u9IQW5dClhK1pqiOccEwMuHxvvsAfhjBE6MGLm8xOUbP/45k818g2Cfma/3Qnt43gRbPqoatPX2oNMoH2ERFYRNfztIrZ/lpP98W8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oVtudW/f; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778509090; c=relaxed/simple;
+	bh=4QyT0UWEVlQTF92NkKEQyWtE2QfME160oNWsoG1Ze1A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aPzAdOnU0ML07zBwKF5mKesUv7TApyy9m4C+LGORVl3L/XE8Q/aJVwWy+VwsB2obGo38T1GB7K+UgywsbKhiUrNDvvJ89AZWo9OPorxgImlz/Ad0+aFrAOyzgrlcpO/wXGiaD7aDAgFFC2Obvhp7wGQ50bER+rbZCjKBvQencvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muenchen-mail.de; spf=pass smtp.mailfrom=muenchen-mail.de; dkim=pass (2048-bit key) header.d=muenchen-mail.de header.i=@muenchen-mail.de header.b=U02IAbxW; arc=none smtp.client-ip=212.18.0.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muenchen-mail.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=muenchen-mail.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oVtudW/f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66A35C2BCB0;
-	Mon, 11 May 2026 14:17:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778509055;
-	bh=TZVIkTWypVnbl2R7t67+UGjLujcG3Pr5gHQWQnJ0BJ0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=oVtudW/fwYikiLYs7HmKWu48phxkvVJQkmMlCEMR9RWbC36Zlyqy19bcbOFLHyS30
-	 GLeYoJ5kVZYPDwWT+Zz/WC9Yv2ggVFWSdNr7fXh3IalrySG22DN/0tEsuB2YPvpiTW
-	 8tTb81yPUHIIDcV/u7PEz4x8WCGXD/n+cX1E7/XZJ8HkQ/c4PFeTx4PfC2/BlhBZab
-	 /qWm5/eQ1WWRS/621tHHH5b0USM0jWa6vjip88NHS+6j//shqNlKjVE3iJ/vdj19TH
-	 VWjsY5T1imeCfVMxzT5VJRz93ZvGu93o//NeB/6pdrba5yrNAshG013705Azb7GA/o
-	 ibYiy4JwSpU2g==
-Date: Mon, 11 May 2026 09:17:28 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Harshal Dev <harshal.dev@oss.qualcomm.com>, 
-	"David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, cros-qcom-dts-watchers@chromium.org, 
-	Eric Biggers <ebiggers@google.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Jingyi Wang <jingyi.wang@oss.qualcomm.com>, Tengfei Fan <tengfei.fan@oss.qualcomm.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, David Wronek <davidwronek@gmail.com>, 
-	Luca Weiss <luca.weiss@fairphone.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Melody Olvera <quic_molvera@quicinc.com>, Alexander Koskovich <akoskovich@pm.me>, 
-	Abel Vesa <abelvesa@kernel.org>, Brian Masney <bmasney@redhat.com>, 
-	Neeraj Soni <neeraj.soni@oss.qualcomm.com>, Gaurav Kashyap <gaurav.kashyap@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v5 01/13] dt-bindings: crypto: qcom,ice: Fix missing
- power-domain and iface clk
-Message-ID: <agHkmKq-q7_6m4nl@baldur>
-References: <20260416-qcom_ice_power_and_clk_vote-v5-0-5ccf5d7e2846@oss.qualcomm.com>
- <20260416-qcom_ice_power_and_clk_vote-v5-1-5ccf5d7e2846@oss.qualcomm.com>
- <afmuncmBrrvddHTU@gondor.apana.org.au>
- <b8805117-d54f-4e42-a7d4-6fa18af63e69@oss.qualcomm.com>
- <CC0E438D-5544-4BB8-8512-7F93A7FA4DC1@oss.qualcomm.com>
- <af6MsD1wDs9EZl5q@gondor.apana.org.au>
+	dkim=pass (2048-bit key) header.d=muenchen-mail.de header.i=@muenchen-mail.de header.b="U02IAbxW"
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by mail-out.m-online.net (Postfix) with ESMTP id 4gDhVh2cNsz1sHQ3;
+	Mon, 11 May 2026 16:11:56 +0200 (CEST)
+DKIM-Signature: a=rsa-sha256; bh=+CbS3bNUQzu0MAu8sUeYRjSUd4GKuS+acJBUfMpwj0I=;
+        c=relaxed/relaxed; d=muenchen-mail.de;
+        h=Date:From:To:Message-ID:Subject;
+        s=r1; t=1778508716; v=1;
+        b=U02IAbxW20+mLDSXSBnL//yWnFw0cmpReQdinMv0+pecTG1oO5yrn79TV/rc8UAw
+         nZcBEpxu95fKg9txa+QlR1ATCfyvt+bVbVYvkOdXtobLmrb1nSKYeLN24wJMgIkO
+         TuEmi8PeSOFw3QwYmM4FPKk5QfLv6TaPQRVFHTJD2VPYrSV8M044bi/IwePXKvLY
+         i3sBF4V5xqk61kOO1VAR2omwG0hc5B2U4jxVwgP06WAKct2p5A5GcWKLmn1gPRh/
+         XtrnPgJrwIMY6SFFOe38kp1krlZ0fJUefyrZA5L+tpPe1Z+8rtzvBTQzAAxXAHv+
+         vgqHze0tc+OZ5yLA9h+38g==
+Received: from frontend03.mail.m-online.net (unknown [192.168.6.182])
+	by mail-out.m-online.net (Postfix) with ESMTP id 4gDhVf063Sz1sHPP;
+	Mon, 11 May 2026 16:11:53 +0200 (CEST)
+Received: from localhost (dynscan3.mnet-online.de [192.168.6.87])
+	by mail.m-online.net (Postfix) with ESMTP id 4gDhVd5llqz1qqlS;
+	Mon, 11 May 2026 16:11:53 +0200 (CEST)
+X-Virus-Scanned: amavis at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.6.182])
+ by localhost (dynscan3.mail.m-online.net [192.168.6.87]) (amavis, port 10024)
+ with ESMTP id O6uJPu1FxYTY; Mon, 11 May 2026 16:11:53 +0200 (CEST)
+X-Auth-Info: I0mXDoX6Dm3detU0TSzjhH8bSxf2eJ7TztcK6TYWMP4+A64YrwUfpb9WocUPFC0f
+Received: from wiesel.intern (aftr-62-216-206-65.dynamic.mnet-online.de [62.216.206.65])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.mnet-online.de (Postfix) with ESMTPSA;
+	Mon, 11 May 2026 16:11:52 +0200 (CEST)
+Received: from murmel.intern (unknown [IPv6:fdea:9b79:8984:1:8514:c35a:5b34:1596])
+	by wiesel.intern (Postfix) with ESMTP id 7DFCD79A0378;
+	Mon, 11 May 2026 16:11:52 +0200 (CEST)
+From: Thomas Gerner <thomas.gerner@muenchen-mail.de>
+To: Drew Fustini <fustini@kernel.org>,
+	Guo Ren <guoren@kernel.org>,
+	Fu Wei <wefu@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Thomas Gerner <thomas.gerner@muenchen-mail.de>
+Subject: [PATCH] Enable wifi on the BeagleV-Ahead
+Date: Mon, 11 May 2026 16:11:00 +0200
+Message-ID: <20260511141119.155369-1-thomas.gerner@muenchen-mail.de>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <af6MsD1wDs9EZl5q@gondor.apana.org.au>
+Content-Transfer-Encoding: 8bit
 
-On Sat, May 09, 2026 at 09:24:00AM +0800, Herbert Xu wrote:
-> On Fri, May 08, 2026 at 08:11:45PM +0530, Harshal Dev wrote:
-> >
-> > Can you please confirm for Bjorn once
-> > that you're not picking this up and he
-> > can pick it from his tree? 
-> 
-> Bjorn, please feel free to pick this patch up.
-> 
+The BeagleV-Ahead board uses an AP6203BM WiFi chip from AMPAK Technology
+Inc. connected to SDIO1. The chip is compatible to the broadcom wireless
+driver.
 
-Thanks Herbert, I've picked the binding up.
-If you need it, you can find it at:
+Enable wifi on the BeagleV-Ahead.
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git 20260416-qcom_ice_power_and_clk_vote-v5-1-5ccf5d7e2846@oss.qualcomm.com
+Signed-off-by: Thomas Gerner <thomas.gerner@muenchen-mail.de>
+---
+ .../boot/dts/thead/th1520-beaglev-ahead.dts   | 50 +++++++++++++++++++
+ 1 file changed, 50 insertions(+)
 
-Regards,
-Bjorn
+diff --git a/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts b/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts
+index 91f3f9b987bc..5e0dc47d263c 100644
+--- a/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts
++++ b/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts
+@@ -86,6 +86,11 @@ hdmi_con_in: endpoint {
+ 			};
+ 		};
+ 	};
++
++	brcmf_pwrseq: brcmf_pwrseq {
++		compatible = "mmc-pwrseq-simple";
++		reset-gpios = <&gpio2 31 GPIO_ACTIVE_LOW>;	/* WL-REG-ON */
++	};
+ };
+ 
+ &osc {
+@@ -239,6 +244,28 @@ rx-pins {
+ 			slew-rate = <0>;
+ 		};
+ 	};
++
++	wifi_pins: wifi-pins {
++	    host-wake-wl {
++			pins = "GPIO2_25";
++			function = "gpio";
++			bias-pull-up;
++			drive-strength = <1>;
++			input-enable;
++			input-schmitt-disable;
++			slew-rate = <0>;
++		};
++
++	    reg-on-wl {
++		    pins = "GPIO2_31";
++		    function = "gpio";
++			bias-pull-up;
++			drive-strength = <3>;
++			input-disable;
++			input-schmitt-disable;
++			slew-rate = <0>;
++	    };
++	};
+ };
+ 
+ &sdio0 {
+@@ -247,6 +274,29 @@ &sdio0 {
+ 	status = "okay";
+ };
+ 
++&sdio1 {
++	bus-width = <4>;
++	max-frequency = <198000000>;
++	status = "okay";
++	#address-cells = <1>;
++	#size-cells = <0>;
++	non-removable;
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&wifi_pins>;
++	mmc-pwrseq = <&brcmf_pwrseq>;
++
++	wifi@1 {
++		compatible = "cypress,cyw43012-fmac", "brcm,bcm4329-fmac";
++		reg = <1>;
++		brcm,sd_head_align = <4>;
++		brcm,sd_sgentry_align = <512>;
++		interrupt-parent = <&gpio2>;
++		interrupts = <25 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "host-wake";
++	};
++};
++
+ &dpu {
+ 	status = "okay";
+ };
+-- 
+2.43.0
 
-> Thanks,
-> -- 
-> Email: Herbert Xu <herbert@gondor.apana.org.au>
-> Home Page: http://gondor.apana.org.au/~herbert/
-> PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
