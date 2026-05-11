@@ -1,192 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB592DA75B;
-	Mon, 11 May 2026 17:01:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 681F13FD131
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 17:10:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778518863; cv=none; b=dSvgqVFfZ6iCW42qPNxICs9QqFT42RMn+SSvRgJCRiB5ehslTh8iGceRK2fV08+rkIXhcQqTb9vQys4yzsXoZSn32iKUmHAS7p8U65+N/a1AZM8/21U3jx+4WJqwMcM8LwbsAZwDN/IjT8XuNJ3nKN1O7oHrB7lfD8b14WxJtMM=
+	t=1778519415; cv=none; b=CWFr1j6tDrN1SSTeOfr2xNhsAFzOMBQDU+3DnNCZh0CrEGsNQSiDoNdG7efm7RoLieZC+PwqVYjW8/r7aNUeLoXGHN3LSV59G7C8LK9CE/QWP0/UmUs/NpR3BZXacN9ipYSVy+r4IAXO/29IiTtphhO7yWF6N9s9cmeCcuq5pT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778518863; c=relaxed/simple;
-	bh=oBQIZAf/Y1nxyQ1AdKOPmZyypz/lv+qNW5y0C9rlcnc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DJFwebRnHedsI8Vo0tpbmx5BXyV4twefos/XU0fY3rnZhi6eAkE3T4IYEso//Mgc0Imv9JVJiJ++LsstCmXSgR43ET69Qw4ufn3c82XJmdUQHrKNzqq9wxgL40XsClixj0lVnNkjbdoC+MeqgILGEvzW7TR7MiQQ4oaTgd5mpA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YTYIs61E; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778519415; c=relaxed/simple;
+	bh=D/KRR3cWA8YhRg3pD1Dkj2Jx4iqOpEciiw/dqXN+Rvc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pFazmnfzI5AqtxfVbeSAKr1rvH0/0v50kpmAv4BNRwSfwmC6KqCDJWmA/DCvWK9XGqgQhqu8FDK2BcO7k2CiRszo+g3Y5D1YZcbnl1Qs99afs4Snzkg2ckFnCLKwxRCrng8IxYifUEECwqwfWrpmEWZ8WRyUklzb4gtSqNkNDTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=F/zx59+N; arc=none smtp.client-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YTYIs61E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EF00C2BCB0;
-	Mon, 11 May 2026 17:00:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778518863;
-	bh=oBQIZAf/Y1nxyQ1AdKOPmZyypz/lv+qNW5y0C9rlcnc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=YTYIs61EkoCYJz8wAHPj26p4P6YhLzg5u8+NVyYnHHdKFYOVL9PvC0d9rDZg4jTCO
-	 KqO3ehfpTtr8rSVAL9Qt+sCqqEnd+3OTx0Rgw2RfyjUYx1duzkwK7u4+ac3EZa8tIM
-	 f8ld9BWC+tO9fjpTM1iimWKDX9RD8kX1l54rMbI+ysTA782GFZwcUJ1xWAd/oIPjuG
-	 j44F1J7RXs7PC7LFIeYIbjM20IxWyc6mZwGyr8+GUZm+LmImZ5MepRPZJXoZ9dWAMS
-	 3GGMnyixeDb/2bjBmAhPK1rxi2XRL9bW8u6t/4uARcg4yK6hst9Qv2arlFp5cH1wWL
-	 4w1W5xutVC/rA==
-Date: Mon, 11 May 2026 18:00:56 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: lars@metafoo.de, Michael.Hennerich@analog.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, dlechner@baylibre.com,
- nuno.sa@analog.com, andy@kernel.org, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/1] dt-bindings: iio: dds: Add AD9832/AD9835 binding
-Message-ID: <20260511180056.07986443@jic23-huawei>
-In-Reply-To: <20260509013745.80478-2-dennylin0707@gmail.com>
-References: <20260509013745.80478-1-dennylin0707@gmail.com>
-	<20260509013745.80478-2-dennylin0707@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="F/zx59+N"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-83538fbd0b2so1823260b3a.0
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 10:10:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1778519414; x=1779124214; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=wXPv9NMuATRuOngICuHBognry2tLHdZTtLmZBPko5FM=;
+        b=F/zx59+NL44D/FyyXI2cboR9odacHlRLWqpwqPO/W/rl3er4izrUKs59CoRu1KZ/6c
+         J96ro0aJJEpFfZdkVrF0vcLPM8eGuAF+H/kegaCP24qs8iKhFB8fhuJLdipdzauK29on
+         l8oc/zx+6+5xyHebRFl3lTfuVjsk1zkk3bY0/mmu2DBZpX7WqOyHMQMjQ5o8J2hvxDGa
+         D7brsSXobrV+mgZvi0/Mb4wwZn98YhdeqKyCTOOLwYYhU+jgtgDAb5QPUrj/iUMuAA+j
+         7EMIfjoH5rajBsVxEIZGj3RQsRUncW6j6sxglfUIspGPpgsEjeBrC/VQdyHv/565Wx0P
+         qxlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778519414; x=1779124214;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=wXPv9NMuATRuOngICuHBognry2tLHdZTtLmZBPko5FM=;
+        b=kYHbqBA+mwSovzXRA/uPlyrL8FTyFq0q693L25LzCsRzLoDi9+7UAG11rusXFav2+Q
+         wFEn3Se3Zq+ba7jQXt1Is1j665pW6c92Ky788e99zECF9GVHDgKv7JhFO6xL32IH0ZlS
+         pFKKR7GQkkqq9RmO/cpJoNBzlwoXxcjfwhVJYliXR8qfZHLzCqvZJH0WhP7RcWW9dQEm
+         xK51erjtMaD7qK/0nVN1X5Wvk7A912DEgAL4SBPLGoMVEWTS3/JmIhyfu9pluTmpP2pS
+         fXtWzarkibhF8ZZcaNEREsUTwBS87Ko3LBS4iDxNQyCYbUWlk9bKxTEGJ+QzyO96zJvt
+         eTYQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+OyJbmJVTkDuAed2lPNjRVKKIazjfOoWi1Ug2RF0XM/DFDFAq6sc+ucF9tiAIXTL5orlQzMojlpIlC@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx/gunPRhOLurr4Pq0Im8Ijb35ryxyVmUwzfjpC7VbmiW0/5JIR
+	eAF2uKz0LXXdVIDkE2sfNXGxAB6K5WyA9U5SLbNYKs4kpfxQSKqGGG2NA6z/vPeGtfE=
+X-Gm-Gg: Acq92OEGeg0VMeO++eGCk8gSqYBTwFOIRGLejwUBftywjq5anfjzd2NfwZgR6jiqPZj
+	BCM3jsM9tFUtybAteE0D5TtlIbrsLF5walsP6s+J5bx56tWunKfmqUqeBw1AdzVCI+9gvPEE8lW
+	BjB4ZqLMu37PnS0koPvLWffoxhe1sO7hUhAwem4hh4CD94IN++KtNLsksq6iKYxcOMlZXCatHKW
+	FLDEwJ7TQKxis/a5j71xlBnCijnbic66wciPVaw9tvDaSCHfCAeNrXTclp7+4BtXHgd1jz3WaJk
+	t95q860HNXwrAQuBZONseHYTOALOcAacyWndU0fPdRq7x85i02ksmnmnVpOmi32pj8LnH38uBXQ
+	nr8V6FuzIFt7rYCsw2HA2glxY2I3/TmkakHqvZVRdhQuMgaXoMb0nnX/fkcFhJpxUJjo/rfKVoh
+	chKSKi3v94Qp0avso0VMKbmU/4a5A=
+X-Received: by 2002:a05:6a00:f9a:b0:82a:7893:e14b with SMTP id d2e1a72fcca58-83e3bb9f9ecmr9882717b3a.38.1778519413426;
+        Mon, 11 May 2026 10:10:13 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:6a4f:ac45:cc0f:8508])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-839682a52cesm19958782b3a.57.2026.05.11.10.10.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 11 May 2026 10:10:12 -0700 (PDT)
+Date: Mon, 11 May 2026 11:10:08 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Peng Fan <peng.fan@oss.nxp.com>
+Cc: Jiafei Pan <Jiafei.Pan@nxp.com>, andersson@kernel.org, peng.fan@nxp.com,
+	Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de,
+	festevam@gmail.com, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Zhiqiang.Hou@nxp.com, mingkai.hu@nxp.com,
+	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 0/4] remoteproc: add Cortex-A Core remoteproc support
+ on i.MX platforms
+Message-ID: <agINcH6hVf8G_T_3@p14s>
+References: <20260511023928.39640-1-Jiafei.Pan@nxp.com>
+ <agF+iYRfUIoBu35M@shlinux89>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <agF+iYRfUIoBu35M@shlinux89>
 
-On Sat,  9 May 2026 01:37:45 +0000
-Hungyu Lin <dennylin0707@gmail.com> wrote:
-
-> Add devicetree binding documentation for AD9832 and AD9835 DDS devices.
+On Mon, May 11, 2026 at 03:00:25PM +0800, Peng Fan wrote:
+> Hi Jiafei,
 > 
-> These devices are SPI-controlled direct digital synthesizers
-> requiring AVDD, DVDD supplies and an external master clock.
+> On Mon, May 11, 2026 at 10:39:24AM +0800, Jiafei Pan wrote:
+> >This patch series is to add remoteproc support on Cortex-A Core of i.MX platforms:
+> >1. Adding dts binding for Cortex-A Core remoteproc
+> >2. Enable Cortex-A Core remoteproc support in remoteproc driver
+> >3. Adding dts example on imx93 platforms.
 > 
-> Require spi-cpol since AD9832/AD9835 use SPI mode 2.
-> Update the example to include spi-cpol and use a generic node name.
+> Normally, we only keep one patch or patch series from the same author that
+> modifies the same file in the review queue at a time.
 > 
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-As per v1 discussion that is ongoing - we haven't in the past put
-dt-bindings in place until we are ready to move the driver in question
-out of staging.  IIRC these are a fair way from reaching that stage.
-
-Anyhow with that in mind a few quick comments inline.
-
-Thanks,
-
-Jonathan
-
-> ---
->  .../bindings/iio/dds/adi,ad9832.yaml          | 91 +++++++++++++++++++
->  1 file changed, 91 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/dds/adi,ad9832.yaml
+> You already have a patch for imx_rproc.c currently under review(got R-b, but
+> need Mathieu to handle), so this patch series might be delayed to be reviewed.
 > 
-> diff --git a/Documentation/devicetree/bindings/iio/dds/adi,ad9832.yaml b/Documentation/devicetree/bindings/iio/dds/adi,ad9832.yaml
-> new file mode 100644
-> index 000000000000..9f3e41cb0a0d
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/dds/adi,ad9832.yaml
-> @@ -0,0 +1,91 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/dds/adi,ad9832.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Analog Devices AD9832 / AD9835 DDS
-> +
-> +maintainers:
-> +  - Hungyu Lin <dennylin0707@gmail.com>
-> +
-> +description: |
-> +  Binding for Analog Devices AD9832 and AD9835 SPI-controlled direct
-> +  digital synthesizers (DDS). The devices use an external master clock
-> +  and are controlled over a serial SPI-compatible interface.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - adi,ad9832
-> +      - adi,ad9835
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  spi-max-frequency:
-> +    maximum: 20000000
-> +
-> +  spi-cpol: true
-> +
-> +  clocks:
-> +    maxItems: 1
-> +    description:
-> +      External master clock input.
-> +
-> +  clock-names:
-> +    const: mclk
+> As I have replied in internal, to make multiple OS run on Cortex-A SMP without
+> hypervsior, some GIC changes are required, without those GIC changes,
+> this patchset is not testable using upstream tree.
+>
 
-Do we need to name it if there is only one?
+If that is the case, please re-submit when the proper background work on GIC has
+been merged.
 
-> +
-> +  avdd-supply:
-> +    description:
-> +      Analog power supply.
-> +
-> +  dvdd-supply:
-> +    description:
-> +      Digital power supply.
-Personally I'd not bother with the descriptions as
-avdd is always analog supply and where you have one of those
-dvdd is the digital one.  Absolutely fine to have
-
-   avdd-supply: true
-   dvdd-supply: true
-
-And no more info about htem.
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - avdd-supply
-> +  - dvdd-supply
-> +  - spi-cpol
-> +
-> +allOf:
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    mclk: clock {
-> +      compatible = "fixed-clock";
-> +      #clock-cells = <0>;
-> +      clock-frequency = <25000000>;
-> +    };
-> +
-> +    vdd_3v3: regulator {
-> +      compatible = "regulator-fixed";
-> +      regulator-name = "vdd_3v3";
-> +      regulator-min-microvolt = <3300000>;
-> +      regulator-max-microvolt = <3300000>;
-> +      regulator-always-on;
-> +    };
-
-See other binding examples. Normally we just refer to clocks
-and regulators etc that are magically coming from somewhere outside
-of the example snippet. So shouldn't need any of the stuff above here.
-
-> +
-> +    spi {
-> +      #address-cells = <1>;
-> +      #size-cells = <0>;
-> +
-> +      dds@0 {
-> +        compatible = "adi,ad9832";
-> +        reg = <0>;
-> +        spi-max-frequency = <20000000>;
-> +        spi-cpol;
-> +        clocks = <&mclk>;
-> +        clock-names = "mclk";
-> +        avdd-supply = <&vdd_3v3>;
-> +        dvdd-supply = <&vdd_3v3>;
-> +      };
-> +    };
-
+Mathieu
+ 
+> Thanks,
+> Peng
+> 
+> >
+> >Signed-off-by: Jiafei Pan <Jiafei.Pan@nxp.com>
+> >
+> >---
+> >Changes in v3:
+> >- Fixed dt_binding_check warnings
+> >- Updated prefix of patch subject
+> >
+> >Changes in v2:
+> >- Update arch/arm64/boot/dts/freescale/Makefile to add new dts
+> >
+> >---
+> >Hou Zhiqiang (1):
+> >  remoteproc: imx_rproc: add autoboot support for A-core
+> >
+> >Jiafei Pan (3):
+> >  dt-bindings: remoteproc: add imx-rproc-psci
+> >  remoteproc: imx_rproc: add support for Cortex-A Core
+> >  arm64: dts: imx93: Cortex-A Core remoteproc device node
+> >
+> > .../remoteproc/fsl,imx-rproc-psci.yaml        |  51 ++++++
+> > arch/arm64/boot/dts/freescale/Makefile        |   2 +
+> > .../imx93-11x11-evk-multicore-rtos.dts        |  39 +++++
+> > .../imx93-14x14-evk-multicore-rtos.dts        |  39 +++++
+> > .../boot/dts/freescale/imx93-rproc-ca55.dtsi  |  14 ++
+> > drivers/remoteproc/imx_rproc.c                | 150 ++++++++++++++++++
+> > drivers/remoteproc/imx_rproc.h                |   2 +
+> > 7 files changed, 297 insertions(+)
+> > create mode 100644 Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc-psci.yaml
+> > create mode 100644 arch/arm64/boot/dts/freescale/imx93-11x11-evk-multicore-rtos.dts
+> > create mode 100644 arch/arm64/boot/dts/freescale/imx93-14x14-evk-multicore-rtos.dts
+> > create mode 100644 arch/arm64/boot/dts/freescale/imx93-rproc-ca55.dtsi
+> >
+> >-- 
+> >2.43.0
+> >
