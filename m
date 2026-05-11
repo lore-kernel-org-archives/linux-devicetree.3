@@ -1,117 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 653294D90C7;
-	Mon, 11 May 2026 21:37:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1941137F72A
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 21:39:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778535452; cv=none; b=Rr7A3SUv4HSd8Mgx1roWne7qtSYXBYKs37KIWaiUi6GdtczMMj/jrLoVVR1AJo8asD9wLzVEnbiDp41tsLmxropQc+ZPbern+jGpps2p08w6DmV/457xsOkI2M4p9qvEKS0Z5CBNnASnq1JTyBDkUTtsZFgvGmy5Gfe4HhCppwA=
+	t=1778535586; cv=none; b=sJJGXveyu4JibbQK6TsIVib9aPMIN2KEpRNUVGvT0fbi4vUQrSPgHVdQgZfiTttQO96x9y+eERHiO4i29XgSpGsU1mm1xuSLWndn/GD6F2ntIQ61VI1A3RLnU3GPeL86+77Q6I2P4lglZgXPUG055Ioiei7FhCiMiXvpATCgKzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778535452; c=relaxed/simple;
-	bh=LpC8dEhUAYtNBitL6JLbgQXkI/W8PLjyplYzWL+mk9E=;
+	s=arc-20240116; t=1778535586; c=relaxed/simple;
+	bh=D4EgHDk9xQ0CQSZ9uCqa9IoydiJHS14pOqRBWHOb6xA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FuqVK77jJygZp08RPySkk/f293NK9ZY+dpWfbT8grEWzIig2atN1rwNSgKsoKeGjeyRtUkNByMhUZkiUSwalEXgkY9N1aKzDfimIxi/67RQC1PhvCf/GTruOygML5sjXoJFx8EhdS3ZUlOPjH8JomX7w2He9Tqo6Xwc0eorFD98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KFznTjdi; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=I2F5WBNqXFum5jSRuisubGHaAW8bsSvJVJx0ZZlzlxyL8/6xMm7aR+34C9kJYQ2EoPgUrNQwB5YQegJH/4DZKN0Zn6WUP2LGK+nvXPMH2dsbtRuNuo38/fRor8hD8QSmZKZO9yS1vNEvwqGwQI86vMpywOBNq4mG8skK6iTWIeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lCrWvq8r; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KFznTjdi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEB77C2BCB0;
-	Mon, 11 May 2026 21:37:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lCrWvq8r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0B80C2BCB0;
+	Mon, 11 May 2026 21:39:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778535452;
-	bh=LpC8dEhUAYtNBitL6JLbgQXkI/W8PLjyplYzWL+mk9E=;
+	s=k20201202; t=1778535585;
+	bh=D4EgHDk9xQ0CQSZ9uCqa9IoydiJHS14pOqRBWHOb6xA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=KFznTjdiHST0zexWvDtOmvYWtJbZH8NlpWAEwk8vqjdRp7LCLou1NI6iy4JDVGqvV
-	 A1KvR2S3SQfe1/wHv7+UZQh1g5RkYx342gf2DecsiduBSL+LXxDO6svnuBgueCBuHB
-	 3iJ9bDD7e4pO+k8hOT5pNKm2Vtk4YG5AwXY1NXAP352RAPByE6b7DX+KhCBb6CIbnp
-	 7/Bdq5d4SIWajjlDlYeIRnn5ynu/ZpHJ7CAuWQ5h+8fYsi1aJHvbxRItrEylVlsAYN
-	 3VnOomtYjkirKpDsHF8bIOH9aHMIkTL417O03d6FR7xZLmzfuH3Ze/q0Nyrz2mBEOt
-	 62OHzkLZtLurw==
+	b=lCrWvq8rJBwXObFg1u6ZTFms92o/i/uafdytRu+s7aYOSCPgnGx9tQYwjYFC+2Cpz
+	 1Ks7Ncslu+km5qf1aOjpF+mQcWRx0MrycMETI4b41LiOP7q6HN3dCVE1bAFMgBRCLQ
+	 2Hp+wVriQu4XXKLfM3QvEIBuU/TKlrMamqyGkS1npPPWbkJWFObVEPDrwEC3Xtcx6o
+	 adCDpcV9LBvknSQJAiga2dlLar6PgDeds6vGf5pH1NNwbleqD4AxPy/V73DHWyml8E
+	 3AgRvbpjQh4QxeSs8WvXMoByLufV3ymuXxBKTHp8PazxvxqJi0gDBeBq6/nCedr5J8
+	 zbJJjN4KXMAlw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 4/6] dt-bindings: mfd: motorola-cpcap: document
- Mapphone and Mot CPCAP
+Subject: Re: [PATCH] dt-bindings: misc: add documentation for Xilinx
+ AXI-Stream FIFO IP core
 Reply-To: sashiko@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: robh@kernel.org, dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260510110804.33045-5-clamor95@gmail.com>
-References: <20260510110804.33045-5-clamor95@gmail.com>
+To: "Kartik Nair" <contact.kartikn@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260510190908.400-1-contact.kartikn@gmail.com>
+References: <20260510190908.400-1-contact.kartikn@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 11 May 2026 21:37:31 +0000
-Message-Id: <20260511213731.DEB77C2BCB0@smtp.kernel.org>
+Date: Mon, 11 May 2026 21:39:45 +0000
+Message-Id: <20260511213945.A0B80C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The schema prevents the use of the generic `motorola,cpcap` fallba=
-ck for the new compatible strings, which will break device probing.
+- [High] The YAML binding schema is incomplete and sets `additionalProperti=
+es: false`, which rejects valid device trees and breaks driver probing.
+- [Low] The commit introduces a new YAML binding but fails to remove the ex=
+isting text-based binding, leading to duplicated and conflicting documentat=
+ion.
 --
 
-commit 43b55cbad252ef116a236dfd195512e35a6f5c82
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+commit a25eb1af928bc942c4ddef43a8d5e91efa619819
+Author: Kartik Nair <contact.kartikn@gmail.com>
 
-dt-bindings: mfd: motorola-cpcap: document Mapphone and Mot CPCAP
-   =20
-Add compatibles for Mapphone and Mot CPCAP subdevice compositions. Both
-variations cannot use st,6556002 fallback since they may be based on
-different controllers.
+dt-bindings: misc: add documentation for Xilinx AXI-Stream FIFO IP core
 
-> diff --git a/Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml b/=
-Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml
-> index 7f257f3a1a5a2..542d149d2b39c 100644
-> --- a/Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml
-> @@ -14,9 +14,14 @@ allOf:
-> =20
->  properties:
->    compatible:
-> -    items:
-> -      - const: motorola,cpcap
-> -      - const: st,6556002
-> +    oneOf:
-> +      - enum:
-> +          - motorola,mapphone-cpcap
-> +          - motorola,mot-cpcap
+This patch adds device tree binding documentation for the Xilinx AXI-Stream
+FIFO IP core. It introduces a new YAML schema to document the compatible
+strings used by the axis-fifo driver.
 
-Will this prevent the use of motorola,cpcap as a fallback for the new
-compatible strings? It looks like this branch of the schema requires devices
-to provide only a single compatible string.
+Does this update also need to remove the existing text-based binding at
+drivers/staging/axis-fifo/axis-fifo.txt? Keeping the legacy text file
+alongside the new YAML schema introduces duplicated and conflicting
+documentation.
 
-Looking at the OMAP4 board code for Mapphone devices, it explicitly matches
-against the generic motorola,cpcap string:
-
-arch/arm/mach-omap2/pmic-cpcap.c:cpcap_init() {
-    ...
-	if (!of_find_compatible_node(NULL, NULL, "motorola,cpcap"))
-		return -ENODEV;
-    ...
-}
-
-By forbidding motorola,cpcap as a fallback in the bindings, will device tre=
-es
-updated to pass schema validation (by using only the new specific compatibl=
-es)
-fail to find the node at runtime in the board code?
-
-If the node is not found, does this prevent the initialization of the CPCAP
-PMIC voltage regulators on OMAP4 devices, breaking power management and
-voltage scaling?
-
-Could the schema permit motorola,cpcap as a fallback for the new compatible
-strings, perhaps by using an items list with the new strings as the first
-item and motorola,cpcap as the const fallback?
-
+> diff --git a/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.ya=
+ml b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+> new file mode 100644
+> index 0000000000000..597699034f134
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+> @@ -0,0 +1,44 @@
+[ ... ]
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - xlnx,axi-fifo-mm-s-4.1
+> +      - xlnx,axi-fifo-mm-s-4.2
+> +      - xlnx,axi-fifo-mm-s-4.3
 > +
-> +      - items:
-> +          - const: motorola,cpcap
-> +          - const: st,6556002
-> =20
->    reg:
->      maxItems: 1
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+
+The drivers/staging/axis-fifo/axis-fifo.c driver requires several vendor
+specific properties to probe successfully, such as
+xlnx,axi-str-rxd-tdata-width, xlnx,axi-str-txd-tdata-width,
+xlnx,rx-fifo-depth, xlnx,tx-fifo-depth, xlnx,use-rx-data, and
+xlnx,use-tx-data.
+
+Are these properties missing from the schema?
+
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +
+> +additionalProperties: false
+
+If the vendor properties are added to the device tree to allow the driver
+to probe, won't setting additionalProperties to false cause the schema
+validation to fail?
+
+Device trees that pass this strict schema would then fail at runtime since
+the driver will abort the probe when the missing properties are not found.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510110804.3304=
-5-1-clamor95@gmail.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510190908.400-=
+1-contact.kartikn@gmail.com?part=3D1
