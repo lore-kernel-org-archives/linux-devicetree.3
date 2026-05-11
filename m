@@ -1,89 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B89356748;
-	Mon, 11 May 2026 23:26:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAA8C2FF66B
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 23:31:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778541968; cv=none; b=RyCyco02J8QZrRSXuHimKSNA1YW/EtclwLI924hP2A3hYN1tg+/4oGUhxlKfuZTFnsfsXlw7rEeeTx8O99rnPgs295/mVLQtLaBqnSDEm2bR/VQjvaR7RU+tzlKqcIdBZLabauEyjHtv41wMtHNwL15l1wuDsKsEDj94bUwLrso=
+	t=1778542271; cv=none; b=IVu1oRUbXnOSsgRtTNFGAxMwJ9T+ilP1NRPrko9EmaLN3NrliATBP8kO4rUcklAAy4SqiYsCnGkSSgJpB08ssjsZX8Ofl3z+FVstqsk+ruCaFvaBHli+9iP+K8fuTI1DpF/Io6mRAvP+5Mvy9H29nPaNUJ2KzOi7Ea1iE+PutzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778541968; c=relaxed/simple;
-	bh=FFxy2qGG5uICxZy6GlEVZYlyFPB95KU8iomidDtk2XA=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=UHVbc3FnbmTboZT4yOPzmc3bV+Hr0F6O92mP/oVgWZT0pgxjiZ+uB/eFo1vIy1FZx9OtRXFflp8xXBtf3KFLQRQXv501T4iJ6XOfOKFOMcslA5JUvQI77a0Prq11l2a9aERi5qBDgQsTrHzVyvc//JFJytvLTXbQQdn+SXYaxoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k62h1kKb; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778542271; c=relaxed/simple;
+	bh=HvVrJZRhvOXQ5WGlN8OqQbVPwD1+uIkhVAC8WUku1no=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=R+F7xAI8MqhXWPs/bWP1z9MaOso3s1aUEpLJo+I0/0651syJg/S38HsRyOQf+uyDAUwSQMtwZA9i2RcSvKTiPoslUFOQZl4b9BGb964keqoUI+rX6gNVws+NAU7yAH181Z3lpPYqfTgipBBgNwkZOObNGZvOSCHXRpX1dyk1K6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N90clGnV; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k62h1kKb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15C8AC2BCB0;
-	Mon, 11 May 2026 23:26:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N90clGnV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A317C2BCB0;
+	Mon, 11 May 2026 23:31:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778541968;
-	bh=FFxy2qGG5uICxZy6GlEVZYlyFPB95KU8iomidDtk2XA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=k62h1kKb8vIErULvwuFtu8BzMPVBtg/C0t94FaJwu1JkTOruCcndsTZXQ/GajYWxK
-	 wlFsLI8RTi2FRa60IHJNZb6wACBwwYmHR1LwDwalDHpWPNfrltv8hl/oaR0PHgrcw6
-	 HT1zLVJNCezcYuPq9xN8mEZ4RSh0Okom68+W11pLDGMgpC1wJLJSpUEpvhb60uEXnM
-	 vcXD+NNf747+JlPQcdLM1QyIpc4R7iEeY+y9D9EHuI6xfO1xFx7P9pi2GMnfm8vN7r
-	 BzmnWI+FL4JP94QNz1GsSk9LmkoTxlSs+wEqXDqWfVtOj4Boar94+Q7VEnrA/xqRLn
-	 s7JVqAKc3Td9Q==
-Date: Mon, 11 May 2026 18:26:06 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Florian Eckert <fe@dev.tdt.de>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Johan Hovold <johan+linaro@kernel.org>,
-	Sajid Dalvi <sdalvi@google.com>,
-	Ajay Agarwal <ajayagarwal@google.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	Eckert.Florian@googlemail.com, ms@dev.tdt.de
-Subject: Re: [PATCH v5 1/7] MAINTAINERS: Remove bouncing intel-gw maintainer
-Message-ID: <20260511232606.GA194054@bhelgaas>
+	s=k20201202; t=1778542270;
+	bh=HvVrJZRhvOXQ5WGlN8OqQbVPwD1+uIkhVAC8WUku1no=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=N90clGnVllJGoMcGuPXYjc96fTw/QOK7K4dLwA3XdUOUgrWgW4SJkvK46FJ0jJNX7
+	 MnBUnkWoa1hyoyJ0GbnIoAyMIxeK/0qvDR3a/42sN5VE3IRTgzfzDZOK6hDuyDrhsF
+	 U6vNrWsQ5TiVSjZhg2HelVe2CBF/KNSh4Tc+tbS/+7Ow27JSwDP//csLyR2NfX0CmQ
+	 G93UkovmlifKo203CJ8QTODPWEpzzEVBvtxfhKkZ82Z6DWHyg4+qkYRuDP3PtpdTp+
+	 BWoM3c5Dle65iS956uWc6Wy9vHDWZW/aFUWeAtiPhQY+y8yTz/gXEBK/dYmzG5kNdv
+	 ZTldwmRZPwFKQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 11/11] Documentation: ABI: testing: add common ABI
+ file for iio/frequency
+Reply-To: sashiko@lists.linux.dev
+To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260510-adf41513-iio-driver-v12-11-34af2ed2779f@analog.com>
+References: <20260510-adf41513-iio-driver-v12-11-34af2ed2779f@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 11 May 2026 23:31:09 +0000
+Message-Id: <20260511233110.5A317C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260417-pcie-intel-gw-v5-1-0a2b933fe04f@dev.tdt.de>
 
-On Fri, Apr 17, 2026 at 10:35:45AM +0200, Florian Eckert wrote:
-> The maintainer's email address has been bouncing for months. Mark the PCI
-> intel-gw driver as orphaned.
-> 
-> Signed-off-by: Florian Eckert <fe@dev.tdt.de>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The KernelVersion for the moved `out_altvoltageY_frequency_resoluti=
+on` ABI attribute was incorrectly updated to 6.20 instead of preserving its=
+ original 3.4.0 value.
+--
 
-I pulled this one into pci/for-linus because we can merge it for v7.1
-and avoid more bouncing.
+commit 59c63b99530f4ce70f9ab8349bf07c68787a1bfa
+Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-Mani, if you add more intel-gw patches this cycle, you'll have to
-re-fetch the pci/controller/dwc-intel-gw branch first.
+Documentation: ABI: testing: add common ABI file for iio/frequency
 
-> ---
->  MAINTAINERS | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index d1cc0e12fe1f004da89b1aa339116908f642e894..725f333f265bef416b5144c56649cb6eae736e40 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -20518,9 +20518,8 @@ F:	Documentation/devicetree/bindings/pci/intel,keembay-pcie*
->  F:	drivers/pci/controller/dwc/pcie-keembay.c
->  
->  PCIE DRIVER FOR INTEL LGM GW SOC
-> -M:	Chuanhua Lei <lchuanhua@maxlinear.com>
->  L:	linux-pci@vger.kernel.org
-> -S:	Maintained
-> +S:	Orphan
->  F:	Documentation/devicetree/bindings/pci/intel-gw-pcie.yaml
->  F:	drivers/pci/controller/dwc/pcie-intel-gw.c
->  
-> 
-> -- 
-> 2.47.3
-> 
+This commit moves the out_altvoltageY_frequency_resolution ABI documentation
+from the adf4350-specific file to a common file to be shared with ADF41513
+devices.
+
+> diff --git a/Documentation/ABI/testing/sysfs-bus-iio-frequency b/Document=
+ation/ABI/testing/sysfs-bus-iio-frequency
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/ABI/testing/sysfs-bus-iio-frequency
+> @@ -0,0 +1,11 @@
+> +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency_resolu=
+tion
+> +KernelVersion:	6.20
+
+This isn't a bug, but should the KernelVersion be kept as 3.4.0?
+
+The KernelVersion field documents when the sysfs attribute was first
+introduced into the kernel, rather than when the documentation was updated
+or moved.
+
+[ ... ]
+
+> diff --git a/Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4350 b/=
+Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4350
+> --- a/Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4350
+> +++ b/Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4350
+> @@ -1,13 +1,3 @@
+> -What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency_resolu=
+tion
+> -KernelVersion:	3.4.0
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510-adf41513-i=
+io-driver-v12-0-34af2ed2779f@analog.com?part=3D11
