@@ -1,153 +1,175 @@
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E233E3CFF6F
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 10:43:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F4253D093F;
+	Mon, 11 May 2026 10:44:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778496241; cv=none; b=YE8jEuc0mfd020Aph9vU+3GqCRWivAxAGikhwy+WIRJfJrwXu9CTBbDRYQnyp5V2SRMZET3dHC9kFAsEaDRtN1c67gWxpaG8fa8/fuvpwUndej76qQf2NDKwyUUi9Qsczhnc+TfbsofJXhQRePlW+ctHhyNImrux+zh9go5f4dA=
+	t=1778496263; cv=none; b=E12/0WWP31dnBSwQm884elgp+PcEQKXxMvSWYBwclgkRamBkrHmTMA7jKYfqv8QrGzI7MMBRhmxeE3j8gjqIXDeMxJdIm7GbQfRIc3mwi+pLcBtxaBcQOxMrQTzu8nnXPtLwjEQM2S5yj6lv7cByCm5qvdlFc5wlKjyQmlwmLyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778496241; c=relaxed/simple;
-	bh=RhdInbOmWtiuTXxtdNvqUyqvKPi/PSddY1cRe09C2X4=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=FllX97VirbE0bWzxHnrDUVwJRAImMcsG657kcbIDb8ZUktwPWJ23NXAFnTP4pdaiajL9Y4FDjtOKgJOFxtKL6TgIUPARHPP7HRujh67leyhfwPvRYqHN0Y4oi7pMtNknoHWc5uRPs6/ijzB3BPFhtY7ZzHon1UzfCLBiw5uGB8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sxS/jSOD; arc=none smtp.client-ip=209.85.208.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778496263; c=relaxed/simple;
+	bh=hz1q+4NUU2V+NicWNZbe3cANGe42RkOrxqmFgGggUZk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tFUo25cEa/w/Sm+gjbdySC9MNEjmm1fqQl+2NYAk9toVV09S6maA9zLUCsUJnrM0sdHBINPkvo5NZtIQLYAAVOLub/P5pzJOfsADmDYq5WaZaQ1o6dSEdTIx+8Q0+8mNLJJBpOw7uhkJ7KtXeAOL4FfPlNEJSe8DUevPHNmnBjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IDSaqUMn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sxS/jSOD"
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3937014be0cso37201051fa.0
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 03:43:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778496238; x=1779101038; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=c9ClfHjcGORkb1ZqNXsd9yYJQtHroStE/CQmUs64xX8=;
-        b=sxS/jSOD8iqjjzGYaQwEvTEzsymSTU0UWFZvsd94lecG4qScqOZPcF5XKlMdNgucyh
-         S4RT0JBmcVP0Of4qn6bWLScRi4Sv8WEzjymp19uNohdpOq7c94Q7WlIVTDKlUf5Z2MaH
-         87/2rbn3ujPKL1aImPpoKe8R6gj6GOr19ieC/yXUruxF8c9o3hiKlp/sKDgc7fhXoOzj
-         BIUET1q7oG1owPo+Y8kX7pmCn2ASE19o//24VoOCIpjF42WEoVuorjn5xXINChNcu4aa
-         6eo6kd/CApGViG+uEunBuGWUJ2b//6v8XriL6z5/DVp2qCA67hdP7Iv76fZHGpnYl7yp
-         nHPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778496238; x=1779101038;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=c9ClfHjcGORkb1ZqNXsd9yYJQtHroStE/CQmUs64xX8=;
-        b=bu0a+jVhHHkuGSKRlBGy6patWTTy9BJcusfMbW1ULHDTlznupHN27srOcyCJjLKz8x
-         17C3U3xGg4TzMXZL+IK3Rt3mhZVlgZLoRq/dRRLf7j5WrT7YnIAYgYUX2yllMcT8b+/v
-         m/NN9qaQUajmFDAMbVQM4WT5p+4u23Lr3nOW7tDX1OamYyzaXE4Co3mvEJe/S5fvDiok
-         F+/bGu0Rc6iEBldIWTN025do8xuwjzArJ+oU8dp6w6I8uAVS0e5HFDvh0qi+CUM2l22q
-         l1xlNvJKzrktQ2VJH2HIvZB6Sx2DWNZ7TAPv8UE7Q175xMHfmBifMevb7cJJOWE1p/Kv
-         I3Qw==
-X-Forwarded-Encrypted: i=1; AFNElJ9JsiC772siBDowxEtsdslogVsnfH4TaPvikmr9p337dLkIa+LeakzJWtlFqQWD6UPe8phnJGZxl4Uf@vger.kernel.org
-X-Gm-Message-State: AOJu0YwQp52xXiwloPu5NCAHF5qGbTsDZ/xQ8dq9b2yMlPqw7P++CPCB
-	c1djdeRPuPGHkoZcRg5fMwTPmPP2lu0HgBFim8T2jkqMgw+g+C4O8w/t
-X-Gm-Gg: Acq92OFxKW47wTVf8GeMIhcs/U3aZnkc/e+ts7kym2MhTdyzCacj7xIm+4UgvxwDvo1
-	22P+XOm7oLt6IYFcvWJxM3W5t/P2s+K/tYKBenzWgXCA0okVMwJ8eMmoi3p+IMMPFYpuusRruUi
-	rr8HO/w56hSboS7r8rGek6qmQ96lh4kUMpAgJSnfCVnv4qOemZDcZ7p1ymVDzIv2AWPVmC1xu9u
-	ov1WW2En8//M4lFsf0w6chyRpKTKZYRUYy3QcgPznYCUYRC+E0MKuV8LtwJEcSMgo2H2FGBwIiC
-	LUYLQOJjdHwDUxw5U01isLaXdTk8jZQXF8zr+2O4IZR1psA5nq4aZNcqv4hW3sSQDDunc7RegiC
-	5HRh/SqpjnMaFEPOx4uqPyg6EBVVokKj8+Ouer4zyB+dPRLHVmNNIJIKoFeDRjTVywDWu9tSw1a
-	NgHE1d3w/TiBpXs6pBqRxftD0DRfDj7loxNi1s0SchNQeLPtteQzZbwMKNiNHlcwqcpAZeVPrWy
-	nno+7pNWhxTeRvy33k=
-X-Received: by 2002:a05:6512:15a0:b0:5a3:d375:f587 with SMTP id 2adb3069b0e04-5a8a94c8226mr4904025e87.35.1778496237829;
-        Mon, 11 May 2026 03:43:57 -0700 (PDT)
-Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a8a951cfb4sm2546655e87.20.2026.05.11.03.43.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 11 May 2026 03:43:57 -0700 (PDT)
-Message-ID: <00855a46-20f9-4b4c-8bec-bb64d9d8efe6@gmail.com>
-Date: Mon, 11 May 2026 13:43:56 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IDSaqUMn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93DB1C2BCB0;
+	Mon, 11 May 2026 10:44:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778496262;
+	bh=hz1q+4NUU2V+NicWNZbe3cANGe42RkOrxqmFgGggUZk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IDSaqUMniI8GuuoBfidhvPghubLZVt7Jfu5s/MmW10k5tnSRtuDCpZQHttXjbILJx
+	 1XWPCwmxZEnw8eSqxTSrLK2iXxLLxeYSjYXjg7euZGdQhUc0Sk5Zf/HLDwBogrx4eM
+	 c1Q6ZE8kX0KASNZlzDTtORi7BjrZC0e+ErOCuf1Ln/arnQQtICRdYNfAOCUvagAH34
+	 9Z8cYkm9HDHNw7AhixkLxT4jZxyxyNgKRpQ34UgnmIGjokp+mf0xmpgU2KCoZLf/Ly
+	 J9jL/GUhCmFmFdIOSSXJfoRhh2cXCICQFIDPo3U/TLH5OB0jqJnb+F+LRiM/xt3bTu
+	 01yVAtA7CqXTw==
+Date: Mon, 11 May 2026 12:44:20 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: sashiko@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH net-next v5 01/12] dt-bindings: net: airoha: Add EN7581
+ ethernet-ports properties
+Message-ID: <agGzBKLm1rlGLNwv@lore-desk>
+References: <20260509-airoha-eth-multi-serdes-v5-1-805e38edc2aa@kernel.org>
+ <20260510140501.AF190C2BCC9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: iio: light: Add ROHM BH1730FVC binding
-From: Matti Vaittinen <mazziesaccount@gmail.com>
-To: Alexandre Hamamdjian <azkali.limited@gmail.com>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, CTCaer <ctcaer@gmail.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260511-bh1730-v1-0-e0df1f499135@gmail.com>
- <20260511-bh1730-v1-1-e0df1f499135@gmail.com>
- <92e2d1ab-c973-45a2-b0c4-d7c672c610e0@gmail.com>
-Content-Language: en-US, en-AU, en-GB, en-BW
-In-Reply-To: <92e2d1ab-c973-45a2-b0c4-d7c672c610e0@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="75R9xbSTaatBEu1s"
+Content-Disposition: inline
+In-Reply-To: <20260510140501.AF190C2BCC9@smtp.kernel.org>
 
-On 11/05/2026 11:22, Matti Vaittinen wrote:
-> Thanks for patches Alexandre!
-> 
-> It's nice to see these upstreamed :)
-> 
-> On 10/05/2026 21:09, Alexandre Hamamdjian wrote:
->> From: CTCaer <ctcaer@gmail.com>
->>
->> Add a YAML binding for the ROHM BH1730FVC ambient light sensor.
->> Documents the required compatible string, the als-vdd/als-vid
->> regulators, and the rohm,integration-cycle, rohm,lux-multiplier,
->> rohm,opt-win-coeff and rohm,gain-coeff calibration properties
->> consumed by the driver.
 
-// snip
+--75R9xbSTaatBEu1s
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
->> +  rohm,opt-win-coeff:
->> +    description:
->> +      Optical-window calibration coefficients. Specified as a flat 
->> list of
->> +      triplets <rc cv ci>, one triplet per window region, where rc is 
->> the
->> +      visible/IR ratio cutoff and cv/ci are the visible and IR weighting
->> +      factors used in that region.
->> +    $ref: /schemas/types.yaml#/definitions/uint32-matrix
->> +    items:
->> +      minItems: 3
->> +      maxItems: 3
-> 
-> I am not sure if I read the driver patch (2/2) correctly, but if I did, 
-> then these coefficients are used to compute Luxes out of the raw sensor 
-> data. I believe it would help anyone integrating (or investigating) this 
-> sensor, if you added the actual formula here as a comment. If I read 
-> this right, the formula is _somehting_ like:
-> 
-> 
-> Lx = (cv[win] * ch0_data - ci[win] * ch1_data) / gain / int_time
-> 
-> Here the cv[win] and ci[win] are selected from the opt-win-coeff -table, 
-> depending on the measured ch1_data/ch0_data ratio, right?
+> Thank you for your contribution! Sashiko AI review found 3 potential issu=
+e(s) to consider:
+> - [High] The `reg` property check in the conditional `if` block uses an i=
+nvalid JSON schema sequence that will always evaluate to false, causing val=
+id device trees to fail validation.
+> - [High] The `ethernet-port@[0-5]` nodes model a `net_device` but strictl=
+y forbid standard network configuration properties like `mac-address` and `=
+phy-handle`.
+> - [Low] Missing `#address-cells` and `#size-cells` in the `required` list=
+ for conditional child nodes.
+> --
+>=20
+> commit 270a641148bef0e32520efd84b62bf6b97aa5a63
+> Author: Lorenzo Bianconi <lorenzo@kernel.org>
+>=20
+> dt-bindings: net: airoha: Add EN7581 ethernet-ports properties
+>=20
+> This commit introduces the ethernet-port property for EN7581 and AN7583
+> SoCs to model multiple net_devices connected via an external arbiter to
+> GDM3 or GDM4 ports.
+>=20
+> > diff --git a/Documentation/devicetree/bindings/net/airoha,en7581-eth.ya=
+ml b/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
+> > --- a/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
+> > +++ b/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
+> [ ... ]
+> > @@ -130,6 +130,38 @@ patternProperties:
+> >          maximum: 4
+> >          description: GMAC port identifier
+> > =20
+> > +      '#address-cells':
+> > +        const: 1
+> > +      '#size-cells':
+> > +        const: 0
+> > +
+> > +    allOf:
+> > +      - if:
+> > +          properties:
+> > +            reg:
+> > +              items:
+> > +                - enum:
+> > +                    - 3
+> > +                    - 4
+>=20
+> Will this schema condition evaluate as expected?
+>=20
+> In dt-schema, reg properties are parsed into a matrix format, which is an
+> array of arrays of integers like [[3]]. This schema checks if the first
+> element of the outer array matches the scalar values 3 or 4, but since
+> the first element is an inner array, it won't match a scalar.
+>=20
+> Could this cause the if block to always evaluate to false, causing valid
+> ethernet-port nodes to be incorrectly rejected because the parent node
+> sets unevaluatedProperties: false?
 
-One thing came to my mind. This 'window' -approach for lux calculation 
-is not too unique. For example the rohm-bu27034.c uses similar approach.
+ack, I will fix it in v6.
 
-The thing is that some of the sensors have more than 2 channels. (For 
-example, the first version of BU27034 did. [That was BU27034NUC, which 
-got cancelled when BU27034_A_NUC emerged]). These ICs may still may use 
-similar approach of having light regions, determined by ratio of (2) 
-channels. BUT, they may then have more than 2 coefficients / window.
+>=20
+> > +        then:
+>=20
+> Since #address-cells and #size-cells are needed for the ethernet@[3-4]
+> variants to act as buses for the new ethernet-port children, should they
+> be included in a required list within this conditional block?
+>=20
+> Without them, an incomplete device tree could omit these properties and
+> silently pass schema validation.
 
-So, maybe this could be made generic enough so it could be re-used for 
-such devices if needed? I am not sure if other manufacturers but ROHM 
-does this in Lux computations - if yes, then it might be worth making 
-this more generic and not just a ROHM property? Maybe Jonathan has some 
-insight on other Lux computations.
+ack, I will fix it in v6.
 
-Yours,
-	-- Matti
+>=20
+> > +          patternProperties:
+> > +            "^ethernet-port@[0-5]$":
+> > +              type: object
+> > +              unevaluatedProperties: false
+>=20
+> Does setting unevaluatedProperties: false here without referencing
+> ethernet-controller.yaml# forbid standard network properties?
+>=20
+> Since this models a net_device, driver code often expects to parse standa=
+rd
+> properties like mac-address or phy-handle. Device tree authors might not
+> be able to configure them without triggering schema validation errors.
 
--- 
-Matti Vaittinen
-Linux kernel developer at ROHM Semiconductors
-Oulu Finland
+ack, I will fix it in v6.
 
-~~ When things go utterly wrong vim users can always type :help! ~~
+Regards,
+Lorenzo
+
+>=20
+> > +              description: External ethernet port ID available on the =
+GDM port
+> > +
+> > +              properties:
+> > +                compatible:
+> > +                  const: airoha,eth-port
+> > +
+> > +                reg:
+> > +                  maxItems: 1
+> > +                  description: External ethernet port identifier
+> > +
+> > +              required:
+> > +                - compatible
+> > +                - reg
+>=20
+> --=20
+> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260509-airoha-eth-=
+multi-serdes-v5-0-805e38edc2aa@kernel.org?part=3D1
+
+--75R9xbSTaatBEu1s
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCagGzBAAKCRA6cBh0uS2t
+rBZ/AP46ekX8PHt/fV44JNuazuFfnPxwV0ywUdUIHKOWKpN02wEA4KhdOe/Ec2Mb
+KOaTypuBMGwQFs92Gl0hMwHuOrfkQgE=
+=tFn6
+-----END PGP SIGNATURE-----
+
+--75R9xbSTaatBEu1s--
