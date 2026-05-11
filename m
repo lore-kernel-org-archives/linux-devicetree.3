@@ -1,168 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0938F42B72B;
-	Mon, 11 May 2026 16:26:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90B3F3FFAB2;
+	Mon, 11 May 2026 16:27:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778516776; cv=none; b=RkKjOkVR5+5iwRHGTeOKuYyZiUHRF32WFC8p7KdlhT7aFzyN0Bx0qIrwaULvuVDHMUGToYQdCRQIOz4szURtrxPGds14A53GT0/sA0gKOZ0m4n92oVacQajNjSdhYVAr1iQyiziUuJr4eRuC5o25DiycL9J/uLFJwfTQv3TQc/U=
+	t=1778516860; cv=none; b=t+GNN/xZyLkaPDBEugrw6zCWPIVkKSeIFLrU86jKwAJwf20NIA597w9ayhenImDKEbQnCU8+3zbqy8KmTWYQ9Z9X5EWch5A9UKpmmCcq0Hu86Pyob/DGBHEUuusdVFGkb2eIHy7/4HA2MqOQFqefk1pPV+NLiLs+8P6kAJvhEEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778516776; c=relaxed/simple;
-	bh=nicCqXdfsNewuBYQmPZ5MAe+oudQ/+7joKgKY4kU0H8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T4920VQWGye5Fq7KbjE4XIkmS4/bXfTSBP9UiMO33k5P28lsvZoCqYutz7D/Ga0mCHq8a81xuUSp9KBZyEnjxr+EonEZiHBw+DaD7LKDOEYFaDg7+ewHdsgsZ7yfMDWloretcdiheVeyCQQW+SPlIsQvLt3Q/HiGOkqJ6JGsgzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NxaFLQ59; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778516860; c=relaxed/simple;
+	bh=BBVqtaERJSrNr2MANl4kxg7k3rO7Ou9Ei8riFRQh3vs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LhENF8wWRNpBlK995kc9vftTwkqfayPNrkOiI5V12wix+2+I0GNk42v9REiHNAeS+addrBU9aEvIJGVrzAKC4XjpNWBOyeHqIA7h+/W+CSLZALVfWZ6GJvb78FTO+QhMcNgt+afnHW5gIoHWbjNXcxvHk21xMO59rL/IH3zKXQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MFPorXmO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NxaFLQ59"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00020C2BCB0;
-	Mon, 11 May 2026 16:26:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MFPorXmO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41102C2BCC9;
+	Mon, 11 May 2026 16:27:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778516775;
-	bh=nicCqXdfsNewuBYQmPZ5MAe+oudQ/+7joKgKY4kU0H8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=NxaFLQ593ZbG8Atpcjl6CQt1yxY5DtowC7BDXgOlZRZMuJa60mG+ewXwIRTz6OGSB
-	 +fVEJtix9tqJ4+KyAhJa6yF2/ei6B2gzqfkrqr+oKrg2MZKEUrv0RzY0CpIEm2be1+
-	 PN7hvt31xQqm0WYUFcRsoLYs/5RgZcuokPDW0kwqdf1hf2bQ7NWPBzv4+CqmQ12dlr
-	 NPFLcsQbVouN9TLXUhSigy9ZaJujFKOdfMGVmHn2TVHTSKx2C75IjPUHo5MDG8ulsr
-	 VZbwc6BmdCS9TUvznWQ6Av6K7QSePhkhbX8WUZd2E2kZUFbVfb6GYXPIfGXW56KvU9
-	 0ATRVo5q0VKOQ==
-Date: Mon, 11 May 2026 17:26:09 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Antoine Bouyer <antoine.bouyer@nxp.com>
-Cc: julien.vuillaumier@nxp.com, alexi.birlinger@nxp.com,
-	daniel.baluta@nxp.com, peng.fan@nxp.com, frank.li@nxp.com,
-	jacopo.mondi@ideasonboard.com, laurent.pinchart@ideasonboard.com,
-	mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, michael.riesch@collabora.com,
-	anthony.mcgivern@arm.com, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, ai.luthra@ideasonboard.com,
-	paul.elder@ideasonboard.com, geert@linux-m68k.org
-Subject: Re: [PATCH v2 1/8] dt-bindings: media: Add nxp neoisp support
-Message-ID: <20260511-aneurism-ultimate-9bc90e654274@spud>
-References: <20260511132629.1300868-1-antoine.bouyer@nxp.com>
- <20260511132629.1300868-2-antoine.bouyer@nxp.com>
+	s=k20201202; t=1778516860;
+	bh=BBVqtaERJSrNr2MANl4kxg7k3rO7Ou9Ei8riFRQh3vs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=MFPorXmOLEjjxToQ0+xb6E7fMYWMiz65K1Wk6QuX5leUjLdaCn6CZkLGebPyTlUFt
+	 zR+tY22uUl3P2VYjkAKKTjyk2J9UCtTPSMNCVFwLcwYx2vRe47QyMAkKotNuIWFyT3
+	 Fxf6PK8W+SdRM7XLnucnvNxHUiWrIr0kuF0geibyB8xqQp8TkP5BaWEi3lhyqaU7Lm
+	 byAtYabatex0I6JRa+XWLWq7mwPccp3BjLLal6Br9PIK9pTOZbBVPM1ygNxrG7Y0F0
+	 TRXOAzisU91gYrG1pdYJwgttUbjR7+DHoUpco2x+CApcSx6gOX8VuxyO0PU3lCcF12
+	 7z3B07Fi82xTQ==
+Date: Mon, 11 May 2026 17:27:29 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Antony Kurniawan Soemardi <linux@smankusors.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
+ <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, David
+ Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Linus Walleij
+ <linusw@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, phone-devel@vger.kernel.org, Konrad Dybcio
+ <konrad.dybcio@oss.qualcomm.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@oss.qualcomm.com>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>
+Subject: Re: [PATCH v6 0/4] iio: adc: qcom-pm8xxx-xoadc: add support for
+ reading channel labels from DT
+Message-ID: <20260511172729.42407b1d@jic23-huawei>
+In-Reply-To: <20260510-pm8xxx-xoadc-label-v6-0-49700fd03005@smankusors.com>
+References: <20260510-pm8xxx-xoadc-label-v6-0-49700fd03005@smankusors.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="CjzSqaKKj3fzWanh"
-Content-Disposition: inline
-In-Reply-To: <20260511132629.1300868-2-antoine.bouyer@nxp.com>
-
-
---CjzSqaKKj3fzWanh
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, May 11, 2026 at 03:26:21PM +0200, Antoine Bouyer wrote:
-> Add the yaml binding for NXP's Neo Image Signal Processor (ISP).
+On Sun, 10 May 2026 07:01:29 +0000 (UTC)
+Antony Kurniawan Soemardi <linux@smankusors.com> wrote:
+
+> This series adds support for reading channel labels from the device tree
+> in the Qualcomm PM8xxx XOADC driver, along with the corresponding DT
+> updates for the PM8921 PMIC. Also removes the redundant error logs when
+> reading values, as returning -EINVAL and -ETIMEDOUT are sufficient to
+> report failures.
 >=20
-> Signed-off-by: Antoine Bouyer <antoine.bouyer@nxp.com>
-> ---
->  .../bindings/media/nxp,imx95-neoisp.yaml      | 62 +++++++++++++++++++
->  1 file changed, 62 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/media/nxp,imx95-neo=
-isp.yaml
+> This series also includes minor refactoring, such as removing redundant
+> error loggings.
 >=20
-> diff --git a/Documentation/devicetree/bindings/media/nxp,imx95-neoisp.yam=
-l b/Documentation/devicetree/bindings/media/nxp,imx95-neoisp.yaml
-> new file mode 100644
-> index 000000000000..458c4e4d640d
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/nxp,imx95-neoisp.yaml
-> @@ -0,0 +1,62 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/nxp,imx95-neoisp.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: NXP NEOISP Image Signal Processing Pipeline
-> +
-> +maintainers:
-> +  - Antoine Bouyer <antoine.bouyer@nxp.com>
-> +
-> +description:
-> +  The NXP NEOISP performs a set of image processing tasks on the RAW cam=
-era
-> +  stream and provides RGB or YUV enhanced image.
-
-Can someone explain to me please why there are no ports properties to
-represent the attached camera/other elements of the pipeline?
-
-This is not a review comment per se, this is me not understanding what
-the delimitation is.
-
-
-Cheers,
-Conor.
-
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - nxp,imx95-neoisp
-> +
-> +  reg:
-> +    items:
-> +      - description: The configuration registers
-> +      - description: ISP local memories
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  clock-names:
-> +    items:
-> +      - const: camcm0
-> +
-> +  power-domains:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +  - clock-names
-> +  - power-domains
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +    isp@4ae00000 {
-> +        compatible =3D "nxp,imx95-neoisp";
-> +        reg =3D <0x4ae00000 0x8000>,
-> +              <0x4afe0000 0x10000>;
-> +        interrupts =3D <GIC_SPI 222 IRQ_TYPE_LEVEL_HIGH>;
-> +        interrupt-parent =3D <&gic>;
-> +        clocks =3D <&scmi_clk 64>; /* IMX95_CLK_CAMCM0 */
-> +        clock-names =3D "camcm0";
-> +        power-domains =3D <&scmi_devpd 3>; /* IMX95_PD_CAMERA */
-> +    };
-> --=20
-> 2.51.0
+> Tested on Sony Xperia SP (PM8921):
+> > cat /sys/bus/iio/devices/iio\:device0/in_voltage7_label =20
+> usb_vbus
+> > cat /sys/bus/iio/devices/iio\:device0/in_temp12_label =20
+> ref_muxoff
+> > sensors =20
+> iio_hwmon-isa-0000
+> Adapter: ISA adapter
+> vbat:        267.86 V
+> dcin:          4.82 kV
+> ...
+> chg_temp:    +1071.4=C2=B0C
 >=20
+> Note: the sensor readings above are incorrect due to pending calibration
+> fixes are not included in this series. This patch only addresses label
+> visibility. The values are expected to be wrong until the calibration
+> fixes lands separately.
+Applied patches 3 and 4 to the testing branch of iio.git.
 
---CjzSqaKKj3fzWanh
-Content-Type: application/pgp-signature; name="signature.asc"
+When I get caught up with the backlog and the tests finish I'll push that
+out as togreg for linux-next to pick up.
 
------BEGIN PGP SIGNATURE-----
+Thanks,
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagIDIQAKCRB4tDGHoIJi
-0hf3AP0YoUoaFHDcqufm3AXvDg0DBlXqv6T1NQk3jZblplkO3wEA+E9lybZt4PQ1
-C2KUfKx64Sh7jfAMxtsypGfb40v0TgA=
-=p7we
------END PGP SIGNATURE-----
-
---CjzSqaKKj3fzWanh--
+Jonathan
