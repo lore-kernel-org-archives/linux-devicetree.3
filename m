@@ -1,51 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9F1A1339B1;
-	Mon, 11 May 2026 16:27:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A514402BA0;
+	Mon, 11 May 2026 16:28:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778516874; cv=none; b=QgaiF3qyrbHpI4gtLCllU+yRU6njQokSzZv2t9AzFYILsqzQ7MFfxjSHIrIrNeFXZfc4hi0aTCI1FeiSSIh9qDd47OWXZRuygDNGpzdVpvK8QxcZ1HzM8+F0/Mcc3DPWR7kVqwHnF2k8NqjTAog1LI8H7dQOiG1XROMWVKusiaM=
+	t=1778516912; cv=none; b=lKQkM3rpGbkeSzXMZU1D03w9vHbtFi8GNNR7W7mzxZrlTWpt1t1it1j8KDlo2+TJkOOl2uMoDvQkop1vKmrtsdmi7/kMGQknNHe0rAdvAZcUkxKUH5mMYwxYcFgHIaN+XSf6Gx/XL8oUnLUM0s4Nca1GD+bzS1Ef3lduQQZqvsQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778516874; c=relaxed/simple;
-	bh=V0wLh5KRspfOQ3ibRR/1QYF8R6kmly0cfDdqmRIJqvQ=;
+	s=arc-20240116; t=1778516912; c=relaxed/simple;
+	bh=XyGGAqtZlzRJBtg/5PYfDkuJsejYjsveP0gpxlus6BM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VuyUnFkyFi4MBrxHV8698TfgL7O7ba27y/MRpjQEWQ6D9YPX73dBHxF/yohGJpXbLYDaFtRR79KlMCZt59JHKXtljAHXNIEa4qnNXpdE9j9Ll9lpxjUZoJjmV0dq2MI58SM6funrhQeAGUIVWny1EjI8cC4HbSn6na41wy1Hkqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gcmyAxHA; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=grUXFjZrLP1szPSJj6BrPm8RQTnMXFPnxaxYRAlIBg7NVojEO5CAqWouGFf4BcHoF/aMDbl3qV8P1hgd6H/zl9zEPNa6Ft4SnGDo64MAlZKQT+kI7SoDjUih77X1Wly577h12mVOHZhGtC3zDt+8GoZeJ3BBuBt6Aeeg7148Yz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=u420ESoE; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gcmyAxHA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05BBCC2BCB0;
-	Mon, 11 May 2026 16:27:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="u420ESoE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C648BC2BCF5;
+	Mon, 11 May 2026 16:28:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778516873;
-	bh=V0wLh5KRspfOQ3ibRR/1QYF8R6kmly0cfDdqmRIJqvQ=;
+	s=k20201202; t=1778516912;
+	bh=XyGGAqtZlzRJBtg/5PYfDkuJsejYjsveP0gpxlus6BM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gcmyAxHAKFs6NB3meRHb14KoC6R9ksltSt15rHaXzZGZv3SOCwBupe3Q67oel5/qb
-	 hMr4Q0I75R456Sean1nvn2ql0Nv/q/NKL/jC1Hsco3Td8/+uB0HIRTYeq1wy0KrVHJ
-	 3/xT33SBXpz13eLPMF9CcEKP3UbhDX0t0qEsmzSwishRclNtw88eAZH0nIxnaQR+ZU
-	 zcWleaZH9FTxJde+jDXQPhnFBFqhtk2GlcNAMgH2dy86LrHK8hQoXO7MctjL4zMFAs
-	 nGFoSEGnTTLKfHtSopIXrClD54+3IG/wR+B8JApKw0cuRc2f1RMh0qrGp9PxIaBOal
-	 zRUinbWJtU2Qg==
-Date: Mon, 11 May 2026 17:27:48 +0100
+	b=u420ESoEVgcwE6erx0RH5zKF6L2dUcMJPl9ctyyKI0DA3zCiGls4Am+PLbpYGJOb3
+	 naP8HKYnKfK391suFpehhDJfRhC+DfeSdLiHWDgsDxJ53rDKGtzMTpzn44KFd8pTqD
+	 ziGLJxynkDfMqZFcOtN4857/q6jENcU1KEBZoIc75Xp+nUzXeNka62UK5STyDxF6yL
+	 iFtD71vlsXBGNzazC5TLsHV6grzLNH9gv+DmIwse96H5bdOiepstyI2Zwz40r/lVdY
+	 i2Yw6HeBe9NedhccX9eII1rjvimrM+F19mm+Jn1QKG4tjUNH6gcoBCv+otZVTsWRXt
+	 DNNGu05Xp5rzg==
+Date: Mon, 11 May 2026 17:28:27 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Arnab Layek <arnab.layek@mediatek.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Rob Herring <robh@kernel.org>,
+To: Josua Mayer <josua@solid-run.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Project_Global_Chrome_Upstream_Group@mediatek.com
-Subject: Re: [PATCH v2 1/1] dt-bindings: remoteproc: mtk,scp: Allow multiple
- memory regions for MT8188
-Message-ID: <20260511-uncouth-pandemic-080dccd30f4b@spud>
-References: <20260506133157.3283204-1-arnab.layek@mediatek.com>
- <20260511121004.2984149-1-arnab.layek@mediatek.com>
- <20260511121004.2984149-2-arnab.layek@mediatek.com>
+	Jon Nettleton <jon@solid-run.com>,
+	Mikhail Anikin <mikhail.anikin@solid-run.com>,
+	Yazan Shhady <yazan.shhady@solid-run.com>,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] dt-bindings: soc: renesas: Add various SolidRun
+ RZ/G2 based boards
+Message-ID: <20260511-headless-guzzler-4793b285a55a@spud>
+References: <20260511-rzg2-sr-boards-v2-0-82aebbd27891@solid-run.com>
+ <20260511-rzg2-sr-boards-v2-1-82aebbd27891@solid-run.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,88 +50,59 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Cth8D7RmP7y3OUje"
+	protocol="application/pgp-signature"; boundary="9V1dWzA5s948okPQ"
 Content-Disposition: inline
-In-Reply-To: <20260511121004.2984149-2-arnab.layek@mediatek.com>
+In-Reply-To: <20260511-rzg2-sr-boards-v2-1-82aebbd27891@solid-run.com>
 
 
---Cth8D7RmP7y3OUje
+--9V1dWzA5s948okPQ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, May 11, 2026 at 08:10:04PM +0800, Arnab Layek wrote:
-> The MT8188 SCP requires two reserved memory regions:
-> 1. Main SCP SRAM memory region (required)
-> 2. SCP L1TCM memory region (optional, for additional memory)
+On Mon, May 11, 2026 at 12:37:47PM +0200, Josua Mayer wrote:
+> Add bindings for various SolidRun boards and System on Module built
+> around Renesas RZ/G2 family of SoCs:
 >=20
-> Some other MediaTek SoCs only use a single memory region. This patch adds
-> a conditional schema using if/then to allow 1-2 memory regions
-> specifically for mediatek,mt8188-scp and mediatek,mt8188-scp-dual
-> compatibles, while keeping the default maxItems: 1 for other
-> SoCs.
+> - RZ/G2L SoM [1]
+> - RZ/V2L SoM [2]
+>   (shares PCB with G2L and has very similar programming model)
+> - RZ/G2LC SoM [3]
+> - RZ/G2UL SoM [4]
+>   (shares PCB with G2LC but programming model differs largely)
+> - HummingBoard IIoT [5] (RZ/G2L, RZ/V2L, RZ/G2LC)
+> - HummingBoard Pro [6] (RZ/G2L, RZ/V2L)
+> - HummingBoard Base (Ripple) [7] (RZ/G2L, RZ/V2L, RZ/G2LC, RZ/G2UL)
 >=20
-> Each memory region is documented with descriptions to
-> clarify their purpose, following the pattern used in other bindings.
+> [1] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/r=
+z-g2l-som/
+> [2] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/r=
+z-v2l-som/
+> [3] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/r=
+z-g2lc-som/
+> [4] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/r=
+z-g2ul-som/
+> [5] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/h=
+ummingboard-rz-series-sbcs/hummingboard-rz-g2l-iot-sbc/
+> [6] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/h=
+ummingboard-rz-series-sbcs/hummingboard-rz-g2l-sbc/
+> [7] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/h=
+ummingboard-rz-series-sbcs/hummingboard-rz-g2lc-base/
 >=20
-> Signed-off-by: Arnab Layek <arnab.layek@mediatek.com>
-> ---
->  .../bindings/remoteproc/mtk,scp.yaml          | 21 +++++++++++++++++++
->  1 file changed, 21 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml b/=
-Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
-> index bdbb12118da4..df13be2026a6 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
-> @@ -205,6 +205,27 @@ allOf:
->            items:
->              - const: cfg
->              - const: l1tcm
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - mediatek,mt8188-scp
-> +            - mediatek,mt8188-scp-dual
-> +    then:
-> +      properties:
-> +        memory-region:
-> +          minItems: 1
-> +          items:
-> +            - description: Main SCP SRAM memory region
-> +            - description: Optional SCP L1TCM memory region
-> +      patternProperties:
-> +        "^scp@[a-f0-9]+$":
-> +          properties:
-> +            memory-region:
-> +              minItems: 1
-> +              items:
-> +                - description: Main SCP SRAM memory region
-> +                - description: Optional SCP L1TCM memory region
+> Signed-off-by: Josua Mayer <josua@solid-run.com>
 
-Does this even work, given that memory-region has maxItems: 1 outside
-the conditional section?
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Cheers,
-Conor.
-
-> =20
->  additionalProperties: false
-> =20
-> --=20
-> 2.45.2
->=20
-
---Cth8D7RmP7y3OUje
+--9V1dWzA5s948okPQ
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagIDhAAKCRB4tDGHoIJi
-0l1KAP4ogMR4hY4vl2iFHrcWq1THHYzittMIqmeoOyXVWNsTAAEAuFti4lcrCBUc
-+MZz9rCNT0pG273MQ05Xxrr/JE7IJgc=
-=tkTv
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagIDqwAKCRB4tDGHoIJi
+0rJ/AP9BX/NSDxfXT/fKr/K7sOnRq6yJETkIf7cm+JtD0KVfHAD9Ho6t/dbPiybP
+3TnssqUmwF/j7lSAiBg8jl6nE+NchwQ=
+=9gC1
 -----END PGP SIGNATURE-----
 
---Cth8D7RmP7y3OUje--
+--9V1dWzA5s948okPQ--
