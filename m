@@ -1,290 +1,125 @@
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E241E3FD159
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 13:57:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 716563F54AB
+	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 14:06:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778507868; cv=none; b=GXbQOz+U8wUwQ1h9ikQLIHoFw+MFWvYRmFXyD8lKZWXf3ILgzD5IsNphPopfNQlRyagPxNQYWlqFiiKDl5D/Yiy3NkBaqtr94SxFywjXu4dY5gVCf09Rai5NvAeTV4kDZZV+RmUGnyh6dc8iJYxonvk82GnkdihIwGcu96BxaQY=
+	t=1778508399; cv=none; b=h3LWaHe/PkEaLQxy57QcSnIItegBDKRHOiT+Kj56M/BkZE8ciVjFSZuXlJ0FS3sqIf0lNXgLMgbKnrPLouqIWvLuk4e4uEqgiKwvJ5YfxytNAd2BuF9EF8MJ130ydnkNlZZ5ZiB9UWPmbaBcvhSHUK3tBfHc5BjcaHFrcsStE60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778507868; c=relaxed/simple;
-	bh=//xeqBDO+FAC+aa1qPeAepE9RtXXW3YKKxu7v7xKkuw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=txIjxi4O5q4rpbavDpOkcVz+hzwbP5tyrdkErRSMG5dSkL8Lxaetmiibc3QJUgLFZEcTw1M9sS6kmdgcYDsQbosB9fADxaYnLFIT11hhjeNbIeKRG89qtu0K7NqsplPTXptJSg6s/Z+10H469+3gL0lsR+6uoIswYVN1l/eTpPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cF7H620Y; arc=none smtp.client-ip=209.85.218.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1778508399; c=relaxed/simple;
+	bh=7cxxZqN1g0qqNRtwUJmzJW5yzCgloqX4VcBEh/hoaYY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pmqHi+FAAAY735LULqN3dpkejGQCxsg4J96ThH9eCD70LjjrROVryT36mVpe+Gwwj0w7mEhL8DOjHd9jYDUZIUOUE2aJk3/QM7kkpMO4wsYGVjuOZZsJ0YhaF8e3inmhzzbnDdtjTYdWEd+2tm9cJYOgjATuGGe14PsqTw2cZHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SKTeSWEX; arc=none smtp.client-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cF7H620Y"
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-bcc1459daddso274505766b.1
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 06:57:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SKTeSWEX"
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-130b2295ed0so11746440c88.0
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 07:06:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778507857; x=1779112657; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2O8Su9Gk1Lf9CS4xvd/yWBGZ4wDlTJeCYsl5Z1xTugo=;
-        b=cF7H620YRQdAAB6av+O7l8dQp8lR1njATPv1q3DMnueWOX33L0/xEEN7Gr2Y7up8CK
-         tzAr7mYz2wMEs+QttSiBu+7ddSAnjzpT7VCh/usSCX/MfMCbybBMRxLc0qK/gX1yz6qJ
-         /BBZvl2To8Xkqlyg6lh+l2Y8k+FhTzAHQYTeEh3hd33LAbXREsdHpERz9jckZZIN7g2a
-         vOt1rgXDkHsdBj5NEvJoAYQM5INfe/9zSQz20mG4TX4olcYtig99+8rRakm4vZ0ijNDF
-         UmiJQodssNZrdJKdjMXQf9YluXVnuqUL1z5kjGtaNXYtNDcAD/aCCiGqWizX5+aRFIUW
-         RrEg==
+        d=gmail.com; s=20251104; t=1778508398; x=1779113198; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=yH/da57m9j66BBfxDcaOUHxrZwIbeRL1xLwNB3IDa6M=;
+        b=SKTeSWEXI8xOklgjnsdTA4FFc2Az5uuSySfJDxW04LK2RR3bE3c21CmWqwjvb5EV11
+         JA37LMcgHcqYdELPPjVvbCEihWiqu15VyeIYRcbal0WDusDny+wmV9qfH32mPCjcxOP1
+         dBjbVyy5TKkbZoXdaX3AM6sUxoqkDo5NUoUdKZxDMUUBBMKVpoTvUz3dTboUz1fK9bT3
+         ChpNeT60APhX8purJCLB+GCdI6hZJ21/UhQyRjeWt1+QajJXVdM217cGyAbGvcGb2bzd
+         hlk7qcH1btT7rnMgYol8S/muWhsX/kdSxcL6vo3Duc4cnqkiO2919d3WIyJh89HYmF72
+         aRTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778507857; x=1779112657;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=2O8Su9Gk1Lf9CS4xvd/yWBGZ4wDlTJeCYsl5Z1xTugo=;
-        b=TyeCepsOlAxAOJlVhgm37cm48GN5Udptb2Gj/ya3sEy9NWuYnF/MleeCq7ou9BZav8
-         fgNyu8m51yXAt4j/XhvI2AHquaRcKi6WQQTwqwbAiE87lPXhf3oNVQQPLx26smaznc6U
-         OkxMFTNbAy6AVZU2NIj3DhfFEoQQXs0Ef63pn1InTPncJEBOWKSItNkR9wOxOkc8yiPJ
-         fJaq19/fd2gvIOvF+wfdxn7WDc3n18aIDx45tyUi2Sqql2QOT94L5YTuIQDiIpnEbEbi
-         QUykdgc3FTB0t8jyHiWc0/785X7tBKEx4jUbl0D2KIuTOzzhCpZ6ykFMvcIAi/b+w250
-         D9VA==
-X-Forwarded-Encrypted: i=1; AFNElJ/6LIhrPfzMqLYD7tS18uZwDaDfsKqfNNTzUNbJbRUYJ0/mHaqVG7faiGMAvNqI3PkHaey6apr7LP/O@vger.kernel.org
-X-Gm-Message-State: AOJu0YyQn3YoXf+9iW0eDlH1SIclxTVH5BJhv/hXnlzj1GCDjByo602q
-	A+U8eoaBYCtEIiK4RtLFC9gbifSkANwEOoj3Ioc53cRiJqPk7zKwMD7m
-X-Gm-Gg: Acq92OHmBdsOylY9j3WYXZOrlQc+GLU5Ynei32i3N4ZZhjVf8Z45z3oSV5AkuZjwIWm
-	DuxjmI6sV15hkPga3W2onwiMSNohAdxQcHNBEyxi34soiKcefIlB4u2QyDa7nYfxoOAp5DZHQTM
-	IyElpA0rU5/jFXmTbZ1K7BQnk7yZMYbyGQkCFr6650gd4E04bTzC3FKwDBFxW9ENgwxazH3jrpz
-	8iMnLOCme2rt2AWizzqXM/64S6d25Lsr3bKCxku1lF6URglVwLi1XCjUVMSsTTsQWrtENI93+pl
-	BIepZFIQSP9kKxwnv4StqI8I7Tvug/eg6tu5vU7Yh1bmvUXmXSUhUWPOiFdh4Pk5bSAFBNuNd7+
-	iGR4P5XaBT31ei6+qTphQJECmT3bzTIc+cQ7n5ND7CPEM65FgneO03WQ2nHVHn5rlKetcTe8IgA
-	P5t2uNaFPJ9o4j
-X-Received: by 2002:a17:907:c18:b0:bb8:b536:55dd with SMTP id a640c23a62f3a-bc56d713f3bmr1489015866b.41.1778507856804;
-        Mon, 11 May 2026 06:57:36 -0700 (PDT)
-Received: from xeon ([188.163.112.56])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-67ef0b3b904sm3685357a12.1.2026.05.11.06.57.35
+        d=1e100.net; s=20251104; t=1778508398; x=1779113198;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=yH/da57m9j66BBfxDcaOUHxrZwIbeRL1xLwNB3IDa6M=;
+        b=VCsibkcCrlJqe4OO0QeJtm/cX8FexvNdXEk6/MODOgjfiUaPSnABGmggyTyC0YNuqu
+         8wmGFn0RuDJ/qlSYgCjBPnGb0Xk7qOoBkHO78M2jfXglPXXTxZomwd4VAMIO/Ni866pu
+         pKFXO+YZj8Dw/YibOx859WO9pPisw1TaAfT8t2ObBfDkQccrLRHtQ8hv/yC+Z6WcVarv
+         uA3bsN6JzBk5qhnq+2pRbfW4JhhMtmAyjfvKdrCmrXmDSt0zfbSjvmFt2X09juZQbg2P
+         XwauF8X5QasiqbBo7pKGwfczgZ4g5YkXw49mht0rMbWkrKeO24teiSSLLmOndWCIO/s5
+         G4/g==
+X-Forwarded-Encrypted: i=1; AFNElJ/Tzi2HL3Ce6OFu7xuxqYKeFh+fGkNxDQvwrY2dXcp57sF/KA/bUZsh2hMxRLSvJEw+Styi09LfrTOs@vger.kernel.org
+X-Gm-Message-State: AOJu0YynalwOMvsMmqmxrJsNe+8aT7w6ufIL0KIyUfNs9RPCu9fP/Ywj
+	qjNBJlL5OAGtA14g7afZaSaDamU1GiQjxn+XSp6c0EsVr7GJPtQCPRaR
+X-Gm-Gg: Acq92OG1RGTo/Dq3MJQWvlseWJjbMtKeP8Rqhv9dw+2bUqt4I3EJNtt3GjYYRVWW1Br
+	mlQEjUoEYnhfaNjJzxNt7BgJXc/smHxvHCAKm16fo6tfgZKvZnrdyS1n8Xd6ZQDW2uN0gJgN77s
+	raTtCCu2kGP0FvSBlKwWrTc6SdWm0W/073gQ3JPUJGX0D+AHwQq3QgWWA5oGXBJN/7iWFioYsdr
+	V7FX/tUOvueIHnKvuqVwtNVVqU86tv+n23xBQJuceGXKBJqv5ukftwsutR6huyux7OqplKpWO7P
+	moLQzUtcflIwcKedSQkExYx7Rz1X9lCSAhRJBdFQQhjfFmyU8aSLF+1s/4GLqbGaNqotHJDnBN0
+	2S+AtpKPV4k3wtSVvA9R6fUmMEUZvQR1upkbWGjsxnsiAvLvHhtDYCqmfGqCoowBV00c2KZ/kTA
+	rHbCoG+8/sWVnovujD1csPktMNWgi/Rnx4WJft
+X-Received: by 2002:a05:7022:488:b0:12c:8e70:c33b with SMTP id a92af1059eb24-131852d2e27mr14527532c88.8.1778508397470;
+        Mon, 11 May 2026 07:06:37 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13277bb2b14sm18610981c88.0.2026.05.11.07.06.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 11 May 2026 06:57:36 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Mon, 11 May 2026 07:06:36 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Mon, 11 May 2026 07:06:36 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Janne Grunau <j@jannau.net>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Peter Chen <peter.chen@kernel.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-tegra@vger.kernel.org,
-	linux-usb@vger.kernel.org
-Subject: [PATCH v1 6/6] phy: tegra: Add support for Nvidia Tegra XMM6260 PHY
-Date: Mon, 11 May 2026 16:57:01 +0300
-Message-ID: <20260511135703.62470-7-clamor95@gmail.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260511135703.62470-1-clamor95@gmail.com>
-References: <20260511135703.62470-1-clamor95@gmail.com>
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Mark Kettenis <kettenis@openbsd.org>,
+	Sasha Finkelstein <k@chaosmail.tech>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-watchdog@vger.kernel.org, linux-pwm@vger.kernel.org,
+	Joshua Peisach <jpeisach@ubuntu.com>
+Subject: Re: [PATCH v3 2/5] dt-bindings: watchdog: apple,wdt: Add t8122
+ compatible
+Message-ID: <a3055969-31ff-4b33-b6eb-6418cbf3597e@roeck-us.net>
+References: <20260507-apple-m3-initial-devicetrees-v3-0-ca07c81b5dc7@jannau.net>
+ <20260507-apple-m3-initial-devicetrees-v3-2-ca07c81b5dc7@jannau.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260507-apple-m3-initial-devicetrees-v3-2-ca07c81b5dc7@jannau.net>
 
-Nvidia Tegra XMM6260 PHY is a hardware configuration used in Tegra SoCs
-to provide proper interaction between the application processor and the
-modem, as well as control over one of the SoC's USB lines for the modem.
+On Thu, May 07, 2026 at 09:33:08AM +0200, Janne Grunau wrote:
+> The watchdog on the Apple silicon t8122 (M3) SoC is compatible with the
+> existing driver. Add "apple,t8122-wdt" as SoC specific compatible under
+> "apple,t8103-wdt" used by the driver.
+> 
+> Acked-by: Rob Herring (Arm) <robh@kernel.org>
+> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
+> Reviewed-by: Neal Gompa <neal@gompa.dev>
+> Signed-off-by: Janne Grunau <j@jannau.net>
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/phy/tegra/Kconfig             |  12 +++
- drivers/phy/tegra/Makefile            |   1 +
- drivers/phy/tegra/phy-tegra-xmm6260.c | 144 ++++++++++++++++++++++++++
- 3 files changed, 157 insertions(+)
- create mode 100644 drivers/phy/tegra/phy-tegra-xmm6260.c
+Applied to my watchdog-next branch.
 
-diff --git a/drivers/phy/tegra/Kconfig b/drivers/phy/tegra/Kconfig
-index 342fb736da4b..41b5ce460f37 100644
---- a/drivers/phy/tegra/Kconfig
-+++ b/drivers/phy/tegra/Kconfig
-@@ -18,3 +18,15 @@ config PHY_TEGRA194_P2U
- 	help
- 	  Enable this to support the P2U (PIPE to UPHY) that is part of Tegra 19x
- 	  and 234 SOCs.
-+
-+config PHY_TEGRA_XMM6260
-+	tristate "NVIDIA Tegra XMM6260 PHY driver"
-+	depends on ARCH_TEGRA && USB_NET_XMM6260 && USB_SUPPORT
-+	select GENERIC_PHY
-+	help
-+	  Enable this to support XMM6260 modem found in various Tegra devices
-+	  with cellular capabilities, like LG Optimus 4X P880, LG Optimus Vu
-+	  P895, Google Nexus 7 (2012) 3G and ASUS Transformer Pad 3G TF300TG.
-+
-+	  To compile this driver as a module, choose M here: the module will
-+	  be called phy-tegra-xmm6260.
-diff --git a/drivers/phy/tegra/Makefile b/drivers/phy/tegra/Makefile
-index eeeea72de117..829e298ee56c 100644
---- a/drivers/phy/tegra/Makefile
-+++ b/drivers/phy/tegra/Makefile
-@@ -9,3 +9,4 @@ phy-tegra-xusb-$(CONFIG_ARCH_TEGRA_186_SOC) += xusb-tegra186.o
- phy-tegra-xusb-$(CONFIG_ARCH_TEGRA_194_SOC) += xusb-tegra186.o
- phy-tegra-xusb-$(CONFIG_ARCH_TEGRA_234_SOC) += xusb-tegra186.o
- obj-$(CONFIG_PHY_TEGRA194_P2U) += phy-tegra194-p2u.o
-+obj-$(CONFIG_PHY_TEGRA_XMM6260) += phy-tegra-xmm6260.o
-diff --git a/drivers/phy/tegra/phy-tegra-xmm6260.c b/drivers/phy/tegra/phy-tegra-xmm6260.c
-new file mode 100644
-index 000000000000..7511de1333aa
---- /dev/null
-+++ b/drivers/phy/tegra/phy-tegra-xmm6260.c
-@@ -0,0 +1,144 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/export.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/of_platform.h>
-+#include <linux/phy/phy.h>
-+#include <linux/platform_device.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/usb.h>
-+#include <linux/usb/chipidea.h>
-+#include <linux/usb/phy.h>
-+
-+struct tegra_usb_device {
-+	struct ci_hdrc_platform_data data;
-+	struct platform_device *dev;
-+};
-+
-+struct tegra_xmm6260_phy {
-+	struct device *dev;
-+	struct platform_device *usb_dev;
-+	struct usb_phy *usb_phy;
-+	struct gpio_desc *enable_gpio;
-+};
-+
-+static int tegra_xmm6260_phy_power_on(struct phy *phy)
-+{
-+	struct tegra_xmm6260_phy *mphy = phy_get_drvdata(phy);
-+	struct tegra_usb_device *usb = platform_get_drvdata(mphy->usb_dev);
-+	int ret;
-+
-+	gpiod_set_value_cansleep(mphy->enable_gpio, 1);
-+
-+	ret = usb_phy_init(mphy->usb_phy);
-+	if (ret) {
-+		gpiod_set_value_cansleep(mphy->enable_gpio, 0);
-+		return dev_err_probe(mphy->dev, ret,
-+				     "failed to init USB PHY\n");
-+	}
-+
-+	usb->dev = ci_hdrc_add_device(&mphy->usb_dev->dev,
-+				      mphy->usb_dev->resource,
-+				      mphy->usb_dev->num_resources,
-+				      &usb->data);
-+	if (IS_ERR(usb->dev)) {
-+		gpiod_set_value_cansleep(mphy->enable_gpio, 0);
-+		usb_phy_shutdown(mphy->usb_phy);
-+		return dev_err_probe(mphy->dev, PTR_ERR(usb->dev),
-+				     "failed to register USB controller\n");
-+	}
-+
-+	return 0;
-+}
-+
-+static int tegra_xmm6260_phy_power_off(struct phy *phy)
-+{
-+	struct tegra_xmm6260_phy *mphy = phy_get_drvdata(phy);
-+	struct tegra_usb_device *usb = platform_get_drvdata(mphy->usb_dev);
-+
-+	ci_hdrc_remove_device(usb->dev);
-+	usb_phy_shutdown(mphy->usb_phy);
-+
-+	gpiod_set_value_cansleep(mphy->enable_gpio, 0);
-+
-+	return 0;
-+}
-+
-+static const struct phy_ops tegra_xmm6260_phy_ops = {
-+	.power_on = tegra_xmm6260_phy_power_on,
-+	.power_off = tegra_xmm6260_phy_power_off,
-+	.owner = THIS_MODULE,
-+};
-+
-+static int tegra_xmm6260_phy_probe(struct platform_device *pdev)
-+{
-+	struct phy_provider *phy_provider;
-+	struct device *dev = &pdev->dev;
-+	struct device_node *usb_node;
-+	struct phy *generic_phy;
-+	struct tegra_xmm6260_phy *mphy;
-+
-+	mphy = devm_kzalloc(dev, sizeof(*mphy), GFP_KERNEL);
-+	if (!mphy)
-+		return -ENOMEM;
-+
-+	mphy->enable_gpio = devm_gpiod_get_optional(dev, "enable",
-+						    GPIOD_OUT_LOW);
-+	if (IS_ERR(mphy->enable_gpio))
-+		return dev_err_probe(dev, PTR_ERR(mphy->enable_gpio),
-+				     "failed to get enable GPIO\n");
-+
-+	usb_node = of_parse_phandle(dev->of_node, "nvidia,usb-bus", 0);
-+	if (IS_ERR(usb_node))
-+		return dev_err_probe(dev, PTR_ERR(usb_node),
-+				     "failed to parse modem USB bus\n");
-+
-+	mphy->usb_dev = of_find_device_by_node(usb_node);
-+	of_node_put(usb_node);
-+	if (!mphy->usb_dev)
-+		return dev_err_probe(dev, -ENODEV,
-+				     "failed to get modem USB bus\n");
-+
-+	mphy->usb_phy = devm_usb_get_phy_by_phandle(dev, "nvidia,usb-bus", 1);
-+	if (IS_ERR(mphy->usb_phy))
-+		return dev_err_probe(dev, PTR_ERR(mphy->usb_phy),
-+				     "failed to get USB PHY");
-+
-+	generic_phy = devm_phy_create(dev, NULL, &tegra_xmm6260_phy_ops);
-+	if (IS_ERR(generic_phy))
-+		return dev_err_probe(dev, PTR_ERR(generic_phy),
-+				     "failed to create PHY\n");
-+
-+	phy_set_drvdata(generic_phy, mphy);
-+	mphy->dev = dev;
-+
-+	phy_provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
-+	if (IS_ERR(phy_provider))
-+		return dev_err_probe(dev, PTR_ERR(phy_provider),
-+				     "failed to register PHY\n");
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id tegra_xmm6260_phy_match[] = {
-+	{ .compatible = "nvidia,tegra-xmm6260" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, tegra_xmm6260_phy_match);
-+
-+static struct platform_driver tegra_xmm6260_phy_driver = {
-+	.driver = {
-+		.name = "tegra-xmm6260-phy",
-+		.of_match_table = tegra_xmm6260_phy_match,
-+	},
-+	.probe = tegra_xmm6260_phy_probe,
-+};
-+module_platform_driver(tegra_xmm6260_phy_driver);
-+
-+MODULE_AUTHOR("Svyatolsav Ryhel <clamor95@gmail.com>");
-+MODULE_DESCRIPTION("Tegra XMM6260 PHY driver");
-+MODULE_LICENSE("GPL");
--- 
-2.51.0
+Thanks,
+Guenter
 
+> ---
+>  Documentation/devicetree/bindings/watchdog/apple,wdt.yaml | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml b/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
+> index 05602678c070..845b5e8b5abc 100644
+> --- a/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
+> +++ b/Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
+> @@ -16,7 +16,9 @@ properties:
+>    compatible:
+>      oneOf:
+>        - items:
+> -          - const: apple,t6020-wdt
+> +          - enum:
+> +              - apple,t6020-wdt
+> +              - apple,t8122-wdt
+>            - const: apple,t8103-wdt
+>        - items:
+>            - enum:
