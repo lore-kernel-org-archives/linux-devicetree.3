@@ -1,164 +1,132 @@
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F45F3F164A
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 13:50:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778507423; cv=pass; b=qcw9HR1bxl10JTa+UuXXSPod0DLDoqILJTy7Z1k7GWqz/RIrHeaLko8OD+fSYuB/98nWik5vBFs2KJdnufcUZvXAZ7jVkDaQ/gnxGsIwO4fBFhtivOcfpc2MyABjeqozzbofBEU4BFelfC8nBTa3AT/zbH++ij+OagsUPt8fJFE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778507423; c=relaxed/simple;
-	bh=9YG3YiuSsjojmW6A3ugXZPxI9/qnUbBiyh2KgjsRZ3s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=O2XnUGheQpLoZEiYcuP9Y4rj/n8FTj2K7fHPNbkX6c5jInwNHFaTr2RVq2ClSkVPu+40ZfaQCF/ia/ze7X1cCMF0ti4dkI1jCIb5rTqhW7SH5/VBTPbusQ1zxN1tPchs08s9KzDOAbsVVWlvYf4qCvEY8rdnk4xyBNcSxjGtY9M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j0XrlNNW; arc=pass smtp.client-ip=209.85.208.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF2D53E557E;
+	Mon, 11 May 2026 13:52:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778507527; cv=none; b=Df9BHVeC+FRo/N8yCqWQJHsrZsCVcNHEkpE1y82pmACUaOn77Zpp3szRRZMML0Zl5XU8RtmWnPM5d8YwY7OpkhDxDsiOLeNfPXJyUMRuNrGL/xZK5u7dlL0iyfeP1U1xr/396Z4jTPcOSyadsidUmBe4VpzlGc68/w5JBqXaCyo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778507527; c=relaxed/simple;
+	bh=3MOLGGAjZMaGDJ4KO3ibP0i185lRfKS/csYyWZqaOgw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ATNk49Bhfpaz06HGlsrbQ7MaYZ/ZcK4b1iVkpdnJbF1rgEIe3wLAaQGd1wqezwGLetO8SZ2UK58x59ynPFa65aYiucD+MGQAJr/Zszie6kHMsKYWOCT4WLaRzY2kiFPtHOgzRYF5dh+MkFticf40YofAl2AOKE7V8U3UN6RSr7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I6CILY03; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j0XrlNNW"
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-393c93a01abso36705111fa.1
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 06:50:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778507419; cv=none;
-        d=google.com; s=arc-20240605;
-        b=ZpNDqfc2KuqphzaIm9iwY7XhJmtoKwSajYiyYcYjC2KWzDv9f8y8lsVCnIamap0dHP
-         bf0AQTMhHgsQCwh2TJ8tQap/BIRO8OxJ5FaQQH2mdfAFTJ9JnNuIiUShbKF9h/ceQIjR
-         xuuVUeijS5MMC1bWFTeReU2mHSHn+ZRC4u8dNcZJI7PNVB5C5nBJAR3PlBuWT9+dUZ5f
-         rmFph7UHZd//iEroak1WZ121UKiXrpd1b16a8B6Adfrz9zSW2kcqS/w3MWNsMvdfyhvS
-         nTzk0khTll+4dRxhlj6J4kTbzltUOYzaE8VzZJaoQ5JbzX0ldBk4nFJEa7WtvMzAVZ0n
-         BpAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=7zC1RYg8tYp3lEqo6W4RmkrRDKh6czAweS7OgGTtxuw=;
-        fh=N2yGwKCJ5vb38eFZvtCj84H7k7B+JxREizCkcAzw9S4=;
-        b=Wl0iu57SDfOtEvK2CshcVu6ZHASUqYeRoXSNjCebC0rAhOsos9XcQteLvhG0GUTMcC
-         nLK18H0MmGYp3J57SjJiBlFK2igrB+1NfpYXnU+taoswsZz75ZmpTODjxME6ScZO01Sj
-         563f7hzkGCJPIt4GQSCpUzV1XEDTnpvznztYgDKrK+7Tr0Te7TIGA/6dLJZqr/AGWxsf
-         4D+XhTP9VpcHccx9I6jgSFL2fSIL/EL82Kz/1ectTiB0mHW+olq0doBZCqoz9h0n7wEG
-         sUaLjg2WBHyG7JQS+aJKo5BvdKcwKAaPHaKaxDuuVMbjTieg/rAKpeR+rOQYvfm51Uun
-         R1og==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778507419; x=1779112219; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7zC1RYg8tYp3lEqo6W4RmkrRDKh6czAweS7OgGTtxuw=;
-        b=j0XrlNNWo2qcZki7gxrPpErKiRUNBamLSKTdVqr7s0B/7wq5X+EHcn8p4ZiKlcInCx
-         OdwDlKCtB5HHcuUPeeYYCuqU2YrgVTM8gZe5He0j3+45Tc5q9WQb0cWZCmQFviSLFlwj
-         Ph7OJ7qQ3oVcGqUnM/InkR61QNGqUeoxFFsy7pXS/HEkmxvuDetCqRlHS+3VnaOfnYJ7
-         3zXGgqwbHIGN3HArOFnJXn9NIK+NRqTbtEthwELANTJQVva3KY8hC0wvAf/N37iY0QYE
-         iYlAF9k6gAi1qhPGgHQuitqhrlgdgAJpqJItHnU2TQLlW9PLsOqrnDMLfP5hX3KbqIKb
-         xreA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778507419; x=1779112219;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=7zC1RYg8tYp3lEqo6W4RmkrRDKh6czAweS7OgGTtxuw=;
-        b=LqR3uf7LWMKTCCEhsTOEwFIb+xC5jKiHTuUV2ipxsbeFeIKcSWBqn/EtqVYiKVcxDM
-         g2yOaprr9jCd2/FITxsZC9Wi3P6rn1OXw9Uo1xzOwPC27FnTlmcKXQES6hSaV/n+ciVF
-         pBpRjgEyjtqlCTRN6Rn+cXCTAFTqD4eCnQQRdFiYqioNd7VCMWkKc2riXexljnzV+kX1
-         xLvHXYS0UsJZTx0NbUgalS+AY6AudOTdgFbVXF8Wa2vt5tIFcgffcD7IZ4IwC4qySNEp
-         aVK+TUxTQZ7ORzpHw0do+GREuz4UUPT8d5OaxWKbv/+BEvlkOZQ7GS9xrBHC/B6EDZP/
-         egBg==
-X-Forwarded-Encrypted: i=1; AFNElJ9CZylAmXW8rZ8UDCYNM3d58VJQhd6eIKOzlUh1rBW7GobCd2ClUNG47RnCk4TJHQQLXBNtFn4KaM7R@vger.kernel.org
-X-Gm-Message-State: AOJu0YxXUrfASvbES+WjPvDqSovidha22X/tcR84hVMtA2ZhPfLQglEm
-	NBpnINKGklHFhnqaIrir8qlTRhGRzzr8ujrxo+MB8ExjQXwu6L9H0SOaEWOeI3Z9YZp+3DhIkWt
-	kjPKGZLaeubAr+jNDA5ym9/46NJDK6+Q=
-X-Gm-Gg: Acq92OGuRF5DeFWpqSRG3UQLjJkPCbtxu2DxgIHfjmaIZbIPUmC20GY7FDrFbJ7HZS4
-	bpVwycHtTXcP/jWCKsQhRUPjHoMCjLrb86OHaJaywCdw2WYWNvsBi4s1QYi0e2gc4RSlmxTjxme
-	fUNNs2T4lb2D6w1LO/Ul5Hg8ECkMtYTgzVvTpzD8zlOtSsCx4oaA5J+cJ3C6CRCYI1TwpbbdjkN
-	4lCBUxMKXQlllrEQbu2Xpuo7zVdfFUowsO8lQ68A1YV2Az+o54yoXpGgSj4IVfqOkt4F+zrowDo
-	CTN0Pu4YaW8Gc4aXDITqJgtiNUfcQdJj7KCamj35lay/JfRFcw==
-X-Received: by 2002:a05:651c:503:b0:38f:f8f3:6c58 with SMTP id
- 38308e7fff4ca-393f4d1cb99mr44752051fa.11.1778507419262; Mon, 11 May 2026
- 06:50:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I6CILY03"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59CD6C2BCB0;
+	Mon, 11 May 2026 13:52:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778507527;
+	bh=3MOLGGAjZMaGDJ4KO3ibP0i185lRfKS/csYyWZqaOgw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=I6CILY03WXAENXWM2QJ14ZqUGhZmpnAOOppPJtrBNFS+UUteycF8YGsMO0UpUo4po
+	 IFhP6tIcwLN+FXBV9N57JSJZw5d9MUT/fIXW9kB8eabyod785vMRTVa8sNKuQID7FA
+	 gudLKO/5lQZNXluTGDN6usphCpRbzFVbraRdlX3160BlC5FaWgQiob60TgAgiamm5i
+	 bUwkPsXmSbXdoHjDBGm/ea1x96dcKaMSQKKIueKbpaz3sJ1yk6jsnu4JgE+2xbbya4
+	 bxbh0q9HX//+LVGlQbS8NmqVvhaMrcVBHga509WIGMNiDvyY4Q4CGZDLusI2+cd6fI
+	 AolW5zVrgIkbw==
+Date: Mon, 11 May 2026 14:51:58 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Nikhil Gautam <nikhilgtr@gmail.com>
+Cc: dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/2] iio: magnetometer: add support for Melexis
+ MLX90393
+Message-ID: <20260511145158.1252ef87@jic23-huawei>
+In-Reply-To: <20260510191010.155380-1-nikhilgtr@gmail.com>
+References: <20260510191010.155380-1-nikhilgtr@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260510194947.31997-1-piyushpatle228@gmail.com>
- <20260510202657.38326-1-piyushpatle228@gmail.com> <agG9FAXXiTKDIEDf@ashevche-desk.local>
-In-Reply-To: <agG9FAXXiTKDIEDf@ashevche-desk.local>
-From: Piyush Patle <piyushpatle228@gmail.com>
-Date: Mon, 11 May 2026 19:19:40 +0530
-X-Gm-Features: AVHnY4KoDwq8UL37IRCHA4MrolOptuT28ZabDwx-aMaHdYGg1AJuTbAKe7sUm-Y
-Message-ID: <CAMB+xkZ4MjhR3jU_L3=a=2+ubJ3oeL=x18dypEbRDa9My=LAzw@mail.gmail.com>
-Subject: Re: [PATCH v7 11/11] iio: adc: hx711: add support for HX710B
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: ak@it-klinger.de, jic23@kernel.org, dlechner@baylibre.com, 
-	nuno.sa@analog.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, May 11, 2026 at 4:57=E2=80=AFPM Andy Shevchenko
-<andriy.shevchenko@intel.com> wrote:
->
-> On Mon, May 11, 2026 at 01:56:55AM +0530, Piyush Patle wrote:
-> > Add support for the AVIA HX710B ADC, which shares the HX711 GPIO
-> > interface but uses trailing PD_SCK pulses to select the active mode.
-> >
-> > Model the HX710B with variant-specific channel tables and IIO info,
-> > track the active channel across conversions, and use the fixed gain
-> > value when computing scale.
-> >
-> > Also update the adjacent Kconfig text, file header, and module
-> > description so the driver text matches the newly supported variant.
->
-> ...
->
-> >  #include <linux/slab.h>
-> >  #include <linux/sched.h>
->
-> >  #include <linux/delay.h>
-> > +#include <linux/types.h>
->
-> Seems wrong order.
->
-> And here + blank line to make linux/iio/* to be a separate group.
-will fix the include ordering and grouping if a v8 is needed.
+On Mon, 11 May 2026 00:40:08 +0530
+Nikhil Gautam <nikhilgtr@gmail.com> wrote:
 
->
-> >  #include <linux/iio/iio.h>
-> >  #include <linux/iio/sysfs.h>
-> >  #include <linux/iio/buffer.h>
->
-> ...
->
-> >       /*
-> >        * triggered buffer
-> > -      * 2x32-bit channel + 64-bit naturally aligned timestamp
-> > +      * up to 3x32-bit channels + 64-bit naturally aligned timestamp
-> > +      *
-> > +      * aligned_s64 satisfies the 8-byte alignment requirement for the
-> > +      * timestamp. For HX711 (at most 2 active channels), iio_push_to_
-> > +      * buffers_with_timestamp() places the timestamp at offset 8
-> > +      * (scan_bytes=3D8, already 8-byte aligned), identical to the ori=
-ginal
-> > +      * 2-channel layout. The extra channel slot for HX710B does not a=
-ffect
-> > +      * the HX711 ABI.
-> >        */
-> >       struct {
-> > -             u32 channel[2];
-> > +             u32 channel[3];
-> >               aligned_s64 timestamp;
-> >       } buffer;
->
-> Why can't we used a recently introduced macro for this?
-> IIO_DECLARE_BUFFER_WITH_TS().
-Yes, this macro can be used here, I will use the
-IIO_DECLARE_BUFFER_WITH_TS() if a v8 is needed.
-Also when should I proceed to make v8? Is it needed?
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
+> Hi,
+
+Hi Nikhil.
+Thanks for your driver
+
+Before I look at it, a quick comment on use of RFC.
+Generally we only use that for drivers that either have a series
+of specific open questions (driver structure doesn't count for IIO
+as we have a 'lot' of examples!) and those questions should be
+at the top of the RFC.
+
+The other exception is where you know something is not ready for merge
+due to some dependency or similar on other code.  Occasionally done
+as a quick hint on how we might solve a problem that is raised.
+
+Anyhow, just send this without RFC.   You'll get comments anyway!
+Probably more of them as many reviewers are short on time so will
+only briefly glance an an RFC if at all!
+
+Jonathan
+
+> 
+> This series adds initial Industrial I/O subsystem support for the
+> Melexis MLX90393 3-axis magnetometer and temperature sensor.
+> 
+> The MLX90393 supports both I2C and SPI interfaces. This RFC
+> implements support for the I2C interface while keeping the driver
+> structure transport-independent to simplify future SPI support.
+> 
+> Currently supported features:
+> 
+> raw magnetic field measurements for X/Y/Z axes
+> raw temperature measurements
+> configurable gain/scale selection
+> configurable oversampling ratio
+> direct mode operation through the IIO subsystem
+> initially I2C support for this driver
+> 
+> The driver has been tested on Raspberry Pi 5 hardware using an
+> actual MLX90393 sensor connected over I2C. Raw magnetic field and
+> temperature values were verified through the IIO sysfs interface.
+> 
+> A custom transport abstraction was used instead of regmap due to
+> the MLX90393 command/response protocol semantics and repeated-start
+> transfer behavior. This approach was discussed previously on the
+> mailing list and seemed preferable for this device.
+> Link: https://lore.kernel.org/linux-iio/20260424114818.1290b029@jic23-huawei/
+> 
+> The implementation intentionally focuses on a minimal and reviewable
+> feature set for the initial RFC submission. Support for SPI,
+> buffered capture, triggers, interrupts and runtime PM can be added
+> incrementally in follow-up work.
+> 
+> The DT binding schema has been validated using dt_binding_check and
+> the driver has been checked using checkpatch.pl --strict.
+> 
+> Feedback on the overall driver structure, transport abstraction,
+> IIO ABI usage and DT binding would be appreciated.
+> 
+> Thanks,
+> Nikhil Gautam
+> 
+> Nikhil Gautam (2):
+>   dt-bindings: iio: magnetometer: add Melexis MLX90393
+>   iio: magnetometer: add support for Melexis MLX90393
+> 
+>  .../iio/magnetometer/melexis,mlx90393.yaml    |  39 +
+>  drivers/iio/magnetometer/Kconfig              |  10 +
+>  drivers/iio/magnetometer/Makefile             |   2 +
+>  drivers/iio/magnetometer/mlx90393.h           |  76 ++
+>  drivers/iio/magnetometer/mlx90393_core.c      | 724 ++++++++++++++++++
+>  drivers/iio/magnetometer/mlx90393_i2c.c       |  71 ++
+>  6 files changed, 922 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/iio/magnetometer/melexis,mlx90393.yaml
+>  create mode 100644 drivers/iio/magnetometer/mlx90393.h
+>  create mode 100644 drivers/iio/magnetometer/mlx90393_core.c
+>  create mode 100644 drivers/iio/magnetometer/mlx90393_i2c.c
+> 
+
