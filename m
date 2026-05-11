@@ -1,598 +1,229 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011017.outbound.protection.outlook.com [52.101.70.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 243673CFF6A;
-	Mon, 11 May 2026 12:47:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778503658; cv=none; b=WsLONWayXyVyJprEuzr3v6ojrZdB6+yxR8gRyuXjO9LW4YBxjNGkZsxpxAS7/QTckLM+YzoU9sOcoXGdrSI0Sxovk5ZvJfOy1vX+swZzIftH8y2qlLj9lzHIMRkl9kGOMUPzrysEOE2rBMe1xVLDNzyU1Puq4xvj67m0mMSXjOg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778503658; c=relaxed/simple;
-	bh=Lfvh+dBQZ+MTctmytjC5st1lQ2bX2pMQb6GvmIPWIa8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dNORgBuoNLUTi/r0MdqvcthqWwHOSqJZB5Qe75uziNeBucivdn7LleCANzsZtrnQ8GHWuKNIbTCwuCQcvgJmNIibchU40mPsX2sgakmq0afEz6vsBX4U2k3LnnsQ75yOENP3bQpPFDMSeVpUPcAVQE6jDB6zbqxeLIRVIgtg1b0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TVmpHA/k; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C338377553;
+	Mon, 11 May 2026 12:51:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778503865; cv=fail; b=hVYM97ahIJ43j8H9soCpD8W3qgE4u1l/f0QPwZ1pZXPVjim7U96m86a0bl02smIF3eglnLF+nTtuTVADeTWz57hdTwaPpqJN4ynOvVWlAyBWacWECCQe2TsiRynkgmdPw/byeT4/F3ihOBCW/E48Q51mLre9ecW9IOriD1tYimg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778503865; c=relaxed/simple;
+	bh=5y3lzHRt05tEUBjQlZNX9QUTTaIv5BkliLHN8vpjEXc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Q2HuDL3ccYROlLxyxYOAEORODvVmD/DaMv2OqsiLQUg91YddyKZtbOBheWamdItBtI0rdLGvO5bQ8hbpaXJcg2/0FHxztjtVA6YRl2NeQ/jGL7J1fULMnbCbfhl4MI3xirbv7HC8IbkZz7Ywu7MFFZ4PZGrPqkESFToYkyQ81wk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=gBQUG3xA; arc=fail smtp.client-ip=52.101.70.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TVmpHA/k"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id EA3ECC32782;
-	Mon, 11 May 2026 12:47:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778503658;
-	bh=Lfvh+dBQZ+MTctmytjC5st1lQ2bX2pMQb6GvmIPWIa8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=TVmpHA/kuuyUd8tCVdZbVKsv2XOwMr2dPHL/iY2qhHuPGKGNXgs+ui4SiAPCraRTd
-	 8Rc/nJ9H/op5Dr17Onsf+/dtADobiCDVzHDsept9Z/rcxa12GR/RkGGuvaTCZP+87G
-	 bGOecO63KobCOf5Lmd2jkieJYvEgGbLxwDvJ5Zbt5vMR+uFQqit2i2Nkuk5+kQgfAn
-	 ENgDnSBrH8mc1q4gMGvc8f2y7No6TlPRHwEjH32gopem54Y/i6xLnyF4HFhHTBxC7s
-	 fSVr0JOpmMweno0s62DV5b0ZvXwvbDOVRZUa9tzp9kfXaDimoMd13y3IB5CJRvoQ6w
-	 7ZLdTB6ZPQVyw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DCF5DCD484A;
-	Mon, 11 May 2026 12:47:37 +0000 (UTC)
-From: Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>
-Date: Mon, 11 May 2026 20:47:32 +0800
-Subject: [PATCH 10/10] clk: amlogic: Add A9 AO clock controller driver
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="gBQUG3xA"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oqqFyej1NW/yib/19ch1iwvutljtOKGn9byKpwBy/aQEI5z7V+l43/0rTvlYSUsE3hkPuHxop9rDnhMDeKCExukliGZJugu9bSU7kchzaS8Rv5NI58EKnA2M3FFv0g9PGtP5I9nUrZWZgUlPtSQHKtYCrufI4gSNL6SzZDy0gEz5eX2Mv59y/HG7tZmiZyKWGcdq1XUYkYc9OcvP6Enp72Dk4Bgwxl2Sgxcdps7ExYtL6EUdoFXuRdn4VUEUkbDFxpYilRP9BJp5l4dbpwBEbsVpBQIxdVxZX4TApHUGurNUpm8c3f9HkcSnk7xvQVoRv4EoET4cEsXWBkbhvxIQgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RNH8C5+7tOQxdAAZ6NTB7EyYpIAICvt/J0Rvst60lSE=;
+ b=E4xXIN//yWb2SVAwebfH2tIOcxkel/u0tc5kMtH70K/JwNVx7eJWzL/c2VXgYm822RtCRB2tRL46XnsmE0EjASYdgu+XUnbZY9zNehiqfPTvoZso+gvOgzRDoEDLsQaK3//eaftF+Zay/U2ZCFNmeTWDtKU0E1/tG+jD+rJcuVObuE7Fu+WyOihz3vuF8iKn0IbEWivfMZNOgXF6g4RUUa3uvzp7rHn1O7GHypHkXKW09xXRoAVdbLDo7BydsHsroN+NE1ri6jLYjMFn7+ooUH9cdeYNwIfhsEXyAbkGmx3HBA/GQRT0vWvk5bgols75bjvy307ZcCAW9jCjD4ZFYw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RNH8C5+7tOQxdAAZ6NTB7EyYpIAICvt/J0Rvst60lSE=;
+ b=gBQUG3xAcbzgTw036USBo9EiKWLsRbymkgHK5LNmeK2PmEDJPmazuKlzs5rmb5WbL+vRTarnpB9jewnPR+Glt3blijA0tAWf8NM3jgFKdgEDao6O2r34h6SfWf/FDCPR2YszMkNYEre94gZxzk2BRhRlrnw9Ig8TevMk3h+SPHKAxfSKBJ/xrwsIWw+7Ylg9fckalbuPeXO4bvFMR09VghBrSmi3Q2VMOXKDrZBMc1ixz/R26kzZGp9Ho37viM6+0BGUK1nTHBjhi9OPdO4WGRIK5j9lqpV1ofp63x78pnBtStEsT2//Zk33FjfMY8530xJgnZ5yetQCjK4p6WPmrw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM9PR04MB8585.eurprd04.prod.outlook.com (2603:10a6:20b:438::13)
+ by DB9PR04MB9646.eurprd04.prod.outlook.com (2603:10a6:10:30a::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.20; Mon, 11 May
+ 2026 12:50:58 +0000
+Received: from AM9PR04MB8585.eurprd04.prod.outlook.com
+ ([fe80::f010:fca8:7ef:62f4]) by AM9PR04MB8585.eurprd04.prod.outlook.com
+ ([fe80::f010:fca8:7ef:62f4%4]) with mapi id 15.20.9870.023; Mon, 11 May 2026
+ 12:50:58 +0000
+Date: Mon, 11 May 2026 15:50:53 +0300
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: Josua Mayer <josua@solid-run.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Yazan Shhady <yazan.shhady@solid-run.com>,
+	Mikhail Anikin <mikhail.anikin@solid-run.com>,
+	Alexander Dahl <ada@thorsis.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>
+Subject: Re: [PATCH v4 2/2] arm64: dts: imx8dxl: Add SolidRun SoM and
+ HummingBoard
+Message-ID: <20260511125053.xgzqic62zhhdjyn5@skbuf>
+References: <20260511-imx8dxl-sr-som-v4-0-64381b3bf80d@solid-run.com>
+ <20260511-imx8dxl-sr-som-v4-0-64381b3bf80d@solid-run.com>
+ <20260511-imx8dxl-sr-som-v4-2-64381b3bf80d@solid-run.com>
+ <20260511-imx8dxl-sr-som-v4-2-64381b3bf80d@solid-run.com>
+ <20260511112438.4fxvhelf242emzft@skbuf>
+ <f0fdea25-6b2d-4b64-b925-a3f30c8e044c@solid-run.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f0fdea25-6b2d-4b64-b925-a3f30c8e044c@solid-run.com>
+X-ClientProxiedBy: WA2P291CA0023.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d0:1e::19) To AM9PR04MB8585.eurprd04.prod.outlook.com
+ (2603:10a6:20b:438::13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260511-b4-a9_clk-v1-10-41cb4071b7c9@amlogic.com>
-References: <20260511-b4-a9_clk-v1-0-41cb4071b7c9@amlogic.com>
-In-Reply-To: <20260511-b4-a9_clk-v1-0-41cb4071b7c9@amlogic.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jerome Brunet <jbrunet@baylibre.com>, 
- Xianwei Zhao <xianwei.zhao@amlogic.com>, 
- Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, Jian Hu <jian.hu@amlogic.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778503655; l=16323;
- i=jian.hu@amlogic.com; s=20260415; h=from:subject:message-id;
- bh=tyqWC7XRbrBKYoioMbyFA0OB4CBbbbDYN+NFH9jI9WE=;
- b=TEptvt0C4N8ltwUJJpEroGzt5cZZAgVCg+8PZUmLyoUkIjTRDQlJjitDDQvYYyZanTWGImLjZ
- Cw/+uyn5mclBmP0nQjIZe6fjdsMP5Zv3EIrHEn58PV9kQQoBr2IN+A/
-X-Developer-Key: i=jian.hu@amlogic.com; a=ed25519;
- pk=zHUE+rNtH9z+Sb8au1/elWknjFQmy5QDVkBoxleuOIA=
-X-Endpoint-Received: by B4 Relay for jian.hu@amlogic.com/20260415 with
- auth_id=735
-X-Original-From: Jian Hu <jian.hu@amlogic.com>
-Reply-To: jian.hu@amlogic.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8585:EE_|DB9PR04MB9646:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3b5a6d92-81d5-4c2d-bcc6-08deaf5bf2a6
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|10070799003|366016|1800799024|376014|7416014|19092799006|11063799003|56012099003|18002099003|22082099003|3023799003;
+X-Microsoft-Antispam-Message-Info:
+ CzJu/bxZgM8UDsww5CkPWcDZ5HcVngSmRMfScpEsSxQcrmWGHZZUVSFyMtyY+zy6hmZj3pwBCc8cDtREtbOEzx83z+3v+98KwMAVVz1sRtRR0qFTDjJDwlmaIP9AittndKKjdy6UZpktJXwIUCPoBRY9QdcOnYN9QFD1koSObWtXF6zlAIpEi7/drNRAVI5zwSanVuWt9HfxIwodkOIhXIG3aQveT4YKouENOGvsQkllKBqSb6y3TadrU5FxbJCjziIDmz7do1g1usIfHRmpL+I4xSKVihC3VgRCQpdWAJRrVlvoGhkqcI0mlNRn3q/Vm06iL7XEZXyAVPObGEYXy75/rokhSaewF3+3oZJnoooxDvCZRR3LmyKA6SZOOM3AsXxcIoOiunPP7naSxiyW2ejTC0Fdjjt69yuFjY/0odAKiONebVUwkfGp7X7UXrhi28J1/SBwrPAFJBADGbpuUKE2sAEri8bANfvYrwHuGQ4ITyEqGLgSxO68lcAQN5YBd70T2J+j9X/pPINCly9dw2kNyg9DJVoRI2atMxsM4uOxzTCDNqpvRuj+0CY+KLAY9XFCDoIEm+3v0K0G1u9lc52NO4ecN3hXBRxGpRTk2AJUxfiPrsgVuxQ/kMRF+S6TkDn61+KII8wtOunlNXDLNq4AJv5/9+iiRoGjSz19v0zFRRGuXfXrlEOJxWeFGo15
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8585.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(1800799024)(376014)(7416014)(19092799006)(11063799003)(56012099003)(18002099003)(22082099003)(3023799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?NM9A1a63lomkvlsrU/qi5RoI5ojLJpC0FivAqKiYMmNTXpOPlVtkT47FPVb4?=
+ =?us-ascii?Q?UzExAVyj9nK1LU3/p9WNecjQ1H4xTqotm0D3j2o8iYuRznpnPRhFxJibw0Y/?=
+ =?us-ascii?Q?9uH4K/D/LIrdlnTR8goUl+2lKSqsYn72w5YqyjqNjjq1o0lHBVRoiyJjzjmN?=
+ =?us-ascii?Q?Huz0lE+GaSauIpnSpJRFNngE68ap74Ur2roEyRE87JjHlpHDZqOKcEboo+QU?=
+ =?us-ascii?Q?IVU0tmw/5bfOlrYP9TibsIee43ebYuM8mKy1LPJGjv25v00OFfEOVu8Mwl0R?=
+ =?us-ascii?Q?aRtB+3dMg4FDh/sJ4Pu+J1q25uVI8u7/Bj/5Bih4e3PoDG/gA2RMsjqQKW0e?=
+ =?us-ascii?Q?sF4ue/SJwnrtumiZIX3ITkMTZfVLy4C/V/Y4Hsag+4LAexvwxRPWn0woJzJi?=
+ =?us-ascii?Q?Jn4vEG/QqyGzB3fjXFjXI4CrDYYxGBQJLcBpVBeRLNMehJZBzSxR2jW4ktNT?=
+ =?us-ascii?Q?ZDrDV4IqEA0VjhYCNRqrvGbJBHjySe0K8EX20Q/1wAC7EJP34jxvmDYxajyr?=
+ =?us-ascii?Q?19g+usHbauf7G8cF7xEf37UxmTrr2Jva1Q04I3rr9hTA34i4xOvy4a0eOodS?=
+ =?us-ascii?Q?E2hV+UiMDn9f4iXcYCiezn7LYQnzAveBRH37T7zK2aaIi6pqGruzsm6um+QZ?=
+ =?us-ascii?Q?e/3CKAeBo2Gr+4vDU+UU4B6nXERtDgZWAWj60M13aCKSDpzesmDN0jzg7+12?=
+ =?us-ascii?Q?i2GzBaDQEU3ifzCb58ShKTv0Y+Ohk7rPBoNGa2Oyse8lfLXroe3WpbJanS6l?=
+ =?us-ascii?Q?AuWb0L6ux6M1DPnlJL1ty4G7+fVlADK0MCQP+Igbm9pTNNxNqYrENWiykh5r?=
+ =?us-ascii?Q?ZUHWfhyfChW55RzYOPUuU71iu+B5GcEjMNdN3IhJDrpUR7tYS8IDA+Uu0630?=
+ =?us-ascii?Q?U0s+I0GtXydGe6pzEVxHknS/sc/4u29bkk8BY4/c5pguURj/8WrpMIMX42if?=
+ =?us-ascii?Q?NurarRz2NqKAXFwaKx61UN3/Q2/9DH7sCNa2RgeeGbre0JqOFrpR1BaiWI9V?=
+ =?us-ascii?Q?2IGQafTzNpUqglhxkSyPjV8Vvo9j9pCWwov4Si6cWdtg2If4XHwdMow1LIeD?=
+ =?us-ascii?Q?Wkxvidfx0KZC8YBJO+DHwjXyagaFYaVIn/K1U+Dgv1FDcvR/JsD0MGh77YVa?=
+ =?us-ascii?Q?fhdAg7rKVrG1XWg6nMJ5Pi7Hd76F9TuvrebHQKDZSRsTxm0qj1i8aEnKaZIj?=
+ =?us-ascii?Q?is3dF5WBGi5nxk3NRBwH2hanPQWiDGUm9wUKbsNYZ+T+8iTXrXdSx0Xq1ZpD?=
+ =?us-ascii?Q?+bb2TsSbJGJnPqnYAOvf6SPqxwnvR2x3xMRCfPtw/Eu2gWWnalbZbdQv0Wew?=
+ =?us-ascii?Q?v6LZUXOBOldsHCDxAb5nBXETVIG8+zGk5hn38I1IZ5p2BuazC8NiJEAOMNNe?=
+ =?us-ascii?Q?nZEHJY5I8iO/m7JcoY2bSyO3gMC//c7UFAcfuKCHdFRWpR7kXoJ2QN3UzcPM?=
+ =?us-ascii?Q?CqUEHDOgbKSRWn0U9OgVMabLbpDoS0K2ZXXFSQxks1mep1IkUvJ9h/SfH4Mh?=
+ =?us-ascii?Q?oCf+dFVNBqKGjVk5A0MKFFaANZjFceeMc8RlVSPPBb7fz129ikL9U+TfZGU7?=
+ =?us-ascii?Q?3d0ZMiXq4SU2XoFePMKB6Ulw270suWVLnuQZA2krxLnjOWAi/dhytPee/cIP?=
+ =?us-ascii?Q?NVDyHBdZsGkKV6U9LeZqZbGcNoEnrOwqz/43vsuADOZB8hjYNBlxwnYMVtXX?=
+ =?us-ascii?Q?a8l1gYI1orjEcK0bxIk+Cbb1S/U5l/ENOQx0DFO4vybiFSNazWvd6rXdHpc/?=
+ =?us-ascii?Q?mpwom3gKmtckCaVKarCBlCv2fWHOS1QRp++l//kw7CLPgpY0DBU5LcicRRgs?=
+X-MS-Exchange-AntiSpam-MessageData-1: Z9LN23+HzOF0cXQJOoJJkbmojUzQV19aRFs=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b5a6d92-81d5-4c2d-bcc6-08deaf5bf2a6
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8585.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2026 12:50:58.2617
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: niRrvrxzOika5EOtvT8M2xQiR1wpKHThAuchkfwLFwHz/nqvffnWt5pxXFuwaPYWGY11AET8tl1iVKBmej3Tlw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9646
 
-From: Jian Hu <jian.hu@amlogic.com>
+On Mon, May 11, 2026 at 12:30:35PM +0000, Josua Mayer wrote:
+> I had the reverse understanding, the switch port specifies rgmii-id,
+> and the cpu port specifies "rgmii".
+> 
+> The switch port has mode rgmii-id, indicating that someone should add delays.
 
-Add the Always-on clock controller driver for the Amlogic A9 SoC family.
+Yes, but my understanding is that it is out of scope for the phy-mode = "rgmii-id"
+to decide who. It just means that there are no PCB delays.
 
-Signed-off-by: Jian Hu <jian.hu@amlogic.com>
----
- drivers/clk/meson/Makefile   |   2 +-
- drivers/clk/meson/a9-aoclk.c | 494 +++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 495 insertions(+), 1 deletion(-)
+> It is a fixed link without PHY, so switch must add the delays.
 
-diff --git a/drivers/clk/meson/Makefile b/drivers/clk/meson/Makefile
-index 2b5b67b14efc..91af609ce815 100644
---- a/drivers/clk/meson/Makefile
-+++ b/drivers/clk/meson/Makefile
-@@ -20,7 +20,7 @@ obj-$(CONFIG_COMMON_CLK_AXG_AUDIO) += axg-audio.o
- obj-$(CONFIG_COMMON_CLK_A1_PLL) += a1-pll.o
- obj-$(CONFIG_COMMON_CLK_A1_PERIPHERALS) += a1-peripherals.o
- obj-$(CONFIG_COMMON_CLK_A9_PLL) += a9-pll.o
--obj-$(CONFIG_COMMON_CLK_A9_PERIPHERALS) += a9-peripherals.o
-+obj-$(CONFIG_COMMON_CLK_A9_PERIPHERALS) += a9-peripherals.o a9-aoclk.o
- obj-$(CONFIG_COMMON_CLK_C3_PLL) += c3-pll.o
- obj-$(CONFIG_COMMON_CLK_C3_PERIPHERALS) += c3-peripherals.o
- obj-$(CONFIG_COMMON_CLK_GXBB) += gxbb.o gxbb-aoclk.o
-diff --git a/drivers/clk/meson/a9-aoclk.c b/drivers/clk/meson/a9-aoclk.c
-new file mode 100644
-index 000000000000..3c42eaf585d2
---- /dev/null
-+++ b/drivers/clk/meson/a9-aoclk.c
-@@ -0,0 +1,494 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
-+/*
-+ * Copyright (C) 2026 Amlogic, Inc. All rights reserved
-+ */
-+
-+#include <linux/clk-provider.h>
-+#include <linux/platform_device.h>
-+#include <dt-bindings/clock/amlogic,a9-aoclkc.h>
-+#include "clk-regmap.h"
-+#include "clk-dualdiv.h"
-+#include "meson-clkc-utils.h"
-+
-+#define AO_OSCIN_CTRL			0x00
-+#define AO_SYS_CLK0			0x04
-+#define AO_PWM_CLK_A_CTRL		0x1c
-+#define AO_PWM_CLK_B_CTRL		0x20
-+#define AO_PWM_CLK_C_CTRL		0x24
-+#define AO_PWM_CLK_D_CTRL		0x28
-+#define AO_PWM_CLK_E_CTRL		0x2c
-+#define AO_PWM_CLK_F_CTRL		0x30
-+#define AO_PWM_CLK_G_CTRL		0x34
-+#define AO_CEC_CTRL0			0x38
-+#define AO_CEC_CTRL1			0x3c
-+#define AO_RTC_BY_OSCIN_CTRL0		0x50
-+#define AO_RTC_BY_OSCIN_CTRL1		0x54
-+
-+#define A9_COMP_SEL(_name, _reg, _shift, _mask, _pdata) \
-+	MESON_COMP_SEL(a9_, _name, _reg, _shift, _mask, _pdata, NULL, 0, 0)
-+
-+#define A9_COMP_DIV(_name, _reg, _shift, _width) \
-+	MESON_COMP_DIV(a9_, _name, _reg, _shift, _width, 0, CLK_SET_RATE_PARENT)
-+
-+#define A9_COMP_GATE(_name, _reg, _bit) \
-+	MESON_COMP_GATE(a9_, _name, _reg, _bit, CLK_SET_RATE_PARENT)
-+
-+static struct clk_regmap a9_ao_xtal_in = {
-+	.data = &(struct clk_regmap_gate_data){
-+		.offset = AO_OSCIN_CTRL,
-+		.bit_idx = 3,
-+	},
-+	.hw.init = &(struct clk_init_data) {
-+		.name = "ao_xtal_in",
-+		.ops = &clk_regmap_gate_ops,
-+		.parent_data = &(const struct clk_parent_data) {
-+			.fw_name = "xtal",
-+		},
-+		.num_parents = 1,
-+		/*
-+		 * It may be ao_sys's parent clock, its child clocks mark
-+		 * CLK_IS_CRITICAL, So mark CLK_IS_CRITICAL for it.
-+		 */
-+		.flags = CLK_IS_CRITICAL,
-+	},
-+};
-+
-+static struct clk_regmap a9_ao_xtal = {
-+	.data = &(struct clk_regmap_mux_data) {
-+		.offset = AO_OSCIN_CTRL,
-+		.mask = 0x1,
-+		.shift = 0,
-+	},
-+	.hw.init = &(struct clk_init_data){
-+		.name = "ao_xtal",
-+		.ops = &clk_regmap_mux_ops,
-+		/* ext_32k is from external PAD, do not automatically reparent */
-+		.parent_data = (const struct clk_parent_data []) {
-+			{ .hw = &a9_ao_xtal_in.hw },
-+			{ .fw_name = "ext_32k", },
-+		},
-+		.num_parents = 2,
-+		.flags = CLK_SET_RATE_NO_REPARENT,
-+	},
-+};
-+
-+static struct clk_regmap a9_ao_sys = {
-+	.data = &(struct clk_regmap_mux_data) {
-+		.offset = AO_OSCIN_CTRL,
-+		.mask = 0x1,
-+		.shift = 1,
-+	},
-+	.hw.init = &(struct clk_init_data){
-+		.name = "ao_sys",
-+		.ops = &clk_regmap_mux_ops,
-+		.parent_data = (const struct clk_parent_data []) {
-+			{ .hw = &a9_ao_xtal.hw },
-+			{ .fw_name = "sys", },
-+		},
-+		.num_parents = 2,
-+		.flags = CLK_SET_PARENT_GATE,
-+	},
-+};
-+
-+static const struct clk_parent_data a9_ao_pclk_parents = { .hw = &a9_ao_sys.hw };
-+
-+#define A9_AO_PCLK(_name, _bit, _flags)		       \
-+	MESON_PCLK(a9_ao_sys_##_name, AO_SYS_CLK0, _bit, \
-+		   &a9_ao_pclk_parents, _flags)
-+
-+/*
-+ * A9 integrates a low-power microprocessor (Always-on CPU: AOCPU). Some AO sys
-+ * clocks control the AOCPU modules. Mark the AOCPU-related clocks with
-+ * CLK_IS_CRITICAL to avoid them being disabled and impacting AOCPU functionality.
-+ * AOCPU-related clocks list:
-+ * - clktree
-+ * - rst_ctrl
-+ * - pad
-+ * - irq
-+ * - pwrctrl
-+ * - aocpu
-+ * - sram
-+ */
-+static A9_AO_PCLK(i2c3,		0,	0);
-+static A9_AO_PCLK(rtc_reg,	1,	0);
-+static A9_AO_PCLK(clktree,	2,	CLK_IS_CRITICAL);
-+static A9_AO_PCLK(rst_ctrl,	3,	CLK_IS_CRITICAL);
-+static A9_AO_PCLK(pad,		4,	CLK_IS_CRITICAL);
-+static A9_AO_PCLK(rtc_dig,	5,	0);
-+static A9_AO_PCLK(irq,		6,	CLK_IS_CRITICAL);
-+static A9_AO_PCLK(pwrctrl,	7,	CLK_IS_CRITICAL);
-+static A9_AO_PCLK(pwm_a,	8,	0);
-+static A9_AO_PCLK(pwm_b,	9,	0);
-+static A9_AO_PCLK(pwm_c,	10,	0);
-+static A9_AO_PCLK(pwm_d,	11,	0);
-+static A9_AO_PCLK(pwm_e,	12,	0);
-+static A9_AO_PCLK(pwm_f,	13,	0);
-+static A9_AO_PCLK(pwm_g,	14,	0);
-+static A9_AO_PCLK(i2c_a,	15,	0);
-+static A9_AO_PCLK(i2c_b,	16,	0);
-+static A9_AO_PCLK(i2c_c,	17,	0);
-+static A9_AO_PCLK(i2c_d,	18,	0);
-+static A9_AO_PCLK(sed,		19,	0);
-+static A9_AO_PCLK(ir_ctrl,	20,	0);
-+static A9_AO_PCLK(uart_b,	21,	0);
-+static A9_AO_PCLK(uart_c,	22,	0);
-+static A9_AO_PCLK(uart_d,	23,	0);
-+static A9_AO_PCLK(uart_e,	24,	0);
-+static A9_AO_PCLK(spisg_0,	25,	0);
-+static A9_AO_PCLK(rtc_secure,	26,	0);
-+static A9_AO_PCLK(cec,		27,	0);
-+static A9_AO_PCLK(aocpu,	28,	CLK_IS_CRITICAL);
-+static A9_AO_PCLK(sram,		29,	CLK_IS_CRITICAL);
-+static A9_AO_PCLK(spisg_1,	30,	0);
-+static A9_AO_PCLK(spisg_2,	31,	0);
-+
-+static const struct clk_parent_data a9_ao_pwm_parents[] = {
-+	{ .hw = &a9_ao_xtal.hw },
-+	{ .fw_name = "fdiv5", },
-+	{ .fw_name = "fdiv4", },
-+	{ .fw_name = "fdiv3", }
-+};
-+
-+static A9_COMP_SEL(ao_pwm_a, AO_PWM_CLK_A_CTRL, 9, 0x7, a9_ao_pwm_parents);
-+static A9_COMP_DIV(ao_pwm_a, AO_PWM_CLK_A_CTRL, 0, 8);
-+static A9_COMP_GATE(ao_pwm_a, AO_PWM_CLK_A_CTRL, 8);
-+
-+static A9_COMP_SEL(ao_pwm_b, AO_PWM_CLK_B_CTRL, 9, 0x7, a9_ao_pwm_parents);
-+static A9_COMP_DIV(ao_pwm_b, AO_PWM_CLK_B_CTRL, 0, 8);
-+static A9_COMP_GATE(ao_pwm_b, AO_PWM_CLK_A_CTRL, 8);
-+
-+static A9_COMP_SEL(ao_pwm_c, AO_PWM_CLK_C_CTRL, 9, 0x7, a9_ao_pwm_parents);
-+static A9_COMP_DIV(ao_pwm_c, AO_PWM_CLK_C_CTRL, 0, 8);
-+static A9_COMP_GATE(ao_pwm_c, AO_PWM_CLK_C_CTRL, 8);
-+
-+static A9_COMP_SEL(ao_pwm_d, AO_PWM_CLK_D_CTRL, 9, 0x7, a9_ao_pwm_parents);
-+static A9_COMP_DIV(ao_pwm_d, AO_PWM_CLK_D_CTRL, 0, 8);
-+static A9_COMP_GATE(ao_pwm_d, AO_PWM_CLK_D_CTRL, 8);
-+
-+static A9_COMP_SEL(ao_pwm_e, AO_PWM_CLK_E_CTRL, 9, 0x7, a9_ao_pwm_parents);
-+static A9_COMP_DIV(ao_pwm_e, AO_PWM_CLK_E_CTRL, 0, 8);
-+static A9_COMP_GATE(ao_pwm_e, AO_PWM_CLK_E_CTRL, 8);
-+
-+static A9_COMP_SEL(ao_pwm_f, AO_PWM_CLK_F_CTRL, 9, 0x7, a9_ao_pwm_parents);
-+static A9_COMP_DIV(ao_pwm_f, AO_PWM_CLK_F_CTRL, 0, 8);
-+static A9_COMP_GATE(ao_pwm_f, AO_PWM_CLK_F_CTRL, 8);
-+
-+static A9_COMP_SEL(ao_pwm_g, AO_PWM_CLK_G_CTRL, 9, 0x7, a9_ao_pwm_parents);
-+static A9_COMP_DIV(ao_pwm_g, AO_PWM_CLK_G_CTRL, 0, 8);
-+static A9_COMP_GATE(ao_pwm_g, AO_PWM_CLK_G_CTRL, 8);
-+
-+static struct clk_regmap a9_ao_rtc_dualdiv_in = {
-+	.data = &(struct clk_regmap_gate_data){
-+		.offset = AO_RTC_BY_OSCIN_CTRL0,
-+		.bit_idx = 31,
-+	},
-+	.hw.init = &(struct clk_init_data) {
-+		.name = "ao_rtc_duandiv_in",
-+		.ops = &clk_regmap_gate_ops,
-+		.parent_hws = (const struct clk_hw *[]) {
-+			&a9_ao_xtal.hw
-+		},
-+		.num_parents = 1,
-+	},
-+};
-+
-+static const struct meson_clk_dualdiv_param a9_ao_dualdiv_table[] = {
-+	{ 733, 732, 8, 11, 1 },
-+	{ /* sentinel */ }
-+};
-+
-+static struct clk_regmap a9_ao_rtc_dualdiv_div = {
-+	.data = &(struct meson_clk_dualdiv_data){
-+		.n1 = {
-+			.reg_off = AO_RTC_BY_OSCIN_CTRL0,
-+			.shift   = 0,
-+			.width   = 12,
-+		},
-+		.n2 = {
-+			.reg_off = AO_RTC_BY_OSCIN_CTRL0,
-+			.shift   = 12,
-+			.width   = 12,
-+		},
-+		.m1 = {
-+			.reg_off = AO_RTC_BY_OSCIN_CTRL1,
-+			.shift   = 0,
-+			.width   = 12,
-+		},
-+		.m2 = {
-+			.reg_off = AO_RTC_BY_OSCIN_CTRL1,
-+			.shift   = 12,
-+			.width   = 12,
-+		},
-+		.dual = {
-+			.reg_off = AO_RTC_BY_OSCIN_CTRL0,
-+			.shift   = 28,
-+			.width   = 1,
-+		},
-+		.table = a9_ao_dualdiv_table,
-+	},
-+	.hw.init = &(struct clk_init_data){
-+		.name = "a9_ao_rtc_dualdiv_div",
-+		.ops = &meson_clk_dualdiv_ops,
-+		.parent_hws = (const struct clk_hw *[]) {
-+			&a9_ao_rtc_dualdiv_in.hw
-+		},
-+		.num_parents = 1,
-+	},
-+};
-+
-+static struct clk_regmap a9_ao_rtc_dualdiv_sel = {
-+	.data = &(struct clk_regmap_mux_data) {
-+		.offset = AO_RTC_BY_OSCIN_CTRL1,
-+		.mask = 0x1,
-+		.shift = 24,
-+	},
-+	.hw.init = &(struct clk_init_data){
-+		.name = "ao_rtc_dualdiv_sel",
-+		.ops = &clk_regmap_mux_ops,
-+		.parent_hws = (const struct clk_hw *[]) {
-+			&a9_ao_rtc_dualdiv_div.hw,
-+			&a9_ao_rtc_dualdiv_in.hw,
-+		},
-+		.num_parents = 2,
-+		.flags = CLK_SET_RATE_PARENT,
-+	},
-+};
-+
-+static struct clk_regmap a9_ao_rtc_dualdiv = {
-+	.data = &(struct clk_regmap_gate_data){
-+		.offset = AO_RTC_BY_OSCIN_CTRL0,
-+		.bit_idx = 30,
-+	},
-+	.hw.init = &(struct clk_init_data) {
-+		.name = "ao_rtc_dualdiv",
-+		.ops = &clk_regmap_gate_ops,
-+		.parent_hws = (const struct clk_hw *[]) {
-+			&a9_ao_rtc_dualdiv_sel.hw
-+		},
-+		.num_parents = 1,
-+		.flags = CLK_SET_RATE_PARENT,
-+	},
-+};
-+
-+static struct clk_regmap a9_ao_rtc = {
-+	.data = &(struct clk_regmap_mux_data) {
-+		.offset = AO_RTC_BY_OSCIN_CTRL1,
-+		.mask = 0x1,
-+		.shift = 30,
-+	},
-+	.hw.init = &(struct clk_init_data){
-+		.name = "ao_rtc",
-+		.ops = &clk_regmap_mux_ops,
-+		.parent_hws = (const struct clk_hw *[]) {
-+			&a9_ao_xtal.hw,
-+			&a9_ao_rtc_dualdiv.hw,
-+		},
-+		.num_parents = 2,
-+		.flags = CLK_SET_RATE_PARENT,
-+	},
-+};
-+
-+static struct clk_regmap a9_ao_cec_dualdiv_in = {
-+	.data = &(struct clk_regmap_gate_data){
-+		.offset = AO_CEC_CTRL0,
-+		.bit_idx = 31,
-+	},
-+	.hw.init = &(struct clk_init_data) {
-+		.name = "ao_cec_dualdiv_in",
-+		.ops = &clk_regmap_gate_ops,
-+		.parent_hws = (const struct clk_hw *[]) {
-+			&a9_ao_xtal.hw
-+		},
-+		.num_parents = 1,
-+	},
-+};
-+
-+static struct clk_regmap a9_ao_cec_dualdiv_div = {
-+	.data = &(struct meson_clk_dualdiv_data){
-+		.n1 = {
-+			.reg_off = AO_CEC_CTRL0,
-+			.shift   = 0,
-+			.width   = 12,
-+		},
-+		.n2 = {
-+			.reg_off = AO_CEC_CTRL0,
-+			.shift   = 12,
-+			.width   = 12,
-+		},
-+		.m1 = {
-+			.reg_off = AO_CEC_CTRL1,
-+			.shift   = 0,
-+			.width   = 12,
-+		},
-+		.m2 = {
-+			.reg_off = AO_CEC_CTRL1,
-+			.shift   = 12,
-+			.width   = 12,
-+		},
-+		.dual = {
-+			.reg_off = AO_CEC_CTRL0,
-+			.shift   = 28,
-+			.width   = 1,
-+		},
-+		.table = a9_ao_dualdiv_table,
-+	},
-+	.hw.init = &(struct clk_init_data){
-+		.name = "ao_cec_dualdiv_div",
-+		.ops = &meson_clk_dualdiv_ops,
-+		.parent_hws = (const struct clk_hw *[]) {
-+			&a9_ao_cec_dualdiv_in.hw
-+		},
-+		.num_parents = 1,
-+	},
-+};
-+
-+static struct clk_regmap a9_ao_cec_dualdiv_sel = {
-+	.data = &(struct clk_regmap_mux_data) {
-+		.offset = AO_CEC_CTRL1,
-+		.mask = 0x1,
-+		.shift = 24,
-+	},
-+	.hw.init = &(struct clk_init_data){
-+		.name = "ao_cec_dualdiv_sel",
-+		.ops = &clk_regmap_mux_ops,
-+		.parent_hws = (const struct clk_hw *[]) {
-+			&a9_ao_cec_dualdiv_div.hw,
-+			&a9_ao_cec_dualdiv_in.hw,
-+		},
-+		.num_parents = 2,
-+		.flags = CLK_SET_RATE_PARENT,
-+	},
-+};
-+
-+static struct clk_regmap a9_ao_cec_dualdiv = {
-+	.data = &(struct clk_regmap_gate_data){
-+		.offset = AO_CEC_CTRL0,
-+		.bit_idx = 30,
-+	},
-+	.hw.init = &(struct clk_init_data){
-+		.name = "ao_cec_dualdiv",
-+		.ops = &clk_regmap_gate_ops,
-+		.parent_hws = (const struct clk_hw *[]) {
-+			&a9_ao_cec_dualdiv_sel.hw
-+		},
-+		.num_parents = 1,
-+		.flags = CLK_SET_RATE_PARENT,
-+	},
-+};
-+
-+static struct clk_regmap a9_ao_cec = {
-+	.data = &(struct clk_regmap_mux_data) {
-+		.offset = AO_CEC_CTRL1,
-+		.mask = 0x1,
-+		.shift = 30,
-+	},
-+	.hw.init = &(struct clk_init_data){
-+		.name = "ao_cec",
-+		.ops = &clk_regmap_mux_ops,
-+		.parent_hws = (const struct clk_hw *[]) {
-+			&a9_ao_cec_dualdiv.hw,
-+			&a9_ao_rtc.hw,
-+		},
-+		.num_parents = 2,
-+		.flags = CLK_SET_RATE_PARENT,
-+	},
-+};
-+
-+static struct clk_hw *a9_ao_hw_clks[] = {
-+	[CLKID_AO_XTAL_IN]		= &a9_ao_xtal_in.hw,
-+	[CLKID_AO_XTAL]			= &a9_ao_xtal.hw,
-+	[CLKID_AO_SYS]			= &a9_ao_sys.hw,
-+	[CLKID_AO_SYS_I3C]		= &a9_ao_sys_i2c3.hw,
-+	[CLKID_AO_SYS_RTC_REG]		= &a9_ao_sys_rtc_reg.hw,
-+	[CLKID_AO_SYS_CLKTREE]		= &a9_ao_sys_clktree.hw,
-+	[CLKID_AO_SYS_RST_CTRL]		= &a9_ao_sys_rst_ctrl.hw,
-+	[CLKID_AO_SYS_PAD]		= &a9_ao_sys_pad.hw,
-+	[CLKID_AO_SYS_RTC_DIG]		= &a9_ao_sys_rtc_dig.hw,
-+	[CLKID_AO_SYS_IRQ]		= &a9_ao_sys_irq.hw,
-+	[CLKID_AO_SYS_PWRCTRL]		= &a9_ao_sys_pwrctrl.hw,
-+	[CLKID_AO_SYS_PWM_A]		= &a9_ao_sys_pwm_a.hw,
-+	[CLKID_AO_SYS_PWM_B]		= &a9_ao_sys_pwm_b.hw,
-+	[CLKID_AO_SYS_PWM_C]		= &a9_ao_sys_pwm_c.hw,
-+	[CLKID_AO_SYS_PWM_D]		= &a9_ao_sys_pwm_d.hw,
-+	[CLKID_AO_SYS_PWM_E]		= &a9_ao_sys_pwm_e.hw,
-+	[CLKID_AO_SYS_PWM_F]		= &a9_ao_sys_pwm_f.hw,
-+	[CLKID_AO_SYS_PWM_G]		= &a9_ao_sys_pwm_g.hw,
-+	[CLKID_AO_SYS_I2C_A]		= &a9_ao_sys_i2c_a.hw,
-+	[CLKID_AO_SYS_I2C_B]		= &a9_ao_sys_i2c_b.hw,
-+	[CLKID_AO_SYS_I2C_C]		= &a9_ao_sys_i2c_c.hw,
-+	[CLKID_AO_SYS_I2C_D]		= &a9_ao_sys_i2c_d.hw,
-+	[CLKID_AO_SYS_SED]		= &a9_ao_sys_sed.hw,
-+	[CLKID_AO_SYS_IR_CTRL]		= &a9_ao_sys_ir_ctrl.hw,
-+	[CLKID_AO_SYS_UART_B]		= &a9_ao_sys_uart_b.hw,
-+	[CLKID_AO_SYS_UART_C]		= &a9_ao_sys_uart_c.hw,
-+	[CLKID_AO_SYS_UART_D]		= &a9_ao_sys_uart_d.hw,
-+	[CLKID_AO_SYS_UART_E]		= &a9_ao_sys_uart_e.hw,
-+	[CLKID_AO_SYS_SPISG_0]		= &a9_ao_sys_spisg_0.hw,
-+	[CLKID_AO_SYS_RTC_SECURE]	= &a9_ao_sys_rtc_secure.hw,
-+	[CLKID_AO_SYS_CEC]		= &a9_ao_sys_cec.hw,
-+	[CLKID_AO_SYS_AOCPU]		= &a9_ao_sys_aocpu.hw,
-+	[CLKID_AO_SYS_SRAM]		= &a9_ao_sys_sram.hw,
-+	[CLKID_AO_SYS_SPISG_1]		= &a9_ao_sys_spisg_1.hw,
-+	[CLKID_AO_SYS_SPISG_2]		= &a9_ao_sys_spisg_2.hw,
-+	[CLKID_AO_PWM_A_SEL]		= &a9_ao_pwm_a_sel.hw,
-+	[CLKID_AO_PWM_A_DIV]		= &a9_ao_pwm_a_div.hw,
-+	[CLKID_AO_PWM_A]		= &a9_ao_pwm_a.hw,
-+	[CLKID_AO_PWM_B_SEL]		= &a9_ao_pwm_b_sel.hw,
-+	[CLKID_AO_PWM_B_DIV]		= &a9_ao_pwm_b_div.hw,
-+	[CLKID_AO_PWM_B]		= &a9_ao_pwm_b.hw,
-+	[CLKID_AO_PWM_C_SEL]		= &a9_ao_pwm_c_sel.hw,
-+	[CLKID_AO_PWM_C_DIV]		= &a9_ao_pwm_c_div.hw,
-+	[CLKID_AO_PWM_C]		= &a9_ao_pwm_c.hw,
-+	[CLKID_AO_PWM_D_SEL]		= &a9_ao_pwm_d_sel.hw,
-+	[CLKID_AO_PWM_D_DIV]		= &a9_ao_pwm_d_div.hw,
-+	[CLKID_AO_PWM_D]		= &a9_ao_pwm_d.hw,
-+	[CLKID_AO_PWM_E_SEL]		= &a9_ao_pwm_e_sel.hw,
-+	[CLKID_AO_PWM_E_DIV]		= &a9_ao_pwm_e_div.hw,
-+	[CLKID_AO_PWM_E]		= &a9_ao_pwm_e.hw,
-+	[CLKID_AO_PWM_F_SEL]		= &a9_ao_pwm_f_sel.hw,
-+	[CLKID_AO_PWM_F_DIV]		= &a9_ao_pwm_f_div.hw,
-+	[CLKID_AO_PWM_F]		= &a9_ao_pwm_f.hw,
-+	[CLKID_AO_PWM_G_SEL]		= &a9_ao_pwm_g_sel.hw,
-+	[CLKID_AO_PWM_G_DIV]		= &a9_ao_pwm_g_div.hw,
-+	[CLKID_AO_PWM_G]		= &a9_ao_pwm_g.hw,
-+	[CLKID_AO_RTC_DUALDIV_IN]	= &a9_ao_rtc_dualdiv_in.hw,
-+	[CLKID_AO_RTC_DUALDIV_DIV]	= &a9_ao_rtc_dualdiv_div.hw,
-+	[CLKID_AO_RTC_DUALDIV_SEL]	= &a9_ao_rtc_dualdiv_sel.hw,
-+	[CLKID_AO_RTC_DUALDIV]		= &a9_ao_rtc_dualdiv.hw,
-+	[CLKID_AO_RTC]			= &a9_ao_rtc.hw,
-+	[CLKID_AO_CEC_DUALDIV_IN]	= &a9_ao_cec_dualdiv_in.hw,
-+	[CLKID_AO_CEC_DUALDIV_DIV]	= &a9_ao_cec_dualdiv_div.hw,
-+	[CLKID_AO_CEC_DUALDIV_SEL]	= &a9_ao_cec_dualdiv_sel.hw,
-+	[CLKID_AO_CEC_DUALDIV]		= &a9_ao_cec_dualdiv.hw,
-+	[CLKID_AO_CEC]			= &a9_ao_cec.hw,
-+};
-+
-+static const struct meson_clkc_data a9_ao_clkc_data = {
-+	.hw_clks = {
-+		.hws = a9_ao_hw_clks,
-+		.num = ARRAY_SIZE(a9_ao_hw_clks),
-+	},
-+};
-+
-+static const struct of_device_id a9_ao_clkc_match_table[] = {
-+	{
-+		.compatible	= "amlogic,a9-aoclkc",
-+		.data		= &a9_ao_clkc_data,
-+	},
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, a9_ao_clkc_match_table);
-+
-+static struct platform_driver a9_ao_clkc_driver = {
-+	.probe		= meson_clkc_mmio_probe,
-+	.driver		= {
-+		.name	= "a9-aoclkc",
-+		.of_match_table = a9_ao_clkc_match_table,
-+	},
-+};
-+module_platform_driver(a9_ao_clkc_driver);
-+
-+MODULE_DESCRIPTION("Amlogic A9 Always-ON Clock Controller driver");
-+MODULE_AUTHOR("Jian Hu <jian.hu@amlogic.com>");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("CLK_MESON");
+This is an obsolete interpretation of phy-mode. sja1105_parse_rgmii_delays()
+explains that in the new interpretation, 'rgmii' or 'rgmii-id' doesn't
+indicate anything. The switch inserts the delays because of the
+"rx-internal-delay-ps" and "tx-internal-delay-ps" properties.
 
--- 
-2.47.1
+> From the cpu (eqos) perspcetive it is also a fixed link without phy,
+> so I specify rgmii indicating nobody should add delays.
+> 
+> Is this correct?
 
+My understanding may be wrong, but I directly quote:
+- If the PCB does not add these delays via extra long traces,
+  'rgmii-id' should be used. Here, 'id' refers to 'internal delay',
+  where either the MAC or PHY adds the delay.
+- When the PCB does not implement the delays, the MAC or PHY must.
+  As such, this is software configuration, and so not described in
+  Device Tree.
 
+> >
+> >> +	pinctrl-0 = <&eqos_pins>;
+> >> +	pinctrl-names = "default";
+> >> +	status = "okay";
+> >> +
+> >> +	fixed-link {
+> >> +		full-duplex;
+> >> +		speed = <1000>;
+> >> +	};
+> >> +};
+> >> +
+> >> +&lpspi0 {
+> >> +	cs-gpios = <&lsio_gpio1 8 GPIO_ACTIVE_LOW>, <&lsio_gpio1 7 GPIO_ACTIVE_LOW>;
+> >> +	pinctrl-0 = <&lpspi0_pins>, <&switch_pins>;
+> >> +	pinctrl-names = "default";
+> >> +	status = "okay";
+> >> +
+> >> +	ethernet-switch@0 {
+> >> +		compatible = "nxp,sja1110a";
+> >> +		reg = <0>;
+> >> +		reset-gpios = <&lsio_gpio4 3 GPIO_ACTIVE_LOW>;
+> >> +		spi-max-frequency = <4000000>;
+> >> +
+> >> +		ethernet-ports {
+> >> +			#address-cells = <1>;
+> >> +			#size-cells = <0>;
+> >> +
+> >> +			/* 100Base-TX on connector J26 */
+> >> +			port@1 {
+> > Some people might prefer seeing ethernet-port@N instead of port@N, to
+> > fully avoid confusion with dtschema/schemas/graph.yaml (although, the
+> > container node being ethernet-ports now, the confusion should be
+> > avoidable).
+> >
+> > Also, if you ever perform device tree fixups from the bootloader (like
+> > for setting status = "disabled" to status = "okay" for the ports that go
+> > to addon boards), please never hardcode fixup paths,
+> 
+> I was expecting device-tree overlays to be used, in which case aliases
+> are not needed.
+
+Ok, what do you need for device tree overlays to reference these nodes?
+Don't you need a label for them to appear in /__symbols__? Or do you
+reference by "&{/absolute/path}" (still bad)?
+
+> > but always use eth
+> > aliases to get to them.
+> However if it is okay to add eth[0-9]+ aliases also for switch ports, I'll add them.
+
+Absolutely ok.
+
+> > This is in case the port node names ever change,
+> > to avoid bootloader regressions.
+> Good point!
+
+I don't think there's any downside to adding aliases, so please do, in
+case anyone needs them, they should be there.
