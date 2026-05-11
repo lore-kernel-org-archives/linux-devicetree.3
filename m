@@ -1,125 +1,205 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C3B40628B
-	for <devicetree@vger.kernel.org>; Mon, 11 May 2026 15:47:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778514437; cv=none; b=QEUu5nx4XUwCEaLQYIgXBjdcuM4ak+qC8zdpjEM96pPQn5zLFMhYqlgynZT9Fn89EVUEhMfRWMsEtY0QG/vLEYBGg1/puL9NTQkMHRb+5Mvz2mEJYI04VUaETR9wmh7s1F+WCiaZUr3i1Dcnoa3kZYFj3ZTRaZP4KICyY393TAg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778514437; c=relaxed/simple;
-	bh=//cZI5dNMSNBnjI889RTNGrX0/AbonNKGzNdu70sR6g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B6n3O/qxhfonMwX1RWmiFGE0N0Ow94CnMui8lgP4r4f1h6yqlIOrnPxf02APw4+3+f5J5qJZylJB6eQ03TBcK6d2ZRCtJAmgsRDJ9YXscl/jDTBDXnd+1mW3kPa9v/q/8GDfBMfS1i+Xn1d15dTYA3OD8HxRIcJXCEq6l6K0pek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hYpSXSYd; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=j2Wz3h8c; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C928373BFC;
+	Mon, 11 May 2026 15:50:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778514626; cv=pass; b=UGLVSkhmeJ4nwqPRxIhZRKHU0fdn4/i+pW3h/xFlaAVnW22IlWz9+p2C6WGueFdfheMZhBd9H+WufiUhiO7oSC+4X0Y/YuQgIKfbM+kQa5LbS/hlFRBvFFKYmi9Y+bsyKxNlb9Q8gjrcuZJ5Fvv/UYiP8pydJp/gLzQkFZPUgb4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778514626; c=relaxed/simple;
+	bh=Jev2YbVCoZFjEhOMq696YfzAJwCtgWiHcamd3Bfkrzg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=j3znQPyVN82GHsGyig4FvitM4bNYAkriPAHOeiB5rBBjbFUCAsvDlLG/jsIOPzGPGKU97R4rWJwI+7AhPNVjRkCy9e4i2HUNKhIzmhEcyZjV+YMujgFrz7Jxs+OxbshjjenTy7obRlqksufuKUIkKvoTqlNpbN1Z9k7tBBau18g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b=lXQwuqDE; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hYpSXSYd";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="j2Wz3h8c"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1778514435;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IaLCuwVBpxCwdbLTEf7IYx3z7POJtFUK4DUpOB/PfG8=;
-	b=hYpSXSYdlsKgHbyipfhD0u1R6QU6GBi2fdj/ONCCjWZpIXla2I8TRx66UsQB/dI84zyEFI
-	DwqWOGXQVUK6lfvvDMksUDSi0Kd3lO/LgbKfzpVDxzZmXsHEt914KOjqwoVZSF9axZY1IK
-	nVlLFE1EsyHmhYtHPCyOg7Wr/t12+24=
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com
- [209.85.222.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-192-Dl__T7TSP9a93LGi6aAOyA-1; Mon, 11 May 2026 11:47:14 -0400
-X-MC-Unique: Dl__T7TSP9a93LGi6aAOyA-1
-X-Mimecast-MFC-AGG-ID: Dl__T7TSP9a93LGi6aAOyA_1778514434
-Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-95f4d5efbe9so1686505241.1
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 08:47:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1778514433; x=1779119233; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IaLCuwVBpxCwdbLTEf7IYx3z7POJtFUK4DUpOB/PfG8=;
-        b=j2Wz3h8c2HsznDyllmmn1ifxRi84n+aum3cskSj0qD6VcUg0ZGportzNX6VW6orauI
-         JC/z9DeMtD/reKht9U0VP41zZ9/g3rQSdUzU+ToKFViz52XVaEZVb+62k8KujUGqccbW
-         XdSe6KY/d4vHYZZJ3M3DqtwLRKgchMVJ+J57mCN6oksYvQW/HmuYGyzfEHE/N0Nh2sAB
-         c7QiG/corQmayW+1Y+jroRACujU5uh0nH6zsbtxt7uGIctBNDb9wTWYm8ogvPouK3pm9
-         8yV7aNt1Trxr4krUELR7GM8LlhiMhNDxPi+4GyV9ufuraZgI28FTucZAiJb36KRJUwRC
-         56Ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778514433; x=1779119233;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=IaLCuwVBpxCwdbLTEf7IYx3z7POJtFUK4DUpOB/PfG8=;
-        b=MhgeMsMVDudgz83alI/cxmHR/VO0km4RWawgYh6AdEC9vlJFRwRvh8o+ZzmIiYQetu
-         fqYwmDqUl4r3EQBerkEZPP4uPwiou/9gvlZGCQY09tSY8kYUe5uhji2kIr8d5SFdaGmB
-         o3/7rZM0ZsrLRQdf56Kr7sUZ7fdFuUFqDoVhd/zd6PlaSTw6/O5dfY8MXDpKUPLDRRYM
-         HsPXVS0LYJbPe4KuwH/G1U9cPSlKVLRMZ4Oq3SZqPEPGkmr514z35g0UtcpVyodAXmVQ
-         EGRjObJxkd3F6xW0UVASQqlAOVcIucfak51oMNonP9k6BDOqqUH6EBAr9Hjw1Aw6wekk
-         Kx+Q==
-X-Forwarded-Encrypted: i=1; AFNElJ9EBsRPuK2b3yyw17Fv8lmMqnIJpqJhMSq8qLwGeC5wHftMr6LMaikIOeZvmZBgUTssRP0F5ftG+Hpx@vger.kernel.org
-X-Gm-Message-State: AOJu0YyaZJNBIWi5PMh2Zt5yxOFOqgygw882oX8z0AME1egZYdsjbvQT
-	OeggRaq17KcCQ2mNId1WHXN2dN/f1yOYrvKbZVv9McDU3u866yIKfjNVgHZZcOq0Yn3D3SY4oO9
-	xlY6bh85OKXwsC4O0VkVTN2vxN5CeAPDOZdRlLbdPyrFoJYeOokXRcZ5/JnUMOvA=
-X-Gm-Gg: Acq92OFgzjKxKiYoZAaBlaizoUqkksQYUz4OOyxSqOthxlRnphHu8bLnROEWvyk2ArP
-	niW6wor6MVMMYtK23pyITV4UgYHoxogMJUtrYOjkZWjmVouDMgF6ldeB8LQzO1uLr7MSK9v602V
-	kvCnFyfq6dA2w4qO1/HzFNGgfVgHAHShGYossLeZie5Qn4svNU8n85WovDzeNgjeoElZL2+K76Q
-	sjHaqtU6mqBg7AbpOR8OTZKUJwKC4elY2UiV6G+5Ag0lJAGa1lFMymF4GIMXNE23a91Zb8twG5n
-	3g6ysZAzI5M/rlWS7BZVT7RNJDwsh3UzNKn/hCImGAOkvC0wTxHeFmXy/0E+LY3d9O+Tdf4CpyI
-	VAe9UOz0qlJop5V6ZV1jPAclqbn+i8oIW+MM2JKb/LJ617gAO/IFEy9BaTTpEwFytzTU=
-X-Received: by 2002:a67:e704:0:b0:610:db51:6f3d with SMTP id ada2fe7eead31-631da02a2ffmr4546449137.12.1778514433523;
-        Mon, 11 May 2026 08:47:13 -0700 (PDT)
-X-Received: by 2002:a67:e704:0:b0:610:db51:6f3d with SMTP id ada2fe7eead31-631da02a2ffmr4546395137.12.1778514433109;
-        Mon, 11 May 2026 08:47:13 -0700 (PDT)
-Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8bf3b0c4c9dsm101224006d6.5.2026.05.11.08.47.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 11 May 2026 08:47:12 -0700 (PDT)
-Date: Mon, 11 May 2026 11:47:10 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: jian.hu@amlogic.com
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Xianwei Zhao <xianwei.zhao@amlogic.com>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 05/10] clk: amlogic: PLL l_detect signal supports
- active-high configuration
-Message-ID: <agH5_mWD0CRIcGyS@redhat.com>
-References: <20260511-b4-a9_clk-v1-0-41cb4071b7c9@amlogic.com>
- <20260511-b4-a9_clk-v1-5-41cb4071b7c9@amlogic.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b="lXQwuqDE"
+ARC-Seal: i=1; a=rsa-sha256; t=1778514593; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=JtR96WeqT7mANZWYH5Oq/SrWkMVZMHEbjdysUv/IDO4KZwoDNDvREeBHkIj51zpAmurnQdC08F2XjOERSeMmOUucOa/EQHyhYMAf2nwLR+YpK/sv1eIXWC5lYuCs1C/2k61b9w7swjzlLd+nbhC4mkys+J5UDiJl5hYA2KK45lM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1778514593; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=XLRqHHn0hwJYYFSTUINWa18jofeRC1qm9JrrGQiF80s=; 
+	b=gqVx98psmTKrKlqyPBaggNuqabHo96QX5RdambdyF9d0G93YbduIFF1ajBv0b3svQONPy+0P31NxXL9D6iwvqyjvpfc60hW7irJKOs0UMUGqOA7pOeSheMkBy6vNYmCxF9qNSTxRzBJQVJtmc+Nv6lHLNlNoEi8su71z/YDnZ/E=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=louisalexis.eyraud@collabora.com;
+	dmarc=pass header.from=<louisalexis.eyraud@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1778514593;
+	s=zohomail; d=collabora.com; i=louisalexis.eyraud@collabora.com;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=XLRqHHn0hwJYYFSTUINWa18jofeRC1qm9JrrGQiF80s=;
+	b=lXQwuqDEHkE93zSFEP0C/7F7bsb2cpIzNR+y4WCSN/TJXYD78zHt1AwDilCol32u
+	q9O+paBosqN1PAeJoIvEVFQwsiR/ZgvPKnIjEBYTbSjRHj+sgQmEIbN79VCs8BT75sq
+	9/iVOyqpkucv2LWwu2iJCgU5UqmYIJzriORdTJ7E=
+Received: by mx.zohomail.com with SMTPS id 1778514590556214.59633215458769;
+	Mon, 11 May 2026 08:49:50 -0700 (PDT)
+Message-ID: <7d5bcbe907456e4ada4401251eb05c3d5378dcb0.camel@collabora.com>
+Subject: Re: [PATCH net-next v2 4/4] net: phy: Introduce Airoha AN8801/R
+ Gigabit Ethernet PHY driver
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>,  Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley	
+ <conor+dt@kernel.org>, AngeloGioacchino Del Regno	
+ <angelogioacchino.delregno@collabora.com>, Heiner Kallweit	
+ <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	kevin-kw.huang@airoha.com, macpaul.lin@mediatek.com,
+ matthias.bgg@gmail.com, 	kernel@collabora.com, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, 	linux-kernel@vger.kernel.org
+Date: Mon, 11 May 2026 17:49:44 +0200
+In-Reply-To: <27ca6b71-18df-4e47-9117-0e503f7e7d5f@lunn.ch>
+References: 
+	<20260326-add-airoha-an8801-support-v2-0-1a42d6b6050f@collabora.com>
+	 <20260326-add-airoha-an8801-support-v2-4-1a42d6b6050f@collabora.com>
+	 <3688a285-7f98-4afa-80ad-697094cd7b97@lunn.ch>
+	 <2c441d51f6a865ddb6e67b63cd26a651ed3ff058.camel@collabora.com>
+	 <27ca6b71-18df-4e47-9117-0e503f7e7d5f@lunn.ch>
+Organization: Collabora Ltd
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260511-b4-a9_clk-v1-5-41cb4071b7c9@amlogic.com>
-User-Agent: Mutt/2.3.1 (2026-03-20)
+X-ZohoMailClient: External
 
-On Mon, May 11, 2026 at 08:47:27PM +0800, Jian Hu via B4 Relay wrote:
-> From: Jian Hu <jian.hu@amlogic.com>
-> 
-> l_detect controls the enable/disable of the PLL lock-detect module.
-> 
-> For A9, the l_detect signal is active-high:
-> 0 -> Disable lock-detect module;
-> 1 -> Enable lock-detect module.
-> 
-> Here, a flag CLK_MESON_PLL_L_DETECT_ACTIVE_HIGH is added to handle cases
-> like A9, where the signal is active-high.
-> 
-> Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+Hi Andrew,
 
-Reviewed-by: Brian Masney <bmasney@redhat.com>
+On Thu, 2026-05-07 at 23:43 +0200, Andrew Lunn wrote:
+> > > > +static int an8801r_of_init_leds(struct phy_device *phydev, u8
+> > > > *led_cfg)
+> > > > +{
+> > > > +	struct device *dev =3D &phydev->mdio.dev;
+> > > > +	struct device_node *np =3D dev->of_node;
+> > > > +	struct device_node *leds;
+> > > > +	u32 function_enum_idx;
+> > > > +	int ret;
+> > > > +
+> > > > +	if (!np)
+> > > > +		return 0;
+> > > > +
+> > > > +	/* If devicetree is present, leds configuration is
+> > > > required */
+> > > > +	leds =3D of_get_child_by_name(np, "leds");
+> > > > +	if (!leds)
+> > > > +		return 0;
+> > > > +
+> > > > +	for_each_available_child_of_node_scoped(leds, led) {
+> > > > +		u32 led_idx;
+> > > > +
+> > > > +		ret =3D of_property_read_u32(led, "reg",
+> > > > &led_idx);
+> > > > +		if (ret)
+> > > > +			goto out;
+> > > > +
+> > > > +		if (led_idx >=3D AN8801R_NUM_LEDS) {
+> > > > +			ret =3D -EINVAL;
+> > > > +			goto out;
+> > > > +		}
+> > > > +
+> > > > +		ret =3D of_property_read_u32(led, "function-
+> > > > enumerator",
+> > > > +					=C2=A0=C2=A0
+> > > > &function_enum_idx);
+> > > > +		if (ret)
+> > > > +			function_enum_idx =3D
+> > > > AN8801R_LED_FN_NONE;
+> > > > +
+> > >=20
+> > > What is this doing? Is this documented in the binding?
+> > The `function-enumerator` property is only documented in the led
+> > common
+> > dt-binding file. The an8801 dt-bindings inherits this property from
+> > the
+> > ethernet-phy dt-bindings.
+> >=20
+> > We aimed to have this PHY have its led behaviour (how many to
+> > enable
+> > and what their role shall be) configurable using devicetree and not
+> > to
+> > rely on a default configuration, hard-coded in the driver (like the
+> > air_en8811h driver did) and also make use of the led hardware
+> > offloading (for functions like 100/1000, activity blinking, and
+> > others)
+> > that this PHY is capable of.
+>=20
+> What other drivers do is leave the configuration with its reset
+> default. They are often sensible. When the netdev trigger loads, it
+> should ask the LED how it is configured, and the values in sysfs will
+> reflect it. After that you can change it, via udev rules, etc.
+When you say "reset default", do you mean the default PHY register
+values, the ones that may have been set by the bootloader or by the
+driver with a default hardcoded functional config?
+>=20
+> You have to be careful about what you put in DT. DT describes
+> hardware, not configuration or policy. How the LED blinks is probably
+> configuration, so it does not belong in DT.
+I agree.
+What I meant as configuration was only the leds node presence and the
+led function properties, as the devicetree should describe what/how
+many LED are connected to the PHY and they represent (or mean) for a
+given board.
+Parameters like off/on delay or trigger events are indeed not really
+appropriate for devicetree and the AN8801 dt-bindings patch do not add
+any such property.
 
+And even, if technically the LEDs are reconfigurable with netdev or any
+other LED trigger, the configuration is somehow hardware bound, because
+the different colors of LEDs do kind-of bind a specific function to a
+specific LED (amber vs green).
+
+This is why the an8801r_of_init_leds function read those LED-related
+properties (leds/led/function-enumerator) to set a default led config
+behaviour (that can of course be overridden by an user with a led
+trigger) rather than relying on bootloader or use a hardcoded led
+register config in the driver.
+
+What implementation would be preferred for this driver?
+
+>=20
+> > > > +static int an8801r_read_status(struct phy_device *phydev)
+> > > > +{
+> > > > +	int prev_speed, ret;
+> > > > +	u32 val;
+> > > > +
+> > > > +	prev_speed =3D phydev->speed;
+> > > > +
+> > > > +	ret =3D genphy_read_status(phydev);
+> > > > +	if (ret)
+> > > > +		return ret;
+> > > > +
+> > > > +	if (phydev->link && prev_speed !=3D phydev->speed) {
+> > > > +		val =3D phydev->speed =3D=3D SPEED_1000 ?
+> > > > +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 AN8801_BPBUS_LINK_MODE_1000 : 0;
+> > > > +
+> > > > +		return an8801_buckpbus_reg_rmw(phydev,
+> > > > +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
+> > > > AN8801_BPBUS_REG_LINK_MODE,
+> > > > +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
+> > > > AN8801_BPBUS_LINK_MODE_1000,
+> > > > +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 val);
+> > > > +	};
+> > >=20
+> > > This is unusual. What is it doing? Please add a comment.
+> > This call is to ensure that the PHY switches to the expected 1Gbps=20
+> > speed when available.=C2=A0
+>=20
+> So this is an errata workaround? Please add this in a patch of its
+> own, described the problem in the commit message, list the errata
+> etc.
+>=20
+OK, I'll add this in a separate patch in v3.
+
+Best regards,
+Louis-Alexis
+
+> =C2=A0=C2=A0=C2=A0=C2=A0 Andrew
