@@ -1,133 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f66.google.com (mail-lf1-f66.google.com [209.85.167.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FEAA1448D5
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 00:41:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778546499; cv=none; b=Fgw11J0HiRU4c/zlIIVEbB5Q+ktUSc1oeHdxXnmvZ3o6lPTV2MKs0DaflRYgFm/XGYTtkApHFsjShVMMpIFDSpsMUpS2Bys9YYhcD13+PWU3rSg8sNlcIx6ozJ6871pQeXy/JwpTo+CtMi+eN0+i9Zh1xHg/x0wqH5lKjpXHVQ8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778546499; c=relaxed/simple;
-	bh=KE+pHmU41z0bNBTcIaf1dP8t/yN5NZBxiC61C6PfGWs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KPc3SNVrUcLP6wDlpF2+n4rNmsOqLMJ6rdQWbuHLtqmu4WnYmRhr2Ey6iRtk+X/PmP++aET9Rn2uZ/IYydJbp5yZu/jzO6ZOmGFKBNYWnSHhBtWXm9K6yNs37HvsmAsdD8QvMIm2h1W7VJOOJI/W/OIufcSXDn1w5nvvslc1XA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fpul8qXR; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3801A1DDC2B
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 00:45:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.66
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778546728; cv=pass; b=uFwm55KhcYjbYm7DPbdn1n9KDZneTGDZ3SpYUc6/bxthcYrFftOwf1JUe03v/ZY6ygaWY3tIYEhVqliNC3ZZsynf7j/+orNPW9tP6RBDajC7ljWAOOTSl4nB6eN3UQRxUNxQuuvrFqu22EQCGzbNQ4evala773fhGqlvAF0R2Kw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778546728; c=relaxed/simple;
+	bh=p+Lp/ChaLbnpWalt5P82X5ZMCegH8dNP0eCZPOq4EyA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LdZVeKW9mDshBx37qDHbhBLrKLAY3/Cf1J/PDV20Q6prMDzkQ5wQCGoT875GRuvGLb+30RdY8wF7hIOVzo7kDaUoAJLDdyzbEetc+rB99VfoQb9Hzfhw1ybVUK8FoaulkIJfLoYXRdA7N5biNBFhZ+R87xpwgijFNKQGSsoU8d0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QV5CDFzW; arc=pass smtp.client-ip=209.85.167.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fpul8qXR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20865C2BCB0;
-	Tue, 12 May 2026 00:41:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778546499;
-	bh=KE+pHmU41z0bNBTcIaf1dP8t/yN5NZBxiC61C6PfGWs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=Fpul8qXR4eEK9ZoiwEG/mTn9sunFOjFha1YPT8SycvNpfTRAFyBSlDv98ahh6C3pn
-	 /PYEONgyM99ND1/6F/gKI61mBMZsvEJxsJ2brLPVZsMuF/59xOe8NPD0CRho45c3u2
-	 EkNFo347skRiWQb1AD0wc9CH0GJsLEsZm9cLFfh2u/Jz4cbjuxXVgvOQLIeekG83ZJ
-	 r6yaj+/NLFJ/cyNghRTMsUo6h1P2T3GPB342RvZPMSeZPqY3lJ4alY1d6Jd1MJ/BDI
-	 O70PVfulKOtR900H5qgKghFM3sAr6fU0I9nfdKInjAQHHbooUOku6uvCX5ghpaCpGF
-	 KCg4S9oJT6Bvg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: display: verisilicon,dc: generalize
- for DCUltra Lite variant
-Reply-To: sashiko@lists.linux.dev
-To: "Joey Lu" <a0987203069@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260511075142.54752-2-a0987203069@gmail.com>
-References: <20260511075142.54752-2-a0987203069@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 12 May 2026 00:41:38 +0000
-Message-Id: <20260512004139.20865C2BCB0@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QV5CDFzW"
+Received: by mail-lf1-f66.google.com with SMTP id 2adb3069b0e04-5a746f9c092so7710479e87.1
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 17:45:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778546725; cv=none;
+        d=google.com; s=arc-20240605;
+        b=d9PfHoxFyLvYhgTsEnB4JAnolln050aU+77zo7LU/uwrBDDg0koNoQ/7QQSExaNfm/
+         smqeIasGxBOZaPGSrvRnPeDyg78KU97Nhl/lzSt44LcVgWrP2Iy6RCyLiMejAMmUKobI
+         9ShpjCIor4mTeqNAfn1FzFIeiuMQrSeOAvC+DbJvqBEgcjw4fhwS9I1/38x/IYmwC/ed
+         B6USYpXVoak1tmh/N3LevSVkkvKyVl8NdUQeqj8eodHoorbnjd42APyhLRhkhbUz3els
+         rZSvU46IpP4M9DRTDJJ607CrievQ0/QBJRHQkXdJ2bI9BNd4mYDx03gPRWjAStwsumPs
+         Lk9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=DjE2es2FiXMGiS6FgHC41XxcRzptayRAkd8ODfpJ5+Y=;
+        fh=K962+ufi5OH/+OGuLZr0/zmpgV29fOfNP7rBaWlUBaI=;
+        b=IU7Oamlj7Co5mX3Wp+8LCZAMpvR1BjptMzgyqCJ8Tk5EBusXKeNXdCg4JeX3UBO2hN
+         XldNoOCp5/KuqB64YbnMy2EQynVn3puHu9edHxziZBDjVRuhKaDHhQ3Nw4oeWAmJTSHm
+         Tr68VRqt1V3caP+EroN01JUAyTQ/K3zzEVvn8oFVS+Y1Uq64Nj5ZaDbQD/kvcyKYObz/
+         9uZD8PoT429lfyPbT2ZVcXXaFySwdAeEMB7X37O50GQwUX98uiQ6YUxAb1Fhl6QHFp7+
+         b10jtNKypXBHWFxETiVANAVoubzjbEIFeBXRPEWqmYAj1LVzKjsXJtp2tbazqIszoaen
+         jd/A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778546725; x=1779151525; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=DjE2es2FiXMGiS6FgHC41XxcRzptayRAkd8ODfpJ5+Y=;
+        b=QV5CDFzWF2ApBp/KRscSXUxiILU618mEl8Cl/eNTe/J8lMWK31kct/N6XP3WEshjk0
+         RThhXQMF1PlJhON4bVZ5nCuar7ix2mqwMSmB0c2JBe+oCqwtz48uEYkbLQdRgz8V1kYk
+         UOyAraEmIH4JMAne5jpG7/lOsRDT6sQuq+tsOr4y+Vgkv8TgfLMXeG4RgFH8279sy8Yi
+         H/C3RAu1McdzJiUwZSDp6AWYBIQquhtcGjo9u5N1MJOkeHYT+nHeyQBhBGXIbx5nVP4c
+         6Kva0c/l8lDWYZHGtUOoRaMxZD97HXjT7MAeDzB2888AoSxkBTAFiI9aqzNiwkdMobOu
+         BFBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778546725; x=1779151525;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=DjE2es2FiXMGiS6FgHC41XxcRzptayRAkd8ODfpJ5+Y=;
+        b=IwDQxq7eWiXHCtlrUNIRmdXMLpv2gVr0jQAmNVXUzWFgYqnJUl7s8K3ZoTxwATuXX3
+         XkKNgGpuNz41irh1sxD8YPDDTsCQY/Yifq7r5xLjF6hvdWZVaCZINqFrqHhlFdSgPh5u
+         Sftcy4+KxjHI3nh/MBymNKl/tppnBYH0+oXMnOCv1ZgIpJdmWudyDqGvZELQ8KUZk+P8
+         X5jpQtLRCRad9KdqNqSPJnugElXw2YtIMXsiTpyq+bj25S1Aax4vuctq22Z1IksUyTua
+         gtEj8hI1uU+hEZaI48QzXM9mv7mv8Tk8Ox76kqY65gfzUzgsCMmnw3hlvovFxDqhO2x4
+         xQbA==
+X-Forwarded-Encrypted: i=1; AFNElJ8TOB83aUMoL9POLLH2RRtUb/ZC3bF4sMRNoyy+0E/6OtgiCUwIfjtxvyFAlWaEtTc1NoRyWF2XnY+q@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx8um279ctOU4BKJeOfe7xrD/+FIS4yWXQt8UTfV45uDRJ6K7hT
+	e99ie9NjqGLX5hc5/PvZpjxdqt6JX+lsboapLb1JGtsdgk+YTFUvh/vXsJz7SX77QvD1t7e8hDL
+	hw5cvcCWXDk7BRZGRqILVU6x1lx0oqzI=
+X-Gm-Gg: Acq92OHDEgsWM33biaxtIzCJaPpXf1AN+7UxGBW8TdBb37+6jsbKbIPRelz02CX3r2/
+	c00n3X+6AooT6q621v9MrIVyJpSz0JllpT/O9IG5ocnK6wO2l8OZgmD3T0VaKbFzqN3PZkH/epy
+	ALmVG9r7Dx3mc7QvUO6FMUpHAR9eMcdpIJuQrJdCzv+5HBTWR1C2Eontw6DOyG4OOWe/PmbNFSE
+	tmes9DICRP6YewYlIGM/6e3i2AnK4QZfqVN/yvIkMlqYi692gQchGN0GiSvsBrYZmGAd4Z5aul6
+	45eAPymFD9zNYNG8ExC60003wF3G39a/gGg9etAcpg==
+X-Received: by 2002:a05:6512:108a:b0:5a8:8d78:9fe3 with SMTP id
+ 2adb3069b0e04-5a8e0f375e7mr409702e87.25.1778546725141; Mon, 11 May 2026
+ 17:45:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260509013745.80478-1-dennylin0707@gmail.com>
+ <20260509013745.80478-2-dennylin0707@gmail.com> <20260511180056.07986443@jic23-huawei>
+In-Reply-To: <20260511180056.07986443@jic23-huawei>
+From: Denny Lin <dennylin0707@gmail.com>
+Date: Mon, 11 May 2026 17:45:13 -0700
+X-Gm-Features: AVHnY4KvcuTmWM3AIWx03nf5ddMfttDMncgC8jnUZQBfgJtpcBhUEHe_wSVgTTM
+Message-ID: <CAGEkeHeTOkGkPYwTh54EHUfQ2wi2rmgEmMk793L_XqJN5NvHrw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/1] dt-bindings: iio: dds: Add AD9832/AD9835 binding
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: lars@metafoo.de, Michael.Hennerich@analog.com, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, dlechner@baylibre.com, 
+	nuno.sa@analog.com, andy@kernel.org, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Relaxing base schema constraints without preserving them for exi=
-sting hardware breaks validation for `thead,th1520-dc8200`.
---
+On Mon, May 11, 2026 at 10:01=E2=80=AFAM Jonathan Cameron <jic23@kernel.org=
+> wrote:
+>
+> As per v1 discussion that is ongoing - we haven't in the past put
+> dt-bindings in place until we are ready to move the driver in question
+> out of staging.  IIRC these are a fair way from reaching that stage.
+>
 
-commit 381b44c205709ac6503cee93b907e15828645951
-Author: Joey Lu <a0987203069@gmail.com>
+Thanks for the clarification.
 
-dt-bindings: display: verisilicon,dc: generalize for DCUltra Lite variant
+I understand that DT bindings are typically added when the driver is
+ready to move out of staging. I'm fine with deferring this until the
+driver is closer to that stage.
 
-Extend the verisilicon,dc base schema to accommodate the Nuvoton MA35D1
-DCUltra Lite variant by relaxing several constraints including clocks,
-resets, ports, and additionalProperties. Add a dedicated sub-schema for
-the Nuvoton variant.
+I'll take your comments into account when revisiting this.
 
-> diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yam=
-l b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> index 9dc35ab973f20..00884529f8c1c 100644
-> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-
-[ ... ]
-
->  properties:
->    $nodename:
->      pattern: "^display@[0-9a-f]+$"
-> =20
->    compatible:
-> -    items:
-> -      - enum:
-> -          - thead,th1520-dc8200
-> -      - const: verisilicon,dc # DC IPs have discoverable ID/revision reg=
-isters
-> +    # Enumerated in full so the schema validator can verify any compatib=
-le
-> +    # string against this list, including those from child schemas.
-> +    contains:
-> +      enum:
-> +        - verisilicon,dc
-> +        - thead,th1520-dc8200
-> +        - nuvoton,ma35d1-dcu
-> =20
->    reg:
->      maxItems: 1
-> @@ -26,32 +45,24 @@ properties:
->      maxItems: 1
-> =20
->    clocks:
-> -    items:
-> -      - description: DC Core clock
-> -      - description: DMA AXI bus clock
-> -      - description: Configuration AHB bus clock
-> -      - description: Pixel clock of output 0
-> -      - description: Pixel clock of output 1
-> +    minItems: 2
-> +    maxItems: 5
-
-[ ... ]
-
-> @@ -75,9 +86,8 @@ required:
->    - interrupts
->    - clocks
->    - clock-names
-> -  - ports
-> =20
-> -additionalProperties: false
-> +additionalProperties: true
-
-Does relaxing these constraints break schema validation for the existing
-thead,th1520-dc8200 hardware?
-
-Since thead,th1520-dc8200 relies directly on this base schema and does not
-appear to have its own sub-schema, it seems malformed device tree nodes for
-this existing hardware could now silently pass validation.=20
-
-For example, missing the verisilicon,dc fallback string, omitting the ports
-node, or containing undocumented properties would no longer be caught by the
-validator.
-
-Should the legacy constraints for thead,th1520-dc8200 be preserved via an
-allOf if-then conditional block in this file, or by moving the existing
-hardware to its own dedicated sub-schema?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511075142.5475=
-2-1-a0987203069@gmail.com?part=3D1
+Thanks,
+Hungyu
