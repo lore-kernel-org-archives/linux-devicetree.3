@@ -1,203 +1,455 @@
-Received: from mx0b-00128a01.pphosted.com (mx0b-00128a01.pphosted.com [148.163.139.77])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51159331A6E;
-	Tue, 12 May 2026 07:13:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.139.77
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778570007; cv=fail; b=R6YSqavi++0lJqsvZzEaQHbAUpa1RUZ6aQz0UBYV8E/iLx5y9eDCnNakHl/Ymbg/Qzb8S8S3ggkzeVAjR2jzC7GBwexOcYviE5Fn5Xcn0bvKAWxxHU/EOauSYXsV4W4WntvEHJUpE+QND5+2jHDnngI2Gc/ctxTIy8MKbSDAE2E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778570007; c=relaxed/simple;
-	bh=WIeBFrti8CCoyVv3lzaPBhFz74rBx6EinGP2lQlcplo=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=aZTXmG3HAZxA3FuEH9msT99a5Q1e8zYCtuYO0eMyA/sKOMq7hNVSQHrVFHiEpREZrNVcudemOVepRWpzMvPsTwUixPgHQBLii3QgO3fb7OHvElWVo9JxbqsI6l8trK/MeZ90qEADEqPNmC/A7qDF9Kk25TAGRi3XXW2YbfdeZ2g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=K27xjH+W; arc=fail smtp.client-ip=148.163.139.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19AD147B41C;
+	Tue, 12 May 2026 07:15:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778570135; cv=none; b=DMYgTG/RgQ1qiBLP84c05oWPC8csfdR7jSrT22ZNWUXaZoIs+4c6+BqntzcvFs0/QakgLzHh8YHaJZsBu6jH6ZkxRAVBUEjMoS2rl5Tu5ImpljXJrBAZCUJWq1JQszCg4Y+TeqZAmy646JKwoqUGwmbp5VPaOZohWMRLLqiZMSc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778570135; c=relaxed/simple;
+	bh=GGE06DAj+4IqOdJ5cqIYPBVMHvlsSfv2BWQTB9qiVPk=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=fPGKZTXV2duKVIyikTkPj8KKP6/Kux1XC62pFOyPgyzxJ3UGhTRZLqMQ1z7rtf1o1nqZ4SSLWekk94xMmH9GPZ8B0uRCGzyycNTr/8UN+DsE8f7RxPOQQE3/vivpmmmIrfOhF9mTpXfAiKyNha5Yz8SeFXnm0lfRVD3oLB8QdDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=Vef5nYBw; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="K27xjH+W"
-Received: from pps.filterd (m0375854.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64C33RgY2752421;
-	Tue, 12 May 2026 03:13:01 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=t4+xk
-	q4XEmJbO9DoQbZGOvbuMzyarYl0qSK35Muzc+I=; b=K27xjH+WAuobvfmE+EyqE
-	Kh3Z4nSWtN/+70p/e3d+tcv9kuaJmdUsRP0vn4a0SJZA9hFzlZY/sKdBGQjf4NUW
-	8aEPeFBOB8VtMDC4thzG9/f1EIL75fKHw4KjT0EG8iAnBRaiif3oU+Gv72279iHC
-	HQ2MKQ3l+m8EjJC2YhnvTEXaGJCnjtwi9Lsjq6dzTwjoNNprocSWFM6xXtW3fNtl
-	DS5qIwIp5XlEmu5pjbBo5UEX46ocZv/jyYG1qWzbosPrWLipQPK+ZvSuxcTV2Y7R
-	Sxfd1G1LeTH8pkZqGTXI0/QvNyY6J2lLOaUiMvzm7kBhCLXnpIU5yY1OLvNENZy1
-	w==
-Received: from dm5pr21cu001.outbound.protection.outlook.com (mail-centralusazon11011012.outbound.protection.outlook.com [52.101.62.12])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4e3nw4hp0y-2
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 12 May 2026 03:13:00 -0400 (EDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WD+A3+cVx+BJLLKjB7Q5qSi0sXSvLRi6+lhrhmO5lApbCKwtVroMeT4bu1IXXkWj0JMZUOsAtQwjCN2bSUMM42Nv+5tsbONv5iKZSWRL5Dk8aTb0vmV6Bx0b6e9T3/n9UoxmQaafscsE5KRIJFOktib0DolDNBXDcse7bzq+QQNDnCYKSu7a7gkZkp85vPQbcIp/A2x2KfmnOLEeDR5UlSo1FgK00FDfN9zIupjzcYuGJ99BGKLUwFVYlvch4yAZ0Xs8LL4IIlg0lnGIY0PE7YZ0MCady2JU+4rd+9HwN05+wU1XJjYN3wr3w29QVUF9+TNPWb9i7QPdQn/sgfzE4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t4+xkq4XEmJbO9DoQbZGOvbuMzyarYl0qSK35Muzc+I=;
- b=iOFC2kGKOPUx5vrfL3DqL7RbmKtctqx9LKoqVFcPewMgN5dceWd6zi6dy3tTv0I36fSQHatNAw067XeJt+bW3e6Yy2772GKOFO9CiGgmiEP5AANaSXqDK/PxkWcbOAdkhv+Jw2+8srDDQpT2mdbzUQuWhELOZUYgPr5JdSByoVDlu797El7/PHvJY1BynlqWDNjCRRdgpCkqz3NRYsOCurVoaNBw7vzduR+b6vbkdG7oF/FtJbjA+hPStOXX/AylMvdm4X55WgJPFWm2KbfPc1iGoxrjdrTsZ1pfOCTaKii52N68rStQnSepSuVF4g9iRGG4AZn5tcQ2okWRVeI0JA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
- dkim=pass header.d=analog.com; arc=none
-Received: from SA5PR03MB8377.namprd03.prod.outlook.com (2603:10b6:806:47d::22)
- by SN7PR03MB7208.namprd03.prod.outlook.com (2603:10b6:806:2ef::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Tue, 12 May
- 2026 07:12:57 +0000
-Received: from SA5PR03MB8377.namprd03.prod.outlook.com
- ([fe80::9276:9909:1b4c:8438]) by SA5PR03MB8377.namprd03.prod.outlook.com
- ([fe80::9276:9909:1b4c:8438%6]) with mapi id 15.20.9891.008; Tue, 12 May 2026
- 07:12:57 +0000
-From: "Stan, Liviu" <Liviu.Stan@analog.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-CC: Lars-Peter Clausen <lars@metafoo.de>,
-        "Hennerich, Michael"
-	<Michael.Hennerich@analog.com>,
-        "Sa, Nuno" <Nuno.Sa@analog.com>, Jonathan
- Cameron <jic23@kernel.org>,
-        David Lechner <dlechner@baylibre.com>,
-        Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof
- Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH 2/2] iio: temperature: ltc2983: Add support for ADT7604
-Thread-Topic: [PATCH 2/2] iio: temperature: ltc2983: Add support for ADT7604
-Thread-Index: AQHc1kn/5d/Hh1H9DE+/jMXiSvhLvbXzOXOAgA9qvqCAASwcgIAGPn+A
-Date: Tue, 12 May 2026 07:12:57 +0000
-Message-ID:
- <SA5PR03MB8377DB8F5136CC7BF9594B64F6392@SA5PR03MB8377.namprd03.prod.outlook.com>
-References: <20260427132526.272716-1-liviu.stan@analog.com>
- <20260427132526.272716-3-liviu.stan@analog.com>
- <ae-pvxKhqmkWwXdX@ashevche-desk.local>
- <SA5PR03MB837776014440C2594B811BF7F63C2@SA5PR03MB8377.namprd03.prod.outlook.com>
- <af2UQ7ZLA2DL4FWY@ashevche-desk.local>
-In-Reply-To: <af2UQ7ZLA2DL4FWY@ashevche-desk.local>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA5PR03MB8377:EE_|SN7PR03MB7208:EE_
-x-ms-office365-filtering-correlation-id: 3a5883ff-f5e2-4f67-1776-08deaff5e4f1
-x-ld-processed: eaa689b4-8f87-40e0-9c6f-7228de4d754a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|7416014|376014|38070700021|11063799003|56012099003|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- 0Wco+ZybeFxALkofqluEGhVeOOUUgbDSEfltTKFUNQeSDt4YghCq5yiFoT2fZbn/2tm9eAAZ60gjrpkd7kss1OQAOhyJphTCTVoZcaOT4G80R8OiD4LvugjqMnDBCCk33pfwhBF/hlhRRKMhJJBzL13NzceDyqO5kBBe/0aMrQKGzJnhD2FAuLW0KtNlnMEF85/eaEfJSOLAEJ6Cb2+tAlfmMdOhjgQdqXbGLhAnxgpkA41ZO8HqRBPdu1zxUmXtLO/5fL+JrQT7SVJwl7ln91/6dNRcpmdgnJ9wncDexmUc7uJu3mffUhKhDAmmYwCGcTqKiUcAPWavU1Ifl2dxLyzG63KTVkb/GvvojpdSa1siM7PVLb2osNeurnyqsMLgvaUPLyG+ZXFtcG9lui8/XVM4EqPY6Ek7edue7kaLwNBZjPFmnRLQQjtsBlWdFEoYc+butQxgAMEFTQ3uYK9DdCF3Ew1Otj4qdKwFDivRZINpeSl7C2YhV/xnnKFBmOPFEH9JBjrbMzah/fz8QTOU2BbtyzMf5yd6IS+3FLgEDkPxLdSSDAh2vOiTwyplgugWjEw8nkNF6236PAKYRTNtOWOh2DSxY9iXPv3VMbFUxnvO6D04o6j3DGcXcfS+imOoa/qTIuHrwdA7ULsoT6XxSu7Ckct22jHfyTBKzFFMZcgP7EGSWkhLtbvmTmmKHwZe4H7lgFYiWWUchiyj3ar9R/5GOScUD7S3T9C27vgWYDX9H6Q0FUKw6gWE2YgCu3k9
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA5PR03MB8377.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(38070700021)(11063799003)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?OgP8IKJAhu3yc9REfEZfhPRakF5I2Zs6X1YhCFF9wI1l7drkRf5iJWAZcFjg?=
- =?us-ascii?Q?7vhXSYf1+ZaVt8+qIZ2JV/OM+NzR2jc1G3CbTyCzYJXaE44yYeojajc45ZVF?=
- =?us-ascii?Q?/ELodgWcoHqt1D7Z8jkwNYnKjGCMGvglutRI06pjcNwIWVDYe1EyzY9MZ3Al?=
- =?us-ascii?Q?9xEG+ASeAT/uiHKwvBKe/BP0+X6u4DkTrDniK9DP3NZ8khdvehqTSzOClNiK?=
- =?us-ascii?Q?ylHIq5LCyt/s77Pb9ZNpuOSejMeWyW4EkLAvR6s0MGB05xOPfePhnsCi8wc+?=
- =?us-ascii?Q?Vyg2vPqlrmahIkJdNFklug3L9oYPUC6p3tV3h75Z1loEVYoJ6Qk7Eq6BuEMf?=
- =?us-ascii?Q?z5hE+n/nk7Rn8zOwSxi5UmkuhmligosBs5LJpS4wLeYJxpi3XHhQ00T+lTv/?=
- =?us-ascii?Q?m5rMqfCoxeYuhoWuodOI2PLNcEjclyA/UJtfiNtmgsU2uz8yriSfPguaYziO?=
- =?us-ascii?Q?PvoWb7FeLtHVWdB7yZ5RUzomBKPyN5Y0s/zO5in+ZHk0Pu6372IUaCxDdrf1?=
- =?us-ascii?Q?RsRwtpBW+Ld5n5KGNy8u+dN/yydx/4R3epiuC5xixi34ESzvUV1o9zGkbRGx?=
- =?us-ascii?Q?WDCN6Czyk+V3FEqJO40hGAVlEQxXPY8tT8RjyXgFu4QC2HQRtp1xb6hMQWzR?=
- =?us-ascii?Q?meNiuvKBQ6zHGVxr98xRkfxKpHL5SY4Uo8OO7R0uwcR6fbgFCAAJLGHGRPE/?=
- =?us-ascii?Q?F+4luB3i7p5/Tvf+y1Qz5NGOTsvlFD6EQU5eCoWPacqx/PSWtMuaKGzVAWs5?=
- =?us-ascii?Q?M8xmcO7KSbXZ3dRP7AeapygBVT5tRNVQXOrZlA7Aybie1VcG30YjVA/U9U5w?=
- =?us-ascii?Q?6CaEiBUkHLUTaCfbFPLmvOESiw5WPuiNZdsBiepSK/+4AhK5z7egLr1QHUF9?=
- =?us-ascii?Q?/1pEFiJDdMFAWJNrii/G14heCL+3xb5ZEXbkjwfrL/kwVCznmQ77xE9be58x?=
- =?us-ascii?Q?rTcNZiEpXT7nDBccoeBwGlBkaD1sANmspH3OLAV+3PvhdUQTHWlvqqU3Pgi+?=
- =?us-ascii?Q?rXfmCdHvN3iEs4JsAYVvrad3uVmVaKUlyM2wbeERlNxUGT0zrl+rvniN9khx?=
- =?us-ascii?Q?g9OFO0Z34c7yN1gcc3FwbnvSXSW9RHi4jRFBkbkuUOUU2qEMLbkrRNzoNGrx?=
- =?us-ascii?Q?Ahsp4PL9EJ3Z9KCPlcUDMtvERrKD+eNC94nuLwcvCcGYdC6+ELVqUvLTUzBl?=
- =?us-ascii?Q?90axz940RlS2N6f70zRQOlOjaOfGi3kijqXKSDyZ6+5gWWJ4jk1KzA5F1Nkv?=
- =?us-ascii?Q?+393ht56LonVmA/KZ+Dt8Sxw6Erde5LRHgBD1Vxzed44YyqrxBzMgQRdNeO6?=
- =?us-ascii?Q?zCPP4Um+N8i9sLReRxo3L6heS166/MdLxErA7mTDNJm42Mx4TKZhoKBSpjmG?=
- =?us-ascii?Q?t8P2qq+a8Urf/iwQEdSZ6ZotpyNaQKE/3+/aTJJvazHnGs7Zwk/ckulWFvu3?=
- =?us-ascii?Q?a5DTPd6VBeA5QtJosRJdQEmYnLMHkyzyW0ItlfEgf404BIMZ3W0Vu01h1YEC?=
- =?us-ascii?Q?qf98VInansf3NczI07SYKBIJV6olbRXbtD27rL5aH1w1hHuMSU50iPnnZ2P9?=
- =?us-ascii?Q?CEQlOtcxJPoo1OJqwJF/tEw9swLKb4JKlGx8W2AMCdY82VoPS2R08LpL1EqK?=
- =?us-ascii?Q?E0F/L5Gsb5wlDoyN/iU8rgPY4bU9wuEWD/VludZMcc7k1K6iAz7Ye3DBenAV?=
- =?us-ascii?Q?Ros4gBJtyJah1TxBvmBETNbe0wDp7w5PFaLCPF06mkOWlvf4KovjrYTfdN7F?=
- =?us-ascii?Q?IhKU770fgw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="Vef5nYBw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1778570129; x=1810106129;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=GGE06DAj+4IqOdJ5cqIYPBVMHvlsSfv2BWQTB9qiVPk=;
+  b=Vef5nYBwMzWjyh4hrihZ+48bIvc+yfOoXTPqqXBtfkwxezIzF5yfhVye
+   aSEJ2R6v2JbUFuFJ7jLqjjAbcqAa1KzeVRIojFvPHkeQ7oVHXTtksHd2N
+   jW81BxjH0MiI2NU0RTxJcKj81wGYPvgthJvUdaI/+fY3yd1IKP2A7SoB5
+   pAICEijVkdelkfqwhJOrfO2SRMkOGdB8rCFKUjFus/ZzPvGQIBItu1u6x
+   0I3Bof/OPOlkbg5ZaxIBHPf3ThHfmoQmAu75Ua9rop63Y2qT+6LFRb5pc
+   6IWZVtgvHlc+mwSvAU7ksi96NOC1AfbbWGw4wiRnGPu3nJXpxTCcGdL9j
+   g==;
+X-CSE-ConnectionGUID: cnjrhXucQkCxa+XjepAKqg==
+X-CSE-MsgGUID: HOapYMa5QiiVHtGRFj/coA==
+X-IronPort-AV: E=Sophos;i="6.23,230,1770620400"; 
+   d="scan'208";a="56597075"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 12 May 2026 00:15:22 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Tue, 12 May 2026 00:15:21 -0700
+Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Tue, 12 May 2026 00:15:18 -0700
+Message-ID: <4dc940e788e0f2b238deed8231b04af145a2c106.camel@microchip.com>
+Subject: Re: [PATCH net-next v4 4/9] net: dsa: lan9645x: add basic dsa
+ driver for LAN9645X
+From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
+To: Jakub Kicinski <kuba@kernel.org>
+CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
+	<davem@davemloft.net>, <edumazet@google.com>, <pabeni@redhat.com>,
+	<horms@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <woojung.huh@microchip.com>, <linux@armlinux.org.uk>,
+	<Steen.Hegelund@microchip.com>, <daniel.machon@microchip.com>,
+	<linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+	<devicetree@vger.kernel.org>
+Date: Tue, 12 May 2026 09:15:17 +0200
+In-Reply-To: <20260506014555.1616575-1-kuba@kernel.org>
+References: <20260430-dsa_lan9645x_switch_driver_base-v4-4-f1b6005fa8b7@microchip.com>
+	 <20260506014555.1616575-1-kuba@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	R1i2ClUE4glrdvctm/UV9nuEvp11ZqdsEvvKlrwKkO0FDxggps9cKEyEl+RkFBtKw4xe2GFXANUdKMFlqjDuA5I3jTOZAMhBUlGBZ8DU9Ggub4+oqLVD+5SMaHugXSqUwbJnZjn+dQ9G8+eQIgQI62iOWHd8IScuHicZrYz6S+fj/AWCgEUiGCvSEGji/cjP/keRFFZ4BtE2TSkuOAge4ryuIlXsxqO3Kqac9eRP+U/rNTGrPdMhF+1hR9mKtHqZbDM1N248UdxoAsXO4osVSXWN1B7R0YQD64gE86vMnlydJOc3qZBxb+xznsyAzikFLyGFxu9Fnk3S+MzbDDxz6g==
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA5PR03MB8377.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a5883ff-f5e2-4f67-1776-08deaff5e4f1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 May 2026 07:12:57.5928
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: wBTzp/ljpZL1StzxKy4M6m5HqqDTpObzEySSRjPZetg4vOogl+WU4fhu4dLM6u4q5fZcg+pgljUvGkSbd4pzPw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR03MB7208
-X-Authority-Analysis: v=2.4 cv=LN5WhpW9 c=1 sm=1 tr=0 ts=6a02d2fc cx=c_pps
- a=4YDC/s56AEiJKWlPnw2jOg==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=iZSIUCweCk2Oy3QsdGPA:22 a=HcneQ26LweoyU_PHxn4A:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: DAkq9JkgP0PPk0K9nxjeC17U7vBonrxC
-X-Proofpoint-GUID: DAkq9JkgP0PPk0K9nxjeC17U7vBonrxC
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEyMDA2OSBTYWx0ZWRfX8U+8lJXXUZ+l
- tyQXK7AN0zzvzkDE4TYKUUmNpgcQo4GOj3Q9RAZXtarG1gQmRWnZa8ateNjWhKB0woVeZhhDBU2
- DQPxPMZPKKENevLA8FEZbSs7fMxDNkZhjhvSXu6EzH1Hgi+gfMk0zSExC4ohUTQ2ZSjD9ZVSt5z
- EkN5ukU6qp6x0T2ybgn/XGcb9glPMMdPlrW+u2+CzDhBAGjnUacw/EWvkauR0g+OKv+gG+bVTvy
- Fl89DAANc1qT9DnnzPUurXcht1ztauUPVN2A45JfypumNtdjagrZPLSzMganNYMb1e27Znt60Gq
- 85VVgA3lrhaOHhBreK1ChHAM3Pd23+MqQw6jRufm6Rbb54OH8jY82M1UEJ/N6X44A4oTg/iMc7A
- N8HleydrWJNM3EB6N5XZiey8Ex+kfwiLH54MLHBvKnxP+XBhda7RCLE4EtcSG17eMIhTjKxk4r7
- mOwlgeW8zFBBwe4ECSg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-11_05,2026-05-08_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0
- suspectscore=0 bulkscore=0 impostorscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605120069
 
-On Mon, Apr 27, 2026 Andy Shevchenko wrote:
-...
-> >  #define LTC2983_CHAN_START_ADDR(chan) \
-> >  			(((chan - 1) * 4) +
-> LTC2983_CHAN_ASSIGN_START_REG)
-> > -#define LTC2983_CHAN_RES_ADDR(chan) \
-> > -			(((chan - 1) * 4) + LTC2983_TEMP_RES_START_REG)
-> > +#define LTC2983_CHAN_RES_ADDR(chan, base) \
-> > +			((((chan) - 1) * 4) + (base))
+On Tue, 2026-05-05 at 18:45 -0700, Jakub Kicinski wrote:
+> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
+e content is safe
 >=20
-> For the sake of consistency I would see (base) also to be in the _START_A=
-DDR()
-> macro.
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> ---
+> net: dsa: lan9645x: add basic dsa driver for LAN9645X
+>=20
+> This patch introduces a new DSA driver for the Microchip LAN9645X switch
+> family, covering probe/setup/teardown, NPI CPU port wiring, per-port
+> initialisation, and phylink MAC integration. A few questions inline.
+>=20
+> > diff --git a/drivers/net/dsa/microchip/lan9645x/Kconfig b/drivers/net/d=
+sa/microchip/lan9645x/Kconfig
+> > new file mode 100644
+> > index 000000000000..4d9fdf34104e
+> > --- /dev/null
+> > +++ b/drivers/net/dsa/microchip/lan9645x/Kconfig
+> > @@ -0,0 +1,11 @@
+> > +# SPDX-License-Identifier: GPL-2.0-only
+> > +config NET_DSA_MICROCHIP_LAN9645X
+> > +     tristate "Microchip Lan9645x switch support"
+> > +     depends on NET_DSA
+> > +     select NET_DSA_TAG_LAN9645X
+> > +     help
+> > +       This driver adds DSA support for Microchip Lan9645x switch chip=
+s.
+>=20
+> The driver is non-functional without a parent MFD that registers the name=
+d
+> regmaps ("gcb", "qs", "chip_top", "rew", "sys", "hsio", "dev", "dev1" ..
+> "dev8", "qsys", "afi", "ana") consumed by lan9645x_request_target_regmaps=
+().
+>=20
+> Should this Kconfig depend on the parent provider symbol so that selectin=
+g
+> this option without the parent driver does not produce a module whose pro=
+be
+> always fails?
+>=20
+> Is there a companion parent-driver patch this patch depends on? If so,
+> would it be worth naming it in the commit message and documenting the
+> ordering?
+>=20
 
-I said I would change this in v2, but on second look, I think it would be b=
-etter
-to keep LTC2983_CHAN_START_ADDR without a (base) parameter. The base
-parameter in LTC2983_CHAN_RES_ADDR exists because the ADT7604 adds a
-second result register bank, so the base genuinely varies. For channel assi=
-gnment
-there is only one bank, so adding a base parameter would make the macro loo=
-k
-configurable when it isn't and force callers to always pass
-LTC2983_CHAN_ASSIGN_START_REG. Happy to change if you still prefer=20
-consistency.
+I mention this in the cover letter. The plan is to send the parent MFD in
+another series. This switch driver will be one of the child devices, and
+from what I can tell there are requirements to how many child devices an
+MFD driver should have before qualifying as such. So there is a bit of
+and chicken and egg problem. The first version of the MFD driver will
+have 3 children
 
-Thanks,
-Liviu
+* pinctrl
+* MDIO controller
+* dsa switch
+
+and uses the same approach as drivers/mfd/ocelot-spi.c. I can not depend
+on the Kconfig symbol here, because the symbol does not exist at this point=
+.
+I have not include the MFD patches here because it targets another tree,
+and this was already quite large.
+
+I am happy to do this is in some other way if the maintainers think that
+would be better?
+
+At any rate, I can add some of this information to the commit message,
+so it is not just in the cover letter.
+
+> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drive=
+rs/net/dsa/microchip/lan9645x/lan9645x_main.c
+> > new file mode 100644
+> > index 000000000000..6fd66ea67cfd
+> > --- /dev/null
+> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+> > @@ -0,0 +1,423 @@
+>=20
+> [ ... ]
+>=20
+> > +static const char *lan9645x_resource_names[NUM_TARGETS + 1] =3D {
+> > +     [TARGET_GCB]          =3D "gcb",
+> > +     [TARGET_QS]           =3D "qs",
+> > +     [TARGET_CHIP_TOP]     =3D "chip_top",
+> > +     [TARGET_REW]          =3D "rew",
+> > +     [TARGET_SYS]          =3D "sys",
+> > +     [TARGET_HSIO]         =3D "hsio",
+> > +     [TARGET_DEV]          =3D "dev",
+> > +     [TARGET_DEV + 1]      =3D "dev1",
+> > +     [TARGET_DEV + 2]      =3D "dev2",
+> > +     [TARGET_DEV + 3]      =3D "dev3",
+> > +     [TARGET_DEV + 4]      =3D "dev4",
+> > +     [TARGET_DEV + 5]      =3D "dev5",
+> > +     [TARGET_DEV + 6]      =3D "dev6",
+> > +     [TARGET_DEV + 7]      =3D "dev7",
+> > +     [TARGET_DEV + 8]      =3D "dev8",
+>=20
+> The first DEV instance is named "dev", while the rest are "dev1" through
+> "dev8". Is this asymmetry intentional, or should the first be "dev0" to
+> match the natural per-port numbering? Without the parent driver available
+> in this series, it is hard to tell which naming scheme the parent actuall=
+y
+> registers.
+>=20
+> If the parent registers "dev0".."dev8" then dev_get_regmap(parent, "dev")
+> returns NULL and probe fails with -ENODEV.
+>=20
+
+See my answer above. I thought it was best to send them seperately, but I
+can include the MFD patches here if that is preferred.
+
+> [ ... ]
+>=20
+> > +static void lan9645x_set_feat_dis(struct lan9645x *lan9645x)
+> > +{
+> > +     u32 feat_dis;
+> > +
+> > +     /* The features which can be physically disabled on some SKUs are=
+:
+> > +      * 1) Number of ports can be 5, 7 or 9. Any ports can be used, th=
+e chip
+> > +      *    tracks how many are active.
+> > +      * 2) HSR/PRP. The duplicate discard table can be disabled.
+> > +      * 3) TAS, frame preemption and PSFP can be disabled.
+> > +      */
+> > +     feat_dis =3D lan_rd(lan9645x, GCB_FEAT_DISABLE);
+> > +
+> > +     lan9645x->num_port_dis =3D
+> > +             GCB_FEAT_DISABLE_FEAT_NUM_PORTS_DIS_GET(feat_dis);
+> > +     lan9645x->dd_dis =3D GCB_FEAT_DISABLE_FEAT_DD_DIS_GET(feat_dis);
+> > +     lan9645x->tsn_dis =3D GCB_FEAT_DISABLE_FEAT_TSN_DIS_GET(feat_dis)=
+;
+> > +}
+>=20
+> Where are num_port_dis, dd_dis and tsn_dis consulted after this read?
+>=20
+> ds->num_ports is hardcoded to NUM_PHYS_PORTS (9) in lan9645x_probe(), and
+> there does not appear to be any rejection of TSN or HSR/PRP configuration
+> on SKUs where tsn_dis=3D1 or dd_dis=3D1 in this patch. On a 5-port SKU
+> (num_port_dis=3D4), would the driver still register 9 DSA ports and allow
+> DT to bring up a fused-off port?
+>=20
+
+Ah yes, there was supposed to be some validation during setup which makes
+sure the number of ports enabled in the DT does not exceed the number of
+supported ports by the SKU. I will add that, and remove the dd_dis/tsn_dis,
+which are not used at this point.
+
+> > +static int lan9645x_setup(struct dsa_switch *ds)
+> > +{
+>=20
+> [ ... ]
+>=20
+> > +     dev_info(lan9645x->dev,
+> > +              "SKU features: tsn_dis=3D%d hsr_dis=3D%d max_ports=3D%d\=
+n",
+> > +              lan9645x->tsn_dis, lan9645x->dd_dis,
+> > +              lan9645x->num_phys_ports - lan9645x->num_port_dis);
+>=20
+> The log prints the field called dd_dis in struct lan9645x under the name
+> hsr_dis. Should the label in the format string match the struct field
+> name, or should the field be renamed?
+>=20
+> [ ... ]
+>=20
+> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_phylink.c b/dr=
+ivers/net/dsa/microchip/lan9645x/lan9645x_phylink.c
+> > new file mode 100644
+> > index 000000000000..9eac32ca342c
+> > --- /dev/null
+> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_phylink.c
+> > @@ -0,0 +1,383 @@
+>=20
+> [ ... ]
+>=20
+> > +/* Port 4 or 7 is RGMII_0 and port 8 is RGMII_1 */
+> > +#define RGMII_IDX(port) ((port) =3D=3D 8 ? 1 : 0)
+> > +
+> > +void lan9645x_phylink_get_caps(struct lan9645x *lan9645x, int port,
+> > +                            struct phylink_config *c)
+> > +{
+> > +     c->mac_capabilities =3D MAC_ASYM_PAUSE | MAC_SYM_PAUSE | MAC_10 |
+> > +                           MAC_100 | MAC_1000FD | MAC_2500FD;
+> > +
+> > +     switch (port) {
+> > +     case 0 ... 3:
+> > +             __set_bit(PHY_INTERFACE_MODE_GMII, c->supported_interface=
+s);
+> > +             break;
+> > +     case 4:
+> > +             __set_bit(PHY_INTERFACE_MODE_GMII, c->supported_interface=
+s);
+> > +             phy_interface_set_rgmii(c->supported_interfaces);
+> > +             break;
+> > +     case 5 ... 6:
+> > +             /* SerDes ports: QSGMII/SGMII/1000BASEX/2500BASEX modes
+> > +              * require PCS support which is not yet implemented.
+> > +              */
+> > +             break;
+> > +     case 7 ... 8:
+> > +             /* QSGMII mode on ports 7-8 requires SerDes PCS support,
+> > +              * which is not yet implemented.
+> > +              */
+> > +             phy_interface_set_rgmii(c->supported_interfaces);
+> > +             break;
+> > +     default:
+> > +             break;
+> > +     }
+> > +}
+>=20
+> mac_capabilities advertises MAC_2500FD for every port, but none of the
+> supported_interfaces entries allow negotiating 2.5 Gb/s. GMII and RGMII
+> do not carry 2.5 Gb/s, and ports 5-6 have an empty supported_interfaces
+> bitmap. Should MAC_2500FD be dropped until a PCS-capable interface is
+> added, or should it be set only on ports that will actually support it?
+>=20
+> For ports 5 and 6, supported_interfaces is left empty. Will phylink_creat=
+e()
+> succeed for those ports given no interface mode is permitted, or will the=
+y
+> be silently unusable?
+>=20
+> The commit message states:
+>=20
+>     The lan9645x switch is a multi-port Gigabit AVB/TSN Ethernet Switch
+>     with five integrated 10/100/1000Base-T PHYs. In addition to the
+>     integrated PHYs, it supports up to 2 RGMII/RMII, up to 2
+>     BASE-X/SERDES/2.5GBASE-X and one Quad-SGMII/Quad-USGMII interfaces.
+>=20
+> Given ports 5-6 have no supported_interfaces and ports 7-8 expose only
+> RGMII in this patch, would it help to note in the commit message that
+> SerDes, QSGMII/USGMII and 2.5GBASE-X are not wired up yet?
+>=20
+
+I will remove MAC_2500FD and update the commit message to be clear about
+current limitations vs. SerDes ports. With empty supported interfaces
+DSA core will flip the ports to UNUSED if they are defined in the DT.
+
+> [ ... ]
+>=20
+> > +static int lan9645x_phylink_mac_prepare(struct phylink_config *config,
+> > +                                     unsigned int mode,
+> > +                                     phy_interface_t iface)
+> > +{
+> > +     struct lan9645x_port *p =3D lan9645x_phylink_config_to_port(confi=
+g);
+> > +     struct lan9645x *lan9645x =3D p->lan9645x;
+> > +     int port =3D p->chip_port;
+> > +     bool is_rgmii;
+> > +     u32 mask;
+> > +
+> > +     if (port =3D=3D 5 || port =3D=3D 6 || port > 8)
+> > +             return -EINVAL;
+> > +
+> > +     mask =3D HSIO_HW_CFG_GMII_ENA_SET(BIT(port));
+> > +     lan_rmw(mask, mask, lan9645x, HSIO_HW_CFG);
+> > +
+> > +     is_rgmii =3D phy_interface_mode_is_rgmii(iface);
+> > +     if (port =3D=3D 4)
+> > +             lan_rmw(HSIO_HW_CFG_RGMII_0_CFG_SET(is_rgmii),
+> > +                     HSIO_HW_CFG_RGMII_0_CFG,
+> > +                     lan9645x, HSIO_HW_CFG);
+> > +
+> > +     return 0;
+> > +}
+>=20
+> The HSIO_HW_CFG_RGMII_0_CFG bit is only written when port =3D=3D 4, but t=
+he
+> comment above RGMII_IDX() states:
+>=20
+>     /* Port 4 or 7 is RGMII_0 and port 8 is RGMII_1 */
+>     #define RGMII_IDX(port) ((port) =3D=3D 8 ? 1 : 0)
+>=20
+> Port 7 also maps to RGMII_0. If port 7 is configured for RGMII, does the
+> RGMII_0 mux ever get routed to port 7? And if port 4 is later configured
+> in GMII mode, the write HSIO_HW_CFG_RGMII_0_CFG_SET(0) would run and
+> appear to reroute RGMII_0 away from port 7.
+>=20
+> Is there meant to be mutual-exclusion between port 4 and port 7 in RGMII
+> mode, and a write path for port 7 as well?
+
+Yes this is a 2:1 mux. I thought the interface modes were fixed from the DT=
+,
+except perhaps for SFPs, but I will update this to properly handle the
+muxing in a dynamic fashion.
+
+>=20
+> > +static void lan9645x_rgmii_dll_config(struct lan9645x_port *p)
+> > +{
+> > +     u32 rx_idx, tx_idx;
+> > +
+> > +     /* DLL register layout:
+> > +      * (N*2):   RGMII_N_RX
+> > +      * (N*2)+1: RGMII_N_TX
+> > +      */
+> > +     rx_idx =3D RGMII_IDX(p->chip_port) * 2;
+> > +     tx_idx =3D RGMII_IDX(p->chip_port) * 2 + 1;
+> > +
+> > +     /* Enable DLL in RGMII clock paths, deassert DLL reset, and start=
+ the
+> > +      * delay tune FSM.
+> > +      */
+> > +     lan_rmw(HSIO_DLL_CFG_DLL_CLK_ENA_SET(1) |
+> > +             HSIO_DLL_CFG_DLL_RST_SET(0) |
+> > +             HSIO_DLL_CFG_DLL_ENA_SET(p->rx_internal_delay) |
+> > +             HSIO_DLL_CFG_DELAY_ENA_SET(p->rx_internal_delay),
+> > +             HSIO_DLL_CFG_DLL_CLK_ENA |
+> > +             HSIO_DLL_CFG_DLL_RST |
+> > +             HSIO_DLL_CFG_DLL_ENA |
+> > +             HSIO_DLL_CFG_DELAY_ENA,
+> > +             p->lan9645x, HSIO_DLL_CFG(rx_idx));
+> > +
+> > +     lan_rmw(HSIO_DLL_CFG_DLL_CLK_ENA_SET(1) |
+> > +             HSIO_DLL_CFG_DLL_RST_SET(0) |
+> > +             HSIO_DLL_CFG_DLL_ENA_SET(p->tx_internal_delay) |
+> > +             HSIO_DLL_CFG_DELAY_ENA_SET(p->tx_internal_delay),
+> > +             HSIO_DLL_CFG_DLL_CLK_ENA |
+> > +             HSIO_DLL_CFG_DLL_RST |
+> > +             HSIO_DLL_CFG_DLL_ENA |
+> > +             HSIO_DLL_CFG_DELAY_ENA,
+> > +             p->lan9645x, HSIO_DLL_CFG(tx_idx));
+> > +}
+>=20
+> This function consults only p->rx_internal_delay and p->tx_internal_delay
+> and never looks at the phy_interface_t. Phylink expects the MAC to apply
+> internal delay only when the interface is RGMII_ID, RGMII_TXID or
+> RGMII_RXID, and not when the interface is plain PHY_INTERFACE_MODE_RGMII
+> (where the PHY provides delay).
+>=20
+> With a DT that specifies phy-mode =3D "rgmii" and nonzero
+> rx-internal-delay-ps, will both the PHY and the MAC add delay?
+>=20
+> And with phy-mode =3D "rgmii-id" but no {rx,tx}-internal-delay-ps propert=
+y
+> in DT, will the MAC fail to add delay on either side?
+>=20
+
+The bots like to come back to this. The function is only called when
+phy_interface_mode_is_rgmii.
+
+With respect to the mechanics of it all, I believe this is how you support
+MAC-2-MAC configurations where one side needs to add the delays.
+The PHY_INTERFACE_MODE_* is not supposed to be used for this, as I=C2=A0
+understand it.
+
+I originally did it that way, and was instructed to change it to this.
+
+> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c b/drive=
+rs/net/dsa/microchip/lan9645x/lan9645x_port.c
+> > new file mode 100644
+> > index 000000000000..394a20ee678f
+> > --- /dev/null
+> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c
+>=20
+> [ ... ]
+>=20
+> > +int lan9645x_port_setup(struct dsa_switch *ds, int port)
+> > +{
+> > +     struct dsa_port *dp =3D dsa_to_port(ds, port);
+> > +     struct lan9645x *lan9645x =3D ds->priv;
+> > +     struct lan9645x_port *p;
+> > +
+> > +     p =3D lan9645x_to_port(lan9645x, port);
+> > +
+> > +     if (dp->dn) {
+> > +             u32 val;
+> > +
+> > +             if (!of_property_read_u32(dp->dn, "rx-internal-delay-ps",=
+ &val))
+> > +                     p->rx_internal_delay =3D val > 0;
+> > +
+> > +             if (!of_property_read_u32(dp->dn, "tx-internal-delay-ps",=
+ &val))
+> > +                     p->tx_internal_delay =3D val > 0;
+> > +     }
+>=20
+> The u32 picosecond value from DT is collapsed to a boolean via "val > 0",
+> discarding the tap selection. Is the discarded precision intentional, and
+> if so, why read the value as u32 in the first place rather than using
+> of_property_read_bool() on a differently-named property?
+
+I will add some explicit validation. The hardware only supports 2ns on/off.=
+ I will
+add a comment about that, and reject unsupported values.
+
