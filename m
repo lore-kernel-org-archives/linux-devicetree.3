@@ -1,120 +1,153 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D07C5388E71;
-	Tue, 12 May 2026 20:11:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE653AB29B;
+	Tue, 12 May 2026 20:13:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778616705; cv=none; b=C6tgNa+oZBkH7luTyTSrFlq8rAO64kv5YHI+A0Zy1YKVaLPpYTiFAkTEsu7VFifjt1okROpXdJUkb8/eyBQ6VHTQd4phQuYY4xiIZztCyGJY/GeTLWvSMDUhs+ug5FepQ7suTXF80R5T8/dgxYrsVZlL+3j2k49apnK9NUSyWYk=
+	t=1778616831; cv=none; b=UTAtGGb44pGssaMUyic4F6Q64Wdlr3pKfkPFWAPtPn9HQNtVv+colcoD8Pf9v44E+Sab4/S8u/1E6RuhBmXSjQdudjOLh96HmcAp8HNRcSPZ00Uk+jfsSsYNC55q3b1JqdejXZLtQGYh5ghDh7xZZhJQP0Y6gDG1MSDQ290WyEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778616705; c=relaxed/simple;
-	bh=R/uyJUdxJBF+fEzEOewUs43ucu/kqmQOdbR/Ptc/D3I=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NWhAPsDqO3yXYYLv27LxplE5QazPB/YBIoJSUSb2rt1+DivSW1gUpdDqv2OmXpIyg+4QN1J2qSOKZFkkjdEYe2kLGYqwq8Zin4O547UKmH/WJfLuNLxAdyBGRElv5cFRg9F6fveNUnhC9ub+vZP3hi9tE2pq7rN5lD3ldm9TwZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=feqgB41a; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778616831; c=relaxed/simple;
+	bh=XvB3gabDoBtEZDsoQE+oOCgIII/QrOVRQO8RyhFRouM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FFODBaJ0cWHgVxGa89VaxIrokJpIgC3mlFX/VVnQNjSU5fLPmsOUlsmAetPT444ozHFnP8pODH78D3xwmJ6RYc0q5PlxDyla5+C8ONzYsx+CIzz2U0D+/aG2JcLg9tIR25RcN0GL0Tehsxc5X76G5HyKcZQ3TVJYvstHrZqumbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ipbr2QOB; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="feqgB41a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D596DC2BCB0;
-	Tue, 12 May 2026 20:11:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ipbr2QOB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 019D5C2BCB0;
+	Tue, 12 May 2026 20:13:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778616705;
-	bh=R/uyJUdxJBF+fEzEOewUs43ucu/kqmQOdbR/Ptc/D3I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=feqgB41aR9Fd2eSKB4GV1UMELcH5dkT4pPjvvAT9RA9ueb2BmN5OF6RuJflJcnqe+
-	 ScukiWrgP3IONUokQfpM9XKfF3poH95lWqn32UGJo1znVBp60FsJ7WRUMra9VclBcI
-	 0fQFNyazGTMuXBVIbzORkZ5nnAwh86CBN4ygL+gypW2p53j+NU651QP90Jdqmww73w
-	 eAewL5roV/UqdeMKsNPsVk1ebeT4ESYCTOdolOlb8qMbBs20oYnW1g8hRB4hMwzFSm
-	 RkpV2PGOq77EdQgMaS5Q1jdt8iAMnBBjgapj275tGfW90bhMHA3qO7Yp7x9N7x4dw1
-	 bJp1gqnrdD92Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] ASoC: dt-bindings: Convert eukrea-tlv320.txt to yaml
-Reply-To: sashiko@lists.linux.dev
-To: "Frank Li via B4 Relay" <devnull+Frank.Li.nxp.com@kernel.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org
-In-Reply-To: <20260511-eukrea-v2-1-cac317290978@nxp.com>
-References: <20260511-eukrea-v2-1-cac317290978@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 12 May 2026 20:11:44 +0000
-Message-Id: <20260512201144.D596DC2BCB0@smtp.kernel.org>
+	s=k20201202; t=1778616830;
+	bh=XvB3gabDoBtEZDsoQE+oOCgIII/QrOVRQO8RyhFRouM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ipbr2QOBXC73RkC+UYQpb8prJLPRYxG4rD8FmmM01iI/XOR6Id90XPw+sgjk06rd1
+	 dNCZ1Hcyp73yMvqYzM5jPzBRQxOM9vTep0KZ/MdNowC+vHcL+6FKwxWTojXlWJPc6T
+	 0mqoHV9sr6Y7osZIv9v/rgBMnApnPqx6rauMP1MlWzS9b40447Gg/08cWvS22/I4f3
+	 kfUgnkOvBvkV9cLEo85Kx/tj/yg1PABSasFr7LM6xmprJmWTrbIQ6hvkSnGDIPoBG6
+	 aDi3wYY8O9Fh3Jf/Tv+E/fJ9zwpHugl2bPG+/vESfcQ0WkNKwHBTcNHWFsuadsi2L+
+	 c5AiMjZ4r+blQ==
+Date: Tue, 12 May 2026 15:13:46 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Ajit Pandey <ajit.pandey@oss.qualcomm.com>, Imran Shaik <imran.shaik@oss.qualcomm.com>, 
+	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: [PATCH v4] arm64: dts: qcom: sm8750: Add camera clock controller
+Message-ID: <agOHPTif98-gTk8_@baldur>
+References: <20260511-sm8750_camcc_dt-v4-1-eab4b6c3eaea@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260511-sm8750_camcc_dt-v4-1-eab4b6c3eaea@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The properties `fsl,mux-int-port` and `fsl,mux-ext-port` are omi=
-tted from the `required` list in the new YAML binding schema.
---
+On Mon, May 11, 2026 at 03:45:43PM +0530, Taniya Das wrote:
+> The camera clock controller is split into cambistmclk and camcc. The
+> cambist clock controller handles the mclks and the rest of the clocks of
+> camera are part of the camcc clock controller.
+> Add the camcc clock controller device node for SM8750 SoC.
+> 
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+> ---
+> Changes in v4:
+> - Fix Stray space before the ',' in cambistcc node [Konrad]
+> - Link to v3: https://lore.kernel.org/r/20260225-sm8750_camcc_dt-v3-1-a19d3173a160@oss.qualcomm.com
+> 
+> Changes in v3:
+> - Update the Mx phandle to use MXC for camcc node as it is a always ON
+>   rail and can sustain this usecase.
+> - Link to v2: https://lore.kernel.org/r/20260220-sm8750_camcc_dt-v2-1-e4b7faf35854@oss.qualcomm.com
+> 
+> Changes in v2:
+> - Update the MxC phandle to use MX for camcc node.
+> - Add RB tag [Abel Vesa] and update the commit message.
+> - Link to v1: https://lore.kernel.org/r/20251203-sm8750_camcc_dt-v1-1-418e65e0e4e8@oss.qualcomm.com
+> ---
+>  arch/arm64/boot/dts/qcom/sm8750.dtsi | 37 +++++++++++++++++++++++++++++++++++-
+>  1 file changed, 36 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+> index 3f0b57f428bbb388521c27d9ae96bbef3d62b2e2..dabff4518867df88d8e4cdc233ef6325635b7ae9 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+> @@ -2,7 +2,8 @@
+>  /*
+>   * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
+>   */
+> -
+> +#include <dt-bindings/clock/qcom,sm8750-cambistmclkcc.h>
+> +#include <dt-bindings/clock/qcom,sm8750-camcc.h>
 
-commit 5251ce7d6c30896b16c3da8622760278420a910b
-Author: Frank Li <Frank.Li@nxp.com>
+I had to fix the sort order, but the merge conflict tells me that you
+didn't rebase this on v7.1-rc1 (or later).
 
-ASoC: dt-bindings: Convert eukrea-tlv320.txt to yaml
+Regards,
+Bjorn
 
-This commit converts the eukrea-tlv320 device tree binding documentation
-from plain text to the YAML schema format.
-
-> diff --git a/Documentation/devicetree/bindings/sound/eukrea,asoc-tlv320.y=
-aml b/Documentation/devicetree/bindings/sound/eukrea,asoc-tlv320.yaml
-> new file mode 100644
-> index 0000000000000..a95cd0323f6e4
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/eukrea,asoc-tlv320.yaml
-
-[ ... ]
-
-> +required:
-> +  - compatible
-> +  - eukrea,model
-> +  - ssi-controller
+>  #include <dt-bindings/clock/qcom,rpmh.h>
+>  #include <dt-bindings/clock/qcom,sm8750-gcc.h>
+>  #include <dt-bindings/clock/qcom,sm8750-tcsr.h>
+> @@ -2046,6 +2047,23 @@ aggre2_noc: interconnect@1700000 {
+>  			clocks = <&rpmhcc RPMH_IPA_CLK>;
+>  		};
+>  
+> +		cambistmclkcc: clock-controller@1760000 {
+> +		       compatible = "qcom,sm8750-cambistmclkcc";
+> +		       reg = <0x0 0x1760000 0x0 0x6000>;
+> +		       clocks = <&gcc GCC_CAM_BIST_MCLK_AHB_CLK>,
+> +				<&bi_tcxo_div2>,
+> +				<&bi_tcxo_ao_div2>,
+> +				<&sleep_clk>;
+> +			power-domains = <&rpmhpd RPMHPD_MMCX>,
+> +					<&rpmhpd RPMHPD_MX>;
+> +			required-opps = <&rpmhpd_opp_low_svs>,
+> +					<&rpmhpd_opp_low_svs>;
 > +
-> +additionalProperties: false
-
-Should fsl,mux-int-port and fsl,mux-ext-port be included in this required=20
-list?=20
-
-In the original eukrea-tlv320.txt file being removed, both of these propert=
-ies=20
-were explicitly listed under the Required properties section.=20
-
-Additionally, the kernel driver sound/soc/fsl/eukrea-tlv320.c appears to=20
-strictly check for these properties during probe, returning an error if the=
-y=20
-are missing.=20
-
-Does this omission introduce a regression where incomplete device tree node=
-s=20
-will silently pass dt_binding_check validation but fail at runtime?
-
-[ ... ]
-
-> diff --git a/Documentation/devicetree/bindings/sound/eukrea-tlv320.txt b/=
-Documentation/devicetree/bindings/sound/eukrea-tlv320.txt
-> deleted file mode 100644
-> index 6dfa88c4dc1e8..0000000000000
-> --- a/Documentation/devicetree/bindings/sound/eukrea-tlv320.txt
-> +++ /dev/null
-> @@ -1,26 +0,0 @@
-> -Audio complex for Eukrea boards with tlv320aic23 codec.
-> -
-> -Required properties:
-> -
-> -  - compatible		: "eukrea,asoc-tlv320"
-> -
-> -  - eukrea,model	: The user-visible name of this sound complex.
-> -
-> -  - ssi-controller	: The phandle of the SSI controller.
-> -
-> -  - fsl,mux-int-port	: The internal port of the i.MX audio muxer (AUDMUX=
-).
-> -
-> -  - fsl,mux-ext-port	: The external port of the i.MX audio muxer.
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511-eukrea-v2-=
-1-cac317290978@nxp.com?part=3D1
+> +			#clock-cells = <1>;
+> +			#reset-cells = <1>;
+> +			#power-domain-cells = <1>;
+> +		};
+> +
+>  		mmss_noc: interconnect@1780000 {
+>  			compatible = "qcom,sm8750-mmss-noc";
+>  			reg = <0x0 0x01780000 0x0 0x5b800>;
+> @@ -2740,6 +2758,23 @@ usb_dwc3_ss: endpoint {
+>  			};
+>  		};
+>  
+> +		camcc: clock-controller@ade0000 {
+> +			compatible = "qcom,sm8750-camcc";
+> +			reg = <0x0 0xade0000 0x0 0x20000>;
+> +			clocks = <&gcc GCC_CAMERA_AHB_CLK>,
+> +				 <&bi_tcxo_div2>,
+> +				 <&bi_tcxo_ao_div2>,
+> +				 <&sleep_clk>;
+> +			power-domains = <&rpmhpd RPMHPD_MMCX>,
+> +					<&rpmhpd RPMHPD_MXC>;
+> +			required-opps = <&rpmhpd_opp_low_svs>,
+> +					<&rpmhpd_opp_low_svs>;
+> +
+> +			#clock-cells = <1>;
+> +			#reset-cells = <1>;
+> +			#power-domain-cells = <1>;
+> +		};
+> +
+>  		pdc: interrupt-controller@b220000 {
+>  			compatible = "qcom,sm8750-pdc", "qcom,pdc";
+>  			reg = <0x0 0x0b220000 0x0 0x10000>, <0x0 0x164400f0 0x0 0x64>;
+> 
+> ---
+> base-commit: 47b7b5e32bb7264b51b89186043e1ada4090b558
+> change-id: 20251203-sm8750_camcc_dt-350a8d217376
+> 
+> Best regards,
+> -- 
+> Taniya Das <taniya.das@oss.qualcomm.com>
+> 
