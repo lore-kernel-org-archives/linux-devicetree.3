@@ -1,104 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12EBD3BB120;
-	Tue, 12 May 2026 17:48:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48ABD3EDE66;
+	Tue, 12 May 2026 17:49:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778608101; cv=none; b=ceZ3S4nlD6zwTXMYHm/WWxdsSjtokkvUJcyiInzoSXAFiaTSXP13950N3F7k++47uyg7eSyH7tGK2xkN0WbaOM4lo+QLBLTJSsHu1xTME/hhQGXqEPOgGl7YA10CmjlP+tYxLbYHxZiPgjYe6109aFcymcaGQaJSwub4zemrUlc=
+	t=1778608178; cv=none; b=rGyfExC/05gkxkF0lHeh+qb7sSneCJD3Du2FVYz9By8GcEo3yM9k/aruitWbch/KtDee1v5AsENv1tggn3YRNXAQzne1rT3RVGHdDY2e8zoF7GuSfKmggOZd5TpjY9wyokZE04HK/W43Lni3NUAQucO6kGIF1JnDaAzpHI9jxCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778608101; c=relaxed/simple;
-	bh=GdO8sMea8p5bxncxQmac1W2vVytj8wlQkstRRnaIfAw=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=WHElZRFAm6/E9CMB/3T8KXUsH99SedRedc4uqTdb/qc807+6B8KjFNQ1znKLSoRYYTnOAEJnMKa80caWDSJwMtu+eIQrmXogrHtdFKsRLdjubl6C+WrJGlmZLDoqLddtjrM7g+1W9ShKfCjXxacvJ9N/cbTGd0JhELIypKCBj1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HtlGqH6i; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778608178; c=relaxed/simple;
+	bh=hGoLgFvqmnL2T34vovl9lReM81TwNgRLYfnvDPzQ79Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=daJ8HIsCmdw8UviTF6/3WjqfP2KLOViDh4+V1+HEZGmkC7kEBsQlKIIpUBOqvB1FTYbNW302YfmYc8zSz7HEDjCIR6DtzQvE2VVhOhIXEyl9JjOHIGy4ijlMTGe8bF+FwkIjqtZWT9WJSzHTPS68d1K7CgDe1SPcSKmoY9Yq1e8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QkLzH+wE; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HtlGqH6i"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A5926C2BCF5;
-	Tue, 12 May 2026 17:48:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778608100;
-	bh=GdO8sMea8p5bxncxQmac1W2vVytj8wlQkstRRnaIfAw=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=HtlGqH6iKLS332d4OwrID/Utvdk/6MFk9bCWFWw3UiAFIy2sS4X60c146SzCQ5BMY
-	 GcPP4A1eGW9ddkuLTUVuwwf1X0GWx2+Nu+LhaU9sK8+V3ITAWJi9nwd20JMAGIaIEw
-	 gieFD4YYnZXfoesifKCwz+IhLrVD3kM0IPppdPIIkjHb6ITLPFltOhGcRXFH/dGuJ0
-	 1/KsjmBedo4IFYcKCN584jEU9wvugFilKOFZ0H/Z3yq4TuRFZLMz6dT8v6l+EUHRY+
-	 RdKZfy5ZuXtYbFKslU2jF2T2jrJCCG4eYGY1cRMfDP9cYqMsMss+Di2DyV0b106V5/
-	 FwxteDelv92Ug==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 94DB1CD343F;
-	Tue, 12 May 2026 17:48:20 +0000 (UTC)
-From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Subject: [PATCH 0/2] Khadas VIM4 PWM status LED support
-Date: Tue, 12 May 2026 19:47:27 +0200
-Message-Id: <20260512-add-kvim4-sysled-v1-0-7178719a43e7@aliel.fr>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QkLzH+wE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1778608178; x=1810144178;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=hGoLgFvqmnL2T34vovl9lReM81TwNgRLYfnvDPzQ79Y=;
+  b=QkLzH+wE9c6lQtfHumg6f/aCO4oY7Ju4H4gpmlYkQZYC+0rALjG6pIXS
+   Cd4P0Zti8u3ZNVVCRamcMZ/xr34ARVphlKQl9tZGZF1GLbkj4VkCKr//3
+   1JhUTwB1d9li53ZLZbOK0kxXHI69NWQxwhaDY705sXy6IS/cFcOwlnCv4
+   NN8VZLWg6osOIg4meG5Dw/jd/5Qx2ZqStTJB6lc+F1W/fffcc7uFDTryk
+   s6WtXa1tPjrrkjj6D/xH6Nx8pksnt2D6AYM4zlm9ptuHCKP++nRlyZYjQ
+   6iExuosnLiQauE2C+I8VX2fbzeyIFYgNI8iPo8n7P5VNgmYOvXb/mZqdD
+   g==;
+X-CSE-ConnectionGUID: HgpRW/v3SLO0h8d++51/Ng==
+X-CSE-MsgGUID: 5eQoEL9zRb+vdnJbHR8KGg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="89828685"
+X-IronPort-AV: E=Sophos;i="6.23,231,1770624000"; 
+   d="scan'208";a="89828685"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 10:49:37 -0700
+X-CSE-ConnectionGUID: bD2MznS+Qjq6sKdEpImUKg==
+X-CSE-MsgGUID: QRO0mplfRH2QqADyc2KxGg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,231,1770624000"; 
+   d="scan'208";a="235165510"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.244])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 10:49:32 -0700
+Date: Tue, 12 May 2026 20:49:29 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+Cc: rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-doc@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Petr Mladek <pmladek@suse.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH v12 05/11] iio: core: add decimal value formatting into
+ 64-bit value
+Message-ID: <agNoKbcwT6_spC93@ashevche-desk.local>
+References: <20260510-adf41513-iio-driver-v12-0-34af2ed2779f@analog.com>
+ <20260510-adf41513-iio-driver-v12-5-34af2ed2779f@analog.com>
+ <agM6uzhdn7o8g9v5@ashevche-desk.local>
+ <ql7smsqza7liupm7fhdts73cxsltrpxsqofu5ovzpxpwvcscuv@qigi3dwukk7k>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCMBCF4auUWTvQhKRoryJdxGTUQZNqJi2V0
- rsb2uX/4H0rCGUmgb5ZIdPMwmOqoU4N+KdLD0IOtUG3umut0uhCwNfM0aD85E0Bz94re7Ha2E5
- BvX0y3XnZyetwdKbvVOVyjHBzQujHGLn0TaKl4K4bbWDYtj9QbGYBkwAAAA==
-X-Change-ID: 20260512-add-kvim4-sysled-8cc159524561
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ronald Claveau <linux-kernel-dev@aliel.fr>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1413;
- i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=GdO8sMea8p5bxncxQmac1W2vVytj8wlQkstRRnaIfAw=;
- b=owGbwMvMwCWm1SvKXP3cUInxtFoSQxZz+l2bwpmb9nEdfroq6MT7tJSbjdYdzIs/NZ3OnCU26
- 17jLKGzHaUsDGJcDLJiiiz9cy1PvLt89MzXPeopMHNYmUCGMHBxCsBEggMYGc5/zeMyzspUTWFZ
- Gl72LNu1ZZZKoHS9Wu2KmImXrJZ6JDL84VtbeO3ww98eX1LWeBjbsdTxJPh/6XSTCuKV9X3h7/S
- bCQA=
-X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
- fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
-X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
- auth_id=744
-X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Reply-To: linux-kernel-dev@aliel.fr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ql7smsqza7liupm7fhdts73cxsltrpxsqofu5ovzpxpwvcscuv@qigi3dwukk7k>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-This series adds support for the PWM-driven status LED on the Khadas
-VIM4 board (Amlogic T7).
+On Tue, May 12, 2026 at 05:09:32PM +0100, Rodrigo Alencar wrote:
+> On 26/05/12 05:35PM, Andy Shevchenko wrote:
+> > On Sun, May 10, 2026 at 01:42:23PM +0100, Rodrigo Alencar via B4 Relay wrote:
+> > 
+> > > Create new format types for iio values (IIO_VAL_DECIMAL64_*), which
+> > > defines the representation of fixed decimal point values into a single
+> > > 64-bit number. This new format increases the range of represented values,
+> > > allowing for integer parts greater than 2^32, as bits are not "wasted"
+> > > in the fractional part, which can be seen in IIO_VAL_INT_PLUS_MICRO and
+> > > IIO_VAL_INT_PLUS_NANO. Helpers are created to compose and decompose 64-bit
+> > > decimals into integer values used in IIO formatting interfaces, which
+> > > creates consistency and avoid error-prone manual assignments when using
+> > > wordpart macros. When doing the parsing, kstrtodec64() is used with the
+> > > scale defined by the specific decimal format type.
 
-The VIM4 exposes a heartbeat LED wired to the PWM_AO_C output, routed
-through pin group pwm_ao_c_d. Before wiring it up in the board DTS,
-the SoC pinmux definitions had to be corrected: the original
-pwm_ao_c node was conflating two distinct pin groups (pwm_ao_c_d and
-pwm_ao_c_e) into a single ambiguous entry.
+...
 
-Patch 1 fixes the pwm_ao_c pinmux entries in the T7 DTSI by splitting
-them into two properly named nodes. Neither alternate is in use yet,
-so there is no functional impact on existing boards.
+> > > +		tmp2 = div64_s64_rem(iio_val_s64_from_array(vals),
+> > > +				     int_pow(10, scale), &frac);
+> > > +		if (tmp2 == 0 && frac < 0)
+> > > +			return sysfs_emit_at(buf, offset, "-0.%0*lld", scale,
+> > > +					     abs(frac));
+> > > +		else
+> > > +			return sysfs_emit_at(buf, offset, "%lld.%0*lld", tmp2,
+> > > +					     scale, abs(frac));
+> > > +	}
+> > 
+> > What about
+> > 
+> > 		/* Print a leading '-' for negative fractions */
+> > 		if (tmp2 == 0 && frac < 0)
+> > 			offset += sysfs_emit_at(buf, offset, "-");
+> > 
+> > 		return sysfs_emit_at(buf, offset, "%lld.%0*lld", tmp2, scale, abs(frac));
+> > 
+> > Also note this won't work with the frac that are == S64_MIN. It's UB (undefined
+> > behaviour), see the comment at abs() implementation. Maybe a time to add abs()
+> > corner case tests...
+> 
+> frac cannot be S64_MIN, it is always and remainder of a power of 10 modulus.
 
-Patch 2 enables the pwm_ao_cd controller on the VIM4 and adds a
-pwm-leds node with a heartbeat trigger. The xtal-clk node is also
-moved to restore alphabetical ordering among root node children.
+Okay, but what about input of -0.9999999999999999999 ? Will it fit the signed
+frac type?
 
-Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
----
-Ronald Claveau (2):
-      arm64: dts: amlogic: t7: Fix pwm_ao_c pinmux definitions
-      arm64: dts: amlogic: t7: khadas-vim4: add PWM-driven status LED
-
- .../dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts  | 30 +++++++++++++++++-----
- arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi        | 12 +++++++--
- 2 files changed, 33 insertions(+), 9 deletions(-)
----
-base-commit: 31f32e8cdf59291e467250dfc57d1a8c718f63d2
-change-id: 20260512-add-kvim4-sysled-8cc159524561
-
-Best regards,
 -- 
-Ronald Claveau <linux-kernel-dev@aliel.fr>
+With Best Regards,
+Andy Shevchenko
 
 
