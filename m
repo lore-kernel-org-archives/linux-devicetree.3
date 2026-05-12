@@ -1,326 +1,202 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B07A92DB7A9
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 02:04:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1AFEE38330E;
+	Tue, 12 May 2026 02:05:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.76.78.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778551483; cv=none; b=ncKRZaMSz8BdOPKGPeEZSm5ikPdA+Ps6Jpd5i75Zcv6e51Uk93Y2j3W6YCyGAY77CcRdwDYLD7b0zkIqGeOkqjhBnE2HbMpo8WIE66+X0grBxjwtCZ8rcd/Rx33tSxwW/+ne10DT4BHb3BPG7lYlA5fz1VIcUroH3h08TBlpmKs=
+	t=1778551507; cv=none; b=eq+or2bKPqw8+9YkZxcXKg1eqoxicHh3VujEdEFhovHcmc/Gm68fTM1EUm1SOariMxXZNWsKgPwAy5UgTp0d8DQvCdzYEve9HDZEoTng2XRQoOuimDZZyXgfPi96xAk/34Qsw7dSCHX9eZiOGhf8B+xhqcZY6h8YZObfnh9dvDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778551483; c=relaxed/simple;
-	bh=ec6VEpSWVsiAY5AoSdfOJH2i9lcV2HM7NpWsGt731Rk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Vzz78NxBzzZHL+VdCJ3UzhfEkimHunSvSNBfk7JiZqm0qUhVDcnvCzHhV9+98cqyGRmaoy9tEFwzLZLRdqwANgsHfJPf2zIZcKLAtjYDm4KTmOxbaW9z7gWM+lM3vMjJCiVw3MZcYUeF5Ag/iuOiAGLecUphCWFqyibmJXTR1U0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KXQ10ZE1; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KXQ10ZE1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23BA5C2BCB0;
-	Tue, 12 May 2026 02:04:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778551483;
-	bh=ec6VEpSWVsiAY5AoSdfOJH2i9lcV2HM7NpWsGt731Rk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=KXQ10ZE1rJkCAAAWEy3FRFnchAfSl4jFatXL6VTIfl0RfQB8fd4WJL5fRBx7SSQaN
-	 3cMkmzsC9h0wPCxScAIfpE7twQKei3Lyww7e8+PEhVwCol2GjRQINoYdIxJrpOGSVI
-	 BIx4gM2tmiBgjk6en4oBpnPnKqlojrpbbZkmvG1YLq+X0q+Kknte3vEIeZT5szzRDt
-	 L+EKBbbuo9GWyrD13lJj7eyvVrBmmKZpJiqLhQNJoUNifCg5Bh+Ho6dRiZamoI/v6X
-	 Ypj5g+0hq8hG11zdUT3EPpWR70xJORNhjQqBYpcdsdOivWdbfz9F/kfaKiOjqdPdqh
-	 LNbbipcEJiG3A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 2/5] regulator: Add support for MediaTek MT6373 SPMI
- PMIC Regulators
-Reply-To: sashiko@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260511101355.122478-3-angelogioacchino.delregno@collabora.com>
-References: <20260511101355.122478-3-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 12 May 2026 02:04:42 +0000
-Message-Id: <20260512020443.23BA5C2BCB0@smtp.kernel.org>
+	s=arc-20240116; t=1778551507; c=relaxed/simple;
+	bh=A4PN3TJSuUq0eRisdFtIsVhQxKlF6uA9l8w37HcLddk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=fKVoBrk1Hj99Vow1lTfkc4d4Nc5mbd7rBVOiFGgviMJ4xg+eetM8EDbuoE2zKCspm42uNuxhWf0bfAsV5enlV//EQHemWY2Or8E3nFzSRdpz1/NogyVCjVLbBAcU+MnVNPo5o9f1/YePUihXYWuWvxbCDmsdjfX10ZMrVjiDg7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=13.76.78.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from E0005152DT.eswin.cn (unknown [10.12.96.41])
+	by app2 (Coremail) with SMTP id TQJkCgD3DaGyigJqJq4YAA--.43597S2;
+	Tue, 12 May 2026 10:04:36 +0800 (CST)
+From: dongxuyang@eswincomputing.com
+To: mturquette@baylibre.com,
+	sboyd@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	p.zabel@pengutronix.de,
+	huangyifeng@eswincomputing.com,
+	dongxuyang@eswincomputing.com,
+	benoit.monin@bootlin.com,
+	bmasney@redhat.com
+Cc: ningyu@eswincomputing.com,
+	linmin@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com
+Subject: [PATCH v4 0/3] Add driver support for ESWIN EIC7700 HSP clock and reset generator
+Date: Tue, 12 May 2026 10:04:32 +0800
+Message-Id: <20260512020432.671-1-dongxuyang@eswincomputing.com>
+X-Mailer: git-send-email 2.31.1.windows.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:TQJkCgD3DaGyigJqJq4YAA--.43597S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxKw17Zr1UtF17AryruFWfXwb_yoWxXw18pF
+	WxGF95Kr1DArWI9rs7ta4I9FWfJa1xJFy5Cws7Ja47Zws0yryUJr40ka45AFZrZw1fXrWU
+	J3W7ta4F9FWUZFJanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBm14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7M4kE6xkIj40Ew7xC0wCY1x0262kKe7AKxVW8ZVWrXwCY02Avz4vE-syl42
+	xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWU
+	GwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI4
+	8JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4U
+	MIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I
+	8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRMD73DUUUU
+X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/
 
-Thank you for your contribution! Sashiko AI review found 11 potential issue=
-(s) to consider:
-- [High] Global state mutation of `mt6373_regulators[]` array during probe.
-- [High] Missing cancellation of delayed work (`info->oc_work`) on driver r=
-emoval.
-- [High] Out-of-bounds stack read in `mt6373_buck_unlock` due to incorrect =
-`val_count`.
-- [High] Typo in register definitions causes `VMCH_EINT` to corrupt `VMC` c=
-alibration.
-- [High] `VMCH_EINT` bypasses the regulator core and forcibly disables the =
-`VMCH` parent regulator.
-- [High] Duplicate IRQ mapping and double-free due to unconditionally mappi=
-ng `hwirq` 0 and 25.
-- [High] Double free of the IRQ mapping in the `devm_add_action_or_reset()`=
- error path.
-- [High] NULL pointer dereference when retrieving `fwspec.fwnode`.
-- [High] Concurrent mode transitions across different buck regulators inter=
-leave and fail.
-- [High] State machine logic error in `mt6373_regulator_set_mode()` traps r=
-egulators in the wrong state.
-- [Medium] Discrepancy between commit message claims and implemented regula=
-tors.
+From: Xuyang Dong <dongxuyang@eswincomputing.com>
+
+Add support for the ESWIN EIC7700 HSP (high-speed peripherals). The drivers
+provide basic functionality to manage and control the clock and reset
+signals for EIC7700 HSP, including mmc, USB, ethernet, SATA and DMAC.
+
+The clock and reset registers are mapped to overlapping I/O address ranges.
+This causes a resource conflict when two drivers attempt to request the
+same region. Use the auxiliary device framework: the main driver
+allocates the shared register region and passes it to auxiliary
+devices, avoiding resource contention and duplicate remapping.
+
+Features:
+Implements support for the ESWIN EIC7700 HSP clock and reset controller.
+Provide API to manage clock and reset signals for the EIC7700 HSP.
+
+Supported chips:
+ESWIN EIC7700 series SoC.
+
+Test:
+Test this patch on the Sifive HiFive Premier P550 (which used the EIC7700
+SoC), include USB and other peripherals. All the drivers of these modules
+use the clock module and reset module.
+
+Updates:
+  Changes in v4:
+  - Clock driver:
+    - Remove "Reviewed-by: Benoît Monin <benoit.monin@bootlin.com>" and
+      "Reviewed-by: Brian Masney <bmasney@redhat.com>", because the clock
+      driver has been updated.
+    - Remove inclusion of io.h.
+    - Add struct regmap to eic7700_hsp_clk_gate.
+      Replace 'void __iomem *reg' with 'unsigned int reg'.
+      Replace 'void __iomem *ref_reg' with 'unsigned int ref_reg'.
+      Replace long with int for 'offset' and 'ref_offset'.
+      Remove 'spinlock_t *lock'.
+      Apply the same changes to hsp_clk_register_gate().
+    - Remove the structure eic7700_hsp_regmap_lock, and the functions
+      eic7700_hsp_regmap_lock() and eic7700_hsp_regmap_unlock().
+    - Remove the 'guard(spinlock_irqsave)(gate->lock)' in
+      hsp_clk_gate_endisable().
+    - Replace readl() and writel() with regmap_assign_bits() in
+      hsp_clk_gate_endisable().
+    - Change the parameter enable from int to bool.
+    - Replace readl() with regmap_read() in hsp_clk_gate_is_enabled().
+    - Remove the lock_ctx variable.
+    - Move eic7700_hsp_regmap_config from inside the probe function to global
+      scope.
+      Remove '.lock', '.unlock' and 'lock_arg'.
+      Add '.fast_io = true' and '.use_raw_spinlock = true'.
+  - Reset driver:
+    - Add "Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>" for reset.
+    - Drop the temporary variable, just return regmap_assign_bits(...) directly.
+    - Replace -EINVAL with -ENODEV for dev_get_regmap() check.
+    - Drop the '_dt'.
+
+  - Link to v3: https://lore.kernel.org/all/20260423090904.2108-1-dongxuyang@eswincomputing.com/
+
+  Changes in v3:
+  - Bindings:
+    - Added "Acked-by: Conor Dooley <conor.dooley@microchip.com>" for bindings.
+  - Clock driver:
+    - Remove 'gate_flags'.
+    - Add __acquires for eic7700_hsp_regmap_lock() and add __releases for
+      eic7700_hsp_regmap_unlock().
+    - Move writel(USB_REF_XTAL24M, gate->ref_reg) into enable. Because this
+      is only used for USB gate clock on the enable path. And modify the
+      comments.
+    - Simplify to: 'return !!(readl(gate->reg) & BIT(gate->bit_idx));'.
+    - Drop const from eic7700_hsp_regmap_config.
+    - Declare eic7700_hsp_regmap_config as a regular variable at the top.
+
+  - Link to v2: https://lore.kernel.org/all/20260420093929.1895-1-dongxuyang@eswincomputing.com/
+
+  Changes in v2:
+  - Bindings:
+    - Remove "hsp_" from clock-names.
+    - Replace "eswin,eic7700-clock.yaml" and "eswin,eic7700-hspcrg.yaml" with
+      "eswin,eic7700*".
+    - Replace "eswin,eic7700-clock.h" and "eswin,eic7700-hspcrg.h" with
+      "eswin,eic7700*".
+  - Clock driver:
+    - Use guard(spinlock_irqsave)(gate->lock) instead of spin_lock_irqsave()
+      and remove spin_unlock_irqrestore().
+    - Remove the newline in function hsp_clk_gate_is_enabled().
+    - Use struct clk_init_data init = {}.
+    - Replace 'static struct clk_parent_data' with
+      'static const struct clk_parent_data'.
+    - Change '.fw_name' to '.index', because the function
+      eswin_clk_register_fixed_factor() uses .index.
+    - The structures of clocks should use static struct. When registering a clock,
+      the 'hw' field in the structure will be assigned.
+    - Remove __force.
+    - Create the regmap in the clock driver and remove (__force void*)data->base.
+      The reset driver uses dev_get_regmap() to get the regmap from the clock.
+    - Move 'const struct regmap_config eic7700_hsp_regmap_config' from reset
+      driver to clock driver.
+    - The USB clock gate (hsp_clk_gate_endisable) and the reset driver both
+      perform read-modify-write cycles on registers 0x800 and 0x900. Use
+      custom regmap lock callbacks so that regmap operations hold data->lock
+      with IRQs disabled, the same lock the clock gate path uses, preventing
+      concurrent RMW races on those shared registers.
+    - Change to 'ret = eswin_clk_register_fixed_factor(dev, eic7700_hsp_factor_clks,'.
+      The next line will be over 80 characters and under 100 characters.
+  - Reset driver:
+    - Remove 'depends on COMMON_CLK_EIC7700_HSP' and 'default COMMON_CLK_EIC7700_HSP'.
+    - Use regmap_assign_bits() in assert and deassert functions.
+    - Remove eic7700_hsp_reset_reset().
+    - The clock driver creates the regmap, and the reset driver uses dev_get_regmap().
+    - Remove of_reset_n_cells.
+
+  - Link to v1: https://lore.kernel.org/all/20260403093459.612-1-dongxuyang@eswincomputing.com/
+
+Xuyang Dong (3):
+  dt-bindings: clock: Add ESWIN eic7700 HSP clock and reset generator
+  clk: eswin: Add eic7700 HSP clock driver
+  reset: eswin: Add eic7700 HSP reset driver
+
+ .../bindings/clock/eswin,eic7700-hspcrg.yaml  |  63 ++++
+ MAINTAINERS                                   |   5 +-
+ drivers/clk/eswin/Kconfig                     |  12 +
+ drivers/clk/eswin/Makefile                    |   1 +
+ drivers/clk/eswin/clk-eic7700-hsp.c           | 338 ++++++++++++++++++
+ drivers/reset/Kconfig                         |  11 +
+ drivers/reset/Makefile                        |   1 +
+ drivers/reset/reset-eic7700-hsp.c             | 112 ++++++
+ .../dt-bindings/clock/eswin,eic7700-hspcrg.h  |  33 ++
+ .../dt-bindings/reset/eswin,eic7700-hspcrg.h  |  21 ++
+ 10 files changed, 595 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/clock/eswin,eic7700-hspcrg.yaml
+ create mode 100644 drivers/clk/eswin/clk-eic7700-hsp.c
+ create mode 100644 drivers/reset/reset-eic7700-hsp.c
+ create mode 100644 include/dt-bindings/clock/eswin,eic7700-hspcrg.h
+ create mode 100644 include/dt-bindings/reset/eswin,eic7700-hspcrg.h
+
 --
+2.34.1
 
-commit 840d62ea908fb428a74ce6667830cc377258169f
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-
-regulator: Add support for MediaTek MT6373 SPMI PMIC Regulators
-
-Add a driver for the regulators found on the MediaTek MT6373 PMIC, fully
-controlled by SPMI interface.
-
-> Similarly to MT6363, this PMIC regulates voltage with input range
-> of 2.6-5.0V, and features 10 buck converters and 25 LDOs.
-
-This isn't a bug, but the commit message states the PMIC features "25 LDOs",
-yet the mt6373_regulators array only implements 23 LDOs.
-
-> diff --git a/drivers/regulator/mt6373-regulator.c b/drivers/regulator/mt6=
-373-regulator.c
-> index 0000000000000..90672ae1eb80c
-> --- /dev/null
-> +++ b/drivers/regulator/mt6373-regulator.c
-
-[ ... ]
-
-> @@ -215,22 +215,16 @@ static unsigned int mt6373_map_mode(unsigned int mo=
-de)
->  	}
->  }
-> =20
->  static int mt6373_vmch_eint_disable(struct regulator_dev *rdev)
->  {
->  	const struct regulator_desc *rdesc =3D rdev->desc;
->  	int ret;
-> =20
->  	ret =3D regmap_clear_bits(rdev->regmap,
->  				MT6373_PMIC_RG_LDO_VMCH_ADDR,
->  				rdesc->enable_mask);
-
-If another consumer has legitimately enabled VMCH via the regulator core,
-does clearing the enable mask of MT6373_PMIC_RG_LDO_VMCH_ADDR forcibly
-turn off the underlying hardware and break the regulator framework's refere=
-nce
-counting?
-
-[ ... ]
-
-> @@ -267,11 +274,8 @@ static int mt6373_buck_unlock(struct regmap *map, bo=
-ol unlock)
->  {
->  	u16 buf =3D unlock ? MT6373_BUCK_TOP_UNLOCK_VALUE : 0;
-> =20
->  	return regmap_bulk_write(map, MT6373_BUCK_TOP_KEY_PROT_LO, &buf, sizeof=
-(buf));
->  }
-
-For a regmap configured with val_bits =3D 16, val_count represents the numb=
-er
-of 16-bit registers to write. Since sizeof(buf) is 2, does passing 2 instru=
-ct
-regmap to read 4 bytes starting from &buf, causing an out-of-bounds read of
-the kernel stack and writing uninitialized stack data to the PMIC hardware
-register?
-
->  static int mt6373_regulator_set_mode(struct regulator_dev *rdev,
->  				     unsigned int mode)
->  {
-
-[ ... ]
-
->  	switch (mode) {
->  	case REGULATOR_MODE_FAST:
->  		ret =3D mt6373_buck_unlock(regmap, true);
->  		if (ret)
->  			break;
-> =20
->  		ret =3D regmap_set_bits(regmap, info->modeset_reg, info->modeset_mask);
-> =20
->  		mt6373_buck_unlock(regmap, false);
->  		break;
-
-Could concurrent mode transitions across different buck regulators interlea=
-ve?
-
-mt6373_buck_unlock writes to MT6373_BUCK_TOP_KEY_PROT_LO, which is a global
-PMIC hardware lock. Since this function is only protected by the per-regula=
-tor
-rdev->mutex, could one thread silently fail to write its mode setting if
-another thread locks the hardware prematurely?
-
->  	case REGULATOR_MODE_NORMAL:
->  		cur_mode =3D mt6373_regulator_get_mode(rdev);
->  		if (cur_mode < 0) {
->  			ret =3D cur_mode;
->  			break;
->  		}
-> =20
->  		if (cur_mode =3D=3D REGULATOR_MODE_FAST) {
->  			ret =3D mt6373_buck_unlock(regmap, true);
->  			if (ret)
->  				break;
-> =20
->  			ret =3D regmap_clear_bits(regmap, info->modeset_reg, info->modeset_ma=
-sk);
-> =20
->  			mt6373_buck_unlock(regmap, false);
->  			break;
-
-If LP was previously set when returning from FAST to NORMAL mode, does the
-regulator unexpectedly drop into IDLE mode because the LP bit is not cleare=
-d?
-
->  		} else if (cur_mode =3D=3D REGULATOR_MODE_IDLE) {
->  			ret =3D regmap_clear_bits(regmap, info->lp_mode_reg, info->lp_mode_ma=
-sk);
->  			if (ret =3D=3D 0)
->  				usleep_range(100, 200);
->  		} else {
->  			ret =3D 0;
->  		}
->  		break;
->  	case REGULATOR_MODE_IDLE:
->  		ret =3D regmap_set_bits(regmap, info->lp_mode_reg, info->lp_mode_mask);
->  		break;
-
-If transitioning to REGULATOR_MODE_IDLE, does the driver leave the FCCM (FA=
-ST)
-bit set, keeping the hardware stuck in FAST mode?
-
-[ ... ]
-
-> @@ -546,80 +541,75 @@ static int mt6373_regulator_probe(struct platform_d=
-evice *pdev)
->  {
-
-[ ... ]
-
->  	interrupt_parent =3D of_irq_find_parent(dev->of_node);
->  	if (!interrupt_parent)
->  		return -EINVAL;
-> =20
->  	domain =3D irq_find_host(interrupt_parent);
->  	of_node_put(interrupt_parent);
->  	fwspec.fwnode =3D domain->fwnode;
-
-If the interrupt controller has not yet probed and irq_find_host returns NU=
-LL,
-will this unconditionally dereference a NULL pointer for domain->fwnode
-instead of gracefully handling the missing dependency with -EPROBE_DEFER?
-
-[ ... ]
-
->  	for (i =3D 0; i < ARRAY_SIZE(mt6373_regulators); i++) {
->  		info =3D &mt6373_regulators[i];
-> =20
->  		/* MT6373CW VBUCK4 constraints are different */
->  		if (info->desc.id =3D=3D MT6373_ID_VBUCK4) {
->  			unsigned int vbuck4_max_uV;
-> =20
->  			/* VBUCK4 vreg software control not allowed in hw_ctrl mode */
->  			if (is_vbuck4_hw_ctrl)
->  				continue;
-> =20
->  			if (is_cw_variant) {
->  				info->desc.uV_step =3D 6250;
->  				vbuck4_max_uV =3D 1193750;
->  			} else {
->  				info->desc.uV_step =3D 13875;
->  				vbuck4_max_uV =3D 2650125;
->  			}
->  			info->desc.n_voltages =3D vbuck4_max_uV / info->desc.uV_step + 1;
->  		}
-> =20
->  		fwspec.param[0] =3D to_spmi_device(dev->parent)->usid;
->  		fwspec.param[1] =3D info->hwirq;
->  		info->virq =3D irq_create_fwspec_mapping(&fwspec);
-
-Does this modify the globally shared mt6373_regulators array directly during
-probe?
-
-If multiple MT6373 PMIC instances are present or the driver is unbound and
-rebound, would this overwrite shared state, potentially causing workqueue
-corruption and devres double-freeing of overwritten IRQ mappings?
-
-Furthermore, since several regulators in mt6373_regulators share the same
-hwirq (such as 0 or 25), will irq_create_fwspec_mapping return the same virq
-multiple times?
-
->  		if (!info->virq)
->  			return dev_err_probe(dev, -EINVAL,
->  					     "Failed to map IRQ%d\n", info->hwirq);
-> =20
->  		ret =3D devm_add_action_or_reset(dev, mt6373_irq_remove, &info->virq);
-
-Would registering mt6373_irq_remove via devm_add_action_or_reset for each
-regulator cause irq_dispose_mapping to be called multiple times on the same
-virq during teardown, resulting in a use-after-free of the IRQ descriptor?
-
->  		if (ret) {
->  			irq_dispose_mapping(info->virq);
->  			return ret;
->  		}
-
-If devm_add_action_or_reset fails, it automatically executes the cleanup
-action, which calls irq_dispose_mapping. Does calling irq_dispose_mapping
-here result in a direct double-free?
-
-[ ... ]
-
->  static struct platform_driver mt6373_regulator_driver =3D {
->  	.driver =3D {
->  		.name =3D "mt6373-regulator",
->  		.probe_type =3D PROBE_PREFER_ASYNCHRONOUS,
->  		.of_match_table =3D mt6373_regulator_match,
->  	},
->  	.probe =3D mt6373_regulator_probe,
->  	.shutdown =3D mt6373_regulator_shutdown
->  };
-
-Is there a mechanism to cancel the info->oc_work delayed work on driver
-removal?
-
-If the device is unbound or the module is unloaded while the work is pendin=
-g,
-would the workqueue attempt to execute mt6373_oc_irq_enable_work after the
-module's memory has been freed, causing a use-after-free?
-
-> diff --git a/include/linux/regulator/mt6373-regulator.h b/include/linux/r=
-egulator/mt6373-regulator.h
-> index 0000000000000..dd791717d2a11
-> --- /dev/null
-> +++ b/include/linux/regulator/mt6373-regulator.h
-
-[ ... ]
-
-> @@ -118,6 +118,8 @@
->  #define MT6373_PMIC_RG_VCN33_3_VOSEL_ADDR	0x1de9
->  #define MT6373_PMIC_RG_VMCH_VOCAL_ADDR		0x1dec
->  #define MT6373_PMIC_RG_VMCH_VOSEL_ADDR		0x1ded
->  #define MT6373_PMIC_RG_VMCH_EINT_HIGH_VOSEL_ADDR MT6373_PMIC_RG_VMCH_VOS=
-EL_ADDR
->  #define MT6373_PMIC_RG_VMCH_EINT_LOW_VOSEL_ADDR	MT6373_PMIC_RG_VMCH_VOSE=
-L_ADDR
->  #define MT6373_PMIC_RG_VEFUSE_VOCAL_ADDR	0x1df0
->  #define MT6373_PMIC_RG_VEFUSE_VOSEL_ADDR	0x1df1
->  #define MT6373_PMIC_RG_VMC_VOCAL_ADDR		0x1df4
->  #define MT6373_PMIC_RG_VMCH_EINT_HIGH_VOCAL_ADDR MT6373_PMIC_RG_VMC_VOCA=
-L_ADDR
->  #define MT6373_PMIC_RG_VMCH_EINT_LOW_VOCAL_ADDR	MT6373_PMIC_RG_VMC_VOCAL=
-_ADDR
-
-Is it intentional that these are defined as MT6373_PMIC_RG_VMC_VOCAL_ADDR
-instead of MT6373_PMIC_RG_VMCH_VOCAL_ADDR? When voltage selection is updated
-for vmch-eint-high or vmch-eint-low, does it inadvertently overwrite the
-voltage calibration register of the entirely separate VMC regulator?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511101355.1224=
-78-1-angelogioacchino.delregno@collabora.com?part=3D2
