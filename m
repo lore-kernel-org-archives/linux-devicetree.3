@@ -1,102 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38AEC38E8AC;
-	Tue, 12 May 2026 11:13:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B38F32C15BE;
+	Tue, 12 May 2026 11:20:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778584421; cv=none; b=EG5CvFqFxuzdZ2vk9/v32RCAqAbW+1G+jjp1XnyKTof6jAVSO4fMBTJ7qRpgVqh3jiI1WAesXc+SjWPDw9SLF/70adV5VlNeG3/14EqEWKC3toLw2vCA806UBzwHO32QdEi84YxMkw5L3Syh1/KKznZYA5vdjKm+CM17fIFk+1w=
+	t=1778584832; cv=none; b=D+rNATS02b71GMPX4jNw1XEV7vO73No3Rke52WUZwfnU6dmXgEYIwxoPjC3aXREQ14Ud+j6YDwNC96LPP9/m2dICXiyQSx3ZUJf1guGBa6wIWK9Q8MQzxw8xlcSMzvU8KHmk0H+svXccmMwlWZ8AtR22YSKkhkXfpwAbTQj9IBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778584421; c=relaxed/simple;
-	bh=XZXTYRlzt5ev5f5aXmweZlbCBDc3d/2nuiuklTRr5PU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=j15F543ID1qD1Zv8NkfjGrbNUU4IKuM28kns4tBRWNKMFH8cLvNUQoMlPGXbV1EP0AATdZ+6zUrnjyJGoSOfOxf2YVv5tKerD0CIuK9iFELtkAQ8lV4aS+YswUBYSH9LXrmbJhIi4CUnSy3s1x4TXw1q3RA/iZROADSNlO86f4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tQjT+ydx; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778584832; c=relaxed/simple;
+	bh=TGiDaSQhQRSB081/ItP6wnZ2UDfNrEKeW34ihRjMV6Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kw2lbMZKAe8Pfm4BLtg4N8Jzse3DxzzG44RVV9XQZb1zw661gnVqAVnqkCr4jOLNqp63+GGTP2974eOPldR/x8/lpKR2VXlH2AGSSSCaIIDEtYFIIFw2kerpHsJL+jLvBqqnhi0mVjcXz9xthApDb8BHKr2PRNKVRSdM2g6mS+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AxnA7a25; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tQjT+ydx"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6A975C2BCF6;
-	Tue, 12 May 2026 11:13:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778584420;
-	bh=XZXTYRlzt5ev5f5aXmweZlbCBDc3d/2nuiuklTRr5PU=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=tQjT+ydxbRNxgv+DjK194KtCJ+m3qWFatFX4gTzjaPm4ANlc8Z8klYXBMbLNNz3Cf
-	 1cpGgvKvhB5sYozQnV84fH2+udymOTj9eYwLDZ9ntQbVy+I5aX/L0AYTwHr8XTuygB
-	 iJNTZC/SWRzH+rzJp20YsQOB9vtkcPXmwKLLL3e8d+h67yzC8I5iTVNmvZmZKY8XhC
-	 T7tVX/zJAf/scWyugxFxDEUP5ym8r4c1bCrqdMti5TVpNDsTrQjuF5/ARJl3q2M9fb
-	 RiXcQC0GqTnLWCJJz6TkuSDvsSXPMB6pXwlepvOhnoA4GL7cH95GyazuOLUS6c/voq
-	 LGXU5agL7FVDA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 54C79CD4F35;
-	Tue, 12 May 2026 11:13:40 +0000 (UTC)
-From: Dipa Ramesh Mantre via B4 Relay <devnull+dipa.mantre.oss.qualcomm.com@kernel.org>
-Date: Tue, 12 May 2026 16:43:36 +0530
-Subject: [PATCH] dt-bindings: thermal: qcom-tsens: Document the Hawi
- Temperature Sensor
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AxnA7a25"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1778584831; x=1810120831;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=TGiDaSQhQRSB081/ItP6wnZ2UDfNrEKeW34ihRjMV6Y=;
+  b=AxnA7a25BccuCOZzd3QTzbwGvHLCFE8KaUoABtV1z3YavI5MMYWoiOet
+   ZI2/IYlaZyjqhKIXZtnt7t5oY7JpG42WQv7losGRgDNYpAtK75WFAI2Vv
+   h1bRLNCTHua/vTjNljcuoLGwbQ7NOIWQN2p75oQrG1clYmhWuXynWhqi3
+   9zA8jHFFBrzQhXbhRn6WSz2bFBfJJRDWQbevEmLrHoBMeTXbNa8Q/DL88
+   EHfpSUUf6FaozbuOUj/Ku+mPtBMX6HWfpM5u/l+v0OevfGoWl81igB7I6
+   s9z0yKRBzlvlf7KlxOpQKQKXRytpxbMzNJZhwu3jAPnMyf/fYqGxJN/e+
+   A==;
+X-CSE-ConnectionGUID: xn0DGKlhTueuX0tCwiyL8g==
+X-CSE-MsgGUID: pFUt4vYOTx6R0RRN75S1IA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="79207659"
+X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; 
+   d="scan'208";a="79207659"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 04:20:30 -0700
+X-CSE-ConnectionGUID: LlvnaGIsSGOpgmZ9mdtdmg==
+X-CSE-MsgGUID: 6nvCmJoMQA6pQGsIBkQzcQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; 
+   d="scan'208";a="233432777"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.112])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 04:20:24 -0700
+Date: Tue, 12 May 2026 14:20:22 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Yu-Chun Lin <eleanor.lin@realtek.com>
+Cc: linusw@kernel.org, brgl@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, afaerber@suse.com, wbg@kernel.org,
+	mathieu.dubois-briand@bootlin.com, mwalle@kernel.org,
+	lars@metafoo.de, Michael.Hennerich@analog.com, jic23@kernel.org,
+	nuno.sa@analog.com, andy@kernel.org, dlechner@baylibre.com,
+	tychang@realtek.com, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-realtek-soc@lists.infradead.org, linux-iio@vger.kernel.org,
+	cy.huang@realtek.com, stanley_chang@realtek.com,
+	james.tai@realtek.com
+Subject: Re: [PATCH v3 2/7] gpio: regmap: add gpio_regmap_get_gpiochip()
+ accessor
+Message-ID: <agMM9soiqpG-TRSb@ashevche-desk.local>
+References: <20260512033317.1602537-1-eleanor.lin@realtek.com>
+ <20260512033317.1602537-3-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260512-dtbinding-hawi-v1-1-96149d06cccf@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAF8LA2oC/x3MQQqAIBBA0avErBPUMLCrRAvTUWdjoVGBePek5
- Vv8X6FgJiywDBUy3lToSB1iHMBGkwIyct0guZy5EpK5a6fkKAUWzUOMW++1cEr5SUOPzoye3n+
- 4bq19fdQfvWAAAAA=
-X-Change-ID: 20260512-dtbinding-hawi-0cff91d55f39
-To: Amit Kucheria <amitk@kernel.org>, 
- Thara Gopinath <thara.gopinath@gmail.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- manaf.pallikunhi@oss.qualcomm.com, gaurav.kohli@oss.qualcomm.com, 
- Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778584419; l=995;
- i=dipa.mantre@oss.qualcomm.com; s=20260415; h=from:subject:message-id;
- bh=KOQ0xKaM2gpSifvcaPimSMSf2hpELPm2eIvMUK4YQpE=;
- b=rXhPDH9HDtxmlzKe2QNLiJ5FOTq62qlnuEqZjTPLFbZelHTpVqb/fm8DfNrPOB9NuV+B/SGeM
- tuG8TYpq/s5DVrlKRcV6AvgfPBFEU0ijGVvtWpxGp3TtV3RfbXj8Sso
-X-Developer-Key: i=dipa.mantre@oss.qualcomm.com; a=ed25519;
- pk=IcrgHu2jFHNILPVydQwFqCQq05WcA8wBixw5s+yRMVI=
-X-Endpoint-Received: by B4 Relay for dipa.mantre@oss.qualcomm.com/20260415
- with auth_id=736
-X-Original-From: Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
-Reply-To: dipa.mantre@oss.qualcomm.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260512033317.1602537-3-eleanor.lin@realtek.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
+On Tue, May 12, 2026 at 11:33:12AM +0800, Yu-Chun Lin wrote:
+> Expose an accessor function to retrieve the gpio_chip pointer from
+> a gpio_regmap instance.
+> 
+> This is needed by drivers that use gpio_regmap but also manage their
+> own irq_chip, where gpiochip_enable_irq()/gpiochip_disable_irq() must
+> be called with the gpio_chip pointer.
+> 
+> Add gpio_regmap_get_gpiochip() to allow drivers with complex custom IRQ
+> implementations.
 
-Document the Temperature Sensor (TSENS) on the Qualcomm Hawi SoC.
+Hmm... Can't we rather add gpio_regmap_enable_irq()/gpio_regmap_disable_irq()
+that take regmap or GPIO regmap (whatever suits better for the purpose) and
+do the magic inside GPIO regmap library code?
 
-Signed-off-by: Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
----
- Documentation/devicetree/bindings/thermal/qcom-tsens.yaml | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml b/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
-index 7d34ba00e684..4fce027e44ad 100644
---- a/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
-+++ b/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
-@@ -56,6 +56,7 @@ properties:
-           - enum:
-               - qcom,eliza-tsens
-               - qcom,glymur-tsens
-+              - qcom,hawi-tsens
-               - qcom,kaanapali-tsens
-               - qcom,milos-tsens
-               - qcom,msm8953-tsens
-
----
-base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
-change-id: 20260512-dtbinding-hawi-0cff91d55f39
-
-Best regards,
 -- 
-Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
+With Best Regards,
+Andy Shevchenko
 
 
