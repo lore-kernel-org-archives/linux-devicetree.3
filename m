@@ -1,301 +1,225 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA94282F2A
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 04:44:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E696E17A2E8;
+	Tue, 12 May 2026 04:47:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778561056; cv=none; b=W9ZzbCiRNgdU+fDKbAvU9zwsQjQWGVgL82CxaDYVe8YkwMLK2XZDEWPK2AFC75TGu3+kDGkQnkakonnWQiPutvlOsCLvcSZtujvuznivybUYMC1FvoY9GciDm9ONhD4nWFFcDM5ZWO06DTNzCKS6D/FeujHPhHJH55ISMtPcXQo=
+	t=1778561279; cv=none; b=bxoEHqao7DQTfqhSN6HI8qOPVEWEA9MTP1UHvQNP06GQTUiEEDrfnMTAmXdcsFJcUVjirbn6aMv2sVzKwVJQIzkrG1Kg2K0GeRicQx0756MGY28pOIRHhYAIXIjRMWbRzngZGZC27rpr3US+rXBWuLX/vyyra5E8EpBJ0iNM5TA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778561056; c=relaxed/simple;
-	bh=lKhR0fH18yPdb7j51c+8y28Ad23b0uXX9SQ7zR980UQ=;
+	s=arc-20240116; t=1778561279; c=relaxed/simple;
+	bh=FgS44Lh+0rf5j3GFTSw+xHx4/4563Z4trFEJGBEWnTs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eONjirc//X0EGe2o/mp7dDQr3y+ir3M+vgUsQt6jBtGvLhNaOK7269ZBMRyqY1bfYtkDLSOlQb31tPVf021NxNiLoPJI4MEssdvxcNM1NEqrSqShgcPOdrPAurDFB+fj7RJqWMvaNidgI0RdDM5VE9+bSgsMMK9iM2wIXTXxtCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W4Gz90sn; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=rSNJ+Xetz1ib+LA5rpEYpAZc7Vaysk+ZSz07o7JzsmzVnfs+LuYqc4pFtKt6LoF3CHB4uNdiVphnNQY0KEg9R+J28SViSK9odh4NpSTD9lZxDz4LOTe1qRDepMRZHsNH/6JaMRAXNcVv18B2Qr+YQMRRVVuzcaC9JlPGtA1aVxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L4zp/30b; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W4Gz90sn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4447C2BCC7;
-	Tue, 12 May 2026 04:44:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L4zp/30b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37303C2BCB0;
+	Tue, 12 May 2026 04:47:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778561055;
-	bh=lKhR0fH18yPdb7j51c+8y28Ad23b0uXX9SQ7zR980UQ=;
+	s=k20201202; t=1778561278;
+	bh=FgS44Lh+0rf5j3GFTSw+xHx4/4563Z4trFEJGBEWnTs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=W4Gz90snfhNG6FINzAnQycvxe1AuQqa/HxJUZpkQjhtNL0PyZ7eyZvdfphUkLqj9z
-	 RS6+b5XADzAFkNi/2ca3zW5bEzgyAA/KtM/awAzpvmbrdQC5TAYMGLyN7lmOyPZc2q
-	 cqVki4+6rD6dq/EG1lRe2CYe3Q0C4vI/HTmJ0D3aazJOODH3kWklsd9Xfg+wPvEIPV
-	 GxPz5gnLsGfCSXqrLV6elA6J+lD3bxX5glTwXYqiSzX0TC1mQT2dYeBvAiolYBO7bz
-	 fiLVSLWJORCJe+maSr1mbd7+u3k4JCkmqMdWfkeEZWL8UX6235uFHuaUGMw4bO4VWE
-	 SiIFTnyaySbAw==
+	b=L4zp/30b1QnS8Wno5N4t2QIfgMhZWVZgO7dOKEY+xfKh9w1/mBYoSC9gSXJ1uy8dX
+	 vtTINb+ZVzPXzQeBTkuyAciAOXlYhVlDT61OCWBWOJHnoMuX1YHJMWqtc8N9tODMGl
+	 t727ddChkekQe395Hu7JL4W0yV++s203whqvoP47obk9agCtPiryB36E2QyD6QT+DO
+	 E0GeQGLw+nwzQ2nJnZw+fKiXqBSV3ngbsyfx5SQpf/p7F7ITWagLnkeggfd+PP1Ab6
+	 Xu3PBtMHaQKYwn4RFCqBzD1wao8eHUmYW2BwutkyhZG143g3ENN//odvd2zqRhZoEM
+	 jTn01F+8pot0w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 2/6] platform: arm64: Add driver for EC found on
- Qualcomm reference devices
+Subject: Re: [PATCH v2 4/8] media: uapi: Add NXP NEOISP user interface
+ header file
 Reply-To: sashiko@lists.linux.dev
-To: "Anvesh Jain P" <anvesh.p@oss.qualcomm.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260511-add-driver-for-ec-v9-2-e5437c39b7f8@oss.qualcomm.com>
-References: <20260511-add-driver-for-ec-v9-2-e5437c39b7f8@oss.qualcomm.com>
+To: "Antoine Bouyer" <antoine.bouyer@nxp.com>
+Cc: Frank.Li@kernel.org, robh@kernel.org, imx@lists.linux.dev, krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260511132629.1300868-5-antoine.bouyer@nxp.com>
+References: <20260511132629.1300868-5-antoine.bouyer@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 12 May 2026 04:44:15 +0000
-Message-Id: <20260512044415.A4447C2BCC7@smtp.kernel.org>
+Date: Tue, 12 May 2026 04:47:57 +0000
+Message-Id: <20260512044758.37303C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] The driver unconditionally fails to probe if CONFIG_THERMAL is dis=
-abled, rendering the Kconfig allowance useless.
-- [High] Returning `IRQ_HANDLED` on I2C read failure causes an infinite int=
-errupt storm.
-- [High] Probe error paths fail to disable EC SCI events, leaving the hardw=
-are in an active interrupt-generating state.
-- [High] Hardware cleanup in `remove()` races with the still-active devm-ma=
-naged thermal cooling devices.
-- [High] Insufficient validation of I2C read response lengths leads to unin=
-itialized kernel stack memory being used.
-- [Medium] The driver fails to re-initialize the EC state after receiving a=
- reset event.
-- [Medium] The driver does not implement the temperature sensors claimed in=
- the commit message.
+- [High] Use of C bitfields in UAPI structure `struct neoisp_feat_ctrl_s`.
+- [High] Implicit compiler padding in multiple UAPI structures.
+- [Medium] Implicit values in UAPI enumerations.
 --
 
-commit eeb96765c7d798e7194e02ed8e7a83c95dd5ad82
-Author: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+commit 2b5be44f637f9fcc9f428d67d7cc83c131656a93
+Author: Antoine Bouyer <antoine.bouyer@nxp.com>
 
-platform: arm64: Add driver for EC found on Qualcomm reference devices
-   =20
-Add Embedded controller driver support for Hamoa/Purwa/Glymur qualcomm
-reference boards.
+media: uapi: Add NXP NEOISP user interface header file
 
-> Add Embedded controller driver support for Hamoa/Purwa/Glymur qualcomm
-> reference boards. It handles fan control, temperature sensors, access
-> to EC state changes and supports reporting suspend entry/exit to the
-> EC.
+This commit introduces the user space API header file for the NXP NEOISP
+meta data structures. It provides definitions for parameters and statistics
+buffers used to control ISP blocks from userspace.
 
-The commit message mentions handling "temperature sensors", but I don't
-see any logic to register thermal zones, expose hwmon sensors, or read
-current temperatures from the EC.
-
-Is the thermistor reading logic missing from this patch?
-
-> diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kcon=
-fig
-> index 10f905d7d6bfa..e32e01b2a9bdd 100644
-> --- a/drivers/platform/arm64/Kconfig
-> +++ b/drivers/platform/arm64/Kconfig
-> @@ -90,4 +90,17 @@ config EC_LENOVO_THINKPAD_T14S
-> =20
->  	  Say M or Y here to include this support.
-> =20
-> +config EC_QCOM_HAMOA
-> +	tristate "Embedded Controller driver for Qualcomm Hamoa/Glymur referenc=
-e devices"
-> +	depends on ARCH_QCOM || COMPILE_TEST
-> +	depends on I2C
-> +	depends on THERMAL || THERMAL=3Dn
-
-[ ... ]
-
-> diff --git a/drivers/platform/arm64/qcom-hamoa-ec.c b/drivers/platform/ar=
-m64/qcom-hamoa-ec.c
+> diff --git a/include/uapi/linux/media/nxp/nxp_neoisp.h b/include/uapi/lin=
+ux/media/nxp/nxp_neoisp.h
 > new file mode 100644
-> index 0000000000000..a018f7bf35d2a
+> index 0000000000000..d9ccf3b285932
 > --- /dev/null
-> +++ b/drivers/platform/arm64/qcom-hamoa-ec.c
+> +++ b/include/uapi/linux/media/nxp/nxp_neoisp.h
 
 [ ... ]
 
-> +static int qcom_ec_probe(struct i2c_client *client)
-> +{
+> +struct neoisp_feat_ctrl_s {
+> +	__u32 pipe_conf_cfg : 1;
+> +	__u32 head_color_cfg : 1;
+> +	__u32 hdr_decompress_input0_cfg : 1;
+> +	__u32 hdr_decompress_input1_cfg : 1;
+> +	__u32 obwb0_cfg : 1;
+> +	__u32 obwb1_cfg : 1;
+> +	__u32 obwb2_cfg : 1;
+> +	__u32 hdr_merge_cfg : 1;
+> +	__u32 rgbir_cfg : 1;
+> +	__u32 stat_cfg : 1;
+> +	__u32 ir_compress_cfg : 1;
+> +	__u32 bnr_cfg : 1;
+> +	__u32 vignetting_ctrl_cfg : 1;
+> +	__u32 ctemp_cfg : 1;
+> +	__u32 demosaic_cfg : 1;
+> +	__u32 rgb2yuv_cfg : 1;
+> +	__u32 dr_comp_cfg : 1;
+> +	__u32 nr_cfg : 1;
+> +	__u32 af_cfg : 1;
+> +	__u32 ee_cfg : 1;
+> +	__u32 df_cfg : 1;
+> +	__u32 convmed_cfg : 1;
+> +	__u32 cas_cfg : 1;
+> +	__u32 gcm_cfg : 1;
+> +	__u32 vignetting_table_cfg : 1;
+> +	__u32 drc_global_tonemap_cfg : 1;
+> +	__u32 drc_local_tonemap_cfg : 1;
+> +};
+
+Is it safe to use C bitfields in a UAPI structure?
+
+Compiler implementations and architecture endianness can change the bit
+ordering and packing, which might break ABI compatibility. Could this be
+replaced with a standard fixed-width integer (like __u32 flags) and explicit
+bitmask macros?
 
 [ ... ]
 
-> +	for (i =3D 0; i < ec->thermal_cap.fan_cnt; i++) {
-> +		struct qcom_ec_cooling_dev *ec_cdev =3D &ec->ec_cdev[i];
-> +		char name[EC_FAN_NAME_SIZE];
-> +
-> +		scnprintf(name, sizeof(name), "qcom_ec_fan_%u", i);
-> +		ec_cdev->fan_id =3D i + 1;
-> +		ec_cdev->parent_dev =3D dev;
-> +
-> +		ec_cdev->cdev =3D devm_thermal_of_cooling_device_register(dev, NULL, n=
-ame, ec_cdev,
-> +									&qcom_ec_thermal_ops);
-> +		if (IS_ERR(ec_cdev->cdev)) {
-> +			return dev_err_probe(dev, PTR_ERR(ec_cdev->cdev),
-> +					     "Failed to register fan%d cooling device\n", i);
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
+> +struct neoisp_obwb_cfg_s {
+> +	__u8 ctrl_obpp;
+> +	__u16 r_ctrl_gain;
+> +	__u16 r_ctrl_offset;
+> +	__u16 gr_ctrl_gain;
+> +	__u16 gr_ctrl_offset;
+> +	__u16 gb_ctrl_gain;
+> +	__u16 gb_ctrl_offset;
+> +	__u16 b_ctrl_gain;
+> +	__u16 b_ctrl_offset;
+> +};
 
-If CONFIG_THERMAL is disabled, devm_thermal_of_cooling_device_register()
-evaluates to a stub that returns ERR_PTR(-ENODEV).
+Will this leave a 1-byte gap after ctrl_obpp?
 
-Does this cause qcom_ec_probe() to always fail when THERMAL=3Dn?
-
-Should the driver handle -ENODEV gracefully to allow non-thermal functional=
-ity
-to work as intended by the Kconfig allowance?
-
-> +static int qcom_ec_read(struct qcom_ec *ec, u8 cmd, u8 resp_len, u8 *res=
-p)
-> +{
-> +	int ret;
-> +
-> +	ret =3D i2c_smbus_read_i2c_block_data(ec->client, cmd, resp_len, resp);
-> +	if (ret < 0)
-> +		return ret;
-> +	else if (ret =3D=3D 0 || ret =3D=3D 0xff)
-> +		return -EOPNOTSUPP;
-> +
-> +	if (resp[0] >=3D resp_len)
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
+Implicit padding can cause architecture-dependent ABI differences and leak
+uninitialized kernel memory to userspace when copied. Should we add an
+explicit reserved field to pad it properly?
 
 [ ... ]
 
-> +static int qcom_ec_read_fw_version(struct device *dev)
-> +{
-> +	struct i2c_client *client =3D to_i2c_client(dev);
-> +	struct qcom_ec *ec =3D i2c_get_clientdata(client);
-> +	struct qcom_ec_version *version =3D &ec->version;
-> +	u8 resp[EC_FW_VERSION_RESP_LEN];
-> +	int ret;
-> +
-> +	ret =3D qcom_ec_read(ec, EC_FW_VERSION_CMD, EC_FW_VERSION_RESP_LEN, res=
-p);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	version->main_version =3D resp[3];
-> +	version->sub_version =3D resp[2];
-> +	version->test_version =3D resp[1];
+> +struct neoisp_stat_hist_cfg_s {
+> +	__u16 hist_ctrl_offset;
+> +	__u8 hist_ctrl_channel;
+> +	__u8 hist_ctrl_pattern;
+> +	__u8 hist_ctrl_dir_input1_dif;
+> +	__u8 hist_ctrl_lin_input1_log;
+> +	__u32 hist_scale_scale;
+> +};
 
-When i2c_smbus_read_i2c_block_data() succeeds, it returns the actual number
-of bytes read. If a short read occurs, the remainder of the resp buffer
-is untouched.
-
-Since callers like qcom_ec_read_fw_version() allocate resp on the stack
-without initialization, could this result in using uninitialized stack memo=
-ry
-if ret does not equal the expected length?
-
-> +static irqreturn_t qcom_ec_irq(int irq, void *data)
-> +{
-> +	struct qcom_ec *ec =3D data;
-> +	struct device *dev =3D &ec->client->dev;
-> +	int val;
-> +
-> +	val =3D i2c_smbus_read_byte_data(ec->client, EC_SCI_EVT_READ_CMD);
-> +	if (val < 0) {
-> +		dev_err_ratelimited(dev, "Failed to read EC SCI Event: %d\n", val);
-> +		return IRQ_HANDLED;
-> +	}
-
-If the I2C read fails here, the event is not actually cleared on the EC.
-
-If this is a level-triggered interrupt line, will returning IRQ_HANDLED
-trick the kernel's spurious interrupt detector into thinking the interrupt
-was serviced, resulting in an endless loop and an interrupt storm?
-
-Would returning IRQ_NONE be more appropriate?
-
-> +	switch (val) {
-> +	case EC_FAN1_STATUS_CHANGE_EVT:
-> +		dev_dbg_ratelimited(dev, "Fan1 status changed\n");
-> +		break;
+Does this structure have a 2-byte hole before hist_scale_scale?
 
 [ ... ]
 
-> +	case EC_RECOVERED_FROM_RESET_EVT:
-> +		dev_dbg_ratelimited(dev, "EC recovered from reset\n");
-> +		break;
+> +struct neoisp_ir_compress_cfg_s {
+> +	__u8 ctrl_obpp;
+> +	__u32 knee_point1_kneepoint;
+> +	__u32 knee_point2_kneepoint;
 
-When the EC resets, it typically loses volatile state like the SCI event
-mask and active fan debug overrides.
+It looks like there is a 3-byte gap after ctrl_obpp. Could we make this
+padding explicit as well?
 
-Does the driver need to re-initialize the EC hardware state here to prevent
-it from silently stopping events or dropping thermal overrides?
+[ ... ]
 
-> +static int qcom_ec_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev =3D &client->dev;
-> +	struct qcom_ec *ec;
-> +	unsigned int i;
-> +	int ret;
-> +
-> +	ec =3D devm_kzalloc(dev, sizeof(*ec), GFP_KERNEL);
-> +	if (!ec)
-> +		return -ENOMEM;
-> +
-> +	ec->client =3D client;
-> +
-> +	ret =3D devm_request_threaded_irq(dev, client->irq, NULL, qcom_ec_irq,
-> +					IRQF_ONESHOT, "qcom_ec", ec);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	i2c_set_clientdata(client, ec);
-> +
-> +	ret =3D qcom_ec_read_fw_version(dev);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "Failed to read EC firmware version\n");
-> +
-> +	ret =3D qcom_ec_sci_evt_control(dev, true);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "Failed to enable SCI events\n");
-> +
-> +	ret =3D qcom_ec_thermal_capabilities(dev);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "Failed to read thermal capabilities\n"=
-);
+> +enum neoisp_param_block_type_e {
+> +	NEOISP_PARAM_BLK_PIPE_CONF,
+> +	NEOISP_PARAM_BLK_HEAD_COLOR,
+> +	NEOISP_PARAM_BLK_HDR_DECOMPRESS0,
+> +	NEOISP_PARAM_BLK_HDR_DECOMPRESS1,
+> +	NEOISP_PARAM_BLK_OBWB0,
+> +	NEOISP_PARAM_BLK_OBWB1,
+> +	NEOISP_PARAM_BLK_OBWB2,
+> +	NEOISP_PARAM_BLK_HDR_MERGE,
+> +	NEOISP_PARAM_BLK_RGBIR,
+> +	NEOISP_PARAM_BLK_STAT,
+> +	NEOISP_PARAM_BLK_CTEMP,
+> +	NEOISP_PARAM_BLK_IR_COMPRESS,
+> +	NEOISP_PARAM_BLK_BNR,
+> +	NEOISP_PARAM_BLK_VIGNETTING_CTRL,
+> +	NEOISP_PARAM_BLK_DEMOSAIC,
+> +	NEOISP_PARAM_BLK_RGB2YUV,
+> +	NEOISP_PARAM_BLK_DR_COMP,
+> +	NEOISP_PARAM_BLK_NR,
+> +	NEOISP_PARAM_BLK_AF,
+> +	NEOISP_PARAM_BLK_EE,
+> +	NEOISP_PARAM_BLK_DF,
+> +	NEOISP_PARAM_BLK_CONVMED,
+> +	NEOISP_PARAM_BLK_CAS,
+> +	NEOISP_PARAM_BLK_GCM,
+> +	NEOISP_PARAM_BLK_VIGNETTING_TABLE,
+> +	NEOISP_PARAM_BLK_DRC_GLOBAL_TONEMAP,
+> +	NEOISP_PARAM_BLK_DRC_LOCAL_TONEMAP,
+> +};
 
-If probe fails at qcom_ec_thermal_capabilities() or during the subsequent
-cooling device registration, devres will automatically free the IRQ handler.
+These enumeration members don't have explicitly assigned integer values.
 
-However, qcom_ec_sci_evt_control(dev, true) has already configured the
-hardware to assert interrupts.
+If someone inserts a new value into the middle of the list later, would it
+implicitly shift the values of all subsequent entries and silently break
+userspace ABI compatibility?
 
-Could this cause an unhandled IRQ storm after the handler is removed?
-Should the SCI events be disabled on probe failure, perhaps using
-devm_add_action_or_reset()?
+Might it be safer to explicitly assign values (e.g. =3D 0, =3D 1) for UAPI
+enumerations?
 
-> +static void qcom_ec_remove(struct i2c_client *client)
-> +{
-> +	struct qcom_ec *ec =3D i2c_get_clientdata(client);
-> +	struct device *dev =3D &client->dev;
-> +	int ret;
-> +
-> +	ret =3D qcom_ec_sci_evt_control(dev, false);
-> +	if (ret < 0)
-> +		dev_err(dev, "Failed to disable SCI events: %d\n", ret);
-> +
-> +	for (int i =3D 0; i < ec->thermal_cap.fan_cnt; i++) {
-> +		struct qcom_ec_cooling_dev *ec_cdev =3D &ec->ec_cdev[i];
-> +
-> +		qcom_ec_fan_debug_mode_off(ec_cdev);
-> +	}
-> +}
+[ ... ]
 
-Because the cooling devices are registered with
-devm_thermal_of_cooling_device_register(), they are still active when
-qcom_ec_remove() runs and are only cleaned up afterward.
+> +struct neoisp_pipe_conf_cfg_es {
+> +	struct v4l2_isp_block_header header;
+> +	struct neoisp_pipe_conf_cfg_s cfg;
+> +} __attribute__((aligned(8)));
 
-Is there a race condition here where the thermal core or userspace could
-call qcom_ec_fan_set_cur_state() concurrently with or immediately after
-qcom_ec_fan_debug_mode_off()? This would turn the fan debug mode back on
-and defeat the cleanup.
+The inner struct neoisp_pipe_conf_cfg_s is 4 bytes long, but the aligned(8)
+attribute enforces an 8-byte alignment for this wrapper. Does this cause
+implicit trailing padding here?
 
-Should the fan debug mode cleanup be managed via devm_add_action_or_reset()
-registered before the cooling devices, so it executes in the correct order?
+[ ... ]
+
+> +enum neoisp_stats_block_type_e {
+> +	NEOISP_STATS_BLK_RCTEMP,
+> +	NEOISP_STATS_BLK_RDRC,
+> +	NEOISP_STATS_BLK_RAF,
+> +	NEOISP_STATS_BLK_RBNR,
+> +	NEOISP_STATS_BLK_RNR,
+> +	NEOISP_STATS_BLK_REE,
+> +	NEOISP_STATS_BLK_RDF,
+> +	NEOISP_STATS_BLK_MCTEMP,
+> +	NEOISP_STATS_BLK_MRGBIR,
+> +	NEOISP_STATS_BLK_MHIST,
+> +	NEOISP_STATS_BLK_MDRC,
+> +};
+
+Similar to neoisp_param_block_type_e, could these members explicitly
+declare their values to prevent future ABI breakage?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511-add-driver=
--for-ec-v9-0-e5437c39b7f8@oss.qualcomm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511132629.1300=
+868-1-antoine.bouyer@nxp.com?part=3D4
