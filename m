@@ -1,316 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCE3EF9D9;
-	Tue, 12 May 2026 05:29:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BFEDC3D1CD5;
+	Tue, 12 May 2026 05:40:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.76.78.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778563750; cv=none; b=sWEJ25adiY5VgtfH5VyheCEdKlBfouS8cFE7RycsQGR3jiOfZyZh6PvXeeXE1nkWbmwFdqO+mWpre0r+wQP7v4z8pw9+fBICEKIJ06/Lde2j+gGyfeA/qWrZ4eknhQ2kX/L2rXP6RZ7GyiMqlrMiAJU6HqLnJXaXhoP6IEVWQ/Y=
+	t=1778564411; cv=none; b=S5mDksGQBNgMJCVvVXndIqN4s+qB97hdggvG2z08A1wpZ2hfYwe5UZLq+Szu0WQqx8qZ9akX2rPd69iLVk7U/56YWf826pWuufZzRz5C+TPxa3KgqN+95vPiCLlvtTCPMiEJbpASZ3lXobV759NzCsAVx1bUUWm63pTGKzltO2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778563750; c=relaxed/simple;
-	bh=WMYUtj6BzzzSNCS45PXdU6IBlw4t+baul9rE2YGVQDM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eti5IHuXYZxVKx3rU8IFASBXEeEthcGIxTiXwbPGCSABnu920ljyY1VS2V1EMSP3i8QnH3EXJn+haSQFiw6UtaUfkC0JXob2NKuevH8PZG4eZHLPE5AwPSnA7ELQS28SiPf8YMRWk5taJgwh3n4kL4RAbSQY6d6OD2CfLUn8QIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DGA5yD1b; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DGA5yD1b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40B44C2BCB0;
-	Tue, 12 May 2026 05:29:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778563750;
-	bh=WMYUtj6BzzzSNCS45PXdU6IBlw4t+baul9rE2YGVQDM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=DGA5yD1brCi2HRnKEg+gJV4LiHn6IgMYFFnjAEwBjkQ7to2ja5Ebn6517WWJznqFt
-	 dqwuqrxIutDK3vO952c8wqV0Qr02LQgcr4EVs+I9hPvq88UGoZ3ap/cy0hrD+uvDSO
-	 POB1j02wkxCe/ildAMYCimA7LeI0UsEdVFjSRiDHfAS8/s4zQUp2LOkmFq1ATAp4n3
-	 kt8N/D/hB2x6SVe3rOy8CtqBZf8CaA+UiQn8OqDiBYIY4b4fT28IyWlag4FVcVIOPh
-	 BaI7hUvXQkBid72QB1ocQwVrGPN+s0due8n/vdoXzUuRIgVFwzwu1LbuYSI4OY2Fwd
-	 hN5vr7hcNpZQA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 6/8] media: platform: Add NXP Neoisp Image Signal
- Processor
-Reply-To: sashiko@lists.linux.dev
-To: "Antoine Bouyer" <antoine.bouyer@nxp.com>
-Cc: imx@lists.linux.dev, conor+dt@kernel.org, krzk+dt@kernel.org, Frank.Li@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260511132629.1300868-7-antoine.bouyer@nxp.com>
-References: <20260511132629.1300868-7-antoine.bouyer@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 12 May 2026 05:29:09 +0000
-Message-Id: <20260512052910.40B44C2BCB0@smtp.kernel.org>
+	s=arc-20240116; t=1778564411; c=relaxed/simple;
+	bh=VLL9ELTYpl2Z/PtV5ezkA3tdcxmAf+VSreORf7yQztY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=fiO2nN9SpDoduwoAmOXmeJzKxjmaCuDI2FCATLbcuzKZwGPxwJNJu4oXMOUx6e4uVyqjmpB6CDzN/Tv+CFVuQrHfIfyqMinyWZAbcg8IcpBTUoTPEaB5s9T7RyTDaxQSNQzjLUrIxcjn380ON4R9sSp+SmMv8WAjqQlj6d2skgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=13.76.78.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from lizhi2$eswincomputing.com ( [10.11.96.26] ) by
+ ajax-webmail-app1 (Coremail) ; Tue, 12 May 2026 13:39:12 +0800 (GMT+08:00)
+Date: Tue, 12 May 2026 13:39:12 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
+To: "Jakub Kicinski" <kuba@kernel.org>
+Cc: andrew+netdev@lunn.ch, devicetree@vger.kernel.org, davem@davemloft.net,
+	edumazet@google.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
+	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+	rmk+kernel@armlinux.org.uk, pjw@kernel.org, palmer@dabbelt.com,
+	aou@eecs.berkeley.edu, alex@ghiti.fr,
+	linux-riscv@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	maxime.chevallier@bootlin.com, ningyu@eswincomputing.com,
+	linmin@eswincomputing.com, pinkesh.vaghela@einfochips.com,
+	pritesh.patel@einfochips.com, weishangjuan@eswincomputing.com,
+	horms@kernel.org
+Subject: Re: Re: Re: [PATCH net-next v7 2/4] net: stmmac: eic7700: enable
+ clocks before syscon access and correct RX sampling timing
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <38d052b7.7a70.19dfb0d782b.Coremail.lizhi2@eswincomputing.com>
+References: <20260427072353.1114-1-lizhi2@eswincomputing.com>
+ <20260427072508.1151-1-lizhi2@eswincomputing.com>
+ <20260428180625.738223cf@kernel.org>
+ <2117464.7991.19ddd2125d1.Coremail.lizhi2@eswincomputing.com>
+ <20260430163551.7491407a@kernel.org>
+ <38d052b7.7a70.19dfb0d782b.Coremail.lizhi2@eswincomputing.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Message-ID: <446f69bd.7fe4.19e1ab248fb.Coremail.lizhi2@eswincomputing.com>
+X-Coremail-Locale: en_US
+X-CM-TRANSID:TAJkCgBnCXMAvQJqub8YAA--.6986W
+X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/1tbiAgEFDGoCBREW-AAAsc
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-Thank you for your contribution! Sashiko AI review found 13 potential issue=
-(s) to consider:
-- [Critical] Concurrency / List Corruption in `neoisp_prepare_job` due to l=
-ockless `ready_queue` access.
-- [Critical] TOCTOU in userspace parameters buffer leading to Arbitrary Cod=
-e Execution.
-- [Critical] Typo in `NEOISP_COLORSPACE_MASK` (`&&` instead of `&`) leading=
- to Out-of-Bounds Read.
-- [High] Incorrect standard `memcpy()` used for `__iomem` regions.
-- [High] Stale buffer pointers in `queued_job.buf` leading to Double-Comple=
-tion and Use-After-Free.
-- [High] Double `v4l2_device_unregister` in `neoisp_init_devices` error pat=
-h.
-- [High] Use-After-Free due to incorrect teardown order in `neoisp_destroy_=
-devices()`.
-- [High] Asynchronous Runtime PM suspend is cancelled during device removal=
-, leaving hardware powered on.
-- [High] Unprotected hardware access in the IRQ handler while the device ma=
-y be suspended.
-- [High] HDR mode bits are not disabled when `INPUT1_NODE` stops streaming.
-- [High] Unchecked `get_vaddr()` return value leads to NULL pointer derefer=
-ence.
-- [Medium] Missing `HAS_DMA` dependency in Kconfig for `VIDEOBUF2_DMA_CONTI=
-G`.
-- [Low] Unconditional assignment of `dev_pm_ops` structure creates dead cod=
-e.
---
-
-commit 6a87cbbdaa6c05a70269ebaa1a23189afb0ffe0f
-Author: Antoine Bouyer <antoine.bouyer@nxp.com>
-Subject: media: platform: Add NXP Neoisp Image Signal Processor
-
-This commit introduces the NXP Neoisp driver to support 8-16 bit RAW Bayer,
-monochrome, and generic v4l2-isp formats. It features a standalone module
-parameter, supports generic v4l2-isp parameters and statistics, and handles
-context sharing across multiple V4L2 nodes.
-
-> diff --git a/drivers/media/platform/nxp/neoisp/Kconfig b/drivers/media/pl=
-atform/nxp/neoisp/Kconfig
-> --- /dev/null
-> +++ b/drivers/media/platform/nxp/neoisp/Kconfig
-> @@ -0,0 +1,16 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +
-> +config VIDEO_NXP_NEOISP
-> +	tristate "NXP NEO Image Signal Processor (ISP) driver"
-> +	depends on VIDEO_DEV
-> +        depends on ARCH_MXC || COMPILE_TEST
-> +	select MEDIA_CONTROLLER
-> +	select VIDEOBUF2_DMA_CONTIG
-
-Will selecting VIDEOBUF2_DMA_CONTIG on architectures lacking HAS_DMA when
-COMPILE_TEST is enabled result in unmet Kconfig dependency warnings and bui=
-ld
-failures?
-
-> diff --git a/drivers/media/platform/nxp/neoisp/neoisp.h b/drivers/media/p=
-latform/nxp/neoisp/neoisp.h
-> --- /dev/null
-> +++ b/drivers/media/platform/nxp/neoisp/neoisp.h
-[ ... ]
-> +#define NEOISP_COLORSPACE_MASK(colorspace) BIT((colorspace) && 0x1f)
-
-Is it possible this intended to use a bitwise AND instead of a logical AND?
-
-Using && evaluates to BIT(1) for any non-zero colorspace, which could render
-the validation in neoisp_try_fmt() ineffective. If userspace requests an
-unsupported colorspace, could this cause the xfer and enc indices to exceed
-the bounds of xfer_lut and enc_lut during hardware programming?
-
-> diff --git a/drivers/media/platform/nxp/neoisp/neoisp_ctx.c b/drivers/med=
-ia/platform/nxp/neoisp/neoisp_ctx.c
-> --- /dev/null
-> +++ b/drivers/media/platform/nxp/neoisp/neoisp_ctx.c
-[ ... ]
-> +static inline void ctx_blk_write(enum isp_block_map_e map, u32 *ptr, u32=
- *dest)
-> +{
-[ ... ]
-> +	memcpy(dest + woffset, ptr, count);
-> +}
-
-Is it safe to use standard memcpy() on __iomem regions here, and similarly
-in neoisp_ctx_upload_context() and neoisp_ctx_get_stats_blk()?
-
-On ARM64 architectures, executing standard memory instructions against Devi=
-ce
-memory might generate synchronous external aborts. Should this use
-memcpy_toio() and memcpy_fromio() instead?
-
-> +void neoisp_ctx_update_w_user_params(struct neoisp_dev_s *neoispd)
-> +{
-[ ... ]
-> +	params =3D (struct v4l2_isp_buffer *)get_vaddr(buf);
-> +
-> +	if (params->data_size =3D=3D 0)
-
-Can get_vaddr() return NULL for unmapped DMABUF buffers?
-
-If so, does dereferencing params->data_size here unconditionally lead to a
-NULL pointer dereference?
-
-> +	while (block_offset < max_offset) {
-> +		union neoisp_params_block_u *block =3D (union neoisp_params_block_u *)
-> +			&params->data[block_offset];
-> +		block_offset +=3D block->header.size;
-> +
-> +		block_handler =3D &neoisp_block_handlers[block->header.type];
-> +		block_handler->handler(neoispd->context, block);
-> +	}
-
-Is this vulnerable to a Time-Of-Check-to-Time-Of-Use (TOCTOU) race conditio=
-n?
-
-Since the buffer can be modified by userspace concurrently after the initial
-QBUF validation, could a malicious thread alter the block->header.type field
-to an out-of-bounds value and force the driver to execute an arbitrary func=
-tion
-pointer?
-
-> +void neoisp_ctx_update_hdr_mode(struct neoisp_dev_s *neoispd,
-> +				struct neoisp_context_s *context)
-> +{
-> +	struct neoisp_hdr_merge_s *hmg =3D &context->hw.hdr_merge;
-> +	struct neoisp_hdr_decompress1_s *hd1 =3D &context->hw.hdr_decompress1;
-> +
-> +	hmg->ctrl |=3D NEO_HDR_MERGE_CTRL_CAM0_ENABLE;
-> +	hd1->ctrl |=3D NEO_HDR_DECOMPRESS1_CTRL_CAM0_ENABLE;
-> +}
-
-Does the driver ever disable these HDR mode bits when INPUT1_NODE stops
-streaming?
-
-If INPUT0_NODE continues streaming without INPUT1_NODE, could the hardware
-remain in an invalid HDR mode and attempt to read from a zeroed DMA address?
-
-> diff --git a/drivers/media/platform/nxp/neoisp/neoisp_main.c b/drivers/me=
-dia/platform/nxp/neoisp/neoisp_main.c
-> --- /dev/null
-> +++ b/drivers/media/platform/nxp/neoisp/neoisp_main.c
-[ ... ]
-> +static int neoisp_prepare_job(struct neoisp_dev_s *neoispd)
-> +{
-[ ... ]
-> +	for (i =3D 0; i < NEOISP_NODES_COUNT; i++) {
-> +		if (buf[i]) {
-> +			list_del(&buf[i]->ready_list);
-> +			job->buffers[i] =3D buf[i];
-> +		}
-> +	}
-
-Are we iterating and removing items from the ready_queue across multiple no=
-des
-without holding a cross-node or global lock?
-
-Since neoisp_node_buf_queue() inserts buffers into these lists using only a
-per-node queue_lock, could concurrent QBUF calls lead to list corruption he=
-re?
-
-> +static irqreturn_t neoisp_irq_handler(int irq, void *dev_id)
-> +{
-[ ... ]
-> +	irq_status =3D neoisp_rd(neoispd, NEO_PIPE_CONF_INT_STAT0);
-
-Can this interrupt handler run while the hardware is in a suspended Runtime=
- PM
-state?
-
-If a shared or spurious interrupt fires, could accessing
-NEO_PIPE_CONF_INT_STAT0 without calling pm_runtime_get_if_active() result in
-a bus hang or invalid read?
-
-[ ... ]
-> +	if (done) {
-> +		for (i =3D 0; i < NEOISP_NODES_COUNT; i++) {
-> +			if (buf[i]) {
-> +				buf[i]->vb.sequence =3D neoispd->frame_sequence;
-> +				buf[i]->vb.vb2_buf.timestamp =3D ts;
-> +				vb2_buffer_done(&buf[i]->vb.vb2_buf, VB2_BUF_STATE_DONE);
-> +			}
-> +		}
-
-Should the completed buffer pointers in neoispd->queued_job.buf be cleared
-here?
-
-If a subsequent spurious or late error interrupt fires and sets done =3D tr=
-ue
-before a new job is scheduled, could the handler invoke vb2_buffer_done()
-again on the same buffer pointers, causing a use-after-free?
-
-> +static void neoisp_destroy_devices(struct neoisp_dev_s *neoispd)
-> +{
-[ ... ]
-> +	if (neoispd->context) {
-> +		dma_free_coherent(neoispd->dev,
-> +				  sizeof(struct neoisp_context_s),
-> +				  neoispd->context,
-> +				  neoispd->params_dma_addr);
-> +	}
-[ ... ]
-> +	for (i =3D NEOISP_NODES_COUNT - 1; i >=3D 0; i--) {
-> +		video_unregister_device(&neoispd->node[i].vfd);
-> +		vb2_queue_release(&neoispd->node[i].queue);
-> +	}
-> +}
-
-Is it possible for a use-after-free to occur here?
-
-Releasing the queues calls neoisp_node_stop_streaming(), which calls
-neoisp_set_default_context(). That function performs a memcpy() into
-neoispd->context, but neoispd->context has already been freed by
-dma_free_coherent() earlier in this function.
-
-> +static int neoisp_init_devices(struct neoisp_dev_s *neoispd)
-> +{
-[ ... ]
-> +	ret =3D media_device_register(mdev);
-> +	if (ret)
-> +		goto err_media;
-> +
-> +	return 0;
-> +
-> +err_media:
-> +	neoisp_destroy_devices(neoispd);
-> +err_group:
-> +	media_device_cleanup(&neoispd->mdev);
-> +err_unregister_v4l2:
-> +	v4l2_device_unregister(v4l2_dev);
-> +	return ret;
-> +}
-
-Does this error path unregister the V4L2 device twice?
-
-neoisp_destroy_devices() internally calls v4l2_device_unregister() on
-&neoispd->v4l2_dev, and execution then falls through to err_unregister_v4l2,
-calling it again.
-
-> +static void neoisp_remove(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	pm_runtime_dont_use_autosuspend(neoispd->dev);
-> +	pm_runtime_disable(neoispd->dev);
-> +}
-
-Could this leave the hardware powered on indefinitely?
-
-If there are asynchronous suspend requests queued (for instance, via
-pm_runtime_put_autosuspend() during vb2_queue_release()), calling
-pm_runtime_disable() immediately will cancel those pending idle/suspend work
-tasks.
-
-> +static struct platform_driver neoisp_driver =3D {
-> +	.probe  =3D neoisp_probe,
-> +	.remove =3D neoisp_remove,
-> +	.driver =3D {
-> +		.name =3D NEOISP_NAME,
-> +		.pm =3D &neoisp_pm,
-> +		.of_match_table =3D neoisp_dt_ids,
-> +	},
-> +};
-
-Should the .pm assignment be wrapped with pm_ptr()?
-
-If CONFIG_PM is disabled, the unconditional reference to neoisp_pm will cau=
-se
-it and all its callbacks to be compiled into the kernel as dead code.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511132629.1300=
-868-1-antoine.bouyer@nxp.com?part=3D6
+CgoKPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2VzLS0tLS0KPiBGcm9tOiDmnY7lv5cgPGxpemhpMkBl
+c3dpbmNvbXB1dGluZy5jb20+Cj4gU2VuZCB0aW1lOldlZG5lc2RheSwgMDYvMDUvMjAyNiAxMDox
+MDo1Nwo+IFRvOiAiSmFrdWIgS2ljaW5za2kiIDxrdWJhQGtlcm5lbC5vcmc+Cj4gQ2M6IGFuZHJl
+dytuZXRkZXZAbHVubi5jaCwgZGV2aWNldHJlZUB2Z2VyLmtlcm5lbC5vcmcsIGRhdmVtQGRhdmVt
+bG9mdC5uZXQsIGVkdW1hemV0QGdvb2dsZS5jb20sIHJvYmhAa2VybmVsLm9yZywga3J6aytkdEBr
+ZXJuZWwub3JnLCBjb25vcitkdEBrZXJuZWwub3JnLCBuZXRkZXZAdmdlci5rZXJuZWwub3JnLCBw
+YWJlbmlAcmVkaGF0LmNvbSwgbWNvcXVlbGluLnN0bTMyQGdtYWlsLmNvbSwgYWxleGFuZHJlLnRv
+cmd1ZUBmb3NzLnN0LmNvbSwgcm1rK2tlcm5lbEBhcm1saW51eC5vcmcudWssIHBqd0BrZXJuZWwu
+b3JnLCBwYWxtZXJAZGFiYmVsdC5jb20sIGFvdUBlZWNzLmJlcmtlbGV5LmVkdSwgYWxleEBnaGl0
+aS5mciwgbGludXgtcmlzY3ZAbGlzdHMuaW5mcmFkZWFkLm9yZywgbGludXgtc3RtMzJAc3QtbWQt
+bWFpbG1hbi5zdG9ybXJlcGx5LmNvbSwgbGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQu
+b3JnLCBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnLCBtYXhpbWUuY2hldmFsbGllckBib290
+bGluLmNvbSwgbmluZ3l1QGVzd2luY29tcHV0aW5nLmNvbSwgbGlubWluQGVzd2luY29tcHV0aW5n
+LmNvbSwgcGlua2VzaC52YWdoZWxhQGVpbmZvY2hpcHMuY29tLCBwcml0ZXNoLnBhdGVsQGVpbmZv
+Y2hpcHMuY29tLCB3ZWlzaGFuZ2p1YW5AZXN3aW5jb21wdXRpbmcuY29tLCBob3Jtc0BrZXJuZWwu
+b3JnCj4gU3ViamVjdDogUmU6IFJlOiBbUEFUQ0ggbmV0LW5leHQgdjcgMi80XSBuZXQ6IHN0bW1h
+YzogZWljNzcwMDogZW5hYmxlIGNsb2NrcyBiZWZvcmUgc3lzY29uIGFjY2VzcyBhbmQgY29ycmVj
+dCBSWCBzYW1wbGluZyB0aW1pbmcKPiAKPiAKPiAKPiAKPiA+IC0tLS0t5Y6f5aeL6YKu5Lu2LS0t
+LS0KPiA+IOWPkeS7tuS6ujogIkpha3ViIEtpY2luc2tpIiA8a3ViYUBrZXJuZWwub3JnPgo+ID4g
+5Y+R6YCB5pe26Ze0OjIwMjYtMDUtMDEgMDc6MzU6NTEgKOaYn+acn+S6lCkKPiA+IOaUtuS7tuS6
+ujog5p2O5b+XIDxsaXpoaTJAZXN3aW5jb21wdXRpbmcuY29tPgo+ID4g5oqE6YCBOiBhbmRyZXcr
+bmV0ZGV2QGx1bm4uY2gsIGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnLCBkYXZlbUBkYXZlbWxv
+ZnQubmV0LCBlZHVtYXpldEBnb29nbGUuY29tLCByb2JoQGtlcm5lbC5vcmcsIGtyemsrZHRAa2Vy
+bmVsLm9yZywgY29ub3IrZHRAa2VybmVsLm9yZywgbmV0ZGV2QHZnZXIua2VybmVsLm9yZywgcGFi
+ZW5pQHJlZGhhdC5jb20sIG1jb3F1ZWxpbi5zdG0zMkBnbWFpbC5jb20sIGFsZXhhbmRyZS50b3Jn
+dWVAZm9zcy5zdC5jb20sIHJtaytrZXJuZWxAYXJtbGludXgub3JnLnVrLCBwandAa2VybmVsLm9y
+ZywgcGFsbWVyQGRhYmJlbHQuY29tLCBhb3VAZWVjcy5iZXJrZWxleS5lZHUsIGFsZXhAZ2hpdGku
+ZnIsIGxpbnV4LXJpc2N2QGxpc3RzLmluZnJhZGVhZC5vcmcsIGxpbnV4LXN0bTMyQHN0LW1kLW1h
+aWxtYW4uc3Rvcm1yZXBseS5jb20sIGxpbnV4LWFybS1rZXJuZWxAbGlzdHMuaW5mcmFkZWFkLm9y
+ZywgbGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZywgbWF4aW1lLmNoZXZhbGxpZXJAYm9vdGxp
+bi5jb20sIG5pbmd5dUBlc3dpbmNvbXB1dGluZy5jb20sIGxpbm1pbkBlc3dpbmNvbXB1dGluZy5j
+b20sIHBpbmtlc2gudmFnaGVsYUBlaW5mb2NoaXBzLmNvbSwgcHJpdGVzaC5wYXRlbEBlaW5mb2No
+aXBzLmNvbSwgd2Vpc2hhbmdqdWFuQGVzd2luY29tcHV0aW5nLmNvbSwgaG9ybXNAa2VybmVsLm9y
+Zwo+ID4g5Li76aKYOiBSZTogW1BBVENIIG5ldC1uZXh0IHY3IDIvNF0gbmV0OiBzdG1tYWM6IGVp
+Yzc3MDA6IGVuYWJsZSBjbG9ja3MgYmVmb3JlIHN5c2NvbiBhY2Nlc3MgYW5kIGNvcnJlY3QgUlgg
+c2FtcGxpbmcgdGltaW5nCj4gPiAKPiA+IE9uIFRodSwgMzAgQXByIDIwMjYgMTQ6NDM6NTAgKzA4
+MDAgKEdNVCswODowMCkg5p2O5b+XIHdyb3RlOgo+ID4gPiA+IFdoeSBGaXhlcz8gSWYgZXRoMSBu
+ZXZlciB3b3JrZWQgdGhpcyBpcyBub3QgYSBmaXggYnV0IG5ldyBmdW5jdGlvbmFsaXR5Cj4gPiA+
+ID4gSWYgeW91IHdhbnQgdG8gbWFrZSB0aGlzIGEgZml4IHRvIHByZXZlbnQgaW5jb21wYXRpYmls
+aXR5IC0gY3V0IGl0IGRvd24KPiA+ID4gPiBqdXN0IHRvIHRoZSBldGgwIGNoYW5nZXMuCj4gPiA+
+ID4gICAKPiA+ID4gVGhhbmsgeW91IGZvciB0aGUgc3VnZ2VzdGlvbi4KPiA+ID4gCj4gPiA+IFlv
+dSdyZSByaWdodCB0aGF0IGV0aDEgbmV2ZXIgd29ya2VkIGF0IEdpZ2FiaXQgc3BlZWQsIHNvIHRo
+aXMgc2hvdWxkCj4gPiA+IG5vdCBiZSB0cmVhdGVkIGFzIGEgZml4Lgo+ID4gPiAKPiA+ID4gSW4g
+djgsIEkgd2lsbCBzcGxpdCB0aGUgY2hhbmdlcyBpbnRvIHR3byBwYXRjaGVzIHdpdGhpbiB0aGUg
+c2FtZSBzZXJpZXM6Cj4gPiA+IC0gUGF0Y2ggMSB3aWxsIGNvbnRhaW4gb25seSB0aGUgZml4ZXMg
+YWZmZWN0aW5nIHRoZSBleGlzdGluZyBldGgwCj4gPiA+IGZ1bmN0aW9uYWxpdHksIGFuZCB3aWxs
+IGtlZXAgdGhlIEZpeGVzIHRhZy4KPiA+ID4gLSBQYXRjaCAyIHdpbGwgYWRkIHRoZSBldGgxIHN1
+cHBvcnQgKFJYIGNsb2NrIGludmVyc2lvbiB3b3JrYXJvdW5kKQo+ID4gPiBhcyBuZXcgZnVuY3Rp
+b25hbGl0eSwgd2l0aG91dCBhIEZpeGVzIHRhZy4KPiA+ID4gCj4gPiA+IFBsZWFzZSBsZXQgbWUg
+a25vdyBpZiB5b3Ugd291bGQgcHJlZmVyIGEgZGlmZmVyZW50IHNwbGl0IG9yIG9yZGVyaW5nLgo+
+ID4gCj4gPiBJZiB5b3Ugd2FudCB0byBjb25zaWRlciBzb21lIHBhcnQgb2YgdGhpcyBjb21taXQg
+YSBmaXggaXQgaGFzIHRvIGJlCj4gPiBwb3N0ZWQgc2VwYXJhdGVseSB0byB0aGUgbmV0IHRyZWUg
+KHJhdGhlciB0aGFuIG5ldC1uZXh0KS4KPiA+IE9uY2UgaXQncyBtZXJnZWQgYW5kIG1ha2VzIGl0
+IHdheSBvdmVyIHRvIHRoZSBuZXQtbmV4dCB0cmVlIChlYWNoCj4gPiBUaHVyc2RheSkgeW91IGNh
+biBwb3N0IHRoZSBuZXQtbmV4dCBjaG5hZ2VzIGZvciBldGgxCj4gCj4gVGhhbmtzLCB1bmRlcnN0
+b29kLgo+IAo+IEkgd2lsbCBzcGxpdCB0aGUgY2hhbmdlcyBhY2NvcmRpbmdseToKPiAtIFNlbmQg
+dGhlIGV0aDAgZml4ZXMgYXMgYSBuZXcgdjEgc2VyaWVzIHRhcmdldGluZyBuZXQuCj4gLSBTZW5k
+IHRoZSBldGgxIGVuYWJsZW1lbnQgYXMgYSBuZXcgdjEgc2VyaWVzIHRhcmdldGluZyBuZXQtbmV4
+dC4KPiAKPiBUaGFua3MgZm9yIHRoZSBndWlkYW5jZS4KCkhpIEpha3ViLAoKSnVzdCB0byBjb25m
+aXJtIHRoZSB2ZXJzaW9uaW5nIGZvciB0aGUgZXRoMSBwYXJ0IGFmdGVyIHNwbGl0dGluZyB0aGUK
+b3JpZ2luYWwgdjcvdjggc2VyaWVzOgoKRm9yIHRoZSBuZXQgZml4IHBhcnQsIEkgaGF2ZSBhbHJl
+YWR5IHBvc3RlZCBpdCBhcyBhIG5ldyB2MSBzZXJpZXMKdGFyZ2V0aW5nIG5ldC4KCkZvciB0aGUg
+ZXRoMSBlbmFibGVtZW50IHBhcnQsIG15IGN1cnJlbnQgdW5kZXJzdGFuZGluZyBpcyB0aGF0IGl0
+CnNob3VsZCBiZSB0cmVhdGVkIGFzIGEgbmV3IGluZGVwZW5kZW50IHYxIHNlcmllcyBmb3IgbmV0
+LW5leHQsCnNpbmNlIHRoZSBzY29wZSBhbmQgdGFyZ2V0IHRyZWUgaGF2ZSBjaGFuZ2VkIGFmdGVy
+IHRoZSBzcGxpdC4KCldvdWxkIHlvdSBwcmVmZXIgdGhpcyBldGgxIHNlcmllcyB0byBzdGFydCBh
+cyB2MSwgb3Igc2hvdWxkIGl0CmNvbnRpbnVlIGFzIHY4IGZvciBjb250aW51aXR5IHdpdGggdGhl
+IG9yaWdpbmFsIHNlcmllcz8KCkkgd2lsbCBmb2xsb3cgeW91ciBwcmVmZXJyZWQgYXBwcm9hY2gg
+YmVmb3JlIHBvc3RpbmcgaXQuCgpUaGFua3MsClpoaQo=
