@@ -1,104 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE85495521
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 11:00:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0424F254B18;
+	Tue, 12 May 2026 11:02:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778583622; cv=none; b=nO6DKrLVZlBVQFACUbQLCqaGqsiu/Q+ut6AoVhb+7BxRn0V3PmscegM6AC51tti8N9cEnqu9zrONcOHsbKKDUcw0GBqfCg9se5EpXCIePsX8DMMwQ9n2sz+mqpo/XA6laBSy3SG01nVyAPGUj+c1owePlCJGH+qSU9p5dpTH7p8=
+	t=1778583781; cv=none; b=R2K5cSIwNRyQwvGMsMWzoijDH1EH9eC+74WQwiANRMgkkHSd1CVOQ5aIIijTqRfCEf7xFxisXD/hrLFAO3oDnlebI01WEayLmIvh+BT9ei+cdjzGV97FL1uRtVPBObhfFrrKgz47ZxiAkOXl8c2OEaR5Wd/JUZ/OmR73hF6AURk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778583622; c=relaxed/simple;
-	bh=+jTtx3Iz5bF5a1JF4Rpr3zAsGBVSwo5VUltpjnN/uuQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SRC3M6X3dPVHb8qms7qW+jXxF/gQa48OEd+s07LgWevKzRY5M4u2x3DVqI/vGQDZL6BDzzn+g9PxHVYIPqHJ3Rcw2R6KdsoZ4GB/TezJfEJ887c5Kq7fqrpetOS0/RJ/DzhQliu3NxF3D3zZ06+Wh5eTxkA5JFU8bsMG+0V5ycI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XLRm2COV; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778583781; c=relaxed/simple;
+	bh=211a2Vxapw/LkkPIC3ja7VhK866mFfc0k18gWRdnhG4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ue3stFRxU+09dwcQJIruQhMJuGMgrmkcm3N2VpcLPEKuZ3ciOElY3INjTz7DXSLWYXLIjpbcu8uhFfVeCEXS1SLFRGwO5hWiSq5vBq9/8sAFf5ja+xmHRjLr9EVLsDMJGWTOqgcELXIf8Z/I3pSs4t5ygdEG4wrCxWi+Il/GjwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=U9TIXKWa; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XLRm2COV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D337C2BCFB
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 11:00:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778583622;
-	bh=+jTtx3Iz5bF5a1JF4Rpr3zAsGBVSwo5VUltpjnN/uuQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=XLRm2COVxNt8Nx7UxrZZKK6jdJ90nHSPX5/snRbyHP2wfO43BoNvk6hwwReqN7rrx
-	 nqi7MAIQWnvpCRkxrYm3jIpn+VGi2aKwQyZPMpgiGO2Cn7gP5PpPnhZxTQtmeARUvu
-	 i6LS7/X5EjRp6jWuSucafYAsppzFhd5TV3lLQiuY1l1cug95edw9Hqzs6w9wCpofTw
-	 o+y2byBKH+6p8rSesBULubw58HS0ggMlK4XUSw4HrjKn5OI2EAjUvdlPq9dwA61RgU
-	 2IxWMFw/3/5jL14cXeAZ/7K6nkGuc1Gd6En1LjbWZ1sl79YsgH/QOL+O0BDwQFtRtv
-	 9W+DY3Mew9EoA==
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5a8e33556c0so628949e87.0
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 04:00:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8ZiqAMXhFF9EoDBiQ+bpyOFlXR76XTqkeIQrK+r9UrcaREunNaYvvVdTaq8osG8UWx3DjnKiKpaE1q@vger.kernel.org
-X-Gm-Message-State: AOJu0YzLAKSbRXrAuRPcHmFLFioq1FR8v0NIz1IkLeeLb8ROBuoC/t5y
-	BkAODciuMjIQwcrm0DwufUy9B60Ba8OvRXPdgtymI/aAhYu6tPQ/Zr0DuBWH67k7X5Xj16LH8DC
-	wUkshiS4P34PLvAbQHadTd7JDW/TFPmGbeG5Ucsi6xQ==
-X-Received: by 2002:a05:6512:686:b0:5a4:d0d:84e9 with SMTP id
- 2adb3069b0e04-5a8e0ec4f2cmr953327e87.4.1778583621007; Tue, 12 May 2026
- 04:00:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="U9TIXKWa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1778583781; x=1810119781;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=211a2Vxapw/LkkPIC3ja7VhK866mFfc0k18gWRdnhG4=;
+  b=U9TIXKWan48rS+/jlkVbDtacCkw9JNd4CV6mfktT2t4yhSRxKeZy7YD7
+   1vrGjklSqDpnB35K89Bqec2Faa9Dp0T7RMieIPahe7rntrXBiuPMePvaw
+   I/liu7Q46NNe17fC20J/43hP6RxzSmGoOin5V3VJaeKp/OwX3/yHDHXo0
+   kYnQeUFRzVN9+l2F9xg8QuMuc1XwRxdWr7ccsWoFSbMnX/w3Ley7K0uRg
+   vIu5MmR8lPkIv+tOgc0++SYInWmhdvCqa4Di5YU6srSPdKR7kti9QlyMc
+   /4kWb8dq5MDqhjJxEwCJJM0l9Ye1gI3IHfOLEGKHuwJPW8tWIc0AsCy+k
+   w==;
+X-CSE-ConnectionGUID: 9YNLjYVTTHWS8eIkd7+FJw==
+X-CSE-MsgGUID: zo9fbd7GREmy+LS5SDz1uQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="79472977"
+X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; 
+   d="scan'208";a="79472977"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 04:03:00 -0700
+X-CSE-ConnectionGUID: W3uW7XpITSGWtGxlCqug2g==
+X-CSE-MsgGUID: o+ExLhcIQcmFTXdW7A7Y+g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; 
+   d="scan'208";a="242733224"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.112])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 04:02:54 -0700
+Date: Tue, 12 May 2026 14:02:50 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Roman Vivchar <rva333@protonmail.com>
+Cc: Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Sen Chu <sen.chu@mediatek.com>, Sean Wang <sean.wang@mediatek.com>,
+	Macpaul Lin <macpaul.lin@mediatek.com>, Lee Jones <lee@kernel.org>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, linux-pm@vger.kernel.org,
+	Ben Grisdale <bengris32@protonmail.ch>
+Subject: Re: [PATCH v2 07/16] thermal: mediatek: add PMIC thermal support
+Message-ID: <agMI2phk0AQF6QP9@ashevche-desk.local>
+References: <20260512-mt6323-v2-0-3efcba579e88@protonmail.com>
+ <20260512-mt6323-v2-7-3efcba579e88@protonmail.com>
+ <CAHp75VfgrbEDLavMKFp2maFCH08RBUxF2wYhh56GG1HCq4ogmA@mail.gmail.com>
+ <j2uhavC9edilBoD6VJnlz8cCmMPhE9rQavh1epqLk61zrlZ3k1rqlyj8fVYWnkddIY1fEfPk1DfcW09i39hd-Q7I9Y8Vxd0w8C2eCjVGLc4=@protonmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260511162528.84508-1-markus.stockhausen@gmx.de>
-In-Reply-To: <20260511162528.84508-1-markus.stockhausen@gmx.de>
-From: Bartosz Golaszewski <brgl@kernel.org>
-Date: Tue, 12 May 2026 13:00:08 +0200
-X-Gmail-Original-Message-ID: <CAMRc=Mc-EbMu3eUrMA5UDCEp-xzbyndy8_U8OjfcTDJcATThQg@mail.gmail.com>
-X-Gm-Features: AVHnY4JUWD-2XbEZf2KfYaUHlZcZhYkZFupHjJQOGud41KwRZc4D7MkUO2hrL_s
-Message-ID: <CAMRc=Mc-EbMu3eUrMA5UDCEp-xzbyndy8_U8OjfcTDJcATThQg@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] i2c: Add i2c-shared-gpio driver
-To: Markus Stockhausen <markus.stockhausen@gmx.de>
-Cc: wsa+renesas@sang-engineering.com, andi.shyti@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, linux-i2c@vger.kernel.org, 
-	devicetree@vger.kernel.org, Marek Vasut <marek.vasut+renesas@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <j2uhavC9edilBoD6VJnlz8cCmMPhE9rQavh1epqLk61zrlZ3k1rqlyj8fVYWnkddIY1fEfPk1DfcW09i39hd-Q7I9Y8Vxd0w8C2eCjVGLc4=@protonmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, May 11, 2026 at 6:25=E2=80=AFPM Markus Stockhausen
-<markus.stockhausen@gmx.de> wrote:
->
-> This series adds support for hardware designs where multiple I2C
-> gpio based busses are realized with dedicated SDA lines and a
-> shared SCL line. This way N busses can be realized with N+1 gpios.
->
-> Currently there are several Realtek switches that make use of
-> this design. Samples are:
->
-> HPE 1920-48G
-> Linksys LGS310C
-> Zyxel GS1920-24
-> Engenius EWS2910
-> D-Link DGS-1250
->
-> While at first glance this might be a usecase for the new shared
-> gpio architecture, discussion and testing shows that this is not
-> trivial at all. A shared gpio is handled by a voting system. If
-> there at least one user that votes for the GPIO to be "high",
-> it stays high.
->
-> So the implementation manages several classic bitbang buses with
-> locking/unlocking in the pre_xfer/post_xfer handlers.
->
-> Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
->
+On Tue, May 12, 2026 at 08:55:44AM +0000, Roman Vivchar wrote:
+> On Tuesday, May 12th, 2026 at 10:05 AM, Andy Shevchenko <andy.shevchenko@gmail.com> wrote:
+> > On Tue, May 12, 2026 at 8:21 AM Roman Vivchar via B4 Relay
+> > <devnull+rva333.protonmail.com@kernel.org> wrote:
 
-Hi!
+...
 
-A couple high-level issues. You'll soon hear from the DT maintainers
-and they'll ask if the i2c-shared-gpio compatible corresponds with an
-actual piece of hardware on the board. It does not, so the bindings
-will be rejected.
+> > > +#include <linux/kernel.h>
+> >
+> > No way the driver(s) nowadays use this header. Please, drop it and add
+> > the ones that are really in use (there are missing ones).
+> 
+> Is there a tool or script that can check for IWYU?
 
-A virtual device doing the mediation is fine but it probably needs to
-be an auxiliary device instantiated dynamically from C code.
+The `iwyu` tool with customised configuration is the closest what we have
+(but quite far from ideal), you can read this thread [2].
 
-It just so happens that at the same time as you submitting this, Marek
-Vasut wants to enable shared write-protect GPIOs for EEPROMs. This
-seems to be a similar situation where the default is to keep the line
-high and drive it low if there's at least one consumer that wants it.
-I will rework the gpio-shared-proxy driver with that logic in mind.
-Would that be enough to address the issue here?
+> For example,
+> the u32 and s32 types are defined in the asm-generic/int-ll64.h, which
+> is not used by any device driver. Instead, types.h should be used.
+> It's difficult to guess which header to use for a given type/function.
 
-Bart
+I know. I got this knowledge because:
+- I do a lot of reviews and patches and gathered it from the experience
+- I am the one who reshuffled *some* of the headers
+
+> I've tried include-what-you-use [1], but it gives bad results like
+> "add #include <asm-generic/int-ll64.h> // for u32".
+
+See above.
+
+> > > +#include <linux/module.h>
+> > > +#include <linux/nvmem-consumer.h>
+> > > +#include <linux/platform_device.h>
+> > > +#include <linux/property.h>
+> > > +#include <linux/regmap.h>
+> >
+> > > +#include <linux/slab.h>
+> >
+> > Is it used?
+> 
+> Yes, without slab.h the __free would complain about missing __free_kfree,
+> which is DEFINE_FREE(kfree, void *, if (!IS_ERR_OR_NULL(_T)) kfree(_T)).
+
+Ah, indeed. I forgot that this is not the part of cleanup.h.
+
+...
+
+> 1: https://github.com/include-what-you-use/include-what-you-use
+[2]: https://lore.kernel.org/all/20260512073505.1310-1-joshua.crofts1@gmail.com/
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
