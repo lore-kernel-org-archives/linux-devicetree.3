@@ -1,378 +1,192 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011067.outbound.protection.outlook.com [52.101.70.67])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF5A2DFA25;
-	Tue, 12 May 2026 21:47:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778622452; cv=fail; b=ABAcWlhKScj7lokkXVL8Yg+qjQ+w97sbywwP3dxMDK33wlj5buPH9bwxFTnhYZnzm+Rrm2eHACJfqhnRBOnngVPDHpDXbZuoeiIIp9j1QqWVZSNp7tCgQn/aAsUNasyZ4hHhUgv7CSxpEte9derTWMSogaUfEjUsr2hssotOcoA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778622452; c=relaxed/simple;
-	bh=wltcME82shZiCkPLyr7ncxuE14e7tFnXAddVwazzhgY=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=A0FDrKbJIGrGYAJ3LYLywnMT8jVA5L0cSl56RujLTJxSnFqcFeXfF4mN1DTzkjF837FKonsY3ycG3gUt0Fqd2tG70U/q0qL7FUdcXFW2xYWV9tK5nMasG11vqTiqHsEBakd8hux1z9NwcE64jH67EeKzu6MnetOO5ByjRi2k65w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=QfjhSA4A; arc=fail smtp.client-ip=52.101.70.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DBAA3976A4
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 22:04:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778623461; cv=none; b=CCHoa+Y5lZ+LyPDDPqK/kUC6VZ6jJSm8cKPg45hHR0Cii0WBiA/tWtKLzdIAxHLdnkLYhF0IHKGVP8R2H9ExeowBrmmhRKt6gnt+tFAPUPag5K/l7LuTF8XJ+bi/JisGEbh2faKB8kG7Ff0+RldXEFI9Ayxm9wpKnm0tL4fT0JA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778623461; c=relaxed/simple;
+	bh=Wg133cLvrC9lkHoz02DJoErg2izbpbqlU3izh6vwTqw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=k4Tj+ONhxLva7G7Gicgp4p4gREAbgAPQ1lf9tyt2lUtnZFA79YBDvHbtdbUOI6yyPcrm7pKuxY8SrgQ4odFkt4OazGn8ArEmXLL8YS6TSZkFn+OopIuJug5Z9T9ADnBhbqet/Y6rSfvvJ2uC9WJWnlobg46b1XLaFnpxyUlXZkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WLMvcbWS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=h8OfasUE; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="QfjhSA4A"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wz1qYQW4Nv3i4i8AVZNwjpVzqnV0XurWxIJu4/KLA8GdUPw8jjr2ED62EyUKD0+F2hvWIgFRYfndZ9xHRp73WsFNSiAQosdf5PQBLBSl1b+hLwkJZ+sgeWCiC8EGnRB851ranfigurJxADNCXhTwKg3Fgmyd1Z9DOOyyKBBo/gkkgKGiOv+IfDhgbLZZZxUttEwTN4iVsL1RtU5KyrTfpvDwEFi59FFI+lPNYtnQyZP6oVRl8Bd/2rGRYXDx6Rt+jVk9vQotShsgNCI1vwIAdqBnx70eJpTFYKJYmvW6aQJq6Xdqc+gQQz9KP7c374okw3iXiwOSX806/GncGKiv9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dm9vbSW+elDATPm1NqXx1sfIjXMEYAKVSHece4JBhWw=;
- b=yAWuyb3Za3IskSaVvZr7xoQeRKh16T6QFGVoRomHEfV3EfPC98jTQCk34oNaikYv/JZ9+0Xa4wOPp4oWA/5vqAU1OYzHJPqSP2l+RYedZ/5ZLF4QAuv66lzERG/s85mIR+yPI3R6sRDYRQzNCGFFupoqfZ0FLAVBbwK3NuQx4KEnEzyJgxi30agpGL8KhKCVfO8EuTmh1r5Qfkap0htLlugROo1M+BvF6nUvpt01N/uoVkuOrLlrAh00go7yCkCYSwCxyX72mywlvJZUixnvnLJ23RD0nkXqoPAFxW6diMX7ZHnfNCX/p10hPH/FDluFPFVxRhIzkCdEOVgTjk+R6A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dm9vbSW+elDATPm1NqXx1sfIjXMEYAKVSHece4JBhWw=;
- b=QfjhSA4A8xis/E9uMA0umvZuBR0vWeUc/18w0c1dpfi7215thKdYznh8vBzkYSKWCe/quQEt2E+sunZkOTCL0U8NexHGP65tBUgUhVMV7eY6LaUoK/cBr/oU5X+DiLWQnwqoalMSUOXDWZrHld9sdI/C0WZzlYjWwmYhHChlEhG4+Ws5jvadGhzGpTcFW7QA0w+F6HKMuzIIX+UXJnSS9aBSTs11eFUpgd2sy3Sc5bLR0SLQLB7ZGaEToi6qbzjfRgfs1O9FCJOl2G61xWD869RtNDbjj9hUjcEWVZeQ85AOLLNI07v6zJ/u9mwl+w28QdM39fFvggZETLUvihWXcg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by PAXPR04MB9399.eurprd04.prod.outlook.com (2603:10a6:102:2b3::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Tue, 12 May
- 2026 21:47:26 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%3]) with mapi id 15.20.9913.009; Tue, 12 May 2026
- 21:47:25 +0000
-From: Frank Li <Frank.Li@nxp.com>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	netdev@vger.kernel.org (open list:NETWORKING DRIVERS),
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	linux-kernel@vger.kernel.org (open list)
-Cc: imx@lists.linux.dev
-Subject: [PATCH 1/1] dt-bindings: net: dsa: Convert lan9303.txt to yaml format
-Date: Tue, 12 May 2026 17:47:02 -0400
-Message-ID: <20260512214704.1084890-1-Frank.Li@nxp.com>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BY3PR05CA0024.namprd05.prod.outlook.com
- (2603:10b6:a03:254::29) To DU0PR04MB9372.eurprd04.prod.outlook.com
- (2603:10a6:10:35b::7)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WLMvcbWS";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h8OfasUE"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64CLmniQ1751534
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 22:04:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=NqS+CDNQVOX3mhlFDvH3E5VN
+	dOpuCFOxzb4Y6GdldLg=; b=WLMvcbWSO7bSETtUn04lb48afvNVQEG72YRwCqRj
+	fBQZqdhpIQzrH0lJ3WNH+TGHvDAxtNRVyK7ucH0Ii4vQ5oVKJG/vS0Y/6ixPKZdq
+	KnceR6lW7d42PXRit73MXpJFEINRsxb8m3eJAyhvRd8Ahm1BdKVDOt30u4DG/ca4
+	cw4YT3R3M+y69jwUePwwa0LO6/TIHPedcfk/lH/kTmG9kqRJDHYMs8TlQkGQC6KF
+	WCHVEEYtUIPdDtUqWkUN1o3T3hAX0XaRBZsnpdphgehbcU6lumOO1v1nj8//+bpq
+	llvNptYsp6P6KvQrunf+VVRxziEKMw0wzc0wTUoqHfIDWQ==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e45avhw83-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 22:04:19 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-6312aa1d7adso3982144137.0
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 15:04:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778623459; x=1779228259; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=NqS+CDNQVOX3mhlFDvH3E5VNdOpuCFOxzb4Y6GdldLg=;
+        b=h8OfasUEUbrMyVLVsyUoi52SGkMpTxK5iiRligPGlhDZooVFM/9HGSQI/ycxZbjsdr
+         fbTcYKMvgbMODYYzNIWY8BngHcH6xSgs93tRmGKIcEzB5GgkdI6VXpCqSAF1UXCLR5M8
+         Z7Y9Q+4ekNSo2LY4/UyW7kmDv1XSyR+m5eRElUakYf26IPSVEhqpOvYP+KzAAY5RHXmc
+         sFcVUfvWihKx53LNV/QCAIH2LuXEA5Zg1wHUOASCz+MKSGekOYqVQ1Xhld5MYwPP5sjj
+         TnEQ60OLtqKzTmGjrCdVrQghjdHUB2X+Tpwp9Pam1M//lvYVuxp1SunpBVMo8mPi+/D9
+         Ox0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778623459; x=1779228259;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=NqS+CDNQVOX3mhlFDvH3E5VNdOpuCFOxzb4Y6GdldLg=;
+        b=ZzJkIiHHKIWpVyh/IoGjSZghMGoggIqggdz8LfAnsblC17W3pYdbXMYa0s0DMbbYMV
+         NPeRC3JrjtAz0cC7tYdiQElNfNGA0jSuV4jyVGvIgsUrD+SKwibBlfRIxgWyhbqAJSEs
+         XwitKehds7OAg3eHxogq2jmi6RTojjv4rLz+jiRZqAk9zait1M7ky1g4YXwWC6SvHm9V
+         QfjlcCgGoXABt1an5Y0+PpHwhwPPdkrhZsFsLOZx/QLm8LBcof9BfBDFORV1LSbdRWeW
+         PpVSHsRqZWBuehI1NDcOpWRoeevRlaFkB9wPERNr1ROFnV1bodMZ4QLyYlKQX/ENrUem
+         sT+A==
+X-Forwarded-Encrypted: i=1; AFNElJ/IHPyQEe24ZjY4GP2C/HvZBPoCvszwg6pwiUaTxfnCXjDK9DJGXN2futTQa2gvDT/81uwXe2fBg2t1@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw9FIxgN57tKJhpA7ouib0Zzjf3YmNCois73qGEk4OFF43ufie/
+	PxxivphfvjNPQ3k/+Q2J+OdbIX4coSqbhT04jpI6s4Mkk8tbn+U1jRMWMxuEriI8l7DAo4/DzLG
+	SBawocIz/7zmGmCUzIvwZS/9Hbbw70T2Hwe7zhdEjHLsm0jo6avPIxAKsdrhFWKuB
+X-Gm-Gg: Acq92OHIWpbZ8ZfE9iBDJMQImdGAfZdK9y2tyFgh4//AXcrdOL+EhpA/oKSoN5EyrcL
+	2vwj9WSmzZFDdYqTsy+/KBfwOLPdijd3r7FyM8cJGEYa56nR6QXW66YAAY4XJo0yC6ptoS7ggiU
+	Zn6HQ3ICGRCgoEWqT6O4OoRnq0K4PgW77qkIOQYSQD7aScvtAQQFuv7fVzIZ96BVeUI+vViM18K
+	5JuobVdaFaVN/nRuApLqOa1EWtD6h/5pRPD9hS+M71ruHUx0ekXfZF0kZPlTW4ELZpLMHg4MaSE
+	BOlon84v5u2U093I6GVJfQl7XRNZ2hXOsdod8Ioxy4Jy2ewOUi/+z0fdqZ0KDOduNcD1iMZT7l5
+	p2MV4qM6z8J1lkUucY80zvmJCiwaajR2TOzyJBD8Je/+FoDIgSCXedcxTyiq/NB1Kio11eg/8yx
+	hCuxG3GQlypOT+tJKOCiMYGOnEp+hcHbcr3wE=
+X-Received: by 2002:a05:6102:424a:b0:631:4580:6a42 with SMTP id ada2fe7eead31-6377422fe76mr307922137.22.1778623458501;
+        Tue, 12 May 2026 15:04:18 -0700 (PDT)
+X-Received: by 2002:a05:6102:424a:b0:631:4580:6a42 with SMTP id ada2fe7eead31-6377422fe76mr307883137.22.1778623458013;
+        Tue, 12 May 2026 15:04:18 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-393f625bd3bsm37023021fa.34.2026.05.12.15.04.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 12 May 2026 15:04:15 -0700 (PDT)
+Date: Wed, 13 May 2026 01:04:12 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: eliza-mtp: Enable USB and ADSP
+ support
+Message-ID: <bi7m474cmmnbdfxd3kzdt4hywm7teu3jo2bzywk4x2tx24lh6b@xhdfnm4e3rfs>
+References: <20260512-eliza-adsp-usb-v3-0-6420282841c2@oss.qualcomm.com>
+ <20260512-eliza-adsp-usb-v3-3-6420282841c2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|PAXPR04MB9399:EE_
-X-MS-Office365-Filtering-Correlation-Id: 80808e14-7fe4-4cc9-488f-08deb0700e34
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|7416014|52116014|376014|1800799024|38350700014|921020|18002099003|56012099003|11063799003|3023799003;
-X-Microsoft-Antispam-Message-Info:
-	lhZjThALOeI1V+Bz01jkWsv9uUVV96Z3tX8pmF5QwNRAtJ6pfSb4/JolRGjXzdXByZxBoi5/HArthMCdhj3IyT93QESkesvFvhPN1cfoIVxq8OmL8SycPg7q673Q65DDcCnOxaDN+6t9DXfOHEfjcJUtzqXtERF4JqjoXVpU3B0pzuort5fOY+PNLFAzIRRkz9OkWmeesKGT8JpWuSeBghj4q504UuXheRCvTbEj6BoZ5uPyOFeow/n9fJWdubel6+PDyZjMfw4PMTT1LR7xzt7YtfiIZ1db2PryrkQTvvmP0w87jVx7LqELFxOrdW4JSrm4IpWR2LDgjsbD0Atz8xRtGV5KMw0iH16ITXo4GJENA/blEBkyr2xjniudSe87SeKd6mjRe7H6B3HHYF6w8jttvQVVLCNcJQ2SkphM+Op3zx0ku5XgzfRmeie+ljYmuGy5TboeoATIMDfUVbgMrgbABxfNzy3X/SX6kfBOi76lWJDJahibpLi43Edtf3rnbnO+BaOQ0h0CshL0rYICz/97oEaqo2d58gwEMpBTZXnBPrRvubCSH3tObJwX9oywKqjKBGJyOiCwvVfDop8NG47jmdpD+ozw/rBJ2Gk+3AHQrG89QAUiqXsLBgxCGBNAMKWWcz6mNZfdMmKX9G+QlCt3GuY4cH8oTvq3T6CiD3gI8gtAbQtNs+GyJgI7A5qtV2FUCvb4xnPzDWzp2c+yUw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(7416014)(52116014)(376014)(1800799024)(38350700014)(921020)(18002099003)(56012099003)(11063799003)(3023799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?UgWet1Q6pP1ByOdtN1KUZQjCAogQwwoFwGo+G3W9dI+poMnTJyKUl3/9EAcR?=
- =?us-ascii?Q?p82JNam1mTpTPAh9bfqSKeDxr6LwVLAv2oqVtL/AOoS1VWSqmT1WLfVVV4jl?=
- =?us-ascii?Q?oKTLPp9eyROfew2gfOfpeqQtYlcKoJ92KSf87KcmtSo5oBqmRejwzHAc8JKE?=
- =?us-ascii?Q?c+L6VYTRmI9oSqR0n7R3w6rz321OGLs71ADIkFthT1nsrokx6i8ya6kvo32Z?=
- =?us-ascii?Q?LM5rp+GNEMzbk/gYeTSNix4YZLBq0dOFomMJHv9MN7f0s7MJ/Ne2dP3ty+xh?=
- =?us-ascii?Q?EI0+m+5Le83w9SQwZqPxs7Hl6P5kw6aoHZcWpQOqyapo01T4V/rBANqNo3/i?=
- =?us-ascii?Q?+HwzzCR4MTs1ZZvFXLE8E9x/iQpA/PBN3CT9hil393C62XpbF1Mn65qUqgzr?=
- =?us-ascii?Q?HeMAQpiwL0o7ojibSzadffwXmxwdO+W9I1i453XdzOlIyFH8NuO0GuQOq131?=
- =?us-ascii?Q?oHmteq+NADAHkBNpHovRVQ3JeifAZNc5wozHNk+AbAG336XH1S6FGUvAMoUq?=
- =?us-ascii?Q?GGH/qfDIEqIen+vWGAT6QEtmRIsmA12t0Hayd0MfIg+JMvN120RpT0ZpfCn/?=
- =?us-ascii?Q?pId3z+WR5r8FhqBIG49eZucKgpFMNhhxGrvnq+kFNVnLiZJxfAJleCaGIxwH?=
- =?us-ascii?Q?zJXvYJcB2o32VrtGrg9xER2sauQqZAZcSpkO0g5ikASXu374X4UnTtTK1iml?=
- =?us-ascii?Q?UjK1u0XSNN1OGeDAfddBoGTZ/OUy/SroyE+KjsmlpzE399CBkOcUnVgghtmj?=
- =?us-ascii?Q?zTLiMQqloZt26ERHMlXcWs6JudFuPY4wVLyNTlOcG/blhIU47MmkGeqxQJp7?=
- =?us-ascii?Q?Cn2JT7yHZt+Z+mUufgs983swUPTgvknHI4xU+3/ftstTTpKj3a4xf+8lr5Bs?=
- =?us-ascii?Q?oNt3RncaSmg0WQ8YruEZUhPTdNE2MjspNYdENtbk8dZJ74r2LcWIh895yVuR?=
- =?us-ascii?Q?kiebD9+RRp39ADkb58X2IMVrJcvTaFgoC7yuTXySGwANJK230OeCy5c8FW9j?=
- =?us-ascii?Q?LQb1DSY5hVXDTlDJIKJwRJuE96p88TzQRfVCSbLg9EEbl5ef5UCBRBPyOKGw?=
- =?us-ascii?Q?z786Cwgpt3DKapBDzEiuGy03HCDGzm4Dk3uslJXZVH6DQdNlcxDfyEKNtoO7?=
- =?us-ascii?Q?OsIkd20rdEg5Kl8xCnDhQKvDfDLwa/vouPYeiVVsE4qJyktcNdwRmO1qCLfb?=
- =?us-ascii?Q?Xm4OvNlHK7uROGcRNc8Po0tZAYsSgIYxOO7J+obzpPMN8G3j260N4yl6+Lgr?=
- =?us-ascii?Q?YSpbb4gyoT2Ecn6YhWsC8bQb1C/AWzoAIAv78QJK2m+GHFkNfcKz+D/JNyo4?=
- =?us-ascii?Q?cHDxxsZWX52jGqTAEnKoeqh3sapA8ve1RH8M79zRjMKbRztRtCTKR3GJTUrH?=
- =?us-ascii?Q?LwAw/lBZo3sMUivGyycL7194J3Riy7mYfRUkWsoR7u648dq2LDrQhpGW/hg2?=
- =?us-ascii?Q?BiEzaXajQCci+BIzA0OcGkE+BiCt9WTBhvXo+2bXXeqNmPtozNh+N0obUD/T?=
- =?us-ascii?Q?QGFYw4DTDFqmOZTHvNkCVcpQfRjAv3UMe8Ga5k/stg+OKQqMWvhzZ3E0inxI?=
- =?us-ascii?Q?tly7xoPw95zYTwj+ut5PJmMguam+eJt0dengvYoOn0dSGKKHNoHdZKYGqC5e?=
- =?us-ascii?Q?auUqdpwoIIUthwfp6tWilBSbCinOHYDRAzgzJVz5ChsTtTTLYzPfLrVmW2Vq?=
- =?us-ascii?Q?MRddzAtHqbW9IRNI/LITgwg6KILWMy5JFKRvAOFqj+5dHK+S?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80808e14-7fe4-4cc9-488f-08deb0700e34
-X-MS-Exchange-CrossTenant-AuthSource: DU0PR04MB9372.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2026 21:47:25.8745
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: v9s8qH3mnmZt0UywR6FyxycuKi3gPiwXJj1/FlZKnQaUlSyxUZTLHdKD7yk51MydcsPwdjQ/LMoIqclg6ZaQ6w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9399
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260512-eliza-adsp-usb-v3-3-6420282841c2@oss.qualcomm.com>
+X-Proofpoint-GUID: F3PSecJuGz2GfdCEtM4HZtwbkckutf8x
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEyMDIyNSBTYWx0ZWRfX+SWAQOQXuPeD
+ dWZP4Zw8P6jCe4GWzJoIUaNuFwI1MGp/GD7SVPoR3igucC51cNCHyeqRosUGoM85D1x3ObmPzlP
+ vyEpcpNsbRLsXFWZouz6sTO4kKLgbgCFu58fU3lTZ9vo5ny50ZHLgfgIC8Qpbt1NeKDilrPxRx0
+ LzEZ4kRTh98kQ25Ty8okIXokqxOiY/5i0yvnCEBVC5hgGS+NhUmkLAfeFE46Cz514UGwWkMu+wV
+ ULJyKMniUStbAeaCfXBXDJHHRDGPMMThO+AfSyefHNRS+Kvao3ZQeDhb5iblJjSyE6WMHWu7JD/
+ B9mr2sHAOlxNvhoPvLehnvWrX6rrM5GR19H6/IRrk1mrpkvNho6cXFZXkatdMX7qeLh7IhM+Bbt
+ KCySVXwj9FPAhnYILh7cGuqZvXHFHJQ7DBDJ8I0EUoxUCUAqLPwlk0WGMWB9SKsMosMIlufngrK
+ /RFHrh9uU8W2G2CiBvg==
+X-Authority-Analysis: v=2.4 cv=bOwm5v+Z c=1 sm=1 tr=0 ts=6a03a3e3 cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
+ a=erItJiyUAjbEpTEIgrAA:9 a=CjuIK1q_8ugA:10 a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-ORIG-GUID: F3PSecJuGz2GfdCEtM4HZtwbkckutf8x
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-11_05,2026-05-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 suspectscore=0 phishscore=0 spamscore=0
+ malwarescore=0 clxscore=1015 adultscore=0 priorityscore=1501 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605120225
 
-Convert lan9303.txt to yaml format to fix below CHECK_DTBS warnings:
-arch/arm/boot/dts/nxp/imx/imx53-kp-hsc.dtb: /soc/bus@50000000/i2c@53fec000/switch@a: failed to match any schema with compatible: ['smsc,lan9303-i2c']
+On Tue, May 12, 2026 at 03:26:49PM +0300, Abel Vesa wrote:
+> The Eliza MTP features a single USB Type-C port. Its USB 2.0 lines are
+> routed through an eUSB2 repeater provided by the PM7750BA PMIC.
+> 
+> Describe the port and repeater, and enable the USB controller and PHYs.
+> 
+> Also specify the ADSP firmware and enable the remoteproc.
+> 
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Tested-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/eliza-mtp.dts | 81 ++++++++++++++++++++++++++++++++++
+>  1 file changed, 81 insertions(+)
+> 
+> +
+> +		connector@0 {
+> +			compatible = "usb-c-connector";
+> +			reg = <0>;
+> +
+> +			power-role = "dual";
+> +			data-role = "dual";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				port@0 {
+> +					reg = <0>;
+> +
+> +					pmic_glink_hs_in: endpoint {
+> +						remote-endpoint = <&usb_dwc3_hs>;
+> +					};
+> +				};
+> +
+> +				port@1 {
+> +					reg = <1>;
+> +
+> +					pmic_glink_ss_in: endpoint {
+> +						remote-endpoint = <&usb_dp_qmpphy_out>;
 
-Addtional changes:
-  - rename switch-phy to switch in example.
+No redrivers?
 
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
----
- .../devicetree/bindings/net/dsa/lan9303.txt   | 100 --------------
- .../bindings/net/dsa/smsc,lan9303.yaml        | 123 ++++++++++++++++++
- 2 files changed, 123 insertions(+), 100 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/net/dsa/lan9303.txt
- create mode 100644 Documentation/devicetree/bindings/net/dsa/smsc,lan9303.yaml
+Other than that:
 
-diff --git a/Documentation/devicetree/bindings/net/dsa/lan9303.txt b/Documentation/devicetree/bindings/net/dsa/lan9303.txt
-deleted file mode 100644
-index 46a732087f5ca..0000000000000
---- a/Documentation/devicetree/bindings/net/dsa/lan9303.txt
-+++ /dev/null
-@@ -1,100 +0,0 @@
--SMSC/MicroChip LAN9303 three port ethernet switch
---------------------------------------------------
--
--Required properties:
--
--- compatible: should be
--  - "smsc,lan9303-i2c" for I2C managed mode
--    or
--  - "smsc,lan9303-mdio" for mdio managed mode
--
--Optional properties:
--
--- reset-gpios: GPIO to be used to reset the whole device
--- reset-duration: reset duration in milliseconds, defaults to 200 ms
--
--Subnodes:
--
--The integrated switch subnode should be specified according to the binding
--described in dsa/dsa.txt. The CPU port of this switch is always port 0.
--
--Note: always use 'reg = <0/1/2>;' for the three DSA ports, even if the device is
--configured to use 1/2/3 instead. This hardware configuration will be
--auto-detected and mapped accordingly.
--
--Example:
--
--I2C managed mode:
--
--	master: masterdevice@X {
--
--		fixed-link { /* RMII fixed link to LAN9303 */
--			speed = <100>;
--			full-duplex;
--		};
--	};
--
--	switch: switch@a {
--		compatible = "smsc,lan9303-i2c";
--		reg = <0xa>;
--		reset-gpios = <&gpio7 6 GPIO_ACTIVE_LOW>;
--		reset-duration = <200>;
--
--		ports {
--			#address-cells = <1>;
--			#size-cells = <0>;
--
--			port@0 { /* RMII fixed link to master */
--				reg = <0>;
--				ethernet = <&master>;
--			};
--
--			port@1 { /* external port 1 */
--				reg = <1>;
--				label = "lan1";
--			};
--
--			port@2 { /* external port 2 */
--				reg = <2>;
--				label = "lan2";
--			};
--		};
--	};
--
--MDIO managed mode:
--
--	master: masterdevice@X {
--		phy-handle = <&switch>;
--
--		mdio {
--			#address-cells = <1>;
--			#size-cells = <0>;
--
--			switch: switch-phy@0 {
--				compatible = "smsc,lan9303-mdio";
--				reg = <0>;
--				reset-gpios = <&gpio7 6 GPIO_ACTIVE_LOW>;
--				reset-duration = <100>;
--
--				ports {
--					#address-cells = <1>;
--					#size-cells = <0>;
--
--					port@0 {
--						reg = <0>;
--						ethernet = <&master>;
--					};
--
--					port@1 { /* external port 1 */
--						reg = <1>;
--						label = "lan1";
--					};
--
--					port@2 { /* external port 2 */
--						reg = <2>;
--						label = "lan2";
--					};
--				};
--			};
--		};
--	};
-diff --git a/Documentation/devicetree/bindings/net/dsa/smsc,lan9303.yaml b/Documentation/devicetree/bindings/net/dsa/smsc,lan9303.yaml
-new file mode 100644
-index 0000000000000..42f8473538a07
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/dsa/smsc,lan9303.yaml
-@@ -0,0 +1,123 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/dsa/smsc,lan9303.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: SMSC/MicroChip LAN9303 three port ethernet switch
-+
-+maintainers:
-+  - Frank Li <Frank.Li@nxp.com>
-+
-+description:
-+  The LAN9303 is a three port ethernet switch with integrated PHYs for the
-+  two external ports. The third port is an RMII/MII interface to a host
-+  processor. The device can be managed via I2C or MDIO.
-+
-+  Note - always use 'reg = <0/1/2>;' for the three DSA ports, even if the
-+  device is configured to use 1/2/3 instead. This hardware configuration
-+  will be auto-detected and mapped accordingly.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - smsc,lan9303-i2c
-+      - smsc,lan9303-mdio
-+
-+  reg:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    description:
-+      GPIO to be used to reset the whole device
-+    maxItems: 1
-+
-+  reset-duration:
-+    description:
-+      Reset duration in milliseconds
-+    default: 200
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+allOf:
-+  - $ref: dsa.yaml#
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    /* I2C managed mode */
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        switch@a {
-+            compatible = "smsc,lan9303-i2c";
-+            reg = <0xa>;
-+            reset-gpios = <&gpio7 6 GPIO_ACTIVE_LOW>;
-+            reset-duration = <200>;
-+
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                port@0 {
-+                    reg = <0>;
-+                    label = "cpu";
-+                    ethernet = <&master>;
-+                };
-+
-+                port@1 {
-+                    reg = <1>;
-+                    label = "lan1";
-+                };
-+
-+                port@2 {
-+                    reg = <2>;
-+                    label = "lan2";
-+                };
-+            };
-+        };
-+    };
-+
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    /* MDIO managed mode */
-+    mdio {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        switch@0 {
-+            compatible = "smsc,lan9303-mdio";
-+            reg = <0>;
-+            reset-gpios = <&gpio7 6 GPIO_ACTIVE_LOW>;
-+            reset-duration = <100>;
-+
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                port@0 {
-+                    reg = <0>;
-+                    label = "cpu";
-+                    ethernet = <&master>;
-+                };
-+
-+                port@1 {
-+                    reg = <1>;
-+                    label = "lan1";
-+                };
-+
-+                port@2 {
-+                    reg = <2>;
-+                    label = "lan2";
-+                };
-+            };
-+        };
-+    };
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
+
+
+
+> +					};
+> +				};
+> +			};
+> +		};
+> +	};
+> +
+>  	vph_pwr: regulator-vph-pwr {
+>  		compatible = "regulator-fixed";
+>  
+
 -- 
-2.43.0
-
+With best wishes
+Dmitry
