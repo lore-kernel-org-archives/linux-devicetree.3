@@ -1,24 +1,24 @@
-Received: from mail-m49225.qiye.163.com (mail-m49225.qiye.163.com [45.254.49.225])
+Received: from mail-m3273.qiye.163.com (mail-m3273.qiye.163.com [220.197.32.73])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B9AE4C6F10;
-	Tue, 12 May 2026 10:02:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7865C4C77AF;
+	Tue, 12 May 2026 10:02:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778580135; cv=none; b=ckk6fb7NU0IrxrWAySOWPPgk8kDHkJBIPI7djCsUdGealIkyKxrfqR2YjQ6npTlEdUUmNYoto+hFTC+jYTKmTLGcD+bi0L39l7KBqwJytsZ1t6OvobsCB2AyENDsIZuNbhNu7MdEinuuipafUFKBY29SQBiRc3vjYS8xhlyE+E4=
+	t=1778580149; cv=none; b=puhD4FAWqC6C07EfnLOEzv5uY64p80kdQSxhVLU9BRpwxw8RykAlV9hcnSuotqQMwe1V8EYcMdd1EnQIJttXQabIcNEp+EUqTGNjaFccExL1ykR2oLmneW//mdymXDbg2n457jIrCkc0qfAloD7kKFnfDjIfnhaJ+0ihVUDRCNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778580135; c=relaxed/simple;
-	bh=Ag+8igEwO+FSzZ6NOs7fIIS/GRFyia8E9F8yANMYI8A=;
+	s=arc-20240116; t=1778580149; c=relaxed/simple;
+	bh=GFPWi/xaj2KK9JkNv4kgMVIXco4zFkyHwtNhMlrUhGI=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=nMDqu97qQN7LHpEsaQUeoAk/b3dtAQwTvjmCJkJ0qg89LWhJWj1wZHEUdCmgQXpl9NE0H3QjwS+4B9PCZKaKlxvVen1Hhb61qx0qKA/d5CLJ6B/Qat3vlZ2PR59ZNfSeOs/S/rtbhADdCp4KR4BXUAkrWWVsmOa4F9dO9HueyNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=K+3nL3XW; arc=none smtp.client-ip=45.254.49.225
+	 MIME-Version; b=D2ADf3AA7bj+s5nte2Qf6T0OB4TIDQrfom7wGsUEDDv+mmX9Ru8MAb3xleFlJlh9AVcBgEk0GVEUE/Pa83OgmNLtls5qv29ga3+2vL16cZ40RWYFJzWr/xUexP8NzmX2ukP5kbyOFx16CJCxK06PkEmSp0RiRIdrCy5J81uRs0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=TlZs2dle; arc=none smtp.client-ip=220.197.32.73
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="K+3nL3XW"
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="TlZs2dle"
 Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3e1830305;
-	Tue, 12 May 2026 17:56:51 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 3e1830329;
+	Tue, 12 May 2026 17:57:01 +0800 (GMT+08:00)
 From: Damon Ding <damon.ding@rock-chips.com>
 To: hjc@rock-chips.com,
 	heiko@sntech.de,
@@ -50,9 +50,9 @@ Cc: Laurent.pinchart@ideasonboard.com,
 	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v4 02/10] dt-bindings: display: rockchip: analogix-dp: Add per-clock descriptions
-Date: Tue, 12 May 2026 17:56:36 +0800
-Message-Id: <20260512095644.1946084-3-damon.ding@rock-chips.com>
+Subject: [PATCH v4 07/10] arm64: dts: rockchip: Add eDP node for RK3576
+Date: Tue, 12 May 2026 17:56:41 +0800
+Message-Id: <20260512095644.1946084-8-damon.ding@rock-chips.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260512095644.1946084-1-damon.ding@rock-chips.com>
 References: <20260512095644.1946084-1-damon.ding@rock-chips.com>
@@ -63,47 +63,76 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e1b9e2cdc03a3kunm05d2ddd6129038
+X-HM-Tid: 0a9e1b9e539603a3kunm05d2ddd6129074
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTB1LVkpOQk4aTUtMSE4dHlYVFA
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHk8ZVk1PSRgaGB9ITUpJQlYVFA
 	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
 	pKQk1VSktLVUpCWQY+
 DKIM-Signature: a=rsa-sha256;
-	b=K+3nL3XW2POmmcUJ5vdRALsdx9hq84cPmwZinUo+zLTAC5ZqUm3H71c9rFkSw+w4CNEfHGADH2P9ml69EdLbN7cooayhXT7VAS+Dg60o10ReK8R/4QPHedYvlDEu88GSsKAh0dpoCvSWYbuSyhj1WL1B3NmvI4m6uT+7ddAMu6E=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=g6TnEj69MTc0WgItceMOUMSjBJQFQm6ryXhi0BKwYoM=;
+	b=TlZs2dle4U/ThViWcwWNBoHkaubGkGCdTjx/mzymetU+Vf9oQSsP2cbL/y7bdjnVkNIz2WoO+YKvHxLsbb0HzSap0McaC8TjAHn/JD2ktoJdOq3H1IE38T7P5lA5rNXR6NWUNWLXFZrrxNxQOvqPfh8uvoDOQLkwCekQ8Tso1sw=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=K1DLY9Im8emQ1pvFmDCS9X34Zpvqnm1ezAB2dEZJU7I=;
 	h=date:mime-version:subject:message-id:from;
 
-Supplement dedicated description for each clock in the clocks
-property, clarifying the function of each clock input for the
-Analogix DP controller binding.
+Add full device tree definition for the integrated eDP controller
+on RK3576, following the existing RK3588 hardware layout.
+
+Configure required register range, clocks, interrupt, phy, power
+domain, reset and grf properties to fully describe the controller.
 
 Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
 ---
+
+Changes in v2:
+- Add Reviewed-by tag.
 
 Changes in v4:
 - Modify the commit msg.
 ---
- .../bindings/display/rockchip/rockchip,analogix-dp.yaml      | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi | 28 ++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-index d2bc8636b626..0651853a7a5d 100644
---- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-+++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-@@ -19,7 +19,10 @@ properties:
+diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+index 28175d8200d5..733449cb88b1 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+@@ -1496,6 +1496,34 @@ hdmi_out: port@1 {
+ 			};
+ 		};
  
-   clocks:
-     minItems: 2
--    maxItems: 3
-+    items:
-+      - description: Reference clock
-+      - description: APB bus clock
-+      - description: GRF or AHB bus clock
- 
-   clock-names:
-     minItems: 2
++		edp: edp@27dc0000 {
++			compatible = "rockchip,rk3576-edp";
++			reg = <0x0 0x27dc0000 0x0 0x1000>;
++			clocks = <&cru CLK_EDP0_24M>, <&cru PCLK_EDP0>, <&cru HCLK_VO0_ROOT>;
++			clock-names = "dp", "pclk", "hclk";
++			interrupts = <GIC_SPI 365 IRQ_TYPE_LEVEL_HIGH>;
++			phys = <&hdptxphy>;
++			phy-names = "dp";
++			power-domains = <&power RK3576_PD_VO0>;
++			resets = <&cru SRST_EDP0_24M>, <&cru SRST_P_EDP0>;
++			reset-names = "dp", "apb";
++			rockchip,grf = <&vo0_grf>;
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				edp_in: port@0 {
++					reg = <0>;
++				};
++
++				edp_out: port@1 {
++					reg = <1>;
++				};
++			};
++		};
++
+ 		dp: dp@27e40000 {
+ 			compatible = "rockchip,rk3576-dp";
+ 			reg = <0x0 0x27e40000 0x0 0x30000>;
 -- 
 2.34.1
 
