@@ -1,168 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6360284690
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 23:32:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F71C376BCA;
+	Tue, 12 May 2026 23:39:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778628725; cv=none; b=J/y5emxRG1x8CSIAfrB9/6yjEYisDt121u8DVp8wFLJBy53/NgcTNY0vGflOih9iwdQ74dNG3pdyGxaEVqfwQRSFMM9IP5N/QUJJ0PAv622Ol0lm/Qz1ATboGd3nPgPIwsUWXRWf8CgRxF9rNGMZqp9t6ZxPHZEb9ZZ7Lctn2u8=
+	t=1778629172; cv=none; b=Bof+z+5W4kcOL7n8/DAfVjmj61k+mLruCu4hTPTK437BlKhu3MFIUCn7LahuCNltewq0i6r8Mrb7xKwHyLXAvSgsRINtAeSMWYkVjGe8CDAmWJAEAMA/TlFiPPHQC4o8CSoKrYtPgx/GBkg2kJir0v3VCzDIP16hRBQ2G5ALwjA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778628725; c=relaxed/simple;
-	bh=dvR8tgkwL1XdLpmS69gTT5yllTgLNGfet2QCZGGEcAU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MM+Tb1zxJ/d9s9xNPuJEkyfnqLDCFcVja3ttgZ4cW6DckF19wzPgTTSZKDIX183hIuLwkMFmPXnA+tnCEUfCtFdtfl+PTEpNYQD3pczxG1+G3ogG5odFYY7p6mxe6HoIppWlKyro3jEUX2wjk2O3bYBiMGkR0cxk7isgM/6Cbfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=inoaaBkU; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778629172; c=relaxed/simple;
+	bh=DHIDCJpr1wW/RmLStRRfJ4SeG0XYE0464fuHjjtQG1w=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=na0sjxBxZcuy8tY3OOUSv0rIWZMGwmD5wXUFySa7XaHlhP4ghNvd2YH8Vo8HJUE+k0sMq+cWGt6NVvInLGsLJJYtjW0rE9MaiY3s0Tf3JPdPSC3iSYtO2x2rBTcZmoPsJYzbHk1jZX1QEP7VoFYzeYsAVOCZhbfSYw7GcDNd7Z8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UuMw2f4l; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="inoaaBkU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CA40C2BCB0;
-	Tue, 12 May 2026 23:32:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UuMw2f4l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4298EC2BCB0;
+	Tue, 12 May 2026 23:39:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778628725;
-	bh=dvR8tgkwL1XdLpmS69gTT5yllTgLNGfet2QCZGGEcAU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=inoaaBkU216sRkuPDx71S877BcO/7HHK6s/ax6WIZOJnmdJoyaUOWkEqzQbp49N3x
-	 PPN/pviIadf6fAvLVqzBeFCZbtEDTY1JFYfA3q5ByJN1JLdkwjvUeJ+f+dne+4/Xxw
-	 Q3vw1FBsetyhVYOmvkshafZ52ANktz8L4rHbsmcyqqkA/yJemDubnFrrBhslqi5iBb
-	 CbTN88A+ExqWcciQ5EYCxu3LWXYpfCKoR+ypq2yGNDAp2ynFVamxP/Ky2RbTo7vZW4
-	 O50lTls0D+SE9H4sXsIszKh34ktdYVmwhBMXjk1HVe/9oX84EWLktaaYCP4GmnqMUO
-	 nC1mc6QsDHFJA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v6 12/12] net: airoha: Better handle MIB for
- GDM with multiple port attached
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lorenzo Bianconi" <lorenzo@kernel.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260511-airoha-eth-multi-serdes-v6-12-c899462c4f75@kernel.org>
-References: <20260511-airoha-eth-multi-serdes-v6-12-c899462c4f75@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 12 May 2026 23:32:05 +0000
-Message-Id: <20260512233205.7CA40C2BCB0@smtp.kernel.org>
+	s=k20201202; t=1778629172;
+	bh=DHIDCJpr1wW/RmLStRRfJ4SeG0XYE0464fuHjjtQG1w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=UuMw2f4lDjcKZmbU3ncN7J+AOqATITffa2BJLOAg02WBe3C0ugS4soOdVfWbQu/Nh
+	 L4CtbGiNGhgEgdcvcXwCJMSSe7ySl9oQO2YWI5a+EF1zS/fvePCVfdspr5GbLrVSqT
+	 WR5pYdHBhlPLRIleaWvEn1PF2/2PLY3YB9RK1F5GO1Qt0r+R61lAAakb7UPv7/ZiVO
+	 PuOTlzsnTZNEUFUN7i7JlbjX/Wbb2NC3Fp2fasvE0OngRVwcAPyZs4hHj9Gm4l+NPm
+	 MdF8lhHidPTwiX+lt9cRYVgekY7APErVrHHcAWJfyEPDrIU9B2+krFZP40eolYpT3n
+	 OoERUtllQ8F9Q==
+Date: Tue, 12 May 2026 16:39:30 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
+Cc: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
+ <davem@davemloft.net>, <edumazet@google.com>, <pabeni@redhat.com>,
+ <horms@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+ <conor+dt@kernel.org>, <woojung.huh@microchip.com>,
+ <linux@armlinux.org.uk>, <Steen.Hegelund@microchip.com>,
+ <daniel.machon@microchip.com>, <linux-kernel@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>
+Subject: Re: [PATCH net-next v4 9/9] net: dsa: lan9645x: add port statistics
+Message-ID: <20260512163930.326bc238@kernel.org>
+In-Reply-To: <c48f64d22429c1d4e10015033da4fff16c2a6d7d.camel@microchip.com>
+References: <20260430-dsa_lan9645x_switch_driver_base-v4-9-f1b6005fa8b7@microchip.com>
+	<20260506014618.1616861-1-kuba@kernel.org>
+	<c48f64d22429c1d4e10015033da4fff16c2a6d7d.camel@microchip.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] The RUNT_CNT statistic is overwritten and lost due to incorrect as=
-signment logic.
-- [High] 32-bit free-running hardware statistics will wrap around and reset=
- 64-bit software counters to zero.
-- [High] Torn hardware reads on 64-bit registers due to free-running counte=
-rs.
-- [High] Pre-existing potential deadlock due to using `spin_lock()` instead=
- of `spin_lock_bh()` for stats lock.
---
+On Tue, 12 May 2026 10:47:22 +0200 Jens Emil Schulz Ostergaard wrote:
+> > The commit message says this worker "update[s] it frequently to handle
+> > overflows in hardware."
+> >=20
+> > Looking at lan9645x_stats_add_cnt():
+> >=20
+> >     static inline void lan9645x_stats_add_cnt(u64 *cnt, u32 val)
+> >     {
+> >         if (val < (*cnt & U32_MAX))
+> >             *cnt +=3D (u64)1 << 32; /* value has wrapped */
+> >=20
+> >         *cnt =3D (*cnt & ~(u64)U32_MAX) + val;
+> >     }
+> >=20
+> > this compensates for at most one 32-bit wrap per polling interval. If t=
+wo
+> > or more wraps happen between reads, the low-half comparison no longer
+> > detects the missed wrap and the 64-bit counter silently loses 2^32 per
+> > missed wrap.
+> >=20
+> > At the chip's 2.5 Gbps line rate (LAN9645X_SPEED_2500 in lan9645x_main.=
+h),
+> > a 32-bit byte counter wraps roughly every 13.7 s, so two wraps happen in
+> > about 27.5 s. The polling interval is LAN9645X_STATS_CHECK_DELAY =3D 3 =
+* HZ,
+> > but there is no upper bound on the actual elapsed time between reads:
+> > delayed work can be stretched by system suspend/resume, heavy CPU load,=
+ or
+> > regmap/SPI contention.
+> >=20
+> > Would it be worthwhile to either bound the worst-case polling gap
+> > (e.g. a suspend/resume hook that forces a read, or a timestamp-based
+> > sanity check that detects a stretched interval and logs a warning) so
+> > that rx_bytes/tx_bytes reported to ndo_get_stats64 and ethtool cannot
+> > silently undercount by multiples of 2^32?
+> >  =20
+>=20
+> It is true, and the timing is chosen so at most 1 wrap is supposed to occ=
+ur.
+> I believe this is the exact pattern already used by ocelot, lan966x, spar=
+x5
+> and lan969x.
+>=20
+> Maybe I misunderstand the suspend/resume comment. We do not implement
+> support to suspend/resume, but if we did, then I assume you can suspend
+> for an arbitrary amount of time, so doing an additional read on=C2=A0
+> suspend/resume will not solve this problem?
+>=20
+> The hw counters are 32bit. To stay synced they must never wrap more than
+> once. I think the only way avoid this problem is if we can make absolute
+> guarantees about how often the polling code runs?
 
-commit 2f0d0c633539afc37cceb4ad426afb56465e7b6d
-Author: Christian Marangi <ansuelsmth@gmail.com>
-Subject: net: airoha: Better handle MIB for GDM with multiple port attached
-
-The commit enables the split MIB feature for GDM3 and GDM4, moving stats
-from port to device, and modifying the stats update logic from clear-on-read
-to direct assignment since the MIB clear was removed.
-
-> diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ether=
-net/airoha/airoha_eth.c
-> index 533ffe20f8333..27ccc636d8009 100644
-> --- a/drivers/net/ethernet/airoha/airoha_eth.c
-> +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-> @@ -1621,143 +1621,146 @@ static void airoha_update_hw_stats(struct airoh=
-a_gdm_dev *dev)
->  	struct airoha_eth *eth =3D dev->eth;
->  	u32 val, i =3D 0;
-> =20
-> -	spin_lock(&port->stats.lock);
-> -	u64_stats_update_begin(&port->stats.syncp);
-> +	spin_lock(&port->stats_lock);
-
-This isn't a bug introduced by this patch, but could this spin_lock()
-cause a deadlock? Since airoha_update_hw_stats() is called by
-ndo_get_stats64() (which can run in softirq context) and ethtool
-callbacks (which run in process context), a softirq could interrupt the
-process context and spin forever trying to acquire the same lock. Should
-this be spin_lock_bh()?
-
-> +	u64_stats_update_begin(&dev->stats.syncp);
-> +
-> +	/* Read relevant MIB for GDM with multiple port attached */
-> +	if (port->id =3D=3D AIROHA_GDM3_IDX || port->id =3D=3D AIROHA_GDM4_IDX)
-> +		airoha_fe_rmw(eth, REG_FE_GDM_MIB_CFG(port->id),
-> +			      FE_TX_MIB_ID_MASK | FE_RX_MIB_ID_MASK,
-> +			      FIELD_PREP(FE_TX_MIB_ID_MASK, dev->nbq) |
-> +			      FIELD_PREP(FE_RX_MIB_ID_MASK, dev->nbq));
-> =20
->  	/* TX */
->  	val =3D airoha_fe_rr(eth, REG_FE_GDM_TX_OK_PKT_CNT_H(port->id));
-> -	port->stats.tx_ok_pkts +=3D ((u64)val << 32);
-> +	dev->stats.tx_ok_pkts =3D (u64)val << 32;
->  	val =3D airoha_fe_rr(eth, REG_FE_GDM_TX_OK_PKT_CNT_L(port->id));
-> -	port->stats.tx_ok_pkts +=3D val;
-
-Now that the hardware counters are free-running (the MIB clear operation
-was removed later in the patch), can a torn read occur here? If the low
-32-bit register overflows and increments the high 32-bit register in the
-brief window between the two reads, the resulting 64-bit value will be
-corrupted and off by ~4.29 billion.
-
-[ ... ]
->  	val =3D airoha_fe_rr(eth, REG_FE_GDM_TX_ETH_DROP_CNT(port->id));
-> -	port->stats.tx_drops +=3D val;
-> +	dev->stats.tx_drops =3D val;
-
-Since TX_ETH_DROP_CNT is a 32-bit hardware register and the MIB clear
-operation is removed, the hardware counter will eventually wrap back to
-zero. By assigning it directly to dev->stats.tx_drops, won't this
-cause the 64-bit software counter to also silently drop back to zero and
-violate the monotonically increasing requirement of ndo_get_stats64?
-Does this need to calculate the delta instead of directly assigning the
-value?
-
-[ ... ]
->  	val =3D airoha_fe_rr(eth, REG_FE_GDM_TX_ETH_RUNT_CNT(port->id));
-> -	port->stats.tx_len[i] +=3D val;
-> +	dev->stats.tx_len[i] =3D val;
-> =20
->  	val =3D airoha_fe_rr(eth, REG_FE_GDM_TX_ETH_E64_CNT_H(port->id));
-> -	port->stats.tx_len[i] +=3D ((u64)val << 32);
-> +	dev->stats.tx_len[i] =3D (u64)val << 32;
->  	val =3D airoha_fe_rr(eth, REG_FE_GDM_TX_ETH_E64_CNT_L(port->id));
-> -	port->stats.tx_len[i++] +=3D val;
-
-Does this overwrite the RUNT_CNT statistic? The code assigns RUNT_CNT
-to tx_len[i] (where i=3D0), but immediately overwrites it with
-E64_CNT_H at the same index because i is not incremented between
-the assignments.
-
-[ ... ]
->  	i =3D 0;
->  	val =3D airoha_fe_rr(eth, REG_FE_GDM_RX_ETH_RUNT_CNT(port->id));
-> -	port->stats.rx_len[i] +=3D val;
-> +	dev->stats.rx_len[i] =3D val;
-> =20
->  	val =3D airoha_fe_rr(eth, REG_FE_GDM_RX_ETH_E64_CNT_H(port->id));
-> -	port->stats.rx_len[i] +=3D ((u64)val << 32);
-> +	dev->stats.rx_len[i] =3D (u64)val << 32;
->  	val =3D airoha_fe_rr(eth, REG_FE_GDM_RX_ETH_E64_CNT_L(port->id));
-> -	port->stats.rx_len[i++] +=3D val;
-
-Does this also overwrite the RUNT_CNT statistic for the RX path in the
-same way?
-
-[ ... ]
-> -	/* reset mib counters */
-> -	airoha_fe_set(eth, REG_FE_GDM_MIB_CLEAR(port->id),
-> -		      FE_GDM_MIB_RX_CLEAR_MASK | FE_GDM_MIB_TX_CLEAR_MASK);
-> +	dev->stats.rx_len[i++] =3D val;
-> =20
-> -	u64_stats_update_end(&port->stats.syncp);
-> -	spin_unlock(&port->stats.lock);
-> +	u64_stats_update_end(&dev->stats.syncp);
-> +	spin_unlock(&port->stats_lock);
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511-airoha-eth=
--multi-serdes-v6-0-c899462c4f75@kernel.org?part=3D12
+I think AI is probably asking for too much here. You could stash jiffies
+on each work run, and detect potential overflow, but all you can do is
+print a warning. During suspend there should be no traffic, so that's
+bogus.
