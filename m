@@ -1,68 +1,66 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBB1B3A5457
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 23:12:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E3439BFF5
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 23:12:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778627541; cv=none; b=SzPlEFS9vb8nIpYrz2Dwj7SMFwP8EHux78hQ7WkRvdAFuLW/+5SellB4dekACgaiw0q42GkH5Skh+n/cVAq2NtgFts9tRSRj9ND0SVLiLQdZOU6ZNeah7+Q/FBxfvrelLELNjINrMQpHZnwNbL+WW9USxHt2mCfKIPAUE7EYoOA=
+	t=1778627542; cv=none; b=iOon6eo0akLxxtl3j/nZKqIWhMN73suwqPLNTcf6440403B+Lm/WME66t1Q8+kJZKzgordhV9nvqv97jHuXjSg+yjGireF48NlsfH/Th8+D+i7k7YCM4FFCVBr+cECx5whpbV35OJTAhrv+WCJ3bPUuEklDVVK90nnT0AKe7y9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778627541; c=relaxed/simple;
-	bh=MKDoKv+U4AbZ5taa+fSGH+o46ov1RsxI1vDLHg7S71U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Adn9iX2PHhSQ+NiEKSA7IOzPKo3/Ttznqz0C85hL85zhH+r/NOReB514NiqMyddnhBqnJOKxFUGCYmid3gSqxrayyWUpgBJOADi67N6A5oRp/gvCFRfJsP5OnG78ZuB2ydVXd67UZZZbrlftgvLF5Yp767PZzdMTJ3ckMFLKdTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=bGb99TEr; arc=none smtp.client-ip=209.85.128.49
+	s=arc-20240116; t=1778627542; c=relaxed/simple;
+	bh=QMCGvOgTe1IRUx/r/waxC3kN2j/mbhgWj+jEk5Ocqb0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZCbguCNC/MyYrDGE4SspD18GGOiKvsOaJxmTiP3nJtdGtrnTyzIzPZa3MN5gO6aoRoK1hZuLENfkWPbPcKNmbx6G5GZTBrLzyU96GsvizendZHS2y67LxOqh928RWjHT76kLONGGVRT715ZggoDbm0wDXD8SSzS7tZ4Nq+GUC+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Yicc5trm; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="bGb99TEr"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-488ff90d6c7so54577735e9.2
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 16:12:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Yicc5trm"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4891c0620bcso42900555e9.1
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 16:12:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1778627538; x=1779232338; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=WgDS3ViE9NSujWIMzNrIZdzaFnZBEociQgn363+PsFA=;
-        b=bGb99TErvYnJAEE9CwrFVthpUjf+F0/AAZyeZ2wvjOmEvI5WO057Fxm+CKIEDy6gSH
-         ezhzxoTIk0T5TJYNySwJDlEsQz0TUgBdbJ07JH5QVg19TI2A1AVBjbqEGTypv38BbQES
-         UjkTIMRmNOqu18pOltys/jVxi/vpwfVWfQoZlE3UlLvh5XdSNyan4dr9aZsjm8O7Ye6B
-         sow+7owkyhcevy4lNVg8xGhmVgT5yKfHQXfR07U9+wH15ypkY4U5E58VTaNgUdynZUOD
-         zYumoiPtFuh4hik4KKahc/QqvdwZLDx7bPoznrW4VEUBklksOU4mHrnTMEHrIYbnf1tP
-         orxQ==
+        d=linaro.org; s=google; t=1778627537; x=1779232337; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=SQyBE0OznAhCrRGD3AceNMtDM18TfwDnmYG/NfXXQJI=;
+        b=Yicc5trmAnu1E5+8sRNZ/cxtSyWuIIMGj2Ajk+BY/K+Odxw5MQNZgcwpjde36+AO7O
+         l2rLlQLFK4YZp5pcZsSQvvB7H0+IYSmH1GcrEjO/18ykr3vHAd05/HP4yL5mqdnwepXs
+         ltT/+qgbqaMPPo151MoNFdcc8bvWjwh+Hq9u/Y4iBDaBQViWG/mqZ6+KgKaikhe7VxVM
+         hIsaPyjbC815H6dMxM5OuCClMAzwFsm4Aer7mTW3qqUNliwfbcvenYk7eLzVghbotQdy
+         YIIWTaXzFtFSYjI7nyc5X5EuS/uhiOVDHrj7+RHjumPUkn3AjlhbYxhq66UtdSOYuzco
+         l6vA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778627538; x=1779232338;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=WgDS3ViE9NSujWIMzNrIZdzaFnZBEociQgn363+PsFA=;
-        b=dlLcDXeon9DZwtYB97WN628/IDJoEdiaVeIMKkOGkor9qg0iEwqdbzc5uiTairGHha
-         eRxUoBmGyDStgMY1j09hnsyu7htOStdM5n1DHM831ECZnJJgBXSp5QjcZ3c3y6B0IFhm
-         n8xsu8ZV2DYUAb7sygXqFTTVplr6gLdH6i2+tCKHGPZ7YckmV5oufeSd7KeVTM+6zeoi
-         K8Vjaqg7kn1KXOyf1prlyUALdBvYwl9TCv3iwldgZ6oZ5U0ZA7nrxiycfeBStwOXYZKn
-         94cCs2DB4jO0iicBH2yEInLE+ETXYl7ikWsnZVBD1uBBOBEHvDoOwFJP/aMHJKKoUobn
-         3pzA==
-X-Forwarded-Encrypted: i=1; AFNElJ9jMqP3rp0CK5BhPWJRdZqWKASaBSI0QT8XLoJrA3K4n8D+a4HpqR48U8PQUVBjwOA3Nu66X3mgo/3P@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy6Qv41u6FTpOLNwF/4wN6eeoiRjEdLRlAL/XAPJPik4XtGRV23
-	TWYYDA8EXOcaurEsNouJLAUJsUdgDAdD63UE3moZPe8QjBjxwsXbkg7nSDzkaKkd+EY=
-X-Gm-Gg: Acq92OE5Bis+Bb1QG6HrfevqmsDGi6MtQ8ZzPvhHkpa41FGwdc7H1L3Q8VV78dmRy6d
-	5KeLXd33iOc/9bjm3d62OQZKivHjwtgNjOyp9uObA3nA2DVxA+XwZ2WCGBlgU1x/CRY+/UPdlDO
-	4teE7u3DXGZv459ltW9xWU5/HotgJhCYtuIZGHhbh/1TUooSkyvEhL72AWmonl87/WyAVVy424o
-	mLlSAfF489PNUwF7jwLthQHqc4P377oD1d49ULvR5UfUPJLWUKtNG8Vn7f+lrTUCiLOTD/tulTU
-	IcJVjRvMyHJumFbgYmUnkngVmOeTRf3aMRyQ5uSwTbMEhow//J/8DZf4bF/98AFDsyzqHvGrvxV
-	gHZM/l5p3KLk8CxLfnQazFI0+jV3KS7v/xpzHw7Lo0e7xsq9UK59TLaG202w0XWHqTZ2GzWFkWR
-	quDbWIdzBmXaLWIFBHcMJZB/R+kfcS0OqaOi1CPreNaXrtQ76NkVb3s6HoLdgQFN6Vl5nbPhXY6
-	lbW8K+LuK3S00DM
-X-Received: by 2002:a05:600c:3144:b0:48e:82af:d9 with SMTP id 5b1f17b1804b1-48fcea18dfbmr1307925e9.29.1778627538335;
-        Tue, 12 May 2026 16:12:18 -0700 (PDT)
-Received: from [127.0.1.1] ([94.4.195.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e913469besm20712305e9.14.2026.05.12.16.12.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        d=1e100.net; s=20251104; t=1778627537; x=1779232337;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=SQyBE0OznAhCrRGD3AceNMtDM18TfwDnmYG/NfXXQJI=;
+        b=qSbz2E+GTe747jRNty/o+6K1WAFcGN++UhivU4TaXYjqdr/yYqgHz3wGxlNpT1aLSG
+         n0nsi7et86nb+KGFr5RP7vrFNz2sfpXZ7FHVVuhSTdKsq0T/QZuZ2/DC/2V0SqwWv5+U
+         ozFGtp/jp623lQop56/kmRGkn/Cfhnm8A3rwIjErwrhew0jsomI6ahvHk0f/rPD0TE6r
+         v3UHf4DZw3dBLEAGMs4NunZ9yAuhdcINKzsQa8LaEDVmK2uIBkaL5zHuZKF4OS+pJVwJ
+         ywRgzTkTvsu5voypFPt2SxHUg7UDx/jaMJDfRqQzhVRnOiZ6bdPFkz6+Kb4cmyWFVADh
+         5p0Q==
+X-Forwarded-Encrypted: i=1; AFNElJ9MV/zf7hRTObJxxTb1cFIYjgh6GqQYU3AzZloK9t+v/jYMSULKtok3ihgmsSATHOBea/Jl9vubl7QG@vger.kernel.org
+X-Gm-Message-State: AOJu0YzNKaYXCzOOo+YKJ1O7TKbpmjRu/r1daL39p7HVQzhhmkI6Nulv
+	MSN70eRvXgGJec8DnibyFxE7DVQkmpZEOEpKkG0VMc0snp4j1NnXvuEqGO+qD06RWog=
+X-Gm-Gg: Acq92OEJ9yzusTQKQCdrbx+p/h+Q+THiV3CtXS42phpcqqHy5OkSQVUVgXt45lCL+T7
+	vkbyQqG7ZJzEzafUI2MKFI9S4Y0IhCiQQCCMKTk2tvsCvpqvhHpAkY03ikj5YhskNZEgGwkKA9I
+	cakR14F4c3tkZSYg02+ffT2FALLs/u5SOuNNE24tPZ7kyK+yzHesD4mglVC+mUJFG1FnI2fOqJF
+	L2L8qcmNqtGb1Qe8dGvyllZX7Lv2e8BJeZVRqd1fbH0ekeEndb2Y4RSAznbe3IwBbJQGkAJhDFx
+	758oD4cHESw/lYjfE+IAeFvVw+Aa/8rypaWrhx46G32ZakZ5u3e7QQvBg2EVx7VM/1ka8JQI2Rd
+	oF62KZH/fCKBIMyk4ILvWucn4q0eNalb3yFOYfZ0B2wkG24/nYhyjw+57Zo8fSrMy6opd3mSEDR
+	EwZ810DCvHdRKj3pHLVHewTRjn1vFctVoL56cXGvQFlyCAc1wW+q/CLJW8pVoWLsyWdMaN01wtM
+	ZJADMJY/AEdsnKI
+X-Received: by 2002:a05:600c:8b55:b0:48e:51f8:eb39 with SMTP id 5b1f17b1804b1-48fc9a4b074mr10062455e9.28.1778627537139;
         Tue, 12 May 2026 16:12:17 -0700 (PDT)
+Received: from [127.0.1.1] ([94.4.195.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e913469besm20712305e9.14.2026.05.12.16.12.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 12 May 2026 16:12:16 -0700 (PDT)
 From: Alexey Klimov <alexey.klimov@linaro.org>
-Date: Wed, 13 May 2026 00:12:11 +0100
-Subject: [PATCH 1/2] dt-bindings: firmware: google,gs101-acpm-ipc: document
- Exynos850 compatible
+Subject: [PATCH 0/2] Initial Exynos850 ACPM support for exynos-acpm
+Date: Wed, 13 May 2026 00:12:10 +0100
+Message-Id: <20260513-exynos850-acpm-firmware-support-v1-0-3858d097e433@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,9 +69,11 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260513-exynos850-acpm-firmware-support-v1-1-3858d097e433@linaro.org>
-References: <20260513-exynos850-acpm-firmware-support-v1-0-3858d097e433@linaro.org>
-In-Reply-To: <20260513-exynos850-acpm-firmware-support-v1-0-3858d097e433@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAMqzA2oC/3WOwQ7CIBAFf4Xs2TWALZr+iukB6KJEaRHaWtP03
+ yV68eJx5vDmrZApecrQsBUSzT77oS8gdgzsVfcXQt8VBsml4rWQSMurH/Kp5qhtDOh8Ck+dCPM
+ U45BG5JqcdpXglVFQVmIi55dP4dx+OdFjKqHxK8HoTGiHEPzYsPm4F5ishN8DDfuXt/cbGuqEl
+ QejFJlmFtBu2xvqNeR31wAAAA==
+X-Change-ID: 20260512-exynos850-acpm-firmware-support-0aefaf4104b6
 To: Sam Protsenko <semen.protsenko@linaro.org>, 
  Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -84,35 +84,46 @@ Cc: Peter Griffin <peter.griffin@linaro.org>,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.3
 
-The Exynos850 SoC incorporates an APM co-processor. Communication with
-this hardware block is done using the ACPM protocol, which handles IPC
-messages for clocks, power, thermal management and PMIC control.
+This series adds support for the Exynos850 SoC to the Samsung ACPM
+firmware IPC driver.
 
-Dedicated compatible string is required for the Exynos850 because
-its firmware utilizes a different initialisation data base offset
-(0x7000) compared to the existing GS101 implementation (0xa000).
+The Exynos850 contains an APM co-processor that handles IPC messages for
+clocks, power, thermal management, and PMIC control. While it uses the
+same underlying ACPM communication machinery and protocols set as
+the GS101, the exact implementation details vary between the two SoCs.
+
+Those protocol-specific differences will be managed individually by the
+corresponding protocol drivers. However, a dedicated compatible string
+is still required for the core IPC driver because the Exynos850 firmware
+utilizes a different initialisation data base offset.
+
+First patch updates the google,gs101-acpm-ipc dt-bindings to include the
+new "samsung,exynos850-acpm-ipc" compatible string.
+
+Second patch adds the corresponding match data, base offset, and clock
+device name to the exynos-acpm firmware driver.
+
+There is a dependency for driver changes (not for device tree bindings
+update) on clk-acpm exynos850 series posted here:
+https://lore.kernel.org/linux-samsung-soc/20260512-exynos850-acpm-clk-v1-0-837532ddbf38@linaro.org/
 
 Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
 ---
- Documentation/devicetree/bindings/firmware/google,gs101-acpm-ipc.yaml | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Alexey Klimov (2):
+      dt-bindings: firmware: google,gs101-acpm-ipc: document Exynos850 compatible
+      firmware: samsung: acpm: add Exynos850 support
 
-diff --git a/Documentation/devicetree/bindings/firmware/google,gs101-acpm-ipc.yaml b/Documentation/devicetree/bindings/firmware/google,gs101-acpm-ipc.yaml
-index e68f9c3ca5e2..511c873280fe 100644
---- a/Documentation/devicetree/bindings/firmware/google,gs101-acpm-ipc.yaml
-+++ b/Documentation/devicetree/bindings/firmware/google,gs101-acpm-ipc.yaml
-@@ -22,7 +22,9 @@ description: |
- 
- properties:
-   compatible:
--    const: google,gs101-acpm-ipc
-+    enum:
-+      - google,gs101-acpm-ipc
-+      - samsung,exynos850-acpm-ipc
- 
-   "#clock-cells":
-     const: 1
+ .../devicetree/bindings/firmware/google,gs101-acpm-ipc.yaml    |  4 +++-
+ drivers/firmware/samsung/exynos-acpm.c                         | 10 ++++++++++
+ 2 files changed, 13 insertions(+), 1 deletion(-)
+---
+base-commit: 9e0898f1c0f134c6bad146ca8578f73c3e40ac0a
+change-id: 20260512-exynos850-acpm-firmware-support-0aefaf4104b6
+prerequisite-change-id: 20260512-exynos850-acpm-clk-bed1c23b66eb:v1
+prerequisite-patch-id: 223c977406801dde31779f956e33e65e51a0323c
+prerequisite-patch-id: 9b11f60e3c53e94e28b5e54fb7bb87e5415d8a05
 
+Best regards,
 -- 
-2.51.0
+Alexey Klimov <alexey.klimov@linaro.org>
 
