@@ -1,52 +1,57 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 547A735F5E0;
-	Tue, 12 May 2026 15:49:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C16E3C585A;
+	Tue, 12 May 2026 15:57:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778600996; cv=none; b=oEjaQMW6RolA6k2WiqYAz5tHUtt6hbzsKdDehkO9AAOMNhAEbv3GcUNPpnrYmRbsd1SbbBHQsbHCsoQirovf8kahnqYgjt0zgwYcAqwovj+qNyqHU7KRIrodV+6mJ1764HStP1o8fLZPqsuUi+LsG/2hn69UmY+a+fEmBMNKEHg=
+	t=1778601426; cv=none; b=SEdT0SLZYOptRyWPUvSM78qH8DvYDU1dp7YOkzFoiukJ68OSnaFKx8VgyhNd3ko4n/V4ORd7mQCVVGodtUnT7kQ8bX6MlrB6zTPInKjlsAH92gkQvgT6+u0yVkF97WZL8E3A4llSYMQcc6lJwmUKwUozfE7aokkHFIIuUl9aTbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778600996; c=relaxed/simple;
-	bh=xT04KsS3vdFr5U9rnS1OIQVoQ8mPOcKNw2Vjgn0vL8o=;
+	s=arc-20240116; t=1778601426; c=relaxed/simple;
+	bh=8tzh2aKDG7YCBM/EDfo3r6XGcRGEOLJQwcdsHTcOpoo=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=W0EBCjkHGW2H9mE8pG8HhiOkXoCtONKtvmKWrcnfJC2CP7a5Z2g11pdKhUDuAIAHluP7CEEMEhpLIx7qAFd+AzcuhQvdGy1BWWGuF0CqPMf6ASPN9KiCABfKQvRgsZtLwPB3YSMFNXOpzmoDUfomq/FmZStyyTdISXGcFOUel30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bqe+MtoJ; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version:Content-Type; b=WjAhwTa7xC0gNdJGW7zqiY6s013tgnt75WM7uHM80wEwSX6hkbkyX7NeNfxBE9Uy9aqdHFY0BGKwvpuLz7V2V01XcvcF2DwCqe3Yco5Ag091oezNNqnz+ATKiAHwE9IjYVbNjqHhxwp6YSL1gqcZbQUueAeDWWykypZZbhVKbzU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eZAXThmL; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bqe+MtoJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9D79C2BCB0;
-	Tue, 12 May 2026 15:49:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eZAXThmL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22AD6C2BCC7;
+	Tue, 12 May 2026 15:57:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778600996;
-	bh=xT04KsS3vdFr5U9rnS1OIQVoQ8mPOcKNw2Vjgn0vL8o=;
+	s=k20201202; t=1778601426;
+	bh=8tzh2aKDG7YCBM/EDfo3r6XGcRGEOLJQwcdsHTcOpoo=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=bqe+MtoJUKckxiSp8SbZEmLkoM0jygdg7+XXnLKdgCwg1KIV1Nj/wxMBj5dqlHWsX
-	 Bldeh+G56RqSmhFyUa9n/T1inPZLhq5zSpFCCB91toQamYQm3p1RF+lO43zAmEe+4L
-	 R6VLmWQiq76CQAKXvKAPKEiIEToLW04NIEdjqD6DCoszNgKWrU+91AJfmIgnO49Xoo
-	 4cy4mvnNPM3SjoiZdvDjbMPnpzfV06cvdahdkeSqyOwfa9N5n52q+/qiED3AHeOqFU
-	 Eer19JGdk+JVGp/rsFfyV3Btesq2riF7mMaJ15mdymmKL4/ACEVDBMNOPQvp2iPlFS
-	 Z6ArnMfFy13Tw==
-Date: Tue, 12 May 2026 16:49:42 +0100
+	b=eZAXThmL63eHFSapwA3EBH3wbK3TrdfMFlhAOnVf1cLIdPwsa0bY0lvNEANhTPSfi
+	 eszBsMW5KUDi0Q8QLCzfNba6SfRmt/Ys2y+iqIy9JC+/xvX+P9FihQKfVqMRau6T1r
+	 /oOO2qUMmuCA5v7aAf3pGUr5kXH0dOKxqvNXaLdqolqFLAIrkspvb2Zb/uUT0j7dyD
+	 LL0uyuk8yaIzDZPJ0KGEH3MW/wvHlztO9lzOk1dwnqZsiQLR6xyvdHRkC/kdsypNq7
+	 rrU8X4M64xNB5tqOYyyfwtsT66SSsuC6Yj3nZ3Mb8I+92WfNHbsu7txt5beLEOwUwp
+	 j8nQ7rCjqD0Jw==
+Date: Tue, 12 May 2026 16:56:54 +0100
 From: Jonathan Cameron <jic23@kernel.org>
-To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
- Hennerich <Michael.Hennerich@analog.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Uwe
- =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Linus Walleij
- <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Philipp Zabel
- <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-doc@vger.kernel.org
-Subject: Re: [PATCH v10 4/6] iio: adc: ad4691: add SPI offload support
-Message-ID: <20260512164942.6ef07ee9@jic23-huawei>
-In-Reply-To: <20260511-ad4692-multichannel-sar-adc-driver-v10-4-e1fbb1744e38@analog.com>
-References: <20260511-ad4692-multichannel-sar-adc-driver-v10-0-e1fbb1744e38@analog.com>
-	<20260511-ad4692-multichannel-sar-adc-driver-v10-4-e1fbb1744e38@analog.com>
+To: "Stan, Liviu" <Liviu.Stan@analog.com>
+Cc: Nuno =?UTF-8?B?U8Oh?= <noname.nuno@gmail.com>, Lars-Peter Clausen
+ <lars@metafoo.de>, "Hennerich, Michael" <Michael.Hennerich@analog.com>,
+ "Sa, Nuno" <Nuno.Sa@analog.com>, David Lechner <dlechner@baylibre.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] iio: temperature: ltc2983: Add support for ADT7604
+Message-ID: <20260512165654.5adeba0f@jic23-huawei>
+In-Reply-To: <SA5PR03MB83776E4DF7B5542B40C3B925F6392@SA5PR03MB8377.namprd03.prod.outlook.com>
+References: <SA5PR03MB83778AB3C41E0AF56EC754F8F63D2@SA5PR03MB8377.namprd03.prod.outlook.com>
+	<af3oezNmmBhI4Yu4@nsa>
+	<SA5PR03MB837710AE7FD8B8FFF138B7C5F63D2@SA5PR03MB8377.namprd03.prod.outlook.com>
+	<af4LCQiqNaiMzFkX@nsa>
+	<20260509154600.02e2d11a@jic23-huawei>
+	<SA5PR03MB83770D945E92C40A74D9C0DAF6382@SA5PR03MB8377.namprd03.prod.outlook.com>
+	<20260511121820.3be9e635@jic23-huawei>
+	<SA5PR03MB83772A1A57DC052CB21B9187F6382@SA5PR03MB8377.namprd03.prod.outlook.com>
+	<agLhb-S2ISSjaopc@nsa>
+	<SA5PR03MB837758532C0007A97121F6CCF6392@SA5PR03MB8377.namprd03.prod.outlook.com>
+	<agMXiWA39tW9mZ2O@nsa>
+	<SA5PR03MB83776E4DF7B5542B40C3B925F6392@SA5PR03MB8377.namprd03.prod.outlook.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -54,63 +59,99 @@ List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 11 May 2026 14:54:16 +0300
-Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
+On Tue, 12 May 2026 12:26:02 +0000
+"Stan, Liviu" <Liviu.Stan@analog.com> wrote:
 
-> From: Radu Sabau <radu.sabau@analog.com>
-> 
-> Add SPI offload support to enable DMA-based, CPU-independent data
-> acquisition using the SPI Engine offload framework.
-> 
-> When an SPI offload is available (devm_spi_offload_get() succeeds),
-> the driver registers a DMA engine IIO buffer and uses dedicated buffer
-> setup operations. If no offload is available the existing software
-> triggered buffer path is used unchanged.
-> 
-> Both CNV Burst Mode and Manual Mode support offload, but use different
-> trigger mechanisms:
-> 
-> CNV Burst Mode: the SPI Engine is triggered by the ADC's DATA_READY
-> signal on the GP pin specified by the trigger-source consumer reference
-> in the device tree (one cell = GP pin number 0-3). For this mode the
-> driver acts as both an SPI offload consumer (DMA RX stream, message
-> optimization) and a trigger source provider: it registers the
-> GP/DATA_READY output via devm_spi_offload_trigger_register() so the
-> offload framework can match the '#trigger-source-cells' phandle and
-> automatically fire the SPI Engine DMA transfer at end-of-conversion.
-> 
-> Manual Mode: the SPI Engine is triggered by a periodic trigger at
-> the configured sampling frequency. The pre-built SPI message uses
-> the pipelined CNV-on-CS protocol: N+1 16-bit transfers are issued
-> for N active channels (the first result is discarded as garbage from
-> the pipeline flush) and the remaining N results are captured by DMA.
-> 
-> All offload transfers use 16-bit frames (bits_per_word=16, len=2).
-> The channel scan_type (storagebits=16, shift=0) is shared between the
-> software triggered-buffer and offload paths; no separate scan_type or
-> channel array is needed for the offload case at this stage. Oversampling
-> support and mode-specific channel array distinctions are introduced in
-> the following commit.
-> 
-> IIO_BUFFER_DMAENGINE is selected because the offload path uses
-> devm_iio_dmaengine_buffer_setup_with_handle() to allocate and
-> attach the DMA RX buffer to the IIO device.
+> On Tue, May 12, 2026, Nuno S=C3=A1 wrote:
+> > > > What I'm not too convinced is that coverage is relative to what? We=
+ll
+> > > > it's a percentage so I guess we could not care and leave interpreta=
+tion to
+> > > > userspace (to know which device is dealing with). Still I wonder if=
+ a
+> > > > new iio_chan_info wouldn't be more appropriate? In this case applie=
+d to
+> > > > iio_resistance. So something like:
+> > > >
+> > > > in_resistance_coverage_ratio
+> > > >
+> > > > So it's clear what physical quantity coverage ratio is affecting. =
+=20
+> > >
+> > > I still think a new channel type is the right approach. Consider copp=
+er
+> > > trace sensors - they also support a custom table, and when one is
+> > > provided the chip outputs both a resistance result and a temperature
+> > > result (the interpolation output), each in their own register bank. T=
+he
+> > > current approach handles that with separate IIO_RESISTANCE and
+> > > IIO_TEMP channels. So, for consistency, if we use a chan_info
+> > > attribute for the leak detector coverage output, we would need to do
+> > > the same for the copper trace temperature output. Since IIO_TEMP
+> > > makes sense for the interpolation result for copper traces and
+> > > because it is a distinct physical quantity output by the chip, I thin=
+k it
+> > > would make the most sense that leak detectors follow the same
+> > > pattern and create a separate IIO channel.
+> > >
+> > > What do you think?
+> > > =20
+> >=20
+> > Yeah, makes sense. Jonathan already put it very nicely for the distinct
+> > channel case. =20
+>=20
+> Sorry, I saw the last two messages only after I sent my reply.
+>=20
+> On Tue, May 12, 2026, Jonathan Cameron wrote:
+> > > I do wonder if a complete type is what we want? How will we present i=
+t?
+> > >=20
+> > > in_coverage_ratio?
+> > >=20
+> > > What I'm not too convinced is that coverage is relative to what? Well
+> > > it's a percentage so I guess we could not care and leave interpretati=
+on to
+> > > userspace (to know which device is dealing with). Still I wonder if a
+> > > new iio_chan_info wouldn't be more appropriate? In this case applied =
+to
+> > > iio_resistance. So something like:
+> > >=20
+> > > in_resistance_coverage_ratio =20
+> >=20
+> > I'm perhaps missing something - as far as I understand it there is no m=
+eaningful
+> > connection to resistance in what is being measured.
+> > I think what you are proposing is similar to measuring current via volt=
+age
+> > drop over a sense resistor. We don't present that as modified voltage, =
+we
+> > present it as current.
+> >
+> > Here the thing being measured is coverage rather than resistance
+> > so keeping resistance in there is confusing for the user.
+> >
+> > If we wanted a type to modify then we could do this as a modified area =
+measurement.
+> > Channel type IIO_AREA (which is new) and modifier IIO_MOD_RATIO (also n=
+ew). =20
+>=20
+> On the implementation: you originally suggested IIO_COVERAGE_PERCENT,
+> which would give in_coveragepercent0_raw in sysfs. The IIO_AREA + IIO_MOD=
+_RATIO
+> alternative would give in_area0_ratio_raw, which is more generic but less
+> immediately obvious for a leak detector. Do you have a preference=20
+> between the two?
 
-More stuff from sashiko - it also not noticed the BE marking is
-in a later patch - but given you are doing 16bit words here likely
-the chan spec needs to be different.
-
-Hohum. It then seems to have timed out.  Maybe that should be a new
-rule - if your patch set is too big for sashiko it's too big and
-complex for reviewers too ;)
-
-> 
-> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
-
-I didn't really spot anything myself on this pass so just a question
-of analysing the bot output and groaning at what I missed :(
+I wonder what other reasonable area sensors we'll get in future?
+Maybe more specific is better here - like humidityrelative (we've never had
+an absolute humidity sensor because they are really hard to build!)
 
 Jonathan
+>=20
+> Thanks,
+> Liviu
+>=20
+
