@@ -1,191 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 320C338D410;
-	Tue, 12 May 2026 12:14:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98FA135676F
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 12:16:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778588063; cv=none; b=MVeNGxGzJX1SRl8IPQm/x9GD89muuApsbltIWuwV/2D9FEmOaYUx5rWaiav04ha/IzN7SAXLrJ+abhKNVb/vQ8tslLvpl5sjEzq35yvbE1tsp/Z0l5JPDfImRHBTgA4gSEMPnJ90WqyPgk94K159Rc6fnFTmv4QEmDBe43kkOwM=
+	t=1778588174; cv=none; b=lvWw+SHOdghqkp/W/xyP/y1crVHUGbT3PgkfKNOayPUKHqYOwCIrw1isrvPloNMckikI+bhVeNhDdXoqx6Cl3EuL4YIaw5qEz6lmANoWi5fIgnw4KZ2Wtz3LI39bNFZ04TwdLT6W3eDx9JneH+oJ+J3AQ/fxAAUT/yXwUsG0ki8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778588063; c=relaxed/simple;
-	bh=OmELD4tSWBPTnTjvsGuSOGoZwDyuELUgcyn08+LWhpA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=F45pfe4rbeav1p3pCR2Cz3l0BU09VEj2DcIjA3mG0f26DnPb+qBW+n5svsRVLT8Z9pMyiIuKZ1I3eVFxoTvz1J2kZ6JLTz4EChAovdEhD1ct7EyB/OoZKpuDgxAInQ8bEuRbIbdFD3qr/OC0M6mPNtDHx+dU1jOn2TgqsfKWFqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ch2Nlpl7; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778588174; c=relaxed/simple;
+	bh=WJbj0VUbTJOIHsU/qG51gaTf4+FZ6AkK+zLqDSQueH4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=F6NGobziOC1YCJPlFRUecR2JGTrtLYztFKMaghxkgvNY5z6c051i34fpPAbHcH/oX5jtd4VgQN5C0Gmpc66XZ5PNVfXl4aJgeWs4QSrXKEIHd4hTYis4+Vrpr14iX/c0Xm6K4ch6FpeXFXIJbWSgbj9COpK7XjFcUaqvVqoMVOg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SVNhecLq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Zto1N+Kf; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ch2Nlpl7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF76AC2BCB0;
-	Tue, 12 May 2026 12:14:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778588063;
-	bh=OmELD4tSWBPTnTjvsGuSOGoZwDyuELUgcyn08+LWhpA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=ch2Nlpl7QUcvmlqvr7AbjkL4eyMRWj7n71r/dRbF/3XLSP9R/R2F9IWb1yajpqzoJ
-	 T6rkWhpQn1wPS7PpK9eYG1SeS0Do5C6hniF3GDfCUWnveVogA2/kpn+YPbEOCBmDsq
-	 KndUAEMcZTSt64yRGOeXtGJHjqxv/AEzeGIdKYQqduaRKRzhgUC/Mc40eO0zQTGBhI
-	 LJai1vgic/vD8r6bUMMbHOOLVL63WIrP16eXsjfqtlkYrHwV6hShVrHO0jIk2CUHJP
-	 FR2AOVoC7nZSI2W1OlBOfIjiyYQHAsftLp4lrCGdGlSAL/59ugz3IiPuxEEww82Gdx
-	 LwA09jVe0hSwQ==
-Date: Tue, 12 May 2026 13:14:13 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Piyush Patle <piyushpatle228@gmail.com>
-Cc: ak@it-klinger.de, andriy.shevchenko@linux.intel.com,
- dlechner@baylibre.com, nuno.sa@analog.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 v8 05/11] iio: adc: hx711: move scale computation to
- per-device storage
-Message-ID: <20260512131413.3ce37a2b@jic23-huawei>
-In-Reply-To: <20260511174342.123820-6-piyushpatle228@gmail.com>
-References: <20260511174342.123820-1-piyushpatle228@gmail.com>
-	<20260511174342.123820-6-piyushpatle228@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SVNhecLq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Zto1N+Kf"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64CB2F7r3385878
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 12:16:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	2MDoLVE56Y2SNVjDTt2clQoJLy4r8ALPLSko4jH/grc=; b=SVNhecLqJKHYixPe
+	HP9mg1XwGcFFWuidg9YrFgr0QKRdMIUGAxBWHzGYHv6c8RYuwaqV5PDtRTY4vOOV
+	BLAHMrXula6NAxYJnAQSkr0WO9b2ybOlhW0ehZVOlTQfU+q3bjXO9PZB9RUqjPNa
+	xJ+efA2tv8lt4Hb6CVgXbfpqQ+b67xPu86aVNEjTtY1uLMFoEkMnaZwZa6NRJKLb
+	GyIpO1FR4T6M7MBgnUtAPNY/MK+XWL3cUnNwu5Tg11lgNqVklk405rGLnH+/eRI9
+	JdU86OemfhukfNavZXypt9sxADOTq2NDSZ97X4rp8306oJdYgLkOgZCLLLAt2Pc1
+	/oUXwQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e3nv4k5tf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 12:16:12 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-8d4c66096e5so121218285a.3
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 05:16:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778588172; x=1779192972; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=2MDoLVE56Y2SNVjDTt2clQoJLy4r8ALPLSko4jH/grc=;
+        b=Zto1N+Kfkj14liplHojzeoDWsHzVsoaJUOgkuN3Tgj2LrnK/Ubk3+pY+K2YRfIdhSy
+         aMHcWfgtZlgNcgTedG4BosyO7/tYhmrE6yzBADHSOt/EQd9iMVuWTXM2OuxJQNpTaMQI
+         GovBb2kU/PoR7+bVNU5KR2ys//3wrlre7C0F5+zTSYZXfC89VIH5tyrU+uy5Pz0eotkb
+         6QCuds/34SiNvwuD4lxSAEQH+ImMBGtkw1bnlXCynsVrdIZbzRkBqBiL5a4oWasSgSCY
+         KIbypXZkOX7Ydj5A2EblBc7N2Dh2YnnAYgIyorfLCLKta7GUmHtJovQo+ZrWU0fKIuG3
+         65mQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778588172; x=1779192972;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=2MDoLVE56Y2SNVjDTt2clQoJLy4r8ALPLSko4jH/grc=;
+        b=KnpN7tlarqHu9wRdmhj2ylP8KA08DcDUU2MrxcgXgNkkA5JRtoMXFK0tz5CjACLVa3
+         OWuk7zzC0tXQctjQ8DR1Ja5T2et3HWAVLo0NTCrHhD74jcs+yUVT00OaJOQA7H9U1MWz
+         hJgEjlRxqBVZxX3+QdTc4nCgKrKK+3cXL32yF+roK77OzSnAEdeKvh56KUusv0X7CXqc
+         u8elIhs5KQojtBqnDqack3AMKSXwUbgz/y+wkrI6KShVsjXSvKJT9yJ7vMTbH39x8wwF
+         BJdXa8m1oqhaAfYRJeLejoOH3xOvVtoUg31+7VAnA1m5aU/V6d+PlOelfTCYxU5jijCl
+         r/iw==
+X-Forwarded-Encrypted: i=1; AFNElJ+Hbh1zQJnZpLS/yLGeZwVL2MoYwUZU+hIjxX5YXM1ekru/dI83XKwz3EMVSqzJ/AAoqbRBV1D/d8wy@vger.kernel.org
+X-Gm-Message-State: AOJu0YwHZBP7AWzzdLSgpiyL4MxkiUimnwMvlQ41BTBaVy5CjAB/EuBI
+	8GG78Db54t0HiJUsRUoIznXwNXKhz0mnYZdyL/degbpj9izKWNn2jcAz/t2S48fCJuRhRO9iS1y
+	WG4xi2sn7OTAnDE0KmavcHqbAZeCMRKJFekZeUTrbWSai5VNqeENciuAGF/TEqi8/
+X-Gm-Gg: Acq92OG6MawaA0MmRgdsBVF5e1zSbfm3ikKmkmwGOks8isTjAjxx42XPDMqRFUGjVWr
+	gG26fG1CfoVleK2EbSxxemf/prPIdRgYSXMBQj9wlV+ZNaSKFeslq5boSsOMCrU/teumjrmNN4Y
+	NOm+FrIGUxStND7xKkeds7npeQuUB++kDqOYOd6jFTMSWVtJz9fXSOmSl3omoSsVgkPQk7SOArs
+	qnIO6D3QK2JaC19qJijyJO9lA90OKk9LRrZs0BdPZyacRlBoSDDZxMPbCeM7g8/iqGrkbn7i1zb
+	m5wA3F38bOooq6kHgO4xl1+4zyOBFI5iy22/yohfQlHXUf0MgAZQIHP16JsRHv/WdL4HfgR8/Gt
+	LcR0l7W+m/MhNmS2mK16iKVRCrYS+Pbjc4Bl8mnnUZl0bytdvByU4d2FO9zCNMHHi5Lr22Rqbn6
+	DIDmQ=
+X-Received: by 2002:a05:620a:2894:b0:8fa:1f2c:c9a6 with SMTP id af79cd13be357-904de2998c4mr2750326585a.3.1778588171631;
+        Tue, 12 May 2026 05:16:11 -0700 (PDT)
+X-Received: by 2002:a05:620a:2894:b0:8fa:1f2c:c9a6 with SMTP id af79cd13be357-904de2998c4mr2750323285a.3.1778588171091;
+        Tue, 12 May 2026 05:16:11 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-67f7d2b204fsm3850056a12.3.2026.05.12.05.16.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 12 May 2026 05:16:10 -0700 (PDT)
+Message-ID: <e032c072-57b3-44b4-84a7-5aff062b9c00@oss.qualcomm.com>
+Date: Tue, 12 May 2026 14:16:07 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] soc: qcom: rpmpd: Add Shikra RPM Power Domains
+To: Rakesh Kota <rakesh.kota@oss.qualcomm.com>, Rob Herring
+ <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>, Ulf Hansson <ulfh@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        kamal.wadhwa@oss.qualcomm.com, jishnu.prakash@oss.qualcomm.com
+References: <20260429-add_rpmpd_shikra-v1-0-fdba28564380@oss.qualcomm.com>
+ <20260429-add_rpmpd_shikra-v1-2-fdba28564380@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260429-add_rpmpd_shikra-v1-2-fdba28564380@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=ZrTd7d7G c=1 sm=1 tr=0 ts=6a031a0c cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=XoaxEQdo0zjKg4FK9Y0A:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEyMDEyNyBTYWx0ZWRfX//t4S4M40raG
+ HOgZagp5ApGdqn31U8+cS6GaA8cNhC8NMZgcZryBhssQgQZQJqfohLoZ0f570a9dFtL2YMAeVPs
+ CaeOle2+z0MFRSLWPojk4Ga7x1Cn9vfuZYLugZYczExZv7JJj2CLkFNa/AatvqOlMdQ1UJL4Pi5
+ u7J95ly2/eAM0Ua+bNpYaXCch5fkQeDTLtL7V0aTfiefYsY2gqFbnpecEB1gmz8o+BiBY0wAVdC
+ 83p81iJr5hH1WBLWpeeJMLzfk8kg5psRBmaYtFd4ttJDYRkfyNwfIaK39oAChqeAq/whIS1varW
+ coZz1xat6GE6oxk8+kJcEpRhZEDS3+kjeQL7zsEsXspoPu1f2d5B+CEJyJJDUfqrX/eZzc4W4N2
+ o7Xp/vPhF0HS5tz+CvMroZzismjV3K0TLQjJXQQ+BJY5UNTLfDLj7bUWekaeP5gVwEJl2M/EtYl
+ InF45gW4NnoMYp//MLA==
+X-Proofpoint-ORIG-GUID: 0Pm91657Tel4UHj7o-cDtlYFuT2MOAWv
+X-Proofpoint-GUID: 0Pm91657Tel4UHj7o-cDtlYFuT2MOAWv
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-11_05,2026-05-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 spamscore=0 suspectscore=0 clxscore=1015
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 adultscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605050000
+ definitions=main-2605120127
 
-On Mon, 11 May 2026 23:13:30 +0530
-Piyush Patle <piyushpatle228@gmail.com> wrote:
-
-> The gain-to-scale table is global today, so probe-time scale updates for
-> one device overwrite the values used by any earlier device instance.
+On 4/29/26 4:09 PM, Rakesh Kota wrote:
+> Add RPM Power Domains support for the Shikra platform.
 > 
-> Fix this by making the gain table const and storing the computed scale
-> values per device in hx711_data.
-> 
-> No functional change for single-sensor configurations.
-> 
-> Signed-off-by: Piyush Patle <piyushpatle228@gmail.com>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-
-This is a patch that stands fine on it's own (and Sashiko was fine with
-v7) so I'll apply it now.
-
-Applied to the testing branch of iio.git.
-
-Thanks,
-
-Jonathan
-
+> Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
 > ---
->  drivers/iio/adc/hx711.c | 31 ++++++++++++++++---------------
->  1 file changed, 16 insertions(+), 15 deletions(-)
+>  drivers/pmdomain/qcom/rpmpd.c | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
 > 
-> diff --git a/drivers/iio/adc/hx711.c b/drivers/iio/adc/hx711.c
-> index 1db8b68a8f64..86d2a70dd3de 100644
-> --- a/drivers/iio/adc/hx711.c
-> +++ b/drivers/iio/adc/hx711.c
-> @@ -28,22 +28,20 @@
->  struct hx711_gain_to_scale {
->  	int			gain;
->  	int			gain_pulse;
-> -	int			scale;
->  	int			channel;
+> diff --git a/drivers/pmdomain/qcom/rpmpd.c b/drivers/pmdomain/qcom/rpmpd.c
+> index 15a11ff282c3f86b1e86c6604d165e297620f6cf..6f751ee5a7833912d54d2bcfd5d85837ab7a97d3 100644
+> --- a/drivers/pmdomain/qcom/rpmpd.c
+> +++ b/drivers/pmdomain/qcom/rpmpd.c
+> @@ -863,6 +863,21 @@ static const struct rpmpd_desc sdm660_desc = {
+>  	.max_state = RPM_SMD_LEVEL_TURBO,
 >  };
 >  
->  /*
->   * .scale depends on AVDD which in turn is known as soon as the regulator
-> - * is available
-> - * therefore we set .scale in hx711_probe()
-> + * is available; it is stored per device in hx711_data.gain_scale[]
->   *
->   * channel A in documentation is channel 0 in source code
->   * channel B in documentation is channel 1 in source code
->   */
-> -static struct hx711_gain_to_scale hx711_gain_to_scale[HX711_GAIN_MAX] = {
-> -	{ 128, 1, 0, 0 },
-> -	{  32, 2, 0, 1 },
-> -	{  64, 3, 0, 0 }
-> +static const struct hx711_gain_to_scale hx711_gain_to_scale[HX711_GAIN_MAX] = {
-> +	{ 128, 1, 0 },
-> +	{  32, 2, 1 },
-> +	{  64, 3, 0 },
->  };
->  
->  static int hx711_get_gain_to_pulse(int gain)
-> @@ -56,22 +54,22 @@ static int hx711_get_gain_to_pulse(int gain)
->  	return 1;
->  }
->  
-> -static int hx711_get_gain_to_scale(int gain)
-> +static int hx711_get_gain_to_scale(const int *gain_scale, int gain)
->  {
->  	int i;
->  
->  	for (i = 0; i < HX711_GAIN_MAX; i++)
->  		if (hx711_gain_to_scale[i].gain == gain)
-> -			return hx711_gain_to_scale[i].scale;
-> +			return gain_scale[i];
->  	return 0;
->  }
->  
-> -static int hx711_get_scale_to_gain(int scale)
-> +static int hx711_get_scale_to_gain(const int *gain_scale, int scale)
->  {
->  	int i;
->  
->  	for (i = 0; i < HX711_GAIN_MAX; i++)
-> -		if (hx711_gain_to_scale[i].scale == scale)
-> +		if (gain_scale[i] == scale)
->  			return hx711_gain_to_scale[i].gain;
->  	return -EINVAL;
->  }
-> @@ -82,6 +80,7 @@ struct hx711_data {
->  	struct gpio_desc	*gpiod_dout;
->  	int			gain_set;	/* gain set on device */
->  	int			gain_chan_a;	/* gain for channel A */
-> +	int			gain_scale[HX711_GAIN_MAX];
->  	struct mutex		lock;
->  	/*
->  	 * triggered buffer
-> @@ -290,7 +289,8 @@ static int hx711_read_raw(struct iio_dev *indio_dev,
->  		*val = 0;
->  		mutex_lock(&hx711_data->lock);
->  
-> -		*val2 = hx711_get_gain_to_scale(hx711_data->gain_set);
-> +		*val2 = hx711_get_gain_to_scale(hx711_data->gain_scale,
-> +						hx711_data->gain_set);
->  
->  		mutex_unlock(&hx711_data->lock);
->  
-> @@ -321,7 +321,7 @@ static int hx711_write_raw(struct iio_dev *indio_dev,
->  
->  		mutex_lock(&hx711_data->lock);
->  
-> -		gain = hx711_get_scale_to_gain(val2);
-> +		gain = hx711_get_scale_to_gain(hx711_data->gain_scale, val2);
->  		if (gain < 0) {
->  			mutex_unlock(&hx711_data->lock);
->  			return gain;
-> @@ -386,6 +386,7 @@ static ssize_t hx711_scale_available_show(struct device *dev,
->  				struct device_attribute *attr,
->  				char *buf)
->  {
-> +	struct hx711_data *hx711_data = iio_priv(dev_to_iio_dev(dev));
->  	struct iio_dev_attr *iio_attr = to_iio_dev_attr(attr);
->  	int channel = iio_attr->address;
->  	int i, len = 0;
-> @@ -393,7 +394,7 @@ static ssize_t hx711_scale_available_show(struct device *dev,
->  	for (i = 0; i < HX711_GAIN_MAX; i++)
->  		if (hx711_gain_to_scale[i].channel == channel)
->  			len += sprintf(buf + len, "0.%09d ",
-> -					hx711_gain_to_scale[i].scale);
-> +				       hx711_data->gain_scale[i]);
->  
->  	len += sprintf(buf + len, "\n");
->  
-> @@ -511,7 +512,7 @@ static int hx711_probe(struct platform_device *pdev)
->  	ret *= 100;
->  
->  	for (i = 0; i < HX711_GAIN_MAX; i++)
-> -		hx711_gain_to_scale[i].scale =
-> +		hx711_data->gain_scale[i] =
->  			ret / hx711_gain_to_scale[i].gain / 1678;
->  
->  	hx711_data->gain_set = 128;
+> +static struct rpmpd *shikra_rpmpds[] = {
+> +	[RPMPD_VDDCX] =		&cx_rwcx0_lvl,
+> +	[RPMPD_VDDCX_AO] =	&cx_rwcx0_lvl_ao,
+> +	[RPMPD_VDDCX_VFL] =	&cx_rwcx0_vfl,
+> +	[RPMPD_VDDMX] =		&mx_rwmx0_lvl,
+> +	[RPMPD_VDDMX_AO] =	&mx_rwmx0_lvl_ao,
+> +	[RPMPD_VDDMX_VFL] =	&mx_rwmx0_vfl,
+> +};
 
+This is identical to sm6125_rpmpds. If you're sure the list is correct
+and complete (no LPI domains etc.), you can drop this patch, and proceed
+with just this change:
+
+diff --git a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml b/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
+index 0bf1e13a9964..e7d9e8e65641 100644
+--- a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
++++ b/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
+@@ -73,6 +73,10 @@ properties:
+           - enum:
+               - qcom,msm8937-rpmpd
+           - const: qcom,msm8917-rpmpd
++      - items:
++          - enum:
++              - qcom,shikra-rpmpd
++          - const: qcom,sm6125-rpmpd
+ 
+   '#power-domain-cells':
+     const: 1
+
+
+Konrad
