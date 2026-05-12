@@ -1,66 +1,85 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CE9938D41C
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 12:18:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9513314AC
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 12:18:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778588301; cv=none; b=YdrwL0MsU5nsz2r7r2SsDMMAghJdKg1KQETm5ephHlToH5OY4MvmzALdHuczpmGUrx0mJglHy2HTCKJHZ5Pl91ObzVZyaiMjWu5iLepfNdBhFSmCCGj6HolQPdaWWay9JR5yCP4caJ/f1AHnrmt2wfpxiW0FSlPfk8/QVw4FXmA=
+	t=1778588317; cv=none; b=bQDD87N5v6xF7e3QuClbeDjehk0Kwc+vKk6ebyg+CaGsYAIh2bJgdJoJhJ4YrhcHMK0INqE9eVB6vsJ9UU/wB9Yi9ERMJU9DKKHpjR+jOIuUinfVn6o8PbTGCo5suraar9lJQIbXa4k0MwZTqBXeUEGzmt1xBW4Uz1J2n/hr8HQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778588301; c=relaxed/simple;
-	bh=ZnPCtHUMI4pJAkFESK7iqLi0XSZcQX947eKedny7HSA=;
+	s=arc-20240116; t=1778588317; c=relaxed/simple;
+	bh=gGjw11PlufGwNl3rO1tsoi5rHgW19/azVIL8zYu3SN0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CiUvkb4a6Aacj9ScKaQLVt0FC4E+14SNBND7braVDjHfcuVu5VlvVSs0wHehljDRhe9wvsikgra95ZZeDfMFLenMeAKQrlA3OzbI+WhgEmyRdmoZxtxfMw6z4c4UvdQTTIjm7VxplFEccQZ7i0gGtdfNI3GxW9J9KFMpZipgMz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SgqaX6iy; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=Uc+Y7bgMiL5PahiAUTKKWrNp+FFzatIfTwxLdpFHOq7oKnSDY83WH0GzGeS/lxlhOHXfI4KNV5Zsv9XSiXUsO7x+shodaXicXYFJiXZ8unLlE9N1j/bkG0WJIT5S56zF0KNHVabg2/rBJq+/MG/j9c58Lx6MefZD1a+M8cjz34I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XNQixrCb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kLf+x+XU; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SgqaX6iy"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-44c350a5b87so3370842f8f.3
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 05:18:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XNQixrCb";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kLf+x+XU"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64CCA3gW144547
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 12:18:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	idtQlNG9vUrLtSGjRm2+9K5PdmPRzl7bQtv8YuavZho=; b=XNQixrCbDuYy70NC
+	VYtySCPZ5Ap9wUNgnXDN9VHmZ0AG/3VVmRwkhuvps/SQEA+BExpLpoiYUP8AxuKM
+	DVbPV9nA16L1EV3JwHeA+38rsxMtAk64iNf5l2oyNyM1M1aMmu1vRtmehk7beZkI
+	XvlzbSl2rJh6cGKQ/eKloibD0pPURaWJd7O/3QfLsQy91EAONmHuugSMyk2aPNl4
+	5a4YVs+LnltedRNmVADJMAmK/xQSGM4G5iCIGYRZPTnhz/4MFgXo+2HN4lKj6i77
+	d2L7Dyaw3sBHzZbxVYREfLouA7/RObZXFJN3TGKzGuVV3bLVZejQwMOUazp1tlFp
+	OFYY8w==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e43yp80vr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 12:18:34 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2bc763c7256so68963015ad.3
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 05:18:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778588298; x=1779193098; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
+        d=oss.qualcomm.com; s=google; t=1778588314; x=1779193114; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=oLtu5I2VPxS4rnf9+Ng1zxRyZw5rRL7GPGSnHNWUIvY=;
-        b=SgqaX6iymkMTvYm3FUVlWTsWlavpTAlGHVrtz22VNqbumGcTYUqN5WdtCaPvJWK9w5
-         FFcS2/u7iMPtl8C7OyqjTMIQcw7Q9YBNZiB13OrLzDgjcAmw239oRdqstmKXD51X1ywG
-         BhpqHH0/bPxxlfdN4+zTjDU89hhllRu+Wi2W6tkwWuIs4Dr+vzXvuAN08oBTLV5FI6Qh
-         AAPgdhR9MBr/0RPayFEMD6PCSIa0IzpbGv9RpkLhzsohQEP7rs1m1dNzUvMZUwJUeyz/
-         ZHfAjy9CLkXCqtQvEfHmlX/IAwkUnKVVsulRjCrgXLHiT5YsyF5xM3+4pDXDazqpyA0Z
-         TfXw==
+        bh=idtQlNG9vUrLtSGjRm2+9K5PdmPRzl7bQtv8YuavZho=;
+        b=kLf+x+XUDt4Vfes8RQ0GQECIPQDfNkSr0bk4F3ow4QXgF5Lks7c0VS6n5lbNnuv+bd
+         OvFbTH/qXPaQr9q3fmwJITjRMmSD1od/1gUrR5ouNXRRySfMKIka8uQkW+HzJTbxotau
+         gFRdYuqsXwBLHzvym/wXU9mdc2U+KwQQHLKMWAjaMWY4hOsoZYsHDE43ovQShsN4BEbo
+         vGHU7O19GeOlh53UwW/vcT/A70XpZJQZctsWkuTGj8SfkX91H6coUB+GS3Hk1XyiJco4
+         YEQ17uLQjcg2g1u5v8BYW6bTzKpEq7DfHbTJAkd4MPDI3zHPeVcZj5dlokbknsB6eRU2
+         fq/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778588298; x=1779193098;
-        h=content-transfer-encoding:in-reply-to:content-language:from
+        d=1e100.net; s=20251104; t=1778588314; x=1779193114;
+        h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=oLtu5I2VPxS4rnf9+Ng1zxRyZw5rRL7GPGSnHNWUIvY=;
-        b=VZCBceVdJcejtKAh8LCr7J9dgAEEtDdOhegq8H77XWidx4yOQp0KCfopT9QHoTo83J
-         F+zu2pHtaFqyj7/dISQctHoD86E6UDNAnM/NqAgmMvJn7cAY9tUJeLLOdkty4T2W5mPi
-         DlZm2iV7/LJeVdE2+PxYutH8L5oDoPeCqE0EtMmkxND8puSNji66y9A3D+/JyfXii1ni
-         aWc3p9sFm5bue+znln6PISg1kKiRsPv0lsoQgZ0uwQ4fi8MIHweIWbFi9gFMIcls+8N0
-         8/dUrAih6PkaeJjwYsU2o85pL7bGXyyaz+LTxbFCxQyrkPLyRvzwR4knSp9dTylm/3b3
-         jVIg==
-X-Forwarded-Encrypted: i=1; AFNElJ+9jKGTLvksWfZykJu4WvHM/E3VhOePz/tZYrmqkygey/efE2cCPa7KPirFfybDbTHzo/ASQYY1j2wk@vger.kernel.org
-X-Gm-Message-State: AOJu0YxCY95OTHrhdPj6q69vm/Z+ATohPqfvRU3QlPDtBrdn5FNdCktR
-	CHAologr+A7NtRdY+j/MRiGRVMli5ZXI47rGN8MgOkVHcWlFAXs9cXI7
-X-Gm-Gg: Acq92OFjXIIMZEOybUodaunCk1kGdfZ3mRTflcP7UajzC8XCEhMk7kE1GXJtJNi0T6J
-	w4G0qhP6j8qYx+epe/1rcqzH0CevZwu7/Rz8INK45b+gVKuW224hly5NLRKwHkGp0U5lAtmNOIc
-	Ly73b+nLJ6mtOFBvUxh4lj2pRcAmuDiHPYzd+AE/DLI0Gnr6f8NwVGelgrcTcRMUaZdiARV0sMz
-	mHLBF6G380a0D64NF5A0mt2dfQ/xQqi00VAXYTfEaxtRvIDNiaxJQ789sllqGgsEcX7ZE1tTL/W
-	SvVh8U1D9OBDk7CE1nP1xpcaG+3UyByvyoHTVJvWS3X6jbYCZM/b5/Gv0eHsZ7V/n4woijdxYhk
-	tvlQr+xfu1CvfIGrJaU7mVNZo3nzyz7jLIkiEdfzGEym75m/3SMXcQPZP4aW/+jLxgmx2uITt/S
-	zq5dy3qrIwq/qovYjb1hq5Tv8WDetbxlEc2sse0RUSL64Ib2J68Dz8KpNlY4vwgrM=
-X-Received: by 2002:a05:6000:2406:b0:452:65d:e108 with SMTP id ffacd0b85a97d-45b12a0d3femr4266473f8f.3.1778588298121;
-        Tue, 12 May 2026 05:18:18 -0700 (PDT)
-Received: from [192.168.0.40] (a89-182-129-90.net-htp.de. [89.182.129.90])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45491e94c0fsm33427369f8f.32.2026.05.12.05.18.17
+        bh=idtQlNG9vUrLtSGjRm2+9K5PdmPRzl7bQtv8YuavZho=;
+        b=mgVxhnX3WEWPmf65Jgrz9QQSMxiJ5If82oFlgUhapotJFhVkeSck0YKi6Lgz1hvpLt
+         0wqoLI1u48uBG7E72Xyjlo9mJgQFPyNVTr/uNT7/pqJojtfjVJkordbrmPjEXm2dlEva
+         Jx2PVKxKKt6diOaOUJF5Lh9HZIy8LIJQ+FZCxG7763+KSBObtDJ1sJJw/xIFfXTKUejj
+         d9hxdyKaTSvOpSdPRf+X+Zw9X6dnjO5xnD1pSMKbjAVfTR3pmBwZeuVqnrclRFNeIot4
+         YbWdeWE8JbK8Jnh3pbBU87c600TJx50TyngcPakbL5T70xLJnZQ5W5mZ/bBoGyyVa2IH
+         5iiA==
+X-Gm-Message-State: AOJu0YyFU1DrpCiRQfFO5mczANTqtLtlki3N4R7Xw6XPBAtqwjHimkSK
+	+3TW5wasiknKoUYBSaGzI9CboAmjRnlABga0oYBj5ipVI6X2v9Lp60jtR1B32nfHTCJm2z3L2ly
+	DcyQ47Uht8iobFbUkdnnuYY5HUAK33hq6aa/kNhcEPBvTSIBGm+0b+SAwhOyown9R
+X-Gm-Gg: Acq92OEioVNVB0s0uQE4aE0BIDoZK/jzJRUJP3C3bO4s5HoCnIocP6zItDZxSCQXe5R
+	NSofW0k4hnzTUJqBRYRjwwM5z8lN8guQL46hGs5ST79fSflNfQC6rJuiMp2vUkMwSM0X0MhoDCT
+	/rgv6nc2VHjFLf3QAebE1GxEocyczUQzxml/P+BVy1udUzNnZFOVJKpN1tJmL/Rb6cGkgzFaPld
+	mduQXvOliTl+UuPtVj5zzZzcCy120i7kbcVAPWDWcB9xJjCSo67YvQ8uUey0102sbtfYd0jlUDW
+	vje8ZG02uLZWB1QNTa7giTyezAoVhxZXZkv5eTjFVP9ZSoj2p0Symr4NV8hgVu/DnDVyhg40N/W
+	KtPzk4nlNOgsM7JqBFd0G2uvv2cC5nvfxYd+juyBAnZxz9tFH
+X-Received: by 2002:a17:903:248:b0:2bc:8ebd:af76 with SMTP id d9443c01a7336-2bc8ebdc2b7mr130938575ad.0.1778588313737;
+        Tue, 12 May 2026 05:18:33 -0700 (PDT)
+X-Received: by 2002:a17:903:248:b0:2bc:8ebd:af76 with SMTP id d9443c01a7336-2bc8ebdc2b7mr130938125ad.0.1778588313253;
+        Tue, 12 May 2026 05:18:33 -0700 (PDT)
+Received: from [10.219.57.29] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2baf1ec13f0sm134162035ad.80.2026.05.12.05.18.31
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 12 May 2026 05:18:17 -0700 (PDT)
-Message-ID: <2fb2b317-5d73-4529-817b-86890d9fb3ee@gmail.com>
-Date: Tue, 12 May 2026 14:18:16 +0200
+        Tue, 12 May 2026 05:18:32 -0700 (PDT)
+Message-ID: <21d75073-679c-4751-8308-e9ad17134b78@oss.qualcomm.com>
+Date: Tue, 12 May 2026 17:48:29 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,91 +87,133 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/6] riscv: dts: spacemit: k1-musepi-pro: enable QSPI
- and add SPI NOR
-To: Rob Herring <robh@kernel.org>
-Cc: sashiko@lists.linux.dev, krzk+dt@kernel.org, devicetree@vger.kernel.org,
- conor+dt@kernel.org
-References: <20260511111116.1109643-4-a.heider@gmail.com>
- <20260512022817.879A3C2BCB0@smtp.kernel.org>
- <4ac5bd1a-ac7a-420b-b0ce-acdcee4b20e2@gmail.com>
- <CAL_JsqLx6uwsjTHgcmqRKu32Mh4vJPu=u=N7DjVeGAaK04mOWg@mail.gmail.com>
-From: Andre Heider <a.heider@gmail.com>
+Subject: Re: [PATCH v3 2/2] pinctrl: qcom: Add Shikra pinctrl driver
+To: sashiko@lists.linux.dev
+Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        robh@kernel.org
+References: <20260508-shikra-pinctrl-v3-2-771144cdc411@oss.qualcomm.com>
+ <20260508193210.47903C2BCB0@smtp.kernel.org>
 Content-Language: en-US
-In-Reply-To: <CAL_JsqLx6uwsjTHgcmqRKu32Mh4vJPu=u=N7DjVeGAaK04mOWg@mail.gmail.com>
+From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+In-Reply-To: <20260508193210.47903C2BCB0@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: 1bpIUoP_3vW_qoj10l0vfPDgUNk0hcnt
+X-Authority-Analysis: v=2.4 cv=R5kz39RX c=1 sm=1 tr=0 ts=6a031a9a cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=o6O9cqeRkQFRtQiNs1sA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10 a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEyMDEyNyBTYWx0ZWRfXwwzF/y4Fpf1f
+ KZKxP7qO07C/qxaq/srnBjA8lc9lYpiUzOem5+K533MJ3faF4W/NybzwCjQ+SiONSTmd3+XZKbZ
+ AaVsEfHGCyxtAXtTZ6rUzVWBfe3ZQwtdQYcqiC2nNNgfUWMVRMLa3mn3ADJtSCoMB3XYCKnQtbb
+ CkOnRoQMLnmRobpeYw2NzNvwpUqrLA5Yk6tqNieQYMuP5OpGo1MCLFAtljVtUTfpCUQDjxGH6u0
+ ksvbvXruRPoTbLeAsiB9VGpGsFBH827YcqPzXzfH4c7i1dpr8kGuqH/0N0TzO0SCjKrsZFFsGCm
+ YmCeVs8xz+xAPhQWEKFeqMqSBlmr2KYafa3g+vp6mO7YBhBedGtVy3MY6/NRVF9poEMLQlzmLzf
+ M/E4CCx+jUVHE7U1YtpT4nBuneGzXBxfujguq/rJtIMh8719cygZg4W2+MEcd+AfXF7UVKlOj5J
+ Bb0JEqSfS+j5ZSv037Q==
+X-Proofpoint-GUID: 1bpIUoP_3vW_qoj10l0vfPDgUNk0hcnt
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-11_05,2026-05-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 impostorscore=0 spamscore=0 priorityscore=1501
+ lowpriorityscore=0 suspectscore=0 bulkscore=0 phishscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605120127
 
-On 12.05.26 1:55 PM, Rob Herring wrote:
-> On Tue, May 12, 2026 at 1:51 AM Andre Heider <a.heider@gmail.com> wrote:
->>
->> On 12.05.26 4:28 AM, sashiko-bot@kernel.org wrote:
->>> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
->>> - [High] Potential overvoltage risk for the W25Q64FW SPI NOR flash via the 'buck4_3v3' supply.
->>> - [Low] The unit-address in the 'uboot' partition node name does not match the base address in its 'reg' property.
->>> --
->>>
->>> commit 470f9c74bd3cfec41ed69dd8c4e22535a7e8164f
->>> Author: Andre Heider <a.heider@gmail.com>
->>>
->>> riscv: dts: spacemit: k1-musepi-pro: enable QSPI and add SPI NOR
->>>
->>> This commit adds the QSPI controller node and describes the attached
->>> SPI NOR flash. It also provides a corresponding vendor flash partition
->>> layout.
->>>
->>>> diff --git a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
->>>> --- a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
->>>> +++ b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
->>>
->>> [ ... ]
->>>
->>>> @@ -166,7 +166,7 @@ buck3_1v8: buck3 {
->>>>                               regulator-always-on;
->>>>                       };
->>>>
->>>> -                    buck4 {
->>>> +                    buck4_3v3: buck4 {
->>>>                               regulator-min-microvolt = <500000>;
->>>>                               regulator-max-microvolt = <3300000>;
->>>>                               regulator-ramp-delay = <5000>;
->>>
->>> [ ... ]
->>>
->>>> @@ -249,6 +249,47 @@ dldo7 {
->>>>       };
->>>>    };
->>>>
->>>> +&qspi {
->>>> +    pinctrl-names = "default";
->>>> +    pinctrl-0 = <&qspi_cfg>;
->>>> +    status = "okay";
->>>> +
->>>> +    flash@0 {
->>>> +            compatible = "jedec,spi-nor";
->>>> +            reg = <0>;
->>>> +            spi-max-frequency = <26500000>;
->>>> +            spi-rx-bus-width = <4>;
->>>> +            spi-tx-bus-width = <4>;
->>>> +            vcc-supply = <&buck4_3v3>; /* QSPI_VCC1833 */
->>>
->>> The commit message notes this flash is a Winbond W25Q64FWSSAQ, which is a
->>> strict 1.8V part. Could this vcc-supply assignment cause hardware damage?
->>>
->>> The buck4 regulator has a maximum voltage of 3.3V. If the regulator defaults
->>> to 3.3V or is configured to 3.3V dynamically, it exceeds the absolute maximum
->>> ratings for the 1.8V W25Q series flash.
->>
->> As per the comment, there's a the non controllable regulator QSPI_VCC1833 in between.
->> k1-milkv-jupiter.dts matches in this regard.
->> I'll keep it unchanged unless someone has an idea how to express that in a better way.
-> 
-> That's what we have fixed-regulator binding for. It can take an input supply.
+On 5/9/2026 1:02 AM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] Inconsistent eGPIO (Embedded GPIO) hardware configuration.
+> --
+>
+> commit a63bd64b64bae3d595ab0e510830b193aeee7ba6
+> Author: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+>
+> pinctrl: qcom: Add Shikra pinctrl driver
+>
+> Add pinctrl driver for TLMM block found in Shikra SoC.
+>
+>> diff --git a/drivers/pinctrl/qcom/pinctrl-shikra.c b/drivers/pinctrl/qcom/pinctrl-shikra.c
+>> new file mode 100644
+>> index 0000000000000..f063e73e5bbd5
+>> --- /dev/null
+>> +++ b/drivers/pinctrl/qcom/pinctrl-shikra.c
+> [ ... ]
+>
+>> +#define PINGROUP(id, f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11)	\
+>> +	{						\
+>> +		.grp = PINCTRL_PINGROUP("gpio" #id,	\
+>> +			gpio##id##_pins,		\
+>> +			ARRAY_SIZE(gpio##id##_pins)),	\
+>> +		.funcs = (int[]){			\
+>> +			msm_mux_gpio, /* gpio mode */	\
+>> +			msm_mux_##f1,			\
+>> +			msm_mux_##f2,			\
+>> +			msm_mux_##f3,			\
+>> +			msm_mux_##f4,			\
+>> +			msm_mux_##f5,			\
+>> +			msm_mux_##f6,			\
+>> +			msm_mux_##f7,			\
+>> +			msm_mux_##f8,			\
+>> +			msm_mux_##f9,			\
+>> +			msm_mux_##f10,			\
+>> +			msm_mux_##f11 /* egpio mode */	\
+>> +		},					\
+>> +		.nfuncs = 12,				\
+>> +		.ctl_reg = REG_SIZE * id,		\
+>> +		.io_reg = 0x4 + REG_SIZE * id,		\
+>> +		.intr_cfg_reg = 0x8 + REG_SIZE * id,	\
+>> +		.intr_status_reg = 0xc + REG_SIZE * id,	\
+>> +		.mux_bit = 2,			\
+>> +		.pull_bit = 0,			\
+>> +		.drv_bit = 6,			\
+>> +		.egpio_enable = 12,		\
+>> +		.egpio_present = 11,	\
+> [ ... ]
+>
+>> +static const struct msm_pingroup shikra_groups[] = {
+>> +	[0] = PINGROUP(0, qup0_se0, m_voc, _, phase_flag, _, _, _, _, _, _, _),
+>> +	[1] = PINGROUP(1, qup0_se0, mpm_pwr, ddr_bist, _, phase_flag, atest_tsens, _, _, _, _, _),
+> [ ... ]
+>
+>> +static const struct msm_pinctrl_soc_data shikra_tlmm = {
+>> +	.pins = shikra_pins,
+>> +	.npins = ARRAY_SIZE(shikra_pins),
+>> +	.functions = shikra_functions,
+>> +	.nfunctions = ARRAY_SIZE(shikra_functions),
+>> +	.groups = shikra_groups,
+>> +	.ngroups = ARRAY_SIZE(shikra_groups),
+>> +	.ngpios = 166,
+>> +	.wakeirq_map = shikra_mpm_map,
+>> +	.nwakeirq_map = ARRAY_SIZE(shikra_mpm_map),
+>> +	.egpio_func = 11,
+>> +};
+> Is the hardware eGPIO configuration completely implemented?
+>
+> The driver configures .egpio_func = 11 in shikra_tlmm and defines
+> egpio_enable = 12 and egpio_present = 11 bits in the PINGROUP macro, indicating
+> that eGPIO is mapped to function index 11.
+>
+> However, the driver does not define the msm_mux_egpio enum, the egpio_groups
+> array, or MSM_PIN_FUNCTION(egpio). Instead, it passes the dummy function _ for
+> the 11th mux slot (f11) across all pins in shikra_groups.
+>
+> Because .egpio_func is non-zero, the core pinctrl-msm driver will actively
+> clear bit 12 (egpio_enable) of ctl_reg during any pin mux operation if bit 11
+> is set.
+>
+> If the SoC does not support eGPIO and these bits serve another purpose, could
+> this unexpectedly change the hardware state on every pin mux change? Conversely,
+> if it does support eGPIO, it appears the feature would be unusable because it
+> cannot be selected via the device tree since the function is not exposed.
+>
+> Could you clarify if eGPIO is intended to be supported on this SoC?
 
-Yeah, I was just trying to avoid the "non controllable" comment with a request to get rid of it ;)
-But I guess if I have a consumer that's fine.
+Yes, Shikra doesn’t seem to support eGPIO.
+I’ll remove the eGPIO-related bits and .egpio_func to avoid any 
+unintended behavior.
 
-Note that dtbs_check passes, AFAICT sashiko is the only instance noticing it.
-
-Thanks,
-Andre
+Thanks
+Komal
