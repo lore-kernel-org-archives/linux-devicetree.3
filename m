@@ -1,1213 +1,220 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B817328B77;
-	Tue, 12 May 2026 04:33:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 186013019DC
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 04:42:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778560441; cv=none; b=NCBlx70IDhIU+JWAj6hlPNwjRha8gKxavR292noJ0a6AsUuRDA2D0BLRtmnwmUgZ8hYQfmFKH0jTWsf0p0HozbRKneYV+nDSrQJWIfJzLe+eeoQDhRoDOAsReMGSDMRcSuCNpcB8eKxPF5AaeQaTKYMX/nm5h7R3R8GjK22R1FM=
+	t=1778560974; cv=none; b=crZOmHYtcndgKkZeEWpEaASd8Oe4XCcPEJjGv5vOu537ZpZ3bkw7SBbs7QdHmNV6x3vKrfga+/uOTTvO3fs5eTRh0Ob289HYsTnKzKJUX8V3t2OqvFhBSAfftbp4WVLEwxM+MOPhUt1271BDz1YWT69ojMhhiaoKh42VD7BCB9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778560441; c=relaxed/simple;
-	bh=dROUwQFmxko29ltqI6aVu+r5RpUI7xRxI8lCpTmuylQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=F820s/O2c3yP6maPjv5UXpzSkdaG8W6UtjSwbuUvV51Spxeo/kwdl4+jo05NJBu3aYAOM+RaAim+Nl4FPok5qHgqRoYgjxvoU3Q+jau2cr7InuMbnw+TGRimtPk+FA6ahjTvtlpAKpStua83YHH95IvB5Fti2RM/DArhojg+avw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=LCT1MSzU; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1778560974; c=relaxed/simple;
+	bh=85ENHegQMyU0oBr+Mh/9sBGntPYtRFq66m7uI/8ElgY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pybRs5MDt4Np/0eDd/v0lTUaiypffmvtBqScjgn2WcROmBV+Fdg8J/Ex70z7Yb2tTTyA3tin5iVMh57Nte9qRF4VSvH+MPwo73/LfG8SGW+7pqYKdtWE4PqsvVTqojFnpqs/EC7Vhs97Dak3O/iYl4w5hGuwMZOvwVMwfqvO0oA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R+jP9rap; arc=none smtp.client-ip=209.85.167.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="LCT1MSzU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1778560432;
-	bh=dROUwQFmxko29ltqI6aVu+r5RpUI7xRxI8lCpTmuylQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=LCT1MSzUTL1zW6p5mYz/GIPMubN2/BSytxDqoeG2+/KXdWrDwmzkKIIcpvaWfjjCw
-	 xa7k9FETD5ICFC641p+taAny+qMIk8DGgTYH/Adx5P3X9mS5VxLcA7KN2vEk84EevV
-	 Zs2lTcd9G0XMxTgxfOZSF6dohAuSQ/bqmlfcl/1SSWEYR3fclswVUNCkFs0rtz+gnV
-	 JXLQI3FH296N8IkUyKimL+Yh5lta6NoMcvlP8lrGsrFx0nn6pSl0mB3nH6lE8Yd8MV
-	 sTDruifGMw+3EhVI/O6UsD61cYj0wLVIvu+y+LSL00mKMwDlgewYqyT/sdGp9jpT8v
-	 IavM2GfLgIoVA==
-Received: from yukiji.home (unknown [100.64.0.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: laeyraud)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id C180117E38C7;
-	Tue, 12 May 2026 06:33:51 +0200 (CEST)
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Date: Tue, 12 May 2026 06:33:22 +0200
-Subject: [PATCH net-next v3 5/6] net: phy: Introduce Airoha AN8801/R
- Gigabit Ethernet PHY driver
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R+jP9rap"
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5a4113ab355so4775267e87.1
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 21:42:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778560971; x=1779165771; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=9+uh20BD/IzP+h/IzZKctyoQqKGuFbHGFEDS1sAuZ/g=;
+        b=R+jP9rapR1HgZC1WkixXLoN1ZsABtjhDKZB1D9APNhVIMzBcMTYrwfYs0a0jrGn6MK
+         ToOLc4+atNgrsQaX5HkndRoJh3mDxqSMh+ZkT9fLJaYb0ZOu9dJV3xxoVL/eoNwinHb5
+         Efq7p4zmTzjsg6IE7eGI2HixZV/zeXUppDHdmarb71xCXs85soM78gtVLqhzfMSYeEcl
+         uyRCZKcG5RPf8ZtttAS2lg+4yrAOc4Tmt28ijLJdK+8imxV1cD42wSsTTNlJPU5rPTwH
+         Euyr4TOaRQnDKxHFrl4TRouHdvJzdDT/2q3G/+vBQSzrZhAhLtzVGAsNpK05k8NMfgtT
+         q+iQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778560971; x=1779165771;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=9+uh20BD/IzP+h/IzZKctyoQqKGuFbHGFEDS1sAuZ/g=;
+        b=o3TXzmgUBzVKijcb2xjqrVHUCNk7WcgBdX8hAR172eQFuL6jZiT7Iakols9drucCBu
+         8oy1CTfaYQ8tjk2NSPSwumJXjhQLWdnM8H8FMUwD2uJgkNkukMl8ROX6BC30a++VzKeu
+         GxmFVMpYNB4z8TT1czAklbkNuHKQQPTtZU60D1+nN7oMvdxrNVWyVsS/uoiyMhXWgiRI
+         g1/Bm8E/T5WjiO6qGfNwgTfpXyo2z0Xsw1u5tL6SNZX6LtOJExb+jgQMUzb2koPHCzr3
+         Mda26waalKRikXG330m5xbMbNaS7c+JvHYv4ytgH9mrRLHlXxZnyAQPnw4AcOEoqPmIp
+         bF2g==
+X-Forwarded-Encrypted: i=1; AFNElJ8nb9RuMEzK7Jcl0AguSf7ZvXulfF+qkQEywzjLRx9A5faJ0jOdbhOJgqmBAYGehhG9OOutYYMtwJLU@vger.kernel.org
+X-Gm-Message-State: AOJu0YyyB3eNCykgjk3+Vlurz+EtC0eH1WPFMBEeeZ9kTFi+N5Atj54Q
+	NWmgWXUvetQy9w6IAK9WVA1pqNzSq8o2aKzoRcDwGIWSL8ChpC+lhKaX
+X-Gm-Gg: Acq92OH9ast2ul1T0dNoMybNdzAlvzvvmRBtE26fb16a+3iTOu6y0YmKlBKrAZjgJiy
+	Ei61Uiy10DScYu3j/l6pAZ0/DE1XrTnoS16jFgzVyjf9rKQOfKsmHPbQgeKZ7SsOfSULvsJ8Kvy
+	4iLiRjYQzjXZETFml43z8RBc2zWHCOHw2n2XggHqEPH9kB3OqGyewd1weiVRECETuKl9YHjoHh9
+	Lrci9lONmGKDp8Lywx4+COC5mfT55XGas5zwMTKpCNOFTJwVqBSUqicBLTyxhGI37D2DwvPfs33
+	6aBelCL1XGszHAIcnwkc4m/jggkwbp5fKXgiQ43PV2YLyf6LmU5poFSMH/c5nK3NtGH2Jhh7r0U
+	VCK8rRSYrQPOY8tT/8k6xjLWlUn4ZXZj9vCL0uSAaxYzWUr4vK7NraLcSskFBBv5DkM+QkUAFeO
+	ycQdxKVTAKJKr58CqDemlkbCQDRjQKQBR3SHcFStO+LvKs/PAdX2thGacFFgOhpDlhtjUxEqtlE
+	4AdWKTn
+X-Received: by 2002:a05:6512:3e21:b0:5a4:ab6:81b8 with SMTP id 2adb3069b0e04-5a8a94caf78mr4382507e87.40.1778560970858;
+        Mon, 11 May 2026 21:42:50 -0700 (PDT)
+Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a8a955df99sm3134316e87.45.2026.05.11.21.42.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 11 May 2026 21:42:49 -0700 (PDT)
+Message-ID: <f05093df-663e-417b-a671-d627811e82de@gmail.com>
+Date: Tue, 12 May 2026 07:42:46 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260512-add-airoha-an8801-support-v3-5-1edb34e363ae@collabora.com>
-References: <20260512-add-airoha-an8801-support-v3-0-1edb34e363ae@collabora.com>
-In-Reply-To: <20260512-add-airoha-an8801-support-v3-0-1edb34e363ae@collabora.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>
-Cc: kevin-kw.huang@airoha.com, macpaul.lin@mediatek.com, 
- matthias.bgg@gmail.com, kernel@collabora.com, netdev@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778560425; l=31996;
- i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=gs5C6MHXu0Q2nFhe9UcodR63nvgUOa8nK6RSScvakhg=;
- b=HELD9RKkAn7RNsl6b8OpNhmFX+nYQNmCz/YwUCCicRr4VvoUtPMtoY9+wbTvx7ko7yYAhWyPn
- O1GxMGmfireCkVw8xexzFLRWwcDlQm/Ix8z8S66y1HMk/oyGEmkbmkJ
-X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
- pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: iio: light: Add ROHM BH1730FVC binding
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Alexandre Hamamdjian <azkali.limited@gmail.com>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, CTCaer <ctcaer@gmail.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, heikki.haikola@fi.rohmeurope.com
+References: <20260511-bh1730-v1-0-e0df1f499135@gmail.com>
+ <20260511-bh1730-v1-1-e0df1f499135@gmail.com>
+ <92e2d1ab-c973-45a2-b0c4-d7c672c610e0@gmail.com>
+ <00855a46-20f9-4b4c-8bec-bb64d9d8efe6@gmail.com>
+ <20260511161429.6cae5b7b@jic23-huawei>
+Content-Language: en-US, en-AU, en-GB, en-BW
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+In-Reply-To: <20260511161429.6cae5b7b@jic23-huawei>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+On 11/05/2026 18:14, Jonathan Cameron wrote:
+> On Mon, 11 May 2026 13:43:56 +0300
+> Matti Vaittinen <mazziesaccount@gmail.com> wrote:
+> 
+>> On 11/05/2026 11:22, Matti Vaittinen wrote:
+>>> Thanks for patches Alexandre!
+>>>
+>>> It's nice to see these upstreamed :)
+>>>
+>>> On 10/05/2026 21:09, Alexandre Hamamdjian wrote:
+>>>> From: CTCaer <ctcaer@gmail.com>
+>>>>
+>>>> Add a YAML binding for the ROHM BH1730FVC ambient light sensor.
+>>>> Documents the required compatible string, the als-vdd/als-vid
+>>>> regulators, and the rohm,integration-cycle, rohm,lux-multiplier,
+>>>> rohm,opt-win-coeff and rohm,gain-coeff calibration properties
+>>>> consumed by the driver.
+>>
+>> // snip
+>>
+>>>> +  rohm,opt-win-coeff:
+>>>> +    description:
+>>>> +      Optical-window calibration coefficients. Specified as a flat
+>>>> list of
+>>>> +      triplets <rc cv ci>, one triplet per window region, where rc is
+>>>> the
+>>>> +      visible/IR ratio cutoff and cv/ci are the visible and IR weighting
+>>>> +      factors used in that region.
+>>>> +    $ref: /schemas/types.yaml#/definitions/uint32-matrix
+>>>> +    items:
+>>>> +      minItems: 3
+>>>> +      maxItems: 3
+>>>
+>>> I am not sure if I read the driver patch (2/2) correctly, but if I did,
+>>> then these coefficients are used to compute Luxes out of the raw sensor
+>>> data. I believe it would help anyone integrating (or investigating) this
+>>> sensor, if you added the actual formula here as a comment. If I read
+>>> this right, the formula is _somehting_ like:
+>>>
+>>>
+>>> Lx = (cv[win] * ch0_data - ci[win] * ch1_data) / gain / int_time
+>>>
+>>> Here the cv[win] and ci[win] are selected from the opt-win-coeff -table,
+>>> depending on the measured ch1_data/ch0_data ratio, right?
+>>
+>> One thing came to my mind. This 'window' -approach for lux calculation
+>> is not too unique. For example the rohm-bu27034.c uses similar approach.
+>>
+>> The thing is that some of the sensors have more than 2 channels. (For
+>> example, the first version of BU27034 did. [That was BU27034NUC, which
+>> got cancelled when BU27034_A_NUC emerged]). These ICs may still may use
+>> similar approach of having light regions, determined by ratio of (2)
+>> channels. BUT, they may then have more than 2 coefficients / window.
+>>
+>> So, maybe this could be made generic enough so it could be re-used for
+>> such devices if needed? I am not sure if other manufacturers but ROHM
+>> does this in Lux computations - if yes, then it might be worth making
+>> this more generic and not just a ROHM property? Maybe Jonathan has some
+>> insight on other Lux computations.
+> 
+> It used to be very common to have multiple sensor / window setups for
+> ambient light sensors - though perhaps less so on more modern devices
+> (we have one on list today where they just say use the green channel
+>   of an RGB sensor - so there are more windows but not relevant to
+>   illuminance measurement).
+> 
+> Sometimes the window bit isn't well enough described in the datasheet
+> so we only dealt with the parts on the actual sensor package and those
+> were handled in driver rather than being in dt.
+> 
+> What I'm not sure on here is how much of what is being described
+> is part of the 'chip' packaging - i.e. the bit that is constant for
+> all instances of this device and how much is part of the wider
+> device - i.e. the laptop / phone etc window infront of the sensor.
+> 
+> The chip bit we shouldn't have dt, the other part we should and it
+> would indeed be interesting to work on a generalizing that description.
 
-Introduce a driver for the Airoha AN8801R Series Gigabit Ethernet
-PHY; this currently supports setting up PHY LEDs, 10/100M, 1000M
-speeds, and Wake on LAN and PHY interrupts.
+Hm. I kind of agree. The constant, 'common for all sensors' 
+-coefficients should probably be hard-coded as sensor defaults. The 
+BH1730 data-sheet seems to be describing a set of coefficients. I 
+suppose that's what comes from the packaging(?)
 
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
----
- drivers/net/phy/Kconfig      |    6 +
- drivers/net/phy/Makefile     |    1 +
- drivers/net/phy/air_an8801.c | 1088 ++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 1095 insertions(+)
+And just to contradict myself...
 
-diff --git a/drivers/net/phy/Kconfig b/drivers/net/phy/Kconfig
-index b6b1cde7e51f..4dd77ba48776 100644
---- a/drivers/net/phy/Kconfig
-+++ b/drivers/net/phy/Kconfig
-@@ -90,6 +90,12 @@ config AS21XXX_PHY
- 	  AS21210PB1 that all register with the PHY ID 0x7500 0x7500
- 	  before the firmware is loaded.
- 
-+config AIR_AN8801_PHY
-+	tristate "Airoha AN8801 Gigabit PHY"
-+	select AIR_NET_PHYLIB
-+	help
-+	  Currently supports the Airoha AN8801R PHY.
-+
- config AIR_EN8811H_PHY
- 	tristate "Airoha EN8811H 2.5 Gigabit PHY"
- 	select AIR_NET_PHYLIB
-diff --git a/drivers/net/phy/Makefile b/drivers/net/phy/Makefile
-index 7cf1fa9e12cb..de660ae94945 100644
---- a/drivers/net/phy/Makefile
-+++ b/drivers/net/phy/Makefile
-@@ -29,6 +29,7 @@ obj-y				+= $(sfp-obj-y) $(sfp-obj-m)
- 
- obj-$(CONFIG_ADIN_PHY)		+= adin.o
- obj-$(CONFIG_ADIN1100_PHY)	+= adin1100.o
-+obj-$(CONFIG_AIR_AN8801_PHY)	+= air_an8801.o
- obj-$(CONFIG_AIR_EN8811H_PHY)   += air_en8811h.o
- obj-$(CONFIG_AIR_NET_PHYLIB)	+= air_phy_lib.o
- obj-$(CONFIG_AMD_PHY)		+= amd.o
-diff --git a/drivers/net/phy/air_an8801.c b/drivers/net/phy/air_an8801.c
-new file mode 100644
-index 000000000000..a0f164cbf92b
---- /dev/null
-+++ b/drivers/net/phy/air_an8801.c
-@@ -0,0 +1,1088 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Driver for the Airoha AN8801 Gigabit PHY.
-+ *
-+ * Copyright (C) 2025 Airoha Technology Corp.
-+ * Copyright (C) 2025 Collabora Ltd.
-+ *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/bitops.h>
-+#include <linux/delay.h>
-+#include <linux/errno.h>
-+#include <linux/init.h>
-+#include <linux/netdevice.h>
-+#include <linux/of.h>
-+#include <linux/phy.h>
-+#include <linux/pm_wakeirq.h>
-+
-+#include "air_phy_lib.h"
-+
-+#define AN8801R_PHY_ID			0xc0ff0421
-+
-+/* MII Registers */
-+
-+/* MII Registers - Airoha Page 1 */
-+#define AN8801_EXT_REG_PHY		0x14
-+#define   AN8801_EXT_PHY_STATUS0	GENMASK(1, 0)
-+#define   AN8801_EXT_PHY_DOWNSHIFT_CTL	GENMASK(3, 2) /* 2 to 5 1G auto-neg attempts (0..3) */
-+#define   AN8801_EXT_PHY_DOWNSHIFT_EN	BIT(4)
-+#define   AN8801_EXT_PHY_CTRL0		BIT(5)
-+#define   AN8801_EXT_PHY_STATUS1	GENMASK(8, 6)
-+#define   AN8801_EXT_PHY_CTRL1		GENMASK(14, 9)
-+
-+/* MII Registers - Airoha Page 4 */
-+#define AN8801_PBUS_ACCESS		BIT(28)
-+#define AN8801_PBUS_EPHY_ACCESS		BIT(24)
-+#define AN8801_PBUS_CL22_ACCESS		BIT(23)
-+
-+/* BPBUS Registers */
-+#define AN8801_BPBUS_REG_LED_GPIO	0x54
-+#define AN8801_BPBUS_REG_LED_ID_SEL	0x58
-+#define   LED_ID_GPIO_SEL(led, gpio)	((led) << ((gpio) * 3))
-+#define   LED_ID_GPIO_SEL_MASK(gpio)	(0x7 << ((gpio) * 3))
-+#define AN8801_BPBUS_REG_GPIO_MODE	0x70
-+#define AN8801_BPBUS_REG_PHY_IRQ_GPIO	0x7c
-+#define   AN8801_PHY_IRQ_GPIO_NUM_MASK	GENMASK(19, 16)
-+#define   AN8801_PHY_IRQ_GPIO_NUM	1
-+
-+#define AN8801_BPBUS_REG_CKO		0x1a4
-+#define AN8801_CKO_OUTPUT_MODE_AUTO	3
-+
-+#define AN8801_BPBUS_REG_LINK_MODE	0x5054
-+#define  AN8801_BPBUS_LINK_MODE_1000	BIT(0)
-+
-+#define AN8801_BPBUS_REG_BYPASS_PTP	0x21c004
-+#define   AN8801_BYP_PTP_SGMII_TO_GPHY	BIT(8)
-+#define   AN8801_BYP_PTP_RGMII_TO_GPHY	BIT(0)
-+
-+#define AN8801_BPBUS_REG_TXDLY_STEP	0x21c024
-+#define   RGMII_DELAY_STEP_MASK		GENMASK(2, 0)
-+#define   RGMII_DELAY_NO_STEP		0
-+#define   RGMII_DELAY_STEP_1		1
-+#define   RGMII_DELAY_STEP_2		2
-+#define   RGMII_DELAY_STEP_3		3
-+#define   RGMII_DELAY_STEP_4		4
-+#define   RGMII_DELAY_STEP_5		5
-+#define   RGMII_DELAY_STEP_6		6
-+#define   RGMII_DELAY_STEP_7		7
-+#define   RGMII_TXDELAY_FORCE_MODE	BIT(24)
-+
-+#define AN8801_RGMII_TXDELAY_DEFAULT	RGMII_DELAY_STEP_4 /* 1.883ns delay */
-+
-+#define AN8801_BPBUS_REG_RXDLY_STEP	0x21c02c
-+#define   RGMII_RXDELAY_ALIGN		BIT(4)
-+#define   RGMII_RXDELAY_FORCE_MODE	BIT(24)
-+
-+#define AN8801_RGMII_RXDELAY_DEFAULT	RGMII_DELAY_NO_STEP /* 1.992ns delay */
-+
-+#define AN8801_BPBUS_REG_EFIFO_CTL(x)	(0x270004 + (0x100 * (x))) /* 0..2 */
-+#define   AN8801_EFIFO_ALL_EN		GENMASK(7, 0)
-+#define   AN8801_EFIFO_RX_EN		BIT(0)
-+#define   AN8801_EFIFO_TX_EN		BIT(1)
-+#define   AN8801_EFIFO_RX_CLK_EN	BIT(2)
-+#define   AN8801_EFIFO_TX_CLK_EN	BIT(3)
-+#define   AN8801_EFIFO_RX_EEE_EN	BIT(4)
-+#define   AN8801_EFIFO_TX_EEE_EN	BIT(5)
-+#define   AN8801_EFIFO_RX_ODD_NIBBLE_EN	BIT(6)
-+#define   AN8801_EFIFO_TX_ODD_NIBBLE_EN	BIT(7)
-+
-+#define AN8801_BPBUS_REG_WOL_MAC_16_47	0x285114
-+#define AN8801_BPBUS_REG_WOL_MAC_0_15	0x285118
-+
-+#define AN8801_BPBUS_REG_WAKEUP_CTL1	0x285400
-+#define   AN8801_WOL_WAKE_MAGIC_EN	GENMASK(3, 1)
-+#define   AN8801_WOL_WAKE_LNKCHG_EN	BIT(4)
-+
-+#define AN8801_BPBUS_REG_WAKEUP_CTL2	0x285404
-+#define   AN8801_WAKE_OUT_TYPE_PULSE	BIT(0) /* Set/Unset: Pulse/Static */
-+#define   AN8801_WAKE_OUT_POLARITY_NEG	BIT(1) /* Set/Unset: Negative/Positive */
-+#define   AN8801_WAKE_OUT_WIDTH		GENMASK(2, 3)
-+#define    AN8801_WAKE_OUT_84MS		0
-+#define    AN8801_WAKE_OUT_168MS	1
-+#define    AN8801_WAKE_OUT_336MS	2
-+#define    AN8801_WAKE_OUT_672MS	3
-+#define   AN8801_WAKE_OUT_EN		BIT(4)
-+#define   AN8801_PME_WAKEUP_CLR		BIT(8)
-+
-+#define AN8801_BPBUS_REG_WAKE_IRQ_EN	0x285700
-+#define AN8801_BPBUS_REG_WAKE_IRQ_STS	0x285704
-+#define   AN8801_IRQ_WAKE_LNKCHG	BIT(0) /* Wake on link change */
-+#define   AN8801_IRQ_WAKE_UNIPKT	BIT(1) /* Wake on unicast packet */
-+#define   AN8801_IRQ_WAKE_MULPKT	BIT(2) /* Wake on multicast packet */
-+#define   AN8801_IRQ_WAKE_BCPKT		BIT(3) /* Wake on broadcast packet */
-+#define   AN8801_IRQ_WAKE_MAGICPKT	BIT(4) /* Wake on magic packet */
-+#define   AN8801_IRQ_WAKE_ALL		GENMASK(4, 0)
-+
-+/* MDIO_MMD_VEND1 Registers */
-+#define AN8801_PHY_TX_PAIR_DLY_SEL_GBE	0x13
-+#define   AN8801_PHY_PAIR_DLY_SEL_A_GBE	GENMASK(14, 12)
-+#define   AN8801_PHY_PAIR_DLY_SEL_B_GBE	GENMASK(10, 8)
-+#define   AN8801_PHY_PAIR_DLY_SEL_C_GBE	GENMASK(6, 4)
-+#define   AN8801_PHY_PAIR_DLY_SEL_D_GBE	GENMASK(2, 0)
-+#define AN8801_PHY_RXADC_CTRL		0xd8
-+#define   AN8801_PHY_RXADC_SAMP_PHSEL_A	BIT(12)
-+#define   AN8801_PHY_RXADC_SAMP_PHSEL_B	BIT(8)
-+#define   AN8801_PHY_RXADC_SAMP_PHSEL_C	BIT(4)
-+#define   AN8801_PHY_RXADC_SAMP_PHSEL_D	BIT(0)
-+#define AN8801_PHY_RXADC_REV_0		0xd9
-+#define   AN8801_PHY_RXADC_REV_MASK_A	GENMASK(15, 8)
-+#define   AN8801_PHY_RXADC_REV_MASK_B	GENMASK(7, 0)
-+#define AN8801_PHY_RXADC_REV_1		0xda
-+#define   AN8801_PHY_RXADC_REV_MASK_C	GENMASK(15, 8)
-+#define   AN8801_PHY_RXADC_REV_MASK_D	GENMASK(7, 0)
-+
-+/* MDIO_MMD_VEND2 Registers */
-+#define LED_BCR				0x21
-+#define   LED_BCR_MODE_MASK		GENMASK(1, 0)
-+#define   LED_BCR_TIME_TEST		BIT(2)
-+#define   LED_BCR_CLK_EN		BIT(3)
-+#define   LED_BCR_EVT_ALL		BIT(4)
-+#define   LED_BCR_EXT_CTRL		BIT(15)
-+#define   LED_BCR_MODE_DISABLE		0
-+#define   LED_BCR_MODE_2LED		1
-+#define   LED_BCR_MODE_3LED_1		2
-+#define   LED_BCR_MODE_3LED_2		3
-+
-+#define LED_ON_DUR			0x22
-+#define   LED_ON_DUR_MASK		GENMASK(15, 0)
-+
-+#define LED_BLINK_DUR			0x23
-+#define   LED_BLINK_DUR_MASK		GENMASK(15, 0)
-+
-+#define LED_ON_CTRL(i)			(0x24 + ((i) * 2))
-+#define   LED_ON_EVT_MASK		GENMASK(6, 0)
-+#define   LED_ON_EVT_LINK_1000M		BIT(0)
-+#define   LED_ON_EVT_LINK_100M		BIT(1)
-+#define   LED_ON_EVT_LINK_10M		BIT(2)
-+#define   LED_ON_EVT_LINK_DN		BIT(3)
-+#define   LED_ON_EVT_FDX		BIT(4)
-+#define   LED_ON_EVT_HDX		BIT(5)
-+#define   LED_ON_EVT_FORCE		BIT(6)
-+#define   LED_ON_POL			BIT(14)
-+#define   LED_ON_EN			BIT(15)
-+
-+#define LED_BLINK_CTRL(i)		(0x25 + ((i) * 2))
-+#define LED_BLINK_EVT_MASK		GENMASK(9, 0)
-+#define LED_BLINK_EVT_1000M_TX		BIT(0)
-+#define LED_BLINK_EVT_1000M_RX		BIT(1)
-+#define LED_BLINK_EVT_100M_TX		BIT(2)
-+#define LED_BLINK_EVT_100M_RX		BIT(3)
-+#define LED_BLINK_EVT_10M_TX		BIT(4)
-+#define LED_BLINK_EVT_10M_RX		BIT(5)
-+#define LED_BLINK_EVT_COLLISION		BIT(6)
-+#define LED_BLINK_EVT_RX_CRC_ERR	BIT(7)
-+#define LED_BLINK_EVT_RX_IDLE_ERR	BIT(8)
-+#define LED_BLINK_EVT_FORCE		BIT(9)
-+
-+#define AN8801R_NUM_LEDS		3
-+#define AN8801_PERIOD_SHIFT		15
-+#define AN8801_PERIOD_UNIT		32768 /* (1 << AN8801_PERIOD_SHIFT) */
-+#define AN8801_MAX_PERIOD_MS		2147
-+
-+#define AN8801_LED_DURATION_UNIT_US	32768
-+
-+#define AN8801_REG_PHY_INTERNAL0	0x600
-+#define AN8801_REG_PHY_INTERNAL1	0x601
-+#define   AN8801_PHY_INTFUNC_MASK	GENMASK(15, 0) /* PHY internal functions */
-+
-+enum an8801r_led_fn {
-+	AN8801R_LED_FN_NONE,
-+	AN8801R_LED_FN_LINK,
-+	AN8801R_LED_FN_ACTIVITY,
-+	AN8801R_LED_FN_MAX,
-+};
-+
-+struct an8801r_priv {
-+	bool wake_magic_enabled;
-+	bool wake_lnkchg_enabled;
-+};
-+
-+static int an8801_buckpbus_reg_rmw(struct phy_device *phydev,
-+				   u32 addr, u32 mask, u32 set)
-+{
-+	return air_phy_buckpbus_reg_modify(phydev,
-+					   addr | AN8801_PBUS_ACCESS,
-+					   mask, set);
-+}
-+
-+static int an8801_buckpbus_reg_set_bits(struct phy_device *phydev,
-+					u32 addr, u32 mask)
-+{
-+	return air_phy_buckpbus_reg_modify(phydev,
-+					   addr | AN8801_PBUS_ACCESS,
-+					   mask, mask);
-+}
-+
-+static int an8801_buckpbus_reg_clear_bits(struct phy_device *phydev,
-+					  u32 addr, u32 mask)
-+{
-+	return air_phy_buckpbus_reg_modify(phydev,
-+					   addr | AN8801_PBUS_ACCESS,
-+					   mask, 0);
-+}
-+
-+static int an8801_buckpbus_reg_write(struct phy_device *phydev, u32 addr,
-+				     u32 data)
-+{
-+	return air_phy_buckpbus_reg_write(phydev,
-+					  addr | AN8801_PBUS_ACCESS,
-+					  data);
-+}
-+
-+static int an8801_buckpbus_reg_read(struct phy_device *phydev, u32 addr,
-+				    u32 *data)
-+{
-+	return air_phy_buckpbus_reg_read(phydev,
-+					 addr | AN8801_PBUS_ACCESS,
-+					 data);
-+}
-+
-+static u32 an8801r_led_blink_ms_to_hw(unsigned long req_ms)
-+{
-+	u32 req_ns, regval;
-+
-+	if (req_ms > AN8801_MAX_PERIOD_MS)
-+		req_ms = AN8801_MAX_PERIOD_MS;
-+
-+	req_ns = req_ms * 1000000;
-+
-+	/* Round to the nearest period unit... */
-+	regval = req_ns + (AN8801_PERIOD_UNIT / 2);
-+
-+	/* ...and now divide by the full period */
-+	regval >>= AN8801_PERIOD_SHIFT;
-+
-+	return regval;
-+}
-+
-+static int an8801r_led_blink_set(struct phy_device *phydev, u8 index,
-+				 unsigned long *delay_on,
-+				 unsigned long *delay_off)
-+{
-+	u32 hw_delay_on, hw_delay_off;
-+	bool blink;
-+	int ret;
-+
-+	if (index >= AN8801R_NUM_LEDS)
-+		return -EINVAL;
-+
-+	if (delay_on && delay_off) {
-+		blink = true;
-+
-+		if (*delay_on == 0 || *delay_off == 0) {
-+			*delay_on = 64;
-+			*delay_off = 64;
-+		}
-+
-+		hw_delay_on = an8801r_led_blink_ms_to_hw(*delay_on);
-+		hw_delay_off = an8801r_led_blink_ms_to_hw(*delay_off);
-+	} else {
-+		blink = false;
-+	}
-+
-+	if (blink) {
-+		ret = phy_write_mmd(phydev, MDIO_MMD_VEND2, LED_BLINK_DUR,
-+				    hw_delay_on + hw_delay_off);
-+		if (ret)
-+			goto error;
-+
-+		ret = phy_write_mmd(phydev, MDIO_MMD_VEND2, LED_ON_DUR,
-+				    hw_delay_on);
-+		if (ret)
-+			goto error;
-+	}
-+
-+	ret = phy_modify_mmd(phydev, MDIO_MMD_VEND2, LED_BLINK_CTRL(index),
-+			     LED_BLINK_EVT_MASK,
-+			     blink ? LED_BLINK_EVT_FORCE : 0);
-+	if (ret)
-+		return ret;
-+
-+	ret = phy_modify_mmd(phydev, MDIO_MMD_VEND2, LED_ON_CTRL(index),
-+			     LED_ON_EVT_MASK,
-+			     0);
-+	if (ret)
-+		return ret;
-+
-+	return phy_modify_mmd(phydev, MDIO_MMD_VEND2, LED_ON_CTRL(index),
-+			      LED_ON_EN, blink ? LED_ON_EN : 0);
-+
-+error:
-+	phy_modify_mmd(phydev, MDIO_MMD_VEND2, LED_ON_CTRL(index),
-+		       LED_ON_EN, 0);
-+	return ret;
-+}
-+
-+static int an8801r_led_brightness_set(struct phy_device *phydev, u8 index,
-+				      enum led_brightness value)
-+{
-+	int ret;
-+
-+	if (index >= AN8801R_NUM_LEDS)
-+		return -EINVAL;
-+
-+	ret = phy_modify_mmd(phydev, MDIO_MMD_VEND2, LED_ON_CTRL(index),
-+			     LED_ON_EVT_MASK,
-+			     (value == LED_OFF) ? 0 : LED_ON_EVT_FORCE);
-+	if (ret)
-+		return ret;
-+
-+	return phy_modify_mmd(phydev, MDIO_MMD_VEND2, LED_ON_CTRL(index),
-+			      LED_ON_EN, (value == LED_OFF) ? 0 : LED_ON_EN);
-+}
-+
-+static int an8801r_led_hw_control_get(struct phy_device *phydev, u8 index,
-+				      unsigned long *rules)
-+{
-+	int on, blink;
-+
-+	on = phy_read_mmd(phydev, MDIO_MMD_VEND2, LED_ON_CTRL(index));
-+	if (on < 0)
-+		return on;
-+
-+	blink = phy_read_mmd(phydev, MDIO_MMD_VEND2, LED_BLINK_CTRL(index));
-+	if (blink < 0)
-+		return blink;
-+
-+	if (FIELD_GET(LED_ON_EVT_LINK_10M, on))
-+		__set_bit(TRIGGER_NETDEV_LINK_10, rules);
-+
-+	if (FIELD_GET(LED_ON_EVT_LINK_100M, on))
-+		__set_bit(TRIGGER_NETDEV_LINK_100, rules);
-+
-+	if (FIELD_GET(LED_ON_EVT_LINK_1000M, on))
-+		__set_bit(TRIGGER_NETDEV_LINK_1000, rules);
-+
-+	if (FIELD_GET(LED_ON_EVT_LINK_10M, on) &&
-+	    FIELD_GET(LED_ON_EVT_LINK_100M, on) &&
-+	    FIELD_GET(LED_ON_EVT_LINK_1000M, on))
-+		__set_bit(TRIGGER_NETDEV_LINK, rules);
-+
-+	if (FIELD_GET(LED_BLINK_EVT_10M_RX, blink) ||
-+	    FIELD_GET(LED_BLINK_EVT_100M_RX, blink) ||
-+	    FIELD_GET(LED_BLINK_EVT_1000M_RX, blink))
-+		__set_bit(TRIGGER_NETDEV_RX, rules);
-+
-+	if (FIELD_GET(LED_BLINK_EVT_10M_TX, blink) ||
-+	    FIELD_GET(LED_BLINK_EVT_100M_TX, blink) ||
-+	    FIELD_GET(LED_BLINK_EVT_1000M_TX, blink))
-+		__set_bit(TRIGGER_NETDEV_TX, rules);
-+
-+	if (FIELD_GET(LED_BLINK_EVT_RX_CRC_ERR, blink))
-+		__set_bit(TRIGGER_NETDEV_RX_ERR, rules);
-+
-+	return 0;
-+}
-+
-+static int an8801r_led_trig_to_hw(unsigned long rules, u16 *on, u16 *blink)
-+{
-+	if (test_bit(TRIGGER_NETDEV_LINK_10, &rules))
-+		*on |= LED_ON_EVT_LINK_10M;
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK_100, &rules))
-+		*on |= LED_ON_EVT_LINK_100M;
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK_1000, &rules))
-+		*on |= LED_ON_EVT_LINK_1000M;
-+
-+	if (test_bit(TRIGGER_NETDEV_LINK, &rules)) {
-+		*on |= LED_ON_EVT_LINK_10M;
-+		*on |= LED_ON_EVT_LINK_100M;
-+		*on |= LED_ON_EVT_LINK_1000M;
-+	}
-+
-+	if (test_bit(TRIGGER_NETDEV_RX, &rules)) {
-+		*blink |= LED_BLINK_EVT_10M_RX;
-+		*blink |= LED_BLINK_EVT_100M_RX;
-+		*blink |= LED_BLINK_EVT_1000M_RX;
-+	}
-+
-+	if (test_bit(TRIGGER_NETDEV_TX, &rules)) {
-+		*blink |= LED_BLINK_EVT_10M_TX;
-+		*blink |= LED_BLINK_EVT_100M_TX;
-+		*blink |= LED_BLINK_EVT_1000M_TX;
-+	}
-+
-+	if (test_bit(TRIGGER_NETDEV_RX_ERR, &rules))
-+		*blink |= LED_BLINK_EVT_RX_CRC_ERR;
-+
-+	if (rules && !*on && !*blink)
-+		return -EOPNOTSUPP;
-+
-+	return 0;
-+}
-+
-+static int an8801r_led_hw_is_supported(struct phy_device *phydev, u8 index,
-+				       unsigned long rules)
-+{
-+	u16 on = 0, blink = 0;
-+
-+	if (index >= AN8801R_NUM_LEDS)
-+		return -EINVAL;
-+
-+	return an8801r_led_trig_to_hw(rules, &on, &blink);
-+}
-+
-+static int an8801r_led_hw_control_set(struct phy_device *phydev, u8 index,
-+				      unsigned long rules)
-+{
-+	u16 on = 0, blink = 0;
-+	int ret;
-+
-+	if (index >= AN8801R_NUM_LEDS)
-+		return -EINVAL;
-+
-+	ret = an8801r_led_trig_to_hw(rules, &on, &blink);
-+	if (ret)
-+		return ret;
-+
-+	ret = phy_modify_mmd(phydev, MDIO_MMD_VEND2, LED_ON_CTRL(index),
-+			     LED_ON_EVT_MASK, on);
-+	if (ret)
-+		return ret;
-+
-+	ret = phy_modify_mmd(phydev, MDIO_MMD_VEND2, LED_BLINK_CTRL(index),
-+			     LED_BLINK_EVT_MASK, blink);
-+
-+	if (ret)
-+		return ret;
-+
-+	return phy_modify_mmd(phydev, MDIO_MMD_VEND2, LED_ON_CTRL(index),
-+			      LED_ON_EN, on | blink ? LED_ON_EN : 0);
-+}
-+
-+static int an8801r_led_polarity_set(struct phy_device *phydev, int index,
-+				    unsigned long modes)
-+{
-+	bool active_high = true;
-+	unsigned long mode;
-+
-+	if (index >= AN8801R_NUM_LEDS)
-+		return -EINVAL;
-+
-+	for_each_set_bit(mode, &modes, __PHY_LED_MODES_NUM) {
-+		switch (mode) {
-+		case PHY_LED_ACTIVE_HIGH:
-+			break;
-+		case PHY_LED_ACTIVE_LOW:
-+			active_high = false;
-+			break;
-+		default:
-+			return -EINVAL;
-+		}
-+	}
-+
-+	return phy_modify_mmd(phydev, MDIO_MMD_VEND2, LED_ON_CTRL(index),
-+			      LED_ON_POL, active_high ? LED_ON_POL : 0);
-+}
-+
-+static int an8801r_led_init(struct phy_device *phydev, u8 *led_cfg)
-+{
-+	int led_id, ret;
-+
-+	/* Set LED BCR Enable */
-+	ret = phy_set_bits_mmd(phydev, MDIO_MMD_VEND2, LED_BCR,
-+			       LED_BCR_EXT_CTRL | LED_BCR_CLK_EN);
-+	if (ret)
-+		return ret;
-+
-+	for (led_id = 0; led_id < AN8801R_NUM_LEDS; led_id++) {
-+		unsigned long led_trigger = 0;
-+		u32 led_gpio = led_id + 1;
-+
-+		switch (led_cfg[led_id]) {
-+		case AN8801R_LED_FN_LINK:
-+			led_trigger = BIT(TRIGGER_NETDEV_LINK);
-+			break;
-+		case AN8801R_LED_FN_ACTIVITY:
-+			led_trigger = BIT(TRIGGER_NETDEV_RX) |
-+				    BIT(TRIGGER_NETDEV_TX);
-+			break;
-+		default:
-+			led_trigger = 0;
-+			break;
-+		}
-+
-+		ret = an8801_buckpbus_reg_set_bits(phydev,
-+						   AN8801_BPBUS_REG_LED_GPIO,
-+						   BIT(led_gpio));
-+		if (ret)
-+			return ret;
-+
-+		ret = an8801_buckpbus_reg_rmw(phydev,
-+					      AN8801_BPBUS_REG_LED_ID_SEL,
-+					      LED_ID_GPIO_SEL_MASK(led_gpio),
-+					      LED_ID_GPIO_SEL(led_id,
-+							      led_gpio));
-+		if (ret)
-+			return ret;
-+
-+		ret = an8801_buckpbus_reg_clear_bits(phydev,
-+						     AN8801_BPBUS_REG_GPIO_MODE,
-+						     BIT(led_gpio));
-+		if (ret)
-+			return ret;
-+
-+		if (!led_trigger)
-+			continue;
-+
-+		ret = an8801r_led_hw_control_set(phydev, led_id, led_trigger);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return ret;
-+}
-+
-+static int an8801r_reset_wake(struct phy_device *phydev)
-+{
-+	struct an8801r_priv *priv = phydev->priv;
-+	u32 reg_val = 0;
-+	int ret;
-+
-+	/* Enable wakeup clear and disable wake up output */
-+	ret = an8801_buckpbus_reg_write(phydev, AN8801_BPBUS_REG_WAKEUP_CTL2,
-+					AN8801_PME_WAKEUP_CLR |
-+					AN8801_WAKE_OUT_POLARITY_NEG);
-+	if (ret)
-+		return ret;
-+
-+	/* Clear WAKEUP_CTL1 register before enabling the wakeup events
-+	 * again
-+	 */
-+	ret = an8801_buckpbus_reg_write(phydev, AN8801_BPBUS_REG_WAKEUP_CTL1,
-+					0);
-+	if (ret)
-+		return ret;
-+
-+	if (priv->wake_magic_enabled)
-+		reg_val |= AN8801_WOL_WAKE_MAGIC_EN;
-+
-+	if (priv->wake_lnkchg_enabled)
-+		reg_val |= AN8801_WOL_WAKE_LNKCHG_EN;
-+
-+	ret = an8801_buckpbus_reg_write(phydev, AN8801_BPBUS_REG_WAKEUP_CTL1,
-+					reg_val);
-+	if (ret)
-+		return ret;
-+
-+	/* Disable wake up clear and re-enable wake up output */
-+	return an8801_buckpbus_reg_write(phydev, AN8801_BPBUS_REG_WAKEUP_CTL2,
-+					 AN8801_WAKE_OUT_POLARITY_NEG |
-+					 AN8801_WAKE_OUT_EN);
-+}
-+
-+static int an8801r_ack_interrupt(struct phy_device *phydev)
-+{
-+	int ret;
-+
-+	/* Reset wake status */
-+	ret = an8801r_reset_wake(phydev);
-+	if (ret)
-+		return ret;
-+
-+	/* Clear the interrupts by writing the reg */
-+	return an8801_buckpbus_reg_write(phydev, AN8801_BPBUS_REG_WAKE_IRQ_STS,
-+					 AN8801_IRQ_WAKE_ALL);
-+}
-+
-+static int an8801r_config_intr(struct phy_device *phydev)
-+{
-+	int ret;
-+
-+	if (phydev->interrupts == PHY_INTERRUPT_ENABLED) {
-+		u32 val = FIELD_PREP(AN8801_PHY_IRQ_GPIO_NUM_MASK,
-+				     AN8801_PHY_IRQ_GPIO_NUM);
-+
-+		ret = an8801_buckpbus_reg_write(phydev,
-+						AN8801_BPBUS_REG_PHY_IRQ_GPIO,
-+						val);
-+		if (ret)
-+			return ret;
-+
-+		ret = an8801_buckpbus_reg_set_bits(phydev,
-+						   AN8801_BPBUS_REG_WAKE_IRQ_EN,
-+						   AN8801_IRQ_WAKE_LNKCHG);
-+		if (ret)
-+			return ret;
-+
-+	} else {
-+		ret = an8801_buckpbus_reg_write(phydev,
-+						AN8801_BPBUS_REG_PHY_IRQ_GPIO,
-+						0);
-+		if (ret)
-+			return ret;
-+
-+		ret = an8801_buckpbus_reg_clear_bits(phydev,
-+						     AN8801_BPBUS_REG_WAKE_IRQ_EN,
-+						     AN8801_IRQ_WAKE_LNKCHG);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return an8801r_ack_interrupt(phydev);
-+}
-+
-+static irqreturn_t an8801r_handle_interrupt(struct phy_device *phydev)
-+{
-+	u32 irq_status = 0;
-+	int ret;
-+
-+	ret = an8801_buckpbus_reg_read(phydev, AN8801_BPBUS_REG_WAKE_IRQ_STS,
-+				       &irq_status);
-+	if (ret)
-+		return IRQ_NONE;
-+
-+	ret = an8801r_ack_interrupt(phydev);
-+	if (ret)
-+		return IRQ_NONE;
-+
-+	if (irq_status & AN8801_IRQ_WAKE_MAGICPKT) {
-+		pm_wakeup_event(&phydev->mdio.dev, 0);
-+		return IRQ_HANDLED;
-+	}
-+
-+	if (irq_status & AN8801_IRQ_WAKE_LNKCHG) {
-+		phy_trigger_machine(phydev);
-+		return IRQ_HANDLED;
-+	}
-+
-+	return IRQ_NONE;
-+}
-+
-+static void an8801r_get_wol(struct phy_device *phydev,
-+			    struct ethtool_wolinfo *wol)
-+{
-+	u32 reg_val;
-+	int ret;
-+
-+	/* If the PHY is not capable of waking the system, then WoL can not
-+	 * be supported.
-+	 */
-+	if (!device_can_wakeup(&phydev->mdio.dev)) {
-+		wol->supported = 0;
-+		return;
-+	}
-+
-+	wol->supported = WAKE_MAGIC;
-+	wol->wolopts = 0;
-+
-+	ret = an8801_buckpbus_reg_read(phydev, AN8801_BPBUS_REG_WAKEUP_CTL1,
-+				       &reg_val);
-+	if (ret)
-+		return;
-+
-+	if (reg_val & AN8801_WOL_WAKE_MAGIC_EN)
-+		wol->wolopts |= WAKE_MAGIC;
-+	else
-+		wol->wolopts &= ~WAKE_MAGIC;
-+}
-+
-+static int an8801r_set_wol(struct phy_device *phydev,
-+			   struct ethtool_wolinfo *wol)
-+{
-+	struct net_device *attach_dev = phydev->attached_dev;
-+	const unsigned char *macaddr = attach_dev->dev_addr;
-+	struct an8801r_priv *priv = phydev->priv;
-+	u32 reg_val;
-+	int ret;
-+
-+	if (!device_can_wakeup(&phydev->mdio.dev))
-+		return -EOPNOTSUPP;
-+
-+	if (wol->wolopts & WAKE_MAGIC) {
-+		/* MAC bits 16..47 */
-+		reg_val = (macaddr[2] << 24) | (macaddr[3] << 16);
-+		reg_val |= (macaddr[4] << 8) | (macaddr[5]);
-+
-+		ret = an8801_buckpbus_reg_write(phydev,
-+						AN8801_BPBUS_REG_WOL_MAC_16_47,
-+						reg_val);
-+		if (ret)
-+			return ret;
-+
-+		/* MAC bits 0..15 */
-+		reg_val = (macaddr[0] << 8) | (macaddr[1]);
-+
-+		ret = an8801_buckpbus_reg_write(phydev,
-+						AN8801_BPBUS_REG_WOL_MAC_0_15,
-+						reg_val);
-+		if (ret)
-+			return ret;
-+
-+		ret = an8801_buckpbus_reg_set_bits(phydev,
-+						   AN8801_BPBUS_REG_WAKEUP_CTL1,
-+						   AN8801_WOL_WAKE_MAGIC_EN);
-+		if (ret)
-+			return ret;
-+
-+		ret = an8801_buckpbus_reg_set_bits(phydev,
-+						   AN8801_BPBUS_REG_WAKE_IRQ_EN,
-+						   AN8801_IRQ_WAKE_MAGICPKT);
-+		if (ret)
-+			return ret;
-+
-+	} else {
-+		ret = an8801_buckpbus_reg_clear_bits(phydev,
-+						     AN8801_BPBUS_REG_WAKEUP_CTL1,
-+						     AN8801_WOL_WAKE_MAGIC_EN);
-+		if (ret)
-+			return ret;
-+
-+		ret = an8801_buckpbus_reg_clear_bits(phydev,
-+						     AN8801_BPBUS_REG_WAKE_IRQ_EN,
-+						     AN8801_IRQ_WAKE_MAGICPKT);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	priv->wake_magic_enabled = !!(wol->wolopts & WAKE_MAGIC);
-+
-+	return device_set_wakeup_enable(&phydev->mdio.dev,
-+					priv->wake_magic_enabled);
-+}
-+
-+static int an8801r_of_init_leds(struct phy_device *phydev, u8 *led_cfg)
-+{
-+	struct device *dev = &phydev->mdio.dev;
-+	struct device_node *np = dev->of_node;
-+	struct device_node *leds;
-+	u32 function_enum_idx;
-+	int ret;
-+
-+	if (!np)
-+		return 0;
-+
-+	/* If devicetree is present, leds configuration is required */
-+	leds = of_get_child_by_name(np, "leds");
-+	if (!leds)
-+		return 0;
-+
-+	for_each_available_child_of_node_scoped(leds, led) {
-+		u32 led_idx;
-+
-+		ret = of_property_read_u32(led, "reg", &led_idx);
-+		if (ret)
-+			goto out;
-+
-+		if (led_idx >= AN8801R_NUM_LEDS) {
-+			ret = -EINVAL;
-+			goto out;
-+		}
-+
-+		ret = of_property_read_u32(led, "function-enumerator",
-+					   &function_enum_idx);
-+		if (ret) {
-+			function_enum_idx = AN8801R_LED_FN_NONE;
-+			ret = 0;
-+		}
-+
-+		if (function_enum_idx >= AN8801R_LED_FN_MAX) {
-+			ret = -EINVAL;
-+			goto out;
-+		}
-+
-+		led_cfg[led_idx] = function_enum_idx;
-+	}
-+out:
-+	of_node_put(leds);
-+	return ret;
-+}
-+
-+static int an8801r_rgmii_rxdelay(struct phy_device *phydev, bool enable,
-+				 u16 delay_steps)
-+{
-+	u32 reg_val;
-+
-+	if (delay_steps > RGMII_DELAY_STEP_MASK)
-+		return -EINVAL;
-+
-+	if (enable) {
-+		reg_val = delay_steps & RGMII_DELAY_STEP_MASK;
-+
-+		 /* Set align bit to add extra offset for RX delay */
-+		reg_val |= RGMII_RXDELAY_ALIGN;
-+
-+		 /* Set force mode bit to enable RX delay insertion */
-+		reg_val |= RGMII_RXDELAY_FORCE_MODE;
-+	} else {
-+		reg_val = 0;
-+	}
-+
-+	return an8801_buckpbus_reg_write(phydev, AN8801_BPBUS_REG_RXDLY_STEP,
-+					 reg_val);
-+}
-+
-+static int an8801r_rgmii_txdelay(struct phy_device *phydev, bool enable,
-+				 u16 delay_steps)
-+{
-+	u32 reg_val;
-+
-+	if (delay_steps > RGMII_DELAY_STEP_MASK)
-+		return -EINVAL;
-+
-+	if (enable) {
-+		reg_val = delay_steps & RGMII_DELAY_STEP_MASK;
-+
-+		 /* Set force mode bit to enable TX delay insertion */
-+		reg_val |= RGMII_TXDELAY_FORCE_MODE;
-+	} else {
-+		reg_val = 0;
-+	}
-+
-+	return an8801_buckpbus_reg_write(phydev, AN8801_BPBUS_REG_TXDLY_STEP,
-+					 reg_val);
-+}
-+
-+static int an8801r_rgmii_delay_config(struct phy_device *phydev)
-+{
-+	bool enable_delay;
-+	u16 delay_step;
-+	int ret;
-+
-+	if (phydev->interface == PHY_INTERFACE_MODE_RGMII_ID ||
-+	    phydev->interface == PHY_INTERFACE_MODE_RGMII_TXID) {
-+		enable_delay = true;
-+		delay_step = AN8801_RGMII_TXDELAY_DEFAULT;
-+	} else {
-+		enable_delay = false;
-+		delay_step = RGMII_DELAY_NO_STEP;
-+	}
-+
-+	ret = an8801r_rgmii_txdelay(phydev, enable_delay, delay_step);
-+	if (ret)
-+		return ret;
-+
-+	if (phydev->interface == PHY_INTERFACE_MODE_RGMII_ID ||
-+	    phydev->interface == PHY_INTERFACE_MODE_RGMII_RXID) {
-+		enable_delay = true;
-+		delay_step = AN8801_RGMII_RXDELAY_DEFAULT;
-+	} else {
-+		enable_delay = false;
-+		delay_step = RGMII_DELAY_NO_STEP;
-+	}
-+
-+	return an8801r_rgmii_rxdelay(phydev, enable_delay, delay_step);
-+}
-+
-+static int an8801r_config_init(struct phy_device *phydev)
-+{
-+	u8 led_default_function[AN8801R_NUM_LEDS] = { 0 };
-+	int ret;
-+
-+	ret = an8801r_of_init_leds(phydev, led_default_function);
-+	if (ret)
-+		return ret;
-+
-+	/* Disable Low Power Mode (LPM) */
-+	ret = phy_write_mmd(phydev, MDIO_MMD_VEND2, AN8801_REG_PHY_INTERNAL0,
-+			    FIELD_PREP(AN8801_PHY_INTFUNC_MASK, 0x1e));
-+	if (ret)
-+		return ret;
-+
-+	ret = phy_write_mmd(phydev, MDIO_MMD_VEND2, AN8801_REG_PHY_INTERNAL1,
-+			    FIELD_PREP(AN8801_PHY_INTFUNC_MASK, 0x2));
-+	if (ret)
-+		return ret;
-+
-+	/* Set the PHY to perform auto-downshift after 3 auto-negotiation
-+	 * attempts
-+	 */
-+	ret = phy_write_paged(phydev, AIR_PHY_PAGE_EXTENDED_1,
-+			      AN8801_EXT_REG_PHY,
-+			      FIELD_PREP(AN8801_EXT_PHY_CTRL1, 0x1d) |
-+			      FIELD_PREP(AN8801_EXT_PHY_DOWNSHIFT_CTL, 1) |
-+			      AN8801_EXT_PHY_DOWNSHIFT_EN);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = an8801_buckpbus_reg_write(phydev, AN8801_BPBUS_REG_BYPASS_PTP,
-+					AN8801_BYP_PTP_RGMII_TO_GPHY);
-+	if (ret)
-+		return ret;
-+
-+	ret = an8801_buckpbus_reg_write(phydev, AN8801_BPBUS_REG_EFIFO_CTL(0),
-+					AN8801_EFIFO_RX_EN |
-+					AN8801_EFIFO_TX_EN |
-+					AN8801_EFIFO_RX_CLK_EN |
-+					AN8801_EFIFO_TX_CLK_EN |
-+					AN8801_EFIFO_RX_EEE_EN |
-+					AN8801_EFIFO_TX_EEE_EN);
-+	if (ret)
-+		return ret;
-+
-+	ret = an8801_buckpbus_reg_write(phydev, AN8801_BPBUS_REG_EFIFO_CTL(1),
-+					AN8801_EFIFO_ALL_EN);
-+	if (ret)
-+		return ret;
-+
-+	ret = an8801_buckpbus_reg_write(phydev, AN8801_BPBUS_REG_EFIFO_CTL(2),
-+					AN8801_EFIFO_ALL_EN);
-+	if (ret)
-+		return ret;
-+
-+	ret = phy_write_mmd(phydev, MDIO_MMD_VEND1,
-+			    AN8801_PHY_TX_PAIR_DLY_SEL_GBE,
-+			    FIELD_PREP(AN8801_PHY_PAIR_DLY_SEL_A_GBE, 4) |
-+			    FIELD_PREP(AN8801_PHY_PAIR_DLY_SEL_C_GBE, 4));
-+	if (ret)
-+		return ret;
-+
-+	ret = phy_write_mmd(phydev, MDIO_MMD_VEND1, AN8801_PHY_RXADC_CTRL,
-+			    AN8801_PHY_RXADC_SAMP_PHSEL_A |
-+			    AN8801_PHY_RXADC_SAMP_PHSEL_C);
-+	if (ret)
-+		return ret;
-+
-+	ret = phy_write_mmd(phydev, MDIO_MMD_VEND1, AN8801_PHY_RXADC_REV_0,
-+			    FIELD_PREP(AN8801_PHY_RXADC_REV_MASK_A, 1));
-+	if (ret)
-+		return ret;
-+
-+	ret = phy_write_mmd(phydev, MDIO_MMD_VEND1, AN8801_PHY_RXADC_REV_1,
-+			    FIELD_PREP(AN8801_PHY_RXADC_REV_MASK_C, 1));
-+	if (ret)
-+		return ret;
-+
-+	ret = an8801r_rgmii_delay_config(phydev);
-+	if (ret)
-+		return ret;
-+
-+	ret = an8801_buckpbus_reg_write(phydev, AN8801_BPBUS_REG_CKO,
-+					AN8801_CKO_OUTPUT_MODE_AUTO);
-+	if (ret)
-+		return ret;
-+
-+	ret = an8801r_led_init(phydev, led_default_function);
-+	if (ret) {
-+		phydev_err(phydev, "Cannot initialize LEDs: %d\n", ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int an8801r_probe(struct phy_device *phydev)
-+{
-+	struct device *dev = &phydev->mdio.dev;
-+	struct an8801r_priv *priv;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	priv->wake_lnkchg_enabled = true;
-+
-+	phydev->priv = priv;
-+
-+	/* Mark this PHY as wakeup capable and register the interrupt as a
-+	 * wakeup IRQ if the PHY is marked as a wakeup source in devicetree,
-+	 * and the interrupt is valid.
-+	 */
-+	if (of_property_read_bool(dev->of_node, "wakeup-source") &&
-+	    phy_interrupt_is_valid(phydev)) {
-+		device_set_wakeup_capable(dev, true);
-+		devm_pm_set_wake_irq(dev, phydev->irq);
-+	}
-+
-+	return 0;
-+}
-+
-+static int an8801r_suspend(struct phy_device *phydev)
-+{
-+	struct an8801r_priv *priv = phydev->priv;
-+	int ret;
-+
-+	/* If the PHY may wake up by a wake-on-line event, disable the link
-+	 * interrupt to only keep the  WOL magic interrupt enabled
-+	 */
-+	if (device_may_wakeup(&phydev->mdio.dev)) {
-+		priv->wake_lnkchg_enabled = false;
-+
-+		if (phydev->interrupts == PHY_INTERRUPT_ENABLED) {
-+			ret = an8801_buckpbus_reg_clear_bits(phydev,
-+							     AN8801_BPBUS_REG_WAKE_IRQ_EN,
-+							     AN8801_IRQ_WAKE_LNKCHG);
-+			if (ret)
-+				return ret;
-+		}
-+
-+		/* Reset Wol status */
-+		ret = an8801r_reset_wake(phydev);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	if (!phydev->wol_enabled)
-+		return genphy_suspend(phydev);
-+
-+	return 0;
-+}
-+
-+static int an8801r_resume(struct phy_device *phydev)
-+{
-+	struct an8801r_priv *priv = phydev->priv;
-+	int ret;
-+
-+	ret = genphy_resume(phydev);
-+	if (ret)
-+		return ret;
-+
-+	/* Restore the interrupt enable so phylib can receive link
-+	 * state interrupts.
-+	 */
-+	if (device_may_wakeup(&phydev->mdio.dev)) {
-+		priv->wake_lnkchg_enabled = true;
-+
-+		ret = an8801_buckpbus_reg_set_bits(phydev,
-+						   AN8801_BPBUS_REG_WAKEUP_CTL1,
-+						   AN8801_WOL_WAKE_LNKCHG_EN);
-+		if (ret)
-+			return ret;
-+
-+		if (phydev->interrupts == PHY_INTERRUPT_ENABLED) {
-+			ret = an8801_buckpbus_reg_set_bits(phydev,
-+							   AN8801_BPBUS_REG_WAKE_IRQ_EN,
-+							   AN8801_IRQ_WAKE_LNKCHG);
-+		}
-+	}
-+
-+	return ret;
-+}
-+
-+static struct phy_driver airoha_driver[] = {
-+{
-+	PHY_ID_MATCH_MODEL(AN8801R_PHY_ID),
-+	.name			= "Airoha AN8801R",
-+	.probe			= an8801r_probe,
-+	.config_init		= an8801r_config_init,
-+	.suspend		= an8801r_suspend,
-+	.resume			= an8801r_resume,
-+	.config_aneg		= genphy_config_aneg,
-+	.config_intr		= an8801r_config_intr,
-+	.handle_interrupt	= an8801r_handle_interrupt,
-+	.set_wol		= an8801r_set_wol,
-+	.get_wol		= an8801r_get_wol,
-+	.read_page		= air_phy_read_page,
-+	.write_page		= air_phy_write_page,
-+	.flags			= PHY_ALWAYS_CALL_SUSPEND,
-+	.led_brightness_set	= an8801r_led_brightness_set,
-+	.led_blink_set		= an8801r_led_blink_set,
-+	.led_hw_is_supported	= an8801r_led_hw_is_supported,
-+	.led_hw_control_set	= an8801r_led_hw_control_set,
-+	.led_hw_control_get	= an8801r_led_hw_control_get,
-+	.led_polarity_set	= an8801r_led_polarity_set,
-+} };
-+module_phy_driver(airoha_driver);
-+
-+static struct mdio_device_id __maybe_unused an8801_tbl[] = {
-+	{ PHY_ID_MATCH_MODEL(AN8801R_PHY_ID) },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(mdio, an8801_tbl);
-+
-+MODULE_DESCRIPTION("Airoha AN8801 PHY driver");
-+MODULE_AUTHOR("AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>");
-+MODULE_LICENSE("GPL");
+I can imagine two reasons to alter these coefficients:
+
+1.(st) being what Jonathan described. Eg. having something like a lens 
+or a glass or whatever, on top of the sensor. That can alter the light 
+entering the sensor, and require change to the coefficients. And indeed, 
+it would make sense to only describe this in the DT, because the sensor 
+is already described. That'd mean the DT should only contain the 
+'coefficient delta' caused by <add the cause here>.
+
+2. In theory, there could also be another reason. I bet the sensors are 
+all 'individuals' to some extent. So, for something requiring very high 
+accuracy, there could be some kind of calibration process at device 
+manufacturing. This might produce more accurate, device specific 
+coefficients. Considering this use-case, I am not 100% convinced it's 
+"wrong" to be able to give the device-specific coefficients from the DT. 
+(Because, here the coefficients really are a property of the device 
+itself and aren't added by some external part).
+
+And, if we consider allowing describing (the more accurate) device 
+coefficients from the DT (for case 2), then it would just be simpler to 
+always provide the "full coefficients" from the DT, no matter if they 
+are caused by the device packaging or added lens/glass/XXX. And, as the 
+infamous, and not even existing rohm,dh2228fv device shows, people do 
+use the simplest solutions even when it isn't really right ;)
+
+So, I am tempted to suggest we just go with the flow, and allow 
+describing the coefficients from the DT, without separating the source, 
+(lens/glass/device-packaging) which is what this patch does. (If I read 
+it right.) However, I would like to see a property which can be re-used 
+by other devices as this seems to be pretty common. Yeah, it's probably 
+not _right_, but it feels practical.
+
+Well, this is just my 0.5 cents, and even I may change my opinion on 
+this though :)
+
+Yours,
+	-- Matti
 
 -- 
-2.54.0
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
 
+~~ When things go utterly wrong vim users can always type :help! ~~
