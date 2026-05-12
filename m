@@ -1,173 +1,185 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F04C388E40
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 09:10:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778577029; cv=none; b=ByjMJJ22VqhwMrBP3Dtw7DmYzKpjdmQjkUV1F10NBFOJ9CjHQQidHZiAAo40v4sY6f/0cNepwLpksxFodG5/UPLwF2fcoEpeJR7HuaQTXaNLr3dfweAaT+hDn/CMW/HOEZX8utzuV0ncNuWhxotTsX0EEvAN4t3A069RI/W0F9U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778577029; c=relaxed/simple;
-	bh=Grg20u364HDLtV8oYPQ/WPGaG2f/jnq2CL/1dztZOiw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XCjdrt+/Bkwe/1RUN/1r1/e5iFllMktnMxSHDTN3CfGK1U5Fyit1yXO4utOh9QDmYv+e6owR7ptlHmgrN1kpRod/G6nkxI1uVSc6NeC/5J6s0ibM+aTGkJHjb1b89+zJLe4G0EXnY8aM31CB7Urg3HL0y59e74XgC8tOULg0Il8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PEm0kTcj; arc=none smtp.client-ip=209.85.210.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8B1B3A7F55
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 09:10:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778577042; cv=pass; b=RkC4OK4L99jTOy7Mq0Ej2bSZgjEGl/eF1q+aNe6gXWpSeVkjXRRqFn7SFRvfOwp4AbsmrAsiGK72vXfZKfVC1nb5BbOZxEejknxTyO0pICMXwUdBPbr5R8ZQZu7k6bBXLIdhZ2o5sFiUywbNhuIPEM6aT2TQ+9hrmoDI8tjmZi4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778577042; c=relaxed/simple;
+	bh=SldyvNr/n4Wfj4nI29FY5/NOTaJNZ4ScLZjfw6gtFeE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Zbdr8O1EZML9tiwGFHgbETAv6/YF1bV0+YTXH2u65QWJti9NI/r2GHfsORhB/e34HsxQ0S3YdzxLhx60RCmOlZSYRlIGam7d3Ze6pqbq2I0SZCvvKuvClMW08sqo0CpblghcPLhnZMRauS619RGsogtYTs4rebB2QPGy4oCAY4U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=VpokuH5M; arc=pass smtp.client-ip=209.85.167.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PEm0kTcj"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-83659d38e38so2342230b3a.1
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 02:10:27 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="VpokuH5M"
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5a877510541so5493405e87.2
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 02:10:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778577039; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Bv1NlknoJsvqq45y1lGwbdsCuJirRsXjNSmapFBfPEYPotHlPRUVX/1A/yPqaQ7Dsk
+         8r+1N+iPTi47gLGyu88P+2S+9a5q/CL8MTXOHCwQ8yZx+X43Pvfki8Y3ddlhXjU8dWJC
+         3o3tdFJWctrX18fJ3nLs+FxM/c4yKm+TFhBaPz5NZOm5rX9u94EXokk1y+cmEXgfXm4P
+         X9ro5PGR6URKbBWuF31taYhpfwpX+el5kRx4D1adEYI7OYHD2cLdC4AoKqTZG4BVEa6U
+         t8oYjzkecnxIt7VWkq9NfTPIk5kvEAjm7p0Dh2+8uSjHCuH0Yixf+tM6DQUZOXePXe9F
+         NzGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=BaQVFSo7/RABUgV7WjxPFRBzBaIOTZlhi7UVYJK3BzI=;
+        fh=lZO9+vELpdaAwAENYVbB2+avtp9foDB8xtIfUHKMiG0=;
+        b=PboMQ0/EAtBIQDyEXSjUu6pU2onjpTwREPnOdPdn1stTgx9SoWaEWalfzV3mgETBX6
+         RTnSHAFswTeBSy6EO0tD3gWx6jcL9epzXnkCkNarh7Wjv7ETwaA07Pcj3JsH0+qxDez7
+         or9bI9fnKBhObpH1jrORALHQEmVMY5StID/j/Ssk72sMCYRwQBvZPJ60Swp7z4SGyQlS
+         4A+0hacVyILa8RhPZOfhf5wE4T6Xl5Ym5wkkpqf+eVv1iSsniMAwglR0HeL+epM8EMjg
+         A1FXTH5ToNCqFm5RmN94h9E4GUNasVtRd70mRV1JOGjhU/cBBOE8RorynyEzICQeRwHV
+         tm7Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778577027; x=1779181827; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Z33mAnUolaaopuhgkgsSsR1XqxZfuAXYGKr6UlpMNF4=;
-        b=PEm0kTcjG1MeFEgRFD6sF/DiLHwKbzA9RgY3mtqi3cCyCc0ZZX0mlzgwVqUqyGQefc
-         Sz5ZTL0UUHO5QpftD85PKqYaV2cMzFIatyUygq8KYTupgtT5JuRc9N4bE+36ROcQFtqr
-         X2X4tbsvFtOlkxnldib62Ac4A3jW0ZxBMKkD3XFWI9kYGr+D3XzjyUhq6MtmEmM5Po5M
-         1cDWa45IAvdm0VndnjLEJ+O8Vrgi4tlNX6uMh887vs3RNjtD6lzxSuDRgJImkRf6b7Cc
-         Y8otm89UV/5UMkA8pqmjWhPsWQ+oszvlApuL/Z02afW7k/ntCjTbjZj/N9fVQK17MT2C
-         2++g==
+        d=chromium.org; s=google; t=1778577039; x=1779181839; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BaQVFSo7/RABUgV7WjxPFRBzBaIOTZlhi7UVYJK3BzI=;
+        b=VpokuH5Mco8HOKOadwhqWFcpCG7VGfzr7GO9uGE0n7xBXpM0FImQsg7J0MMekSfDtm
+         EKscSTPZy0mES8VtXeWeATPPppM+xWbnrcWDo0L53llEJedmBNPnXukUYa5twluMp76Q
+         a3sY2kNRGobdGLZQ3nDbHDeQBS2z81WBYmmPE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778577027; x=1779181827;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Z33mAnUolaaopuhgkgsSsR1XqxZfuAXYGKr6UlpMNF4=;
-        b=F+FjMc/pqpoh8ew2I+GrV4QMOEFDnO+uWBd0P2nP5a7RlBX3yukyWHLOWD4JA4N+S/
-         M/g+7Ugw6HuhB/QfLpoUHqpsLfusCXLELeW9CvQSZGTMxBcB64IdIh73bLLAaxOPPPM5
-         +gTffUxHA4ft2DDpM2+1XT5ZlteyOwd0IoqucknBjcIbo8PZMkbKCb7Bdkg/rlv8+VOk
-         6Uk71GHU1JzcdO50DeMCmUBwcIFbaCd1SlFFQq1NMzLkP9EAxb8nc4SR3JRlPYCptJik
-         KRVfWfMwSZKa2Su+n46Yw2KB943OTmtdnrX9AmQkX+yRE7vXCnZd3Yn2YR3HBfAAiUII
-         EnIg==
-X-Forwarded-Encrypted: i=1; AFNElJ8qH5EnfR7/BMvo73Kz17L6VacjnKXA+W/laiPssIAyT6/HR7/jfElKkD2XQDKfapVrOoPAhFdVhWkI@vger.kernel.org
-X-Gm-Message-State: AOJu0YynyC6s2h1WPAzp+uvFC989cc0/r+LhbX+Hp3gPTBaYG2TQFShV
-	o4AMOLTw9Cr3186nhpC/onCyDhrqHjnZBuZ7XmCa6Hq8I1zn/z46cA8t
-X-Gm-Gg: Acq92OGOD6Yb7ovjILplSdpWL+oSwBp6RZCLn2rpuUWbPUxOz3HguX51yb3l+XOHcSc
-	jjfJSgQIGOi/Mg+L9MP1wavIfHBlLPlD5yOyQn4sukguImJdR+18ZUtAA78a0T4F4shLLgHybo3
-	NBKlNMpZS4l3Z6+9LK+ofdlBnX5nAwwIU0Zj3UI+Kejm3lWkUtSwvPJtAY0bTgVRxc5pif0sSsv
-	B2DPvcnM4jWUjj4ysO5OCQFlB9XosGQbfuc6sVbpgCPp45aS5V9W9SWXpF0R/ytR3E1qENWvrBv
-	O2NJ46KtHYahKHdrnOOq4zQbek/mtMzO1U5EVh9ltPlJVHfJ8lxVTs5YtBWvQ+WKz19EIxdOYFH
-	TM//NjQDRrrX0D2mdzSZBZVLAF9sBu+hfSBk24B97YybeguR/jv/l5O9oB8qGRn+lJ+I8D+0Z3l
-	0S6HvgMeRgBJEMY+5ndZyU+z4VWk1qf963Bblg5IDw4D48zyC7GFI5mlHsvv7noJdofm1+8OyOQ
-	stztjo8UPmV4U4=
-X-Received: by 2002:a05:6a00:9a8:b0:835:5557:31fa with SMTP id d2e1a72fcca58-83eebe7fd90mr2418145b3a.46.1778577027383;
-        Tue, 12 May 2026 02:10:27 -0700 (PDT)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83965946543sm28990915b3a.16.2026.05.12.02.10.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 12 May 2026 02:10:26 -0700 (PDT)
-Message-ID: <07ca65f6-33da-40b1-afcd-0b0ceabd49f9@gmail.com>
-Date: Tue, 12 May 2026 17:10:22 +0800
+        d=1e100.net; s=20251104; t=1778577039; x=1779181839;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=BaQVFSo7/RABUgV7WjxPFRBzBaIOTZlhi7UVYJK3BzI=;
+        b=Zt2fu0vHhRgOr+kfIPKSnBDlqmg2U5OaEF+9EVSdH1jVvFO3cMCXNQCwtfxugx1ZsQ
+         bOUqRRJvudn1S2Kz1qJ+qGwWjdHwfMvLXbNiazgdBwvl+poU+QOJK36oH6d+onAUtTYc
+         Id8CdeCdwh994DX7LBQOt9+IyIfvwdYYVn9ssNo4UH1stNj351QWaUh192ngngAK3yJt
+         ryTjzn4gb7Bes5GzahbW/6ombYtQeyzAe5/1raXMM61mhL59p5N0YaMpU5neyWgpTOVd
+         8NR/uw2lQ0xUapSqw4Jt0SkxUbxEZAAsAkbFD8Ccoqb4y9wZ4Vj74+V+JpyhQoDA0rHS
+         Tnvg==
+X-Forwarded-Encrypted: i=1; AFNElJ/oa+PDxIez0efbiVGsrbusRbhlIMb7iZJik6rLiKVn1g9+ICUcto8WMNt3RsTMf9SRgQZHLCoDTNvP@vger.kernel.org
+X-Gm-Message-State: AOJu0YyEbGDlOCxmjOSmBfDYYpBuSylhQDSGlv4twUK4QLIC89fspM/N
+	zxn3fkFHoJUpR7ZU3/zBifHQJveeYdvCHlCsltO/gYCa1x/9TF4vraIn1OsJ2hOGzZJr8ScaFUC
+	BhpCqFEVvKTuGQ+4YG6XBLRenn9bFowu5LOlbxpo3cF8MoWet7ouYMw==
+X-Gm-Gg: Acq92OGfYzFhTelhMvgmJg4sypHiM53oKdx/tlwgVT2OK/JA2zqdcZFJgkHpvya4Osl
+	4FwsabIZAntu3VThNEbVIXsJ8LKZzzroihzDgKLPkH97vph4hnO1iL3+4GF8bkmNt3nyCZbywsY
+	6XvgS+o++1wotlFGCjN37Pv9P1EWHYEBd0K4bnBsU7XxF6REorbPdLEdrjSA8/iPa5jNMW3cMne
+	e7jEPavGwOwLrX0KjL71OQEz9Ml6OyM5KllRGDrRMvWVUFy6T2FxU6YJyskK4EfMUMUzfaavBnM
+	vgmcEu/W1iEewUKOuX/XzayaikkYbU0luY9IzA==
+X-Received: by 2002:ac2:4f03:0:b0:5a3:cc81:eff3 with SMTP id
+ 2adb3069b0e04-5a8e31e792cmr741475e87.26.1778577038810; Tue, 12 May 2026
+ 02:10:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/verisilicon: add support for Nuvoton MA35D1
- DCUltra Lite display controller
-To: Thomas Zimmermann <tzimmermann@suse.de>, zhengxingda@iscas.ac.cn,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260511075142.54752-1-a0987203069@gmail.com>
- <20260511075142.54752-3-a0987203069@gmail.com>
- <5157ab4d-3195-49f3-a3e9-aef6d58e869e@suse.de>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <5157ab4d-3195-49f3-a3e9-aef6d58e869e@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260504072748.2580172-1-zhengxingda@iscas.ac.cn>
+ <20260504072748.2580172-2-zhengxingda@iscas.ac.cn> <CAGXv+5F6BSmqq5HEybuCSwt75LVzh5gvs2wQpqy3vgfLi60Dcg@mail.gmail.com>
+ <4a43edb8c7ae3f96f77272db89ec6450ffa28876.camel@iscas.ac.cn>
+In-Reply-To: <4a43edb8c7ae3f96f77272db89ec6450ffa28876.camel@iscas.ac.cn>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Tue, 12 May 2026 17:10:25 +0800
+X-Gm-Features: AVHnY4JpFJ80xfcJKb4R3fVCclO5uQOrLLkEvtBAuF9RxcpiffXxdfYLmlfODZk
+Message-ID: <CAGXv+5HFD_8e7odEwXk3vXZThBAor0PvVCbb+=wjR8gxwqwnqQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] arm64: dts: mediatek: mt8188-geralt: enable Wi-Fi card
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Hui Liu <hui.liu@mediatek.com>, 
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-On 5/12/2026 4:24 PM, Thomas Zimmermann wrote:
-> Hi,
+On Wed, May 6, 2026 at 10:14=E2=80=AFPM Icenowy Zheng <zhengxingda@iscas.ac=
+.cn> wrote:
 >
-> instead of this if-else branchery, I strongly recommend to add a new 
-> file with a new mode-setting pipeline for the new chipset. You can 
-> share existing helpers where possible, and implement variants where 
-> chips differ.  It's a bit more code, but will be a lot easier to 
-> maintain in the future.
+> =E5=9C=A8 2026-05-04=E4=B8=80=E7=9A=84 15:34 +0800=EF=BC=8CChen-Yu Tsai=
+=E5=86=99=E9=81=93=EF=BC=9A
+> > Hi,
+> >
+> > On Mon, May 4, 2026 at 3:28=E2=80=AFPM Icenowy Zheng
+> > <zhengxingda@iscas.ac.cn> wrote:
+> > >
+> > > The mainline pcie-mediatek-gen3 driver does not have code managing
+> > > downstream device power / reset.
+> > >
+> > > As the Wi-Fi card on ciri is a fixed device, set the related
+> > > regulator
+> > > to always-on and use GPIO hog to set the status of its reset pin.
+> >
+> > The plan now is to model it as an M.2 E-key slot (even though the
+> > chip
+> > is actually soldered on the main board).
 >
-> See ast and mgag200 for example. Both drivers support various 
-> revisions of their chipset, where each rev has its oddities.
+> Interestingly I saw a "PCI_PWRCTRL_GENERIC" driver in 7.1, although it
+> does not support toggling #PERST now -- maybe this should be done and
+> used instead? (Well it looks like the driver had existed for some time,
+> but it was for "slots" previously)
+
+#PERST currently is still left to the PCI controller drivers, since some
+of them have dedicated functions for it, while others use the GPIO API.
+
+If you check the history of the "PCI pwrctrl framework" [1], you will
+see the design choice.
+
+[1] https://lore.kernel.org/all/20260115-pci-pwrctrl-rework-v5-0-9d26da3ce9=
+03@oss.qualcomm.com/
+
+> Thanks,
+> Icenowy
 >
-> Best regards
-> Thomas
-
-Thank you for the detailed suggestion.
-
-I see your point and will refactor by adding a new file with a 
-mode-setting pipeline for the chipset, reusing helpers where possible 
-and handling variants as needed.
-
->
-> Am 11.05.26 um 09:51 schrieb Joey Lu:
->> The Nuvoton MA35D1 SoC integrates a Verisilicon DCUltra Lite display
->> controller, which is a previous generation of the DC8000 series. While
->> the general register layout is similar to the DC8000, there are several
->> key differences that require per-variant handling in the driver.
->>
->> Add a vs_dc_info platform data structure (in vs_hwdb.h) to describe
->> per-IP-variant capabilities, and use it throughout the driver to select
->> the correct code paths at runtime.
->>
->> Key differences between DC8000 and DCUltra Lite handled:
->>
->> 1. No chip identity registers (0x0020-0x0030): DCUltra Lite uses static
->>     platform data instead of reading model/revision/customer_id from HW.
->>
->> 2. No CONFIG_EX commit mechanism: DC8000 uses registers at 0x1CC0
->>     (FB_CONFIG_EX), 0x24D8 (FB_TOP_LEFT), 0x24E0 (FB_BOTTOM_RIGHT),
->>     0x2510 (FB_BLEND_CONFIG), 0x2518 (PANEL_CONFIG_EX). DCUltra Lite
->>     omits all of these and instead uses enable/reset bits in FB_CONFIG
->>     (bit 0 = enable, bit 4 = reset) for direct framebuffer updates.
->>
->> 3. No PANEL_START register (0x1CCC): DCUltra Lite panel output starts
->>     when PANEL_CONFIG.RUNNING is set; no separate multi-display sync
->>     start register is needed.
->>
->> 4. Different IRQ registers: DCUltra Lite uses 0x147C (IRQ_STA) /
->>     0x1480 (IRQ_EN); DC8000 uses 0x0010 (IRQ_ACK) / 0x0014 (IRQ_EN).
->>
->> 5. Different clock/reset topology: DCUltra Lite requires only "core"
->>     (bus gate) and "pix0" (pixel divider) clocks with no reset lines
->>     managed by the driver. DC8000 needs core/axi/ahb clocks and three
->>     resets.
->>
->> 6. Single output only: DCUltra Lite has one display output; per-output
->>     index logic is still in place but display_count is fixed at 1.
->>
->> 7. Reduced register space: max_register is 0x2000 vs DC8000's 0x2544.
->>
->> Add the "nuvoton,ma35d1-dcu" compatible string to the OF match table,
->> extend Kconfig to allow building on ARCH_MA35 platforms, and expose
->> vs_formats_no_yuv444 as the default format table for DCUltra Lite
->> (YUV444 blending is a DC8000-only feature).
->>
->> All changes have been tested on Nuvoton MA35D1 hardware and are
->> functioning correctly.
->>
->> Signed-off-by: Joey Lu <a0987203069@gmail.com>
->> ---
->>   drivers/gpu/drm/verisilicon/Kconfig           |   2 +-
->>   drivers/gpu/drm/verisilicon/vs_bridge.c       |  28 ++--
->>   drivers/gpu/drm/verisilicon/vs_crtc.c         |  13 +-
->>   drivers/gpu/drm/verisilicon/vs_dc.c           | 129 ++++++++++++------
->>   drivers/gpu/drm/verisilicon/vs_dc.h           |   1 +
->>   drivers/gpu/drm/verisilicon/vs_drm.c          |  16 ++-
->>   drivers/gpu/drm/verisilicon/vs_hwdb.c         |   2 +-
->>   drivers/gpu/drm/verisilicon/vs_hwdb.h         |  25 ++++
->>   .../gpu/drm/verisilicon/vs_primary_plane.c    |  43 +++---
->>   .../drm/verisilicon/vs_primary_plane_regs.h   |   2 +
->>   10 files changed, 187 insertions(+), 74 deletions(-)
->>
->>
+> >
+> > I have some of the patches ready, but I'm still working out the USB
+> > side of it.
+> >
+> >
+> > ChenYu
+> >
+> > > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> > > ---
+> > >  arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi | 11 +++++++++++
+> > >  1 file changed, 11 insertions(+)
+> > >
+> > > diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+> > > b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+> > > index 8e423504ec052..c25780098103b 100644
+> > > --- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+> > > +++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
+> > > @@ -544,6 +544,11 @@ &mt6359codec {
+> > >         mediatek,mic-type-2 =3D <2>; /* DMIC */
+> > >  };
+> > >
+> > > +&mt6359_vcn18_ldo_reg {
+> > > +       /* Used by WLAN */
+> > > +       regulator-always-on;
+> > > +};
+> > > +
+> > >  &mt6359_vcore_buck_reg {
+> > >         regulator-always-on;
+> > >  };
+> > > @@ -1145,6 +1150,12 @@ pins-en-pp3300-wlan {
+> > >                         output-low;
+> > >                 };
+> > >         };
+> > > +
+> > > +       wlan-reset-hog {
+> > > +               gpio-hog;
+> > > +               gpios =3D <145 GPIO_ACTIVE_HIGH>;
+> > > +               output-high;
+> > > +       };
+> > >  };
+> > >
+> > >  &pmic {
+> > > --
+> > > 2.52.0
+> > >
+> > >
 >
