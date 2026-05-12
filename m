@@ -1,184 +1,230 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011024.outbound.protection.outlook.com [52.101.57.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E43F644BC92;
-	Tue, 12 May 2026 06:09:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 939264DB55D
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 06:13:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.182
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778566202; cv=fail; b=syJVJ8C0LaP9SxgXiZXaqGy+miBK+5AwQ0IMpbfoI2UP4eXOTlIPwxGg9yqkAKTTP89zFSqSQ8e8IsfDNMhkrhdGszy9ecNr7B+AXhU5oHzooDrFZNd3XAEuzGljrtW4LN/uSv8I+5CSO3aDaNSshR4yG2MjXiwXTV77PVOH4n0=
+	t=1778566446; cv=pass; b=kBLi0LdjRVb4a9QjXuwFz0W6Qm3Sqh1W0jaXRjS0Up9MnHQPyQK/EXyXifHfkCvK1dDZuDUvknRdD2Tmt9lpiYAu+s55sxZhNneAXaqz3I3bM9KH06f7fXKK/6w7wjH2BPGyKSGZjOOvcn8ycEM+Es/VXzTViBbmn1k5dCwC5wY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778566202; c=relaxed/simple;
-	bh=o8xTLCHP8b0tKa6k18GBBB/uFLKfC0a0ihnTz36L33o=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=a/RLxJktYdx9Ml4cQKEWmdW/UsIooI49OhdFdvRxE8H6icrf5CPpiZr9Q8aFmf7os7HYRcUJfc1C3opyUywDADfWkioBszNvClZgAfN4sDTSVhjyhxaFqxKqvU9kaTZWElWzXWKnRANiUe4DHAqc4Pq8SkmXSKEGUIEriGk7yhM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=n2Lu/0hD; arc=fail smtp.client-ip=52.101.57.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1778566446; c=relaxed/simple;
+	bh=3ld4zdEky9JiorADEB2JzKLMGmxL8CZq09SENbVMLTw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=P5FQeAIQlo11apz5RKq30FlmLI/Ob7iTtWrFe1NlO0V3vQEVGkhAEtoeCbV0xAE1hM4/fRHqNI3aK/jYT5fPzfEV4hNHrCJ8bL3I/wAIFHFt3GH0FG3J6UD5oeW0EgDm+imfUXGgNUsdBFA3N7pcp4F93sZfoi2G68ukwf6flc8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P6JVSg17; arc=pass smtp.client-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="n2Lu/0hD"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qlCCG4S1ITYfwXabSm8nqswivKk6PaL8QD6kdu93fp+RtlrbScuy2X6p1Z6TCclMt4G82BmO6E8D0PHHQqI8AmcbXCujZb4xmulWNYcrZNNFhQsbbA/G/Ee+4U/9/B9DuSCDTwh8vBKOKu43Y3kfETO7W4sxC6K6v5K74I85krMi5HbbHTiJ4CDNvC6uhmY3zhG4Raq09TK9o49bNDBfUEueYJHQuHen1cB/qBcvjXBakKgGMtgqmVUR89QctNMu8aaNEku0wxCQGghF+Xq9YOvSd4NdJ+L6D7sMgEwy81U8ifExtNJFZlaoGBmG0zXQoW2S2n2jh50w1+ZyUCht1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=md/GGIDIRp1UAjMLufBimrZJ+UVWByYJJsyDARmJqag=;
- b=GMWIKS+8mgxTuVlz5YvIyy/aWCNSeTYgbeG04/eMW8UnQMj3hYpmnBeDkWXGXnwB6fZLt/RdDQ5CCzOVS+GSZ922QpfB/j4nXVwt5iRea6btcgDPenrh1mPGrccn0h67bdmlnfOBtflexSHl3Ba7oV3wg8RZdO50g+s3zD+1iwDriB1H/Bj7hev+NYU5mQ/zJppvYqpkUEEjY9LFbu6k+r5186saC5qV2WHgGCi/cTz8qceMt76zi4GQ5CiemUWzib57Zbx+C/seyBpipcgbU+GIakgO7Qv+U/vjnmYkwEJT9bi5jKcEisA77SWhF3bCMvsWPXtLGO8NM9Esx5XWSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=md/GGIDIRp1UAjMLufBimrZJ+UVWByYJJsyDARmJqag=;
- b=n2Lu/0hD9LcSpeMjBJWFiEbJQ1iEvVDaebtEt1yzPYV6FNSLJh2cKRjsNYMvJlFMxIghVs3Jk0uIlBojqPSv2xr3SihK7qqCf5Ouj1uaHklfgYp4PiQt/cHkps1JxhOMT4pvfyHbPiPysJQdlop8PnCSGESfshg1fYCJCfVk624=
-Received: from BL1PR13CA0355.namprd13.prod.outlook.com (2603:10b6:208:2c6::30)
- by DS3PR12MB999241.namprd12.prod.outlook.com (2603:10b6:8:38e::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Tue, 12 May
- 2026 06:09:42 +0000
-Received: from BL6PEPF0001AB50.namprd04.prod.outlook.com
- (2603:10b6:208:2c6:cafe::52) by BL1PR13CA0355.outlook.office365.com
- (2603:10b6:208:2c6::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.15 via Frontend Transport; Tue, 12
- May 2026 06:09:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL6PEPF0001AB50.mail.protection.outlook.com (10.167.242.74) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.13 via Frontend Transport; Tue, 12 May 2026 06:09:42 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.41; Tue, 12 May
- 2026 01:09:30 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 12 May
- 2026 01:09:29 -0500
-Received: from xhdshubhraj40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Tue, 12 May 2026 01:09:25 -0500
-From: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
-To: <linux-kernel@vger.kernel.org>
-CC: <git@amd.com>, <shubhrajyoti.datta@gmail.com>, Shubhrajyoti Datta
-	<shubhrajyoti.datta@amd.com>, Srinivas Neeli <srinivas.neeli@amd.com>, Michal
- Simek <michal.simek@amd.com>, Linus Walleij <linusw@kernel.org>, Bartosz
- Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	<linux-gpio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>
-Subject: [PATCH v4 2/3] dt-bindings: gpio: Add EIO GPIO compatible to gpio-zynq
-Date: Tue, 12 May 2026 11:38:48 +0530
-Message-ID: <20260512060917.2096456-3-shubhrajyoti.datta@amd.com>
-X-Mailer: git-send-email 2.49.1
-In-Reply-To: <20260512060917.2096456-1-shubhrajyoti.datta@amd.com>
-References: <20260512060917.2096456-1-shubhrajyoti.datta@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P6JVSg17"
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-2f36da5c8fbso5029029eec.0
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 23:13:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778566432; cv=none;
+        d=google.com; s=arc-20240605;
+        b=ltxmB+6NHoWqDUufKDg2z3RLbWvbunY33gvagUwyFio9Ab39oy2mkCg+eAO10EsXnL
+         ZPmQfJtOtj/4TeQ1OqK1C+hdVSAQCWjThF+xDrWDtkAHra1SBl8YyXLpfvG2iLaOVR/z
+         Y4NTeFRTJhpgysjD7rFOqeJdSTXkCpYoSo0LLJK1c6OT2SGdfZ+94IjVSwVSTR68WSfm
+         41PkseSwwtLpT4YQD4HiamPTRkDB486/M1ELvLxa8gErrDfTJEgDhCPVpCbWrvJM/IZS
+         FXW791LncILA0nxuhPwBCcAEqOcrDuwdaxe6/kUR2c8soY2n7xRhNmv7etbDAUy5qOtt
+         nRFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=yr8QRs98bsPiw0gF0kGFiK+9h78W1fGBBJoeOfjYUCc=;
+        fh=oUy8TJUFbLxySLMDbWXqLflOlref1OLYCHQnkYYaU3Q=;
+        b=iMVlS25F6960YcLZcy7AkkhtOzpnu4wXEzxLubXHfsFH3AOj1rlfliEXTd7hwFPuRj
+         A47XlbS4w2Zxpzm4OlEA6cERRloPQqnXkzqSEvYwAgRTqnz/BOVpZ+qtY/XZjne78nCG
+         NexAXDzM1OZhrwkH9a29aE+HvU+SJz9QR+MyvDkYtuNJJ9XE3k8Kw8kJk+8hrilvEMVE
+         OJXNQqonWgbVA8FXhGJjrAnkfAkbM36tb43oHR0rJ/6KE17SSRLe3vSZ9pe4lmjcEruX
+         KE1IiUScPRG2weI1nBuNeQVjBL+IfcDTqaCsPpDX9BPhImCwZZeFSefJsonSL3w17Ecs
+         NGdA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778566432; x=1779171232; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=yr8QRs98bsPiw0gF0kGFiK+9h78W1fGBBJoeOfjYUCc=;
+        b=P6JVSg17mfG3AE++SHupyqKkJLaPPzom6Hym1yhnh9DOVxBji9AnJ3hls5QLmWd2TG
+         ULq6zRBIkTtCCKHl/RGgKcP3NwzPXDUGKuv3j9xOZ8IVvN7cTQQtKwh1xBmkhS8Ip/dI
+         gwUXG/gIKMWiY/1fAKKkeyuc5gMhyUcg18cf0fLz4gsWYuyey29l/rgRHUkaqPujaeyM
+         aTmavwGzzsnO71xErdMSJdx5/+ZnQ5bp+9d/1ZzFEsd8MYd3HdaAOrZhEBJa7d0v7i7+
+         vNVEUMU3/83mySnyyEUsL1VgvgozYrJEg2+UG0n2xUEJj733OO0F0x7ngpNZ12iyOWIL
+         JZzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778566432; x=1779171232;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=yr8QRs98bsPiw0gF0kGFiK+9h78W1fGBBJoeOfjYUCc=;
+        b=KQujIDYwq0MTCYWBBxDlyTMsTaq8zDnWHgnN+fGo7MCakA0suZB6u++6wXxWlw9hby
+         ggqRwb5Xc2RSnrK0eJy7xWtMdATyS2YYHzDrzGDtQELLJIFWsJCDNxSdV+OtckSe7eQV
+         reDnNhjFXsyi6UdkFfL7LJ6WFbEVJxdPfHmqHIEGIDksQdOYr6QkgfwoSAEuhtJfD38Y
+         G9Wu0wnjuLFJ29oKzDDZUbziTIGpqsqbkljhaCatv3TvmKuVU/rUZL5mUj0EhrDNDEGX
+         AiantGHPhpefmuOrKK93lijOJE1IZTApyjaLlnt4A98SDXpOXXmCWUDTw0Uupp04Dtf4
+         sSqQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9svmWIjCg6DJHxUv5+P7MnFjIgwa2w/IcKiyWwF+brC+kM6nXzTtcwhRKRP0Qs++iRRDmzeBJKRs2H@vger.kernel.org
+X-Gm-Message-State: AOJu0YzA7yuQQTw2oV6pMris9UKIO9GXCwqBoqYqlRKq2sZlwaipOOkP
+	shjgykuqQmF+TqcoUVLAP0jZzc+k1mA2FWnS6OTLCR6L8X5PfUV3bawZc+8wY08lpVw0txiKsvZ
+	ElqFZqpWbNK/++97eXvVzEnuuRC4/8kE=
+X-Gm-Gg: Acq92OFVkPr50n21otXGr+0pfJSHAepIMkP1rZ9BRxqKKQH5unoRfQjxMAB+YCoRywQ
+	v9kXz2kivxRBihxUeDvDsUc3OCAvG4d+b6XYuWyDRI8rcKNHu4amFGXg+8ioS3Jl9BM4OqMZEyh
+	1xYR5S8miVSkGTkh2TkSu6S6XPBZ8yHZzDf5xfH6CvKkOv6RjIv4m5TW/zVl03tL9T3e4susAxX
+	6k5bDkrJvxGWjB2tWuLrrj+9U6TUp3TCzqfFP1z5GDAprjwL4BimdM1hMHXws6aoi1fcVDBzvEF
+	EJaxGp+P
+X-Received: by 2002:a05:7301:7213:b0:2e2:4979:ec7 with SMTP id
+ 5a478bee46e88-2fb4bff2949mr6162640eec.10.1778566431760; Mon, 11 May 2026
+ 23:13:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: shubhrajyoti.datta@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB50:EE_|DS3PR12MB999241:EE_
-X-MS-Office365-Filtering-Correlation-Id: 110db0e7-2d38-482e-8e81-08deafed0edd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|7416014|376014|36860700016|22082099003|18002099003|56012099003|11063799003;
-X-Microsoft-Antispam-Message-Info:
-	AkH9dVrefPwlBWFwOIPeGWJeE4VkZF2d6Lik6TisGpRrLYM84qppQbgBQGU5axkukDzAg7wsb7u9HzDNPXUp0Srn2deHTzNzWAUK8uHgT55mggrsarkPLXhaNgeRZZ/SeH9SjwpM6OA4btJbA3VTJ4fAQL5PYNLYLrv5yjPr0d6GYuD3DGrdipOK2/ZiofVCpVTuIUvWHjjG42Mj7dRhNYkkI/HDz/weuwm2V6aT/xK42cGi9XICy48i+cAhiY8x8vchg9i8Oh3ud3QbFpXcCssSkYJZEYSTasYnemZxx+8VVjLF1U/nmcdikz1ouWOVj+6gy0dKOfeaUtQkJZOJpM5nSPB3yTp5APmyNEDtVPTBq9p9ocA6lmJZkpiNj4nezQgXb8V+S7LqHJjS5VlYVDQ7Og9dBegPw5Bdo3q87R3kEg94osKcC2yKPyxZzBoSNrkpc95TjCj+wNwP+M9tVkGcyUgKOkCEo53jmYoa3lAYcLeqx+nVC7FdivjrcqIkFOe5BXHpOlOvDdMngLzP5uZvZxTwpVJvYy6BXdWtCEU4qGjzRtOPwajVCD19BIUCc8jYBem269cUvCuqyt+W/XBIFsa3kdsvIArFbylqJO6KDhgXbUVdLQdxVVK2C6wxeTqYcuahWKowtixZMo/IHfoXsHcr1Ke0kQJd6ohesxrzr2WhZcgSFcy2mcEshSVM/mNXYmxALSKkZmj2j/6jP3phOhJOYNgyrwk8hGB0+tA=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(7416014)(376014)(36860700016)(22082099003)(18002099003)(56012099003)(11063799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	0O5JCKC/2skYcZSRgIn8mAVRtld2d2VHfrt2eHTq0uQtMTswHBIlEsOFjgmmURE1LNtKV6dEGgcGbdBNn8iTQFEe/jLkrrwUn2e/4TlR7CzAXeHl+KjGegTIBDzKDP5ndV49vdxguYZlkii/jqP9JeJlELRgpquNuI4DeMxQncm4fkKzGvGd6T5pa6YG5x11LrMuXQ1INQSqybiaQ1RRXYZU9BIPGayVm3XGjxJkJ3kAD7PsZI9LPhOCKWBGlD2wEumM4P8A+hERQkEgsCMB5NQJNBv4+wiZDGJLjMIVGy6djiHbHJka6zvZtKrPAFlj6+fq3lqKF+tVuxPPPP/+Oh/9KGtYskLhKLuH7pwRYcbueCJuMrNy9Dz5b5WEqg9otV9p+nhhJiRFPPOc1bIDIG7/z7SQp9XorCLX9CIh3P32V0YeA7QCsh4lor6mk0QF
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2026 06:09:42.4341
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 110db0e7-2d38-482e-8e81-08deafed0edd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB50.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS3PR12MB999241
+References: <20260511135703.62470-1-clamor95@gmail.com> <20260511135703.62470-3-clamor95@gmail.com>
+ <agJ/T8nBGWEoblmd@nchen-desktop>
+In-Reply-To: <agJ/T8nBGWEoblmd@nchen-desktop>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Tue, 12 May 2026 09:13:40 +0300
+X-Gm-Features: AVHnY4L1_bWZXCrp3MmGLMUWBEn-sMyg9m87GKXzm_vHqR-lTAFW3X_ZqIO7y3g
+Message-ID: <CAPVz0n173syW9rXy7Qt_N=mChe6WBRLvjRDypcJEC50hPL4OMQ@mail.gmail.com>
+Subject: Re: [PATCH v1 2/6] usb: chipidea: tegra: Avoid controller/PHY init if
+ bus is externally controlled
+To: "Peter Chen (CIX)" <peter.chen@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-phy@lists.infradead.org, linux-tegra@vger.kernel.org, 
+	linux-usb@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-EIO (Extended IO) GPIO is a Xilinx IP block that exposes
-multiplexed I/O pins through an EIO interface.
+=D0=B2=D1=82, 12 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 04:1=
+6 Peter Chen (CIX) <peter.chen@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On 26-05-11 16:56:57, Svyatoslav Ryhel wrote:
+> > If the USB controller and PHY are externally controlled, then the
+> > registration of the controller and the PHY initialization should be
+> > skipped, since these configurations must be done by the device that
+> > controls the bus to work correctly.
+> >
+>
+> I find you only control USB controller device add at PHY driver, most of =
+USB drivers
+> has PHY control, for chipidea, it has PHY control at core.c, would please=
+ try to
+> adapt for it?
+>
 
-The EIO GPIO block has 2 banks with 26 GPIOs each (52 total).
-The GPIO width cannot be determined from the hardware registers,
-the driver relies on the compatible string to select the correct
-bank/pin configuration. A new compatible is therefore required.
+Usually yes, but this is not the case for Tegra unfortunately. As you
+can see Tegra specific section of Chipidea driver specifically
+describes why it has to set PHY manually.
 
-The block is currently present on xa2ve3288 silicon.
-The compatible string uses version 1.0 matching the IP core version.
+/*
+ * USB controller registers shouldn't be touched before PHY is
+ * initialized, otherwise CPU will hang because clocks are gated.
+ * PHY driver controls gating of internal USB clocks on Tegra.
+ */
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
----
+So in order to provide correct work of USB when set by an external
+device, both PHY and controller init/add must be skipped.
 
-Changes in v4:
-- Remove the min 52 for eio
-
-Changes in v3:
-- Update the commit message
-
-Changes in v2:
-- Add description of EIO block
-
- .../devicetree/bindings/gpio/gpio-zynq.yaml         | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/gpio/gpio-zynq.yaml b/Documentation/devicetree/bindings/gpio/gpio-zynq.yaml
-index 30a7f836c341..de24bb361e9f 100644
---- a/Documentation/devicetree/bindings/gpio/gpio-zynq.yaml
-+++ b/Documentation/devicetree/bindings/gpio/gpio-zynq.yaml
-@@ -12,6 +12,7 @@ maintainers:
- properties:
-   compatible:
-     enum:
-+      - xlnx,eio-gpio-1.0
-       - xlnx,pmc-gpio-1.0
-       - xlnx,versal-gpio-1.0
-       - xlnx,zynq-gpio-1.0
-@@ -30,7 +31,7 @@ properties:
- 
-   gpio-line-names:
-     description: strings describing the names of each gpio line
--    minItems: 58
-+    minItems: 52
-     maxItems: 174
- 
-   interrupt-controller: true
-@@ -89,6 +90,16 @@ allOf:
-           minItems: 116
-           maxItems: 116
- 
-+  - if:
-+      properties:
-+        compatible:
-+          enum:
-+            - xlnx,eio-gpio-1.0
-+    then:
-+      properties:
-+        gpio-line-names:
-+          maxItems: 52
-+
- required:
-   - compatible
-   - reg
--- 
-2.34.1
-
+> Peter
+>
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > ---
+> >  drivers/usb/chipidea/ci_hdrc_tegra.c | 36 +++++++++++++++++-----------
+> >  1 file changed, 22 insertions(+), 14 deletions(-)
+> >
+> > diff --git a/drivers/usb/chipidea/ci_hdrc_tegra.c b/drivers/usb/chipide=
+a/ci_hdrc_tegra.c
+> > index 372788f0f970..593390a818d1 100644
+> > --- a/drivers/usb/chipidea/ci_hdrc_tegra.c
+> > +++ b/drivers/usb/chipidea/ci_hdrc_tegra.c
+> > @@ -32,6 +32,7 @@ struct tegra_usb {
+> >       struct clk *clk;
+> >
+> >       bool needs_double_reset;
+> > +     bool externally_controlled;
+> >  };
+> >
+> >  struct tegra_usb_soc_info {
+> > @@ -312,20 +313,25 @@ static int tegra_usb_probe(struct platform_device=
+ *pdev)
+> >       if (device_property_present(&pdev->dev, "nvidia,needs-double-rese=
+t"))
+> >               usb->needs_double_reset =3D true;
+> >
+> > +     if (device_property_present(&pdev->dev, "nvidia,external-control"=
+))
+> > +             usb->externally_controlled =3D true;
+> > +
+> >       err =3D tegra_usb_reset_controller(&pdev->dev);
+> >       if (err) {
+> >               dev_err_probe(&pdev->dev, err, "failed to reset controlle=
+r");
+> >               goto fail_power_off;
+> >       }
+> >
+> > -     /*
+> > -      * USB controller registers shouldn't be touched before PHY is
+> > -      * initialized, otherwise CPU will hang because clocks are gated.
+> > -      * PHY driver controls gating of internal USB clocks on Tegra.
+> > -      */
+> > -     err =3D usb_phy_init(usb->phy);
+> > -     if (err)
+> > -             goto fail_power_off;
+> > +     if (!usb->externally_controlled) {
+> > +             /*
+> > +              * USB controller registers shouldn't be touched before P=
+HY is
+> > +              * initialized, otherwise CPU will hang because clocks ar=
+e gated.
+> > +              * PHY driver controls gating of internal USB clocks on T=
+egra.
+> > +              */
+> > +             err =3D usb_phy_init(usb->phy);
+> > +             if (err)
+> > +                     goto fail_power_off;
+> > +     }
+> >
+> >       /* setup and register ChipIdea HDRC device */
+> >       usb->soc =3D soc;
+> > @@ -342,12 +348,14 @@ static int tegra_usb_probe(struct platform_device=
+ *pdev)
+> >       if (of_usb_get_phy_mode(pdev->dev.of_node) =3D=3D USBPHY_INTERFAC=
+E_MODE_ULPI)
+> >               usb->data.flags &=3D ~CI_HDRC_SUPPORTS_RUNTIME_PM;
+> >
+> > -     usb->dev =3D ci_hdrc_add_device(&pdev->dev, pdev->resource,
+> > -                                   pdev->num_resources, &usb->data);
+> > -     if (IS_ERR(usb->dev)) {
+> > -             err =3D dev_err_probe(&pdev->dev, PTR_ERR(usb->dev),
+> > -                                 "failed to add HDRC device");
+> > -             goto phy_shutdown;
+> > +     if (!usb->externally_controlled) {
+> > +             usb->dev =3D ci_hdrc_add_device(&pdev->dev, pdev->resourc=
+e,
+> > +                                           pdev->num_resources, &usb->=
+data);
+> > +             if (IS_ERR(usb->dev)) {
+> > +                     err =3D dev_err_probe(&pdev->dev, PTR_ERR(usb->de=
+v),
+> > +                                         "failed to add HDRC device");
+> > +                     goto phy_shutdown;
+> > +             }
+> >       }
+> >
+> >       return 0;
+> > --
+> > 2.51.0
+> >
+>
+> --
+>
+> Best regards,
+> Peter
