@@ -1,324 +1,331 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBBEA384CF7
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 06:44:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778568271; cv=pass; b=l/AYV9c8KkuVa6geJcih6oEhNFkkNZ8QwBoWeN4r2XPwE4JXf7gYZIU53+9ahDQkDZhD6IFDGVIM6cMOuZnDoZmkN/cLe72nYR0zzoMYSeqriaRY1uqmoaABPOGZ10gXhDwTbuloPdyeaRZgcaFnHZTD5FhskQ0y4+Ad10P5n14=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778568271; c=relaxed/simple;
-	bh=FjgzfIcEzFg1b096kbJ3RIQzKX5tIHlT5F677cNirk8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XXwVxjW5g4d3Jwy+Sa833riu8uj0Vrk1j29OZkKNM3j8dF/3QWWB5tFSTRCoUZmZo2HSLA0yx/jQ3ZQvL+IWRIGIFtvbRtwbD1CgIlHYro5lxgATK+fwYhu4Y0hnhDqHGF8SPmpIxRBp9wjDhs/SmYzY50vGSo2wXsyRxuEjO0c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sZ8k1arB; arc=pass smtp.client-ip=209.85.218.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2B19384CF3
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 06:46:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778568379; cv=none; b=lcJB51HUfSI6H13B5uwXqC1iN3GiRjFlV/cQ0QB/LBSytkT6wS+2Phvd98nkAhRPW/Q8A6kDj/oJaycF6eTmkP3UMCCISdKZXk/Fo5lcOUrLT3NKdlfslkToAKHQHM8tx1zL4O0pQwWbsgBlnHjiFZ1G9GFo3BX9lPKMM1psMuE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778568379; c=relaxed/simple;
+	bh=V/t792VyAJQ43idxgpGa60nXaS0FMldt5X8RwmJQK5M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Amk7hfwQvf6JrS+MCWjU/BMWPY6wVaKc1Fk5yge4tGmHhAyjPV0H0d17aBVunvJKKTJldDnpMxkr6W512j2XTI3KN77ZnJHUWVpM7mHI+X7Zk+ztPw6+BWa5Pc1ng5cUdyme9BsmKb6ht9KMVoopPPD0RV6inv2Fb9g8lHKz3fg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DIgkPZMQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=d0Dz8fs4; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sZ8k1arB"
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-b8f9568e074so795378066b.0
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 23:44:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778568256; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Tz/nMDqow+2Z4YaAy+QNmilBWFc28fClX9lf4hyD9Kn0ddRQwGHoCA4DiBRF5o9ovV
-         3I064b1GwY1bQR6edj6YEFqfqbAC6cTTJxURgce0XQn/InbOwTFW5Y9g+ZAodLmKOeyu
-         Bb2RMoIFSg9ntekwwYavcexSHQrnoA5iPXojxKby/GE9q1WxP/+eeRkOwonjLWDagnC6
-         65RyX23T9WsIk941oXT9Ojuq3+9fEaiwv0G/Y4QHw3vpliyHJA2HhTZJxfd1sjCtrt2G
-         HdWfJWVvNqgRHoQ4eYd6JI8RRd6lUxDtRil61U21KYBZh6vF24ukwuD6JnMvKLD62GAR
-         mqlQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=s9/juFQ5EkLeK4MRC7rvbjQzQu8ytDf6s79QFENqFt0=;
-        fh=zYM9JH7/gDxT2aKz34KfduxrR3NiTWCrxepjDbIdlYM=;
-        b=OF9dCw6h9iW2eXr57u+PAGUjMsJLSCv0PdpM9ISCIYJ/KSITNqvxmQZPEyrk5mHC2h
-         fNjQsqnA2Cb1qobnj0n8mqwc8TbdIOnC0lP1w5Mx2UVl6JFw7Eukr4gcR+45uORifcbb
-         uq8cb9CHzmTACz80PnHmV1HdttgeeDm0xY86jfYdSnkYIzN1Y1VZ+j5sZfmjKW2fllir
-         LF1+owg/KSyh7L/087tg011DSEBMTKO+9CnXCq5gusIT51XmiIVTUgfX4N7IuIkdHsi3
-         0QfAp2paIytSajn2Ex9VasZofMHKVcr0fTu36Sic2RJM/Hgn47t/IiOju3zLrcTw8V+S
-         Jhuw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DIgkPZMQ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d0Dz8fs4"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64C63sOb866134
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 06:46:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	BinY4gnvTpca70aFjDGmAnSc0bvUH+YSKn9BhicIR3M=; b=DIgkPZMQDp2NGb+3
+	E/R68lh9ebJ/T6wgTQNfC443HbNKOPuGstILWpRswN90Fpe7Nf6j+hQq5zMdoa92
+	KfJGeXEehAUbViM3Em1QzXEaitc31c7IovJGsOYmKy/fctw3rGDWXFm3GLcx4XKH
+	4JZ3nsLecpunENYA1csH2FH2vyDzU7hy7ZITq/DLLqUivb04YtNHHi+Y8ak7uKBw
+	71gzY4wxXMBHb43HJ3k3jxh3rA2AccyO9mGR31fl9NAu4yD++bmGCONHH523DAI8
+	FAxzXwMpNY6aFSTBm/FUx6QTJ/msYOL75MU8S7JCsp7cFOEP/Jl3O18ylY4o87Z4
+	GsWYsw==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e3nv29k29-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 06:46:07 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2bcc0a2ab8cso4489715ad.0
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 23:46:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778568256; x=1779173056; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=s9/juFQ5EkLeK4MRC7rvbjQzQu8ytDf6s79QFENqFt0=;
-        b=sZ8k1arBo/iltA0Zjf84h/5CURPNlBi/IQ10S32q1NesXxFDyIwF1txkWydnxMi1j1
-         JtwnGLPQFB3sBFbZmkQgffqpzZ69/vklgxsF4by7Fu/h3SMsgM/FNkKBJRx2JcXbAyJt
-         QcxHjT54H1WIf4CU1DDFVDRTX71KQMo29gOTkJwH0uhBZ2Nkr0StX8fOj7vY018pkNjd
-         0LVy+gbJ9vOOZfcP09HIdeXsGxL/++qHn8h0ECVgQvtgroMag2bIzASLM6QJo7KD8n2V
-         wd9ZpjCbfT/NXHweROqU0Y1ikwhKBEaq9LRpXZZFN2i5AF9h61R3zgbQCr3rG1yg5TUD
-         5gag==
+        d=oss.qualcomm.com; s=google; t=1778568366; x=1779173166; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=BinY4gnvTpca70aFjDGmAnSc0bvUH+YSKn9BhicIR3M=;
+        b=d0Dz8fs47zZd3M+hV/rrYZn4fPTAZdbCHovxnvQlelQbzA+fH53kzqHXGVQ70cTfFW
+         j+A1f8UINtR272oFeH30mKYdMtw3Ypo+8lnE/iTptG2F9g9gs39iVOUwaHa/j99I9UDA
+         un1z/jH5U8kGNMmjbjgExkvSbCQFOx4SZMGVVU7QrA/5w7NHlvIfu5VtjcTU0H8Yh+em
+         YHOdAEPJDm/ktMzo31tYspcJ/vORWAHTAhCrfduCyv4iFYaagB6Y3QvrF2GA9/E5Bx5n
+         z7JKxKuY9MeZCEiqbXJLrBCwxmvGnZcgLxgwMVObegIyindDV86uz6Ziohzu2XAJONqm
+         R5Mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778568256; x=1779173056;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=s9/juFQ5EkLeK4MRC7rvbjQzQu8ytDf6s79QFENqFt0=;
-        b=E3jdpy2EbbTqGPbgGMzv7XVaMpmOtloIuZJuEPsmrhZJ/kesMiFPuN0TDyMqGKEJYp
-         ZcIJKMEgKKHakQLu1MbD/rvvNbKYTnWQAGiH1UdAa6Q3kvxHVw7DpoZY2G2QweBy0Ouv
-         oa3vtRubdSEhJ7JDsRLewzwSA5lMStCHQQzNDrfG1Z//4XsrcFw+k21E0FJQU0ONk4OB
-         hBYvg0ho3XwumH0glBOmvGBsiq18Q7FDfGYOI9H7rwJjtinu0AG2XDanagdoledrtNpf
-         A8B33d5F5BfjzWTucdDMUPQ713OGoSxNnVY++h5ZQXpCDQI8fHh5K/uopKHzqGWFt9L9
-         cHbQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/4WBPar4jkzpAw6IVNDU7ZptirhnkJEDYcMmay4JL1NlPm0MnhovKa1wWwj3Qp/0mXRGYVOoxkuCg3@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywl4xp0PIZPCsfkRpUx0AVc3fbJ4NhutNz93y+ZZ8eQIn1VdGiL
-	rqMPK3ipQKFfpFelAmU09cLwelJgpayWDw/Lu5ETovW1IWfSm9jYvQ1t6Y3tiTGkN7QUOKohHVN
-	OR86KypOq4nadp2g1PZ3GXN3nHlrtBDc=
-X-Gm-Gg: Acq92OHjBWHxfHkQSh/mesn1DLHyJdkMhdo8KpsMSpXq6aR9ORj3vkr8QPFyePJFiXh
-	Ah38Q1bdE0dmoZ22vipoQHBUfDVwHYB7qUOwYTbsbD62pgnCpOjtXUVAqDUjs4JErC3uii2keHK
-	fzX9NwjApaY5qww6jZIpkLtjHbsPxNfQDFNilHvhGbP+6pqoe2jfwqCeWnoGegHmXiMmAA+sqjl
-	r/CIDsTzgMcJS+pp+zHyA2kbMuTaojBMqyQX/WUjD8GXK8lAZme7vx6XTbUDdOzi+kJ0V1Ua/5J
-	BPoBt8Kzwqg0MYX9MtF/XM/xv5INlh18hMWfaKy8XV+5fZsGZZ3vIfcUdELADihoGLXH1EKbdU8
-	oGs87jh4=
-X-Received: by 2002:a17:907:728f:b0:bd1:d244:ca24 with SMTP id
- a640c23a62f3a-bd28e412eadmr84527766b.14.1778568255436; Mon, 11 May 2026
- 23:44:15 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1778568366; x=1779173166;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=BinY4gnvTpca70aFjDGmAnSc0bvUH+YSKn9BhicIR3M=;
+        b=RpOqXLEx9ttl9+Vxi7bum5fS0yTnDDc8UoRVrIZbc+d5G43Dof1CQlU2t2Ax0lypG5
+         OkMTrXOfSZLwG5HA7zEa+rxRW7JUiCAJLGhAJUAwZJur5+CMXhEqQ+evx1X2jKjCHWW3
+         CTcEq2Lcl7xxlkJGI5woZLoZgQUgB3G9G7fzsGJ3NlSj+F3t6H/7CHVy8+M2beuAeIF8
+         8cIrOK4eNckExpN+43Z4o4QQBdtXjXsmed6MtLnVCYpvCULhQX+Z8sgR5NYx9TPhYh6O
+         l29ggowP6cVdN6RUDKTiQDht0cot3A77K3030NMnlS4GZOh5Vnw/gSubNs2omfUIJ0nS
+         bVyA==
+X-Forwarded-Encrypted: i=1; AFNElJ+Z0n1mW4xydTCQJmrUZkuDQsGYLnrCOfE3NdRcwjV6Ex4dYA8Ij+sDLJ3XBk0BmgSOXEwxvy1WVO+O@vger.kernel.org
+X-Gm-Message-State: AOJu0YyDy8L9hxy9d06KVxWsx3IkFWGQ6nGDYoRXXegBCyBi/grBOV53
+	g2NCM5Dj/m+DYYxfWpckDewd39nQ1kbJvGpFwQeJhhV60i5wffCnoNjZfGfOKCS2rWGA+23Qxmz
+	ZvhjbrEo8JdqxzHlUmsvbJAwgKAamGT12j4NUIfoeovaPfesJh1teFidueareZeUs
+X-Gm-Gg: Acq92OFAYw0uIrRvcD+VCDl1yKq6MvfG3KGm00nUnnbHd/3WBzbnlnB4Kto7ytgCtNs
+	8aSfsNOoGswiFxNvRIGCswe9P63RMQpCxeIygbuGW6UnNFlVTV7iHLany2bYCvNTIi3s7/r0VWX
+	wgmpQlCLd//cPKwg98iGo7sQexdszs4LYDFhZ5qGj5Di3ClRKBWWldk0NmxlaxqBmElOB3f7PTw
+	POuqq6xHsSJ1wKJSrBzTXnXT3wM2apSdKu67PRAvR/xEZV5XsMkKHRK9a+ZBYwcXkpYp7LN6ndT
+	hrV8BAnzl+J/N4i1saaKvh1zDR/o3984UNLdgUB28JwOYRylX5nNuDc0cqIFWr3jGC4izU1SZ73
+	5xEw1+/MZUg0SVs4ixyKxwV9glSymHRBeBWHbRWXW1KY/J3CAANw=
+X-Received: by 2002:a17:903:90e:b0:2ae:6220:1539 with SMTP id d9443c01a7336-2ba7b35425dmr139626675ad.6.1778568366119;
+        Mon, 11 May 2026 23:46:06 -0700 (PDT)
+X-Received: by 2002:a17:903:90e:b0:2ae:6220:1539 with SMTP id d9443c01a7336-2ba7b35425dmr139626405ad.6.1778568365456;
+        Mon, 11 May 2026 23:46:05 -0700 (PDT)
+Received: from [10.92.198.185] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2baf1e847d0sm119936625ad.62.2026.05.11.23.45.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 11 May 2026 23:46:04 -0700 (PDT)
+Message-ID: <f95584f8-220f-4bd1-a189-dc05ffd2a9bc@oss.qualcomm.com>
+Date: Tue, 12 May 2026 12:15:47 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260512-mt6323-v2-0-3efcba579e88@protonmail.com> <20260512-mt6323-v2-5-3efcba579e88@protonmail.com>
-In-Reply-To: <20260512-mt6323-v2-5-3efcba579e88@protonmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 12 May 2026 09:43:38 +0300
-X-Gm-Features: AVHnY4ISc11FAtQmtWdJlGYyo0XawWUZJbHlaYzrkD_vnuBBxzJNK6YMpmrGwVg
-Message-ID: <CAHp75VdtORjmCCWy3-oiN-RQd+s7z=2G4s8hemv3xrq47vXu5g@mail.gmail.com>
-Subject: Re: [PATCH v2 05/16] iio: adc: mediatek: add mt6323 PMIC AUXADC driver
-To: rva333@protonmail.com
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Sen Chu <sen.chu@mediatek.com>, 
-	Sean Wang <sean.wang@mediatek.com>, Macpaul Lin <macpaul.lin@mediatek.com>, 
-	Lee Jones <lee@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	linux-pm@vger.kernel.org, Ben Grisdale <bengris32@protonmail.ch>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/8] ras: aest: extend AEST support to Device Tree
+ frontend
+To: Ruidong Tian <tianruidong@linux.alibaba.com>,
+        Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, catalin.marinas@arm.com,
+        will@kernel.org, lpieralisi@kernel.org, rafael@kernel.org,
+        mark.rutland@arm.com, Sudeep Holla <sudeep.holla@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-acpi@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+References: <20260505-aest-devicetree-support-v1-0-d5d6ffacf0a5@oss.qualcomm.com>
+ <8f1529af-f6fe-44bc-a4b1-c47a19824d1e@linux.alibaba.com>
+Content-Language: en-US
+From: Umang Chheda <umang.chheda@oss.qualcomm.com>
+In-Reply-To: <8f1529af-f6fe-44bc-a4b1-c47a19824d1e@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: VhV7folVmtvRucW-mXWAzUqZJPKSoM9-
+X-Authority-Analysis: v=2.4 cv=Mv9iLWae c=1 sm=1 tr=0 ts=6a02ccaf cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=7CQSdrXTAAAA:8 a=SRrdq9N9AAAA:8
+ a=EUspDBNiAAAA:8 a=2yO6rERebkD6Ods6SnIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-ORIG-GUID: VhV7folVmtvRucW-mXWAzUqZJPKSoM9-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEyMDA2NCBTYWx0ZWRfXzxvxe4IafoAu
+ vSnxwE19Wd5QDNRusDYqGp8P938PerfcUKWU+mboyow1qh2bZOLDpOH9lWH/iNQmWv7ombj4VxM
+ Bqw3VCwa5U++AfqkFymMIeRi/CWP0sgQXrPkc4LII5/x96PVFrE8LP6ESbnElQERdKMigA6SrC1
+ ALvOTxz2OT7vJSg4kIBXsPZ47IlwY80WLtSiLTQ3rk+L0DOdT5E+nDwMcEMfkSqMzh+NZipnHim
+ i9z0BoK8Ss1HY0C5JGrZpWlLEK2HqF0FHKyG1wUIcmY6yxjFoogxBM76/zTyXr8xIjemxNXd9+E
+ pgv/chcYQGM6stvyR4Q/wjBRC5aE/WDYvMU47POmdwVfX8RtQK5buXLM3Bv4NMqXlqufDLQDjnD
+ HzVp6Idl54TDd1ChP+wrdkiXJC4YaEXJ+kXEFpv08Bjr9Re99R16eXw8SnwpO+vETLdjwxf0N0u
+ 05XToVtysQyL/1N5Ozg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-11_05,2026-05-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 malwarescore=0 priorityscore=1501 lowpriorityscore=0
+ clxscore=1015 phishscore=0 spamscore=0 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605120064
 
-On Tue, May 12, 2026 at 8:21=E2=80=AFAM Roman Vivchar via B4 Relay
-<devnull+rva333.protonmail.com@kernel.org> wrote:
->
-> The mt6323 AUXADC is a 15-bit ADC used for system monitoring. This driver
-> provides support for reading various channels including battery and
-> charger voltages, battery and chip temperature, current sensing and
-> accessory detection.
->
-> Add a driver for the AUXADC found in the MediaTek mt6323 PMIC.
+Hi Ruidong,
 
-...
 
-> +#include <linux/array_size.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/bits.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/delay.h>
-> +#include <linux/iio/iio.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/property.h>
-> +#include <linux/regmap.h>
-> +#include <linux/stringify.h>
+On 5/6/2026 1:40 PM, Ruidong Tian wrote:
+> Hi Umang,
+> 
+> Thanks for your patch.
+> 
+> Would it be okay if I include this patch in the next version of the AEST
+> patch series? I will make sure to add your Signed-off-by line.
 
-+ time.h // USEC_PER_MSEC
 
-> +#include <linux/types.h>
+Yes, you can include this patch in the next version - we will represent
+it and respond to all of the queries received on DT specific patches.
 
-...
+How should I be sharing the patch fixes based on comments received from
+maintainers to you ? so that you can include in your patch series ?
 
-> +#define AUXADC_TRIM_CH2                (3 << 10)
-> +#define AUXADC_TRIM_CH4                (3 << 8)
-> +#define AUXADC_TRIM_CH5                (3 << 4)
-> +#define AUXADC_TRIM_CH6                (3 << 2)
+Also, when is your plan to post the next version fixing the comments
+received ?
 
-Without a comment it's hard to say if these are like masks or actual
-values. Can you clarify that in the comment on top of these four?
 
-> +#define VOLTAGE_FULL_RANGE     1800
+Thanks,
+Umang
 
-Are there any units? Are they millivolts or is it just some scale?
 
-...
+> 
+> Best regards,
+> Ruidong
+> 
+> 在 2026/5/5 20:23, Umang Chheda 写道:
+>> This series extends Tian Ruidong’s [1] ACPI-based AEST support series
+>> to also cover Device Tree based platforms.
+>>
+>> While the existing AEST driver relies on the AEST ACPI table [3], many
+>> embedded Arm platforms use Device Tree exclusively and cannot use the
+>> driver today. This series adds a DT frontend that mirrors the ACPI
+>> implementation and feeds the same core driver, keeping ACPI and DT
+>> paths functionally equivalent.
+>>
+>> Along the way, several correctness issues were identified in the core
+>> driver and are fixed in the first part of this series.
+>>
+>> The DT frontend is mutually exclusive with ACPI and does not introduce
+>> any DT-specific logic into the core.
+>>
+>> How to test with QEMU
+>> --------------------------
+>> Tian Ruidong's QEMU fork [2] emulates AEST MMIO error records on the
+>> virt machine.  To test the DT frontend:
+>>
+>> 1. Build QEMU:
+>>
+>>       git clone https://github.com/winterddd/qemu.git
+>>       cd qemu
+>>       git checkout c5e2d5dec9fd62ba622314c40bff0fbecb4dfb34
+>>       ./configure --target-list=aarch64-softmmu
+>>       make -j$(nproc)
+>>
+>> 2. Build the kernel with:
+>>
+>>       CONFIG_OF_AEST=y
+>>       CONFIG_AEST=y
+>>       CONFIG_ARM64_RAS_EXTN=y
+>>       CONFIG_RAS=y
+>>
+>> 3. Add the following DT node to your virt machine DTB.  The QEMU
+>>     fork maps DRAM error records at 0x090d0000 (SPI 44) and CMN
+>>     vendor records at 0x090e0000 (SPI 45):
+>>
+>>       aest {
+>>           compatible = "arm,aest";
+>>           #address-cells = <2>;
+>>           #size-cells = <2>;
+>>           ranges;
+>>           interrupt-parent = <&gic>;
+>>
+>>           /* DRAM memory node — MMIO at 0x090d0000, SPI 44 */
+>>           aest-dram0@90d0000 {
+>>               compatible               = "arm,aest-memory";
+>>               arm,interface-type       = <1>;
+>>               arm,group-format         = <0>;
+>>               arm,interface-flags      = <0x22>;
+>>               arm,num-records          = <4>;
+>>               arm,record-impl          = /bits/ 64 <0x0>;
+>>               arm,status-report        = /bits/ 64 <0x0>;
+>>               arm,addr-mode            = /bits/ 64 <0x0>;
+>>               arm,proximity-domain     = <0>;
+>>               reg                      = <0x0 0x090d0000 0x0 0x1000>,
+>>                                          <0x0 0x090d0800 0x0 0x200>,
+>>                                          <0x0 0x090d0e00 0x0 0x100>;
+>>               reg-names                = "errblock", "fault-inject",
+>>                                          "err-group";
+>>               interrupts               = <GIC_SPI 44
+>> IRQ_TYPE_LEVEL_HIGH>;
+>>               interrupt-names          = "fhi";
+>>           };
+>>     };
+>>
+>> 4. Boot QEMU with acpi=off:
+>>
+>>       ./qemu-system-aarch64 \
+>>         -machine virt,accel=tcg,gic-version=3 \
+>>         -cpu cortex-a57 -m 2G -smp 4 \
+>>         -kernel Image -dtb virt-aest.dtb \
+>>         -append "console=ttyAMA0 acpi=off earlycon" \
+>>         -nographic
+>>
+>> 5. Verify probe:
+>>
+>>       dmesg | grep "DT AEST"
+>>       # Expected: DT AEST: registered 1 AEST error source(s) from DT
+>>       ls /sys/kernel/debug/aest/
+>>
+>> 6. Inject a CE error via the QEMU MMIO fault injection registers.
+>>     The QEMU device accepts 64-bit accesses only (use devmem with
+>>     the 64-bit width flag):
+>>
+>>       devmem 0x090d0808 64 0x80000040   # CDOFF | CE inject
+>>
+>>     This triggers QEMU's error_record_inj_write() which sets
+>>     ERR<n>STATUS.V=1 and asserts the IRQ.  The kernel driver's
+>>     aest_irq_func() fires, reads the status, and logs:
+>>
+>>       AEST: {1}[Hardware Error]: Hardware error from AEST memory.90d0000
+>>       AEST: {1}[Hardware Error]: Error from memory at SRAT proximity
+>> domain 0x0
+>>
+>> Testing
+>> -------
+>> - Validated on Qualcomm's lemans-evk and monaco-evk board with DT boot.
+>> - Validated CE and UE injection via debugfs soft_inject.
+>> - Tested ACPI path is unaffected: ACPI boot continues to use
+>>    drivers/acpi/arm64/aest.c unchanged.
+>>
+>> [1] https://lore.kernel.org/lkml/20260122094656.73399-1-
+>> tianruidong@linux.alibaba.com/
+>> [2] https://github.com/winterddd/qemu/tree/error_record
+>> [3] https://developer.arm.com/documentation/den0085/0200/
+>>
+>> Signed-off-by: Umang Chheda <umang.chheda@oss.qualcomm.com>
+>> ---
+>> Umang Chheda (8):
+>>        ras: aest: Fix shared processor node handling and error log
+>> messages
+>>        ras: aest: Fix CE/UE error counts not incrementing in debugfs
+>>        ras: aest: Skip unimplemented records in debugfs
+>>        ras: aest: Add panic_on_ue module parameter
+>>        dt-bindings: arm: ras: Introduce bindings for ARM AEST
+>>        ras: aest: Add DT frontend for ARM AEST RAS error sources
+>>        arm64: dts: qcom: lemans: add AEST error nodes
+>>        arm64: dts: qcom: monaco: add AEST error nodes
+>>
+>>   .../devicetree/bindings/arm/arm,aest.yaml          | 406 +++++++++++++
+>>   arch/arm64/boot/dts/qcom/lemans.dtsi               |  41 ++
+>>   arch/arm64/boot/dts/qcom/monaco.dtsi               |  41 ++
+>>   drivers/ras/aest/Kconfig                           |  15 +-
+>>   drivers/ras/aest/Makefile                          |   2 +
+>>   drivers/ras/aest/aest-core.c                       |  63 +-
+>>   drivers/ras/aest/aest-of.c                         | 673 +++++++++++
+>> ++++++++++
+>>   drivers/ras/aest/aest-sysfs.c                      |  27 +-
+>>   drivers/ras/aest/aest.h                            |  15 +-
+>>   include/dt-bindings/arm/aest.h                     |  43 ++
+>>   10 files changed, 1310 insertions(+), 16 deletions(-)
+>> ---
+>> base-commit: a67b7fd0dd1f6ccf3d128dc2099cdb07af1f6a09
+>> change-id: 20260505-aest-devicetree-support-a3722d90e1f5
+>> prerequisite-message-id: <20260122094656.73399-1-
+>> tianruidong@linux.alibaba.com>
+>> prerequisite-patch-id: c5a7c6431c6c1e6351241e694ee053800039d41d
+>> prerequisite-patch-id: 1f6e2c20829eee41a210dd8a538f1e8efcc65872
+>> prerequisite-patch-id: 5556287e3f46c2ed2c0431c53c7782e87bcbd866
+>> prerequisite-patch-id: 2edae0a136d7779b8f686181720e71d044a73311
+>> prerequisite-patch-id: b5190b2844dcb01e72f87a59f3a29548795fdb82
+>> prerequisite-patch-id: 7ba848583708b2ae776a7ce847bb056e3de7f77b
+>> prerequisite-patch-id: 397e5b22802b67942435f4f2968f0b1e210ba0e8
+>> prerequisite-patch-id: 2169f4b65537eecbd0ccbd2ad6b28c64ec44655d
+>> prerequisite-patch-id: b626f85d98747595b3240bc49e6ad9c9dd5c0fa9
+>> prerequisite-patch-id: 1323dfd2eebad2ef6514dbbce58ba08e8859f894
+>> prerequisite-patch-id: 95b826e5e329408437a3ef336c4f45d4d74f82bb
+>> prerequisite-patch-id: b60ff489a5a33c5d5220fa8144af7b7511769cba
+>> prerequisite-patch-id: 43f35a52b8a3d13c938ff08083403c1d3bd0df8b
+>> prerequisite-patch-id: c55d4e9117ca36d3c2cba82d550a618cb82bb745
+>> prerequisite-patch-id: 3885e10f318ae8101d6909b35d92a976cc359e3c
+>> prerequisite-patch-id: 92958cde05577f069c5659018a274bb39cfb6b24
+>>
+>> Best regards,
+>> -- 
+>> Umang Chheda <umang.chheda@oss.qualcomm.com>
+>>
+> 
 
-> +#define MTK_PMIC_IIO_CHAN(_name, _idx, _ch_type)       \
-> +{                                                      \
-> +       .type =3D _ch_type,                              \
-> +       .indexed =3D 1,                                  \
-> +       .channel =3D _idx,                               \
-> +       .address =3D _idx,                               \
-> +       .datasheet_name =3D __stringify(_name),          \
-> +       .info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) | \
-> +                             BIT(IIO_CHAN_INFO_SCALE) \
-
-Keep the trailing comma as this is not a terminator.
-
-> +}
-
-...
-
-> +/**
-> + * struct mt6323_auxadc - Main driver structure
-> + * @regmap:        Regmap from PWRAP
-> + * @lock:          Mutex to serialize AUXADC reading vs configuration
-> + *
-> + * The MediaTek MT6323 (as well as lot of other PMICs) have the followin=
-g hierarchy:
-> + * PMIC AUXADC <- PMIC MFD <- SoC PWRAP (wrapper for PWRAP FSM)
-> + *
-> + * Therefore, PWRAP regmap should be get using dev->parent->parent.
-
-get --> obtained
-
-> + */
-
-...
-
-> +static int mt6323_auxadc_prepare_channel(struct mt6323_auxadc *auxadc)
-> +{
-> +       struct regmap *map =3D auxadc->regmap;
-> +       u32 val;
-> +       int ret;
-> +
-> +       ret =3D regmap_read(map, MT6323_AUXADC_CON19, &val);
-> +       if (ret)
-> +               return ret;
-> +
-> +       /* The ADC is idle */
-> +       if (!(val & AUXADC_DECI_GDLY_MASK))
-> +               return 0;
-> +
-> +       ret =3D regmap_read_poll_timeout(map, MT6323_AUXADC_ADC19, val,
-> +                                      !(val & AUXADC_ADC19_BUSY_MASK), 1=
-0, 500);
-
-It's better to have a logical split
-
-       ret =3D regmap_read_poll_timeout(map, MT6323_AUXADC_ADC19,
-                                      val, !(val & AUXADC_ADC19_BUSY_MASK),
-                                      10, 500);
-
-> +       if (ret)
-> +               return ret;
-> +
-> +       return regmap_clear_bits(map, MT6323_AUXADC_CON19,
-> +                                AUXADC_DECI_GDLY_MASK);
-> +}
-
-...
-
-> +static int mt6323_auxadc_read(struct mt6323_auxadc *auxadc,
-> +                             const struct iio_chan_spec *chan, int *out)
-> +{
-> +       struct regmap *map =3D auxadc->regmap;
-> +       u32 val, reg =3D mt6323_auxadc_channel_to_reg(chan->address);
-> +       int ret;
-> +
-> +       ret =3D regmap_read_poll_timeout(map, reg, val, (val & AUXADC_RDY=
-_MASK),
-
-Parentheses are not needed in this case. But I'm fine with it here as
-it probably makes it easier to get the idea.
-
-> +                                      1 * USEC_PER_MSEC, 100 * USEC_PER_=
-MSEC);
-> +       if (ret)
-> +               return ret;
-> +
-> +       *out =3D FIELD_GET(AUXADC_DATA_MASK, val);
-> +
-> +       return 0;
-> +}
-> +
-> +static int mt6323_auxadc_read_raw(struct iio_dev *indio_dev,
-> +                                 const struct iio_chan_spec *chan, int *=
-val,
-> +                                 int *val2, long mask)
-
-Logical split
-
-static int mt6323_auxadc_read_raw(struct iio_dev *indio_dev,
-                                 const struct iio_chan_spec *chan,
-                                 int *val, int *val2, long mask)
-
-> +{
-> +       struct mt6323_auxadc *auxadc =3D iio_priv(indio_dev);
-> +       int ret, mult =3D 1;
-
-Decouple assignment and definition. These types of assignments are
-hard to maintain and might lead to subtle mistakes in the future.
-
-> +       if (mask =3D=3D IIO_CHAN_INFO_RAW) {
-> +               guard(mutex)(&auxadc->lock);
-> +               ret =3D mt6323_auxadc_prepare_channel(auxadc);
-> +               if (ret)
-> +                       return ret;
-> +
-> +               ret =3D mt6323_auxadc_request(auxadc, chan->address);
-> +               if (ret)
-> +                       return ret;
-
-Please, add a comment with the reference to a datasheet (ideally)
-explaining this sleep.
-
-> +               fsleep(300);
-> +
-> +               ret =3D mt6323_auxadc_read(auxadc, chan, val);
-> +               if (ret)
-> +                       return ret;
-> +               return IIO_VAL_INT;
-> +       } else if (mask =3D=3D IIO_CHAN_INFO_SCALE) {
-
-Redundant 'else'
-
-> +               if (chan->channel =3D=3D MT6323_AUXADC_ISENSE ||
-> +                   chan->channel =3D=3D MT6323_AUXADC_BATSNS)
-> +                       mult =3D 4;
-> +
-> +               *val =3D mult * VOLTAGE_FULL_RANGE;
-> +               *val2 =3D AUXADC_PRECISE;
-> +
-> +               return IIO_VAL_FRACTIONAL;
-
-> +       } else
-
-Ditto, and it's the wrong style. Read the Coding Style documentation
-to clarify this.
-
-> +               return -EINVAL;
-> +}
-
-...
-
-> +       ret =3D devm_mutex_init(dev, &auxadc->lock);
-> +       if (ret)
-> +               return dev_err_probe(dev, ret, "failed to initialize mute=
-x\n");
-
-Unneeded error message. Most likely it's -ENOMEM, which will be
-ignored by dev_err_probe() anyway.
-
-...
-
-> +       ret =3D devm_iio_device_register(dev, iio);
-> +       if (ret)
-> +               return dev_err_probe(dev, ret, "failed to register iio de=
-vice\n");
-
-If you don't see the device, it's failed to register, do we need this messa=
-ge?
-
---=20
-With Best Regards,
-Andy Shevchenko
