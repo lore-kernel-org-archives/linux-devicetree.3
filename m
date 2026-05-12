@@ -1,245 +1,651 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11023075.outbound.protection.outlook.com [40.107.162.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA9543E1730;
-	Tue, 12 May 2026 13:00:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.75
-ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778590833; cv=fail; b=H11NTAixIMsmeUrfvhHaa7EvhD52J54nlw28Bax3VElaQWqpfLJmvf/QHiepxqwGNUDTuMHv3xt6xMjd+qaw/0pMM7QgJIalWHWJwubh5+NaYCIs6bGM5MK8jthD+UNoRu3D3HnmENOMCHzBrQ6DHpJaOYOHWMw+Gze45c0IV5o=
-ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778590833; c=relaxed/simple;
-	bh=oRk4bC1VmXu8sAbC/B7c3E82keZAQVo9nO7MwI06oX8=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=PjqzKYcignmkXGCooQuT/k3TE1cz4SaHgxJf/2QW9O1nrlbN4DbbKJm475QHl8czmGvMoAGKYboMf9OuhWFTpvvn2rsKXFxP3pAhq+9Dcg4M3KNIPn1wA+BgpcZ+GXs/IFvEDXcG2D/defGEiA17D6ACN6ksBkW+YZrwrxUSpLo=
-ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com; spf=pass smtp.mailfrom=solid-run.com; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=lWe0tdqj; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=lWe0tdqj; arc=fail smtp.client-ip=40.107.162.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=solid-run.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1539E3E1706
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 13:00:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778590838; cv=pass; b=KJII0aaFlhKJOfeYLgerbEweO0ltZ5ZjP2g9VftKxgD43FrvM/D9NrLjsjFPlpYFcnFxBFM+i1+7AwI2IiqB/tkjYkszujFZwTW7Ota0+8P4Lvbb0tK357YNDCEmJYGZnj1Nsc9OekWHYt6j80mSGySgx1AnDcJB5oCSqFBAU3w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778590838; c=relaxed/simple;
+	bh=YuM53joYsuqA/fqOKsW+xz9cxbWMg+9daWwdkzmHkN8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cKjoE2mi1egdl31ArAUo1vENyZ5suWAsCsY1DGBuoF1ymYAq8srNHu9Nw51nJD/GgPrRfSsNbbdngSuw7OCi5GSB9sZ0AxaukYb9juG7U6Y5Rc+F1zFhb/uEwcQmc6S7ZUPEghTReY9VIs7CfyG75f0gdWQZ8pcQubxUjXMU51Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kojBv8oc; arc=pass smtp.client-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="lWe0tdqj";
-	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="lWe0tdqj"
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=wafYK5z7RJm28fjnCTIeLlhQO+L0OFQjX6V6p3RsJcQkHBvDxKyy1BxVQfRdTm4dy58mOi91jZdlkBSFFTlL20SCGoH8JTK392H5x2A6QCjk1z6xlrBco10m48eaSq2pTOric85sTR54t61zbMeIDgxEwJ4C9KjB0qLcAY2zjRpgNjzwWExP3th9Sw6t0eJRxn1fk2Dxy6GD9UN9PWmHTkqSr62RsK5MH7Zx++RzJp/pEZCaK8WorOxCWt87d5sRsvXBKGDrxud2kR3T2FlBLf6R32dI3NJYaZa9veyCR4u4B73Hm6Ub9OIsddJ6h1cIFxxG72y0+KWY+qRmM4OMeA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8SZVID+VHjZEP1+H69YfJupc01p6fFrbnK8v/Trlso0=;
- b=R1Lveqx5cAfkpOwSIvgSdzJ5cGz2FJuQPyFQIYd65F2GBNhTetDTJbQIeldx98ZOMGcareaEOVz2mgMR3a3zB6TLlk6Hh2zyWIs8NVLmZmafxzxjMB39/n66oAKcnAlGf5q2xP8vOW42g1nfoFSGTVu2qWwsRP5MJXbNWw7TflIcOONi9dii9p2oj32FlAc7MqhF21LQcJwtE1GXaGGT9oDUNd+PHTXtScqW41TDRHJosgc4xW7FgP3dQ6K2tbZ4qDbui23Hl6nlFPcYO767HHBN9230c3X2OdwXYBQM8pVip9agdi44yn/3YDDplN8S3aHKLrny2Koh8PTkpxVxkA==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=fail (sender ip is
- 52.17.62.50) smtp.rcpttodomain=glider.be smtp.mailfrom=solid-run.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=solid-run.com; dkim=pass (signature was verified)
- header.d=solid-run.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=solid-run.com] dkim=[1,1,header.d=solid-run.com]
- dmarc=[1,1,header.from=solid-run.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8SZVID+VHjZEP1+H69YfJupc01p6fFrbnK8v/Trlso0=;
- b=lWe0tdqj1quK78+bQrba8URJGat4PvTufqZvqZxDThGfqJ4HvX2dH5mswRPcUJZdGj/yV4wqNWXze5wBzxGl+Vu9tiQ2LO3EA0NXCYluOlONBu1d7GisLJZpZiWCGJvguQ0QQ3fRu5LGYU5HqMO9Ab749vj7S63sZclu3/HYYxRKoUKwblunMOAraubFxG0JyZFMVnG6/sRYQPxdOjrKWfTroFsVMUiulM7Mb6F5G/RrvIGG+AId1KMD7jzFsH69Ku7+5pV7HD0K8hB3t0zqmF68/vYwEU0ULxn2mlowG1CE0RBTV5u3M/qTy6KvDoQmB0jhZHymq0ZWZQAY8DMeYQ==
-Received: from AM8P190CA0024.EURP190.PROD.OUTLOOK.COM (2603:10a6:20b:219::29)
- by DB8PR04MB7033.eurprd04.prod.outlook.com (2603:10a6:10:125::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Tue, 12 May
- 2026 13:00:28 +0000
-Received: from AM3PEPF0000A79A.eurprd04.prod.outlook.com
- (2603:10a6:20b:219:cafe::25) by AM8P190CA0024.outlook.office365.com
- (2603:10a6:20b:219::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9913.11 via Frontend Transport; Tue,
- 12 May 2026 13:00:28 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 52.17.62.50)
- smtp.mailfrom=solid-run.com; dkim=pass (signature was verified)
- header.d=solid-run.com;dmarc=pass action=none header.from=solid-run.com;
-Received-SPF: Fail (protection.outlook.com: domain of solid-run.com does not
- designate 52.17.62.50 as permitted sender) receiver=protection.outlook.com;
- client-ip=52.17.62.50; helo=eu-dlp.cloud-sec-av.com;
-Received: from eu-dlp.cloud-sec-av.com (52.17.62.50) by
- AM3PEPF0000A79A.mail.protection.outlook.com (10.167.16.105) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.13
- via Frontend Transport; Tue, 12 May 2026 13:00:28 +0000
-Received: from emails-9597773-12-mt-prod-cp-eu-2.checkpointcloudsec.com (ip-10-20-5-220.eu-west-1.compute.internal [10.20.5.220])
-	by mta-outgoing-dlp-588-mt-prod-cp-eu-2.checkpointcloudsec.com (Postfix) with ESMTPS id D75D780483;
-	Tue, 12 May 2026 13:00:27 +0000 (UTC)
-X-Mailbox-Line: From b'josua@solid-run.com' Tue May 12 13:00:15 2026
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PT7YjgG6aNgYFZgc9AgzclDR+01a/d3ytH61TOxWTZFhOesboTLI5GJYjV0Aa8z1fujuUoE29xEL6/3/KBAolhGJIRrWW89Sj9rB40pAQDDx/QO11eP9qKhZqB3cnXD2Lp6CD3OokZUm0tIqoRDKOLAvg3L6zNnG7DFhFeqaEppsv0rQA0yBqvgr/AJGQzgkkIjDLxsKBLPcTqZCWyVKBcANBS/fEoMZ186gyRzGTOG8uQGuf24oZ2vQgdIhV5jbPMm7ZNcI1GJOyF0XDXLElT6HWBDTAc8G++Ml6bAxKOo0yit/YBKzUpGz4gaAJAi6J3uTb4txE6tIbOFix8UQSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8SZVID+VHjZEP1+H69YfJupc01p6fFrbnK8v/Trlso0=;
- b=QC9uV/+daCup+5vbX1LO+r8VwOKuRqfHD7S9NsDSduXyiI3UOy8tW3+2nWBV10qVhijobEwwxTj1M1+DcL1I5s/lqIdopEjzXvcPiLLYQE8EAZCWcgEM5whgnBgUdzCUKR8EzfpTwGOBIslPLmKcApxDtLyV1YW5louF5Jps1HHZWTan4CtzPMXRPO7GElRPmtapQzdQKJHmEgjfIe4+v441RxG2uGQozorndkJzleJiRkDRYFAeLFspOvuJuIAJBj6JIG4w23VOJ889YxEoMlLpmCp+meniGuzwW8AfsRTirMspDQEVspuB7kxAuWk9o503Y17SdzJ2d0C+ieWt9A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=solid-run.com; dmarc=pass action=none
- header.from=solid-run.com; dkim=pass header.d=solid-run.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8SZVID+VHjZEP1+H69YfJupc01p6fFrbnK8v/Trlso0=;
- b=lWe0tdqj1quK78+bQrba8URJGat4PvTufqZvqZxDThGfqJ4HvX2dH5mswRPcUJZdGj/yV4wqNWXze5wBzxGl+Vu9tiQ2LO3EA0NXCYluOlONBu1d7GisLJZpZiWCGJvguQ0QQ3fRu5LGYU5HqMO9Ab749vj7S63sZclu3/HYYxRKoUKwblunMOAraubFxG0JyZFMVnG6/sRYQPxdOjrKWfTroFsVMUiulM7Mb6F5G/RrvIGG+AId1KMD7jzFsH69Ku7+5pV7HD0K8hB3t0zqmF68/vYwEU0ULxn2mlowG1CE0RBTV5u3M/qTy6KvDoQmB0jhZHymq0ZWZQAY8DMeYQ==
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=solid-run.com;
-Received: from GVXPR04MB12057.eurprd04.prod.outlook.com
- (2603:10a6:150:313::24) by AS8PR04MB8229.eurprd04.prod.outlook.com
- (2603:10a6:20b:3b3::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Tue, 12 May
- 2026 13:00:11 +0000
-Received: from GVXPR04MB12057.eurprd04.prod.outlook.com
- ([fe80::14f1:a127:2988:de5b]) by GVXPR04MB12057.eurprd04.prod.outlook.com
- ([fe80::14f1:a127:2988:de5b%7]) with mapi id 15.20.9891.021; Tue, 12 May 2026
- 13:00:11 +0000
-From: Josua Mayer <josua@solid-run.com>
-Date: Tue, 12 May 2026 15:00:07 +0200
-Subject: [PATCH v3 3/4] arm64: dts: renesas: add support for solidrun rzv2l
- som and hb-iiot evb
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260512-rzg2-sr-boards-v3-3-f033fc96c906@solid-run.com>
-References: <20260512-rzg2-sr-boards-v3-0-f033fc96c906@solid-run.com>
-In-Reply-To: <20260512-rzg2-sr-boards-v3-0-f033fc96c906@solid-run.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Jon Nettleton <jon@solid-run.com>, 
- Mikhail Anikin <mikhail.anikin@solid-run.com>, 
- Yazan Shhady <yazan.shhady@solid-run.com>, 
- linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Josua Mayer <josua@solid-run.com>
-X-Mailer: b4 0.14.3
-X-ClientProxiedBy: FR3P281CA0170.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a0::18) To GVXPR04MB12057.eurprd04.prod.outlook.com
- (2603:10a6:150:313::24)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kojBv8oc"
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-2c156c4a9efso7325119eec.1
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 06:00:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778590835; cv=none;
+        d=google.com; s=arc-20240605;
+        b=TWw5XeZWNuXM+7c9qNp01T0w5vORqDHQPsJ5ezdWJcqt2CnK2viCUEIetpt7aHpIHq
+         sfrItBHGg35IVvDDtzO8v4oB8mJsi+6Eljd29jrNDQNJ7Esv/0Oyd8afz4Lb+crxAlLI
+         v7zRb/dclJF+u2nvJ4gl5k8NBteoPDrOhcPV87Q+nxb15HsF5Aij8YOXjdcSRTMXapOl
+         xlaKbH/1TM4F8miOSE7ErQqr8vbLw7EFuhgLhdLW3s9aoz2O4U56YMn3Rt8PwjVIUnVT
+         nupf55OOtvzrdqamGRtqtXUeNSgpdqAIKP02MOi4gnKGKoTwMragzUmJ28cPU7E0G5uh
+         DiXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2IS5oluGQ9rzg5bXFenlg6gcPX4ICtDWNMpGHTlzVao=;
+        fh=B7FWCAg6eQpEJqkox9eOWIz7SDR+wsECvnbsH0CSjlE=;
+        b=iwJE4T2TKm8UwG5fwsxOCQTQiNFc3XCmQJSPpJebTzmAd8lP7afBH/nStTFHTWmyme
+         EwOhWLFy9svWgCIA55Z6b5dsDvotUL1MGYZkaWLwRnKnaGrK/oPFWJPYegQG3ywQ0iBW
+         Hyuw9TywXEuzHfXFusvfBsTbjzEnqngcf4JR8Sdejqn3qQtnWwQqcnA9f9E83hmlppqd
+         d50PySK3n9GcUqCt7eQJsO40ZFQyyqxxJO+orzFmuac+vfaEGH3KaP7j0bcFsFOTOdJ1
+         K0w9WejKhs5AZdWquAz3BCN0zps20Zpu6B81Mcgm4oqs5e7ACIMIfCJUEzAD8p0xI/pQ
+         KHpQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778590835; x=1779195635; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2IS5oluGQ9rzg5bXFenlg6gcPX4ICtDWNMpGHTlzVao=;
+        b=kojBv8ocv5FfzX8wx0SpcbJluVbvKsL7UUpwx5Z3LPvFc7lmqYncPJH7/YcKjDUHGe
+         gDfyIoX+BbEx5JoYwNth1+b5i5Fs0FrgDeXyZiwE1YuNc+zY6uABEk1W2GVOGPKWC+Yl
+         Y0mWvGYv8E9QOdt6Mn81YWAsZNniik2uxMDMkMPkz4ZPpkJUHI7eGdJPkTNYf2oly4pv
+         7xI3UGUmESwzjtxLTxgZ2GnD/Vodrr7uwzROpmY4cw0Q1N5jZzZqCnCNWEKtbJafmfKw
+         +nCpu4UB4JACewnyKQcZfE9r7OQX8Pump+6e+X8X3a/2INUn9eWwJYW7ls+cIccXMsGh
+         OQ+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778590835; x=1779195635;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=2IS5oluGQ9rzg5bXFenlg6gcPX4ICtDWNMpGHTlzVao=;
+        b=dGdrQ5JIywtlCUh+Fvdb4WlSqyaQwH3tkH39qvXNTlRs2kyUoQXXii1ML58fPjtE17
+         /Z61ZYGkhDcISN2RLPkdXyI1dX7YRoXh3PhQLxvnHJ9gx7nfFyJUV5MwPulGa59pF/Is
+         kY0PA4KR7gskj59rXmSrt/ZZROHxhWxSDca7TLkufU+sVB84SVuYIJazcve36vDG7T9O
+         p6sZl5wFChXbGsvHl0u+/OBzbD2AQ51IZXtVqtu8iAGUy3D4dToLRNfwU7v+mVtXsmhl
+         Pb0UWj0cylKSfAcZjm6CkR7tK8y+MrSMnBrQQSFCH8C/V7OZ7zCdUoYm6HdexTg0vod4
+         5i/A==
+X-Forwarded-Encrypted: i=1; AFNElJ/41cSfflbnxrJmcJ665L5k9CqNV34dAx8xOQczVHO0CwHwVTt8e+MgSYc/STPur3X/eeIVv0V6KM4P@vger.kernel.org
+X-Gm-Message-State: AOJu0YzSErb4PudAHA8HMquOfIVcnrtbf9q4cUzx9yDGQhC5R/Zwdc5d
+	w4Tgg5W8ClXfgz74LvYMS9n5EG+hstZaTNxRTqh3A2de6EzBkAZd3V0yqRIZcPGpIclVZeuJEvx
+	UYZwYYnu2DjK144jETufUHcrbcckF2S0=
+X-Gm-Gg: Acq92OFeQk2uBKgfSXR2uXo16QLxF2X1aAmZnBpSeyoNWEkeHNI3jhtaBl01ZTQzO6l
+	jOOtwXLWEFve+JYHnjpS7zZtqoWtUoP4OFA+WS3nB4j4mnQ8rdRC1GiuOKt4CTdVdfArNpNKsda
+	Zveb1c2pFMO1Nprlt3gcJjGREtjh3X2axCTKGmJX+O4E/Sbjn7zerotoRPlwPaAYAWJKyc3gLhY
+	t15I7BYFjz6xu3qboZ7Eaqukdiz+cNkOC1HeKOgqNzdmCYZe1mGXNUaaTJO9F+hKp8eNNntvjVB
+	8BvGCBUs
+X-Received: by 2002:a05:7300:ec01:b0:2e1:e3e6:2909 with SMTP id
+ 5a478bee46e88-2f54dc8dfdcmr12882765eec.9.1778590834832; Tue, 12 May 2026
+ 06:00:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic:
-	GVXPR04MB12057:EE_|AS8PR04MB8229:EE_|AM3PEPF0000A79A:EE_|DB8PR04MB7033:EE_
-X-MS-Office365-Filtering-Correlation-Id: f0a38826-b420-475c-1d62-08deb02670e1
-X-CLOUD-SEC-AV-Info: solidrun,office365_emails,sent,inline
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|376014|52116014|366016|1800799024|56012099003|18002099003|22082099003|38350700014;
-X-Microsoft-Antispam-Message-Info-Original:
- i26vD5qL1d1GIj4NHkUU3zc1VO9dmwXHgNF9Ijjfs/pkfs6UhknBbx0C+atG+abOIBU5ce4qZcUOX8Ft9SnLIEwd6/V87U71x3YKWcoJ/pzrndx/3XP+mg0YNRnyQ7N+mQTSkiXE8kGLbqFTGSEKC75Boo6jEbBuLnU0pSOxz3AJ0BDAD1S40NhNiv/Dhwz2yWwsSd2MRtMU1vrOyYwO473vc5IXT2P2nn7HDM7eXb3h/3U5nSKkxmCpMZsKNlmg8ML64Iv1e4j46fj1B8RrQRu4KOuFOkCpsV80y97m+n7JnetCpWgEe/gOm0e4LLNY05waXByEAH119HM8uQ6rYCV0VL6mOvwMhE7xFINWR6OSNSm1wmjMT1Z6IiAHNLYTxf/pYcGWeN3NoSzxkPtAiLkh53f+/wpWUax7alMbiDgkjGL0KbZF8O9RQOs5Q+1myaTdjq2S/O2RFAZwwWLOnbHXTi7HtPxdcmnHAyzMWK2rKnvC59X32vXWq3rTwUnI2oEMMbPXVzci2TBge908oMYto3wTdVZAwqPu0MOed4mpANArevwdjinwtxJF1L/e/OJ45HjxiAnfbqCFtWNmwSrTXI+bx6GoUW/TjVz1DVCIBFsQExuePBwlaeoXarSJyb4OUp5JbVeLQ9mwDNNSS0yqgXD6YvzLnsAMCgyoJE2OSTTG9N1ReEMz3h13ycNbX7m3HuIGThL1aYAGWrpgWcaz98RFJpGNwmuSmciOYxxDfD7jiclg0FydVtj6QHx7
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB12057.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(366016)(1800799024)(56012099003)(18002099003)(22082099003)(38350700014);DIR:OUT;SFP:1102;
-X-Exchange-RoutingPolicyChecked:
- TjTnwIMELZY5Jwq7BwKgC855u769TPBfwgrsqu5xth1Nlt7M7BkwtPjRQ+6faNIGAldOvcfdNWK0HuPsAPJOcGNz/05I7MkCrVQf9GuWJI3D2COKjj678joEI68Y4oHxRg45s6P8JpBvds3D9LZKKwm14WZpZBqiM/lhG7sMbnDPZ181f+O2j9zTq3ylYOI7e7H8lmhgntVjJLCcuiiiiemSdcRTWYxFFjSQk5lOBX8ucdt0u9EdawYlfzFdwlIobdGBFkPFxczTElb7HopUvjQ6Mk9ch6QHlpGfyvyZTyl7DCqgh6EfjGZNyvLFM8tjPldb/0hEq4A/EwqmOLKgDQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8229
-X-CLOUD-SEC-AV-INT-Relay: sent<mta-outgoing-dlp-mt-prod-cp-eu-2-7.checkpointcloudsec.com>
-X-CLOUD-SEC-AV-UUID: 1cf8c014f4784438978112fd75266f1f:solidrun,office365_emails,sent,inline:7a8888ac466080aa94ee14b06e0b315c
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM3PEPF0000A79A.eurprd04.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	79d79d9f-b777-45f0-e17f-08deb02666f0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|14060799003|376014|1800799024|35042699022|36860700016|82310400026|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	tFuQjbjVSzGlPf/X4qGrhw069d6lprE75+t4GlWjmedHxJn4TL/11PcDTBjnMNtycTHmep/JtuquaQbB7aJCxbug3jMPlRv5BpbsYaWepTIUSAz85PkgURmL1rqemDmNzNkPTlu06uP/clRIIqDuOfj0qBUzg1WdVidpPRBf3bxqtqH5f6gagohwJpaVvDb6bD5ZAK+LziYP+5i/dFApZsqUj2/07Z1kOWm6HaX8ARTnUllpQhRf9GHiifefbbAuQrvVhtWet5oqblMj0zJM4IGGkb5PzYdtu0d3efXHuvR8ZmGyqfnzCEL3cgPTwbLXoXKE6pffhY86WpQvX0Cm8jSKUX1bfIL7I61dqDzCqcz07k3rcAIAqnlqpu4AZ3dIFBX1392+ehszR58psQrrzwq7w2hyV5IDoLvYWDYkJehLBrUEc0Na3/XcNQovbuAJXbKB/HbJG/MludCb3dZUkqiVJpctfYjLlHL5FXYhnTSE32bGhO8F+mYKZZCOiFP+iD77rcKAvaeomvKoza/rZ2NFNcwRSLfH6grgC0mhJeA8gpb+dUSMBEQFQ236cmhAhBFVU7Lnuo23DkHCwUpFv3qLQEDYiuxqhghTCZ8qTSR6fg+EP+s6WHhLF4CR25sCYLsMZ6ccfxgMt3eaW0oB1CAkbzpzyEzKAv1KOOjYjqJbsxcQr6QWimF9fMHVTKqp06F9SndneLQgB6D2weUnNVIaPeFiiiv2tHuMhIu2Phs=
-X-Forefront-Antispam-Report:
-	CIP:52.17.62.50;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:eu-dlp.cloud-sec-av.com;PTR:eu-dlp.cloud-sec-av.com;CAT:NONE;SFS:(13230040)(14060799003)(376014)(1800799024)(35042699022)(36860700016)(82310400026)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	8TF/v8sdIzc+R4k79Nj+bHZibS/WG0VOh9QDQ4SeTreXXY+MxODXYAQBzU5PqW/0wykB+LLY09tRI9cGOEeHAxYaXXpkREs9o39TNaxoEap1a8ZyWRGa7JJoy+PK9G8H7O6ul5+VKDjbatxvpU8Anw6+esXThlD1HZwqlHmn/Ww3f1IGyGWjuDT+oDN/rh8KwxrizFTpRM8fcBxcENr7D+rWCdUT7i2ugk+VW4CvnzNx1ugRLq4BBSzwaDJEBQ8sFU58J63zg72i8a9CSLSdl+8dQ56AKnVbYrAVWOlV99De1SkOquAClurIoxr43NcTrjQtQ4h7kBbIUDhD9soQA4Y1pL4PApgsr0YwYalcLc9LQ8PirvDwkFTjp9SnQiZQz3IMVbtO4U58IjrwkFL1IMuj2PyaSO3TMx7P8B8vBatVGS8uIebVXwkWOWWdUsjG
-X-OriginatorOrg: solid-run.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2026 13:00:28.1199
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f0a38826-b420-475c-1d62-08deb02670e1
-X-MS-Exchange-CrossTenant-Id: a4a8aaf3-fd27-4e27-add2-604707ce5b82
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a4a8aaf3-fd27-4e27-add2-604707ce5b82;Ip=[52.17.62.50];Helo=[eu-dlp.cloud-sec-av.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM3PEPF0000A79A.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB7033
+References: <20260510110804.33045-1-clamor95@gmail.com> <20260510110804.33045-4-clamor95@gmail.com>
+ <20260512125309.GA1476682-robh@kernel.org>
+In-Reply-To: <20260512125309.GA1476682-robh@kernel.org>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Tue, 12 May 2026 16:00:23 +0300
+X-Gm-Features: AVHnY4Lg9-rZZxak_7A8-rgTbdgv1Xf5Fk-dRQ_iaShma4n8Z6iLa9Gayv32ho8
+Message-ID: <CAPVz0n0QSvht+_ejbErDsf0o6Bt1STynVydJOemcSYXrr-TgHw@mail.gmail.com>
+Subject: Re: [PATCH v5 3/6] dt-bindings: mfd: motorola-cpcap: convert to DT schema
+To: Rob Herring <robh@kernel.org>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Tony Lindgren <tony@atomide.com>, linux-input@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-leds@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add support for the SolidRun RZ/V2L [1] SoM on Hummingboard IIoT [2].
+=D0=B2=D1=82, 12 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 15:5=
+3 Rob Herring <robh@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Sun, May 10, 2026 at 02:08:01PM +0300, Svyatoslav Ryhel wrote:
+> > Convert devicetree bindings for the Motorola CPCAP MFD from TXT to YAML=
+.
+> >
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> > ---
+> >  .../bindings/mfd/motorola,cpcap.yaml          | 414 ++++++++++++++++++
+> >  .../bindings/mfd/motorola-cpcap.txt           |  78 ----
+> >  2 files changed, 414 insertions(+), 78 deletions(-)
+> >  create mode 100644 Documentation/devicetree/bindings/mfd/motorola,cpca=
+p.yaml
+> >  delete mode 100644 Documentation/devicetree/bindings/mfd/motorola-cpca=
+p.txt
+> >
+> > diff --git a/Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml =
+b/Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml
+> > new file mode 100644
+> > index 000000000000..7f257f3a1a5a
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml
+> > @@ -0,0 +1,414 @@
+> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/mfd/motorola,cpcap.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Motorola CPCAP PMIC MFD
+> > +
+> > +maintainers:
+> > +  - Svyatoslav Ryhel <clamor95@gmail.com>
+> > +
+> > +allOf:
+> > +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> > +
+> > +properties:
+> > +  compatible:
+> > +    items:
+> > +      - const: motorola,cpcap
+> > +      - const: st,6556002
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  interrupts:
+> > +    maxItems: 1
+> > +
+> > +  interrupt-controller: true
+> > +
+> > +  "#interrupt-cells":
+> > +    const: 2
+> > +
+> > +  "#address-cells":
+> > +    const: 1
+> > +
+> > +  "#size-cells":
+> > +    const: 0
+>
+> There aren't any child nodes with an address. These 2 can be dropped.
+>
 
-The SoM features:
-- 2x 1Gbps Ethernet with PHY
-- eMMC
-- 1/2GB DDR
-- WiFi + Bluetooth
-- SDHI Mux switching between eMMC and Carrier Board
+I will adjust in v6 if there will be need in one.
 
-The HummingBoard IIoT features:
-- 3x USB-2.0 Type A connector
-- 2x 1Gbps RJ45 Ethernet
-- USB Type-C Console Port
-- microSD connector
-- RTC with backup battery
-- RGB Status LED
-- 1x M.2 B-Key connector with USB-2.0 + SIM card holder
-- 1x DSI Display Connector
-- GPIO header
-- 2x RS232/RS485 ports (configurable)
-- 2x CAN
-
-The RZ-V2L SoM shares PCB with RZ/G2L, differing only in the SoC itself.
-V2L is adding a powerful DRP-AI NPU which G2L lacks.
-
-Due to the similarities most code is shared, including DT overlays for
-eMMC, microSD, and RS485.
-
-[1] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-v2l-som/
-[2] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2l-iot-sbc/
-
-Signed-off-by: Josua Mayer <josua@solid-run.com>
----
- arch/arm64/boot/dts/renesas/Makefile                     | 11 +++++++++++
- .../boot/dts/renesas/r9a07g054l2-hummingboard-iiot.dts   | 16 ++++++++++++++++
- 2 files changed, 27 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/renesas/Makefile b/arch/arm64/boot/dts/renesas/Makefile
-index 38163ce845e7a..cff17cb8574a3 100644
---- a/arch/arm64/boot/dts/renesas/Makefile
-+++ b/arch/arm64/boot/dts/renesas/Makefile
-@@ -188,6 +188,17 @@ dtb-$(CONFIG_ARCH_R9A07G044) += r9a07g044l2-smarc-cru-csi-ov5645.dtbo
- r9a07g044l2-smarc-cru-csi-ov5645-dtbs := r9a07g044l2-smarc.dtb r9a07g044l2-smarc-cru-csi-ov5645.dtbo
- dtb-$(CONFIG_ARCH_R9A07G044) += r9a07g044l2-smarc-cru-csi-ov5645.dtb
- 
-+dtb-$(CONFIG_ARCH_R9A07G054) += r9a07g054l2-hummingboard-iiot.dtb
-+r9a07g054l2-hummingboard-iiot-emmc-dtbs := r9a07g054l2-hummingboard-iiot.dtb rzg2l-sr-som-emmc.dtbo
-+dtb-$(CONFIG_ARCH_R9A07G054) += r9a07g054l2-hummingboard-iiot-emmc.dtb
-+r9a07g054l2-hummingboard-iiot-microsd-dtbs := r9a07g054l2-hummingboard-iiot.dtb rzg2l-hummingboard-iiot-microsd.dtbo
-+dtb-$(CONFIG_ARCH_R9A07G054) += r9a07g054l2-hummingboard-iiot-microsd.dtb
-+dtb-$(CONFIG_ARCH_R9A07G054) += rzg2l-hummingboard-iiot-rs485-a.dtbo
-+r9a07g054l2-hummingboard-iiot-rs485-a-dtbs := r9a07g054l2-hummingboard-iiot.dtb rzg2l-hummingboard-iiot-rs485-a.dtbo
-+dtb-$(CONFIG_ARCH_R9A07G054) += r9a07g054l2-hummingboard-iiot-rs485-a.dtb
-+dtb-$(CONFIG_ARCH_R9A07G054) += rzg2l-hummingboard-iiot-rs485-b.dtbo
-+r9a07g054l2-hummingboard-iiot-rs485-b-dtbs := r9a07g054l2-hummingboard-iiot.dtb rzg2l-hummingboard-iiot-rs485-b.dtbo
-+dtb-$(CONFIG_ARCH_R9A07G054) += r9a07g054l2-hummingboard-iiot-rs485-b.dtb
- dtb-$(CONFIG_ARCH_R9A07G054) += r9a07g054l2-smarc.dtb
- dtb-$(CONFIG_ARCH_R9A07G054) += r9a07g054l2-smarc-cru-csi-ov5645.dtbo
- r9a07g054l2-smarc-cru-csi-ov5645-dtbs := r9a07g054l2-smarc.dtb r9a07g054l2-smarc-cru-csi-ov5645.dtbo
-diff --git a/arch/arm64/boot/dts/renesas/r9a07g054l2-hummingboard-iiot.dts b/arch/arm64/boot/dts/renesas/r9a07g054l2-hummingboard-iiot.dts
-new file mode 100644
-index 0000000000000..d77a6ff163bea
---- /dev/null
-+++ b/arch/arm64/boot/dts/renesas/r9a07g054l2-hummingboard-iiot.dts
-@@ -0,0 +1,16 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+/*
-+ * Copyright 2025 Josua Mayer <josua@solid-run.com>
-+ */
-+
-+/dts-v1/;
-+
-+#include "r9a07g054l2.dtsi"
-+#include "rzg2l-sr-som.dtsi"
-+#include "rzg2l-hummingboard-iiot.dtsi"
-+
-+/ {
-+	compatible = "solidrun,rzv2l-hummingboard-iiot", "solidrun,rzv2l-sr-som",
-+		     "renesas,r9a07g054l2", "renesas,r9a07g054";
-+	model = "SolidRun RZ/V2L HummingBoard IIoT";
-+};
-
--- 
-2.51.0
-
+> > +
+> > +  spi-max-frequency:
+> > +    maximum: 9600000
+> > +
+> > +  spi-cs-high: true
+> > +  spi-cpol: true
+> > +  spi-cpha: true
+> > +
+> > +  adc:
+> > +    $ref: /schemas/iio/adc/motorola,cpcap-adc.yaml#
+> > +
+> > +  audio-codec:
+> > +    type: object
+> > +    additionalProperties: false
+> > +
+> > +    properties:
+> > +      interrupts:
+> > +        items:
+> > +          - description: headset detect interrupt
+> > +          - description: microphone bias 2 detect interrupt
+> > +
+> > +      interrupt-names:
+> > +        items:
+> > +          - const: hs
+> > +          - const: mb2
+> > +
+> > +      "#sound-dai-cells":
+> > +        const: 1
+> > +
+> > +      VAUDIO-supply:
+> > +        description:
+> > +          Codec power supply, usually VAUDIO regulator of CPCAP.
+> > +
+> > +      ports:
+> > +        $ref: /schemas/graph.yaml#/properties/ports
+> > +
+> > +        properties:
+> > +          port@0:
+> > +            $ref: /schemas/graph.yaml#/properties/port
+> > +            description: port connected to the Stereo HiFi DAC
+> > +
+> > +          port@1:
+> > +            $ref: /schemas/graph.yaml#/properties/port
+> > +            description: port connected to the Voice DAC
+> > +
+> > +        required:
+> > +          - port@0
+> > +          - port@1
+> > +
+> > +    required:
+> > +      - interrupts
+> > +      - interrupt-names
+> > +      - "#sound-dai-cells"
+> > +
+> > +  battery:
+> > +    $ref: /schemas/power/supply/cpcap-battery.yaml#
+> > +
+> > +  charger:
+> > +    $ref: /schemas/power/supply/cpcap-charger.yaml#
+> > +
+> > +  key-power:
+> > +    $ref: /schemas/input/motorola,cpcap-pwrbutton.yaml#
+> > +
+> > +  phy:
+> > +    $ref: /schemas/phy/motorola,cpcap-usb-phy.yaml#
+> > +
+> > +  regulator:
+> > +    $ref: /schemas/regulator/motorola,cpcap-regulator.yaml#
+> > +
+> > +  rtc:
+> > +    $ref: /schemas/rtc/motorola,cpcap-rtc.yaml#
+> > +
+> > +patternProperties:
+> > +  "^led(-[a-z]+)?$":
+> > +    $ref: /schemas/leds/motorola,cpcap-leds.yaml#
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - interrupts
+> > +  - interrupt-controller
+> > +  - "#interrupt-cells"
+> > +  - spi-max-frequency
+> > +  - "#address-cells"
+> > +  - "#size-cells"
+> > +
+> > +additionalProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/gpio/gpio.h>
+> > +    #include <dt-bindings/interrupt-controller/irq.h>
+> > +    #include <dt-bindings/input/linux-event-codes.h>
+> > +
+> > +    spi {
+> > +        #address-cells =3D <1>;
+> > +        #size-cells =3D <0>;
+> > +
+> > +        cpcap: pmic@0 {
+> > +            compatible =3D "motorola,cpcap", "st,6556002";
+> > +            reg =3D <0>; /* cs0 */
+> > +
+> > +            interrupt-parent =3D <&gpio1>;
+> > +            interrupts =3D <7 IRQ_TYPE_EDGE_RISING>;
+> > +
+> > +            interrupt-controller;
+> > +            #interrupt-cells =3D <2>;
+> > +
+> > +            #address-cells =3D <1>;
+> > +            #size-cells =3D <0>;
+> > +
+> > +            spi-max-frequency =3D <3000000>;
+> > +            spi-cs-high;
+> > +
+> > +            spi-cpol;
+> > +            spi-cpha;
+> > +
+> > +            cpcap_adc: adc {
+> > +                compatible =3D "motorola,cpcap-adc";
+> > +
+> > +                interrupt-parent =3D <&cpcap>;
+> > +                interrupts =3D <8 IRQ_TYPE_NONE>;
+> > +                interrupt-names =3D "adcdone";
+> > +
+> > +                #io-channel-cells =3D <1>;
+> > +            };
+> > +
+> > +            cpcap_audio: audio-codec {
+> > +                interrupt-parent =3D <&cpcap>;
+> > +                interrupts =3D <9 IRQ_TYPE_NONE>, <10 IRQ_TYPE_NONE>;
+> > +                interrupt-names =3D "hs", "mb2";
+> > +
+> > +                VAUDIO-supply =3D <&vdd_audio>;
+> > +
+> > +                #sound-dai-cells =3D <1>;
+> > +
+> > +                ports {
+> > +                    #address-cells =3D <1>;
+> > +                    #size-cells =3D <0>;
+> > +
+> > +                    /* HiFi */
+> > +                    port@0 {
+> > +                        reg =3D <0>;
+> > +
+> > +                        cpcap_audio_codec0: endpoint {
+> > +                        };
+> > +                    };
+> > +
+> > +                    /* Voice */
+> > +                    port@1 {
+> > +                        reg =3D <1>;
+> > +
+> > +                        cpcap_audio_codec1: endpoint {
+> > +                        };
+> > +                    };
+> > +                };
+> > +            };
+> > +
+> > +            cpcap_battery: battery {
+> > +                compatible =3D "motorola,cpcap-battery";
+> > +
+> > +                interrupt-parent =3D <&cpcap>;
+> > +                interrupts =3D <6 IRQ_TYPE_NONE>, <5 IRQ_TYPE_NONE>,
+> > +                             <3 IRQ_TYPE_NONE>, <20 IRQ_TYPE_NONE>,
+> > +                             <54 IRQ_TYPE_NONE>, <57 IRQ_TYPE_NONE>;
+> > +                interrupt-names =3D "eol", "lowbph", "lowbpl",
+> > +                                  "chrgcurr1", "battdetb", "cccal";
+> > +
+> > +                io-channels =3D <&cpcap_adc 0>, <&cpcap_adc 1>,
+> > +                              <&cpcap_adc 5>, <&cpcap_adc 6>;
+> > +                io-channel-names =3D "battdetb", "battp",
+> > +                                   "chg_isense", "batti";
+> > +                power-supplies =3D <&cpcap_charger>;
+> > +            };
+> > +
+> > +            cpcap_charger: charger {
+> > +                compatible =3D "motorola,mapphone-cpcap-charger";
+> > +
+> > +                interrupt-parent =3D <&cpcap>;
+> > +                interrupts =3D <13 IRQ_TYPE_NONE>, <12 IRQ_TYPE_NONE>,
+> > +                             <29 IRQ_TYPE_NONE>, <28 IRQ_TYPE_NONE>,
+> > +                             <22 IRQ_TYPE_NONE>, <21 IRQ_TYPE_NONE>,
+> > +                             <20 IRQ_TYPE_NONE>, <19 IRQ_TYPE_NONE>,
+> > +                             <54 IRQ_TYPE_NONE>;
+> > +                interrupt-names =3D "chrg_det", "rvrs_chrg", "chrg_se1=
+b",
+> > +                                  "se0conn", "rvrs_mode", "chrgcurr2",
+> > +                                  "chrgcurr1", "vbusvld", "battdetb";
+> > +
+> > +                mode-gpios =3D <&gpio3 29 GPIO_ACTIVE_LOW>,
+> > +                             <&gpio3 23 GPIO_ACTIVE_LOW>;
+> > +
+> > +                io-channels =3D <&cpcap_adc 0>, <&cpcap_adc 1>,
+> > +                              <&cpcap_adc 2>, <&cpcap_adc 5>,
+> > +                              <&cpcap_adc 6>;
+> > +                io-channel-names =3D "battdetb", "battp",
+> > +                                   "vbus", "chg_isense",
+> > +                                   "batti";
+> > +            };
+> > +
+> > +            key-power {
+> > +                compatible =3D "motorola,cpcap-pwrbutton";
+> > +
+> > +                interrupt-parent =3D <&cpcap>;
+> > +                interrupts =3D <23 IRQ_TYPE_NONE>;
+> > +            };
+> > +
+> > +            led-red {
+> > +                compatible =3D "motorola,cpcap-led-red";
+> > +                vdd-supply =3D <&vdd_led>;
+> > +                label =3D "status-led::red";
+> > +            };
+> > +
+> > +            led-green {
+> > +                compatible =3D "motorola,cpcap-led-green";
+> > +                vdd-supply =3D <&vdd_led>;
+> > +                label =3D "status-led::green";
+> > +            };
+> > +
+> > +            led-blue {
+> > +                compatible =3D "motorola,cpcap-led-blue";
+> > +                vdd-supply =3D <&vdd_led>;
+> > +                label =3D "status-led::blue";
+> > +            };
+> > +
+> > +            cpcap_usb2_phy: phy {
+> > +                compatible =3D "motorola,cpcap-usb-phy";
+> > +
+> > +                pinctrl-0 =3D <&usb_gpio_mux_sel1>, <&usb_gpio_mux_sel=
+2>;
+> > +                pinctrl-1 =3D <&usb_ulpi_pins>;
+> > +                pinctrl-2 =3D <&usb_utmi_pins>;
+> > +                pinctrl-3 =3D <&uart3_pins>;
+> > +                pinctrl-names =3D "default", "ulpi", "utmi", "uart";
+> > +                #phy-cells =3D <0>;
+> > +
+> > +                interrupts-extended =3D
+> > +                    <&cpcap 15 IRQ_TYPE_NONE>, <&cpcap 14 IRQ_TYPE_NON=
+E>,
+> > +                    <&cpcap 28 IRQ_TYPE_NONE>, <&cpcap 19 IRQ_TYPE_NON=
+E>,
+> > +                    <&cpcap 18 IRQ_TYPE_NONE>, <&cpcap 17 IRQ_TYPE_NON=
+E>,
+> > +                    <&cpcap 16 IRQ_TYPE_NONE>, <&cpcap 49 IRQ_TYPE_NON=
+E>,
+> > +                    <&cpcap 48 IRQ_TYPE_NONE>;
+> > +                interrupt-names =3D "id_ground", "id_float", "se0conn"=
+,
+> > +                                  "vbusvld", "sessvld", "sessend",
+> > +                                  "se1", "dm", "dp";
+> > +
+> > +                mode-gpios =3D <&gpio2 28 GPIO_ACTIVE_HIGH>,
+> > +                             <&gpio1 0 GPIO_ACTIVE_HIGH>;
+> > +
+> > +                io-channels =3D <&cpcap_adc 2>, <&cpcap_adc 7>;
+> > +                io-channel-names =3D "vbus", "id";
+> > +
+> > +                vusb-supply =3D <&avdd_usb>;
+> > +            };
+> > +
+> > +            regulator {
+> > +                compatible =3D "motorola,cpcap-regulator";
+> > +
+> > +                regulators {
+> > +                    vdd_cpu: SW1 {
+> > +                        regulator-name =3D "vdd_cpu";
+> > +                        regulator-min-microvolt =3D <750000>;
+> > +                        regulator-max-microvolt =3D <1125000>;
+> > +                        regulator-enable-ramp-delay =3D <1500>;
+> > +                        regulator-always-on;
+> > +                        regulator-boot-on;
+> > +                    };
+> > +
+> > +                    vdd_core: SW2 {
+> > +                        regulator-name =3D "vdd_core";
+> > +                        regulator-min-microvolt =3D <950000>;
+> > +                        regulator-max-microvolt =3D <1300000>;
+> > +                        regulator-enable-ramp-delay =3D <1500>;
+> > +                        regulator-always-on;
+> > +                        regulator-boot-on;
+> > +                    };
+> > +
+> > +                    vdd_1v8_vio: SW3 {
+> > +                        regulator-name =3D "vdd_1v8_vio";
+> > +                        regulator-min-microvolt =3D <1800000>;
+> > +                        regulator-max-microvolt =3D <1800000>;
+> > +                        regulator-enable-ramp-delay =3D <0>;
+> > +                        regulator-always-on;
+> > +                        regulator-boot-on;
+> > +                    };
+> > +
+> > +                    vdd_aon: SW4 {
+> > +                        regulator-name =3D "vdd_aon";
+> > +                        regulator-min-microvolt =3D <950000>;
+> > +                        regulator-max-microvolt =3D <1300000>;
+> > +                        regulator-enable-ramp-delay =3D <1500>;
+> > +                        regulator-always-on;
+> > +                        regulator-boot-on;
+> > +                    };
+> > +
+> > +                    vdd_led: SW5 {
+> > +                        regulator-name =3D "vdd_led";
+> > +                        regulator-min-microvolt =3D <5050000>;
+> > +                        regulator-max-microvolt =3D <5050000>;
+> > +                        regulator-enable-ramp-delay =3D <1500>;
+> > +                        regulator-boot-on;
+> > +                    };
+> > +
+> > +                    vdd_hvio: VHVIO {
+> > +                        regulator-name =3D "vdd_hvio";
+> > +                        regulator-min-microvolt =3D <2775000>;
+> > +                        regulator-max-microvolt =3D <2775000>;
+> > +                        regulator-enable-ramp-delay =3D <1000>;
+> > +                    };
+> > +
+> > +                    vcore_emmc: VSDIO {
+> > +                        regulator-name =3D "vcore_emmc";
+> > +                        regulator-min-microvolt =3D <1500000>;
+> > +                        regulator-max-microvolt =3D <3000000>;
+> > +                        regulator-enable-ramp-delay =3D <1000>;
+> > +                        regulator-always-on;
+> > +                        regulator-boot-on;
+> > +                    };
+> > +
+> > +                    avdd_dsi_csi: VCSI {
+> > +                        regulator-name =3D "avdd_dsi_csi";
+> > +                        regulator-min-microvolt =3D <1200000>;
+> > +                        regulator-max-microvolt =3D <1200000>;
+> > +                        regulator-enable-ramp-delay =3D <1000>;
+> > +                        regulator-boot-on;
+> > +                    };
+> > +
+> > +                    avdd_3v3_periph: VWLAN2 {
+> > +                        regulator-name =3D "avdd_3v3_periph";
+> > +                        regulator-min-microvolt =3D <2775000>;
+> > +                        regulator-max-microvolt =3D <3300000>;
+> > +                        regulator-enable-ramp-delay =3D <1000>;
+> > +                        regulator-boot-on;
+> > +                    };
+> > +
+> > +                    vddio_usd: VSIMCARD {
+> > +                        regulator-name =3D "vddio_usd";
+> > +                        regulator-min-microvolt =3D <1800000>;
+> > +                        regulator-max-microvolt =3D <2900000>;
+> > +                        regulator-enable-ramp-delay =3D <1000>;
+> > +                        regulator-boot-on;
+> > +                    };
+> > +
+> > +                    vdd_haptic: VVIB {
+> > +                        regulator-name =3D "vdd_haptic";
+> > +                        regulator-min-microvolt =3D <1300000>;
+> > +                        regulator-max-microvolt =3D <3000000>;
+> > +                        regulator-enable-ramp-delay =3D <1000>;
+> > +                    };
+> > +
+> > +                    avdd_usb: VUSB {
+> > +                        regulator-name =3D "avdd_usb";
+> > +                        regulator-min-microvolt =3D <3300000>;
+> > +                        regulator-max-microvolt =3D <3300000>;
+> > +                        regulator-enable-ramp-delay =3D <1000>;
+> > +                        regulator-always-on;
+> > +                        regulator-boot-on;
+> > +                    };
+> > +
+> > +                    vdd_audio: VAUDIO {
+> > +                        regulator-name =3D "vdd_audio";
+> > +                        regulator-min-microvolt =3D <2775000>;
+> > +                        regulator-max-microvolt =3D <2775000>;
+> > +                        regulator-enable-ramp-delay =3D <1000>;
+> > +                        regulator-always-on;
+> > +                        regulator-boot-on;
+> > +                    };
+> > +                };
+> > +            };
+> > +
+> > +            cpcap_rtc: rtc {
+> > +                compatible =3D "motorola,cpcap-rtc";
+> > +
+> > +                interrupt-parent =3D <&cpcap>;
+> > +                interrupts =3D <39 IRQ_TYPE_NONE>, <26 IRQ_TYPE_NONE>;
+> > +            };
+> > +        };
+> > +    };
+> > +
+> > +...
+> > diff --git a/Documentation/devicetree/bindings/mfd/motorola-cpcap.txt b=
+/Documentation/devicetree/bindings/mfd/motorola-cpcap.txt
+> > deleted file mode 100644
+> > index 18c3fc26ca93..000000000000
+> > --- a/Documentation/devicetree/bindings/mfd/motorola-cpcap.txt
+> > +++ /dev/null
+> > @@ -1,78 +0,0 @@
+> > -Motorola CPCAP PMIC device tree binding
+> > -
+> > -Required properties:
+> > -- compatible         : One or both of "motorola,cpcap" or "ste,6556002=
+"
+> > -- reg                        : SPI chip select
+> > -- interrupts         : The interrupt line the device is connected to
+> > -- interrupt-controller       : Marks the device node as an interrupt c=
+ontroller
+> > -- #interrupt-cells   : The number of cells to describe an IRQ, should =
+be 2
+> > -- #address-cells     : Child device offset number of cells, should be =
+1
+> > -- #size-cells                : Child device size number of cells, shou=
+ld be 0
+> > -- spi-max-frequency  : Typically set to 3000000
+> > -- spi-cs-high                : SPI chip select direction
+> > -
+> > -Optional subnodes:
+> > -
+> > -The sub-functions of CPCAP get their own node with their own compatibl=
+e values,
+> > -which are described in the following files:
+> > -
+> > -- Documentation/devicetree/bindings/power/supply/cpcap-battery.yaml
+> > -- Documentation/devicetree/bindings/power/supply/cpcap-charger.yaml
+> > -- Documentation/devicetree/bindings/regulator/cpcap-regulator.txt
+> > -- Documentation/devicetree/bindings/phy/motorola,cpcap-usb-phy.yaml
+> > -- Documentation/devicetree/bindings/input/cpcap-pwrbutton.txt
+> > -- Documentation/devicetree/bindings/rtc/cpcap-rtc.txt
+> > -- Documentation/devicetree/bindings/leds/leds-cpcap.txt
+> > -- Documentation/devicetree/bindings/iio/adc/motorola,cpcap-adc.yaml
+> > -
+> > -The only exception is the audio codec. Instead of a compatible value i=
+ts
+> > -node must be named "audio-codec".
+> > -
+> > -Required properties for the audio-codec subnode:
+> > -
+> > -- #sound-dai-cells =3D <1>;
+> > -- interrupts         : should contain jack detection interrupts, with =
+headset
+> > -                       detect interrupt matching "hs" and microphone b=
+ias 2
+> > -                       detect interrupt matching "mb2" in interrupt-na=
+mes.
+> > -- interrupt-names    : Contains "hs", "mb2"
+> > -
+> > -The audio-codec provides two DAIs. The first one is connected to the
+> > -Stereo HiFi DAC and the second one is connected to the Voice DAC.
+> > -
+> > -Example:
+> > -
+> > -&mcspi1 {
+> > -     cpcap: pmic@0 {
+> > -             compatible =3D "motorola,cpcap", "ste,6556002";
+> > -             reg =3D <0>;      /* cs0 */
+> > -             interrupt-parent =3D <&gpio1>;
+> > -             interrupts =3D <7 IRQ_TYPE_EDGE_RISING>;
+> > -             interrupt-controller;
+> > -             #interrupt-cells =3D <2>;
+> > -             #address-cells =3D <1>;
+> > -             #size-cells =3D <0>;
+> > -             spi-max-frequency =3D <3000000>;
+> > -             spi-cs-high;
+> > -
+> > -             audio-codec {
+> > -                     #sound-dai-cells =3D <1>;
+> > -                     interrupts-extended =3D <&cpcap 9 0>, <&cpcap 10 =
+0>;
+> > -                     interrupt-names =3D "hs", "mb2";
+> > -
+> > -                     /* HiFi */
+> > -                     port@0 {
+> > -                             endpoint {
+> > -                                     remote-endpoint =3D <&cpu_dai1>;
+> > -                             };
+> > -                     };
+> > -
+> > -                     /* Voice */
+> > -                     port@1 {
+> > -                             endpoint {
+> > -                                     remote-endpoint =3D <&cpu_dai2>;
+> > -                             };
+> > -                     };
+> > -             };
+> > -     };
+> > -};
+> > -
+> > --
+> > 2.51.0
+> >
