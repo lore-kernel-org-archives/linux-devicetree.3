@@ -1,177 +1,108 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 609903BB13A
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 17:50:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 379CA3EDE44;
+	Tue, 12 May 2026 17:51:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778608242; cv=none; b=A6Q/r6zuZh7saPQRzuCPhjmFkBwUHhUVFO9uPE1pNb9DIdoYJaA3+T0Cdi2RbwAVgFd9t/utryl6s3z1+abHgC9rX7r9tIIhA1BODfEpwUUSjSFgRqufEkm7y1Z+SAzWdT85lRiCQgjOff0wX/rTJGQEDxbAX3i/BxyK1HQaDDE=
+	t=1778608281; cv=none; b=Hwq1/BV/gfShAYKOWr6Fes+vc5RdMkuJXcHJbRZEqo4iAqcJZ4L53OWivP7j4vwNN4RbbnLZrhu/9Q1/aeKaAJ+a1ljUipOWXlLK2SjCnDdUxU9vMGUqHEAvdRzWauxRhiZsb0/L/ZOxwVkqc05PKSZUYL6extCjgMJrfEXBKTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778608242; c=relaxed/simple;
-	bh=BCesiif9cohZ69lyA7AVVqI9w4S5LQJ8GNBKABhF4wI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nEDZ9vVl8vVn+FOrfF3GW8ksvK9QQet+k1ihEkmwlRBebHnCHAVj7UrOp/lbQKeC3qaVP7OvN4kqi74hea7b87fKXbJKal2MNMAiHLpkOVX4rIzShqUoGnxarqP8qcRkXsW2JLU5Ts8F/OHYmoas33LuzM5iqHODkHieaDo3a2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E0kHqxDP; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778608281; c=relaxed/simple;
+	bh=bvCUcVn0iz8TaziT0OwkzCF7LWKUIolBmuyiRNVGJKk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iPXpR/4pkKGuyormCsQ2HVGjfH27DUn+DRp1YCjE0KLY9nonfMrF1GCfpTudNgVbhjh5Pd7FEu1gameeB8ETuLJ7nbdjxe9/ItWvibQN7kDJaRhyg9EH6HnIWfnv/iN6a3m5s1l0xOcwLbfPBaXnmQgqEyDJ8PwKV23ZEzdZdx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gmoUTQYJ; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E0kHqxDP"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-c795f441ff7so4281826a12.2
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 10:50:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778608240; x=1779213040; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=mwNscldXuAtscs8D5M0IBqKy8TvTXmFs8KiInOYeroc=;
-        b=E0kHqxDPCPn6uoEynAWGr3KykXAameuVcvHUEUHZi7S8TAety5/vqOCdpFrvBMzjLS
-         KqJgMRsP2zg4AEMIxPaXJdqlqAn1sTTDEeouMTgOm6V8yw+V4+X6YZj+SCGmWTsWxJD/
-         IgTR0vXOc9Pkn8phSEV2zu0GfzkdnZs3b5RDcWXJJBNWtABcmyWr4G5K5Rr8OPWieRv7
-         3hwDkHDJg44+s76IUOmJa5M7dojeroVcM1wkZCacqfMKjJEDvPIqKKwoke1plg/A3CU4
-         Dh1JFKvrxOKfcxXRPqHxw2ES4fU9dOlUJrMzoKT7tuPEyG8fL6g90u/LjG2u+7p4Ax8a
-         dKlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778608240; x=1779213040;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=mwNscldXuAtscs8D5M0IBqKy8TvTXmFs8KiInOYeroc=;
-        b=IoBPg6ALkNXJn/vGBmoAuzIUw0tOa7oLa0jW/xl9qcWYY0NhwuZUfu+LjRXF25AJMJ
-         qZ5JxNwPiMRuiYS8qkWDv+a+U5LekC+TX9lVioaygeYZ1XA1gX6CJtrqDGv1Dc+/JzWl
-         4iEMvl4EX6GyXFsCOK/OFZG3Fa7MX7fAImIhjqf504xMcCVSnjw5eIN3HeTWgnvAsU4r
-         Jf8Ep/tLqWJO2qCaoAg//PI8vQ1lRurJ9Pz+EWxd9w63AeiIaa6payu/jcTFSgh+M4ln
-         gRewu2RdwFQCSpMWMZyUyZDheXUUY/9qRTsQIAMNCF4R/3rrQcrCWVxnINP2D6UR7lLd
-         9oDQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+byOelQDeBr0mNDoijUD0ZMLqQC9OMpVWO11Utrbi2br1N9grpJJBcb47nwneivoHK1YGLC5tD6S/c@vger.kernel.org
-X-Gm-Message-State: AOJu0YzpcJnQgeIurvVgwI+PRG1haAj+VXpWE353Gkv79TiuO1Agkml2
-	BOEnqvsbJvLCvjr1twGCELJbwaFj4g7XorbmVVLuBOFJU2W/3BbOoxHZ
-X-Gm-Gg: Acq92OFmbgQ4fHmHmNmivxTPQVCln6HKj0YCf9HxUTQPGxIo6qQJ20mmnP9hYsFwbPI
-	amZoyQ7sALAhX1+blG/5uLpAcy/u0Nh/OOdT4nMV5I3Xz5uGSG3Pu6fCcXKPZaTht764mHOf3ri
-	WjfgvJHLWzUimWmCACcf0rkDNYLJYbUz8Gn0L661ARGWa16DOcONvdlAZWonnEAVmBr4W9JsI8c
-	/dqj0ZZcmVUY5UiJ/8+86gxx9xhwg4QohXcONgT/Vjm6WhC6pdV1JNzAkW+64Dov2PZC0gBqufH
-	dD3h+rQ3x4dEfIvuelgtZFDyk+MKlmSCiRqfH7oOSx0uBEPbHwcULkIYzOthjvG7wLKHi2xiUAM
-	hQXLALgFT5GSyWgGQPwk5qQheYjYWErJVvzQufrN8J/CQ4Rdj0mAKXnBB39VV0d9oBrU9SwLqmr
-	QYWmmXY798SHmpvI+8zq/HJu/ec2YUdxwRGIawP5aH
-X-Received: by 2002:a05:6a20:748a:b0:38b:eadd:449a with SMTP id adf61e73a8af0-3aa5ab66e31mr33083918637.38.1778608240549;
-        Tue, 12 May 2026 10:50:40 -0700 (PDT)
-Received: from debian.prasanth ([103.177.82.138])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-839682a20ebsm24838732b3a.53.2026.05.12.10.50.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 May 2026 10:50:40 -0700 (PDT)
-From: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-To: joel@jms.id.au,
-	andrew@codeconstruct.com.au
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-aspeed@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org,
-	Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-Subject: [PATCH 2/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
-Date: Tue, 12 May 2026 23:20:19 +0530
-Message-ID: <20260512175019.47548-3-prasanth.padarthi10@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260512175019.47548-1-prasanth.padarthi10@gmail.com>
-References: <20260512175019.47548-1-prasanth.padarthi10@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gmoUTQYJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1778608281; x=1810144281;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=bvCUcVn0iz8TaziT0OwkzCF7LWKUIolBmuyiRNVGJKk=;
+  b=gmoUTQYJ2oZisHfwmga8+NanWKLI9TT62joXBQbJ4hL1xO/1Kfnxg0WP
+   p6nFeiQUKQKOV+E46L2aW5z5uQRdCZlhDAjQK0AgVUTQC1HREQwacNhtW
+   wlSIKs4LRHbFZ13b2HwNf6qj8eEXuKYZXWcZYSHKqTPtqk46r06riTR9x
+   SPB4KF5sA/0ngVK+bRUcz8HX7CS6ZNv74qXxxWSdS6/uAQLZBb01kssWR
+   fvNk9WQ/EI6PU12IrDWYnPqLl0jdWupHWFETmLKSMYWIXIsqVlVNHz4LG
+   R5zc5/wj8wP1U+5LlnGUT6zwYgKo29EG3YAEWHFwfS1NoMynjVQggdjUZ
+   A==;
+X-CSE-ConnectionGUID: Bz/tJAMQQT+n/37fDzD/iQ==
+X-CSE-MsgGUID: wPJxq4kXTi+G3do6vS6lIg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="83399359"
+X-IronPort-AV: E=Sophos;i="6.23,231,1770624000"; 
+   d="scan'208";a="83399359"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 10:51:20 -0700
+X-CSE-ConnectionGUID: duHizHbVQ0yTS4fddgm0kg==
+X-CSE-MsgGUID: VsDxFZLqSvKkOMBd6iNnNg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,231,1770624000"; 
+   d="scan'208";a="241847653"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.244])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 10:51:14 -0700
+Date: Tue, 12 May 2026 20:51:12 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+Cc: rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-doc@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Petr Mladek <pmladek@suse.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH v12 06/11] iio: test: iio-test-format: add test case for
+ decimal format
+Message-ID: <agNokGNa1wh-kIHb@ashevche-desk.local>
+References: <20260510-adf41513-iio-driver-v12-0-34af2ed2779f@analog.com>
+ <20260510-adf41513-iio-driver-v12-6-34af2ed2779f@analog.com>
+ <agM7CT4RjzwliKmb@ashevche-desk.local>
+ <zugkmatjsacla7l7nguekmclfdkzsshr3gs434a3liccgokxb4@xg77y5tkts5c>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <zugkmatjsacla7l7nguekmclfdkzsshr3gs434a3liccgokxb4@xg77y5tkts5c>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Add initial device tree support for the ASRock Rack B650D4U BMC.
-The B650D4U is a server motherboard utilizing the ASPEED AST2600
-SoC for management.
+On Tue, May 12, 2026 at 06:02:22PM +0100, Rodrigo Alencar wrote:
+> On 26/05/12 05:36PM, Andy Shevchenko wrote:
+> > On Sun, May 10, 2026 at 01:42:24PM +0100, Rodrigo Alencar via B4 Relay wrote:
 
-Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
----
- arch/arm/boot/dts/aspeed/Makefile             |  1 +
- .../dts/aspeed/aspeed-bmc-asrock-b650d4u.dts  | 61 +++++++++++++++++++
- 2 files changed, 62 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
+...
 
-diff --git a/arch/arm/boot/dts/aspeed/Makefile b/arch/arm/boot/dts/aspeed/Makefile
-index c4f064e4b..124d4f8f8 100644
---- a/arch/arm/boot/dts/aspeed/Makefile
-+++ b/arch/arm/boot/dts/aspeed/Makefile
-@@ -13,6 +13,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
- 	aspeed-bmc-asrock-romed8hm3.dtb \
- 	aspeed-bmc-asrock-spc621d8hm3.dtb \
- 	aspeed-bmc-asrock-x570d4u.dtb \
-+	aspeed-bmc-asrock-b650d4u.dtb \
- 	aspeed-bmc-asus-x4tf.dtb \
- 	aspeed-bmc-bytedance-g220a.dtb \
- 	aspeed-bmc-delta-ahe50dc.dtb \
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
-new file mode 100644
-index 000000000..d0b9c1e1f
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
-@@ -0,0 +1,61 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/dts-v1/;
-+
-+#include "aspeed-g6.dtsi"
-+#include <dt-bindings/gpio/aspeed-gpio.h> // Recommended for GPIO mapping
-+
-+/ {
-+	model = "ASRock Rack B650D4U BMC";
-+	compatible = "asrock,b650d4u-bmc", "aspeed,ast2600";
-+
-+	aliases {
-+		serial4 = &uart5;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial4:115200n8";
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0x80000000 0x40000000>;
-+	};
-+};
-+
-+/* BMC Console UART */
-+&uart5 {
-+	status = "okay";
-+};
-+
-+/* SPI Flash Management */
-+&fmc {
-+	status = "okay";
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+		label = "bmc";
-+	};
-+};
-+
-+/* Dedicated Management LAN */
-+&mac0 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rgmii1_default &pinctrl_mdio1_default>;
-+};
-+
-+/* I2C Bus for FRU/EEPROM Storage */
-+&i2c7 {
-+	status = "okay";
-+	eeprom@57 {
-+		compatible = "atmel,24c02";
-+		reg = <0x57>;
-+		pagesize = <16>;
-+	};
-+};
-+
-+/* System Watchdog */
-+&wdt1 {
-+	status = "okay";
-+	aspeed,reset-type = "soc";
-+};
+> > > +	iio_val_s64_array_populate(24, values);
+> > 
+> > You want to test this first...
+> > I think the previous patch needs new test cases.
+> 
+> This is no complex stuff.. those functions are straightforward and
+> goes into accordance with what the format function does... which is
+> the opposite, before populating the buffer. The assertion on the buffer
+> content accounts for that behavior.
+
+You never know what BE32 / BE64 architectures will give you...
+(but okay, it's simple enough to check the implementation),
+
 -- 
-2.47.3
+With Best Regards,
+Andy Shevchenko
+
 
