@@ -1,221 +1,212 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96BBF3A9636;
-	Tue, 12 May 2026 10:07:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778580430; cv=none; b=odb2gUTC66eHXaYmawJ4VGdEePLpanpg+3IcK4puBXDTO5B8BijNt1qoq8mPVlIGseIaKRFm4r+mmeQCFLQMHRyQk+HLkM28P1HAKmhaakQe/vjhM8h2fBFfwU3ThoJI0vNvkGM007Q+4Xcut7i1C5/92xYGIm4vczM4Nmu5MfU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778580430; c=relaxed/simple;
-	bh=gHVsMjQD7aYoLyArV6/rnfHEj2pFAXxQkhyn4lAkbNQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Lk9od4kqrHUiHqz71h+9aqSEijatcl9lhDS3MsjLRNo/vWumhrUMkE4qXE/BgxNh18NQar7uPnBN6NB1ikTSJzJ5KHf9kzitSQskMLdv/M4KVvAD20THdTHL1os2q0zBVhidHu0/3Whcn9bgcbUufTQ6i4Vn1rT+feDi0rjiA5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=nOBWifub; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 717524C6F02;
+	Tue, 12 May 2026 10:08:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778580483; cv=fail; b=R1nehqhbMVn6VnBMSTpjXv/Tovdr5/8UUPGu1u7IN2+la5bB6MKqKL+i3/ablajNilRWVhEd0FvDRPGZDCWM84xkrQyx3fBrgMTo2EzaMRuRStO9e+fxOGArl8bL6IHh2c6sq2pO1Jh5pqE+XQlqdJsFfExtEqEv1p+86uizsUY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778580483; c=relaxed/simple;
+	bh=256yhfRkuhmEXADBVK3uveOOHqwHrPWG1THuA3qvXoM=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=msnW5JTAgEXOHqAjz1UuDsU1WOgLut55rB+cROxjsNpgKAEF+EZTmGxGXGb/FG6wmnYmRGONZNbZPGjT7QkaatOhVWMxwL79zM5WdboTduSgt7qBRNevLgRFfsGzKL0lme8CBXQLh/VEt23UNsbXVz96FcevSomdzmBoBmzg68E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iR16MUsl; arc=fail smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="nOBWifub"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id C23EF4E42C07;
-	Tue, 12 May 2026 10:07:04 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 921DA60646;
-	Tue, 12 May 2026 10:07:04 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8A0C311AF9D8C;
-	Tue, 12 May 2026 12:06:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1778580422; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=Yp1fdytKhgczNXp8hx7NGLHKbUoAsfvVyxx20NBUGrc=;
-	b=nOBWifubxiotEk+Plput5uZwfcLCh9WQTFgEdjp0PpXf/bZA3v77pWiI5MeJX6UzOq6eRa
-	f/gjC73zGnC2ir5gm/x56NavRnHJgZbxZmLEXDuGlte2N5nEJEsJapmVpOZNF0S3nkrw8M
-	NXnFKHG6dMNvH2VpTnoYJcH+39bRt944qmfr4F6MowpgSamWoVuz9VoNYb5sd2M6JlplXG
-	n7sIJU4KnKEJ3YSF8l9HiyQJamfdUM6dIELywu+jsDgoM7z4i7QTE/ag5fEZoyiA6DGP+E
-	jisNwk6jMym4ht2U3nrxbN21DS1Ky4xT21vF8nbgwHicDztDDgA7JtwPVZ69Cg==
-Message-ID: <e77b4028-c201-4dd4-9214-721bdf67e976@bootlin.com>
-Date: Tue, 12 May 2026 12:06:51 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iR16MUsl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1778580482; x=1810116482;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=256yhfRkuhmEXADBVK3uveOOHqwHrPWG1THuA3qvXoM=;
+  b=iR16MUslVLz9pzmum6CKMHrfuFj4Uhlu1/ITJWZUb8QDuoJL+TewNM2f
+   oBR+iu6qeLGU9W0LjPKZ/OK9wgCqCEj8/FmUK6ingapeSX3DiB5ja1d+3
+   KusycoaygqY8DDn0ZhtVLEvyy0DmVsiOW7FMUpVgwlC5r2K7Pzo2DMG+r
+   UwREg/DdQztudjXkNeRG8SP9rCICkCRN1bZCuIlB6IbbMbi4BzQiz5vhe
+   cgsUB91Sw2K+A0FCXAm8/UeiBTU9mbkBAnVXrP6gcFN3Oq+u+z4ev4sQC
+   SpBkDxZLhUIszCb1rtcyhFAFQghOIM6Yh4aS3SPcZLYrVcSU8CkKqmJTe
+   A==;
+X-CSE-ConnectionGUID: dDy9hnTxQDSAm3wZke68Fw==
+X-CSE-MsgGUID: CVolcWnOTJS8ZipW6J0JGA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="79595884"
+X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; 
+   d="scan'208";a="79595884"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 03:08:01 -0700
+X-CSE-ConnectionGUID: cO0z4LwtS0+Qx8tg370mLQ==
+X-CSE-MsgGUID: JyP8Uus/RXK2s2UBxVnmYw==
+X-ExtLoop1: 1
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 03:08:00 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Tue, 12 May 2026 03:08:00 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Tue, 12 May 2026 03:08:00 -0700
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.19) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Tue, 12 May 2026 03:07:58 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mTuMPvGOf+A1Cl0zkPG+9n5iViuQ0hcyXeOhD53L7zkjaHIx7cqqLdcSJDdoYyc9O16aYtqc/5XrD9G9onmMYjKJWL7LmqEeIW2Lul7xisBlc7g6Ecf2Fq9HuQetsoAgZNjeFBFU4Ag94j02yjLFg95u1tnLSmZarsZZj37kuviJp1rD6+gF08IogDi7oIZBdoZ3L6YPmdovkgshm70xtEAz194HaKcJ4kBs/z3UIDMgxjf23fWWrLeffrk1Unz4ZwOX6roaaYcY7VJHY1iHSRQak92UxeqIPtOdYJwuKUMw039iyIujtti3Jr2JZ3uID0QWYXw3yvCguZAAma+n8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=256yhfRkuhmEXADBVK3uveOOHqwHrPWG1THuA3qvXoM=;
+ b=n67N+HY5ql8Cx5xvGTBJo6ujoyUqlZnDNSTaHoa1mcQ/V9O27GYI+nWp4ld71RAUqBMvlYzJA6LEIBxVxRzLhq4uC69x8fQr3k2ZdxrgifOxuyMDsjHFr6tZRvllPdAlhyaekqlSAonqURNfrmMoYbbX1L0YFtL4IIjb/oR+/qJf56aO5QJCrzL6uGMYPf4vbWBrXPToM3Jz4JhSxno8eRpJgUUGkltfltZavpgfvcCxT/ZqkeGZAAG9zBX5ZapmLGDrkci+kueUIpmg+Z22ToHBiMNrR6sm+SD49t+qXQItZY48nyiPTgoBRZyhESJyGWVOeB9roxfjmn0v1WZU+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from BL1PR11MB5954.namprd11.prod.outlook.com (2603:10b6:208:385::16)
+ by SA2PR11MB5179.namprd11.prod.outlook.com (2603:10b6:806:112::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Tue, 12 May
+ 2026 10:07:55 +0000
+Received: from BL1PR11MB5954.namprd11.prod.outlook.com
+ ([fe80::656b:8dc4:72b5:7e12]) by BL1PR11MB5954.namprd11.prod.outlook.com
+ ([fe80::656b:8dc4:72b5:7e12%5]) with mapi id 15.20.9913.009; Tue, 12 May 2026
+ 10:07:55 +0000
+From: "Bhatt, Avinash" <avinash.bhatt@intel.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+CC: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"johannes@sipsolutions.net" <johannes@sipsolutions.net>, "Korenblit, Miriam
+ Rachel" <miriam.rachel.korenblit@intel.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "Guetta, Kobi" <kobi.guetta@intel.com>,
+	"Grumbach, Emmanuel" <emmanuel.grumbach@intel.com>
+Subject: RE: [PATCH v2 0/3] wifi: iwlwifi: add Device Tree hardware
+ integration information
+Thread-Topic: [PATCH v2 0/3] wifi: iwlwifi: add Device Tree hardware
+ integration information
+Thread-Index: AQHc26vi/B+Vuw6kLESUO2/QFJubJrX/KUIAgAsNsJA=
+Date: Tue, 12 May 2026 10:07:55 +0000
+Message-ID: <BL1PR11MB5954BCE96853D1F299E4DEACE0392@BL1PR11MB5954.namprd11.prod.outlook.com>
+References: <20260504095327.30892-1-avinash.bhatt@intel.com>
+ <20260505-crouching-albatross-of-beauty-a5ac6b@quoll>
+In-Reply-To: <20260505-crouching-albatross-of-beauty-a5ac6b@quoll>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR11MB5954:EE_|SA2PR11MB5179:EE_
+x-ms-office365-filtering-correlation-id: 9071a98c-493d-4dd2-4c7e-08deb00e5636
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|1800799024|366016|38070700021|11063799003|3023799003|18002099003|56012099003|22082099003;
+x-microsoft-antispam-message-info: 6fxBlACWja9aNdinWTJbI2qVwKJDxA16b0GjqkLqrfw831LF3lwGzXnxm8I0dDq1v5kzmwlr/GUdBWgL4Om0b3BYJNsXcqVOA9SYkV6P4aj8dntzOtYL0nAUcDQksxoBKEylFGIjkbBaOfHbfg/KRejHF4++rBaHpTLaOeiRXgA7fMhX8Vd+4d+W3/yUwb5vQ2IpGErpv/4oZAi6UUushsddYlOmt8urBDmtKzhAb01tivCZqTHJaacyOXpovEfV9esDkOSXpmbmKT7jnoAxi0aAw89VZ6fDFirHsdYKzELSYqDRMKnQPZgd7I3SeYBTtXd8wyfEpVasGi6cFfXcealaorQK9KhwvKSVflOQWrAXyG2itsX5/ys1PRPkT0KO2fUWJoJTJsD8HYPr6HT89T2O3qN9B1aV96AQOVvKRZDIzhz/AYGE2Icd5Rnb56UtbzB8hFKM2aptclC4gv70rzsANXz0Zd+N/3S/GjubnqImbMnw2UKD0Pt6WiM0rgLLEFLtupvy9wDLBZkba2EJTm/qKgUMUXQ7Y6Jtx1mFR3uyoMVJmyBYpVHa/56qMldVb5uJgSBbfrj9/v2akHZi7Q/651QPcyLEF12+tVKJtalPHvknQnX0wSuAAP/pzYrNFb69VNkUbZqoGzG0QYrsZgVNBU16FoX0KkE5Mkp60m8CoyGY3JrlZqwVcNJV9lNj8xl2q7ePGmvwWmIsuo6BazJJYT0VUqhJ/pOYp9g0jo/5/hxNPAQtqFdf/4FW0klk
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR11MB5954.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(11063799003)(3023799003)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?VWw5bktHdkFKcWcvU1lrS0ZMMXp6dFdZTjVyZmN2YzNldEQ4NHNIWXY2Qm4x?=
+ =?utf-8?B?VE5PSW9XU01kM2Rlc1VOTWRuQmlRMDQzQ3dYdE5XNkptKzhBOVJDSjhhV2NC?=
+ =?utf-8?B?SDA3QVdaKzY5cGFOWDNlN0FraUp1RUtUamV1RzVTc0FnMGVJVjI2R3JSdTk2?=
+ =?utf-8?B?dUFOMGNpaGg3OTBzNXhvaHRkUHhsWSs4UW5Uc1JyenlsS09NUjN6RHU3a1Va?=
+ =?utf-8?B?ZGtBTVIyUWg4N3dLV3dIb2NVRXdaZlhqTUxzT2paSjFsRC9tV1VxellXbDJa?=
+ =?utf-8?B?K1NVSXk3V1BFdWFOTTVFbWtpYVREdXlXN1AzOUQzKzU1UmhVZjJySG9nT3BP?=
+ =?utf-8?B?Vkc1K0RBUEpON0tNN1cyS1BFTGJha21Pb0xxNTI2SkVUR1ZXSWxGcFVLZlVB?=
+ =?utf-8?B?Vm53TEpDTWg5YldPRFhDeVpuaENnbTBvYzcxSjd4OG5rQjBCaDBna1IyZHc1?=
+ =?utf-8?B?dVg1QUxIRVgxb0g4dHBMS3dVeWkxanN6OWwwdVl3Y3hPdTVhdVZjaVB3SW9y?=
+ =?utf-8?B?S1dFdy9uZ2tJb2NmR0FtZ1lUSHVnN3hJTEh1U0pNYWNiV05wV3NlTlIvRVVq?=
+ =?utf-8?B?dGFUZi9xY0puUTJac2tYeEhqTjV6aEs5RDdlU1I3czBNdHMrT1JuT1IvTGZm?=
+ =?utf-8?B?Z3N4ZHhLSTNyUzZxa2ZjcmxLSzMvbGlRY2kxaUkwcU4xNDJUenhQYkRuTCtW?=
+ =?utf-8?B?b2tPeWpDZ2xIa3FGN1QrOHlUeFU3RUdxQmlubVhBYUJuRk8rQ0RPUGxMVGNt?=
+ =?utf-8?B?UE9IclE1WTc0SUtWaEMrMjZZTEt3czhDMlZ4bDVndkRkdVBSREQyYzZHMWxk?=
+ =?utf-8?B?UTNKWks1aTBqZzR6eGRtWWhOWVNDdGt1SnpzNWpucWIzZ09ienFMUkR0YXRG?=
+ =?utf-8?B?Y3ZnT0ZaT3pCemd6RDFJWVZ1TmJkQWdQQkswZDYwbGJvOWdmK2l0NU1oaFk1?=
+ =?utf-8?B?QzE2MWVBWC93SGNtZlMrT3M2QXU5NUxkL1hGMW9FSWR2SWdhc1U3UllrK0ky?=
+ =?utf-8?B?VWQrc1hVaktYQmx1bXJPT3ZwblNtL3c4Qlp5U3RmeFJOcWxIeVhURXhScmxh?=
+ =?utf-8?B?S0dlbDB6V0VZemhKY2RpWUFDR2o3MXZ0YTdEZFdDcVRJUGtIaU9nazBXUXg3?=
+ =?utf-8?B?SXZyU1R0U1lwKytROWFGSGF2ZVFFczMwV0d6NVQzc0lnUTZFYTNOZFdmbUs3?=
+ =?utf-8?B?Wk5JNm12dENsMGhLVzdSendtQXBzU0l1ekt6MnRKNWNSQ2tDamdwNG1lcW9D?=
+ =?utf-8?B?cjY3c2pxQ2lVdnd2S29ONXZHTVl4L0FqN1NGQ2Q1QXo2M2FSeDhHdDlqRCs4?=
+ =?utf-8?B?Y3VFOXROL3RQT2tFeXpQWk5lTE1BNk5MeFZpdjQwKzZ3NWNpdE93VFI1b0dI?=
+ =?utf-8?B?SmZhTk1FL0RwalBTQk13MzNDZVhyY2dQRmd5dFhiL2paVE1VTWJjMGEzakNS?=
+ =?utf-8?B?aGR3UEV5bUFPazNpT3JEREU5UytPRm91cGxpQ2RTaHM1d1RXK1dvT3R5aUtU?=
+ =?utf-8?B?bjgyVXRTck00MlBIL0dVRVNmdi9Yb1RPbEEwTUY3UytOQy9QZzdIeHQxSFMy?=
+ =?utf-8?B?cTA0N0xTUFlPNGpjWm9xV0c1dDJIU1c5cjNDSjJ3T24xOVZxYklpL1I0U2JL?=
+ =?utf-8?B?NnVZdnFKdjdGdEVxSFZEekV5cjBYVEg0dXFmdHE0K2YwdDlkVmtIczN4NHFP?=
+ =?utf-8?B?dnVET0RYVXNZT2ltMXR3QnVDRk90M0htaFBid25uRXpCTFNuOWhscUxGZUNk?=
+ =?utf-8?B?T2d2VXRMbHNEU1UyT0gwbDk1UzROV0N6Vy9DaVdEWXYzYjFYajhybm9ZTmoz?=
+ =?utf-8?B?VHAxWUNVN2xja1NpNEdsOE52YUpXVGU0QStyNjlTWkkxeDJjSjNpeThPVGlt?=
+ =?utf-8?B?ZTE4Nlc0TnFNSGs2M01RamhDR2c2KzFKRmZpanBrNzBWMHRYZ1p2SU5ZNXN6?=
+ =?utf-8?B?a0NHdWFHUGZxamJ1amVqbCtpTTFpL3JwcktlaWFEUmRmRTBMck1rQmFrR284?=
+ =?utf-8?B?aTY1NTBGQjM3KzlqMGRRUjBWWktwNmtndUpqR1cyL1VVamdaWm1kd2Q4amd6?=
+ =?utf-8?B?WXIvZUNzdVJDbEdDNy9WQ0FrQ0twUlBTNlcwTFloZmQxK2tVL0R5ZEplTmNQ?=
+ =?utf-8?B?bXlSZkk4UDdFY0tyd3lrVTJwc0VKNFQySWswK09BNUlTbkFNSGhZN1NVeUxz?=
+ =?utf-8?B?aGRiREYzSHhxUEtoT2hYbTFxQW1hVGJ3L05EWENRNldsaFR6VWN5UTdrcTBk?=
+ =?utf-8?B?SWxoV29LQTNvY3NFR0pMYmo0cm9FRXRNYWRKSXlxM2dRcU42U29MclhYR3ph?=
+ =?utf-8?B?OTNsbTRUbFM1NGVXTW02MERReGZGR1BRcUV4MHlOcmRQTU9ZYjZhQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v3 5/6] net: phy: Introduce Airoha AN8801/R
- Gigabit Ethernet PHY driver
-To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>
-Cc: kevin-kw.huang@airoha.com, macpaul.lin@mediatek.com,
- matthias.bgg@gmail.com, kernel@collabora.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260512-add-airoha-an8801-support-v3-0-1edb34e363ae@collabora.com>
- <20260512-add-airoha-an8801-support-v3-5-1edb34e363ae@collabora.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260512-add-airoha-an8801-support-v3-5-1edb34e363ae@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-Exchange-RoutingPolicyChecked: jwxkqdOd6lekaE60NIks/l8CiVUBB87jctryaGrL6rNDjbg4gVTPI+KNK259hZIdmUehpglshxAi8Orm6B3k//P9eROahAPNsmLt1Iz477YzZ2lXdACRuTjiGA2nSe+ZO/P7Xh5GYUBy7/x+4HdZ9b3IG9Vx6LGIMivM7ZeU/zg35NtxBj6dcdTICcCAkJOR8soHsa0sBI4MNThHFtAinCqMhn6Okz+huEWtGDfH4hYRy8ipiW1wffbjro7rBkfAaUU1yGt5U8XMZhy6mbGbb9va3KW1wcCA1R+R50AcgR4xmdPwPOv8pZRI3edK9ZQ4lZiqbCWTI2h8TsBDjtTI8g==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR11MB5954.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9071a98c-493d-4dd2-4c7e-08deb00e5636
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 May 2026 10:07:55.5448
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: bExmpkEODhjqoS/rzhk714/tPE2SyCFKE72zB4n3GJzXJhFLIE+8kSIRAS893i6ybyRBWy4I1ZCezjW+zbubDA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR11MB5179
+X-OriginatorOrg: intel.com
 
-Hi :)
-
-This looks good, I just have very minimal comments
-
-On 5/12/26 06:33, Louis-Alexis Eyraud wrote:
-> From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> 
-> Introduce a driver for the Airoha AN8801R Series Gigabit Ethernet
-> PHY; this currently supports setting up PHY LEDs, 10/100M, 1000M
-> speeds, and Wake on LAN and PHY interrupts.
-> 
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-
-[...]
-
-> +static u32 an8801r_led_blink_ms_to_hw(unsigned long req_ms)
-> +{
-> +	u32 req_ns, regval;
-> +
-> +	if (req_ms > AN8801_MAX_PERIOD_MS)
-> +		req_ms = AN8801_MAX_PERIOD_MS;
-> +
-> +	req_ns = req_ms * 1000000;
-
-Use NSEC_PER_MSEC :)
-
-> +
-> +	/* Round to the nearest period unit... */
-> +	regval = req_ns + (AN8801_PERIOD_UNIT / 2);
-> +
-> +	/* ...and now divide by the full period */
-> +	regval >>= AN8801_PERIOD_SHIFT;
-> +
-> +	return regval;
-> +}
-> +
-
-[...]
-
-> +static int an8801r_led_hw_control_set(struct phy_device *phydev, u8 index,
-> +				      unsigned long rules)
-> +{
-> +	u16 on = 0, blink = 0;
-> +	int ret;
-> +
-> +	if (index >= AN8801R_NUM_LEDS)
-> +		return -EINVAL;
-> +
-> +	ret = an8801r_led_trig_to_hw(rules, &on, &blink);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = phy_modify_mmd(phydev, MDIO_MMD_VEND2, LED_ON_CTRL(index),
-> +			     LED_ON_EVT_MASK, on);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = phy_modify_mmd(phydev, MDIO_MMD_VEND2, LED_BLINK_CTRL(index),
-> +			     LED_BLINK_EVT_MASK, blink);
-> +
-> +	if (ret)
-> +		return ret;
-
-Extra newline before the if()
-
-> +
-> +	return phy_modify_mmd(phydev, MDIO_MMD_VEND2, LED_ON_CTRL(index),
-> +			      LED_ON_EN, on | blink ? LED_ON_EN : 0);
-> +}
-> +
-
-[...]
-
-> +static int an8801r_rgmii_rxdelay(struct phy_device *phydev, bool enable,
-> +				 u16 delay_steps)
-> +{
-> +	u32 reg_val;
-> +
-> +	if (delay_steps > RGMII_DELAY_STEP_MASK)
-> +		return -EINVAL;
-> +
-> +	if (enable) {
-> +		reg_val = delay_steps & RGMII_DELAY_STEP_MASK;
-> +
-> +		 /* Set align bit to add extra offset for RX delay */
-> +		reg_val |= RGMII_RXDELAY_ALIGN;
-> +
-> +		 /* Set force mode bit to enable RX delay insertion */
-> +		reg_val |= RGMII_RXDELAY_FORCE_MODE;
-> +	} else {
-> +		reg_val = 0;
-> +	}
-> +
-> +	return an8801_buckpbus_reg_write(phydev, AN8801_BPBUS_REG_RXDLY_STEP,
-> +					 reg_val);
-> +}
-> +
-> +static int an8801r_rgmii_txdelay(struct phy_device *phydev, bool enable,
-> +				 u16 delay_steps)
-> +{
-> +	u32 reg_val;
-> +
-> +	if (delay_steps > RGMII_DELAY_STEP_MASK)
-> +		return -EINVAL;
-> +
-> +	if (enable) {
-> +		reg_val = delay_steps & RGMII_DELAY_STEP_MASK;
-
-Is this bitwise and needed, as you have the check above ?
-
-> +
-> +		 /* Set force mode bit to enable TX delay insertion */
-> +		reg_val |= RGMII_TXDELAY_FORCE_MODE;
-> +	} else {
-> +		reg_val = 0;
-> +	}
-> +
-> +	return an8801_buckpbus_reg_write(phydev, AN8801_BPBUS_REG_TXDLY_STEP,
-> +					 reg_val);
-> +}
-> +
-> +static int an8801r_rgmii_delay_config(struct phy_device *phydev)
-> +{
-> +	bool enable_delay;
-> +	u16 delay_step;
-> +	int ret;
-> +
-> +	if (phydev->interface == PHY_INTERFACE_MODE_RGMII_ID ||
-> +	    phydev->interface == PHY_INTERFACE_MODE_RGMII_TXID) {
-> +		enable_delay = true;
-> +		delay_step = AN8801_RGMII_TXDELAY_DEFAULT;
-> +	} else {
-> +		enable_delay = false;
-> +		delay_step = RGMII_DELAY_NO_STEP;
-> +	}
-> +
-> +	ret = an8801r_rgmii_txdelay(phydev, enable_delay, delay_step);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (phydev->interface == PHY_INTERFACE_MODE_RGMII_ID ||
-> +	    phydev->interface == PHY_INTERFACE_MODE_RGMII_RXID) {
-> +		enable_delay = true;
-> +		delay_step = AN8801_RGMII_RXDELAY_DEFAULT;
-
-Is it correct that AN8801_RGMII_RXDELAY_DEFAULT expands to 
-RGMII_DELAY_NO_STEP ? feels strange, but it may simply be how the HW is 
-made :)
-
-Thanks,
-
-Maxime
+SGkgS3J6eXN6dG9mLA0KDQpUaGFuayB5b3UgZm9yIHRoZSByZXZpZXcuIFBsZWFzZSBmaW5kIG91
+ciByZXNwb25zZSBpbmxpbmUgYmVsb3cuDQoNCk9uIE1vbiwgTWF5IDA0LCAyMDI2IGF0IDEyOjUz
+OjI0UE0gKzAzMDAsIEtyenlzenRvZiBLb3psb3dza2kgd3JvdGU6DQo+IFBsZWFzZSBwcm92aWRl
+IGxpbmsgdG8gYW55IHVwc3RyZWFtIERUUyB1c2VyIG9mIHRoaXMgYmluZGluZywgZWl0aGVyDQo+
+IGNvbXBsZXRlIG9yIHdvcmsgaW4gcHJvZ3Jlc3MuDQoNCldlIGhhdmUgT0VNIHBhcnRuZXJzIHdh
+aXRpbmcgZm9yIHRoaXMgYmluZGluZyBsYXlvdXQgdG8gYmUgZmluYWxpemVkDQpiZWZvcmUgdGhl
+eSBwcm9jZWVkIHdpdGggdGhlaXIgRFRTIHdvcmsuIE91ciBpbnRlbnQgaXMgdG8gaGF2ZSB0aGUN
+CnNjaGVtYSByZXZpZXdlZCBhbmQgYWNjZXB0ZWQgYnkgdGhlIERUIG1haW50YWluZXJzIGZpcnN0
+IOKAlCBzaGFyaW5nIGENCmJpbmRpbmcgdGhhdCBtYXkgc3RpbGwgdW5kZXJnbyBzdHJ1Y3R1cmFs
+IGNoYW5nZXMgd2l0aCBPRU1zIHdvdWxkIGNyZWF0ZQ0KdW5uZWNlc3NhcnkgY2h1cm4gb24gdGhl
+aXIgc2lkZS4NCg0KT0VNIHBhcnRuZXJzIGFyZSB0YXJnZXRpbmcgcGxhdGZvcm1zIHRoYXQgZGVw
+ZW5kIG9uIHRoaXMgYmluZGluZy4gVGhleQ0KYXJlIHdhaXRpbmcgZm9yIHRoZSBzY2hlbWEgdG8g
+YmUgZmluYWxpemVkIGJlZm9yZSBwcm9jZWVkaW5nIHdpdGggdGhlaXINCkRUUyB3b3JrLCBhbmQg
+d2hldGhlciB0aGV5IHVwc3RyZWFtIHRoYXQgRFRTIGlzIHVsdGltYXRlbHkgdGhlaXINCmRlY2lz
+aW9uLg0KDQpJZiBhIERUUyB1c2VyIGlzIHN0cmljdGx5IHJlcXVpcmVkIGZvciB0aGUgYmluZGlu
+ZyB0byBiZSBtZXJnZWQsIHdlDQp1bmRlcnN0YW5kIGFuZCBhY2NlcHQgdGhhdCByZXF1aXJlbWVu
+dCDigJQgaG93ZXZlciwgc2luY2UgT0VNIHVwc3RyZWFtaW5nDQppcyBvdXRzaWRlIG91ciBjb250
+cm9sLCB3ZSB3b3VsZCBncmVhdGx5IGFwcHJlY2lhdGUgYW4gZWFybHkgaW5kaWNhdGlvbg0Kb2Yg
+d2hldGhlciB0aGUgc2NoZW1hIGRpcmVjdGlvbiBpcyBhY2NlcHRhYmxlIGJlZm9yZSB3ZSBkaXN0
+cmlidXRlIGl0DQpmdXJ0aGVyLiBBbnkgZmVlZGJhY2sgb3IgcHJvdmlzaW9uYWwgYWNjZXB0YW5j
+ZSBhdCB0aGlzIHN0YWdlIHdvdWxkIGJlDQp2ZXJ5IGhlbHBmdWwuDQoNCldlIGFyZSBhY3RpdmVs
+eSBhZGRyZXNzaW5nIGFsbCB0aGUgcmV2aWV3IGNvbW1lbnRzIGZyb20gdjIgYW5kIHBsYW4gdG8N
+CnNlbmQgdjMgc2hvcnRseS4NCg0KQmVzdCBSZWdhcmRzLA0KQXZpbmFzaA0KDQotLS0tLU9yaWdp
+bmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogS3J6eXN6dG9mIEtvemxvd3NraSA8a3J6a0BrZXJuZWwu
+b3JnPiANClNlbnQ6IDA1IE1heSAyMDI2IDE0OjUwDQpUbzogQmhhdHQsIEF2aW5hc2ggPGF2aW5h
+c2guYmhhdHRAaW50ZWwuY29tPg0KQ2M6IGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnOyBsaW51
+eC13aXJlbGVzc0B2Z2VyLmtlcm5lbC5vcmc7IHJvYmhAa2VybmVsLm9yZzsga3J6aytkdEBrZXJu
+ZWwub3JnOyBjb25vcitkdEBrZXJuZWwub3JnOyBqb2hhbm5lc0BzaXBzb2x1dGlvbnMubmV0OyBL
+b3JlbmJsaXQsIE1pcmlhbSBSYWNoZWwgPG1pcmlhbS5yYWNoZWwua29yZW5ibGl0QGludGVsLmNv
+bT47IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc7IEd1ZXR0YSwgS29iaSA8a29iaS5ndWV0
+dGFAaW50ZWwuY29tPjsgR3J1bWJhY2gsIEVtbWFudWVsIDxlbW1hbnVlbC5ncnVtYmFjaEBpbnRl
+bC5jb20+DQpTdWJqZWN0OiBSZTogW1BBVENIIHYyIDAvM10gd2lmaTogaXdsd2lmaTogYWRkIERl
+dmljZSBUcmVlIGhhcmR3YXJlIGludGVncmF0aW9uIGluZm9ybWF0aW9uDQoNCk9uIE1vbiwgTWF5
+IDA0LCAyMDI2IGF0IDEyOjUzOjI0UE0gKzAzMDAsIEF2aW5hc2ggQmhhdHQgd3JvdGU6DQo+IEFk
+ZCBEZXZpY2UgVHJlZSBzdXBwb3J0IGZvciBJbnRlbCBXaS1GaSBoYXJkd2FyZSBpbnRlZ3JhdGlv
+biANCj4gaW5mb3JtYXRpb24gb24gcGxhdGZvcm1zIHRoYXQgZG8gbm90IHByb3ZpZGUgVUVGSSB2
+YXJpYWJsZXMgb3IgQUNQSSBtZXRob2RzLg0KPiANCj4gUGF0Y2ggMS8zIGFkZHMgdGhlIERUIGJp
+bmRpbmcgc2NoZW1hIGZvciB0aGUgSW50ZWwgaXdsd2lmaSBjb21wYXRpYmxlIA0KPiBub2RlLiBQ
+YXRjaGVzIDIvMyBhbmQgMy8zIGFkZCB0aGUgZHJpdmVyIGluZnJhc3RydWN0dXJlIGFuZCBpbnRl
+Z3JhdGUgDQo+IERUIGFzIHRoZSBsb3dlc3QtcHJpb3JpdHkgZmFsbGJhY2sgYWZ0ZXIgVUVGSSBh
+bmQgQUNQSS4NCg0KUGxlYXNlIHByb3ZpZGUgbGluayB0byBhbnkgdXBzdHJlYW0gRFRTIHVzZXIg
+b2YgdGhpcyBiaW5kaW5nLCBlaXRoZXIgY29tcGxldGUgb3Igd29yayBpbiBwcm9ncmVzcy4NCg0K
+QmVzdCByZWdhcmRzLA0KS3J6eXN6dG9mDQoNCg==
