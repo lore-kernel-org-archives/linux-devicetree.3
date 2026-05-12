@@ -1,164 +1,251 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012041.outbound.protection.outlook.com [52.101.66.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7416E3B810D;
-	Tue, 12 May 2026 15:21:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6DE237E2FD
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 15:22:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.182
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778599286; cv=fail; b=FhS0h+y/HYrQymKD7bMnufmeJiLyyacOfkRMKqMWN3RgzhEkIQkGKOoBNX+TNjz+HKnXcHv9tQ5rYQ8pftL5z4eObrZtlXfjpTrW4UOI4Hb4McOq9XYvbcuvBQhEmaqEFZ9c+R/M/JlX8L6abqw6lq/0nAON3t6BzR5qs7EpVag=
+	t=1778599346; cv=pass; b=dL98GpQ2T8c5OoGin/sxPRDbT5UGzN/3YUOhxG8GIwuRYy3BlNkxcoHGiHX09ZP5ZJntYs3/yzjtYZV+fJU7EMy/lWrl9zi7yHK/sQCZk/O7C1MBT03wZC5kVc4a5OovNRsSNsgBfJNSg8CGfe3hEqD0d0NKaJ74ZcU0sgB41XQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778599286; c=relaxed/simple;
-	bh=+AmSCqJZKt+pC9dIJtxOBW40oO6XkPuLhXrAs7g5j5M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=PkYc31nwzubPo/fqaflTenzSfRPuHM7xddp35UzmzVPXTJk+y6SINgjkfeC+EPm8uCrmG6wt9wa0jBJgmEP3kIuHGnm/siLaoWCdzbfbPXnuKkBpYjOyw+4jZW60fF33P5NmqDC2xMxbSVMbsXZp3jwDTwSSE3oY8tESoRbH2+I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=A55qzcqL; arc=fail smtp.client-ip=52.101.66.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	s=arc-20240116; t=1778599346; c=relaxed/simple;
+	bh=GMqAJJvoKZAxTYL3ppmWAG2jFmXFtUvCYSYB89m0cuQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=l1iTt7vB0yFs2Y3XDS7ak/l2sjiVKYMU2gaUMlurqX/BlUKdoF/XJ3od/ThWQOUHOjTrI+iVLklQfZhjtfy6AiYbRVAXxqFtquO/pp05TD0HVoLCofzTITb4esBoOShgaqr2PCJ6hlF4lHaax6unrorA55gPmY7gUX3wm89pgHQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WwUVAJn6; arc=pass smtp.client-ip=209.85.208.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="A55qzcqL"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DOjbeisRBv02tetCTmyqsLvcPoKkh8Pq/Pfk9mqA5Qty9GfpgwahiVtE9T5MoNGL8aJjs/IxDgglGCKtP3hDEsBCv7oIq0a86LGbrLtileSxqu96ALuSQ4RzWJe5A1ntPvrxN92ex8y6X0R4O5JkkQ6ehuDddIBh6N+KHjNNAndIY+I61lmQMIw12Qiq7tYqFTDOzfuWuXNjl5/0r42vklW0kWrGnon3jSOOGK+i9cNNr/Wl9E+I1U/EhgOqML9k4FkCyFSmTuVywFEBO6KSzu2wLjQHy9ie/AO4S+Qb4j3gvMsIsu9HTekUpAeIK+efCA7OU9qlGwLBp7TlftNtIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+AmSCqJZKt+pC9dIJtxOBW40oO6XkPuLhXrAs7g5j5M=;
- b=ldwOxwYN4G+6gniMFmme0oUJkHOyn699nF8MsHS37kkDmUBrjLC0uMyoKHaqqBNjeL/Cluhm8D3sxWmywk6swb6lQ+pNw4e8HQl51/AKir0SiHfREdmMe90y8MPvV+TdASUjbMBglbvgoLl4KlzU5czoYdJp5i8kHwgEhG+zxxrXpSBUaz4i5ZkMjbe1AYrzf7LAZpHovPQZeioEUHuxQ/eL923OHhEv8adi7HU7MPp5CDMhe5MRNxHgLHb0zceVRkrZLpT9tXrHkvME+0tptdYUcILlBXE8h3go/bonuTMUgM4rkVEZ1xlmmvhng9ViEsIx+cnPy/eegEwGSTpPGA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+AmSCqJZKt+pC9dIJtxOBW40oO6XkPuLhXrAs7g5j5M=;
- b=A55qzcqLi6VLladQ1iK1e6eI/5Q3scuMYXcFYbOnfCPsy+GiKOBy3+bA4x8S/u3XRVzD1gQ8Wk8m1bYKLWzqSu46iByh++glYZ1e4erA3PWAPKtEWs2r6ZeJBJyUnV2IRlLI92gfzCMz2o0Io12NjkIlabQLtBW6T/LnxS8EEcKOzgV8RqL88HptTX+bfrSD1qMLu62RMLByLgSZO4V6pNyzbBsi/RQjY9kZtNDbuYx0k62dVGRVA4AFdMTm0fDKuUb05a7vqGHKg4SuPKeXOGaVmcRcVXnFDHLDnh1ojCJ2GArrZPVDSKh8x81TmEKd1jgBg4D4/Q5jbVAAYAlpiA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by AS8PR04MB8452.eurprd04.prod.outlook.com (2603:10a6:20b:348::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Tue, 12 May
- 2026 15:21:21 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%3]) with mapi id 15.20.9891.021; Tue, 12 May 2026
- 15:21:21 +0000
-Date: Tue, 12 May 2026 11:21:13 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Peter Rosin <peda@axentia.se>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Haibo Chen <haibo.chen@nxp.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Ahmad Fatoum <a.fatoum@pengutronix.de>
-Subject: Re: [PATCH v6 0/7] pinctrl: Add generic pinctrl for board-level mux
- chips
-Message-ID: <agNFaXbd_sMq5eAo@lizhi-Precision-Tower-5810>
-References: <20260504-pinctrl-mux-v6-0-8ea858ba3a5b@nxp.com>
- <CAD++jLmXvnf6sSWsGe+++u37ONJpFFvxFMUkLdvvxiiaWuf9gQ@mail.gmail.com>
- <agIwOYrKXlnKbpII@lizhi-Precision-Tower-5810>
- <CAD++jL=eqEaTcG7P=++Md7fqosmrGbRRPDb90+=Q4q8oQ=xqRA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jL=eqEaTcG7P=++Md7fqosmrGbRRPDb90+=Q4q8oQ=xqRA@mail.gmail.com>
-X-ClientProxiedBy: PH8PR05CA0001.namprd05.prod.outlook.com
- (2603:10b6:510:2cc::22) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WwUVAJn6"
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-38e7d983f91so53981321fa.2
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 08:22:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778599343; cv=none;
+        d=google.com; s=arc-20240605;
+        b=a+xqV3iB9FBAgjIX8PfiFPFeW81kf805Eqr/rjEo+zMZSzHdNsasKnavcNwWm4zbaj
+         iJQ4yu8MHU6bTG6UjgFoD1tOTKisq7u8Tlv72p+WadugTMXI9QOiQx14oi2mGSP8nSgJ
+         ZJtVKEhVW9YLG3D02r9UTDgK4574UHBNo21skzwEhXDqP7WCENXll/45gJWWHEhIl4za
+         dlLngI+ZyTn9RU6nJSF9w3xrjxQf2mUSKR0uI4vcMHGSYbsteohbTQEwM64/QZ/RR0VI
+         2DLV433rv7BdkChGebG6NLB/BL8SeV/+qiO8xWe0d/wVhUaRNYi1L8ztZYuRMSl0cju+
+         WeqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tsL/9p+qUWLijfBeysWK9OThhTiEfsjo8MZi7vGSKvg=;
+        fh=YQdL3cDVxKBnUBtUjYe8UXZiX6qYOd4iepFNUvMGp9I=;
+        b=hjkEOijl67tkRN5CJ/1YJpVlNIcxYjLhUtDJAQValPILNf2ZJYZq86FLg6Gsu6N+ww
+         bxxQp1p+pZqmnix+LMX9g8qOpDq/C8lW5nSDc/av1IDlvxS+BzqVTXZ18UixezRpuSia
+         sHjcZzesqeJNuJzZDaeFBE8PYxSJPJC8eclAg93H1WHlGKLs1uWIbg5jDsHtGSpTjvDE
+         5rg0lq+lkx36A1MOvofJXcMfPjvHAjwq6ngHTq8KhYNU+kC45pigxr9v+64NVHHHFXFI
+         GudeNwv4OSpv1DnqIZa9dmjFVUug5RO/eEPm5Hq2nFxCCgnemsjg0ed3Wq3+jF2Yshoo
+         W7zA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778599343; x=1779204143; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tsL/9p+qUWLijfBeysWK9OThhTiEfsjo8MZi7vGSKvg=;
+        b=WwUVAJn6TU0n1lhjNkg83Am9aNZjarCevbakj6oeB+Tvu+0J8GiUdLRXdietxAtfKx
+         3H0tZWr8Cz99iH0jZQQEXB7v+238cE0JFtUoNGTsVKwgkjm8CHmQ5a85uhpG4boU1uCZ
+         e4kt9wJQt8coalk9svMaCv1RvBwF/u0ngiooU0aTm4CYFdChG7rn9irw55njL90FtPBM
+         L6R44fcVtWsEn8t6oOSV6qKUzNy2DrpdSTjQYUDYekV48KuTasWB5/Onr0pNoPGBpuxg
+         ulk5WO4E6JWsGI5JCb2lDRhzFIRn5VdvYWMfQIVD1gH+9mM55eSQNqjYG1mVHfiFilUr
+         HqZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778599343; x=1779204143;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=tsL/9p+qUWLijfBeysWK9OThhTiEfsjo8MZi7vGSKvg=;
+        b=ZzGRdU9m10dhmwjBFadNq2ALeocA4zD3zjWvfonnQD+ScKCX6HLZa6qhgPDGFWyr7r
+         W4JntQwuItPZF+x8sKTP9INS9qJBNYyF3uOShFYuX7Y5bxq68ZLr3zinTPInVQuqu440
+         r5tFHfkMlwfTeITvZvx6fn32Kp+DlX7tmOMbuTZwSlBJUeH1QP4lU44nplSolswbOa0l
+         XNsX8Sc0AETxYeIrK1GA4W7kmUKn1Fn+yKCSHm6BVlxhJkwFYEHpuou6+rrcD4Nay1fa
+         Blirbm+Ym3QWdHcEGFet0kQLjED4XA/cVBsAgYIGWzLuRkJ6E0lCj0moE2eng3zBh9Yh
+         NrPw==
+X-Forwarded-Encrypted: i=1; AFNElJ/n6Q4WIa7AuOW3IBgdCfqlCTuNRJaRc1qMQERf1ry/XEN3OscAy2/sC20C3K9UAHHixNQzwwehhNoF@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz02TT3NReN0ifk/aZH1UuQszm+/cyJKRVhIZcISDQ1zMUYhpCs
+	yagj51Z9XUQzxvG8u6+3/85xC82Qzi3nKSKI3nRtOhdyzQbiiApXI6MmbRyJahr/xRSIz2Gdrkm
+	vataV30OmJI1B7DvfTwAxzyA4oX/EevI=
+X-Gm-Gg: Acq92OFbKZq60cpW9+usD5bar/FWnmp5SFqfnIJU4aB2brSECB/Bf1rWD+lF+roEyLV
+	uogEo2HIKBZOvu9HavRSut8eAWNJJHcFlpbm6ug0IE47AfgQqHxv0xGIxlzfkgjmtaJ15RYwCXB
+	omZMkA+Q6aFCBmv1vL8ZdTNxGV+m/e2ssYBQe4fK39B4qIAZIVqlXdGWOHxaUZCnppV0Q3RPJ2+
+	t3A/VAghChdiLfnzf8j7jBH81nsR4q+Jt7jNh97vf5NBNlrSvRJey3frhANd8r7kKkarolv6sZ9
+	FiBjshZGMHh64XEsWxBwNzyFc3pQ1a581vjk6nhw4i1AB5WcpbASywLcAxMWRb38JGeL12gxLuP
+	sJAwf3Rrlb4DicOI0rg==
+X-Received: by 2002:a05:6512:3b97:b0:5a8:837b:3d62 with SMTP id
+ 2adb3069b0e04-5a887ae201amr8896955e87.9.1778599342529; Tue, 12 May 2026
+ 08:22:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|AS8PR04MB8452:EE_
-X-MS-Office365-Filtering-Correlation-Id: a32967d9-ffba-406e-571f-08deb03a1f27
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|52116014|19092799006|366016|38350700014|56012099003|18002099003|22082099003|11063799003;
-X-Microsoft-Antispam-Message-Info:
-	ax3HX1x4WJ7jDB8nZfUkMKsnkLzbut6f/YPImtSppkjoCcM/OPwkV4VkeWfM3DZ2zxYgTnMc+XeMuBlyrbtivyOSkZ/kXFXk89c7r2afYRbHCklY5vEh6vBN4vRcpZ3F/o9Ljc4EgEnLBBjfGhsuIXH04w5bRoZPv8vJfbBLfPZ9YfBYgeQdSs2hgeepVgYqNjS5nnA32djBXArHXSdlHkqDeR//ZIfZc5/1PdAkMu84Kn3VzIznn91zQ/vGyjIkWJmLbNwpcbhTtBS3eXaOeTN6gpBeiQbsQhFVoOvQG5xHqpGO1iafM3HyEF5WoiStMa79A2OqprnR4ONK/HTBHN1g+B4kzfj2giCnKJpK65pkzYXxN/MNMERNTs23OMWWMATsnfYh2xG5UE9QKtPrSD7kJdoL7OSZgMUbc4zpWjuEbkq3w3eN5KDI4UVMzFXXPoTP8jzS0dPEMk6KsZjY/y59nbtdSxzB1k9StO1yHLUKqRUufrE2dKr78Em0T7wGiu2mzFWJdU6rH/WoMTO/NCGSS7orpoTOsQPIo4XBNGBQkISjhK386FrWe6ewYWDyPrji1d8LvA7dJJ2zkIZNTP0n1Z+FJ/10Z5JIpx1S563/ZxNgl8t6FslrmlsC2S/koqCMbMsF3JLyHBBLMzrae5/W9um7kyAhAUIL7RtUJUKaGv1yoTHHswxffEcfVbSrn44eMcfV7yjEzuL+OTm7zZxl0HdbGwcXa65RbJRghQBtzridvPpAsf5QerW6YVPj
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(52116014)(19092799006)(366016)(38350700014)(56012099003)(18002099003)(22082099003)(11063799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dWtaOXdWUUp0TTNFdXJxRTUxVXVtUUdZL3JWeEUrbHdrNW1yQy8yY25kYXhh?=
- =?utf-8?B?WDdkNUMyRDl1V24vMzE4N1RFYlk1NlFSa2g4VkZ3L1hWaGc0cjdHS1RVS3ow?=
- =?utf-8?B?cXZ5WnplUGc3cklCbUdpdHMrR0psNGJuWVhvS3lOajl2K0RSQm43WE9iSmdI?=
- =?utf-8?B?dEF4SUdTRmFWbjRTck9CQXZFd3JhNGpzcC9IeVVmOURuT1I1OEZlWFVqV1Vq?=
- =?utf-8?B?R2dUeUMvSlpZYkMxaitGdENGK3ZRS0NtUXc2L3BlL1RvcUIxanhwdndtQWt2?=
- =?utf-8?B?V0hkbmduRUZNdFV3aElTYlZyVEVMZW8zUjVlazhiZWFRK3NlSGE4dWs5SXhR?=
- =?utf-8?B?bVNESUJCNFNlVjFiMzVqblFNT3VkRmtEVU5MUXlDT3AxN3F2alZWUjVpY3ho?=
- =?utf-8?B?YTMwclU5L1Y5Yms0bDQ1VE5IcFBQV1VDZ0dheU1EVXBmcnBPTHNUejlEREgr?=
- =?utf-8?B?bUJ1Q053TTJEc3Jla3VISGkvMkdIdlRncTNXRm5iQmd5Mklvd3F4WnljKzBB?=
- =?utf-8?B?RDRDTVNTY0I2N0wvbldKV2VMd1dJd0xGQW9VWUZjQkEwUUVCbk5Ha3B0NnN1?=
- =?utf-8?B?c3FLd0RYd1NtcUFremUzZEJuV1RkWnhOUzRvbTJvbmZMSDdqK3pIem0ra29Q?=
- =?utf-8?B?LzdQK3VDT0ZZb280NXJmSDliMDkya3RRS0E5QTd3ajI4TUZqYWhrbXhSanZZ?=
- =?utf-8?B?NnVDUWZtZllmTTRRV0ZtNUFNSU9DTGdGNzdleFF0RXk3ODdhN05GMVRqTjdt?=
- =?utf-8?B?VEtIakcrajlDbFZhNFpONGdZN3VpYm1LSEF6UWEvUjdPMS9wSlE2NkkrVDAy?=
- =?utf-8?B?MGFJY0IzRmJzckJycml1NXVOUEdjQzdiVW9kb1Z4bmtFR2VtbEhMVU1HUU9w?=
- =?utf-8?B?WE5ZcmFrbUFLN25OY2tUYmRreW0vb1dIQW8zcTYvN2ZoUE1YeG9VbVZ0akMw?=
- =?utf-8?B?dktLYjFwZWRwdmMzQVdEV01KenV5Si9RMlRHL2R6MGZReXIvbmIvVUwxUE5o?=
- =?utf-8?B?YWZqTlBtMFBPeC9IQ3BNVTVqbGNqQmppOVFScFdndVd5eklIRFNDR1lFT1hB?=
- =?utf-8?B?RkRKZ21hWTFoUUNzbVVkSWhxbjZrN2k0cG5EWGQrVG1BcG50Z1ZKamxzSlZC?=
- =?utf-8?B?N2w4MTUvMlZxaTlRL1hLdk5Ybkh4RS9FMUdSeEFLUVpXTk5sOWMxWXhEelJZ?=
- =?utf-8?B?aFJpQnRJN3htWEkrQzFzSFBhZGVuR2RZZkl5TXZKeXVDUlZQR2lsVDQwcTd5?=
- =?utf-8?B?MWNydHZQRHRucUlGSENVQkM4MWJINkxUa3lZVXE0U285Z2dybWlWMmxJYzFh?=
- =?utf-8?B?VThSTnBRbGhtOU5wK1UzOE9ZaDVhN2NTdWtUWE1ONGVTRWpPbThlaWtja3B5?=
- =?utf-8?B?clBNRStIME9ER0F0N0FVZkM5a0cybS9Kekd3THZ0TUU3d2lhYnh6SVl0aXQ4?=
- =?utf-8?B?SU5QQTdHK25zRTNLUUhaZ2RyYStqMmsrRytwa1IxSW94Tmtpc2F1NzJLamk4?=
- =?utf-8?B?a3VSQWFLQ1dLZVVQVkhyMHNoN08ySEg3TERTZXduS082S1RyN0RpSUVjUXhZ?=
- =?utf-8?B?OGdJbk1QeWEyRTRTNms3czFvaGxGaXNEc2l2ekVYcTAzSEUrbzRxR2tQTzln?=
- =?utf-8?B?dThTNTRMWVpBTUFtcEJld0g2SkVVQkdMUVJoQjQ2VVNkQWt6dFlVTCtJelZv?=
- =?utf-8?B?WFo0dlowd201aGwvUm9ja0dXN1dLaDdHSHo0TnhVblZTVWYrTFlrVmNsRVZS?=
- =?utf-8?B?THFlUE9qMk5iQm5YNlNVaWVsYlo2NEpUV0xQUUpKdytDcC9hSERiNE50Yzc3?=
- =?utf-8?B?YTlZY3IvNWlHWDcwTHdtdXhxZjZPMW5odlRkam1yRGNtUE14aU15aW1zdkFT?=
- =?utf-8?B?OTAzd0dabXE4K1pUZE5qaTJkZG5QMzhOZUNJZ0RNWm8zWXN0b29hWDNDbHZh?=
- =?utf-8?B?VU81VkxYMHlnWGVOU0s4RWkxdUF3VzBoY2hVRGJ5Uzh5bXlQTnhBN2tyejB3?=
- =?utf-8?B?a1VKb2hoUFBOREgwVjZrY3MrQ2hhRENRb0dINk1iRktFTFlGbmF1YVZVK1dh?=
- =?utf-8?B?SjBoY0YxeUhDcEN4VDRBN0sxZk9MZGgxUHMxdXE5cytBMUE2N3ZnR2VEN0pw?=
- =?utf-8?B?ckZ5YTFJdHlXakwzNjhjR28vMTdwdFBxeVBvSXlRUk0yT05IaVVWQmJZWWhu?=
- =?utf-8?B?UlBNNlBOMmpDekhkT1l2bGlMVVFUUjliaTcycDBvNEdjZkpzZ0dlOVNmRmRp?=
- =?utf-8?B?ZjlRaXlZVEJ0aUlBR2grVEZXNllSSnY1OEtORVFMVGNoa1B4cGFES0hCbFgy?=
- =?utf-8?Q?Yu1U/aCB7daVjx1glc?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a32967d9-ffba-406e-571f-08deb03a1f27
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2026 15:21:21.2807
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IX6Zj5lTW/X1zHfKdjtwZZ17hU2x+xrit2M2pkiFIiEXT4C6aaZ2m/RpPcn2Q+4zQzZPszLUhXh6K0IdPAlI2g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8452
+References: <20260510-adf41513-iio-driver-v12-0-34af2ed2779f@analog.com>
+ <20260510-adf41513-iio-driver-v12-2-34af2ed2779f@analog.com>
+ <20260512123953.40d80bc9@jic23-huawei> <agMnWzMjW1LwCSyT@ashevche-desk.local>
+ <sj6cpjhakyfvv6rgox6cnhl2u2tgaecugcok6fw2l7zgku5wtc@aqx3ul72vgca>
+ <agMvlS3-0wvGmBwh@ashevche-desk.local> <dxjg2sdyxb7ieb4abmeyyye7qok6cczrxabpsjyjhcbehwoec3@sbbqoo4wmzre>
+ <agM8pWrM6j_XksvN@ashevche-desk.local> <ur6brs3yjzyb4mtelabmcglxjltddqvjxtgl3lkdkmbjlkmnsq@bwd6rz7gided>
+In-Reply-To: <ur6brs3yjzyb4mtelabmcglxjltddqvjxtgl3lkdkmbjlkmnsq@bwd6rz7gided>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Tue, 12 May 2026 18:21:44 +0300
+X-Gm-Features: AVHnY4IJuef2B-0A9_3FnyNbZ_uaS-SA2cTNaTffveNp5l_4SxlZqwsSXVNYeR4
+Message-ID: <CAHp75VeoH3yVfp8NWjKfc_df0VRLkyf_SK4e==-wJOEodVjW_A@mail.gmail.com>
+Subject: Re: [PATCH v12 02/11] lib: kstrtox: add kstrtoudec64() and kstrtodec64()
+To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Jonathan Cameron <jic23@kernel.org>, 
+	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>, rodrigo.alencar@analog.com, 
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
+	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Andrew Morton <akpm@linux-foundation.org>, 
+	Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Shuah Khan <skhan@linuxfoundation.org>, David Laight <david.laight.linux@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, May 11, 2026 at 10:34:35PM +0200, Linus Walleij wrote:
-> On Mon, May 11, 2026 at 9:38 PM Frank Li <Frank.li@nxp.com> wrote:
->
-> > I fixed a build warning by missing doc 'np',
-> > https://lore.kernel.org/imx/20260507152117.240612-1-Frank.Li@nxp.com/
+On Tue, May 12, 2026 at 6:11=E2=80=AFPM Rodrigo Alencar
+<455.rodrigo.alencar@gmail.com> wrote:
+> On 26/05/12 05:43PM, Andy Shevchenko wrote:
+> > On Tue, May 12, 2026 at 03:12:24PM +0100, Rodrigo Alencar wrote:
+> > > On 26/05/12 04:48PM, Andy Shevchenko wrote:
+> > > > On Tue, May 12, 2026 at 02:21:14PM +0100, Rodrigo Alencar wrote:
+> > > > > On 26/05/12 04:12PM, Andy Shevchenko wrote:
+> > > > > > On Tue, May 12, 2026 at 12:39:53PM +0100, Jonathan Cameron wrot=
+e:
+> > > > > > > On Sun, 10 May 2026 13:42:20 +0100
+> > > > > > > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.=
+com@kernel.org> wrote:
+> > > > > > >
+> > > > > > > > Add helpers that parses decimal numbers into 64-bit number,=
+ i.e., decimal
+> > > > > > > > point numbers with pre-defined scale are parsed into a 64-b=
+it value (fixed
+> > > > > > > > precision). After the decimal point, digits beyond the spec=
+ified scale
+> > > > > > > > are ignored.
+> > > > > > >
+> > > > > > > Whilst Rodrigo has already replied to say there will be anoth=
+er version
+> > > > > > > I'd like to request final feedback from those who were involv=
+ed in the parser
+> > > > > > > discussions.
+> > > > > > >
+> > > > > > > They got very involved and I'm far from an expert in the righ=
+t way to do
+> > > > > > > this stuff.
+> > > > > > >
+> > > > > > > I don't think David Laight was +CC so I've added that.
+> > > > > > > David, Andy - I think you two were most involved in that disc=
+ussion:
+> > > > > > > Any objections to the end result?
+> > > > > >
+> > > > > > I already said a few times about the naming. I do not like the =
+kstrto*()
+> > > > > > be semantically different on how they treat the input. Second p=
+oint is
+> > > > > > to avoid code duplication, but this one is less of a concern si=
+nce the
+> > > > > > new code is in the library close to the other potentially dupli=
+cate code
+> > > > > > piece and hence can be addressed later.
+> > > > >
+> > > > > I suppose I reached into kstrtodec64() and kstrtoudec64() because=
+ it aligns
+> > > > > with your expectations for kstrto*() semantics, no? Those include=
+:
+> > > > >  - overflow check;
+> > > > >  - extensive input validation;
+> > > > >  - optional '\n' in the end;
+> > > > >  - mandatory nul-termination.
+> > > > >
+> > > > > am I missing anything?
+> > > >
+> > > > When we add scale we basically make that not true. Moreover the cod=
+e in this
+> > > > patch makes scale =3D=3D number_of_characters which I think a bit f=
+ragile, however
+> > > > it's about the fractional part when the amount of digits is equal t=
+o scale.
+> > >
+> > > That is not really the case. It is being set as a limit, so it does c=
+heck for
+> > > truncation and zero-padding.
 > >
-> > Anything need me to do futher?
+> > I do not see it happens in _parse_integer_limit(). It doesn't try to pa=
+rse more
+> > characters than it's requested in max_chars. It doesn't check if there =
+are more
+> > character nor their converted values.
+> >
+> > > > To make this work as expected we need to add an additional call lik=
+e
+> > > > kstrtoull() (and perhaps drop that \n and NUL-terminator checks) an=
+d see
+> > > > if that overflows or not. Since it's a fractional part it must have=
+ less
+> > > > than 20 (decimal) digits there, so we check the rv (or how many dig=
+its
+> > > > were parsed successfully) and compare to 20. If it's more, we got t=
+oo many
+> > > > decimal digits.
+> > >
+> > > For overflow it checks the KSTRTOX_OVERFLOW flag and leverages check_=
+mul_overflow()
+> > > and check_add_overflow() when combining fractional and integer parts.=
+ The amount
+> > > of characters is not really important there. The scale cannot be bigg=
+er than 19 and
+> > > that makes sure that int_pow() does not overflow. The code uses _pars=
+e_integer_limit()
+> > > due to the nature of input and to avoid 64-bit division, kstrtoull() =
+at any point
+> > > (parsing integer or fractional parts) does not make much sense.
+> >
+> > Under 'like kstrotoull()' I meant something that repeats needed functio=
+nality.
+> > I believe it's parse_integer() (without limit).
 >
-> Sorry was busy!
+> I think we are going in circles here and we could look at the code instea=
+d:
+> - integer parsing with _parse_integer()
+>         - overflow check and validation of the return value
+> - fractional parsing with _parse_integer_limit()
+>         - overflow check and validation of the return value
+
+No, this is not fully true. That's what my whole point is about. The
+max_chars parameter limits the input check, then it skips an arbitrary
+number of digits and only *then* it checks for \n and \0. What will be
+the result of the
+0.00000000000000000000000000000000423 in your case? Whatever scale you
+gave it will return 0 without checking on how many digits were
+supplied. All the same for 0.9999999999999999999999999999999000423. My
+point is that we should limit this by 19 digits.
+
+On top of that, what about -0.9(19 times) ? the fraction should be u64
+in this case and it's fine. The sign applies to the combined value.
+
+>         - extra scaling and truncation happening outside if needed.
+
+Right, but the given input may be way too long and still needs more validat=
+ion.
+
+> - check for input termination
+> - combination of integer and fractional parts with check_mul_overflow() a=
+nd check_add_overflow()
 >
-> Applied this fixup on top of the branch and merged it into my
-> devel branch for v7.2!
+> > > > Maybe I'm missing these checks already performed?
+> > > >
+> > > > > > Having the test cases is a big benefit, and that part I like th=
+e most.
 
-Sorry, I missed picked up fix patch during rebase.
 
-https://lore.kernel.org/imx/20260512144806.22447-1-Frank.Li@nxp.com/T/#u
 
-Frank
-
->
-> Yours,
-> Linus Walleij
+--=20
+With Best Regards,
+Andy Shevchenko
