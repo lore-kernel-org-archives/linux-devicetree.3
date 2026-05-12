@@ -1,67 +1,25 @@
-Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com [209.85.167.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E72B3A2E02
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 13:58:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E863A59B7
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 14:08:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778594310; cv=none; b=egb9V8GiKSZoGk16+HnLDb8IWxYqwQjCVQUGDa+Md5uYn7cTy9Wa7cPggcaK90mNsiQIj1hgug2N6yf8/6cf7v/SgzGWwCJjwfQ8eG6VHtbqL09W+3ecyVV+nEsw1jglbUcMsa7ftJ5dpuRxYkE3ccJybW2KgyzWcK4dVyt9/+g=
+	t=1778594934; cv=none; b=reKBFv1vAtpuhMADwTo+vbyQl1goMH3ZWx5guf1hSRyUb4RJkknQ4lXZjKXrYK8yPHW1KvllXhekekK9oGYZsLvBTwFqRttIjw9kB2n3+rMZTeNzPrl9/ccz8wZODSeayeyEk5wPofq78odPC3L94BUDzJlqSdYNYWU+DV0zOf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778594310; c=relaxed/simple;
-	bh=a4HxmRePg579v/b8gM9feacNUVnpKNRtdZ9UULWANTY=;
+	s=arc-20240116; t=1778594934; c=relaxed/simple;
+	bh=p1G2rnv8yx9OTYnCLJd6Ok3l/PRXTQxiueQazc9A9hs=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UHfNtnLDtjUziVL+SQgVF524XQD5mrdjm/2DtTHRalCEjNrIxC5+c8Mtsn7HwyvGTt8mgGs0IvTzyDG8VHbkl7D1hUfZOOdiCNQOEGTLRhPCWIrzb/nZ2qsCLELMNoo9z6O4GVoU2ACyTL8apPrBuF1Hvzk7UzqqmY5/P/CPJFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=XDS94KA2; arc=none smtp.client-ip=209.85.167.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="XDS94KA2"
-Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-479dd56d016so4032330b6e.3
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 06:58:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1778594307; x=1779199107; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=4qZUPICcL2SqDibVA/1E3uKAtRLts6kMoCRLGyFkOb4=;
-        b=XDS94KA2a5mhRLuFxFO/nEidomi7TW8/ycnSN1MqzEnnAfc6t2tT9dPIxKEKipoF92
-         Aoa2ucEswLH1Kzl1jIINz4riQsZDWOfKdCvzKRsxl1wS4UEVSWwnW576ZrZY2XwIO8Pz
-         3b8MLmMRjemcKSt4e6k+bSdhX5eeUSIcOcOF2+C6F8wcLDJYsHeK+XnrCfM7JF9fG36w
-         eu7lUbVH70sPPDL02+X+7VG5wM7E24WsymTHHmioFjlkQmTfjIg+hDUHX4EHvkkunMYQ
-         vVs5TUApmg9sjbMLDrThQ1QGYoh0JNl/eIc+v4uk2l6SVvwcsn6kwSqgFSJn8i3PbrCF
-         T7NA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778594307; x=1779199107;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=4qZUPICcL2SqDibVA/1E3uKAtRLts6kMoCRLGyFkOb4=;
-        b=Axj2mvQ52zR3wZL4cgLjbWM15udFx+/hnTkGYyh436apB7FP2wTVTZtIrNx9Ot9MRj
-         nA9UGDnT/AuQu0E3/lFpqCOVIVRkGal0sQA/1DBLCpG/fSQVxPGdYkJGWRBA76VU+AH8
-         sWxo7dTTsSMFJWfslqflgwrkrIJdXNQgihLp0bNZBg4CmWbRacI/rsQs0XfwXMQd2G9f
-         FgqegN/b8MGLIS/kel2jc5nvrkNYtsVnW+cYux5QtOXqSw6rUoH+g4HgqeHL27ytSEzB
-         xqG37EGsYPGRHVGQqOZywGkZG94vdMCHBxd4HMp5aCzHz2y8ePcoLCI/CC3y5ghcjg3r
-         VAUw==
-X-Forwarded-Encrypted: i=1; AFNElJ8ELX6myDc64JWbk/123VY9HR1nuOI9BLkKYD3TTylwpA5puHjItLJ3GHfP1UyYASmMBqgdzr5wfe1E@vger.kernel.org
-X-Gm-Message-State: AOJu0YxWANexyfMT8JstmvwgSN8FeyXqXiMaMFxBlIG5H7fZr6yveyKl
-	8ddbtVHI/mtWoAtDRrN3/gL8ZVgqKmMfp/WiODY8CTIRHuaIyT15+SdPT15/xPnGbdc=
-X-Gm-Gg: Acq92OHpC1jzVAovA7aX6EjR+YJu281vz33lg1ms1ijwDfXLeRaJtvVbSZ6aJ+4Q/Y6
-	CaA42P16bB9pIoj5s0PsxCV/LykFwYNOv0CMN7FxelrdTHGjAE0iQdetznlpUDFalbTQmp2vx1j
-	2xhFMz8JFbzCbCh0CaXNrEbfi2CEt+YTNd4LXLMMUSgi9rEeMTpva2HBLvOwfmtHrUmalK9giwX
-	CIiy0L7hZh3nkL49FZaHJCzyJyDGaY/dF0PkKKmSlhEIwDehXAJ8T+t1/R2ETwVfu0fqIlTjmt/
-	5PcB3wiOnyAhsRUfzxXWAyQ2Qh41KjOs3pSUZTnTzBQs5dQzXrXEO0bb1vgaedocl0gWYfhhbU6
-	af71VbcQooNfNwXBmFRH5AgGGDyBUiGzw+AT0GnfCfYS3wKxg8BdcNWsJ0N1SCESnElK1exou0B
-	yE1U9vQM4Tp/u9vMflVevqKI8V+kV4fm4e1zS1MBtNDuHTOUrq0lO+xdPEyQUH+l4yU3zUZG2LT
-	w==
-X-Received: by 2002:a05:6808:508b:b0:467:23e2:5097 with SMTP id 5614622812f47-480424a4bc1mr18863086b6e.37.1778594307354;
-        Tue, 12 May 2026 06:58:27 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:baa4:f7fb:528a:2457? ([2600:8803:e7e4:500:baa4:f7fb:528a:2457])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-47c763b33c1sm22558261b6e.1.2026.05.12.06.58.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 12 May 2026 06:58:26 -0700 (PDT)
-Message-ID: <a4ecfb27-5ef4-4682-b87c-24917f81b4f0@baylibre.com>
-Date: Tue, 12 May 2026 08:58:26 -0500
+	 In-Reply-To:Content-Type; b=lEBOko6htfEWkUSJSx6mk0VswmioKCDyDAgiMmsRwCZ8eBsYnm24ffVgfEM0sPhUKeQ8L2Sx8VLlnGGtdQFu4ROBWD7trUFRHb73xSKlnwvz/5F7MqPjg/VBDv4uSG19p7KiGhBrb4OQvJ5OmRNXvqmIAQzctxuVTpJegwf4Ku0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=fail smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=pengutronix.de
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=[127.0.0.1])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <s.pueschel@pengutronix.de>)
+	id 1wMnmV-0001ds-N8; Tue, 12 May 2026 16:08:19 +0200
+Message-ID: <1f447423-8c63-4545-a4f7-d8d5ef821255@pengutronix.de>
+Date: Tue, 12 May 2026 16:08:14 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,67 +27,199 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] dt-bindings: iio: adc: Convert xilinx-xadc bindings to
- YAML schema
-To: Rob Herring <robh@kernel.org>
-Cc: Jonathan Cameron <jic23@kernel.org>,
- Pramod Maurya <pramod.nexgen@gmail.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+Subject: Re: [PATCH v5 16/29] media: rockchip: rga: split flip and rotate into
+ separate function
+To: Nicolas Dufresne <nicolas@ndufresne.ca>,
+ Jacob Chen <jacob-chen@iotwrt.com>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner
+ <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>,
- Lars-Peter Clausen <lars@metafoo.de>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260510083219.70224-1-pramod.nexgen@gmail.com>
- <20260510120141.118057-1-pramod.nexgen@gmail.com>
- <20260511171554.6541042b@jic23-huawei>
- <7baf9ca5-50ff-4131-995b-70ee094ed247@baylibre.com>
- <CAL_JsqLxtWLR+jxRXt7Uz6dcF-90NYmfyGWYQk9um9TYHSWbTw@mail.gmail.com>
+ <conor+dt@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, kernel@pengutronix.de,
+ sebastian.reichel@collabora.com
+References: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
+ <20260428-spu-rga3-v5-16-eb7f5d019d86@pengutronix.de>
+ <ebe5cd6689923eb1e2124e177f694895383fba54.camel@ndufresne.ca>
 Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <CAL_JsqLxtWLR+jxRXt7Uz6dcF-90NYmfyGWYQk9um9TYHSWbTw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: =?UTF-8?Q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
+In-Reply-To: <ebe5cd6689923eb1e2124e177f694895383fba54.camel@ndufresne.ca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-On 5/12/26 7:14 AM, Rob Herring wrote:
-> On Mon, May 11, 2026 at 11:24 AM David Lechner <dlechner@baylibre.com> wrote:
->>
->> On 5/11/26 11:15 AM, Jonathan Cameron wrote:
->>> On Sun, 10 May 2026 08:01:36 -0400
->>> Pramod Maurya <pramod.nexgen@gmail.com> wrote:
->>>
->>>> Convert the Xilinx XADC and UltraScale System Monitor device tree binding
->>>> from the legacy plain-text format to a YAML schema, enabling automated
->>>> validation with dt-schema.
->>>>
->>>> The new binding covers the same hardware and compatible strings:
->>>>   - xlnx,zynq-xadc-1.00.a (ZYNQ hardmacro)
->>>>   - xlnx,axi-xadc-1.00.a  (AXI softmacro)
->>>>   - xlnx,system-management-wiz-1.3 (UltraScale System Management Wizard)
->>>>
->>>> Signed-off-by: Pramod Maurya <pramod.nexgen@gmail.com>
->>> Hi Pramod,
->>>
->>> Something went wrong with your sending of v3. I have two versions sent
->>> half a day apart and no idea how they are related.
->>>
->>> Anyhow one of them got feedback from Rob's bot so I'll assume we are
->>> getting a v4 and wait for that.
->>>
->>> Jonathan
->>
->> I think Rob will have to fix the bot to make an exception for the
->> legacy bindings. This should have been called out in the commit message
->> as requested in a previous revision.
-> 
-> The bot is not the problem. It just runs validation. The schemas will
-> have to either drop this check (comma's in nodenames) or exclude just
-> this property.
-> 
-> 
-> Rob
+Hi Nicolas,
 
-Even though this is an existing text-based schema that has been around
-for 12 years with this name already? Changing it could be a breaking
-change to existing users. Although there aren't any in any .dts in the
-kernel source.
+On 5/9/26 12:11 AM, Nicolas Dufresne wrote:
+> Le mardi 28 avril 2026 à 11:00 +0200, Sven Püschel a écrit :
+>> Split the flip and rotate command configuration into a separate
+>> function in preparation of filling the command stream at streamon.
+>> As the userspace can change the flipping and rotation controls while
+>> streaming, we have to update them with each new frame to prevent the
+>> user being unable to change them while streaming.
+>>
+>> Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
+> For code point of view, everything seems fine, but the commit message leave me a
+> bit wondering. Any rotation that isn't 180 degree will cause the width and
+> height to be reversed, and a new stride is needed to present the buffer
+> correctly. Meaning the capture format can be affected by this change.
+
+Sorry for missing to properly communicate my intention with this patch.
+
+I've stumbled over the RGA pulling a spin lock on the controls, when 
+starting the next job [1]. This made me realize that the driver allows 
+changing the controls while streaming, which my change to move the 
+command buffer setup to streamon breaks (as a potential rotation isn't 
+updated until the next streamon).
+
+This commit is the result of trying to not break the old behavior by 
+moving the relevant code parts to be run on every frame instead of being 
+only run at streamon. I didn't think about the 90 degree rotation 
+problems, which are also present in the current RGA state.
+
+sashiko.dev also pointed out that my simple code move didn't work for 
+the mirroring case [2], as the relevant command buffer is ore'd with the 
+mirroring flags. Also I've noticed that the rotation mode affects the 
+scaling factor. To avoid these footguns, I've got the idea to set a flag 
+to raise when the controls change. Then I can fully re-initialize the 
+command buffer on the next frame and fully avoid these kind of problems.
+
+
+[1] 
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/media/platform/rockchip/rga/rga.c?id=50897c955902c93ae71c38698abb910525ebdc89#n41
+
+[2] 
+https://sashiko.dev/#/patchset/20260428-spu-rga3-v5-0-eb7f5d019d86%40pengutronix.de?part=16
+
+>
+> To stick with the spec, the capture format needs to be updated, and it needs to
+> happen in a way user can be able to read it back for the correct frame if
+> userspace make use of the queues. I see 3 options, let me know what you think,
+> or what is later implemented if you already thought about that.
+>
+> 1. Synchronously update the capture format width/height, document in the
+> respective control this behaviour, leaving to userspace to remember which frames
+> the change will apply to.
+>
+> This works nicely for this type of HW, but would be a bit complicated for a
+> deinterlacer, since the buffering might be HW specific. It also make usage of
+> queues harder, less independent.
+>
+> 2. Force a drain/stop/start for any 90 degree rotation
+>
+> This might impose a longer idle time for the converter core, and is kind of
+> opposite of your commit message. But requires no spec work.
+>
+> 3. Emit SRC_CH, implement the drain procedure typical to decoder resolution
+> change.
+>
+> Typically it means userspace can keep buffering on the OUTPUT queue, and once
+> the LAST buffer is met, it can simply read the new format (and new stride, since
+> due to alignment, this might be hardware specific) and toggle streamoff/on only
+> on capture queue to reactivate the processing.
+>
+> The 3. is more complex for the driver, but its a proven race-free method for
+> decoders already. 2 would be statusquo to get this series in, and we could post-
+> poned more advance work for seamless 90degree rorations. 1., I don't really like
+> that solution, it not quite generic enough.
+
+I'll go with option 2 for now to keep it simple and improve the status 
+quo a bit.
+
+Sincerely
+     Sven
+
+> feedback welcome,
+> Nicolas
+>
+>> ---
+>>   drivers/media/platform/rockchip/rga/rga-hw.c | 57 +++++++++++++++++-----------
+>>   1 file changed, 34 insertions(+), 23 deletions(-)
+>>
+>> diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
+>> index dac3cb6aa17d3..6c1956b04f6ba 100644
+>> --- a/drivers/media/platform/rockchip/rga/rga-hw.c
+>> +++ b/drivers/media/platform/rockchip/rga/rga-hw.c
+>> @@ -156,7 +156,38 @@ static void rga_cmd_set_dst_addr(struct rga_ctx *ctx, dma_addr_t dma_addr)
+>>   	dest[reg >> 2] |= 0x7 << 8;
+>>   }
+>>   
+>> -static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
+>> +static void rga_cmd_set_flip_rotate_info(struct rga_ctx *ctx)
+>> +{
+>> +	u32 *dest = ctx->cmdbuf_virt;
+>> +	union rga_src_info src_info;
+>> +
+>> +	src_info.val = dest[(RGA_SRC_INFO - RGA_MODE_BASE_REG) >> 2];
+>> +
+>> +	if (ctx->vflip)
+>> +		src_info.data.mir_mode |= RGA_SRC_MIRR_MODE_X;
+>> +
+>> +	if (ctx->hflip)
+>> +		src_info.data.mir_mode |= RGA_SRC_MIRR_MODE_Y;
+>> +
+>> +	switch (ctx->rotate) {
+>> +	case 90:
+>> +		src_info.data.rot_mode = RGA_SRC_ROT_MODE_90_DEGREE;
+>> +		break;
+>> +	case 180:
+>> +		src_info.data.rot_mode = RGA_SRC_ROT_MODE_180_DEGREE;
+>> +		break;
+>> +	case 270:
+>> +		src_info.data.rot_mode = RGA_SRC_ROT_MODE_270_DEGREE;
+>> +		break;
+>> +	default:
+>> +		src_info.data.rot_mode = RGA_SRC_ROT_MODE_0_DEGREE;
+>> +		break;
+>> +	}
+>> +
+>> +	dest[(RGA_SRC_INFO - RGA_MODE_BASE_REG) >> 2] = src_info.val;
+>> +}
+>> +
+>> +static void rga_cmd_set_format_scale_info(struct rga_ctx *ctx)
+>>   {
+>>   	struct rockchip_rga *rga = ctx->rga;
+>>   	u32 *dest = ctx->cmdbuf_virt;
+>> @@ -219,27 +250,6 @@ static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
+>>   		}
+>>   	}
+>>   
+>> -	if (ctx->vflip)
+>> -		src_info.data.mir_mode |= RGA_SRC_MIRR_MODE_X;
+>> -
+>> -	if (ctx->hflip)
+>> -		src_info.data.mir_mode |= RGA_SRC_MIRR_MODE_Y;
+>> -
+>> -	switch (ctx->rotate) {
+>> -	case 90:
+>> -		src_info.data.rot_mode = RGA_SRC_ROT_MODE_90_DEGREE;
+>> -		break;
+>> -	case 180:
+>> -		src_info.data.rot_mode = RGA_SRC_ROT_MODE_180_DEGREE;
+>> -		break;
+>> -	case 270:
+>> -		src_info.data.rot_mode = RGA_SRC_ROT_MODE_270_DEGREE;
+>> -		break;
+>> -	default:
+>> -		src_info.data.rot_mode = RGA_SRC_ROT_MODE_0_DEGREE;
+>> -		break;
+>> -	}
+>> -
+>>   	/*
+>>   	 * Calculate the up/down scaling mode/factor.
+>>   	 *
+>> @@ -431,7 +441,8 @@ static void rga_cmd_set(struct rga_ctx *ctx,
+>>   
+>>   	rga_cmd_set_src_info(ctx, &src->offset);
+>>   	rga_cmd_set_dst_info(ctx, &dst->offset);
+>> -	rga_cmd_set_trans_info(ctx);
+>> +	rga_cmd_set_format_scale_info(ctx);
+>> +	rga_cmd_set_flip_rotate_info(ctx);
+>>   
+>>   	rga_write(rga, RGA_CMD_BASE, ctx->cmdbuf_phy);
+>>   
