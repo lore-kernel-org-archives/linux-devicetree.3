@@ -1,192 +1,378 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011067.outbound.protection.outlook.com [52.101.70.67])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93FA32E62A9
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 21:46:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778622389; cv=none; b=jYXvjD93ibyvgO0M3IOy7JbpGp4bvzuSZPuXtvEYZUStOkdomw8xKJOVVhKcpsN5muSGO2PnB/DUZ+OIg6gm1KNTXuO7onePmV9/9fhH9LRV81hmdyGSJ4zoiGuzlUiyCS0TSTlMFIoy6SLE7avSaIZNHI/BLJ0fdKEGmqZ9SkU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778622389; c=relaxed/simple;
-	bh=snTpyrNf4tFcXrbLHZCMPFZ+Yug/ERkjC1uvYdZWL+g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YuWNb3sexFbi8y9YW+8FPRr9Blajf1+Dv64Tsv8FFhw6YcVhJqP0A3YUcp85ikRUi+8OAM0c96E1IABgRVLN/miiENJxoO3BB4lX1d2CC/LJTAMq20oFTZ4shnLJ7gKKbBYLT73dJDDCmy/e/3FYYxb4oboxWYV8MsJ6N/7GKvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cO4VoEFw; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF5A2DFA25;
+	Tue, 12 May 2026 21:47:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.67
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778622452; cv=fail; b=ABAcWlhKScj7lokkXVL8Yg+qjQ+w97sbywwP3dxMDK33wlj5buPH9bwxFTnhYZnzm+Rrm2eHACJfqhnRBOnngVPDHpDXbZuoeiIIp9j1QqWVZSNp7tCgQn/aAsUNasyZ4hHhUgv7CSxpEte9derTWMSogaUfEjUsr2hssotOcoA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778622452; c=relaxed/simple;
+	bh=wltcME82shZiCkPLyr7ncxuE14e7tFnXAddVwazzhgY=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=A0FDrKbJIGrGYAJ3LYLywnMT8jVA5L0cSl56RujLTJxSnFqcFeXfF4mN1DTzkjF837FKonsY3ycG3gUt0Fqd2tG70U/q0qL7FUdcXFW2xYWV9tK5nMasG11vqTiqHsEBakd8hux1z9NwcE64jH67EeKzu6MnetOO5ByjRi2k65w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=QfjhSA4A; arc=fail smtp.client-ip=52.101.70.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cO4VoEFw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB578C2BCB0;
-	Tue, 12 May 2026 21:46:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778622389;
-	bh=snTpyrNf4tFcXrbLHZCMPFZ+Yug/ERkjC1uvYdZWL+g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=cO4VoEFwlcyp7TeZzsjGwS5U64FFYempXMnbMduNw9K68uMo7cu9Nnkd4mt/fQ+uh
-	 DOSHCG2S99oVKxln1DuV0aaa4PFIUqH2de5HNJjJwrLwGVgM1lsBufRQQaMZm82Zhm
-	 m3Wa90gA/H8g1n7VatMPl5oCNyWSM6v+WOBnRBJEDQZE930Pa1Fr4xVYTrt1ZOKQ8f
-	 ZFZBisbTeR9kjTKXcP550Q4FrqiJ8TsNlH34TR8MxWCLgujGEF0njNSyhEM8MFMWsd
-	 DGzcUi0jidwH+3tLtOVa385mDwZjYKqyyi/FcuZQFoES0uHTWrPwzvBUqlE7NO+hpX
-	 c/XPXOq2maTDg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v4 16/18] ACPI: RISC-V: Parse RISC-V Quality of
- Service Controller (RQSC) table
-Reply-To: sashiko@lists.linux.dev
-To: "Drew Fustini" <fustini@kernel.org>
-Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260510-ssqosid-cbqri-rqsc-v7-0-v4-16-eb53831ef683@kernel.org>
-References: <20260510-ssqosid-cbqri-rqsc-v7-0-v4-16-eb53831ef683@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 12 May 2026 21:46:28 +0000
-Message-Id: <20260512214628.EB578C2BCB0@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="QfjhSA4A"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wz1qYQW4Nv3i4i8AVZNwjpVzqnV0XurWxIJu4/KLA8GdUPw8jjr2ED62EyUKD0+F2hvWIgFRYfndZ9xHRp73WsFNSiAQosdf5PQBLBSl1b+hLwkJZ+sgeWCiC8EGnRB851ranfigurJxADNCXhTwKg3Fgmyd1Z9DOOyyKBBo/gkkgKGiOv+IfDhgbLZZZxUttEwTN4iVsL1RtU5KyrTfpvDwEFi59FFI+lPNYtnQyZP6oVRl8Bd/2rGRYXDx6Rt+jVk9vQotShsgNCI1vwIAdqBnx70eJpTFYKJYmvW6aQJq6Xdqc+gQQz9KP7c374okw3iXiwOSX806/GncGKiv9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dm9vbSW+elDATPm1NqXx1sfIjXMEYAKVSHece4JBhWw=;
+ b=yAWuyb3Za3IskSaVvZr7xoQeRKh16T6QFGVoRomHEfV3EfPC98jTQCk34oNaikYv/JZ9+0Xa4wOPp4oWA/5vqAU1OYzHJPqSP2l+RYedZ/5ZLF4QAuv66lzERG/s85mIR+yPI3R6sRDYRQzNCGFFupoqfZ0FLAVBbwK3NuQx4KEnEzyJgxi30agpGL8KhKCVfO8EuTmh1r5Qfkap0htLlugROo1M+BvF6nUvpt01N/uoVkuOrLlrAh00go7yCkCYSwCxyX72mywlvJZUixnvnLJ23RD0nkXqoPAFxW6diMX7ZHnfNCX/p10hPH/FDluFPFVxRhIzkCdEOVgTjk+R6A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dm9vbSW+elDATPm1NqXx1sfIjXMEYAKVSHece4JBhWw=;
+ b=QfjhSA4A8xis/E9uMA0umvZuBR0vWeUc/18w0c1dpfi7215thKdYznh8vBzkYSKWCe/quQEt2E+sunZkOTCL0U8NexHGP65tBUgUhVMV7eY6LaUoK/cBr/oU5X+DiLWQnwqoalMSUOXDWZrHld9sdI/C0WZzlYjWwmYhHChlEhG4+Ws5jvadGhzGpTcFW7QA0w+F6HKMuzIIX+UXJnSS9aBSTs11eFUpgd2sy3Sc5bLR0SLQLB7ZGaEToi6qbzjfRgfs1O9FCJOl2G61xWD869RtNDbjj9hUjcEWVZeQ85AOLLNI07v6zJ/u9mwl+w28QdM39fFvggZETLUvihWXcg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by PAXPR04MB9399.eurprd04.prod.outlook.com (2603:10a6:102:2b3::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Tue, 12 May
+ 2026 21:47:26 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%3]) with mapi id 15.20.9913.009; Tue, 12 May 2026
+ 21:47:25 +0000
+From: Frank Li <Frank.Li@nxp.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	netdev@vger.kernel.org (open list:NETWORKING DRIVERS),
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev
+Subject: [PATCH 1/1] dt-bindings: net: dsa: Convert lan9303.txt to yaml format
+Date: Tue, 12 May 2026 17:47:02 -0400
+Message-ID: <20260512214704.1084890-1-Frank.Li@nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BY3PR05CA0024.namprd05.prod.outlook.com
+ (2603:10b6:a03:254::29) To DU0PR04MB9372.eurprd04.prod.outlook.com
+ (2603:10a6:10:35b::7)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|PAXPR04MB9399:EE_
+X-MS-Office365-Filtering-Correlation-Id: 80808e14-7fe4-4cc9-488f-08deb0700e34
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|19092799006|7416014|52116014|376014|1800799024|38350700014|921020|18002099003|56012099003|11063799003|3023799003;
+X-Microsoft-Antispam-Message-Info:
+	lhZjThALOeI1V+Bz01jkWsv9uUVV96Z3tX8pmF5QwNRAtJ6pfSb4/JolRGjXzdXByZxBoi5/HArthMCdhj3IyT93QESkesvFvhPN1cfoIVxq8OmL8SycPg7q673Q65DDcCnOxaDN+6t9DXfOHEfjcJUtzqXtERF4JqjoXVpU3B0pzuort5fOY+PNLFAzIRRkz9OkWmeesKGT8JpWuSeBghj4q504UuXheRCvTbEj6BoZ5uPyOFeow/n9fJWdubel6+PDyZjMfw4PMTT1LR7xzt7YtfiIZ1db2PryrkQTvvmP0w87jVx7LqELFxOrdW4JSrm4IpWR2LDgjsbD0Atz8xRtGV5KMw0iH16ITXo4GJENA/blEBkyr2xjniudSe87SeKd6mjRe7H6B3HHYF6w8jttvQVVLCNcJQ2SkphM+Op3zx0ku5XgzfRmeie+ljYmuGy5TboeoATIMDfUVbgMrgbABxfNzy3X/SX6kfBOi76lWJDJahibpLi43Edtf3rnbnO+BaOQ0h0CshL0rYICz/97oEaqo2d58gwEMpBTZXnBPrRvubCSH3tObJwX9oywKqjKBGJyOiCwvVfDop8NG47jmdpD+ozw/rBJ2Gk+3AHQrG89QAUiqXsLBgxCGBNAMKWWcz6mNZfdMmKX9G+QlCt3GuY4cH8oTvq3T6CiD3gI8gtAbQtNs+GyJgI7A5qtV2FUCvb4xnPzDWzp2c+yUw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(7416014)(52116014)(376014)(1800799024)(38350700014)(921020)(18002099003)(56012099003)(11063799003)(3023799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?UgWet1Q6pP1ByOdtN1KUZQjCAogQwwoFwGo+G3W9dI+poMnTJyKUl3/9EAcR?=
+ =?us-ascii?Q?p82JNam1mTpTPAh9bfqSKeDxr6LwVLAv2oqVtL/AOoS1VWSqmT1WLfVVV4jl?=
+ =?us-ascii?Q?oKTLPp9eyROfew2gfOfpeqQtYlcKoJ92KSf87KcmtSo5oBqmRejwzHAc8JKE?=
+ =?us-ascii?Q?c+L6VYTRmI9oSqR0n7R3w6rz321OGLs71ADIkFthT1nsrokx6i8ya6kvo32Z?=
+ =?us-ascii?Q?LM5rp+GNEMzbk/gYeTSNix4YZLBq0dOFomMJHv9MN7f0s7MJ/Ne2dP3ty+xh?=
+ =?us-ascii?Q?EI0+m+5Le83w9SQwZqPxs7Hl6P5kw6aoHZcWpQOqyapo01T4V/rBANqNo3/i?=
+ =?us-ascii?Q?+HwzzCR4MTs1ZZvFXLE8E9x/iQpA/PBN3CT9hil393C62XpbF1Mn65qUqgzr?=
+ =?us-ascii?Q?HeMAQpiwL0o7ojibSzadffwXmxwdO+W9I1i453XdzOlIyFH8NuO0GuQOq131?=
+ =?us-ascii?Q?oHmteq+NADAHkBNpHovRVQ3JeifAZNc5wozHNk+AbAG336XH1S6FGUvAMoUq?=
+ =?us-ascii?Q?GGH/qfDIEqIen+vWGAT6QEtmRIsmA12t0Hayd0MfIg+JMvN120RpT0ZpfCn/?=
+ =?us-ascii?Q?pId3z+WR5r8FhqBIG49eZucKgpFMNhhxGrvnq+kFNVnLiZJxfAJleCaGIxwH?=
+ =?us-ascii?Q?zJXvYJcB2o32VrtGrg9xER2sauQqZAZcSpkO0g5ikASXu374X4UnTtTK1iml?=
+ =?us-ascii?Q?UjK1u0XSNN1OGeDAfddBoGTZ/OUy/SroyE+KjsmlpzE399CBkOcUnVgghtmj?=
+ =?us-ascii?Q?zTLiMQqloZt26ERHMlXcWs6JudFuPY4wVLyNTlOcG/blhIU47MmkGeqxQJp7?=
+ =?us-ascii?Q?Cn2JT7yHZt+Z+mUufgs983swUPTgvknHI4xU+3/ftstTTpKj3a4xf+8lr5Bs?=
+ =?us-ascii?Q?oNt3RncaSmg0WQ8YruEZUhPTdNE2MjspNYdENtbk8dZJ74r2LcWIh895yVuR?=
+ =?us-ascii?Q?kiebD9+RRp39ADkb58X2IMVrJcvTaFgoC7yuTXySGwANJK230OeCy5c8FW9j?=
+ =?us-ascii?Q?LQb1DSY5hVXDTlDJIKJwRJuE96p88TzQRfVCSbLg9EEbl5ef5UCBRBPyOKGw?=
+ =?us-ascii?Q?z786Cwgpt3DKapBDzEiuGy03HCDGzm4Dk3uslJXZVH6DQdNlcxDfyEKNtoO7?=
+ =?us-ascii?Q?OsIkd20rdEg5Kl8xCnDhQKvDfDLwa/vouPYeiVVsE4qJyktcNdwRmO1qCLfb?=
+ =?us-ascii?Q?Xm4OvNlHK7uROGcRNc8Po0tZAYsSgIYxOO7J+obzpPMN8G3j260N4yl6+Lgr?=
+ =?us-ascii?Q?YSpbb4gyoT2Ecn6YhWsC8bQb1C/AWzoAIAv78QJK2m+GHFkNfcKz+D/JNyo4?=
+ =?us-ascii?Q?cHDxxsZWX52jGqTAEnKoeqh3sapA8ve1RH8M79zRjMKbRztRtCTKR3GJTUrH?=
+ =?us-ascii?Q?LwAw/lBZo3sMUivGyycL7194J3Riy7mYfRUkWsoR7u648dq2LDrQhpGW/hg2?=
+ =?us-ascii?Q?BiEzaXajQCci+BIzA0OcGkE+BiCt9WTBhvXo+2bXXeqNmPtozNh+N0obUD/T?=
+ =?us-ascii?Q?QGFYw4DTDFqmOZTHvNkCVcpQfRjAv3UMe8Ga5k/stg+OKQqMWvhzZ3E0inxI?=
+ =?us-ascii?Q?tly7xoPw95zYTwj+ut5PJmMguam+eJt0dengvYoOn0dSGKKHNoHdZKYGqC5e?=
+ =?us-ascii?Q?auUqdpwoIIUthwfp6tWilBSbCinOHYDRAzgzJVz5ChsTtTTLYzPfLrVmW2Vq?=
+ =?us-ascii?Q?MRddzAtHqbW9IRNI/LITgwg6KILWMy5JFKRvAOFqj+5dHK+S?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 80808e14-7fe4-4cc9-488f-08deb0700e34
+X-MS-Exchange-CrossTenant-AuthSource: DU0PR04MB9372.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2026 21:47:25.8745
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: v9s8qH3mnmZt0UywR6FyxycuKi3gPiwXJj1/FlZKnQaUlSyxUZTLHdKD7yk51MydcsPwdjQ/LMoIqclg6ZaQ6w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9399
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] The parser ignores the `rqsc->num` field and may fail fatally on v=
-alid tables with trailing padding.
-- [High] Unvalidated resource descriptor types may lead to misinterpretatio=
-n of resource data.
-- [High] The parser ignores `node->flags`, risking access to disabled or po=
-wered-down hardware.
-- [High] Hardcoded resource subtable offsets create forward compatibility r=
-isks due to missing revision checks.
-- [Medium] Missing validation of node `length` against the table boundary a=
-llows silent acceptance of corrupted tables.
---
+Convert lan9303.txt to yaml format to fix below CHECK_DTBS warnings:
+arch/arm/boot/dts/nxp/imx/imx53-kp-hsc.dtb: /soc/bus@50000000/i2c@53fec000/switch@a: failed to match any schema with compatible: ['smsc,lan9303-i2c']
 
-commit 163a54a89d0b05cc3754e1a635d0dc2d8cbb9e84
-Author: Drew Fustini <fustini@kernel.org>
+Addtional changes:
+  - rename switch-phy to switch in example.
 
-ACPI: RISC-V: Parse RISC-V Quality of Service Controller (RQSC) table
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+ .../devicetree/bindings/net/dsa/lan9303.txt   | 100 --------------
+ .../bindings/net/dsa/smsc,lan9303.yaml        | 123 ++++++++++++++++++
+ 2 files changed, 123 insertions(+), 100 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/net/dsa/lan9303.txt
+ create mode 100644 Documentation/devicetree/bindings/net/dsa/smsc,lan9303.yaml
 
-Add a parser for the ACPI RQSC table, which describes the CBQRI
-controllers in a system. For each table entry, populate a
-cbqri_controller_info descriptor and hand it to the CBQRI driver via
-riscv_cbqri_register_controller().
+diff --git a/Documentation/devicetree/bindings/net/dsa/lan9303.txt b/Documentation/devicetree/bindings/net/dsa/lan9303.txt
+deleted file mode 100644
+index 46a732087f5ca..0000000000000
+--- a/Documentation/devicetree/bindings/net/dsa/lan9303.txt
++++ /dev/null
+@@ -1,100 +0,0 @@
+-SMSC/MicroChip LAN9303 three port ethernet switch
+--------------------------------------------------
+-
+-Required properties:
+-
+-- compatible: should be
+-  - "smsc,lan9303-i2c" for I2C managed mode
+-    or
+-  - "smsc,lan9303-mdio" for mdio managed mode
+-
+-Optional properties:
+-
+-- reset-gpios: GPIO to be used to reset the whole device
+-- reset-duration: reset duration in milliseconds, defaults to 200 ms
+-
+-Subnodes:
+-
+-The integrated switch subnode should be specified according to the binding
+-described in dsa/dsa.txt. The CPU port of this switch is always port 0.
+-
+-Note: always use 'reg = <0/1/2>;' for the three DSA ports, even if the device is
+-configured to use 1/2/3 instead. This hardware configuration will be
+-auto-detected and mapped accordingly.
+-
+-Example:
+-
+-I2C managed mode:
+-
+-	master: masterdevice@X {
+-
+-		fixed-link { /* RMII fixed link to LAN9303 */
+-			speed = <100>;
+-			full-duplex;
+-		};
+-	};
+-
+-	switch: switch@a {
+-		compatible = "smsc,lan9303-i2c";
+-		reg = <0xa>;
+-		reset-gpios = <&gpio7 6 GPIO_ACTIVE_LOW>;
+-		reset-duration = <200>;
+-
+-		ports {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-
+-			port@0 { /* RMII fixed link to master */
+-				reg = <0>;
+-				ethernet = <&master>;
+-			};
+-
+-			port@1 { /* external port 1 */
+-				reg = <1>;
+-				label = "lan1";
+-			};
+-
+-			port@2 { /* external port 2 */
+-				reg = <2>;
+-				label = "lan2";
+-			};
+-		};
+-	};
+-
+-MDIO managed mode:
+-
+-	master: masterdevice@X {
+-		phy-handle = <&switch>;
+-
+-		mdio {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-
+-			switch: switch-phy@0 {
+-				compatible = "smsc,lan9303-mdio";
+-				reg = <0>;
+-				reset-gpios = <&gpio7 6 GPIO_ACTIVE_LOW>;
+-				reset-duration = <100>;
+-
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
+-
+-					port@0 {
+-						reg = <0>;
+-						ethernet = <&master>;
+-					};
+-
+-					port@1 { /* external port 1 */
+-						reg = <1>;
+-						label = "lan1";
+-					};
+-
+-					port@2 { /* external port 2 */
+-						reg = <2>;
+-						label = "lan2";
+-					};
+-				};
+-			};
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/net/dsa/smsc,lan9303.yaml b/Documentation/devicetree/bindings/net/dsa/smsc,lan9303.yaml
+new file mode 100644
+index 0000000000000..42f8473538a07
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/dsa/smsc,lan9303.yaml
+@@ -0,0 +1,123 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/dsa/smsc,lan9303.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: SMSC/MicroChip LAN9303 three port ethernet switch
++
++maintainers:
++  - Frank Li <Frank.Li@nxp.com>
++
++description:
++  The LAN9303 is a three port ethernet switch with integrated PHYs for the
++  two external ports. The third port is an RMII/MII interface to a host
++  processor. The device can be managed via I2C or MDIO.
++
++  Note - always use 'reg = <0/1/2>;' for the three DSA ports, even if the
++  device is configured to use 1/2/3 instead. This hardware configuration
++  will be auto-detected and mapped accordingly.
++
++properties:
++  compatible:
++    enum:
++      - smsc,lan9303-i2c
++      - smsc,lan9303-mdio
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    description:
++      GPIO to be used to reset the whole device
++    maxItems: 1
++
++  reset-duration:
++    description:
++      Reset duration in milliseconds
++    default: 200
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++allOf:
++  - $ref: dsa.yaml#
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    /* I2C managed mode */
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        switch@a {
++            compatible = "smsc,lan9303-i2c";
++            reg = <0xa>;
++            reset-gpios = <&gpio7 6 GPIO_ACTIVE_LOW>;
++            reset-duration = <200>;
++
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                port@0 {
++                    reg = <0>;
++                    label = "cpu";
++                    ethernet = <&master>;
++                };
++
++                port@1 {
++                    reg = <1>;
++                    label = "lan1";
++                };
++
++                port@2 {
++                    reg = <2>;
++                    label = "lan2";
++                };
++            };
++        };
++    };
++
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    /* MDIO managed mode */
++    mdio {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        switch@0 {
++            compatible = "smsc,lan9303-mdio";
++            reg = <0>;
++            reset-gpios = <&gpio7 6 GPIO_ACTIVE_LOW>;
++            reset-duration = <100>;
++
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                port@0 {
++                    reg = <0>;
++                    label = "cpu";
++                    ethernet = <&master>;
++                };
++
++                port@1 {
++                    reg = <1>;
++                    label = "lan1";
++                };
++
++                port@2 {
++                    reg = <2>;
++                    label = "lan2";
++                };
++            };
++        };
++    };
+-- 
+2.43.0
 
-Link: https://github.com/riscv-non-isa/riscv-rqsc/blob/main/src/
-Link: https://github.com/riscv-non-isa/riscv-cbqri/releases/tag/v1.0
-
-> diff --git a/drivers/acpi/riscv/rqsc.c b/drivers/acpi/riscv/rqsc.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/acpi/riscv/rqsc.c
-[ ... ]
-> +	for (node =3D ACPI_ADD_PTR(struct acpi_rqsc_node, rqsc,
-> +				 sizeof(struct acpi_table_rqsc));
-> +	     node < end;
-> +	     node =3D ACPI_ADD_PTR(struct acpi_rqsc_node, node, node->length)
-> +	) {
-> +		const struct acpi_rqsc_resource *res0;
-> +		struct cbqri_controller_info info =3D {};
-> +		int ret;
-> +
-> +		if ((void *)node + sizeof(*node) > (void *)end) {
-> +			pr_err("truncated entry at end of table, aborting\n");
-> +			riscv_cbqri_unregister_last(num_controllers);
-> +			return -EINVAL;
-> +		}
-
-Does this code also need to verify that the entire declared length of the n=
-ode
-fits within the table boundary?
-
-If a malformed node declares a length extending beyond the end of the ACPI
-table, the node pointer could advance past end during the loop increment:
-
-    node =3D ACPI_ADD_PTR(struct acpi_rqsc_node, node, node->length)
-
-Could this cleanly fail the loop condition on the next iteration and silent=
-ly
-return success instead of rejecting the corrupted table?
-
-> +
-> +		if (node->length < sizeof(*node)) {
-> +			pr_err("malformed RQSC entry: length %u < %zu, aborting\n",
-> +			       node->length, sizeof(*node));
-> +			riscv_cbqri_unregister_last(num_controllers);
-> +			return -EINVAL;
-> +		}
-
-Could this loop be bounded by rqsc->num instead of just node < end?
-
-If the firmware pads the table at the end for alignment, the parser might
-attempt to process the zeroed padding as a node.
-
-Would encountering this padding trigger this length check, unregister all
-successfully parsed controllers, and completely abort initialization for an
-otherwise valid table?
-
-> +
-> +		/* GAS must describe system memory. ioremap() consumes it later. */
-> +		if (node->reg.space_id !=3D ACPI_ADR_SPACE_SYSTEM_MEMORY) {
-> +			pr_warn("controller has unsupported address space_id=3D%u, skipping\n=
-",
-> +				node->reg.space_id);
-> +			continue;
-> +		}
-
-Should this code check node->flags before proceeding? Standard ACPI practice
-typically uses Bit 0 to indicate whether a hardware block is present and
-enabled.
-
-If flags are ignored, could the driver risk mapping and accessing
-memory-mapped registers of explicitly disabled hardware?
-
-[ ... ]
-> +		/*
-> +		 * Resources follow the node header in-line. Only res[0] is
-> +		 * consumed. Bound it against end before reading its prefix so
-> +		 * a table that ends partway through a resource subtable is
-> +		 * rejected rather than read past the mapping.
-> +		 */
-> +		res0 =3D (const struct acpi_rqsc_resource *)
-> +		       ((const u8 *)node + sizeof(*node));
-
-Is it safe to hardcode the start of the resource subtables using
-sizeof(*node)?
-
-If a future revision of the RQSC table extends the acpi_rqsc_node structure
-with additional fields, sizeof(*node) would be smaller than the actual
-node header size.
-
-Could this missing rqsc->header.revision check cause the parser to point in=
-to
-the middle of the new header fields and incorrectly interpret them as the
-first resource descriptor?
-
-[ ... ]
-> +		/*
-> +		 * id1 is u64 on the wire but cache_id and prox_dom are u32
-> +		 * downstream (PPTT cache_id, ACPI proximity domain). Reject
-> +		 * rather than truncate, so a too-large id is not silently
-> +		 * mapped to the wrong PPTT entry or NUMA node.
-> +		 */
-> +		if (res0->id1 > U32_MAX) {
-> +			pr_warn("controller at %pa: id1 0x%llx exceeds u32, skipping\n",
-> +				&info.addr, res0->id1);
-> +			continue;
-> +		}
-> +
-> +		switch (info.type) {
-> +		case CBQRI_CONTROLLER_TYPE_CAPACITY:
-> +			info.cache_id =3D (u32)res0->id1;
-> +			break;
-> +		case CBQRI_CONTROLLER_TYPE_BANDWIDTH:
-> +			info.prox_dom =3D (u32)res0->id1;
-> +			break;
-
-Does this code need to validate the type and id_type fields of the resource
-descriptor before extracting res0->id1?
-
-If a controller specifies multiple resources (node->nres > 1) and the first
-descriptor is not the expected cache ID or proximity domain, could the
-parser blindly misinterpret its contents?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510-ssqosid-cb=
-qri-rqsc-v7-0-v4-0-eb53831ef683@kernel.org?part=3D16
