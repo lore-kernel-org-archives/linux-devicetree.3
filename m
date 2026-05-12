@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F4053CF022;
-	Tue, 12 May 2026 20:23:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 966BA3D1CCC;
+	Tue, 12 May 2026 20:23:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778617429; cv=none; b=E49cuIed+x3xVp8MNjRW9NXRQAo+3ivsoOAYf9R0ROfAJZikC1T/3LAe2YOnBXfsOYlLHHg/NCvsFZACi68hpz5PfEM92MujtJAaeheRwOdqdcvH4FvB3EeA6Rg1EfAsUgtA4Z8u4wEdmd/uPa90IjGxZfLwYj8Yn9ZmYbSyKm8=
+	t=1778617429; cv=none; b=t3AmJb813wfAmenfNPhe83npsVX6PXkPe4Epdrkdza+aSItwOWbT5ahwNXYQK1a1tEoloBC4iuXKsD6aKYTQtCEbK+j8aRJgCSrC30trmQWiv0NwmPPTcwxIiL7JnC3IT/xBMlQBSB+fzCca7AfAPD7hyz9kS4Hpf4icPBfdLLI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1778617429; c=relaxed/simple;
-	bh=0cfdKCCcPXoLmDCDkVPC+HsGiGSLOzuaJ4fLPpEdLhk=;
+	bh=pRDKmY+PbXKvtePgEVuGEJbHXcStxT6RTsuZeZHS/rQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GW229uddZhGGSjvS8Hgegg8A+SACRRs9QVFPj+jXaz4tkVtFmi6fuDRju0lLbZc+ZFzWXA3Ty2+5Hn/0djOlfvws05YaJ9//Zti3CaC2jv/L6SVXfPojs+PIkaO3rhM0SYfq2tw6NBjOUaWIvU4mW06+WB+ROJHoRCZ9gIOroIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LgDDXQZ5; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version:Content-Type; b=lkmvIy0xMbl8MDORTf7038LBTXO+k9HRq6yatJCipSnNdsPPYKskog0QnNidR3DvZNgsJmb2ycR+Vrllwqd/H4GtZl1QWYaOycfxnHJ2VctH9UXpEI9AiL/oVj8WIjpUoW1/c2dDNURTPfTsVRG8T1ZIo6aCq437SlkHtAKrm+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lkWxgq/r; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LgDDXQZ5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D514DC2BCF5;
-	Tue, 12 May 2026 20:23:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lkWxgq/r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5231C2BCC7;
+	Tue, 12 May 2026 20:23:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778617428;
-	bh=0cfdKCCcPXoLmDCDkVPC+HsGiGSLOzuaJ4fLPpEdLhk=;
+	s=k20201202; t=1778617429;
+	bh=pRDKmY+PbXKvtePgEVuGEJbHXcStxT6RTsuZeZHS/rQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=LgDDXQZ5xvYEAelgMVxOtCP+yP/Ut3UnP/JQ5IKqXhcSFIdi/are6YqxhgIi7XI54
-	 AnV2OkS7s35gsfyrTG/e0BwQZckDJEg0Tcoxbu6J3gBr58dQ3bTUpsRkaSkslCc7QU
-	 upvOYMKgkrQLdY4avU69+adKLc40qfnlH17LVakFUHdQbspfxYJcCTr9+mzKBASqYG
-	 HY45Rt6e64yVYdvDN+vJ82UiA/IPPo6LbisB8E5EP8gFiVkCf7644g65C1oqzO7TI8
-	 K67Qda3AST9Hui0Atl7B/ye+BwTkU9yCAbrSH3UfzWYkp671UdtnbjhYIkbZumZJWD
-	 d7eYzn589mNMA==
+	b=lkWxgq/rPg65t+8fOMO7VkGHjCKnwmyoz+PgkZBv9EsfBtoW1gHcjPYV0jnH1DREm
+	 wAVzYixKJh6TD4T1LFrHvj1ocFTffMvrkLVk9WuKPmAcED88vDAWKYayivoWX4fMpk
+	 kft4tb06WxxAxY5F5XuInkdjXo47s7v9O6frfSdcTI/ao6Nq65RPMCaMEZ1yy9n0Si
+	 5DsF3cRYAxCiKd+0QKMyeHR3nlHMp++uwv3bTw4iJ0NMFtEvV71Q3EaNtFCkFHJb2T
+	 7sXuDU4dpRjVVajU8aukKkppJdy7aujuyPqcST3HlNwDlbpIxErTqSYEKwTNHEDVui
+	 fHVGyNYkFFOvA==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
@@ -36,12 +36,12 @@ Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	kernel@oss.qualcomm.com
-Subject: Re: [PATCH v3 0/2] arm64: dts: qcom: QCS615 Talos EVK audio support
-Date: Tue, 12 May 2026 15:23:00 -0500
-Message-ID: <177861739341.1242344.11016918116428252722.b4-ty@kernel.org>
+Subject: Re: [PATCH v4 0/2] arm64: dts: qcom: QCS615 Talos EVK audio support
+Date: Tue, 12 May 2026 15:23:01 -0500
+Message-ID: <177861739342.1242344.10363023412612381424.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20251204083225.1190017-1-le.qi@oss.qualcomm.com>
-References: <20251204083225.1190017-1-le.qi@oss.qualcomm.com>
+In-Reply-To: <20260324060405.3098891-1-le.qi@oss.qualcomm.com>
+References: <20260324060405.3098891-1-le.qi@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,7 +52,7 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 04 Dec 2025 16:32:23 +0800, Le Qi wrote:
+On Tue, 24 Mar 2026 14:04:03 +0800, Le Qi wrote:
 > This series adds initial audio support for the QCS615-based Talos EVK
 > platform. It introduces the GPR (Generic Pack Router) node in the SoC
 > device tree and enables a sound card node with the DA7212 codec on the
