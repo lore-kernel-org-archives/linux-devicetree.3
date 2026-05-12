@@ -1,201 +1,188 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2115.outbound.protection.partner.outlook.cn [139.219.17.115])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC5A44DD6F9;
-	Tue, 12 May 2026 06:24:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.115
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778567108; cv=fail; b=ID08o3YgvnX2O7dbSO0eiNknmTL6I30HOUd1KsoqFBmbeXC+Ow3lntrmV9Ielw8PouMrGHB/sSLHxEQvyOFrwW/zsCrofLvVKwQWHUoFYMbdjx/e71oiHlNhI7wX3ZqWyWaSHonQqBGeNu/b8K62jGkY0zw4C5G3Q6XE2kekogw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778567108; c=relaxed/simple;
-	bh=yZS2eclfp5wvzQcKo9HotidqI7141vLkHrAHMaf8fWc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rgTX8T4UuYxNIjIYfvVU16wC0Th0IFQ8rnG5j23wRmxy83JPZ1SEuFZTJUSgHCbFGkDepm7FgGT/4v07mw4XfvOgN9wrfwsGHvbhRIiIFVZGOeeiLpyPiB+k3ly6vd+XuhxL9pOpTN6ds/pfn4XjH/zygt3sKUKmgWinVye/UjQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ai//4D0W3dE5xfk5s/s0ZM+Npi7nIE4ngmCs6jahm95Bb+GdedC2KY0iQq8P3ELof9frooqFbanmTr6KzqPrILpP8aECnCB2GGtmoXx5g8zyAyz6SBRa2E0ElsMCPEuVMJvXfwl1eE8lcTz8usmyjbL6oHht5+Eln222t8KS6tq+ar6QUZb1ShbY/JelZkzJYS3HEXB7EG2jWICjygQHzh9+otWuY0h+n98r6FSh1vEUXx697IWOp2T4CqtxsrIhgAbSUYivlV2gX0QxaKKLpVavtcc/R0Tm3pAfXb/dUuOR2JIfjZ4CM/maS/To2LdCvyej3S0ARURERmE52idmvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FEL8c26woTzEo3WQXNshz+AHlm7ybJwJDUxHnjpaamA=;
- b=P+COtwuk6+ShJ/6Ge2QqjLbnycUR6obB8VF7gA3yG8oBFteLHPFFkHqIzqKO7YmuSCErneqGgVW8k4nICIqmceiAbSMFVkoRJKz5mE25GCausIr5Sy12uDfFVoEm2XRH0BYFyZVU/cH5UfDgHD/mAvbvDjdS0/jHJvcaamOaZpUOTWWUtD51pdzTfTYsI/bH5CPYTn2No4Ajq8D0mZQdYfQ8CxY9dlMo8lOT7y4Xx5HL8WNXQ+Lp6hw2ZTMkkQKlBMGVE0vT/SlbvWiTjFGO9P5zUXrn15DPj2SuNf1bCz1nOhbd3uwGZyhV8P1z97RUEVqoRusgV1dMD/Yf8p9i4w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:18::6) by ZQ0PR01MB1302.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:1b::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Tue, 12 May
- 2026 06:24:13 +0000
-Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- ([fe80::973:272c:ab11:7570]) by ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- ([fe80::973:272c:ab11:7570%6]) with mapi id 15.20.9891.021; Tue, 12 May 2026
- 06:24:13 +0000
-From: "lianfeng.ouyang" <lianfeng.ouyang@starfivetech.com>
-To: Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-crypto@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 2/2] hwrng: starfive: Update clk and reset sequence
-Date: Tue, 12 May 2026 14:24:04 +0800
-Message-Id: <20260512062404.4540-3-lianfeng.ouyang@starfivetech.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260512062404.4540-1-lianfeng.ouyang@starfivetech.com>
-References: <20260512062404.4540-1-lianfeng.ouyang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SHXPR01CA0007.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:1b::16) To ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:18::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914B0357D19;
+	Tue, 12 May 2026 06:29:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778567355; cv=none; b=YxWZ2zIP9s5Ht+C2UDHrUj49UQlOkfpmShwO3aZVUWnvMpe9h/1avWIa7L9EGCaw32w9HTLM2/odeBl/stVc6qx5FT0i7/lx/CprfKDve/1AN9dC5LAHq7TRsLp+UvrOWfWA71Q+DEnF8alsr4LsfThtP4itws59tRkIykEGjrM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778567355; c=relaxed/simple;
+	bh=Oo+KTjYKYfxwig/IKUE/DuqgmKu3ILJeUNkunDT+mHQ=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=JPFm/nHIgkqwX1DnrK3e+YlAHwsquALIV+yBFvyUQVAZY32CHTR1nFlUSGeiplgfn6N+R1YbSpIG01Pzyx1sm06AUQj3UjPeIRzp21bOihhX57CauSJ9IZzqRai6RGVxDoBp18t2YxqmoENYi927OrIEZWiuqxlXWZYTl7oGTkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=vxamPC5x; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="vxamPC5x"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1778567347; x=1810103347;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=Oo+KTjYKYfxwig/IKUE/DuqgmKu3ILJeUNkunDT+mHQ=;
+  b=vxamPC5x7Jn+ob9qxFZ76FdB5760npGncd5TCwRvO6uJt4Kv8Ljem/0N
+   5+yWqAa5DkMfkjb0EgKPVAnhlY6fqA9TkXxu/jIX6BEW9epb/JualBIlB
+   5TjiJ+cYvexlUdamNk/2csCVLZdTmuvFm/dh4P1uKeOAxhbsGOWUEMe75
+   g9GBKNA/1jxa4P6A5NeMnmh7NVG8CL1LlJK6st3i/QwdicinFJjHOw+CM
+   8WzUwS+Tr0CNe5seLulm0xAhPyp0LmVs0wqYNSMwpSz/2wxwO04bI04Tm
+   Rm6j5RJZljB2lTu8pgNIkOObN/dm9EoLoc1kcZxdXcfooPH0vsPKF2FMP
+   A==;
+X-CSE-ConnectionGUID: rbouXjx3QOGRKvFETiyjeQ==
+X-CSE-MsgGUID: j9+9l88vSauU/Pg6jiP03w==
+X-IronPort-AV: E=Sophos;i="6.23,230,1770620400"; 
+   d="scan'208";a="288736053"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 May 2026 23:28:51 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
+ chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.37; Mon, 11 May 2026 23:28:50 -0700
+Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Mon, 11 May 2026 23:28:47 -0700
+Message-ID: <5d440e2a4647a578c277e303a8ad7f0f4bc96767.camel@microchip.com>
+Subject: Re: [PATCH net-next v4 1/9] net: dsa: add tag driver for LAN9645X
+From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
+To: Jakub Kicinski <kuba@kernel.org>
+CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
+	<davem@davemloft.net>, <edumazet@google.com>, <pabeni@redhat.com>,
+	<horms@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <woojung.huh@microchip.com>, <linux@armlinux.org.uk>,
+	<Steen.Hegelund@microchip.com>, <daniel.machon@microchip.com>,
+	<linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+	<devicetree@vger.kernel.org>
+Date: Tue, 12 May 2026 08:28:46 +0200
+In-Reply-To: <20260506014552.1616551-1-kuba@kernel.org>
+References: <20260430-dsa_lan9645x_switch_driver_base-v4-1-f1b6005fa8b7@microchip.com>
+	 <20260506014552.1616551-1-kuba@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ0PR01MB1269:EE_|ZQ0PR01MB1302:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8d67d387-e725-46a6-0107-08deafef15a3
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|52116014|366016|1800799024|18002099003|22082099003|38350700014|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	t7/E53i2tDGDvd1M+zFIz/YtELIdgb5XQVM1zKqEmPNdUsr0p3Mj0fwcqw4JzEJQTk9qan02hI831LyCgWn9FJ7e88MX9N+E/41VJ6zwbBGBOgkZLo2jO+kV6LOc9+7hw8VnegZldYnqNzfKutQ9uUNOYpxA6ueFaCBnXgN2N0U2WUl0rEqNQ6qgi3ALzIV0whrSYMcxMIFsQgfpCojdou98jok601ID8F/TtUojyjaz+7l74Ze+Ou0iajfRyLMU3nlaMlwhUWsOnG3noyJGvUKvYg8RA3O+gMlNVUjDxgXbnZcoRc214F0o1d0c+TNkx1rPUSFA3eyGDSsZrANoLfNCcNyzBgf5NbcWYh2Hn71h7s37CfFlHP6dlG9L99zp0CxmrA4wcHxYS4p518eUpx/HSjIjtH4aeYCPcRU67cTCg6TRWvPfPxYh0It9n60wS3Q6WOeF1dMmVSdx42uXlfG//tSyNHbzHxmff6mexTAp184Jq4RVnXkkK5Bcu1xD084mDi5B2SKzrDokbgVeVbV1jMRfK2hOjEf9mVhYOC7Qt3ZhFE35tPSJA7XxKK2M
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(366016)(1800799024)(18002099003)(22082099003)(38350700014)(56012099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?/8BXJmeT3LWaWZ2UPnDTdmkfoJlth6mUI9B6ycjcII6FJG1vaWtQScpoOgmq?=
- =?us-ascii?Q?j83NZS287YzwfdB1cHM/XeukL+y9VCugEhb/UYLudNLp953MIPLVCthhUKT4?=
- =?us-ascii?Q?3bCWe1wQmSBIevm3KCLn+sfIsxj+eJjc4WoP5YvfROXgZRSXexp0VKAdQCmE?=
- =?us-ascii?Q?o+IW8hH9TG1zG48u5TPbYgbDd/tU7xCOWYDl7xIqm37iXZ6OowOxY0OiylYS?=
- =?us-ascii?Q?XSRPmHRA5NDgu1mzFXiNfmXG130m8xmTSwVdx1DoCxNsjNWW8CAfm8zhDBJc?=
- =?us-ascii?Q?s9NX+3GvoyqZ/5J6iUbk53sMS7TDfzG5DDNdQW9XV7P22x5tc1YpC6Yg6n5B?=
- =?us-ascii?Q?BA1q6dZW5pdDrf23LSLnt7oJAeJqlzY6N/bu1RpjQB44lK7C+hm0s28VD0xD?=
- =?us-ascii?Q?BPcvzW1/Mc3pfiHq4KlJssuCNv4SOfVv7o0J726ARZKZ1YYXVzKeiJPDXuq/?=
- =?us-ascii?Q?BQyYjWa+Gmy4Phom5lbBTxNhR9yHmwiJi96nGXsoqebII/1bSKT3TBpIjSfU?=
- =?us-ascii?Q?QXPRrlos6OnaKGa+zc+QWWapVP6lRVAyZdi88ValV6NTVXfuK1SNDG7eO120?=
- =?us-ascii?Q?XX98GrR2zVPx0MYTIVuHuVOOpnzRu/QZT5ogKHbjp2pdDOQ4MXZS25RmU7bK?=
- =?us-ascii?Q?fW2ds8ONEIhXgxaoGiYAaBSwdpqLu3viLa/Ur5LxzMqA7IYdCclhSggEzcdA?=
- =?us-ascii?Q?0tXi60O1AH8JtTgbgni1h184hF9P2jSYr+9MurLz3grUVTz+QZg5ct56PoF+?=
- =?us-ascii?Q?DH9YCU/4HKWDIKI+kVqHaJxKDjW1FRJ6BVK+0dXgE5IR/F9/Vk979OI90h5B?=
- =?us-ascii?Q?TNA5rbvh04aC5geLmAfcIkbEAwEvOnmbmM36/M6fgCJf7Hpoqi0SVj1okb2M?=
- =?us-ascii?Q?z7s9rqJLnlTksveWizw41aVN1LRrCaNqZ7uzoZaSM+CIzyCs7wTiR+dougUX?=
- =?us-ascii?Q?D2l9qc69TxVqUt6g3GiSbjBkLbT3jkYFEZQrIY2gFwm+bhMpXWc1gn5KFDhz?=
- =?us-ascii?Q?uJFtbx1Hhn0wT+sJeC+u9M6D+0bonPeWmasFppm8SKHSbNRZYzdq2oGsn3KN?=
- =?us-ascii?Q?KT8yOVUfjnCbq40tf52/zvZX1pHRbdGwoAqqzZERNDz8dbhCR65Y6Kr2AWHk?=
- =?us-ascii?Q?/kBX+7Hy7+bxiPZIUPet+vGiNAI4SSo/I7zzbsKdrMdiVXHznZS75TATfNaU?=
- =?us-ascii?Q?pMapb/8xqHOX+w/z2brLHMyg7MAdzE6bXEn4ofOo+XF8Cm/JpKit10XOBgym?=
- =?us-ascii?Q?9OuYBrxsWLq5D7BI1R5HG1Cwa9qVYSt9fw1jcTfOtFuWmK9lnZqKhovzYNqi?=
- =?us-ascii?Q?9hZuBdbgmqBMH5a7hpqSnQGwY5izqP+We38cF1GQLKROinx3cgPlgbxclMzd?=
- =?us-ascii?Q?xrrxYJsogtMwRkVdAV7EgLxgzl9BTF7IG8wmB4M4j775WeJBJbXZ3xwLULFU?=
- =?us-ascii?Q?OP+SCwFlrB7bj/Do8OgWk4+2hJepw24jaN9PtymXW1Wd3qmTpRj4QLIyCeHf?=
- =?us-ascii?Q?KV9irFCFYFEClQQwnQ0a2R+MKB8U386x3/Uy77F8W7W+RKY5Rv+U5/XHTSe6?=
- =?us-ascii?Q?zldzTiR/5VYiQgZRvLYAHwOkDbvRELDrS7I4Ey0VCJEctUqYiGlmXTTfMjUd?=
- =?us-ascii?Q?MGjKDvAlVdM8nMtX6iZiI4HZvyPa+sneapsxs013/AtDBjafOSf2n/L93lmi?=
- =?us-ascii?Q?8RQKMxYNIc3hQ1MDWhbj4c2TEQIl1rb8hiV4Irnw2HJZg3vemFJcxrQ/Rf1g?=
- =?us-ascii?Q?Zse90ugrTUzZABWklXgNqK6n5RI74ySfSCV9n+hNfsF4aE1yLT/Z?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d67d387-e725-46a6-0107-08deafef15a3
-X-MS-Exchange-CrossTenant-AuthSource: ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2026 06:24:12.9100
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yW27BOblaMFxkqiRwfJoCWOr7erm/psrRaU2QgDm/7TbV1KYjsaf6ISDF2hSyLVlISLbT6KNmcJkykG1X/c/u6O0jTs1mncLPSpI47HxjuBhNSa9AfBXey402OtCFxXT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ0PR01MB1302
 
-From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+On Tue, 2026-05-05 at 18:45 -0700, Jakub Kicinski wrote:
+> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
+e content is safe
+>=20
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> ---
+> net: dsa: add tag driver for LAN9645X
+>=20
+> Adds a DSA tag driver for Microchip LAN9645x switches operating with a
+> front port configured as an NPI CPU port. RX uses a 16-byte long prefix
+> plus a 28-byte internal frame header; TX uses only the IFH.
+>=20
+> > diff --git a/net/dsa/tag_lan9645x.c b/net/dsa/tag_lan9645x.c
+> > new file mode 100644
+> > index 000000000000..81e7a78e0f81
+> > --- /dev/null
+> > +++ b/net/dsa/tag_lan9645x.c
+>=20
+> [ ... ]
+>=20
+> > +static struct sk_buff *lan9645x_rcv(struct sk_buff *skb,
+> > +                                 struct net_device *ndev)
+> > +{
+> > +     u32 src_port, qos_class, vlan_tci, tag_type, popcnt, etype_ofs;
+> > +     struct dsa_port *dp;
+> > +     u32 ifh_gap_len =3D 0;
+> > +     u16 vlan_tpid;
+> > +     u8 *ifh;
+> > +
+> > +     /* DSA master already consumed DMAC,SMAC,ETYPE from long prefix. =
+Go back
+> > +      * to beginning of frame.
+> > +      */
+> > +     skb_push(skb, ETH_HLEN);
+> > +
+> > +     if (unlikely(!pskb_may_pull(skb, LAN9645X_TOTAL_TAG_LEN)))
+> > +             return NULL;
+> > +
+> > +     /* IFH starts after our long prefix */
+> > +     ifh =3D skb_pull(skb, LAN9645X_LONG_PREFIX_LEN);
+>=20
+> [ ... ]
+>=20
+> > +     skb_pull(skb, LAN9645X_IFH_LEN);
+> > +
+> > +     if (unlikely(!pskb_may_pull(skb, ifh_gap_len + ETH_HLEN)))
+> > +             return NULL;
+> > +
+> > +     skb_pull(skb, ifh_gap_len);
+> > +     skb_reset_mac_header(skb);
+> > +     skb_set_network_header(skb, ETH_HLEN);
+> > +     skb_reset_mac_len(skb);
+> > +
+> > +     /* Remove the long prefix + IFH + ifh_gap contribution from
+> > +      * skb->csum so the stack sees a checksum consistent with the
+> > +      * real Ethernet frame. skb->data currently points at the real
+> > +      * MAC header.
+> > +      */
+> > +     skb_postpull_rcsum(skb,
+> > +                        skb->data - LAN9645X_TOTAL_TAG_LEN - ifh_gap_l=
+en,
+> > +                        LAN9645X_TOTAL_TAG_LEN + ifh_gap_len);
+>=20
+> Does this skb_postpull_rcsum() call subtract the wrong region from
+> skb->csum for CHECKSUM_COMPLETE frames?
+>=20
+> By the time lan9645x_rcv() is entered, the conduit's eth_type_trans()
+> has already pulled the first ETH_HLEN (14) bytes of the long prefix and
+> adjusted skb->csum accordingly, so skb->csum covers bytes starting at
+> offset 14 (the remaining 2 bytes of the long prefix plus IFH plus any
+> gap plus the real frame).
+>=20
+> At the point of the skb_postpull_rcsum() call, skb->data points at the
+> real MAC header, i.e. at offset LAN9645X_TOTAL_TAG_LEN + ifh_gap_len
+> from the start of the originally-received frame. So
+> skb->data - LAN9645X_TOTAL_TAG_LEN - ifh_gap_len points at offset 0,
+> and the subtracted region is [0, LAN9645X_TOTAL_TAG_LEN + ifh_gap_len).
+>=20
+> That region includes the first 14 bytes that eth_type_trans() already
+> removed from skb->csum, and it stops short of the real MAC header which
+> also needs to be removed. Shouldn't the subtracted region instead start
+> at what skb->data was on entry to rcv() (i.e. post-eth_type_trans) and
+> cover LAN9645X_TOTAL_TAG_LEN + ifh_gap_len bytes from there, so that it
+> matches what skb->csum actually covers?
+>=20
+> For reference, tag_ocelot.c (cited in the commit message as the
+> architectural model) saves start =3D skb->data at function entry before
+> any skb_push()/skb_pull() manipulation:
+>=20
+>     net/dsa/tag_ocelot.c:ocelot_rcv() {
+>         ...
+>         u8 *start =3D skb->data;
+>         ...
+>         skb_push(skb, ETH_HLEN);
+>         skb_pull(skb, OCELOT_SHORT_PREFIX_LEN);
+>         ...
+>     }
+>=20
+> and later passes that saved pointer to skb_postpull_rcsum() with the
+> total tag length, so the subtracted region exactly matches what the
+> NIC's csum_complete covers.
+>=20
+> Would saving skb->data on entry (before the initial skb_push(ETH_HLEN))
+> and passing that as the start argument, with length
+> LAN9645X_TOTAL_TAG_LEN + ifh_gap_len, produce the correct result here
+> as well?
 
-for jhb100, While IP assert async reset, it may generate glitch
-and propagate to downstream IP. In order to solve RDC issue,
-conduct clock gating before asserting reset to prevent generating glitch.
+Hehe, this is what I did originally, but in the previous version sashiko
+convinced me that was not correct. I do not have a CHECKSUM_COMPLETE=20
+host to test it with unfortunately. But after looking at mlx5 it does seem
+the original was correct and the (real) ethernet header should be subtracte=
+d.
 
-Jia Jie Ho has resigned
-
-Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
----
- MAINTAINERS                          |  2 +-
- drivers/char/hw_random/jh7110-trng.c | 18 ++++++++++++++++--
- 2 files changed, 17 insertions(+), 3 deletions(-)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index d3a6b3f6b6a0..729b20ecc697 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -25280,7 +25280,7 @@ F:	Documentation/devicetree/bindings/perf/starfive,jh8100-starlink-pmu.yaml
- F:	drivers/perf/starfive_starlink_pmu.c
-
- STARFIVE TRNG DRIVER
--M:	Jia Jie Ho <jiajie.ho@starfivetech.com>
-+M:	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
- S:	Supported
- F:	Documentation/devicetree/bindings/rng/starfive*
- F:	drivers/char/hw_random/jh7110-trng.c
-diff --git a/drivers/char/hw_random/jh7110-trng.c b/drivers/char/hw_random/jh7110-trng.c
-index 9776f4daa044..f5eb434c94f5 100644
---- a/drivers/char/hw_random/jh7110-trng.c
-+++ b/drivers/char/hw_random/jh7110-trng.c
-@@ -234,12 +234,18 @@ static irqreturn_t starfive_trng_irq(int irq, void *priv)
- static void starfive_trng_cleanup(struct hwrng *rng)
- {
- 	struct starfive_trng *trng = to_trng(rng);
-+	bool is_jhb100 = device_is_compatible(trng->dev, "starfive,jhb100-trng");
-
- 	writel(0, trng->base + STARFIVE_CTRL);
-
--	reset_control_assert(trng->rst);
-+	if (!is_jhb100)
-+		reset_control_assert(trng->rst);
-+
- 	clk_disable_unprepare(trng->hclk);
- 	clk_disable_unprepare(trng->ahb);
-+
-+	if (is_jhb100)
-+		reset_control_assert(trng->rst);
- }
-
- static int starfive_trng_read(struct hwrng *rng, void *buf, size_t max, bool wait)
-@@ -337,12 +343,19 @@ static int starfive_trng_probe(struct platform_device *pdev)
-
- 	ret = devm_hwrng_register(&pdev->dev, &trng->rng);
- 	if (ret) {
-+		bool is_jhb100 = device_is_compatible(trng->dev, "starfive,jhb100-trng");
-+
- 		pm_runtime_disable(&pdev->dev);
-
--		reset_control_assert(trng->rst);
-+		if (!is_jhb100)
-+			reset_control_assert(trng->rst);
-+
- 		clk_disable_unprepare(trng->ahb);
- 		clk_disable_unprepare(trng->hclk);
-
-+		if (is_jhb100)
-+			reset_control_assert(trng->rst);
-+
- 		return dev_err_probe(&pdev->dev, ret, "Failed to register hwrng\n");
- 	}
-
-@@ -378,6 +391,7 @@ static const struct dev_pm_ops starfive_trng_pm_ops = {
-
- static const struct of_device_id trng_dt_ids[] __maybe_unused = {
- 	{ .compatible = "starfive,jh7110-trng" },
-+	{ .compatible = "starfive,jhb100-trng" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, trng_dt_ids);
---
-2.43.0
+We can not save skb->data on entry, as it may have become stale. But just
+swapping the order of skb_pull(skb, ETH_HLEN) and skb_postpul_rcsum should
+give the desired effect. I will fix this in the next version.
 
