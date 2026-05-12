@@ -1,174 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C718625F7A5
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 01:12:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A7431FBEBC
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 01:13:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778548328; cv=none; b=SWREM2138h2FLXIE+yQT2SGvOfV3G+ZxI+/f3vsZ46Qkpx5rIEFF58F73fhfeyD00CYYPUtSEsEmVONBU0FJA/UMmw/Zd99Ziyxa8R9rAmYaNoxEPiS3628rbn5fRmfWfNELr+E9cKpjS7A7106O+dqk3nAheFdMwDsmTDCkxws=
+	t=1778548411; cv=none; b=HmO2p8djdz9zHBxGUGuwmvXg2RqeYnx33dPgqbi1RbBSHdomNc7E3o2ANoapxCScjZ6ay2+P2okmuDRr2BFMtgdDZjoOu236+t8dH8JXNWwg3/fD3rwstpg2awM7g2DbE8XbMFDKr6KbuWDeoQvKRFbZyeg3CBqFs1oJ1RL8X/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778548328; c=relaxed/simple;
-	bh=M7Ch6uVgbesLp6xGNdVEJSycki9fRn6OnyI+5Mv05fk=;
+	s=arc-20240116; t=1778548411; c=relaxed/simple;
+	bh=gN4/sMoIRXaKmiGhPaRAvFKwvZTEbeGGQmu3IFlUBkg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=krbQJGBDgwxmIwy4ZE8Ysy0O6TEdJx63ohWBbSo1eVx5gx/qXCUM9IBiapZ3obl0fQh/No+pHTsz1lVpQGQvGuP0UGNB98ONgFf3lfo79QqgUyMLuyi4HnX8vz17/OA01eWjPMB2LhKsTzcbr4OY6QoydtMsj2yqkyCpqVy+QrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dsc5i+aX; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=c1sNzb62axgFKjEkuxdmUMzD+GEHM96SXuBH25uMMlrIrDHmjze4DGucClWiO7Kh7j9Sz/w/ZEcrg5+1C10IupbnJdwRGekPOM+RHnHJBusaPI23nxM3mlXlX8Pt4SWqZu4hwCBD/1TvGg/aHCegwl+PhAQPX4zOJ0RxwJ01kvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kdpGGXiw; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dsc5i+aX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FFBDC2BCB0;
-	Tue, 12 May 2026 01:12:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kdpGGXiw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD609C2BCB0;
+	Tue, 12 May 2026 01:13:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778548328;
-	bh=M7Ch6uVgbesLp6xGNdVEJSycki9fRn6OnyI+5Mv05fk=;
+	s=k20201202; t=1778548411;
+	bh=gN4/sMoIRXaKmiGhPaRAvFKwvZTEbeGGQmu3IFlUBkg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=Dsc5i+aXoHtjg7v49XEqPOKCZYIliTcHf1WtFpALFjpCrAzFP7Vkjg2BTaRmRfjkb
-	 rWFbvdrU/zBEl5XqOMh9vOBWuvgl10CuRHjLpeVT4did4fVbPp7ZNl8TogGEGVEbmp
-	 t3tJhfdn/Ay0gOm7z+3abgxVkpSmAeTbT5Z7vFAeRN/s7m5zWTs5znLq0k5w5qoo/m
-	 v5taXtbLUyvs1oh9ece9CHgLrEaN7ePhROzsUSSWUaYtlhJcFhBnKpJGpHQDjWiTrG
-	 kjZ3erfnURlIr/AWyV04Ny0Ph2+p28aTc3xVfO++eCP6UG83aiiRhxfXUojpwrPef1
-	 KlADEgM8fuqxw==
+	b=kdpGGXiwWAkEPJyOoyv9mqjDMxw2X7MnIUApKjQ+3cjjdj/JvHk6kVAIp9tZO7vWs
+	 cu7BkPikprg96xT2TC7KZ5MWc43RrjYbvWyF7gymPW+RPdrgE43s/EHgM7iG2kk+i8
+	 HxKVKhDfKtsbAVSdkaCjBcoTupgpIljfOw43T2LCyU6dPWLirOrp1o/3XGwaAzZeWi
+	 OpLcSx3FQhpfmHhLhjs5xYhgS8Xtuh72X2CrqxF/axuAmNLPxtpUo+ZkN80cUKA/Zb
+	 3xG8qDWlYqUwERtEA1JRc9d3c1OuSVXil1sjJ7ecVvl5XRdBzng/MtceLD2NvFd+/i
+	 bb1UBWKwla6Gg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/verisilicon: add support for Nuvoton MA35D1
- DCUltra Lite display controller
+Subject: Re: [PATCH v9 2/8] mmc: sdhci-of-k1: enable essential clock
+ infrastructure for SD operation
 Reply-To: sashiko@lists.linux.dev
-To: "Joey Lu" <a0987203069@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260511075142.54752-3-a0987203069@gmail.com>
-References: <20260511075142.54752-3-a0987203069@gmail.com>
+To: "Iker Pedrosa" <ikerpedrosam@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260511-orangepi-sd-card-uhs-v9-2-ae48c0b2b2cf@gmail.com>
+References: <20260511-orangepi-sd-card-uhs-v9-2-ae48c0b2b2cf@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 12 May 2026 01:12:07 +0000
-Message-Id: <20260512011208.2FFBDC2BCB0@smtp.kernel.org>
+Date: Tue, 12 May 2026 01:13:30 +0000
+Message-Id: <20260512011330.BD609C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The primary plane is never logically disabled in hardware for the =
-DCUltra Lite variant, leading to a Use-After-Free condition.
-- [High] The primary plane is enabled before its DMA address and size are c=
-onfigured, causing a hardware race condition.
-- [High] The DCUltra Lite IRQ handler fails to acknowledge interrupts and u=
-nconditionally returns IRQ_HANDLED, which can cause an interrupt storm.
-- [High] Pre-existing NULL pointer dereference in early IRQ handling due to=
- incorrect initialization order.
+- [Medium] Incorrect condition used for targeting removable card scenarios,=
+ leading to power regressions for SDIO devices.
+- [Medium] Missing explicit clear of SD-specific vendor overrides for non-S=
+D controllers.
 --
 
-commit 522901c8020d5fe12ddd26c3af8e4d282c2fd2fd
-Author: Joey Lu <a0987203069@gmail.com>
-Subject: drm/verisilicon: add support for Nuvoton MA35D1 DCUltra Lite displ=
-ay controller
+commit acf2ed5de9b1d692d653b998c6c50d3cddd4cff5
+Author: Iker Pedrosa <ikerpedrosam@gmail.com>
 
-This commit adds support for the Nuvoton MA35D1 DCUltra Lite display
-controller to the verisilicon DRM driver. It introduces a vs_dc_info
-platform data structure to handle architectural differences between the
-DC8000 and DCUltra Lite variants.
+mmc: sdhci-of-k1: enable essential clock infrastructure for SD operation
 
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c b/drivers/gpu/drm/verisi=
-licon/vs_dc.c
-> index dad9967bc10b8..82a6a26f6d817 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
+This commit enables clock generation for SD operation on the spacemit
+sdhci-of-k1 controller. It sets SDHC_GEN_PAD_CLK_ON for all modes and
+conditionally overrides automatic clock gating for SD-only controllers
+to handle removable card scenarios.
 
-[ ... ]
-
-> @@ -33,6 +57,13 @@ static irqreturn_t vs_dc_irq_handler(int irq, void *pr=
-ivate)
->  	struct vs_dc *dc =3D private;
->  	u32 irqs;
-> =20
-> +	if (dc->info->family =3D=3D VS_DC_FAMILY_DCULTRA_LITE) {
-> +		regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &irqs);
-> +		if (irqs & BIT(0))
-> +			vs_drm_handle_irq(dc, VSDC_TOP_IRQ_VSYNC(0));
-> +		return IRQ_HANDLED;
-> +	}
-
-Does this missing ACK cause an interrupt storm?
-
-The DCUltra Lite code path reads the interrupt status but does not appear to
-write back to clear the pending hardware interrupt.
-
-Additionally, unconditionally returning IRQ_HANDLED might prevent the spuri=
-ous
-interrupt detector from disabling a faulty IRQ line.
-
-This isn't a bug introduced by this patch, but could this lead to a NULL
-pointer dereference during boot?
-
-In vs_dc_probe(), the IRQ handler is requested before initialization:
-
-	ret =3D devm_request_irq(dev, irq, vs_dc_irq_handler, 0,
-			       dev_name(dev), dc);
-	...
-	ret =3D vs_drm_initialize(dc, pdev);
-
-If a leftover hardware interrupt fires immediately, vs_dc_irq_handler() cal=
-ls
-vs_drm_handle_irq(), which accesses dc->drm_dev->crtcs[i].
-
-Since dc->drm_dev is allocated inside vs_drm_initialize(), it appears
-an early interrupt would dereference a NULL pointer.
-
-> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c b/drivers/gpu=
-/drm/verisilicon/vs_primary_plane.c
-> index 1f2be41ae496c..197d5d683e224 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> diff --git a/drivers/mmc/host/sdhci-of-k1.c b/drivers/mmc/host/sdhci-of-k=
+1.c
+> index 455656f9842df..0dd06fc19b857 100644
+> --- a/drivers/mmc/host/sdhci-of-k1.c
+> +++ b/drivers/mmc/host/sdhci-of-k1.c
 
 [ ... ]
 
-> @@ -88,8 +91,9 @@ static void vs_primary_plane_atomic_disable(struct drm_=
-plane *plane,
->  	unsigned int output =3D vcrtc->id;
->  	struct vs_dc *dc =3D vcrtc->dc;
+> @@ -101,6 +108,12 @@ static void spacemit_sdhci_reset(struct sdhci_host *=
+host, u8 mask)
 > =20
-> -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> -			VSDC_FB_CONFIG_EX_FB_EN);
-> +	if (dc->info->has_config_ex)
-> +		regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> +				VSDC_FB_CONFIG_EX_FB_EN);
-> =20
->  	vs_primary_plane_commit(dc, output);
+>  	if (!(host->mmc->caps2 & MMC_CAP2_NO_MMC))
+>  		spacemit_sdhci_setbits(host, SDHC_MMC_CARD_MODE, SPACEMIT_SDHC_MMC_CTR=
+L_REG);
+> +
+> +	spacemit_sdhci_setbits(host, SDHC_GEN_PAD_CLK_ON, SPACEMIT_SDHC_LEGACY_=
+CTRL_REG);
+> +
+> +	if (host->mmc->caps2 & MMC_CAP2_NO_MMC)
+> +		spacemit_sdhci_setbits(host, SDHC_OVRRD_CLK_OEN | SDHC_FORCE_CLK_ON,
+> +				       SPACEMIT_SDHC_OP_EXT_REG);
 >  }
 
-If has_config_ex is false for DCUltra Lite, how is the primary plane disabl=
-ed
-in hardware here?
+The commit message states that the SD-specific clock overrides are intended
+to handle removable card scenarios. Does checking for MMC_CAP2_NO_MMC
+unintentionally apply these overrides to non-removable SDIO devices?
 
-Since the disable sequence is skipped, will the display controller continue
-fetching from the framebuffer memory after it is freed by the DRM core?
-This could lead to a use-after-free by the DMA engine.
+The MMC_CAP2_NO_MMC flag indicates the absence of eMMC support, which will
+evaluate to true for both removable SD cards and non-removable SDIO modules
+like Wi-Fi chips.
 
-[ ... ]
+If the clock is forced to remain continuously on for SDIO devices, could th=
+is
+override automatic clock gating and cause a power regression by preventing
+deep sleep states?
 
-> @@ -126,6 +130,11 @@ static void vs_primary_plane_atomic_update(struct dr=
-m_plane *plane,
->  			   VSDC_FB_CONFIG_UV_SWIZZLE_EN,
->  			   vs_state->format.uv_swizzle);
-> =20
-> +	/* DCUltra Lite requires explicit enable/reset bits in FB_CONFIG */
-> +	if (!dc->info->has_config_ex)
-> +		regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +				VSDC_FB_CONFIG_ENABLE | VSDC_FB_CONFIG_RESET);
-> +
->  	dma_addr =3D vs_fb_get_dma_addr(fb, &state->src);
-> =20
->  	regmap_write(dc->regs, VSDC_FB_ADDRESS(output),
-> @@ -133,16 +142,18 @@ static void vs_primary_plane_atomic_update(struct d=
-rm_plane *plane,
->  	regmap_write(dc->regs, VSDC_FB_STRIDE(output),
->  		     fb->pitches[0]);
+Additionally, does this setup leave the vendor-specific clock overrides act=
+ive
+on eMMC interfaces if they were previously set by a bootloader?
 
-Could enabling the plane before configuring its DMA address and size cause
-the hardware to fetch from uninitialized or stale memory?
+Since SPACEMIT_SDHC_OP_EXT_REG is a vendor-specific register located at off=
+set
+0x108, it is typically untouched by the standard SDHCI_RESET_ALL mechanism.
 
-Since DCUltra Lite does not use a shadow register commit mechanism, it seems
-the address and stride should be programmed before setting the
-VSDC_FB_CONFIG_ENABLE bit to prevent out-of-bounds memory accesses.
+If a prior execution stage leaves SDHC_OVRRD_CLK_OEN or SDHC_FORCE_CLK_ON s=
+et,
+the absence of an explicit clear in this path could prevent automatic clock
+gating on eMMC interfaces.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511075142.5475=
-2-1-a0987203069@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511-orangepi-s=
+d-card-uhs-v9-0-ae48c0b2b2cf@gmail.com?part=3D2
