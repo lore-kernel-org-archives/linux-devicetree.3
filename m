@@ -1,141 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B3101F5EA
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 03:18:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7372319CD03
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 03:20:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778555913; cv=none; b=HNekzWWXTuSxLwB8njmSVLdPTUdn0HtXpt81OorXjkfX6yxBLoD0VcM79UQTdcj4pVp2FAVCiShf/ZQI8antSzFAzjk5Seco3aGh/Nk7Mh6aQCI+pwxGqLe5SffEk9WtL28Ao9OCFg9ld8Z976XsH3eFFfEMoLZo0HbMxwvJW9k=
+	t=1778556019; cv=none; b=dNrWzqVzEB41F4sNO8BCcvfy1wQFr1YaOkqs1QtYDIJ9q++KZYWp/gKfrLWTcOoZcp3wkxoDQaPklsxPSbuQ/o0fqOlswrFSiQ8vdTrzMG5lflp6pPoFbc3ryzm8giScGcaaxTRNoDH1f3vINUIHLaZz3CRPFSDraYEaWO6TIes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778555913; c=relaxed/simple;
-	bh=ugqNuyt6/PXBFXQLv1UKPaQ3TdvuHv4bUi1n3N6MRyo=;
+	s=arc-20240116; t=1778556019; c=relaxed/simple;
+	bh=U6qf8qChtcqLohPhCGCQezCQJ/enXGnZURrnBSTIh30=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ir1cbrHMk2DJk102JjgtsIfcQ8I4p47H8yOXBMu2PlKPnNYXyavEZHwof4pS01BWz5wFSzdwpmgbPn20pETUepEmQRy1uvw79NppJIcdNuLLmH3IUoLQoco+rGSsypo6lZCMC9mszoa2q8RkIpvp30lUk2B5OleUC78vTz8QAWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eBLVzVsD; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=UrToiSJShDlDx5TWM5itWi943q6dXf7PqTi3efaM+MR8uO4Gjctd+5JFeFTdCqgbKdz9eC3FSrfx/HFgQaJnS/yiinmYnGdymlkHJdtVf+7GFPnQIOHhrCTYekVXAJj0/l78cE848/tMBLG1Amu6/MCNLMbp4GZLBe9iUNRMoAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UQedIWxe; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eBLVzVsD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C52BC2BCB0;
-	Tue, 12 May 2026 03:18:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UQedIWxe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9A14C2BCB0;
+	Tue, 12 May 2026 03:20:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778555912;
-	bh=ugqNuyt6/PXBFXQLv1UKPaQ3TdvuHv4bUi1n3N6MRyo=;
+	s=k20201202; t=1778556019;
+	bh=U6qf8qChtcqLohPhCGCQezCQJ/enXGnZURrnBSTIh30=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=eBLVzVsDSJg2DxeDfC+/BGlDVmDvvSmFUiX7J7BuUbQJP8vaBha9owkMzwfDpjgrF
-	 cGNyAIkD1PToc0nBfzHzZT5TwhrKywiC4AFdhs0liSlFg4n4/ooSX72R2VXzRJnf/q
-	 dc0y6AqiaPD77Gv1MsEBYizacSGOWCCl/SZM4tCH6WSfKa1ZpE3B7w+ufomqUEcorg
-	 8sU3ep/NR76Crouar23LOd9Hlc7CW6aVImOatmHN04iorl33FuH9NNVB9Xz2Y5ZUHE
-	 M7ZVUWEzMKB7RzxwvVUeoVWEQUQHC7QpvlMGbwLViQJwfZBGWwnfKVCTzPR1CEEaw1
-	 q1i8U2g4MLsDw==
+	b=UQedIWxearSImMPcdm9NLaXhgy03QE3VyU70Dn/2FSjWM9s0DwgYQidj5bnZPbGEl
+	 P7fWvsLV8wtuO31pPGOSIO8IMowdZTaLbfxwqQrnJ6cqLEwRSEna6kzHaKuVQ5L1j4
+	 nt5wY7fq0dJAQUYRyFPpPka24pVU+gj0ANV/rWrQQaEI0WZXEXaR5/E4pQHmbcAtyk
+	 xS7anXBm/R7w0ZE9ub3ncudRQyZO5LX89DRYjjuBiHOCuRvi4GBowiEyjIhnaFJ0RW
+	 0shhH6gdBKy3e1gMZGt49dvJiE+nG5QwF2nK/FPpxUJ8G6UMWP7jAG+h3/BlnDg+dK
+	 qwphFVJkr8zvA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/4] arm64: dts: renesas: add support for solidrun
- rzg2lc som and hb-iiot evb
+Subject: Re: [PATCH v9 6/8] riscv: dts: spacemit: k1-orangepi-rv2: add SD
+ card support with UHS modes
 Reply-To: sashiko@lists.linux.dev
-To: "Josua Mayer" <josua@solid-run.com>
-Cc: conor+dt@kernel.org, krzk+dt@kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260511-rzg2-sr-boards-v2-4-82aebbd27891@solid-run.com>
-References: <20260511-rzg2-sr-boards-v2-4-82aebbd27891@solid-run.com>
+To: "Iker Pedrosa" <ikerpedrosam@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260511-orangepi-sd-card-uhs-v9-6-ae48c0b2b2cf@gmail.com>
+References: <20260511-orangepi-sd-card-uhs-v9-6-ae48c0b2b2cf@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 12 May 2026 03:18:31 +0000
-Message-Id: <20260512031832.6C52BC2BCB0@smtp.kernel.org>
+Date: Tue, 12 May 2026 03:20:18 +0000
+Message-Id: <20260512032018.B9A14C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] Missing unit address for reserved-memory node with a `reg` property.
-- [Low] Inconsistent use of `+=3D` instead of `:=3D` for Kbuild composite D=
-TB definitions.
-- [Low] Redundant addition of shared `.dtbo` overlay targets to the Makefil=
-e variable.
+- [High] `vmmc-supply` is mapped to an always-on regulator (`buck4_3v3`) wh=
+ile enabling UHS modes (`sd-uhs-sdr*`), which will break SD card initializa=
+tion after a warm reboot or driver reset.
+- [Low] The device tree specifies `cd-gpios =3D <&gpio K1_GPIO(80) GPIO_ACT=
+IVE_HIGH>;` alongside the `cd-inverted;` property, creating an ambiguous do=
+uble-inversion.
 --
 
-commit 8d9d2cbc7a77754ee19950ca31a17d0916b4b627
-Author: Josua Mayer <josua@solid-run.com>
-arm64: dts: renesas: add support for solidrun rzg2lc som and hb-iiot evb
+commit b95f288bf0d85d42bac4ccd6d594e14cf818a232
+Author: Iker Pedrosa <ikerpedrosam@gmail.com>
 
-Add support for the SolidRun RZ/G2LC SoM on Hummingboard IIoT, which
-features various peripherals including Ethernet, eMMC, and WiFi.
-The RZ/G2LC SoM is pin-compatible with the G2L SoM with a slightly
-reduced feature set.
+riscv: dts: spacemit: k1-orangepi-rv2: add SD card support with UHS modes
 
-Link: https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/r=
-z-g2lc-som/
-Link: https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/h=
-ummingboard-rz-series-sbcs/hummingboard-rz-g2l-iot-sbc/
+Add complete SD card controller support with UHS high-speed modes,
+including configuring the card detect GPIO and connecting the vmmc and
+vqmmc supplies.
 
-> diff --git a/arch/arm64/boot/dts/renesas/Makefile b/arch/arm64/boot/dts/r=
-enesas/Makefile
-> --- a/arch/arm64/boot/dts/renesas/Makefile
-> +++ b/arch/arm64/boot/dts/renesas/Makefile
-> @@ -164,6 +164,17 @@ dtb-$(CONFIG_ARCH_R9A07G043) +=3D r9a07g043u11-smarc=
--du-adv7513.dtb
->  r9a07g043u11-smarc-pmod-dtbs :=3D r9a07g043u11-smarc.dtb r9a07g043-smarc=
--pmod.dtbo
->  dtb-$(CONFIG_ARCH_R9A07G043) +=3D r9a07g043u11-smarc-pmod.dtb
-> =20
-> +dtb-$(CONFIG_ARCH_R9A07G044) +=3D r9a07g044c2-hummingboard-iiot.dtb
-> +r9a07g044c2-hummingboard-iiot-emmc-dtbs +=3D r9a07g044c2-hummingboard-ii=
-ot.dtb rzg2l-sr-som-emmc.dtbo
-
-This isn't a bug, but should this use :=3D instead of +=3D for consistency =
-with
-standard Kbuild practice and other composite DTB definitions in this Makefi=
-le?
-
-> +dtb-$(CONFIG_ARCH_R9A07G044) +=3D r9a07g044c2-hummingboard-iiot-emmc.dtb
-> +r9a07g044c2-hummingboard-iiot-microsd-dtbs +=3D r9a07g044c2-hummingboard=
--iiot.dtb rzg2l-hummingboard-iiot-microsd.dtbo
-> +dtb-$(CONFIG_ARCH_R9A07G044) +=3D r9a07g044c2-hummingboard-iiot-microsd.=
-dtb
-> +dtb-$(CONFIG_ARCH_R9A07G044) +=3D rzg2l-hummingboard-iiot-rs485-a.dtbo
-
-This isn't a bug, but since rzg2l-hummingboard-iiot-rs485-a.dtbo and
-rzg2l-hummingboard-iiot-rs485-b.dtbo are already appended to
-dtb-$(CONFIG_ARCH_R9A07G044) for the shared r9a07g044l2 SoC variant, is it
-redundant to include them here?
-
-> +r9a07g044c2-hummingboard-iiot-rs485-a-dtbs +=3D r9a07g044c2-hummingboard=
--iiot.dtb rzg2l-hummingboard-iiot-rs485-a.dtbo
-> +dtb-$(CONFIG_ARCH_R9A07G044) +=3D r9a07g044c2-hummingboard-iiot-rs485-a.=
-dtb
-> +dtb-$(CONFIG_ARCH_R9A07G044) +=3D rzg2l-hummingboard-iiot-rs485-b.dtbo
-
+> diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/risc=
+v/boot/dts/spacemit/k1-orangepi-rv2.dts
+> index c95ca38e3d4a1..1ed76e0ff8064 100644
+> --- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
 [ ... ]
+> +&sdhci0 {
+> +	pinctrl-names =3D "default", "uhs";
+> +	pinctrl-0 =3D <&mmc1_cfg>;
+> +	pinctrl-1 =3D <&mmc1_uhs_cfg>;
+> +	bus-width =3D <4>;
+> +	cd-gpios =3D <&gpio K1_GPIO(80) GPIO_ACTIVE_HIGH>;
+> +	cd-inverted;
 
-> diff --git a/arch/arm64/boot/dts/renesas/rzg2lc-sr-som.dtsi b/arch/arm64/=
-boot/dts/renesas/rzg2lc-sr-som.dtsi
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/renesas/rzg2lc-sr-som.dtsi
-> @@ -0,0 +1,373 @@
+This isn't a bug, but does this create a confusing double-inversion?
 
-[ ... ]
+According to the MMC bindings, if a GPIO is used for card detect, its
+polarity should be natively described in the phandle flag (e.g.,
+GPIO_ACTIVE_LOW) and cd-inverted should be omitted. Combining
+GPIO_ACTIVE_HIGH with cd-inverted forces the MMC core to perform an XOR
+logic.
 
-> +	reserved-memory {
-> +		ranges;
-> +		#address-cells =3D <2>;
-> +		#size-cells =3D <2>;
-> +
-> +		mmp_reserved: linux,multimedia {
-> +			compatible =3D "shared-dma-pool";
-> +			reg =3D <0x0 0x68000000 0x0 0x8000000>;
-> +			reusable;
-> +		};
+Would it be better to just use GPIO_ACTIVE_LOW and drop cd-inverted?
 
-Does this node need a unit address matching the first address of the reg bl=
-ock
-(e.g., linux,multimedia@68000000) to prevent a unit_address_vs_reg DTC
-compiler warning?
+> +	no-mmc;
+> +	no-sdio;
+> +	disable-wp;
+> +	cap-sd-highspeed;
+> +	vmmc-supply =3D <&buck4_3v3>;
 
-> +
-> +		global_cma: linux,cma@58000000 {
-> +			compatible =3D "shared-dma-pool";
-> +			reg =3D <0x0 0x58000000 0x0 0x10000000>;
-> +			reusable;
+Will this cause SD card initialization to fail after a warm reboot?
+
+UHS modes require switching the SD card's signaling voltage from 3.3V to
+1.8V. Since there is no software command to revert a card from 1.8V back
+to 3.3V, it strictly requires a full physical power cycle.
+
+However, if buck4_3v3 is configured with regulator-always-on elsewhere
+in the device tree, mmc_power_cycle() will silently fail to cut the
+physical power. After a warm reboot or driver error recovery, the host
+controller will reset to 3.3V while the card remains stuck expecting
+1.8V signaling.
+
+If the hardware lacks a load switch to toggle the SD slot power, should
+the UHS modes be disabled to prevent this?
+
+> +	vqmmc-supply =3D <&aldo1>;
+> +	sd-uhs-sdr25;
+> +	sd-uhs-sdr50;
+> +	sd-uhs-sdr104;
+> +	status =3D "okay";
+> +};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511-rzg2-sr-bo=
-ards-v2-0-82aebbd27891@solid-run.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511-orangepi-s=
+d-card-uhs-v9-0-ae48c0b2b2cf@gmail.com?part=3D6
