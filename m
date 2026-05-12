@@ -1,250 +1,188 @@
-Received: from mail-qt1-f195.google.com (mail-qt1-f195.google.com [209.85.160.195])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 506CF3A75A8
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 15:09:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DDCA368971
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 15:11:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778598581; cv=none; b=B1B9iC4+VgMclJqJoKiqYpb2ZkKUaHTqXZ4wIG+SCdaUPcG0jCcB/frgJJrueMmOIHtaSxVEtLbAXQebBKoC/qnadD9JBi0QmaR/PuGn3Th6+rYv6FmalzFhQy8/P1eORCLwgioTBejBYU2QjH4tbeSE82ly6x91dCQAPlzz974=
+	t=1778598673; cv=none; b=q4LEFE3QrzMq32UTnfjvklu3r/NScV9UuHozDkAOv/5FU5JOV5B/9gB/wkJ8r+Bylg156MP1vhXVp60iSsMgoN5I8r6lmlva0luAtfmg9nwgwS/07TAPkh7DxJBXE61wkmWrYs/DtVCW2NWmU1NXRhYyrE8/NOu0yDuRavZAnao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778598581; c=relaxed/simple;
-	bh=lUCx5uFXTTWqLehLj1KPSUPQozM+3vjKHNmquKV+oo0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=L8IWE4eUP6+5n2R6MAVlXPpSNKAfjsdAmuiTuf5K8eaCtxMdb4VTpA2K439zrZMGXh55grUSBDwyjwaIgEoHrIEdIpIQ1BFeeE7lxXA3VeD7A1W3r4wzEHuHWZDXmfEQucyaT9u04BU7QF8uR+OVMeWUBfyFGtZU9aQA3ZI31PM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=SpWeMTXA; arc=none smtp.client-ip=209.85.160.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1778598673; c=relaxed/simple;
+	bh=M/OlBy2UYV0O2v6kUD7jaAhw2kmLfUEuTpihKtR1EGM=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=q8EqeiEgI9jsQgrjbm4lsYkooEnKlpzTqWWPHGgJ1P5ucsfyCQXdgrM5oGiwqTLXgU/fQkcqRhESjFfBCNh++llfWjYz2ubiuYmn2RVvxX/kCcQCqaZdthBJqWmtZpChaE5apr1g9gpIrXmzdvUgPTpegAmt6Gwycj1hjfijicU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q5njw/Nn; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="SpWeMTXA"
-Received: by mail-qt1-f195.google.com with SMTP id d75a77b69052e-51306c36c3eso51720641cf.0
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 08:09:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q5njw/Nn"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-488b0e1b870so96010745e9.2
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 08:11:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1778598579; x=1779203379; darn=vger.kernel.org;
-        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
-         :from:subject:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=e1GJZ3i503zdsckWYgIltPX4s+TXFKGqeqpxW9ex+gs=;
-        b=SpWeMTXA75Lx0BqUFlDaJNteIGw5mMT8LYIZU7bmdX3Cczsslb0+kUBSU/Y66xmV+T
-         w4I5GmgpOg9qswTHDpDMl5jX/NrC0zyzozuEKst3BSjwjKLjUPpSffw/AbXhHW75O3f/
-         BbQH+Y1K7CX9XIRj+0CExdPDdqvwH6BlHhXR8ymF8azBmbg0AiyRzwza8em3QtT39lQj
-         JU5AfoHXU/8V0kQmAXwZtp+948l/6i5QqRriV6oWQZKGc46WSN8rk0OH8MVjbaa0EJTs
-         ov9MYmB+kigPabl/Fzm1DAhRcvXMrOnkd+9Fs0J0Xmxck2zIVBq6BwG7HKwEUj4cEhos
-         zFvw==
+        d=gmail.com; s=20251104; t=1778598670; x=1779203470; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=UrqeEwK16SbblcIoUInFb1Z7JZt5ZrtLnMUbnKHgFh8=;
+        b=Q5njw/NnlA5G/sXqqLMuTYRrslCdTtVBrO1pg+SAiC4c+f6rM0EuNfWBxEY8bp7J3k
+         3dPR0A1sF6VfMw0i5XXydbo5F7gGB9S47oxkN092GOFPa1RJqzXaPU2VjMSnhDN5wMNM
+         Y9cdDWBuBRCcl+zQlhV9v3zYGoKMhHsmcB6REfANtX1iRaozcQkFbuYcJ6WgorA1FPnL
+         pE6tSfC/DcUyLYsW1m+RYDTASIYi/JRU+Jzwh5TBImQiiHKxUr+qyeFTAUvosAlj3/hk
+         qUTgvRQj4nDIdIBqIde8s7MOzL6KKtbYSQOPv1uKZ8YuFja6SY+qBziDNwwEXilmw/sm
+         5Qmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778598579; x=1779203379;
-        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
-         :from:subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20251104; t=1778598670; x=1779203470;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=e1GJZ3i503zdsckWYgIltPX4s+TXFKGqeqpxW9ex+gs=;
-        b=MDc8oYbzIgZaWSieiJ/V8/BrOTDEKf70VJbeB/mmhWQBVVpXZg1bqh/Q1Eg4a0EMkN
-         FlwE1kDlA3dbOe7WwU8OkLaRazCJVRpVGFLJagrqTAqLUZhUL17GU92CWF4kLKIW2Sft
-         ZCAELoXMF2tgAmWiLS++M4DOPmKBgTgdW/HFTc3s3J8D7areqDcYJBgclrUYc/6N3Z+j
-         GlW1gcyvFIP7tMkN3JeiHjGDhWC3skuE9/bH262tHeS3BxOHAfbACICB5/m/YoIW1blz
-         Lp9dwWVP8mxQIlj+84DtEpFpD8LSm8CLj+n+6lALzVIzds8aMRqor0tUbZu2HtLB2etM
-         J3WQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+AS/iAYtqPNXyIsHMg9exZ6UNmjq6O58LiqWcDMgRiiTWmiSO6G3UX5Tk2lN//Kk+iCA/w+LEu84uS@vger.kernel.org
-X-Gm-Message-State: AOJu0YxPywUiFiEn5K89x3v/ASnzUgC81Uybua3jJ9cjF6swdL3r168p
-	VkxSySHuKZ1r3AqYp9ga7zG1EFxWV154lg3tvWMBj5kx084GIAJaIyso9x2KbR4vjCQ=
-X-Gm-Gg: Acq92OHG2d/S8rPZK6/kHKf6psqvOhmuyh5HeyK3ytEqFs3M0QdYp/wh93m+FlAHf2q
-	+Eg5zFCaAWn2ihFc4BU3+D+XUaIgj3wkIbKb+gijzlPpYeYHUqFkBQLO72XFhyxb7jZ/odFpVgl
-	Ovbq0LLVfE42Wkqsut+me2DMtsM2GIJvsgG9LqddDudg4O0w3VxUoEUwzQ/jlcMsoXIsJlxZeig
-	a8gFiU0x/r1xLkD3HSddRtuZP6OgjDLdR4msz5YbuBv4tm5PeMQKRdfhkx6MAUqAXEiMMfbB7Dd
-	SbV71BAMh7bzN7G6+58MJ5Dz+TACi4Bun79J77u5RT7Z7g31cVosLnw4iwY9Yf62NInncaI84fK
-	PDYLMxGsSHiA2S3T3347V+uNZ0kXtbw7D3MutP/qZQ1UYngK2vyzX6WQUA/lIv+gSbX1Q5cujNG
-	pxD3WB06tOQC7th+XbxBgwtnm3iooAVgXnMiM+Vfw=
-X-Received: by 2002:a05:622a:341:b0:510:138e:b83c with SMTP id d75a77b69052e-514d20e0341mr47122861cf.33.1778598578821;
-        Tue, 12 May 2026 08:09:38 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:15:e06b::c41? ([2606:6d00:15:e06b::c41])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5148e656452sm136800971cf.7.2026.05.12.08.09.37
+        bh=UrqeEwK16SbblcIoUInFb1Z7JZt5ZrtLnMUbnKHgFh8=;
+        b=RgqqFu1II2f54S1SlAmwOf0339FPmMjN8B0eeyETyFrnBtKA6inCtlbSRjKS3U2rie
+         IH596i4Ab5Vlqt+gSCOeDXNKdBr6KS+9VgPmf/jm8uSbtfafIsVVo0QFUCp2LXTJvuCP
+         XiUicaMIUU13WfmCFyP9eioVmrCUDzeSI3FvQgD3z1vsdwU2U8xBsALwohHIEjEbJThD
+         gT9f0P3K56lbVz86c91Im85W/2G8Ln1NgYfnzvfOfgOdPei2k0KQnn7e/SA5Kk3ypYYJ
+         gLu2xmWzt6eepZcS1AntmA43gdgc8CKLtehAI2ssvdh+nTms4661d9ggTLk8anlQvVH9
+         S3ww==
+X-Forwarded-Encrypted: i=1; AFNElJ8ZcZ9bufGHmtwS0utdoIt7eFvwYRMZvWWMWwcYyr6IfMiEFCJJgbKCH35FhuMvNQKx4LpFx1u0hN/5@vger.kernel.org
+X-Gm-Message-State: AOJu0YxAMx+rbDjAk68E0CuHFHmToRVD9EmdhO7lv38l9yckAuxCrEvp
+	upXj4HnShnjvlQLmUDE5S5wDAKZfTU2KD4DnLMG7NdS5TL8Fq3F7vqtN
+X-Gm-Gg: Acq92OFvARq4X0YmkO4gUhsH5EjqVnE+m9JqeXM+b8ZgTnkspJ/UA2lG/7AavIPFU5y
+	FBvRv/DrjFa/oswe7+oGcM2n57mWNms4HWUJii6qesp0ArKD9jB2C/egRj5n1W0qAbqgonefqJ7
+	4opkQqFvg8vlGpVbUo39tZ9Sj42ut+H5E38ufG/LA8CFFHh7BiuJXx6IiInusvks3e6r24SNHDk
+	MdkFwxP0Wi8u+shapQ4k/smx8WBJluUIZ0DIoKYBMSkfyHMJZ2g5KoRgMEIlagaVCY8vKAS9n2K
+	p7RTxZOxM6hixQehDdrBRbE+KQESdzWZqNRhVtAaIzLcy6cGwffejhnWtihxOk4J4Vq5Hk7+vAP
+	goCgmVnehNlq1J3jFdbR+cpqhv+lu3BnIFIK0G3W7m6WRoCErxwsxsTGbv2o2qYMRoQIzA3eO7t
+	hVJe9jl+xiQEXkszorI1Zym36hFZxXw+I0BHltfwQXBFO3V2EaKmlwLdKdqr2ow7F39B/CCgCl6
+	A0Tw6vxlrP3rE4GVmEjeUHiTvG05hK2WEOfZdNL7CRHWe4AiQ==
+X-Received: by 2002:a05:600c:4ba6:b0:488:a882:c7 with SMTP id 5b1f17b1804b1-48e51f4bab4mr273241975e9.25.1778598670135;
+        Tue, 12 May 2026 08:11:10 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fc8d19974sm3567075e9.2.2026.05.12.08.11.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 May 2026 08:09:37 -0700 (PDT)
-Message-ID: <b354afdfd28ec3736791755d9ce8cae49a744a96.camel@ndufresne.ca>
-Subject: Re: [PATCH v5 12/29] media: rockchip: rga: avoid odd frame sizes
- for YUV formats
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Sven =?ISO-8859-1?Q?P=FCschel?= <s.pueschel@pengutronix.de>, Jacob Chen
-	 <jacob-chen@iotwrt.com>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Mauro Carvalho Chehab
-	 <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Rob Herring
-	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	 <conor+dt@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, kernel@pengutronix.de, 
-	sebastian.reichel@collabora.com
-Date: Tue, 12 May 2026 11:09:35 -0400
-In-Reply-To: <e6d562e7-a9d2-4a1a-a139-c6e05eb4aaef@pengutronix.de>
-References: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
-	 <20260428-spu-rga3-v5-12-eb7f5d019d86@pengutronix.de>
-	 <4f5e481c8883b358ee4cef64f26f3f00f0ac7304.camel@ndufresne.ca>
-	 <e6d562e7-a9d2-4a1a-a139-c6e05eb4aaef@pengutronix.de>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-qN1+gvfnAtUxv/ubnzMi"
-User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
+        Tue, 12 May 2026 08:11:09 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Tue, 12 May 2026 16:11:07 +0100
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>, rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org, 
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
+	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
+	Sergey Senozhatsky <senozhatsky@chromium.org>, Shuah Khan <skhan@linuxfoundation.org>, 
+	David Laight <david.laight.linux@gmail.com>
+Subject: Re: [PATCH v12 02/11] lib: kstrtox: add kstrtoudec64() and
+ kstrtodec64()
+Message-ID: <ur6brs3yjzyb4mtelabmcglxjltddqvjxtgl3lkdkmbjlkmnsq@bwd6rz7gided>
+References: <20260510-adf41513-iio-driver-v12-0-34af2ed2779f@analog.com>
+ <20260510-adf41513-iio-driver-v12-2-34af2ed2779f@analog.com>
+ <20260512123953.40d80bc9@jic23-huawei>
+ <agMnWzMjW1LwCSyT@ashevche-desk.local>
+ <sj6cpjhakyfvv6rgox6cnhl2u2tgaecugcok6fw2l7zgku5wtc@aqx3ul72vgca>
+ <agMvlS3-0wvGmBwh@ashevche-desk.local>
+ <dxjg2sdyxb7ieb4abmeyyye7qok6cczrxabpsjyjhcbehwoec3@sbbqoo4wmzre>
+ <agM8pWrM6j_XksvN@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <agM8pWrM6j_XksvN@ashevche-desk.local>
 
+On 26/05/12 05:43PM, Andy Shevchenko wrote:
+> On Tue, May 12, 2026 at 03:12:24PM +0100, Rodrigo Alencar wrote:
+> > On 26/05/12 04:48PM, Andy Shevchenko wrote:
+> > > On Tue, May 12, 2026 at 02:21:14PM +0100, Rodrigo Alencar wrote:
+> > > > On 26/05/12 04:12PM, Andy Shevchenko wrote:
+> > > > > On Tue, May 12, 2026 at 12:39:53PM +0100, Jonathan Cameron wrote:
+> > > > > > On Sun, 10 May 2026 13:42:20 +0100
+> > > > > > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+> > > > > > 
+> > > > > > > Add helpers that parses decimal numbers into 64-bit number, i.e., decimal
+> > > > > > > point numbers with pre-defined scale are parsed into a 64-bit value (fixed
+> > > > > > > precision). After the decimal point, digits beyond the specified scale
+> > > > > > > are ignored.
+> > > > > > 
+> > > > > > Whilst Rodrigo has already replied to say there will be another version
+> > > > > > I'd like to request final feedback from those who were involved in the parser
+> > > > > > discussions.  
+> > > > > > 
+> > > > > > They got very involved and I'm far from an expert in the right way to do
+> > > > > > this stuff.  
+> > > > > > 
+> > > > > > I don't think David Laight was +CC so I've added that.
+> > > > > > David, Andy - I think you two were most involved in that discussion:
+> > > > > > Any objections to the end result? 
+> > > > > 
+> > > > > I already said a few times about the naming. I do not like the kstrto*()
+> > > > > be semantically different on how they treat the input. Second point is
+> > > > > to avoid code duplication, but this one is less of a concern since the
+> > > > > new code is in the library close to the other potentially duplicate code
+> > > > > piece and hence can be addressed later.
+> > > > 
+> > > > I suppose I reached into kstrtodec64() and kstrtoudec64() because it aligns
+> > > > with your expectations for kstrto*() semantics, no? Those include:
+> > > >  - overflow check;
+> > > >  - extensive input validation;
+> > > >  - optional '\n' in the end;
+> > > >  - mandatory nul-termination.
+> > > > 
+> > > > am I missing anything?
+> > > 
+> > > When we add scale we basically make that not true. Moreover the code in this
+> > > patch makes scale == number_of_characters which I think a bit fragile, however
+> > > it's about the fractional part when the amount of digits is equal to scale.
+> > 
+> > That is not really the case. It is being set as a limit, so it does check for
+> > truncation and zero-padding.
+> 
+> I do not see it happens in _parse_integer_limit(). It doesn't try to parse more
+> characters than it's requested in max_chars. It doesn't check if there are more
+> character nor their converted values.
+> 
+> > > To make this work as expected we need to add an additional call like
+> > > kstrtoull() (and perhaps drop that \n and NUL-terminator checks) and see
+> > > if that overflows or not. Since it's a fractional part it must have less
+> > > than 20 (decimal) digits there, so we check the rv (or how many digits
+> > > were parsed successfully) and compare to 20. If it's more, we got too many
+> > > decimal digits.
+> > 
+> > For overflow it checks the KSTRTOX_OVERFLOW flag and leverages check_mul_overflow()
+> > and check_add_overflow() when combining fractional and integer parts. The amount
+> > of characters is not really important there. The scale cannot be bigger than 19 and
+> > that makes sure that int_pow() does not overflow. The code uses _parse_integer_limit()
+> > due to the nature of input and to avoid 64-bit division, kstrtoull() at any point
+> > (parsing integer or fractional parts) does not make much sense.
+> 
+> Under 'like kstrotoull()' I meant something that repeats needed functionality.
+> I believe it's parse_integer() (without limit).
 
---=-qN1+gvfnAtUxv/ubnzMi
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I think we are going in circles here and we could look at the code instead:
+- integer parsing with _parse_integer()
+	- overflow check and validation of the return value
+- fractional parsing with _parse_integer_limit()
+	- overflow check and validation of the return value
+	- extra scaling and truncation happening outside if needed.
+- check for input termination
+- combination of integer and fractional parts with check_mul_overflow() and check_add_overflow() 
 
-Le mardi 12 mai 2026 =C3=A0 16:56 +0200, Sven P=C3=BCschel a =C3=A9crit=C2=
-=A0:
-> Hi Nicolas,
->=20
-> On 5/8/26 11:18 PM, Nicolas Dufresne wrote:
-> > Le mardi 28 avril 2026 =C3=A0 11:00 +0200, Sven P=C3=BCschel a =C3=A9cr=
-it=C2=A0:
-> > > Avoid odd frame sizes for YUV formats, as they may cause undefined
-> > > behavior. This is done in preparation for the RGA3, which hangs when =
-the
-> > > output format is set to 129x129 pixel YUV420 SP (NV12).
-> > >=20
-> > > This requirement is documented explicitly for the RGA3 in=C2=A0 secti=
-on 5.6.3
-> > > of the RK3588 TRM Part 2. For the RGA2 the RK3588 TRM Part 2
-> > > (section 6.1.2) and RK3568 TRM Part 2 (section 14.2) only mentions th=
-e
-> > > x/y offsets and stride aligning requirements. But the vendor driver f=
-or
-> > > the RGA2 also contains checks for the width and height to be aligned =
-to
-> > > 2 bytes.
-> > >=20
-> > > Signed-off-by: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
-> > > ---
-> > > =C2=A0=C2=A0drivers/media/platform/rockchip/rga/rga.c | 19 ++++++++++=
-++++-----
-> > > =C2=A0=C2=A01 file changed, 14 insertions(+), 5 deletions(-)
-> > >=20
-> > > diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/medi=
-a/platform/rockchip/rga/rga.c
-> > > index f599c992829dd..77b8c7ab74274 100644
-> > > --- a/drivers/media/platform/rockchip/rga/rga.c
-> > > +++ b/drivers/media/platform/rockchip/rga/rga.c
-> > > @@ -337,6 +337,19 @@ static int vidioc_try_fmt(struct file *file, voi=
-d *priv, struct v4l2_format *f)
-> > > =C2=A0=C2=A0	struct rga_ctx *ctx =3D file_to_rga_ctx(file);
-> > > =C2=A0=C2=A0	const struct rga_hw *hw =3D ctx->rga->hw;
-> > > =C2=A0=C2=A0	struct rga_fmt *fmt;
-> > > +	struct v4l2_frmsize_stepwise frmsize =3D {
-> > > +		.min_width =3D hw->min_width,
-> > > +		.max_width =3D hw->max_width,
-> > > +		.min_height =3D hw->min_height,
-> > > +		.max_height =3D hw->max_height,
-> > > +		.step_width =3D 1,
-> > > +		.step_height =3D 1,
-> > > +	};
-> > > +
-> > > +	if (v4l2_is_format_yuv(v4l2_format_info(pix_fmt->pixelformat))) {
-> > > +		frmsize.step_width =3D 2;
-> > > +		frmsize.step_height =3D 2;
-> > I think its fine like this, so let's start with:
-> >=20
-> > Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-> >=20
-> > But it does not feel like a hardware alignment to me. When we process i=
-n
-> > software these things, the minimum alignment is bound to the subsamplin=
-g, since
-> > there is no way to store half or quarter pixels, the padded width/heigh=
-t
-> > requires a step that follow the subsampling, something like:
-> >=20
-> > 		frmsize.step_width =3D finfo->hdiv;
-> > 		frmsize.step_height =3D finfo->vdiv;
->=20
-> I agree that this looks better. My main intention is to be more=20
-> conservative, as the Rockchip related code/docs seem to always ensure a=
-=20
-> 2 pixel alignment in both directions even for formats like YUV422, where=
-=20
-> we shouldn't have an alignment requirement in the height. Besides the=20
-> vendor driver and TRM mentioned in the datasheet, the librga and it's=20
-> docs also mention an alignment of 2 (pixels?!) for all YUV formats (see=
-=20
-> format alignment list in [1] and Q2.5 in [2]).
->=20
-> Given that the driver currently doesn't have any way to get the cores=20
-> unstuck/reset in case of a hang, I'd like to play it more safely by=20
-> adhering to what the vendor does instead of trying to do more and=20
-> therefore allowing some potential breaking format. E.g. I've also=20
-> experimented with sizes of=C2=A068x2, which the librga allows as input/ou=
-tput=20
-> of the RGA3 (whereas the TRM specifies a min size of 128x128), but=20
-> quickly dropped it as it produced some interesting broken outputs.
+> > > Maybe I'm missing these checks already performed?
+> > > 
+> > > > > Having the test cases is a big benefit, and that part I like the most.
+> 
+> -- 
+> With Best Regards,
+> Andy Shevchenko
+> 
+> 
 
-Agreed, simply preserve my Rb in next version.
+-- 
+Kind regards,
 
-cheers,
-Nicolas
-
->=20
-> Sincerely
-> =C2=A0=C2=A0 =C2=A0 Sven
->=20
->=20
-> [1]=20
-> https://codeberg.org/airockchip/librga/src/branch/main/docs/Rockchip_Deve=
-loper_Guide_RGA_EN.md#image-format-alignment-instructions
->=20
-> [2]=20
-> https://codeberg.org/airockchip/librga/src/branch/main/docs/Rockchip_FAQ_=
-RGA_EN.md
->=20
-> >=20
-> > Nicolas
-> >=20
-> >=20
-> > > +	}
-> > > =C2=A0=20
-> > > =C2=A0=C2=A0	if (V4L2_TYPE_IS_CAPTURE(f->type)) {
-> > > =C2=A0=C2=A0		const struct rga_frame *frm;
-> > > @@ -358,11 +371,7 @@ static int vidioc_try_fmt(struct file *file, voi=
-d *priv, struct v4l2_format *f)
-> > > =C2=A0=C2=A0	if (!fmt)
-> > > =C2=A0=C2=A0		fmt =3D &hw->formats[0];
-> > > =C2=A0=20
-> > > -	pix_fmt->width =3D clamp(pix_fmt->width,
-> > > -			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hw->min_width, hw->max_width=
-);
-> > > -	pix_fmt->height =3D clamp(pix_fmt->height,
-> > > -				hw->min_height, hw->max_height);
-> > > -
-> > > +	v4l2_apply_frmsize_constraints(&pix_fmt->width, &pix_fmt->height, &=
-frmsize);
-> > > =C2=A0=C2=A0	v4l2_fill_pixfmt_mp(pix_fmt, fmt->fourcc, pix_fmt->width=
-, pix_fmt->height);
-> > > =C2=A0=C2=A0	pix_fmt->field =3D V4L2_FIELD_NONE;
-> > > =C2=A0=20
-
---=-qN1+gvfnAtUxv/ubnzMi
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCagNCsAAKCRDZQZRRKWBy
-9C0fAP457K60/ZJ3ZLSyjkjg60UiJKpqRH2brs1rrxHPVXniJgEA9cbujVJ5Cbin
-Jn9LmlNpceZNGbjSuImEtMjHkEqw3AU=
-=l7Hh
------END PGP SIGNATURE-----
-
---=-qN1+gvfnAtUxv/ubnzMi--
+Rodrigo Alencar
