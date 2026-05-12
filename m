@@ -1,164 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8865F356777;
-	Tue, 12 May 2026 23:05:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBB1B3A5457
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 23:12:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778627121; cv=none; b=mAaxk9IaJy9VzX0lD/erSE6MImLKQN+k0tKBbqRZqSFsmlpdfwRDCJRaaeWVv7oTrKiKwBbxuhOZiLnZX2NUdLKvxe/3Y900xSkK8ldK3/WsLN3SkFsLxQKLwlad1Q9I3fBvyEac86wye+bfdkILo+MfaqT83ZW6wAqyE0pjpCM=
+	t=1778627541; cv=none; b=SzPlEFS9vb8nIpYrz2Dwj7SMFwP8EHux78hQ7WkRvdAFuLW/+5SellB4dekACgaiw0q42GkH5Skh+n/cVAq2NtgFts9tRSRj9ND0SVLiLQdZOU6ZNeah7+Q/FBxfvrelLELNjINrMQpHZnwNbL+WW9USxHt2mCfKIPAUE7EYoOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778627121; c=relaxed/simple;
-	bh=DK+7J33A7910JwFbWH+4GGnFPn1eunMdNSYAga957Wc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qR6AOJnqT8ZzBIbV+h6eN1gwzf/FmOfOH11eKzGJF9egDCEqywjBcSxb4a6xz0nb1j1ByA+z7kTBcZg5MTMxgnfJcnyilsXS/QhekUkHBp0buLFJTfACoxCtKKVZSs1zGe3A7+e40Unfy8Br+qhgIwZ6YS/8tmx8WKCplRvuf+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uS/BZoI9; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778627541; c=relaxed/simple;
+	bh=MKDoKv+U4AbZ5taa+fSGH+o46ov1RsxI1vDLHg7S71U=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Adn9iX2PHhSQ+NiEKSA7IOzPKo3/Ttznqz0C85hL85zhH+r/NOReB514NiqMyddnhBqnJOKxFUGCYmid3gSqxrayyWUpgBJOADi67N6A5oRp/gvCFRfJsP5OnG78ZuB2ydVXd67UZZZbrlftgvLF5Yp767PZzdMTJ3ckMFLKdTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=bGb99TEr; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uS/BZoI9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC642C2BCB0;
-	Tue, 12 May 2026 23:05:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778627121;
-	bh=DK+7J33A7910JwFbWH+4GGnFPn1eunMdNSYAga957Wc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=uS/BZoI95weEa3jFke426A2uK1R5djKpOfX8wMEuherRV/dHrfraU+ecpYeCtBPq4
-	 ze3SArqdAwAWHpE9VCL1CHHfgJSjXR98spoJY1YTTgsb3kjtnKisqI6DSNmzrkN6iN
-	 N82Wtqzbli52S3rH1GqjXbU+t4Ztt1cOGTJyeV7GvkylGlLEjajKM1XGqj32Ft2Sm5
-	 NVuR2toZfXEO4wP+tMhtz/Osr2EwQmH4bflyXuYXO5lQ09AUargBQUqpJx1MxUFKJ+
-	 oTYPEJnozoauTTV5FF7m+g/PvUu/yHSnrD2ihCbUPUqvczvJQys98/z9X9Giw+aCmc
-	 H1aF/MuFYyPpQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] arm64: dts: imx8dxl: Add SolidRun SoM and
- HummingBoard
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Josua Mayer" <josua@solid-run.com>
-Cc: Frank.Li@kernel.org, imx@lists.linux.dev, krzk+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260511-imx8dxl-sr-som-v4-2-64381b3bf80d@solid-run.com>
-References: <20260511-imx8dxl-sr-som-v4-2-64381b3bf80d@solid-run.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 12 May 2026 23:05:19 +0000
-Message-Id: <20260512230520.CC642C2BCB0@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="bGb99TEr"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-488ff90d6c7so54577735e9.2
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 16:12:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1778627538; x=1779232338; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=WgDS3ViE9NSujWIMzNrIZdzaFnZBEociQgn363+PsFA=;
+        b=bGb99TErvYnJAEE9CwrFVthpUjf+F0/AAZyeZ2wvjOmEvI5WO057Fxm+CKIEDy6gSH
+         ezhzxoTIk0T5TJYNySwJDlEsQz0TUgBdbJ07JH5QVg19TI2A1AVBjbqEGTypv38BbQES
+         UjkTIMRmNOqu18pOltys/jVxi/vpwfVWfQoZlE3UlLvh5XdSNyan4dr9aZsjm8O7Ye6B
+         sow+7owkyhcevy4lNVg8xGhmVgT5yKfHQXfR07U9+wH15ypkY4U5E58VTaNgUdynZUOD
+         zYumoiPtFuh4hik4KKahc/QqvdwZLDx7bPoznrW4VEUBklksOU4mHrnTMEHrIYbnf1tP
+         orxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778627538; x=1779232338;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=WgDS3ViE9NSujWIMzNrIZdzaFnZBEociQgn363+PsFA=;
+        b=dlLcDXeon9DZwtYB97WN628/IDJoEdiaVeIMKkOGkor9qg0iEwqdbzc5uiTairGHha
+         eRxUoBmGyDStgMY1j09hnsyu7htOStdM5n1DHM831ECZnJJgBXSp5QjcZ3c3y6B0IFhm
+         n8xsu8ZV2DYUAb7sygXqFTTVplr6gLdH6i2+tCKHGPZ7YckmV5oufeSd7KeVTM+6zeoi
+         K8Vjaqg7kn1KXOyf1prlyUALdBvYwl9TCv3iwldgZ6oZ5U0ZA7nrxiycfeBStwOXYZKn
+         94cCs2DB4jO0iicBH2yEInLE+ETXYl7ikWsnZVBD1uBBOBEHvDoOwFJP/aMHJKKoUobn
+         3pzA==
+X-Forwarded-Encrypted: i=1; AFNElJ9jMqP3rp0CK5BhPWJRdZqWKASaBSI0QT8XLoJrA3K4n8D+a4HpqR48U8PQUVBjwOA3Nu66X3mgo/3P@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy6Qv41u6FTpOLNwF/4wN6eeoiRjEdLRlAL/XAPJPik4XtGRV23
+	TWYYDA8EXOcaurEsNouJLAUJsUdgDAdD63UE3moZPe8QjBjxwsXbkg7nSDzkaKkd+EY=
+X-Gm-Gg: Acq92OE5Bis+Bb1QG6HrfevqmsDGi6MtQ8ZzPvhHkpa41FGwdc7H1L3Q8VV78dmRy6d
+	5KeLXd33iOc/9bjm3d62OQZKivHjwtgNjOyp9uObA3nA2DVxA+XwZ2WCGBlgU1x/CRY+/UPdlDO
+	4teE7u3DXGZv459ltW9xWU5/HotgJhCYtuIZGHhbh/1TUooSkyvEhL72AWmonl87/WyAVVy424o
+	mLlSAfF489PNUwF7jwLthQHqc4P377oD1d49ULvR5UfUPJLWUKtNG8Vn7f+lrTUCiLOTD/tulTU
+	IcJVjRvMyHJumFbgYmUnkngVmOeTRf3aMRyQ5uSwTbMEhow//J/8DZf4bF/98AFDsyzqHvGrvxV
+	gHZM/l5p3KLk8CxLfnQazFI0+jV3KS7v/xpzHw7Lo0e7xsq9UK59TLaG202w0XWHqTZ2GzWFkWR
+	quDbWIdzBmXaLWIFBHcMJZB/R+kfcS0OqaOi1CPreNaXrtQ76NkVb3s6HoLdgQFN6Vl5nbPhXY6
+	lbW8K+LuK3S00DM
+X-Received: by 2002:a05:600c:3144:b0:48e:82af:d9 with SMTP id 5b1f17b1804b1-48fcea18dfbmr1307925e9.29.1778627538335;
+        Tue, 12 May 2026 16:12:18 -0700 (PDT)
+Received: from [127.0.1.1] ([94.4.195.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e913469besm20712305e9.14.2026.05.12.16.12.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 12 May 2026 16:12:17 -0700 (PDT)
+From: Alexey Klimov <alexey.klimov@linaro.org>
+Date: Wed, 13 May 2026 00:12:11 +0100
+Subject: [PATCH 1/2] dt-bindings: firmware: google,gs101-acpm-ipc: document
+ Exynos850 compatible
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260513-exynos850-acpm-firmware-support-v1-1-3858d097e433@linaro.org>
+References: <20260513-exynos850-acpm-firmware-support-v1-0-3858d097e433@linaro.org>
+In-Reply-To: <20260513-exynos850-acpm-firmware-support-v1-0-3858d097e433@linaro.org>
+To: Sam Protsenko <semen.protsenko@linaro.org>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Peter Griffin <peter.griffin@linaro.org>, 
+ linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.3
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] USB OTG1 port is configured as peripheral but breaks out to a Type=
--A host connector.
-- [High] Inconsistent and incorrect pad configurations for I2C2 and I2C3 GP=
-IO recovery pins.
-- [Medium] The 'reset-duration-us' property in the 'usb-device@1' node is u=
-ndocumented, unparsed by any kernel driver, and will fail schema validation.
-- [Low] Mismatch in the number of 100Base-T1 add-on ports between commit me=
-ssage and device tree.
---
+The Exynos850 SoC incorporates an APM co-processor. Communication with
+this hardware block is done using the ACPM protocol, which handles IPC
+messages for clocks, power, thermal management and PMIC control.
 
-commit f382c89d7dfc4938b73c73c681a3544f6363435e
-Author: Josua Mayer <josua@solid-run.com>
+Dedicated compatible string is required for the Exynos850 because
+its firmware utilizes a different initialisation data base offset
+(0x7000) compared to the existing GS101 implementation (0xa000).
 
-arm64: dts: imx8dxl: Add SolidRun SoM and HummingBoard
+Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+---
+ Documentation/devicetree/bindings/firmware/google,gs101-acpm-ipc.yaml | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-This commit adds support for the SolidRun i.MX8DXL System-on-Module and its
-HummingBoard Telematics carrier board. It configures various hardware
-interfaces including ethernet, CAN, USB, a cellular modem, and I2C sensors.
+diff --git a/Documentation/devicetree/bindings/firmware/google,gs101-acpm-ipc.yaml b/Documentation/devicetree/bindings/firmware/google,gs101-acpm-ipc.yaml
+index e68f9c3ca5e2..511c873280fe 100644
+--- a/Documentation/devicetree/bindings/firmware/google,gs101-acpm-ipc.yaml
++++ b/Documentation/devicetree/bindings/firmware/google,gs101-acpm-ipc.yaml
+@@ -22,7 +22,9 @@ description: |
+ 
+ properties:
+   compatible:
+-    const: google,gs101-acpm-ipc
++    enum:
++      - google,gs101-acpm-ipc
++      - samsung,exynos850-acpm-ipc
+ 
+   "#clock-cells":
+     const: 1
 
-> The multi-interface add-on board connector provides additional
-> interfaces (4x 100Base-T1, 2x SGMII, USB 2.0 shared with the cellular
-> modem, CAN, MDIO, SPI, UART, PCIe, I2C, and GPIO).
+-- 
+2.51.0
 
-This isn't a bug, but there is a mismatch between the commit message and the
-device tree. The message mentions 4x 100Base-T1 interfaces, but the code
-defines 5 disabled ports (port@5 through port@9) and 5 corresponding PHYs
-for the add-on connector. Could the commit message be updated to match the
-implemented ports?
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx8dxl-hummingboard-telematic=
-s.dts b/arch/arm64/boot/dts/freescale/imx8dxl-hummingboard-telematics.dts
-> new file mode 100644
-> index 0000000000000..7e822cbd7a528
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8dxl-hummingboard-telematics.dts
-
-[ ... ]
-
-> +&usbotg1 {
-> +	vbus-supply =3D <&vbus1>;
-> +};
-
-Since the base SoM device tree sets dr_mode to peripheral, and the carrier
-board does not override it to host or otg, will this controller remain in
-peripheral mode?
-
-Because this port breaks out to a USB Type-A connector on the evaluation ki=
-t,
-leaving it as a peripheral means it will not drive the VBUS regulator to
-power attached devices. Should this be explicitly set to host mode here on
-the carrier board?
-
-[ ... ]
-
-> +/* cellular modem */
-> +&usbotg2 {
-
-[ ... ]
-
-> +	usb-device@1 {
-> +		compatible =3D "usb2c7c,125";
-> +		reg =3D <1>;
-> +		reset-duration-us =3D <150000>;
-
-Is this reset-duration-us property supported by any upstream driver or
-documented in the device tree bindings?
-
-Because it appears to be unparsed by any kernel driver, will its inclusion
-cause schema validation warnings during the binding check?
-
-[ ... ]
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx8dxl-sr-som.dtsi b/arch/arm=
-64/boot/dts/freescale/imx8dxl-sr-som.dtsi
-> new file mode 100644
-> index 0000000000000..93a0eb4d7f770
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8dxl-sr-som.dtsi
-
-[ ... ]
-
-> +	i2c2_gpio_pins: pinctrl-i2c2-gpio-grp {
-> +		fsl,pins =3D <
-> +			/* io with pull-up and weak drive */
-> +			IMX8DXL_SPI1_SCK_LSIO_GPIO3_IO00		0x00000021
-> +			/* io with pull-up, weak drive, open-drain */
-> +			IMX8DXL_SPI1_SDO_LSIO_GPIO3_IO01		0x02000021
-> +		>;
-> +	};
-
-Do these GPIO values configure the pads correctly for I2C bus recovery?
-
-The comments mention io with pull-up, but 0x00000021 and 0x02000021 both
-lack the pull-up enable bits present in the active I2C configuration.
-
-Additionally, does using 0x00000021 for SDA leave the open-drain bit unset?
-Both lines generally must be open-drain during I2C bus recovery. If SDA is
-actively driven high via push-pull while a stuck slave device pulls the line
-low, can this cause an electrical short circuit on the bus?
-
-[ ... ]
-
-> +	i2c3_gpio_pins: pinctrl-i2c3-gpio-grp {
-> +		fsl,pins =3D <
-> +			/* io with pull-up and weak drive */
-> +			IMX8DXL_SPI1_CS0_LSIO_GPIO3_IO03		0x00000021
-> +			/* io with pull-up, weak drive, open-drain */
-> +			IMX8DXL_SPI1_SDI_LSIO_GPIO3_IO02		0x02000021
-> +		>;
-> +	};
-
-Does the same configuration issue apply to these I2C3 recovery pins as well?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511-imx8dxl-sr=
--som-v4-0-64381b3bf80d@solid-run.com?part=3D2
