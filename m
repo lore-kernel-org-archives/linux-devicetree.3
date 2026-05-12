@@ -1,680 +1,367 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C8D39A4B4;
-	Tue, 12 May 2026 13:27:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0247F37DAB5;
+	Tue, 12 May 2026 13:29:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778592477; cv=none; b=p6ok8sp6R/2VUW4vKMdEWgiDa/x5rtvIVUAvjSpaTUH+TpXr0rb/7xH1G+AM4/8SXW7Uyu9H1KvgAYwMTIh88wOwnbW8WBSBeLeOKdHks/KM8DDDyn0LLZUvMd4nU08V5ySxD3hZPMSRqamCUeFdSCxfE2eKQnMypz6+ojjyZn4=
+	t=1778592587; cv=none; b=FOGwlkWvbNA38A44OObWkBmf5OBtqu73znH+ESYDU5hdAshqjjNYaOaYgS4+phZVOZ86htUp3jwyclCwlpu8Vd1d3+8vE1mXU1+J7QiAMAqYxEHYjE08lk4Un4OS/du4d8oi60fYYRpL1ItKcWiambc8eM3nbiNgtddLgoiBw4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778592477; c=relaxed/simple;
-	bh=FBCNk3mneGnOGAtdx64K8/uJ/AIeg0bQAW/YYJOOFqg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lOKhghq9bRuNzMA+zrlS4RoRR8L5hbJaEJdHR4xgAcI6zhy0RGnSEZHoxi59u9HK3qWim27oj7GgPKFuQgwBsS45nUcGVa9ktM1WEAKp48GbW0qCL9u8XKdt7e9/sLz0d4jQzkyFPL2P/q8AX/ClqMksD9klWEE7kWQeK8134UA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=s8IFMmja; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1778592587; c=relaxed/simple;
+	bh=OE2XOA8Ys/J68M2y8Svmcp4K9BF42SihLc9PvIZ2c1U=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=RlJAIrRgDJ0t4+gLsQ41TbUVJjmETJc/7F8SMK8Q05yGGqUmu0OJeL45mbNHm/5V3IEXWTRe4h6yqbL1+GKHIotUNzFbP/ODBw+aNfxI1y7KQKEuqhSBdLv416KwW12LAG0TsTku835qBtDi3fRdDZk6Rkhf294tbbXD3bEg8TA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m3bqYVgs; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="s8IFMmja"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id C39A11A358A;
-	Tue, 12 May 2026 13:27:53 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9892860646;
-	Tue, 12 May 2026 13:27:53 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5112311AF8CE9;
-	Tue, 12 May 2026 15:27:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1778592472; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=/pmytPu3WKzVdAMxH0d+MSakPmRx+hUV6LRfPOPU3Os=;
-	b=s8IFMmjaHTt4d5J1Yxc09MgJn8EiVPCZnnn28XYNqnTGj/o9oPfZOqaW1hDlDwEstUUljz
-	vzugjWwvy+94AtoqaHrmNgInUVrTVA2o2gq6AUFKC3R8bDsRuxtZAfl5lqC0LuBBEAqO5r
-	mbBM2UpNsfMzRrGSVvQtEP3D4uKEqcyJIXmTt0tR0ljqr4O6ljKj1R+Ld7Zuv0Ad3PUn33
-	nnr1ydMai5op8sYFqcyi43Mz8PTE/RVQGM+ork9hh8GC6ntlr/GJlgOPv5vPLUPt2/E1Cm
-	V8Twk7SFY4OZhwKI/NZzBOpW5NVcU8lUk7CBmGnVWYrHTXSDi2gs48WAmZpfuw==
-From: =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
-Date: Tue, 12 May 2026 15:27:08 +0200
-Subject: [PATCH v6 9/9] clk: eyeq: Add EyeQ7H compatibles
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m3bqYVgs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DD06C2BCF6;
+	Tue, 12 May 2026 13:29:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778592586;
+	bh=OE2XOA8Ys/J68M2y8Svmcp4K9BF42SihLc9PvIZ2c1U=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=m3bqYVgss5gGSLp+d7Jk7GkVsx9WevUkW0NCpmq904DyHvmgN774LUagw55vDZGyu
+	 LFNVeRPgb3SGxxeC0uIzZco6gL3Ft1tWpZGWx0oINYONCbj04EL154U7vvLo/hn9mN
+	 j+ZdFPGuVyOsF1VjQO7nz3Ic49b76nyCvnnizE48f9VGyApyCQx+fw+ot2QqJa3uoS
+	 v4+ubQQhpwXR5P2rvgkUTS5OmYEexMko68cLgCXQtslT6heauPB8jNc6ZwN85IO/gZ
+	 sYLoBwrfAhqkGgRYZy+SSc2r8atrc0fyKxPINOG5COJuZdKjWuLqwkdSpSoXUVfVNJ
+	 xZxJOsN8dq/Sg==
+Date: Tue, 12 May 2026 14:29:32 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
+Cc: rva333@protonmail.com, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Sen Chu <sen.chu@mediatek.com>,
+ Sean Wang <sean.wang@mediatek.com>, Macpaul Lin <macpaul.lin@mediatek.com>,
+ Lee Jones <lee@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, "Rafael
+ J. Wysocki" <rafael@kernel.org>, Daniel Lezcano
+ <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, Lukasz Luba
+ <lukasz.luba@arm.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-pm@vger.kernel.org, Ben Grisdale <bengris32@protonmail.ch>
+Subject: Re: [PATCH v2 05/16] iio: adc: mediatek: add mt6323 PMIC AUXADC
+ driver
+Message-ID: <20260512142932.5c6801d1@jic23-huawei>
+In-Reply-To: <20260512-mt6323-v2-5-3efcba579e88@protonmail.com>
+References: <20260512-mt6323-v2-0-3efcba579e88@protonmail.com>
+	<20260512-mt6323-v2-5-3efcba579e88@protonmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260512-clk-eyeq7-v6-9-0540cce18fb2@bootlin.com>
-References: <20260512-clk-eyeq7-v6-0-0540cce18fb2@bootlin.com>
-In-Reply-To: <20260512-clk-eyeq7-v6-0-0540cce18fb2@bootlin.com>
-To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
- Gregory CLEMENT <gregory.clement@bootlin.com>, 
- =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-mips@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-clk@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Add the entries for the 14 Other Logic Blocks found in the EyeQ7H SoC. The
-clock tree is more complex than the previous generation of SoC, as some
-OLB depend on the clock output of other OLB instead of all referring to
-the main oscillator.
+On Tue, 12 May 2026 08:18:19 +0300
+Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org> wrote:
 
-The OLB south, east and west generate those reference clocks used by other
-blocks. They also use the reference clock internally. The reference clock
-provided by OLB south is named "ref_100p0", "ref_106p6_e" by OLB east and
-"ref_106p6_w" by OLB west.
+> From: Roman Vivchar <rva333@protonmail.com>
+> 
+> The mt6323 AUXADC is a 15-bit ADC used for system monitoring. This driver
+> provides support for reading various channels including battery and
+> charger voltages, battery and chip temperature, current sensing and
+> accessory detection.
+> 
+> Add a driver for the AUXADC found in the MediaTek mt6323 PMIC.
+> 
+> Tested-by: Ben Grisdale <bengris32@protonmail.ch> # Amazon Echo Dot (2nd Generation)
+> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+Hi Roman
 
-For the OLB with a single parent clock, We use the same logic as the
-blocks found in previous SoC and refer to it with the name "ref".
+Various comments inline - mostly naming related.
 
-The OLB with two parent clocks use the reference clock provided by the
-OLB south, east and west as "ref_100p0" and "ref_106p6" and the main
-oscillator as "ref".
+Jonathan
 
-The reset controllers found is 11 of the OLB are declared as auxiliary
-device attached to the clock device.
+> diff --git a/drivers/iio/adc/mt6323-auxadc.c b/drivers/iio/adc/mt6323-auxadc.c
+> new file mode 100644
+> index 000000000000..2c2b495e3d38
+> --- /dev/null
+> +++ b/drivers/iio/adc/mt6323-auxadc.c
+> @@ -0,0 +1,319 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) 2026 Roman Vivchar <rva333@protonmail.com>
+> + *
+> + * Based on drivers/iio/adc/mt6359-auxadc.c
+> + */
+> +
+> +#include <linux/array_size.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/delay.h>
+> +#include <linux/iio/iio.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/property.h>
+> +#include <linux/regmap.h>
+> +#include <linux/stringify.h>
+> +#include <linux/types.h>
+> +
+> +#include <linux/mfd/mt6397/core.h>
+> +#include <linux/mfd/mt6323/registers.h>
+> +
+> +#include <dt-bindings/iio/adc/mediatek,mt6323-auxadc.h>
+> +
+> +#define AUXADC_RSTB_SEL		BIT(7)
+> +#define AUXADC_RSTB_SW		BIT(5)
+> +
+> +#define AUXADC_CTL_CK		BIT(5)
+> +
+> +#define AUXADC_TRIM_CH2		(3 << 10)
+> +#define AUXADC_TRIM_CH4		(3 << 8)
+> +#define AUXADC_TRIM_CH5		(3 << 4)
+> +#define AUXADC_TRIM_CH6		(3 << 2)
+> +
+> +#define AUXADC_VREF18_ENB_MD	BIT(15)
+> +#define AUXADC_MD_STATUS	BIT(0)
+> +
+> +#define AUXADC_GPS_STATUS	BIT(1)
+> +
+> +#define AUXADC_VREF18_SELB	BIT(1)
+> +#define AUXADC_DECI_GDLY_SEL	BIT(0)
+> +
+> +#define AUXADC_VBUF_EN		BIT(4)
+> +
+> +#define AUXADC_DECI_GDLY_MASK		GENMASK(15, 14)
+Why you can it is much better to clearly associate a field mask
+definition with which register it is in. Lets us quickly spot
+if there is a missmatch.
 
-Also add the functions to parse the registers of the two types of PLL
-in the EyeQ7H OLB.
+#define AUXADC_CON19_DECI_GDLY_MASK  for example.
 
-The JFRACR PLL have similar properties as the FRACG PLL, but its
-configuration is spread on three registers instead of two. It also have
-a wider fractional part for the multiplier on 24 bits instead of 20.
+THough DECI_GDLY isn't exactly easy to understand as abbreviations
+go!
 
-The AINTP PLL does not support spread spectrum and uses a single
-register. It is registered as a fixed factor without the flag
-CLK_FIXED_FACTOR_FIXED_ACCURACY and thus inherit the accuracy of its
-parent clock.
+> +#define AUXADC_ADC19_BUSY_MASK		GENMASK(15, 1)
+> +#define AUXADC_RDY_MASK			BIT(15)
+> +#define AUXADC_DATA_MASK		GENMASK(14, 0)
+> +
+> +#define AUXADC_OSR_MASK			GENMASK(12, 10)
+> +#define AUXADC_DEFAULT_OSR		3
+> +
+> +#define AUXADC_LOW_CHANNEL_MASK		GENMASK(9, 0)
+> +#define AUXADC_AUDIO_CHANNEL_MASK	GENMASK(8, 0)
+> +
+> +#define VOLTAGE_FULL_RANGE	1800
+Probably better to have this inline - however if you do keep it
+prefix t he define  VOLTAGE_FULL_RANGE sounds too generic!
 
-Signed-off-by: Benoît Monin <benoit.monin@bootlin.com>
----
- drivers/clk/clk-eyeq.c | 495 ++++++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 494 insertions(+), 1 deletion(-)
+> +#define AUXADC_PRECISE		32768
+I'd put that inline.  Little benefit it in having it up here...
+> +
+> +#define MTK_PMIC_IIO_CHAN(_name, _idx, _ch_type)       \
+> +{                                                      \
+> +	.type = _ch_type,                              \
+> +	.indexed = 1,                                  \
+> +	.channel = _idx,                               \
+> +	.address = _idx,                               \
 
-diff --git a/drivers/clk/clk-eyeq.c b/drivers/clk/clk-eyeq.c
-index 83c6f5002451..c8c924d63bad 100644
---- a/drivers/clk/clk-eyeq.c
-+++ b/drivers/clk/clk-eyeq.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-- * PLL clock driver for the Mobileye EyeQ5, EyeQ6L and EyeQ6H platforms.
-+ * PLL clock driver for the Mobileye EyeQ platforms.
-  *
-  * This controller handles:
-  *  - Read-only PLLs, all derived from the same main crystal clock.
-@@ -46,6 +46,7 @@
- 
- #include <dt-bindings/clock/mobileye,eyeq5-clk.h>
- #include <dt-bindings/clock/mobileye,eyeq6lplus-clk.h>
-+#include <dt-bindings/clock/mobileye,eyeq7h-clk.h>
- 
- /* In frac mode, it enables fractional noise canceling DAC. Else, no function. */
- #define FRACG_PCSR0_DAC_EN			BIT(0)
-@@ -71,6 +72,41 @@
- #define FRACG_PCSR1_DOWN_SPREAD			BIT(11)
- #define FRACG_PCSR1_FRAC_IN			GENMASK(31, 12)
- 
-+#define JFRACR_PCSR0_BYPASS			BIT(0)
-+#define JFRACR_PCSR0_PLL_EN			BIT(1)
-+#define JFRACR_PCSR0_FOUTVCO_EN			BIT(2)
-+#define JFRACR_PCSR0_FOUTPOSTDIV_EN		BIT(3)
-+#define JFRACR_PCSR0_POST_DIV1			GENMASK(6, 4)
-+#define JFRACR_PCSR0_POST_DIV2			GENMASK(9, 7)
-+#define JFRACR_PCSR0_REF_DIV			GENMASK(15, 10)
-+#define JFRACR_PCSR0_FB_DIV			GENMASK(27, 16)
-+#define JFRACR_PCSR0_VCO_SEL			GENMASK(29, 28)
-+#define JFRACR_PCSR0_PLL_LOCKED			GENMASK(31, 30)
-+
-+#define JFRACR_PCSR1_FRAC_IN			GENMASK(23, 0)
-+#define JFRACR_PCSR1_FOUT4PHASE_EN		BIT(24)
-+#define JFRACR_PCSR1_DAC_EN			BIT(25)
-+#define JFRACR_PCSR1_DSM_EN			BIT(26)
-+/* Bits 31..27 are reserved */
-+#define JFRACR_PCSR2_RESET			BIT(0)
-+#define JFRACR_PCSR2_DIS_SSCG			BIT(1)
-+#define JFRACR_PCSR2_DOWN_SPREAD		BIT(2)
-+#define JFRACR_PCSR2_SSGC_DIV			GENMASK(7, 4)
-+#define JFRACR_PCSR2_SPREAD			GENMASK(12, 8)
-+/* Bits 31..13 are reserved */
-+
-+#define AINTP_PCSR_BYPASS			BIT(0)
-+#define AINTP_PCSR_PLL_EN			BIT(1)
-+#define AINTP_PCSR_FOUTVCO_EN			BIT(2)
-+#define AINTP_PCSR_FOUTPOSTDIV_EN		BIT(3)
-+#define AINTP_PCSR_POST_DIV1			GENMASK(6, 4)
-+#define AINTP_PCSR_POST_DIV2			GENMASK(9, 7)
-+#define AINTP_PCSR_REF_DIV			GENMASK(15, 10)
-+#define AINTP_PCSR_FB_DIV			GENMASK(27, 16)
-+#define AINTP_PCSR_VCO_SEL			GENMASK(29, 28)
-+/* bit 30 is reserved */
-+#define AINTP_PCSR_PLL_LOCKED			BIT(31)
-+
- /*
-  * Special index values to lookup a parent clock by its name
-  * from the device tree or by its globally unique name.
-@@ -159,6 +195,29 @@ static void eqc_pll_downshift_factors(unsigned long *mult, unsigned long *div)
- 	*div >>= shift;
- }
- 
-+static int eqc_pll_parse_aintp(void __iomem *base, unsigned long *mult, unsigned long *div)
-+{
-+	u32 r0;
-+
-+	r0 = readl(base);
-+	if (r0 & AINTP_PCSR_BYPASS) {
-+		*mult = 1;
-+		*div = 1;
-+		return 0;
-+	}
-+
-+	if (!(r0 & AINTP_PCSR_PLL_LOCKED))
-+		return -EINVAL;
-+
-+	*mult = FIELD_GET(AINTP_PCSR_FB_DIV, r0);
-+	*div = FIELD_GET(AINTP_PCSR_REF_DIV, r0);
-+
-+	if (!*mult || !*div)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
- static int eqc_pll_parse_fracg(void __iomem *base, unsigned long *mult,
- 			       unsigned long *div, unsigned long *acc)
- {
-@@ -228,6 +287,60 @@ static int eqc_pll_parse_fracg(void __iomem *base, unsigned long *mult,
- 	return 0;
- }
- 
-+static int eqc_pll_parse_jfracr(void __iomem *base, unsigned long *mult,
-+				unsigned long *div, unsigned long *acc)
-+{
-+	unsigned long spread;
-+	u32 r0, r1, r2;
-+	u64 val;
-+
-+	val = readq(base);
-+	r0 = val;
-+	r1 = val >> 32;
-+	r2 = readl(base + 8);
-+
-+	if (r0 & JFRACR_PCSR0_BYPASS) {
-+		*mult = 1;
-+		*div = 1;
-+		*acc = 0;
-+		return 0;
-+	}
-+
-+	if (!(r0 & JFRACR_PCSR0_PLL_LOCKED))
-+		return -EINVAL;
-+
-+	*mult = FIELD_GET(JFRACR_PCSR0_FB_DIV, r0);
-+	*div = FIELD_GET(JFRACR_PCSR0_REF_DIV, r0);
-+
-+	/* fractional part on 24 bits */
-+	if (r1 & JFRACR_PCSR1_DSM_EN) {
-+		*div *= (1ULL << 24);
-+		*mult = *mult * (1ULL << 24) + FIELD_GET(JFRACR_PCSR1_FRAC_IN, r1);
-+	}
-+
-+	if (!*mult || !*div)
-+		return -EINVAL;
-+
-+	if (r2 & (JFRACR_PCSR2_RESET | JFRACR_PCSR2_DIS_SSCG)) {
-+		*acc = 0;
-+		return 0;
-+	}
-+
-+	/* spread spectrum is identical to FRACG PLL */
-+	spread = FIELD_GET(JFRACR_PCSR2_SPREAD, r2);
-+	*acc = DIV_ROUND_CLOSEST(spread * 1000000000, 1024 * 2);
-+
-+	if (r2 & JFRACR_PCSR2_DOWN_SPREAD) {
-+		*mult *= 2048 - spread;
-+		*div *= 2048;
-+	}
-+
-+	/* make sure mult and div fit in 32 bits */
-+	eqc_pll_downshift_factors(mult, div);
-+
-+	return 0;
-+}
-+
- static void eqc_auxdev_create_optional(struct device *dev, void __iomem *base,
- 				       const char *name)
- {
-@@ -311,6 +424,33 @@ static int eqc_probe_fixed_factor(struct device *dev, struct device_node *np,
- 	return 0;
- }
- 
-+static int eqc_probe_pll_aintp(struct device *dev, struct device_node *np,
-+			       const struct eqc_clock *clk, void __iomem *base,
-+			       struct clk_hw_onecell_data *cells)
-+{
-+	struct clk_parent_data parent_data = { };
-+	unsigned long mult, div;
-+	struct clk_hw *hw;
-+	int ret;
-+
-+	ret = eqc_pll_parse_aintp(base + clk->pll.reg, &mult, &div);
-+	if (ret)
-+		return ret;
-+
-+	ret = eqc_fill_parent_data(clk, cells, &parent_data);
-+	if (ret)
-+		return ret;
-+
-+	hw = clk_hw_register_fixed_factor_pdata(dev, np, clk->name, &parent_data,
-+						0, mult, div, 0, 0);
-+
-+	if (IS_ERR(hw))
-+		return IS_ERR(hw);
-+
-+	cells->hws[clk->index] = hw;
-+	return 0;
-+}
-+
- static int eqc_probe_pll_fracg(struct device *dev, struct device_node *np,
- 			       const struct eqc_clock *clk, void __iomem *base,
- 			       struct clk_hw_onecell_data *cells)
-@@ -337,6 +477,32 @@ static int eqc_probe_pll_fracg(struct device *dev, struct device_node *np,
- 	return 0;
- }
- 
-+static int eqc_probe_pll_jfracr(struct device *dev, struct device_node *np,
-+				const struct eqc_clock *clk, void __iomem *base,
-+				struct clk_hw_onecell_data *cells)
-+{
-+	struct clk_parent_data parent_data = { };
-+	unsigned long mult, div, acc;
-+	struct clk_hw *hw;
-+	int ret;
-+
-+	ret = eqc_pll_parse_jfracr(base + clk->pll.reg, &mult, &div, &acc);
-+	if (ret)
-+		return ret;
-+
-+	ret = eqc_fill_parent_data(clk, cells, &parent_data);
-+	if (ret)
-+		return ret;
-+
-+	hw = clk_hw_register_fixed_factor_pdata(dev, np, clk->name, &parent_data, 0, mult,
-+						div, acc, CLK_FIXED_FACTOR_FIXED_ACCURACY);
-+	if (IS_ERR(hw))
-+		return IS_ERR(hw);
-+
-+	cells->hws[clk->index] = hw;
-+	return 0;
-+}
-+
- static int eqc_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -420,6 +586,17 @@ static int eqc_probe(struct platform_device *pdev)
- 		.ff.div = _div,						\
- 	}
- 
-+#define PLL_AINTP(_index, _parent_idx, _name, _parent_name, _reg)	\
-+	{								\
-+		.index = _index,					\
-+		.parent_idx = _parent_idx,				\
-+		.name = _name,						\
-+		.parent_name = _parent_name,				\
-+		.probe = eqc_probe_pll_aintp,				\
-+		.unregister = clk_hw_unregister_fixed_factor,		\
-+		.pll.reg = _reg,					\
-+	}
-+
- #define PLL_FRACG(_index, _parent_idx, _name, _parent_name, _reg)	\
- 	{								\
- 		.index = _index,					\
-@@ -431,6 +608,17 @@ static int eqc_probe(struct platform_device *pdev)
- 		.pll.reg = _reg,					\
- 	}
- 
-+#define PLL_JFRACR(_index, _parent_idx, _name, _parent_name, _reg)	\
-+	{								\
-+		.index = _index,					\
-+		.parent_idx = _parent_idx,				\
-+		.name = _name,						\
-+		.parent_name = _parent_name,				\
-+		.probe = eqc_probe_pll_jfracr,				\
-+		.unregister = clk_hw_unregister_fixed_factor,		\
-+		.pll.reg = _reg,					\
-+	}
-+
- enum {
- 	/*
- 	 * EQ5C_PLL_CPU children.
-@@ -672,6 +860,295 @@ static const struct eqc_match_data eqc_eyeq6h_acc_match_data = {
- 	.reset_auxdev_name = "reset_acc",
- };
- 
-+static const struct eqc_clock eqc_eyeq7h_acc0_clks[] = {
-+	PLL_AINTP(EQ7HC_ACC_PLL_VMP, PARENT_BY_FWNAME, "pll-acc0-vmp", "ref_100p0", 0x400),
-+	PLL_AINTP(EQ7HC_ACC_PLL_MPC, PARENT_BY_FWNAME, "pll-acc0-mpc", "ref_100p0", 0x404),
-+	PLL_AINTP(EQ7HC_ACC_PLL_PMA, PARENT_BY_FWNAME, "pll-acc0-pma", "ref_100p0", 0x408),
-+	PLL_AINTP(EQ7HC_ACC_PLL_NOC, PARENT_BY_FWNAME, "pll-acc0-noc-acc", "ref_106p6", 0x40c),
-+
-+	FF(EQ7HC_ACC_DIV_PMA, EQ7HC_ACC_PLL_PMA, "acc0_pma", NULL, 1, 2),
-+	FF(EQ7HC_ACC_DIV_NCORE, EQ7HC_ACC_PLL_NOC, "acc0_ncore", NULL, 1, 2),
-+	FF(EQ7HC_ACC_DIV_CFG, EQ7HC_ACC_PLL_NOC, "acc0_cfg", NULL, 1, 8),
-+};
-+
-+static const struct eqc_match_data eqc_eyeq7h_acc0_match_data = {
-+	.clk_count	= ARRAY_SIZE(eqc_eyeq7h_acc0_clks),
-+	.clks		= eqc_eyeq7h_acc0_clks,
-+
-+	.reset_auxdev_name = "reset_acc0",
-+};
-+
-+static const struct eqc_clock eqc_eyeq7h_acc1_clks[] = {
-+	PLL_AINTP(EQ7HC_ACC_PLL_VMP, PARENT_BY_FWNAME, "pll-acc1-vmp", "ref_100p0", 0x400),
-+	PLL_AINTP(EQ7HC_ACC_PLL_MPC, PARENT_BY_FWNAME, "pll-acc1-mpc", "ref_100p0", 0x404),
-+	PLL_AINTP(EQ7HC_ACC_PLL_PMA, PARENT_BY_FWNAME, "pll-acc1-pma", "ref_100p0", 0x408),
-+	PLL_AINTP(EQ7HC_ACC_PLL_NOC, PARENT_BY_FWNAME, "pll-acc1-noc-acc", "ref_106p6", 0x40c),
-+};
-+
-+static const struct eqc_match_data eqc_eyeq7h_acc1_match_data = {
-+	.clk_count	= ARRAY_SIZE(eqc_eyeq7h_acc1_clks),
-+	.clks		= eqc_eyeq7h_acc1_clks,
-+
-+	.reset_auxdev_name = "reset_acc1",
-+};
-+
-+static const struct clk_div_table eqc_eyeq7h_ddr_apb_div_table[] = {
-+	{ .val = 0, .div = 8 },
-+	{ .val = 1, .div = 128 },
-+	{ .val = 0, .div = 0 },
-+};
-+
-+static const struct clk_div_table eqc_eyeq7h_ddr_ref_div_table[] = {
-+	{ .val = 0, .div = 2 },
-+	{ .val = 1, .div = 8 },
-+	{ .val = 0, .div = 0 },
-+};
-+
-+static const struct clk_div_table eqc_eyeq7h_ddr_dfi_div_table[] = {
-+	{ .val = 0, .div = 2 },
-+	{ .val = 1, .div = 32 },
-+	{ .val = 0, .div = 0 },
-+};
-+
-+static const struct eqc_clock eqc_eyeq7h_ddr0_clks[] = {
-+	PLL_AINTP(EQ7HC_DDR_PLL, PARENT_BY_FWNAME, "pll-ddr0", "ref", 0x0),
-+
-+	DIV(EQ7HC_DDR_DIV_APB, EQ7HC_DDR_PLL, "div-ddr0_apb", NULL,
-+	    0x08, 10, 1, eqc_eyeq7h_ddr_apb_div_table),
-+	DIV(EQ7HC_DDR_DIV_PLLREF, EQ7HC_DDR_PLL, "div-ddr0_pllref", NULL,
-+	    0x08, 10, 1, eqc_eyeq7h_ddr_ref_div_table),
-+	DIV(EQ7HC_DDR_DIV_DFI, EQ7HC_DDR_PLL, "div-ddr0-dfi", NULL,
-+	    0x08, 10, 1, eqc_eyeq7h_ddr_dfi_div_table),
-+};
-+
-+static const struct eqc_match_data eqc_eyeq7h_ddr0_match_data = {
-+	.clk_count	= ARRAY_SIZE(eqc_eyeq7h_ddr0_clks),
-+	.clks		= eqc_eyeq7h_ddr0_clks,
-+
-+	.reset_auxdev_name = "reset_ddr0",
-+};
-+
-+static const struct eqc_clock eqc_eyeq7h_ddr1_clks[] = {
-+	PLL_AINTP(EQ7HC_DDR_PLL, PARENT_BY_FWNAME, "pll-ddr1", "ref", 0x0),
-+
-+	DIV(EQ7HC_DDR_DIV_APB, EQ7HC_DDR_PLL, "div-ddr1_apb", NULL,
-+	    0x08, 10, 1, eqc_eyeq7h_ddr_apb_div_table),
-+	DIV(EQ7HC_DDR_DIV_PLLREF, EQ7HC_DDR_PLL, "div-ddr1_pllref", NULL,
-+	    0x08, 10, 1, eqc_eyeq7h_ddr_ref_div_table),
-+	DIV(EQ7HC_DDR_DIV_DFI, EQ7HC_DDR_PLL, "div-ddr1-dfi", NULL,
-+	    0x08, 10, 1, eqc_eyeq7h_ddr_dfi_div_table),
-+};
-+
-+static const struct eqc_match_data eqc_eyeq7h_ddr1_match_data = {
-+	.clk_count	= ARRAY_SIZE(eqc_eyeq7h_ddr1_clks),
-+	.clks		= eqc_eyeq7h_ddr1_clks,
-+
-+	.reset_auxdev_name = "reset_ddr1",
-+};
-+
-+static const struct eqc_clock eqc_eyeq7h_east_clocks[] = {
-+	PLL_JFRACR(EQ7HC_EAST_PLL_106P6, PARENT_BY_FWNAME, "pll-106p6-e", "ref", 0x00),
-+
-+	FF(EQ7HC_EAST_DIV_REF_106P6, EQ7HC_EAST_PLL_106P6, "ref_106p6_e", NULL, 1, 40),
-+
-+	PLL_AINTP(EQ7HC_EAST_PLL_NOC, EQ7HC_EAST_DIV_REF_106P6, "pll-noc-e", NULL, 0x30),
-+	PLL_AINTP(EQ7HC_EAST_PLL_ISP, PARENT_BY_FWNAME, "pll-isp", "ref_100p0", 0x38),
-+	PLL_AINTP(EQ7HC_EAST_PLL_VEU, PARENT_BY_FWNAME, "pll-veu", "ref_100p0", 0x40),
-+
-+	FF(EQ7HC_EAST_DIV_REF_DDR_PHY, EQ7HC_EAST_PLL_106P6, "ref_ddr_phy_e", NULL, 1, 2),
-+
-+	FF(EQ7HC_EAST_DIV_CORE, EQ7HC_EAST_PLL_NOC, "core_e", NULL, 1, 2),
-+	FF(EQ7HC_EAST_DIV_CORE_MBIST, EQ7HC_EAST_PLL_NOC, "core_mbist_e", NULL, 1, 2),
-+	FF(EQ7HC_EAST_DIV_ISRAM_MBIST, EQ7HC_EAST_PLL_NOC, "isram_mbist_e", NULL, 1, 2),
-+	FF(EQ7HC_EAST_DIV_CFG, EQ7HC_EAST_PLL_NOC, "cfg_e", NULL, 1, 4),
-+
-+	FF(EQ7HC_EAST_DIV_VEU_CORE, EQ7HC_EAST_PLL_VEU, "veu_core", NULL, 1, 4),
-+	FF(EQ7HC_EAST_DIV_VEU_MBIST, EQ7HC_EAST_PLL_VEU, "veu_mbist", NULL, 1, 4),
-+	FF(EQ7HC_EAST_DIV_VEU_OCP, EQ7HC_EAST_PLL_VEU, "veu_ocp", NULL, 1, 16),
-+
-+	FF(EQ7HC_EAST_DIV_LBITS, EQ7HC_EAST_PLL_ISP, "lbits_e", NULL, 1, 48),
-+	FF(EQ7HC_EAST_DIV_ISP0_CORE, EQ7HC_EAST_PLL_ISP, "isp0_core", NULL, 1, 2),
-+};
-+
-+static const struct eqc_match_data eqc_eyeq7h_east_match_data = {
-+	.clk_count = ARRAY_SIZE(eqc_eyeq7h_east_clocks),
-+	.clks = eqc_eyeq7h_east_clocks,
-+
-+	.reset_auxdev_name = "reset_east",
-+};
-+
-+static const struct eqc_clock eqc_eyeq7h_mips0_clks[] = {
-+	PLL_AINTP(EQ7HC_MIPS_PLL_CPU, PARENT_BY_FWNAME, "pll-cpu0", "ref", 0x0),
-+
-+	FF(EQ7HC_MIPS_DIV_CM, EQ7HC_MIPS_PLL_CPU, "mips0_cm", NULL, 1, 2),
-+};
-+
-+static const struct eqc_match_data eqc_eyeq7h_mips0_match_data = {
-+	.clk_count	= ARRAY_SIZE(eqc_eyeq7h_mips0_clks),
-+	.clks		= eqc_eyeq7h_mips0_clks,
-+};
-+
-+static const struct eqc_clock eqc_eyeq7h_mips1_clks[] = {
-+	PLL_AINTP(EQ7HC_MIPS_PLL_CPU, PARENT_BY_FWNAME, "pll-cpu1", "ref", 0x0),
-+
-+	FF(EQ7HC_MIPS_DIV_CM, EQ7HC_MIPS_PLL_CPU, "mips1_cm", NULL, 1, 2),
-+};
-+
-+static const struct eqc_match_data eqc_eyeq7h_mips1_match_data = {
-+	.clk_count	= ARRAY_SIZE(eqc_eyeq7h_mips1_clks),
-+	.clks		= eqc_eyeq7h_mips1_clks,
-+};
-+
-+static const struct eqc_clock eqc_eyeq7h_mips2_clks[] = {
-+	PLL_AINTP(EQ7HC_MIPS_PLL_CPU, PARENT_BY_FWNAME, "pll-cpu2", "ref", 0x0),
-+
-+	FF(EQ7HC_MIPS_DIV_CM, EQ7HC_MIPS_PLL_CPU, "mips2_cm", NULL, 1, 2),
-+};
-+
-+static const struct eqc_match_data eqc_eyeq7h_mips2_match_data = {
-+	.clk_count	= ARRAY_SIZE(eqc_eyeq7h_mips2_clks),
-+	.clks		= eqc_eyeq7h_mips2_clks,
-+};
-+
-+static const struct eqc_clock eqc_eyeq7h_periph_east_clks[] = {
-+	PLL_AINTP(EQ7HC_PERIPH_EAST_PLL_PER, PARENT_BY_FWNAME, "pll-periph_east_per", "ref", 0x0),
-+
-+	FF(EQ7HC_PERIPH_EAST_DIV_PER, EQ7HC_PERIPH_EAST_PLL_PER, "periph_e", NULL, 1, 10),
-+};
-+
-+static const struct eqc_match_data eqc_eyeq7h_periph_east_match_data = {
-+	.clk_count	= ARRAY_SIZE(eqc_eyeq7h_periph_east_clks),
-+	.clks		= eqc_eyeq7h_periph_east_clks,
-+
-+	.reset_auxdev_name = "reset_periph_east",
-+};
-+
-+static const struct eqc_clock eqc_eyeq7h_periph_west_clks[] = {
-+	PLL_AINTP(EQ7HC_PERIPH_WEST_PLL_PER, PARENT_BY_FWNAME,
-+		  "pll-periph_west_per", "ref_100p0", 0x0),
-+	PLL_AINTP(EQ7HC_PERIPH_WEST_PLL_I2S, PARENT_BY_FWNAME,
-+		  "pll-periph_west_i2s", "ref_106p6", 0x4),
-+
-+	FF(EQ7HC_PERIPH_WEST_DIV_PER, EQ7HC_PERIPH_WEST_PLL_PER, "periph_w", NULL, 1, 10),
-+	FF(EQ7HC_PERIPH_WEST_DIV_I2S, EQ7HC_PERIPH_WEST_PLL_I2S, "periph_i2s_ser_w", NULL, 1, 100),
-+};
-+
-+static const struct eqc_match_data eqc_eyeq7h_periph_west_match_data = {
-+	.clk_count	= ARRAY_SIZE(eqc_eyeq7h_periph_west_clks),
-+	.clks		= eqc_eyeq7h_periph_west_clks,
-+
-+	.reset_auxdev_name = "reset_periph_west",
-+};
-+
-+static const struct eqc_clock eqc_eyeq7h_south_clks[] = {
-+	PLL_JFRACR(EQ7HC_SOUTH_PLL_100P0, PARENT_BY_FWNAME, "pll-100p0", "ref", 0x40),
-+
-+	FF(EQ7HC_SOUTH_DIV_REF_100P0, EQ7HC_SOUTH_PLL_100P0, "ref_100p0", NULL, 1, 48),
-+
-+	PLL_AINTP(EQ7HC_SOUTH_PLL_XSPI, EQ7HC_SOUTH_DIV_REF_100P0, "pll-xspi", NULL, 0x10),
-+	PLL_AINTP(EQ7HC_SOUTH_PLL_VDIO, EQ7HC_SOUTH_DIV_REF_100P0, "pll-vdio", NULL, 0x18),
-+	PLL_AINTP(EQ7HC_SOUTH_PLL_PER, EQ7HC_SOUTH_DIV_REF_100P0, "pll-per-s", NULL, 0x20),
-+
-+	FF(EQ7HC_SOUTH_DIV_VDO_DSI_SYS, EQ7HC_SOUTH_PLL_100P0, "vdo_dsi_sys", NULL, 1, 9),
-+	FF(EQ7HC_SOUTH_DIV_PMA_CMN_REF, EQ7HC_SOUTH_PLL_100P0, "pma_cmn_ref", NULL, 1, 48),
-+	FF(EQ7HC_SOUTH_DIV_REF_UFS, EQ7HC_SOUTH_PLL_100P0, "ref_ufs", NULL, 1, 250),
-+	FF(EQ7HC_SOUTH_DIV_XSPI_SYS, EQ7HC_SOUTH_PLL_XSPI, "xspi_sys", NULL, 1, 8),
-+	FF(EQ7HC_SOUTH_DIV_XSPI_MBIST, EQ7HC_SOUTH_PLL_XSPI, "xspi_mbist", NULL, 1, 8),
-+	FF(EQ7HC_SOUTH_DIV_NOC_S, EQ7HC_SOUTH_PLL_PER, "noc_s", NULL, 1, 2),
-+	FF(EQ7HC_SOUTH_DIV_PCIE_SYS, EQ7HC_SOUTH_PLL_PER, "pcie_sys", NULL, 1, 4),
-+	FF(EQ7HC_SOUTH_DIV_PCIE_SYS_MBIST, EQ7HC_SOUTH_PLL_PER, "pcie_sys_mbist", NULL, 1, 4),
-+	FF(EQ7HC_SOUTH_DIV_PCIE_GBE_PHY, EQ7HC_SOUTH_PLL_PER, "pcie_gbe_phy_apb", NULL, 1, 16),
-+	FF(EQ7HC_SOUTH_DIV_UFS_CORE, EQ7HC_SOUTH_PLL_PER, "ufs_core", NULL, 1, 8),
-+	FF(EQ7HC_SOUTH_DIV_UFS_SMS, EQ7HC_SOUTH_PLL_PER, "ufs_sms", NULL, 1, 5),
-+	FF(EQ7HC_SOUTH_DIV_UFS_ROM_SMS, EQ7HC_SOUTH_PLL_PER, "ufs_rom_sms", NULL, 1, 5),
-+	FF(EQ7HC_SOUTH_DIV_ETH_SYS, EQ7HC_SOUTH_PLL_PER, "eth_sys", NULL, 1, 8),
-+	FF(EQ7HC_SOUTH_DIV_ETH_MBIST, EQ7HC_SOUTH_PLL_PER, "eth_mbist", NULL, 1, 8),
-+	FF(EQ7HC_SOUTH_DIV_CFG_S, EQ7HC_SOUTH_PLL_PER, "cfg_s", NULL, 1, 8),
-+	FF(EQ7HC_SOUTH_DIV_TSU, EQ7HC_SOUTH_PLL_PER, "tsu", NULL, 1, 64),
-+	FF(EQ7HC_SOUTH_DIV_VDIO, EQ7HC_SOUTH_PLL_VDIO, "vdio", NULL, 1, 4),
-+	FF(EQ7HC_SOUTH_DIV_VDIO_CORE, EQ7HC_SOUTH_PLL_VDIO, "vdio_core", NULL, 1, 4),
-+	FF(EQ7HC_SOUTH_DIV_VDIO_CORE_MBIST, EQ7HC_SOUTH_PLL_VDIO, "vdio_core_mbist", NULL, 1, 4),
-+	FF(EQ7HC_SOUTH_DIV_VDO_CORE_MBIST, EQ7HC_SOUTH_PLL_VDIO, "vdo_core_mbist", NULL, 1, 4),
-+	FF(EQ7HC_SOUTH_DIV_VDO_P, EQ7HC_SOUTH_PLL_VDIO, "vdo_p", NULL, 1, 40),
-+	FF(EQ7HC_SOUTH_DIV_VDIO_CFG, EQ7HC_SOUTH_PLL_VDIO, "vdio_cfg", NULL, 1, 150),
-+	FF(EQ7HC_SOUTH_DIV_VDIO_TXCLKESC, EQ7HC_SOUTH_PLL_VDIO, "vdio_txclkesc", NULL, 1, 8),
-+};
-+
-+static const struct eqc_match_data eqc_eyeq7h_south_match_data = {
-+	.clk_count	= ARRAY_SIZE(eqc_eyeq7h_south_clks),
-+	.clks		= eqc_eyeq7h_south_clks,
-+
-+	.reset_auxdev_name = "reset_south",
-+};
-+
-+static const struct eqc_clock eqc_eyeq7h_west_clks[] = {
-+	PLL_JFRACR(EQ7HC_WEST_PLL_106P6, PARENT_BY_FWNAME, "pll-106p6-w", "ref", 0x0),
-+
-+	FF(EQ7HC_WEST_DIV_REF_106P6, EQ7HC_WEST_PLL_106P6, "ref_106p6_w", NULL, 1, 40),
-+
-+	PLL_AINTP(EQ7HC_WEST_PLL_NOC, EQ7HC_WEST_DIV_REF_106P6, "pll-noc-w", NULL, 0x30),
-+	PLL_AINTP(EQ7HC_WEST_PLL_GPU, PARENT_BY_FWNAME, "pll-gpu", "ref_100p0", 0x38),
-+	PLL_AINTP(EQ7HC_WEST_PLL_SSI, PARENT_BY_FWNAME, "pll-ssi", "ref_100p0", 0x40),
-+
-+	FF(EQ7HC_WEST_DIV_GPU, EQ7HC_WEST_PLL_GPU, "gpu", NULL, 1, 2),
-+	FF(EQ7HC_WEST_DIV_GPU_MBIST, EQ7HC_WEST_PLL_GPU, "gpu_mbist", NULL, 1, 2),
-+	FF(EQ7HC_WEST_DIV_LBITS, EQ7HC_WEST_PLL_GPU, "lbits_w", NULL, 1, 40),
-+	FF(EQ7HC_WEST_DIV_MIPS_TIMER, EQ7HC_WEST_PLL_SSI, "mips_timer", NULL, 1, 24),
-+	FF(EQ7HC_WEST_DIV_SSI_CORE, EQ7HC_WEST_PLL_SSI, "ssi_core", NULL, 1, 2),
-+	FF(EQ7HC_WEST_DIV_SSI_CORE_MBIST, EQ7HC_WEST_PLL_SSI, "ssi_core_mbist", NULL, 1, 2),
-+	FF(EQ7HC_WEST_DIV_SSI_ROM, EQ7HC_WEST_PLL_SSI, "ssi_rom", NULL, 1, 8),
-+	FF(EQ7HC_WEST_DIV_SSI_ROM_MBIST, EQ7HC_WEST_PLL_SSI, "ssi_rom_mbist", NULL, 1, 8),
-+	FF(EQ7HC_WEST_DIV_REF_DDR_PHY, EQ7HC_WEST_PLL_106P6, "ref_ddr_phy_w", NULL, 1, 2),
-+	FF(EQ7HC_WEST_DIV_CORE, EQ7HC_WEST_PLL_NOC, "core_w", NULL, 1, 2),
-+	FF(EQ7HC_WEST_DIV_CORE_MBIST, EQ7HC_WEST_PLL_NOC, "core_mbist_w", NULL, 1, 2),
-+	FF(EQ7HC_WEST_DIV_CFG, EQ7HC_WEST_PLL_NOC, "cfg_w", NULL, 1, 4),
-+	FF(EQ7HC_WEST_DIV_CAU, EQ7HC_WEST_PLL_NOC, "cau_w", NULL, 1, 8),
-+	FF(EQ7HC_WEST_DIV_CAU_MBIST, EQ7HC_WEST_PLL_NOC, "cau_mbist_w", NULL, 1, 8),
-+};
-+
-+static const struct eqc_match_data eqc_eyeq7h_west_match_data = {
-+	.clk_count	= ARRAY_SIZE(eqc_eyeq7h_west_clks),
-+	.clks		= eqc_eyeq7h_west_clks,
-+
-+	.reset_auxdev_name = "reset_west",
-+};
-+
-+static const struct eqc_clock eqc_eyeq7h_xnn0_clks[] = {
-+	PLL_AINTP(EQ7HC_XNN_PLL_XNN0, PARENT_BY_FWNAME, "pll-xnn0-0", "ref_100p0", 0x400),
-+	PLL_AINTP(EQ7HC_XNN_PLL_XNN1, PARENT_BY_FWNAME, "pll-xnn0-1", "ref_100p0", 0x404),
-+	PLL_AINTP(EQ7HC_XNN_PLL_XNN2, PARENT_BY_FWNAME, "pll-xnn0-2", "ref_100p0", 0x408),
-+	PLL_AINTP(EQ7HC_XNN_PLL_CLSTR, PARENT_BY_FWNAME, "pll-xnn0-clstr", "ref_106p6", 0x410),
-+
-+	FF(EQ7HC_XNN_DIV_XNN0, EQ7HC_XNN_PLL_XNN0, "xnn0", NULL, 1, 2),
-+	FF(EQ7HC_XNN_DIV_XNN1, EQ7HC_XNN_PLL_XNN1, "xnn1", NULL, 1, 2),
-+	FF(EQ7HC_XNN_DIV_XNN2, EQ7HC_XNN_PLL_XNN2, "xnn2", NULL, 1, 2),
-+	FF(EQ7HC_XNN_DIV_CLSTR, EQ7HC_XNN_PLL_CLSTR, "xnn0_clstr", NULL, 1, 2),
-+	FF(EQ7HC_XNN_DIV_I2, EQ7HC_XNN_PLL_CLSTR, "xnn0_i2", NULL, 1, 4),
-+	FF(EQ7HC_XNN_DIV_I2_SMS, EQ7HC_XNN_PLL_CLSTR, "xnn0_i2_sms", NULL, 1, 4),
-+	FF(EQ7HC_XNN_DIV_CFG, EQ7HC_XNN_PLL_CLSTR, "xnn0_cfg", NULL, 1, 8),
-+};
-+
-+static const struct eqc_match_data eqc_eyeq7h_xnn0_match_data = {
-+	.clk_count	= ARRAY_SIZE(eqc_eyeq7h_xnn0_clks),
-+	.clks		= eqc_eyeq7h_xnn0_clks,
-+
-+	.reset_auxdev_name = "reset_xnn0",
-+};
-+
-+static const struct eqc_clock eqc_eyeq7h_xnn1_clks[] = {
-+	PLL_AINTP(EQ7HC_XNN_PLL_XNN0, PARENT_BY_FWNAME, "pll-xnn1-0", "ref_100p0", 0x400),
-+	PLL_AINTP(EQ7HC_XNN_PLL_XNN1, PARENT_BY_FWNAME, "pll-xnn1-1", "ref_100p0", 0x404),
-+	PLL_AINTP(EQ7HC_XNN_PLL_XNN2, PARENT_BY_FWNAME, "pll-xnn1-2", "ref_100p0", 0x408),
-+	PLL_AINTP(EQ7HC_XNN_PLL_CLSTR, PARENT_BY_FWNAME, "pll-xnn1-clstr", "ref_106p6", 0x410),
-+};
-+
-+static const struct eqc_match_data eqc_eyeq7h_xnn1_match_data = {
-+	.clk_count	= ARRAY_SIZE(eqc_eyeq7h_xnn1_clks),
-+	.clks		= eqc_eyeq7h_xnn1_clks,
-+
-+	.reset_auxdev_name = "reset_xnn1",
-+};
-+
- static const struct of_device_id eqc_match_table[] = {
- 	{ .compatible = "mobileye,eyeq5-olb", .data = &eqc_eyeq5_match_data },
- 	{ .compatible = "mobileye,eyeq6l-olb", .data = &eqc_eyeq6l_match_data },
-@@ -682,6 +1159,22 @@ static const struct of_device_id eqc_match_table[] = {
- 	{ .compatible = "mobileye,eyeq6h-ddr0-olb", .data = &eqc_eyeq6h_ddr0_match_data },
- 	{ .compatible = "mobileye,eyeq6h-ddr1-olb", .data = &eqc_eyeq6h_ddr1_match_data },
- 	{ .compatible = "mobileye,eyeq6h-acc-olb", .data = &eqc_eyeq6h_acc_match_data },
-+	{ .compatible = "mobileye,eyeq7h-acc0-olb", .data = &eqc_eyeq7h_acc0_match_data },
-+	{ .compatible = "mobileye,eyeq7h-acc1-olb", .data = &eqc_eyeq7h_acc1_match_data },
-+	{ .compatible = "mobileye,eyeq7h-ddr0-olb", .data = &eqc_eyeq7h_ddr0_match_data },
-+	{ .compatible = "mobileye,eyeq7h-ddr1-olb", .data = &eqc_eyeq7h_ddr1_match_data },
-+	{ .compatible = "mobileye,eyeq7h-east-olb", .data = &eqc_eyeq7h_east_match_data },
-+	{ .compatible = "mobileye,eyeq7h-mips0-olb", .data = &eqc_eyeq7h_mips0_match_data },
-+	{ .compatible = "mobileye,eyeq7h-mips1-olb", .data = &eqc_eyeq7h_mips1_match_data },
-+	{ .compatible = "mobileye,eyeq7h-mips2-olb", .data = &eqc_eyeq7h_mips2_match_data },
-+	{ .compatible = "mobileye,eyeq7h-periph-east-olb",
-+	  .data = &eqc_eyeq7h_periph_east_match_data },
-+	{ .compatible = "mobileye,eyeq7h-periph-west-olb",
-+	  .data = &eqc_eyeq7h_periph_west_match_data },
-+	{ .compatible = "mobileye,eyeq7h-south-olb", .data = &eqc_eyeq7h_south_match_data },
-+	{ .compatible = "mobileye,eyeq7h-west-olb", .data = &eqc_eyeq7h_west_match_data },
-+	{ .compatible = "mobileye,eyeq7h-xnn0-olb", .data = &eqc_eyeq7h_xnn0_match_data },
-+	{ .compatible = "mobileye,eyeq7h-xnn1-olb", .data = &eqc_eyeq7h_xnn1_match_data },
- 	{}
- };
- 
+Why put an index in address?  Seems to me that complicates things
+vs putting the relevant register address in there.
 
--- 
-2.54.0
+> +	.datasheet_name = __stringify(_name),          \
+> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) | \
+> +			      BIT(IIO_CHAN_INFO_SCALE) \
+> +}
+> +
+> +static const struct iio_chan_spec mt6323_auxadc_channels[] = {
+> +	MTK_PMIC_IIO_CHAN(baton2, MT6323_AUXADC_BATON2, IIO_VOLTAGE),
+> +	MTK_PMIC_IIO_CHAN(ch6, MT6323_AUXADC_CH6, IIO_VOLTAGE),
+> +	MTK_PMIC_IIO_CHAN(bat_temp, MT6323_AUXADC_BAT_TEMP, IIO_TEMP),
+> +	MTK_PMIC_IIO_CHAN(chip_temp, MT6323_AUXADC_CHIP_TEMP, IIO_TEMP),
+> +	MTK_PMIC_IIO_CHAN(vcdt, MT6323_AUXADC_VCDT, IIO_VOLTAGE),
+> +	MTK_PMIC_IIO_CHAN(baton1, MT6323_AUXADC_BATON1, IIO_VOLTAGE),
+> +	MTK_PMIC_IIO_CHAN(isense, MT6323_AUXADC_ISENSE, IIO_VOLTAGE),
+> +	MTK_PMIC_IIO_CHAN(batsns, MT6323_AUXADC_BATSNS, IIO_VOLTAGE),
+> +	MTK_PMIC_IIO_CHAN(accdet, MT6323_AUXADC_ACCDET, IIO_VOLTAGE),
+> +};
+> +
+> +/**
+> + * struct mt6323_auxadc - Main driver structure
+> + * @regmap:        Regmap from PWRAP
+> + * @lock:          Mutex to serialize AUXADC reading vs configuration
+> + *
+> + * The MediaTek MT6323 (as well as lot of other PMICs) have the following hierarchy:
+> + * PMIC AUXADC <- PMIC MFD <- SoC PWRAP (wrapper for PWRAP FSM)
+> + *
+> + * Therefore, PWRAP regmap should be get using dev->parent->parent.
+> + */
+> +struct mt6323_auxadc {
+> +	struct regmap *regmap;
+> +	struct mutex lock;
+> +};
+> +
+> +static u32 mt6323_auxadc_channel_to_reg(unsigned long channel)
+> +{
+> +	switch (channel) {
+> +	case MT6323_AUXADC_BATON2:
+> +		return MT6323_AUXADC_ADC6;
 
+You should put these in chan->address perhaps to avoid
+need for a separate lookup function.
+
+> +	case MT6323_AUXADC_CH6:
+> +		return MT6323_AUXADC_ADC11;
+> +	case MT6323_AUXADC_BAT_TEMP:
+> +		return MT6323_AUXADC_ADC5;
+> +	case MT6323_AUXADC_CHIP_TEMP:
+> +		return MT6323_AUXADC_ADC4;
+> +	case MT6323_AUXADC_VCDT:
+> +		return MT6323_AUXADC_ADC2;
+> +	case MT6323_AUXADC_BATON1:
+> +		return MT6323_AUXADC_ADC3;
+> +	case MT6323_AUXADC_ISENSE:
+> +		return MT6323_AUXADC_ADC1;
+> +	case MT6323_AUXADC_BATSNS:
+> +		return MT6323_AUXADC_ADC0;
+> +	case MT6323_AUXADC_ACCDET:
+> +		return MT6323_AUXADC_ADC7;
+> +	default:
+> +		return MT6323_AUXADC_ADC17;
+> +	}
+> +}
+
+> +static int mt6323_auxadc_request(struct mt6323_auxadc *auxadc,
+> +				 unsigned long channel)
+> +{
+> +	struct regmap *map = auxadc->regmap;
+> +	int ret;
+> +
+> +	ret = regmap_set_bits(map, MT6323_AUXADC_CON11, AUXADC_VBUF_EN);
+
+As above. I'd like that field name to include which register it is in.
+That makes it easier to spot mismatches.
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_clear_bits(map, MT6323_AUXADC_CON22, BIT(channel));
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_set_bits(map, MT6323_AUXADC_CON22, BIT(channel));
+> +}
+> +
+> +static int mt6323_auxadc_read(struct mt6323_auxadc *auxadc,
+> +			      const struct iio_chan_spec *chan, int *out)
+> +{
+> +	struct regmap *map = auxadc->regmap;
+> +	u32 val, reg = mt6323_auxadc_channel_to_reg(chan->address);
+
+Don't mix elements that assign with ones that don't. Doesn't make for easy
+to read code.
+
+> +	int ret;
+> +
+> +	ret = regmap_read_poll_timeout(map, reg, val, (val & AUXADC_RDY_MASK),
+> +				       1 * USEC_PER_MSEC, 100 * USEC_PER_MSEC);
+> +	if (ret)
+> +		return ret;
+> +
+> +	*out = FIELD_GET(AUXADC_DATA_MASK, val);
+> +
+> +	return 0;
+> +}
+> +
+> +static int mt6323_auxadc_read_raw(struct iio_dev *indio_dev,
+> +				  const struct iio_chan_spec *chan, int *val,
+> +				  int *val2, long mask)
+> +{
+> +	struct mt6323_auxadc *auxadc = iio_priv(indio_dev);
+> +	int ret, mult = 1;
+> +
+> +	if (mask == IIO_CHAN_INFO_RAW) {
+> +		guard(mutex)(&auxadc->lock);
+> +		ret = mt6323_auxadc_prepare_channel(auxadc);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret = mt6323_auxadc_request(auxadc, chan->address);
+> +		if (ret)
+> +			return ret;
+> +
+> +		fsleep(300);
+> +
+> +		ret = mt6323_auxadc_read(auxadc, chan, val);
+> +		if (ret)
+> +			return ret;
+> +		return IIO_VAL_INT;
+> +	} else if (mask == IIO_CHAN_INFO_SCALE) {
+Andy covered not having the else etc already I think. A switch might
+work better though.
+> +		if (chan->channel == MT6323_AUXADC_ISENSE ||
+> +		    chan->channel == MT6323_AUXADC_BATSNS)
+> +			mult = 4;
+> +
+> +		*val = mult * VOLTAGE_FULL_RANGE;
+> +		*val2 = AUXADC_PRECISE;
+
+IIO_VAL_FRACTIONAL_LOG2 probably more appropriate here
+(which would be more obvious with the values down here.
+
+
+> +
+> +		return IIO_VAL_FRACTIONAL;
+> +	} else
+> +		return -EINVAL;
+> +}
+> +
+> +static int mt6323_auxadc_init(struct mt6323_auxadc *auxadc)
+> +{
+> +	struct regmap *map = auxadc->regmap;
+> +	int ret;
+> +
+> +	ret = regmap_set_bits(map, MT6323_STRUP_CON10,
+> +			      AUXADC_RSTB_SW | AUXADC_RSTB_SEL);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_set_bits(map, MT6323_TOP_CKPDN2, AUXADC_CTL_CK);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_set_bits(map, MT6323_AUXADC_CON10,
+> +			      AUXADC_TRIM_CH2 | AUXADC_TRIM_CH4 |
+> +				      AUXADC_TRIM_CH5 | AUXADC_TRIM_CH6);
+
+	ret = regmap_set_bits(map, MT6323_AUXADC_CON10,
+			      AUXADC_TRIM_CH2 | AUXADC_TRIM_CH4 |
+			      AUXADC_TRIM_CH5 | AUXADC_TRIM_CH6);
+is fine.
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_set_bits(map, MT6323_AUXADC_CON27,
+> +			      AUXADC_VREF18_ENB_MD | AUXADC_MD_STATUS);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_set_bits(map, MT6323_AUXADC_CON19, AUXADC_GPS_STATUS);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_set_bits(map, MT6323_AUXADC_CON26,
+> +			      AUXADC_VREF18_SELB | AUXADC_DECI_GDLY_SEL);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_update_bits(map, MT6323_AUXADC_CON9, AUXADC_OSR_MASK,
+> +				 FIELD_PREP(AUXADC_OSR_MASK,
+> +					    AUXADC_DEFAULT_OSR));
+> +	return ret;
+
+Might as well do
+	return regmap_update_bits()
+
+> +}
