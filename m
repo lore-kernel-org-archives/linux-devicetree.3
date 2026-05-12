@@ -1,172 +1,153 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 174B53C0607
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 05:42:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A02FB3D75B6;
+	Tue, 12 May 2026 05:44:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778564562; cv=none; b=bs1ngIUwo5nsvuKxJHw2+/LTIURJy4cPgrd4NthoWt0xcBTUPKorVm2apY95Z1N9o1y2PTLL2dkC+mJ4icu+J0132OLXpsB/xqsg6bWk3T38sTmnZzD/9dMKc12ykGVGLBBSQ7hzqzo0wUZrTo7G6vYETarbkzX4VpRO8lBU30Y=
+	t=1778564646; cv=none; b=bULcmtYesV6nWcPBtsBDDCoaglPrny/VEXlghmlYIL2BLjMtV2Bby/whZ/AYChLc6KyujWAHMVn6116WbYWqSucLJuz/cr/VNYCzE10o4NKuYMGS0w5qX8s05QTrnrbuCTPX5tekZCiNqOH4rcJKUBhUbGrazON1FvUznzqXJZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778564562; c=relaxed/simple;
-	bh=RrG5OEx5xG6Gjk6Y3EzFLD1trNmBIXnw3il9ZlmOSAU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gX/4t8iUpJb/ETxFB6QuqWCpdGvuokcGvISGKootunBN7fbb4Cw2uXSsw0A4y/jOjn6g3OoAT3Gs/73PQqJae/jJY+PsotelmXtqj4mIGkviwX/RjuOhmePh3H2EiT+53/vFa5Xiny5g3Vr5M4OtfPB4k6V4kzD9tgMKxOMdHvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YqXSzmwu; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778564646; c=relaxed/simple;
+	bh=8knoL5yl+L/C1sO73WYMrEIqVvOTPdr2v82r8D/MlYw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FvZcLWX6VK9y7oap1k/wYe1XpniK8MNNpD5vkC9wlzdvI3cVodfaP9V/QmQHYOJB3cvZUZgGyap1T3gDTEbx9jrcM0M0TDRlDP32FtKpHl5wwEgg/GJmQID1b/AZsqq9ipR60x/2qxgQ01mrH1MwXE/qw50HDbiW1CrinfNaznA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UAsFfDP9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YqXSzmwu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 432A6C2BCB0;
-	Tue, 12 May 2026 05:42:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UAsFfDP9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EE32C2BCB0;
+	Tue, 12 May 2026 05:44:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778564560;
-	bh=RrG5OEx5xG6Gjk6Y3EzFLD1trNmBIXnw3il9ZlmOSAU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=YqXSzmwugI4ZCS01Wl8qq94GpJ/KjlN7/vhsYDu3OUq5KScZiHEhp6eVlGTm1yklI
-	 ZnHbq364RhfZ2OgCs3o6aeMDSuio1/rf3+yeMn3IM3rPzLis45AK5LBMqK5XZvFuR2
-	 K5enlE7FEv50D0NucOsJFlx9Tb70R9m8DIf+BfOI1u5MsZwoF73tigUU25Wl54HUPT
-	 1Z0bzdh7+lj15wl2Fb73lyt3+23fWzgArMt5O6rueQ/Zlk/kP+GbRTxaBmfa2qwb0N
-	 dDtlLymu+AIVRpgx0pBOzH4rZ5oOtdlP7eOaQ0E0sVZ+YisbjLf6uC8FMZWBRYo5Zu
-	 qPQVfDIrd/16w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v4 13/18] riscv_cbqri: resctrl: Add MB_MIN bandwidth
- allocation via Rbwb
-Reply-To: sashiko@lists.linux.dev
-To: "Drew Fustini" <fustini@kernel.org>
-Cc: conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260510-ssqosid-cbqri-rqsc-v7-0-v4-13-eb53831ef683@kernel.org>
-References: <20260510-ssqosid-cbqri-rqsc-v7-0-v4-13-eb53831ef683@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 12 May 2026 05:42:39 +0000
-Message-Id: <20260512054240.432A6C2BCB0@smtp.kernel.org>
+	s=k20201202; t=1778564641;
+	bh=8knoL5yl+L/C1sO73WYMrEIqVvOTPdr2v82r8D/MlYw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=UAsFfDP93SdyCex0eOLxjTPzb+hB66LGW0zPAflAuQTW6kShm78EL/2RCIIES6gvT
+	 mrRnNz6EJ1cg2tvH9CMEzndU0Eu9gmPMHy9il0MIE2Hc7iQ3oG6DWta371i2NGLyGB
+	 6oR6EF0SI1JvI3AnOGDadLeVLhYdXBNMU3eGdt5jPKzbjMMDPpzp9loRwfOj9PT1YG
+	 ATcTOWbf8HkUfej7yOecqVv6jkgi3vtK5tA9S24Dyf/AzOkOAaC5XhoWYbNQrFvoBN
+	 CidtdC2+K2AOyUQ6ZFLyIFsny+FFOc+HpKTzlMoNiVQ0jnwkOrBAxMOcsLMJ7SwDOv
+	 DoWzjh7BrnQEg==
+Date: Tue, 12 May 2026 05:43:58 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Iker Pedrosa <ikerpedrosam@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Troy Mitchell <troy.mitchell@linux.dev>,
+	Michael Opdenacker <michael.opdenacker@rootcommit.com>,
+	Javier Martinez Canillas <javierm@redhat.com>,
+	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Anand Moon <linux.amoon@gmail.com>,
+	Margherita Milani <margherita.milani@amarulasolutions.com>
+Subject: Re: [PATCH v9 7/8] riscv: dts: spacemit: k1-bananapi-f3: add SD card
+ support with UHS modes
+Message-ID: <20260512054358-GKE3624147@kernel.org>
+References: <20260511-orangepi-sd-card-uhs-v9-0-ae48c0b2b2cf@gmail.com>
+ <20260511-orangepi-sd-card-uhs-v9-7-ae48c0b2b2cf@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260511-orangepi-sd-card-uhs-v9-7-ae48c0b2b2cf@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Removing a resctrl group leaks the MB_MIN (Rbwb) bandwidth allocat=
-ion, permanently preventing future allocations.
-- [High] Secondary memory bandwidth controllers in the same NUMA node are s=
-ilently ignored, leaving their hardware unconstrained.
-- [High] Missing MRBWB capability validation causes integer underflow and a=
-ssignment of 0 bandwidth, violating the hardware specification.
-- [Low] The code comment incorrectly states that intermediate sums transien=
-tly exceed MRBWB during initialization.
---
+Hi Iker,
 
-commit e4a9c24653219ec74efc1b4f91aa0b08b1cfc5ac
-Author: Drew Fustini <fustini@kernel.org>
+Please note, once you are sending new patch series, please drop patch 1-4
+which already picked by Ulf, but keep increase the version number
 
-riscv_cbqri: resctrl: Add MB_MIN bandwidth allocation via Rbwb
 
-Add bandwidth allocation through Rbwb (reserved bandwidth blocks)
-exposed as the MB_MIN resource. Rbwb's sum constraint does not fit MBA's
-percentage cap, so MB_MIN lands as a new RDT_RESOURCE_* rather than
-masquerading as MBA.
-
-> diff --git a/drivers/resctrl/cbqri_resctrl.c b/drivers/resctrl/cbqri_resc=
-trl.c
-> index d8fd9b06703fa..bcd9367e3555c 100644
-> --- a/drivers/resctrl/cbqri_resctrl.c
-> +++ b/drivers/resctrl/cbqri_resctrl.c
-> @@ -415,6 +415,9 @@ int resctrl_arch_update_one(struct rdt_resource *r, s=
-truct rdt_ctrl_domain *d,
->  	case RDT_RESOURCE_L2:
->  	case RDT_RESOURCE_L3:
->  		return cbqri_apply_cache_config_dom(dom, r, closid, t, cfg_val);
-> +	case RDT_RESOURCE_MB_MIN:
-> +		/* sum(Rbwb) <=3D MRBWB validation runs inside cbqri_apply_rbwb(). */
-> +		return cbqri_apply_rbwb(dom->hw_ctrl, closid, cfg_val, true);
-
-When a resctrl group is removed, does the framework invoke an architecture
-hook to reset the hardware control values to a minimum default?
-
-If the CLOSID is freed but the previously configured bandwidth value remains
-pinned in the software cache (ctrl->rbwb_cache[closid]), will this abandoned
-value falsely inflate the sum during subsequent cbqri_apply_rbwb() calls?
-
-Could this cause new allocation attempts to fail with -EINVAL, effectively
-creating a permanent denial of service for bandwidth allocations until the
-leaked CLOSID is coincidentally re-allocated?
-
-[ ... ]
-
-> @@ -491,15 +503,42 @@ void resctrl_arch_reset_all_ctrls(struct rdt_resour=
-ce *r)
->  		return;
-> =20
->  	list_for_each_entry(d, &r->ctrl_domains, hdr.list) {
-> -		for (i =3D 0; i < hw_res->ctrl->rcid_count; i++) {
-> -			for (t =3D 0; t < CDP_NUM_TYPES; t++) {
-> +		dom =3D container_of(d, struct cbqri_resctrl_dom,
-> +				   resctrl_ctrl_dom);
+On 10:54 Mon 11 May     , Iker Pedrosa wrote:
+> Add complete SD card controller support with UHS high-speed modes.
+> 
+> - Enable sdhci0 controller with 4-bit bus width
+> - Configure card detect GPIO with inversion
+> - Connect vmmc-supply to buck4 for 3.3V card power
+> - Connect vqmmc-supply to aldo1 for 1.8V/3.3V I/O switching
+> - Add dual pinctrl states for voltage-dependent pin configuration
+> - Support UHS-I SDR25, SDR50, and SDR104 modes
+> 
+> This enables full SD card functionality including high-speed UHS modes
+> for improved performance.
+> 
+> Suggested-by: Anand Moon <linux.amoon@gmail.com>
+> Tested-by: Anand Moon <linux.amoon@gmail.com>
+> Tested-by: Margherita Milani <margherita.milani@amarulasolutions.com>
+> Signed-off-by: Iker Pedrosa <ikerpedrosam@gmail.com>
+> ---
+>  arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts | 22 ++++++++++++++++++++--
+>  1 file changed, 20 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+> index e20daa50a152..8fea6e87acec 100644
+> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+> @@ -221,7 +221,7 @@ buck3_1v8: buck3 {
+>  				regulator-always-on;
+>  			};
+>  
+> -			buck4 {
+> +			buck4: buck4 {
+>  				regulator-min-microvolt = <500000>;
+>  				regulator-max-microvolt = <3300000>;
+>  				regulator-ramp-delay = <5000>;
+> @@ -242,7 +242,7 @@ buck6 {
+>  				regulator-always-on;
+>  			};
+>  
+> -			aldo1 {
+> +			aldo1: aldo1 {
+>  				regulator-min-microvolt = <500000>;
+>  				regulator-max-microvolt = <3400000>;
+>  				regulator-boot-on;
+> @@ -374,3 +374,21 @@ hub_3_0: hub@2 {
+>  		reset-gpios = <&gpio K1_GPIO(124) GPIO_ACTIVE_LOW>;
+>  	};
+>  };
 > +
-> +		switch (r->rid) {
-> +		case RDT_RESOURCE_MB_MIN:
-> +			/*
-> +			 * CBQRI section 4.5: Rbwb >=3D 1, sum(Rbwb) <=3D MRBWB.
-> +			 * Walk N-1..1 first so the final sum lands at
-> +			 * MRBWB. Use the unchecked helper since the
-> +			 * intermediate sum may exceed MRBWB.
-> +			 */
+> +&sdhci0 {
+I'd suggest to add alias (to 'aliases' node), so we will have stable
+dev node regardless whichever device probe first.. something should like
+	aliases {
+		..
+		mmc0 = &emmc;
+		mmc1 = &sdhci0;
+		..
+	}
 
-This isn't a bug, but is this comment accurate?
+So, how about let's make it convention here, first device is emmc, second
+is SD card, third is sdio device (haven't added yet).. We introduced emmc
+early before this patch, so it stays unchanged which is nice for end user
 
-Since the loop strictly reduces the allocations for RCIDs N-1 down to 1
-before finally increasing RCID 0 to the remaining budget, doesn't the
-running hardware sum strictly decrease until the final step?=20
+Please apply this alias idea to all boards although I only comment in this
+patch..
 
-Does the intermediate sum ever actually transiently exceed MRBWB?
+> +	pinctrl-names = "default", "uhs";
+> +	pinctrl-0 = <&mmc1_cfg>;
+> +	pinctrl-1 = <&mmc1_uhs_cfg>;
+> +	bus-width = <4>;
+> +	cd-gpios = <&gpio K1_GPIO(80) (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+> +	no-mmc;
+> +	no-sdio;
+> +	disable-wp;
+> +	cap-sd-highspeed;
+> +	vmmc-supply = <&buck4>;
+> +	vqmmc-supply = <&aldo1>;
+> +	sd-uhs-sdr25;
+> +	sd-uhs-sdr50;
+> +	sd-uhs-sdr104;
+> +	status = "okay";
+> +};
+> 
+> -- 
+> 2.54.0
+> 
 
-> +			for (i =3D 0; i < hw_res->ctrl->rcid_count; i++) {
-> +				u32 rcid =3D (i + 1) % hw_res->ctrl->rcid_count;
-> +				u64 rbwb =3D (rcid =3D=3D 0) ?
-> +					dom->hw_ctrl->bc.mrbwb - (hw_res->ctrl->rcid_count - 1) : 1;
-
-If the hardware capability reports mrbwb =3D=3D rcid_count - 1, will this
-calculation evaluate exactly to 0 for RCID 0?
-
-If so, does cbqri_apply_rbwb() bypass the internal sum validation
-(which checks if rbwb > 0) and blindly write 0 to the hardware, violating
-the CBQRI section 4.5 requirement that Rbwb >=3D 1?
-
-[ ... ]
-
-> @@ -830,6 +954,37 @@ static int cbqri_attach_cpu_to_cap_ctrl(struct cbqri=
-_controller *ctrl,
->  	return 0;
->  }
-> =20
-> +static int cbqri_attach_cpu_to_one_bw_res(struct cbqri_controller *ctrl,
-> +					  enum resctrl_res_level rid,
-> +					  unsigned int cpu)
-> +{
-> +	struct cbqri_resctrl_res *hw_res =3D &cbqri_resctrl_resources[rid];
-> +	struct rdt_resource *res =3D &hw_res->resctrl_res;
-> +	struct rdt_ctrl_domain *domain;
-> +	int dom_id =3D ctrl->mem.prox_dom;
-> +
-> +	if (!hw_res->ctrl)
-> +		return 0;
-> +
-> +	domain =3D cbqri_find_ctrl_domain(&res->ctrl_domains, dom_id);
-> +	if (domain) {
-
-If a system has multiple memory bandwidth controllers within the same NUMA
-node, will the second controller match the existing domain via
-cbqri_find_ctrl_domain() here?
-
-Since struct cbqri_resctrl_dom only stores a single hw_ctrl pointer,
-does this mean the secondary controller is never tracked by the domain and
-its hardware limits will be silently ignored during subsequent configuratio=
-ns?
-
-> +		cpumask_set_cpu(cpu, &domain->hdr.cpu_mask);
-> +		return 0;
-> +	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510-ssqosid-cb=
-qri-rqsc-v7-0-v4-0-eb53831ef683@kernel.org?part=3D13
+-- 
+Yixun Lan (dlan)
