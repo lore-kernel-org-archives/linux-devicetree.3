@@ -1,160 +1,262 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011037.outbound.protection.outlook.com [40.107.130.37])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A789F36F8FD;
-	Tue, 12 May 2026 07:22:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778570563; cv=fail; b=trh0YLczC4MV3BPWNxM5oqW2qcuNPa3HFM+8swXdAUIiuzBGSBhuvpRw7ahWClKevBrNDI01b6XAaX2vbI4C7Edf++RMnGDm54JaGwXrrv6LY7LXqEI6KBO0oL4dlrgbWrdzF2k3rasF5+5CTizTnGPGeC2q9iPzLjVkzzGKRn4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778570563; c=relaxed/simple;
-	bh=0XSZ3QjbyfTg/VSzInHsJxAyfZfBra6qnG/6aQnw2Nc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=kT1wfCc5zzKmWK9cWEA/VlZTTyukxspd9ObayaAa4LM4ea0QiO0kjbgWm4ghFfTPh79beexm4u4hshVGrmE1wrk0xwXPVAv4urzH7Tt4beu6lWpesoQKKMi5I/Ymyyt8l1jzk6T26NxfmeY2IsFhGX2bClb1f3QmXOsUSwwa4mk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=P5s05HhI; arc=fail smtp.client-ip=40.107.130.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C544418F0;
+	Tue, 12 May 2026 07:24:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778570700; cv=none; b=h44/PKobQtE5XofI0i9zW+I7mL5rSorVupeo7ZWYqfoYKoYFXOjIznTywMkUiZuY4tyZY4Mcz505KYJ55aAybaAXngKZHFLAAV01udGTnSYErAFObGQq3aPQ9UaKVI4EtoHFw+xaf3szKLEx9/SWNElLoPf71Ot9X0wxjlNk2TU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778570700; c=relaxed/simple;
+	bh=1d1VxlRbneZvYycTjJliH9dA7FHgWIWCEnI03GC7gAg=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=KYN9r2qAPR4fHS81ZIqToiCJI0pFmOZf7v3Ju6ObD6RU5Bkn+l/lQx0qJv9P+H05P2fvdVrW+9/SV16eMDtePZU4Cc9sUYdu0tDoDruu/ZjPNPpkFEwGA+2F0w0MRLMd+/TIJ1Y4S7BjxGdBtvepsme2KSnU9b8SntJQhsaa8EY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=uqONR9IH; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="P5s05HhI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GHPXc06QFsAqg5GQpW5DGgjZt6cCqYvVCHda9mM+Vhx+jggBQpNAN8xMP2sDxQ23gdb3K4BIUyRAFEmATj35LtA9SO81Jlf/O1n0FXvCmqJoOwy/+NBH3095NTP3Pf1WLF69eHIJSiDDOa6szw3CpKtRbAXUOtgfB+nh+4Efd/DilVblzoohL7Xdrv5EVl7KBGTGCM+flD05Yzq9A4yyWcEDbHYFdYImVqlK61tKMnqXJHa4vgUiFEoRIixLEimg7oS0xRGrHcBg+RgVSy40Pof/cGJZv5ccPUMVw76MFV++5TOYjT5ZZ2+9F8SaiYh0wjZPAOMlV+B9snSxknBUdg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0BQvqsDPIiLLXee18uinEnscC/Isnx6/C0B1jtawMyw=;
- b=qE6ibZnk6+5wJQLXDPYbVNdueZUDgtprimNzIKarMvPrz55Q3Nb02LsPq3mBINOU4aON7G5KTQcsL+IGEWpawCm6JdxMf3JUIUbJb+gqfVskslLo6d72LoAJs87+Octtl6qR31xtHhC7lFsz9xaAYvi5NxC2ncTmHg0FlxXRzx/qGRMB8Bz8nA2jdoZ7LV8+DdqhF6I5z3c/ZuLW1jQ97z4SiZU02k8eAeYvQz5eAKF7pqVFsFXcnO6jd/fqxNF0tDcFdQA6SWgk2RoH+bSgVb9DRifAJTyBoX1y+w1nq45+r9g9crYcAjen3Mcn1Xr+un5yMfUU0UH2oZE6sW0TqA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=lunn.ch smtp.mailfrom=foss.st.com; dmarc=fail
- (p=none sp=none pct=100) action=none header.from=foss.st.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0BQvqsDPIiLLXee18uinEnscC/Isnx6/C0B1jtawMyw=;
- b=P5s05HhINtVO032fIHBmfXGFkMDCM0+6tlGgkD8bGKsMuFY0I+mNWh0Ws61olnvNXA337XU4at45fPSsRhKXQr6e+a8me3OwQaEGP3hORwpvauwRkL+uZNDt4XuVKMXPe5LWqocj9W0Sod9K9MuMiP251m6Bqs/7pyhJoqEP8xkDUx8/3CAyb8qIVGJxOdhgc7debqdB0uABlp3bZqnXPgfh+26q9+bgduLVkMKjmn/KTz+BJCjcx7GiwoP8waxlfObz/99mLHxQb/1Q96c9QIU8UP5F+SKx7YsnlBrWm5yGdbDaiEtw+rzhKYHVyD7yfBBXdOtwg/KmN0tMdFrd4g==
-Received: from AM9P193CA0015.EURP193.PROD.OUTLOOK.COM (2603:10a6:20b:21e::20)
- by DB9PR10MB7995.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:39e::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Tue, 12 May
- 2026 07:22:32 +0000
-Received: from AM2PEPF0001C714.eurprd05.prod.outlook.com
- (2603:10a6:20b:21e:cafe::6a) by AM9P193CA0015.outlook.office365.com
- (2603:10a6:20b:21e::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.23 via Frontend Transport; Tue,
- 12 May 2026 07:22:32 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- AM2PEPF0001C714.mail.protection.outlook.com (10.167.16.184) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.13 via Frontend Transport; Tue, 12 May 2026 07:22:31 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 12 May
- 2026 09:25:57 +0200
-Received: from [10.252.13.51] (10.252.13.51) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 12 May
- 2026 09:22:29 +0200
-Message-ID: <c0dc5b7a-50be-4b4c-bdd7-ec6f92083070@foss.st.com>
-Date: Tue, 12 May 2026 09:22:27 +0200
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="uqONR9IH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1778570692; x=1810106692;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=1d1VxlRbneZvYycTjJliH9dA7FHgWIWCEnI03GC7gAg=;
+  b=uqONR9IHBxJOuHmH/vKXAKHhWrNNbov+okfSdiwpRWzpPmTQxbOUBMB2
+   eTwOkR0iCFQjmwZil/4hSu0i8CZpy+a2XPcjf2dzRmx/EfizbkuNYDdiO
+   lhY4GLyrGKyc24O3E+fSHcPo8bMPJxXHcFtOp/Jy0f/S66I6a03JBhEJH
+   67TLzbz06KNNAviKNPPLpqerPDk+74et7ndKnERGXymRgVKJhEiQvTTQk
+   H3Nifm2TaM5qcVDuq9ELrBU06Rxv7fWh+RE9mIZDPu24WdPRIHO2rF2j8
+   +goB/rleMW+bIQBINrQ3pfIokYylHwA7Fitizx99WXfJypPfY1aTO11QB
+   Q==;
+X-CSE-ConnectionGUID: 4pfZU+25Q3+PbLLt5KsDIw==
+X-CSE-MsgGUID: wQSUnhlaSQS5FNI2VJjh7A==
+X-IronPort-AV: E=Sophos;i="6.23,230,1770620400"; 
+   d="scan'208";a="65690766"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 12 May 2026 00:24:43 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Tue, 12 May 2026 00:24:43 -0700
+Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Tue, 12 May 2026 00:24:40 -0700
+Message-ID: <9896e0cfbdd51a5572e8334768fd7a43bad7dcb6.camel@microchip.com>
+Subject: Re: [PATCH net-next v4 5/9] net: dsa: lan9645x: add bridge support
+From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
+To: Jakub Kicinski <kuba@kernel.org>
+CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
+	<davem@davemloft.net>, <edumazet@google.com>, <pabeni@redhat.com>,
+	<horms@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <woojung.huh@microchip.com>, <linux@armlinux.org.uk>,
+	<Steen.Hegelund@microchip.com>, <daniel.machon@microchip.com>,
+	<linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+	<devicetree@vger.kernel.org>
+Date: Tue, 12 May 2026 09:24:39 +0200
+In-Reply-To: <20260506014609.1616782-1-kuba@kernel.org>
+References: <20260430-dsa_lan9645x_switch_driver_base-v4-5-f1b6005fa8b7@microchip.com>
+	 <20260506014609.1616782-1-kuba@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 3/4] gpio: rpmsg: add generic rpmsg GPIO driver
-To: Andrew Lunn <andrew@lunn.ch>, Mathieu Poirier <mathieu.poirier@linaro.org>
-CC: <tanmay.shah@amd.com>, Beleswar Prasad Padhi <b-padhi@ti.com>, "Shenwei
- Wang" <shenwei.wang@nxp.com>, Linus Walleij <linusw@kernel.org>, "Bartosz
- Golaszewski" <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Frank Li
-	<frank.li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Shuah Khan
-	<skhan@linuxfoundation.org>, "linux-gpio@vger.kernel.org"
-	<linux-gpio@vger.kernel.org>, "linux-doc@vger.kernel.org"
-	<linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, Pengutronix Kernel Team
-	<kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Peng Fan
-	<peng.fan@nxp.com>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-remoteproc@vger.kernel.org"
-	<linux-remoteproc@vger.kernel.org>, "imx@lists.linux.dev"
-	<imx@lists.linux.dev>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, dl-linux-imx <linux-imx@nxp.com>,
-	Bartosz Golaszewski <brgl@bgdev.pl>
-References: <472f85bd-42c2-40c6-abfd-b76924797069@ti.com>
- <CANLsYkzt9xUczxSU28u-TfZAAjr0ufZKXAj8Eqfq=45gufXW3w@mail.gmail.com>
- <f7ef3417-eb84-4467-ac72-a9bc8b0c81e8@foss.st.com>
- <21de8440-adf7-454b-acfc-06e50882e075@ti.com>
- <4c526816-b127-43e7-86e9-eee4dc1152bc@foss.st.com>
- <c6f68ab5-271a-41ed-b285-75b739f1edd6@amd.com>
- <87850f70-5275-4393-941f-d01146a9cffc@foss.st.com>
- <da3b79b7-9dad-48cb-b552-cf6df445899f@amd.com>
- <08c815f5-ccbe-404a-95a1-a549aac8a55d@amd.com>
- <CANLsYkz8HpM_8eS7DjN_jmYs4T7P9xY0jYmdiAx5WO=_1zvFpQ@mail.gmail.com>
- <4ae35920-2539-4b12-8dea-efd407b8aaeb@lunn.ch>
-Content-Language: en-US
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-In-Reply-To: <4ae35920-2539-4b12-8dea-efd407b8aaeb@lunn.ch>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM2PEPF0001C714:EE_|DB9PR10MB7995:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2e71eb21-8021-4d83-8b09-08deaff73b3c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|7416014|376014|11063799003|3023799003|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	C0J3qLL7sVkaqFzhoNnB2T1tPR5WriMJDYGJp6A6aQQZTX69JzyDQwioKvZKJRUWvZa5UxzOc2asbUYuuy5UDpkryc33Lgiy0Lqg1RZCzuo8wp9do930/1YhUA3VzxptpHjuu5obOOPQBC9y6PnXp2f7PIKchU36dsZx4+VCnijfK5Aw7dxfgDwv6s1xHrqOPqmMHju7plciDQo+RtkoVcgR9CmZnGYzrMtKmFUQCuWRMMwHsiz5soDUit0k66APamhJdrz1VIivokfLUsTtSd1R75QHt9K3crxe5cvfJficQObH4kG/T93wQlVSROniPl+MZ7CXrrMcw2ZXss2K/eJ0qz90X/iA2p1479MtLPbZbmgafvPNxAL78XswIgIqeV4Vq2YQ+FK4nuEDDtweXlIvZKJWUBj1vNIZvz5vRjbVZiABeBiWRtHfbCa+D4NUELNWALOf8pM2y17rc6VbfQ0M4GiiP7lasHu2AJoMPkyT1UJp93aUd1eCQIvPhgXNzk0nEdN+rB/fuydM9o9eBT43I54cm7U2p605Wt3qVtetvcZlEVtGW55jKRd6eHmdjuyR5NA/y5EeAHze3S/EKFssd8itEA8V3X4oFcsPUR6YwFSzlJNlM9tcfwB3V6Qvb/8OsyCS7ucTr/Jg4DfhNejpNDmyWsKg5EKVpslTpzOvRMX9P0Ke779/a6Z8KVTd
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(7416014)(376014)(11063799003)(3023799003)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	bVtiIqSoF9pwSyv6C/BmQcI9qYWFUvsnie2aSbcdtFRpdfvmQpSGigNGW3Mqv+5hOczapxA9xlGT2eO5rc9MWh2ratAczCaHwpoESl/J98rOCTnfvdvzJGSFQC/6k8sXIRg8vke9/FpBdBUEnrjTSWuqoKhxNBpkL/o2lPSTijElZYzRe3JriVQJ/TyTYlUa5Q570M6NWbczxOSaco8UsMgBnQaiuo0AQCx2vuUS0j+BDZEFqXeWeShPVaw2F741HUU1fskmaZ4wBb9C68AIujYpNKKD9FNriR/RunPw3jFd4VubmPpetIViC2dDeDulVjNQDr5kMUiTgLdNx8Kc+YBhdJvNIGjKXEtRoFX+mOj+csSac1NoFst0Y+CRGXzsLypqoY2JrrcvlcDFk2q4hn4eZyeryffuUEXZF1gEJrZVxndrO4n7nrP5CyKRR0OT
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2026 07:22:31.7999
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2e71eb21-8021-4d83-8b09-08deaff73b3c
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM2PEPF0001C714.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR10MB7995
 
-Hello Andrew,
+On Tue, 2026-05-05 at 18:46 -0700, Jakub Kicinski wrote:
+> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
+e content is safe
+>=20
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> ---
+> net: dsa: lan9645x: add bridge support
+>=20
+> This patch adds hardware offload support for a single bridge device in
+> the lan9645x DSA driver. It introduces the fwd_domain_lock mutex and an
+> ordered workqueue, and wires up the bridge-integration switch ops.
+>=20
+> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drive=
+rs/net/dsa/microchip/lan9645x/lan9645x_main.c
+> > index 6fd66ea67cfd..70f6a11f0753 100644
+> > --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+> > @@ -67,7 +67,9 @@ static void lan9645x_teardown(struct dsa_switch *ds)
+> >  {
+> >       struct lan9645x *lan9645x =3D ds->priv;
+> >=20
+> > +     destroy_workqueue(lan9645x->owq);
+> >       lan9645x_npi_port_deinit(lan9645x, lan9645x->npi);
+> > +     mutex_destroy(&lan9645x->fwd_domain_lock);
+> >  }
+>=20
+> [ ... ]
+>=20
+> > @@ -133,6 +135,8 @@ static int lan9645x_setup(struct dsa_switch *ds)
+> >               return err;
+> >       }
+> >=20
+> > +     mutex_init(&lan9645x->fwd_domain_lock);
+> > +
+> >       /* Link Aggregation Mode: NETDEV_LAG_HASH_L2 */
+> >       lan_wr(ANA_AGGR_CFG_AC_SMAC_ENA |
+> >              ANA_AGGR_CFG_AC_DMAC_ENA,
+>=20
+> [ ... ]
+>=20
+> > @@ -239,6 +243,11 @@ static int lan9645x_setup(struct dsa_switch *ds)
+> >=20
+> >       lan9645x_port_set_tail_drop_wm(lan9645x);
+> >=20
+> > +     lan9645x->owq =3D alloc_ordered_workqueue("%s-owq", 0,
+> > +                                             dev_name(lan9645x->dev));
+> > +     if (!lan9645x->owq)
+> > +             return -ENOMEM;
+> > +
+>=20
+> Does this error path leak the fwd_domain_lock initialization and the
+> NPI port setup?
+>=20
+> When alloc_ordered_workqueue() fails, lan9645x_setup() returns -ENOMEM
+> directly.  In DSA, dsa_switch_setup() handles a failed ds->ops->setup()
+> by jumping past the teardown label:
+>=20
+>     err =3D ds->ops->setup(ds);
+>     if (err < 0)
+>         goto unregister_notifier;
+>=20
+> So lan9645x_teardown() is never invoked on the setup failure path, and
+> the mutex_destroy(&lan9645x->fwd_domain_lock) and
+> lan9645x_npi_port_deinit() calls it contains are skipped.
+>=20
+> With CONFIG_DEBUG_MUTEXES or lockdep enabled, the mutex debug state is
+> left dangling against devm-managed memory, and the NPI port hardware
+> configuration performed by lan9645x_tag_npi_setup() is left in place
+> until the next reset_switch().
+>=20
+> Should the failure path of lan9645x_setup() unwind the mutex_init()
+> and lan9645x_tag_npi_setup() it performed earlier?
+>=20
 
-On 5/11/26 20:18, Andrew Lunn wrote:
->> Arnaud, Beleswar, Andrew and I are all advocating for one endpoint per
->> GPIO controller.  The remaining issue it about the best way to work
->> out source and destination addresses between Linux and the remote
->> processor.  I'm running out of time for today but I'll return to this
->> thread with a final analysis by the end of the week.
-> 
-> How many of the participants here will be in Minneapolis next week for
-> the Embedded Linux Conference? There is even a talk about this:
-> 
-> https://osselcna2026.sched.com/event/2JQpx/building-virtual-drivers-with-rpmsg-key-design-principles-challenges-trade-offs-beleswar-prasad-padhi-texas-instruments?iframe=yes&w=100%&sidebar=yes&bg=no
-> 
-> Maybe we can get together and decide on the final design after the
-> session.
+I will make sure to unwind this in the error path.
 
-I won’t be there, but I can join remotely if a call is scheduled,
+> >       ds->mtu_enforcement_ingress =3D true;
+> >       ds->assisted_learning_on_cpu_port =3D true;
+> >       ds->fdb_isolation =3D true;
+> > @@ -257,6 +266,272 @@ static void lan9645x_port_phylink_get_caps(struct=
+ dsa_switch *ds, int port,
+> >       lan9645x_phylink_get_caps(ds->priv, port, config);
+> >  }
+> >=20
+> > +static int lan9645x_set_ageing_time(struct dsa_switch *ds, unsigned in=
+t msecs)
+> > +{
+> > +     u32 age_secs =3D max(1, msecs / MSEC_PER_SEC / 2);
+> > +     struct lan9645x *lan9645x =3D ds->priv;
+> > +
+> > +     /* Entry is must suffer two aging scans before it is removed, so =
+it is
+> > +      * aged after 2*AGE_PERIOD, and the unit is in seconds.
+> > +      * An age period of 0 disables automatic aging.
+> > +      */
+> > +     lan_rmw(ANA_AUTOAGE_AGE_PERIOD_SET(msecs ? age_secs : 0),
+> > +             ANA_AUTOAGE_AGE_PERIOD,
+> > +             lan9645x, ANA_AUTOAGE);
+> > +     return 0;
+> > +}
+>=20
+> Can this silently truncate user-supplied ageing times that exceed the
+> hardware field?
+>=20
+> ANA_AUTOAGE_AGE_PERIOD is GENMASK(20, 1), so the maximum representable
+> age_secs is 2^20 - 1 =3D 1048575.  ANA_AUTOAGE_AGE_PERIOD_SET() expands
+> to FIELD_PREP(), whose runtime path in include/linux/bitfield.h is:
+>=20
+>     ((typeof(_mask))(_val) << __bf_shf(_mask)) & (_mask)
+>=20
+> which masks the value without any range check or warning.
+>=20
+> The driver does not populate ds->ageing_time_min or ds->ageing_time_max,
+> and dsa_switch_ageing_time() gates its -ERANGE checks on those being
+> non-zero:
+>=20
+>     if (ds->ageing_time_min && ageing_time < ds->ageing_time_min)
+>         return -ERANGE;
+>     if (ds->ageing_time_max && ageing_time > ds->ageing_time_max)
+>         return -ERANGE;
+>=20
+> so a large ageing time set via "ip link set br0 type bridge ageing_time
+> <large>" reaches this callback and is silently truncated to a short
+> period.  Should lan9645x set ageing_time_min/max so out-of-range values
+> are rejected instead?
+>=20
 
-Regards,
-Arnaud
+That is a good idea, I will initialize ageing_time_max.
 
-> 
-> 	Andrew
+> [ ... ]
+>=20
+> > +static void lan9645x_host_flood_work_fn(struct work_struct *work)
+> > +{
+> > +     struct lan9645x_port *p =3D container_of(work, struct lan9645x_po=
+rt,
+> > +                                            host_flood_work);
+> > +     struct lan9645x *lan9645x =3D p->lan9645x;
+> > +
+> > +     mutex_lock(&lan9645x->fwd_domain_lock);
+> > +     __lan9645x_port_mark_host_flood(lan9645x, p->chip_port,
+> > +                                     p->host_flood_uc, p->host_flood_m=
+c);
+> > +     __lan9645x_port_set_host_flood(lan9645x);
+> > +     mutex_unlock(&lan9645x->fwd_domain_lock);
+> > +}
+> > +
+> > +/* Called in atomic context. */
+> > +static void lan9645x_port_set_host_flood(struct dsa_switch *ds, int po=
+rt,
+> > +                                      bool uc, bool mc)
+> > +{
+> > +     struct lan9645x *lan9645x =3D ds->priv;
+> > +     struct lan9645x_port *p;
+> > +
+> > +     p =3D lan9645x_to_port(lan9645x, port);
+> > +
+> > +     p->host_flood_uc =3D uc;
+> > +     p->host_flood_mc =3D mc;
+> > +     queue_work(lan9645x->owq, &p->host_flood_work);
+> > +}
+>=20
+> Can the worker observe a mixed (uc, mc) tuple that no caller requested?
+>=20
+> The atomic-context writer stores p->host_flood_uc and p->host_flood_mc
+> as two independent unsynchronized writes and then queues the work.  The
+> worker takes fwd_domain_lock and reads both, but the writer never takes
+> that lock (it cannot =E2=80=94 it is called in atomic context, and fwd_do=
+main_lock
+> is a mutex).
+>=20
+> If a second update arrives between the worker's two reads, the worker
+> can program PGID_UC/MC/MCIPV4/MCIPV6 on the CPU port with a combination
+> that was never requested by either call.  The state converges on the
+> next work run triggered by the second queue_work(), but the hardware is
+> transiently programmed with a tuple nobody asked for.
+>=20
+> Would it be safer to bundle both booleans into a single atomic word, or
+> to use a spinlock that can be taken in atomic context to protect the
+> pair of stores?
+>=20
+
+Yes I will pack these into an u8 and use {READ,WRITE}_ONCE.
+
+> > +
+> > +static int lan9645x_port_bridge_join(struct dsa_switch *ds, int port,
+> > +                                  struct dsa_bridge bridge,
+> > +                                  bool *tx_fwd_offload,
+> > +                                  struct netlink_ext_ack *extack)
+>=20
+> [ ... ]
 
