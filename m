@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 163403C2796;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F3B73C3421;
 	Tue, 12 May 2026 20:23:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778617419; cv=none; b=oDiUXtXRgwXdRZPuCWvBgiaO579apN3JcraiQsuzIzV/CJmPjpQtIzjc4xdFcQSWg/kDS8GxIuZDxu27WmabQoHWrZS/WVbeScXJ0mRO6E6vObH56Se+c2itKctpELZLSWd9aMz7b4y9BqGaoz54jo7GwwA8uFvvtoXGP3Mou9o=
+	t=1778617420; cv=none; b=BZ0aTODkFFXc7sdWCXkfiqE6TWVB91gMGdJ6NRHiQyKOnICrjdYFnsHrtzlzsyRXQLIlBjHevSj1FDmvaudyzTq7wUYsRRTijEO+43jZoKj+lBLXZPiDfgYsAn26PtiUgD8ddhW7VDg8EmrtljLQrWWvW3aV9ocpPrz4xOJiHVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778617419; c=relaxed/simple;
-	bh=kbPSID6x1pKa04766yRopPnzdXjzwkqVcYlIOmjCvWw=;
+	s=arc-20240116; t=1778617420; c=relaxed/simple;
+	bh=uWKoWg2MHHVrhNzRzzhhqvXKIGmDj/rq8549qtD8Ihk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GTjefCEjrZtH/nVce1/0pBXuTqn+SYJErZVTz2CIvSXAQnTH5A1fz9nZ5CVbflNcJi8HVrZC02PPO97CD3Oy8cfq57jH5OtKJATCShL/Y+e/iEN8Pch1BcUqzJFFGA1QmmTqVjHJxRiwY2SKizj4YiidsLrEFoS6qm9nBwK4iEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B1mVQEsR; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version:Content-Type; b=Sn/TouGdZpUMzKSHR1wmEC/cSjjb/HQQdSvteXc0lequYeQsTkRAgkqZE5tm+hw6dAYWueyEJVKy60AHyb3AWiZQU3owHWM0IYkwBg2Sl74US61f5RYBYD4mW1XdjNmOE5oNc0cSCu45xBME1iG+lxICMcycrG988DjrVQg80xs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UURlCEaR; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B1mVQEsR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5884FC2BCF5;
-	Tue, 12 May 2026 20:23:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UURlCEaR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F86BC2BCFA;
+	Tue, 12 May 2026 20:23:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1778617419;
-	bh=kbPSID6x1pKa04766yRopPnzdXjzwkqVcYlIOmjCvWw=;
+	bh=uWKoWg2MHHVrhNzRzzhhqvXKIGmDj/rq8549qtD8Ihk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=B1mVQEsRYQwThSXe8KvTzotJXe9HQuXnJgauMhuzWL94NGKvms+ZXftHmi0e+fxcg
-	 UleQxlvq6a8HxQUx5t5JX4OJoMT7eljQeh1kA0XA4cAzfxAMmWHxDsxkGFsAvVg2pB
-	 0ymYS4ysnj/1d8CKtoxz1Xoy1AXfH3Pkc5pPnlnkfoZEcjwrNzdp+/cIeG4r5FPqLm
-	 OAXX6LwyL78UkRN4DlLd+BQTC4ebsViqTeWibKI4oZoy1oS4IrS5NA0xRIMtd0FZ/O
-	 n2IZTUgsqgkR7WuOTzRV6qpKN5sWPbL+Ydt4RPYqsxLnfjs9VXBXxSrbD17Qk+h2Sb
-	 91xrrFc09NeQg==
+	b=UURlCEaRGi1Tl/KXKFQz41Ewz6zqxoDneciyCBVE7u6BQCMLEX9vLHezs9O8nC+kI
+	 YXUjBt5PADXDp8cg8OcwCGsKk/nalneWaCV0O2hAFIHA34Syhx+8geINWpL3yDTKhw
+	 xNC+vWkxfhoAay0+VnRFMkqWJlAcbiWx6+S98Tt0S35elJqtFqNOY8kiNaW5yoftOf
+	 3EwmhGmtC8ePnc/2r2OrAe+WjLcZyP0QuWUMtcVcGlZnn9C7iVbUQcwCNaDiDaoEL/
+	 0z0XiKRJzQaiJOg85lQHQ/PLsrLzJRkpQ7EusSb8OLTVBT8qGeRk752IA6ZxKbkgiM
+	 dNi9tsOMF5pyw==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
@@ -35,12 +35,12 @@ To: Konrad Dybcio <konradybcio@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] Add the SoC ID for the Qualcomm's IPQ9650 family
-Date: Tue, 12 May 2026 15:22:49 -0500
-Message-ID: <177861739365.1242344.9320797041140163119.b4-ty@kernel.org>
+Subject: Re: [PATCH] arm64: dts: qcom: ipq9650: add watchdog node
+Date: Tue, 12 May 2026 15:22:50 -0500
+Message-ID: <177861739385.1242344.12122044208596913937.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260408-ipq9650_soc_ids-v1-0-e76faac33f77@oss.qualcomm.com>
-References: <20260408-ipq9650_soc_ids-v1-0-e76faac33f77@oss.qualcomm.com>
+In-Reply-To: <20260511-ipq9650_wdt-v1-1-1948934c1e12@oss.qualcomm.com>
+References: <20260511-ipq9650_wdt-v1-1-1948934c1e12@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,16 +51,15 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 08 Apr 2026 15:28:33 +0530, Kathiravan Thirumoorthy wrote:
+On Mon, 11 May 2026 22:24:54 +0530, Kathiravan Thirumoorthy wrote:
+> Add the watchdog device node for IPQ9650 SoC.
 > 
-
+> 
 
 Applied, thanks!
 
-[1/2] dt-bindings: arm: qcom,ids: add SOC IDs for IPQ9650 family
-      commit: 8baf66cc4ca9bb72e97254af62ec8306225bb2f5
-[2/2] soc: qcom: socinfo: add SoC ID for IPQ9650 family
-      commit: 6fe5ea1989ad12adf181eb7872c990f9f32e89a8
+[1/1] arm64: dts: qcom: ipq9650: add watchdog node
+      commit: c50080d313d35a54c7847536ce9e27ad62546251
 
 Best regards,
 -- 
