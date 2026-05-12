@@ -1,107 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 123582D5922
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 02:23:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 249C138332D
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 02:24:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778552599; cv=none; b=ETxR6CVq2Of2tNcDFLNEOalm1AHABHXwhHpI/wqcIo743Fgrr03F2UHhm0N2/vvR+I4FNJaE001INNKt8oQgfrDt3pd/SKfImR3BP+yV/YNHrnMaH/RrtwlXxy8epzeHpHXFWCwq7NbQiomcnEmZosNh52CfFCtUhuoZDHZSXco=
+	t=1778552695; cv=none; b=YArveKYDrQOlb7CYJATzxvUltziwDZ7rB06o2/Vg/xQpR/rEoIN1M250YFfAlddav3nrE+hSuMt8PlfBuMfynHO9W+kAocRnDc6Af0L/qNNcT/Z9xspavO9qV78+LkQaz6sIPWKm5qHPxRh4qymUNATaDaK+GVOz9wgVkdSRIKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778552599; c=relaxed/simple;
-	bh=bZv4WljEe52ee5tHLLLXVegVOFqm1uljCj3hj9gY7XE=;
+	s=arc-20240116; t=1778552695; c=relaxed/simple;
+	bh=GUq2bjIP++wUPsstZZZkcgQ57nWknCwbEBuI8LmS/Pk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Qmih2Y5C68NXzwkwKJPwFXfMu/fJKDy8XscScHhipgXEtWARqTzwqtT0DUNqsiqn2sSbSn1G5kdAHoE1D1AEET1zlfrwMI2TQ8i+MyE5zV2oAl2mMxrjTYNjJls1oQdUN3P2qQJXB0SWKY2BNoNnBI3oe5d5ZDwNPow8yVrk5Rw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aqJUytFY; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=CxETKpTYZ++mRgmZcop/QgP2bR6szhArGzj5paMMl+ZSD6riW9l0PUeXv4CpxVHTFQZaRuoFdqYABLltrhsHZfnogzAtr67VtlP13dG4QB/np+u4us45QIPoc4IvMh9ezCjRHvTiCD+zszCsI6BYFTJsvVzEfRVjsG/JQT0FRiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SRBzEAsd; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aqJUytFY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A380C2BCB0;
-	Tue, 12 May 2026 02:23:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SRBzEAsd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77615C2BCB0;
+	Tue, 12 May 2026 02:24:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778552598;
-	bh=bZv4WljEe52ee5tHLLLXVegVOFqm1uljCj3hj9gY7XE=;
+	s=k20201202; t=1778552694;
+	bh=GUq2bjIP++wUPsstZZZkcgQ57nWknCwbEBuI8LmS/Pk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=aqJUytFY/sWaPUTkUSmc8o1y2qnPTmpsn2S1jNfYOA3pGevnBqbj8nPwS5sTcoMhw
-	 Ne8ha12kM3FgI+ddI7N7JjN3OLRKfk1u/DsLkK9FI0XcD2XmiK38reMAo51mkuS2FY
-	 ItzdmDxCBTp/k6XlMrdQnTr90PUR/kmdZeLZEYrurSyzPikkeGZhaELQT4sNysIbDs
-	 eXARf82arqdCo/7y6ZO1KvWozuqoQIG4C53tyL5oNbU9o7WUR7flMBHg8NZEksoNgW
-	 TKUQ9Pemej1ODiqvMvbAH2Am4TR+2pcaBXx4XpVpxwnmTJULliXOz/OfYs77/ozf52
-	 BLhJiCQeyJt3A==
+	b=SRBzEAsdaqdElVcwlYe7ReMDML1bAXFItdQVrsB7rMG+hQZSXql4C/R8M0Go9z/eq
+	 jSE6Z88MRUGpN8L3EF0j1oDa1NrsV/aDr65YFeS2g+A4/l6pJ7XkKebQIy0TvTkqnV
+	 iPoWM83tQy5nCQEKuW6ZPYKKzsdGZhlitqoVljlBNc7yp3ViMaMSZR3QfTHs/dDQuJ
+	 K2AjjHRUPhLpCS2ZaLu0vzyNS+zuFI+XfV1xEOntUZ3g7vpW+/5scTLw87q8NO8T8/
+	 6OFm05hO0KvMnF9W2jWzqqa/wbf9xEmYpvyBvaKHxEVKDIrhH5G4w6XMJoMc7SfT7g
+	 rw5LKpNmDnOrg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 5/9 RESEND] ARM: tegra: transformer: Add support for
- front camera
+Subject: Re: [PATCH v2 2/3] arm64: dts: qcom: sm8550: add labels for thermal
+ zones
 Reply-To: sashiko@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260511074859.24930-6-clamor95@gmail.com>
-References: <20260511074859.24930-6-clamor95@gmail.com>
+To: "Alexandre Hamamdjian via B4 Relay" <devnull+azkali.limited.gmail.com@kernel.org>
+Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260511-pocketds-v2-2-299dd4247f2f@gmail.com>
+References: <20260511-pocketds-v2-2-299dd4247f2f@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 12 May 2026 02:23:17 +0000
-Message-Id: <20260512022318.6A380C2BCB0@smtp.kernel.org>
+Date: Tue, 12 May 2026 02:24:53 +0000
+Message-Id: <20260512022454.77615C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Hardware Topology Violation: Front camera mistakenly bound directl=
-y to CSI-B on TF300T variants.
-- [Low] Device Tree Binding Violation: Unallowed `orientation` property in =
-`aptina,mi1040` node.
+- [Medium] The commit claims to add labels for the cpu thermal zones but mi=
+sses almost all of them.
 --
 
-commit f0de1eeb70b375136f716e42d1c0078025071767
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+commit c8dbf175273a7084796c662b38cf2e0899deb30a
+Author: Alexandre Hamamdjian <azkali.limited@gmail.com>
 
-ARM: tegra: transformer: Add support for front camera
-   =20
-This commit adds the front camera video path using the Aptina MI1040 sensor.
-It notes that the configuration works for TF201 and TF700T, while the TF300T
-series routes the front camera through an additional ISP.
+arm64: dts: qcom: sm8550: add labels for thermal zones
 
-> diff --git a/arch/arm/boot/dts/nvidia/tegra30-asus-transformer-common.dts=
-i b/arch/arm/boot/dts/nvidia/tegra30-asus-transformer-common.dtsi
-> index ead95306840f7..e6d079647f772 100644
-> --- a/arch/arm/boot/dts/nvidia/tegra30-asus-transformer-common.dtsi
-> +++ b/arch/arm/boot/dts/nvidia/tegra30-asus-transformer-common.dtsi
+This commit adds labels for the cpuss, cpu, and gpuss thermal zones so
+board files can extend them with trip points and cooling maps.
+
+> Add labels for the cpuss, cpu and gpuss thermal zones so board files
+> can extend them with trip points and cooling maps through the &label
+> override syntax, instead of redeclaring the zones by path.
+
+Did this inadvertently skip most of the cpu thermal zones?=20
+
+The commit message mentions adding labels for the cpu thermal zones, but it
+appears only cpu7-top-thermal is updated in the diff. The other CPU zones,
+such as cpu0-thermal, cpu1-thermal, cpu2-thermal, cpu3-top-thermal,
+cpu3-bottom-thermal, and so on, do not seem to receive labels here.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/q=
+com/sm8550.dtsi
+> index 912525e9bca6f..a9c678fc9cb2e 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
 
 [ ... ]
 
-> @@ -1160,6 +1246,36 @@ light-sensor@1c {
->  			vdd-supply =3D <&vdd_3v3_sys>;
+> @@ -6028,7 +6028,7 @@ cpu6_bottom_crit: cpu-critical {
+>  			};
 >  		};
 > =20
-> +		/* Aptina 1/6" HD SOC (MI1040) */
-> +		front-camera@48 {
-> +			compatible =3D "aptina,mi1040";
-> +			reg =3D <0x48>;
+> -		cpu7-top-thermal {
+> +		cpu7_top_thermal: cpu7-top-thermal {
+>  			thermal-sensors =3D <&tsens0 13>;
+> =20
+>  			trips {
 
-Since this node is added to the common device tree include file, won't it
-be applied to the TF300T variants as well?=20
-
-The commit message mentions that the front camera on TF300T/TG/TL is linked
-through an additional ISP, so wouldn't putting this directly in the shared
-dtsi without disabling it cause probe failures or I2C timeouts on those
-models?
-
-> +
-> +			clocks =3D <&tegra_car TEGRA30_CLK_CSUS>;
-> +
-> +			reset-gpios =3D <&gpio TEGRA_GPIO(O, 0) GPIO_ACTIVE_LOW>;
-> +
-> +			vddio-supply =3D <&vdd_1v8_cam>;
-> +			vdd-supply =3D <&vdd_1v8_cam>;
-> +			vaa-supply =3D <&avdd_2v85_fcam>;
-> +
-> +			orientation =3D <0>; /* Front camera */
-
-This isn't a bug, but does the aptina,mi1040 binding allow the orientation
-property? The schema (onnn,mt9m114.yaml) doesn't appear to define it or
-reference a generic schema that permits it, which might cause a dtbs_check
-validation error.
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511074859.2493=
-0-1-clamor95@gmail.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511-pocketds-v=
+2-0-299dd4247f2f@gmail.com?part=3D2
