@@ -1,95 +1,162 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA2F3E172F;
-	Tue, 12 May 2026 17:04:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2C33D9686;
+	Tue, 12 May 2026 17:04:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778605480; cv=none; b=lLTRNX2aVHv6CWXHZW7xL282FXmjeHTXFaxZIMeXzWA9EXfkZF2tQ7tCAMM3yztgUrnY7g3tRv72arO1IXIGbBESwrZVxEVoBkl6pXzJsia+RLA3LYe3DtyK3o2K495vetfEm1qq/d/2llY3SDJlaue16KNcwMHE+aLYGNbxpyc=
+	t=1778605482; cv=none; b=PBqzVi2zTmBmo7wwHMdzxB19HY9hzQKxXpAdPQUm55qkYk3F0COQhaycej1tcapFtHUQ4iMvXz9KXMvt6Pyl9EsLCR/f00V5UEk8WmI0dT1kEceBm7T17nIsDTspobOx/4lltysmD5GobdlkYaSlEW0nwDfMa1Gbkg0QjwViE7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778605480; c=relaxed/simple;
-	bh=9Vq8ijFk8qJn7DB2+1iE5j4p/FmaoDocX6KgE6Vblx8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BuzQMTrREMPQ8CqYSrMkzuIEvhZ27SDCyDJIWpb8wH0F6sH8AJnRozJMfnPbzSoqaa2jBruY9dqzoUIKZwtbp1RyPevQjDIjw4sFAw6hSUR77XfdEzC8n7cm58llWhB6/4PeoLCp8s7WwxwOknqOC5G3g2HHgVA4+TfSXYcoXmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ckw8o3o0; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778605482; c=relaxed/simple;
+	bh=T5Qgj7IZfQ5x/jfFjZT9Fe5ECh9w7mU15gRvxC/pB/M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KM8OnmWZ/wwY13yLa4tsYm9PRAd3pqHOwrlxxLSkp3xj92SrUuUmDDPp+8rdKURVUeh+YitDyPzuUXgLOWMuOROyjZtcuzxoKjuxSDTUxo9R8eSA9F+NLiq4wsyEZ5vbwSpAcAGt4WzmWStdxC4TBeAeDoUcoDoHL6L9yEzofK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EIxbGykg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ckw8o3o0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5208EC2BCB0;
-	Tue, 12 May 2026 17:04:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EIxbGykg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4A28C2BCC7;
+	Tue, 12 May 2026 17:04:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778605480;
-	bh=9Vq8ijFk8qJn7DB2+1iE5j4p/FmaoDocX6KgE6Vblx8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=ckw8o3o0c0PfAJEyLSntxYwVU4AbfEuak91RBXrwRvyzNAIe4jv8elNEjpfjPY0PC
-	 MkPhOUg9mXjl6MShmhGCSrJ1Wi/YbhNZMV3OMkrZet37w7P7c78VHtD1BGnMduHl3w
-	 Tfmm5P5b4C7uOR4xgLVhKFhG4y+fiIzmQsbSbfBFORbEv6M6VS4q5qdE8n9xOg7185
-	 EfetoI9BoCOmRvpEw9cIDscSQ9sDtGLuvMyEGuMv9xXcpM4MH3RfGamDSrXuarfIWb
-	 B+x8jICCR3r04yE5fHgTYsCHm293bLNlNn46JSSWtoyneqS57vFmlHFeOUhd9JC/Zs
-	 Zp9b3Kve5z4jA==
-Date: Tue, 12 May 2026 18:04:26 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Roman Vivchar <rva333@protonmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Sen
- Chu <sen.chu@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, Macpaul Lin
- <macpaul.lin@mediatek.com>, Lee Jones <lee@kernel.org>, Srinivas Kandagatla
- <srini@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano
- <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, Lukasz Luba
- <lukasz.luba@arm.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-pm@vger.kernel.org, Ben Grisdale <bengris32@protonmail.ch>
-Subject: Re: [PATCH v2 05/16] iio: adc: mediatek: add mt6323 PMIC AUXADC
- driver
-Message-ID: <20260512180426.04677461@jic23-huawei>
-In-Reply-To: <gWxamwTKyUeOF4QCsiIsrnh7DSWzIKFaY0h83qKq_0vg786xv1uFYhypix7BVO_ruG_vw3DrIsRhIKv5NAzl8hK72rjzPAjwAGU-rhkMgeA=@protonmail.com>
-References: <20260512-mt6323-v2-0-3efcba579e88@protonmail.com>
-	<20260512-mt6323-v2-5-3efcba579e88@protonmail.com>
-	<20260512142932.5c6801d1@jic23-huawei>
-	<gWxamwTKyUeOF4QCsiIsrnh7DSWzIKFaY0h83qKq_0vg786xv1uFYhypix7BVO_ruG_vw3DrIsRhIKv5NAzl8hK72rjzPAjwAGU-rhkMgeA=@protonmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20201202; t=1778605481;
+	bh=T5Qgj7IZfQ5x/jfFjZT9Fe5ECh9w7mU15gRvxC/pB/M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=EIxbGykgLmGDOoEMcW7ET660ZHjH6LBVRDMOCM4QW8pksj3iibH/mclLOwmxJFpEw
+	 LVBRnpxwARTeN8jmLOXWR0EYPCANSEb+2zFOAEufJW/ttr6jIU2NMP6xzxvONBwB3o
+	 oJXKtfGoKxrLJvRNc/u2Z4xEZr38ojb/xV4+tsn7GvK9L4HUEP+nU4Mk3XZgU4HpA4
+	 f2lir8bhuxmEJ+7R+wV4RcgzXAXyYXs7ytWDY5d72HMoa9ZlPTrlvETuZ6L3KTE6XD
+	 7bfOGrpfcBL6PwGrwYSiyxIK3QI/IrN9cAbF5otZpnKLi3B4AzKvyqTKk7dB5qet9k
+	 tFUczi6+F1MFA==
+Date: Tue, 12 May 2026 18:04:37 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Manish Baing <manishbaing2789@gmail.com>
+Cc: mdf@kernel.org, yilun.xu@intel.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, trix@redhat.com, s.trumtrar@pengutronix.de,
+	linux-fpga@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: fpga: altr,socfpga-fpga-mgr: convert to DT
+ schema
+Message-ID: <20260512-debit-shank-904d9c516e58@spud>
+References: <20260512165058.64049-1-manishbaing2789@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Tt1ciJLHPxLr1+BN"
+Content-Disposition: inline
+In-Reply-To: <20260512165058.64049-1-manishbaing2789@gmail.com>
 
-On Tue, 12 May 2026 14:34:55 +0000
-Roman Vivchar <rva333@protonmail.com> wrote:
 
-> On Tuesday, May 12th, 2026 at 4:29 PM, Jonathan Cameron <jic23@kernel.org> wrote:
-> 
-> > On Tue, 12 May 2026 08:18:19 +0300
-> > Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org> wrote:  
-> 
-> ...
-> 
-> > > +#define VOLTAGE_FULL_RANGE	1800  
-> > Probably better to have this inline - however if you do keep it
-> > prefix t he define  VOLTAGE_FULL_RANGE sounds too generic!
-> >   
-> > > +#define AUXADC_PRECISE		32768  
-> > I'd put that inline.  Little benefit it in having it up here...  
-> 
-> There was a mention about magic values in the v1 for the thermal patch [1].
-> Andy, would it be better to use an inline style or a #define here?
-> If the former, I'll rename the first constant to something like
-> AUXADC_VOLTAGE_FULL_RANGE.
-FWIW that isn't a magic value - it's 2**resolution and the one is  a voltage
-in mV.  Those aren't normally the ones people care about defines for - those
-apply when they are weird and wonderful things not related directly to physical
-quantities.
+--Tt1ciJLHPxLr1+BN
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Jonathan
-> 
-> [1]: https://lore.kernel.org/linux-mediatek/afmnUG8dG0N0HpV6@ashevche-desk.local/
-> 
-> Best regards,
-> Roman
+On Tue, May 12, 2026 at 04:50:58PM +0000, Manish Baing wrote:
+> Convert the Altera SoCFPGA FPGA Manager bindings from text
+> format to YAML schema.
+>=20
+> Signed-off-by: Manish Baing <manishbaing2789@gmail.com>
+> ---
+>  .../bindings/fpga/altera-socfpga-fpga-mgr.txt | 17 --------
+>  .../bindings/fpga/altr,socfpga-fpga-mgr.yaml  | 39 +++++++++++++++++++
+>  2 files changed, 39 insertions(+), 17 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/fpga/altera-socfpga=
+-fpga-mgr.txt
+>  create mode 100644 Documentation/devicetree/bindings/fpga/altr,socfpga-f=
+pga-mgr.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/fpga/altera-socfpga-fpga-m=
+gr.txt b/Documentation/devicetree/bindings/fpga/altera-socfpga-fpga-mgr.txt
+> deleted file mode 100644
+> index d52f3340414d..000000000000
+> --- a/Documentation/devicetree/bindings/fpga/altera-socfpga-fpga-mgr.txt
+> +++ /dev/null
+> @@ -1,17 +0,0 @@
+> -Altera SOCFPGA FPGA Manager
+> -
+> -Required properties:
+> -- compatible : should contain "altr,socfpga-fpga-mgr"
+> -- reg        : base address and size for memory mapped io.
+> -               - The first index is for FPGA manager register access.
+> -               - The second index is for writing FPGA configuration data.
+> -- interrupts : interrupt for the FPGA Manager device.
+> -
+> -Example:
+> -
+> -	hps_0_fpgamgr: fpgamgr@ff706000 {
+> -		compatible =3D "altr,socfpga-fpga-mgr";
+> -		reg =3D <0xFF706000 0x1000
+> -		       0xFFB90000 0x1000>;
+> -		interrupts =3D <0 175 4>;
+> -	};
+> diff --git a/Documentation/devicetree/bindings/fpga/altr,socfpga-fpga-mgr=
+=2Eyaml b/Documentation/devicetree/bindings/fpga/altr,socfpga-fpga-mgr.yaml
+> new file mode 100644
+> index 000000000000..d09d552dde5e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/fpga/altr,socfpga-fpga-mgr.yaml
+> @@ -0,0 +1,39 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/fpga/altr,socfpga-fpga-mgr.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Altera SOCFPGA FPGA Manager
+> +
+> +maintainers:
+> +  - Steffen Trumtrar <s.trumtrar@pengutronix.de>
+> +  - Rob Herring <robh@kernel.org>
 
+Why's Rob a maintainer here? Doubt he cares about this device.
+
+Otherwise this looks okay.
+
+
+> +
+> +properties:
+> +  compatible:
+> +    const: altr,socfpga-fpga-mgr
+> +
+> +  reg:
+> +    items:
+> +      - description: FPGA manager register access
+> +      - description: Writing FPGA configuration data
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    fpgamgr@ff706000 {
+> +        compatible =3D "altr,socfpga-fpga-mgr";
+> +        reg =3D <0xff706000 0x1000>,
+> +              <0xffb90000 0x1000>;
+> +        interrupts =3D <0 175 4>;
+> +    };
+> --=20
+> 2.43.0
+>=20
+
+--Tt1ciJLHPxLr1+BN
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagNdpQAKCRB4tDGHoIJi
+0tpvAQDAqWH9oEuS5MXcxaZSKkNdp6t0ikuSbzuIRQZdjvB0EAEAuGMcTIMXQ5J6
+pGHAH4OkLJcmXeCqO9b+MTmapZ1LhQA=
+=M5Ds
+-----END PGP SIGNATURE-----
+
+--Tt1ciJLHPxLr1+BN--
