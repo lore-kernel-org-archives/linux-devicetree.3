@@ -1,55 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 868E33D0C00;
-	Tue, 12 May 2026 16:57:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94B823D5C05;
+	Tue, 12 May 2026 17:02:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778605048; cv=none; b=Sc9iTE6OiFPuA6Gt+5tjxR7towDSNxfM5kJTHU+O+NMWeNlyuyCzftVZ6tVz0/smWGYqtbVkPYblsFZiJOx3jOUk2vexUWRnmQC/4/oHIFPgjhxljN7Umke8VZMdcFNoYYSoGv0+OpSTL1I7xyQIzMB4VEiKJMrbJbpMIGs/QWM=
+	t=1778605327; cv=none; b=Q27HMTeaxozshoGqUm/iOxJ6MbZXiCJ4/4BAQDC8znt5wYqzW1etm76w9XfJ884+bbqP7J/xkSnIR1GJJ3xMJY9kvGZKRZGT1HhfJnX2P2W1ohEu2I2ut3Sfq4+/VP9TubugckaQaEWCvzE81r1DCOSdzcAA/kzkmlkyuEThtc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778605048; c=relaxed/simple;
-	bh=zQgnsAnbOUnV0Z18dbHGn7S65VpWXuaQb4J/vp+qMTE=;
+	s=arc-20240116; t=1778605327; c=relaxed/simple;
+	bh=t7X3VU5Fnvb2pw09HJTrXmQN1bStwyMFOJNQ9PHYPPk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SEDyP2pq73OajSUIlFgW18zu8M6bpQa9DZwK3p4JzAHHvTuSzZzV2aERG8ZEnljlwcBqR6l9UOLfXnuCP9H4eMl1um3mJdwBnHnyy74A/OjPS/CQ/G94MJ95wk+V/utpHoudtecNvaucKicjXlby3CsxjRQYaP7tiUvhQYhKplQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nXGjvPJ8; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=OQNBFlAvW0uZNj5el+5XyrXddIy8qKP4m11SevnKM0nJz6HCIMWO6y3FoeRUnhOxLbU7EqH3KD9Lf83X5Vw3WbWfeY4OnX0slgiwRN4NXg/hqw/KEGti+fsl99qfV0qhBDNAgNEqzsX+WVTamsWrbijchRco2JuuilXlb8AAPRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tj/Mzrub; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nXGjvPJ8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C88EC2BCB0;
-	Tue, 12 May 2026 16:57:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tj/Mzrub"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 223A7C2BCB0;
+	Tue, 12 May 2026 17:02:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778605048;
-	bh=zQgnsAnbOUnV0Z18dbHGn7S65VpWXuaQb4J/vp+qMTE=;
+	s=k20201202; t=1778605327;
+	bh=t7X3VU5Fnvb2pw09HJTrXmQN1bStwyMFOJNQ9PHYPPk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nXGjvPJ85nYR64f3RYSlct3Z8PEyqwIBsLDolAjbgYm77ty69cYgpnKjOnSYHTXuB
-	 u72AlRHulJ+XFi5QR5ya/znUH8NHqzFDZ739DT2Vs6rZCCPpUP6HGDti0XmScQmvkr
-	 0z74l3rNyk5lroHdIPldtLHqoNILGk1n3tHt+wV09IvkeJrPU2DVFcSuQi8CGMbcJL
-	 79Q/0DXTclNL/sBBNkiIdM4/QDSHbsh/0v5lbYfu3FT+pT0PZg+WyZQoo/5k1i1mO8
-	 h0TjVAhbuNihHqdisYm9cGRIZUzUMAKcvKvXFqc9Hugeqx2KWAaVY6HhOxVft5cbDH
-	 rCJgsHwUD+y9g==
-Date: Tue, 12 May 2026 17:57:22 +0100
+	b=tj/MzrubFmazjOzfMDlG+hsCo4L1k0j/prfntOVYe1FbH37Hc64KCifj8B3Dy3kJ9
+	 A4bt+/czHFtKjdWTYKqingjkUCIiLMi0ywHO9H13myTtxkOLUxkFEMRxyJp3324OFl
+	 gQ67lYmO6SyrysPM3PXBZ3pr0lZBxbx/E3UlUoaBBij8K+zgiNRW4S55/6bDj46GY6
+	 QFXboCTDoBhP+4Em7mHO2UiAjM03ItlsaShcf/l5hstMWGoml9SvCmnrkpRJLUfH98
+	 kpA9ltCfE54vRxMqN1TkMx1rSPp2Gfjo4BeO8SBPotMPu1SPNP3zM+KhAwG0ljTiDe
+	 gtCCSRV82n3mw==
+Date: Tue, 12 May 2026 18:02:03 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Inochi Amaoto <inochiama@gmail.com>
-Cc: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+To: Stefan =?iso-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Chen Wang <unicorn_wang@outlook.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Alexander Sverdlin <alexander.sverdlin@gmail.com>,
-	Longbin Li <looong.bin@gmail.com>, Yixun Lan <dlan@kernel.org>,
-	"Anton D. Stavinskii" <stavinsky@gmail.com>,
-	dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, sophgo@lists.linux.dev,
-	linux-riscv@lists.infradead.org, Yixun Lan <dlan@gentoo.org>
-Subject: Re: [PATCH v6 1/2] dt-bindings: dma: snps,dw-axi-dmac: Add fallback
- compatible for CV1800B
-Message-ID: <20260512-shudder-repressed-204473e32978@spud>
-References: <20260511063818.463877-1-inochiama@gmail.com>
- <20260511063818.463877-2-inochiama@gmail.com>
- <20260511-crave-sworn-3b43371ce11a@spud>
- <agJSPkA88GcTYS86@inochi.infowork>
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH RFC v2 1/4] dt-bindings: clk: zte: Add zx297520v3 clock
+ and reset bindings.
+Message-ID: <20260512-musket-gaffe-376f0450a610@spud>
+References: <20260511-zx29clk-v2-0-29f0edc300f5@gmail.com>
+ <20260511-zx29clk-v2-1-29f0edc300f5@gmail.com>
+ <20260511-backstage-crewman-e44947ab6cfc@spud>
+ <DD71E384-1777-47B8-93C8-D6EFDA4BA74C@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -57,44 +50,78 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="TsyhsMpKyZFWvNGP"
+	protocol="application/pgp-signature"; boundary="M3uGp2e5R9ndKlm4"
 Content-Disposition: inline
-In-Reply-To: <agJSPkA88GcTYS86@inochi.infowork>
+In-Reply-To: <DD71E384-1777-47B8-93C8-D6EFDA4BA74C@gmail.com>
 
 
---TsyhsMpKyZFWvNGP
-Content-Type: text/plain; charset=us-ascii
+--M3uGp2e5R9ndKlm4
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, May 12, 2026 at 06:04:36AM +0800, Inochi Amaoto wrote:
-> On Mon, May 11, 2026 at 05:01:01PM +0100, Conor Dooley wrote:
-> > On Mon, May 11, 2026 at 02:38:16PM +0800, Inochi Amaoto wrote:
-> > > The previous version of the binding change only add compatible
-> > > string without adding the fallback compatible, this breaks
-> > > backward compatibility. Add the needed fallback compatible to
-> > > fix this.
-> >=20
-> > I don't understand how adding a specific comaptible affected backwards
-> > compatibility. Did the dts originally use the snps compatible before the
-> > device specific one was added?
-> >=20
+On Tue, May 12, 2026 at 12:33:42AM +0300, Stefan D=F6singer wrote:
+> Hi Conor,
 >=20
-> Yes, the device is already in DTS, and since I find an quirk for
-> it. A new compatible with fallback is necessary.
+> Thanks for your reply!
+>=20
+> > Am 11.05.2026 um 19:07 schrieb Conor Dooley <conor@kernel.org>:
+> >=20
+> > How come the "matrixclk" has no constraints on clock properties?
+>=20
+> Because I am not sure what the correct/preferred way to express the inter=
+face between top and matrix is - see the first question raised in my cover =
+letter.
+>=20
+> In short, matrix potentially consumes all clocks available on the top con=
+troller. There is no obvious interface between them, like there is between =
+matrix and LSP. So I see two ways to handle this in the bindings:
+>=20
+> 1) List the top clk inputs, top clk PLL outputs and PLL fractionals as ma=
+trix input
+> 2) Be quiet about it
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+Unless you want to model top + matrix as a single node with two register
+regions, then list it all. Hiding the relationships is ill-advised IMO.
 
---TsyhsMpKyZFWvNGP
+>=20
+> It'd be about 20 clocks or so that I know are consumed. The bigger issue =
+than the number of clocks is that my knowledge of the board is from reverse=
+ engineering, not proper datasheets, so I might find out that a clock is mi=
+ssing or wrong.
+>=20
+> > Although, these two devices seem too different to be in the same
+> > dt-binding. Do they have anyhting in common other than the SoC they are
+> > part of?
+>=20
+> No, they don't have anything in common, other than that their concerns ar=
+e poorly separated in hardware.
+>=20
+> I take it from your question that the preferred way is to have separate b=
+indings for them in this case - I guess separate headers as well as separat=
+e yaml files. Is this correct?
+
+Separate headers if you like, separate bindings since the hardware and
+binding are completely different between devices.
+
+> The third clock controller - LSP - is nicely separated from the other two=
+=2E I would not be surprised to see this subsystem of the board show up on =
+a different ZTE board. If top and matrix should have different bindings, LS=
+P certainly should as well.
+
+The "two" I was referring to were the two with constraints, so top and
+lsp, so that should answer that!
+
+
+--M3uGp2e5R9ndKlm4
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagNb8QAKCRB4tDGHoIJi
-0m2jAQCCqdHTz8+DIxjGnMEK5qAR/BRwBOVIK/8wBLWhokLAUQD/YpQVzxp7MkA/
-PQAEfkisMNOAv29mXwapa7xQ+VTiUQw=
-=LsvR
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagNdCgAKCRB4tDGHoIJi
+0rCoAQCbIMHm+OHvyUfYu6hMCFpvypMIFKu/WsZo5gklt3xhlwD9FAiVUGWc9Rj/
+kCGsAImdqX5V2RKYeMsXRZ5JGRzBNAo=
+=/N43
 -----END PGP SIGNATURE-----
 
---TsyhsMpKyZFWvNGP--
+--M3uGp2e5R9ndKlm4--
