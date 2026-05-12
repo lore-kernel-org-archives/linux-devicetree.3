@@ -1,124 +1,143 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28183FF88D;
-	Tue, 12 May 2026 07:58:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95D5048166E
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 08:00:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778572685; cv=none; b=c2orWEpCC8kiS0OYqHeZNTtQG8COUe9dwIfKzC2bHZs4YnYyA8E6I3AXMM6VpV482cNQPuMcXAzdBPd69UTjh/CsMc3o5jgPtxrGt6M/Uvp0n0w0tiBpi1kDV7W3JQpu/qtkwxOLdNOWFyO9JKf9JYiiC1l0v2ujDVTjF6epYt8=
+	t=1778572805; cv=none; b=sbeaXhlwbRBT3Z3DTbj13bG2TTOtrZKQS84QZz3BdGokmPYvARssRxSpKJJOBdm/8lc1qyvzmBivRXgpsK9/reUIcFBCNT5q8wZvknP6Y6mx07expAuXb4F0b8AHADS+1Xl522DKAkGx7ix4tzmwLa7LliZh8IExhv+4aMr8r/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778572685; c=relaxed/simple;
-	bh=kPfiMUw6CcOD6jb8gbhwJCrPhBCQjzipVLlBp6tq9Xo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=flqh4gaS07QwK85URRJRCGPgdnQIQQAp1mqWluhcxkmoPS7G44xaLS9loUNHdy6JlfLE2U2CH5uvmUlHercacnDZwTNOpV81FAnNyfjwmYMmaoqMAoJjMPdx3WxvGPsCm45PnSXypv7zFMh2uil4l6K0+NWDzTqKBPH2TwwLxSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gYVHo2PR; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1778572805; c=relaxed/simple;
+	bh=2fv5A4e1dB9zVQIntVwLfiUySYvcdprvcXazBhueM1E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YXPOZyg8dpKWRIYuGlQTF9UHzy7D+RUr9/3DNVrbewqrVqNFhJJ98qWFJZ8I5lkGYJUrUdxtqRsiyL8PWvFQlyLfYIFbUYesmFpKBxMgpugVsTttRXs9Chi0z64orjTigrgNIaP/9+/e8xubIBrFHe5DTwUoyvy7Cn3UwvDOITg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AFXf4nJ5; arc=none smtp.client-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gYVHo2PR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1778572684; x=1810108684;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=kPfiMUw6CcOD6jb8gbhwJCrPhBCQjzipVLlBp6tq9Xo=;
-  b=gYVHo2PRwi95YvtcC5H9pO24oEOEApZR6X51exOo6Sc6DeaN1pqVQQUJ
-   oANNlH7we6gVy0IqsjaQ/97dCh3WTtyr2rq2mdXhpxljmKLJyKV7+twC4
-   NAHQLFC3WhmqP9I1ePjEudjb9xcICfzBkp+r6+7lDptmsxK2GdEzqO3F/
-   fUseojMicJ1LZWfh3/Y+XWEIfEnGclsLUGc9k/uPfy865Wtt1FBrtPvHR
-   Q/G2hj9k1F38wpbgQTTOgPEm5Oij7WZylvEpfs/zXl9xuMMx7R/iPA4fX
-   Kyvvk6Wts5zYUPn44xmARKcFo0/zZDbA6b2biRSEvzVg3Cc+jl7SzSmOV
-   Q==;
-X-CSE-ConnectionGUID: lUG/eMD2Qha1SuZUuU+gHg==
-X-CSE-MsgGUID: a8af1rB1TUWCJkvd1xCLFA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="79458935"
-X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; 
-   d="scan'208";a="79458935"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 00:58:04 -0700
-X-CSE-ConnectionGUID: JXIqOijBQKiFAtBfeUGHPA==
-X-CSE-MsgGUID: bV72gI0xSdeKEhhNSfz/tQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; 
-   d="scan'208";a="275815595"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.112])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 00:58:00 -0700
-Date: Tue, 12 May 2026 10:57:58 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: "Stan, Liviu" <Liviu.Stan@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
-	"Hennerich, Michael" <Michael.Hennerich@analog.com>,
-	"Sa, Nuno" <Nuno.Sa@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/2] iio: temperature: ltc2983: Add support for ADT7604
-Message-ID: <agLdhvre_WrLDP3Y@ashevche-desk.local>
-References: <20260427132526.272716-1-liviu.stan@analog.com>
- <20260427132526.272716-3-liviu.stan@analog.com>
- <ae-pvxKhqmkWwXdX@ashevche-desk.local>
- <SA5PR03MB837776014440C2594B811BF7F63C2@SA5PR03MB8377.namprd03.prod.outlook.com>
- <af2UQ7ZLA2DL4FWY@ashevche-desk.local>
- <SA5PR03MB8377DB8F5136CC7BF9594B64F6392@SA5PR03MB8377.namprd03.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AFXf4nJ5"
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-67be871ed3fso9909420a12.1
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 01:00:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778572802; x=1779177602; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=N3vQQvfbzTBQxob4QAR66E1utIi23oX37LhpyEU1L8A=;
+        b=AFXf4nJ5CkeeIikBG3N73Yg/D9d5wNtwORMTovs2xB0jwYyjZu9/idVoEsv09+9pbf
+         2hvD43nCBOrVaKI0ST8LS71l8XpN6NcoEq+Uf8t11f0ihX4LPE8JgUNgMCtFbsTzTnP0
+         gu7b8b2X4rj2CRPJYo/US7AijhYx+6LeHk/mF8XdAxvPEpIjSQdxAMSwqS4TeuLCH/Fg
+         2qn9WayOmstRckvJj6tTpNUT1fRX95s4po0hcf0DbD5uQf9W3qzqtx52haLpCoW+/XXm
+         tq+EMwfN25zN5GtMvkWcTS11oQn6ed3qjoypuVQTiSnfCydi34jNVq2JP3Z28t2Xh6YG
+         T2xQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778572802; x=1779177602;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=N3vQQvfbzTBQxob4QAR66E1utIi23oX37LhpyEU1L8A=;
+        b=ZG76KDLvUj0DpRiU5IMdSll4e7PXwkYqpKPBY8z3PEzMeU/OUfjuNc0u9ie/L3w0M8
+         nEkYBP23970+Y/1p/oees5xHuW1WyvnUkkk2Op2fVY5RaFndWzMFn43sO+5elpU+5e6U
+         m9Zr4oxNh80D2g1KNkMX5nH/Z6eUy91BRNcl4aAeXDtRu4LVeCQnQyO7FytkjGZSDFUR
+         7pNtgB0A1nRi3wyQ3yvJ1Ob4yagiVMuul78zBzwKBPdPNpcGUPpwIPfiAjRhvo0bK4UX
+         WQLUibCxT0n8BekqM+BBwtyWgKz5IoVqn0Dq15zXwknnI+NDgWmGQTl4qBgrxPBagxB0
+         cX0w==
+X-Gm-Message-State: AOJu0YyQXhtmoU6U7I1vgdVpAs+WJPUixoJq0fQmnTHAyktb6lpJoz2T
+	msMlzdDgqguo/zY1z2DnnO0mSSE9MJD2RGEFA2zDHFZHUzn33HLihfMz
+X-Gm-Gg: Acq92OHqRbjwjeOiBjd4gsvH7dHEn9Ri5TRkUpIDQOJ1Fo+PunVONADOzA0fxj6uFKp
+	FiAqTNofZIvWMGR7vzUulw6yVYvOoxjQdn9P+5OsLnRTT6olIDScDkVqpaO0QuVKVzZAGnOCNaE
+	xJnbksmyC1al/lgGBWlGnHKCQapfn+YxP81tz2I0Jc3R+dBDYypte9YS703AP+DsL+e2EV49SpC
+	yRSswF9kyX2DqXwjY5lwaV5jWNsFjtc3dQCirWegze7mLn1dlvP3Uv/Cpb2mU1wxjA94lqeXuwL
+	ZcH+0ry/PZcCJFokmtYla6iWwkkzNDJXby4IOWuuidOEF58Rmxk9iGnSHHaC6rY6svDf3soym+z
+	Mu8KwjUT5Wxko7+eA9gMj/fSz3/q2sFWglwb05u869KbdEBiQYk76D/lDo8ITuRPSFxoG3gMKJb
+	g6153XlTN3tXu/6hcOXPvGcheS8wRTSWz0xTEQO8CnR+v6PgDBDNLxh7LWtw==
+X-Received: by 2002:a17:906:d542:b0:bae:c57e:d192 with SMTP id a640c23a62f3a-bcc14d99e30mr657180366b.41.1778572801449;
+        Tue, 12 May 2026 01:00:01 -0700 (PDT)
+Received: from [192.168.1.31] (71-212-98-95.ftth.glasoperator.nl. [95.98.212.71])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-67ef0e0d455sm4768266a12.21.2026.05.12.00.59.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 12 May 2026 01:00:00 -0700 (PDT)
+Message-ID: <8216541f-3615-473f-b9de-139e6d32a7f1@gmail.com>
+Date: Tue, 12 May 2026 09:59:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <SA5PR03MB8377DB8F5136CC7BF9594B64F6392@SA5PR03MB8377.namprd03.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/2] arm64: dts: qcom: Add Xiaomi 12 Lite 5G (taoyao)
+ DTS
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
+ val@packett.cool
+References: <20260417084749.253242-1-zstaseg@gmail.com>
+ <20260417084749.253242-3-zstaseg@gmail.com>
+ <pxldv7v6iymoa7oyg5xs5d76atl7fliol4oty3urudvnkoaynj@4xhovegebszz>
+Content-Language: en-US
+From: Stanislav Zaikin <zstaseg@gmail.com>
+In-Reply-To: <pxldv7v6iymoa7oyg5xs5d76atl7fliol4oty3urudvnkoaynj@4xhovegebszz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, May 12, 2026 at 07:12:57AM +0000, Stan, Liviu wrote:
-> On Mon, Apr 27, 2026 Andy Shevchenko wrote:
 
-...
-
-> > >  #define LTC2983_CHAN_START_ADDR(chan) \
-> > >  			(((chan - 1) * 4) +
-> > LTC2983_CHAN_ASSIGN_START_REG)
-> > > -#define LTC2983_CHAN_RES_ADDR(chan) \
-> > > -			(((chan - 1) * 4) + LTC2983_TEMP_RES_START_REG)
-> > > +#define LTC2983_CHAN_RES_ADDR(chan, base) \
-> > > +			((((chan) - 1) * 4) + (base))
-> > 
-> > For the sake of consistency I would see (base) also to be in the _START_ADDR()
-> > macro.
+On 4/19/26 1:47 AM, Dmitry Baryshkov wrote:
+> On Fri, Apr 17, 2026 at 10:47:49AM +0200, Stanislav Zaikin wrote:
+>> Xiaomi 12 Lite 5G is a handset released in 2022
+>>
+>> This commit has the following features working:
+>> - Display (with simple fb)
+>> - Touchscreen
+>> - UFS
+>> - Power and volume buttons
+>> - Pinctrl
+>> - RPM Regulators
+>> - Remoteprocs - wifi, bluetooth
+>> - USB (Device Mode)
+>>
+>> Signed-off-by: Stanislav Zaikin <zstaseg@gmail.com>
+>> ---
+>>   arch/arm64/boot/dts/qcom/Makefile             |   1 +
+>>   .../boot/dts/qcom/sm7325-xiaomi-taoyao.dts    | 907 ++++++++++++++++++
+>>   2 files changed, 908 insertions(+)
+>>   create mode 100644 arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
+>>
+>> +
+>> +&ipa {
+>> +	qcom,gsi-loader = "self";
+>> +	memory-region = <&ipa_fw_mem>;
 > 
-> I said I would change this in v2, but on second look, I think it would be better
-> to keep LTC2983_CHAN_START_ADDR without a (base) parameter. The base
-> parameter in LTC2983_CHAN_RES_ADDR exists because the ADT7604 adds a
-> second result register bank, so the base genuinely varies. For channel assignment
-> there is only one bank, so adding a base parameter would make the macro look
-> configurable when it isn't and force callers to always pass
-> LTC2983_CHAN_ASSIGN_START_REG.
+> Could you please move these properties to SoC dtsi (as a separate
+> commit).
+> 
 
-Do the names of the definitions _START_ADDR and _RES_ADDR come directly from
-the datasheet?  Also, given the above explanation I would see rather (bank)
-than (base) there. With this it makes less attractive for a change that I
-suggested earlier.
+Sure will do in v6.
 
-> Happy to change if you still prefer consistency.
+>> +	firmware-name = "qcom/sm7325/xiaomi/taoyao/ipa_fws.mbn";
+>> +
+>> +	status = "okay";
+>> +};
+>> +
+>> +
+>> +&tlmm {
+>> +	gpio-reserved-ranges = <48 4>, <56 4>;
+> 
+> Could you please add a comment why they are reserved? I _assume_ that 48
+> is NFC SE and 56 is fingerprint reader
 
-With current names they sound like they are semantically tighten, when in
-practice it's not so. There are options:
-- move to (bank) and leave as currently done
-- synchronise them and use (base) in both cases
-- rename one or the other to be different by the name, so less confusion is
-added
+I can add a comment like this (or you can suggest different wording):
 
-Your choice needs to be based on the datasheet explanation for these registers.
+/*
+  * 48-51: presumably NFC SE
+  * 56-59: presumably fingerprint reader
+  */
 
--- 
-With Best Regards,
-Andy Shevchenko
+If that works, I will add in v6.
 
+Thanks for the review,
 
+Best regards,
+Stanislav
