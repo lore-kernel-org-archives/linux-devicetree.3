@@ -1,86 +1,87 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC91C38888A
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 12:27:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B803388875
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 12:27:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778588835; cv=none; b=RssBFs9lZ+1p0sfxw5Vv1uvlBl8V3ckkXx7I5ETB4bVJ+4l3CBgCD2m+yMKyW7bLr5F+jlvojvEml9TuIAVYyfE+xTDY0/pWlsy5Vq4svk5l0vCkQCBNsU1Z7cmugI1xQLZ4mqDF20+1NkNfXwI4VjiAER6Bo0qntfEhe72BQ24=
+	t=1778588832; cv=none; b=b1v9ovZaBK37SPK22uV8mfvx5oPY50kGCrSW6hJvnqWrp+NIP8sHTFSQsEZl7cz07pwORi6mmoElM+pzyrDgdsUnYgSMk9be9PA/0eCvzyhGqwhVqhHtFVkf5URJmdFOqEbfN2jcZsHE/nSo76fEzzwC31KkCIgkmIJMVHIeUKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778588835; c=relaxed/simple;
-	bh=ClceAYiJ8whQgLN7bPe85GMULVLaGBTfiMaFdDN9qOs=;
+	s=arc-20240116; t=1778588832; c=relaxed/simple;
+	bh=O3W9u6I/uPX9HhlT3a0kG5ilSUgWDIjADrmlLyLnLfc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=q9wzalRTYZ6fqXOqo4QWGqrpakiYpwSQgW6gtrusl/bni7qTGM589IJOYN5hWHJkd9Cw7PbTzL0KjJLy5PhiGwygAMgP5fcQyphQnBKRtEwnM97mDpJGEQFU0G7miJxQLmeDoY+8fL6YrS4jVCkaIW9s4W3gFMnzaUiA9AYRxqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mNk2qYIC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WsY7W/tp; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=LcSIxrUhP7U2BHA7BIirI2zVwxhEB2ZFiCqUu1ygX3VD4QLdTmKXwm2Iv405j+tWUfBA/tDFAvMvdHJj4B5rQe6tZBmabQePiuo+HsTI7mgM8fKs0Bm82RbzEau809/h435GIvUrJjOLop/Lh1ZL264FMSv5p0m1FwplHjH+UfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=O9MGkhgT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bOPYjeqH; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mNk2qYIC";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WsY7W/tp"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64CB5PAA592121
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 12:27:04 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="O9MGkhgT";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bOPYjeqH"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64CB4aUJ866468
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 12:27:02 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	qoxhWK6IHb1qi1sBgTOzXLNliyxQUEnjKfKgGROIUJ4=; b=mNk2qYIC3QK5vwls
-	0CBJ4Wko46o01EP0uDzirG5ivct5/P63neyv1Qs61+ZQXbppJ9QvutMs/Yax3Vdz
-	KSSfW84NCrGVnEQ+ZPry8Z596hQlBO60r+bpjDrEMfC4SbbYCzV1a8AkB20nx7EL
-	pRMxFD/i8pHaSzH11/DHv5FPDU09z3xs+Aj2G8EXCB3AhIn7HyO9yW9CdrDTJzg7
-	WH8B6vrnoP8U6U/8D6VWuZhDlwU3Q77T+ydC4uJ86qTtrEZMRhyc+OpKMovdb6Pm
-	8O6RgfvV6Kj84NNYv0IEQPM+NI2BmQEolQw0Lo6hQo/i2KzgOEhVTditVaZcFjCj
-	/PjMGg==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4319rbsg-1
+	WjHOrThVTIBcmyJWVRfMmDMksM0DSqKXpeBnVeccCs4=; b=O9MGkhgTefvamtVH
+	X8pF8Or2aX6CY0tRmt3ZDkuojhUkRhal2kcEWHzw559PocEL9pkZIxOXFqx5BqVH
+	QftsW4i5cHcz7t6Ah8pB39uI6ho5WGrKG02RP417flcObIFDr1tdJj3WzvXWOu74
+	rOFUmWR5NK0eNzeW8pAifdlNCRt2M5Q2zPtJ0zsr+fNCinDxmePJZeS1S5MbtCS/
+	JCOxKG+++lHMZpP8U2wwa6/bVOpucWSnuBaWUFoVGn34b+8ftCXGR+BcWKlyc2u5
+	oWW562TSiwuWtzS61ROV/w4MpelZd/GU6iDnhMUYIHl1KN/enAv4BlcKNWDJNsTr
+	s6wr6g==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e3nv2atnp-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 12:27:03 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-50da529ff48so132161471cf.3
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 05:27:03 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 12:27:02 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-514d2b22e7fso16817231cf.0
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 05:27:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778588823; x=1779193623; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1778588822; x=1779193622; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=qoxhWK6IHb1qi1sBgTOzXLNliyxQUEnjKfKgGROIUJ4=;
-        b=WsY7W/tpT2HP8kr3S7IU/3sq+F3Eljvz44SdG9jvaQYP1+CX6njv71Kutfk5UbZs8V
-         RQ34QmAbhwjJNlAzyuIkXoiCnWqENIDlCFxCzHpFQoILrgeZMKbMMkljrhZKI3uIweMy
-         CPSdHX/dgcxy2VSPKjsuDs0wePV7O4LpHZT6xcO6camzaJpm8TNZnVoYkhgQri3zOc6p
-         o7r/vmF+NYBmM9Bvak/NmZDs5JtZrz+FGWArrRedxFc0meAWaAdAiAml+FIZ8lxMj1ed
-         u3J5GgpHxyGfO9fcxdkNEto4ybL2ruGC6euS9OfW2Dz2VzjIGGdvbiqb8ooLUWLJWlyN
-         PWPA==
+        bh=WjHOrThVTIBcmyJWVRfMmDMksM0DSqKXpeBnVeccCs4=;
+        b=bOPYjeqHdeQh+uPIQSTxX++dqKWP05mZXW//sDnuFHsFSXUkUWZsMbmH7T/KnpqYEX
+         MBGKMr4WhAUpmXsZu4bJsurA47U9erpjoWjkxV41vwlcubSDdftqXNAfrgKanX44bD6W
+         PbZoh6x6FWkd/iKNwYx2/09/VvWYUBeM1X9L2jEPpql3cFi+nhF+3eYmOsrPkT8cBugy
+         2VVlIGtC8+di29uGVM3QsTWTUAdU9iG4uknzGAsO1np9fUVbEgMvyJLnYJUVeBDDmiOt
+         UC4r4MrxDQ5Rr6V5EryAfboHSI/j+mT+bbKWnK+y7bZ88IiZtvYdLiQPNsmmXRlACp+J
+         ffpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778588823; x=1779193623;
+        d=1e100.net; s=20251104; t=1778588822; x=1779193622;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=qoxhWK6IHb1qi1sBgTOzXLNliyxQUEnjKfKgGROIUJ4=;
-        b=TKL0VDUSkcfSVLFwJaDmO8qaqlEUstSXqA4dPMFYGYbctid9djCRZzVB8iOy+cmc8u
-         6VVnIMCpux1Tgte3Nm7bpwLQpPGAyghByEMqnrMzqK15rOYRkZcCeYB4q3WO2HrNpA/C
-         ckZ1TngxeuOr1pFUXlorCMs1m9/w2Vl/7JncUuW3tslzROwVREpUySIVysgD1fJE3Uf+
-         eNP3c0mptuuJ+S+g42m2vVl0ylDQoJn2G1WPze7lrl3fONy6CNvk3x53l5q0UueRejRf
-         62MQJx/ImdcETpOTYnmwi+Wzd+EkkpqRHrK/wq2prGH/KswHreh/N0pTg/uBdV9o0FIj
-         1DYw==
-X-Forwarded-Encrypted: i=1; AFNElJ86zOTH/B8iRp8XS9eKjc9OpleugcvFf2lUs1doN04yGGioT+K5fqNPBayDpLISs/zgFGDWXEzA9n2l@vger.kernel.org
-X-Gm-Message-State: AOJu0YwUsn0JvWnkAX8U4DGDYD27WeM1bVXBBbBn9FqhrFgHPJ1qYyYI
-	WTsf7M7bNqRon3WPDPEp2fG0F9xla5v2z0GZS4dZtNeTYQr87oxtKciN7nXBGchthnjikY7tdgv
-	4ZjaECmTfW4/T0oNkdV/jHPxtxX1Zvzbd5+5h+4xZPwpAY2apnFyzUUnLf7mmixUy
-X-Gm-Gg: Acq92OEXB5hhv7uxLSzeE6UDszuasXTX9wqcb86cJ7uDs2GwUD9mPHqr7dsZtp/BaRK
-	dHLPfW0cySIZ3/NkHQ0t+HEU1w0k3TFu/d3H/Oqm17/loGOIqi8Mn2AT2+ZkY4DjgCsmj6zSNwK
-	0SqpBUtWdrcEnvHnMVPeqE3ISrcyIdxlOzzlwRE+YpzrAiJQi3+Z6HZ/cFKtroolfA7hQrgxaHE
-	CaynCG4/bBX0AMcI98Vp56x3ar8A54IAjEm5MLanhteXghjSrIxM6SsxEErCDB1zGARXm7Di4qK
-	cyIIrpDVSjBj7baRI5o2b55OhaXSPRNkb/FHHhd6w/0tmUJo7z1a6yFU3iJ0jlsW+uK4JjLYaSt
-	uLzv1aLb59kR7fENZDY+fs7zOMXBlng==
-X-Received: by 2002:a05:622a:4246:b0:514:6667:73b8 with SMTP id d75a77b69052e-514a0b243c1mr206769411cf.37.1778588823102;
-        Tue, 12 May 2026 05:27:03 -0700 (PDT)
-X-Received: by 2002:a05:622a:4246:b0:514:6667:73b8 with SMTP id d75a77b69052e-514a0b243c1mr206768911cf.37.1778588822453;
-        Tue, 12 May 2026 05:27:02 -0700 (PDT)
-Received: from hackbox.lan ([86.121.170.213])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e90681760sm43089135e9.12.2026.05.12.05.27.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        bh=WjHOrThVTIBcmyJWVRfMmDMksM0DSqKXpeBnVeccCs4=;
+        b=Zdyx6SMyZnVQqPB2gF1niop81/Oq7U1vKauIII+h5M7AhBMlT80PhfuJKlc1K0OypQ
+         Y4EJmjwhTTywytMVKUeD8fwcT+GN6ZHZAnpZYsRbW6RjqBicOoxIGR21po1q22oU6V82
+         GMAP5xCi6oLtsaYRyUUvxJb3CEq2y8S/fMQSnhvGiqvBs27OgfTKYNqaexTD58ajzixk
+         4HwNw1ZDutUl+rZ6ydFVmJHZsaPnpIS9E0NXvt4w21iuy9i2mz5r66KfYtwlEsjE5l+m
+         wVR9wuX0sFJeaY6019wCYimopnxi6hsw7OHaoBMf3P5h3GXNTpKRDeb/gcQXgLeWxOYG
+         XA5Q==
+X-Forwarded-Encrypted: i=1; AFNElJ9E12i7Fxgdg3RN5GgbYEcVIJXiIe9qWFNYAJyGcPlz6zs1QcnFEq04HKiWGpavc3+rr65Kg6H99fNP@vger.kernel.org
+X-Gm-Message-State: AOJu0YzkVBGVyEhon8au8Zz4v8hF3/wU5vVvSutxaYdkjM4pH78rFy/h
+	+7wMagRseNiIC/O3SAutmfj7TglkqejMcMBm9iqhPYvQNWEjNkjRpG8X1pqYhmRLDrIaxy4N6QH
+	ijWfVqQqJHdjJ0orZVQ1ry7cVVBkCcgS+v2dQ237jo8eLZY4iwfQ2Ntql7tT6fIqc
+X-Gm-Gg: Acq92OG+EFbV7oCECuz0Hsudqck3GjUCi8+jzfpwb07gPchVZyZl2oMBvKB85hm8vmX
+	gCNwJ4aoGc3GyhobDURl91gHNqRMLGUUV6IE4kKmJaxA2dJ5BKsOqTpr3r2ayVPozJw3Oyd09KL
+	vMq58w34e0LjGtLlM0YFPP7JJonORht4WRII06cFiR/aRMEv09uFNwz5DxLChegF84VxfNq+Pcf
+	HQE5xwJHguzlZZEG76j8t+PfdBMtMGH+T7tL8uu4RqqKZUpxCp/sR2s2JLg+zSG6K/suIY3BUcP
+	XCgnbCWYOpkbeAJOSvoNjD9BsuYcTk8jVRDZVXlr5LDDqMSHiXKesFqrRlBYQiBcUE9HzxvlCE0
+	W2txcr6zSsbd7vdLrDf2rvgX/kluZyQ==
+X-Received: by 2002:a05:622a:13cc:b0:50d:a3a3:e612 with SMTP id d75a77b69052e-514d1c72a8bmr38099791cf.18.1778588821336;
         Tue, 12 May 2026 05:27:01 -0700 (PDT)
+X-Received: by 2002:a05:622a:13cc:b0:50d:a3a3:e612 with SMTP id d75a77b69052e-514d1c72a8bmr38099111cf.18.1778588820652;
+        Tue, 12 May 2026 05:27:00 -0700 (PDT)
+Received: from hackbox.lan ([86.121.170.213])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e90681760sm43089135e9.12.2026.05.12.05.26.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 12 May 2026 05:26:59 -0700 (PDT)
 From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Date: Tue, 12 May 2026 15:26:48 +0300
-Subject: [PATCH v3 2/3] arm64: dts: qcom: Add Eliza-specific PM7750BA dtsi
+Date: Tue, 12 May 2026 15:26:47 +0300
+Subject: [PATCH v3 1/3] arm64: dts: qcom: eliza: Describe the ADSP and USB
+ related nodes
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,7 +90,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260512-eliza-adsp-usb-v3-2-6420282841c2@oss.qualcomm.com>
+Message-Id: <20260512-eliza-adsp-usb-v3-1-6420282841c2@oss.qualcomm.com>
 References: <20260512-eliza-adsp-usb-v3-0-6420282841c2@oss.qualcomm.com>
 In-Reply-To: <20260512-eliza-adsp-usb-v3-0-6420282841c2@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
@@ -97,140 +98,375 @@ To: Bjorn Andersson <andersson@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
+        linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.15-dev-bc6c4
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2358;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9031;
  i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
- bh=ClceAYiJ8whQgLN7bPe85GMULVLaGBTfiMaFdDN9qOs=;
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBqAxyOT9QOjL+4Buc7hXYCls85cVYTu1bT/Vit/
- sUq586nHTKJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCagMcjgAKCRAbX0TJAJUV
- VnqjD/0ccTPopFmntkjZZQqDw8PmUqM9nlDWZPwfVELTO9PalOLzTlRAZwMxqnstWs9sKSaOVe5
- 019P/njc5j5DZcxRj7iA+7rZyv+sJwcLdQuatNpfdJcbCJ8l0ahbSD3Ks7LneXJPaG3rAvLQx9x
- M+SLlCvkUGzOrhqYEXmhmzOhPkwf4TbPMXMKvie9orrtb0AeNog0C43B5pewyoO/lDjO3/RGrrJ
- /gUB7SNiu7+6U4UyvFidN2ffsrSB+6SOXIAeTMQiA2eRm5o1EpoIrx7u2DjoJPSo9qkrRPxjHWP
- ngWbWg2KO5F2xfTtyKYBoG0qCaKLLqm4JUMFe5QmXejmXJIddt1/rJu9N+jPFS4rhJhjmH966Zq
- kZgZqJQVhWcfkzKHhCDXmrdy6N3vagDw3v+23WNaRRbeDUiDnBbKPT2QgTXVKxPo27KG2aWmqBK
- Q4C9jTpQjXMGr7tiJbNu6wMdeaXGDbwiQJYFNa31y51zc9wE9MRAD5JOEjnaNd0lX9sakHp/yRC
- zczMiX8P7H1IEsEuSHSDKsg4QlUMeS7HwPSI0aeliKu3SqZQHnQB06r9H2KYXHbeKnJpA2kqs4Z
- 022GnYuJ/d3aGOnXN2ll1c1Yud7AE/KM3KeZNF3+bzZemZRmzQ1PhnwJuzqz2/SXz3S80391zAd
- HIcQex2n/0JAC3g==
+ bh=O3W9u6I/uPX9HhlT3a0kG5ilSUgWDIjADrmlLyLnLfc=;
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBqAxyNKB4bRopd6uVGaqjZ0L4NVlRoVcLs7ObZ7
+ 2RgxkiZCi2JAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCagMcjQAKCRAbX0TJAJUV
+ Vg/jEACFV+mjwqqC21c6UL9pXhvD/ZuYPxzQxvdj3odAjFPGejYKs2i8cgg5n6D7mkUeYyGJLPJ
+ NyQfC99VcYCqoisPsQpadlvElVwzGUWXxVOrNkaXDe+kFkYv+bPh4WfxRECLLIv7nTb8y4pM/rm
+ BNPH+7baaLl6hraxmXLLkO+it8dtlmCYYIEeeaJZh+svJcOJe8dX40GoMbpLyX69SzslbeQGlaa
+ 49WOqyTRyMTtJrVxOtF41OFqYT3fgsRNRk9U9Gv+4xBBieolElw2kvzVu00qY7Ea+OohTSczzlI
+ euattgmYPndDoH7C1Vo5oSS24dJ2kWTimT9ptaaCZ7fm1MhIkMfXooyNssildpE4StCtT8PRlUQ
+ ANgLyyb/mOQ56zk5V64dBJcAQz4xnSeiLbC0yf8B0JOs78WV1Yh9oKGg8FMWL4SmoL8eO00BoFe
+ Dz/NclGqaDzCKgCekD/qIS+ptWYnI0modDYH/4iKSvLx18HM+rI6/u1Uj7yOprdK49YWqzFTZ0h
+ nHPPrDMrIyWgG/uiiYgRSTH8AVZILnUHLg5Tct0CVB33XyvfBJcme/vMvRkstLvYpblFHI8l82y
+ KPsoVfxhVEsmlmfsyh0fDLqe7xGQmkc3CrT2e4AJ03872+KV98/iB+XSlovdTiq2bQ83FzjxJey
+ rGyXTs3GHsAHdyQ==
 X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
  fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEyMDEyOSBTYWx0ZWRfXwDhghGP0Hp8m
- NhQRH/4naFTsCDgf85tFFSamAzW+tI0BL2PtWSjGYTJCeskvct5wSKewtUZ2w++hWSWtqs9H2S5
- 3rPel0kLpt8KHTzu6fUZ1bApAV/nJgKqo7UkxBwEpkyRDegKgnXJ48fg9aqiXlZ9AM5cCumjjIs
- q8sNIH3jlWeCF801hkS4w/Y2kSeE5YNrmg/q4uo9id68gVlOclpNZoy73nXowjI+mt+Av67inVF
- FOTEv2wcuYf7LO0wUqY01bkF9QFlKOsCMZE7Z+SK/t+l1yhLU1QDuMT3eeFWIK7bEt9jUB5xqZh
- VXwtkDf+0GVDsH6PlnwLQ3RP7NCZ87PfI1UbaWz+7aDuVgBrHXJg4uDqkpgqgDhgapREaJ00Ma3
- Hy0WCYw+7bpbKO/d0vKQ2Bh+Zp2Lmecgfyknmk6suQ5XabJbYkKZdh5OzWSzrps5dwfkCWUjaMD
- oi52ME7XC++C/7jGS4w==
-X-Proofpoint-GUID: Q04qVx01nrwopq8mQMykoMfMWObsv6nf
-X-Authority-Analysis: v=2.4 cv=bp98wkai c=1 sm=1 tr=0 ts=6a031c97 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=gcnggjyPzmaCdwFRn6A1TQ==:17
+X-Proofpoint-GUID: ATISX4lbc6Pq48t7VoTA8_YGOhzCAe_y
+X-Authority-Analysis: v=2.4 cv=Mv9iLWae c=1 sm=1 tr=0 ts=6a031c96 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=gcnggjyPzmaCdwFRn6A1TQ==:17
  a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=4U6AihNozsKCruDMU2kA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: Q04qVx01nrwopq8mQMykoMfMWObsv6nf
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=0aSsbouhDs5aZSzchFYA:9 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-ORIG-GUID: ATISX4lbc6Pq48t7VoTA8_YGOhzCAe_y
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEyMDEyOSBTYWx0ZWRfXzlCL3WsaSuPY
+ gxzzlmvGwt7bXx/mMRUpIh4M4l6WhRj4F7PHoYNmLFDKD29fYRbSduDnCJ8tEemdJltLzZadODN
+ zBO85ywqfvYKE/k8LXKqLlReq8ABXnqGMv47mNnpFU5cmWpAAgLY9lxYHeeuXmK3gzlaZA61wu5
+ Ur4m8faPxu07cbNPQhw+4n8O+Et/rygWR7soEwXoucyXRr8B1v2b1iVKwxvbBPdbBlCwl/e+5/p
+ 5tbAnqNGmySEtw6tGx+N2fkAy6Yu0a3bbpchjvbxshyaCpNeHS1kYQVIgWrE12RnYqUZYObjMM9
+ 6a3ihYH4z8H60uYjJKcwNBtRChHwwktCpbRMpH+We0KuCYbMwKKhkLJ3d3guWVE9JanYugB9o9X
+ cK6CyK0Ayt0JQ00Ql9zmQrcMWV6U/2gWGRTie6LGbK2RDK7iATEPf0GCGmh59t5OjY0l2Ilmikj
+ tu7ZJOWmceIQn9bUAhg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-11_05,2026-05-08_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 clxscore=1015 bulkscore=0 malwarescore=0
- lowpriorityscore=0 suspectscore=0 phishscore=0 spamscore=0 impostorscore=0
+ bulkscore=0 adultscore=0 malwarescore=0 priorityscore=1501 lowpriorityscore=0
+ clxscore=1015 phishscore=0 spamscore=0 suspectscore=0 impostorscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605120129
 
-On Eliza, the SPMI arbiter supports multiple bus masters, requiring
-explicit selection of the master for each PMIC.
+Describe the ADSP remoteproc node along with its dependencies, including
+the IPCC mailbox, AOSS QMP and SMP2P links used for communication.
 
-The existing PM7750BA dtsi does not provide a way to describe this,
-so introduce an Eliza-specific variant with the appropriate bus
-configuration.
+The Eliza SoC features a USB 3.1 Gen 2 controller connected to a QMP
+combo PHY and an SNPS eUSB2 PHY. Describe them.
 
-This duplication is required due to hardware differences in how the
-SPMI bus is exposed on this platform.
-
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Tested-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/pm7550ba-eliza.dtsi | 69 ++++++++++++++++++++++++++++
- 1 file changed, 69 insertions(+)
+ arch/arm64/boot/dts/qcom/eliza.dtsi | 261 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 261 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/pm7550ba-eliza.dtsi b/arch/arm64/boot/dts/qcom/pm7550ba-eliza.dtsi
-new file mode 100644
-index 000000000000..2c386f16eca4
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/pm7550ba-eliza.dtsi
-@@ -0,0 +1,69 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) 2026 Qualcomm Innovation Center, Inc. All rights reserved.
-+ */
+diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qcom/eliza.dtsi
+index 4a7a0ac40ce6..02df7125b2a4 100644
+--- a/arch/arm64/boot/dts/qcom/eliza.dtsi
++++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
+@@ -6,10 +6,13 @@
+ #include <dt-bindings/clock/qcom,eliza-gcc.h>
+ #include <dt-bindings/clock/qcom,eliza-tcsr.h>
+ #include <dt-bindings/clock/qcom,rpmh.h>
++#include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/interconnect/qcom,eliza-rpmh.h>
+ #include <dt-bindings/interconnect/qcom,icc.h>
+ #include <dt-bindings/interconnect/qcom,osm-l3.h>
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
++#include <dt-bindings/mailbox/qcom-ipcc.h>
++#include <dt-bindings/phy/phy-qcom-qmp.h>
+ #include <dt-bindings/power/qcom,rpmhpd.h>
+ #include <dt-bindings/soc/qcom,rpmh-rsc.h>
+ 
+@@ -596,6 +599,30 @@ llcc_lpi_mem: llcc-lpi@ff800000 {
+ 		};
+ 	};
+ 
++	smp2p-adsp {
++		compatible = "qcom,smp2p";
++		qcom,smem = <443>, <429>;
++		interrupts-extended = <&ipcc IPCC_CLIENT_LPASS
++					     IPCC_MPROC_SIGNAL_SMP2P
++					     IRQ_TYPE_EDGE_RISING>;
++		mboxes = <&ipcc IPCC_CLIENT_LPASS
++				IPCC_MPROC_SIGNAL_SMP2P>;
 +
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/spmi/spmi.h>
++		qcom,local-pid = <0>;
++		qcom,remote-pid = <2>;
 +
-+/ {
-+	thermal-zones {
-+		pm7550ba-thermal {
-+			polling-delay-passive = <100>;
-+
-+			thermal-sensors = <&pm7550ba_temp_alarm>;
-+
-+			trips {
-+				trip0 {
-+					temperature = <95000>;
-+					hysteresis = <0>;
-+					type = "passive";
-+				};
-+
-+				trip1 {
-+					temperature = <115000>;
-+					hysteresis = <0>;
-+					type = "hot";
-+				};
-+
-+				trip2 {
-+					temperature = <145000>;
-+					hysteresis = <0>;
-+					type = "critical";
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&spmi_bus0 {
-+	pm7550ba: pmic@7 {
-+		compatible = "qcom,pm7550ba", "qcom,spmi-pmic";
-+		reg = <7 SPMI_USID>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		pm7550ba_temp_alarm: temp-alarm@a00 {
-+			compatible = "qcom,spmi-temp-alarm";
-+			reg = <0xa00>;
-+			interrupts = <0x7 0xa 0x0 IRQ_TYPE_EDGE_BOTH>;
-+			#thermal-sensor-cells = <0>;
++		smp2p_adsp_out: master-kernel {
++			qcom,entry-name = "master-kernel";
++			#qcom,smem-state-cells = <1>;
 +		};
 +
-+		pm7550ba_gpios: gpio@8800 {
-+			compatible = "qcom,pm7550ba-gpio", "qcom,spmi-gpio";
-+			reg = <0x8800>;
-+			gpio-controller;
-+			gpio-ranges = <&pm7550ba_gpios 0 0 8>;
-+			#gpio-cells = <2>;
++		smp2p_adsp_in: slave-kernel {
++			qcom,entry-name = "slave-kernel";
 +			interrupt-controller;
 +			#interrupt-cells = <2>;
 +		};
-+
-+		pm7550ba_eusb2_repeater: phy@fd00 {
-+			compatible = "qcom,pm7550ba-eusb2-repeater", "qcom,pm8550b-eusb2-repeater";
-+			reg = <0xfd00>;
-+			#phy-cells = <0>;
-+		};
 +	};
-+};
++
+ 	soc: soc@0 {
+ 		compatible = "simple-bus";
+ 
+@@ -624,6 +651,17 @@ gcc: clock-controller@100000 {
+ 			#power-domain-cells = <1>;
+ 		};
+ 
++		ipcc: mailbox@406000 {
++			compatible = "qcom,eliza-ipcc", "qcom,ipcc";
++			reg = <0x0 0x00406000 0x0 0x1000>;
++
++			interrupts = <GIC_SPI 229 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-controller;
++			#interrupt-cells = <3>;
++
++			#mbox-cells = <2>;
++		};
++
+ 		qupv3_2: geniqup@8c0000 {
+ 			compatible = "qcom,geni-se-qup";
+ 			reg = <0x0 0x008c0000 0x0 0x2000>;
+@@ -862,6 +900,55 @@ tcsr: clock-controller@1fbf000 {
+ 			#reset-cells = <1>;
+ 		};
+ 
++		remoteproc_adsp: remoteproc@3000000 {
++			compatible = "qcom,eliza-adsp-pas";
++			reg = <0x0 0x03000000 0x0 0x10000>;
++
++			interrupts-extended = <&pdc 6 IRQ_TYPE_EDGE_RISING>,
++					      <&smp2p_adsp_in 0 IRQ_TYPE_EDGE_RISING>,
++					      <&smp2p_adsp_in 1 IRQ_TYPE_EDGE_RISING>,
++					      <&smp2p_adsp_in 2 IRQ_TYPE_EDGE_RISING>,
++					      <&smp2p_adsp_in 3 IRQ_TYPE_EDGE_RISING>,
++					      <&smp2p_adsp_in 7 IRQ_TYPE_EDGE_RISING>;
++			interrupt-names = "wdog",
++					  "fatal",
++					  "ready",
++					  "handover",
++					  "stop-ack",
++					  "shutdown-ack";
++
++			clocks = <&rpmhcc RPMH_CXO_CLK>;
++			clock-names = "xo";
++
++			power-domains = <&rpmhpd RPMHPD_LCX>,
++					<&rpmhpd RPMHPD_LMX>;
++			power-domain-names = "lcx",
++					     "lmx";
++
++			interconnects = <&lpass_lpicx_noc MASTER_LPASS_PROC QCOM_ICC_TAG_ALWAYS
++					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
++
++			memory-region = <&adspslpi_mem>, <&q6_adsp_dtb_mem>;
++
++			qcom,qmp = <&aoss_qmp>;
++
++			qcom,smem-states = <&smp2p_adsp_out 0>;
++			qcom,smem-state-names = "stop";
++
++			status = "disabled";
++
++			glink-edge {
++				interrupts-extended = <&ipcc IPCC_CLIENT_LPASS
++							     IPCC_MPROC_SIGNAL_GLINK_QMP
++							     IRQ_TYPE_EDGE_RISING>;
++				mboxes = <&ipcc IPCC_CLIENT_LPASS
++						IPCC_MPROC_SIGNAL_GLINK_QMP>;
++
++				label = "lpass";
++				qcom,remote-pid = <2>;
++			};
++		};
++
+ 		lpass_ag_noc: interconnect@7e40000 {
+ 			compatible = "qcom,eliza-lpass-ag-noc";
+ 			reg = <0x0 0x07e40000 0x0 0xe080>;
+@@ -883,6 +970,167 @@ lpass_lpicx_noc: interconnect@7420000 {
+ 			#interconnect-cells = <2>;
+ 		};
+ 
++		usb_hsphy: phy@88e3000 {
++			compatible = "qcom,eliza-snps-eusb2-phy",
++				     "qcom,sm8550-snps-eusb2-phy";
++			reg = <0x0 0x088e3000 0x0 0x154>;
++			#phy-cells = <0>;
++
++			clocks = <&tcsr TCSR_USB2_CLKREF_EN>;
++			clock-names = "ref";
++
++			resets = <&gcc GCC_QUSB2PHY_PRIM_BCR>;
++
++			status = "disabled";
++		};
++
++		usb_dp_qmpphy: phy@88e8000 {
++			compatible = "qcom,eliza-qmp-usb3-dp-phy",
++				     "qcom,sm8650-qmp-usb3-dp-phy";
++			reg = <0x0 0x088e8000 0x0 0x4000>;
++
++			clocks = <&gcc GCC_USB3_PRIM_PHY_AUX_CLK>,
++				 <&tcsr TCSR_USB3_CLKREF_EN>,
++				 <&gcc GCC_USB3_PRIM_PHY_COM_AUX_CLK>,
++				 <&gcc GCC_USB3_PRIM_PHY_PIPE_CLK>;
++			clock-names = "aux",
++				      "ref",
++				      "com_aux",
++				      "usb3_pipe";
++
++			resets = <&gcc GCC_USB3_PHY_PRIM_BCR>,
++				 <&gcc GCC_USB3_DP_PHY_PRIM_BCR>;
++			reset-names = "phy",
++				      "common";
++
++			power-domains = <&gcc GCC_USB3_PHY_GDSC>;
++
++			#clock-cells = <1>;
++			#phy-cells = <1>;
++
++			orientation-switch;
++
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					usb_dp_qmpphy_out: endpoint {
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++
++					usb_dp_qmpphy_usb_ss_in: endpoint {
++						remote-endpoint = <&usb_dwc3_ss>;
++					};
++				};
++
++				port@2 {
++					reg = <2>;
++
++					usb_dp_qmpphy_dp_in: endpoint {
++					};
++				};
++			};
++		};
++
++		usb: usb@a600000 {
++			compatible = "qcom,eliza-dwc3", "qcom,snps-dwc3";
++			reg = <0x0 0x0a600000 0x0 0xfc100>;
++
++			interrupts-extended = <&intc GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>,
++					      <&intc GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>,
++					      <&intc GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>,
++					      <&pdc 14 IRQ_TYPE_EDGE_BOTH>,
++					      <&pdc 15 IRQ_TYPE_EDGE_BOTH>,
++					      <&pdc 17 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "dwc_usb3",
++					  "pwr_event",
++					  "hs_phy_irq",
++					  "dp_hs_phy_irq",
++					  "dm_hs_phy_irq",
++					  "ss_phy_irq";
++
++			clocks = <&gcc GCC_CFG_NOC_USB3_PRIM_AXI_CLK>,
++				 <&gcc GCC_USB30_PRIM_MASTER_CLK>,
++				 <&gcc GCC_AGGRE_USB3_PRIM_AXI_CLK>,
++				 <&gcc GCC_USB30_PRIM_SLEEP_CLK>,
++				 <&gcc GCC_USB30_PRIM_MOCK_UTMI_CLK>,
++				 <&rpmhcc RPMH_CXO_CLK>;
++			clock-names = "cfg_noc",
++				      "core",
++				      "iface",
++				      "sleep",
++				      "mock_utmi",
++				      "xo";
++
++			assigned-clocks = <&gcc GCC_USB30_PRIM_MOCK_UTMI_CLK>,
++					  <&gcc GCC_USB30_PRIM_MASTER_CLK>;
++			assigned-clock-rates = <19200000>,
++					       <200000000>;
++
++			resets = <&gcc GCC_USB30_PRIM_BCR>;
++
++			phys = <&usb_hsphy>,
++			       <&usb_dp_qmpphy QMP_USB43DP_USB3_PHY>;
++			phy-names = "usb2-phy",
++				    "usb3-phy";
++
++			interconnects = <&aggre1_noc MASTER_USB3_0 QCOM_ICC_TAG_ALWAYS
++					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
++					<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &config_noc SLAVE_USB3_0 QCOM_ICC_TAG_ACTIVE_ONLY>;
++			interconnect-names = "usb-ddr", "apps-usb";
++
++			iommus = <&apps_smmu 0x40 0x0>;
++
++			power-domains = <&gcc GCC_USB30_PRIM_GDSC>;
++			required-opps = <&rpmhpd_opp_nom>;
++
++			snps,hird-threshold = /bits/ 8 <0x0>;
++			snps,usb2-gadget-lpm-disable;
++			snps,dis_u2_susphy_quirk;
++			snps,dis_enblslpm_quirk;
++			snps,dis-u1-entry-quirk;
++			snps,dis-u2-entry-quirk;
++			snps,is-utmi-l1-suspend;
++			snps,usb3_lpm_capable;
++			snps,usb2-lpm-disable;
++			snps,has-lpm-erratum;
++			tx-fifo-resize;
++
++			dma-coherent;
++			usb-role-switch;
++
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					usb_dwc3_hs: endpoint {
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++
++					usb_dwc3_ss: endpoint {
++						remote-endpoint = <&usb_dp_qmpphy_usb_ss_in>;
++					};
++				};
++			};
++		};
++
+ 		pdc: interrupt-controller@b220000 {
+ 			compatible = "qcom,eliza-pdc", "qcom,pdc";
+ 			reg = <0x0 0x0b220000 0x0 0x40000>,
+@@ -957,6 +1205,19 @@ tsens2: thermal-sensor@c22a000 {
+ 			#thermal-sensor-cells = <1>;
+ 		};
+ 
++		aoss_qmp: power-management@c300000 {
++			compatible = "qcom,eliza-aoss-qmp", "qcom,aoss-qmp";
++			reg = <0x0 0x0c300000 0x0 0x400>;
++
++			interrupt-parent = <&ipcc>;
++			interrupts-extended = <&ipcc IPCC_CLIENT_AOP IPCC_MPROC_SIGNAL_GLINK_QMP
++						     IRQ_TYPE_EDGE_RISING>;
++
++			mboxes = <&ipcc IPCC_CLIENT_AOP IPCC_MPROC_SIGNAL_GLINK_QMP>;
++
++			#clock-cells = <0>;
++		};
++
+ 		spmi: arbiter@c400000 {
+ 			compatible = "qcom,eliza-spmi-pmic-arb",
+ 				     "qcom,x1e80100-spmi-pmic-arb";
 
 -- 
 2.54.0
