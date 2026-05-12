@@ -1,145 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48B01383304
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 03:27:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5713191F91
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 03:32:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778556447; cv=none; b=Fx3xEOpGDvZH6B9A5lw54MkghBxfQJ14gnEIXHQoika2rtmLoghctpkF3xKm3bfmw4ES0kRX3whkQycZDI1j+i3JwDzzNyPUXZsUlLODyWkMKeolsHspY3SH4iIIKJwxNlmGVWzkRzjwDQgnmggfL1ELZHlv2GUETY0ojv04mic=
+	t=1778556769; cv=none; b=ar8uGMlH0ppa+GGaa7XusCq7MxYTzevqcw2WlzvYQwZ/TE7itRM1dk+gZvkfHkJgGRD6tFqD1Zf0equVL813EUlPoEG2cUbRQ64xA+JkjXymwvnLipxT4qErDKwFFWWUljBLO8XEkMhimIRaNZ+RzVJw8++xHAxzbFKpudq3lWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778556447; c=relaxed/simple;
-	bh=y3BqtVovnU1eQEjr2n+CaSfcW3FDdbSfqIwDtY9rPQw=;
+	s=arc-20240116; t=1778556769; c=relaxed/simple;
+	bh=lVQUBJXklNK7ySzGSGghhJlvod5veWC689DVBnH7aMM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XC4JpcE7FrstrdIXAk+v0i5ECLfJRhFdcpDrtH2CkWPIGbZOwOXISekqQx7Pu3JQIz3fQe3ym4W/lYiONwXu7IjqiePnemn2eP2KNCmaPkQkHQJLFMbnUPXc09joDsvy69sRqMnbRYzTEx9wnyNuIZAoKUrL1aClCkQ/md0RyD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CbvWwdLE; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=Xf70DLCJYf2YgKrQ9iNtDe+xHw495hP4gnZkFbEq0sNo9n3BPpv7Of6gxUPue9jSCJSxbU39cVZxebLKPI70UyhJCdVCbVteONKUrW6YQIy/6Ej06RMFjNHmZRn/BoyQPjyy8GJEPFHs7seGspeWQpKXgIbVmu/1rWxOxYyOs2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=r6Se00M6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CbvWwdLE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0C8EC2BCB0;
-	Tue, 12 May 2026 03:27:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="r6Se00M6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 187C5C2BCB0;
+	Tue, 12 May 2026 03:32:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778556446;
-	bh=y3BqtVovnU1eQEjr2n+CaSfcW3FDdbSfqIwDtY9rPQw=;
+	s=k20201202; t=1778556769;
+	bh=lVQUBJXklNK7ySzGSGghhJlvod5veWC689DVBnH7aMM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=CbvWwdLEweI2bC4rZI9cNcItMQyvO3vJPTpkPc5r5W5pA8d4fi2YJk5NoYsLfLNSK
-	 +mD+TPwVp2j16rYXrAaI7jbJ8psowlmSu5txJBA42COE4EW1ZvXYHdl/9nOo8sI64T
-	 +E7Lagj+CPmVytHuRcykc1TbxAAeO3VWv50vvvfc+gtcpImlsvBymCslcpzt1uzspa
-	 sfMh3NDStu8EAXhew1O2Q7bdbn6oJmeN5aSAsTBkOiyJUI4EMJMsnSzx/geW0KM+R/
-	 fz1cOv0kzSvuPevxBZ/ew+/3yjByIurGKWkm85ywjBwD8gz+yqUGqYF8stNO5KIy1a
-	 v/AovMUcCOs2w==
+	b=r6Se00M6rPIP9Jpw6aQjG9lq5Pwkk1gk8/bU24fk7SzFCt7TGqstqc99n0g/ERnmM
+	 IEUONY4938k7DTch++7OqgUyBlBqbts5CBlKT1nNvN35dDzEGNZvbuVqp096SwvsKw
+	 27pQwcdrZf1y1chTxaaBfocdnHxjXKtL3MC9QlCL0EXbEuv9IrKiHsGj8YH5eCNcP8
+	 bHr2plYZpdiByQTtAsTCGyO5yEL79uhgy+We1Z/0SNiIBdmI9x+nIPoTrirP7KSfOg
+	 Tq0Q3PQ7KWNqr4wGyDrsPW8EMGOz+y2HR5dMLkeXb0fAfkqPjMG12T31RPhCGWf18B
+	 ancBKa1xVwTcQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 7/9 RESEND] ARM: tegra: tf600t: Configure panel
+Subject: Re: [PATCH v9 7/8] riscv: dts: spacemit: k1-bananapi-f3: add SD
+ card support with UHS modes
 Reply-To: sashiko@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260511074859.24930-8-clamor95@gmail.com>
-References: <20260511074859.24930-8-clamor95@gmail.com>
+To: "Iker Pedrosa" <ikerpedrosam@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260511-orangepi-sd-card-uhs-v9-7-ae48c0b2b2cf@gmail.com>
+References: <20260511-orangepi-sd-card-uhs-v9-7-ae48c0b2b2cf@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 12 May 2026 03:27:26 +0000
-Message-Id: <20260512032726.A0C8EC2BCB0@smtp.kernel.org>
+Date: Tue, 12 May 2026 03:32:48 +0000
+Message-Id: <20260512033249.187C5C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Removal of `regulator-always-on` from a regulator named `vddio_ddr=
-_1v2`.
-- [Medium] Undocumented feature addition of camera and video input subsyste=
-ms.
-- [Low] Incomplete DT graph due to dangling camera endpoints.
+- [High] Enabling UHS-I modes with an `always-on` VMMC regulator prevents p=
+roper SD card resets, breaking soft reboots and driver rebinds.
 --
 
-commit 3e9ff009424216cb47835e1aa1d04e00f8c7e7e8
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+commit da601a14dc433b25fd35c0c4098f9e5dcb5faea3
+Author: Iker Pedrosa <ikerpedrosam@gmail.com>
 
-ARM: tegra: tf600t: Configure panel
+riscv: dts: spacemit: k1-bananapi-f3: add SD card support with UHS modes
 
-This commit configures the DSI panel used in the ASUS VivoTab TF600T. It
-adds the necessary display nodes, modifies the vdd1 regulator to serve as
-vio_panel, and adds a new vdd_panel regulator for the display.
+This commit enables the sdhci0 controller on the Banana Pi BPI-F3 with
+high-speed UHS modes, wiring up the vmmc and vqmmc supplies.
 
-> diff --git a/arch/arm/boot/dts/nvidia/tegra30-asus-tf600t.dts b/arch/arm/=
-boot/dts/nvidia/tegra30-asus-tf600t.dts
-> index 9296e7970ce4e..8b68bfef8dee8 100644
-> --- a/arch/arm/boot/dts/nvidia/tegra30-asus-tf600t.dts
-> +++ b/arch/arm/boot/dts/nvidia/tegra30-asus-tf600t.dts
-
-[ ... ]
-
-> @@ -55,6 +56,37 @@ linux,cma@80000000 {
->  	};
-> =20
->  	host1x@50000000 {
-> +		vi@54080000 {
-> +			status =3D "okay";
-> +
-> +			csi@800 {
-> +				status =3D "okay";
-> +
-> +				avdd-dsi-csi-supply =3D <&avdd_dsi_csi>;
-> +			};
-> +
-> +			ports {
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +
-> +				port@0 {
-> +					reg =3D <0>;
-> +
-> +					vi_ppa_input: endpoint {
-> +						/* Link to the rear camera */
-> +					};
-> +				};
-> +
-> +				port@1 {
-> +					reg =3D <1>;
-> +
-> +					vi_ppb_input: endpoint {
-> +						/* Link to the front camera */
-> +					};
-> +				};
-> +			};
-> +		};
-
-The commit message states the goal is to configure the DSI panel, but this
-adds Video Input and CSI nodes for cameras. Should these camera subsystem
-additions be split into a separate patch, or documented in the commit messa=
-ge?
-
-Also, do these endpoints need remote-endpoint properties linking them to the
-actual sensor nodes? Without them, the OF graph appears incomplete and might
-trigger warnings during device tree schema validation.
-
-[ ... ]
-
-> @@ -1123,11 +1171,10 @@ pmic-sleep-hog {
+> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv=
+/boot/dts/spacemit/k1-bananapi-f3.dts
+> index e20daa50a152f..8fea6e87acec8 100644
+> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+> @@ -221,7 +221,7 @@ buck3_1v8: buck3 {
+>  				regulator-always-on;
 >  			};
 > =20
->  			regulators {
-> -				vdd_lcd: vdd1 {
-> +				vio_panel: vdd1 {
->  					regulator-name =3D "vddio_ddr_1v2";
->  					regulator-min-microvolt =3D <1200000>;
->  					regulator-max-microvolt =3D <1200000>;
-> -					regulator-always-on;
->  					regulator-boot-on;
->  					ti,regulator-ext-sleep-control =3D <8>;
->  				};
+> -			buck4 {
+> +			buck4: buck4 {
+>  				regulator-min-microvolt =3D <500000>;
+>  				regulator-max-microvolt =3D <3300000>;
+>  				regulator-ramp-delay =3D <5000>;
 
-Does removing regulator-always-on from vddio_ddr_1v2 risk powering down sys=
-tem
-memory when the display panel is disabled?
+[ ... ]
 
-If this regulator is shared with DDR, turning off the panel might cause a s=
-ystem
-crash.=20
+> @@ -374,3 +374,21 @@ hub_3_0: hub@2 {
+>  		reset-gpios =3D <&gpio K1_GPIO(124) GPIO_ACTIVE_LOW>;
+>  	};
+>  };
+> +
+> +&sdhci0 {
+> +	pinctrl-names =3D "default", "uhs";
+> +	pinctrl-0 =3D <&mmc1_cfg>;
+> +	pinctrl-1 =3D <&mmc1_uhs_cfg>;
+> +	bus-width =3D <4>;
+> +	cd-gpios =3D <&gpio K1_GPIO(80) (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+> +	no-mmc;
+> +	no-sdio;
+> +	disable-wp;
+> +	cap-sd-highspeed;
+> +	vmmc-supply =3D <&buck4>;
+> +	vqmmc-supply =3D <&aldo1>;
+> +	sd-uhs-sdr25;
+> +	sd-uhs-sdr50;
+> +	sd-uhs-sdr104;
 
-If it is only used for the panel on this specific board, could the
-regulator-name be updated to reflect that and avoid confusion?
+Could enabling UHS-I modes here introduce a regression during soft reboots
+or driver unbind and rebind cycles if buck4 is an always-on regulator?
+
+When UHS-I is negotiated, the SD card switches to 1.8V signaling. The SD
+physical layer specification dictates that resetting an SD card from 1.8V
+mode back to the default 3.3V mode requires dropping the main VDD supply
+(vmmc) to 0V.
+
+Since buck4 is configured with regulator-always-on, the regulator framework
+will not physically disable the supply when mmc_power_off() requests it.
+This could leave the SD card stuck in 1.8V mode during a soft reboot,
+preventing the host from communicating during the initial 3.3V sequence
+and causing initialization to fail.
+
+Should regulator-always-on be removed from buck4 if it isn't shared with
+other always-on components, or should UHS modes be omitted if the regulator
+must remain on?
+
+> +	status =3D "okay";
+> +};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511074859.2493=
-0-1-clamor95@gmail.com?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511-orangepi-s=
+d-card-uhs-v9-0-ae48c0b2b2cf@gmail.com?part=3D7
