@@ -1,307 +1,202 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2122.outbound.protection.partner.outlook.cn [139.219.17.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F7C62FE071;
-	Tue, 12 May 2026 08:47:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778575660; cv=none; b=oeCuVIeGAq+45CijIzwaYFH62us+34j1mqR3tWhb/ofgRupAEipP9rkKRlshOx/3fqipkJHI9Pripq6nG60MlvLbPBXasfCwukBx62u0wLfL096V+3VaLLKTtMteIphLY2c/PqVQnJsFF474ZTAuOiSE5zdJ2GKop/VSVOtzicc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778575660; c=relaxed/simple;
-	bh=yVj6qcAQtPfLOWXdwnIyMj6OCRTMuEdBo5PeKxLotsI=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=GOpC0oEhPYAvg37HiWKpTqfmXsAPp5gDzvaVLyS+aOfubeLMwmNbP8+eQAmNAh8yR9cKi7tFTzdBI1ICGfGgRjZ16d8ZxLlLfM5LnjrVSB1SS1SZfeZwBBhTBH0eQsYb8wTxqSGplRcmWbZfbtr6RAbd/6Ks3XF8sR/Sw+ffSNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=Cd3enZ95; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="Cd3enZ95"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1778575654; x=1810111654;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=yVj6qcAQtPfLOWXdwnIyMj6OCRTMuEdBo5PeKxLotsI=;
-  b=Cd3enZ95gY0e28+zXImIy8764kmU7oOIYe2PXXlg7Pvmz9o665eY4qNZ
-   HVKZiJblKC546pVgmZGRBwHzm9+I/o3x4EomU3zZAfSBebwdyMLJYui57
-   EaMleeIEvV1Bg3kzOOk5jdomlv5nMGnM7fZNjEzSpGGMw7YIyRYLeD2Do
-   YbatP2OkLgRMkfXSJr+QWGzFYdK4PCdWGcL3EABS36EbS3n+d2K8Iv0t9
-   2iNt4MvrQzdGCctNQ6lNnZuPAUNg+59rf/kbX+NycIifSHGaPDp7mhnzK
-   52kPfg0Bj6ffS/EycXD9BpBFEZrdV7e/cackCFEH3KG/UoUNh7j2h2TGx
-   Q==;
-X-CSE-ConnectionGUID: UxxL9zsTRgKgmDgezwKYWQ==
-X-CSE-MsgGUID: sjI6UnJoSPW1aPIkF8pclw==
-X-IronPort-AV: E=Sophos;i="6.23,230,1770620400"; 
-   d="scan'208";a="224614866"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 01:47:27 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
- chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.37; Tue, 12 May 2026 01:47:26 -0700
-Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Tue, 12 May 2026 01:47:23 -0700
-Message-ID: <c48f64d22429c1d4e10015033da4fff16c2a6d7d.camel@microchip.com>
-Subject: Re: [PATCH net-next v4 9/9] net: dsa: lan9645x: add port statistics
-From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
-To: Jakub Kicinski <kuba@kernel.org>
-CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
-	<davem@davemloft.net>, <edumazet@google.com>, <pabeni@redhat.com>,
-	<horms@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <woojung.huh@microchip.com>, <linux@armlinux.org.uk>,
-	<Steen.Hegelund@microchip.com>, <daniel.machon@microchip.com>,
-	<linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
-	<devicetree@vger.kernel.org>
-Date: Tue, 12 May 2026 10:47:22 +0200
-In-Reply-To: <20260506014618.1616861-1-kuba@kernel.org>
-References: <20260430-dsa_lan9645x_switch_driver_base-v4-9-f1b6005fa8b7@microchip.com>
-	 <20260506014618.1616861-1-kuba@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25D36392820;
+	Tue, 12 May 2026 08:50:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.122
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778575845; cv=fail; b=MIxh3uKTxFiV0LnstOu6R3oFNsbFa+jg6e9YD4YeqELI6rw0mtAczgp4mgB9kOIIt1HCwU9ofl+Knl4s28w0gxMxfrPBordXgmJLMNSA9HZjVOkXmC0QByJG2YOP8jMIdoBx9TIqVPafqKcWtIg42sLEsunsEPjbXtisnXfdXQ4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778575845; c=relaxed/simple;
+	bh=kLll00WTUUYlnCL/7KYQEi8b/K0O7yqugbmDYzQgbpM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=CI8lDlQuKIq4GldhEiuRasgSAvJRpgZZLpe+I1c88Nn9uwGR60QQrd9qgUSWdGEvIqEzICG5FGDmY/SfpgWOYw/0im6sE5vFJZKe4hozAJn4uXRkxUQAjCd1njLGqnSodlpEW60XEsZyUck86im9C7Rciz731b70z2EKyLHEXKU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HGPhvO4pt0cm6mUMqey5ovFozBOz4OHqCBQ7wyZ3dyymlAoNwwQfckwf4kaQMo4H+yaujmYFx2pvqr64xN2AkOVbd6WfQUoF3WgkuWX1DmOwfq/nDFundoX0LVDXgZ/IWhRj2lmzMy4PjMNUrri0NU5zJYiB4XkT534qmkXq3gl8UvtuCnVTN/daU5ca+TItIlggd1/2n/dbxQOvRA6ecHM1iUNvOZfOGBcD3taDWh+qULjVzwQ4PIFw5jSkB529NuN9PINUXqY/jQSoIX8eM1JwhVI08QArcfMGegSW8n5aUSWprnsbWkZRdWM0amQjzanOV0sQQ0/bJYSIWRMbTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dI7G2/AXyCd/4PD9xTZInym6WNxvPNp7ToX4dTPtRsY=;
+ b=MkjCECSMSgNB++S8UZ7lCiushxUFeAY3n4r4iSPAt4dRvs7pVRfLYMQEjv2tD5pexIl/rTeZ6Dw7eJIR7+bdD7LDqZ7mIQ3PMIKfAsHozKmvyhKVZyJRANDtoEv8noNkgYC5C2zw5Q1AEsIpuKpfT1FwLKZoVJxfJH2yCeJWCl25C8g6nImAuvq3EfutQLNqu3S9h6G/Py5+I3Y1M+Fe2r7sGjuTT8SRlZ68tq80LjTkwhEzlCOVIm6x6hOYfoifbDJoiAI71v2seUpo75+/roGh2GLAXkZ6VeRzUHlp8GAG2kfeICxmUGggCs8TY1PSG3pR6vo9B90TQ0EM8Ykuqg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1268.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:16::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Tue, 12 May
+ 2026 08:35:46 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%5])
+ with mapi id 15.20.9891.021; Tue, 12 May 2026 08:35:46 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Michael Turquette <mturquette@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Emil Renner Berthing <kernel@esmil.dk>
+Cc: Chen Wang <unicorn_wang@outlook.com>,
+	Inochi Amaoto <inochiama@gmail.com>,
+	Alexey Charkov <alchark@gmail.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Keguang Zhang <keguang.zhang@gmail.com>,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v2 09/12] reset: starfive: Introduce assert_polarity
+Date: Tue, 12 May 2026 01:35:18 -0700
+Message-Id: <20260512083521.3448-10-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260512083521.3448-1-changhuang.liang@starfivetech.com>
+References: <20260512083521.3448-1-changhuang.liang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BJSPR01CA0012.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:c::24) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1268:EE_
+X-MS-Office365-Filtering-Correlation-Id: a85c21c2-c460-496c-2550-08deb0017687
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|52116014|7416014|376014|366016|1800799024|22082099003|18002099003|38350700014|921020|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	ac4ePouFRYeIPbvWMG3VEqO3QaeAA7vPFNDxMnPIyb3b9OdT1MRyrBsOttTkMBoKa2QNJ23M+osDQOZbKzHFcd8tpdOZNhV+/DukLAUfP3Ez0fCMy+d0nQgMDd3/eevVPPN8EbSr61hJMpIrY7INtAFmK9IhTlGTocArYOsjvH8BwTAzbE1l9CXEqxMKqx4XNFaaY586Y74+G5VJP29CuEOmDNu2iF58qVbBdyCmAKIzlpW/v1UvwLevicApu005PESB5NjJ2/vM1kw2BH6R0n3885hJXOK9d/BK3QURyaZNJB/XgpEfjOV1u8fHLwO4xYI/fWVS9qxrKxS4MhvRvVvYUtmPh1QLLvT58jTJpWkqoiTqyFUh+nAZqhR8hSrHfqGQ6UaHiaQUyraQ8gQblyu7d81e00bTqdofgzgcb1uGNO7Lch0hIQ0YQ7sRC+RcrVUB24KXFWLn491MULsRItmcfjcu47vkY0PJd0Qg+txp1Dw6JXxYsIvpDG0G5ZhCEgeFjfTP8pEpkVW+K6xHUwTJHF2f65DajnpByaoMLeW9525hmktQH9uqCcYUYbhDtP2pJvw+vuR1d4ipKnwlBg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(52116014)(7416014)(376014)(366016)(1800799024)(22082099003)(18002099003)(38350700014)(921020)(56012099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?RPbBOKSxsw2y+ljcCmln6UTv5WhYJa9gelCIxWGezkHgY1d4IDiLV0Ql4nV+?=
+ =?us-ascii?Q?+CRN0P+1rrNQ8lbtUgowbdJ0VIHLpEBufAsXKfI4eL1CuhSFSs6WWAhRX0Tl?=
+ =?us-ascii?Q?v37cOUlCqq9g/BPT1FL9eZ+gtpa47UoGQiVt2rllcFQuyewDFXUBmSDWZqIk?=
+ =?us-ascii?Q?d8SY24hcxwzUQx+LtHzLMEyPn0JsrEnZiLzQL87mY+Q3S2EQaWVsQuGKwK2Z?=
+ =?us-ascii?Q?S0fMXV7PBCsH/0cbNMinqE56oHrQzJ7tSIjb/s+1vDk/FfNPAyAuEiboIIt6?=
+ =?us-ascii?Q?HWcKh7hIiODec1lhXmLRQPsdhJNeC69iU/BVlxYzGCWyIBlMyB3e+nkYkWDC?=
+ =?us-ascii?Q?RXNu5W0o2NDn7JfEEEFhZFz1nmTD7LrkGPyPiVnSv3WJusUrw5KJrMIObuuw?=
+ =?us-ascii?Q?C24jXu8b4KFAUjrQvqkW7tfd9GaHwrWg/7qzurp5tvTDaFGte6GvhVqruxa0?=
+ =?us-ascii?Q?pjJ3GH3nIMHY4sgYj1ykvcnBe294fhNTzSgFrjtQB6r0z8ApBh8Qs3XcFmh0?=
+ =?us-ascii?Q?tr1R84B8wx1e2EufI8wK74cIq865JCN5oYkq6aU3vXrSXVkMu9eWiXI0HwCW?=
+ =?us-ascii?Q?bYpocxXS82jfLFE+Hs0i1Rjlz7as0mABKMKvE8EE3P5txMJ4XPXjULsSbA/r?=
+ =?us-ascii?Q?fItH59i4g6yU1PtSQXV0VeEM/0KXG1cO6N+2MXXpxyLB0CXAWAiKVqqtzO5c?=
+ =?us-ascii?Q?sRhhqQCY8Euc9eE0QZi7Zmucf+UfAqNXOVPpdcAFCO812g6jXfAr/tSZo7hJ?=
+ =?us-ascii?Q?4855CWlgCHGdS54E/8/27KOstfATR35Me+1vL5BcFbSGI9f5GkEutJWq1+JE?=
+ =?us-ascii?Q?ulNaAJtAL1h/218PW/v4poBt8YQMWULPtgEbXqaeX5K25CpiHqM+DK2Joodi?=
+ =?us-ascii?Q?h5IIxxYtB6XuxrtMN22W/YQo5WWcp6o/WC+knfKFPWB3OTNw2QY3sAbex4ja?=
+ =?us-ascii?Q?BfbXSL5s8rFYopdxxl9RcZLXfGiHXOj8gE15bHgHuo2K+3rvxtkgMiPmKsAg?=
+ =?us-ascii?Q?vSEzAhT0KOj+Qt6Ty11Apgsj3aiR7vJ8OOfGAFgTqg8ByCy0HhQJ3/yNszdn?=
+ =?us-ascii?Q?rqPkPrzX6U2btNNFYMycLf9W9jNjjHqY5q1sAiViu3N3HHYsDrJ525Tw5WbN?=
+ =?us-ascii?Q?CL7uOhfX9Wc1t26SUbEn3q1+tdezZuICXYk9IWcY41z2qzY/ASpXPBozgYeV?=
+ =?us-ascii?Q?DW3zXDtDlfUN1YYoJzNGCQDln0C0NuBMLyPTdkO63TH5U/qDJXwzkHxzrx2g?=
+ =?us-ascii?Q?a3uvq8ZA5aiCJy0RsozrsJpaIro5OmVW+73tJZXegeES931PNDHyOAqdvjP2?=
+ =?us-ascii?Q?5VDzTcoK9vXtjQSIMuBOTAji8lsn8/3ZEcmoF2ZuwGkvCzTobZ1Xy9LLQ0zg?=
+ =?us-ascii?Q?Jb3pRilawrTMDbRa/SDUGkvqP+tsg8QQDsFHAQtAyPiQntBJ9GQ2YvNp0IjP?=
+ =?us-ascii?Q?5nBg6A0iwfB0qvc41kAVxL948yMNHxgvPVW0Sxtr4BGa5EfJCu5qW+JsxadQ?=
+ =?us-ascii?Q?y9bqow6SsqmaH5T+Ts+nnWTBq26DZdKPgn+HwqM2YcEuUwTn+qrbptoQWtpz?=
+ =?us-ascii?Q?8TAgqIIUSpTTPwBPaAB4tD/a5l6/fORWTe2msuTtdXCgpgKZCs2ErshXk/TL?=
+ =?us-ascii?Q?naq09fJIJTwS5spo20gDjbjmmTy04oZ20PFA3oizv9UT6g4C2LmS0M2DGCDZ?=
+ =?us-ascii?Q?QTNlNo2czmS4wig9+C4vNc+4fC2X7KzTxf++Meu6vnDY88x3FXSkIcWLm+z/?=
+ =?us-ascii?Q?8buM+1hd7NTbqRvZNh3T/h8pmvqHUyedeR6X5l5bzuxxml/4au8R?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a85c21c2-c460-496c-2550-08deb0017687
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2026 08:35:46.4043
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: r0tcUd2pMfeX5BfXI3HFKjtA+mhf2g6R4vAthkynaS7Kfr5SXPeJyeeZOokzzifSBuwLyZxP5P0K2fDLH4WrXpiye/WPL3UVMAYs1qFv1TLSai0+eQNCY2wyhzEWHcn+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1268
 
-On Tue, 2026-05-05 at 18:46 -0700, Jakub Kicinski wrote:
-> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
-e content is safe
->=20
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> ---
-> net: dsa: lan9645x: add port statistics
->=20
-> This patch wires up ethtool -S, standard ethtool group stats,
-> and ndo_get_stats64 for the lan9645x DSA driver. A delayed work
-> polls the 32-bit hardware counters every 3 seconds and accumulates
-> them into a 64-bit software cache to handle hardware wraparound.
->=20
-> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drive=
-rs/net/dsa/microchip/lan9645x/lan9645x_main.c
-> > index 15a493c1f215..cea46bfe729e 100644
-> > --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
->=20
-> [ ... ]
->=20
-> > @@ -255,6 +257,12 @@ static int lan9645x_setup(struct dsa_switch *ds)
-> >       if (!lan9645x->owq)
-> >               return -ENOMEM;
-> >=20
-> > +     err =3D lan9645x_stats_init(lan9645x);
-> > +     if (err) {
-> > +             dev_err(dev, "Failed to init stats.\n");
-> > +             goto owq_destroy;
-> > +     }
-> > +
-> >       ds->mtu_enforcement_ingress =3D true;
-> >       ds->assisted_learning_on_cpu_port =3D true;
-> >       ds->fdb_isolation =3D true;
-> > @@ -265,6 +273,10 @@ static int lan9645x_setup(struct dsa_switch *ds)
-> >                lan9645x->num_phys_ports - lan9645x->num_port_dis);
-> >=20
-> >       return 0;
-> > +
-> > +owq_destroy:
-> > +     destroy_workqueue(lan9645x->owq);
-> > +     return err;
-> >  }
->=20
-> Is this owq_destroy error path reachable today?
->=20
-> Looking at lan9645x_stats_init():
->=20
->     int lan9645x_stats_init(struct lan9645x *lan9645x)
->     {
->         struct lan9645x_stats *stats =3D lan9645x->stats;
->=20
->         queue_delayed_work(stats->queue, &stats->work,
->                            LAN9645X_STATS_CHECK_DELAY);
->=20
->         return 0;
->     }
->=20
-> it unconditionally returns 0, so the goto owq_destroy branch is dead.
->=20
-> If a future change either makes lan9645x_stats_init() return an error, or
-> adds any fallible step after it in lan9645x_setup(), the cleanup would
-> fall through owq_destroy without calling lan9645x_stats_deinit(), leaving
-> the self-requeuing delayed work armed on stats->queue.
->=20
-> Also, dsa_switch_setup() in net/dsa/dsa.c does not invoke ds->ops->teardo=
-wn
-> when ops->setup() itself fails, so lan9645x_teardown (which is where
-> lan9645x_stats_deinit is called today) will not run in that scenario.
->=20
-> Then in lan9645x_remove() -> lan9645x_stats_free() -> destroy_workqueue()=
-,
-> the queue would be drained with a chained self-requeue still live. Would
-> adding a dedicated label that calls lan9645x_stats_deinit() before fallin=
-g
-> through to owq_destroy be safer for future edits?
->=20
+The JHB100 SoC supports inverted operations for reset
+assertion/deassertion, introducing the an assert_polarity field to
+distinguish between different operation logics.
 
+Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+---
+ drivers/reset/starfive/reset-starfive-common.c | 18 +++++++++++++++---
+ drivers/reset/starfive/reset-starfive-common.h |  6 ++++++
+ 2 files changed, 21 insertions(+), 3 deletions(-)
 
-I will make lan9645x_stats_init return void. There is nothing after
-lan9645x_stats_init which can fail, so at this point a label for=C2=A0
-lan9645x_stats_deinit would be dead also?
-
-> [ ... ]
->=20
-> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c b/driv=
-ers/net/dsa/microchip/lan9645x/lan9645x_stats.c
-> > new file mode 100644
-> > index 000000000000..46ac62b4016f
-> > --- /dev/null
-> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c
->=20
-> [ ... ]
->=20
-> > +static const struct lan9645x_ethtool_stat lan9645x_port_ethtool_stats[=
-] =3D {
-> > +     { "rx_cat_drop",        SCNT_RX_CAT_DROP },
-> > +     { "rx_red_prio_0",      SCNT_RX_RED_PRIO_0 },
->=20
-> Per Documentation/networking/statistics.rst and the netdev stats hierarch=
-y,
-> counters that have a standard uAPI must not be duplicated in ethtool -S.
->=20
-> The rx_cat_drop counter is summed into stats->rx_dropped in
-> lan9645x_stats_get_stats64():
->=20
->     stats->rx_dropped =3D c[SCNT_RX_LONG] +
->                         c[SCNT_DR_LOCAL] +
->                         c[SCNT_DR_TAIL] +
->                         c[SCNT_RX_CAT_DROP] +
->                         ...
->=20
-> Since rtnl_link_stats64.rx_dropped is reachable via "ip -s link show",
-> does exposing rx_cat_drop here duplicate a value already covered by the
-> standard uAPI?
->=20
-> [ ... ]
->=20
-> > +     { "tx_drop",            SCNT_TX_DROP },
->=20
-> Similarly, tx_drop feeds stats->tx_dropped:
->=20
->     stats->tx_dropped =3D c[SCNT_TX_DROP] + c[SCNT_TX_AGED];
->=20
-> Should tx_drop be dropped from the ethtool -S list for the same reason?
->=20
-> [ ... ]
->=20
-> > +     { "tx_aged",            SCNT_TX_AGED },
-> > +     { "tx_bufdrop",         SCNT_TX_BUFDROP },
->=20
-> tx_aged is also summed into stats->tx_dropped in
-> lan9645x_stats_get_stats64(), so does it fall under the same duplicate-uA=
-PI
-> concern as tx_drop?
->=20
-> A related question about tx_bufdrop: if SCNT_TX_BUFDROP represents transm=
-it
-> frames dropped due to buffer exhaustion, why is it not included in
-> stats->tx_dropped alongside SCNT_TX_DROP and SCNT_TX_AGED?
->=20
->     stats->tx_dropped =3D c[SCNT_TX_DROP] + c[SCNT_TX_AGED];
->=20
-> If tx_bufdrop is in fact a transmit-drop cause, would users of
-> ip -s link show see an under-reported tx_dropped relative to the private
-> ethtool counter?
-
-
-Yes, I think this is a bug, and bufdrop should be added here. I will make s=
-ure
-there no overlap, and otherwise add it.
-
->=20
-> > +     { "dr_local",           SCNT_DR_LOCAL },
-> > +     { "dr_tail",            SCNT_DR_TAIL },
->=20
-> dr_local and dr_tail are also fed into stats->rx_dropped:
->=20
->     stats->rx_dropped =3D c[SCNT_RX_LONG] +
->                         c[SCNT_DR_LOCAL] +
->                         c[SCNT_DR_TAIL] +
->                         ...
->=20
-> Would it be appropriate to drop these from the ethtool -S list as well,
-> given they are already aggregated into the standard rx_dropped counter?
->=20
-> [ ... ]
->=20
-> > +};
->=20
-> [ ... ]
->=20
-> > +static void lan9645x_check_stats_work(struct work_struct *work)
-> > +{
-> > +     struct delayed_work *del_work =3D to_delayed_work(work);
-> > +     struct lan9645x_stats *stats;
-> > +
-> > +     stats =3D container_of(del_work, struct lan9645x_stats, work);
-> > +
-> > +     lan9645x_stats_update(stats->lan9645x);
-> > +
-> > +     queue_delayed_work(stats->queue, &stats->work,
-> > +                        LAN9645X_STATS_CHECK_DELAY);
-> > +}
->=20
-> The commit message says this worker "update[s] it frequently to handle
-> overflows in hardware."
->=20
-> Looking at lan9645x_stats_add_cnt():
->=20
->     static inline void lan9645x_stats_add_cnt(u64 *cnt, u32 val)
->     {
->         if (val < (*cnt & U32_MAX))
->             *cnt +=3D (u64)1 << 32; /* value has wrapped */
->=20
->         *cnt =3D (*cnt & ~(u64)U32_MAX) + val;
->     }
->=20
-> this compensates for at most one 32-bit wrap per polling interval. If two
-> or more wraps happen between reads, the low-half comparison no longer
-> detects the missed wrap and the 64-bit counter silently loses 2^32 per
-> missed wrap.
->=20
-> At the chip's 2.5 Gbps line rate (LAN9645X_SPEED_2500 in lan9645x_main.h)=
-,
-> a 32-bit byte counter wraps roughly every 13.7 s, so two wraps happen in
-> about 27.5 s. The polling interval is LAN9645X_STATS_CHECK_DELAY =3D 3 * =
-HZ,
-> but there is no upper bound on the actual elapsed time between reads:
-> delayed work can be stretched by system suspend/resume, heavy CPU load, o=
-r
-> regmap/SPI contention.
->=20
-> Would it be worthwhile to either bound the worst-case polling gap
-> (e.g. a suspend/resume hook that forces a read, or a timestamp-based
-> sanity check that detects a stretched interval and logs a warning) so
-> that rx_bytes/tx_bytes reported to ndo_get_stats64 and ethtool cannot
-> silently undercount by multiples of 2^32?
->=20
-
-It is true, and the timing is chosen so at most 1 wrap is supposed to occur=
-.
-I believe this is the exact pattern already used by ocelot, lan966x, sparx5
-and lan969x.
-
-Maybe I misunderstand the suspend/resume comment. We do not implement
-support to suspend/resume, but if we did, then I assume you can suspend
-for an arbitrary amount of time, so doing an additional read on=C2=A0
-suspend/resume will not solve this problem?
-
-The hw counters are 32bit. To stay synced they must never wrap more than
-once. I think the only way avoid this problem is if we can make absolute
-guarantees about how often the polling code runs?
-
-> [ ... ]
+diff --git a/drivers/reset/starfive/reset-starfive-common.c b/drivers/reset/starfive/reset-starfive-common.c
+index 8ea142ecbd15..c7289c2b2a28 100644
+--- a/drivers/reset/starfive/reset-starfive-common.c
++++ b/drivers/reset/starfive/reset-starfive-common.c
+@@ -68,7 +68,7 @@ static int starfive_reset_update(struct reset_controller_dev *rcdev,
+ 	reg_status = data->status + offset * sizeof(u32);
+ 	done = data->asserted ? data->asserted[offset] & mask : 0;
+ 
+-	if (!assert)
++	if (data->info && data->info->assert_polarity == assert)
+ 		done ^= mask;
+ 
+ 	spin_lock_irqsave(&data->lock, flags);
+@@ -90,13 +90,25 @@ static int starfive_reset_update(struct reset_controller_dev *rcdev,
+ static int starfive_reset_assert(struct reset_controller_dev *rcdev,
+ 				 unsigned long id)
+ {
+-	return starfive_reset_update(rcdev, id, true);
++	struct starfive_reset *data = starfive_reset_from(rcdev);
++	bool assert = true;
++
++	if (data->info && data->info->assert_polarity)
++		assert = false;
++
++	return starfive_reset_update(rcdev, id, assert);
+ }
+ 
+ static int starfive_reset_deassert(struct reset_controller_dev *rcdev,
+ 				   unsigned long id)
+ {
+-	return starfive_reset_update(rcdev, id, false);
++	struct starfive_reset *data = starfive_reset_from(rcdev);
++	bool deassert = false;
++
++	if (data->info && data->info->assert_polarity)
++		deassert = true;
++
++	return starfive_reset_update(rcdev, id, deassert);
+ }
+ 
+ static int starfive_reset_reset(struct reset_controller_dev *rcdev,
+diff --git a/drivers/reset/starfive/reset-starfive-common.h b/drivers/reset/starfive/reset-starfive-common.h
+index ee457d9b90a3..d4017b8069fc 100644
+--- a/drivers/reset/starfive/reset-starfive-common.h
++++ b/drivers/reset/starfive/reset-starfive-common.h
+@@ -15,6 +15,12 @@ struct starfive_reset_info {
+ 	unsigned int nr_resets;
+ 	unsigned int assert_offset;
+ 	unsigned int status_offset;
++
++	/* If assert_polarity is false, setting the bit to 1 asserts
++	 * the signal while clearing it to 0 deasserts it, and vice
++	 * versa.
++	 */
++	bool assert_polarity;
+ 	bool discontigous;
+ 	struct starfive_reset_map *map;
+ };
+-- 
+2.25.1
 
