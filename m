@@ -1,216 +1,165 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28943BB693
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 14:41:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC5DB32143D;
+	Tue, 12 May 2026 14:43:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778596913; cv=none; b=YbuwExp4TbL7DgLnZYsI+i/r6LmvWTKS3Sd4Ccd9YnUA3SKDDjEKZ5cHoqhMVw4oVLF4CZvoNHWP18SpY7DgP1/UiA9MBtXw7XDnpxFsRdVcfzOyiMhujSDUJ1rRXoaIfjNzNqYDEGyjAnF8fugiLHsZ3V9wlZ1ORXrbe6QVno4=
+	t=1778597039; cv=none; b=ATcqm/3RlYhmcQP6UHxkkiQbk7u4ifXrOMWHwr/WIR6grV9+76T5Wm0YGRmRFuY615k4SHXTSp8UyeoFvB7LoZT6M/aAW8KJZBdF0xa8Xy/cXbdWSy0WWe3s2WwMJO9TA1RaG3AKRCuZkcZprIrpje3d+rTRxnGp0yd7UCrOXtA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778596913; c=relaxed/simple;
-	bh=1lqMGNoPERN45B9lFH9DjhU6xRbSqUuKRwNjquWzcus=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XGu5u3QxHosj+H344cfzF/BI9jkPjy/LwewV6A/eRUKkLShVhUGkGPgZ7qh7NbNnHFrsIrOhRKPcDpoD4J4zb03NMcQBxRXJmynV6vITdMOZeVp2Kl3OOxe++CYGtjpJsq812kZ0O9nUYD6WjW7DS8roPDzQtM95qI5UmJmrDHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XlJWRFAy; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778597039; c=relaxed/simple;
+	bh=R/jhBIChVXR9kgDOd+WISzPt857TrAdWxKQz2nBrnrs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=F+BYDqsIOdKc84apWOostO5KqlYC8K1HrrO6kpro+/p/Yyh71iFP25B8W1cxX8qrLJBWYHLIMgmpmfThuOBgdJEXTz6WkfS/TtB9aNH+iGQ592Nx6I0JL8bjPsvhBT6pNe1u+fOTBwH2Kwv96hPGXAiWzCJYuadfb7uCg2vwvgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=oAsvFXSa; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XlJWRFAy"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-43d76dd4ee8so5201125f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 07:41:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778596909; x=1779201709; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hXd9Im5JkcfNXeD9xdaj2wvZlrhVhMEcCS8MB51Wmes=;
-        b=XlJWRFAyySXG+1MYHpmagG5bX5DKtTyG0Xt8EeXkOlQJC5AMomksau4dASE0ktIMSX
-         wuenEn1/QZOe/ULtvmx8KWjQTpNmqJrXKX5w2/cPdI5aClPv6qZH8i3m37/1ZKROFTsZ
-         5PDeuSjq+Ca5ok+UC3uZqdUUDiPTWjbtbxeK81UU4cpOQg68Bo8u6aQfri2YXQLq4YnZ
-         7QDQsmMR/i2xeREuOG7ZIwnEEnMYzC9f+iVGSMUcwCeGlRKuoLlE+1s7pigTXx531m5k
-         WoklHIjhAzTA92sI8eED1rSL7ffZXmc7XiCpOTYqZur1FpYpXtc4gObXWgIl0VQH4Ol2
-         D3RA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778596909; x=1779201709;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=hXd9Im5JkcfNXeD9xdaj2wvZlrhVhMEcCS8MB51Wmes=;
-        b=oS4ZoANhsS8gKrp/G+YekHcpWi2GNnGR0HL7yMGgn9pOOvitF1UTQ34Cl+OPDLnO16
-         mIil8aTnRt0TJgLtcGm1CJ5buYNIEPbkvPASmRhAvytEAHdRwmhEOqsQnf25t46ZZkTm
-         HKDMwJYhfIMHsFAtg3xHFtzO5AQz5bG5pK/Q+NSbGkpP5xCJ/uquynBAsxMMb8ZRn2AK
-         rSepE2Yjqmq2h34jL+5IMy5SClV64zyn/0B9nyKT7okyHQECITgyY1/qikQhOWbxRDG6
-         s7yPuFw5PyyTlHDhO59sZo47VRiu3u/gWHhatrtkBg3huXgiX8n2RV5VRUfFYXu5vFwi
-         uyUA==
-X-Forwarded-Encrypted: i=1; AFNElJ+pgTXrVMn7/m4MIzDGfz1Upw1L2aUEgVt7Hvcm83rmyAYpRMlellpSTclr8cMkURE4ZIQnNN186d+T@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx/Pw6BjlSU9rG8ezKFcFfXzk9X/OFlra9OYOt/d92yAWYGLJ0T
-	1LyxSo4kCR+kGP45O+ufTQihZaIyRJ5rjvwTO7lPXfj6qDn4386nqKor
-X-Gm-Gg: Acq92OGJsjTu0P3Q1SG5el4ZCPEtsJJzfa+NCKZP5LrWjZn8D06tB3Qugwih4rsMneX
-	i9cnxSr72CjL0ugt4z0EtGggSK92L7mz0OcvYYn2RlF+HUYWPCIByGmi3wB33nOrxlckYscZon+
-	EsejgZicu0glaisCYjAsjBsfPqjgYyGJ1M01Ej/mdrg6bjnULO43TvkKtcxdlBjReCL4x4Txm01
-	qbUGITgjRDAQbxxsd0l3Cy9hdehAX2T2BIgzt+cjUHa70zH7FjhL83K5NVmEDAKRdF+dV+Jwr35
-	Gmb6Bxb/vft2Z73egw+zDM6FxU8cFoy/pRITqr912o+a+1aZpz1+Ug694BBoBwnYFMjICno3VWo
-	r3b13OEpH8rKDj0WcnvICaD9dCKVFcYgdGC9fVkBJNH3egLgMjQmKkq8yIJYvXJk3TVrlS4YXoJ
-	DEXGvmqapJCJkUmC4EaVeNaUjlK3nbxnhKHZ2JutD5iaBa5fcrGx9A9lIDveoh1Z+ZdJvLQAakT
-	QpRLDZI+Z4FDGr1FLCLVTWFWiFJjeUflkI=
-X-Received: by 2002:a05:6000:40de:b0:43b:3b80:6776 with SMTP id ffacd0b85a97d-456a44fc269mr20806748f8f.30.1778596903537;
-        Tue, 12 May 2026 07:41:43 -0700 (PDT)
-Received: from iku.Home ([2a06:5906:61b:2d00:77f5:545a:798:321])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45491cab9c2sm34978713f8f.31.2026.05.12.07.41.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 May 2026 07:41:42 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="oAsvFXSa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1778597037; x=1810133037;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=R/jhBIChVXR9kgDOd+WISzPt857TrAdWxKQz2nBrnrs=;
+  b=oAsvFXSabNAc63pNQq5q0A723wie7n5EVd0/Y59qMB0vREq18G4bSIpi
+   Y+Od07+nATZS/sShNft8aSRyGb3z7bJlCXtWuq5gGNUXgrKDuhT2cgSZX
+   uIAzidKU5Vi2Eh/yh7ZRnh0DRJjRlbJaq/f/D34P/nV4Jh0Dw6quLiD52
+   ESPmpRmeacrYjJG7kr6L5fW3d5GYJurjhM8UN94whF8Uv8ImAw8QxeQb1
+   WiF6AfnZ6PgN7Nl7dpcJ8mhrjnul0tFUm5qGfMNyKCqAejk9bJOlyfX/9
+   0RoPd3O3oAUMCxA6tBsiGxnP56cAsynnn7HelpsGwkgG9eyRC/aOgEtEb
+   g==;
+X-CSE-ConnectionGUID: tkEaFxxDR72D+owv0RYPFA==
+X-CSE-MsgGUID: PeSqdWSQTp6OfWu5WKsWQw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="79455322"
+X-IronPort-AV: E=Sophos;i="6.23,231,1770624000"; 
+   d="scan'208";a="79455322"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 07:43:57 -0700
+X-CSE-ConnectionGUID: 10bEOBdlTOGu130+WC0xcw==
+X-CSE-MsgGUID: pPYNsW0wRmOrhbpoh4wDbA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,231,1770624000"; 
+   d="scan'208";a="268130406"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.112])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 07:43:51 -0700
+Date: Tue, 12 May 2026 17:43:49 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>,
+	rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-doc@vger.kernel.org, David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: dri-devel@lists.freedesktop.org,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg@gmail.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v3 5/5] drm: renesas: rz-du: Add support for RZ/T2H SoC
-Date: Tue, 12 May 2026 15:41:04 +0100
-Message-ID: <20260512144104.761531-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260512144104.761531-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260512144104.761531-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	Jonathan Corbet <corbet@lwn.net>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Petr Mladek <pmladek@suse.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	David Laight <david.laight.linux@gmail.com>
+Subject: Re: [PATCH v12 02/11] lib: kstrtox: add kstrtoudec64() and
+ kstrtodec64()
+Message-ID: <agM8pWrM6j_XksvN@ashevche-desk.local>
+References: <20260510-adf41513-iio-driver-v12-0-34af2ed2779f@analog.com>
+ <20260510-adf41513-iio-driver-v12-2-34af2ed2779f@analog.com>
+ <20260512123953.40d80bc9@jic23-huawei>
+ <agMnWzMjW1LwCSyT@ashevche-desk.local>
+ <sj6cpjhakyfvv6rgox6cnhl2u2tgaecugcok6fw2l7zgku5wtc@aqx3ul72vgca>
+ <agMvlS3-0wvGmBwh@ashevche-desk.local>
+ <dxjg2sdyxb7ieb4abmeyyye7qok6cczrxabpsjyjhcbehwoec3@sbbqoo4wmzre>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <dxjg2sdyxb7ieb4abmeyyye7qok6cczrxabpsjyjhcbehwoec3@sbbqoo4wmzre>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On Tue, May 12, 2026 at 03:12:24PM +0100, Rodrigo Alencar wrote:
+> On 26/05/12 04:48PM, Andy Shevchenko wrote:
+> > On Tue, May 12, 2026 at 02:21:14PM +0100, Rodrigo Alencar wrote:
+> > > On 26/05/12 04:12PM, Andy Shevchenko wrote:
+> > > > On Tue, May 12, 2026 at 12:39:53PM +0100, Jonathan Cameron wrote:
+> > > > > On Sun, 10 May 2026 13:42:20 +0100
+> > > > > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+> > > > > 
+> > > > > > Add helpers that parses decimal numbers into 64-bit number, i.e., decimal
+> > > > > > point numbers with pre-defined scale are parsed into a 64-bit value (fixed
+> > > > > > precision). After the decimal point, digits beyond the specified scale
+> > > > > > are ignored.
+> > > > > 
+> > > > > Whilst Rodrigo has already replied to say there will be another version
+> > > > > I'd like to request final feedback from those who were involved in the parser
+> > > > > discussions.  
+> > > > > 
+> > > > > They got very involved and I'm far from an expert in the right way to do
+> > > > > this stuff.  
+> > > > > 
+> > > > > I don't think David Laight was +CC so I've added that.
+> > > > > David, Andy - I think you two were most involved in that discussion:
+> > > > > Any objections to the end result? 
+> > > > 
+> > > > I already said a few times about the naming. I do not like the kstrto*()
+> > > > be semantically different on how they treat the input. Second point is
+> > > > to avoid code duplication, but this one is less of a concern since the
+> > > > new code is in the library close to the other potentially duplicate code
+> > > > piece and hence can be addressed later.
+> > > 
+> > > I suppose I reached into kstrtodec64() and kstrtoudec64() because it aligns
+> > > with your expectations for kstrto*() semantics, no? Those include:
+> > >  - overflow check;
+> > >  - extensive input validation;
+> > >  - optional '\n' in the end;
+> > >  - mandatory nul-termination.
+> > > 
+> > > am I missing anything?
+> > 
+> > When we add scale we basically make that not true. Moreover the code in this
+> > patch makes scale == number_of_characters which I think a bit fragile, however
+> > it's about the fractional part when the amount of digits is equal to scale.
+> 
+> That is not really the case. It is being set as a limit, so it does check for
+> truncation and zero-padding.
 
-The RZ/T2H (R9A09G077) SoC includes a DU with a DPI interface,
-supporting resolutions up to WXGA with two RPFs for layer blending.
-Unlike earlier RZ/G2L SoCs, RZ/T2H requires explicit assertion of a
-DPI output-enable signal (DU_MCR0_DPI_EN) during CRTC startup.
+I do not see it happens in _parse_integer_limit(). It doesn't try to parse more
+characters than it's requested in max_chars. It doesn't check if there are more
+character nor their converted values.
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
----
-v2->v3:
-- Moved clock limits from device_info to output_routing to allow
-  per-output constraints.
+> > To make this work as expected we need to add an additional call like
+> > kstrtoull() (and perhaps drop that \n and NUL-terminator checks) and see
+> > if that overflows or not. Since it's a fractional part it must have less
+> > than 20 (decimal) digits there, so we check the rv (or how many digits
+> > were parsed successfully) and compare to 20. If it's more, we got too many
+> > decimal digits.
+> 
+> For overflow it checks the KSTRTOX_OVERFLOW flag and leverages check_mul_overflow()
+> and check_add_overflow() when combining fractional and integer parts. The amount
+> of characters is not really important there. The scale cannot be bigger than 19 and
+> that makes sure that int_pow() does not overflow. The code uses _parse_integer_limit()
+> due to the nature of input and to avoid 64-bit division, kstrtoull() at any point
+> (parsing integer or fractional parts) does not make much sense.
 
-v1->v2:
-- Added Reviewed-by tag from Laurent Pinchart.
----
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c |  7 ++++++-
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  | 14 ++++++++++++++
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  | 10 ++++++++++
- 3 files changed, 30 insertions(+), 1 deletion(-)
+Under 'like kstrotoull()' I meant something that repeats needed functionality.
+I believe it's parse_integer() (without limit).
 
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
-index 48065f4952a3..d0f01aa642a7 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
-@@ -28,6 +28,7 @@
- #include "rzg2l_du_vsp.h"
- 
- #define DU_MCR0			0x00
-+#define DU_MCR0_DPI_EN		BIT(0)
- #define DU_MCR0_DI_EN		BIT(8)
- 
- #define DU_DITR0		0x10
-@@ -217,8 +218,12 @@ static void rzg2l_du_crtc_put(struct rzg2l_du_crtc *rcrtc)
- static void rzg2l_du_start_stop(struct rzg2l_du_crtc *rcrtc, bool start)
- {
- 	struct rzg2l_du_device *rcdu = rcrtc->dev;
-+	u32 val = DU_MCR0_DI_EN;
- 
--	writel(start ? DU_MCR0_DI_EN : 0, rcdu->mmio + DU_MCR0);
-+	if (start && rzg2l_du_has(rcdu, RZG2L_DU_FEATURE_DPIO_OE))
-+		val |= DU_MCR0_DPI_EN;
-+
-+	writel(start ? val : 0, rcdu->mmio + DU_MCR0);
- }
- 
- static void rzg2l_du_crtc_start(struct rzg2l_du_crtc *rcrtc)
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-index d1bc205eb5f8..0d4021429577 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c
-@@ -65,10 +65,24 @@ static const struct rzg2l_du_device_info rzg2l_du_r9a09g057_info = {
- 	},
- };
- 
-+static const struct rzg2l_du_device_info rzg2l_du_r9a09g077_info = {
-+	.channels_mask = BIT(0),
-+	.routes = {
-+		[RZG2L_DU_OUTPUT_DPAD0] = {
-+			.possible_outputs = BIT(0),
-+			.port = 0,
-+			.mode_clock_min = 5000,
-+			.mode_clock_max = 100000,
-+		},
-+	},
-+	.features = RZG2L_DU_FEATURE_DPIO_OE,
-+};
-+
- static const struct of_device_id rzg2l_du_of_table[] = {
- 	{ .compatible = "renesas,r9a07g043u-du", .data = &rzg2l_du_r9a07g043u_info },
- 	{ .compatible = "renesas,r9a07g044-du", .data = &rzg2l_du_r9a07g044_info },
- 	{ .compatible = "renesas,r9a09g057-du", .data = &rzg2l_du_r9a09g057_info },
-+	{ .compatible = "renesas,r9a09g077-du", .data = &rzg2l_du_r9a09g077_info },
- 	{ /* sentinel */ }
- };
- 
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-index 307ae70dd382..2cb2d1895979 100644
---- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h
-@@ -20,6 +20,8 @@
- struct device;
- struct drm_property;
- 
-+#define RZG2L_DU_FEATURE_DPIO_OE	BIT(0)	/* Has DPIO output enable control */
-+
- enum rzg2l_du_output {
- 	RZG2L_DU_OUTPUT_DSI0,
- 	RZG2L_DU_OUTPUT_DPAD0,
-@@ -48,10 +50,12 @@ struct rzg2l_du_output_routing {
-  * struct rzg2l_du_device_info - DU model-specific information
-  * @channels_mask: bit mask of available DU channels
-  * @routes: array of CRTC to output routes, indexed by output (RZG2L_DU_OUTPUT_*)
-+ * @features: device features (RZG2L_DU_FEATURE_*)
-  */
- struct rzg2l_du_device_info {
- 	unsigned int channels_mask;
- 	struct rzg2l_du_output_routing routes[RZG2L_DU_OUTPUT_MAX];
-+	unsigned int features;
- };
- 
- #define RZG2L_DU_MAX_CRTCS		1
-@@ -77,6 +81,12 @@ static inline struct rzg2l_du_device *to_rzg2l_du_device(struct drm_device *dev)
- 	return container_of(dev, struct rzg2l_du_device, ddev);
- }
- 
-+static inline bool rzg2l_du_has(struct rzg2l_du_device *rcdu,
-+				unsigned int feature)
-+{
-+	return rcdu->info->features & feature;
-+}
-+
- const char *rzg2l_du_output_name(enum rzg2l_du_output output);
- 
- #endif /* __RZG2L_DU_DRV_H__ */
+> > Maybe I'm missing these checks already performed?
+> > 
+> > > > Having the test cases is a big benefit, and that part I like the most.
+
 -- 
-2.54.0
+With Best Regards,
+Andy Shevchenko
+
 
