@@ -1,190 +1,134 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011065.outbound.protection.outlook.com [40.107.130.65])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF274395AE4;
-	Tue, 12 May 2026 10:47:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.65
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778582866; cv=fail; b=Mn9ZFjD+IScPAmT1PgrNoGdH3kDzs/ZIJqZrc7P85VReynJCDJVuvp5gvviULO+I3yykmfJHIwh+bySFKmz8h9zdHP7itSc+03Q9/MfLxnDeEsOc8536O3n9hHdHRu93Ree4J0e1SO2LP0+BLhY6AN5sYu4zlNIHHFquuC2fytI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778582866; c=relaxed/simple;
-	bh=4ODLVRZ6/5gPTc/f9V//HFneugLFNBDQjyEZVWdXDp4=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ncBUcSqZXJtXxFjpe2od6vikKabKbZAyXDdcYsC8v8gLdlyFJ4vwHLH4t1aLiVFzXkktIxxGhszrzrBFpjQkh8UFmzp5U+/13Y213HMhvSlBbwm3dcZjL2EWnVLIWtWzeXkcdpO6GNiDZ1F8jhdD2gDkQxqy1gHgyAdn9++M914=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cherry.de; spf=pass smtp.mailfrom=cherry.de; dkim=pass (1024-bit key) header.d=cherry.de header.i=@cherry.de header.b=cfyioWb3; arc=fail smtp.client-ip=40.107.130.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cherry.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherry.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896802FC876;
+	Tue, 12 May 2026 10:55:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778583330; cv=none; b=OKCP1uU0vglYGm0PZaBWMQU9G7b6Z2ywAWH7N8LzxMC8M0AZLULgCH+iURd0dpQsAS3CZThM7OQX79Mhez/LBZoA/2wuvFqTE5ypgOf45Ig8QVYYnaPBMmfEbhNe7s7CvZdXmxbMN43lIlsGNeSzXn9fMWprSuCyehJsoZ6iJTk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778583330; c=relaxed/simple;
+	bh=jPDSuj8n3LefLlUaxAnle+AzeQ/R4d+xmVZSwukbA50=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=D4KeHpKdgtgP1dGvdXYtM06zT+dsYdwsR7BIlLRwZLL+JDjEa8pvUDl4m0GIW3ua1FZJyuDvqmK1+28FL19QIcGqyjY985diXWM+3hFOwtilYwc+7ZbW8EdyJlvrHO3xv9mX0EkyO1LLR7QfRlmtWrPbNmR+CiSDFnjvJ39SoFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=muCBVgtV; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cherry.de header.i=@cherry.de header.b="cfyioWb3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Cjfn3+zEMr5w3vvsQNdgzHmnTP0XanLl4NCGvcziZZfmoYhhc6vx7TEpxIab629CDQLfYKm8XajpHXG3CvgIbXFsMWdoqaIRnwVUp1iUrovBQsmyL29pgH5qxJrvlh001pcDuqNkty275Ud2NMUVX3tIODdQR5OpLlLsg6IKvuIGABDG1juSjHMK7NqbacjyOjAnKjYdhgg7ILYNJTX4hKIeF0DA8VOCnGukP1rQFDJLH7hlU4fIaY79xG+POAZVaGFPpBfb7PGPOolAvSei2/wHCV5vH1OzaNgALt51Itpq5nyihfYM0B5/QpdXt6Qc0sfRF64uhWNpQy3a7Hd4sA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4fFc3HmM+8K7Ro4krbyzTVK6ehTDtwfQ40ef9FajRd0=;
- b=dsVEMrpHt+nUcpFi2hcVE8gwEdB4XuAnf5RKfzM1fRk0GVBmTeVib5EQJb51Z573ogO7Ko4pzLBNZB85CHxMprRxUtfBqvKTVCQpjeDUV3ZlGzZR9c5osB3/VJ7H8Hr4aTg4b4ciymNl+C83TrxIWgFPz4Bm3phkRQ0ZVo3pRl3yxjRsErF22IoDU0Nnz7ZSa3xvaTYdX0C7tMlxNQWUn54KWUnI01qvvZowSnGXEiJtEP6k8lHWPhurvQuPBamAMPHTscWPNrRq1mBbvd5m85N9JYBwSRIDXrWSQ24JIjv9JTCpS1CEtDPf6XJI4aLiG615ktG7K/t3pg/4BU9CCQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=cherry.de; dmarc=pass action=none header.from=cherry.de;
- dkim=pass header.d=cherry.de; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cherry.de;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4fFc3HmM+8K7Ro4krbyzTVK6ehTDtwfQ40ef9FajRd0=;
- b=cfyioWb3CEjuycFItc5cp6nEPhClMGB2m6pY2T9Y3ykmwglK+zOVySox0qichCWoy8K1eExhbGtUepj2RNlNS5paFSpWiM6Cl40xV5Ia7jfGG1p/SjkuAP71skM4Y7HSQ8DyKQYbyiIZ6/kKHJjkDwcx0iM4lM2iaD/BBIpNz/8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=cherry.de;
-Received: from DBBPR04MB7737.eurprd04.prod.outlook.com (2603:10a6:10:1e5::22)
- by GV1PR04MB9120.eurprd04.prod.outlook.com (2603:10a6:150:27::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Tue, 12 May
- 2026 10:47:37 +0000
-Received: from DBBPR04MB7737.eurprd04.prod.outlook.com
- ([fe80::5960:fb4b:9313:2b00]) by DBBPR04MB7737.eurprd04.prod.outlook.com
- ([fe80::5960:fb4b:9313:2b00%3]) with mapi id 15.20.9891.021; Tue, 12 May 2026
- 10:47:37 +0000
-Message-ID: <464e428e-308e-43a0-b60c-2a01213a9e68@cherry.de>
-Date: Tue, 12 May 2026 12:47:35 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: rockchip: fix emmc reset polarity on
- px30-cobra
-To: Jakob Unterwurzacher <jakobunt@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Jakob Unterwurzacher <jakob.unterwurzacher@cherry.de>
-Cc: stable@vger.kernel.org, Heiko Stuebner <heiko.stuebner@cherry.de>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260512092225.34835-1-jakob.unterwurzacher@cherry.de>
-Content-Language: en-US
-From: Quentin Schulz <quentin.schulz@cherry.de>
-In-Reply-To: <20260512092225.34835-1-jakob.unterwurzacher@cherry.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: VI1PR08CA0271.eurprd08.prod.outlook.com
- (2603:10a6:803:dc::44) To DBBPR04MB7737.eurprd04.prod.outlook.com
- (2603:10a6:10:1e5::22)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="muCBVgtV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B09EC2BCB0;
+	Tue, 12 May 2026 10:55:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778583330;
+	bh=jPDSuj8n3LefLlUaxAnle+AzeQ/R4d+xmVZSwukbA50=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=muCBVgtVb88FGGqQCo3jnxUnhRvZvs78QpcubO6MIKaSpOCeyQjraeYdqpCeGVs8X
+	 hCJUGsiekrIYftkT44d6kroTwdBULe0byUTMZajLQzH+zRDxVQAXCsAEDsonEiYZS0
+	 rxfOGEhfjqpSslAlmf57O2Rxms5koeG17CxfUIZqJsa5Mjy3ft8qf44T6T7F7aI9mD
+	 9c5L76O422mUukyFULz3pMFfmAAaM9pG5SHIzWIyBsM+JEmcSHmgpROFVF9PAKyX20
+	 OlPMUq3jL2zAn5Z7ipiDdR2k+wCGpiNNIk253HVC9U/Dutc/Wo3Mt+vLuFXhHhyTxU
+	 hSDJcEJgiRxNg==
+Date: Tue, 12 May 2026 11:55:20 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Nuno =?UTF-8?B?U8Oh?= <noname.nuno@gmail.com>
+Cc: "Stan, Liviu" <Liviu.Stan@analog.com>, Lars-Peter Clausen
+ <lars@metafoo.de>, "Hennerich, Michael" <Michael.Hennerich@analog.com>,
+ "Sa, Nuno" <Nuno.Sa@analog.com>, David Lechner <dlechner@baylibre.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] iio: temperature: ltc2983: Add support for ADT7604
+Message-ID: <20260512115520.5833ce45@jic23-huawei>
+In-Reply-To: <agLhb-S2ISSjaopc@nsa>
+References: <af2no3bJA9MSjXvV@nsa>
+	<20260508121441.39ad9f65@jic23-huawei>
+	<SA5PR03MB83778AB3C41E0AF56EC754F8F63D2@SA5PR03MB8377.namprd03.prod.outlook.com>
+	<af3oezNmmBhI4Yu4@nsa>
+	<SA5PR03MB837710AE7FD8B8FFF138B7C5F63D2@SA5PR03MB8377.namprd03.prod.outlook.com>
+	<af4LCQiqNaiMzFkX@nsa>
+	<20260509154600.02e2d11a@jic23-huawei>
+	<SA5PR03MB83770D945E92C40A74D9C0DAF6382@SA5PR03MB8377.namprd03.prod.outlook.com>
+	<20260511121820.3be9e635@jic23-huawei>
+	<SA5PR03MB83772A1A57DC052CB21B9187F6382@SA5PR03MB8377.namprd03.prod.outlook.com>
+	<agLhb-S2ISSjaopc@nsa>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DBBPR04MB7737:EE_|GV1PR04MB9120:EE_
-X-MS-Office365-Filtering-Correlation-Id: eddec8df-cc0a-4ec7-8060-08deb013e1d8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|10070799003|366016|56012099003|22082099003|18002099003|11063799003|3023799003;
-X-Microsoft-Antispam-Message-Info:
-	cdk0g4x9WsVXY0yYglaPV5l/18ImDi2hr9acIVZcU7ujjhspt+sydHR7MPd/bOBSM7YlUzcHunPcKdIAhURMRN15LtoGOho/RHaxhn2vBVVw4lk2iM3apjfYPsaCs/HJv6c52iZuc5FYS+K+Y2KgoULLbQbh3dUMDS/WXwNf4QuGYQUaouYA1cR8oIsrxiNyu3bFCzN3g7QUAUDK1nTW5GF0IXvf9qW9SKJLM4KUSjMXhrxtifLVFqp/xu1Ev1Qrf+C3w4qwMSR3F4lBIkf1KrtaQVFuWlWDg/6JN4QRLMQG8Ngq+flIU3j3KHEwTFLSaEQc00A3QYbR8fAlqhicWKWSxUIo+DnnipRpVGuhAgkyl5w9c9YJIe6I2j+msK9qMaWICwBi9BeRN90twmDH/mRBsBDFnlCpbJFhs+AC1+/cBtGQGFC9U159CmQ5XEXDhLCNyLdCjQPBSSjiqVdKExMO7IyWRQStKxy6D5e8EMa0py62minMANqowr4bm0ARFY8VHrzetktffOgjmhhGFtamrrH7V9dvDA5Y0G6lDzv1lQ3JFrbRH04noBAYhQTj7EJWrk4GLpERKFRgFFiQrgP0/lHK7aE+VDHPci9RO0l3hPaOn/6yleM/mo1KgRZC4XrCNNjOE7lFRff/5e8M+g==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DBBPR04MB7737.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(10070799003)(366016)(56012099003)(22082099003)(18002099003)(11063799003)(3023799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NUw1a01xTDRlVFRqL0RNRjh5UENYWUt0MUZvQjlUaE8wb3NzSTJOR1Rxd3FK?=
- =?utf-8?B?Vm9MMW4wOTkvREpjWkRXNThOdkdhTlBlS3hVSWQ3ZHBWcGZYa0FucCtQMmJO?=
- =?utf-8?B?VjdwTU1iUVN6MjdzaDJ5T210VTE0VHVsSS9OSWVWdTBCMERwWWFkTEdMOHEw?=
- =?utf-8?B?eHVMaWwyRlFRRzVwamh4UFBSa2daeEF5MUJtRUUxSGlCak1TMmpqNWxOSCsv?=
- =?utf-8?B?YmZoblk4VGw3OTNISTJPSmsyTTVqUzhGTjIzUG94aXFHNUVXOTZoaG4xTkZk?=
- =?utf-8?B?Y1VXQkE1NTZQU0NDSG1HR3d1bWtQRTZiN2pJWG9MTmRKWWtmcjUxQnJGY1Vl?=
- =?utf-8?B?TVYzRFE1djV4Q0Y1Zzc3ajlmd3dCeHQwajVFdnkvWDl0OTN2NTdsWUFRaExr?=
- =?utf-8?B?TmMyYVN5RjFWWTBzRDhJR282M1E0Sktqc01nVDBLWGpRZFVISnRIYmxRMm54?=
- =?utf-8?B?TmcrOGUyWUdEbmE5Z3ZFZVh4aHRnZUNLTFA1bHA2UnNHSnl0RnkzeE5XNmdp?=
- =?utf-8?B?Nk45QU1xVVM1SW5TVkR1WE4vdkJZWDVjVmZlUjRPWXhaU2hCeEVlYURrd1BK?=
- =?utf-8?B?Ym5LR1dUeFNpb2VOTUVZTGxJQUxEcGFVeE1sYkJEdTZ4ZC9qMEdSZ3pmTG93?=
- =?utf-8?B?RGVleVFsRmlkckV5Tk9BcjlRdXZ1R28wbXlXVWdqNjV1ZjVad2wwSklPQWdZ?=
- =?utf-8?B?VWhxRkdTR3UyRWFDSHlnZnoyNmJUWFlXa2xERURraldwK215eEtFVFVadHZD?=
- =?utf-8?B?azdMcVpLUHhmTFgwbGVuTWRWV3ErSDlqNVUwZFBSbzV0bXkzWVJTL1RiemIw?=
- =?utf-8?B?OE0rczZSM3BJeHQvTU16NENGRGZ4aFphbkdCM2tHZUs4dm56R0RqZEI2ckE5?=
- =?utf-8?B?OHh6NUJPdnVZRVprTi9iK3QydFYwSFNnRWVNNUtwMlBGMDlod1UxTHNoZXZn?=
- =?utf-8?B?YXUxd3NLUGR4bUYrY2k5a1dWRjhjTVA4Q1phVTRoVmQya2xXVVdiL2JTL294?=
- =?utf-8?B?N3YrSUc1VmR3OVhPREFQckFGODNBdTNEeUxoMWJ2cXVBUXJJK0R0cnViVHZK?=
- =?utf-8?B?QXFJeE1VZmZId09vTTVYNElZZVBxSjBLRkJjSmJtMmVxajQ1d2NZbDcydlpG?=
- =?utf-8?B?QjlBM1NleEFscTN6RXk1SjlMZUd2QVBQakhhUjkvWHRFK3lxWWpUZzUzRlp0?=
- =?utf-8?B?bFZrOUNnVnZMZ3BrcnJ4TG5rZjRRNVhXUVBiQ1QzWlEzZC9PUWtmOEQ1YUYv?=
- =?utf-8?B?bEhJa3d3UzBqTElnVzJ6MSszOE82RUVVRlBudkRjV2puTW9UWE1JaHpxK3Qx?=
- =?utf-8?B?M2Zpa2p1d3MwSkdPMGNqVXBZL0p0YjZRdDJwZ0o5Sld5MEtobmhHVzVocERm?=
- =?utf-8?B?bzlDL0s3RnhnMmRRNUI2ZWNYTGpPU3lHZzR2MzJ3SjVZckxBWTl1Z3BrcSt3?=
- =?utf-8?B?S3VLTk5WVGRwQ3l4YnhhVWptVDFTVG9zK09IZVo0QndSSlppTGJTcHFKbUNF?=
- =?utf-8?B?SjE5Q0RCNm94QzNVYzRhdlMxOUNJaXdGQkZINkhjYURialF6c1lnMkRlZjlQ?=
- =?utf-8?B?YzR3dG1QaFgvVDg2N1gxZ3RiYmdOa01wdnl1Wm14YTIrMUtDaUtiZGh1Mkpu?=
- =?utf-8?B?eXJCSWFqUFZSeXpuOUErQ0FQZmhjVVc5bEVva1VQUjNSNlNUY0RkajRIcEMw?=
- =?utf-8?B?dW9FUUxldVF3MXVFNXJTY1pQTEpTQXlOeVRPVXo4eEJObW5OY0hKNGRUNFBN?=
- =?utf-8?B?OUdWektwR081VmpUaUJ3RFh3R2I5emtHWmVXNThRUGlPcjFHTHIvOXVUK21x?=
- =?utf-8?B?WnE2K2x3WUJSc0tlT3ZuUk9zWnpWUkRhWEQ4TEFCQmR0aUVBUFB0ZXZBU0xV?=
- =?utf-8?B?emhFTjRKYmhVVXkxU0hrdnIxVjRTUUFKMEZHTElLYmRESWRtRjk5ZzhkbitE?=
- =?utf-8?B?bTN6anhyR1JRZTNQWi9mVFNOQXEwOGIwRjBHK1J6STBTRDRQVmhIc0RkcW1o?=
- =?utf-8?B?RmxBMWJucmlLVTVhbkY0Wk9QT3dXODVnbTljTU14ZTQ0M083dklMT2xNSHN1?=
- =?utf-8?B?VHprNmJnVWVYV1laRS9LOGY1UktoTVZad1llWnpDWWZibGlOcW5BcEZjNHdH?=
- =?utf-8?B?aHIrN1NnUGhaeWZuVVZJVEhwYnVQQmQrVnQ3MTliLzdTZDFHWXB5VDJtTUEx?=
- =?utf-8?B?Z2ZuOWVGbHdyY1g3VkF4Zm1oTjFhS09QWGtoVHFaQmJxWXBBNmhYQUV5ZEhn?=
- =?utf-8?B?M2Y5S3JxTjBFZzNiVkVIUWlZOFowUWlhejJhT1RmTWN4Szh3RlZ1TXR0d3Vq?=
- =?utf-8?B?RWl2RUFMTHdtL3VsTnBPeThwMHc5bDdNVHkzUUZjVkF5cmM5N2RIU1ZoYnVt?=
- =?utf-8?Q?jk9JWvdnA8J/VQ5K8cU9EkapW4sOFFIh6CZlUJQO/SBkK?=
-X-MS-Exchange-AntiSpam-MessageData-1: si2cdwivMXlzq3XKkQRfVLYoeERJtcsqxWY=
-X-OriginatorOrg: cherry.de
-X-MS-Exchange-CrossTenant-Network-Message-Id: eddec8df-cc0a-4ec7-8060-08deb013e1d8
-X-MS-Exchange-CrossTenant-AuthSource: DBBPR04MB7737.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2026 10:47:37.4648
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 5e0e1b52-21b5-4e7b-83bb-514ec460677e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zBVVHQRE2b0dq/V4GvNWF4tcqqJplph/vJRqKz9Rpc1q9GMD2AAzC1tRwHlS7oR+cK1lGZcrf/zba4DisHV8vaJHea/yeq7Fdw0V7YuQHYY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB9120
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Jakob,
+On Tue, 12 May 2026 09:24:27 +0100
+Nuno S=C3=A1 <noname.nuno@gmail.com> wrote:
 
-JFYI, the commit author will differ from the Signed-off-by (it's your 
-gmail address that is going to appear as author).
+> On Mon, May 11, 2026 at 12:02:31PM +0000, Stan, Liviu wrote:
+> > On Mon, 11 May 2026 Jonathan Cameron wrote: =20
+> > > > > Ok. So what are our options here?  Present it as simple resistanc=
+e and leave
+> > > > > userspace to figure it out or add a new channel type? To me feels=
+ like new
+> > > > > channel type makes sense. =20
+> > > >
+> > > > The current approach presents it as IIO_TEMP since the chip outputs=
+ coverage
+> > > > (using the custom table interpolation) via the temperature result b=
+ank, not
+> > > > the resistance bank, but I agree a new channel type makes sense. Sh=
+ould I
+> > > > create a specific type like IIO_COVERAGE_PERCENT or would a general
+> > > > IIO_PERCENTAGE be better? =20
+> > >=20
+> > > For ABI purposes we don't care where it comes from.
+> > >=20
+> > > We already have some 'ratio' type measurements like concentration whi=
+ch are
+> > > percentages and similar to those I think we need some indication of '=
+what'
+> > > is being measured given it's unit free.  Hence IIO_COVERAGE_PERCENT s=
+eems
+> > > the better choice to me. =20
+> >=20
+> > Understood. Will do that in v2. =20
+>=20
+> I do wonder if a complete type is what we want? How will we present it?
+>=20
+> in_coverage_ratio?
+>=20
+> What I'm not too convinced is that coverage is relative to what? Well
+> it's a percentage so I guess we could not care and leave interpretation to
+> userspace (to know which device is dealing with). Still I wonder if a
+> new iio_chan_info wouldn't be more appropriate? In this case applied to
+> iio_resistance. So something like:
+>=20
+> in_resistance_coverage_ratio
 
-Usually, when the mail From address is different from the commit author, 
-there's a From: line as first line in the patch (which won't appear in 
-the commit once merged). See 
-https://lore.kernel.org/linux-rockchip/20260421-px30-eth-phy-v2-1-68c375b120fd@cherry.de/ 
-for an example. Not sure what's happening with your setup :)
+I'm perhaps missing something - as far as I understand it there is no meani=
+ngful
+connection to resistance in what is being measured.
+I think what you are proposing is similar to measuring current via voltage
+drop over a sense resistor. We don't present that as modified voltage, we
+present it as current.
 
-On 5/12/26 11:22 AM, Jakob Unterwurzacher wrote:
-> Technically, the reset signal is active low - it's called RST_n after all.
-> 
-> But it is ignored completely unless RST_n_FUNCTION=1 (byte 162 in extcsd)
-> is set in the emmc. It is 0 per default.
-> 
-> For emmcs that have RST_n_FUNCTION=1 we failed like this:
-> 
-> 	[    3.074480] mmc1: Failed to initialize a non-removable card
-> 
-> With this change they work normally.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: bb510ddc9d3e ("arm64: dts: rockchip: add px30-cobra base dtsi and board variants")
+Here the thing being measured is coverage rather than resistance
+so keeping resistance in there is confusing for the user.
 
-This also matches the Device Tree bindings for eMMC MMC pwrseq devices, 
-c.f. 
-https://elixir.bootlin.com/linux/v7.0.5/source/Documentation/devicetree/bindings/mmc/mmc-pwrseq-emmc.yaml#L33
+If we wanted a type to modify then we could do this as a modified area meas=
+urement.
+Channel type IIO_AREA (which is new) and modifier IIO_MOD_RATIO (also new).
 
-Looking at their respective schematics and Device Tree, I think we also 
-have the same issue on our Jaguar, PP-1516, Ringneck and Tiger, would 
-you be so kind and check I read the schematics properly and send patches 
-for those as well?
+Jonathan
 
-@Heiko, I've checked and it seems like (in addition to Jaguar, PP-1516, 
-Ringneck and Tiger):
+>=20
+> So it's clear what physical quantity coverage ratio is affecting.
+>=20
+> Thoughts?
+> - Nuno S=C3=A1
+>=20
+> >=20
+> > Thank you!
+> >=20
+> > Liviu =20
 
-arch/arm/boot/dts/rockchip/rk3288-veyron.dtsi
-arch/arm64/boot/dts/rockchip/rk3368-r88.dts
-arch/arm64/boot/dts/rockchip/rk3368-orion-r68-meta.dts
-arch/arm64/boot/dts/rockchip/rk3368-evb.dtsi
-arch/arm64/boot/dts/rockchip/px30-firefly-jd4-core.dtsi
-arch/arm64/boot/dts/rockchip/px30-evb.dts
-
-all have that wrong polarity (though, without access to the schematics, 
-who knows if it's really supposed to be inverted polarity (e.g. because 
-it's inverted via a transistor)).
-
-Reviewed-by: Quentin Schulz <quentin.schulz@cherry.de>
-
-Thanks!
-Quentin
