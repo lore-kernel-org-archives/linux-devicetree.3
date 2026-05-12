@@ -1,187 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C57233C09F0;
-	Tue, 12 May 2026 20:58:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8592B3655CE
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 20:59:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778619524; cv=none; b=U+aqU4VpehfckTv3ZiUgrwAOcjjafo1zKcg17gPQusaOhER1eCyPoLnJrjVeBRsaMa9JewFwd3S/t1Z38kW2u/z5lP8cjA+jAb+xVyizR61LAhrB8FEyu1NNftqU3ffiAmvGcrHosJXohiB0HVSoLJrl8XOBpDJgddsJETzSRZk=
+	t=1778619573; cv=none; b=ET2lrvJnSeBRZqy/D9HaWOrnbBgHQBJ64uZtftm3qTNg+xeo+n/FoOwnTAYRupW+jnwbOwHQeZEluroFOp/4KgUtAsGTlWyOEbwVoCuqKdZW2mL8ot51umpzrexRR1L0iUU2iTubhvPaR94o6XjTBXdoM3jO+Hyj5GnYmAFRO0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778619524; c=relaxed/simple;
-	bh=cwRYFJ8mo7xPr/Sm/kd6T4GfCK3h96cELX3tInSSqH4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qzGqhm1eAUi8JgtI9rgbJ02S0Dcn3tzTO+6ArhuvKea1hVSCJSGSxwR9pGGLIX3tklw1cM7EjheVzbpkMrYaYsPeFJZK+kJr5ATdxzZmi7HbiupkqLtCPatFS5yuv4IufbgqVJV7cUTH6OCXXGbWhdpiTw6C6uTYZ+VxSx3eUOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aew4b/4E; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778619573; c=relaxed/simple;
+	bh=EApFr1YAW1gOXINN332n4VXpwKCf8B4ghTMKJotQB3E=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Sss5RRugJfzaTllqtyPDS4UeDQyNejAkZTs5hu/ohgbxnWjtP3kTMrUcDWivDzAxGaGkbt6LTDTcXUfCOod6xxWDQPhC84sdX8tOBGw9MRvS7/wFQJgJcUS9d2UuAdZszEykdeVW+ITGOiu6XQSKnXCF7bi7zHNaVy4P6bYwLiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FlmiHu/e; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aew4b/4E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F35D8C2BCB0;
-	Tue, 12 May 2026 20:58:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FlmiHu/e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5B7EC2BCB0;
+	Tue, 12 May 2026 20:59:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778619524;
-	bh=cwRYFJ8mo7xPr/Sm/kd6T4GfCK3h96cELX3tInSSqH4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=aew4b/4EDTRlqlXHmm4ka53FQbHCXwfJFmy8x01qQqfmuztLbaflyIT6Z3KXDXwK2
-	 b5JiZYNgRlvCID3NhkRx3KDtWb4nCuI6wimqtfnIwAD1mAAd9SVaDC/JSFiX7UdSOg
-	 nBygmXFpmJNoPfEnWc4ul/IPZDtPZbA/n6+FpygRh3jpuCEYeD5hipGFrI1gxOs8M5
-	 mYoOME7LP9wAWubUPs6q5f6D+bABmxyF5wfHBRa4huykaC9maPfJwfYzzR7HaVSHzw
-	 ec5dE7LMCOooljRryEym8Iy191vRpFMtPYVbUYxXGVvdndmQCEXS+vjoUznhhOb1qg
-	 Oq1FYLT8tvPNg==
-Date: Tue, 12 May 2026 22:58:41 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Benjamin Larsson <benjamin.larsson@genexis.eu>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Madhur Agrawal <madhur.agrawal@airoha.com>
-Subject: Re: [PATCH net-next v6 11/12] net: airoha: Support multiple LAN/WAN
- interfaces for hw MAC address configuration
-Message-ID: <agOUgVn24Ls5jiHq@lore-desk>
-References: <20260511-airoha-eth-multi-serdes-v6-0-c899462c4f75@kernel.org>
- <20260511-airoha-eth-multi-serdes-v6-11-c899462c4f75@kernel.org>
- <f4a11830-8a3f-4cc3-ab82-e6f02ca34ae8@genexis.eu>
+	s=k20201202; t=1778619573;
+	bh=EApFr1YAW1gOXINN332n4VXpwKCf8B4ghTMKJotQB3E=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=FlmiHu/eZFqeJ3WuQi0JvyTadkJUCZmOFoDx2vM/zd9DFdpJ7oSTxPJ2RfRCAVz5Z
+	 dwyKapCWRxQsOkOa/NedVjOwhJM6oIByYPcynUcAuxhPLR0yWxM9K8Qg0Oep4ArTH0
+	 Bw65Ncz7+bDBTb7WJ7u3rd5FqljdpT9c1Eztd1u5qLb2Yx6R63zDgwfDQiIi3X5wT5
+	 bLUUuqOdT3xfBlEFB4B+4eEFE58WVgRVMzJ0Qd0UsVIpFiArrNLOA8t+avCATkV+1P
+	 iXFDzb9klPXsQ69WWw7SQmf91Lw+rnQ2v6rA0NmInPwNrlyH8ggkeQ7kDH10WzbSQ4
+	 G5/AHhG3zEpfQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: i2c: Add i2c-shared-gpio
+Reply-To: sashiko@lists.linux.dev
+To: "Markus Stockhausen" <markus.stockhausen@gmx.de>
+Cc: krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260511162528.84508-2-markus.stockhausen@gmx.de>
+References: <20260511162528.84508-2-markus.stockhausen@gmx.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 12 May 2026 20:59:32 +0000
+Message-Id: <20260512205932.E5B7EC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Wnpl3sdvUPuniOKw"
-Content-Disposition: inline
-In-Reply-To: <f4a11830-8a3f-4cc3-ab82-e6f02ca34ae8@genexis.eu>
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The `minimum` and `maximum` constraints on the child node's `reg=
+` property are structurally invalid and will be silently ignored during sch=
+ema validation.
+- [Medium] The compatible string in the commit message does not match the a=
+ctual code implementation.
+--
 
---Wnpl3sdvUPuniOKw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+commit 5af80521617a83464e505c8a8c5b9d9829717a38
+Author: Markus Stockhausen <markus.stockhausen@gmx.de>
 
-On May 12, Benjamin Larsson wrote:
-> Hi.
->=20
-> On 11/05/2026 12:49, Lorenzo Bianconi wrote:
-> > The EN7581 and AN7583 SoCs provide registers to configure hardware LAN/=
-WAN
-> > MAC addresses, used to determine whether received traffic is destined f=
-or
-> > this host or should be forwarded to another device.
-> > The SoC hardware design assumes all interfaces configured as LAN (or WA=
-N)
-> > share a common upper MAC address, which is programmed into the
-> > REG_FE_{LAN,WAN}_MAC_H register. The lower bytes of 'local' addresses c=
-an
-> > be expressed as a range via the REG_FE_MAC_LMIN and REG_FE_MAC_LMAX
-> > registers.
-> > Previously, only a single interface was considered when programming the=
-se
-> > registers. Extend the logic to derive the correct minimum and maximum
-> > values for REG_FE_MAC_LMIN/REG_FE_MAC_LMAX when two or more interfaces =
-are
-> > configured as LAN or WAN.
-> >=20
-> > Tested-by: Madhur Agrawal <madhur.agrawal@airoha.com>
-> > Signed-off-by: Lorenzo Bianconi <lorenzo@kernel.org>
-> > ---
-> >   drivers/net/ethernet/airoha/airoha_eth.c | 75 +++++++++++++++++++++++=
-++++-----
-> >   drivers/net/ethernet/airoha/airoha_eth.h |  2 +-
-> >   drivers/net/ethernet/airoha/airoha_ppe.c |  4 +-
-> >   3 files changed, 66 insertions(+), 15 deletions(-)
-> >=20
-> > diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/eth=
-ernet/airoha/airoha_eth.c
-> > index 16c0ff9999da..533ffe20f833 100644
-> > --- a/drivers/net/ethernet/airoha/airoha_eth.c
-> > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-> > @@ -71,20 +71,67 @@ static void airoha_qdma_irq_disable(struct airoha_i=
-rq_bank *irq_bank,
-> >   	airoha_qdma_set_irqmask(irq_bank, index, mask, 0);
-> >   }
-> > -static void airoha_set_macaddr(struct airoha_gdm_dev *dev, const u8 *a=
-ddr)
-> > +static int airoha_set_macaddr(struct airoha_gdm_dev *dev, const u8 *ad=
-dr)
-> >   {
-> >   	struct airoha_eth *eth =3D dev->eth;
-> > -	u32 val, reg;
-> > +	u8 ref_addr[ETH_ALEN] =3D {};
-> > +	u32 reg, val, lmin, lmax;
-> > +	int i;
-> > +
-> > +	lmin =3D (addr[3] << 16) | (addr[4] << 8) | addr[5];
-> > +	lmax =3D lmin;
-> > +
-> > +	for (i =3D 0; i < ARRAY_SIZE(eth->ports); i++) {
-> > +		struct airoha_gdm_port *port =3D eth->ports[i];
-> > +		int j;
-> > +
-> > +		if (!port)
-> > +			continue;
-> > +
-> > +		for (j =3D 0; j < ARRAY_SIZE(port->devs); j++) {
-> > +			struct airoha_gdm_dev *iter_dev;
-> > +			struct net_device *netdev;
-> > +
-> > +			iter_dev =3D port->devs[j];
-> > +			if (!iter_dev || iter_dev =3D=3D dev)
-> > +				continue;
-> > +
-> > +			if (airoha_is_lan_gdm_dev(iter_dev) !=3D
-> > +			    airoha_is_lan_gdm_dev(dev))
-> > +				continue;
-> > +
-> > +			netdev =3D iter_dev->dev;
-> > +			if (netdev->reg_state !=3D NETREG_REGISTERED)
-> > +				continue;
-> > +
-> > +			ether_addr_copy(ref_addr, netdev->dev_addr);
-> > +			val =3D (netdev->dev_addr[3] << 16) |
-> > +			      (netdev->dev_addr[4] << 8) | netdev->dev_addr[5];
-> > +			if (val < lmin)
-> > +				lmin =3D val;
-> > +			if (val > lmax)
-> > +				lmax =3D val;
-> > +		}
-> > +	}
-> > +
-> > +	if (!is_zero_ether_addr(ref_addr) && memcmp(ref_addr, addr, 3)) {
-> > +		/* According to the HW design, hw mac address MS bits
-> > +		 * must be the same for each net_device with the same
-> > +		 * LAN/WAN configuration.
-> > +		 */
-> > +		return -EINVAL;
-> > +	}
->=20
-> Maybe this information should be relayed to the user somehow?
+dt-bindings: i2c: Add i2c-shared-gpio
 
-netdev_err()?
+This commit documents the driver for bitbanged GPIO I2C buses with shared
+SCL lines.
 
-Regards,
-Lorenzo
+> dt-bindings: i2c: Add i2c-shared-gpio
 
->=20
-> MvH
->=20
-> Benjamin Larsson
->=20
+This isn't a bug, but the commit subject and description refer to the
+binding as i2c-shared-gpio, whereas the actual compatible string and file
+name introduced in the patch use i2c-gpio-shared.
 
---Wnpl3sdvUPuniOKw
-Content-Type: application/pgp-signature; name=signature.asc
+> diff --git a/Documentation/devicetree/bindings/i2c/i2c-gpio-shared.yaml b=
+/Documentation/devicetree/bindings/i2c/i2c-gpio-shared.yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/i2c/i2c-gpio-shared.yaml
+[ ... ]
+> +    properties:
+> +      reg:
+> +        items:
+> +          - minimum: 0
+> +            maximum: 31
 
------BEGIN PGP SIGNATURE-----
+Will these minimum and maximum constraints be silently ignored during schema
+validation?
 
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCagOUgQAKCRA6cBh0uS2t
-rIn+APwKpb4qxMrPaC5ng4+5c/Ub1S62RXR68TIg3As8A6JbIwD/RGedQbqaS9xg
-zxmKutUfiYEtLPbAvGErfwePBAN6Gws=
-=JHOg
------END PGP SIGNATURE-----
+Because dt-schema decodes standard properties like reg internally as a matr=
+ix
+(an array of arrays), applying JSON Schema numeric constraints inside an it=
+ems
+list evaluates them against an array instance instead of a numeric integer.
+Since JSON Schema ignores numeric constraints on non-numeric types,
+out-of-bounds reg values might silently pass schema validation.
 
---Wnpl3sdvUPuniOKw--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511162528.8450=
+8-1-markus.stockhausen@gmx.de?part=3D1
