@@ -1,94 +1,134 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 459973C4B98
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 16:00:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BBE63B1018
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 16:09:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778601613; cv=none; b=oI8QBfMlZumZs/5kUA4cfkCG9K4hPplANt2+0r2di9d38x6JBbLrdzsTCvhseHpAQVOSeJE93qE3d3SuZglbTYDy7UQ5Jjpo2mif9qhgKeW/5HOVdlk5e9eBroKQ0/5UF0zXmygNM+5hiQWHuqeMvLnKrmrVBEvKvb5RuSThiNU=
+	t=1778602184; cv=none; b=dD4lmnNjPiRwkFt2yljtL3NrYblT1FSqO9nAQhkFR/HsgBvoreoW2KBwdM4un6dcuQ+hX2myjyp7fIKeDItqasAhhsbcRj7kf0sYz5Xfp7gRJsxyORApXgvnlbHr2bcmD2aw7+tssnYwPKbTTtta6S8bkKkIaiAF8ee3oSO/1Zk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778601613; c=relaxed/simple;
-	bh=GMlWUewpnO5BHrxePkEK12VmSLLS4fX3PTW9+WOgwyc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=t3zG1hxcspfiDOJOz6saOzEwaWPHGBSd2tZskKvyir9HV/Qigslqso32s+x+0xY/IGeHwaq9SGS+RoLec0FNVAHMymByop4yMTK9yRzIpuSsVOyaRUjDUXgbqG6onCBb9QrBNHrS045rcLYGRkHiM+Ejnfppx0pUEKsRCRcHthQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EAkkvVFV; arc=none smtp.client-ip=209.85.128.47
+	s=arc-20240116; t=1778602184; c=relaxed/simple;
+	bh=3DX+Rca1nRAlC0Y/CMzTtz4gGTTY9EHGBBklGO2y5Ks=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JWhsxZt/CN5EC8egW/48WRfFy/iXhFGjhFXJxeVRqD+wKpiz4ywR56Nz7+GcEyq0F1KqoKguxJ93i0JwtpHiOApCgDEgpPJ1ipVtGXYo1krVxPrdL2n7VAYHNuRastKjKSVA13YlhDxNbH814P2EO6NYjD8rmLswyqCa2M5PPe4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q90DWDLL; arc=none smtp.client-ip=209.85.208.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EAkkvVFV"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-488e1a8ac40so55938205e9.2
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 09:00:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q90DWDLL"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-670ab084a39so9700993a12.3
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 09:09:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778601611; x=1779206411; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GMlWUewpnO5BHrxePkEK12VmSLLS4fX3PTW9+WOgwyc=;
-        b=EAkkvVFVDiuwBvyWotz3ploIq4FCL7ydSyRUtaX4isUBvG5gHlOS89Fi5YlJL6Ev+s
-         N0hQo+IKUMJvrGDbHb5nuUnkYiXHz42zuumXxtrjzTmhdoqgxgUeo1AlqimfINIpHim4
-         9RjCuJC4iwTvPZToDRMDh+UAXlNj+HXZgyuNea/uHhrraoOfrtIvB3pjZq60Cafd+HuV
-         UynBD839zdvAbtMddyS7kBqxaS7bQXquYzhQ9C2x0+yMx6coc0mNLzhJfdsfFS+5vJss
-         ggRvwQFBJmXbVhyv2Xsh1Lly3iYlOFQOUim/tEEiWE5x912Mn9QSyiZFnibCXMZLTJRg
-         S6cw==
+        d=gmail.com; s=20251104; t=1778602182; x=1779206982; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=I9hIm7lzas2SuU6DZgX10mn3CRFrGahP/pnGCzUnmz8=;
+        b=Q90DWDLLHA36SrGLhW+9A1kNj9l0GqxxXpstExQjUi3OV6b7FlFWpnNBh4fqvyStRo
+         /4JwjCfwgloUE2/hTFZAwdzrUqPF4SkIYd0F2qHNi/DFmzlE1K3ZGtrwlydWIjUuqDk9
+         WFG+cH5bg2OPfSsw6WiHAeEJuEGWxZr/ATQY4hcwk6zgOClK77MmIJmIlkUViZncGcDI
+         Cx0vNUeHKVghg1N7GcfL9kGirWjtUTBvlEWkMefE5nb774hkn0DWrIHLn7nVwDBxcWi5
+         cd6iTdI57oWPYEYkyCHOHoSHOV5uk++eHdBQuPbmN1qZdWsMnP/CG94pF/1/MHXWgUMd
+         ADGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778601611; x=1779206411;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=GMlWUewpnO5BHrxePkEK12VmSLLS4fX3PTW9+WOgwyc=;
-        b=lvIv3wQPVQvvhyJbkxQgheZ8OUZH5kdPV/zp/x2CHEpx9WjaUPBITlAwduNy14d8Fd
-         /TGlEdTazsoODNbbqbirhNuyRq/KUnOXf7LSG4bVjKlAgeLqpSgjrEGMnCBK55cSQ4pI
-         OvvPKzBNAJxZ9XgkYJ6dBrNBEj2lVVygBOQGT34cW3dC+Fnh7jVcj4fuH11oJGmHCx8y
-         bMkLoOBwjf+k6Rr6Qwe0YPHMvOI95ICuyvn0hf3htWX6qSom+kR5K3GvjVYVj73p9TSN
-         Rca/o3D9Ro/lBml9aiUT5kdZsFvrDC4MFuDy7eoBTQ/+Iq6p0FXKTOjSaL5FSOVG+5pC
-         h8Ag==
-X-Gm-Message-State: AOJu0YwJn+HkoZ65PQ0D04qU1kf3cjWDNn+S9h8Bfy8W2uVgHIJF2qK+
-	9KBRP+pb3WkdBWYpDQuSJLD4Wd2uS9225lMFYmuUel36jg1tCV58yPGz
-X-Gm-Gg: Acq92OFwsdvAc3xeQDU7I4iBkvzUIiAAzr2xrgET0lkcczijEHs8dYcOl+ldNSkrFAR
-	RtCnsOCvAmKKkgV/USe+4GczhzWxSZbbTlGSMNurAkrR9TQeOeZwAwa8Ijsvj7a3SM9pMiUeuHP
-	4EwktrdprjlE8SLDC5XtzwfboVO9QOj2k7ybypPgdiWO2YXZpLFwGlGzsB4nTWZDzGxfyQRLHnR
-	L7ikEzPTJl4HicCvriwHzNuZEGXWRDGs28TX9RLHrBoI9VKSft7LEyDFkQ3+K+Wv7zOepoGqZSb
-	I1ofgoey34U7tEr19PazZromS+tEJdX2kQl+w61OrWY1Qv/jIizQCTsoX6uaaLLJFz5NUte9WIy
-	AXNX3j5l3OLWhZ36eyPMVlLdQFsHP9BnW5Hw5hBd12wNxdLHNf2d+kRij6pc/bhgHe+367STIB2
-	vznZxWYnscK7AbHaO47Yhr2E88eCFqMw0BhV2bntrs6qABpi7NT/tok+sgPVWwoP3xAduizrkMD
-	U6lMs3n
-X-Received: by 2002:a05:600c:c166:b0:48e:8499:4bda with SMTP id 5b1f17b1804b1-48e8fe732c5mr56263285e9.13.1778601610271;
-        Tue, 12 May 2026 09:00:10 -0700 (PDT)
-Received: from jernej-laptop.localnet (46-150-62-216.dynamic.telemach.net. [46.150.62.216])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e913469besm14404775e9.14.2026.05.12.09.00.08
+        d=1e100.net; s=20251104; t=1778602182; x=1779206982;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=I9hIm7lzas2SuU6DZgX10mn3CRFrGahP/pnGCzUnmz8=;
+        b=YTM/LDTNn/KUvGK0cgIjZDq3nfkXrr9bPNPGV8jaFk1uVtHanClHbzfneoMI4kzWaI
+         U4U+76UaKniuk2Jk7Jv10f1unrCoiI6qkVKFVQ+dDgvR+MZbx37gWnKagKbPkZyQCqYI
+         ajlI1FVQ81R3RXyj+76netkrOadgIu5mRW7PGqn8pWmIai2Ff2Vcb7jeOySNpAKQp/qs
+         w5gtKz+ydqrzjdCvG65wWVXTkmqbfXTy+44HhdM9Ku6RhjVszsvIA/hT+JU4f58RQ4Gb
+         /T3I+Ls+Qe+V0c7Eu2ov2fjBpP5qNkh6WuPDXGR90Usd6uiQWh2xVP6neccBFWmUcgpQ
+         r5ew==
+X-Forwarded-Encrypted: i=1; AFNElJ/Y2BqxJuDMNoZp6261jRqpNSCFPuE8NPd5fIDKYGvt8xNO8Ba65KE1uMhG54g46+BQiLd03HIy2KKx@vger.kernel.org
+X-Gm-Message-State: AOJu0YzrQUZrXP2VtuNA68xxqnyPOh7U0IdiRnkEtmfum+f9rv4lF4VZ
+	dW3MMkuIHDUQrDuZNwNDC49H/ULBv0SAeMClFCBOQJ3nPxXtW0Y120A7K8kHTYcp
+X-Gm-Gg: Acq92OFmJqWLxam6gRTAjEQjlWfSeG4gnZwNphRmoUqTGWg1p44oQ+yEJFoeb2BHL1f
+	8x4/MG6TkVawoyJNMlA/NSPIWfNdaXc7GdwB3A0qLP+dK2xN132gztd3DwEQKD0MYS3ZEZVSa8L
+	t9fNyc5ie6KdnNBlDr2IWtwus2HWAof4/zW1MC8K6gYl5nW7eAV5+47VdHGuKz9nLSsPD/b9d7j
+	iRV+knpfnwVRh8gUo1mvPx15irVogqUxdTnllYwpJ/LaFeMMSKWn3f+BwctflLP/Sv+Gri73bIm
+	Tt/XNBPPDq9d9uC0NHdUZbdnt8Vj7R/7+oVm0TeljS9LaOw7Pg1MwoHO13LwwNVG1kaTbkCN19H
+	LZu5oxuNsLP+D0Sm50KEtfwzBRSZE4O2MTc1djkUUS+OAOJvTQPNOHFoDmgfFsKIiGtGZ8qUMtW
+	oZKAerbQUgu4eDdPZZWN1tKWUDGwp9BbT+yLDWcJdn0YaZFrOyiLWn8ms+wr4mduvkyT95FD89/
+	6Jr1ZaJrvXiiYmGIAuVkQgeh6mpq/MCES+PU1nyC2xqj6OxLA==
+X-Received: by 2002:a05:6402:158d:b0:677:15b6:4d6b with SMTP id 4fb4d7f45d1cf-680d02f613cmr2125366a12.26.1778602181689;
+        Tue, 12 May 2026 09:09:41 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-67ef0b8a939sm5334930a12.13.2026.05.12.09.09.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 May 2026 09:00:09 -0700 (PDT)
-From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Samuel Holland <samuel@sholland.org>, Andre Przywara <andre.przywara@arm.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH] arm64: dts: allwinner: Cubie A5E: enable SPI flash
-Date: Tue, 12 May 2026 18:00:08 +0200
-Message-ID: <cjl1U0d5TU-5Dhz5uRAUHg@gmail.com>
-In-Reply-To: <20260511221741.25888-1-andre.przywara@arm.com>
-References: <20260511221741.25888-1-andre.przywara@arm.com>
+        Tue, 12 May 2026 09:09:40 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Tue, 12 May 2026 17:09:32 +0100
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	rodrigo.alencar@analog.com
+Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-doc@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
+	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
+	Sergey Senozhatsky <senozhatsky@chromium.org>, Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH v12 05/11] iio: core: add decimal value formatting into
+ 64-bit value
+Message-ID: <ql7smsqza7liupm7fhdts73cxsltrpxsqofu5ovzpxpwvcscuv@qigi3dwukk7k>
+References: <20260510-adf41513-iio-driver-v12-0-34af2ed2779f@analog.com>
+ <20260510-adf41513-iio-driver-v12-5-34af2ed2779f@analog.com>
+ <agM6uzhdn7o8g9v5@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <agM6uzhdn7o8g9v5@ashevche-desk.local>
 
-Dne torek, 12. maj 2026 ob 00:17:41 Srednjeevropski poletni =C4=8Das je And=
-re Przywara napisal(a):
-> The Cubie A5E board comes with 16MiB of SPI NOR flash.
->=20
-> Enable the SPI0 DT node and describe the configuration.
->=20
-> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+On 26/05/12 05:35PM, Andy Shevchenko wrote:
+> On Sun, May 10, 2026 at 01:42:23PM +0100, Rodrigo Alencar via B4 Relay wrote:
+> 
+> > Create new format types for iio values (IIO_VAL_DECIMAL64_*), which
+> > defines the representation of fixed decimal point values into a single
+> > 64-bit number. This new format increases the range of represented values,
+> > allowing for integer parts greater than 2^32, as bits are not "wasted"
+> > in the fractional part, which can be seen in IIO_VAL_INT_PLUS_MICRO and
+> > IIO_VAL_INT_PLUS_NANO. Helpers are created to compose and decompose 64-bit
+> > decimals into integer values used in IIO formatting interfaces, which
+> > creates consistency and avoid error-prone manual assignments when using
+> > wordpart macros. When doing the parsing, kstrtodec64() is used with the
+> > scale defined by the specific decimal format type.
 
-Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+...
 
-Best regards,
-Jernej
+> > +		tmp2 = div64_s64_rem(iio_val_s64_from_array(vals),
+> > +				     int_pow(10, scale), &frac);
+> > +		if (tmp2 == 0 && frac < 0)
+> > +			return sysfs_emit_at(buf, offset, "-0.%0*lld", scale,
+> > +					     abs(frac));
+> > +		else
+> > +			return sysfs_emit_at(buf, offset, "%lld.%0*lld", tmp2,
+> > +					     scale, abs(frac));
+> > +	}
+> 
+> What about
+> 
+> 		/* Print a leading '-' for negative fractions */
+> 		if (tmp2 == 0 && frac < 0)
+> 			offset += sysfs_emit_at(buf, offset, "-");
+> 
+> 		return sysfs_emit_at(buf, offset, "%lld.%0*lld", tmp2, scale, abs(frac));
+> 
+> Also note this won't work with the frac that are == S64_MIN. It's UB (undefined
+> behaviour), see the comment at abs() implementation. Maybe a time to add abs()
+> corner case tests...
 
+frac cannot be S64_MIN, it is always and remainder of a power of 10 modulus.
 
+-- 
+Kind regards,
+
+Rodrigo Alencar
