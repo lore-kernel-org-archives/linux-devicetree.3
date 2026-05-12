@@ -1,105 +1,204 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FF772D9EE4
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 04:23:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A501841754;
+	Tue, 12 May 2026 04:33:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778559799; cv=none; b=IAYz6lnQ3BciKrxXybIit38fXCpU6EOVfPS2AG7qTz065fOsCt9U7nNXENQpRA2nb9luc1TMhH9JW557f2dZhQxNdwZ6tkvkHhhvb6BquurR/g+pJHZbhJ4hyZ7nRBgrucnLFmks6kxsWh0GRpSPQocS/cUvBy+0dbPzvvlRyUE=
+	t=1778560430; cv=none; b=cH66SNpgLgO9uGmBCUIpxLN9COHMmb+UbljRoEGbIwLgVC+C315WcVzr1sZHYd1clEMXdYGQ/DZXQt9dG0V5/gaxt5Pbu0tqZ+ejZEmiVo31cWGZB/7J++Swlr/fDe7eFNcKSVnBPiu9Q7YL5T0vBHHdMn4RA/uMhIpBgPIiCDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778559799; c=relaxed/simple;
-	bh=4j+pTSc3MORiwDJRrazf9I2eVZj2MhC7iRrFTZzTjFM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Y6aY7RMV0eDLOSaXBA184cOOvkYaAN0OPzIY7PCYVZoaI/YAHY7LJ++UvxM6chZTLOO07OgntMwGzqP8bpIGeXjcKRp6Z06WHAhINbh1Z+IX5MHryx3QHo5wM9hd9gl5WUYDuYg19P5EBt9O5SmhFTISGxPF1a9nF+CaS4MIO9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=soAv6Lii; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778560430; c=relaxed/simple;
+	bh=MWhaDdak5r98qO1rolBpIOh2PBCTRceavWLUZ9x9mwc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZnuyDNf8b96WwQsq2rHFkmCbK7lTXjyMeIXn41BbZ8r6TkmFwPwRbsn3nbR6FDVb3rRbf4BN1HDU0VZRbCw3nKCk1HEich/AwFPnMMIOUVo2XEYT90KL+65aBrrlGEucbIunkuH0/Q/iaD0jXwAn87/6Qwnwv9YNmmQnYzo+mGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=pbz1IkRo; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="soAv6Lii"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0660C2BCB0;
-	Tue, 12 May 2026 04:23:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778559799;
-	bh=4j+pTSc3MORiwDJRrazf9I2eVZj2MhC7iRrFTZzTjFM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=soAv6LiiHj5Yb8y/O0K815C32Ynjxw0vwUwgasmyWgrbnFmiYuXnz5Kps1Mkiz7xg
-	 C254EAwmC3NJvhASJnIjhWt4ZYfnQFcxt9PJ8/LbRpkdAv2ApNEBilajv0Vid/gqaY
-	 AShmM0dT2TpG7f13P53bCw4gYPxglKl2IX/+A+W5MCUAz5gTo/IjBjUGit8vgq4Gs+
-	 ZVc3LeaYtKp9Kn7K1FyYydb44W4q9bF+fVwuuk/V4dMXfHtJgC92v5EmP3zbPbAboJ
-	 mEB0McCRNXqAQNrFHsLdTMtKqLD5Eiy3HOy1mHTD1/3YBczWKHjKdL4n7dvGrpQ2ic
-	 nDIjYhh+OgdoQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v13 08/15] crash: Add crash_prepare_headers() to exclude
- crash kernel memory
-Reply-To: sashiko@lists.linux.dev
-To: "Jinjie Ruan" <ruanjinjie@huawei.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260511030454.1730881-9-ruanjinjie@huawei.com>
-References: <20260511030454.1730881-9-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 12 May 2026 04:23:18 +0000
-Message-Id: <20260512042318.C0660C2BCB0@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="pbz1IkRo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1778560426;
+	bh=MWhaDdak5r98qO1rolBpIOh2PBCTRceavWLUZ9x9mwc=;
+	h=From:Subject:Date:To:Cc:From;
+	b=pbz1IkRoxHMmyP/RE7fwIQLtsXRqGR54tiKENMif+OLYz+4D06l5aJ7Fv4L6hnrkP
+	 sqJDpqR2Lsqg75FbLHSM7yqeDj++jgMFk46o3FQY6sNSDvPsnExUShQxvazgem7RSb
+	 PEHyIegYT7IAMJliv5jGy4vrmYpfJITp7XU6O0CkAUVB+r3fDiDCvhwx64bnDDY040
+	 /ygu7jZ8Y0Ay4Rq6JUfV4SGBGYgwUHPc77zPvN+g2iJI7cwxQNmQFjFu1ceXT1H8c0
+	 NA6ZdLjEAzoNXJQkxBNXh78MxhizGHQMOoimOCOFEHsgpn7MOzFNYNLydTScyrE0t5
+	 guEUDwbtkd9AQ==
+Received: from yukiji.home (unknown [100.64.0.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: laeyraud)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 91F0417E138B;
+	Tue, 12 May 2026 06:33:45 +0200 (CEST)
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Subject: [PATCH net-next v3 0/6] Introduce Airoha AN8801R series Gigabit
+ Ethernet PHY driver
+Date: Tue, 12 May 2026 06:33:17 +0200
+Message-Id: <20260512-add-airoha-an8801-support-v3-0-1edb34e363ae@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33PPW7DMAwF4KsYmquC+rWdqfcoOlASXQtILFdSj
+ BSB717BzVB0yEg88OPjnRXKkQo7dXeWaYslpqUN6qVjfsblk3gMbWYSpAUFimMIHGNOM3JchgE
+ EL9d1Tbly0wejNWqcKLC2v2aa4u2w39lClS90q+zjN8n0dW3H6iN2WIj7dLnEeuqs6o2AcTQgg
+ 4AJEK1zyshekbHeDADea1J4WHMsNeXv44FNHNijq37SdRMcOCBpIoNyGsObT+czupTxtdU45E3
+ +0aR9psmmCdQyWGfBwPRf2/f9B53aGStqAQAA
+X-Change-ID: 20260303-add-airoha-an8801-support-57d544a4afed
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>
+Cc: kevin-kw.huang@airoha.com, macpaul.lin@mediatek.com, 
+ matthias.bgg@gmail.com, kernel@collabora.com, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778560425; l=6457;
+ i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
+ bh=MWhaDdak5r98qO1rolBpIOh2PBCTRceavWLUZ9x9mwc=;
+ b=MCT/Uk6d/XTnHRWJ7I81wDSbc/QuFA8e74dVkyCR+SbWOCllj7CPBvnWPGRAEXv6nYZ+ibK+o
+ pVpKy1u7SKMAj+eLZP5WUQVLtByJabsKtjElWE9CfpT6HN0wfiCRvxb
+X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
+ pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Calling `get_online_mems()` inside `crash_prepare_headers()` creat=
-es an AA self-deadlock when executed from the memory hotplug notifier path.
---
+This series introduces the Airoha AN8801R Gigabit Ethernet PHY initial
+support.
 
-commit 40b18d3ef2c2d34f758c8077fa6b20ad0d951107
-Author: Jinjie Ruan <ruanjinjie@huawei.com>
+The Airoha AN8801R is a low power single-port Ethernet PHY Transceiver
+with Single-port serdes interface for 1000Base-X/RGMII.
+This chip is compliant with 10Base-T, 100Base-TX and 1000Base-T IEEE
+802.3(u,ab) and supports:
+  - Energy Efficient Ethernet (802.3az)
+  - Full Duplex Control Flow (802.3x)
+  - auto-negotiation
+  - crossover detect and autocorrection,
+  - Wake-on-LAN with Magic Packet
+  - Jumbo Frame up to 9 Kilobytes.
+This PHY also supports up to three user-configurable LEDs, which are
+usually used for LAN Activity, 100M, 1000M indication.
 
-crash: Add crash_prepare_headers() to exclude crash kernel memory
+The series provides the devicetree binding and the driver that have been
+written by AngeloGioacchino Del Regno, based on downstream
+implementation ([1]). The driver allows setting up PHY LEDs, 10/100M,
+1000M speeds, and Wake on LAN and PHY interrupts.
 
-This commit introduces a common crash_prepare_headers() helper to consolida=
-te
-crash memory allocation and exclusion logic across architectures. It adds
-three new architecture-specific functions to gather memory ranges and builds
-the ELF core headers for the crash kernel.
+Since v2, the series also adds the air_phy_lib library, which goal is to
+share common code between air_en8811h and air_an8801 drivers, and its use
+in them. The first shared functions are the existing BuckPbus register
+accessors and air_phy_read/write_page functions coming from air_en8811h
+driver.
 
-> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
-> index 2c1a3791e4101..c50c25937d7d4 100644
-> --- a/kernel/crash_core.c
-> +++ b/kernel/crash_core.c
+The series is based on net-next kernel tree (sha1: 63751099502d) and
+I have tested it on Mediatek Genio 720-EVK board (that integrates an
+Airoha AN8801RIN/A Ethernet PHY) with early board hardware enablement
+patches.
 
-[ ... ]
+[1]: https://gitlab.com/mediatek/aiot/bsp/linux/-/blob/mtk-v6.6/drivers/net/phy/an8801.c
 
-> +int crash_prepare_headers(int need_kernel_map, void **addr, unsigned lon=
-g *sz,
-> +			  unsigned long *nr_mem_ranges)
-> +{
-> +	unsigned int max_nr_ranges;
-> +	struct crash_mem *cmem;
-> +	int ret;
-> +
-> +	get_online_mems();
+Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+---
+Changes in v3:
+- Rebased on net-next (7e0cccae6b45)
+- Updated patch 1 to describe the function-enumator property for the
+  LEDs and its possible values
+- Modified patch 2 to add missing includes in air_phy_lib source and
+  header files
+- Split patch 3 in two so that the api call renames in air_en8811h
+  driver is done in a separate patch
+- Simplified return code handling in several functions
+- Fixed return code handling in several functions detected by AI
+  peer-reviews (netdev-ai or sashiko)
+- Added additional interrupt enabled check before enabling/disabling 
+  link changed interrupt in an8801r_suspend/resume callbacks
+- Fixed register mask for GPIO LED selection register in
+  an8801r_led_init function
+- Fixed potential uninitialized variable in an8801r_led_polarity_set
+  function
+- Fixed LED blink register settings in an8801r_led_blink_set function
+- Split an8801r_read_status function implementation in a separate patch
+  as requested and add comment to describe why the link mode register
+  needed to be modified after reading the link speed.
+- Link to v2: https://lore.kernel.org/r/20260326-add-airoha-an8801-support-v2-0-1a42d6b6050f@collabora.com
 
-Could this cause an AA self-deadlock when crash_prepare_headers() is used
-by arch_crash_handle_hotplug_event() to handle memory hotplug events?
+Changes in v2:
+- Rebased on net-next (d1e59a4697371)
+- Fixed dt-bindings to remove the leds property from the required ones and
+  add wakeup-source as valid property
+- Added new reviewed-by trailer for dt_bindings
+- Added new patches (2 and 3) to create air_phy_lib, to share common code
+  between air_en8811h and air_an8801 drivers and use it in air_en8811h.
+- Remove custom BuckPBus register accessor functions and definitions from
+  air_an8801 and use the ones from air_phy_lib. It also fixes a build
+  issue on v1 due to an uninitialized variable used in
+  __air_buckpbus_reg_read, that is now removed from driver code
+- Added air_an8801_probe function to allocate the newly added private
+  data structure and detect if the PHY is wakeup capable and the interrupt
+  can be registered as a wakeup IRQ, and perform the needed actions
+- Added an8801r_suspend and an8801r_resume functions to perform specific
+  actions when WoL is enabled (reset its status, enable/disable the Link
+  Changed interrupt) and call the genphy_suspend/resume functions if
+  needed
+- Modified an8801r_get_wol to return WoL is not supported if the PHY
+  device is not wakeup capable
+- Modified an8801r_set_wol to return EOPNOTSUPP error code if the PHY
+  device is not wakeup capable, and to update the wakeup flag according
+  to WoL mode
+- Modified an8801r_config_init to remove EEE disabling and replace
+  __phy_write use by phy_write_paged
+- Reworked an8801r_rgmii_delay_config and its subfunctions to fix a
+  double return use in PHY_INTERFACE_MODE_RGMII_ID case, replace the
+  magic value use for default TX and RX delay and handle better the
+  enable/disable the inserted delays for all RGMII modes
+- Merged an8801r_did_interrupt function in an8801r_handle_interrupt
+- Modified the an8801r_handle_interrupt processing to process differently
+  the Magic Packet (to notify system wakeup) and the Link Changed
+  interrupt (to notify PHY state machine)
+- Splitted the reset WoL status part from an8801r_ack_interrupt and fix
+  an issue that in some random cases made WAKEUP_CTL1 register lose the
+  Magic Packet WoL settings
+- Modified an8801r_of_init_leds function so it does not return an error
+  if the leds configuration is not present in devicetree
+- Removed feature field and add PHY_ALWAYS_CALL_SUSPEND flag in
+  airoha_driver data structure
 
-When memory is hotplugged, online_pages() or offline_pages() trigger the
-memory_notify() chain. online_pages() is invoked with the mem_hotplug_lock
-already held for write via mem_hotplug_begin() (which maps to
-percpu_down_write(&mem_hotplug_lock)).
+- Link to v1: https://lore.kernel.org/r/20260304-add-airoha-an8801-support-v1-0-0ae4ee5a2f9d@collabora.com
 
-If the hotplug notifier invokes the crash handler to update the ELF headers,
-the current thread attempts to acquire the same lock for read here in
-get_online_mems().
+---
+AngeloGioacchino Del Regno (2):
+      dt-bindings: net: Add support for Airoha AN8801/R GbE PHY
+      net: phy: Introduce Airoha AN8801/R Gigabit Ethernet PHY driver
 
-Since the Linux percpu_rw_semaphore does not support recursive read-lock
-acquisition by the active writer, will the thread fail the trylock and sleep
-indefinitely in percpu_rwsem_wait(), causing a deadlock?
+Louis-Alexis Eyraud (4):
+      net: phy: Add Airoha phy library for shared code
+      net: phy: air_phy_lib: Factorize BuckPBus register accessors
+      net: phy: Rename Airoha common BuckPBus register accessors
+      net: phy: air_an8801: ensure maximum available speed link use
 
-> +	max_nr_ranges =3D arch_get_system_nr_ranges();
-> +	if (!max_nr_ranges) {
-> +		put_online_mems();
-> +		return -ENOMEM;
-> +	}
+ .../devicetree/bindings/net/airoha,an8801.yaml     |   85 ++
+ drivers/net/phy/Kconfig                            |   12 +
+ drivers/net/phy/Makefile                           |    2 +
+ drivers/net/phy/air_an8801.c                       | 1119 ++++++++++++++++++++
+ drivers/net/phy/air_en8811h.c                      |  316 +-----
+ drivers/net/phy/air_phy_lib.c                      |  212 ++++
+ drivers/net/phy/air_phy_lib.h                      |   39 +
+ 7 files changed, 1527 insertions(+), 258 deletions(-)
+---
+base-commit: 63751099502d10f0aa6bb35273e56c5800cc4e3a
+change-id: 20260303-add-airoha-an8801-support-57d544a4afed
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511030454.1730=
-881-1-ruanjinjie@huawei.com?part=3D8
+Best regards,
+-- 
+Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+
