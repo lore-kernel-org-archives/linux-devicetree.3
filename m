@@ -1,241 +1,111 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F091330B2E
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 03:00:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778554852; cv=none; b=k2A6imKnyp3zRYmptlF/haJVTGG+js3RQ91stmsBP+/SbxzwWPQFbG7FPiXdioNxZ+K0JHqTAfkiqLhD/juDYuNrNmyoDsokMR+dlBRF31IsIvz/MrTSJN/Ik3Ct3xPP675zmHAnlCsV0/q0jLyFwtSTQue/Bfn3IYjbQC4GyLA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778554852; c=relaxed/simple;
-	bh=qPqo0/5DPCayBXh3zokgKkLJCpGWJDttXd9AsNB9jx8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kl9YqAL2fel0kr3DJ2Ir6Dbm3k79CBVoO7a4g8ltbYlT/pZdK4b2NCWGRKkdEI/0KZALn+LbuxjtivUx/dzCRGqTCfRajzcQ+o3T+28ebTJUg9/L9Zad3f0wh78h3rjcuhGPhy3CSGDFsoF5ZL2qH7EUNfRvyRguYvx9JY1Dt7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bp94ZPTb; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3546F1FC101
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 03:09:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778555365; cv=pass; b=VVgJSIBAPujJCKOWcrIM65+qK/Xsi4NOztb11e8wCFNVlITwaoo06ymjMvlNnPnX662IWgU/drKylW1oVZkpv+wh4oaSO06STZDrQmBlXUDlSvow/+spZ3qZYf0cKKldLq+0cDD02Dfbf56FdrQ4PrW//UjTQK50GfP1iuexels=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778555365; c=relaxed/simple;
+	bh=9QKYX+S6lwwCw+mTheY9a+AJP8+EDfhOnBM9LIQmtAw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=vFNWf9JVXSUxXDF8KviARaJMfSp+2ihTV9DwzTor6gffi+9E1HycofEPjK0yIE89qa8QhzwLmVDDAR1doKtqdboCpLOeEYetgRaUYizf+sLy/+PbKhpFgakpDrWwq0LJUJTjKzKgEn7pdegU3jE51m+c9uLIS3Tlb9YXH+5c394=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ddnheo1k; arc=pass smtp.client-ip=209.85.216.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bp94ZPTb"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2bcd3ac3307so8635605ad.0
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 20:00:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ddnheo1k"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3660ab73adbso3133131a91.1
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 20:09:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778555364; cv=none;
+        d=google.com; s=arc-20240605;
+        b=a3IyXYtooQN5ypVtknGnwA90AJ/pJrKb/6RnX0bsQIMe/fRe4ljGvx8Gu6nOrpe4TE
+         s0W166LXZWWtglvuBXxKyCdwid0jK05oEXrz1hEYIfSxHd3yIRD6fTGsz5ZO27rnkrbU
+         XZ4upAVguE5+AIcu4de8XM1klT9GmetY0yNYY46GKwP+DSymqDriraibT3Ji9YB8vpp1
+         dyDGyHEfo1MM3ecCGiIJMYe1MzRCkQOZZpZ1BK+lALTG7mX3/O6YoZGUP2rMmFqHvOe9
+         pYOg5vO6HbnSgD7C2frW4yN0no1JHnvG3TzqUAo0zXOmEk870RP4XA4+u/1MjN7IYfRJ
+         JiGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=EVqJBMgrgpMjKXDoG3OlirV/gMnvN8dDwKNZrZpdCCc=;
+        fh=BTFMmwSYQ7jQA/XD353vzWNhvReGu2nW87d+vBSOKzg=;
+        b=OvoEQ7TyvURwGBz7a2Bhs/jH/GG5Kh85Dv10YnbzKsQVljD+UmAwQ+dGd7V1cPIR7w
+         MIWZq4rLGawp+BzVlHCD3ndRenAqTtenqRQiDshwOz+qn03eeRa6mxi9BvR4Q4q8gzIy
+         NsQct4kXAxiv3PINk/jlVVXi+6HkyrbYi4R62VRVcUshEzPVHEmvSl63mZWWXfUlOKWT
+         swpESeWG8kN1fpj2weY7atTCKguygkXK1a5aAC6xu2EfH07cpT5cj8X6F1DmF/Md+eF+
+         Mo0LQ2BS0D3FkgET4c2qc09qHbLi6rqHFqRf58Q5d0K5WyIpyp+vH/jkOuyyrh93PH3t
+         t9Ew==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778554851; x=1779159651; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=uLRtpcQHtK0F1OIYFcfZ8eOOu6S/PxCXSiUviagPQbc=;
-        b=Bp94ZPTbCn42VtJVAh4poKnv4StO7UeYQMVWftNRgYHvEkd0otBYjr3eWySz0rpPNN
-         HKMWGm+Lk4/DJeeBGurgma5Kb0DCu+X4/YNKiGxjashy3CeljWvsICWaykbR1Jis+3IA
-         6UexhJuOC8f7id1ZOosDLBYeKiUO35l9tV5mB/G4UzaA/4910o8rm+UZuyhZZ2Spru2W
-         a6aOrjLy3C619Vt77ijwBP8i3WHr6D4nUUzGMMvjPR/S4zI+UdUwYn9w4k6Na6/vwqNB
-         JaGjpZaGs+cMF+ZBMf9LMk3D7J5aphQ6Uxc4W/cB5Q6SJw1zFDASDBNctj+snUfac7ws
-         YhVA==
+        d=gmail.com; s=20251104; t=1778555364; x=1779160164; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=EVqJBMgrgpMjKXDoG3OlirV/gMnvN8dDwKNZrZpdCCc=;
+        b=Ddnheo1kcPdtHY7nXGvQ1mOQTIIxk2Pegk6HQEOWV7GNaDBnpppFUqAvZ6IE1DcvZN
+         FFkPSQYJLXiTTYLV212K37Wo2R3LWY7+d4rON3tWs2LV4CpZ8Pz9X4lFnwkYp4v1bZoh
+         oLJjuUEPaF45YPueJF0/eu4ZXn1S2XYVEeBa6EBzlqOhGkGqRFsizOr1rdDTk6ThnqRT
+         DE4xkUMrxErQjhPEniJxM4qhap8qRyaY4mixq2wlGE1MToVDaQ6bILfWhhOkg46dETQ4
+         Rf8wN0cLtXKDxxOBoT5q57Xnl6w/ny/OnIpTwY5a2I2feU0abYWn9fewpeQRQQjdoVE4
+         Taow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778554851; x=1779159651;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1778555364; x=1779160164;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uLRtpcQHtK0F1OIYFcfZ8eOOu6S/PxCXSiUviagPQbc=;
-        b=KHVFT7Bnf1r6/wKfdiRF4gpthPg6lCnlc0AaO5AsUkAMwH3xQElZrVDyEKiaXupGcN
-         2VC/rm96Urkon5oTRUXHkHXE8LNpLzxapO34+qBupa+dgKa273NN6Iy6+M7u2j45G5Oj
-         CunbCAPlOdqBY8xcZOREOHAn1+3Px0qZEDQJHp3dLOmSrWU2TsjLcL09XjC+cEZRKjET
-         O8qBbyNT0ZyxOLC+T9sT7NPLCT3RuAMNlzWXWoiLP3EWEbI2MQfCtIUCSZ0yB8ucqVHD
-         xXorECvaCyOoAdRaPJrcDA5v0y4+ERJ8zydECaNYkrXqlwEqoXDXrqNir2dE9eeKE8XO
-         bFhg==
-X-Forwarded-Encrypted: i=1; AFNElJ9llMfFPNYRM82TtgD7MrW2wrYup++raWN92cwERAsfdrm1P3kuNXZ/EsxkvOtajX1Qvl8FBk/uttsG@vger.kernel.org
-X-Gm-Message-State: AOJu0YwqgbhOLOYPSlWlSVGl2wV6Zw6wd14GCt3z9Kn6HJeZ27hAc2v8
-	ZBO2xalJaAk5CMF2j72ZI6PB7saKior0FVNOsiEV5K3pvQxVC5jZEork
-X-Gm-Gg: Acq92OGCSZzaQR5ugD5Yt73QaIHDJCpVG42opWE/1BkwHjw28fgnshCJ7XmRmLaGZ5f
-	33MKEwvtURVZqDeWcQdVPAYNtad7qWD4i7SSBt39mbTypK8m0d3/RwYWB4G/miSG9KOLm5Tb/5F
-	Ez5lA99OB7RwdkxN+bAGBMlJ3e5nj7LqpjMdPktapbUeFLZH+bYbCWeBG9oNQu6xhN9nAHIhito
-	3hxoKniH8vqgsXZhOaP0hcO9YFyd4sCUuqWppBBvUz5X+8bN1lG/yoxwSvuDUvdZM4IpQn38T6e
-	qyCvf0MAYe76KBRWJp2cUsR18Thu4+wrppfzFdDcnA+EBqX7NX8HZrLgfiP6ikStrnKWKQlCuiS
-	mz9LrzVO5jYeIGYrlbsbCqf5zPg5PKSoM1penA18a5Pcl+yFLUyYeTVNXb1a6vhn0xZfZC6a/O+
-	80k/x0UmyJ3TDpWa7XK+Xx647RUb4agC08GXKAB4PhK1MHharnGkrYd9X7WQznCxcX+MdysJ7q
-X-Received: by 2002:a17:903:2ac5:b0:2b2:5597:bad4 with SMTP id d9443c01a7336-2bd012ad28dmr13565195ad.30.1778554850610;
-        Mon, 11 May 2026 20:00:50 -0700 (PDT)
-Received: from chaitanya-virtualbox.. ([103.249.241.52])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2baf1e35eb3sm119851355ad.41.2026.05.11.20.00.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 11 May 2026 20:00:50 -0700 (PDT)
-From: Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
-To: andi.shyti@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	brgl@kernel.org
-Cc: linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Chaitanya Sabnis <chaitanya.msabnis@gmail.com>,
-	kernel test robot <lkp@intel.com>
-Subject: [PATCH v3] dt-bindings: i2c: convert davinci i2c to dt-schema
-Date: Tue, 12 May 2026 08:30:32 +0530
-Message-ID: <20260512030032.5006-1-chaitanya.msabnis@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=EVqJBMgrgpMjKXDoG3OlirV/gMnvN8dDwKNZrZpdCCc=;
+        b=c90f5qlWb1G79RI6tPUvcbT3c48y4bnS4hbGsu+mKCHZWe5gynbJNf2/XKN7bY96Pw
+         Ilxzhd1ZEUwt4aXV8JM96BpjduaUIH7tXWlmW1Kbzr5HHhc2iRA8TIvK61E5HgAF/Pwe
+         XfxNtNkSc+CcU3+APxBm5FTCsvcOqXso9aF7ErDWbKbgHU15epzdsR/jc9v8EP/js+Wz
+         l//W99jsdijbBTHQ23hN8rai1FvOWTbx0TF/VtdfAZz5BvbnFU8Q9zZwOibFRzaBqIQw
+         7yDAxaiVW4jwIjQkCr4CUQWhqnaH7HOyJI8Po6TyaZ2e2hRmm8DS+wUpdFN9n4BQJRke
+         /gbQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+XxfQEKRxPVn09L9V1xypH6M5yL8XikytF1Zu4HxOjFEhtV0BdwVjqCIN+6sLvoGE8dxJLDKZsMneH@vger.kernel.org
+X-Gm-Message-State: AOJu0YxLABF3QqSil39Z0NIqU7SeesOYXR1gFQdUQV6XRbFxEOYWQHBr
+	BScCGNv0zPnSIi9gc51OSPDlMRyD0GC2qHH0dLsrIkEmEPa+46DuTt/Nkd90oXnpEmERVvIhzjv
+	lUCPMfW8OEkXDDscqgIHCJd5ozEMoZkw=
+X-Gm-Gg: Acq92OFOYDIy8M1zWjZJlKbq/w3hpjCp85ju6hKiP+4ltL9keHL2PeOBdDZWcYJclt6
+	BjqL7EvJzIHazl3vw4XanNyZpSL7cso2k0u/sgEtk8c9s7AiTXUK6aprHNyNN22MK1Utg68qCJz
+	sD37qzwJRhN+bUc2ZOmTjrOWGisIIX1DPzsSyMyiTLUkv8E1Cko8LqiuQ8du5QRi4/7mA4oh1Mj
+	pTdtwu69+U6XJPYQbsNY5IVRVcu7T3LwCb2UZT0IhsfM/Ti85W4vz/zXeFJS1LNhwW+WtnW0Bqz
+	Ce5vRY5iXb+jPgoxy3j6cgWxDbDf1pbaBAMWJA==
+X-Received: by 2002:a17:90b:5344:b0:35b:d795:cf5d with SMTP id
+ 98e67ed59e1d1-368ab8638d2mr1858065a91.5.1778555363550; Mon, 11 May 2026
+ 20:09:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260510084303.122426-1-phucduc.bui@gmail.com>
+ <20260510084303.122426-7-phucduc.bui@gmail.com> <87bjemn1yv.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87bjemn1yv.wl-kuninori.morimoto.gx@renesas.com>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Tue, 12 May 2026 10:09:12 +0700
+X-Gm-Features: AVHnY4IsmAqqmxNkupkaRxtbCeEPAZIEnld7T-VRBsXE0b6nsq7nw4VOw_WWfjU
+Message-ID: <CAABR9nG4cxwX_fjF3yihRbDP-qb4AxAeZdSww2ENY4eE5ecHyQ@mail.gmail.com>
+Subject: Re: [PATCH v3 06/10] ASoC: renesas: fsi: Add shared SPU clock support
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: broonie@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, 
+	geert+renesas@glider.be, krzk+dt@kernel.org, lgirdwood@gmail.com, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-sound@vger.kernel.org, magnus.damm@gmail.com, perex@perex.cz, 
+	robh@kernel.org, tiwai@suse.com
+Content-Type: text/plain; charset="UTF-8"
 
-Convert the Texas Instruments DaVinci and Keystone I2C controller
-bindings from legacy text format to modern dt-schema (YAML).
+Hi
 
-During the conversion, the `interrupts` property was made required
-to match the strict requirement in the driver probe function. The
-custom `ti,has-pfunc` and `power-domains` properties were also
-properly defined to match SoC-specific hardware features.
+> Am I suggested this ?
+> clk_spu   should be merged into [07/10], and
+> spu_count should be merged into [08/10]
 
-Signed-off-by: Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202605120133.lQ1F3qlY-lkp@intel.com/
----
-Changes in v3:
-- Fixed a typo in the author's email address within the YAML maintainers block.
+Thank you for the suggestion!
 
-Changes in v2:
-- Updated MAINTAINERS file to point to the new ti,davinci-i2c.yaml file instead of the deleted .txt file.
+I will move clk_spu into [07/10] and
+spu_count into [08/10] in the next revision.
 
- .../devicetree/bindings/i2c/i2c-davinci.txt   | 43 -------------
- .../bindings/i2c/ti,davinci-i2c.yaml          | 62 +++++++++++++++++++
- MAINTAINERS                                   |  2 +-
- 3 files changed, 63 insertions(+), 44 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/i2c/i2c-davinci.txt
- create mode 100644 Documentation/devicetree/bindings/i2c/ti,davinci-i2c.yaml
-
-diff --git a/Documentation/devicetree/bindings/i2c/i2c-davinci.txt b/Documentation/devicetree/bindings/i2c/i2c-davinci.txt
-deleted file mode 100644
-index 6590501c53d4..000000000000
---- a/Documentation/devicetree/bindings/i2c/i2c-davinci.txt
-+++ /dev/null
-@@ -1,43 +0,0 @@
--* Texas Instruments Davinci/Keystone I2C
--
--This file provides information, what the device node for the
--davinci/keystone i2c interface contains.
--
--Required properties:
--- compatible: "ti,davinci-i2c" or "ti,keystone-i2c";
--- reg : Offset and length of the register set for the device
--- clocks: I2C functional clock phandle.
--	  For 66AK2G this property should be set per binding,
--	  Documentation/devicetree/bindings/clock/ti,sci-clk.yaml
--
--SoC-specific Required Properties:
--
--The following are mandatory properties for Keystone 2 66AK2G SoCs only:
--
--- power-domains:	Should contain a phandle to a PM domain provider node
--			and an args specifier containing the I2C device id
--			value. This property is as per the binding,
--			Documentation/devicetree/bindings/soc/ti/sci-pm-domain.yaml
--
--Recommended properties :
--- interrupts : standard interrupt property.
--- clock-frequency : desired I2C bus clock frequency in Hz.
--- ti,has-pfunc: boolean; if defined, it indicates that SoC supports PFUNC
--	registers. PFUNC registers allow to switch I2C pins to function as
--	GPIOs, so they can be toggled manually.
--
--Example (enbw_cmc board):
--	i2c@1c22000 {
--		compatible = "ti,davinci-i2c";
--		reg = <0x22000 0x1000>;
--		clock-frequency = <100000>;
--		interrupts = <15>;
--		interrupt-parent = <&intc>;
--		#address-cells = <1>;
--		#size-cells = <0>;
--
--		dtt@48 {
--			compatible = "national,lm75";
--			reg = <0x48>;
--		};
--	};
-diff --git a/Documentation/devicetree/bindings/i2c/ti,davinci-i2c.yaml b/Documentation/devicetree/bindings/i2c/ti,davinci-i2c.yaml
-new file mode 100644
-index 000000000000..e8064bd1fcf7
---- /dev/null
-+++ b/Documentation/devicetree/bindings/i2c/ti,davinci-i2c.yaml
-@@ -0,0 +1,62 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/i2c/ti,davinci-i2c.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments DaVinci/Keystone I2C
-+
-+maintainers:
-+  - Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
-+
-+allOf:
-+  - $ref: /schemas/i2c/i2c-controller.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ti,davinci-i2c
-+      - ti,keystone-i2c
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  power-domains:
-+    maxItems: 1
-+
-+  ti,has-pfunc:
-+    description:
-+      Indicates that the SoC supports PFUNC registers, allowing I2C pins 
-+      to function as GPIOs for manual toggling.
-+    type: boolean
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c@1c22000 {
-+        compatible = "ti,davinci-i2c";
-+        reg = <0x01c22000 0x1000>;
-+        clocks = <&i2c_clk>;
-+        clock-frequency = <100000>;
-+        interrupts = <15>;
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        sensor@48 {
-+            compatible = "national,lm75";
-+            reg = <0x48>;
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index bc3bcc641663..50a11a8d71a2 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -26396,7 +26396,7 @@ M:	Bartosz Golaszewski <brgl@kernel.org>
- L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
- S:	Maintained
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git
--F:	Documentation/devicetree/bindings/i2c/i2c-davinci.txt
-+F:	Documentation/devicetree/bindings/i2c/ti,davinci-i2c.yaml
- F:	arch/arm/boot/dts/ti/davinci/
- F:	arch/arm/mach-davinci/
- F:	drivers/i2c/busses/i2c-davinci.c
--- 
-2.43.0
-
+Best regards,
+Phuc
