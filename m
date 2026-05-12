@@ -1,43 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF77130DEB8
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 22:12:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD5239D6CE;
+	Tue, 12 May 2026 22:18:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778623951; cv=none; b=Ii3QEb2xCHLnrDFYaKZxoPt2a/7biBi3RD69AR6QLv+MK8xNLBU/5m27YUbAujoPltoqyb/+L6lJboLe33kJHQLPnpu9RHqdTB+BnQ/ZM3ch10NDl8PSNBBXQmLO4NlePWUjQh/ngfs8Xtq5+P88T/dv/I+F48K8BrOOKzUTcpE=
+	t=1778624311; cv=none; b=b3sPE511bNGYk9gMaeBCKeaZUA9ipNrM4rvcbNLInmnwrlkLsA/WeC5yl1hPg0LppVSqNym3OmT8fhpP9KaWC0xPg0V9i01loYc9nDWq7QHEL0O4nw+5/zS0manXDcA5PXEPBxjdNHg7mb+RkVWlkWaNyWhuzIJDdu09AphLQmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778623951; c=relaxed/simple;
-	bh=iNMxP1s5c8IThpWR6iKe1vcSFSILY4KBvtW/467lg4M=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nzFAzBeZ/EmcasWXdI3S/6GtOO1gbUk/jBEuMAL+GVBa3+MYrmTp+JyUYUWmGEVCatj9DHCJ/uNCNt7hVsw0oVaaGW2qMTf2etdhc+z5qgy4VSjpnYxDqxEEsQLDdEQ8ZH8ppQUh26N4/oSy3kqPFb76iKi7+Acy3kEcs1zGtb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RhETj8/Z; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778624311; c=relaxed/simple;
+	bh=TTrcV+tl8jNIouLBzWAhXn7QW9/sf2i2hkZiIGuXrfg=;
+	h=From:Subject:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=GwvmYAoTitQx/2ekgOdUBmi/1cJCIsE5PG3VDVXQ6UMNkrujhkqInj12/kKrjVmUXsoYQ5EAnwELe5O2wOJvoUZkxne4xCsZormtcpO5awF1iWleCB3LfG1/A7JfdXyAUGajzKQr2wGVfbySXcn7+jtXrZbgCAvo+IyCLX9zZP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ms/7J8An; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RhETj8/Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2876FC2BCB0;
-	Tue, 12 May 2026 22:12:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ms/7J8An"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35494C2BCB0;
+	Tue, 12 May 2026 22:18:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778623951;
-	bh=iNMxP1s5c8IThpWR6iKe1vcSFSILY4KBvtW/467lg4M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=RhETj8/Z8A9J5Yig6YC6yY8v0UAEBtrqh5E6ER4O8aORhD3CEtaz+eCXeUbIuPGi3
-	 lopXfdVszU8OqemUPuttfXVkdCf5/8vtiXcWRvNAo/kNBlp4SdEgsJQzAVxI1GncOg
-	 /kPoA45IwvDzzRSOUnDxht4GOfYZyhSnyfsX99SRYOVwBpSz62BE0zEF1S/aetyr6W
-	 HGQj9N3AHdlyOIRvbIDeXzX2ILzxt3w8gwWKEf6jvwKVQrDXc2RPMQSzwqxRX/22Vc
-	 776b52IcCFifE+OWSsvwCf5XKRgsZ0lmF3PWT12abl5pCYwejPG51N4fbWlWx2/LB+
-	 fW3VbQmnf2vtQ==
+	s=k20201202; t=1778624310;
+	bh=TTrcV+tl8jNIouLBzWAhXn7QW9/sf2i2hkZiIGuXrfg=;
+	h=From:Subject:Reply-To:Cc:In-Reply-To:References:Date:From;
+	b=Ms/7J8AnBN4fqwJNk1XUMcSy6ZLh0JrEf+S+4ZiQ2XPZi1PpTA36jvqJJiaODHgqm
+	 PRREzBuc6S+t1va/0+UjX9vFhS3AjfEdDtdjeTr3ATENYWvdXw7icMkqvI53KOAE8n
+	 7CIN8OpTJJo4aYG05EWtr0zmlHYa7E+5KsvxNCQVP6OTOp4zy9s25hzDu2V2YHLpIa
+	 3A46xRxQrspcLhDBP0m717xEa6XQczX2WEP2NsIkPIZEaMGyAjMPMP4rVsSIN+3hVr
+	 sQqhTdK1N/mkErOBLWSamgJrrcLXpmHuEGfZVKfuASA2rDSx8yD+xiuoq76uupzfmD
+	 if01bLSATrkow==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 2/2] bus: simple-pm-bus: Populate child nodes at
- probe
+Subject: Re: [PATCH] dt-bindings: Consolidate "sram" property definition
 Reply-To: sashiko@lists.linux.dev
-To: "Herve Codina" <herve.codina@bootlin.com>
-Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260511155902.34534-3-herve.codina@bootlin.com>
-References: <20260511155902.34534-3-herve.codina@bootlin.com>
+Cc: conor+dt@kernel.org, Frank.Li@kernel.org, krzk+dt@kernel.org, dmaengine@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org
+In-Reply-To: <20260511165942.2774868-1-robh@kernel.org>
+References: <20260511165942.2774868-1-robh@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 12 May 2026 22:12:30 +0000
-Message-Id: <20260512221231.2876FC2BCB0@smtp.kernel.org>
+Date: Tue, 12 May 2026 22:18:29 +0000
+Message-Id: <20260512221830.35494C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,79 +44,69 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The patch resolves fw_devlink corruption for transparent buses mat=
-ched via `of_match_table`, but fails to apply this fix to transparent buses=
- bound via `driver_override`, leaving devlinks broken in that path.
+- [Medium] The global `sram-consumer.yaml` schema causes `dtbs_check` valid=
+ation failures due to a namespace collision with standard `sram` child node=
+s.
 --
 
-commit 428668c33cfe17b55dfc398a9e43567a082e1c3e
-Author: Herve Codina <herve.codina@bootlin.com>
+commit b3fd675e204900532756fc42297dea0b1787d10f
+Author: Rob Herring (Arm) <robh@kernel.org>
 
-bus: simple-pm-bus: Populate child nodes at probe
+dt-bindings: Consolidate "sram" property definition
 
-This commit modifies the simple-pm-bus driver to populate child nodes
-during probe for transparent buses matched via of_match_table. This prevents
-wrong or missing devlinks when fw_devlink assumes a bound driver will
-populate its child firmware nodes.
+The "sram" property has become a de facto standard property, so create a
+common schema for it and drop all the duplicated definitions.
 
-> diff --git a/drivers/bus/simple-pm-bus.c b/drivers/bus/simple-pm-bus.c
-> index 4b2a793dfbd90..d969bf19a4e95 100644
-> --- a/drivers/bus/simple-pm-bus.c
-> +++ b/drivers/bus/simple-pm-bus.c
-> @@ -42,14 +42,15 @@ static int simple_pm_bus_probe(struct platform_device=
- *pdev)
->  	match =3D of_match_device(dev->driver->of_match_table, dev);
->  	/*
->  	 * These are transparent bus devices (not simple-pm-bus matches) that
 [ ... ]
->  	if (match && match->data) {
->  		if (of_property_match_string(np, "compatible", match->compatible) =3D=
-=3D 0)
-> -			return 0;
-> +			goto populate;
->  		else
->  			return -ENODEV;
->  	}
 
-Does this leave fw_devlink corrupted when the driver is bound using
-driver_override?
+> diff --git a/Documentation/devicetree/bindings/sram/sram-consumer.yaml b/=
+Documentation/devicetree/bindings/sram/sram-consumer.yaml
+> new file mode 100644
+> index 0000000000000..f00087bd2879b
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sram/sram-consumer.yaml
+> @@ -0,0 +1,26 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sram/sram-consumer.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: SRAM Consumers
+> +
+> +maintainers:
+> +  - Rob Herring <robh@kernel.org>
+> +
+> +select: true
+> +
+> +properties:
+> +  sram:
+> +    description:
+> +      Phandles to one or more reserved on-chip SRAM regions. The regions
+> +      should be defined as child nodes of the respective SRAM node, and
+> +      should be defined as per the generic bindings in,
+> +      Documentation/devicetree/bindings/sram/sram.yaml
+> +    $ref: /schemas/types.yaml#/definitions/phandle-array
 
-Looking at simple_pm_bus_probe(), there is an early exit for driver_override
-just before this block:
+Will this cause dtbs_check validation failures due to a namespace collision
+with standard sram child nodes?
 
-	if (device_has_driver_override(&pdev->dev))
-		return 0;
+Because select: true makes this apply globally, it intercepts the "sram"
+key for all nodes. In dt-schema, properties and child nodes share the exact
+same namespace.
 
-Since it still returns directly instead of jumping to the populate label,
-transparent buses bound via the driver_override sysfs attribute will skip
-populating their child nodes. This seems to trigger the same wrong
-supplier assignments from fw_devlink that this patch intended to fix.
+A child node named sram without a unit-address (which is permitted by
+sram.yaml and exists in device trees like arch/powerpc/boot/dts/ebony.dts)
+is represented in the YAML output as a JSON object assigned to the "sram"
+key of its parent.
 
-> @@ -78,7 +80,7 @@ static void simple_pm_bus_remove(struct platform_device=
- *pdev)
->  {
->  	const void *data =3D of_device_get_match_data(&pdev->dev);
-> =20
-> -	if (device_has_driver_override(&pdev->dev) || data)
-> +	if (device_has_driver_override(&pdev->dev))
->  		return;
-> =20
->  	dev_dbg(&pdev->dev, "%s\n", __func__);
-> @@ -86,7 +88,8 @@ static void simple_pm_bus_remove(struct platform_device=
- *pdev)
->  	if (pdev->dev.of_node)
->  		of_platform_depopulate(&pdev->dev);
+When dt-validate evaluates the parent node, this global schema will attempt
+to validate the child node object against the phandle-array constraints,
+triggering a schema validation error because an object is not an array.
 
-If the driver_override path in probe() is updated to populate children,
-should this remove() function also be updated to depopulate them?
-
-Additionally, does checking device_has_driver_override() here risk unbalanc=
-ed
-cleanup? If userspace modifies the driver_override sysfs attribute after
-probe() but before remove(), this check could evaluate differently during
-removal. Since of_platform_depopulate() safely ignores unpopulated buses,
-would it be better to call it unconditionally?
+Is there a way to limit the selection so it doesn't match these child
+nodes?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511155902.3453=
-4-1-herve.codina@bootlin.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511165942.2774=
+868-1-robh@kernel.org?part=3D1
