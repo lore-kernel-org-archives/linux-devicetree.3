@@ -1,319 +1,324 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4FDE384CE3
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 06:42:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBBEA384CF7
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 06:44:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778568149; cv=pass; b=NlELTHFy9O4ezL2oqZVFycKvgf6uB0usqaGn3Af7017YOIWeZ7VmeXfGv+3TOhWgrLE856k+E3KN0fRuQjQ7coNiJZ4R+dSzW13WzgAjfP41HwvI60ElKOWOruZVmwgq85aqUPsgn0M91GXXjHknPVNFJaOuz/t2+F1yEf6+rCM=
+	t=1778568271; cv=pass; b=l/AYV9c8KkuVa6geJcih6oEhNFkkNZ8QwBoWeN4r2XPwE4JXf7gYZIU53+9ahDQkDZhD6IFDGVIM6cMOuZnDoZmkN/cLe72nYR0zzoMYSeqriaRY1uqmoaABPOGZ10gXhDwTbuloPdyeaRZgcaFnHZTD5FhskQ0y4+Ad10P5n14=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778568149; c=relaxed/simple;
-	bh=JW+i/pVE71OvGEL5VzIECpn0VkCbGmOKNADt617MGsQ=;
+	s=arc-20240116; t=1778568271; c=relaxed/simple;
+	bh=FjgzfIcEzFg1b096kbJ3RIQzKX5tIHlT5F677cNirk8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hRICZxkq9tHbq5yD6bPd7nZNH3FmBU2+73uouzQsH21QHPnSM1e8ByRLu/IqxchiEfQXOKsCnVtzjYzS5n9QRKnflegwIcerntvd5m9EDndia5X50qM4Dqkt7ea+giH9giLSZ38jDaBXka2wTr1Fg7jaLZcYP4Sy0kq31qw9sSg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TDS+yOdP; arc=pass smtp.client-ip=209.85.215.181
+	 To:Cc:Content-Type; b=XXwVxjW5g4d3Jwy+Sa833riu8uj0Vrk1j29OZkKNM3j8dF/3QWWB5tFSTRCoUZmZo2HSLA0yx/jQ3ZQvL+IWRIGIFtvbRtwbD1CgIlHYro5lxgATK+fwYhu4Y0hnhDqHGF8SPmpIxRBp9wjDhs/SmYzY50vGSo2wXsyRxuEjO0c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sZ8k1arB; arc=pass smtp.client-ip=209.85.218.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TDS+yOdP"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-c82a6278a4cso115535a12.3
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 23:42:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778568137; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sZ8k1arB"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-b8f9568e074so795378066b.0
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 23:44:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778568256; cv=none;
         d=google.com; s=arc-20240605;
-        b=hj901fssOoDwZxvot86m0D3SepOrvc38gFTtUY3zL/zlUOq6tkz3/dcFTuSs9u20KZ
-         WEPY1pOl5lArFgNYtXRbrAN7RCUAxuBv8OFBs2jl0t693IShgkmUz6i7YeE4jrhua8kb
-         xoyTmOXDMAbG/u64YWBRAoihd1Dyf6oA6xh3nNJU04WBPzGtBxviJtOphJlU0ums2G+J
-         Q5xeTsB/5ixVmfd8UiYqL9r1RjSpNW0f+G/Pbsbs0U3NzslKHjjJKesGBdnTc02yN42U
-         XEu3eE4cYPOtzTpZsIQG+YXrlkE1bnpFScGPpgSkK3hMVXhIDxSXT7kah1WtRhmQQ4c4
-         ZI7w==
+        b=Tz/nMDqow+2Z4YaAy+QNmilBWFc28fClX9lf4hyD9Kn0ddRQwGHoCA4DiBRF5o9ovV
+         3I064b1GwY1bQR6edj6YEFqfqbAC6cTTJxURgce0XQn/InbOwTFW5Y9g+ZAodLmKOeyu
+         Bb2RMoIFSg9ntekwwYavcexSHQrnoA5iPXojxKby/GE9q1WxP/+eeRkOwonjLWDagnC6
+         65RyX23T9WsIk941oXT9Ojuq3+9fEaiwv0G/Y4QHw3vpliyHJA2HhTZJxfd1sjCtrt2G
+         HdWfJWVvNqgRHoQ4eYd6JI8RRd6lUxDtRil61U21KYBZh6vF24ukwuD6JnMvKLD62GAR
+         mqlQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=5TjPcoUMcuCxioj/5ldLRrHNHcGi2KwtoRGUoSJPPFU=;
-        fh=nhVBLBX+dAch6do4vzWmq29JHs0Rl8rF4V4sv1WM/bY=;
-        b=lnz9qMpUPT415uxN/B0hY2m0IqqqR5hXS24P8Jm+NojkLktCOWtR4441XdrX46Fw4+
-         YOajAJwbYWTFkea3aefFUFXJxE8+s8l4DRMVg3rb6SUbjA5Gx58U/aMPnJBxtbNYzNan
-         13gGj0oqkPvN8CqQKWiote7uCj8U1KzNZxEXoEo/Op0y87BXK9iqrC1R6DvCXk+1WlIB
-         kNj4FaW7ciGGEOADiTbRD+8XdE0k5yvd7bd6bI75RWfPUGVbHpDvGkhT/lRb/Nyf1K9C
-         zoTxWcRLOlhHF5fwjeCDbZ+q6FdC5sJ6+HdRnTrDF8LdthiwuxNKrbVJFeIUBBR1PFXB
-         xG7g==;
+        bh=s9/juFQ5EkLeK4MRC7rvbjQzQu8ytDf6s79QFENqFt0=;
+        fh=zYM9JH7/gDxT2aKz34KfduxrR3NiTWCrxepjDbIdlYM=;
+        b=OF9dCw6h9iW2eXr57u+PAGUjMsJLSCv0PdpM9ISCIYJ/KSITNqvxmQZPEyrk5mHC2h
+         fNjQsqnA2Cb1qobnj0n8mqwc8TbdIOnC0lP1w5Mx2UVl6JFw7Eukr4gcR+45uORifcbb
+         uq8cb9CHzmTACz80PnHmV1HdttgeeDm0xY86jfYdSnkYIzN1Y1VZ+j5sZfmjKW2fllir
+         LF1+owg/KSyh7L/087tg011DSEBMTKO+9CnXCq5gusIT51XmiIVTUgfX4N7IuIkdHsi3
+         0QfAp2paIytSajn2Ex9VasZofMHKVcr0fTu36Sic2RJM/Hgn47t/IiOju3zLrcTw8V+S
+         Jhuw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778568137; x=1779172937; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1778568256; x=1779173056; darn=vger.kernel.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5TjPcoUMcuCxioj/5ldLRrHNHcGi2KwtoRGUoSJPPFU=;
-        b=TDS+yOdPU6ArS94brMmyS2iua9IO0smIjPUKOF3rB8nbe21gvoNw9r6VVjGrfIz4q5
-         DM+6UgO8Wmp+GFDu8inzdPD6QIA9LW6yOosti26qgLy8JxUrXGHf1u5qGhg2LGHrFtY5
-         +KsBuifdtqzAxCdVpSgCdLYWW4au7/YRDPSemBgS6GEluxYe5unEXneVPzbIi0wa4GtJ
-         Gg7uZRbmpbWD7CVpGE8sBlgUTWihZXaYL4TIbB2r5zfYmeNbcdSE7Y9ixmxh04+E/bSz
-         jHyDEsJjDaHt0X9c1YHhNl2wIKBrKtvrONgd7rL239XI+F+pYTrDsBE82JLfea/Kb04c
-         UtWQ==
+        bh=s9/juFQ5EkLeK4MRC7rvbjQzQu8ytDf6s79QFENqFt0=;
+        b=sZ8k1arBo/iltA0Zjf84h/5CURPNlBi/IQ10S32q1NesXxFDyIwF1txkWydnxMi1j1
+         JtwnGLPQFB3sBFbZmkQgffqpzZ69/vklgxsF4by7Fu/h3SMsgM/FNkKBJRx2JcXbAyJt
+         QcxHjT54H1WIf4CU1DDFVDRTX71KQMo29gOTkJwH0uhBZ2Nkr0StX8fOj7vY018pkNjd
+         0LVy+gbJ9vOOZfcP09HIdeXsGxL/++qHn8h0ECVgQvtgroMag2bIzASLM6QJo7KD8n2V
+         wd9ZpjCbfT/NXHweROqU0Y1ikwhKBEaq9LRpXZZFN2i5AF9h61R3zgbQCr3rG1yg5TUD
+         5gag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778568137; x=1779172937;
+        d=1e100.net; s=20251104; t=1778568256; x=1779173056;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=5TjPcoUMcuCxioj/5ldLRrHNHcGi2KwtoRGUoSJPPFU=;
-        b=gZrI9ddfgvz4xrY6vCft7fn4IeInx2LtQ53UGKVKFyFu5dCJW437BXL6gxMXttYKIM
-         CMuVAjgLImR3hHf6C0ngcXid66MAhB8iCBzUbUIoaBnbsopzW0p2x87zjkjTq9NiPc84
-         dyACIN0vyOztC4cd+WHnxNzQugRB7a2n3tvGKeJBXGMuca2wir8T04bKGpaKkx1w3pj/
-         KbXcaqrOmflBL4WZmXC72wjP8pM2jhQwAwPna065O0nAPscMpIeCnzcRKnnKYu0IRQp1
-         se2+tXXsbD1BROKlHYZBAfO+yhUxu5g9kGs23jlq6A9Avj3Xhgv3nnV7tGbg5sLTqIo7
-         4kBQ==
-X-Gm-Message-State: AOJu0Yy192aP99bcsAZb+IO2ibjHlRCJf9SkuPFeschmjQjYf2Z19WLn
-	sBmgYLB32rQ/tOx1AkpbAWQgY29DF/IYsQWJkoZC+7U6n9EGiyPVs6mqjk6e7g0xap4YpE/IrEi
-	bDtjRaIuaX26Y/nRPx+NE9meeGebxNf0=
-X-Gm-Gg: Acq92OF6K6nXt5xXq8+4ZVFkKQ7VmvFoX/SmJ6YafdFoaGaz0KrGJY5IPWWk/2+4any
-	MUujcNxfa3jdH66UyD3hi28HKLZcmhvqa91eIY30nP0xZgwexLgSsmaT0l7nSSGomnNFJQpQ/GK
-	6uuEHpHOPxPkgiHcb4MHNSCqeAKCNWIqJWqJEknITHFlOqk9bAsz+fzo16Q11iyiDgCEo4aecWE
-	5Cy0Ti3BsqhqCt+suSzyRwhU8liMR7cBiYyPGbOP6pExy/bPPbnSNF1XAH1Ho/WxNoKfqywRknm
-	8Ct6wuV51BQJeGRqw12XNMHF9dDAfkyxGoI33K4B3zjSDfmh
-X-Received: by 2002:a17:902:e54e:b0:2ba:4e84:966 with SMTP id
- d9443c01a7336-2ba7a358d4amr307940265ad.36.1778568137174; Mon, 11 May 2026
- 23:42:17 -0700 (PDT)
+        bh=s9/juFQ5EkLeK4MRC7rvbjQzQu8ytDf6s79QFENqFt0=;
+        b=E3jdpy2EbbTqGPbgGMzv7XVaMpmOtloIuZJuEPsmrhZJ/kesMiFPuN0TDyMqGKEJYp
+         ZcIJKMEgKKHakQLu1MbD/rvvNbKYTnWQAGiH1UdAa6Q3kvxHVw7DpoZY2G2QweBy0Ouv
+         oa3vtRubdSEhJ7JDsRLewzwSA5lMStCHQQzNDrfG1Z//4XsrcFw+k21E0FJQU0ONk4OB
+         hBYvg0ho3XwumH0glBOmvGBsiq18Q7FDfGYOI9H7rwJjtinu0AG2XDanagdoledrtNpf
+         A8B33d5F5BfjzWTucdDMUPQ713OGoSxNnVY++h5ZQXpCDQI8fHh5K/uopKHzqGWFt9L9
+         cHbQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/4WBPar4jkzpAw6IVNDU7ZptirhnkJEDYcMmay4JL1NlPm0MnhovKa1wWwj3Qp/0mXRGYVOoxkuCg3@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywl4xp0PIZPCsfkRpUx0AVc3fbJ4NhutNz93y+ZZ8eQIn1VdGiL
+	rqMPK3ipQKFfpFelAmU09cLwelJgpayWDw/Lu5ETovW1IWfSm9jYvQ1t6Y3tiTGkN7QUOKohHVN
+	OR86KypOq4nadp2g1PZ3GXN3nHlrtBDc=
+X-Gm-Gg: Acq92OHjBWHxfHkQSh/mesn1DLHyJdkMhdo8KpsMSpXq6aR9ORj3vkr8QPFyePJFiXh
+	Ah38Q1bdE0dmoZ22vipoQHBUfDVwHYB7qUOwYTbsbD62pgnCpOjtXUVAqDUjs4JErC3uii2keHK
+	fzX9NwjApaY5qww6jZIpkLtjHbsPxNfQDFNilHvhGbP+6pqoe2jfwqCeWnoGegHmXiMmAA+sqjl
+	r/CIDsTzgMcJS+pp+zHyA2kbMuTaojBMqyQX/WUjD8GXK8lAZme7vx6XTbUDdOzi+kJ0V1Ua/5J
+	BPoBt8Kzwqg0MYX9MtF/XM/xv5INlh18hMWfaKy8XV+5fZsGZZ3vIfcUdELADihoGLXH1EKbdU8
+	oGs87jh4=
+X-Received: by 2002:a17:907:728f:b0:bd1:d244:ca24 with SMTP id
+ a640c23a62f3a-bd28e412eadmr84527766b.14.1778568255436; Mon, 11 May 2026
+ 23:44:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260510084303.122426-2-phucduc.bui@gmail.com> <20260511204528.14632C2BCB0@smtp.kernel.org>
-In-Reply-To: <20260511204528.14632C2BCB0@smtp.kernel.org>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Tue, 12 May 2026 13:42:06 +0700
-X-Gm-Features: AVHnY4I84EJDkO3xEZHB99KhLWC30tC31OgwdWSjgxMsmVdXgk751IHSnHRgLEA
-Message-ID: <CAABR9nEhOTz1-0NmCMTbz=-+782Pto0yovSQhBXrXqhLwMg80Q@mail.gmail.com>
-Subject: Re: [PATCH v3 01/10] ASoC: dt-bindings: renesas,fsi: add support
- multiple clocks
-To: sashiko@lists.linux.dev
-Cc: devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+References: <20260512-mt6323-v2-0-3efcba579e88@protonmail.com> <20260512-mt6323-v2-5-3efcba579e88@protonmail.com>
+In-Reply-To: <20260512-mt6323-v2-5-3efcba579e88@protonmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Tue, 12 May 2026 09:43:38 +0300
+X-Gm-Features: AVHnY4ISc11FAtQmtWdJlGYyo0XawWUZJbHlaYzrkD_vnuBBxzJNK6YMpmrGwVg
+Message-ID: <CAHp75VdtORjmCCWy3-oiN-RQd+s7z=2G4s8hemv3xrq47vXu5g@mail.gmail.com>
+Subject: Re: [PATCH v2 05/16] iio: adc: mediatek: add mt6323 PMIC AUXADC driver
+To: rva333@protonmail.com
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Sen Chu <sen.chu@mediatek.com>, 
+	Sean Wang <sean.wang@mediatek.com>, Macpaul Lin <macpaul.lin@mediatek.com>, 
+	Lee Jones <lee@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+	linux-pm@vger.kernel.org, Ben Grisdale <bengris32@protonmail.ch>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+On Tue, May 12, 2026 at 8:21=E2=80=AFAM Roman Vivchar via B4 Relay
+<devnull+rva333.protonmail.com@kernel.org> wrote:
+>
+> The mt6323 AUXADC is a 15-bit ADC used for system monitoring. This driver
+> provides support for reading various channels including battery and
+> charger voltages, battery and chip temperature, current sensing and
+> accessory detection.
+>
+> Add a driver for the AUXADC found in the MediaTek mt6323 PMIC.
 
-Based on the Sashiko AI review, I am thinking of adding the following
-constraints specifically for renesas,fsi2-r8a7740 to address the
-reported issues.
+...
 
-I think this may also help balance both Geert's and Krzysztof's
-comments from the previous v2 review.
+> +#include <linux/array_size.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/delay.h>
+> +#include <linux/iio/iio.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/property.h>
+> +#include <linux/regmap.h>
+> +#include <linux/stringify.h>
 
-Does this approach look reasonable to you?
++ time.h // USEC_PER_MSEC
 
----------------------------------------------
+> +#include <linux/types.h>
 
--allOf:
--  - $ref: dai-common.yaml#
--
- properties:
-   $nodename:
-     pattern: "^sound@.*"
-@@ -94,6 +91,78 @@ required:
+...
 
- unevaluatedProperties: false
+> +#define AUXADC_TRIM_CH2                (3 << 10)
+> +#define AUXADC_TRIM_CH4                (3 << 8)
+> +#define AUXADC_TRIM_CH5                (3 << 4)
+> +#define AUXADC_TRIM_CH6                (3 << 2)
 
-+allOf:
-+  - $ref: dai-common.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: renesas,fsi2-r8a7740
-+    then:
-+      properties:
-+        clock-names:
-+          oneOf:
-+            - items: # FSIA & FSIB is slave
-+                - const: fck
-+                - const: spu
-+            - items: # FSIA slave & FSIB master use internal clock
-+                - const: fck
-+                - const: spu
-+                - const: ickb
-+                - const: divb
-+            - items: # FSIA slave & FSIB master use external clock
-+                - const: fck
-+                - const: spu
-+                - const: ickb
-+                - const: xckb
-+            - items: # FSIB slave & FSIA master use internal clock
-+                - const: fck
-+                - const: spu
-+                - const: icka
-+                - const: diva
-+            - items: # FSIB slave & FSIA master use external clock
-+                - const: fck
-+                - const: spu
-+                - const: icka
-+                - const: xcka
-+            - items: # FSIA master ex-clk  & FSIB master ex-clk
-+                - const: fck
-+                - const: spu
-+                - const: icka
-+                - const: xcka
-+                - const: ickb
-+                - const: xckb
-+            - items: # FSIA master in-xlk  & FSIB master in-clk
-+                - const: fck
-+                - const: spu
-+                - const: icka
-+                - const: diva
-+                - const: ickb
-+                - const: divb
-+            - items: # FSIA master in-clk  & FSIB master ex-clk
-+                - const: fck
-+                - const: spu
-+                - const: icka
-+                - const: diva
-+                - const: ickb
-+                - const: xckb
-+            - items: # FSIA master ex-clk  & FSIB master in-clk
-+                - const: fck
-+                - const: spu
-+                - const: icka
-+                - const: xcka
-+                - const: ickb
-+                - const: divb
-+            - items: # FSIA & FSIB  full clock support
-+                - const: fck
-+                - const: spu
-+                - const: icka
-+                - const: xcka
-+                - const: diva
-+                - const: ickb
-+                - const: xckb
-+                - const: divb
-+
- examples:
-   - |
-     #include <dt-bindings/clock/r8a7740-clock.h>
-@@ -102,7 +171,11 @@ examples:
-             compatible =3D "renesas,fsi2-r8a7740", "renesas,sh_fsi2";
-             reg =3D <0xfe1f0000 0x400>;
-             interrupts =3D <GIC_SPI 9 0x4>;
--            clocks =3D <&mstp3_clks R8A7740_CLK_FSI>;
-+            clocks =3D <&mstp3_clks R8A7740_CLK_FSI>, <&spu_clk>,
-+                    <&fsia_clk>, <&fsiack_clk>, <&fsidiva_clk>,
-+                    <&fsib_clk>, <&fsibck_clk>, <&fsidivb_clk>;
-+            clock-names =3D "fck", "spu", "icka", "xcka", "diva",
-+                          "ickb", "xckb", "divb";
-             power-domains =3D <&pd_a4mp>;
+Without a comment it's hard to say if these are like masks or actual
+values. Can you clarify that in the comment on top of these four?
 
----------------------------------------------------------------------------=
---------------
+> +#define VOLTAGE_FULL_RANGE     1800
 
+Are there any units? Are they millivolts or is it just some scale?
 
-Best regard,
-Phuc
+...
 
+> +#define MTK_PMIC_IIO_CHAN(_name, _idx, _ch_type)       \
+> +{                                                      \
+> +       .type =3D _ch_type,                              \
+> +       .indexed =3D 1,                                  \
+> +       .channel =3D _idx,                               \
+> +       .address =3D _idx,                               \
+> +       .datasheet_name =3D __stringify(_name),          \
+> +       .info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) | \
+> +                             BIT(IIO_CHAN_INFO_SCALE) \
 
+Keep the trailing comma as this is not a terminator.
 
+> +}
 
-On Tue, May 12, 2026 at 3:45=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
-e(s) to consider:
-> - [High] The schema fails to enforce the mandatory SPU clock for the r8a7=
-740 hardware variant, and the example provides a functionally broken config=
-uration.
-> - [Medium] Mismatch between strictly positional `clocks` descriptions and=
- unordered `clock-names`, combined with missing `clock-names` enforcement.
-> --
->
-> commit 3adcf4902a5e62b71566ef5381f002fd5338a399
-> Author: bui duc phuc <phucduc.bui@gmail.com>
->
->     ASoC: dt-bindings: renesas,fsi: add support multiple clocks
->
-> This commit updates the FSI bindings to support multiple clocks to proper=
-ly
-> describe the hardware clock tree. It adds the SPU bus/bridge clock requir=
-ed
-> for the r8a7740 SoC, as well as definitions for functional clocks, intern=
-al
-> dividers, and external clock inputs.
->
-> > diff --git a/Documentation/devicetree/bindings/sound/renesas,fsi.yaml b=
-/Documentation/devicetree/bindings/sound/renesas,fsi.yaml
-> > index df91991699a72..c50e7115b21a0 100644
-> > --- a/Documentation/devicetree/bindings/sound/renesas,fsi.yaml
-> > +++ b/Documentation/devicetree/bindings/sound/renesas,fsi.yaml
-> > @@ -38,7 +38,32 @@ properties:
-> >      maxItems: 1
-> >
-> >    clocks:
-> > -    maxItems: 1
-> > +    minItems: 1
-> > +    items:
-> > +      - description: Main FSI module clock
-> > +      - description: |
-> > +          SPU bus/bridge clock. On R8A7740, this clock must be enabled=
- to allow
-> > +          register access as the FSI block is connected behind the SPU=
- bus.
->
-> Should we add an allOf block with an if-then condition to enforce the
-> presence of the SPU clock for the renesas,fsi2-r8a7740 hardware variant?
->
-> Without it, incomplete device trees might silently pass schema validation=
- but
-> fail catastrophically at runtime, as the commit message notes that missin=
-g
-> this clock causes a system hang.
->
-> The examples section of this file demonstrates this:
->
->     sh_fsi2: sound@fe1f0000 {
->             compatible =3D "renesas,fsi2-r8a7740", "renesas,sh_fsi2";
->             ...
->             clocks =3D <&mstp3_clks R8A7740_CLK_FSI>;
->
-> This example only supplies a single clock and omits both the required SPU
-> clock and the clock-names property, which contradicts the commit message.
->
-> > +      - description: CPG DIV6 functional clocks for FSI port A
-> > +      - description: CPG DIV6 functional clocks for FSI port B
-> > +      - description: Internal FSI dividers for port A used for audio c=
-lock generation
-> > +      - description: Internal FSI dividers for port B used for audio c=
-lock generation
-> > +      - description: External clock inputs for FSI port A provided by =
-the board
-> > +      - description: External clock inputs for FSI port B provided by =
-the board
-> > +
-> > +  clock-names:
-> > +    minItems: 1
-> > +    maxItems: 8
-> > +    items:
-> > +      enum:
-> > +        - fck  # Main FSI module clock
-> > +        - spu  # optional SPU bus/bridge clock
->
-> Does defining clock-names with an enum correctly map sparse clocks?
->
-> Because clocks defines an items array with eight fixed descriptions, it
-> acts as a strict positional tuple. If a board provides the Main clock and
-> the icka clock but omits the optional spu clock, icka shifts to index
-> 1. The dt-schema tooling will then incorrectly map it to the SPU descript=
-ion.
->
-> Additionally, using an enum here allows arbitrary ordering and does not
-> enforce uniqueItems: true.
->
-> Could we add clock-names to the required list when multiple clocks are
-> provided? Since it is not required, a device tree could specify multiple =
-clocks
-> without names, leaving the driver unable to reliably map the phandles to =
-their
-> respective internal functions.
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510084303.12=
-2426-1-phucduc.bui@gmail.com?part=3D1
+...
+
+> +/**
+> + * struct mt6323_auxadc - Main driver structure
+> + * @regmap:        Regmap from PWRAP
+> + * @lock:          Mutex to serialize AUXADC reading vs configuration
+> + *
+> + * The MediaTek MT6323 (as well as lot of other PMICs) have the followin=
+g hierarchy:
+> + * PMIC AUXADC <- PMIC MFD <- SoC PWRAP (wrapper for PWRAP FSM)
+> + *
+> + * Therefore, PWRAP regmap should be get using dev->parent->parent.
+
+get --> obtained
+
+> + */
+
+...
+
+> +static int mt6323_auxadc_prepare_channel(struct mt6323_auxadc *auxadc)
+> +{
+> +       struct regmap *map =3D auxadc->regmap;
+> +       u32 val;
+> +       int ret;
+> +
+> +       ret =3D regmap_read(map, MT6323_AUXADC_CON19, &val);
+> +       if (ret)
+> +               return ret;
+> +
+> +       /* The ADC is idle */
+> +       if (!(val & AUXADC_DECI_GDLY_MASK))
+> +               return 0;
+> +
+> +       ret =3D regmap_read_poll_timeout(map, MT6323_AUXADC_ADC19, val,
+> +                                      !(val & AUXADC_ADC19_BUSY_MASK), 1=
+0, 500);
+
+It's better to have a logical split
+
+       ret =3D regmap_read_poll_timeout(map, MT6323_AUXADC_ADC19,
+                                      val, !(val & AUXADC_ADC19_BUSY_MASK),
+                                      10, 500);
+
+> +       if (ret)
+> +               return ret;
+> +
+> +       return regmap_clear_bits(map, MT6323_AUXADC_CON19,
+> +                                AUXADC_DECI_GDLY_MASK);
+> +}
+
+...
+
+> +static int mt6323_auxadc_read(struct mt6323_auxadc *auxadc,
+> +                             const struct iio_chan_spec *chan, int *out)
+> +{
+> +       struct regmap *map =3D auxadc->regmap;
+> +       u32 val, reg =3D mt6323_auxadc_channel_to_reg(chan->address);
+> +       int ret;
+> +
+> +       ret =3D regmap_read_poll_timeout(map, reg, val, (val & AUXADC_RDY=
+_MASK),
+
+Parentheses are not needed in this case. But I'm fine with it here as
+it probably makes it easier to get the idea.
+
+> +                                      1 * USEC_PER_MSEC, 100 * USEC_PER_=
+MSEC);
+> +       if (ret)
+> +               return ret;
+> +
+> +       *out =3D FIELD_GET(AUXADC_DATA_MASK, val);
+> +
+> +       return 0;
+> +}
+> +
+> +static int mt6323_auxadc_read_raw(struct iio_dev *indio_dev,
+> +                                 const struct iio_chan_spec *chan, int *=
+val,
+> +                                 int *val2, long mask)
+
+Logical split
+
+static int mt6323_auxadc_read_raw(struct iio_dev *indio_dev,
+                                 const struct iio_chan_spec *chan,
+                                 int *val, int *val2, long mask)
+
+> +{
+> +       struct mt6323_auxadc *auxadc =3D iio_priv(indio_dev);
+> +       int ret, mult =3D 1;
+
+Decouple assignment and definition. These types of assignments are
+hard to maintain and might lead to subtle mistakes in the future.
+
+> +       if (mask =3D=3D IIO_CHAN_INFO_RAW) {
+> +               guard(mutex)(&auxadc->lock);
+> +               ret =3D mt6323_auxadc_prepare_channel(auxadc);
+> +               if (ret)
+> +                       return ret;
+> +
+> +               ret =3D mt6323_auxadc_request(auxadc, chan->address);
+> +               if (ret)
+> +                       return ret;
+
+Please, add a comment with the reference to a datasheet (ideally)
+explaining this sleep.
+
+> +               fsleep(300);
+> +
+> +               ret =3D mt6323_auxadc_read(auxadc, chan, val);
+> +               if (ret)
+> +                       return ret;
+> +               return IIO_VAL_INT;
+> +       } else if (mask =3D=3D IIO_CHAN_INFO_SCALE) {
+
+Redundant 'else'
+
+> +               if (chan->channel =3D=3D MT6323_AUXADC_ISENSE ||
+> +                   chan->channel =3D=3D MT6323_AUXADC_BATSNS)
+> +                       mult =3D 4;
+> +
+> +               *val =3D mult * VOLTAGE_FULL_RANGE;
+> +               *val2 =3D AUXADC_PRECISE;
+> +
+> +               return IIO_VAL_FRACTIONAL;
+
+> +       } else
+
+Ditto, and it's the wrong style. Read the Coding Style documentation
+to clarify this.
+
+> +               return -EINVAL;
+> +}
+
+...
+
+> +       ret =3D devm_mutex_init(dev, &auxadc->lock);
+> +       if (ret)
+> +               return dev_err_probe(dev, ret, "failed to initialize mute=
+x\n");
+
+Unneeded error message. Most likely it's -ENOMEM, which will be
+ignored by dev_err_probe() anyway.
+
+...
+
+> +       ret =3D devm_iio_device_register(dev, iio);
+> +       if (ret)
+> +               return dev_err_probe(dev, ret, "failed to register iio de=
+vice\n");
+
+If you don't see the device, it's failed to register, do we need this messa=
+ge?
+
+--=20
+With Best Regards,
+Andy Shevchenko
