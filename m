@@ -1,266 +1,263 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023139.outbound.protection.outlook.com [52.101.127.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF693672BA;
-	Tue, 12 May 2026 07:42:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778571760; cv=none; b=BqDLO1Q7/4Pm/d1ePVAAVjRYc1xoWlwRik22tmJRGTqo3LnkNAAhUJB4jJqiqM+H4m4RSivHjNi4A8SDy7Sy9ts/kqRi2YSKkEo3ewXOJ/SplNukdXNVPt5yF2TXz8/Ruo7FyP8jOGaqV6Wh3BgK+CifXn34oYlySy5nTX2G1e0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778571760; c=relaxed/simple;
-	bh=M/am2wbk0iyS/OYtFwRSOMspzn/aIFuuWrjTaHbvQDk=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bijsg824zHtP7gZm8nJFWfa6oB20a0tu0orZmB/cIrv42meATo1n++ZRgjCUCJAOQL5Fayxhtc9WCVx0a1B1LzGfX9b9dwBPeQdEGjV15APPx/TpM4y4pn60p9aiAdLgaqW5zF1+XmSrgD3bqgn2tkftYQwJfacu3Ez3wdmUTgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=kW4B1tLf; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="kW4B1tLf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1778571757; x=1810107757;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=M/am2wbk0iyS/OYtFwRSOMspzn/aIFuuWrjTaHbvQDk=;
-  b=kW4B1tLfcqxIGnx5AhII74sAzEmiqvIP2Yic9IpJ9ilsdrxnPw7llisd
-   UNpac/WtvmkppA21uytxzPBhdKGFdJHiZlqQxxefD2jS0uv3S2KtJf1YN
-   UZIHprQz0P/SAsDLq/jKd2glrpR+LV8qNhXwSTgwigGY1pqQJSbFl3gFr
-   iueCcoyYyuUxRUeJmrfKTNRiHg8YLCNRnflk2N2bwjE3rQwlmkARJ/FiA
-   Kwk1Bk3x7guGniz8AoO+qAakL7v3A8nZ93HACEiKI54iFM3uQpAFj53wp
-   UbLsU1KP1JYMogVXEDyCeGZZK0qty2fuVfbiWzQ9tGwvsytQi4VxeHJh0
-   w==;
-X-CSE-ConnectionGUID: 0Om6zozNTp+TBx0yLmA0IA==
-X-CSE-MsgGUID: UsI2EoiTSUeF8kIaUAic+Q==
-X-IronPort-AV: E=Sophos;i="6.23,230,1770620400"; 
-   d="scan'208";a="57378943"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 12 May 2026 00:42:35 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Tue, 12 May 2026 00:42:33 -0700
-Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Tue, 12 May 2026 00:42:30 -0700
-Message-ID: <d7cf71e13ea9a343fe8a285642c00a000c519d96.camel@microchip.com>
-Subject: Re: [PATCH net-next v4 7/9] net: dsa: lan9645x: add mac table
- integration
-From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
-To: Jakub Kicinski <kuba@kernel.org>
-CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
-	<davem@davemloft.net>, <edumazet@google.com>, <pabeni@redhat.com>,
-	<horms@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <woojung.huh@microchip.com>, <linux@armlinux.org.uk>,
-	<Steen.Hegelund@microchip.com>, <daniel.machon@microchip.com>,
-	<linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
-	<devicetree@vger.kernel.org>
-Date: Tue, 12 May 2026 09:42:29 +0200
-In-Reply-To: <20260506014614.1616825-1-kuba@kernel.org>
-References: <20260430-dsa_lan9645x_switch_driver_base-v4-7-f1b6005fa8b7@microchip.com>
-	 <20260506014614.1616825-1-kuba@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7121632D0D8
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 07:43:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.139
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778571799; cv=fail; b=OWBhM4GIF34X6Ndtm4ZXxBugjQYRWqr5FidDicc7QAKY7Pr7tWh0vZZxZmw3cAOC6QMVD0Z+cFLzM3mJWioL3GQU+EhlaDzvqi7gFXaIluofUVi1u0YHa1kLEIXGvEftwbOSRvolPueq1fQd0HPIXWxtuWnyyDZRAA0qdDpDrVw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778571799; c=relaxed/simple;
+	bh=zohgms7rQ3DKEgxJj61ad17csgnczWNPBeJzUrNa3kk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CWMNHlBXJ4DCcc+rzFGDW3tcQgeLUJ04DM7qdmKRWmdGQo74ELNJBf1RM19v0LQ+dxGjYILI+nEe00AmmRYNvOparqYsM/AA3zi6Uuv9Ra07xO1YQU6DAiOYRK0JTpUJQmS8e4qkuWSKcARixBVjHUoJfodBsJEV4mb25PndxLw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=52.101.127.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LNFDJkup6z7mk7vFZWFhXuySGq1OCpV2XhFKfEyqJRsEB3Rd2Z6WC3CJ2xBPzcaqgmmtxjup7gJusUbMIrJYmkf49CXiTwoD33dqmYzx1VHiMXRc/V2mjgr/hh07IQgeSwHK150eT+dHkk2MBzG8JLKsS8mmenxauLGFumYbzVEXzQF38A5f/XXUwr1PRy7b0dbUpna8uFoiU+OKBhJw8CE4KH4Dh6LsMW9JimiZFN/Hufl53InIGgbypDgmyi4oHdDi4RPmGds4rn6FUprZMtM6rGHzd/LmGz5fJ9lThohQKQzTvb4SO7IGO4e9+vkpkrtwqK2hQveUJptwqxj2+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Pp5v7NJQulDaIzVT0Sho768aWEaUbY4o7bwwaLsr660=;
+ b=MvScSWDKwl88dbl9vEAORF1yqp3o4iddNwRNPKXVqgCr/vNNQ7CpiOcmV3NqoWhKW+VgavcUeRsrG5Ya99hwu4tt257U3htd0WV2YiH1wnWE0EkIDbXOPbdRpG54L264C3dE+fPXxpZDv9hIoNdeNFWAtFBZX9zbGt0T7AxSleSuW7fmDwyfw0V5Sg3Guh9l7xy9EGESnkG5Y25ruWjCLiNh63CUGjE7u3c1GTHVZPq7W2A5HOscHuDG7zs+eEx3JFRNrWr5PHAAkc2nIHsKIGIOLsjWJgX9i6NY6eic9CWYHoqrfC3G1xao6obh61y+vWEworm3hRa+17IfF+SAGQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=kernel.org smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from TYCP286CA0031.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:29d::6)
+ by KL1PR06MB6736.apcprd06.prod.outlook.com (2603:1096:820:100::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Tue, 12 May
+ 2026 07:43:13 +0000
+Received: from TY2PEPF0000AB84.apcprd03.prod.outlook.com
+ (2603:1096:400:29d:cafe::a) by TYCP286CA0031.outlook.office365.com
+ (2603:1096:400:29d::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9913.11 via Frontend Transport; Tue,
+ 12 May 2026 07:43:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ TY2PEPF0000AB84.mail.protection.outlook.com (10.167.253.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.25.13 via Frontend Transport; Tue, 12 May 2026 07:43:12 +0000
+Received: from nchen-desktop (unknown [172.16.64.25])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id E9B8D41609C1;
+	Tue, 12 May 2026 15:43:11 +0800 (CST)
+Date: Tue, 12 May 2026 15:43:10 +0800
+From: Peter Chen <peter.chen@cixtech.com>
+To: sashiko@lists.linux.dev
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org
+Subject: Re: [PATCH 2/4] usb: cdns3: sky1: Add cdnsp-sky1 glue driver
+Message-ID: <agLaDrzSZLhlG1sp@nchen-desktop>
+References: <20260511024244.981941-3-peter.chen@cixtech.com>
+ <20260511231734.9BDBCC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260511231734.9BDBCC2BCB0@smtp.kernel.org>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB84:EE_|KL1PR06MB6736:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0de28afd-b562-43f9-c568-08deaffa1f0c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|376014|18002099003|18092099006|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	E4uveVkPRViJ5SxnnX0RBFu5LKwnWfrPXu+qVKyP2GaA1GLsqKyUfyAhuSoU+sezhmwW/k47dhoA5/rsvu2XjtbZA2Po8QocpnEKWRPSzM3XGA1Unjn3saOaBopFgGwbC6UjDV0BRL/l7UbklB3PzlNc7hM5vqQJ09Kc/wd2LFbc5mNdH1gppNbW/Xuq7FWD7RX3iFzmYdkuqi4FO24MNOeEV8KnkzzHOqSzsnHov5lCGwjsAdM+VkXD0wO3YyInZTIg0/3uoNN7tlpAQT0Nk3CyXvIw3pX1cj5wu0EcxQxA/CNIngeykzFZv0fd3um9jZwNzJYs5l2knYcEQmWaD5kaBrKpccdQU2/D4T4hi9e7Q4L8r0m/oaLHEuiGOqHV401y/Pvdr3WRSNh4vRFjEhyk4M7sV5LL1T5oQi6o+f4bzbCEAt+Tu6E8+zulDno69Fecbza+H2C5BWSfmPM9/e5/whdnvMRp6aKdh/VTaY9+yG8agONz33XQ9BEPUlD6hVquUnwPwNMtzMU3dZAlNgWpERC51Pq6/OircGozTNBdwa8X8ZyAqB2+AHhaKUgVDJDgMiqlpD71gKE8ClSq0c5t+nFZv1fLkg0mfGKG493mI00uVvS9aOOu/HV81uTTD9CdPv7zW6KqafHaivHWnsF4Jj05658H4CZNPle6l3fvQ6cagpOad1OuokNUBs74RnjfRkVGMw7Co711LoUyOne84NvPUuj+XBBjAwmzINM=
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(18002099003)(18092099006)(56012099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	LcLCd5gt9UtFHxNAJlV21zLXbKqQZpBKo7NTWi7BQYM1ZhjhzOeneXmLIEfqo3zbQo2BSpmtG0zC2/SMyQaDrtn94Dn3nJ+mR0/ZyzHLJLjDIUJu2Ed5vUQRxcJ8pW/vmqUpAj9/pkQ3JPjNNbFO/Z34B8a9lZ879sbdpFYEbJf7kfWz+2tCpdRBOm5CIxiJmAQ1MXlBLc+C3PbDYmWMPonJOncErZP3RNlOgTsju0sTO3EsnRWJ+4ivdaEYxuGxGJYmLRG6KzQip9n/wJL1TThOjCgPHPTMPOdXOco6AN3N3OVQfr/xhGSgFWzwns1qVqGVxfF/ZH79XvRnlLMxCGSBmhfyUdcZogB0uWDTEp1VmerlvoDJCm2WtQrVhahRVWVfpcvlH+++baPnl5RLfNH/5SGCHRT1lglz4dagsAxZn+PjNwcCQOTCrlU/WCJv
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2026 07:43:12.8593
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0de28afd-b562-43f9-c568-08deaffa1f0c
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	TY2PEPF0000AB84.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR06MB6736
 
-On Tue, 2026-05-05 at 18:46 -0700, Jakub Kicinski wrote:
-> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
-e content is safe
->=20
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> ---
-> net: dsa: lan9645x: add mac table integration
->=20
-> This patch adds MAC table support and hooks it into the DSA FDB callbacks
-> (port_fdb_add, port_fdb_del, port_fdb_dump, port_fast_age), along with a
-> port-filtered flush path and a GET_NEXT-based dump helper.
->=20
-> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_mac.c b/driver=
-s/net/dsa/microchip/lan9645x/lan9645x_mac.c
+On 26-05-11 23:17:34, sashiko-bot@kernel.org wrote:
+> EXTERNAL EMAIL
+> 
+> Thank you for your contribution! Sashiko AI review found 6 potential issue(s) to consider:
+> - [High] Probe returns success (0) when memory resource retrieval fails, leading to a NULL pointer dereference.
+> - [High] Probe forcefully overwrites the mode strap configuration for all USB controllers on the SoC.
+> - [Medium] Resource leak of clocks on early probe error paths.
+> - [Medium] Unconditional assignment of dev_pm_ops violates Power Management Subsystem rules.
+> - [Medium] Commit message and implementation mismatch regarding hardware resets.
+> - [Low] Using of_match_ptr() with a statically allocated array causes compiler warnings.
+> --
+> 
+> commit a626bc93f86adbca6a4dce0b669265133a32a8cb
+> Author: Peter Chen <peter.chen@cixtech.com>
+> 
+> usb: cdns3: sky1: Add cdnsp-sky1 glue driver
+> 
+> Add a CIX sky1 platform glue driver with Kconfig and Makefile entry.
+> It calls APIs exported from cdns3-plat.c for probe/remote/suspend/resume
+> routines.
+> 
+> >         Glue driver for the Cadence USB dual-role controllers on CIX Sky1
+> >         (device tree compatible cix,sky1-usb3). It enables clocks and resets
+> >         from the SoC, then uses the shared cdns3 platform core (cdns.ko).
+> 
+> The commit message mentions it enables clocks and resets from the SoC, but is
+> there missing code to handle the resets? The implementation includes linux/reset.h
+> but doesn't appear to request or interact with any reset lines.
+
+Sorry, I have a local version with PHY driver, it needs to have reset operation, I
+forget to delete it at commit message.
+
+> 
+> > diff --git a/drivers/usb/cdns3/cdnsp-sky1.c b/drivers/usb/cdns3/cdnsp-sky1.c
 > > new file mode 100644
-> > index 000000000000..7ae23d3464f8
+> > index 0000000000000..049044e3d09bd
 > > --- /dev/null
-> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_mac.c
->=20
+> > +++ b/drivers/usb/cdns3/cdnsp-sky1.c
+> 
 > [ ... ]
->=20
-> > +void lan9645x_mac_init(struct lan9645x *lan9645x)
+> 
+> > +static int cdnsp_sky1_set_all_controllers_otg(struct regmap *syscon)
 > > +{
-> > +     u32 val;
+> > +     int id, ret;
 > > +
-> > +     mutex_init(&lan9645x->mact_lock);
-> > +
-> > +     /* Clear the MAC table */
-> > +     lan_wr(ANA_MACACCESS_MAC_TABLE_CMD_SET(CMD_INIT),
-> > +            lan9645x, ANA_MACACCESS);
-> > +
-> > +     if (lan9645x_rd_poll_timeout(lan9645x, ANA_MACACCESS, val,
-> > +                                  ANA_MACACCESS_MAC_TABLE_CMD_GET(val)=
- =3D=3D
-> > +                                  CMD_IDLE))
-> > +             dev_err(lan9645x->dev, "mac init timeout\n");
-> > +}
->=20
-> Should lan9645x_mac_init() propagate the CMD_INIT timeout instead of
-> logging and returning?
->=20
-> It is declared void and the only timeout handling is a dev_err().  The
-> caller in lan9645x_setup() invokes it without a return value and then
-> proceeds to configure flooding PGIDs, per-port CPU forwarding, and
-> register the dsa_switch_ops callbacks (.port_fdb_add, .port_fdb_del,
-> .port_fast_age, .port_fdb_dump) while the MAC table command engine may
-> still be busy.
->=20
-> For comparison, lan9645x_vlan_init() (called just above in setup) treats
-> the structurally identical clear-table timeout as fatal:
->=20
->         lan_wr(ANA_VLANACCESS_VLAN_TBL_CMD_SET(VLANACCESS_CMD_INIT),
->                lan9645x, ANA_VLANACCESS);
->=20
->         err =3D lan9645x_vlan_wait_for_completion(lan9645x);
->         if (err) {
->                 dev_err(lan9645x->dev, "Vlan clear table failed\n");
->                 return err;
->         }
->=20
-> Would returning an int from lan9645x_mac_init() and checking it in
-> lan9645x_setup() be more consistent?
->=20
-
-Yes I think that is a good idea, I will return an error here.
-
-> [ ... ]
->=20
-> > +int lan9645x_mact_dsa_dump(struct lan9645x *lan9645x, int port,
-> > +                        dsa_fdb_dump_cb_t *cb, void *data)
-> > +{
-> > +     u8 mac[ETH_ALEN] __aligned(2);
-> > +     u32 mach, macl, maca;
-> > +     int err =3D 0;
-> > +     u32 autoage;
-> > +     u64 addr;
-> > +     u16 vid;
-> > +     u8 type;
->=20
-> [ ... ]
->=20
-> > +             type =3D ANA_MACACCESS_ENTRYTYPE_GET(maca);
-> > +             mach =3D lan_rd(lan9645x, ANA_MACHDATA);
-> > +             macl =3D lan_rd(lan9645x, ANA_MACLDATA);
-> > +
-> > +             if (ANA_MACACCESS_DEST_IDX_GET(maca) =3D=3D port &&
-> > +                 type =3D=3D ENTRYTYPE_NORMAL) {
-> > +                     addr =3D (u64)ANA_MACHDATA_MACHDATA_GET(mach) << =
-32 |
-> > +                            macl;
-> > +                     u64_to_ether_addr(addr, mac);
-> > +                     vid =3D ANA_MACHDATA_VID_GET(mach);
-> > +                     if (vid > VLAN_MAX)
-> > +                             vid =3D 0;
-> > +
-> > +                     err =3D cb(mac, vid, false, data);
-> > +                     if (err)
-> > +                             break;
-> > +             }
+> > +     for (id = 0; id < SKY1_USB_S5_NUM; id++) {
+> > +             ret = cdnsp_sky1_set_mode_by_id(syscon, id, MODE_STRAP_OTG);
+> > +             if (ret)
+> > +                     return ret;
 > > +     }
->=20
-> Does this filter cause user-added FDB entries to be invisible to
-> 'bridge fdb show'?
->=20
-> lan9645x_fdb_add() unconditionally programs entries as ENTRYTYPE_LOCKED:
->=20
->         return lan9645x_mact_learn(lan9645x, dest, addr, vid, ENTRYTYPE_L=
-OCKED);
->=20
-> but the dump above only reports entries matching ENTRYTYPE_NORMAL, so any
-> entry installed via 'bridge fdb add dev swpN <mac> self [static]' is
-> present in hardware and not reported through port_fdb_dump.
->=20
-> For NTF_SELF entries the DSA core path
-> (net/dsa/user.c:dsa_user_port_fdb_do_dump) depends on port_fdb_dump to
-> surface entries that are not tracked in the bridge software FDB.
->=20
-> Separately, the callback hardcodes is_static=3Dfalse for every reported
-> entry:
->=20
->         err =3D cb(mac, vid, false, data);
->=20
-> If the ENTRYTYPE_LOCKED filter is relaxed, would is_static need to be
-> derived from the entry type, similar to ocelot_fdb_dump() in
-> drivers/net/ethernet/mscc/ocelot.c which uses
-> (entry.type =3D=3D ENTRYTYPE_LOCKED)?
-
-
-This is intentional, we only dump the dynamically learned entries which
-the network stack can not know about. The static entries are already
-reported, for instance
-
-bridge fdb add dev swpN <mac> self
-
-will show up on the conduit, and get programmed toward the CPU_PORT in
-hardware.
-
-Including these would duplicate entries in bridge fdb show. I will add
-a comment about this.
-
-
->=20
-> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drive=
-rs/net/dsa/microchip/lan9645x/lan9645x_main.c
-> > index c99189ce586e..b21e1bf25b0c 100644
-> > --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
-> > @@ -139,6 +140,7 @@ static int lan9645x_setup(struct dsa_switch *ds)
-> >       err =3D lan9645x_vlan_init(lan9645x);
-> >       if (err)
-> >               return err;
-> > +     lan9645x_mac_init(lan9645x);
->=20
-> Related to the lan9645x_mac_init() comment above, should this call
-> check a return value and abort setup on failure rather than continuing
-> to register switch ops with a potentially wedged MAC table engine?
->=20
-
-Yes I will add this.
-
-> [ ... ]
->=20
-> > +static int lan9645x_fdb_add(struct dsa_switch *ds, int port,
-> > +                         const unsigned char *addr, u16 vid,
-> > +                         struct dsa_db db)
-> > +{
-> > +     struct net_device *br =3D lan9645x_db2bridge(db);
-> > +     struct dsa_port *dp =3D dsa_to_port(ds, port);
-> > +     struct lan9645x *lan9645x =3D ds->priv;
-> > +     int dest;
 > > +
-> > +     if (IS_ERR(br))
-> > +             return PTR_ERR(br);
-> > +
-> > +     if (dsa_port_is_cpu(dp) && !br &&
-> > +         dsa_fdb_present_in_other_db(ds, port, addr, vid, db))
-> > +             return 0;
-> > +
-> > +     if (!vid)
-> > +             vid =3D lan9645x_vlan_unaware_pvid(!!br);
-> > +
-> > +     dest =3D dsa_port_is_cpu(dp) ? PGID_CPU : port;
-> > +
-> > +     return lan9645x_mact_learn(lan9645x, dest, addr, vid, ENTRYTYPE_L=
-OCKED);
+> > +     return 0;
 > > +}
->=20
-> See the question above about lan9645x_mact_dsa_dump() filtering on
-> ENTRYTYPE_NORMAL: entries created here with ENTRYTYPE_LOCKED do not
-> appear to be reported by port_fdb_dump.
+> 
+> Does this code unintentionally alter the state of other independent USB
+> controllers? It appears to iterate through all controllers on the SoC and
+> updates them to MODE_STRAP_OTG, which might affect concurrent controllers
+> that are explicitly configured as host-only (like U2_HOST0_ID).
 
-But they are reported by other means already, so we try to avoid the
-duplication.
+All controllers for CIX have OTG hardware, it depends on OTG register to set
+proper mode, so set all controllers DR mode as OTG by default.
 
+> 
+> [ ... ]
+> 
+> > +static int cdnsp_sky1_probe(struct platform_device *pdev)
+> > +{
+> > +     struct device *dev = &pdev->dev;
+> > +     struct cdnsp_sky1 *priv;
+> > +     struct cdns *cdns;
+> > +     struct cdns3_probe_data probe_data;
+> > +     struct resource *res;
+> > +     int ret;
+> > +
+> > +     priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> > +     if (!priv)
+> > +             return -ENOMEM;
+> > +
+> > +     priv->dev = dev;
+> > +     priv->num_clks = ARRAY_SIZE(cdnsp_sky1_cdns_core_clks);
+> > +     priv->clks = devm_kmemdup(dev, cdnsp_sky1_cdns_core_clks,
+> > +                                sizeof(cdnsp_sky1_cdns_core_clks), GFP_KERNEL);
+> > +     if (!priv->clks)
+> > +             return -ENOMEM;
+> > +
+> > +     ret = devm_clk_bulk_get(dev, priv->num_clks, priv->clks);
+> > +     if (ret)
+> > +             return dev_err_probe(dev, ret, "failed to get clocks\n");
+> > +
+> > +     ret = clk_bulk_prepare_enable(priv->num_clks, priv->clks);
+> > +     if (ret)
+> > +             return dev_err_probe(dev, ret, "failed to enable clocks\n");
+> > +
+> > +     priv->usb_syscon = syscon_regmap_lookup_by_phandle(dev->of_node,
+> > +                                                        "cix,syscon-usb");
+> > +     if (IS_ERR(priv->usb_syscon))
+> > +             return dev_err_probe(dev, PTR_ERR(priv->usb_syscon),
+> > +                                  "failed to get cix,syscon-usb regmap\n");
+> > +
+> > +     ret = cdnsp_sky1_set_all_controllers_otg(priv->usb_syscon);
+> > +     if (ret)
+> > +             return dev_err_probe(dev, ret,
+> > +                                  "failed to set USB controllers to OTG strap\n");
+> 
+> Can these error paths cause a resource leak? The clocks were previously enabled
+> via clk_bulk_prepare_enable(), but these direct returns bypass the err_clk
+> label where clk_bulk_disable_unprepare() is called.
+
+Will fix at v2.
+
+> 
+> > +
+> > +     res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "glue");
+> > +     if (!res)
+> > +             goto err_clk;
+> 
+> If this resource retrieval fails, does the probe function return success?
+> 
+
+No, the "glue" region is mandatory.
+
+> The ret variable was previously set to 0 by the successful call to
+> cdnsp_sky1_set_all_controllers_otg(), so jumping to err_clk without updating
+> ret to an error code like -ENODEV would result in returning 0.
+> 
+> Could this lead to a NULL pointer dereference during subsequent power
+> management operations? Since the device would be considered bound without
+> calling cdns3_core_probe(), dev_get_drvdata() might return NULL in
+> callbacks like cdnsp_sky1_runtime_suspend().
+
+NAK. Other values except for NULL is correct for platform_get_resource_byname.
+
+> 
+> [ ... ]
+> 
+> > +static const struct of_device_id cdnsp_sky1_of_match[] = {
+> > +     { .compatible = "cix,sky1-usb3" },
+> > +     { }
+> > +};
+> > +MODULE_DEVICE_TABLE(of, cdnsp_sky1_of_match);
+> > +
+> > +static struct platform_driver cdnsp_sky1_driver = {
+> > +     .probe          = cdnsp_sky1_probe,
+> > +     .remove         = cdnsp_sky1_remove,
+> > +     .driver         = {
+> > +             .name           = "cdnsp-sky1",
+> > +             .of_match_table = of_match_ptr(cdnsp_sky1_of_match),
+> 
+> If the kernel is built with CONFIG_OF disabled, of_match_ptr() evaluates to
+> NULL. Since the cdnsp_sky1_of_match array is declared statically and without
+> __maybe_unused annotations, will this result in an unused variable compiler
+> warning?
+
+Will fix it by adding CONFIG_OF for cdnsp_sky1_of_match.
+> 
+> > +             .pm             = &cdnsp_sky1_pm_ops,
+> 
+> Does unconditionally assigning the pm callback structure produce dead code when
+> CONFIG_PM is disabled? According to the power management subsystem guidelines,
+> this should likely be wrapped with the pm_ptr() macro so it evaluates to NULL
+> without PM support.
+
+Will use pm_ptr for it.
+
+-- 
+
+Best regards,
+Peter
