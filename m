@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB6E7383304;
-	Tue, 12 May 2026 02:35:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D6D36C9C2
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 02:41:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778553317; cv=none; b=shoryC6r7mGi6JK5aFShx6PDHuh1Mcj8pKb+3gV0vQKkLnnsmveguUnr3d6OHCukxHxlY1IgxVWiiw6JFx3OKDhCg1uBrFms3Gb6H03wTvbQ11Gvr00aPCvZBJBFcqIw6o65jXwNBjAtwg3G4mD66b8IhG1IMMGcjY320nvIgeQ=
+	t=1778553660; cv=none; b=PGOcY4qpfRM0D5znT6JvAvKh0c00bBGTk8qHZZb4G5TTC7w7bNm4UniiqOqgv97H/cZXKCjO2OsRDHz118ccLnNgBsczKj6qAlR0T0cSdpB2yh2puYpCUCCYMZdn+SAfEVpwPCUpSWBE0IPYpdFSgLfJiNozdm6AkDLjrNwPpRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778553317; c=relaxed/simple;
-	bh=uleChJpoqAW87f0x7HJETNu7siu9u3abfSkbzLTZPD0=;
+	s=arc-20240116; t=1778553660; c=relaxed/simple;
+	bh=QbevVUI01BotMwttwVy4/2jaGVcoyB+q0AGV7QjcxEE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VTEQJO5Cv3BbLIiAG/t25NwZWwoeqfifHp9CDmSOWSK25VO2uuMHSqVa9bhTEbcv53roVAlycLrJX0trvLb+fw/Aj053ErLBiEW6yMRp8FEBVGt8G0ujMCIkhyQE0tOhXEwNZuLeveHudqkwIQaRPLh67lhkl7oaG7laL127R8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pFtjLpr8; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=FWZAAtMlRBL2PrkzaeNPxBuT4HZmM7KfwhjIjR29UxIzkdI4OPamQHsJxS41KlVTUi5ZqmrBhJ3Y0U4eihQcD4/J33hGnQtiJ89auZTLZxLqvf2aD/beDwjycfGC+WQK51UnLCUvHVQMPdKzOWdvsYfFl8Z0Do4Rk+so3vrGLPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eHFHH9As; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pFtjLpr8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45C7DC2BCB0;
-	Tue, 12 May 2026 02:35:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eHFHH9As"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD730C2BCF5;
+	Tue, 12 May 2026 02:40:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778553317;
-	bh=uleChJpoqAW87f0x7HJETNu7siu9u3abfSkbzLTZPD0=;
+	s=k20201202; t=1778553660;
+	bh=QbevVUI01BotMwttwVy4/2jaGVcoyB+q0AGV7QjcxEE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=pFtjLpr8KfmRJMsU5tf/NePTpuFc0k9hFhxUsA9DGjXEpjfNT0KXoZv1BajN1b7am
-	 QzRLmRYBqyIzwjoIo9nCWlPJ/eaX59gO0mg8lMGzn2vAPwVhFb+/l0BSklUZdm1W5f
-	 wbXVtPy3d+s/9MJhUm1gRTAxU+wmDvqQXgGzgboXCDns+7PRT79fnAyeREBd6HHJhP
-	 Puzqxcij6DL7/y8wRdNT8LHq2fDWkA4joc12VPQFuc/0AKMqdt+y7Xb5uRIvb9/ahz
-	 PYmVJuU63CJUKrnzh+WH5b4t2l095TA/diItDPmux4ivL9PTKhw5hmdyHjyDMbBu++
-	 Eiswal/WpDDrA==
+	b=eHFHH9AsGlocKXdIZ1QeBQyihBnqgcxLQ+By/4sN6DR3w/FumPWrhAV0BxcZgYYMI
+	 Lj/mr1A0wD/VHLACvqcEZaSfl9F1sE+v8b6vKpsAyqMdY5duTVEB4KZEpIfWFLAEMO
+	 qTfgTjd2CAE8s0axjW3cLIAF7hDF3ozSsYySnV7cxQkvN/v0b8EWS2ERPVcxh7KbP4
+	 82dEEIPjPW/M75w7FORdC+X2jMQMFxUZyZH0fvvY0jOudz+/fSiqdtJXbWg/HCD8p5
+	 NF+9PZQp12sVCL1JrnaRW/jB+cNQCcEXmn8RJ58AmeiVwHsC+zHhzbyRvbTWgffxT9
+	 xAJ8LLP38aoVQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/5] media: hi846: fix modes handling for different
- lane cases
+Subject: Re: [PATCH v1 6/9 RESEND] ARM: tegra: transformers: Add connector
+ node for common trees
 Reply-To: sashiko@lists.linux.dev
-To: "Pengyu Luo" <mitltlatltl@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org, Frank.Li@kernel.org, robh@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260511090924.269106-4-mitltlatltl@gmail.com>
-References: <20260511090924.269106-4-mitltlatltl@gmail.com>
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260511074859.24930-7-clamor95@gmail.com>
+References: <20260511074859.24930-7-clamor95@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 12 May 2026 02:35:16 +0000
-Message-Id: <20260512023517.45C7DC2BCB0@smtp.kernel.org>
+Date: Tue, 12 May 2026 02:40:59 +0000
+Message-Id: <20260512024059.BD730C2BCF5@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,70 +46,77 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] The mode filtering logic for 4-lane setups relies on brittle array =
-pointer arithmetic and implicitly assumes a specific global array ordering.
-- [Low] A local variable shadows a global variable in `hi846_enum_frame_siz=
-e`.
+- [High] Migrating to the DRM bridge framework silently breaks HDMI CEC, au=
+dio, and AVI infoframes.
+- [High] Strict removal of legacy `nvidia,hpd-gpio` and `nvidia,ddc-i2c-bus=
+` breaks older kernels, while retaining them exposes a probe conflict.
 --
 
-commit 809f6817858f4d273d756eeec1b017198bbcfa3a
-Author: Pengyu Luo <mitltlatltl@gmail.com>
+commit fb3e359e4dd58d87afe7ba7cf548657a8457080f
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-media: hi846: fix modes handling for different lane cases
+ARM: tegra: transformers: Add connector node for common trees
 
-When using 4-lane, a 640x480 mode may be incorrectly set. This patch fixes
-the issue by specifying the supported modes and mode count dynamically based
-on the number of lanes.
+This commit adds a micro-HDMI connector node to the ASUS Transformers
+device trees to use the connector framework, now that Tegra HDMI has
+bridge/connector support. It replaces the legacy hpd and ddc properties
+with an endpoint connecting to the new hdmi-connector node.
 
-Closes: https://lore.kernel.org/linux-media/OmTXoHZJTSGePymL9I-1Cw@puri.sm/
-Fixes: e8c0882685f9 ("media: i2c: add driver for the SK Hynix Hi-846 8M pix=
-el camera")
-
-> diff --git a/drivers/media/i2c/hi846.c b/drivers/media/i2c/hi846.c
-> index befd54553df2e..9decfda747876 100644
-> --- a/drivers/media/i2c/hi846.c
-> +++ b/drivers/media/i2c/hi846.c
-
-[ ... ]
-
-> @@ -1821,8 +1825,11 @@ static int hi846_enum_frame_size(struct v4l2_subde=
-v *sd,
->  				 struct v4l2_subdev_frame_size_enum *fse)
->  {
->  	struct i2c_client *client =3D v4l2_get_subdevdata(sd);
-> +	struct hi846 *hi846 =3D to_hi846(sd);
-> +	const struct hi846_mode *supported_modes =3D hi846->supported_modes;
-
-This isn't a bug, but does declaring supported_modes here shadow the global
-static array supported_modes[] defined earlier in the file?
-
-[ ... ]
-
-> @@ -1999,6 +2006,13 @@ static int hi846_parse_dt(struct hi846 *hi846, str=
-uct device *dev)
+> diff --git a/arch/arm/boot/dts/nvidia/tegra20-asus-transformer-common.dts=
+i b/arch/arm/boot/dts/nvidia/tegra20-asus-transformer-common.dtsi
+> index b48f53c00efae..5b758aad8d150 100644
+> --- a/arch/arm/boot/dts/nvidia/tegra20-asus-transformer-common.dtsi
+> +++ b/arch/arm/boot/dts/nvidia/tegra20-asus-transformer-common.dtsi
+> @@ -79,9 +79,11 @@ hdmi@54280000 {
+>  			pll-supply =3D <&hdmi_pll_reg>;
+>  			hdmi-supply =3D <&vdd_hdmi_en>;
 > =20
->  	hi846->nr_lanes =3D bus_cfg.bus.mipi_csi2.num_data_lanes;
-> =20
-> +	hi846->supported_modes =3D supported_modes;
-> +	hi846->num_modes =3D NUM_MODES_2LANE;
-> +	if (hi846->nr_lanes =3D=3D 4) {
-> +		hi846->supported_modes =3D supported_modes + 1;
-> +		hi846->num_modes =3D NUM_MODES_4LANE;
-> +	}
+> -			nvidia,ddc-i2c-bus =3D <&hdmi_ddc>;
+> -			nvidia,hpd-gpio =3D <&gpio TEGRA_GPIO(N, 7)
+> -				GPIO_ACTIVE_HIGH>;
 
-Does this mode filtering logic rely on the exact ordering of the global
-supported_modes array?
+Does the removal of nvidia,hpd-gpio and nvidia,ddc-i2c-bus cause a regressi=
+on
+in device tree ABI backward compatibility for older kernels that lack
+hdmi-connector bridge support?
 
-By advancing the array pointer by 1 and using a hardcoded mode count for the
-4-lane setup, this implicitly assumes the only mode incompatible with 4-lane
-operation is located exactly at the first index.
+If these legacy properties are retained to preserve compatibility, will
+tegra_output_probe() unconditionally request the nvidia,hpd GPIO and confli=
+ct
+with the display-connector driver requesting the same GPIO via hpd-gpios?
 
-If another 2-lane-only mode is added or the modes are reordered in the futu=
-re,
-could this silently corrupt the subdevice's mode list by misaligning the ar=
-ray
-bounds?
+Since GPIOs are requested exclusively, this might result in an -EBUSY error
+that fails the DRM probe entirely.
+
+Does the DRM driver need to be patched to ignore legacy properties when a
+bridge is present before applying this DT migration?
+
+> +			port {
+> +				hdmi_out: endpoint {
+> +					remote-endpoint =3D <&hdmi_connector_in>;
+> +				};
+> +			};
+>  		};
+>  	};
+
+Does migrating to the DRM bridge framework here cause a regression with HDMI
+CEC, audio, and AVI infoframes?
+
+When hdmi->output.bridge is used, tegra_hdmi_init() dynamically allocates a
+connector, leaving the internal legacy hdmi->output.connector structure
+zero-initialized.
+
+Could this cause tegra_output_init() to skip CEC notifier registration beca=
+use
+connector_type evaluates to 0?
+
+Additionally, does this cause tegra_output_is_hdmi() to return false (since
+display_info.is_hdmi is 0), which would force DVI fallback mode in
+tegra_hdmi_encoder_enable() by setting hdmi->dvi =3D true?
+
+This fallback mode appears to bypass tegra_hdmi_setup_audio() and skip all
+AVI and audio infoframe configurations.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511090924.2691=
-06-1-mitltlatltl@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511074859.2493=
+0-1-clamor95@gmail.com?part=3D6
