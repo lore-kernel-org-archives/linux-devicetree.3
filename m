@@ -1,251 +1,325 @@
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6DE237E2FD
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 15:22:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778599346; cv=pass; b=dL98GpQ2T8c5OoGin/sxPRDbT5UGzN/3YUOhxG8GIwuRYy3BlNkxcoHGiHX09ZP5ZJntYs3/yzjtYZV+fJU7EMy/lWrl9zi7yHK/sQCZk/O7C1MBT03wZC5kVc4a5OovNRsSNsgBfJNSg8CGfe3hEqD0d0NKaJ74ZcU0sgB41XQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778599346; c=relaxed/simple;
-	bh=GMqAJJvoKZAxTYL3ppmWAG2jFmXFtUvCYSYB89m0cuQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=l1iTt7vB0yFs2Y3XDS7ak/l2sjiVKYMU2gaUMlurqX/BlUKdoF/XJ3od/ThWQOUHOjTrI+iVLklQfZhjtfy6AiYbRVAXxqFtquO/pp05TD0HVoLCofzTITb4esBoOShgaqr2PCJ6hlF4lHaax6unrorA55gPmY7gUX3wm89pgHQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WwUVAJn6; arc=pass smtp.client-ip=209.85.208.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 769691E492D;
+	Tue, 12 May 2026 15:26:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778599572; cv=none; b=UENPXPv5mzTQTrIKoFyQ+KqLvsrgi6Dm4W2TXPQHkZfyGA6bwZPrDB9FJQPEIMto4LEV6ORBwr41bsOpNh8jTQMbOf/0jjqTIlAAuRSh1EBcFVk2sRgVuqSS7LLHbVlNSaS8c4OpPGx0ju0PCuMHH+4BQR9x7bkGoiI4MdkWnY8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778599572; c=relaxed/simple;
+	bh=bQJFkEtLqjdexrXMn601sYKTcRHWpk5xDsyl0OdHy/U=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SrHC1BEHFYA6bf1k/qX5Jj1fh5aDB4wmf8st+GUim0JY22+xS1ajmpO+UxIzY4vJKnjblREz2WQSQ3JrRAPD9YtKAqsBsDm9NEvYZi7i7RSJbfsLISUGmap5FemRxL/swsmqEPLfusXq0ydZ/6khQMdJVSjRIkcSrsqxJLpskOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EbeijzDr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WwUVAJn6"
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-38e7d983f91so53981321fa.2
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 08:22:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778599343; cv=none;
-        d=google.com; s=arc-20240605;
-        b=a+xqV3iB9FBAgjIX8PfiFPFeW81kf805Eqr/rjEo+zMZSzHdNsasKnavcNwWm4zbaj
-         iJQ4yu8MHU6bTG6UjgFoD1tOTKisq7u8Tlv72p+WadugTMXI9QOiQx14oi2mGSP8nSgJ
-         ZJtVKEhVW9YLG3D02r9UTDgK4574UHBNo21skzwEhXDqP7WCENXll/45gJWWHEhIl4za
-         dlLngI+ZyTn9RU6nJSF9w3xrjxQf2mUSKR0uI4vcMHGSYbsteohbTQEwM64/QZ/RR0VI
-         2DLV433rv7BdkChGebG6NLB/BL8SeV/+qiO8xWe0d/wVhUaRNYi1L8ztZYuRMSl0cju+
-         WeqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tsL/9p+qUWLijfBeysWK9OThhTiEfsjo8MZi7vGSKvg=;
-        fh=YQdL3cDVxKBnUBtUjYe8UXZiX6qYOd4iepFNUvMGp9I=;
-        b=hjkEOijl67tkRN5CJ/1YJpVlNIcxYjLhUtDJAQValPILNf2ZJYZq86FLg6Gsu6N+ww
-         bxxQp1p+pZqmnix+LMX9g8qOpDq/C8lW5nSDc/av1IDlvxS+BzqVTXZ18UixezRpuSia
-         sHjcZzesqeJNuJzZDaeFBE8PYxSJPJC8eclAg93H1WHlGKLs1uWIbg5jDsHtGSpTjvDE
-         5rg0lq+lkx36A1MOvofJXcMfPjvHAjwq6ngHTq8KhYNU+kC45pigxr9v+64NVHHHFXFI
-         GudeNwv4OSpv1DnqIZa9dmjFVUug5RO/eEPm5Hq2nFxCCgnemsjg0ed3Wq3+jF2Yshoo
-         W7zA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778599343; x=1779204143; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tsL/9p+qUWLijfBeysWK9OThhTiEfsjo8MZi7vGSKvg=;
-        b=WwUVAJn6TU0n1lhjNkg83Am9aNZjarCevbakj6oeB+Tvu+0J8GiUdLRXdietxAtfKx
-         3H0tZWr8Cz99iH0jZQQEXB7v+238cE0JFtUoNGTsVKwgkjm8CHmQ5a85uhpG4boU1uCZ
-         e4kt9wJQt8coalk9svMaCv1RvBwF/u0ngiooU0aTm4CYFdChG7rn9irw55njL90FtPBM
-         L6R44fcVtWsEn8t6oOSV6qKUzNy2DrpdSTjQYUDYekV48KuTasWB5/Onr0pNoPGBpuxg
-         ulk5WO4E6JWsGI5JCb2lDRhzFIRn5VdvYWMfQIVD1gH+9mM55eSQNqjYG1mVHfiFilUr
-         HqZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778599343; x=1779204143;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=tsL/9p+qUWLijfBeysWK9OThhTiEfsjo8MZi7vGSKvg=;
-        b=ZzGRdU9m10dhmwjBFadNq2ALeocA4zD3zjWvfonnQD+ScKCX6HLZa6qhgPDGFWyr7r
-         W4JntQwuItPZF+x8sKTP9INS9qJBNYyF3uOShFYuX7Y5bxq68ZLr3zinTPInVQuqu440
-         r5tFHfkMlwfTeITvZvx6fn32Kp+DlX7tmOMbuTZwSlBJUeH1QP4lU44nplSolswbOa0l
-         XNsX8Sc0AETxYeIrK1GA4W7kmUKn1Fn+yKCSHm6BVlxhJkwFYEHpuou6+rrcD4Nay1fa
-         Blirbm+Ym3QWdHcEGFet0kQLjED4XA/cVBsAgYIGWzLuRkJ6E0lCj0moE2eng3zBh9Yh
-         NrPw==
-X-Forwarded-Encrypted: i=1; AFNElJ/n6Q4WIa7AuOW3IBgdCfqlCTuNRJaRc1qMQERf1ry/XEN3OscAy2/sC20C3K9UAHHixNQzwwehhNoF@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz02TT3NReN0ifk/aZH1UuQszm+/cyJKRVhIZcISDQ1zMUYhpCs
-	yagj51Z9XUQzxvG8u6+3/85xC82Qzi3nKSKI3nRtOhdyzQbiiApXI6MmbRyJahr/xRSIz2Gdrkm
-	vataV30OmJI1B7DvfTwAxzyA4oX/EevI=
-X-Gm-Gg: Acq92OFbKZq60cpW9+usD5bar/FWnmp5SFqfnIJU4aB2brSECB/Bf1rWD+lF+roEyLV
-	uogEo2HIKBZOvu9HavRSut8eAWNJJHcFlpbm6ug0IE47AfgQqHxv0xGIxlzfkgjmtaJ15RYwCXB
-	omZMkA+Q6aFCBmv1vL8ZdTNxGV+m/e2ssYBQe4fK39B4qIAZIVqlXdGWOHxaUZCnppV0Q3RPJ2+
-	t3A/VAghChdiLfnzf8j7jBH81nsR4q+Jt7jNh97vf5NBNlrSvRJey3frhANd8r7kKkarolv6sZ9
-	FiBjshZGMHh64XEsWxBwNzyFc3pQ1a581vjk6nhw4i1AB5WcpbASywLcAxMWRb38JGeL12gxLuP
-	sJAwf3Rrlb4DicOI0rg==
-X-Received: by 2002:a05:6512:3b97:b0:5a8:837b:3d62 with SMTP id
- 2adb3069b0e04-5a887ae201amr8896955e87.9.1778599342529; Tue, 12 May 2026
- 08:22:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EbeijzDr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73177C2BCB0;
+	Tue, 12 May 2026 15:26:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778599572;
+	bh=bQJFkEtLqjdexrXMn601sYKTcRHWpk5xDsyl0OdHy/U=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=EbeijzDrzyXgBJmo5oj83m1ZIz7sf5LwfXKQTSA8HlaiRS02Mwhn9ZGkvi45bJ2D0
+	 upXM/EL0izFe9NZ/dKQuGdm4n+taoqrTMSFTQfQ+2TyfWbk1mWvQ0wyZO+d8op0alm
+	 MLpooCHG0wE4sHBq+bE/qApJcBBBC4WiINs1UjdzOuoqUzeh8Kx3c92VtlZgLTHu0H
+	 Lb4dkbTmz2bLwLM90EFt8eaZw/vRdOIQ2wgf72xLD4930C1ROGtdwV2Z9YD213PjX7
+	 RJ1XR0yZOU1wdO+f/W8Q0Jn58Tyvr08ynIvuVb1vTWCFlcbvaszCY4L048IIa0REYL
+	 wifuZULPEm4gQ==
+Date: Tue, 12 May 2026 16:25:58 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
+Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Uwe
+ =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Linus Walleij
+ <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pwm@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-doc@vger.kernel.org
+Subject: Re: [PATCH v10 2/6] iio: adc: ad4691: add initial driver for AD4691
+ family
+Message-ID: <20260512162558.5bbbd464@jic23-huawei>
+In-Reply-To: <20260511-ad4692-multichannel-sar-adc-driver-v10-2-e1fbb1744e38@analog.com>
+References: <20260511-ad4692-multichannel-sar-adc-driver-v10-0-e1fbb1744e38@analog.com>
+	<20260511-ad4692-multichannel-sar-adc-driver-v10-2-e1fbb1744e38@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260510-adf41513-iio-driver-v12-0-34af2ed2779f@analog.com>
- <20260510-adf41513-iio-driver-v12-2-34af2ed2779f@analog.com>
- <20260512123953.40d80bc9@jic23-huawei> <agMnWzMjW1LwCSyT@ashevche-desk.local>
- <sj6cpjhakyfvv6rgox6cnhl2u2tgaecugcok6fw2l7zgku5wtc@aqx3ul72vgca>
- <agMvlS3-0wvGmBwh@ashevche-desk.local> <dxjg2sdyxb7ieb4abmeyyye7qok6cczrxabpsjyjhcbehwoec3@sbbqoo4wmzre>
- <agM8pWrM6j_XksvN@ashevche-desk.local> <ur6brs3yjzyb4mtelabmcglxjltddqvjxtgl3lkdkmbjlkmnsq@bwd6rz7gided>
-In-Reply-To: <ur6brs3yjzyb4mtelabmcglxjltddqvjxtgl3lkdkmbjlkmnsq@bwd6rz7gided>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 12 May 2026 18:21:44 +0300
-X-Gm-Features: AVHnY4IJuef2B-0A9_3FnyNbZ_uaS-SA2cTNaTffveNp5l_4SxlZqwsSXVNYeR4
-Message-ID: <CAHp75VeoH3yVfp8NWjKfc_df0VRLkyf_SK4e==-wJOEodVjW_A@mail.gmail.com>
-Subject: Re: [PATCH v12 02/11] lib: kstrtox: add kstrtoudec64() and kstrtodec64()
-To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Jonathan Cameron <jic23@kernel.org>, 
-	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>, rodrigo.alencar@analog.com, 
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
-	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Andrew Morton <akpm@linux-foundation.org>, 
-	Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Shuah Khan <skhan@linuxfoundation.org>, David Laight <david.laight.linux@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, May 12, 2026 at 6:11=E2=80=AFPM Rodrigo Alencar
-<455.rodrigo.alencar@gmail.com> wrote:
-> On 26/05/12 05:43PM, Andy Shevchenko wrote:
-> > On Tue, May 12, 2026 at 03:12:24PM +0100, Rodrigo Alencar wrote:
-> > > On 26/05/12 04:48PM, Andy Shevchenko wrote:
-> > > > On Tue, May 12, 2026 at 02:21:14PM +0100, Rodrigo Alencar wrote:
-> > > > > On 26/05/12 04:12PM, Andy Shevchenko wrote:
-> > > > > > On Tue, May 12, 2026 at 12:39:53PM +0100, Jonathan Cameron wrot=
-e:
-> > > > > > > On Sun, 10 May 2026 13:42:20 +0100
-> > > > > > > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.=
-com@kernel.org> wrote:
-> > > > > > >
-> > > > > > > > Add helpers that parses decimal numbers into 64-bit number,=
- i.e., decimal
-> > > > > > > > point numbers with pre-defined scale are parsed into a 64-b=
-it value (fixed
-> > > > > > > > precision). After the decimal point, digits beyond the spec=
-ified scale
-> > > > > > > > are ignored.
-> > > > > > >
-> > > > > > > Whilst Rodrigo has already replied to say there will be anoth=
-er version
-> > > > > > > I'd like to request final feedback from those who were involv=
-ed in the parser
-> > > > > > > discussions.
-> > > > > > >
-> > > > > > > They got very involved and I'm far from an expert in the righ=
-t way to do
-> > > > > > > this stuff.
-> > > > > > >
-> > > > > > > I don't think David Laight was +CC so I've added that.
-> > > > > > > David, Andy - I think you two were most involved in that disc=
-ussion:
-> > > > > > > Any objections to the end result?
-> > > > > >
-> > > > > > I already said a few times about the naming. I do not like the =
-kstrto*()
-> > > > > > be semantically different on how they treat the input. Second p=
-oint is
-> > > > > > to avoid code duplication, but this one is less of a concern si=
-nce the
-> > > > > > new code is in the library close to the other potentially dupli=
-cate code
-> > > > > > piece and hence can be addressed later.
-> > > > >
-> > > > > I suppose I reached into kstrtodec64() and kstrtoudec64() because=
- it aligns
-> > > > > with your expectations for kstrto*() semantics, no? Those include=
-:
-> > > > >  - overflow check;
-> > > > >  - extensive input validation;
-> > > > >  - optional '\n' in the end;
-> > > > >  - mandatory nul-termination.
-> > > > >
-> > > > > am I missing anything?
-> > > >
-> > > > When we add scale we basically make that not true. Moreover the cod=
-e in this
-> > > > patch makes scale =3D=3D number_of_characters which I think a bit f=
-ragile, however
-> > > > it's about the fractional part when the amount of digits is equal t=
-o scale.
-> > >
-> > > That is not really the case. It is being set as a limit, so it does c=
-heck for
-> > > truncation and zero-padding.
-> >
-> > I do not see it happens in _parse_integer_limit(). It doesn't try to pa=
-rse more
-> > characters than it's requested in max_chars. It doesn't check if there =
-are more
-> > character nor their converted values.
-> >
-> > > > To make this work as expected we need to add an additional call lik=
-e
-> > > > kstrtoull() (and perhaps drop that \n and NUL-terminator checks) an=
-d see
-> > > > if that overflows or not. Since it's a fractional part it must have=
- less
-> > > > than 20 (decimal) digits there, so we check the rv (or how many dig=
-its
-> > > > were parsed successfully) and compare to 20. If it's more, we got t=
-oo many
-> > > > decimal digits.
-> > >
-> > > For overflow it checks the KSTRTOX_OVERFLOW flag and leverages check_=
-mul_overflow()
-> > > and check_add_overflow() when combining fractional and integer parts.=
- The amount
-> > > of characters is not really important there. The scale cannot be bigg=
-er than 19 and
-> > > that makes sure that int_pow() does not overflow. The code uses _pars=
-e_integer_limit()
-> > > due to the nature of input and to avoid 64-bit division, kstrtoull() =
-at any point
-> > > (parsing integer or fractional parts) does not make much sense.
-> >
-> > Under 'like kstrotoull()' I meant something that repeats needed functio=
-nality.
-> > I believe it's parse_integer() (without limit).
+On Mon, 11 May 2026 14:54:14 +0300
+Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
+
+> From: Radu Sabau <radu.sabau@analog.com>
+> 
+> Add support for the Analog Devices AD4691 family of high-speed,
+> low-power multichannel SAR ADCs: AD4691 (16-ch, 500 kSPS),
+> AD4692 (16-ch, 1 MSPS), AD4693 (8-ch, 500 kSPS) and
+> AD4694 (8-ch, 1 MSPS).
+> 
+> The driver implements a custom regmap layer over raw SPI to handle the
+> device's mixed 1/2/3/4-byte register widths and uses the standard IIO
+> read_raw/write_raw interface for single-channel reads.
+> 
+> The chip idles in Autonomous Mode so that single-shot read_raw can use
+> the internal oscillator without disturbing the hardware configuration.
+> 
+> Three voltage supply domains are managed: avdd (required), vio, and a
+> reference supply on either the REF pin (ref-supply, external buffer)
+> or the REFIN pin (refin-supply, uses the on-chip reference buffer;
+> REFBUF_EN is set accordingly). Hardware reset is performed via
+> the reset controller framework; a software reset through SPI_CONFIG_A
+> is used as fallback when no hardware reset is available.
+> 
+> Accumulator channel masking for single-shot reads uses ACC_MASK_REG via
+> an ADDR_DESCENDING SPI write, which covers both mask bytes in a single
+> 16-bit transfer.
+> 
+> IIO_CHAN_INFO_SAMP_FREQ is exposed as info_mask_shared_by_all because
+> the AD4691 family has a single internal oscillator whose frequency
+> register is shared across all channels. Writing sampling_frequency for
+> any one channel necessarily changes the conversion rate for every other
+> channel, so the shared annotation correctly reflects the hardware
+> behaviour.
+
+Sashiko correctly points out that this last paragraph doesn't correspond to
+the driver. Needs an update.
+https://sashiko.dev/#/patchset/20260511-ad4692-multichannel-sar-adc-driver-v10-0-e1fbb1744e38%40analog.com
+
+Otherwise just a few more sashiko things inline and my
+comments on whether they are true - I think they are in this case...
+
+> 
+> Reviewed-by: David Lechner <dlechner@baylibre.com>
+> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+
+> diff --git a/drivers/iio/adc/ad4691.c b/drivers/iio/adc/ad4691.c
+> new file mode 100644
+> index 000000000000..5b72216bca80
+> --- /dev/null
+> +++ b/drivers/iio/adc/ad4691.c
+
+> +
+> +static int ad4691_reg_read(void *context, unsigned int reg, unsigned int *val)
+> +{
+> +	struct spi_device *spi = context;
+> +	u8 tx[2], rx[4];
+> +	int ret;
+> +
+> +	/* Set bit 15 to mark the operation as READ. */
+> +	put_unaligned_be16(0x8000 | reg, tx);
+> +
+> +	switch (reg) {
+> +	case 0 ... AD4691_OSC_FREQ_REG:
+> +	case AD4691_SPARE_CONTROL ... AD4691_ACC_MASK_REG - 1:
+> +	case AD4691_ACC_MASK_REG + 1 ... AD4691_ACC_SAT_OVR_REG(15):
+> +		ret = spi_write_then_read(spi, tx, sizeof(tx), rx, 1);
+> +		if (ret)
+> +			return ret;
+> +		*val = rx[0];
+> +		return 0;
+> +	case AD4691_ACC_MASK_REG:
+> +	case AD4691_STD_SEQ_CONFIG:
+> +	case AD4691_AVG_IN(0) ... AD4691_AVG_IN(15):
+> +		ret = spi_write_then_read(spi, tx, sizeof(tx), rx, 2);
+
+Just to check - (another sashiko one) is it a problem if via debugfs we
+read addresses that aren't the base ones of these bigger reads?
+
+> +		if (ret)
+> +			return ret;
+> +		*val = get_unaligned_be16(rx);
+> +		return 0;
+> +	case AD4691_AVG_STS_IN(0) ... AD4691_AVG_STS_IN(15):
+> +	case AD4691_ACC_IN(0) ... AD4691_ACC_IN(15):
+> +		ret = spi_write_then_read(spi, tx, sizeof(tx), rx, 3);
+> +		if (ret)
+> +			return ret;
+> +		*val = get_unaligned_be24(rx);
+> +		return 0;
+> +	case AD4691_ACC_STS_DATA(0) ... AD4691_ACC_STS_DATA(15):
+> +		ret = spi_write_then_read(spi, tx, sizeof(tx), rx, 4);
+> +		if (ret)
+> +			return ret;
+> +		*val = get_unaligned_be32(rx);
+> +		return 0;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+> +}
+> +
+> +static bool ad4691_volatile_reg(struct device *dev, unsigned int reg)
+> +{
+> +	switch (reg) {
+> +	case AD4691_STATUS_REG:
+> +	case AD4691_CLAMP_STATUS1_REG:
+> +	case AD4691_CLAMP_STATUS2_REG:
+> +	case AD4691_GPIO_READ:
+> +	case AD4691_ACC_STATUS_FULL1_REG ... AD4691_ACC_STATUS_SAT2_REG:
+> +	case AD4691_ACC_SAT_OVR_REG(0) ... AD4691_ACC_SAT_OVR_REG(15):
+> +	case AD4691_AVG_IN(0) ... AD4691_AVG_IN(15):
+> +	case AD4691_AVG_STS_IN(0) ... AD4691_AVG_STS_IN(15):
+> +	case AD4691_ACC_IN(0) ... AD4691_ACC_IN(15):
+> +	case AD4691_ACC_STS_DATA(0) ... AD4691_ACC_STS_DATA(15):
+> +		return true;
+> +	default:
+> +		return false;
+> +	}
+> +}
+> +
+> +static bool ad4691_readable_reg(struct device *dev, unsigned int reg)
+
+I think this will all end up easier to follow if you add some checks in
+this and the next one to exclude the latter parts of multi address registers.
+Neater to do it here than in the read and write calls themselves.
+
+> +{
+> +	switch (reg) {
+> +	case 0 ... AD4691_OSC_FREQ_REG:
+> +	case AD4691_SPARE_CONTROL ... AD4691_ACC_SAT_OVR_REG(15):
+> +	case AD4691_STD_SEQ_CONFIG:
+> +	case AD4691_AVG_IN(0) ... AD4691_AVG_IN(15):
+> +	case AD4691_AVG_STS_IN(0) ... AD4691_AVG_STS_IN(15):
+> +	case AD4691_ACC_IN(0) ... AD4691_ACC_IN(15):
+> +	case AD4691_ACC_STS_DATA(0) ... AD4691_ACC_STS_DATA(15):
+> +		return true;
+> +	default:
+> +		return false;
+> +	}
+> +}
+> +
+> +static bool ad4691_writeable_reg(struct device *dev, unsigned int reg)
+> +{
+> +	switch (reg) {
+> +	case 0 ... AD4691_OSC_FREQ_REG:
+> +	case AD4691_STD_SEQ_CONFIG:
+> +	case AD4691_SPARE_CONTROL ... AD4691_GPIO_MODE2_REG:
+> +		return true;
+> +	default:
+> +		return false;
+> +	}
+> +}
 >
-> I think we are going in circles here and we could look at the code instea=
-d:
-> - integer parsing with _parse_integer()
->         - overflow check and validation of the return value
-> - fractional parsing with _parse_integer_limit()
->         - overflow check and validation of the return value
+> +
+> +static int ad4691_get_sampling_freq(struct ad4691_state *st, int *val)
+> +{
+> +	unsigned int reg_val;
+> +	int ret;
+> +
+I think sashiko's comment on locking here is a false positive because you'll
+always get the value from regcache. Maybe worth a comment on that though.
 
-No, this is not fully true. That's what my whole point is about. The
-max_chars parameter limits the input check, then it skips an arbitrary
-number of digits and only *then* it checks for \n and \0. What will be
-the result of the
-0.00000000000000000000000000000000423 in your case? Whatever scale you
-gave it will return 0 without checking on how many digits were
-supplied. All the same for 0.9999999999999999999999999999999000423. My
-point is that we should limit this by 19 digits.
-
-On top of that, what about -0.9(19 times) ? the fraction should be u64
-in this case and it's fine. The sign applies to the combined value.
-
->         - extra scaling and truncation happening outside if needed.
-
-Right, but the given input may be way too long and still needs more validat=
-ion.
-
-> - check for input termination
-> - combination of integer and fractional parts with check_mul_overflow() a=
-nd check_add_overflow()
->
-> > > > Maybe I'm missing these checks already performed?
-> > > >
-> > > > > > Having the test cases is a big benefit, and that part I like th=
-e most.
+Sashiko suggests the direct read goes away later anyway.
 
 
+> +	ret = regmap_read(st->regmap, AD4691_OSC_FREQ_REG, &reg_val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	*val = ad4691_osc_freqs_Hz[FIELD_GET(AD4691_OSC_FREQ_MASK, reg_val)];
+> +	return IIO_VAL_INT;
+> +}
 
---=20
-With Best Regards,
-Andy Shevchenko
+
+> +static int ad4691_reg_access(struct iio_dev *indio_dev, unsigned int reg,
+> +			     unsigned int writeval, unsigned int *readval)
+> +{
+> +	struct ad4691_state *st = iio_priv(indio_dev);
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	if (readval)
+> +		return regmap_read(st->regmap, reg, readval);
+> +
+> +	return regmap_write(st->regmap, reg, writeval);
+
+This is where we perhaps have too much freedom given the effective gaps
+in register addresses due for the larger 'registers'.
+
+Using those wrong addresses might not be a problem belong filling the
+regcache with garbage. If we can just screen them out in the readable
+writeable checks that would be better.
+
+> +}
+
+...
+
+
+> +static int ad4691_config(struct ad4691_state *st)
+> +{
+> +	struct device *dev = regmap_get_device(st->regmap);
+> +	enum ad4691_ref_ctrl ref_val;
+> +	unsigned int val;
+> +	int ret;
+> +
+> +	switch (st->vref_uV) {
+> +	case AD4691_VREF_uV_MIN ... AD4691_VREF_2P5_uV_MAX:
+> +		ref_val = AD4691_VREF_2P5;
+> +		break;
+> +	case AD4691_VREF_2P5_uV_MAX + 1 ... AD4691_VREF_3P0_uV_MAX:
+> +		ref_val = AD4691_VREF_3P0;
+> +		break;
+> +	case AD4691_VREF_3P0_uV_MAX + 1 ... AD4691_VREF_3P3_uV_MAX:
+> +		ref_val = AD4691_VREF_3P3;
+> +		break;
+> +	case AD4691_VREF_3P3_uV_MAX + 1 ... AD4691_VREF_4P096_uV_MAX:
+> +		ref_val = AD4691_VREF_4P096;
+> +		break;
+> +	case AD4691_VREF_4P096_uV_MAX + 1 ... AD4691_VREF_uV_MAX:
+> +		ref_val = AD4691_VREF_5P0;
+> +		break;
+> +	default:
+> +		return dev_err_probe(dev, -EINVAL,
+> +				     "Unsupported vref voltage: %d uV\n",
+> +				     st->vref_uV);
+> +	}
+> +
+> +	val = FIELD_PREP(AD4691_REF_CTRL_MASK, ref_val);
+> +	if (st->refbuf_en)
+> +		val |= AD4691_REFBUF_EN;
+> +
+> +	ret = regmap_write(st->regmap, AD4691_REF_CTRL, val);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to write REF_CTRL\n");
+> +
+> +	ret = regmap_assign_bits(st->regmap, AD4691_DEVICE_SETUP,
+> +				 AD4691_LDO_EN, st->ldo_en);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to write DEVICE_SETUP\n");
+> +
+> +	/*
+> +	 * Set the internal oscillator to the highest rate this chip supports.
+> +	 * Index 0 (1 MHz) exceeds the 500 kHz max of AD4691/AD4693, so those
+> +	 * chips start at index 1 (500 kHz).
+> +	 */
+> +	ret = regmap_write(st->regmap, AD4691_OSC_FREQ_REG,
+
+As per the comment above - I think this is why we don't have a bug reading
+back the frequency during an ADC sampling sequence.  This ensures we have
+the value cached.
+
+> +			   ad4691_samp_freq_start(st->info));
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to write OSC_FREQ\n");
+> +
+> +	ret = regmap_update_bits(st->regmap, AD4691_ADC_SETUP,
+> +				 AD4691_ADC_MODE_MASK, AD4691_AUTONOMOUS_MODE);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to write ADC_SETUP\n");
+> +
+> +	return 0;
+> +}
+
