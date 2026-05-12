@@ -1,229 +1,117 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB7C3911D3;
-	Tue, 12 May 2026 13:12:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA7053A5994;
+	Tue, 12 May 2026 13:13:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778591576; cv=none; b=ubymoPwaDS97Eli6SSBYpxs/GbiZZqHhi9zgn2W54Wtstzj1Ii15hT7fnHp+IDBBUI41Vz8TlWmhfLdUXD6dgHcjj+4aij8kXT7U4bYoOKifkA/4OJ5M0KM4fFIg9ypvucyLKhGdzLrDF6+V5eM+Ithfy6z0ybvJGRcjujEQ5VA=
+	t=1778591588; cv=none; b=de4VC14D9zBwHbX0reYysUBkRX/D9/t+mxJR8RrKtK4X+UQWja0wq0N0xcE0v9KNdwROtLu8rSmYV8McpKd3ALeUxkBtCzeQXuZCsxW0asEwGp1qb2pGvyScQqgpBZNDHzSIpC0n50o90wTYc9CkYNFjZ2CCFPWl7PgCXRlvOb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778591576; c=relaxed/simple;
-	bh=HI7+vzPcHxrsAJnb/gi3Arss/9LlTqDbl/vbhHvi8Pk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=E9t4/c4/a6qAFvrmrDTIf+XvXCbL/gOwRrwWlBUkxf3OstGi35NM6zvNQ6hXQfq+V4uGBxI4mdYCgoPfwwiqLEC/9ylNSlG+E87EBIl+pnVvIj+l9EiIPjWLlfD1NGmzLYwljCdQzUF6ZVxNLBaltWuHi1HVYIoCsCkkkj45jFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.82])
-	by APP-01 (Coremail) with SMTP id qwCowAAny2Y9JwNq934DEA--.20289S2;
-	Tue, 12 May 2026 21:12:29 +0800 (CST)
-Message-ID: <76a9e9b676509e85484a1eb31c723b46c7e21a19.camel@iscas.ac.cn>
-Subject: Re: [PATCH 2/2] drm/verisilicon: add support for Nuvoton MA35D1
- DCUltra Lite display controller
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Tue, 12 May 2026 21:12:28 +0800
-In-Reply-To: <1d04dd6d-f245-4b83-96b0-c5491fad8093@gmail.com>
-References: <20260511075142.54752-1-a0987203069@gmail.com>
-	 <20260511075142.54752-3-a0987203069@gmail.com>
-	 <93e69179dbc495188cfffd8015350b3a55ce7876.camel@iscas.ac.cn>
-	 <de35406e-874d-4bdd-be7f-3d74dc37b13f@gmail.com>
-	 <3b94806073de8bd1d79aa7ec956493f67679e46b.camel@iscas.ac.cn>
-	 <dfbc4042-64cf-49f2-a5de-12260beffaa0@gmail.com>
-	 <4bf6efbb222ebc4d770ad613d17c6185e7cb2fda.camel@iscas.ac.cn>
-	 <1d04dd6d-f245-4b83-96b0-c5491fad8093@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	s=arc-20240116; t=1778591588; c=relaxed/simple;
+	bh=wJT4v6gWN2FDSAFVtjbMcwPyBY13R3xdWR2y1oTEGXA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AQtS+pHlK45fapE+Q966OxfWQ4yLl4PnZTH4RSP6uzRm4Ftjp3xj14Ak7oKnfdkvz8UVzoaocyMWIfRml1fVMB2loiWAmmx3gqcsy2GkutEvDlsXKKAa1jakDROBM2OVuvq8WsPY30xDb1MBOY2pfEkWzEZvFHlXdAB5trjNx8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=S/DCWe4D; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="S/DCWe4D"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1778591586; x=1810127586;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=wJT4v6gWN2FDSAFVtjbMcwPyBY13R3xdWR2y1oTEGXA=;
+  b=S/DCWe4DJxnbyYmrWiNSMixJmuz+MvPZIWKLKzDPx0ft/HQHvGpj5Xsl
+   6fZZAp474qqiGfo3VRMWBdbUY7ZDoimRRTFnnTJNjiJNwAz59tzqE2mmJ
+   /IEGHQ5X79+JinCYnXBh+ogtG8t78Y/Gno7iMew7J/X7/kqRo2TmDXCnb
+   07Uey1EMFRSYekSMhOn5tsZ4wqWpjvmKbVIkHstfJrh5OLuveqvbQmO0+
+   FuuZNXfUyFKBRJi7Jo7BTeSzbE3JFedH3/eJInGRw9m9DE8J8RgCittWI
+   YXQkdgLLX8m5zog/eEo/sYfPY+xmN1noVB1hdoSTdbVsiKDIgxDd6t7st
+   g==;
+X-CSE-ConnectionGUID: CvypfPS5Q/y4z+54KySMkw==
+X-CSE-MsgGUID: ZPNwYf1kSXKRwhXiXd4wHw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="79215682"
+X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; 
+   d="scan'208";a="79215682"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 06:13:06 -0700
+X-CSE-ConnectionGUID: oLZvXZ8xRpemZGu9n9+HJA==
+X-CSE-MsgGUID: P8ynEVxDR/KGECxazKp+mQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; 
+   d="scan'208";a="234702732"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.112])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 06:13:01 -0700
+Date: Tue, 12 May 2026 16:12:59 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>,
+	rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-doc@vger.kernel.org, David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Petr Mladek <pmladek@suse.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	David Laight <david.laight.linux@gmail.com>
+Subject: Re: [PATCH v12 02/11] lib: kstrtox: add kstrtoudec64() and
+ kstrtodec64()
+Message-ID: <agMnWzMjW1LwCSyT@ashevche-desk.local>
+References: <20260510-adf41513-iio-driver-v12-0-34af2ed2779f@analog.com>
+ <20260510-adf41513-iio-driver-v12-2-34af2ed2779f@analog.com>
+ <20260512123953.40d80bc9@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:qwCowAAny2Y9JwNq934DEA--.20289S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3Wr1ftr13XFWkGry3JrWkJFb_yoW7AF4xpr
-	ykJFWI9rs5JryavrsrK3WDKFyjyw4ktw4fWr1kWr1Fgr1qkrn7Wr48Jr1DCa1v9r1DCr1x
-	Jr48JrWxur98ArUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
-	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
-	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
-	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
-	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
-	wI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
-	v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
-	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
-	ZFpf9x07betCcUUUUU=
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260512123953.40d80bc9@jic23-huawei>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-=E5=9C=A8 2026-05-12=E4=BA=8C=E7=9A=84 18:59 +0800=EF=BC=8CJoey Lu=E5=86=99=
-=E9=81=93=EF=BC=9A
->=20
-> On 5/12/2026 6:01 PM, Icenowy Zheng wrote:
-> > =E5=9C=A8 2026-05-12=E4=BA=8C=E7=9A=84 17:06 +0800=EF=BC=8CJoey Lu=E5=
-=86=99=E9=81=93=EF=BC=9A
-> >=20
-> > =3D=3D=3D=3D=3D=3D=3D 8< =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > > > > > diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c
-> > > > > > > b/drivers/gpu/drm/verisilicon/vs_bridge.c
-> > > > > > > index 7a93049368db..225af322de32 100644
-> > > > > > > --- a/drivers/gpu/drm/verisilicon/vs_bridge.c
-> > > > > > > +++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
-> > > > > > > @@ -164,13 +164,16 @@ static void
-> > > > > > > vs_bridge_enable_common(struct
-> > > > > > > vs_crtc *crtc,
-> > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0			VSDC_DISP_PANEL_CONFIG_CLK_EN);
-> > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0	regmap_set_bits(dc->regs,
-> > > > > > > VSDC_DISP_PANEL_CONFIG(output),
-> > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0			VSDC_DISP_PANEL_CONFIG_RUNNING);
-> > > > > > > -	regmap_clear_bits(dc->regs,
-> > > > > > > VSDC_DISP_PANEL_START,
-> > > > > > > -		=09
-> > > > > > > VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
-> > > > > > > -	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_START,
-> > > > > > > -
-> > > > > > > 			VSDC_DISP_PANEL_START_RUNNING(ou
-> > > > > > > tput));
-> > > > > > > =C2=A0=C2=A0=C2=A0=20
-> > > > > > > -	regmap_set_bits(dc->regs,
-> > > > > > > VSDC_DISP_PANEL_CONFIG_EX(crtc-
-> > > > > > > > id),
-> > > > > > > -
-> > > > > > > 			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
-> > > > > > > +	if (dc->info->has_config_ex) {
-> > > > > > > +		regmap_clear_bits(dc->regs,
-> > > > > > > VSDC_DISP_PANEL_START,
-> > > > > > > +			=09
-> > > > > > > VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
-> > > > > > > +		regmap_set_bits(dc->regs,
-> > > > > > > VSDC_DISP_PANEL_START,
-> > > > > > > +				VSDC_DISP_PANEL_START_RU
-> > > > > > > NNIN
-> > > > > > > G(ou
-> > > > > > > tput
-> > > > > > > ));
-> > > > > > > +
-> > > > > > > +		regmap_set_bits(dc->regs,
-> > > > > > > VSDC_DISP_PANEL_CONFIG_EX(crtc->id),
-> > > > > > > +				VSDC_DISP_PANEL_CONFIG_E
-> > > > > > > X_CO
-> > > > > > > MMIT
-> > > > > > > );
-> > > > > > Should the commit operation happen on DC8000/DCUltraLite
-> > > > > > too?
-> > > > > > (By
-> > > > > > writing to DcregFrameBufferConfig0.VALID).
-> > > > > >=20
-> > > > > > Many registers written has "Note: This field is double
-> > > > > > buffered" in
-> > > > > > the
-> > > > > > DCUltraLite documentation.
-> > > > > >=20
-> > > > > > I suggest create a static function for commit -- write to
-> > > > > > the
-> > > > > > corresponding commit bit on DC8200, and write to
-> > > > > > DcregFrameBufferConfig0.VALID on DC8000/DCUltraLite.
-> > > > > [a] There is no commit operation for DCUltra Lite.
-> > > > > I'll not add a `VSDC_FB_CONFIG_VALID` macro. VALID (BIT(3))
-> > > > > is a
-> > > > > hardware-managed double-buffer status bit: hardware writes
-> > > > > 1=3DPENDING
-> > > > > when a new register set is ready and clears to 0=3DWORKING
-> > > > > after
-> > > > > the
-> > > > > VBLANK copy. Software must never write it, and there is no
-> > > > > polling
-> > > > > use
-> > > > It seems to be writable and controls whether register buffering
-> > > > is
-> > > > enabled, see [1].
-> > > >=20
-> > > > The description of this bit in MA35D1 TRM says "This ensures a
-> > > > frame
-> > > > will always start with a valid working set if this register is
-> > > > programmed last, which reduces the need for SW to wait for the
-> > > > start of
-> > > > a VBLANK signal in order to ensure all states are loaded before
-> > > > the
-> > > > next VBLANK", which indicates some kind of "committing write",
-> > > > although
-> > > > the code at [1] seems to indicate that double buffering is only
-> > > > enabled
-> > > > when bit is cleared.
-> > > >=20
-> > > > Anyway this bit should be programmable, and "Software must
-> > > > never
-> > > > write
-> > > > it" contradicts with the MA35D1 TRM.
-> > > >=20
-> > > > Thanks,
-> > > > Icenowy
-> > > >=20
-> > > > [1]
-> > > > https://github.com/rockos-riscv/rockos-kernel/blob/rockos-v6.6.y/dr=
-ivers/gpu/drm/eswin/es_dc_hw.c#L993
-> > > Thank you for the correction. I'll add
-> > > `#define VSDC_FB_CONFIG_VALID BIT(3)` to vs_primary_plane_regs.h
-> > > and
-> > > write it in `vs_primary_plane_commit()` for non-config_ex
-> > > variants.
-> > > > > case in the driver that requires a named constant. For non-
-> > > > > config_ex
-> > > > > variants, `vs_primary_plane_commit()` performs no commit
-> > > > > operation =E2=80=94
-> > > > > `VSDC_FB_CONFIG_ENABLE` (OUTPUT, BIT(0)) is set in
-> > > > > `vs_crtc_atomic_enable()` and `VSDC_FB_CONFIG_RESET` (BIT(4))
-> > > > > is
-> > > > > set/cleared in the bridge enable/disable paths.
-> > Well according to the driver code for DC8000 from Eswin, and the
-> > bit
-> > named "VALID", maybe it should be cleared before programming the
-> > registers, and set after programming registers, to make the process
-> > of
-> > programming registers atomic from the perspective of the display
-> > controller.
-> >=20
-> > Anyway this should require testing on real hardware to verify.
-> >=20
-> > By the way, I see multiple peripheral drivers for MA35D1 get
-> > applied in
-> > the torvalds tree, but the device tree is still only a skeleton;
-> > when
-> > will the device tree be updated?
-> >=20
-> > Thanks,
-> > Icenowy
->=20
-> Thanks for pointing this out.=C2=A0I=E2=80=99ll perform tests on real har=
-dware
-> since=20
-> I haven=E2=80=99t used this bit before.
->=20
-> As for the device tree,=C2=A0we plan to update it comprehensively after=
-=20
-> completing several major IPs, with the goal of releasing the update=20
-> later this year.
+On Tue, May 12, 2026 at 12:39:53PM +0100, Jonathan Cameron wrote:
+> On Sun, 10 May 2026 13:42:20 +0100
+> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+> 
+> > Add helpers that parses decimal numbers into 64-bit number, i.e., decimal
+> > point numbers with pre-defined scale are parsed into a 64-bit value (fixed
+> > precision). After the decimal point, digits beyond the specified scale
+> > are ignored.
+> 
+> Whilst Rodrigo has already replied to say there will be another version
+> I'd like to request final feedback from those who were involved in the parser
+> discussions.  
+> 
+> They got very involved and I'm far from an expert in the right way to do
+> this stuff.  
+> 
+> I don't think David Laight was +CC so I've added that.
+> David, Andy - I think you two were most involved in that discussion:
+> Any objections to the end result? 
 
-Well I bought a MA35D1 board (MYIR MYB-LMA35 + RGB LCD) earlier this
-year (and this is where I got the MA35D1 identification register
-values). Hope I can have a chance to test this driver by myself.
+I already said a few times about the naming. I do not like the kstrto*()
+be semantically different on how they treat the input. Second point is
+to avoid code duplication, but this one is less of a concern since the
+new code is in the library close to the other potentially duplicate code
+piece and hence can be addressed later.
 
-As MMC, Ethernet and USB support is all applied, maybe it's already
-worthy to update the device tree ;-)
+Having the test cases is a big benefit, and that part I like the most.
 
-Thanks,
-Icenowy
+-- 
+With Best Regards,
+Andy Shevchenko
 
->=20
-> > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D 8< =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > >=20
 
