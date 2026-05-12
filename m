@@ -1,167 +1,183 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011001.outbound.protection.outlook.com [52.101.65.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB0CB3803E3
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 18:20:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778610045; cv=none; b=qvu27PVuhx2ayrso/sGecRyNqZHVxxLXfpl57QPy1gZT42WQ8w5id6Q+pHBKJXrg2tFJjWcIHry72HX599VU0kfTFhLqRQN061+iHtLQ6VXQbizTUgWRN6gKFfTnNWpC+DfTwQu6JvIeeESJFfaP90LOp8t1gLcWWtdb9JEzdK8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778610045; c=relaxed/simple;
-	bh=pO8NlAmiTWkHmRBLgfiKkiU0z5nI5RLtmSmBflRQil0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oF2/VFbtZNqOQFB9fGfJz98EbQJcGfawsvBjsc0LWUqlMgUMN4ptI4GGrllBSz34apA47jPpu5HLzriqXYI6WZnNg1tfCh+/Iyxkucqx7+USdMVdTUg9NApnhxb0NmSw8Vs8QeJzW47MJf3FQmcTYPSvnN2eGuIFp9ub7uqSAcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gN/mtUVm; arc=none smtp.client-ip=209.85.215.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE653803D2;
+	Tue, 12 May 2026 18:21:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.1
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778610115; cv=fail; b=W22gIvKVzTHRbZ0FKi0oVzcOzbiekUmA7R5THnNEMzIzlOlUT9bpd7jISmjKhFTVxrLAjZY6X3bs6l/K0jPLPaIiiQCeeSkoCAO2KBHTzglh5JoxYMRi7OeG5gRGwxWYO6gCYIQH3Nw7D0r6K4LsHCxs4bMorOkIZ53pCgRhEMo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778610115; c=relaxed/simple;
+	bh=B2aAJ9TuVumjmktTliYZC2VvoKV1A/IDP5kx95hVuf4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=bh/GpMrXETVnjHUmv01kFTVYAEYtha6bYfJhqGNVlSgj5lckWSkY8lua4sQ0OfIa7D1LjlGjExY6YeSOXNw+Js+E69edCbaparQfrh7XWpDLegiMjiyikLR7fElyuE0Hi5PTlPDgnj6SOKK2mLXO/j6VTAHMVTfw36MVQNboCDg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=dJGJb1el; arc=fail smtp.client-ip=52.101.65.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gN/mtUVm"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-c8026aa4d53so4148529a12.3
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 11:20:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778610043; x=1779214843; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=ofX8j/LRQqY8OmZou1joEHESeXuEQsIjw2iTr6XNHZk=;
-        b=gN/mtUVmLIcvbdVIueQNlnvLHZfJVuBCNW1TbwvUhY5xpibncZaL1asYahRe+HZjlD
-         iSOvDyl38MzQXDYhhTweT7tdlKd9F+a9GCxvcAu14CEmwMcifSUznO4XLBzHn9W7WoNL
-         SMQSrmbzySeVe9mD2nq4U6j2Yb/ZdzR39/wTQDEOcJ9i766e8ypPYgoW20yltGypvP7q
-         uwb0dDyOlHsKeYU/VK9sz5yeu5lrvFCPaoLKXWAk3ziGv/v/a3kpmfgEMt1x5izx5uyP
-         +B4zYA+rFIzqEOShVL01yEsgh9p9FOiGV+mg+jlEnLtmQkCRqT9Z9gsEB7Rmf8IsHFqd
-         57aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778610043; x=1779214843;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ofX8j/LRQqY8OmZou1joEHESeXuEQsIjw2iTr6XNHZk=;
-        b=rak8FJqEjBSnO6rU0Oy5b+gk/TDOmMAmRhDbULDm2DjbNanrTXQf18zF2+38a+efdM
-         sptS2jBIyqdJWGCL9WB5NuLHzF14fumUSISRKvLri3yB78OOrT+52i8wFMuXuXEl8kzU
-         F+7b3Ql0O72Rs3E2TzLf1j4C5Coh0NKu2Q7VppzCjxzxCCRivJRakOp9fBVWvmPxWzo2
-         rCB4VQLOsDwx5ylnd44R6+jukHO9w/VukQ4NQ0D6a8/Eb0gZ86YU/SErtkOZcdz1d6yP
-         SAvhUqAKAPhQvT5KwgCQ1u2htpJTHEco46/lE4sWqapqEnNOLxMpGEGlq0dQhbGp9Lk5
-         NImg==
-X-Forwarded-Encrypted: i=1; AFNElJ99mmoMrs7+CqNK96zPxhfXxXySjYQEc/ZJx/qhL4FRNo9R7r9XIKOePIXefvHUZut4tYeKmAOpausX@vger.kernel.org
-X-Gm-Message-State: AOJu0YwpdmnxQKVtICoUZoKFDhodJJ2RV6cYyOa0tyQ8kHZ93sot0ETA
-	xb0iJFMbrUI8nOol8v0m5gQVMUaWt2lxydleKm2zc6NUFqROG27VKMpZ
-X-Gm-Gg: Acq92OHS4YIlCsSpUokODkEj/xy9afL6xWn7dG5vmzblW8H5fHh5tNsq4nCiMmRy9MU
-	mWz2OjPhZvASR8bG/QK2TFyEKvu8e+1hDEGw2FxIcSW+Z5P+GsJJiqZMrQhxw588q9Gsm/0bwuC
-	u6vcV0jHa58lGh+dX5+EhmYWWYcYDp6/q8ISYlpGjyIVWoUVHgEHoQpd7RMZE0GShtSoSPMh2Gu
-	qmLUEQb4XVhGv8zWAq11CfQ7LzWhYk1hpZt5tuATR3IgMWDMi2oP6UsDSTMZ4glSBPo2vqk7nsj
-	Fj5JnDLjHWXppjSQczp5sx2FHdnCUgk5R/CHc8sYU3ZqW7JNbb7y+qK9dDuqDshYkMDdUaOsysv
-	nBELnpDbHsyQkWt8x/5LVY4p7/eDaVCOHlrFqAzuu/Xb32aKRKO/KirvHXKdsg+pD4o/JULnp5B
-	TJofhAuXdr83B/omOxdTSujKQllvPjy/sl5IxfuYr605Uc5B7qU6BEWgC0bcx8nWTmuxCfW/F3Z
-	UUP
-X-Received: by 2002:a05:6a20:1590:b0:3a2:d79c:416d with SMTP id adf61e73a8af0-3ad99f243dfmr5200035637.43.1778610042797;
-        Tue, 12 May 2026 11:20:42 -0700 (PDT)
-Received: from Ubuntu.. ([49.37.171.24])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c826767bf53sm12478739a12.6.2026.05.12.11.20.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 May 2026 11:20:42 -0700 (PDT)
-From: Manish Baing <manishbaing2789@gmail.com>
-To: conor+dt@kernel.org,
-	mdf@kernel.org,
-	yilun.xu@intel.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org
-Cc: trix@redhat.com,
-	s.trumtrar@pengutronix.de,
-	linux-fpga@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	manishbaing2789@gmail.com
-Subject: [PATCH v2] dt-bindings: fpga: altr,socfpga-fpga-mgr: convert to DT schema
-Date: Tue, 12 May 2026 18:20:33 +0000
-Message-ID: <20260512182033.66222-1-manishbaing2789@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="dJGJb1el"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OD0cB6cxxs5LxLkdiFbV7ty5b+L/RmJ5Xr5vfHpmOg1X9PBKyG0VyJFVDaNL3L2Wm5hH7HttxRVtCucaB65wJlN4eunZ4qh6ftg7WW0+bRCloegXXpBMdhiS3DgU7kyCrxvRjC1vw0zg4bStGYH1THiRkNxIvRjOv3BNQl2ApAO70tIPYbMKq3Eg36v5JAFYHzkWo2KOxASsNDBwZGRUk7IVOVdrsnIGYUoTfF+HuLeSsjSZPeI3+VIzt0kaM5X8Uhj2Neu+KwK0FDTfGae0KCTJ2x2ws6b5Lbyyz2+lSYCajuFyNPbZFLMaWsVO0pYXIm9khGl7HJpf+6hqsijhjA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5AW2r2ZRti2kt6ntYBazQAvxQCdr4FodyRRBhgu51TQ=;
+ b=zRj4NJg7bkXLln+5xlo7EbiH+kAlNPJKnNTSvlXwtR0bU3OJafXpCPNA4n0T+aYbjnRAajdGzMzk3iDBpj+7UsCmmOJkrJvafKizpXHytb5m6mbDYTOHH9FtknRgNST/IiKAt+U6PbhVF62wbwRGzdovMSKN3jj5+IwB6lJXKtC1vtWTNd3S+CwG/weZXbqHJqpGqr9R44Z91/SmsFT2bVpoSRlIVszV2xADmEGOLeTVsHlraNftugtlbuytVYAexDwPIc3hSEnlIteTMA+Rsk2+8imny19ls7ZGFpTAscEGVZSOm/lP49gSCDhN75rsrBSZtAi0uvw9aL8AmmsjSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5AW2r2ZRti2kt6ntYBazQAvxQCdr4FodyRRBhgu51TQ=;
+ b=dJGJb1elOAjN2WqDYjcav+k+MXowF0Fmx6TrY5KcrBqggMwJavTSj+r7mM0Pg5sMKOOZFhhxzWnKrqvALq4Fs8laxTWNXMrDIg2CktbdIBt0PryKZJIUq1obKUEx8z/bJoSOT0deCt0a4spjgx7fnh/jev2/bTS3dA/3n3ZMK5KaYj9RIYhxY5AnCRmuY6RgXhD5HJepkw6dI5S3j+EysxeiEGwg8BWjutucVCrDME9lSvY7oC+HQAxELKGcg9ygGD4g+pHSyjndRKvgDyoPeKJDX44qeGTPxDEJwdp1GcnOgdFRtROhGxR/6biPARPdr7ycIoM7AXiCwdEgS7kV7w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by AM7PR04MB7014.eurprd04.prod.outlook.com (2603:10a6:20b:121::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Tue, 12 May
+ 2026 18:21:50 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%3]) with mapi id 15.20.9891.021; Tue, 12 May 2026
+ 18:21:50 +0000
+Date: Tue, 12 May 2026 14:21:43 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	"open list:DRM DRIVERS FOR FREESCALE IMX 5/6" <dri-devel@lists.freedesktop.org>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	"open list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE" <imx@lists.linux.dev>,
+	"moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/1] dt-bindings: display: imx: add deprecated property
+ 'port' and 'display-timings'
+Message-ID: <agNvt9RbRFQ395uE@lizhi-Precision-Tower-5810>
+References: <20260511220924.1905571-1-Frank.Li@nxp.com>
+ <20260512-surgery-operative-046a90f84ef8@spud>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260512-surgery-operative-046a90f84ef8@spud>
+X-ClientProxiedBy: SA1P222CA0124.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:806:3c5::12) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|AM7PR04MB7014:EE_
+X-MS-Office365-Filtering-Correlation-Id: 54aaa0b9-f502-4d08-1b3c-08deb0535616
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|1800799024|376014|7416014|52116014|38350700014|56012099003|22082099003|18002099003|3023799003|11063799003;
+X-Microsoft-Antispam-Message-Info:
+	O47xgM4lZir3axNSg4+paubTH2clLjEdxwh6J2YL4tKeI9c72mRVoW//xxePTxJiY9lmgbdjPVrvK775Tk6/RRRKOcYLYbW8XOKSvH+xNyW1n9eEXpnRYoFkPpgVd11aLMdMqdbSU4HB5VpHka4Wbxd9QiTnepl9NFwPgYDV//Bl7AoVubrR5CA3Mc2oTwBgKve0DN51lEafnUrv9zHvZ+OO31kpPR4DJcyX18S3//olUMCMWfvQgYKrn8WfQl3+tXWF0qflBI06KzU9w5/hoVmAuDMbdA0XRNzLqhZz0VAVnCMfej5kVkYkN73I3Kaw6YluM4TxCearJfhwXNUWplIKHfJ+n38nv60QA1TbGht3XlQAp8/Wb4wyUOKQFHwdTdLiDHJASTwJdsuekaqhMTUhRBEqCZ+1OQ1qPjnLwUjVO5/ONgzcwnCOjz58Tfhvnnet8juiw8+N7TaVMuQR/uOz9ZMh5yIKKAkgGtLL1IRv+m2LSQpPdfs+edWYoRFL+mgq5FYypAooNcLyRbMBLXufUi0PCoBhdc74odLQ3hs3P9VQ5qnoTasTkYlfP++guhhgVyG0RvLBsNOQVFPSefxVC+pcgGLp1ISEMsoVo7JqO/Cs21jfpvXZ/QOnHhrnTlz0SxUKIiglm5rrPrHrkW/V8tAqW975nZanhWaNUwZ8P09Inr/yckrnGLsh9KwwaBYr28hyMS0csnidt18+y324OXkHFqPnma97MDCLWaR3jJYUG9BOFafWcNrVYVzl
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(1800799024)(376014)(7416014)(52116014)(38350700014)(56012099003)(22082099003)(18002099003)(3023799003)(11063799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?SaGGGuiIe3vDB5U5L1yUcn+ewjuaD5WdlFOHSfRSbo+vAKMa0KggH1kp86+l?=
+ =?us-ascii?Q?iThpqUNp2NjhT1TmcTwgCbkg++oP+U5NHYhrjSiZp072dMceCbKtS/lRS8Uo?=
+ =?us-ascii?Q?SbDyx/S3tAijKtSaEXn1mPfZAjLLOuiwLbftLp/OAgS8RWoeFkH2kEy6NI9X?=
+ =?us-ascii?Q?pK7XDfL+R7c2zV+LpZBxuZyYHHpVfEZcWo0hG1rx23gwe7QeyFxIc5xxVg29?=
+ =?us-ascii?Q?XBbMgYpbUmXcBQ7ZQ0UBBDVF8MGQMLlIQkgA230jivRRf9FCE6do41Ia+GOY?=
+ =?us-ascii?Q?xTpRLORSqWxvs4y0mv35fWw4NRcSrkEzkcypRW3uhfTP1dZ5dHZk2kQqN1bM?=
+ =?us-ascii?Q?KdzbSNtjRAgXnJZV2ZrmJW+E7eqPUtUCyO7gYbl+XaY1PHbLxzkY/1BYEBWM?=
+ =?us-ascii?Q?Cl/gAPs/cZbG/UBUqDehkltvglDJNHiJvTQ93+r/bpnpPI9hldTIxEpD62B+?=
+ =?us-ascii?Q?CJ8ETAPMUcpuaSOsscJhbLP3BjBkma7N4b9OqKUVMbFP2HekKH7RgafHZgE+?=
+ =?us-ascii?Q?TS8nOiElmJFiAZ8+vvCsDrjB0g2Qit9EcWZXVo5CJ66i4+ztq+TipQ0gW7qG?=
+ =?us-ascii?Q?f4S5nPN7sVoc7slKgUDDNqNttxGC0pPIJrORdugBrI3Jmqa7Fq4hVaFOitkt?=
+ =?us-ascii?Q?wX9cmMaRYxtYfTuCmk2K78o4oray7TpmzXgSP0w1QdKaUCKtWz/ZpDZhiJ9c?=
+ =?us-ascii?Q?0iF7rwnxvfBR2EkiBspKKXezGufrII2nub26syCFmOm6XjJdJ6+snsupLGYX?=
+ =?us-ascii?Q?25grnZ8/D+1cxg/I9JC1GR/umBJU72Nsp9zA55QMKfEiv6KvyOwOxdU44sWc?=
+ =?us-ascii?Q?xnwgdI+dkOpg9ltYlRG3KZunTP8lqdYYLj5bLny1Vjq1dx+muUdx1x3CQMfp?=
+ =?us-ascii?Q?TMNoHLsxuxRm62TscSuT5EWegkTDvbkDxgEtx1ZStqaRxannYFtTA2GwBs/h?=
+ =?us-ascii?Q?mk+5epgZQMwEM0sRyMoonzGbHruVyj2GcUbYAblG903zcE9Bd/EELcUORcBY?=
+ =?us-ascii?Q?AJWNg3v+IQc/En1XUcDofqn5XA1BQlCBkp/bfCGgmtXWaF6jC/VsY2exAaWH?=
+ =?us-ascii?Q?Vkp8NDPMwr8QcyEeCeDKNHJ+8MGrG3173qrTPxKN9j1xHYlm7rSIyWT/b08p?=
+ =?us-ascii?Q?GzssEECHNXkJyp57qv42Jt2gLaQLASvXwrR/+AuHI5mshR4wdvfXihTtEYyN?=
+ =?us-ascii?Q?HUXsWTDae3FVDc9TI+GWY9yU6oNEilbsVyPE9ofQSGvOjelFuAJOVnHbxCSn?=
+ =?us-ascii?Q?1lQbkjHejTP3yDkDnOdlHbWAjEmNk3shNN0fNWVzJanzd5pPEFGsc5FGwrmL?=
+ =?us-ascii?Q?GgI6DdD/pIud7x5jIO0SL5v5g1AHNSObXEKMYQCYYaZoUzEidzGXz/lqz6UR?=
+ =?us-ascii?Q?KIkUORw8gWZnfVnHNjSPFgNoz6rPpp6W+dN/Zrk+5u1DxOaPqwDBIzyPU+bY?=
+ =?us-ascii?Q?BxA0T7r7he0t1QkmI3+NIgUZVRvphRvGLcKZkh6UWjEqpuRQA8Pw+IObWwm4?=
+ =?us-ascii?Q?OwyybeVIrtJwok0yY+zdEQ3lWFej5bpnjhxVvruALpAVPJijzk1cwloWyWqi?=
+ =?us-ascii?Q?xDwAchZEMWtFxQ0rTrMr1TgY4FzLZ0LBpCjQsIx8yuz5SNlGL6gUa003Cu9G?=
+ =?us-ascii?Q?P3/phcTRzO+5MM/AkbTMfPYusUQ85iq4f2HuC1EbeCLpxP0vcTOzeobwfvgS?=
+ =?us-ascii?Q?kywyrnOgyFuB5lObEtB69Ct93i10UA2eyqDLLMu9QuRFXl4A/VlfCVcGJEpM?=
+ =?us-ascii?Q?Sew+7t2TEg=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 54aaa0b9-f502-4d08-1b3c-08deb0535616
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2026 18:21:50.8127
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IXkYZIMUWTrGovZQaxR/OcuiIcn0/w25VeEK/Y5HyuX2ufA37SHH0wqfa0LbHhKam/Q5OjbybZ3nW6YrU/pTKw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB7014
 
-Convert the Altera SoCFPGA FPGA Manager bindings from text
-format to YAML schema.
+On Tue, May 12, 2026 at 05:47:11PM +0100, Conor Dooley wrote:
+> On Mon, May 11, 2026 at 06:09:24PM -0400, Frank Li wrote:
+> > Add deprecated property 'port' and 'display-timings' for i.MX5 SoCs (over
+> > 15 years) to fix below CHECK_DTBS warnings:
+> >   arm/boot/dts/nxp/imx/imx51-apf51dev.dtb: disp1 (fsl,imx-parallel-display): 'display-timings', 'port' do not match any of the regexes: '^pinctrl-[0-9]+$'
+> >         from schema $id: http://devicetree.org/schemas/display/imx/fsl,imx-parallel-display.yaml
+>
+> Instead of documenting the deprecated properties, could this
+> device/devicetree be converted to non-deprecated properties?
 
-Signed-off-by: Manish Baing <manishbaing2789@gmail.com>
----
-Changes in v2:
-- Removed Rob Herring from the maintainers list as per Conor's feedback.
+Change dts will cause break back compatiblity. This is too old chips and
+I have not information panel's detail information.
 
- .../bindings/fpga/altera-socfpga-fpga-mgr.txt | 17 ---------
- .../bindings/fpga/altr,socfpga-fpga-mgr.yaml  | 38 +++++++++++++++++++
- 2 files changed, 38 insertions(+), 17 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/fpga/altera-socfpga-fpga-mgr.txt
- create mode 100644 Documentation/devicetree/bindings/fpga/altr,socfpga-fpga-mgr.yaml
+Frank
 
-diff --git a/Documentation/devicetree/bindings/fpga/altera-socfpga-fpga-mgr.txt b/Documentation/devicetree/bindings/fpga/altera-socfpga-fpga-mgr.txt
-deleted file mode 100644
-index d52f3340414d..000000000000
---- a/Documentation/devicetree/bindings/fpga/altera-socfpga-fpga-mgr.txt
-+++ /dev/null
-@@ -1,17 +0,0 @@
--Altera SOCFPGA FPGA Manager
--
--Required properties:
--- compatible : should contain "altr,socfpga-fpga-mgr"
--- reg        : base address and size for memory mapped io.
--               - The first index is for FPGA manager register access.
--               - The second index is for writing FPGA configuration data.
--- interrupts : interrupt for the FPGA Manager device.
--
--Example:
--
--	hps_0_fpgamgr: fpgamgr@ff706000 {
--		compatible = "altr,socfpga-fpga-mgr";
--		reg = <0xFF706000 0x1000
--		       0xFFB90000 0x1000>;
--		interrupts = <0 175 4>;
--	};
-diff --git a/Documentation/devicetree/bindings/fpga/altr,socfpga-fpga-mgr.yaml b/Documentation/devicetree/bindings/fpga/altr,socfpga-fpga-mgr.yaml
-new file mode 100644
-index 000000000000..9bcc1200d61d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/fpga/altr,socfpga-fpga-mgr.yaml
-@@ -0,0 +1,38 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/fpga/altr,socfpga-fpga-mgr.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Altera SOCFPGA FPGA Manager
-+
-+maintainers:
-+  - Steffen Trumtrar <s.trumtrar@pengutronix.de>
-+
-+properties:
-+  compatible:
-+    const: altr,socfpga-fpga-mgr
-+
-+  reg:
-+    items:
-+      - description: FPGA manager register access
-+      - description: Writing FPGA configuration data
-+
-+  interrupts:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    fpgamgr@ff706000 {
-+        compatible = "altr,socfpga-fpga-mgr";
-+        reg = <0xff706000 0x1000>,
-+              <0xffb90000 0x1000>;
-+        interrupts = <0 175 4>;
-+    };
--- 
-2.43.0
+>
+> >
+> > Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> > ---
+> >  .../display/imx/fsl,imx-parallel-display.yaml         | 11 +++++++++++
+> >  1 file changed, 11 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/display/imx/fsl,imx-parallel-display.yaml b/Documentation/devicetree/bindings/display/imx/fsl,imx-parallel-display.yaml
+> > index bbcfe7e2958b7..b0c5869771fae 100644
+> > --- a/Documentation/devicetree/bindings/display/imx/fsl,imx-parallel-display.yaml
+> > +++ b/Documentation/devicetree/bindings/display/imx/fsl,imx-parallel-display.yaml
+> > @@ -42,6 +42,17 @@ properties:
+> >      unevaluatedProperties: false
+> >      description: output port connected to a panel
+> >
+> > +  port:
+> > +    $ref: /schemas/graph.yaml#/properties/port
+> > +    unevaluatedProperties: false
+> > +    deprecated: true
+> > +    description: input port connected to the IPU display interface, see port@0
+> > +
+> > +  display-timings:
+> > +    $ref: /schemas/display/panel/display-timings.yaml#
+> > +    unevaluatedProperties: false
+> > +    deprecated: true
+> > +
+> >  required:
+> >    - compatible
+> >
+> > --
+> > 2.43.0
+> >
+
 
