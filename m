@@ -1,45 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B2463B1022;
-	Tue, 12 May 2026 16:41:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 943192C1788;
+	Tue, 12 May 2026 16:44:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778604097; cv=none; b=n0vMips9u4ZKPKRkVwtlR1X9/OC6jMHXrZr3zvmwF57FZOdD5gxIYall0gIPtmrRsNQhB6MduIpQsmCu7NRGUIod7n9muiI2N9tIDKvDLKfydzfvXR8Y7Vns2LwW0DQhjfUIArzUqvVluwgJ/KcT7Z7hbaPEnNpj4dN4b1N5lig=
+	t=1778604285; cv=none; b=JBr1lFAF/lGM63PR+GrUcJ6YHrRUMXvCuIXWLsSg2kGudnHYh2dCWoOFG7ISe7HmBT/9XJ+lHlXcsGg9uvLOVMBd10xVQMJQ83oyCkVg23Wa9Aju2HF57HawooPUqMtE8RnWuJ4D6aRB5/uDpO4p2S7Dahe4ggVrVdOtLimloIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778604097; c=relaxed/simple;
-	bh=3T821//nbNwWklMRAa45rcdnQRCet1wa2TYkQKWcGRc=;
+	s=arc-20240116; t=1778604285; c=relaxed/simple;
+	bh=qBe780EEoSq3WZerOuuNcvFvJd92SdQMTIiqjoeOExI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CJ5BBsUfBEcoKwEtu/72DoV22qep2jeQmN6irj/vyxXbIRlRNlt2Dcg+BrI/vDgIIs+zFGxS882xGt1WE4UvXAgO/V8R/3GcR+T1wLE8wW4Mqd6j/wJB/V311bc1RgXyWARyynJfVPG+pItmGhOLW25bW6Iook5qbZhEXhbI9Ac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RFovT11n; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=lK0DUei5GPL7x3pRZN9WzrtajoNKZIjLhlS+0i0HBLdQm7GhzN+meKe+4rvN1Ynnm6HuH2pS8YsARJ7lRpXdZtELPNQ9fUZ29U5g9uREfwVO1RdSSNEvqnYzbtrW5JAB1HCjxq6jhkxMhe2UT5nt+0A3nJhePikOtvssqKINl7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oeqpcs+R; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RFovT11n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ACC3C2BCB0;
-	Tue, 12 May 2026 16:41:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oeqpcs+R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C487C2BCB0;
+	Tue, 12 May 2026 16:44:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778604096;
-	bh=3T821//nbNwWklMRAa45rcdnQRCet1wa2TYkQKWcGRc=;
+	s=k20201202; t=1778604285;
+	bh=qBe780EEoSq3WZerOuuNcvFvJd92SdQMTIiqjoeOExI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RFovT11nCVNQ0W2sFpLtL7YSr7qsmxl5HTRJsUmGooJgLq7A9p3m0WDHNFRN3sBnS
-	 yf8oJAEvi5XTRzfpkeSBIeExVYTRzekMZP8VcSfEuITHIwZbcQt7oOkCciY1/gdAiL
-	 7T+3/SnI3CuEKRb4EPA6FGBKWo2S4S/AFccenGoIXxItjqMnOzPOAqV8Zl5zBGWoLN
-	 QnRpXsbyZl/MJTfJ1rvxiArEDXqXU5cNchmuy15OMa95AwomBNQnC7Sq98+9cWDcxD
-	 p1Uw5nWhi8B+THoLpQQ09GmjqSPIUCsI0IF4QSel3fFlYxKM1M5MTnDL/Z292+x5bb
-	 KQAYUXRcsZF0w==
-Date: Tue, 12 May 2026 17:41:32 +0100
+	b=oeqpcs+R8iZWKIGzlAcstWBARRoWir7QtKFUuyKk+V2A0pGr8ZActyrvOgr9sU5cB
+	 C6OjnBdxr4nG9VSXnHX1G19T9sUXUPzzgp8d27QxxxiWFNW9SqeNXvecxnNkCBISRQ
+	 HiJ+cI6GPDQY/OeW/BCrb8BIg4SARBjSDZLp8gBRlHwmth2u+KYhHQQCI2UpX9gT73
+	 kTzY1i2jGrRMOp05AYDq9AfAlEApNha9ljolv7w8VpZXZ4kYdk8hfqZGrrHuGzBHcC
+	 oIXcg3t0fYnd4q0oI9LEswgCR7kk5K9NFWkcsuh7jk/2wruakbNpN69FGY+2mW2wMr
+	 XEiISkaML9N5w==
+Date: Tue, 12 May 2026 17:44:41 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: hwmon: pmbus: Add Murata D1U74T PSU
-Message-ID: <20260512-defame-stinky-62670d7e7ebf@spud>
-References: <20260511-d1u74t-v1-0-623c2bc1532a@nexthop.ai>
- <20260511-d1u74t-v1-1-623c2bc1532a@nexthop.ai>
+To: sashiko@lists.linux.dev
+Cc: Jisheng Zhang <jszhang@kernel.org>, krzk+dt@kernel.org, robh@kernel.org,
+	conor+dt@kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] dt-bindings: i3c: dw: Add apb reset
+Message-ID: <20260512-curvy-ashes-bde0e8e8d473@spud>
+References: <20260511031945.3228-3-jszhang@kernel.org>
+ <20260511230001.1B220C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,115 +42,75 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="C1G0h9dIKgTPurGm"
+	protocol="application/pgp-signature"; boundary="DryAQInIECRvEhk7"
 Content-Disposition: inline
-In-Reply-To: <20260511-d1u74t-v1-1-623c2bc1532a@nexthop.ai>
+In-Reply-To: <20260511230001.1B220C2BCB0@smtp.kernel.org>
 
 
---C1G0h9dIKgTPurGm
+--DryAQInIECRvEhk7
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, May 11, 2026 at 06:44:27PM -0700, Abdurrahman Hussain wrote:
-> Add devicetree binding for the Murata D1U74T-W PMBus power supply
-> unit.
+On Mon, May 11, 2026 at 11:00:00PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] Adding a second item to the `resets` and `reset-names` list wi=
+thout specifying `minItems: 1` makes both resets strictly required whenever=
+ the property is present, breaking DT schema backward compatibility.
+> --
 >=20
-> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-
-If you're not adding regulators/supplies, this looks like a candidate
-for trivial-devices.yaml.
-
-pw-bot: changes-requested
-
-Thanks
-Conor.
-
-> ---
->  .../bindings/hwmon/pmbus/murata,d1u74t.yaml        | 41 ++++++++++++++++=
-++++++
->  MAINTAINERS                                        |  6 ++++
->  2 files changed, 47 insertions(+)
+> commit 0c4b11b6e45b719eb15a1a87171391a4bfb310b9
+> Author: Jisheng Zhang <jszhang@kernel.org>
 >=20
-> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/murata,d1u74t.=
-yaml b/Documentation/devicetree/bindings/hwmon/pmbus/murata,d1u74t.yaml
-> new file mode 100644
-> index 000000000000..ef080283bf79
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/murata,d1u74t.yaml
-> @@ -0,0 +1,41 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/hwmon/pmbus/murata,d1u74t.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Murata D1U74T-W power supply unit
-> +
-> +maintainers:
-> +  - Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> +
-> +description:
-> +  The Murata D1U74T-W is a PMBus-compliant AC/DC power supply unit that
-> +  exposes input/output voltage, current and power telemetry, three
-> +  temperature sensors and dual fan monitoring over an I2C interface.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - murata,d1u74t
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        psu@58 {
-> +            compatible =3D "murata,d1u74t";
-> +            reg =3D <0x58>;
-> +        };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index b2040011a386..b6a055fbb870 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -6803,6 +6803,12 @@ S:	Maintained
->  F:	Documentation/hwmon/crps.rst
->  F:	drivers/hwmon/pmbus/crps.c
-> =20
-> +MURATA D1U74T PSU DRIVER
-> +M:	Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> +L:	linux-hwmon@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/hwmon/pmbus/murata,d1u74t.yaml
-> +
->  CRYPTO API
->  M:	Herbert Xu <herbert@gondor.apana.org.au>
->  M:	"David S. Miller" <davem@davemloft.net>
+> dt-bindings: i3c: dw: Add apb reset
 >=20
-> --=20
-> 2.53.0
+> This commit updates the DesignWare I3C master binding to support an
+> optional APB interface reset signal.
 >=20
+> > diff --git a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.y=
+aml b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
+> > index 613dce7757bc3..2575442b28ff4 100644
+> > --- a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
+> > +++ b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
+> > @@ -38,10 +38,12 @@ properties:
+> >    resets:
+> >      items:
+> >        - description: Reset signal
+> > +      - description: APB interface reset signal
+>=20
+> Does adding this second item inadvertently make the APB reset strictly
+> mandatory for validation? In dt-schema, when items are defined as a list,
+> minItems implicitly defaults to the length of that list. Without an
+> explicit minItems: 1 constraint, device trees defining only the single
+> core_rst reset might fail schema validation.
+>=20
+> > =20
+> >    reset-names:
+> >      items:
+> >        - const: core_rst
+> > +      - const: apb_rst
+>=20
+> Should minItems: 1 be added to both the resets and reset-names properties
+> to maintain backward compatibility?=20
+>=20
+> Since the driver gracefully handles a missing apb_rst by using
+> devm_reset_control_get_optional_exclusive_deasserted(), adding the minIte=
+ms
+> constraint would keep single-reset configurations perfectly valid.
 
---C1G0h9dIKgTPurGm
+Obviously this is all crap and can be ignored, since the other reset is
+added in the series.
+
+--DryAQInIECRvEhk7
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagNYPAAKCRB4tDGHoIJi
-0sj1AQDvYulhZABh59b0EWQID7gTD5EkN1jAh17MTdu5gQubBAEA7+3j7Lfi8NLZ
-bsIpWTXmocNuMihP8t6Pq7/TqXofNwI=
-=mH/0
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagNY+QAKCRB4tDGHoIJi
+0ikJAQC7LIxijJWf+xlPboDCs5YDj39wv60+tEqfC2s3l3kC6wD/TXs6yuBmbGkH
+S+dgxRcbFt05dFBbleuaebnfXJckbA8=
+=vDjU
 -----END PGP SIGNATURE-----
 
---C1G0h9dIKgTPurGm--
+--DryAQInIECRvEhk7--
