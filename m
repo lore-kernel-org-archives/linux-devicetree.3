@@ -1,208 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA42A3E170C;
-	Tue, 12 May 2026 13:05:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9998E3E1720
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 13:05:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778591119; cv=none; b=nrG9QSwS08DBzxK36pGDuhxejAZ/s+rF6ksxkqOiOKE8EjHW4NQDKKRKdJUTTdw5wk1/RmPrfpk6CvXhc9x8R2G0gGoM2RJo0AGo6hY0ssf0OHK6hWgcLOULr37deD3MtiVSFLf+aZHUjhYEIEt4gEcl2HUX/HTtRQmL4OzECYA=
+	t=1778591147; cv=none; b=FijRYch1yLF7QAuTLHROFYCbRJ7fT401ZJx2wDTL1MZ1Xnc8ltsHI3W6i8H9JcL39AKPZqfZVoo58WFXTcMSXArKchAXmFA3+nnT+fyCgr5JoIH3k3lPQJu6r8HL03hWd/W59+b2R9kfX8uHYWkboh+avCTEy8hOjEWN9lsMOho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778591119; c=relaxed/simple;
-	bh=bg4o7RwuuxEDvH8OIFEtF3dwjttBqocBKfhQEXr8ROo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HDKpqABcrzmwPQsI4f/FmfKV/T/YrqTNV4snvle7mohRa3fp6wgPR9pmrKS0LB7ENcAnUqZRzFHTUk6T0ljXlGTTFcGyaLZpKF/HxIkVShxqgKhJXjbBBODBbUr4RhzOb9s3fKxzT3exdwukK68bIkyto0GtDlVTYSa/lOzJVMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IAJ4+SWW; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778591147; c=relaxed/simple;
+	bh=E6HTe7QhWugVTgCEx16GCBmY8B1fRy9ivVI2YY8eg8s=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=WOBZSqvZwF21Vp3SsK9JuvtP4deXW7MEqDpBRZL9m54/jpRxYrxu5SOPQ8Gi7QajQJb1DhPm4kV7tR8G6Rt28WBVIXc+S7WO8S4hEa0CSByBZL+qGzcMULoEkmoDDzdn4Te28aofNk2R/NlATfZuUTwcAvhwv7EXGze5QqnwkLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=P9JtV2wp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GyUc6BdK; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IAJ4+SWW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20081C2BCB0;
-	Tue, 12 May 2026 13:05:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778591119;
-	bh=bg4o7RwuuxEDvH8OIFEtF3dwjttBqocBKfhQEXr8ROo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IAJ4+SWW6dGKdQlvU4QHubSOcxUTtjskun01cJTOk3Rq+++/n/I9fNV1eawjLpMno
-	 2t+p9/OePnaKrEg6gZb+Dwq8dQpklF1ievE2b6SCHzbmjSTESi9AUzt4B5IOITc82D
-	 vjWplV2ktWv5fsndOHlm2sQV7UKAN2O9cmsZx9YM/G4dgZLdCa3WnARD7CEiz3MCOg
-	 FYTZIHEvZS2p8l/pvh83CLIZrX2/OoCpXlXqjxGZwPq4VerPZmZQvKCUHZWPz/aE9x
-	 k3uCwqq7ejXymYyBy1ongNdqkUVbYEpxsw1ajVMyTCwbyWilDhEwd5dFaSWVlquWdg
-	 lBPsLDyLnnZuQ==
-Date: Tue, 12 May 2026 18:35:11 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Mahesh Vaidya <mahesh.vaidya@altera.com>
-Cc: joyce.ooi@intel.com, lpieralisi@kernel.org, kwilczynski@kernel.org, 
-	robh@kernel.org, bhelgaas@google.com, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	linux-pci@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	subhransu.sekhar.prusty@altera.com, dinguyen@kernel.org
-Subject: Re: [PATCH 3/3] PCI: altera: add Agilex 5 support
-Message-ID: <46lb3ald2zwoum53oivvlgoy2uognjygkgtks5vcngqo4wxply@75a6zvxtfwes>
-References: <20260424094913.522123-1-mahesh.vaidya@altera.com>
- <20260424094913.522123-4-mahesh.vaidya@altera.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="P9JtV2wp";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GyUc6BdK"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64CBchah075202
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 13:05:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=5rK6KbR466mqH0pAQLxyFa
+	oUgNlu3VncNyO+h/5FL40=; b=P9JtV2wpam6BStfEJjDS32ktWUaQauosANpT/I
+	raA/tO3Av7QuNTS6Chn5WMCAX6I37OvzKvLO66r3Wi87DtFR6nxJfzZBq7efhG5L
+	RX1g5TvvwEMY5bvNuiDnoC7/uDsaOdPXy6EI7WISYDZFQhOc61Cpf8LbmV+VuGJx
+	VA/1i4IWYZdJKkZYLI+jldwwVZPFjmYWX4yPbKUhK+eLugRhJbajiqjGRNSpRAh5
+	Yz72Fv/xRk/PLQ9PZG4cWLwgSQi17DPjle5xt9OQD9JYdjah9FyEx5FAFgvlwcE4
+	hVhAkNPnAA9gREdKbOMRApPT7llvgo+ANNU9bjRnKOA5r8CA==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e43gygchg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 13:05:44 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2b461b36990so59617545ad.3
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 06:05:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778591144; x=1779195944; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=5rK6KbR466mqH0pAQLxyFaoUgNlu3VncNyO+h/5FL40=;
+        b=GyUc6BdK6iO0FPe3wvDz+q22BJ5JRTS0aoDCd2lqOPw1HoS3TbovwEUcc8SM2IupzA
+         9ddpaWMiTZL6VNBve4miMyHGabLmV90/6fP2o7KvyFBHUSuIUuA33HXfbNMUJzuMAgfd
+         qOhMduqJDm4FrtkYGwCBtQuOhYfJD/b1VTpK6czgihvUPbKzb2Sdgcyd1+Ie1lUd148V
+         U5K3bFi5otdSIZ8Wkcj/LZEUzSQrbIQiZqj8CyM0Ux3lmt8qhhlEHOVx+9mFEQgUV0Wc
+         msgFK7ZWtoE4pKQ7fj+F6SWIvZhSYCmJr6ym3AMvzhBz+FdW0xEUhArjWAhFQoiuzN91
+         vSgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778591144; x=1779195944;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5rK6KbR466mqH0pAQLxyFaoUgNlu3VncNyO+h/5FL40=;
+        b=Cq9of/rfb13kjN5IRkBakYgfxQKvEQGoiBWOY1jKyY1jn8zrQEiRyko2yx92HTOiFE
+         cQGQE3I1Tm7ueKGj9hB1lyhNFss3inaCRESvP+XCm+SHvo0C5B7wYdpk3rHzsDHN+b13
+         pc+QkBTmaND9nw0yaK+9x6nwyqddfDaxrTAiNi2VZYvaA+DcTgOOY6IATOxI4gR+dIQ6
+         wzY/coQH9Ah2LojtQ9x/pIV2JspBBWTb9B34YdJ/kbWPstDZk90V4WPFZS/BIx2F32Zq
+         EKXQyZ9vjqugdVOc4jONx4es7rQLuroD3KCfoHgnCMxi2DAHf5ZGsWYaIv9g+QuwIHcb
+         bXxg==
+X-Forwarded-Encrypted: i=1; AFNElJ9c2nLBfdjyV+mz+cNQ+i2AWtjmyQo9hmQ3MyuiGA9nMDWBwaj3LiON865fxErgnCpH6jykMBa1Dzpr@vger.kernel.org
+X-Gm-Message-State: AOJu0YzKHt3xAVHZiC9lf3NqQwKoPZ8DkZzcZTHHjoRI3z5RnDYvJSsC
+	5sKkrJA6l4J9rOsnyW9YXf64J+NgDxQ2z161oKrNT9y5VZGiFgINJc2p3IeZAaW3xxF+tf2eggJ
+	RG90eqCFqLpOr14wpR3kaWt3C0WSlQfpNtEfIX5XCsICKcnEC+SBgF27fsjhvhVJZ
+X-Gm-Gg: Acq92OG1U54k0OooPrAOzo4h5uwrB8ctthHlZe8BziG5ZxBwl5BN6hR+P6FVDuVkWDL
+	MJuG2F5dlEsSCN688+4ld9zx9tniHzPaUOd1le1E9vSjIut4n+coQGZdEPc5I79CBryvMc85tED
+	yMkGBaAk2hSSu1hIgqiPRk1u4Zw4zGQyiQ9wnGCe/a6eByIdawhS3ohSjUA2qi5i5T9BBWGBDVF
+	LrXpXrq8De7RCk14aW2s+teBPekxUEjHnr6Rwhtu9jbmrgP8oITfS+B9tMzzm9WVvqJBwccrpxZ
+	OAvSMNkRMAuMPC03fIOVJ2rXOVkpVcnBPE+FgvyIZuF2PuOkt+jZuleNqDbyr+l+/u7yfYCa8Z7
+	+mJjCajOAXTfQVpF/GOnCIgOkhgh1wfkFMySEA+Ovozd70BAeT46a
+X-Received: by 2002:a17:903:3b45:b0:2bc:e299:4c9e with SMTP id d9443c01a7336-2bce299510fmr52779945ad.18.1778591143579;
+        Tue, 12 May 2026 06:05:43 -0700 (PDT)
+X-Received: by 2002:a17:903:3b45:b0:2bc:e299:4c9e with SMTP id d9443c01a7336-2bce299510fmr52779605ad.18.1778591143065;
+        Tue, 12 May 2026 06:05:43 -0700 (PDT)
+Received: from hu-jkona-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2baf1e36c65sm137630785ad.40.2026.05.12.06.05.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 12 May 2026 06:05:42 -0700 (PDT)
+From: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+Subject: [PATCH v3 0/3] Add camera clock controller support on Glymur
+ platform
+Date: Tue, 12 May 2026 18:35:25 +0530
+Message-Id: <20260512-glymur_camcc-v3-0-a7196fee2779@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260424094913.522123-4-mahesh.vaidya@altera.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJUlA2oC/23M3wqCMBTH8VeRXTfZjn+mXfUeETG3qQPnasuRi
+ O/eFIKKbg58D/w+C/LKaeXRMVmQU0F7bccY2SFBoudjp7CWsREQKElOKO6G2UzuKrgRAksFlOW
+ FbIqqQXFyc6rVz507X2L32j+sm3c90O37huAbChQTrCrJScGBSs5O1vv0PvFBWGPSeNDmBfgwo
+ P4xIBpEZK2kNWNVWf8x1nV9AYHNHPTzAAAA
+X-Change-ID: 20260401-glymur_camcc-de21745db58b
+To: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Authority-Analysis: v=2.4 cv=fMAJG5ae c=1 sm=1 tr=0 ts=6a0325a8 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=z_Sb7eu1-GLCsw485GQA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-ORIG-GUID: rGgCBQuLen3fKKe8KZu4PJSF139TRS9u
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEyMDEzNiBTYWx0ZWRfX4lsF7XDOFLiy
+ +8+xR1n0fuDcypCmcIKdkz8gMWAN2E3yuIE5K5N1UlJJpw26dAScbEFwDTn0TnpwQ3TdVcTXqm/
+ CByJYuiBRSO9rxWc2UreLjPlyDbQMuHC/ZHYignlIanHGvYWG2s4e8D0rnTV2SqG3aS3254xs7B
+ Lppu5qUybki2Xvw9Fy3vDTbcjj7Q9i8QTPsNZdYQba3O6CZi+ux41CKESE8i14QMJb3xL4jNQda
+ O4emcD3EkgdiyneDCscmrYt7Am9gb0rcc3fPJRkpeL7niQGO0ZCpnwp0tHpDh1n0zPcYKjzwO/U
+ 1pjDfjFsfGHBxFtNyB3ERpEhzH8yiJwWuvtdgncXZjRSHb5JWbF/XmrIjDcfVZLIRpgVj/Jf7bk
+ FnnIgykoxbN5g3O/Oos/3EWMziUK0hzSubhtfNTFgUI+aXI/DKV22Nj+GGp5nLjabiPnwhlJ0FY
+ o4Q2Y52YXQndRMJIUWw==
+X-Proofpoint-GUID: rGgCBQuLen3fKKe8KZu4PJSF139TRS9u
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-11_05,2026-05-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 suspectscore=0 malwarescore=0
+ clxscore=1015 spamscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2605050000
+ definitions=main-2605120136
 
-On Fri, Apr 24, 2026 at 02:49:13AM -0700, Mahesh Vaidya wrote:
-> Add PCIe root port controller support for the Agilex 5 (V4) family
+Add support for camera clock controller on Glymur platform
+for camera clients to be able to request for camcc clocks.
 
-There is no 'root port controller'. Root Port and Controller (Root Complex) are
-two different IPs.
+Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+---
+Changes in v3:
+- Dropped separate defconfig change[PATCH4] and included it in Kconfig
+  itself [Krzysztof]
+- Included glymur camcc header file in the DT patch
+- Added R-By tags received on v2
+- Link to v2: https://lore.kernel.org/r/20260429-glymur_camcc-v2-0-0c3fd1977869@oss.qualcomm.com
 
-> of SoC FPGAs.
-> 
-> The Agilex 5 PCIe Hard IP reuses the same config-space access path
-> as Agilex 7 (V3). Root port and endpoint configuration reads/writes
-> use direct MMIO to the HIP and CRA regions.
-> 
-> The difference is in the HIP port-level registers (IRQ status and IRQ
-> enable). On V3 these are directly mapped through the HIP MMIO window.
-> On V4 these registers are only reachable through an indirect access
-> mailbox (CFG REG IA CTRL) in the PCIe Subsystem AXI-Lite interface,
-> documented in the GTS AXI Streaming IP for PCIe User Guide.
-> 
-> This adds:
-> - ALTERA_PCIE_V4 version and platform data
-> - Indirect register read/write helpers using readl_poll_timeout_atomic
-> - Chained IRQ handler (aglx5_isr) for the V4 interrupt path
-> - OF match for "altr,pcie-root-port-4.0"
-> 
-> Co-developed-by: Matthew Gerlach <matthew.gerlach@linux.intel.com>
-> Signed-off-by: Matthew Gerlach <matthew.gerlach@linux.intel.com>
-> Co-developed-by: Peter Colberg <peter.colberg@intel.com>
-> Signed-off-by: Peter Colberg <peter.colberg@intel.com>
-> Signed-off-by: Mahesh Vaidya <mahesh.vaidya@altera.com>
-> ---
->  drivers/pci/controller/pcie-altera.c | 156 ++++++++++++++++++++++++++-
->  1 file changed, 155 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/pci/controller/pcie-altera.c b/drivers/pci/controller/pcie-altera.c
-> index 025ba74d1ee2..db8149d84c96 100644
-> --- a/drivers/pci/controller/pcie-altera.c
-> +++ b/drivers/pci/controller/pcie-altera.c
-> @@ -12,6 +12,8 @@
->  #include <linux/irqchip/chained_irq.h>
->  #include <linux/irqdomain.h>
->  #include <linux/init.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/iopoll.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
->  #include <linux/of_pci.h>
-> @@ -93,16 +95,36 @@
->  #define AGLX_CFG_TARGET_LOCAL_2000	2
->  #define AGLX_CFG_TARGET_LOCAL_3000	3
->  
-> +/* PCIe subsystem indirect register access */
-> +#define PCIE_SS_IA_CTL			0xc8 /* control register */
-> +#define PCIE_SS_IA_FN_NUM		0xcc /* function number */
-> +#define PCIE_SS_IA_FN_WRDATA		0xd0 /* write data */
-> +#define PCIE_SS_IA_FN_RDDATA		0xd4 /* read data */
-> +
-> +/* PCIE_SS_IA_CTL bitfields */
-> +#define PCIE_SS_IA_CTL_INITIATE		BIT(0)
-> +#define PCIE_SS_IA_CTL_WRITE		BIT(1)
-> +#define PCIE_SS_IA_CTL_BYTE_EN		GENMASK(5, 2)
-> +#define PCIE_SS_IA_CTL_ADDR		GENMASK(31, 6)
-> +
-> +/* PCIE_SS_IA_FN_NUM function types */
-> +#define PCIE_SS_IA_FN_TYPE_HIP		2
-> +
-> +#define AGLX5_INDIRECT_SLEEP_US		1
-> +#define AGLX5_INDIRECT_TIMEOUT_US	1000
-> +
->  enum altera_pcie_version {
->  	ALTERA_PCIE_V1 = 0,
->  	ALTERA_PCIE_V2,
->  	ALTERA_PCIE_V3,
-> +	ALTERA_PCIE_V4,
->  };
->  
->  struct altera_pcie {
->  	struct platform_device	*pdev;
->  	void __iomem		*cra_base;
->  	void __iomem		*hip_base;
-> +	void __iomem		*controller_base;
->  	int			irq;
->  	u8			root_bus_nr;
->  	struct irq_domain	*irq_domain;
-> @@ -849,6 +871,98 @@ static void aglx_isr(struct irq_desc *desc)
->  	chained_irq_exit(chip, desc);
->  }
->  
-> +/*
-> + * Indirect register access to HIP registers via the PCIe Subsystem
-> + * AXI-Lite mailbox, documented in the GTS AXI Streaming IP for PCIe
-> + * User Guide. Called from chained IRQ handler (hardirq) and probe
-> + * (before handler is installed), so no locking is required.
-> + */
-> +static int aglx5_indirect_readl(const struct altera_pcie *pcie,
-> +				unsigned int addr, unsigned int *val)
+Changes in v2:
+- Updated DT node reg property to use hex for 0 also [Krzysztof]
+- Added R-By tags received on v1
+- Link to v1: https://lore.kernel.org/r/20260402-glymur_camcc-v1-0-e8da05a21da7@oss.qualcomm.com
 
-s/unsigned int/u32
+---
+Jagadeesh Kona (3):
+      dt-bindings: clock: qcom: Add Glymur camera clock controller
+      clk: qcom: camcc-glymur: Add camera clock controller driver
+      arm64: dts: qcom: glymur: Add camera clock controller support
 
-> +{
-> +	unsigned int ctl;
+ .../bindings/clock/qcom,x1e80100-camcc.yaml        |    3 +
+ arch/arm64/boot/dts/qcom/glymur.dtsi               |   17 +
+ drivers/clk/qcom/Kconfig                           |   11 +
+ drivers/clk/qcom/Makefile                          |    1 +
+ drivers/clk/qcom/camcc-glymur.c                    | 2280 ++++++++++++++++++++
+ include/dt-bindings/clock/qcom,glymur-camcc.h      |  122 ++
+ 6 files changed, 2434 insertions(+)
+---
+base-commit: bd0f139e5fc11182777b81cefc3893ea508544ec
+change-id: 20260401-glymur_camcc-de21745db58b
 
-s/unsigned int/u32
-
-> +	int ret;
-> +
-> +	writel(PCIE_SS_IA_FN_TYPE_HIP,
-> +	       pcie->controller_base + PCIE_SS_IA_FN_NUM);
-> +
-> +	ctl = FIELD_PREP(PCIE_SS_IA_CTL_ADDR, addr >> 2) |
-> +	      PCIE_SS_IA_CTL_BYTE_EN | PCIE_SS_IA_CTL_INITIATE;
-> +	writel(ctl, (pcie->controller_base + PCIE_SS_IA_CTL));
-> +
-> +	ret = readl_poll_timeout_atomic(pcie->controller_base + PCIE_SS_IA_CTL,
-> +					ctl, !(ctl & PCIE_SS_IA_CTL_INITIATE),
-> +					AGLX5_INDIRECT_SLEEP_US,
-> +					AGLX5_INDIRECT_TIMEOUT_US);
-> +	if (ret)
-> +		return ret;
-> +
-> +	*val = readl(pcie->controller_base + PCIE_SS_IA_FN_RDDATA);
-> +
-> +	return 0;
-> +}
-> +
-> +static int aglx5_indirect_writel(const struct altera_pcie *pcie,
-> +				 unsigned int addr, unsigned int val)
-
-s/unsigned int/u32
-
-> +{
-> +	unsigned int ctl;
-
-s/unsigned int/u32
-
-> +	int ret;
-> +
-> +	writel(PCIE_SS_IA_FN_TYPE_HIP,
-> +	       pcie->controller_base + PCIE_SS_IA_FN_NUM);
-> +	writel(val, pcie->controller_base + PCIE_SS_IA_FN_WRDATA);
-> +
-> +	ctl = FIELD_PREP(PCIE_SS_IA_CTL_ADDR, addr >> 2) |
-> +	      PCIE_SS_IA_CTL_BYTE_EN | PCIE_SS_IA_CTL_WRITE |
-> +	      PCIE_SS_IA_CTL_INITIATE;
-> +	writel(ctl, pcie->controller_base + PCIE_SS_IA_CTL);
-> +
-> +	ret = readl_poll_timeout_atomic(pcie->controller_base + PCIE_SS_IA_CTL,
-> +					ctl, !(ctl & PCIE_SS_IA_CTL_INITIATE),
-> +					AGLX5_INDIRECT_SLEEP_US,
-> +					AGLX5_INDIRECT_TIMEOUT_US);
-> +
-> +	return ret;
-
-return readl_poll_timeout_atomic();
-
-- Mani
-
+Best regards,
 -- 
-மணிவண்ணன் சதாசிவம்
+Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+
