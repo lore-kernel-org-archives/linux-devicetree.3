@@ -1,141 +1,182 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F54239A4BA
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 13:21:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 247B9360EDB
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 13:25:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778592081; cv=none; b=NledMPGupdUdlv/aJQh9SFlrRa7KMTMJR+n7etpsk6K45E/zrwp7Ms5X8USlUJVs86VDdTJZOhkVzDk7Z2ENPLLLiNjcdLUbT5oztOa8yUJJ9AB4n/cucdtDd95N+iJy9B4+E5sFXcvtyoqRZdsMIcbFbDtP1fjIcN94B6XilF8=
+	t=1778592354; cv=none; b=K1ruEtFAQ7NhmYs5IbtBZjnQbnZotLoKo6YyL+JKABe8C1pEhC7fn91bLkpKwTT0RDZSBBmdrVwozO5HmedJuwz57HSiNXA8fQK1OJ3tfA/p201Bbg4YAmxaF6wJASMC/MvJyIYFoiPffIs8KW5LE1ucifQ98CMDxr7X7/dip+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778592081; c=relaxed/simple;
-	bh=sEiYG2uut8eryJgiVxXirz97HD1qb4i40If2RpVaDvI=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X+gC1YowxlhABSZVndi04G5/G2X8ZdF/nue+vJ49kZA9ak89EOoOXWSnE5/e6lFeK0C9DHRATdxslb/PaAxC6NID34NaCRTzvPYsvpGrsZPBXE5hEuw4gukMzj96S9D9PYn/MgKrNYLGoYizvPwiBcNI38f638ANtaqDRVUFIfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HW4WXrgQ; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778592354; c=relaxed/simple;
+	bh=dAUT6urYpcci7+seRnPuuK6X6/yN+Qxdu2FzYuJP7Hg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=kdqy59qW3O9Ftl9WMXCPsK+vO53NydUNcq50BTEA9OTeKQZqzE3Lz6iDyGH1aKhUdO9S6wlKGWOAmLP1ZxY6TkxXhh4/sjnJrEBpY8tsMfaL/BQThN5gJn8pyUcSnRYcf2GnDoS+7NOCKm89tEW0/t3kWKv7g1TIbj7mA6cZ9D4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YcZOhgCD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bXMOsNO9; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HW4WXrgQ"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-44e1860558fso3578726f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 06:21:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YcZOhgCD";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bXMOsNO9"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64CBcjR2075221
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 13:25:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=lMr3Au4g9Ol6K3jiliyVVM
+	tkLtrNvcrj6O2G0UGOHms=; b=YcZOhgCDiWBS6xmV3kVm2KKAveDmLO/4b12J07
+	hCfy8JEijGdANMUZOKd8K2JVqcYOlxOytZlO4/oilpPD4Y6/ZSJabHGu+NR2regW
+	gzZoNBIwJCRrLdoFNcr/gpcbMm2SLtXDJyZlM+Q1+BJU9+rtdx/bhDW4+L5h19pz
+	74yffHvL2ImViMiB5HSHCFprKGNg5j7NfF/T9g2AZXCc+MfiM9KACQQ8t1nY5tEb
+	TmBjzIEAsU9V8L00tpnrfMbEZfd5yUZf/TzfxHxMFNGyYVxdbMQPTTetBN72XXl3
+	h+iVn5RKhoq3B46puALfCLwxLdUftJ1FjO/PZc/ZrXU/BrgQ==
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e43gygf5k-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 13:25:52 +0000 (GMT)
+Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-7c0de780bb5so54373407b3.1
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 06:25:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778592078; x=1779196878; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=H0iUBbHJXRnojwm2dbHMn4bUhVf32dcx1R5+1C6RZQw=;
-        b=HW4WXrgQJv/8u5VL/s2qAKveBKj0j9M6F11QIaxwdjh55mQx1OtuJ1fUm6YBNXWLVh
-         5xqZC2rN4vmzO3PV8WnKxVaB22uWj5NdIf2JYcINvJsgMXselYnS/zEa+EtVHMhS7vHo
-         KQ1P7mE3H+WwzWWPcyqwavohBt7J18tnCMLhwdY4rB2fntrqXz2m98Ngk6t5bVmsDVot
-         o//rWQG2SP+xzPUa227lCd8SPg/0nvy+GW26o3fBlPdT3+CiKkG3fGCNQYCg2loWLjho
-         j97JjqSlXGaXoaQZM+nxBlwTjHFsdaDZ6neTqJf72oXcJTibYrsk9PlOFfaNh9c+Fq4J
-         6JjA==
+        d=oss.qualcomm.com; s=google; t=1778592351; x=1779197151; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=lMr3Au4g9Ol6K3jiliyVVMtkLtrNvcrj6O2G0UGOHms=;
+        b=bXMOsNO9a/dR3Mffpf86x29pBBbZb1BWzoLAAEv9sR7zliYEzPRO+VGtADCWztts+p
+         IL0+RAKrVKTb1BuMTBhWUWmCcAoenE+pwL4g8xpdL3T87hywcUXsEARAYolFbiYWgdrj
+         kGibgQLUkRcfFQwhvdSznJJDnaD6EBejEd0jrKQNcit+/RROPCdXJq8cvbG3nX4y+Lto
+         tLhAVT5Vpw44L5ztOz9B7uBRkQTIB7UIVMKLCpuUC4oIO4Cu0PoB3WIUYTUuUU0EoEUA
+         7VVowUBAowHC+dP3sUPvzWprMD963fcxRcbYdEa7W+Rta451RMdFEgIAv8zxM71LFqXm
+         QpCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778592078; x=1779196878;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=H0iUBbHJXRnojwm2dbHMn4bUhVf32dcx1R5+1C6RZQw=;
-        b=ra1FpqNlTvJwNjUC/7Y4qekPtQQjNoLex1EW9HYCPrkxomLOnxyQdbugXpTyvmcmwY
-         5NWHwbSgRk9GHDrGpmXoVYcSx1onSpemJkmHlRxw4f8PzczP+qu9tEBIZvIsOBFGOTl4
-         zgz2/49iC7eu0S7aLZvXrIFo96ko1/RkpdEETRUcV+zAthGOZw/GxsFFlrrLEjiJksQh
-         4gTz7aCCsE5OF1fc4T5hQglsl6HdLXIb4MlehtnN+K7KDOn6tr9fHhcL1WDW5kiM0dXt
-         trQGM4TDLDE16YDbeJdt+xkHJbMBxHZVrKV17MesY0UY1TxnR6ldj5Vs5B36BXLG98Jj
-         gWRw==
-X-Forwarded-Encrypted: i=1; AFNElJ9orEimHutFhhf2S4XPUsvbC4cVcuxbeIgz7i5mzpNbOJRTnSzUUfudwjWBMkmfw1kL28sg75rMvRsr@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxq8UaVxfX15GJxNGRmwTvm9TSrAgCxOghPf0iiCLeYUQKj8P54
-	3yKDQdWeL5kBKsh4p6EEQYHCC1ayBsZeWgw71m6pWHelLf1o0IoAITcG
-X-Gm-Gg: Acq92OHBGGzFMHREhVGAL0BsaApqgeif/70DbbU4E4fJSUphh4uTYUvJuWfyRljjSz1
-	1Tpoujbohl11PEtVIOwpyT6z7LQiv24wRB8P0o7Un2RwFKkyk3LYxICG+tYBGHLeS03hRGOSWHj
-	ONsJu74l69viLklPoYDWROzt/te9dNU3+uFL1fWSKZ4nUU1xFefkyLEDzSYXsA6swviFciaqhWq
-	5XLLuUnSjgW0H1SOHiE0nzEIx60T1wT+xLTJbypQDcSmcLae+TeAq3FhsSHFdRiswnJY2UCONPb
-	+uZ76cS7D7iVgwvx9twFL7uGyXM2jm0xT0NAKvS86fdwSb6PQbVesaqDI6F4WJo49+uQsmWcuJ1
-	ilOF08HlK+fjg85EGVUiNO3qj64Eoi6HAz55+5CzzzTqWlJjE+SbOYB5sa2tm0LNqrUzS9IQUPg
-	RSli1SOICj6cWG4SDm/B0cRQTE0xXLgCxkBbjIUEauw8/w7tIzIFDSBCioyJYEJ+QLMyhK/Wk7z
-	a/OIAER0fgo5gKLwevh2Yo4ufCTEQtFSRCT9yaYMg3+WQacVQ==
-X-Received: by 2002:a05:600c:a412:b0:48a:525b:e148 with SMTP id 5b1f17b1804b1-48e6748a724mr188954735e9.4.1778592077610;
-        Tue, 12 May 2026 06:21:17 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e9055ec3dsm43552285e9.0.2026.05.12.06.21.15
+        d=1e100.net; s=20251104; t=1778592351; x=1779197151;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lMr3Au4g9Ol6K3jiliyVVMtkLtrNvcrj6O2G0UGOHms=;
+        b=V8nLe1YxmKazAYQ9fJzpXpblVFOJlWIJ/IZZ7ABXkqn/YVflE7BYWF5Q8LC/Ke6J4B
+         f27tY/nXR/xPpnA+gXPxYZWAYu/ZGWoEsJML1Zv+VHc50GvvvSIdubPZgOPPlFvtKRPM
+         X2HIaAueSbyDVAMetp5cuzWJqqdP0WUsj6lF5qJITeboZwMpJcJ4WDm6GEoMox35/nEk
+         AkHqv954HYkN/HHanFzaImOsw0Gl/5z2pz0m5c6PpjpXUfnHSNcC9nIWN2Ca6poljRNX
+         E+S0Tg9lufemI7nbvLU900DbXm7LZyMTsSkDC65SB77vqyzvBEPGur5F5ejE/GWJ3o3K
+         yftA==
+X-Forwarded-Encrypted: i=1; AFNElJ9nGj/hqDJd7IosTzRnyxddEYo3ZlBNomBMpQbi1Wed10p/UyemH3OSsorE1YAiLl30DewOtJlsWaQP@vger.kernel.org
+X-Gm-Message-State: AOJu0YwYPhc5mjeZ8z8BFqjJUMo0ktGj2mS4hqZ10j6Bu0Ej/rLlzTqJ
+	EC/eRVVxRnmFCMAffvn5568PmU4k8T65+s0xc8kuqBZhoWcq62gkzD/Wf2z/f6I+v4l8JJ8ja2Q
+	2YGHyhpZlzAms8zploa1zv7N7qlW5fummYsWRWwEtOOQ+KS/V1lDbgnV9mdG8NhEV
+X-Gm-Gg: Acq92OGal/Bi47HXoL7Xm6KFr3kf3Kn847L3f2Had26qWfo9GZzajBiOHJoenzI86Or
+	8pYJuymKjAVrygdpKRQM3VRtF5hTDIMv0ia4yR0a0YPfUmZKUaxkajeIH6dM9qGfW9fv7S/dkq6
+	Q9A88gEiCuE5y1I5YFtqWV7LlmC4xaidMLvRqCAmP/u1H6gWiuPRL45NqeWPRIK6VDzgk4CtP3c
+	ijt4pJg6gYxphc2tYCqqlc3yicWiuKeGa6tr1nUPWtkWMLLCxtaXIBKPJiyflroRP9pihwQW9Ab
+	DrBZRX8d/jFiqbXy+SpVfQoDc28+w9rK0v+WxqVko+eMjjp1TawXldyuAcjgRuBJDCGcJcrVbli
+	/hfATfRpURXETb6xQsncog7HPT/xI3hEq4aIU
+X-Received: by 2002:a05:690c:6d84:b0:7bf:3b0:27d5 with SMTP id 00721157ae682-7bf03b03627mr269366647b3.47.1778592350871;
+        Tue, 12 May 2026 06:25:50 -0700 (PDT)
+X-Received: by 2002:a05:690c:6d84:b0:7bf:3b0:27d5 with SMTP id 00721157ae682-7bf03b03627mr269366267b3.47.1778592350409;
+        Tue, 12 May 2026 06:25:50 -0700 (PDT)
+Received: from [10.213.101.118] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-7bd66861afesm164595757b3.37.2026.05.12.06.25.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 May 2026 06:21:16 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
-Date: Tue, 12 May 2026 14:21:14 +0100
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Jonathan Cameron <jic23@kernel.org>
-Cc: 
-	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>, rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
-	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Shuah Khan <skhan@linuxfoundation.org>, 
-	David Laight <david.laight.linux@gmail.com>
-Subject: Re: [PATCH v12 02/11] lib: kstrtox: add kstrtoudec64() and
- kstrtodec64()
-Message-ID: <sj6cpjhakyfvv6rgox6cnhl2u2tgaecugcok6fw2l7zgku5wtc@aqx3ul72vgca>
-References: <20260510-adf41513-iio-driver-v12-0-34af2ed2779f@analog.com>
- <20260510-adf41513-iio-driver-v12-2-34af2ed2779f@analog.com>
- <20260512123953.40d80bc9@jic23-huawei>
- <agMnWzMjW1LwCSyT@ashevche-desk.local>
+        Tue, 12 May 2026 06:25:49 -0700 (PDT)
+From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Subject: [PATCH v4 0/2] pinctrl: qcom: Add support for Qualcomm Shikra SoC
+Date: Tue, 12 May 2026 18:55:42 +0530
+Message-Id: <20260512-shikra-pinctrl-v4-0-b93c3a2e4c08@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <agMnWzMjW1LwCSyT@ashevche-desk.local>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFYqA2oC/3XPTW7DIBAF4KtYrEvEnw32KveouhhgqFETOwHHa
+ hX57sVOq1RKs0F6SPPNvCvJmCJm0lVXknCOOY5DCeqlIq6H4R1p9CUTwUTDlGhp7uNHAnqKg5v
+ SgQavOdgGnW8CKUOnhCF+buDr2y0nPF+KO90+72xX/aDmF82ji56C0IDSOKtRdjNfVQsZqRuPx
+ zh1lWw1U4GxoJUGC5KrQrRGM1sHb8AJyaAFCGTd38c8jelr61es9YBnVWZOGeVWWSusBOOb/Zj
+ z7nyBw7p5V55NnMVdqZl6UMSqKGy9c8I3pn6iyL+KeVBkUbTmpZvzTnH+j7IsyzetGTwTvwEAA
+ A==
+X-Change-ID: 20260429-shikra-pinctrl-fd71ab6ecd6f
+To: Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Richard Cochran <richardcochran@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        netdev@vger.kernel.org, Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778592345; l=1860;
+ i=komal.bajaj@oss.qualcomm.com; s=20250710; h=from:subject:message-id;
+ bh=dAUT6urYpcci7+seRnPuuK6X6/yN+Qxdu2FzYuJP7Hg=;
+ b=lwNmKw1UkDXYNRZDZd15AAJPE5rNQldpF+B5wS5fwyWqxTDlc8Wn1+4c53ez/uQqIh7QzVA35
+ 9IZPGzivPSPDuHJO5wkWo6jh2UcdyxuBjny+aRGZ9M6aZCKlTu9zqkT
+X-Developer-Key: i=komal.bajaj@oss.qualcomm.com; a=ed25519;
+ pk=wKh8mgDh+ePUZ4IIvpBhQOqf16/KvuQHvSvHK20LXNU=
+X-Authority-Analysis: v=2.4 cv=fMAJG5ae c=1 sm=1 tr=0 ts=6a032a60 cx=c_pps
+ a=NMvoxGxYzVyQPkMeJjVPKg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=F7K3iWs-JhacpI5SHW8A:9 a=QEXdDO2ut3YA:10
+ a=kLokIza1BN8a-hAJ3hfR:22
+X-Proofpoint-ORIG-GUID: bkN2MQhZKh83qXObpgAmjWC0AEg86xV6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEyMDE0MCBTYWx0ZWRfXxfDCyZjeivVm
+ /kI+51iUIINZKCKHYpvJeQfF53GK5tSFGvCWyn0NJhgHFe6oQMEB6sQ0+NS3jrdSFaYPXsRKcFx
+ 38mPu1GeXliIdricnBTObXxE8m0LTFXo+EvjwzG8ZS+iKqJ/8vMcS7xydii4/uY6EeRIqb+8G7L
+ bOtHMW1IWksdC/rF8lRyugkwmy4kVTSG6qb1FwthURks82uPV8249iXTEfAZlottKEk/havUDJl
+ bAwQku1C41RnnTITShOBUybynGn7JZ287+hyGG4hLxpnIeIuVxcyD4PP88rsXpotm0Kx+vWXGYN
+ ddw+ZLQhPbUwm5ro+umrn2HerM1jzchEzCHiEIWeimPZDHONrEPpYyfGUTN7LXk1zkWxh08BSyk
+ 8npROi86kKJNSRCCp2nJj88QeEJW397OVXbRUvpIux0wl+wuE80KUJOPuKzTMGFiBu0RGmscVXG
+ u2QMAi5XlsXDBycg3bQ==
+X-Proofpoint-GUID: bkN2MQhZKh83qXObpgAmjWC0AEg86xV6
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-11_05,2026-05-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 suspectscore=0 malwarescore=0
+ clxscore=1015 spamscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2605050000
+ definitions=main-2605120140
 
-On 26/05/12 04:12PM, Andy Shevchenko wrote:
-> On Tue, May 12, 2026 at 12:39:53PM +0100, Jonathan Cameron wrote:
-> > On Sun, 10 May 2026 13:42:20 +0100
-> > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
-> > 
-> > > Add helpers that parses decimal numbers into 64-bit number, i.e., decimal
-> > > point numbers with pre-defined scale are parsed into a 64-bit value (fixed
-> > > precision). After the decimal point, digits beyond the specified scale
-> > > are ignored.
-> > 
-> > Whilst Rodrigo has already replied to say there will be another version
-> > I'd like to request final feedback from those who were involved in the parser
-> > discussions.  
-> > 
-> > They got very involved and I'm far from an expert in the right way to do
-> > this stuff.  
-> > 
-> > I don't think David Laight was +CC so I've added that.
-> > David, Andy - I think you two were most involved in that discussion:
-> > Any objections to the end result? 
-> 
-> I already said a few times about the naming. I do not like the kstrto*()
-> be semantically different on how they treat the input. Second point is
-> to avoid code duplication, but this one is less of a concern since the
-> new code is in the library close to the other potentially duplicate code
-> piece and hence can be addressed later.
+Add the pinctrl driver, document the bindings and enable the
+driver in defconfig as default.
 
-I suppose I reached into kstrtodec64() and kstrtoudec64() because it aligns
-with your expectations for kstrto*() semantics, no? Those include:
- - overflow check;
- - extensive input validation;
- - optional '\n' in the end;
- - mandatory nul-termination.
+Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+---
+Changes in v4:
+- Remove eGPIO fields not supported on Shikra: drop .egpio_func, .egpio_enable
+  and .egpio_present from the PINGROUP macro and shikra_tlmm (sashiko-bot)
+- Link to v3: https://lore.kernel.org/r/20260508-shikra-pinctrl-v3-0-771144cdc411@oss.qualcomm.com
 
-am I missing anything?
+Changes in v3:
+- Move MODULE_DEVICE_TABLE(of, shikra_tlmm_of_match) immediately after
+  the of_device_id table definition (Krzysztof)
+- Link to v2: https://lore.kernel.org/r/20260504-shikra-pinctrl-v2-0-14e9dcc2d685@oss.qualcomm.com
 
-> Having the test cases is a big benefit, and that part I like the most.
-> 
-> -- 
-> With Best Regards,
-> Andy Shevchenko
-> 
-> 
+Changes in v2:
+- Fix Kconfig description to drop "Technologies Inc" (Linus Walleij)
+- Remove unused UFS_RESET macro (Maulik Shah)
+- Add spaces inside braces in shikra_mpm_map (Maulik Shah)
+- Fix gpio-line-names maxItems: 165 -> 166 (Krzysztof Kozlowski)
+- Link to v1: https://lore.kernel.org/r/20260429-shikra-pinctrl-v1-0-1b4bb2b3a8d6@oss.qualcomm.com
 
+---
+Komal Bajaj (2):
+      dt-bindings: pinctrl: qcom: Document Shikra Top Level Mode Multiplexer
+      pinctrl: qcom: Add Shikra pinctrl driver
+
+ .../bindings/pinctrl/qcom,shikra-tlmm.yaml         |  123 ++
+ drivers/pinctrl/qcom/Kconfig.msm                   |   11 +
+ drivers/pinctrl/qcom/Makefile                      |    1 +
+ drivers/pinctrl/qcom/pinctrl-shikra.c              | 1253 ++++++++++++++++++++
+ 4 files changed, 1388 insertions(+)
+---
+base-commit: 39704f00f747aba3144289870b5fd8ac230a9aaf
+change-id: 20260429-shikra-pinctrl-fd71ab6ecd6f
+prerequisite-change-id: 20260428-shikra-socid-a27ae38cb7e3:v1
+prerequisite-patch-id: 843f28095c0d42d0d60ab7000095c64dcb2e90ca
+prerequisite-patch-id: 1069d6880c3ff91c230c20fcd876738001c6d35d
+
+Best regards,
 -- 
-Kind regards,
+Komal Bajaj <komal.bajaj@oss.qualcomm.com>
 
-Rodrigo Alencar
