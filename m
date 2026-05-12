@@ -1,90 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17B423812D5;
-	Tue, 12 May 2026 12:43:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE5903AB5D4;
+	Tue, 12 May 2026 12:44:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778589816; cv=none; b=ZqQXbXiv3GCkrcEU0y/bORIW5NR0HPgUNY6VBMTT89m7oDSKCR4ecxiMaFwDiaWWMPXpLureslVoYMPzXbz7pegVspKu33zMyaDW9F5hmYQK+Q8M1BNrvjYoS8ohhwst+SyOU49Zn+aVnLPr/TCrvV8z6a5OMwLXXf4rDLjqhk0=
+	t=1778589860; cv=none; b=mOJ0D97cbeAshUHUB5szn4MQDq1MtjE9mwWvdtFQtQlTxxtl9h5IqDkNmaYIdxx13DOQJ1/TcE2ORIQFMnPzGOxk6e7CXTz2aOqFsJRsMUFT7PYTZaJZcMXJcySeWDVJwD0cGkGc9NPFW7CbGWBnwd9+lUCZZoo0lgmnVrjCc3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778589816; c=relaxed/simple;
-	bh=2QFBCHYyty2qN+25qgGRIXMyA1GhvT3dUvnWU7zN7I4=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=GpwwyKvOL6hBrpVOSUD9Irt/VH5NCFtLVkxGgRfHwVNyt6LYmt0Dd2vg2tYHVMmvZzIFgmKKsZLzU9k2nuaD0xQq9KqstzaxQpyhnigHXHAafAvu3/o3vjHqkHZtCvDtCrZk+AnXj9N55EvM3hhN93BNvByk6m2SYG1Zxrn0EuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OUWXuirH; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778589860; c=relaxed/simple;
+	bh=ynnjv97wfx/V36rrNYcpM4Ajjb87ua0e4tF3T4P8P70=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pMP1XoC6YGt9ZV/iYUTfCO7AbUUCT05jGR4BT/iUvt4nv8dEWTEyekmtp5ku0KZlZsLJmwSCQTNnWNKm9+nKXH+ZBEd4F1Ppfa7i2PYy43CGiRO2LDbxyG/O1qB+JWFuE54oZBekWjPjWS9KDji+oRRvEMCHOOHz1iXbFFIWS3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=EdIWecXn; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OUWXuirH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DD6AC2BCF5;
-	Tue, 12 May 2026 12:43:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778589812;
-	bh=2QFBCHYyty2qN+25qgGRIXMyA1GhvT3dUvnWU7zN7I4=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
-	b=OUWXuirHD0CE+k/yAj9LpL/EUyljCYOU325FrOcAfsJZoZRFE3xuDgQSk4dJKz76O
-	 otTAP9zMd9Q5Ouah6wjlWEPQ3LEsus+C/Whq4YJrRUBnqlsKtXK3t/TVbsi8H4Nvhy
-	 7S0UqDcvvZTSGl4PPhurb+fvrdw2+8LLYKNtjlZ4HMnRLJukem77E6iR0NgV/TGyRb
-	 OAuL63GoUyUks0XJWgqDfkRmSEeRVQeHo9GRABdO62RNV7eQr67zr6RIkTmf+lv9Fj
-	 j+SUuyvvAUGZAUZvQ7EcqamgmgRL4SVzrEfmUksgrLsv8AATr7LqWMVXMF0n2VI6FF
-	 jFprVnil0Bl/Q==
-Date: Tue, 12 May 2026 07:43:30 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="EdIWecXn"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=lYPN7aWKZlgH0kIpN2gEWZFs4l/E1/Sd8KYgxMgHv9I=; b=EdIWecXn9FLmtKOpxElIumvSN7
+	0f8evQ8X7XV6zr+MFoBSJYHWegzcQUYPf9v99yioakDL5ynkBLYtQE2XW0BWMHsnKL+AWEk4vDYoi
+	HegdKl7bVr4rYFS4F3bD6rSstwk+P6xV0qZ9Vm8vt534o18Lt3fPMIsScVyy3TB/E43s=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wMmSo-002XrU-Pa; Tue, 12 May 2026 14:43:54 +0200
+Date: Tue, 12 May 2026 14:43:54 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, kevin-kw.huang@airoha.com,
+	macpaul.lin@mediatek.com, matthias.bgg@gmail.com,
+	kernel@collabora.com, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v3 2/6] net: phy: Add Airoha phy library for
+ shared code
+Message-ID: <e8820956-7f75-41f4-80ab-a0fca1637072@lunn.ch>
+References: <20260512-add-airoha-an8801-support-v3-0-1edb34e363ae@collabora.com>
+ <20260512-add-airoha-an8801-support-v3-2-1edb34e363ae@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Rustam Adilov <adilov@disroot.org>, linux-watchdog@vger.kernel.org, 
- Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Wim Van Sebroeck <wim@linux-watchdog.org>
-To: Sander Vanheule <sander@svanheule.net>
-In-Reply-To: <20260512110848.106620-2-sander@svanheule.net>
-References: <20260512110848.106620-1-sander@svanheule.net>
- <20260512110848.106620-2-sander@svanheule.net>
-Message-Id: <177858981010.1472205.3902733449598892024.robh@kernel.org>
-Subject: Re: [PATCH 1/2] dt-bindings: watchdog: realtek,otto-wdt: Add
- fallback compatible
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260512-add-airoha-an8801-support-v3-2-1edb34e363ae@collabora.com>
 
-
-On Tue, 12 May 2026 13:08:47 +0200, Sander Vanheule wrote:
-> As all known hardware instantiations of this watchdog behave the same, a
-> fallback compatible can be added.
+On Tue, May 12, 2026 at 06:33:19AM +0200, Louis-Alexis Eyraud wrote:
+> In preparation of Airoha AN8801R PHY support, split out the interface
+> functions that will be common between the already present air_en8811h
+> driver and the new one, and put them into a new library named
+> air_phy_lib.
 > 
-> To remain compatible with existing single-compatible bindings, the
-> current compatibles are duplicated. New compatibles should only be added
-> to the list with fallback.
-> 
-> Signed-off-by: Sander Vanheule <sander@svanheule.net>
-> ---
->  .../bindings/watchdog/realtek,otto-wdt.yaml   | 19 ++++++++++++++-----
->  1 file changed, 14 insertions(+), 5 deletions(-)
-> 
+> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/watchdog/realtek,otto-wdt.yaml:31:13: [warning] wrong indentation: expected 14 but found 12 (indentation)
-
-dtschema/dtc warnings/errors:
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260512110848.106620-2-sander@svanheule.net
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+    Andrew
