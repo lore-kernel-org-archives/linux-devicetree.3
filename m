@@ -1,102 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88086386C28
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 22:34:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3134A382288
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 22:45:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778625274; cv=none; b=DSt2fgMg3G+4kNF8ebMGi9K4sYO4C0utb3XgvtO6pn2+tRZIvHicKQOQ9LzJU8TuszSwxEgZGjOZnW+1WvELiGHDfYcJgAHAFUrb3OAhtqioyw1rktcwmrkBKKNdxF3BNuf1xNdTt84bCZohdH5YsPcP3MIzM4Scu0rWkeUnB6M=
+	t=1778625958; cv=none; b=aoMKH2HvLR5I09XgJQ6zgzAY39cnoCQ65OCFm/D5VpM8s2ju7I1mWb63CNq1SdhAmzhtYeymI2SIlzhBhW3lssuRn2MfJJoBAqO3DIZPlCFXOUseIAM2QPx9XEa9qzuP61XHquxdtFVD1dxNtjCdhPOc7ss1En8K2xL2c6mfHR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778625274; c=relaxed/simple;
-	bh=BkJZIpACjUxtGxZzNQbleTi3+H/xH97Nhy1ZvCMWVAA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AbY9E0e6G87TSPSejo4rzKpLdxCrkhIWpkvaYp6AoznFVyuv52vewPWEqx8qgnb8/hh6+n7Z7Ag3dZjQH1ScQeDnBWkLX3cDPWrZyb4QFTUfTWbU8YgWzUULyZRzcyt2f4JTYu2sAT5zGH6zXNanipcVT6Pq7UBr9oq00Qd1ChM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=De+qS57W; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778625958; c=relaxed/simple;
+	bh=07huJZfdVDsVDdyzp6gIWeNC9PLalNwQMidkkW1mhKg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=URwXhBnW0ZgR7PypjbafbLwE7fL9EA4DjpXVycwvQJ5iNUmJ9vVoWMlN5GwUbWD9KL256OnwTHN9Atki8cXqlWESt9tl7WD8n/7CwciW6LIkU+LrSeC2+E/84Ggg86SjiRUsgeGToeV7DMZtfMWcCwD/UrIAqbE4zYX0EytPSVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=LgAQAhqY; arc=none smtp.client-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="De+qS57W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D823EC2BCB0;
-	Tue, 12 May 2026 22:34:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778625274;
-	bh=BkJZIpACjUxtGxZzNQbleTi3+H/xH97Nhy1ZvCMWVAA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=De+qS57W4qETFDENiEgBWnUgL4cN+RXz8BFndjDIx3X1pByFT0rUStbMINV8sNI08
-	 Z4U0TWJQX31jDE9V3/zYvQ2/qcCZcXwgef4yGKTyoEAI2ebLSxnk/WPDUA+BzAAXg7
-	 uwos8mNRaaH40FzWIgSAlTMdueLQdWLieJQX24FurBOU8Xi/oJC0q+5XK7IspbGUpB
-	 khYhUuY1EpV1l2Ip23Txr2ZANXI7n8NwH8YK7PEvP2jET7LzfokUBzVZ8AG1xz+ApI
-	 ei5Qwj0hxoXML0Z4aaV+dc5mPD5XHPUBhbJKphUF4pBDNRgmFT6pvLdkPbcXlHSzYY
-	 I7yuJ1T7s8cRg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 v8 04/11] dt-bindings: iio: adc: hx711: add HX710B
- support
-Reply-To: sashiko@lists.linux.dev
-To: "Piyush Patle" <piyushpatle228@gmail.com>
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260511174342.123820-5-piyushpatle228@gmail.com>
-References: <20260511174342.123820-5-piyushpatle228@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 12 May 2026 22:34:33 +0000
-Message-Id: <20260512223433.D823EC2BCB0@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="LgAQAhqY"
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-133466cf955so537380c88.0
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 15:45:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nexthop.ai; s=google; t=1778625956; x=1779230756; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=0dud5LLCGSTK8F+2vzRewAKWi1MtN7/zLbCDo25xb8E=;
+        b=LgAQAhqYOo64joSIh0Uh6OwA8IVx+lopDrocPu4pJXlb/sbem8FLCOQCE9V/ciCgpJ
+         qGnya/KCQUeRDHmQSl9GiSWqZFwFes5HPnn3xfxiVjO+KoVhftCGl4+WYfTyRNtfkCM3
+         1no3h+SvfyeGK2tGbA0YpB3vRNGijIChHyOvc4+yv1TfgZzJhStk5exw0Pc8Zwj5nHJv
+         XubEz3AYb5tEtrUHXYh2xWMFMqL0JcCU2w0vGCaMKi5Df1CFCm9fztUgFE+gd8L6YAxQ
+         qSEFxhNl3Zvw7klrauqb3LyPnntDTIwLLiHaf1AKl8F5Uypp2quUZkbkix1ZmLcVgwVn
+         Cojg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778625956; x=1779230756;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0dud5LLCGSTK8F+2vzRewAKWi1MtN7/zLbCDo25xb8E=;
+        b=BqhKBkjbJHJx6FZF0bX2h4rIB4WdLL8TSgyznNznoz32CJ3pwUUXGiSRvvTvpE1L7N
+         zrTZsKagpMcFf7vVOh0juSCzjFn44oYCde60xlQ6F6Hpn9Ief5CKVDteae38h+bgIStA
+         e0ADk2N2uQlN8sn2YmkVlWJfbyEvXWimriWsDiQYGeebVnzQaj6AMd3dzkDA68DgRPrQ
+         OUz+qeTo057o48pmWQxD4LMlgXuMGlPhTUbKDW2IN5ySXbD9famXRbk2ZPz6/+iEahCP
+         kXop1uWk74P9CCsqrKBRQi5P2JrFmfsxfkitUaycpLLKx34xz+8wH07FO++KN4+GneHG
+         Z+AQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9Is2hCewpgJJRcFxKLONRcvKiyCke0Vrdv8IamqVu+raAvsuz29OCasG8Y7kyZKFdifrA08kWP87Qc@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy1iwUNQLEEFYyIQ+dHeHFfBNmTrZmY5GbuclgxpT/GjtMEtu/i
+	16qMosgU2oVsWn6None4WgWPxljvkiu3F7yCf5XNGvlR3ZkE8tpXN1H5uGPqqYjcuDQadrIpUh2
+	juTGlXbo=
+X-Gm-Gg: Acq92OHcaT02TtEH7pngPbNtsqiUbnUEVLm4CtRxZo/pRlB+Dz5hdwjwJAKybswkOOl
+	JE7ZGzDZGUWy79tmPzKdv94J+D2OYEZhBY8jLoDMQk6vhsJnFw/aO63+IMQfkZttRoPg/z2GYga
+	lVBNU9ba8/cniJ4G6Raa/j1YvgDHrGC+toaE6Drir/iL7IwlNawp9AS4UDp3OOegNMWPZ9lyFTV
+	oXH+usiwLk7gAsZ3z+xRk1G+ghFw0ES+vzM/XfJle7yFxk3ZZZ2Srilksozjm1pWN1V1x4Pn4nO
+	Uh8/MH96M7XQLzl22He0yXt/6/q1f7uU/Ji4OJhMT0EM9ncBkZS3RrDsOjsng+jS8lNaTYQIhBE
+	DEx2qzdcRC7l+wZR96197tIR+aQ0d89sfWzR5O8TnVZnfit2tkzevrctsL8OEykwgK+4UA4pdcV
+	AZTWn3Ev4IG6qeM4aX8mMrtdAtMQ==
+X-Received: by 2002:a05:7023:b0b:b0:12d:c039:6599 with SMTP id a92af1059eb24-1343699b63emr519999c88.22.1778625955810;
+        Tue, 12 May 2026 15:45:55 -0700 (PDT)
+Received: from [127.0.0.2] ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1327821fd00sm25351543c88.8.2026.05.12.15.45.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 12 May 2026 15:45:55 -0700 (PDT)
+From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Subject: [PATCH v2 0/2] hwmon: Add Murata D1U74T-W PSU driver
+Date: Tue, 12 May 2026 15:45:51 -0700
+Message-Id: <20260512-d1u74t-v2-0-431d00fbb1c4@nexthop.ai>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJ+tA2oC/2WNQQ6CMBBFr0JmbU2nLWhccQ/DogyDjAsgbSEYw
+ t0FXLp8yfvvrxA5CEd4ZCsEniXK0O9gLhlQ5/sXK2l2BqNNoXNE1eB0c0mRptrfWyTrHOzyGLi
+ V5Qw9qx/HqX4zpWN9GJ3ENITP+TTj4f1FZ1RaFcaSqQlza3zZ85K6Ybx6gWrbti+Abc84rwAAA
+ A==
+X-Change-ID: 20260511-d1u74t-c0cba8f1c344
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Abdurrahman Hussain <abdurrahman@nexthop.ai>, 
+ kernel test robot <lkp@intel.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778625955; l=2625;
+ i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
+ bh=07huJZfdVDsVDdyzp6gIWeNC9PLalNwQMidkkW1mhKg=;
+ b=N1fpvSwaSXM2bYj2h/Cp7iEyB5yRVXj4TFN3Mk5qbmea2/1zdOfxg2ofP+VdhbU7FOELd6FQL
+ lIz2Gg9DmysB5Ukq/XreAGxunZhzuCyPdf+cAqvlA0hI0mQHaw0peoL
+X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
+ pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The HX710B-specific `dvdd-supply` property is not disabled for t=
-he older HX711 variant.
---
+This series adds a PMBus driver for the Murata D1U74T-W AC/DC power
+supply unit, used in some Open Compute Project platforms.
 
-commit a13e8e56d6e7d72323b9da2a052824f6a63351ad
-Author: Piyush Patle <piyushpatle228@gmail.com>
+The PSU is PMBus-compliant and uses the linear data format. The driver
+exposes:
 
-dt-bindings: iio: adc: hx711: add HX710B support
+  - input/output voltage, current and power telemetry,
+  - three temperature sensors,
+  - dual fan tachometer monitoring,
 
-Add the avia,hx710b compatible and document the HX710B-specific DVDD and
-VREF supplies. Update constraints to forbid HX711-only properties on HX710B
-nodes and require vref-supply for HX710B, along with a new example.
+through the standard hwmon/pmbus sysfs interface. Probe verifies the
+PMBUS_MFR_ID and PMBUS_MFR_MODEL fields before binding so the driver
+only attaches to actual D1U74T-W hardware.
 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml b/=
-Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
-> index 9134bbe413796..b2b5c7bdf05e6 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
-[ ... ]
-> @@ -53,6 +69,21 @@ properties:
->      maximum: 2500000
->      default: 400000
-> =20
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: avia,hx710b
-> +    then:
-> +      properties:
-> +        vsup-supply: false
-> +        rate-gpios: false
-> +      required:
-> +        - vref-supply
-> +    else:
-> +      properties:
-> +        vref-supply: false
+Patch 1 adds the compatible string to trivial-devices.yaml. The
+binding declares only compatible and reg (no regulators, no supplies),
+so a standalone binding file is not warranted.
 
-The commit message introduces both DVDD and VREF as HX710B-specific
-supplies. While vref-supply is properly forbidden in this else branch
-for the older HX711 variant, dvdd-supply is omitted.
+Patch 2 adds the driver, hwmon documentation, Kconfig/Makefile entries
+and MAINTAINERS section.
 
-Should dvdd-supply: false also be included here to prevent incorrect
-device tree configurations for HX711 from silently passing schema validatio=
-n?
+Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+---
+Changes in v2:
+- Patch 1: move the binding into trivial-devices.yaml rather than
+  carrying a standalone murata,d1u74t.yaml. The device only declares
+  compatible and reg, with no regulators or supplies, so the
+  standalone binding was not warranted (Conor Dooley review).
+- Patch 2: fix the d1u74t.rst title underline (was 18 '=' chars under
+  a 20-char title, docutils warning from the kernel test robot).
+- Link to v1: https://patch.msgid.link/20260511-d1u74t-v1-0-623c2bc1532a@nexthop.ai
 
-> +
->  required:
->    - compatible
->    - sck-gpios
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+To: Guenter Roeck <linux@roeck-us.net>
+To: Jonathan Corbet <corbet@lwn.net>
+To: Shuah Khan <skhan@linuxfoundation.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-hwmon@vger.kernel.org
+Cc: linux-doc@vger.kernel.org
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511174342.1238=
-20-1-piyushpatle228@gmail.com?part=3D4
+---
+Abdurrahman Hussain (2):
+      dt-bindings: trivial-devices: Add Murata D1U74T PSU
+      hwmon: (pmbus/d1u74t) Add Murata D1U74T PSU driver
+
+ .../devicetree/bindings/trivial-devices.yaml       |  2 +
+ Documentation/hwmon/d1u74t.rst                     | 97 ++++++++++++++++++++++
+ Documentation/hwmon/index.rst                      |  1 +
+ MAINTAINERS                                        |  7 ++
+ drivers/hwmon/pmbus/Kconfig                        |  9 ++
+ drivers/hwmon/pmbus/Makefile                       |  1 +
+ drivers/hwmon/pmbus/d1u74t.c                       | 85 +++++++++++++++++++
+ 7 files changed, 202 insertions(+)
+---
+base-commit: 5d6919055dec134de3c40167a490f33c74c12581
+change-id: 20260511-d1u74t-c0cba8f1c344
+
+Best regards,
+--  
+Abdurrahman Hussain <abdurrahman@nexthop.ai>
+
