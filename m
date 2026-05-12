@@ -1,188 +1,152 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DDCA368971
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 15:11:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778598673; cv=none; b=q4LEFE3QrzMq32UTnfjvklu3r/NScV9UuHozDkAOv/5FU5JOV5B/9gB/wkJ8r+Bylg156MP1vhXVp60iSsMgoN5I8r6lmlva0luAtfmg9nwgwS/07TAPkh7DxJBXE61wkmWrYs/DtVCW2NWmU1NXRhYyrE8/NOu0yDuRavZAnao=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778598673; c=relaxed/simple;
-	bh=M/OlBy2UYV0O2v6kUD7jaAhw2kmLfUEuTpihKtR1EGM=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q8EqeiEgI9jsQgrjbm4lsYkooEnKlpzTqWWPHGgJ1P5ucsfyCQXdgrM5oGiwqTLXgU/fQkcqRhESjFfBCNh++llfWjYz2ubiuYmn2RVvxX/kCcQCqaZdthBJqWmtZpChaE5apr1g9gpIrXmzdvUgPTpegAmt6Gwycj1hjfijicU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q5njw/Nn; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7E6F3B995B
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 15:21:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778599285; cv=pass; b=tAwoPTXwnJJqXVKfSO/0pmzVNgibGM6vUJS4N/mg08WH5iEVTfBZN3BpRWXza6zvaWUdsNdJbwsuqQcrODWybjvfWwNVhLcSuH3V4D4HZ4OTcIoO+3kPc4DkHZzi96uYXveqapB5dCuQUepUo8C+e1qr7oPH7POksP1maAsYf94=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778599285; c=relaxed/simple;
+	bh=d6Ai2oZGfRKCbsGfMKcyIjj6RolLAPQ0oieRpFAWaes=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PuBDKHtBk4hleL0LAk2XhkuVfeIVP8d4No67p6jBycWWi+u3QbpENrMwa2Z73v0OWSKLCnQlmoABnck9LaCwSeAQ6dMKjm63rB494D0fxHx5vl3zixR7me5aztHmLsJSAl9efxGw5jHOAVt/qmAzlI5cqKddyKd9X6dpNmkCTqM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Q4RH5Bxu; arc=pass smtp.client-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q5njw/Nn"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-488b0e1b870so96010745e9.2
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 08:11:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Q4RH5Bxu"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-67e24b8ef55so7969259a12.1
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 08:21:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778599282; cv=none;
+        d=google.com; s=arc-20240605;
+        b=MnuiuwKheIElq1uorhdFXC42ChD7nMZKFvXZ6eY+XPZYNyUdNfE9HHwUlx0u3TrngS
+         M7DDW6xmnmCmDM+tvzFKCnj64zYZpQktdWkDWuVsELNX0vxEnQKTqUB0atG/pDNOWD8q
+         pDUPAA/opeYMWj0uoY4bEVInMmeed7r3W8/etZursipXJyxnQ3xbXOFW6C2QAxUhrfeO
+         BajHem81Wrnwho2tt2cfr+7444PrF7proxSvkt1n/d8eV6rGpl6lf3dKkEtV2dfdEulo
+         YmORmLHIhv0bM7gs7Nzisu1LHNU4DcJ49TNVct2R9XGXtUfl4OhgeTeGkb7RjHxVPOss
+         hbxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=t0ujevqgQXDHfoEPkvrwGuNuwg0PASas1+bZlJQ1jQU=;
+        fh=hqnnzvFzTA4nphg7MZenWzR6O8rpQuHi/UgzIIur53s=;
+        b=WpJ0+Qd7KNDZDzwRD5mLfZWIvz4qYUh9/56JY+5PSf9eO57sGsqCZnG0MEYVsx0yvo
+         NKAOlzYl+Tkx9BF5TbVSy4dS5FTBDbr77lNuL0gs02mMn8N1kGGc7cWSqkAkYLLCbrMS
+         ffIvmZGrcbv8P4XKuWrTwu+Vj0Gthl3TfT0maX4StftzNcmDMaASMwMwGho0/ksdPuW/
+         jBDOPPTuqAmqaBem16INeG/kfsOKMQTd+sG2OLTzlxkoNgUH2paKmAYAWJbnxfJM0oD9
+         helZK2Q+MRg8CgtEPbBisYAIsshxt5ZNjPUbZ+cBgZwdteRde7CQ+gEDqRNBG8RfuUa4
+         Oifw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778598670; x=1779203470; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=UrqeEwK16SbblcIoUInFb1Z7JZt5ZrtLnMUbnKHgFh8=;
-        b=Q5njw/NnlA5G/sXqqLMuTYRrslCdTtVBrO1pg+SAiC4c+f6rM0EuNfWBxEY8bp7J3k
-         3dPR0A1sF6VfMw0i5XXydbo5F7gGB9S47oxkN092GOFPa1RJqzXaPU2VjMSnhDN5wMNM
-         Y9cdDWBuBRCcl+zQlhV9v3zYGoKMhHsmcB6REfANtX1iRaozcQkFbuYcJ6WgorA1FPnL
-         pE6tSfC/DcUyLYsW1m+RYDTASIYi/JRU+Jzwh5TBImQiiHKxUr+qyeFTAUvosAlj3/hk
-         qUTgvRQj4nDIdIBqIde8s7MOzL6KKtbYSQOPv1uKZ8YuFja6SY+qBziDNwwEXilmw/sm
-         5Qmw==
+        d=linaro.org; s=google; t=1778599282; x=1779204082; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=t0ujevqgQXDHfoEPkvrwGuNuwg0PASas1+bZlJQ1jQU=;
+        b=Q4RH5BxuUtXZ5bNxuocVfhVepTorYWk17UQerZ1sE267yfrWRTVhDcT3u40DBZzyuy
+         fju/g9f0gnWEaDM0ruVcJ/bOE4JrWJFIlGWN0Qzoidvp7bOHz70iit+3yNsCnEm2Je3w
+         Y30eUW9JZYdgEtpZq1prESK9fOrr06Wczjg+4aRtry3e9JokzBdfzkgfE4lokgE6p7VD
+         qZzHoT0FiAgiGar+7st5qVCh0p2LE2T7YMuOpQbJPloStKSO/Q5BrPNZUtdMDtq/7G/C
+         +wZhh/7UNRkszwWrLb9UOmnEuppG9f8RnoB+p6piyNhdvOeZl5/WMwijUVRRd/DFYD84
+         yUuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778598670; x=1779203470;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=UrqeEwK16SbblcIoUInFb1Z7JZt5ZrtLnMUbnKHgFh8=;
-        b=RgqqFu1II2f54S1SlAmwOf0339FPmMjN8B0eeyETyFrnBtKA6inCtlbSRjKS3U2rie
-         IH596i4Ab5Vlqt+gSCOeDXNKdBr6KS+9VgPmf/jm8uSbtfafIsVVo0QFUCp2LXTJvuCP
-         XiUicaMIUU13WfmCFyP9eioVmrCUDzeSI3FvQgD3z1vsdwU2U8xBsALwohHIEjEbJThD
-         gT9f0P3K56lbVz86c91Im85W/2G8Ln1NgYfnzvfOfgOdPei2k0KQnn7e/SA5Kk3ypYYJ
-         gLu2xmWzt6eepZcS1AntmA43gdgc8CKLtehAI2ssvdh+nTms4661d9ggTLk8anlQvVH9
-         S3ww==
-X-Forwarded-Encrypted: i=1; AFNElJ8ZcZ9bufGHmtwS0utdoIt7eFvwYRMZvWWMWwcYyr6IfMiEFCJJgbKCH35FhuMvNQKx4LpFx1u0hN/5@vger.kernel.org
-X-Gm-Message-State: AOJu0YxAMx+rbDjAk68E0CuHFHmToRVD9EmdhO7lv38l9yckAuxCrEvp
-	upXj4HnShnjvlQLmUDE5S5wDAKZfTU2KD4DnLMG7NdS5TL8Fq3F7vqtN
-X-Gm-Gg: Acq92OFvARq4X0YmkO4gUhsH5EjqVnE+m9JqeXM+b8ZgTnkspJ/UA2lG/7AavIPFU5y
-	FBvRv/DrjFa/oswe7+oGcM2n57mWNms4HWUJii6qesp0ArKD9jB2C/egRj5n1W0qAbqgonefqJ7
-	4opkQqFvg8vlGpVbUo39tZ9Sj42ut+H5E38ufG/LA8CFFHh7BiuJXx6IiInusvks3e6r24SNHDk
-	MdkFwxP0Wi8u+shapQ4k/smx8WBJluUIZ0DIoKYBMSkfyHMJZ2g5KoRgMEIlagaVCY8vKAS9n2K
-	p7RTxZOxM6hixQehDdrBRbE+KQESdzWZqNRhVtAaIzLcy6cGwffejhnWtihxOk4J4Vq5Hk7+vAP
-	goCgmVnehNlq1J3jFdbR+cpqhv+lu3BnIFIK0G3W7m6WRoCErxwsxsTGbv2o2qYMRoQIzA3eO7t
-	hVJe9jl+xiQEXkszorI1Zym36hFZxXw+I0BHltfwQXBFO3V2EaKmlwLdKdqr2ow7F39B/CCgCl6
-	A0Tw6vxlrP3rE4GVmEjeUHiTvG05hK2WEOfZdNL7CRHWe4AiQ==
-X-Received: by 2002:a05:600c:4ba6:b0:488:a882:c7 with SMTP id 5b1f17b1804b1-48e51f4bab4mr273241975e9.25.1778598670135;
-        Tue, 12 May 2026 08:11:10 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fc8d19974sm3567075e9.2.2026.05.12.08.11.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 May 2026 08:11:09 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
-Date: Tue, 12 May 2026 16:11:07 +0100
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, 
-	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>, rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
-	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Shuah Khan <skhan@linuxfoundation.org>, 
-	David Laight <david.laight.linux@gmail.com>
-Subject: Re: [PATCH v12 02/11] lib: kstrtox: add kstrtoudec64() and
- kstrtodec64()
-Message-ID: <ur6brs3yjzyb4mtelabmcglxjltddqvjxtgl3lkdkmbjlkmnsq@bwd6rz7gided>
-References: <20260510-adf41513-iio-driver-v12-0-34af2ed2779f@analog.com>
- <20260510-adf41513-iio-driver-v12-2-34af2ed2779f@analog.com>
- <20260512123953.40d80bc9@jic23-huawei>
- <agMnWzMjW1LwCSyT@ashevche-desk.local>
- <sj6cpjhakyfvv6rgox6cnhl2u2tgaecugcok6fw2l7zgku5wtc@aqx3ul72vgca>
- <agMvlS3-0wvGmBwh@ashevche-desk.local>
- <dxjg2sdyxb7ieb4abmeyyye7qok6cczrxabpsjyjhcbehwoec3@sbbqoo4wmzre>
- <agM8pWrM6j_XksvN@ashevche-desk.local>
+        d=1e100.net; s=20251104; t=1778599282; x=1779204082;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=t0ujevqgQXDHfoEPkvrwGuNuwg0PASas1+bZlJQ1jQU=;
+        b=h7+UDnGPlVeM3rwOQdkgS5V24bYY8RJqFr0np3nUJKbXMQOE8qSRSErJ6J85uQHL5l
+         LV6wNYOD5Wv9wbKOK13IOeCUjyOqgsRiwlEPgj+8/xbOPcSyIuhxsBErLVxgYwvUOviw
+         CUIokjpVEyT1bhi9J1qFqb2kbqfN6AdfxQXRKjW6JAOMPPAcXZ7b1D7Lu9HdRxZ8ACnL
+         0Fti7wYJWYCCaUT9jQk3gXrxDkPuGWhojc73Wm/n5TnjAkC9gUFq16Og6tV5MobMt6SO
+         ANuXjrHSrTFbBmqSABjk5iNB/JY2vMHbLGSw9/GT6gzSI/HTpcV+9z9TWnjJOkatx6QZ
+         8C0g==
+X-Forwarded-Encrypted: i=1; AFNElJ9x2Mjwdta9ax4B7I26cka1GYlyPDOb+QK8VnBr+hB2ivK8FBx3Y1xtgZ9rzmE6wPYFYtjOjEDj3eJ1@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy41vKYmJFPFpbuKR2r9xNnUQNUcgVlM8AFStZZ/ZIJL7AHxMgp
+	S9kQ5DdCVHqkyhEG8yxm6xRRiHNswwlT0fK6WXbE+VZSBc/9Tm9kbCSSP08alV7UUEi30a4h1N6
+	HhAV1iLMeQ7sNO/Yhv1H0PpdHS3a0vHABFwUUazv0okyLwae8ellKmzM=
+X-Gm-Gg: Acq92OHYNynxIykkIFqM4p2kjjQSmFDaMe0iShwGRZ6xW+6yUE++xa6nTkzjP8b6cnX
+	/NgoFYi3cfh5EHczY5rXd0iCpBaiTawC9NFvkXz3pkTZlVr5jmjK+jKWt2KwI7zIvgQLeCu4WaV
+	Blf/ltwNJR49bN6uqkknom30uz/PK0E77cJlzvFhSwrR1dgef/6nvwMbzvT1DgSh/rZ8oLKFrJn
+	Qa4zxBBDWjKk7zaAoL2zbWDGQ5RQtZcMdumITkU8UWHDluaeU+zyYun7Wm5RnwfGjLqnnSn9KZT
+	C9cwyyBf13nO0766XLfqC74jGqOZ83x9pCJbnUi65g==
+X-Received: by 2002:a05:6402:4315:b0:66e:8ca6:e79f with SMTP id
+ 4fb4d7f45d1cf-680cf3642bbmr2086182a12.13.1778599281971; Tue, 12 May 2026
+ 08:21:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <agM8pWrM6j_XksvN@ashevche-desk.local>
+References: <472f85bd-42c2-40c6-abfd-b76924797069@ti.com> <CANLsYkzt9xUczxSU28u-TfZAAjr0ufZKXAj8Eqfq=45gufXW3w@mail.gmail.com>
+ <f7ef3417-eb84-4467-ac72-a9bc8b0c81e8@foss.st.com> <21de8440-adf7-454b-acfc-06e50882e075@ti.com>
+ <4c526816-b127-43e7-86e9-eee4dc1152bc@foss.st.com> <c6f68ab5-271a-41ed-b285-75b739f1edd6@amd.com>
+ <87850f70-5275-4393-941f-d01146a9cffc@foss.st.com> <da3b79b7-9dad-48cb-b552-cf6df445899f@amd.com>
+ <08c815f5-ccbe-404a-95a1-a549aac8a55d@amd.com> <CANLsYkz8HpM_8eS7DjN_jmYs4T7P9xY0jYmdiAx5WO=_1zvFpQ@mail.gmail.com>
+ <4ae35920-2539-4b12-8dea-efd407b8aaeb@lunn.ch>
+In-Reply-To: <4ae35920-2539-4b12-8dea-efd407b8aaeb@lunn.ch>
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+Date: Tue, 12 May 2026 09:21:09 -0600
+X-Gm-Features: AVHnY4LT22IVt808sLwJL3ajF9BoO5QglODlYYWO0TdL8CMLNQDb8uF-T1sOSus
+Message-ID: <CANLsYkwBk0KbN-k9ce+5=oT+scdZ3nU5AOr3Fz4zT=0AFzghDA@mail.gmail.com>
+Subject: Re: [PATCH v13 3/4] gpio: rpmsg: add generic rpmsg GPIO driver
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: tanmay.shah@amd.com, Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>, 
+	Beleswar Prasad Padhi <b-padhi@ti.com>, Shenwei Wang <shenwei.wang@nxp.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Frank Li <frank.li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Shuah Khan <skhan@linuxfoundation.org>, 
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>, 
+	"imx@lists.linux.dev" <imx@lists.linux.dev>, 
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, dl-linux-imx <linux-imx@nxp.com>, 
+	Bartosz Golaszewski <brgl@bgdev.pl>
+Content-Type: text/plain; charset="UTF-8"
 
-On 26/05/12 05:43PM, Andy Shevchenko wrote:
-> On Tue, May 12, 2026 at 03:12:24PM +0100, Rodrigo Alencar wrote:
-> > On 26/05/12 04:48PM, Andy Shevchenko wrote:
-> > > On Tue, May 12, 2026 at 02:21:14PM +0100, Rodrigo Alencar wrote:
-> > > > On 26/05/12 04:12PM, Andy Shevchenko wrote:
-> > > > > On Tue, May 12, 2026 at 12:39:53PM +0100, Jonathan Cameron wrote:
-> > > > > > On Sun, 10 May 2026 13:42:20 +0100
-> > > > > > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
-> > > > > > 
-> > > > > > > Add helpers that parses decimal numbers into 64-bit number, i.e., decimal
-> > > > > > > point numbers with pre-defined scale are parsed into a 64-bit value (fixed
-> > > > > > > precision). After the decimal point, digits beyond the specified scale
-> > > > > > > are ignored.
-> > > > > > 
-> > > > > > Whilst Rodrigo has already replied to say there will be another version
-> > > > > > I'd like to request final feedback from those who were involved in the parser
-> > > > > > discussions.  
-> > > > > > 
-> > > > > > They got very involved and I'm far from an expert in the right way to do
-> > > > > > this stuff.  
-> > > > > > 
-> > > > > > I don't think David Laight was +CC so I've added that.
-> > > > > > David, Andy - I think you two were most involved in that discussion:
-> > > > > > Any objections to the end result? 
-> > > > > 
-> > > > > I already said a few times about the naming. I do not like the kstrto*()
-> > > > > be semantically different on how they treat the input. Second point is
-> > > > > to avoid code duplication, but this one is less of a concern since the
-> > > > > new code is in the library close to the other potentially duplicate code
-> > > > > piece and hence can be addressed later.
-> > > > 
-> > > > I suppose I reached into kstrtodec64() and kstrtoudec64() because it aligns
-> > > > with your expectations for kstrto*() semantics, no? Those include:
-> > > >  - overflow check;
-> > > >  - extensive input validation;
-> > > >  - optional '\n' in the end;
-> > > >  - mandatory nul-termination.
-> > > > 
-> > > > am I missing anything?
-> > > 
-> > > When we add scale we basically make that not true. Moreover the code in this
-> > > patch makes scale == number_of_characters which I think a bit fragile, however
-> > > it's about the fractional part when the amount of digits is equal to scale.
-> > 
-> > That is not really the case. It is being set as a limit, so it does check for
-> > truncation and zero-padding.
-> 
-> I do not see it happens in _parse_integer_limit(). It doesn't try to parse more
-> characters than it's requested in max_chars. It doesn't check if there are more
-> character nor their converted values.
-> 
-> > > To make this work as expected we need to add an additional call like
-> > > kstrtoull() (and perhaps drop that \n and NUL-terminator checks) and see
-> > > if that overflows or not. Since it's a fractional part it must have less
-> > > than 20 (decimal) digits there, so we check the rv (or how many digits
-> > > were parsed successfully) and compare to 20. If it's more, we got too many
-> > > decimal digits.
-> > 
-> > For overflow it checks the KSTRTOX_OVERFLOW flag and leverages check_mul_overflow()
-> > and check_add_overflow() when combining fractional and integer parts. The amount
-> > of characters is not really important there. The scale cannot be bigger than 19 and
-> > that makes sure that int_pow() does not overflow. The code uses _parse_integer_limit()
-> > due to the nature of input and to avoid 64-bit division, kstrtoull() at any point
-> > (parsing integer or fractional parts) does not make much sense.
-> 
-> Under 'like kstrotoull()' I meant something that repeats needed functionality.
-> I believe it's parse_integer() (without limit).
+On Mon, 11 May 2026 at 12:18, Andrew Lunn <andrew@lunn.ch> wrote:
+>
+> > Arnaud, Beleswar, Andrew and I are all advocating for one endpoint per
+> > GPIO controller.  The remaining issue it about the best way to work
+> > out source and destination addresses between Linux and the remote
+> > processor.  I'm running out of time for today but I'll return to this
+> > thread with a final analysis by the end of the week.
+>
+> How many of the participants here will be in Minneapolis next week for
+> the Embedded Linux Conference? There is even a talk about this:
+>
+> https://osselcna2026.sched.com/event/2JQpx/building-virtual-drivers-with-rpmsg-key-design-principles-challenges-trade-offs-beleswar-prasad-padhi-texas-instruments?iframe=yes&w=100%&sidebar=yes&bg=no
+>
+> Maybe we can get together and decide on the final design after the
+> session.
+>
 
-I think we are going in circles here and we could look at the code instead:
-- integer parsing with _parse_integer()
-	- overflow check and validation of the return value
-- fractional parsing with _parse_integer_limit()
-	- overflow check and validation of the return value
-	- extra scaling and truncation happening outside if needed.
-- check for input termination
-- combination of integer and fractional parts with check_mul_overflow() and check_add_overflow() 
+I will not be in Minneapolis next week.  At this point I think things
+are converging into 2 main takeaways:
 
-> > > Maybe I'm missing these checks already performed?
-> > > 
-> > > > > Having the test cases is a big benefit, and that part I like the most.
-> 
-> -- 
-> With Best Regards,
-> Andy Shevchenko
-> 
-> 
+1) A serious refactoring of the protocol to include only what is
+available in the virtio-gpio specification [1].
+2) The specification of GPIO controller number in an extension of the
+namespace announcement [2].
 
--- 
-Kind regards,
+Shenwei proposed embedding the GPIO controller number in the
+endpoint's source address [3], something I'm ambivalent about and
+still have to look into.  I also have to read Tanmay's latest
+comments.  I'm hoping to be done with all that by the end of the week.
+With the above (1) and (2), a new patchset will be required to reset
+this thread.
 
-Rodrigo Alencar
+Thanks,
+Mathieu
+
+[1]. https://lwn.net/ml/all/afjyH5JT0JS2j0L5@p14s/
+[2]. https://lwn.net/ml/all/afzIABSh1xtMEGbf%40p14s/
+[3]. https://lwn.net/ml/all/PAXPR04MB9185BFA6E7375FAD0B15B021893C2@PAXPR04MB9185.eurprd04.prod.outlook.com/
+
+>         Andrew
