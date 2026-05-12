@@ -1,168 +1,175 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055B41FE471
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 06:48:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778568516; cv=pass; b=a5b95kdmdRbo1TQsueR3jQKTugr8kNlXgXxE3WOLsbmiNUJfk64kPiZqvBkH6VuClSa8J7qUE1A+GDMOmSZZ0Fw8T3NXmV5xistoYgDw5re4C59A5WWUqB8fmFOM2sJHXuZWwl4BmdyyNleM2TMcq3/uLtij9fzAspxUaBGQbl0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778568516; c=relaxed/simple;
-	bh=LfcVaG8MSoLybwq7I+cGS/0geSQDT90LoxEK6iJoQms=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RLMEaM94oK0YYHuP9Q47B4ag4IWNO23HJh0X65f3GyGBo3n8m43xM13lotUOml8qENRMV99vKHmPNLjLmPx6GK1eMccgR18NCX4VHOXBGVyT8VAHPI305ZN0tQe7S79/fF+hcOc3s52/arGBmD5UVksik2jSAvTOjCk0XN05mwU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iLjXtwIT; arc=pass smtp.client-ip=209.85.208.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A7C1384CEF
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 06:51:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778568696; cv=none; b=BaE3LXVz1ItxmUDsDVVsUWikaRFGQwoK2vrbjSWm1X8IEIbYCVKw05vwXV6NsdSxMt/w6c9eynYZJk50vzNpJ4TGpzJWMac/mqG3weUVewV9KM3owgDukcWsvfsS/gKYqf/vSTyWlEBi4iSe2GdrTgkXCq45ciQ4ZrvX8N5QWY0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778568696; c=relaxed/simple;
+	bh=lxi8xLajakE0Tg6T6kpLZptB0G8Ab6aOA9iB5uI4H74=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OXIMdGJEF53r25Zn2uq4DBj1fkvyMvFDTLkWUTQmu7MB+WyRikpC5Z9YyKdd85OSyr/3gtZMKimz8mwHOd9a/8ebC2Mo2oYtu+ShsnTTWp6Zkh22fpYzGnQpjUiIfQ6toh9hLlY1UsqeC1up0wZyE3tJWFpvm+PUZPrK0GOMg7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RHRELdrI; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iLjXtwIT"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6802f9c5debso2438067a12.3
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 23:48:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778568502; cv=none;
-        d=google.com; s=arc-20240605;
-        b=lJKHyk9IM8ixooDlHAaxGYw0pjbLDbwheBoXHaTakstGZnezV8Z5TwcIPL0KdxxhIE
-         Bw/VGba08IDdQYXKtXVdYIyV1/zGMmKKGfvbxYQAjYwb/jUpZN44CVwZXV9MwZe43ztT
-         VLzaZtteP352TA+qJOhGaDPq+4RWKBuDmfbWzeKbMUaPetEfEIM98yrDtMdPv8IGtxep
-         h4p4ZwPwv6lijab1QD9ZhcS1zkpN51clTyHlHSOyFaPUwIs7f06hEC1/3spF6EJzyNwF
-         crJe3alAJj9qszgcpF5E4s/FQQxrth9P/CsKVeERGYsQTWSNurLxugYdNt5rDkQMqkJ7
-         io5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=wFTa1Qu4vivHMZ7h/kjmMuCcTIeg1RKlZ789oyl3YpU=;
-        fh=Y4/hS9Bc1O82+2AsHDxSKyboVrzLOPJxfQ+lyL2QGSY=;
-        b=UVsoOtSLPPLM5k4FVVb7blZkQRuJ+nH0pzn3nJhFET66kN7IhP/Gkc2wEvPTWIs8zr
-         eKHa6ruknRGPIUvqW9mj+6xgxVOdAaK2X2+fhwdxvki6mEXFofkdBwMyeg77tdL8S5+a
-         ObUo6OdeC98CmFKAtKXlmCzj7N/TAO1z53Vj4QNxcn7axDPyIiNLEHiub6wuUS0yWeKY
-         HHBVmN5FXUWaxpi2DbiMdRdIfp8k8uSvDDF6Uw3zZQtk/III2iQm7o7eWkPsCLiDLeAs
-         s7LENEESQ2NSALRiEdw4H2Ai14m9XbqzY/IFZGLN8MIL/qT1lnpKLUK5Q7Tv1AM3g63v
-         xcmg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RHRELdrI"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-488b3f8fa2bso58369295e9.1
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 23:51:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778568502; x=1779173302; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wFTa1Qu4vivHMZ7h/kjmMuCcTIeg1RKlZ789oyl3YpU=;
-        b=iLjXtwIT6b7SSIH0nK2u0LKJaeuHqdrTkDrh+Eg1uqTroYRxJIqBDEY8nA3nHFnVfb
-         sjYcvc84dcUaMKVebF/nekYCZL4+yo+4wJD3I/ahGzaterqThvytQ3a1dbMuV8BwlFLz
-         NUMnfaZcJZuuqhNaWKaDgcmEd6aqgUlQYXIHOuYoZlHTi+B1HBE/5P4rUy3crQvRdidh
-         PFi6N0U7G5f/BxgGVajjSnU07dbmKFPIHInHEc/iJipbWV5iEp9F8g4cFqjRb11nkHoH
-         0id/m6rTcJTUXie2WkuDUd6Z0J0e8DP1ibNxfBS+RdT8YKiOGUrEGW9WGuLEqeMcwZ8F
-         Yt+A==
+        d=gmail.com; s=20251104; t=1778568685; x=1779173485; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=YJOHNlOoAOdzligbsnHZC6gf4IGYAZ6NxFSliiwy9bU=;
+        b=RHRELdrIJHNgS5a6y3h9lPy2PL5mcNWklKmwaiJnR7F9wHO/plw4HqRzOfWSVDZ4we
+         GxIbBMFMb7bCWELd5Re0M9Yc8Eppubl5hZfjYRkeBusgEu0ojY2jJoe/L5ezeTSp48gG
+         mGGUxfKQdLrYIyokyix2XR1ZT6tSLQ+96PjLaQLnz4ZWnBMY9XmzN/ZbYKSaLczvy9PB
+         OlrPDaFMcfk4MBpMHbeRcIIuAk8M/qFmE3nG8/46rk8IjIKTA8KTacDSAjMYmvBJ5j1Z
+         IesmzaN3ENfwk9h1wLOj+pCmQ1zQO6V9rzIKjxIpDOrvLXIN/+FS7cW4RreRBjjSP5sW
+         Nx2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778568502; x=1779173302;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=wFTa1Qu4vivHMZ7h/kjmMuCcTIeg1RKlZ789oyl3YpU=;
-        b=gaLN5FBWzAcjMEhkGuoyE+bNLchaRUpAr8bWiaeBfD9+bHTMEp6e9DbLml3WsEk2Wo
-         GH5hZLKMkUchKLJS+9VXS9pngPlotYEZ5FWa19WzCXfTOVWMhVrIXgApwBEgCSdaQ/PO
-         IQ40t7sli1wlS5bg0jQhWS1s1iYFqQ8ZY1Mb7Y6ifAJ+keMTUSUfqtph4C0k8tpaax/s
-         SoSurKFQgMuS/kwC7YTXRrMiwGLaDGiInxzXOreKaqYgGx0yeS16LoM6cKkuBWlB5yRe
-         ACWo30iNbn2718GNKNdqs9xLh7yBbDueljzud8vfM+9WTPYwo16xBObR8PSjW9ZvW3fR
-         WFHw==
-X-Forwarded-Encrypted: i=1; AFNElJ98iDkRcEhlD1984mTyRXHaecpoLV7mq7fPsN8NdsvFI//Zdp2LW/zaeh1IkO+t3vK6QA9qus7hf9+E@vger.kernel.org
-X-Gm-Message-State: AOJu0YzcJQsj/ml8zmhnV8/5h2Qd0YFDdgPdPiD3MWlQW3DVf6lLg7Vv
-	zvO4UE780w7/Pakx38yVCpfVUr1DiCD+uqMPVmxrhpHyxBAc9omL6nMi5sFjjFPMICA638zXojD
-	7keY/HvNj8Gx8SK/yaX8oAAjP0y5Mx+A=
-X-Gm-Gg: Acq92OFAu5C89N50CPnmKO7RldnCjMYK+l1GSyfwSTYZdvL/olv+c9ZfvJXg5yyEXJv
-	v3IWMXgTFQM6pP52lwKiod2CK2k6DJZy44ujaE1kxUO0X56PAQDxFAqqN2CcPfyPDA3HhWTaulD
-	apsWBjzeFoIq8IZHCTedx4ujlwOPSagkUxEH5p3KPXPwbIE8klrpvGcR/e8oBiLdbRPF0CNHZZZ
-	x3JAIiEWwxF2H127sjxm6iO3LpQ2NJ4X5iwxxNTbMMJz6D7SHqb79YHGS+ZzHv6wonyOzqG2tdJ
-	0dk1jRRmPXPmQUdmzKqFPIELwl/NIHucnU2wYRJjBSe6IGXRJaORxpy60DKT/4YH6I6vdLxGQwQ
-	eDmPaR+M=
-X-Received: by 2002:a17:907:809:b0:bca:48de:5cce with SMTP id
- a640c23a62f3a-bcc1499a53cmr609442966b.36.1778568501606; Mon, 11 May 2026
- 23:48:21 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1778568685; x=1779173485;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=YJOHNlOoAOdzligbsnHZC6gf4IGYAZ6NxFSliiwy9bU=;
+        b=Udy/0fX59k2c6yzHaHNwoGyh3Bbm4ygVWRx4bkK3Ln6FlkugVR8pMcToRMTK+BIKjZ
+         NP77zOKtkP6N5DTIPEJk91sHffKx6XmSr3oh7MCdw4JEgdighQdk3oks+GM9AgjeMHU5
+         BFJYpx9NNp1TqE9ko2/L1WIFxUlEFq4KPsFf0by9zSpF3GZ7nW+FAV74/OOGPMkUb7Pp
+         CSQuDn1WYLc91UczT5B2qeGxtDSifmn3/R7k+kiJe2zb3tpalYzQdTAgSZ28u/wUhAtu
+         O8FCer0Bb9fQLPssyXc+cij86ax0aoGuIMay9u6eGN4mjIRc4/CL2dpxxNb9Vl5BSkFx
+         sxRw==
+X-Forwarded-Encrypted: i=1; AFNElJ+XphfKHlTapxdZwRM6qr6yAHe5FYCsdMtan2bVcSUi+eLVpwacC0ExCxd7L2GyfECPYkaL0Mb0JQ9f@vger.kernel.org
+X-Gm-Message-State: AOJu0YyD3XbezekeaLQiy/noXh9T0TxGOSJl7om4AUM5DOSTtcRbziD0
+	5qCDp3lpQ9Hm4CJuCSIYXBKXJDoefILF9PCuEXYpfJmVAnssW6jaytJ+
+X-Gm-Gg: Acq92OF6SF6BW8Oh333jRpw6JwLw6PYKqHJSr+EGlwlBclRDW3tkqJdCuiW8qYRZ86O
+	vVsmpkx0Bb1Yc9s3/j3vtQHnZb1TnOI/mbZoO5GzaKYE6CGq4ReM89oWQD/dbXn1RBb41iNKly4
+	yfbu2YmMHciIpGmhelv4JiXV7/ejBXDvjSxKS3p+Paw1chI3rPuuPfgN3HGQk7MyY+5H5qFI00s
+	RzAEoOKwpEn8DYI2TFY0zMDgw3MDyXFdPSSdxD+B2JHg/atGPwnEFW2wRO6L4I6fpzJMjijPNVs
+	xc7EJzk0D22YNC485W2IGig5VDylG/XBHRDAASaNexrJZMDKuWxFh1aRV4UH3eTwoQQiE+f2tQu
+	a8rZ5imA99k0zoR2jM9ZvZR8UtwEguVtS7XLxIIQSQNbk9e6T0Dgm3GA8DHoRGaYvOtNbdur3ir
+	VsdFB5783RyhWIREvhTl4kV3OZ33f06jZtbb1Jr/mpk4ObSEc4Cb26z1ysVGtyNZ8=
+X-Received: by 2002:a05:600c:8888:b0:489:32b:ac0b with SMTP id 5b1f17b1804b1-48e8e200421mr24540905e9.6.1778568685238;
+        Mon, 11 May 2026 23:51:25 -0700 (PDT)
+Received: from [192.168.0.40] (a89-182-129-90.net-htp.de. [89.182.129.90])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e8e634362sm12208715e9.10.2026.05.11.23.51.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 11 May 2026 23:51:24 -0700 (PDT)
+Message-ID: <4ac5bd1a-ac7a-420b-b0ce-acdcee4b20e2@gmail.com>
+Date: Tue, 12 May 2026 08:51:23 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260512-mt6323-v2-0-3efcba579e88@protonmail.com> <20260512-mt6323-v2-6-3efcba579e88@protonmail.com>
-In-Reply-To: <20260512-mt6323-v2-6-3efcba579e88@protonmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 12 May 2026 09:47:44 +0300
-X-Gm-Features: AVHnY4LmZe6op_7Q9Zb_x2R3mJ89A3uDVU-76OXP9otXVwwfDX_cH9Q0T5k4R6I
-Message-ID: <CAHp75VcR2pzdT-JbNXE_nOM-XC--4y8D81tk+7rvjA71ugTkzA@mail.gmail.com>
-Subject: Re: [PATCH v2 06/16] nvmem: add mt6323 PMIC EFUSE driver
-To: rva333@protonmail.com
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Sen Chu <sen.chu@mediatek.com>, 
-	Sean Wang <sean.wang@mediatek.com>, Macpaul Lin <macpaul.lin@mediatek.com>, 
-	Lee Jones <lee@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	linux-pm@vger.kernel.org, Ben Grisdale <bengris32@protonmail.ch>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/6] riscv: dts: spacemit: k1-musepi-pro: enable QSPI
+ and add SPI NOR
+To: sashiko@lists.linux.dev
+Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
+ robh@kernel.org
+References: <20260511111116.1109643-4-a.heider@gmail.com>
+ <20260512022817.879A3C2BCB0@smtp.kernel.org>
+From: Andre Heider <a.heider@gmail.com>
+Content-Language: de-DE
+In-Reply-To: <20260512022817.879A3C2BCB0@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, May 12, 2026 at 8:21=E2=80=AFAM Roman Vivchar via B4 Relay
-<devnull+rva333.protonmail.com@kernel.org> wrote:
->
-> Add support for the EFUSE controller found in the Mediatek MT6323 PMIC.
-> The MT6323 EFUSE stores 24 bytes of hardware-related data, such as
-> thermal sensor calibration values.
+On 12.05.26 4:28 AM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [High] Potential overvoltage risk for the W25Q64FW SPI NOR flash via the 'buck4_3v3' supply.
+> - [Low] The unit-address in the 'uboot' partition node name does not match the base address in its 'reg' property.
+> --
+> 
+> commit 470f9c74bd3cfec41ed69dd8c4e22535a7e8164f
+> Author: Andre Heider <a.heider@gmail.com>
+> 
+> riscv: dts: spacemit: k1-musepi-pro: enable QSPI and add SPI NOR
+> 
+> This commit adds the QSPI controller node and describes the attached
+> SPI NOR flash. It also provides a corresponding vendor flash partition
+> layout.
+> 
+>> diff --git a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
+>> --- a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
+>> +++ b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
+> 
+> [ ... ]
+> 
+>> @@ -166,7 +166,7 @@ buck3_1v8: buck3 {
+>>   				regulator-always-on;
+>>   			};
+>>   
+>> -			buck4 {
+>> +			buck4_3v3: buck4 {
+>>   				regulator-min-microvolt = <500000>;
+>>   				regulator-max-microvolt = <3300000>;
+>>   				regulator-ramp-delay = <5000>;
+> 
+> [ ... ]
+> 
+>> @@ -249,6 +249,47 @@ dldo7 {
+>>   	};
+>>   };
+>>   
+>> +&qspi {
+>> +	pinctrl-names = "default";
+>> +	pinctrl-0 = <&qspi_cfg>;
+>> +	status = "okay";
+>> +
+>> +	flash@0 {
+>> +		compatible = "jedec,spi-nor";
+>> +		reg = <0>;
+>> +		spi-max-frequency = <26500000>;
+>> +		spi-rx-bus-width = <4>;
+>> +		spi-tx-bus-width = <4>;
+>> +		vcc-supply = <&buck4_3v3>; /* QSPI_VCC1833 */
+> 
+> The commit message notes this flash is a Winbond W25Q64FWSSAQ, which is a
+> strict 1.8V part. Could this vcc-supply assignment cause hardware damage?
+> 
+> The buck4 regulator has a maximum voltage of 3.3V. If the regulator defaults
+> to 3.3V or is configured to 3.3V dynamically, it exceeds the absolute maximum
+> ratings for the 1.8V W25Q series flash.
 
-...
+As per the comment, there's a the non controllable regulator QSPI_VCC1833 in between.
+k1-milkv-jupiter.dts matches in this regard.
+I'll keep it unchanged unless someone has an idea how to express that in a better way.
 
-> +#include <linux/err.h>
+> 
+> Is the board actually using the 3V equivalent (W25Q64JV), or does the
+> regulator need stricter constraints if it exclusively powers this flash?
+> 
+>> +		m25p,fast-read;
+>> +
+>> +		partitions {
+>> +			compatible = "fixed-partitions";
+>> +			#address-cells = <1>;
+>> +			#size-cells = <1>;
+> 
+> [ ... ]
+> 
+>> +			opensbi@70000 {
+>> +				reg = <0x70000 0x30000>;
+>> +			};
+>> +			uboot@a00000 {
+>> +				reg = <0xa0000 0x760000>;
+> 
+> This isn't a regression, but there is a mismatch between the unit-address in
+> the node name and the base address in the reg property.
+> 
+> Should the node be named uboot@a0000 to match the 0xa0000 address and prevent
+> a compiler warning?
+> 
+>> +			};
+>> +		};
+>> +	};
+>> +};
+> 
 
-> +#include <linux/errno.h>
-
-Doesn't seem to be used as err.h implies asm/errno.h that provides
-basic error codes.
-
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/nvmem-provider.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +#include <linux/types.h>
-
-...
-
-> +static int mt6323_efuse_read(void *context, unsigned int offset, void *v=
-al,
-> +                            size_t bytes)
-> +{
-> +       struct regmap *map =3D context;
-> +       u32 tmp;
-> +       u16 *buf =3D val;
-> +       int ret;
-> +
-> +       /*
-> +        * Manual regmap_read with loop is needed, because PWRAP is not
-> +        * a continuous MMIO space, but rather FSM which doesn't implemen=
-t
-> +        * necessary read callback for the regmap_read_raw and regmap_rea=
-d_bulk
-> +        * functions.
-> +        */
-> +       for (size_t i =3D 0; i < bytes; i +=3D sizeof(*buf)) {
-> +               ret =3D regmap_read(map, MT6323_EFUSE_DOUT_BASE + offset =
-+ i, &tmp);
-> +               if (ret)
-> +                       return ret;
-
-> +               *buf++ =3D (u16)tmp;
-
-Why explicit casting?
-
-> +       }
-> +
-> +       return 0;
-> +}
-
---=20
-With Best Regards,
-Andy Shevchenko
