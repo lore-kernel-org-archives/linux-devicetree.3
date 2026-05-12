@@ -1,46 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79EBB3C09F0;
-	Tue, 12 May 2026 20:23:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A91B83C3425;
+	Tue, 12 May 2026 20:23:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778617406; cv=none; b=PopBpparI/8+giP+m6VMBnDJ5jd28NwiQwpL3GgdL/A7sY0AJ3GS35gXQ4EvJfEVvEBIemqpcM+51pym5ccEEIX38ZlzXblL1uwRg3SBoNKZZNACDjgd+PDq1Jg8Y7I7yjAS6jAkp0ygamX3SI5UblZU6uPWzGM+yH3Yz5kN7s0=
+	t=1778617407; cv=none; b=fSU6lEeO8yegFIMxdvSeuN7Tr2IEiABxwGduC1PxwIOpVvBra9dXOGmFE7uaUSCrpIfHcYn3ZErJLItC4bb5Dfi1jCrOpctqg+eMVXVZKLTVjCtbZdwMZOTdmNm5VCn1lAHdH3t5g4RRCyYFLajloYvzCfaaYMahbKILF1L6dOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778617406; c=relaxed/simple;
-	bh=ZBtEMnqNBoykiD2eaYFVxmt3J0XRMYWcgStGHf3TS70=;
+	s=arc-20240116; t=1778617407; c=relaxed/simple;
+	bh=chukIX+T/btmNaTArLOyiZMQPLB8ZA7TdWweHZtdVgY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Nnhfi2Jnwa/Vi8G8vpAj8hm99Jh0wCV5HJYEmfguRnl4Pu2/+oQs5gdgXscpVuKTKd37r6G60TezloSwiRmTCvvWuISJ6emG2mUfSH74kEykbGXI6glHhqsv1s5Nrejv0oOk1Ea3T/khT+T4kLyEx+R3zpTCDlceFWRqKgxEdn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=p/62TrYJ; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version:Content-Type; b=NPpDyRYdsBhuT0VkxmuGlNWh1BcY0NzqHgl+l5FfG4B/9oRucPX5joVZ5WqCHV+5Pt396lwhmQmtMlzNfI+2k+2CF0PYSEnj/++gjVHtLo6IukLK76UfqQyUyEnCUG/sTu6ui9QVhyb5oXvrUy7mXC1tPdHG+0/vdaI8mnalfNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yf+r9pc/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="p/62TrYJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF191C2BCFA;
-	Tue, 12 May 2026 20:23:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yf+r9pc/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F373C2BCF6;
+	Tue, 12 May 2026 20:23:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778617406;
-	bh=ZBtEMnqNBoykiD2eaYFVxmt3J0XRMYWcgStGHf3TS70=;
+	s=k20201202; t=1778617407;
+	bh=chukIX+T/btmNaTArLOyiZMQPLB8ZA7TdWweHZtdVgY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=p/62TrYJ6avwrIWUhoaiwgRWJM3F8AlFKZXucYfUloGU9JBUeOVwfT4aZKRKGeiMf
-	 FPio3OBpq4c21mTlANBDOzucW9tqBbGNx9dQhlFZk5uoqESWtPAegHSNaBEEs9wwyR
-	 wqUK0ASLui3zv0ga/16u+thYopihRjLEFXW5rl2P48sw1GuRwyOShsJdV178nxjaow
-	 eCGciEmnLxlSqBaAyPriRzsUOuFyGuD5kBSFEemlisySlZhqHdAAh8sBrCnO93vnid
-	 220GWJGuRRMz4KftcisNeKjvB0IuqPbOsqUHUHhB4/jC8yyE0VJI6HAssP7K+OwQF/
-	 Xirf32ZQQgZhw==
+	b=Yf+r9pc/I7zPkiWRO+YPLGsWTMgkSocrd7a0ESE1nERRskTqe6gOvfChbdoCwvTUH
+	 nlWr77IaqRfjF2w44dT8OmibcuLFQEaAIgzwWbgteKhgzCoqhbYqdyW6BfRvm9T6SN
+	 QUg3T+TY+xdG1PSwiO+VyxHWQjg650JbrT3H57Hmf3ZzchzM+pVmmkvXPPWmjZttk6
+	 WJdHU8yvvVjif/ptVOSf+9jbmDkwlgfXazWjL26baFOekcwwtmr6ELnPJ3cCJCHAnC
+	 IGhiql6VZ04K59h4Ce1B2ThsHFqtTui+AJ5GaUOnDNvHti21JzDi+qqMTHedEQAK0i
+	 4rIm9rn9NiK4g==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
+	Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
 	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: glymur-crd: Enable LID sensor
-Date: Tue, 12 May 2026 15:22:38 -0500
-Message-ID: <177861739377.1242344.9086919201978407844.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH] arm64: dts: qcom: glymur: Drop RPMh CXO clocks from QMP PHYs
+Date: Tue, 12 May 2026 15:22:39 -0500
+Message-ID: <177861739387.1242344.12258692295804353296.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260428-glymur-dts-add-lid-sensor-v1-1-470cc168e70a@oss.qualcomm.com>
-References: <20260428-glymur-dts-add-lid-sensor-v1-1-470cc168e70a@oss.qualcomm.com>
+In-Reply-To: <20260414-dts-glymur-drop-rpmh-cxo-clk-from-qmpphys-v1-1-ab12d77c4aec@oss.qualcomm.com>
+References: <20260414-dts-glymur-drop-rpmh-cxo-clk-from-qmpphys-v1-1-ab12d77c4aec@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,16 +55,21 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 28 Apr 2026 15:32:29 +0300, Abel Vesa wrote:
-> The Glymur CRD has a Hall-effect sensor used for detecting when the
-> lid is opened or closed. Describe it as an SW_LID gpio-key switch.
+On Tue, 14 Apr 2026 20:05:51 +0300, Abel Vesa wrote:
+> On Glymur, all QMP PHYs except the one used by USB SS0 take their
+> reference clock from the TCSR clock controller. Since these TCSR clocks
+> already derive from RPMH_CXO_CLK as their sole parent, there is no need
+> to provide an extra `clkref` clock to the PHY nodes.
 > 
+> Drop the extra RPMh CXO clock inputs and use the TCSR clocks as the PHY
+> reference clocks instead.
 > 
+> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: glymur-crd: Enable LID sensor
-      commit: 627aab9bfe03613c9f0142d5a70faa7ff9634569
+[1/1] arm64: dts: qcom: glymur: Drop RPMh CXO clocks from QMP PHYs
+      commit: 12c97d1c15f926cd430bf5cdf8ffe878cb478165
 
 Best regards,
 -- 
