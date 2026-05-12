@@ -1,88 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18DC34C77D9;
-	Tue, 12 May 2026 12:06:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9580639934E;
+	Tue, 12 May 2026 12:07:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778587592; cv=none; b=aVosN/eiOdJP26jpNXiczpdhYUH9GENhAgRAXFAP7QSjboaQgJh7B4mMpNZEj+qYWMfN6Prkkr/VycjLf0eSRvxoWmwS3LikOWdLlSJmxvC7z3k8MPwEQDmScpU+ly/WWmnOJLriN44xwES2iNl8TR+amX5X/02P2RUh17vxxoo=
+	t=1778587679; cv=none; b=G451X4Nxw4cLZyZ9VFIPszvGzzqKMvJQdzrW3N8mzsqx/bg5qteM2fWdrdXwE4H0ByvavGDeQbnA98o8lirB4VktstiKw3RCisiYOUYHZuEbq4NnL1KuzylwnjRbOLoYUxdLm9JP0y63MITJzt8iDJ5sKnoFG3wtbH0thukpeC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778587592; c=relaxed/simple;
-	bh=drLM0BAX3WIAuXVnD/2fUpgJp4pFKEOucdQPoRM/WBw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=M2eZ35OGLL/8fTX7vMSwFjkgO5P3ZeemYLzeDAtxk9k4gSu88Xi+NGnnAqxfa0kqPTotCZRoZ/azNbn5JRHNYG8vhoDRvl7XVbmWfv9WvskbNxlqGBbVnoIw4/hJW8swlOiPZrxB2tnBlsqa3mMXsPkQKwIBYIpqzbcowmfzm9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DM8NY+B8; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778587679; c=relaxed/simple;
+	bh=XRvu2EAGQKJez8lKSh7BUoZ+vPlqUOlqHaCW8zoUhBY=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=Quv9PQob1xaf9KZn7AX5NYx5jnGqzl8C4+BejMhl6fwzVpThYlMcM2rT9cPQXlPSoEdBDQ7p51pp9LR0Dc67X8ozN7+cQqjDqaQnLKlZmaDDJcLJcF+doEsa+HuK25O2/Pt6mpXeb5WAcSbHIhpq05FGNNdHb0cR7shw8mIk0IE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hn4bCRYa; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DM8NY+B8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58CB0C2BCB0;
-	Tue, 12 May 2026 12:06:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778587591;
-	bh=drLM0BAX3WIAuXVnD/2fUpgJp4pFKEOucdQPoRM/WBw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=DM8NY+B8PoMUgExJSzDboO3N5/14EPr+5mRZW3VKxQlUmqBx8+hywKdk6GmYBAB5f
-	 8nulResCLYBto6VQs3hRYA4KETuKTELxNR8KTD0A8SHHaZq0+MZW5cuqzMxVvjF3Ar
-	 mm0WBZkP37qou44s62yfo1pjSUpXR7yARv+ZtF84vj7sPRtDvtjuKaq8UdZly7jo8N
-	 kydX+PiGds244j0Y6LXSItvI6x6ENINOrypn3TCV22aKWNiqshhxd7dIJ6fK3WSYgJ
-	 XqzugwqQSrg3k3Id1oXkJJlsfvp//uxyD5TkhF5mIYAxN7wX19pyFjWbMaVPRgWeun
-	 17bX/s/lKW9Jg==
-Date: Tue, 12 May 2026 13:06:22 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Piyush Patle <piyushpatle228@gmail.com>
-Cc: ak@it-klinger.de, andriy.shevchenko@linux.intel.com,
- dlechner@baylibre.com, nuno.sa@analog.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 v8 02/11] dt-bindings: iio: adc: hx711: add VSUP
- supply property
-Message-ID: <20260512130622.1f3f4d08@jic23-huawei>
-In-Reply-To: <20260511174342.123820-3-piyushpatle228@gmail.com>
-References: <20260511174342.123820-1-piyushpatle228@gmail.com>
-	<20260511174342.123820-3-piyushpatle228@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hn4bCRYa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1778587677; x=1810123677;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=XRvu2EAGQKJez8lKSh7BUoZ+vPlqUOlqHaCW8zoUhBY=;
+  b=hn4bCRYaDAl8BYRjYYLifeSl74WqKUY4+YhAUt0pNLrxzVHrEypuR9Qh
+   4m/Qbkl/yvN1vC3SdK6rxncQzcWOVjJi7yBUs+NXn1QPnOIGMTeXUt3KI
+   ccl+XL+PPnfy5SCF5jBjftooK5QKV32Lncz+JlK/g6kqZlzfEMNToOMyJ
+   d+Czz9dVDkBOf4/ekGkdtJNCUVaAkjIQnB0Wkl8luULwy7WeVgbTo8Wp1
+   dFqpuzty61eoMEnELxRMpXlxGdPvDh84DeTmdjky0gHeeRnGqaGx9k/ag
+   FLYQblZXAaRlpulNALFhwV8ZcuvlPlOqkEk6/l6dWBRGWhhZCZ4SSiYcu
+   A==;
+X-CSE-ConnectionGUID: RTBym9AJRqiSsraiBoRlcg==
+X-CSE-MsgGUID: /rr+jOSIRvaHBQwv+1aVrw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="90957067"
+X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; 
+   d="scan'208";a="90957067"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 05:07:55 -0700
+X-CSE-ConnectionGUID: JB3cB9pXQw+XmpPy/2Q+Yg==
+X-CSE-MsgGUID: a0h9lT7SQAKb7P4kkEj0IA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; 
+   d="scan'208";a="268095879"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.190])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 05:07:46 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 12 May 2026 15:07:42 +0300 (EEST)
+To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Rob Herring <robh@kernel.org>, 
+    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+    Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+    Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+    Bjorn Andersson <andersson@kernel.org>, 
+    Konrad Dybcio <konradybcio@kernel.org>, 
+    Randy Dunlap <rdunlap@infradead.org>, linux-arm-msm@vger.kernel.org, 
+    devicetree@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+    platform-driver-x86@vger.kernel.org, 
+    Maya Matuszczyk <maccraft123mc@gmail.com>, 
+    Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+    Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+    Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Subject: Re: [PATCH v9 2/6] platform: arm64: Add driver for EC found on
+ Qualcomm reference devices
+In-Reply-To: <58b7b983-b717-49c7-9019-8862fd47695a@oss.qualcomm.com>
+Message-ID: <a29448e5-2998-6555-4ae4-a10f69c4e2b1@linux.intel.com>
+References: <20260511-add-driver-for-ec-v9-0-e5437c39b7f8@oss.qualcomm.com> <20260511-add-driver-for-ec-v9-2-e5437c39b7f8@oss.qualcomm.com> <84949728-7d0a-4ce9-f37c-8200ef792baf@linux.intel.com> <58b7b983-b717-49c7-9019-8862fd47695a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="8323328-92730628-1778587662=:11125"
 
-On Mon, 11 May 2026 23:13:27 +0530
-Piyush Patle <piyushpatle228@gmail.com> wrote:
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-> Document the optional VSUP supply used by the HX711 on-chip regulator.
-> 
-> Signed-off-by: Piyush Patle <piyushpatle228@gmail.com>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> ---
+--8323328-92730628-1778587662=:11125
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-I got curious given the driver doesn't yet turn this on and wanted
-to just sanity check it via a datasheet.
+On Tue, 12 May 2026, Anvesh Jain P wrote:
 
-Why are we including this one but not dvdd-supply?  The suggested
-wiring does connect them to the same supply but it's external to the
-chip so in theory they might not be.  Curiously dvdd supply is allowed
-to be 0.1 V lower than vsup-supply.
+>=20
+>=20
+> On 5/11/2026 7:40 PM, Ilpo J=C3=A4rvinen wrote:
+> > On Mon, 11 May 2026, Anvesh Jain P wrote:
+> >=20
+> >> From: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+> >>
+> >> Add Embedded controller driver support for Hamoa/Purwa/Glymur qualcomm
+> >> reference boards. It handles fan control, temperature sensors, access
+> >> to EC state changes and supports reporting suspend entry/exit to the
+> >> EC.
+> >>
+> >> Co-developed-by: Maya Matuszczyk <maccraft123mc@gmail.com>
+> >> Signed-off-by: Maya Matuszczyk <maccraft123mc@gmail.com>
+> >> Signed-off-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+> >> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> >> Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> >> Tested-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> >> Co-developed-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+> >> Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+> >=20
+> > Thanks for the update.
+> >=20
+> > Patch 2 applied to the review-ilpo-next branch.
+> >
+>=20
+> Thank you!
+>=20
+> Will you be taking care of merging the bindings changes (patch 1/6) as we=
+ll?
 
->  Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml b/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
-> index 1ea60dff98d5..a8eaa1f18de5 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
-> @@ -33,6 +33,10 @@ properties:
->      description:
->        Analog supply voltage (AVDD).
->  
-> +  vsup-supply:
-> +    description:
-> +      Supply voltage for the on-chip regulator (VSUP).
-> +
->    clock-frequency:
->      description:
->        Controls the SCK bit-bang timing. The value is used to derive the
+If the bindings and dts changes go separate ways, DT linters won't be=20
+happy so the bindings and dts changes should go in through the same tree.
 
+As such, I only too the platform drivers patch. All this should come=20
+together in linux-next once all patches are in some tree (and obviously=20
+eventually in Linus' tree as well).
+
+--=20
+ i.
+
+--8323328-92730628-1778587662=:11125--
