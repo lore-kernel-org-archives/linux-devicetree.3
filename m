@@ -1,178 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2BB3B8128;
-	Tue, 12 May 2026 12:38:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17B423812D5;
+	Tue, 12 May 2026 12:43:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778589496; cv=none; b=a2qCyhryykDWbwcKqHBCl7VRelvGMNWg6nz4dJ8fxzKbzcMy0shuARlOeKS8SrwGBCgF7LrOj3sasr2TemyPH/hjl7edTd4wA7EqNAgYaXgxbyeT5013PQV84CMw16FPGDNMYWO88AHthuGeagT4Twnjj3I5B39p6eyP+RBV1bk=
+	t=1778589816; cv=none; b=ZqQXbXiv3GCkrcEU0y/bORIW5NR0HPgUNY6VBMTT89m7oDSKCR4ecxiMaFwDiaWWMPXpLureslVoYMPzXbz7pegVspKu33zMyaDW9F5hmYQK+Q8M1BNrvjYoS8ohhwst+SyOU49Zn+aVnLPr/TCrvV8z6a5OMwLXXf4rDLjqhk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778589496; c=relaxed/simple;
-	bh=CvcYX0aW+qbT8PxZMbz3l4WtmRd4Pj2jMjb2HPVhMh4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=e2CQDvUybb6r5DZBv2PZZk89fXsrfvFuCZ08zBOtYUup38eIVoVt41nfwmmbh/CtTJsRE3xZFQbJSuMCTcQk/q9lCbO7zjwBbMoRKjGDUA34xF40WCQjxOLFQ74u7H0jDPVTJBuJqBQmL7D1RFr2kvLgcyoQU9q5QDsH42qsFIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=USRdppdm; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778589816; c=relaxed/simple;
+	bh=2QFBCHYyty2qN+25qgGRIXMyA1GhvT3dUvnWU7zN7I4=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=GpwwyKvOL6hBrpVOSUD9Irt/VH5NCFtLVkxGgRfHwVNyt6LYmt0Dd2vg2tYHVMmvZzIFgmKKsZLzU9k2nuaD0xQq9KqstzaxQpyhnigHXHAafAvu3/o3vjHqkHZtCvDtCrZk+AnXj9N55EvM3hhN93BNvByk6m2SYG1Zxrn0EuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OUWXuirH; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="USRdppdm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68285C2BCB0;
-	Tue, 12 May 2026 12:38:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OUWXuirH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DD6AC2BCF5;
+	Tue, 12 May 2026 12:43:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778589495;
-	bh=CvcYX0aW+qbT8PxZMbz3l4WtmRd4Pj2jMjb2HPVhMh4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=USRdppdmI3rJa1UGbq8Cx+GR2IiXoqtYLNrPZJ462Wnlm57s2g7ZiIFkZrt55I769
-	 tZ0gvp6t+x+j0zx8qNSzbDcLgyZww86wC4jWeyIXisIWINblVXHUAZdUWet+wzE5Mp
-	 ai4FRmZQXu42nAWJk4aY0OwvgG1XvM4LbCfU0Z0W59Lszz1dAPG2zXww/jN/DtHD2x
-	 Edaq2mo67lWtkXXiZ1LIhAji/zKt28bxqq43VJe3m3dECv2G3yxEoUXopsRjtb5Vpp
-	 pQykrSq0cJs4GX2d42eGwkynvIo/BjX208+Vvc8BFgHvLiEZphCGNKzfquldrtb3cx
-	 EXJPsZVJnBVKg==
-Date: Tue, 12 May 2026 13:38:06 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Piyush Patle <piyushpatle228@gmail.com>
-Cc: ak@it-klinger.de, andriy.shevchenko@linux.intel.com,
- dlechner@baylibre.com, nuno.sa@analog.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 v8 11/11] iio: adc: hx711: add support for HX710B
-Message-ID: <20260512133806.74c566e0@jic23-huawei>
-In-Reply-To: <20260511174342.123820-12-piyushpatle228@gmail.com>
-References: <20260511174342.123820-1-piyushpatle228@gmail.com>
-	<20260511174342.123820-12-piyushpatle228@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20201202; t=1778589812;
+	bh=2QFBCHYyty2qN+25qgGRIXMyA1GhvT3dUvnWU7zN7I4=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+	b=OUWXuirHD0CE+k/yAj9LpL/EUyljCYOU325FrOcAfsJZoZRFE3xuDgQSk4dJKz76O
+	 otTAP9zMd9Q5Ouah6wjlWEPQ3LEsus+C/Whq4YJrRUBnqlsKtXK3t/TVbsi8H4Nvhy
+	 7S0UqDcvvZTSGl4PPhurb+fvrdw2+8LLYKNtjlZ4HMnRLJukem77E6iR0NgV/TGyRb
+	 OAuL63GoUyUks0XJWgqDfkRmSEeRVQeHo9GRABdO62RNV7eQr67zr6RIkTmf+lv9Fj
+	 j+SUuyvvAUGZAUZvQ7EcqamgmgRL4SVzrEfmUksgrLsv8AATr7LqWMVXMF0n2VI6FF
+	 jFprVnil0Bl/Q==
+Date: Tue, 12 May 2026 07:43:30 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Rustam Adilov <adilov@disroot.org>, linux-watchdog@vger.kernel.org, 
+ Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>
+To: Sander Vanheule <sander@svanheule.net>
+In-Reply-To: <20260512110848.106620-2-sander@svanheule.net>
+References: <20260512110848.106620-1-sander@svanheule.net>
+ <20260512110848.106620-2-sander@svanheule.net>
+Message-Id: <177858981010.1472205.3902733449598892024.robh@kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: watchdog: realtek,otto-wdt: Add
+ fallback compatible
 
-On Mon, 11 May 2026 23:13:36 +0530
-Piyush Patle <piyushpatle228@gmail.com> wrote:
 
-> Add support for the AVIA HX710B ADC, which shares the HX711 GPIO
-> interface but uses trailing PD_SCK pulses to select the active mode.
+On Tue, 12 May 2026 13:08:47 +0200, Sander Vanheule wrote:
+> As all known hardware instantiations of this watchdog behave the same, a
+> fallback compatible can be added.
 > 
-> Model the HX710B with variant-specific channel tables and IIO info,
-> track the active channel across conversions, and use the fixed gain
-> value when computing scale.
+> To remain compatible with existing single-compatible bindings, the
+> current compatibles are duplicated. New compatibles should only be added
+> to the list with fallback.
 > 
-> Also update the adjacent Kconfig text, file header, and module
-> description so the driver text matches the newly supported variant.
+> Signed-off-by: Sander Vanheule <sander@svanheule.net>
+> ---
+>  .../bindings/watchdog/realtek,otto-wdt.yaml   | 19 ++++++++++++++-----
+>  1 file changed, 14 insertions(+), 5 deletions(-)
 > 
-> Signed-off-by: Piyush Patle <piyushpatle228@gmail.com>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Hi Piyush,
 
-A few things I'd missed that Sashiko mentioned.
-Note that most of what it calls out in v7 of this patch is wrong because
-of the whole active_scan_mask / timestamp bit being set or not thing.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-The channel representation is indeed odd and I think that bit needs
-a rethink unfortunately.  I'd failed to notice it wasn't just two different
-channels but instead is one physical set of inputs measured at different
-sampling rates.
+yamllint warnings/errors:
+./Documentation/devicetree/bindings/watchdog/realtek,otto-wdt.yaml:31:13: [warning] wrong indentation: expected 14 but found 12 (indentation)
 
+dtschema/dtc warnings/errors:
 
-> @@ -403,16 +442,16 @@ static irqreturn_t hx711_trigger(int irq, void *p)
->  
->  	mutex_lock(&hx711_data->lock);
->  
-> -	memset(&hx711_data->buffer, 0, sizeof(hx711_data->buffer));
-> +	memset(hx711_data->buffer, 0, sizeof(hx711_data->buffer));
->  
->  	iio_for_each_active_channel(indio_dev, i) {
-> -		hx711_data->buffer.channel[j] =
-> +		hx711_data->buffer[j] =
->  			hx711_reset_read(hx711_data, &indio_dev->channels[i]);
+doc reference errors (make refcheckdocs):
 
-Sashiko pointed out (v7 review) that this can return an error. We should
-really be checking for negative values and if they occur don't push data
-to the buffer.  Given this is unlikely to happen except when the device
-is very broken, a rate limited dev_err is usual way to report this then
-carry on without calling iio_push_to_buffers_with_timestamp().
+See https://patchwork.kernel.org/project/devicetree/patch/20260512110848.106620-2-sander@svanheule.net
 
->  		j++;
->  	}
->  
-> -	iio_push_to_buffers_with_timestamp(indio_dev, &hx711_data->buffer,
-> -							pf->timestamp);
-> +	iio_push_to_buffers_with_timestamp(indio_dev, hx711_data->buffer,
-> +					   pf->timestamp);
->  
->  	mutex_unlock(&hx711_data->lock);
->  
-> @@ -463,6 +502,10 @@ static const struct iio_info hx711_iio_info = {
->  	.attrs			= &hx711_attribute_group,
->  };
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-> +/*
-> + * HX710B channels (Table 3 in datasheet).
-> + * 25 pulses (1 trailing): differential input, 10 SPS -> channel 0
-> + * 26 pulses (2 trailing): DVDD-AVDD supply monitor, 40 SPS -> channel 2
-> + * 27 pulses (3 trailing): differential input, 40 SPS -> channel 3
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-I'd missed this previously but sashiko raised a question on it.
-Why are we representing the same physical input channel as two different IIO channels
-based only on the sampling rate?  That doesn't seem to make a lot of sense.
-Should be one channel with a sampling_frequency control.
+pip3 install dtschema --upgrade
 
-
-> + * .address stores the trailing pulse count for hx711_set_hx710b_channel().
-> + * Channel 2 is used for the supply monitor to avoid aliasing the
-> + * channel2 terminal of the first differential pair.
-> + */
-> +static const struct iio_chan_spec hx710b_chan_spec[] = {
-> +	{
-> +		.type = IIO_VOLTAGE,
-> +		.differential = 1,
-> +		.channel = 0,
-> +		.channel2 = 1,
-> +		.indexed = 1,
-> +		.address = 1,
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-> +				      BIT(IIO_CHAN_INFO_SCALE),
-> +		.scan_index = 0,
-> +		.scan_type = {
-> +			.sign = 'u',
-> +			.realbits = 24,
-> +			.storagebits = 32,
-> +			.endianness = IIO_CPU,
-> +		},
-> +	},
-> +	{
-> +		.type = IIO_VOLTAGE,
-> +		.channel = 2,
-> +		.indexed = 1,
-> +		.address = 2,
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-> +				      BIT(IIO_CHAN_INFO_SCALE),
-> +		.scan_index = 1,
-> +		.scan_type = {
-> +			.sign = 'u',
-> +			.realbits = 24,
-> +			.storagebits = 32,
-> +			.endianness = IIO_CPU,
-> +		},
-> +	},
-> +	{
-> +		.type = IIO_VOLTAGE,
-> +		.differential = 1,
-> +		.channel = 3,
-> +		.channel2 = 4,
-> +		.indexed = 1,
-> +		.address = 3,
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-> +				      BIT(IIO_CHAN_INFO_SCALE),
-> +		.scan_index = 2,
-> +		.scan_type = {
-> +			.sign = 'u',
-> +			.realbits = 24,
-> +			.storagebits = 32,
-> +			.endianness = IIO_CPU,
-> +		},
-> +	},
-> +	IIO_CHAN_SOFT_TIMESTAMP(3),
-> +};
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
