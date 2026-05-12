@@ -1,152 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from polaris.svanheule.net (polaris.svanheule.net [84.16.241.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54693A8740
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 20:48:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B5763C37A3
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 20:49:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.241.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778618916; cv=none; b=qvqn5SDIJY5vkT/k1nbOSY9NC1TdF080mlKhIp69Q467LJV/+/+7HbK9YhR0TxRvydusmkWd/eVf+HliOyU5ZtDWjNHDFz8MYeFAM+90StENG8wTv3q4ae1Dppq8tQ4kV4x+1YvCJEBNyM1q7wRR9a37fKoM+km9YQB8Rgm9bkQ=
+	t=1778618946; cv=none; b=eLcvHW/XA23Tem5ZjGr9Q20NYWTFvDmZ45O1EVHaA3z/pcvxmDkfh3F6XAvQx4M2giK8ZPTKPiEAA2/8yyLX1VX0xEP0IpEswS/ZT9ChjNUoJ8Z2mQzOuRlnSa2bmlJuzz5T7/YCn1zBR9TWF/okJ+snt7/oesK1tk6NCVKmsrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778618916; c=relaxed/simple;
-	bh=SnEqL8Lj+FRSND8lqI+U43QtslizUAkSD7EWX7nfnTk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SLN0axNaSCYj0F+MMVmk5BiGRAhH7WI1gFu/uGUfJzxFrsbL7swFvZjLiNp6tQ3AvKpxUoiapc9e86DTkSAFLFh1RblvHVhcFraT/FS+xjwD5QL6BFNCTamxAVRGk9Y72wiAqsXktqE/qr+FAO5TfEGWaI3sTwVFo6MMfum1/T0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ayDhd3e7; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778618946; c=relaxed/simple;
+	bh=UTfLkeAA46tv4le1miv+rpaJgQ+pM6hNKOv+iYmAXYY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VfiJwc1d4retI0TMkgfr/RQGWl7tVqn3j7OaLfvCLmQSkLcRLM/cYj03upVYUp/FyjFoGiGMflSyD0V+Xpdu2DNL1V2F9zy1RNe+Q4Gem/Oylw3IqkFYDNuFoGuEgdShYiXwGsd/PyTlG3kbK4Jncurq3otHYvzqnA8Zuh34ogQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net; spf=pass smtp.mailfrom=svanheule.net; dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b=GA3QC4KQ; arc=none smtp.client-ip=84.16.241.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=svanheule.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ayDhd3e7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5959C2BCFC
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 20:48:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778618915;
-	bh=SnEqL8Lj+FRSND8lqI+U43QtslizUAkSD7EWX7nfnTk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=ayDhd3e7En3J4BRTfMsjiTG6p9YldApBdJ2kr662KQO4zvNY8rW6X1YZSG0DIdRC+
-	 Y7OdGmSSJ539k16mw/OfKv3zVSciTGRhQfxPIcJjG241e/CnTNIwY756Bb/+AJDj80
-	 ZrimwhNkRr10/w4WZ4oworajAmSMGRsaF9z90145dInmUgHItMFU6muT8C6gH1Bx5s
-	 N9c/y88MS160vcXKjR/Jr7K4U+cica6EmgeenYFSICBBmRVa+SGNDAo9mWB+oCdtt6
-	 flzJMNtYrC2WO9DRaoGnSyHGj6RE+0IHZMqfO9KL96VhF9zpYuWaBQ7vqYJufwo945
-	 +lkKFw8Y9Eq0A==
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6746d0b2b4aso9174178a12.3
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 13:48:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/sV+166pYRg00QJGWmPpTIqpcn/7ex80+a3EH50NRQxlZ9qKbSxgLuLJcTi4MRWryqG2Pv75oK8qtu@vger.kernel.org
-X-Gm-Message-State: AOJu0YyaseFaF/SYuEXyJureEBAY/bv0S8NZhVjtvSjrhOdLD/37ROx+
-	upZ9X7IIjkLAFNsVbttONI4Tywn8C+lc7QKaVKFnxZChtDVr4Wc78h/0qtFjGabMenuEdVWbrOE
-	9Px9yFwwKW2gcPuZ6W0lHHIv4U2cWgQ==
-X-Received: by 2002:a05:6402:3059:b0:670:9ca8:1eb4 with SMTP id
- 4fb4d7f45d1cf-68255bf8040mr175415a12.12.1778618914126; Tue, 12 May 2026
- 13:48:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b="GA3QC4KQ"
+Received: from terra.vega.svanheule.net (2a02-1812-162d-3d00-c381-7255-a866-916d.ip6.access.telenet.be [IPv6:2a02:1812:162d:3d00:c381:7255:a866:916d])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sander@svanheule.net)
+	by polaris.svanheule.net (Postfix) with ESMTPSA id D9D3477E465;
+	Tue, 12 May 2026 22:49:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=svanheule.net;
+	s=mail1707; t=1778618943;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xH/ZfxwgUPcUEmqllxyRKRqtCwZJZV5bY37xpotz3WI=;
+	b=GA3QC4KQa8X6UvWWdeaYn4N3JIqttjVvKbnpDZW+IUsWaEcvqt7inPXom6kPjzQ8h+cMUm
+	gSj9/VNKAYpO9hfGsiN11nDwkjImMy5e5gXmpFHIv4+yejzTg7OV7vYLLg7P4jUEy76zHO
+	BVm+d7igWh7fS7oq/aGLE30HzGwFykO6O7fUwyUpIYHUc91CTdUOjLfHxvqqPi6UpfufeJ
+	zjPH1I04BfJWh2FSyUXVYLY+7E6Ne1+P+d4aRcietHod+srBhNIK3bXT6x9kOM5p2KIQqW
+	2aH6HbztdT3n9agzbtGonWRTZ0StD/Wj7T7GUO98JD2S+VxUJkrSitxtnJ5pfg==
+From: Sander Vanheule <sander@svanheule.net>
+To: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Rustam Adilov <adilov@disroot.org>,
+	linux-watchdog@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sander Vanheule <sander@svanheule.net>
+Subject: [PATCH v2 2/2] watchdog: realtek-otto: add fallback compatible
+Date: Tue, 12 May 2026 22:48:54 +0200
+Message-ID: <20260512204854.8931-3-sander@svanheule.net>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260512204854.8931-1-sander@svanheule.net>
+References: <20260512204854.8931-1-sander@svanheule.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260510083219.70224-1-pramod.nexgen@gmail.com>
- <20260510120141.118057-1-pramod.nexgen@gmail.com> <20260511171554.6541042b@jic23-huawei>
- <7baf9ca5-50ff-4131-995b-70ee094ed247@baylibre.com> <CAL_JsqLxtWLR+jxRXt7Uz6dcF-90NYmfyGWYQk9um9TYHSWbTw@mail.gmail.com>
- <a4ecfb27-5ef4-4682-b87c-24917f81b4f0@baylibre.com> <CAL_JsqKP-C-rA6_19vtMzevVxQiD7bH=k5ObEZZDM3-Zmr_vtg@mail.gmail.com>
- <5a02550a-a578-4c0b-a8b0-2056f0248478@baylibre.com>
-In-Reply-To: <5a02550a-a578-4c0b-a8b0-2056f0248478@baylibre.com>
-From: Rob Herring <robh@kernel.org>
-Date: Tue, 12 May 2026 15:48:22 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqJ1qD_3UE2FD5Pgme1yhSDLuGYYj3brfMJsmotSmNNhuw@mail.gmail.com>
-X-Gm-Features: AVHnY4JJAw3XA4xxqmQ2OyiF2Jg8Lwk1xyuoOr4v_YxirGxOoDE-30WV7bPgDT0
-Message-ID: <CAL_JsqJ1qD_3UE2FD5Pgme1yhSDLuGYYj3brfMJsmotSmNNhuw@mail.gmail.com>
-Subject: Re: [PATCH v3] dt-bindings: iio: adc: Convert xilinx-xadc bindings to
- YAML schema
-To: David Lechner <dlechner@baylibre.com>
-Cc: Pramod Maurya <pramod.nexgen@gmail.com>, Jonathan Cameron <jic23@kernel.org>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Michal Simek <michal.simek@amd.com>, Lars-Peter Clausen <lars@metafoo.de>, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, May 12, 2026 at 3:03=E2=80=AFPM David Lechner <dlechner@baylibre.co=
-m> wrote:
->
-> On 5/12/26 2:42 PM, Rob Herring wrote:
-> > On Tue, May 12, 2026 at 8:58=E2=80=AFAM David Lechner <dlechner@baylibr=
-e.com> wrote:
-> >>
-> >> On 5/12/26 7:14 AM, Rob Herring wrote:
-> >>> On Mon, May 11, 2026 at 11:24=E2=80=AFAM David Lechner <dlechner@bayl=
-ibre.com> wrote:
-> >>>>
-> >>>> On 5/11/26 11:15 AM, Jonathan Cameron wrote:
-> >>>>> On Sun, 10 May 2026 08:01:36 -0400
-> >>>>> Pramod Maurya <pramod.nexgen@gmail.com> wrote:
-> >>>>>
-> >>>>>> Convert the Xilinx XADC and UltraScale System Monitor device tree =
-binding
-> >>>>>> from the legacy plain-text format to a YAML schema, enabling autom=
-ated
-> >>>>>> validation with dt-schema.
-> >>>>>>
-> >>>>>> The new binding covers the same hardware and compatible strings:
-> >>>>>>   - xlnx,zynq-xadc-1.00.a (ZYNQ hardmacro)
-> >>>>>>   - xlnx,axi-xadc-1.00.a  (AXI softmacro)
-> >>>>>>   - xlnx,system-management-wiz-1.3 (UltraScale System Management W=
-izard)
-> >>>>>>
-> >>>>>> Signed-off-by: Pramod Maurya <pramod.nexgen@gmail.com>
-> >>>>> Hi Pramod,
-> >>>>>
-> >>>>> Something went wrong with your sending of v3. I have two versions s=
-ent
-> >>>>> half a day apart and no idea how they are related.
-> >>>>>
-> >>>>> Anyhow one of them got feedback from Rob's bot so I'll assume we ar=
-e
-> >>>>> getting a v4 and wait for that.
-> >>>>>
-> >>>>> Jonathan
-> >>>>
-> >>>> I think Rob will have to fix the bot to make an exception for the
-> >>>> legacy bindings. This should have been called out in the commit mess=
-age
-> >>>> as requested in a previous revision.
-> >>>
-> >>> The bot is not the problem. It just runs validation. The schemas will
-> >>> have to either drop this check (comma's in nodenames) or exclude just
-> >>> this property.
-> >>>
-> >>>
-> >>> Rob
-> >>
-> >> Even though this is an existing text-based schema that has been around
-> >> for 12 years with this name already? Changing it could be a breaking
-> >> change to existing users. Although there aren't any in any .dts in the
-> >> kernel source.
-> >
-> > I'm absolutely not suggesting changing the node name.
-> >
-> > The common schemas globally disallow commas in nodenames. We can relax
-> > that and allow commas in any nodename. That check is largely from
-> > QCom's amazingly consistent use of 'qcom' prefix in nodenames. We've
-> > finally beat that practice out of them. So maybe it's not needed
-> > anymore.
-> >
-> > The other approach is to exclude this nodename and any other we have
-> > to keep. I don't like dtschema having to know about some random name,
-> > but we already have that in a few cases and I don't expect that list
-> > to be too long given this is the first case we've seen.
-> >
-> > Rob
->
-> Got it. So when I said "fix the bot" earlier, I should have said
-> "fix dtschema". We went through this before with adi,channels, but
-> I didn't remember exactly what you did.
+As the binding now supports a fallback compatible for (new) devicetrees,
+let's add it to the list of supported compatibles. If new compatibles
+are added to the binding, driver updates may no longer be required.
 
-Completely forgot that. That makes picking which one easy...
+Signed-off-by: Sander Vanheule <sander@svanheule.net>
+---
+ drivers/watchdog/realtek_otto_wdt.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> I created a pull request for dt-schema [1] for this since it was
-> easier than trying to explain it for someone else to do.
->
-> [1]: https://github.com/devicetree-org/dt-schema/pull/195
+diff --git a/drivers/watchdog/realtek_otto_wdt.c b/drivers/watchdog/realtek_otto_wdt.c
+index 2c30ddd574c5..b4eb2f87f991 100644
+--- a/drivers/watchdog/realtek_otto_wdt.c
++++ b/drivers/watchdog/realtek_otto_wdt.c
+@@ -350,6 +350,8 @@ static int otto_wdt_probe(struct platform_device *pdev)
+ }
+ 
+ static const struct of_device_id otto_wdt_ids[] = {
++	{ .compatible = "realtek,otto-wdt" },
++	/* Legacy bindings without fallback compatible */
+ 	{ .compatible = "realtek,rtl8380-wdt" },
+ 	{ .compatible = "realtek,rtl8390-wdt" },
+ 	{ .compatible = "realtek,rtl9300-wdt" },
+-- 
+2.54.0
 
-Thank you! Applied.
-
-Rob
