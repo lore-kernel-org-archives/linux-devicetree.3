@@ -1,427 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BB62282F16;
-	Tue, 12 May 2026 01:42:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51711296BBA
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 01:45:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778550126; cv=none; b=ulbXy5lLp2hkmVqDKPoRfWOX57lRsiIdLQESh+1JQYnRLsd5PLz1jFHiswPxGNO+TfkiIuhiV1S+07F1xYrvmUHxdJF6EbMDTFeU9P1innbnlYrN4WWTvU9mHImPTXZfG1OjaIa1fpmk8uD9TP0h/3UIdK2kaC/M0i0MobQcuuw=
+	t=1778550303; cv=none; b=Prk+mKcFFYwoRl/UO0IVK3EvI+OckhrmKOVSACJ9JC8Sbzpwh8NCgtRNzsXg+n1PErfI4/70bRsyU++jOHvK9gnL50oBoWB/oVu6TZFs+Eu93UAALh8V//EfMcONhsiaggyfWYQ8pbYtGNgV/MO6fptKrdJiiwPL/hWqfbILYDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778550126; c=relaxed/simple;
-	bh=/Tosaryyb+tWzZJ1kVsAI1SxCjbRQbn0lG1ZjlAs6P4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fbQQpC07MZ7mBjq2N487GEhFL1voRosOATipGM3y4slualhaZYxFXRzvE3/HLOIRypONrTb9fni02CBWTIQbd5zlkDfjLFKJwVHQHNHljQfg9TMUMDb9xoGH+rhZ53fQDFjVGVfoL46O0Z/3xPgdnQaTE01llwnUkXZl/V69EAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YPHf0x/G; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778550303; c=relaxed/simple;
+	bh=YFqRwDZh6NjIUlVojwMTqSW7In7Pd16pnHVzmRsjrMc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ckPIWJ1Bi1SgBmCc49ZPYNWvuc2Q6r+T9WFPouWXaUbRhOJyyo33ovmmKLWZ4ieYdkDPL0q6iYYIUZvkNjLdlOZJGGobF1mKfocMbgaHG4DWO7r9AMy9KTJSTyj1eVe4+A4awBK6DxwuyNav4WyR80dBwJAI10IxNYAr9fh+Mi8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=cVf9Gkmw; arc=none smtp.client-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YPHf0x/G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A250C2BCB0;
-	Tue, 12 May 2026 01:42:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778550125;
-	bh=/Tosaryyb+tWzZJ1kVsAI1SxCjbRQbn0lG1ZjlAs6P4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=YPHf0x/GClRGKzDHmatio4QGQVWqDkrO/Q0ujaQlFF4FPr6XQjlot5KuAmPKFtdhX
-	 HKtWaUV/YoChZucBbrhkD6wp0p1H0+lN1MU+NOwxfhySkCFMChfkwrWsHW6XWZR5UJ
-	 khO9dEAhy87uukso0NdZVZLWefKcDjnNp3pWQMU0ThDoHsuf0kqSPFyNWHvsN+lI6I
-	 EPFlVgvwsUpJnF16AigyPWvbKO0NYOdDFEGzxwqazCanVTOJhD8VlDNqLCcgDR7QAv
-	 tAgU/TXH1+aq8Xt6B9Pyap+JR14/EO5N0gisD1NUgMhYuHM4xmWJCTC5qb9o+BUMyT
-	 vzv5rnIGuEEuA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/2] media: nxp: Add i.MX9 CSI pixel formatter v4l2
- driver
-Reply-To: sashiko@lists.linux.dev
-To: "Guoniu Zhou" <guoniu.zhou@oss.nxp.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, imx@lists.linux.dev, krzk+dt@kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260511-csi_formatter-v6-2-01028e312e2b@oss.nxp.com>
-References: <20260511-csi_formatter-v6-2-01028e312e2b@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 12 May 2026 01:42:04 +0000
-Message-Id: <20260512014205.8A250C2BCB0@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="cVf9Gkmw"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-2f7020a928eso6924141eec.1
+        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 18:45:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nexthop.ai; s=google; t=1778550300; x=1779155100; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=bquv7t3kUsD7keFlHzjXTIEb+QxEuCA3H6GN7PZtrYw=;
+        b=cVf9GkmwGA69/6haFNwnJU4HtbcVYVdKNXeh4lt052YvQWgxizFSmfoNZKkVvpiDZe
+         dwI6Mto2sEVB3i8VxOjA9HVh9lQ8pj0L9NsvrzcGCeBokOwP4qnXTHQffFcLhg6aJZBU
+         Jum801k8WHX5OPDm1uE1eMIx2091zbRPdzXNEgKG6PrM0JbwT0e0UYzh2poAp5vKjgKn
+         C3f2WyaMzNiZuIMZ4YIGRlRh6KYSU9qOWOKTj9yCOQQnanJpeA6ek5+8BLA/YR9IDU8O
+         IKRAgq7wpM9D4k21bmQLSkcxNMtrvKBS+/vAy/K8kFYUdlV2Iqnmipxu7V+b/QT6GQTE
+         yVfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778550300; x=1779155100;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bquv7t3kUsD7keFlHzjXTIEb+QxEuCA3H6GN7PZtrYw=;
+        b=WSNGO2v/Rs5hqUAzuPT/JnSoh6zn0THsgOO1LNmPeBQSxWMrn8P8/8k5gyesYxvUXt
+         wMWtQTMONGxUvZIT9xHlo3J/N6sysfK2+o2XAVmU84gGundQq8HyD6b8LRxULnr2jX9/
+         HqNVhuiv1mbRO8jj5rab58vG8jyRlc5vivNsI5BowadrVFNi6PK/N9LjympF3/rmEEyr
+         QF2rQcggday7rDQIlvXt3RmNDUmZgPeLv3xgZV+5a/GEiyBskA8jSmaSN8ntpoHoaXnd
+         DvSdAk7jQS0lmzGCXjc9TcHZMs8FN/mQgYaWOzWIvii43M+kllPKaq6Hedyf0hNvf2/3
+         jXEw==
+X-Forwarded-Encrypted: i=1; AFNElJ/UaNHZ5S4TDPczVU8U1aFZR6Xmi+iukT2bC20MH/ga5vmiQXxXiwlyCDHvUDOHIHHvLKukdDakQ9tG@vger.kernel.org
+X-Gm-Message-State: AOJu0YzVbxpkS32qWgYOw4ZDxLhidUEovdDaOi8qD/xRk2JqIzjTl8BB
+	OIqqShz1wrZdDYPFblOoXAvbWMsz0JNUhIEzvOgsWP3y1jMzDtSU72ny8a3pth9xLdLhgIWnuNi
+	z1MXHJUo=
+X-Gm-Gg: Acq92OFFtHJXUbtAdf92i+SE5cdw+1TxF22FmN1R6myWCf1wccXUsd05wBVs0CCTanS
+	DSi8QLqzc/F5Vv3XVNqLis34dtKv8mrdPccZ+KsOxSYWNStkPCLuKFkT1o/d/GkOBOQtJ9QRt36
+	xIwLXtskCX7vBMmNNbwiuokG00lzNMqByXLeXMnL3en9WvgFadzc9U0zxxyLHaqZ0ZHmYsZIKxJ
+	N6I/8lL/1DHmfnSQfbFzaO68+EXz7qKtzpv7b4tmR5YSGjWu54qVbGAk76corDQr/t62ZmuJnES
+	aS3JW+nkiM8pghP3s1czwdgzQ7nwnjTQllSnU3lrla/L8IBSuuAaIQAYl0yaIQtTwNn8HsScdHM
+	aLzPC2f4wgrnQQFuiED/OzPS3YJHGWuaH7mRlcWz5bVzMSUgwAguI2vqHxobqFHrgJFgrHb3LNR
+	KOOivh+4lRAPSfd0INQNqeb5AkiQ==
+X-Received: by 2002:a05:7300:dc0f:b0:2c7:3a7:c792 with SMTP id 5a478bee46e88-2ffd77e63d5mr554526eec.20.1778550300315;
+        Mon, 11 May 2026 18:45:00 -0700 (PDT)
+Received: from [127.0.0.2] ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2f888e4016asm15815467eec.28.2026.05.11.18.44.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 11 May 2026 18:44:59 -0700 (PDT)
+From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Subject: [PATCH 0/2] hwmon: Add Murata D1U74T-W PSU driver
+Date: Mon, 11 May 2026 18:44:26 -0700
+Message-Id: <20260511-d1u74t-v1-0-623c2bc1532a@nexthop.ai>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPqFAmoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDU0ND3RTDUnOTEt1kg+SkRIs0w2RjExMloOKCotS0zAqwQdGxEH5xaVJ
+ WanIJSLdSbS0AjGVykmoAAAA=
+X-Change-ID: 20260511-d1u74t-c0cba8f1c344
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Abdurrahman Hussain <abdurrahman@nexthop.ai>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778550299; l=1549;
+ i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
+ bh=YFqRwDZh6NjIUlVojwMTqSW7In7Pd16pnHVzmRsjrMc=;
+ b=xhnCb6pxOKl4xmYeOy1aIfKyZ1R3lAL/337Xfldg38FvMCJRHU+T/GSj0zr8lBl3araHcCDAm
+ 7g3DtwA0O0RB04qcDjCLsg0NA6+vuYKKXY9ITBgXqh0+Xi2JvJQcC4r
+X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
+ pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
-s) to consider:
-- [Critical] Missing .unbind callback in async notifier leaves a dangling p=
-ointer, causing a Use-After-Free.
-- [High] Missing NULL pointer check after calling v4l2_subdev_state_get_for=
-mat() causes a kernel panic.
-- [High] Missing NULL check for formatter->csi_sd in formatter_subdev_disab=
-le_streams() leads to kernel panic.
-- [High] Global caching of V4L2 format breaks hardware configuration for mu=
-ltiplexed streams.
-- [High] State desynchronization in formatter_subdev_disable_streams() lead=
-s to PM reference counter underflow.
-- [High] Subdevice is registered asynchronously before runtime PM and drvda=
-ta are initialized.
-- [High] Uninitialized stack variable source_fd in get_vc() passed to downs=
-tream subdevice, risking OOB stack read.
-- [Medium] Mixing goto-based error handling with scope-based cleanup helper=
-s (__free and guard).
-- [Medium] Conflation of V4L2_FRAME_DESC_ENTRY_MAX with stream IDs silently=
- drops configurations for streams >=3D 8.
---
+This series adds a PMBus driver for the Murata D1U74T-W AC/DC power
+supply unit, used in some Open Compute Project platforms.
 
-commit 0a5796f1d64d741325c60f3d9fb1c35507045c6e
-Author: Guoniu Zhou <guoniu.zhou@nxp.com>
+The PSU is PMBus-compliant and uses the linear data format. The driver
+exposes:
 
-media: nxp: Add i.MX9 CSI pixel formatter v4l2 driver
-   =20
-The CSI pixel formatter is a module found on i.MX95 used to reformat
-packet info, pixel and non-pixel data from CSI-2 host controller to
-match Pixel Link(PL) definition. Add data formatting support.
+  - input/output voltage, current and power telemetry,
+  - three temperature sensors,
+  - dual fan tachometer monitoring,
 
-> diff --git a/drivers/media/platform/nxp/imx9-csi-formatter.c b/drivers/me=
-dia/platform/nxp/imx9-csi-formatter.c
-> new file mode 100644
-> index 0000000000000..aca04de8e0ed8
-> --- /dev/null
-> +++ b/drivers/media/platform/nxp/imx9-csi-formatter.c
-> @@ -0,0 +1,776 @@
-[ ... ]
-> +static int formatter_subdev_enum_mbus_code(struct v4l2_subdev *sd,
-> +					   struct v4l2_subdev_state *sd_state,
-> +					   struct v4l2_subdev_mbus_code_enum *code)
-> +{
-> +	if (code->pad =3D=3D CSI_FORMATTER_PAD_SOURCE) {
-> +		struct v4l2_mbus_framefmt *fmt;
-> +
-> +		if (code->index > 0)
-> +			return -EINVAL;
-> +
-> +		fmt =3D v4l2_subdev_state_get_format(sd_state, code->pad,
-> +						   code->stream);
-> +		code->code =3D fmt->code;
+through the standard hwmon/pmbus sysfs interface. Probe verifies the
+PMBUS_MFR_ID and PMBUS_MFR_MODEL fields before binding so the driver
+only attaches to actual D1U74T-W hardware.
 
-v4l2_subdev_state_get_format() can return NULL if the requested stream ID is
-not in the routing table. Can this cause a NULL pointer dereference when
-accessing fmt->code?
+Patch 1 adds the devicetree binding.
+Patch 2 adds the driver, hwmon documentation, Kconfig/Makefile entries
+and MAINTAINERS section.
 
-[ ... ]
-> +static int formatter_subdev_set_fmt(struct v4l2_subdev *sd,
-> +				    struct v4l2_subdev_state *sd_state,
-> +				    struct v4l2_subdev_format *sdformat)
-> +{
-> +	struct csi_formatter *formatter =3D sd_to_formatter(sd);
-> +	struct formatter_pix_format const *format;
-> +	struct v4l2_mbus_framefmt *fmt;
-[ ... ]
-> +	fmt =3D v4l2_subdev_state_get_format(sd_state, sdformat->pad,
-> +					   sdformat->stream);
-> +	*fmt =3D sdformat->format;
+Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+---
+Abdurrahman Hussain (2):
+      dt-bindings: hwmon: pmbus: Add Murata D1U74T PSU
+      hwmon: (pmbus/d1u74t) Add Murata D1U74T PSU driver
 
-Is it possible for v4l2_subdev_state_get_format() to return NULL here as
-well if userspace provides an invalid stream ID?
+ .../bindings/hwmon/pmbus/murata,d1u74t.yaml        | 41 +++++++++
+ Documentation/hwmon/d1u74t.rst                     | 97 ++++++++++++++++++++++
+ Documentation/hwmon/index.rst                      |  1 +
+ MAINTAINERS                                        |  8 ++
+ drivers/hwmon/pmbus/Kconfig                        |  9 ++
+ drivers/hwmon/pmbus/Makefile                       |  1 +
+ drivers/hwmon/pmbus/d1u74t.c                       | 85 +++++++++++++++++++
+ 7 files changed, 242 insertions(+)
+---
+base-commit: 5d6919055dec134de3c40167a490f33c74c12581
+change-id: 20260511-d1u74t-c0cba8f1c344
 
-> +
-> +	/* Set default code if user set an invalid value */
-> +	fmt->code =3D format->code;
-> +
-> +	/* Propagate the format from sink stream to source stream */
-> +	fmt =3D v4l2_subdev_state_get_opposite_stream_format(sd_state, sdformat=
-->pad,
-> +							   sdformat->stream);
-> +	if (!fmt)
-> +		return -EINVAL;
-> +
-> +	*fmt =3D sdformat->format;
-> +
-> +	/* Store the CSIS format descriptor for active formats. */
-> +	if (sdformat->which =3D=3D V4L2_SUBDEV_FORMAT_ACTIVE)
-> +		formatter->fmt =3D format;
-> +
-> +	return 0;
-> +}
+Best regards,
+--  
+Abdurrahman Hussain <abdurrahman@nexthop.ai>
 
-Does storing a single format globally in formatter->fmt break hardware
-configuration when multiplexing multiple streams?
-
-If userspace configures different formats for different streams,
-formatter->fmt retains only the last configured format. Later,
-csi_formatter_start_stream() applies formatter->fmt->data_type identically
-to all enabled streams.
-
-[ ... ]
-> +static int get_vc(struct csi_formatter *formatter, unsigned int stream)
-> +{
-> +	struct v4l2_mbus_frame_desc source_fd;
-> +	struct v4l2_mbus_frame_desc_entry *entry =3D NULL;
-> +	unsigned int i;
-> +	int vc;
-> +	int ret;
-> +
-> +	/*
-> +	 * Return virtual channel 0 as default value when remote subdev
-> +	 * don't implement .get_frame_desc subdev callback
-> +	 */
-> +	ret =3D v4l2_subdev_call(formatter->csi_sd, pad, get_frame_desc,
-> +			       formatter->remote_pad, &source_fd);
-> +	if (ret < 0)
-> +		return (ret =3D=3D -ENOIOCTLCMD) ? 0 : ret;
-> +
-> +	for (i =3D 0; i < source_fd.num_entries; ++i) {
-
-Should source_fd be zero-initialized before passing it to the downstream
-subdevice?
-
-If the remote driver succeeds but fails to populate the struct completely,
-could source_fd.num_entries contain uninitialized stack data, potentially
-causing an out-of-bounds read in this loop?
-
-[ ... ]
-> +static void csi_formatter_stop_stream(struct csi_formatter *formatter,
-> +				     u64 stream_mask)
-> +{
-> +	unsigned int i;
-> +	int ret;
-> +	int vc;
-> +
-> +	for (i =3D 0; i < V4L2_FRAME_DESC_ENTRY_MAX; ++i) {
-> +		if (!(stream_mask & BIT(i)))
-> +			continue;
-
-Is V4L2_FRAME_DESC_ENTRY_MAX (which is 8) the correct upper bound when
-iterating through a 64-bit stream_mask?
-
-If userspace enables a stream with an ID of 8 or higher, will this loop
-silently skip it?
-
-[ ... ]
-> +static int csi_formatter_start_stream(struct csi_formatter *formatter,
-> +				      u64 stream_mask)
-> +{
-> +	const struct formatter_pix_format *fmt =3D formatter->fmt;
-> +	u64 configured_streams =3D 0;
-> +	unsigned int i;
-> +	u32 val;
-> +	int ret;
-> +	int vc;
-> +
-> +	for (i =3D 0; i < V4L2_FRAME_DESC_ENTRY_MAX; ++i) {
-
-Similarly, does this loop also drop configurations for stream IDs >=3D 8?
-
-[ ... ]
-> +static int formatter_subdev_enable_streams(struct v4l2_subdev *sd,
-> +					   struct v4l2_subdev_state *state,
-> +					   u32 pad, u64 streams_mask)
-> +{
-> +	struct csi_formatter *formatter =3D sd_to_formatter(sd);
-> +	struct device *dev =3D formatter->dev;
-> +	u64 sink_streams;
-> +	int ret;
-[ ... ]
-> +	if (!formatter->csi_sd) {
-> +		dev_err(dev, "CSI controller not linked with formatter\n");
-> +		return -EPIPE;
-> +	}
-> +
-> +	guard(mutex)(&formatter->lock);
-> +
-> +	if (!formatter->enabled_streams) {
-> +		ret =3D pm_runtime_resume_and_get(formatter->dev);
-> +		if (ret < 0) {
-> +			dev_err(dev, "Failed to resume runtime PM: %d\n", ret);
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	ret =3D csi_formatter_start_stream(formatter, streams_mask);
-> +	if (ret)
-> +		goto err_runtime_put;
-> +
-> +	ret =3D v4l2_subdev_enable_streams(formatter->csi_sd,
-> +					 formatter->remote_pad,
-> +					 sink_streams);
-> +	if (ret)
-> +		goto err_stop_stream;
-> +
-> +	formatter->enabled_streams |=3D streams_mask;
-> +
-> +	return 0;
-> +
-> +err_stop_stream:
-> +	csi_formatter_stop_stream(formatter, streams_mask);
-> +err_runtime_put:
-> +	if (!formatter->enabled_streams)
-> +		pm_runtime_put(formatter->dev);
-> +	return ret;
-> +}
-
-Does this function mix scope-based cleanup (guard()) with goto error
-labels?
-
-According to the cleanup subsystem guidelines, mixing goto-based error
-handling with scope variables in the same function can create confusing
-ownership semantics and is typically avoided.
-
-> +
-> +static int formatter_subdev_disable_streams(struct v4l2_subdev *sd,
-> +					    struct v4l2_subdev_state *state,
-> +					    u32 pad, u64 streams_mask)
-> +{
-> +	struct csi_formatter *formatter =3D sd_to_formatter(sd);
-> +	u64 sink_streams;
-> +	int ret;
-> +
-> +	sink_streams =3D v4l2_subdev_state_xlate_streams(state,
-> +						       CSI_FORMATTER_PAD_SOURCE,
-> +						       CSI_FORMATTER_PAD_SINK,
-> +						       &streams_mask);
-> +	if (!sink_streams || !streams_mask)
-> +		return -EINVAL;
-> +
-> +	guard(mutex)(&formatter->lock);
-> +
-> +	ret =3D v4l2_subdev_disable_streams(formatter->csi_sd, formatter->remot=
-e_pad,
-> +					  sink_streams);
-
-While formatter_subdev_enable_streams() explicitly checks if
-(!formatter->csi_sd) before proceeding, this function does not.
-
-If the pipeline is unbound, could formatter->csi_sd be NULL and lead to a
-panic when v4l2_subdev_disable_streams() dereferences it?
-
-> +	if (ret)
-> +		dev_err(formatter->dev, "Failed to disable streams: %d\n", ret);
-> +
-> +	csi_formatter_stop_stream(formatter, streams_mask);
-> +
-> +	formatter->enabled_streams &=3D ~streams_mask;
-> +
-> +	if (!formatter->enabled_streams)
-> +		pm_runtime_put(formatter->dev);
-> +
-> +	return ret;
-> +}
-
-If v4l2_subdev_disable_streams() returns an error, the driver still clears
-formatter->enabled_streams and calls pm_runtime_put().
-
-The V4L2 core will see the returned error and keep the streams active in its
-state. If userspace then retries disabling the streams, this function could
-be called again, redundantly clearing the state and calling pm_runtime_put(=
-).
-
-Could this cause a PM reference counter underflow?
-
-[ ... ]
-> +static int csi_formatter_notify_bound(struct v4l2_async_notifier *notifi=
-er,
-> +				      struct v4l2_subdev *sd,
-> +				      struct v4l2_async_connection *asc)
-> +{
-> +	const unsigned int link_flags =3D MEDIA_LNK_FL_IMMUTABLE
-> +				      | MEDIA_LNK_FL_ENABLED;
-> +	struct csi_formatter *formatter =3D notifier_to_formatter(notifier);
-> +	struct v4l2_subdev *sdev =3D &formatter->sd;
-> +	struct media_pad *sink =3D &sdev->entity.pads[CSI_FORMATTER_PAD_SINK];
-> +	struct media_pad *remote_pad;
-> +	int ret;
-> +
-> +	formatter->csi_sd =3D sd;
-> +
-> +	dev_dbg(formatter->dev, "Bound subdev: %s pad\n", sd->name);
-> +
-> +	ret =3D v4l2_create_fwnode_links_to_pad(sd, sink, link_flags);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	remote_pad =3D media_pad_remote_pad_first(sink);
-> +	if (!remote_pad) {
-> +		dev_err(formatter->dev, "Pipe not setup correctly\n");
-> +		return -EPIPE;
-> +	}
-> +	formatter->remote_pad =3D remote_pad->index;
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct v4l2_async_notifier_operations formatter_notify_ops =
-=3D {
-> +	.bound =3D csi_formatter_notify_bound,
-> +};
-
-The driver saves the sd pointer to formatter->csi_sd, but
-formatter_notify_ops does not implement an .unbind callback to clear it.
-
-If the remote subdevice is unloaded, will formatter->csi_sd become a
-dangling pointer and risk a use-after-free during later operations?
-
-> +
-> +static int csi_formatter_async_register(struct csi_formatter *formatter)
-> +{
-> +	struct device *dev =3D formatter->dev;
-> +	struct v4l2_async_connection *asc;
-> +	int ret;
-> +
-> +	struct fwnode_handle *ep __free(fwnode_handle) =3D
-> +		fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0,
-> +						FWNODE_GRAPH_ENDPOINT_NEXT);
-> +	if (!ep)
-> +		return -ENOTCONN;
-> +
-> +	v4l2_async_subdev_nf_init(&formatter->notifier, &formatter->sd);
-> +
-> +	asc =3D v4l2_async_nf_add_fwnode_remote(&formatter->notifier, ep,
-> +					      struct v4l2_async_connection);
-> +	if (IS_ERR(asc)) {
-> +		ret =3D PTR_ERR(asc);
-> +		goto err_cleanup_notifier;
-> +	}
-> +
-> +	formatter->notifier.ops =3D &formatter_notify_ops;
-> +
-> +	ret =3D v4l2_async_nf_register(&formatter->notifier);
-> +	if (ret)
-> +		goto err_cleanup_notifier;
-> +
-> +	ret =3D v4l2_async_register_subdev(&formatter->sd);
-> +	if (ret)
-> +		goto err_unregister_notifier;
-> +
-> +	return 0;
-> +
-> +err_unregister_notifier:
-> +	v4l2_async_nf_unregister(&formatter->notifier);
-> +err_cleanup_notifier:
-> +	v4l2_async_nf_cleanup(&formatter->notifier);
-> +	return ret;
-> +}
-
-Does this function also mix goto-based error handling with a scope-based
-cleanup helper (__free(fwnode_handle))?
-
-[ ... ]
-> +static int csi_formatter_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	ret =3D csi_formatter_async_register(formatter);
-> +	if (ret < 0)
-> +		goto err_cleanup_subdev;
-> +
-> +	platform_set_drvdata(pdev, &formatter->sd);
-> +
-> +	/* Enable runtime PM. */
-> +	ret =3D devm_pm_runtime_enable(dev);
-> +	if (ret)
-> +		goto err_async_unregister;
-> +
-> +	return 0;
-
-The driver registers the async subdevice before calling
-platform_set_drvdata() and devm_pm_runtime_enable().
-
-If userspace opens the node immediately and issues an IOCTL, could it fail
-to acquire PM (since it's disabled) or hit a NULL drvdata pointer if the
-device attempts to suspend/resume? Usually, asynchronous registration is
-the final step in probe().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511-csi_format=
-ter-v6-0-01028e312e2b@oss.nxp.com?part=3D2
