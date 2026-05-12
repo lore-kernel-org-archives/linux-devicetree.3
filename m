@@ -1,154 +1,150 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011051.outbound.protection.outlook.com [40.107.130.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9BEF36A35A
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 14:57:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778597838; cv=none; b=CpdWggP2sRfM9Ss4JnRAWgqIH/7kDsWTrtfVaMI6cayMcaJTuZTIkeSG/wcbAp2AEUZpJZQdVn3Rlth0Ruq1yFNGIXHGs4HSt7wz19BFA16KLsy2rKFKE27m9Ur8KHhYBsEvma4mUKYYp0QqeXWBzbe8qB196fHvtO/ZUs4NaoM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778597838; c=relaxed/simple;
-	bh=rel5XJ2Mx5CknVpnsr9cWDTzti7f512B94lQWKFxJPI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Kz0hGy1ErC2FBb8cNnZusfged2oRlMrt24ybGM+H4ToL6iqyyBJA9MMZ1CSOXKGMMIbHgjYlXMMRYnwERaBesxXs7QssHi6g990YVEn5fHEeST5g5UjXDROAepzBHO2JodERDlO4rwhQKl5xSQbP2D9e0tBg1fPR6Ma6vjxH+R0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=fail smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=pengutronix.de
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=[127.0.0.1])
-	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
-	(envelope-from <s.pueschel@pengutronix.de>)
-	id 1wMoXZ-0006ha-1B; Tue, 12 May 2026 16:56:57 +0200
-Message-ID: <e6d562e7-a9d2-4a1a-a139-c6e05eb4aaef@pengutronix.de>
-Date: Tue, 12 May 2026 16:56:53 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAA8B2F90C9;
+	Tue, 12 May 2026 15:02:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778598143; cv=fail; b=G/pV4La0jKD8l66Fz+HwJsjhDZ12mM+FK99o/Fs6zEbyVMrQeSk7GrD91zKsMIT0/rEj//o141eOh8hl+VBp2WHyqYqYDgZJN7GQQK927D/qCO1R92Eb4pxCYtuif69WbSQQfIhr8RN2bR6Q5oITSoDcqA+4JvqJ9RDUknr/ivo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778598143; c=relaxed/simple;
+	bh=zIZ1WoKpzI1urqc/846gEctkuF2NhR9ULEXQPL23Pkg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=kp+i1OblBFX0wf+DmVsArU7drdJx+3P+X4E5enBizdCY610Nsgr6BVKtD6/pvwfKWXCUr8/g5As7t83qDQmAJIFMOK1MNWJ/Nv6j4kWLr7CPgcpJJHL6VRDraf7WzrGjx+yV8xhgav1ECDUMTE/E/jjcQOLW9Bb6EaSQ8ru5rOI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=GRtAvhej; arc=fail smtp.client-ip=40.107.130.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="GRtAvhej"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OtgoR8i3LmkmOv1iRCSALKmhlBtmkhGbfAj3SWSBzUaXh17PB1tH2ddJgblqw9sdsZUE8klUoXlZtbtEFiqAAG4/i158AmXE6d5Zg6kbiqaAzKtcFl7qn7KgFL+UEayWtHd4n0N6iUdOgK9eZX+A5kXlXUNanJpsatEZ8XsQZqEKjdRmq1RALR9G8esNGddGYqRlyRTZJEfJmEDZ0bZEuED7R1rivtzI15h8/t3zcI6pZ58ixmGiGGAlpkqz9e+rXd0f3nkuJi9JyiT2IfDBLdWOTsey67uR2z5KDndiq+Us1kSTpMdpooGkj152Rs53+gxLC+FP2WDe3+72yg9rcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=11HriuruqBh4gOha/zfmJQefvr6TfRgVKUGZZ9kmfdI=;
+ b=ro7mkGjdhQI3yIXnKpxvqkq3Q/c3PGRbCnLyOd+ePzkJqZCKB4pdvblkcfXWYbL5bkYIn8tXSyECZ5QET+curWsXSykjNIXSCCQCPpO5OTNcUIJ3p1bCrmXq/6II0dFu8of09i1ywln6t/coFhJ8NkIPG6eGbpObzKfGViSAIqnwWb5hYKTd7VMcFkXz6o0dRiAeL8IIOvsntshx+xfXzzbHFvAl4I0JWwWJ/McYRjJAZCb0HQUSRYkqrLR+fo/xjAp/gMdo0e5QSjiMg/ok6V2BdtZzhugoKJiU2rFyJi0fPDDkAHs9DxuLILbSMG7NMK2+G60qDzejABzbJ+Qs2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=11HriuruqBh4gOha/zfmJQefvr6TfRgVKUGZZ9kmfdI=;
+ b=GRtAvhejhzq+KFPVenT7gq5gQ3CuL42ixSsPugr969IkeEEOjJKWPPY/+L4zSoUA7cEYcDHCuhPzmi9AUG3XTK2dr7xzocwgG7H86Nn/kxuW89XPuiGZdL4H4tfIWaE2dTLDlWTEsLuwujzNMr/Ig+KtfP/qSqqb96xl6enqpX9rGnWfzCENbdun+Ge0xg70M122f6JaGnZL/rRlaF1Hu7M/++8niKxU7e8ErxWm270T0hufsAabNnrLLkN6gde5A8SrrRrBIax2kc3Flg9iwZ472wwESRJLt3m8IxxncVX4Jbno1x+SbfZPJjRNCu0qQNWpmWSbxPPNEMcs7rfzBw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA1PR04MB11508.eurprd04.prod.outlook.com
+ (2603:10a6:102:4e0::21) by VI2PR04MB11074.eurprd04.prod.outlook.com
+ (2603:10a6:800:277::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Tue, 12 May
+ 2026 15:02:17 +0000
+Received: from PA1PR04MB11508.eurprd04.prod.outlook.com
+ ([fe80::ca15:d140:3af1:77b3]) by PA1PR04MB11508.eurprd04.prod.outlook.com
+ ([fe80::ca15:d140:3af1:77b3%5]) with mapi id 15.20.9891.021; Tue, 12 May 2026
+ 15:02:17 +0000
+Date: Tue, 12 May 2026 18:02:07 +0300
+From: Ioana Ciornei <ioana.ciornei@nxp.com>
+To: Vladimir Oltean <vladimir.oltean@nxp.com>
+Cc: linux-phy@lists.infradead.org, netdev@vger.kernel.org, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Josua Mayer <josua@solid-run.com>, linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+Subject: Re: [PATCH phy-next 4/5] phy: lynx-28g: probe on per-SoC and
+ per-instance compatible strings
+Message-ID: <vwtqexaxle7ohkpjfzq6sq7d6mb6h4vuvy2porpx5wi42jwym4@z5zhbczerwx4>
+References: <20260511150023.1903577-1-vladimir.oltean@nxp.com>
+ <20260511150023.1903577-5-vladimir.oltean@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260511150023.1903577-5-vladimir.oltean@nxp.com>
+X-ClientProxiedBy: FR4P281CA0113.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:bb::7) To GV1PR04MB11516.eurprd04.prod.outlook.com
+ (2603:10a6:150:284::19)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 12/29] media: rockchip: rga: avoid odd frame sizes for
- YUV formats
-To: Nicolas Dufresne <nicolas@ndufresne.ca>,
- Jacob Chen <jacob-chen@iotwrt.com>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner
- <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, kernel@pengutronix.de,
- sebastian.reichel@collabora.com
-References: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
- <20260428-spu-rga3-v5-12-eb7f5d019d86@pengutronix.de>
- <4f5e481c8883b358ee4cef64f26f3f00f0ac7304.camel@ndufresne.ca>
-Content-Language: en-US
-From: =?UTF-8?Q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-In-Reply-To: <4f5e481c8883b358ee4cef64f26f3f00f0ac7304.camel@ndufresne.ca>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
-X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA1PR04MB11508:EE_|VI2PR04MB11074:EE_
+X-MS-Office365-Filtering-Correlation-Id: ae81f7a7-0b51-4856-194e-08deb03774ab
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|19092799006|7416014|376014|1800799024|22082099003|18002099003|56012099003|11063799003|3023799003;
+X-Microsoft-Antispam-Message-Info:
+	g5ds4NBjzUaTVDcC6vgAkKF6wddAHBg7Phi4T3RsspSBE4b4VJKve2qP2QnZP/R3UorP9zBWdydnskXJ9sCNqNddPH5VCAzuTXYirkDJVVOIabQCaWARWQ6yd5+xP+0JQ6UZoODU7ZJHC5preC/I7WzLDL8mZotfnCqWGJ5JHiPMGkvdEjK8YpNJ+XWSbhe9hd5BUAwDnKORcnqTcLf5rz9lilDKYj+C8YYyFbt9gr0pnH7F7JIXcT/RPCGqO3/yin0Pu0w9cbVbHTYdk4uu5I/fZGboHz0IZBiLOleLYdoyK79VsdPQf2fnXN5fSlB3TDH1NLX5I1C9S/o0y89wibG2JAjVkL4uACxnnT7xlbZ+6O+XSauE20KsUYA+IehgEqvsWiAHpLyy77hWCTJTbhV4SyY3635d395X+ens4ehEoTH4zvUykXSBxyp9cOsGOS/CC0ziz0lN9AdQuNXLXB4iDGJdmo+4gxkfzg/2SaEu4c48I17D/0OdcfWc1jKzcQsFjoCiKRzv8hhTaeLx4xDoLG/3DVum24ROu1VbxuyqK5T3W1IaTVBCKS56hUu3n5RgAFMQv7AbWQjWFfEmmdf36niDDsYKr4vEp0DLibgDybMitNg5d/WS/va73eThhrTEb7Vgmq98A22/f880ZAFm0UppFTOtzccZBv7/Bvdv8Up9yDQ8XlcOBLTVCCu/
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA1PR04MB11508.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(7416014)(376014)(1800799024)(22082099003)(18002099003)(56012099003)(11063799003)(3023799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?gSaeaBf7st9J1KwUAU7O5giXNRysr+tg+l6uYvCf6ZNs3468vSMRbLqxY2pX?=
+ =?us-ascii?Q?bHUfupr2ukTVBUEOl+N8oDGZfbDKDKUN1/XIBqjtoVaCT2/gcpthZozqdQ5z?=
+ =?us-ascii?Q?rH/3tpAv+UZ5/ZrVBHOtPSO6lyvWKhRSM+Hh74VOJXBvQ1bQ8ha8HbNwJuy3?=
+ =?us-ascii?Q?Y9BJFtZvoMnYImRMbOwc/sQMnOw5fnx7IrwrZs0+09exFIkZ+tk42Hwq6EZu?=
+ =?us-ascii?Q?Ygub025SDoLdUZg90YjbhO2Ezcn5nIAh1sSAb0b68SHMOtVQxXXZE7Jnk0Mu?=
+ =?us-ascii?Q?RJyQtQSsdv6x4BitG7AV4e2wF+N9GwYyxqsqWyzF+WBkT0fXHz0HtMH+AydL?=
+ =?us-ascii?Q?HQynL5e89oiKraT0bDkmBK8t5hhfH5/8iuFv2ECmf1qBpiLh8qiDZLVPgkw1?=
+ =?us-ascii?Q?CUGRouYrDNa1a6ULIh+OCCAWM6ymER6xUdBghI1lqNphJ2OrUu3qmTV58XXS?=
+ =?us-ascii?Q?Jg6h4pK0wLbkxzsmYqIoTZPGDXxg6sJo15wWMeUFJVRHWRj4i1F9elfCmJXr?=
+ =?us-ascii?Q?JtfgI9T47cM4jscnFqd73G4UeBVGG7LdCq9WdoalBEXM5Rhl8ml/sXK/W/L4?=
+ =?us-ascii?Q?aP9/k1X3N78UyVSWKzooXCvcQQXaZw01Md06FL07wcBHIZCBnWxQUlxxnWKM?=
+ =?us-ascii?Q?OHH2yu07ndMSuMbNrgwAJrNrplvYBVdWiAZNi+qk2KKnjjKJBfTRe5Whv0BJ?=
+ =?us-ascii?Q?Jr+QEnZJre3nHy4rH9SjAjxPa9PGXUgT2X2HpN14tN1/3AMfwtxYtEXfN0d3?=
+ =?us-ascii?Q?BdA+u29JMuJePZEsSE9VPL0k+LWXrA/G5PERRE1wY2tZlBT+bGGQsrg6aBuQ?=
+ =?us-ascii?Q?L5nvVyd81mQdIoSOp6afkZ2PkG4mZc/YriuzgV+eUy3M/kr7l+K9Y1tjb2G4?=
+ =?us-ascii?Q?BsM879Gb6wGRvaQBhTFVezlVt/jdw82xBwdIxLS3e+5QE1CZ9HFxaxOflNwX?=
+ =?us-ascii?Q?erZkCvRNtyd+AlJj9oY5OQUFteZMu1ienJDxmVng1V2iFl7ioVWYpqYl8ptc?=
+ =?us-ascii?Q?594vh4GMfcmxlSkasYUc9wCLiTxp+PVSLokgIhp4d8FVHu4i+6VlME8APW0K?=
+ =?us-ascii?Q?YkCk2EPWWTxsrek4Zj88WVVYkOlj5yIor4wc6RuSxDSTTEiKOG5QG1XmFajs?=
+ =?us-ascii?Q?W4utk/5hIDD0jZ6IXGXWRB6+L3z6W0KSRtrOB2bDU9cUpemIXMqTZsBon6ns?=
+ =?us-ascii?Q?JUW+EJZzgpn3ZOzpRX/daPQmg4vmVoHaLKQ/fXinzytlnl30ipgPeOGCisLM?=
+ =?us-ascii?Q?M04CiVsvnfAKLJBWIHhn9kqwPuB9nBHIqx91JebDGtulkL+xgzyvvVfNu86P?=
+ =?us-ascii?Q?/xEcR4YTHMGQCEotZRDEmY0U3ZAdf9cZgPHqDvBya6YQL3r8rYg8Lwso+e+t?=
+ =?us-ascii?Q?3PGLfBSH5+bS4Ia0LexToWQxzAyQRvJFuC4W5BtPzue5IuAjG5r+lDSFW0MY?=
+ =?us-ascii?Q?wRklzR23lNJbXW1L5EXpRqnn6nlerjyT+uJ3S7Ws1sblEi3/Z6FPfdX+J2yR?=
+ =?us-ascii?Q?ec0r2bUzQ6xgJYPFrRsAxgKRQt+WqK1zZ0AyYUBEWr9dPoehd2UBuPva8cKV?=
+ =?us-ascii?Q?/COqBaev7Jz3y1udJbNRfZ9pOx7o90tkts+kjxFSm+45Ko9wnlOykJ7opsby?=
+ =?us-ascii?Q?O+0weV+0HUL88f7qNw9DrMSEa7XDVB7gpBBYlHHn3Og+hqNKeoSCmiwdWVOo?=
+ =?us-ascii?Q?OXVpe4+0SEVyZSE/czrotWiNXTushhDzW/juFAsMVv4e8jwn1pJOXA0oQouc?=
+ =?us-ascii?Q?XMcSNePmTA=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae81f7a7-0b51-4856-194e-08deb03774ab
+X-MS-Exchange-CrossTenant-AuthSource: GV1PR04MB11516.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2026 15:02:17.5672
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: l81yN2gPZBH1ZbuwRr6D7wj2DLUZflC+n+8iv78lkCHwoYKmvIswHbJSlBSotzV44UFl3/yGv18VryJ9NEukLw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB11074
 
-Hi Nicolas,
+On Mon, May 11, 2026 at 06:00:22PM +0300, Vladimir Oltean wrote:
+> Add driver support for probing on the new, per-instance and per-SoC
+> bindings, which provide the main benefit that they allow rejecting
+> unsupported protocols per lane (10GbE on SerDes 2 lanes 0-5), but they
+> also allow avoiding the creation of PHYs for lanes that don't exist
+> (LX2162A lanes 0-3).
+> 
+> For old device trees with just "fsl,lynx-28g", the only things that
+> change are:
+> 
+> - a probe time warning/encouragement to update the device tree. This is
+>   warranted by the fact that using "fsl,lynx-28g" may already provide
+>   incorrect behaviour (undetected absent 10GbE support on LX2160A
+>   SerDes 2 lanes 0-5). But we retain bug compatibility nonetheless.
+> 
+> - the feature set is frozen in time (e.g. no 25GbE). Since we cannot
+>   guarantee that this protocol will work on a lane, just err on the safe
+>   side and don't offer it (and require a device tree update to get it).
+> 
+> In terms of code, the lynx_28g_supports_lane_mode() function prototype
+> changes. It was a SerDes-global function and now becomes per lane, to
+> reflect the specific capabilities each instance may have. The
+> implementation goes through priv->info->lane_supports_mode().
+> 
+> Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
 
-On 5/8/26 11:18 PM, Nicolas Dufresne wrote:
-> Le mardi 28 avril 2026 à 11:00 +0200, Sven Püschel a écrit :
->> Avoid odd frame sizes for YUV formats, as they may cause undefined
->> behavior. This is done in preparation for the RGA3, which hangs when the
->> output format is set to 129x129 pixel YUV420 SP (NV12).
->>
->> This requirement is documented explicitly for the RGA3 in  section 5.6.3
->> of the RK3588 TRM Part 2. For the RGA2 the RK3588 TRM Part 2
->> (section 6.1.2) and RK3568 TRM Part 2 (section 14.2) only mentions the
->> x/y offsets and stride aligning requirements. But the vendor driver for
->> the RGA2 also contains checks for the width and height to be aligned to
->> 2 bytes.
->>
->> Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
->> ---
->>   drivers/media/platform/rockchip/rga/rga.c | 19 ++++++++++++++-----
->>   1 file changed, 14 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
->> index f599c992829dd..77b8c7ab74274 100644
->> --- a/drivers/media/platform/rockchip/rga/rga.c
->> +++ b/drivers/media/platform/rockchip/rga/rga.c
->> @@ -337,6 +337,19 @@ static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_format *f)
->>   	struct rga_ctx *ctx = file_to_rga_ctx(file);
->>   	const struct rga_hw *hw = ctx->rga->hw;
->>   	struct rga_fmt *fmt;
->> +	struct v4l2_frmsize_stepwise frmsize = {
->> +		.min_width = hw->min_width,
->> +		.max_width = hw->max_width,
->> +		.min_height = hw->min_height,
->> +		.max_height = hw->max_height,
->> +		.step_width = 1,
->> +		.step_height = 1,
->> +	};
->> +
->> +	if (v4l2_is_format_yuv(v4l2_format_info(pix_fmt->pixelformat))) {
->> +		frmsize.step_width = 2;
->> +		frmsize.step_height = 2;
-> I think its fine like this, so let's start with:
->
-> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
->
-> But it does not feel like a hardware alignment to me. When we process in
-> software these things, the minimum alignment is bound to the subsampling, since
-> there is no way to store half or quarter pixels, the padded width/height
-> requires a step that follow the subsampling, something like:
->
-> 		frmsize.step_width = finfo->hdiv;
-> 		frmsize.step_height = finfo->vdiv;
+Reviewed-by: Ioana Ciornei <ioana.ciornei@nxp.com>
 
-I agree that this looks better. My main intention is to be more 
-conservative, as the Rockchip related code/docs seem to always ensure a 
-2 pixel alignment in both directions even for formats like YUV422, where 
-we shouldn't have an alignment requirement in the height. Besides the 
-vendor driver and TRM mentioned in the datasheet, the librga and it's 
-docs also mention an alignment of 2 (pixels?!) for all YUV formats (see 
-format alignment list in [1] and Q2.5 in [2]).
-
-Given that the driver currently doesn't have any way to get the cores 
-unstuck/reset in case of a hang, I'd like to play it more safely by 
-adhering to what the vendor does instead of trying to do more and 
-therefore allowing some potential breaking format. E.g. I've also 
-experimented with sizes of 68x2, which the librga allows as input/output 
-of the RGA3 (whereas the TRM specifies a min size of 128x128), but 
-quickly dropped it as it produced some interesting broken outputs.
-
-Sincerely
-     Sven
-
-
-[1] 
-https://codeberg.org/airockchip/librga/src/branch/main/docs/Rockchip_Developer_Guide_RGA_EN.md#image-format-alignment-instructions
-
-[2] 
-https://codeberg.org/airockchip/librga/src/branch/main/docs/Rockchip_FAQ_RGA_EN.md
-
->
-> Nicolas
->
->
->> +	}
->>   
->>   	if (V4L2_TYPE_IS_CAPTURE(f->type)) {
->>   		const struct rga_frame *frm;
->> @@ -358,11 +371,7 @@ static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_format *f)
->>   	if (!fmt)
->>   		fmt = &hw->formats[0];
->>   
->> -	pix_fmt->width = clamp(pix_fmt->width,
->> -			       hw->min_width, hw->max_width);
->> -	pix_fmt->height = clamp(pix_fmt->height,
->> -				hw->min_height, hw->max_height);
->> -
->> +	v4l2_apply_frmsize_constraints(&pix_fmt->width, &pix_fmt->height, &frmsize);
->>   	v4l2_fill_pixfmt_mp(pix_fmt, fmt->fourcc, pix_fmt->width, pix_fmt->height);
->>   	pix_fmt->field = V4L2_FIELD_NONE;
->>   
