@@ -1,114 +1,279 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3515357CE8;
-	Tue, 12 May 2026 19:35:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C8A9368D40
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 19:39:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778614550; cv=none; b=T6zuIBlMxTwx6IAupsH4/HJnD4LZK+aV3tCx9uJ+JrZpMDyNwoYiuwe3A6Y1JjBHClG/kl9+LG4tY41Vn+V+U06jsCazHYFpVobKlwUKA3l6WNtdKV552TJgoXcufSXJfZcVkEs+hPgpLl0vL1mmRZeKkqeKZp8E2mI8uGrAllo=
+	t=1778614770; cv=none; b=DzdYPL0bTDtR5yt8NdcZxTMy9/UewDZlYDVZoQMdTxPlguet62+G93+sVEsHkJBYj78BormElo/HtJGjFCeX+vRMymBRyr57QdSvk7WSxHWGNnSeJNAhNAcDo5e9o/LdFwIlP2ZF81vRz4S1n+JNIin5J75ibC2/VmRetZ1UMo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778614550; c=relaxed/simple;
-	bh=7NVPzVRb0nY7beoHUKmklcrEYtRmy5vwDq7e4NZMy+8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b4QUOjapazGT8Z7mOJcWNYw/pSZrfThU7l3vKAzBLxxaqLgOfYN5C20aEH1Mv8dWt3fyZT3ZNkbw9oxa6h08WMyNAKgmsTAu9lTYgwWHplQEvSJUBdOvsd4/21sLcocjqllZkjirHpfG+Q4ipfsqrTEOxH5FRAK/9/cX99u8EnI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hlogafxn; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778614770; c=relaxed/simple;
+	bh=T+ZRIQYrbXkQ/sm2qmUSVp9AR5K0XHoSwQMgsySNrUo=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ghI5gVFk3MkARhNQaD4cYB+qJGIHvRnR+uFeDCiDFj99goJytefreptgedryGqkpxILekqpchBIY+fAtux5VgdqC7q4yLSXBR1x+62ReN7wKuQAAh9jKf8PaD1UJst3Bm7qJkSCNDQcFjsnrYrmAcjPUnOGu/dIqM7c00QX4Urs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hB4e7fAR; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hlogafxn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B95AC2BCB0;
-	Tue, 12 May 2026 19:35:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778614550;
-	bh=7NVPzVRb0nY7beoHUKmklcrEYtRmy5vwDq7e4NZMy+8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hlogafxntglbnLXGB0y5LuFx7G8O233LmrI3jjSNtkEZT4rMQ6i0+997Nr2pFcGMZ
-	 DHnJyyDf3sx/WtKOt2QwYg/7JUdAysEv9cSQXy5NXfxRx62jVL8CJda9X4auMmvQhm
-	 jRKyyYTeY0t2IGBTfUbbv277EWoqRIHyo3uIpz0Dzdr+9T6ZmJ5RCkfUqxHEpTMLGa
-	 1jxU6bUe3tWh1p1O8i5j+VrGQXLD1gV+/mdpmy0n/1rmWPhYNVnVr6o5mCE0LEbKEq
-	 ZNIwNuCv7ZLlDESzhQah63q4Q/Hu4ioGFBHEbKQ4xQw8eWOQErTxu/xTbrtu1iu2/s
-	 WLdr8QeFIoeXg==
-Date: Tue, 12 May 2026 20:35:46 +0100
-From: Conor Dooley <conor@kernel.org>
-To: "lianfeng.ouyang" <lianfeng.ouyang@starfivetech.com>
-Cc: Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] dt-bindings: Add bindings for StarFive JHB100 SoC
- trng controller.
-Message-ID: <20260512-rifling-granny-a467a53ef289@spud>
-References: <20260512062404.4540-1-lianfeng.ouyang@starfivetech.com>
- <20260512062404.4540-2-lianfeng.ouyang@starfivetech.com>
- <20260512-seventeen-deduct-fa7eead281ef@spud>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hB4e7fAR"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-488a8ca4aadso54340935e9.3
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 12:39:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778614768; x=1779219568; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:date:from:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=rv3Bnr19Yd7wGTXMGRn2NrXtfHL27Vg73vChMHhkHKc=;
+        b=hB4e7fARLxI+BTR2PfWyLrxjhtywbqIKZ9jeriGaYQr0r8+369CoEIxFKtSkesc5C5
+         vZUPcaBfl9NTjr8vZt9N6kE/r8rUxhhe7Ki4f8S6/JSnPVvOKkgqLb6PHrJ8yBgPBn1C
+         n/NZhZETUJSwiFyp+OYHPg+w/4ScR9O14MY3d1XGfLe5d9Rfbtkj4rWLOuCzRuVq9zKZ
+         tIL3lkRxkDKBt8b7e3XJDlapD8b5vN6chSVNt2v9hYH6b/6+6WelUDuh4JIJtoMVVqnS
+         qzurqUNzAr6fEU065YkI0NlCPBUypfkGlYGLIwMta0xMnwWAWMZPs8wT27fC1vSaTpXJ
+         FpEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778614768; x=1779219568;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=rv3Bnr19Yd7wGTXMGRn2NrXtfHL27Vg73vChMHhkHKc=;
+        b=rHauXR6a26PKPAOO4sJ2ybsY96TzIcB8Cm8U/3YLJeoSABJEfkHWzQwdU2Oxz0OxGR
+         ARhwYUXUwc6cpyoatY4yT/0bkbf547M1CCcttjOwBZsnJqoxyiv/0prxRM5It349Z4Pm
+         9CEVSyv1WIw6XLSBqGUtRNDUkxsVE9FVlpStT1kz/9BQaH8iB1QIiTF7YK4tvAgUQR12
+         M+gk/lYAXoJwDI57C2bP825KnNHT0IqWv8sWVnjsm3AETqS8YOQ9DQtaPmP9L1GrIRmF
+         PBA44sVAZrNyd79/ECDXu+A+idtha01+F0B9Wmqp/rUgZWwqQ5tcu8B8cF8bKj5Om+36
+         C6Qg==
+X-Forwarded-Encrypted: i=1; AFNElJ+65rnZBKcUo0o3GOdE7gcmYP4QZNptQtbHVkeoaavef114bgc1pXYrS+kNTOA+YrvVgACcazD07Mja@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw2l8eigr5LEb45K6jLAo+Dun9y+gwib2oaGK5CqBDTNO6hl8Pu
+	66UUu8BMmNDuhtTU2LT2CseZwhvZQuswKJlcpzTTzkpdoh17R8s+ypB7
+X-Gm-Gg: Acq92OHkbezwjMDt2u9M0qSf7fLi77JJ+8UUgZVYjBypqZJJAcTarkvq/bAHbGAC8ch
+	UviulMbjqFOk9VftKVw+Z5T4PntnGhoYn19+vJUB54IBav7pC4qpGhxkd6dQkGU/YiGg5HofCJt
+	6DN1Pvw80gytcEA5mQbKjafAAS4eEnzMAv5xKMuOHkQaSprmuQTVm6hQAeomk4LMrgviiUmuny3
+	v44R3x5ZBCYE6viQLih5FWEvL11qVZ/KJqII/S5LvUiSxVz9QD2GoS7t4epQYLN6mccA0qW7wzn
+	CVpzARVUgIiLciBnVOwPGVnDOzhEg4CNM6jy6L0smDLprodgb/Wo5Ew373SIBC6+g8KM+yY6cvD
+	yPMS0MIZmh0ogV+lTvjNzLhqnRMiEcboA6vnjWA2Rg55yeiEg/5LZubVLqDfM8f/2owfbRB9HEZ
+	mIg999FmPBjgE604bHaxRj+5P0OGIfHQ4xiY90nzZT9pAGu0hH8GSzjKAAA7YOiPSEUePoant1U
+	yu711gt5N9rqxwaSx0p811kOtKiXygzpTFp+QR02TTeGciEFA==
+X-Received: by 2002:a05:600c:4f93:b0:485:4eaf:eb53 with SMTP id 5b1f17b1804b1-48fc9a3c76amr3588085e9.19.1778614767606;
+        Tue, 12 May 2026 12:39:27 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fc8d19974sm16882915e9.2.2026.05.12.12.39.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 12 May 2026 12:39:26 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Tue, 12 May 2026 20:39:21 +0100
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+Cc: Andy Shevchenko <andy.shevchenko@gmail.com>, 
+	Jonathan Cameron <jic23@kernel.org>, 
+	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>, rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org, 
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
+	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
+	Sergey Senozhatsky <senozhatsky@chromium.org>, Shuah Khan <skhan@linuxfoundation.org>, 
+	David Laight <david.laight.linux@gmail.com>
+Subject: Re: [PATCH v12 02/11] lib: kstrtox: add kstrtoudec64() and
+ kstrtodec64()
+Message-ID: <hvwyrb7g3ar7hzesj32zoxzqvjmdtwybamy4zxepqdbu37qvog@xnmgqhfya34f>
+References: <dxjg2sdyxb7ieb4abmeyyye7qok6cczrxabpsjyjhcbehwoec3@sbbqoo4wmzre>
+ <agM8pWrM6j_XksvN@ashevche-desk.local>
+ <ur6brs3yjzyb4mtelabmcglxjltddqvjxtgl3lkdkmbjlkmnsq@bwd6rz7gided>
+ <CAHp75VeoH3yVfp8NWjKfc_df0VRLkyf_SK4e==-wJOEodVjW_A@mail.gmail.com>
+ <q4rmlkgecvztnvjg7b7wtqyvhdy7uxgaouvhae2mlsxaasasbf@dfakp4m5l5sl>
+ <agNfqiZpGZAM-x_H@ashevche-desk.local>
+ <ru2h3ip7qf6j54dlrij54nwp45uyq6m2e6zspt6v6eynpsagqq@eo5v3yparuhh>
+ <agNnfWZa9_NyLoWq@ashevche-desk.local>
+ <bc7mqfgll34vyaxdtvfssgypkhyx233wd4hxfzu32rddxnolaq@rd6c3z6yu6aq>
+ <agN6onIAwG1yn5p6@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="n/I/LELljbV1+Pgt"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260512-seventeen-deduct-fa7eead281ef@spud>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <agN6onIAwG1yn5p6@ashevche-desk.local>
 
+On 26/05/12 10:08PM, Andy Shevchenko wrote:
+> On Tue, May 12, 2026 at 07:15:17PM +0100, Rodrigo Alencar wrote:
+> > On 26/05/12 08:46PM, Andy Shevchenko wrote:
+> > > On Tue, May 12, 2026 at 06:26:12PM +0100, Rodrigo Alencar wrote:
+> > > > On 26/05/12 08:13PM, Andy Shevchenko wrote:
+> > > > > On Tue, May 12, 2026 at 05:35:59PM +0100, Rodrigo Alencar wrote:
+> > > > > > On 26/05/12 06:21PM, Andy Shevchenko wrote:
+> > > > > > > On Tue, May 12, 2026 at 6:11 PM Rodrigo Alencar
+> > > > > > > <455.rodrigo.alencar@gmail.com> wrote:
+> > > > > > > > On 26/05/12 05:43PM, Andy Shevchenko wrote:
+> > > > > > > > > On Tue, May 12, 2026 at 03:12:24PM +0100, Rodrigo Alencar wrote:
+> > > > > > > > > > On 26/05/12 04:48PM, Andy Shevchenko wrote:
+> > > > > > > > > > > On Tue, May 12, 2026 at 02:21:14PM +0100, Rodrigo Alencar wrote:
+> > > > > > > > > > > > On 26/05/12 04:12PM, Andy Shevchenko wrote:
+> > > > > > > > > > > > > On Tue, May 12, 2026 at 12:39:53PM +0100, Jonathan Cameron wrote:
+> > > > > > > > > > > > > > On Sun, 10 May 2026 13:42:20 +0100
+> > > > > > > > > > > > > > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+> > > > > > > > > > > > > >
+> > > > > > > > > > > > > > > Add helpers that parses decimal numbers into 64-bit number, i.e., decimal
+> > > > > > > > > > > > > > > point numbers with pre-defined scale are parsed into a 64-bit value (fixed
+> > > > > > > > > > > > > > > precision). After the decimal point, digits beyond the specified scale
+> > > > > > > > > > > > > > > are ignored.
+> 
+> ...
+> 
+> > > > > > > > I think we are going in circles here and we could look at the code instead:
+> > > > > > > > - integer parsing with _parse_integer()
+> > > > > > > >         - overflow check and validation of the return value
+> > > > > > > > - fractional parsing with _parse_integer_limit()
+> > > > > > > >         - overflow check and validation of the return value
+> > > > > > > 
+> > > > > > > No, this is not fully true. That's what my whole point is about. The
+> > > > > > > max_chars parameter limits the input check, then it skips an arbitrary
+> > > > > > > number of digits and only *then* it checks for \n and \0. What will be
+> > > > > > > the result of the
+> > > > > > > 0.00000000000000000000000000000000423 in your case? Whatever scale you
+> > > > > > > gave it will return 0 without checking on how many digits were
+> > > > > > > supplied.
+> > > > > > 
+> > > > > > I suppose that is a valid input and 0 is the expected result there.
+> > > > > > 
+> > > > > > > All the same for 0.9999999999999999999999999999999000423. My
+> > > > > > > point is that we should limit this by 19 digits.
+> > > > > > 
+> > > > > > why we need to limit by 19? Digits beyond the scale carry no value...
+> > > > > 
+> > > > > ...only if they are all 0:s.
+> > > > 
+> > > > I thought your concern was on input length.
+> > > 
+> > > One of, since I think you rose the topic of leading 0:s for integers and
+> > > I agreed with that which makes sense to have mirrored in fractional part.
+> > > 
+> > > > > > just like leading zeros to the integer part (which is also accepted by
+> > > > > > kstrtoull() when parsing with base 10). Not sure why this is invalid input.
+> > > > > 
+> > > > > See above. I agree on truncating trailing 0:s as it's done for leading ones
+> > > > > in integer part, but if any of the digit behind 19th is not 0, it's an overflow
+> > > > > condition (or bad input, depending how strict the rules are).
+> > > > 
+> > > > stating in the documentation that digits beyond the scale are ignored is not
+> > > > enough?
+> > > 
+> > > It's in case we are not for kstrto*() family. My understanding that kstrto*()
+> > > use strict rules on the input in overflow check.
+> > > 
+> > > > > > > On top of that, what about -0.9(19 times) ? the fraction should be u64
+> > > > > > > in this case and it's fine. The sign applies to the combined value.
+> > > > > > 
+> > > > > > yes, range for signed values are verified later.
+> > > > > 
+> > > > > > > >         - extra scaling and truncation happening outside if needed.
+> > > > > > > 
+> > > > > > > Right, but the given input may be way too long and still needs more validation.
+> > > > > > 
+> > > > > > What is the problem with a long input of digits?
+> > > > > > C compiler does not complain about this when parsing a float value,
+> > > > > > python does not
+> > > > > > complain about this when parsing floats or decimals either.
+> > > > > 
+> > > > > Because there is an exponent limit and for double it's something like 1e307
+> > > > > IIRC, meaning, try 1024 digits to be sure.
+> > > > > 
+> > > > > Python most likely uses the library for big numbers, you can't compare it at all with this.
+> > > > 
+> > > > You would be fine if the truncation loop:
+> > > > 
+> > > > while (isdigit(*s)) /* truncate */
+> > > > 	s++;
+> > > > 
+> > > > is bounded by (19-scale) iteration count? or it should keep iterating if those are zero?
+> > > 
+> > > Ideally both.
+> > > 
+> > > We don't care about the digits in the range of 19-scale and skip all 0:s after
+> > > that.
+> > > 
+> > > 	/* truncate unrequired digits within type limit, i.e. 19 decimal digits */
+> > > 	while (isdigit(*s) && "(s - pos_of_dot) is less than 19")
+> > > 		s++;
+> > > 	while (s == '0') /* truncate trailing 0:s, it's not a bad input nor overflow */
+> > > 		s++;
+> > 
+> > We could have agreed on something like that since the beginning!
+> 
+> Yes, but who knew that we go to have this agreement?
+> 
+> > And I think that changing the logic to something like this would not change a
+> > thing on the kind of inputs we expect, it will just complicate the code.
+> > I suppose that kind of kstrto*() rules were never stated anywhere.
+> > 
+> >                            |> 20th digit 
+> > Also, 0.00000000000000000001 still sounds like a valid decimal number to me, even
+> > though it is going to be parsed as 0!
+> 
+> Hmm... It would mean that testing for 19th/20th digits is not enough... :-(
+> 
+> > > 
+> > > 	// Now if it's not \0 nor \n and
+> > > 	//	a) still a digit consider either overflow or bad input,
+> > > 	//	b) if not a digit, consider as bad input.
+> > > 
+> > > In a) I tend to be on par with the other k*() and consider that as overflow.
+> > > 
+> > > > is that the only concern? Again, the usage of _parse_integer_limit(s, 10, &_frac, scale)
+> > > > avoids a 64-bit division when checking the rv.
+> > > 
+> > > I'm not against usage of _parse_integer_limit(), I'm for stricter rules on the input.
+> > > With the above addressed, I have no more concerns.
+> > 
+> > Thanks! I will proceed with the requested adjustments.
+> 
+> But it seems it's not enough as you pointed out!
+> 
+> So the biggest fraction we may consume in 64-bit (unsigned) value is
+> 0.18446744073709551615. If we go with one digit less, the whole value
+> can be
+> 
+> In [3]: hex(9999999999999999999)
+> Out[3]: '0x8ac7230489e7ffff'
+> 
+> So, I don't know how we are supposed to represent values between
+> -0.9223372036854775808
+> -0.9999999999999999999
+> in a signed type as they have bit 63 set.
+> 
+> The easiest way out is to limit scale to 18 (but still accept 19th digit, and
+> with check for overflow even 20th up to 0.18446744073709551615). This will need
+> to run _parse_integer_limit() twice (with given scale and with 20).
+> 
+> Can you add the respective test cases and see what is currently going on with
+> them?
 
---n/I/LELljbV1+Pgt
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I can add test cases, but for the signed case the situation is:
 
-On Tue, May 12, 2026 at 06:15:07PM +0100, Conor Dooley wrote:
-> On Tue, May 12, 2026 at 02:24:03PM +0800, lianfeng.ouyang wrote:
-> > From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-> >=20
-> > Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-> > ---
-> >  Documentation/devicetree/bindings/rng/starfive,jh7110-trng.yaml | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/rng/starfive,jh7110-trng=
-=2Eyaml b/Documentation/devicetree/bindings/rng/starfive,jh7110-trng.yaml
-> > index 4639247e9e51..11346d77b2f6 100644
-> > --- a/Documentation/devicetree/bindings/rng/starfive,jh7110-trng.yaml
-> > +++ b/Documentation/devicetree/bindings/rng/starfive,jh7110-trng.yaml
-> > @@ -13,8 +13,8 @@ properties:
-> >    compatible:
-> >      oneOf:
-> >        - items:
-> > -          - const: starfive,jh8100-trng
-> >            - const: starfive,jh7110-trng
-> > +          - const: starfive,jhb100-trng
->=20
-> You need to add a commit message here explaining why removing the jh8100
-> is okay.
-> pw-bot: changes-requested
+scale = 0
+	max = 9223372036854775807, min = -9223372036854775808
+scale = 1
+	max = 922337203685477580.7, min = -922337203685477580.8
+scale = 2
+	max = 92233720368547758.07, min = -92233720368547758.08
+...
+scale = 18
+	max = 9.223372036854775807, min = -9.223372036854775808
+scake = 19
+	max = 0.9223372036854775807, min = -0.9223372036854775808
 
-Additionally, given the driver changes, it looks like using a jh7110
-fallback is invalid anyway.
+anything outside those ranges will give you -ERANGE. Then it depends on the scale used.
 
->=20
-> >        - const: starfive,jh7110-trng
-> > =20
-> >    reg:
-> > --=20
-> > 2.43.0
-> >=20
-> >=20
+I am not representing -0.9999999999999999999 as is. The desired scale will have this
+truncated. It may be -0.9999 or -0.999999 or -0.9. And this is practical for a
+reasonable scale value... for pico and femto precision you still get a decent range.
 
+-- 
+Kind regards,
 
-
---n/I/LELljbV1+Pgt
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagOBEgAKCRB4tDGHoIJi
-0ryHAQDH/C1ma7gWroAZs5dMsTChdj5rTvft8uSvhh+RXEnqzgEAgytZUs5yMUyk
-hsx3BOvpe+PYO3K3t1WSfVKjYG9MfAM=
-=AoJP
------END PGP SIGNATURE-----
-
---n/I/LELljbV1+Pgt--
+Rodrigo Alencar
