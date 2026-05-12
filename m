@@ -1,292 +1,162 @@
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022113.outbound.protection.outlook.com [40.107.75.113])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 928E6368D68
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 07:03:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.113
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778569405; cv=fail; b=eaFbH5A2u3L9CVJv1nXos62G+BrEM67mmUMWfwGWI0vu18BGPaGnk2OsRle2sQMHwZe1AR+b1Q2kg1ooq/pHvs3PXgarIBAhr3hgBywbcGZ4QaP2HNm2GWSFZi7uiUfXr+BZPE9lwtJzh+UANjHVQV7goMHJ7oEwhcxIC+ImODI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778569405; c=relaxed/simple;
-	bh=rhajQpPRgpzkUEisfsLfB842D7rj+IZ1wgzOSrNXQMg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=L5p8CMml0/tfa+uDDZU/TQoFdBupeuHdsYSAsGaXbD7cKrfT7NCB1tgQT4+qA4Jbfw0iKelqQ5XvM2JFQhJwDM5GsFkLyXhbyKz1im4S7ohhINP56JWtANbIYtVflyxPqRY55aCGlSjk0RxS5xhFld5qAm46pYnwZqFNoxDRJio=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.75.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WmVAuZNDOTtf52AQ2+LuXTvMyfJZzYibWrWYv3fmZs9gDZInkY0rYM5R3xl3Xoxla4MRt+T2rUVTF9Vo642lhhVqaRCocE/2AoScSFqiRbGk9rpuzLSKLq3tYXmH84DsoAzmOpo+MGrz7BQJphhRuLL2rtOZo4DB3Y2A6ZeWFPA3QSAH9xLykKzxTvMwXH1/tO02AG1GuG0xeQdgLd7ewyycgEWEhCF2OcEcpwqG0+xTwoh3G2FO/Vn0LMGoLLUMIrZCM7eUBCx0kenFNOC8ha0v/J3rgN3jmo7p5F+qYkRHbQ8tMFAVOuhS+197+EtKlXw3EVU2N9vsVwG1qYYNSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fSMGU1m5YxERnFRSL2fqaYHMDQ8GygXs0jsooy5SeXc=;
- b=rbMSSX382f3TejUUo2pzL5JHKxOuqugJCLCR/5Ht1t5Qf5BbncKidz4xgovzKu2gsZcxFF0z1SS+pIwgg6lrtVXfUdG/IHW0pyqlIoWshhI2Ep1ZcQOyz1ft649z8JnS+7+f9jvFMjrBkhv+79MA8l31D1P5NfrVd4I95KDTq9MgQ0SgnIhVXhQDqpdeThliEZIgEkTA4DUPgLVX7xG1Ey6mSru4e7K0sIGZH5wCBQKHg6hvcXxzDuoFEGr5vpg3Oo2t13pVl841d09pgVIJnP1B7XOPWY8r12k2ytbmBaaGkrWpwK/wh965m7NO2P2V7ZQCCrRZ6DqLSzHnnxXEyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=kernel.org smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from PS2PR01CA0005.apcprd01.prod.exchangelabs.com
- (2603:1096:300:2d::17) by SEYPR06MB8065.apcprd06.prod.outlook.com
- (2603:1096:101:2d6::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Tue, 12 May
- 2026 07:03:17 +0000
-Received: from TY2PEPF0000AB84.apcprd03.prod.outlook.com
- (2603:1096:300:2d:cafe::17) by PS2PR01CA0005.outlook.office365.com
- (2603:1096:300:2d::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9913.11 via Frontend Transport; Tue,
- 12 May 2026 07:03:17 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- TY2PEPF0000AB84.mail.protection.outlook.com (10.167.253.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.13 via Frontend Transport; Tue, 12 May 2026 07:03:16 +0000
-Received: from nchen-desktop (unknown [172.16.64.25])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id A77A841609D5;
-	Tue, 12 May 2026 15:03:15 +0800 (CST)
-Date: Tue, 12 May 2026 15:03:14 +0800
-From: Peter Chen <peter.chen@cixtech.com>
-To: sashiko@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/4] usb: cdns3: plat: Expose platform core driver as
- library
-Message-ID: <agLQst47wI/vC3pp@nchen-desktop>
-References: <20260511024244.981941-2-peter.chen@cixtech.com>
- <20260511230233.B40E6C2BCB0@smtp.kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CFE0296BBA
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 07:05:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778569506; cv=none; b=uiGHF/HDBx5Wxee3YNbe1hU+Td2ihWOAuvRFVWbUda5kCa4mCvadJTncj7VP2WNZP0b903zpEOVvsedySkm2pLDYa25DWKGJnvUHzXkwX3uex/ddsO8gPSVUY+e5dsZdDGrUn5U7WWnTGke6ZyadzFxg8nDCf/MAMwQVEHYK67k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778569506; c=relaxed/simple;
+	bh=3uXfmbzUS9NvAeHKvCpU9UZ0aQY6rnUGZ81s5p69bMk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=g8+08ziWvHWu/cSVhkuBTmvRWUWGpT5Imy+/ysnDg/zPkzuGy9s9zfpTgohOxYGAwVCa9wWoY6BVl33pCqXc9frQuwjlLPX6WcaIZ9YhJA6mivjiLSh5xxTul+V5pxUZ6Lmll+fy42tSKyXWjCGPPWi5tzsxKDgj3BZv0Jbrj9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TGKbzafZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=etSLxejc; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TGKbzafZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="etSLxejc"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64C5A8ts2173016
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 07:05:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=GRFzOTE5kNwfoKKeGN+Dum
+	JgWdvZjhQApkuIRVwGXX4=; b=TGKbzafZK2g43npIgGUCAHdc9IUnHL1PNue4Kt
+	O6mPOhaFH2SdOwnilvKW+GnvkXl1yg6OUGHQi3zEd9w+hyKB4SjBLqpSPhpF4iHA
+	0DxXyqj8kQ9fhtyXagzQQACC5Q81y94Eovo27BrzmoU3YRhFrwjdvhWH8RV2iRn7
+	POEQyY5Clu5Br1e4Ei8i+UvxolZoucrKA4N/luC9eTx/YTfiA+NEE0IyLALILxip
+	0s6ps5/azuh1cH2YL9slEOeMXH6Dldt9gpEqS5qXXBMNKhNx86WecQOd7xsdW6jV
+	pDo6LK6JHv8bwXP3wla7J9c9icpmNa49HBgMM/9nY0xJPpeA==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e3nvj9ynd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 07:05:02 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c8281d4cef8so1275036a12.2
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 00:05:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778569501; x=1779174301; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=GRFzOTE5kNwfoKKeGN+DumJgWdvZjhQApkuIRVwGXX4=;
+        b=etSLxejcBl5JXSz44zLnIuL6tWOWzyp9THd+nqh+URo23qN5T3+aHY/yf0KHZrldI4
+         C/ZrmoyMvS4EsSwb9/VtnGNVikiXAAiRxf505lWu997uFORCm3e1nTeBRAzIzgoMzD3I
+         2oaRcuhOzNdd+QYxBs19Vr7Jg3SdmxCPfzLtWxvguZ9aEEYz25L9YNXwEN7w4bCIySAb
+         tIU8U45JBOip2hl3OutVh/AVMeheFpeTLqj1U3IFCt8v+MnZURa2JIpmjOjAHMclaH5j
+         iJB3TLHMKzpynqllE5MsxU5caC0gI+ttcxAY27ienhjn7mcOjFs8IGmYdzXoQyBEPu8C
+         XStw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778569501; x=1779174301;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GRFzOTE5kNwfoKKeGN+DumJgWdvZjhQApkuIRVwGXX4=;
+        b=HOjNtdtqH5KjjiqIUXxgfzG+fYkrQmA2sRV91Gun5G0F8gFPqCzfv/v1jdGSOLAtMp
+         8VCZ4K6K6OuRMQOyGaSWuPM2QKg/k2J/Ahs9L6aUbzP5f8qSV36e4VuAUBM8pE6wuwbU
+         BBtK+Lr6ReT8MAffTNrt0MooqIcdZcZley3NO1KIZGNyaQfwaK4XL3tcF+I/IV3OIXfi
+         gUeS628jNyDs3qjCizuqNhABgUwhU48a+fYmr08bDXQexan0o0ghcASAf8cOcbSm+fCd
+         psU03PGzGow1rkHVJCTogZVcvM4U+ogI/X0tZu81oMW4KuQqTLCj0mwDVgDUSJUvwPq6
+         /cDQ==
+X-Forwarded-Encrypted: i=1; AFNElJ96VWYnVbiYghOm9869oLBYJ7RpmXUD+Lna7dvcaZvbYSmTm2b2G0IKplK2De58A8a4gTNmV+Bbp5Mw@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywmt96jbjF9dKjP797w+sk/drg/Kw3wmiiASDcToS7ZQOg1ZWNk
+	6a/ULBVSUiNd0Wb4G5ZE+hdhV/CQ17P6sDzVk0Kl4mR/rB+JC9AgjjMOLAd+SU2LJjzh4MqOuB1
+	QqEvVSqeeXRbDpEGr6GrRdxgEKFpyL6Cv/T1mIM7xYf8V5puv47nplx58d3tvs8QB
+X-Gm-Gg: Acq92OHGP9Cb1O/nC8Z3FlKDrGN2FzSDPCuMkqVTGK1XbZpyboaLQVHq65nasOpqL8x
+	cwLM30U7PZWOscFnGv07hooRGCjrIL/RWkpoN9hcIRuDPn/C92bnbUuawfxWgSeB+fTlsJfzkt/
+	fIrnlDq1fHRnpY3CJKb3veDOpmXZ64y77M512iC1cZURrzDVVy3MgkwG1q9SqNCkKbIaRV0pZPV
+	Edb65IXx609r/1l6CcZObzptH7WQ0rz5/HKQ6l8SkjtiircYVQKC01DHdFX2q+7lPvMJmsEIXEK
+	rbBgz0TbKzwsqcjB5EVGkmdkwS/NlieCi5gb3QplBGtE286QFAa1cxamYV19pyPMTeSxm/kvaV3
+	jVhewDDMWVPqcOL7BGs4mWe0jIkY0cdPziYbpuTkuUezZCET7LYUIftC2QvDj05vNM16gOaealR
+	yCBoWPgg+WSn/R7IdU5VBuxbkjCEzGwlYlv7a/DDHIXK4x7OzzAHEjNSne
+X-Received: by 2002:a05:6a20:4320:b0:39f:2dd0:65d5 with SMTP id adf61e73a8af0-3aa5aa7a038mr29162291637.39.1778569501139;
+        Tue, 12 May 2026 00:05:01 -0700 (PDT)
+X-Received: by 2002:a05:6a20:4320:b0:39f:2dd0:65d5 with SMTP id adf61e73a8af0-3aa5aa7a038mr29162258637.39.1778569500567;
+        Tue, 12 May 2026 00:05:00 -0700 (PDT)
+Received: from hu-kathirav-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c8267711b21sm11354488a12.15.2026.05.12.00.04.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 12 May 2026 00:05:00 -0700 (PDT)
+From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Subject: [PATCH 0/2] Add the SMMU and the downlod mode support for
+ Qualcomm's IPQ9650 SoC.
+Date: Tue, 12 May 2026 12:34:53 +0530
+Message-Id: <20260512-ipq9650_more_dev_support-v1-0-c4c627351d80@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260511230233.B40E6C2BCB0@smtp.kernel.org>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB84:EE_|SEYPR06MB8065:EE_
-X-MS-Office365-Filtering-Correlation-Id: bd6d669a-2503-4cbe-12eb-08deaff48b14
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|36860700016|82310400026|56012099003|3023799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	/tjdQZ90mVkfnVgxxLx17goLq+S0LsZyiT8i9daJ8Dnr5FABmRMegAM3QeIjB8CQAyZwQujOsRXzws/53HKm6HaZvM+CmultBMg7TbUfE4gWtrEpwG18M8f3B5yrw1PkYnjvHyIzJ62WRHKc5wxhQLTaOsBch9PCcmHLW62rARidWTxsmOdyvJZ+QVRqUBd1p/EAzUyMjgYzvGzINKGTe+EotMxtekxnS1DT4ijjldeJ6GIwKNkuqRcdM6LePhuF81k37071h17w/5uDVKMPopwHQ+e8LgNFJGWt8PHqHIGEbCxxqeDAx/lWoy3T2aDfibXvoqWb8uMNCy4drDXedXcKsO3y/7YFNUJCuqdk1aqlG9cz8+aScM9UW2fJCMebllAItaL/WVJD31ggmk435qPi12n9u9BESSXA5hDJ5jjsnB9adSbBYx5UzFmM199aoC1VQrWi+ZcIGza7r0px7AaARkRz9HKhlfST9rhYN0Vzy10AVWvmGFx19v/Yzv7jvcnufvmS0XyS2XhEqQJO6gh0v8OM1VPFuRmnJFfTIUlnB+VGYv4gBdt6wxIgUIS+dpNiAPgKahD+QGFJqw+0o/TVEgiE8HffogeNbycDlT/kJXjmw7oAGMhs5t/eQtmX8p8Iip6QUWVd2VXeH8aE3i4gCW04+jSNEKlvrviBOHVXjsQlXHmS5vFivFjFsGzyWVCn8sTsNbMVSUNH+mxorV3xUpbhclxrWuRZ3+1fq74=
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026)(56012099003)(3023799003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	z+JtBNttoJWfAGirwkySqwvIw8YNGiIcWdYw8B79h5B2bpYiZrKI2tE3R6RWean7kA8edu34pmBUgV2cJC02NGD6aN9wF7aF0btthVFxR4Bh7AUqk6VXk8ezZM/HINPNTBJd0jqqoDEafD243+xvuAdpRYC4+7MzBbOEUN24Q/2CPbtW+/ALbUCNoLlvIx2izmBNp5qObUOKb84o8jOWS0LzYvg2WUjRtc4CUAjq9vRTQBQdxTWzTPUlofyextfmsRdhZnDG22BOnrZLeIraKgeO1+nTFbMf47/I6ST8ZMZBnndNkkM9vt1kvkiiAbMrpoG6QWcj7oTRwYID0rVxeUFqsvrDlEJyAKVmYowRfeq7P5SrUae2sJVYcQ1kM867H9mhKuQ71RZ2cpnG0lCO643L+qBt0wy1E5jl1xSyUZ1V0/pnivbC/WcHNolf3OzZ
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2026 07:03:16.9606
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd6d669a-2503-4cbe-12eb-08deaff48b14
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	TY2PEPF0000AB84.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR06MB8065
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABXRAmoC/22P0Y6DIBBFf8XwvCYDCIK/smmMwNCyqWIBzSZN/
+ 33d1th92Meb3HPPzJ1kTAEz6ao7SbiGHOK0BfpREXsZpjPWwW2ZMGASBGV1mG9aCujHmLB3uPZ
+ 5meeYSm1kw6U2FpUyZMPnhD58P6c/T6+cF/OFtvzu7Y2Et2Vzllftreyqp5BzOIQmxtKX2OcLX
+ q81FRpY60SjrO3Whvy9d4cFpQdcbE69CZML07luwUkptADvfLfS/9n3p3kcl4Pl0lkQjmslYWf
+ NkLG2cRxD6SrUyjFqaQsGqHPouZQeGDfGWy8NpwK0HxQnp8fjBwtSmMh9AQAA
+X-Change-ID: 20260512-ipq9650_more_dev_support-b64369bce88b
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+X-Mailer: b4 0.15.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778569496; l=1168;
+ i=kathiravan.thirumoorthy@oss.qualcomm.com; s=20230906;
+ h=from:subject:message-id; bh=3uXfmbzUS9NvAeHKvCpU9UZ0aQY6rnUGZ81s5p69bMk=;
+ b=3bDTcz8pVwr3q6uSpG6dAlW0GjKmjnV6MKvQSZ+VzRuZsPFcGot1BSAOAJ0/rswTacByI8RKW
+ UZia2q5QxW5CwTLUCBIXnZ9FJwr87tV93dFcrgLUqCQbVgJNVBhNykb
+X-Developer-Key: i=kathiravan.thirumoorthy@oss.qualcomm.com; a=ed25519;
+ pk=xWsR7pL6ch+vdZ9MoFGEaP61JUaRf0XaZYWztbQsIiM=
+X-Proofpoint-ORIG-GUID: JSGyOa3E8EdW3e_ElCwnVH2coPrtSamh
+X-Proofpoint-GUID: JSGyOa3E8EdW3e_ElCwnVH2coPrtSamh
+X-Authority-Analysis: v=2.4 cv=H8brBeYi c=1 sm=1 tr=0 ts=6a02d11e cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=_3c_48eCv6knbha3:21 a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=S4QRGENoijvoE2MVpVEA:9 a=QEXdDO2ut3YA:10
+ a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEyMDA2NyBTYWx0ZWRfX1wljgVKWU1bw
+ V++zig/FW476acfWQ5aWRvIvUFqouNG22qa0QtvQFu0KINMwieCblyiB4U4GUhiLsE6UaX1Co6y
+ TO93yvJlv43jcaHuGE0xbCqA4EUM2j3BCFv1Oul/L4OYP1q2LJjqbPHYs/EYb8rmfLgtrkGLJLI
+ b2pRZIvMroa8dkfzJM4F0iPTZY/VrGD0xnLcoxUNDCzlxNldd+M/GEgwgbpypyDSY6poE+Fi/Ph
+ jVVDgA4PKgwLMQSoj0gQ86PX8jbKwS8Lv1NbGmrFNzw3MplNtYOpmkQkDKiUqfY+3CMfaEzJXff
+ 2wntnr61rFBbrxgKS69t6n5lpx55d0IL1cmPyLnJMLmZwZVdTcD/9lKz44/Pt2KboaM+ul8qGHa
+ dBDc1xX/5wbG/Ir/HxFQGBKZqb0XOCAZxuIoHCAUTM0FYz0Gp3yiXL49lD8+NsMZYpQjJ664+Hc
+ 78HkZwmX+N7vurTCOKA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-11_05,2026-05-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 impostorscore=0 malwarescore=0 phishscore=0
+ spamscore=0 bulkscore=0 suspectscore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605120067
 
-On 26-05-11 23:02:32, sashiko-bot@kernel.org wrote:
-> EXTERNAL EMAIL
-> 
-> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
-> - [High] Leaked usb2_phy initialization on usb3_phy acquisition failure.
-> - [High] Leaked role switch and DRD resources on core role initialization failure.
-> - [High] Unbalanced pm_runtime_forbid() call permanently leaks the runtime PM usage counter across bind/unbind cycles.
-> - [High] Hardware PHY is powered off without calling synchronize_irq() during runtime suspend.
-> - [Medium] Exported PM helpers in glue.h lack static inline stubs for disabled PM configurations.
-> --
-> 
-> commit a327903170c6c0082aaebdb421558ca806f906da
-> Author: Peter Chen <peter.chen@cixtech.com>
-> 
-> usb: cdns3: plat: Expose platform core driver as library
-> 
-> This commit splits the Cadence USB3 platform probe, remove, and PM paths into
-> exported core functions. It also adds a new header glue.h to document the
-> probe data structure and public entry points, allowing SoC glue code to
-> instantiate the core deterministically.
-> 
-> > diff --git a/drivers/usb/cdns3/cdns3-plat.c b/drivers/usb/cdns3/cdns3-plat.c
-> > index 3fe3109a3688a..2219cbff1c592 100644
-> > --- a/drivers/usb/cdns3/cdns3-plat.c
-> > +++ b/drivers/usb/cdns3/cdns3-plat.c
-> [ ... ]
-> > @@ -59,29 +60,21 @@ static int cdns3_plat_host_init(struct cdns *cdns)
-> >  }
-> >
-> >  /**
-> > - * cdns3_plat_probe - probe for cdns3 core device
-> > - * @pdev: Pointer to cdns3 core platform device
-> > + * cdns3_core_probe - Initialize the Cadence USB3 platform core
-> > + * @data: Controller context and platform device supplied by the glue layer
-> >   *
-> >   * Returns 0 on success otherwise negative errno
-> >   */
-> > -static int cdns3_plat_probe(struct platform_device *pdev)
-> > +int cdns3_core_probe(const struct cdns3_probe_data *data)
-> >  {
-> > +     struct platform_device *pdev = data->pdev;
-> >       struct device *dev = &pdev->dev;
-> > -     struct resource *res;
-> > -     struct cdns *cdns;
-> > +     struct cdns *cdns = data->cdns;
-> > +     struct resource *res;
-> >       void __iomem *regs;
-> >       int ret;
-> >
-> > -     cdns = devm_kzalloc(dev, sizeof(*cdns), GFP_KERNEL);
-> > -     if (!cdns)
-> > -             return -ENOMEM;
-> > -
-> > -     cdns->dev = dev;
-> > -     cdns->pdata = dev_get_platdata(dev);
-> > -     if (cdns->pdata && cdns->pdata->override_apb_timeout)
-> > -             cdns->override_apb_timeout = cdns->pdata->override_apb_timeout;
-> > -
-> > -     platform_set_drvdata(pdev, cdns);
-> > +     dev_set_drvdata(dev, cdns);
-> >
-> >       ret = platform_get_irq_byname(pdev, "host");
-> 
-> Further down in this function, if devm_phy_optional_get() for cdns->usb3_phy
-> fails (e.g. with -EPROBE_DEFER), it returns directly via dev_err_probe(),
-> bypassing the error cleanup path in err_phy3_init.
-> 
-> Does this leak the usb2_phy initialization since phy_exit(cdns->usb2_phy) is
-> never called?
-> 
-> If probe is deferred and retried, will this repeatedly increment the PHY's
-> init_count, preventing it from ever powering down?
-> 
-> Also in this function, after cdns_init(cdns) successfully registers resources
-> like a role switch, if cdns_core_init_role(cdns) fails, the error path
-> jumps to err_cdns_init:
-> 
-> err_cdns_init:
->         set_phy_power_off(cdns);
-> err_phy_power_on:
-> ...
-> 
-> This error path only powers off the PHYs. Can this permanently leak the role
-> switch and DRD resources by omitting a call to cdns_remove(cdns) or
-> usb_role_switch_unregister()?
+Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+---
+Kathiravan Thirumoorthy (2):
+      arm64: dts: qcom: ipq9650: add the SMMU device
+      arm64: dts: qcom: ipq9650: add the download mode support
 
-Ack.
-
-It is the issue current code exists, I will fix it first.
-
-> 
-> Towards the end of this function, pm_runtime_forbid(dev) is conditionally
-> called to increase the device's runtime PM usage count:
-> 
->         if (!(cdns->pdata && (cdns->pdata->quirks & CDNS3_DEFAULT_PM_RUNTIME_ALLOW)))
->                 pm_runtime_forbid(dev);
-> 
-> Should there be a corresponding pm_runtime_allow(dev) in the remove path to
-> balance this count?
-
-Ack.
-
-> 
-> [ ... ]
-> > @@ -195,14 +188,41 @@ static int cdns3_plat_probe(struct platform_device *pdev)
-> [ ... ]
-> > +/**
-> > + * cdns3_core_remove - Tear down the Cadence USB3 platform core
-> > + * @cdns: Controller context previously initialized by cdns3_core_probe()
-> > + */
-> > +void cdns3_core_remove(struct cdns *cdns)
-> >  {
-> > -     struct cdns *cdns = platform_get_drvdata(pdev);
-> >       struct device *dev = cdns->dev;
-> >
-> >       pm_runtime_get_sync(dev);
-> > @@ -213,24 +233,30 @@ static void cdns3_plat_remove(struct platform_device *pdev)
-> >       phy_exit(cdns->usb2_phy);
-> >       phy_exit(cdns->usb3_phy);
-> >  }
-> > +EXPORT_SYMBOL_GPL(cdns3_core_remove);
-> 
-> Since pm_runtime_forbid(dev) was called in the probe function, could the
-> absence of pm_runtime_allow(dev) here permanently leak the runtime PM usage
-> counter across bind/unbind cycles?
-> 
-> If the driver is repeatedly unbound and bound, will the usage counter
-> continuously increment, eventually preventing the device from entering a
-> runtime suspended state?
-
-The same comments for above issue.
-
-> 
-> [ ... ]
-> > @@ -242,7 +268,7 @@ static int cdns3_controller_suspend(struct device *dev, pm_message_t msg)
-> >       else
-> >               wakeup = device_may_wakeup(dev);
-> >
-> > -     cdns3_set_platform_suspend(cdns->dev, true, wakeup);
-> > +     cdns3_set_platform_suspend(cdns, true, wakeup);
-> >       set_phy_power_off(cdns);
-> >       spin_lock_irqsave(&cdns->lock, flags);
-> 
-> The controller uses shared IRQs, such as IRQF_SHARED for cdns->wakeup_irq.
-> The PM subsystem guidelines require drivers using shared IRQs to call
-> synchronize_irq() before powering down hardware.
-> 
-> Might calling set_phy_power_off(cdns) here before synchronize_irq() risk
-> hardware PHY being powered off while an interrupt handler is executing
-> concurrently on another CPU?
-
-Ack.
-
-Will call synchronize_irq() at the beginning of function cdns3_controller_suspend.
-
-> 
-> [ ... ]
-> > diff --git a/drivers/usb/cdns3/glue.h b/drivers/usb/cdns3/glue.h
-> > new file mode 100644
-> > index 0000000000000..67cd1073b5551
-> > --- /dev/null
-> > +++ b/drivers/usb/cdns3/glue.h
-> > @@ -0,0 +1,51 @@
-> [ ... ]
-> > +/*
-> > + * The following callbacks are for glue drivers to invoke from their own
-> > + * &dev_pm_ops, so platform-specific work can wrap the shared controller logic.
-> > + */
-> > +int cdns3_runtime_suspend(struct cdns *cdns);
-> > +int cdns3_runtime_resume(struct cdns *cdns);
-> > +int cdns3_pm_suspend(struct cdns *cdns);
-> > +int cdns3_pm_resume(struct cdns *cdns);
-> > +
-> > +#endif /* __DRIVERS_USB_CDNS3_GLUE_H */
-> 
-> These functions are conditionally compiled in cdns3-plat.c depending on
-> CONFIG_PM and CONFIG_PM_SLEEP. However, they are unconditionally declared
-> here without empty static inline fallback stubs.
-> 
-> If a glue driver uses __maybe_unused annotations instead of #ifdef CONFIG_PM
-> for its own callbacks, will the compiler still attempt to resolve these calls
-> and produce undefined reference linker errors when PM is disabled?
-> 
-
-Ack
-
-The PM helper declarations in glue.h should indeed be made robust for glue
-drivers using __maybe_unused PM callbacks. The current Sky1 glue driver uses
-CONFIG_PM/CONFIG_PM_SLEEP guards, but the public glue header should not rely
-on every user doing that. I will add static inline stubs for the disabled PM
-configurations in v2.
-
--- 
+ arch/arm64/boot/dts/qcom/ipq9650.dtsi | 48 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 48 insertions(+)
+---
+base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
+change-id: 20260512-ipq9650_more_dev_support-b64369bce88b
+prerequisite-change-id: 20260330-ipq9650_boot_to_shell-159027d548cc:v4
+prerequisite-patch-id: 16dd91c965e8c4e4c9da7c077f5f6e5f56624149
+prerequisite-patch-id: c74b31333eccd4eba783b927b7eb0bdae27ec576
+prerequisite-patch-id: 940367fceba083009275adfbf26cec848e676915
+prerequisite-patch-id: d00248eca6cd1203ab16aed75a6932581d90321b
+prerequisite-change-id: 20260511-ipq9650_tcsr_binding-70d665950fdf:v1
+prerequisite-patch-id: 12a6b83739dd22ca8a25507dced2e56e5cd2fe4e
+prerequisite-change-id: 20260512-ipq9650_smmu_binding-36dc05d39860:v1
+prerequisite-patch-id: 92f58d1b58fd36313dd488d024e7deb95fc35ce7
 
 Best regards,
-Peter
+--  
+Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+
