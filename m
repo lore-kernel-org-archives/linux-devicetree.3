@@ -1,208 +1,141 @@
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023095.outbound.protection.outlook.com [52.101.127.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C632A3603D8
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 03:10:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.95
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778555420; cv=fail; b=sMNwsSD+z8zvaaWlFizNchaiy3cwk4EUJ63UOinlczoR4JDIl4OFyO4P4620SktqenAyymwTB+ZISI84hEGavYEv6wKc5X5PMwo4sKPEzqFR0NvEejV6JbNYveXAcNQk9OKlpoQZRPu9WfIQgdyW59tBsFO5OtbA9K8ijQU8DME=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778555420; c=relaxed/simple;
-	bh=dEsZgbx3wkGPMkS1eDRfdeS9KaVMBDlDOj5xPHB/BuY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t+UTx/vGzQcBwL/XlFBxwcsfLnZ//+e1PlHIh1iw50w8xl2sZ5BYLT/b9ZoaZg9IextRNaWU7HupovkvCwbio8qgt7XhJ5ckInDQouBwnDkLPsuqbLK7P262SDe/RsiEu3IKydi/3U0pdYBi6PnaOtx+/8IPqIfVLmbmWzTUyAM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=52.101.127.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nuwIuB2FJD5n/ptrwS4pO5czRfh3ciHEytxvc2nHsmduH6O5ocqC0A+ew+WIog4AdQKhNaayWqsFnbsCyUyMnY5e7xDAvvp6PrVIoAapGYGOyl3s8GHPK5RI0Cdla0gim4c0V3qTs2TVQFRkwezs8XBXsQZw18Xu6ux/5XZlTrgEYGvaOxRvklR0XbLey6BXt3aXokXUMiD2/2QPoA5zDGF7DPc0v4yk6U7mKf3rPMMGY4L9CPPramuEjo7do5rQT0d5a27ywyZeFHjGjWXvfgDCAqrveYw4KKWoXv/zboP9JvSLkmgixr74xZMrvIV7Gh7fJxlDuwzrFWDaCHM4ug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=D9qboRB4YsZAE0Rs5np0kWBycjCD+IfQSJVLmIak0EY=;
- b=U4ioEDei55/c9uhuyspCuyXDpN9EKLXo/TOKbkrvTokwikc9HljB+9Gp7kBsRl+uu3PHy3D9lkF4+fXTbhdgBg3OPKxDcaBeKjvvyjoUUclJ1ch4vQb1ypyhCX7/uEsCWvkMPo9DznDbjx+OFjJXBf40F6QXkTrH0rOE43BZLF9kaHHzNMC/ZJ74nvPAvfI+23DSj64ZIrUjj4guizL5T+yIwZMnVDud8s7cFEfjnAU9uBmujtjFoKd4vkMJHelTLIOFKTWXjcRkZLmVQitMnCyLgiUhgkWOz5/Y551SVc3jexobm4rg7mdqYc8Apov3SLbhnOzfy2A0H5D8TZzQtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=kernel.org smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SI2PR02CA0024.apcprd02.prod.outlook.com (2603:1096:4:195::18)
- by KL1PR0601MB5549.apcprd06.prod.outlook.com (2603:1096:820:c0::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Tue, 12 May
- 2026 03:10:14 +0000
-Received: from OSA0EPF000000C7.apcprd02.prod.outlook.com
- (2603:1096:4:195:cafe::ac) by SI2PR02CA0024.outlook.office365.com
- (2603:1096:4:195::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9913.11 via Frontend Transport; Tue,
- 12 May 2026 03:10:13 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- OSA0EPF000000C7.mail.protection.outlook.com (10.167.240.53) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.13 via Frontend Transport; Tue, 12 May 2026 03:10:12 +0000
-Received: from nchen-desktop (unknown [172.16.64.25])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 4D25F41609D5;
-	Tue, 12 May 2026 11:10:10 +0800 (CST)
-Date: Tue, 12 May 2026 11:10:09 +0800
-From: Peter Chen <peter.chen@cixtech.com>
-To: sashiko@lists.linux.dev
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
-	krzk+dt@kernel.org
-Subject: Re: [PATCH 4/4] arm64: dts: cix: add Sky1 USB4 and USB5 controllers
-Message-ID: <agKaEePSFknhDBg2@nchen-desktop>
-References: <20260511024244.981941-5-peter.chen@cixtech.com>
- <20260511235922.10315C2BCB0@smtp.kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B3101F5EA
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 03:18:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778555913; cv=none; b=HNekzWWXTuSxLwB8njmSVLdPTUdn0HtXpt81OorXjkfX6yxBLoD0VcM79UQTdcj4pVp2FAVCiShf/ZQI8antSzFAzjk5Seco3aGh/Nk7Mh6aQCI+pwxGqLe5SffEk9WtL28Ao9OCFg9ld8Z976XsH3eFFfEMoLZo0HbMxwvJW9k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778555913; c=relaxed/simple;
+	bh=ugqNuyt6/PXBFXQLv1UKPaQ3TdvuHv4bUi1n3N6MRyo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Ir1cbrHMk2DJk102JjgtsIfcQ8I4p47H8yOXBMu2PlKPnNYXyavEZHwof4pS01BWz5wFSzdwpmgbPn20pETUepEmQRy1uvw79NppJIcdNuLLmH3IUoLQoco+rGSsypo6lZCMC9mszoa2q8RkIpvp30lUk2B5OleUC78vTz8QAWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eBLVzVsD; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eBLVzVsD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C52BC2BCB0;
+	Tue, 12 May 2026 03:18:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778555912;
+	bh=ugqNuyt6/PXBFXQLv1UKPaQ3TdvuHv4bUi1n3N6MRyo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=eBLVzVsDSJg2DxeDfC+/BGlDVmDvvSmFUiX7J7BuUbQJP8vaBha9owkMzwfDpjgrF
+	 cGNyAIkD1PToc0nBfzHzZT5TwhrKywiC4AFdhs0liSlFg4n4/ooSX72R2VXzRJnf/q
+	 dc0y6AqiaPD77Gv1MsEBYizacSGOWCCl/SZM4tCH6WSfKa1ZpE3B7w+ufomqUEcorg
+	 8sU3ep/NR76Crouar23LOd9Hlc7CW6aVImOatmHN04iorl33FuH9NNVB9Xz2Y5ZUHE
+	 M7ZVUWEzMKB7RzxwvVUeoVWEQUQHC7QpvlMGbwLViQJwfZBGWwnfKVCTzPR1CEEaw1
+	 q1i8U2g4MLsDw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/4] arm64: dts: renesas: add support for solidrun
+ rzg2lc som and hb-iiot evb
+Reply-To: sashiko@lists.linux.dev
+To: "Josua Mayer" <josua@solid-run.com>
+Cc: conor+dt@kernel.org, krzk+dt@kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260511-rzg2-sr-boards-v2-4-82aebbd27891@solid-run.com>
+References: <20260511-rzg2-sr-boards-v2-4-82aebbd27891@solid-run.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 12 May 2026 03:18:31 +0000
+Message-Id: <20260512031832.6C52BC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260511235922.10315C2BCB0@smtp.kernel.org>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OSA0EPF000000C7:EE_|KL1PR0601MB5549:EE_
-X-MS-Office365-Filtering-Correlation-Id: 200f9507-7816-4633-758d-08deafd3fc19
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|1800799024|82310400026|18002099003|22082099003|3023799003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	uFYJio34+FfkvTyoCUr6B8KLCuDH6PxT83Crm9SoRvorzuyuNY4+vugxVYp+rjFlcNMsvQMYd1CBU+IlrCwKLysa+5qVUkqyZ/qMzgDCkne2TfRURFLHN9zE20zuWCdx4lvyeYIKDJT/xFDDjlMHyVn3ilh7mNz2o9y/3rSkyV9R/jXEzw2NXfCMqFuBqU3PQWy2GCPZM4GXNtdsJ+xomL18KOiI4ikg81Remig/4iVxy4dLW9CPuDz1jgtAeLzKPPAYGcXArc+92uBV1WWHt7f3X2TyiaZwuVikwLLwTYNIq81+guYvQYQa1QE1swAhYPYIK15UhleTSaSoywt1JfsH4pB+LnIRgIuqmjUV9PBV5YfLh+hCoJCAk7OL3vDTX+fuxt18CneIHcLePQorZr6NpNoF1lBGQOtNKshSPdQ9IZE3/950B5oft4x9SPs7VriXFMJ+bx0st1aqcMaeM/QQ2A6ZgPZ80n3q3na7t69QxwjZcLmIEc6ghqujIcbR3fymzty0IYaiHie62Bm+5nVPFIsy0Sf2lTZImri6pDMvEbrs9f9OdW8+Qo/lu1HeCJ3Am2c2PeSlmZXuIRmqoJnjm0Qy05oT2ROf9P2r5rbnNbP5aDMHfIe3dtpUwdOz4NDx3mPJwiZhq4JLDclnSAD/snRCl2MD7S9Z+QTcVJp91WR01lZvTtBGT/rrbukC/pyc2re7fJ2S+Wl02wojnSinwTC3P6MXdEfI3eMUL6U=
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(18002099003)(22082099003)(3023799003)(56012099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	IEp7ZktDzYS31hWvKYQMbNcD3LS4N49R+m4YIsSLgrA6ehp9bDvk/UOqVfp1+UuRaVNYuaLGbe9iyWJOJh4kEeJ2d+eVwH0aXzva5OtBTZ/C/pRfaDiWumLhfygBjjT1MUKYRmE0sZD7TR+w3yQVC9H1eQUsV61Q/GvdLbrBz5+cWdXeTOxGJKvgOfHWU5zRZAx3yrGfOtHlu9vnB1j9tVuAEAHF/nG3ynsgx2j2f46G2EhkYZoszt00pEHlq6Fx6I9hZEqlAFdfx2KHp7aOW5B0gK23h9JlNRSvOIaCdkAAejIUxfKTdY5czXzzlmPgo2AB3G0B+vsY/56tJqOKpqqy4ITJoxLrSO3s9ZlBpJQo/8yHP+XaO2kV1WhiErFrxp6M+xG88nCY4qsWmdY6gAAx7KmfhZt2UpcmSsGEL+BTxwazEzqHDXk8T+dmUOaS
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2026 03:10:12.9818
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 200f9507-7816-4633-758d-08deafd3fc19
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	OSA0EPF000000C7.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR0601MB5549
 
-On 26-05-11 23:59:21, sashiko-bot@kernel.org wrote:
-> EXTERNAL EMAIL
-> 
-> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
-> - [Medium] Missing `status = "disabled";` for `usb4` and `usb5` device nodes in the SoC-level device tree.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Low] Missing unit address for reserved-memory node with a `reg` property.
+- [Low] Inconsistent use of `+=3D` instead of `:=3D` for Kbuild composite D=
+TB definitions.
+- [Low] Redundant addition of shared `.dtbo` overlay targets to the Makefil=
+e variable.
+--
 
-Ack
-> - [Medium] Invalid double-vendor prefix in compatible string and squashing of SoC-specific glue layer with generic IP core.
+commit 8d9d2cbc7a77754ee19950ca31a17d0916b4b627
+Author: Josua Mayer <josua@solid-run.com>
+arm64: dts: renesas: add support for solidrun rzg2lc som and hb-iiot evb
 
-Nak
+Add support for the SolidRun RZ/G2LC SoM on Hummingboard IIoT, which
+features various peripherals including Ethernet, eMMC, and WiFi.
+The RZ/G2LC SoM is pin-compatible with the G2L SoM with a slightly
+reduced feature set.
 
-> - [Low] Unnecessary inclusion of `<dt-bindings/phy/phy.h>` in `sky1.dtsi` without associated PHY definitions.
+Link: https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/r=
+z-g2lc-som/
+Link: https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/h=
+ummingboard-rz-series-sbcs/hummingboard-rz-g2l-iot-sbc/
 
-Ack
+> diff --git a/arch/arm64/boot/dts/renesas/Makefile b/arch/arm64/boot/dts/r=
+enesas/Makefile
+> --- a/arch/arm64/boot/dts/renesas/Makefile
+> +++ b/arch/arm64/boot/dts/renesas/Makefile
+> @@ -164,6 +164,17 @@ dtb-$(CONFIG_ARCH_R9A07G043) +=3D r9a07g043u11-smarc=
+-du-adv7513.dtb
+>  r9a07g043u11-smarc-pmod-dtbs :=3D r9a07g043u11-smarc.dtb r9a07g043-smarc=
+-pmod.dtbo
+>  dtb-$(CONFIG_ARCH_R9A07G043) +=3D r9a07g043u11-smarc-pmod.dtb
+> =20
+> +dtb-$(CONFIG_ARCH_R9A07G044) +=3D r9a07g044c2-hummingboard-iiot.dtb
+> +r9a07g044c2-hummingboard-iiot-emmc-dtbs +=3D r9a07g044c2-hummingboard-ii=
+ot.dtb rzg2l-sr-som-emmc.dtbo
 
-> - [Low] Redundant/duplicate interrupt mappings for the `wakeup` interrupt.
+This isn't a bug, but should this use :=3D instead of +=3D for consistency =
+with
+standard Kbuild practice and other composite DTB definitions in this Makefi=
+le?
 
-Nak
+> +dtb-$(CONFIG_ARCH_R9A07G044) +=3D r9a07g044c2-hummingboard-iiot-emmc.dtb
+> +r9a07g044c2-hummingboard-iiot-microsd-dtbs +=3D r9a07g044c2-hummingboard=
+-iiot.dtb rzg2l-hummingboard-iiot-microsd.dtbo
+> +dtb-$(CONFIG_ARCH_R9A07G044) +=3D r9a07g044c2-hummingboard-iiot-microsd.=
+dtb
+> +dtb-$(CONFIG_ARCH_R9A07G044) +=3D rzg2l-hummingboard-iiot-rs485-a.dtbo
 
-> --
-> 
-> commit a270480764c96a27fe2e14e30bfb46b99527fcfb
-> Author: Peter Chen <peter.chen@cixtech.com>
-> 
-> arm64: dts: cix: add Sky1 USB4 and USB5 controllers
-> 
-> Add the Sky1 USB4 and USB5 Cadence USB3 controller nodes with their
-> registers, interrupts, clocks, resets and S5 syscon control. Enable both
-> ports on the Orion O6 board in host mode with the required VBUS pinctrl.
-> 
-> > diff --git a/arch/arm64/boot/dts/cix/sky1.dtsi b/arch/arm64/boot/dts/cix/sky1.dtsi
-> > index bb5cfb1f21133..9f7d9ad6586c3 100644
-> > --- a/arch/arm64/boot/dts/cix/sky1.dtsi
-> > +++ b/arch/arm64/boot/dts/cix/sky1.dtsi
-> > @@ -6,6 +6,8 @@
-> >
-> >  #include <dt-bindings/interrupt-controller/arm-gic.h>
-> >  #include <dt-bindings/clock/cix,sky1.h>
-> > +#include <dt-bindings/phy/phy.h>
-> 
-> Since there are no phys properties or macros from this header used in the
-> patch, is this inclusion needed?
+This isn't a bug, but since rzg2l-hummingboard-iiot-rs485-a.dtbo and
+rzg2l-hummingboard-iiot-rs485-b.dtbo are already appended to
+dtb-$(CONFIG_ARCH_R9A07G044) for the shared r9a07g044l2 SoC variant, is it
+redundant to include them here?
 
-Ack, will delete.
+> +r9a07g044c2-hummingboard-iiot-rs485-a-dtbs +=3D r9a07g044c2-hummingboard=
+-iiot.dtb rzg2l-hummingboard-iiot-rs485-a.dtbo
+> +dtb-$(CONFIG_ARCH_R9A07G044) +=3D r9a07g044c2-hummingboard-iiot-rs485-a.=
+dtb
+> +dtb-$(CONFIG_ARCH_R9A07G044) +=3D rzg2l-hummingboard-iiot-rs485-b.dtbo
 
-> 
-> > +#include <dt-bindings/reset/cix,sky1-s5-system-control.h>
-> >  #include "sky1-power.h"
-> >
-> >  / {
-> 
-> [ ... ]
-> 
-> > @@ -504,6 +506,72 @@ mbox_ap2sfh: mailbox@80a0000 {
-> >                       cix,mbox-dir = "tx";
-> >               };
-> >
-> > +             usb4: usb@91d0000 {
-> > +                     compatible = "cix,sky1-usb3", "cix,cdns-usb3";
-> 
-> Does the "cix,cdns-usb3" string incorrectly combine two vendor prefixes?
-> Should the generic fallback be "cdns,usb3"?
+[ ... ]
 
-No. sky1-usb for specific SoCs "sky1", "cdns-usb3" for general CIX SoCs using
-Cadence IP.
+> diff --git a/arch/arm64/boot/dts/renesas/rzg2lc-sr-som.dtsi b/arch/arm64/=
+boot/dts/renesas/rzg2lc-sr-som.dtsi
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/renesas/rzg2lc-sr-som.dtsi
+> @@ -0,0 +1,373 @@
 
-> 
-> > +                     reg = <0x00 0x91d0000 0x00 0x4000>,
-> > +                                     <0x00 0x91d4000 0x00 0x4000>,
-> > +                                     <0x00 0x91d8000 0x00 0x8000>,
-> > +                                     <0x00 0x91c0314 0x00 0x4>;
-> > +                     reg-names = "otg", "dev", "xhci", "glue";
-> 
-> Does adding the "glue" register and cix,syscon-usb to the generic core
-> break the generic upstream schema which expects only three reg entries?
-> 
-> Should the SoC-specific glue logic be implemented as a parent wrapper node
-> with a child node for the generic Cadence USB3 core instead?
+[ ... ]
 
-For sky1 USB, it uses Cadence USB3 core as library, so all register regions
-need pass from one parent node.
+> +	reserved-memory {
+> +		ranges;
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <2>;
+> +
+> +		mmp_reserved: linux,multimedia {
+> +			compatible =3D "shared-dma-pool";
+> +			reg =3D <0x0 0x68000000 0x0 0x8000000>;
+> +			reusable;
+> +		};
 
-> 
-> > +
-> > +                     interrupts = <GIC_SPI 252 IRQ_TYPE_LEVEL_HIGH 0>,       /* host irq */
-> > +                                     <GIC_SPI 252 IRQ_TYPE_LEVEL_HIGH 0>,    /* peripheral irq */
-> > +                                     <GIC_SPI 253 IRQ_TYPE_LEVEL_HIGH 0>,    /* otgirq */
-> > +                                     <GIC_SPI 252 IRQ_TYPE_LEVEL_HIGH 0>;    /* wakeup irq */
-> 
-> The wakeup interrupt uses the same GIC SPI line as the main host and
-> peripheral interrupts. Is this redundant, and could it lead to conflicting
-> interrupt registration?
-> 
+Does this node need a unit address matching the first address of the reg bl=
+ock
+(e.g., linux,multimedia@68000000) to prevent a unit_address_vs_reg DTC
+compiler warning?
 
-Not redundant, they are different interrupt handlers and knows itself at code.
+> +
+> +		global_cma: linux,cma@58000000 {
+> +			compatible =3D "shared-dma-pool";
+> +			reg =3D <0x0 0x58000000 0x0 0x10000000>;
+> +			reusable;
 
-> [ ... ]
-> 
-> > +                     cix,syscon-usb = <&s5_syscon>;
-> > +                     dma-coherent;
-> > +                     maximum-speed = "super-speed-plus";
-> > +                     dr_mode = "otg";
-> > +             };
-> 
-> Should this node include a status = "disabled" property so the USB drivers do
-> not probe unconditionally on all boards using this SoC?
-
-Ack
-
--- 
-
-Best regards,
-Peter
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511-rzg2-sr-bo=
+ards-v2-0-82aebbd27891@solid-run.com?part=3D4
