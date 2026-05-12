@@ -1,165 +1,154 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC5DB32143D;
-	Tue, 12 May 2026 14:43:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9BEF36A35A
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 14:57:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778597039; cv=none; b=ATcqm/3RlYhmcQP6UHxkkiQbk7u4ifXrOMWHwr/WIR6grV9+76T5Wm0YGRmRFuY615k4SHXTSp8UyeoFvB7LoZT6M/aAW8KJZBdF0xa8Xy/cXbdWSy0WWe3s2WwMJO9TA1RaG3AKRCuZkcZprIrpje3d+rTRxnGp0yd7UCrOXtA=
+	t=1778597838; cv=none; b=CpdWggP2sRfM9Ss4JnRAWgqIH/7kDsWTrtfVaMI6cayMcaJTuZTIkeSG/wcbAp2AEUZpJZQdVn3Rlth0Ruq1yFNGIXHGs4HSt7wz19BFA16KLsy2rKFKE27m9Ur8KHhYBsEvma4mUKYYp0QqeXWBzbe8qB196fHvtO/ZUs4NaoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778597039; c=relaxed/simple;
-	bh=R/jhBIChVXR9kgDOd+WISzPt857TrAdWxKQz2nBrnrs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F+BYDqsIOdKc84apWOostO5KqlYC8K1HrrO6kpro+/p/Yyh71iFP25B8W1cxX8qrLJBWYHLIMgmpmfThuOBgdJEXTz6WkfS/TtB9aNH+iGQ592Nx6I0JL8bjPsvhBT6pNe1u+fOTBwH2Kwv96hPGXAiWzCJYuadfb7uCg2vwvgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=oAsvFXSa; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="oAsvFXSa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1778597037; x=1810133037;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=R/jhBIChVXR9kgDOd+WISzPt857TrAdWxKQz2nBrnrs=;
-  b=oAsvFXSabNAc63pNQq5q0A723wie7n5EVd0/Y59qMB0vREq18G4bSIpi
-   Y+Od07+nATZS/sShNft8aSRyGb3z7bJlCXtWuq5gGNUXgrKDuhT2cgSZX
-   uIAzidKU5Vi2Eh/yh7ZRnh0DRJjRlbJaq/f/D34P/nV4Jh0Dw6quLiD52
-   ESPmpRmeacrYjJG7kr6L5fW3d5GYJurjhM8UN94whF8Uv8ImAw8QxeQb1
-   WiF6AfnZ6PgN7Nl7dpcJ8mhrjnul0tFUm5qGfMNyKCqAejk9bJOlyfX/9
-   0RoPd3O3oAUMCxA6tBsiGxnP56cAsynnn7HelpsGwkgG9eyRC/aOgEtEb
-   g==;
-X-CSE-ConnectionGUID: tkEaFxxDR72D+owv0RYPFA==
-X-CSE-MsgGUID: PeSqdWSQTp6OfWu5WKsWQw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="79455322"
-X-IronPort-AV: E=Sophos;i="6.23,231,1770624000"; 
-   d="scan'208";a="79455322"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 07:43:57 -0700
-X-CSE-ConnectionGUID: 10bEOBdlTOGu130+WC0xcw==
-X-CSE-MsgGUID: pPYNsW0wRmOrhbpoh4wDbA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,231,1770624000"; 
-   d="scan'208";a="268130406"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.112])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 07:43:51 -0700
-Date: Tue, 12 May 2026 17:43:49 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>,
-	rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org, David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Petr Mladek <pmladek@suse.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	David Laight <david.laight.linux@gmail.com>
-Subject: Re: [PATCH v12 02/11] lib: kstrtox: add kstrtoudec64() and
- kstrtodec64()
-Message-ID: <agM8pWrM6j_XksvN@ashevche-desk.local>
-References: <20260510-adf41513-iio-driver-v12-0-34af2ed2779f@analog.com>
- <20260510-adf41513-iio-driver-v12-2-34af2ed2779f@analog.com>
- <20260512123953.40d80bc9@jic23-huawei>
- <agMnWzMjW1LwCSyT@ashevche-desk.local>
- <sj6cpjhakyfvv6rgox6cnhl2u2tgaecugcok6fw2l7zgku5wtc@aqx3ul72vgca>
- <agMvlS3-0wvGmBwh@ashevche-desk.local>
- <dxjg2sdyxb7ieb4abmeyyye7qok6cczrxabpsjyjhcbehwoec3@sbbqoo4wmzre>
+	s=arc-20240116; t=1778597838; c=relaxed/simple;
+	bh=rel5XJ2Mx5CknVpnsr9cWDTzti7f512B94lQWKFxJPI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Kz0hGy1ErC2FBb8cNnZusfged2oRlMrt24ybGM+H4ToL6iqyyBJA9MMZ1CSOXKGMMIbHgjYlXMMRYnwERaBesxXs7QssHi6g990YVEn5fHEeST5g5UjXDROAepzBHO2JodERDlO4rwhQKl5xSQbP2D9e0tBg1fPR6Ma6vjxH+R0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=fail smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=pengutronix.de
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=[127.0.0.1])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <s.pueschel@pengutronix.de>)
+	id 1wMoXZ-0006ha-1B; Tue, 12 May 2026 16:56:57 +0200
+Message-ID: <e6d562e7-a9d2-4a1a-a139-c6e05eb4aaef@pengutronix.de>
+Date: Tue, 12 May 2026 16:56:53 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <dxjg2sdyxb7ieb4abmeyyye7qok6cczrxabpsjyjhcbehwoec3@sbbqoo4wmzre>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 12/29] media: rockchip: rga: avoid odd frame sizes for
+ YUV formats
+To: Nicolas Dufresne <nicolas@ndufresne.ca>,
+ Jacob Chen <jacob-chen@iotwrt.com>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner
+ <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, kernel@pengutronix.de,
+ sebastian.reichel@collabora.com
+References: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
+ <20260428-spu-rga3-v5-12-eb7f5d019d86@pengutronix.de>
+ <4f5e481c8883b358ee4cef64f26f3f00f0ac7304.camel@ndufresne.ca>
+Content-Language: en-US
+From: =?UTF-8?Q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
+In-Reply-To: <4f5e481c8883b358ee4cef64f26f3f00f0ac7304.camel@ndufresne.ca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: s.pueschel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-On Tue, May 12, 2026 at 03:12:24PM +0100, Rodrigo Alencar wrote:
-> On 26/05/12 04:48PM, Andy Shevchenko wrote:
-> > On Tue, May 12, 2026 at 02:21:14PM +0100, Rodrigo Alencar wrote:
-> > > On 26/05/12 04:12PM, Andy Shevchenko wrote:
-> > > > On Tue, May 12, 2026 at 12:39:53PM +0100, Jonathan Cameron wrote:
-> > > > > On Sun, 10 May 2026 13:42:20 +0100
-> > > > > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
-> > > > > 
-> > > > > > Add helpers that parses decimal numbers into 64-bit number, i.e., decimal
-> > > > > > point numbers with pre-defined scale are parsed into a 64-bit value (fixed
-> > > > > > precision). After the decimal point, digits beyond the specified scale
-> > > > > > are ignored.
-> > > > > 
-> > > > > Whilst Rodrigo has already replied to say there will be another version
-> > > > > I'd like to request final feedback from those who were involved in the parser
-> > > > > discussions.  
-> > > > > 
-> > > > > They got very involved and I'm far from an expert in the right way to do
-> > > > > this stuff.  
-> > > > > 
-> > > > > I don't think David Laight was +CC so I've added that.
-> > > > > David, Andy - I think you two were most involved in that discussion:
-> > > > > Any objections to the end result? 
-> > > > 
-> > > > I already said a few times about the naming. I do not like the kstrto*()
-> > > > be semantically different on how they treat the input. Second point is
-> > > > to avoid code duplication, but this one is less of a concern since the
-> > > > new code is in the library close to the other potentially duplicate code
-> > > > piece and hence can be addressed later.
-> > > 
-> > > I suppose I reached into kstrtodec64() and kstrtoudec64() because it aligns
-> > > with your expectations for kstrto*() semantics, no? Those include:
-> > >  - overflow check;
-> > >  - extensive input validation;
-> > >  - optional '\n' in the end;
-> > >  - mandatory nul-termination.
-> > > 
-> > > am I missing anything?
-> > 
-> > When we add scale we basically make that not true. Moreover the code in this
-> > patch makes scale == number_of_characters which I think a bit fragile, however
-> > it's about the fractional part when the amount of digits is equal to scale.
-> 
-> That is not really the case. It is being set as a limit, so it does check for
-> truncation and zero-padding.
+Hi Nicolas,
 
-I do not see it happens in _parse_integer_limit(). It doesn't try to parse more
-characters than it's requested in max_chars. It doesn't check if there are more
-character nor their converted values.
+On 5/8/26 11:18 PM, Nicolas Dufresne wrote:
+> Le mardi 28 avril 2026 à 11:00 +0200, Sven Püschel a écrit :
+>> Avoid odd frame sizes for YUV formats, as they may cause undefined
+>> behavior. This is done in preparation for the RGA3, which hangs when the
+>> output format is set to 129x129 pixel YUV420 SP (NV12).
+>>
+>> This requirement is documented explicitly for the RGA3 in  section 5.6.3
+>> of the RK3588 TRM Part 2. For the RGA2 the RK3588 TRM Part 2
+>> (section 6.1.2) and RK3568 TRM Part 2 (section 14.2) only mentions the
+>> x/y offsets and stride aligning requirements. But the vendor driver for
+>> the RGA2 also contains checks for the width and height to be aligned to
+>> 2 bytes.
+>>
+>> Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
+>> ---
+>>   drivers/media/platform/rockchip/rga/rga.c | 19 ++++++++++++++-----
+>>   1 file changed, 14 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+>> index f599c992829dd..77b8c7ab74274 100644
+>> --- a/drivers/media/platform/rockchip/rga/rga.c
+>> +++ b/drivers/media/platform/rockchip/rga/rga.c
+>> @@ -337,6 +337,19 @@ static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_format *f)
+>>   	struct rga_ctx *ctx = file_to_rga_ctx(file);
+>>   	const struct rga_hw *hw = ctx->rga->hw;
+>>   	struct rga_fmt *fmt;
+>> +	struct v4l2_frmsize_stepwise frmsize = {
+>> +		.min_width = hw->min_width,
+>> +		.max_width = hw->max_width,
+>> +		.min_height = hw->min_height,
+>> +		.max_height = hw->max_height,
+>> +		.step_width = 1,
+>> +		.step_height = 1,
+>> +	};
+>> +
+>> +	if (v4l2_is_format_yuv(v4l2_format_info(pix_fmt->pixelformat))) {
+>> +		frmsize.step_width = 2;
+>> +		frmsize.step_height = 2;
+> I think its fine like this, so let's start with:
+>
+> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+>
+> But it does not feel like a hardware alignment to me. When we process in
+> software these things, the minimum alignment is bound to the subsampling, since
+> there is no way to store half or quarter pixels, the padded width/height
+> requires a step that follow the subsampling, something like:
+>
+> 		frmsize.step_width = finfo->hdiv;
+> 		frmsize.step_height = finfo->vdiv;
 
-> > To make this work as expected we need to add an additional call like
-> > kstrtoull() (and perhaps drop that \n and NUL-terminator checks) and see
-> > if that overflows or not. Since it's a fractional part it must have less
-> > than 20 (decimal) digits there, so we check the rv (or how many digits
-> > were parsed successfully) and compare to 20. If it's more, we got too many
-> > decimal digits.
-> 
-> For overflow it checks the KSTRTOX_OVERFLOW flag and leverages check_mul_overflow()
-> and check_add_overflow() when combining fractional and integer parts. The amount
-> of characters is not really important there. The scale cannot be bigger than 19 and
-> that makes sure that int_pow() does not overflow. The code uses _parse_integer_limit()
-> due to the nature of input and to avoid 64-bit division, kstrtoull() at any point
-> (parsing integer or fractional parts) does not make much sense.
+I agree that this looks better. My main intention is to be more 
+conservative, as the Rockchip related code/docs seem to always ensure a 
+2 pixel alignment in both directions even for formats like YUV422, where 
+we shouldn't have an alignment requirement in the height. Besides the 
+vendor driver and TRM mentioned in the datasheet, the librga and it's 
+docs also mention an alignment of 2 (pixels?!) for all YUV formats (see 
+format alignment list in [1] and Q2.5 in [2]).
 
-Under 'like kstrotoull()' I meant something that repeats needed functionality.
-I believe it's parse_integer() (without limit).
+Given that the driver currently doesn't have any way to get the cores 
+unstuck/reset in case of a hang, I'd like to play it more safely by 
+adhering to what the vendor does instead of trying to do more and 
+therefore allowing some potential breaking format. E.g. I've also 
+experimented with sizes of 68x2, which the librga allows as input/output 
+of the RGA3 (whereas the TRM specifies a min size of 128x128), but 
+quickly dropped it as it produced some interesting broken outputs.
 
-> > Maybe I'm missing these checks already performed?
-> > 
-> > > > Having the test cases is a big benefit, and that part I like the most.
-
--- 
-With Best Regards,
-Andy Shevchenko
+Sincerely
+     Sven
 
 
+[1] 
+https://codeberg.org/airockchip/librga/src/branch/main/docs/Rockchip_Developer_Guide_RGA_EN.md#image-format-alignment-instructions
+
+[2] 
+https://codeberg.org/airockchip/librga/src/branch/main/docs/Rockchip_FAQ_RGA_EN.md
+
+>
+> Nicolas
+>
+>
+>> +	}
+>>   
+>>   	if (V4L2_TYPE_IS_CAPTURE(f->type)) {
+>>   		const struct rga_frame *frm;
+>> @@ -358,11 +371,7 @@ static int vidioc_try_fmt(struct file *file, void *priv, struct v4l2_format *f)
+>>   	if (!fmt)
+>>   		fmt = &hw->formats[0];
+>>   
+>> -	pix_fmt->width = clamp(pix_fmt->width,
+>> -			       hw->min_width, hw->max_width);
+>> -	pix_fmt->height = clamp(pix_fmt->height,
+>> -				hw->min_height, hw->max_height);
+>> -
+>> +	v4l2_apply_frmsize_constraints(&pix_fmt->width, &pix_fmt->height, &frmsize);
+>>   	v4l2_fill_pixfmt_mp(pix_fmt, fmt->fourcc, pix_fmt->width, pix_fmt->height);
+>>   	pix_fmt->field = V4L2_FIELD_NONE;
+>>   
