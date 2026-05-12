@@ -1,138 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45DA1A9B24;
-	Tue, 12 May 2026 00:47:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AF0633E7
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 00:47:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778546820; cv=none; b=XQcDod4XDqe39k4L8dukYxYQYLsxRtVP90A3U7IY2ziEv8NlYV80Sc2bSMOnc4w3a0f3a1NzPaDXtJQlKdlTd7HJ9Cb1f25OJPQDCuUPlAhoNEZ94NuTiYFmshLSuU9kRnVK12r2CEncdNDjbGI87TNNCI2PGizoXQePWLa/fZA=
+	t=1778546876; cv=none; b=QJr5AnfyeFkoiFEY650yktxUs/VuLQp+0eAr8QM+gS9d0gRx0d4mjYyQn5KYNJxXL6ivIJWXRLXl2fHz283B91IQwgX+36hPTxuoOwrMRLEyH3H3LnCyHaKBdTZSU+nt7n/yePBCVkUHoR72KYp2TELwerFy5yeJQGAciQJ/2J8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778546820; c=relaxed/simple;
-	bh=nAStgxDrILHcHBeKraq8IhW1NnoPOLY/Yn9N0sOuGOg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g2SnKnj1C0DN/pRE7Hei0A+v9bHzzpGmOY3/qk2IFciZtE9DNtXvsY3cOUXN7s/5fAE2U1lKvi2PrwK4Ba5QqQ4Nb3sL+esmF8spknOrm+yhVbHJk0O1s+bJkd9hCLDcCnHEBMFhoUmiMvBH3AEhC5DpAtYtvjCARjmToY6VJt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tt9OVl51; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778546876; c=relaxed/simple;
+	bh=4WJSaC/7HcNpmVM5+2ihQjKaQJ1bSHNi8mD+vhH/iAg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=M3QQEEfuivvlawXzurWPyohFTyLN3QYMYB+CzcPHUPA9RttnA80HxnVwe69ITBC12UfqHwIj1xgRztQdCoFFt/Dx1IiDMad9EJChPeUkzXo6jiPxv8Ic2CJKKgHzON1yFFZ/DxBeOQu/en70AvBjz0VVSSfmHJK4W+RETWq/vR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rj3PB7h/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tt9OVl51"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79FC7C2BCB0;
-	Tue, 12 May 2026 00:47:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rj3PB7h/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C22C4C2BCB0;
+	Tue, 12 May 2026 00:47:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778546820;
-	bh=nAStgxDrILHcHBeKraq8IhW1NnoPOLY/Yn9N0sOuGOg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tt9OVl510AUmHO0p1IfBYvhOgGKzbIKfpqfHYBsKz13+FMYMBmLpLpVBOmYAcwyQI
-	 Vy+EKK4zr/+vGU07Js65Hyo4aDbG+6QaHrEFOUB1TXFH+naRL1H1Uhw1KD6+aHWT23
-	 /LdGTZO90nGqF6+J9xhNmNUVGqv7ns5XsLMZq8M5Ax399+7RKgCmTtMHJ7AWL8Gt6I
-	 2mqWct4eRPEY0bxDP6ePKqAHat1g6xoJl7HHI8It4lQOgChMCaIzm7+PnR5enBxcj0
-	 ms6krrI/cN7bLEWOKOrdAlrlFSYkd5I84c3JRoZZ4fJYR7TDmR8mYyHrQN2TfkYcXs
-	 rO51hs5zz4rjQ==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 75C0B1AC58C2; Tue, 12 May 2026 01:46:57 +0100 (BST)
-Date: Tue, 12 May 2026 09:46:57 +0900
-From: Mark Brown <broonie@kernel.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Liu Ying <victor.liu@nxp.com>, Philipp Zabel <p.zabel@pengutronix.de>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Rob Clark <robin.clark@oss.qualcomm.com>,
-	Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
-	Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Nas Chung <nas.chung@chipsnmedia.com>,
-	Jackson Lee <jackson.lee@chipsnmedia.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Mirela Rabulea <mirela.rabulea@nxp.com>,
-	Detlev Casanova <detlev.casanova@collabora.com>,
-	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Hugues Fruchet <hugues.fruchet@foss.st.com>,
-	Alain Volmat <alain.volmat@foss.st.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	MD Danish Anwar <danishanwar@ti.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Parvathi Pudi <parvathi@couthit.com>,
-	Mohan Reddy Putluru <pmohan@couthit.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Lorenzo Bianconi <lorenzo@kernel.org>, Felix Fietkau <nbd@nbd.name>,
-	"Andrew F. Davis" <afd@ti.com>,
-	Hussain Khaja <basharath@couthit.com>, Suman Anna <s-anna@ti.com>,
-	Ben Levinsky <ben.levinsky@amd.com>,
-	Tanmay Shah <tanmay.shah@amd.com>,
-	Erwan Leray <erwan.leray@foss.st.com>,
-	Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
-	Roger Quadros <rogerq@ti.com>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
-	dmaengine@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com, netdev@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org, linux-amlogic@lists.infradead.org,
-	linux-spi@vger.kernel.org, linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH] dt-bindings: Consolidate "sram" property definition
-Message-ID: <agJ4gfH0HgmbOr5X@sirena.co.uk>
-References: <20260511165942.2774868-1-robh@kernel.org>
+	s=k20201202; t=1778546876;
+	bh=4WJSaC/7HcNpmVM5+2ihQjKaQJ1bSHNi8mD+vhH/iAg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=Rj3PB7h/AnSkGo+a/OPYbaqmG76iJMUkSNcEgfXLIANcamecLrGDiuCcWUyfpFvpS
+	 1cs/dADyVurs/WYVCRcVisOAzHrKoMRcK67ildXQHoXI8SVgiDh0NcGpgeGiNDPhhh
+	 jxPlWJs5+I6nR6pD2jJI8mtF+SED7HgRuQLCAEEC9EnoEZMjItVrOra0gkLRqAP4Jp
+	 1pBIW3m7g4/WlIj+xzcWRXGaaIJuNcHbHgJRgit3e81zHq992zuCDmLuI2rx4JSSY6
+	 xirGQIZDFAJVjKuIgWz4JAqPmd1lDU9KDwZ37Y/iwYKA1zXGJMlEx0pBe4w3boZc7m
+	 ufDf6eYh8bZQg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 1/9 RESEND] ARM: tegra: lg-x3: Complete video device
+ graph
+Reply-To: sashiko@lists.linux.dev
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260511074859.24930-2-clamor95@gmail.com>
+References: <20260511074859.24930-2-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 12 May 2026 00:47:55 +0000
+Message-Id: <20260512004755.C22C4C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3xlBjuC8zHYeQx3+"
-Content-Disposition: inline
-In-Reply-To: <20260511165942.2774868-1-robh@kernel.org>
-X-Cookie: Truckers welcome.
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] Invalid 'orientation' property in 'onnn,mt9m114' node.
+- [Low] Inaccurate 'compatible' string for the ST EEPROM.
+--
 
---3xlBjuC8zHYeQx3+
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+commit df21cf02565cc61e444d4c72eaf7861addc90fb0
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-On Mon, May 11, 2026 at 11:59:36AM -0500, Rob Herring (Arm) wrote:
-> The "sram" property has become a de facto standard property, so create a
-> common schema for it and drop all the duplicated definitions.
+ARM: tegra: lg-x3: Complete video device graph
+   =20
+Add front and rear camera nodes and interlink them with Tegra CSI and VI.
+Adjust camera PMIC voltages to better fit requirements and fix the focuser
+node.
 
-Acked-by: Mark Brown <broonie@kernel.org>
+> diff --git a/arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts b/arch/arm/boot=
+/dts/nvidia/tegra30-lg-p895.dts
+> index 414117fd43824..896639599c126 100644
+> --- a/arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts
+> +++ b/arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts
+[ ... ]
+> @@ -118,6 +118,52 @@ rmi4-f1a@1a {
+>  		};
+>  	};
+> =20
+> +	i2c@7000c500 {
+> +		/* Aptina 1/6" HD SOC (MT9M114) */
+> +		front-camera@48 {
+> +			compatible =3D "onnn,mt9m114";
+> +			reg =3D <0x48>;
+> +
+> +			clocks =3D <&tegra_car TEGRA30_CLK_CSUS>;
+> +
+> +			reset-gpios =3D <&gpio TEGRA_GPIO(BB, 5) GPIO_ACTIVE_LOW>;
+> +
+> +			vddio-supply =3D <&vio_1v8_front>;
+> +			vdd-supply =3D <&vt_1v8_front>;
+> +			vaa-supply =3D <&vt_2v8_front>;
+> +
+> +			orientation =3D <0>; /* Front camera */
 
---3xlBjuC8zHYeQx3+
-Content-Type: application/pgp-signature; name="signature.asc"
+Could this property cause a dtbs_check schema validation error?
 
------BEGIN PGP SIGNATURE-----
+The device tree binding for this sensor enforces additionalProperties: false
+at the top level and does not appear to include a reference to
+/schemas/media/video-interface-devices.yaml, which defines standard camera
+properties like orientation.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmoCeIAACgkQJNaLcl1U
-h9CAeQf/d29Uvfn8GPawCZ+l4UnMHO/18slnjGlircCx5bFlOKWLyqPq14JkP32t
-feVK/h8PnpOWbJCebOgL+As1iNYcMRPjw2C4eq+HfdBppx/1NZ7FK7CmBQjRgccv
-yKyirduSqH7pUKJ3lNom3Q0qkCjzezWH9fFxqic/P9T3aEsx6rjZ+y9zAl3pskdi
-LaMYflOJv7ca2tEWSY+RNNjsmfq2JIsZAwkMRlWtFK4maNWi0dw84s6d5egY76oJ
-6ZI//3nGXP8Xy3i48UmCoJDpNhMA3+1PW9i1ylSGK9F0KOttz/cmIG3cUleEVd9f
-WXPmJksEzyt97BKPha3/6IKICQtmdw==
-=XKlR
------END PGP SIGNATURE-----
+> +
+> +			assigned-clocks =3D <&tegra_car TEGRA30_CLK_VI_SENSOR>,
+> +					  <&tegra_car TEGRA30_CLK_CSUS>;
+[ ... ]
+> diff --git a/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi b/arch/arm/boot/=
+dts/nvidia/tegra30-lg-x3.dtsi
+> index 768e201456d8a..d2a5904cebedd 100644
+> --- a/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
+> +++ b/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
+[ ... ]
+> @@ -1112,29 +1198,68 @@ dw9714: coil@c {
+[ ... ]
+> +		/* rear camera sensor eeprom m24c08 from ST */
+> +		m24c08: eeprom@50 {
+> +			compatible =3D "atmel,24c08";
 
---3xlBjuC8zHYeQx3+--
+This isn't a bug, but since the comment notes this is an ST Microelectronics
+EEPROM, would it be better to use a compatible string array that includes t=
+he
+actual manufacturer followed by the Atmel fallback?
+
+For example: compatible =3D "st,24c08", "atmel,24c08";
+
+> +			reg =3D <0x50>;
+> +
+> +			/* if high then WP is on, if low then off */
+> +			wp-gpios =3D <&gpio TEGRA_GPIO(K, 3) GPIO_ACTIVE_HIGH>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511074859.2493=
+0-1-clamor95@gmail.com?part=3D1
