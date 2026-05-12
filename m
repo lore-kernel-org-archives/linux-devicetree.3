@@ -1,154 +1,88 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FB683EDE61
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 18:02:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F7236B043;
+	Tue, 12 May 2026 18:12:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778608957; cv=none; b=KMYQ1KQ1wYph3OlPRXlGHYlRC8lCS/MesUBMBNyKS+DCJCsg3J9MFmkyhdIimKDtPTBIrrsvGD33XvXn7pU4hhMfTbmHnoaTlOdZFiktxMOkVBadEq+HQvUWsNuw+KYxMbEJYLT5eUpsPpgUcG7rKbxsmC4CI2uY2G9QBAtgAQM=
+	t=1778609580; cv=none; b=jdAv9e7hCNx2zd+smRkx9OzbF9BaQciqXDu3EX6TGm5NjnjHTIVQKyTjUcEVDHlAeyyu8cMVXnE5bZdMSXypRMqBHw+wiCVTyyTWKg9C/L2/PrOvUFz/5a4jr5yGqc8ZZmutxz3S3rHwoNJpOkHeQz2Fo/zG8/ih6pRqiBk89xo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778608957; c=relaxed/simple;
-	bh=Fap0G3Ulkv05tUIGsv1rmjqPE5yf2rdWpkgolbi02wE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=b8hmSW8Eyaea+mL+2RgDRnA+o7Updp3rcD1BJMzlEMvJWw6f5rpVE9gcskvIHWY5Hr7Z9yWT0PEcfeX2V6l8sp8L13uNJcwjxxYDSe0t+QQofLprxRY/8Zo79jgbD+tBH01iYTf08FNlCDXhA26xwppr/phrSSOP70xVXGgy7Xs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TABmaJca; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778609580; c=relaxed/simple;
+	bh=kVfoR+AdplYfIvhGONb3dXURbBAhg05PeV7RbNU8OdA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EEryK7J9V8vJG+yDJw2NlwjmTk+oGwrjK1Bm8a9lyk7bF+i7w869jvmVkqqI9bKGzNlsCMloq+9YCqeyFJwi9KY66PZxR1UQU4oJhfYeLO44LnQ4WAhTZTHWJW8gnBei489BbhzFUgQv1qPJILgVcQ5lJq20NbqwlCJ7QhID6QQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GnpZi2Xy; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TABmaJca"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-c80203b9d7bso2389094a12.0
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 11:02:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778608955; x=1779213755; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=7Xci0mD+Fhw27MfGGBTyO8q5KCYyJyTfSheYswRyFak=;
-        b=TABmaJcaZKJmIKTZ8PXkKAksvoax4G2ztGyegLCObiFURy0F2EVnPyb8Iw3OJHLo8i
-         VP8SFODrpN9CmUMV2vHi2QJLYL4tRG+MXY+Z8E2G6ctn5XZkRaRc3SeM2QlRlKfn0WOZ
-         pKf2l91rvix4eIoEKkPLbA74Q6DR5vNtFmWHmeJ13Nb7KSylphkzjpCfv+FEnLaaDxKm
-         duXHlyKcIlT6tTwbj9ewGGwMfrBcct7g7TDaDrses8lroleMU56eGN/fwrt9qWKzdjCP
-         N1ZtEUI6LPRS+6R2IItrBh6W0k5Mvax/eNXj3HDaqFg8SksSjLum2yROXU2hMi2Q77pS
-         QTLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778608955; x=1779213755;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7Xci0mD+Fhw27MfGGBTyO8q5KCYyJyTfSheYswRyFak=;
-        b=AMWXjabnMma8RqDnclZToahnkJuygKCTuKHiMDMIVL2sFHhorVC7t/xNhxEzaSPsYY
-         nhaQQqmFUmhf2hHNCDPdFbpbG5OmbSUSyGBw80fS4Ua4oDG+8CXzZr8qpsd7PIchv9gp
-         wFAy6MpBuB7Zu8sbDREkq1fGXdqeGJpHUOQN7OSPBv0zgdosfPwkuj55yEjgu1OV7JVt
-         afBpnxMAg7eshTGY1OMB9oV9WZX9kF9aYQMUhRPjApqDfusPd6g7+5TcHrdmZe+Qe/sg
-         qozJpK3vrsRRwsd6za2XKC89ekxb0jFMJ/RW6d+mdEzefkpfJ3kXKUEoYCaOiYFwo4H3
-         Fqxg==
-X-Forwarded-Encrypted: i=1; AFNElJ8YeMq9GNN5AoF6TJKXOnn52HNb5kSs7aRVvUmRwpXbUCTrLu/kJn96z/SHpE/e7DwUQrKCJZ/O+cSH@vger.kernel.org
-X-Gm-Message-State: AOJu0YwjJQUVlibKjqwYMHknis2ohAM47XyCq+qUOr8M3dlOB+xWGt4q
-	P8nKwmHegaYj8jqq41JqYS8Ez2lBnmiZ6n0l5VB5SFvnME59zHZ3B2rTOs1B2k6R
-X-Gm-Gg: Acq92OFXmqOGt3hEU5+AWwmz3btIwJpbGcnuTf5HtrdFRyvkGfpuDiw4mYNeZtojF/f
-	iiZG9hIR61DMFooLgGU5Tuxyg9BbwmGeCdvJquCdD0pdH5Q9CP9bz2LAiT/T7YagYZi1ZpX8Z/8
-	SWmQDlipNwUbRGO0X7a70fWPZPCh3fNq5WY/v6yhOTxyfPDBcU3ilgxIrbs+uUbXnVbfrEGHAAN
-	884DM5cXyY0Qt1w5aYFL61z5DvWSYpx+RZ/Xi3QlHhbzUoxlctZ0CBcKupmxmuK+C0kap8NsWZZ
-	SGNOvq19UkJXqH2CeCflsefoV7esPXNuSQXcS/eFXX576idAzxvmRw4iUGqPFECipe/eM4+ZDm8
-	lDlGYHjiuHCth6Cl0FeOeE9B1bp2cUMpp4d7IMEYwBWp08vvvpmq9dirMmDiMR3WFAhvXARtbvq
-	GVxEnClsadoyPn6MJZV6ONsW+bjgHO+4pJwgH6MzmfM6cqSFKq9FzCC1Rs6Zsxtw5nGw==
-X-Received: by 2002:a05:6a20:1585:b0:398:7ca0:43a9 with SMTP id adf61e73a8af0-3ad9a234f27mr4595033637.36.1778608955243;
-        Tue, 12 May 2026 11:02:35 -0700 (PDT)
-Received: from Ubuntu.. ([49.37.171.24])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c826767e677sm13120456a12.4.2026.05.12.11.02.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 May 2026 11:02:34 -0700 (PDT)
-From: Manish Baing <manishbaing2789@gmail.com>
-To: mdf@kernel.org,
-	yilun.xu@intel.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: matthew.gerlach@linux.intel.com,
-	trix@redhat.com,
-	linux-fpga@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	manishbaing2789@gmail.com
-Subject: [PATCH] dt-bindings: fpga: altr,a10-pr-ip: convert to DT schema
-Date: Tue, 12 May 2026 18:02:25 +0000
-Message-ID: <20260512180225.65902-1-manishbaing2789@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GnpZi2Xy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1778609579; x=1810145579;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=kVfoR+AdplYfIvhGONb3dXURbBAhg05PeV7RbNU8OdA=;
+  b=GnpZi2XyR0gwxZMeLWxSuuNNEAlwHu/Q4NL81MrO7M1TWvHkhBI0eWmd
+   8tJaBXQCo9X1iVuovojgvywa62gg/lWJA7nHKfzYoK48+OzVnbj9WqV1V
+   CyyxsLVqLRxnbvdQLpv0Cz2y+9SI/fMsA4WzPOYN0+aHGeqDJcUZSwzPb
+   W7BUTCowYpvQz6Xamo5mf9o0MhazFqI8bQVGqKl5BSzhB+ksQjBcd1DBF
+   RKfTbgTGxLiJp0UqgQ7D32ZuSpQh5bKFNQLKhNO7R7JWCffiz1dj8NFNS
+   dZfBSu+9Jkourdjg9FJTTrgwJi/1XHYUTCyuE/odSt81IcamNPTv311tW
+   w==;
+X-CSE-ConnectionGUID: SbQ+5Yl0QVCTJTea5JZ8wA==
+X-CSE-MsgGUID: mhjxQZ25Q86YQTaKyPuqwg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="79549988"
+X-IronPort-AV: E=Sophos;i="6.23,231,1770624000"; 
+   d="scan'208";a="79549988"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 11:12:58 -0700
+X-CSE-ConnectionGUID: y73hOpATTu2pBU/3FyrbEA==
+X-CSE-MsgGUID: nDNi67M3SVG6IGS6BXBILg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,231,1770624000"; 
+   d="scan'208";a="236986462"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.244])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 11:12:53 -0700
+Date: Tue, 12 May 2026 21:12:50 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Yu-Chun Lin <eleanor.lin@realtek.com>
+Cc: linusw@kernel.org, brgl@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, afaerber@suse.com, wbg@kernel.org,
+	mathieu.dubois-briand@bootlin.com, mwalle@kernel.org,
+	lars@metafoo.de, Michael.Hennerich@analog.com, jic23@kernel.org,
+	nuno.sa@analog.com, andy@kernel.org, dlechner@baylibre.com,
+	tychang@realtek.com, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-realtek-soc@lists.infradead.org, linux-iio@vger.kernel.org,
+	cy.huang@realtek.com, stanley_chang@realtek.com,
+	james.tai@realtek.com
+Subject: Re: [PATCH v3 4/7] gpio: regmap: Add set_config callback
+Message-ID: <agNtok_vgcph1TZK@ashevche-desk.local>
+References: <20260512033317.1602537-1-eleanor.lin@realtek.com>
+ <20260512033317.1602537-5-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260512033317.1602537-5-eleanor.lin@realtek.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Convert the Altera Arria 10 Partial Reconfiguration IP bindings
-from text format to YAML schema.
+On Tue, May 12, 2026 at 11:33:14AM +0800, Yu-Chun Lin wrote:
+> Add a new set_config callback to struct gpio_regmap_config to allow drivers
+> to implement hardware-specific configuration such as debounce settings,
+> or other platform-specific GPIO properties.
 
-Signed-off-by: Manish Baing <manishbaing2789@gmail.com>
----
- .../devicetree/bindings/fpga/altera-pr-ip.txt | 12 -------
- .../bindings/fpga/altr,a10-pr-ip.yaml         | 34 +++++++++++++++++++
- 2 files changed, 34 insertions(+), 12 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/fpga/altera-pr-ip.txt
- create mode 100644 Documentation/devicetree/bindings/fpga/altr,a10-pr-ip.yaml
+Okay, if it's needed...
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-diff --git a/Documentation/devicetree/bindings/fpga/altera-pr-ip.txt b/Documentation/devicetree/bindings/fpga/altera-pr-ip.txt
-deleted file mode 100644
-index 52a294cf2730..000000000000
---- a/Documentation/devicetree/bindings/fpga/altera-pr-ip.txt
-+++ /dev/null
-@@ -1,12 +0,0 @@
--Altera Arria10 Partial Reconfiguration IP
--
--Required properties:
--- compatible : should contain "altr,a10-pr-ip"
--- reg        : base address and size for memory mapped io.
--
--Example:
--
--	fpga_mgr: fpga-mgr@ff20c000 {
--		compatible = "altr,a10-pr-ip";
--		reg = <0xff20c000 0x10>;
--	};
-diff --git a/Documentation/devicetree/bindings/fpga/altr,a10-pr-ip.yaml b/Documentation/devicetree/bindings/fpga/altr,a10-pr-ip.yaml
-new file mode 100644
-index 000000000000..1f4df40308bd
---- /dev/null
-+++ b/Documentation/devicetree/bindings/fpga/altr,a10-pr-ip.yaml
-@@ -0,0 +1,34 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/fpga/altr,a10-pr-ip.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Altera Arria10 Partial Reconfiguration IP
-+
-+maintainers:
-+  - Matthew Gerlach <matthew.gerlach@linux.intel.com>
-+
-+description:
-+  The Altera Arria 10 Partial Reconfiguration IP core allows the host
-+  processor to perform partial reconfiguration of the FPGA fabric.
-+
-+properties:
-+  compatible:
-+    const: altr,a10-pr-ip
-+
-+  reg:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    fpga-mgr@ff20c000 {
-+        compatible = "altr,a10-pr-ip";
-+        reg = <0xff20c000 0x10>;
-+    };
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
