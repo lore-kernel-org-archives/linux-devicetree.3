@@ -1,143 +1,147 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B63A3C8C73;
-	Tue, 12 May 2026 16:51:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27BA3D5C32;
+	Tue, 12 May 2026 16:55:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778604684; cv=none; b=jtjQXzycMizHq1tgSx8QpAP92lRCPup/WpWg88oMHFoJqV+hypVswQEiAUGDVKt5obSDZ1uDF/FyldgdpIwS1y+Erc14/92Oc1ULOXpZ9NKCZBNE5nLZLX6iYdicpdxIwDUWgl2km5LMRIltydbsRVi7BHTHrlLQE+SjgA3Bk6M=
+	t=1778604932; cv=none; b=dV1eaiVCXsR20PFgJpMYZe/XYdCANK4Prd9QqZzdB5T8f2DWNiFYmUiNXmX6jGW1Pmfcn5Uzsjew+F7p7pD09bZsc9X24G6MiOr26ipk0ZPhZ2RmtGKnKaWgJrYo5em96gVrEXxukBBaS34/I/jcfg6Yk/0c8ceTeFE3/yyKYLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778604684; c=relaxed/simple;
-	bh=snBBbNRQvHHnZNEiL0uSmOXZoiHVTiMLAbhb1SYyhxE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kBZQNQ8tvKLjgFXyzINXX668lqHBHb3ef81gYwfn/gE6FMnIg0LoG1dcAM3KO2fSd1bQ8Uz8GTJz9H633DFkXu7y1qpfArwPpo64jtBu0Q6ItIgrtC43ZhoSLlBhazsep7xBjp0J/cYrtFKNihSGQSsWV+7KN+oZY9l+nlNJTkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PDOwjgDx; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778604932; c=relaxed/simple;
+	bh=pguv4GSXU7BP/JNG5kiQEzdZlyeJ+Sv9kgdzi0t0K8c=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=RM9KTFK/nFYACVsY9NsD+0duk+Qzpa8ftBxYDcRkaKOudiYRbC2D7vd3rJeFvQKqKkJdh7pk/HfkvHpRqhF30j5el7moiLhzi3wZE+1aRgDdP1/EcEWpIuXX+6KrLc6/14UO9GQpmXeZBgeKwH2d/I8hd2Gc4M76Qf9f9xtKFsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gv4pzI/u; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PDOwjgDx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34653C2BCB0;
-	Tue, 12 May 2026 16:51:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gv4pzI/u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C933C2BCB0;
+	Tue, 12 May 2026 16:55:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778604684;
-	bh=snBBbNRQvHHnZNEiL0uSmOXZoiHVTiMLAbhb1SYyhxE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=PDOwjgDxFklzdHYF968Aj0OZib4OAviRPtTqXcrQmbiAgL0flJgYoGcV74ALgac6M
-	 36bp3gSP1Fx3IYh35ZpAcz1/0iCcb5JuCQutxug5wXQXAb3942JOxLv71QzJirOd43
-	 xN4hCMHwXv2qjwm+BAPUSg9UNNc+hI91Sjh+OuDQ0OFX6HA9thTpbbxKBjCYGdfaI0
-	 547+ZUnpkeLdpeSMMRPpO2YrLsIbMN8RxFzR60rMrZVn8z+ezJKWMZyuq2EyXB5jsm
-	 A25AlkT/Uc/J0oWx5xnWfjuzIrAWyXW27i+BKl3mZAicAxB9z5OkEO2t6iXKZ+J3pc
-	 9XYGngMTbtQxA==
-Date: Tue, 12 May 2026 17:51:20 +0100
-From: Conor Dooley <conor@kernel.org>
-To: sashiko@lists.linux.dev
-Cc: Piyush Patle <piyushpatle228@gmail.com>, krzk+dt@kernel.org,
-	robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v7 04/11] dt-bindings: iio: adc: hx711: add HX710B support
-Message-ID: <20260512-frantic-finch-2b268bed4e15@spud>
-References: <20260510194947.31997-5-piyushpatle228@gmail.com>
- <20260511215430.4441FC2BCF5@smtp.kernel.org>
+	s=k20201202; t=1778604932;
+	bh=pguv4GSXU7BP/JNG5kiQEzdZlyeJ+Sv9kgdzi0t0K8c=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=Gv4pzI/uNym+Mv45u+BRyY2N9xKTgbdjxcyZjvn8rG4ReH2QmMXQVZ6MI1RU676iI
+	 J+s+z/ek2a/IJjaf5BoQajRQOwcORVvDihPWbsuKv7303mNp71iDtshM3MUgFYtu7m
+	 HabnrAW2Oo7BaHUwYznx83HEVd1TToxW6zlTjFshhPqHxTngQJuNQ5mWR2e/6GzVjW
+	 CQZCq0UtMDJ0+vPX1cMQeGbujB9aK4xUhWPM7t1qciYK4BMhqJBqGw7liVa/vUYWpr
+	 q+vcOzPxZxWcIpIpWHg+jM2ckyFU7m/NZ51xg6QrwwBPhFcsyeI1C+XLG3JYHnJJ+l
+	 13jZHuoAKBI0w==
+Date: Tue, 12 May 2026 11:55:30 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Caleb James DeLisle <cjd@cjdns.fr>
+Cc: linux-pci@vger.kernel.org, linux-mips@vger.kernel.org,
+	naseefkm@gmail.com, ryder.lee@mediatek.com, lpieralisi@kernel.org,
+	kwilczynski@kernel.org, mani@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com, ansuelsmth@gmail.com,
+	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/2] PCI: mediatek: Add support for EcoNet EN7528 SoC
+Message-ID: <20260512165530.GA228087@bhelgaas>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="+3Jb8+egrKaChTot"
-Content-Disposition: inline
-In-Reply-To: <20260511215430.4441FC2BCF5@smtp.kernel.org>
-
-
---+3Jb8+egrKaChTot
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260413140339.16238-3-cjd@cjdns.fr>
 
-On Mon, May 11, 2026 at 09:54:29PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Medium] The `dvdd-supply` property is incorrectly permitted for the ol=
-der HX711 variant, violating the intended hardware constraints and contradi=
-cting the commit message.
-> --
->=20
-> commit b2ce63274d21d343a80ad3dfc6983d09ccc4fbdc
-> Author: Piyush Patle <piyushpatle228@gmail.com>
->=20
-> dt-bindings: iio: adc: hx711: add HX710B support
->    =20
-> This adds the avia,hx710b compatible string and documents the hx710b-spec=
-ific
-> dvdd and vref supplies. It also adds constraints to forbid hx711-only
-> properties on hx710b nodes and requires vref-supply for hx710b.
->=20
-> > diff --git a/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml =
-b/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
-> > index 9134bbe413796..b2b5c7bdf05e6 100644
-> > --- a/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
-> > +++ b/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
->=20
-> [ ... ]
->=20
-> > @@ -44,6 +49,17 @@ properties:
-> >        RATE pin state is determined by the board wiring.
-> >      maxItems: 1
-> > =20
-> > +  dvdd-supply:
-> > +    description:
-> > +      Digital supply voltage (DVDD). For the HX710B, DVDD must be
-> > +      greater than or equal to AVDD. When DVDD is a battery rail and
-> > +      AVDD is a regulated supply, one channel monitors the DVDD-AVDD
-> > +      difference for battery level detection.
-> > +
-> > +  vref-supply:
-> > +    description:
-> > +      Reference voltage input (VREF).
-> > +
-> >    clock-frequency:
->=20
-> [ ... ]
->=20
-> > @@ -53,6 +69,21 @@ properties:
-> >      maximum: 2500000
-> >      default: 400000
-> > =20
-> > +allOf:
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          const: avia,hx710b
-> > +    then:
-> > +      properties:
-> > +        vsup-supply: false
-> > +        rate-gpios: false
-> > +      required:
-> > +        - vref-supply
-> > +    else:
-> > +      properties:
-> > +        vref-supply: false
->=20
-> The commit message states the intention to document the hx710b-specific d=
-vdd
-> and vref supplies.
->=20
-> Since dvdd-supply is defined in the top-level properties block, does this
-> else clause also need to forbid dvdd-supply for the older avia,hx711 vari=
-ant?
->=20
-> Currently, omitting dvdd-supply: false permits the property for the older
-> hx711 variant. Should dvdd-supply: false be added here?
+On Mon, Apr 13, 2026 at 02:03:39PM +0000, Caleb James DeLisle wrote:
+> Add support for the PCIe present on the EcoNet EN7528 (and EN751221) SoCs.
+> 
+> These SoCs have a mix of Gen1 and Gen2 capable ports, but the Gen2 ports
+> require re-training after startup.
 
-Seemingly no, hx711 schematic has a dvdd.
+> +#include <asm-generic/errno-base.h>
 
---+3Jb8+egrKaChTot
-Content-Type: application/pgp-signature; name="signature.asc"
+Looks odd; why is this here?  There are basically no other drivers
+that do this.
 
------BEGIN PGP SIGNATURE-----
+> @@ -1149,6 +1234,46 @@ static int mtk_pcie_probe(struct platform_device *pdev)
+>  	if (err)
+>  		goto put_resources;
+>  
+> +	/* EN7528 PCIe initially comes up as Gen1 even if Gen2 is supported.
+> +	 * The cannonical way to achieve Gen2 is to re-train the link
+> +	 * immediately after setup. However, to save a lot of duplicated code
+> +	 * we use pcie_retrain_link() which is usable once we have the pci_dev
+> +	 * struct for the bridge, i.e. after pci_host_probe(). */
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagNaiAAKCRB4tDGHoIJi
-0l85AQC8+13SbY/vDMoPqlPAUnkks4tn9iFzq5Xc/7E/ZCKgZAD9Ga8y4DQRt2Rp
-VWa5MpMv5dfuWxTZHCJWnd3+CAxITQM=
-=qgCz
------END PGP SIGNATURE-----
+s/cannonical/canonical/
 
---+3Jb8+egrKaChTot--
+> +	if (pcie->soc->quirks & MTK_PCIE_RETRAIN) {
+> +		int slot = of_get_pci_domain_nr(dev->of_node);
+
+I suppose of_get_pci_domain_nr() is sort of an implicit way to
+identify the Gen2 ports?  Worth at least a comment about this DT
+connection.  Maybe it could be replaced by using
+pcie_get_supported_speeds() or similar?
+
+> +		struct pci_dev *rc = NULL;
+
+s/rc/rp/ to avoid confusing "root port" for "return code" or "root
+complex".
+
+> +		int ret = -ENOENT;
+> +
+> +		if (slot >= 0)
+> +			rc = pci_get_slot(host->bus, PCI_DEVFN(slot, 0));
+
+Instead of fiddling with pci_get_slot(), which adds refcount issues
+and artificial device/function number dependencies, I think it would
+be better to iterate over the devices on host->bus, e.g., with
+"for_each_pci_bridge(dev, host->bus)" as in iproc_pcie_setup().
+
+> +		if (rc) {
+> +			ret = -EOPNOTSUPP;
+> +
+> +			/* pcie_retrain_link() is not an exported symbol but
+> +			 * this driver supports being built as a loadable
+> +			 * module. Someone using this on an EN7528 should make
+> +			 * it builtin, or accept Gen1 PCI. */
+> +#if IS_BUILTIN(CONFIG_PCIE_MEDIATEK)
+> +			ret = pcie_retrain_link(rc, true);
+> +#endif
+
+This looks like a confusing user experience if built as a module, with
+no hint to the user about why the link is slower than it should be.
+I guess "failed to retrain" is a bit of a hint, but it's not really a
+clue about how to fix it.
+
+> +		}
+> +
+> +		if (ret) {
+> +			dev_info(dev, "port%d failed to retrain %pe\n", slot,
+> +				 ERR_PTR(ret));
+
+This is basically an error path and there's nothing else to do, so if
+you return directly here (especially if you factor this to a separate
+function), the "normal" path below can be unindented.
+
+> +		} else {
+> +			u16 lnksta;
+> +			u32 speed;
+> +
+> +			pcie_capability_read_word(rc, PCI_EXP_LNKSTA, &lnksta);
+> +			speed = lnksta & PCI_EXP_LNKSTA_CLS;
+> +
+> +			dev_info(dev, "port%d link retrained, speed %s\n", slot,
+> +				 pci_speed_string(pcie_link_speed[speed]));
+> +		}
+> +	}
+
+Maybe factor the retrain block into a helper function.
+
+I'm sort of squinting at this whole link retrain thing to begin with.
+After the controller is configured correctly, the hardware is supposed
+to train the link automatically by itself.
+
+Did something change between mtk_pcie_startup_port_en7528() and now
+that means the link will train at Gen2?  Whatever that change is,
+could it be done in mtk_pcie_startup_port_en7528()?
+
+What happens when the downstream device is put in D3cold and the link
+retrains after power is restored?  Does it train at Gen2 then, without
+assistance like this?
