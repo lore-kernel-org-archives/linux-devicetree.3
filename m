@@ -1,674 +1,191 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11022125.outbound.protection.outlook.com [52.101.66.125])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2263395AEB
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 10:25:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778581503; cv=none; b=ZbDOuotlgstmWBjXczfbfwLR/SAnFCuXzmJHTR9sgD5iAq0vtBbUcyX0NCbmnNBuVMR7C1rhFiGn7b50jtQmRJmCmbAm3a879Uflp/QrFbHuxxgrULMZFesba59BAOgu8/xwbsHQNQfHcieo2lrHg4AXvNTYAZszjmvuw4SoeG8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778581503; c=relaxed/simple;
-	bh=/8oV/YZ9kR+I+WX2BWcVfEBuJL7dp3j+XvPIJwI4PCw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cJb6IcI6CRbUut3WN3Y6O8K72KSX6jr0Jzk4TATH5+IPqe30VtZmSdOHbwz9fyzRcUN8bf1Pa04jboE8zts9yc0gWcFfdQvgb7WTTDPDDky3aSEfA92X/B1oispuTIYt2a3Yyd2B2G0MS7m1AVxMrCWaIPjmFVKMqFV6L2Ptg/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X5vaIH7e; arc=none smtp.client-ip=209.85.208.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2B37255F2C;
+	Tue, 12 May 2026 10:27:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.125
+ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778581646; cv=fail; b=sMb/3383jqtONlDaDF0qc1K1wTivRVSeOmKMquaTzwyni4QKfXlRmAwsLtyMa3LEyBlS9QjJEUh7uZ9D0V8AeFztgFk5wuRVpAG4S3Xzq94CMoC1uwP22Jrgyo8UC8dkRs3GIki+bly3ONp6i0v6qygi3qqw4/Ki09H+CJlEZmw=
+ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778581646; c=relaxed/simple;
+	bh=AQnsKNhNXTVBwVhbx5Jsv/rmlTd+CekkurepoSyw9KI=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=TNu73POLgyC9jCOK4dsa3aBoPRqi0j/ABP4icqEoEofyEMx+vHEi5Ae16t+tb5MpPk4tdImFaqc17lgSmwdJbcG+IToF5vgc5Cq6U6QJqN0r2RT/KN6me0Dmv5Pzp/14xw0WvHOQOAB7qvN1J02ejc04ne7mjOa84tZFjm29oI8=
+ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com; spf=pass smtp.mailfrom=solid-run.com; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=q0DBjqf4; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=q0DBjqf4; arc=fail smtp.client-ip=52.101.66.125
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=solid-run.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X5vaIH7e"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-67b6a6bd7b8so10977681a12.0
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 03:25:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778581499; x=1779186299; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=zzxqsfc5G+UEtIN19xqFP+6x4ear/qxKgk8Sb2lidwI=;
-        b=X5vaIH7eupRT9WBKPWjWcFLQQd2I8gCDUOCXu5Hx9Zs/YwhgCaiTS8Z1jP/k3v3Zvd
-         BC7t8O8El7D+fXFA/j8CzZqPb0ws5D0wy2TiOg7cNNVvbbwDqmiZy+rLJMbh+YhqUX+H
-         K+vn2IK4X3A2QXxx4QSEb3VGVnpGFkfU/xhm4P1vvJjmsmCEj45WnfeFIEZvqnEqECju
-         8UMFeP9VzqEpEv2QK0QrkF9LZb5riCY4fuWwB1GjWMe7GXCBSPoLFdZcyHRiLgoJxF8d
-         Vnybhx8xA9xmIxHh34Cb14RAPnp4XzEtiIfsm7X1lo7pRs3Zh9G5wpKRQKV4CioZDOnw
-         Qmsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778581499; x=1779186299;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=zzxqsfc5G+UEtIN19xqFP+6x4ear/qxKgk8Sb2lidwI=;
-        b=KMYx4S7+bjmOyMPyKGhJ4fRUX1EZhKYydfhoHmCQTrLj2DWt9VhorYZbJ5eO2DllmX
-         h96ot+8sBHap4hyq5DypEDa3sA9UIYqBQC4+HdsP1GTeuPX43OmTlEROPLdyUTbp/vgT
-         ILKfcBOxYQU7IbGAsCL7mdMpvrnCNhRxMPkSvJ2gXwVhIuwyCBtFdMC0kcN8bmf1Xw5I
-         JDUOkPkra1Qcs1Ym7rG7GQF+HTUewdIS8ex9kdga+PxT7aiAAQ1YTyggg+l8QxNTP5wC
-         VyOWvDxFya84oVQOj8gDNEIxK5C1HiJKAMbip8HfZk7pdHL0sNDHRp6jQxKlR9nDX6ey
-         soHA==
-X-Forwarded-Encrypted: i=1; AFNElJ8CDM3MXDr9zz0Dg4YqoB1LzxKGmeBbPaiCKxVmRLnZf4X15XmRhSVwYwJxB8emN52dPRj8NgXHzBRQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YyxPseR+z9WFG3wlz9KAm86M0xr5mtw6O0isoxi7n5949LQXN+v
-	ASwjp0e92T0wSHGEGUDvG8ZlHv4bNwfGxE+aeexsBClAArKrmMPQOABh
-X-Gm-Gg: Acq92OFjz4kJgSl+p+iybpuEVvW251obsLWPXYI0KLWAQDfTwWvTvtglgSidvATBOyO
-	6ihpFDjk/BoK9KGts8g3e3XsOtbv1AaMrP3RDXts/bfusxhebKHCvtaOXhRZEVRg8f1uf07U0VZ
-	pj8I+jimyp+AwUYjT1A0PoT+U5mvu5JlQ+yVEgBdu9iuAgV+tU3fco9S7QgF1Jy/a1iVN6ZfKtS
-	zakKHryOey8cbcwo+j3hOa5xfKMhGKYcs5AqJ/f3HZYVpo9xG5/Xrh0RBCiKid/c0dVChmKNrku
-	yYojg2SE94lFuKsGlRMsvJp8ydCWdzQbXsys1uhOdOXWVCFpH7tFKdafpC4ASlizs+d9pfUPouX
-	3zAd447kj70qDD4s3JcvLlS6wE2VJATfFETbIsxf1ewWblc1Tie5GMP0cvTkDheAy0pV5pwYL2L
-	OsDaFHS2DkeKyID3WUkHw8ks0=
-X-Received: by 2002:a05:6402:4252:10b0:671:9dec:ba3 with SMTP id 4fb4d7f45d1cf-680b331202cmr1306866a12.13.1778581499153;
-        Tue, 12 May 2026 03:24:59 -0700 (PDT)
-Received: from xeon ([188.163.112.56])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-67ef0b6a534sm5032792a12.9.2026.05.12.03.24.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 May 2026 03:24:58 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-input@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 2/2] Input: isa1200 - new driver for Imagis ISA1200
-Date: Tue, 12 May 2026 13:24:45 +0300
-Message-ID: <20260512102445.55372-3-clamor95@gmail.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260512102445.55372-1-clamor95@gmail.com>
-References: <20260512102445.55372-1-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="q0DBjqf4";
+	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="q0DBjqf4"
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=cLI763SZwYf3nr+cHCWRbMRZgue+krhSSLowZD8hBOCNLMcBPGMRWN+uVSY40AoGw5dR8Aa62CwhH7SuZi+IxOgfpomsRbOF+KHrJsEntaIqvwWsRLwEAslyCfHVnKZg/tFInTKb02DiPBtdi/GPC85uTYtZFXx24wkGRBm0i87LyM97x6TccTUxhDBQNk03EUh2Bxxo0Or2AUxl0Gk8wN1Ov6L9/xKhkGIKIIEs7HvhCBHL2oJjaFPaVorjX+RyXWfFQABBMtZO2R5LJVqQVvKDli9FFq5MMA6HuwUpu0ARUHgmflhEZsqmZwCNyGb47z9f+d8YFOl7sdtaNS7LoA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AQnsKNhNXTVBwVhbx5Jsv/rmlTd+CekkurepoSyw9KI=;
+ b=UFnoRxQlv6eOl5lt4Bos3ecK9shILCbKvLW3GBtyIgcujVhJX0Om/XoWp02K6xOm8Dj6AWhlg5s9YxT4gsyqzBI43JjRVnPxgMAu332MoW1sdqSuR18R5YKZ3YekWhAvEKbwk6tujcTHvDhvqoP+sxIYveJlGf3or7YguE2bWejp24bWvYHrcRfhJgOFQtORbRRYbfJRHB4v2RfhceGO4wijt6Ri1h7oD28IBj968RWeFbHb4+PM+nNU+AeT4ricWcfmhp/8BmUwkg8koF3hm55UZ+OIfkO77r7gk6RihPQHSunRYXHIH1oOOpc46fPoQokCM2lhz5JSjCebGsK1GA==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=fail (sender ip is
+ 52.17.62.50) smtp.rcpttodomain=davemloft.net smtp.mailfrom=solid-run.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=solid-run.com; dkim=pass (signature was verified)
+ header.d=solid-run.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=solid-run.com] dkim=[1,1,header.d=solid-run.com]
+ dmarc=[1,1,header.from=solid-run.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AQnsKNhNXTVBwVhbx5Jsv/rmlTd+CekkurepoSyw9KI=;
+ b=q0DBjqf4m9J0nRIpcGOzWWw8rfxoggQ372JmoCaVvTtQmj4c/UrrK9lOYT4g398WXddp5AkL29JmAueu+8G7wsxWjyjjLr0yG3UY2IB6Z0Q2exXHlh7BXuZ7ixMxN7z38chuuGUSKUoIlIIDyu0gwqxTNQbkSwjxtYsFnZnlOKOk88ZhjOjmhB3j0ETveCaqeSVZJ6l7hXELF+kQYmJ0KO6LZttsd3jQRhatBWyn4Xfzy4jCyL+ueqSkh2x/DohYgD2OHgOUpRuLcKMX4/pyNIiUh26pVKVwSzUUz0eZhMopsGiVdQOsIOxGpiMDBlTMgGGekLdz3K9GqisD/1BFcg==
+Received: from DU2P251CA0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:10:230::12)
+ by PA1PR04MB10986.eurprd04.prod.outlook.com (2603:10a6:102:489::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Tue, 12 May
+ 2026 10:27:20 +0000
+Received: from DU6PEPF0000A7DD.eurprd02.prod.outlook.com
+ (2603:10a6:10:230:cafe::b0) by DU2P251CA0001.outlook.office365.com
+ (2603:10a6:10:230::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9913.11 via Frontend Transport; Tue,
+ 12 May 2026 10:27:20 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 52.17.62.50)
+ smtp.mailfrom=solid-run.com; dkim=pass (signature was verified)
+ header.d=solid-run.com;dmarc=pass action=none header.from=solid-run.com;
+Received-SPF: Fail (protection.outlook.com: domain of solid-run.com does not
+ designate 52.17.62.50 as permitted sender) receiver=protection.outlook.com;
+ client-ip=52.17.62.50; helo=eu-dlp.cloud-sec-av.com;
+Received: from eu-dlp.cloud-sec-av.com (52.17.62.50) by
+ DU6PEPF0000A7DD.mail.protection.outlook.com (10.167.8.37) with Microsoft SMTP
+ Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.13 via
+ Frontend Transport; Tue, 12 May 2026 10:27:18 +0000
+Received: from emails-4282437-12-mt-prod-cp-eu-2.checkpointcloudsec.com (ip-10-20-6-103.eu-west-1.compute.internal [10.20.6.103])
+	by mta-outgoing-dlp-588-mt-prod-cp-eu-2.checkpointcloudsec.com (Postfix) with ESMTPS id D806F8046A;
+	Tue, 12 May 2026 10:27:18 +0000 (UTC)
+X-Mailbox-Line: From b'josua@solid-run.com' Tue May 12 10:27:05 2026
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qoGgcmRcpVoWomsvLAilCmozJ/IN9ZtrEEqnJKF4xNnl9JGO2X4zveec1s3Bpi6mGOpnBoG8Nk9nMNL6pqfWTOmqHzFJRIiYGYpHYfaG4K/xZ2py9njT8X8ldUO5+zVV8DdtCj2qBXDkEZoArtQgGWIAIGBjFgZbb1+ykLoRq5k6az02e/PxBvEE67VuIkhn9/vYZSuBPFHSlxpREtHPeOm/FzkMjqhXaZmYy/Zi0fFpgw7uUvkJwQx1kzE/PRPX4qTdPeIMhpz3IN6fjmPwO8SuqwP0kCS9kT5kGYf64DpMCF+MGQrm3rdYuZn92QAczSE2B62Wy9ByOOhNHkMMzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AQnsKNhNXTVBwVhbx5Jsv/rmlTd+CekkurepoSyw9KI=;
+ b=G1N7xyzpwPPPCdN63ICLpCYSj2XN/fpYBqJFVxoaUhMsP32XRnR+ShGNaiV/NqCm5e5tVcDjGkiIBjmjjv3Y4/GsYaE83GP8ZYYmSGJJur73JG4WVOKzqMjcwNjyOim3ANUyxECvlsJTt4M/PbxuHmSC7ei51gaon1C37dcvpOyyvzW5vfrot0++XIpoknf6uu8SJEn5yQhLc9yAOj9DH4/FuFQtTV36m6X5icfq8hKFWxiF2ktuU3LLMFJDPXYVarie1DQsETLaNY/m4KKcEF9sZPxE+wK/COY+uZwtR5i/miNZRLrUm8EQ7ltg7KBfhW5v9tBw+2P90z/iJTsz4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=solid-run.com; dmarc=pass action=none
+ header.from=solid-run.com; dkim=pass header.d=solid-run.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AQnsKNhNXTVBwVhbx5Jsv/rmlTd+CekkurepoSyw9KI=;
+ b=q0DBjqf4m9J0nRIpcGOzWWw8rfxoggQ372JmoCaVvTtQmj4c/UrrK9lOYT4g398WXddp5AkL29JmAueu+8G7wsxWjyjjLr0yG3UY2IB6Z0Q2exXHlh7BXuZ7ixMxN7z38chuuGUSKUoIlIIDyu0gwqxTNQbkSwjxtYsFnZnlOKOk88ZhjOjmhB3j0ETveCaqeSVZJ6l7hXELF+kQYmJ0KO6LZttsd3jQRhatBWyn4Xfzy4jCyL+ueqSkh2x/DohYgD2OHgOUpRuLcKMX4/pyNIiUh26pVKVwSzUUz0eZhMopsGiVdQOsIOxGpiMDBlTMgGGekLdz3K9GqisD/1BFcg==
+Received: from GVXPR04MB12057.eurprd04.prod.outlook.com
+ (2603:10a6:150:313::24) by AS8PR04MB8309.eurprd04.prod.outlook.com
+ (2603:10a6:20b:3fe::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Tue, 12 May
+ 2026 10:27:02 +0000
+Received: from GVXPR04MB12057.eurprd04.prod.outlook.com
+ ([fe80::14f1:a127:2988:de5b]) by GVXPR04MB12057.eurprd04.prod.outlook.com
+ ([fe80::14f1:a127:2988:de5b%7]) with mapi id 15.20.9891.021; Tue, 12 May 2026
+ 10:27:02 +0000
+From: Josua Mayer <josua@solid-run.com>
+To: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <vladimir.oltean@nxp.com>
+CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, Frank Li
+	<Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel
+ Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Vladimir
+ Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Yazan Shhady <yazan.shhady@solid-run.com>, Mikhail
+ Anikin <mikhail.anikin@solid-run.com>, Alexander Dahl <ada@thorsis.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, Conor Dooley
+	<conor.dooley@microchip.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>
+Subject: Re: [PATCH v4 2/2] arm64: dts: imx8dxl: Add SolidRun SoM and
+ HummingBoard
+Thread-Topic: [PATCH v4 2/2] arm64: dts: imx8dxl: Add SolidRun SoM and
+ HummingBoard
+Thread-Index: AQHc4S6NPDp3cRKl10uFQFLEqUD7b7YIr0xYgAAisQCAAV9igA==
+Date: Tue, 12 May 2026 10:27:02 +0000
+Message-ID: <25e8c090-aaea-4898-b3bb-14c71bcab41e@solid-run.com>
+References: <20260511-imx8dxl-sr-som-v4-0-64381b3bf80d@solid-run.com>
+ <20260511-imx8dxl-sr-som-v4-0-64381b3bf80d@solid-run.com>
+ <20260511-imx8dxl-sr-som-v4-2-64381b3bf80d@solid-run.com>
+ <20260511-imx8dxl-sr-som-v4-2-64381b3bf80d@solid-run.com>
+ <20260511112438.4fxvhelf242emzft@skbuf>
+ <557f7332-42b4-49eb-85ea-76d141a2150f@lunn.ch>
+In-Reply-To: <557f7332-42b4-49eb-85ea-76d141a2150f@lunn.ch>
+Accept-Language: de-DE, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=solid-run.com;
+x-ms-traffictypediagnostic:
+	GVXPR04MB12057:EE_|AS8PR04MB8309:EE_|DU6PEPF0000A7DD:EE_|PA1PR04MB10986:EE_
+X-MS-Office365-Filtering-Correlation-Id: ef66ccf3-e019-4665-59b1-08deb0110bb2
+x-cloud-sec-av-info: solidrun,office365_emails,sent,inline
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|1800799024|366016|7416014|376014|38070700021|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ T/+1dKBelOBbI6xoIkLCfM8vwQYPdZa3rbLJVykW/qUMz9HR/vczevdTEQAG8GTIDiUnoJQMLsKYkPVjfMpHeShvVr6xRbbcVtD83HkFIlY0fprYPspwaitv5cViNxdbQMokUMvQFIc9i8CsCqaeYEOuiaQsLLEFznrqZ4BaF+G+NQVQKbmjrsJr+lDowkXtk3RGK1wus9YY1c1Do8Bt6XE9MIFU5tMWHgc0XMxLCqRUZ3zOAqv4u18hoWGuUXhRqPe8PKGT1uN9ee3sMn9oBi6NjV2rAng0eA4Qa4pSLmDklL4kmzFcSfAbdXvsCC+ApxXJS90T3dteRZoGyF71+Qpe1H44uaGCx/99FSV6Vli0ISiZmCwI5DKzl3UzMkgDX+1DqD/dlL5KdApU4Gvg23T8IpGv1G2vehtuGXlwXNmXsvGUFlbiXeRjwUFaEZ3iptrbYP3GOnyqOR4+wL1OjOzxvvgOONIkCTdd77AwvEuK25nHLYQ/W2GtjGoixAzDWuVOpmlAE6NMKF4FRIWHAX5K3REpyczwq3jVsW1xBXfypWiCA53XHBUIrVX2ufxZABqXShtKgtZlAJ8Jn3NLdcv6whB9e4azJGTj2Q1ey0lSitRvB3NA5zV7tDMNyshKBAqN71rf2CCeittf3uReXDQhB1ZvhB0OrCT1jaImp1VbRF+LCw1TjsWtGuHbGU4yqjzfmej2Pf9/EqnslnRx0VzEHMLDe95hhm9QiuSqzi9AJZXg+1jzSOS6AuZjwc56
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB12057.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(38070700021)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <2C06E89CAC83C245B818AA6DBC466F8B@eurprd04.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked:
+ U9pmuek0yYjZjRMKtpLgmexvcqddKspnGLIM4BE03dt4IJ9AgNTLZ3PNDGAfeiDv5De28j5m/4jc8JxIKYY1o+d68rprt/nzr4I9369JcCiTH/JaQVIR47SAMfmTMzhXVa3gnijhbvhxcOL9qn15ghrFP+TmTwOrCsFbVfwa4O7Z+LkUy1097YeJbRYepMrEs+wkDrjqs2HKhlpgIDlGOTk8e4JpNa4CLb6t5lRZzrnCrBRCKWtb4HOhXh2HTBeTb3EpukEraXamTfunTG/5o8jPbC0nliiIN91sglWkK8DeyVlxeQnqorexMALC1bs3/uGYDETjfg+lvChGG5XF7w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8309
+X-CLOUD-SEC-AV-INT-Relay: sent<mta-outgoing-dlp-mt-prod-cp-eu-2-7.checkpointcloudsec.com>
+X-CLOUD-SEC-AV-UUID: eba8b737d1af42f4958b5d4547eef157:solidrun,office365_emails,sent,inline:51c2f25af5c28c995c24baa31bf88b29
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DU6PEPF0000A7DD.eurprd02.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	45a50b5d-903f-4c1f-7c1e-08deb01101a6
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|36860700016|1800799024|35042699022|14060799003|82310400026|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	ojiH+cqVJz0KA8QaVHGCwzCP/YOe1MRsgVhaMyxgbqXvfO6SIS33XEowrBVY0j1/J/C6ctgEXCEf4vPwROtWKkL6/NJAP810G2mjHnLB8I0YMGYOoaR8hbrIoLtqWRRa76t+KkedEAlwKxW6aJ/ze069mWjK8/d/LSYiYMgmPVgwZx2wn2tbnjKXhr1ngJNL1hoEebjDLUtZJhH4SmSyD+4moEduUn/EryfQR4Ugtcio6mECrcgq9cdT0y0ly4g7QCu22E0cj7/lcvTURk+Uuz2+l4vPJWaAek7hlKI0BDCrpKX7mcVcpzUasB0+VHruURCaROgQeI0Tml0mxWt6kj4gTiHsOCB8HXOyVMnunIyUEvsvq7IMRQpJUr0PCvhvmhYpW16/GKRmmBwky6tQzW+QaZZW84HUUUFp5384fXPVM5x/3aSF/9CPksVR13uBu/nzmc7erckCvHMw3y3smFriY3unRahOSYp7MriFMgtz81JkjEEHhpJ1P0rsXgcv1U5rQ7agZ45Nja708BBiydkApCkcQ/GowxST0/RhCdQ7fxy3TPXNfAK6nwmr4kc6lhdbmHcWpLc0+1Mm6z2pFKumiukkmTPmJfpqyZptJSBZlVDLb9I11H2aiZUjRWzn9PU+ri0XQsZ375gWpswTrP7eXXAjqmQ1pBDfiTJc04V5SRIkU6WiJFWxaAZxP4Bz9IO5qj7Fc4d5P1H66y8JyW4lGQij+tsTUFmvkETNcgs=
+X-Forefront-Antispam-Report:
+	CIP:52.17.62.50;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:eu-dlp.cloud-sec-av.com;PTR:eu-dlp.cloud-sec-av.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700016)(1800799024)(35042699022)(14060799003)(82310400026)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	+FCR159PkOTB90SrMYGbVQ94fpFR2KJGdM7vb8wpf4e+2HUqDEBcXhuU4goAJBKdSCcAHhRuWLbSfG7zxu92C/mZuaqhkQzct+KvKkyXL4S8L4UJH64QbvkAq1Lc3aND3uEHdpm3LtY53X0mV0hkqHuI9U0mxI9aCzBpJP2dPf7UlBUit0hqNjJ5AcxhxtR+7GQD6bUGhlKSRKpkCfFC/Y+qjc8eg1Nm9oWlEua/pTY2OW8ZAhazt/EpsqYNco0CJFz4wHcRyzGRZpTXJ5vDY5r+SyPO0F9C7Xy2AQG5WmSwL1A7NLXEO7Ikc72x2SMySa99Rrd5jM/eY4lfv67hrn/aleMU9ZuTCrG8Yd3ZhDXLosvaGxSjQS1MDFAoEX2URzkDpdwo1XvDnXWrNNTbSFx+dSdT44zXY70SnNoZMzwQCe0+4kWanGag5c49i7DV
+X-OriginatorOrg: solid-run.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2026 10:27:18.9927
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef66ccf3-e019-4665-59b1-08deb0110bb2
+X-MS-Exchange-CrossTenant-Id: a4a8aaf3-fd27-4e27-add2-604707ce5b82
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a4a8aaf3-fd27-4e27-add2-604707ce5b82;Ip=[52.17.62.50];Helo=[eu-dlp.cloud-sec-av.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU6PEPF0000A7DD.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10986
 
-From: Linus Walleij <linusw@kernel.org>
-
-The ISA1200 is a haptic feedback unit from Imagis Technology using two
-motors for haptic feedback in mobile phones. Used in many mobile devices
-c. 2012 including Samsung Galxy S Advance GT-I9070 (Janice), Samsung Beam
-GT-I8350 (Gavini), LG Optimus 4X P880 and LG Optimus Vu P895.
-
-The exact datasheet for the ISA1200 is not available; all data was modeled
-based on available downstream kernel sources for various devices and
-fragments of information scattered across the internet.
-
-Tested-by: Linus Walleij <linusw@kernel.org> # GT-I9070 Janice
-Signed-off-by: Linus Walleij <linusw@kernel.org>
-Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/input/misc/Kconfig   |  12 +
- drivers/input/misc/Makefile  |   1 +
- drivers/input/misc/isa1200.c | 524 +++++++++++++++++++++++++++++++++++
- 3 files changed, 537 insertions(+)
- create mode 100644 drivers/input/misc/isa1200.c
-
-diff --git a/drivers/input/misc/Kconfig b/drivers/input/misc/Kconfig
-index 94a753fcb64f..52f192104ee2 100644
---- a/drivers/input/misc/Kconfig
-+++ b/drivers/input/misc/Kconfig
-@@ -852,6 +852,18 @@ config INPUT_IQS7222
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called iqs7222.
- 
-+config INPUT_ISA1200_HAPTIC
-+	tristate "Imagis ISA1200 haptic feedback unit"
-+	depends on I2C
-+	select INPUT_FF_MEMLESS
-+	select REGMAP_I2C
-+	help
-+	  Say Y to enable support for the Imagis ISA1200 haptic
-+	  feedback unit.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called isa1200.
-+
- config INPUT_CMA3000
- 	tristate "VTI CMA3000 Tri-axis accelerometer"
- 	help
-diff --git a/drivers/input/misc/Makefile b/drivers/input/misc/Makefile
-index 415fc4e2918b..d62bf2e9d85f 100644
---- a/drivers/input/misc/Makefile
-+++ b/drivers/input/misc/Makefile
-@@ -49,6 +49,7 @@ obj-$(CONFIG_INPUT_IMS_PCU)		+= ims-pcu.o
- obj-$(CONFIG_INPUT_IQS269A)		+= iqs269a.o
- obj-$(CONFIG_INPUT_IQS626A)		+= iqs626a.o
- obj-$(CONFIG_INPUT_IQS7222)		+= iqs7222.o
-+obj-$(CONFIG_INPUT_ISA1200_HAPTIC)	+= isa1200.o
- obj-$(CONFIG_INPUT_KEYSPAN_REMOTE)	+= keyspan_remote.o
- obj-$(CONFIG_INPUT_KXTJ9)		+= kxtj9.o
- obj-$(CONFIG_INPUT_M68K_BEEP)		+= m68kspkr.o
-diff --git a/drivers/input/misc/isa1200.c b/drivers/input/misc/isa1200.c
-new file mode 100644
-index 000000000000..ff82252a08e1
---- /dev/null
-+++ b/drivers/input/misc/isa1200.c
-@@ -0,0 +1,524 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+
-+#include <linux/array_size.h>
-+#include <linux/bitmap.h>
-+#include <linux/bits.h>
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/devm-helpers.h>
-+#include <linux/err.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/input.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/property.h>
-+#include <linux/pwm.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/units.h>
-+
-+/*
-+ * System control (LDO regulator)
-+ *
-+ * LDO voltage to register mapping is linear, but it is split in two parts:
-+ * 2.3V - 3.0V map to 0x08 - 0x0f; 3.1V - 3.8V map to 0x00 - 0x7
-+ */
-+
-+#define ISA1200_SCTRL			0x00
-+#define ISA1200_LDO_VOLTAGE_BASE	0x08
-+#define ISA1200_LDO_VOLTAGE_STEP	100000
-+#define ISA1200_LDO_VOLTAGE_2V3		23
-+#define ISA1200_LDO_VOLTAGE_3V1		31
-+#define ISA1200_LDO_VOLTAGE_MIN		2300000
-+#define ISA1200_LDO_VOLTAGE_MAX		3800000
-+
-+/*
-+ * The output frequency is calculated with this formula:
-+ *
-+ *                 base clock frequency
-+ * fout = -----------------------------------------
-+ *        (128 - PWM_FREQ) * 2 * PLLDIV * PWM_PERIOD
-+ *
-+ * The base clock frequency is the clock frequency provided on the
-+ * clock input to the chip, divided by the value in HCTRL0
-+ *
-+ * PWM_FREQ is configured in register HCTRL4, it is common to set this
-+ * to 0 to get only two variables to calculate.
-+ *
-+ * PLLDIV is configured in register HCTRL3 (bits 7..4, so 0..15)
-+ * PWM_PERIOD is configured in register HCTRL6
-+ * Further the duty cycle can be configured in HCTRL5
-+ */
-+
-+/*
-+ * HCTRL0 configures clock or PWM input and selects the divider for
-+ * the clock input.
-+ */
-+#define ISA1200_HCTRL0			0x30
-+#define ISA1200_HCTRL0_HAP_ENABLE	BIT(7)
-+#define ISA1200_HCTRL0_PWM_GEN_MODE	BIT(4)
-+#define ISA1200_HCTRL0_PWM_INPUT_MODE	BIT(3)
-+#define ISA1200_HCTRL0_CLKDIV_128	128
-+
-+/*
-+ * HCTRL1 configures the motor type and clock sourse
-+ */
-+#define ISA1200_HCTRL1			0x31
-+#define ISA1200_HCTRL1_EXT_CLOCK	BIT(7)
-+#define ISA1200_HCTRL1_DAC_INVERT	BIT(6)
-+#define ISA1200_HCTRL1_MODE(n)		(((n) & 1) << 5)
-+
-+/* HCTRL2 controls software reset of the chip */
-+#define ISA1200_HCTRL2			0x32
-+#define ISA1200_HCTRL2_SW_RESET		BIT(0)
-+
-+/*
-+ * HCTRL3 controls the PLL divisor
-+ *
-+ * Bits [0,1] are always set to 1 (we don't know what they are
-+ * used for) and bit 4 and upward control the PLL divisor.
-+ */
-+#define ISA1200_HCTRL3			0x33
-+#define ISA1200_HCTRL3_DEFAULT		0x03
-+#define ISA1200_HCTRL3_PLLDIV(n)	(((n) & 0xf) << 4)
-+
-+/* HCTRL4 controls the PWM frequency of external channel */
-+#define ISA1200_HCTRL4			0x34
-+
-+/* HCTRL5 controls the PWM high duty cycle of internal channel */
-+#define ISA1200_HCTRL5			0x35
-+
-+/* HCTRL6 controls the PWM period of internal channel */
-+#define ISA1200_HCTRL6			0x36
-+#define ISA1200_HCTRL6_PERIOD_SCALE	100
-+
-+/* The use for these registers is unknown but they exist */
-+#define ISA1200_HCTRL7			0x37
-+#define ISA1200_HCTRL8			0x38
-+#define ISA1200_HCTRL9			0x39
-+#define ISA1200_HCTRLA			0x3a
-+#define ISA1200_HCTRLB			0x3b
-+#define ISA1200_HCTRLC			0x3c
-+#define ISA1200_HCTRLD			0x3d
-+
-+#define ISA1200_EN_PINS_MAX		2
-+
-+static const struct regulator_bulk_data isa1200_supplies[] = {
-+	{ .supply = "vdd" }, { .supply = "vddp" },
-+};
-+
-+struct isa1200_config {
-+	u32 ldo_voltage;
-+	u32 mode;
-+	u32 clkdiv;
-+	u32 plldiv;
-+	u32 freq;
-+	u32 period;
-+	u32 duty;
-+};
-+
-+struct isa1200 {
-+	struct input_dev *input;
-+	struct regmap *map;
-+
-+	struct clk *clk;
-+	struct pwm_device *pwm;
-+	struct gpio_descs *enable_gpios;
-+	struct regulator_bulk_data *supplies;
-+
-+	struct work_struct play_work;
-+	struct isa1200_config config;
-+
-+	bool active;
-+	int level;
-+};
-+
-+static const struct regmap_config isa1200_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = ISA1200_HCTRLD,
-+};
-+
-+static void isa1200_start(struct isa1200 *isa)
-+{
-+	struct isa1200_config *config = &isa->config;
-+	struct device *dev = &isa->input->dev;
-+	struct pwm_state state;
-+	u8 hctrl0 = 0, hctrl1 = 0;
-+	DECLARE_BITMAP(values, ISA1200_EN_PINS_MAX);
-+	int err;
-+
-+	if (!isa->active) {
-+		err = regulator_bulk_enable(ARRAY_SIZE(isa1200_supplies),
-+					    isa->supplies);
-+		if (err) {
-+			dev_err(dev, "failed to enable supplies (%d)\n", err);
-+			return;
-+		}
-+
-+		err = clk_prepare_enable(isa->clk);
-+		if (err) {
-+			dev_err(dev, "failed to enable clock (%d)\n", err);
-+			regulator_bulk_disable(ARRAY_SIZE(isa1200_supplies),
-+					       isa->supplies);
-+			return;
-+		}
-+
-+		bitmap_fill(values, ISA1200_EN_PINS_MAX);
-+		gpiod_multi_set_value_cansleep(isa->enable_gpios, values);
-+
-+		usleep_range(200, 300);
-+	}
-+
-+	regmap_write(isa->map, ISA1200_SCTRL, config->ldo_voltage);
-+
-+	if (isa->clk) {
-+		hctrl0 = ISA1200_HCTRL0_PWM_GEN_MODE;
-+		hctrl1 = ISA1200_HCTRL1_EXT_CLOCK;
-+	}
-+
-+	if (isa->pwm) {
-+		hctrl0 = ISA1200_HCTRL0_PWM_INPUT_MODE;
-+		hctrl1 = 0;
-+	}
-+
-+	hctrl0 |= __ffs(config->clkdiv / ISA1200_HCTRL0_CLKDIV_128);
-+	hctrl1 |= ISA1200_HCTRL1_DAC_INVERT;
-+	hctrl1 |= ISA1200_HCTRL1_MODE(config->mode);
-+
-+	regmap_write(isa->map, ISA1200_HCTRL0, hctrl0);
-+	regmap_write(isa->map, ISA1200_HCTRL1, hctrl1);
-+
-+	/* Make sure to de-assert software reset */
-+	regmap_write(isa->map, ISA1200_HCTRL2, 0x00);
-+
-+	/* PLL divisor */
-+	regmap_write(isa->map, ISA1200_HCTRL3,
-+		     ISA1200_HCTRL3_PLLDIV(config->plldiv) |
-+		     ISA1200_HCTRL3_DEFAULT);
-+
-+	/* Frequency */
-+	regmap_write(isa->map, ISA1200_HCTRL4, config->freq);
-+	/* Duty cycle */
-+	regmap_write(isa->map, ISA1200_HCTRL5, config->period >> 1);
-+	/* Period */
-+	regmap_write(isa->map, ISA1200_HCTRL6, config->period);
-+
-+	hctrl0 |= ISA1200_HCTRL0_HAP_ENABLE;
-+	regmap_write(isa->map, ISA1200_HCTRL0, hctrl0);
-+
-+	if (isa->clk)
-+		regmap_write(isa->map, ISA1200_HCTRL5, config->duty);
-+
-+	if (isa->pwm) {
-+		pwm_get_state(isa->pwm, &state);
-+		state.duty_cycle = config->duty;
-+		state.enabled = true;
-+		pwm_apply_might_sleep(isa->pwm, &state);
-+	}
-+
-+	isa->active = true;
-+}
-+
-+static void isa1200_stop(struct isa1200 *isa)
-+{
-+	struct pwm_state state;
-+	DECLARE_BITMAP(values, ISA1200_EN_PINS_MAX);
-+
-+	if (!isa->active)
-+		return;
-+
-+	if (isa->pwm) {
-+		pwm_get_state(isa->pwm, &state);
-+		state.duty_cycle = 0;
-+		state.enabled = false;
-+		pwm_apply_might_sleep(isa->pwm, &state);
-+	}
-+
-+	regmap_write(isa->map, ISA1200_HCTRL0, 0x00);
-+
-+	bitmap_zero(values, ISA1200_EN_PINS_MAX);
-+	gpiod_multi_set_value_cansleep(isa->enable_gpios, values);
-+
-+	clk_disable_unprepare(isa->clk);
-+	regulator_bulk_disable(ARRAY_SIZE(isa1200_supplies),
-+			       isa->supplies);
-+
-+	isa->active = false;
-+	isa->level = 0;
-+}
-+
-+static void isa1200_play_work(struct work_struct *work)
-+{
-+	struct isa1200 *isa = container_of(work, struct isa1200, play_work);
-+
-+	if (isa->level)
-+		isa1200_start(isa);
-+	else
-+		isa1200_stop(isa);
-+}
-+
-+static int isa1200_vibrator_play_effect(struct input_dev *input, void *data,
-+					struct ff_effect *effect)
-+{
-+	struct isa1200 *isa = input_get_drvdata(input);
-+	int level;
-+
-+	/*
-+	 * TODO: we currently only support rumble.
-+	 * The ISA1200 can control two motors and some devices
-+	 * also have two motors mounted.
-+	 */
-+	level = effect->u.rumble.strong_magnitude;
-+	if (!level)
-+		level = effect->u.rumble.weak_magnitude;
-+
-+	dev_dbg(&input->dev, "FF effect type %d level %d\n",
-+		effect->type, level);
-+
-+	if (isa->level != level) {
-+		isa->level = level;
-+		schedule_work(&isa->play_work);
-+	}
-+
-+	return 0;
-+}
-+
-+static void isa1200_vibrator_close(struct input_dev *input)
-+{
-+	struct isa1200 *isa = input_get_drvdata(input);
-+
-+	cancel_work_sync(&isa->play_work);
-+	isa1200_stop(isa);
-+}
-+
-+static int isa1200_of_probe(struct i2c_client *client)
-+{
-+	struct isa1200 *isa = i2c_get_clientdata(client);
-+	struct isa1200_config *config = &isa->config;
-+	struct device *dev = &client->dev;
-+	struct fwnode_handle *ldo_node;
-+	int err;
-+
-+	isa->clk = devm_clk_get_optional(dev, NULL);
-+	if (IS_ERR(isa->clk))
-+		return dev_err_probe(dev, PTR_ERR(isa->clk),
-+				     "failed to get clock\n");
-+
-+	isa->pwm = devm_pwm_get(dev, NULL);
-+	if (IS_ERR(isa->pwm)) {
-+		err = PTR_ERR(isa->pwm);
-+		if (err == -ENODEV || err == -EINVAL)
-+			isa->pwm = NULL;
-+		else
-+			return dev_err_probe(dev, err, "getting PWM\n");
-+	}
-+
-+	if (!isa->clk && !isa->pwm)
-+		return dev_err_probe(dev, -EINVAL,
-+				     "clock or PWM are required, none were provided\n");
-+
-+	err = devm_regulator_bulk_get_const(dev, ARRAY_SIZE(isa1200_supplies),
-+					    isa1200_supplies, &isa->supplies);
-+	if (err)
-+		return dev_err_probe(dev, err, "failed to get supplies\n");
-+
-+	isa->enable_gpios = devm_gpiod_get_array_optional(dev, "control",
-+							  GPIOD_OUT_LOW);
-+	if (IS_ERR(isa->enable_gpios))
-+		return dev_err_probe(dev, PTR_ERR(isa->enable_gpios),
-+				     "failed to get enable gpios\n");
-+
-+	ldo_node = device_get_named_child_node(dev, "ldo");
-+	if (!ldo_node)
-+		return dev_err_probe(dev, -ENODEV,
-+				     "failed to get embedded LDO node\n");
-+
-+	err = fwnode_property_read_u32(ldo_node, "regulator-min-microvolt",
-+				       &config->ldo_voltage);
-+	fwnode_handle_put(ldo_node);
-+	if (err)
-+		return dev_err_probe(dev, err,
-+				     "failed to get ldo voltage\n");
-+
-+	config->ldo_voltage = clamp(config->ldo_voltage,
-+				    ISA1200_LDO_VOLTAGE_MIN,
-+				    ISA1200_LDO_VOLTAGE_MAX);
-+
-+	config->ldo_voltage /= ISA1200_LDO_VOLTAGE_STEP;
-+	if (config->ldo_voltage < ISA1200_LDO_VOLTAGE_3V1)
-+		config->ldo_voltage = config->ldo_voltage -
-+				      ISA1200_LDO_VOLTAGE_2V3 +
-+				      ISA1200_LDO_VOLTAGE_BASE;
-+	else
-+		config->ldo_voltage -= ISA1200_LDO_VOLTAGE_3V1;
-+
-+	config->mode = 0; /* LRA_MODE */
-+	device_property_read_u32(dev, "imagis,mode", &config->mode);
-+
-+	config->clkdiv = ISA1200_HCTRL0_CLKDIV_128;
-+	device_property_read_u32(dev, "imagis,clk-div", &config->clkdiv);
-+	if (!config->clkdiv)
-+		return dev_err_probe(dev, -EINVAL, "clk-div cannot be zero\n");
-+
-+	config->clkdiv = clamp(config->clkdiv, ISA1200_HCTRL0_CLKDIV_128,
-+			       ISA1200_HCTRL0_CLKDIV_128 << 3);
-+
-+	err = device_property_read_u32(dev, "imagis,pll-div", &config->plldiv);
-+	if (err || !config->plldiv)
-+		config->plldiv = 1;
-+
-+	config->period = 0;
-+	config->freq = 0;
-+	config->duty = 0;
-+
-+	if (isa->clk) {
-+		err = device_property_read_u32(dev, "imagis,period-ns",
-+					       &config->period);
-+		if (err)
-+			return dev_err_probe(dev, err,
-+					     "failed to get period\n");
-+
-+		/*
-+		 * TODO: The scale value is arbitrary, but it fits observations
-+		 * quite well, and the exact conversion method is unknown.
-+		 * The period property value returned above is the HCTRL6
-+		 * register value set by the vendor code, multiplied by 100.
-+		 */
-+		config->period /= ISA1200_HCTRL6_PERIOD_SCALE;
-+		config->duty = config->period >> 1;
-+	}
-+
-+	if (isa->pwm) {
-+		struct pwm_state state;
-+
-+		pwm_init_state(isa->pwm, &state);
-+
-+		if (!state.period)
-+			return dev_err_probe(dev, -EINVAL,
-+					     "PWM period cannot be zero\n");
-+
-+		config->freq = div64_u64(NANO, state.period * config->clkdiv);
-+		config->duty = state.period >> 1;
-+
-+		err = pwm_apply_might_sleep(isa->pwm, &state);
-+		if (err)
-+			return dev_err_probe(dev, err,
-+					     "failed to apply initial PWM state\n");
-+	}
-+
-+	/*
-+	 * TODO: If device is using a clock, this property should return the
-+	 * value written to the HCTRL5 register by downstrem code. It likely
-+	 * needs to be converted into a meaningful duty cycle value, though
-+	 * unfortunately the exact conversion mechanism is unknown. If the
-+	 * device uses PWM, this property will return the correct duty cycle
-+	 * in nanoseconds.
-+	 */
-+	device_property_read_u32(dev, "imagis,duty-cycle-ns", &config->duty);
-+
-+	return 0;
-+}
-+
-+static int isa1200_probe(struct i2c_client *client)
-+{
-+	struct isa1200 *isa;
-+	struct device *dev = &client->dev;
-+	int err;
-+
-+	isa = devm_kzalloc(dev, sizeof(*isa), GFP_KERNEL);
-+	if (!isa)
-+		return -ENOMEM;
-+
-+	isa->input = devm_input_allocate_device(dev);
-+	if (!isa->input)
-+		return -ENOMEM;
-+
-+	i2c_set_clientdata(client, isa);
-+
-+	err = isa1200_of_probe(client);
-+	if (err)
-+		return err;
-+
-+	isa->map = devm_regmap_init_i2c(client, &isa1200_regmap_config);
-+	if (IS_ERR(isa->map))
-+		return dev_err_probe(dev, PTR_ERR(isa->map),
-+				     "failed to initialize register map\n");
-+
-+	INIT_WORK(&isa->play_work, isa1200_play_work);
-+
-+	isa->input->name = "isa1200-haptic";
-+	isa->input->id.bustype = BUS_I2C;
-+	isa->input->close = isa1200_vibrator_close;
-+
-+	isa->active = false;
-+
-+	input_set_drvdata(isa->input, isa);
-+
-+	/* TODO: this hardware can likely support more than rumble */
-+	input_set_capability(isa->input, EV_FF, FF_RUMBLE);
-+
-+	err = input_ff_create_memless(isa->input, NULL,
-+				      isa1200_vibrator_play_effect);
-+	if (err)
-+		return dev_err_probe(dev, err, "failed to create FF dev\n");
-+
-+	err = input_register_device(isa->input);
-+	if (err)
-+		return dev_err_probe(dev, err, "failed to register input dev\n");
-+
-+	return 0;
-+}
-+
-+static int isa1200_suspend(struct device *dev)
-+{
-+	struct isa1200 *isa = dev_get_drvdata(dev);
-+
-+	guard(mutex)(&isa->input->mutex);
-+
-+	if (input_device_enabled(isa->input)) {
-+		cancel_work_sync(&isa->play_work);
-+		if (isa->level)
-+			isa1200_stop(isa);
-+	}
-+
-+	return 0;
-+}
-+
-+static int isa1200_resume(struct device *dev)
-+{
-+	struct isa1200 *isa = dev_get_drvdata(dev);
-+
-+	guard(mutex)(&isa->input->mutex);
-+
-+	if (input_device_enabled(isa->input))
-+		if (isa->level)
-+			isa1200_start(isa);
-+
-+	return 0;
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(isa1200_pm_ops, isa1200_suspend, isa1200_resume);
-+
-+static const struct of_device_id isa1200_of_match[] = {
-+	{ .compatible = "imagis,isa1200" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, isa1200_of_match);
-+
-+static struct i2c_driver isa1200_i2c_driver = {
-+	.driver = {
-+		.name = "isa1200",
-+		.of_match_table = isa1200_of_match,
-+		.pm = pm_sleep_ptr(&isa1200_pm_ops),
-+	},
-+	.probe = isa1200_probe,
-+};
-+module_i2c_driver(isa1200_i2c_driver);
-+
-+MODULE_AUTHOR("Linus Walleij <linusw@kernel.org>");
-+MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
-+MODULE_DESCRIPTION("Imagis ISA1200 haptic feedback unit");
-+MODULE_LICENSE("GPL");
--- 
-2.51.0
-
+SGkgQW5kcmV3LA0KDQpBbSAxMS4wNS4yNiB1bSAxNToyOSBzY2hyaWViIEFuZHJldyBMdW5uOg0K
+PiBPbiBNb24sIE1heSAxMSwgMjAyNiBhdCAwMjoyNDozOFBNICswMzAwLCBWbGFkaW1pciBPbHRl
+YW4gd3JvdGU6DQo+PiBPbiBNb24sIE1heSAxMSwgMjAyNiBhdCAxMjoxMTozMVBNICswMjAwLCBK
+b3N1YSBNYXllciB3cm90ZToNCj4+PiArJmVxb3Mgew0KPj4+ICsJLyogZGVsYXlzIGFyZSBhZGRl
+ZCBieSBjb25uZWN0ZWQgZXRoZXJuZXQtc3dpdGNoIGNwdSBwb3J0ICovDQo+Pj4gKwlwaHktbW9k
+ZSA9ICJyZ21paSI7DQo+IEZvciBldGhlcm5ldC1waHkgY29tYmluYXRpb25zIGknbSBwcmV0dHkg
+c3RyaWN0LCBidXQgaSdtIG1vcmUNCj4gZm9yZ2l2aW5nIHdoZW4gc3dpdGNoZXMgYXJlIGludm9s
+dmVkLg0KPg0KPiBJZiByeC90eC1pbnRlcm5hbC1kZWxheXMtcHMgd29yaywgdGhhdCB3b3VsZCBi
+ZSBiZXR0ZXIsIGJ1dCBpJ20NCj4gd2lsbGluZyB0byBhY2NlcHQgdGhpcywgd2l0aCB0aGUgY29t
+bWVudCBpbiBwbGFjZS4NCk9ubHkgc29tZSBzdG1tYWMgZHJpdmVyIHZhcmlhbnRzIGhhbmRsZSBk
+ZWxheXMsIGR3bWFjLWlteCBpcyBub3Qgb25lDQpvZiB0aGVtLiBpdCBjYXJlcyBuZWl0aGVyIGZv
+ciBwaHktbW9kZSBub3IgcngvdHgtaW50ZXJuYWwtZGVsYXktcHMuDQoNClNvIEkgd291bGRuJ3Qg
+bWluZCBwdXR0aW5nIGluc3RlYWQNCg0KcGh5LW1vZGUgPSAicmdtaWktaWQiOw0KcngtaW50ZXJu
+YWwtZGVsYXktcHMgPSA8MD47DQp0eC1pbnRlcm5hbC1kZWxheS1wcyA9IDwwPjsNCg0Kd2l0aCB0
+aGUgc2FtZSBjb21tZW50LCBhcyBsb25nIGFzIGl0IGlzIG1vcmUgY29ycmVjdC4NCg==
