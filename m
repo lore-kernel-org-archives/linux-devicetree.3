@@ -1,81 +1,84 @@
-Received: from polaris.svanheule.net (polaris.svanheule.net [84.16.241.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3189E3C3445
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 20:49:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.241.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A5F23C455F;
+	Tue, 12 May 2026 20:49:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778618947; cv=none; b=CI9RCdzmf7pEgU005a2bmYXM+lGDKil8+H14qD8G9Jz1uIK/Kf28sJFfatSg/camiANH6sjwgtAF+Wf4x/mCZjGxN4zClR2n+OkW/TyemXFl8z3jbybo6IcXiZFdfeaijG+HnJeFjHVohT/Hj3RAwGTsoXHYts41ieV+puV1gqE=
+	t=1778618963; cv=none; b=TK6BZx5A4r0DhN/+BSEB8Du/VwYH4g2s00uvYvjEQN+PQqenJVceTKInBSCS699QAPw2ivOTgoDx8zxZCVUXSEc+T45Xd71/KHaMXKQ9sr+xV43hokfxTa4GaZddkbJrjy7JIwyh7/HTH/JjMlAEnnjDbey7jSHZDASFrcGGj20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778618947; c=relaxed/simple;
-	bh=3LMjTRWuOnWvbfPLhKPzRA7CSWwGzz+QVRDH2NYutUo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fqxhfdry3v3oB1E0WOSpMXsxPQ2kIksj6jPJZdjsJemJZfBs/p+4vmTrC8kjdT650FaQxtGTxbD4V+ZJBXk5SogW/ATgrimzntuItcMWcc2bVarPa0Q2SrqU6vz4iw2UgnCaxhXS8q6HAzOa91JcUvn1Cii5w9dJH8Bu4TnFtEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net; spf=pass smtp.mailfrom=svanheule.net; dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b=2h0GQixN; arc=none smtp.client-ip=84.16.241.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=svanheule.net
+	s=arc-20240116; t=1778618963; c=relaxed/simple;
+	bh=Bsaba6cOOKAoevFP1YvtcQQXzCFKua3YglRCWZiBOH4=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=UZZorNOZQxf9thWwfpYbPRMuytPtCwqBghE4IdWfC1VVqjSxPGAjM6tB5BEAslZw/LhVgpVQuvjuBsNo1wkDjAv3rBAiXukJeqpUBBqONQnbz3UDjfss2slswK8uw9xWGQiczYKPUy/ef+jAtv3jCSFmqDepPbkzOND+vgyo4wc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EIVKwyYU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b="2h0GQixN"
-Received: from terra.vega.svanheule.net (2a02-1812-162d-3d00-c381-7255-a866-916d.ip6.access.telenet.be [IPv6:2a02:1812:162d:3d00:c381:7255:a866:916d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sander@svanheule.net)
-	by polaris.svanheule.net (Postfix) with ESMTPSA id F28E977E463;
-	Tue, 12 May 2026 22:49:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=svanheule.net;
-	s=mail1707; t=1778618942;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=7/NTSVZOhes4gOqm3j4WrCMMEBVXuwI5o+q+SaVyVPk=;
-	b=2h0GQixNHv/xirLEpYEmDnMcAECsubdQpXY78LhBQwOPVTIme2SOpqnXIS6osnpYKCEvnc
-	mM4vo7nUZegVe59EzZ9O14xHSacmjsUJ9RxfZwniREbPDgZ9vA78KRXti5zdAD/Uvvg334
-	craJ0QcsONj1PMrTNQgqA6Tkb2N9no6rKmZ9Dm5AyYypZcWGA3F01bcJ1j+UhyBYfOoTdQ
-	Tld1b3tB8De3CBcGCtB3VP2sxx9jCG8l5lXYjD4EBIpzlSNDqu1UraO1qMtFRxCLKmmY0O
-	MY+5BCoNvTeBfXLuanEo8TNxaptWG6Ev9rs4ePOayRT0YjoEcT7LAC1CAEnd3w==
-From: Sander Vanheule <sander@svanheule.net>
-To: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EIVKwyYU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F9F4C2BCB0;
+	Tue, 12 May 2026 20:49:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778618962;
+	bh=Bsaba6cOOKAoevFP1YvtcQQXzCFKua3YglRCWZiBOH4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=EIVKwyYUeKStH0p8h6Kv+oxqRW3HlLx0BQVzDLdKi0EipSK70N/ihdRGraaDNhULQ
+	 73HhT9LM9lJR91XU7rviSh2qiZg+EYjQoXqDBuT+kpbACF4AtVmqEH7pzo0GryawHB
+	 rNBbr99Nm2uS+r1uKoncytXpZ8xlz+qmEoqtMpAtaSBLVg0XR9LSjZR8IrAwu1gjQ5
+	 fdzRQ/GJMpTUsj+Muw0weWumlyS5Tx4CJ/Ow+AQk6F0FgDq5f49VXaiit0g8PKPXeV
+	 K5sCUro9n41Optm9rvYGiwyLkkB4fXy4lepFg44CJr53pu8NaOjBK+WLmlBSi5qHfb
+	 1IGg25QHuX2sw==
+Date: Tue, 12 May 2026 15:49:21 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Florian Eckert <fe@dev.tdt.de>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Johan Hovold <johan+linaro@kernel.org>,
+	Sajid Dalvi <sdalvi@google.com>,
+	Ajay Agarwal <ajayagarwal@google.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Rustam Adilov <adilov@disroot.org>,
-	linux-watchdog@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sander Vanheule <sander@svanheule.net>
-Subject: [PATCH v2 0/2]  watchdog: realtek-otto: add fallback compatible
-Date: Tue, 12 May 2026 22:48:52 +0200
-Message-ID: <20260512204854.8931-1-sander@svanheule.net>
-X-Mailer: git-send-email 2.54.0
+	Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	Eckert.Florian@googlemail.com, ms@dev.tdt.de
+Subject: Re: [PATCH v5 5/7] PCI: intel-gw: Add start_link callback function
+Message-ID: <20260512204921.GA243550@bhelgaas>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260417-pcie-intel-gw-v5-5-0a2b933fe04f@dev.tdt.de>
 
-Like for the GPIO hardware of the Realtek Otto platform, add a fallback
-compatible for the watchdog hardware.
+On Fri, Apr 17, 2026 at 10:35:49AM +0200, Florian Eckert wrote:
+> The pcie-intel-gw driver has no start_link callback function. This commit
+> adds the missing callback function so that the driver works again and does
+> not abort with the following error messages during probing.
+> 
+> [    2.512015] intel-gw-pcie d1000000.pcie: host bridge /soc/pcie@d1000000 ranges:
+> [    2.517868] intel-gw-pcie d1000000.pcie:      MEM 0x00dc000000..0x00ddffffff -> 0x00dc000000
+> [    2.528450] intel-combo-phy d0c00000.combo-phy: Set combo mode: combophy[1]: mode: PCIe single lane mode
+> [    2.551619] intel-gw-pcie d1000000.pcie: No outbound iATU found
+> [    2.556060] intel-gw-pcie d1000000.pcie: Cannot initialize host
+> [    2.561901] intel-gw-pcie d1000000.pcie: probe with driver intel-gw-pcie failed with error -22
+> [    2.571041] intel-gw-pcie c1100000.pcie: host bridge /soc/pcie@c1100000 ranges:
+> [    2.577736] intel-gw-pcie c1100000.pcie:      MEM 0x00ce000000..0x00cfffffff -> 0x00ce000000
+> [    2.588299] intel-combo-phy c0c00000.combo-phy: Set combo mode: combophy[3]: mode: PCIe single lane mode
+> [    2.611471] intel-gw-pcie c1100000.pcie: No outbound iATU found
+> [    2.615934] intel-gw-pcie c1100000.pcie: Cannot initialize host
+> [    2.621759] intel-gw-pcie c1100000.pcie: probe with driver intel-gw-pcie failed with error -22
+> 
+> Fixes: c5097b9869a1 ("Revert "PCI: dwc: Wait for link up only if link is started"")
+> Fixes: da56a1bfbab5 ("PCI: dwc: Wait for link up only if link is started")
 
-For backward compatibility, the binding will still allow current
-single-compatible devicetrees to work, but new devicetrees, including
-new compatibles, should use a two-component compatible.
+This applied already; I just want to understand this better for
+writing the merge commit log.
 
-This series serves to address comments regarding the device compatibles
-for the patches adding RTL9607C watchdog support [1].
+da56a1bfbab5 and c5097b9869a1 date from v6.5 in 2023.  I guess this
+driver has been completely broken since then and nobody noticed?
 
-[1] https://lore.kernel.org/lkml/20260509163101.722793-1-adilov@disroot.org/
-
-Sander Vanheule (2):
-  dt-bindings: watchdog: realtek,otto-wdt: Add fallback compatible
-  watchdog: realtek-otto: add fallback compatible
-
- .../bindings/watchdog/realtek,otto-wdt.yaml   | 22 ++++++++++++++-----
- drivers/watchdog/realtek_otto_wdt.c           |  2 ++
- 2 files changed, 18 insertions(+), 6 deletions(-)
-
--- 
-2.54.0
-
+Thanks for fixing this up.  I assume that means there is somebody
+actually using this driver, even though nobody cares quite enough to
+maintain it?
