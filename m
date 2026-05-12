@@ -1,256 +1,162 @@
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 515133DB962
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 17:26:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C8E83C7690
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 17:27:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778606783; cv=none; b=eyecTVfTvsgqmsmxfn4/C4T13rDEmzUhsrJ6MotXZyCkdZpF6ZvD/9RVW/RVNFpAoQLAR0o8dVMf2pxlGPCjoTfQCGEkwEnF/cxG/tyk2GT08bjDPQRP0jxoPaR7vb8QgmbZTTBbnUKxUlNguA59DYI/9XWCvWDWmN5eZT1vVB0=
+	t=1778606874; cv=none; b=Ye1PF06HwJz5X2pD19eprLXarjGYH8PwE3ylazAwKM4fAR83LuzeulpKugZDp5GEPTMLtRKRdW90g6PXrzZm2WDDClWd96cP5hJOjKE8W8JmVdut0R1AZT+LKevwONt8VIHIjnQaCGbTl67WS6rNWQZgBk3TTO+GQcy3miImH2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778606783; c=relaxed/simple;
-	bh=GH4ZvXtK3C8jRIe/KpqWaX2kA5XQXR1LOJFoNrOPCZ0=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=reA+lJQj+9W25/PcQmSF9k1qT8B2j3jM9yEPXkce84r3MYHFFi6uJnthqxFC83viQsuFg227ezZMCti/ShpgMISVqTbnBie22B8qrT1jzwmQX+AaBHvfRcs4c1smtTNx1YzyFss3zBPATMLFXo5EvErOPpZS89sD034ExofLgGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l5wlrUP3; arc=none smtp.client-ip=209.85.208.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778606874; c=relaxed/simple;
+	bh=urCd3imNr9U3d0H113lqR9foS3GfiVWT0uc0mm2Epdg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KQLGv6MO2bg2ChYd5yI4KvIumsFt+dKv2PDkkEukCu6wIR+0tLcjIu+kb15CpW9uqXdTGQ8qVPJKUpedzhZnzI9pU2sO4SaZ0qlThthAmNCIpOa6y6lHVaPR7d3e15yhrh39jH+eVnagCnzucD5FGQwc3EaDcNzxdZ3HYvz8VbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MHbBEHq4; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=WWG/S5XC; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l5wlrUP3"
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-67b6da5a618so8253525a12.2
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 10:26:21 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MHbBEHq4";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="WWG/S5XC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1778606870;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zFhFfaxYKQp+2MS88gk9p49P/5ACB62Km8g6Bv6AbKU=;
+	b=MHbBEHq4XIUv2eFQi9Q3Bha83Sjgci592752CPVN87w+vOTpRjmAKDGadKjrDx/P4YfX3x
+	fkTWLF06dGSvYsE8gt4k9GKPfYW0CkbRj4rUUQdae2wZVVOOprvZk1B4ZzxFRsDaZRHejs
+	SMOqaN+Anf55PKqGeWmyOIGkiWzwPWc=
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-645-pgVOXfyKPOyQYTh4TqdJOg-1; Tue, 12 May 2026 13:27:49 -0400
+X-MC-Unique: pgVOXfyKPOyQYTh4TqdJOg-1
+X-Mimecast-MFC-AGG-ID: pgVOXfyKPOyQYTh4TqdJOg_1778606869
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8b0312bb1dcso152402126d6.1
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 10:27:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778606780; x=1779211580; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=es0fhfjsZJa+c9pGkN+xW7Ugn5fzPzkcUIdpFAi88WM=;
-        b=l5wlrUP3gLlOeTCY105b3pu05JHAoTfN2uPsPj/PCrLj+7wFnkZ4tg6oeEQsgsOU1d
-         Q4MaXtFuVnudW7qQVWdUEH5XQz7lb9VgWR2JKPl5FRu0RuxyvgcADbQOVKKxOzLqd6wi
-         kXEgauDJLSmOEigfwB//m7GJpFeIjw6H7YiZnCxqpkqRP6cPz2iSocpstUPKsYWwUVoF
-         IWb2jq/UvSo8KJ4LIK0UlVbpy7exlY1j8OMB1FZpgLYFaOjl0D9yElrGN9aeM4ilwt4f
-         vOIpBgEmW6jfdD2+yX/O0HDi3OwUohp3afPSJG5XJkQbSEzcr1q2RtyLE0JSCu8gl302
-         Wiqw==
+        d=redhat.com; s=google; t=1778606869; x=1779211669; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=zFhFfaxYKQp+2MS88gk9p49P/5ACB62Km8g6Bv6AbKU=;
+        b=WWG/S5XCXvZM1Zxyko9ma47my1kzLyp8hGNhd/WjOgufU3aa9f+qtO/uRYEj8lD2BV
+         jKfFzDtz+0BVBj+ie62UQjTvpdvnJKcGLwZAemuZ8SlVMnpIXrsO3QcEly2ajECoFBd4
+         p343A22rdFUzvajz6UONajYgKyTHxW5rrSs8S19mFNWQxeLfy3q2/LCFHwpoY0D6OBI5
+         z+yfD5cDZhtcn4BBCoFM1O2UFqvp4iEC3XS66whl5m3NUDM2MEuqYLSPY4oAhskRO9fw
+         gMzmF5PWUR/MOYW9rFWf9S3hqlGHsOtXFZ2Hyrnb9ptMbjj9NP1NThID7sb/qH0dihQd
+         0vLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778606780; x=1779211580;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=es0fhfjsZJa+c9pGkN+xW7Ugn5fzPzkcUIdpFAi88WM=;
-        b=KQc1mikxLbzVSDryi4CrF+c8ThEfFhy0typAGVOB6jSdyH37q6MheMSl+Z1Hz7XIg2
-         wSOaxZkEbJfwfJlu6qsep+USSm+Rq8gWA9OlqagBPVyn4E+3NAnIN6er9330d9P6Z8rk
-         FSS58XRWsttw56SdpMsyL0/kdJQPRwo1TrRMB/Tym/AZzBpC/smkwgTALXvc3fWKgrFN
-         gjaT3HLj6M6njXyaJaENPCNjc+5zpJDZYMIMz7tLV4roT0ZYy/GliAhs8wGntgbYN87Y
-         lJ+hoPl3ninNDqdMGHJojfFPh5wrZXcfm9IqLJcJtX6akZukTIxZWJ7NyY2k+fcGXDmS
-         Paag==
-X-Forwarded-Encrypted: i=1; AFNElJ/qa9uYt60zgV9r9WZ7xfCy6ETw2R8GCBbbXseewMh2wT0C6ptb+qQTXiBoVAa8jNPnyYJBjkBYeD+r@vger.kernel.org
-X-Gm-Message-State: AOJu0YzSKhKlOAsykzhXDL446vDDicwXaq5NrU/LAt1+gbORO616J61w
-	A2U3YPJQ+aBG+05X1ZX43YzWWaHnEDM4rI/G+ginEDgirBPhaHsgS5MM
-X-Gm-Gg: Acq92OG5oI7Am2zSoEHhakTketPn0Pqx8E+ozi9JZrKGHf+vVYm/ecLVhxT71H810ey
-	jbjx2Pia/PxYJ6K3qw6wtTOXBgC6yVgSeAV+Mmz4imRELfwhIsJYXXwYP5+ORjXbdQjakMock9r
-	LPZ3uDZJzjZitEw4EPZs5dUFrjtPFywvDFdczdJ/0UV3OIifG6py9olzejEvCkbcpc4GRWNDmn5
-	LF7CpTRXyhVSSfF0LGvs1DtquGjtsSwMenF8I+TIR4hJhfuHS+iBGdgczUdZCqfW6jluKoEAHmy
-	+5IDOqM9kky22F96KzTjYOrsFqOQK0WGL4G7w+ds+myMrwEBueN3qLJYXnAp2y1i9Sg3aaSiYfm
-	6btLrM7BZntEqxGXTwxuLMN8IaCBGZcpYhxGz9jVXeiP1Gc+uUilnD6oL1w1VtUDH9zV67qUvR/
-	1JZ94DarYoqjDxFAFhUYmQ4lXV6nqtYlPrkv7/+E/hSub4IYQt27M83mPsTSlMrzVqb2+HcxJQI
-	KZ/fIiNCSaDen7SUlX22JZS6XeTYkyhBZVjRn+bUOZQd7SO+w==
-X-Received: by 2002:a05:6402:1f86:b0:670:ef2a:217e with SMTP id 4fb4d7f45d1cf-67f6f91cd8emr8443896a12.0.1778606779530;
-        Tue, 12 May 2026 10:26:19 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-67ef0e0d132sm5340609a12.20.2026.05.12.10.26.16
+        d=1e100.net; s=20251104; t=1778606869; x=1779211669;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=zFhFfaxYKQp+2MS88gk9p49P/5ACB62Km8g6Bv6AbKU=;
+        b=KIOk0L0jFhLz4DD8k3/vriMNriCjbpaw/vkNDxlhOCNQ2yN3p4PN0KV94AkwSBEHa0
+         tsmafxYOVH8rXPDowLeavdGfzaeiol3yAUewZjT4DgCF1TpV1WPS0G/KU6vGRLAMDDBC
+         MkHnv16VWSLrYcMVIGCpqJtsX4ej/Huant7xJ/SZ35p77lGINoPQQ5472OjT3xXpPorX
+         xdMOL95n5fC/dLx1BHE2FVQ2O2AH0hPN/Mva6rMh0I7i9OmIkEOGRjBn5fzzFXi5zSUt
+         6W8zWIWsE4nS+/HOJN3M43L8kiQDXiQBwNBBf1dVvNs5lpmKpXqJxDELqrpwc+rLKWat
+         d+yg==
+X-Forwarded-Encrypted: i=1; AFNElJ8AJIm9Y5LBd4e/3FfgkBpAVIcpn/wsxSSlmOnxlmWdtVLtP/ojLyUMtlXyaHDa+RqC2Y30NCaPVo83@vger.kernel.org
+X-Gm-Message-State: AOJu0YziTpTkfVRQoI+YnKcwI/uR2MnN0nM5Na9aAM+0ACJLxuzwVyfB
+	012qI0hoDKFM/0MqF77wcJo4iXHn98zwY5OQyQG2h8WPrQX7yQG6aFj5tEpRYohGiUezg7FMPHq
+	eFnZx0XPZF3qr+L/lZdyLan7M9Enzeqr+esb19Zt/oGeJ3xEw8A2QbmP5NLyuxbs=
+X-Gm-Gg: Acq92OHSrNgOWn4gRKHWRVSnYGjW4MVbBrkNwfHnki5LwgqBUsYyfqUxySFIw4xBOpT
+	rVy1Ma7FYzXa1TMp7DTV4bqGXf7ZmTagOHi4S9svdVKh5qyMDZdtJ38YzNhFoSFZyre+pbnG4v4
+	5Aic2FbWlVkduX87nd74/bplQfgF/2zHbDfUytvhLnirVvv3CS3Ib19HIyXJzpKoBlD8MBwMYWo
+	Y3IkO2lpie6ID1OZWgoytnC7R1BPZkQ0zIQejvV4X34PmWNYYijX98tKTkLLHI336x0N/zArgBi
+	VO//g6CUHpiFwxckG+9CXU/yGO1K6c9YcLghObdccOiEMtFgTxn+0zIHV9Yc0xwtyxZElaZa2lA
+	0zDK53PVkWUuqWIBiRzQv+Y56O2nQ/c2Eo4nkLgIOwm+rF9LCanSe9aXW
+X-Received: by 2002:a05:6214:5d8a:b0:8ac:8cbb:49bd with SMTP id 6a1803df08f44-8c663f6e991mr57494646d6.38.1778606868952;
+        Tue, 12 May 2026 10:27:48 -0700 (PDT)
+X-Received: by 2002:a05:6214:5d8a:b0:8ac:8cbb:49bd with SMTP id 6a1803df08f44-8c663f6e991mr57493836d6.38.1778606868187;
+        Tue, 12 May 2026 10:27:48 -0700 (PDT)
+Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8bf3a43636fsm131095666d6.21.2026.05.12.10.27.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 May 2026 10:26:18 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
-Date: Tue, 12 May 2026 18:26:12 +0100
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-Cc: Andy Shevchenko <andy.shevchenko@gmail.com>, 
-	Jonathan Cameron <jic23@kernel.org>, 
-	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>, rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
-	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Shuah Khan <skhan@linuxfoundation.org>, 
-	David Laight <david.laight.linux@gmail.com>
-Subject: Re: [PATCH v12 02/11] lib: kstrtox: add kstrtoudec64() and
- kstrtodec64()
-Message-ID: <ru2h3ip7qf6j54dlrij54nwp45uyq6m2e6zspt6v6eynpsagqq@eo5v3yparuhh>
-References: <20260512123953.40d80bc9@jic23-huawei>
- <agMnWzMjW1LwCSyT@ashevche-desk.local>
- <sj6cpjhakyfvv6rgox6cnhl2u2tgaecugcok6fw2l7zgku5wtc@aqx3ul72vgca>
- <agMvlS3-0wvGmBwh@ashevche-desk.local>
- <dxjg2sdyxb7ieb4abmeyyye7qok6cczrxabpsjyjhcbehwoec3@sbbqoo4wmzre>
- <agM8pWrM6j_XksvN@ashevche-desk.local>
- <ur6brs3yjzyb4mtelabmcglxjltddqvjxtgl3lkdkmbjlkmnsq@bwd6rz7gided>
- <CAHp75VeoH3yVfp8NWjKfc_df0VRLkyf_SK4e==-wJOEodVjW_A@mail.gmail.com>
- <q4rmlkgecvztnvjg7b7wtqyvhdy7uxgaouvhae2mlsxaasasbf@dfakp4m5l5sl>
- <agNfqiZpGZAM-x_H@ashevche-desk.local>
+        Tue, 12 May 2026 10:27:47 -0700 (PDT)
+Date: Tue, 12 May 2026 13:27:45 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: dongxuyang@eswincomputing.com, mturquette@baylibre.com,
+	sboyd@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	p.zabel@pengutronix.de, huangyifeng@eswincomputing.com,
+	benoit.monin@bootlin.com, ningyu@eswincomputing.com,
+	linmin@eswincomputing.com, pinkesh.vaghela@einfochips.com,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v4 1/3] dt-bindings: clock: Add ESWIN eic7700 HSP clock
+ and reset generator
+Message-ID: <agNjEcnlUdkpexqJ@redhat.com>
+References: <20260512020432.671-1-dongxuyang@eswincomputing.com>
+ <20260512020511.726-1-dongxuyang@eswincomputing.com>
+ <agNLuSCDlukeVGcS@redhat.com>
+ <20260512-captivity-chatroom-0c46aa7ab0a3@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <agNfqiZpGZAM-x_H@ashevche-desk.local>
+In-Reply-To: <20260512-captivity-chatroom-0c46aa7ab0a3@spud>
+User-Agent: Mutt/2.3.1 (2026-03-20)
 
-On 26/05/12 08:13PM, Andy Shevchenko wrote:
-> On Tue, May 12, 2026 at 05:35:59PM +0100, Rodrigo Alencar wrote:
-> > On 26/05/12 06:21PM, Andy Shevchenko wrote:
-> > > On Tue, May 12, 2026 at 6:11 PM Rodrigo Alencar
-> > > <455.rodrigo.alencar@gmail.com> wrote:
-> > > > On 26/05/12 05:43PM, Andy Shevchenko wrote:
-> > > > > On Tue, May 12, 2026 at 03:12:24PM +0100, Rodrigo Alencar wrote:
-> > > > > > On 26/05/12 04:48PM, Andy Shevchenko wrote:
-> > > > > > > On Tue, May 12, 2026 at 02:21:14PM +0100, Rodrigo Alencar wrote:
-> > > > > > > > On 26/05/12 04:12PM, Andy Shevchenko wrote:
-> > > > > > > > > On Tue, May 12, 2026 at 12:39:53PM +0100, Jonathan Cameron wrote:
-> > > > > > > > > > On Sun, 10 May 2026 13:42:20 +0100
-> > > > > > > > > > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
-> > > > > > > > > >
-> > > > > > > > > > > Add helpers that parses decimal numbers into 64-bit number, i.e., decimal
-> > > > > > > > > > > point numbers with pre-defined scale are parsed into a 64-bit value (fixed
-> > > > > > > > > > > precision). After the decimal point, digits beyond the specified scale
-> > > > > > > > > > > are ignored.
-> > > > > > > > > >
-> > > > > > > > > > Whilst Rodrigo has already replied to say there will be another version
-> > > > > > > > > > I'd like to request final feedback from those who were involved in the parser
-> > > > > > > > > > discussions.
-> > > > > > > > > >
-> > > > > > > > > > They got very involved and I'm far from an expert in the right way to do
-> > > > > > > > > > this stuff.
-> > > > > > > > > >
-> > > > > > > > > > I don't think David Laight was +CC so I've added that.
-> > > > > > > > > > David, Andy - I think you two were most involved in that discussion:
-> > > > > > > > > > Any objections to the end result?
-> > > > > > > > >
-> > > > > > > > > I already said a few times about the naming. I do not like the kstrto*()
-> > > > > > > > > be semantically different on how they treat the input. Second point is
-> > > > > > > > > to avoid code duplication, but this one is less of a concern since the
-> > > > > > > > > new code is in the library close to the other potentially duplicate code
-> > > > > > > > > piece and hence can be addressed later.
-> > > > > > > >
-> > > > > > > > I suppose I reached into kstrtodec64() and kstrtoudec64() because it aligns
-> > > > > > > > with your expectations for kstrto*() semantics, no? Those include:
-> > > > > > > >  - overflow check;
-> > > > > > > >  - extensive input validation;
-> > > > > > > >  - optional '\n' in the end;
-> > > > > > > >  - mandatory nul-termination.
-> > > > > > > >
-> > > > > > > > am I missing anything?
-> > > > > > >
-> > > > > > > When we add scale we basically make that not true. Moreover the code in this
-> > > > > > > patch makes scale == number_of_characters which I think a bit fragile, however
-> > > > > > > it's about the fractional part when the amount of digits is equal to scale.
-> > > > > >
-> > > > > > That is not really the case. It is being set as a limit, so it does check for
-> > > > > > truncation and zero-padding.
-> > > > >
-> > > > > I do not see it happens in _parse_integer_limit(). It doesn't try to parse more
-> > > > > characters than it's requested in max_chars. It doesn't check if there are more
-> > > > > character nor their converted values.
-> > > > >
-> > > > > > > To make this work as expected we need to add an additional call like
-> > > > > > > kstrtoull() (and perhaps drop that \n and NUL-terminator checks) and see
-> > > > > > > if that overflows or not. Since it's a fractional part it must have less
-> > > > > > > than 20 (decimal) digits there, so we check the rv (or how many digits
-> > > > > > > were parsed successfully) and compare to 20. If it's more, we got too many
-> > > > > > > decimal digits.
-> > > > > >
-> > > > > > For overflow it checks the KSTRTOX_OVERFLOW flag and leverages check_mul_overflow()
-> > > > > > and check_add_overflow() when combining fractional and integer parts. The amount
-> > > > > > of characters is not really important there. The scale cannot be bigger than 19 and
-> > > > > > that makes sure that int_pow() does not overflow. The code uses _parse_integer_limit()
-> > > > > > due to the nature of input and to avoid 64-bit division, kstrtoull() at any point
-> > > > > > (parsing integer or fractional parts) does not make much sense.
-> > > > >
-> > > > > Under 'like kstrotoull()' I meant something that repeats needed functionality.
-> > > > > I believe it's parse_integer() (without limit).
-> > > >
-> > > > I think we are going in circles here and we could look at the code instead:
-> > > > - integer parsing with _parse_integer()
-> > > >         - overflow check and validation of the return value
-> > > > - fractional parsing with _parse_integer_limit()
-> > > >         - overflow check and validation of the return value
+On Tue, May 12, 2026 at 05:40:16PM +0100, Conor Dooley wrote:
+> On Tue, May 12, 2026 at 11:48:09AM -0400, Brian Masney wrote:
+> > Hi Xuyang,
+> > 
+> > On Tue, May 12, 2026 at 10:05:11AM +0800, dongxuyang@eswincomputing.com wrote:
+> > > From: Xuyang Dong <dongxuyang@eswincomputing.com>
 > > > 
-> > > No, this is not fully true. That's what my whole point is about. The
-> > > max_chars parameter limits the input check, then it skips an arbitrary
-> > > number of digits and only *then* it checks for \n and \0. What will be
-> > > the result of the
-> > > 0.00000000000000000000000000000000423 in your case? Whatever scale you
-> > > gave it will return 0 without checking on how many digits were
-> > > supplied.
-> > 
-> > I suppose that is a valid input and 0 is the expected result there.
-> > 
-> > > All the same for 0.9999999999999999999999999999999000423. My
-> > > point is that we should limit this by 19 digits.
-> > 
-> > why we need to limit by 19? Digits beyond the scale carry no value...
-> 
-> ...only if they are all 0:s.
-
-I thought your concern was on input length.
- 
-> > just like leading zeros to the integer part (which is also accepted by
-> > kstrtoull() when parsing with base 10). Not sure why this is invalid input.
-> 
-> See above. I agree on truncating trailing 0:s as it's done for leading ones
-> in integer part, but if any of the digit behind 19th is not 0, it's an overflow
-> condition (or bad input, depending how strict the rules are).
-
-stating in the documentation that digits beyond the scale are ignored is not
-enough?
-
-> > > On top of that, what about -0.9(19 times) ? the fraction should be u64
-> > > in this case and it's fine. The sign applies to the combined value.
-> > 
-> > yes, range for signed values are verified later.
-> 
-> > > >         - extra scaling and truncation happening outside if needed.
+> > > Add bindings for the high-speed peripherals clock and reset generator
+> > > on the ESWIN EIC7700 HSP.
 > > > 
-> > > Right, but the given input may be way too long and still needs more validation.
+> > > Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> > > Signed-off-by: Xuyang Dong <dongxuyang@eswincomputing.com>
+> > > ---
+> > >  .../bindings/clock/eswin,eic7700-hspcrg.yaml  | 63 +++++++++++++++++++
+> > >  MAINTAINERS                                   |  5 +-
+> > >  .../dt-bindings/clock/eswin,eic7700-hspcrg.h  | 33 ++++++++++
+> > >  .../dt-bindings/reset/eswin,eic7700-hspcrg.h  | 21 +++++++
+> > >  4 files changed, 120 insertions(+), 2 deletions(-)
+> > >  create mode 100644 Documentation/devicetree/bindings/clock/eswin,eic7700-hspcrg.yaml
+> > >  create mode 100644 include/dt-bindings/clock/eswin,eic7700-hspcrg.h
+> > >  create mode 100644 include/dt-bindings/reset/eswin,eic7700-hspcrg.h
 > > 
-> > What is the problem with a long input of digits?
-> > C compiler does not complain about this when parsing a float value,
-> > python does not
-> > complain about this when parsing floats or decimals either.
+> > Does the MAINTAINERS file need to be updated for these paths? The entry
+> > in linux-next currently looks like this:
+> > 
+> > ESWIN EIC7700 CLOCK DRIVER
+> > M:      Yifeng Huang <huangyifeng@eswincomputing.com>
+> > M:      Xuyang Dong <dongxuyang@eswincomputing.com>
+> > S:      Maintained
+> > F:      Documentation/devicetree/bindings/clock/eswin,eic7700-clock.yaml
+> > F:      drivers/clk/eswin/
+> > F:      include/dt-bindings/clock/eswin,eic7700-clock.h
 > 
-> Because there is an exponent limit and for double it's something like 1e307
-> IIRC, meaning, try 1024 digits to be sure.
-> 
-> Python most likely uses the library for big numbers, you can't compare it at all with this.
-
-You would be fine if the truncation loop:
-
-while (isdigit(*s)) /* truncate */
-	s++;
-
-is bounded by (19-scale) iteration count? or it should keep iterating if those are zero?
-
-is that the only concern? Again, the usage of _parse_integer_limit(s, 10, &_frac, scale)
-avoids a 64-bit division when checking the rv.
-
-> > > > - check for input termination
-> > > > - combination of integer and fractional parts with check_mul_overflow() and check_add_overflow()
-> > > >
-> > > > > > > Maybe I'm missing these checks already performed?
-> > > > > > >
-> > > > > > > > > Having the test cases is a big benefit, and that part I like the most.
-> 
-> -- 
-> With Best Regards,
-> Andy Shevchenko
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index b2040011a386..b7180863310c 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -9548,9 +9548,10 @@ ESWIN EIC7700 CLOCK DRIVER
+>  M:     Yifeng Huang <huangyifeng@eswincomputing.com>
+>  M:     Xuyang Dong <dongxuyang@eswincomputing.com>
+>  S:     Maintained
+> -F:     Documentation/devicetree/bindings/clock/eswin,eic7700-clock.yaml
+> +F:     Documentation/devicetree/bindings/clock/eswin,eic7700*
+>  F:     drivers/clk/eswin/
+> -F:     include/dt-bindings/clock/eswin,eic7700-clock.h
+> +F:     include/dt-bindings/clock/eswin,eic7700*
+> +F:     include/dt-bindings/reset/eswin,eic7700-hspcrg.h
 > 
 > 
+> Is this not sufficient for what you're looking for?
 
--- 
-Kind regards,
+I completely missed that. Sorry
 
-Rodrigo Alencar
+Brian
+
