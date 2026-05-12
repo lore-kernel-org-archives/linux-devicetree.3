@@ -1,81 +1,174 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814E821146C;
-	Tue, 12 May 2026 01:12:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C718625F7A5
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 01:12:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778548326; cv=none; b=rmb+yorGXek+pCR03F9pEFT8W10Lq/T3WwEC8pmJR0qSU/ObJhk9TkUDffa/hLqqbGLUUOfPTlte8IV29iDzBWZrOtfq3/i4beza+yxJcMNJwXXFonVG0uaxaJnSB3XO0HbxhyfHBp1xxsB89csfeQB7PMqetZ4KQrHbX4XbU9c=
+	t=1778548328; cv=none; b=SWREM2138h2FLXIE+yQT2SGvOfV3G+ZxI+/f3vsZ46Qkpx5rIEFF58F73fhfeyD00CYYPUtSEsEmVONBU0FJA/UMmw/Zd99Ziyxa8R9rAmYaNoxEPiS3628rbn5fRmfWfNELr+E9cKpjS7A7106O+dqk3nAheFdMwDsmTDCkxws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778548326; c=relaxed/simple;
-	bh=gR8Xad+Bnfc+qAKzBc7L8CKzJpi6ksY2SQ9rHR1oW8U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZI2ExdI4Xi+L3klD9OevvhiCqiUOp/wP6VUQjAa+hZjsHedHP4JEI9Z4xzMBeCyky++UFuGG5sQEz7umgxRrLwxMkIzPPqs+Fxn0613xZT86irHlvCbmf6zWrAZ3yipyEyBKd1XnnRSVBheaFpo/2qaCEdzwmMZSXtZlwgGqbzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tu53em73; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778548328; c=relaxed/simple;
+	bh=M7Ch6uVgbesLp6xGNdVEJSycki9fRn6OnyI+5Mv05fk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=krbQJGBDgwxmIwy4ZE8Ysy0O6TEdJx63ohWBbSo1eVx5gx/qXCUM9IBiapZ3obl0fQh/No+pHTsz1lVpQGQvGuP0UGNB98ONgFf3lfo79QqgUyMLuyi4HnX8vz17/OA01eWjPMB2LhKsTzcbr4OY6QoydtMsj2yqkyCpqVy+QrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dsc5i+aX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tu53em73"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56314C2BCB0;
-	Tue, 12 May 2026 01:12:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dsc5i+aX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FFBDC2BCB0;
+	Tue, 12 May 2026 01:12:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778548326;
-	bh=gR8Xad+Bnfc+qAKzBc7L8CKzJpi6ksY2SQ9rHR1oW8U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tu53em73kF7B6rmK0gkuqQSR7uB/PXP/A8YfIxIxk9f8HuuXREs3luNo02d23IchQ
-	 NmJaDwZvN0+88NzEm14Xh0OeOXEu4VUvif8QLmiBfoP8Z1KyXATIXei/ZM8wRMeBva
-	 vX7LtEc/3EQ/7/xxspn148tSi/DSV2NLZZ/6B9a8j2BwzN/FMd1W7Byt05HZ8klPxX
-	 TrnrFv9aTG9EfWu+ND8AQy0crAmvfsnVAORAH/C51OOsP14P0fr0rNf7rRd6rmvL6P
-	 M9r6c43l8p+t9lbEkS0ZpUgy5QCEZxZ0ZeQydFkITw1IKEPfD7wSwPn4CcNoC2kyFo
-	 XSlHbij8ozRpg==
-Date: Mon, 11 May 2026 20:12:01 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>, 
-	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/4] arm64: dts: qcom: Add device tree for Nord SoC series
-Message-ID: <agJ-Qc71PloUM1pI@baldur>
-References: <20260427023455.236410-1-shengchao.guo@oss.qualcomm.com>
- <20260427023455.236410-2-shengchao.guo@oss.qualcomm.com>
- <20260428-dangerous-garnet-collie-dacccf@quoll>
- <e1a84d37-04a1-4c36-b6c3-f8830df9a744@kernel.org>
- <afCxhUaxLEcbosvV@QCOM-aGQu4IUr3Y>
+	s=k20201202; t=1778548328;
+	bh=M7Ch6uVgbesLp6xGNdVEJSycki9fRn6OnyI+5Mv05fk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=Dsc5i+aXoHtjg7v49XEqPOKCZYIliTcHf1WtFpALFjpCrAzFP7Vkjg2BTaRmRfjkb
+	 rWFbvdrU/zBEl5XqOMh9vOBWuvgl10CuRHjLpeVT4did4fVbPp7ZNl8TogGEGVEbmp
+	 t3tJhfdn/Ay0gOm7z+3abgxVkpSmAeTbT5Z7vFAeRN/s7m5zWTs5znLq0k5w5qoo/m
+	 v5taXtbLUyvs1oh9ece9CHgLrEaN7ePhROzsUSSWUaYtlhJcFhBnKpJGpHQDjWiTrG
+	 kjZ3erfnURlIr/AWyV04Ny0Ph2+p28aTc3xVfO++eCP6UG83aiiRhxfXUojpwrPef1
+	 KlADEgM8fuqxw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] drm/verisilicon: add support for Nuvoton MA35D1
+ DCUltra Lite display controller
+Reply-To: sashiko@lists.linux.dev
+To: "Joey Lu" <a0987203069@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260511075142.54752-3-a0987203069@gmail.com>
+References: <20260511075142.54752-3-a0987203069@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 12 May 2026 01:12:07 +0000
+Message-Id: <20260512011208.2FFBDC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <afCxhUaxLEcbosvV@QCOM-aGQu4IUr3Y>
 
-On Tue, Apr 28, 2026 at 09:09:25PM +0800, Shawn Guo wrote:
-> On Tue, Apr 28, 2026 at 09:28:47AM +0200, Krzysztof Kozlowski wrote:
-> > On 28/04/2026 09:24, Krzysztof Kozlowski wrote:
-> > > On Mon, Apr 27, 2026 at 10:34:52AM +0800, Shawn Guo wrote:
-> ...
-> > >> diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qcom/nord.dtsi
-[..]
-> > >> +			compatible = "qcom,oryon-1-5";
-> > > 
-> > > I asked you to send this binding WITH the user, because they go via
-> > > the same tree. I see the user, but no binding for it in the patchset.
-> > 
-> > And few others like SCM are also missing. I am talking about this many
-> > times already, to multiple vendors, and I am still surprised why people
-> > on purpose give more work to the maintainer. Well, not my tree, so not
-> > my work, but if you ever wonder why your patches are not applied for
-> > longer time, that could be one of the reasons.
-> 
-> Yes, I should have sent all those bindings targeting Bjorn as part of
-> this series to make it easier for Bjorn.  But I'm not sure cpus.yaml
-> change is one of them, as I'm sending it to Rob.
-> 
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] The primary plane is never logically disabled in hardware for the =
+DCUltra Lite variant, leading to a Use-After-Free condition.
+- [High] The primary plane is enabled before its DMA address and size are c=
+onfigured, causing a hardware race condition.
+- [High] The DCUltra Lite IRQ handler fails to acknowledge interrupts and u=
+nconditionally returns IRQ_HANDLED, which can cause an interrupt storm.
+- [High] Pre-existing NULL pointer dereference in early IRQ handling due to=
+ incorrect initialization order.
+--
 
-Not sure if you have settled this by now, but I can merge such binding
-change together with the dts change.
+commit 522901c8020d5fe12ddd26c3af8e4d282c2fd2fd
+Author: Joey Lu <a0987203069@gmail.com>
+Subject: drm/verisilicon: add support for Nuvoton MA35D1 DCUltra Lite displ=
+ay controller
 
-Regards,
-Bjorn
+This commit adds support for the Nuvoton MA35D1 DCUltra Lite display
+controller to the verisilicon DRM driver. It introduces a vs_dc_info
+platform data structure to handle architectural differences between the
+DC8000 and DCUltra Lite variants.
+
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c b/drivers/gpu/drm/verisi=
+licon/vs_dc.c
+> index dad9967bc10b8..82a6a26f6d817 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
+
+[ ... ]
+
+> @@ -33,6 +57,13 @@ static irqreturn_t vs_dc_irq_handler(int irq, void *pr=
+ivate)
+>  	struct vs_dc *dc =3D private;
+>  	u32 irqs;
+> =20
+> +	if (dc->info->family =3D=3D VS_DC_FAMILY_DCULTRA_LITE) {
+> +		regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &irqs);
+> +		if (irqs & BIT(0))
+> +			vs_drm_handle_irq(dc, VSDC_TOP_IRQ_VSYNC(0));
+> +		return IRQ_HANDLED;
+> +	}
+
+Does this missing ACK cause an interrupt storm?
+
+The DCUltra Lite code path reads the interrupt status but does not appear to
+write back to clear the pending hardware interrupt.
+
+Additionally, unconditionally returning IRQ_HANDLED might prevent the spuri=
+ous
+interrupt detector from disabling a faulty IRQ line.
+
+This isn't a bug introduced by this patch, but could this lead to a NULL
+pointer dereference during boot?
+
+In vs_dc_probe(), the IRQ handler is requested before initialization:
+
+	ret =3D devm_request_irq(dev, irq, vs_dc_irq_handler, 0,
+			       dev_name(dev), dc);
+	...
+	ret =3D vs_drm_initialize(dc, pdev);
+
+If a leftover hardware interrupt fires immediately, vs_dc_irq_handler() cal=
+ls
+vs_drm_handle_irq(), which accesses dc->drm_dev->crtcs[i].
+
+Since dc->drm_dev is allocated inside vs_drm_initialize(), it appears
+an early interrupt would dereference a NULL pointer.
+
+> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c b/drivers/gpu=
+/drm/verisilicon/vs_primary_plane.c
+> index 1f2be41ae496c..197d5d683e224 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+
+[ ... ]
+
+> @@ -88,8 +91,9 @@ static void vs_primary_plane_atomic_disable(struct drm_=
+plane *plane,
+>  	unsigned int output =3D vcrtc->id;
+>  	struct vs_dc *dc =3D vcrtc->dc;
+> =20
+> -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+> -			VSDC_FB_CONFIG_EX_FB_EN);
+> +	if (dc->info->has_config_ex)
+> +		regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+> +				VSDC_FB_CONFIG_EX_FB_EN);
+> =20
+>  	vs_primary_plane_commit(dc, output);
+>  }
+
+If has_config_ex is false for DCUltra Lite, how is the primary plane disabl=
+ed
+in hardware here?
+
+Since the disable sequence is skipped, will the display controller continue
+fetching from the framebuffer memory after it is freed by the DRM core?
+This could lead to a use-after-free by the DMA engine.
+
+[ ... ]
+
+> @@ -126,6 +130,11 @@ static void vs_primary_plane_atomic_update(struct dr=
+m_plane *plane,
+>  			   VSDC_FB_CONFIG_UV_SWIZZLE_EN,
+>  			   vs_state->format.uv_swizzle);
+> =20
+> +	/* DCUltra Lite requires explicit enable/reset bits in FB_CONFIG */
+> +	if (!dc->info->has_config_ex)
+> +		regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +				VSDC_FB_CONFIG_ENABLE | VSDC_FB_CONFIG_RESET);
+> +
+>  	dma_addr =3D vs_fb_get_dma_addr(fb, &state->src);
+> =20
+>  	regmap_write(dc->regs, VSDC_FB_ADDRESS(output),
+> @@ -133,16 +142,18 @@ static void vs_primary_plane_atomic_update(struct d=
+rm_plane *plane,
+>  	regmap_write(dc->regs, VSDC_FB_STRIDE(output),
+>  		     fb->pitches[0]);
+
+Could enabling the plane before configuring its DMA address and size cause
+the hardware to fetch from uninitialized or stale memory?
+
+Since DCUltra Lite does not use a shadow register commit mechanism, it seems
+the address and stride should be programmed before setting the
+VSDC_FB_CONFIG_ENABLE bit to prevent out-of-bounds memory accesses.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511075142.5475=
+2-1-a0987203069@gmail.com?part=3D2
