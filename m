@@ -1,206 +1,184 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 879EE4C0424
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 10:01:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E07EB304BDE;
+	Tue, 12 May 2026 10:02:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778580109; cv=none; b=gxGK9LVkai75T07qf9XuQdjbfd3MOdLNmMw7g3TbYiihoHmC07p1Myd8ttYALI+sdZSgN+nK8yDG3Z7UwyanSLGQtmL/JtCVF1kuLob9EQJxvjj+p0BHeMcRsnxqLDits7JXOtZvh743LYjEDS2FBk4/nhnbSl1VLAhW/Vu55AA=
+	t=1778580135; cv=none; b=hhp+nt6W+ixxzfJiEP8sBy4qcCQeVcAMv62xE4nK/oG3cx+EMlEJcMm6orpQrygt16dxcQ0kVQQ6tb/ZUbkRFPa5efO1CBAwnOezxGHeLav/EnvZj9AtdZw0xsSZCatZ6DhOzuaOmRzKpYyAz0nJZTaDrDNC1orCvXMF60y0oII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778580109; c=relaxed/simple;
-	bh=M4MGfksm2KJNKz2SopLwjPKXAvHbsbcD2AS/jpfC2rM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YxA0Dxw76kxWqaj9VGrTYHOtlXMCwukIm8+UnrrnTPNbtenqRrtjKvbYa0Rsi+EfOhAbOgsyCbgOG+zCcZGKcGCiv6527/XW2skRzqAh5NvX/uWKiEH1dr63tv6tB4HQ1aOKaDIp/CCzpNZo069lAQVxnu+QX4D/GxRFJ8kqtGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kR7zxMTP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PstFF62Z; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kR7zxMTP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PstFF62Z"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64C5BuIb2519014
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 10:01:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	BC45lzfOu9qu5qz2K1SWlBa+7CSSxkc0TaGyvTJJ1vA=; b=kR7zxMTPFYJQouA3
-	p4DGnZeq2/EBw6uokAjZBrAa5nUZ6Mi3Kv3DQrbc59yc7W7qZ4HZ+xZTVUMxsk1B
-	oEoyy+azEPCOx78k/Yp2Nmoq30gk4JODkltXyltyrjUBQc1KYMvX1Jn0vcIj0dBu
-	YG0FcxAIskVG4+AFcERwbuBaHJquZZZHCjBy00e001lhkdi8S2Exg+fDXqsG4mOu
-	NdI5ySOTUP8Y5lImAiYmg950I/HDfab+vSkp7YeTe987hItDG5goSgJ59DrHM04k
-	sKW/eiufLRj1UKFwNsXbpVUt2hG76jfY2FZSPgCKA15m9NI9/MZh4UHzQvI8dv3Q
-	QrriaA==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e3nv1jmf8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 10:01:46 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-631337cbe45so236677137.1
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 03:01:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778580105; x=1779184905; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=BC45lzfOu9qu5qz2K1SWlBa+7CSSxkc0TaGyvTJJ1vA=;
-        b=PstFF62ZIbK1WxtzqxKyhv3Ko2fv+XiamDF9kMwoLuV2ff8ptZ3zY4zMFfR6SNskBV
-         VNqWaZaPDRUnRKgCiDC5W7YnJEJQquxRKh0hjpKS+1DAockEDzL/fU3g4MrEnCKipOgr
-         l7MA4o9aJk3N+NUeiQhSJo0q9LJS1PKRcfOIXkZTgC5OOds1TmTDHTW8Bvuipl7BqvUi
-         zEhlWgHtfCQbtHBQWamQt7Wa9+E2fKOh+bIyWTt4LpaGlSMHie7LQuTDHS+WGP0FLsFu
-         0G8zfs3MG41Jbw98sLW8UjTrnXrUjLLC1sABeANAKdXvn65gLAT0LU60bk3bMWfRbiva
-         cfhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778580105; x=1779184905;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=BC45lzfOu9qu5qz2K1SWlBa+7CSSxkc0TaGyvTJJ1vA=;
-        b=n83UV3PEN3QpdlZwLosUTd4NNmLckgElqeHZ1JkaEPoH94wpZukbB23Qy7yFr+2YhJ
-         pgL546bk56EQX8q6RX9ON+BcrUmM2o2nDothD6Dfo9xTifTGijN2tiAZVTcYrUL3lj+w
-         9Za5DhGJgzbVkf9X0gLGSowoyF2A8rZDCCzvrYTey8Ib4aWS/RkDpQ9jHJzm6Mvnhnqk
-         17JSdtZ4ow0PrNGDtzf6WvGn/HcLrky6zbVS27Xd/jQa8i0tb2324uL15cSW60hsh7GK
-         9z9FbLVAD1hjN5INOP8GeirHGCbptLTLHx5s5hxJVIv2GqLirDJ4KsusWzQ0TSQV/evT
-         Nykg==
-X-Forwarded-Encrypted: i=1; AFNElJ9f8obmlCKG5GVhSJVzOctpSFpO7JW8YVM6qy1MbSMAZizzV8RqCTa/C+54RegUtcQ3+By/JfDXyAZ6@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz4aOCxKsgvWNk1Yc0ze7rqoJd/pL1AX2o1mQfxuuzRhN3laUOU
-	HnX7CM8F71cHVmeWW13VaOVbQMEek2uU8WfKlQTxxOl4eT04EIlo6jcPfY455zGU605F6iPkRHQ
-	BhmyMn8ppRXbSD8FXzBVWPkXunQEc5Lh4PpWdHILl2r48GvdWY+RANtpeOqepLirq
-X-Gm-Gg: Acq92OETPAK4cOTg05IDNxlUv08zZV/zG90vicQh3Z8kdrVMsPwpufmBj4An83Vi2Wm
-	eN36VnE1ozW/9HFSTPKx7EUdfJt2xNW1oj2wXdQn5HGS1rUTAHCW1r4OnqD8DGuKaKA1PHmgnbt
-	AHLSJDz0l8i0XooEjcJVOFIWqrc3MjslljaZ8aDmbiYdlANWTMapRwpucZI/CwR6dJr3s5IeewD
-	uZ05d/L5P8XyQFo31BCGWZ4dDUoe+1KSBsWOw6Crv/ug65IoubYVMvbAyy9Y3WpfSL3JHmEB7/E
-	WmioeC3MOOO0fcDM/P7NgCdkhN3muZWiNMoe477IAMZJeQDGL2zO1A0K+x+PGApsKcp+V/FJs0x
-	qvPRBmcyJ3XhtxvSyrqi2EO7tGpWb3esin+4V3O76jeeQhkZPne/l0HKmv1ziY8kgQkRtmHgB8/
-	xrM5Q=
-X-Received: by 2002:ac5:c807:0:b0:575:99d9:cd15 with SMTP id 71dfb90a1353d-57599d9db41mr1781358e0c.1.1778580105614;
-        Tue, 12 May 2026 03:01:45 -0700 (PDT)
-X-Received: by 2002:ac5:c807:0:b0:575:99d9:cd15 with SMTP id 71dfb90a1353d-57599d9db41mr1781318e0c.1.1778580105090;
-        Tue, 12 May 2026 03:01:45 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bcc57c12799sm492515666b.47.2026.05.12.03.01.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 12 May 2026 03:01:44 -0700 (PDT)
-Message-ID: <08d1fd7a-c782-4d8b-85ee-1b46868db343@oss.qualcomm.com>
-Date: Tue, 12 May 2026 12:01:40 +0200
+	s=arc-20240116; t=1778580135; c=relaxed/simple;
+	bh=OdJ8hnLE55pnh0p3P3j5HYTzhxj0FvpG6RmW2CniriM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=TayloxQLF3/Asg/pWRo9369KlyR8Lh1rmtI34b1wbYBlzqvzmeebJ8FGk9Ujy5KNNfPTE+ETZxybxwjI+jRJxCBYSUIfaIuDY3Ck0X0gtNYkYJ0H+Ic1aGtaoA3FqlZnk8I569GnbF5GvFDD5DM3BxubSwPU2h656Iv8yM+4Ygc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.82])
+	by APP-03 (Coremail) with SMTP id rQCowAB3XOOS+gJqcF_HEA--.15121S2;
+	Tue, 12 May 2026 18:01:55 +0800 (CST)
+Message-ID: <4bf6efbb222ebc4d770ad613d17c6185e7cb2fda.camel@iscas.ac.cn>
+Subject: Re: [PATCH 2/2] drm/verisilicon: add support for Nuvoton MA35D1
+ DCUltra Lite display controller
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Tue, 12 May 2026 18:01:54 +0800
+In-Reply-To: <dfbc4042-64cf-49f2-a5de-12260beffaa0@gmail.com>
+References: <20260511075142.54752-1-a0987203069@gmail.com>
+	 <20260511075142.54752-3-a0987203069@gmail.com>
+	 <93e69179dbc495188cfffd8015350b3a55ce7876.camel@iscas.ac.cn>
+	 <de35406e-874d-4bdd-be7f-3d74dc37b13f@gmail.com>
+	 <3b94806073de8bd1d79aa7ec956493f67679e46b.camel@iscas.ac.cn>
+	 <dfbc4042-64cf-49f2-a5de-12260beffaa0@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 5/8] clk: qcom: gcc-msm8939: mark Venus core GDSCs as
- hardware controlled
-To: Erikas Bitovtas <xerikasxx@gmail.com>, Bryan O'Donoghue <bod@kernel.org>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
-        phone-devel@vger.kernel.org
-References: <20260510-msm8939-venus-rfc-v6-0-e69465375900@gmail.com>
- <20260510-msm8939-venus-rfc-v6-5-e69465375900@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260510-msm8939-venus-rfc-v6-5-e69465375900@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: aYjCHfEYebw1PP2vPCt9JWBZrX7j-AxU
-X-Proofpoint-ORIG-GUID: aYjCHfEYebw1PP2vPCt9JWBZrX7j-AxU
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEyMDEwMSBTYWx0ZWRfX/4Ekpc0Uu9/Y
- KapZsI57X+/MCZrp24r70NZ8ojysXlfSob5G4y4aPnvsjE1asGMLXUxI+ngNK7QAvb6I/u5zIuG
- sjxIoXn+KBaiMwITd/t7F+EMHTWch4Jkc3d23aHR+emru6g7aV7mw9UNH1qTC3mFvLNNUcqEZsY
- /paCHvLxagKQ+qvTkdErqm1yCwJc0MIC25vUdgS1/9hlEtrXztVJ1kCw1xQS2mjaCBZD/LrPvma
- kYzyIwCTYKEOxnrzsdYL9YT/eMVzvnhbl/EoJkTFpwO6LalVHnp6fsjDphUHyFr4G5pdWH5N9Kd
- eTY4gL74dfcYcZ5jP5lHW9vel/IapDT5fA09cqlQ3TDZL9TRoVDpbwBfUr2z3L5WcaFnLG7LMgg
- lfBV0zaU1BOhyEW6JsKxRDRwFjuhwda6nc3RYhlZT7HaGtfHQLFsUD2CcMrh8HHkEquR/0lIaCg
- 1PSzaU0dtjvI5jRyg6w==
-X-Authority-Analysis: v=2.4 cv=c6ebhx9l c=1 sm=1 tr=0 ts=6a02fa8a cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=pGLkceISAAAA:8 a=alOFDL0nBBd-F9mXlB8A:9 a=QEXdDO2ut3YA:10
- a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-11_05,2026-05-08_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 lowpriorityscore=0 priorityscore=1501
- impostorscore=0 bulkscore=0 malwarescore=0 spamscore=0 suspectscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605050000
- definitions=main-2605120101
+X-CM-TRANSID:rQCowAB3XOOS+gJqcF_HEA--.15121S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWw1fWry8CF4fWryxAF4xWFg_yoWrCF4xpF
+	WkKFWI9Fs3JryS9rsFk3WDKFyjyws7Kw4fWrn5WrnYgrnFkrn7WF4xtr17WF4v9F1kCr1I
+	qF48GrWxur98ArUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+	c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+	14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
+	IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
+	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
+	IFyTuYvjxUqiFxDUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-On 5/10/26 11:47 AM, Erikas Bitovtas wrote:
-> Since in downstream kernel VENUS_CORE0_GDSC and VENUS_CORE1_GDSC have a
-> device tree property "qcom,supports-hw-trigger", add a HW_CTRL flag
-> to these GDSCs to pass their control to hardware.
-> 
-> Venus core clock cannot be enabled if Venus core GDSCs are switched off.
+=E5=9C=A8 2026-05-12=E4=BA=8C=E7=9A=84 17:06 +0800=EF=BC=8CJoey Lu=E5=86=99=
+=E9=81=93=EF=BC=9A
 
-The downstream device tree suggests the reverse - the venus_coreN GDSCs
-refer to venus0_coreN_vcodec0_clk (and venus_gdsc lists
-clk_gcc_venus0_axi_clk and clk_gcc_venus0_vcodec0_clk)
+=3D=3D=3D=3D=3D=3D=3D 8< =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > > > > diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c
+> > > > > b/drivers/gpu/drm/verisilicon/vs_bridge.c
+> > > > > index 7a93049368db..225af322de32 100644
+> > > > > --- a/drivers/gpu/drm/verisilicon/vs_bridge.c
+> > > > > +++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
+> > > > > @@ -164,13 +164,16 @@ static void
+> > > > > vs_bridge_enable_common(struct
+> > > > > vs_crtc *crtc,
+> > > > > =C2=A0=C2=A0=C2=A0			VSDC_DISP_PANEL_CONFIG_CLK_EN);
+> > > > > =C2=A0=C2=A0=C2=A0	regmap_set_bits(dc->regs,
+> > > > > VSDC_DISP_PANEL_CONFIG(output),
+> > > > > =C2=A0=C2=A0=C2=A0			VSDC_DISP_PANEL_CONFIG_RUNNING);
+> > > > > -	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
+> > > > > -		=09
+> > > > > VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
+> > > > > -	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_START,
+> > > > > -
+> > > > > 			VSDC_DISP_PANEL_START_RUNNING(output));
+> > > > > =C2=A0=C2=A0=20
+> > > > > -	regmap_set_bits(dc->regs,
+> > > > > VSDC_DISP_PANEL_CONFIG_EX(crtc-
+> > > > > > id),
+> > > > > -			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
+> > > > > +	if (dc->info->has_config_ex) {
+> > > > > +		regmap_clear_bits(dc->regs,
+> > > > > VSDC_DISP_PANEL_START,
+> > > > > +			=09
+> > > > > VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
+> > > > > +		regmap_set_bits(dc->regs,
+> > > > > VSDC_DISP_PANEL_START,
+> > > > > +				VSDC_DISP_PANEL_START_RUNNIN
+> > > > > G(ou
+> > > > > tput
+> > > > > ));
+> > > > > +
+> > > > > +		regmap_set_bits(dc->regs,
+> > > > > VSDC_DISP_PANEL_CONFIG_EX(crtc->id),
+> > > > > +				VSDC_DISP_PANEL_CONFIG_EX_CO
+> > > > > MMIT
+> > > > > );
+> > > > Should the commit operation happen on DC8000/DCUltraLite too?
+> > > > (By
+> > > > writing to DcregFrameBufferConfig0.VALID).
+> > > >=20
+> > > > Many registers written has "Note: This field is double
+> > > > buffered" in
+> > > > the
+> > > > DCUltraLite documentation.
+> > > >=20
+> > > > I suggest create a static function for commit -- write to the
+> > > > corresponding commit bit on DC8200, and write to
+> > > > DcregFrameBufferConfig0.VALID on DC8000/DCUltraLite.
+> > > [a] There is no commit operation for DCUltra Lite.
+> > > I'll not add a `VSDC_FB_CONFIG_VALID` macro. VALID (BIT(3)) is a
+> > > hardware-managed double-buffer status bit: hardware writes
+> > > 1=3DPENDING
+> > > when a new register set is ready and clears to 0=3DWORKING after
+> > > the
+> > > VBLANK copy. Software must never write it, and there is no
+> > > polling
+> > > use
+> > It seems to be writable and controls whether register buffering is
+> > enabled, see [1].
+> >=20
+> > The description of this bit in MA35D1 TRM says "This ensures a
+> > frame
+> > will always start with a valid working set if this register is
+> > programmed last, which reduces the need for SW to wait for the
+> > start of
+> > a VBLANK signal in order to ensure all states are loaded before the
+> > next VBLANK", which indicates some kind of "committing write",
+> > although
+> > the code at [1] seems to indicate that double buffering is only
+> > enabled
+> > when bit is cleared.
+> >=20
+> > Anyway this bit should be programmable, and "Software must never
+> > write
+> > it" contradicts with the MA35D1 TRM.
+> >=20
+> > Thanks,
+> > Icenowy
+> >=20
+> > [1]
+> > https://github.com/rockos-riscv/rockos-kernel/blob/rockos-v6.6.y/driver=
+s/gpu/drm/eswin/es_dc_hw.c#L993
+> Thank you for the correction. I'll add
+> `#define VSDC_FB_CONFIG_VALID BIT(3)` to vs_primary_plane_regs.h and
+> write it in `vs_primary_plane_commit()` for non-config_ex variants.
+> > > case in the driver that requires a named constant. For non-
+> > > config_ex
+> > > variants, `vs_primary_plane_commit()` performs no commit
+> > > operation =E2=80=94
+> > > `VSDC_FB_CONFIG_ENABLE` (OUTPUT, BIT(0)) is set in
+> > > `vs_crtc_atomic_enable()` and `VSDC_FB_CONFIG_RESET` (BIT(4)) is
+> > > set/cleared in the bridge enable/disable paths.
 
-> But since they are set to be hardware controlled, they can be switched
-> off at any moment. Vote for the Venus core clock to enable it later when
-> GDSCs get turned on.
+Well according to the driver code for DC8000 from Eswin, and the bit
+named "VALID", maybe it should be cleared before programming the
+registers, and set after programming registers, to make the process of
+programming registers atomic from the perspective of the display
+controller.
 
-I understand these words but I can't see how they reflect the change
+Anyway this should require testing on real hardware to verify.
 
-> 
-> Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
-> ---
->  drivers/clk/qcom/gcc-msm8939.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/clk/qcom/gcc-msm8939.c b/drivers/clk/qcom/gcc-msm8939.c
-> index 45193b3d714b..420997b00ae0 100644
-> --- a/drivers/clk/qcom/gcc-msm8939.c
-> +++ b/drivers/clk/qcom/gcc-msm8939.c
-> @@ -3664,6 +3664,7 @@ static struct clk_branch gcc_venus0_vcodec0_clk = {
->  
->  static struct clk_branch gcc_venus0_core0_vcodec0_clk = {
->  	.halt_reg = 0x4c02c,
-> +	.halt_check = BRANCH_HALT_SKIP,
->  	.clkr = {
->  		.enable_reg = 0x4c02c,
->  		.enable_mask = BIT(0),
-> @@ -3681,6 +3682,7 @@ static struct clk_branch gcc_venus0_core0_vcodec0_clk = {
->  
->  static struct clk_branch gcc_venus0_core1_vcodec0_clk = {
->  	.halt_reg = 0x4c034,
-> +	.halt_check = BRANCH_HALT_SKIP,
->  	.clkr = {
->  		.enable_reg = 0x4c034,
->  		.enable_mask = BIT(0),
-> @@ -3753,6 +3755,7 @@ static struct gdsc venus_core0_gdsc = {
->  	.pd = {
->  		.name = "venus_core0",
->  	},
-> +	.flags = HW_CTRL,
->  	.pwrsts = PWRSTS_OFF_ON,
->  };
->  
-> @@ -3761,6 +3764,7 @@ static struct gdsc venus_core1_gdsc = {
->  	.pd = {
->  		.name = "venus_core1",
->  	},
-> +	.flags = HW_CTRL,
+By the way, I see multiple peripheral drivers for MA35D1 get applied in
+the torvalds tree, but the device tree is still only a skeleton; when
+will the device tree be updated?
 
-This should be HW_CTRL_TRIGGER, paired with a change to call
-dev_pm_genpd_set_hwmode() in the driver - this currently only happens
-in vcodec_control_v4().
+Thanks,
+Icenowy
 
-Konrad
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D 8< =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >=20
+
