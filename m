@@ -1,122 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5713191F91
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 03:32:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70649191F91;
+	Tue, 12 May 2026 03:34:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778556769; cv=none; b=ar8uGMlH0ppa+GGaa7XusCq7MxYTzevqcw2WlzvYQwZ/TE7itRM1dk+gZvkfHkJgGRD6tFqD1Zf0equVL813EUlPoEG2cUbRQ64xA+JkjXymwvnLipxT4qErDKwFFWWUljBLO8XEkMhimIRaNZ+RzVJw8++xHAxzbFKpudq3lWw=
+	t=1778556881; cv=none; b=P7QzVfwt7TEuX0o1LhzSEDIb63I/lg9TioFiYMz3lgcYsLajuAgLjGsMr79u+ZktrCKvmr91loRiIqPQtrQNlEBgU5euLaZ33FNf+HEpXfB8se2EYs+umumUp8BjtUFuvOYFjm47jpsRIJAYX4QA7LwNGMttMRKBfEcAuKdqsTQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778556769; c=relaxed/simple;
-	bh=lVQUBJXklNK7ySzGSGghhJlvod5veWC689DVBnH7aMM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Xf70DLCJYf2YgKrQ9iNtDe+xHw495hP4gnZkFbEq0sNo9n3BPpv7Of6gxUPue9jSCJSxbU39cVZxebLKPI70UyhJCdVCbVteONKUrW6YQIy/6Ej06RMFjNHmZRn/BoyQPjyy8GJEPFHs7seGspeWQpKXgIbVmu/1rWxOxYyOs2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=r6Se00M6; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778556881; c=relaxed/simple;
+	bh=zo3ua4tjSJT16HT8pARi7KfE6Nh31HEVohwZpTphF3E=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jfEvNgm9kg73WLfCQTg5VXjW6dcFqZQt+DHvujo5GYZEa7TvbCO27U6lsKbfxZNOHbhk8IPHB7kQ4lWEnFsO/xnl5hZtIqdzmnwDtk0Lp8CTnI1Ab7tVf3na/jqLR7nVl47MqNZDbYXNgbHU8Wuk20o+oA1ezCyoXftQyH3pX3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=o//eQHsx; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="r6Se00M6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 187C5C2BCB0;
-	Tue, 12 May 2026 03:32:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778556769;
-	bh=lVQUBJXklNK7ySzGSGghhJlvod5veWC689DVBnH7aMM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=r6Se00M6rPIP9Jpw6aQjG9lq5Pwkk1gk8/bU24fk7SzFCt7TGqstqc99n0g/ERnmM
-	 IEUONY4938k7DTch++7OqgUyBlBqbts5CBlKT1nNvN35dDzEGNZvbuVqp096SwvsKw
-	 27pQwcdrZf1y1chTxaaBfocdnHxjXKtL3MC9QlCL0EXbEuv9IrKiHsGj8YH5eCNcP8
-	 bHr2plYZpdiByQTtAsTCGyO5yEL79uhgy+We1Z/0SNiIBdmI9x+nIPoTrirP7KSfOg
-	 Tq0Q3PQ7KWNqr4wGyDrsPW8EMGOz+y2HR5dMLkeXb0fAfkqPjMG12T31RPhCGWf18B
-	 ancBKa1xVwTcQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 7/8] riscv: dts: spacemit: k1-bananapi-f3: add SD
- card support with UHS modes
-Reply-To: sashiko@lists.linux.dev
-To: "Iker Pedrosa" <ikerpedrosam@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260511-orangepi-sd-card-uhs-v9-7-ae48c0b2b2cf@gmail.com>
-References: <20260511-orangepi-sd-card-uhs-v9-7-ae48c0b2b2cf@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 12 May 2026 03:32:48 +0000
-Message-Id: <20260512033249.187C5C2BCB0@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="o//eQHsx"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 64C3XIZS03571928, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1778556798; bh=dOwvgZaj8C8d3GPUA8TOM+3UpiD8i749mYQXLwcMoZE=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type;
+	b=o//eQHsx/N3X3qO8pXBqvh5gG5QOP2Y5ngNpoV0FOzqeazt/8dUNdJmHNXCL+6tl/
+	 g/W2xbZ2fibWQkDiaPMUse5UzjIgNZNpBEpmqO+IxrZbwUtIk7wTuRWO0eVxy0ckgr
+	 w/RjJU9m2e0mfD0peJz8ObItJeEiNkfh70KDRAJ2t56wTGexki12FKLzV86JuGPFkD
+	 cxFhyYNRH0xp5HIzuCuUiU8raVEum75EANdA72iWvqmqoTxD1MWupCxuIEbzctKx4w
+	 PKnjcKq6nULplHkPqZz70SamIEkP9ANqcrzo+pkWmDg2H/rjcKR61AmY5jh6e6oZrM
+	 Wu4XFJxd2G4AQ==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.27/5.94) with ESMTPS id 64C3XIZS03571928
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 12 May 2026 11:33:18 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Tue, 12 May 2026 11:33:18 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Tue, 12 May 2026 11:33:18 +0800
+Received: from cn1dhc-k02 (172.21.252.101) by RTKEXHMBS05.realtek.com.tw
+ (10.21.1.55) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 12 May 2026 11:33:18 +0800
+From: Yu-Chun Lin <eleanor.lin@realtek.com>
+To: <linusw@kernel.org>, <brgl@kernel.org>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <afaerber@suse.com>,
+        <wbg@kernel.org>, <mathieu.dubois-briand@bootlin.com>,
+        <mwalle@kernel.org>, <lars@metafoo.de>, <Michael.Hennerich@analog.com>,
+        <jic23@kernel.org>, <nuno.sa@analog.com>, <andy@kernel.org>,
+        <dlechner@baylibre.com>, <tychang@realtek.com>
+CC: <linux-gpio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+        <linux-realtek-soc@lists.infradead.org>, <linux-iio@vger.kernel.org>,
+        <cy.huang@realtek.com>, <stanley_chang@realtek.com>,
+        <eleanor.lin@realtek.com>, <james.tai@realtek.com>
+Subject: [PATCH v3 1/7] gpio: Replace "default y" with "default ARCH_REALTEK" in Kconfig
+Date: Tue, 12 May 2026 11:33:11 +0800
+Message-ID: <20260512033317.1602537-2-eleanor.lin@realtek.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260512033317.1602537-1-eleanor.lin@realtek.com>
+References: <20260512033317.1602537-1-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Enabling UHS-I modes with an `always-on` VMMC regulator prevents p=
-roper SD card resets, breaking soft reboots and driver rebinds.
---
+Replace "default y" with "default ARCH_REALTEK" to avoid bloating the build
+for non-Realtek platforms when COMPILE_TEST is enabled on other platforms.
 
-commit da601a14dc433b25fd35c0c4098f9e5dcb5faea3
-Author: Iker Pedrosa <ikerpedrosam@gmail.com>
+Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+---
+ drivers/gpio/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-riscv: dts: spacemit: k1-bananapi-f3: add SD card support with UHS modes
+diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
+index 020e51e30317..504b4bdd75d4 100644
+--- a/drivers/gpio/Kconfig
++++ b/drivers/gpio/Kconfig
+@@ -637,7 +637,7 @@ config GPIO_ROCKCHIP
+ config GPIO_RTD
+ 	tristate "Realtek DHC GPIO support"
+ 	depends on ARCH_REALTEK || COMPILE_TEST
+-	default y
++	default ARCH_REALTEK
+ 	select GPIOLIB_IRQCHIP
+ 	help
+ 	  This option enables support for GPIOs found on Realtek DHC(Digital
+-- 
+2.34.1
 
-This commit enables the sdhci0 controller on the Banana Pi BPI-F3 with
-high-speed UHS modes, wiring up the vmmc and vqmmc supplies.
-
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv=
-/boot/dts/spacemit/k1-bananapi-f3.dts
-> index e20daa50a152f..8fea6e87acec8 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> @@ -221,7 +221,7 @@ buck3_1v8: buck3 {
->  				regulator-always-on;
->  			};
-> =20
-> -			buck4 {
-> +			buck4: buck4 {
->  				regulator-min-microvolt =3D <500000>;
->  				regulator-max-microvolt =3D <3300000>;
->  				regulator-ramp-delay =3D <5000>;
-
-[ ... ]
-
-> @@ -374,3 +374,21 @@ hub_3_0: hub@2 {
->  		reset-gpios =3D <&gpio K1_GPIO(124) GPIO_ACTIVE_LOW>;
->  	};
->  };
-> +
-> +&sdhci0 {
-> +	pinctrl-names =3D "default", "uhs";
-> +	pinctrl-0 =3D <&mmc1_cfg>;
-> +	pinctrl-1 =3D <&mmc1_uhs_cfg>;
-> +	bus-width =3D <4>;
-> +	cd-gpios =3D <&gpio K1_GPIO(80) (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-> +	no-mmc;
-> +	no-sdio;
-> +	disable-wp;
-> +	cap-sd-highspeed;
-> +	vmmc-supply =3D <&buck4>;
-> +	vqmmc-supply =3D <&aldo1>;
-> +	sd-uhs-sdr25;
-> +	sd-uhs-sdr50;
-> +	sd-uhs-sdr104;
-
-Could enabling UHS-I modes here introduce a regression during soft reboots
-or driver unbind and rebind cycles if buck4 is an always-on regulator?
-
-When UHS-I is negotiated, the SD card switches to 1.8V signaling. The SD
-physical layer specification dictates that resetting an SD card from 1.8V
-mode back to the default 3.3V mode requires dropping the main VDD supply
-(vmmc) to 0V.
-
-Since buck4 is configured with regulator-always-on, the regulator framework
-will not physically disable the supply when mmc_power_off() requests it.
-This could leave the SD card stuck in 1.8V mode during a soft reboot,
-preventing the host from communicating during the initial 3.3V sequence
-and causing initialization to fail.
-
-Should regulator-always-on be removed from buck4 if it isn't shared with
-other always-on components, or should UHS modes be omitted if the regulator
-must remain on?
-
-> +	status =3D "okay";
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511-orangepi-s=
-d-card-uhs-v9-0-ae48c0b2b2cf@gmail.com?part=3D7
