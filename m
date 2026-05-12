@@ -1,153 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 281CA19AD90;
-	Tue, 12 May 2026 01:16:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1DB972618;
+	Tue, 12 May 2026 01:24:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778548566; cv=none; b=uljwkQ56Tzu7+keQhDRfw7xlogyVBFG1vQoTWnmrAtqVMFC4ip1JWDrJsJR/4qzratN4CsfOXmsh0uf2L/Li8T5IyEw0nnUb2IILiq5gdQX5X+wEl9fYZLW8/2x7RWhH2vWZxUGX4pHZ6EWjdcWXjAjoI1sxHHxecjNIpK+if20=
+	t=1778549065; cv=none; b=B0xcR31kTSzlLCuEVa58T4rkdQGRV0Bqc64ylP1hf4ypme0kdxYkYgZofmo9VfswipyUz4y7LP/f0ZxSnIIayubpCbOvBjscXM2Kcw2+2LYQ8S/aaLPD+jIggPwnrUbL5GzBbQQm1dNaSd9iK5jYuqCH784qy/CASevsU4wzBPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778548566; c=relaxed/simple;
-	bh=ACf9F8mIe11uR9zPEzpLlpeJBEkpXvF/E/hQaOiFhrU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qlkExy+gLpaqIcJm4OQqBOaEChTlhORMfMwQPEzpHtp69A9wVHv732tjBzi5YwBSdCIoD6P3vUt2TNztPsBW0NpeNgcfTOKP3RDjM5iHHlvPJaYYmP5LkhAmFGqqFXQVYUZGeNm+iZtmTmSQQw273+vzAN02NOJ/mOuun2hyaAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OUfhKIfw; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778549065; c=relaxed/simple;
+	bh=5I4fFH78/urbTSm/Yv4MPrAehmDRePGY8oEbOsn8sW0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=tbUCwiRPWgny3GBWA7qu92i2HIRRZWtyqzj7xt94n4YI6JsloDRpBXvWdctU9CHRa4rXx7AxF9uIXlHMtHlOZj2u0RRiTJwwDmrqChzz+okdXGQTXnBLrroxjxnAjB+EpoSIbsLq6cccEPSJg6fGCIBdJWGGetmd4ZCYFsNjiNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kHRLLahh; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OUfhKIfw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EA50C2BCB0;
-	Tue, 12 May 2026 01:16:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kHRLLahh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A699C2BCB0;
+	Tue, 12 May 2026 01:24:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778548565;
-	bh=ACf9F8mIe11uR9zPEzpLlpeJBEkpXvF/E/hQaOiFhrU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OUfhKIfwzuH226iZczHaYhoQACRSH2B1xVSUZfwTCDcXqu92SoJTYAQJG1dAkvSES
-	 ZAH9f7JH+WWSt/8oU9itsz8CkbQq3UvEf+kqcvyW618t3fSB2G8G4INL8vq43A9W25
-	 bozKFqvXU4Ex5W+9HEkFOfo7uCUFZ2gzoPUe6mYCzlei1Cx9u2uX7ltZZB3M9hrP4D
-	 m0/ISBGrpUlo7gTM4fE+cRTWgDzypCL6ZIyHLy0/KEwlJ2nS0t3sFReZ17FXkKFy8I
-	 2rBD1NceY8pJzxAnrE9gtu8N5wUV4VFgV4ACZCYZm3Sfhs8hxdB8WV+GxxnFTIoZu/
-	 lyuDz4wF/Fpig==
-Date: Tue, 12 May 2026 09:15:59 +0800
-From: "Peter Chen (CIX)" <peter.chen@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
-	linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org
-Subject: Re: [PATCH v1 2/6] usb: chipidea: tegra: Avoid controller/PHY init
- if bus is externally controlled
-Message-ID: <agJ/T8nBGWEoblmd@nchen-desktop>
-References: <20260511135703.62470-1-clamor95@gmail.com>
- <20260511135703.62470-3-clamor95@gmail.com>
+	s=k20201202; t=1778549064;
+	bh=5I4fFH78/urbTSm/Yv4MPrAehmDRePGY8oEbOsn8sW0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=kHRLLahhJacU00g94n+viL7SULG62LSmEaSCTGtRYzDBiajU1uOnWVXinK2wLBcdH
+	 mYx8WOaeQ6thJIAZx6k7EXcWfWm0jKbl10EP8aPkX5a3jWP/LY6RmVCBymEW1osxeZ
+	 rkDdeHD5qOxgUf6Ot+pZXc5lW6pwrbj0VDJ+HEinelqpJ2hZAF3rtq8i13AQTBJ7gk
+	 Vbpj9hACeWZ/r3HAuoxk26MMk9YVRN9vMz1XmRnIQa3IDBSZUuOxoqPxVeAQiq3JLr
+	 HfO7+TqZ+Njc+2ZRHT3qSOBMumQ/Zkbh1i+jHwDqdVbYmSV1HMZlHHb1asI3QCdTFv
+	 kIPIRnOzRCQ9A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/5] media: hi846: fix hi846_write_reg_16 handling
+Reply-To: sashiko@lists.linux.dev
+To: "Pengyu Luo" <mitltlatltl@gmail.com>
+Cc: imx@lists.linux.dev, robh@kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260511090924.269106-2-mitltlatltl@gmail.com>
+References: <20260511090924.269106-2-mitltlatltl@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 12 May 2026 01:24:23 +0000
+Message-Id: <20260512012424.4A699C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260511135703.62470-3-clamor95@gmail.com>
 
-On 26-05-11 16:56:57, Svyatoslav Ryhel wrote:
-> If the USB controller and PHY are externally controlled, then the
-> registration of the controller and the PHY initialization should be
-> skipped, since these configurations must be done by the device that
-> controls the bus to work correctly.
-> 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Unhandled negative error code from pm_runtime_get_if_in_use() caus=
+es silent failure of exposure/vblank controls and PM usage count underflow.
+--
 
-I find you only control USB controller device add at PHY driver, most of USB drivers
-has PHY control, for chipidea, it has PHY control at core.c, would please try to
-adapt for it?
+commit 4a36c43ca7959e04a86201166380c7cb4acf35d4
+Author: Pengyu Luo <mitltlatltl@gmail.com>
 
-Peter
+media: hi846: fix hi846_write_reg_16 handling
 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  drivers/usb/chipidea/ci_hdrc_tegra.c | 36 +++++++++++++++++-----------
->  1 file changed, 22 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/usb/chipidea/ci_hdrc_tegra.c b/drivers/usb/chipidea/ci_hdrc_tegra.c
-> index 372788f0f970..593390a818d1 100644
-> --- a/drivers/usb/chipidea/ci_hdrc_tegra.c
-> +++ b/drivers/usb/chipidea/ci_hdrc_tegra.c
-> @@ -32,6 +32,7 @@ struct tegra_usb {
->  	struct clk *clk;
->  
->  	bool needs_double_reset;
-> +	bool externally_controlled;
->  };
->  
->  struct tegra_usb_soc_info {
-> @@ -312,20 +313,25 @@ static int tegra_usb_probe(struct platform_device *pdev)
->  	if (device_property_present(&pdev->dev, "nvidia,needs-double-reset"))
->  		usb->needs_double_reset = true;
->  
-> +	if (device_property_present(&pdev->dev, "nvidia,external-control"))
-> +		usb->externally_controlled = true;
+This commit fixes an issue where a positive return value from
+pm_runtime_get_if_in_use() propagates back to callers as an error. It resets
+the error pointer to 0 inside hi846_write_reg_16() before performing I2C
+operations.
+
+> diff --git a/drivers/media/i2c/hi846.c b/drivers/media/i2c/hi846.c
+> index a3f77b8434ca7..7f069aca0fce5 100644
+> --- a/drivers/media/i2c/hi846.c
+> +++ b/drivers/media/i2c/hi846.c
+> @@ -1271,6 +1271,8 @@ static void hi846_write_reg_16(struct hi846 *hi846,=
+ u16 reg, u16 val, int *err)
+>  	if (*err < 0)
+>  		return;
+
+While this patch handles the positive return code, does it miss the case
+where pm_runtime_get_if_in_use() returns a negative error code like -EINVAL?
+
+If runtime PM is disabled, pm_runtime_get_if_in_use() returns -EINVAL. In
+hi846_set_ctrl(), the error check misses this negative value:
+
+drivers/media/i2c/hi846.c:hi846_set_ctrl() {
+    ...
+	ret =3D pm_runtime_get_if_in_use(&client->dev);
+	if (!ret || ret =3D=3D -EAGAIN)
+		return 0;
+    ...
+}
+
+This allows the negative ret to propagate to hi846_write_reg_16(). Since
+*err is less than zero, the function returns immediately, silently skipping
+all hardware writes for V4L2_CID_EXPOSURE and V4L2_CID_VBLANK.
+
+Additionally, does this cause a PM usage count underflow?
+
+At the end of hi846_set_ctrl(), pm_runtime_put() is called unconditionally:
+
+drivers/media/i2c/hi846.c:hi846_set_ctrl() {
+    ...
+	pm_runtime_put(&client->dev);
+
+	return ret;
+}
+
+Since the usage count was never incremented when pm_runtime_get_if_in_use()
+returned -EINVAL, this might trigger a usage count underflow warning.
+
+Could hi846_set_ctrl() explicitly isolate the PM status, set ret to 0 before
+making hardware writes, and only call pm_runtime_put() if the get function
+returned a value greater than 0?
+
+> +	*err =3D 0;
 > +
->  	err = tegra_usb_reset_controller(&pdev->dev);
->  	if (err) {
->  		dev_err_probe(&pdev->dev, err, "failed to reset controller");
->  		goto fail_power_off;
->  	}
->  
-> -	/*
-> -	 * USB controller registers shouldn't be touched before PHY is
-> -	 * initialized, otherwise CPU will hang because clocks are gated.
-> -	 * PHY driver controls gating of internal USB clocks on Tegra.
-> -	 */
-> -	err = usb_phy_init(usb->phy);
-> -	if (err)
-> -		goto fail_power_off;
-> +	if (!usb->externally_controlled) {
-> +		/*
-> +		 * USB controller registers shouldn't be touched before PHY is
-> +		 * initialized, otherwise CPU will hang because clocks are gated.
-> +		 * PHY driver controls gating of internal USB clocks on Tegra.
-> +		 */
-> +		err = usb_phy_init(usb->phy);
-> +		if (err)
-> +			goto fail_power_off;
-> +	}
->  
->  	/* setup and register ChipIdea HDRC device */
->  	usb->soc = soc;
-> @@ -342,12 +348,14 @@ static int tegra_usb_probe(struct platform_device *pdev)
->  	if (of_usb_get_phy_mode(pdev->dev.of_node) == USBPHY_INTERFACE_MODE_ULPI)
->  		usb->data.flags &= ~CI_HDRC_SUPPORTS_RUNTIME_PM;
->  
-> -	usb->dev = ci_hdrc_add_device(&pdev->dev, pdev->resource,
-> -				      pdev->num_resources, &usb->data);
-> -	if (IS_ERR(usb->dev)) {
-> -		err = dev_err_probe(&pdev->dev, PTR_ERR(usb->dev),
-> -				    "failed to add HDRC device");
-> -		goto phy_shutdown;
-> +	if (!usb->externally_controlled) {
-> +		usb->dev = ci_hdrc_add_device(&pdev->dev, pdev->resource,
-> +					      pdev->num_resources, &usb->data);
-> +		if (IS_ERR(usb->dev)) {
-> +			err = dev_err_probe(&pdev->dev, PTR_ERR(usb->dev),
-> +					    "failed to add HDRC device");
-> +			goto phy_shutdown;
-> +		}
->  	}
->  
->  	return 0;
-> -- 
-> 2.51.0
-> 
+>  	put_unaligned_be16(reg, buf);
+>  	put_unaligned_be16(val, buf + 2);
+>  	ret =3D i2c_master_send(client, buf, sizeof(buf));
 
--- 
-
-Best regards,
-Peter
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511090924.2691=
+06-1-mitltlatltl@gmail.com?part=3D1
