@@ -1,40 +1,38 @@
 Received: from polaris.svanheule.net (polaris.svanheule.net [84.16.241.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C385296BCB
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 11:09:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85900351C06
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 11:09:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.241.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778584147; cv=none; b=Aof4+AGYGDS08REJr0NZRJdD+9EGmVM/t4qH4eki8Is+HZRL3KTvpApHBPswWkzGaUHn4Tdczg9oTbzfVdeK0I9Qk17v/sN8MhvhlgucJzbCN4BSV4E82OzQJO38/sSVqRwG+ZsdjA6mXoNsChBZhyPMJCwA56dYrxruJsSeOE8=
+	t=1778584148; cv=none; b=CJqLjj7XytWMzvo5/aGmtDEkJxdbrbnjeKNNUJK8z2VmKjoTmEVQhQw0jUMlzmscHO8VzKzGQdrSmc4j4E8KhwOMALXSyN/ihYo1Nk3SZrPCPBwVbXiX7vJqcPsBlSGNQOFVYSsQYIHV8sRz7i3qtW5C9KKg98rNYfvP3z74VOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778584147; c=relaxed/simple;
-	bh=UTfLkeAA46tv4le1miv+rpaJgQ+pM6hNKOv+iYmAXYY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NcISlbys/TJSIWR3H4pn6hmmgjhX9UGzYmh9/KmarcYgVVlf5+duW3BIinEvxiGnUWsnFq+O3CNn0vcp3OW/lIvFe1NWpSPuUeh4Gy5PYtzH5KBRFn9fRF8pIEXo3/SKnpVbEe5M0GFTAaN6pOMSdfSQP54llVl3RWsk6xTo5h8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net; spf=pass smtp.mailfrom=svanheule.net; dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b=D6qNztU5; arc=none smtp.client-ip=84.16.241.116
+	s=arc-20240116; t=1778584148; c=relaxed/simple;
+	bh=XaWeZYfJb9wM/PeQM/RzrWduqvb6jL1QGTBeE03a/wI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N07dzblNCzNDVeiVdvB14HwkGXqtrYL8SkiwneVYY3yWEkRJS1tBktFR3NhzY4BnATC3K9vxaHrJu56EagwBBvvjeE/ak5mICn5Ya50NwbvNRsesREwFdAOmC0EhFj0XRP1ZFPnz+BF1i++omvI60JggquUD+BNcGhpqPeZpI1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net; spf=pass smtp.mailfrom=svanheule.net; dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b=EOdq2qrj; arc=none smtp.client-ip=84.16.241.116
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=svanheule.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b="D6qNztU5"
+	dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b="EOdq2qrj"
 Received: from terra.vega.svanheule.net (2a02-1812-162d-3d00-c381-7255-a866-916d.ip6.access.telenet.be [IPv6:2a02:1812:162d:3d00:c381:7255:a866:916d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: sander@svanheule.net)
-	by polaris.svanheule.net (Postfix) with ESMTPSA id A176077E05E;
-	Tue, 12 May 2026 13:08:58 +0200 (CEST)
+	by polaris.svanheule.net (Postfix) with ESMTPSA id BA7EF77E05C;
+	Tue, 12 May 2026 13:08:57 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=svanheule.net;
 	s=mail1707; t=1778584138;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xH/ZfxwgUPcUEmqllxyRKRqtCwZJZV5bY37xpotz3WI=;
-	b=D6qNztU5syz5z3nyD/QBI4Nnk7TSfD6dp8PzlWHvKuQyyCR2sBJlauBbsR2+rR5w8aX3Kt
-	pyKy40IwGTH9O9V9jpi0fUnGlbG/+0QtJnSTXGm9GXHXXz7nOKtVfF/1rcrkYkfRgqyxAC
-	j2ZgQ586231uy4cbMZp2qO1zhBuNvjIBsdCUT48Zrpq52rgybX3hME63P+8tBXO0Zk6+5/
-	vx0okaml8U4w+7lDTLlr0kcaXABXGV0I89bnvAjfs27osrQFzQ1EtRbZNruYK8+ZwU3utO
-	nk0nQR2yfi83rO/TeuRMSsJW5+d6fYEGtrdKV/4fngkzzNCeUF2d2k3CnaleiA==
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=r+tTAsw6+5DoQDilDubfg/PaYw+55SsVFLGm4QSZPp8=;
+	b=EOdq2qrjDqITF/+Jn8jPbu+M4OaTfFzksXWD58tSExj447ZLItCkAiyRWI8V9qSsvW9SPS
+	MB5iD4U7fEHE+1lqqDWblh16+JUHTSHdEMjEihFn/B1mfkME5AWvzHfGYd8WOZGL1IlEtZ
+	n/ooFvfT8Ti64Aqdq0ahHP1dL66bO9W6cZpn04M+5CBhYTl9bxx2BRm4buloNUSRF3McUP
+	yhwYihsXzvDiAEdN3lxAgX1JG5Kh/rO2Ul3jAThDGENf06hUrsnHyoYnpHD3EAkpxjGORa
+	HunBB9ZL7S/Dqz8MbKiYLPqwSefXGq6f2JDl0/WJWlc+gcCErQ0BPKI2rqO6tQ==
 From: Sander Vanheule <sander@svanheule.net>
 To: Wim Van Sebroeck <wim@linux-watchdog.org>,
 	Guenter Roeck <linux@roeck-us.net>,
@@ -46,12 +44,10 @@ Cc: Rustam Adilov <adilov@disroot.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Sander Vanheule <sander@svanheule.net>
-Subject: [PATCH 2/2] watchdog: realtek-otto: add fallback compatible
-Date: Tue, 12 May 2026 13:08:48 +0200
-Message-ID: <20260512110848.106620-3-sander@svanheule.net>
+Subject: [PATCH 0/2] watchdog: realtek-otto: add fallback compatible
+Date: Tue, 12 May 2026 13:08:46 +0200
+Message-ID: <20260512110848.106620-1-sander@svanheule.net>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260512110848.106620-1-sander@svanheule.net>
-References: <20260512110848.106620-1-sander@svanheule.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -60,28 +56,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-As the binding now supports a fallback compatible for (new) devicetrees,
-let's add it to the list of supported compatibles. If new compatibles
-are added to the binding, driver updates may no longer be required.
+Like for the GPIO hardware of the Realtek Otto platform, add a fallback
+compatible for the watchdog hardware.
 
-Signed-off-by: Sander Vanheule <sander@svanheule.net>
----
- drivers/watchdog/realtek_otto_wdt.c | 2 ++
- 1 file changed, 2 insertions(+)
+For backward compatibility, the binding will still allow current
+single-compatible devicetrees to work, but new devicetrees, including
+new compatibles, should use a two-component compatible.
 
-diff --git a/drivers/watchdog/realtek_otto_wdt.c b/drivers/watchdog/realtek_otto_wdt.c
-index 2c30ddd574c5..b4eb2f87f991 100644
---- a/drivers/watchdog/realtek_otto_wdt.c
-+++ b/drivers/watchdog/realtek_otto_wdt.c
-@@ -350,6 +350,8 @@ static int otto_wdt_probe(struct platform_device *pdev)
- }
- 
- static const struct of_device_id otto_wdt_ids[] = {
-+	{ .compatible = "realtek,otto-wdt" },
-+	/* Legacy bindings without fallback compatible */
- 	{ .compatible = "realtek,rtl8380-wdt" },
- 	{ .compatible = "realtek,rtl8390-wdt" },
- 	{ .compatible = "realtek,rtl9300-wdt" },
+This series serves to address comments regarding the device compatibles
+for the patches adding RTL9607C watchdog support [1].
+
+[1] https://lore.kernel.org/lkml/20260509163101.722793-1-adilov@disroot.org/
+
+Sander Vanheule (2):
+  dt-bindings: watchdog: realtek,otto-wdt: Add fallback compatible
+  watchdog: realtek-otto: add fallback compatible
+
+ .../bindings/watchdog/realtek,otto-wdt.yaml   | 19 ++++++++++++++-----
+ drivers/watchdog/realtek_otto_wdt.c           |  2 ++
+ 2 files changed, 16 insertions(+), 5 deletions(-)
+
 -- 
 2.54.0
 
