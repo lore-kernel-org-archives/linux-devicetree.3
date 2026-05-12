@@ -1,800 +1,158 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26ADE38947E
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 08:54:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EF293988FF
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 08:54:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778576088; cv=none; b=OlqKmEMbt+wFJGElErerWLz7Slti/ve57duCgcp1YpACgty1b6nq55EqLBe8MVuGRDLY9UhFEHrAcVAYJXK9muUWxPcHp6K+/J/Ll3BMc4jHY/UWVMKgyIY+fGdWIH5f1JA7iDmZQc3B21RV6+ts+eRdtHVzhnKm8+WUtJrn2b4=
+	t=1778576095; cv=none; b=nfDv6eXvSt2NoO4LsXNpXY7VT8AGU3XhdYEk6Ak11trpcywu/E8Z+bkI5PRdwOAb67zOyNWu736fDcjTAkz367LkE5oA7UuCLa7CrEkVqxWix4YmtxQpCW8tXgq7AR7fC8F2+ZvV/4pPdDR+O9hCNwl+HBXZ7aEuQWlad60+xGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778576088; c=relaxed/simple;
-	bh=m1unoK9KaOBgKHQSKcoit6R0Yjtwh2hFuj6tiF+ipng=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XTEPdQFIIXBj6vUQ2Ape7EgYQCZaQ4AnzniPc+v4/zgPwgfefLir2ErrktBalcgSYxGMLlzy2MxGNdlcMNQe1KOVkKtWxlUPTVH0CQO0JHXkHypvfiFAA7sQc1f2i1bKbZfY+7MEHS5C6zV+lUZ6nef91Kbzwibi+1MNJujLILM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Hz1FU6eV; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1778576095; c=relaxed/simple;
+	bh=52Rtq3B3yetltmJYg/Jq6+ugsiX1P1VtCrsFWLjGCbA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=n2IAhrTV7uuwkaUlMd1Y11xIgRsDw/RZFG6cvD6D0LAzMAAwp1RqumYLv/vCZLkcZTBwf82ckbUijSJvgH7upu3iJQM8DDgSscuBJ17wowQ9VryWY1J4Ma6Z+07eoHyTzj9lPTW5HD3KaeXns1A5Pxq9uvlIhh11Z5gZMTLW39A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cSd8d3XW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Yw+eNS51; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Hz1FU6eV"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-c80148ae949so2252950a12.2
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 01:54:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cSd8d3XW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Yw+eNS51"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64C5J0R32573861
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 08:54:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	wLWgrOfEGpguXKvOHIvAbEuiwtFN3p+oEkvp4LurQ6k=; b=cSd8d3XWV6tPTnyY
+	qeTlceQh9goZb/iweKamnT/yd5ZL0n3jZjYDEVbDg+Bqisdqp6/ktzd4zptsR7WX
+	qMkF9ozCfzf/cb4QZtOOHkdiF8dF8R16kkALmwlc3e619hoHn+5qDFGWKx9vUKMN
+	urEVDYVttdIUygxhT8Upp6DnvBFUNSBQSJfzSq4zKBzLpuXfOjLSMp2LZUAD6n/j
+	D4FiygpORscdB312IbtEv6E/WC5HfsUPsDDmczybY45dHabjruXH0BLdx+6PV4BF
+	MqLovMg3JFYnIqemGD6vZRNthdf8/LrXQWPxY6IIxrBgUSMeuWRN3t9BmOfRvEBe
+	vs8DRQ==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e3nv2ab1j-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 08:54:46 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-82f756ebd0dso3402843b3a.1
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 01:54:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1778576071; x=1779180871; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GoQBlbLt16WDSANDHsawfFD0WrL+5zoX+h6RbhtnSBo=;
-        b=Hz1FU6eVidSYQwQJmrpGi/3XSaMG7TZq6r3Hs5ZN11zedjnCgeRy1n5xoLeXBfK2LR
-         Gz4LAwNq3o3KWCOG3FysVD4Fr4/FY3vTm6XTYx/W432l9D00lgWAT3quLAmOIiyaEUWO
-         U53zMRUEJfu1Zq6yxuIw/tRFrZzxHAs0qC41Y=
+        d=oss.qualcomm.com; s=google; t=1778576085; x=1779180885; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=wLWgrOfEGpguXKvOHIvAbEuiwtFN3p+oEkvp4LurQ6k=;
+        b=Yw+eNS51kPwcogkkB4EZECO9AYbUgYoHJq/tbEKSxqWK5Po+SK2S4YLKgcRg064D37
+         PfPSlNHuTAEuYTCtXwxwiaMkfsACcitFZ2AsFhoq+6BY31QgQoX85AdzoPJq+JXqA4oB
+         JCxMvwEg26Y0g4MlMs3nuk5VkQZckjDv19RPYrBccjfd8KGc23wouYyQv0b1VbtrCMzn
+         urCTmOxYOXQYIPKagsHC3m/rWbRt/nixHxXPflnZkZHpoj9j7nCxSgkHVgaSasPcLcM5
+         RoFJEJZo5YAkvXvfyi54ICLWCLSkiukbg25T7wKoZ7/4SxZeuU+R8Vpt0s4azp42V6tr
+         3DIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778576071; x=1779180871;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=GoQBlbLt16WDSANDHsawfFD0WrL+5zoX+h6RbhtnSBo=;
-        b=I26V5gAxr4ihaRBDaO5PjPN75lF9A5XcWq1cYRAN1n7Jxw7tTIpmQCanWJvA/Tm19n
-         Xyc2PBcDJDRJaWAgqYq56C6k9ByNehVsSN1nyBhs6Y9QJqsaUkCTt5btlbGQw4HLSxwO
-         VG4cGCWVedP/h61fIVNAAiAIVqSZCj/YKwhZzawn1QTmg2zLgjyPbZ7ZE2lTF0jzjsj5
-         oR/NxUwo3XVt19gKjV0W5kYJ1bsPjNmv9GzpHkSUctmwzvMYI9FrsWnif1BQOW+UF5YP
-         c6ll2LGJylqHKFsBGTv5KPjd2+fgvHCVYybejbWNGrPyfEvi8TSS5+g6pIPPNLRibJ/i
-         mH8g==
-X-Forwarded-Encrypted: i=1; AFNElJ/2Q5KXHfUiyOLBT/Y3CBOQuObXiR+bojITwKM5VJ/y7OcJw6lj2BDkygLILowipTtxj6PNlu+RObAU@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz4MNUoqvC0z0j/xiX3PviPQWJOTCV70kFvNO5ZDA8Ae/m8aOwb
-	xSIgOJ3iiU6S+nDThfEkDvzIElBsbBUeAp4GvbOry4nYbVkyZ7KuYyojd8lbPE2hEA==
-X-Gm-Gg: Acq92OEgLHB5icXiGsqEk4DWqYwh1zYD5f5kIrAIR53rrYRhNKbr6kDF9fuK/nZVadY
-	JIaMU5i+fDYQh5Iv6s7525Jl1XHqJD+18tKNF2uXGt6D/MBVttg0kMYIYYU2sayeaA2rZOAd0CM
-	kEQMegDhQjoD0XHoim+/bMWknHIE57j7MnSuuofHAbaY3BPguiGsDHyNub2WxyKZqbhnrRCBcOL
-	zIQTbRv5AxxeA3TiZs/1GKquBqyhClVdm1WacU5uRflK+v/0kM0sX0kl51lEd8IPg+0VT5p+fIj
-	oLKUKxCItXnslMwxIR72R9teamdfcfN+2kJ2O9JbYIXuhq6SP3DobUGVPGExzeFhsA3jnYv+SKu
-	98RM+QE5Vh+QstcFsRfbZkxTn7/wNQayQrCcx9HMwgo8tM/RWvJyy/ek8cO4h+se0WEEMiEPPIr
-	81yCNTqhVQfbycTiQQBTgjWmdEyEpNNFa0ob8eInjfakCfY/ifHm5XUpZR5shl2RrusHayTVqWt
-	3pAMq4q
-X-Received: by 2002:a05:6a20:748b:b0:39f:94cb:1bc with SMTP id adf61e73a8af0-3ad9560a176mr2676197637.1.1778576071151;
-        Tue, 12 May 2026 01:54:31 -0700 (PDT)
-Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:6606:2bd2:159a:55e3])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c826771a8a1sm11136856a12.24.2026.05.12.01.54.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 May 2026 01:54:30 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Lee Jones <lee@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH v3 5/6] regulator: mt6359: Add regulator supply names
-Date: Tue, 12 May 2026 16:53:53 +0800
-Message-ID: <20260512085358.1693208-6-wenst@chromium.org>
-X-Mailer: git-send-email 2.54.0.563.g4f69b47b94-goog
-In-Reply-To: <20260512085358.1693208-1-wenst@chromium.org>
-References: <20260512085358.1693208-1-wenst@chromium.org>
+        d=1e100.net; s=20251104; t=1778576085; x=1779180885;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=wLWgrOfEGpguXKvOHIvAbEuiwtFN3p+oEkvp4LurQ6k=;
+        b=cGB/JeijNT3eULKMyRZqwJruzOuTLmoKSs+wV7Gy3EPKEvoKDygDEW4FVwIhfn7fdT
+         5bc0//AzY5+Ctk9gi1cTuflQ//CLX0MG2GQJVztkPCSTAJK59v8Yq32mDws2eNEeNgxB
+         AidbA/Oa/t49FgjmIgPBLQ7cmqrJQ1xWaVx/dcwr1bXX1F6O+INiFxVLBmL1BmJwTkKr
+         t0bfWntvjTn+dA55Q3myD0rH/WJExv8qrDYIhgi5PrGkSparCHjowRg2rNF3Y6OJA+0Z
+         prGGT6lxlnaHA/i/frkWw6DjcL/HiPjMR8verbUGC90Grt418LMKuT0XqdZfBNvL9oPN
+         IkMg==
+X-Forwarded-Encrypted: i=1; AFNElJ8/VGNeW0jz9LzsfQV0SHZ6PjtpTLDFZsQA3R6JTlaTVgs6d0ieny3c/WMXB+U9ukOfjEENoQn4l5L0@vger.kernel.org
+X-Gm-Message-State: AOJu0YzF5vdPoWFaRuVf0ZZNsy1rUbgh+TzC5GIafsvKxBuMVFKtww+v
+	bxIlv5OnNbHTj5qD187RETdcR2j6Mi8JlrHcZVtF7OPutwmfHUvnerAYskCB7C+WybeYuu0vfZu
+	qt1mRkDXd57WTzN/YrBXQxS3sjoIobrqqnUn/DHPZqZoQ2OUFIzbreVRG/cJPxLaV
+X-Gm-Gg: Acq92OE9PKGz6IiVC3ispU3hS3ft+LEo1rf6TLiqTuM3uVkqsPx7HDd805k8V1vn7Fv
+	vQQNoi4aAV69GuJVYdERRjXyM/6uGajkeGeofQ7jlqtAJpt1sNAdbi69tnFLoeK9qs/mufnIqIe
+	rSufAuodPpaqoNHg6UmiwMwixxGTLfPGiKnewstG+GImUhndAvjg4kOQWHby6xCszplrlUlq23T
+	8w4u5DADIcaI3dmoc3qR4ZFW8Q7dEzkwSXPhOkniaT44qlkgtOt5tnRh7+aV/vVpqmBrzTYtlwl
+	5jTHh6ruYQXIEg33YfIGFduFwIIIz0eHwYgj07418W7NYgPMbBEG590her++CmfKvVohKocYCmL
+	laZnmVK+m6NjKkh9epKWGyVyepT+6XE1hB+7xBBdkkF1B4a1F
+X-Received: by 2002:a05:6a00:4398:b0:82f:5a77:10e8 with SMTP id d2e1a72fcca58-83cf5848df4mr17235943b3a.20.1778576085444;
+        Tue, 12 May 2026 01:54:45 -0700 (PDT)
+X-Received: by 2002:a05:6a00:4398:b0:82f:5a77:10e8 with SMTP id d2e1a72fcca58-83cf5848df4mr17235900b3a.20.1778576084924;
+        Tue, 12 May 2026 01:54:44 -0700 (PDT)
+Received: from [10.217.217.99] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8396563f03bsm23389781b3a.9.2026.05.12.01.54.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 12 May 2026 01:54:44 -0700 (PDT)
+Message-ID: <f17c3e4b-b0e4-46f1-90aa-99751cbc9348@oss.qualcomm.com>
+Date: Tue, 12 May 2026 14:24:36 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/8] dt-bindings: clock: qcom: Add support for CAMCC
+ for Eliza
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+        Alexandre Torgue <alexandre.torgue@foss.st.com>,
+        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-stm32@st-md-mailman.stormreply.com,
+        linux-arm-kernel@lists.infradead.org
+References: <20260409-eliza_mm_cc_v2-v2-0-bc0c6dd77bc5@oss.qualcomm.com>
+ <20260409-eliza_mm_cc_v2-v2-3-bc0c6dd77bc5@oss.qualcomm.com>
+ <20260410-hasty-pony-of-tempering-4f0a47@quoll>
+Content-Language: en-US
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+In-Reply-To: <20260410-hasty-pony-of-tempering-4f0a47@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=IsAutr/g c=1 sm=1 tr=0 ts=6a02ead6 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=2Qn1I_tgzRFu8vZVKDwA:9 a=QEXdDO2ut3YA:10 a=QYH75iMubAgA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-GUID: Yuw2cx1Y1hWo_At6A83e5Utm7lYuqU38
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEyMDA4OSBTYWx0ZWRfX4tHHuDZJ/2MZ
+ AqZLvrMugWq3Z9MwNWUDPpsEdSsI64n+W7bzwuTdx3Y7gaCcjvgJn55/34UbABrUtcKv6BLVmQJ
+ W8UDYdChLPOSjrMat9eyAz2Rwn8Eud4IJ5/YCOL53/KE93M+AoUCtwpk9MU9CvZYQ0FBJcEq38h
+ Std1Ppv9YXI5DF8CqyjcgEcvYdWwU31D0wIDfkDFCebMLivN11QEoCCXbvmX29/3Lh0Sa18eZ62
+ xezueLjCE8lY4p3pQ4VOqPsJKuJ871Uxe/gLHNxo+RpcE2inZ4odNpHmUQM/SB6m3QzKsM8LNiL
+ DNCq3iIZfogYg5RoSoD0MiHhlJAWmHNI2dHFRlotJuWCimB0m7MDC3Az9Q+r5vgMmRkMdyTjLe/
+ LdfuY4X/zQF8b5SnEFnABuwOxw+FriJRTdPEX+S+e1XGQM8tdhE2teLn82V8Uh518hnOHGkT1E3
+ lFxxsPjBIaB4odWBl7A==
+X-Proofpoint-ORIG-GUID: Yuw2cx1Y1hWo_At6A83e5Utm7lYuqU38
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-11_05,2026-05-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 spamscore=0 bulkscore=0 clxscore=1015 phishscore=0
+ malwarescore=0 impostorscore=0 priorityscore=1501 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605120089
 
-The MT6359 regulator DT binding defines the supply names for the PMIC.
 
-Add support for them by adding .supply_name field settings for each
-regulator. The buck regulators each have their own supply. The name
-of the supply is related to the name of the buck regulator. The LDOs
-have shared supplies.
 
-Add the supply name to the declaration of each regulator. At the moment
-they are declared explicitly, but the buck regulator macro can be made
-to derive both the match string and supply name from the base name once
-the *_sshub regulators are figured out and removed. For context, the
-*_sshub regulators are not separate regulators, but separate settings
-for the same name regulators without the "_sshub" suffix.
+On 4/10/2026 1:17 PM, Krzysztof Kozlowski wrote:
+> On Thu, Apr 09, 2026 at 11:40:44PM +0530, Taniya Das wrote:
+>> Update the compatible and the bindings for CAMCC support on Eliza SoC.
+> 
+> I do not see any update here. Also, no improvements after v1 comments.
 
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+Sorry for missing that update the reason for Eliza not compatible with
+Pakala. I will update the commit in the next patch.
 
----
-Changes since v1:
-- Handle vbbck's supply internally
----
- drivers/regulator/mt6359-regulator.c | 220 +++++++++++++++------------
- 1 file changed, 125 insertions(+), 95 deletions(-)
-
-diff --git a/drivers/regulator/mt6359-regulator.c b/drivers/regulator/mt6359-regulator.c
-index bcf9a476a34e..fa97c3189df5 100644
---- a/drivers/regulator/mt6359-regulator.c
-+++ b/drivers/regulator/mt6359-regulator.c
-@@ -38,7 +38,7 @@ struct mt6359_regulator_info {
- 	u32 lp_mode_mask;
- };
- 
--#define MT6359_BUCK(match, _name, min, max, step,		\
-+#define MT6359_BUCK(match, _name, supply, min, max, step,	\
- 	_enable_reg, _status_reg,				\
- 	_vsel_reg, _vsel_mask,					\
- 	_lp_mode_reg, _lp_mode_shift,				\
-@@ -46,6 +46,7 @@ struct mt6359_regulator_info {
- [MT6359_ID_##_name] = {						\
- 	.desc = {						\
- 		.name = #_name,					\
-+		.supply_name = supply,				\
- 		.of_match = of_match_ptr(match),		\
- 		.regulators_node = of_match_ptr("regulators"),	\
- 		.ops = &mt6359_volt_linear_ops,			\
-@@ -69,11 +70,12 @@ struct mt6359_regulator_info {
- 	.modeset_mask = BIT(_modeset_shift),			\
- }
- 
--#define MT6359_LDO_LINEAR(match, _name, min, max, step,		\
-+#define MT6359_LDO_LINEAR(match, _name, supply, min, max, step,	\
- 	_enable_reg, _status_reg, _vsel_reg, _vsel_mask)	\
- [MT6359_ID_##_name] = {						\
- 	.desc = {						\
- 		.name = #_name,					\
-+		.supply_name = supply,				\
- 		.of_match = of_match_ptr(match),		\
- 		.regulators_node = of_match_ptr("regulators"),	\
- 		.ops = &mt6359_volt_linear_ops,			\
-@@ -92,12 +94,13 @@ struct mt6359_regulator_info {
- 	.qi = BIT(0),						\
- }
- 
--#define MT6359_LDO(match, _name, _volt_table,			\
-+#define MT6359_LDO(match, _name, supply, _volt_table,		\
- 	_enable_reg, _enable_mask, _status_reg,			\
- 	_vsel_reg, _vsel_mask, _en_delay)			\
- [MT6359_ID_##_name] = {						\
- 	.desc = {						\
- 		.name = #_name,					\
-+		.supply_name = supply,				\
- 		.of_match = of_match_ptr(match),		\
- 		.regulators_node = of_match_ptr("regulators"),	\
- 		.ops = &mt6359_volt_table_ops,			\
-@@ -116,11 +119,13 @@ struct mt6359_regulator_info {
- 	.qi = BIT(0),						\
- }
- 
--#define MT6359_REG_FIXED(match, _name, _enable_reg,	\
--	_status_reg, _fixed_volt)			\
-+#define MT6359_REG_FIXED(match, _name, supply,		\
-+			 _enable_reg, _status_reg,	\
-+			 _fixed_volt)			\
- [MT6359_ID_##_name] = {					\
- 	.desc = {					\
- 		.name = #_name,				\
-+		.supply_name = supply,			\
- 		.of_match = of_match_ptr(match),	\
- 		.regulators_node = of_match_ptr("regulators"),	\
- 		.ops = &mt6359_volt_fixed_ops,		\
-@@ -136,12 +141,14 @@ struct mt6359_regulator_info {
- 	.qi = BIT(0),					\
- }
- 
--#define MT6359P_LDO1(match, _name, _ops, _volt_table,	\
--	_enable_reg, _enable_mask, _status_reg,		\
--	_vsel_reg, _vsel_mask)				\
-+#define MT6359P_LDO1(match, _name, supply, _ops,	\
-+		     _volt_table, _enable_reg,		\
-+		     _enable_mask, _status_reg,		\
-+		     _vsel_reg, _vsel_mask)		\
- [MT6359_ID_##_name] = {					\
- 	.desc = {					\
- 		.name = #_name,				\
-+		.supply_name = supply,			\
- 		.of_match = of_match_ptr(match),	\
- 		.regulators_node = of_match_ptr("regulators"),	\
- 		.ops = &_ops,				\
-@@ -470,14 +477,14 @@ static const struct regulator_ops mt6359p_vemc_ops = {
- 
- /* The array is indexed by id(MT6359_ID_XXX) */
- static const struct mt6359_regulator_info mt6359_regulators[] = {
--	MT6359_BUCK("buck_vs1", VS1, 800000, 2200000, 12500,
-+	MT6359_BUCK("buck_vs1", VS1, "vsys-vs1", 800000, 2200000, 12500,
- 		    MT6359_RG_BUCK_VS1_EN_ADDR,
- 		    MT6359_DA_VS1_EN_ADDR, MT6359_RG_BUCK_VS1_VOSEL_ADDR,
- 		    MT6359_RG_BUCK_VS1_VOSEL_MASK <<
- 		    MT6359_RG_BUCK_VS1_VOSEL_SHIFT,
- 		    MT6359_RG_BUCK_VS1_LP_ADDR, MT6359_RG_BUCK_VS1_LP_SHIFT,
- 		    MT6359_RG_VS1_FPWM_ADDR, MT6359_RG_VS1_FPWM_SHIFT),
--	MT6359_BUCK("buck_vgpu11", VGPU11, 400000, 1193750, 6250,
-+	MT6359_BUCK("buck_vgpu11", VGPU11, "vsys-vgpu11", 400000, 1193750, 6250,
- 		    MT6359_RG_BUCK_VGPU11_EN_ADDR,
- 		    MT6359_DA_VGPU11_EN_ADDR, MT6359_RG_BUCK_VGPU11_VOSEL_ADDR,
- 		    MT6359_RG_BUCK_VGPU11_VOSEL_MASK <<
-@@ -485,7 +492,7 @@ static const struct mt6359_regulator_info mt6359_regulators[] = {
- 		    MT6359_RG_BUCK_VGPU11_LP_ADDR,
- 		    MT6359_RG_BUCK_VGPU11_LP_SHIFT,
- 		    MT6359_RG_VGPU11_FCCM_ADDR, MT6359_RG_VGPU11_FCCM_SHIFT),
--	MT6359_BUCK("buck_vmodem", VMODEM, 400000, 1100000, 6250,
-+	MT6359_BUCK("buck_vmodem", VMODEM, "vsys-vmodem", 400000, 1100000, 6250,
- 		    MT6359_RG_BUCK_VMODEM_EN_ADDR,
- 		    MT6359_DA_VMODEM_EN_ADDR, MT6359_RG_BUCK_VMODEM_VOSEL_ADDR,
- 		    MT6359_RG_BUCK_VMODEM_VOSEL_MASK <<
-@@ -493,35 +500,35 @@ static const struct mt6359_regulator_info mt6359_regulators[] = {
- 		    MT6359_RG_BUCK_VMODEM_LP_ADDR,
- 		    MT6359_RG_BUCK_VMODEM_LP_SHIFT,
- 		    MT6359_RG_VMODEM_FCCM_ADDR, MT6359_RG_VMODEM_FCCM_SHIFT),
--	MT6359_BUCK("buck_vpu", VPU, 400000, 1193750, 6250,
-+	MT6359_BUCK("buck_vpu", VPU, "vsys-vpu", 400000, 1193750, 6250,
- 		    MT6359_RG_BUCK_VPU_EN_ADDR,
- 		    MT6359_DA_VPU_EN_ADDR, MT6359_RG_BUCK_VPU_VOSEL_ADDR,
- 		    MT6359_RG_BUCK_VPU_VOSEL_MASK <<
- 		    MT6359_RG_BUCK_VPU_VOSEL_SHIFT,
- 		    MT6359_RG_BUCK_VPU_LP_ADDR, MT6359_RG_BUCK_VPU_LP_SHIFT,
- 		    MT6359_RG_VPU_FCCM_ADDR, MT6359_RG_VPU_FCCM_SHIFT),
--	MT6359_BUCK("buck_vcore", VCORE, 400000, 1193750, 6250,
-+	MT6359_BUCK("buck_vcore", VCORE, "vsys-vcore", 400000, 1193750, 6250,
- 		    MT6359_RG_BUCK_VCORE_EN_ADDR,
- 		    MT6359_DA_VCORE_EN_ADDR, MT6359_RG_BUCK_VCORE_VOSEL_ADDR,
- 		    MT6359_RG_BUCK_VCORE_VOSEL_MASK <<
- 		    MT6359_RG_BUCK_VCORE_VOSEL_SHIFT,
- 		    MT6359_RG_BUCK_VCORE_LP_ADDR, MT6359_RG_BUCK_VCORE_LP_SHIFT,
- 		    MT6359_RG_VCORE_FCCM_ADDR, MT6359_RG_VCORE_FCCM_SHIFT),
--	MT6359_BUCK("buck_vs2", VS2, 800000, 1600000, 12500,
-+	MT6359_BUCK("buck_vs2", VS2, "vsys-vs2", 800000, 1600000, 12500,
- 		    MT6359_RG_BUCK_VS2_EN_ADDR,
- 		    MT6359_DA_VS2_EN_ADDR, MT6359_RG_BUCK_VS2_VOSEL_ADDR,
- 		    MT6359_RG_BUCK_VS2_VOSEL_MASK <<
- 		    MT6359_RG_BUCK_VS2_VOSEL_SHIFT,
- 		    MT6359_RG_BUCK_VS2_LP_ADDR, MT6359_RG_BUCK_VS2_LP_SHIFT,
- 		    MT6359_RG_VS2_FPWM_ADDR, MT6359_RG_VS2_FPWM_SHIFT),
--	MT6359_BUCK("buck_vpa", VPA, 500000, 3650000, 50000,
-+	MT6359_BUCK("buck_vpa", VPA, "vsys-vpa", 500000, 3650000, 50000,
- 		    MT6359_RG_BUCK_VPA_EN_ADDR,
- 		    MT6359_DA_VPA_EN_ADDR, MT6359_RG_BUCK_VPA_VOSEL_ADDR,
- 		    MT6359_RG_BUCK_VPA_VOSEL_MASK <<
- 		    MT6359_RG_BUCK_VPA_VOSEL_SHIFT,
- 		    MT6359_RG_BUCK_VPA_LP_ADDR, MT6359_RG_BUCK_VPA_LP_SHIFT,
- 		    MT6359_RG_VPA_MODESET_ADDR, MT6359_RG_VPA_MODESET_SHIFT),
--	MT6359_BUCK("buck_vproc2", VPROC2, 400000, 1193750, 6250,
-+	MT6359_BUCK("buck_vproc2", VPROC2, "vsys-vproc2", 400000, 1193750, 6250,
- 		    MT6359_RG_BUCK_VPROC2_EN_ADDR,
- 		    MT6359_DA_VPROC2_EN_ADDR, MT6359_RG_BUCK_VPROC2_VOSEL_ADDR,
- 		    MT6359_RG_BUCK_VPROC2_VOSEL_MASK <<
-@@ -529,7 +536,7 @@ static const struct mt6359_regulator_info mt6359_regulators[] = {
- 		    MT6359_RG_BUCK_VPROC2_LP_ADDR,
- 		    MT6359_RG_BUCK_VPROC2_LP_SHIFT,
- 		    MT6359_RG_VPROC2_FCCM_ADDR, MT6359_RG_VPROC2_FCCM_SHIFT),
--	MT6359_BUCK("buck_vproc1", VPROC1, 400000, 1193750, 6250,
-+	MT6359_BUCK("buck_vproc1", VPROC1, "vsys-vproc1", 400000, 1193750, 6250,
- 		    MT6359_RG_BUCK_VPROC1_EN_ADDR,
- 		    MT6359_DA_VPROC1_EN_ADDR, MT6359_RG_BUCK_VPROC1_VOSEL_ADDR,
- 		    MT6359_RG_BUCK_VPROC1_VOSEL_MASK <<
-@@ -537,7 +544,7 @@ static const struct mt6359_regulator_info mt6359_regulators[] = {
- 		    MT6359_RG_BUCK_VPROC1_LP_ADDR,
- 		    MT6359_RG_BUCK_VPROC1_LP_SHIFT,
- 		    MT6359_RG_VPROC1_FCCM_ADDR, MT6359_RG_VPROC1_FCCM_SHIFT),
--	MT6359_BUCK("buck_vcore_sshub", VCORE_SSHUB, 400000, 1193750, 6250,
-+	MT6359_BUCK("buck_vcore_sshub", VCORE_SSHUB, "vsys-vcore", 400000, 1193750, 6250,
- 		    MT6359_RG_BUCK_VCORE_SSHUB_EN_ADDR,
- 		    MT6359_DA_VCORE_EN_ADDR,
- 		    MT6359_RG_BUCK_VCORE_SSHUB_VOSEL_ADDR,
-@@ -545,158 +552,159 @@ static const struct mt6359_regulator_info mt6359_regulators[] = {
- 		    MT6359_RG_BUCK_VCORE_SSHUB_VOSEL_SHIFT,
- 		    MT6359_RG_BUCK_VCORE_LP_ADDR, MT6359_RG_BUCK_VCORE_LP_SHIFT,
- 		    MT6359_RG_VCORE_FCCM_ADDR, MT6359_RG_VCORE_FCCM_SHIFT),
--	MT6359_REG_FIXED("ldo_vaud18", VAUD18, MT6359_RG_LDO_VAUD18_EN_ADDR,
-+	MT6359_REG_FIXED("ldo_vaud18", VAUD18, "vs1-ldo1", MT6359_RG_LDO_VAUD18_EN_ADDR,
- 			 MT6359_DA_VAUD18_B_EN_ADDR, 1800000),
--	MT6359_LDO("ldo_vsim1", VSIM1, vsim1_voltages,
-+	MT6359_LDO("ldo_vsim1", VSIM1, "vsys-ldo2", vsim1_voltages,
- 		   MT6359_RG_LDO_VSIM1_EN_ADDR, MT6359_RG_LDO_VSIM1_EN_SHIFT,
- 		   MT6359_DA_VSIM1_B_EN_ADDR, MT6359_RG_VSIM1_VOSEL_ADDR,
- 		   MT6359_RG_VSIM1_VOSEL_MASK << MT6359_RG_VSIM1_VOSEL_SHIFT,
- 		   480),
--	MT6359_LDO("ldo_vibr", VIBR, vibr_voltages,
-+	MT6359_LDO("ldo_vibr", VIBR, "vsys-ldo1", vibr_voltages,
- 		   MT6359_RG_LDO_VIBR_EN_ADDR, MT6359_RG_LDO_VIBR_EN_SHIFT,
- 		   MT6359_DA_VIBR_B_EN_ADDR, MT6359_RG_VIBR_VOSEL_ADDR,
- 		   MT6359_RG_VIBR_VOSEL_MASK << MT6359_RG_VIBR_VOSEL_SHIFT,
- 		   240),
--	MT6359_LDO("ldo_vrf12", VRF12, vrf12_voltages,
-+	MT6359_LDO("ldo_vrf12", VRF12, "vs2-ldo2", vrf12_voltages,
- 		   MT6359_RG_LDO_VRF12_EN_ADDR, MT6359_RG_LDO_VRF12_EN_SHIFT,
- 		   MT6359_DA_VRF12_B_EN_ADDR, MT6359_RG_VRF12_VOSEL_ADDR,
- 		   MT6359_RG_VRF12_VOSEL_MASK << MT6359_RG_VRF12_VOSEL_SHIFT,
- 		   120),
--	MT6359_REG_FIXED("ldo_vusb", VUSB, MT6359_RG_LDO_VUSB_EN_0_ADDR,
-+	MT6359_REG_FIXED("ldo_vusb", VUSB, "vsys-ldo2", MT6359_RG_LDO_VUSB_EN_0_ADDR,
- 			 MT6359_DA_VUSB_B_EN_ADDR, 3000000),
--	MT6359_LDO_LINEAR("ldo_vsram_proc2", VSRAM_PROC2, 500000, 1293750, 6250,
-+	MT6359_LDO_LINEAR("ldo_vsram_proc2", VSRAM_PROC2, "vs2-ldo1", 500000, 1293750, 6250,
- 			  MT6359_RG_LDO_VSRAM_PROC2_EN_ADDR,
- 			  MT6359_DA_VSRAM_PROC2_B_EN_ADDR,
- 			  MT6359_RG_LDO_VSRAM_PROC2_VOSEL_ADDR,
- 			  MT6359_RG_LDO_VSRAM_PROC2_VOSEL_MASK <<
- 			  MT6359_RG_LDO_VSRAM_PROC2_VOSEL_SHIFT),
--	MT6359_LDO("ldo_vio18", VIO18, volt18_voltages,
-+	MT6359_LDO("ldo_vio18", VIO18, "vs1-ldo2", volt18_voltages,
- 		   MT6359_RG_LDO_VIO18_EN_ADDR, MT6359_RG_LDO_VIO18_EN_SHIFT,
- 		   MT6359_DA_VIO18_B_EN_ADDR, MT6359_RG_VIO18_VOSEL_ADDR,
- 		   MT6359_RG_VIO18_VOSEL_MASK << MT6359_RG_VIO18_VOSEL_SHIFT,
- 		   960),
--	MT6359_LDO("ldo_vcamio", VCAMIO, volt18_voltages,
-+	MT6359_LDO("ldo_vcamio", VCAMIO, "vs1-ldo1", volt18_voltages,
- 		   MT6359_RG_LDO_VCAMIO_EN_ADDR, MT6359_RG_LDO_VCAMIO_EN_SHIFT,
- 		   MT6359_DA_VCAMIO_B_EN_ADDR, MT6359_RG_VCAMIO_VOSEL_ADDR,
- 		   MT6359_RG_VCAMIO_VOSEL_MASK << MT6359_RG_VCAMIO_VOSEL_SHIFT,
- 		   1290),
--	MT6359_REG_FIXED("ldo_vcn18", VCN18, MT6359_RG_LDO_VCN18_EN_ADDR,
-+	MT6359_REG_FIXED("ldo_vcn18", VCN18, "vs1-ldo2", MT6359_RG_LDO_VCN18_EN_ADDR,
- 			 MT6359_DA_VCN18_B_EN_ADDR, 1800000),
--	MT6359_REG_FIXED("ldo_vfe28", VFE28, MT6359_RG_LDO_VFE28_EN_ADDR,
-+	MT6359_REG_FIXED("ldo_vfe28", VFE28, "vsys-ldo1", MT6359_RG_LDO_VFE28_EN_ADDR,
- 			 MT6359_DA_VFE28_B_EN_ADDR, 2800000),
--	MT6359_LDO("ldo_vcn13", VCN13, vcn13_voltages,
-+	MT6359_LDO("ldo_vcn13", VCN13, "vs2-ldo2", vcn13_voltages,
- 		   MT6359_RG_LDO_VCN13_EN_ADDR, MT6359_RG_LDO_VCN13_EN_SHIFT,
- 		   MT6359_DA_VCN13_B_EN_ADDR, MT6359_RG_VCN13_VOSEL_ADDR,
- 		   MT6359_RG_VCN13_VOSEL_MASK << MT6359_RG_VCN13_VOSEL_SHIFT,
- 		   240),
--	MT6359_LDO("ldo_vcn33_1_bt", VCN33_1_BT, vcn33_voltages,
-+	MT6359_LDO("ldo_vcn33_1_bt", VCN33_1_BT, "vsys-ldo1", vcn33_voltages,
- 		   MT6359_RG_LDO_VCN33_1_EN_0_ADDR,
- 		   MT6359_RG_LDO_VCN33_1_EN_0_SHIFT,
- 		   MT6359_DA_VCN33_1_B_EN_ADDR, MT6359_RG_VCN33_1_VOSEL_ADDR,
- 		   MT6359_RG_VCN33_1_VOSEL_MASK <<
- 		   MT6359_RG_VCN33_1_VOSEL_SHIFT, 240),
--	MT6359_LDO("ldo_vcn33_1_wifi", VCN33_1_WIFI, vcn33_voltages,
-+	MT6359_LDO("ldo_vcn33_1_wifi", VCN33_1_WIFI, "vsys-ldo1", vcn33_voltages,
- 		   MT6359_RG_LDO_VCN33_1_EN_1_ADDR,
- 		   MT6359_RG_LDO_VCN33_1_EN_1_SHIFT,
- 		   MT6359_DA_VCN33_1_B_EN_ADDR, MT6359_RG_VCN33_1_VOSEL_ADDR,
- 		   MT6359_RG_VCN33_1_VOSEL_MASK <<
- 		   MT6359_RG_VCN33_1_VOSEL_SHIFT, 240),
--	MT6359_REG_FIXED("ldo_vaux18", VAUX18, MT6359_RG_LDO_VAUX18_EN_ADDR,
-+	MT6359_REG_FIXED("ldo_vaux18", VAUX18, "vsys-ldo2", MT6359_RG_LDO_VAUX18_EN_ADDR,
- 			 MT6359_DA_VAUX18_B_EN_ADDR, 1800000),
--	MT6359_LDO_LINEAR("ldo_vsram_others", VSRAM_OTHERS, 500000, 1293750,
-+	MT6359_LDO_LINEAR("ldo_vsram_others", VSRAM_OTHERS, "vs2-ldo1", 500000, 1293750,
- 			  6250,
- 			  MT6359_RG_LDO_VSRAM_OTHERS_EN_ADDR,
- 			  MT6359_DA_VSRAM_OTHERS_B_EN_ADDR,
- 			  MT6359_RG_LDO_VSRAM_OTHERS_VOSEL_ADDR,
- 			  MT6359_RG_LDO_VSRAM_OTHERS_VOSEL_MASK <<
- 			  MT6359_RG_LDO_VSRAM_OTHERS_VOSEL_SHIFT),
--	MT6359_LDO("ldo_vefuse", VEFUSE, vefuse_voltages,
-+	MT6359_LDO("ldo_vefuse", VEFUSE, "vs1-ldo2", vefuse_voltages,
- 		   MT6359_RG_LDO_VEFUSE_EN_ADDR, MT6359_RG_LDO_VEFUSE_EN_SHIFT,
- 		   MT6359_DA_VEFUSE_B_EN_ADDR, MT6359_RG_VEFUSE_VOSEL_ADDR,
- 		   MT6359_RG_VEFUSE_VOSEL_MASK << MT6359_RG_VEFUSE_VOSEL_SHIFT,
- 		   240),
--	MT6359_LDO("ldo_vxo22", VXO22, vxo22_voltages,
-+	MT6359_LDO("ldo_vxo22", VXO22, "vsys-ldo2", vxo22_voltages,
- 		   MT6359_RG_LDO_VXO22_EN_ADDR, MT6359_RG_LDO_VXO22_EN_SHIFT,
- 		   MT6359_DA_VXO22_B_EN_ADDR, MT6359_RG_VXO22_VOSEL_ADDR,
- 		   MT6359_RG_VXO22_VOSEL_MASK << MT6359_RG_VXO22_VOSEL_SHIFT,
- 		   120),
--	MT6359_LDO("ldo_vrfck", VRFCK, vrfck_voltages,
-+	MT6359_LDO("ldo_vrfck", VRFCK, "vsys-ldo2", vrfck_voltages,
- 		   MT6359_RG_LDO_VRFCK_EN_ADDR, MT6359_RG_LDO_VRFCK_EN_SHIFT,
- 		   MT6359_DA_VRFCK_B_EN_ADDR, MT6359_RG_VRFCK_VOSEL_ADDR,
- 		   MT6359_RG_VRFCK_VOSEL_MASK << MT6359_RG_VRFCK_VOSEL_SHIFT,
- 		   480),
--	MT6359_REG_FIXED("ldo_vbif28", VBIF28, MT6359_RG_LDO_VBIF28_EN_ADDR,
-+	MT6359_REG_FIXED("ldo_vbif28", VBIF28, "vsys-ldo2", MT6359_RG_LDO_VBIF28_EN_ADDR,
- 			 MT6359_DA_VBIF28_B_EN_ADDR, 2800000),
--	MT6359_LDO("ldo_vio28", VIO28, vio28_voltages,
-+	MT6359_LDO("ldo_vio28", VIO28, "vsys-ldo2", vio28_voltages,
- 		   MT6359_RG_LDO_VIO28_EN_ADDR, MT6359_RG_LDO_VIO28_EN_SHIFT,
- 		   MT6359_DA_VIO28_B_EN_ADDR, MT6359_RG_VIO28_VOSEL_ADDR,
- 		   MT6359_RG_VIO28_VOSEL_MASK << MT6359_RG_VIO28_VOSEL_SHIFT,
- 		   240),
--	MT6359_LDO("ldo_vemc", VEMC, vemc_voltages,
-+	MT6359_LDO("ldo_vemc", VEMC, "vsys-ldo2", vemc_voltages,
- 		   MT6359_RG_LDO_VEMC_EN_ADDR, MT6359_RG_LDO_VEMC_EN_SHIFT,
- 		   MT6359_DA_VEMC_B_EN_ADDR, MT6359_RG_VEMC_VOSEL_ADDR,
- 		   MT6359_RG_VEMC_VOSEL_MASK << MT6359_RG_VEMC_VOSEL_SHIFT,
- 		   240),
--	MT6359_LDO("ldo_vcn33_2_bt", VCN33_2_BT, vcn33_voltages,
-+	MT6359_LDO("ldo_vcn33_2_bt", VCN33_2_BT, "vsys-ldo1", vcn33_voltages,
- 		   MT6359_RG_LDO_VCN33_2_EN_0_ADDR,
- 		   MT6359_RG_LDO_VCN33_2_EN_0_SHIFT,
- 		   MT6359_DA_VCN33_2_B_EN_ADDR, MT6359_RG_VCN33_2_VOSEL_ADDR,
- 		   MT6359_RG_VCN33_2_VOSEL_MASK <<
- 		   MT6359_RG_VCN33_2_VOSEL_SHIFT, 240),
--	MT6359_LDO("ldo_vcn33_2_wifi", VCN33_2_WIFI, vcn33_voltages,
-+	MT6359_LDO("ldo_vcn33_2_wifi", VCN33_2_WIFI, "vsys-ldo1", vcn33_voltages,
- 		   MT6359_RG_LDO_VCN33_2_EN_1_ADDR,
- 		   MT6359_RG_LDO_VCN33_2_EN_1_SHIFT,
- 		   MT6359_DA_VCN33_2_B_EN_ADDR, MT6359_RG_VCN33_2_VOSEL_ADDR,
- 		   MT6359_RG_VCN33_2_VOSEL_MASK <<
- 		   MT6359_RG_VCN33_2_VOSEL_SHIFT, 240),
--	MT6359_LDO("ldo_va12", VA12, va12_voltages,
-+	MT6359_LDO("ldo_va12", VA12, "vs2-ldo2", va12_voltages,
- 		   MT6359_RG_LDO_VA12_EN_ADDR, MT6359_RG_LDO_VA12_EN_SHIFT,
- 		   MT6359_DA_VA12_B_EN_ADDR, MT6359_RG_VA12_VOSEL_ADDR,
- 		   MT6359_RG_VA12_VOSEL_MASK << MT6359_RG_VA12_VOSEL_SHIFT,
- 		   240),
--	MT6359_LDO("ldo_va09", VA09, va09_voltages,
-+	MT6359_LDO("ldo_va09", VA09, "vs2-ldo2", va09_voltages,
- 		   MT6359_RG_LDO_VA09_EN_ADDR, MT6359_RG_LDO_VA09_EN_SHIFT,
- 		   MT6359_DA_VA09_B_EN_ADDR, MT6359_RG_VA09_VOSEL_ADDR,
- 		   MT6359_RG_VA09_VOSEL_MASK << MT6359_RG_VA09_VOSEL_SHIFT,
- 		   240),
--	MT6359_LDO("ldo_vrf18", VRF18, vrf18_voltages,
-+	MT6359_LDO("ldo_vrf18", VRF18, "vs1-ldo2", vrf18_voltages,
- 		   MT6359_RG_LDO_VRF18_EN_ADDR, MT6359_RG_LDO_VRF18_EN_SHIFT,
- 		   MT6359_DA_VRF18_B_EN_ADDR, MT6359_RG_VRF18_VOSEL_ADDR,
- 		   MT6359_RG_VRF18_VOSEL_MASK << MT6359_RG_VRF18_VOSEL_SHIFT,
- 		   120),
--	MT6359_LDO_LINEAR("ldo_vsram_md", VSRAM_MD, 500000, 1100000, 6250,
-+	MT6359_LDO_LINEAR("ldo_vsram_md", VSRAM_MD, "vs2-ldo1", 500000, 1100000, 6250,
- 			  MT6359_RG_LDO_VSRAM_MD_EN_ADDR,
- 			  MT6359_DA_VSRAM_MD_B_EN_ADDR,
- 			  MT6359_RG_LDO_VSRAM_MD_VOSEL_ADDR,
- 			  MT6359_RG_LDO_VSRAM_MD_VOSEL_MASK <<
- 			  MT6359_RG_LDO_VSRAM_MD_VOSEL_SHIFT),
--	MT6359_LDO("ldo_vufs", VUFS, volt18_voltages,
-+	MT6359_LDO("ldo_vufs", VUFS, "vs1-ldo1", volt18_voltages,
- 		   MT6359_RG_LDO_VUFS_EN_ADDR, MT6359_RG_LDO_VUFS_EN_SHIFT,
- 		   MT6359_DA_VUFS_B_EN_ADDR, MT6359_RG_VUFS_VOSEL_ADDR,
- 		   MT6359_RG_VUFS_VOSEL_MASK << MT6359_RG_VUFS_VOSEL_SHIFT,
- 		   1920),
--	MT6359_LDO("ldo_vm18", VM18, volt18_voltages,
-+	MT6359_LDO("ldo_vm18", VM18, "vs1-ldo1", volt18_voltages,
- 		   MT6359_RG_LDO_VM18_EN_ADDR, MT6359_RG_LDO_VM18_EN_SHIFT,
- 		   MT6359_DA_VM18_B_EN_ADDR, MT6359_RG_VM18_VOSEL_ADDR,
- 		   MT6359_RG_VM18_VOSEL_MASK << MT6359_RG_VM18_VOSEL_SHIFT,
- 		   1920),
--	MT6359_LDO("ldo_vbbck", VBBCK, vbbck_voltages,
-+	/* vbbck is fed from vio18 internally. */
-+	MT6359_LDO("ldo_vbbck", VBBCK, "LDO_VIO18", vbbck_voltages,
- 		   MT6359_RG_LDO_VBBCK_EN_ADDR, MT6359_RG_LDO_VBBCK_EN_SHIFT,
- 		   MT6359_DA_VBBCK_B_EN_ADDR, MT6359_RG_VBBCK_VOSEL_ADDR,
- 		   MT6359_RG_VBBCK_VOSEL_MASK << MT6359_RG_VBBCK_VOSEL_SHIFT,
- 		   240),
--	MT6359_LDO_LINEAR("ldo_vsram_proc1", VSRAM_PROC1, 500000, 1293750, 6250,
-+	MT6359_LDO_LINEAR("ldo_vsram_proc1", VSRAM_PROC1, "vs2-ldo1", 500000, 1293750, 6250,
- 			  MT6359_RG_LDO_VSRAM_PROC1_EN_ADDR,
- 			  MT6359_DA_VSRAM_PROC1_B_EN_ADDR,
- 			  MT6359_RG_LDO_VSRAM_PROC1_VOSEL_ADDR,
- 			  MT6359_RG_LDO_VSRAM_PROC1_VOSEL_MASK <<
- 			  MT6359_RG_LDO_VSRAM_PROC1_VOSEL_SHIFT),
--	MT6359_LDO("ldo_vsim2", VSIM2, vsim2_voltages,
-+	MT6359_LDO("ldo_vsim2", VSIM2, "vsys-ldo2", vsim2_voltages,
- 		   MT6359_RG_LDO_VSIM2_EN_ADDR, MT6359_RG_LDO_VSIM2_EN_SHIFT,
- 		   MT6359_DA_VSIM2_B_EN_ADDR, MT6359_RG_VSIM2_VOSEL_ADDR,
- 		   MT6359_RG_VSIM2_VOSEL_MASK << MT6359_RG_VSIM2_VOSEL_SHIFT,
- 		   480),
--	MT6359_LDO_LINEAR("ldo_vsram_others_sshub", VSRAM_OTHERS_SSHUB,
-+	MT6359_LDO_LINEAR("ldo_vsram_others_sshub", VSRAM_OTHERS_SSHUB, "vs2-ldo1",
- 			  500000, 1293750, 6250,
- 			  MT6359_RG_LDO_VSRAM_OTHERS_SSHUB_EN_ADDR,
- 			  MT6359_DA_VSRAM_OTHERS_B_EN_ADDR,
-@@ -706,14 +714,14 @@ static const struct mt6359_regulator_info mt6359_regulators[] = {
- };
- 
- static const struct mt6359_regulator_info mt6359p_regulators[] = {
--	MT6359_BUCK("buck_vs1", VS1, 800000, 2200000, 12500,
-+	MT6359_BUCK("buck_vs1", VS1, "vsys-vs1", 800000, 2200000, 12500,
- 		    MT6359_RG_BUCK_VS1_EN_ADDR,
- 		    MT6359_DA_VS1_EN_ADDR, MT6359_RG_BUCK_VS1_VOSEL_ADDR,
- 		    MT6359_RG_BUCK_VS1_VOSEL_MASK <<
- 		    MT6359_RG_BUCK_VS1_VOSEL_SHIFT,
- 		    MT6359_RG_BUCK_VS1_LP_ADDR, MT6359_RG_BUCK_VS1_LP_SHIFT,
- 		    MT6359_RG_VS1_FPWM_ADDR, MT6359_RG_VS1_FPWM_SHIFT),
--	MT6359_BUCK("buck_vgpu11", VGPU11, 400000, 1193750, 6250,
-+	MT6359_BUCK("buck_vgpu11", VGPU11, "vsys-vgpu11", 400000, 1193750, 6250,
- 		    MT6359_RG_BUCK_VGPU11_EN_ADDR,
- 		    MT6359_DA_VGPU11_EN_ADDR, MT6359P_RG_BUCK_VGPU11_VOSEL_ADDR,
- 		    MT6359_RG_BUCK_VGPU11_VOSEL_MASK <<
-@@ -721,7 +729,7 @@ static const struct mt6359_regulator_info mt6359p_regulators[] = {
- 		    MT6359_RG_BUCK_VGPU11_LP_ADDR,
- 		    MT6359_RG_BUCK_VGPU11_LP_SHIFT,
- 		    MT6359_RG_VGPU11_FCCM_ADDR, MT6359_RG_VGPU11_FCCM_SHIFT),
--	MT6359_BUCK("buck_vmodem", VMODEM, 400000, 1100000, 6250,
-+	MT6359_BUCK("buck_vmodem", VMODEM, "vsys-vmodem", 400000, 1100000, 6250,
- 		    MT6359_RG_BUCK_VMODEM_EN_ADDR,
- 		    MT6359_DA_VMODEM_EN_ADDR, MT6359_RG_BUCK_VMODEM_VOSEL_ADDR,
- 		    MT6359_RG_BUCK_VMODEM_VOSEL_MASK <<
-@@ -729,35 +737,35 @@ static const struct mt6359_regulator_info mt6359p_regulators[] = {
- 		    MT6359_RG_BUCK_VMODEM_LP_ADDR,
- 		    MT6359_RG_BUCK_VMODEM_LP_SHIFT,
- 		    MT6359_RG_VMODEM_FCCM_ADDR, MT6359_RG_VMODEM_FCCM_SHIFT),
--	MT6359_BUCK("buck_vpu", VPU, 400000, 1193750, 6250,
-+	MT6359_BUCK("buck_vpu", VPU, "vsys-vpu", 400000, 1193750, 6250,
- 		    MT6359_RG_BUCK_VPU_EN_ADDR,
- 		    MT6359_DA_VPU_EN_ADDR, MT6359_RG_BUCK_VPU_VOSEL_ADDR,
- 		    MT6359_RG_BUCK_VPU_VOSEL_MASK <<
- 		    MT6359_RG_BUCK_VPU_VOSEL_SHIFT,
- 		    MT6359_RG_BUCK_VPU_LP_ADDR, MT6359_RG_BUCK_VPU_LP_SHIFT,
- 		    MT6359_RG_VPU_FCCM_ADDR, MT6359_RG_VPU_FCCM_SHIFT),
--	MT6359_BUCK("buck_vcore", VCORE, 506250, 1300000, 6250,
-+	MT6359_BUCK("buck_vcore", VCORE, "vsys-vcore", 506250, 1300000, 6250,
- 		    MT6359_RG_BUCK_VCORE_EN_ADDR,
- 		    MT6359_DA_VCORE_EN_ADDR, MT6359P_RG_BUCK_VCORE_VOSEL_ADDR,
- 		    MT6359_RG_BUCK_VCORE_VOSEL_MASK <<
- 		    MT6359_RG_BUCK_VCORE_VOSEL_SHIFT,
- 		    MT6359_RG_BUCK_VCORE_LP_ADDR, MT6359_RG_BUCK_VCORE_LP_SHIFT,
- 		    MT6359_RG_VCORE_FCCM_ADDR, MT6359_RG_VCORE_FCCM_SHIFT),
--	MT6359_BUCK("buck_vs2", VS2, 800000, 1600000, 12500,
-+	MT6359_BUCK("buck_vs2", VS2, "vsys-vs2", 800000, 1600000, 12500,
- 		    MT6359_RG_BUCK_VS2_EN_ADDR,
- 		    MT6359_DA_VS2_EN_ADDR, MT6359_RG_BUCK_VS2_VOSEL_ADDR,
- 		    MT6359_RG_BUCK_VS2_VOSEL_MASK <<
- 		    MT6359_RG_BUCK_VS2_VOSEL_SHIFT,
- 		    MT6359_RG_BUCK_VS2_LP_ADDR, MT6359_RG_BUCK_VS2_LP_SHIFT,
- 		    MT6359_RG_VS2_FPWM_ADDR, MT6359_RG_VS2_FPWM_SHIFT),
--	MT6359_BUCK("buck_vpa", VPA, 500000, 3650000, 50000,
-+	MT6359_BUCK("buck_vpa", VPA, "vsys-vpa", 500000, 3650000, 50000,
- 		    MT6359_RG_BUCK_VPA_EN_ADDR,
- 		    MT6359_DA_VPA_EN_ADDR, MT6359_RG_BUCK_VPA_VOSEL_ADDR,
- 		    MT6359_RG_BUCK_VPA_VOSEL_MASK <<
- 		    MT6359_RG_BUCK_VPA_VOSEL_SHIFT,
- 		    MT6359_RG_BUCK_VPA_LP_ADDR, MT6359_RG_BUCK_VPA_LP_SHIFT,
- 		    MT6359_RG_VPA_MODESET_ADDR, MT6359_RG_VPA_MODESET_SHIFT),
--	MT6359_BUCK("buck_vproc2", VPROC2, 400000, 1193750, 6250,
-+	MT6359_BUCK("buck_vproc2", VPROC2, "vsys-vproc2", 400000, 1193750, 6250,
- 		    MT6359_RG_BUCK_VPROC2_EN_ADDR,
- 		    MT6359_DA_VPROC2_EN_ADDR, MT6359_RG_BUCK_VPROC2_VOSEL_ADDR,
- 		    MT6359_RG_BUCK_VPROC2_VOSEL_MASK <<
-@@ -765,7 +773,7 @@ static const struct mt6359_regulator_info mt6359p_regulators[] = {
- 		    MT6359_RG_BUCK_VPROC2_LP_ADDR,
- 		    MT6359_RG_BUCK_VPROC2_LP_SHIFT,
- 		    MT6359_RG_VPROC2_FCCM_ADDR, MT6359_RG_VPROC2_FCCM_SHIFT),
--	MT6359_BUCK("buck_vproc1", VPROC1, 400000, 1193750, 6250,
-+	MT6359_BUCK("buck_vproc1", VPROC1, "vsys-vproc1", 400000, 1193750, 6250,
- 		    MT6359_RG_BUCK_VPROC1_EN_ADDR,
- 		    MT6359_DA_VPROC1_EN_ADDR, MT6359_RG_BUCK_VPROC1_VOSEL_ADDR,
- 		    MT6359_RG_BUCK_VPROC1_VOSEL_MASK <<
-@@ -773,7 +781,7 @@ static const struct mt6359_regulator_info mt6359p_regulators[] = {
- 		    MT6359_RG_BUCK_VPROC1_LP_ADDR,
- 		    MT6359_RG_BUCK_VPROC1_LP_SHIFT,
- 		    MT6359_RG_VPROC1_FCCM_ADDR, MT6359_RG_VPROC1_FCCM_SHIFT),
--	MT6359_BUCK("buck_vgpu11_sshub", VGPU11_SSHUB, 400000, 1193750, 6250,
-+	MT6359_BUCK("buck_vgpu11_sshub", VGPU11_SSHUB, "vsys-vgpu11", 400000, 1193750, 6250,
- 		    MT6359P_RG_BUCK_VGPU11_SSHUB_EN_ADDR,
- 		    MT6359_DA_VGPU11_EN_ADDR,
- 		    MT6359P_RG_BUCK_VGPU11_SSHUB_VOSEL_ADDR,
-@@ -782,161 +790,161 @@ static const struct mt6359_regulator_info mt6359p_regulators[] = {
- 		    MT6359_RG_BUCK_VGPU11_LP_ADDR,
- 		    MT6359_RG_BUCK_VGPU11_LP_SHIFT,
- 		    MT6359_RG_VGPU11_FCCM_ADDR, MT6359_RG_VGPU11_FCCM_SHIFT),
--	MT6359_REG_FIXED("ldo_vaud18", VAUD18, MT6359P_RG_LDO_VAUD18_EN_ADDR,
-+	MT6359_REG_FIXED("ldo_vaud18", VAUD18, "vs1-ldo1", MT6359P_RG_LDO_VAUD18_EN_ADDR,
- 			 MT6359P_DA_VAUD18_B_EN_ADDR, 1800000),
--	MT6359_LDO("ldo_vsim1", VSIM1, vsim1_voltages,
-+	MT6359_LDO("ldo_vsim1", VSIM1, "vsys-ldo2", vsim1_voltages,
- 		   MT6359P_RG_LDO_VSIM1_EN_ADDR, MT6359P_RG_LDO_VSIM1_EN_SHIFT,
- 		   MT6359P_DA_VSIM1_B_EN_ADDR, MT6359P_RG_VSIM1_VOSEL_ADDR,
- 		   MT6359_RG_VSIM1_VOSEL_MASK << MT6359_RG_VSIM1_VOSEL_SHIFT,
- 		   480),
--	MT6359_LDO("ldo_vibr", VIBR, vibr_voltages,
-+	MT6359_LDO("ldo_vibr", VIBR, "vsys-ldo1", vibr_voltages,
- 		   MT6359P_RG_LDO_VIBR_EN_ADDR, MT6359P_RG_LDO_VIBR_EN_SHIFT,
- 		   MT6359P_DA_VIBR_B_EN_ADDR, MT6359P_RG_VIBR_VOSEL_ADDR,
- 		   MT6359_RG_VIBR_VOSEL_MASK << MT6359_RG_VIBR_VOSEL_SHIFT,
- 		   240),
--	MT6359_LDO("ldo_vrf12", VRF12, vrf12_voltages,
-+	MT6359_LDO("ldo_vrf12", VRF12, "vs2-ldo2", vrf12_voltages,
- 		   MT6359P_RG_LDO_VRF12_EN_ADDR, MT6359P_RG_LDO_VRF12_EN_SHIFT,
- 		   MT6359P_DA_VRF12_B_EN_ADDR, MT6359P_RG_VRF12_VOSEL_ADDR,
- 		   MT6359_RG_VRF12_VOSEL_MASK << MT6359_RG_VRF12_VOSEL_SHIFT,
- 		   480),
--	MT6359_REG_FIXED("ldo_vusb", VUSB, MT6359P_RG_LDO_VUSB_EN_0_ADDR,
-+	MT6359_REG_FIXED("ldo_vusb", VUSB, "vsys-ldo2", MT6359P_RG_LDO_VUSB_EN_0_ADDR,
- 			 MT6359P_DA_VUSB_B_EN_ADDR, 3000000),
--	MT6359_LDO_LINEAR("ldo_vsram_proc2", VSRAM_PROC2, 500000, 1293750, 6250,
-+	MT6359_LDO_LINEAR("ldo_vsram_proc2", VSRAM_PROC2, "vs2-ldo1", 500000, 1293750, 6250,
- 			  MT6359P_RG_LDO_VSRAM_PROC2_EN_ADDR,
- 			  MT6359P_DA_VSRAM_PROC2_B_EN_ADDR,
- 			  MT6359P_RG_LDO_VSRAM_PROC2_VOSEL_ADDR,
- 			  MT6359_RG_LDO_VSRAM_PROC2_VOSEL_MASK <<
- 			  MT6359_RG_LDO_VSRAM_PROC2_VOSEL_SHIFT),
--	MT6359_LDO("ldo_vio18", VIO18, volt18_voltages,
-+	MT6359_LDO("ldo_vio18", VIO18, "vs1-ldo2", volt18_voltages,
- 		   MT6359P_RG_LDO_VIO18_EN_ADDR, MT6359P_RG_LDO_VIO18_EN_SHIFT,
- 		   MT6359P_DA_VIO18_B_EN_ADDR, MT6359P_RG_VIO18_VOSEL_ADDR,
- 		   MT6359_RG_VIO18_VOSEL_MASK << MT6359_RG_VIO18_VOSEL_SHIFT,
- 		   960),
--	MT6359_LDO("ldo_vcamio", VCAMIO, volt18_voltages,
-+	MT6359_LDO("ldo_vcamio", VCAMIO, "vs1-ldo1", volt18_voltages,
- 		   MT6359P_RG_LDO_VCAMIO_EN_ADDR,
- 		   MT6359P_RG_LDO_VCAMIO_EN_SHIFT,
- 		   MT6359P_DA_VCAMIO_B_EN_ADDR, MT6359P_RG_VCAMIO_VOSEL_ADDR,
- 		   MT6359_RG_VCAMIO_VOSEL_MASK << MT6359_RG_VCAMIO_VOSEL_SHIFT,
- 		   1290),
--	MT6359_REG_FIXED("ldo_vcn18", VCN18, MT6359P_RG_LDO_VCN18_EN_ADDR,
-+	MT6359_REG_FIXED("ldo_vcn18", VCN18, "vs1-ldo2", MT6359P_RG_LDO_VCN18_EN_ADDR,
- 			 MT6359P_DA_VCN18_B_EN_ADDR, 1800000),
--	MT6359_REG_FIXED("ldo_vfe28", VFE28, MT6359P_RG_LDO_VFE28_EN_ADDR,
-+	MT6359_REG_FIXED("ldo_vfe28", VFE28, "vsys-ldo1", MT6359P_RG_LDO_VFE28_EN_ADDR,
- 			 MT6359P_DA_VFE28_B_EN_ADDR, 2800000),
--	MT6359_LDO("ldo_vcn13", VCN13, vcn13_voltages,
-+	MT6359_LDO("ldo_vcn13", VCN13, "vs2-ldo2", vcn13_voltages,
- 		   MT6359P_RG_LDO_VCN13_EN_ADDR, MT6359P_RG_LDO_VCN13_EN_SHIFT,
- 		   MT6359P_DA_VCN13_B_EN_ADDR, MT6359P_RG_VCN13_VOSEL_ADDR,
- 		   MT6359_RG_VCN13_VOSEL_MASK << MT6359_RG_VCN13_VOSEL_SHIFT,
- 		   240),
--	MT6359_LDO("ldo_vcn33_1_bt", VCN33_1_BT, vcn33_voltages,
-+	MT6359_LDO("ldo_vcn33_1_bt", VCN33_1_BT, "vsys-ldo1", vcn33_voltages,
- 		   MT6359P_RG_LDO_VCN33_1_EN_0_ADDR,
- 		   MT6359_RG_LDO_VCN33_1_EN_0_SHIFT,
- 		   MT6359P_DA_VCN33_1_B_EN_ADDR, MT6359P_RG_VCN33_1_VOSEL_ADDR,
- 		   MT6359_RG_VCN33_1_VOSEL_MASK <<
- 		   MT6359_RG_VCN33_1_VOSEL_SHIFT, 240),
--	MT6359_LDO("ldo_vcn33_1_wifi", VCN33_1_WIFI, vcn33_voltages,
-+	MT6359_LDO("ldo_vcn33_1_wifi", VCN33_1_WIFI, "vsys-ldo1", vcn33_voltages,
- 		   MT6359P_RG_LDO_VCN33_1_EN_1_ADDR,
- 		   MT6359P_RG_LDO_VCN33_1_EN_1_SHIFT,
- 		   MT6359P_DA_VCN33_1_B_EN_ADDR, MT6359P_RG_VCN33_1_VOSEL_ADDR,
- 		   MT6359_RG_VCN33_1_VOSEL_MASK <<
- 		   MT6359_RG_VCN33_1_VOSEL_SHIFT, 240),
--	MT6359_REG_FIXED("ldo_vaux18", VAUX18, MT6359P_RG_LDO_VAUX18_EN_ADDR,
-+	MT6359_REG_FIXED("ldo_vaux18", VAUX18, "vsys-ldo2", MT6359P_RG_LDO_VAUX18_EN_ADDR,
- 			 MT6359P_DA_VAUX18_B_EN_ADDR, 1800000),
--	MT6359_LDO_LINEAR("ldo_vsram_others", VSRAM_OTHERS, 500000, 1293750,
-+	MT6359_LDO_LINEAR("ldo_vsram_others", VSRAM_OTHERS, "vs2-ldo1", 500000, 1293750,
- 			  6250,
- 			  MT6359P_RG_LDO_VSRAM_OTHERS_EN_ADDR,
- 			  MT6359P_DA_VSRAM_OTHERS_B_EN_ADDR,
- 			  MT6359P_RG_LDO_VSRAM_OTHERS_VOSEL_ADDR,
- 			  MT6359_RG_LDO_VSRAM_OTHERS_VOSEL_MASK <<
- 			  MT6359_RG_LDO_VSRAM_OTHERS_VOSEL_SHIFT),
--	MT6359_LDO("ldo_vefuse", VEFUSE, vefuse_voltages,
-+	MT6359_LDO("ldo_vefuse", VEFUSE, "vs1-ldo2", vefuse_voltages,
- 		   MT6359P_RG_LDO_VEFUSE_EN_ADDR,
- 		   MT6359P_RG_LDO_VEFUSE_EN_SHIFT,
- 		   MT6359P_DA_VEFUSE_B_EN_ADDR, MT6359P_RG_VEFUSE_VOSEL_ADDR,
- 		   MT6359_RG_VEFUSE_VOSEL_MASK << MT6359_RG_VEFUSE_VOSEL_SHIFT,
- 		   240),
--	MT6359_LDO("ldo_vxo22", VXO22, vxo22_voltages,
-+	MT6359_LDO("ldo_vxo22", VXO22, "vsys-ldo2", vxo22_voltages,
- 		   MT6359P_RG_LDO_VXO22_EN_ADDR, MT6359P_RG_LDO_VXO22_EN_SHIFT,
- 		   MT6359P_DA_VXO22_B_EN_ADDR, MT6359P_RG_VXO22_VOSEL_ADDR,
- 		   MT6359_RG_VXO22_VOSEL_MASK << MT6359_RG_VXO22_VOSEL_SHIFT,
- 		   480),
--	MT6359_LDO("ldo_vrfck_1", VRFCK, vrfck_voltages_1,
-+	MT6359_LDO("ldo_vrfck_1", VRFCK, "vsys-ldo2", vrfck_voltages_1,
- 		   MT6359P_RG_LDO_VRFCK_EN_ADDR, MT6359P_RG_LDO_VRFCK_EN_SHIFT,
- 		   MT6359P_DA_VRFCK_B_EN_ADDR, MT6359P_RG_VRFCK_VOSEL_ADDR,
- 		   MT6359_RG_VRFCK_VOSEL_MASK << MT6359_RG_VRFCK_VOSEL_SHIFT,
- 		   480),
--	MT6359_REG_FIXED("ldo_vbif28", VBIF28, MT6359P_RG_LDO_VBIF28_EN_ADDR,
-+	MT6359_REG_FIXED("ldo_vbif28", VBIF28, "vsys-ldo2", MT6359P_RG_LDO_VBIF28_EN_ADDR,
- 			 MT6359P_DA_VBIF28_B_EN_ADDR, 2800000),
--	MT6359_LDO("ldo_vio28", VIO28, vio28_voltages,
-+	MT6359_LDO("ldo_vio28", VIO28, "vsys-ldo2", vio28_voltages,
- 		   MT6359P_RG_LDO_VIO28_EN_ADDR, MT6359P_RG_LDO_VIO28_EN_SHIFT,
- 		   MT6359P_DA_VIO28_B_EN_ADDR, MT6359P_RG_VIO28_VOSEL_ADDR,
- 		   MT6359_RG_VIO28_VOSEL_MASK << MT6359_RG_VIO28_VOSEL_SHIFT,
- 		   1920),
--	MT6359P_LDO1("ldo_vemc_1", VEMC, mt6359p_vemc_ops, vemc_voltages_1,
-+	MT6359P_LDO1("ldo_vemc_1", VEMC, "vsys-ldo2", mt6359p_vemc_ops, vemc_voltages_1,
- 		     MT6359P_RG_LDO_VEMC_EN_ADDR, MT6359P_RG_LDO_VEMC_EN_SHIFT,
- 		     MT6359P_DA_VEMC_B_EN_ADDR,
- 		     MT6359P_RG_LDO_VEMC_VOSEL_0_ADDR,
- 		     MT6359P_RG_LDO_VEMC_VOSEL_0_MASK <<
- 		     MT6359P_RG_LDO_VEMC_VOSEL_0_SHIFT),
--	MT6359_LDO("ldo_vcn33_2_bt", VCN33_2_BT, vcn33_voltages,
-+	MT6359_LDO("ldo_vcn33_2_bt", VCN33_2_BT, "vsys-ldo1", vcn33_voltages,
- 		   MT6359P_RG_LDO_VCN33_2_EN_0_ADDR,
- 		   MT6359P_RG_LDO_VCN33_2_EN_0_SHIFT,
- 		   MT6359P_DA_VCN33_2_B_EN_ADDR, MT6359P_RG_VCN33_2_VOSEL_ADDR,
- 		   MT6359_RG_VCN33_2_VOSEL_MASK <<
- 		   MT6359_RG_VCN33_2_VOSEL_SHIFT, 240),
--	MT6359_LDO("ldo_vcn33_2_wifi", VCN33_2_WIFI, vcn33_voltages,
-+	MT6359_LDO("ldo_vcn33_2_wifi", VCN33_2_WIFI, "vsys-ldo1", vcn33_voltages,
- 		   MT6359P_RG_LDO_VCN33_2_EN_1_ADDR,
- 		   MT6359_RG_LDO_VCN33_2_EN_1_SHIFT,
- 		   MT6359P_DA_VCN33_2_B_EN_ADDR, MT6359P_RG_VCN33_2_VOSEL_ADDR,
- 		   MT6359_RG_VCN33_2_VOSEL_MASK <<
- 		   MT6359_RG_VCN33_2_VOSEL_SHIFT, 240),
--	MT6359_LDO("ldo_va12", VA12, va12_voltages,
-+	MT6359_LDO("ldo_va12", VA12, "vs2-ldo2", va12_voltages,
- 		   MT6359P_RG_LDO_VA12_EN_ADDR, MT6359P_RG_LDO_VA12_EN_SHIFT,
- 		   MT6359P_DA_VA12_B_EN_ADDR, MT6359P_RG_VA12_VOSEL_ADDR,
- 		   MT6359_RG_VA12_VOSEL_MASK << MT6359_RG_VA12_VOSEL_SHIFT,
- 		   960),
--	MT6359_LDO("ldo_va09", VA09, va09_voltages,
-+	MT6359_LDO("ldo_va09", VA09, "vs2-ldo2", va09_voltages,
- 		   MT6359P_RG_LDO_VA09_EN_ADDR, MT6359P_RG_LDO_VA09_EN_SHIFT,
- 		   MT6359P_DA_VA09_B_EN_ADDR, MT6359P_RG_VA09_VOSEL_ADDR,
- 		   MT6359_RG_VA09_VOSEL_MASK << MT6359_RG_VA09_VOSEL_SHIFT,
- 		   960),
--	MT6359_LDO("ldo_vrf18", VRF18, vrf18_voltages,
-+	MT6359_LDO("ldo_vrf18", VRF18, "vs1-ldo2", vrf18_voltages,
- 		   MT6359P_RG_LDO_VRF18_EN_ADDR, MT6359P_RG_LDO_VRF18_EN_SHIFT,
- 		   MT6359P_DA_VRF18_B_EN_ADDR, MT6359P_RG_VRF18_VOSEL_ADDR,
- 		   MT6359_RG_VRF18_VOSEL_MASK << MT6359_RG_VRF18_VOSEL_SHIFT,
- 		   240),
--	MT6359_LDO_LINEAR("ldo_vsram_md", VSRAM_MD, 500000, 1293750, 6250,
-+	MT6359_LDO_LINEAR("ldo_vsram_md", VSRAM_MD, "vs2-ldo1", 500000, 1293750, 6250,
- 			  MT6359P_RG_LDO_VSRAM_MD_EN_ADDR,
- 			  MT6359P_DA_VSRAM_MD_B_EN_ADDR,
- 			  MT6359P_RG_LDO_VSRAM_MD_VOSEL_ADDR,
- 			  MT6359_RG_LDO_VSRAM_MD_VOSEL_MASK <<
- 			  MT6359_RG_LDO_VSRAM_MD_VOSEL_SHIFT),
--	MT6359_LDO("ldo_vufs", VUFS, volt18_voltages,
-+	MT6359_LDO("ldo_vufs", VUFS, "vs1-ldo1", volt18_voltages,
- 		   MT6359P_RG_LDO_VUFS_EN_ADDR, MT6359P_RG_LDO_VUFS_EN_SHIFT,
- 		   MT6359P_DA_VUFS_B_EN_ADDR, MT6359P_RG_VUFS_VOSEL_ADDR,
- 		   MT6359_RG_VUFS_VOSEL_MASK << MT6359_RG_VUFS_VOSEL_SHIFT,
- 		   1920),
--	MT6359_LDO("ldo_vm18", VM18, volt18_voltages,
-+	MT6359_LDO("ldo_vm18", VM18, "vs1-ldo1", volt18_voltages,
- 		   MT6359P_RG_LDO_VM18_EN_ADDR, MT6359P_RG_LDO_VM18_EN_SHIFT,
- 		   MT6359P_DA_VM18_B_EN_ADDR, MT6359P_RG_VM18_VOSEL_ADDR,
- 		   MT6359_RG_VM18_VOSEL_MASK << MT6359_RG_VM18_VOSEL_SHIFT,
- 		   1920),
--	MT6359_LDO("ldo_vbbck", VBBCK, vbbck_voltages,
-+	MT6359_LDO("ldo_vbbck", VBBCK, "LDO_VIO18", vbbck_voltages,
- 		   MT6359P_RG_LDO_VBBCK_EN_ADDR, MT6359P_RG_LDO_VBBCK_EN_SHIFT,
- 		   MT6359P_DA_VBBCK_B_EN_ADDR, MT6359P_RG_VBBCK_VOSEL_ADDR,
- 		   MT6359P_RG_VBBCK_VOSEL_MASK << MT6359P_RG_VBBCK_VOSEL_SHIFT,
- 		   480),
--	MT6359_LDO_LINEAR("ldo_vsram_proc1", VSRAM_PROC1, 500000, 1293750, 6250,
-+	MT6359_LDO_LINEAR("ldo_vsram_proc1", VSRAM_PROC1, "vs2-ldo1", 500000, 1293750, 6250,
- 			  MT6359P_RG_LDO_VSRAM_PROC1_EN_ADDR,
- 			  MT6359P_DA_VSRAM_PROC1_B_EN_ADDR,
- 			  MT6359P_RG_LDO_VSRAM_PROC1_VOSEL_ADDR,
- 			  MT6359_RG_LDO_VSRAM_PROC1_VOSEL_MASK <<
- 			  MT6359_RG_LDO_VSRAM_PROC1_VOSEL_SHIFT),
--	MT6359_LDO("ldo_vsim2", VSIM2, vsim2_voltages,
-+	MT6359_LDO("ldo_vsim2", VSIM2, "vsys-ldo2", vsim2_voltages,
- 		   MT6359P_RG_LDO_VSIM2_EN_ADDR, MT6359P_RG_LDO_VSIM2_EN_SHIFT,
- 		   MT6359P_DA_VSIM2_B_EN_ADDR, MT6359P_RG_VSIM2_VOSEL_ADDR,
- 		   MT6359_RG_VSIM2_VOSEL_MASK << MT6359_RG_VSIM2_VOSEL_SHIFT,
- 		   480),
--	MT6359_LDO_LINEAR("ldo_vsram_others_sshub", VSRAM_OTHERS_SSHUB,
-+	MT6359_LDO_LINEAR("ldo_vsram_others_sshub", VSRAM_OTHERS_SSHUB, "vs2-ldo1",
- 			  500000, 1293750, 6250,
- 			  MT6359P_RG_LDO_VSRAM_OTHERS_SSHUB_EN_ADDR,
- 			  MT6359P_DA_VSRAM_OTHERS_B_EN_ADDR,
-@@ -951,6 +959,7 @@ static int mt6359_regulator_probe(struct platform_device *pdev)
- 	struct regulator_config config = {};
- 	struct regulator_dev *rdev;
- 	const struct mt6359_regulator_info *mt6359_info;
-+	const char *vio18_name;
- 	int i, hw_ver, ret;
- 
- 	ret = regmap_read(mt6397->regmap, MT6359P_HWCID, &hw_ver);
-@@ -962,16 +971,37 @@ static int mt6359_regulator_probe(struct platform_device *pdev)
- 	else
- 		mt6359_info = mt6359_regulators;
- 
-+	vio18_name = mt6359_info[MT6359_ID_VIO18].desc.name;
-+
- 	config.dev = mt6397->dev;
- 	config.regmap = mt6397->regmap;
- 	for (i = 0; i < MT6359_MAX_REGULATOR; i++, mt6359_info++) {
-+		const struct regulator_desc *desc = &mt6359_info->desc;
-+		struct regulator_desc *_desc;
-+
- 		/* drop const here, but all uses in the driver are const */
- 		config.driver_data = (void *)mt6359_info;
--		rdev = devm_regulator_register(&pdev->dev, &mt6359_info->desc, &config);
-+
-+		/* Use vio18's actual name as supply_name for vbbck */
-+		if (i == MT6359_ID_VBBCK && strcmp(desc->supply_name, vio18_name) != 0) {
-+			_desc = devm_kzalloc(&pdev->dev, sizeof(*_desc), GFP_KERNEL);
-+			if (!_desc)
-+				return -ENOMEM;
-+
-+			memcpy(_desc, desc, sizeof(*_desc));
-+			_desc->supply_name = vio18_name;
-+			desc = _desc;
-+		}
-+
-+		rdev = devm_regulator_register(&pdev->dev, desc, &config);
- 		if (IS_ERR(rdev)) {
- 			dev_err(&pdev->dev, "failed to register %s\n", mt6359_info->desc.name);
- 			return PTR_ERR(rdev);
- 		}
-+
-+		/* Save vio18 name for vbbck */
-+		if (i == MT6359_ID_VIO18)
-+			vio18_name = rdev_get_name(rdev);
- 	}
- 
- 	return 0;
 -- 
-2.54.0.563.g4f69b47b94-goog
+Thanks,
+Taniya Das
 
