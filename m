@@ -1,61 +1,75 @@
-Received: from mail-m155106.qiye.163.com (mail-m155106.qiye.163.com [101.71.155.106])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D54D4BC001;
-	Tue, 12 May 2026 10:12:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A70CE395ADB
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 10:24:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778580762; cv=none; b=DvrPucgqWxOT3k/WNvT87iZ1gUsi5JGXpPmeRTNYFwADWKLdY+90EhExjwQamEp/B1XPlKLlp6D+YQvkJl0P5889zZQ33aFBcSjRVoKCfiNoKSpTL8SDXabMqBVyYloEfhU5Lw2mlAmtAn4iD5RLttYs2/+7zxYE85dWqCTVnCs=
+	t=1778581498; cv=none; b=sxbHktwCDVU94hYcvXdgxoDjbuwTmeQe7gDXXmBnFT8zYuJU2whuSvvCL604crqbo4leE23x3hB3qyREW10k2v4vAoc8I/MX/iQUkVwxqgZA9J9uhTSP+7iruAND/4fUOWjdN+/+v529yPwJefpMlAj+qG0va5la+niPtH+wmzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778580762; c=relaxed/simple;
-	bh=jIM8REqUrglfXMYe5oLZ5fpHYQNgLu+RWFD02UzChd8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=IQqISVkr6iO2e8xsg4cLGBQ5BDa5vM97mBR/UPp25up4KdtvCMgHhl3/atAERL/pqBym0fiJs/cY32xx0CVmIeN32qr/OKnqLMxO+GpOW2wLcRuS37jnnK//KbAOXGhq+cf2VaCbr7Qsnso2g+Yk0R1GIiXorki7FRpxBuZAfDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=IH4z4M18; arc=none smtp.client-ip=101.71.155.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1778581498; c=relaxed/simple;
+	bh=VkIQe9enrKprR/AxY6Dkc2FlX7laVOPhA0/xwB9AKbc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BUgRY7uh80Wyhw5VYaVaPv9jcxB/4Xi3JwpAV4w/JXd/BBkezXl17STNdjAANFQnYlpStLJUxwBogr7oriqhU3npj5ikxHOr+bb5J2LnrqR2fGuV6zW4Mv6E8E6P7D48pWdPRMSlurJWqm9drm3EGoSwBXg5Zm3uFbZpV71l4lw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A4Uyfgo1; arc=none smtp.client-ip=209.85.208.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="IH4z4M18"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3e1830344;
-	Tue, 12 May 2026 17:57:06 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: hjc@rock-chips.com,
-	heiko@sntech.de,
-	andy.yan@rock-chips.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	nicolas.frattaroli@collabora.com,
-	cristian.ciocaltea@collabora.com,
-	sebastian.reichel@collabora.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	luca.ceresoli@bootlin.com,
-	dianders@chromium.org,
-	m.szyprowski@samsung.com,
-	dri-devel@lists.freedesktop.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A4Uyfgo1"
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-670ab084a39so9025857a12.3
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 03:24:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778581495; x=1779186295; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=/GIwyDALF/QcCK3UD/Zg1ohofSXNNGV0cy1CpSwLCB4=;
+        b=A4Uyfgo1S2Z7Am5B+0YwdeaXxU4vSiS+LPC3Q6Ijd4Y/IaV/OZUucDsDPbN0nd5MqD
+         iVrn8gJchGO6AWukYkJUg2M1HZHHt9eg1ecZ6kVwWlj/WsC0Avgv7UFlY2efTuhgMmQG
+         1NIU4qHLmA2OycBCOMXTI6V7tL03iHj2oUykpQbAAH+/Mr1i05c1gckZk3FJTELJF6hS
+         EjSNYjYeYOUV4gwwvs//DLcnQxSW2+yuvZEsgvhyOvK12aTWw3ntwiG97S1VoNn86A/F
+         Y55/udzmoEo05J1SRw45hFdjGK/eZZlGkYGA9fyf/Gog0AdhGN7JJAExu2K5BfZrikZ6
+         D3YA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778581495; x=1779186295;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/GIwyDALF/QcCK3UD/Zg1ohofSXNNGV0cy1CpSwLCB4=;
+        b=ncpNXmGi1SqLeVbxJHLLc3BsH69Gqbb1WfUG+EE5+gdBmhLY5hh7LeQZXeg1Un/Fwt
+         J920yJHVHGvx+JWqm9wRgS4ItO5rScb6tvpONXYoV+EnHXBerc14S07ohq51YSjapkMn
+         f/3aUfA+EuJPw7m7joAHPnq6eD9To9nmUb/2r+dNEkRwl4E+CbnVlmQgw1kEd6DHvxcT
+         2hrYGpKGFc4zwqcbSnNr1upIUjQP+dZFEGwzhabggdMcMKvKMNh/gfjmlDB8dDOOwTCE
+         smtZhSoSj3VdQ6+HpBzOWaQy3N/qp5Xf3N3qU1bJh9k7l8Ct6gmQn7+kSe9dgIGrypD5
+         uSbw==
+X-Forwarded-Encrypted: i=1; AFNElJ/EAdraTIGsRj2JAIjicCiYosNpE1W1QGBezOB6SDycCtTCRRPW4ASP4vvLFtJgwG45scEXjOEJXH/u@vger.kernel.org
+X-Gm-Message-State: AOJu0YzrK/3/v0isLbqy9CYYFmmsZbj52QDCHGTmtgdyllxK1I2dEF+K
+	bQFZeZdp9nRhzNa85enPJYxnvgTUUXRiUecO2SlPlyGI//qElsZQAmTb
+X-Gm-Gg: Acq92OGepWIKfjghe+C0pPLa1MLMok+hBf4vl8mB7LQjOMNNV6Xu4vkDfTQzHF3JYk4
+	6peQvs0FtR9moaiZTER7LZdC4FmmeklKn+7iCLGU2UTWCTNcCOGhbJqq7eZa0TjXu1Svwoo4M0F
+	j1tcefB66xF0xOsQzE/aRLofq7Gid59L2aIp+qyMoBE4skS/pbxAXN53d8E+P88UEG4e/zJID6z
+	1C10XXTLUSIo1/Gm9Rdhzq1BvdK8U3WKUwfrsrQ7UpYi4qOUWOdWjryIhBqXokDUcj+sWPy/ci5
+	Mo6pa100Cp1GZA93O0f2mKhdYHTbn+AC+U5O4LgIToatrGLyOOK8Dx8D6e4Ez88heRSHut1GuzE
+	zrwCIHJHISJ8jDZucv/hiEJJCw1c6UQg6RKlto+Gt2QS5W3Vmx7GXB91/GNSnvNC6yQMTOCMys7
+	KENR96pTtFKTOyyLdlvtkvZq4=
+X-Received: by 2002:a05:6402:158d:b0:677:15b6:4d6b with SMTP id 4fb4d7f45d1cf-680d02f613cmr1288570a12.26.1778581494941;
+        Tue, 12 May 2026 03:24:54 -0700 (PDT)
+Received: from xeon ([188.163.112.56])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-67ef0b6a534sm5032792a12.9.2026.05.12.03.24.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 12 May 2026 03:24:54 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-input@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v4 10/10] drm/rockchip: analogix_dp: Add support for RK3576
-Date: Tue, 12 May 2026 17:56:44 +0800
-Message-Id: <20260512095644.1946084-11-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260512095644.1946084-1-damon.ding@rock-chips.com>
-References: <20260512095644.1946084-1-damon.ding@rock-chips.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 0/2] input: misc: add support for Imagis ISA1200 haptic motor driver
+Date: Tue, 12 May 2026 13:24:43 +0300
+Message-ID: <20260512102445.55372-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -63,72 +77,75 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e1b9e691e03a3kunm05d2ddd61290a9
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQ0odVk1JS09MQ09CT01ISVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=IH4z4M18JGjzFiTAeUaoopq/j2LaXZNBC5fpyr6OfnFyYXNV0mJ6E49DqHfWwaDTUoLyez1uusVjk7QqWLh9yKwKhfSqtkookdaBa7AbcGwGqn464U0kjFX1CNWFhvSHgBKRoFpgGK3PgDW//Qr5R+70UA8SA8CUti/wtZfS75o=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=edZDAKPiDlvqHKvoUwOBwwRUJ9g2BB/RXNhTktgWsfA=;
-	h=date:mime-version:subject:message-id:from;
 
-RK3576 integrates Analogix eDP 1.3 TX and Samsung combo PHY
-hardware blocks that fully match the proven RK3588 design.
+The ISA1200 is a haptic feedback unit from Imagis Technology using two
+motors for haptic feedback in mobile phones. Used in many mobile devices
+c. 2012 including Samsung Galxy S Advance GT-I9070 (Janice), Samsung Beam
+GT-I8350 (Gavini), LG Optimus 4X P880 and LG Optimus Vu P895.
 
-Add dedicated chip data table and device tree matching entry
-to bring up basic eDP functionality for the RK3576 platform.
-
-Support is limited to RGB output up to 4K@60Hz for now; audio,
-PSR and other advanced eDP 1.3 features remain unvalidated.
-
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+The exact datasheet for the ISA1200 is not available; all data was modeled
+based on available downstream kernel sources for various devices and
+fragments of information scattered across the internet.
 
 ---
-
-Changes in v2:
-- Split out a separate patch to enable the "hclk" clock.
-- Add Reviewed-by tag.
-
-Changes in v3:
-- Add Reviewed-by tag.
+Changes in v5:
+- added supplies to private structure
+- clk_on dropped
+- ret > err
+- added active flag to track status
+- all hardware manipulations consolidated in start/stop
+- dropped mutex from work
+- dropped active check from isa1200_vibrator_close it was
+  moved to stop directly
+- dropped hw maniplations from probe
+- bustype set to BUS_I2C
+- adjusted error strings
+- fixed cancel_work_sync in isa1200_suspend
 
 Changes in v4:
-- Modify the commit msg.
----
- drivers/gpu/drm/rockchip/analogix_dp-rockchip.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+- added INPUT_FF_MEMLESS option selection
+- fixed missing clock status set
+- guard start/stop calls in isa1200_play_work with lock
+- clamp ldo voltages to allowed range
+- fixed imagis,pll-div parsing
+- dropped Tested-by from schema adding commit
 
-diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-index a864bcf8200e..75706a2fdba8 100644
---- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-@@ -522,6 +522,14 @@ static const struct rockchip_dp_chip_data rk3288_dp[] = {
- 	{ /* sentinel */ }
- };
- 
-+static const struct rockchip_dp_chip_data rk3576_edp[] = {
-+	{
-+		.chip_type = RK3576_EDP,
-+		.reg = 0x27dc0000,
-+	},
-+	{ /* sentinel */ }
-+};
-+
- static const struct rockchip_dp_chip_data rk3588_edp[] = {
- 	{
- 		.edp_mode = GRF_REG_FIELD(0x0000, 0, 0),
-@@ -539,6 +547,7 @@ static const struct rockchip_dp_chip_data rk3588_edp[] = {
- static const struct of_device_id rockchip_dp_dt_ids[] = {
- 	{.compatible = "rockchip,rk3288-dp", .data = &rk3288_dp },
- 	{.compatible = "rockchip,rk3399-edp", .data = &rk3399_edp },
-+	{.compatible = "rockchip,rk3576-edp", .data = &rk3576_edp },
- 	{.compatible = "rockchip,rk3588-edp", .data = &rk3588_edp },
- 	{}
- };
+Changes in v3:
+- added clock state tracking
+- dropped level check in vibrator close
+- added clkdiv clamping
+- added comments regarding registers 5 and 6
+
+Changes in v2:
+- imagis,clk-div switched to accept actual divider value
+- dropped DT header
+- adjusted imagis,period-ns range
+- initiated hctrl0 and hctrl1 values in isa1200_start
+- fixed situation when PWM might return -EPROBE_DEFER to be
+  treated properly
+- added chech a clock or PWM is available
+- fixed regulator voltages check being off by 10
+- added chech if state.period is not zero
+- added action call to disable clock and gpios on error
+- used managed version of work init
+- added work cancel on suspend
+- PW calls are done under mutex lock
+---
+
+Linus Walleij (1):
+  Input: isa1200 - new driver for Imagis ISA1200
+
+Svyatoslav Ryhel (1):
+  dt-bindings: input: Document Imagis ISA1200 haptic motor driver
+
+ .../bindings/input/imagis,isa1200.yaml        | 140 +++++
+ drivers/input/misc/Kconfig                    |  12 +
+ drivers/input/misc/Makefile                   |   1 +
+ drivers/input/misc/isa1200.c                  | 524 ++++++++++++++++++
+ 4 files changed, 677 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/input/imagis,isa1200.yaml
+ create mode 100644 drivers/input/misc/isa1200.c
+
 -- 
-2.34.1
+2.51.0
 
