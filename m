@@ -1,61 +1,61 @@
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C174C38B136
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 08:54:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D66139C013
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 08:54:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778576073; cv=none; b=YxJjb80nBjS25PJyM2TrFTgvYAVEsO4smvMjuH3joNKnF8ADFqqsy3PmYYKDVM/BKnh9uUv2uPRetAZsGcu7pMWt1uUljanMjoJrABM0hefWoh7lgcdyAftA5dYnDBF09qwg13s2Fhf1NsjbWgU1qBaaIQ0t7LY1KS0zjMHfy9U=
+	t=1778576077; cv=none; b=PUj3Wo5bZ1tEMH7pf2HjzWxXx2CvgPSX3l1qTfSMSbbkrhrOMNyJ0/5EJDSKGgw+N8nj1WMeVKMxEjX6Kek4MWlVhvZWAHNKQLSFon3HUMrQI6hLv9akuMprtGZu/dL0ow+8LET3vgdC0dDu5pT1Vza/tryEWVcgDl58Z/bnG58=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778576073; c=relaxed/simple;
-	bh=PBV7gLpSSiGNi6k5OJEnkIJJK1hmODST82g/5RRr8Ng=;
+	s=arc-20240116; t=1778576077; c=relaxed/simple;
+	bh=m/BiIy6VgsH7EcpRIbAuuFOp68CAhUAtFh6ZHuQpTBw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZT633hZnmxhdnVKEsfsOKpyfK2bICNJ2jm3MhhuiTTdUBIXSfJrUHBFMPgIJGlqYoSxcFosbPFEFphUiac7U+qqQ7LAEMSyKpUMeg0yPvJ+Pi8QhnWiJDfKyYnBvMMjXbjgkm50ZrSAYyoPKOqjnbRiQgt2bhhRJwSOdpkcZXUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=odeDh+Fc; arc=none smtp.client-ip=209.85.215.178
+	 MIME-Version; b=ajNJHW/Uaayzt91LnysPatvB4qYe3cF/yYXW2hT7pyQhNf7R438vROf4s/lXN0Zrgz169TuhhKwZhCyx8FIY+0jC/HkjjcrxlWSMBHc7m7pi1iGxFZGweJaOKk3hUWdALfvr6il+RyeFyNuEyzu0LZT8qPayGJTl814H/mYVDfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Y/u9wwjw; arc=none smtp.client-ip=209.85.215.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="odeDh+Fc"
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-c70c112cb61so4027831a12.0
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 01:54:27 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Y/u9wwjw"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c80227b1f6cso2212976a12.1
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 01:54:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1778576063; x=1779180863; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1778576068; x=1779180868; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PMpmOLlOHSFIvvWgO19Vcb/akZQ2K5UVO/tRSLgtnsY=;
-        b=odeDh+FcF5UklCuYYhfBZEVp67519x7KQ0M6FLeICMjfIJYDVNIqOXgiY/UlEripr4
-         31Ks2rdhTzeSn1cdpl17dugIuwj68w6ERk/7Mjr0tHdYqcxkowJfmMtuiYjzLm+MHrv/
-         btwIJZ8QPmbILL99b1u8m2boSFjqVvc/oJLF8=
+        bh=59kt6aNwzcXJV4ZtVsWMaQLA4u7r8yoORDZ1L7mRnY0=;
+        b=Y/u9wwjw32qPMxTJ6EVHRbZNxD7ChBgDgNE64nrfMJ3RkUj8SIepism2q5eXuo5Wsr
+         wCFNEav9ZerPNNGPz0I50XUmlKmL7syr75gT121Xpx0+DCLzCHU5ZnvEjFTEEDDvcEE8
+         QBtmB6Wh8do8NfoRiAdrdkdqPCs/kqXYiv+Tc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778576063; x=1779180863;
+        d=1e100.net; s=20251104; t=1778576068; x=1779180868;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=PMpmOLlOHSFIvvWgO19Vcb/akZQ2K5UVO/tRSLgtnsY=;
-        b=YgKGNZ4DdNQwSiPBBKBlZWnuGqxEGWbPDeAhv2YT6uKoFNnaS6+SH7PS/2Vnvn0Vki
-         XrchUG92G1y2maD/rdznHjIiqMB0DfxZo2hG9CNbRNdcPkXL93czHbNrzkVPVRE+24t4
-         CC4BVScR5QmaKZTO6YA1yaEMyV0IycG6UaXqwXsCpgKBynr6zgRkJvD8Zlpsv9oKdIvV
-         /NHc4Mj+DjZoh9iVBaGMazr/LEMbAPs5wneYPfX41D9OHYl382OK+YVejLEP1qYhC4Kd
-         EpLVSptX/7YrHLGeNmrs52/m2xrAXODhvlka27QeXvrDUbHgY15uAEAQiSr1ck85Ixjy
-         1wbQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9W5Ta/BmFS0PRW0bbXY9D/GM1IPLtV635qGujcnS9gW9qEQdidQKjUFCt1E0NzfQw5ioZYr/qjsso9@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy7FbB2I3pvyWatrXzBMg/Xjnf+JjJuhQD/K+EJxJ+9JyNkyRWJ
-	5V6VBPHdsFTQa1Ru/sAWj35Te0lxujYVHldlQCVc7ENvirhUPVSyluf9o/sQPrufgQ==
-X-Gm-Gg: Acq92OGv5mbz51PxEgm//Q38Ycbo2HYZSz1tw5i9vhOQv61d3fGzSMZV7CwjQOE7f0A
-	l1oITxCiYtFb5mCF5GFhw1OW9X0XCkqfWfvcxTlU4S1gwKmUAAATrYMOSRLm1xmMIPfrZs7m93n
-	W2JYwsg49OcbRPc/HOOfmJpEjkOg0f5ejfyUYhCHyPP3Dn8nePIU/c30/9M3gjh+0BoYr+zRSae
-	aTkvR2CNU6y0iyHZY6orQsTaAzPLgfkkEfchkAMVB7iNjufWZxUgEOUz/Ki9r7HhUiYUikU4vlV
-	tppNRNwXYS7Ar7kPIa3BxyCUricshD9VF6tJIhCs+Ykd/vofUW0rt1p7VAck2EtNw3H2bgIBCwk
-	h7CEKX8dokPjpB3zHsOFkMWx2iLQsfwfi9qTRPBGsmSYGKz1Wj+99VWsbfjy2VJ/cXtnXh8kfMH
-	gkqSYd2ADAmV1lG6OH0dVFlVkvKHafAzj8hrScAmKGN9TQQltwVgdImr5K4bx+WGiWc1IPeD1jy
-	Tm3+moL7zi1fGDn5m0=
-X-Received: by 2002:a05:6a20:7f9a:b0:3a2:dd8a:5084 with SMTP id adf61e73a8af0-3aa5ab5c3e6mr30559580637.37.1778576062752;
-        Tue, 12 May 2026 01:54:22 -0700 (PDT)
+        bh=59kt6aNwzcXJV4ZtVsWMaQLA4u7r8yoORDZ1L7mRnY0=;
+        b=PF3KiljlvsiDpuskqxP8Yg3hxssBUMGVWoYYh2saHjgUi2jWXYN2Y5pX6UPUJacPDc
+         gkL9UFVULzoHNF4+1sGIqx7qABWWLhZRdiNBil6UQAwJME/hKQu2tIkGcsst4Oxhv7Qg
+         vAgvpV2sqGAm8OXF3Zda7x5Tm+D1oxZq2y5QRKO4x6khPuYfuUe+yH6JCzPH/J9X2TH/
+         ccg77Qpy2C1EaTSt8oz3X4wrsXGCtdXGj/bO26DR0Wuh3wCrdn3nAna8s8m52L8+dxho
+         TqjG+PYxhaPdMJK3glpj0kezNkiKR7crRELvl7/bM8a2YAcB0AAOll15/UaJs/kI1vke
+         F9EA==
+X-Forwarded-Encrypted: i=1; AFNElJ9DH1rW7Hs08S7GSX6o+Zf+QGIpochXpKuITOcVfDgMesolaS9nsT6wDGrPMySs+xQ8GVgFofNbVHJU@vger.kernel.org
+X-Gm-Message-State: AOJu0YxEcY4/nHXz0Yi8uZY+312iPfyy2fOaRsNSaLaQQcr8IKRePKai
+	73iP3GHfYsrmiTAHQqZ5UMp1OJ6K6pX+o4kAk3qMG4wWhUrHyqFR1HNwDT3dxAGSzg==
+X-Gm-Gg: Acq92OEGK808zpaKdEEZ6kZEdl+7T2uZgSsV2qANPv/8P12MKVPupIRrloU9iuFVfhl
+	1OMNkjGA1FIsKtlsP4xTWIzhW6QddSqZlAcXXGSvo5ghxFhcCbB88yHPz2t2T++38yQsmjbZK/w
+	iEPB8xZSyTx72YO2zyzdquVxA1IQEr4tJW7TMV4OJqLEqB/wf431uS5rBaYE23hGDbvw59XjSbY
+	uSv/iTsj5dx7rXzRrKOZB9tTLQoMEMP+IiOmif1ih8eQJVIXR56QstAg6ImAtey/RikWzXIzX/E
+	nfaVM/lErDj1DqdB115+cFPJDm++KREMZh6eNqhrxudGw+DFYP9q5l7lM6dEcTbVj++kMygEO8w
+	5XoNPJfeIrSWSI/1bD3d6Jwr6YMrYvFXsIBE3zM8e55scosHt8C2JlDJLVIu2/yBZigrFHPa2TL
+	cePAYGHcUmu+Se5JGTFmYdL0iHtHzUGjpzUl5XYlNM4udibSeK+BnNALv6977pwXc0AAXJLHzjR
+	KCkhBih
+X-Received: by 2002:a05:6a21:e082:b0:39c:787:f197 with SMTP id adf61e73a8af0-3aab17186femr19074564637.36.1778576068336;
+        Tue, 12 May 2026 01:54:28 -0700 (PDT)
 Received: from wenstp920.tpe.corp.google.com ([2a00:79e0:201d:8:6606:2bd2:159a:55e3])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c826771a8a1sm11136856a12.24.2026.05.12.01.54.20
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c826771a8a1sm11136856a12.24.2026.05.12.01.54.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 May 2026 01:54:22 -0700 (PDT)
+        Tue, 12 May 2026 01:54:27 -0700 (PDT)
 From: Chen-Yu Tsai <wenst@chromium.org>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>,
@@ -68,11 +68,10 @@ To: Mark Brown <broonie@kernel.org>,
 Cc: Chen-Yu Tsai <wenst@chromium.org>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v3 2/6] regulator: dt-bindings: mt6359: Drop regulator-name pattern restrictions
-Date: Tue, 12 May 2026 16:53:50 +0800
-Message-ID: <20260512085358.1693208-3-wenst@chromium.org>
+	devicetree@vger.kernel.org
+Subject: [PATCH v3 4/6] regulator: mt6359: const-ify regulator descriptions
+Date: Tue, 12 May 2026 16:53:52 +0800
+Message-ID: <20260512085358.1693208-5-wenst@chromium.org>
 X-Mailer: git-send-email 2.54.0.563.g4f69b47b94-goog
 In-Reply-To: <20260512085358.1693208-1-wenst@chromium.org>
 References: <20260512085358.1693208-1-wenst@chromium.org>
@@ -84,108 +83,104 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The name of the regulator should match what the board design specifies
-for the power rail. There should be no limitations on what the name can
-be, and they definitely don't always follow the PMIC's own names.
+The regulator descriptions and extended descriptions don't change at
+runtime. The only reason they are not const is that the regulator
+driver data is non-const.
 
-Drop the restrictions on regulator-name.
+Const-ify the descriptions and all references to them. For the driver
+data, explicitly cast it to non-const void *.
 
-Fixes: 8771456635d5 ("dt-bindings: regulator: Add document for MT6359 regulator")
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 ---
- .../bindings/regulator/mt6359-regulator.yaml  | 43 -------------------
- 1 file changed, 43 deletions(-)
+ drivers/regulator/mt6359-regulator.c | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/regulator/mt6359-regulator.yaml b/Documentation/devicetree/bindings/regulator/mt6359-regulator.yaml
-index fe4ac9350ba0..ac925334ae83 100644
---- a/Documentation/devicetree/bindings/regulator/mt6359-regulator.yaml
-+++ b/Documentation/devicetree/bindings/regulator/mt6359-regulator.yaml
-@@ -18,84 +18,41 @@ patternProperties:
-   "^buck_v(s1|gpu11|modem|pu|core|s2|pa|proc2|proc1|core_sshub)$":
-     type: object
-     $ref: regulator.yaml#
--
--    properties:
--      regulator-name:
--        pattern: "^v(s1|gpu11|modem|pu|core|s2|pa|proc2|proc1|core_sshub)$"
--
-     unevaluatedProperties: false
+diff --git a/drivers/regulator/mt6359-regulator.c b/drivers/regulator/mt6359-regulator.c
+index c8a788858824..bcf9a476a34e 100644
+--- a/drivers/regulator/mt6359-regulator.c
++++ b/drivers/regulator/mt6359-regulator.c
+@@ -251,7 +251,7 @@ static int mt6359_get_status(struct regulator_dev *rdev)
+ {
+ 	int ret;
+ 	u32 regval;
+-	struct mt6359_regulator_info *info = rdev_get_drvdata(rdev);
++	const struct mt6359_regulator_info *info = rdev_get_drvdata(rdev);
  
-   "^ldo_v(ibr|rf12|usb|camio|efuse|xo22)$":
-     type: object
-     $ref: regulator.yaml#
--
--    properties:
--      regulator-name:
--        pattern: "^v(ibr|rf12|usb|camio|efuse|xo22)$"
--
-     unevaluatedProperties: false
+ 	ret = regmap_read(rdev->regmap, info->status_reg, &regval);
+ 	if (ret != 0) {
+@@ -267,7 +267,7 @@ static int mt6359_get_status(struct regulator_dev *rdev)
  
-   "^ldo_v(rfck|emc|a12|a09|ufs|bbck)$":
-     type: object
-     $ref: regulator.yaml#
--
--    properties:
--      regulator-name:
--        pattern: "^v(rfck|emc|a12|a09|ufs|bbck)$"
--
-     unevaluatedProperties: false
+ static unsigned int mt6359_regulator_get_mode(struct regulator_dev *rdev)
+ {
+-	struct mt6359_regulator_info *info = rdev_get_drvdata(rdev);
++	const struct mt6359_regulator_info *info = rdev_get_drvdata(rdev);
+ 	int ret, regval;
  
-   "^ldo_vcn(18|13|33_1_bt|13_1_wifi|33_2_bt|33_2_wifi)$":
-     type: object
-     $ref: regulator.yaml#
--
--    properties:
--      regulator-name:
--        pattern: "^vcn(18|13|33_1_bt|13_1_wifi|33_2_bt|33_2_wifi)$"
--
-     unevaluatedProperties: false
+ 	ret = regmap_read(rdev->regmap, info->modeset_reg, &regval);
+@@ -299,7 +299,7 @@ static unsigned int mt6359_regulator_get_mode(struct regulator_dev *rdev)
+ static int mt6359_regulator_set_mode(struct regulator_dev *rdev,
+ 				     unsigned int mode)
+ {
+-	struct mt6359_regulator_info *info = rdev_get_drvdata(rdev);
++	const struct mt6359_regulator_info *info = rdev_get_drvdata(rdev);
+ 	int ret = 0, val;
+ 	int curr_mode;
  
-   "^ldo_vsram_(proc2|others|md|proc1|others_sshub)$":
-     type: object
-     $ref: regulator.yaml#
--
--    properties:
--      regulator-name:
--        pattern: "^vsram_(proc2|others|md|proc1|others_sshub)$"
--
-     unevaluatedProperties: false
+@@ -354,7 +354,7 @@ static int mt6359_regulator_set_mode(struct regulator_dev *rdev,
+ static int mt6359p_vemc_set_voltage_sel(struct regulator_dev *rdev,
+ 					u32 sel)
+ {
+-	struct mt6359_regulator_info *info = rdev_get_drvdata(rdev);
++	const struct mt6359_regulator_info *info = rdev_get_drvdata(rdev);
+ 	int ret;
+ 	u32 val = 0;
  
-   "^ldo_v(fe|bif|io)28$":
-     type: object
-     $ref: regulator.yaml#
--
--    properties:
--      regulator-name:
--        pattern: "^v(fe|bif|io)28$"
--
-     unevaluatedProperties: false
+@@ -393,7 +393,7 @@ static int mt6359p_vemc_set_voltage_sel(struct regulator_dev *rdev,
  
-   "^ldo_v(aud|io|aux|rf|m)18$":
-     type: object
-     $ref: regulator.yaml#
--
--    properties:
--      regulator-name:
--        pattern: "^v(aud|io|aux|rf|m)18$"
--
-     unevaluatedProperties: false
+ static int mt6359p_vemc_get_voltage_sel(struct regulator_dev *rdev)
+ {
+-	struct mt6359_regulator_info *info = rdev_get_drvdata(rdev);
++	const struct mt6359_regulator_info *info = rdev_get_drvdata(rdev);
+ 	int ret;
+ 	u32 val = 0;
  
-   "^ldo_vsim[12]$":
-     type: object
-     $ref: regulator.yaml#
--
--    properties:
--      regulator-name:
--        pattern: "^vsim[12]$"
--
--    required:
--      - regulator-name
--
-     unevaluatedProperties: false
+@@ -469,7 +469,7 @@ static const struct regulator_ops mt6359p_vemc_ops = {
+ };
  
- additionalProperties: false
+ /* The array is indexed by id(MT6359_ID_XXX) */
+-static struct mt6359_regulator_info mt6359_regulators[] = {
++static const struct mt6359_regulator_info mt6359_regulators[] = {
+ 	MT6359_BUCK("buck_vs1", VS1, 800000, 2200000, 12500,
+ 		    MT6359_RG_BUCK_VS1_EN_ADDR,
+ 		    MT6359_DA_VS1_EN_ADDR, MT6359_RG_BUCK_VS1_VOSEL_ADDR,
+@@ -705,7 +705,7 @@ static struct mt6359_regulator_info mt6359_regulators[] = {
+ 			  MT6359_RG_LDO_VSRAM_OTHERS_SSHUB_VOSEL_SHIFT),
+ };
+ 
+-static struct mt6359_regulator_info mt6359p_regulators[] = {
++static const struct mt6359_regulator_info mt6359p_regulators[] = {
+ 	MT6359_BUCK("buck_vs1", VS1, 800000, 2200000, 12500,
+ 		    MT6359_RG_BUCK_VS1_EN_ADDR,
+ 		    MT6359_DA_VS1_EN_ADDR, MT6359_RG_BUCK_VS1_VOSEL_ADDR,
+@@ -950,7 +950,7 @@ static int mt6359_regulator_probe(struct platform_device *pdev)
+ 	struct mt6397_chip *mt6397 = dev_get_drvdata(pdev->dev.parent);
+ 	struct regulator_config config = {};
+ 	struct regulator_dev *rdev;
+-	struct mt6359_regulator_info *mt6359_info;
++	const struct mt6359_regulator_info *mt6359_info;
+ 	int i, hw_ver, ret;
+ 
+ 	ret = regmap_read(mt6397->regmap, MT6359P_HWCID, &hw_ver);
+@@ -965,7 +965,8 @@ static int mt6359_regulator_probe(struct platform_device *pdev)
+ 	config.dev = mt6397->dev;
+ 	config.regmap = mt6397->regmap;
+ 	for (i = 0; i < MT6359_MAX_REGULATOR; i++, mt6359_info++) {
+-		config.driver_data = mt6359_info;
++		/* drop const here, but all uses in the driver are const */
++		config.driver_data = (void *)mt6359_info;
+ 		rdev = devm_regulator_register(&pdev->dev, &mt6359_info->desc, &config);
+ 		if (IS_ERR(rdev)) {
+ 			dev_err(&pdev->dev, "failed to register %s\n", mt6359_info->desc.name);
 -- 
 2.54.0.563.g4f69b47b94-goog
 
