@@ -1,169 +1,150 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 832CB3AA9E1
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 14:12:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E02B3AB482
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 14:13:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778595156; cv=none; b=pov1spilkPbXayqRcSNWoRp1AZ7l+KEedqII57z52ofPnSImWM3+aoZ0ArIS4TlCNGYLfUA4/WCBy6DDvCH+UBRpTOgMa1nES49ALpawcPdgzBGYpZasGCZyE4t47md4q7ngogQiA3afpGswFDpLoc4+oPpQsaij3cLM8v6owG0=
+	t=1778595200; cv=none; b=urg8CqEJ+rm2RJS2heyxs+ux4FGJrOiqDqDux0PxLxRnPbuXrfErtVviTYVkoWidxOys7OkpVbW32XGgtnKKAEn64Y5WIgl58bGrkCwiYHlY1kP+KYbCmibnupISDv5pijG2yqU7fze8Td0Ftmc8Y0aG5VNJ1Gfns8LRa/6eSDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778595156; c=relaxed/simple;
-	bh=Q41Oo0zRbrO8B/Db3XFSemV5+e5K2mKQ+CxGfpoCaKE=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tJxKSTMn/Ls6zOZITuhFyOTxcJPx2I5spiJYkuJDlOPGnirA2tvZB2VyAy1Dn9GjFVsOAlidog4SKE8TMF5qLNfFTadSJaqOABuGRQpls5jx2gm9UQji6Gcz8SjrGaUuEyCjuVm2fOJFThe/N+XbNKe1zPjypX2wXvPVSaktyfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FfG3zEAH; arc=none smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778595200; c=relaxed/simple;
+	bh=Dq7Xn2iwHrokGpyReWmPWnvaDDe9J7rZKMtFuqJTkzs=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=XoMo2esyGneBFy0Dnvkei2OzWJcPOIijmAWYyKrJxLvCIcWAlrY0YoJHNrERyWF4agA27MRdeIqOBSnDCyeOUA/sFfr4Op1lBUrYMycJPLVlDM/23x+qOBk6pDt89K79a0ao2TRVefHN2J0spWcUcMMFEaLspECtlIO5s8qYZRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=wbjqGHqV; arc=none smtp.client-ip=209.85.210.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FfG3zEAH"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-bcc2b199c17so435561966b.3
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 07:12:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="wbjqGHqV"
+Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-7dea20cf21aso5070246a34.1
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 07:13:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778595152; x=1779199952; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=RF50yWKLYOkstrjwnDzYRTiCpEdjsFZwr52Zl8yZOCY=;
-        b=FfG3zEAHF8hTgHUZVrUnXltviGM4Q4osSwBDz4eUGoQFcxOlS4i1fY0pLIF+XllPfw
-         ryY8NkT6dsFCSA/yav4VJBnENgdXI6UezVUaFFv2qZsOpGwpaFxXf5aPaRDkLx3AM5yF
-         5WSiWQ5QYO/uO62OIESAQUTHQOxXcv4ddYxuuNFUIPu1jFzLie08qmXe4WHx3FxY2f9z
-         kp64eDFvn82rZse8tRx371LxTB5JfNxWBcEvyLbUDoJI8ShoUbkdqulhKssITfNeysiK
-         j2beEOAvkSKjBXCWsdahP4A1WJncIRopykNISGwkwLYd5X9sTjGXON2aJgupcKqMXcZ+
-         PXLQ==
+        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1778595194; x=1779199994; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=kgNJhNIeorV7YFB4VYbzC5DWm0skgWvwJAbHsFTJdPA=;
+        b=wbjqGHqV3gvG324B/2jF+Ak3z0wntnnoBWrQK8QCPEjhoaZa8Ivfz4uTCbvV833ary
+         0gx0t03uRwfnSEX7zuTOxKDkGBHMEencVgQX7WU5vMfWlh7Jnly3gutnbYMr/gjjgXKq
+         z7MdUK2YdvHr01ttKPadyb1uTOn37Pxi+zdrPh+QEkKee0qe4U0pl3tB+65TJXGsqKSK
+         zOfEX2xNXMs/wDoKy2xrXeDFYL9BAVRUibTBHMBWNajU4W9/Gr0Q6PtouDwxVG1Cyn/2
+         LVy5V+uMrO9+Gcrzqhb6oEaAR3yFVR0hr5KYsLdNXG2C4lTk+ViNswfNlyzr1TJg5LwN
+         eYEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778595152; x=1779199952;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=RF50yWKLYOkstrjwnDzYRTiCpEdjsFZwr52Zl8yZOCY=;
-        b=UM6Jz36tVkJlDqAkyBEbksgP8eL7SWeTIO+Vj5Xrnp9srS6kBz3cGLo0O42glCpgf8
-         DrRfpeMxxMij41t+AZKZrhwb4y4UIlNI1SDAueeDVcpBX4mCViU2KhgViPF48XGf2yaf
-         RvTISoWLrgHXaibybw9Ednew0aN4Zc+OUo7tBFQIqrgs9fGTSzn20DP+FKKaqpj/fS2b
-         2NPoGlKAjo6cQEBvYOVB2HBQda+TwG4fWVBMmBZoNWRS5sB3Pt6yGwk/II2nZrQBvtHH
-         ori7RbEu9GE5c+kIJn2S/NxPOeGgjT5nKro69lwCXp+AfvTxyeMJntLvEcd15sJSp3OM
-         o/Qg==
-X-Forwarded-Encrypted: i=1; AFNElJ8Vm/d0KPFkS/gZ+sz8e1agjeyNXe+sgofXuJwPVDQaapZZSCHvYnGfeqEewtlkVw0e93VtQNkPCa3H@vger.kernel.org
-X-Gm-Message-State: AOJu0YwMTIqEO34N9kW6TYBErFHrq06BUkgP3i0erc+oBXPrXWndlRy9
-	9jnnZu2+AGbglNxGoYzCBSqHuyIB3jDtgCeQbdil4uMZIB6tTSvHqjPm
-X-Gm-Gg: Acq92OExFTc9LTdWBDdlNE6fk0949rRdopx9m8t4OSVKX4DPNvmYW4R+3F6s5t8M/KL
-	Aex3K8+NPbHmKUETZTlc/GGUlz2eafFoVhsQu+n6DUKH/R21KxXz6l0AsiREnnnbajBn8iSWhbz
-	b2H3o0E55OLFEqHF5vblLI1iW0+FlxhqePoQjmbXMryyUIbi9QUoQV5JqZscAjmlVhtMMBH/68a
-	LPuFvJLQagi+aED5crPKUTe3yIha9fb59YmDS8UvSnCDX0zyxeBrzFkwGlwfT4O7/4DaayfaBRi
-	YQVhkapsZq7EtnWGUnl/8qxKKmqnjsYIB/wV2FCv4kctsSsKBlFLMcNpovIC/k0+UvtDCafQDOM
-	HwxCYSDVr5YHNquuYlTFJlfoFq9kb2kUfEU2bRnjPZ2i9xgfGfZVS4v+54CEqbZwisitBFbWMrE
-	d8zEC4aYsT9DWydlM4xpo4w3eJJIjyLfm6pY3L3Y53Wdm1kgsIUnYT6fBHlTCY5INjSVu0CZrFO
-	qeu2KqAlcZu33FTe75X4NdDbnA+V5W4HYw2gUfkKG6+mtefTkxhh1ApsOBM
-X-Received: by 2002:a17:907:8992:b0:bd3:7c7c:b817 with SMTP id a640c23a62f3a-bd37c7cbcd3mr1081866b.1.1778595151498;
-        Tue, 12 May 2026 07:12:31 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bcfb7b17d1fsm344049566b.41.2026.05.12.07.12.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 May 2026 07:12:30 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
-Date: Tue, 12 May 2026 15:12:24 +0100
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, 
-	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>, rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
-	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Shuah Khan <skhan@linuxfoundation.org>, 
-	David Laight <david.laight.linux@gmail.com>
-Subject: Re: [PATCH v12 02/11] lib: kstrtox: add kstrtoudec64() and
- kstrtodec64()
-Message-ID: <dxjg2sdyxb7ieb4abmeyyye7qok6cczrxabpsjyjhcbehwoec3@sbbqoo4wmzre>
-References: <20260510-adf41513-iio-driver-v12-0-34af2ed2779f@analog.com>
- <20260510-adf41513-iio-driver-v12-2-34af2ed2779f@analog.com>
- <20260512123953.40d80bc9@jic23-huawei>
- <agMnWzMjW1LwCSyT@ashevche-desk.local>
- <sj6cpjhakyfvv6rgox6cnhl2u2tgaecugcok6fw2l7zgku5wtc@aqx3ul72vgca>
- <agMvlS3-0wvGmBwh@ashevche-desk.local>
+        d=1e100.net; s=20251104; t=1778595194; x=1779199994;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=kgNJhNIeorV7YFB4VYbzC5DWm0skgWvwJAbHsFTJdPA=;
+        b=smPU4R5/RJiQ+D6QMzCe3DGV6IldB+CKQKTyZVpHi8h+gJJOBr8IxetkTLqAQ/KbvW
+         Wj/aF7kpUVYwEJ01P94QeqWRAGzavko5x/Iz75ezd0i/ugcBxZzXpxWNKQdoOgHU/y3p
+         n8RoACGMCdq7tI3jAFlNpcGa8kIHsyyonPLx2Qx9lrUKHf5zvIYZ4usZRJDxAYLipJ3G
+         7B1jB4kOPcVWjRQtIB6hsp+fHSqJkMNH17Ea+Vd894F4+N127JM7+5Hoe64ttKVgg6Ak
+         W7X655sA5MXyK6ZvkhQw2ZkhgN7EUOfbZovWUTPmPnC14a7yV2E+9ED9yNB0kFBqnWY8
+         lPng==
+X-Forwarded-Encrypted: i=1; AFNElJ+s9acT+k1+NxPuf5/3jxr3UKB5iklwcFxq4l97XQyiEty6idL9JzUvuA0lvksXAN2Rpbq4CzQKRPWa@vger.kernel.org
+X-Gm-Message-State: AOJu0YwBbgz/fwTv+lO95RRFxjhG4J9zWQkjyK+DZwez5G86YVrXRFQK
+	VIVLlRVblRepYU7C9KzFW9Lpb6XUfr5iJ8o6AnR6sUnVZSi66M+KSNa4pkpa+38EUhU=
+X-Gm-Gg: Acq92OHUFTNO+YxD8lZVKC8mj1HCH+QANS01CtGwq9uj5xyRP906QHOptc9rymJJQ/x
+	ZPCXY5fNVfipLM55kZL+5NGiewXWUgw1vk1tOC/i4dxezbZT0qvgyqN2AHIYwu1wcrS2vT37X8Y
+	9Z2mSa4Vl3LWJMKhJCcZKjI6ScFzz0nP5Il2cdTzN75iS+idqbNYKRfdg9NBup1q0RJ6vWBQY/z
+	Pzj6RDMx2t1aFJaokQpJKX8vOolhf5K04CwfJo42wxyNBDlM3ZeL+/SKFXDdMJldCO4G+a+DVdu
+	NwoYly/9EkLixn52/ej4FYU+BWMT99rTQd2VOFc7crgkZweTO4gOr2SzbQS35wa/6AHW/a4qBBn
+	BeaKO2wmDR5nof9n4ktU7T0IWqbx+GQeq1tosS6Z0OnEjiZKhrdPO9MMZmNAYcP9t3XIaLnVfZ6
+	mpvwOo0vuVSZ3HggG5Gh+K5RT2319uG8eKlopgFrf8utc7n/JHob27YyxOUMVEsfVvFBX42J88b
+	A==
+X-Received: by 2002:a05:6830:dcc:b0:7db:a184:2b39 with SMTP id 46e09a7af769-7e3c3d98299mr1933172a34.11.1778595194041;
+        Tue, 12 May 2026 07:13:14 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:baa4:f7fb:528a:2457? ([2600:8803:e7e4:500:baa4:f7fb:528a:2457])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e367be1168sm8998431a34.5.2026.05.12.07.13.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 12 May 2026 07:13:13 -0700 (PDT)
+Message-ID: <b90ba2e5-bec1-4acb-9ec6-97dffbd61182@baylibre.com>
+Date: Tue, 12 May 2026 09:13:12 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <agMvlS3-0wvGmBwh@ashevche-desk.local>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] dt-bindings: iio: adc: Convert xilinx-xadc bindings to
+ YAML schema
+From: David Lechner <dlechner@baylibre.com>
+To: Rob Herring <robh@kernel.org>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+ Pramod Maurya <pramod.nexgen@gmail.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260510083219.70224-1-pramod.nexgen@gmail.com>
+ <20260510120141.118057-1-pramod.nexgen@gmail.com>
+ <20260511171554.6541042b@jic23-huawei>
+ <7baf9ca5-50ff-4131-995b-70ee094ed247@baylibre.com>
+ <CAL_JsqLxtWLR+jxRXt7Uz6dcF-90NYmfyGWYQk9um9TYHSWbTw@mail.gmail.com>
+ <a4ecfb27-5ef4-4682-b87c-24917f81b4f0@baylibre.com>
+Content-Language: en-US
+In-Reply-To: <a4ecfb27-5ef4-4682-b87c-24917f81b4f0@baylibre.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 26/05/12 04:48PM, Andy Shevchenko wrote:
-> On Tue, May 12, 2026 at 02:21:14PM +0100, Rodrigo Alencar wrote:
-> > On 26/05/12 04:12PM, Andy Shevchenko wrote:
-> > > On Tue, May 12, 2026 at 12:39:53PM +0100, Jonathan Cameron wrote:
-> > > > On Sun, 10 May 2026 13:42:20 +0100
-> > > > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
-> > > > 
-> > > > > Add helpers that parses decimal numbers into 64-bit number, i.e., decimal
-> > > > > point numbers with pre-defined scale are parsed into a 64-bit value (fixed
-> > > > > precision). After the decimal point, digits beyond the specified scale
-> > > > > are ignored.
-> > > > 
-> > > > Whilst Rodrigo has already replied to say there will be another version
-> > > > I'd like to request final feedback from those who were involved in the parser
-> > > > discussions.  
-> > > > 
-> > > > They got very involved and I'm far from an expert in the right way to do
-> > > > this stuff.  
-> > > > 
-> > > > I don't think David Laight was +CC so I've added that.
-> > > > David, Andy - I think you two were most involved in that discussion:
-> > > > Any objections to the end result? 
-> > > 
-> > > I already said a few times about the naming. I do not like the kstrto*()
-> > > be semantically different on how they treat the input. Second point is
-> > > to avoid code duplication, but this one is less of a concern since the
-> > > new code is in the library close to the other potentially duplicate code
-> > > piece and hence can be addressed later.
-> > 
-> > I suppose I reached into kstrtodec64() and kstrtoudec64() because it aligns
-> > with your expectations for kstrto*() semantics, no? Those include:
-> >  - overflow check;
-> >  - extensive input validation;
-> >  - optional '\n' in the end;
-> >  - mandatory nul-termination.
-> > 
-> > am I missing anything?
+On 5/12/26 8:58 AM, David Lechner wrote:
+> On 5/12/26 7:14 AM, Rob Herring wrote:
+>> On Mon, May 11, 2026 at 11:24 AM David Lechner <dlechner@baylibre.com> wrote:
+>>>
+>>> On 5/11/26 11:15 AM, Jonathan Cameron wrote:
+>>>> On Sun, 10 May 2026 08:01:36 -0400
+>>>> Pramod Maurya <pramod.nexgen@gmail.com> wrote:
+>>>>
+>>>>> Convert the Xilinx XADC and UltraScale System Monitor device tree binding
+>>>>> from the legacy plain-text format to a YAML schema, enabling automated
+>>>>> validation with dt-schema.
+>>>>>
+>>>>> The new binding covers the same hardware and compatible strings:
+>>>>>   - xlnx,zynq-xadc-1.00.a (ZYNQ hardmacro)
+>>>>>   - xlnx,axi-xadc-1.00.a  (AXI softmacro)
+>>>>>   - xlnx,system-management-wiz-1.3 (UltraScale System Management Wizard)
+>>>>>
+>>>>> Signed-off-by: Pramod Maurya <pramod.nexgen@gmail.com>
+>>>> Hi Pramod,
+>>>>
+>>>> Something went wrong with your sending of v3. I have two versions sent
+>>>> half a day apart and no idea how they are related.
+>>>>
+>>>> Anyhow one of them got feedback from Rob's bot so I'll assume we are
+>>>> getting a v4 and wait for that.
+>>>>
+>>>> Jonathan
+>>>
+>>> I think Rob will have to fix the bot to make an exception for the
+>>> legacy bindings. This should have been called out in the commit message
+>>> as requested in a previous revision.
+>>
+>> The bot is not the problem. It just runs validation. The schemas will
+>> have to either drop this check (comma's in nodenames) or exclude just
+>> this property.
+>>
+>>
+>> Rob
 > 
-> When we add scale we basically make that not true. Moreover the code in this
-> patch makes scale == number_of_characters which I think a bit fragile, however
-> it's about the fractional part when the amount of digits is equal to scale.
+> Even though this is an existing text-based schema that has been around
+> for 12 years with this name already? Changing it could be a breaking
+> change to existing users. Although there aren't any in any .dts in the
+> kernel source.
 
-That is not really the case. It is being set as a limit, so it does check for
-truncation and zero-padding.
+Pramod,
 
-> To make this work as expected we need to add an additional call like
-> kstrtoull() (and perhaps drop that \n and NUL-terminator checks) and see
-> if that overflows or not. Since it's a fractional part it must have less
-> than 20 (decimal) digits there, so we check the rv (or how many digits
-> were parsed successfully) and compare to 20. If it's more, we got too many
-> decimal digits.
+Unless Rob changes his mind, the thing to do would be to use the standard
+channels property from adc.yaml when converting the binding instead of
+xlnx,channels.
 
-For overflow it checks the KSTRTOX_OVERFLOW flag and leverages check_mul_overflow()
-and check_add_overflow() when combining fractional and integer parts. The amount
-of characters is not really important there. The scale cannot be bigger than 19 and
-that makes sure that int_pow() does not overflow. The code uses _parse_integer_limit()
-due to the nature of input and to avoid 64-bit division, kstrtoull() at any point
-(parsing integer or fractional parts) does not make much sense.
+We will also need to add handling in the driver for "channels" while
+preserving "xlnx,channels" handling for backwards compatibility.
 
-> 
-> Maybe I'm missing these checks already performed?
-> 
-> > > Having the test cases is a big benefit, and that part I like the most.
-> 
-> -- 
-> With Best Regards,
-> Andy Shevchenko
-> 
-> 
+xlnx,channels will just be undocumented.
 
--- 
-Kind regards,
+And all of this reasoning must be explained in the commit messages.
 
-Rodrigo Alencar
