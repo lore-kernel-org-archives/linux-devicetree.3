@@ -1,131 +1,172 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BFEDC3D1CD5;
-	Tue, 12 May 2026 05:40:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.76.78.106
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 174B53C0607
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 05:42:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778564411; cv=none; b=S5mDksGQBNgMJCVvVXndIqN4s+qB97hdggvG2z08A1wpZ2hfYwe5UZLq+Szu0WQqx8qZ9akX2rPd69iLVk7U/56YWf826pWuufZzRz5C+TPxa3KgqN+95vPiCLlvtTCPMiEJbpASZ3lXobV759NzCsAVx1bUUWm63pTGKzltO2Y=
+	t=1778564562; cv=none; b=bs1ngIUwo5nsvuKxJHw2+/LTIURJy4cPgrd4NthoWt0xcBTUPKorVm2apY95Z1N9o1y2PTLL2dkC+mJ4icu+J0132OLXpsB/xqsg6bWk3T38sTmnZzD/9dMKc12ykGVGLBBSQ7hzqzo0wUZrTo7G6vYETarbkzX4VpRO8lBU30Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778564411; c=relaxed/simple;
-	bh=VLL9ELTYpl2Z/PtV5ezkA3tdcxmAf+VSreORf7yQztY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=fiO2nN9SpDoduwoAmOXmeJzKxjmaCuDI2FCATLbcuzKZwGPxwJNJu4oXMOUx6e4uVyqjmpB6CDzN/Tv+CFVuQrHfIfyqMinyWZAbcg8IcpBTUoTPEaB5s9T7RyTDaxQSNQzjLUrIxcjn380ON4R9sSp+SmMv8WAjqQlj6d2skgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=13.76.78.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from lizhi2$eswincomputing.com ( [10.11.96.26] ) by
- ajax-webmail-app1 (Coremail) ; Tue, 12 May 2026 13:39:12 +0800 (GMT+08:00)
-Date: Tue, 12 May 2026 13:39:12 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
-To: "Jakub Kicinski" <kuba@kernel.org>
-Cc: andrew+netdev@lunn.ch, devicetree@vger.kernel.org, davem@davemloft.net,
-	edumazet@google.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
-	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
-	rmk+kernel@armlinux.org.uk, pjw@kernel.org, palmer@dabbelt.com,
-	aou@eecs.berkeley.edu, alex@ghiti.fr,
-	linux-riscv@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	maxime.chevallier@bootlin.com, ningyu@eswincomputing.com,
-	linmin@eswincomputing.com, pinkesh.vaghela@einfochips.com,
-	pritesh.patel@einfochips.com, weishangjuan@eswincomputing.com,
-	horms@kernel.org
-Subject: Re: Re: Re: [PATCH net-next v7 2/4] net: stmmac: eic7700: enable
- clocks before syscon access and correct RX sampling timing
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <38d052b7.7a70.19dfb0d782b.Coremail.lizhi2@eswincomputing.com>
-References: <20260427072353.1114-1-lizhi2@eswincomputing.com>
- <20260427072508.1151-1-lizhi2@eswincomputing.com>
- <20260428180625.738223cf@kernel.org>
- <2117464.7991.19ddd2125d1.Coremail.lizhi2@eswincomputing.com>
- <20260430163551.7491407a@kernel.org>
- <38d052b7.7a70.19dfb0d782b.Coremail.lizhi2@eswincomputing.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1778564562; c=relaxed/simple;
+	bh=RrG5OEx5xG6Gjk6Y3EzFLD1trNmBIXnw3il9ZlmOSAU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=gX/4t8iUpJb/ETxFB6QuqWCpdGvuokcGvISGKootunBN7fbb4Cw2uXSsw0A4y/jOjn6g3OoAT3Gs/73PQqJae/jJY+PsotelmXtqj4mIGkviwX/RjuOhmePh3H2EiT+53/vFa5Xiny5g3Vr5M4OtfPB4k6V4kzD9tgMKxOMdHvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YqXSzmwu; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YqXSzmwu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 432A6C2BCB0;
+	Tue, 12 May 2026 05:42:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778564560;
+	bh=RrG5OEx5xG6Gjk6Y3EzFLD1trNmBIXnw3il9ZlmOSAU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=YqXSzmwugI4ZCS01Wl8qq94GpJ/KjlN7/vhsYDu3OUq5KScZiHEhp6eVlGTm1yklI
+	 ZnHbq364RhfZ2OgCs3o6aeMDSuio1/rf3+yeMn3IM3rPzLis45AK5LBMqK5XZvFuR2
+	 K5enlE7FEv50D0NucOsJFlx9Tb70R9m8DIf+BfOI1u5MsZwoF73tigUU25Wl54HUPT
+	 1Z0bzdh7+lj15wl2Fb73lyt3+23fWzgArMt5O6rueQ/Zlk/kP+GbRTxaBmfa2qwb0N
+	 dDtlLymu+AIVRpgx0pBOzH4rZ5oOtdlP7eOaQ0E0sVZ+YisbjLf6uC8FMZWBRYo5Zu
+	 qPQVfDIrd/16w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC v4 13/18] riscv_cbqri: resctrl: Add MB_MIN bandwidth
+ allocation via Rbwb
+Reply-To: sashiko@lists.linux.dev
+To: "Drew Fustini" <fustini@kernel.org>
+Cc: conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260510-ssqosid-cbqri-rqsc-v7-0-v4-13-eb53831ef683@kernel.org>
+References: <20260510-ssqosid-cbqri-rqsc-v7-0-v4-13-eb53831ef683@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 12 May 2026 05:42:39 +0000
+Message-Id: <20260512054240.432A6C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Message-ID: <446f69bd.7fe4.19e1ab248fb.Coremail.lizhi2@eswincomputing.com>
-X-Coremail-Locale: en_US
-X-CM-TRANSID:TAJkCgBnCXMAvQJqub8YAA--.6986W
-X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/1tbiAgEFDGoCBREW-AAAsc
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
 
-CgoKPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2VzLS0tLS0KPiBGcm9tOiDmnY7lv5cgPGxpemhpMkBl
-c3dpbmNvbXB1dGluZy5jb20+Cj4gU2VuZCB0aW1lOldlZG5lc2RheSwgMDYvMDUvMjAyNiAxMDox
-MDo1Nwo+IFRvOiAiSmFrdWIgS2ljaW5za2kiIDxrdWJhQGtlcm5lbC5vcmc+Cj4gQ2M6IGFuZHJl
-dytuZXRkZXZAbHVubi5jaCwgZGV2aWNldHJlZUB2Z2VyLmtlcm5lbC5vcmcsIGRhdmVtQGRhdmVt
-bG9mdC5uZXQsIGVkdW1hemV0QGdvb2dsZS5jb20sIHJvYmhAa2VybmVsLm9yZywga3J6aytkdEBr
-ZXJuZWwub3JnLCBjb25vcitkdEBrZXJuZWwub3JnLCBuZXRkZXZAdmdlci5rZXJuZWwub3JnLCBw
-YWJlbmlAcmVkaGF0LmNvbSwgbWNvcXVlbGluLnN0bTMyQGdtYWlsLmNvbSwgYWxleGFuZHJlLnRv
-cmd1ZUBmb3NzLnN0LmNvbSwgcm1rK2tlcm5lbEBhcm1saW51eC5vcmcudWssIHBqd0BrZXJuZWwu
-b3JnLCBwYWxtZXJAZGFiYmVsdC5jb20sIGFvdUBlZWNzLmJlcmtlbGV5LmVkdSwgYWxleEBnaGl0
-aS5mciwgbGludXgtcmlzY3ZAbGlzdHMuaW5mcmFkZWFkLm9yZywgbGludXgtc3RtMzJAc3QtbWQt
-bWFpbG1hbi5zdG9ybXJlcGx5LmNvbSwgbGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQu
-b3JnLCBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnLCBtYXhpbWUuY2hldmFsbGllckBib290
-bGluLmNvbSwgbmluZ3l1QGVzd2luY29tcHV0aW5nLmNvbSwgbGlubWluQGVzd2luY29tcHV0aW5n
-LmNvbSwgcGlua2VzaC52YWdoZWxhQGVpbmZvY2hpcHMuY29tLCBwcml0ZXNoLnBhdGVsQGVpbmZv
-Y2hpcHMuY29tLCB3ZWlzaGFuZ2p1YW5AZXN3aW5jb21wdXRpbmcuY29tLCBob3Jtc0BrZXJuZWwu
-b3JnCj4gU3ViamVjdDogUmU6IFJlOiBbUEFUQ0ggbmV0LW5leHQgdjcgMi80XSBuZXQ6IHN0bW1h
-YzogZWljNzcwMDogZW5hYmxlIGNsb2NrcyBiZWZvcmUgc3lzY29uIGFjY2VzcyBhbmQgY29ycmVj
-dCBSWCBzYW1wbGluZyB0aW1pbmcKPiAKPiAKPiAKPiAKPiA+IC0tLS0t5Y6f5aeL6YKu5Lu2LS0t
-LS0KPiA+IOWPkeS7tuS6ujogIkpha3ViIEtpY2luc2tpIiA8a3ViYUBrZXJuZWwub3JnPgo+ID4g
-5Y+R6YCB5pe26Ze0OjIwMjYtMDUtMDEgMDc6MzU6NTEgKOaYn+acn+S6lCkKPiA+IOaUtuS7tuS6
-ujog5p2O5b+XIDxsaXpoaTJAZXN3aW5jb21wdXRpbmcuY29tPgo+ID4g5oqE6YCBOiBhbmRyZXcr
-bmV0ZGV2QGx1bm4uY2gsIGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnLCBkYXZlbUBkYXZlbWxv
-ZnQubmV0LCBlZHVtYXpldEBnb29nbGUuY29tLCByb2JoQGtlcm5lbC5vcmcsIGtyemsrZHRAa2Vy
-bmVsLm9yZywgY29ub3IrZHRAa2VybmVsLm9yZywgbmV0ZGV2QHZnZXIua2VybmVsLm9yZywgcGFi
-ZW5pQHJlZGhhdC5jb20sIG1jb3F1ZWxpbi5zdG0zMkBnbWFpbC5jb20sIGFsZXhhbmRyZS50b3Jn
-dWVAZm9zcy5zdC5jb20sIHJtaytrZXJuZWxAYXJtbGludXgub3JnLnVrLCBwandAa2VybmVsLm9y
-ZywgcGFsbWVyQGRhYmJlbHQuY29tLCBhb3VAZWVjcy5iZXJrZWxleS5lZHUsIGFsZXhAZ2hpdGku
-ZnIsIGxpbnV4LXJpc2N2QGxpc3RzLmluZnJhZGVhZC5vcmcsIGxpbnV4LXN0bTMyQHN0LW1kLW1h
-aWxtYW4uc3Rvcm1yZXBseS5jb20sIGxpbnV4LWFybS1rZXJuZWxAbGlzdHMuaW5mcmFkZWFkLm9y
-ZywgbGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZywgbWF4aW1lLmNoZXZhbGxpZXJAYm9vdGxp
-bi5jb20sIG5pbmd5dUBlc3dpbmNvbXB1dGluZy5jb20sIGxpbm1pbkBlc3dpbmNvbXB1dGluZy5j
-b20sIHBpbmtlc2gudmFnaGVsYUBlaW5mb2NoaXBzLmNvbSwgcHJpdGVzaC5wYXRlbEBlaW5mb2No
-aXBzLmNvbSwgd2Vpc2hhbmdqdWFuQGVzd2luY29tcHV0aW5nLmNvbSwgaG9ybXNAa2VybmVsLm9y
-Zwo+ID4g5Li76aKYOiBSZTogW1BBVENIIG5ldC1uZXh0IHY3IDIvNF0gbmV0OiBzdG1tYWM6IGVp
-Yzc3MDA6IGVuYWJsZSBjbG9ja3MgYmVmb3JlIHN5c2NvbiBhY2Nlc3MgYW5kIGNvcnJlY3QgUlgg
-c2FtcGxpbmcgdGltaW5nCj4gPiAKPiA+IE9uIFRodSwgMzAgQXByIDIwMjYgMTQ6NDM6NTAgKzA4
-MDAgKEdNVCswODowMCkg5p2O5b+XIHdyb3RlOgo+ID4gPiA+IFdoeSBGaXhlcz8gSWYgZXRoMSBu
-ZXZlciB3b3JrZWQgdGhpcyBpcyBub3QgYSBmaXggYnV0IG5ldyBmdW5jdGlvbmFsaXR5Cj4gPiA+
-ID4gSWYgeW91IHdhbnQgdG8gbWFrZSB0aGlzIGEgZml4IHRvIHByZXZlbnQgaW5jb21wYXRpYmls
-aXR5IC0gY3V0IGl0IGRvd24KPiA+ID4gPiBqdXN0IHRvIHRoZSBldGgwIGNoYW5nZXMuCj4gPiA+
-ID4gICAKPiA+ID4gVGhhbmsgeW91IGZvciB0aGUgc3VnZ2VzdGlvbi4KPiA+ID4gCj4gPiA+IFlv
-dSdyZSByaWdodCB0aGF0IGV0aDEgbmV2ZXIgd29ya2VkIGF0IEdpZ2FiaXQgc3BlZWQsIHNvIHRo
-aXMgc2hvdWxkCj4gPiA+IG5vdCBiZSB0cmVhdGVkIGFzIGEgZml4Lgo+ID4gPiAKPiA+ID4gSW4g
-djgsIEkgd2lsbCBzcGxpdCB0aGUgY2hhbmdlcyBpbnRvIHR3byBwYXRjaGVzIHdpdGhpbiB0aGUg
-c2FtZSBzZXJpZXM6Cj4gPiA+IC0gUGF0Y2ggMSB3aWxsIGNvbnRhaW4gb25seSB0aGUgZml4ZXMg
-YWZmZWN0aW5nIHRoZSBleGlzdGluZyBldGgwCj4gPiA+IGZ1bmN0aW9uYWxpdHksIGFuZCB3aWxs
-IGtlZXAgdGhlIEZpeGVzIHRhZy4KPiA+ID4gLSBQYXRjaCAyIHdpbGwgYWRkIHRoZSBldGgxIHN1
-cHBvcnQgKFJYIGNsb2NrIGludmVyc2lvbiB3b3JrYXJvdW5kKQo+ID4gPiBhcyBuZXcgZnVuY3Rp
-b25hbGl0eSwgd2l0aG91dCBhIEZpeGVzIHRhZy4KPiA+ID4gCj4gPiA+IFBsZWFzZSBsZXQgbWUg
-a25vdyBpZiB5b3Ugd291bGQgcHJlZmVyIGEgZGlmZmVyZW50IHNwbGl0IG9yIG9yZGVyaW5nLgo+
-ID4gCj4gPiBJZiB5b3Ugd2FudCB0byBjb25zaWRlciBzb21lIHBhcnQgb2YgdGhpcyBjb21taXQg
-YSBmaXggaXQgaGFzIHRvIGJlCj4gPiBwb3N0ZWQgc2VwYXJhdGVseSB0byB0aGUgbmV0IHRyZWUg
-KHJhdGhlciB0aGFuIG5ldC1uZXh0KS4KPiA+IE9uY2UgaXQncyBtZXJnZWQgYW5kIG1ha2VzIGl0
-IHdheSBvdmVyIHRvIHRoZSBuZXQtbmV4dCB0cmVlIChlYWNoCj4gPiBUaHVyc2RheSkgeW91IGNh
-biBwb3N0IHRoZSBuZXQtbmV4dCBjaG5hZ2VzIGZvciBldGgxCj4gCj4gVGhhbmtzLCB1bmRlcnN0
-b29kLgo+IAo+IEkgd2lsbCBzcGxpdCB0aGUgY2hhbmdlcyBhY2NvcmRpbmdseToKPiAtIFNlbmQg
-dGhlIGV0aDAgZml4ZXMgYXMgYSBuZXcgdjEgc2VyaWVzIHRhcmdldGluZyBuZXQuCj4gLSBTZW5k
-IHRoZSBldGgxIGVuYWJsZW1lbnQgYXMgYSBuZXcgdjEgc2VyaWVzIHRhcmdldGluZyBuZXQtbmV4
-dC4KPiAKPiBUaGFua3MgZm9yIHRoZSBndWlkYW5jZS4KCkhpIEpha3ViLAoKSnVzdCB0byBjb25m
-aXJtIHRoZSB2ZXJzaW9uaW5nIGZvciB0aGUgZXRoMSBwYXJ0IGFmdGVyIHNwbGl0dGluZyB0aGUK
-b3JpZ2luYWwgdjcvdjggc2VyaWVzOgoKRm9yIHRoZSBuZXQgZml4IHBhcnQsIEkgaGF2ZSBhbHJl
-YWR5IHBvc3RlZCBpdCBhcyBhIG5ldyB2MSBzZXJpZXMKdGFyZ2V0aW5nIG5ldC4KCkZvciB0aGUg
-ZXRoMSBlbmFibGVtZW50IHBhcnQsIG15IGN1cnJlbnQgdW5kZXJzdGFuZGluZyBpcyB0aGF0IGl0
-CnNob3VsZCBiZSB0cmVhdGVkIGFzIGEgbmV3IGluZGVwZW5kZW50IHYxIHNlcmllcyBmb3IgbmV0
-LW5leHQsCnNpbmNlIHRoZSBzY29wZSBhbmQgdGFyZ2V0IHRyZWUgaGF2ZSBjaGFuZ2VkIGFmdGVy
-IHRoZSBzcGxpdC4KCldvdWxkIHlvdSBwcmVmZXIgdGhpcyBldGgxIHNlcmllcyB0byBzdGFydCBh
-cyB2MSwgb3Igc2hvdWxkIGl0CmNvbnRpbnVlIGFzIHY4IGZvciBjb250aW51aXR5IHdpdGggdGhl
-IG9yaWdpbmFsIHNlcmllcz8KCkkgd2lsbCBmb2xsb3cgeW91ciBwcmVmZXJyZWQgYXBwcm9hY2gg
-YmVmb3JlIHBvc3RpbmcgaXQuCgpUaGFua3MsClpoaQo=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] Removing a resctrl group leaks the MB_MIN (Rbwb) bandwidth allocat=
+ion, permanently preventing future allocations.
+- [High] Secondary memory bandwidth controllers in the same NUMA node are s=
+ilently ignored, leaving their hardware unconstrained.
+- [High] Missing MRBWB capability validation causes integer underflow and a=
+ssignment of 0 bandwidth, violating the hardware specification.
+- [Low] The code comment incorrectly states that intermediate sums transien=
+tly exceed MRBWB during initialization.
+--
+
+commit e4a9c24653219ec74efc1b4f91aa0b08b1cfc5ac
+Author: Drew Fustini <fustini@kernel.org>
+
+riscv_cbqri: resctrl: Add MB_MIN bandwidth allocation via Rbwb
+
+Add bandwidth allocation through Rbwb (reserved bandwidth blocks)
+exposed as the MB_MIN resource. Rbwb's sum constraint does not fit MBA's
+percentage cap, so MB_MIN lands as a new RDT_RESOURCE_* rather than
+masquerading as MBA.
+
+> diff --git a/drivers/resctrl/cbqri_resctrl.c b/drivers/resctrl/cbqri_resc=
+trl.c
+> index d8fd9b06703fa..bcd9367e3555c 100644
+> --- a/drivers/resctrl/cbqri_resctrl.c
+> +++ b/drivers/resctrl/cbqri_resctrl.c
+> @@ -415,6 +415,9 @@ int resctrl_arch_update_one(struct rdt_resource *r, s=
+truct rdt_ctrl_domain *d,
+>  	case RDT_RESOURCE_L2:
+>  	case RDT_RESOURCE_L3:
+>  		return cbqri_apply_cache_config_dom(dom, r, closid, t, cfg_val);
+> +	case RDT_RESOURCE_MB_MIN:
+> +		/* sum(Rbwb) <=3D MRBWB validation runs inside cbqri_apply_rbwb(). */
+> +		return cbqri_apply_rbwb(dom->hw_ctrl, closid, cfg_val, true);
+
+When a resctrl group is removed, does the framework invoke an architecture
+hook to reset the hardware control values to a minimum default?
+
+If the CLOSID is freed but the previously configured bandwidth value remains
+pinned in the software cache (ctrl->rbwb_cache[closid]), will this abandoned
+value falsely inflate the sum during subsequent cbqri_apply_rbwb() calls?
+
+Could this cause new allocation attempts to fail with -EINVAL, effectively
+creating a permanent denial of service for bandwidth allocations until the
+leaked CLOSID is coincidentally re-allocated?
+
+[ ... ]
+
+> @@ -491,15 +503,42 @@ void resctrl_arch_reset_all_ctrls(struct rdt_resour=
+ce *r)
+>  		return;
+> =20
+>  	list_for_each_entry(d, &r->ctrl_domains, hdr.list) {
+> -		for (i =3D 0; i < hw_res->ctrl->rcid_count; i++) {
+> -			for (t =3D 0; t < CDP_NUM_TYPES; t++) {
+> +		dom =3D container_of(d, struct cbqri_resctrl_dom,
+> +				   resctrl_ctrl_dom);
+> +
+> +		switch (r->rid) {
+> +		case RDT_RESOURCE_MB_MIN:
+> +			/*
+> +			 * CBQRI section 4.5: Rbwb >=3D 1, sum(Rbwb) <=3D MRBWB.
+> +			 * Walk N-1..1 first so the final sum lands at
+> +			 * MRBWB. Use the unchecked helper since the
+> +			 * intermediate sum may exceed MRBWB.
+> +			 */
+
+This isn't a bug, but is this comment accurate?
+
+Since the loop strictly reduces the allocations for RCIDs N-1 down to 1
+before finally increasing RCID 0 to the remaining budget, doesn't the
+running hardware sum strictly decrease until the final step?=20
+
+Does the intermediate sum ever actually transiently exceed MRBWB?
+
+> +			for (i =3D 0; i < hw_res->ctrl->rcid_count; i++) {
+> +				u32 rcid =3D (i + 1) % hw_res->ctrl->rcid_count;
+> +				u64 rbwb =3D (rcid =3D=3D 0) ?
+> +					dom->hw_ctrl->bc.mrbwb - (hw_res->ctrl->rcid_count - 1) : 1;
+
+If the hardware capability reports mrbwb =3D=3D rcid_count - 1, will this
+calculation evaluate exactly to 0 for RCID 0?
+
+If so, does cbqri_apply_rbwb() bypass the internal sum validation
+(which checks if rbwb > 0) and blindly write 0 to the hardware, violating
+the CBQRI section 4.5 requirement that Rbwb >=3D 1?
+
+[ ... ]
+
+> @@ -830,6 +954,37 @@ static int cbqri_attach_cpu_to_cap_ctrl(struct cbqri=
+_controller *ctrl,
+>  	return 0;
+>  }
+> =20
+> +static int cbqri_attach_cpu_to_one_bw_res(struct cbqri_controller *ctrl,
+> +					  enum resctrl_res_level rid,
+> +					  unsigned int cpu)
+> +{
+> +	struct cbqri_resctrl_res *hw_res =3D &cbqri_resctrl_resources[rid];
+> +	struct rdt_resource *res =3D &hw_res->resctrl_res;
+> +	struct rdt_ctrl_domain *domain;
+> +	int dom_id =3D ctrl->mem.prox_dom;
+> +
+> +	if (!hw_res->ctrl)
+> +		return 0;
+> +
+> +	domain =3D cbqri_find_ctrl_domain(&res->ctrl_domains, dom_id);
+> +	if (domain) {
+
+If a system has multiple memory bandwidth controllers within the same NUMA
+node, will the second controller match the existing domain via
+cbqri_find_ctrl_domain() here?
+
+Since struct cbqri_resctrl_dom only stores a single hw_ctrl pointer,
+does this mean the secondary controller is never tracked by the domain and
+its hardware limits will be silently ignored during subsequent configuratio=
+ns?
+
+> +		cpumask_set_cpu(cpu, &domain->hdr.cpu_mask);
+> +		return 0;
+> +	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260510-ssqosid-cb=
+qri-rqsc-v7-0-v4-0-eb53831ef683@kernel.org?part=3D13
