@@ -1,164 +1,143 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3838D3D5C3C
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 16:51:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B63A3C8C73;
+	Tue, 12 May 2026 16:51:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778604674; cv=none; b=HJE/kmb6OUtNPLZje/76MSh4B/8sKObxqPX9GpFD3o7vZ924jVROSf0fZ/rY2h0OSsmBkti+6C1WtJhAsrRordDlaxGa5mgLMNSuj0lxUx+8HqXyjmaZTTWR8Qs1vVVeuV0C2hch+TxxbX23amGMhr9gOk5kQkWRmE2wcE8/s6I=
+	t=1778604684; cv=none; b=jtjQXzycMizHq1tgSx8QpAP92lRCPup/WpWg88oMHFoJqV+hypVswQEiAUGDVKt5obSDZ1uDF/FyldgdpIwS1y+Erc14/92Oc1ULOXpZ9NKCZBNE5nLZLX6iYdicpdxIwDUWgl2km5LMRIltydbsRVi7BHTHrlLQE+SjgA3Bk6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778604674; c=relaxed/simple;
-	bh=Ne/BJfjiSRPyaLcWKyCo9XECD2Da12r5Xvjw03FZkb4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sC2vkfJLnWsRUb9HNL+hIEYzuVnNLtrOogXJSEz6d0IMrp7beAgS0XnA+GOq7QmUulPLFkb45cFHR0aGuwYSf+7HOBJQMqL/VrFC03XKs2CrpQZy6oA3XtfDhSVL++MXO31of47OHG7nS8pqvQTKBpQYO1CZWS9kQMGhYDJyKqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cCUIqFwv; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778604684; c=relaxed/simple;
+	bh=snBBbNRQvHHnZNEiL0uSmOXZoiHVTiMLAbhb1SYyhxE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kBZQNQ8tvKLjgFXyzINXX668lqHBHb3ef81gYwfn/gE6FMnIg0LoG1dcAM3KO2fSd1bQ8Uz8GTJz9H633DFkXu7y1qpfArwPpo64jtBu0Q6ItIgrtC43ZhoSLlBhazsep7xBjp0J/cYrtFKNihSGQSsWV+7KN+oZY9l+nlNJTkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PDOwjgDx; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cCUIqFwv"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-367c26471f5so2662202a91.1
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 09:51:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778604672; x=1779209472; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=MPRHRDUO4vrEmEE8ykEXGOBSQt0X0MvDaIKX5rnTdbk=;
-        b=cCUIqFwvMq0+t3yhLtAGl1UaUFwt7BBZPKfWmRoNl3kIoaNn09DI7Mp4O3ia5yuBho
-         yJG6x/S1AYks/GM97PXNafUDalYZlL4KM0x7CspVRusWezAj0LojusviVWPTIClBDi3K
-         8bCZM3oBQVMSxumoEaQfQpiqFNlk3EiNG7SPITi4ub2SlbhMOsvO61NTybFoVe5km/gb
-         HyfR1Hg+Sa7x2DPH1MVyGaOGobWUtF05Yw2+yoOgRXCFVqGVKUtCWkHugH1DRhDoGiwl
-         vCC5WDwgrzG0agc5YZO/PSlgxG6UZ1azQ5QyhSaowNte74fXRbeg9eZmmCcvExSspz3a
-         PtjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778604672; x=1779209472;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=MPRHRDUO4vrEmEE8ykEXGOBSQt0X0MvDaIKX5rnTdbk=;
-        b=KpKScddj5LKNIz2oWNs4NJSSYMTIUUskZHtuSTDEsAYzkZASEarH2OwzqXL1VYEOi3
-         vd/uKiKOIYUrZfpQYlsw6JGSPMgFAp7pw9Iem/Rii1szGHaj8wqAjejuSo1174kfZskP
-         /J/MTbRF6e6HmZz4FhDCfo+9B83N1iT7vJl30uPfzfiwURkbP2xImUNk12Td/TuUC/G9
-         ts47LBXGefwM33YssXqGHZdsSCOOfExbXTTRC8jVtd1vxiice0S9/BoCHxcTX2VMPAHq
-         VdDh8T8XFE8Wdg53qIiMsM6Drmy6iAyOkZ0UPJteb4To+X58Q4+g/loCgw7hk609VId4
-         ZDTA==
-X-Forwarded-Encrypted: i=1; AFNElJ9EOLwgATBpzC4ovwA8tVsDmhqg6SzebG1H4koPnDvqxWZtXnOqHwoB0bfgL5S6wOrFw7hT5os2RA7j@vger.kernel.org
-X-Gm-Message-State: AOJu0YwZa+XXI3V4Ujld3VL0wxj3zb8Ylfi0BREZ1wZFTqMe28swKR9B
-	NisWMrNy6gwAtyBlI335uMYVwMhUZFr2I3JVZPeOmfJC+sk9dEA6FABt
-X-Gm-Gg: Acq92OEtUVqVwvsOXSLfmj7dAR5fL0376W8OsMXog35oAkbh6ckir+dFsbQaKsqgD1R
-	tJpioOUo3vucE4pkT7mwAAjn8w98oqLMDrzvY946Nmb/T06CVZBI0M/INZiXaqF2UWySl1s6rfx
-	HjPrO1OvTi38gqsYKfc7NxV1yhU43nrtSzNwMuLEtrlnD0/y4kpmsyc1iHmzHka80zC/YQkwm5e
-	P9lhK67JSSqhguSsdaW1oo/G5UciyWNeXREEv57V7M2+yjerkAGqQYpPbRy6vEmVvxLjQZOv7g3
-	8BPe3VrGw5Hn1W0LS+UyohFc5PiS5Q8vGZMP2qONxYuL742ab0XE08jyQr8kzczUrSIPGsXsdla
-	fms8+/Jue3ik4SktGbrxj1xSWf2YL3fT0cTwAjcKkefF3GWJQEQdByhIVtHI0SFwhkawjRTsRFe
-	jp9l/Xo7E87MgKoSC8lExYPNMM1Rj7dOI+ohq59PUL6RNn8ngVAtksk7ItL5J7a+aXiA==
-X-Received: by 2002:a17:90b:3808:b0:368:cff1:ed99 with SMTP id 98e67ed59e1d1-368cff20420mr2594994a91.18.1778604672432;
-        Tue, 12 May 2026 09:51:12 -0700 (PDT)
-Received: from Ubuntu.. ([49.37.171.24])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c826768a27fsm12673787a12.12.2026.05.12.09.51.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 May 2026 09:51:11 -0700 (PDT)
-From: Manish Baing <manishbaing2789@gmail.com>
-To: mdf@kernel.org,
-	yilun.xu@intel.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: trix@redhat.com,
-	s.trumtrar@pengutronix.de,
-	linux-fpga@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	manishbaing2789@gmail.com
-Subject: [PATCH] dt-bindings: fpga: altr,socfpga-fpga-mgr: convert to DT schema
-Date: Tue, 12 May 2026 16:50:58 +0000
-Message-ID: <20260512165058.64049-1-manishbaing2789@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PDOwjgDx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34653C2BCB0;
+	Tue, 12 May 2026 16:51:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778604684;
+	bh=snBBbNRQvHHnZNEiL0uSmOXZoiHVTiMLAbhb1SYyhxE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=PDOwjgDxFklzdHYF968Aj0OZib4OAviRPtTqXcrQmbiAgL0flJgYoGcV74ALgac6M
+	 36bp3gSP1Fx3IYh35ZpAcz1/0iCcb5JuCQutxug5wXQXAb3942JOxLv71QzJirOd43
+	 xN4hCMHwXv2qjwm+BAPUSg9UNNc+hI91Sjh+OuDQ0OFX6HA9thTpbbxKBjCYGdfaI0
+	 547+ZUnpkeLdpeSMMRPpO2YrLsIbMN8RxFzR60rMrZVn8z+ezJKWMZyuq2EyXB5jsm
+	 A25AlkT/Uc/J0oWx5xnWfjuzIrAWyXW27i+BKl3mZAicAxB9z5OkEO2t6iXKZ+J3pc
+	 9XYGngMTbtQxA==
+Date: Tue, 12 May 2026 17:51:20 +0100
+From: Conor Dooley <conor@kernel.org>
+To: sashiko@lists.linux.dev
+Cc: Piyush Patle <piyushpatle228@gmail.com>, krzk+dt@kernel.org,
+	robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v7 04/11] dt-bindings: iio: adc: hx711: add HX710B support
+Message-ID: <20260512-frantic-finch-2b268bed4e15@spud>
+References: <20260510194947.31997-5-piyushpatle228@gmail.com>
+ <20260511215430.4441FC2BCF5@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="+3Jb8+egrKaChTot"
+Content-Disposition: inline
+In-Reply-To: <20260511215430.4441FC2BCF5@smtp.kernel.org>
 
-Convert the Altera SoCFPGA FPGA Manager bindings from text
-format to YAML schema.
 
-Signed-off-by: Manish Baing <manishbaing2789@gmail.com>
----
- .../bindings/fpga/altera-socfpga-fpga-mgr.txt | 17 --------
- .../bindings/fpga/altr,socfpga-fpga-mgr.yaml  | 39 +++++++++++++++++++
- 2 files changed, 39 insertions(+), 17 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/fpga/altera-socfpga-fpga-mgr.txt
- create mode 100644 Documentation/devicetree/bindings/fpga/altr,socfpga-fpga-mgr.yaml
+--+3Jb8+egrKaChTot
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/Documentation/devicetree/bindings/fpga/altera-socfpga-fpga-mgr.txt b/Documentation/devicetree/bindings/fpga/altera-socfpga-fpga-mgr.txt
-deleted file mode 100644
-index d52f3340414d..000000000000
---- a/Documentation/devicetree/bindings/fpga/altera-socfpga-fpga-mgr.txt
-+++ /dev/null
-@@ -1,17 +0,0 @@
--Altera SOCFPGA FPGA Manager
--
--Required properties:
--- compatible : should contain "altr,socfpga-fpga-mgr"
--- reg        : base address and size for memory mapped io.
--               - The first index is for FPGA manager register access.
--               - The second index is for writing FPGA configuration data.
--- interrupts : interrupt for the FPGA Manager device.
--
--Example:
--
--	hps_0_fpgamgr: fpgamgr@ff706000 {
--		compatible = "altr,socfpga-fpga-mgr";
--		reg = <0xFF706000 0x1000
--		       0xFFB90000 0x1000>;
--		interrupts = <0 175 4>;
--	};
-diff --git a/Documentation/devicetree/bindings/fpga/altr,socfpga-fpga-mgr.yaml b/Documentation/devicetree/bindings/fpga/altr,socfpga-fpga-mgr.yaml
-new file mode 100644
-index 000000000000..d09d552dde5e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/fpga/altr,socfpga-fpga-mgr.yaml
-@@ -0,0 +1,39 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/fpga/altr,socfpga-fpga-mgr.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Altera SOCFPGA FPGA Manager
-+
-+maintainers:
-+  - Steffen Trumtrar <s.trumtrar@pengutronix.de>
-+  - Rob Herring <robh@kernel.org>
-+
-+properties:
-+  compatible:
-+    const: altr,socfpga-fpga-mgr
-+
-+  reg:
-+    items:
-+      - description: FPGA manager register access
-+      - description: Writing FPGA configuration data
-+
-+  interrupts:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    fpgamgr@ff706000 {
-+        compatible = "altr,socfpga-fpga-mgr";
-+        reg = <0xff706000 0x1000>,
-+              <0xffb90000 0x1000>;
-+        interrupts = <0 175 4>;
-+    };
--- 
-2.43.0
+On Mon, May 11, 2026 at 09:54:29PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] The `dvdd-supply` property is incorrectly permitted for the ol=
+der HX711 variant, violating the intended hardware constraints and contradi=
+cting the commit message.
+> --
+>=20
+> commit b2ce63274d21d343a80ad3dfc6983d09ccc4fbdc
+> Author: Piyush Patle <piyushpatle228@gmail.com>
+>=20
+> dt-bindings: iio: adc: hx711: add HX710B support
+>    =20
+> This adds the avia,hx710b compatible string and documents the hx710b-spec=
+ific
+> dvdd and vref supplies. It also adds constraints to forbid hx711-only
+> properties on hx710b nodes and requires vref-supply for hx710b.
+>=20
+> > diff --git a/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml =
+b/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
+> > index 9134bbe413796..b2b5c7bdf05e6 100644
+> > --- a/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
+> > +++ b/Documentation/devicetree/bindings/iio/adc/avia-hx711.yaml
+>=20
+> [ ... ]
+>=20
+> > @@ -44,6 +49,17 @@ properties:
+> >        RATE pin state is determined by the board wiring.
+> >      maxItems: 1
+> > =20
+> > +  dvdd-supply:
+> > +    description:
+> > +      Digital supply voltage (DVDD). For the HX710B, DVDD must be
+> > +      greater than or equal to AVDD. When DVDD is a battery rail and
+> > +      AVDD is a regulated supply, one channel monitors the DVDD-AVDD
+> > +      difference for battery level detection.
+> > +
+> > +  vref-supply:
+> > +    description:
+> > +      Reference voltage input (VREF).
+> > +
+> >    clock-frequency:
+>=20
+> [ ... ]
+>=20
+> > @@ -53,6 +69,21 @@ properties:
+> >      maximum: 2500000
+> >      default: 400000
+> > =20
+> > +allOf:
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          const: avia,hx710b
+> > +    then:
+> > +      properties:
+> > +        vsup-supply: false
+> > +        rate-gpios: false
+> > +      required:
+> > +        - vref-supply
+> > +    else:
+> > +      properties:
+> > +        vref-supply: false
+>=20
+> The commit message states the intention to document the hx710b-specific d=
+vdd
+> and vref supplies.
+>=20
+> Since dvdd-supply is defined in the top-level properties block, does this
+> else clause also need to forbid dvdd-supply for the older avia,hx711 vari=
+ant?
+>=20
+> Currently, omitting dvdd-supply: false permits the property for the older
+> hx711 variant. Should dvdd-supply: false be added here?
 
+Seemingly no, hx711 schematic has a dvdd.
+
+--+3Jb8+egrKaChTot
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagNaiAAKCRB4tDGHoIJi
+0l85AQC8+13SbY/vDMoPqlPAUnkks4tn9iFzq5Xc/7E/ZCKgZAD9Ga8y4DQRt2Rp
+VWa5MpMv5dfuWxTZHCJWnd3+CAxITQM=
+=qgCz
+-----END PGP SIGNATURE-----
+
+--+3Jb8+egrKaChTot--
