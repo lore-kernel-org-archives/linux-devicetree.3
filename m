@@ -1,241 +1,292 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022113.outbound.protection.outlook.com [40.107.75.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A25E33672A2
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 06:51:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778568705; cv=none; b=i1fvX+dfAnzFnp/wNirtKi3SXZieMG4fnJAZoxnAMdVxP9Sn7vJSfUF0goPJHGKy3x7O4+843+OClvR/t+MlrZxGv/EUr47GXiEXY7EH8rw0WlDQTEpUA8Q5WA/hjSr/nhSvRlcQq3/H9lhSXsXwmwe/06HziD2whWvbeV/WsAI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778568705; c=relaxed/simple;
-	bh=l2q/o3YLzqVvVBD9xt5YoGvrCny7mNfjFIlkwFKF4pI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fOo0nIXWjmv+VK1Mi+NT8Xg+WY3rou3AAfcz+OmJ9SEASl5hlG2SYxfhudeLAZI/jO5/DGCJ4OgTNVor8I6gNcRFkm10bT6kgPK2UugfPmBEk6KPNgNToYdWs6J8e2aRirM/S0gcm9x2qhA86CQlbnmg+00kbpM46S/gV22HLIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jalJ0c4C; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=R9K/xqrT; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jalJ0c4C";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R9K/xqrT"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64C5BasJ3384827
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 06:51:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	rps4+MRn8b+/NfK3qw8jn7TXbGFAbhWtr90VLiZIiHk=; b=jalJ0c4CDRMSfezs
-	Dl1dgmNW9TD7oJ3eDj4RI0y0TKbotUzWHDqQAkQt/ETWFTT9E8HcQA7QBsein95h
-	q8zAb3Dnyk0bYKEoq4LPZ1rQg1dqmQrlZbEfIwFJA2ZK8gf9p1stuiErrKt+VHkr
-	LK6W0ELpbqUMMlTBPivsWakT7E6bOnhNVkgkEqsT0ITJTyo2lKgHFZ+x0gbiz/dc
-	Q1IqiwG2vWxE7pULWT7QiEjCG32ULR/pRiYQ0k807dfoXn0rR2D+/MIJYorZ/CPJ
-	dvZJSKY6X94gN7hJhNteIdfG7dIzE577ZGtN85AK1GytKWAV3+cnJs+kjH8Huro0
-	Cymw0A==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e3nv4hug6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 06:51:31 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-c8025414a5aso720043a12.3
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 23:51:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778568691; x=1779173491; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=rps4+MRn8b+/NfK3qw8jn7TXbGFAbhWtr90VLiZIiHk=;
-        b=R9K/xqrTMUvi6syJAJF/ggyYfhvHflW+xPissLiPF/1mRRrTv+53I50YO/CHu/MrH0
-         uAkwYRZCUQkaLAg0X8XgxRJmqMApFwy+sDYexu9dAs+NCH5kSgL5mwJz1v9D8LMab7zr
-         jAiNSOa5Rt37uqqnR8wj0fVc8eh91C1q5MtjY1Qm69r9OxdVb/Z1IXrm8247G1FTCqbl
-         sxrN/6xYKj5Jd3odQ4xzwUFBN9+RQiHM0R58IQOL6AUsEgL614lM1giaKOcDRqdxcwWy
-         h0RZeqLsQeBRgRcWELndox30sYPZshhNtFeySp6BmJiD/95hLOa+2ehvsANldXdITDta
-         CEOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778568691; x=1779173491;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=rps4+MRn8b+/NfK3qw8jn7TXbGFAbhWtr90VLiZIiHk=;
-        b=OXYzc6As89ah+pu/dJ0iMQFrFtai3WVAEr/oS/fGTqNiMWdl/mIKB4K2wx17XDK2kE
-         uRg8/gcK0DnuYpqxOY7ljcK+1CmI3q2qKT09wKPgC+Pvpvq8n6JOJTNz3AgQKi7aZOgZ
-         QiBc1Pt97dnlxhDnIExP/YRm9StHrRFzvTO5w259ffCRouANhBFstDjE8ES9bBw+wmNS
-         rbaskYzp7awM2YyvDLTEERqDS4EDu+wonym7nb1Ql9IvlyL4d0Cv8CTNT+uadCrBP/uz
-         DEGN9FtoXULEeAeHgXmHG5v7Af/ktBT/UllKyuiUodHLqXbdzhFF8oBbzWNyz+SA/9HZ
-         8L6Q==
-X-Forwarded-Encrypted: i=1; AFNElJ/6ME3fMt7fcOGQDa6q2g2ZiTSCMF0fpRjzGybfDDkBuhAJapos+SaCpThJYpl8r99sZvuCIyRkXjhK@vger.kernel.org
-X-Gm-Message-State: AOJu0YwIMUl8F29i3EFNStzaLXwx8Wlx3hvhLbZtamxENKcC6SQTbzAU
-	6vyjiwzSUNboIF+2buhoBNZ9gMTbjDuAbdU0BZ8bvG77wa3bH7BevXWDLa3w3nsDRJ9/Kv5bkx2
-	kJYwLFRpDbOembrvo3+JGQzliYYgHJfwE7kHjYe4/+QB5pzyuwPE01ud/PZnQ8rx2LZQ8MWAl
-X-Gm-Gg: Acq92OHG7NSkSvjlIDyg2X68uPQytDfQLhBN3QuF3iSebmfwwuoL5pys2fLOV/3ct8j
-	eRTy0GAA1/ZniSdnGtC5ET4Pwn4fOpVNOPCZd4MVC6dEeP2CtsNlb1NjwlO3qwCRUvvzWzYwx3p
-	ce5Yded/erjX5o70CoA0+5nNydMl2WPA0oCXUI6egjoW+YeMm5SXsqJ8iTGnlyA5mfHZAGSYAw8
-	opiUFYFPN4Uzvs14MQRNxJzcvHIjzP54VbP9Fs4tST0wEHXwAjtK3HOzyna93YDcWoz5VL1yxha
-	/VboVeKC4w5WJhHPfXHKj/tz6p6/SqoTNHWn+bXaGaaU5yd4lLlnk1/Y+nhDS1b6LTpRkxOZT7c
-	7OXo/e4y887128muU+oFsGhpK9qgDuBPhFVtqiMFDB0GUCBYm3dY=
-X-Received: by 2002:a05:6a00:a804:b0:82f:21ee:270d with SMTP id d2e1a72fcca58-83a5aaf7794mr13651046b3a.1.1778568691180;
-        Mon, 11 May 2026 23:51:31 -0700 (PDT)
-X-Received: by 2002:a05:6a00:a804:b0:82f:21ee:270d with SMTP id d2e1a72fcca58-83a5aaf7794mr13651009b3a.1.1778568690660;
-        Mon, 11 May 2026 23:51:30 -0700 (PDT)
-Received: from [10.92.198.185] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-839683a6252sm22579715b3a.59.2026.05.11.23.51.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 11 May 2026 23:51:29 -0700 (PDT)
-Message-ID: <fcd68c71-2581-47dc-9e9d-2ef558b7a6d3@oss.qualcomm.com>
-Date: Tue, 12 May 2026 12:21:22 +0530
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 928E6368D68
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 07:03:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.113
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778569405; cv=fail; b=eaFbH5A2u3L9CVJv1nXos62G+BrEM67mmUMWfwGWI0vu18BGPaGnk2OsRle2sQMHwZe1AR+b1Q2kg1ooq/pHvs3PXgarIBAhr3hgBywbcGZ4QaP2HNm2GWSFZi7uiUfXr+BZPE9lwtJzh+UANjHVQV7goMHJ7oEwhcxIC+ImODI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778569405; c=relaxed/simple;
+	bh=rhajQpPRgpzkUEisfsLfB842D7rj+IZ1wgzOSrNXQMg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=L5p8CMml0/tfa+uDDZU/TQoFdBupeuHdsYSAsGaXbD7cKrfT7NCB1tgQT4+qA4Jbfw0iKelqQ5XvM2JFQhJwDM5GsFkLyXhbyKz1im4S7ohhINP56JWtANbIYtVflyxPqRY55aCGlSjk0RxS5xhFld5qAm46pYnwZqFNoxDRJio=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.75.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WmVAuZNDOTtf52AQ2+LuXTvMyfJZzYibWrWYv3fmZs9gDZInkY0rYM5R3xl3Xoxla4MRt+T2rUVTF9Vo642lhhVqaRCocE/2AoScSFqiRbGk9rpuzLSKLq3tYXmH84DsoAzmOpo+MGrz7BQJphhRuLL2rtOZo4DB3Y2A6ZeWFPA3QSAH9xLykKzxTvMwXH1/tO02AG1GuG0xeQdgLd7ewyycgEWEhCF2OcEcpwqG0+xTwoh3G2FO/Vn0LMGoLLUMIrZCM7eUBCx0kenFNOC8ha0v/J3rgN3jmo7p5F+qYkRHbQ8tMFAVOuhS+197+EtKlXw3EVU2N9vsVwG1qYYNSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fSMGU1m5YxERnFRSL2fqaYHMDQ8GygXs0jsooy5SeXc=;
+ b=rbMSSX382f3TejUUo2pzL5JHKxOuqugJCLCR/5Ht1t5Qf5BbncKidz4xgovzKu2gsZcxFF0z1SS+pIwgg6lrtVXfUdG/IHW0pyqlIoWshhI2Ep1ZcQOyz1ft649z8JnS+7+f9jvFMjrBkhv+79MA8l31D1P5NfrVd4I95KDTq9MgQ0SgnIhVXhQDqpdeThliEZIgEkTA4DUPgLVX7xG1Ey6mSru4e7K0sIGZH5wCBQKHg6hvcXxzDuoFEGr5vpg3Oo2t13pVl841d09pgVIJnP1B7XOPWY8r12k2ytbmBaaGkrWpwK/wh965m7NO2P2V7ZQCCrRZ6DqLSzHnnxXEyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=kernel.org smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from PS2PR01CA0005.apcprd01.prod.exchangelabs.com
+ (2603:1096:300:2d::17) by SEYPR06MB8065.apcprd06.prod.outlook.com
+ (2603:1096:101:2d6::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Tue, 12 May
+ 2026 07:03:17 +0000
+Received: from TY2PEPF0000AB84.apcprd03.prod.outlook.com
+ (2603:1096:300:2d:cafe::17) by PS2PR01CA0005.outlook.office365.com
+ (2603:1096:300:2d::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9913.11 via Frontend Transport; Tue,
+ 12 May 2026 07:03:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ TY2PEPF0000AB84.mail.protection.outlook.com (10.167.253.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.25.13 via Frontend Transport; Tue, 12 May 2026 07:03:16 +0000
+Received: from nchen-desktop (unknown [172.16.64.25])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id A77A841609D5;
+	Tue, 12 May 2026 15:03:15 +0800 (CST)
+Date: Tue, 12 May 2026 15:03:14 +0800
+From: Peter Chen <peter.chen@cixtech.com>
+To: sashiko@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/4] usb: cdns3: plat: Expose platform core driver as
+ library
+Message-ID: <agLQst47wI/vC3pp@nchen-desktop>
+References: <20260511024244.981941-2-peter.chen@cixtech.com>
+ <20260511230233.B40E6C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/8] ras: aest: Add panic_on_ue module parameter
-To: Ruidong Tian <tianruidong@linux.alibaba.com>,
-        Ruidong Tian <tianruidond@linux.alibaba.com>,
-        Tony Luck
- <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, catalin.marinas@arm.com,
-        will@kernel.org, lpieralisi@kernel.org, rafael@kernel.org,
-        mark.rutland@arm.com, Sudeep Holla <sudeep.holla@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-acpi@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260505-aest-devicetree-support-v1-0-d5d6ffacf0a5@oss.qualcomm.com>
- <20260505-aest-devicetree-support-v1-4-d5d6ffacf0a5@oss.qualcomm.com>
- <24e7a997-9479-447e-a1e2-cfab9a904668@linux.alibaba.com>
-Content-Language: en-US
-From: Umang Chheda <umang.chheda@oss.qualcomm.com>
-In-Reply-To: <24e7a997-9479-447e-a1e2-cfab9a904668@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=ZrTd7d7G c=1 sm=1 tr=0 ts=6a02cdf3 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=XXTmVIMiA0tzt-EScKkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEyMDA2NSBTYWx0ZWRfX2ngSnqrVe/vO
- 0JzLXMCPYcVgn2U6BkVPCCLDXO4Vgc/JJTSTzkspvFe2fyPCfTVUagmw5XjZwVexRBFsrPYAd9G
- 9foOiFlAaZ8bFgJdp2HQbDDnVPkiQbFCQNsm0CzwN4Wjuzu1pMakn4wjwU3YFksKZP39aoqV6yx
- wBMP8WLXU6MUeKbKko2TTK/pJFpmuTswum+QpNfamwSoEHQ5uCVo2LVAIn5SeX9dUKPLC8/7ssm
- 9HCNM4qHfS8VU6qkyvcLm3fOHJwn2KkhbmBHmjMFDTU3kAPbuq4fs/LfoDhfJAf/0WM+bMc2Lbj
- 5tPI68+2XTOjggb0K2KIc/pzeKtJO4TBQCA34vUiikyqbTmOtwE3s/XBPX7cDLrlNW6oizS0GUN
- P6bMZ3oCLSdEOKQT4+z3EozDWVu7SIJrlaOtM8aVwqsmedO1dC3pbyugOTh9/cpINUFVV00UMU8
- 2OWbKgyceU7KuwLvZrA==
-X-Proofpoint-ORIG-GUID: LJ9HNFjjDf-RLlLaUO2fv04qZD48AYOZ
-X-Proofpoint-GUID: LJ9HNFjjDf-RLlLaUO2fv04qZD48AYOZ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-11_05,2026-05-08_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 spamscore=0 suspectscore=0 clxscore=1015
- priorityscore=1501 lowpriorityscore=0 bulkscore=0 adultscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605050000
- definitions=main-2605120065
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260511230233.B40E6C2BCB0@smtp.kernel.org>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB84:EE_|SEYPR06MB8065:EE_
+X-MS-Office365-Filtering-Correlation-Id: bd6d669a-2503-4cbe-12eb-08deaff48b14
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|36860700016|82310400026|56012099003|3023799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	/tjdQZ90mVkfnVgxxLx17goLq+S0LsZyiT8i9daJ8Dnr5FABmRMegAM3QeIjB8CQAyZwQujOsRXzws/53HKm6HaZvM+CmultBMg7TbUfE4gWtrEpwG18M8f3B5yrw1PkYnjvHyIzJ62WRHKc5wxhQLTaOsBch9PCcmHLW62rARidWTxsmOdyvJZ+QVRqUBd1p/EAzUyMjgYzvGzINKGTe+EotMxtekxnS1DT4ijjldeJ6GIwKNkuqRcdM6LePhuF81k37071h17w/5uDVKMPopwHQ+e8LgNFJGWt8PHqHIGEbCxxqeDAx/lWoy3T2aDfibXvoqWb8uMNCy4drDXedXcKsO3y/7YFNUJCuqdk1aqlG9cz8+aScM9UW2fJCMebllAItaL/WVJD31ggmk435qPi12n9u9BESSXA5hDJ5jjsnB9adSbBYx5UzFmM199aoC1VQrWi+ZcIGza7r0px7AaARkRz9HKhlfST9rhYN0Vzy10AVWvmGFx19v/Yzv7jvcnufvmS0XyS2XhEqQJO6gh0v8OM1VPFuRmnJFfTIUlnB+VGYv4gBdt6wxIgUIS+dpNiAPgKahD+QGFJqw+0o/TVEgiE8HffogeNbycDlT/kJXjmw7oAGMhs5t/eQtmX8p8Iip6QUWVd2VXeH8aE3i4gCW04+jSNEKlvrviBOHVXjsQlXHmS5vFivFjFsGzyWVCn8sTsNbMVSUNH+mxorV3xUpbhclxrWuRZ3+1fq74=
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026)(56012099003)(3023799003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	z+JtBNttoJWfAGirwkySqwvIw8YNGiIcWdYw8B79h5B2bpYiZrKI2tE3R6RWean7kA8edu34pmBUgV2cJC02NGD6aN9wF7aF0btthVFxR4Bh7AUqk6VXk8ezZM/HINPNTBJd0jqqoDEafD243+xvuAdpRYC4+7MzBbOEUN24Q/2CPbtW+/ALbUCNoLlvIx2izmBNp5qObUOKb84o8jOWS0LzYvg2WUjRtc4CUAjq9vRTQBQdxTWzTPUlofyextfmsRdhZnDG22BOnrZLeIraKgeO1+nTFbMf47/I6ST8ZMZBnndNkkM9vt1kvkiiAbMrpoG6QWcj7oTRwYID0rVxeUFqsvrDlEJyAKVmYowRfeq7P5SrUae2sJVYcQ1kM867H9mhKuQ71RZ2cpnG0lCO643L+qBt0wy1E5jl1xSyUZ1V0/pnivbC/WcHNolf3OzZ
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2026 07:03:16.9606
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd6d669a-2503-4cbe-12eb-08deaff48b14
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	TY2PEPF0000AB84.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR06MB8065
 
-Hi Ruidong,
+On 26-05-11 23:02:32, sashiko-bot@kernel.org wrote:
+> EXTERNAL EMAIL
+> 
+> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
+> - [High] Leaked usb2_phy initialization on usb3_phy acquisition failure.
+> - [High] Leaked role switch and DRD resources on core role initialization failure.
+> - [High] Unbalanced pm_runtime_forbid() call permanently leaks the runtime PM usage counter across bind/unbind cycles.
+> - [High] Hardware PHY is powered off without calling synchronize_irq() during runtime suspend.
+> - [Medium] Exported PM helpers in glue.h lack static inline stubs for disabled PM configurations.
+> --
+> 
+> commit a327903170c6c0082aaebdb421558ca806f906da
+> Author: Peter Chen <peter.chen@cixtech.com>
+> 
+> usb: cdns3: plat: Expose platform core driver as library
+> 
+> This commit splits the Cadence USB3 platform probe, remove, and PM paths into
+> exported core functions. It also adds a new header glue.h to document the
+> probe data structure and public entry points, allowing SoC glue code to
+> instantiate the core deterministically.
+> 
+> > diff --git a/drivers/usb/cdns3/cdns3-plat.c b/drivers/usb/cdns3/cdns3-plat.c
+> > index 3fe3109a3688a..2219cbff1c592 100644
+> > --- a/drivers/usb/cdns3/cdns3-plat.c
+> > +++ b/drivers/usb/cdns3/cdns3-plat.c
+> [ ... ]
+> > @@ -59,29 +60,21 @@ static int cdns3_plat_host_init(struct cdns *cdns)
+> >  }
+> >
+> >  /**
+> > - * cdns3_plat_probe - probe for cdns3 core device
+> > - * @pdev: Pointer to cdns3 core platform device
+> > + * cdns3_core_probe - Initialize the Cadence USB3 platform core
+> > + * @data: Controller context and platform device supplied by the glue layer
+> >   *
+> >   * Returns 0 on success otherwise negative errno
+> >   */
+> > -static int cdns3_plat_probe(struct platform_device *pdev)
+> > +int cdns3_core_probe(const struct cdns3_probe_data *data)
+> >  {
+> > +     struct platform_device *pdev = data->pdev;
+> >       struct device *dev = &pdev->dev;
+> > -     struct resource *res;
+> > -     struct cdns *cdns;
+> > +     struct cdns *cdns = data->cdns;
+> > +     struct resource *res;
+> >       void __iomem *regs;
+> >       int ret;
+> >
+> > -     cdns = devm_kzalloc(dev, sizeof(*cdns), GFP_KERNEL);
+> > -     if (!cdns)
+> > -             return -ENOMEM;
+> > -
+> > -     cdns->dev = dev;
+> > -     cdns->pdata = dev_get_platdata(dev);
+> > -     if (cdns->pdata && cdns->pdata->override_apb_timeout)
+> > -             cdns->override_apb_timeout = cdns->pdata->override_apb_timeout;
+> > -
+> > -     platform_set_drvdata(pdev, cdns);
+> > +     dev_set_drvdata(dev, cdns);
+> >
+> >       ret = platform_get_irq_byname(pdev, "host");
+> 
+> Further down in this function, if devm_phy_optional_get() for cdns->usb3_phy
+> fails (e.g. with -EPROBE_DEFER), it returns directly via dev_err_probe(),
+> bypassing the error cleanup path in err_phy3_init.
+> 
+> Does this leak the usb2_phy initialization since phy_exit(cdns->usb2_phy) is
+> never called?
+> 
+> If probe is deferred and retried, will this repeatedly increment the PHY's
+> init_count, preventing it from ever powering down?
+> 
+> Also in this function, after cdns_init(cdns) successfully registers resources
+> like a role switch, if cdns_core_init_role(cdns) fails, the error path
+> jumps to err_cdns_init:
+> 
+> err_cdns_init:
+>         set_phy_power_off(cdns);
+> err_phy_power_on:
+> ...
+> 
+> This error path only powers off the PHYs. Can this permanently leak the role
+> switch and DRD resources by omitting a call to cdns_remove(cdns) or
+> usb_role_switch_unregister()?
 
+Ack.
 
-On 5/6/2026 1:36 PM, Ruidong Tian wrote:
-> 
-> 
-> 在 2026/5/5 20:23, Umang Chheda 写道:
->> The driver unconditionally calls panic() whenever an unrecoverable,
->> uncontainable UE (UET_UC or UET_UEU) is detected. There is no way
->> for the user to suppress this behaviour, which makes it difficult to
->> test UE injection or to run in environments where a kernel panic on
->> every UE is undesirable.
->>
->> Add a module parameter `aest_panic_on_ue` When set to 0 the driver
->> logs the UE and continues instead of panicking.
->>
->> Usage:
->>    # Boot time (kernel cmdline)
->>    aest.aest_panic_on_ue=0
->>
->>    # Runtime
->>    echo 0 > /sys/module/aest/parameters/aest_panic_on_ue
->>
->> Signed-off-by: Umang Chheda <umang.chheda@oss.qualcomm.com>
-> 
-> Hi Umang,
-> 
-> Thanks for the patch.
-> 
-> I understand that this parameter is intended to facilitate UE injection
-> testing and to avoid kernel panics in certain environments. However, we
-> need to carefully consider the potential risks.
-> 
-> When a UC (Uncontainable Error) or UEU (Unrecoverable Error) occurs, the
-> hardware state may be unpredictable, and data integrity cannot be
-> guaranteed. Allowing the system to continue running instead of panicking
-> in these scenarios could lead to silent data corruption or other
-> unforeseen side effects, which poses a significant risk to system
-> stability.
-> 
-> For the sake of robustness and data safety, I do not believe we should
-> expose an interface that allows users to suppress panic on such critical
-> errors.
-> 
-> If the goal is primarily to ease testing, I suggest handling this via
-> local driver modifications in your test environment rather than
-> upstreaming it as a configurable runtime option.
-
-
-IMO, it would be useful to have a module parameter for this. In some
-cases—outside of test scenarios—it’s necessary to avoid triggering a
-kernel panic on UE errors.
-Would it make sense to keep the default behavior as panic on UE, while
-also providing a module parameter to disable it when needed? This way,
-we can preserve the default safety behavior while avoiding the need for
-local rebuilds just to change this setting.
-
-
-Thanks,
-Umang
-
+It is the issue current code exists, I will fix it first.
 
 > 
-> Best regards,
-> Ruidong
+> Towards the end of this function, pm_runtime_forbid(dev) is conditionally
+> called to increase the device's runtime PM usage count:
 > 
->> ---
->>   drivers/ras/aest/aest-core.c | 9 ++++++++-
->>   1 file changed, 8 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/ras/aest/aest-core.c b/drivers/ras/aest/aest-core.c
->> index b4f4c975da1d..9ce782a66edf 100644
->> --- a/drivers/ras/aest/aest-core.c
->> +++ b/drivers/ras/aest/aest-core.c
->> @@ -22,6 +22,11 @@ DEFINE_PER_CPU(struct aest_device, percpu_adev);
->>   #undef pr_fmt
->>   #define pr_fmt(fmt) "AEST: " fmt
->>   +static bool aest_panic_on_ue;
->> +module_param(aest_panic_on_ue, bool, 0644);
->> +MODULE_PARM_DESC(aest_panic_on_ue,
->> +         "Panic on unrecoverable error: 0=off 1=on (default: 1)");
->> +
->>   #ifdef CONFIG_DEBUG_FS
->>   struct dentry *aest_debugfs;
->>   #endif
->> @@ -342,9 +347,11 @@ void aest_proc_record(struct aest_record *record,
->> void *data, bool fake)
->>               aest_record_info(
->>                   record,
->>                   "Simulated error! Skip panic due to fault
->> injection\n");
->> -        else
->> +        else if (aest_panic_on_ue)
->>               aest_panic(record, &regs,
->>                      "AEST: unrecoverable error encountered");
->> +        else
->> +            aest_record_err(record, "UE detected, panic suppressed\n");
->>       }
->>         aest_log(record, &regs);
->>
+>         if (!(cdns->pdata && (cdns->pdata->quirks & CDNS3_DEFAULT_PM_RUNTIME_ALLOW)))
+>                 pm_runtime_forbid(dev);
+> 
+> Should there be a corresponding pm_runtime_allow(dev) in the remove path to
+> balance this count?
+
+Ack.
+
+> 
+> [ ... ]
+> > @@ -195,14 +188,41 @@ static int cdns3_plat_probe(struct platform_device *pdev)
+> [ ... ]
+> > +/**
+> > + * cdns3_core_remove - Tear down the Cadence USB3 platform core
+> > + * @cdns: Controller context previously initialized by cdns3_core_probe()
+> > + */
+> > +void cdns3_core_remove(struct cdns *cdns)
+> >  {
+> > -     struct cdns *cdns = platform_get_drvdata(pdev);
+> >       struct device *dev = cdns->dev;
+> >
+> >       pm_runtime_get_sync(dev);
+> > @@ -213,24 +233,30 @@ static void cdns3_plat_remove(struct platform_device *pdev)
+> >       phy_exit(cdns->usb2_phy);
+> >       phy_exit(cdns->usb3_phy);
+> >  }
+> > +EXPORT_SYMBOL_GPL(cdns3_core_remove);
+> 
+> Since pm_runtime_forbid(dev) was called in the probe function, could the
+> absence of pm_runtime_allow(dev) here permanently leak the runtime PM usage
+> counter across bind/unbind cycles?
+> 
+> If the driver is repeatedly unbound and bound, will the usage counter
+> continuously increment, eventually preventing the device from entering a
+> runtime suspended state?
+
+The same comments for above issue.
+
+> 
+> [ ... ]
+> > @@ -242,7 +268,7 @@ static int cdns3_controller_suspend(struct device *dev, pm_message_t msg)
+> >       else
+> >               wakeup = device_may_wakeup(dev);
+> >
+> > -     cdns3_set_platform_suspend(cdns->dev, true, wakeup);
+> > +     cdns3_set_platform_suspend(cdns, true, wakeup);
+> >       set_phy_power_off(cdns);
+> >       spin_lock_irqsave(&cdns->lock, flags);
+> 
+> The controller uses shared IRQs, such as IRQF_SHARED for cdns->wakeup_irq.
+> The PM subsystem guidelines require drivers using shared IRQs to call
+> synchronize_irq() before powering down hardware.
+> 
+> Might calling set_phy_power_off(cdns) here before synchronize_irq() risk
+> hardware PHY being powered off while an interrupt handler is executing
+> concurrently on another CPU?
+
+Ack.
+
+Will call synchronize_irq() at the beginning of function cdns3_controller_suspend.
+
+> 
+> [ ... ]
+> > diff --git a/drivers/usb/cdns3/glue.h b/drivers/usb/cdns3/glue.h
+> > new file mode 100644
+> > index 0000000000000..67cd1073b5551
+> > --- /dev/null
+> > +++ b/drivers/usb/cdns3/glue.h
+> > @@ -0,0 +1,51 @@
+> [ ... ]
+> > +/*
+> > + * The following callbacks are for glue drivers to invoke from their own
+> > + * &dev_pm_ops, so platform-specific work can wrap the shared controller logic.
+> > + */
+> > +int cdns3_runtime_suspend(struct cdns *cdns);
+> > +int cdns3_runtime_resume(struct cdns *cdns);
+> > +int cdns3_pm_suspend(struct cdns *cdns);
+> > +int cdns3_pm_resume(struct cdns *cdns);
+> > +
+> > +#endif /* __DRIVERS_USB_CDNS3_GLUE_H */
+> 
+> These functions are conditionally compiled in cdns3-plat.c depending on
+> CONFIG_PM and CONFIG_PM_SLEEP. However, they are unconditionally declared
+> here without empty static inline fallback stubs.
+> 
+> If a glue driver uses __maybe_unused annotations instead of #ifdef CONFIG_PM
+> for its own callbacks, will the compiler still attempt to resolve these calls
+> and produce undefined reference linker errors when PM is disabled?
 > 
 
+Ack
+
+The PM helper declarations in glue.h should indeed be made robust for glue
+drivers using __maybe_unused PM callbacks. The current Sky1 glue driver uses
+CONFIG_PM/CONFIG_PM_SLEEP guards, but the public glue header should not rely
+on every user doing that. I will add static inline stubs for the disabled PM
+configurations in v2.
+
+-- 
+
+Best regards,
+Peter
