@@ -1,50 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527993CF022;
-	Tue, 12 May 2026 20:23:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F05C3C09FF;
+	Tue, 12 May 2026 20:23:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778617426; cv=none; b=KsulvuRf3tPfEY6VsDFbfHLMdYHGUEPcH+ixtkYFwutjLiGs6eyGPDpjusbXxvM2VTS7s/FksGB2Cg6Qp4ywSBQ/cm0qW1E45+PU8oBlvNA3RYWwVTL+AF8VU+nYcWigclIAfhFa1htrOtWitbZ74IYLDKveebmMIzuCX7OopDM=
+	t=1778617426; cv=none; b=BfPb3faPcynuC24JW81SsYLMPL9H9TNcNfVmStG4uwi+adYaHeKKeAB69F+Xnbgutbqo4ECMmWuqhpyUddLJSKmwgyf8dHFM0RbcBWwO3SQ3yCecRDTsFZI+WBA1MTR4J4Jqh8WpRt99nynZCoxZO3KvbejiOl6gza44IqHpZOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1778617426; c=relaxed/simple;
-	bh=nCChHin4VqmJtHVokhwlcgF6Gz2vLFpmezHr0pyIYQg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FiduP4hdYgc6aAgXG8b2kskcTS1XxbTrAW12jEzOBlsTh6spXjehvxdWOMP01EEDggLJkRcK2he13/+zQIASt0uoE5Nu9WQGuJ0/EbuHdRSUlpR7M+uloS9nblPdDazTyN/9h4E6dwfEPBxKtRm4KnGxHzdxnmVjWduLPSanWnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=USQT8/bI; arc=none smtp.client-ip=10.30.226.201
+	bh=D319QEG+olVaUvJn93cenq9kEFlVZX56VtrvxaCnlDs=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tZQf4QL/w9Wa1Q0nw+gmObtGUPAKKBPuOF2U/efX2qVwpiWmFyVSJz66JbOXjPh1dK5c26qRRCsNhjUOMZ/lWM3q9FwAj5gjxmhCpf90yc/QnS2SWa0Q13tRT0XILyXgmrEIQ22aUqdWiyM3L1k8odq5dShhQAE9hy9FB9m9An8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j1QfeG99; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="USQT8/bI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F5D6C2BCC7;
-	Tue, 12 May 2026 20:23:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j1QfeG99"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B425C2BCB0;
+	Tue, 12 May 2026 20:23:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778617424;
-	bh=nCChHin4VqmJtHVokhwlcgF6Gz2vLFpmezHr0pyIYQg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=USQT8/bIDQROsGtmgALFwR/PnG/K913LqFAxCSaM9swxW0XZx4afqJnOSM6Srt8bb
-	 jcogiqMradGSHj0xuvHapvQr7aHqL1S/Q9BAQMwbq5lTkYXno9aUZr7b3I3/x4Vl+K
-	 eDYtmfin1/6L0ajbg9XOQVd+qHnobOC5Pa5igEAJZd5KkiobzTANXO/5+csE7PPv90
-	 EdEPTnVapnQc5JJ2BcVJu5xAlhb6FEzQ/wjKcDPWJZz+du9y40fP6+HBLUQLgumfsP
-	 NhNXrp1lhRKIolMRml2yQxqvZThHcdNtc7zxwb2E9pUMYzzf0RPm3JVxYPVbNMRUlO
-	 RrhPZ3bl+14oA==
+	s=k20201202; t=1778617426;
+	bh=D319QEG+olVaUvJn93cenq9kEFlVZX56VtrvxaCnlDs=;
+	h=From:To:Subject:Date:In-Reply-To:References:From;
+	b=j1QfeG99PlT4WQ0KANtZb5sUmtq3MxbYHyFRb+AVRzq2d09V99qtV+dNC2iv9hDnb
+	 oYp0uyqknkeiASOTgZsYn8IHrn+Rliu9atx5OmTFD6xja6kw3U2aKm1mszW8uqcOco
+	 ikU72XL4HTXRNfhKkYkc+MGzXlVCsKfSK6+rm1unhQzPjBhpTV7LgMlhxM3ybNyx6b
+	 ihWPS2AUPbtNYo5HuhHLa5nhYno7essVO6ZH8HOWP0rVzMgx38TPCYUmRDlcv2VFzv
+	 lsK4WkUGhQ/VHXlVh5S/6QquBpOHqehndhrgYuf7UivIsnRxIuG35EANSrF0r4sL8h
+	 qK+mj9y8Ef0OA==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Thara Gopinath <thara.gopinath@gmail.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
+To: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-crypto@vger.kernel.org,
+	Taniya Das <taniya.das@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH 0/2] crypto: qcom: Add QCE for Eliza SoC
-Date: Tue, 12 May 2026 15:22:55 -0500
-Message-ID: <177861739373.1242344.14892470057244175639.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH] dt-bindings: clock: qcom,kaanapali-gxclkctl: Correctly use additionalProperties
+Date: Tue, 12 May 2026 15:22:57 -0500
+Message-ID: <177861739392.1242344.16530268271307335667.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260407-crypto-qcom-eliza-v1-0-40f61a1454a2@oss.qualcomm.com>
-References: <20260407-crypto-qcom-eliza-v1-0-40f61a1454a2@oss.qualcomm.com>
+In-Reply-To: <20260404105436.138110-2-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260404105436.138110-2-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -55,17 +54,16 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 07 Apr 2026 15:51:41 +0200, Krzysztof Kozlowski wrote:
-> Bindings for Qualcomm Eliza SoC crypto engine and DTS patch.
+On Sat, 04 Apr 2026 12:54:37 +0200, Krzysztof Kozlowski wrote:
+> The binding does not reference any other schema, thus should use
+> "additionalProperties: false" to disallow any undocumented properties.
 > 
-> Best regards,
-> Krzysztof
 > 
 
 Applied, thanks!
 
-[2/2] arm64: dts: qcom: eliza: Add QCE crypto
-      commit: 5a95bd4771ffd591e810717e1c6dcc568ebf45d8
+[1/1] dt-bindings: clock: qcom,kaanapali-gxclkctl: Correctly use additionalProperties
+      commit: 3357509593d2d7b1aa04bd2cf188477df7af447b
 
 Best regards,
 -- 
