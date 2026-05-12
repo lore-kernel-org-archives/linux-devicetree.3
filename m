@@ -1,61 +1,63 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F7433BB11B
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 17:50:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAC6D3BB134
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 17:50:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778608230; cv=none; b=WXIeRU24vkR3IP1jv7gSkE3Wjpj1E4vs9SIuCL/n7DtTRjTzDl5RVA9fJxoocapgxVunaKwJ4KvtYIIZWSzFjy50artcOManWgDn12VKkg/oXrzPJYCr/4qmUQXM7yjevVNlB+gUe1Q7K+8VmjoGFkF3aK4uscdQqL8oDOgQ+Do=
+	t=1778608237; cv=none; b=PmVAjQnmsxnl2HI+oIQvrAyOCXQNmeKy2Jr+VheUewHrsPa1spESjYgD2nM2WL50wWd/cwEt3TZ2L3/PF0tCkJgd4yRSLrzQbFlhQ2YSXxcyqNI9KcNu7LDSf1RuPffcqDspaDbauEz8NAeb6YVjzPToVg2fK7JnwV77lK+De6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778608230; c=relaxed/simple;
-	bh=2X9DkclGFCzH89b0NzBKAYW3gFAP1oT+ksV6Tizv/lA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ic1EKTU2FeZwpYt3yMRfTBSUkTm45PMJf8mFZbtgcP46rkhjfDlfcoxp9CU8uQel7v1yRdbJ56Au1jOFw4/st6XOvxRrW3fVj8hmeFu9a+iKlSnprMoabtxTnPZ16sbE/+3AhDBFXatMSg5eYgaowOguM4wi8AcD72IS7dNZs3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jNnv6881; arc=none smtp.client-ip=209.85.210.180
+	s=arc-20240116; t=1778608237; c=relaxed/simple;
+	bh=5ze2uazgAeVIlCca6kGtV7W6GRHZsCErjSONJCf+OPs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nYeeyOotyRS418H7mJWuquMgFVU1RIKaWVmD4XWlWFejZauZVyJIonbI2DERwTSkog7I2X9ZxXyxC/dFpkUD65jO4b0IA5jQC3c2olBU177PJIywEsnGM7zX/k99Cc0Xt5snyHAGRl2aakTYjD1OE8/2F/dtZLXJ7qPM0j0I5I8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DvBKQV9+; arc=none smtp.client-ip=209.85.210.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jNnv6881"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-835c98b659eso3879199b3a.0
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 10:50:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DvBKQV9+"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8353ca0f1f1so3057874b3a.1
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 10:50:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778608228; x=1779213028; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Bw7yD9Z23DvEiMo8d6kpF8dSdIAQpco59RabySZ7QjA=;
-        b=jNnv6881mzXAS0dzCYhWNjp6+yCqZsaRwDBpPDQ8y64Kh6vtu63nzodIezo+snxdIs
-         gtemNv6U+cLsvBTmXy/zmQkm+X6HGlCx6pCX7M3POzlXF5wfVdtc3donsohw6TdnSS51
-         CcOTeXYR66S70n+DN/SB21OL3MhpvxVLb6Sgsci/rJIfvh0GM4gpEJG+eo/z9gUsWrDH
-         pqc4mFDFGogEpd1Szp38VFbRLpfdz1NVKWKFecnFt0+eykOwMnZ49lXOfLgDNV+wCq2w
-         SY8pJN9vWgvIPQPvoUtUs/lqDwms72WfqDGhyD+ApeacfCuR35WMsvqxabvLjiPwdEtr
-         +ofA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778608228; x=1779213028;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1778608235; x=1779213035; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Bw7yD9Z23DvEiMo8d6kpF8dSdIAQpco59RabySZ7QjA=;
-        b=TIahmOqwsy+18hwy8swu8mvyjqx+LIPUEXXAa0cSA4wOu7U7csHOckxSwatBHGrGR/
-         hYtD67LNnTuUSEYQ+BvPsv0JE2ttpeMclHN7km2SpR7wu+XF1BQKJPzb4AZEs4tPf7tr
-         UysFulTNaf+iJpx/H2v5xOIng8T5aU8plojv29ZX7UVehM1HBTJcJtM5nastBU7hxHSZ
-         PwR5kWciB/VP4LH9ou5qbJHudl5u2BKa+wTcA7BXiEd1zBFaEEbg7RdFHBgs6FAXJ1EJ
-         BDKXt5Ea6tDVsW2eIacS5YA55FcmeqABBaHw5qNteXxcjDlqSaa6Yokp645AQInXY35S
-         mWBQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8Z/iovuScGPk7QBhLWmdhMhfvvaKa6GgpmhwhJcIFiDnYDoO4+imyYbgxi8iuXbpS1m9wZX2eUn68n@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx2RdACtGDcW5P0ciTt19GEL2boEXWIjEQl6br8gdpZsDoBKoAM
-	9+SlUdmVdrN235douyKNa+P41zZaMOPvH4PhYVBKv9o76QZ37yt7zyzz
-X-Gm-Gg: Acq92OENjqsiDhmuAnjvrZhXhJEPHfUkg/44GBcG6QJUgVT7mFeU41+oFJ1RUje/qvA
-	aOOytOqR5wXUDcbwX+gXTBmTiUPjZISuSIbUsbemPkwFhi1S9G8XFkxiUoZYmsG/3wPtvaDQZfJ
-	XJPH4a5Rb8HaRQfOG6rZRpjSILMxs0OmQsbcLpJ3KbutGMi+5sGmifwWG5G/yN/el7a1Ib/3NLZ
-	s1YUpd4vpzgWoCmg8m192wOyus81AdqtE2tkx+w2SJ02X20lnFw+DJlOUw0yzCUEfG0IXpa882K
-	0Q8WKxbiJuQkaZYzfbIO2gju8Z9ybObnEnfu8wTLQlnSsEC6nmzn0IVzalddo4xwAx9YwLKSqCd
-	ffQiLZxEwsO7u12hnja2VTczj8R7349cDyKQT1U6OBbHHqZl1w8VcxBhd9On93AQ8JJGYdCZZM5
-	qJqCb6lXCkfKQjZVpeuQ8cEg9bUxvzmJNzTC7plb7M
-X-Received: by 2002:a05:6a00:410a:b0:838:1c02:276c with SMTP id d2e1a72fcca58-83e3b7b53d2mr14261430b3a.40.1778608228291;
-        Tue, 12 May 2026 10:50:28 -0700 (PDT)
+        bh=8pS0Ld9uzavm9qCIn3zeBESeNJisq4fm3wOJuKswJN0=;
+        b=DvBKQV9+Vrt8Dx6U/9Vwvoy0jmh9wsZ2nr1PF0sQCG/VpCEAp5GT8admH2TLAXKbhU
+         Zl9mY++aOR31zzq7Wr271SuPcGOZRGhvnfV++TCzqthTwRb2XoI27SiDOhGh65bPubbJ
+         GNx8oneCmfpis65uSaR81J1H8EFEeeJnMx64wU/m97cYnCJ49Jn3eY919SNeveov9hXB
+         8LD6j1pSXKl7R9MK+FMZ6CVgWsUz3jqaoN1DUpA2p9zuqQiDpD+dclRTH7v7GpPqCnAw
+         j0c4awzG/TQPBsPP1YGD1c/7JsuMY+lgWuWIUXRs7LXijNp5vf7HjmI7RkS0KjN1XQer
+         nMEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778608235; x=1779213035;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=8pS0Ld9uzavm9qCIn3zeBESeNJisq4fm3wOJuKswJN0=;
+        b=F6mIIbsqmwfUHMFxP5CaL+keU98j06hwjg3EuLNY4HaHXeQS9rOe4yVELfTstePCNQ
+         K87PNh8lcFi+jPolNEZyHoYbNSaw9NQCS1keiI6WbEHYFPqJRN06ZqGRBjLrY912oqjc
+         SiNQ5Sdjp2Vh6hMbBQLVb9BZrK86TJqYgDbipiHEzRUxUNP6081T9dJHiOK+gk4qbfI3
+         VfwwqeqjNpnek5zlJ4NfKZtpXRUy18Akse53lLdVHpTN+NCBoPsc3xtufCr2h29gdKj7
+         R80hfWV4t7tPZi0WvGBBieQ84/xO2q9RHZeBpWhoUcFKRFQalG8Cc/l86WQF+RWbaC4S
+         XCyw==
+X-Forwarded-Encrypted: i=1; AFNElJ9dRef7gjimgvb7w+SGONf59jNuJoVEOsbjo/JjkAYfRyG7H1HAs2VBIuBzCslH0RR4T1emh5dCjbJ8@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz14u0XXBXqzUEKZqh/Us/HvU93/4LmTgttDOiCwYGGmNcZDFgP
+	9XuiHhvzyy6uS2/UeHmIvZgnq+6jRlUPOH5mNSv4vzdv62hmPd2F6zdfEvOIGg==
+X-Gm-Gg: Acq92OGxxZjF+LuYzIvRZI2idMPtHTlbg8zmahxMuAtToK4TkrJsl1sUgtzdx+wdzjM
+	HEOA/bmvaP4rt3DOKs+S90tI3Yh1MfBndlGxTgYnYzQcXL39SWVASaPPn0Kt6axPZ+BzSuf1NGK
+	jM2lCtzb+IbDs0YiDso0oU/VAKj2Kqdq7NbBd+p2ieHnwsTjlDQLww8UkwWYOLoBB11+F1xpJ83
+	qt53pQUhtDX5lfX8eMMkPm/4AZDzCiO2sbDZOor+xy2N0lz7fzfgjfZmv+lLjRd+XHZ4pgOdoRz
+	G7y0ex9aq4u0qhkBtHlRDBFghS/Hh8nAOYXMd23WkMFaN6kUrgSvYvbrPONzs6qNXfMlsh2duPo
+	4fZFQzkS8ywrquwt8PF4F3diQ+WwUpqFwjvfvn+1Giw9DXp6+GKm4SO8RnOLWakfEnlnGkox+Yj
+	U1EhaIBoz5f3yU6NCvB3H3IjWJffTSf+ODflQCh8SX
+X-Received: by 2002:a05:6a00:4206:b0:81f:4e1c:1d3b with SMTP id d2e1a72fcca58-83f02e579admr34477b3a.23.1778608235020;
+        Tue, 12 May 2026 10:50:35 -0700 (PDT)
 Received: from debian.prasanth ([103.177.82.138])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-839682a20ebsm24838732b3a.53.2026.05.12.10.50.24
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-839682a20ebsm24838732b3a.53.2026.05.12.10.50.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 May 2026 10:50:28 -0700 (PDT)
+        Tue, 12 May 2026 10:50:34 -0700 (PDT)
 From: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
 To: joel@jms.id.au,
 	andrew@codeconstruct.com.au
@@ -66,10 +68,12 @@ Cc: robh@kernel.org,
 	linux-aspeed@lists.ozlabs.org,
 	linux-arm-kernel@lists.infradead.org,
 	Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-Subject: [PATCH 0/2] ARM: dts: aspeed: Add ASRock Rack B650D4U support
-Date: Tue, 12 May 2026 23:20:17 +0530
-Message-ID: <20260512175019.47548-1-prasanth.padarthi10@gmail.com>
+Subject: [PATCH 1/2] dt-bindings: arm: aspeed: Add ASRock Rack B650D4U
+Date: Tue, 12 May 2026 23:20:18 +0530
+Message-ID: <20260512175019.47548-2-prasanth.padarthi10@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260512175019.47548-1-prasanth.padarthi10@gmail.com>
+References: <20260512175019.47548-1-prasanth.padarthi10@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -78,43 +82,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds initial device tree support for the ASRock Rack
-B650D4U BMC, which is based on the ASPEED AST2600 SoC.
+Add the compatible string for the ASRock Rack B650D4U BMC,
+which is an AST2600-based server motherboard.
 
-The B650D4U is a server motherboard for AMD Ryzen processors. Hardware
-details were extracted via reverse engineering of vendor firmware.
-
-Hardware features included:
- - UART5 Console
- - MAC0 (RGMII) for dedicated management LAN
- - I2C7 for FRU EEPROM
- - FMC/SPI 64MB Flash layout
-
-Validation:
-Logic has been verified against the AST2600 v1.5 datasheet. The DTS 
-successfully compiles and was tested using QEMU (ast2600-evb) to verify 
-serial console output and board identification. 
-
-QEMU Boot Log Snippet:
+Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
 ---
-[    0.000000] OF: fdt: Machine model: ASRock Rack B650D4U BMC
-[    1.085143] 1e784000.serial: ttyS4 at MMIO 0x1e784000 (irq = 31) is a 16550A
-[    1.090566] printk: legacy console [ttyS4] enabled
----
+ Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Full logs and reverse-engineering data are maintained at:
-https://github.com/prasanthp20/asrock-b650d4u-bmc-support/blob/main/qemu-boot.log
-
-Prasanth Kumar Padarthi (2):
-  dt-bindings: arm: aspeed: Add ASRock Rack B650D4U
-  ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
-
- .../bindings/arm/aspeed/aspeed.yaml           |  1 +
- arch/arm/boot/dts/aspeed/Makefile             |  1 +
- .../dts/aspeed/aspeed-bmc-asrock-b650d4u.dts  | 61 +++++++++++++++++++
- 3 files changed, 63 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
-
+diff --git a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+index 2f92b8ab0..656397850 100644
+--- a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
++++ b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+@@ -77,6 +77,7 @@ properties:
+               - ampere,mtmitchell-bmc
+               - aspeed,ast2600-evb
+               - aspeed,ast2600-evb-a1
++              - asrock,b650d4u-bmc
+               - asus,x4tf-bmc
+               - facebook,bletchley-bmc
+               - facebook,catalina-bmc
 -- 
 2.47.3
 
