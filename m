@@ -1,301 +1,325 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2134.outbound.protection.partner.outlook.cn [139.219.17.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D023B7741
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 09:06:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778576816; cv=none; b=G4XaUtWF0mvapzmw+WUqKbvs1lXReFDB0ntnVGbpBrf4FisciLQxwLudTUXlx1BcybEnOz5DJhGdUWnPkd0y4cqE+axUNKT/MUSEJWtdTB39Z4+UvnCjbrXy2RNCd0uXlI4Wb26Z1Hehf6B9wUQ9BbOZ77EVyMk4fCOdJnnUFEY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778576816; c=relaxed/simple;
-	bh=BEeMHp4ulcgWvyzYfj6bdDGl2bd5EepRcrHzf7pZd6Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AbjW1P5+dQNIBV3If4kXF8OQ55jE6wkgFZ7PHG8f2NADeapbySpKS+CNfZ74gDb7EGE+LeQljtYpYtd/GnroxY0cZJfUvZSQ4+RC3xytdd+ygqRu8jpAbz/wqTfGVBkiat3E4HzCK69YQtN42NLp1KsupgaXxKUm9M8b7egFMp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e4/6j0Zr; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e4/6j0Zr"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3664df30f53so2383125a91.1
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 02:06:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778576810; x=1779181610; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=1x3QKNa6wEmvoxZX8OKMfbWBrcN6crkcagrWuMBo3Xc=;
-        b=e4/6j0ZrBfIK+TkFpj0P8lifuHD4Gn54AjJ/EbupOLvp327EwzeXKtTl5yJtV/QFDI
-         gv7KV2Du6exU31EyWgllRdqlhlBMBPCA9MYPtKT0JoiG0nq3s6WwD1igYThYtZ7F19dm
-         lcdeXfSD9TnlhYXrZBf+44WYqNY5ACBfLk8rrsnVZnQKHwWefD+5rMJ1Rg0jboNH8ZcO
-         2giHz8zTx53TJXMZERzszBO6WbKDNwT/Qfzq16M4jUgdg24fWKTe5So7Osrv7ycDHriF
-         e6HG3XHp9D87lswF5G5A4jyp3QjrkaKoUgngeh3dMCAJ5MCotq4eWMkNdWcu0q1PtLcD
-         23lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778576810; x=1779181610;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=1x3QKNa6wEmvoxZX8OKMfbWBrcN6crkcagrWuMBo3Xc=;
-        b=IrKuM12PchP7s5o+3XJHQDJkzZlWRP8BDh03eP9m9in3G5NAMl7lvKUFnHVd8fHpbq
-         8cZtAmX6Vdpi3/mZ93hyiEWnuomUX0mQwmY87ktg+qqf9/7jqOt/L8gCRPjr6l/LlTvn
-         qd9GmfLPEs3YkBc69d0I+tm/E2HfL6XlltyKp/3lvcU1jRqP/S3YGfEKDuSg8dAwLLM+
-         rMwoT3486A+JfyGJHypvq5qjIOW2+MHDsyZcjSgaoqddhqpFGlkgjCPzDflp+8b/ZSTc
-         qqAEixOI5h97oY0hYOcwGHSjPQfoNgiKSXMCrFJD3rJu4eR3btnkouHDcUe+3G4dbAv6
-         WK8A==
-X-Forwarded-Encrypted: i=1; AFNElJ/J8VrRPRGTgjMGIl9LoR+aqWyhBtnFHT21tNEP6WbYLLTXvlAwH7BW95PdTb5xwkhwyk2ocY1mWa3G@vger.kernel.org
-X-Gm-Message-State: AOJu0YyfiB4y4mWUem0V5VlvfR5EX/PNNZwJa8FDWPiNzdfw+dtJMv54
-	MExYmU6IqH8uVmvRnBkkxeoE1wpOJySOU5lZFIAxVh2+VnaojidKpVl9
-X-Gm-Gg: Acq92OEPm7PbM8ObDEdzKLzXDiVYe15j+74ZiN/fWkePqCaYGgYEs8AkB+t4BAQL3/0
-	uRyrBWd07mDnHabqDiJ1/RNtk4fvSn8DG+jLyoB/LDIEtVYDrjNElHSMyrLFh9mlaQXqFh2SdHZ
-	Vu9vmc7KoqabnagqRoFx0P2GldYSLt4MwolpP4QxsRBSMJWvDrAsQds1DXl+ml4MJxkymOMF0Kv
-	Q7wrCdyJiP7dbBPkB4RczoXYEtD5fig55FsUfAp6sRmTa5qtOEdyjUB0fsFE0g99oIwvjruKpqK
-	Yja9VwQtBu6xEyleEzkvkWamWAWSb59KaOc2ZBC8fzpmzqmgFNzEKjbwYampLEYzJTcxE2ERDZO
-	BbaMja15PcOyMi+FX3aUSSzsTqEVjcZ8hia3XkoYkLwkLKQs2ANaLYIoGgLLA46Vvy1uZkOi5+I
-	5oCAWLmkn36QPT5p/P4cIOA+4lhPqXf8kd+itUgOZjeFKM5JF7WfHFbczszkG83xVQNWPtk6DoB
-	PIA
-X-Received: by 2002:a17:90b:3806:b0:367:bf59:6f99 with SMTP id 98e67ed59e1d1-368b26f7b09mr2441610a91.26.1778576809623;
-        Tue, 12 May 2026 02:06:49 -0700 (PDT)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-367d625cee7sm10341825a91.2.2026.05.12.02.06.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 12 May 2026 02:06:49 -0700 (PDT)
-Message-ID: <dfbc4042-64cf-49f2-a5de-12260beffaa0@gmail.com>
-Date: Tue, 12 May 2026 17:06:43 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFB3137DE97;
+	Tue, 12 May 2026 09:09:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.134
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778576966; cv=fail; b=nud5tCBEVEOwLRMM8rb0J+m7Ldx88IzIVIWG8UrhitYgPDQDHYk21zD4+z4I5fle2f/pggTRKeVcFg9AtHhT12W2yLzbQ+f55Hy+juFJF45JIxrUMaPbxMA3SLrtlDYNiUSFROJVdLjfcR88QkER1g8nvs/raMW/8AzKVyaH8hQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778576966; c=relaxed/simple;
+	bh=r/tCbZPAUX8w/gdY5yXcu8Qtk7uTC7P/YDriCqBUtvE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=DX6bEjViADKNU03BThxiVwp23QNNeIaWwVyy45ogXG2Fbqw1etOh4JAYeUM3juK/kacoozw6SbpjbztY6U3dfk+1ExdcGqELvJJPpPm0PxBtjzqHKLJRPQY5JZqtm4D8phr5yxz/ipw7xYYeMOcJfGKPB0kgv5oRl9fZZ52C610=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NeKbk1UTzmQV8t86AohCjMx0QgAguBsqCws7JwYAHjIgjcAKYj8Oj00AcxMsM27XQtGY9qEdpyD/IEheGVUVu6PXbqI+1G5h16QwQTVT++/eeZ9IZU1mrPqG/EqQlYiqMXfYMh3Z5uUsT/jDhshrUaGiJ5I9Ukey5DeEGR1SB1l5V2shY8d75dhhIuzLvA02cQOj8UxaGYW8PsIeCnEB9006X9Er9imVkFur5rIYIHr0O88jcyhtMLbbMjZyn6kkTgyHgEtCazWeIZ4L3zUFD5hMO51KwpT1cZ7YMEOrDtZvQjmf7EGuE69aQ/qm4Fw5L9OUnw51l33EcCagCmpkWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FXgR+ROj6esv0ZUrqOh2ygbi9yBhpLyISbARGjBq0ig=;
+ b=F+ryNnT5DZg1EMG+FZ6w4n67sYxz8ktilw/aSX0P3X7P2Wc6GPzzv77iIs5PTCjdOq3hV967tyB/pZP8p9YB77NRi1v6m0HSVMb27wWYXlBOsJFJa/83B7yXtJlZtmO+D4J7MgNtmgo64UA3eE6NIVngJTqVLAwavLXaoiQ19KvuXqScfNlfUh0bo8Zb6UT1d5PAyFUxyUI5DRt4xqcPNlqCos/703Fmwiai+dgkRDaMIAnfiqMDb3d0Z2ULjZX56RIwqeye6nSG5GC1KE0fUZCspoxLMDcWn01AH+eaegfvVvMSlykhWa63Xle7s3wXrvJBRXUZuBxskjAmYzJxSw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1268.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:16::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Tue, 12 May
+ 2026 08:35:49 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%5])
+ with mapi id 15.20.9891.021; Tue, 12 May 2026 08:35:49 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Michael Turquette <mturquette@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Emil Renner Berthing <kernel@esmil.dk>
+Cc: Chen Wang <unicorn_wang@outlook.com>,
+	Inochi Amaoto <inochiama@gmail.com>,
+	Alexey Charkov <alchark@gmail.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Keguang Zhang <keguang.zhang@gmail.com>,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v2 11/12] soc: starfive: Add socinfo driver for JHB100 SoC
+Date: Tue, 12 May 2026 01:35:20 -0700
+Message-Id: <20260512083521.3448-12-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260512083521.3448-1-changhuang.liang@starfivetech.com>
+References: <20260512083521.3448-1-changhuang.liang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BJSPR01CA0012.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:c::24) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/verisilicon: add support for Nuvoton MA35D1
- DCUltra Lite display controller
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260511075142.54752-1-a0987203069@gmail.com>
- <20260511075142.54752-3-a0987203069@gmail.com>
- <93e69179dbc495188cfffd8015350b3a55ce7876.camel@iscas.ac.cn>
- <de35406e-874d-4bdd-be7f-3d74dc37b13f@gmail.com>
- <3b94806073de8bd1d79aa7ec956493f67679e46b.camel@iscas.ac.cn>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <3b94806073de8bd1d79aa7ec956493f67679e46b.camel@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1268:EE_
+X-MS-Office365-Filtering-Correlation-Id: ddd2b04c-f9b1-41ba-5f06-08deb0017884
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|52116014|7416014|376014|366016|1800799024|22082099003|18002099003|38350700014|921020|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	OVd7jrgDXsBfBwIEAjCmRWadR0Arxw14OUBZwd6BRJ41YgdLOwFUMBl7jQsIDGT+6dCzsmRW9LHFT/N9+peOOR6xG+IAprI0SR1q9b3iwCPo82XUs9aKGN6asv0Murmz2pfqJauM1ZF61ehgubaSVUsb82VveBJYscCwquNuVCsXf84a4OWWDIhO4QvD8xUxtDx8AxePHs8GWHQu6Y5XtsiBCYc8ALutHdumG1/HWCPQwG5432ZQr7y7kV8y5wnE3SX9s0V4mk981Ktw4u1E70cIBVXyC8buvl3xhMIrv7fjTZ/wPy/irCCOelrz9Ao2mpSfitl9GkCAjEdrn56mi34EZXwxMPz4LIDo0zZcfFjVYHFLgMq4nurdEUxPz6m/DVEspkMqi2LwqO19vKDsPj+ZjgDOiKRWWain9Fv/MaqRrR54tyqBUudTpR16THOhejgMiunSn+p9svx2kNtu/BO4lMwyyn7RfvNqagwAiCJiJejWwCVbVj7QHHOafvk9qb93KSSsRO00W9SieWAlUOAtGOuNJLibfqdjKTlrGUhwjP8i41cv+Nq4czzMAOIyy/WzC1LDSnrD0NLYi7/SXA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(52116014)(7416014)(376014)(366016)(1800799024)(22082099003)(18002099003)(38350700014)(921020)(56012099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?1/9nLcqOk2koliM2k4IzfRfPKIgmmLzUvKngmNDGs2lQvIi1LWgFrvx/CY4O?=
+ =?us-ascii?Q?IOVnHRVsdFBrkSiudEJ6ngpU5yGQcZeVsZyPS6Lz6aKiPVak8TL+ZCh/57I7?=
+ =?us-ascii?Q?TVw5iLErvXV2XvMTUvsJN6k4BEajfy9kRZjRx3uPC+uEMpBIpAC8zUyFHk3B?=
+ =?us-ascii?Q?RcbTy/gUj7ELH1VZV3WXY5QntdfuEmQAjH6zy2OwX5qSqDYaL9ua0WoTOWs9?=
+ =?us-ascii?Q?4LpZeniFwHDv5n41GSFvMGDA8K1C6eGNivfj+3TugZ6v9zEfwUE7dHuF2yLH?=
+ =?us-ascii?Q?Jg4hUEbcFPRzCJ/mATPiFuIYVdx9z1BOtusmNcCRqhZb9GMAMJ0XzBnq+nJn?=
+ =?us-ascii?Q?f9M4WXGlypZ03TIQ97k/oSrh6B586FYfGFrDWPqAb4LXa/hnrTX0RdrUiB92?=
+ =?us-ascii?Q?hDUNPqSuu4eY59MybG8NzSvan99nfsuR3sdN+TKLncZzSXa9fx5yZ/0mXI9t?=
+ =?us-ascii?Q?64a1DMaWdelAW1efYHAw+cNNlyobNFl9IgyN1fp92aB+zaCTWqJmpS8JflJT?=
+ =?us-ascii?Q?4UCISfp55fvdGIChJB6SXmRhMXwOH6DbClLRyjOchZawZTFXKxGIE7pQATkw?=
+ =?us-ascii?Q?d5MbZji/hU2lMfcWumtHs5eJc99tR1QZTxfs3oNZ792MIRErZy3JFF3otafp?=
+ =?us-ascii?Q?N1Z3WnRfrSNDNQTDkZi+DGDKBGCNIVR2Zn3D0HZzHW7qUsewjvf8rba6RyjM?=
+ =?us-ascii?Q?xnD2gJSBEXeojqOAgDtSDnyHq20YEQL+W1UyOKz9LfIWW1WJH1+P8jnsmFFO?=
+ =?us-ascii?Q?afliA05WkQ6kDGSgQCkE2CMfzUr+nKCT5qAGKxgKAqS28QPp+DI5e2FCKo/G?=
+ =?us-ascii?Q?wZtdfIwMGGwZH/1AGIYILjTuUukALjHvm4Tv4qSrhNn/8GRM2w29lgGMusQ1?=
+ =?us-ascii?Q?LNua4hUm/PRlcVrz1xkyfSaQMA7Ah9MY3btXcKS37oE9PpVKdO7OMgi9lGrU?=
+ =?us-ascii?Q?xK6uvv6QKZFF5rGuaaGzfBetscN0XfkPFmog7swmfUQnyNfec0Dxh2FA92Gj?=
+ =?us-ascii?Q?KsXt2o/7NfThPwyNPbIWHGDOASiCGiuF3LVGe64WKgBQZbjpV0GqIh5GpFvy?=
+ =?us-ascii?Q?PVyqO8hinWu+woC3VT05ke4GjihserSW9SYnoLxp+rzauXUt7Fbdm9jnsqyi?=
+ =?us-ascii?Q?mnrpzXkW3gR7eDUxgIBw3AUhV1WLa1mQkfledWAXlJtwZAEC+NKI9D545LMp?=
+ =?us-ascii?Q?kzB+6MpXBMpD2i5+krmoYFezaTY8+QcFUTwIzFs8zP/QwhKSAKRMInkA6/k0?=
+ =?us-ascii?Q?0zVl8+W+hAygy81/zurzd010zCA6dhSnbV4eoOJwknJsVDTagR6XNd7jpnM/?=
+ =?us-ascii?Q?3ZLJ0q5qNbWRwzfEfjKcYCOYuxIBHNmXrcLun8NnhM2lqWXshPq75d+xgyX7?=
+ =?us-ascii?Q?0mbBs/cjZL+efyqLByiHF05YC6S+I5Dr0Iz6ftuHp/OkAZR7FuGbH/DwGvUA?=
+ =?us-ascii?Q?GGd+VdGr3ft0u39qAdqtk/Bqz33p1EpB2k72IkMpwkyI5u/EioTExzoV+B2G?=
+ =?us-ascii?Q?JaXdSjWinkEOUaB3t/cfxM70w12SJtr0A3xeLkTom6vDz9wByI+SalWUD6MO?=
+ =?us-ascii?Q?y8BfzIDw5NyKLSiK2xYY+Gwni3QsCGjYjMOiDF7JzI5Chl+hE8JZoUNt29xZ?=
+ =?us-ascii?Q?KJwo2MEs4dwPFMpTjLsXfQiu4Vx0/dew9erb3BrPKdF3S+RaUvna46ok4Ka5?=
+ =?us-ascii?Q?fCehfPVjGpu5EmbDo6ic8MC4k8zq3aadjXXywrLan5nKCCzDCbZ4pLve4Ulk?=
+ =?us-ascii?Q?Uc0SABUD375kyOtWP/mVoELDRoJ86UdCcjSQdSxfzfmZf4F71Rph?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ddd2b04c-f9b1-41ba-5f06-08deb0017884
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2026 08:35:49.7803
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yn6gBwJOwsAcefg4JHp6yXQQS1N4rUuZjq1uFdF6k3jOysfMNqKfkeJ63bnXtH2KPnEMV7H4ulenmeqWwlb/MRBm99sWhnXqwYluvg7yPgNYNeEc1Q+0FrDhFDgioNSk
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1268
 
+Add socinfo driver for JHB100 SoC. Currently available for distinguishing
+between the two reversions, A0 and A1.
 
-On 5/12/2026 4:11 PM, Icenowy Zheng wrote:
-> 在 2026-05-12二的 15:45 +0800，Joey Lu写道：
->> On 5/11/2026 5:47 PM, Icenowy Zheng wrote:
->>> 在 2026-05-11一的 15:51 +0800，Joey Lu写道：
->>>> The Nuvoton MA35D1 SoC integrates a Verisilicon DCUltra Lite
->>>> display
->>>> controller, which is a previous generation of the DC8000 series.
->>>> While
->>>> the general register layout is similar to the DC8000, there are
->>>> several
->>>> key differences that require per-variant handling in the driver.
->>>>
->>>> Add a vs_dc_info platform data structure (in vs_hwdb.h) to
->>>> describe
->>>> per-IP-variant capabilities, and use it throughout the driver to
->>>> select
->>>> the correct code paths at runtime.
->>>>
->>>> Key differences between DC8000 and DCUltra Lite handled:
->>> What the driver supports now is DC8200, DC8000 have the following
->>> point
->>> 1~4 the same with DCUltraLite (different to DC8200).
->> Understood. I'll rename all `vs_dc8000_*` identifiers to
->> `vs_dc8200_*` in v2. The commit message will also be corrected to say
->> that points 1~4 are differences from DC8200, not DC8000.
->>>> 1. No chip identity registers (0x0020-0x0030): DCUltra Lite uses
->>>> static
->>>>      platform data instead of reading model/revision/customer_id
->>>> from
->>>> HW.
->>> My test shows that revision and customer_id is correctly present,
->>> only
->>> model is 0 -- I think this can be also considered as a valid model
->>> value because the IP name has also no model number.
->>>
->>> The revision number is 0x5560 and customer id is 0x305 .
->> Thank you for testing. I'll drop the `has_chip_id` flag
->> entirely. In v2, `vs_fill_chip_identity()` will be called for all
->> variants. A new entry will be added to `vs_chip_identities[]` in
->> vs_hwdb.c with model=0x0, revision=0x5560, customer_id=0x305,
->> display_count=1, and `vs_formats_no_yuv444`.
->> e.g. verisilicon-dc 40260000.display: Found DC0 rev 5560 customer 305
->>>> 2. No CONFIG_EX commit mechanism: DC8000 uses registers at 0x1CC0
->>>>      (FB_CONFIG_EX), 0x24D8 (FB_TOP_LEFT), 0x24E0
->>>> (FB_BOTTOM_RIGHT),
->>>>      0x2510 (FB_BLEND_CONFIG), 0x2518 (PANEL_CONFIG_EX). DCUltra
->>>> Lite
->>>>      omits all of these and instead uses enable/reset bits in
->>>> FB_CONFIG
->>>>      (bit 0 = enable, bit 4 = reset) for direct framebuffer
->>>> updates.
->>>>
->>>> 3. No PANEL_START register (0x1CCC): DCUltra Lite panel output
->>>> starts
->>>>      when PANEL_CONFIG.RUNNING is set; no separate multi-display
->>>> sync
->>>>      start register is needed.
->>>>
->>>> 4. Different IRQ registers: DCUltra Lite uses 0x147C (IRQ_STA) /
->>>>      0x1480 (IRQ_EN); DC8000 uses 0x0010 (IRQ_ACK) / 0x0014
->>>> (IRQ_EN).
->>>>
->>>> 5. Different clock/reset topology: DCUltra Lite requires only
->>>> "core"
->>>>      (bus gate) and "pix0" (pixel divider) clocks with no reset
->>>> lines
->>>>      managed by the driver. DC8000 needs core/axi/ahb clocks and
->>>> three
->>>>      resets.
->>> It's possible that your SoC integration combines core clock gate
->>> with
->>> bus clock gate instead of bus clock gate not existing.
->> Agreed. In v2 I'll remove the family-gated clock handling and
->> instead use `devm_clk_get_optional_enabled()` for the axi and ahb
->> clocks, so they are simply skipped if not present in DT. Resets are
->> already optional. This keeps the probe path uniform and handles any
->> SoC-specific clock combinations naturally.
-> Maybe this could be splitted as another patch, to make single commits
-> smaller.
-Got it.
->>>> 6. Single output only: DCUltra Lite has one display output; per-
->>>> output
->>>>      index logic is still in place but display_count is fixed at
->>>> 1.
->>>>
->>>> 7. Reduced register space: max_register is 0x2000 vs DC8000's
->>>> 0x2544.
->>>>
->>>> Add the "nuvoton,ma35d1-dcu" compatible string to the OF match
->>>> table,
->>>> extend Kconfig to allow building on ARCH_MA35 platforms, and
->>>> expose
->>>> vs_formats_no_yuv444 as the default format table for DCUltra Lite
->>>> (YUV444 blending is a DC8000-only feature).
->>>>
->>>> All changes have been tested on Nuvoton MA35D1 hardware and are
->>>> functioning correctly.
->>>>
->>>> Signed-off-by: Joey Lu <a0987203069@gmail.com>
->>>> ---
->>>>    drivers/gpu/drm/verisilicon/Kconfig           |   2 +-
->>>>    drivers/gpu/drm/verisilicon/vs_bridge.c       |  28 ++--
->>>>    drivers/gpu/drm/verisilicon/vs_crtc.c         |  13 +-
->>>>    drivers/gpu/drm/verisilicon/vs_dc.c           | 129
->>>> ++++++++++++----
->>>> --
->>>>    drivers/gpu/drm/verisilicon/vs_dc.h           |   1 +
->>>>    drivers/gpu/drm/verisilicon/vs_drm.c          |  16 ++-
->>>>    drivers/gpu/drm/verisilicon/vs_hwdb.c         |   2 +-
->>>>    drivers/gpu/drm/verisilicon/vs_hwdb.h         |  25 ++++
->>>>    .../gpu/drm/verisilicon/vs_primary_plane.c    |  43 +++---
->>>>    .../drm/verisilicon/vs_primary_plane_regs.h   |   2 +
->>>>    10 files changed, 187 insertions(+), 74 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/verisilicon/Kconfig
->>>> b/drivers/gpu/drm/verisilicon/Kconfig
->>>> index 7cce86ec8603..295d246eb4b4 100644
->>>> --- a/drivers/gpu/drm/verisilicon/Kconfig
->>>> +++ b/drivers/gpu/drm/verisilicon/Kconfig
->>>> @@ -2,7 +2,7 @@
->>>>    config DRM_VERISILICON_DC
->>>>    	tristate "DRM Support for Verisilicon DC-series display
->>>> controllers"
->>>>    	depends on DRM && COMMON_CLK
->>>> -	depends on RISCV || COMPILE_TEST
->>>> +	depends on RISCV || ARCH_MA35 || COMPILE_TEST
->>>>    	select DRM_BRIDGE_CONNECTOR
->>>>    	select DRM_CLIENT_SELECTION
->>>>    	select DRM_DISPLAY_HELPER
->>>> diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c
->>>> b/drivers/gpu/drm/verisilicon/vs_bridge.c
->>>> index 7a93049368db..225af322de32 100644
->>>> --- a/drivers/gpu/drm/verisilicon/vs_bridge.c
->>>> +++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
->>>> @@ -164,13 +164,16 @@ static void vs_bridge_enable_common(struct
->>>> vs_crtc *crtc,
->>>>    			VSDC_DISP_PANEL_CONFIG_CLK_EN);
->>>>    	regmap_set_bits(dc->regs,
->>>> VSDC_DISP_PANEL_CONFIG(output),
->>>>    			VSDC_DISP_PANEL_CONFIG_RUNNING);
->>>> -	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
->>>> -			
->>>> VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
->>>> -	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_START,
->>>> -			VSDC_DISP_PANEL_START_RUNNING(output));
->>>>    
->>>> -	regmap_set_bits(dc->regs,
->>>> VSDC_DISP_PANEL_CONFIG_EX(crtc-
->>>>> id),
->>>> -			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
->>>> +	if (dc->info->has_config_ex) {
->>>> +		regmap_clear_bits(dc->regs,
->>>> VSDC_DISP_PANEL_START,
->>>> +				
->>>> VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
->>>> +		regmap_set_bits(dc->regs, VSDC_DISP_PANEL_START,
->>>> +				VSDC_DISP_PANEL_START_RUNNING(ou
->>>> tput
->>>> ));
->>>> +
->>>> +		regmap_set_bits(dc->regs,
->>>> VSDC_DISP_PANEL_CONFIG_EX(crtc->id),
->>>> +				VSDC_DISP_PANEL_CONFIG_EX_COMMIT
->>>> );
->>> Should the commit operation happen on DC8000/DCUltraLite too? (By
->>> writing to DcregFrameBufferConfig0.VALID).
->>>
->>> Many registers written has "Note: This field is double buffered" in
->>> the
->>> DCUltraLite documentation.
->>>
->>> I suggest create a static function for commit -- write to the
->>> corresponding commit bit on DC8200, and write to
->>> DcregFrameBufferConfig0.VALID on DC8000/DCUltraLite.
->> [a] There is no commit operation for DCUltra Lite.
->> I'll not add a `VSDC_FB_CONFIG_VALID` macro. VALID (BIT(3)) is a
->> hardware-managed double-buffer status bit: hardware writes 1=PENDING
->> when a new register set is ready and clears to 0=WORKING after the
->> VBLANK copy. Software must never write it, and there is no polling
->> use
-> It seems to be writable and controls whether register buffering is
-> enabled, see [1].
->
-> The description of this bit in MA35D1 TRM says "This ensures a frame
-> will always start with a valid working set if this register is
-> programmed last, which reduces the need for SW to wait for the start of
-> a VBLANK signal in order to ensure all states are loaded before the
-> next VBLANK", which indicates some kind of "committing write", although
-> the code at [1] seems to indicate that double buffering is only enabled
-> when bit is cleared.
->
-> Anyway this bit should be programmable, and "Software must never write
-> it" contradicts with the MA35D1 TRM.
->
-> Thanks,
-> Icenowy
->
-> [1]
-> https://github.com/rockos-riscv/rockos-kernel/blob/rockos-v6.6.y/drivers/gpu/drm/eswin/es_dc_hw.c#L993
-Thank you for the correction. I'll add
-`#define VSDC_FB_CONFIG_VALID BIT(3)` to vs_primary_plane_regs.h and
-write it in `vs_primary_plane_commit()` for non-config_ex variants.
->> case in the driver that requires a named constant. For non-config_ex
->> variants, `vs_primary_plane_commit()` performs no commit operation —
->> `VSDC_FB_CONFIG_ENABLE` (OUTPUT, BIT(0)) is set in
->> `vs_crtc_atomic_enable()` and `VSDC_FB_CONFIG_RESET` (BIT(4)) is
->> set/cleared in the bridge enable/disable paths.
-> ========= 8< ==========
->
+Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+---
+ MAINTAINERS                                   |  5 ++
+ drivers/soc/Kconfig                           |  1 +
+ drivers/soc/Makefile                          |  1 +
+ drivers/soc/starfive/Kconfig                  |  6 ++
+ drivers/soc/starfive/Makefile                 |  2 +
+ drivers/soc/starfive/socinfo/Kconfig          | 11 +++
+ drivers/soc/starfive/socinfo/Makefile         |  2 +
+ drivers/soc/starfive/socinfo/jhb100-socinfo.c | 80 +++++++++++++++++++
+ 8 files changed, 108 insertions(+)
+ create mode 100644 drivers/soc/starfive/Kconfig
+ create mode 100644 drivers/soc/starfive/Makefile
+ create mode 100644 drivers/soc/starfive/socinfo/Kconfig
+ create mode 100644 drivers/soc/starfive/socinfo/Makefile
+ create mode 100644 drivers/soc/starfive/socinfo/jhb100-socinfo.c
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 6f6aac7cea95..66175f453d20 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -25613,6 +25613,11 @@ S:	Maintained
+ F:	drivers/reset/starfive/reset-starfive-jhb1*
+ F:	include/dt-bindings/reset/starfive,jhb1*.h
+ 
++STARFIVE JHB100 SOCINFO DRIVER
++M:	Changhuang Liang <changhuang.liang@starfivetech.com>
++S:	Maintained
++F:	drivers/soc/starfive/
++
+ STARFIVE JHB100 SYSCON
+ M:	Changhuang Liang <changhuang.liang@starfivetech.com>
+ S:	Maintained
+diff --git a/drivers/soc/Kconfig b/drivers/soc/Kconfig
+index a2d65adffb80..b3b01fc38139 100644
+--- a/drivers/soc/Kconfig
++++ b/drivers/soc/Kconfig
+@@ -24,6 +24,7 @@ source "drivers/soc/renesas/Kconfig"
+ source "drivers/soc/rockchip/Kconfig"
+ source "drivers/soc/samsung/Kconfig"
+ source "drivers/soc/sophgo/Kconfig"
++source "drivers/soc/starfive/Kconfig"
+ source "drivers/soc/sunxi/Kconfig"
+ source "drivers/soc/tegra/Kconfig"
+ source "drivers/soc/ti/Kconfig"
+diff --git a/drivers/soc/Makefile b/drivers/soc/Makefile
+index c9e689080ceb..009f85ff891a 100644
+--- a/drivers/soc/Makefile
++++ b/drivers/soc/Makefile
+@@ -30,6 +30,7 @@ obj-y				+= renesas/
+ obj-y				+= rockchip/
+ obj-$(CONFIG_SOC_SAMSUNG)	+= samsung/
+ obj-y				+= sophgo/
++obj-y				+= starfive/
+ obj-y				+= sunxi/
+ obj-$(CONFIG_ARCH_TEGRA)	+= tegra/
+ obj-y				+= ti/
+diff --git a/drivers/soc/starfive/Kconfig b/drivers/soc/starfive/Kconfig
+new file mode 100644
+index 000000000000..04b020083d3e
+--- /dev/null
++++ b/drivers/soc/starfive/Kconfig
+@@ -0,0 +1,6 @@
++# SPDX-License-Identifier: GPL-2.0-only
++menu "StarFive SoC (System On Chip) specific Drivers"
++
++source "drivers/soc/starfive/socinfo/Kconfig"
++
++endmenu
+diff --git a/drivers/soc/starfive/Makefile b/drivers/soc/starfive/Makefile
+new file mode 100644
+index 000000000000..ca1e609b8104
+--- /dev/null
++++ b/drivers/soc/starfive/Makefile
+@@ -0,0 +1,2 @@
++# SPDX-License-Identifier: GPL-2.0-only
++obj-y += socinfo/
+diff --git a/drivers/soc/starfive/socinfo/Kconfig b/drivers/soc/starfive/socinfo/Kconfig
+new file mode 100644
+index 000000000000..92bbab62895b
+--- /dev/null
++++ b/drivers/soc/starfive/socinfo/Kconfig
+@@ -0,0 +1,11 @@
++# SPDX-License-Identifier: GPL-2.0-only
++
++config STARFIVE_JHB100_SOCINFO
++	bool "StarFive JHB100 SoC Information"
++	depends on ARCH_STARFIVE || COMPILE_TEST
++	select SOC_BUS
++	default y
++	help
++	  Include support for the SoC bus socinfo for the StarFive JHB100 SoC
++	  platforms to provide information about the SoC family and variant
++	  to user space.
+diff --git a/drivers/soc/starfive/socinfo/Makefile b/drivers/soc/starfive/socinfo/Makefile
+new file mode 100644
+index 000000000000..26c2bdf1de3b
+--- /dev/null
++++ b/drivers/soc/starfive/socinfo/Makefile
+@@ -0,0 +1,2 @@
++# SPDX-License-Identifier: GPL-2.0-only
++obj-$(CONFIG_STARFIVE_JHB100_SOCINFO)	+= jhb100-socinfo.o
+diff --git a/drivers/soc/starfive/socinfo/jhb100-socinfo.c b/drivers/soc/starfive/socinfo/jhb100-socinfo.c
+new file mode 100644
+index 000000000000..9c5826d7c253
+--- /dev/null
++++ b/drivers/soc/starfive/socinfo/jhb100-socinfo.c
+@@ -0,0 +1,80 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2025 StarFive Technology Co., Ltd.
++ *
++ * Author: Changhuang Liang <changhuang.liang@starfivetech.com>
++ */
++
++#include <linux/bitfield.h>
++#include <linux/init.h>
++#include <linux/mfd/syscon.h>
++#include <linux/of.h>
++#include <linux/regmap.h>
++#include <linux/sys_soc.h>
++
++#define JHB100_REV_ID			0x38
++#define JHB100_REV_ID_CHAR		GENMASK(3, 2)
++#define JHB100_REV_ID_NUM		GENMASK(1, 0)
++
++static int __init starfive_socinfo_init(void)
++{
++	struct soc_device_attribute *attrs;
++	struct soc_device *soc_dev;
++	const char *machine = NULL;
++	struct device_node *np;
++	struct regmap *regmap;
++	char rev_char;
++	u32 rev_id;
++	int ret;
++
++	np = of_find_compatible_node(NULL, NULL, "starfive,jhb100-sys0-syscon");
++	if (!of_device_is_available(np)) {
++		of_node_put(np);
++		return -ENODEV;
++	}
++
++	regmap = syscon_node_to_regmap(np);
++	if (IS_ERR(regmap)) {
++		of_node_put(np);
++		return PTR_ERR(regmap);
++	}
++
++	ret = regmap_read(regmap, JHB100_REV_ID, &rev_id);
++	if (ret) {
++		of_node_put(np);
++		return ret;
++	}
++
++	of_node_put(np);
++
++	rev_char = (char)FIELD_GET(JHB100_REV_ID_CHAR, rev_id) + 'A';
++	rev_id = (u32)FIELD_GET(JHB100_REV_ID_NUM, rev_id);
++
++	attrs = kzalloc_obj(*attrs);
++	if (!attrs)
++		return -ENOMEM;
++
++	np = of_find_node_by_path("/");
++	of_property_read_string(np, "model", &machine);
++	if (machine)
++		attrs->machine = kstrdup(machine, GFP_KERNEL);
++	of_node_put(np);
++
++	attrs->revision = kasprintf(GFP_KERNEL, "%c%u", rev_char, rev_id);
++	attrs->family = "JH";
++	attrs->soc_id = "JHB100";
++
++	soc_dev = soc_device_register(attrs);
++	if (IS_ERR(soc_dev)) {
++		kfree(attrs->revision);
++		kfree(attrs->machine);
++		kfree(attrs);
++		return PTR_ERR(soc_dev);
++	}
++
++	pr_info("StarFive %s SoC rev(%s)\n", attrs->soc_id, attrs->revision);
++
++	return 0;
++}
++
++early_initcall(starfive_socinfo_init);
+-- 
+2.25.1
+
