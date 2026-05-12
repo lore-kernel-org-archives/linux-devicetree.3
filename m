@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7318438333E
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 02:18:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E07AA3630B2
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 02:21:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778552331; cv=none; b=NAKMcPpgJuI64ETmEvxn7BANpghLy1bQDFxcwD/s89y75qjlvakhCoa1yFxu8QsHpiSWqgGq5yPxVm/Z2TOcyWxruw01HEBGzzlZXhgfb/tqIzegAZ/mgInkkj7CQmONRrJSloYAChBtCAcGoxSM3P/45nXg8t3NBoZUPCLsV/c=
+	t=1778552508; cv=none; b=DMron6lrdDUVBcpIlXtwfbGYlAuRcZlLvVoLlwMWzqJoqJ/wimBBiTU4Bs08a0ecnf+nEfIpVlsFkDmCXGyiQYVsxZ+9iIrJsOnQhIB0nQnJnrncyLyEhA4UQjHXAWrreU+PnqZ5XC5gr+ezhVPUu8nfiXrvZ8JSZn2Wfa0kJWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778552331; c=relaxed/simple;
-	bh=bQtBJS8Y5hOinAWkzWN3iQ9k54kzRrmmy4nxyo/eCQQ=;
+	s=arc-20240116; t=1778552508; c=relaxed/simple;
+	bh=j3cRa79F4iRWIZJaJ0yhl9o30/kp0R2WvX6vE+d52vY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qQQ1Y8nuHHGV+9PaHpSiovJaQAmDplCU6mOAAShQyFA3z3PVACnM0x8ruxsyD4LB5I2tR487IiHG7OASrqoy03g3OvopWT/hLseCSX1dYouvr26T+nUgewjbFGk+kwbq2jLkSXV5zkwDgjekFHWgN2W2n91NMNYO7ymuuNg5JSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A0Mxttfy; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=LNff3Ie8vtoxvR6DElhMrfMbDn54tTmL63oKFTRbCaWblHV1mRSraLVhr3/AaMsjB6G0dJ8Jxm941/MtbACNVr+vtfZAnh+K9N8DnnKmWExRtaYT5crTq5kq2ECxoNQrdQEx9UqxzXXQi0OIyfh2+vGsDi7M1hvzVSmvQVW8xPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pHfQx1oy; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A0Mxttfy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D48DFC2BCB0;
-	Tue, 12 May 2026 02:18:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pHfQx1oy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDD74C2BCB0;
+	Tue, 12 May 2026 02:21:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778552331;
-	bh=bQtBJS8Y5hOinAWkzWN3iQ9k54kzRrmmy4nxyo/eCQQ=;
+	s=k20201202; t=1778552507;
+	bh=j3cRa79F4iRWIZJaJ0yhl9o30/kp0R2WvX6vE+d52vY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=A0MxttfycYEXwux+Hx9OunSkGoG+P+PGtXsLwpIgliGjw6p3PxQeMtYIM+ESZ2Z8r
-	 hbRIdR4fHZy3jdwsvAwD3uH+bIraX1Y56gaIUsW3e6tYUQyM9WSquNALtSY8TTTF3Q
-	 OeaeDOn9GKUMegsvxjsjs/jPcH6O3O6NeyPBe/ojR4ZBCUvdTkXVfDicekbSb1+SD6
-	 1IJTnteNowkDWOma07nFs+C/5unKbJLk1oORPJLz5GoyivBTKihV/b5Q9/GLI83FtS
-	 NSu1Z4jWgWGobsNDwLoGkRgKsvywZt5+P+ysNRP4h1RsosCDICNzyTLVGHC4mP3SJA
-	 tVJuDZtsr73fQ==
+	b=pHfQx1oy0xkZvMd5s+diesZPLRpqu20qGdKZ5GacXap3706ys9JLQB4xNpSZQz9an
+	 a7gDHUVDER+dMfkDEZRINUb0hjSxGtl+h+QpH60FhAm+1nFiv0n++dTnDcc2SzzrRI
+	 /4xO0X2x3MMBZf0sX66Z+/7CDanLzaFsCwJ3am1RuEMd0eYi46iamAQ9CbHSwIR0K3
+	 roMa5Qm9EapGaBk4GWbLeFZvIZDfsNSr5ZoZ1oT5v9j7sInG/Ugvxx7haSlZjx6hUx
+	 x3l1INqd4KRdI6JRcXKvdR6Yai1jVOn4EsnRrnqpjxDFcFF/lGddlOzRCLM7//jrgc
+	 mfQIl3xQGhaAw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/6] riscv: dts: spacemit: k1-musepi-pro: add 24c04
- eeprom
+Subject: Re: [PATCH v2 1/3] dt-bindings: arm: qcom: document the Ayaneo
+ Pocket DS
 Reply-To: sashiko@lists.linux.dev
-To: "Andre Heider" <a.heider@gmail.com>
-Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260511111116.1109643-3-a.heider@gmail.com>
-References: <20260511111116.1109643-3-a.heider@gmail.com>
+To: "Alexandre Hamamdjian via B4 Relay" <devnull+azkali.limited.gmail.com@kernel.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260511-pocketds-v2-1-299dd4247f2f@gmail.com>
+References: <20260511-pocketds-v2-1-299dd4247f2f@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 12 May 2026 02:18:50 +0000
-Message-Id: <20260512021850.D48DFC2BCB0@smtp.kernel.org>
+Date: Tue, 12 May 2026 02:21:46 +0000
+Message-Id: <20260512022146.EDD74C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,49 +46,43 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Mismatch between commit message specifying 24C04 EEPROM and the =
-device tree implementation specifying 24C02.
+- [Low] The compatible string `ayaneo,pocketds` does not follow the standar=
+d devicetree naming convention of using hyphens to separate words.
 --
 
-commit 8474b79f5a61bfe2629e2e2bdbab9bc9128b8502
-Author: Andre Heider <a.heider@gmail.com>
+commit a683c6b060e33ed2160f67fb6b6b66afa0e7a006
+Author: Teguh Sobirin <teguh@sobir.in>
 
-riscv: dts: spacemit: k1-musepi-pro: add 24c04 eeprom
+dt-bindings: arm: qcom: document the Ayaneo Pocket DS
 
-This commit enables i2c2 and adds a connected EEPROM containing an ONIE
-TLV table.
+This commit documents the Qualcomm QCS8550 based Ayaneo Pocket DS gaming
+console.
 
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts b/arch/riscv/=
-boot/dts/spacemit/k1-musepi-pro.dts
-> index 88c35ad1ef2ae..79415d760f162 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
+> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentat=
+ion/devicetree/bindings/arm/qcom.yaml
+> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
+> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
 [ ... ]
-> @@ -92,6 +93,38 @@ &pdma {
->  	status =3D "okay";
->  };
+> @@ -1107,6 +1107,12 @@ properties:
+>            - const: qcom,qcs8550
+>            - const: qcom,sm8550
 > =20
-> +&i2c2 {
-> +	pinctrl-0 =3D <&i2c2_0_cfg>;
-> +	pinctrl-names =3D "default";
-> +	status =3D "okay";
+> +      - items:
+> +          - enum:
+> +              - ayaneo,pocketds
+
+This isn't a bug, but should this compatible string use a hyphen to separate
+words? The commit message refers to the device as the "Ayaneo Pocket DS",
+and the existing compatible string below uses "ayaneo,pocket-s2", so
+"ayaneo,pocket-ds" might be more consistent.
+
+> +          - const: qcom,qcs8550
+> +          - const: qcom,sm8550
 > +
-> +	eeprom@50 {
-> +		compatible =3D "atmel,24c02";
-> +		reg =3D <0x50>;
-> +		vcc-supply =3D <&buck3_1v8>; /* EEPROM_VCC1V8 */
-> +		pagesize =3D <8>;
-> +		read-only;
-> +		size =3D <256>;
-
-The commit message states "add 24c04 eeprom", but the device tree uses the
-atmel,24c02 compatible string, a page size of 8, and a total size of 256
-bytes.
-
-Since a 24c04 EEPROM is typically 512 bytes with a 16-byte page size, is
-this hardware actually a 24c02, or does the device tree node need to be
-updated to fully describe a 24c04?
+>        - items:
+>            - enum:
+>                - ayaneo,pocket-s2
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511111116.1109=
-643-1-a.heider@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511-pocketds-v=
+2-0-299dd4247f2f@gmail.com?part=3D1
