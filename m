@@ -1,230 +1,147 @@
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 939264DB55D
-	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 06:13:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778566446; cv=pass; b=kBLi0LdjRVb4a9QjXuwFz0W6Qm3Sqh1W0jaXRjS0Up9MnHQPyQK/EXyXifHfkCvK1dDZuDUvknRdD2Tmt9lpiYAu+s55sxZhNneAXaqz3I3bM9KH06f7fXKK/6w7wjH2BPGyKSGZjOOvcn8ycEM+Es/VXzTViBbmn1k5dCwC5wY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778566446; c=relaxed/simple;
-	bh=3ld4zdEky9JiorADEB2JzKLMGmxL8CZq09SENbVMLTw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=P5FQeAIQlo11apz5RKq30FlmLI/Ob7iTtWrFe1NlO0V3vQEVGkhAEtoeCbV0xAE1hM4/fRHqNI3aK/jYT5fPzfEV4hNHrCJ8bL3I/wAIFHFt3GH0FG3J6UD5oeW0EgDm+imfUXGgNUsdBFA3N7pcp4F93sZfoi2G68ukwf6flc8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P6JVSg17; arc=pass smtp.client-ip=74.125.82.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E97F2ECD32
+	for <devicetree@vger.kernel.org>; Tue, 12 May 2026 06:18:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778566726; cv=none; b=gqBtBJFYCwz9iag9t52Ye9qN6KPEOT+6xOoFqiSS5hEnvjHbQOv+4I9Gn/OsgMO0DlDuotnuiCAhl//+v9GLp+Lt/y0tZmqTxUmlk9qPyiTlkRVp4ma4shxVhrc6RPIyEJmiq7hezxKg262fHF5QcLQAPaL8uAUw4waVdfaARTw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778566726; c=relaxed/simple;
+	bh=+dbtsfBGM5QlF/ap1FP686dpELozsfjap/u31rYB5ro=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ZiHo4Go/leadEyWVMk1L+GHunMI+HEOkzmyzxycxzt8QsT4DKPtrQRU+wR8ZQZmSW1SZShCEEspx4V7XwC55ocDJYbTRJP8HucOZE8yAOTOYlpoZ3CQhqVrfGMmwiCBkSekUZqMRTqPMXEqRmFXrTFen4IHa4ypUZ8kSick46Fc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=p6gRwaXf; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P6JVSg17"
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-2f36da5c8fbso5029029eec.0
-        for <devicetree@vger.kernel.org>; Mon, 11 May 2026 23:13:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778566432; cv=none;
-        d=google.com; s=arc-20240605;
-        b=ltxmB+6NHoWqDUufKDg2z3RLbWvbunY33gvagUwyFio9Ab39oy2mkCg+eAO10EsXnL
-         ZPmQfJtOtj/4TeQ1OqK1C+hdVSAQCWjThF+xDrWDtkAHra1SBl8YyXLpfvG2iLaOVR/z
-         Y4NTeFRTJhpgysjD7rFOqeJdSTXkCpYoSo0LLJK1c6OT2SGdfZ+94IjVSwVSTR68WSfm
-         41PkseSwwtLpT4YQD4HiamPTRkDB486/M1ELvLxa8gErrDfTJEgDhCPVpCbWrvJM/IZS
-         FXW791LncILA0nxuhPwBCcAEqOcrDuwdaxe6/kUR2c8soY2n7xRhNmv7etbDAUy5qOtt
-         nRFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=yr8QRs98bsPiw0gF0kGFiK+9h78W1fGBBJoeOfjYUCc=;
-        fh=oUy8TJUFbLxySLMDbWXqLflOlref1OLYCHQnkYYaU3Q=;
-        b=iMVlS25F6960YcLZcy7AkkhtOzpnu4wXEzxLubXHfsFH3AOj1rlfliEXTd7hwFPuRj
-         A47XlbS4w2Zxpzm4OlEA6cERRloPQqnXkzqSEvYwAgRTqnz/BOVpZ+qtY/XZjne78nCG
-         NexAXDzM1OZhrwkH9a29aE+HvU+SJz9QR+MyvDkYtuNJJ9XE3k8Kw8kJk+8hrilvEMVE
-         OJXNQqonWgbVA8FXhGJjrAnkfAkbM36tb43oHR0rJ/6KE17SSRLe3vSZ9pe4lmjcEruX
-         KE1IiUScPRG2weI1nBuNeQVjBL+IfcDTqaCsPpDX9BPhImCwZZeFSefJsonSL3w17Ecs
-         NGdA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778566432; x=1779171232; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=yr8QRs98bsPiw0gF0kGFiK+9h78W1fGBBJoeOfjYUCc=;
-        b=P6JVSg17mfG3AE++SHupyqKkJLaPPzom6Hym1yhnh9DOVxBji9AnJ3hls5QLmWd2TG
-         ULq6zRBIkTtCCKHl/RGgKcP3NwzPXDUGKuv3j9xOZ8IVvN7cTQQtKwh1xBmkhS8Ip/dI
-         gwUXG/gIKMWiY/1fAKKkeyuc5gMhyUcg18cf0fLz4gsWYuyey29l/rgRHUkaqPujaeyM
-         aTmavwGzzsnO71xErdMSJdx5/+ZnQ5bp+9d/1ZzFEsd8MYd3HdaAOrZhEBJa7d0v7i7+
-         vNVEUMU3/83mySnyyEUsL1VgvgozYrJEg2+UG0n2xUEJj733OO0F0x7ngpNZ12iyOWIL
-         JZzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778566432; x=1779171232;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=yr8QRs98bsPiw0gF0kGFiK+9h78W1fGBBJoeOfjYUCc=;
-        b=KQujIDYwq0MTCYWBBxDlyTMsTaq8zDnWHgnN+fGo7MCakA0suZB6u++6wXxWlw9hby
-         ggqRwb5Xc2RSnrK0eJy7xWtMdATyS2YYHzDrzGDtQELLJIFWsJCDNxSdV+OtckSe7eQV
-         reDnNhjFXsyi6UdkFfL7LJ6WFbEVJxdPfHmqHIEGIDksQdOYr6QkgfwoSAEuhtJfD38Y
-         G9Wu0wnjuLFJ29oKzDDZUbziTIGpqsqbkljhaCatv3TvmKuVU/rUZL5mUj0EhrDNDEGX
-         AiantGHPhpefmuOrKK93lijOJE1IZTApyjaLlnt4A98SDXpOXXmCWUDTw0Uupp04Dtf4
-         sSqQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9svmWIjCg6DJHxUv5+P7MnFjIgwa2w/IcKiyWwF+brC+kM6nXzTtcwhRKRP0Qs++iRRDmzeBJKRs2H@vger.kernel.org
-X-Gm-Message-State: AOJu0YzA7yuQQTw2oV6pMris9UKIO9GXCwqBoqYqlRKq2sZlwaipOOkP
-	shjgykuqQmF+TqcoUVLAP0jZzc+k1mA2FWnS6OTLCR6L8X5PfUV3bawZc+8wY08lpVw0txiKsvZ
-	ElqFZqpWbNK/++97eXvVzEnuuRC4/8kE=
-X-Gm-Gg: Acq92OFVkPr50n21otXGr+0pfJSHAepIMkP1rZ9BRxqKKQH5unoRfQjxMAB+YCoRywQ
-	v9kXz2kivxRBihxUeDvDsUc3OCAvG4d+b6XYuWyDRI8rcKNHu4amFGXg+8ioS3Jl9BM4OqMZEyh
-	1xYR5S8miVSkGTkh2TkSu6S6XPBZ8yHZzDf5xfH6CvKkOv6RjIv4m5TW/zVl03tL9T3e4susAxX
-	6k5bDkrJvxGWjB2tWuLrrj+9U6TUp3TCzqfFP1z5GDAprjwL4BimdM1hMHXws6aoi1fcVDBzvEF
-	EJaxGp+P
-X-Received: by 2002:a05:7301:7213:b0:2e2:4979:ec7 with SMTP id
- 5a478bee46e88-2fb4bff2949mr6162640eec.10.1778566431760; Mon, 11 May 2026
- 23:13:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="p6gRwaXf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1D75C2BCB0;
+	Tue, 12 May 2026 06:18:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778566724;
+	bh=+dbtsfBGM5QlF/ap1FP686dpELozsfjap/u31rYB5ro=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=p6gRwaXfHa8IUMeRkj/b6aHj5DwIGHc3tcJRFDv6qqDg5EYmCeApW1byZW7mqx6CG
+	 MEWY+9mTy3jqFIXmhSja2M4E5EAQC/a94BYuoSrltUiEkWSS5Ya9Zu+Q9WPBo7CiRg
+	 RD9I1hMJupIzK/Rgte6tHzAQcTYazuiEmN5XLFL3RCOyl9vESCGll6r7ttq1hndNsk
+	 5gt7lZW9mhRFKzLPAb+1L1Af//iPH/IbowYqIWY7pX5WsH4azrP1Az6wRN7TaIuW9M
+	 jGhzSbb5jzR2DNwDqubWCcvr3t7tniGrmot1k5HIRFkMHR8JCj0hOpX2jt5t2C2lN2
+	 OZAZHpVFtISjg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 09/10] clk: amlogic: Add A9 peripherals clock controller
+ driver
+Reply-To: sashiko@lists.linux.dev
+To: "Jian Hu via B4 Relay" <devnull+jian.hu.amlogic.com@kernel.org>
+Cc: krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260511-b4-a9_clk-v1-9-41cb4071b7c9@amlogic.com>
+References: <20260511-b4-a9_clk-v1-9-41cb4071b7c9@amlogic.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 12 May 2026 06:18:43 +0000
+Message-Id: <20260512061843.C1D75C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260511135703.62470-1-clamor95@gmail.com> <20260511135703.62470-3-clamor95@gmail.com>
- <agJ/T8nBGWEoblmd@nchen-desktop>
-In-Reply-To: <agJ/T8nBGWEoblmd@nchen-desktop>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Tue, 12 May 2026 09:13:40 +0300
-X-Gm-Features: AVHnY4L1_bWZXCrp3MmGLMUWBEn-sMyg9m87GKXzm_vHqR-lTAFW3X_ZqIO7y3g
-Message-ID: <CAPVz0n173syW9rXy7Qt_N=mChe6WBRLvjRDypcJEC50hPL4OMQ@mail.gmail.com>
-Subject: Re: [PATCH v1 2/6] usb: chipidea: tegra: Avoid controller/PHY init if
- bus is externally controlled
-To: "Peter Chen (CIX)" <peter.chen@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-phy@lists.infradead.org, linux-tegra@vger.kernel.org, 
-	linux-usb@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-=D0=B2=D1=82, 12 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 04:1=
-6 Peter Chen (CIX) <peter.chen@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On 26-05-11 16:56:57, Svyatoslav Ryhel wrote:
-> > If the USB controller and PHY are externally controlled, then the
-> > registration of the controller and the PHY initialization should be
-> > skipped, since these configurations must be done by the device that
-> > controls the bus to work correctly.
-> >
->
-> I find you only control USB controller device add at PHY driver, most of =
-USB drivers
-> has PHY control, for chipidea, it has PHY control at core.c, would please=
- try to
-> adapt for it?
->
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Missing multiplexer value table for `usb_48m_pre` clock
+- [High] Register bit overlap between `gen` clock divider and gate
+- [High] Incorrect parent clock selector referenced by `hdmitx1_pixel`
+--
 
-Usually yes, but this is not the case for Tegra unfortunately. As you
-can see Tegra specific section of Chipidea driver specifically
-describes why it has to set PHY manually.
+commit 4a10654bfda3abb70d26d386a44e76675278fccb
+Author: Jian Hu <jian.hu@amlogic.com>
 
-/*
- * USB controller registers shouldn't be touched before PHY is
- * initialized, otherwise CPU will hang because clocks are gated.
- * PHY driver controls gating of internal USB clocks on Tegra.
- */
+clk: amlogic: Add A9 peripherals clock controller driver
 
-So in order to provide correct work of USB when set by an external
-device, both PHY and controller init/add must be skipped.
+Add the peripherals clock controller driver for the Amlogic A9 SoC family.
 
-> Peter
->
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > ---
-> >  drivers/usb/chipidea/ci_hdrc_tegra.c | 36 +++++++++++++++++-----------
-> >  1 file changed, 22 insertions(+), 14 deletions(-)
-> >
-> > diff --git a/drivers/usb/chipidea/ci_hdrc_tegra.c b/drivers/usb/chipide=
-a/ci_hdrc_tegra.c
-> > index 372788f0f970..593390a818d1 100644
-> > --- a/drivers/usb/chipidea/ci_hdrc_tegra.c
-> > +++ b/drivers/usb/chipidea/ci_hdrc_tegra.c
-> > @@ -32,6 +32,7 @@ struct tegra_usb {
-> >       struct clk *clk;
-> >
-> >       bool needs_double_reset;
-> > +     bool externally_controlled;
-> >  };
-> >
-> >  struct tegra_usb_soc_info {
-> > @@ -312,20 +313,25 @@ static int tegra_usb_probe(struct platform_device=
- *pdev)
-> >       if (device_property_present(&pdev->dev, "nvidia,needs-double-rese=
-t"))
-> >               usb->needs_double_reset =3D true;
-> >
-> > +     if (device_property_present(&pdev->dev, "nvidia,external-control"=
-))
-> > +             usb->externally_controlled =3D true;
-> > +
-> >       err =3D tegra_usb_reset_controller(&pdev->dev);
-> >       if (err) {
-> >               dev_err_probe(&pdev->dev, err, "failed to reset controlle=
-r");
-> >               goto fail_power_off;
-> >       }
-> >
-> > -     /*
-> > -      * USB controller registers shouldn't be touched before PHY is
-> > -      * initialized, otherwise CPU will hang because clocks are gated.
-> > -      * PHY driver controls gating of internal USB clocks on Tegra.
-> > -      */
-> > -     err =3D usb_phy_init(usb->phy);
-> > -     if (err)
-> > -             goto fail_power_off;
-> > +     if (!usb->externally_controlled) {
-> > +             /*
-> > +              * USB controller registers shouldn't be touched before P=
-HY is
-> > +              * initialized, otherwise CPU will hang because clocks ar=
-e gated.
-> > +              * PHY driver controls gating of internal USB clocks on T=
-egra.
-> > +              */
-> > +             err =3D usb_phy_init(usb->phy);
-> > +             if (err)
-> > +                     goto fail_power_off;
-> > +     }
-> >
-> >       /* setup and register ChipIdea HDRC device */
-> >       usb->soc =3D soc;
-> > @@ -342,12 +348,14 @@ static int tegra_usb_probe(struct platform_device=
- *pdev)
-> >       if (of_usb_get_phy_mode(pdev->dev.of_node) =3D=3D USBPHY_INTERFAC=
-E_MODE_ULPI)
-> >               usb->data.flags &=3D ~CI_HDRC_SUPPORTS_RUNTIME_PM;
-> >
-> > -     usb->dev =3D ci_hdrc_add_device(&pdev->dev, pdev->resource,
-> > -                                   pdev->num_resources, &usb->data);
-> > -     if (IS_ERR(usb->dev)) {
-> > -             err =3D dev_err_probe(&pdev->dev, PTR_ERR(usb->dev),
-> > -                                 "failed to add HDRC device");
-> > -             goto phy_shutdown;
-> > +     if (!usb->externally_controlled) {
-> > +             usb->dev =3D ci_hdrc_add_device(&pdev->dev, pdev->resourc=
-e,
-> > +                                           pdev->num_resources, &usb->=
-data);
-> > +             if (IS_ERR(usb->dev)) {
-> > +                     err =3D dev_err_probe(&pdev->dev, PTR_ERR(usb->de=
-v),
-> > +                                         "failed to add HDRC device");
-> > +                     goto phy_shutdown;
-> > +             }
-> >       }
-> >
-> >       return 0;
-> > --
-> > 2.51.0
-> >
->
-> --
->
-> Best regards,
-> Peter
+> diff --git a/drivers/clk/meson/a9-peripherals.c b/drivers/clk/meson/a9-pe=
+ripherals.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/clk/meson/a9-peripherals.c
+
+[ ... ]
+
+> /* Channel 5 and 6 are unconnected. */
+> static u32 a9_usb_250m_parents_val_table[] =3D { 0, 1, 2, 3, 4, 7 };
+> static const struct clk_parent_data a9_usb_250m_parents[] =3D {
+> 	{ .fw_name =3D "fdiv4", },
+> 	{ .fw_name =3D "fdiv3", },
+> 	{ .fw_name =3D "fdiv5", },
+> 	{ .fw_name =3D "fdiv2", },
+> 	{ .fw_name =3D "fdiv7", },
+> 	{ .fw_name =3D "fdiv2p5", }
+> };
+>=20
+> static A9_COMP_SEL(usb_250m, USB_CLK_CTRL, 9, 0x7, a9_usb_250m_parents,
+> 		   a9_usb_250m_parents_val_table);
+
+[ ... ]
+
+> static const struct clk_parent_data a9_usb_48m_pre_parents[] =3D {
+> 	{ .fw_name =3D "fdiv4", },
+> 	{ .fw_name =3D "fdiv3", },
+> 	{ .fw_name =3D "fdiv5", },
+> 	{ .fw_name =3D "fdiv2", },
+> 	{ .fw_name =3D "fdiv7", },
+> 	{ .fw_name =3D "fdiv2p5", }
+> };
+>=20
+> static A9_COMP_SEL(usb_48m_pre, USB_CLK_CTRL, 25, 0x7, a9_usb_48m_pre_par=
+ents,
+> 		   NULL);
+                   ^^^^
+
+Since channels 5 and 6 are unconnected, should this macro use a value table
+similar to a9_usb_250m_parents_val_table?
+
+Passing NULL might cause the framework to write the unconnected index 5 for
+the fdiv2p5 clock, potentially silencing the clock output instead of
+selecting index 7.
+
+[ ... ]
+
+> static A9_COMP_SEL(gen, GEN_CLK_CTRL, 12, 0x1f, a9_gen_parents,
+> 		   a9_gen_parents_val_table);
+> static A9_COMP_DIV(gen, GEN_CLK_CTRL, 0, 12);
+> static A9_COMP_GATE(gen, GEN_CLK_CTRL, 11, 0);
+                                         ^^
+
+Could this cause a register bit overlap?=20
+
+The divider is configured to be 12 bits wide starting at bit 0, which means
+it occupies bits 0 through 11. However, the clock gate is also defined at
+bit 11 in the same register.
+
+Writing to the divider might inadvertently toggle the clock gate, and
+toggling the gate could corrupt the most significant bit of the divider.
+
+[ ... ]
+
+> static struct clk_regmap a9_hdmitx1_pixel =3D {
+> 	.data =3D &(struct clk_regmap_gate_data){
+> 		.offset =3D VID_CLK_CTRL2,
+> 		.bit_idx =3D 12,
+> 	},
+> 	.hw.init =3D &(struct clk_init_data) {
+> 		.name =3D "hdmitx1_pixel",
+> 		.ops =3D &clk_regmap_gate_ops,
+> 		.parent_hws =3D (const struct clk_hw *[]) {
+> 			&a9_hdmitx_pixel_sel.hw
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+
+Is this the intended parent selector?=20
+
+This references a9_hdmitx_pixel_sel instead of a9_hdmitx1_pixel_sel. This
+hierarchy mismatch might cause parent and rate adjustments for hdmitx1_pixel
+to mutate the wrong clock selector, leaving its own hardware unconfigured.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511-b4-a9_clk-=
+v1-0-41cb4071b7c9@amlogic.com?part=3D9
