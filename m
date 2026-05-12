@@ -1,50 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A91B83C3425;
-	Tue, 12 May 2026 20:23:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827F33C0A06;
+	Tue, 12 May 2026 20:23:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778617407; cv=none; b=fSU6lEeO8yegFIMxdvSeuN7Tr2IEiABxwGduC1PxwIOpVvBra9dXOGmFE7uaUSCrpIfHcYn3ZErJLItC4bb5Dfi1jCrOpctqg+eMVXVZKLTVjCtbZdwMZOTdmNm5VCn1lAHdH3t5g4RRCyYFLajloYvzCfaaYMahbKILF1L6dOk=
+	t=1778617408; cv=none; b=MSQA26+m/olL0PDTAml3stfaEO3WGHqzwGb434/hr2g5GnZT6e/6ao0T/bkqnukYLo0x9a96zmyMWWby49Y2J4g3lHsFgvX41PSH3J29nbU63YdiSQmMYuRefOUv0pN13Bye8RLJd85+stDrklRY4NvavmwtHqYcafWUsJlwUaE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778617407; c=relaxed/simple;
-	bh=chukIX+T/btmNaTArLOyiZMQPLB8ZA7TdWweHZtdVgY=;
+	s=arc-20240116; t=1778617408; c=relaxed/simple;
+	bh=TVTM7HuOiUGHOxxbeIbePlWjQHPBVvRIUV5dSJ6l6N8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NPpDyRYdsBhuT0VkxmuGlNWh1BcY0NzqHgl+l5FfG4B/9oRucPX5joVZ5WqCHV+5Pt396lwhmQmtMlzNfI+2k+2CF0PYSEnj/++gjVHtLo6IukLK76UfqQyUyEnCUG/sTu6ui9QVhyb5oXvrUy7mXC1tPdHG+0/vdaI8mnalfNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yf+r9pc/; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version:Content-Type; b=q5z9gMaygIIZphfhYTDfJcd55hM6zfnKlVhpwO2462OV32w+1PTG+Wv0naVF/f/HYqylm5lYZWNYYJu6jEHktODnGBOfX4zq0zFHanATwHrgXIF873wkV81qb+HEQSsI0HtkcRC9yZoszwE6V1dGt+BkZxV94wkKjnZwSjQDTu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YNHc+on7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yf+r9pc/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F373C2BCF6;
-	Tue, 12 May 2026 20:23:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YNHc+on7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96A4AC2BCF5;
+	Tue, 12 May 2026 20:23:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778617407;
-	bh=chukIX+T/btmNaTArLOyiZMQPLB8ZA7TdWweHZtdVgY=;
+	s=k20201202; t=1778617408;
+	bh=TVTM7HuOiUGHOxxbeIbePlWjQHPBVvRIUV5dSJ6l6N8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Yf+r9pc/I7zPkiWRO+YPLGsWTMgkSocrd7a0ESE1nERRskTqe6gOvfChbdoCwvTUH
-	 nlWr77IaqRfjF2w44dT8OmibcuLFQEaAIgzwWbgteKhgzCoqhbYqdyW6BfRvm9T6SN
-	 QUg3T+TY+xdG1PSwiO+VyxHWQjg650JbrT3H57Hmf3ZzchzM+pVmmkvXPPWmjZttk6
-	 WJdHU8yvvVjif/ptVOSf+9jbmDkwlgfXazWjL26baFOekcwwtmr6ELnPJ3cCJCHAnC
-	 IGhiql6VZ04K59h4Ce1B2ThsHFqtTui+AJ5GaUOnDNvHti21JzDi+qqMTHedEQAK0i
-	 4rIm9rn9NiK4g==
+	b=YNHc+on7gfxo4shi/cYHrt8EXnr64IMxmhM8kHM5fNoU9CKI2e4Fr0IO1tHM/ssTw
+	 65361I0C0+5aqd4kKp1hcM1cLjX2ELHfuz3kB8qPS3WdP6ZDO4MP6yBEi+CVliSduy
+	 J05e8dpJcB+zx0K2GDMyH2Y+WY5U2fFe8f0g5KLhT6691XjAAQ1S21vaMIc4f9nz+8
+	 Xcz5aHQvKgm2N3Mlfof0GhxvSPLTv5IcEg4HXGzaL8ekVw3GwB8v8ETDX+gKaS65Ar
+	 1z0rOUl0JE7gzSPw+dZQaC/K/38wgMfMKFnQV6PONzLFVEO4bxJwz9kYdJ9dh9BNJW
+	 Wm542IUdA1Log==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
 	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH] arm64: dts: qcom: glymur: Drop RPMh CXO clocks from QMP PHYs
-Date: Tue, 12 May 2026 15:22:39 -0500
-Message-ID: <177861739387.1242344.12258692295804353296.b4-ty@kernel.org>
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v2] dt-bindings: soc: qcom,aoss-qmp: Document the Eliza Always-On Subsystem side channel
+Date: Tue, 12 May 2026 15:22:40 -0500
+Message-ID: <177861739354.1242344.1471382374840707726.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260414-dts-glymur-drop-rpmh-cxo-clk-from-qmpphys-v1-1-ab12d77c4aec@oss.qualcomm.com>
-References: <20260414-dts-glymur-drop-rpmh-cxo-clk-from-qmpphys-v1-1-ab12d77c4aec@oss.qualcomm.com>
+In-Reply-To: <20260504-eliza-bindings-aoss-v2-1-c3628ca79a25@oss.qualcomm.com>
+References: <20260504-eliza-bindings-aoss-v2-1-c3628ca79a25@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -55,21 +52,17 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 14 Apr 2026 20:05:51 +0300, Abel Vesa wrote:
-> On Glymur, all QMP PHYs except the one used by USB SS0 take their
-> reference clock from the TCSR clock controller. Since these TCSR clocks
-> already derive from RPMH_CXO_CLK as their sole parent, there is no need
-> to provide an extra `clkref` clock to the PHY nodes.
+On Mon, 04 May 2026 18:56:52 +0300, Abel Vesa wrote:
+> Document the Always-On Subsystem (AOSS) side channel found on the Qualcomm
+> Eliza SoC. It is used for communication with other clients, like
+> remoteprocs.
 > 
-> Drop the extra RPMh CXO clock inputs and use the TCSR clocks as the PHY
-> reference clocks instead.
 > 
-> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: glymur: Drop RPMh CXO clocks from QMP PHYs
-      commit: 12c97d1c15f926cd430bf5cdf8ffe878cb478165
+[1/1] dt-bindings: soc: qcom,aoss-qmp: Document the Eliza Always-On Subsystem side channel
+      commit: 7754a6b6a1424b01de9e981c8bc67b30c084d1c2
 
 Best regards,
 -- 
