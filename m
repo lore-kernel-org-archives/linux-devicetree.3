@@ -1,71 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35F7E39937C
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 21:39:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC9023BE623;
+	Wed, 13 May 2026 21:39:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778708361; cv=none; b=t0TH5SWNzRsvozHA+lr/RXeuH8Cy4uPpmEnRFFf8f7sgvk108L8ZPIMlE/QmLxr/UaSVyqNldFj5JdlmWTyYv0+2XEN27AF3pgduQhzX43KpwIDCs418PdVdOp9Mn+Cyb3vHotxXPVfKUvxMQL3mCsphLQ2qsIoQ9fQyovYHt/g=
+	t=1778708376; cv=none; b=LCIXCUdDUCfflZUcEL6RtSD71xe3x3oRZBdXa+OebhOwGTHK+lgP8Bl1B3saH3FpmS2yUqpQI2eGlN91pXLvzujC1rtkoxDAWsDGaQDxRW22vl0o2vX+dKFflizC6aZta6XlUQ90/6JHFDDiYLXchOBcqYDHuuQUSB6BY4EsVYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778708361; c=relaxed/simple;
-	bh=+hmYqHeIa2yxJ6s73wQmh6Enar3qbKyezocqtDuspRk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kF5h4f98aGz6K/uo46TDJvVBtwHFZIN/L5azs5b+qlBI1F5WWJ+xq04hpXhr1DS5yC5QHAJLS1+DAoPxTw7DZ99eVg85eQP2BmRagUa4mKamn9uHIHpkBMc+a4Uu1T/fPaxNw03irv4uof/8z/woxFgfms141tX4lL6x3WCDwZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dhxsfixV; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778708376; c=relaxed/simple;
+	bh=6RVOmCpQqd6bhxaLMGhb4U6J1qkZVEls47foBVVVlWE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aemCg32OMzEeATg6CvXX+SD3e/WK6ibgYFFVGahtUII9kNX6hO48HS4QyjQy5xWx4XXjk41pZs5bnexbWCFQ1RsBzTzY6JInJkyFVJg6ixTja/MdUYI7i0SgxotPBx+HMj0AixAQSYvfDl+FPmoJz9nAErFfBqpVB6cuef+E7EY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=Lc/WHbHo; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dhxsfixV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66F83C19425;
-	Wed, 13 May 2026 21:39:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778708360;
-	bh=+hmYqHeIa2yxJ6s73wQmh6Enar3qbKyezocqtDuspRk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=dhxsfixV5T+lnFyh2uILzs/J6KIsQ/dYf5pMkZfVdnVlo4YSV9m7MUfhZqdOEvT6P
-	 eVyZTBTjdfEdHKIQmkkyf09xMy5m4zK0y3J0v/WRg/qSnbHxhw7RKR+VXrJQVQQGFS
-	 veKgFbuEQFrwGIqne2shn3rRN+5zun5oX0sa8P80viY8bYzx0iXB1GsB3XxHXQv7tj
-	 rICevwxGZ5NIty2vGTrnbi90DZrp+2UgXhikYK3r5af+eyDeIbBD06PUKtTfaTJjKU
-	 SmET+1gAsphvXo2027pRYyO4j9+vq9RqqhBHy9zXwdgBpyMC+lBTopWQ9HsGGzpHip
-	 4kkw5yaWQxBYQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: eliza-mtp: Enable USB and ADSP
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260512-eliza-adsp-usb-v3-3-6420282841c2@oss.qualcomm.com>
-References: <20260512-eliza-adsp-usb-v3-3-6420282841c2@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 13 May 2026 21:39:19 +0000
-Message-Id: <20260513213920.66F83C19425@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="Lc/WHbHo"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4F6DB3C8C8F;
+	Wed, 13 May 2026 23:39:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1778708371; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=1AX2j8H+A9JJ6yxGxOWqpensFj//EnHL/7eUxAjSl/I=;
+	b=Lc/WHbHo6a9u6xmgYh9JFLTTLxmnZik9YBZLUFRc57EWchl2Eg4uXIQCWY7k+OnBLTjdwu
+	qxjHsclPdRzQqAuCjpi7pk8KISVj2Zc5/siysgyuBSm6/urCAWjQQcQq+5l8bUAQrH+pgZ
+	C4irwC4MDy2qO2WlIHaMj7AcMOOO/EAty83qcFnMBSV1Mt0hBvRCM7rmgSoOhUkdBKzpvQ
+	1YRyUymTm5n2s38oZw/GL3J8YadgMbiIxQXB6OQfu2lQTRYMkfbRmCkyghGAbVP0FH10hd
+	JxruONLBXC9OKB+N2laE7YjZv4OuT5NsszQj3P2HBw8t5PUc/NoKNEVDFUfj1g==
+Message-ID: <65792ada-5e9d-4e3f-aa79-bb4a8ffd9161@cjdns.fr>
+Date: Wed, 13 May 2026 23:39:25 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v6 2/2] PCI: mediatek: Add support for EcoNet EN7528 SoC
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-mips@vger.kernel.org,
+ naseefkm@gmail.com, ryder.lee@mediatek.com, lpieralisi@kernel.org,
+ kwilczynski@kernel.org, mani@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, ansuelsmth@gmail.com,
+ linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260513210759.GA331283@bhelgaas>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <20260513210759.GA331283@bhelgaas>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The commit message contains a typo, referencing the PMIC as 'PM7750=
-BA' instead of 'PM7550BA'.
---
 
-commit dc49b5fa41df22268334cfe92de38c6b4f58dc80
-Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
+On 13/05/2026 23:07, Bjorn Helgaas wrote:
+> On Wed, May 13, 2026 at 07:16:52PM +0000, Caleb James DeLisle wrote:
+>> Add support for the PCIe present on the EcoNet EN7528 (and EN751221) SoCs.
+>>
+>> These SoCs have a mix of Gen1 and Gen2 capable ports, but the Gen2 ports
+>> require re-training after startup.
+> s/re-training/retraining/
+OK
+>
+>> + * @MTK_PCIE_RETRAIN: Re-train link to bridge after startup because some
+>> + *                    Gen2-capable devices start as Gen1.
+> s/Re-train/Retrain/ to make this consistent and more greppable.
+> Also more instances below.
+OK
+>
+>> + * as Gen1, and must be re-trained once after initial configuration in order to
+>> + * only Gen1 capable. Therefore it is most convenient to re-train every port
+>> +	return dev_err_probe(dev, ret, "root bridge not found\n");
+> "Root bridge" is not a term used by the specs, but in common usage it
+> refers to the host bridge, i.e., the RC.  In this case, you didn't
+> find a "Root Port".
+OK Thanks
+>
+>> +found_port:
+>> +	if (!IS_BUILTIN(CONFIG_PCIE_MEDIATEK)) {
+>> +		/* Let it go because the device will work as Gen1 */
+>> +		dev_warn(dev, "module must be built-in to retrain to Gen2\n");
+> I suppose this will cause a warning even in cases where Gen2 is
+> impossible, e.g., the endpoint only supports Gen1?
 
-arm64: dts: qcom: eliza-mtp: Enable USB and ADSP support
+Correct indeed.
 
-This commit enables USB and ADSP support on the Eliza MTP. It describes the
-USB Type-C port and the eUSB2 repeater, and enables the corresponding USB
-controller and PHYs.
+I imagine in most cases, if the port is Gen1 only then board integrator 
+uses a Gen1 card as well, so I could try being fancy and probe the card 
+to see if it supports Gen2. In OpenWrt the PCI driver is always built-in 
+so I didn't really consider this something to worry about.
 
-> The Eliza MTP features a single USB Type-C port. Its USB 2.0 lines are
-> routed through an eUSB2 repeater provided by the PM7750BA PMIC.
+What's your preference?
 
-This isn't a bug, but is there a typo in the commit message? It references
-the PM7750BA PMIC, but the code changes include pm7550ba-eliza.dtsi and
-configure the pm7550ba_eusb2_repeater node.
+Thanks,
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-eliza-adsp=
--usb-v3-0-6420282841c2@oss.qualcomm.com?part=3D3
+Caleb
+
