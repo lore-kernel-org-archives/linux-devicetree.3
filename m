@@ -1,116 +1,163 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E113A451F
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 18:17:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1D953A6EE4;
+	Wed, 13 May 2026 18:18:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778696258; cv=none; b=W1RpllS0wtrprpZ8YWU+xHAOgdH96RKU161nJm2WDfvNGaqUvESaQ1jMcvt9cZWu4KZRMbtaxTwMcJFCOg69Zici7570g4V7KWTmWD4ed0hCuIX+IPv5fhf3SpPjRstxM6mk9CD5JVuX/zu2P29vFrtkb+WsAA1gyydCVs+Khfs=
+	t=1778696334; cv=none; b=DTkafzuWEJvPvN1yCPHY7y9y3VwFGdpMtSdJygIRQ++s/Zp5YRzVyEaa8WNrbVQzhtV/6FIz/kcfNXkGVCRBZhsiT+gMtrKTVma5pPMqFFRjr6FqqR5YZhOcrXpGKcnC5TFQBQbqOgo/j6M+LnzBFUBdslccAgZFv61DeyZcsUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778696258; c=relaxed/simple;
-	bh=s3PbTDlk5Oqc8Ek6vf/l3d/qYjy/w+Dh35a8RCdVKqI=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=Usyo2mXIhowMeVgj+f+Orwc2SFldXYrsuxXUPxVearzLl8iVv8lEMSi8h1L0u1toNWtCpvALV/6GlQ4CbWqmmeOakVfilsAGFixd+WMlz26OISTw9j9l+Etcuc9gujFPox9P16jSF6wQqldMeeLhLsne7erfb+Wjl3I2/8j0XGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sR4FYzf1; arc=none smtp.client-ip=209.85.210.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778696334; c=relaxed/simple;
+	bh=ALdOjMYx3zUh+YoRWLmVw1CO+5mMkgr3lup21x2wmP4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=X68KQqw0/UQBylp3ykw0LL+ZcZy5u6ar+t9/2oFZMMZiIPvkFpS21RyeIxVdS43XFOgaym7GXU6aeo7msyDrZyK9Y+OhNXRzi/8wC3m4eljiMUIZ4vF9+iqPPwefmFj1E6HpIYCRwD1iKgKB4TQaiQxo7Kd5mtv+DLhibNp8KF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T6ktoFi5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sR4FYzf1"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8367df48711so3396477b3a.1
-        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 11:17:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778696256; x=1779301056; darn=vger.kernel.org;
-        h=in-reply-to:references:from:to:cc:subject:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=s3PbTDlk5Oqc8Ek6vf/l3d/qYjy/w+Dh35a8RCdVKqI=;
-        b=sR4FYzf1dIi36MsGVWSv5fDwSVqs8dBzRZQcOtHF8Tvfi4J4tHBjqywoh99MbUwAvA
-         FYbG2qKlCwoF6L4GaMxkAu7c8EUmF63Tiuz8/1R/IYxF2OFHe2l6NKqorylsoyTzYc/Y
-         joj2v2FX+DD9p/Q3hBi8Ma3LL+VQA3gumUHo2O/muLsS2eR9lzyKzmedzdC/OsIu2jqO
-         /oexRcnYP6Rt+rH7pcv7a9Z9YMuY/jghseIdioZq9ZmVtclejKo0581FEmFncrtUAy8i
-         ldo7Kd5GKP3+sQhtIDShAJCumgM3LXcBsrSg9DoquxHGlbS8vZPCwt9Mz7oqbUrAEYTH
-         vnlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778696256; x=1779301056;
-        h=in-reply-to:references:from:to:cc:subject:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=s3PbTDlk5Oqc8Ek6vf/l3d/qYjy/w+Dh35a8RCdVKqI=;
-        b=LYJDY52AwXgzchceDKCAD79P/7S4LinWK0a4lcXBKyRSt1H66pwyawOuLF88j51gKe
-         pFSTQD9Zy8A1pTccVRIezKdQCKvtbfaV+VPauKTNtuH6heVaa5gtuLSUN7ftqo6Po1vS
-         aLVIPKVVAx11dtiUCKpCrD3W2TOTlpMgi13EUfhO9RGqzDlNrKp6gN5Y/lhK93/L3mnF
-         GfEN9iWvalMgbUivzcI/7g8hAbIRd8m/FY81M05ZF07fEofcp3ITK0Vd/dhCneiKgu9V
-         2tZOsrYwL4ITCRByJEqhpz7+adleN2aJlRxrx7GgGQIokHn5VjmaVLVd4GrACKbaO3pA
-         tF/w==
-X-Forwarded-Encrypted: i=1; AFNElJ8mKJ8WbcOtYciGxdwoZdwd/MoY6/gZSH9seZ3Ja7ULl5s59McpoW/JVlotXorh0Nkw789kH9Va1VF+@vger.kernel.org
-X-Gm-Message-State: AOJu0YyEuWqEYySzrv6CUCA9H1fv+l2Ew4ecnNXwXQp3lzWeRM+fNK+Z
-	cDD2Su50zLxnz3FFdOXJAk5WlkIzSw4jIopG50OPwDpGcOPxAViAQOaw
-X-Gm-Gg: Acq92OEjptL/xhXQo7PHFRro5m+B4rYBih/Nt9rWeU+plNSL+J/hIIMKvUKETRKm16H
-	bL95ZRqkEa1H1Brl1rM2yHXtxROojz7K+vK8DjJfIniTWhyQo8I1D/g9dqO6yT3tPYSVmpxWs/i
-	tsj997ioizNDH70fSBcmjcVn8K4TCQyC5SVzTSO0gMQjebz6JB7ipTkWHM4g6ckfeZFDNMNP8Q1
-	y/+3/n7GgV99pTbYi4PJam8JcK9kFIY9d7nmhuX1tJvD13Y9mPrmCL6DcvmLINucrXXXlCsoZkb
-	dP7j4Qleh7AcnkYnFgDiqWqylgh7/W+Ptdd7TmqYC9I+QlcZT0JtVs+STnSxD4J/mWHcd1s+2s6
-	suDZFuy+7TyxP8gj+6NL9Osjm7ZFa8cMjP7v3qstaSQenLNSWrI4d9vR/KtEfRv0TvZ2hczfQAL
-	doJBFZMCHbKzLf5gNRahdPCYxfUNl7MsX6ctidUaNi/FZZumhyg1dqkiA=
-X-Received: by 2002:a05:6a00:4ac8:b0:834:e092:2631 with SMTP id d2e1a72fcca58-83f03e948b9mr4491931b3a.8.1778696256394;
-        Wed, 13 May 2026 11:17:36 -0700 (PDT)
-Received: from localhost ([203.99.159.235])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19f7cd19sm166265b3a.54.2026.05.13.11.17.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 13 May 2026 11:17:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T6ktoFi5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36E67C19425;
+	Wed, 13 May 2026 18:18:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778696334;
+	bh=ALdOjMYx3zUh+YoRWLmVw1CO+5mMkgr3lup21x2wmP4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=T6ktoFi5HwjQi416akOmoP3EuPXRz16yfZcNaiSiKRLS5xTIeGG+JOXFnxTcjE3Yi
+	 YB88cUZFV06/No1YhPTmuwecbNDLBJfA5y99HoCv8ow9T6c6uXlKPxjI0+1tWkBX1R
+	 NXJtpW2f2FQguobAMDtAxD7e65J9sxxAZCPctn9VuZGSwpLUrwAcDGn9epBhgcHdGQ
+	 1cmfkm6fcKdRLuLrZEM34HVrvnI9/49rt0WOCrVxGb/xdtU+uib0G3/yKZ8sPMiUfA
+	 Nha+5COm7ZmSUwaIwPmcYZohh+fwdZh6PFybYQKkII2nyHsyP2k0m7pZAsimzCA55D
+	 96XZ5lwuHJ8sQ==
+Message-ID: <a51ba34d-92db-46a5-a87d-15cea72af833@kernel.org>
+Date: Wed, 13 May 2026 20:18:50 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/3] wifi: iwlwifi: add Device Tree hardware
+ integration information
+To: "Bhatt, Avinash" <avinash.bhatt@intel.com>
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+ "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+ <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "johannes@sipsolutions.net" <johannes@sipsolutions.net>,
+ "Korenblit, Miriam Rachel" <miriam.rachel.korenblit@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "Guetta, Kobi" <kobi.guetta@intel.com>,
+ "Grumbach, Emmanuel" <emmanuel.grumbach@intel.com>
+References: <20260504095327.30892-1-avinash.bhatt@intel.com>
+ <20260505-crouching-albatross-of-beauty-a5ac6b@quoll>
+ <BL1PR11MB5954BCE96853D1F299E4DEACE0392@BL1PR11MB5954.namprd11.prod.outlook.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <BL1PR11MB5954BCE96853D1F299E4DEACE0392@BL1PR11MB5954.namprd11.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 14 May 2026 07:17:24 +1300
-Message-Id: <DIHR7242IVEQ.HZ3NLNX0G9E1@gmail.com>
-Subject: Re: [PATCH v2 1/4] iio: light: veml6030: remove unnecessary read of
- IT index
-Cc: "Jonathan Cameron" <jic23@kernel.org>, "Lars-Peter Clausen"
- <lars@metafoo.de>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Rishi Gupta"
- <gupt21@gmail.com>, "David Lechner" <dlechner@baylibre.com>,
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy Shevchenko"
- <andy@kernel.org>, "Matti Vaittinen" <mazziesaccount@gmail.com>, "Javier
- Carrasco" <javier.carrasco.cruz@gmail.com>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-To: "Andy Shevchenko" <andriy.shevchenko@intel.com>
-From: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
-X-Mailer: aerc 0.20.1-4-g02324e9d9cab
-References: <20260513-veml6031x00-v2-0-4703ca661a1d@gmail.com>
- <20260513-veml6031x00-v2-1-4703ca661a1d@gmail.com>
- <agSt_TGpyujxqrZc@ashevche-desk.local>
-In-Reply-To: <agSt_TGpyujxqrZc@ashevche-desk.local>
+Content-Transfer-Encoding: 8bit
 
-On Thu May 14, 2026 at 5:59 AM +13, Andy Shevchenko wrote:
-> On Wed, May 13, 2026 at 05:49:41PM +1300, Javier Carrasco wrote:
->> This is dead code as the IT index is not used by gts to set the new scal=
-e.
->> In its current form, the value is read but not used afterward. Remove
->> the dead code.
->
-> Does it have any side-effects on the HW side? Exempli gratia, flushing FI=
-FO,
-> R1C (read to clear 1) bits?
->
->> Fixes: 22eaca4283b2 ("iio: light: veml6030: fix scale to conform to ABI"=
-)
->
-> Not sure it fixes anything. But it might regress, see above why.
->
-> ...
->
-> If no side-effects, the code wise looks good.
+On 12/05/2026 12:07, Bhatt, Avinash wrote:
+> Hi Krzysztof,
+> 
+> Thank you for the review. Please find our response inline below.
+> 
+> On Mon, May 04, 2026 at 12:53:24PM +0300, Krzysztof Kozlowski wrote:
+>> Please provide link to any upstream DTS user of this binding, either
+>> complete or work in progress.
+> 
+> We have OEM partners waiting for this binding layout to be finalized
+> before they proceed with their DTS work. Our intent is to have the
+> schema reviewed and accepted by the DT maintainers first — sharing a
+> binding that may still undergo structural changes with OEMs would create
+> unnecessary churn on their side.
+> 
+> OEM partners are targeting platforms that depend on this binding. They
+> are waiting for the schema to be finalized before proceeding with their
+> DTS work, and whether they upstream that DTS is ultimately their
+> decision.
+> 
+> If a DTS user is strictly required for the binding to be merged, we
+> understand and accept that requirement — however, since OEM upstreaming
+> is outside our control, we would greatly appreciate an early indication
+> of whether the schema direction is acceptable before we distribute it
+> further. Any feedback or provisional acceptance at this stage would be
+> very helpful.
+> 
+> We are actively addressing all the review comments from v2 and plan to
+> send v3 shortly.
+> 
+> Best Regards,
+> Avinash
+> 
+> -----Original Message-----
+> From: Krzysztof Kozlowski <krzk@kernel.org> 
+> Sent: 05 May 2026 14:50
+> To: Bhatt, Avinash <avinash.bhatt@intel.com>
+> Cc: devicetree@vger.kernel.org; linux-wireless@vger.kernel.org; robh@kernel.org; krzk+dt@kernel.org; conor+dt@kernel.org; johannes@sipsolutions.net; Korenblit, Miriam Rachel <miriam.rachel.korenblit@intel.com>; linux-kernel@vger.kernel.org; Guetta, Kobi <kobi.guetta@intel.com>; Grumbach, Emmanuel <emmanuel.grumbach@intel.com>
+> Subject: Re: [PATCH v2 0/3] wifi: iwlwifi: add Device Tree hardware integration information
+> 
+> On Mon, May 04, 2026 at 12:53:24PM +0300, Avinash Bhatt wrote:
+>> Add Device Tree support for Intel Wi-Fi hardware integration 
+>> information on platforms that do not provide UEFI variables or ACPI methods.
+>>
+>> Patch 1/3 adds the DT binding schema for the Intel iwlwifi compatible 
+>> node. Patches 2/3 and 3/3 add the driver infrastructure and integrate 
+>> DT as the lowest-priority fallback after UEFI and ACPI.
+> 
+> Please provide link to any upstream DTS user of this binding, either complete or work in progress.
+> 
+> Best regards,
+> Krzysztof
 
-Hi Andy,
+Do not top post.
 
-This patch does not have side effects on the HW side. Apart from having
-it tested with real HW, the operation being handled here is setting a
-new scale, which is stored in a persistent register.
+If you are not willing to post DTS, then you are not helping us to
+understand the completeness of this binding and hardware description.
+IOW, the bigger picture is missing, so IMO I would remove most of the
+properties.
 
 Best regards,
-Javier
+Krzysztof
