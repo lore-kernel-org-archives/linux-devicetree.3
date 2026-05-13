@@ -1,82 +1,77 @@
-Received: from mail.fris.de (mail.fris.de [116.203.77.234])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADDF63F413C;
-	Wed, 13 May 2026 13:35:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64A9C2C2346
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 13:37:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778679310; cv=none; b=QdPG4pqWuTgH3RTrVbnXbATcWFxFXoOU6FZb7st8hiDiac7FR50ik1NEVi3FcbXgW2teRBiyXZZSNM/5nopDLXXm8kLbu2EqV8P2j5XR+qzieLz5/1vOZFPCvGm5FuArfjz/K7DBQNJY0Gp0YJIDv4nwSBRdYLtAWdlCCIbd9qU=
+	t=1778679440; cv=none; b=mTsfOXzNdE/GY3HGc6bvkspsq5YycJ2yurQbw1WyKUBMkD+i8pD4GSd9lEaHG69n4xLcaUdrHx+s6XmOsoXO0jQ6LNhHlBme1+1gAciNMwZb/ALFRo/57FP3YW6C7u3uBsSoiW3dW1Xq8BrVyX/pf0dLOgSNjNaKsmv1F+pcL40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778679310; c=relaxed/simple;
-	bh=H9EBgfH+lV5rWacyg1lHuzWtpGQKgNhKzTbQrV6d3pA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=S55XWYst/z2kCytzYfOdLiTOXTjH/GE6x4737+kfIWSxtnhezIWV47TEJ/P40SqB6+BDq6qQ77xAAjhlGyMZEIV5fEAYLv3+nlDu8uvx0VJjsaqV+S/ceZOhSvWRihMa3A+NrCUHgU075HCNKK09cVnJfyZZdZgIzJJzEHnyXa4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=dqcGHZiQ; arc=none smtp.client-ip=116.203.77.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
+	s=arc-20240116; t=1778679440; c=relaxed/simple;
+	bh=K2K0ZIDmDouzIYjOgQrDHa+obDFg7JDm6ArC3vxrn58=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jk5rTkj3rQIJW0j0eVTSOZKiHXsA5lKiqmqPooicVVv9sFRssEJ25Ex3N8RtKlxcG3DqahYFEPaMaOD7h0WjckAg2zocI2bJRFrVanfAlxRr3iUWSkpgT3iU8zP7Dp6W1euPuUFizy0P2eh/6KLqLEwGt5ESCVk/So0qITG8u4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=p1mkykF1; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="dqcGHZiQ"
-From: Frieder Schrempf <frieder@fris.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
-	t=1778678735;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=mMkApyIviwgjNGP53yywhnyZBKW4nkYb6GZmulufeM4=;
-	b=dqcGHZiQN58x4IPPdCp2jAbA+C0mABFjwNoaFF883c04K/O8ROemh2Jjl6HWQXt8o+NT5L
-	W4J8KLTktYm4/C+UcmfGS8L1AMP9sEXv5/73q+iJz6rL7V1clY08wmVlN6Fl+IGsCR+Tsu
-	9r8W799ZwrVz1HuDpfOsvxihumCY1E8F1FoxL45bo2z7exQrQ9mxHMIMhY7fQKPkzlVFdh
-	JvXjmzZa5uoe3awod5uzfvGxXQ4SUxvW0sY6HZ20jWFbyNZz6b4QKw2xFyZMZjGcaoFaSW
-	wzwAGBwZ84uitc5N/NX50nv1cd58/NkMm+9WC5PeQHZD6NbLBvut3WP9xU/P6w==
-To: Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Frank Li <Frank.Li@nxp.com>,
-	Frieder Schrempf <frieder.schrempf@kontron.de>,
-	imx@lists.linux.dev,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Shawn Guo <shawnguo@kernel.org>
-Cc: Annette Kobou <annette.kobou@kontron.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>
-Subject: [PATCH] arm64: dts: imx8mp-kontron: Reduce EERAM SPI clock frequency
-Date: Wed, 13 May 2026 15:25:31 +0200
-Message-ID: <20260513132533.589783-1-frieder@fris.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="p1mkykF1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EE79C2BCF7
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 13:37:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778679440;
+	bh=K2K0ZIDmDouzIYjOgQrDHa+obDFg7JDm6ArC3vxrn58=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=p1mkykF10sGMcnkI4zGd8+MrvAv07Rpfsg7wnzLYvADPoJxCSZcVKZ9hfsZPAbdOp
+	 aOaS0+HYEjjm72bGvt/08o4tg553smMoX86Y4IvYRTHuZ/waEgOET7tXGYrim4xjGF
+	 UJ9OYJBBNoiA7jvVe0ToHrH+vm3y4zcYzu6Z3EweI/SQ40ntFkFWgfZ1Pkhf/2anmw
+	 BNJR2+sA/h4iaJximBT7QNEOJcIsxDk3/MH0EIM1Uyu1dTSTb4V55q070M/zmHtXPE
+	 ncEgoJAMZLZu4Zlv8tSxCDfDOJP4NFgrYEug+dUn/HiK8HAynR4zVOxmGaR4p/exiW
+	 hvrfa13vSpqBQ==
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-393da8f389bso68805381fa.1
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 06:37:20 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9UtR0lCHZgQHHEH7cjEmQOWLJ1q9YkRmd8OPZKqX/49PguAixS+/cGjOgkMCDhVocLffXHtkl2c7TH@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy0WMxiFOu5wQzDFzysWNjtnBxgetgn/q1aINd+BpzC0UTshxYd
+	tTB4aDoSJHcwdGowQaMawE5b8xq2nhBX8JgNRTytPAf5ElU68wBCgKlh03rbZbeAh2p49DncxJW
+	KHX4osAA+Qxuz+WQjCextLYKAxHLv9es3BPV+xi+A9g==
+X-Received: by 2002:a05:6512:224b:b0:5a8:b8bf:f742 with SMTP id
+ 2adb3069b0e04-5a8ef987a62mr1294266e87.20.1778679438834; Wed, 13 May 2026
+ 06:37:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260513123758.4955-1-chaitanya.msabnis@gmail.com>
+In-Reply-To: <20260513123758.4955-1-chaitanya.msabnis@gmail.com>
+From: Bartosz Golaszewski <brgl@kernel.org>
+Date: Wed, 13 May 2026 15:37:06 +0200
+X-Gmail-Original-Message-ID: <CAMRc=Mc=kcWv1Eo=Z5j8C+O49skeLfsBOB+rEZBF=Gy-VwLC4w@mail.gmail.com>
+X-Gm-Features: AVHnY4IFyN40KMvyDcVQAeiIe3pL67V2UuNqra_cNWQHkSdc-tBvVbPq0awIgIc
+Message-ID: <CAMRc=Mc=kcWv1Eo=Z5j8C+O49skeLfsBOB+rEZBF=Gy-VwLC4w@mail.gmail.com>
+Subject: Re: [PATCH v4] dt-bindings: i2c: convert davinci i2c to dt-schema
+To: Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
+Cc: andi.shyti@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, bartosz.golaszewski@oss.qualcomm.com, 
+	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Frieder Schrempf <frieder.schrempf@kontron.de>
+On Wed, May 13, 2026 at 2:38=E2=80=AFPM Chaitanya Sabnis
+<chaitanya.msabnis@gmail.com> wrote:
+>
+> Convert the Texas Instruments DaVinci and Keystone I2C controller
+> bindings from legacy text format to modern dt-schema (YAML).
+>
+> During the conversion, the `interrupts` property was made required
+> to match the strict requirement in the driver probe function. The
+> custom `ti,has-pfunc` and `power-domains` properties were also
+> properly defined to match SoC-specific hardware features.
+>
+> Signed-off-by: Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
 
-There is an onboard level shifter for the SPI signals that causes
-additional propagation delay and renders the SPI transmission
-unreliable at 20 MHz. Reduce the clock frequency to a safe value.
+I left my Ack under v3. Please keep tags when resending.
 
-Fixes: 946ab10e3f40 ("arm64: dts: Add support for Kontron OSM-S i.MX8MP SoM and BL carrier board")
-Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
----
- arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts b/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts
-index 0924ac50fd2d..75ae46642782 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts
-@@ -63,7 +63,7 @@ &ecspi2 {
- 	eeram@0 {
- 		compatible = "microchip,48l640";
- 		reg = <0>;
--		spi-max-frequency = <20000000>;
-+		spi-max-frequency = <16000000>;
- 	};
- };
- 
--- 
-2.54.0
-
+Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
