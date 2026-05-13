@@ -1,107 +1,188 @@
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C2A386553;
-	Wed, 13 May 2026 17:38:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.18.0.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D01E4DBD9E;
+	Wed, 13 May 2026 17:42:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778693923; cv=none; b=WkJTtaf1PWenPE4NUeR9PEnjyUQkdzhaWGe4WQxrsOAWGAHSmvt1Z+8ReFeYvEBqunRN2GlacO1ur8iKRioXaAz9/lVnvS6IcA6s08tmSpnfVCtauLH0qe6qGfkRLXaz3/iCuJqGCh3In1KhZfRqY/j3Cxp7oeyfl7DnK2JTk2I=
+	t=1778694135; cv=none; b=Itd+6+/duvfcchHSiU+VsJ3JehtGSJVghC0X9YmJJ7H/hRurrhQqL1/t75pA6BNWIA1fz+hIHkTpv6jU3DDRaN3eWtF8C3x1iK9T8t69crsFQkfAe9XbWz8RNVEJd/9GM3DggV0q4XWmPw/FMu42ZOFowPxLIWxNP7mbvTuo63U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778693923; c=relaxed/simple;
-	bh=WuOdOOQlTGauXOwQtR0ly4244WY5RHh/Nyyo+Tvtdo0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=COQADZYgzQt25BzK/Ggm1ANIpNHoynPDoNiwlcF2+6gK4uiSUy9o3EbjriMc2AQMZ7nOJ3CwmUM20Etj9HM/4vlv1t5N9bPFI6rDyVsgR4WU5s/RLNjBcw3I8ewnMr3ZC08PCXTGbPqjIyu1lSYA24g7T5pCnPuUNvoLpvtr77A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muenchen-mail.de; spf=pass smtp.mailfrom=muenchen-mail.de; dkim=pass (2048-bit key) header.d=muenchen-mail.de header.i=@muenchen-mail.de header.b=zzlnATFr; arc=none smtp.client-ip=212.18.0.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muenchen-mail.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=muenchen-mail.de
+	s=arc-20240116; t=1778694135; c=relaxed/simple;
+	bh=E0zLoEe4OxlTHMdVyWH+4DIkQ+K+q84NfZfyUfKVC1s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hop3ZjVJsRV8NzPvpu5xZ1Qbui6I+Cq1oee9Kf+AgK4HLjGwrUX0eOa++QAEsH8Cb6g8S8T/c/dU8xjKeOXQmthuum2BBoeAKrim+m1/d09Svm/0odT0mQ8GJhTaPoS4FH23wueHKEBAMoDejq2w1n4YwX/Hp6yg4P12zmg8n+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U4HDV0M+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=muenchen-mail.de header.i=@muenchen-mail.de header.b="zzlnATFr"
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.9])
-	by mail-out.m-online.net (Postfix) with ESMTP id 4gG1046Zhpz1r5sY;
-	Wed, 13 May 2026 19:38:28 +0200 (CEST)
-DKIM-Signature: a=rsa-sha256; bh=tUk3k7hjI1RoyKUta+l8P/czWtAWXdNols6WRikw6cU=;
-        c=relaxed/relaxed; d=muenchen-mail.de;
-        h=Date:From:To:Message-ID:Subject;
-        s=r1; t=1778693908; v=1;
-        b=zzlnATFrZ9vVWJ9awcoJi90Xg8hBbuNrcGiTYUumK4TFWYx0jSZclK2VpbEoEoDU
-         F1M4nEsRhFJmSJhXbIPhrMWGBmih0WjjBs8ossq7/A/YF7/yWu0zRRo1ixMNGyx9
-         Pg7hM5sbhoMO4xA+FHP2+kHvqC6unOwF3bJxx4Ywt+lmelscD3qW8R30igW0U/OJ
-         DwYp7Ikdalkd+6jyMhL9+R5wugWYABIZoAQhj5VzUuDcz3d4CbJ++kZzfP9igsXs
-         TZ4jv5OniuSDLh8sUCoaDkBAVRDgBDLKeZj2mR+JMJChSL7Qco2oht4N3wBu6cQV
-         JEJakjHbvmu157fqJemgoQ==
-Received: from frontend03.mail.m-online.net (unknown [192.168.6.182])
-	by mail-out.m-online.net (Postfix) with ESMTP id 4gG1026Q0Cz1r5rg;
-	Wed, 13 May 2026 19:38:26 +0200 (CEST)
-Received: from localhost (dynscan3.mnet-online.de [192.168.6.87])
-	by mail.m-online.net (Postfix) with ESMTP id 4gG1024v1jz1qqlR;
-	Wed, 13 May 2026 19:38:26 +0200 (CEST)
-X-Virus-Scanned: amavis at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.6.182])
- by localhost (dynscan3.mail.m-online.net [192.168.6.87]) (amavis, port 10024)
- with ESMTP id UOmRSNYn8eMF; Wed, 13 May 2026 19:38:25 +0200 (CEST)
-X-Auth-Info: HJUNFNFShal6AM1JBGx5cCnjbFHoJRxaSbObzFSNNYB/FIx6axKkLvyZzTrsy9gX
-Received: from wiesel.intern (aftr-62-216-206-65.dynamic.mnet-online.de [62.216.206.65])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.mnet-online.de (Postfix) with ESMTPSA;
-	Wed, 13 May 2026 19:38:25 +0200 (CEST)
-Received: from [IPV6:fdea:9b79:8984:1:b1b7:2c53:ea47:8e7a] (unknown [IPv6:fdea:9b79:8984:1:b1b7:2c53:ea47:8e7a])
-	by wiesel.intern (Postfix) with ESMTP id 387D479A1C1D;
-	Wed, 13 May 2026 19:38:25 +0200 (CEST)
-Message-ID: <86f7cb4e-9511-47a2-a2cb-4fedf3ae1ab8@muenchen-mail.de>
-Date: Wed, 13 May 2026 19:38:24 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U4HDV0M+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 614DCC19425;
+	Wed, 13 May 2026 17:42:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778694134;
+	bh=E0zLoEe4OxlTHMdVyWH+4DIkQ+K+q84NfZfyUfKVC1s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=U4HDV0M+tjdN4VylC22tgK8Fk9XF/JgKbvf/9bfOX4qpMwvbSAGpwRxqB1Bue7LYd
+	 6goY9x7H8ocOyeQkHlLqtlMRqLwbi3gHeQcTmYQ/conA109JVX6sYLF3IkieCdLEVV
+	 O1zKdUiwKFiKqCVr/gxknO/ipWHNPPxs4aOb2QQ6tEtu66wpuYtdq1XytMGEyOqHC/
+	 7zzaMNjBglrJ4/W6hiT8HvO8ufmNfRDDAhlDIeygaEsNsWYtTSrecDHS0oBfTN6eSv
+	 RgSkBu+6RFopybS4JRnYZiqUCMQkJB14JzBp3prxn6EiFzsyl4iWk5fXznYjJHNjZz
+	 z80JtIhLARulg==
+Date: Wed, 13 May 2026 12:42:11 -0500
+From: Rob Herring <robh@kernel.org>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: memory: renesas,rzg3e-xspi: Add
+ RZ/T2H and RZ/N2H support
+Message-ID: <20260513174211.GA1400932-robh@kernel.org>
+References: <20260505112405.667796-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260505112405.667796-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Enable wifi on the BeagleV-Ahead
-To: Shengyu Qu <wiagn233@outlook.com>, Drew Fustini <fustini@kernel.org>,
- Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, linux-riscv@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260511141119.155369-1-thomas.gerner@muenchen-mail.de>
- <20260512173440.163179-1-thomas.gerner@muenchen-mail.de>
- <TY4PR01MB14432F2BBDFF6E2C4AC79DD1E98392@TY4PR01MB14432.jpnprd01.prod.outlook.com>
-Content-Language: de-DE
-From: Thomas Gerner <thomas.gerner@muenchen-mail.de>
-In-Reply-To: <TY4PR01MB14432F2BBDFF6E2C4AC79DD1E98392@TY4PR01MB14432.jpnprd01.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260505112405.667796-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+
+On Tue, May 05, 2026 at 12:24:04PM +0100, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> 
+> Document xSPI controller found on the Renesas RZ/T2H and RZ/N2H SoCs.
+> The xSPI IP on these SoCs is identical to that found on the RZ/G3E SoC.
+> 
+> The RZ/G3E HW manual (Rev.1.15) references bridge channel 1 and its
+> bits, however the hardware actually supports only a single bridge
+> channel (channel 0), matching the RZ/T2H design. The references to
+> channel 1 and its configuration bits will be corrected in a future
+> revision of the HW manual.
+> 
+> Update clock/reset constraints to handle the SoC differences.
+> 
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> ---
+> v2->v3:
+> - Used RZ/G3E comptiable as a fallback compatible for
+>   RZ/T2H and RZ/N2H SoCs since the xSPI IP is identical.
+> - Updated commit message to reflect that the xSPI IP is
+>  identical between RZ/G3E, RZ/T2H, and RZ/N2H SoCs.
+> - Dropped RB tag from Rob due to above changes.
+> 
+> v1->v2:
+> - Add RB tag from Rob for the dt-bindings patch.
+> ---
+>  .../renesas,rzg3e-xspi.yaml                   | 56 +++++++++++++++----
+>  1 file changed, 46 insertions(+), 10 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/memory-controllers/renesas,rzg3e-xspi.yaml b/Documentation/devicetree/bindings/memory-controllers/renesas,rzg3e-xspi.yaml
+> index 7a84f5bb7284..e2633476bd54 100644
+> --- a/Documentation/devicetree/bindings/memory-controllers/renesas,rzg3e-xspi.yaml
+> +++ b/Documentation/devicetree/bindings/memory-controllers/renesas,rzg3e-xspi.yaml
+> @@ -30,6 +30,8 @@ properties:
+>            - enum:
+>                - renesas,r9a09g056-xspi  # RZ/V2N
+>                - renesas,r9a09g057-xspi  # RZ/V2H(P)
+> +              - renesas,r9a09g077-xspi  # RZ/T2H
+> +              - renesas,r9a09g087-xspi  # RZ/N2H
+>            - const: renesas,r9a09g047-xspi
+>  
+>    reg:
+> @@ -53,28 +55,38 @@ properties:
+>        - const: err_pulse
+>  
+>    clocks:
+> -    items:
+> -      - description: AHB clock
+> -      - description: AXI clock
+> -      - description: SPI clock
+> -      - description: Double speed SPI clock
+> +    oneOf:
+> +      - items:
+> +          - description: AHB clock
+> +          - description: AXI clock
+> +          - description: SPI clock
+> +          - description: Double speed SPI clock
+> +      - items:
+> +          - description: AHB clock
+> +          - description: SPI clock
+>  
+>    clock-names:
+> -    items:
+> -      - const: ahb
+> -      - const: axi
+> -      - const: spi
+> -      - const: spix2
+> +    oneOf:
+> +      - items:
+> +          - const: ahb
+> +          - const: axi
+> +          - const: spi
+> +          - const: spix2
+> +      - items:
+> +          - const: ahb
+> +          - const: spi
+>  
+>    power-domains:
+>      maxItems: 1
+>  
+>    resets:
+> +    minItems: 1
+>      items:
+>        - description: Hardware reset
+>        - description: AXI reset
+>  
+>    reset-names:
+> +    minItems: 1
+>      items:
+>        - const: hresetn
+>        - const: aresetn
+> @@ -109,6 +121,30 @@ required:
+>    - '#address-cells'
+>    - '#size-cells'
+>  
+> +if:
+> +  properties:
+> +    compatible:
+> +      contains:
+> +        enum:
+> +          - renesas,r9a09g077-xspi
+> +          - renesas,r9a09g087-xspi
+> +then:
+> +  properties:
+> +    clocks:
+> +      maxItems: 2
+> +    clock-names:
+> +      maxItems: 2
+
+What about resets?:
+
+resets:
+  maxItems: 1
 
 
-Am 12.05.26 um 20:39 schrieb Shengyu Qu:
->> +
->> +    brcmf_pwrseq: brcmf-pwrseq {
->> +        compatible = "mmc-pwrseq-simple";
->> +        reset-gpios = <&gpio2 31 GPIO_ACTIVE_LOW>; /* WL-REG-ON */
->> +    };
->>   };
->
-> I think such pwrseq won't work? Need to set timing parameter, for 
-> example:
-> https://github.com/torvalds/linux/blob/1d5dcaa3bd65f2e8c9baa14a393d3a2dc5db7524/arch/arm64/boot/dts/rockchip/rk3568-rock-3a.dts#L71 
->
-
-I think this is not necessary. The WiFi chip gets powerd up with the 
-board power and the power cannot be disabled. The only job for this 
-pwrseq is to release gpio2 pin 31 when the kernel initialize the chip. 
-According to the data sheet the release of the pin should happen not 
-earlier than 2 cycles of the 32.768kHz clock after powered up. As the 
-kernel start takes much longer than this 2 cycles and I think there is 
-no extra timing necessary.
-
-The broadcom driver has a also a property "reset-gpios", but this does 
-not work. It does not configure the pin as output, it configure it as 
-input. Then the driver does not initialize the chip. May be this is a 
-bug in the broadcom driver, don't know.
-
-Best regards
-Thomas
-
+> +else:
+> +  properties:
+> +    clocks:
+> +      minItems: 4
+> +    clock-names:
+> +      minItems: 4
+> +    resets:
+> +      minItems: 2
+> +    reset-names:
+> +      minItems: 2
+> +
+>  unevaluatedProperties: false
+>  
+>  examples:
+> -- 
+> 2.54.0
+> 
+> 
