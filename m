@@ -1,200 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C4CF3ED11F;
-	Wed, 13 May 2026 09:43:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA96A3FA5F0
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 09:44:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778665435; cv=none; b=bUWqdgLi2v1u3clqCnH6kyENEvwwijVfFUa+B3EViYAvOf3w2ICsuvf0cfiZ3Aa/NS1Pyymy5KUIZ+7CWVyBl8kpXJMGuEL5PWfqlwsx+rgZjnjyJGL5ozS7O8Zlc4ZSdc0V4F3JhDknkTGgA2GwS+ht4cwWCOgdy2YbQHjaRYs=
+	t=1778665452; cv=none; b=J8lQK0yHIJoyAjOtcofeIN2oJYzRtNUwhyxrFz7zKKhvvp5zK8APZ9S0WSwPRQTmcuo/PI8JRGZAdJYDNBDlSwSz5zxwlG7y4vnq7CiW8IWJLUyaGOXoRRr5OXtDo60EsoE4yluk8w1yu4hQqbRNi4bwpj/nfLcvPgj2p1k9qro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778665435; c=relaxed/simple;
-	bh=Ub62bfMWlc5R306323COfpZrvhEMCoZst8dt+8UYDFg=;
+	s=arc-20240116; t=1778665452; c=relaxed/simple;
+	bh=PNjiji/ryMz6Wi/3/P9uB7M9klgp5B7XZAWK988RVbY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TNM/8EeVpAZ6DvrBrL+bD4k3/rGdnR/R00JfP5umLDsplz73NYQ+szyw1XF0dr/CsLCoPbDYkdQE9p//utEiYa1KUH/IWlWnorFATfG36ySJjJS5Pe1wzvJ+SfKzWpLVSOHuEdZPM0GRRFro27NFC67bNIsnG8ssgPQMS92suI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K6mUypW6; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=KSUvOIAguy43F9rVhK3uDUKtU5l9hYnhFcKyrv5rDWX6CwWmeCE24OFWCj/AT6BPQ99zqyHAqgo1rj91dIlQmY4swnZ5DXbmiayrucDtC4EFFHHrDb5z3DJFBLBh//aVGFxXi44Xlnm1aYWWleoW5Zk4VhZl2xADBONd0QUTxpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=a/Us1Ino; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=L3k/8uK0; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K6mUypW6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6C1FC2BCB7;
-	Wed, 13 May 2026 09:43:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778665434;
-	bh=Ub62bfMWlc5R306323COfpZrvhEMCoZst8dt+8UYDFg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=K6mUypW6tPKXXJCcJqDZGBHIkwqhuVK5e2zNWl/FfNF89h9GALT+5TECc3xGo5cLe
-	 lwkzdaiP3cihxgij1lcEXDrajzJbGz+zV3r1MwhNh7kQZ8FJI+yjr8NNBi0L9efyvv
-	 Lox6nsDCpzXaSYaOiz3nLLCEQBgSLGnXxg88DJjJDhERyrxMdWAmvQj3lCTLV6qG4F
-	 dN+dgxa35w5q+BJpCtxa+04G95Xz5BRMEQD1PKZZ25ZmEEAHKJLfplYEMcWsXXbC+I
-	 zglX4GXfTGz1fsH8ngHJJE5SmUwPsK+n/OD6LBA0w19T0BLsQHqCDmOg4TUh5joTtR
-	 JU2XQnYIm6MEA==
-Date: Wed, 13 May 2026 11:43:51 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: sashiko@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org
-Subject: Re: [PATCH net-next v6 09/12] net: airoha: Do not stop GDM port if
- it is shared
-Message-ID: <agRH12v6OeetUmtJ@lore-desk>
-References: <20260511-airoha-eth-multi-serdes-v6-9-c899462c4f75@kernel.org>
- <20260512213116.7414FC2BCB0@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="a/Us1Ino";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="L3k/8uK0"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64D4pBjN2652515
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 09:44:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=l3LZDvSQIk1yYdY+57/8y83u
+	kT6k6LZlb+xTzsHJqWY=; b=a/Us1InoiHoDjDzDYKrVJzu24Wrpv0YNKCBl/eYK
+	s/Fr8eztDR6QC+CKgdzwoghFRLO6vS0RgW/DZo1yidDOQFtQBuzpt9hFGB1pwfxU
+	iUQ4GeHx6oTO+qPF3x/FhrdqwBHvMYBM88orctQd+XxLFY8CFAHY223Pe/NSaQ2b
+	Nlv6CDAhoqkujumVqYlnoQhZGCNuqLkARJu3MWyojrGUyPDdBCvU+IPYMycjwizO
+	DaI/qYbTX2FBltd89VfpiVNFcbgYTCeiE6+5qFLtggwc7eq9i8UWR5uvQiw1WUya
+	inztiyyfhfoAIH8nHwfv4IUtU8EpjxYzsh9lYfnr2fc68A==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e45avm308-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 09:44:03 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50fb3403e99so126817321cf.2
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 02:44:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778665443; x=1779270243; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=l3LZDvSQIk1yYdY+57/8y83ukT6k6LZlb+xTzsHJqWY=;
+        b=L3k/8uK0bSbZp6xdQu/h6EF3QYiAIxYK8tOwGIcWtwiYTePfYJ/JJm9Uldz5gRUfmw
+         SCmwZWSCQjvKwwPqld4YaGwbiczYvTYqiAdlLCy2+FckHUUrsyGG46mX3yy8Esf/iOJY
+         bo6HTkDHXVU24XF+fOSaCTaS7vUzyiyoNHTJBO2m5/KOHeYkLj/SyMTKuALYPc3P0ykw
+         /IlmoX+yAXBQDpKzv+9kKg5DxaFyLJB3RMHJMHLmmfKAnN2X3zmWJxrujgJTFHkUEf5t
+         aKfPqiwqPO4sxHacvGVR4Ng4N7b8RUnB57oVn+KQ3tS2mcY8ecl+4CYKFxn6Y5SVI5UG
+         iXoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778665443; x=1779270243;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=l3LZDvSQIk1yYdY+57/8y83ukT6k6LZlb+xTzsHJqWY=;
+        b=BhrOFDSeUGfUMVExFhQTqvBd2l7PeLp9oQgnvdjSpdUXD755lj1Rl0QnZJlflewfCg
+         vSdcyEXij/hKczVfacFmwAKpeIuxE8bLychraUjx6fEtpeBr6uIpfzp7laEyCRwPUyOi
+         GpLQ011mU7zQP2x3o1DKPL9z0+Wyqz+tQdG2GF4z+gPh+lA01cynQQ0UXZV9P3B0xsVY
+         XACbbbeyXQlwqIfDmHWkxRMmRaFtV1cDFlq+GN0QUkiiWsm2HYAJndd3tnoo5i2GAGNO
+         Vn21NP7gtjaJIaF480GZa3VFPIz6+Im0+nn/4u8oGrz2A3uXXzvFvjq5lPMFJ2vl3loW
+         Tc8Q==
+X-Forwarded-Encrypted: i=1; AFNElJ9G0ilmTsx8SXvEzL/cRjxsaJCiyFJFc/0pRhWz9UT/stl4uCqRXfZnynIWp9N2L3kRi1kT63PInGOy@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw/pM768bpmJei3SmJW79DXmbrVkEDZMD5KBP6I5hZmfe7AaylL
+	TBORqXrdwpYTjbM6ir6DahoUyaXIKuPsDmO8GAxEvFWV1VinLwql7L+qOZ2/J7GPmUlzdF92CEh
+	gOUKJO38gJOMavagCbYPWkqYRYWg0DOIjFT+sf4EcjDu+gLH/Uauab1OHYAalg4S8
+X-Gm-Gg: Acq92OH35N9ty81la2N6wxKQKJP+fXEnd6yPpqnXU+vzyYb9jH1GNM1KjwKWTc5//on
+	3G5ZRvFYh2q21HMOJlvhYxAVwKA6oDxDCyB1vqMtvDwKs0cQ9DiYo4oJu8KUBHwJv35Niz2kUsp
+	d+oew1cdw0YOlbDTXCW0M3PH0jaSrm7bKtuibaqCZC81bQR88ZauXN4hqDerZt/PuJrMdFwaMTx
+	olg3UB+bQrP4ZEJahEw5WFUOVlr5ocrzOU8Fb7upj49oMqb2jc6Qkswk91tpv96MkhfkXFBdD/0
+	LWOlya838Gm1xSUcNf0A9fXsNr1h8cWa3r3JOD5fQlC6SCYZLMdES0xg20Rfab12HxRmzOVmpA4
+	Y4fVCq0QswIk8/T4OUcrh8VmXgQjXsoyoY68t25tcErp2nfiaUwQ4r7AUWYMKLD1MIcuA1cACc8
+	aY5mF8FXsGI+eKv8vB3vzGvDLb+x6AG3GICgU=
+X-Received: by 2002:ac8:588e:0:b0:50d:6557:5c8f with SMTP id d75a77b69052e-5162f67335bmr32283521cf.58.1778665443209;
+        Wed, 13 May 2026 02:44:03 -0700 (PDT)
+X-Received: by 2002:ac8:588e:0:b0:50d:6557:5c8f with SMTP id d75a77b69052e-5162f67335bmr32283201cf.58.1778665442719;
+        Wed, 13 May 2026 02:44:02 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a8a951d487sm3902746e87.24.2026.05.13.02.44.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 13 May 2026 02:44:01 -0700 (PDT)
+Date: Wed, 13 May 2026 12:44:00 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: eliza-mtp: Enable USB and ADSP
+ support
+Message-ID: <66po5l2k76hrlnyyxx5hvzkz7wng2rwoskrrcuti3cbspmsgwm@ee6ijyw22dg3>
+References: <20260512-eliza-adsp-usb-v3-0-6420282841c2@oss.qualcomm.com>
+ <20260512-eliza-adsp-usb-v3-3-6420282841c2@oss.qualcomm.com>
+ <bi7m474cmmnbdfxd3kzdt4hywm7teu3jo2bzywk4x2tx24lh6b@xhdfnm4e3rfs>
+ <7a6tbenqnogpk3pbigds77ogo2zambykt7i7jshjhi36gam2oa@3hrp3icontya>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fA35iJO0kV4N5A4K"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260512213116.7414FC2BCB0@smtp.kernel.org>
+In-Reply-To: <7a6tbenqnogpk3pbigds77ogo2zambykt7i7jshjhi36gam2oa@3hrp3icontya>
+X-Proofpoint-GUID: 1r3zlWp_KSKBILYtd1sES57A1P48zf96
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEzMDEwMCBTYWx0ZWRfXwFQr9zUESGZ4
+ P0syjmOmtZou0HRg+W/nFs1BtHLC4ex3RgtPU3u89gdTxP0MA6Up2KsYrc+Nii5vMnkkODiRZ+A
+ zSoVrJahn82WOgQqCWbv44XEM1msefId28dG9ufc29+2YCZ6I3Fui2N4rw4roDCMAq3Ift/rniA
+ uN0CgVzUyruubpQwqTwbd6UteaCaVTICaEQSOWySS78pChV5cu8BEkHR8GeQH98KBmi6ha6OZdp
+ cebrR0wxmW7cccNvuZF5+vPygJAUxZhWD/a11dPa13SL7wnQpl5c+krJCjZDmrPsCOlOD5ayVqb
+ 7TfwIVGJ+KOV9YUt9qmpimbOvdWN0sw2nFlpTw35Ha9lQprpxwILlXor6XSSaWK/Vv04aL3D+GV
+ EIR5qipFhSbqzJd8r36jSLfBZh5w08AsDCwn9LF1pCe5bm+zVe22KMlcJi1fIdgtZ9pY5lsnita
+ t79iynmHl5OxJO1vJSw==
+X-Authority-Analysis: v=2.4 cv=bOwm5v+Z c=1 sm=1 tr=0 ts=6a0447e3 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
+ a=uHCdCOU_0dtJ56D0yRwA:9 a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-ORIG-GUID: 1r3zlWp_KSKBILYtd1sES57A1P48zf96
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-11_05,2026-05-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 suspectscore=0 phishscore=0 spamscore=0
+ malwarescore=0 clxscore=1015 adultscore=0 priorityscore=1501 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605130100
 
+On Wed, May 13, 2026 at 09:10:13AM +0300, Abel Vesa wrote:
+> On 26-05-13 01:04:12, Dmitry Baryshkov wrote:
+> > On Tue, May 12, 2026 at 03:26:49PM +0300, Abel Vesa wrote:
+> > > The Eliza MTP features a single USB Type-C port. Its USB 2.0 lines are
+> > > routed through an eUSB2 repeater provided by the PM7750BA PMIC.
+> > > 
+> > > Describe the port and repeater, and enable the USB controller and PHYs.
+> > > 
+> > > Also specify the ADSP firmware and enable the remoteproc.
+> > > 
+> > > Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> > > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > > Tested-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > > Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> > > ---
+> > >  arch/arm64/boot/dts/qcom/eliza-mtp.dts | 81 ++++++++++++++++++++++++++++++++++
+> > >  1 file changed, 81 insertions(+)
+> > > 
+> > > +
+> > > +		connector@0 {
+> > > +			compatible = "usb-c-connector";
+> > > +			reg = <0>;
+> > > +
+> > > +			power-role = "dual";
+> > > +			data-role = "dual";
+> > > +
+> > > +			ports {
+> > > +				#address-cells = <1>;
+> > > +				#size-cells = <0>;
+> > > +
+> > > +				port@0 {
+> > > +					reg = <0>;
+> > > +
+> > > +					pmic_glink_hs_in: endpoint {
+> > > +						remote-endpoint = <&usb_dwc3_hs>;
+> > > +					};
+> > > +				};
+> > > +
+> > > +				port@1 {
+> > > +					reg = <1>;
+> > > +
+> > > +					pmic_glink_ss_in: endpoint {
+> > > +						remote-endpoint = <&usb_dp_qmpphy_out>;
+> > 
+> > No redrivers?
+> 
+> It will come with the DP support.
 
---fA35iJO0kV4N5A4K
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Ideally this should have been a part of the commit message.
 
-> Thank you for your contribution! Sashiko AI review found 3 potential issu=
-e(s) to consider:
-> - [High] Stopping a net_device leaves its packets in the shared QDMA hard=
-ware TX ring, causing a BUG_ON kernel panic or Use-After-Free when the hard=
-ware later transmits them.
-> - [Medium] When decreasing the MTU on a shared GDM port with multiple act=
-ive users, the hardware MTU is not reduced to match the new global maximum.
-> - [Low] The function parameter `netdev` is overwritten in a loop within `=
-airoha_dev_stop()`.
-> --
->=20
-> commit 30071ffd90f181adfa0fb1ab6717d5d5cfa7e0e8
-> Author: Lorenzo Bianconi <lorenzo@kernel.org>
->=20
-> net: airoha: Do not stop GDM port if it is shared
->=20
-> Theoretically, in the current codebase, two independent net_devices can
-> be connected to the same GDM port so we need to check the GDM port is not
-> used by any other running net_device before setting the forward
-> configuration to FE_PSE_PORT_DROP.
->=20
-> > diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/eth=
-ernet/airoha/airoha_eth.c
-> > index 4efd36779453e..aed182c7a5e17 100644
-> > --- a/drivers/net/ethernet/airoha/airoha_eth.c
-> > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-> [ ... ]
-> > @@ -1759,6 +1769,7 @@ static int airoha_dev_stop(struct net_device *net=
-dev)
-> >  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
-> >  	struct airoha_gdm_port *port =3D dev->port;
-> >  	struct airoha_qdma *qdma =3D dev->qdma;
-> > +	u32 len =3D 0;
-> >  	int i;
-> > =20
-> >  	netif_tx_disable(netdev);
-> > @@ -1766,8 +1777,23 @@ static int airoha_dev_stop(struct net_device *ne=
-tdev)
-> >  	for (i =3D 0; i < netdev->num_tx_queues; i++)
-> >  		netdev_tx_reset_subqueue(netdev, i);
->=20
-> If another device is still using the QDMA (qdma->users > 1), the hardware=
- TX
-> ring is not cleaned up. NAPI polling is bound to a dummy device and conti=
-nues
-> running.
->=20
-> When NAPI later processes the stopped device's pending TX completions, it
-> unconditionally calls netdev_tx_completed_queue() which invokes
-> dql_completed().
->=20
-> Since BQL was reset here, will this trigger a BUG_ON in
-> lib/dynamic_queue_limits.c? Furthermore, if the device was unregistered,
-> would the skb->dev access in the completion handler result in a
-> use-after-free?
-
-This issue is not introduced in this patch.
-
->=20
-> > =20
-> > -	airoha_set_gdm_port_fwd_cfg(qdma->eth, REG_GDM_FWD_CFG(port->id),
-> > -				    FE_PSE_PORT_DROP);
-> > +	for (i =3D 0; i < ARRAY_SIZE(port->devs); i++) {
-> > +		if (!port->devs[i])
-> > +			continue;
-> > +
-> > +		netdev =3D port->devs[i]->dev;
->=20
-> This isn't a bug, but this loop reassigns the local parameter netdev. Whi=
-le
-> it might be functionally harmless right now because netdev isn't derefere=
-nced
-> later in this function, could this create issues for future modifications
-> expecting netdev to still point to the device being stopped?
-
-ack, I will fix it in v7.
-
->=20
-> > +		if (netif_running(netdev))
-> > +			len =3D max_t(u32, len, netdev->mtu);
-> > +	}
-> > +	len +=3D ETH_HLEN + ETH_FCS_LEN;
-> > +	airoha_fe_rmw(qdma->eth, REG_GDM_LEN_CFG(port->id),
-> > +		      GDM_LONG_LEN_MASK,
-> > +		      FIELD_PREP(GDM_LONG_LEN_MASK, len));
-> > +
-> [ ... ]
-> > @@ -1919,13 +1945,18 @@ static void airoha_dev_get_stats64(struct net_d=
-evice *netdev,
-> >  static int airoha_dev_change_mtu(struct net_device *netdev, int mtu)
-> >  {
-> >  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
-> > +	u32 cur_len, len =3D ETH_HLEN + mtu + ETH_FCS_LEN;
-> >  	struct airoha_gdm_port *port =3D dev->port;
-> > -	u32 len =3D ETH_HLEN + mtu + ETH_FCS_LEN;
-> >  	struct airoha_eth *eth =3D dev->eth;
-> > =20
-> > -	airoha_fe_rmw(eth, REG_GDM_LEN_CFG(port->id),
-> > -		      GDM_LONG_LEN_MASK,
-> > -		      FIELD_PREP(GDM_LONG_LEN_MASK, len));
-> > +	cur_len =3D airoha_fe_get(eth, REG_GDM_LEN_CFG(port->id),
-> > +				GDM_LONG_LEN_MASK);
-> > +	if (len > cur_len || !port->users ||
-> > +	    (port->users =3D=3D 1 && netif_running(netdev)))
-> > +		airoha_fe_rmw(eth, REG_GDM_LEN_CFG(port->id),
-> > +			      GDM_LONG_LEN_MASK,
-> > +			      FIELD_PREP(GDM_LONG_LEN_MASK, len));
->=20
-> If there are multiple running devices on the shared port and they all low=
-er
-> their MTU, this condition prevents the hardware MTU from being updated to
-> match the new global maximum. Should this iterate over port->devs to comp=
-ute
-> the actual maximum MTU of all running devices, similar to how it is handl=
-ed
-> in airoha_dev_stop()?
-
-According to my understanding, airoha_dev_change_mtu() is running with RTNL
-lock held so we will always have the max configured mtu in cur_len.
-
-Regards,
-Lorenzo
-
->=20
-> > +
-> >  	WRITE_ONCE(netdev->mtu, mtu);
-> > =20
-> >  	return 0;
->=20
-> --=20
-> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260511-airoha-eth-=
-multi-serdes-v6-0-c899462c4f75@kernel.org?part=3D9
-
---fA35iJO0kV4N5A4K
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCagRH1wAKCRA6cBh0uS2t
-rM31AQDunwBJ0DVCS5kAHpHwul4CaN/W8nGCUKRkGWyRHdTNNAD9HDklGrcRS6YR
-qT2san+wDl2cbYm9Qr6rnVWH8iYZ8QM=
-=oOYX
------END PGP SIGNATURE-----
-
---fA35iJO0kV4N5A4K--
+-- 
+With best wishes
+Dmitry
