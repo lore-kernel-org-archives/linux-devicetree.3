@@ -1,136 +1,72 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7211D11CAF
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 00:02:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA8682C9D
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 00:09:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778630562; cv=none; b=dqkhE7CziaQoWmlZrweHm1jBRip6EzLwQRWvZS1dahCofqFstmplyIVzlqa5v3mJkwBOpQNsD4G4sQyv0um0u8GVgN+KK1tuzQt4r88rKBaLIqJ4EiSc/boe99PHMq4kzyqkr+dkckYSpm0tGG49g6HJ+HtowSAMy2zxNyBJWvg=
+	t=1778630975; cv=none; b=e0Y5sa/i9lS6OVYWguA0tBluL0tE8rtdu2AH/fuAnxMYj1CgwqIPqSna7VcU2LMsqvODfWJ6sYQWOei2Hut5MmmUbdb5y4VgAjz9bq88pOBXYW/OSbmKscYru37YGP7SqTlIDWkT6dkKsAUy9lBn42bKNy8wfJIAXD5Kmp2DK0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778630562; c=relaxed/simple;
-	bh=Mo1ru3vT0K+Kg6LOcXZdloxqk5zTx1qmQgQF76Fk4QI=;
+	s=arc-20240116; t=1778630975; c=relaxed/simple;
+	bh=vaultDQ8zF9dneJBQMOW5HIgnIo6UI8UNA9TdN/c3/I=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=U9GCx6ybL+QQTNpl9qo7JRlYH1nWYeojELr3XG8Kqm1U5oz+jlpWDWu94rpTJ+RFR9toyOBp603K7m+AqZAbSei7Whtvl6wycwVTQDkPwyBmbhj5k/NAeo9m6lCGhZq2kHFAWaJqjuqdssS9c1aZ5VQdkgP5uegKSJlXkYmk1Bs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LPjgTWsN; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=V6XxcR7jEOX7TE/SH9t5r9CNqTRE75zpy7pdysIsOD84KsCpCBUaTTtvR24FQafaJIRb//R+ES6RhvHQmHTKyOV3Y8wEMYWxIiSwisfrXjn5YadCxgkw0QiMCYNnWevwPofCHte/try7Powf4imNQTZ3eLZKtU9Oqa0d6nI/Qo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MiCpCSMy; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LPjgTWsN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0482C2BCB0;
-	Wed, 13 May 2026 00:02:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MiCpCSMy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E066C2BCB0;
+	Wed, 13 May 2026 00:09:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778630562;
-	bh=Mo1ru3vT0K+Kg6LOcXZdloxqk5zTx1qmQgQF76Fk4QI=;
+	s=k20201202; t=1778630975;
+	bh=vaultDQ8zF9dneJBQMOW5HIgnIo6UI8UNA9TdN/c3/I=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=LPjgTWsNv2jh+nF9ILC6i0BAVZdeNIGeZ9HQImm/5fC9XU7etrvyR7mKNe2T1dyPA
-	 H/9fNlDPi9bYFirUdvaKdyIIv+3T3lYfBXcQfYO4yafEx3lGsK0N/XU0+vQaNWEol7
-	 Blm3rOJBNuZjnsyigKd9/Yd5pJUMfZ3Q2GRaaQCqRoASLgVxRsOfCdNuSRbb5DB8A2
-	 o5ck46nwhXLGqccj92hxJIe/n/Y56tATZQSC65RBoDk/w1a9Qmpw+qK8j3uviosg4M
-	 bWijhyz0/zrJqu5S/hwIPAcolz3LO69dnE4y7YqfQJ1HET4pVIbVvvwLTRi9v8Wmtd
-	 FbpYocKgNCJyQ==
+	b=MiCpCSMyG2q+LwZB3pVogc2BiE4n46okR2rr4BjeuCaZUCLrcxXWQFjjq4F4rexJD
+	 rvQbZCAccSRiRmm84XcrLriFzJ/ris/AhyVQ8OlhMmC4ZXfJePz50SypRj0VWUdL81
+	 8ke3cN861M9HYYZ5OfBn+xU+YPyqyk819IeHfo3s6IsbF1mmVHcAUpG64rrFNJ6SHL
+	 GrSvw9M65niRcZt1aUTNQaJYVgY2TzS8IyZRUaCLmrk0efljZmd2Quo94m9xHBQWEg
+	 m+xnAsEpB6QV+z07gZzht+S4yuZ5G6bYUnpigzPDWJ2+ju4Wx1DraEHQ2eJOwWr6JV
+	 2Ao8SlnsYZTIA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/4] clk: renesas: rzv2h-cpg: Use per-SoC PLL reference
- frequency for calculations
+Subject: Re: [PATCH net-next 1/3] dt-bindings: vendor-prefixes: add SiTime
+ Corporation
 Reply-To: sashiko-reviews@lists.linux.dev
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260511191910.1945705-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260511191910.1945705-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: "Ali Rouhi" <rouhi.ali@gmail.com>
+Cc: conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260511211143.19792-2-arouhi@sitime.com>
+References: <20260511211143.19792-2-arouhi@sitime.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 13 May 2026 00:02:41 +0000
-Message-Id: <20260513000241.D0482C2BCB0@smtp.kernel.org>
+Date: Wed, 13 May 2026 00:09:34 +0000
+Message-Id: <20260513000935.2E066C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] On 32-bit architectures, the calculation `output +=3D p.k * input_=
-fref;` performs an incorrect zero-extended addition when `p.k` is negative,=
- corrupting the PLL calculation.
-- [Low] The newly added `input_fref` field is documented as being in MHz, b=
-ut the code initializes and expects it in Hz.
+- [Low] Mismatch between Author email and Signed-off-by email.
 --
 
-commit a6beaf951f9f846b0e14a16acf1b5de978587208
-Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+commit f07aed4ee2f7551cdd59eeae879a77c0e43ec6f2
+Author: Ali Rouhi <rouhi.ali@gmail.com>
 
-clk: renesas: rzv2h-cpg: Use per-SoC PLL reference frequency for calculatio=
-ns
+dt-bindings: vendor-prefixes: add SiTime Corporation
 
-This commit modifies the rzv2h-cpg driver to use a per-SoC PLL reference
-input frequency instead of a hardcoded 24MHz constant. It adds an
-input_fref field to struct rzv2h_pll_limits and updates the PLL parameter
-calculations to use it.
+This commit adds a new vendor prefix for SiTime Corporation to the vendor
+prefixes device tree binding.
 
-> diff --git a/drivers/clk/renesas/rzv2h-cpg.c b/drivers/clk/renesas/rzv2h-=
-cpg.c
-> index f6c47fb89bca5..cd990dc10fa96 100644
-> --- a/drivers/clk/renesas/rzv2h-cpg.c
-> +++ b/drivers/clk/renesas/rzv2h-cpg.c
+> Author: Ali Rouhi <rouhi.ali@gmail.com>
 [ ... ]
-> @@ -330,9 +331,9 @@ bool rzv2h_get_pll_pars(const struct rzv2h_pll_limits=
- *limits,
->  					continue;
-> =20
->  				/* PLL_M component of (output * 65536 * PLL_P) */
-> -				output =3D mul_u32_u32(p.m * 65536, RZ_V2H_OSC_CLK_IN_MEGA);
-> +				output =3D mul_u32_u32(p.m * 65536, input_fref);
->  				/* PLL_K component of (output * 65536 * PLL_P) */
-> -				output +=3D p.k * RZ_V2H_OSC_CLK_IN_MEGA;
-> +				output +=3D p.k * input_fref;
+>     Signed-off-by: Ali Rouhi <arouhi@sitime.com>
 
-On 32-bit architectures, does this calculation perform an incorrect
-zero-extended addition when p.k is negative?
+This isn't a bug, but should the Signed-off-by email address match the
+Author email address?=20
 
-Since p.k is a signed 16-bit integer (s16) and input_fref is unsigned long
-(32-bit on ARM32 architectures), negative values of p.k might get promoted =
-to
-a 32-bit unsigned integer before multiplication.
-
-This would yield a 32-bit unsigned result. When added to the u64 output
-variable, this result would be zero-extended to 64 bits instead of being
-sign-extended, adding a large positive value rather than subtracting the
-frequency offset.
-
-While this existed prior to this patch, replacing the RZ_V2H_OSC_CLK_IN_MEGA
-constant with input_fref maintains the same integer promotion behavior.
-
-Could p.k be explicitly cast to a signed 64-bit integer here?
-
->  				/* Make it in mHz */
->  				output *=3D MILLI;
->  				output =3D DIV_U64_ROUND_CLOSEST(output, 65536 * p.p * divider);
-> diff --git a/include/linux/clk/renesas.h b/include/linux/clk/renesas.h
-> index c360df9fa735c..402bfeaffdfc4 100644
-> --- a/include/linux/clk/renesas.h
-> +++ b/include/linux/clk/renesas.h
-> @@ -53,6 +53,8 @@ static inline void rzg2l_cpg_dsi_div_set_divider(u8 div=
-ider, int target) { }
->   * various parameters used to configure a PLL. These limits ensure
->   * the PLL operates within valid and stable ranges.
->   *
-> + * @input_fref: Reference input frequency to the PLL (in MHz)
-
-This isn't a bug, but is the documentation correct about the unit being in =
-MHz?
-
-Looking later in the diff, the field appears to be initialized in Hz:
-
-[ ... ]
-
-> @@ -156,6 +160,7 @@ struct rzv2h_pll_div_pars {
-> =20
->  #define RZV2H_CPG_PLL_DSI_LIMITS(name)					\
->  	static const struct rzv2h_pll_limits (name) =3D {			\
-> +		.input_fref =3D 24 * MEGA,				\
->  		.fout =3D { .min =3D 25 * MEGA, .max =3D 375 * MEGA },	\
-
-It seems the field is initialized and expected in Hz (24,000,000 Hz) rather
-than MHz. Should the documentation be updated to state (in Hz) to match the
-implementation?
+The Developer Certificate of Origin tracking usually expects these to match,
+but here one is a gmail.com address and the other is a sitime.com address.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511191910.1945=
-705-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511211453.2067=
+1-1-arouhi@sitime.com?part=3D1
