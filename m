@@ -1,143 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2F5D145A1F;
-	Wed, 13 May 2026 02:15:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88A84388E58;
+	Wed, 13 May 2026 02:24:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778638502; cv=none; b=dmxbiW0tIMJBG4p/GcEZ8F2lYAab3ZcgG4VEcv0O/JK66t2/kG8MQIImKZY20OJOm0IQA4ul1A4ZFqaTcMd/jdLE45DgvHrboRpZWcpYdyGnwc2xF0HSxcTYRGl3TcA/Z2a9dU0e9nk+v51Hzi2y8PRwjok5F7kU4lOrSJ2rL5M=
+	t=1778639087; cv=none; b=brnkFfCID31Q9/lcpSQ6dLB6Elhp4CYxfwoSTvv7nmDDgLGBYU9cFck7jUl/uTV+gRTLZQNZkjItPRSKcBKU/teRVvmhkvJ/O4rFwDqpDLFuLOXMZ6yfWPj6H+tb6zSLpgmk/bASZZBqRbTS/3thuxo2mYyHalPMq4y7uqN2yw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778638502; c=relaxed/simple;
-	bh=wiy0UXQU4cH21IakzRIDWTSzueLEt8syIqO1JauQqW8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ZBzdbviLfVwThfx2geB/NONcqIGK6+B8qV5NXtQXAOl7yzjyfplJzkfhJwhUdMBvxdXKIuWThIRfi+lxpTsHQRgBudLef/4vi8Q93Xva4P5PYbKCoWFftnlMg8m3DOiJ+90DmozJM1X9B99brVzghVhaThTtf64VTxEQE+3i7V8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WKrBUTRG; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778639087; c=relaxed/simple;
+	bh=9cIfxuycgP8z4g23PgKgPgWRXfTbd9QvLzmPjgLbCjw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=CD+reL+xbkZm/PMbxEkCZakV+ScCmAVbLaYs66gTkY1eaQkcuMcWWEpPN2P3xOURYUfVhVeiJbVx2VFai+V+Bh7rwRKEvEplv6tPcY4umV/FbcW6mDEMOrDFGrJVQSl2h2RJuOjfKFqiAppRuxDY6JAgs39VntgHapTEW7+u358=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cp6mP9lo; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WKrBUTRG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87009C2BCB0;
-	Wed, 13 May 2026 02:14:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cp6mP9lo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19F29C2BCB0;
+	Wed, 13 May 2026 02:24:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778638502;
-	bh=wiy0UXQU4cH21IakzRIDWTSzueLEt8syIqO1JauQqW8=;
-	h=From:Date:Subject:To:Cc:From;
-	b=WKrBUTRGAATUFJ8ot3z9w6M1JLLt25xt2Xo52UvmCS6WmvSd/K/adAj0QizF5jP9D
-	 /ezWDB96v6pckR6yxZLjw7E9eb0xa88ePyPUTc9OBmAxerCWHo51UhA82TqAZ5nm33
-	 Oj7Qib9mrnNgtq1XvzM+9ZVw50FRxMefTP/wYFoipO8sX1jC90rateW+f1eOcBhL+6
-	 SWq9/JlmWxAhWblUzVeMPvs/BAh7sxcjlZzWVuv4cghOzHCMcbWcojqlZf79ehSutg
-	 BYUSBDr+A2hVa6SZ5oUjTPgCbhbBu7q02q/nzXX2sVl4WUGQnktVM5Eb/ya5n9wE2H
-	 Lqv2UyrnuUu3g==
-From: Yixun Lan <dlan@kernel.org>
-Date: Wed, 13 May 2026 02:14:51 +0000
-Subject: [PATCH] riscv: dts: spacemit: drop unnecessary power supply from
- PCIe
+	s=k20201202; t=1778639087;
+	bh=9cIfxuycgP8z4g23PgKgPgWRXfTbd9QvLzmPjgLbCjw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=Cp6mP9loWgeE+UlD61nyBeaRUDf+dTG/tK7LRaDWbA9+m1O/HVYfU/dt+rq1EuTeo
+	 IXris+1vw0HsVBJks+2OdYJ1wZWMbcyp8HSxXQQANm3ijwvBivCFFn72qr+KEkswa9
+	 ZhBVhtJ0NXlE1I1DbZn9VhYALOWhD4qPeccsVri5vscd7agfRNqtGyYN2Y+yBP/B3F
+	 QWuwPGQJucJg71KjKvweWcuNUc0vW1eCk6FcNbOe+U1Juljub0ROPBAdx6I8YLP1ly
+	 H/ZnoDYEwIwreQFmxc2OkxNpYoAAn3D9fYPeRu3BQY8CHUF33EbbhhmzHApCO2CPqs
+	 cqrnQwuuISTMA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: hwmon: pmbus: Add Murata D1U74T PSU
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
+Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-hwmon@vger.kernel.org
+In-Reply-To: <20260511-d1u74t-v1-1-623c2bc1532a@nexthop.ai>
+References: <20260511-d1u74t-v1-1-623c2bc1532a@nexthop.ai>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 13 May 2026 02:24:46 +0000
+Message-Id: <20260513022447.19F29C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260513-k1-pcie-fix-supply-v1-1-4eecbdd44ebe@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAJreA2oC/yXMQQqDMBCF4avIrB1IgkrxKsWFZsZ2WrEho6KId
- zfa5cfj/TsoR2GFOtsh8iIqvzHB5hn4dzu+GIWSwRlXmdI6/FoMXhh7WVHnEIYNybq+otLQgwp
- IxxA5rXf02fytc/dhP10lOI4T2tGImHYAAAA=
-X-Change-ID: 20260512-k1-pcie-fix-supply-d12f6d50d8d4
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: Chukun Pan <amadeus@jmu.edu.cn>, Andre Heider <a.heider@gmail.com>, 
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Yixun Lan <dlan@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2137; i=dlan@kernel.org;
- h=from:subject:message-id; bh=wiy0UXQU4cH21IakzRIDWTSzueLEt8syIqO1JauQqW8=;
- b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBqA96gcO3vBt/WSHDDkldf2wLPX8Qt/cwZh1aWh
- Nx7BAjJQ+SJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCagPeoBsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
- maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
- QACgkQMarqR1lNu+04og//UEc6qtizp+oinUkZVzm/deUuIO47KqkLuVS73EOd0YlKsDUburcSg
- 0MLwMAyhMvqrpzbofJTDA769TGDuXgDqV1/GdRCcmpNTkC87K1bQyUv5Sp95xfSn8tjQGsthLWS
- 5wTM5xvE5dMTT7pqkn9/InomOKOsC0keXyidyXKHiFwvG4sqtZBYwaKiQtc3WTzLXt43d3bVDhE
- ygUaNQjylpQxavhCgJTii2b85O9jr6HoQJXhzDfTysQL5qT3eg1CBVhQ4+tRUrwtH7zHaIPlNR8
- iJQnPouA+ON+jygVKkISShtdsyEb3OKZLaRkd+S2rq7+NddFYzzJRFegSvegPmM4S+adTH9jJJT
- PEVzkitkfSRI6zQGtDoWwUJG61Dj+duW1ugUD7FDVwr4qmyhZHPAPndSXcytY/7DVImYviFtaux
- g3JjUr1YcvPUYj3eg6I2PXVstathkHAtOCpzx1lLdC70z2PFYBA2UGrk6UvkvqNNwz05rYo+Od8
- W/UGBz7pGhDmu1WxRHg5Rofr2CK6rGkRZqJWWcVmS3oliQmSf1A2iRwKeW1YGKxqUdkTnPo7Nyl
- s65cQiswV2Wu007BskB/f9+vWVwfAtABMN1HK7usQQ0lJFxuYyufEBx3LURyMhwDyRf5x73TTuy
- tk/zwFpHGZNa24ecKzVcRW9zTxSTDk=
-X-Developer-Key: i=dlan@kernel.org; a=openpgp;
- fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-The PCIe Root Complex found on the SpacemiT K1 SoC does not require
-external power supply, this match with the dt-binding documentation[1],
-Instead it's the sub node of PCIe ports which should add vpcie3v3 power
-supply. So, explicitly remove "vpcie3v3-supply" property from the PCIe
-controller.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] The 'MURATA D1U74T PSU DRIVER' MAINTAINERS entry breaks alphabetica=
+l sorting.
+- [Low] The devicetree example uses a non-standard node name 'psu@58'.
+--
 
-Link: https://lore.kernel.org/all/20251113214540.2623070-4-elder@riscstar.com/ [1]
-Signed-off-by: Yixun Lan <dlan@kernel.org>
----
-The problem was introduced at the time of PCIe DTS first committed to
-kernel, the vpcie3v3-supply should be added to PCIe ports instead of PCIe
-RC node.
+commit ff01149325e7be87488c4a95814dc42ab054bb39
+Author: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 
-Refer the example dts of Documentation/devicetree/bindings/pci/spacemit,k1-pcie-host.yaml
+dt-bindings: hwmon: pmbus: Add Murata D1U74T PSU
 
-I'm not adding the Fixes tag, as this doesn't cause any severe bug, thus
-not necessary to do the back port..
----
- arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts   | 2 --
- arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts | 2 --
- 2 files changed, 4 deletions(-)
+This commit adds the devicetree binding documentation and MAINTAINERS entry
+for the Murata D1U74T-W PMBus power supply unit.
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-index e20daa50a152..c70081856606 100644
---- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-@@ -316,7 +316,6 @@ &pcie1_port {
- };
- 
- &pcie1 {
--	vpcie3v3-supply = <&pcie_vcc_3v3>;
- 	status = "okay";
- };
- 
-@@ -332,7 +331,6 @@ &pcie2_port {
- };
- 
- &pcie2 {
--	vpcie3v3-supply = <&pcie_vcc_3v3>;
- 	status = "okay";
- };
- 
-diff --git a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts b/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
-index afaad59e6bce..7e5915023eaa 100644
---- a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
-@@ -313,7 +313,6 @@ &pcie1_port {
- };
- 
- &pcie1 {
--	vpcie3v3-supply = <&pcie_vcc_3v3>;
- 	status = "okay";
- };
- 
-@@ -329,7 +328,6 @@ &pcie2_port {
- };
- 
- &pcie2 {
--	vpcie3v3-supply = <&pcie_vcc_3v3>;
- 	status = "okay";
- };
- 
+> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/murata,d1u74t.=
+yaml b/Documentation/devicetree/bindings/hwmon/pmbus/murata,d1u74t.yaml
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/murata,d1u74t.yaml
+[ ... ]
+> +examples:
+> +  - |
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        psu@58 {
 
----
-base-commit: f068b204555ad62d6a841a49feb4ea8c4f45b25c
-change-id: 20260512-k1-pcie-fix-supply-d12f6d50d8d4
+Does this node name follow the standard devicetree specification? The
+standard generic name for this class of device is typically "power-supply".
+Should this be updated to "power-supply@58" rather than "psu@58" to better
+reflect the generic function of the device?
 
-Best regards,
---  
-Yixun Lan <dlan@kernel.org>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -6803,6 +6803,12 @@ S:	Maintained
+>  F:	Documentation/hwmon/crps.rst
+>  F:	drivers/hwmon/pmbus/crps.c
+> =20
+> +MURATA D1U74T PSU DRIVER
+> +M:	Abdurrahman Hussain <abdurrahman@nexthop.ai>
+> +L:	linux-hwmon@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/hwmon/pmbus/murata,d1u74t.yaml
+> +
+>  CRYPTO API
 
+This isn't a bug, but it appears this entry was inserted out of alphabetical
+order. Since "MURATA D1U74T PSU DRIVER" is currently placed just before
+"CRYPTO API", should it be relocated further down the file into its proper
+alphabetical position in the "M" section?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511-d1u74t-v1-=
+0-623c2bc1532a@nexthop.ai?part=3D1
