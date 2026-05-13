@@ -1,233 +1,348 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11020119.outbound.protection.outlook.com [52.101.69.119])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BCEC3C6A56;
-	Wed, 13 May 2026 10:33:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.119
-ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778668397; cv=fail; b=d0XG4h9ORoBnxJYDJYupIbJKnepoRaJpeX6wlGBD708aHuyCKN/KFeu9ohveKiqSL51egNiXe0ovMGRnBGP9dhZek5HKzQilaKGiHqacSsK0n8SNXGOIjkwXJWhBFNkVxL/IrUYejZn/SpEhpOaC6snbyY2cuZwUXPdWSRF0v9U=
-ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778668397; c=relaxed/simple;
-	bh=pPaDnuEiTfGeLHrG5i6/a4I1Cig4ioBmz0lJ7CRk1/0=;
-	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=gYcLWYQ7wFPZ01Bg9YxB1Tz1Kvno9/xACYaq9s9OQAQmJ2op7zFXmmIubDdikUkMcjp1qpHYIWf1RZruJ27ulu7pQ2tUkW2g6K1lmJD3slJ+Zf7TXDgzUHYMHpKQ2pk4P/qUz4/j30/4C8cpHKtFVm+gEpaLsjvB95dDyZtnKWY=
-ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com; spf=pass smtp.mailfrom=solid-run.com; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=laP/+dcJ; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=laP/+dcJ; arc=fail smtp.client-ip=52.101.69.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=solid-run.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 419B73E8660
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 10:33:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778668398; cv=none; b=M0WzO0Qo2xRU/O5CMFdMQpR2xDN6z6TI/3YlYWZoNTPJhIKEzlaeauO54Q6H1sapdMw6gxe7BCTQS1X7Rm9uDSjViAJa7Dty/h5n2onXhmrZsEDpgICQA0VOpU9MzLcgfTRSCYnO8+NuFuVFeV3Q7MQPhEmyVwH7rF8yPQuEuRM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778668398; c=relaxed/simple;
+	bh=P7MMDmiLhHVYqHcAu7ClvEhUdbQ9lZdUJ0RVW3bvNEI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=bNipaIKy32nsSacgmbFj8G2/m8uJ0x+RnTlezKvUzCyQP5Zl8rYb8VJQI3x+B+OPMsZo62WGR6nZZowyHl/E2fy1cYXtQLVE0xrftVBTxTgFTBDhLeWQdzF4IWFWENlRVC2XxCRyuLAMaR374AXr9lu4AsaWiUXE17eN2dYRx4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=GKMBhCTP; arc=none smtp.client-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="laP/+dcJ";
-	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="laP/+dcJ"
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=cutOkbuqN8rfavyONrm+cgXL3YIqTY474rrqW4eHInZSJi0QNIElL6QRi9cfkfgVYob/sCa+BGAaexwHLvz4AmY9vvJMXP1sJovBfmuZFQdHV1Bu6BGh1PSnuVq98rcnhtg7nIio6HFm4Wjn2GGFzi4vZZp6hvVNo1TVabfgRTkg0/NJeJtVtm0fRZOEZ0yva9z9Q7EXYB+IYyOcnSuQMwqUFql7IuygVK7QdpeIuioFeKQePGNwuaHKD3t7DkHfFTPC7N5HjzGUO13AJBKb7ogFpZMLMsWcRX/ZWFNsGdGa3swA+j2ssh1cSiAuzBRPVE8ThWUdXsRD/IlH23XUxQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QZ+zj71/YNH4j55OLbywI780kbju00ugzhWkkawyP88=;
- b=qYCFf7iP8+gjQWhonAFMw8RwugVyWw9vrwFgErwk25n14GA0BM6b1eW5SDJX7lVNAJnBCRJ2KJqyDo2IGobBBjmBg2lQJQ8OCVRJ0J7soF844lacLDQcvbYY4ogdN4UhMCebAP3X1q0RXJUg+fb8b+9DeEU1ZzPHZhqtovAocE7rAAo70UISl/htSxtfDguOJXhOFthPY65mXh3BVAUVwANjyKnLE31QOb3EfBsVuR4jLeq9R0jo2Os6TPVqaWYM3Px2efohSJR/P01UtLxMsnAiK592mUTwGLxl77D437TrUGon7/DyXkfLjG1Da6+6YZOSvgnLH/LxCJgI2b76QA==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=fail (sender ip is
- 52.17.62.50) smtp.rcpttodomain=davemloft.net smtp.mailfrom=solid-run.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=solid-run.com; dkim=pass (signature was verified)
- header.d=solid-run.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=solid-run.com] dkim=[1,1,header.d=solid-run.com]
- dmarc=[1,1,header.from=solid-run.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QZ+zj71/YNH4j55OLbywI780kbju00ugzhWkkawyP88=;
- b=laP/+dcJ7hnPWsLQwXF82IN34AuIrN+/EN6V59gw70K0+OpfDcdR1NxScPtjIqvk5K6r5xp2eGwavax+s6pCyi3YuKHbMglsAVYI25oU8K/niehBCwDrDQ1yjBKnH2XsiwV/c48WiIBA78DsC/zuhIaSpC/XzysDN5rT9bndZbV5LWCIy8zZqFGhc2aUjvXlZyHMcd/UF8ZJAXS/RhhlCojx/RTX25QIyFo4pAXA1RCdMitHG7p5NbhZINhxCy+8II2pp+t39acf3yWYmW8q1BKdo4HfomrKN53dUl4uInsZxL+LBI6tgA15KkxyLUn1UDaXoR+1/FVFYEdyrxbePg==
-Received: from DB7PR05CA0014.eurprd05.prod.outlook.com (2603:10a6:10:36::27)
- by DB9PR04MB9555.eurprd04.prod.outlook.com (2603:10a6:10:303::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Wed, 13 May
- 2026 10:33:03 +0000
-Received: from DU2PEPF0001E9C2.eurprd03.prod.outlook.com
- (2603:10a6:10:36:cafe::32) by DB7PR05CA0014.outlook.office365.com
- (2603:10a6:10:36::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9913.12 via Frontend Transport; Wed,
- 13 May 2026 10:33:03 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 52.17.62.50)
- smtp.mailfrom=solid-run.com; dkim=pass (signature was verified)
- header.d=solid-run.com;dmarc=pass action=none header.from=solid-run.com;
-Received-SPF: Fail (protection.outlook.com: domain of solid-run.com does not
- designate 52.17.62.50 as permitted sender) receiver=protection.outlook.com;
- client-ip=52.17.62.50; helo=eu-dlp.cloud-sec-av.com;
-Received: from eu-dlp.cloud-sec-av.com (52.17.62.50) by
- DU2PEPF0001E9C2.mail.protection.outlook.com (10.167.8.71) with Microsoft SMTP
- Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9913.8 via
- Frontend Transport; Wed, 13 May 2026 10:33:01 +0000
-Received: from emails-4184520-12-mt-prod-cp-eu-2.checkpointcloudsec.com (ip-10-20-5-220.eu-west-1.compute.internal [10.20.5.220])
-	by mta-outgoing-dlp-305-mt-prod-cp-eu-2.checkpointcloudsec.com (Postfix) with ESMTPS id 73AD27FFD0;
-	Wed, 13 May 2026 10:33:01 +0000 (UTC)
-X-Mailbox-Line: From b'josua@solid-run.com' Wed May 13 10:32:47 2026
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=roIFh9XGks5C4FJmoufRysIceQqfIB0PqyBiwv6NyFFGRM1RhOXDl0wiOFwj7Ovcgc0ot1G5gZ+Kr7oQye7M3CHwkCv8a2I1dUQpgRgHmCT0jO/Z0I/RaULCPJCz525VL0uBeakX02DeOWUIMKY5gXM1JAWQhVrAu0C2VOro6TEU87S/g1QwVs2T9D8sMgHna7O3WSfeSiXdloaVrYVRmjIohu5STVX4Ea4lqq4GVGU8Bs0bbhj790Ive129HmIaLOm0VOzqtrVauytcJgQpLkf9dZDlK/tgkAn60RlHdNkJQ50KM7Ll5W2iORMYJVlhnfqkc9h44mlXjuNCiYnTbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QZ+zj71/YNH4j55OLbywI780kbju00ugzhWkkawyP88=;
- b=L3n0no6H0nOy3tEj8Z8vLPP0LKXJkCVdqwBloKejeOSE8IDg72NWC01/4Z2Cg4h5BxABZBU8jfJDoafqzYkzUKSJ0MJvClV18wqLkf4LS1otPrAYxct3V4v9zFgf/QvvBQLw8DL1Lqb+FrwPKfBDzdobbnb+eq1gWCogoyH/Xkr0gov8H/8qbzM0qfZVPf7YSGYpOHce1jCI6R0+GrZ3yxDlI4CqGcpAoN9dfdIRWroAk3Jrv3trgYt+qRS5YDfdjf0RnmedgR4XgHmdEzzbbxKSTNjHgVAskjaWEsTd71sYWOZ4H28u0k8Ht1LFbZrGuZxY0KIKZZta70PUBhkInA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=solid-run.com; dmarc=pass action=none
- header.from=solid-run.com; dkim=pass header.d=solid-run.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QZ+zj71/YNH4j55OLbywI780kbju00ugzhWkkawyP88=;
- b=laP/+dcJ7hnPWsLQwXF82IN34AuIrN+/EN6V59gw70K0+OpfDcdR1NxScPtjIqvk5K6r5xp2eGwavax+s6pCyi3YuKHbMglsAVYI25oU8K/niehBCwDrDQ1yjBKnH2XsiwV/c48WiIBA78DsC/zuhIaSpC/XzysDN5rT9bndZbV5LWCIy8zZqFGhc2aUjvXlZyHMcd/UF8ZJAXS/RhhlCojx/RTX25QIyFo4pAXA1RCdMitHG7p5NbhZINhxCy+8II2pp+t39acf3yWYmW8q1BKdo4HfomrKN53dUl4uInsZxL+LBI6tgA15KkxyLUn1UDaXoR+1/FVFYEdyrxbePg==
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=solid-run.com;
-Received: from GVXPR04MB12057.eurprd04.prod.outlook.com
- (2603:10a6:150:313::24) by GVXPR04MB9802.eurprd04.prod.outlook.com
- (2603:10a6:150:110::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Wed, 13 May
- 2026 10:32:43 +0000
-Received: from GVXPR04MB12057.eurprd04.prod.outlook.com
- ([fe80::14f1:a127:2988:de5b]) by GVXPR04MB12057.eurprd04.prod.outlook.com
- ([fe80::14f1:a127:2988:de5b%7]) with mapi id 15.20.9913.009; Wed, 13 May 2026
- 10:32:42 +0000
-From: Josua Mayer <josua@solid-run.com>
-Subject: [PATCH v5 0/2] arm64: dts: imx8dxl: Add SolidRun SoM and
- HummingBoard
-Date: Wed, 13 May 2026 12:32:29 +0200
-Message-Id: <20260513-imx8dxl-sr-som-v5-0-d0899b371c38@solid-run.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAD1TBGoC/3XOTQ6CMBCG4auYrq3pdAoUV97DuKB/2kSoaZVgD
- He3spEILt8vmSfzIslGbxPZb14k2t4nH7ocxXZD9KXpzpZ6k5twxksmmKS+HaQZrjRFmkJLHQi
- wGgVChSQf3aJ1fpjA4yn3xad7iM/J7+Gz/qV6oIxqWzRYN9pUgIcUrt7Q+Oh2OrTkw/V8TtQLg
- mdConOclbxWDVsjcEYgWxA4fcGVLLWrCqXXCPElCoAFITJRCpSgUDnJzC8xjuMbH9EN23kBAAA
- =
-X-Change-ID: 20260408-imx8dxl-sr-som-f141ec343173
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
- Vladimir Oltean <olteanv@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: Yazan Shhady <yazan.shhady@solid-run.com>, 
- Mikhail Anikin <mikhail.anikin@solid-run.com>, 
- Alexander Dahl <ada@thorsis.com>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, 
- Vladimir Oltean <vladimir.oltean@nxp.com>, 
- Conor Dooley <conor.dooley@microchip.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, netdev@vger.kernel.org, 
- Josua Mayer <josua@solid-run.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-ClientProxiedBy: FR0P281CA0171.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b4::12) To GVXPR04MB12057.eurprd04.prod.outlook.com
- (2603:10a6:150:313::24)
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="GKMBhCTP"
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-2f7ca62a3c4so6855352eec.0
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 03:33:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nexthop.ai; s=google; t=1778668388; x=1779273188; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=GjSuZ8ZvzPBcac4mqsLo92B5VD+KUuH8Di4sSdgtVhs=;
+        b=GKMBhCTPhi0Lv43JcBbynx/+SIS37E0cY1LlV/3yRNRIFCAdJoROHy+ipoODa3pUUO
+         +eklFJJru5ullLUzixLFf/Cf2Oko+aDmM7YQut046j7mB5RcvclhxTfnjUFY7zB2ipUm
+         LzRf2BdEI5kIiXOQ9qrBHmSdhLszARdG53Po9GseQkQIpC5SgUK2Jea+t8tMexpvmSAv
+         63PSnLEAR4L+gzpGZ3gtc3AQr/rhxrcQpTlheLuU9tOV14wadbaH1NuBtBqxWDi8b/Ws
+         7Kqwt/mIqrbwIDMGLNyUaR7neYYoffdmMEAAsBaJlUZ/VSmnJfDlVBaKwFnnTUDZDxs8
+         YDcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778668388; x=1779273188;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=GjSuZ8ZvzPBcac4mqsLo92B5VD+KUuH8Di4sSdgtVhs=;
+        b=YRu92CWbWWwLCw5LxPmfIOJljjSLbvrrPSpWifELOxdP1e89wnXoyrpsm53ErPiRrR
+         7hYJlxA9XNqfRR8JAIhsFQmY1kxdJlyEPeB8DgddnEKVca8Tcty4XPAhpzVixVDi6mtv
+         PDF0Cdg+hi9hTGN/fj0zB44KocY73U9TVa6q5HXUn5c0RPbxvjlpCZ7jkidAX6h0e+81
+         Er5n+LnxK39QFaIfPAeJM1I9xapzRmbn23I0hhOxL/t+H/6h07xDKRhX2aUyjVW1puFM
+         GBl0t9SXzh5YkYD3LHLKsgZlMRSRb5YlEWxhAxfmUFBScS5md28sojNTL0besr265oZW
+         0W6A==
+X-Forwarded-Encrypted: i=1; AFNElJ+59DHQ/4/MUXGpb4dURU6Twr10RSOd1ictF0bxs97UsxxvxmWCDe8BBTHCe+S5C/Xzo/uMivkWnCND@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx/A2jU1NiN01z5iIesDEYLHvwJ4gB4Y51AgG54SPNs5EUwOw0l
+	qIpz2rRz3XvTfYiFPd5XfYDbgpkHwEHX2Lmdx1dNs2Hsf1wHvcVsJFblffau3Gy4hFmhf+JYass
+	PJaeEcJw=
+X-Gm-Gg: Acq92OGmhYgIsuWUD1vehUPmbK1ZKa2OS9/VmJ/BvjMt+ED4rKu08C8srWcWBiJ/0x/
+	OqlqO/IT7ujb46UawAOSpDGCCIJRYQ0wIp7xXy3HOZKVi+vWpON55B74GG0dl3s5O0aAihpvfaY
+	h1SvOExNS1tkbnxK+jAbJkzVMIgF5klSWcE+JOcClGTV8v4Y2O710NZgzi9MheZ6xdvTEnUoNzQ
+	11fgLs++Jr/V4MUAdHsMNA3Jjt9KksuKyVaV17nwOlgLtYedaHGvEPV4A7eB/vSpFaxrkemVxER
+	UCLXGDpBiStaGBz3Tl+Gl2Z+/tkWY4tzwm7QPtH1NbpFBspsGHZ0Pl//h6UBX2r/QlwVbtBsWBj
+	4JrAA/z37K+w/6ET5g+/pqQ+NDkDTkcuiJEU3OvSw1Tz11keoY7nkXck/H3A/r9izYsyiOaQ0XM
+	5Doucu4epd0TKY5vdLF1qAvqO27A==
+X-Received: by 2002:a05:7301:1f0a:b0:2d9:bc8d:f62a with SMTP id 5a478bee46e88-301556533acmr1054256eec.16.1778668387835;
+        Wed, 13 May 2026 03:33:07 -0700 (PDT)
+Received: from [127.0.0.2] ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2f8859eb4b7sm22241537eec.2.2026.05.13.03.33.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 13 May 2026 03:33:07 -0700 (PDT)
+From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Date: Wed, 13 May 2026 03:33:03 -0700
+Subject: [PATCH v3 2/2] hwmon: (pmbus/d1u74t) Add Murata D1U74T PSU driver
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic:
-	GVXPR04MB12057:EE_|GVXPR04MB9802:EE_|DU2PEPF0001E9C2:EE_|DB9PR04MB9555:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2f5799cd-6395-4623-c397-08deb0db0245
-X-CLOUD-SEC-AV-Info: solidrun,office365_emails,sent,inline
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|7416014|52116014|376014|1800799024|366016|18002099003|921020|38350700014|56012099003;
-X-Microsoft-Antispam-Message-Info-Original:
- hRRm91c6LC+fprN8Z9ph3zF0B2bes3KMiNSZiLAHay/Aydvc31huChVMArZJC3b5tqwJHWC3pmESaRM3JVQ06LzMfDuazTp7i5DkQ28ZnMPomABTN2UjPq4rGIXKHPxZ5wI88dOkPqd9CDKFoXkVZK4uFnxFgqaJDSBJGBJzfTMjEpKcy3awJWIfZTZRdYC9hTBlQzTeQm7hc58rRx7atRkKwblzom7WNDmiYLugxj0IH8i3HuHthnQ0kPSyKDhaq3yA0uWlq/TFvmoJOdPUDZ/LS40OT5eEgtcctn1ee1+ScHq53zRRq6RBVKF18o44I4pmARfDOVL9iCYksEi5CIbs4/OZ53oo5V8Kvlibq+wNbeLFc+yC+4oHgfWXebvJCWNiokp/z1vpagiO+l0/xKfO/NpJ6V/fH4HtzFfrbf8+vHUInkFkRdTkG6frgGe4niOwUcsKKfFkaAZFOpdKgCTiVrVBwxnAjVP0KX+v9ddSPSWuqSfOF4r9CdhrgduM7maNPgv+76mDODDt3XBHhFzeWg3+ls9i5cD+PTsWUoK2rWrWotdNKk+Y+4oi9DuXWSbxH6sU9XW0jA0OND5J49soJw6rj4/uBX0D64rwFS5G2TEqW8AUkmOmJ4sQf8DTbU6w7lawMVB8A6nGSoktZT1rIDcVQ6dxE0G2WKSyV/8oRWvbvLOjA+tIQmV2LZ27ypcR7/UTGJ0r2jTnXMDw897UnI2hvsXazAvXzOjq9VC4bh3+5QJXf5vt0BjkcJELb7ntJ/m27izGPAP6AD1mLg==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB12057.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(52116014)(376014)(1800799024)(366016)(18002099003)(921020)(38350700014)(56012099003);DIR:OUT;SFP:1102;
-X-Exchange-RoutingPolicyChecked:
- noK/1Wt2ZE2aN0HiR4eoYZSAYiaQ9ymjSzgYK8dM0KEF+wAWToejycgqtW8lpoc1Baeewl/nuZN05xCh3866EDhXeDJlR5GtTsa53f1CsSz2VlA82PFrpxMxilnXgYMbRnKaAP1qiWdmO6NEWZXOErX2taQ0r9dSzHP7IabsjeQYkkkb2dVa3FVTSKibHIcS0dHGcsosNLGqOYuAyVE5p5p/IEVB89POoK3Lzct4mdJb31s33m6pQwAMLP+wxbevBbGQEYJ92RkjBv+jwbm9mbAEo5QPCGNCrt4y9LxmY9Dlcnk/DT74ZIb277o7YJ5enTjAmOuvdK4pe6+YkiJlMA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB9802
-X-CLOUD-SEC-AV-INT-Relay: sent<mta-outgoing-dlp-mt-prod-cp-eu-2-7.checkpointcloudsec.com>
-X-CLOUD-SEC-AV-UUID: 9364bee21a374a8e9819b3b0d55fba60:solidrun,office365_emails,sent,inline:932655bd921d1a8df2b3aed684bc64d7
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DU2PEPF0001E9C2.eurprd03.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	56dbbeb3-8135-44d7-1c94-08deb0daf6da
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|14060799003|35042699022|36860700016|82310400026|1800799024|13003099007|921020|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	IINjZmW8XcTInxcV/f7euE/wxocMq3bG9ApoybRN/U+hOHV7tpi/n/q0IhN7YrJfMRWljeb4AeRxn3AXY6/DtVCryFwSUGOETDtLCRgE3Wy5Kmicy10PopgkRC7t24JNRp/XtWPTjwpl5C5UOjrtb2kA4uu0btzv1ME0JYRdh88TtZMZ+r++/Z1Fvb785CiNEcYi6E71Lxz2TUKcBGonGAHZCHVdDccu4uEOsfiboUsNO1FGTp9XZesuUE05eepgZQ49EAg/fGFch1eVpCVulqzdjRIQ9x9pSndOWYv/TqJJAb0TtnZ3yhUDuL6381cu71C69o3Nui5IfvvCSF0aY6qPmTJ97iPJhNQJiDinAsY8gtVK03CyAg2IIv3R5L3RZdPNCZEFbXP7PUDONlEKfK4AD8q6gWEJtiiMB7j4bh4mIfHFZpjsBLtQL2cV8OEuvNkpZcJkPW7WQo1SlNhYleA6vZTEO/uOhp7SXw23hfZx2BbykQB5HKZaZ1t8nUWcodZs9FCP7cDvD1btumZo2U20hPzKzLC7+TEk4M5bhqKsdugxn3pTkC7y0kFy5LRn9MWW9dJ9s4iDxHfk/efcmsv17Vf1inAX28jnDxwrPxfyrrCe5s1x36gEfX8mFDRj7+eBdsZyFaTN96psPR2bVYi/+3lyXzzFgf8Cmn5WvhrbwUIPg/CuqY7+St4vT0d4QPGlA/RvlLE5BPWLY53UAlSSFLz1P8WfjLHcCDHs+mZBws1UFJ874C5fdzeMG8kwKK4p4b02Ka6CI/+Kaai12w==
-X-Forefront-Antispam-Report:
-	CIP:52.17.62.50;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:eu-dlp.cloud-sec-av.com;PTR:eu-dlp.cloud-sec-av.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(14060799003)(35042699022)(36860700016)(82310400026)(1800799024)(13003099007)(921020)(56012099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	F92Ai06/JVyR+/5xZccGoXuFP05Y3sZOpWBXwqEeJf+xys8x9wKcCxf1mW8DZNH+IfXyDaMlMitNoqYDsXvC8/TIdmfIIdn1wGQeQIxzRoNxG82eBlcXNYfVQyty2tpu3UcjtzHCQIeLnYG+XZCPTb5+L3JmznThUX3lNqZMRAKTVzMu2+zWGhYcgrlYPVJlPBaZTnHYy/CNuYEkUkG/qB+qT+UuSLeHUdS5TtRCe8DwEeoELtW8Mt2ifC45Dsi5N9kAABWaqVZ8tdyQSOAOM9craVFKnpg5uXVAGRurnKBI3LiLXNRzmAbe8741U5HZZZvLieoWGw72noyC7Jt/cw+fW5yv3Kxw9UNDr5G1ID+r6BlMcwHh5U6TkP1NqdtghBqLNhfTluefrDHBn0QI4pEE2vSZ/FMReoDuWhnQq2BGtw2rCsBIdzynqokQP1AE
-X-OriginatorOrg: solid-run.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 10:33:01.5203
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f5799cd-6395-4623-c397-08deb0db0245
-X-MS-Exchange-CrossTenant-Id: a4a8aaf3-fd27-4e27-add2-604707ce5b82
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a4a8aaf3-fd27-4e27-add2-604707ce5b82;Ip=[52.17.62.50];Helo=[eu-dlp.cloud-sec-av.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU2PEPF0001E9C2.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9555
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260513-d1u74t-v3-2-27bcd6852c45@nexthop.ai>
+References: <20260513-d1u74t-v3-0-27bcd6852c45@nexthop.ai>
+In-Reply-To: <20260513-d1u74t-v3-0-27bcd6852c45@nexthop.ai>
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Abdurrahman Hussain <abdurrahman@nexthop.ai>, 
+ kernel test robot <lkp@intel.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778668384; l=7520;
+ i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
+ bh=P7MMDmiLhHVYqHcAu7ClvEhUdbQ9lZdUJ0RVW3bvNEI=;
+ b=0jJGtU80Ci+mMBa6gRShJgussIla2YCfCk8TOXc6DdFw6BPReqShDPp9zPpnkt7P8wF7xbSQp
+ jepHNpto/63CbhYiPk8f32TtiUI7ChPbGfd5FGD+7sGH4wTUH6VpurB
+X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
+ pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
 
-Add bindings and description for SolidRUn i.MX8DXL based SoM and
-HummingBoard Telematics.
+Add PMBUS driver for Murata D1U74T power supplies.
 
-Modify SJA1110 Ethernet Switch bindings to allow SPI Mode 0.
-
-This patch-set is based on v7.0-rc2, because rc1 was experiencing
-deadlocks with imx8qxp clock driver.
-
-Signed-off-by: Josua Mayer <josua@solid-run.com>
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202605122253.zInzmUeX-lkp@intel.com/
+Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 ---
-Changes in v5:
-- Change cpu port phy-mode to rgmii-id, and set zero delays. Delays are
-  added by connected ethernet switch port.
-- Added ethernet aliases for all switch ports.
-- Removed undocumented reset-duration-us property from usb modem node.
-- Fix T1 interface count in commit message.
-- Change USB-A Port dr_mode to host.
-- Add cap-sdio-irq for wifi.
-- Link to v4: https://lore.kernel.org/r/20260511-imx8dxl-sr-som-v4-0-64381b3bf80d@solid-run.com
+ Documentation/hwmon/d1u74t.rst | 81 +++++++++++++++++++++++++++++++++++++++
+ Documentation/hwmon/index.rst  |  1 +
+ MAINTAINERS                    |  7 ++++
+ drivers/hwmon/pmbus/Kconfig    |  9 +++++
+ drivers/hwmon/pmbus/Makefile   |  1 +
+ drivers/hwmon/pmbus/d1u74t.c   | 86 ++++++++++++++++++++++++++++++++++++++++++
+ 6 files changed, 185 insertions(+)
 
-Changes in v4:
-- picked up acked-by adnrew lunn
-- Link to v3: https://lore.kernel.org/r/20260430-imx8dxl-sr-som-v3-0-ce2b86cf75bc@solid-run.com
+diff --git a/Documentation/hwmon/d1u74t.rst b/Documentation/hwmon/d1u74t.rst
+new file mode 100644
+index 000000000000..2856aba97c3a
+--- /dev/null
++++ b/Documentation/hwmon/d1u74t.rst
+@@ -0,0 +1,81 @@
++.. SPDX-License-Identifier: GPL-2.0-or-later
++
++Kernel driver d1u74t
++====================
++
++Supported chips:
++
++  * Murata D1U74T
++
++    Prefix: 'd1u74t'
++
++    Addresses scanned: -
++
++    Datasheet: Only available under NDA.
++
++Authors:
++    Abdurrahman Hussain <abdurrahman@nexthop.ai>
++
++
++Description
++-----------
++
++This driver implements support for Murata D1U74T Power Supply with
++PMBus support.
++
++The driver is a client driver to the core PMBus driver.
++Please see Documentation/hwmon/pmbus.rst for details on PMBus client drivers.
++
++
++Usage Notes
++-----------
++
++This driver does not auto-detect devices. You will have to instantiate the
++devices explicitly. Please see Documentation/i2c/instantiating-devices.rst for
++details.
++
++
++Sysfs entries
++-------------
++
++======================= ======================================================
++curr1_label		"iin"
++curr1_input		Measured input current
++curr1_alarm		Input current alarm
++curr1_rated_max		Maximum rated input current
++
++curr2_label		"iout1"
++curr2_input		Measured output current
++curr2_max		Maximum output current
++curr2_max_alarm		Output current high alarm
++curr2_crit		Critical high output current
++curr2_crit_alarm	Output current critical high alarm
++curr2_rated_max		Maximum rated output current
++
++in1_label		"vin"
++in1_input		Measured input voltage
++in1_alarm		Input voltage alarm
++in1_rated_min		Minimum rated input voltage
++in1_rated_max		Maximum rated input voltage
++
++in2_label		"vout1"
++in2_input		Measured output voltage
++in2_alarm		Output voltage alarm
++in2_rated_min		Minimum rated output voltage
++in2_rated_max		Maximum rated output voltage
++
++power1_label		"pin"
++power1_input		Measured input power
++power1_alarm		Input power alarm
++power1_rated_max	Maximum rated input power
++
++temp[1-3]_input		Measured temperature
++temp[1-3]_max		Maximum temperature
++temp[1-3]_max_alarm	Maximum temperature alarm
++temp[1-3]_rated_max	Maximum rated temperature
++
++fan1_alarm		Fan 1 warning
++fan1_fault		Fan 1 fault
++fan1_input		Fan 1 speed in RPM
++fan1_target		Fan 1 target
++======================= ======================================================
+diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
+index 8b655e5d6b68..97b1ef65b1c1 100644
+--- a/Documentation/hwmon/index.rst
++++ b/Documentation/hwmon/index.rst
+@@ -60,6 +60,7 @@ Hardware Monitoring Kernel Drivers
+    corsair-psu
+    cros_ec_hwmon
+    crps
++   d1u74t
+    da9052
+    da9055
+    dell-smm-hwmon
+diff --git a/MAINTAINERS b/MAINTAINERS
+index b2040011a386..3106cf725dfc 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -18249,6 +18249,13 @@ F:	drivers/mux/
+ F:	include/dt-bindings/mux/
+ F:	include/linux/mux/
+ 
++MURATA D1U74T PSU DRIVER
++M:	Abdurrahman Hussain <abdurrahman@nexthop.ai>
++L:	linux-hwmon@vger.kernel.org
++S:	Maintained
++F:	Documentation/hwmon/d1u74t.rst
++F:	drivers/hwmon/pmbus/d1u74t.c
++
+ MUSB MULTIPOINT HIGH SPEED DUAL-ROLE CONTROLLER
+ M:	Bin Liu <b-liu@ti.com>
+ L:	linux-usb@vger.kernel.org
+diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+index 8f4bff375ecb..ee93b22d2887 100644
+--- a/drivers/hwmon/pmbus/Kconfig
++++ b/drivers/hwmon/pmbus/Kconfig
+@@ -113,6 +113,15 @@ config SENSORS_CRPS
+ 	  This driver can also be built as a module. If so, the module will
+ 	  be called crps.
+ 
++config SENSORS_D1U74T
++	tristate "Murata D1U74T Power Supply"
++	help
++	  If you say yes here you get hardware monitoring support for the Murata
++	  D1U74T Power Supply.
++
++	  This driver can also be built as a module. If so, the module will
++	  be called d1u74t.
++
+ config SENSORS_DELTA_AHE50DC_FAN
+ 	tristate "Delta AHE-50DC fan control module"
+ 	help
+diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
+index 7129b62bc00f..8cf7d3075371 100644
+--- a/drivers/hwmon/pmbus/Makefile
++++ b/drivers/hwmon/pmbus/Makefile
+@@ -76,3 +76,4 @@ obj-$(CONFIG_SENSORS_XDPE1A2G7B)	+= xdpe1a2g7b.o
+ obj-$(CONFIG_SENSORS_ZL6100)	+= zl6100.o
+ obj-$(CONFIG_SENSORS_PIM4328)	+= pim4328.o
+ obj-$(CONFIG_SENSORS_CRPS)	+= crps.o
++obj-$(CONFIG_SENSORS_D1U74T)	+= d1u74t.o
+diff --git a/drivers/hwmon/pmbus/d1u74t.c b/drivers/hwmon/pmbus/d1u74t.c
+new file mode 100644
+index 000000000000..286ba492e336
+--- /dev/null
++++ b/drivers/hwmon/pmbus/d1u74t.c
+@@ -0,0 +1,86 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright 2026 Nexthop Systems.
++ */
++
++#include <linux/i2c.h>
++#include <linux/of.h>
++#include <linux/pmbus.h>
++
++#include "pmbus.h"
++
++static const struct i2c_device_id d1u74t_id[] = {
++	{ "d1u74t" },
++	{},
++};
++MODULE_DEVICE_TABLE(i2c, d1u74t_id);
++
++static struct pmbus_driver_info d1u74t_info = {
++	.pages = 1,
++	/* PSU uses default linear data format. */
++	.func[0] = PMBUS_HAVE_PIN | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT |
++		   PMBUS_HAVE_IIN | PMBUS_HAVE_VIN | PMBUS_HAVE_STATUS_INPUT |
++		   PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT | PMBUS_HAVE_TEMP |
++		   PMBUS_HAVE_TEMP2 | PMBUS_HAVE_TEMP3 |
++		   PMBUS_HAVE_STATUS_TEMP | PMBUS_HAVE_FAN12 |
++		   PMBUS_HAVE_STATUS_FAN12,
++};
++
++static int d1u74t_probe(struct i2c_client *client)
++{
++	char buf[I2C_SMBUS_BLOCK_MAX + 2] = { 0 };
++	struct device *dev = &client->dev;
++	int rc;
++
++	rc = i2c_smbus_read_block_data(client, PMBUS_MFR_ID, buf);
++	if (rc < 0)
++		return dev_err_probe(dev, rc, "Failed to read PMBUS_MFR_ID\n");
++
++	if (rc != 9 || strncmp(buf, "Murata-PS", 9)) {
++		buf[rc] = '\0';
++		return dev_err_probe(dev, -ENODEV,
++				     "Unsupported Manufacturer ID '%s'\n",
++				     buf);
++	}
++
++	rc = i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
++	if (rc < 0)
++		return dev_err_probe(dev, rc,
++				     "Failed to read PMBUS_MFR_MODEL\n");
++
++	if (rc < 8 || strncmp(buf, "D1U74T-W", 8)) {
++		buf[rc] = '\0';
++		return dev_err_probe(dev, -ENODEV, "Model '%s' not supported\n",
++				     buf);
++	}
++
++	rc = pmbus_do_probe(client, &d1u74t_info);
++	if (rc)
++		return dev_err_probe(dev, rc, "Failed to probe\n");
++
++	return 0;
++}
++
++static const struct of_device_id d1u74t_of_match[] = {
++	{
++		.compatible = "murata,d1u74t",
++	},
++	{},
++};
++MODULE_DEVICE_TABLE(of, d1u74t_of_match);
++
++static struct i2c_driver d1u74t_driver = {
++	.driver = {
++		.name = "d1u74t",
++		.of_match_table = d1u74t_of_match,
++	},
++	.probe = d1u74t_probe,
++	.id_table = d1u74t_id,
++};
++
++module_i2c_driver(d1u74t_driver);
++
++MODULE_AUTHOR("Abdurrahman Hussain");
++MODULE_DESCRIPTION("PMBus driver for Murata D1U74T-W power supplies");
++MODULE_LICENSE("GPL");
++MODULE_IMPORT_NS("PMBUS");
 
-Changes in v3:
-- rebased on v7.1-rc1.
-- dropped dsa swtch port labels, should be handled by udev rules if
-  required.
-- Fixed spelling error in alias comment.
-- Dropped superfluous status okay properties from switch sub-nodes.
-- Link to v2: https://lore.kernel.org/r/20260409-imx8dxl-sr-som-v2-0-83ff20629ba0@solid-run.com
-
-Changes in v2:
-- Dropped accidental change to unrelated imx8mp-sr-som.dtsi file.
-- Fixed phy-mode on fixed link between cpu and ethernet switch.
-  (Reported-by: Andrew Lunn <andrew@lunn.ch>)
-- Removed spi-cpol property from ethernet-switch on spi bus, fixing
-  sja1110a driver probe.
-- Changed SJA1110 bindings to allow removing spi-cpol property.
-- Aligned comments on all ethernet switch port nodes to be consistent.
-- Dropped regulator-always-on from dsrc radio power-supplies.
-- Link to v1: https://lore.kernel.org/r/20260408-imx8dxl-sr-som-v1-0-ce5a39acd713@solid-run.com
-
----
-Josua Mayer (2):
-      dt-bindings: arm: fsl: Add SolidRun i.MX8DXL SoM and HummingBoard
-      arm64: dts: imx8dxl: Add SolidRun SoM and HummingBoard
-
- Documentation/devicetree/bindings/arm/fsl.yaml     |   7 +
- arch/arm64/boot/dts/freescale/Makefile             |   2 +
- .../freescale/imx8dxl-hummingboard-telematics.dts  | 536 +++++++++++++++++++++
- arch/arm64/boot/dts/freescale/imx8dxl-sr-som.dtsi  | 458 ++++++++++++++++++
- 4 files changed, 1003 insertions(+)
----
-base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
-change-id: 20260408-imx8dxl-sr-som-f141ec343173
-
-Best regards,
 -- 
-Josua Mayer <josua@solid-run.com>
+2.53.0
 
