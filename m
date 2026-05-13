@@ -1,107 +1,68 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C4BB44CF2C;
-	Wed, 13 May 2026 16:37:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A90B47DD43;
+	Wed, 13 May 2026 16:39:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778690275; cv=none; b=CnJevKUHNdEKgQJ9lANpw0YZofPPyPy4CdbxOZYCMegAHloCjaxV0T3W+/LfBLy12itMxGmelo3ufNP92mphxWqNJik1QXwCcdO0iGP0gG8DPuq3fJJINzCBggd8wnpbNT99RXcfVOMqyorooSB8fdbtzdMk01g4rX+PnMbjaNc=
+	t=1778690349; cv=none; b=Z1uPTiwS6gZU7mO7X95qBbT9eseucaztMIEFf92HJ1T5GYiliWQVEBh7VOT5WFIv6ODAME+H+SszMfoRH2IDDwOD8ceOlT82wMZfpEsoK1QPo0VSZTLijhnMzuPgJkOpSghbQXOMHhVyWA0GopziWq+H4LOF0zX9BsiOdnEVrhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778690275; c=relaxed/simple;
-	bh=ghTCuOTegEZWSbC9lHtycD0EmboRN9oSMAdioTFb7tM=;
+	s=arc-20240116; t=1778690349; c=relaxed/simple;
+	bh=jTLiBlw18TYWMKIxl/753MDSgPlbqgABBLAxYXJoZtk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SO58l8jG+mbJBYCmjoIITVVU5JIfhTAPbbSFvY1jL49QwN/Fi9Gx3IXTsRu6S8Yj1r3hap7Q7urcBFSsh5X4moga7l+n8jLqMcpLLZbzTd+V3NfbURNormAghWmCICOa9aPyNvlV7wFbEeI9iQz8qqRQr/nenO+O1jz3rXDSW2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mjg0ItsQ; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=pzS5180ovHwZH7ttuN+r9UMSIqJBNBtngTmkWP0jyhn5sVSn/lAE3rw/MQDSz5diLY57bFJkJ3uw5A/Anpq9wd9MWwRQKkL2TGBGhxYEJ4jF3O4SOckEfBdP5jS44kas6D+FHBFA+0j90V1kwl6vwXuML/1RDBJi2DnZzImKSXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=bgtyOyUF; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mjg0ItsQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1778690274; x=1810226274;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=ghTCuOTegEZWSbC9lHtycD0EmboRN9oSMAdioTFb7tM=;
-  b=mjg0ItsQDJgxPmHr9y4kwv2uRBOtTreExR+Hq1z1pRCMOA/n+iLkR0b2
-   DL6odxskt/miS0SvOn6ZI1f25JUauaP6DqcL70aj2Sw2oAIszbeG6ubEx
-   dL3PAgvMnaEnNvi7VhjDeHmL/bOncW1EpnfodbokMCv5ASqCHpGbOAZn8
-   kMJE/NvBTzjhK4oLKpU8Yiur8/C9LzXvdiShgDIzDD0BjOnGUWF749znR
-   qEaw6DyrI7EL7qwFA6zixPBhxKcIPL4KtzAkNQl9ndS2QH6TpKHfvZO0U
-   trdd602NzzuyHSr3GxNWYhjXTAPNpa+hqOvZYHvrhraPZYSbjTBEoIIE9
-   w==;
-X-CSE-ConnectionGUID: AA+x5rhbTH+AP40tyRyaCA==
-X-CSE-MsgGUID: Tf5tA/RmQQSVmHz82Mz94w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="79655764"
-X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; 
-   d="scan'208";a="79655764"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 09:37:54 -0700
-X-CSE-ConnectionGUID: lwL01TGRTIK//6gpp5g5KA==
-X-CSE-MsgGUID: jDOvssuWTua2fM6pl9Uv/w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; 
-   d="scan'208";a="243088657"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.106])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 09:37:50 -0700
-Date: Wed, 13 May 2026 19:37:48 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Sanjay Chitroda <sanjayembeddedse@gmail.com>
-Cc: Javier Carrasco <javier.carrasco.cruz@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Rishi Gupta <gupt21@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] iio: light: add support for veml6031x00 ALS series
-Message-ID: <agSo3FPFlM3fXNhY@ashevche-desk.local>
-References: <20260513-veml6031x00-v2-0-4703ca661a1d@gmail.com>
- <20260513-veml6031x00-v2-4-4703ca661a1d@gmail.com>
- <690B63AD-4429-4045-B413-29911ED7DA3D@gmail.com>
- <agSokBtQ5R_6p5Zs@ashevche-desk.local>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="bgtyOyUF"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=MJkd/qTlxMG7YI6Zl4+/tXtTS+TkR88GPRYYm3E7D1k=; b=bgtyOyUFh1eq3ZGlxDNbsyDSfD
+	iZpxM3bL5Qz1aGqgPkpUdKCcTNRq/2fN9QmIUeDXGFMRP9zuiUhlzlE/3YT4KNK08onLbkeTS+ABx
+	czGjCE9fe7fStiJ4dBei9FJfTJI7KePXmBsyp4YraPGcAJrrR8PusRqcPN94Zl92mlPM=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wNCbo-002lkA-EP; Wed, 13 May 2026 18:38:56 +0200
+Date: Wed, 13 May 2026 18:38:56 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+Cc: Piergiorgio Beruto <Pier.Beruto@onsemi.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
+	"davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@google.com" <edumazet@google.com>,
+	"kuba@kernel.org" <kuba@kernel.org>,
+	"pabeni@redhat.com" <pabeni@redhat.com>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net-next v2 1/9] dt-bindings: net: add onsemi's S2500
+ 10BASE-T1S MACPHY
+Message-ID: <3c5aa072-9107-440c-820f-3f63aa3ac3e9@lunn.ch>
+References: <CY8PR02MB924920C8825C7AE5D22EFA4483382@CY8PR02MB9249.namprd02.prod.outlook.com>
+ <20542d76-6f70-4c2d-9fef-0de620a8d6d1@lunn.ch>
+ <CY8PR02MB924974BBC348DE4814DA3C7C83062@CY8PR02MB9249.namprd02.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <agSokBtQ5R_6p5Zs@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <CY8PR02MB924974BBC348DE4814DA3C7C83062@CY8PR02MB9249.namprd02.prod.outlook.com>
 
-On Wed, May 13, 2026 at 07:36:38PM +0300, Andy Shevchenko wrote:
-> On Wed, May 13, 2026 at 05:28:35PM +0530, Sanjay Chitroda wrote:
-> > On 13 May 2026 10:19:44 am IST, Javier Carrasco <javier.carrasco.cruz@gmail.com> wrote:
-> > >These sensors provide two light channels (ALS and IR), I2C communication
-> > >and a multiplexed interrupt line to signal data ready and configurable
-> > >threshold alarms.
+> I believe this will affect the parameters passed to request_irq in oa_tc6.c. At present, IRQF_TRIGGER_FALLING is used. It has to be changed to IRQF_TRIGGER_LOW.
+> BTW, I did test with this configuration. Both edge triggered and active low, level triggered seem to work, though technically it is supposed to be level triggered.
 > 
-> > Thank you for new driver support.
-> > 
-> > It would be good to add blank line after this to have iio and common header group separate.
-> > 
-> > Also, header should be in order.
-> 
-> Something went so wrong with your email. You answered with something like 5
-> lines of text in the messages of almost 2000 lines... (It seems your message
-> have the full text of the original one + HTML crap on top.)
+> My understanding is that I should submit this particular change to oa_tc6, to net, not net-next as it falls under bug fix. Can you confirm?
 
-1 <no description>                 [multipa/alternativ, 7bit, 84K]
-2 ├─><no description>              [text/plain, quoted, utf-8, 36K]
-3 └─><no description>              [text/html, quoted, utf-8, 47K]
+Yes, this is a bug. Please submit it to net, and include a Fixes: tag.
 
-> Can you avoid doing that in the future, please?
-> Thanks!
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+     Andrew
