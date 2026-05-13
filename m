@@ -1,87 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DAF6327BF8;
-	Wed, 13 May 2026 18:17:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E113A451F
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 18:17:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778696229; cv=none; b=RqghsGu0yBSJ0AcydjG9QiqohpaFSj/6GNoNw3acCI/oREc3hycPGtw7ZHZeSsn4dwRlww6eQTSSIGp8xxWBRjPIEpL4JG+J31E0Y1i+qE7DStfRh/UVm/TTXaDvPjlC1O37EWJYUWefEBHCzFOZwoGMA9TR8qeiITXde0hhivo=
+	t=1778696258; cv=none; b=W1RpllS0wtrprpZ8YWU+xHAOgdH96RKU161nJm2WDfvNGaqUvESaQ1jMcvt9cZWu4KZRMbtaxTwMcJFCOg69Zici7570g4V7KWTmWD4ed0hCuIX+IPv5fhf3SpPjRstxM6mk9CD5JVuX/zu2P29vFrtkb+WsAA1gyydCVs+Khfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778696229; c=relaxed/simple;
-	bh=8lUCpu13LdXETtCrAQtNDxFk7/U/7lAiLOcmxhV9DEI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rBnfgFmz/qQjEbV7IUGDK1rCiE1dbsiLWtNX1gtqym5Il2C9es5zbsMzCcES5MffjAu/c/e8SOATmoK0rtYnbEOnnxqpmQGfRbIj8c3F4K79q46PBop3FakRsS2rq9syuDd8VXzWaL4Sg+XCRPzriL7nlA0rqv5IB2vDU5rXNEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HSYyhl/1; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778696258; c=relaxed/simple;
+	bh=s3PbTDlk5Oqc8Ek6vf/l3d/qYjy/w+Dh35a8RCdVKqI=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=Usyo2mXIhowMeVgj+f+Orwc2SFldXYrsuxXUPxVearzLl8iVv8lEMSi8h1L0u1toNWtCpvALV/6GlQ4CbWqmmeOakVfilsAGFixd+WMlz26OISTw9j9l+Etcuc9gujFPox9P16jSF6wQqldMeeLhLsne7erfb+Wjl3I2/8j0XGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sR4FYzf1; arc=none smtp.client-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HSYyhl/1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5907CC19425;
-	Wed, 13 May 2026 18:17:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778696228;
-	bh=8lUCpu13LdXETtCrAQtNDxFk7/U/7lAiLOcmxhV9DEI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HSYyhl/1y9Fos0glEOGf3E3oIACLt7cJ7trO4QsSy89oUEVJoUAcSl3MQFahy9fq4
-	 Jr1crEuWDRo4pF12pSAFrrm2q7LMPZ3p/yRomgk4TaYNkbLwldA5p5dvsopXom/rWt
-	 eR5eZ5ZZ557udlPFgCt6OWt+O1MPPny2UqvEiabq5MJ4DYCMHy7rlrh0+JzjZZ/5/1
-	 qv9QUMBCO+O53I9oqh80bKnbdpJQvn2jLWhp8X38QeqFtuHGgSFgsjgYuP5/sBdPNa
-	 IMI2oXCGHeBq6Grb+PSC69bIFntyzZ1QyTwS41OK87Al6nSHBNmcJpxs/id/5QQZS8
-	 YDvnb0Rb9eP8w==
-Date: Wed, 13 May 2026 13:17:05 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Yixun Lan <dlan@kernel.org>, linux-riscv@lists.infradead.org,
-	Joel Stanley <jms@oss.tenstorrent.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	E Shattow <e@freeshell.de>,
-	Ley Foon Tan <leyfoon.tan@starfivetech.com>,
-	Icenowy Zheng <uwu@icenowy.me>,
-	Junhui Liu <junhui.liu@pigmoral.tech>,
-	Michal Simek <michal.simek@amd.com>,
-	Guodong Xu <guodong@riscstar.com>,
-	Hal Feng <hal.feng@starfivetech.com>,
-	Drew Fustini <dfustini@oss.tenstorrent.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>,
-	Michael Zhu <michael.zhu@starfivetech.com>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
-	Anup Patel <anup@brainfault.org>, Albert Ou <aou@eecs.berkeley.edu>,
-	Paul Walmsley <pjw@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Ji Sheng Teoh <jisheng.teoh@starfivetech.com>,
-	devicetree@vger.kernel.org,
-	Darshan Prajapati <darshan.prajapati@einfochips.com>,
-	Alexandre Ghiti <alex@ghiti.fr>
-Subject: Re: [PATCH v2 1/4] dt-bindings: riscv: Add StarFive Dubhe-70
- compatibles
-Message-ID: <177869622508.1560594.4871020257306916510.robh@kernel.org>
-References: <20260506085937.754808-1-changhuang.liang@starfivetech.com>
- <20260506085937.754808-2-changhuang.liang@starfivetech.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sR4FYzf1"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8367df48711so3396477b3a.1
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 11:17:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778696256; x=1779301056; darn=vger.kernel.org;
+        h=in-reply-to:references:from:to:cc:subject:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=s3PbTDlk5Oqc8Ek6vf/l3d/qYjy/w+Dh35a8RCdVKqI=;
+        b=sR4FYzf1dIi36MsGVWSv5fDwSVqs8dBzRZQcOtHF8Tvfi4J4tHBjqywoh99MbUwAvA
+         FYbG2qKlCwoF6L4GaMxkAu7c8EUmF63Tiuz8/1R/IYxF2OFHe2l6NKqorylsoyTzYc/Y
+         joj2v2FX+DD9p/Q3hBi8Ma3LL+VQA3gumUHo2O/muLsS2eR9lzyKzmedzdC/OsIu2jqO
+         /oexRcnYP6Rt+rH7pcv7a9Z9YMuY/jghseIdioZq9ZmVtclejKo0581FEmFncrtUAy8i
+         ldo7Kd5GKP3+sQhtIDShAJCumgM3LXcBsrSg9DoquxHGlbS8vZPCwt9Mz7oqbUrAEYTH
+         vnlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778696256; x=1779301056;
+        h=in-reply-to:references:from:to:cc:subject:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=s3PbTDlk5Oqc8Ek6vf/l3d/qYjy/w+Dh35a8RCdVKqI=;
+        b=LYJDY52AwXgzchceDKCAD79P/7S4LinWK0a4lcXBKyRSt1H66pwyawOuLF88j51gKe
+         pFSTQD9Zy8A1pTccVRIezKdQCKvtbfaV+VPauKTNtuH6heVaa5gtuLSUN7ftqo6Po1vS
+         aLVIPKVVAx11dtiUCKpCrD3W2TOTlpMgi13EUfhO9RGqzDlNrKp6gN5Y/lhK93/L3mnF
+         GfEN9iWvalMgbUivzcI/7g8hAbIRd8m/FY81M05ZF07fEofcp3ITK0Vd/dhCneiKgu9V
+         2tZOsrYwL4ITCRByJEqhpz7+adleN2aJlRxrx7GgGQIokHn5VjmaVLVd4GrACKbaO3pA
+         tF/w==
+X-Forwarded-Encrypted: i=1; AFNElJ8mKJ8WbcOtYciGxdwoZdwd/MoY6/gZSH9seZ3Ja7ULl5s59McpoW/JVlotXorh0Nkw789kH9Va1VF+@vger.kernel.org
+X-Gm-Message-State: AOJu0YyEuWqEYySzrv6CUCA9H1fv+l2Ew4ecnNXwXQp3lzWeRM+fNK+Z
+	cDD2Su50zLxnz3FFdOXJAk5WlkIzSw4jIopG50OPwDpGcOPxAViAQOaw
+X-Gm-Gg: Acq92OEjptL/xhXQo7PHFRro5m+B4rYBih/Nt9rWeU+plNSL+J/hIIMKvUKETRKm16H
+	bL95ZRqkEa1H1Brl1rM2yHXtxROojz7K+vK8DjJfIniTWhyQo8I1D/g9dqO6yT3tPYSVmpxWs/i
+	tsj997ioizNDH70fSBcmjcVn8K4TCQyC5SVzTSO0gMQjebz6JB7ipTkWHM4g6ckfeZFDNMNP8Q1
+	y/+3/n7GgV99pTbYi4PJam8JcK9kFIY9d7nmhuX1tJvD13Y9mPrmCL6DcvmLINucrXXXlCsoZkb
+	dP7j4Qleh7AcnkYnFgDiqWqylgh7/W+Ptdd7TmqYC9I+QlcZT0JtVs+STnSxD4J/mWHcd1s+2s6
+	suDZFuy+7TyxP8gj+6NL9Osjm7ZFa8cMjP7v3qstaSQenLNSWrI4d9vR/KtEfRv0TvZ2hczfQAL
+	doJBFZMCHbKzLf5gNRahdPCYxfUNl7MsX6ctidUaNi/FZZumhyg1dqkiA=
+X-Received: by 2002:a05:6a00:4ac8:b0:834:e092:2631 with SMTP id d2e1a72fcca58-83f03e948b9mr4491931b3a.8.1778696256394;
+        Wed, 13 May 2026 11:17:36 -0700 (PDT)
+Received: from localhost ([203.99.159.235])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19f7cd19sm166265b3a.54.2026.05.13.11.17.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 13 May 2026 11:17:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260506085937.754808-2-changhuang.liang@starfivetech.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 14 May 2026 07:17:24 +1300
+Message-Id: <DIHR7242IVEQ.HZ3NLNX0G9E1@gmail.com>
+Subject: Re: [PATCH v2 1/4] iio: light: veml6030: remove unnecessary read of
+ IT index
+Cc: "Jonathan Cameron" <jic23@kernel.org>, "Lars-Peter Clausen"
+ <lars@metafoo.de>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Rishi Gupta"
+ <gupt21@gmail.com>, "David Lechner" <dlechner@baylibre.com>,
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy Shevchenko"
+ <andy@kernel.org>, "Matti Vaittinen" <mazziesaccount@gmail.com>, "Javier
+ Carrasco" <javier.carrasco.cruz@gmail.com>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+To: "Andy Shevchenko" <andriy.shevchenko@intel.com>
+From: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
+X-Mailer: aerc 0.20.1-4-g02324e9d9cab
+References: <20260513-veml6031x00-v2-0-4703ca661a1d@gmail.com>
+ <20260513-veml6031x00-v2-1-4703ca661a1d@gmail.com>
+ <agSt_TGpyujxqrZc@ashevche-desk.local>
+In-Reply-To: <agSt_TGpyujxqrZc@ashevche-desk.local>
 
+On Thu May 14, 2026 at 5:59 AM +13, Andy Shevchenko wrote:
+> On Wed, May 13, 2026 at 05:49:41PM +1300, Javier Carrasco wrote:
+>> This is dead code as the IT index is not used by gts to set the new scal=
+e.
+>> In its current form, the value is read but not used afterward. Remove
+>> the dead code.
+>
+> Does it have any side-effects on the HW side? Exempli gratia, flushing FI=
+FO,
+> R1C (read to clear 1) bits?
+>
+>> Fixes: 22eaca4283b2 ("iio: light: veml6030: fix scale to conform to ABI"=
+)
+>
+> Not sure it fixes anything. But it might regress, see above why.
+>
+> ...
+>
+> If no side-effects, the code wise looks good.
 
-On Wed, 06 May 2026 01:59:34 -0700, Changhuang Liang wrote:
-> From: Ji Sheng Teoh <jisheng.teoh@starfivetech.com>
-> 
-> Add new compatible string for Dubhe-70.
-> Dubhe-70 is a low power RISC-V cpu core from StarFive Technology.
-> 
-> Signed-off-by: Ji Sheng Teoh <jisheng.teoh@starfivetech.com>
-> Signed-off-by: Ley Foon Tan <leyfoon.tan@starfivetech.com>
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> ---
->  Documentation/devicetree/bindings/riscv/cpus.yaml | 1 +
->  1 file changed, 1 insertion(+)
-> 
+Hi Andy,
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+This patch does not have side effects on the HW side. Apart from having
+it tested with real HW, the operation being handled here is setting a
+new scale, which is stored in a persistent register.
 
+Best regards,
+Javier
