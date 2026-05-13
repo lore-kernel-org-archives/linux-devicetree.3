@@ -1,110 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from s106b.cyber-folks.pl (s106b.cyber-folks.pl [195.78.66.88])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 375433911C0
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 05:00:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6088F37BE6B;
+	Wed, 13 May 2026 05:00:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.78.66.88
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778648409; cv=none; b=N+wdPSjSDOYVjj3mPTM77MqNArk7kg9LHUAODfRdIdhjx67Gk9HaVC1q4EgPB1283QIRaB5XRWUWpkfBG9we08Zeb+chuxW9SzqxAgxK0yEHW8Z8TGF8HV5ARvlQ7kr/MGX2GCZx/GhcA7edocRCgegzUM2etFSbhRB6WggejFE=
+	t=1778648451; cv=none; b=LOxp8bJeo7IO2xF7g4yyqZ//X2u7K0XyUF6uZ3nrpdwgdwNUkb5zRoFQIMypIUJ13gDOQOAfv17rIaNP2cJ0+B970GgvhLdteUhpBP1Nn5tBGBslV+tBPwzdgJ+WbWGlOxXWT/ks23vKXxny7Kd7aUiRwHI2uGY8mNkJKfKh6T4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778648409; c=relaxed/simple;
-	bh=TqLCITmBHROlI/6bD94uBpynN298xODzRDKewaoiTeU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GiEwjtT06TbdN3zXkt1EmBdyq1EcB1VqS96A8MiNfGL8q2e9xF9MbHWxUbJp6TiZXQS7vGWvRKTuHBVWcDA6htevnFKVkeDeiDxAcXiZxaYHAJMAW6a/rlKO0iDu3hy/sCmjCSqYQlT1AR5PWgUP4abVY8Av0yY6VfXSy8O2yq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eyw3PPHb; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778648451; c=relaxed/simple;
+	bh=I8HMsZirgXX885nuJJP7JQN223GiZKMXE/BN5ZNXDh0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=hqorJ1PSngIhO5B+ycH9oPP3evo3oKVLqKo+mhZFw7M9tnlMM9qDjCvp1wJpRs+Y1fPKvCegQf7izlnxjePsJJILvqo1xVgRgdcT3m2hVhTJ2LDRSDHBbXNvMOHKfM+uU5DQPMq/qqtg03V3CWq1qAqvD/s2QPE6wFk1mu14+YA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mmpsystems.pl; spf=pass smtp.mailfrom=mmpsystems.pl; dkim=pass (2048-bit key) header.d=mmpsystems.pl header.i=@mmpsystems.pl header.b=RY1eRyoq; arc=none smtp.client-ip=195.78.66.88
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mmpsystems.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mmpsystems.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eyw3PPHb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C829C2BCB7;
-	Wed, 13 May 2026 05:00:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778648408;
-	bh=TqLCITmBHROlI/6bD94uBpynN298xODzRDKewaoiTeU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=eyw3PPHbv83ZBB3TjahSG70+ICxPBtffCGUkPYvYsZ7kv6xqOag3QhQlpOrlj9/ya
-	 yv6LVAsD/F2xUWUlB5fc9sDpcUVhIwA4n1Ij3ZFtaVP8ivT/nQjB8FQ1g1Dxh4ODLi
-	 ZGkDCEEX+8K+h9p4HNbu/VsLIMOevdb/uCdqIB+u7vvBGBnsw3uacR/21+zD4lyU2j
-	 5asF7yuXTsLDz77uoQ4adSkMvyo03Hzu6D5J4VrKXEd6njTpoHxqaf9prh0tmMbHLy
-	 EMK3KkpWngweKz4hYo6q1fu/5OU6i7dEpmEuiGif0KaG+UCDddANRVvbgp/bDg4hl7
-	 GgjYBFGJNWSKg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 04/16] dt-bindings: mfd: mediatek: mt6397: add mt6323
- PMIC thermal
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Roman Vivchar via B4 Relay" <devnull+rva333.protonmail.com@kernel.org>
-Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260512-mt6323-v2-4-3efcba579e88@protonmail.com>
-References: <20260512-mt6323-v2-4-3efcba579e88@protonmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 13 May 2026 05:00:07 +0000
-Message-Id: <20260513050008.8C829C2BCB7@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mmpsystems.pl header.i=@mmpsystems.pl header.b="RY1eRyoq"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=mmpsystems.pl; s=x; h=Cc:To:In-Reply-To:References:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
+	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=AyyMPtOl9wP1fMDaeO+c2BR6cLsA+AOebpc5PnOHZCg=; b=RY1eRyoqg4Dh7MoMTripUeubfu
+	CjYcbXK8Br0OzeBE8cj4nFlg2G3PCFY1sdNBhtX7JLTiVfboFHlSjUX37ckPrtaWf+6XAXCcJNkBO
+	BBiWbWCf16FpppES1CX0ROZOXpRdzRjQMkdTN9+GrQ8Btg1nzXFYc80LowtuCttwPnQJSNVD4gOCi
+	GSHuSymhjmOAOhaUbAGwz4UNlRUfJR2l6KeaxMAxpx9MRny9pxzXYDj9ZTb4AZrDZFzuvsdDxG0Ec
+	+6+mYLWL4+AZnV+Oew1S2kkaHOOu1sb3q/3m6WYUX0e5rJhVAkwEci2Rl6WQP3er/g+BzDiZ7peWI
+	Mk6pPY1A==;
+Received: from [91.102.182.218] (helo=localhost)
+	by s106.cyber-folks.pl with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <michal.piekos@mmpsystems.pl>)
+	id 1wN1iA-0000000EbXi-35LL;
+	Wed, 13 May 2026 07:00:46 +0200
+From: Michal Piekos <michal.piekos@mmpsystems.pl>
+Date: Wed, 13 May 2026 06:59:43 +0200
+Subject: [PATCH v2 2/3] iio: adc: sun20i-gpadc: add A523 gpadc support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260513-sunxi-a523-gpadc-v2-2-d5efde151dac@mmpsystems.pl>
+References: <20260513-sunxi-a523-gpadc-v2-0-d5efde151dac@mmpsystems.pl>
+In-Reply-To: <20260513-sunxi-a523-gpadc-v2-0-d5efde151dac@mmpsystems.pl>
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, 
+ Maksim Kiselev <bigunclemax@gmail.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, Michal Piekos <michal.piekos@mmpsystems.pl>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778648397; l=1618;
+ i=michal.piekos@mmpsystems.pl; s=20260301; h=from:subject:message-id;
+ bh=I8HMsZirgXX885nuJJP7JQN223GiZKMXE/BN5ZNXDh0=;
+ b=9R/92n4OO7rz0UOg1KOojjxsQ2ixBGVbfkuPW7Agy7qsR5pS/ZHeTurTPQj4ZBpnEIsCSNCw/
+ bfrCRcMH9Z9BVQcIIjvB/FZe9zMtH/Oz45RFgKuEGbks/H4kdnS62EH
+X-Developer-Key: i=michal.piekos@mmpsystems.pl; a=ed25519;
+ pk=Aixyx03If7ZDamiKKN0lsa+0mtA+WjIuIf2ZQVYNBqg=
+X-Authenticated-Id: michal.piekos@mmpsystems.pl
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The `#thermal-sensor-cells` property is constrained to 1, but th=
-e MT6323 hardware only possesses a single thermal sensor, violating DT ABI =
-design principles.
-- [Low] The device tree example is missing the `adc` node and its correspon=
-ding `mt6323_adc` label, which is referenced by the new `thermal` node.
---
+A523 differs from existing sun20i-gpadc-iio by having two clocks; bus
+clock and module clock.
 
-commit 5d14cb32b8298f2c8dd1f6c1a6921b9e3942bf24
-Author: Roman Vivchar <rva333@protonmail.com>
+Change driver to enable all clocks.
 
-dt-bindings: mfd: mediatek: mt6397: add mt6323 PMIC thermal
+Signed-off-by: Michal Piekos <michal.piekos@mmpsystems.pl>
+---
+ drivers/iio/adc/sun20i-gpadc-iio.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-This commit adds devicetree binding documentation for the MediaTek mt6323
-thermal monitoring hardware, which reads temperature via an AUXADC channel.
-It configures #thermal-sensor-cells to 1 and includes a thermal node in
-the example block.
+diff --git a/drivers/iio/adc/sun20i-gpadc-iio.c b/drivers/iio/adc/sun20i-gpadc-iio.c
+index 861c14da75ad..3f1f07b3a385 100644
+--- a/drivers/iio/adc/sun20i-gpadc-iio.c
++++ b/drivers/iio/adc/sun20i-gpadc-iio.c
+@@ -180,7 +180,7 @@ static int sun20i_gpadc_probe(struct platform_device *pdev)
+ 	struct iio_dev *indio_dev;
+ 	struct sun20i_gpadc_iio *info;
+ 	struct reset_control *rst;
+-	struct clk *clk;
++	struct clk_bulk_data *clks;
+ 	int irq;
+ 	int ret;
+ 
+@@ -205,9 +205,11 @@ static int sun20i_gpadc_probe(struct platform_device *pdev)
+ 	if (IS_ERR(info->regs))
+ 		return PTR_ERR(info->regs);
+ 
+-	clk = devm_clk_get_enabled(dev, NULL);
+-	if (IS_ERR(clk))
+-		return dev_err_probe(dev, PTR_ERR(clk), "failed to enable bus clock\n");
++	ret = devm_clk_bulk_get_all_enabled(dev, &clks);
++	if (ret <= 0)
++		return dev_err_probe(
++			dev, ret,
++			"failed to enable clocks or no clocks defined\n");
+ 
+ 	rst = devm_reset_control_get_exclusive(dev, NULL);
+ 	if (IS_ERR(rst))
+@@ -243,6 +245,7 @@ static int sun20i_gpadc_probe(struct platform_device *pdev)
+ 
+ static const struct of_device_id sun20i_gpadc_of_id[] = {
+ 	{ .compatible = "allwinner,sun20i-d1-gpadc" },
++	{ .compatible = "allwinner,sun55i-a523-gpadc" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, sun20i_gpadc_of_id);
 
-> While mt6323 exposes only a single thermal sensor, newer PMICs like
-> mt6358 provide more than one sensor. Therefore define #thermal-sensor-cel=
-ls
-> as 1 to avoid breaking devicetree ABI in the future.
+-- 
+2.43.0
 
-Since the mt6323 hardware only possesses a single thermal sensor, shouldn't
-#thermal-sensor-cells be constrained to 0?
-
-Future hardware variants like the mt6358 will use different compatible
-strings, which can then define their own #thermal-sensor-cells: const: 1
-constraint without affecting the mt6323 ABI.
-
-Setting it to 1 here forces a dummy cell argument on single-sensor mt6323
-devices, misrepresenting the actual hardware.
-
-> diff --git a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml b=
-/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
-> index beaa67bf0df2c..2c826737189e7 100644
-> --- a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
-[ ... ]
-> @@ -511,6 +547,14 @@ examples:
->          rtc {
->              compatible =3D "mediatek,mt6323-rtc";
->          };
-> +
-> +        thermal {
-> +          compatible =3D "mediatek,mt6323-thermal";
-> +          nvmem-cells =3D <&mt6323_thermal_calibration_data>;
-> +
-> +          io-channels =3D <&mt6323_adc MT6323_AUXADC_CHIP_TEMP>;
-
-Does the mt6323_adc label exist in this example?
-
-Looking through the example block, the adc sub-node and its corresponding
-mt6323_adc label do not seem to be defined. Will this cause dtc to fail with
-a reference to non-existent node or label error during dt_binding_check?
-
-> +          #thermal-sensor-cells =3D <1>;
-> +        };
->      };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-mt6323-v2-=
-0-3efcba579e88@protonmail.com?part=3D4
