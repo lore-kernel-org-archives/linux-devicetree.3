@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B5CB5CDF1
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 04:39:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5F2218787A
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 04:44:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778647154; cv=none; b=Mw9btwScYHjooNrtFCY7N8oKHZGCLnJhvLgNVY4l0hyNREeqR1lfPVIguHrYm6qW5Dp3qICa+OFVP1/MuU77RvE+FXAuB/7GIhxg9KbWz8BOJ1gMeMIL7OLSDNAgLnU6E1V3+D+t8as9O8G4EKbTbsMFpjMkQN6lEXbIVbXmvJM=
+	t=1778647472; cv=none; b=XsXJTTtvaFDQ4hvDjjIrkudZRY0QQ8FO3r5xHEe3K9uSjyIEyzo6EVByedaTY9hp+3nbHSgdgVhChZFR/Ja+SOJWYCA3i8fnBP5LRjdfeikO3efycByBWItbQy3gW1vRzqSI+W2DQeASVjVuKGsk97qqefkiKrYs5nvSj2XGoSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778647154; c=relaxed/simple;
-	bh=A2sQPhAkffoWUFBdJ18+kOvSk+13itYj6Ewc88IgLE8=;
+	s=arc-20240116; t=1778647472; c=relaxed/simple;
+	bh=t4RtnszXpsDcKjSCAvGTCEstz7b4+VLdZeJQtJ94+ys=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rf6+0aGhGrAEePdw0lFuHuE3xY0FuyZge8OmLZ/ycsFzRTxeaYPFUNuE12lN43XCoTll/F5jWdephK7lHK2rlcpmIgXUcQMrEgJtYmmGEJLz4tpFZUAbAWGN9n6qTIdXOk4zUEWQcDY5/F2LoDpBwYbVonireIIsIpxeE8T6hrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DkQfjH/N; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=DQANmVY3wzahiUPhRECbtFX0DW2MWKjCwamUXXR1S4eKgNGykbAPbnc9X4ThiTyGUIAO0nDcIl87KCqfEqc52fzNZaErT1oFr/REWb8YF/Gf58cm9/tYCcD2OXHwAwP3H8hKX6tEKUDPl/7MU3LaSDDFYOV38Lurkz5F0vyuXYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YUqegIq0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DkQfjH/N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF624C2BCB7;
-	Wed, 13 May 2026 04:39:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YUqegIq0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E31A3C2BCB7;
+	Wed, 13 May 2026 04:44:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778647153;
-	bh=A2sQPhAkffoWUFBdJ18+kOvSk+13itYj6Ewc88IgLE8=;
+	s=k20201202; t=1778647472;
+	bh=t4RtnszXpsDcKjSCAvGTCEstz7b4+VLdZeJQtJ94+ys=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=DkQfjH/NAjiWFgZyM8RpamELgupmEQ0dl4wGZr9r0+I++CNLjK/D+YsvjvuLBPTT6
-	 JljIF8GI9MRo52urbmDWHa6PPMGUx1N7p9ftKYnNeRokJfyU8NDyMCALcWbDuxOWR6
-	 /P5yu1nU+tNO7AnJ31xEwnRDR7az6HaxAwyMc0JYsHne3VtjNGS/QDZwzUSpiU/qt4
-	 09cAQXWHJoVOpyLk+LHw9TZMZE+Rw83ZY9PKM2FdhMY/rB+TGwOLlssT8EBOuYHSGC
-	 RH3ePctSF7R6jtirjsb/xX/m2bGxXMoaGD9QTxPsWl2JmqlBYTWCppXVsfIUnqlvLx
-	 DkAI3wz542vpQ==
+	b=YUqegIq0WTf2EkK47n9j9vWnuwGOZyHyQY0OPJzauYPPHAYkJ6TksSziQOb54QsIT
+	 4FVul56jezddcAfOFHd0XUiwxMblK78NnOAgBN6S8FRRkxecPii6hnKg3bn9pg849m
+	 x7CzPtnKd8v26QOpPNx4E49FoWhQKcR2R1WuWEhiyPMA9QjlNCQYr8KW5DuA+L4cSH
+	 eI1t4EQMP8HdjGhWFS2+bc0SZWQ3IrlQKu7JRJJniIzbdJKmnaPIzgXzVoRG4hrd5X
+	 4ITUTRCvmHOOoFQxTEAFVTAgHIyPyWDEQ/FT8wEvy7+mhQTZZglcU6dT5LjRUjeRWs
+	 qTe61/+ftMQxQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v3 3/6] net: phy: air_phy_lib: Factorize
- BuckPBus register accessors
+Subject: Re: [PATCH v2 03/16] dt-bindings: mfd: mediatek: mt6397: add mt6323
+ PMIC EFUSE
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260512-add-airoha-an8801-support-v3-3-1edb34e363ae@collabora.com>
-References: <20260512-add-airoha-an8801-support-v3-3-1edb34e363ae@collabora.com>
+To: "Roman Vivchar via B4 Relay" <devnull+rva333.protonmail.com@kernel.org>
+Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260512-mt6323-v2-3-3efcba579e88@protonmail.com>
+References: <20260512-mt6323-v2-3-3efcba579e88@protonmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 13 May 2026 04:39:13 +0000
-Message-Id: <20260513043913.AF624C2BCB7@smtp.kernel.org>
+Date: Wed, 13 May 2026 04:44:31 +0000
+Message-Id: <20260513044431.E31A3C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,50 +46,51 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Missing explicit `#include <linux/wordpart.h>` in `drivers/net/phy/=
-air_phy_lib.c`.
+- [Medium] Missing reference to core NVMEM schema (`$ref: /schemas/nvmem/nv=
+mem.yaml#`) in the `efuse` node definition.
 --
 
-commit a5ca176575453118a1f5a166311004f5cc86600c
-Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+commit ce0eef2651d566e649c71112862db7f2d4dc1545
+Author: Roman Vivchar <rva333@protonmail.com>
 
-net: phy: air_phy_lib: Factorize BuckPBus register accessors
+dt-bindings: mfd: mediatek: mt6397: add mt6323 PMIC EFUSE
 
-This commit moves the BuckPBus register accessors and definitions from the
-air_en8811h driver into the shared air_phy_lib code to allow reuse by the
-upcoming Airoha AN8801R PHY driver.
+This commit adds the device tree binding documentation for the MediaTek
+mt6323 EFUSE, which is used to store calibration data on the mt6323 PMIC.
 
+> diff --git a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml b=
+/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
+> --- a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
 [ ... ]
-
-> diff --git a/drivers/net/phy/air_phy_lib.c b/drivers/net/phy/air_phy_lib.c
-> index 8ef5af4becf03..687c59197b163 100644
-> --- a/drivers/net/phy/air_phy_lib.c
-> +++ b/drivers/net/phy/air_phy_lib.c
-> @@ -15,6 +15,186 @@
+> @@ -145,6 +145,23 @@ properties:
+>      required:
+>        - compatible
 > =20
->  #define AIR_EXT_PAGE_ACCESS		0x1f
-> =20
-> +static int __air_buckpbus_reg_read(struct phy_device *phydev,
-> +				   u32 pbus_address, u32 *pbus_data)
-> +{
-> +	int pbus_data_low, pbus_data_high;
-> +	int ret;
+> +  efuse:
+> +    type: object
+> +    unevaluatedProperties: false
+> +    description:
+> +      The efuse is responsible for storing calibration data, such as the=
+rmal
+> +      sensor calibration.
 > +
-> +	ret =3D __phy_write(phydev, AIR_BPBUS_MODE, AIR_BPBUS_MODE_ADDR_FIXED);
-> +	if (ret < 0)
-> +		return ret;
+> +    properties:
+> +      compatible:
+> +        const: mediatek,mt6323-efuse
 > +
-> +	ret =3D __phy_write(phydev, AIR_BPBUS_RD_ADDR_HIGH,
-> +			  upper_16_bits(pbus_address));
+> +      nvmem-layout:
+> +        $ref: /schemas/nvmem/layouts/nvmem-layout.yaml#
 
-This isn't a bug, but should linux/wordpart.h be explicitly included in
-this file?
+Should this node include a reference to the core nvmem schema?
 
-These functions rely on upper_16_bits() and lower_16_bits(), which appear
-to be pulled in implicitly through other headers.
+Because the node sets unevaluatedProperties: false without referencing
+/schemas/nvmem/nvmem.yaml#, would dtbs_check incorrectly reject standard
+nvmem properties like read-only or wp-gpios?
 
-[ ... ]
+Additionally, if the core nvmem schema is referenced, does the explicit
+reference to nvmem-layout.yaml become redundant?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-add-airoha=
--an8801-support-v3-0-1edb34e363ae@collabora.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-mt6323-v2-=
+0-3efcba579e88@protonmail.com?part=3D3
