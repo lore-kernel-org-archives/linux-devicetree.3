@@ -1,153 +1,100 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 650793BB664;
-	Wed, 13 May 2026 21:34:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32E233BE174
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 21:34:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778708081; cv=none; b=SeROni5wGlCtAePA7whN/qhFi92hs2WVvLtX5d0UC9Rez008V0anvaIb19Zr2dNIQD8hP1fI9NznL1J9wvLf/WzhQ74FS74/t+bpG/w2NKuOYBbK62HcPAT/rfZ9oNaKdczvDoy+AcVzsINMct7+fpIjeRMMz/bWSxQdT4JBX78=
+	t=1778708098; cv=none; b=AKNInk1dV2cd7ipDqyOWNHwlMXNFf/TUtcWNmU3Q43BSjmEU2dbCKTSGvRrZEli5j0fGG1J7LmnNIHKoVmqUAe1htY8Ng52d82WyjSrzP7ao3FE6p+yBy7NntJafSdX0SR8goG7Kg52GEUYBcDP30C7NSI73fjn/9++8OW2diDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778708081; c=relaxed/simple;
-	bh=kZcChJqREVkQQHEf+Cv+4DLUKpU/qmqpFtGEeNeoxC8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SPI7RHF1f/j4+ZL2i553CbNQS5zOYFIjLUaDJkHvGi2GUj+onAT2w3pWhsilJRgBXIiXB4OJmmpQd4IsWmMD8SG1g16+omhPWTo03j+CNmgOvD7kP3jzeXmVZDgySDMgR4PIz3rPnCzmCo860utiF38+GEjRVE76bheOpo3A/lE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KIOo5nBX; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1778708098; c=relaxed/simple;
+	bh=3uC6ehw7dYS+zE3mSPk0mFUtmfCilzSMucfnhq7sAks=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=i7kgummY02af10BnUrh3m9F+6ctivl8TbJszgOHVR7SijM5U8zkZ+5pZttrSBjkrysuZR9JhAeZJuQWI/a0UnUEgrcuWqm1sKlxeBs7u9ptTL5j1Er6nWvAUTwmNFrPDjzKCg3uLbeAdXdL5Afk94VR3OzbfhlU7DI06pktDFYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KG6Z6oF+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KIOo5nBX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1778708080; x=1810244080;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=kZcChJqREVkQQHEf+Cv+4DLUKpU/qmqpFtGEeNeoxC8=;
-  b=KIOo5nBXZvoaSHI1oNjSuDatwn2iHnw1oa+0zi7h15sPPohlH4j+bbEv
-   uZE/R6TrHdSfSHD5Qd3X5ABIIq73GQDmsF8jfGT5io3zCzZd15pzMBA1H
-   25ph0gZnRKw685afoxd1ElXAX/2P9r5eD4OjFh5FUi7oDoPxvo/K6yt0Q
-   917m7aoUdV97pLjlvBeqC3AdvkDqUKEqq0OO1x6vRpvRP2GSl7s5zVoLm
-   S5GHFukt0Lh9W+52gQtp6o3C7o7qLHlncU2PLsdGFHRZ5dbY+mwLT6znV
-   JtFhXdCSDTjKPydoRTHQe0nm0s5WDAC/SEGV56msiKQ8KmrCqG2OG3n3i
-   w==;
-X-CSE-ConnectionGUID: LG6Az1G9T96G+KV4J7m8kQ==
-X-CSE-MsgGUID: kQ38FsojQISCgWebXDuGjg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="97072913"
-X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; 
-   d="scan'208";a="97072913"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 14:34:39 -0700
-X-CSE-ConnectionGUID: EhQxfke0QaawRfntB0aqog==
-X-CSE-MsgGUID: rwJD+o+LR4G92b/NypN8/Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; 
-   d="scan'208";a="233751257"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.106])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 14:34:34 -0700
-Date: Thu, 14 May 2026 00:34:32 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Andre Przywara <andre.przywara@arm.com>
-Cc: Sanjay Chitroda <sanjayembeddedse@gmail.com>,
-	Michal Piekos <michal.piekos@mmpsystems.pl>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Maksim Kiselev <bigunclemax@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] iio: adc: sun20i-gpadc: add A523 gpadc support
-Message-ID: <agTuaAjtpIRBAo6N@ashevche-desk.local>
-References: <20260513-sunxi-a523-gpadc-v2-0-d5efde151dac@mmpsystems.pl>
- <20260513-sunxi-a523-gpadc-v2-2-d5efde151dac@mmpsystems.pl>
- <A7772824-E704-4BFD-A796-BCD81197E5A2@gmail.com>
- <4248ac7e-3cce-4db8-a2c1-710f2c903490@arm.com>
- <agTbFbicv9yzTQb9@ashevche-desk.local>
- <20260513231901.05dc9a82@ryzen.lan>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KG6Z6oF+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E59D0C19425;
+	Wed, 13 May 2026 21:34:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778708097;
+	bh=3uC6ehw7dYS+zE3mSPk0mFUtmfCilzSMucfnhq7sAks=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=KG6Z6oF+sytNxQ2flqQUNfMbn/l0xHWFRHuaOdPazBE6qXJ4FyDQgs60RQjgxEcc9
+	 F9wFqWrpc5aAWmdbtL1OFLqQyogBmavFGVjaCxG4VpwQ+inXgCONLQyI/FcSONcWtx
+	 X5cDnsD5KflWrWlPFwyZZWanfbTzM/jO75b03Nl4jmrWG4j8SgUF0tGclJ40b/y+oN
+	 CvHb3VretEIKM7kGuaxe9cnU/jCosiVcABl5AJYr7dLCCv5x/T3oLkAQUHUQcLMjKW
+	 hiFDSY1kT9gLDMlIlrH9fcjRsB458KwH9zdZGoE36nHzWK+AD7ZdUpDWN0cGN4gb/B
+	 AUJgkkbPhhwdw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/6] media: dt-bindings: Document SC8280XP/SM8350
+ Iris
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260512-iris-sc8280xp-v5-1-8cc251e83b58@oss.qualcomm.com>
+References: <20260512-iris-sc8280xp-v5-1-8cc251e83b58@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 13 May 2026 21:34:56 +0000
+Message-Id: <20260513213456.E59D0C19425@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260513231901.05dc9a82@ryzen.lan>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, May 13, 2026 at 11:19:01PM +0200, Andre Przywara wrote:
-> On Wed, 13 May 2026 23:12:05 +0300
-> Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
-> > On Wed, May 13, 2026 at 01:53:49PM +0200, Andre Przywara wrote:
-> > > On 5/13/26 13:44, Sanjay Chitroda wrote:  
-> > > > On 13 May 2026 10:29:43 am IST, Michal Piekos <michal.piekos@mmpsystems.pl> wrote:  
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Incorrect YAML sequence indentation breaks `make dt_binding_check`.
+--
 
-...
+commit 7d3ce999d6af6439f0c83bd8f368afdadb5e31c4
+Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-> > > > > +	if (ret <= 0)  
-> > > > 
-> > > > Thank you Michal for the change.
-> > > > 
-> > > > Have you validated the changes ?
-> > > > It looks while success ret would be 0 and it would give return error.
-> 
-> No, it doesn't. Returning 0 means no clocks found:
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/clk/clk-devres.c#n300
-> 
-> > Good catch!
-> > 
-> > > But devm_clk_bulk_get_all_enabled() returns the number of clocks found and
-> > > enabled. And since we need at least one, I think this is correct, and the
-> > > error message below reflects that.
-> > > 
-> > > To me that change looks good:
-> > > 
-> > > Reviewed-by: Andre Przywara <andre.przywara@arm.com>  
-> > 
-> > == 0 ???
-> > Doesn't look like correct code.
-> 
-> Not sure I follow:
-> devm_clk_bulk_get_all_enabled() returns the number of clocks in that
-> node, or a negative error value. If it returns 0, that means no clocks
-> have been found,
+media: dt-bindings: Document SC8280XP/SM8350 Iris
 
-Not in this code. Here it will be resent to the caller as success.
+The Iris block on SM8350 and SC8280XP is compatible with the Iris (Venus)
+on SM8250. This commit updates the bindings to describe the block as Iris
+v2 and documents the SM8350 and SC8280XP IP cores using a fallback
+compatible string.
 
-> which is an error in our case, since we expect at
-> least one clock. This is what the second part of the error message
-> refers to.
+> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8250-venus.ya=
+ml b/Documentation/devicetree/bindings/media/qcom,sm8250-venus.yaml
+> --- a/Documentation/devicetree/bindings/media/qcom,sm8250-venus.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,sm8250-venus.yaml
+> @@ -10,15 +10,21 @@ maintainers:
+[ ... ]
+>  properties:
+>    compatible:
+> -    const: qcom,sm8250-venus
+> +    oneOf:
+> +      - const: qcom,sm8250-venus
+> +      - items:
+> +        - enum:
+> +            - qcom,sc8280xp-iris
+> +            - qcom,sm8350-iris
+> +        - const: qcom,sm8250-venus
 
-But not the error code itself! There will be no error message, IIRC the
-implementation of dev_err_probe().
+Will this indentation cause `make dt_binding_check` to fail?
 
-> So we want one or two as the return value, with the current bindings,
-> but really anything greater than 0 is fine, from the driver's
-> perspective, since we don't care about the clocks beyond them being
-> enabled.
-> 
-> So am I missing something?
+The kernel's Documentation/devicetree/bindings/.yamllint file enforces
+indent-sequences: true with a 2-space indentation rule. This requires any
+block sequence acting as a value for a mapping key to be indented further t=
+han
+the key itself.
 
-Yes!
+Here, the "- items:" element is at 6 spaces, placing the "items:" mapping k=
+ey
+conceptually at 8 spaces. The child sequence elements "- enum:" and "- cons=
+t:"
+are placed at 8 spaces, identical to the parent "items:" key, rather than b=
+eing
+indented inside it.
 
-You returned that to the caller, meaning everything is fine. There is a success
-that is returned. The code is buggy (okay, not that, it rather will behave not
-as intended).
+Yamllint typically expects the child sequence to be indented an additional 2
+spaces (at 10 spaces) and will likely flag an indentation error.
 
-TL;DR:
-You should have something like
-	if (ret < 0)
-		return dev_err_probe(ret);
-	if (ret == 0)
-		return dev_err_probe(-Exxx, "Needs at least one clock!\n");
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-iris-sc828=
+0xp-v5-0-8cc251e83b58@oss.qualcomm.com?part=3D1
