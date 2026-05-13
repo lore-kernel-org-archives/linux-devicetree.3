@@ -1,161 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 206793B1009;
-	Wed, 13 May 2026 19:12:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4871A3B19CA;
+	Wed, 13 May 2026 19:15:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778699571; cv=none; b=Ik00sltpuJN/T+5P+yjHvQvnLagvsJLQwPbrRQ8TNznLUC7Vitd09ygCfoRQLUK5+y2i8lrJh1+yjdN2/Th8uqaKbfCBuzMMK6Y+OJmfc46IynVA0N6wkgSvex1P7RONzuf0LVqw5lkBbmF4u8i4s8BaiyOgtBnTXeG20BMWgCE=
+	t=1778699726; cv=none; b=YcyOn9P+55HbEhezXaqsuyvH/weAX2h7lJgv1I9TQe/T8IpYErY3IKYPwnljOMk5V08oNVUwov8rGDagDQjcQAwDo9OfRD0aomNaq74CGLz9Wb2FOhVWPBaMb/VKiaxR+h9QI4KUXAOa2SvKoL6Rip8GWjAOywiJhd2nWJ2fbrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778699571; c=relaxed/simple;
-	bh=ByO3UDk1bD7UWyiAS+/7bd2l/UItToX1RFnexJVVuBY=;
+	s=arc-20240116; t=1778699726; c=relaxed/simple;
+	bh=PjwdZnGMafMUAXlwoDYJu7XCJtlyP+MGZdLjge7uq2o=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GaH0z1YG5oLL48P5XasSfDIPkKrHq/e4luNUMuq6ogu0KmiEOp48PZbCf/w0kqLN2euyBtyfwrR/2daGWnJLEHTkKXgCqqm4fmQsqLqJXLLkKp9vLtKqT1IYQfoyAu6MyrWh17ZfDiTN9D/eeZCXf887PjsuUMhxBAzhy2tjvvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tSEh8ebP; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=g4ra+LJ2yoMJAsyMVVqBiXevHkulQbSImtBCrSZxu1uWyj2iJ1WX5k8RVAYNCbCHnwddtD5pfuNrNZCHLWva3BDXVlBPpYQRN3s1jAioDOo8k1M0dvpvKoA8P3b6NLUXYerRJCNZJmCIb2YyhvcF3TT5bysLi8vb4jt+xS+6r14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rorca4yK; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tSEh8ebP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B321C19425;
-	Wed, 13 May 2026 19:12:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rorca4yK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5DFBC19425;
+	Wed, 13 May 2026 19:15:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778699570;
-	bh=ByO3UDk1bD7UWyiAS+/7bd2l/UItToX1RFnexJVVuBY=;
+	s=k20201202; t=1778699725;
+	bh=PjwdZnGMafMUAXlwoDYJu7XCJtlyP+MGZdLjge7uq2o=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tSEh8ebPPoDvLCOivTGQDD8UQC5ue9skRt3JrfoTA0akFw3dOfbuxpHQCw7HA5Fqt
-	 lB4PhZNnZosJJVyIi32Oy47qxcdy6fjvmotJP6MPAGewetYNPlKleLjLOckHLNRBcj
-	 jB0gmJv0Aj/mvztLiYYFhsLICOmOyJWoOORpYDwaF1VHEDpZRBx9/QUpgU3YKle8Jd
-	 w8e9viTEtG4MmNMGzOOE6TM2Jhg2RuWfnhTV9HnnUQrMNcBBwav16nsRAz16SQA1fZ
-	 xC68DodgS3DpMu/oP9s9VSm5R4fThueU5fl5P4PLFX48E4gk7sSzuQUgqSIWeWlMKy
-	 5T4qGMwQexIXg==
-Date: Wed, 13 May 2026 14:12:46 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Akash Kumar <akash.kumar@oss.qualcomm.com>
-Cc: Elson Serrao <elson.serrao@oss.qualcomm.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: lemans: Enable eud support
-Message-ID: <agTMzwEX1Nw-dZht@baldur>
-References: <20260512091422.1395490-1-akash.kumar@oss.qualcomm.com>
+	b=rorca4yKcR0UvmQ9gFa2iw5rNfofSdwMTdtbpp63XHOj3eGTKE2Fun+85tzr8+J/3
+	 WnhSKmjGpNSaK0/Lm1qgXWR/63fEVq0iVCWS2r4lg53roiDvLquAhpuVH+V+rOD6x8
+	 dCFI+xtTcbtEPxNR6E6zFOzfyGyhKhTUpENrDue5DWSBcnmERHy6mzD3GgIy4OhgES
+	 c6MiQjvYSGUSsl3+PizY1+hrdzqMy1EaYPID393I0s5NcDsqsWbtatCBQQo6gwIam1
+	 BVlHTzkJbvz+fLTkkGkEdz9n4sx7Ng13A1LhRWjZN6itR8DVMSKCFk4TwUB5/ntCvv
+	 Pr64hY38CJoQA==
+Date: Wed, 13 May 2026 20:15:20 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Michal Piekos <michal.piekos@mmpsystems.pl>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Maksim Kiselev <bigunclemax@gmail.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: iio: adc: Add GPADC for Allwinner
+ A523
+Message-ID: <20260513-retreat-accompany-d3d2c5314402@spud>
+References: <20260513-sunxi-a523-gpadc-v2-0-d5efde151dac@mmpsystems.pl>
+ <20260513-sunxi-a523-gpadc-v2-1-d5efde151dac@mmpsystems.pl>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="T0kZ9Mx4riVIcj7x"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260512091422.1395490-1-akash.kumar@oss.qualcomm.com>
+In-Reply-To: <20260513-sunxi-a523-gpadc-v2-1-d5efde151dac@mmpsystems.pl>
 
-On Tue, May 12, 2026 at 02:39:26PM +0530, Akash Kumar wrote:
-> Add the EUD controller node in lemans.dtsi and update the USB HS
-> endpoint routing on lemans-evk to pass through EUD instead of linking
-> the connector directly to usb_0_dwc3_hs.
-> 
-> Wire the OF graph endpoints between the connector, EUD and DWC3 HS
-> controller to enable the EUD path on lemans EVK.
-> 
-> This change is part of series "Improve Qualcomm EUD driver and
-> platform support" and has been validated on the Qualcomm Dragonwing platform
-> (RB8 board), confirming successful OpenOCD connectivity to the EUD
-> interface. For detailed usage instructions, refer to Qualcomm’s Linux
-> kernel debugging guide:
-> https://docs.qualcomm.com/bundle/publicresource/topics/80-70020-12/debugging_linux_kernel.html#debug-using-openocd
-> 
-> Signed-off-by: Akash Kumar <akakum@qti.qualcomm.com>
 
-Is this based on the work by Elson at
-https://lore.kernel.org/all/20260501170635.2641748-1-elson.serrao@oss.qualcomm.com/#t
-?
+--T0kZ9Mx4riVIcj7x
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Help Elson to conclude (get merged) his efforts by code reviewing and
-adopting the improved bindings before reposting this.
+On Wed, May 13, 2026 at 06:59:42AM +0200, Michal Piekos wrote:
+> Add support for the GPADC for the Allwinner A523. It differs from the
+> D1/T113s/R329/T507 by having two clocks.
+>=20
+> Signed-off-by: Michal Piekos <michal.piekos@mmpsystems.pl>
 
-Regards,
-Bjorn
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-> ---
->  arch/arm64/boot/dts/qcom/lemans-evk.dts | 12 ++++++++++--
->  arch/arm64/boot/dts/qcom/lemans.dtsi    | 26 +++++++++++++++++++++++++
->  2 files changed, 36 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/lemans-evk.dts b/arch/arm64/boot/dts/qcom/lemans-evk.dts
-> index c665db6a4595..96d316867c0e 100644
-> --- a/arch/arm64/boot/dts/qcom/lemans-evk.dts
-> +++ b/arch/arm64/boot/dts/qcom/lemans-evk.dts
-> @@ -55,7 +55,7 @@ port@0 {
->  				reg = <0>;
->  
->  				usb0_con_hs_ep: endpoint {
-> -					remote-endpoint = <&usb_0_dwc3_hs>;
-> +					remote-endpoint = <&eud_con>;
->  				};
->  			};
->  
-> @@ -510,6 +510,14 @@ queue3 {
->  	};
->  };
->  
-> +&eud_ep {
-> +	remote-endpoint = <&usb_0_dwc3_hs>;
-> +};
-> +
-> +&eud_con {
-> +	remote-endpoint = <&usb0_con_hs_ep>;
-> +};
-> +
->  &gpi_dma0 {
->  	status = "okay";
->  };
-> @@ -985,7 +993,7 @@ &usb_0 {
->  };
->  
->  &usb_0_dwc3_hs {
-> -	remote-endpoint = <&usb0_con_hs_ep>;
-> +	remote-endpoint = <&eud_ep>;
->  };
->  
->  &usb_0_dwc3_ss {
-> diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/qcom/lemans.dtsi
-> index fe6e76351823..a8ab11681476 100644
-> --- a/arch/arm64/boot/dts/qcom/lemans.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
-> @@ -4003,6 +4003,32 @@ opp-384000000 {
->  			};
->  		};
->  
-> +		eud: eud@88e1000 {
-> +			compatible = "qcom,sc7280-eud", "qcom,eud";
-> +			reg = <0 0x88e1000 0 0x2000>,
-> +				<0 0x88e3000 0 0x1000>;
-> +			interrupts-extended = <&pdc 11 IRQ_TYPE_LEVEL_HIGH>;
-> +
-> +			ports {
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +
-> +			port@0 {
-> +					reg = <0>;
-> +
-> +					eud_ep: endpoint {
-> +					};
-> +			};
-> +
-> +				port@1 {
-> +					reg = <1>;
-> +
-> +					eud_con: endpoint {
-> +					};
-> +				};
-> +			};
-> +		};
-> +
->  		usb_0_hsphy: phy@88e4000 {
->  			compatible = "qcom,sa8775p-usb-hs-phy",
->  				     "qcom,usb-snps-hs-5nm-phy";
-> -- 
-> 2.43.0
-> 
-> base-commit: https://lore.kernel.org/all/20260501170635.2641748-1-elson.serrao@oss.qualcomm.com/
-> change-id: Improve Qualcomm EUD driver and platform support
+--T0kZ9Mx4riVIcj7x
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagTNyAAKCRB4tDGHoIJi
+0lhuAQDymppi/A7f9420QrmVJJ6kfQRuhlS2uA4AZgvA3B4+QQEAoYZJzXdLJ8X3
+vOkfbI8aNxT7XjRdXyjPG+HWOUKtEAU=
+=+BH6
+-----END PGP SIGNATURE-----
+
+--T0kZ9Mx4riVIcj7x--
