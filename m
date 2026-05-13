@@ -1,136 +1,172 @@
-Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com [209.85.222.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B38401A1D
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 12:10:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778674208; cv=pass; b=HL+ZH3DX0c0KfSOymVwrDtaXCZ/Rf56oQl8Mhkhu0v93D+8KYQy/pC4ror+lk5gq1USGlHgJYcb55eTAqPMLVJH/BdZhX87EAtr4lKGJpFGy5XNoBfkvAUe/G0V0alGbWcY0TP5xUbmkmci7RGj316cehtTA7GDlaU1fYW2gikA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778674208; c=relaxed/simple;
-	bh=n0zVUgor7lvWPciDrZ5fzZFpulIyyAJJoNWui7A5iR0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tLPwRBAsuyFxS8u/0DzCWSTeSAV4deW8lcwh52lb98bFPzCKTMLl6gACp6ZbEDgUfzeNOY5Aab8I93U97eRnMhU06kL51brI1Vsk8JbiMFy28fKbODuXiXYBkZhDLRC6L8NTREuLuiGIctlDDQj9NfNJjg7kyoOLpZKNMmcSKvM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gCYB+wO0; arc=pass smtp.client-ip=209.85.222.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07082401A21
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 12:10:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778674211; cv=none; b=kgguwIFjBX1Oq5iXOEDMzY3Af3FIUkQcSxHWtcz/4mG36zPg7Dbgl/j3XNRHarUbE7Ch3ZP2Bw10Ej604IDevENzKxv6j65UZMI9IDbxWJLMR8D2ZKvvuHQtPQA5cA+1+7tkMI6ih329Jd2g+1eHvf6tLISkn8X3GWkxuP9InGg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778674211; c=relaxed/simple;
+	bh=BxcFsJDDPMfPmeMRzH5u4RozaCkDIL9K7l+mYCQe0ic=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=lco6r69AOEqcLGW7Aoxx9UU9w2Gn1ytrRVcmXV6KMlki5fVmlkL+NwbQU9Vj26Yi77LL/x86fs5ugDmXtxwWRurPJ99k1doeelh6yijAr8f+JU5LPyLnHqvC/Lb2Vmsk94YNC37GQTzjAU0uZvkqEuAPn6Tz35miDlSMzFDfqxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=duMB3yix; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iF/8bqGb; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gCYB+wO0"
-Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-95ce7b777ccso3753161241.1
-        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 05:10:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778674205; cv=none;
-        d=google.com; s=arc-20240605;
-        b=VhhOP9OiqvWJg/wS0wVzfm0z3tSGnwPCoCzVgfarlxfylwLv5DmTvGwVPUe4d2MQCz
-         jpgd5XWCZe6p55zXHdZkGYbGe3QqVssbD+M1zBR2kHn3xu9fzDdjdSt5KCsJduKm4AAa
-         jt4njxKnl7D/2ve9Idjq3KRIZ+CiACwQQaLGjDAdabB3UyDCR8RNo9wrSncj8eQ0yhRb
-         9/PI3FBdHFNQLTfBM0nm7liOVbJ2cXkvLTCB3Pm5oQIFREVEZi/2ZgdsMJlzl5fZCSTy
-         urkh/n6WWi2zOlqtfWQI5pQPty3jOgb8YOIyaCLVX5m1eUQlVYrPjHIhuADW2cSDOf2/
-         zWnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=QJuK7DvHMj1EAy7tj/RVkf9fqNfoJVTMmH7EDF5zYKY=;
-        fh=4xrKATRS/9/ZKTLh5ieIQrwlLAk0VZHRACi80xcwdPA=;
-        b=LdFyoCZi3vlCbkHNUi6FVgQNOZcb1t2P6MMlPsd5aXC0kpnrfcRu8ZT/LKRSjMLqG/
-         +yido7GFuelTrdzeLenSmHz6Rk0Q7Jh8cZrvkjmEUsespbGR4xyT7dBt5+P9b9pDLZR9
-         iPNhrpfKRLkFvxGtHeaKxIYCxbYxk3gGErmZdNmPRkfJPbwuRjrcwheC4qa2p3D9Ejix
-         BSoqY+VWGjnyoWtz9VFuM6S6WAerf50SX76i2gp50vmgcljfFtrUI+fg8g1lpC25kLae
-         R4mrNP5+vVNQ2QqqyTji6cKFMJ9D8zfCTtCaDX2GdB5DYgkb6A4UVZEHgxBcXW8Um2BP
-         HU3w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="duMB3yix";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iF/8bqGb"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64D8nBRI2887848
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 12:10:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=u5/wQQP6k7HnfbIPp4SiMU
+	w0/4CEYgu6rOXikREoOQM=; b=duMB3yix8/y0I9BjvScr+Cmt2e53BzUTkAac4+
+	gPF0B+bRD26RcEkWCKd7hUQgFytfUNXNOkf8gMqdj3YvsDvOEVikdJ1g2FI7enwY
+	3hajCAiNCIwxiObwXEbZ+pJOpMky2zYT4E6jXI6uono8WbpKBDqAlcQH4K+eMHI2
+	CPnuCokG/ROMvkbrMntSluvj8VtC1plDlOi5CDSflw60m9gO4o+kNwyG+sLJqF+9
+	dp6f8RZYXPOuyqn/fJT7xdnCbZZrM2Fb3n4pTLxyGy+2Tc7hPFy35fDWcXtMjI2O
+	mUnMMgoQBsGlK9eYBvWpLfHtb0oxdQ91wg9YGOL2UiecwBsg==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4p4ggr2m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 12:10:07 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-50fb6d713ddso33157381cf.1
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 05:10:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778674205; x=1779279005; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=QJuK7DvHMj1EAy7tj/RVkf9fqNfoJVTMmH7EDF5zYKY=;
-        b=gCYB+wO0Vjk0gM8TRvgCzUZgfJeRk/rcSWpNtrbYbOOl8CDACWO7ncXQBg+A5Z/i48
-         TIQjQTLUb+drdyNoBtGHfSksYjpHg9ms7bL2kZWl8hbPaHgGrGnEf6+gmM/gG9t7ZCKq
-         0DCyJ887g/t27B8dIBXKH38oZZIbJI0XerGKxfiDSEuUMz9f9hyeryryr9KvWviMP9ct
-         hH0uarD51tGgLBVaTwnb32e3DKyTBlGehJaJMq8oCLLPelPkJ+za++8wxxTThxy8saac
-         ct2eduaZwU8lVlbhpXphBZfDM8LaNPDzMG7X0eynmOrqKwq+zznKcFZedrmKQnAIXjqT
-         Qdpg==
+        d=oss.qualcomm.com; s=google; t=1778674206; x=1779279006; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=u5/wQQP6k7HnfbIPp4SiMUw0/4CEYgu6rOXikREoOQM=;
+        b=iF/8bqGbedNYojt0OqAosqHTUeL0MjQltak1OBcEE5oAC8Fjb15p85IXnla9wZxnHM
+         PJpRA9ITxrhiFw7BVpHtmNUhncXa+Hv5BPMDtUuFkhyvmQDbgEavJ2QmM/khBivIn+P8
+         0I7pJ9w4wzNEMNDcuL2pNMdtTjhp1WhzNsskdA13epyA9g2n9+E2qeKsOxD9sPRvMVc3
+         xNMq9szPiYAiIfFbYtBZeICHSklZUcfsLvz1TzCOK6CJOZz2QKTXMlVdr+86XWDq6guI
+         To7qBicoJB+j8i/Bz1ZhPEgx/GvrgSZK9kQKLP2btljSBNwpiGGPFNj+PqAzLVDi0i9N
+         prnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778674205; x=1779279005;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1778674206; x=1779279006;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QJuK7DvHMj1EAy7tj/RVkf9fqNfoJVTMmH7EDF5zYKY=;
-        b=L8hbUoFnDYnSKRygx36sBcARQxTsGP/nTBssGH31FDH7C2Iy9k/vnWmYYAmeVuUeYU
-         iHw1EVcjs5Ilqkloo7em7qysL3R/ei9XR8j2y0RQzOvQukLgsFGgnZEIV/n2uphgf4YJ
-         aHZvTfgvjRGIJHyP1JTEV/6LyOtyCgDet95aYL8BKycJNaYx1011UPkufvCUWSNw51TS
-         3n5eFtTjyVzNzDLXV0qc/uEtiSxy+LWJ7AnBu5EK02X5KgeeXmcYk7HPXd27UxRX3XRI
-         fuapqN6fme8ShuINzZUZe30p4oHUhEO/7jdKF1CCHh1BK76Z5JaM39y7XsVt0e5apdry
-         cd0Q==
-X-Forwarded-Encrypted: i=1; AFNElJ9t2CwQpOAoIube+PXmpiI9tAMb2CIPb1VTaoK2u5t4SIeM8RHAhUKlNOkLSmXLS8NY50kts4xQYJGY@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxb94Z073EASUiSwB56jZSZpL4FVfAG9TDpjrkgrZsx1n8p43k0
-	OlQH6mgGP/QkruKnmkitJwfoHkrTjIp4p5l/UDzJu/WnFVkVQ7kDsvFNKGzIHyBSPthpBMfmksR
-	LhCUfoXAGoeuXACY6IxrKHZ1SFZBdslM=
-X-Gm-Gg: Acq92OE7wqzurEGNifZywFiQlcPecWzB8izMwZiphoZweX9CoNMd6w6VyWSaQgkGiam
-	VnDqeEpjpjogJNLlhqlhcPhjA0+o4/9g0OuduUk8lCVQ93mcaSc5by6wDpyrOJathv5Vp5N8Nog
-	9lu7ugEcCC6SSvTsXFPCkaXa82ymdKhp20eHGtTEh/P3BJdYn6IKpRdw/fWeAyxRQuDeX6HlbKT
-	4lcDObqpVFiQ2FPRC2KtvlZBWeaoccGqYiKN+ugXFIsc4IPjVVB489BVihh/EGk+3mkS7R2jn4H
-	a4l3AIQ7
-X-Received: by 2002:a05:6102:38c7:b0:631:d445:171f with SMTP id
- ada2fe7eead31-6376463539amr1094442137.15.1778674204715; Wed, 13 May 2026
- 05:10:04 -0700 (PDT)
+        bh=u5/wQQP6k7HnfbIPp4SiMUw0/4CEYgu6rOXikREoOQM=;
+        b=DUPi6o9ljyzpKUvMpCf8pI9jfgjI5o3HynpeCzhZ/wai4gBm8cCi2lAQPBAbkGnclZ
+         a32ctjiaaAPiZuuc254zUJEUVVzpM7yhpcnlBNdzorUbKAtNO0D4AKo5p4eTUrMamrqN
+         Hwjf7+oWz6YE+/jObVm7xXJkLNlW8jLPxK1Awsj5KoOpihy6dp7QsHdPhKRF7nVdaDMO
+         1K3+qcK2r0TxJNkI4MiuST3Gs8FgjZO16ppJOGif3NxtedfcWBeqRH6RnWr0cW+4sbHz
+         1NYg3QHm2/OZ65I91gETAfrEKsG2aWufQ25ARz07U/FH6/NHUc96V2+FZj9OTzNhf5n9
+         wnVg==
+X-Forwarded-Encrypted: i=1; AFNElJ81WYlt0wCQ4u97GXK35pG4qBBcV0B4GMUKTMZyINOXwA7jOgjdL+zEGSUwx0wIwaWt6zy6dHhdXT47@vger.kernel.org
+X-Gm-Message-State: AOJu0YzjRPu+vmvjnLRAyOmdj0hSKhp1Oe0FayF/ZLsPibOYkADfcM1a
+	6SqEOLJk5FHggEyUUMWfY0FQsMLF+QPWMbBn6W0+sHcquh4zAawuaU84igBVxadNN/0sbHq4uDO
+	o2eG9D1Fi+hQhdz5O1Y9elzWrFOdXNKTnE0q5hR0vjJPCTJL6YKVps6LSq+8lCk3p
+X-Gm-Gg: Acq92OEu1dMkcIWNwQmr2QDkdfHXi1Zv8KPYTh3HihpWVjfrQIkmtdU66P+puaQsMto
+	yu2PElkGOuMxcIcv/Ld5wRzyBuBhAAmmLBvSnYtFSd1uaVFKMESvbHGmgKpkeyBzuFaKec+QcFj
+	8nZo3edLEerEBGtFvk09kqwSI+Rsia2sdAM87qli6lUVISOnRSMWGNRnJKqDH67wS/mAYzYMlzi
+	CF1q94eJOZ/5CIse6YAqgE8txboF6Yw+ONdnZUl4naIEdeT/3KFEAzBJ1xKWYpG+r3J58SdVwEP
+	sbcF013Ua1sMw9j7j1y5zcLxzq/NUbuAeTVzg8lOoz4FuPQ3CK/uuoMXLclX0IF5+wbLCGT+Ne6
+	24xHaYxr2/VZSoafN66FvzL+Pc2aqjQ==
+X-Received: by 2002:a05:622a:5807:b0:50d:8b23:4948 with SMTP id d75a77b69052e-5162f5f8d28mr36819041cf.46.1778674205970;
+        Wed, 13 May 2026 05:10:05 -0700 (PDT)
+X-Received: by 2002:a05:622a:5807:b0:50d:8b23:4948 with SMTP id d75a77b69052e-5162f5f8d28mr36818321cf.46.1778674205404;
+        Wed, 13 May 2026 05:10:05 -0700 (PDT)
+Received: from hackbox.lan ([86.121.170.241])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-454917d57aesm40691056f8f.26.2026.05.13.05.10.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 13 May 2026 05:10:04 -0700 (PDT)
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Date: Wed, 13 May 2026 15:10:02 +0300
+Subject: [PATCH] dt-bindings: dma: qcom,gpi: Document the Eliza GPI DMA
+ engine
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260314-panel-patches-v4-0-1ecbb2c0c3c8@gmail.com> <177818605997.73000.9692910497119100760.b4-ty@kernel.org>
-In-Reply-To: <177818605997.73000.9692910497119100760.b4-ty@kernel.org>
-From: Yedaya Katsman <yedaya.ka@gmail.com>
-Date: Wed, 13 May 2026 15:09:53 +0300
-X-Gm-Features: AVHnY4LglPfFc_nbVIjyAIVKXzzO_CSHQSJk1Zv3noSm1yMcp9X7Hz7jaJLq39s
-Message-ID: <CAHuF_Zr0Z+rP72fLts5Ar56XyY8VMROzE0wQ_S5iyO+A4YoMSw@mail.gmail.com>
-Subject: Re: (subset) [PATCH v4 0/3] Add support for the Samsung S6E8FCO DSI
- and M1906F9 display panel
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	=?UTF-8?B?S2FtaWwgR2/FgmRh?= <kamil.golda@protonmail.com>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Kaustabh Chakraborty <kauschluss@disroot.org>, 
-	~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260513-eliza-gpi-dma-v1-1-d8e37f026c36@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIABlqBGoC/yXMyw5AMBBA0V+RWZukrVf4FbEoBiNeaREh/l2xP
+ It7L7BkmCxk3gWGdrY8Tw7S96Dq9NQScu0MSqhYRDJAGvjU2C6M9agxLqMglCqRjUjBNYuhho/
+ vlxe/7Vb2VK3vBO77Af3QyZZxAAAA
+X-Change-ID: 20260513-eliza-gpi-dma-6b5341271f09
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev-bc6c4
+X-Developer-Signature: v=1; a=openpgp-sha256; l=911;
+ i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
+ bh=BxcFsJDDPMfPmeMRzH5u4RozaCkDIL9K7l+mYCQe0ic=;
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBqBGoa+FCgBaWjPT/DOS5ogvV6nNkvqWoZhwpSD
+ k8IbVf9b8GJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCagRqGgAKCRAbX0TJAJUV
+ Vs1lD/9M2L2ek/DdKbXZWa1dKlsqMJAn2hymT0TFPTMIMBEpMMdlH1gzK2P2SwOnZDxbYNi8Nb8
+ i/60vNTPiAbQ7MH0RYCvIimdwG1ihd0V3VUPmTl8ou9EYnVwgspwhPOd1avpelt/LuqEyouimtj
+ D//nW7kWnRXYecC1oEqXdZuDAq2cK/v0Bnw3kybNh8Fd39cB8W2UP7JzIFIAfV3FdXJb9SZe2rw
+ RyTxQnhxNvn7bnpLnm+P4da2EnlhhTA0FXpoJKhYXnx3sc69tJpEpWMtJTJ3uG5i1kkdCDQXoVz
+ aN/y/fWrSvVWOBspjqp9bvlvrdPJM4Y0uMJ5wpNoa1Q0g2k1WfsV2yaZemtcLgOyZVX9GBL6PhZ
+ y0uvMBriao4Z+SlKrmoOGil+yF8jDcacCfloE1g+BrnOWbDco0oE7CjzPkmDydYWYmeALguRZxI
+ q9OJz7adwE8Z4Z6W18+2OAziB8ui9ZV55yHt6drTFPzZqyx45ICXWom1K2FGNmpNirJdLB1Iemp
+ whKZg5Gs6M5UXpbTe+scKWunJGNLlqOzZ1RV7sAe18NDgMFy4vTcJSFAd0kkrag2QuVNc95J3i3
+ EoLM08dcc18eoqP7M21szfqI7iUgK3Fqc8K7RZ5WxvxPyjJGQL8FrtDxN5rPSYaegcjFc1weiBF
+ f+gTvvYvZXAN30Q==
+X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
+ fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
+X-Proofpoint-GUID: uHBMvRPoaQlQ75bG769LPN19Q3bTqFRc
+X-Authority-Analysis: v=2.4 cv=DOS/JSNb c=1 sm=1 tr=0 ts=6a046a1f cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=NtgjAHhJo3Q0P2g9Zl9R/g==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=CCA8mRsehYleCwTCPhcA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-ORIG-GUID: uHBMvRPoaQlQ75bG769LPN19Q3bTqFRc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEzMDEyNiBTYWx0ZWRfX8TUqoJZahmB9
+ fhGr3YbKqirz5h66IgCM7VTPJVxUSfosTYOWXtiMxcBW8r0ZA3fs2CF4mppzSM8nuPUw9gCpEY0
+ anAaW5wk2c3qE7JpfUwOXEM/77zUa04JWKEMItHXmlF1s3DrXEgpvyZS7yfH21B0Hu1yhM/bact
+ Du5JX6OQeJpo8HWFtCD1U+qoTEyxvBC0aXxJECm0WLTo4XwncGN7Rqf89QGkkdafDRzEJrBzAgx
+ vcx759Ou+jxGigABIPCWK0vYg2TJtRL1LX2nxQDL9ZE/aKKFj4/ttC1/9BdwyCI2oyvTgIAaUQP
+ z2LABUyqnEJt+Ul0fit8N0IAmxX/lKP2YXlAAf6nGX7J5KcoIIVgFyILAT9mtT+pXbo/HpJPb8q
+ Zg2hQWfNrDFreo0DfZEhBlf1gJB6II/mDLhAdxEeR+ruBQlHyNYxqYce+oRf8zi/920EcNvl4Pu
+ rjn4PRBZcRf/au1Tx3g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-13_01,2026-05-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 impostorscore=0 bulkscore=0 clxscore=1015
+ priorityscore=1501 phishscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605130126
 
-On Thu, 7 May 2026 at 23:35, Bjorn Andersson <andersson@kernel.org> wrote:
->
->
-> On Sat, 14 Mar 2026 23:46:20 +0200, Yedaya Katsman wrote:
-> > This adds a driver to support the Samsung S6E8FCO DSI controller with the
-> > M1906F9 display panel found in Xiaomi Mi A3 (xiaomi-laurel). The driver is
-> > generated using linux-mdss-dsi-panel-driver-generator[0].
-> >
-> > The mdss reset dependency makes the screen work more reliably.
-> >
-> > [0]: https://github.com/msm8916-mainline/linux-mdss-dsi-panel-driver-generator
-> > Original tree with patches: https://gitlab.postmarketos.org/SzczurekYT/linux/-/tree/laurel
-> >
-> > [...]
->
-> Applied, thanks!
->
-> [3/3] arm64: dts: qcom: sm6125-xiaomi-laurel-sprout: Enable MDSS and add panel
->       commit: 493cb869874cd301c370adf9a3f9577942c4f0f1
+Document the GPI DMA engine on the Eliza SoC.
 
-Thanks for applying, but notice that this is an old version, the last
-version is v7:
-https://lore.kernel.org/all/20260320-panel-patches-v7-3-3eaefc4b3878@gmail.com/
-The compatible string was fixed in v5, and other patches in the series
-were applied with the new version.
+Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/dma/qcom,gpi.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-The difference is in the compatible, 's6e8fc0' with a zero instead of an O.
+diff --git a/Documentation/devicetree/bindings/dma/qcom,gpi.yaml b/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
+index fde1df035ad1..d40b0a8dc9e8 100644
+--- a/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
++++ b/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
+@@ -24,6 +24,7 @@ properties:
+           - qcom,sm6350-gpi-dma
+       - items:
+           - enum:
++              - qcom,eliza-gpi-dma
+               - qcom,glymur-gpi-dma
+               - qcom,kaanapali-gpi-dma
+               - qcom,milos-gpi-dma
 
-> Best regards,
-> --
-> Bjorn Andersson <andersson@kernel.org>
+---
+base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
+change-id: 20260513-eliza-gpi-dma-6b5341271f09
+
+Best regards,
+--  
+Abel Vesa <abel.vesa@oss.qualcomm.com>
+
