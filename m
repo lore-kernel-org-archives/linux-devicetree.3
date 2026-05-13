@@ -1,159 +1,157 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B3A73D4132
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 16:53:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 242D6406271
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 16:54:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778691197; cv=none; b=kqPUSGp6uKvQ5pv2H6qwnnJHrAMO6n/foMh3vcRClUS/L1p1BqVhL51HydAtQgvm9TsNTbdjNRzMDt4ckOBJw2Xl7xNr/o7ob7XGH2E8hIK4rcu1DE9ltXmYP3e36wSMhKAamVcQEdjLUdozR3cC4QP6/FNdeqMmzNAs4uqDA0I=
+	t=1778691265; cv=none; b=Wrrby/L5vpuh2MBLDZkXuhnYHsuPX07/hNNcnRII0vQgQdG7KqFUr+7LHBOuw8K7ck4+3lvC9Dy2TkUJThuuyu4yIf4g9UhPSANPiSjiaIpbQoKDy2auDgGa0uIGvrHdDqnD7dnM9n6oY+RR45DqJhkocJSjgH9jVgRiyivzJuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778691197; c=relaxed/simple;
-	bh=HpqdRvguomuoFu8cYA9HoqXvq7sfUqnGJaGKOQnfdKE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C0yqvDjUzWohZYVuKgAwFH+ON0FLlIzglespXhnXk+UqEGqfSG6K86R22nvo2FwiXkhFalauGCLJIpelgo0ZBbe87ad+A3YiiFuvUOIkHvGwPaqOTQnGstNQSWXdyf/RTDL+l9cz01yW27pDteSLKChBPnuZjOT9sTBYbsRjTA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VqcTOxGY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OKTRRs7C; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1778691265; c=relaxed/simple;
+	bh=zjrVcTrTTWQCfhxILgChHYoh0VZq+sDnXGjkQwsAF1Q=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=AZK9WVgI1y5afbXR+3F7XyQ5eBILLBuL6N2M1oJqz47etYsgDSLVjX3GNkw0rWfMgzV8TXdBa1s52/fhrzS2r9ft/sgqYJtzRHp+AT+/SyGSJOyexaagRwbukxq0L/NAY1MClXh1FoVzMAv8bolQd+IRaIpBVytLiWf1rchSuCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=hNEXT+9v; arc=none smtp.client-ip=209.85.160.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VqcTOxGY";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OKTRRs7C"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64DCVBBJ2965625
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 16:53:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=ZOuwO8Oe7+fhFiUNtPbUZRGD
-	3ndfLf9Y9W/ejus3N+4=; b=VqcTOxGY8MgLhpL7QdJ7no1pbuPJqDQSDCOQZvYM
-	mMv2QA+Iibd/P3kLfEp/Ky0P4VHfBddRiB/PPRujgkEMFpfPetiBU6hWAsdCxFIR
-	8Ut7dqpEQwHYBfUyicHI/0cWX9KFNFZE8rT3VOCjQcL8m9+BfElsdQUsIATm1skS
-	pjqwAgJ3ViXZjsjoVldeMz5idJoo0ZkjKbBATknvuPAPXU97jAjlkJH4mqR05W1q
-	VnYqmW12Qt9uGodhMDo4ORsMNGmV9eXSkRflCsy1J/r6OmTNtqFcMmFHAlhVr5RO
-	81+YfJ1nhuBpv3IM31e6/dco5ewo+GlxS3b6PQ639X3PqQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4ma5adyf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 16:53:15 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-514b5d6bb45so45613271cf.2
-        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 09:53:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="hNEXT+9v"
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-50e5c5033f6so48541321cf.0
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 09:54:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778691195; x=1779295995; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZOuwO8Oe7+fhFiUNtPbUZRGD3ndfLf9Y9W/ejus3N+4=;
-        b=OKTRRs7CeMDxfLbXH0uP+iP/lW4DGKdD1aJ8cdpuQsaKgiPjIDnv5rDnXvCBo1rq3f
-         BVMqzjLL77lCR8BNfqL/vpD58t0Cwbq/He8h78DaINYY2Rl/Js/fVSUmgIYWZUW2K1PD
-         1cCCNkoO7uR5PlhfNSquoIsihkisL6SOwzVfFa+iQQEoqsaidwVSxIOImaTgcoT3rBq7
-         3PeOVqu8cmFDMkg46iLQb2p3c1uHCmyAUEGhxR0H+yJy+FmPNGQ8uGOxs7Q4VuOBzGjt
-         VuawFdVU3/M/JLw5GYolUGo3oeefu4q2GsbMcdoYp5afYlJiyqvICtqAW5a6n6slMJhM
-         pyOQ==
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1778691263; x=1779296063; darn=vger.kernel.org;
+        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
+         :from:subject:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=zjrVcTrTTWQCfhxILgChHYoh0VZq+sDnXGjkQwsAF1Q=;
+        b=hNEXT+9vwGsUaDbhP5YPLKWukz0ZWaParOXmXeRWkeZPwGMsReUfu8ITWl7I5qRX0v
+         R2AJRz1MhEvHdLWJjuZhfzyrYzSkPxRGVpnBygUfGMT2aLWUj6wapT8Tmy/h1cEuBefr
+         NVfkZL2jK06pEcewMJaI9EEBAnGJHuBy2jPpmJo613DjfYfE+Rb4N8sRfJId79zywUkM
+         kwsHRhYz/DW6CGhbmDL8n6137nRkbpWB6k5M88Q7shu/CMkxMXgZmTKeB+U6B/us1MOV
+         P7e/QzN0UWQ4vUkP7bVvpiq1Yxfjach2nNtU4P+nnOQC0c4t8/8SMX9p438noQQcNzbD
+         ic3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778691195; x=1779295995;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20251104; t=1778691263; x=1779296063;
+        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
+         :from:subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=ZOuwO8Oe7+fhFiUNtPbUZRGD3ndfLf9Y9W/ejus3N+4=;
-        b=l1yqN8NsS11zlIa4g2Es9VgbbuZXs/wgM/Qm1N7Int6v85Hs54m7thltA+r+VljrRy
-         Qx0ch3dBIfKvqc/vso0blSbFP3SZKTzZ211TErczmrMf5nIF9SXPAIEXEmSFT78SC606
-         2P4I2s30fzv4l7Uraax9QEDJIQDoAyDiW8PxD+hKMaOovLZuVOsZlEi1I5FZeq4M6wEf
-         j9SRLBc/ifuKchz5quKullj5v5YtqpPArLvHVKElKQgS8KlD40NzfVPhL914G7q9ry/O
-         55JWBw8f5boytwFPkVI2taIbTQBmXMBkW31uuIgD+Ht/hVvHStG14At2lhm4ENY1mu2a
-         TH2A==
-X-Forwarded-Encrypted: i=1; AFNElJ9llnYUQKewR3BsRDGs2PndS642RGrsflyf1nub39J+8n+X4KoIRlN7YsRRRjgQZsKcUP+hwX795bBU@vger.kernel.org
-X-Gm-Message-State: AOJu0YylbQaBuNMnguhJZCvYdjBDr+AjQss5M1496C3WyD95PMWjI5EX
-	V2iksAj48JFEUAUnCvCFdlrOyUy+uejsmzS/UNYJW88W1HncSKeRjiqn5Cm+N2Ph2WWrnvLxQiz
-	k/QKKZKQk/wZas4USB4DbOhDq4XrzJJLmvTFQfnycRDmqldIj1UhIj/HXbcZy4wub
-X-Gm-Gg: Acq92OHDO6b88282VjR8qnoCcPU2fe3DR4ptHKGB1iGKHg0HJZt4hiQZ+RDc9EQFLas
-	c6Ub/BSJYh+nbROmen0c2jPa6EZ8qTR4vbaVWvUK5xK/RboBSuNaaq3yWJ4HWPfK4NYTvl2sW/Y
-	s5b29Xv36sOsqN098iJLfKVjDQGQH2Lrtkr1LNULueM5QUUyew/q/rtPC04Bl6URGxkzp/oHMGr
-	o47ZfNiDx+P0i6QZ5piAtZQzEaL9d0Se2QCM8b5sg0e57lMGXrPNjEE0b8jSsTV9m9ncH9qjk2j
-	hu2q3QfbGoQ+I/mUUSWTCS8lMBSdOo+EAD8SnhFcieANrH6FMRUTZiD6abg8Zd0DaDOkwU9gQT4
-	4+WlZFZv3AWNXz/J+BDweV0mVcDC87glJValAJQrtmfP98iZPHnNtOMaexxQ73ZWvDCfBa2Qxuw
-	fTnMiTqvXZcpWa0kBo29a9adm1Br+ldqXUCMQ=
-X-Received: by 2002:a05:622a:5912:b0:50d:7384:a660 with SMTP id d75a77b69052e-5162f43f2fdmr54430451cf.6.1778691189576;
-        Wed, 13 May 2026 09:53:09 -0700 (PDT)
-X-Received: by 2002:a05:622a:5912:b0:50d:7384:a660 with SMTP id d75a77b69052e-5162f43f2fdmr54429961cf.6.1778691189063;
-        Wed, 13 May 2026 09:53:09 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-393f628a724sm40620501fa.39.2026.05.13.09.53.07
+        bh=zjrVcTrTTWQCfhxILgChHYoh0VZq+sDnXGjkQwsAF1Q=;
+        b=UZRn91C8VX6HGxenHIBVZYNQWIH1Fws3psZMfc3q8oK08FHtZA26ayuIe/VQqxgRzs
+         WaTIsDTNnsMfyhZZrKY7Ad3EvQx8BnKteZQe0Y7Aa2TkHeLmgx2Nb7uj7W4CIjHjjZEk
+         IS18TFB7t1Wk87C/7E6evgGoXf09Lh6Ks63YevR9G+wsDIfBZtWkLPnDhHTaBsnWmeOQ
+         5cmtqdTve9zYoaOOjQ81nJbekCGIemuWPfg5EsJlWRXo44fGCbbzW4tHL1xOKVO8rDZy
+         Bw4/PWNR387MIjXDn2kRM/4Mv5UFoNCJVKzydXeB0G1KFgA0+ZjMcFWMX5Uj/+booXkY
+         Spyg==
+X-Forwarded-Encrypted: i=1; AFNElJ884lJLAakenVhm0wPqm51YNZ40DPwcyFHGmpyobiF8aqgi93mHcBOUHDjl1BxOKRf4bnIb3c8d6yOK@vger.kernel.org
+X-Gm-Message-State: AOJu0YxFrUjJ33nV1Yc7C/Jn3KqZXWPGGgvrbdX5iEZyVZ98fRK14Yab
+	eu5l4mz8VJr6b2Mfo65rHR+qv8bQOV/XGM8e+d5nB0Mo+hiP/qwG0xgvswlRn+MWUig=
+X-Gm-Gg: Acq92OHsCPGDChVL5AAa6dheN0zlQEp2CArwX5g5O2yXULNF2OfSA8AJhpLZz6vjT0q
+	lwwvppB4bFvKUGqkPujpKhl+j11TWsL7aVCy0BUgtKHXCoErjc9XZ0rDeIpB6Q5vXJw1BlgpuDM
+	LqlkSOXLp8tlGNBM4gJJibOowlPNzMZ90k35aZzuZfxM8OUJ09nd4B4gwZC05bTGt+4yroE1a9Q
+	fmbNEYxQg1/PTQP9O5TlufCRDQRhMAOeEiP7sbXJuFYDOznWQjnNe3Ruy6x/suGHJYx13gv8BwP
+	90mU90uViaCQkCVorfDLSxfGn8IicxJHzKXwGTG4LfteOBU3GCtNA40MqS5qBW8bIp/KORbJX18
+	4tvw2wri5sOWt4XrRwMRWwXV3ElP++i6efZMmjlHDqHKLMqNyDb4OLlhUYltR0wPvCCu0Z3MlMK
+	qeMKOfoX4j1ou30tpDCqlTS/wlatSM2d8k9PoYZ4Xw33BhARgIyvtsiRnzs5fKcLdDRjJV
+X-Received: by 2002:ac8:57ce:0:b0:509:3c8c:23f7 with SMTP id d75a77b69052e-5162ff0791cmr48491321cf.30.1778691263060;
+        Wed, 13 May 2026 09:54:23 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:15:e06b:3a7c:76ff:fea1:2ac0? ([2606:6d00:15:e06b:3a7c:76ff:fea1:2ac0])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8c90874e5e4sm813106d6.6.2026.05.13.09.54.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 13 May 2026 09:53:08 -0700 (PDT)
-Date: Wed, 13 May 2026 19:53:06 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-        Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
-        iommu@lists.linux.dev, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 5/8] arm64: dts: qcom: Add GPU support for Kaanapali
-Message-ID: <hdpvs6gftjhaa2xx3r3ds6ss44bvytnllv2lg6anoiq2iyxwtc@qd7ejefkxmwk>
-References: <20260512-kaana-gpu-dt-v1-0-13e1c07c2050@oss.qualcomm.com>
- <20260512-kaana-gpu-dt-v1-5-13e1c07c2050@oss.qualcomm.com>
+        Wed, 13 May 2026 09:54:22 -0700 (PDT)
+Message-ID: <4efb85a777683e8eba1e19501c4bf6de3494d2f9.camel@ndufresne.ca>
+Subject: Re: [PATCH v5 16/29] media: rockchip: rga: split flip and rotate
+ into separate function
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Sven =?ISO-8859-1?Q?P=FCschel?= <s.pueschel@pengutronix.de>, Jacob Chen
+	 <jacob-chen@iotwrt.com>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Mauro Carvalho Chehab
+	 <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Rob Herring
+	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	 <conor+dt@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, Philipp Zabel
+	 <pza@pengutronix.de>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, kernel@pengutronix.de, 
+	sebastian.reichel@collabora.com
+Date: Wed, 13 May 2026 12:54:20 -0400
+In-Reply-To: <aeff9412-1c69-469d-bee3-7b9efa9b3947@pengutronix.de>
+References: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
+	 <20260428-spu-rga3-v5-16-eb7f5d019d86@pengutronix.de>
+	 <ebe5cd6689923eb1e2124e177f694895383fba54.camel@ndufresne.ca>
+	 <1f447423-8c63-4545-a4f7-d8d5ef821255@pengutronix.de>
+	 <30f56a0ac9f724b5ec1b936eec7b5b7c5e751c75.camel@ndufresne.ca>
+	 <aeff9412-1c69-469d-bee3-7b9efa9b3947@pengutronix.de>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-aSiFsAE5dKCPdAUlYUtL"
+User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260512-kaana-gpu-dt-v1-5-13e1c07c2050@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEzMDE3MCBTYWx0ZWRfX6uXpTSlr9Kmh
- WKAWvkM3q5C1m7Zohspp7wFRKUl6mTlWJt9uC7QmD9OMxYmR5UpWC9hNxnguwElLe7PtffjQPlY
- Tf8DaajKtRjTS5rwz0y8IGtmhcjm7+FjOuxbyQRmmuJI4dMU61/y4Z1z+OOWc9rRr31CC4tgmBj
- 3XT3tS/JEuFQEgy0ELhKQcxTBomkGSvu6ylJVlEa1iOm+TjZ0cLN6kxV22W1fwAt+YHb4faqK2C
- wVjXEJHHD2+wIy9Ts/tvkG+jXr2xWLKjWvcORfKmS7ydtQnSVKJel+uZ052kMQY+TkBivYhPtuw
- SOQS+fgbH+es+5y8md9OSQnEdLObRj8HrDfzlbrfRcZi8G6FdSKai5mkqBqUaJ63YVOjQ2PhOY5
- xw7XXO6Xm2SIZ9coRcPrtcM/n+4p+LsmmBB5H+JDDFW+TjSZvPJDKArrb+WTBbcoa2dRtS7dvvV
- T7IvJj+VVLKe+H4qFSQ==
-X-Proofpoint-ORIG-GUID: rUEbiK45voC2_Vb0G_U3tcKVnfbs6M1R
-X-Authority-Analysis: v=2.4 cv=TJZ1jVla c=1 sm=1 tr=0 ts=6a04ac7b cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=XJtuOP1FUQBXJGSJDRYA:9 a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-GUID: rUEbiK45voC2_Vb0G_U3tcKVnfbs6M1R
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-13_01,2026-05-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 lowpriorityscore=0 malwarescore=0 adultscore=0
- impostorscore=0 spamscore=0 phishscore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605130170
-
-On Tue, May 12, 2026 at 03:53:19AM +0530, Akhil P Oommen wrote:
-> Adreno 840 present in Kaanapali SoC is the second generation GPU in
-> A8x family. It is based on the new slice architecture with 3 slices,
-> higher GMEM/caches etc.
-> 
-> There is some re-arrangement in the reglist to properly cover maximum
-> register region. Other than this, the DT description is mostly similar
-> to the existing chipsets except the OPP tables.
-> 
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/kaanapali.dtsi | 232 ++++++++++++++++++++++++++++++++
->  1 file changed, 232 insertions(+)
-> 
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
 
--- 
-With best wishes
-Dmitry
+--=-aSiFsAE5dKCPdAUlYUtL
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Le mercredi 13 mai 2026 =C3=A0 16:29 +0200, Sven P=C3=BCschel a =C3=A9crit=
+=C2=A0:
+> Philipp Zabel just mentioned that a 90 degree rotation would just cause=
+=20
+> the RGA to scale it to the output format (deforming if it isn't=20
+> quadratic). The existing code already considers the rotation to set the=
+=20
+> scaling factor accordingly (which I've also missed in this commit. But=
+=20
+> the commit is dropped anyways in v6 due to the various footguns).
+>=20
+> While I see that the V4L2_CID_ROTATE docs mention the need to set the=20
+> format according to the chosen rotation, it feels like it's intended for=
+=20
+> non-scaling converters. So I don't see a problem to just allow the=20
+> current state, as the user has to adjust the format anyways if he isn't=
+=20
+> interested in a deformed image (instead of blocking this potential rare=
+=20
+> use-case).
+>=20
+> But I'd add a check in my scaling commit to also check in the streaming=
+=20
+> state that we don't set a 90 degree rotation causing the scaling factor=
+=20
+> to be exceeded (e.g. 1x2 -> 1x32 scales by 16, whereas 90 degree=20
+> rotation causes a scaling factor of 32).
+
+Ok, didn't think it would just break aspect ratio to make it fit, but it me=
+ans
+its valid for this HW.
+
+Nicolas
+
+--=-aSiFsAE5dKCPdAUlYUtL
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCagSsvAAKCRDZQZRRKWBy
+9DGsAQDFF4AUa8rwW+g79CDHXNSmFRT9T7gidDUKZhGYQYsr2wEA65cExpikwkg2
+lV7COvcRf9/k95Nx5NJ2kLXO9C4PsAs=
+=fHbK
+-----END PGP SIGNATURE-----
+
+--=-aSiFsAE5dKCPdAUlYUtL--
