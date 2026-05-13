@@ -1,65 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1B137FF58;
-	Wed, 13 May 2026 22:30:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7365B36F8EB;
+	Wed, 13 May 2026 22:31:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778711435; cv=none; b=NF8q/tpRcUGa6EoH5bllFibOPr94vTwsgFPzYlvg4JVM0SpbedZoTPysJbAupF/37MBKPvb/1U8pq764urJc2zfCHhG904hFV7lztO1RX5GFuaWCz9+ml1GetxIv6BJeSyNOWeB1xOE6dwn1dk29YfwuKCXhOuIZv3ULGUeNo88=
+	t=1778711503; cv=none; b=jra9d8m+sJc5xK61rnlm6aLM/i2WamOiIkmy0UXqpa5MalD+PrJqGH6pBI0BQqsDdru2qqy5+biYIvEPNWrmIyNLK0SsmIhOnuFiQt9VxnX1gzipV+nKCW7vY7m/jYTtGzBGwXTaJtXU1NKoXa56sTg1Fi5zxO3COp1fz8QgM3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778711435; c=relaxed/simple;
-	bh=NXP84lvtAJkBs5OOdZdw6bPQK+75PbJWLaGmXLWSShY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MSd6Rn5O3/ML2mN9ZzISggOqXyCspQzTAvgXfcEVVAbvR/hZh7aH+AQvSAGss+wp4IE2WQwrEAV+IOQr76DDiTX6Sr54PDRgZ4jcoOCPdlxnSogR7z8rogy0/4dat8b5XgQPKfVbgNKf5Vti4qpQ3EcIIY7k7ctKU2CXQYc0JP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H4TH6LM6; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778711503; c=relaxed/simple;
+	bh=U1R8edRmFcjQFPnsNre+GIRjPI0kbx/WQuaw3rH7YKg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Xp9R0xOvLyNoxt1qJ96r505RAVPeT1ZmRNIjLKQsRvTNvabtDlivmdR+q8s8txLxxt+bAZu50CVvu1qSV5XHB6U5nn5E1Bo+GQVOvzTlkvpnIE6gcsAj4MOG8+A5tGCyi0uP16MZSBaRljvw6dgD+G0k7DJBIfCyfHaKlz5A02I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=hNAMBlxU; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=lKslt6Q4; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H4TH6LM6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13150C19425;
-	Wed, 13 May 2026 22:30:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778711435;
-	bh=NXP84lvtAJkBs5OOdZdw6bPQK+75PbJWLaGmXLWSShY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=H4TH6LM6bGmxdAlgMIZO6VtcI8hx3CftdRZ4aPCbeOlzQVExWwd4w3Evu/R9yMCZP
-	 wcSqjdkQNDxLABPVTng9+/ajTM4dVa60LMhRK+tURkrti/gZv+33zORrnQJd9LhXE4
-	 U0N1CkfPX7eBHjoezWnrSsDRpj+uaS6/kMxgKS7SdUjyfpzDDpJ0OvlZire4CxVWAl
-	 4fqp0nb3SZq1Ix5xCceW5a3i7tGfZEN+UGyzjHE73jTb6ljm4paDQkSkRZz3jzKRD0
-	 WU1ucSQPSKM5GgSsWyXXumIjUxfHqRhsyIhSNNoZQ8xRFAkV2IY0xg2npe8KysmCtb
-	 DaCr+iYJ85xcA==
-Date: Wed, 13 May 2026 17:30:30 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Robert Marko <robert.marko@sartura.hr>
-Cc: edumazet@google.com, o.rempel@pengutronix.de, pabeni@redhat.com,
-	devicetree@vger.kernel.org, kory.maincent@bootlin.com,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	davem@davemloft.net, krzk+dt@kernel.org, andrew+netdev@lunn.ch,
-	luka.perkov@sartura.hr, conor+dt@kernel.org, kuba@kernel.org
-Subject: Re: [PATCH net-next 1/2] dt-bindings: net: pse-pd:
- microchip,pd692x0: add port disable GPIO
-Message-ID: <177871143033.2145977.6127255354690890686.robh@kernel.org>
-References: <20260507104720.262641-1-robert.marko@sartura.hr>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="hNAMBlxU";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="lKslt6Q4"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gG7VJ6QrCz9vL6;
+	Thu, 14 May 2026 00:31:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1778711496;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=YaX/Xo+aYjHdQZOl52aRhuT+hJsQaI4oWfGWWCZOJZg=;
+	b=hNAMBlxUaqoHIkR0xiFX6TG8ieW3zHxUqwE/3zbedEVYZtohfKC2xboGPytY1wAqVvs4Gr
+	Da6zirJ0qUJZE/27hLiC5DhnFfih3tDBNTQdQGYUA3RCpj/REuxu2iy52dAt4CTvYx7n3j
+	5KaFNsubSJ2URFXVK0qIqDGTv4ZTWcgZLrkMgNzkvAoCCRwRuQ4GwGrxMasKprtGRaZ9jw
+	/P7pcaMieigeFmlGYu7LVhx3vSBi6veNoodSYjBjbTNhm8nb/cOTAiiAX8/+mGPTdFRu/4
+	cBwhoEnLlvKRS4xMHENfDCFApb3JiU7/A3+ZhalEVxRHB7BYXtfhg/voljmUNQ==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1778711494;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=YaX/Xo+aYjHdQZOl52aRhuT+hJsQaI4oWfGWWCZOJZg=;
+	b=lKslt6Q4R8iLS52CuB54bOm1JFkDprgAKfhNyEcMbzk/4aNhPyjfSCdad2Jd89wE/UNDu+
+	Cz58gpdO5GYMLr7n2M6kEwd5hKGjZFos2O4TCMLFUMFGMTwTkf22h2YLT0U7BEQljaN8O0
+	m6nHyQNAnnj29e3FdMk3LA44JtqgSrkhvSAIw8mprBJuehvr6Lc06lMQEGMmQICn2AyIVF
+	9hmjbrdQpFeLg3MJYMDHHRkKVAQLisLApHF0opIbJQj3Zkf5Deb37+Rj2abb3ZTE6XCly0
+	ZPaxixhvt4yQfeVr5KC3xWNbne1ikrlZ1xO78FVPTj/tnB+DiBkxO2jVLoyLeQ==
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH] arm64: dts: renesas: r8a78000: Fix GIC-720AE View 1 Redistributor description
+Date: Thu, 14 May 2026 00:30:08 +0200
+Message-ID: <20260513223125.43337-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260507104720.262641-1-robert.marko@sartura.hr>
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: 1836kzmypo36jkf9t45gcq77knmzzhm7
+X-MBO-RS-ID: 6de09209b627974ea58
 
+The Renesas R-Car X5H (R8A78000) SoC contains Arm CoreLink GIC-720AE
+Generic Interrupt Controller with Multi View capability. Firmware has
+access to configuration View 0, Linux kernel has access to View 1.
 
-On Thu, 07 May 2026 12:46:54 +0200, Robert Marko wrote:
-> Microchip PSE controllers have a dedicated port disable input that like it
-> name suggest, will disable PoE on all ports.
-> 
-> So, lets document that GPIO.
-> 
-> Signed-off-by: Robert Marko <robert.marko@sartura.hr>
-> ---
->  .../devicetree/bindings/net/pse-pd/microchip,pd692x0.yaml     | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
+The Arm CoreLink GIC-720AE Generic Interrupt Controller Technical
+Reference Manual, currently latest r2p1 [1], chapter "Programmers model
+for GIC-720AE", subchapter "Redistributor registers for control and
+physical LPIs summary", part "GICR_TYPER, Redistributor Type Register"
+clarifies register "GICR_TYPER" bit 4 "Last" behavior in Multi View
+setup as follows:
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+"
+Last
+Last Redistributor:
+
+0 ... This Redistributor is not the last Redistributor on the chip.
+1 ... This Redistributor is the last Redistributor on the chip.
+      When GICD_CFGID.VIEW == 1, for views 1, 2, or 3 this bit
+      always returns 1.
+"
+
+On this SoC, GICD_CFGID.VIEW is 1 and the Linux kernel has access to
+View 1, therefore Linux kernel GICv3 driver will interpret register
+"GICR_TYPER" bit 4 "Last" = 1 in the first Redistributor in continuous
+Redistributor page as that first Redistributor being the one and only
+Redistributor and will stop processing the continuous Redistributor
+page further. This will prevent the other Redistributors from being
+recognized by the system and used for other PEs.
+
+Because the hardware indicates that the continuous Redistributor page
+is not continuous for View 1, 2, or 3, describe every Redistributor
+separately in the DT. This makes all Redistributors for all cores
+accessible in Linux.
+
+[1] https://developer.arm.com/documentation/102666/0201/Programmers-model-for-GIC-720AE/Redistributor-registers-for-control-and-physical-LPIs-summary/GICR-TYPER--Redistributor-Type-Register?lang=en
+
+Fixes: 63500d12cf76 ("arm64: dts: renesas: Add R8A78000 SoC support")
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Marc Zyngier <maz@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+ arch/arm64/boot/dts/renesas/r8a78000.dtsi | 36 +++++++++++++++++++++--
+ 1 file changed, 34 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/renesas/r8a78000.dtsi b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+index 3ec1b53d27828..73be51787265c 100644
+--- a/arch/arm64/boot/dts/renesas/r8a78000.dtsi
++++ b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+@@ -689,8 +689,40 @@ gic: interrupt-controller@39000000 {
+ 			#interrupt-cells = <3>;
+ 			#address-cells = <0>;
+ 			interrupt-controller;
+-			reg = <0 0x39000000 0 0x10000>,
+-			      <0 0x39080000 0 0x800000>;
++			#redistributor-regions = <32>;
++			reg = <0x0 0x39000000 0x0 0x10000>,
++			      <0x0 0x39080000 0x0 0x40000>,
++			      <0x0 0x390c0000 0x0 0x40000>,
++			      <0x0 0x39100000 0x0 0x40000>,
++			      <0x0 0x39140000 0x0 0x40000>,
++			      <0x0 0x39180000 0x0 0x40000>,
++			      <0x0 0x391c0000 0x0 0x40000>,
++			      <0x0 0x39200000 0x0 0x40000>,
++			      <0x0 0x39240000 0x0 0x40000>,
++			      <0x0 0x39280000 0x0 0x40000>,
++			      <0x0 0x392c0000 0x0 0x40000>,
++			      <0x0 0x39300000 0x0 0x40000>,
++			      <0x0 0x39340000 0x0 0x40000>,
++			      <0x0 0x39380000 0x0 0x40000>,
++			      <0x0 0x393c0000 0x0 0x40000>,
++			      <0x0 0x39400000 0x0 0x40000>,
++			      <0x0 0x39440000 0x0 0x40000>,
++			      <0x0 0x39480000 0x0 0x40000>,
++			      <0x0 0x394c0000 0x0 0x40000>,
++			      <0x0 0x39500000 0x0 0x40000>,
++			      <0x0 0x39540000 0x0 0x40000>,
++			      <0x0 0x39580000 0x0 0x40000>,
++			      <0x0 0x395c0000 0x0 0x40000>,
++			      <0x0 0x39600000 0x0 0x40000>,
++			      <0x0 0x39640000 0x0 0x40000>,
++			      <0x0 0x39680000 0x0 0x40000>,
++			      <0x0 0x396c0000 0x0 0x40000>,
++			      <0x0 0x39700000 0x0 0x40000>,
++			      <0x0 0x39740000 0x0 0x40000>,
++			      <0x0 0x39780000 0x0 0x40000>,
++			      <0x0 0x397c0000 0x0 0x40000>,
++			      <0x0 0x39800000 0x0 0x40000>,
++			      <0x0 0x39840000 0x0 0x40000>;
+ 			interrupts = <GIC_PPI 9 IRQ_TYPE_LEVEL_HIGH>;
+ 		};
+ 
+-- 
+2.53.0
 
