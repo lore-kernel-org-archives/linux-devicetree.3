@@ -1,105 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD1F384CD9
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 22:23:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFEB03783CE;
+	Wed, 13 May 2026 22:27:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778711030; cv=none; b=lDHAJxOvzZ64ffoifZNZYen1EqONZqtux8D9cFC6bG6a4iA/sYyYbhvljYEv9qrS2ewfKPUmd1mZC93BX7GqFigBLhNfbjmFqrfJABP9nz+IwY3sf/vcngvqvaYKZ8th9mqFaVl3JDZOhyS4gzrBeX2tpP8fdL5kLyu7gE7yw+c=
+	t=1778711248; cv=none; b=hV0u4vvypo2SklKooc055+YHcBt60uaYeFO9P4VWK3j6XDwADp4QerQOXPPAA3bVJxAR0jpZMCQ+BFW/dm2YQMEjEbB2DNwM9sgQ1RT9DrAPQprUfRUuSD6yrx7lBvPG0KySFpnpio0SHWyR++J0HKP8xVviTTQGX0zzMe73yxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778711030; c=relaxed/simple;
-	bh=XFGRE0ekWRoS2iFBXK/Yq7C4FQVjIHTwQhSicH32gJc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Uk9PanpR0tQXfmtk/9pZWoI3P3vbUxVx1OQwZZUBv0amNCABHX4kTji+/d5seeeC6G9mA7hj29mMP3sCH95weHTaFqAped7/jloa5M1THf6uv348OcMeBH2phUraItUsl7jFIuQzgiBrAkh06W8BWHH9s1mSJnecW93R4kcGISQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HNSF6d3F; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778711248; c=relaxed/simple;
+	bh=yMeTXDbCQEz8EGX5JoE/0Wc6TDDp9GFsAJU2DsCuFl8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dRf7KTsGzNp0/l4c+2ZMK3z4KeiHtIcKldyS48a0Ilb+kzJIcc5Ayo6Bl5sfrBHA4ZYji1HO7iIEVkAPHmEadgVM71Lsa3xdzuZ65eaKEqeFPM9R5xA0WENdCdnQL6PisRGRoesrG8FAdApjp3PKaRRMREL066nB3N4JaA7mA60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=usmRqyuK; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HNSF6d3F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CA4FC19425;
-	Wed, 13 May 2026 22:23:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="usmRqyuK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC1CAC19425;
+	Wed, 13 May 2026 22:27:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778711029;
-	bh=XFGRE0ekWRoS2iFBXK/Yq7C4FQVjIHTwQhSicH32gJc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=HNSF6d3FZ4Z73yVfoBoUkSKKLX7NOL/37yQTEOKeYrDccY6M0jyS0qFdjTpZanhTc
-	 bzMZ8A3SYkiumAh7j0RE+3G+EJSH6As/7wVJJXkiWPZULbrHIf3a5RV6J9bm+jXZ/s
-	 LaRB4bK+Sgl/6zlsAy3aHVu0+iRPDSgCkoYGOJ5Bpj6R/5x95F+uecd0okH6lpbVVS
-	 xQN1nOz7MviXhgsS4arV24osuIYQHu8WT43K/5ySf1178vlweHkbYBAsr9F2xNzcZJ
-	 RjGam1og5Hp1kOkq5kNnA2A/86oCoZlek1pp+SafDrK3mwtVnXZ5IDZSQVMLTbZYtZ
-	 bUV/JxJ9c7r2Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 3/9] clk: fixed-factor: Rework initialization with
- parent clocks
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?QmVub8OudCBNb25pbg==?= <benoit.monin@bootlin.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260512-clk-eyeq7-v6-3-0540cce18fb2@bootlin.com>
-References: <20260512-clk-eyeq7-v6-3-0540cce18fb2@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 13 May 2026 22:23:49 +0000
-Message-Id: <20260513222349.7CA4FC19425@smtp.kernel.org>
+	s=k20201202; t=1778711248;
+	bh=yMeTXDbCQEz8EGX5JoE/0Wc6TDDp9GFsAJU2DsCuFl8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=usmRqyuK9pOiEvW8mB+vmkviwJba88lsn/0lKWzJt+QFxHCVq6mmr/ESnXb0hD5qE
+	 QyHC86X9bIOw3ql53AjZRDwtDpW4Vp0cMJdDolQbIpYkfPWwFwVlkc+fp38oStO5Mn
+	 vguMWBVzGCDkjVhT23lq7EKvbcFny8y+jIyghbw5NSqTJ5kh7ygHwcNfUH/Gs9LzxT
+	 9jS9CUaTEC270aHe03fCDMC+hORO6IYt8jwHWhOSTFmZydaAhNSd+zDjnnjWrdhDMv
+	 o3YWKb/5FLf64ufkpeASVLMyJIctLWNE/CiSxbqTCRmM+F0hzMyCGnX48VmC9k1ZqQ
+	 lBcwEPGn3yoMw==
+Date: Wed, 13 May 2026 17:27:25 -0500
+From: Rob Herring <robh@kernel.org>
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Cc: tomm.merciai@gmail.com, geert@linux-m68k.org,
+	laurent.pinchart@ideasonboard.com,
+	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 02/13] dt-bindings: display: renesas,rzg2l-du: Add
+ support for RZ/G3E SoC
+Message-ID: <20260513222725.GA2069022-robh@kernel.org>
+References: <cover.1778141145.git.tommaso.merciai.xr@bp.renesas.com>
+ <ff8e401a0667970a42a55420dcb071e34730a923.1778141145.git.tommaso.merciai.xr@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ff8e401a0667970a42a55420dcb071e34730a923.1778141145.git.tommaso.merciai.xr@bp.renesas.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] A fixed-factor clock registered with no parent and the CLK_SET_RAT=
-E_PARENT flag will cause a NULL pointer dereference.
---
+On Thu, May 07, 2026 at 11:21:30AM +0200, Tommaso Merciai wrote:
+> The RZ/G3E SoC integrates two LCD controllers (LCDC0 and LCDC1), each
+> containing a FCPVD, VSPD, and Display Unit (DU).
+> 
+>  - LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
+>  - LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
+> 
+> Add compatible string 'renesas,r9a09g047-du' and extend the binding to
+> support two DU instances: add reg-names ('du0'/'du1'), extend reg,
+> interrupts, and resets to maxItems: 2, and extend clocks/clock-names to
+> six entries (aclk/pclk/vclk per instance, minItems: 3).
 
-commit c84e53359c0d9461f122802c5a6acb3dc1fc8cf7
-Author: Beno=C3=AEt Monin <benoit.monin@bootlin.com>
+Don't write what the diff has. I can read the diff for that.
 
-clk: fixed-factor: Rework initialization with parent clocks
+> 
+> Drop the "Each port shall have a single endpoint." constraint since
+> RZ/G3E ports expose multiple endpoints.
+> 
+> Add a RZ/G3E-specific allOf rule mapping two DU instances to two ports:
+> 
+>  - port@0 (DU0): endpoint@0 DSI, endpoint@2 LVDS ch0, endpoint@3 LVDS ch1
+>  - port@1 (DU1): endpoint@0 DSI, endpoint@1 RGB (DPAD), endpoint@3 LVDS ch1
+> 
+> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> ---
+> v6->v7:
+>  - Rebased on top of [1]
+>    [1] https://lore.kernel.org/all/20260429170012.366537-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
+>  - Use single DRM device aggregating both DU instances (1 DU dt node),
+>    modelling single port for each DU0, DU1 and multiple endpoints for
+>    outputs.
 
-This commit reworks fixed-factor clock initialization to follow the standard
-sequence for setting parent details in the init struct. When a fixed-factor
-clock is provided without a parent, it now registers with zero parents
-instead of relying on a dummy parent data struct with an invalid index.
+That seems like the completely wrong thing to do and you've given no 
+reason why you think it is the right choice.
 
-> diff --git a/drivers/clk/clk-fixed-factor.c b/drivers/clk/clk-fixed-facto=
-r.c
-> index 850e8b95f3527..359e91441c740 100644
-> --- a/drivers/clk/clk-fixed-factor.c
-> +++ b/drivers/clk/clk-fixed-factor.c
-> @@ -124,13 +124,13 @@ __clk_hw_register_fixed_factor(struct device *dev, =
-struct device_node *np,
->  	init.name =3D name;
->  	init.ops =3D &clk_fixed_factor_ops;
->  	init.flags =3D flags;
-> -	if (parent_name)
-> -		init.parent_names =3D &parent_name;
-> -	else if (parent_hw)
-> -		init.parent_hws =3D &parent_hw;
-> +	init.parent_names =3D parent_name ? &parent_name : NULL;
-> +	init.parent_hws =3D parent_hw ? &parent_hw : NULL;
-> +	init.parent_data =3D pdata;
-> +	if (parent_name || parent_hw || pdata)
-> +		init.num_parents =3D 1;
->  	else
-> -		init.parent_data =3D pdata;
-> -	init.num_parents =3D 1;
-> +		init.num_parents =3D 0;
-
-This problem wasn't introduced by this patch, but does this expose an
-issue if a fixed-factor clock is registered with no parent and the
-CLK_SET_RATE_PARENT flag?
-
-If num_parents is 0, clk_factor_determine_rate() will evaluate
-clk_hw_get_parent(hw), which will return NULL.
-
-This NULL pointer is then passed directly into clk_hw_round_rate(), which
-dereferences it via hw->core without any NULL checks.
-
-Should the clock framework protect against this gracefully, similar to how
-divider_ro_determine_rate() in clk-divider.c handles it by checking if
-!req->best_parent_hw?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-clk-eyeq7-=
-v6-0-0540cce18fb2@bootlin.com?part=3D3
+Rob
