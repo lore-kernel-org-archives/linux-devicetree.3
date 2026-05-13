@@ -1,48 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D01E4DBD9E;
-	Wed, 13 May 2026 17:42:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE8E4DC55F;
+	Wed, 13 May 2026 17:48:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778694135; cv=none; b=Itd+6+/duvfcchHSiU+VsJ3JehtGSJVghC0X9YmJJ7H/hRurrhQqL1/t75pA6BNWIA1fz+hIHkTpv6jU3DDRaN3eWtF8C3x1iK9T8t69crsFQkfAe9XbWz8RNVEJd/9GM3DggV0q4XWmPw/FMu42ZOFowPxLIWxNP7mbvTuo63U=
+	t=1778694502; cv=none; b=n/cDoIwOKrsohVsOIupfID56FGIUJPCPr3sSBnJ5mkJRyYYDLd19L/fL8HrMdKUbSphCA16ljil9D/H8pwTQbusEIPpP0qEAGNaRYwmGJvb2cwjPjTL54AJyPpEVyAsY71lW+wK5XOt+KewwFYaNA8vhn6eKleKnc3O8IJqfsOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778694135; c=relaxed/simple;
-	bh=E0zLoEe4OxlTHMdVyWH+4DIkQ+K+q84NfZfyUfKVC1s=;
+	s=arc-20240116; t=1778694502; c=relaxed/simple;
+	bh=fF6REr3h5Pi2RL6LPgAqzchRdE/dzqgGnbwHYAwXtCc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hop3ZjVJsRV8NzPvpu5xZ1Qbui6I+Cq1oee9Kf+AgK4HLjGwrUX0eOa++QAEsH8Cb6g8S8T/c/dU8xjKeOXQmthuum2BBoeAKrim+m1/d09Svm/0odT0mQ8GJhTaPoS4FH23wueHKEBAMoDejq2w1n4YwX/Hp6yg4P12zmg8n+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U4HDV0M+; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=DdXBYI28kDHQ0NEGNjCYYGWx9tDp9aNts+WpOqo/xSRZDCTP25EtQN0Wkq+0XtAugk+9CetFZzFtJwMXX0SZomVhdaaUFX9xvXO+FBu84qj0iro3CRH0l0SLiNdbgyy73lCxZeSoMPw9qwmdAZacmG5JAxffwqiSOwY3Tq2kHA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=noOWNe7J; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U4HDV0M+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 614DCC19425;
-	Wed, 13 May 2026 17:42:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778694134;
-	bh=E0zLoEe4OxlTHMdVyWH+4DIkQ+K+q84NfZfyUfKVC1s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=U4HDV0M+tjdN4VylC22tgK8Fk9XF/JgKbvf/9bfOX4qpMwvbSAGpwRxqB1Bue7LYd
-	 6goY9x7H8ocOyeQkHlLqtlMRqLwbi3gHeQcTmYQ/conA109JVX6sYLF3IkieCdLEVV
-	 O1zKdUiwKFiKqCVr/gxknO/ipWHNPPxs4aOb2QQ6tEtu66wpuYtdq1XytMGEyOqHC/
-	 7zzaMNjBglrJ4/W6hiT8HvO8ufmNfRDDAhlDIeygaEsNsWYtTSrecDHS0oBfTN6eSv
-	 RgSkBu+6RFopybS4JRnYZiqUCMQkJB14JzBp3prxn6EiFzsyl4iWk5fXznYjJHNjZz
-	 z80JtIhLARulg==
-Date: Wed, 13 May 2026 12:42:11 -0500
-From: Rob Herring <robh@kernel.org>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v3 1/2] dt-bindings: memory: renesas,rzg3e-xspi: Add
- RZ/T2H and RZ/N2H support
-Message-ID: <20260513174211.GA1400932-robh@kernel.org>
-References: <20260505112405.667796-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260505112405.667796-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="noOWNe7J"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1778694501; x=1810230501;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=fF6REr3h5Pi2RL6LPgAqzchRdE/dzqgGnbwHYAwXtCc=;
+  b=noOWNe7JuDjIFa/oaAooTMziurZuI5xxSfkvPzyRszrb2U8rUbaO0NhN
+   uLBxy1kVpSH+boWhohgbH4WqZl5vH2iW3y6l4V8UWecptYs6E9TpY1srx
+   DA0ywuPAW/TYxwe3RGpqm5AqGxNa0Lc9gekakQve2c+N2oqyL2kwAVf/9
+   sKnuNsKppQSNbOmS8BCPRH6RWjq6RcbAVR0ef9zK6ojCQONm+lajHwSdj
+   S+Al5ycH5XOMdEXPDzfSvn4V0BQa+qAvyXXR9SCLTMBgPbbSEIcs51ptZ
+   qJ5npLzkHtxepAoQKDCeqZEZn9dOUDCps+zVJivKES437IuYIrVvZePco
+   w==;
+X-CSE-ConnectionGUID: L/FFIacZSzORbW8vl6bg7A==
+X-CSE-MsgGUID: 6HMv6wyWTh+IaVv6GjWyeQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="91092702"
+X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; 
+   d="scan'208";a="91092702"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 10:48:20 -0700
+X-CSE-ConnectionGUID: OzdiAfUDTzOR5znuYVB3YQ==
+X-CSE-MsgGUID: 7EketAXhQUujw4pp85xiAg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; 
+   d="scan'208";a="233698492"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.106])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 10:48:16 -0700
+Date: Wed, 13 May 2026 20:48:14 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Rishi Gupta <gupt21@gmail.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] iio: light: veml6030: fix channel type when
+ pushing events
+Message-ID: <agS5Xu8ORtEwuwOB@ashevche-desk.local>
+References: <20260513-veml6031x00-v2-0-4703ca661a1d@gmail.com>
+ <20260513-veml6031x00-v2-2-4703ca661a1d@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,138 +69,39 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260505112405.667796-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260513-veml6031x00-v2-2-4703ca661a1d@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, May 05, 2026 at 12:24:04PM +0100, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> 
-> Document xSPI controller found on the Renesas RZ/T2H and RZ/N2H SoCs.
-> The xSPI IP on these SoCs is identical to that found on the RZ/G3E SoC.
-> 
-> The RZ/G3E HW manual (Rev.1.15) references bridge channel 1 and its
-> bits, however the hardware actually supports only a single bridge
-> channel (channel 0), matching the RZ/T2H design. The references to
-> channel 1 and its configuration bits will be corrected in a future
-> revision of the HW manual.
-> 
-> Update clock/reset constraints to handle the SoC differences.
-> 
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> ---
-> v2->v3:
-> - Used RZ/G3E comptiable as a fallback compatible for
->   RZ/T2H and RZ/N2H SoCs since the xSPI IP is identical.
-> - Updated commit message to reflect that the xSPI IP is
->  identical between RZ/G3E, RZ/T2H, and RZ/N2H SoCs.
-> - Dropped RB tag from Rob due to above changes.
-> 
-> v1->v2:
-> - Add RB tag from Rob for the dt-bindings patch.
-> ---
->  .../renesas,rzg3e-xspi.yaml                   | 56 +++++++++++++++----
->  1 file changed, 46 insertions(+), 10 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/memory-controllers/renesas,rzg3e-xspi.yaml b/Documentation/devicetree/bindings/memory-controllers/renesas,rzg3e-xspi.yaml
-> index 7a84f5bb7284..e2633476bd54 100644
-> --- a/Documentation/devicetree/bindings/memory-controllers/renesas,rzg3e-xspi.yaml
-> +++ b/Documentation/devicetree/bindings/memory-controllers/renesas,rzg3e-xspi.yaml
-> @@ -30,6 +30,8 @@ properties:
->            - enum:
->                - renesas,r9a09g056-xspi  # RZ/V2N
->                - renesas,r9a09g057-xspi  # RZ/V2H(P)
-> +              - renesas,r9a09g077-xspi  # RZ/T2H
-> +              - renesas,r9a09g087-xspi  # RZ/N2H
->            - const: renesas,r9a09g047-xspi
->  
->    reg:
-> @@ -53,28 +55,38 @@ properties:
->        - const: err_pulse
->  
->    clocks:
-> -    items:
-> -      - description: AHB clock
-> -      - description: AXI clock
-> -      - description: SPI clock
-> -      - description: Double speed SPI clock
-> +    oneOf:
-> +      - items:
-> +          - description: AHB clock
-> +          - description: AXI clock
-> +          - description: SPI clock
-> +          - description: Double speed SPI clock
-> +      - items:
-> +          - description: AHB clock
-> +          - description: SPI clock
->  
->    clock-names:
-> -    items:
-> -      - const: ahb
-> -      - const: axi
-> -      - const: spi
-> -      - const: spix2
-> +    oneOf:
-> +      - items:
-> +          - const: ahb
-> +          - const: axi
-> +          - const: spi
-> +          - const: spix2
-> +      - items:
-> +          - const: ahb
-> +          - const: spi
->  
->    power-domains:
->      maxItems: 1
->  
->    resets:
-> +    minItems: 1
->      items:
->        - description: Hardware reset
->        - description: AXI reset
->  
->    reset-names:
-> +    minItems: 1
->      items:
->        - const: hresetn
->        - const: aresetn
-> @@ -109,6 +121,30 @@ required:
->    - '#address-cells'
->    - '#size-cells'
->  
-> +if:
-> +  properties:
-> +    compatible:
-> +      contains:
-> +        enum:
-> +          - renesas,r9a09g077-xspi
-> +          - renesas,r9a09g087-xspi
-> +then:
-> +  properties:
-> +    clocks:
-> +      maxItems: 2
-> +    clock-names:
-> +      maxItems: 2
+On Wed, May 13, 2026 at 05:49:42PM +1300, Javier Carrasco wrote:
+> The events are registered for IIO_LIGHT and not for IIO_INTENSITY.
+> Use the correct channel type.
 
-What about resets?:
+> This bug was introduced in the first version of the driver.
 
-resets:
-  maxItems: 1
+Unneeded detail, if it's a bug, use Fixes tag.
+
+> When at it, fix minor checkpatch code style warning (alignment).
+
+...
+
+> -	iio_push_event(indio_dev, IIO_UNMOD_EVENT_CODE(IIO_INTENSITY,
+> -					0, IIO_EV_TYPE_THRESH, evtdir),
+> -					iio_get_time_ns(indio_dev));
+> +	iio_push_event(indio_dev, IIO_UNMOD_EVENT_CODE(IIO_LIGHT,
+> +						       0,
+> +						       IIO_EV_TYPE_THRESH,
+> +						       evtdir),
+> +			iio_get_time_ns(indio_dev));
+
+AFAICS the indentation is still broken. Why not doing like this:
+
+	iio_push_event(indio_dev,
+		       IIO_UNMOD_EVENT_CODE(IIO_LIGHT, 0, IIO_EV_TYPE_THRESH, evtdir),
+		       iio_get_time_ns(indio_dev));
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-> +else:
-> +  properties:
-> +    clocks:
-> +      minItems: 4
-> +    clock-names:
-> +      minItems: 4
-> +    resets:
-> +      minItems: 2
-> +    reset-names:
-> +      minItems: 2
-> +
->  unevaluatedProperties: false
->  
->  examples:
-> -- 
-> 2.54.0
-> 
-> 
