@@ -1,220 +1,110 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C97D838E8DA
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 04:56:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 375433911C0
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 05:00:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778648186; cv=none; b=jU/KtU0GxlANfwY6ACOZ5B4/VMZbiriUuDyyJhSh8byFlxufir0ouJPo6Q2R4f7HwHlHo7ZwepA9gQUfT2ImPtYyWxrtjBseRxvVysCl/QL9mYryJTtUyPeR6HZCgti2xSunHlCcLOyP9rrx5wHPZSFL4c95phq4fLcywv/U+O8=
+	t=1778648409; cv=none; b=N+wdPSjSDOYVjj3mPTM77MqNArk7kg9LHUAODfRdIdhjx67Gk9HaVC1q4EgPB1283QIRaB5XRWUWpkfBG9we08Zeb+chuxW9SzqxAgxK0yEHW8Z8TGF8HV5ARvlQ7kr/MGX2GCZx/GhcA7edocRCgegzUM2etFSbhRB6WggejFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778648186; c=relaxed/simple;
-	bh=oEFqrGJElVWsJCJsodudX+JDfgrg6P0Nyniu6jzWYn8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IyhcZERd9uNJqDF0gPhHhLslyCpODlu2BpmKBFu1CTJlfFjyjr9hOprU32Hi8HC2zRZM6yK6IOnjvwSPh5OQH2EnNJakIj/MFtb+Wpgo4nWb2rSJgWy1XJ09iF5wPwNgOQ77w6ai+tGxZsgTg/fNp8T+r4doqm/UCYoSl2siuxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yexmv0Rh; arc=none smtp.client-ip=209.85.210.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778648409; c=relaxed/simple;
+	bh=TqLCITmBHROlI/6bD94uBpynN298xODzRDKewaoiTeU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=GiEwjtT06TbdN3zXkt1EmBdyq1EcB1VqS96A8MiNfGL8q2e9xF9MbHWxUbJp6TiZXQS7vGWvRKTuHBVWcDA6htevnFKVkeDeiDxAcXiZxaYHAJMAW6a/rlKO0iDu3hy/sCmjCSqYQlT1AR5PWgUP4abVY8Av0yY6VfXSy8O2yq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eyw3PPHb; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yexmv0Rh"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-837b39eb078so4300873b3a.2
-        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 21:56:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778648184; x=1779252984; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=BY2NFR2OVpU0WhoUPQAwuaAExP4/KT35v4Z4OHaj9Es=;
-        b=Yexmv0RhAnB3YFu28XfmvRuyVSDTYwFcYgKPsP9bNBpkkXLPtbtdVu7ze//E2Swl/w
-         VpBXpwbXZUjRCEgSLnevYoa3yfRT2KUyb5NwpS0iuIlxSstVJtaiqsvTyi187kueLRO3
-         gF8hhlY0D0B/1tLlLOwU5nH69sCyQn3QGxutMQv/YQls5/G4s415cJ9GVQfWkysFT8jA
-         LHApzBPY4xcn8Ws5C4nmUiBok9us38iQwi/11GgBXzZUwvHsxUoDr8Bw5ZX5dRabEEWR
-         TMAE14oyWf4MkeRP9kcUiPzb4IKYKaXubNJyKX06lhL5mrOSR0cyCYXVv58yhC451EZB
-         jWOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778648184; x=1779252984;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=BY2NFR2OVpU0WhoUPQAwuaAExP4/KT35v4Z4OHaj9Es=;
-        b=iyVpL/I8hkte0f0flsh2wb3ql9qMbK6BqR3CEpmlTc/uVO/q303WlzNOwYWPLj+DMH
-         VZJrhL7cwqMt6WUaHX5DE3mRkYjj1RkWTWvdFQfoYB6abQ22YO5Zc+tM26DZKcnGyu0e
-         waIynXC8DflvQUFpQfrDOuQSHAZraOAngFbeGasFsh0cZgX3B5lb7y0DZwTxbiEzwdAd
-         TguwnPa37sJscoa0VbHRUtWHegfrYK7pXWC8Hh9s9bZfoVLC1ow2tIy6ya84p5BlIR2C
-         X656fI0KUd5nN8Lntur3N9M43wLEcNhmicjfXuSn+6vJssT8RawHxzhEbajXodogZb44
-         Eb+Q==
-X-Forwarded-Encrypted: i=1; AFNElJ8AxHPlMej6NVsxLkR6kJQjgU9JniveAsvZVrc/MLCsymoRWI4hEOFVQWOMPgHb/EorvOhTElQX+6QB@vger.kernel.org
-X-Gm-Message-State: AOJu0YxKFce5Jh4wJWs/AYk75Xln6i8yWgx+dfEu8Z8rMX9z6ia/wfBF
-	Ay1fwaTgFMPF7+ySi6MyiuQOSTN9X8Eom88AELJ46k5vWlHCOXXsVo3O+rAD8Q==
-X-Gm-Gg: Acq92OFSpC1PZ3heWxtlo5/34DrOH04fPmev1eZ+29pMU0L8sMwC1K5clg/bxelkfvE
-	FukmzcJLV8iWOs2cLRUlnn5ohu+rRMjPfTqy9IPM17tpbqBAfNPjAiDtedknL/nH9VDZlSKreYT
-	MrJLpJPWmqLeuTztObmCq6Y0CyZ58bkY0kEYEMC5DnSvPL35olrDJGGo9PDjrYnJYcN+BzNmxBC
-	W2bsfjLs1zRfKCJANP6hG4hkcSCMtRQcVQOViQufRuapCAufLx4WKON9bRwQkdlXDPX9zpHP1YX
-	kR3YYHW/59zDgmAUfP6oQl3yNo0B0nNb477XkeBI8gPYqhvF/NxU37cT9m58onXXDFjtNUydUeS
-	WKHNsCLFcXetTk/O+9COmHkHkEbWR8tCYu+FM2AlKvzGBuUueWmdOwT6rStBA5APNFF5aE2a26r
-	9P1J1DKN8j4CR3mmqSZWo2LIy8mBAp6/hfixHktHDIcUI4Y0lqmzGsgAvdekkr28QekddWx88Z
-X-Received: by 2002:a05:6a00:2291:b0:835:4776:7d7b with SMTP id d2e1a72fcca58-83f042b9b10mr1696659b3a.42.1778648183897;
-        Tue, 12 May 2026 21:56:23 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83967dbf0cesm30881108b3a.46.2026.05.12.21.56.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 12 May 2026 21:56:23 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <9fa93f79-526f-427b-bc43-1216fb5ce94e@roeck-us.net>
-Date: Tue, 12 May 2026 21:56:22 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eyw3PPHb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C829C2BCB7;
+	Wed, 13 May 2026 05:00:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778648408;
+	bh=TqLCITmBHROlI/6bD94uBpynN298xODzRDKewaoiTeU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=eyw3PPHbv83ZBB3TjahSG70+ICxPBtffCGUkPYvYsZ7kv6xqOag3QhQlpOrlj9/ya
+	 yv6LVAsD/F2xUWUlB5fc9sDpcUVhIwA4n1Ij3ZFtaVP8ivT/nQjB8FQ1g1Dxh4ODLi
+	 ZGkDCEEX+8K+h9p4HNbu/VsLIMOevdb/uCdqIB+u7vvBGBnsw3uacR/21+zD4lyU2j
+	 5asF7yuXTsLDz77uoQ4adSkMvyo03Hzu6D5J4VrKXEd6njTpoHxqaf9prh0tmMbHLy
+	 EMK3KkpWngweKz4hYo6q1fu/5OU6i7dEpmEuiGif0KaG+UCDddANRVvbgp/bDg4hl7
+	 GgjYBFGJNWSKg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 04/16] dt-bindings: mfd: mediatek: mt6397: add mt6323
+ PMIC thermal
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Roman Vivchar via B4 Relay" <devnull+rva333.protonmail.com@kernel.org>
+Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260512-mt6323-v2-4-3efcba579e88@protonmail.com>
+References: <20260512-mt6323-v2-4-3efcba579e88@protonmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 13 May 2026 05:00:07 +0000
+Message-Id: <20260513050008.8C829C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] hwmon: (pmbus/d1u74t) Add Murata D1U74T PSU driver
-To: sashiko-reviews@lists.linux.dev,
- Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org,
- conor+dt@kernel.org, linux-hwmon@vger.kernel.org
-References: <20260511-d1u74t-v1-2-623c2bc1532a@nexthop.ai>
- <20260513031519.A55BCC2BCB0@smtp.kernel.org>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260513031519.A55BCC2BCB0@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The `#thermal-sensor-cells` property is constrained to 1, but th=
+e MT6323 hardware only possesses a single thermal sensor, violating DT ABI =
+design principles.
+- [Low] The device tree example is missing the `adc` node and its correspon=
+ding `mt6323_adc` label, which is referenced by the new `thermal` node.
+--
 
-On 5/12/26 20:15, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> - [Medium] The driver fails to verify the number of bytes read (`rc`) from `PMBUS_MFR_MODEL` before calling `strncmp(buf, "D1U74T-W", 8)`.
-> - [Low] Copy-paste errors in `Documentation/hwmon/d1u74t.rst` for `in2_*` attributes.
-> - [Low] Inconsistent error handling styles for failure modes returning `-ENODEV` in the probe function.
-> --
-> 
-> commit a76e770177dc6ee5472b638d5e12f032fd0a5cd5
-> Author: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> 
-> hwmon: (pmbus/d1u74t) Add Murata D1U74T PSU driver
-> 
-> This commit introduces a new PMBus driver for Murata D1U74T power supplies.
-> It relies on the core PMBus framework and checks the manufacturer ID and
-> model string during probe.
-> 
->> diff --git a/Documentation/hwmon/d1u74t.rst b/Documentation/hwmon/d1u74t.rst
->> new file mode 100644
->> index 0000000000000..f7786ebba0b47
->> --- /dev/null
->> +++ b/Documentation/hwmon/d1u74t.rst
->> @@ -0,0 +1,97 @@
-> [ ... ]
->> +in2_label		"vout1"
->> +in2_input		Measured input voltage
->> +in2_crit		Critical input over voltage
->> +in2_crit_alarm		Critical input over voltage alarm
->> +in2_lcrit		Critical input under voltage fault
->> +in2_lcrit_alarm		Critical input under voltage fault alarm
->> +in2_max			Maximum input over voltage
->> +in2_max_alarm		Maximum input over voltage alarm
->> +in2_min			Minimum input under voltage warning
->> +in2_min_alarm		Minimum input under voltage warning alarm
->> +in2_rated_min		Minimum rated input voltage
->> +in2_rated_max		Maximum rated input voltage
-> 
-> This isn't a bug, but should these descriptions refer to output voltage
-> instead of input voltage, since the label is vout1?
-> 
-> [ ... ]
->> diff --git a/drivers/hwmon/pmbus/d1u74t.c b/drivers/hwmon/pmbus/d1u74t.c
->> new file mode 100644
->> index 0000000000000..3127e0e5a23de
->> --- /dev/null
->> +++ b/drivers/hwmon/pmbus/d1u74t.c
->> @@ -0,0 +1,85 @@
-> [ ... ]
->> +static int d1u74t_probe(struct i2c_client *client)
->> +{
->> +	char buf[I2C_SMBUS_BLOCK_MAX + 2] = { 0 };
->> +	struct device *dev = &client->dev;
->> +	int rc;
->> +
->> +	rc = i2c_smbus_read_block_data(client, PMBUS_MFR_ID, buf);
->> +	if (rc < 0)
->> +		return dev_err_probe(dev, rc, "Failed to read PMBUS_MFR_ID\n");
->> +
->> +	if (rc != 9 || strncmp(buf, "Murata-PS", 9)) {
->> +		buf[rc] = '\0';
->> +		dev_err(dev, "Unsupported Manufacturer ID '%s'\n", buf);
->> +		return -ENODEV;
->> +	}
-> 
-> This isn't a bug, but could dev_err_probe() be used here for consistency
-> with the other error paths in this function?
-> 
->> +
->> +	rc = i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
->> +	if (rc < 0)
->> +		return dev_err_probe(dev, rc,
->> +				     "Failed to read PMBUS_MFR_MODEL\n");
->> +
->> +	if (strncmp(buf, "D1U74T-W", 8)) {
->> +		buf[rc] = '\0';
->> +		return dev_err_probe(dev, -ENODEV, "Model '%s' not supported\n",
->> +				     buf);
->> +	}
-> 
-> Does this code evaluate stale data in the buffer if the model read returns
-> fewer than 8 bytes?
-> 
-> The buf array isn't cleared between the manufacturer and model reads. If
-> i2c_smbus_read_block_data() successfully returns a length smaller than 8,
-> strncmp() could end up comparing against leftover characters from the
-> previous Murata-PS string since rc isn't verified before the comparison.
-> 
-I think those are all valid issues. Please fix.
+commit 5d14cb32b8298f2c8dd1f6c1a6921b9e3942bf24
+Author: Roman Vivchar <rva333@protonmail.com>
 
-Thanks,
-Guenter
+dt-bindings: mfd: mediatek: mt6397: add mt6323 PMIC thermal
 
+This commit adds devicetree binding documentation for the MediaTek mt6323
+thermal monitoring hardware, which reads temperature via an AUXADC channel.
+It configures #thermal-sensor-cells to 1 and includes a thermal node in
+the example block.
+
+> While mt6323 exposes only a single thermal sensor, newer PMICs like
+> mt6358 provide more than one sensor. Therefore define #thermal-sensor-cel=
+ls
+> as 1 to avoid breaking devicetree ABI in the future.
+
+Since the mt6323 hardware only possesses a single thermal sensor, shouldn't
+#thermal-sensor-cells be constrained to 0?
+
+Future hardware variants like the mt6358 will use different compatible
+strings, which can then define their own #thermal-sensor-cells: const: 1
+constraint without affecting the mt6323 ABI.
+
+Setting it to 1 here forces a dummy cell argument on single-sensor mt6323
+devices, misrepresenting the actual hardware.
+
+> diff --git a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml b=
+/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
+> index beaa67bf0df2c..2c826737189e7 100644
+> --- a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
+[ ... ]
+> @@ -511,6 +547,14 @@ examples:
+>          rtc {
+>              compatible =3D "mediatek,mt6323-rtc";
+>          };
+> +
+> +        thermal {
+> +          compatible =3D "mediatek,mt6323-thermal";
+> +          nvmem-cells =3D <&mt6323_thermal_calibration_data>;
+> +
+> +          io-channels =3D <&mt6323_adc MT6323_AUXADC_CHIP_TEMP>;
+
+Does the mt6323_adc label exist in this example?
+
+Looking through the example block, the adc sub-node and its corresponding
+mt6323_adc label do not seem to be defined. Will this cause dtc to fail with
+a reference to non-existent node or label error during dt_binding_check?
+
+> +          #thermal-sensor-cells =3D <1>;
+> +        };
+>      };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-mt6323-v2-=
+0-3efcba579e88@protonmail.com?part=3D4
