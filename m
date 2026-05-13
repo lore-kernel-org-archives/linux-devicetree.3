@@ -1,197 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A38C3372067;
-	Wed, 13 May 2026 22:49:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B746F372067;
+	Wed, 13 May 2026 22:50:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778712586; cv=none; b=bTEqcbol6mjJluJg1RYdCHHeCU8iVCeVwVsl6qHPV5yu/Ij7ylFgURTJ/rbZwJD5a8uvhFLHNbqAEVEEGd6/9lyhCQs8341FCMsux8ic0LGSaFsnhsG0nQ2TokQgBhS2n+t27X1yqHMgT9ZFBuibxeyrd59bgiRTbpF2uYdhXeM=
+	t=1778712658; cv=none; b=dOyK7YoBtz5Bu0oAgb6mL/Sy1CXnsuqXI/n9XDb3aSxjyLRvGlCxRejS1VTNv4mAhVSMfIM7sJyeMgxtwfNl80w68zrUnbr6iXHIWW2T3208hFUbQjSSB3XTL/t9V2W+o9DeOzVaqfLXMfae9fcWNUnA2hvBbEifeZ9qQO8sA/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778712586; c=relaxed/simple;
-	bh=snh8WWtSZOtloR9okUSICXDPd2H7ALbfL83v/F8Bo2Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=mXEsEcnnY2J5f9kM5RVAsQomfYh+VUD88Rzqv03Fv85alZvorfYVIEvmKsbCOOGXc0f6RuVFSMlAg1QDJQjw3q/NRZJ8umGQabUdoHyadfG9dPtSSw07uy2SVfy1Bn4HfWGynzzrHA6btc2CpBR3hs2QfiKThlW7DtAH4mlqUfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bjmIuJTw; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778712658; c=relaxed/simple;
+	bh=AXXM6Hbzvq+cBKz44q7RiMmfnFswJfntuDi1oR0ECik=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Bxnf7gvJfrRQmomO42plZl9aODgRZs/ZAE4DQQRJdogFXsakXCbVSnu4PEklB+1iMka5OnTqdcCvDy1szBo8efHZ2l5HqugYHeBuoB/cfnI/dqJ7H0N9MjoJ8dDzKwdBgHWKqg44wVNnfmQz1LAV9ASgMlYmhGPq/fZ/R0NjO78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=wcAmjRVK; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=W2ov90Ff; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bjmIuJTw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C486C19425;
-	Wed, 13 May 2026 22:49:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778712586;
-	bh=snh8WWtSZOtloR9okUSICXDPd2H7ALbfL83v/F8Bo2Y=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=bjmIuJTwY1BMTbWxZgy5E1RLotWmdjlWb4Era4sodpTMdDSUZG+wOiZ5l8E+6rw/T
-	 XFMwHr1rg6CI2uqQIENLsuWQqiApwllx8sKB/ykGHmBQWqnT7wGIWGvKdN9L7FKsx6
-	 ALFn3lCDY6CyvkkJ4w0zpjTqwRCReRDf0mH/Mk+4PsCjofzyQ36oNmnrIqNov4p4EV
-	 xpAtzSk6mThryFkS+xtkdEsEFIMaasqag0Bmv776QtvXuxRYlW0qN7ju/QiHuDZyyT
-	 IRlTz4nhu6y58ItFD2KzKZHgwPv1KHgSpLSFvb0PNDo5w/m1fioqNjt+44kJka34ki
-	 /QKfDYaZH8w5g==
-Date: Wed, 13 May 2026 17:49:44 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Sherry Sun <sherry.sun@nxp.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de,
-	festevam@gmail.com, lpieralisi@kernel.org, kwilczynski@kernel.org,
-	mani@kernel.org, bhelgaas@google.com, hongxing.zhu@nxp.com,
-	l.stach@pengutronix.de, imx@lists.linux.dev,
-	linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH V14 02/12] PCI: host-generic: Add common helpers for
- parsing Root Port properties
-Message-ID: <20260513224944.GA341451@bhelgaas>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="wcAmjRVK";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="W2ov90Ff"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4gG7wT0XHBz9v8T;
+	Thu, 14 May 2026 00:50:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1778712649;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=H1qqVgQz94jIQFSkJ/1hbgwJdeHiBuk/T3E4kTorrtY=;
+	b=wcAmjRVKKIvAzo9coa2AUtib9WmZjqGs9HZqx0oTMJyM7ewesJkdA5cB91XQJIFJxOtUZi
+	UnmUQechNGyPOb03Q9PI9WebK7bPhmaDiMwXbFMgKy0h8iBhSC2Vi26XprieCLNEFUe49x
+	zO6gwo8/ajdBFRzXxY4oXZy41wIplvYo4waDIWrENp2a9ej2sFWnX9pFpVrfmhbPEooKcS
+	RRuao6PbYhS0u0yzswNCl8FcukgcsJOxMVs67FB8bOSHCIwKozn2i3G6KqSCaVLFcKSyJK
+	AGAPYPAF9RSeqv50y7AE/xLILOm2CxVdXzWYybOxuWAf+5drcUmHUcyy3mxVZw==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=W2ov90Ff;
+	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1778712647;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=H1qqVgQz94jIQFSkJ/1hbgwJdeHiBuk/T3E4kTorrtY=;
+	b=W2ov90FfXYZsBo81P53c4C2fCyYWsUmkYLBJsDby+gNtzIcFvVcpXU7bNiHTwWJB+MSA0+
+	A4XnnIeprb1L4YK/K7bjffV5bmZrAk1xNAdKtoyV3VF8Rj4okbJBAqe2g1dx5yA5n+FnpU
+	acb0RGCV5ROVO/gjo3l3rut8nEX0V0jeJSGBEOlxjRVxRDUnRVHJcRt9icilmHBoVqOsPd
+	Wv83YyhY2SX98OqkptztkC7XDGC/9mN2emW/fYdawvRfbyhlHAfDFTMfoFRc9UaD7pfTEs
+	ag63wMIb1ny00o3lJ5rgJ2pMjGDTnLJXCufXrWtyBlxwoDK2LGu9KS1Lsf6x/g==
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH] arm64: dts: renesas: r8a78000: Add PSCI node
+Date: Thu, 14 May 2026 00:50:24 +0200
+Message-ID: <20260513225037.49803-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260422093549.407022-3-sherry.sun@nxp.com>
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: xrxthdf5y4xy8wby13xewwjhafdkup8d
+X-MBO-RS-ID: 69ea00e180005b506bb
+X-Rspamd-Queue-Id: 4gG7wT0XHBz9v8T
 
-On Wed, Apr 22, 2026 at 05:35:39PM +0800, Sherry Sun wrote:
-> Introduce generic helper functions to parse Root Port device tree nodes
-> and extract common properties like reset GPIOs. This allows multiple
-> PCI host controller drivers to share the same parsing logic.
-> 
-> Define struct pci_host_port to hold common Root Port properties
-> (currently only list of PERST# GPIO descriptors) and add
-> pci_host_common_parse_ports() to parse Root Port nodes from device tree.
-> 
-> Also add the 'ports' list to struct pci_host_bridge for better maintain
-> parsed Root Port information.
-> ...
+Describe SMC based PSCI access in SoC DT. The system can interact
+with TFA BL31 PSCI provider running on the Cortex-A cores via SMC
+calls.
 
-> +static int pci_host_common_parse_port(struct device *dev,
-> +				      struct pci_host_bridge *bridge,
-> +				      struct device_node *node)
-> +{
-> +	struct pci_host_port *port;
-> +	int ret;
-> +
-> +	port = devm_kzalloc(dev, sizeof(*port), GFP_KERNEL);
-> +	if (!port)
-> +		return -ENOMEM;
-> +
-> +	INIT_LIST_HEAD(&port->perst);
-> +
-> +	ret = pci_host_common_parse_perst(dev, port, node);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * 1. PERST# found in RP or its child nodes - list is not empty, continue
-> +	 * 2. PERST# not found in RP/children, but found in RC node - return -ENODEV
-> +	 *    to fallback legacy binding
-> +	 * 3. PERST# not found anywhere - list is empty, continue (optional PERST#)
-> +	 */
-> +	if (list_empty(&port->perst)) {
-> +		if (of_property_present(dev->of_node, "reset-gpios") ||
-> +		    of_property_present(dev->of_node, "reset-gpio"))
-> +			return -ENODEV;
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+ arch/arm64/boot/dts/renesas/r8a78000.dtsi | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-This doesn't seem right to me.  The parser of per-Root Port properties
-should not be responsible for deciding whether legacy methods are
-valid, i.e., whether a property is in the Root Complex node.  I think
-it's up to the caller to decide whether it needs to look elsewhere.
+diff --git a/arch/arm64/boot/dts/renesas/r8a78000.dtsi b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+index 73be51787265c..d14f0cc0ad360 100644
+--- a/arch/arm64/boot/dts/renesas/r8a78000.dtsi
++++ b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+@@ -665,6 +665,11 @@ extalr_clk: extalr-clk {
+ 		/* clock-frequency must be set on board */
+ 	};
+ 
++	psci {
++		compatible = "arm,psci-1.0";
++		method = "smc";
++	};
++
+ 	/* External SCIF clock - to be overridden by boards that provide it */
+ 	scif_clk: scif-clk {
+ 		compatible = "fixed-clock";
+-- 
+2.53.0
 
-I don't think this even needs to return a "success/failure" value
-because there may be more properties in the future, and not all will
-be required.  This function can't tell which properties a specific
-driver requires and which are optional.
-
-The caller can check whether we found what it needs and fall back to a
-legacy method as needed.
-
-> +	}
-> +
-> +	INIT_LIST_HEAD(&port->list);
-> +	list_add_tail(&port->list, &bridge->ports);
-> +
-> +	return 0;
-> +}
-> +
-> +/**
-> + * pci_host_common_parse_ports - Parse Root Port nodes from device tree
-> + * @dev: Device pointer
-> + * @bridge: PCI host bridge
-> + *
-> + * This function iterates through child nodes of the host bridge and parses
-> + * Root Port properties (currently only reset GPIOs).
-> + *
-> + * Returns: 0 on success, -ENODEV if no ports found or PERST# found in RC node
-> + * (legacy binding should be used), Other negative error codes on failure.
-> + */
-> +int pci_host_common_parse_ports(struct device *dev, struct pci_host_bridge *bridge)
-> +{
-> +	int ret = -ENODEV;
-> +
-> +	for_each_available_child_of_node_scoped(dev->of_node, of_port) {
-> +		if (!of_node_is_type(of_port, "pci"))
-> +			continue;
-> +		ret = pci_host_common_parse_port(dev, bridge, of_port);
-> +		if (ret)
-> +			goto err_cleanup;
-> +	}
-
-I think we should export pci_host_common_parse_port() itself and drop
-this so we deal with a single Root Port, and drivers that support
-multiple RPs should include their own loop similar to this.  That way
-the driver can do several things at once in each iteration of that
-loop, e.g., get resources, power up, configure, etc.
-
-I see that would require some rework of the devm_add_action_or_reset()
-cleanup.
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	return devm_add_action_or_reset(dev, pci_host_common_delete_ports,
-> +					&bridge->ports);
-> +
-> +err_cleanup:
-> +	pci_host_common_delete_ports(&bridge->ports);
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(pci_host_common_parse_ports);
-> ...
-
-> + * struct pci_host_perst - PERST# GPIO descriptor
-> + * @list: List node for linking multiple PERST# GPIOs
-> + * @desc: GPIO descriptor for PERST# signal
-> + *
-> + * This structure holds a single PERST# GPIO descriptor.
-> + */
-> +struct pci_host_perst {
-> +	struct list_head	list;
-> +	struct gpio_desc	*desc;
-> +};
-
-How do we associate an element of this list with something?
-
-Based on the imx6 changes, I guess we don't; we don't even associate
-the pci_host_port with an RP.  We just assert/deassert PERST# for
-every RP at once, and we do it for every GPIO associated with each RP.
-
-There's no way to assert PERST# for a single RP.  I guess we don't
-need that?
-
-> +/**
-> + * struct pci_host_port - Generic Root Port properties
-> + * @list: List node for linking multiple ports
-> + * @perst: List of PERST# GPIO descriptors for this port and its children
-> + *
-> + * This structure contains common properties that can be parsed from
-> + * Root Port device tree nodes.
-> + */
-> +struct pci_host_port {
-
-"host_port" is not really a standard term.  And despite the comments
-above and below, I don't think the list is restricted to Root Ports
-because we traverse the whole hierarchy below the RP.
-
-> +	struct list_head	list;
-> +	struct list_head	perst;
-> +};
-
-> +	struct list_head ports;		/* Root Port list (pci_host_port) */
