@@ -1,428 +1,166 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013033.outbound.protection.outlook.com [40.107.162.33])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B02DF3B0AFB;
-	Wed, 13 May 2026 18:51:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.33
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778698281; cv=fail; b=pgYaLWuXfbAYS5A7n0rMplTQ6JuTyCq5o5qvwjblyXy9BseCwxApR40Hz9kMZMJvBjh4pVuYsGJMsZrxgGJO3gsEDz5PD7HsmXZ7DYmrOLHiHgEWO1kgbPYBXenqppMDW1L/rSs0fQcAxbJceNpLTv8LbS4FEccdgw+4Sk5VI18=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778698281; c=relaxed/simple;
-	bh=wmf9+/ieeUdDgMPZ7Rb7ES+EpcRJFeHISY1De0eFIbE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Rver7ABchaOc5B7hjcEHVDDFAbSdXYYXCmZTkl+I5TiUfRfBFDCtQq++oTaHBicVGfgH5lTmPmqOHKh7/AHTfKzB3MySHBhbOfeBhoIkcG+jfWB7tAj5oTzVD1iSFQ/P90KtD9edNbNrp3qxVdQE5OMNGsf31tZjgTDM0uyL1mE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=mpauYZH0; arc=fail smtp.client-ip=40.107.162.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A2E73A783D
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 18:52:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778698361; cv=none; b=FsL4aMli/ARuG9FSPkEZ8ZdBH+/CehB3FTr2MInYSaW1f0SLBoS0LsJydocYhLeRM8DukmjtFK1dGPsAFVqXCFx4/V76LVckfZYDtL8Yvtd113nHmzhmrFEJCkoXRwfc++kMKTYi/mC5b3hB+jlvkd+HpL9wfYzTqA0qB0DcQnc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778698361; c=relaxed/simple;
+	bh=i2kboZU5dt/R+5mvW/st3FZKJQa6BawWFhBJ4V/bm/Y=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=oktofGlGtCqrDr9kc2GiROAl1CSHbhbnNx/gpPkTfGcgVHt108UMu1hqrFP83LjnI/4f9qNneylZRmX9/4kE8YF/ygSAYwSCXZLDBD5cTmn7uUFn4ZfZYootqoZg3OvogEXVovk3Lzkn/TjSSe3uIJArWdUasPEvMMC67vMRS9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CQ6Fxbs1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YYQkq9KC; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="mpauYZH0"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jPQqvFPGLiFoW67a/lcq5J8jcyq9SuakhQ0ulj7PC5N5D4flMi5PW/AzmttW5/0UcjWu2qtTvG0cWIyygtjPReJKsxmF+h/Jxp8wm6SrPOFi2n0FRmnGtLZVkEu38PLFi9FJieIeBPnqCMlJXaMQrJ5SDbXUkUVwYPA4qSP0vfNMmfoSdBMOeTqQakwGnZlbY0sSm4ItsR/fAkK08lcVpxn6xL2nOXjX1SdkaDl8f7/QN69HJsAw2xXSUJiWHjh5yfSiQ1PxJ5RE6wGPMrpT1fCbpPswfchiH7Jhx6gxYpqviKHKkkqUZFG4Z6ulu1447fcUhFSBuX3r+z6Mk1YD4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0JRb91ZP69l4AJJfotTOhzz+PpmCVSmUSIuwL+z9OTo=;
- b=bcEProU4xwcx1K8FPXKE8XWp49zg6086RLDdc6BqmVa8ZRNEzRms2lAU6RP9DnwwICrgFXjpS4PWgVAmyR9t6JueVVhPpoWdg5TPHh/0dyNVaHp08e0xyhEM5psMBEBeRKBgdPh6JRNXXA907IS3kHFBI0rrF1CJSTnOmeSaSTnBIjA25Z72C3g3Dp1bJseEAHixaUvAklNO/179GTSv05z3x8PW+sXxOn5sub/OQUWDfwTODxrDkOfPlWBIoIU28fGpFn6/UOSPdA+lmR4G+FL8rCCMboCJVVlcVUuG2IdC0ZvLwdFPbSYdsdIiN6/oy7JgCLPgjWeHWEFCsRxpOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0JRb91ZP69l4AJJfotTOhzz+PpmCVSmUSIuwL+z9OTo=;
- b=mpauYZH0uIc1fwtm6cNhRoNe1qduO1aBKC/eqoR4nCcWdYht0KZ7LugJ11fcZ49M/buuhVwrpEP/UH/yUZ5MV8lISo5rdOlHUJgwmkaWHH5qAif+ragupVWRkZPeXFlpr7fkYr2vf4lqK1HcIhrB/c1UDJO6TL+QFK4E24WQpQs0nCiXXn7m94pZQ0fd351TtUnGxnQV3ECEqlU906dxM8qKkfpUraFv9LJLu716QdWUhNsH44/BJ0OAa4h/aeggOMGH3BX1vn6gJJ/gaAWlH9IqvixtcgqclqRh8aj+Yec+shuV7aJyYAsUWoLqbz5wAQ+tzbOQFzUI2MnLP3unNA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PR3PR04MB7402.eurprd04.prod.outlook.com (2603:10a6:102:89::16)
- by PR3PR04MB7337.eurprd04.prod.outlook.com (2603:10a6:102:81::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.21; Wed, 13 May
- 2026 18:51:17 +0000
-Received: from PR3PR04MB7402.eurprd04.prod.outlook.com
- ([fe80::4129:7aed:b5cb:b13d]) by PR3PR04MB7402.eurprd04.prod.outlook.com
- ([fe80::4129:7aed:b5cb:b13d%5]) with mapi id 15.20.9913.009; Wed, 13 May 2026
- 18:51:17 +0000
-From: Ioana Ciornei <ioana.ciornei@nxp.com>
-To: vkoul@kernel.org,
-	neil.armstrong@linaro.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	johan@kernel.org,
-	linux-phy@lists.infradead.org
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH phy-next 2/2] phy: ti: add PHY driver for TI DS125DF111 Dual-Channel Retimer
-Date: Wed, 13 May 2026 21:51:03 +0300
-Message-Id: <20260513185103.1371809-3-ioana.ciornei@nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260513185103.1371809-1-ioana.ciornei@nxp.com>
-References: <20260513185103.1371809-1-ioana.ciornei@nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: AM9P192CA0030.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:20b:21d::35) To PR3PR04MB7402.eurprd04.prod.outlook.com
- (2603:10a6:102:89::16)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CQ6Fxbs1";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YYQkq9KC"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64DFdeWu1242787
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 18:52:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=WHOT/4paRhmqMIJlArz9f+
+	jJSRMrFl3T1rv/TsK5ZY4=; b=CQ6Fxbs1SOJNNwC2TdOMReCMGAi1Hq/eUG829Q
+	XjuFbYSX6oCCtbNkONJvK8oHwn6aUPca+nh4hapXU941hb8ni5NpCSLozKyx+fb0
+	sBq7LirrJ3VKSWqHUlBG5rlC2pKD08cW+6SekcJUT45h/3pQEfnMNboIbvV2BOwm
+	Ms2J4I9GcYKbjxgkOqKZDgT7FaoX80XE6GJCQyk7FEQgfVOVYcJs2qFZfl6XR6qk
+	17dPF/EjeHSEtPSir9Zi0PImglHh/BPSP7lCGNIbLb/SqHTaJeDWtYGPFCV5D8/6
+	VqiE9v+IpIwKkBoDEq1F9t+AWA3eN469VRQtQXJcjWoTvcsA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4v4trtft-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 18:52:39 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-365fd467cf6so6285040a91.0
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 11:52:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778698359; x=1779303159; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=WHOT/4paRhmqMIJlArz9f+jJSRMrFl3T1rv/TsK5ZY4=;
+        b=YYQkq9KCkWcRfI8r3xzbDLYMMX806yN5FxVaOoLRkV20WdWhDbnq3DVfBxS8HaZOET
+         B7Kd0ukEpgYURWDjHPA6s4NqYrK8wAjBqw8RlzmFgQfyVM9YLiVi4eE0rScsxrVnmhdW
+         BOkjAcBMCCcY++vNoEdefPfmDE1Cwwr4PW9Befcb42Hab0i8QD4EHwJ5N/Nyrj2qgEom
+         qvXN0TNoKDb/YEhxBZ6X0CeCCY16vvXJWGxrTAOc8IX/DQxQNC15Inj7mqcuQ9yphfln
+         6KLYsBKHKg1HwQIOC+Vc+X100glcQpXycKBdrvfXpmNr3U7slOnWB4rleljrrxDFJkVS
+         wHfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778698359; x=1779303159;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WHOT/4paRhmqMIJlArz9f+jJSRMrFl3T1rv/TsK5ZY4=;
+        b=LHDuPmR1ROBgbYsmsDdusD7UrGJcFm4ZRVgm5KROOLOVe5L7LUYFRPS7fnBep8QVns
+         kYnA7jcZB3rYWvvGENs97+tZhlaselKMxWA6/BS8r0UOc2oDMeZEk6LiCHXjIOwTADfV
+         Xymg4sne2nHSKpA4aTzlG7m1FLNApbFsw515sXc9oj0lSSQNVh9UuDNmvSmvsUkyL8HX
+         xJRyZA/+cd3MbWHc3msZ8tkRh44t8JYBnA1zyZwwNReYSXJUxKSToPvfAFhzfdCKi6wE
+         LY4X505SVZSNg/oPBjg76a0p3xng7WkBJWBAnvbJyNQPOhWyd49amAPu4yjzEu6ySwIp
+         g0Iw==
+X-Forwarded-Encrypted: i=1; AFNElJ+72fj+JrH2w6GjnQ3gKsXLligrMw3wBnj3H3epAwggUEs87cuOQ5hB8t7aSm0bqn77NtEuaayomZFH@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx3v6ZZCFChVjWrmexTKJcZ+CskHtqAhvkyTdNc9QGaJ62bBJ9/
+	8dz/7XNNEt5GJPMwTiQufx/buOCte7P+dz7+GAqI62T+igRvjvizzlvxcx77suj1JmKxd+/5TLs
+	WVlHGtXYfWXTz+YEoQ2/vkx4qJfZ2TR2fQxbVjuBcyfbI2ouFfO+7x84FRTQe8i7R
+X-Gm-Gg: Acq92OEO9MVX4EMDZYbbXSGT2VUHoNMN0YY2G4zcj7MZaUIWF7PzW6vD6djM4B1y4sv
+	FU+qHs5X5oAufN3ZJk0rKCOJdVv9dIWtzGY3hJ0oTfku2qRLC/pMCwUNQvw7IZ8U+iXZsj1Wbov
+	gA07SzEG4h8u6as7WyuPml9nd/gfqzJbVvbvEF3U9+5S5YiDM95j+4Ex6eMByB0kQbG474fOXp1
+	ETjGIp+/BVcxm8XQNKdlNKOgdoaxMqjxOvKEGJisfldS6eCKqdNYFDq7WwaZ2T9nEEPLsX1T/YO
+	/gaIP5UaQE9HQvBfQR9QoWvH1tn75MIwyOuFQg7kme82pE8o9bm+2s5ctsoOqMwG5X1beFSz2xU
+	pfnstdLzOLKeYHwUr5QYieDifbik5AkoIUKviFXUyQCNiDE0e7iI+me8=
+X-Received: by 2002:a17:90b:5883:b0:368:f0a:1c48 with SMTP id 98e67ed59e1d1-368f2dcd468mr4923183a91.0.1778698359188;
+        Wed, 13 May 2026 11:52:39 -0700 (PDT)
+X-Received: by 2002:a17:90b:5883:b0:368:f0a:1c48 with SMTP id 98e67ed59e1d1-368f2dcd468mr4923156a91.0.1778698358696;
+        Wed, 13 May 2026 11:52:38 -0700 (PDT)
+Received: from hu-kuldsing-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-368ee626a04sm3660219a91.14.2026.05.13.11.52.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 13 May 2026 11:52:38 -0700 (PDT)
+From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Subject: [PATCH v2 0/3] Add support for qcrypto in kaanapali
+Date: Thu, 14 May 2026 00:22:19 +0530
+Message-Id: <20260514-knp_qce-v2-0-890e3372eef8@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PR3PR04MB7402:EE_|PR3PR04MB7337:EE_
-X-MS-Office365-Filtering-Correlation-Id: b8dcae2b-5138-4a10-00cc-08deb1209d9d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|1800799024|376014|18002099003|11063799003|56012099003|3023799003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	KcmLunIEMF7Gn/vKGUemjSWKv+obmIML9Hi1pQq5LHon0b5mw1qqf4LbyPsR1D15Z5XffXiJp94AMqMaUv6RXH0oQr7IsVn3bAb+RtAV+sOzbl4MX6wv/li6V5GvRQIBF2yCeWRkoOtDDBJphVPClYUh6dovIYvxSHDmkgHOM9L9ncAUT9R56WNXllOLKTk3neGM7o7RQJcHLsCuG3VJyZYL9Tj/u7jX4YMY6LwBgB0yo0I7H9pHiJxd7BR72vi+udX6H1Bs6qe6LkJPE59wce1VDy4rZaANnZXN9ScF6MkYc66HYXVhb0qLL5186A4XRQE5KkZ6tmv1aRBxGFOfFlqA0YyoX1FevPDazM4m1VYvaZKf7oNC4F7gYqkA65cMIxoZXNLHfPdAr3hS8S8wFdSl4SkvWa+Tt2zZ0PpbWNNvnRwdwbhEhczUKZ7zIAsxlqCyciRfxZ6pIZuORLnNUBopHlAHnXpbCwBkKn82O96Y6SwTOl/+1EtP+G4F8sI9JEx4cVU6M0GCwArOJadZTgr7h0Dp+k7oBunQjzmaKHQDpv3mGPc304z8TPgU+aZ6YPxWaETIVVIqo7LGKkSvDfcgXdh58DUbQL3PybbHgulzXG+7ATMoMgaB+MX+pkyzIvwtRne45aBlSjg3YL1JPc/45beoEfIGfUE5goGi4T7E8BY0FE14yVgCKexn7AdE0qvSH+utdrXWFsYoQEkwYw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PR3PR04MB7402.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(376014)(18002099003)(11063799003)(56012099003)(3023799003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?q4JXR5IzN/1BY008l7emFvTzzmymik7FmZUtW9/SJwUgnIRWgnXGkrpt7Exl?=
- =?us-ascii?Q?VwMquhrpt5rlM9qKo6Lx83WaleQxT51qaDVxEuM+jTCSkDmitazyA9qbHCYE?=
- =?us-ascii?Q?bjUKES0p1QX+5xB/jEqqme+CxeSSnA2DXNrj/wIJKupgGCg7Y/3sN/Yal7jW?=
- =?us-ascii?Q?DT95mUQwlqUIoTCIimHa4b5T77xxHjF3zVEZtZL4IKdOXdvcAtCOtFv/oaGn?=
- =?us-ascii?Q?HxPTOMDHunOGd33WmEqMHcPcdK7hgH3Af4kwhz3hOZEW/SE900tcmbxd+Wuz?=
- =?us-ascii?Q?w5VNXth/kmivWfYQza9IKFshAKODSlyTvdSGWodN27ewyRzgWNhujA+oB0wi?=
- =?us-ascii?Q?VALgZF4jiA6PY+uqnRjKaJ+POJkdO9PCQ9d8VFdjTc6O7HsJwR5CZEzGgz+E?=
- =?us-ascii?Q?ks4677K19P/Vr4nAjBrSbs7NXo4ow84v8GGgMztF2EcJ29CTKlq4nGB34/4B?=
- =?us-ascii?Q?rG2ZbyfWEYRYW8YOss2I5E+pwxyWEo9lrxIZVF+ckh59g6ZmAGn2QjpjhJ2c?=
- =?us-ascii?Q?4sLMKWc2Q8cVD2EQOwQSN9WIWeCpV4AwWLMxdCGSoNdP1fZyZezdXt8INqKI?=
- =?us-ascii?Q?2RoWRyjvflyO+aahooo3q42GPCGtaS3trg8+M7kMjK6EFrRxD/r50jJtO0I4?=
- =?us-ascii?Q?wdEn4vWX72ELMDT3RQsy00zqzE8pKg0zcve9RpFXe8n5/S5qGunsxbVVZ8cy?=
- =?us-ascii?Q?+/jXLcebWwrBwCCHKLmX6QXGGu5Igg3gPwpuhIa8QmAqCkNqT8hpkvpzSGXp?=
- =?us-ascii?Q?bQU5SNucLzPSHwM5ySsASaTmcYbWz4gjMT9U3KAwyOw4FB/TNJI/FUDV99vQ?=
- =?us-ascii?Q?zgON+F4a2F6QNFz7fZP2fjk6WsiNhwGcU98ZWimx0aDtmm/g2/l/2+qUDIUJ?=
- =?us-ascii?Q?3UE9VBcG6Ao5JN5Qy9o2QeNwNcguYsnVLM+oObuwjmiaEYQu1EJrjHz/iZIh?=
- =?us-ascii?Q?TzqqbW2cy+kWaWGreEMqXZZeazm1lKSD7X3sZgm8FFST8+9VlVkeywNtWieA?=
- =?us-ascii?Q?sJQRBHGjv35g1mYDneaVcQciOVuOxA1/YkJ8/n0D/ucPMJfY2mLqXbrO8sDe?=
- =?us-ascii?Q?CoTdhqMJ2hQrwHdxmUM91aBHuu/Sac/49vBTk5rE6FE2QWqxYtojnC7HcMjY?=
- =?us-ascii?Q?vis8MZy05MgLzNS8H63GqJhDljCuNSeLcvkEMCMlTIFVkvpWzkdVEdE28F/U?=
- =?us-ascii?Q?x7SQ3U+GrlV9EKxtahyLHaSJAmrVgw8kCOL9E9V25kMolcUoXOWF++oIxJGh?=
- =?us-ascii?Q?zIql+/w0+bB1igqlSuOm2nHvRutlLaBu96W3GTUrwoSPZ3mEsJShYaj4sWpc?=
- =?us-ascii?Q?Yc6e6o0a7Q8WixzrFO0VQ29a6Ut1T9UmpGt1FdAaXoRSUIHugre4uo6dsLK7?=
- =?us-ascii?Q?m4WTWPT5bfOcNWW5W00u0DRQ1hnGeMFN4Ojxq/Sjd/ylPKyJJmGxR8aTXBvG?=
- =?us-ascii?Q?yI9L1kC60bP+ajcqmSvcEpd46eOkbs/b0Osfe0EilCkGxpmPa6lALBycT0Vj?=
- =?us-ascii?Q?C0bNfJgQXlRDRSWT/ei4a15Pnmr7bcnFvdxywANlsj/Fa6GG3A74WmuoLf2p?=
- =?us-ascii?Q?955V30ICmJ0Tq6ymFt+z8QQJm7W5998cf3igCPI5ysFod6J96U8Zvq4MxI2x?=
- =?us-ascii?Q?rsmlzkmVA3oJsqsV/x8RDew3Y7flhIGp4OQObptHXpcBEoB/yQ21RuinLlmH?=
- =?us-ascii?Q?/iPJ6ekihc71y5b10QIsWrA3I3NlKCPqhBzJOJJ6htMOKWLlynSkcmti/bkW?=
- =?us-ascii?Q?mCn1WE4vfQ=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b8dcae2b-5138-4a10-00cc-08deb1209d9d
-X-MS-Exchange-CrossTenant-AuthSource: PR3PR04MB7402.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 18:51:17.5341
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1FyU5WXVMo46qsnMOq4MUTQgBvIF72z/qD+3IKGYMIbG7+VxcrdiMjHtZBcHqJ8nHgtETkhi1TvVsrkw/D/y5A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR04MB7337
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGPIBGoC/0WNQQ6CMBBFr0JmbclQwIgr7mGIgXaQqlDoANEQ7
+ m6BhZtJXvL+mwWYnCGGa7CAo9mwsZ0HeQpANWX3IGG0Z5Aoz5jIRLy6/j4oEoh1puuYJMYZeLt
+ 3VJvPXroVB/NUPUmN23wzGsOjdd/91Rxt3lFNo391jgQKpEqXKrtQiiq3zOEwlW9l2zb0B4p1X
+ X8S9cCMtwAAAA==
+X-Change-ID: 20260424-knp_qce-00f9df3e2039
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Harshal Dev <harshal.dev@oss.qualcomm.com>,
+        Arun Neelakantam <aneelaka@qti.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.1
+X-Authority-Analysis: v=2.4 cv=XIIAjwhE c=1 sm=1 tr=0 ts=6a04c877 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=hpg_QQ1ef3WCVlx-FDkA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEzMDE4NiBTYWx0ZWRfX5Yms6LuroKnG
+ H/zBWUFS3yANH2Qy15UsNomo89YNfq0pMNmbcCqa4KRtNdHyRr7SkibN3XwQOfH1Cu/LBGcnvon
+ JvgxbNOglMV7wAJOYqpXq0ppla3jVbLnLBQ39giYsShQV099VOabyVhqYVPjzJA5ve3KrIY+Cbb
+ 5m9LGxfk/S29wuwB7XJu1QWeKLhFzOat7cc2zbOvIK3TFp4DCkZGFu91OkRjle8DPmCpE+YuuA7
+ oBSoT0auV22Mk84+j3Le+geazCJnAoggSo2FOn/8lPpbPTWPSheLDxEQIXiFKtlm4KJ8cGgDGbD
+ roNvDQch2DKW2h/FqHXTDbZjsxoRco9KxBrH89AhsxndZJZcBdW64ytBhRcKRTUmGfq7fBxhrcv
+ tXZyo/0O/e4DgNpElqdv9u586v5MKrGMkwgbiL8qbV+QAjWFXJivMtfFg97pRTKbCxBpoxhCvjc
+ Tj4rMDOuGtXVN6f1TAA==
+X-Proofpoint-ORIG-GUID: yAkIOoeDj_FGhXyNa2fhwn8wUF_odDQU
+X-Proofpoint-GUID: yAkIOoeDj_FGhXyNa2fhwn8wUF_odDQU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-13_02,2026-05-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ bulkscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605130186
 
-Add a generic PHY driver for the TI DS125DF111 Multi-Protocol
-Dual-Channel Retimer. The driver currently supports only 10G and 1G link
-speeds but it can easily extended to also cover other usecases.
+Add qcrypto and cryptobam DT nodes for enabling qcrypto on kaanapali.
+Validations:
+- make ARCH=arm64 DT_CHECKER_FLAGS=-m DT_SCHEMA_FILES=Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml dt_binding_check
+- make ARCH=arm64 qcom/kaanapali-mtp.dtb CHECK_DTBS=1 DT_SCHEMA_FILES=Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml
+- cryptobam and crypto driver probe
+- kcapi test
 
-Since the available datasheet (https://www.ti.com/lit/gpn/DS125DF111)
-does not name the registers, the name for the macros were determined by
-their usage pattern.
-
-A PHY device is created for each of the two channels present on the
-retimer. This allows for independent configuration of the two channels.
-This capability is especially important on retimers which have more than
-2 channels that can be, depending on the board design, connected in
-multiple different ways to the SerDes lanes.
-
-Signed-off-by: Ioana Ciornei <ioana.ciornei@nxp.com>
+Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
 ---
- drivers/phy/ti/Kconfig          |  10 ++
- drivers/phy/ti/Makefile         |   1 +
- drivers/phy/ti/phy-ds125df111.c | 245 ++++++++++++++++++++++++++++++++
- 3 files changed, 256 insertions(+)
- create mode 100644 drivers/phy/ti/phy-ds125df111.c
+Changes in v2:
+- Update commit message for patch 1/3 as suggested by Krzysztof.
+- Collect reviewed-by tags.
+- Rebase to latest linux-next/master.
+- Link to v1: https://lore.kernel.org/linux-arm-msm/20260424-knp_qce-v1-0-813e18f8f355@oss.qualcomm.com
 
-diff --git a/drivers/phy/ti/Kconfig b/drivers/phy/ti/Kconfig
-index b40f28019131..475e80fcd52d 100644
---- a/drivers/phy/ti/Kconfig
-+++ b/drivers/phy/ti/Kconfig
-@@ -111,3 +111,13 @@ config PHY_TI_GMII_SEL
- 	help
- 	  This driver supports configuring of the TI CPSW Port mode depending on
- 	  the Ethernet PHY connected to the CPSW Port.
-+
-+config PHY_TI_DS125DF111
-+	tristate "DS125DF111 2-Channel Retimer Driver"
-+	depends on OF && I2C
-+	select GENERIC_PHY
-+	help
-+	  Enable this to add support for configuration and runtime management
-+	  of the TI DS125DF111 Multi-Protocol 2-Channel Retimer.
-+	  The retimer is modeled as a Generic PHY and supports both 10G and 1G
-+	  link speeds.
-diff --git a/drivers/phy/ti/Makefile b/drivers/phy/ti/Makefile
-index dcba2571c9bd..e68445ddd848 100644
---- a/drivers/phy/ti/Makefile
-+++ b/drivers/phy/ti/Makefile
-@@ -9,3 +9,4 @@ obj-$(CONFIG_TWL4030_USB)		+= phy-twl4030-usb.o
- obj-$(CONFIG_PHY_AM654_SERDES)		+= phy-am654-serdes.o
- obj-$(CONFIG_PHY_TI_GMII_SEL)		+= phy-gmii-sel.o
- obj-$(CONFIG_PHY_J721E_WIZ)		+= phy-j721e-wiz.o
-+obj-$(CONFIG_PHY_TI_DS125DF111)		+= phy-ds125df111.o
-diff --git a/drivers/phy/ti/phy-ds125df111.c b/drivers/phy/ti/phy-ds125df111.c
-new file mode 100644
-index 000000000000..8ac10c603bf7
---- /dev/null
-+++ b/drivers/phy/ti/phy-ds125df111.c
-@@ -0,0 +1,245 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright 2026 NXP */
-+
-+#include <linux/i2c.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/phy.h>
-+#include <linux/phy/phy.h>
-+
-+#define DS125DF111_NUM_CH			2
-+#define DS125DF111_NUM_VCO_GROUP_REG		5
-+
-+#define DS125DF111_CH_SELECT			0xff
-+#define DS125DF111_CH_SELECT_TARGET_MASK	GENMASK(3, 0)
-+#define DS125DF111_CH_SELECT_EN			BIT(2)
-+
-+#define DS125DF111_CH_CTRL			0x00
-+#define DS125DF111_CH_CTRL_RESET		BIT(2) /* self clearing */
-+
-+#define DS125DF111_VCO_GROUP_BASE		0x60
-+
-+#define DS125DF111_RATIOS			0x2F
-+#define DS125DF111_RATIOS_RATE_MASK		GENMASK(7, 6)
-+#define DS125DF111_RATIOS_SUBRATE_MASK		GENMASK(5, 4)
-+
-+struct ds125df111_ch {
-+	struct phy *phy;
-+	struct ds125df111_priv *priv;
-+	int idx;
-+};
-+
-+struct ds125df111_priv {
-+	struct ds125df111_ch ch[DS125DF111_NUM_CH];
-+	struct i2c_client *client;
-+	struct mutex mutex; /* protects access to shared registers */
-+};
-+
-+enum ds125df111_mode {
-+	FREQ_1G,
-+	FREQ_10G,
-+};
-+
-+static const struct ds125df111_config {
-+	u8 vco_group[DS125DF111_NUM_VCO_GROUP_REG];
-+	u8 rate;
-+	u8 subrate;
-+} ds125df111_cfg[] = {
-+	[FREQ_1G] = {
-+		/* VCO group #0 = 10GHz, VCO group #1 = 10GHz */
-+		.vco_group = {0x00, 0xB2, 0x00, 0xB2, 0xCC},
-+		/* By using the following combination of rate and subrate we
-+		 * select divide ratios of 1, 2, 4, 8 on both groups
-+		 */
-+		.rate = 0x1,
-+		.subrate = 0x2,
-+	},
-+
-+	[FREQ_10G] = {
-+		/* VCO group #0 = 10.3125GHz, VCO group #1 = 10.3125GHz */
-+		.vco_group = {0x90, 0xB3, 0x90, 0xB3, 0xCD},
-+		/* By using the following combination of rate and subrate we
-+		 * select divide ratios of 1 on both groups
-+		 */
-+		.rate = 0x1,
-+		.subrate = 0x3,
-+	},
-+};
-+
-+static int ds125df111_configure(struct phy *phy,
-+				const struct ds125df111_config *cfg)
-+{
-+	struct ds125df111_ch *ch = phy_get_drvdata(phy);
-+	struct ds125df111_priv *priv = ch->priv;
-+	struct i2c_client *i2c = priv->client;
-+	struct device *dev = &phy->dev;
-+	u8 val;
-+	int err, i;
-+
-+	mutex_lock(&priv->mutex);
-+
-+	/* Make sure that any subsequent read/write operation will be directed
-+	 * only to the registers of the selected channel
-+	 */
-+	err = i2c_smbus_read_byte_data(i2c, DS125DF111_CH_SELECT);
-+	if (err < 0) {
-+		dev_err(dev, "Unable to select channel\n");
-+		goto out;
-+	}
-+	val = (u8)err;
-+	val &= ~DS125DF111_CH_SELECT_TARGET_MASK;
-+	val |= DS125DF111_CH_SELECT_EN | ch->idx;
-+	err = i2c_smbus_write_byte_data(i2c, DS125DF111_CH_SELECT, val);
-+	if (err < 0) {
-+		dev_err(dev, "Unable to select channel\n");
-+		goto out;
-+	}
-+
-+	/* Reset Channel Registers */
-+	err = i2c_smbus_read_byte_data(i2c, DS125DF111_CH_CTRL);
-+	if (err < 0) {
-+		dev_err(dev, "Error resetting channel configuration\n");
-+		goto out;
-+	}
-+	val = (u8)err;
-+	val |= DS125DF111_CH_CTRL_RESET;
-+	err = i2c_smbus_write_byte_data(i2c, DS125DF111_CH_CTRL, val);
-+	if (err < 0) {
-+		dev_err(dev, "Error resetting channel configuration\n");
-+		goto out;
-+	}
-+
-+	/* Program the VCO group frequencies */
-+	for (i = 0; i < DS125DF111_NUM_VCO_GROUP_REG; i++) {
-+		err = i2c_smbus_write_byte_data(i2c,
-+						DS125DF111_VCO_GROUP_BASE + i,
-+						cfg->vco_group[i]);
-+		if (err < 0) {
-+			dev_err(dev, "Error programming VCO group frequencies\n");
-+			goto out;
-+		}
-+	}
-+
-+	/* Set the Divide Ratios for the VCO Groups*/
-+	err = i2c_smbus_read_byte_data(i2c, DS125DF111_RATIOS);
-+	if (err < 0) {
-+		dev_err(dev, "Error programming the divide ratios\n");
-+		goto out;
-+	}
-+	val = (u8)err;
-+	val &= ~(DS125DF111_RATIOS_RATE_MASK | DS125DF111_RATIOS_SUBRATE_MASK);
-+	val |= FIELD_PREP(DS125DF111_RATIOS_RATE_MASK, cfg->rate) |
-+		FIELD_PREP(DS125DF111_RATIOS_SUBRATE_MASK, cfg->subrate);
-+	err = i2c_smbus_write_byte_data(i2c, DS125DF111_RATIOS, val);
-+	if (err < 0) {
-+		dev_err(dev, "Error programming the divide ratios\n");
-+		goto out;
-+	}
-+
-+	mutex_unlock(&priv->mutex);
-+
-+	return 0;
-+
-+out:
-+	mutex_unlock(&priv->mutex);
-+
-+	return err;
-+}
-+
-+static int ds125df111_set_mode(struct phy *phy, enum phy_mode mode, int submode)
-+{
-+	const struct ds125df111_config *cfg;
-+
-+	if (mode != PHY_MODE_ETHERNET)
-+		return -EOPNOTSUPP;
-+
-+	switch (submode) {
-+	case PHY_INTERFACE_MODE_10GBASER:
-+		cfg = &ds125df111_cfg[FREQ_10G];
-+		break;
-+	case PHY_INTERFACE_MODE_1000BASEX:
-+	case PHY_INTERFACE_MODE_SGMII:
-+		cfg = &ds125df111_cfg[FREQ_1G];
-+		break;
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+
-+	return ds125df111_configure(phy, cfg);
-+}
-+
-+static const struct phy_ops ds125df111_ops = {
-+	.set_mode	= ds125df111_set_mode,
-+	.owner		= THIS_MODULE,
-+};
-+
-+static struct phy *ds125df111_xlate(struct device *dev,
-+				    const struct of_phandle_args *args)
-+{
-+	struct ds125df111_priv *priv = dev_get_drvdata(dev);
-+	u32 idx = args->args[0];
-+
-+	if (idx >= DS125DF111_NUM_CH) {
-+		dev_err(dev, "Maximum number of channels is %d\n",
-+			DS125DF111_NUM_CH);
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	return priv->ch[idx].phy;
-+}
-+
-+static int ds125df111_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct phy_provider *provider;
-+	struct ds125df111_priv *priv;
-+	int i, err;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+	priv->client = client;
-+	err = devm_mutex_init(dev, &priv->mutex);
-+	if (err)
-+		return err;
-+
-+	i2c_set_clientdata(client, priv);
-+
-+	for (i = 0; i < DS125DF111_NUM_CH; i++) {
-+		struct ds125df111_ch *ch = &priv->ch[i];
-+		struct phy *phy;
-+
-+		phy = devm_phy_create(dev, NULL, &ds125df111_ops);
-+		if (IS_ERR(phy))
-+			return PTR_ERR(phy);
-+
-+		ch->idx = i;
-+		ch->priv = priv;
-+		ch->phy = phy;
-+
-+		phy_set_drvdata(phy, ch);
-+	}
-+
-+	provider = devm_of_phy_provider_register(dev, ds125df111_xlate);
-+
-+	return PTR_ERR_OR_ZERO(provider);
-+}
-+
-+static const struct of_device_id ds125df111_dt_ids[] = {
-+	{ .compatible = "ti,ds125df111", },
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, ds125df111_dt_ids);
-+
-+static struct i2c_driver ds125df111_driver = {
-+	.driver = {
-+		.name = "ds125df111",
-+		.of_match_table = ds125df111_dt_ids,
-+	},
-+	.probe = ds125df111_probe,
-+};
-+module_i2c_driver(ds125df111_driver);
-+
-+MODULE_AUTHOR("Ioana Ciornei <ioana.ciornei@nxp.com>");
-+MODULE_DESCRIPTION("TI DS125DF111 Retimer driver");
-+MODULE_LICENSE("GPL");
--- 
-2.25.1
+---
+Kuldeep Singh (3):
+      dt-bindings: dma: qcom,bam-dma: Document BAM v2.0.0 compatible
+      dmaengine: qcom: bam_dma: Add support for BAM v2.0.0
+      arm64: dts: qcom: kaanapali: Add qcrypto node support
+
+ .../devicetree/bindings/dma/qcom,bam-dma.yaml      | 21 +++++++++++++++
+ arch/arm64/boot/dts/qcom/kaanapali.dtsi            | 25 ++++++++++++++++++
+ drivers/dma/qcom/bam_dma.c                         | 30 ++++++++++++++++++++++
+ 3 files changed, 76 insertions(+)
+---
+base-commit: 4c406406070d57dbefeaad149181785330c23f92
+change-id: 20260424-knp_qce-00f9df3e2039
+
+Best regards,
+--  
+Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
 
