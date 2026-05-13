@@ -1,160 +1,257 @@
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4FFB35839C
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 17:24:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.173
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778693102; cv=none; b=gZPDsy5njjMH35kDPIsgagFhwqs1xq/TzIiaVqikahbcH+eZYl1/OliNMssh5Gc7yrBzvKaZr+ChmIvwQzxOoVtJwXOLcibFhkItakPgOeDB0CZmqQvkSQzeWq956CRbjBs+jUGBZ9g6vREo+uE0q53+EnM/84KtLy1oQJHaE1E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778693102; c=relaxed/simple;
-	bh=wJ6p36sQ7ksIIiWfPWxaQgJmH9W8pqsZ3aoTLGeXLQE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n4ohR25P/s81mBDIC7eb6C4C1V4xPx3YktLig06MvEJZIB7QzfmwY85EHOcWvSNx115IBj3SB59hMjAsfho+GgtT4nKAqIZ2wxI8eHFZ+V7/ZLYjPlgQlhNpBlDG78vMWCR9aPBCltSfIQc/HwOkQMTSU8620JIF4jnS9Zfwayc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cDTQ5sHa; arc=none smtp.client-ip=209.85.160.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FBD64DBD6B
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 17:30:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778693424; cv=pass; b=epn1FVh0zw04gurkqfTo+uL1RMD1sdEGvC1sqge/doF2VRnHNeoogo4mu3aKhaTZVCTFBJO2gCAfFj7H5kzSvXMZPBBMiR8MH1SGSinWsyymCzPHQ8wRBMGvAHEkC6gJCSYOFb9J3ZIX2+g7I9A+vvs762mxX2XtQ8FXaRURXM0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778693424; c=relaxed/simple;
+	bh=JPLT6FMeldEbFhJ09K/mL4agPV0DXAvQaThe6y1REcc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=V9oY64XKXDvvr0UJYY28qSp47EmLIrpo4mj8QG2QFWLeIkUVp/jNS/WqLQrSM/LdlNWOx6CKhCC49aPiR7UdratEQiLgLR1Jjq7iY5mDjGxh2HHrRMqf1fgsKc0bBb4iT8pF5l3p0ZZVPHoViix35el4pDbL56R5UtIFX9LFAiE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Myb2qtmm; arc=pass smtp.client-ip=74.125.82.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cDTQ5sHa"
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-50d87c138e1so67446721cf.1
-        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 10:24:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Myb2qtmm"
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-2f0ad52830cso10376533eec.1
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 10:30:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778693422; cv=none;
+        d=google.com; s=arc-20240605;
+        b=VT9vUcNppJg8qCcKs23W5QdXTNh1XEGqMAB9gQcbRj30fD65m0aPUHeub65vv6yHCF
+         wLXDVCxV8T8HCR1empKbaE+oDvF7JJ0dqdVMEswqrQTGWbzV1J56rHK8ucHIfGGdN5CB
+         zpJBcRkSEsyPbN4z7mpxmrHaIVmB4rmaNPPs+rdLnA+VbxMajxzgTgC0G+XQVhcFrjw2
+         t12hrHACXPintYVKDAuOe9q5eLIQhag5VBuCmcT5J7OiS12qYSbHmfwJ8oLlrKNYbXLn
+         kzKULUnY0rPxHRZnD2oMiukelVGF62estHqvRHYAQlbAnU99u4mtotJvppBWw616Wjcw
+         s/ng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YDUAur+XoWH6JFWlom4UBKGDg0H33xYVizwbBkMvANo=;
+        fh=GINv9TV4iKleSV2vl0wEFWScu6SJ1e+Phy8wYFG31fI=;
+        b=ThS4xrCfqgSgOMZRg8Lw0eIEwgXO5svJDMHhNx/Ct0Fw+A2UVoU5Gtb/P0rYzDRe2A
+         dDplHXsptza1ZkfnKvXXqR62EtAjDPNEQB34C1NNVVY9demObg2SSAdhpBmxV9CmAiac
+         AS6AidSeQwtK1DmZLhAt4xeB0Jby/TOR4cYLCV/I5M87EZlcTqMRQW9+z8qvaJCuN7rs
+         lmhmxy/sx6emZn15qBNYHcRnRX9GKqwX1IlPDj0RLa7zgW0m2Utjy44FJuor41ojdhou
+         MXE+RWvSzmFhADSZ1FoTwQYMuXCqYSTXxnsQOrLizpVTk61ZyIDmqknhp4thSgfMzU+L
+         PfEQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778693098; x=1779297898; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1778693422; x=1779298222; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZU1btMobI51IRRL4Ho1mz96alwmNtMYLu0zpeinvrcs=;
-        b=cDTQ5sHaY95WHkKQyjD69sD01pZELRxodu/HZ3UHUsiT2ep6xFv4ahTcCDRYYe0J59
-         jeWJZt0N3Q4zP8iOgKMO76tw3OD+Po3zQsTF8HYvrp+ppJ7Wnsq9fC2C2JPqdlKkWNIx
-         0wWSjhoWmrT6w32kbJZqXLBgHwUv6N+/AmsWw29y5P69nudURuhXvQ4OeeTfEDMNgMv9
-         rSxnLEIkj7JSKZonwChPqeirTCxjoBwnXzsorlGx4WO6LbEPpOgcOfaY4Vy2Gj/YwaDx
-         kDPv881aVx45Zsv90tkhVG5VMAMXKdkU4oXofsRe46h/5jnZ8xpMLw0FDEB4Ef09+1l7
-         2APQ==
+        bh=YDUAur+XoWH6JFWlom4UBKGDg0H33xYVizwbBkMvANo=;
+        b=Myb2qtmmEWFHOlXmcUwS8JtGLmsuI7inrmcQU+iPTH42mxnoa1ZxH9YLyLmmoPoVac
+         pTB+UbXzRJ9vMcAYAcvh7XMp8mWMm+QAX6m2+HZKbXJk6pSNXB1rA5D5HpHpvI+XMj3Q
+         /Ai7ZLztC6F9LvQUrKNwk11s+jjCqsWpuddo0O+K4vlBS0xLHZu1b4/I9yK8Aj6Hqey2
+         94SKVCluyhtdUv0ezOIkw9yj+cGUpOrs9Zrp3Ut8bo05fMomAOF9qoBpaujprOYUMmtp
+         gI+KIN9inWDtqC9bxQKllgKE0p7uf9EoUCakd48EApwwOBJCCplAWHdiRy/GNfgsk5wd
+         7jyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778693098; x=1779297898;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=1e100.net; s=20251104; t=1778693422; x=1779298222;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=ZU1btMobI51IRRL4Ho1mz96alwmNtMYLu0zpeinvrcs=;
-        b=W2fR0cSWjvA7ABTnO481WCY6NaXXvD/vgt4AHtf8nOR5Y9ClDxnGzu4S9oWBcFkqcv
-         xBc9GaEZ5c8RwJPF32N/oWzEnvUhEv583uRwcAfOGtbTfVdWP29o7JoF+Ala9b6geUua
-         +dChq3snr/Y+09bZgXm3dJmo1kVqHiBwed0lAorN61875kee/W/TP50ou8iimOPh6zw0
-         F3h9ylIig3i+5v5l9ayX868dGYnd62BZH8FvAo9kYU6IBA4qqzV0LJ8/+UGbQRGzRIrU
-         srkY4+/5cQw0fU74IezU4bHgcn/J6n+ugvNHTRtg3Rx3qpv+124WFAAAU8lDEPo4Qf7i
-         h7vg==
-X-Forwarded-Encrypted: i=1; AFNElJ8xxO4qtPJ11fMA90Z4r2H6air+mdFPcaqDXTweI114XwXAK0hruiS56R//cUPLN1rYZtkdh6IlQ0LB@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz4173UwpCCiHdmsuAP3MumTJUEAWWtbPdo7cBD+/Q7quO466ws
-	7JmdOenedCMPhMiztICTJGTxDP9NuD8PGSTNJuJ+5KEstMDLw/tgR6Vi
-X-Gm-Gg: Acq92OFwOcRCLZiYSaPIyIpV2388RGgcS3SQMGBaOQfSgxGwuo0bUB5ex6v/N4lJcsd
-	20Oykp5BraUQ6TQWp4ExCV8Bfu3qnbeYiYqKzGkszj3zrbBn0DMuQvYPLO9D+cTlt5NXZvOEBjN
-	1wxwOZ98rQpcx5TaGy3aBkRS/zFOLf1j3qrdXNHj91B3qMABfZXfZBDkZjG7v9YcqoiLtddMiwS
-	HApNtdEno5RCh/2ilKhiBjzPl1faLlFm6Qf5Muqa1z2SIxJHh/TZwcI2kKUhpq9VMt4Gmyz0j8F
-	FJhqBntXy3lXGcmL3y82VdzzkCJLpIGKMuwZuLu/oLwqHrHiV0yPio2Mkk5zOI9hOxQajZhJ5Yh
-	X+bgtiNpEfKgfDvg0jBPzQV9x/HoiuEpY/4f73cp68bchoJXKgmNeDzSbJKne5AB1VyvTeASkb0
-	w7pOOAkyik0zHWWlGOvz/VA87UEw==
-X-Received: by 2002:a05:622a:124f:b0:50f:dd9f:1223 with SMTP id d75a77b69052e-5162f5fe405mr58670381cf.44.1778693098486;
-        Wed, 13 May 2026 10:24:58 -0700 (PDT)
-Received: from localhost ([142.181.178.53])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5148fd8bfe0sm151895461cf.0.2026.05.13.10.24.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 13 May 2026 10:24:58 -0700 (PDT)
-From: Richard Acayan <mailingradian@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Sam Ravnborg <sam@ravnborg.org>,
-	dri-devel@lists.freedesktop.org,
-	Yifei Zhan <yifei@zhan.science>,
-	Richard Acayan <mailingradian@gmail.com>
-Subject: [PATCH v4 2/2] arm64: dts: qcom: add support for pixel 3a xl with the tianma panel
-Date: Wed, 13 May 2026 13:25:49 -0400
-Message-ID: <20260513172549.1345-3-mailingradian@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260513172549.1345-1-mailingradian@gmail.com>
-References: <20260513172549.1345-1-mailingradian@gmail.com>
+        bh=YDUAur+XoWH6JFWlom4UBKGDg0H33xYVizwbBkMvANo=;
+        b=iTZJY1Be663MqtpuZGPwVWIFpyZ0bbLvbYKqMGvHaoR4iLr4apD9sTYQh0bJ2DvhgA
+         rU3d7DRruMpqRc2LBPdWxEMLQGAR+yXoIUDddzZlacayg5e9quJSZ5lDaZhlXaHfStGi
+         2RRZvnI0E8dnruTOXsUvJBoMJqqwI3iRtgCdxEM4POsw/soCa63MN/hVfvz3Jp5YrsJO
+         Xwtiob7ND9FH7ufUTh3rT9XCfXpx8Xz3RV5/XzNQMVRf4M7W7eJJcxcy6T2fJFj69CxD
+         29NvricNMrqssG8AadGVi5AG3AEMQ8wTV60WLOpaeEDGkJfRbuWn2zRDjZu+RKUtiVVX
+         qppQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+ZYDOwNLcU4BABWKbAE2ki+qL1JzQ0PVwARBGsk4/bZb/wjlnZQP/qGIzi4AjEFeXfRDrJNoLqOE00@vger.kernel.org
+X-Gm-Message-State: AOJu0YxMXIuDJY9SwqKxejYUBVjkElkXm7Cn48hVvRTWYaRQebYLOAgM
+	2/GnhDTfjU49veUgpiCInYJe4c6L4tR6D6ScApapFtBEO7c6QpScGGNuAezJVf6n4rSk+MItwmW
+	PEWE+aSjaQgA+6jsJQ2V4eu73GGl7ONc=
+X-Gm-Gg: Acq92OHQ3nuSchMU1Km1s7icQhXP1exmhG9MYPFj0O98/pdK7lLpLkcS6dBurPs3KNT
+	otKA883Ad28nxTJ++fzkzcJmFUTcBuL15CgJPUx40j5XSZZiHNslKUKiD1WI6Zsmra4LW4tEvqg
+	j1gxEGvB0fZUsgNFix81A4cGKD60vCpU+SIMX5urut0uwXGuymJ+TFTQs99JIhBFzxui/f8Un/8
+	TfMIKbyXSRBhQzqsBDikkhQC1eNx2lQKwzcEj3bl46WmctHqToNPvIKeCzZplqz1AH5kCIKSbw/
+	8oH2yLGks9g5sy/WAK8=
+X-Received: by 2002:a05:693c:2b08:b0:2f3:c3d4:382f with SMTP id
+ 5a478bee46e88-301181aa331mr2513866eec.8.1778693422110; Wed, 13 May 2026
+ 10:30:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260511135703.62470-1-clamor95@gmail.com> <20260511135703.62470-3-clamor95@gmail.com>
+ <agJ/T8nBGWEoblmd@nchen-desktop> <CAPVz0n173syW9rXy7Qt_N=mChe6WBRLvjRDypcJEC50hPL4OMQ@mail.gmail.com>
+ <agLb6mgP45jHjvNt@nchen-desktop>
+In-Reply-To: <agLb6mgP45jHjvNt@nchen-desktop>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Wed, 13 May 2026 20:30:10 +0300
+X-Gm-Features: AVHnY4LbEcLazP490SpFW2HazY7KluRMMma2mmpgzBcW68oL5O3KVQGdtgY1RmI
+Message-ID: <CAPVz0n2yGALm1Z0j0j6_MaqAOZGL+a8EgCWYQpW0QN1YVf96EQ@mail.gmail.com>
+Subject: Re: [PATCH v1 2/6] usb: chipidea: tegra: Avoid controller/PHY init if
+ bus is externally controlled
+To: "Peter Chen (CIX)" <peter.chen@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-phy@lists.infradead.org, linux-tegra@vger.kernel.org, 
+	linux-usb@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The Pixel 3a XL has variants with either a Samsung Display Controller (SDC)
-panel or a Tianma panel. Add the device tree for the variant with the
-Tianma panel.
+=D0=B2=D1=82, 12 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 10:5=
+1 Peter Chen (CIX) <peter.chen@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On 26-05-12 09:13:40, Svyatoslav Ryhel wrote:
+> > =D0=B2=D1=82, 12 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE =
+04:16 Peter Chen (CIX) <peter.chen@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > > On 26-05-11 16:56:57, Svyatoslav Ryhel wrote:
+> > > > If the USB controller and PHY are externally controlled, then the
+> > > > registration of the controller and the PHY initialization should be
+> > > > skipped, since these configurations must be done by the device that
+> > > > controls the bus to work correctly.
+> > > >
+> > >
+> > > I find you only control USB controller device add at PHY driver, most=
+ of USB drivers
+> > > has PHY control, for chipidea, it has PHY control at core.c, would pl=
+ease try to
+> > > adapt for it?
+> > >
+> >
+> > Usually yes, but this is not the case for Tegra unfortunately. As you
+> > can see Tegra specific section of Chipidea driver specifically
+> > describes why it has to set PHY manually.
+> >
+> > /*
+> >  * USB controller registers shouldn't be touched before PHY is
+> >  * initialized, otherwise CPU will hang because clocks are gated.
+> >  * PHY driver controls gating of internal USB clocks on Tegra.
+> >  */
+> >
+> > So in order to provide correct work of USB when set by an external
+> > device, both PHY and controller init/add must be skipped.
+>
+> You could call generic PHY APIs at ci_hdrc_tegra.c, after PHY init or pow=
+er on,
+> call controller initialization.
+>
 
-Signed-off-by: Richard Acayan <mailingradian@gmail.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Assisted-by: "Claude Code Review Bot":claude-opus-4-6
----
- arch/arm64/boot/dts/qcom/Makefile             |  1 +
- .../dts/qcom/sdm670-google-bonito-tianma.dts  | 32 +++++++++++++++++++
- 2 files changed, 33 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/sdm670-google-bonito-tianma.dts
+I was tinkering with Chipidea driver for Tegra a bit. If you meant to
+use flag only to control usb controller device init and leave PHY to
+be handled by controller, then yes, that is possible and that is
+better approach.
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 169cc9b9ccd3..d909c527d848 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -303,6 +303,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sdm632-fairphone-fp3.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm632-motorola-ocean.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm636-sony-xperia-ganges-mermaid.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm660-xiaomi-lavender.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= sdm670-google-bonito-tianma.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm670-google-sargo.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-db845c.dtb
- 
-diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-bonito-tianma.dts b/arch/arm64/boot/dts/qcom/sdm670-google-bonito-tianma.dts
-new file mode 100644
-index 000000000000..42ddaf53d150
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/sdm670-google-bonito-tianma.dts
-@@ -0,0 +1,32 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Device tree for Google Pixel 3a XL with the Tianma panel.
-+ *
-+ * Copyright (c) Richard Acayan. All rights reserved.
-+ */
-+
-+/dts-v1/;
-+
-+#include "sdm670-google-common.dtsi"
-+
-+/ {
-+	model = "Google Pixel 3a XL (with Tianma panel)";
-+	compatible = "google,bonito-tianma", "google,bonito", "qcom,sdm670";
-+};
-+
-+&battery {
-+	charge-full-design-microamp-hours = <3700000>;
-+};
-+
-+&framebuffer {
-+	height = <2160>;
-+};
-+
-+&panel {
-+	compatible = "novatek,nt37700f";
-+};
-+
-+&rmi4_f12 {
-+	touchscreen-x-mm = <69>;
-+	touchscreen-y-mm = <137>;
-+};
--- 
-2.54.0
-
+> >
+> > > Peter
+> > >
+> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > ---
+> > > >  drivers/usb/chipidea/ci_hdrc_tegra.c | 36 +++++++++++++++++-------=
+----
+> > > >  1 file changed, 22 insertions(+), 14 deletions(-)
+> > > >
+> > > > diff --git a/drivers/usb/chipidea/ci_hdrc_tegra.c b/drivers/usb/chi=
+pidea/ci_hdrc_tegra.c
+> > > > index 372788f0f970..593390a818d1 100644
+> > > > --- a/drivers/usb/chipidea/ci_hdrc_tegra.c
+> > > > +++ b/drivers/usb/chipidea/ci_hdrc_tegra.c
+> > > > @@ -32,6 +32,7 @@ struct tegra_usb {
+> > > >       struct clk *clk;
+> > > >
+> > > >       bool needs_double_reset;
+> > > > +     bool externally_controlled;
+> > > >  };
+> > > >
+> > > >  struct tegra_usb_soc_info {
+> > > > @@ -312,20 +313,25 @@ static int tegra_usb_probe(struct platform_de=
+vice *pdev)
+> > > >       if (device_property_present(&pdev->dev, "nvidia,needs-double-=
+reset"))
+> > > >               usb->needs_double_reset =3D true;
+> > > >
+> > > > +     if (device_property_present(&pdev->dev, "nvidia,external-cont=
+rol"))
+> > > > +             usb->externally_controlled =3D true;
+> > > > +
+> > > >       err =3D tegra_usb_reset_controller(&pdev->dev);
+> > > >       if (err) {
+> > > >               dev_err_probe(&pdev->dev, err, "failed to reset contr=
+oller");
+> > > >               goto fail_power_off;
+> > > >       }
+> > > >
+> > > > -     /*
+> > > > -      * USB controller registers shouldn't be touched before PHY i=
+s
+> > > > -      * initialized, otherwise CPU will hang because clocks are ga=
+ted.
+> > > > -      * PHY driver controls gating of internal USB clocks on Tegra=
+.
+> > > > -      */
+> > > > -     err =3D usb_phy_init(usb->phy);
+> > > > -     if (err)
+> > > > -             goto fail_power_off;
+> > > > +     if (!usb->externally_controlled) {
+> > > > +             /*
+> > > > +              * USB controller registers shouldn't be touched befo=
+re PHY is
+> > > > +              * initialized, otherwise CPU will hang because clock=
+s are gated.
+> > > > +              * PHY driver controls gating of internal USB clocks =
+on Tegra.
+> > > > +              */
+> > > > +             err =3D usb_phy_init(usb->phy);
+> > > > +             if (err)
+> > > > +                     goto fail_power_off;
+> > > > +     }
+> > > >
+> > > >       /* setup and register ChipIdea HDRC device */
+> > > >       usb->soc =3D soc;
+> > > > @@ -342,12 +348,14 @@ static int tegra_usb_probe(struct platform_de=
+vice *pdev)
+> > > >       if (of_usb_get_phy_mode(pdev->dev.of_node) =3D=3D USBPHY_INTE=
+RFACE_MODE_ULPI)
+> > > >               usb->data.flags &=3D ~CI_HDRC_SUPPORTS_RUNTIME_PM;
+> > > >
+> > > > -     usb->dev =3D ci_hdrc_add_device(&pdev->dev, pdev->resource,
+> > > > -                                   pdev->num_resources, &usb->data=
+);
+> > > > -     if (IS_ERR(usb->dev)) {
+> > > > -             err =3D dev_err_probe(&pdev->dev, PTR_ERR(usb->dev),
+> > > > -                                 "failed to add HDRC device");
+> > > > -             goto phy_shutdown;
+> > > > +     if (!usb->externally_controlled) {
+> > > > +             usb->dev =3D ci_hdrc_add_device(&pdev->dev, pdev->res=
+ource,
+> > > > +                                           pdev->num_resources, &u=
+sb->data);
+> > > > +             if (IS_ERR(usb->dev)) {
+> > > > +                     err =3D dev_err_probe(&pdev->dev, PTR_ERR(usb=
+->dev),
+> > > > +                                         "failed to add HDRC devic=
+e");
+> > > > +                     goto phy_shutdown;
+> > > > +             }
+> > > >       }
+> > > >
+> > > >       return 0;
+> > > > --
+> > > > 2.51.0
+> > > >
+> > >
+> > > --
+> > >
+> > > Best regards,
+> > > Peter
+>
+> --
+>
+> Best regards,
+> Peter
