@@ -1,127 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com [209.85.222.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FFD292B54;
-	Wed, 13 May 2026 13:12:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775184C77B7
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 13:12:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778677928; cv=none; b=YGq/7ybx1jTX5LOjFSESWxcugPgquHS7l29siqnC5P7+4/lvuOOkNuCrtjiFwEIB8NFq/StO2e6L9icZKVAmsR4dvoOYjUNgnbiXaHJvnK3DjWsEUTdutBVipLZlYzx5kmzRHlE74hujBrVilAYEzpZDDgDbjApqibTaHkbUrkU=
+	t=1778677950; cv=none; b=JQGIijRYBlyW+fM2DuYbbmGsEwT+Nk2KTMC0S2DASq8sl/po/gKVrkOTextLuoPrLSjUj3ymH2BwzkOjtWxc4Q2TiaYFuDgQ57IuVON2/ql4VVwkzfNoyqhUfZwl8owzwcn7ErJHn2UqFXrE07mgwDbTxPFwSuliAAxSFcB7zhY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778677928; c=relaxed/simple;
-	bh=9JxEm/HHNJQiQUpuQ7/jDsnz645CHsgcyhfIXRpZ8oU=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jShNndTrVGYQTWja7ZdwAiousJ9We8mV2fcuowox3EyTKj9XdRlIJMb2nnp6ssb1L6ua075GbzdoxeCwMSri9PdPjczKLCwwSI7IP8twFyKHTS9KpFfrx/qpLnan9tfmcSTRU3W9N8qXcuZ4zBI2vqw3ac1V3RnIDAxZoeIrV5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XqULGoIc; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XqULGoIc"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8039EC2BCB7;
-	Wed, 13 May 2026 13:12:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778677927;
-	bh=9JxEm/HHNJQiQUpuQ7/jDsnz645CHsgcyhfIXRpZ8oU=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=XqULGoIcCJ+z23cZbsdcxEnq9egoFu4yRFEvoIL7+pAV7diA/dNf/kg3JI1aXeWjd
-	 +stdbn/z2V8IKa9KXbpxWLHrkOjS2uzUv67FCbx4+Bz8LRa7qrlhTJItNBU/ti7MEC
-	 vTssS4MeS3Cfn2L8FfRFA5z3hzZgu+BpHlwQGyzsQo58LKd0iv9bDD87zRVJ8nszQ1
-	 1dOVLaBLzvOF5g0MKdtl0WLVoz0/1oVliPmrO4h3frAOysr57G2KhUWcscnhiR+xfO
-	 K4HYebUhU0pRpyPzFZQy3Cp0Xc6374bzdFSpu5edfolweX/qavC6avjrlOQXjTgyod
-	 Z9wqbWdUCVSlw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 72CA2CD4F39;
-	Wed, 13 May 2026 13:12:07 +0000 (UTC)
-From: Dimitri Fedrau via B4 Relay <devnull+dimitri.fedrau.liebherr.com@kernel.org>
-Subject: [PATCH v5 0/2] phy: add basic support for NXPs TJA1145 CAN
- transceiver
-Date: Wed, 13 May 2026 15:12:01 +0200
-Message-Id: <20260513-tja1145-support-v5-0-38720a7ee63e@liebherr.com>
+	s=arc-20240116; t=1778677950; c=relaxed/simple;
+	bh=OUQHmjb7UkllJEpUp8KQM62kjPUwPzi6de+ciaj5zDQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CGB6fVcqAoM3UqIBeg5QCxR/39F9fGad9YhRXXiHUA8HPFy+ucXQKas7Dlqd99yAkEsRC+zGNvgB3Bqc4tBX8kelSZDQzpv6g69rGgkk1Tl4glHu7ojIRIt1VeKyOlLK7EHKEFFvQZ9F7VtEm9y7vQdTTy4T9yg1vDWL+KuIjwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-956948531a1so1802521241.2
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 06:12:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778677947; x=1779282747;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GE5Sc3I5fhZDV/Yx4xguTp5z/tXd0Rx77uBwtmUCg9g=;
+        b=hCLP/NqMRYiE8Pnibtt9sHbesM6OpkCyxCJ3Q8WOV5tzJWXmGXGsJmwHePAgcfVk84
+         Zw1/hdXvA+azLbWObJlSXEh66L6NCSwMRYXv8pRSqwTLJvoGu8F9SN2gb2J+hAETGNES
+         2UoRKNj+XbyIF5lfQ0c24DcyC4mKNQT0UUj5bntOwJrz5T1kZdoHswnU/2ziv/B/bfGg
+         avYIphQwWYAEVaGPnfmlT1uUm4VD5z6q5c9jTZDMFvwvv0Q9aKk0Mn+K8OLCGorn1Xfn
+         EgTyGL1KJDuFnmnpjMxv4eT3DKmydOw+hP44S4CBm8xvqsCI5Rt0D1A+7+oB+yCYW/At
+         7qUg==
+X-Forwarded-Encrypted: i=1; AFNElJ+j5yPhceMrj6IrEsc5L4xZcnPKW1r6Ez5NJwB/U/bPk/PIJsnU6Z3jLJB+3frVjEA3HiwmBZetaWlW@vger.kernel.org
+X-Gm-Message-State: AOJu0YyePNty2GWvp7Qpz0PIMifmUTt1SyMNENVOkMCNIaH3zGqPZKoi
+	1mS/6Yll8kjpH7PskHSjoByN5a/wsmXjAT0QhSFoN5qR3RZmdKWrFu9LTylcD5M/
+X-Gm-Gg: Acq92OF9QU0BGW0Eysd2LiSdNznHLzDKbrMiFjK9f+kGJJmKPmMmpQvqbqYBcrxrCo8
+	jHi7AILQTGZtsEwvY/9XSrg1AuRw6lyoM1ql2afAU9svlPbUL1UqogB3QQZ9+QZvauDXZFLUlgX
+	IkOoCgNUKWN7b/LISjjAdYkqFD8f1PIHYkRFZBus5GRs11IoN3ptOnAD9syf8ldodTaETFij+ig
+	9jW3+v2JbNYECU6F30wRTJ9DgbZTaRZHM4hllXk9Qs3C1mkV7qkt4GtetW9mm0TTJ7tyRdUDZEb
+	UQMXf6o9tsYu1GKhfKMKSM9tYUQDsBuP+G94+xCh73bkoOBvUuDPbMAtNV1vv+yTJk/HywqM0Xt
+	pNxmgrKImQlMGF+DSNtX0hfQ3zuuZZqclJnkv7ea+SfHLyrvYiTjImhH3cCgCmf7vZXphe5i+ge
+	0tsEZ+b+DMVOjWt4qyWt/pNxyah652I3oxQt2YILO86xNC0czHodY4PdmlR+3PsBhp
+X-Received: by 2002:a05:6102:3907:b0:631:ab8b:c34e with SMTP id ada2fe7eead31-63771e9aa85mr1333913137.11.1778677947400;
+        Wed, 13 May 2026 06:12:27 -0700 (PDT)
+Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com. [209.85.221.179])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-63140250725sm9968315137.12.2026.05.13.06.12.26
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 13 May 2026 06:12:27 -0700 (PDT)
+Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5751e12c524so2317030e0c.1
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 06:12:26 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/PcBm5mZaFZt4wJplVPUxPa3pR/mXN31nCUY+zk1O6y3YUFp/eB25oM/MlvGGMYJUvxIlnQIg4hXA4@vger.kernel.org
+X-Received: by 2002:a05:6122:6992:b0:575:352f:eac0 with SMTP id
+ 71dfb90a1353d-575e6fb88e4mr1415729e0c.7.1778677946052; Wed, 13 May 2026
+ 06:12:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAKF4BGoC/23NQU7DMBCF4atUXmNkj8eJ3VXvUbFwPRNiBE1kh
- whU5e44lVoQ6fJ/0nxzEYVz4iL2u4vIPKeShnMN+7QTsQ/nV5aJagtQYFULjZzegtZoZfkcxyF
- PkpoYKSIBBSPq1Zi5S19X8fhSu09lGvL39cGs1/VmuY01a6kkn8ihR7Jo4+E98annnJ/j8CFWb
- oZfwoHfElCJRnnfdgacb/0DwtwJrbTZEqYSGDwB2o5V0z4g8C9htwSuBJkYtInOOf2PWJblBwQ
- 8Amp6AQAA
-X-Change-ID: 20250726-tja1145-support-d6ccdc4d2da3
-To: Vinod Koul <vkoul@kernel.org>, 
- Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Dimitri Fedrau <dimitri.fedrau@liebherr.com>, 
- Dimitri Fedrau <dima.fedrau@gmail.com>, 
- Conor Dooley <conor.dooley@microchip.com>, lee.lockhey@gmail.com, 
- Marc Kleine-Budde <mkl@pengutronix.de>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778677926; l=2287;
- i=dimitri.fedrau@liebherr.com; s=20241202; h=from:subject:message-id;
- bh=9JxEm/HHNJQiQUpuQ7/jDsnz645CHsgcyhfIXRpZ8oU=;
- b=78Sz5dpvZTkvTtPlG/TiaXEnhtb9HDN27jhzJanz9IGXWc6jIbnKIhSA+SxXPZM/hjsf8Vgz8
- XSbGIQM7QILDarvKE3ObyKEqUG0Fkm9F1+i0G7EzTVDkfEB3YJCsTSb
-X-Developer-Key: i=dimitri.fedrau@liebherr.com; a=ed25519;
- pk=rT653x09JSQvotxIqQl4/XiI4AOiBZrdOGvxDUbb5m8=
-X-Endpoint-Received: by B4 Relay for dimitri.fedrau@liebherr.com/20241202
- with auth_id=290
-X-Original-From: Dimitri Fedrau <dimitri.fedrau@liebherr.com>
-Reply-To: dimitri.fedrau@liebherr.com
+References: <20260502185557.93061-1-marek.vasut+renesas@mailbox.org> <20260502185557.93061-2-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260502185557.93061-2-marek.vasut+renesas@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 13 May 2026 15:12:14 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUGGEXa+S7DZABv6_VjzgKaFR_dgEt6HMsoLWE3vtpduw@mail.gmail.com>
+X-Gm-Features: AVHnY4I1ueP8c0lbfl8GeS1mAQp1h1WSM6acug8SaPsOhckX1RLhaKldCR-pmEE
+Message-ID: <CAMuHMdUGGEXa+S7DZABv6_VjzgKaFR_dgEt6HMsoLWE3vtpduw@mail.gmail.com>
+Subject: Re: [PATCH 1/4] dt-bindings: clock: renesas,cpg-clocks: Document
+ ZT/ZTR trace clock on R-Mobile APE6
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+	Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Stephen Boyd <sboyd@kernel.org>, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Add basic driver support for NXPs TJA1145 CAN transceiver which brings the
-PHY up/down by switching to normal/standby mode using SPI commands.
+On Sat, 2 May 2026 at 20:56, Marek Vasut
+<marek.vasut+renesas@mailbox.org> wrote:
+> Document ZT trace bus and ZTR trace clock on the R-Mobile APE6.
+> These clock supply the coresight tracing modules, PTM, TPIU,
+> ETB and replicator. Without these clock, the coresight tracing
+> can not be operated. While this does change the ABI, it does so
+> by extending the existing clock-output-names, therefore if an
+> old software is used with new DT, the coresight tracing parts
+> will likely fail to probe, otherwise if new software is used
+> with an old DT, there is no impact.
+>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-Signed-off-by: Dimitri Fedrau <dimitri.fedrau@liebherr.com>
----
-Changes in v5:
-- No functional change, basically a resend with added tags
-- fixed typo in define TJA1145_MODE_CRTL_STBY to TJA1145_MODE_CTRL_STBY
-  and TJA1145_MODE_CRTL_NORMAL to TJA1145_MODE_CTRL_NORMAL
-- remove unneeded include -#include <linux/bitfield.h>
-- added owner to tja1145_phy_ops
-- Link to v4: https://lore.kernel.org/r/20251015-tja1145-support-v4-0-4d3ca13c8881@liebherr.com
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue for v7.2 in a branch shared by clock and DTS.
 
-Changes in v4:
-- Change compatible to: nxp,tja1145 (Connor)
-- Mark spi-cpha as required (Connor)
-- Switch from unevaluatedProperties: false to
-  additionalProperties: false (Connor)
-- Remove double newline after tja1145_rd_table (Marc)
-- Link to v3: https://lore.kernel.org/r/20251013-tja1145-support-v3-0-4a9d245fe067@liebherr.com
+Gr{oetje,eeting}s,
 
-Changes in v3:
-- bindings: fix SPI bus unit address format error
-- bindings: added resolution of discussion into commit msg
-- Checked binding with:
-  make dt_binding_check DT_SCHEMA_FILES=nxp,tja1145-can.yaml
-  Missed it for V2, didn't do it intentionally. Sorry.
-- Link to v2: https://lore.kernel.org/r/20250829-tja1145-support-v2-0-60997f328979@liebherr.com
-
-Changes in v2:
-- bindings: Change node name in example to can-phy
-- bindings: Fix order of properties, reg property is second
-- bindings: Change compatible to match filename
-- change compatible to nxp,tja1145-can
-- Link to v1: https://lore.kernel.org/r/20250728-tja1145-support-v1-0-ebd8494d545c@liebherr.com
-
----
-Dimitri Fedrau (2):
-      dt-bindings: phy: add support for NXPs TJA1145 CAN transceiver
-      phy: add basic support for NXPs TJA1145 CAN transceiver
-
- .../devicetree/bindings/phy/nxp,tja1145.yaml       |  80 +++++++++
- drivers/phy/Kconfig                                |  10 ++
- drivers/phy/Makefile                               |   1 +
- drivers/phy/phy-nxp-tja1145.c                      | 184 +++++++++++++++++++++
- 4 files changed, 275 insertions(+)
----
-base-commit: 29b4d8a7637f027b538787896bee520f2dacc904
-change-id: 20250726-tja1145-support-d6ccdc4d2da3
-
-Best regards,
--- 
-Dimitri Fedrau <dimitri.fedrau@liebherr.com>
+                        Geert
 
 
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
