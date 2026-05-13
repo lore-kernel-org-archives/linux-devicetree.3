@@ -1,136 +1,118 @@
-Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com [209.85.217.53])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E5733F4139
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 13:38:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52F5C3F412F
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 13:39:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778679533; cv=none; b=PxFoXdoTM+ragZzO9b1XnByxNo9y4P9AQz9+eesRq0nuyGb76ch1eHOBbOuWpaxud7oc9h/rJ0GugIpealG6QyA31a6HpCMEu/zIMrJzM0CQCert+PReWviUHBOFXIXleyxbuZmW1ZAt9Aqg00lTZiz923DzH8R8z3kAJsnoVkA=
+	t=1778679563; cv=none; b=uJi/lCkqa+HMoUq00Jx1U8ZYbC9aS1/kGAiENY2iQPkYSeGzwBoqEAXRhWPQACEYpI4E8IOq+tH5R37sfsPbZ6230rGXj/csNhmx5IWZdgTKkczbfEVHqOHhNWHv0YDvE8lOnrZOzxRr24bCJ9Ofp3fgCtDLNudjrcXvHe1+G/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778679533; c=relaxed/simple;
-	bh=kPZ7A5cvokRvd7vF4xD+Y1QfccmxOHw5oZJ2oKw4NGM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mWcohLz4hDA3b9yntZ0M92zIWt5KlJYRL9MOq6QvNKcOCjfHjqzcSXY+Kfa9arwEO2N40a2Ss1Xy9FHgD4U/wsCf+WW29MNyzSlmYKxzbNG8h27TiKEJ0AanzJg7PXlEtKkxh3HQ0HZVJy/gLNklptgSteCZN/l2zAHWr217UsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-6312d29596cso4162375137.1
-        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 06:38:52 -0700 (PDT)
+	s=arc-20240116; t=1778679563; c=relaxed/simple;
+	bh=LWbW3HufahL+UvZ84gWhXCfMcijZHYR8H/7I2w8iQHU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=V9zYKQ4OHKZljuC2Knx8sohL0sGHwvXrI+pmLuT1NJrzPTQduBoF45jL4AYsloQ1dkOEkWEE7pNLnj6t/QUKZzvUlbljPwWBYCsF6G/pO6Kj78MBl6+FnOM9bnNCS0Fu5y8o/I3sVOMnin+StYQ7Pb83HfbLRZbLeRgTNYpjJ2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=iavyG2ER; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="iavyG2ER"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4585a116a4aso2726875f8f.3
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 06:39:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1778679561; x=1779284361; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=YQGZiVxQs6R3BA0eKr6GtmSaVHEIlg8PpjkL+LUQnGo=;
+        b=iavyG2ERlEIfZ2tWaQZl34uVtLeYcCtn/zm2zY0gHmxxIakhhwF1nqxCt+9MY19gFx
+         lunbI4kqNJpZlCMWryBZmrVxI6SYb133nSJFyuPAMUe2OJsN6+cp9u2Ehg9vdvToUlKk
+         iePpppQFcUdO9tZ8S7YqY649xEuRHLmsz6FVgCLhJXNxjZyJL5YCMx7xrs1igBL3uJZp
+         O9lT7qMXJSLGrEmZI4IO5sRG4uAwVUfmOEe2jbk7ldIT8T0Ul9SXQS5299/mn+qGol+u
+         mRhZLEMHTQrc+CTy1eGvm7ghYXQUvhsUw3Qj0X2+wbJmkswdGMTNd9T2tJH1csn/Dgdb
+         k35w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778679531; x=1779284331;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1778679561; x=1779284361;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vrwW8HJMZcY9Fq5J+G2ZrLwjCrrOc6AC4xQETMaCZKg=;
-        b=cMPz3zccSQDudOjCTY84D83EpcLMrhDoYGPnkqT8gZupzUG9RKFq2PdLkzBh8p6pWR
-         dO1BTbLuMpxPy83l4RR18li0/5NUd5Q9Hu1t+gbiJxVA/68bnMXuDJj/faM207HYwDxd
-         RUaq92tSKByYbk1HX0Uu4rx2mbahjBv8Kyv+TUrFXKJukoAKDM8GmRSbGaY6ZDQcEeI9
-         MoG95pLmMJhisMV59QJLd3AGA/BoDMw7TUGqkU84Oshdx+I2+aHjlQXtZFw91352C302
-         3uhBjwGQoKG64CiG2ZN1T9Sl/8qM6j7lAGBlWq95FjFtAVMJ77DF9XlRaqKcEJzYUqIZ
-         nG4A==
-X-Forwarded-Encrypted: i=1; AFNElJ+Zy7oeQ/X56ejEGgfS4oN3y0A9Svb2DJg1TuOwYbXSg/wgD48bRVbHbtSxzsoEyw+rD0Tz/euh0b/o@vger.kernel.org
-X-Gm-Message-State: AOJu0YxXHzcfMpLTnscvM+WqAIr1h0DTy5qaG8tU3RWYUQd0QPuiXc8x
-	m8hJXhfrQHbad9v2z37SekNew2/ZuJkuWwz8BskniGnp4U686KYG523fMOacW3zt
-X-Gm-Gg: Acq92OHojowv317xxfUYGmjGDETB75jjPhTmennJToQX/Rc/XiBbguYfutz8zgu/Wze
-	fcgerXmKdgzQCRuquEv7pLTX8mPqb00QBv0zFdAQ62Q+m3EL9m8XIxyMosZfzFLuOurR4cmIkCh
-	8TnFgPgWwo01uYZea2BnluS93lqQOFLHdYYi+5K3eJqyeOtoc037qsskyYduuqFw6pHegMgokyd
-	bMtE7lyDh2su9qXZP9rjbStRFh270tJhZf2rbTcDa6hiL5Zld9VxryZDxZWV+ZBGANU6m4xOHwv
-	1GTDro5n3CBq3r0Y78NrJjY83W4SFMu0dgyNmhEN7lbINPaWn0oU/86IrL/wFNCtUC9KPo1LKpC
-	fSf6U5zKfa82c6Rk0pdnjt8ypBtKh1sMdOhMe6HHzdWL6R0WZ91DN1/z8RtkWFnB32blAT96MfE
-	H/tNAIEdQGr/aGZdiW6EmEii3epZNq1KHD0unCw4GDPU7mMSquILcaghyUFjNH
-X-Received: by 2002:a05:6102:304e:b0:62f:2d6f:cc11 with SMTP id ada2fe7eead31-637733ea94fmr1615085137.2.1778679531303;
-        Wed, 13 May 2026 06:38:51 -0700 (PDT)
-Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com. [209.85.222.41])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-63140216a98sm10111151137.8.2026.05.13.06.38.51
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 13 May 2026 06:38:51 -0700 (PDT)
-Received: by mail-ua1-f41.google.com with SMTP id a1e0cc1a2514c-95697b46831so4467390241.0
-        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 06:38:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/W2/NRJKyZ2vQ9uHfmAwWL2gvilvrHNwow6tolgt5bM1RB1lkzKxLjikydU4TWFzEAx+T5SOIW9o0t@vger.kernel.org
-X-Received: by 2002:a05:6102:2924:b0:631:b365:40f6 with SMTP id
- ada2fe7eead31-63775f441f7mr1566639137.23.1778679530826; Wed, 13 May 2026
- 06:38:50 -0700 (PDT)
+        bh=YQGZiVxQs6R3BA0eKr6GtmSaVHEIlg8PpjkL+LUQnGo=;
+        b=q+/PWbQP4+fadox0/I+hiieUU1KgjWh7f61EzS5Q6H2ABoV0tY/wcEYrFZ7ni3ddeg
+         J3K11lbyyxA187T9eo1F2aBxRCI26bYzFM+IooNbIFruGRiSyl1F/Adm7OsFSTaXO2PI
+         K18q9+vcZ2sO3gjHbKEgEqTkp+yhPoHcuxiOipYd5MhS+hGht6W6F4BfwzXgsccNMX4X
+         pzrehnhUgim7QYFuRZX5BecXX3g+LiDQWmR72lveEe0bCDjnZpK/ZKf11kzkYvlN/7fY
+         YlZTpysQN1gzSQqA+zCY9qVhxqQlgk+ODbGV65PPDaFJ9d7bIF99N14RZKd/YbqiZMFI
+         vdwQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9De8UZrYtkRKG4UtvvYf7KW/Mlf6xlS7+uNtDd55qjgkUaTDLU2ui7ECL6GKZwGcwWMfIeUBRMrMI0@vger.kernel.org
+X-Gm-Message-State: AOJu0YwC3uvVJzS8aMeWNP03+dnuMY+oW9/kxMTT7ZKS24yRGgJShE6w
+	5KxAHjk/FGXcAcxs1SKpGvZb0L1sZGpiMF/tMjC3RN273ZQAqocYDIMR6DoWEw7w4so=
+X-Gm-Gg: Acq92OEwkDq34JzwDVHXwj+qmbwVDPMEC9sOu01i5MgFNotVXT+9Q24SNIDs7O0LIcO
+	iSx8ggrIbk9NmS+9Wg5GTexG+ETkyMEMibPiy24TrEBMEUNrUWchkt6ECuYqpO5ZOwnQuYnsGUu
+	sbOy56pSy5c45rZYkRhU5uSqYcFFNyhgyaE29/nVTVsRCXiHWNKOYthUhQ40hRz5imQUO+j+0Wq
+	vsffetb0btaT3F/GwsKBeDEVa8x6IDgnhLmrZkVYmTwaDsRwoQk0lTLmEi7IuiCklGtfWcBr2Vx
+	i7aMun8xHCsSXLiFA4bz28s9rGpFLJUSXPOTLDlIlQxTWVEnI9eyjTzTg/SrbY2MOWr8DYHDpfg
+	cFYtJJfSfzwaH+rb12vy2hqaG7pgnoLitJ2tNHiIEjrNmgb0KM3jC2CBayiHqYV0ElDwV8e4iWM
+	P8P105/f6ZMATwYdZ9PYsbIX893Qqs5Q5HaKK/Us5Vsz6yNqrUW6JmO/2NOY2/6eMDqK5Sm6bGv
+	Apt3Sj3
+X-Received: by 2002:a05:6000:2306:b0:43d:7dcf:ae26 with SMTP id ffacd0b85a97d-45c7b568bc0mr4827156f8f.34.1778679560776;
+        Wed, 13 May 2026 06:39:20 -0700 (PDT)
+Received: from alchark-surface.localdomain (bba-83-110-135-253.alshamil.net.ae. [83.110.135.253])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45491ca383asm39627560f8f.28.2026.05.13.06.39.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 13 May 2026 06:39:20 -0700 (PDT)
+From: Alexey Charkov <alchark@flipper.net>
+Subject: [PATCH 0/2] ASoC: nau8822: add support for supply regulators
+Date: Wed, 13 May 2026 17:39:09 +0400
+Message-Id: <20260513-nau8822-reg-v1-0-c532e18e92ad@flipper.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260502185557.93061-1-marek.vasut+renesas@mailbox.org>
- <20260502185557.93061-3-marek.vasut+renesas@mailbox.org> <CAMuHMdUXjwyVk2kuGAJOdPHw=qv_iwO2pSR3Rp+5ayoP2QG25w@mail.gmail.com>
- <c4e6e48d-9a8f-48f0-8666-22efebf86d8a@mailbox.org>
-In-Reply-To: <c4e6e48d-9a8f-48f0-8666-22efebf86d8a@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 13 May 2026 15:38:39 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUVAXZtWAUn5fDgTKszHh7voQMJMyPBxbUiqOYRSfzCzA@mail.gmail.com>
-X-Gm-Features: AVHnY4LU1BBWpNxE_fkGvk4Rs-4viEWKSh1Rjw7iIL0Qt5GSNDkgP1kR7U3ItzU
-Message-ID: <CAMuHMdUVAXZtWAUn5fDgTKszHh7voQMJMyPBxbUiqOYRSfzCzA@mail.gmail.com>
-Subject: Re: [PATCH 2/4] clk: renesas: r8a73a4: Implement ZT/ZTR trace clock
- on R-Mobile APE6
-To: Marek Vasut <marek.vasut@mailbox.org>
-Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
-	Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAP1+BGoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDU0Nj3bzEUgsLIyPdotR03aTU5DTTJHMzsxQLAyWgjoKi1LTMCrBp0bG
+ 1tQAUSh9aXQAAAA==
+X-Change-ID: 20260513-nau8822-reg-becf5b766d80
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, David Lin <CTLIN0@nuvoton.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Alexey Charkov <alchark@flipper.net>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1074; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=LWbW3HufahL+UvZ84gWhXCfMcijZHYR8H/7I2w8iQHU=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWSx1LMe7X5ZUb6d48i6jUumzs019nqXq3ewjnHDV1uel
+ e+aLibe7pjIwiDGxWAppsgy99sS26lGfLN2eXh8hZnDygQyRFqkgQEIWBj4chPzSo10jPRMtQ31
+ DI10jHWMGLg4BWCqba8xMjyTLH1UtrWw/92m+rVr24xanwe2/SoV+C26OzotsiJlew7D/8APUt4
+ TbvUH5dzP2pDb9/mP+FTZnYKc4TyM+zwcN8Rb8QIA
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-On Wed, 13 May 2026 at 15:37, Marek Vasut <marek.vasut@mailbox.org> wrote:
-> On 5/13/26 3:15 PM, Geert Uytterhoeven wrote:
-> > On Sat, 2 May 2026 at 20:56, Marek Vasut
-> > <marek.vasut+renesas@mailbox.org> wrote:
-> >> Implement ZT trace bus and ZTR trace clock on the R-Mobile APE6.
-> >>
-> >> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> >
-> > Thanks for your patch!
-> >
-> > /sys/kernel/debug/clk/clk_summary looks a bit off to me:
-> >
-> >      zt                         0       0        0        208000000
-> >      ztr                        0       0        0        277333334
-> >
-> >> --- a/drivers/clk/renesas/clk-r8a73a4.c
-> >> +++ b/drivers/clk/renesas/clk-r8a73a4.c
-> >> @@ -43,6 +43,8 @@ static struct div4_clk div4_clks[] = {
-> >>          { "m1", CPG_FRQCRA,  4 },
-> >>          { "m2", CPG_FRQCRA,  0 },
-> >>          { "zx", CPG_FRQCRB, 12 },
-> >> +       { "ztr", CPG_FRQCRB, 16 },
-> >
-> > 20?
-> >
-> >> +       { "zt", CPG_FRQCRB, 12 },
-> >
-> > 16? (12 is zx, cfr. above).
-> >
-> > I.e. the same shifts as on R-Mobile A1.
-> >
-> >>          { "zs", CPG_FRQCRB,  8 },
-> >>          { "hp", CPG_FRQCRB,  4 },
-> >>          { NULL, 0, 0 },
-> >
-> > After fixing the shifts, I get:
-> >
-> >      zt                         0       0        0        277333334
-> >      ztr                        0       0        0        277333334
-> >
-> > which looks much better. If you agree, I can fix this while applying.
->
-> Yes please. I can confirm in APE6 RM v0.7 that the ZTFC is at bit offset
-> 16 and ZTRFC at bit offset 20 . Thank you for spotting this.
+The Nuvoton NAU8822 codec has four power supply pins: VDDA, VDDB, VDDC
+and VDDSPK, which must be online and stable before the device can be
+accessed over I2C. On boards where these rails are software-controlled,
+probing the codec before the regulators are up results in -ENXIO errors
+during register access.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.2 with the above fixed.
+This short series adds optional regulator support to both the device
+tree binding and the driver, so platforms that need explicit power
+sequencing can describe and enforce it:
 
-Gr{oetje,eeting}s,
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
+---
+Alexey Charkov (2):
+      ASoC: dt-bindings: nau8822: Add supply regulators
+      ASoC: codecs: nau8822: add support for supply regulators
 
-                        Geert
+ .../devicetree/bindings/sound/nuvoton,nau8822.yaml         | 14 ++++++++++++++
+ sound/soc/codecs/nau8822.c                                 | 11 ++++++++++-
+ 2 files changed, 24 insertions(+), 1 deletion(-)
+---
+base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
+change-id: 20260513-nau8822-reg-becf5b766d80
 
+Best regards,
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Alexey Charkov <alchark@flipper.net>
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
