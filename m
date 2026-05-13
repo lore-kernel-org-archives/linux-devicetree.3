@@ -1,109 +1,108 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FD2F3B8D78;
-	Wed, 13 May 2026 20:12:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4854025B09F;
+	Wed, 13 May 2026 20:15:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778703133; cv=none; b=mbzKIhvCNQZmoncWVofCndWGZDT9zjENGi/EkL5UU9OZYv7EynU8awM/x4REJRpHGBe73H6GvOrKSEb3XxRS0xyn9E8JzdAG+96P6tJNQN+QeGnao5Kq7EnXhyn1zNq91M9gYGsTs+WDxNT0fDF1pDr9SJxqm0HxMKc9/QfO/O0=
+	t=1778703359; cv=none; b=A+8ALhQGCSyDTu83ep2Uww+pUeDOfXpoZzyMcEZwMilrvkxrZtC8P71aZFql8cDfEXVkk3QMzOC/TusJufcdXuRJyGtZBZXRTqqyVTC5KEdaoaXlzaHa761RPI8BmxMbYOHiqG3xrd5aRtTBjzy1Wxcu5hy1Q12q8DCpPMXjzTc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778703133; c=relaxed/simple;
-	bh=5Epym90fKAuiJjd27QA6X5Qm4j4TMj5bRrbqdLkIIBE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Agh3XOlzJuSPjRVGlGxjVSBBbBZi5dTOYdakAaiedOGWWF91gp6N8hNErKrkeLW++Zf5maeN6LzQEkLXI20FBhMB2qglzc4uzbl3mqJenIL1TCAd1S4NJwbCnDvtbLN9X9JbpV+E3jRi/MGoVRzrVdJUrTYHiG33YqtQEmcxfio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Lj4ol9oe; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1778703359; c=relaxed/simple;
+	bh=aHOn0bBj7mZeXRdPhK84nyvdj3SeN5l6Vd4SecW7ULA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=IRYHudwG7UIVJp0MvQDy/VktutUrPD0YGiiBBvDk8BsEzWx17iGi2AITE7PXWJ+lKV63HWKEPdX9q9axLX38uGzqZD69g2ZwKHugvfRcphwzK3nEgk6Q6G72LnQYLc4d0lmwe261YDzMZKaogddBJGNjuGn/dCXBq4GRUFz7eKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oi668B8r; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Lj4ol9oe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1778703132; x=1810239132;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=5Epym90fKAuiJjd27QA6X5Qm4j4TMj5bRrbqdLkIIBE=;
-  b=Lj4ol9oern5OmGeF9isj5NF8U+5PNySaOoY9+idku+SM6AzfyUKBZWvP
-   ANN9UrAPZo3Jro/LFFTXnb2KAlbXky67hOIHlo4x9OPR4zh11v0ICeiO8
-   OZANpDc4weLlr0BOgaUMb3tbNq8B8ot5hromvOt5u9un4S49GWM0tTq3l
-   nbJRWwgkal+8fq2s6zDTDi33wFjn3pLk4GUFOTzIzUww8gQUcG2WKw50d
-   idiwCxbXd9JGwTf8/eZMGZn4zaZd6ZJ1hafsadRTUl2AX45H5akUir0vw
-   ZDvLaOwCywA3k72Yiq41TGLgnAyVaCvd/XauSSO63qg4JN1DrBM4fGdtr
-   A==;
-X-CSE-ConnectionGUID: HnGTgtI8TAmOh6GhK/N8ow==
-X-CSE-MsgGUID: mvdMROqqT1mCaPWvq7dfdA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="83512259"
-X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; 
-   d="scan'208";a="83512259"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 13:12:12 -0700
-X-CSE-ConnectionGUID: mlJKbVbsRei8/iMm01ob6Q==
-X-CSE-MsgGUID: Ge71FgiOR/KxCahTfu36SQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; 
-   d="scan'208";a="261690012"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.106])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 13:12:07 -0700
-Date: Wed, 13 May 2026 23:12:05 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Andre Przywara <andre.przywara@arm.com>
-Cc: Sanjay Chitroda <sanjayembeddedse@gmail.com>,
-	Michal Piekos <michal.piekos@mmpsystems.pl>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Maksim Kiselev <bigunclemax@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] iio: adc: sun20i-gpadc: add A523 gpadc support
-Message-ID: <agTbFbicv9yzTQb9@ashevche-desk.local>
-References: <20260513-sunxi-a523-gpadc-v2-0-d5efde151dac@mmpsystems.pl>
- <20260513-sunxi-a523-gpadc-v2-2-d5efde151dac@mmpsystems.pl>
- <A7772824-E704-4BFD-A796-BCD81197E5A2@gmail.com>
- <4248ac7e-3cce-4db8-a2c1-710f2c903490@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oi668B8r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 808C4C19425;
+	Wed, 13 May 2026 20:15:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778703358;
+	bh=aHOn0bBj7mZeXRdPhK84nyvdj3SeN5l6Vd4SecW7ULA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=oi668B8rAub7Now9tjX4dqNJeslMjopqsPJh+z/60aLsELNacbJekKkKQDof3yYKJ
+	 lVqzaaLkKmkPSPmTaEVE0gK9DhCvL2BFnNW3Cmxzz2Aw5wXypqpv7cjVNfBgMuYqYU
+	 mW26QJifOGJ0jf6NgYguk5uzSmt7EvlERFr4eGue7/5FmQcHn4ThmeX3JHlUh+2k5U
+	 GZcqyZcqEW3WI7i2hvYLdljd36CF805SjxWt7Q2NvDiVssxL36KwJDnrOQNTSgXoYy
+	 3EflnKEgYxbHFe+px6iiGSFVG+9+7ulGBOJt+/q40yIbikLtfSS+1CtEEqtQt7Bk5e
+	 h5uL8f+EcyxJA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/2] dt-bindings: input: Document Imagis ISA1200
+ haptic motor driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: robh@kernel.org, linux-input@vger.kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com, krzk+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260512102445.55372-2-clamor95@gmail.com>
+References: <20260512102445.55372-2-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 13 May 2026 20:15:57 +0000
+Message-Id: <20260513201558.808C4C19425@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <4248ac7e-3cce-4db8-a2c1-710f2c903490@arm.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, May 13, 2026 at 01:53:49PM +0200, Andre Przywara wrote:
-> On 5/13/26 13:44, Sanjay Chitroda wrote:
-> > On 13 May 2026 10:29:43 am IST, Michal Piekos <michal.piekos@mmpsystems.pl> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Missing scalar type definitions for `imagis,period-ns` and `imag=
+is,duty-cycle-ns` cause schema bounds validation to be silently bypassed.
+--
 
-> > > +	if (ret <= 0)
-> > 
-> > Thank you Michal for the change.
-> > 
-> > Have you validated the changes ?
-> > It looks while success ret would be 0 and it would give return error.
+commit c2a7ef2ca3d62317c69bc5b6a450107172eeeac7
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-Good catch!
+dt-bindings: input: Document Imagis ISA1200 haptic motor driver
 
-> But devm_clk_bulk_get_all_enabled() returns the number of clocks found and
-> enabled. And since we need at least one, I think this is correct, and the
-> error message below reflects that.
-> 
-> To me that change looks good:
-> 
-> Reviewed-by: Andre Przywara <andre.przywara@arm.com>
+This commit documents the Imagis ISA1200 haptic motor driver. It introduces
+a new YAML binding schema for the driver, specifying properties like
+control-gpios, clocks, and internal PWM configurations.
 
-== 0 ???
-Doesn't look like correct code.
+> diff --git a/Documentation/devicetree/bindings/input/imagis,isa1200.yaml =
+b/Documentation/devicetree/bindings/input/imagis,isa1200.yaml
+> new file mode 100644
+> index 0000000000000..bbe6f99d39c19
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/input/imagis,isa1200.yaml
+[ ... ]
+> @@ -0,0 +1,140 @@
+[ ... ]
+> +  imagis,mode:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: |
+> +      Defines the motor type isa1200 drives
+> +      0 - LRA (Linear Resonant Actuator)
+> +      1 - ERM (Eccentric Rotating Mass)
+> +    enum: [0, 1]
+> +    default: 0
+> +
+> +  imagis,period-ns:
+> +    description:
+> +      Period of the internal PWM channel in nanoseconds.
+> +    minimum: 10000
+> +    maximum: 30000
+> +
+> +  imagis,duty-cycle-ns:
+> +    description:
+> +      Duty cycle of the external/internal PWM channel in nanoseconds,
+> +      defaults to 50% of the channel's period
 
--- 
-With Best Regards,
-Andy Shevchenko
+Will the minimum and maximum bounds on imagis,period-ns be silently ignored
+during validation?
 
+The core property-units.yaml schema automatically assigns an array type to
+properties ending in -ns. Without an explicit reference to
+/schemas/types.yaml#/definitions/uint32, these properties are evaluated as
+arrays rather than scalar integers.=20
 
+In standard JSON Schema, numeric constraints like minimum and maximum are
+ignored when applied to an array instance. Adding the uint32 type reference
+for both imagis,period-ns and imagis,duty-cycle-ns would ensure the
+constraints are properly enforced on a single scalar value.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512102445.5537=
+2-1-clamor95@gmail.com?part=3D1
