@@ -1,101 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011044.outbound.protection.outlook.com [40.107.74.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8476C1A6827;
-	Wed, 13 May 2026 00:26:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778632017; cv=none; b=nmVkxk/acQIwZHNEeEmXTEKjBNRmHoDHr5SHfnNwGb0shtJZrdw8uuOAuR5sD9yFg1/2WRgx+FdYNFwjcKSalTOpyKo4TWxIZuZoMc4Zlvoj/REXvojY7wB+ucg0DIInYSlcv32+un6QuU9ZZk/ibJEwaRtJhehkXIqy3YROOMg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778632017; c=relaxed/simple;
-	bh=Iu79rO8oVCg4E5Sg718+9d7YG+zg8RQw/kF+BEA1ADo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pEOD2hDT4UfxEh7gdvCrhEgyaYf5SRrKRaxdD23OIMWQcfkNOjEmXnq5vxefVVB0ta5No/0zSgaHjqARUN1Dkx6sjgJkdWds3e8wtt4VRrMwOnJ1mNjeWJ6Hl8bx1oCXqSzuotTeaF/l0SoWAn2e1Z2j4YjCyGgXIz6rEksV7OE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JDXMlMAr; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DC181519B4;
+	Wed, 13 May 2026 00:35:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778632518; cv=fail; b=td99mXBSsLFlMPEbqjBefzMYR/Z5spN9mNnHhi7owyZEDznRIreGLqcCo4ZDn17MR/a2EDnB5gsRtgCQ9C56VVuzaW1Ok7sE/0TZRkK9TA4+GPr2mAym4SkY4Z8mmlfBspDiH/6e+bKs/N1U72f2ZwPWeLZ5GucWh2ryWiyGhPg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778632518; c=relaxed/simple;
+	bh=FXIq2B4UG5uOOMmazvZwcMal+LuFWUtrMUfaLKq1hwM=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=ihr820jOhrJ6Iog8DlGiaYyepzQjyvU8DmyRysPW7MLB1f/KlWHcf305eXfbXspL99LSAWb0I84AXrH2wskLarjT9HpyGh+osyngJSLJo5VW6NEpRG3KCtQefnUOfjEC5+ga3tWDErRV5xol69+sTqJmp3pV2pNLdNUCnvaoub0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=DRt9ig/R; arc=fail smtp.client-ip=40.107.74.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JDXMlMAr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8D20C2BCB0;
-	Wed, 13 May 2026 00:26:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778632017;
-	bh=Iu79rO8oVCg4E5Sg718+9d7YG+zg8RQw/kF+BEA1ADo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=JDXMlMArvfPAWRhKTYf8qts0ef98MCrPe7Qxbn4rKSpS55/fSXsuzdgP3JJaZ7gjF
-	 8tcv1AOKKGhmgZQeIay4yRod/0PNYlBh6QzRJUOS2/zb+AnODMIqn41H2iguPacwz7
-	 zXyIF8FKo1gEMwpZRPFL46o8yYSTC7UDXH4eyim0EEFYectJE0JpCUj8dBpA01l5AD
-	 siISB0SXEpUMP+/Bjm2gbNwjh51K7pU+zUjYomEHfAjK8D7nTXIqATbjrk8n3QZxNV
-	 1vjtVxaJ2KhiZ26TcA1bvZLBMSI6BJSjstoLBu/FujKuMWACIap1a4N+6cAf3XqmNl
-	 1hAhuEFjU9WMw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/4] ARM: dts: imx6qdl-sabrelite: add mdio phy address 0
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Frank Li" <Frank.Li@nxp.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20260511-b4-imx25_dts_simple_warning-v1-1-01b855a5ce25@nxp.com>
-References: <20260511-b4-imx25_dts_simple_warning-v1-1-01b855a5ce25@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 13 May 2026 00:26:56 +0000
-Message-Id: <20260513002656.C8D20C2BCB0@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="DRt9ig/R"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=x/v0ZikEMVdImlf9jQ23HURrTuMHPaPVThqhbfvZaH2TEjwB4MXIaNOn6KSFL1vnp4KdD11pAOvyQJMNUsQG81Q34XZIVwN2ygEQoXCt/PmBbdOdutbUon+xvlxTa6SZHWuzOr2E4aeCirfu2g06RmKdajDS7IVQRHkP4iz30bICAd7W/KGzQcgUa755BvfhGIUNXtwoadbC2UxqGM2kmHkB2Ryu2kDiUnQ2JJCb2gycTcqSeDXJ4D2JMjruGeZQ15qzrbLjrwB2ot/6cinCqt6ah0mxbiceWpeAI76W06i+U6xL9CMO537gnOP9d+GundqIi357yRsCvzwGlp/3DA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uZKNmgEBaD/35Nxt/fDa7a7Y+4Ca00Na0bNSETJwjLk=;
+ b=nk1P3Rbt30tdDCGLAw2Hs4DLaBV7zcbGfVYnZ1w068mEh7J30Y6rk3NB55DOBXcuqr09zEXL/ZJQFsBor9eCuAoVkCC44ZDBpw73xqbk/PKa5AsJA5TSiWWqkMVCqGjJPXsQPfxk9A/KTEdvs2Id1RNbT50V55VyjXM/V8vy8ih+4pk3fDtAOX67B+Wu/kUoRRxKVYKEJdB799zC9eytwy9H9QGl5heuUhN4RTmjvCJifCURSLb16eY5m8+YJE7anaA3m9TSYaYDmRvGcntNBh5M66Vn5ZBGpVeYMf3Ma/ZKSfY5NA3eSkY+zmMTlYLDwHLoh2tR7KKudTTLGdwA5Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uZKNmgEBaD/35Nxt/fDa7a7Y+4Ca00Na0bNSETJwjLk=;
+ b=DRt9ig/RPnBHAlNcxvb0xiG9lPGlUsD/4+TmWXf4xdm/iuSohQLBBvJJ/DFQuO0uSaJCUBzPA/itrI/jeljjNMO+6umqC9GKddCHsCKOfcmbBaZnmLWbAp36SqReAtG0YlUDkUfF+WsQlAYy6+81xUPd9dm7bmvjDvA3urrTRm0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TY3PR01MB11797.jpnprd01.prod.outlook.com (2603:1096:400:373::8)
+ by TY3PR01MB10984.jpnprd01.prod.outlook.com (2603:1096:400:3b2::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Wed, 13 May
+ 2026 00:35:11 +0000
+Received: from TY3PR01MB11797.jpnprd01.prod.outlook.com
+ ([fe80::1868:c915:c230:a383]) by TY3PR01MB11797.jpnprd01.prod.outlook.com
+ ([fe80::1868:c915:c230:a383%5]) with mapi id 15.20.9913.009; Wed, 13 May 2026
+ 00:35:10 +0000
+Message-ID: <874ikc6taa.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: John Madieu <john.madieu.xa@bp.renesas.com>
+Cc: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	john.madieu@gmail.com,
+	linux-sound@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 09/16] ASoC: rsnd: ssui: Add RZ/G3E SSIU BUSIF support
+In-Reply-To: <20260512182631.3842065-10-john.madieu.xa@bp.renesas.com>
+References: <20260512182631.3842065-1-john.madieu.xa@bp.renesas.com>
+	<20260512182631.3842065-10-john.madieu.xa@bp.renesas.com>
+User-Agent: Wanderlust/2.15.9 Emacs/29.3 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Wed, 13 May 2026 00:35:10 +0000
+X-ClientProxiedBy: TY4P301CA0051.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:36b::12) To TY3PR01MB11797.jpnprd01.prod.outlook.com
+ (2603:1096:400:373::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY3PR01MB11797:EE_|TY3PR01MB10984:EE_
+X-MS-Office365-Filtering-Correlation-Id: 55b4b770-3fb4-4ee1-b65e-08deb0877d94
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|52116014|366016|1800799024|22082099003|18002099003|38350700014|56012099003|3023799003|11063799003;
+X-Microsoft-Antispam-Message-Info:
+	N5nkHwTmSR75R2Dfep7JjOtRQAfIi6ebM6KZWOuqF8wc8yc7zM1XnlW0SPDJQSdRMikgNDPoWIgavdandWAG24BQmxCZdGNjjU24E43SaiOCUSXCjAWOIyzwaddM8xDliRCxANa+8/3AGSBnh6cKquDmwPN3AZAt3ElnWrnj8TbUqRN35r9PywfHuu1ziknM/NvsiqOAnZir4Jd6VoP1fXF+5T7HiW+CtT6zLl9qhujAyAOqSPWYOMmDt9AvIAC5bg+rVuAISTOr0kluZsZVfDQ6pEZMzHdhV50v8Rgn67sZ95RPOEVYJHmJiSaJFlVGWvVJzaWjsPyf8ZWcDgpPCOtULOKxupvBY8yJdPta4VoJ/0NjnlGK2jblDhNymucYWvdw9+mXTx8TnVxvNGWSV/GOyaSapAx44A5ILs496se0hCt9pMENKqBp40elSBuys4OpW8DRV3S9IXjARLunO+gD6xJ2V8RzFgDco5MxmrMbE21kl6b731BW/k/EZuYQ/4S6dyrQVzRJkpFc1S2n8LNhFpOx/N1c1b65dxRJ31rYmzwT2cRt0vmTu0MMWO5mFP/CKB7Ex/oPuG/RknVwnJSOD4NNqeYlx9DYG7/1e8LI0FnailVjcR6pB+IFYj6MaLRZnyrP5nxaRA5Mg4JlcbD7nUr/vreVQnPdFzAgoiOSr27SSZcv07NRvBgoMD8K3Im0m9L8lgBI3CGQ10Dmfbhcq3id68re8vFs/gN3zTZzIreML/y7cDO9ao3txHeU
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11797.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(52116014)(366016)(1800799024)(22082099003)(18002099003)(38350700014)(56012099003)(3023799003)(11063799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?+AC6e4zljFLMgJY1gtzjDFbVq8u+zgmOWBfAi4nNGkKjZMOkJwBVfi/LABnh?=
+ =?us-ascii?Q?dqOVkzjVXNS9Yb6DDWMH/28OYlXQrpN+IKaxY3nOuzKMiWI5QJgMQZAKxnX/?=
+ =?us-ascii?Q?6ORlbLeBriIVMFJyE/HsnkYdk5SDObYRDLSfHqbB5n1EI8jL9zW6Sz+8nEyh?=
+ =?us-ascii?Q?0iq9bdhzmHPlNWqi1cFthv8k9Q3wICWrM1DQHP0QAbHlRvIXtFibolf8SqGA?=
+ =?us-ascii?Q?QfCHnaO66kBdbTxjoyyTOFYGC/RKl570LThejMbK+r+c5Q5mXXP4CpXxbDVv?=
+ =?us-ascii?Q?5Zn0svL75snp28ookpQtaJfV1pUbzx5fX9Rq2JQFTMe8//c+XZMoxuAq5ayM?=
+ =?us-ascii?Q?H9Ch1XQ/u0e+cl9tiVneGF3tOnV7PvSqJkmgJyWLAGlN1wysDk8dNmqxZJ4z?=
+ =?us-ascii?Q?B78DI3ol0MO27U4F3wjzamHDnaBWyr9qstLelvbPuKXe/LSeuPfcE/8g4Y4w?=
+ =?us-ascii?Q?4oWuVpRQlsloxNtmsNzqg9t9ik41Sv1KR2hdM6smqeO9WavIOppY1Szu6elj?=
+ =?us-ascii?Q?iaFenRdsJm42rTYz6Rye2G8/vVcsoTFv2j8VWVr1SQRNTPvYnan8cKj4yqSW?=
+ =?us-ascii?Q?Jyy99SqqPglC3Haz69v+NIaY0qgFTEjkTm6Ufs9/R2aOQmj896KSgtO7FGm1?=
+ =?us-ascii?Q?vK1+QphgVrRIZqzz4ue+X1I5tlS8qBQgUN4pEx0MAdGqUE0Xqo89ftK5oaNr?=
+ =?us-ascii?Q?6opKcEJ0ruEHACHim+rJw7BLCl319UYR1Nq/sjI2vd6rwSsMk4FNpSOfjjo5?=
+ =?us-ascii?Q?cvc7AzeO7dN/2sNnB3Ji6uDeZS29uhF9fMPg1o/FVy6G914U8FZxqVpqQDzv?=
+ =?us-ascii?Q?K2Jq26M+Yh8DPO/sFcmk32Zh68Av1dvZfh13KlU6VyNpiwWHFPvqUuRz0exk?=
+ =?us-ascii?Q?TEwRlGZyG5ncprWuGoIZUFqj07SlK3rqw3yyMfGabk4ZlXnw3pDw4ceHFdT2?=
+ =?us-ascii?Q?PV6t1ZdwbAwFZ6RbWIgz4RrNiCah8fRHJU0EMxgBSCZrdsE8tYwy8Y+MLbuQ?=
+ =?us-ascii?Q?9fzI0cF9RqmPD+eYIiNFlg97T3WsL0FYepfNSI0Lh9xQZaG+poDwyy+jL3Cr?=
+ =?us-ascii?Q?hIdTT0tiTqVLoyJAhzpwIB/RFcGCE3X0BkRBqydBr5xjd8bqgq7i83baKy0P?=
+ =?us-ascii?Q?sOAIY7ST9VOl2gyh/J5lYTK40gzXSEHv5ox3EZoDCuSbhhEWCc8PrcJFk6Ik?=
+ =?us-ascii?Q?IIbsEowi9Pk1166KxkKG8Glun2zxkThree194uefCWQ/TGjQqgtoIGRu1QGd?=
+ =?us-ascii?Q?oxarv8/LhqpUhjn/BiI90mn1GyJCEIK4gO0oiMM3EBw7cmqGJXEFItWl8vBn?=
+ =?us-ascii?Q?C4WRthoO1kPbQqLP4sFRIcY8UDX5GZWcSkHFqlLb6aJ4LlxMSNYyWoVK81rq?=
+ =?us-ascii?Q?uIDGg9volXOxK5jPdq4qtLqnJRXZY3ZBOdB3aKz6jsAt5+Tfl6mbis16fVjh?=
+ =?us-ascii?Q?m3KvuvLySjc8GQJmF+nTxXMtbSU+59rzr5Sv9MehN10NaLLtRFBy0X90J3Ax?=
+ =?us-ascii?Q?7nvqSdDFYGtvl+JTHHOFGcKo3+J/k9Jan9v9gxGHwxGiaYPWWl2r9Kz3OtEe?=
+ =?us-ascii?Q?HyyeVJy5kShaiiyneVeeFFYxBGk39Xp1g6DggKySpGJUwBF2upQbIwRTXpi7?=
+ =?us-ascii?Q?kOV9Yw/xkoNFosqv1wahBid7vIUyQah8c6HCYlsp6k9/AmVGTWq15PBpkaGo?=
+ =?us-ascii?Q?vWakrLolVLiw+umBCGLgF7fl0VMc8GlPsMHRSq/t+r0dRADrIT8BVebmdXbi?=
+ =?us-ascii?Q?O6E9bjSagEfnFyFrXUkHE7emDeSktRifBB2iMn12Z2272JfWsm1v?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 55b4b770-3fb4-4ee1-b65e-08deb0877d94
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11797.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 00:35:10.8836
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CZBLEEd6XLH/RR/f3VL5c6tqvIOIuVxbqzv0TLeraCnz4/gaIZvMkOAmDWHk95zljiEO5QXRLSVU1FuxLUDvA9gOLHsnNztHqC7YisuZkIQ994dB5dxToemA0ynY1vYr
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB10984
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Setting the Ethernet PHY `reg` property to the MDIO broadcast addr=
-ess (0) instead of the actual hardware-strapped address breaks Ethernet ini=
-tialization on the SABRE Lite board.
---
 
-commit fbbd7813db5860f802e25f49f30fa7e2a33c20e6
-Author: Frank Li <Frank.Li@nxp.com>
-ARM: dts: imx6qdl-sabrelite: add mdio phy address 0
+Hi John
 
-This commit explicitly sets the Ethernet PHY reg property to 0 to resolve
-device tree schema validation warnings. It relies on the IEEE 802.3
-specification indicating that a PHY should respond to the broadcast
-address 0.
+Thank you for the patch
 
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-sabrelite.dtsi b/arch/arm/=
-boot/dts/nxp/imx/imx6qdl-sabrelite.dtsi
-> --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-sabrelite.dtsi
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-sabrelite.dtsi
-> @@ -291,8 +291,9 @@ mdio {
->  		#address-cells =3D <1>;
->  		#size-cells =3D <0>;
-> =20
-> -		ethphy: ethernet-phy {
-> +		ethphy: ethernet-phy@0 {
->  			compatible =3D "ethernet-phy-ieee802.3-c22";
-> +			reg =3D <0>;
+> Add support for the SSIU found on the Renesas RZ/G3E SoC, which
+> provides a different BUSIF layout compared to earlier generations:
+> 
+>  - SSI0-SSI4: 4 BUSIF instances each (BUSIF0-3)
+>  - SSI5-SSI8: 1 BUSIF instance each (BUSIF0 only)
+>  - SSI9: 4 BUSIF instances (BUSIF0-3)
+>  - Total: 28 BUSIFs
+> 
+> RZ/G3E also differs from Gen2/Gen3 implementations in that only two
+> pairs of BUSIF error-status registers are available instead of four,
+> and the SSI always operates in BUSIF mode with no PIO fallback.
+> 
+> Rather than scattering SoC-specific checks across functional code,
+> introduce an extra capability flags in the match data:
+> 
+>  - RSND_SSIU_BUSIF_STATUS_COUNT_2: only two BUSIF error-status
+>    register pairs are present. Used in rsnd_ssiu_busif_err_irq_ctrl()
+>    and rsnd_ssiu_busif_err_status_clear() to limit register iteration.
+> 
+> Future SoCs sharing these constraints can set the flags without
+> requiring code changes.
+> 
+> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+> ---
 
-Could this cause a regression in Ethernet functionality on the Sabre Lite
-board?
+If my understanding was correct, this patch includes 3 features ?
 
-The device tree should accurately describe the physical hardware topology,
-but the Micrel KSZ9021 PHY on the Sabre Lite board is hardware-strapped to
-address 6, not 0. Furthermore, the KSZ9021 datasheet indicates that it does
-not support address 0 as a broadcast address.
+	- adding busif_status_count
+	- adding rag3e_id
+	- adding rstc
 
-Prior to this patch, the absence of a reg property caused
-of_mdio_parse_addr() to return an error. This triggered an auto-probing
-loop over all 32 addresses, which successfully found the PHY at address 6.
+I guess these can be separated ?
 
-By explicitly defining reg =3D <0>, the kernel skips the auto-scanning
-fallback and exclusively probes address 0. Because the PHY does not respond
-to MDIO reads at address 0, get_phy_device() will read 0xFFFF and fail with
--ENODEV, preventing the PHY from registering.
+Thank you for your help !!
 
-Should this instead set the reg property to the actual hardware-strapped
-address 6 to satisfy the schema without breaking initialization?
-
->  			txen-skew-ps =3D <0>;
->  			txc-skew-ps =3D <3000>;
->  			rxdv-skew-ps =3D <0>;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511-b4-imx25_d=
-ts_simple_warning-v1-0-01b855a5ce25@nxp.com?part=3D1
+Best regards
+---
+Kuninori Morimoto
