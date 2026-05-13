@@ -1,24 +1,24 @@
-Received: from mail-m32104.qiye.163.com (mail-m32104.qiye.163.com [220.197.32.104])
+Received: from mail-m49201.qiye.163.com (mail-m49201.qiye.163.com [45.254.49.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BA5A3A5E8F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2491035F609;
 	Wed, 13 May 2026 07:49:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.104
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778658591; cv=none; b=CbiEGY0xYwuckMIb/w6Tq0s6cpDcVPq6VqoZhhKj0lLVjcD1oxOVTun5Tldzr7QfwIt7aKr4RqnsaYmcA/Gx6WSjISSmOFAFM9tc+CFb11wJ8ykhmxv/xaitMFpz9jhyHC/agSmsCDAwd5lPUDgaGEw6COwXw5Ld2Y1r7+AXZ2w=
+	t=1778658591; cv=none; b=ATNDrfEQqeIaFoIzxmP/uhOkJvWIuHsouU1n3tRT4dXRu+Cx4/okUJy8RMVWPtQeED7ZF8TVUP9uyjg1ne7cpzPsbdeyPgIRhHHTzktafd/t3tI5vOHdRLMGXLPCX4xf9H9CxrtC8tYIFeg5hRHpbN+7jsVyAvoU6vkyCAEAoFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1778658591; c=relaxed/simple;
-	bh=hG+TD4O8xl/gPcZ5J8BABusRLckj+sBwwx2W7tTrexM=;
+	bh=Y15rSOUR1fdqfWWTiXlbdUXBQmurn5Y6obbey2Ofl/Y=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=V/MmVuP/0sx1OWG7CO4uXxbCtXAt1+7dKBpyicSgHQ0jp+B0ryVe2cnZ/O86YAuqUNxtmLEEW0VYyTbDjocJ0ugWCwKqwdmgU0eBQHEBqVcOh/vWwK5GPMr+pViI8mNGe9WtkZlFyPbRqaqRrb7wsBmsdqKQqhgaalZrJ4ouPow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=FXosgda8; arc=none smtp.client-ip=220.197.32.104
+	 MIME-Version; b=i8yyV+WBjukEOSFyXVpOyrNQ3DjZNIBz9pTepB+mFKeWbg7XLePgm98E4DAMrQvC/V1YfhSIq1R+4S08CBBE2QRv8xNkQLLfYJX5qHr01CH2zuUFB5Hnkq5oI+zdSL18VWAapKiXA1VLkKm82ezPVgCJ0oA/b+5F0KyGf8snr+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=AgaNhvE3; arc=none smtp.client-ip=45.254.49.201
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="FXosgda8"
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="AgaNhvE3"
 Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3e3a94cc5;
-	Wed, 13 May 2026 15:44:28 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 3e3a94d10;
+	Wed, 13 May 2026 15:44:36 +0800 (GMT+08:00)
 From: Damon Ding <damon.ding@rock-chips.com>
 To: hjc@rock-chips.com,
 	heiko@sntech.de,
@@ -50,9 +50,9 @@ Cc: Laurent.pinchart@ideasonboard.com,
 	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v5 04/10] arm64: dts: rockchip: Add missing hclk for RK3588 eDP1
-Date: Wed, 13 May 2026 15:44:08 +0800
-Message-Id: <20260513074414.2053435-5-damon.ding@rock-chips.com>
+Subject: [PATCH v5 09/10] drm/bridge: analogix_dp: Add support for RK3576
+Date: Wed, 13 May 2026 15:44:13 +0800
+Message-Id: <20260513074414.2053435-10-damon.ding@rock-chips.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260513074414.2053435-1-damon.ding@rock-chips.com>
 References: <20260513074414.2053435-1-damon.ding@rock-chips.com>
@@ -63,50 +63,70 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e204b56b503a3kunm7763bb98560d6
+X-HM-Tid: 0a9e204b764003a3kunm7763bb985612f
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTEpDVkhPSx9PS01JTUNDTlYVFA
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDH0MdVk0YThlCGhhITRlOS1YVFA
 	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
 	pKQk1VSktLVUpCWQY+
 DKIM-Signature: a=rsa-sha256;
-	b=FXosgda8+C3cbbmTNz/Hdvrf+Dt/EkAZ6S0iRggXXciPRe3GC2xA+ykrNBm4aFzAgZ1iFerHqPZeDHdoijrnHsM8dS/SIrzRqxFKb2RN7U1KPGDNWVdO0u/aB0gSuTOvKx71USLOBO9CxpTCPKrPbN+2mGslDjQQOBwi612hQ6s=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=FSnd82QhzgsTc9VLihugRZhMWxwKpTg7Bj65m7IRRDM=;
+	b=AgaNhvE360cO6ycHh2DqDMrxuJmQQnN+ovg8JTmIKiCYgvF6QMmmOoHU2BNOcstSIcMBDboojsVacmpTVxDWULFSN93F3FniTQQmXGG98fJJW6LvJBqZ+E3NXRiqzzoyt5D1mkZcxr8k0YRKpg7kEFWKVTOmnV1CLBx6jiDpRLs=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=y9jiAV7nJYVINfhoPhgzP8Bt0PPOyyTicmKndbXdNQY=;
 	h=date:mime-version:subject:message-id:from;
 
-Add the required HCLK_VO1 bus clock to RK3588 eDP1 node with
-corresponding clock-name "hclk". This clock is necessary for
-the eDP controller to access video output GRF and work properly.
+Add RK3576_EDP device type entry and extend Rockchip check
+to match existing hardware capabilities shared with RK3588.
 
-Previously the clock was enabled implicitly via GRF phandle
-reference. Add it explicitly now to align with updated binding.
+Set identical maximum link rate and lane count parameters
+for RK3576 eDP controller to reuse existing RK3588 config.
 
-Fixes: a481bb0b1ad9 ("arm64: dts: rockchip: Add eDP1 dt node for rk3588")
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
 ---
 
+Changes in v3:
+- Add Reviewed-by tag.
+
 Changes in v4:
 - Modify the commit msg.
 ---
- arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 1 +
+ include/drm/bridge/analogix_dp.h                   | 2 ++
+ 2 files changed, 3 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
-index a2640014ee04..b251bb129cdb 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
-@@ -285,8 +285,8 @@ hdmi1_out: port@1 {
- 	edp1: edp@fded0000 {
- 		compatible = "rockchip,rk3588-edp";
- 		reg = <0x0 0xfded0000 0x0 0x1000>;
--		clocks = <&cru CLK_EDP1_24M>, <&cru PCLK_EDP1>;
--		clock-names = "dp", "pclk";
-+		clocks = <&cru CLK_EDP1_24M>, <&cru PCLK_EDP1>, <&cru HCLK_VO1>;
-+		clock-names = "dp", "pclk", "hclk";
- 		interrupts = <GIC_SPI 164 IRQ_TYPE_LEVEL_HIGH 0>;
- 		phys = <&hdptxphy1>;
- 		phy-names = "dp";
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 116de3bd83a3..c8eb3511f92a 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -1249,6 +1249,7 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
+ 		video_info->max_link_rate = 0x0A;
+ 		video_info->max_lane_count = 0x04;
+ 		break;
++	case RK3576_EDP:
+ 	case RK3588_EDP:
+ 		video_info->max_link_rate = 0x14;
+ 		video_info->max_lane_count = 0x04;
+diff --git a/include/drm/bridge/analogix_dp.h b/include/drm/bridge/analogix_dp.h
+index 7b670dd769e9..0e0b87abee59 100644
+--- a/include/drm/bridge/analogix_dp.h
++++ b/include/drm/bridge/analogix_dp.h
+@@ -16,6 +16,7 @@ enum analogix_dp_devtype {
+ 	EXYNOS_DP,
+ 	RK3288_DP,
+ 	RK3399_EDP,
++	RK3576_EDP,
+ 	RK3588_EDP,
+ };
+ 
+@@ -24,6 +25,7 @@ static inline bool analogix_dp_is_rockchip(enum analogix_dp_devtype type)
+ 	switch (type) {
+ 	case RK3288_DP:
+ 	case RK3399_EDP:
++	case RK3576_EDP:
+ 	case RK3588_EDP:
+ 		return true;
+ 	default:
 -- 
 2.34.1
 
