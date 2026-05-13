@@ -1,117 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88A7339A815;
-	Wed, 13 May 2026 22:33:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D116A383338;
+	Wed, 13 May 2026 22:34:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778711605; cv=none; b=TT8EZU5U8zO4wdVzeojlh5Lb3Vi8KhRqIxexiSEZ6KlN356wJ5CHpYajUYC10ceoDUhuzTtmyB53JeumVSHfWUuM61MOodah1l3Qaa4U0uZmznbLQfB2YZInU1YduTbhlmAGHK7wH8J+SCp6Dk6qFFzM7l0R4sDsYJh5iflri6o=
+	t=1778711673; cv=none; b=ECV4y6CAt+ICt9OUFqgexJNQnt32ZTzKDg7aFXATGSEaXhZocmS8+Fmmtv6gFveKG1s2BMrxNP+DVDSy00C+cfYrZM9oKX9xJ0H3Z239vefWkiKJz9nK9PuOa3JXtzEj9omgbAfEMtVNuO+3CW3Zi26uXcsExikqwCNpDGKrq3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778711605; c=relaxed/simple;
-	bh=hwTH+6hUhoEyj5JZNYIPEtUSA8SkvfuKwQ7mDWYWBoQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rvwZhKS+HDTJiI+boXCc0ObtDe4HfAOQ5CUDlVjYFUzRWcwOdW7bgoxRNnBl6rXvf4tFdQJlf7KHOclUvikIXrGu2hPuOYQNyjb6jxRriEY9XbNqlCV/uG1arKPvQCt4J5SaoOG3m2wXVU7t5lYlw54dRJOTGGwJXbtgRuyCu7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RGKO7okS; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778711673; c=relaxed/simple;
+	bh=Iuti5/wFFTHw0pMO9FkEXYpRvQ/xy0fXSJOKszxcCgg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=R5KLEhRgEwzpnqnFyA3dtb4TJaAW89Xb9FnTvqJiqyTaubHs//LZ/nG7NwEpDuXzmuWv2TG6lIhuaeYZsi9Dr6V/w9kiJOgjsA4oLwyePWMXEZAVnRkc8Cx1gfCfFJWxnQVJoI8POIC1AIRHC8JPH3NLVJa4likbOEEt+1vZ7mY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lRc919+J; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RGKO7okS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DCC8C19425;
-	Wed, 13 May 2026 22:33:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lRc919+J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 369DCC19425;
+	Wed, 13 May 2026 22:34:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778711605;
-	bh=hwTH+6hUhoEyj5JZNYIPEtUSA8SkvfuKwQ7mDWYWBoQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RGKO7okSgOVQ9IZrUm25mf71fR/4z438lhcaWg5EFEAt6bMnUoUYv7uyYc2jyW1RO
-	 ZvNRX/He8KuHhzu2WbQYVDNit4HiSaJ3OQIVQNRdAolxdLHYGvD9P9a27K5o1aLjq0
-	 xDlVkx0srUtuzR6L2cyChOIZnSNRpj/yDv4ADydw6HSgxp2TnS0Qb0QJ39rrzrn/vP
-	 qruV+E04+ScJ4ihorRjadeGcbtwiKjaQOV3z4t2oWZwVPOMn6ujEATAPj3wfGD2JGm
-	 vCW8dOyZZhFP+Q+JK2xZ733PW7zArcH9Fz1KMGpxpSNxtlpPlDMXW+1SdqfBVo2RUo
-	 OUXl5sG+9LZtw==
-Date: Wed, 13 May 2026 17:33:20 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Marc Zyngier <maz@kernel.org>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>,
-	linux-acpi@vger.kernel.org,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Dinh Nguyen <dinguyen@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Will Deacon <will@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Lars Persson <lars.persson@axis.com>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
-	Orson Zhai <orsonzhai@gmail.com>, Ge Gordon <gordon.ge@bst.ai>,
-	linux-kernel@vger.kernel.org,
-	Bjorn Andersson <andersson@kernel.org>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Samuel Holland <samuel@sholland.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Jesper Nilsson <jesper.nilsson@axis.com>,
-	Kevin Hilman <khilman@baylibre.com>,
-	linux-arm-kernel@lists.infradead.org,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	BST Linux Kernel Upstream Group <bst-upstream@bstai.top>
-Subject: Re: [PATCH 03/16] dt-bindings: timer: arm,arch_timer: Fix
- requirements for interrupt description
-Message-ID: <177871159980.2167014.13931408615582570920.robh@kernel.org>
-References: <20260507125544.2903406-1-maz@kernel.org>
- <20260507125544.2903406-4-maz@kernel.org>
+	s=k20201202; t=1778711673;
+	bh=Iuti5/wFFTHw0pMO9FkEXYpRvQ/xy0fXSJOKszxcCgg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=lRc919+JbJedmScxDts/MgJv2bvlIFmgobLJ8F9ntsFo/SuZ6azjGth2j/br91EBJ
+	 yZGod9i6PupnaaLAt5A4hg+qxjwacbKNW3DKP6JJipVB4qvlEf6pWkP9uUH74TDE/O
+	 7RgDSYk4iDfJNlWBRbtLJ+xNseBPHLOGN5+nv5X4krXzMnLY8kOkDOV5JYfDwkfIZj
+	 5cAyT/NKr1Rb01Ad+scjEiACbHDu369Xw1zeWbv0GRQaRglpGbJjGrQPR6rVP94efJ
+	 Bxpv06lPT+cx32Xt0sDcpXuGePJZF9KpBo83z+SQtCG0ajaxsER6lYCIXgpysR72VY
+	 TedkSnuwXsEmA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 01/10] arm64: dts: lx2160a: extend 32-bit, and add
+ 64-bit pci regions
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Josua Mayer" <josua@solid-run.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org, krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260512-lx2160-pci-v6-1-d0ff72d3c983@solid-run.com>
+References: <20260512-lx2160-pci-v6-1-d0ff72d3c983@solid-run.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 13 May 2026 22:34:32 +0000
+Message-Id: <20260513223433.369DCC19425@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260507125544.2903406-4-maz@kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Splitting the 16GB 64-bit PCI memory region into four discrete 4GB=
+ chunks in reverse order prevents the allocation of any PCI BAR larger than=
+ 4GB on rev1 silicon.
+- [Medium] Invalid PCI space code used for 64-bit memory regions to work ar=
+ound a bootloader bug.
+- [Medium] The commit message erroneously conflates the Device Tree 'n' (no=
+n-relocatable) bit with the Linux kernel's internal `IORESOURCE_BUSY` macro.
+--
 
-On Thu, 07 May 2026 13:55:31 +0100, Marc Zyngier wrote:
-> The arm,arch_timer DT binding is extremely imprecise in describing
-> the requirements for interrupts.
-> 
-> Follow the architecture by making it explicit that:
-> - the EL1 secure timer irq is required if EL3 is implemented
-> - the EL1 physical timer irq is always required
-> - the EL1 virtual timer irq is always required
-> - the EL2 physical timer irq is required if EL2 is implemented
-> - the EL2 virtual timer irq is required if FEAT_VHE is implemented
-> 
-> The consequence of the above is that the minimum number of interrupts
-> to be described is 2, and not 1.
-> 
-> Finally, clean up the description which made the assumption that
-> the timers are plugged into a GIC (unfortunately, that's not always
-> true), drop the MMIO nonsense that has long be moved to a separate
-> binding, and use the architectural terminology to describe the various
-> interrupts.
-> 
-> Signed-off-by: Marc Zyngier <maz@kernel.org>
-> ---
->  .../bindings/timer/arm,arch_timer.yaml        | 21 +++++++------------
->  1 file changed, 8 insertions(+), 13 deletions(-)
-> 
+commit ca41553adc6a14507e322cba09be38ac0e0f5fd4
+Author: Josua Mayer <josua@solid-run.com>
+Subject: arm64: dts: lx2160a: extend 32-bit, and add 64-bit pci regions
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+This commit extends the 32-bit PCI memory regions to 3GB and adds 16GB
+64-bit memory regions for the LX2160A SoC. It also splits the 64-bit
+region into four 4GB chunks for silicon revision 1 to avoid an iATU driver
+programming error, and drops the non-relocatable flag.
 
+> IORESOURCE_BUSY is dropped since it has no effect when specified in dts.
+
+Is this description accurate? The IEEE 1275 PCI Device Tree binding defines
+bit 31 (0x80000000) in the phys.hi cell as the 'n' bit, which denotes wheth=
+er
+the address is non-relocatable (1) or relocatable (0).
+
+While it shares the same bitwise value as the Linux internal IORESOURCE_BUSY
+macro, the DT binding flag does not represent IORESOURCE_BUSY.
+
+> diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-rev2.dtsi b/arch/a=
+rm64/boot/dts/freescale/fsl-lx2160a-rev2.dtsi
+> index f54005e37924b..b5f52f3f84c7d 100644
+> --- a/arch/arm64/boot/dts/freescale/fsl-lx2160a-rev2.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-rev2.dtsi
+> @@ -14,8 +14,9 @@ &pcie1 {
+[ ... ]
+> -	ranges =3D <0x81000000 0x0 0x00000000 0x80 0x00010000 0x0 0x00010000
+> -		  0x82000000 0x0 0x40000000 0x80 0x40000000 0x0 0x40000000>;
+> +	ranges =3D <0x42000000 0x84 0x00000000 0x84 0x00000000 0x04 0x00000000>=
+, /* 64-Bit - prefetchable - 16GB */
+
+Does this encode an invalid DT representation to work around a bootloader b=
+ug?
+
+The value 0x42000000 uses the 32-bit memory space code (bits 25:24 are '10')
+instead of the 64-bit space code ('11', which would be 0x43000000). Accordi=
+ng
+to the OpenFirmware PCI binding, 32-bit memory space addresses must fit wit=
+hin
+32 bits, and 64-bit regions must use the 64-bit space code.
+
+> diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a.dtsi b/arch/arm64/=
+boot/dts/freescale/fsl-lx2160a.dtsi
+> index 479982948ee53..3f63fbf2485e5 100644
+> --- a/arch/arm64/boot/dts/freescale/fsl-lx2160a.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a.dtsi
+> @@ -1193,7 +1193,12 @@ pcie1: pcie@3400000 {
+[ ... ]
+> -			ranges =3D <0x82000000 0x0 0x40000000 0x80 0x40000000 0x0 0x40000000>=
+; /* non-prefetchable memory */
+> +			ranges =3D <0x42000000 0x87 0x00000000 0x87 0x00000000 0x01 0x0000000=
+0>, /* 64-Bit - prefetchable - 4GB chunk */
+> +				 <0x42000000 0x86 0x00000000 0x86 0x00000000 0x01 0x00000000>, /* 64=
+-Bit - prefetchable - 4GB chunk */
+> +				 <0x42000000 0x85 0x00000000 0x85 0x00000000 0x01 0x00000000>, /* 64=
+-Bit - prefetchable - 4GB chunk */
+> +				 <0x42000000 0x84 0x00000000 0x84 0x00000000 0x01 0x00000000>, /* 64=
+-Bit - prefetchable - 4GB chunk */
+> +				 <0x02000000 0x00 0x40000000 0x80 0x40000000 0x00 0xc0000000>; /* 32=
+-Bit - non-prefetchable */
+
+Does splitting this region into four reverse-ordered chunks prevent the
+allocation of PCI BARs larger than 4GB?
+
+By listing the chunks in reverse order (0x87, 0x86, 0x85, 0x84), it prevents
+of_pci_range_parser_one() from coalescing them into a single 16GB region. T=
+he
+PCI subsystem will then register four independent 4GB host bridge windows.
+
+Because the Linux PCI allocator (pci_bus_alloc_resource()) cannot span a si=
+ngle
+allocation across multiple root bus windows, any device requesting a BAR la=
+rger
+than 4GB might fail to allocate resources and become unusable.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-lx2160-pci=
+-v6-0-d0ff72d3c983@solid-run.com?part=3D1
