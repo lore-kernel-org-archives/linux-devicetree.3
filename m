@@ -1,16 +1,16 @@
 Received: from de-smtp-delivery-119.mimecast.com (de-smtp-delivery-119.mimecast.com [194.104.111.119])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C03F2D876B
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 13:31:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D100429809
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 13:31:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.104.111.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778679104; cv=none; b=gZynUpdwOR947JxiomCJ2rHMX9wHyn7b4IUVWBrgee4JIEB9+dDd4rsjlQXLyb/MaWv3GEFGzwEhNIGJDmUgsX0pe+SwEHtmxxLTD+kb+AEkrXZX88iovlvoZUYoxOnGjQnC9e35VX1pkfJ3v9w3CexZFSlWXAflFp28DKK/rEE=
+	t=1778679107; cv=none; b=S+kPLp7cnYQduHZRNd+JDedcq5DYHz5yfYhfqMvwoP7H+UHdacvfb96PQZ1POPKrXMQk/mAVbKCeP6yqqiXbtH2W1LdVHd6sRjy577rYHacTrNSh7iXx5S7j63yWaetJ2zfXEiDfUx/FgxvXS1VAtw20hKdStup09FbLGw3YovU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778679104; c=relaxed/simple;
-	bh=RyBJp+skWIbinQrx7DioTv8OVR7NsNQV4KIRsp/UUZ4=;
+	s=arc-20240116; t=1778679107; c=relaxed/simple;
+	bh=bhcVZT8X5AzFN69gYhNDHunbUi7nRHAK9KrZgJCDMxc=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ikrg7WkDR4MTmJraALBe/EabwRjl7WdjwRi1LfxLA7B0WdPcIE9KLj8x6D9Ti/U97Pvj+EyQvF0ZtUAbN4xn3seyVpoNQzaosVfpyp1PBicIUsx4IffxZnquuX+2v5au87Pswi5W8oGjRdxkry0KfZF9/0XpwDDqCi7Ao3seK1c=
+	 MIME-Version:Content-Type; b=QmsIhMh34wGsrxLsNkuDa65C2rbjP8KK1tdsgfQIYy4MvhRH96xV5xmltIdiUiw1ToxMSZMuzzLxh7EHgBpUQ7jyXeWqQvbD2LYQXeDkiI2rSxGon3FQszzEOgNz9q1SVsFM6s7rI7lE0obmO4phiPAIs+KH6MvO0pYvgyqL5iQ=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=data-modul.com; spf=pass smtp.mailfrom=data-modul.com; arc=none smtp.client-ip=194.104.111.119
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=data-modul.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=data-modul.com
@@ -18,18 +18,18 @@ Received: from MRWPR03CU001.outbound.protection.outlook.com
  (mail-francesouthazon11021087.outbound.protection.outlook.com
  [40.107.130.87]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- de-mta-102-bBaCb5N7PViA5pElJXnhIQ-4; Wed, 13 May 2026 15:31:40 +0200
-X-MC-Unique: bBaCb5N7PViA5pElJXnhIQ-4
-X-Mimecast-MFC-AGG-ID: bBaCb5N7PViA5pElJXnhIQ_1778679099
+ de-mta-102-h46IPnI2McaQRAEfxIfvFQ-6; Wed, 13 May 2026 15:31:43 +0200
+X-MC-Unique: h46IPnI2McaQRAEfxIfvFQ-6
+X-Mimecast-MFC-AGG-ID: h46IPnI2McaQRAEfxIfvFQ_1778679102
 Received: from PAXPR01MB8486.eurprd01.prod.exchangelabs.com
  (2603:10a6:102:227::10) by AS8PR01MB8074.eurprd01.prod.exchangelabs.com
  (2603:10a6:20b:375::22) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Wed, 13 May
- 2026 13:31:33 +0000
+ 2026 13:31:36 +0000
 Received: from PAXPR01MB8486.eurprd01.prod.exchangelabs.com
  ([fe80::5adb:b6ca:f689:1ac6]) by PAXPR01MB8486.eurprd01.prod.exchangelabs.com
  ([fe80::5adb:b6ca:f689:1ac6%3]) with mapi id 15.20.9913.009; Wed, 13 May 2026
- 13:31:33 +0000
+ 13:31:35 +0000
 From: Boerge Struempfel <bstruempfel@data-modul.com>
 To: Marek Vasut <marex@denx.de>,
 	Andrzej Hajda <andrzej.hajda@intel.com>,
@@ -49,16 +49,15 @@ To: Marek Vasut <marex@denx.de>,
 CC: dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Boerge Struempfel <bstruempfel@data-modul.com>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: [PATCH v2 1/2] dt-bindings: display/bridge: lt9211: Add drive-strength-microamp property
-Date: Wed, 13 May 2026 15:31:26 +0200
-Message-ID: <20260513133127.376458-2-bstruempfel@data-modul.com>
+	Boerge Struempfel <bstruempfel@data-modul.com>
+Subject: [PATCH v2 2/2] drm/bridge: lt9211: Add drive-strength-microamp DT property
+Date: Wed, 13 May 2026 15:31:27 +0200
+Message-ID: <20260513133127.376458-3-bstruempfel@data-modul.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260513133127.376458-1-bstruempfel@data-modul.com>
 References: <20260513133127.376458-1-bstruempfel@data-modul.com>
-X-ClientProxiedBy: FR0P281CA0155.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b3::18) To PAXPR01MB8486.eurprd01.prod.exchangelabs.com
+X-ClientProxiedBy: FR0P281CA0244.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:af::13) To PAXPR01MB8486.eurprd01.prod.exchangelabs.com
  (2603:10a6:102:227::10)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -68,93 +67,154 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PAXPR01MB8486:EE_|AS8PR01MB8074:EE_
-X-MS-Office365-Filtering-Correlation-Id: 67aa3300-261f-4d5b-782e-08deb0f3f300
+X-MS-Office365-Filtering-Correlation-Id: 0f129b15-49d0-4cbf-2e67-08deb0f3f407
 X-LD-Processed: d72fb47f-f4be-4915-91c7-ebd53299157b,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|366016|376014|1800799024|18002099003|22082099003|921020|3023799003|56012099003
-X-Microsoft-Antispam-Message-Info: GRUKfK3Wdmjux62IBJeShBlZDRpQz9M9cRa1Br4r1vqXEqDIpL6iyq8qnQ7wIiPOtfnsIxFOAewADiUQXE42c7ycpxaec4m1/W9LbWnWeA3GCm9ITJ0shnAsCEOaKceZQCrIB5kVyJ1qnka80X2T2f2jkNZL7DCFvNijVglO/1tAqsv1aSN5F3E3EHgxHY68osDAryCojc1p6eML5o+VsBDwrDpTO+FP/QPFf9MSPJYznoYHHnWkmorxdGktM4RKvkmgai71pvwQhF5dp/yk5wJBdyN+OeluCsFmpdyCKyE1PDfvgcEaoK+9HlxOc/yJeupix0Xc5lo2xL1ljJaw6Iz1KLnB0eZbmveHg9NXP6SKNIzyA7twswvOtIfP8y5PJIu0j4psrCB//FMjR2BdM2QdKtkQvsx6yu3gHlqoCcz38Dxtel++gUZkcfCwS9H02tpGruM1h3nVGLzl7QEhVSBy4iILoKHZcqoziZT+eysi5EtWTceQpW05xqpdHEQtZ93Jg/CGPKPTfrD6cfkpNXRpdn24pa1/d639n5R1BpfLsDLohgt0EBPQcrGWF02IaTe87N9EAGZeyulc1EGoFJ0TU9ww43c5qFeAu94O8kS26IEjsdGOd3rQdTs6m7h+oT0NKXEZehYI1DUxk4/Ht0A22PyXNfyBzBCcj0zJ44mYnPcfYl8zzl3vuY41pRZSls17U8Tu32cyp/sQcI/PB9KD76ulwx7/mOVEFgUmA00=
+X-Microsoft-Antispam-Message-Info: fJINjYXLuKIhtdTv5db+IR3OwLUh1CutpHV07N1n4AsMHW9cHmRoVXpWzg4pVx0C4RDS4sB9Gn9iiF3aAo9+fZQVlyN3YiZAtoDYtQVJk5hKAu1q4gQ6mOIDQPgT2oPS1Lorq0NEz8ENLm6AEBw/FUhio3Yg7z5iNwC2FP1Nb5TqoLTy2N19kMG5cZGAAm3meAnFrP0BMFp/VpUP6GAC02zuA9xZgZwcuRdyxHBIdPsY7bXyinT2YSJiN68uhNt98KPdxLWpld0Db3mq5ETYu1UYEX7wg/Y857aferhit6P9c+BfQip2KlEK8YfjlQaPAo4ZANMd13Pum8nfPXSnLT5Lp9NtLmWlNJzPv9W8a0pjN6Q+mVrKRAaVH7TR9A92nIAY5x9RrO9iu0PjaUdhtxXTgkszHLMMrKcCbYveqRUgefkChkVaE5nSlYYzFtr+3zC0hyMvF2EpSdcAzWh1oCea5mh0cZ11dGBmzY8XM+vaGXNLFhpBdpUb7RYv3tf2EIH/UcrUpdsAQPIgwR/zE2B3fGddX6x6FMkJ7+QTeXo2aKfIjsc0+G5UI/uBxK4x+2MZoxtAgVoxZpa2aOKIGNl9SmAtct9VhGXERyxmEXXfQPw9XgcFTdhULwdnxy8SenyTNbzLyxhdlEwNBREugvYwZ+eEs/cqvjRBW2IDUGb/dWhKVFPZ8kxR0TPqrFhs2CpvcGRShMK7XJ08ydfd+QgzHweq61/MupUC8vDuG2k=
 X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR01MB8486.eurprd01.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(1800799024)(18002099003)(22082099003)(921020)(3023799003)(56012099003);DIR:OUT;SFP:1102
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?GxI1kxpfSsNbbNIw7J4QDEVAkAidoPFWfx1EPieKIUn4QeK3wUYaECu6K99J?=
- =?us-ascii?Q?DKu9LhQ2fbrR1VblAcP77N4qdbozPNJtaQdPWeVx77wlzJlLYwzcs3WfsGiO?=
- =?us-ascii?Q?HShjXiuaxgsuo+gsny7RVxIxIOSzJG1sXoBuISWzEpg39X4QLerpOoi2gv70?=
- =?us-ascii?Q?404GD0Tv3PClPmA8P2EV5RGErH8Hzw+RTfXlyJt99JprvO+lmmix8zGTRXIc?=
- =?us-ascii?Q?hWmx48DqnrqoJLVsPdip2EVUtVcyRlc+Zy/nX+JDrNyF2oTHrjBCJCmzOjPq?=
- =?us-ascii?Q?cuuNtu6yu4lOxY3yQuagRF8kFQuaSomAeN+7Bhh3F2vNIRvv/g6LHgpIpzrh?=
- =?us-ascii?Q?/tgotk2/+KgTqkpVlVTYiBs7L8ydZLJjVaUplKc8BMt0bT5+3EFjoM6XSkSK?=
- =?us-ascii?Q?fbkdsv3xTLixYa0m3o54aoAke30QLVCB2RUoQd554SkZRPnHGqYUZV4sEfP2?=
- =?us-ascii?Q?GrD7aSitWe4GERGaXAKCHhMv/UtvYlw3JfFl43bB6ZVKeBiPstX6iDu9s+rg?=
- =?us-ascii?Q?gzxHH802a1ugInUoB+JJtlkVnOP3y8psAGZIXZhmrfQShCUhLsz7ARBSdxFj?=
- =?us-ascii?Q?Tcp+5JhFj20Kdju/e1hUbA1vU/YiMinlJJg0uHoiUKOjUOkmb2Fe/QzVIhU9?=
- =?us-ascii?Q?cVNcTEMZEvh/bclUSsOfVQMZDv5ew0LOMKF4tRqN4QFLRpAopk8bMjvD+zHn?=
- =?us-ascii?Q?PE/K5e9UDFJ+lobGXLhCxUqR22qHnOmoFGcxsgEY5LgrzpbcUbY2zV83ihCl?=
- =?us-ascii?Q?sNYJWOH2Pc/kWbt5OsmbgCOg98fVjIjWuR65n8+HvYNYC2KcN+l7RQQed1eX?=
- =?us-ascii?Q?fDpdvKO/+jvnsbk9vxxAMTMPHsYGUD4PIrylqufDmc33aMTtgEIKPENqs1T/?=
- =?us-ascii?Q?2m8CU+l9AZnMP3HK6B5vn5fbNBKBBumlkIPRVCtxAD1UKjGFqh0TR5cE7T2t?=
- =?us-ascii?Q?2LrCmrvhnqNpBx98m/peRisly6V4fRbSwPEPUkdOO0KCzmEx9Hxq7hvtlwWp?=
- =?us-ascii?Q?E2fqjInuyCNW/lmLbzaGIDfRWXEUP42VZiH999IRtNPi715+UmLRXJSqJnDz?=
- =?us-ascii?Q?Oes43IKJAqpwesmqkZa+ZWee6uLf1LdNHfhHxMwpoI9h1M+PSodeFI3YGCjD?=
- =?us-ascii?Q?+CocibSDhSZ8758CdNyNtkbEKmEQqESh1cHfFuEP5uHMgXE0hmTrsATnEM2e?=
- =?us-ascii?Q?TbFEX2KuuxCcBJLgX4HPw0RWAEqfUZQBSOWZFWN/CAMCiSqaVRgfrfB6LJbe?=
- =?us-ascii?Q?0A6JqR+cHuXsO1I2YtxEBGpaNU9m5V+vyMJ459nT/mB9W+mPyXjywFUKqFf2?=
- =?us-ascii?Q?aq9Ju0D4T3Svs8mMgyHijfA1qlEe1RN8Jp6OcS050w9ZNr+Wl5EYGvl30sKj?=
- =?us-ascii?Q?8otg2JiXWZqsXWx8j9DuRwKFlhWSDXYSTcJv+DE5V/9jXL84pIjIJ23quIhI?=
- =?us-ascii?Q?zWp72QENq3LsmCtvILTlx7vZLaZqzEVTZi05+Q8GPZQ1aeGCZSDDyR4fgXat?=
- =?us-ascii?Q?lE28FnFUOZrnysqcYS0dicjpnmKAb/Ym+2szZnlJNfVmOeao61McKMsnmBjh?=
- =?us-ascii?Q?auYpY1b1Y4hU/CCyyMU5xLgUedrMM84B6/R3b4uZj6YzgfHSGCxpGbiEwnCX?=
- =?us-ascii?Q?Kus3Ze387BvdVIwc5+9ZZSGp/ziUseQx5m8+laHzdv5iwneEmU6kbPLUgDVi?=
- =?us-ascii?Q?uxyquJh1XCWfLHQqCIkkfk1XVWTP4aqAdQd7E9VNcxxkdWKnmcTbQp/9deOv?=
- =?us-ascii?Q?xtlhyawEtwO1L2xcmyARUef57kU6s6k=3D?=
-X-Exchange-RoutingPolicyChecked: MGzm1BkhxA89+qxG+ItncuqF6MR+Gma0BzvV0lhRX19pHirN3s4B+DI9UKk8JvXERAJpR5N3qVf9BSfsgBzgt8mWhkuICWYnzLLPgg5HNenCTcqKfGjqLAE+7KGzio875YOC86krdWdQ8OzYOV3WuQK9sMrr3N3cGQmdMIamXcMOmcZfYn5lbQpKk9VFKDGoKKKLVGKM1313MtWXaFWADwYBKL7hw/gZwI7dvcG104P2en01Wl+nL+Qm3XV7lTVbW6UFvcDcLCyr8Cz+fdnJjA11ADaow1wu7GmNqUGES5l+uzy3+x36RuypRQtN1VmH00MfVbUSpQl9WUsDA+syNw==
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Ig75iiCn+BrN7eHfzAkK4G+zUsSNssxRU2lmPughIJaKEDPbjwYuI6/SvK/2?=
+ =?us-ascii?Q?2qE/5jqHlOFqlPzJ3cKLa36IQnZajQ9oDm37lzq02hdWTK/tXmPikdTjPEHv?=
+ =?us-ascii?Q?Q4qDB8WioUzkhl2y6tuou3ALfpeQYf97NIh+XgKM46dsizFvDxzpGMzE0EG/?=
+ =?us-ascii?Q?X1oOdWB2I/MJUEHz0HydSkoa61WAczsiUrI/Vawss3nAUqAXm9XDZT5wT7lC?=
+ =?us-ascii?Q?RuQeRY22/86D3ppHyZrRdOAgpcRh1LE2AoGozXphEKmU4ktRG5ar9mXlgrH/?=
+ =?us-ascii?Q?fuZnBFpPXVtVckKJXVyoCw+vbYhsZBAssgGFfZ+uN6SlyGM89OladFUVdG8D?=
+ =?us-ascii?Q?OpV7KOzfVB8Sy+Ie0EvxDYxcBVsyEA8rRDBQ6jQE4XBD2X3uW7Y0gT+qnE+Z?=
+ =?us-ascii?Q?lBo99BKDGrE1mwmQqTSe6ynEkjnPVgl6LXL1Wc/yYNgZl6rMW/P9Udq1nepr?=
+ =?us-ascii?Q?hdw+YyTQd+cXeU1OhD18CnKT/3wODgmu+VXoRU+J6r2J3IiA8iShpdYrNVKY?=
+ =?us-ascii?Q?V5Y1qZZ74uj+2J26NisdZQ1thjglF8ZpaQ6KvvQgChd3X7huR1M0jGGbQA1P?=
+ =?us-ascii?Q?oSqhGMersCE93N667wBv3Zd6Hbm5skknRaHvs1hqrDA7UHMrcR/98wjFeD73?=
+ =?us-ascii?Q?fOYflJ4g3nqXJvTSON09C1jYv6XHcPFE1Wuv5O/50D3tOcfxY2mOKmMsAqcu?=
+ =?us-ascii?Q?E8/aZvbieJYFpx9bJ0KAUGD2q36Qld3r3R5VtaiMqwGmlM4ymeb42Jej4VU4?=
+ =?us-ascii?Q?ZhQB6540TV278ekbO4tJG5BUxNG0pqsm/79/82vLbtkjyrtFiIrRxxPhc+Xy?=
+ =?us-ascii?Q?xjsGgyMItrYLGhO60hU9KBkhuo/iDUOdTOLFIvR8HUwnj3FUJZEU4ohWKqP0?=
+ =?us-ascii?Q?aDNCIpGR/kgWIHNXxrb3S3jZTCWRNhvcz6W2MAdDLnmzUxgmoyer/VO/+QdP?=
+ =?us-ascii?Q?8U4YLxHI81epdau9CbcPbK+opz9fO0FTDeyIJWkEYU6bnBvnEx45loc4VKor?=
+ =?us-ascii?Q?vldfil4kCoxYHuRR8hM5eiPuuolAnyB14OrBVvDxpduQjSv6CW/Yu3ejACqH?=
+ =?us-ascii?Q?+DNTBiU9Jf7DzmF4ATFOXJLKznBH30yg/0V86cyoY5wUTmBZRI7cxwGwsxVZ?=
+ =?us-ascii?Q?Q0W2WeYyNvT2DEk6Oz8qzB74BrULKa+NQcZThEO563oIR22R3wVHiIyogX8X?=
+ =?us-ascii?Q?dzgMUX8oSDkliC3hTkLYQjRPj0FGJ2XMDEODLs6lF6+H8JvEiAl/PykrmG7i?=
+ =?us-ascii?Q?wl2cTbFKgTLE0DD3SfIXxIJ41XL2WLrvGFUbltHbq8AlCr2yah5Mh6bjCG3L?=
+ =?us-ascii?Q?d0QpBzxXKrPhz1cZy4q3aoMRqDx0hRUBrbJ39N1Ia0sv0Ko41DHApoYgZXeY?=
+ =?us-ascii?Q?Xv1hcia7RX/WjsmjFUdPy+JpV+yA8LDW24rfStQI45bCwHp6t0RanQINPkT5?=
+ =?us-ascii?Q?btgGRRGfJn+ZgNE+NIQp4IlZued/Uiwq9oIKz2y5C/pgwZZN8B47BZXNv7Tx?=
+ =?us-ascii?Q?yp5MHGOcV2pgA9XxwAmmEhngZWJXE3W7V0333sbYj6IjUwODG6fWHIUp4uNd?=
+ =?us-ascii?Q?GTfvqcJX4QYpWSttieehx2sx9I9bN/w4nBCnrYLgG+9KPwgUibwCFUES9caL?=
+ =?us-ascii?Q?bJLlh+MHpZkNbl9ziWbbSzv9m9DJzbgZsMSF9Pw9nUVyldxvjF2NH7t2BNWe?=
+ =?us-ascii?Q?9g6RuNvhZLZBo7T6N7pg/7oR+2x0FMLgkJEKRHRgZMEoOnMm5YYGnxnBB256?=
+ =?us-ascii?Q?16SmhlPIrom9WdAzusgbTx2HA8ZQwCY=3D?=
+X-Exchange-RoutingPolicyChecked: pn/WlX4AUO41+XvGoJHoIK14PlZjZKmFaGelj+WrQIHCUxwtdiTClLzGa2Kx5HzmIYr4hWLkFZ6VkvWymQPB7exu7OAlhX6ORxkgfIMwItY/meaDZqW4sdAZa5aB6JiiZyKx4Ty82kVY5witeQ9D14H+Yo3tB84XLLNbLo+pTvUKcrF9sGCxhr+8ARal1tK9qEfwm/XGO8xkMDMrsZoD5HlsTft9Kq6uo+qbFhWLGzKZXXY66Q3n1oKbbvB5KeNnCGzCIetopy6mUp/kxUga/Ixk6uv1tMrf3hjqZ98pLJQBd8bA67sWuGZJGRVLObnBwjIfUPhfx1ZAdPPtZLs+Mg==
 X-OriginatorOrg: data-modul.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67aa3300-261f-4d5b-782e-08deb0f3f300
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f129b15-49d0-4cbf-2e67-08deb0f3f407
 X-MS-Exchange-CrossTenant-AuthSource: PAXPR01MB8486.eurprd01.prod.exchangelabs.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 13:31:33.4612
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 13:31:35.2033
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: d72fb47f-f4be-4915-91c7-ebd53299157b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Dee0C7UHfrTe6wKETJJf0NHcu41mEsDtnIee8ULAB+396W/ordyOFV18hAPSGSgRSgG+c5dLCyi2jGoQDcsVlxZKDTTP4vPpwdOBpQnJrDs=
+X-MS-Exchange-CrossTenant-UserPrincipalName: wyU6772U+7pdqhSLqMxgKe5zk+4v5PmiNNoJqwtAXM2fg+fwJeKlCLiTenSGddze+rsMP+SNtPlKLSY8KR6mPPs86ZYDKKpwg0dZNkWFefY=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR01MB8074
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: S-Lgm0HuS1s-gshdw8moQpzvBrIwFg5It-HbYwaUtCc_1778679099
+X-Mimecast-MFC-PROC-ID: Ajq3CB_V0VpDXVg-XaGKIWUjkOT_nrCL0WcgIkZ7884_1778679102
 X-Mimecast-Originator: data-modul.com
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=WINDOWS-1252
 
-Add the 'drive-strength-microamp' property to allow board DTs to
-configure the LT9211 LVDS TX output driver current. Sixteen discrete
-levels are supported, ranging from 12 uA to 36 uA. Defaults to 25 uA.
+The LT9211 LVDS TX output driver current (RG_MLTX_HSDRV_ISEL) was
+previously hardcoded to 0x8 (~25 uA), which may not be optimal for all
+board layouts.
+
+The hardware supports 16 discrete current levels starting at 12.5 uA
+with a step of 1.5625 uA. These are exposed as rounded integer microamp
+values in the lookup table.
+
+Add support for the 'drive-strength-microamp' DT property. A lookup
+table maps the sixteen supported microamp values (12..36 uA) to the
+corresponding register field. Defaults to 25 uA when the property is
+absent, preserving the existing behaviour.
 
 Signed-off-by: Boerge Struempfel <bstruempfel@data-modul.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-
 ---
- .../devicetree/bindings/display/bridge/lontium,lt9211.yaml | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/bridge/lontium-lt9211.c | 31 ++++++++++++++++++++++++-
+ 1 file changed, 30 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt921=
-1.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.ya=
-ml
-index 9a6e9b25d14a..381b69c761b8 100644
---- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
-+++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
-@@ -31,6 +31,13 @@ properties:
-   vccio-supply:
-     description: Regulator for 1.8V IO power.
+diff --git a/drivers/gpu/drm/bridge/lontium-lt9211.c b/drivers/gpu/drm/brid=
+ge/lontium-lt9211.c
+index 03fc8fd10f20..5edd2d2e3da6 100644
+--- a/drivers/gpu/drm/bridge/lontium-lt9211.c
++++ b/drivers/gpu/drm/bridge/lontium-lt9211.c
+@@ -40,6 +40,11 @@
+ /* DSI lane count - 0 means 4 lanes ; 1, 2, 3 means 1, 2, 3 lanes. */
+ #define REG_DSI_LANE_COUNT(n)=09=09=09((n) & 3)
 =20
-+  drive-strength-microamp:
-+    description:
-+      LVDS TX output driver current. Sixteen discrete levels are supported=
-,
-+      corresponding to the following nominal values in microamps.
-+    enum: [12, 14, 16, 17, 19, 20, 22, 23, 25, 27, 28, 30, 31, 33, 34, 36]
-+    default: 25
++/* Maps register value (index) to drive-strength-microamp DT property valu=
+e */
++static const u8 lt9211_hsdrv_microamp[] =3D {
++=0912, 14, 16, 17, 19, 20, 22, 23, 25, 27, 28, 30, 31, 33, 34, 36
++};
 +
-   ports:
-     $ref: /schemas/graph.yaml#/properties/ports
+ struct lt9211 {
+ =09struct drm_bridge=09=09bridge;
+ =09struct device=09=09=09*dev;
+@@ -50,6 +55,7 @@ struct lt9211 {
+ =09struct regulator=09=09*vccio;
+ =09bool=09=09=09=09lvds_dual_link;
+ =09bool=09=09=09=09lvds_dual_link_even_odd_swap;
++=09u8=09=09=09=09lvds_hsdrv_isel;
+ };
+=20
+ static const struct regmap_range lt9211_rw_ranges[] =3D {
+@@ -374,7 +380,8 @@ static int lt9211_configure_tx(struct lt9211 *ctx, bool=
+ jeida,
+ =09=09/* BIT(7) is LVDS dual-port */
+ =09=09{ 0x823b, 0x38 | (ctx->lvds_dual_link ? BIT(7) : 0) },
+ =09=09{ 0x823e, 0x92 },
+-=09=09{ 0x823f, 0x48 },
++=09=09/* bits 3:0: RG_MLTX_HSDRV_ISEL, LVDS TX driver current */
++=09=09{ 0x823f, 0x40 | ctx->lvds_hsdrv_isel },
+ =09=09{ 0x8240, 0x31 },
+ =09=09{ 0x8243, 0x80 },
+ =09=09{ 0x8244, 0x00 },
+@@ -629,7 +636,9 @@ static int lt9211_parse_dt(struct lt9211 *ctx)
+ =09struct device *dev =3D ctx->dev;
+ =09struct drm_panel *panel;
+ =09int dual_link;
++=09u32 microamp;
+ =09int ret;
++=09int i;
+=20
+ =09ctx->vccio =3D devm_regulator_get(dev, "vccio");
+ =09if (IS_ERR(ctx->vccio))
+@@ -666,6 +675,26 @@ static int lt9211_parse_dt(struct lt9211 *ctx)
+=20
+ =09ctx->panel_bridge =3D panel_bridge;
+=20
++=09ctx->lvds_hsdrv_isel =3D 8; /* default: 25 uA */
++=09ret =3D of_property_read_u32(dev->of_node, "drive-strength-microamp",
++=09=09=09=09   &microamp);
++=09if (!ret) {
++=09=09for (i =3D 0; i < ARRAY_SIZE(lt9211_hsdrv_microamp); i++) {
++=09=09=09if (lt9211_hsdrv_microamp[i] =3D=3D microamp) {
++=09=09=09=09ctx->lvds_hsdrv_isel =3D i;
++=09=09=09=09break;
++=09=09=09}
++=09=09}
++=09=09if (i =3D=3D ARRAY_SIZE(lt9211_hsdrv_microamp)) {
++=09=09=09dev_err(dev, "Invalid drive-strength-microamp value %u\n",
++=09=09=09=09microamp);
++=09=09=09return -EINVAL;
++=09=09}
++=09} else if (ret !=3D -EINVAL) {
++=09=09dev_warn(dev, "Failed to read drive-strength-microamp: %d, using def=
+ault\n",
++=09=09=09 ret);
++=09}
++
+ =09return 0;
+ }
 =20
 --=20
 2.54.0
