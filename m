@@ -1,123 +1,163 @@
-Received: from mail-m1973182.qiye.163.com (mail-m1973182.qiye.163.com [220.197.31.82])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1335940FD83;
-	Wed, 13 May 2026 12:20:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.82
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF10345CD8
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 12:21:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778674858; cv=none; b=cWF4hqa7khN9BSXcZ1VWSWZvZdGtSOxd6xUG9/P9Y9Y0Z9GKha7rYZxOttrNaMHwd6J0DfXpttl+bGdQES7hC/84lgoEQBF4zHt4VeR2buX7SB8d11DoZXqrxEAI5ODdhzClfA7noFLTDH17som42tQJywU18NiqU/paYcxAgDk=
+	t=1778674889; cv=none; b=bWb9ux+O3RheTSYB4pIm6Or3p7hvHmtUnFU/B6LjLv0YrbyHvdf8ttMx7JK8Z0Fa8gX/KqZJapriGgFH6x5FeN0+j9WYuQHnRXG5Yqa6rBMd3GZQCuvRRWBnEXdH6mHW00HnTQCTmWWNhHQPg3qkMgQs/Dz6LfOqZ1AbBImls5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778674858; c=relaxed/simple;
-	bh=qi0YPej8vMoupIEPBKCMyT1BVykGVTMCxmQO8nCiWME=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=bBdZvNovtxpwUWPtwrXyAsacyqrvUtA0wkVFbxs9xSgAfcnBQJZ+9q3jLu4AVyOwCeuUzl86eXsBfbPbGUk+xV1PtsKyNwWdccfFoNBQ19peuUszHH2yJ4Dn0Iib1oLvgaw7GfqX7go4QcM6u+5w7kWLSWnwtsnkZrt9S/TbwFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=cYjkP0Jn; arc=none smtp.client-ip=220.197.31.82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1778674889; c=relaxed/simple;
+	bh=Z82dLXYF2fYj2lFIS5lqI12k7RcfvF4UTANbl7NGiKY=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=JEAuL3+UR3+vpB8LjdWNuSKOf45VXxrxGkD7MruFHBBOdVlKut14lwOa+qTbMF8/LEe3cTKLnV/LDcaFh0oI68LubYPkgVSlQwgBXJNT1B3s0DCT7FIRWQ/izXq7VoIv4AjaKILAruEJ/XgTKSpvGjbvcCzEB2Ra69sph5UG2OA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=PC6zsvwG; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="cYjkP0Jn"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3e3a94cd2;
-	Wed, 13 May 2026 15:44:30 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: hjc@rock-chips.com,
-	heiko@sntech.de,
-	andy.yan@rock-chips.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	nicolas.frattaroli@collabora.com,
-	cristian.ciocaltea@collabora.com,
-	sebastian.reichel@collabora.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	luca.ceresoli@bootlin.com,
-	dianders@chromium.org,
-	m.szyprowski@samsung.com,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v5 05/10] drm/rockchip: analogix_dp: Enable hclk for RK3588
-Date: Wed, 13 May 2026 15:44:09 +0800
-Message-Id: <20260513074414.2053435-6-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260513074414.2053435-1-damon.ding@rock-chips.com>
-References: <20260513074414.2053435-1-damon.ding@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="PC6zsvwG"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-48e56c1bf5dso40569535e9.3
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 05:21:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1778674886; x=1779279686; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=zyU4Sq6iUSpynWqIwbV4HNx55pG0GP3Xn1AeqfpoAcY=;
+        b=PC6zsvwGVq/SgFf/EBtBgKftZW7qiwKRJtuEw5GY2p1rnBXXbyNUpY8c0TY9YeBLHc
+         NVkTYGqG6olIG46m3UYH3jAw7Hc/r4WXSTGMAPYKkcA3NOVIPTBCzDgcq9vguVm2msdK
+         S9aEY2GhVwT7t/Fdb1y4O6+3VZRLX8qAi4wlFgNbD6RCh3mHCAd/ODw3uxGT4G7q4P3C
+         RdBXghAgsDJZHqUHxq7FKx7AvzS5FCgD//bYoPTDb603ieqQBeIJKAecdaXZCMkd8bSN
+         F5JKZ9K9BEfTDtCckb6AMQ8nrjbWgRJHK3CPSHzYcEZastFViRzFoNjinnFvwkM4o284
+         tGYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778674886; x=1779279686;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=zyU4Sq6iUSpynWqIwbV4HNx55pG0GP3Xn1AeqfpoAcY=;
+        b=WSvvGbYdoI428Z9naU2/F2YAJEW9dMStahiccSil85UISlidRsvfkEkU56nkPBRXZd
+         PpxRhlfy4F7kTAJ54qM0QP3Qmhsr5/3Anzn3zsfpyvKcjz6Ysz9rTq3MhVlq1/j3Vua/
+         GBjrnfrDCU6WSLoiaJMYkhBwqneH0Aw9MVulBQHC4G6YQv0uzbDij24LZq5t7tAPkCuS
+         zbPzU2kFuCgZcHwjKpspj9HI57UDKekKJIvcqY8uQPaVqaYHpxDNbkBbtiNaPsnPf6Ot
+         r/RMtThlzWmziEHtbU6kuv6WpJlkEN4HfKjXxxUvk1/wC76szUUZT3OJ5mnv4GsKe+1v
+         bmIg==
+X-Forwarded-Encrypted: i=1; AFNElJ/GJ/NTrpwsHV4h56fSNsc8EhJdRkYKihg8RHPykLwkrC0d3bsrY+yFCbCEFfNgknxQORw4lR1gPxz3@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyfm8FEIwUAdTpqukxkRDmPrHyoeqGq+aWN1MsdF+HPs/zqFI9R
+	7ylbi1Hu18zrar2LvCma0Mqsy9tkeglOVzqn8NE/1rHAv2/PPtr7bKh/nZlmUd7CdyI=
+X-Gm-Gg: Acq92OHRf+pi0K2R8K61tZr92BJ26BIQ6nwPhn97zChK8axkkzCbjqtty7si3j1OhWT
+	UZ6FKCFpMmFj9MUG0mZErOhSQgLzd4Z/Esdd8f5gHlHHp+woiq5DyqSqpIINJxAzj8l6Ko/+0+c
+	LQCjpQ29hiTm6l46/LkqLWw8rSe6G2v4DDSJAYBI7sTDvZEOF4Fv3tV/gJhEeNJgV26M5GAXVx5
+	cA2mNM4hfO7zclzhzQeIRaF8As3+KWaJAOfu7ExxQ6txSx8kqz+Dbherr31RVAdip+K5viBzRGw
+	I8+CIu76ACSakahgcHrMkW0sL3Xyml9ZbNz84vA9urFt3v/JXjeqkL7zGS9B5CGl6Slifkxjn0i
+	VmhYsKg56BqpCeXUkflKr4O3Z49Mmv3RYi6uHJV92qt3lUCn1rd01RtcjbZFegn3zLdL1uh1n2O
+	NMie0makjAVDCXy/4bWRuz469KnudHFXePJX7vq+I7TgXeGhBTxM2h4iIKEo67946d1i/S4yZSh
+	UuOeqrRiJyPx5M=
+X-Received: by 2002:a05:600c:19ce:b0:489:a4:e578 with SMTP id 5b1f17b1804b1-48fc9a34777mr40690665e9.14.1778674886244;
+        Wed, 13 May 2026 05:21:26 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:6ee4:8e37:145:d60b? ([2a01:e0a:106d:1080:6ee4:8e37:145:d60b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fc8d68b14sm71555635e9.12.2026.05.13.05.21.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 13 May 2026 05:21:25 -0700 (PDT)
+Message-ID: <f965ac54-f302-4e0a-b079-564abcaaa38f@linaro.org>
+Date: Wed, 13 May 2026 14:21:25 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e204b5cba03a3kunm7763bb98560e6
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHhhOVh4dTR9CSRpKTBpJHVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=cYjkP0Jn3/GI/l5mu9Rhw74MrM/MH2oHf0GTQ2A6hpHXABeLt6lJadEZ+Os555M5Yil01oQeI4CQR1tXlJlHbStD/Pcmakznhe0BLOxn7GH5INEKrWX+llSgMMz+j6TJ8ZmmgaErlGBc0uopQPtcWAjFFNHyj6zYjCuZZICDLUQ=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=qzrSU6F51VUS8IVrczy9Q/DVSlabFI0ne4m7RTJg/xI=;
-	h=date:mime-version:subject:message-id:from;
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 2/3] arm64: dts: amlogic: t7: khadas-vim4: reorder root
+ node
+To: linux-kernel-dev@aliel.fr, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260513-add-kvim4-sysled-v2-0-3ec9779e8875@aliel.fr>
+ <20260513-add-kvim4-sysled-v2-2-3ec9779e8875@aliel.fr>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260513-add-kvim4-sysled-v2-2-3ec9779e8875@aliel.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Acquire and enable the HCLK_VO1 bus clock explicitly for RK3588
-eDP controller to guarantee register and datapath access.
+On 5/13/26 12:43, Ronald Claveau via B4 Relay wrote:
+> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> 
+> Move the xtal-clk node to restore alphabetical ordering.
+> 
+> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> ---
+>   .../boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts     | 14 +++++++-------
+>   1 file changed, 7 insertions(+), 7 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+> index 69d6118ba57e7..fd1b983354a01 100644
+> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+> @@ -45,13 +45,6 @@ secmon_reserved_bl32: secmon@5300000 {
+>   		};
+>   	};
+>   
+> -	xtal: xtal-clk {
+> -		compatible = "fixed-clock";
+> -		clock-frequency = <24000000>;
+> -		clock-output-names = "xtal";
+> -		#clock-cells = <0>;
+> -	};
+> -
+>   	dc_in: regulator-dc-in {
+>   		compatible = "regulator-fixed";
+>   		regulator-name = "DC_IN";
+> @@ -155,6 +148,13 @@ wifi32k: wifi32k {
+>   		clock-frequency = <32768>;
+>   			pwms = <&pwm_ab 0 30518 0>;
+>   	};
+> +
+> +	xtal: xtal-clk {
+> +		compatible = "fixed-clock";
+> +		clock-frequency = <24000000>;
+> +		clock-output-names = "xtal";
+> +		#clock-cells = <0>;
+> +	};
+>   };
+>   
+>   &pwm_ab {
+> 
 
-The clock was previously enabled implicitly via rockchip,vo-grf
-phandle reference, which relies on side effect and is fragile.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Fetch optional "hclk" clock in driver to align with updated device
-tree binding and keep consistent with hardware clock dependency.
-
-Fixes: 729f8eefdcad ("drm/rockchip: analogix_dp: Add support for RK3588")
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-
----
-
-Changes in v4:
-- Modify the commit msg.
----
- drivers/gpu/drm/rockchip/analogix_dp-rockchip.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-index 06072efd7fca..d2af5eb29dbb 100644
---- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-@@ -311,6 +311,7 @@ static int rockchip_dp_of_probe(struct rockchip_dp_device *dp)
- {
- 	struct device *dev = dp->dev;
- 	struct device_node *np = dev->of_node;
-+	struct clk *clk;
- 
- 	dp->grf = syscon_regmap_lookup_by_phandle(np, "rockchip,grf");
- 	if (IS_ERR(dp->grf))
-@@ -327,6 +328,11 @@ static int rockchip_dp_of_probe(struct rockchip_dp_device *dp)
- 		return dev_err_probe(dev, PTR_ERR(dp->pclk),
- 				     "failed to get pclk property\n");
- 
-+	clk = devm_clk_get_optional_enabled(dev, "hclk");
-+	if (IS_ERR(clk))
-+		return dev_err_probe(dev, PTR_ERR(clk),
-+				     "failed to get hclk property\n");
-+
- 	dp->rst = devm_reset_control_get(dev, "dp");
- 	if (IS_ERR(dp->rst))
- 		return dev_err_probe(dev, PTR_ERR(dp->rst),
--- 
-2.34.1
-
+Thanks,
+Neil
