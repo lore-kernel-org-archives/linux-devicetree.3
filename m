@@ -1,315 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D0C2848BA
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 21:31:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 650793BB664;
+	Wed, 13 May 2026 21:34:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778707904; cv=none; b=D0CmH1SjJUYmlu5kjCCxIamZ2/AO4tcAvGesp7snwEL5GJBvcCS7B9RYesQF27g2Tbw0kM1YUuFpkBfuuDtZDuFn13qPzpmMfJ1f8LqEJdgtH9PLGXpoizqZjMJameFfQjhx3gMTXHe4foKHdcXev1e6J1azK4MYvWKnfH1cCDI=
+	t=1778708081; cv=none; b=SeROni5wGlCtAePA7whN/qhFi92hs2WVvLtX5d0UC9Rez008V0anvaIb19Zr2dNIQD8hP1fI9NznL1J9wvLf/WzhQ74FS74/t+bpG/w2NKuOYBbK62HcPAT/rfZ9oNaKdczvDoy+AcVzsINMct7+fpIjeRMMz/bWSxQdT4JBX78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778707904; c=relaxed/simple;
-	bh=TRZhlhbQoPgILtiv/7Rok5ubk/Hreccb9Tupnbe/FZA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Q/1ZCiyb3XFEjRfMHKZTrti3l6a+KBMFxxvKkDNo6eFeesGyM8+o3t31nCi7BbMg4eatWf180ChGjVxdsA+WUXk24ew0STvIDbVfuxAdkJkjG+QJyxd9BBawRTpr1+hn5RdbZjpi7RZ07zDLbFlB9Fj6n4qS8FFCIUF4KFssgpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D/I5TeEX; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778708081; c=relaxed/simple;
+	bh=kZcChJqREVkQQHEf+Cv+4DLUKpU/qmqpFtGEeNeoxC8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SPI7RHF1f/j4+ZL2i553CbNQS5zOYFIjLUaDJkHvGi2GUj+onAT2w3pWhsilJRgBXIiXB4OJmmpQd4IsWmMD8SG1g16+omhPWTo03j+CNmgOvD7kP3jzeXmVZDgySDMgR4PIz3rPnCzmCo860utiF38+GEjRVE76bheOpo3A/lE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KIOo5nBX; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D/I5TeEX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 910F5C19425;
-	Wed, 13 May 2026 21:31:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778707903;
-	bh=TRZhlhbQoPgILtiv/7Rok5ubk/Hreccb9Tupnbe/FZA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=D/I5TeEXO6j23VJ3yPrIgR6IOu8VGj9JzfYIKlOxm6wDsqQClq9iPxhaCrBkwUa4P
-	 THcsMGXOwu+KpqSfbkaHwIyuk0UV6uNlxwDqbpwSv0S8Sr8AQVGBtF/Qcd448JRg+M
-	 Zg0+1ArrIwZLdpAORqDLhuLHvTetJrCQ7ExnccsAY5zU1WEvc1SGlEnrbEG8SIeDns
-	 lktKC3S962J8KGIGSiDbyo1+Oavv2x9GVf1pHwrcoCoqX3tpcgmlx8pIFvG/HQWAWv
-	 NI5HYQyXsCab2T9ps0OXXSTqlWoUQWrFKOYxyXb8CxDX+ENgcI+3raT9G6Ze4BGfWV
-	 TkFV+2zIyf3fQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/4] arm64: dts: renesas: add support for solidrun
- rzg2l som and hb-iiot evb
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Josua Mayer" <josua@solid-run.com>
-Cc: conor+dt@kernel.org, wsa+renesas@sang-engineering.com, krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260512-rzg2-sr-boards-v3-2-f033fc96c906@solid-run.com>
-References: <20260512-rzg2-sr-boards-v3-2-f033fc96c906@solid-run.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 13 May 2026 21:31:43 +0000
-Message-Id: <20260513213143.910F5C19425@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KIOo5nBX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1778708080; x=1810244080;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=kZcChJqREVkQQHEf+Cv+4DLUKpU/qmqpFtGEeNeoxC8=;
+  b=KIOo5nBXZvoaSHI1oNjSuDatwn2iHnw1oa+0zi7h15sPPohlH4j+bbEv
+   uZE/R6TrHdSfSHD5Qd3X5ABIIq73GQDmsF8jfGT5io3zCzZd15pzMBA1H
+   25ph0gZnRKw685afoxd1ElXAX/2P9r5eD4OjFh5FUi7oDoPxvo/K6yt0Q
+   917m7aoUdV97pLjlvBeqC3AdvkDqUKEqq0OO1x6vRpvRP2GSl7s5zVoLm
+   S5GHFukt0Lh9W+52gQtp6o3C7o7qLHlncU2PLsdGFHRZ5dbY+mwLT6znV
+   JtFhXdCSDTjKPydoRTHQe0nm0s5WDAC/SEGV56msiKQ8KmrCqG2OG3n3i
+   w==;
+X-CSE-ConnectionGUID: LG6Az1G9T96G+KV4J7m8kQ==
+X-CSE-MsgGUID: kQ38FsojQISCgWebXDuGjg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="97072913"
+X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; 
+   d="scan'208";a="97072913"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 14:34:39 -0700
+X-CSE-ConnectionGUID: EhQxfke0QaawRfntB0aqog==
+X-CSE-MsgGUID: rwJD+o+LR4G92b/NypN8/Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; 
+   d="scan'208";a="233751257"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.106])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 14:34:34 -0700
+Date: Thu, 14 May 2026 00:34:32 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Sanjay Chitroda <sanjayembeddedse@gmail.com>,
+	Michal Piekos <michal.piekos@mmpsystems.pl>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Maksim Kiselev <bigunclemax@gmail.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] iio: adc: sun20i-gpadc: add A523 gpadc support
+Message-ID: <agTuaAjtpIRBAo6N@ashevche-desk.local>
+References: <20260513-sunxi-a523-gpadc-v2-0-d5efde151dac@mmpsystems.pl>
+ <20260513-sunxi-a523-gpadc-v2-2-d5efde151dac@mmpsystems.pl>
+ <A7772824-E704-4BFD-A796-BCD81197E5A2@gmail.com>
+ <4248ac7e-3cce-4db8-a2c1-710f2c903490@arm.com>
+ <agTbFbicv9yzTQb9@ashevche-desk.local>
+ <20260513231901.05dc9a82@ryzen.lan>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260513231901.05dc9a82@ryzen.lan>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] Out-of-bounds `reserved-memory` regions relative to the defined `m=
-emory` node.
-- [High] Shared edge-triggered interrupt configuration causes lost interrup=
-ts.
-- [Medium] Invalid USB hub topology and swapped compatible strings under th=
-e `ehci1` controller.
-- [Medium] Redundant and semantically invalid `gpio-hog` nodes for interrup=
-t inputs.
-- [Low] Use of deprecated `gpio` property in fixed regulators.
-- [Low] Copy-paste error in multiplexer channel comment.
---
+On Wed, May 13, 2026 at 11:19:01PM +0200, Andre Przywara wrote:
+> On Wed, 13 May 2026 23:12:05 +0300
+> Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+> > On Wed, May 13, 2026 at 01:53:49PM +0200, Andre Przywara wrote:
+> > > On 5/13/26 13:44, Sanjay Chitroda wrote:  
+> > > > On 13 May 2026 10:29:43 am IST, Michal Piekos <michal.piekos@mmpsystems.pl> wrote:  
 
-commit 9b7832f1338d358b2387c66c4a4775d9ab744d4b
-Author: Josua Mayer <josua@solid-run.com>
+...
 
-arm64: dts: renesas: add support for solidrun rzg2l som and hb-iiot evb
+> > > > > +	if (ret <= 0)  
+> > > > 
+> > > > Thank you Michal for the change.
+> > > > 
+> > > > Have you validated the changes ?
+> > > > It looks while success ret would be 0 and it would give return error.
+> 
+> No, it doesn't. Returning 0 means no clocks found:
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/clk/clk-devres.c#n300
+> 
+> > Good catch!
+> > 
+> > > But devm_clk_bulk_get_all_enabled() returns the number of clocks found and
+> > > enabled. And since we need at least one, I think this is correct, and the
+> > > error message below reflects that.
+> > > 
+> > > To me that change looks good:
+> > > 
+> > > Reviewed-by: Andre Przywara <andre.przywara@arm.com>  
+> > 
+> > == 0 ???
+> > Doesn't look like correct code.
+> 
+> Not sure I follow:
+> devm_clk_bulk_get_all_enabled() returns the number of clocks in that
+> node, or a negative error value. If it returns 0, that means no clocks
+> have been found,
 
-This commit adds support for the SolidRun RZ/G2L SoM on Hummingboard IIoT.
-It defines device tree configurations for ethernet, eMMC, DDR, and WiFi/BT,
-with overlays for configurable mux states.
+Not in this code. Here it will be resent to the caller as success.
 
-Link: https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/r=
-z-g2l-som/
-Link: https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/h=
-ummingboard-rz-series-sbcs/hummingboard-rz-g2l-iot-sbc/
+> which is an error in our case, since we expect at
+> least one clock. This is what the second part of the error message
+> refers to.
 
-> diff --git a/arch/arm64/boot/dts/renesas/rzg2l-hummingboard-iiot-common.d=
-tsi b/arch/arm64/boot/dts/renesas/rzg2l-hummingboard-iiot-common.dtsi
-> new file mode 100644
-> index 0000000000000..fbf2e7c393bf3
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/renesas/rzg2l-hummingboard-iiot-common.dtsi
+But not the error code itself! There will be no error message, IIRC the
+implementation of dev_err_probe().
 
-[ ... ]
+> So we want one or two as the return value, with the current bindings,
+> but really anything greater than 0 is fine, from the driver's
+> perspective, since we don't care about the clocks beyond them being
+> enabled.
+> 
+> So am I missing something?
 
-> +	/* power for USB-A J27 behind USB Hub Port 3 */
-> +	regulator-vbus-2 {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "vbus2";
-> +		regulator-always-on;
-> +		regulator-max-microvolt =3D <5000000>;
-> +		regulator-min-microvolt =3D <5000000>;
-> +		gpio =3D <&tca6416_u20 12 GPIO_ACTIVE_HIGH>;
+Yes!
 
-Should this be gpios instead of gpio? Modern device tree schemas require the
-plural gpios property for regulator-fixed bindings. The singular gpio prope=
-rty
-is deprecated.
+You returned that to the caller, meaning everything is fine. There is a success
+that is returned. The code is buggy (okay, not that, it rather will behave not
+as intended).
 
-> +		enable-active-high;
-> +	};
-> +
-> +	/* power for USB-A J27 behind USB Hub Port 4 */
-> +	regulator-vbus-3 {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "vbus3";
-> +		regulator-always-on;
-> +		regulator-max-microvolt =3D <5000000>;
-> +		regulator-min-microvolt =3D <5000000>;
-> +		gpio =3D <&tca6416_u20 13 GPIO_ACTIVE_HIGH>;
+TL;DR:
+You should have something like
+	if (ret < 0)
+		return dev_err_probe(ret);
+	if (ret == 0)
+		return dev_err_probe(-Exxx, "Needs at least one clock!\n");
 
-Should this also be updated to gpios?
+-- 
+With Best Regards,
+Andy Shevchenko
 
-[ ... ]
 
-> +	vmmc: regulator-mmc {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "vmmc";
-> +		regulator-max-microvolt =3D <3300000>;
-> +		regulator-min-microvolt =3D <3300000>;
-> +		startup-delay-us =3D <250>;
-> +		vin-supply =3D <&v_3_3>;
-> +		gpio =3D <&pinctrl RZG2L_GPIO(4, 1) GPIO_ACTIVE_HIGH>;
-
-Does this regulator also need the plural gpios property?
-
-> +		enable-active-high;
-> +	};
-> +
-> +	/* power for USB-A J5003 */
-> +	vbus1: regulator-vbus-1 {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "vbus1";
-> +		regulator-max-microvolt =3D <5000000>;
-> +		regulator-min-microvolt =3D <5000000>;
-> +		gpio =3D <&tca6416_u20 14 GPIO_ACTIVE_HIGH>;
-
-Should this use the gpios property as well?
-
-[ ... ]
-
-> +&ehci1 {
-> +	#address-cells =3D <1>;
-> +	#size-cells =3D <0>;
-> +
-> +	hub_2_0: hub@1 {
-> +		compatible =3D "usb4b4,6502", "usb4b4,6506";
-
-Are these compatible strings swapped with hub_3_0? The string usb4b4,6506
-represents a USB 3.0 hub, but this node seems intended for the USB 2.0
-portion.
-
-> +		reg =3D <1>;
-> +		peer-hub =3D <&hub_3_0>;
-> +		reset-gpios =3D <&tca6416_u20 11 GPIO_ACTIVE_LOW>;
-> +		vdd2-supply =3D <&v_3_3>;
-> +		vdd-supply =3D <&v_1_2>;
-> +	};
-> +
-> +	/* this device is not visible because host supports 2.0 only */
-> +	hub_3_0: hub@2 {
-> +		compatible =3D "usb4b4,6500", "usb4b4,6504";
-
-The string usb4b4,6504 typically represents the USB 2.0 hub portion.
-
-Also, does placing this USB 3.0 hub under an EHCI controller violate USB
-hardware topology rules? EHCI is strictly a USB 2.0 controller.
-
-Will claiming the same reset-gpios block lead to a resource conflict if both
-hubs attempt to probe? Since the USB 3.0 portion is physically unconnected
-to the SoC, should the hub_3_0 node and peer-hub references be removed?
-
-> +		reg =3D <2>;
-> +		peer-hub =3D <&hub_2_0>;
-> +		reset-gpios =3D <&tca6416_u20 11 GPIO_ACTIVE_LOW>;
-> +		vdd2-supply =3D <&v_3_3>;
-> +		vdd-supply =3D <&v_1_2>;
-> +	};
-> +};
-
-[ ... ]
-
-> +		lvds-irq-hog {
-> +			gpios =3D <13 (GPIO_ACTIVE_LOW | GPIO_PULL_UP | GPIO_OPEN_DRAIN)>;
-
-Is the GPIO_OPEN_DRAIN flag valid on an input pin? It is typically an output
-driver flag.
-
-Additionally, hogging an interrupt line can logically conflict with its IRQ
-usage. Consumer drivers natively request the interrupt which configures the
-line as an input. Could this trigger resource request failures?
-
-> +			gpio-hog;
-> +			input;
-> +			line-name =3D "lvds-irq";
-> +		};
-
-[ ... ]
-
-> +		sensor-irq-hog {
-> +			gpios =3D <7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP | GPIO_OPEN_DRAIN)>;
-
-Does this sensor interrupt also incorrectly use output driver flags on an
-input pin, and logically conflict with the IRQ framework?
-
-> +			gpio-hog;
-> +			input;
-> +			line-name =3D "sensor-irq";
-> +		};
-> +
-> +		tpm-irq-hog {
-> +			gpios =3D <9 (GPIO_ACTIVE_LOW | GPIO_PULL_UP | GPIO_OPEN_DRAIN)>;
-
-Is this another instance where an interrupt line is redundantly hogged as an
-input with invalid flags?
-
-> +			gpio-hog;
-> +			input;
-> +			line-name =3D "tpm-irq";
-> +		};
-> +	};
-
-[ ... ]
-
-> +	light-sensor@44 {
-> +		compatible =3D "isil,isl29023";
-> +		reg =3D <0x44>;
-> +		/* IRQ shared between accelerometer, light-sensor and Tamper input (J5=
-007) */
-> +		interrupts-extended =3D <&tca6416_u21 7 IRQ_TYPE_EDGE_FALLING>;
-> +	};
-> +
-> +	accelerometer@53 {
-> +		compatible =3D "adi,adxl345";
-> +		reg =3D <0x53>;
-> +		interrupts-extended =3D <&tca6416_u21 7 IRQ_TYPE_EDGE_FALLING>;
-
-Will configuring shared physical lines as edge-triggered cause lost interru=
-pts?
-If one device pulls the line low and the second device asserts its interrupt
-before the first releases it, no falling edge will be generated for the
-second device. Should shared physical lines be configured as level-sensitive
-instead?
-
-> +		/* IRQ shared between accelerometer, light-sensor and Tamper input (J5=
-007) */
-> +		interrupt-names =3D "INT1";
-> +	};
-
-[ ... ]
-
-> +		/* channel 2 routed to mipi-dsi connector (J25) */
-> +		i2c_dsi: i2c@2 {
-> +			reg =3D <2>;
-
-[ ... ]
-
-> +		/* channel 2 routed to lvds connector (J24) */
-> +		i2c_lvds: i2c@3 {
-
-This isn't a bug, but there's a copy-paste error in the comment. Should it =
-say
-channel 3 instead of channel 2?
-
-> +			reg =3D <3>;
-
-[ ... ]
-
-> diff --git a/arch/arm64/boot/dts/renesas/rzg2l-sr-som.dtsi b/arch/arm64/b=
-oot/dts/renesas/rzg2l-sr-som.dtsi
-> new file mode 100644
-> index 0000000000000..297256299e7a8
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/renesas/rzg2l-sr-som.dtsi
-
-[ ... ]
-
-> +	reserved-memory {
-> +		ranges;
-> +		#address-cells =3D <2>;
-> +		#size-cells =3D <2>;
-> +
-> +		mmp_reserved: linux,multimedia@68000000 {
-> +			compatible =3D "shared-dma-pool";
-> +			reg =3D <0x0 0x68000000 0x0 0x8000000>;
-> +			reusable;
-> +		};
-> +
-> +		global_cma: linux,cma@58000000 {
-> +			compatible =3D "shared-dma-pool";
-> +			reg =3D <0x0 0x58000000 0x0 0x10000000>;
-> +			reusable;
-> +			linux,cma-default;
-> +		};
-> +	};
-
-[ ... ]
-
-> +	memory@40000000 {
-> +		reg =3D <0x0 0x40000000 0x0 0x20000000>;
-> +		device_type =3D "memory";
-> +	};
-
-Will these reserved-memory regions cause early boot crashes if the bootload=
-er
-fails to dynamically patch the memory node size at runtime?
-
-The memory@40000000 node hardcodes the RAM size to 512MB (0x20000000), which
-means the memory map ends at 0x60000000. The global_cma region is placed at
-0x58000000 extending to 0x68000000, and mmp_reserved is placed at 0x6800000=
-0.
-This places them largely or completely outside the explicitly defined 512MB
-RAM boundaries.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-rzg2-sr-bo=
-ards-v3-0-f033fc96c906@solid-run.com?part=3D2
