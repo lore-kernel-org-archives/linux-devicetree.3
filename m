@@ -1,164 +1,150 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from de-smtp-delivery-119.mimecast.com (de-smtp-delivery-119.mimecast.com [194.104.111.119])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2FB3426EA3
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 13:31:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D819A427A13
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 13:31:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.104.111.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778679068; cv=none; b=dqFpbyOOXiRigVJyRDa1Lljsl41ZdxYzc2M10tG7PY2AeqYXFqwYpRPzGNAILfycwhr0uaVq3l9r4ohzzxTtV5nGZy1l2ePMUiQe/tjABSiMtqRdrp+8lf4Kh0d+nsv9hYAXtGeyuEQ0MlnYEbArfJ9NVDbkPM+MxCKxRSJm0Zw=
+	t=1778679104; cv=none; b=TB8IehU0pyI2J/Xo87UNMusIBYprT6W3Fvp7Zt/BD5JQjjPw58UAclBI4nXmYV5fMPpFMNeyBKexSsUWRnYWpLLQvD15gRmntiKmIGAW7Zllzl0VIB+tgmQs0tkNdDZov8jFX3ac3vBBlYWBzF1EoiUytK/iHVKO/ZTQ4vh6QLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778679068; c=relaxed/simple;
-	bh=pY6if7sag2rowWpqoG3Pn5jU/aynIE8iDDlq/ZoX690=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JmtIHuoGL4wxBfT5RCdYF4Ag9OO0hpns+mp6wxX3a8dn3d2ctqCnRHRM2N7wW/KcjNUZXP71LZEQW6hPt3mrQBreiUNqAgRebmM/Xo9JPyA+X77zsdG7rwt+YcGJ3gydHBOlJ8JOfimiVyZWiW1dTSVtVaRxFGKTCVdQz6Y69So=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=LLPr5r7G; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="LLPr5r7G"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 3E9371A357C;
-	Wed, 13 May 2026 13:31:05 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0A4A05FE21;
-	Wed, 13 May 2026 13:31:05 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7E58211AF81C6;
-	Wed, 13 May 2026 15:31:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1778679064; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=cD2qweMEedlXR19pqoseBytIAmkuIkwSUtyWqEiRCtY=;
-	b=LLPr5r7GnSIaasziblHHuI37uRhFM9YpJ77pem9iVvoY4sH02FvNwxPM74djiGD857LwK4
-	SY4plEYKOC3wNzP3L1lOiCioITbyZCoHkhlAnjauv7PByagvtv4BE9vj2iUBFM78h2Mstz
-	LZfbb5Jy2xspkO+Tq1B/oBLO5VHMjIstaBJX9YTPSRfmyKjUgmw138FnRfLCIcn69cKrGB
-	n9hTglAPlcDAq9/sRGbLtCnmSx7UB7j9OoSvu+LEtLOGvZF/4zEn5zh1gXP2PS0Jt6ea/f
-	x1fKziz3D9LB3ppHMQLdZf0v630mTpDZYN18eubYuCmUVrQ7EmbWB83P8jMqSw==
-Date: Wed, 13 May 2026 15:31:00 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: sashiko-bot@kernel.org
-Cc: sashiko@lists.linux.dev, conor+dt@kernel.org, krzk+dt@kernel.org,
- devicetree@vger.kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev,
- robh@kernel.org
-Subject: Re: [PATCH v7 2/3] of: dynamic: Fix overlayed devices not probing
- because of fw_devlink
-Message-ID: <20260513153100.1b499fae@bootlin.com>
-In-Reply-To: <20260512211643.EB5A6C2BCB0@smtp.kernel.org>
-References: <20260511155755.34428-3-herve.codina@bootlin.com>
-	<20260512211643.EB5A6C2BCB0@smtp.kernel.org>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	s=arc-20240116; t=1778679104; c=relaxed/simple;
+	bh=xdw6qa5qSgAGszmaXctSIJiqBFCPrvJjPVF1gnVsbbc=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=g7u1MOdAg6i08Ooz6UeTvv5S+UmHWFI9pSbGpKMRFx8TucsLqmH2aZGK3Z4PnIQL6GdpupWbCxYdxza7dFB9ZTGndZqeXG3/PVx27OdeCjltvUYckUMUn3v7IuFFAD9B0ghyU1lLfedgbC6j+5cLZuSJCAAPQKTc+juPei3rOLI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=data-modul.com; spf=pass smtp.mailfrom=data-modul.com; arc=none smtp.client-ip=194.104.111.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=data-modul.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=data-modul.com
+Received: from MRWPR03CU001.outbound.protection.outlook.com
+ (mail-francesouthazon11021087.outbound.protection.outlook.com
+ [40.107.130.87]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ de-mta-102-o4Ut1Br-MIebuMesb4qCRQ-2; Wed, 13 May 2026 15:31:38 +0200
+X-MC-Unique: o4Ut1Br-MIebuMesb4qCRQ-2
+X-Mimecast-MFC-AGG-ID: o4Ut1Br-MIebuMesb4qCRQ_1778679097
+Received: from PAXPR01MB8486.eurprd01.prod.exchangelabs.com
+ (2603:10a6:102:227::10) by AS8PR01MB8074.eurprd01.prod.exchangelabs.com
+ (2603:10a6:20b:375::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Wed, 13 May
+ 2026 13:31:32 +0000
+Received: from PAXPR01MB8486.eurprd01.prod.exchangelabs.com
+ ([fe80::5adb:b6ca:f689:1ac6]) by PAXPR01MB8486.eurprd01.prod.exchangelabs.com
+ ([fe80::5adb:b6ca:f689:1ac6%3]) with mapi id 15.20.9913.009; Wed, 13 May 2026
+ 13:31:31 +0000
+From: Boerge Struempfel <bstruempfel@data-modul.com>
+To: Marek Vasut <marex@denx.de>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+CC: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Boerge Struempfel <bstruempfel@data-modul.com>
+Subject: [PATCH v2 0/2] drm/bridge: lt9211: Add drive-strength-microamp DT property
+Date: Wed, 13 May 2026 15:31:25 +0200
+Message-ID: <20260513133127.376458-1-bstruempfel@data-modul.com>
+X-Mailer: git-send-email 2.54.0
+X-ClientProxiedBy: FR0P281CA0105.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a9::20) To PAXPR01MB8486.eurprd01.prod.exchangelabs.com
+ (2603:10a6:102:227::10)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PAXPR01MB8486:EE_|AS8PR01MB8074:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5f834fe4-4d69-47a8-697c-08deb0f3f1fa
+X-LD-Processed: d72fb47f-f4be-4915-91c7-ebd53299157b,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|366016|376014|1800799024|18002099003|921020|3023799003|56012099003
+X-Microsoft-Antispam-Message-Info: jB9YivCCmrZS4wQp00fkIXsyvCfn3pHd0jrDJvakgWNyHebjgBvoOuoHFA/ErZHYYa6ffFUxS4wlE9Mlid7XcJ+fYdtLFGTBciNmx9W26xvZ6TyPLfFHwffoKV6FxkGn9Eyu5Li0vmWlJOuVr0YQjctevSk3UEGbBEA0aowasol6ZsZ+RLU5wps4uBrOtQpHPbH/2+dQUmqAjU0Yn2hQkFepQp7DhJB01od1OOuT0FmwEUYEDo2z/fH7tXn5CH57YmOeJDmrfP352W3Blfzk5Zo8Cpa2vg7XAWlkDeZzMUYEJPAJsXRwLgvsBO50BCQgw8/MS4Z230CZTNtOw+U+3U7A+2oiPJxt1m+cx8LFueQsFQsBRXFPKgLj8e3SVBOeSBFjzeXmQZrec/dtmHE6NfnQ0t1XYIHFTbbXjpOIHRjq0RxeMnngO71Ch65GDUCXn8hFTuS9vE3x+NAgN7DnI5o45oi7dS9GAVhXKyFg8cKblHqVYEA2BLDAS9KNlxX6tIPhC9LjUsUqPWUW4dTC1fGdFBgr2jCcU507ugO0vzOlbtapLke8iOnrUmY0DXlwZzyvhUtcxVbDXa5yUAFQ4lLUGQK99vxtT3GHtRlpL5RjUxFObcxABCYKU0vdBzA0KRY+W7qRMT4fYyWMQ1cPPp9ppp/pgNgASuMM8KsQCB8RRVspoDzAEZukYHD80MW4FcaWGPkg7unnTcXjzkYi0WXLqiT0yHHb/hfefq+/KluiVikr7nbyxGuroo3S7+KB
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR01MB8486.eurprd01.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(1800799024)(18002099003)(921020)(3023799003)(56012099003);DIR:OUT;SFP:1102
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?RW3q4oS8dSfTuWJgKDrX5zalh4GNGsXSXSG6R8h8zA0nk1RzVPGr1PjLI8k/?=
+ =?us-ascii?Q?ORLdu00qXFGOvjwKRYZxZ7DVF9iqg+hBLX8SX7WF5swWXvA57Ebb0XV2dkWH?=
+ =?us-ascii?Q?1bxjrLOnoWuP7c3XPmtcUAWI1qevfTzBRBh1PPPzRgkSTXn80CFIDENQkCK4?=
+ =?us-ascii?Q?A7rIPGsxFpMGhbpcxoYumfkHK24FJRC8wONg0zTX4EPKTek4W8JR/L+BnMp/?=
+ =?us-ascii?Q?8yg4rLUh1A/F+aHuP1CDQHh77qIX5epuwmP84k6QQwPH8ihWLpp6aTeQMTAR?=
+ =?us-ascii?Q?LLDfjYNScRdXeyQAt3/K4hH1jFB9zRCsRnCHk1uI4/57q5PrAO00Yx0r8oFZ?=
+ =?us-ascii?Q?SL9QzaYFkUG4tPiBqIouChPwkeDB+2KSKtXdttOTVm5xEok/VIcJ2ecL1Glf?=
+ =?us-ascii?Q?n3pw6EIrgkS+ZZkigV8xshFLs6eOnCAzhet5WHdhr2SOu65MI228I4ac8XUj?=
+ =?us-ascii?Q?4dsCvSrSrOMOpHqgJI0Q7wni9xZoU47L6RqbNo7/ggaBM4fxpKp+vShb55VL?=
+ =?us-ascii?Q?MZTZbvAffpw7ty8Zezo5RntI/XgOz56a6F13BIzZDIsCjcqsB7I/ykaDcx29?=
+ =?us-ascii?Q?/7Ugtked3Xim0Coa5Wq9IN5Qc9C7Y1h5ioq+biz5UkuYUcl6jKJdjPAYAKCx?=
+ =?us-ascii?Q?hl3Z+4/05h1KfNGp6x6lACPg+Jks/cBQljNg+yM2Q6/5wK+dGdwr/4ChRm7N?=
+ =?us-ascii?Q?8MyYgqrpZWd6P1w4YIPWm9Ogy82M1wtOwC+tfptZUL00F4bylt2TyT2xrAjH?=
+ =?us-ascii?Q?5e7ClwaSYiOxdv4CGOwepZd5Xm7VdV0P6YQ7jPKVX4ior1tvOREVywznCvnz?=
+ =?us-ascii?Q?O+pSB60kdc9Fnxj3JR1GvRR1ikrr9qFlXP140RMn8icDjm+ayQZzqFKvQPRS?=
+ =?us-ascii?Q?Qlu4j8ED+pc1IYQx0RGkF+DQRLULxKNeKad9iFdgW/6NkGcUTXutCvDofrWk?=
+ =?us-ascii?Q?/faP+0tyMJAgbk8czGMNopRj/cZPhWwGKwkvMz6fvW38YOz9xTprXAA0J5W+?=
+ =?us-ascii?Q?/ECbI4GOb9aIbsguCH95igwxq3FP9DH4UvhSdhfO9pePTfpuN2RJ0O+y8sBS?=
+ =?us-ascii?Q?XHYFb/qvpet3eQChhiZUsiwDA0UdhvtAbYj8rPPYZGIlpEKuR9blJD7WjSuH?=
+ =?us-ascii?Q?UDaMB79NQ8ZZLlP0nwj0RrSRE9m43Iw58IaqSf2v9ss4sets/N1YvRogPqR1?=
+ =?us-ascii?Q?FVa0EZBpz3pYP+FsobvfzUvqFUvjY2bnIECGBFuGdQ/KKBk/MOoK01Dstt4U?=
+ =?us-ascii?Q?5gdvRMomHgsYzSJ6XjtPybS8Q2MEbB2rpbV2kbuLQBBS6O8bE4+H1zZpgVmv?=
+ =?us-ascii?Q?Gj3JpfAiMAWJGmAXkhiHO4jmdlNG9n3Kb8oYw61/ts+0ybjrv2Hji5BBoOmq?=
+ =?us-ascii?Q?7tk7pyqFtqsvXVmD4889/Cus3TFUXS7+L01RDVX+1WYm1qOD50f0q48x6KvG?=
+ =?us-ascii?Q?IwPh8xh4OKcqLe7PrVAq3DyQk8y0b5DW0oVx7nA/Y6fL5dq8G5XiUe5Ospa6?=
+ =?us-ascii?Q?JGaelSoueji7CaQ/H2lbLpGMFLR1d+VYktltJgt5rJPaaCj5cKusKq4DJLOP?=
+ =?us-ascii?Q?G5BX9L8wS7t7D0VifgrCX6EPPGotGcIUMClK8U2NhnIg3meyuZRY+ldtfG0P?=
+ =?us-ascii?Q?1QNXqjHpLDLa5qwSM6FrgMHexsYGawybqfjaGHkMcO7z+zkPX8t7K516soNq?=
+ =?us-ascii?Q?G0l3uaQV9b2ICIRYdGZKhrNErmokK76Vw/2z8ruD0W+tVRKx58d81zvk9bKn?=
+ =?us-ascii?Q?zCLNenZJjKxceqjEI+ur1vtO/25MRF0=3D?=
+X-Exchange-RoutingPolicyChecked: BoGSY+LDTpSx49rHYFC6OoPxHKROmEn70ayNengqiFKkYZM5oWnxkkeFeXTq/oSecxTZvXQnIcEXuYRfQ86oPByRDaQsVjviNFPRR9hE3lrgri2XQR+cMx6lurXmEl76/ecHyFTzKIgPUGrsW63gtxq8urRLl48JMjmCWqksQ9XTZ+1HjirSQU/V52Q448pES29laG8EMOtZ6tCNe6wSo23qBzVbvAKhAA6wMZmoSCTt3W7q72is7erzkzuLOs+0zmFGvlemYqj4MvBmG61Q15m7O50rtBKn7in65sW/lF5dhrSvc4RnIEWalwcvnuOdUm9y/KrsQ4HeTXjzF7yItg==
+X-OriginatorOrg: data-modul.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f834fe4-4d69-47a8-697c-08deb0f3f1fa
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR01MB8486.eurprd01.prod.exchangelabs.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 13:31:31.7620
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: d72fb47f-f4be-4915-91c7-ebd53299157b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: e0pU1bBWxcIof1eziHjhWzKB64ay4h+rXd8xWX43TqnBwgHSjGy7S29960MjoLlqUoQoj1lgWUfdG1/7F09xYVAWzU7ClyssrQKDoNj4wgY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR01MB8074
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 0Pkzxa1xcg8XTVZyyglL2REBdfpVi6F6JwSS0xgM2xU_1778679097
+X-Mimecast-Originator: data-modul.com
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=WINDOWS-1252
 
-Hi all,
+The LT9211 LVDS TX output driver current is currently hardcoded to
+0x8 (~25 uA). Some board layouts require a different drive strength
+to meet signal integrity requirements.
 
-On Tue, 12 May 2026 21:16:43 +0000
-sashiko-bot@kernel.org wrote:
+This series adds support for the standard 'drive-strength-microamp'
+DT property, allowing board DTs to select one of sixteen discrete
+current levels between 12 uA and 36 uA. The default preserves the
+existing behaviour.
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] Missing `dev->fwnode` validation in `fw_devlink_pickup_dangling_consumers()` leads to a kernel panic if the device's fwnode is NULL.
-> --
-> 
-> commit eebf7e6f50a0aa0439d5a1099141444a70ec8219
-> Author: Saravana Kannan <saravanak@kernel.org>
-> 
-> of: dynamic: Fix overlayed devices not probing because of fw_devlink
-> 
-> When an overlay is applied to an already probed device, fw_devlink logic
-> is rerun. This allows newly created dangling consumers of overlayed device
-> tree nodes to become consumers of the target device.
-> 
-> Link: https://lore.kernel.org/lkml/20240411235623.1260061-3-saravanak@google.com/
-> 
-> > diff --git a/drivers/base/core.c b/drivers/base/core.c
-> > index bd2ddf2aab505..478aa3fbf1e83 100644
-> > --- a/drivers/base/core.c
-> > +++ b/drivers/base/core.c
-> > @@ -235,6 +235,79 @@ static void __fw_devlink_pickup_dangling_consumers(struct fwnode_handle *fwnode,
-> >  		__fw_devlink_pickup_dangling_consumers(child, new_sup);
-> >  }
-> >  
-> > +static void fw_devlink_pickup_dangling_consumers(struct device *dev)
-> > +{
-> > +	struct fwnode_handle *child;
-> > +
-> > +	guard(mutex)(&fwnode_link_lock);
-> > +
-> > +	fwnode_for_each_available_child_node(dev->fwnode, child)
-> > +		__fw_devlink_pickup_dangling_consumers(child, dev->fwnode);
-> > +	__fw_devlink_link_to_consumers(dev);
-> > +}  
-> 
-> Is it possible for dev->fwnode to be NULL here?
+Changes in v2:
+- Use u8 instead of u32 for the lookup table array (values fit in u8)
+- Warn when drive-strength-microamp exists in DT but is malformed
 
-Well dev->fwnode is checked for NULL in fwnode_for_each_available_child_node()
-iterator.
-  https://elixir.bootlin.com/linux/v7.1-rc3/source/include/linux/property.h#L175
-  https://elixir.bootlin.com/linux/v7.1-rc3/source/drivers/base/property.c#L840
+Link to v1: https://lore.kernel.org/dri-devel/20260512164609.3390700-1-bstr=
+uempfel@data-modul.com/
 
-Adding an additional check for dev->fwnode is not needed.
+Boerge Struempfel (2):
+  dt-bindings: display/bridge: lt9211: Add drive-strength-microamp
+    property
+  drm/bridge: lt9211: Add drive-strength-microamp DT property
 
-Best regards,
-Hervé
+ .../display/bridge/lontium,lt9211.yaml        |  7 +++++
+ drivers/gpu/drm/bridge/lontium-lt9211.c       | 31 ++++++++++++++++++-
+ 2 files changed, 37 insertions(+), 1 deletion(-)
 
-> 
-> The original logic in device_links_driver_bound() was protected by a
-> dev->fwnode check. The newly added caller fw_devlink_refresh_fwnode() 
-> appears to call this without checking if dev->fwnode is still valid:
-> 
-> fw_devlink_refresh_fwnode()
->   dev = get_dev_from_fwnode(fwnode);
->   ...
->   if (dev->links.status == DL_DEV_DRIVER_BOUND) {
->       fw_devlink_pickup_dangling_consumers(dev);
-> 
-> If dev->fwnode is NULL, such as when it is cleared by a concurrent
-> device_remove_of_node() before device_del() runs, the nested call to
-> __fw_devlink_link_to_consumers() will dereference it:
-> 
-> __fw_devlink_link_to_consumers(struct device *dev)
-> {
->         struct fwnode_handle *fwnode = dev->fwnode;
->         ...
->         list_for_each_entry_safe(link, tmp, &fwnode->consumers, s_hook) {
-> 
-> Could this lead to a crash when &fwnode->consumers is evaluated? Would it
-> make sense to add an explicit check for !dev->fwnode at the start of
-> fw_devlink_pickup_dangling_consumers() to mirror the structural safety
-> previously provided in device_links_driver_bound()?
-> 
-> [ ... ]
-> 
-> > @@ -1312,16 +1385,8 @@ void device_links_driver_bound(struct device *dev)
-> >  	 * child firmware node.
-> >  	 */
-> >  	if (dev->fwnode && dev->fwnode->dev == dev) {
-> > -		struct fwnode_handle *child;
-> > -
-> >  		fwnode_links_purge_suppliers(dev->fwnode);
-> > -
-> > -		guard(mutex)(&fwnode_link_lock);
-> > -
-> > -		fwnode_for_each_available_child_node(dev->fwnode, child)
-> > -			__fw_devlink_pickup_dangling_consumers(child,
-> > -							       dev->fwnode);
-> > -		__fw_devlink_link_to_consumers(dev);
-> > +		fw_devlink_pickup_dangling_consumers(dev);
-> >  	}
-> >  	device_remove_file(dev, &dev_attr_waiting_for_supplier);
-> >  
-> 
+--=20
+2.54.0
 
-
-
--- 
-Hervé Codina, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
