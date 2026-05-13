@@ -1,171 +1,156 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B54642A9D
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 04:01:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2239368D53
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 04:06:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778644919; cv=none; b=bXEjZXAfZQ7afa740pRGOGG346nwlNHbGLSBNErS3am0C5QSLW36hD/m3VLbAXpH5vBRXmyj41H/EbfwUeXaIPob/MIuRoBGi1YetK9TCcBnQlGKvr4/o39Ql7k4BYrTXu/alhtqx3NYB3IDiQ82yzYujkDQc5PuAWEe3i6aLeM=
+	t=1778645183; cv=none; b=Q9vBPt7h/mtL8aPOpGvQESpG40aqCXRupqUzzDAuzndXbS1/nrR8xDLMl1OAYUKEYRY1DddwEBW3jVgIri/azI1q4OBc2h5y+Mix+/JiSkZ1IZegbAXKUK/bfgcmqLxpIZEStJS+2UOdHGQ98XN5vl5qI5tdmWxByZRiG/x1cvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778644919; c=relaxed/simple;
-	bh=c93f1lQnhEZlfRmvCATQf2Vy38aX1NSPAQaib4v7f1g=;
+	s=arc-20240116; t=1778645183; c=relaxed/simple;
+	bh=jpjHejlEtkGaBBk6MQW7sF5O/PptqQW8kQL4hQs6NV0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gqV/QNtAJYAqNQ/bCqxqmtedbRySe6OdOzZbjpmMZ8WBlVd77KFEO6sZpzmesC10rMNqUbEyJ4xd9PjNqP3nONCWXhreiyONVj7MoKrhqTociWCZXMmAx+/+xtghGVs7SB/yHAthSY44wlzeRWz4/j7f7a6MhsNYYCPFX7DeuE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IqNgOL4f; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=bX/abk+o/9D04qgJz+8zjlaVeCMA2E/mWCnTlAGPTfe4PySRjKWvjrZRq22IZDtqGZid5b3NWbgAbYAHoEAWlvlvMHwOalk1AqcsOldA0pzOjL7SijNPnwuCOcHBBatOREv6oTjbG5QR2ftaHigCpE0tGJsDfGLhiTIMymFkeJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q/h0K9NH; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IqNgOL4f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0574C2BCC7;
-	Wed, 13 May 2026 04:01:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q/h0K9NH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03F36C2BCC7;
+	Wed, 13 May 2026 04:06:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778644918;
-	bh=c93f1lQnhEZlfRmvCATQf2Vy38aX1NSPAQaib4v7f1g=;
+	s=k20201202; t=1778645183;
+	bh=jpjHejlEtkGaBBk6MQW7sF5O/PptqQW8kQL4hQs6NV0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=IqNgOL4faHvBMnLYwJlANnsCcj+qhGpzw7/V7nmweoZK9VND4m8KCe2oiHT/zhHWp
-	 MXheG6otCyU4JPl40pTbBXro9+w8q3124+JKQLqKvXSixcXNxwAVmat0rhuZ3qZZ/w
-	 hEd0sevpDYv7vf19sDeXgk/muNfe0psHeG6/SGd9UUxwoaoCrtYcb2s8En6mYwpFxz
-	 M1rVdOigKMFTh0JLVe74guQvzMzp1RNRBmYbBsiMSmEB8LStUq/vGjiy07vFcHdmq+
-	 3h1gwuvRNgNErPaEPw0JkVnn9jr9oUIgCgNfq/PBmp/tzoHDL+8R/DCYX36adPtFC8
-	 4anxpXGBEhSQw==
+	b=Q/h0K9NHXyfsLN7uVdBYzGI3O9e3+P//r1i1TsNVyHEBRZ6eZInJa0MZ/0fBnGuZz
+	 fgPzf26JICX+19PIaGPUqqegV037UDKZFdz8Xf6093dwgv+9b2AJaBK3g7QdRiG8bj
+	 qHx7idQxBZk3JDq4mdVDfoxa4xhHqV2ZDUnhDlD8T6rb59bmULW42Xrdg5xuQlT5u/
+	 9Vlopud+4GX8V5AZKwtoefjLmfEOXhGLn5fLcgGyH+R3ImfslVwOfIL0sMVLLhgE7v
+	 I0Alrx7gN+KuHDyNBav+Svsm1TRSaKb00LCgscLW8XKtiXq7CuyPGG1HFM7myzA6Bc
+	 blTh2iCj5VAnw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/7] gpio: regmap: Add gpio_regmap_operation and
- write-enable support
+Subject: Re: [PATCH 2/4] arm64: dts: qcom: Introduce Shikra SoC base dtsi
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
-Cc: conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260512033317.1602537-4-eleanor.lin@realtek.com>
-References: <20260512033317.1602537-4-eleanor.lin@realtek.com>
+To: "Komal Bajaj" <komal.bajaj@oss.qualcomm.com>
+Cc: linux-phy@lists.infradead.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, conor+dt@kernel.org, robh@kernel.org, vkoul@kernel.org
+In-Reply-To: <20260512-shikra-dt-v1-2-716438330dd0@oss.qualcomm.com>
+References: <20260512-shikra-dt-v1-2-716438330dd0@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 13 May 2026 04:01:58 +0000
-Message-Id: <20260513040158.B0574C2BCC7@smtp.kernel.org>
+Date: Wed, 13 May 2026 04:06:22 +0000
+Message-Id: <20260513040623.03F36C2BCC7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Critical] gpio_regmap_get() incorrectly uses the physical GPIO data leve=
-l to determine its direction.
-- [High] The new direction check in gpio_regmap_get() spoils the regmap cac=
-he with volatile input values.
-- [High] The write-enable (WREN) implementation overwrites the register poi=
-nter and corrupts hardware registers if WREN and data registers differ.
+- [High] Invalid PPI interrupt numbers (1, 2, 3, 0) are specified for the A=
+RMv8 generic timer instead of the architecturally required numbers (13, 14,=
+ 11, 10).
+- [Medium] The `sdhc_1` node incorrectly uses RPMh interconnect tags (`QCOM=
+_ICC_TAG_ALWAYS`, `QCOM_ICC_TAG_ACTIVE_ONLY`) on an RPM-based interconnect =
+topology.
+- [Medium] The USB SuperSpeed wakeup interrupt (`ss_phy_irq`) directly refe=
+rences the GIC instead of routing through the MPM, breaking system wake-up =
+from deep sleep.
+- [Low] The `sdhc_1` node uses the undeclared macro `RPMHPD_CX` for its `po=
+wer-domains` property, which will cause a Device Tree compiler syntax error.
 --
 
-commit aa0f1e735514010e24fe4769039de6cdc0302e5d
-Author: Yu-Chun Lin <eleanor.lin@realtek.com>
+commit e2ee94ef3a5741f2cb9aae14dbef52c5f4a760f1
+Author: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Subject: arm64: dts: qcom: Introduce Shikra SoC base dtsi
 
-gpio: regmap: Add gpio_regmap_operation and write-enable support
+This commit adds initial device tree support for the Qualcomm Shikra SoC, an
+IoT-focused platform featuring a Cortex-A55 and Cortex-A78C cluster. It
+configures RPM-based power and clock management alongside various periphera=
+ls
+like USB, eMMC, and the generic timer.
 
-This commit extends the reg_mask_xlate callback with an operation type
-parameter to allow different register and mask combinations per GPIO
-operation. It also introduces a write-enable mechanism for hardware
-requiring a protection bit before modifying control registers.
+> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/q=
+com/shikra.dtsi
+> new file mode 100644
+> index 0000000000000..262c488add1ec
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
 
-> diff --git a/drivers/gpio/gpio-regmap.c b/drivers/gpio/gpio-regmap.c
-> --- a/drivers/gpio/gpio-regmap.c
-> +++ b/drivers/gpio/gpio-regmap.c
 [ ... ]
-> @@ -78,10 +89,24 @@ static int gpio_regmap_get(struct gpio_chip *chip, un=
-signed int offset)
->  	else
->  		base =3D gpio_regmap_addr(gpio->reg_set_base);
-> =20
-> -	ret =3D gpio->reg_mask_xlate(gpio, base, offset, &reg, &mask);
-> +	ret =3D gpio->reg_mask_xlate(gpio, GPIO_REGMAP_GET_OP, base, offset, &r=
-eg, &dir_mask);
->  	if (ret)
->  		return ret;
-> =20
-> +	ret =3D regmap_read(gpio->regmap, reg, &val);
 
-Could this read operation spoil the regmap cache with volatile input values?
-
-The comment further down in this function mentions bypassing the cache to
-avoid spoiling it with pin input values, but calling regmap_read() here
-appears to cache the state.
-
-> +	if (ret)
-> +		return ret;
+> +		sdhc_1: mmc@4744000 {
+> +			compatible =3D "qcom,shikra-sdhci", "qcom,sdhci-msm-v5";
 > +
-> +	if (val & dir_mask) {
+> +			reg =3D <0x0 0x04744000 0x0 0x1000>,
+> +			      <0x0 0x04745000 0x0 0x1000>;
 
-Will this incorrectly evaluate the physical GPIO data level as the directio=
-n?
-
-Since base is set to the data register base earlier in the function, it
-looks like this checks if the data bit is high or low rather than querying
-a separate direction register. Would this cause an input pin driven high
-to be treated as an output?
-
-> +		ret =3D gpio->reg_mask_xlate(gpio, GPIO_REGMAP_OUT, base, offset, &reg=
-, &mask);
-> +		if (ret)
-> +			return ret;
-> +	} else {
-> +		ret =3D gpio->reg_mask_xlate(gpio, GPIO_REGMAP_IN, base, offset, &reg,=
- &mask);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
->  	/* ensure we don't spoil any register cache with pin input values */
->  	if (gpio->reg_dat_base =3D=3D gpio->reg_set_base)
->  		ret =3D regmap_read_bypassed(gpio->regmap, reg, &val);
 [ ... ]
-> @@ -98,10 +123,14 @@ static int gpio_regmap_set(struct gpio_chip *chip, u=
-nsigned int offset,
->  {
->  	struct gpio_regmap *gpio =3D gpiochip_get_data(chip);
->  	unsigned int base =3D gpio_regmap_addr(gpio->reg_set_base);
-> -	unsigned int reg, mask, mask_val;
-> +	unsigned int reg, mask, mask_val, wren_mask;
->  	int ret;
-> =20
-> -	ret =3D gpio->reg_mask_xlate(gpio, base, offset, &reg, &mask);
-> +	ret =3D gpio->reg_mask_xlate(gpio, GPIO_REGMAP_SET_WREN_OP, base, offse=
-t, &reg, &wren_mask);
-> +	if (ret)
-> +		return ret;
+
+> +			interconnects =3D <&system_noc MASTER_SDCC_1 QCOM_ICC_TAG_ALWAYS
+> +					&mc_virt SLAVE_EBI_CH0 QCOM_ICC_TAG_ALWAYS>,
+> +					<&mem_noc MASTER_AMPSS_M0 QCOM_ICC_TAG_ACTIVE_ONLY
+> +					&config_noc SLAVE_SDCC_1 QCOM_ICC_TAG_ACTIVE_ONLY>;
+
+Since the Shikra SoC utilizes an RPM-based architecture, should this node u=
+se
+interconnect tags from qcom,rpm-icc.h (such as RPM_ALWAYS_TAG) instead?=20
+Passing RPMh interconnect tags from qcom,icc.h to an RPM interconnect provi=
+der
+might result in unhandled parameters or silent bandwidth request failures.
+
+> +			interconnect-names =3D "sdhc-ddr",
+> +					     "cpu-sdhc";
 > +
-> +	ret =3D gpio->reg_mask_xlate(gpio, GPIO_REGMAP_SET_OP, base, offset, &r=
-eg, &mask);
->  	if (ret)
->  		return ret;
+> +			power-domains =3D <&rpmpd RPMHPD_CX>;
 
-Is it possible for the second reg_mask_xlate() call to overwrite the
-register pointer if the write-enable register is different from the data
-register? Both calls pass the same reg pointer, which might result in the
-first queried address being lost.
+Does this power-domains assignment use an undeclared macro? RPMHPD_CX belon=
+gs
+to RPMh-based power domains, while this platform relies on RPMPD. This looks
+like it will cause a dtc syntax error during the build.
 
-> =20
-> @@ -112,9 +141,9 @@ static int gpio_regmap_set(struct gpio_chip *chip, un=
-signed int offset,
-> =20
->  	/* ignore input values which shadow the old output value */
->  	if (gpio->reg_dat_base =3D=3D gpio->reg_set_base)
-> -		ret =3D regmap_write_bits(gpio->regmap, reg, mask, mask_val);
-> +		ret =3D regmap_write_bits(gpio->regmap, reg, mask | wren_mask, mask_va=
-l | wren_mask);
->  	else
-> -		ret =3D regmap_update_bits(gpio->regmap, reg, mask, mask_val);
-> +		ret =3D regmap_update_bits(gpio->regmap, reg, mask | wren_mask, mask_v=
-al | wren_mask);
-> =20
->  	return ret;
->  }
+[ ... ]
 
-Does applying both masks at the same time contradict the mechanism described
-in the commit message?
+> +		usb_1: usb@4e00000 {
+> +			compatible =3D "qcom,shikra-dwc3", "qcom,snps-dwc3";
+> +			reg =3D <0x0 0x04e00000 0x0 0xfc100>;
 
-The message states the hardware requires setting the write-enable bit before
-modifying GPIO control registers, but this writes both bits simultaneously.
-Additionally, if the write-enable mask was intended for a different registe=
-r,
-could this bitwise OR apply the combined masks to the wrong register?
+[ ... ]
+
+> +			interrupts-extended =3D <&intc GIC_SPI 255 IRQ_TYPE_LEVEL_HIGH>,
+> +					      <&intc GIC_SPI 302 IRQ_TYPE_LEVEL_HIGH>,
+> +					      <&intc GIC_SPI 260 IRQ_TYPE_LEVEL_HIGH>,
+> +					      <&intc GIC_SPI 254 IRQ_TYPE_LEVEL_HIGH>,
+> +					      <&intc GIC_SPI 422 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-names =3D "dwc_usb3",
+> +					  "pwr_event",
+> +					  "qusb2_phy",
+> +					  "hs_phy_irq",
+> +					  "ss_phy_irq";
+
+The mpm node correctly maps pin 12 to GIC SPI 422 for the DWC3 ss_phy_irq.
+Could routing this directly to the GIC here instead of hierarchically throu=
+gh
+the mpm (e.g., <&mpm 12 IRQ_TYPE_LEVEL_HIGH>) prevent the hardware from
+waking up from low-power states upon USB activity?
+
+[ ... ]
+
+> +	timer {
+> +		compatible =3D "arm,armv8-timer";
+> +
+> +		interrupts =3D <GIC_PPI 1 IRQ_TYPE_LEVEL_LOW>,
+> +			     <GIC_PPI 2 IRQ_TYPE_LEVEL_LOW>,
+> +			     <GIC_PPI 3 IRQ_TYPE_LEVEL_LOW>,
+> +			     <GIC_PPI 0 IRQ_TYPE_LEVEL_LOW>;
+> +	};
+
+Are these PPI interrupt numbers correct for the ARMv8 generic timer? The
+architecturally defined numbers are typically 13 for Secure, 14 for Non-sec=
+ure,
+11 for Virtual, and 10 for Hypervisor. Using invalid hardware IRQ lines here
+could prevent the kernel from receiving scheduler ticks and stall the boot.
+
+> +};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512033317.1602=
-537-1-eleanor.lin@realtek.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-shikra-dt-=
+v1-0-716438330dd0@oss.qualcomm.com?part=3D2
