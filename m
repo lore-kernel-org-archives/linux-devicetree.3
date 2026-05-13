@@ -1,261 +1,151 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013033.outbound.protection.outlook.com [40.107.162.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C131A3AE707
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 18:50:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778698248; cv=none; b=ZJGvXavJDpFzMcZtW1Y7QoxarGbWbSJtNe0et7ZxM/XVQxQvRdIz/7sVtKeghLXsZOFP7EA6H8F4G7ylkm2TlFvEqgGogd3JkNw0FoHlZ6ZWvVfp57ZXQSgm/9J//qEYYYDlxkLM/eUlvt3xkcmI06zutnlTS3p+F5FMg9Cb+4c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778698248; c=relaxed/simple;
-	bh=I808MSsv3TsrTfE4GDi6+vkUaADCG33gzqyZltDW4Ic=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MI3+albTGRNWWQkTtws6GnjNtn/IppSV9zaKm02O0t1w2Zi2RqEe+lqLtE/BXAOJ4BNjpyDIBI+NVV+SkAELT1hKpYSXk3iVLIE0hHJXuQY8RnqI6S+IrivgSybrlziyMHsu6v+t1V8zAcLSLn+r0kuH8OtQX3aMmiZeypN8LHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=inykS8rH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FrK5pSuR; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 374A53AEF47;
+	Wed, 13 May 2026 18:51:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.33
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778698277; cv=fail; b=bP4IXRTpm+NXHNqtl9vbtPX/6pPJzp41XB5MdKo0uAghDr4Wnhw89NIyFFqUoTkPM08BPcxwk+KtwrCE9zF93+VXHu4q1PFEYh/KNToeXbuFnfJ9jCQrU6RcKMZbqG4f2EkwqiA3Qrs4i3XfkuYf56wYM5+JzCkBSdKk1tHPKHA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778698277; c=relaxed/simple;
+	bh=4PpyoObdZP0imolmbhZZ/u1WWZT/GuvjhhrGQED4Tcg=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=OFPKw0W8aiKPyYyGGB6fGfdcWJUj8IVMwTCGDDzJTxTKn32gdovGvASq9ws1VDozxR/Y9cMyNVkjKmdpflOK502aIE/ATT7CxnoOd3swTe5zPTtc3/2S3aQtCax0S6gngvOXMNe9rZcLbWClhM5VuhJbtdFvSTX5f7KklZh5AXE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=HARX1OBC; arc=fail smtp.client-ip=40.107.162.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="inykS8rH";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FrK5pSuR"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64DGArbj2524315
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 18:50:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=8xFsDrX7Tw6YJWd1nHe/Je0N
-	EIVx9iWNy5GjIc989O0=; b=inykS8rHNicLzrStaCfQZ24K9XJu01ELnGdmEwFi
-	JLeWep6/3cfCF3O8sxUaqTr3nASnMJVnMYN6LtNAvrGF1VS54dXt5XfFdUqg6I5m
-	klmQX7exFf/IrBjvBFY8O/+uDX2+emn8XzcFPeHNeIhBNbku/WEY/D9bMRsmh2YO
-	QXFAOnJTUn1AW7jDeMJUnwS43n61T/VDyz+SB53xaFW0Hwimbyp0SWO9nYhuG5K4
-	JdqrnKn+g4Bh0xmNqMSWPXvHNnJFWYIK/DlasbSjOHkEh0Ow9eg6SfaVu/Ww22Hv
-	eFCcvnQ0B4rvNwUa7/qvVktuOQcWU3qgAQwshdNevuM2KQ==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4vkjgpkj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 18:50:45 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-6312ba5c81aso4839894137.2
-        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 11:50:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778698245; x=1779303045; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=8xFsDrX7Tw6YJWd1nHe/Je0NEIVx9iWNy5GjIc989O0=;
-        b=FrK5pSuR9gaP1sTL1YnefzRKCorh4Mw0/ByqzwLSIRiaTIksjTnRuHT0nBstbZzO3q
-         Hv5UfKXeSK99LI6lzOOcc4DbrxPN2x3ugXP9aze2FyVu9pUH+KeWNnp8iwNOnEBrLNAN
-         wUZpSFM3IAoliahlu9YSADl7APlYMOkYSDLeY3MVCBnD01XnVLjriMMw0OContydlCH4
-         WMhpe+vFBGRbRB54vQZCxnXlaJArlGp+SYYpIiimJq/V7m0LZJTKiIhssg7O3uw8gto8
-         LfX2i2QcTMHo0iNUf+jhF5XPs1Oat7l/pNF1lnA1oWPMW567ex7HE8kz99FRe/QFDrqf
-         079A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778698245; x=1779303045;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=8xFsDrX7Tw6YJWd1nHe/Je0NEIVx9iWNy5GjIc989O0=;
-        b=f61ZzZwLQqklvRgne5etrlujG+jN2XPdBEXD5baZACrgETnxKDLBpHGCVKgZCtpWOV
-         pY7cP/CkYVD4aKsNezfIVPUqV6dasiCA+z/F8cyZ5zBqR1EKiJGXkxS5mt8xbdf+x2VI
-         b+p4zfDbFJluz4zUGmD+ArxlUmHwT8WJjg/GbuJAFAhVwrgdJonowF4GsvhWHVUX4Wf/
-         8HwxDes2+ktNMu9dDcP6SsAM1D9qfEeHnw21veOSmN1urTaETfE+9B9gXszwNMQZ4xU2
-         1DnIejZg5Vh69HSvFF547pZs5ihx0ya7eQYtw8Aq6dStaKWr8BSKnyG8HgJhPIUYQjP5
-         WmBg==
-X-Forwarded-Encrypted: i=1; AFNElJ9tCfFzz+mpGlIZK9FD5+pp7kfFFTR5JNQZf986Hu+jsusdjDM3TL1HdzMyaoFecVn/r1nJg68bZtns@vger.kernel.org
-X-Gm-Message-State: AOJu0YwFO43P4xW85JDmthcc4+vHiUB0mUAjldVUcKVppGTzLScCJ3SD
-	fpnNeo3IlncP1BACTgBKWBernY6FJLqznAnDzECx8LTaJTGHpgmgcXqEkOieze99IwyxjFUV38V
-	Q4ZSAAqee0u8pUr6XKBmEkNslWkG1gumaHJUdLJbmRqsHmPVBbM4i9NqdfoobGwnv
-X-Gm-Gg: Acq92OElsv+WuAnnLmk6pH5myKnO9cKVf8UGCK1EkkkuGzysFMJ2eF6Y3wHyYj39Ckc
-	WfOqCh5rzN8+xEYg85ai17gRNSvDdeqDeiihSL+t/PGIpb4zOBnKY4cJtFqyWCQ1ouXwbSvB01C
-	rG5j51i5gVPxjyfsoRoZlhF5icmWwx42bilFaoXZQFMYyhsOMl3dvf8RPD9rCP/f1jZhDLxjXIQ
-	gr901kC9Pc5j4ipZRBVABZ1cMb0eA1iTHxPkQAySFaf3VkScKxHzOof4J+FWeZNDAxQWxEsm7oB
-	mmPwhpPPEGo0v4lU5HJlfzLVn9/Vk2p1AS3sJPaci4QWDisjIPVgWVaRId5Umuk+eUuWE6hhLNE
-	oRoa3/LqA8DtS8ucO+HE/LVhBv6O10P5PuEbWwX9aam+QJ4G4WWeHSZFuyj5RvyrTlzdk13UYis
-	bOUbdamoml+++6DteF6e/ix4/1v38jl9uKYjI=
-X-Received: by 2002:a05:6102:80a9:b0:634:92c:bdce with SMTP id ada2fe7eead31-63771e9ed03mr2636401137.12.1778698240105;
-        Wed, 13 May 2026 11:50:40 -0700 (PDT)
-X-Received: by 2002:a05:6102:80a9:b0:634:92c:bdce with SMTP id ada2fe7eead31-63771e9ed03mr2636391137.12.1778698239614;
-        Wed, 13 May 2026 11:50:39 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a8bdd67998sm3106042e87.15.2026.05.13.11.50.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 13 May 2026 11:50:38 -0700 (PDT)
-Date: Wed, 13 May 2026 21:50:36 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
-        Del Regno <angelogioacchino.delregno@collabora.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-kernel@vger.kernel.org,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        iommu@lists.linux.dev, Krzysztof Kozlowski <krzk@kernel.org>,
-        devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 12/14] media: iris: Add platform data for glymur
-Message-ID: <c2owdb2hkrbzs55472votyif3bvdo52vfssvownowrlvjwvl3o@3mapgtlrv3fq>
-References: <20260509-glymur-v5-0-7fbb340c5dbd@oss.qualcomm.com>
- <20260509-glymur-v5-12-7fbb340c5dbd@oss.qualcomm.com>
- <jfypqc5ise7uezog3lwmmrzddbsctir6ze24ma4vp4zgcuwjbf@4443jqib6nxw>
- <b6dc6b32-26ad-6f2e-dfd4-551e7fd0481e@oss.qualcomm.com>
- <wequp7ogk2az3d7yzfxn7wwlr6k5ng2jwrg6anaidseteuwlev@v47yoo4j2gbz>
- <ad875fcf-531a-49af-b58e-575185c12d77@oss.qualcomm.com>
- <j5uphbr37xxv5fnmt63g2y2ulykeyovxq2ovw5dxikswrppcqh@vrwmxccsrbjw>
- <b328450e-1bd5-4e3b-83cb-36ab647da657@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="HARX1OBC"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DctlQVdAd/drYyiV0WHK7PwY28ci/+3jI9MpPXvOhZ82MDFM4dMDMgwQwMh/gut5eOH5EkbKMas3w8D5is4sMR4ZmVBRqDb4ZYhQuimJ2ekCnU4HX3iAPZ1cuBFpfxHOouRRfOAskDgYa3U/UK2DFRiFQL+ygfe7TERbWc1db5N3FSDZmSFcwe5o8RjajoufBvpfv45jntQgw1+iFCexLojborwtYRcbs4bToIpa8P0tFUuz3eWf9fPWFIBlHLgUDrSWNu9hC+pzwMnhAPJKX2DOfbYCotOdASnOaGfzix27Ns8x9DBCmtLFP9I6INF2wojLl6fFtj42WPZbbQtaiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Dd2v10N2DhUsUEU6Y3DbRZ8c8jBZpo9eST23etNQ0eI=;
+ b=hC6r41VbVN213WjyeTmtp6H1z8AVmMWbAvd2sL3Ggai1ZE3AptPxfkkzjbSEYfUwgV39vbaIDcQmrPaU6wo+E6RfxalW11RO699GP5KFNJj3W4FKtbbaU2laaLWR1na5aGNbn2hIQ63NWW3vGsg0b8N+9gIOgzvFK7sQ6nup0gQGVq2JrKGjjBfzdpj3344QaCQFLy+oRzaeEQSncw6QhbV9EhfkFiuKdrAfhIKsiXJj7dWkyKk3onONy0R2QnlcXDUXaSVIgk5xMOtyVY3ibGyNKx5H5d/1B1ouswN97BW2Iboc/K94jaAgN9q9kDaAwqrFqvO3D6bBSkT2Xk3Gdg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Dd2v10N2DhUsUEU6Y3DbRZ8c8jBZpo9eST23etNQ0eI=;
+ b=HARX1OBCUBzL9ndKQMs8HFZbxfRJxfX7qfauKdcUAn2ZK3uPEDQY+Tvn08DfEQpvt73Q7VJBE6KhhdzhIrnN4zoqVrfVsoh6vwoDof7tykW3xT4tDnKPHBmSwn8XIdANTrrcYOXa6DpxopVFtskIZTc0iaFKjuLZYYS7PRUtjwEGpC2uAViOeWg2TN7a+J4D4G1MvqUidxcNk6OsMBSeUfxWYHgxhseOGCdVhmC3VKM4G7Badxt0bUiY97/6Iz21118/m3zewd8XM1BsmUqDDjR5jVVan8ohjJAyKBK/yGLIuFt5d8A/xoSvaGvsclXGff8CSyygKK579O9O1E124g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PR3PR04MB7402.eurprd04.prod.outlook.com (2603:10a6:102:89::16)
+ by PR3PR04MB7337.eurprd04.prod.outlook.com (2603:10a6:102:81::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.21; Wed, 13 May
+ 2026 18:51:12 +0000
+Received: from PR3PR04MB7402.eurprd04.prod.outlook.com
+ ([fe80::4129:7aed:b5cb:b13d]) by PR3PR04MB7402.eurprd04.prod.outlook.com
+ ([fe80::4129:7aed:b5cb:b13d%5]) with mapi id 15.20.9913.009; Wed, 13 May 2026
+ 18:51:12 +0000
+From: Ioana Ciornei <ioana.ciornei@nxp.com>
+To: vkoul@kernel.org,
+	neil.armstrong@linaro.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	johan@kernel.org,
+	linux-phy@lists.infradead.org
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH phy-next 0/2] phy: ti: add driver for TI DS125DF111 Dual-Channel Retimer
+Date: Wed, 13 May 2026 21:51:01 +0300
+Message-Id: <20260513185103.1371809-1-ioana.ciornei@nxp.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: AM9P192CA0012.EURP192.PROD.OUTLOOK.COM
+ (2603:10a6:20b:21d::17) To PR3PR04MB7402.eurprd04.prod.outlook.com
+ (2603:10a6:102:89::16)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b328450e-1bd5-4e3b-83cb-36ab647da657@oss.qualcomm.com>
-X-Proofpoint-GUID: MDXEmtFaDn48JLcQeMxDbKtpOm--b5S_
-X-Proofpoint-ORIG-GUID: MDXEmtFaDn48JLcQeMxDbKtpOm--b5S_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEzMDE4NiBTYWx0ZWRfXxxLnSJE31u6J
- qBvKUXODM59S9PJpqNIIBpJADHV3zjLQXZY2cXspNEwYFNSNOwQTkhCvcyKgM17FC+lFUvpVXKS
- qA3Aa2aZzaX1fwcCydBqnkU9W7FKgsixEarTnVZqvU8Prkx8AIvvNOLfo5Z8YZGYcIURBBAPI9U
- IhiR72WEAKQMXfZ/ayoMOdb/Rw8S/WpLEYATHfFLq0hg7NN107mCPMzv82CpYwDoGlwrtpT3pBM
- 32QFhzNtdSoSC/Hd36Q8rrK98JvIXdMwj4Jo0I9IBsDpCdxcvMHyGM86uMxfnrSV5W9EawV8Ycz
- Dg87d8ExBlwj0qwHEba+qTIBDYzfpSGqsR+ur0d/OMKEzXBMGm1SRnf2ejFWHlKdq00Y78k3pWE
- uAw/TmR0ghDNj/nFX+eDkJzFsLSIdm9jywMGgmOoO/hVh+VhVGY4PliS1asJJHPdnHlWatYHk8Z
- m5nFrmkjOQmRQBT5n+g==
-X-Authority-Analysis: v=2.4 cv=PbDPQChd c=1 sm=1 tr=0 ts=6a04c805 cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=IRGgeGkn1t_UDbAtBiEA:9 a=CjuIK1q_8ugA:10 a=gYDTvv6II1OnSo0itH1n:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-13_02,2026-05-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 suspectscore=0 lowpriorityscore=0
- priorityscore=1501 bulkscore=0 phishscore=0 malwarescore=0 spamscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605050000
- definitions=main-2605130186
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PR3PR04MB7402:EE_|PR3PR04MB7337:EE_
+X-MS-Office365-Filtering-Correlation-Id: d2ebe5f0-6344-4348-20f9-08deb1209a94
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|19092799006|1800799024|376014|18002099003|11063799003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	LAmoS+ineRZiJo9d1B3dvVTEg6Qd3uaTrTbiG/K8KPnoau5ZXjoBJ2T0+sjVqNut3dcugurjKsK1V/euXV+OSveAhzLPyU2HFr3MP4krAq8d7P7H75n3v2C+lUVGJ920Tom6Pq8wsQmbnm/HvMFx3mMh/UVA2ix33EiiizkPllcJFmV+/xbpgtBlftjkz9NACMzfcwd8XINd++L7HVtywvmg9/89sPnA/CKIt7pMZH6xP4E/YEJ3hxA71vWVa2SdHgHMdqjVxP6FuzJ3tphH7qaoLbcmbcym6xW2xV2Fst2Y1AJm+K/lTx3XS0TZ7ukf0nm84+z3q9wqoxODDgbZdpf2hZXipnJYiIvBIciNEtCXgZcXIgQABw5jBaqqfNjZs3Geuu1RXHt1x3xvY/iaDRbENvC+KH4+eD/zFM9FQ5WMwXOAZsbGhPcdkj9cI7T1u4dBEcSTBcjtbw/AX8nhVqUv3zOYY3QGgSfL3MOfwWNpwUMPt8MpRvkUxmBSOJc690nKXr9P+bPphJiijecae4/S74KUNpuylzedzbpPW/OJqz6+OoK0zOJjycsL6gkzrpRGjg3l9PpYQ0aSGOUWIxqO9e6NVCWWWDSXBs+Kj6W33SxZWarnv6zAoyM2iORKR586y4ulFZ28CyA9Ixx6u/oXg6Lx22deTHyYs5yskfFrwrvA5Rh2gJlPq6x07fXi14EwblpiQdXJaOvmb272+w==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PR3PR04MB7402.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(376014)(18002099003)(11063799003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?FDHmE93lWOfif/0N/xXjAEKIcx0pTl52XjFQY7OSR4hIjF9HGM4JpEh6DXHn?=
+ =?us-ascii?Q?CCdIX0nP+AXEX+1MJKga93+bHMGE5Bb496KbRL/2Abl5HqnrnqcTotR4jMGr?=
+ =?us-ascii?Q?SfZ0ZMlrUpEejS5hhfdJYweIR7ONvC4NzAI+tUfa/w6mgHBL0FQqnuaoXhZP?=
+ =?us-ascii?Q?HIlmu32NuqBWhFQcnM7WoBru7dLT01M2jdSOQc6phRKh4N+xenBaEWoReeat?=
+ =?us-ascii?Q?fZoXVuCixIq7J8QpvbXnzqEh0+3n2favS+EW7Dk/7SAp06gt528JeeZpR8KJ?=
+ =?us-ascii?Q?Fqt3v63TIqQH/pkdRX6fdjr+9eeV4d/4E4jgrKsRBiF/UQSJf/QgyclcAWd0?=
+ =?us-ascii?Q?mj5MMsubr2pzIYWGgHKX71r4yMYLfoS/vdb842JS98eiv4Rjx9zMsi9lmVMA?=
+ =?us-ascii?Q?Sx3LtoN/gGjpiCjqCOpSBtiKnKWo+SojbvEeCjOUdpzpXVWYYowQqfgHVB1t?=
+ =?us-ascii?Q?YCbuhlx6vIYwLxEP0CjSI4j1EXbgIjc06C0bIL0xMUarLlEwu/a7O3Z/VA4X?=
+ =?us-ascii?Q?czWbZmq8Q/d9tLDLKgPO7LZjlJI8Uiom5uoyECk8TjviZqq4aUowuXHfSu/4?=
+ =?us-ascii?Q?PTHubzGPOndHY2N19i25Hc/PL+R9T3by21DGJUtiOYCfq1/B81wrUNOEo8yB?=
+ =?us-ascii?Q?gEc5A/bGSjQ1sWyo6YHzTRtOuk5ziyHHdCFO75Mw6HwgJXpz0E9IUct0gFgo?=
+ =?us-ascii?Q?EyG6vxEnFc5h3VdRAD6Ot9qPkmHQ+ptAqwi33hwJpVRMD703GxAIEzWsydje?=
+ =?us-ascii?Q?XcziuCVx5tHdHctyK6E3s9uWKLDpnYWmMR+7Z6sgavTQidnGocZMZ3DLbluA?=
+ =?us-ascii?Q?QGo3OdmoufuIOs8SkzisK8E1qhW2DF2Gk2AUHFyrxUbFWo28oCybIhtbW4CP?=
+ =?us-ascii?Q?+i7TEtlquE6J+kh+3MJpU67UMpV1LdvReAbDcPak/OIzqDnKGwc2c9lrK8bp?=
+ =?us-ascii?Q?mHZyhVhN62nOsfE0DW60jYbveJbegWMxgEqllahHM7f2JcWTEJ8Zt+daRcCQ?=
+ =?us-ascii?Q?8uWQ14SBt2XYrQXCFvYHsZpSAN10yV1W47UXzb8wp+qpSuiLwz4P0hLf/8EP?=
+ =?us-ascii?Q?kZwfrtsMKzQFKD/iNJDGKD+hzf+HXHGiH01VNbUWx7kSs0d+0KTdc0vArv7i?=
+ =?us-ascii?Q?w1rR9i38CEgAoWLdq1qEgeYPo1CAVNEJLDPPDBEYX1h74fTYWtKWwWOiMrXo?=
+ =?us-ascii?Q?7WJTOa24GW5XFBpbJZ78XI7vEviYU4vfkaXfEl2zn8/BbnC6zIlRmExHHIye?=
+ =?us-ascii?Q?6qJnHv8s5Ol1JRFw4korO66D3OftxYa0XoqOBJl/atr0jYZJTbPwE3WXaN58?=
+ =?us-ascii?Q?T1qEuwCakaiaDaJ5g0PUNuq8Ffa7B6czgbM/986SMjWz6Rmzr2DcWdLxvewh?=
+ =?us-ascii?Q?GksQcbnvsgBbZCAtN1AtAybIMUmrSkBjf90fb5/Epso/w0brFSCplTT5c7tL?=
+ =?us-ascii?Q?EeMLIsJbafp6EN8RFncYHdBHpZ9U/ccsg/woF+Ozy0opJzPuL0jiJiaLwioJ?=
+ =?us-ascii?Q?h1cpW62tfy64L9ohMgZ2exdzXFBybcgFkQ14GiZxtJ/eXdKvgWlqurKroSWw?=
+ =?us-ascii?Q?3ur1AQDNgjA4V7/YD3GMXj3I3geGM/cz+LIRTf9hAZ7A4Q25WTONZDzA9DJZ?=
+ =?us-ascii?Q?qZCFEpmPlZdfcnwVsl4SHsHKkfUHUUwUDTzdY04sQf8E6AysBfKU5mlXdoMD?=
+ =?us-ascii?Q?MejRtsezKfNbAEZ19zoOv88c7/hfIotWcP8aCvWR2EsFppLtIr3XChVSEMnj?=
+ =?us-ascii?Q?1jRr9b09Kg=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2ebe5f0-6344-4348-20f9-08deb1209a94
+X-MS-Exchange-CrossTenant-AuthSource: PR3PR04MB7402.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 18:51:12.7085
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tlk2YO5DGAz2CNapbCbI+ur7KzuBvUVp6DwFMZAKqFSP/bSr5BOGztRiiayHAnXl1tiZkrVxYmRjLbOTrbusjw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR04MB7337
 
-On Wed, May 13, 2026 at 10:31:55PM +0530, Vikash Garodia wrote:
-> 
-> On 5/13/2026 9:33 PM, Dmitry Baryshkov wrote:
-> > On Wed, May 13, 2026 at 08:00:39PM +0530, Vikash Garodia wrote:
-> > > 
-> > > 
-> > > On 5/13/2026 7:47 PM, Dmitry Baryshkov wrote:
-> > > > On Mon, May 11, 2026 at 09:45:01PM +0530, Vishnu Reddy wrote:
-> > > > > 
-> > > > > On 5/9/2026 2:35 AM, Dmitry Baryshkov wrote:
-> > > > > > On Sat, May 09, 2026 at 12:30:01AM +0530, Vishnu Reddy wrote:
-> > > > > > > On glymur platform, the iris core shares most properties with the
-> > > > > > > iris core on the SM8550 platform. The major difference is that glymur
-> > > > > > > integrates two codec cores (vcodec0 and vcodec1), while SM8550 has only
-> > > > > > > one. Add glymur specific platform data, reusing SM8550 definitions
-> > > > > > > wherever applicable.
-> > > > > > This leave me in confusion. Having two cores, each with its own set of
-> > > > > > clocks and pm domains, I'd have expected that each core scales
-> > > > > > independently. I.e. if the load is pushed to the core0, it requires
-> > > > > > core0 clocks to go higher (while core1 clocks can stay at the low freq).
-> > > > > > Or, at least, the clocks would be set to the frequency corresponding to
-> > > > > > the max of the workloads (if for some reason the cores should stay in
-> > > > > > sync).
-> > > > > > 
-> > > > > > However, I don't see it in the code. All clocks and all power domains
-> > > > > > seem do be scaled using the common workload. If my assumptions were not
-> > > > > > correct, please explain it in the commit message.
-> > > > > 
-> > > > > The OPP core logic sets the rpmhpd level and clock rate based on the OPP table
-> > > > > defined in the DT node, where the clock frequency and power rail level are
-> > > > > tightly coupled together. Since vcodec0 and vcodec1 share the same power rails,
-> > > > > independently scaling one clock high while keeping the other low is not
-> > > > > straightforward within this OPP framework.
-> > > > > 
-> > > > > Do you have any suggestion on how best to handle per core independent clock
-> > > > > scaling within these constraints?
-> > > > 
-> > > > This would require more plumbing and driver changes, but:
-> > > > 
-> > > > 	iris: video-codec@foo {
-> > > > 		compatible = "qcom,glymur-iris",
-> > > > 		clocks = <only-core-clocks>;
-> > > > 		resets = <only-core-resets>;
-> > > > 
-> > > > 		/* or core@0 */
-> > > > 		codec@0 {
-> > > > 			clocks, resets, power-domains;
-> > > > 			operating-points-v2 = <&iris_opp_table>
-> > > > 		};
-> > > > 
-> > > > 		/* or core@1 */
-> > > > 		codec@1 {
-> > > > 			clocks, resets, power-domains;
-> > > > 			operating-points-v2 = <&iris_opp_table>
-> > > > 		};
-> > > > 
-> > > > 		iris_opp_table: opp-table {
-> > > > 			compatible = "operating-points-v2"
-> > > > 		};
-> > > > 	};
-> > > > 
-> > > 
-> > > clock source "video_cc_mvs0_clk_src" is common for both the cores. It would
-> > > not matter if core0 is scaled for a specific workload and core1 is scaled
-> > > for different (let say lower), as the common PLL would always generate the
-> > > higher of them.
-> > > 
-> > > Infact, going with the approach of exclusive scaling would be an issue here.
-> > > The later core scaling command would bring down/up the corner for other
-> > > core, and could lead to under/over-voting.
-> > 
-> > Are the dividers between mvs0_clk_src and the branch clocks really R/O
-> > in the hardware? Can they be scaled to account for the different
-> > workloads?
-> 
-> dividers div ratio is pre-fixed in nature, does not vary with workload.
-> Again, you need to look at the source clock, rather than the ones at
-> different core. Even if they are scaled differently, either in software or
-> hardware (assume for now, hw does), the source would always pick the higher
-> of the scaled frequency corner.
-> 
-> > The commit message should capture the details of the
-> > interaction between cores:
-> > - Can either of them be turned off, while retaining the other one
-> >    running?
-> > - Can either of them run at a different frequency than the other one?
-> > - etc.
-> 
-> Lets capture these details in the patch which enables the power sequence for
-> the dual core.
+This patch set adds a generic PHY driver and the corresponding DT
+binding for the TI DS125DF111 Dual-Channel retimer. The datasheet on
+which this driver was based on can be found at -
+https://www.ti.com/lit/gpn/DS125DF111.
 
-Agree, thank you.
+A separate generic PHY is registered for each of the two channels of the
+retimer, so consumers can drive each channel independently. This allows
+for independent control of the channels, which is especially important
+since each channel can be routed to different SerDes lanes and it is not
+guaranteed that the same retimer will do both directions of SerDes lane.
 
-> 
-> > 
-> > > > > 
-> > > > > > > Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> > > > > > > Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> > > > > > > ---
-> > > > > > >    drivers/media/platform/qcom/iris/Makefile          |  1 +
-> > > > > > >    .../platform/qcom/iris/iris_platform_common.h      |  5 ++
-> > > > > > >    .../media/platform/qcom/iris/iris_platform_gen2.c  | 99 ++++++++++++++++++++++
-> > > > > > >    .../platform/qcom/iris/iris_platform_glymur.c      | 97 +++++++++++++++++++++
-> > > > > > >    .../platform/qcom/iris/iris_platform_glymur.h      | 17 ++++
-> > > > > > >    drivers/media/platform/qcom/iris/iris_probe.c      |  4 +
-> > > > > > >    6 files changed, 223 insertions(+)
-> > > > > > > 
-> > > > 
-> > > 
-> > 
-> 
+This was tested on a LS1088ARDB board with the Lynx10G SerDes PHY driver
+yet to be submitted.
+
+Ioana Ciornei (2):
+  dt-bindings: phy: add PHY bindings for the TI DS125DF111 Retimer PHY
+  phy: ti: add PHY driver for TI DS125DF111 Dual-Channel Retimer
+
+ .../bindings/phy/ti,ds125df111.yaml           |  46 ++++
+ drivers/phy/ti/Kconfig                        |  10 +
+ drivers/phy/ti/Makefile                       |   1 +
+ drivers/phy/ti/phy-ds125df111.c               | 245 ++++++++++++++++++
+ 4 files changed, 302 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/phy/ti,ds125df111.yaml
+ create mode 100644 drivers/phy/ti/phy-ds125df111.c
 
 -- 
-With best wishes
-Dmitry
+2.25.1
+
