@@ -1,157 +1,127 @@
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 242D6406271
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 16:54:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50C73386551;
+	Wed, 13 May 2026 16:57:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778691265; cv=none; b=Wrrby/L5vpuh2MBLDZkXuhnYHsuPX07/hNNcnRII0vQgQdG7KqFUr+7LHBOuw8K7ck4+3lvC9Dy2TkUJThuuyu4yIf4g9UhPSANPiSjiaIpbQoKDy2auDgGa0uIGvrHdDqnD7dnM9n6oY+RR45DqJhkocJSjgH9jVgRiyivzJuU=
+	t=1778691423; cv=none; b=OtU/R7X8OVsL9coSFXX8Y9rOrBXcArFB09SFTZQHeSewMdn7VE/if5IWLMnl787apAFSdaKBO23mGfv13aVRRpuG4PJ+AdaiqIcQkG/UG8nufOEUOfs9cwwZKBklC4OgGDvOZ8AzMMsjhDhUWALznpQfWXRbtiAWXLKMAOngiNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778691265; c=relaxed/simple;
-	bh=zjrVcTrTTWQCfhxILgChHYoh0VZq+sDnXGjkQwsAF1Q=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=AZK9WVgI1y5afbXR+3F7XyQ5eBILLBuL6N2M1oJqz47etYsgDSLVjX3GNkw0rWfMgzV8TXdBa1s52/fhrzS2r9ft/sgqYJtzRHp+AT+/SyGSJOyexaagRwbukxq0L/NAY1MClXh1FoVzMAv8bolQd+IRaIpBVytLiWf1rchSuCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=hNEXT+9v; arc=none smtp.client-ip=209.85.160.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1778691423; c=relaxed/simple;
+	bh=urPbnKqvk3ZHbUkeLsbZ2u1ZcsQ2bu8Gk3DDa15ymeo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UrQh9BND7p3Zz5gMWit1T5v9Gg9vi3ZEvR6ii03/0DlWzUaAfJo91Wzs6Sw1h7qcCw+wErkUgbmEF7ve7/qLvIliNbiam1s3zaacOg1l3vcbHY65BEEIcTVgaKV5iaoioo93XMQgm7pgGH05arYXgXPxyLsCHZwtF4SjGvT18DA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dMbLOzBZ; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="hNEXT+9v"
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-50e5c5033f6so48541321cf.0
-        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 09:54:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1778691263; x=1779296063; darn=vger.kernel.org;
-        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
-         :from:subject:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zjrVcTrTTWQCfhxILgChHYoh0VZq+sDnXGjkQwsAF1Q=;
-        b=hNEXT+9vwGsUaDbhP5YPLKWukz0ZWaParOXmXeRWkeZPwGMsReUfu8ITWl7I5qRX0v
-         R2AJRz1MhEvHdLWJjuZhfzyrYzSkPxRGVpnBygUfGMT2aLWUj6wapT8Tmy/h1cEuBefr
-         NVfkZL2jK06pEcewMJaI9EEBAnGJHuBy2jPpmJo613DjfYfE+Rb4N8sRfJId79zywUkM
-         kwsHRhYz/DW6CGhbmDL8n6137nRkbpWB6k5M88Q7shu/CMkxMXgZmTKeB+U6B/us1MOV
-         P7e/QzN0UWQ4vUkP7bVvpiq1Yxfjach2nNtU4P+nnOQC0c4t8/8SMX9p438noQQcNzbD
-         ic3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778691263; x=1779296063;
-        h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
-         :from:subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=zjrVcTrTTWQCfhxILgChHYoh0VZq+sDnXGjkQwsAF1Q=;
-        b=UZRn91C8VX6HGxenHIBVZYNQWIH1Fws3psZMfc3q8oK08FHtZA26ayuIe/VQqxgRzs
-         WaTIsDTNnsMfyhZZrKY7Ad3EvQx8BnKteZQe0Y7Aa2TkHeLmgx2Nb7uj7W4CIjHjjZEk
-         IS18TFB7t1Wk87C/7E6evgGoXf09Lh6Ks63YevR9G+wsDIfBZtWkLPnDhHTaBsnWmeOQ
-         5cmtqdTve9zYoaOOjQ81nJbekCGIemuWPfg5EsJlWRXo44fGCbbzW4tHL1xOKVO8rDZy
-         Bw4/PWNR387MIjXDn2kRM/4Mv5UFoNCJVKzydXeB0G1KFgA0+ZjMcFWMX5Uj/+booXkY
-         Spyg==
-X-Forwarded-Encrypted: i=1; AFNElJ884lJLAakenVhm0wPqm51YNZ40DPwcyFHGmpyobiF8aqgi93mHcBOUHDjl1BxOKRf4bnIb3c8d6yOK@vger.kernel.org
-X-Gm-Message-State: AOJu0YxFrUjJ33nV1Yc7C/Jn3KqZXWPGGgvrbdX5iEZyVZ98fRK14Yab
-	eu5l4mz8VJr6b2Mfo65rHR+qv8bQOV/XGM8e+d5nB0Mo+hiP/qwG0xgvswlRn+MWUig=
-X-Gm-Gg: Acq92OHsCPGDChVL5AAa6dheN0zlQEp2CArwX5g5O2yXULNF2OfSA8AJhpLZz6vjT0q
-	lwwvppB4bFvKUGqkPujpKhl+j11TWsL7aVCy0BUgtKHXCoErjc9XZ0rDeIpB6Q5vXJw1BlgpuDM
-	LqlkSOXLp8tlGNBM4gJJibOowlPNzMZ90k35aZzuZfxM8OUJ09nd4B4gwZC05bTGt+4yroE1a9Q
-	fmbNEYxQg1/PTQP9O5TlufCRDQRhMAOeEiP7sbXJuFYDOznWQjnNe3Ruy6x/suGHJYx13gv8BwP
-	90mU90uViaCQkCVorfDLSxfGn8IicxJHzKXwGTG4LfteOBU3GCtNA40MqS5qBW8bIp/KORbJX18
-	4tvw2wri5sOWt4XrRwMRWwXV3ElP++i6efZMmjlHDqHKLMqNyDb4OLlhUYltR0wPvCCu0Z3MlMK
-	qeMKOfoX4j1ou30tpDCqlTS/wlatSM2d8k9PoYZ4Xw33BhARgIyvtsiRnzs5fKcLdDRjJV
-X-Received: by 2002:ac8:57ce:0:b0:509:3c8c:23f7 with SMTP id d75a77b69052e-5162ff0791cmr48491321cf.30.1778691263060;
-        Wed, 13 May 2026 09:54:23 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:15:e06b:3a7c:76ff:fea1:2ac0? ([2606:6d00:15:e06b:3a7c:76ff:fea1:2ac0])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8c90874e5e4sm813106d6.6.2026.05.13.09.54.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 13 May 2026 09:54:22 -0700 (PDT)
-Message-ID: <4efb85a777683e8eba1e19501c4bf6de3494d2f9.camel@ndufresne.ca>
-Subject: Re: [PATCH v5 16/29] media: rockchip: rga: split flip and rotate
- into separate function
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Sven =?ISO-8859-1?Q?P=FCschel?= <s.pueschel@pengutronix.de>, Jacob Chen
-	 <jacob-chen@iotwrt.com>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Mauro Carvalho Chehab
-	 <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Rob Herring
-	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	 <conor+dt@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, Philipp Zabel
-	 <pza@pengutronix.de>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, kernel@pengutronix.de, 
-	sebastian.reichel@collabora.com
-Date: Wed, 13 May 2026 12:54:20 -0400
-In-Reply-To: <aeff9412-1c69-469d-bee3-7b9efa9b3947@pengutronix.de>
-References: <20260428-spu-rga3-v5-0-eb7f5d019d86@pengutronix.de>
-	 <20260428-spu-rga3-v5-16-eb7f5d019d86@pengutronix.de>
-	 <ebe5cd6689923eb1e2124e177f694895383fba54.camel@ndufresne.ca>
-	 <1f447423-8c63-4545-a4f7-d8d5ef821255@pengutronix.de>
-	 <30f56a0ac9f724b5ec1b936eec7b5b7c5e751c75.camel@ndufresne.ca>
-	 <aeff9412-1c69-469d-bee3-7b9efa9b3947@pengutronix.de>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-aSiFsAE5dKCPdAUlYUtL"
-User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dMbLOzBZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1778691421; x=1810227421;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=urPbnKqvk3ZHbUkeLsbZ2u1ZcsQ2bu8Gk3DDa15ymeo=;
+  b=dMbLOzBZ/HQhSqnwcYUPmWvP3O+Zvs9ebloKwKYNXST+xG54Dsx/RuYk
+   TEaKmHVOH/xFCzKIQtLDWdzbEZ4kMENbfgY3NLHR4QFP/g9xZd0X2vYed
+   yrN61q2cG6rwBdL040aBg9MrgX7eBWk4hKMKWNiCyO11JyCRozHZv+UVT
+   lHzKJqy8OOIZMVOaNoltADsGjbzAdHhnTGEkhY/+xZ+cy13KlYBjVxb41
+   FWZj8EquL7PDnpQO0RBytbcgBgUvn9yYaBxDeM2C6a+3k/ifz2PWVQHy6
+   YJAU2BYCTmriu5CAEPqYSGiXoqdfRnzsqF2VrblRv5NvPbSl3al+fklwT
+   A==;
+X-CSE-ConnectionGUID: DvbacVf2Rvm9Xng5fNMU6g==
+X-CSE-MsgGUID: TVqzfMO1SsCEp9aV/l5YYw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="83498095"
+X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; 
+   d="scan'208";a="83498095"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 09:57:00 -0700
+X-CSE-ConnectionGUID: Owh6TnqvQn2SaHKzOWmwXQ==
+X-CSE-MsgGUID: Q/yWXLZGTxy9OJtYioK0Mw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; 
+   d="scan'208";a="235069502"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.106])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 09:56:56 -0700
+Date: Wed, 13 May 2026 19:56:54 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Rishi Gupta <gupt21@gmail.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] iio: light: add support for veml6031x00 ALS series
+Message-ID: <agStVi6NXRnQOOOO@ashevche-desk.local>
+References: <20260513-veml6031x00-v2-0-4703ca661a1d@gmail.com>
+ <20260513-veml6031x00-v2-4-4703ca661a1d@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260513-veml6031x00-v2-4-4703ca661a1d@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Wed, May 13, 2026 at 05:49:44PM +1300, Javier Carrasco wrote:
+> These sensors provide two light channels (ALS and IR), I2C communication
+> and a multiplexed interrupt line to signal data ready and configurable
+> threshold alarms.
+
+Can you split this to two or more patches:
+- basic functionality
+- feature 1 (exempli gratia, IR)
+- feature 2 (exempli gratia, multiplexed interrupt)
+- ...
+
+?
+
+But let's wait for Sashiko if it swallows this big slice of the pie
+and not choke on it.
+
+...
+
+> +	{
+> +		.compatible = "vishay,veml6031x01",
+> +		.data = &veml6031x01_chip,
+> +	},
+> +	{
+> +		.compatible = "vishay,veml60311x00",
+> +		.data = &veml60311x00_chip,
+> +	},
+> +	{
+> +		.compatible = "vishay,veml60311x01",
+> +		.data = &veml60311x01_chip,
+> +	},
+
+Oh, is 'x' is a real letter in the part number or a wildcard? If the latter,
+please avoid. Choose the base part number instead.
+
+...
+
+> +static const struct i2c_device_id veml6031x00_id[] = {
+> +	{ "veml6031x00", (kernel_ulong_t)&veml6031x00_chip },
+> +	{ "veml6031x01", (kernel_ulong_t)&veml6031x01_chip },
+> +	{ "veml60311x00", (kernel_ulong_t)&veml60311x00_chip },
+> +	{ "veml60311x01", (kernel_ulong_t)&veml60311x01_chip },
+> +	{ }
+> +};
+
+Perhaps use C99 initialisers, as there is an activity to change all drivers to
+follow that. Jonathan, btw, what do you think we should do in the light of Uwe's
+approach? Require C99 initialisers in new code, or something else?
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
---=-aSiFsAE5dKCPdAUlYUtL
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Le mercredi 13 mai 2026 =C3=A0 16:29 +0200, Sven P=C3=BCschel a =C3=A9crit=
-=C2=A0:
-> Philipp Zabel just mentioned that a 90 degree rotation would just cause=
-=20
-> the RGA to scale it to the output format (deforming if it isn't=20
-> quadratic). The existing code already considers the rotation to set the=
-=20
-> scaling factor accordingly (which I've also missed in this commit. But=
-=20
-> the commit is dropped anyways in v6 due to the various footguns).
->=20
-> While I see that the V4L2_CID_ROTATE docs mention the need to set the=20
-> format according to the chosen rotation, it feels like it's intended for=
-=20
-> non-scaling converters. So I don't see a problem to just allow the=20
-> current state, as the user has to adjust the format anyways if he isn't=
-=20
-> interested in a deformed image (instead of blocking this potential rare=
-=20
-> use-case).
->=20
-> But I'd add a check in my scaling commit to also check in the streaming=
-=20
-> state that we don't set a 90 degree rotation causing the scaling factor=
-=20
-> to be exceeded (e.g. 1x2 -> 1x32 scales by 16, whereas 90 degree=20
-> rotation causes a scaling factor of 32).
-
-Ok, didn't think it would just break aspect ratio to make it fit, but it me=
-ans
-its valid for this HW.
-
-Nicolas
-
---=-aSiFsAE5dKCPdAUlYUtL
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCagSsvAAKCRDZQZRRKWBy
-9DGsAQDFF4AUa8rwW+g79CDHXNSmFRT9T7gidDUKZhGYQYsr2wEA65cExpikwkg2
-lV7COvcRf9/k95Nx5NJ2kLXO9C4PsAs=
-=fHbK
------END PGP SIGNATURE-----
-
---=-aSiFsAE5dKCPdAUlYUtL--
