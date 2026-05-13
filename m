@@ -1,177 +1,245 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11023132.outbound.protection.outlook.com [52.101.83.132])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF2A407592;
-	Wed, 13 May 2026 12:25:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.20
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778675117; cv=none; b=kPHbRxRmpT/PLWbTQWDiTUVFC/39xVHqLxdOFa3IokgSKPIPzJstUjWNiYmnOIlZuDaGX7jBA3xOmQi8OleowmAMhTOvkNn/xbTNZ80OkIxke/O9cFOeOA+fNS88Ei/+Y1KMmfIM/nbpyiShrJ0IitzpWvrEfGZaOSqjBE2381Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778675117; c=relaxed/simple;
-	bh=8FiaGt8v/47mhEfbyvopFGVJOK9oYI/PuMxj4b9NQ0c=;
-	h=From:To:Cc:References:In-Reply-To:Subject:Date:Message-ID:
-	 MIME-Version:Content-Type; b=OX+XtCh2RG5BHG+cYiELNylAXT1CcMhKIEKvyPNFdK8jOqulO19I/4rZLapWWlUHcSLDBVMwtfHwBwICRKIVdWNEkfLOakTf3HesMBh+WKG6XW2o/ABWDQl7RWe0QLQRZXnp2kC1oBU0MMjkJlL57gnzGAW7ZbgAlzhHPFiIiBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=bUcHMdDl; arc=none smtp.client-ip=212.227.17.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F1540758F;
+	Wed, 13 May 2026 12:26:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.132
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778675177; cv=fail; b=bxSHkTSMg3JJiylcVcT0AJ6Cl8zE6Kh1wtd8ZBXhv1mOmRVjZ+aIzuLbr8wPOR1NJwjkqL24/NO/+J36w1Ar2tSXXl08RWAPXRmNW182waHMO20fHYZoAwxc1tiIrK+i/EkO7oxMjYrGdVdBuJFFwQ46HsMogENBNO10BZkimN8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778675177; c=relaxed/simple;
+	bh=j3NLKEPEEuPIYCmndZcLaMhw7mOFzYuZZl9oyw1cXUI=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=YFBC70vZf/0V8Xhn0PpSbinVuLC7w6jk6DCNHeAqenfdw90cAyy4O4Cm6mn92pdGVvbeu2abNBLSjLuLnjgoPNDIl1woYEr3VGmq9C/k5EJ/EjsTd5j0dkk7MkvIqwlx7ZBowcoUN+X7xOxd3MtuRFZg/M/BSf8EshDw2LQ9dRc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=genexis.eu; spf=pass smtp.mailfrom=genexis.eu; dkim=pass (2048-bit key) header.d=genexis.eu header.i=@genexis.eu header.b=uxQhabWo; arc=fail smtp.client-ip=52.101.83.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=genexis.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=genexis.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="bUcHMdDl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1778675112; x=1779279912;
-	i=markus.stockhausen@gmx.de;
-	bh=8FiaGt8v/47mhEfbyvopFGVJOK9oYI/PuMxj4b9NQ0c=;
-	h=X-UI-Sender-Class:From:To:Cc:References:In-Reply-To:Subject:Date:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=bUcHMdDlYLMi+reOqnFkeqgT8P6OjkA6B5pfQ/ym+zgqPYShS3S0IhunUNSYcBNe
-	 ZhLmyMx2mi5Y8BBNQOHuOhZLNrs7dJpefBcpCSgkzeqpgIa3qI8yytAdjBsr20F4e
-	 UTjOVX46Ctrw4/7NhNQUV/pqPi1JcfNjyNA7lEjf+05T1u51iR7wMzz8U7U8y2a/Q
-	 343tLAdcy5WY7eQPZP+INmElrST505bVdKVUoZTh+4Ott+shZu6XU23DnmG3uqwDh
-	 LN+TKCCfaZ+9rPmOC5SAdOAfjO68Kq5PIOPSlk72U3d0Q6is/H8PN9to9bY64TzQ+
-	 X9pCKftl6hJJ7GCXdw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MuDXp-1xFMfC4AeL-014tCU; Wed, 13
- May 2026 14:25:12 +0200
-From: <markus.stockhausen@gmx.de>
-To: "'Rob Herring'" <robh@kernel.org>,
-	"'Bartosz Golaszewski'" <brgl@kernel.org>
-Cc: <wsa+renesas@sang-engineering.com>,
-	<andi.shyti@kernel.org>,
-	<krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>,
-	<linux-i2c@vger.kernel.org>,
-	<devicetree@vger.kernel.org>,
-	"'Marek Vasut'" <marek.vasut+renesas@gmail.com>
-References: <20260511162528.84508-1-markus.stockhausen@gmx.de> <CAMRc=Mc-EbMu3eUrMA5UDCEp-xzbyndy8_U8OjfcTDJcATThQg@mail.gmail.com> <20260513121135.GA432696-robh@kernel.org>
-In-Reply-To: <20260513121135.GA432696-robh@kernel.org>
-Subject: AW: [PATCH v2 0/2] i2c: Add i2c-shared-gpio driver
-Date: Wed, 13 May 2026 14:25:11 +0200
-Message-ID: <036001dce2d3$8b65be70$a2313b50$@gmx.de>
+	dkim=pass (2048-bit key) header.d=genexis.eu header.i=@genexis.eu header.b="uxQhabWo"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aqQK/zI8FTzyAbTZJcmCyTrHqZitcQxRawYa4nmUTL7Ruq7vcmoTSMHp2YjvsmJoxPizkdejtDn/6c0UgQuUn3JmO+NjlyRw+3B9WPJAVhW7oNEk2/HUNj+xC3roV9FUh6bw3UIWS0+hsIa+EcJkhHlJKHVwaTmLHrXXVEIb1Xsz/mhuAym0wWeMhAvJakvGeXzErYR6YmiSP1y56PXFnVKjgYb2C5sbFyynN6uuRIjcfnDNirdBiD75XmXKf4LWlFnBrXc2bV6tF9bBrKG5aiEnJVKs5lOKTdqAnLnjpboxI9jWbfGWk5yg3R7HsmCBrAp8iYs50LpdU1MH5kxaDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aQlZ/OjZycl8mO0qhkBjjI22KpQXTTVRLDnf5qieSXI=;
+ b=kgVjtJaXmOvVkgvhpZ5hMPPAHPDrTmg+TJDgFYOx+sNLQ6HggyoY3wWSQuKDlfkUti2kP216W3S6FTDr5+o0rp0jWY6CVzBc/FT0TyM05GDnihnB4wmqMa2jO9g8JhrZ+9gs00oquSYRteWFHKiVh6QivOPlvDqJdeLOgb4LWvvOHV5c75BKZi3p3JXbut2uW6zUJMweITBn/aTJb7y8+ZofbVX/qR9ghWfmH6eyszhigyLScb46G375J9GsZyb1KPkXHEWYYGBhGx7FIiaDrRc994E0Foe/qIKogeGHc5uhWJnwBlD2MQLWO36grLtZ9n95yE2zstqOgebcNWJwGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=genexis.eu; dmarc=pass action=none header.from=genexis.eu;
+ dkim=pass header.d=genexis.eu; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=genexis.eu;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aQlZ/OjZycl8mO0qhkBjjI22KpQXTTVRLDnf5qieSXI=;
+ b=uxQhabWoxjKwPJhsunr/5GaUYSF0QuaQ2SpuprNymZN8SHq+qRV5B7zWS4IqJK5El7OML1AQizlVkKmesc8T4CLdBMT1c5FM6S7R1WeWwD+p/Om8b9w68jQChvn1T0xFO/418aG7UT9LjI1bNHwHIEvFfemb5rHJt+I6ishuNcz/pu3LhrLmMd+WX/0Vxpde+KE3Q87oheT+yWt1vQTcC5Q5LDvPHjSHclnFs6adjs3wW6ChbGge3eearStuDFtz4KIO8hwNMCiVsUXLBb+IF0LHySxndIGIDnb+VIXtsz/JGrdt6m6PE9PDZlkHOsnqrDO3ltc3IynTpFmLvxBLmw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=genexis.eu;
+Received: from DB9PR08MB6697.eurprd08.prod.outlook.com (2603:10a6:10:2ad::14)
+ by AM9PR08MB5906.eurprd08.prod.outlook.com (2603:10a6:20b:285::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Wed, 13 May
+ 2026 12:26:09 +0000
+Received: from DB9PR08MB6697.eurprd08.prod.outlook.com
+ ([fe80::bdec:3e95:6614:441f]) by DB9PR08MB6697.eurprd08.prod.outlook.com
+ ([fe80::bdec:3e95:6614:441f%6]) with mapi id 15.20.9891.021; Wed, 13 May 2026
+ 12:26:09 +0000
+Message-ID: <383d1b22-7749-4278-a856-b8e29bc06e73@genexis.eu>
+Date: Wed, 13 May 2026 14:26:07 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v6 11/12] net: airoha: Support multiple LAN/WAN
+ interfaces for hw MAC address configuration
+To: Lorenzo Bianconi <lorenzo@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Christian Marangi
+ <ansuelsmth@gmail.com>, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, Madhur Agrawal <madhur.agrawal@airoha.com>
+References: <20260511-airoha-eth-multi-serdes-v6-0-c899462c4f75@kernel.org>
+ <20260511-airoha-eth-multi-serdes-v6-11-c899462c4f75@kernel.org>
+ <f4a11830-8a3f-4cc3-ab82-e6f02ca34ae8@genexis.eu>
+ <agOUgVn24Ls5jiHq@lore-desk>
+Content-Language: en-US
+From: Benjamin Larsson <benjamin.larsson@genexis.eu>
+In-Reply-To: <agOUgVn24Ls5jiHq@lore-desk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: GV3PEPF0001DC2F.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:158:400::116) To DB9PR08MB6697.eurprd08.prod.outlook.com
+ (2603:10a6:10:2ad::14)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQJOQ41lTjAEFfNc8nTp+ZatC5wHYAIpu+1FArbUHLC1AhmSgA==
-Content-Language: de
-X-Provags-ID: V03:K1:KykuL++uW186c75fTJGp8MkH1+SuBuqhkTc3eWdbnQC1BvsBGQm
- 2jgwBX9Gy/Dto3A94hVjvotBbOOtB6oUYLYHmotkFvXIINbQarf9wu+ZACWEjMVj1zij9T+
- ++ApeZLZPX/Ys6G9CxBif4I/AebAWmc90kAPJL5jcrnByMa5ZoStB/0gd04b/8SQ7/QJqwg
- 8MTVD6BlPKFV7BnRbym0g==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:gOoRAy82N8A=;V9uKpwDdhUMvvdEWHiVMbYIordJ
- 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
- VP1Wr51eVR8EpnlVf6r2NYlw==
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB9PR08MB6697:EE_|AM9PR08MB5906:EE_
+X-MS-Office365-Filtering-Correlation-Id: c5380dec-c4c0-489b-5466-08deb0ead020
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|18002099003|22082099003|11063799003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	FhdIAkq37wAtndTGNARgCgtE4H80ZVQJSGdmDfIHdaOlbdtFK/jVbwQy3ZXSkb07+1X0RKD1n/XV/D9iCnJZGW5ImigOEnVIXGG3U4BVEJNYn+SPHQRy3BgLDBVr3UYHqlbhE6Sg2XyvC+gHt0DNedtsoSsfYZd2jtScdqqidPhohHbSEZfFwRHWXhe7ZEJ73D+NFcyhPMi2Y+WAUs3JvU+jzFwumalwgzeLgZMTRPmEPuklBjG2kNkBsva0hWE44HtMqMh8bSOSorNTw6X0FTe5lffjfrsWUSGzztHpaWqpWjyFKCGDrCG7KehZetNrvA7r1KN2tDdbgmgTWfpkOQj5JIY9xtyeVSfGixRZw83H2qwTgSwA4gV7JYP/K0fgjpdIblT3N1m/aC/VLxCDtX8RsHcxamGRLZeeBP+MdfV6wkCT5tqKFmpKLEmYDktrAumkuq8aCq73zWf4nz0dudtYEKo31pxfuoUHCW5Q2meCgNpMxDhNoA9INBeHN63r6GDo6j99JkvB/n/+hKZpybH5KtY2KT0woC2m3JkUBAPKheSfREiOTWfTNr25QzZCcBPTD660Lm2jWkjtQAtrlG8QuZjPFEQIlNG/pksgFadNSgeZgprSQ8LRBn83jm8RWQOfJmGRgt5H8GUv7AfHZPddjGTaxciKKxCSzQ/7Q2StdaE/5jFI9wYMfOvPP/ln
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6697.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(18002099003)(22082099003)(11063799003)(56012099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cVBaMm5hb2tEbmY5Z1lpSHJRRTJIVnZ6dUNOMWF1SUFwRDFIN0tvN2FiVHdO?=
+ =?utf-8?B?RW8xSElsM0kyankwSkVrUklOT2Z4R0VkeXo1Y1ZjbVFKNmZBblZGWkJwYXFW?=
+ =?utf-8?B?VUwxcTFCMW9GLzZHVzQwLzNERWVwZ1J4N2FFbUVrUW5GYzE1YWRnN0Q0czFp?=
+ =?utf-8?B?RmtMVE85VmtidkxibW44aEJ5SlFOZGxPNTVBdWtiTW4xeFRTWm9IbjVEYmdw?=
+ =?utf-8?B?aTZ6UWZKVm1xcERYM3h2YTNQTldqa2RRNGtWR1pBZlRvdU9RNFZQbzJFY2VN?=
+ =?utf-8?B?UFViNThZY3JvSkFRd3dZU2JMQ1pnVk9odzY2QmFqK09PQ29QdW5HdEhJU0Rx?=
+ =?utf-8?B?ZHJqaEZEaW84bFdITDVabmpXdzJZSnlLWjZmQzNmMVAzYUdpWDlRb2Y3OTdq?=
+ =?utf-8?B?NERCSldFaS9PRFRQcFJ0c1JGSkdwTFRBY2lEZnNsVWRzWDAwN1R2b0tlQUp4?=
+ =?utf-8?B?QVZyS0RxMVhmam9qNWRQR0M5L2ZsZWZRcUp0MG5KSy9qeWRjQjl2QVk1czQ3?=
+ =?utf-8?B?eWJyT0FNSlBLdE96K0J5MVFNNmlhdXBoRk1zNDhrUXYwM1g4NDIvZUJqaFVD?=
+ =?utf-8?B?NkZBbkZkc2pHSzVlZUhTa21ObUFhbXhKRmx6b3VmOGNBRVF6QUtsVjZFNU5Y?=
+ =?utf-8?B?UkdnYzc1UzhFbEN4c3AvOGV6b0l6UHRzT21NTlVHcXRhYnRsRExtV1ZkbWhC?=
+ =?utf-8?B?UWNFS3NkK1JzWEpkbHczYis0TGw2b3lraXJZUVc3VHF6ejdiMmdHM2VTbHlM?=
+ =?utf-8?B?em1LOEdUaGxaek9MN1ZtL3V5VHlGeE9HTTJQLzYraFlHQTNsSk85Q1BlYjZL?=
+ =?utf-8?B?YVREL2R0TFhWaGg4a3hjZUdLOUxlc29JTUdjYitwRE1HdWFQL2RidDZtWDZ0?=
+ =?utf-8?B?d2Y4UlJ2L2pUK0prblV6bWllZ1had2hCb0xOYUFWS28xc2lsL2ZFVjhTSThW?=
+ =?utf-8?B?MSszOEkyaXh6aXowaUxhRWR5UVNnTkljM01LOUdheU1iSFNwWHJVRGN5QlJW?=
+ =?utf-8?B?T0ppUGV2cGlnenNqQVg2SitNaFA1L2UyV1l4azNEL0xCQWdYN3licmZEQ24x?=
+ =?utf-8?B?ZW5YQmtXWDJWQjVxMDBqOUttVEtoSUpWSlZpN2hsc3pLZis0aWYxNGpNMHNT?=
+ =?utf-8?B?eW92UDhrb3hQRURQWHJ2L2R4WDN3SFpUVkx6MWQ2L3ozcEJBOFNjaVBlRFBS?=
+ =?utf-8?B?S04vUkw1ajhrZ3I5anQvQzNFS0VhS1B0eGo3ZVkraDRkZkpnenEvNDlPNjhJ?=
+ =?utf-8?B?MW1QY2ZiMHpsVTBkbmN1YWVxMDFHQW14WldHR3RUT091YzA0aXNHZVVBYUlD?=
+ =?utf-8?B?QVpXUlBzRkRObmN1Ui9jbzY3aGI5L3RtT0VwR0xDWmlVL09zditLL0JwMmp4?=
+ =?utf-8?B?b25SMlpSNjVUS3ZBSGtTUUhLSjdEaXIrSVQ2TXVRSVFsbEI1K2lMT2ZVQWhm?=
+ =?utf-8?B?YUhsTWVTekRGbU5mZzFELzJrczQzL0RVYWs1N0MwUVB1em91WWZFWGhtUFhv?=
+ =?utf-8?B?WWM0SFBJdEh4V0RhTkptLzk5UlJzSmhhMmRoMnhPNml6dmJyUnlFbVJhVXRi?=
+ =?utf-8?B?L0hZWFZvaVNVM04rVHFPRHpZUkJHakZTRzAwd3lkT05CUVlKWUsvK1pFWkZt?=
+ =?utf-8?B?TGgvNFJYamlVV0J2eUplTUxQcUZtRkJDc1BHNk5sWHpXcC9BdGt3RGJxWXIw?=
+ =?utf-8?B?YUdNWnVmOUprQkIzSTFxamZZWDY4T1hGeitpTUw5cGJacDk4dld3R2hvODlz?=
+ =?utf-8?B?d25vYjY3MjA2UURCRE53Q2dlVHpSTTlpdDg3V2xXWmg0WGdlczFkMytZajFR?=
+ =?utf-8?B?a2pCTEt1Z0hDT0pEYzRvMDFzRVJzZmRUY3hFOEw2cFg3SVI5TFE5eHJLbmxk?=
+ =?utf-8?B?Yi9zcE04blBIdUdLN2dUdHZuOG5FemZRc0FzSVMzRGNXQlRKK045b2YyQWFB?=
+ =?utf-8?B?TmoyejhoZUt6VEJOMWlXOVpmeDlYWUYxRER5OHRlYTFKMko3bVJrbVMyS1p3?=
+ =?utf-8?B?MjZWek9YOCtML2VabElhV0lRVFJic2VlN2gyMnlxc3M3Nm9NSDR0UzJyVG1p?=
+ =?utf-8?B?YkFhVmduc1pFSERBYys1dGkwc211aUNldVVneDFhRXR4RTFBdEl6TFJRb21o?=
+ =?utf-8?B?NndQVkN0M3FoR3dwZmErdENSS0dLNG4ySU8zRUxaaGx3NElCRDdDSUFxSEcx?=
+ =?utf-8?B?YVp0bnQ1cFpzSm9VdGd4ZHluamQxWEFIemIwODFpMGdJb1hrQ3BpQVo1Yk9i?=
+ =?utf-8?B?K0ZTTncwcXlHaUFyZlYzMThuaUFxMWRBK3NXVWVCQjRSakpESjdtMVA3dFE4?=
+ =?utf-8?B?MExxdHpPcVM3UGxjNHdOUnM2Q3dOMGcrUjJMeHF6MWhSV3l6ZGYvWU9TRWRK?=
+ =?utf-8?Q?f1mPpISs8jBNVYOU=3D?=
+X-OriginatorOrg: genexis.eu
+X-MS-Exchange-CrossTenant-Network-Message-Id: c5380dec-c4c0-489b-5466-08deb0ead020
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR08MB6697.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 12:26:09.6243
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8d891be1-7bce-4216-9a99-bee9de02ba58
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vFCXV9g3rw7ta+xbP7sF7pQMOttI7R/Dzk3+vo1Sdw7GiDNBXtWhHKiCg/ROXL1WZuvFSmQ0AcqavOgkUR4u1LYO/ll7oGe6/vBQeFPqVt0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR08MB5906
 
-> Von: Rob Herring <robh@kernel.org>=20
-> Gesendet: Mittwoch, 13. Mai 2026 14:12
-> Betreff: Re: [PATCH v2 0/2] i2c: Add i2c-shared-gpio driver
-> ...
-> > > So the implementation manages several classic bitbang buses with
-> > > locking/unlocking in the pre_xfer/post_xfer handlers.
-> > >
-> > > Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
-> > >
-> >=20
-> > Hi!
-> >=20
-> > A couple high-level issues. You'll soon hear from the DT maintainers
-> > and they'll ask if the i2c-shared-gpio compatible corresponds with an
-> > actual piece of hardware on the board. It does not, so the bindings
-> > will be rejected.
+On 12/05/2026 22:58, Lorenzo Bianconi wrote:
+> On May 12, Benjamin Larsson wrote:
+>> Hi.
+>>
+>> On 11/05/2026 12:49, Lorenzo Bianconi wrote:
+>>> The EN7581 and AN7583 SoCs provide registers to configure hardware LAN/WAN
+>>> MAC addresses, used to determine whether received traffic is destined for
+>>> this host or should be forwarded to another device.
+>>> The SoC hardware design assumes all interfaces configured as LAN (or WAN)
+>>> share a common upper MAC address, which is programmed into the
+>>> REG_FE_{LAN,WAN}_MAC_H register. The lower bytes of 'local' addresses can
+>>> be expressed as a range via the REG_FE_MAC_LMIN and REG_FE_MAC_LMAX
+>>> registers.
+>>> Previously, only a single interface was considered when programming these
+>>> registers. Extend the logic to derive the correct minimum and maximum
+>>> values for REG_FE_MAC_LMIN/REG_FE_MAC_LMAX when two or more interfaces are
+>>> configured as LAN or WAN.
+>>>
+>>> Tested-by: Madhur Agrawal <madhur.agrawal@airoha.com>
+>>> Signed-off-by: Lorenzo Bianconi <lorenzo@kernel.org>
+>>> ---
+>>>    drivers/net/ethernet/airoha/airoha_eth.c | 75 +++++++++++++++++++++++++++-----
+>>>    drivers/net/ethernet/airoha/airoha_eth.h |  2 +-
+>>>    drivers/net/ethernet/airoha/airoha_ppe.c |  4 +-
+>>>    3 files changed, 66 insertions(+), 15 deletions(-)
+>>>
+>>> diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ethernet/airoha/airoha_eth.c
+>>> index 16c0ff9999da..533ffe20f833 100644
+>>> --- a/drivers/net/ethernet/airoha/airoha_eth.c
+>>> +++ b/drivers/net/ethernet/airoha/airoha_eth.c
+>>> @@ -71,20 +71,67 @@ static void airoha_qdma_irq_disable(struct airoha_irq_bank *irq_bank,
+>>>    	airoha_qdma_set_irqmask(irq_bank, index, mask, 0);
+>>>    }
+>>> -static void airoha_set_macaddr(struct airoha_gdm_dev *dev, const u8 *addr)
+>>> +static int airoha_set_macaddr(struct airoha_gdm_dev *dev, const u8 *addr)
+>>>    {
+>>>    	struct airoha_eth *eth = dev->eth;
+>>> -	u32 val, reg;
+>>> +	u8 ref_addr[ETH_ALEN] = {};
+>>> +	u32 reg, val, lmin, lmax;
+>>> +	int i;
+>>> +
+>>> +	lmin = (addr[3] << 16) | (addr[4] << 8) | addr[5];
+>>> +	lmax = lmin;
+>>> +
+>>> +	for (i = 0; i < ARRAY_SIZE(eth->ports); i++) {
+>>> +		struct airoha_gdm_port *port = eth->ports[i];
+>>> +		int j;
+>>> +
+>>> +		if (!port)
+>>> +			continue;
+>>> +
+>>> +		for (j = 0; j < ARRAY_SIZE(port->devs); j++) {
+>>> +			struct airoha_gdm_dev *iter_dev;
+>>> +			struct net_device *netdev;
+>>> +
+>>> +			iter_dev = port->devs[j];
+>>> +			if (!iter_dev || iter_dev == dev)
+>>> +				continue;
+>>> +
+>>> +			if (airoha_is_lan_gdm_dev(iter_dev) !=
+>>> +			    airoha_is_lan_gdm_dev(dev))
+>>> +				continue;
+>>> +
+>>> +			netdev = iter_dev->dev;
+>>> +			if (netdev->reg_state != NETREG_REGISTERED)
+>>> +				continue;
+>>> +
+>>> +			ether_addr_copy(ref_addr, netdev->dev_addr);
+>>> +			val = (netdev->dev_addr[3] << 16) |
+>>> +			      (netdev->dev_addr[4] << 8) | netdev->dev_addr[5];
+>>> +			if (val < lmin)
+>>> +				lmin = val;
+>>> +			if (val > lmax)
+>>> +				lmax = val;
+>>> +		}
+>>> +	}
+>>> +
+>>> +	if (!is_zero_ether_addr(ref_addr) && memcmp(ref_addr, addr, 3)) {
+>>> +		/* According to the HW design, hw mac address MS bits
+>>> +		 * must be the same for each net_device with the same
+>>> +		 * LAN/WAN configuration.
+>>> +		 */
+>>> +		return -EINVAL;
+>>> +	}
+>> Maybe this information should be relayed to the user somehow?
+> netdev_err()?
+
+Ok with me.
+
+MvH
+
+Benjamin Larsson
+
+
 >
-> Perhaps you missed I've already commented on this. I'm actually fine=20
-> with the binding at a high level.
+> Regards,
+> Lorenzo
 >
-> But if we want to model it as N i2c-gpio nodes I'm fine with that as=20
-> well.
-
-Thanks for all your feedback on this. If it helps the dts and the end=20
-user I can offer to convert the driver into a simple drop-in replacement=
-=20
-for i2c-gpio. Enhancing the existing i2c-gpio driver is beyond my
-current knowledge.
-
-Markus
+>> MvH
+>>
+>> Benjamin Larsson
+>>
 
