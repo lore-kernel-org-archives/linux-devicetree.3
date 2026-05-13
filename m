@@ -1,193 +1,100 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF3D5481FCE;
-	Wed, 13 May 2026 15:43:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99BD9496902
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 15:46:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778687004; cv=none; b=Vfxe+/NHVWdRgJEjWVgnfkAAnBsy5+vXm1wtI3YHy109aHGSbJM2yu+baZ8mwZkPvXN5MgZN1ytSKYUDGmz7zw9lsU11qKYXDjY8FmbXEerQg7Wyw8A4HuKQIXaw84tT4gp5733rWJuAjcH7kooRNMDvmw8tQQy5tQR0A54x5JY=
+	t=1778687172; cv=none; b=jiMU8KbsWjOxhLZUz2/lL/HEfXNszIjgivK9REMc/U45oJ8Bwdp2ToU+Wie3pV4XJylbLR2eUsRtRbUa2eDzWZZIrtFzEH8tclKucFpIUYzvVE78n0fXDOk47gEpfQnGQi+o4VUSHOi/MErh+PGNaZbEbCUw+WKDw9WuJFDUrYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778687004; c=relaxed/simple;
-	bh=4348Bg4OX8AmIIgZS2UacQbwCc9cgmpFgCKy3RODCc4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B5u7UIZgX7+H1+/Zjgsr8pY9Q8vFVkppIAeYKPHHJ/2l+vc4pC/GIiNp7gbXYHniqtZM3wlRbaoPXXAVlVjMLJ0e/6/pqXWButYo+1vkq0/Yl8Q0/49AxSm/f+gL58wJilTs7feFf1iiqVR6oTT4Thy5QbQ/Emd1/J+GmXZmllA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=L012HT/t; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1778687172; c=relaxed/simple;
+	bh=p2W69PE9zLk6/TftqU6evLE//ajOPXC8lwspmoMpV2U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=S++hY/sem41TQUyrL8ckV9izTdQp18y0TfReVOTbsap3VUx4DwNnnTcq1Lu6yghITsuofRVKtoMUcFl12ACesFs+p22qRa7JEdNuoppS5Rx+REHY8qKASMp4ULGXMXusUdRoC5hZGJjCY2NFNaMBZ6215lKYY+ytQ0GuHxWy7hE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VCDAk4kW; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="L012HT/t"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AC2FF3BDE5B;
-	Wed, 13 May 2026 17:43:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1778687000; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=Nfdnbqd2LxVZhZX0Pup+3P9y4kLutFweTWOYtAxVc84=;
-	b=L012HT/t1T1chI7dzvaKSbn2KnTDs4x3NUTNN49HvRDNpQh6uj72wLpX1s73kgfcsd/QVL
-	JVY8h3M4oq/y30hakAa9HFd5nDwrgpWb3yYJXsgquv0Ra+yLE8dw4sZPs0wnslKKKN2R8n
-	FQx+Jo7DhdUPxSRRQpoJMHCuSbjUaCV0M8uDKANY4gcUmYVdmAAxLn3zaPEtMtrRll1PYw
-	E0A3WIzC9oUmiT4aPNMmg2pvzD2eOpihbtq9GQQMIi0b8IYx0BgscJE3V6zGP7mzsuGyH8
-	2mrwP/KUnNAWU0sl6zgpaIHqfAZZ6Ln6g9tcIGjMsPKIdY6gyowicWjGAGNuaQ==
-Message-ID: <b0756d38-cf8d-47fa-8c9c-4840af9736f5@cjdns.fr>
-Date: Wed, 13 May 2026 17:43:14 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VCDAk4kW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37AE8C2BCC9
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 15:46:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778687172;
+	bh=p2W69PE9zLk6/TftqU6evLE//ajOPXC8lwspmoMpV2U=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=VCDAk4kWr5lROkgbCxaPTBOyKdlmtM4JSybJX+IYJ0Kh81Nn6dR4c7R71AzsnMfLP
+	 PG2zZ44k9bCDNldJWeWIfk9PURVmrz98PCF3b+uJsR05mcXhG5ZXetZXWaNp8k7AbH
+	 8iYzWa1Rrnl57agdmejuydhYAuJEMN8DIFoqa1Zp6128rFfmvTm9v44NYWbpkhouXv
+	 3hxSIPRgfg/6Eav0rV6eWn+wAWl59+pspWR0w8hzlJXB6GPiza1Z0IH9jfXwL3gkWx
+	 aUyK70w9rMajj5Z6ilUvJmePzWOZqvCpkCBt2yWv+7lPyDgn3lQaIJUs+8SinaYhcC
+	 E6T4X13M1M06w==
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-393c93a01abso59094181fa.1
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 08:46:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/RPYNbnEwGqqkRISXoYT1RBm7n+CU9/5QyxPmlz+KZ+tiglJ0y4oqoijMirIEnApD4mDrd8LCGfoHL@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxu0SPMLNnuimjqBvbwaONHB9aCEusaqRh9++JCUw1hvdKN+2VU
+	q2HgeBx53YSDaaotga9mVP55QDCg4E/N4L/VSlYXHT02IzRId5wFc4CUpNm9GgbR+ON9V5gZ/43
+	kWUaN+Ny0LD0rx3IwQBGn6EVnjy7v9QgrViWrcxoebQ==
+X-Received: by 2002:a2e:8a9c:0:b0:393:b365:6e28 with SMTP id
+ 38308e7fff4ca-3944b7719b5mr14546711fa.31.1778687170744; Wed, 13 May 2026
+ 08:46:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v5 2/2] PCI: mediatek: Add support for EcoNet EN7528 SoC
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: linux-pci@vger.kernel.org, linux-mips@vger.kernel.org,
- naseefkm@gmail.com, ryder.lee@mediatek.com, lpieralisi@kernel.org,
- kwilczynski@kernel.org, mani@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, ansuelsmth@gmail.com,
- linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260512165530.GA228087@bhelgaas>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <20260512165530.GA228087@bhelgaas>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260513-nord-clk-usb2-phy-v1-0-8eafcb2d5129@oss.qualcomm.com> <20260513-nord-clk-usb2-phy-v1-2-8eafcb2d5129@oss.qualcomm.com>
+In-Reply-To: <20260513-nord-clk-usb2-phy-v1-2-8eafcb2d5129@oss.qualcomm.com>
+From: Bartosz Golaszewski <brgl@kernel.org>
+Date: Wed, 13 May 2026 17:45:58 +0200
+X-Gmail-Original-Message-ID: <CAMRc=Mcps9GrfbP+FMJ-9uLe+G+w_Sp8PHXvywEGbv4ydSzsLw@mail.gmail.com>
+X-Gm-Features: AVHnY4JvEog9uAQ6uXxYQi6na6RQSKr-R3zFzCCe566_QBpOOC2Suio_Kny8Dcw
+Message-ID: <CAMRc=Mcps9GrfbP+FMJ-9uLe+G+w_Sp8PHXvywEGbv4ydSzsLw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] clk: qcom: nord: negcc: add missing definition for
+ the USB2 PHY reset
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Taniya Das <taniya.das@oss.qualcomm.com>, Shawn Guo <shengchao.guo@oss.qualcomm.com>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-On 12/05/2026 18:55, Bjorn Helgaas wrote:
-> On Mon, Apr 13, 2026 at 02:03:39PM +0000, Caleb James DeLisle wrote:
->> Add support for the PCIe present on the EcoNet EN7528 (and EN751221) SoCs.
->>
->> These SoCs have a mix of Gen1 and Gen2 capable ports, but the Gen2 ports
->> require re-training after startup.
->> +#include <asm-generic/errno-base.h>
-> Looks odd; why is this here?  There are basically no other drivers
-> that do this.
-
-
-Whoops :facepalm:, must have been coding in my sleep and I wanted ENOENT.
-
-
+On Wed, May 13, 2026 at 5:35=E2=80=AFPM Bartosz Golaszewski
+<bartosz.golaszewski@oss.qualcomm.com> wrote:
 >
->> @@ -1149,6 +1234,46 @@ static int mtk_pcie_probe(struct platform_device *pdev)
->>   	if (err)
->>   		goto put_resources;
->>   
->> +	/* EN7528 PCIe initially comes up as Gen1 even if Gen2 is supported.
->> +	 * The cannonical way to achieve Gen2 is to re-train the link
->> +	 * immediately after setup. However, to save a lot of duplicated code
->> +	 * we use pcie_retrain_link() which is usable once we have the pci_dev
->> +	 * struct for the bridge, i.e. after pci_host_probe(). */
-> s/cannonical/canonical/
-OK
+> The USB2 PHY reset definition is missing from the negcc clock driver and
+> its bindings. Provide it in order to enable adding the USB nodes in DTS.
 >
->> +	if (pcie->soc->quirks & MTK_PCIE_RETRAIN) {
->> +		int slot = of_get_pci_domain_nr(dev->of_node);
-> I suppose of_get_pci_domain_nr() is sort of an implicit way to
-> identify the Gen2 ports?  Worth at least a comment about this DT
-> connection.  Maybe it could be replaced by using
-> pcie_get_supported_speeds() or similar?
-
-
-The explanation for this is here: 
-https://lore.kernel.org/linux-mips/20260413140339.16238-1-cjd@cjdns.fr/T/#m6d893b861425378c0d094a142e6191d59dcc5192 
-- and please do weigh in if you think I ought to change the logic there.
-
-
-However you raise a good point about re-training Gen1 links, currently 
-we're attempting to re-train everything. All of these hubs self-identify 
-as Gen2 so we can't short-circuit with pcie_get_supported_speeds(). 
-Re-training will remain at Gen1 if either the PHY is a Gen1-only PHY, or 
-if the actual card (e.g. wifi chip) only supports Gen1. My feeling is 
-that matching on the PHY DT node and short-circuiting is not a good 
-idea, but I can improve the comment a bit.
-
-
+> Fixes: a4f780cd5c7a ("clk: qcom: gcc: Add multiple global clock controlle=
+r driver for Nord SoC")
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+>  drivers/clk/qcom/negcc-nord.c | 1 +
+>  1 file changed, 1 insertion(+)
 >
->> +		struct pci_dev *rc = NULL;
-> s/rc/rp/ to avoid confusing "root port" for "return code" or "root
-> complex".
-OK
+> diff --git a/drivers/clk/qcom/negcc-nord.c b/drivers/clk/qcom/negcc-nord.=
+c
+> index 1aa24e2784e536e6b6e76f488abd0e2fcc435380..31442d39924a6f79bf39962eb=
+b0de8d5c65fa0b0 100644
+> --- a/drivers/clk/qcom/negcc-nord.c
+> +++ b/drivers/clk/qcom/negcc-nord.c
+> @@ -1918,6 +1918,7 @@ static const struct qcom_reset_map ne_gcc_nord_rese=
+ts[] =3D {
+>         [NE_GCC_USB3_PHY_SEC_BCR] =3D { 0x2d000 },
+>         [NE_GCC_USB3PHY_PHY_PRIM_BCR] =3D { 0x2b004 },
+>         [NE_GCC_USB3PHY_PHY_SEC_BCR] =3D { 0x2d004 },
+> +       [NE_GCC_QUSB3PHY_PRIM_BCR] =3D { 0x2e000 },
+>  };
 >
->> +		int ret = -ENOENT;
->> +
->> +		if (slot >= 0)
->> +			rc = pci_get_slot(host->bus, PCI_DEVFN(slot, 0));
-> Instead of fiddling with pci_get_slot(), which adds refcount issues
-> and artificial device/function number dependencies, I think it would
-> be better to iterate over the devices on host->bus, e.g., with
-> "for_each_pci_bridge(dev, host->bus)" as in iproc_pcie_setup().
-Oh great, thank you !
+>  static const struct clk_rcg_dfs_data ne_gcc_nord_dfs_clocks[] =3D {
 >
->> +		if (rc) {
->> +			ret = -EOPNOTSUPP;
->> +
->> +			/* pcie_retrain_link() is not an exported symbol but
->> +			 * this driver supports being built as a loadable
->> +			 * module. Someone using this on an EN7528 should make
->> +			 * it builtin, or accept Gen1 PCI. */
->> +#if IS_BUILTIN(CONFIG_PCIE_MEDIATEK)
->> +			ret = pcie_retrain_link(rc, true);
->> +#endif
-> This looks like a confusing user experience if built as a module, with
-> no hint to the user about why the link is slower than it should be.
-> I guess "failed to retrain" is a bit of a hint, but it's not really a
-> clue about how to fix it.
-My logic was that the person whose going to configure a kernel for one 
-of these things is pretty advanced - probably an OpenWRT developer - so 
-they don't need that much hand-holding. But I guess it doesn't cost that 
-much to add an `if (!IS_BUILTIN(CONFIG_PCIE_MEDIATEK))` with a warning log.
+> --
+> 2.47.3
 >
->> +		}
->> +
->> +		if (ret) {
->> +			dev_info(dev, "port%d failed to retrain %pe\n", slot,
->> +				 ERR_PTR(ret));
-> This is basically an error path and there's nothing else to do, so if
-> you return directly here (especially if you factor this to a separate
-> function), the "normal" path below can be unindented.
-Indeed, and if "not a builtin" is handled separately then this is truly 
-an unexpected error so it's quite reasonable to goto put_resources.
->
->> +		} else {
->> +			u16 lnksta;
->> +			u32 speed;
->> +
->> +			pcie_capability_read_word(rc, PCI_EXP_LNKSTA, &lnksta);
->> +			speed = lnksta & PCI_EXP_LNKSTA_CLS;
->> +
->> +			dev_info(dev, "port%d link retrained, speed %s\n", slot,
->> +				 pci_speed_string(pcie_link_speed[speed]));
->> +		}
->> +	}
-> Maybe factor the retrain block into a helper function.
-Makes sense.
-> I'm sort of squinting at this whole link retrain thing to begin with.
-> After the controller is configured correctly, the hardware is supposed
-> to train the link automatically by itself.
->
-> Did something change between mtk_pcie_startup_port_en7528() and now
-> that means the link will train at Gen2?  Whatever that change is,
-> could it be done in mtk_pcie_startup_port_en7528()?
-Per the comment with the misspelled "canonical", the reference code 
-finds and pokes the re-training registers immediately during setup, but 
-doing that manually is a fair bit of code and it's nicer to wait until 
-the registers are mapped and use pcie_retrain_link().
-> What happens when the downstream device is put in D3cold and the link
-> retrains after power is restored?  Does it train at Gen2 then, without
-> assistance like this?
 
-I just tried pulling the driver from the wifi and then unbinding the 
-bridge, then re-scanning. All throughout the process current_link_speed 
-remains at 5.0. You're much more knowledgeable in this than me, but if I 
-had a guess, I'd say this was a hardware bug that was fixed in 
-subsequent versions (MT7621) and the workaround was to do a retrain once 
-immediately after setup. But I don't want to warrant that as true 
-because it's just me guessing...
+Please disregard this, the address is correct but it was supposed to
+be called NE_GCC_QUSB2PHY_PRIM_BCR instead. I'll send a v2 on Monday.
 
-
-Thanks,
-
-Caleb
-
-
+Bart
