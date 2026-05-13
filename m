@@ -1,83 +1,83 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A8CB20DD51
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 13:47:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4136218E91
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 13:49:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778680049; cv=none; b=YtzpNF0isAr/uEMifYjDd8zthd4uzDPyL2eGY1j5tbKyrIWd5MEbIUZsoBQJPSsu4KaUgOQllXPxdnd3X1SrzQIvKyy72h+7AjN7R+wgkdrzwJNMcOPskdrWyg+k4jyY0+wem73wBbXiTAYLkbtSLMrnEasfXBxYqsW5kW2IpCo=
+	t=1778680157; cv=none; b=cT0L5xDYgpu4JF5sMI93iXNUGckSc6P7HWfYoZrke8x+wKTaJYS7hE54Ye0wOjE4Q7fNOIQBzvRf3aGn7M/t8CjDbdPTwARa4RZtnqreF/bONt83p6OS3g/t/gnVNJSn72xj/pA+lVURN3Icj00d5iKT8NZX1yVhxXHbNdvYQq8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778680049; c=relaxed/simple;
-	bh=PFMRWD1DzQUsbBzuHK/L3Y9G3Gpl6I9x5VQNYXCV6uw=;
+	s=arc-20240116; t=1778680157; c=relaxed/simple;
+	bh=jRxVsvYK08hJFPCU3r27mn2olm89N9iKJ+Bwl9hLev0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UwEMaNyWQMByuQeKceXgZ6lbgX1jWW9ynU3QLfe43wHX2kPzSSbgbYTeYiI/4AehV3/SpLPEmxd8Z2wWJDvkyismiiEi3SrydfO0hhQb3w9aywEROeLvNfjyKHUqOuIK4+z8c5ttoNTQOgUmwK5JtT1MCuxwclRnqRYgGAyhO28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=erl5IoFj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aiz1A0Sp; arc=none smtp.client-ip=205.220.180.131
+	 Content-Type:Content-Disposition:In-Reply-To; b=bXV9ojWk2sVQDozm3SScm/RdS1SamsMgeLBv/NlwYOAlpKKqQijzO9wr37UchN8DpvEzzfkRoHtuk4p5M8NLo/ao9eskquq/qQH0KUg4ZB7/YGEruQUElcsYx1vgnVAbmwRtQ1dKOU3TDXGfnbUfs2HER+ModMx7W8MNRXEEhbk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Yazv6n5e; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=G/pGLdCI; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="erl5IoFj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aiz1A0Sp"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64DBn8wO3326359
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 13:47:26 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Yazv6n5e";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G/pGLdCI"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64DCAr2M2965196
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 13:49:14 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=gF9m9TlU439Pia82PPMay5Pd
-	uiP3AVmilaTFV8rnjwc=; b=erl5IoFj7hZmKlle1t2SU1AbF7+yoZbDYxwXbYoc
-	WcN7vE88IQs9T5qa0B7guptaUFApBLVZsT+3baHrTtq8jT52vl96uSK/rLCPq0WJ
-	lzHUhbyg7lLerNL82KxLoIrVwy1D48aOFoQwRNiqg/kBzTdE8H7tALci44lMt43U
-	cv1KUhlTw5oRGwJKGGDXFKbZ+VZg045glNAqNLORKRV2hZclcMDGJsLHSrBXgTWj
-	JzNwhukw9hpl1MqT4aEw1WlK2+Kwt7UEuscfcrUffESGFLg9q5vGQZzsCxkI4Klp
-	NFVTfMXdMFLeyBiZZFVnDO/s7yUJvJ+r4P+7xHRtKQmSsQ==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4kvd9pqj-1
+	:references:subject:to; s=qcppdkim1; bh=4HsjvmVEDvo4Axfu4dOFUhmv
+	OEIgZDUu9Iaidd4gHf8=; b=Yazv6n5eUZGwUjYncwcA8wT6ufqmJbEx9zFL8ghP
+	xZ4cgTkxvbiMtkyY0n3m3+yixndIF1BNlFClOEsh/bwv9pjr1BpgyVSWfzvu3EEG
+	0mvl1Ali57IffdSGV764p+ZB29wc8i4dG38AjPKhBYeYnKJEKe8Z90FnN9nd56qR
+	z//S2QF0AgdCb/bS+cnbMrkrpXRpIVv3nzzOgqjI6qFEKQUfmGUpV76Hxmhilin+
+	qZOwXXohHK0cXOx79V1GHVWKPdmsnk6SawU32+1c0YdflDKihKTLNAitLIRYtl9x
+	2giJ7vrYPb/08YCeqbwsxXSMf/1UthJtcDKiiUk1ZPymhQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4ma59kbk-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 13:47:26 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-6347ed78bfaso2807135137.0
-        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 06:47:26 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 13:49:14 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-514a182b90dso52363771cf.1
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 06:49:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778680045; x=1779284845; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1778680153; x=1779284953; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=gF9m9TlU439Pia82PPMay5PduiP3AVmilaTFV8rnjwc=;
-        b=aiz1A0SpYBEPgKyIaq5jlVTKgN/9Nq4DWrkyt++xyRiKhY5g5Ab5ds8yoWYGVKOnZZ
-         bpWqpQ5UV/Bo1EGONL83muKJxrGL7hUaZZ/T1/kuFr7AMtwZ3/wIe7JbujVrJKP9IKSg
-         TmwzZYTzCfkLFwiicaI5wvT75tKaodSO9S37adgSrTsqyfQtqBzpLXblc5xdVgturOld
-         MSmrDGykRFHJ8fZVXEv9LZPzG4YkJybP0nb41cqYQQWJv0xXK/WCH4D+9u3twh0bV2dG
-         8NqgW+5Bi1sICG0+YyreSvde7jhDF/BA0Iwfdakthk3rjBM3pdutum+2J875PcqwYdGQ
-         tIdw==
+        bh=4HsjvmVEDvo4Axfu4dOFUhmvOEIgZDUu9Iaidd4gHf8=;
+        b=G/pGLdCI6LzrYLF6sDFqjo6vBXzDoJd5DmNIalM+YaafwY7xEkNPGJoD9bB/Dk+Tou
+         TUXaynsrG1F+4ZSee8S1KLquV4m83DEatc9x5van/0YhhcS3V/FHG5c6flx3n2l2Z4Mv
+         1PTuPwPWCONOkoQWReEBf26hPwmJj9EA3U6WhOjSwKo3O8nFP70dx6s9GNJqoIVIhS8d
+         CQv3DH7DvkitlIE6FXtUN3H4G4fikLTytrid+iPuup7geR3p3cT/gTcxgurYBesccRoI
+         9GNXnI6V2HsHl/AQuxPiSKaI+TzMFPvNCY+NpvVxcXw0OhW+wcGDq/VbAW3WtGwxKqk4
+         kZig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778680045; x=1779284845;
+        d=1e100.net; s=20251104; t=1778680153; x=1779284953;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=gF9m9TlU439Pia82PPMay5PduiP3AVmilaTFV8rnjwc=;
-        b=pt3AKq8PEpei3/siITfn4jsChjqCKKMhE2vl0FFJXlNtzKInoLE7Glb4QoxJcX+Uj1
-         RWho0JUA8MNUKAaIXL4o+6dqyCWg+APHEnNJqnh1hkWdMGXq46NwyKeNxuNgO6g6kaU2
-         5rkPQWlmkXLo21irBUIEEPmcGzX0ZviAP4DjWtO0CbxgyZLoLV5Bzdku4tk8Duua7jpP
-         LU6cjqihZf7B45s1xUo83Xczc8vQ4AIWNeRVmZgkp6dahmyr7CArNfyS91P8Qy10phRj
-         NXHpZuuzmYD0MQnnB5XEWhvq6+u96b95R1oCz+735pYBGbkyG1xCa1Vu913IsRreuV9D
-         qlQw==
-X-Forwarded-Encrypted: i=1; AFNElJ/IsQOauC3vVtDFsJW+rl0IyMbIIe4PEgaFdaWsIDDvpVaGUYvlZKgoK7W5K8XH3/Rl/q3DrfXE4Y2t@vger.kernel.org
-X-Gm-Message-State: AOJu0YzRAhfDZR+vXth6OsUONTajsS8DGykMoVpog4V566GTSIaSNje9
-	2xRSo5JPQb2RMhI8rezPwIE0JsJ4nOS0DYdflR16sTY9t6pH0eTq66NgoXFx39cQu8b0cxCC9NC
-	Yax3pUPUnRRKAtZ4hn0jWJU3YRLMjmZI1J8p3pE6cogDz78AJW9EqGsBhlG4ff4zF
-X-Gm-Gg: Acq92OGARZIuSEZPsybhwPXBdRX+QDZuUi3VgFQSEytQabw5WvJ9mkuDPqWv9dJQror
-	uLag1FC5BqCyUiSFHMyjylnPu8lMbxj5636YL6nZgBNvmP1ETytKHZTwOhciqo+iEpsWxDwUlPk
-	Znfk9QPmvGSTaMgWRheri+bo7dySSumu+TXvhHneyTm3TqoU/ftmnH3clfWmFNBtjU88Vm78/yp
-	IULYq7k82Ajk1lYHVonzqBhZVGq44T4+c+aIS2pGZ0xuVS9CXYU9wMVLBalQ422EaFlz+h+a3SL
-	PE644DdAA1PkKIiUhoyRJ4iej6krIohlKJFWr1phHcUx3s1jwH/zVNOihPUuKoupdKdO7CWy0Ee
-	lMP6ZH1MKKmFBfJsZX//uvvArpZ2n10qQH/kT4pRVsJmzgx5vas5IU6GBz8VgwmVMtDn/HVT7pr
-	kEh15gciGeOgmNh3Ly+TCtEsv5ugcw7VMxAX0=
-X-Received: by 2002:a05:6102:1512:b0:62f:3e1d:a55a with SMTP id ada2fe7eead31-637a6c28831mr1286299137.2.1778680045491;
-        Wed, 13 May 2026 06:47:25 -0700 (PDT)
-X-Received: by 2002:a05:6102:1512:b0:62f:3e1d:a55a with SMTP id ada2fe7eead31-637a6c28831mr1286271137.2.1778680044935;
-        Wed, 13 May 2026 06:47:24 -0700 (PDT)
+        bh=4HsjvmVEDvo4Axfu4dOFUhmvOEIgZDUu9Iaidd4gHf8=;
+        b=EbyLmAtDwNn9s1CnoI6G+TusGo7DWsgkr5BlRHB/8cpDHCjEtyWYBzDGfb119pnb0L
+         hiqV/jzSM1RUiS4H0NWoQXAh2uvSOrmy2IWg0wgN2WcMtnXdNm9mTP0AQn/Wc2ZTK9gL
+         6IQhxAlmj9m21NJfff9xhJwD8hB5E66J/zlg8DNJLPtETh+rV4f/zjlL25gmGNvNS/3A
+         OOf3l/Y2ylTa0PKGdw71XTMlygSalgU66rfVS1DxQcnaqT12z1hLuCk3ymi76W4ybf0Y
+         RMCQFC7ZXfb2BKB3i8z7o1W0dfbkuMQe2e2+roBumfs4FPOI9YBxkfKSXpcS5iuKqLmj
+         5Hsw==
+X-Forwarded-Encrypted: i=1; AFNElJ9F9M6oD1c28es9Q9yTh6VklPeb1Ook3dM3j/g5Pw1h1lgzl3FyuHRGCYzT/Rr5WXMPIVJSVj8DaeJX@vger.kernel.org
+X-Gm-Message-State: AOJu0YxhMcwKspXUen8Gh28f+q/9+zrFQIZpLJPF4gUchj/cl2v3rg99
+	jNMcmkxhdppfujHKqeomruAbk6ig0LOJnZ4yaGdND0NxCUzvWYWRs8c6g6JdaLiZXQtncU/SSd7
+	FoutDYToP4yGKUCSDnwYCO31nx9ALqfeh63N74PJqs55MGJPHhzewT7I6Y05x1dtq
+X-Gm-Gg: Acq92OGOb7ocGvHI89ABWs7xFYWOwF8j8gyXLWoa3ee4KgBRvY9uINTC1Frnnu9Ds9X
+	qwHq+4uSLaPwmMP5WNCHZ14v1lOkYiEhoiqHaA4M5fOUeywAWmsxSaUozjv0XeC+zLaH4ZmEjzV
+	vdFGf9DkVqHWNpEAGoduWmSwiPaq8mT3q4NglGjwjkBuz80MPyKbZIP1YrFe9rv3tFX6w16JtYF
+	wPsW/qGtltxp7u6s7ZK9eAu9/K36vyxTbW35eC86hvYtaUe2DtY3b59pvGAMt4FF3PbRBl9e0io
+	kQSzY5CQCyWEm1xCNiI2lEjWfODU+nTVwSuYVQZj9J/Zak5tmslT+EQ742gMTSGEDujcVosVhHD
+	cTbbXTfmbdSAgEuqJKFiGJKwL3F0oA+eYPDnIiGJAa9lYM95Nw9iHF2DPYIjmJ6frdFucf3Yksj
+	ZHZWmNJWT58LFii1onRD+5MjH8t6dxQjJE394=
+X-Received: by 2002:ac8:7f83:0:b0:50e:6139:492b with SMTP id d75a77b69052e-5162feba35dmr42576621cf.23.1778680153002;
+        Wed, 13 May 2026 06:49:13 -0700 (PDT)
+X-Received: by 2002:ac8:7f83:0:b0:50e:6139:492b with SMTP id d75a77b69052e-5162feba35dmr42575781cf.23.1778680152434;
+        Wed, 13 May 2026 06:49:12 -0700 (PDT)
 Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a8a956b225sm4025242e87.83.2026.05.13.06.47.22
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-393f625bd3bsm41952051fa.34.2026.05.13.06.49.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 13 May 2026 06:47:23 -0700 (PDT)
-Date: Wed, 13 May 2026 16:47:20 +0300
+        Wed, 13 May 2026 06:49:11 -0700 (PDT)
+Date: Wed, 13 May 2026 16:49:08 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
@@ -100,13 +100,12 @@ Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
         linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         iommu@lists.linux.dev, Krzysztof Kozlowski <krzk@kernel.org>,
         devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 08/14] media: iris: Rename clock and power domain
- macros to use vcodec prefix
-Message-ID: <cyjxjidbe4qpeb5pwv6u5yqwhldqffenzgp6z4irgxkloturt6@buswzuou2w7z>
+Subject: Re: [PATCH v5 10/14] media: iris: Add power sequence for Glymur
+Message-ID: <h2clkcgpr4uki3fq3kbdutsqc2h64hwf2ibtbrnjipilsnhk4u@w7645stdorq7>
 References: <20260509-glymur-v5-0-7fbb340c5dbd@oss.qualcomm.com>
- <20260509-glymur-v5-8-7fbb340c5dbd@oss.qualcomm.com>
- <6hr42ins65rf6ftdmme5lok6ham67piz3343kdwxaff2acktcz@oipdhket32og>
- <4eef8b17-47b5-e8f0-4a44-87fdf1d69d18@oss.qualcomm.com>
+ <20260509-glymur-v5-10-7fbb340c5dbd@oss.qualcomm.com>
+ <jqe3ilzqzajuf67hvp7nw6mak36qyqu6dz2oiwtkf6zwiyclln@ydtyd7vkudm4>
+ <67157e35-8c39-b06b-eb93-602930168f4b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -115,105 +114,125 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <4eef8b17-47b5-e8f0-4a44-87fdf1d69d18@oss.qualcomm.com>
-X-Proofpoint-GUID: BzjXyGjht2XvkY_Q0gkJziwZ1lqndu7I
-X-Proofpoint-ORIG-GUID: BzjXyGjht2XvkY_Q0gkJziwZ1lqndu7I
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEzMDE0MiBTYWx0ZWRfX7UuQytS5ZKRv
- m9ObaV3PdEB04ePrbuZ7VNh3W4oIDYldeKrfKgJ3NGDBTAVykWrD6A3oerAmAnZFKZemiMC+0nl
- iquoRvWF6Zq/LTfQjKYZPVKnRzulrkUK/ewtB289cwTUHKAwqIWOLK49thPXOCOKJpCYpQlhM4B
- 2HJk22DzVJis0fpOxPJtf6/PSTb7cDJEt7lx6UZlEFrk5djMXvr8xEBqLj9konxn3WFA4i71rXW
- vPnP+xX3DmG5iS/RZToyQmN4JYAxnNeQSihzY6O2LC9/Q/1GiJvCW0d+PwrT5Rl4iptZnWD4D7t
- O2+H/Dfo0J7mnNMlf6X2YAZnZzZmtB9mUIIfbdG9x/eF9G9IQYe3HcvAHtxvNs7xo0FY3jAYghv
- YytjH6n69yZXb4jZb9ULVT9VwqB+bCW2eXooaUEh1RYDKa68ZhoznM5pkIjcHen5Jza/a/3hrwq
- DEgOT1bkaJ/6DAr5uzQ==
-X-Authority-Analysis: v=2.4 cv=Iu0utr/g c=1 sm=1 tr=0 ts=6a0480ee cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <67157e35-8c39-b06b-eb93-602930168f4b@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEzMDE0MiBTYWx0ZWRfX4K+NGPVtyO82
+ 30xr2GyONwBt4recInpCzFvLUBCgP7Dn4dR2mvp19/fPGsTEY1XRyeevOUAjdZOiyBofuNdzKuc
+ mA33DsGfqN7edMFgy5wRx+nACS3AhyxXBpXFu6ey0Hrlr2j5VMvC9pbongHiO6UbLtu9y/hamIl
+ jg9lGVW2FzY22IxHLIwfWWf0CCeBEbcusRLir4HSbQLeGLy/RfjgAd2Ah54TV3Lc4D5EvAgixT5
+ 5qg6hQhRaCpSG5XUK53Ycuo7JCmeVjHIF1a6wYljXkLQYQvwJH0bDOJ9dGz5Viz25pGaSzSxsBj
+ BBh3enR3a5/M+UNS29ijW4HP7Gm3gjc2ZSLNLqy/R+/StXdJa9v0BM68lCPmosmrCtn1fGP0MxI
+ UBPo4ZoMwcHDY3IoN9goS9bRW0BOyrwZ/U0t8VptA7riLy42H7+ZH6A2Fs/7MMioqhPR8E1nMDA
+ qU+T2YBpXf5Bn+EsUFg==
+X-Proofpoint-ORIG-GUID: m0sesNvOEY4EFg-WglyFkBY0Uh9xMJTr
+X-Authority-Analysis: v=2.4 cv=TJZ1jVla c=1 sm=1 tr=0 ts=6a04815a cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=T-6Eqvt1JYRBjGg4ocMA:9 a=CjuIK1q_8ugA:10 a=crWF4MFLhNY0qMRaF8an:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=7I-VUM3uW_oGyASaGJ0A:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-GUID: m0sesNvOEY4EFg-WglyFkBY0Uh9xMJTr
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-13_01,2026-05-08_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 spamscore=0 adultscore=0 impostorscore=0
- bulkscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0 suspectscore=0
+ clxscore=1015 suspectscore=0 lowpriorityscore=0 malwarescore=0 adultscore=0
+ impostorscore=0 spamscore=0 phishscore=0 priorityscore=1501 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605130142
 
-On Sat, May 09, 2026 at 10:37:20PM +0530, Vishnu Reddy wrote:
+On Mon, May 11, 2026 at 09:42:01PM +0530, Vishnu Reddy wrote:
 > 
-> On 5/9/2026 1:52 AM, Dmitry Baryshkov wrote:
-> > On Sat, May 09, 2026 at 12:29:57AM +0530, Vishnu Reddy wrote:
-> >> The current clock and power domain enum names are too generic. Rename
-> >> them with a vcodec prefix to make the names more meaningful and to easily
-> >> accommodate vcodec1 enums for the secondary core for glymur platform.
-> >>
-> >> No functional changes intended.
+> On 5/9/2026 2:24 AM, Dmitry Baryshkov wrote:
+> > On Sat, May 09, 2026 at 12:29:59AM +0530, Vishnu Reddy wrote:
+> >> Glymur has a secondary video codec core (vcodec1), equivalent to the
+> >> primary core (vcodec0), but with independent power domains, clocks,
+> >> and reset lines. Reuse the existing code wherever possible and add
+> >> power sequence for vcodec1.
 > >>
 > >> Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 > >> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 > >> ---
-> >>  .../platform/qcom/iris/iris_platform_common.h      | 12 ++++----
-> >>  .../media/platform/qcom/iris/iris_platform_gen1.c  |  6 ++--
-> >>  .../media/platform/qcom/iris/iris_platform_gen2.c  |  6 ++--
-> >>  .../platform/qcom/iris/iris_platform_sc7280.h      | 10 +++----
-> >>  .../platform/qcom/iris/iris_platform_sm8750.h      | 12 ++++----
-> >>  drivers/media/platform/qcom/iris/iris_vpu3x.c      | 21 +++++++-------
-> >>  drivers/media/platform/qcom/iris/iris_vpu4x.c      | 30 +++++++++++---------
-> >>  drivers/media/platform/qcom/iris/iris_vpu_common.c | 33 +++++++++++-----------
-> >>  8 files changed, 67 insertions(+), 63 deletions(-)
+> >>  .../platform/qcom/iris/iris_platform_common.h      |   4 +
+> >>  drivers/media/platform/qcom/iris/iris_vpu3x.c      | 141 ++++++++++++++++++++-
+> >>  drivers/media/platform/qcom/iris/iris_vpu_common.h |   1 +
+> >>  .../platform/qcom/iris/iris_vpu_register_defines.h |  10 ++
+> >>  4 files changed, 154 insertions(+), 2 deletions(-)
 > >>
 > >> diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
-> >> index 55ff6137d9a9..30e9d4d288c6 100644
+> >> index 7d59e6364e9d..8995136ad29e 100644
 > >> --- a/drivers/media/platform/qcom/iris/iris_platform_common.h
 > >> +++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-> >> @@ -49,14 +49,14 @@ extern const struct iris_platform_data sm8650_data;
-> >>  extern const struct iris_platform_data sm8750_data;
-> >>  
-> >>  enum platform_clk_type {
-> >> -	IRIS_AXI_CLK, /* AXI0 in case of platforms with multiple AXI clocks */
-> >> +	IRIS_AXI_VCODEC_CLK,
-> >>  	IRIS_CTRL_CLK,
-> >>  	IRIS_AHB_CLK,
-> >> -	IRIS_HW_CLK,
-> >> -	IRIS_HW_AHB_CLK,
-> >> -	IRIS_AXI1_CLK,
-> >> +	IRIS_VCODEC_CLK,
-> >> +	IRIS_VCODEC_AHB_CLK,
-> >> +	IRIS_AXI_CTRL_CLK,
-> > Why AXI_CTRL is better than AXI1?
-> 
-> Glymur has 3 AXI clocks: axi_vcodec0, axi_ctrl, and axi_vcodec1. Using
-> positional names like AXI0/AXI1/AXI2 doesn't convey their purpose, whereas
-> naming them as AXI_VCODEC_CLK, AXI_CTRL_CLK makes the intent clearer,
-> especially when platforms differ in the number of AXI clocks they expose.
-
-=> commit message
-
-> 
-> >
-> >>  	IRIS_CTRL_FREERUN_CLK,
-> >> -	IRIS_HW_FREERUN_CLK,
-> >> +	IRIS_VCODEC_FREERUN_CLK,
-> > Can we at least group them too?
-> >
-> >>  	IRIS_BSE_HW_CLK,
-> > Is BSE a core or a codec clock?
-
-Unanswered
-
-> >
+> >> @@ -61,6 +61,9 @@ enum platform_clk_type {
 > >>  	IRIS_VPP0_HW_CLK,
 > >>  	IRIS_VPP1_HW_CLK,
-> >> @@ -206,7 +206,7 @@ struct icc_vote_data {
+> >>  	IRIS_APV_HW_CLK,
+> >> +	IRIS_AXI_VCODEC1_CLK,
+> >> +	IRIS_VCODEC1_CLK,
+> >> +	IRIS_VCODEC1_FREERUN_CLK,
+> > I think I have asked the same question while reviewing some other code.
+> > When seeing such enums my expectation would be that the set of clocks is
+> > more or less generic, while the platform specifics should be
+> > encapsulated in platform-specific code. Instead these lists keep on
+> > growing to accomodate platform details.
+> >
+> > Can we stop that tradition? Adding a peculiarity of the platform should
+> > not require touching of the generic code.
+> >
+> >>  };
 > >>  
-> >>  enum platform_pm_domain_type {
-> >>  	IRIS_CTRL_POWER_DOMAIN,
-> >> -	IRIS_HW_POWER_DOMAIN,
-> >> +	IRIS_VCODEC_POWER_DOMAIN,
+> >>  struct platform_clk_data {
+> >> @@ -210,6 +213,7 @@ enum platform_pm_domain_type {
 > >>  	IRIS_VPP0_HW_POWER_DOMAIN,
 > >>  	IRIS_VPP1_HW_POWER_DOMAIN,
 > >>  	IRIS_APV_HW_POWER_DOMAIN,
+> >> +	IRIS_VCODEC1_POWER_DOMAIN,
+> >>  };
+> >>  
+> >>  struct platform_pd_data {
+> >> diff --git a/drivers/media/platform/qcom/iris/iris_vpu3x.c b/drivers/media/platform/qcom/iris/iris_vpu3x.c
+> >> index 13fbb21c2182..ff90c375e805 100644
+> >> --- a/drivers/media/platform/qcom/iris/iris_vpu3x.c
+> >> +++ b/drivers/media/platform/qcom/iris/iris_vpu3x.c
+> >> @@ -22,9 +22,19 @@ static bool iris_vpu3x_hw_power_collapsed(struct iris_core *core)
+> >>  	u32 value, pwr_status;
+> >>  
+> >>  	value = readl(core->reg_base + WRAPPER_CORE_POWER_STATUS);
+> >> -	pwr_status = value & BIT(1);
+> >> +	pwr_status = value & VCODEC0_POWER_STATUS;
+> >>  
+> >> -	return pwr_status ? false : true;
+> >> +	return !pwr_status;
+> >> +}
+> >> +
+> >> +static bool iris_vpu36_hw1_power_collapsed(struct iris_core *core)
+> >> +{
+> >> +	u32 value, pwr_status;
+> >> +
+> >> +	value = readl(core->reg_base + WRAPPER_CORE_POWER_STATUS);
+> >> +	pwr_status = value & VCODEC1_POWER_STATUS;
+> >> +
+> >> +	return !pwr_status;
+> > Add core as an argument to the function instead of c&p'ing it.
+> 
+> Ack, will pass the vcodecx_power_status bit to this function.
+
+u32 core, please.
+
+> 
+> >>  }
+> >>  
+> >>  static void iris_vpu3_power_off_hardware(struct iris_core *core)
+> >> @@ -254,6 +264,124 @@ static void iris_vpu35_power_off_hw(struct iris_core *core)
+> >>  	iris_disable_unprepare_clock(core, IRIS_AXI_VCODEC_CLK);
+> >>  }
+> >>  
+> >> +static int iris_vpu36_power_on_hw1(struct iris_core *core)
+> > Hmmm... And if 3.7 gets 4 cores, will we have 4 copies of the function?
+> 
+> As of now, none of the near upcoming targets introduce a significantly higher
+> number of cores. If that changes in the future, we can revisit and optimize it
+> then.
+
+Okay....
 
 -- 
 With best wishes
