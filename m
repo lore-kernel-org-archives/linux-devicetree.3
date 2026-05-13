@@ -1,309 +1,256 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC3F18E025
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 07:14:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6254C3D5657
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 07:20:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778656475; cv=none; b=iwwpj1b1Evi49uy9ShVkAQejVtnS4g+y77q+Vpvr100S3/OkhQrj60IyTbBp/yI7gvRtJsqj6YHbzQ0s+BOf4ZxkUVEBGc02G/IwLFm78tnLJhkFHEMXPVZLKLB3xXnO8wDGFjh1iT/IC7N8d3PG0A0sX2gFDhxRWYWxDVpjffY=
+	t=1778656806; cv=none; b=SaXUUEoDMvm4ggxoMXt+x8+4kn0prF927tenoOZ9l5zpMycUsy8hys0SqMQEOnifRkYdTFRZR9oTvHM/Dy2moc8wyyFsoExYNDsiEakN5nSTbLzkIuTLWU5W3eAi/ayiMIsnenQXiK97Jsxi4VMv5Owg4SAkjBV174G4WEwcGFA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778656475; c=relaxed/simple;
-	bh=+KAyrj5pZaRQoU8tMWX0lEiQZTTWM6S0ZOvKPD9rVHU=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iSx+m31HFTjERQg00TgqSXlXZHWbwQ2wrQ+ZYDJnzhybKqKx87rJtxByfLq8BUfKiY9kxakbQqzElQ4AGgOLHkO678gHmNwCfDu4sDd3f8jIO6i26QbV013jMW2xcyTE9DPFUlb8+aG2g9Xk+LMvZbW0rAv7JOeMCTch6Rx/PPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GqqcKymA; arc=none smtp.client-ip=209.85.128.43
+	s=arc-20240116; t=1778656806; c=relaxed/simple;
+	bh=Q9eLNePG/oRn7LdgnhZ+dJz78oMaxeM1LnMenEMoNFg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Pv7kvCUWyzfqlZOnZpPMwmINF5Hohn+E6C4yFdCNNk0RrUB5pF86kSsIU5qhlPdW2PNKXH8jxiy3+umzhKJ3JEpdiOkIm7ChkdJrIENYsBjppBWjjkx8F2HjKQAFn4FYcZ4QSWXkeZ+YFwoVQxE93lfV3DwL+EuvDFgxHCq0XEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oHs2z0U7; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GqqcKymA"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-488d2079582so66902605e9.2
-        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 00:14:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oHs2z0U7"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4891e86fabeso73212545e9.1
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 00:20:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778656473; x=1779261273; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=72Am0oAZ5sGrMf2UhBZL+Kd1HleH7FvAarcQKJcP09s=;
-        b=GqqcKymAAiURZRJduqIaxIlwU4/MDJtDhhB9cy8st7EhRMrbOsFOpkDF2xyKFACsCS
-         utzcN3eKfesB0Uv77e/+VUk3It9NcIIxqYPdimoCg9eRW+4fwVgadAKBpade6KNhkZ6P
-         t4H7ONHRDPWnOlU4Ul6smVVZlaJ06wXyvhGBq6ZOvE/wZfp/ZlrAKwRcEEAH07F3zYUC
-         kJbobM6m7v+bLkXUaJoDbqcSQjKcLSpvVjgzwDIWRiHOCpxNGQWytzfRZmHU0WnS3DDv
-         x/us05SM9UNwO+x77YythGxSK8OPrgpGlVgub+Q0p64uVvBZnaOEL6QDlNKjAaZ+hQWI
-         LrJg==
+        d=gmail.com; s=20251104; t=1778656803; x=1779261603; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=krTwslWjVBfvmGfYM5PFKGSt7YkML+rC+mLvBW7WInU=;
+        b=oHs2z0U7/WLVg4XtEYLI/Zci0f3obk1IFqDI8y+zpM485Bwvm5dnCVzk4M5P4mskCb
+         enMru54iWpmMt9g7eW4RE2lbX40gmmIg311tl6OKXrl8qx675IRYknwSIJNos+IUrd6c
+         E2kgolUZofJRc4iOpQfnMn8Y4Y67kwqhKB316zAPrJ5pzfNR606sUeWfviSx32XDM7rA
+         7d+yrB8MANJjUjbxWOk9Mzyi7trznUmEXMsJcZhQS9mt97tDJ9H8c5Z3iu8cxyO2HmdL
+         /kWITG+f9UXScTWSJQuPhIcn1UNhHVOUiCtWcxYUsi5o97rXIRmUdzBUa/yqE591+DPU
+         DyhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778656473; x=1779261273;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=72Am0oAZ5sGrMf2UhBZL+Kd1HleH7FvAarcQKJcP09s=;
-        b=ItPC5YlyQOvFR65TIHksgU3Pv1cT+JlzGSaWi++BaNJqn6XWUlrD3+2xj3shxM97Kv
-         3scwUWDa2f85OuaTPkbF66ArwfQFWiMw7LDuQVbsL4ARp3Q8yQhphKuN5j0PGzEEqcST
-         KfYn8YrSJpbFSaVNF0LKM/JxVmYP6MJi8ByuO65lt9J5OW19CH8M0a29npSywZf7xSDG
-         PazrQRObdDUTC3EFw2eSFgEq/q1UpcwXAiBqpAbqxQG1Hie7dUhUf8051hA3v0aQamCW
-         fo6BGWFql0VoCvWHnL08gMTCuNqhfb1W2XXGDF1B1uiccwnJCvjeozIXgeF8Fh+411At
-         P60A==
-X-Forwarded-Encrypted: i=1; AFNElJ8gHqGfljQZ0ZQlbU5mvvc4wu4WCzLSBbIJa8kM1HvRMw9pxgIJUrWYZVzK3xoV/F93nns5dkwcLQQD@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy+Lv/zs0sVaTZs97bAbLBHl8RcWsdDEp/yODpmKSxnhjGGJJqc
-	FARkC1XDIBLWY5bZQnt4cyml63Apq1lV1Xa0kD0aiGEjffQTg8TuDFYM
-X-Gm-Gg: Acq92OEq0mRgNVTfiQHalEUooeG+Kc0RIrqrYbl92wtEoz+b+Jlh4DSMeZyQ8LDmPfY
-	or/ZuJmrRADlSPdcnayIQGa5j6elaZlTMpQiX1IwCthGnpWhyY7uM5w7/5BANgjA1fAkC+HVitE
-	2iDQeKX5MhfCdWshT1Rz3j4bMiwdJpl83XXM0uBmsg79BHeF7Uggps7VFyorH3c1wen+3Um7aq8
-	ejAn4S5teMwpat/GkLzKQgayUzElkxNnyPY/ZvJbCSDNtinVejGhJaOeEZk1Qmni1/3E0m60g3x
-	EfvuTflHr6U6xG+pj48dyrRxqGZxsToyUNIS98fNjdujaSXFGbl4s2sAUaGjNx82nvr5NTtBWu2
-	MtrUsfX90iqmSOYr+7+33HGBt4lxFQdb5BbyZWJRQ8ynSD/uMnQgADFtO9nE+o9oQwDsSkKtH2j
-	sLfC9HfTlh1RUmG9WvPKqiV7VOyG/wwx0Cau+YySr6TPdZ0YEvnEUVOVLzZdP1R4RI5WtJccMCV
-	Sj+qoRdU6Y5lvLHJCgvxWn+8093IGFTEf8Iu4cfDR6TEx9B8g==
-X-Received: by 2002:a05:600c:19cd:b0:48f:be94:d82c with SMTP id 5b1f17b1804b1-48fce9e1a34mr20092615e9.19.1778656472387;
-        Wed, 13 May 2026 00:14:32 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48e8e566bc8sm55188335e9.0.2026.05.13.00.14.29
+        d=1e100.net; s=20251104; t=1778656803; x=1779261603;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=krTwslWjVBfvmGfYM5PFKGSt7YkML+rC+mLvBW7WInU=;
+        b=LdAXDsaszwjmaGbbKcXXqDfGDEPQ7kzZQHfz/R45vr+xJG8BHagaq6Eki7xSPqjFOH
+         4ePytIH64B8GS3ULpJy16yh58QT1xHfjZSj7qY6bBU+Gaoffye7I14YudEi8ZITM8YpU
+         7/FKNfAKuOjz4DdnPtdW7m/YEKEWsVk6Phv3NzGGGUll3hxbW5sz31qX3zz3qNV1FeD2
+         malEByz4MXFtU8r+sbUyyLrLeHHVVDj2pphsxUT/PzqmgaVbwcCfDfdmU5tNxi9aD9M9
+         6Op7FoANiZe9R/k64V1V8EJkWxGP8+I6R47TodeYRzQZo6wtYnonT6VUfsbq1fno3OBm
+         zpcw==
+X-Gm-Message-State: AOJu0YwCrMEPShhBZcU5LwFTKwotioKjBRKZQk1LjwSwJPx1aX48IVPp
+	caqqYFt1nU1gt02sejHuh62624x6fQNgLupY4lRFQeeILz5g4wTaoE6t
+X-Gm-Gg: Acq92OFNy+hqh3d8JXoVFQVra0TJYA1gbSu1/SR+qKE79R/MnqJLJSa2UReJYl51QfA
+	yc5/wF2kUiNinwtWdW/4jPkYXQDE/pIjwjg6Suo4HZG3nct4TMnR3OOHkuq9r40VQXXuybqCQ5V
+	D1M9+MQo7X+N3/MiiCuldiFEe1V6JksI4TB4R5R0zZAHZXkf5IhMbWoGqumrWweGIBaug6e/SnW
+	3A2BUgHMOjdzfZlsLOz8QSNILmZRjRVj8ZesR1YrEEzX7VHtrVf0uyRkmOHLs0OUpUndA4YxA1E
+	U4KKd5ljJ+9lU/NPv8/XWUSeDHxcE566fidSk7rV/udToIGD+yDaLLjoqIqUWy3yLoQqCHCqD3n
+	0RAnJh5ZFRXRXAWzgBBGI0BsrK0pkHswjGJoep5CHkql2ZcURH88kClB6lZ7pN2xy0a9HRom3Gl
+	aCKCwfKQjJBul07ko9Jv7nG7Ohlyg/jh9vhXWpQ4FoXkCbGYQHp+mhCXRl0ZM2EKFRHg==
+X-Received: by 2002:a05:600c:c0c7:b0:487:4eb:d125 with SMTP id 5b1f17b1804b1-48fce9aab22mr14680495e9.9.1778656802391;
+        Wed, 13 May 2026 00:20:02 -0700 (PDT)
+Received: from mamamia.internal (a89-182-129-90.net-htp.de. [89.182.129.90])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fc8d62422sm58498115e9.11.2026.05.13.00.20.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 13 May 2026 00:14:30 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
-Date: Wed, 13 May 2026 08:14:28 +0100
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-Cc: Andy Shevchenko <andy.shevchenko@gmail.com>, 
-	Jonathan Cameron <jic23@kernel.org>, 
-	Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>, rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
-	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Shuah Khan <skhan@linuxfoundation.org>, 
-	David Laight <david.laight.linux@gmail.com>
-Subject: Re: [PATCH v12 02/11] lib: kstrtox: add kstrtoudec64() and
- kstrtodec64()
-Message-ID: <sqt72hd4xdu6rj3zecvcpo3bbfsxlh7u4bi76enbq64hpgjm3t@vksuk4cuo76x>
-References: <ur6brs3yjzyb4mtelabmcglxjltddqvjxtgl3lkdkmbjlkmnsq@bwd6rz7gided>
- <CAHp75VeoH3yVfp8NWjKfc_df0VRLkyf_SK4e==-wJOEodVjW_A@mail.gmail.com>
- <q4rmlkgecvztnvjg7b7wtqyvhdy7uxgaouvhae2mlsxaasasbf@dfakp4m5l5sl>
- <agNfqiZpGZAM-x_H@ashevche-desk.local>
- <ru2h3ip7qf6j54dlrij54nwp45uyq6m2e6zspt6v6eynpsagqq@eo5v3yparuhh>
- <agNnfWZa9_NyLoWq@ashevche-desk.local>
- <bc7mqfgll34vyaxdtvfssgypkhyx233wd4hxfzu32rddxnolaq@rd6c3z6yu6aq>
- <agN6onIAwG1yn5p6@ashevche-desk.local>
- <hvwyrb7g3ar7hzesj32zoxzqvjmdtwybamy4zxepqdbu37qvog@xnmgqhfya34f>
- <agOKq0iH2CHQ3TIg@ashevche-desk.local>
+        Wed, 13 May 2026 00:20:01 -0700 (PDT)
+From: Andre Heider <a.heider@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@gentoo.org>
+Cc: devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/6] riscv: dts: spacemit: k1-musepi-pro: add PMIC and power infrastructure
+Date: Wed, 13 May 2026 09:19:49 +0200
+Message-ID: <20260513071958.29574-2-a.heider@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260513071958.29574-1-a.heider@gmail.com>
+References: <20260513071958.29574-1-a.heider@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <agOKq0iH2CHQ3TIg@ashevche-desk.local>
 
-On 26/05/12 11:16PM, Andy Shevchenko wrote:
-> On Tue, May 12, 2026 at 08:39:21PM +0100, Rodrigo Alencar wrote:
-> > On 26/05/12 10:08PM, Andy Shevchenko wrote:
-> > > On Tue, May 12, 2026 at 07:15:17PM +0100, Rodrigo Alencar wrote:
-> > > > On 26/05/12 08:46PM, Andy Shevchenko wrote:
-> > > > > On Tue, May 12, 2026 at 06:26:12PM +0100, Rodrigo Alencar wrote:
-> > > > > > On 26/05/12 08:13PM, Andy Shevchenko wrote:
-> > > > > > > On Tue, May 12, 2026 at 05:35:59PM +0100, Rodrigo Alencar wrote:
-> > > > > > > > On 26/05/12 06:21PM, Andy Shevchenko wrote:
-> > > > > > > > > On Tue, May 12, 2026 at 6:11 PM Rodrigo Alencar
-> > > > > > > > > <455.rodrigo.alencar@gmail.com> wrote:
-> > > > > > > > > > On 26/05/12 05:43PM, Andy Shevchenko wrote:
-> > > > > > > > > > > On Tue, May 12, 2026 at 03:12:24PM +0100, Rodrigo Alencar wrote:
-> > > > > > > > > > > > On 26/05/12 04:48PM, Andy Shevchenko wrote:
-> > > > > > > > > > > > > On Tue, May 12, 2026 at 02:21:14PM +0100, Rodrigo Alencar wrote:
-> > > > > > > > > > > > > > On 26/05/12 04:12PM, Andy Shevchenko wrote:
-> > > > > > > > > > > > > > > On Tue, May 12, 2026 at 12:39:53PM +0100, Jonathan Cameron wrote:
-> > > > > > > > > > > > > > > > On Sun, 10 May 2026 13:42:20 +0100
-> > > > > > > > > > > > > > > > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
-> > > > > > > > > > > > > > > >
-> > > > > > > > > > > > > > > > > Add helpers that parses decimal numbers into 64-bit number, i.e., decimal
-> > > > > > > > > > > > > > > > > point numbers with pre-defined scale are parsed into a 64-bit value (fixed
-> > > > > > > > > > > > > > > > > precision). After the decimal point, digits beyond the specified scale
-> > > > > > > > > > > > > > > > > are ignored.
-> 
-> ...
-> 
-> > > > > > > > > > I think we are going in circles here and we could look at the code instead:
-> > > > > > > > > > - integer parsing with _parse_integer()
-> > > > > > > > > >         - overflow check and validation of the return value
-> > > > > > > > > > - fractional parsing with _parse_integer_limit()
-> > > > > > > > > >         - overflow check and validation of the return value
-> > > > > > > > > 
-> > > > > > > > > No, this is not fully true. That's what my whole point is about. The
-> > > > > > > > > max_chars parameter limits the input check, then it skips an arbitrary
-> > > > > > > > > number of digits and only *then* it checks for \n and \0. What will be
-> > > > > > > > > the result of the
-> > > > > > > > > 0.00000000000000000000000000000000423 in your case? Whatever scale you
-> > > > > > > > > gave it will return 0 without checking on how many digits were
-> > > > > > > > > supplied.
-> > > > > > > > 
-> > > > > > > > I suppose that is a valid input and 0 is the expected result there.
-> > > > > > > > 
-> > > > > > > > > All the same for 0.9999999999999999999999999999999000423. My
-> > > > > > > > > point is that we should limit this by 19 digits.
-> > > > > > > > 
-> > > > > > > > why we need to limit by 19? Digits beyond the scale carry no value...
-> > > > > > > 
-> > > > > > > ...only if they are all 0:s.
-> > > > > > 
-> > > > > > I thought your concern was on input length.
-> > > > > 
-> > > > > One of, since I think you rose the topic of leading 0:s for integers and
-> > > > > I agreed with that which makes sense to have mirrored in fractional part.
-> > > > > 
-> > > > > > > > just like leading zeros to the integer part (which is also accepted by
-> > > > > > > > kstrtoull() when parsing with base 10). Not sure why this is invalid input.
-> > > > > > > 
-> > > > > > > See above. I agree on truncating trailing 0:s as it's done for leading ones
-> > > > > > > in integer part, but if any of the digit behind 19th is not 0, it's an overflow
-> > > > > > > condition (or bad input, depending how strict the rules are).
-> > > > > > 
-> > > > > > stating in the documentation that digits beyond the scale are ignored is not
-> > > > > > enough?
-> > > > > 
-> > > > > It's in case we are not for kstrto*() family. My understanding that kstrto*()
-> > > > > use strict rules on the input in overflow check.
-> > > > > 
-> > > > > > > > > On top of that, what about -0.9(19 times) ? the fraction should be u64
-> > > > > > > > > in this case and it's fine. The sign applies to the combined value.
-> > > > > > > > 
-> > > > > > > > yes, range for signed values are verified later.
-> > > > > > > 
-> > > > > > > > > >         - extra scaling and truncation happening outside if needed.
-> > > > > > > > > 
-> > > > > > > > > Right, but the given input may be way too long and still needs more validation.
-> > > > > > > > 
-> > > > > > > > What is the problem with a long input of digits?
-> > > > > > > > C compiler does not complain about this when parsing a float value,
-> > > > > > > > python does not
-> > > > > > > > complain about this when parsing floats or decimals either.
-> > > > > > > 
-> > > > > > > Because there is an exponent limit and for double it's something like 1e307
-> > > > > > > IIRC, meaning, try 1024 digits to be sure.
-> > > > > > > 
-> > > > > > > Python most likely uses the library for big numbers, you can't compare it at all with this.
-> > > > > > 
-> > > > > > You would be fine if the truncation loop:
-> > > > > > 
-> > > > > > while (isdigit(*s)) /* truncate */
-> > > > > > 	s++;
-> > > > > > 
-> > > > > > is bounded by (19-scale) iteration count? or it should keep iterating if those are zero?
-> > > > > 
-> > > > > Ideally both.
-> > > > > 
-> > > > > We don't care about the digits in the range of 19-scale and skip all 0:s after
-> > > > > that.
-> > > > > 
-> > > > > 	/* truncate unrequired digits within type limit, i.e. 19 decimal digits */
-> > > > > 	while (isdigit(*s) && "(s - pos_of_dot) is less than 19")
-> > > > > 		s++;
-> > > > > 	while (s == '0') /* truncate trailing 0:s, it's not a bad input nor overflow */
-> > > > > 		s++;
-> > > > 
-> > > > We could have agreed on something like that since the beginning!
-> > > 
-> > > Yes, but who knew that we go to have this agreement?
-> > > 
-> > > > And I think that changing the logic to something like this would not change a
-> > > > thing on the kind of inputs we expect, it will just complicate the code.
-> > > > I suppose that kind of kstrto*() rules were never stated anywhere.
-> > > > 
-> > > >                            |> 20th digit 
-> > > > Also, 0.00000000000000000001 still sounds like a valid decimal number to me, even
-> > > > though it is going to be parsed as 0!
-> > > 
-> > > Hmm... It would mean that testing for 19th/20th digits is not enough... :-(
-> > > 
-> > > > > 
-> > > > > 	// Now if it's not \0 nor \n and
-> > > > > 	//	a) still a digit consider either overflow or bad input,
-> > > > > 	//	b) if not a digit, consider as bad input.
-> > > > > 
-> > > > > In a) I tend to be on par with the other k*() and consider that as overflow.
-> > > > > 
-> > > > > > is that the only concern? Again, the usage of _parse_integer_limit(s, 10, &_frac, scale)
-> > > > > > avoids a 64-bit division when checking the rv.
-> > > > > 
-> > > > > I'm not against usage of _parse_integer_limit(), I'm for stricter rules on the input.
-> > > > > With the above addressed, I have no more concerns.
-> > > > 
-> > > > Thanks! I will proceed with the requested adjustments.
-> > > 
-> > > But it seems it's not enough as you pointed out!
-> > > 
-> > > So the biggest fraction we may consume in 64-bit (unsigned) value is
-> > > 0.18446744073709551615. If we go with one digit less, the whole value
-> > > can be
-> > > 
-> > > In [3]: hex(9999999999999999999)
-> > > Out[3]: '0x8ac7230489e7ffff'
-> > > 
-> > > So, I don't know how we are supposed to represent values between
-> > > -0.9223372036854775808
-> > > -0.9999999999999999999
-> > > in a signed type as they have bit 63 set.
-> > > 
-> > > The easiest way out is to limit scale to 18 (but still accept 19th digit, and
-> > > with check for overflow even 20th up to 0.18446744073709551615). This will need
-> > > to run _parse_integer_limit() twice (with given scale and with 20).
-> > > 
-> > > Can you add the respective test cases and see what is currently going on with
-> > > them?
-> > 
-> > I can add test cases, but for the signed case the situation is:
-> > 
-> > scale = 0
-> > 	max = 9223372036854775807, min = -9223372036854775808
-> > scale = 1
-> > 	max = 922337203685477580.7, min = -922337203685477580.8
-> > scale = 2
-> > 	max = 92233720368547758.07, min = -92233720368547758.08
-> > ...
-> > scale = 18
-> > 	max = 9.223372036854775807, min = -9.223372036854775808
-> > scake = 19
-> > 	max = 0.9223372036854775807, min = -0.9223372036854775808
-> > 
-> > anything outside those ranges will give you -ERANGE. Then it depends on the scale used.
-> 
-> Oh, I only now realised that this is sliding window for a single 64-bit signed value!
-> I was under impression that you wanted implementation that covers 128-bit signed value
-> (with 64 + 64)...
+Enable i2c8 and add the connected SpacemiT P1 PMIC with its related regulators
+for the board's power infrastructure and voltage regulation support.
 
-So that was the initial approach with strntoull() with integer and fractional parts
-combined in iio core. At that time I realized that we ended up combining them anyways
-with:
+Signed-off-by: Andre Heider <a.heider@gmail.com>
+---
+ .../riscv/boot/dts/spacemit/k1-musepi-pro.dts | 134 ++++++++++++++++++
+ 1 file changed, 134 insertions(+)
 
-	val64 = (u64)val * MICRO + val2
-
-so why not have val64 already! And all this made me realise that once leading 0s are ok,
-scale can be even bigger, e.g.
-
-scale = 20
-	max = 0.09223372036854775807, min = -0.09223372036854775808
-scale = 21
-	max = 0.009223372036854775807, min = -0.009223372036854775808
-
-It might be a sliding window of 19 digits, but here we trade range for scale, precision
-is still fixed at 64-bit. I have a new idea to make thing simpler, actually
-it would go back to what David pointed out in the past. Let me put this together...
-
-> > I am not representing -0.9999999999999999999 as is. The desired scale will have this
-> > truncated. It may be -0.9999 or -0.999999 or -0.9. And this is practical for a
-> > reasonable scale value... for pico and femto precision you still get a decent range.
-> 
-> -- 
-> With Best Regards,
-> Andy Shevchenko
-> 
-> 
-
+diff --git a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
+index 29e333b670cf0..e0b585c50014b 100644
+--- a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
++++ b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
+@@ -17,6 +17,7 @@ / {
+ 	aliases {
+ 		ethernet0 = &eth0;
+ 		serial0 = &uart0;
++		i2c8 = &i2c8;
+ 	};
+ 
+ 	chosen {
+@@ -33,6 +34,15 @@ led1 {
+ 			default-state = "on";
+ 		};
+ 	};
++
++	reg_vcc_4v0: regulator-vcc-4v0 {
++		compatible = "regulator-fixed";
++		regulator-name = "VCC4V0";
++		regulator-min-microvolt = <4000000>;
++		regulator-max-microvolt = <4000000>;
++		regulator-boot-on;
++		regulator-always-on;
++	};
+ };
+ 
+ &emmc {
+@@ -72,6 +82,130 @@ &pdma {
+ 	status = "okay";
+ };
+ 
++&i2c8 {
++	pinctrl-0 = <&i2c8_cfg>;
++	pinctrl-names = "default";
++	status = "okay";
++
++	pmic@41 {
++		compatible = "spacemit,p1";
++		reg = <0x41>;
++		interrupts = <64>;
++		vin1-supply = <&reg_vcc_4v0>;
++		vin2-supply = <&reg_vcc_4v0>;
++		vin3-supply = <&reg_vcc_4v0>;
++		vin4-supply = <&reg_vcc_4v0>;
++		vin5-supply = <&reg_vcc_4v0>;
++		vin6-supply = <&reg_vcc_4v0>;
++		aldoin-supply = <&reg_vcc_4v0>;
++		dldoin1-supply = <&buck5>;
++		dldoin2-supply = <&buck5>;
++
++		regulators {
++			buck1 {
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <3450000>;
++				regulator-ramp-delay = <5000>;
++				regulator-always-on;
++			};
++
++			buck2 {
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <3450000>;
++				regulator-ramp-delay = <5000>;
++				regulator-always-on;
++			};
++
++			buck3_1v8: buck3 {
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <1800000>;
++				regulator-ramp-delay = <5000>;
++				regulator-always-on;
++			};
++
++			buck4_3v3: buck4 {
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <3300000>;
++				regulator-ramp-delay = <5000>;
++				regulator-always-on;
++			};
++
++			buck5: buck5 {
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <3450000>;
++				regulator-ramp-delay = <5000>;
++				regulator-always-on;
++			};
++
++			buck6 {
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <3450000>;
++				regulator-ramp-delay = <5000>;
++				regulator-always-on;
++			};
++
++			aldo1 {
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <3400000>;
++				regulator-boot-on;
++			};
++
++			aldo2 {
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <3400000>;
++			};
++
++			aldo3 {
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <3400000>;
++			};
++
++			aldo4 {
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <3400000>;
++			};
++
++			dldo1 {
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <3400000>;
++				regulator-boot-on;
++			};
++
++			dldo2 {
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <3400000>;
++			};
++
++			dldo3 {
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <3400000>;
++			};
++
++			dldo4 {
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <3400000>;
++				regulator-always-on;
++			};
++
++			dldo5 {
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <3400000>;
++			};
++
++			dldo6 {
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <3400000>;
++				regulator-always-on;
++			};
++
++			dldo7 {
++				regulator-min-microvolt = <500000>;
++				regulator-max-microvolt = <3400000>;
++			};
++		};
++	};
++};
++
+ &uart0 {
+ 	pinctrl-0 = <&uart0_2_cfg>;
+ 	pinctrl-names = "default";
 -- 
-Kind regards,
+2.53.0
 
-Rodrigo Alencar
