@@ -1,107 +1,70 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE8E4DC55F;
-	Wed, 13 May 2026 17:48:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D80447F2FA;
+	Wed, 13 May 2026 17:51:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778694502; cv=none; b=n/cDoIwOKrsohVsOIupfID56FGIUJPCPr3sSBnJ5mkJRyYYDLd19L/fL8HrMdKUbSphCA16ljil9D/H8pwTQbusEIPpP0qEAGNaRYwmGJvb2cwjPjTL54AJyPpEVyAsY71lW+wK5XOt+KewwFYaNA8vhn6eKleKnc3O8IJqfsOk=
+	t=1778694691; cv=none; b=LlB5VqE3EG3QlN4UuizNhaaR7ojSftx936k6nyFv5Bw8PJAlN9Qxp33PDi5wEg2fQk2+JyGrmkHxckkUPtOyDHwV8mxARqY5PSy1VDdPjCxADejNWsr4Up1ThhWtzBojXl2pAx79ORR5Edxf9aLy0rHLJAb+0A7VH9ZOxudQqfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778694502; c=relaxed/simple;
-	bh=fF6REr3h5Pi2RL6LPgAqzchRdE/dzqgGnbwHYAwXtCc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DdXBYI28kDHQ0NEGNjCYYGWx9tDp9aNts+WpOqo/xSRZDCTP25EtQN0Wkq+0XtAugk+9CetFZzFtJwMXX0SZomVhdaaUFX9xvXO+FBu84qj0iro3CRH0l0SLiNdbgyy73lCxZeSoMPw9qwmdAZacmG5JAxffwqiSOwY3Tq2kHA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=noOWNe7J; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1778694691; c=relaxed/simple;
+	bh=hawRxga1ZfB/pOEXilryIKgeZrVTpKoxR5U2nlRiIA0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SHX5al1Idou34BNIn9aneAT2cPwOSzC/mkyKd7Vrwe90Npb87guQr5r8SlGtHl8IoLDYcXw0j+94HAjZLgE9+H9fcbv8Mlu7pvpnJ+gPmRkTqkErfXmOAhXhCUyE2L1L/2FEKuG5l0M8igtLsk6qSSsfsFUQbZcrGnVBqkrjzeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=Gf2aHnEJ; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="noOWNe7J"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1778694501; x=1810230501;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=fF6REr3h5Pi2RL6LPgAqzchRdE/dzqgGnbwHYAwXtCc=;
-  b=noOWNe7JuDjIFa/oaAooTMziurZuI5xxSfkvPzyRszrb2U8rUbaO0NhN
-   uLBxy1kVpSH+boWhohgbH4WqZl5vH2iW3y6l4V8UWecptYs6E9TpY1srx
-   DA0ywuPAW/TYxwe3RGpqm5AqGxNa0Lc9gekakQve2c+N2oqyL2kwAVf/9
-   sKnuNsKppQSNbOmS8BCPRH6RWjq6RcbAVR0ef9zK6ojCQONm+lajHwSdj
-   S+Al5ycH5XOMdEXPDzfSvn4V0BQa+qAvyXXR9SCLTMBgPbbSEIcs51ptZ
-   qJ5npLzkHtxepAoQKDCeqZEZn9dOUDCps+zVJivKES437IuYIrVvZePco
-   w==;
-X-CSE-ConnectionGUID: L/FFIacZSzORbW8vl6bg7A==
-X-CSE-MsgGUID: 6HMv6wyWTh+IaVv6GjWyeQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="91092702"
-X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; 
-   d="scan'208";a="91092702"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 10:48:20 -0700
-X-CSE-ConnectionGUID: OzdiAfUDTzOR5znuYVB3YQ==
-X-CSE-MsgGUID: 7EketAXhQUujw4pp85xiAg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; 
-   d="scan'208";a="233698492"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.106])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 10:48:16 -0700
-Date: Wed, 13 May 2026 20:48:14 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Rishi Gupta <gupt21@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] iio: light: veml6030: fix channel type when
- pushing events
-Message-ID: <agS5Xu8ORtEwuwOB@ashevche-desk.local>
-References: <20260513-veml6031x00-v2-0-4703ca661a1d@gmail.com>
- <20260513-veml6031x00-v2-2-4703ca661a1d@gmail.com>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="Gf2aHnEJ"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C499E115A05;
+	Wed, 13 May 2026 19:51:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1778694686;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=3LXTTwyb/4IPwWWf7g8WjGMlPAqWhO3kCdoylPgOg38=;
+	b=Gf2aHnEJ0B3SocHB1n5bPTGPtLv8OuBVC7J5y1iA+Opz9x5/m2JeZyKs+Y5CdMlLm0bb7A
+	WT9DcGsVMy++QrL49aHyYBHXx+8JNtdhAAIGbqcAvk2qFe5CBFvYcqWXy0AOeUFsYcRKck
+	Yn0Vv0yMdK7RdntS/Joh8BOYBP4G4gQIb5N70sclPUCfLcyxAq7+UXAYdFPkT9UbG8HgZ4
+	FOp/dOdC6miY+MMKYSj7OgrDzmlDM/RIFC6rvJqIbIgYD9k8xZ/7C3XzEnRbasn55BcVP7
+	FfEmq2rN0LiRGJWiwQN3ZYQO2SswIOij+7xD7kamapHI5fRxlK6XxITVNL+iZA==
+Message-ID: <271d1839-e372-4f5b-84bc-29fe30b928a8@nabladev.com>
+Date: Wed, 13 May 2026 15:41:41 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260513-veml6031x00-v2-2-4703ca661a1d@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: display/bridge: lt9211: Add
+ drive-strength-microamp property
+To: Boerge Struempfel <bstruempfel@data-modul.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+References: <20260513133127.376458-1-bstruempfel@data-modul.com>
+ <20260513133127.376458-2-bstruempfel@data-modul.com>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <20260513133127.376458-2-bstruempfel@data-modul.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, May 13, 2026 at 05:49:42PM +1300, Javier Carrasco wrote:
-> The events are registered for IIO_LIGHT and not for IIO_INTENSITY.
-> Use the correct channel type.
-
-> This bug was introduced in the first version of the driver.
-
-Unneeded detail, if it's a bug, use Fixes tag.
-
-> When at it, fix minor checkpatch code style warning (alignment).
-
-...
-
-> -	iio_push_event(indio_dev, IIO_UNMOD_EVENT_CODE(IIO_INTENSITY,
-> -					0, IIO_EV_TYPE_THRESH, evtdir),
-> -					iio_get_time_ns(indio_dev));
-> +	iio_push_event(indio_dev, IIO_UNMOD_EVENT_CODE(IIO_LIGHT,
-> +						       0,
-> +						       IIO_EV_TYPE_THRESH,
-> +						       evtdir),
-> +			iio_get_time_ns(indio_dev));
-
-AFAICS the indentation is still broken. Why not doing like this:
-
-	iio_push_event(indio_dev,
-		       IIO_UNMOD_EVENT_CODE(IIO_LIGHT, 0, IIO_EV_TYPE_THRESH, evtdir),
-		       iio_get_time_ns(indio_dev));
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+On 5/13/26 3:31 PM, Boerge Struempfel wrote:
+> Add the 'drive-strength-microamp' property to allow board DTs to
+> configure the LT9211 LVDS TX output driver current. Sixteen discrete
+> levels are supported, ranging from 12 uA to 36 uA. Defaults to 25 uA.
+> 
+> Signed-off-by: Boerge Struempfel <bstruempfel@data-modul.com>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+AB goes before SoB line.
