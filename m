@@ -1,77 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64A9C2C2346
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 13:37:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF76D285CB9;
+	Wed, 13 May 2026 13:37:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778679440; cv=none; b=mTsfOXzNdE/GY3HGc6bvkspsq5YycJ2yurQbw1WyKUBMkD+i8pD4GSd9lEaHG69n4xLcaUdrHx+s6XmOsoXO0jQ6LNhHlBme1+1gAciNMwZb/ALFRo/57FP3YW6C7u3uBsSoiW3dW1Xq8BrVyX/pf0dLOgSNjNaKsmv1F+pcL40=
+	t=1778679440; cv=none; b=YaqiWG3FKp6S1M4CoIg5JwQRdVV5Izyd6cULlt52V4qbR2h0EHBSuXfYk8q6Nz3VKFYjZ8ORrU8JL5EXQWBiwaPFiVzDs6FPjgv2VU/HeoFpOMYCz9Jgwagq9zGQfWmyhVzKGYQEavcaF1iwfBeA4l1H8z6SvqGImwYXYjWUR/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1778679440; c=relaxed/simple;
-	bh=K2K0ZIDmDouzIYjOgQrDHa+obDFg7JDm6ArC3vxrn58=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jk5rTkj3rQIJW0j0eVTSOZKiHXsA5lKiqmqPooicVVv9sFRssEJ25Ex3N8RtKlxcG3DqahYFEPaMaOD7h0WjckAg2zocI2bJRFrVanfAlxRr3iUWSkpgT3iU8zP7Dp6W1euPuUFizy0P2eh/6KLqLEwGt5ESCVk/So0qITG8u4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=p1mkykF1; arc=none smtp.client-ip=10.30.226.201
+	bh=KEf+9fLGksQz2jePXQWelFajAvEqqbkiD7pIfQ6g3C4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qKkBOFgIx/qxlOENMAicKblSqJQfsg2PYnFICPm/2iqY0Bz+lKrNvOGMQL3clYUJ0HLTGMzuUetxnr+vIrrKJJ9RK1v0gwWeZEGO2cSy2prgZmr3hvlQtj9BjJSq5W2n/OmIRAIugpJAYSafP3C6oX1wwfVKRm0Ewvjg5gU+S94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=gtigegsR; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="p1mkykF1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EE79C2BCF7
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 13:37:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778679440;
-	bh=K2K0ZIDmDouzIYjOgQrDHa+obDFg7JDm6ArC3vxrn58=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=p1mkykF10sGMcnkI4zGd8+MrvAv07Rpfsg7wnzLYvADPoJxCSZcVKZ9hfsZPAbdOp
-	 aOaS0+HYEjjm72bGvt/08o4tg553smMoX86Y4IvYRTHuZ/waEgOET7tXGYrim4xjGF
-	 UJ9OYJBBNoiA7jvVe0ToHrH+vm3y4zcYzu6Z3EweI/SQ40ntFkFWgfZ1Pkhf/2anmw
-	 BNJR2+sA/h4iaJximBT7QNEOJcIsxDk3/MH0EIM1Uyu1dTSTb4V55q070M/zmHtXPE
-	 ncEgoJAMZLZu4Zlv8tSxCDfDOJP4NFgrYEug+dUn/HiK8HAynR4zVOxmGaR4p/exiW
-	 hvrfa13vSpqBQ==
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-393da8f389bso68805381fa.1
-        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 06:37:20 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9UtR0lCHZgQHHEH7cjEmQOWLJ1q9YkRmd8OPZKqX/49PguAixS+/cGjOgkMCDhVocLffXHtkl2c7TH@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy0WMxiFOu5wQzDFzysWNjtnBxgetgn/q1aINd+BpzC0UTshxYd
-	tTB4aDoSJHcwdGowQaMawE5b8xq2nhBX8JgNRTytPAf5ElU68wBCgKlh03rbZbeAh2p49DncxJW
-	KHX4osAA+Qxuz+WQjCextLYKAxHLv9es3BPV+xi+A9g==
-X-Received: by 2002:a05:6512:224b:b0:5a8:b8bf:f742 with SMTP id
- 2adb3069b0e04-5a8ef987a62mr1294266e87.20.1778679438834; Wed, 13 May 2026
- 06:37:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="gtigegsR"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gFvdk4Ngdz9vfd;
+	Wed, 13 May 2026 15:37:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1778679434;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VvSwoxSiatVvxEWU9UXOMyAINfanvVCSTpfBdY/SsOE=;
+	b=gtigegsRzs/PH4410a+01bUv2j2KyUKcwfaWpppuhLu8m2I1YU6obCyivI5oHmQ8FNhKaL
+	m3BVDkT61G0Vc7uCDQDg0aJy+YBZaWKAS9a7QH47YSWoSGQqLkPQq/rQISbz+6ZKnND1wG
+	rjloA982IY9Bh+5iWCDDt7SlIVVhmJjgcn3l6z/aOYiwH3gyCCzr0gsb9iyvjMlpvY/TT7
+	d/NsBbk1oA9BAX6bN9oUxLurQk1s41uLejxMbzJ/KjHhOCtQpvr1lRJNlvayNHPOWG1Ozx
+	X55HErnWj2APUmPCcSW42iBSmhFzQt8tWNJ+LilyZpsZRoo7m8bewF818ApU1g==
+Message-ID: <c4e6e48d-9a8f-48f0-8666-22efebf86d8a@mailbox.org>
+Date: Wed, 13 May 2026 15:37:10 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260513123758.4955-1-chaitanya.msabnis@gmail.com>
-In-Reply-To: <20260513123758.4955-1-chaitanya.msabnis@gmail.com>
-From: Bartosz Golaszewski <brgl@kernel.org>
-Date: Wed, 13 May 2026 15:37:06 +0200
-X-Gmail-Original-Message-ID: <CAMRc=Mc=kcWv1Eo=Z5j8C+O49skeLfsBOB+rEZBF=Gy-VwLC4w@mail.gmail.com>
-X-Gm-Features: AVHnY4IFyN40KMvyDcVQAeiIe3pL67V2UuNqra_cNWQHkSdc-tBvVbPq0awIgIc
-Message-ID: <CAMRc=Mc=kcWv1Eo=Z5j8C+O49skeLfsBOB+rEZBF=Gy-VwLC4w@mail.gmail.com>
-Subject: Re: [PATCH v4] dt-bindings: i2c: convert davinci i2c to dt-schema
-To: Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
-Cc: andi.shyti@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, bartosz.golaszewski@oss.qualcomm.com, 
-	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/4] clk: renesas: r8a73a4: Implement ZT/ZTR trace clock
+ on R-Mobile APE6
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm
+ <magnus.damm@gmail.com>, Michael Turquette <mturquette@baylibre.com>,
+ Rob Herring <robh@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+References: <20260502185557.93061-1-marek.vasut+renesas@mailbox.org>
+ <20260502185557.93061-3-marek.vasut+renesas@mailbox.org>
+ <CAMuHMdUXjwyVk2kuGAJOdPHw=qv_iwO2pSR3Rp+5ayoP2QG25w@mail.gmail.com>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <CAMuHMdUXjwyVk2kuGAJOdPHw=qv_iwO2pSR3Rp+5ayoP2QG25w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: gnir56bo4zqqypyqe9fzb64orawq84oz
+X-MBO-RS-ID: c62258f6f52ae9b4f90
 
-On Wed, May 13, 2026 at 2:38=E2=80=AFPM Chaitanya Sabnis
-<chaitanya.msabnis@gmail.com> wrote:
->
-> Convert the Texas Instruments DaVinci and Keystone I2C controller
-> bindings from legacy text format to modern dt-schema (YAML).
->
-> During the conversion, the `interrupts` property was made required
-> to match the strict requirement in the driver probe function. The
-> custom `ti,has-pfunc` and `power-domains` properties were also
-> properly defined to match SoC-specific hardware features.
->
-> Signed-off-by: Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
+On 5/13/26 3:15 PM, Geert Uytterhoeven wrote:
 
-I left my Ack under v3. Please keep tags when resending.
+Hello Geert,
 
-Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> On Sat, 2 May 2026 at 20:56, Marek Vasut
+> <marek.vasut+renesas@mailbox.org> wrote:
+>> Implement ZT trace bus and ZTR trace clock on the R-Mobile APE6.
+>>
+>> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> 
+> Thanks for your patch!
+> 
+> /sys/kernel/debug/clk/clk_summary looks a bit off to me:
+> 
+>      zt                         0       0        0        208000000
+>      ztr                        0       0        0        277333334
+> 
+>> --- a/drivers/clk/renesas/clk-r8a73a4.c
+>> +++ b/drivers/clk/renesas/clk-r8a73a4.c
+>> @@ -43,6 +43,8 @@ static struct div4_clk div4_clks[] = {
+>>          { "m1", CPG_FRQCRA,  4 },
+>>          { "m2", CPG_FRQCRA,  0 },
+>>          { "zx", CPG_FRQCRB, 12 },
+>> +       { "ztr", CPG_FRQCRB, 16 },
+> 
+> 20?
+> 
+>> +       { "zt", CPG_FRQCRB, 12 },
+> 
+> 16? (12 is zx, cfr. above).
+> 
+> I.e. the same shifts as on R-Mobile A1.
+> 
+>>          { "zs", CPG_FRQCRB,  8 },
+>>          { "hp", CPG_FRQCRB,  4 },
+>>          { NULL, 0, 0 },
+> 
+> After fixing the shifts, I get:
+> 
+>      zt                         0       0        0        277333334
+>      ztr                        0       0        0        277333334
+> 
+> which looks much better. If you agree, I can fix this while applying.
+
+Yes please. I can confirm in APE6 RM v0.7 that the ZTFC is at bit offset 
+16 and ZTRFC at bit offset 20 . Thank you for spotting this.
+
+-- 
+Best regards,
+Marek Vasut
