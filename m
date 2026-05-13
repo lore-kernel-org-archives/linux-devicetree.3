@@ -1,152 +1,134 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8250A39B491
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 11:44:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CD113806A7;
+	Wed, 13 May 2026 11:53:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778672655; cv=none; b=bnEOPT4LIoVBRJasjZcZneq5oguIF5AdIMsB4ftxhjpyZEJ24OV+0dWUZDvLqW7I4i0XFxHXCQSf8X00D1eXSPilvBgnjmoR04X+CBlQ4s88S3KEWKZtg747HDigxbg3mHbCOgasEuNCmPh4BL+46rxP35tWfvYFCt6os69AdUQ=
+	t=1778673183; cv=none; b=Nf2iuwXp202nzkIjsXFBntMomSVTWZMGIRFCBMdJjzz4PFHgSd1KRHKgtxOp8Wo0BUJ8w8umZ9owYg0z7nMGVxRQ1Qh6WQr85emwRR52OjQOAes+VbdLsnPgfGmArNSi9Vo4jXz6And+yRS6f2l0qBgIu+zM0j4ZBHceeoaaXgY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778672655; c=relaxed/simple;
-	bh=1a+V7SN5Ad1tvDfgTgTwhX+lul4htUJKibU3Otb53LQ=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=BWOgkp+OlB6JVsAN2fAepjSUKx2/V5cg8d/OIPCtpmx0BgQd3/OJD6g71fkqbJ9RV0QzhIFhpHvc/7esxXKixJPan855K8YRsmhMW5DcxLvbwt31ou9yO2NyFhtlxWC/qesyau0jLCUqqTDfsSPZLvNjq6xvsxRNyIAF26ZthJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gEq1hdHh; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778673183; c=relaxed/simple;
+	bh=Z8eKeo+05KskQgsdeggdbSAlsZAMrOpUqZEa1xE5beM=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=KkB5Le4lcTOfyx7/DSe9ajV3pflK+mGMu3MULpkWmWjibFXz1uxNBZbFwxxRpdYfxduoCEUKpJzb2Q3XFzoBjcyxN20zD+vurHgzlFP9k+zQ6MAf1BkJJSBc3esQVUQ6C9rhCrCk25pqjCVFaWqx2kJ9d2ZOljgZnEZgE+foCyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=aDv6kJpN; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gEq1hdHh"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2ba4efedbeaso46928055ad.1
-        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 04:44:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778672652; x=1779277452; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:references
-         :in-reply-to:user-agent:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=qYAcfX5TZQ1aO/tUlnMIN+1pF6qLETPLwxG8ZHIUVfI=;
-        b=gEq1hdHhXaN9hfUHDRC7spe2P68YK/n731u3tq7uWrGdzINNnmUDOW8Oh9KoWScOJQ
-         DN+ORe3jW3HsyQaZlizJ061yElkn9LWzIsSBZXdnsVWC//Z4qEac0uH3WC7WtQt/r6Lp
-         LpJbgi/L7q30rhoCdMLKlMEArpOvB3gabBHhgdz7oLPiDlUXRwVYuIgNL96jLwq6F+s7
-         V0LzfBYxepKqOYbH7jtH0yybby9sEZnliRKesNpyzUdmDLqSxybjHEGu5z6TA4izw8ag
-         KJjuiM5FQBkGf9fvN5lPrNRGAsfzfPNAVXIOiZxizw0YMfntq/c89OBKQfIN7XwvTy4U
-         FTcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778672652; x=1779277452;
-        h=content-transfer-encoding:mime-version:message-id:references
-         :in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qYAcfX5TZQ1aO/tUlnMIN+1pF6qLETPLwxG8ZHIUVfI=;
-        b=i+pS3h3OVO3bYodkRJgm1Dc3xNmA1fNKXw6tqq2bacTUV+JHVQ1mnh9JiWDsHRpO1S
-         T9Qi8WbKSZFbzVAaEIiFEU2OzG2oaP4tBYD8COUHAO3OCWRDWdAT1ZnEkjsMHrUf5a7Q
-         tNQXZP511auPzxBL6DxiNopeoHXNGaR36DI4WbtrJOcUlxWwON1M8eyI6MB9QCClAbjW
-         rHqj9XMqa/JpgrSjrxRt1wwrOTb0Q88xszUB86I262q68y+BIsXsbcxJT0b2t9sk5xxW
-         efshmnouqIFuAGB8LKkWNsbXy0Cj1srDoTKVgPv1LLt0GWKPXTKrMc3G39wd97LKrIK/
-         noyA==
-X-Forwarded-Encrypted: i=1; AFNElJ8FXfyGpo+vQ6s74oXBpFlP2XiGspI3G+8E02yQVhBSCRr1MGTgQwOHrPtpXdLK4U7waRsXZTcshX8q@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz7IUItR0e/NEJcyURYnZrX+blawBeOYRW6+VtR1O3Y1t5iYR2i
-	nr/cBI45dy7xuMLBvf08XCwB+PdWlSv53mMIOluaug7ezrOhSSQypcBo
-X-Gm-Gg: Acq92OHYRLQo8lfku8104OEnDMloWsd1cob7Ro3oQY8T9vi5QCmEDkQ/HHn8jOR1WNY
-	mi0zIavLWf5LFiOHxBOKVa7TBMjAaRWcqJ8MKSBmhSRTAEqMxbzI8iVfObpY327ZySD9xS7zyW7
-	VigiKOG6bsoeUr5wmrfqc+cybcQA4BCK2Y9vvEBPUgx8E1td/wkrOriEhtixzwajExyGLty0pCO
-	XmOy54K+hMAdKMYIasUDkHwDThGNwePEh9Rp+BQI/LnFPK7Rhn0yJSKPvYKBp2M5+H27aPryA+a
-	jX7VCmJgAefnl9Mvbv2+OJFAoDuVLW4upuY7eXocVQZFoShe1HpCN6K1MJgmCz2QM6oBzvcvFHa
-	PJzB0OIXPqRLHa4uLPdOpZ/pGxAAWuO0sUpOj+ytt3mlEJCMBpDhk2q7859Bx+Xp2GCcG0MQkn8
-	s9UWFrgkhPtn6+rVK+U2eFQtopB3mNfSgNyg40cjqG74A3sT4=
-X-Received: by 2002:a17:903:9ce:b0:2bd:56c:97ad with SMTP id d9443c01a7336-2bd2ec5abd3mr25711825ad.0.1778672651705;
-        Wed, 13 May 2026 04:44:11 -0700 (PDT)
-Received: from ehlo.thunderbird.net ([2401:4900:ac0f:c362:ceaf:f4a4:19f1:7e92])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2baf1d52f27sm204870005ad.36.2026.05.13.04.44.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 13 May 2026 04:44:11 -0700 (PDT)
-Date: Wed, 13 May 2026 17:14:05 +0530
-From: Sanjay Chitroda <sanjayembeddedse@gmail.com>
-To: Michal Piekos <michal.piekos@mmpsystems.pl>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?ISO-8859-1?Q?Nuno_S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Maksim Kiselev <bigunclemax@gmail.com>
-CC: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] iio: adc: sun20i-gpadc: add A523 gpadc support
-User-Agent: Thunderbird for Android
-In-Reply-To: <20260513-sunxi-a523-gpadc-v2-2-d5efde151dac@mmpsystems.pl>
-References: <20260513-sunxi-a523-gpadc-v2-0-d5efde151dac@mmpsystems.pl> <20260513-sunxi-a523-gpadc-v2-2-d5efde151dac@mmpsystems.pl>
-Message-ID: <A7772824-E704-4BFD-A796-BCD81197E5A2@gmail.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="aDv6kJpN"
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id EDAB9229;
+	Wed, 13 May 2026 13:52:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1778673170;
+	bh=Z8eKeo+05KskQgsdeggdbSAlsZAMrOpUqZEa1xE5beM=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=aDv6kJpNTasZLgubP7RpRdZAzMkFpMmnrX1frWXs5lEpbZxwLHCmDKWRuV74qZxkQ
+	 Paj3x4IdJSLRbp9X/dPZtW/XPCwe4KK+p+9Odd1ic/ePva/+rZ7ImKK5epHuIGJVFU
+	 w4Qshojli64ifXsnZfeb3opqlfRz6Mc/b0eu1YAw=
+Message-ID: <faa20bc8-02d8-4715-a65d-2d8aa4102296@ideasonboard.com>
+Date: Wed, 13 May 2026 14:52:55 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/panel: simple: Add timings for Raspberry Pi 7"
+ panel
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+To: Marek Vasut <marex@nabladev.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
+ Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260420-rpi-7inch-v1-0-e68d5c9c44bc@ideasonboard.com>
+ <20260420-rpi-7inch-v1-2-e68d5c9c44bc@ideasonboard.com>
+ <3z3u5mbngmbzsch3mzs3twlh3aec6r7jokstzv3ghxyusrzt6b@jqvdnuiapx6e>
+ <af71183d-70b8-4a41-8466-67123e7aab02@ideasonboard.com>
+ <20260423-kickass-fat-boa-209f68@houat>
+ <72c2cd94-0a8b-46c8-981b-4ad4a3222e59@ideasonboard.com>
+ <CAO9ioeVX6OChRTgUrUdgrPF+3s2_7vme7m0yb85pjYtH1MFskw@mail.gmail.com>
+ <ced05a92-06b4-4f6f-95b6-c3dc104c35f3@ideasonboard.com>
+ <b24c428f-5752-4544-a8b4-77e91d7bc158@ideasonboard.com>
+ <da6bdb78-7fe8-4f51-b9e6-444748ebc319@nabladev.com>
+ <103f94d0-2599-497d-ae37-d88922b9f669@ideasonboard.com>
+Content-Language: en-US
+In-Reply-To: <103f94d0-2599-497d-ae37-d88922b9f669@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+Hi,
 
+On 23/04/2026 18:01, Tomi Valkeinen wrote:
+> Hi,
+> 
+> On 23/04/2026 16:54, Marek Vasut wrote:
+>> On 4/23/26 3:16 PM, Tomi Valkeinen wrote:
+>>
+>> Hello Tomi,
+>>
+>>>>> In the past I used this panel compat instead of the
+>>>>> panel-raspberrypi-touchscreen.c and it worked.
+>>>>> IIRC Marek splitted the multi-function module into a regulator and the
+>>>>> panel description.
+>>>> Ok... Indeed https://pip.raspberrypi.com/categories/651-pcn lists 
+>>>> PH800480T013 as one of the panels used. Although two variants are 
+>>>> listed, and also a third panel model, possibly from another vendor.
+>>>>
+>>>> My module is v1.1, and I think it has the PH800480T013-IAC21 D/5624/ 
+>>>> KIT- LC variant.
+>>> A question to Marek: Where did you get the timings for PH800480T013? 
+>>> Did you find a datasheet?
+>> Search engine first link:
+>>
+>> https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/5337/ 
+>> PH800480T013-IHC09.pdf
+> 
+> I tested the "powertip,ph800480t013-idf02". I'm using BeagleY-AI here, 
+> and it didn't work at all. After some testing, I figured out these:
+> 
+> HSW of 2 is much too small. But this could be an issue on the display 
+> controller or the DSI encoder side. HWS of around 8 starts to work ok. 
+> Below that, I don't get anything on the screen.
+> 
+> The syncs are interesting. I set them to DISPLAY_FLAGS_VSYNC_HIGH | 
+> DISPLAY_FLAGS_HSYNC_HIGH, Marek to DRM_MODE_FLAG_NVSYNC | 
+> DRM_MODE_FLAG_NHSYNC. But I have sent the TC358762 series, which fixes 
+> the syncs that the bridge sends (20260327-tc358762-fixes- 
+> v2-0-3589d3c45f4a@ideasonboard.com).
+> 
+> Flipping the syncs might explain why I used 46 and 23 as the 
+> backporches, Marked used 46-hsw and 23-vsw for backporches (well, 
+> Marek's vbp was off by one as I mentioned).
+> 
+> But now I'm getting unsure if my TC358762 fixed the syncs correctly... 
+> I'm pretty sure I measured those with my scope, though.
+I did some digging.
 
-On 13 May 2026 10:29:43=E2=80=AFam IST, Michal Piekos <michal=2Epiekos@mmp=
-systems=2Epl> wrote:
->A523 differs from existing sun20i-gpadc-iio by having two clocks; bus
->clock and module clock=2E
->
->Change driver to enable all clocks=2E
->
->Signed-off-by: Michal Piekos <michal=2Epiekos@mmpsystems=2Epl>
->---
-> drivers/iio/adc/sun20i-gpadc-iio=2Ec | 11 +++++++----
-> 1 file changed, 7 insertions(+), 4 deletions(-)
->
->diff --git a/drivers/iio/adc/sun20i-gpadc-iio=2Ec b/drivers/iio/adc/sun20=
-i-gpadc-iio=2Ec
->index 861c14da75ad=2E=2E3f1f07b3a385 100644
->--- a/drivers/iio/adc/sun20i-gpadc-iio=2Ec
->+++ b/drivers/iio/adc/sun20i-gpadc-iio=2Ec
->@@ -180,7 +180,7 @@ static int sun20i_gpadc_probe(struct platform_device =
-*pdev)
-> 	struct iio_dev *indio_dev;
-> 	struct sun20i_gpadc_iio *info;
-> 	struct reset_control *rst;
->-	struct clk *clk;
->+	struct clk_bulk_data *clks;
-> 	int irq;
-> 	int ret;
->=20
->@@ -205,9 +205,11 @@ static int sun20i_gpadc_probe(struct platform_device=
- *pdev)
-> 	if (IS_ERR(info->regs))
-> 		return PTR_ERR(info->regs);
->=20
->-	clk =3D devm_clk_get_enabled(dev, NULL);
->-	if (IS_ERR(clk))
->-		return dev_err_probe(dev, PTR_ERR(clk), "failed to enable bus clock\n"=
-);
->+	ret =3D devm_clk_bulk_get_all_enabled(dev, &clks);
->+	if (ret <=3D 0)
+The upstream TC358762 syncs are wrong, and inverse what they're supposed 
+to be. The upstream powertip,ph800480t013-idf02 timings are such that 
+the image still gets centered correctly, even with the wrong syncs, but 
+this makes the timings not match the datasheet.
 
-Thank you Michal for the change=2E
+With my TC358762 series, the syncs on the parallel bus are correct, and 
+thus powertip,ph800480t013-idf02 no longer works right. My 
+raspberrypi,7inch-dsi panel timings work right with the TC358762 series, 
+but those panel timings have the sync polarities wrong, and thus the 
+timings are also not according to the datasheet.
 
-Have you validated the changes ?
-It looks while success ret would be 0 and it would give return error=2E
+So: we can drop this series. I'll fix the timings for 
+powertip,ph800480t013-idf02, and then it'll work with the RaspberryPi 7" 
+DSI display module...
 
-Thanks, Sanjay
+  Tomi
 
-
->+		return dev_err_probe(
->+			dev, ret,
->+			"failed to enable clocks or no clocks defined\n");
->=20
-> 	rst =3D devm_reset_control_get_exclusive(dev, NULL);
-> 	if (IS_ERR(rst))
->@@ -243,6 +245,7 @@ static int sun20i_gpadc_probe(struct platform_device =
-*pdev)
->=20
-> static const struct of_device_id sun20i_gpadc_of_id[] =3D {
-> 	{ =2Ecompatible =3D "allwinner,sun20i-d1-gpadc" },
->+	{ =2Ecompatible =3D "allwinner,sun55i-a523-gpadc" },
-> 	{ }
-> };
-> MODULE_DEVICE_TABLE(of, sun20i_gpadc_of_id);
->
