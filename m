@@ -1,176 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD88532A3DA
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 19:24:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B70E35E958;
+	Wed, 13 May 2026 19:25:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778700248; cv=none; b=nJiIB5sgMd7qTFj8MHyzEAJ8bFD0OQD99UKQYRJNSJyPglnUyfzqDura/Qe4L1cfJVbsc35kZm3xvNlkJ2AA/ED3r+hewNQgBKoi1Uyk+ibFcC8JuBGSa/Zb+MC3iEMVj1DpAcbFd24090/oJ02S2vj5ba7l/4FHFpFs9E5YlbM=
+	t=1778700320; cv=none; b=KLS1tj2/Btm7q7xrhygumgVm91ejPbjIumQxDbFIdu4pubwgDm6A0WORZLrTkVqDgceBRE2VXik06hsHz14o7ZiRKi+kqxCxAHDlHWID80DnJ6j07GHc7+2dbZ37kExjWDQ3zTnHLBGQGQUe0OjqTzLrbAGwvCtHCU3UAZhOF4w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778700248; c=relaxed/simple;
-	bh=2O/qVUYXOjZKDX/NKEEZFisr/xAFwHtQLYuiHnAWdIM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=g0Tg4Fs9oxN1EI9vdSPltkfTm087fZ1aeECYqKVpD8msllurHoW019oYmv3eI0a0RHIHCBN2jxfYA9ER18s5okGAooXMOH9b6zErPVo7Kaz1CiWt/UINrOP3k3T+1nyh2uy3xVm7rYWTvLIAvq6IRbVfoBnhI3HlKMSl1vCIpL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pgpSkK/h; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778700320; c=relaxed/simple;
+	bh=7zcrFW0glQIa+ApPblLZSfwkAXwmocG6ivduz9eA1dg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=c2W31sK00ohI9NKiZiwJrfAd18TNtWoGkVOh/vMJpuyzhkHZnGOPNfvS8/Mhj23UiaGOtZ8V/5WL3lFvcnZU+ffI5N1DegT6dOGGwyTNotgVH7H1Tg2kFPzFJSFuCH5yIaylvNeM3svTfMSCVOf2U8qbFoF/DfenBmYoIchykHU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AWIuGoi2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pgpSkK/h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E350C19425;
-	Wed, 13 May 2026 19:24:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AWIuGoi2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4590CC19425;
+	Wed, 13 May 2026 19:25:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778700248;
-	bh=2O/qVUYXOjZKDX/NKEEZFisr/xAFwHtQLYuiHnAWdIM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=pgpSkK/hMNoXg3ULDXWmZ2W8Nx9J3Mwr8FC+CBK8jbFLCWoihuT7e2GhOTPt+8/Kp
-	 So8b//xl0aiBPaSD6MHEoJN8ykfZ57wTEha8CFk6m/NVuFc+GN+C89A5pYxBQ2vxK2
-	 wkjR7998fl4i8RMZepn7kkRXLy/19SIGQdw7KbM1smRm1f/4xgJbw2OKybeYsaqBw1
-	 qTHXCN9f6CN4nrThvYdIBAZC9ggf4vwnA46tPRTOdYne9nbsELiXKz0LVgdD1JxJVm
-	 1A2FAfeX0IKSjiVxLjUh8i/Q8pVa8ndWIQIy02W4HnYfPEV3OUER3b0mUR0WEqnWv+
-	 rMylQA3qb8SXA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 06/16] nvmem: add mt6323 PMIC EFUSE driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Roman Vivchar via B4 Relay" <devnull+rva333.protonmail.com@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260512-mt6323-v2-6-3efcba579e88@protonmail.com>
-References: <20260512-mt6323-v2-6-3efcba579e88@protonmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 13 May 2026 19:24:07 +0000
-Message-Id: <20260513192408.5E350C19425@smtp.kernel.org>
+	s=k20201202; t=1778700320;
+	bh=7zcrFW0glQIa+ApPblLZSfwkAXwmocG6ivduz9eA1dg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=AWIuGoi2t+/dBRT+pgUvwbBVry/qDhB1E+UQMbBwUvcTxncoYlscDiRQ5LgCypxfk
+	 wA0+2KbhIZb5uDnuqrSpIhNbziX9Go8rHQIAXW5w4I+D0p7+nyKzex4zT8vQUJicrG
+	 jMr3hehwdOnAT6QB0DnGVPZFKYYWI9Q7TKy/WzLOJd/1SHRskRrRPBRlBGteVZJMc0
+	 DhxBaobUKAdQJtq2HMl7BfSwlw7OGw5eXdAAS/6vTGryYUMnc9+kYxdEKnzFKkspVH
+	 fjKKeG/D9I5GtettJ71iE6TP3gzxRIg2+wTBR/yjQE8AV2gYmj+51XeI8c/Clkm50h
+	 R4GyCM0uuOV6g==
+Date: Wed, 13 May 2026 14:25:15 -0500
+From: Rob Herring <robh@kernel.org>
+To: syyang@lontium.com
+Cc: krzk+dt@kernel.org, conor+dt@kernel.org, andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org, dmitry.baryshkov@oss.qualcomm.com,
+	maarten.lankhorst@linux.intel.com, rfoss@kernel.org,
+	mripard@kernel.org, Laurent.pinchart@ideasonboard.com,
+	tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com,
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org, yangsunyun1993@gmail.com,
+	xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com,
+	rlyu@lontium.com, xbpeng@lontium.com
+Subject: Re: [PATCH v5 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
+ MIPI DSI to HDMI driver
+Message-ID: <20260513192515.GA1728398-robh@kernel.org>
+References: <20260507034049.97765-1-syyang@lontium.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260507034049.97765-1-syyang@lontium.com>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Unsafe device topology assumption leads to a NULL pointer derefere=
-nce and kernel panic.
-- [Medium] Direct 16-bit assignments to the output buffer cause endianness =
-corruption and potential unaligned memory access.
-- [Low] Kconfig help text documents an incorrect module name.
---
+On Thu, May 07, 2026 at 11:40:49AM +0800, syyang@lontium.com wrote:
+> From: Sunyun Yang <syyang@lontium.com>
+> 
+> LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
+> mipi dsi and output hdmi, differences in hardware features:
+> - LT9611C: supports 1-port mipi dsi to hdmi 1.4
+> - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
+> - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
+> 
+> Signed-off-by: Sunyun Yang <syyang@lontium.com>
+> ---
+>  .../bindings/display/bridge/lontium,lt9611.yaml           | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
+> index 429a06057ae8..b20a43456b01 100644
+> --- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
+> +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
+> @@ -4,19 +4,23 @@
+>  $id: http://devicetree.org/schemas/display/bridge/lontium,lt9611.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
+>  
+> -title: Lontium LT9611(UXC) 2 Port MIPI to HDMI Bridge
+> +title: Lontium LT9611(UXC/C/EX/UXD) 2 Port MIPI DSI to HDMI Bridge
+>  
+>  maintainers:
+>    - Vinod Koul <vkoul@kernel.org>
+>  
+>  description: |
+> -  The LT9611 and LT9611UXC are bridge devices which convert DSI to HDMI
+> +  The LT9611、LT9611UXC、LT9611C、LT9611EX and LT9611UXD
 
-commit 4bbd96ffdcf57f8479b893cecdcd10f45fef30fa
-Author: Roman Vivchar <rva333@protonmail.com>
+Use a normal ','.
 
-nvmem: add mt6323 PMIC EFUSE driver
+> +  are bridge devices which convert DSI to HDMI
 
-This commit adds support for the EFUSE controller found in the Mediatek
-MT6323 PMIC. It registers an nvmem device to provide access to 24 bytes
-of hardware-related data, such as thermal sensor calibration values.
+Missing period.
 
-> diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
-> index 74ddbd0f79b0e..db248a3c4e879 100644
-> --- a/drivers/nvmem/Kconfig
-> +++ b/drivers/nvmem/Kconfig
-[ ... ]
-> @@ -227,6 +227,17 @@ config NVMEM_MTK_EFUSE
->  	  This driver can also be built as a module. If so, the module
->  	  will be called efuse-mtk.
-> =20
-> +config NVMEM_MT6323_EFUSE
-> +	tristate "Mediatek MT6323 PMIC EFUSE support"
-> +	depends on ARCH_MEDIATEK || COMPILE_TEST
-> +	depends on MFD_MT6397
-> +	help
-> +	  This is a driver to access hardware related data like sensor
-> +	  calibration, etc.
-> +
-> +	  This driver can also be built as a module. If so, the module
-> +	  will be called efuse-mt6323.
-
-This isn't a bug, but the help text says the module will be called
-efuse-mt6323, while the Makefile specifies the build target as
-nvmem_mt6323-efuse.o.
-
-[ ... ]
-> diff --git a/drivers/nvmem/mt6323-efuse.c b/drivers/nvmem/mt6323-efuse.c
-> new file mode 100644
-> index 0000000000000..52db62784adda
-> --- /dev/null
-> +++ b/drivers/nvmem/mt6323-efuse.c
-> @@ -0,0 +1,86 @@
-[ ... ]
-> +static int mt6323_efuse_read(void *context, unsigned int offset, void *v=
-al,
-> +			     size_t bytes)
-> +{
-> +	struct regmap *map =3D context;
-> +	u32 tmp;
-> +	u16 *buf =3D val;
-> +	int ret;
-> +
-> +	/*
-> +	 * Manual regmap_read with loop is needed, because PWRAP is not
-> +	 * a continuous MMIO space, but rather FSM which doesn't implement
-> +	 * necessary read callback for the regmap_read_raw and regmap_read_bulk
-> +	 * functions.
-> +	 */
-> +	for (size_t i =3D 0; i < bytes; i +=3D sizeof(*buf)) {
-> +		ret =3D regmap_read(map, MT6323_EFUSE_DOUT_BASE + offset + i, &tmp);
-> +		if (ret)
-> +			return ret;
-> +
-> +		*buf++ =3D (u16)tmp;
-
-Does this assignment cause alignment faults or endianness corruption?
-
-The val pointer passed by the NVMEM API is a generic void pointer. Casting =
-it
-to a u16 pointer and dereferencing it directly can trigger alignment faults=
- on
-architectures that do not support unaligned memory access.
-
-Additionally, this writes the data in the CPU's native byte order, which
-results in swapped bytes on big-endian architectures compared to little-end=
-ian
-architectures. Downstream consumers might expect a consistent data layout.
-
-Could this use put_unaligned_le16() instead to ensure safe memory access and
-consistent byte ordering?
-
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int mt6323_efuse_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct nvmem_config config =3D {
-> +		.name =3D "mt6323-efuse",
-> +		.stride =3D 2,
-> +		.word_size =3D 2,
-> +		.size =3D MT6323_EFUSE_SIZE,
-> +		.reg_read =3D mt6323_efuse_read,
-> +	};
-> +	struct nvmem_device *nvmem;
-> +	struct regmap *regmap;
-> +
-> +	/* efuse -> mfd -> pwrap */
-> +	regmap =3D dev_get_regmap(dev->parent->parent, NULL);
-
-Can dev->parent->parent evaluate to NULL and cause a NULL pointer dereferen=
-ce
-here?
-
-The driver registers an of_match_table, meaning it can be instantiated
-directly from a Device Tree node. If a malformed or overlay Device Tree pla=
-ces
-the node at the root level instead of within the expected PMIC/MFD hierarch=
-y,
-the device is instantiated by the top-level platform bus.
-
-In that case, dev->parent is the platform bus, which has no parent, so
-dev->parent->parent would be NULL. Passing a NULL device pointer to
-dev_get_regmap() will cause an immediate NULL pointer dereference when
-devres_find() attempts to acquire the lock.
-
-Would it be safer to verify the existence of the expected parent hierarchy
-before dereferencing it?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-mt6323-v2-=
-0-3efcba579e88@protonmail.com?part=3D6
+>  
+>  properties:
+>    compatible:
+>      enum:
+>        - lontium,lt9611
+>        - lontium,lt9611uxc
+> +      - lontium,lt9611c
+> +      - lontium,lt9611ex
+> +      - lontium,lt9611uxd
+>  
+>    reg:
+>      maxItems: 1
+> -- 
+> 2.34.1
+> 
