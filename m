@@ -1,247 +1,587 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013019.outbound.protection.outlook.com [40.107.159.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3EAB3D9DC0;
-	Wed, 13 May 2026 08:39:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.19
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778661600; cv=fail; b=Q93vOE4yZV5ZBhRlPmqy0goK6CVPiuzlSenwcAFiBZFhpAaAxqzVhivaJeOsmXFfI2NwgFLfRzwaYiYodzG+i1MEVr7vA+j7J0OYPiKeL+KKOACD5r7e7OB+fc53FgIul+zvV06vnZMS9CYRR+zBaLNd0oBajSa4blEDqIx6RRg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778661600; c=relaxed/simple;
-	bh=z9QxDV2urD7hMQdpz/lF11+ZEpIMx2cs5l9BtNz47ac=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ejHNlqfh/K8KagyiffVcft1oNCDOeeKxaNpIix1u9KXTfBhD7YKMppuzqEKtDzCx0YvE1nXN5/ECG2mzUZc6UmqjOW2lYFbHmrW78dZJkor7udEReaJQq8u6lWUMuUC5fg09Ct9O0J1YCyj/CUzpSn62MU7pPRDDTZbd7OqOzRA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=LsTQYqiG; arc=fail smtp.client-ip=40.107.159.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1273839EF2B;
+	Wed, 13 May 2026 08:45:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778661926; cv=none; b=dVzT8QeUdqu+xe7m2MGMVxNrQERPINDj1gApzTdXa0IvQJDkW7HbT1kBE72PLKwfQ7k0PyA2rtkzi57nm9PUHTBlEaWYbM9V64IUN049H+eD4LAVjogNi5OCC8pcSay+H6kp55IvHq/RTisl0MG1nW8HE9Y7JdOZjcUSWYQZ6yI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778661926; c=relaxed/simple;
+	bh=jwu+uu0rnBLvJnhGeNme6KjpiIiHqGW+NsZ7oiFUHVU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O9QslL7FTjejnFxPm+ENzSV1JRaZB5KWBPcKkSQcS7Y39XouirivJsrIEJFpw2ZhOxoEd+/j3JkM8XrCJKLE+HcGA0sLvE3ix178M+yDptn1tvB6955SD1bPHe7ikGC3QEVr4+BvI0uZqZBTDMin3RHri+VmS9WrRwLnmL/2Tjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UhJDfSuA; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="LsTQYqiG"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vaYDP82xKwH0CzS+97KY/vdOArEaS5xziGuSe/3sPvyWVNnnrsaPzuJn7wbn9k9RXpptC/kWQftGEFDaqIhxD6Y4NQtWGkRELNxIE/gm37TciWyElAeXccMLkiyZ2ObAij46tcKqqrcStzH7DpGLd6p2RmK9TuUQumdHqJHSFbo3r76Yb2PNigO5iYg4SaxNa6byrq++4UKKB27Xe8G2PtKxc15d0C+iTneUCxXDQCtCmbTIpPJc5AX/d4btKMiGpHg/vU21ppthgQTmdNNAJotna9IJ7lg9Tva5rRpYR0DGku4L31z+cz/cINIOq1ojy/oB/4ZKgPu2fGIieT45dA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uKbEaiZkjAwDOGOdJEMUSc5MRGSkWBPugrO6cjlB8sM=;
- b=Cenky3nzvNXUlFKMheo0PCPisS9TKKzN6i9Hck1LyyjWDKmqzRdbOCJqyUNMqpaJQlyB+fTG9drbNE0FTunzJPqVCKy5+gt9vInJ0K/UW83F8pdClvqgUrYCDDp5cecAhKCb8B6re9BVVeNkylCWLy+NCxhSrLkDdKdnWBcKJCXVXIUt/Wb7fssvsHhcQkVd0+BfMKauarU2w7SRdkvIF36TaAjrN4FJSerRXuR6RM1/eYgljXeM6XtNQCu7bV28nUrGGXC8oTLH6ghQ5+QFy3wKnEGxAnihxf/neGPiidORotDYSvtFpGgIMesxlLC/vSQsIs+5nrXxZsmRjjo/zg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uKbEaiZkjAwDOGOdJEMUSc5MRGSkWBPugrO6cjlB8sM=;
- b=LsTQYqiGp4D/8tcSfi3zOLPyEqWvVwQpiqu+N3o9C+5ckESCo6QjXY5j9Xto/2C+nw4B2WHjXTv08s3ARf0drEo7DwNd46vKCrYoNs0M1h9z7HCBM5GFTXp2kLTX8miGA1ehoLTLYWzJvoLsl6CtjhmGBf/dcSTiNYeBMkeBFwKtet0ooxeDqQ7fyR9P+TMImnK3ok3Qtvl3925nQxgg69aLPx2vqogwge2QLPXuYPg9Q4PQBERc/4/0N67SUgFd/kwhFaUoDbyYopOM80Y1u2+n7dphuopuEvH+h6BfJlrfEMIhpj4RDS++OJ2vVdle6LLap23Yw7wB6L7/J2SfCA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA6PR04MB11910.eurprd04.prod.outlook.com
- (2603:10a6:102:516::16) by DB9PR04MB9427.eurprd04.prod.outlook.com
- (2603:10a6:10:369::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Wed, 13 May
- 2026 08:39:45 +0000
-Received: from PA6PR04MB11910.eurprd04.prod.outlook.com
- ([fe80::d3f0:3c24:f717:4989]) by PA6PR04MB11910.eurprd04.prod.outlook.com
- ([fe80::d3f0:3c24:f717:4989%4]) with mapi id 15.20.9913.009; Wed, 13 May 2026
- 08:39:45 +0000
-Message-ID: <33281157-4b6c-45db-b958-1df4dc05b636@nxp.com>
-Date: Wed, 13 May 2026 10:39:43 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/8] dt-bindings: media: Add nxp neoisp support
-To: Conor Dooley <conor@kernel.org>
-Cc: julien.vuillaumier@nxp.com, alexi.birlinger@nxp.com,
- daniel.baluta@nxp.com, peng.fan@nxp.com, frank.li@nxp.com,
- jacopo.mondi@ideasonboard.com, laurent.pinchart@ideasonboard.com,
- mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, michael.riesch@collabora.com, anthony.mcgivern@arm.com,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, imx@lists.linux.dev, ai.luthra@ideasonboard.com,
- paul.elder@ideasonboard.com, geert@linux-m68k.org
-References: <20260511132629.1300868-1-antoine.bouyer@nxp.com>
- <20260511132629.1300868-2-antoine.bouyer@nxp.com>
- <20260511-aneurism-ultimate-9bc90e654274@spud>
-Content-Language: en-US
-From: Antoine Bouyer <antoine.bouyer@nxp.com>
-In-Reply-To: <20260511-aneurism-ultimate-9bc90e654274@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0293.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e7::6) To PA6PR04MB11910.eurprd04.prod.outlook.com
- (2603:10a6:102:516::16)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UhJDfSuA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AA33C2BCB7;
+	Wed, 13 May 2026 08:45:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778661925;
+	bh=jwu+uu0rnBLvJnhGeNme6KjpiIiHqGW+NsZ7oiFUHVU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=UhJDfSuAZmfhq3NWC8YNKCfMmzOIuJ4HqDAY8EQl+Xa2T2A83GaAnvBi0evCJE2ua
+	 OUBEMg2v3h5V8GTzC3y3MRbT+vITxx0ie0NdvRRlD9gFkq24yfkLmBUyVqwYwbhz9Z
+	 7CcRX7xByP7R7OKbxuhWLiqqQbuQvVTSWNdmPfl36kc5AXgWLT0kNrtLGaQmjcf4rV
+	 qgEjB9cyvf3hSOIXBfetkw9ekQafNBOTgfiMaoTdbA5msYIt0Eoe+wSAJutf+SHGEr
+	 HghV64GbimXQg+oaWppLGxqdvrv+pQRrC79qnYPbmow7cYDopA8VqvFFil0eRbqr7T
+	 Fpt9DOFNmQgXw==
+Date: Wed, 13 May 2026 10:45:22 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Christian Marangi <ansuelsmth@gmail.com>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, Xuegang Lu <xuegang.lu@airoha.com>
+Subject: Re: [PATCH net-next v6 04/12] net: airoha: Move airoha_qdma pointer
+ in airoha_gdm_dev struct
+Message-ID: <agQ6ItB6HFgdffCx@lore-desk>
+References: <20260511-airoha-eth-multi-serdes-v6-0-c899462c4f75@kernel.org>
+ <20260511-airoha-eth-multi-serdes-v6-4-c899462c4f75@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA6PR04MB11910:EE_|DB9PR04MB9427:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8b28d796-7a04-440b-ca57-08deb0cb2f4b
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|7416014|376014|1800799024|366016|19092799006|11063799003|3023799003|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
- AQYekI1T/u8Av7MehNb7KKM/XV7Q4mPkDrr/XlLi5FVs3u0lFY9wKWWyC7MEM+lJ2gK1HehCNq+jlvuKLm18GEvCmUjA2DKWekbfCkxnHjR0xzMT5LxMLtb2U4srBSuqxXzvZ117vDJZ90WdSsFpXMPHtUXuBOUPGy9vFSULQSe4esC86ibMvNrdV/9mc+pxhbcXFYmkGgVDZXwzskhr3OLlqY7a/caYCqREVew19XFGyf7TADmZIqxzLwsf5ksETt+cU0a39UleqWWFAshH0xV01Wo7BLrU4zYYjjwpZjb0fn2wWP23vLfOZI4XULEYZeJ+4LbJo06UVAJWqz9AWc29XKOnkjguMW1OR/U1Y6rChAJELzQyM2mE2w5YUF4DC8vUGaGR4PW2PpVPUTbju23d4ZJwgxve37OQlzYf/C0J83DJ29Pdux8+G+EeAk1ECN7eC7UonlTsopPH3SEXKP/M6BOb+kI4+z/R+/eUj9pHv2oK7Ahxs1znxFpdKoUQcdLkRLNJttE1FVcYjCBU2BV0zasqweaYaJNSS9gpCsz/vQ+8HO9OLKoJwpKsz0qIyYs9kWoRN7v5ZuDjbUNWnxCYQBFuOPQbW/QmlasvwvfPruaX4SjFZ7aVKabrKGykzuXCnqfP5QqjxOdmyGudBQ==
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA6PR04MB11910.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(19092799006)(11063799003)(3023799003)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?OHFiQm0yVW9SZlR0bnM0dmFONzZ4RW5nVmV0cGFvdENweHkrb3ZROGFWeXJZ?=
- =?utf-8?B?cmJySVllcS9JbXliM1NkVUhUSHg2NWE5clJOeVR2d0FGODZaZDZ1eGM0UXll?=
- =?utf-8?B?aW93clp6bWU0cWkzRzVEZUU0MVRCUkpMU3lzQkQrQXkyRFVaRzBUcTc5OGdD?=
- =?utf-8?B?UUFwOTNzbFpTU3dJZUdQK2tBYXlPR1dtbEpRVXV5NnFzQ28rbUhwYXkwekpx?=
- =?utf-8?B?Wks0QUFQWm1ha2Ryd2pMWjNvSjNvRVNHb2J0a1U5b3ppK2dmUW1QOGRwdFBT?=
- =?utf-8?B?b2FydzFMaVM0N3FjeWRLUWZ2VVc4RnAyRitHeUdXQlJqa3cweVJvN3FlZFVq?=
- =?utf-8?B?Wk10S1pCWUg4YkRORFZCUGN2bnlHWkNsYUpiM3pqVFN6QWh4SzduZUZ6bW1h?=
- =?utf-8?B?OC9FZVJ2c05BN1Z2N25YK3RvTUozRFBhb1BMV1Fab0swL2xmcmJhNGdQOW40?=
- =?utf-8?B?UEZrczkrcU9nTm5FM3dEUThrUEFlVWYzaS9KTEUvZmZaWTdVNk1EWGs1SXhy?=
- =?utf-8?B?V1o3NS83ZDNuODFiVUZQS2VkSHcwZ3pvREJpQkQwemZQKzRIWGl3b1BpcmxX?=
- =?utf-8?B?MCthN2lveFlxaXZkNzZHZldaOG9kQXB0bnVSanVMVC8zZ2RLMFRMc3RwZUx2?=
- =?utf-8?B?QlMvaE9ZcHJLVnhnQ2Z4OE5jUUltakpCYkR4L1hHZ0pHVUR2ZmdvOC9jWHds?=
- =?utf-8?B?TERMbFNjZTI2WnVkckZiWkdlTkQzUUREdFozMW5zWW1QejlHVEEwQzhiRjRX?=
- =?utf-8?B?K2huNndtUlc0Sk0yc2toTnlWR3JVR0toZHlONGh1WDJJTCtZcTUzYVNtcmhx?=
- =?utf-8?B?YnQvVmhnT2hLNVJKTVdiMTZwTm5jNU5iVEZEMks3b1B5Z0VmL0Fpd1ZWMDlv?=
- =?utf-8?B?dnFFWENFZlcwSlpLSG9uNnJWeGpkN1NXdUxDUkNFY0ttRWRYV1Z6NzhzK0hq?=
- =?utf-8?B?YWw0dzNpbUtWbzVVWjMwSkduVXN0UVFYOE5veml5MUxycmJpbEthQUNWNzgz?=
- =?utf-8?B?SU9UTWZMdGwyTU1BL1F1VitPeEVwb21kb3lFOVVsbG1oVE1hdmUrNFRidVFF?=
- =?utf-8?B?cGRKMjRIUGIzTzZkY3NrMmUvSlpZVjdFQmxkNzNKQ3c4ODRDOWtsaVJYSk9J?=
- =?utf-8?B?UjNoVkdTY1loSzBtc21Rb3VMNTBBVXN1bEE5MDNWb1o2dWRyYXV6KytOa2lo?=
- =?utf-8?B?TVFtbFNzUXlVNXRGdHh5ZGZJRmdLMytZeWt5Y2hXTnV1ZUJ2RDd4YWhaZTJi?=
- =?utf-8?B?U3JNTWFwZWt6SStLVCtOOU16UzJYNndvcHFKNERqQVVFRTk3bDIzUEdZVENl?=
- =?utf-8?B?NDRZeUludTgxaEM0OGNJWk50bldJanVNTTMrcUpKMFpEcEc4UkZPMHozY1dC?=
- =?utf-8?B?RzJVMXBBSFMrS1M3bDh1a0pYbE5BckVzKy9oNkNIQnFZb0QxN2l4NVkvRDl5?=
- =?utf-8?B?SitwSklhaVBFa3BJZnBUczZGU3YzWmRqN1BjRStyR1NGRjZVMUlrWExBQnNN?=
- =?utf-8?B?UW5nYmRqcjFWTjhQOFEzZFZpK0xibmNMallySzNBdVArLzBMbE53bkl2STZw?=
- =?utf-8?B?WTY3Q0NQU3E2dmg5M1I1Mm1BaldJQS91WS9WMzh5WndpRytjY1lJSkNGVlh4?=
- =?utf-8?B?SE5GMVMyNGdpVnB1Q0d4aGRkMms2U1pOcHNQRzdSd3JLMDc1N1RDUEExMzJ1?=
- =?utf-8?B?ZVQyTU50YS84c3ZvTzBjTDNTWnhGTmRtV3NzOTN6c0lJRGJ1U1pqQi96dThv?=
- =?utf-8?B?ZC9ZaEdCSTRJNXpIN1N1NlMrd1dsdkMyV3hQVm9Rc3U2aHhNK2xlOU5KMVBY?=
- =?utf-8?B?dXFGbEJQRE5GdlVndGZEM3ZvWGpIZ2lxUjZycndJNlVjUHZBa0JCUjFNcmo0?=
- =?utf-8?B?YjI2bzQyV3FlVEltUjBjSVpkYmtQbFFVeHAvamJhY0Z1MFpUTTl2bEVDWTBx?=
- =?utf-8?B?ODdhL0FKWXJOVzFKNGNKdnRKRlU5ZVloNXpSQzE3Q3YwcGZITHVYL2lFOXpB?=
- =?utf-8?B?MGxKd2FWcjEzR1ZTeGJGb2VKVGxmN01ueGFGd3k4Q25zNUlYek5UUncweWJX?=
- =?utf-8?B?ZTJwai9NT2wzWlRJQnRYSERTbk1XZzJmUThWUU0wTW5pY04rQjFjRmViTXJQ?=
- =?utf-8?B?Y3JvT29lN3JvbGFXcHBMUkVxTzBJUkpNUEdsaWRuLzhrWS9iZVNyK3JJM0hl?=
- =?utf-8?B?N1M2aVZSVjVIKzBNMXFKRW5OUG04S0lUdDd4WUxMc253dDdjdWVpd3RQcVRy?=
- =?utf-8?B?K3B0ampWdkRycmFEalBja2NQckE3TklvY25vVzUyMTV1eHlHUVNGbVdocDR5?=
- =?utf-8?B?VWljVjlsT25VMWV3RXZEMnRJdVd5WUVXYVN0UGUvUThzM0ZGdWtnQT09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8b28d796-7a04-440b-ca57-08deb0cb2f4b
-X-MS-Exchange-CrossTenant-AuthSource: PA6PR04MB11910.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 08:39:45.3236
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sB+wQgeNuO/ETJ7dTmvhZvTWA+CfCrb7UHHbRRyjjM110qd0ZKfrU14yWSpMvQkZuTgEfVdbjTpyB2etVmtrrQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9427
-
-On 5/11/26 6:26 PM, Conor Dooley wrote:
-> On Mon, May 11, 2026 at 03:26:21PM +0200, Antoine Bouyer wrote:
->> Add the yaml binding for NXP's Neo Image Signal Processor (ISP).
->>
->> Signed-off-by: Antoine Bouyer <antoine.bouyer@nxp.com>
->> ---
->>   .../bindings/media/nxp,imx95-neoisp.yaml      | 62 +++++++++++++++++++
->>   1 file changed, 62 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/media/nxp,imx95-neoisp.yaml
->>
->> diff --git a/Documentation/devicetree/bindings/media/nxp,imx95-neoisp.yaml b/Documentation/devicetree/bindings/media/nxp,imx95-neoisp.yaml
->> new file mode 100644
->> index 000000000000..458c4e4d640d
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/media/nxp,imx95-neoisp.yaml
->> @@ -0,0 +1,62 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/media/nxp,imx95-neoisp.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: NXP NEOISP Image Signal Processing Pipeline
->> +
->> +maintainers:
->> +  - Antoine Bouyer <antoine.bouyer@nxp.com>
->> +
->> +description:
->> +  The NXP NEOISP performs a set of image processing tasks on the RAW camera
->> +  stream and provides RGB or YUV enhanced image.
-> 
-> Can someone explain to me please why there are no ports properties to
-> represent the attached camera/other elements of the pipeline?
-> 
-> This is not a review comment per se, this is me not understanding what
-> the delimitation is.
-
-Hi Conor,
-
-The neoisp doesn't have any port indeed. It creates a subdevice, with 
-its own video devices (x6), and it runs in M2M mode.
-
-Userspace copies RAW buffer captured from sensor(s) into neoisp video 
-device(s), and let it decode and generate an YUV/RGB image depending on 
-the config. The decoded image is copied from neoisp capture video device(s).
-
-Same approach is used in pispbe driver for instance.
-
-BR
-Antoine
-
-> 
-> 
-> Cheers,
-> Conor.
-> 
->> +
->> +properties:
->> +  compatible:
->> +    enum:
->> +      - nxp,imx95-neoisp
->> +
->> +  reg:
->> +    items:
->> +      - description: The configuration registers
->> +      - description: ISP local memories
->> +
->> +  interrupts:
->> +    maxItems: 1
->> +
->> +  clocks:
->> +    maxItems: 1
->> +
->> +  clock-names:
->> +    items:
->> +      - const: camcm0
->> +
->> +  power-domains:
->> +    maxItems: 1
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - interrupts
->> +  - clocks
->> +  - clock-names
->> +  - power-domains
->> +
->> +additionalProperties: false
->> +
->> +examples:
->> +  - |
->> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->> +
->> +    isp@4ae00000 {
->> +        compatible = "nxp,imx95-neoisp";
->> +        reg = <0x4ae00000 0x8000>,
->> +              <0x4afe0000 0x10000>;
->> +        interrupts = <GIC_SPI 222 IRQ_TYPE_LEVEL_HIGH>;
->> +        interrupt-parent = <&gic>;
->> +        clocks = <&scmi_clk 64>; /* IMX95_CLK_CAMCM0 */
->> +        clock-names = "camcm0";
->> +        power-domains = <&scmi_devpd 3>; /* IMX95_PD_CAMERA */
->> +    };
->> -- 
->> 2.51.0
->>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="NE+4h+Wyx7O1ITBi"
+Content-Disposition: inline
+In-Reply-To: <20260511-airoha-eth-multi-serdes-v6-4-c899462c4f75@kernel.org>
 
 
+--NE+4h+Wyx7O1ITBi
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On May 11, Lorenzo Bianconi wrote:
+> Move airoha_qdma pointer from airoha_gdm_port struct to airoha_gdm_dev
+> one since the QDMA block used depends on the particular net_device
+> WAN/LAN configuration and in the current codebase net_device pointer is
+> associated to airoha_gdm_dev struct.
+> This is a preliminary patch to support multiple net_devices connected
+> to the same GDM{3,4} port via an external hw arbiter.
+>=20
+> Tested-by: Xuegang Lu <xuegang.lu@airoha.com>
+> Signed-off-by: Lorenzo Bianconi <lorenzo@kernel.org>
+> ---
+>  drivers/net/ethernet/airoha/airoha_eth.c | 105 +++++++++++++++----------=
+------
+>  drivers/net/ethernet/airoha/airoha_eth.h |   9 ++-
+>  drivers/net/ethernet/airoha/airoha_ppe.c |  17 ++---
+>  3 files changed, 64 insertions(+), 67 deletions(-)
+>=20
+> diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ether=
+net/airoha/airoha_eth.c
+> index 18a89de4d58a..e0cd401bbf67 100644
+> --- a/drivers/net/ethernet/airoha/airoha_eth.c
+> +++ b/drivers/net/ethernet/airoha/airoha_eth.c
+> @@ -71,9 +71,10 @@ static void airoha_qdma_irq_disable(struct airoha_irq_=
+bank *irq_bank,
+>  	airoha_qdma_set_irqmask(irq_bank, index, mask, 0);
+>  }
+> =20
+> -static void airoha_set_macaddr(struct airoha_gdm_port *port, const u8 *a=
+ddr)
+> +static void airoha_set_macaddr(struct airoha_gdm_dev *dev, const u8 *add=
+r)
+>  {
+> -	struct airoha_eth *eth =3D port->qdma->eth;
+> +	struct airoha_gdm_port *port =3D dev->port;
+> +	struct airoha_eth *eth =3D dev->eth;
+>  	u32 val, reg;
+> =20
+>  	reg =3D airoha_is_lan_gdm_port(port) ? REG_FE_LAN_MAC_H
+> @@ -85,7 +86,7 @@ static void airoha_set_macaddr(struct airoha_gdm_port *=
+port, const u8 *addr)
+>  	airoha_fe_wr(eth, REG_FE_MAC_LMIN(reg), val);
+>  	airoha_fe_wr(eth, REG_FE_MAC_LMAX(reg), val);
+> =20
+> -	airoha_ppe_init_upd_mem(port);
+> +	airoha_ppe_init_upd_mem(dev);
+>  }
+> =20
+>  static void airoha_set_gdm_port_fwd_cfg(struct airoha_eth *eth, u32 addr,
+> @@ -101,10 +102,10 @@ static void airoha_set_gdm_port_fwd_cfg(struct airo=
+ha_eth *eth, u32 addr,
+>  		      FIELD_PREP(GDM_UCFQ_MASK, val));
+>  }
+> =20
+> -static int airoha_set_vip_for_gdm_port(struct airoha_gdm_port *port,
+> -				       bool enable)
+> +static int airoha_set_vip_for_gdm_port(struct airoha_gdm_dev *dev, bool =
+enable)
+>  {
+> -	struct airoha_eth *eth =3D port->qdma->eth;
+> +	struct airoha_gdm_port *port =3D dev->port;
+> +	struct airoha_eth *eth =3D dev->eth;
+>  	u32 vip_port;
+> =20
+>  	vip_port =3D eth->soc->ops.get_vip_port(port, port->nbq);
+> @@ -858,10 +859,13 @@ static void airoha_qdma_wake_netdev_txqs(struct air=
+oha_queue *q)
+>  		if (!port)
+>  			continue;
+> =20
+> -		if (port->qdma !=3D qdma)
+> +		dev =3D port->dev;
+> +		if (!dev)
+> +			continue;
+> +
+> +		if (dev->qdma !=3D qdma)
+>  			continue;
+> =20
+> -		dev =3D port->dev;
+>  		for (j =3D 0; j < dev->dev->num_tx_queues; j++) {
+>  			if (airoha_qdma_get_txq(qdma, j) !=3D qid)
+>  				continue;
+> @@ -1562,9 +1566,10 @@ static void airoha_qdma_stop_napi(struct airoha_qd=
+ma *qdma)
+>  	}
+>  }
+> =20
+> -static void airoha_update_hw_stats(struct airoha_gdm_port *port)
+> +static void airoha_update_hw_stats(struct airoha_gdm_dev *dev)
+>  {
+> -	struct airoha_eth *eth =3D port->qdma->eth;
+> +	struct airoha_gdm_port *port =3D dev->port;
+> +	struct airoha_eth *eth =3D dev->eth;
+>  	u32 val, i =3D 0;
+> =20
+>  	spin_lock(&port->stats.lock);
+> @@ -1711,11 +1716,11 @@ static int airoha_dev_open(struct net_device *net=
+dev)
+>  	int err, len =3D ETH_HLEN + netdev->mtu + ETH_FCS_LEN;
+>  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+>  	struct airoha_gdm_port *port =3D dev->port;
+> -	struct airoha_qdma *qdma =3D port->qdma;
+> +	struct airoha_qdma *qdma =3D dev->qdma;
+>  	u32 pse_port =3D FE_PSE_PORT_PPE1;
+> =20
+>  	netif_tx_start_all_queues(netdev);
+> -	err =3D airoha_set_vip_for_gdm_port(port, true);
+> +	err =3D airoha_set_vip_for_gdm_port(dev, true);
+>  	if (err)
+>  		return err;
+> =20
+> @@ -1751,11 +1756,11 @@ static int airoha_dev_stop(struct net_device *net=
+dev)
+>  {
+>  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+>  	struct airoha_gdm_port *port =3D dev->port;
+> -	struct airoha_qdma *qdma =3D port->qdma;
+> +	struct airoha_qdma *qdma =3D dev->qdma;
+>  	int i;
+> =20
+>  	netif_tx_disable(netdev);
+> -	airoha_set_vip_for_gdm_port(port, false);
+> +	airoha_set_vip_for_gdm_port(dev, false);
+>  	for (i =3D 0; i < netdev->num_tx_queues; i++)
+>  		netdev_tx_reset_subqueue(netdev, i);
+> =20
+> @@ -1781,21 +1786,21 @@ static int airoha_dev_stop(struct net_device *net=
+dev)
+>  static int airoha_dev_set_macaddr(struct net_device *netdev, void *p)
+>  {
+>  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+> -	struct airoha_gdm_port *port =3D dev->port;
+>  	int err;
+> =20
+>  	err =3D eth_mac_addr(netdev, p);
+>  	if (err)
+>  		return err;
+> =20
+> -	airoha_set_macaddr(port, netdev->dev_addr);
+> +	airoha_set_macaddr(dev, netdev->dev_addr);
+> =20
+>  	return 0;
+>  }
+> =20
+> -static int airoha_set_gdm2_loopback(struct airoha_gdm_port *port)
+> +static int airoha_set_gdm2_loopback(struct airoha_gdm_dev *dev)
+>  {
+> -	struct airoha_eth *eth =3D port->qdma->eth;
+> +	struct airoha_gdm_port *port =3D dev->port;
+> +	struct airoha_eth *eth =3D dev->eth;
+>  	u32 val, pse_port, chan;
+>  	int i, src_port;
+> =20
+> @@ -1840,7 +1845,7 @@ static int airoha_set_gdm2_loopback(struct airoha_g=
+dm_port *port)
+>  		      __field_prep(SP_CPORT_MASK(val), FE_PSE_PORT_CDM2));
+> =20
+>  	for (i =3D 0; i < eth->soc->num_ppe; i++)
+> -		airoha_ppe_set_cpu_port(port, i, AIROHA_GDM2_IDX);
+> +		airoha_ppe_set_cpu_port(dev, i, AIROHA_GDM2_IDX);
+> =20
+>  	if (port->id =3D=3D AIROHA_GDM4_IDX && airoha_is_7581(eth)) {
+>  		u32 mask =3D FC_ID_OF_SRC_PORT_MASK(port->nbq);
+> @@ -1860,9 +1865,9 @@ static int airoha_dev_init(struct net_device *netde=
+v)
+>  	int i;
+> =20
+>  	/* QDMA0 is used for lan ports while QDMA1 is used for WAN ports */
+> -	port->qdma =3D &eth->qdma[!airoha_is_lan_gdm_port(port)];
+> -	dev->dev->irq =3D port->qdma->irq_banks[0].irq;
+> -	airoha_set_macaddr(port, netdev->dev_addr);
+> +	dev->qdma =3D &eth->qdma[!airoha_is_lan_gdm_port(port)];
+> +	dev->dev->irq =3D dev->qdma->irq_banks[0].irq;
+> +	airoha_set_macaddr(dev, netdev->dev_addr);
+> =20
+>  	switch (port->id) {
+>  	case AIROHA_GDM3_IDX:
+> @@ -1871,7 +1876,7 @@ static int airoha_dev_init(struct net_device *netde=
+v)
+>  		if (!eth->ports[1]) {
+>  			int err;
+> =20
+> -			err =3D airoha_set_gdm2_loopback(port);
+> +			err =3D airoha_set_gdm2_loopback(dev);
+>  			if (err)
+>  				return err;
+>  		}
+> @@ -1881,8 +1886,7 @@ static int airoha_dev_init(struct net_device *netde=
+v)
+>  	}
+> =20
+>  	for (i =3D 0; i < eth->soc->num_ppe; i++)
+> -		airoha_ppe_set_cpu_port(port, i,
+> -					airoha_get_fe_port(port));
+> +		airoha_ppe_set_cpu_port(dev, i, airoha_get_fe_port(dev));
+> =20
+>  	return 0;
+>  }
+> @@ -1894,7 +1898,7 @@ static void airoha_dev_get_stats64(struct net_devic=
+e *netdev,
+>  	struct airoha_gdm_port *port =3D dev->port;
+>  	unsigned int start;
+> =20
+> -	airoha_update_hw_stats(port);
+> +	airoha_update_hw_stats(dev);
+>  	do {
+>  		start =3D u64_stats_fetch_begin(&port->stats.syncp);
+>  		storage->rx_packets =3D port->stats.rx_ok_pkts;
+> @@ -1914,8 +1918,8 @@ static int airoha_dev_change_mtu(struct net_device =
+*netdev, int mtu)
+>  {
+>  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+>  	struct airoha_gdm_port *port =3D dev->port;
+> -	struct airoha_eth *eth =3D port->qdma->eth;
+>  	u32 len =3D ETH_HLEN + mtu + ETH_FCS_LEN;
+> +	struct airoha_eth *eth =3D dev->eth;
+> =20
+>  	airoha_fe_rmw(eth, REG_GDM_LEN_CFG(port->id),
+>  		      GDM_LONG_LEN_MASK,
+> @@ -1989,10 +1993,10 @@ static u32 airoha_get_dsa_tag(struct sk_buff *skb=
+, struct net_device *dev)
+>  #endif
+>  }
+> =20
+> -int airoha_get_fe_port(struct airoha_gdm_port *port)
+> +int airoha_get_fe_port(struct airoha_gdm_dev *dev)
+>  {
+> -	struct airoha_qdma *qdma =3D port->qdma;
+> -	struct airoha_eth *eth =3D qdma->eth;
+> +	struct airoha_gdm_port *port =3D dev->port;
+> +	struct airoha_eth *eth =3D dev->eth;
+> =20
+>  	switch (eth->soc->version) {
+>  	case 0x7583:
+> @@ -2009,8 +2013,7 @@ static netdev_tx_t airoha_dev_xmit(struct sk_buff *=
+skb,
+>  				   struct net_device *netdev)
+>  {
+>  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+> -	struct airoha_gdm_port *port =3D dev->port;
+> -	struct airoha_qdma *qdma =3D port->qdma;
+> +	struct airoha_qdma *qdma =3D dev->qdma;
+>  	u32 nr_frags, tag, msg0, msg1, len;
+>  	struct airoha_queue_entry *e;
+>  	struct netdev_queue *txq;
+> @@ -2048,7 +2051,7 @@ static netdev_tx_t airoha_dev_xmit(struct sk_buff *=
+skb,
+>  		}
+>  	}
+> =20
+> -	fport =3D airoha_get_fe_port(port);
+> +	fport =3D airoha_get_fe_port(dev);
+>  	msg1 =3D FIELD_PREP(QDMA_ETH_TXMSG_FPORT_MASK, fport) |
+>  	       FIELD_PREP(QDMA_ETH_TXMSG_METER_MASK, 0x7f);
+> =20
+> @@ -2151,8 +2154,7 @@ static void airoha_ethtool_get_drvinfo(struct net_d=
+evice *netdev,
+>  				       struct ethtool_drvinfo *info)
+>  {
+>  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+> -	struct airoha_gdm_port *port =3D dev->port;
+> -	struct airoha_eth *eth =3D port->qdma->eth;
+> +	struct airoha_eth *eth =3D dev->eth;
+> =20
+>  	strscpy(info->driver, eth->dev->driver->name, sizeof(info->driver));
+>  	strscpy(info->bus_info, dev_name(eth->dev), sizeof(info->bus_info));
+> @@ -2165,7 +2167,7 @@ static void airoha_ethtool_get_mac_stats(struct net=
+_device *netdev,
+>  	struct airoha_gdm_port *port =3D dev->port;
+>  	unsigned int start;
+> =20
+> -	airoha_update_hw_stats(port);
+> +	airoha_update_hw_stats(dev);
+>  	do {
+>  		start =3D u64_stats_fetch_begin(&port->stats.syncp);
+>  		stats->FramesTransmittedOK =3D port->stats.tx_ok_pkts;
+> @@ -2205,7 +2207,7 @@ airoha_ethtool_get_rmon_stats(struct net_device *ne=
+tdev,
+>  		     ARRAY_SIZE(hw_stats->rx_len) + 1);
+> =20
+>  	*ranges =3D airoha_ethtool_rmon_ranges;
+> -	airoha_update_hw_stats(port);
+> +	airoha_update_hw_stats(dev);
+>  	do {
+>  		int i;
+> =20
+> @@ -2225,18 +2227,17 @@ static int airoha_qdma_set_chan_tx_sched(struct n=
+et_device *netdev,
+>  					 const u16 *weights, u8 n_weights)
+>  {
+>  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+> -	struct airoha_gdm_port *port =3D dev->port;
+>  	int i;
+> =20
+>  	for (i =3D 0; i < AIROHA_NUM_TX_RING; i++)
+> -		airoha_qdma_clear(port->qdma, REG_QUEUE_CLOSE_CFG(channel),
+> +		airoha_qdma_clear(dev->qdma, REG_QUEUE_CLOSE_CFG(channel),
+>  				  TXQ_DISABLE_CHAN_QUEUE_MASK(channel, i));
+> =20
+>  	for (i =3D 0; i < n_weights; i++) {
+>  		u32 status;
+>  		int err;
+> =20
+> -		airoha_qdma_wr(port->qdma, REG_TXWRR_WEIGHT_CFG,
+> +		airoha_qdma_wr(dev->qdma, REG_TXWRR_WEIGHT_CFG,
+>  			       TWRR_RW_CMD_MASK |
+>  			       FIELD_PREP(TWRR_CHAN_IDX_MASK, channel) |
+>  			       FIELD_PREP(TWRR_QUEUE_IDX_MASK, i) |
+> @@ -2244,13 +2245,12 @@ static int airoha_qdma_set_chan_tx_sched(struct n=
+et_device *netdev,
+>  		err =3D read_poll_timeout(airoha_qdma_rr, status,
+>  					status & TWRR_RW_CMD_DONE,
+>  					USEC_PER_MSEC, 10 * USEC_PER_MSEC,
+> -					true, port->qdma,
+> -					REG_TXWRR_WEIGHT_CFG);
+> +					true, dev->qdma, REG_TXWRR_WEIGHT_CFG);
+>  		if (err)
+>  			return err;
+>  	}
+> =20
+> -	airoha_qdma_rmw(port->qdma, REG_CHAN_QOS_MODE(channel >> 3),
+> +	airoha_qdma_rmw(dev->qdma, REG_CHAN_QOS_MODE(channel >> 3),
+>  			CHAN_QOS_MODE_MASK(channel),
+>  			__field_prep(CHAN_QOS_MODE_MASK(channel), mode));
+> =20
+> @@ -2316,9 +2316,9 @@ static int airoha_qdma_get_tx_ets_stats(struct net_=
+device *netdev, int channel,
+>  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+>  	struct airoha_gdm_port *port =3D dev->port;
+> =20
+> -	u64 cpu_tx_packets =3D airoha_qdma_rr(port->qdma,
+> +	u64 cpu_tx_packets =3D airoha_qdma_rr(dev->qdma,
+>  					    REG_CNTR_VAL(channel << 1));
+> -	u64 fwd_tx_packets =3D airoha_qdma_rr(port->qdma,
+> +	u64 fwd_tx_packets =3D airoha_qdma_rr(dev->qdma,
+>  					    REG_CNTR_VAL((channel << 1) + 1));
+>  	u64 tx_packets =3D (cpu_tx_packets - port->cpu_tx_packets) +
+>  			 (fwd_tx_packets - port->fwd_tx_packets);
+> @@ -2582,17 +2582,16 @@ static int airoha_qdma_set_tx_rate_limit(struct n=
+et_device *netdev,
+>  					 u32 bucket_size)
+>  {
+>  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+> -	struct airoha_gdm_port *port =3D dev->port;
+>  	int i, err;
+> =20
+>  	for (i =3D 0; i <=3D TRTCM_PEAK_MODE; i++) {
+> -		err =3D airoha_qdma_set_trtcm_config(port->qdma, channel,
+> +		err =3D airoha_qdma_set_trtcm_config(dev->qdma, channel,
+>  						   REG_EGRESS_TRTCM_CFG, i,
+>  						   !!rate, TRTCM_METER_MODE);
+>  		if (err)
+>  			return err;
+> =20
+> -		err =3D airoha_qdma_set_trtcm_token_bucket(port->qdma, channel,
+> +		err =3D airoha_qdma_set_trtcm_token_bucket(dev->qdma, channel,
+>  							 REG_EGRESS_TRTCM_CFG,
+>  							 i, rate, bucket_size);
+>  		if (err)
+> @@ -2642,11 +2641,11 @@ static int airoha_tc_htb_alloc_leaf_queue(struct =
+net_device *netdev,
+>  	return 0;
+>  }
+> =20
+> -static int airoha_qdma_set_rx_meter(struct airoha_gdm_port *port,
+> +static int airoha_qdma_set_rx_meter(struct airoha_gdm_dev *dev,
+>  				    u32 rate, u32 bucket_size,
+>  				    enum trtcm_unit_type unit_type)
+>  {
+> -	struct airoha_qdma *qdma =3D port->qdma;
+> +	struct airoha_qdma *qdma =3D dev->qdma;
+>  	int i;
+> =20
+>  	for (i =3D 0; i < ARRAY_SIZE(qdma->q_rx); i++) {
+> @@ -2725,7 +2724,6 @@ static int airoha_dev_tc_matchall(struct net_device=
+ *netdev,
+>  {
+>  	enum trtcm_unit_type unit_type =3D TRTCM_BYTE_UNIT;
+>  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+> -	struct airoha_gdm_port *port =3D dev->port;
+>  	u32 rate =3D 0, bucket_size =3D 0;
+> =20
+>  	switch (f->command) {
+> @@ -2750,7 +2748,7 @@ static int airoha_dev_tc_matchall(struct net_device=
+ *netdev,
+>  		fallthrough;
+>  	}
+>  	case TC_CLSMATCHALL_DESTROY:
+> -		return airoha_qdma_set_rx_meter(port, rate, bucket_size,
+> +		return airoha_qdma_set_rx_meter(dev, rate, bucket_size,
+>  						unit_type);
+>  	default:
+>  		return -EOPNOTSUPP;
+> @@ -2762,8 +2760,7 @@ static int airoha_dev_setup_tc_block_cb(enum tc_set=
+up_type type,
+>  {
+>  	struct net_device *netdev =3D cb_priv;
+>  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
+> -	struct airoha_gdm_port *port =3D dev->port;
+> -	struct airoha_eth *eth =3D port->qdma->eth;
+> +	struct airoha_eth *eth =3D dev->eth;
+> =20
+>  	if (!tc_can_offload(netdev))
+>  		return -EOPNOTSUPP;
+> diff --git a/drivers/net/ethernet/airoha/airoha_eth.h b/drivers/net/ether=
+net/airoha/airoha_eth.h
+> index c78cabbec753..f1eea492217c 100644
+> --- a/drivers/net/ethernet/airoha/airoha_eth.h
+> +++ b/drivers/net/ethernet/airoha/airoha_eth.h
+> @@ -537,12 +537,12 @@ struct airoha_qdma {
+> =20
+>  struct airoha_gdm_dev {
+>  	struct airoha_gdm_port *port;
+> +	struct airoha_qdma *qdma;
+>  	struct net_device *dev;
+>  	struct airoha_eth *eth;
+>  };
+> =20
+>  struct airoha_gdm_port {
+> -	struct airoha_qdma *qdma;
+>  	struct airoha_gdm_dev *dev;
+>  	int id;
+>  	int nbq;
+> @@ -666,19 +666,18 @@ static inline bool airoha_is_7583(struct airoha_eth=
+ *eth)
+>  	return eth->soc->version =3D=3D 0x7583;
+>  }
+> =20
+> -int airoha_get_fe_port(struct airoha_gdm_port *port);
+> +int airoha_get_fe_port(struct airoha_gdm_dev *dev);
+>  bool airoha_is_valid_gdm_dev(struct airoha_eth *eth,
+>  			     struct airoha_gdm_dev *dev);
+> =20
+> -void airoha_ppe_set_cpu_port(struct airoha_gdm_port *port, u8 ppe_id,
+> -			     u8 fport);
+> +void airoha_ppe_set_cpu_port(struct airoha_gdm_dev *dev, u8 ppe_id, u8 f=
+port);
+>  bool airoha_ppe_is_enabled(struct airoha_eth *eth, int index);
+>  void airoha_ppe_check_skb(struct airoha_ppe_dev *dev, struct sk_buff *sk=
+b,
+>  			  u16 hash, bool rx_wlan);
+>  int airoha_ppe_setup_tc_block_cb(struct airoha_ppe_dev *dev, void *type_=
+data);
+>  int airoha_ppe_init(struct airoha_eth *eth);
+>  void airoha_ppe_deinit(struct airoha_eth *eth);
+> -void airoha_ppe_init_upd_mem(struct airoha_gdm_port *port);
+> +void airoha_ppe_init_upd_mem(struct airoha_gdm_dev *dev);
+>  u32 airoha_ppe_get_total_num_entries(struct airoha_ppe *ppe);
+>  struct airoha_foe_entry *airoha_ppe_foe_get_entry(struct airoha_ppe *ppe,
+>  						  u32 hash);
+> diff --git a/drivers/net/ethernet/airoha/airoha_ppe.c b/drivers/net/ether=
+net/airoha/airoha_ppe.c
+> index af7af4097b98..22f5f1bae730 100644
+> --- a/drivers/net/ethernet/airoha/airoha_ppe.c
+> +++ b/drivers/net/ethernet/airoha/airoha_ppe.c
+> @@ -84,9 +84,9 @@ static u32 airoha_ppe_get_timestamp(struct airoha_ppe *=
+ppe)
+>  			     AIROHA_FOE_IB1_BIND_TIMESTAMP);
+>  }
+> =20
+> -void airoha_ppe_set_cpu_port(struct airoha_gdm_port *port, u8 ppe_id, u8=
+ fport)
+> +void airoha_ppe_set_cpu_port(struct airoha_gdm_dev *dev, u8 ppe_id, u8 f=
+port)
+>  {
+> -	struct airoha_qdma *qdma =3D port->qdma;
+> +	struct airoha_qdma *qdma =3D dev->qdma;
+>  	struct airoha_eth *eth =3D qdma->eth;
+>  	u8 qdma_id =3D qdma - &eth->qdma[0];
+>  	u32 fe_cpu_port;
+> @@ -180,8 +180,8 @@ static void airoha_ppe_hw_init(struct airoha_ppe *ppe)
+>  			if (!port)
+>  				continue;
+> =20
+> -			airoha_ppe_set_cpu_port(port, i,
+> -						airoha_get_fe_port(port));
+> +			airoha_ppe_set_cpu_port(port->dev, i,
+> +						airoha_get_fe_port(port->dev));
+>  		}
+>  	}
+>  }
+> @@ -1473,11 +1473,12 @@ void airoha_ppe_check_skb(struct airoha_ppe_dev *=
+dev, struct sk_buff *skb,
+>  	airoha_ppe_foe_insert_entry(ppe, skb, hash, rx_wlan);
+>  }
+> =20
+> -void airoha_ppe_init_upd_mem(struct airoha_gdm_port *port)
+> +void airoha_ppe_init_upd_mem(struct airoha_gdm_dev *dev)
+>  {
+> -	struct airoha_eth *eth =3D port->qdma->eth;
+> -	struct net_device *dev =3D port->dev->dev;
+> -	const u8 *addr =3D dev->dev_addr;
+> +	struct airoha_gdm_port *port =3D dev->port;
+> +	struct net_device *netdev =3D dev->dev;
+> +	struct airoha_eth *eth =3D dev->eth;
+> +	const u8 *addr =3D netdev->dev_addr;
+>  	u32 val;
+> =20
+>  	val =3D (addr[2] << 24) | (addr[3] << 16) | (addr[4] << 8) | addr[5];
+>=20
+> --=20
+> 2.54.0
+>=20
+
+Commenting on sashiko's report:
+https://sashiko.dev/#/patchset/20260511-airoha-eth-multi-serdes-v6-0-c89946=
+2c4f75%40kernel.org
+- This isn't a regression introduced by this patch, but is it safe to use
+  spin_lock() here instead of spin_lock_bh()?
+  - According to my understanding ndo_get_stats64 callback can't run softirq
+    context.
+
+--NE+4h+Wyx7O1ITBi
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCagQ6IgAKCRA6cBh0uS2t
+rEkcAQC2ig9Q3isG9GROZcAedOuCxFa7PNLkJr6FgQU71+9XKgD+KENnRdmunSv/
+sv4qVObbRaSCGbg1D1CLGPFCsU2UeAs=
+=eF2v
+-----END PGP SIGNATURE-----
+
+--NE+4h+Wyx7O1ITBi--
