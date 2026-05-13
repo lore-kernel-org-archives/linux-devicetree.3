@@ -1,65 +1,42 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB0F3D3302;
-	Wed, 13 May 2026 06:05:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486FB2C11E2;
+	Wed, 13 May 2026 06:06:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778652350; cv=none; b=m3+HWKsC/Nkhy61O8YR0gjQ++h9rWdrJVWScPFggzAWbuQ6zZVZ5gt6c/dAfLc+9DRGwkLbxybNKac7lrDPBVYWQvNX6fPxGzDmtaDZoVxwbhaLCCnUhiev8FxaGrFEvgpgGdSrUP4N6ObpMjRUFuPuUwhIeHZ8rOzc3Kc2vdxk=
+	t=1778652384; cv=none; b=u/fR2A/tgWzdtvkqrEJZdD7gtvdt+z5CvYmVs6fwlmeP5hJGmJ1GQEGsdT3PifaxwPTOIFRjtfZYtypBl0TfYy/IOB38p1rQCMHfjhC7dbfyXPbGxcpjusbrcLccD334EA48bXUcPf0QRZrCyaZU4sxdG/gBl/ky+UHUfqWobVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778652350; c=relaxed/simple;
-	bh=vNaQjYEzsW3hrnW4jAtb5W62bkbeqFDjM4KUyUPNwoo=;
+	s=arc-20240116; t=1778652384; c=relaxed/simple;
+	bh=QhNr8jmpw55RK1ebaXOMEGE/6b563n9NFnVQtQvOWZk=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=eYO8Zow2FXLiOmOhKdZtSkD7b0OaNp8JqD9rH2t1BxtULczZIiZEksu5Wa9/RHDL1VjhItacD0fkz8MLjS2hWN5/Us4TL8UDS5MHHSPaSrxhNKruwwGq+ruTHQPZfwVeCvFhLY0hOaDc7Lpa2oGyt6etfblIrsnfe9DZe7R2AZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=n8+amBEn; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="n8+amBEn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1778652348; x=1810188348;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=vNaQjYEzsW3hrnW4jAtb5W62bkbeqFDjM4KUyUPNwoo=;
-  b=n8+amBEnTQebUWB8mIDZ12VyTrgfnRl3r8Dm8A7FLgpk0spFN6bUVAQs
-   oDwJTGVbwAINHCIdx5G/fuqeJCBnmPgc9HwX9CUMi+CFMlj0/z1P/9IyQ
-   OtqzoErxVvJy+ftN6GaQ4r5bhiv6+YeAX2amOj00wxmx0ftJ//NVAZQcz
-   1/V9h/wtlYXuLJNhoYS4XnwjdsMJ0fYBtYGupRLVGW+c++eYMLF5LahqA
-   tgDOL/fnpNJl0fOeTI0Ifig3pnQSxgOembeFyrp41uKV9aBWOijP8Xeah
-   QHV+D/a/63uHgjmxV1nhl1bF9IEoCbcwYjO3GzskoUxSXCqxYAiGg1Mtj
-   A==;
-X-CSE-ConnectionGUID: 6qdSMZtgQpmKqvNyLJCk2g==
-X-CSE-MsgGUID: Z7Mi4YBGSeOFwZ85h5Ihtw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="90954413"
-X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; 
-   d="scan'208";a="90954413"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 May 2026 23:05:45 -0700
-X-CSE-ConnectionGUID: 2STAC0B+THOQSMqEy6Hlog==
-X-CSE-MsgGUID: V160g7j/Sii/HC6LzW7XXw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; 
-   d="scan'208";a="233712408"
-Received: from iapp347.iil.intel.com (HELO localhost) ([10.167.28.6])
-  by fmviesa010.fm.intel.com with ESMTP; 12 May 2026 23:05:43 -0700
-From: Avinash Bhatt <avinash.bhatt@intel.com>
-To: devicetree@vger.kernel.org,
-	linux-wireless@vger.kernel.org
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
+	 MIME-Version; b=JVaxnZWqJRfdYIGkMkjx+Aq5HmKiYb7OQXQULuMQxVTN37iz75cmUXA5a+kjTrIkkILUfBtif8hQxamHByRWRrvMbXm6uW6CxCt7Knue5NIZsy2Cy9+8uPRCcA8yeQF/Vq/WPJBqNX87jJVVJ21nDUPaADgPcZaNiSZG8zrN/Vw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn; spf=pass smtp.mailfrom=jmu.edu.cn; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
+Received: from Vostro-3710.. (unknown [119.122.215.211])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 3e3542995;
+	Wed, 13 May 2026 14:01:08 +0800 (GMT+08:00)
+From: Chukun Pan <amadeus@jmu.edu.cn>
+To: dlan@kernel.org
+Cc: alex@ghiti.fr,
+	amadeus@jmu.edu.cn,
+	aou@eecs.berkeley.edu,
 	conor+dt@kernel.org,
-	johannes@sipsolutions.net,
-	miriam.rachel.korenblit@intel.com,
+	devicetree@vger.kernel.org,
+	krzk+dt@kernel.org,
 	linux-kernel@vger.kernel.org,
-	kobi.guetta@intel.com,
-	emmanuel.grumbach@intel.com
-Subject: [PATCH v3 3/3] wifi: iwlwifi: dt: use Device Tree as fallback BIOS configuration source
-Date: Wed, 13 May 2026 09:05:31 +0300
-Message-Id: <20260513060531.8130-4-avinash.bhatt@intel.com>
+	linux-riscv@lists.infradead.org,
+	palmer@dabbelt.com,
+	pjw@kernel.org,
+	robh@kernel.org,
+	spacemit@lists.linux.dev
+Subject: Re: [PATCH v3 1/2] riscv: dts: spacemit: add fixed regulators for OrangePi R2S
+Date: Wed, 13 May 2026 14:00:30 +0800
+Message-Id: <20260513060030.616473-1-amadeus@jmu.edu.cn>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260513060531.8130-1-avinash.bhatt@intel.com>
-References: <20260513060531.8130-1-avinash.bhatt@intel.com>
+In-Reply-To: <20260511070718-GKC3624147@kernel.org>
+References: <20260511070718-GKC3624147@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -67,90 +44,41 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e1fecbaa003a2kunm76fdac8128a16
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSRpKVk8ZHR1NTUJOTB0YTlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKSkJVSklJVUlKTlVJSkpZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pOTE5VSktLVUpCS0tZBg++
 
-When neither UEFI variables nor ACPI methods provide a BIOS
-configuration table, fall back to Device Tree. This preserves the
-existing UEFI -> ACPI priority order and extends it with DT as the
-lowest-priority source.
+Hi,
 
-Signed-off-by: Avinash Bhatt <avinash.bhatt@intel.com>
----
- drivers/net/wireless/intel/iwlwifi/fw/regulatory.c  | 3 +++
- drivers/net/wireless/intel/iwlwifi/mld/mld.c        | 3 +++
- drivers/net/wireless/intel/iwlwifi/mld/regulatory.c | 5 ++++-
- 3 files changed, 10 insertions(+), 1 deletion(-)
+> please check my comment below, I think this patch has similar issue
+>
+> https://lore.kernel.org/all/20260511065338-GKA3624147@kernel.org/
 
-diff --git a/drivers/net/wireless/intel/iwlwifi/fw/regulatory.c b/drivers/net/wireless/intel/iwlwifi/fw/regulatory.c
-index 640e729091..d7ead787c2 100644
---- a/drivers/net/wireless/intel/iwlwifi/fw/regulatory.c
-+++ b/drivers/net/wireless/intel/iwlwifi/fw/regulatory.c
-@@ -8,6 +8,7 @@
- #include "regulatory.h"
- #include "fw/runtime.h"
- #include "fw/uefi.h"
-+#include "fw/dt.h"
- 
- #define GET_BIOS_TABLE(__name, ...)					\
- do {									\
-@@ -16,6 +17,8 @@ do {									\
- 		ret = iwl_uefi_get_ ## __name(__VA_ARGS__);		\
- 	if (ret < 0)							\
- 		ret = iwl_acpi_get_ ## __name(__VA_ARGS__);		\
-+	if (ret < 0 && iwl_dt_is_compatible(fwrt))			\
-+		ret = iwl_dt_get_ ## __name(__VA_ARGS__);		\
- 	return ret;							\
- } while (0)
- 
-diff --git a/drivers/net/wireless/intel/iwlwifi/mld/mld.c b/drivers/net/wireless/intel/iwlwifi/mld/mld.c
-index 130eba60b4..1a95b19d33 100644
---- a/drivers/net/wireless/intel/iwlwifi/mld/mld.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mld/mld.c
-@@ -12,6 +12,7 @@
- #include "fw/api/coex.h"
- #include "fw/dbg.h"
- #include "fw/uefi.h"
-+#include "fw/dt.h"
- 
- #include "mld.h"
- #include "mlo.h"
-@@ -466,6 +467,8 @@ iwl_op_mode_mld_start(struct iwl_trans *trans, const struct iwl_rf_cfg *cfg,
- 	iwl_mld_get_bios_tables(mld);
- 	iwl_uefi_get_sgom_table(trans, &mld->fwrt);
- 	mld->bios_enable_puncturing = iwl_uefi_get_puncturing(&mld->fwrt);
-+	if (!mld->bios_enable_puncturing && iwl_dt_is_compatible(&mld->fwrt))
-+		mld->bios_enable_puncturing = iwl_dt_get_puncturing(&mld->fwrt);
- 	mld->rfi.bios_enabled = iwl_rfi_is_enabled_in_bios(&mld->fwrt);
- 
- 	iwl_mld_hw_set_regulatory(mld);
-diff --git a/drivers/net/wireless/intel/iwlwifi/mld/regulatory.c b/drivers/net/wireless/intel/iwlwifi/mld/regulatory.c
-index 97b2283f51..ce539a0be7 100644
---- a/drivers/net/wireless/intel/iwlwifi/mld/regulatory.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mld/regulatory.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
- /*
-- * Copyright (C) 2024-2025 Intel Corporation
-+ * Copyright (C) 2024-2026 Intel Corporation
-  */
- 
- #include <linux/dmi.h>
-@@ -8,6 +8,7 @@
- #include "fw/regulatory.h"
- #include "fw/acpi.h"
- #include "fw/uefi.h"
-+#include "fw/dt.h"
- 
- #include "regulatory.h"
- #include "mld.h"
-@@ -64,6 +65,8 @@ void iwl_mld_get_bios_tables(struct iwl_mld *mld)
- 	}
- 
- 	iwl_uefi_get_uats_table(mld->trans, &mld->fwrt);
-+	if (!mld->fwrt.ap_type_cmd_valid && iwl_dt_is_compatible(&mld->fwrt))
-+		iwl_dt_get_uats_table(&mld->fwrt);
- 	iwl_uefi_get_uneb_table(mld->trans, &mld->fwrt);
- 
- 	iwl_bios_get_phy_filters(&mld->fwrt);
--- 
-2.34.1
+I don't think this is an issue. Otherwise, these commits need to be fixed:
+https://github.com/torvalds/linux/commit/1df07a40453fd652132051419140950d47941fe9
+https://github.com/torvalds/linux/commit/ae9d03f8aec76c1bff21083b67c211238d7c57b1
 
+Let's confirm the current DT preferred:
+
+- regulator-fixed
+
+  nodename: Preferred name is 'regulator-[0-9]v[0-9]'
+
+  gpio/gpios: Preferred 'gpios'
+  https://github.com/torvalds/linux/commit/12df2c182ccb850988d2680a422211a812fb5cb2
+
+There is no specification or preference stating that regulators without
+software or GPIO control should be removed.
+
+This has been discussed many times, and people are used to describing DT
+according to the schematic:
+https://lore.kernel.org/all/44ba02e34d7bf6a6657894802a87b690@manjaro.org/
+
+Therefore, if you consider these regulators unacceptable, we should remove
+them from other dts in spacemit, or allow such changes.
+
+Thanks,
+Chukun
