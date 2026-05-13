@@ -1,66 +1,235 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 419353B52FF;
-	Wed, 13 May 2026 19:08:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ACDD3B19A6
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 19:09:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778699334; cv=none; b=u2BGP+OOXyRXgEPCI6YVujYBKJ0zsmo+ZiJ5OWyjEbZFAmZ23ByRo1jQr3Livnk3KK9Fw2Na/1U9TPSs/xm82fnWo6/+mOkNPUYSvWTumQCJVlrq/DbE/cEiAGILrI5+oBm6iW1yGUN9MmxRtGvOai4WLIhyjnBJ8QvEmljsBgo=
+	t=1778699370; cv=none; b=FEaMPkvwy21jG3z6tHiWseSQlwdkPo6vt7SG3m7TYWMzpgO+cO62NuQwf/uf/xhkhX/oGKAP5Zeui6UdiGSpYntMEqLrs+TLH7saN+y7Z0FmoRCVU84sZ33gTz2VaCjFieF2JlFFxcJuh3zCqn4ZaLXQE0znUC8UzxBBlFznH+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778699334; c=relaxed/simple;
-	bh=uHESQOfJoet4dSsPHRBifoa76OaIbvlpnlfqdaA34Mw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=g150bq7ABGqLMoc9nSmWa+uozE/OFiSqlEm5EAWWgg5g3+cVlkspBkTSAajcopANpSG4ffHfCTKBzczFj11uekliq7l5kP/S4u4wmh3QIaLesKV/wfnKYHrwNpVOfkeRahR4PkjtVwKw2OY1vgboEPIgvAWXVpp/FfCiJOvQmP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i3MyFZ6/; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778699370; c=relaxed/simple;
+	bh=TLEgs2j+NLTxvHfvADiUHg4zWka2Qm9LSD4iAcUsgVg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rX76Oxdf4Zexu3ENYxq4dQyNZjDwW8QrG8Eb7dYZ34VlmxYYZt/yNfCIW7qWvVuunyyq/gvS1UjgNlsTgkBfxq2k2w8TIxJ6+nlp1gGDFo/OB3FGEOOLwbPA1zRn//9XmaLT+3fI7cKQkzQeXd5rkcM1K5xx2NwWtXhh4YpZir0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QISSdNBo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Eh/fL4Ku; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i3MyFZ6/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10413C2BCC9;
-	Wed, 13 May 2026 19:08:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778699333;
-	bh=uHESQOfJoet4dSsPHRBifoa76OaIbvlpnlfqdaA34Mw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=i3MyFZ6//5s84mlZnlrRZ5XSMXz9QrbTHvYsQgvGlBgJbK34kslA5PyR2g9n6TeGK
-	 Z/sIMRml2jMdNEJd2lFClE81pJqGFqSoMpY9Ydu8HrRDKgJ8siQcP1YcQzuQ1vGVhj
-	 L7MCkJc6Fn0r+xSGUXLj8ovq37mCL82JjD39uAWYFGbR4xg/q35ni3sPXej+4tZH16
-	 foRpfj3qCnrljlOu8I13PqjlVByoXo4xMqIduJOKggAcG3OU97S31+MHV/sBJ3qIoh
-	 pN/3m3kWlvn7xPV7xvuWGAEStBN5r//eAcP3qS21ZDyilEdA67DEyFAWuImnQQMy8y
-	 gOjiNuXjMEI9g==
-From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: soc: qcom,aoss-qmp: Document the Hawi AOSS side channel
-Date: Wed, 13 May 2026 14:08:42 -0500
-Message-ID: <177869930358.1496076.12219675278161857673.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260427181609.3648384-1-mukesh.ojha@oss.qualcomm.com>
-References: <20260427181609.3648384-1-mukesh.ojha@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QISSdNBo";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Eh/fL4Ku"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64DHYQlN1393176
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 19:09:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=FQL5G0XdY34vSKAuhLaAvXdh
+	NyGZknux7fG6J+8FZ4M=; b=QISSdNBoMhsdNEDhKG623GlSz8f8eJdoFv7deP9M
+	g0qUPxfy2J0RHRgs1hXpAQ6TumnzbsEy06AJrv7s142cS+29QjG/y2tJKdh19+lQ
+	O7izoHXAKb5NsPe1Oa8gh5AsSXKh/gk+/h37MfHtMgkhO9Hx36PlUP0wBFIO9ufK
+	DHmyFUcDYdKqT9tAkia4K1RrXZg+xQ1SBYGpJLa3Rcgvt8i/+Tl3jiBQyNLYmLch
+	ZwYwsLSXZqAJzsMunEIZUrDLirnrBu8K7J18h5pNt9aAGRqlDAM5mqjrrGtzihVX
+	MWAmzTigDvB4/8Sbi45+vkLWs/aTaS5QNraUSA6SIPHhTQ==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4k2639kb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 19:09:28 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-5104b861649so215518251cf.1
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 12:09:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778699368; x=1779304168; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=FQL5G0XdY34vSKAuhLaAvXdhNyGZknux7fG6J+8FZ4M=;
+        b=Eh/fL4Ku7ghgi7il7ntWxtWbO64APonSNMTw+n8Pjwc+vWTzQ9VGJlW/WOfRgHFq3d
+         CsXnc+GgkWT/mV4gbYjnGu7ZKKhhn7KHDKYPLa7zco+sqgSV/Ua6/e5s+Cbi6Os0sE1i
+         3BfXngCdcze7DRMyKHVosUUU6SoKVWaJkHve3pFzuEoFkmVrezzthuD3aoX1Xg51LUKD
+         r/UD1KppmJtciglaPciAKkqchnE6g8IiiXuQ67yLFHOTlcaT2mpmKENRwgMrNzfXaeM+
+         9kIs/2fWWL5wzCy9zUoDFtJ6712GrRUcMNCm6k2go+2DySj7owKs1DXMolCjcvxJ1Qwv
+         P3Yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778699368; x=1779304168;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=FQL5G0XdY34vSKAuhLaAvXdhNyGZknux7fG6J+8FZ4M=;
+        b=DrExTVp1RNwJ6dGdl6UDbzN/uXkEFZEGNGl1/vXqoXlNzsMG4ZUFCLiOjkjAJe53Mw
+         rAqaQ55m9YCA9jjEEgq5eo3GTXVxOzPu6Mvpwc3ppqZ/CnA0/3qnn9NrpL1N+TivcSgE
+         3U/ss4Ifpui1LkonnIc2kapXW3J9Sye3BDmJehX66pnz+JgrKpD7AennhytBcXbVumQl
+         b3x7K5YXjVGk0iSc5UJgN70kE/PaTQKv+RJlwyi73sN7ZElQY4ClP2NZp/Krv6wOAPpJ
+         AdBPBYf99UpunBw/tSNJ7Xi0/7heMQh7MnwmJ+ER5qmAWEM98Dy9coa92rskZil4BftP
+         B/hw==
+X-Forwarded-Encrypted: i=1; AFNElJ9djT0hZH03d6UWNewshtRw8+W5FUWXg/e6ooCZCBWc1XLT8eQIu917J1JdRwJt16BjSkUgRu3+I8vr@vger.kernel.org
+X-Gm-Message-State: AOJu0YwJT7tWwz/tLTGudVMhL1XkWgWn2siRyDiGMszbv4FhKxLDYcT8
+	aLVvKrRCUFs2VD+Hiy5ADF4xUtCUNjW5jdhvZECFwq8gYDlNhjSBvmvb2wLqEARm1elM5mbTqa1
+	U4ZiQt6csIEWakRhVDJ4TkzqpfFeIn5jJzGStueQpyboBC09tQ8ey3cFqHPUJmdJv
+X-Gm-Gg: Acq92OEbUMMs9C6OlSBfWXpUY1kJSRsYkq5D18tKaH4z96MpS1HdEPUSXxVvoCBYBcD
+	n7CgeJth5bC/7wLT0RuR4YdB/ZLk3skoUnlZRXlxU7NHMgxPaN9JKTv1YTPGQw0SSFZbH4BaIRv
+	HW6ArBA887rKaEtJpolMHKEQeB97I9Bvw1B+85B3sdxKAGf4mPJImeB7k/cG44ux0j+8leRRERN
+	ga7E9roKDWAnxkpFO6bJtImFhHbnneVVKyUOWgdv0QaFtgT5mQkKqK5BaLPM2qkiyounEc3YA1m
+	rHyfHhr5bXohWkKqnB36ZMUFvRiaU4Ds6cPpTExb+7bDkRUmuWxmw+R+N6Cs/9TcY/FIzye/5CS
+	FEp7/3eS/Ta8P+57STMRe5UCithBK/MkLzmMAx0nczRv2FerJKmaFeCXsDe2xyRvR+CgBSXeVXs
+	kIg94oC+uWDD76cXvc19z0HZXo2FsapEQw3FE=
+X-Received: by 2002:a05:622a:199f:b0:50d:7135:5631 with SMTP id d75a77b69052e-5162f440d10mr61584821cf.6.1778699367560;
+        Wed, 13 May 2026 12:09:27 -0700 (PDT)
+X-Received: by 2002:a05:622a:199f:b0:50d:7135:5631 with SMTP id d75a77b69052e-5162f440d10mr61583951cf.6.1778699366968;
+        Wed, 13 May 2026 12:09:26 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a90f11ebb0sm1313e87.36.2026.05.13.12.09.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 13 May 2026 12:09:25 -0700 (PDT)
+Date: Wed, 13 May 2026 22:09:22 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        Hans Verkuil <hverkuil@kernel.org>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+        Del Regno <angelogioacchino.delregno@collabora.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        iommu@lists.linux.dev, Krzysztof Kozlowski <krzk@kernel.org>,
+        devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 07/14] media: iris: Enable Secure PAS support with
+ IOMMU managed by Linux
+Message-ID: <csiicospkjf6xmrgpzzxkto3antp24jlrrptg5zzchbm3t2xkm@kalgsyhg6i52>
+References: <20260509-glymur-v5-0-7fbb340c5dbd@oss.qualcomm.com>
+ <20260509-glymur-v5-7-7fbb340c5dbd@oss.qualcomm.com>
+ <elhlmmmisecn7vylpsboiicn7dn4umrggktabyixthmevdv7eo@a4keayee2um7>
+ <20260511080104.c4nhhmm2xgzm67fi@hu-mojha-hyd.qualcomm.com>
+ <zaq7evuw6la6p6zcv5zgv2nuehc6yxt6xxojjdd2rdflxtk73e@wr2w2kbxamv7>
+ <905f5677-5daf-d6e9-437f-7b928036ea95@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <905f5677-5daf-d6e9-437f-7b928036ea95@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=M/l97Sws c=1 sm=1 tr=0 ts=6a04cc68 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=EVYz-rHPzUa4Vbhsd_4A:9 a=CjuIK1q_8ugA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEzMDE4OSBTYWx0ZWRfX1/2SzmCy0xp9
+ 3EQKasSXXCjmLs0hcdFczKGWFNoMoOx1/dBrReCoDG/o+lNUR6P6TJmvdsn0jwWQ10iDwUjrAgl
+ ydvsjOCi1eldtZFe0SCTBf2ixbBBWH+eonPN43HriwbHkEPR/mD5vrocSZFIB4m2mOfz9AAk1Xj
+ qdaszkAdqC8ghRvcaYDw3TiqYbKXEUDCZx6M5QVR5Ag3/6hUWRNwV1NmSSaJ58unSZfAAhPZdD6
+ +QztSR/gmOUPTkmR0p7dzD4oxgdOzQkDkudOWrIDxt7BKLXRpNzDWEMPiy9sadYv60LsDlQ3Kth
+ XyAQ/VvrKueXg/ZFyL5ox8xcQ6BB4/FegrevdpksFR140jEoF3HoEWo72pJhNFyXONnb1McsemI
+ Z7U1DMbufjnqKVyHqEx0r+ZsyU5WN5x+vB2hp0/d6pl2uXhcK6vu9/pJw1kzpgmlPQ0SnbU/1pz
+ rTrABRkVvky9t+DY/mg==
+X-Proofpoint-ORIG-GUID: vDofNEteQ3EL7cSok5_lAf03ZK-XCTXU
+X-Proofpoint-GUID: vDofNEteQ3EL7cSok5_lAf03ZK-XCTXU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-13_02,2026-05-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 impostorscore=0 malwarescore=0 suspectscore=0
+ spamscore=0 phishscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605130189
 
-
-On Mon, 27 Apr 2026 23:46:09 +0530, Mukesh Ojha wrote:
-> Document the Always-on Subsystem side channel on Qualcomm Hawi SoC.
+On Thu, May 14, 2026 at 12:24:55AM +0530, Vishnu Reddy wrote:
 > 
+> On 5/13/2026 7:12 PM, Dmitry Baryshkov wrote:
+> > On Mon, May 11, 2026 at 01:31:04PM +0530, Mukesh Ojha wrote:
+> >> On Fri, May 08, 2026 at 11:20:06PM +0300, Dmitry Baryshkov wrote:
+> >>> On Sat, May 09, 2026 at 12:29:56AM +0530, Vishnu Reddy wrote:
+> >>>> From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> >>>>
+> >>>> Most Qualcomm platforms feature a proprietary hypervisor (such as Gunyah
+> >>>> or QHEE), which typically handles IOMMU configuration. This includes
+> >>>> mapping memory regions and device memory resources for remote processors
+> >>>> by intercepting qcom_scm_pas_auth_and_reset() calls. These mappings are
+> >>> No the calls to those functions are not intercepted. Doesn't hypervisor
+> >>> simply implement the SCM calls?
+> >> All the SMC calls are intercepted whenever Gunyah or QHEE hypervisor is present
+> >> and in most of the case the preparational work for the TZ like in case of
+> >> qcom_scm_pas_auth_and_reset() it does create/register SHMbridge over PIL memory
+> >> so that the TZ can access the memory and then calls same SMC call to TZ for
+> >> authentication and once done it comes back does mapping the PIL region
+> >> and call bring up sequence of the co-processor.
+> > I see, thanks for the explanation.
+> >
+> >>     SMC  SHM setup    SMC (auth)        map memory/resource and trigger reset sequence
+> >> HLOS ==> Gunyah(QHEE)   ==> TZ    ==>    Gunyah(QHEE)        === ==>      IRIS 
+> >>
+> >>
+> >>>> later removed during teardown. Additionally, SHM bridge setup is required
+> >>>> to enable memory protection for both remoteproc metadata and its memory
+> >>>> regions.
+> >>>>
+> >>>> When the hypervisor is absent, the operating system must perform these
+> >>>> configurations instead.
+> >>>>
+> >>>> Support for handling IOMMU and SHM setup in the absence of a hypervisor
+> >>>> is now in place. Extend the Iris driver to enable this functionality on
+> >>>> platforms where IOMMU is managed by Linux (i.e., non-Gunyah, non-QHEE).
+> >>> I fail to identify, which changes correspond to this description. If
+> >>> it's about the PAS context creation, could you please be more specific?
+> >> I think, commit text is trying to tell the Infra to support any Secure PIL when IOMMU is
+> >> managed by Linux at EL2 and the dependency related to SHM set up in Linux are done as
+> >> part of [1] are in upstream.
+> > Ok... I'd say, this part of the commit message might need some
+> > polishing, but I can't give an exact advice here.
+> >
+> >> [1]
+> >> https://lore.kernel.org/lkml/20260105-kvmrprocv10-v10-0-022e96815380@oss.qualcomm.com/
+> >>
+> >>>> Additionally, the Iris driver must map the firmware and its required
+> >>>> resources to the firmware SID, which is now specified via iommu-map in
+> >>>> the device tree.
+> >>> Why? You miss the most important part here.
+> >> Sorry, I did not get.. are you looking for explaination here, why via iommu-map in
+> >> commit text ?
+> > Yes. Why are you using iommu-map instead of listing it in the main
+> > iommus entry?
 > 
+> Without hypervisor: iommu-map is populated, so the driver creates a firmware
+> device and handles the IOMMU mapping.
+> 
+> With Gunyah/QHEE: iommu-map is omitted, firmware device is NULL, and the driver
+> skips mapping since the hypervisor takes care of it.
+> 
+> The main iommus entry already holds other stream IDs (pixel, non-pixel, etc.)
+> and cannot be used to distinguish the firmware SID or infer hypervisor presence,
+> hence the use of a separate iommu-map property.
 
-Applied, thanks!
+This is not really an explanation. Would you be able to understand it if
+you were shown this text?
 
-[1/1] dt-bindings: soc: qcom,aoss-qmp: Document the Hawi AOSS side channel
-      commit: c5f5156ed4cb11ddaa35c49e2ca8ead5a6dff1e7
+> 
+> >>>> Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> >>>> Co-developed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> >>>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> >>>> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> >>>> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> >>>> ---
+> >>>>  drivers/media/platform/qcom/iris/iris_core.h     |  4 ++
+> >>>>  drivers/media/platform/qcom/iris/iris_firmware.c | 72 ++++++++++++++++++++----
+> >>>>  2 files changed, 66 insertions(+), 10 deletions(-)
+> >>>>
+> >>> -- 
+> >>> With best wishes
+> >>> Dmitry
+> >> -- 
+> >> -Mukesh Ojha
 
-Best regards,
 -- 
-Bjorn Andersson <andersson@kernel.org>
+With best wishes
+Dmitry
