@@ -1,26 +1,26 @@
 Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEEFC38E8B4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D46137BE80
 	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 16:16:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778689013; cv=none; b=iIM3ci0HcREZDtVWjPm7OAWC7ZKVrtA/1ShcbasKWwyy/1PuEksjXCQs8yT//JNcYrCUZKTbE5mtqxS+xBmx8S5WH5DvDhQJwpF2rjhTF58irPkGCAFNYkzpTXmCYMvovdRtQIOUpYSYE88SQ2R4BtjMo/yXoLjK3L+YOJYHlts=
+	t=1778689013; cv=none; b=QcEXh45g2pW9YD/aX7zzxes2FIbZIi//MzP/VL42Iqp/KhSd1CZ4Mhcjw9ovHBCwI+5Nhp5vSlSw1KsrsOPHbu1rreC5OhZIXmHX1J/CHGetquh73y0FlMmGmxn07WFvVcwA1UG87T4L0j93a2icKamUSynZzdwu5RXbr371dJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1778689013; c=relaxed/simple;
-	bh=cVQgizF6ZHuttfzTKghNr42GW67RE2CmawLpVo5MP6I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UYE44iU29CJLUnOs1m4qYn+Mi+edFvaivgrtC4VQ+RWmwNDwQnjgzSi5PtXguA/BhLLDQ2ePW4EAb5IMqMtfSsCwd0B3hlawiN3YjMrMyCUNP7TAeuiIIjKCDsXoSkeecGyKqCIzd4nDH+xXXjZisJIL7H1WWakj79RGgsiBtDI=
+	bh=2JSIVQf3pNJY4EYTYCVsNQK7eb5sjQAmkoDKyz88zug=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=H9xJN5p8cIhjIrHgbVpacI1x5eB4/mXhmTWsR8LMbjttVjzaMQXsl9d1L3L37zwHZA0lMbXLRtel2slwFHi4yGWgCEuEEXuuc0LKexEw84bK6FhQ1PUjixLxHFs0yKQAtpZx+/ElAIjkjobrvFWaZd5rXg9AjVmuEEmSyfVy3QU=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=fail smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=pengutronix.de
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=ratatoskr.trumtrar.info)
 	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
 	(envelope-from <s.trumtrar@pengutronix.de>)
-	id 1wNCGM-0001Rr-HJ; Wed, 13 May 2026 18:16:46 +0200
+	id 1wNCGL-0001Rr-HZ; Wed, 13 May 2026 18:16:45 +0200
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Date: Wed, 13 May 2026 18:16:40 +0200
-Subject: [PATCH 2/2] drm/panel: simple: add NEC NL6448BC33-70C
+Subject: [PATCH 0/2] Add NEC LCD Technologies NL6448BC33-70C Panel Support
+Date: Wed, 13 May 2026 18:16:38 +0200
+Message-Id: <20260513-v7-1-topic-panel-simple-nl6448bc33-v1-0-9bd4b7d0eac0@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -29,9 +29,10 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260513-v7-1-topic-panel-simple-nl6448bc33-v1-2-9bd4b7d0eac0@pengutronix.de>
-References: <20260513-v7-1-topic-panel-simple-nl6448bc33-v1-0-9bd4b7d0eac0@pengutronix.de>
-In-Reply-To: <20260513-v7-1-topic-panel-simple-nl6448bc33-v1-0-9bd4b7d0eac0@pengutronix.de>
+X-B4-Tracking: v=1; b=H4sIAOajBGoC/yXNQQ6CMBBA0auQWTsJZaASr2JctHXUMbU0HSQmh
+ Ltbcfk2/6+gXIQVTs0KhRdRmVKFOTQQHi7dGeVaDV3b2XYwhMsRDc5TloDZJY6o8sqRMUXb96M
+ PRBjIMpE3o/MGaigXvslnn5wvf+vbPznMvzJs2xflPQb9hgAAAA==
+X-Change-ID: 20260513-v7-1-topic-panel-simple-nl6448bc33-c36e33b18ab1
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>, 
@@ -48,60 +49,21 @@ X-SA-Exim-Mail-From: s.trumtrar@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
 X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Add NEC NL6448BC33-70C 10.4" 640x480 LCD module support.
+Add support for the above mentioned LCD panel from NEC.
 
-Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
- drivers/gpu/drm/panel/panel-simple.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+Steffen Trumtrar (2):
+      dt-bindings: display: simple: Add NEC NL6448BC33-70C panel
+      drm/panel: simple: add NEC NL6448BC33-70C
 
-diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-index 236bd56208ccf..bbbbdd399d1c3 100644
---- a/drivers/gpu/drm/panel/panel-simple.c
-+++ b/drivers/gpu/drm/panel/panel-simple.c
-@@ -3659,6 +3659,31 @@ static const struct panel_desc nec_nl4827hc19_05b = {
- 	.bus_flags = DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE,
- };
- 
-+static const struct drm_display_mode nec_nl6448bc33_70c_mode = {
-+	.clock = 25175,
-+	.hdisplay = 640,
-+	.hsync_start = 640 + 16,
-+	.hsync_end = 640 + 16 + 48,
-+	.htotal = 640 + 16 + 48 + 96,
-+	.vdisplay = 480,
-+	.vsync_start = 480 + 2,
-+	.vsync_end = 480 + 2 + 31,
-+	.vtotal = 480 + 2 + 31 + 31,
-+	.flags = DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_PHSYNC,
-+};
-+
-+static const struct panel_desc nec_nl6448bc33_70c = {
-+	.modes = &nec_nl6448bc33_70c_mode,
-+	.num_modes = 1,
-+	.bpc = 6,
-+	.size = {
-+		.width = 243,
-+		.height = 185,
-+	},
-+	.bus_format = MEDIA_BUS_FMT_RGB666_1X18,
-+	.bus_flags = DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE,
-+};
-+
- static const struct drm_display_mode netron_dy_e231732_mode = {
- 	.clock = 66000,
- 	.hdisplay = 1024,
-@@ -5520,6 +5545,9 @@ static const struct of_device_id platform_of_match[] = {
- 	}, {
- 		.compatible = "nec,nl4827hc19-05b",
- 		.data = &nec_nl4827hc19_05b,
-+	}, {
-+		.compatible = "nec,nl6448bc33-70c",
-+		.data = &nec_nl6448bc33_70c,
- 	}, {
- 		.compatible = "netron-dy,e231732",
- 		.data = &netron_dy_e231732,
+ .../bindings/display/panel/panel-simple.yaml       |  2 ++
+ drivers/gpu/drm/panel/panel-simple.c               | 28 ++++++++++++++++++++++
+ 2 files changed, 30 insertions(+)
+---
+base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+change-id: 20260513-v7-1-topic-panel-simple-nl6448bc33-c36e33b18ab1
 
--- 
-2.53.0
+Best regards,
+--  
+Steffen Trumtrar <s.trumtrar@pengutronix.de>
 
