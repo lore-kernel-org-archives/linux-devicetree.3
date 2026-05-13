@@ -1,59 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41092224B15;
-	Wed, 13 May 2026 14:00:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D498D304BA3;
+	Wed, 13 May 2026 14:00:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778680846; cv=none; b=pkegR0J7EHWvqx0IemCeo/IJ9PjQSeGZZhYkrpq1Y0parR5pgAa1aKTtnAAO6wcl5s4bAE6ZjYIuOFODOafLukTQol9GTZCM/C5qwyb4ZdiB3/VYOLLrZCqapUiRvHPPP+dJulzbePykLQo9pO+56K020jYOqjUE9a3Upt4TkWw=
+	t=1778680850; cv=none; b=n4OpD33phEWJk22OvzQJQX1taw4+xlBWpAMdLrJEiCGEW5RuytFxiDjAcnGb4EupVb5HXlwt9Kgog6P9bzdTS5xcIqXSBOuitJAHKTb8gYdeRYFUZYAVgJwYdVr0ihTE6zgBuU+HlSYuwurv6l4VJRKqQ/nR0mPrQnbDJsP+GO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778680846; c=relaxed/simple;
-	bh=Fg1mrlWMnj05/L7JUG6z1j7E/W6et1xH3QyvjiwbRfg=;
+	s=arc-20240116; t=1778680850; c=relaxed/simple;
+	bh=Bw1C9JL2piKJzvwC5VL//CVGEW1j0mlc7RMZSghq6tM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=c120GcPb2YrxHa5AqsQcUpXboyIt1FwMA4JGgCaAPGvAcjL1/xiBNPJy4RRu/1YeRvrHjZgcOGYMPXwBGQe+cnzdnxQdSOviZc/YlvXpLwLVrIml6egyf5SP8l9Be+a6GTy8C8x5S8oGVJoqpkp1+1UYjaDDxjyM+GwVPQFyEJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cQrubRky; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=GAgq8DSrOlhDLPnRtu+fRJopmD7jFHaAZ/RFhAQDTDmtryx8TN3F3HIrArvcGcML1Xunla8+prYbcfCGqwtzcFjHZgahesJmIV+zpqAlOIYnifWutjy7Avkdd9KMRKTDsZdA+bvk0eIY9yrWRjksW3tQrcLNskzUjdGQOjK569E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bhijEQ/H; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cQrubRky"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 908BEC2BCB3;
-	Wed, 13 May 2026 14:00:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778680845;
-	bh=Fg1mrlWMnj05/L7JUG6z1j7E/W6et1xH3QyvjiwbRfg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=cQrubRkyOCuBrBGRrIsyYlVDWDvPJ4V6CSDxAQC259nErLzuRA4/P9Aun/PuF78Ba
-	 WNzSB/3z0G4JR0qv6LJCChcSL679reLh5GcyK+J1+uEjdxSV4hEJ111ufEL4W6qjlP
-	 jV1B0moohypLZ+me+iE2q3ljGq8oAmF8vYNufO5dzC7YjseUyIcrNku92SxUMolIbW
-	 XMvB45YU6TpasjrVbsmml0KIvnnDWXrZpyQIk8oU/ZqQFWUaKfbmTw1UH1LxFil/O6
-	 ZebrehYM/ZHrPO0Oz5Wy0zkw7nxYH5VUclM9rTyIcLvIwcZ2vPS9r2RZZhVL99qeQ0
-	 TVpw87ouR6EtQ==
-Date: Wed, 13 May 2026 15:00:38 +0100
-From: Lee Jones <lee@kernel.org>
-To: Jacek Anaszewski <jacek.anaszewski@gmail.com>
-Cc: Kaustabh Chakraborty <kauschluss@disroot.org>,
-	Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	MyungJoo Ham <myungjoo.ham@samsung.com>,
-	Chanwoo Choi <cw00.choi@samsung.com>,
-	Sebastian Reichel <sre@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Nam Tran <trannamatk@gmail.com>,
-	=?utf-8?B?xYF1a2FzeiBMZWJpZWR6acWEc2tp?= <kernel@lvkasz.us>,
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-samsung-soc@vger.kernel.org, linux-rtc@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v5 07/11] leds: flash: add support for Samsung S2M series
- PMIC flash LED device
-Message-ID: <20260513140038.GB305027@google.com>
-References: <20260424-s2mu005-pmic-v5-0-fcbc9da5a004@disroot.org>
- <20260424-s2mu005-pmic-v5-7-fcbc9da5a004@disroot.org>
- <20260507164654.GS305027@google.com>
- <80d85385-f5af-44e3-b9ed-d4489542d4da@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bhijEQ/H"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1778680849; x=1810216849;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Bw1C9JL2piKJzvwC5VL//CVGEW1j0mlc7RMZSghq6tM=;
+  b=bhijEQ/HhHWUs+SMyXu60xsJkqSC2NR1QNgFxHse5qOi+Ns/kG/I8RR0
+   MrebFenvQ1OENxkF5dCWFbHYFqGJjYbcHvZOz0KV8uGWdX/URJ9scsPk7
+   glO3TsxSLa84QADLK+2D3lPZE0sgXEp/2bYJDGntK4DfRNChHsICjYYzo
+   RNWmGN3zGGH44FSDTQVHWb8m1eQAT3keEggiLz083wF+ujtCW2bkHG4je
+   u6FDO2diHIhE3EwNAqjcYERYgZ9WsJxeRgMO//IhoGphSN4LdNltZgPbW
+   VgbRvga2xvLOZIIXUTv8yDVPOFFXZZJrSs08zHBy3nX0u25uNtgGceBop
+   Q==;
+X-CSE-ConnectionGUID: 1NafUBJ9RRa/GkO54AKYEQ==
+X-CSE-MsgGUID: 0hbMtql1S8mMtgQpQie5ZQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="79786086"
+X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; 
+   d="scan'208";a="79786086"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 07:00:49 -0700
+X-CSE-ConnectionGUID: 0GOQXddWRsmNK6MjzDE6vA==
+X-CSE-MsgGUID: mqz3WQyNQiGCqUCReIfDsQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,232,1770624000"; 
+   d="scan'208";a="239902049"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.111])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 07:00:44 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 012BF121C9E;
+	Wed, 13 May 2026 17:00:43 +0300 (EEST)
+Date: Wed, 13 May 2026 17:00:42 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Pengyu Luo <mitltlatltl@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Martin Kepplinger-Novakovic <martink@posteo.de>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org
+Subject: Re: [PATCH v4 3/5] media: hi846: fix modes handling for different
+ lane cases
+Message-ID: <agSECpQ2xiP80E24@kekkonen.localdomain>
+References: <20260511103927.279550-1-mitltlatltl@gmail.com>
+ <20260511103927.279550-4-mitltlatltl@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -62,56 +75,19 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <80d85385-f5af-44e3-b9ed-d4489542d4da@gmail.com>
+In-Reply-To: <20260511103927.279550-4-mitltlatltl@gmail.com>
 
-On Thu, 07 May 2026, Jacek Anaszewski wrote:
+Hi Pengyu,
 
-> Hi Lee,
-> 
-> On 5/7/26 6:46 PM, Lee Jones wrote:
-> > On Fri, 24 Apr 2026, Kaustabh Chakraborty wrote:
-> > 
-> > > Add support for flash LEDs in certain Samsung S2M series PMICs.
-> > > The device has two channels for LEDs, typically for the back and front
-> > > cameras in mobile devices. Both channels can be independently
-> > > controlled, and can be operated in torch or flash modes.
-> > > 
-> > > The driver includes initial support for the S2MU005 PMIC flash LEDs.
-> > > 
-> > > Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
-> > > ---
-> > >   drivers/leds/flash/Kconfig          |  12 ++
-> > >   drivers/leds/flash/Makefile         |   1 +
-> > >   drivers/leds/flash/leds-s2m-flash.c | 358 ++++++++++++++++++++++++++++++++++++
-> > >   3 files changed, 371 insertions(+)
-> > > 
-> > > diff --git a/drivers/leds/flash/Kconfig b/drivers/leds/flash/Kconfig
-> > > index 5e08102a67841..be62e05277429 100644
-> > > --- a/drivers/leds/flash/Kconfig
-> > > +++ b/drivers/leds/flash/Kconfig
-> > > @@ -114,6 +114,18 @@ config LEDS_RT8515
-> > >   	  To compile this driver as a module, choose M here: the module
-> > >   	  will be called leds-rt8515.
-> > > +config LEDS_S2M_FLASH
-> > > +	tristate "Samsung S2M series PMICs flash/torch LED support"
-> > > +	depends on LEDS_CLASS
-> > > +	depends on MFD_SEC_CORE
-> > > +	depends on V4L2_FLASH_LED_CLASS || !V4L2_FLASH_LED_CLASS
-> > 
-> > The `|| !V4L2_FLASH_LED_CLASS` part of this dependency makes it
-> > unconditionally true. Was this intended? Perhaps this dependency can be
-> > removed entirely.
-> This is for a reason to allow building the driver if
-> V4L2_FLASH_LED_CLASS is turned off, or build it as a module
-> if V4L2_FLASH_LED_CLASS=m. You will get nice explanation from
-> Google AI if you type just
-> "V4L2_FLASH_LED_CLASS || !V4L2_FLASH_LED_CLASS".
-> 
-> See e.g. [0], which fixes undefined symbol error by adding this.
-> 
-> [0] https://git.paulk.fr/projects/linux.git/commit/drivers?h=sunxi/cedrus/jpeg-nv16&id=dbeb02a0bc41b9e9b9c05e460890351efecf1352
+On Mon, May 11, 2026 at 06:39:25PM +0800, Pengyu Luo wrote:
+> When using 4-lane, v4l2_find_nearest_size may return an unsupported
+> mode, 640x480 mode, and it is set to the default mode.
 
-I see.  Thanks for the explanation.
+Could you use v4l2_find_nearest_size_conditional()?
+
+Ideally we should get rid of the cur_mode field altogether.
 
 -- 
-Lee Jones
+Regards,
+
+Sakari Ailus
