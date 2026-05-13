@@ -1,119 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3109E3BC68D
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 21:42:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6EED3C0A1E
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 21:42:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778708525; cv=none; b=H8eYXTndm4JmQZ37Eohtip3bvOXC2XjPhlSZLcH3IQ1k28XcIfT66/lui60UvuPYzzxoHlEgpJpGk01tCL8BUZ1NVCAr4oZ8Y3f/A62IOdHfiugAAD+6i7ya4rwT3FfcpoZeeQc7JCOlps7Az5yx/1cI7eqjr2oLFTdKYMhjJog=
+	t=1778708551; cv=none; b=uYJ9MjQeteTsmYglfdRdupOZWgn6Sgd6EPhwHxHrNK1RhKcWsRwXtXHrQE4PvCuDYONwPJahxv5Tmp8175/+/t9pMrmhO2y1znAtDDssPXOG0sRW6sgZpQViZrrOZGA3DNn6ntCQ14RCdvqC2S0J+0QBmH3GFdwABbIoa5l8yyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778708525; c=relaxed/simple;
-	bh=XawclTxOGS7jlTgXDoKV3KDC+UQnxgsILXZ1rYTqd3Y=;
+	s=arc-20240116; t=1778708551; c=relaxed/simple;
+	bh=rjj8Bdklo6UmIE1qoNEoR1HnWNuagq4cOumsnUUpnIo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=b5zOxRU461UmT5FJoNLY/E5Cr9T1y0cY46RctWib8i4ZEvAGt/tdc5q/YCh13nv3mBwq2G9iqsje6AhrZwldhqIdAuGuWctvdi2EhYnp4p7FWZS7QYr4mnQ8CahgyoTAz5QPaInpTr2vLyoB1KXybb/vsZfYlm6irtU3HWzzbgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kfn5gwqm; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=Z1qsuMWA9z2P3Ks0MZhcT5n+5PwzvrP6lY7QparvIUiST177khJkeucALKBgUpDHkGmFv1w30IlPWyv+rSsfyWrRqx9z+8U0tEuNKhOXCh7w4wsHgnCut7QvNXGvcRgbA605tIgO07wQd3toX1XTUkCykwdXW03ONcp/FNCzAes=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=trKbagZq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kfn5gwqm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BD77C2BCB8;
-	Wed, 13 May 2026 21:42:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="trKbagZq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9EF6C19425;
+	Wed, 13 May 2026 21:42:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778708524;
-	bh=XawclTxOGS7jlTgXDoKV3KDC+UQnxgsILXZ1rYTqd3Y=;
+	s=k20201202; t=1778708551;
+	bh=rjj8Bdklo6UmIE1qoNEoR1HnWNuagq4cOumsnUUpnIo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=kfn5gwqm+Bc/cJAWDmR9LYHFGUsxyWH8MixnfCCrUhYkns3PVT/cxhXLeQK6i8iMG
-	 Rq6w5tBGfVir8INzAIHpU+0o+frQsTLpQC9yBASLCkPjq4FuVVCC/Onw0aQ7UzNSty
-	 8qDrSA60u14xHLW3FNKpcB4EDaFN8GzZCqX2VKJ/TEr9PIsNGq4kHMKoUDiCXFXl3Y
-	 l2saxBrilAQWms2eXKxvZwCA/81RYe07v9BuFNEZ24kUrG8EriWgiXhqAAkLKDK6ip
-	 tiWiqR9VqTGolrwP9XphZBaElvvpMwDn+9kBR3/wFkfkmm/XU94at0Uv8/hvJWuWU0
-	 FLHpGAjaddbNg==
+	b=trKbagZqyy0cTtpW/d9Vs9PaNdsVgIK6TwRV3P+fC1EiGzUCdCnrP4daFQCUiKzPH
+	 TipZSKGMCc/5h7KbF9/L5hMmbly3QNy8okkELJhkCwlEKpkGyeh4PBSLTXXyJj5l0O
+	 Wv1MXP75RZRY/3+m7AKXSGdGpSiHM/lk8U34diSAYxa5lcywu1w+zxsvfviODiNkpT
+	 w7HagMnlLoFjl1O3hfqY6IUlcrZETMaaxNhgx27UxA0qcgdTVteR3dk/spAxXguyKp
+	 rwc7BiSK9ZENtQfluhkIJjcvEAA9MWlRLwFCEDqitHicSZ6JRIQNtNcBpFiKdkjdpp
+	 Xhk2WcjXULUVw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/2] arm64: dts: qcom: sm8250: sort out Iris power
- domains
+Subject: Re: [PATCH v3 3/4] arm64: dts: renesas: add support for solidrun
+ rzv2l som and hb-iiot evb
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260512-iris-venus-fix-sm8250-v6-1-51856dbef83c@oss.qualcomm.com>
-References: <20260512-iris-venus-fix-sm8250-v6-1-51856dbef83c@oss.qualcomm.com>
+To: "Josua Mayer" <josua@solid-run.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260512-rzg2-sr-boards-v3-3-f033fc96c906@solid-run.com>
+References: <20260512-rzg2-sr-boards-v3-3-f033fc96c906@solid-run.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 13 May 2026 21:42:03 +0000
-Message-Id: <20260513214204.7BD77C2BCB8@smtp.kernel.org>
+Date: Wed, 13 May 2026 21:42:30 +0000
+Message-Id: <20260513214230.C9EF6C19425@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The Venus driver ignores the newly added 'mmcx' power domain, prev=
-enting its voltage levels from being scaled or enabled.
-- [Low] The addition of a fourth power domain violates the existing device =
-tree binding schema for the Venus node.
-- [Low] Duplicate phandles to the same OPP table in `required-opps` violate=
- the `opp-v2` device tree binding schema.
+- [Low] The eMMC and microSD standalone overlays are omitted from dtb-$(CON=
+FIG_ARCH_R9A07G054) targets.
 --
 
-commit b2dff816f619c94b6f1db957c2bb928b6d9248f2
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+commit 2aa4e018f2033b5a47eb3f69fb35447ebe753d2f
+Author: Josua Mayer <josua@solid-run.com>
 
-arm64: dts: qcom: sm8250: sort out Iris power domains
+arm64: dts: renesas: add support for solidrun rzv2l som and hb-iiot evb
 
-This commit adds the MMCX power domain to the Iris device node on SM8250
-to support MMCX voltage levels. It updates the power-domains,
-power-domain-names, and required-opps properties.
+This commit adds support for the SolidRun RZ/V2L SoM on the Hummingboard
+IIoT carrier board. Due to similarities with the RZ/G2L, it shares most code
+and device tree overlays.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/q=
-com/sm8250.dtsi
-> index 7076720413ab2..1fcbd400a3be3 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-> @@ -4326,8 +4326,12 @@ venus: video-codec@aa00000 {
->  			interrupts =3D <GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH>;
->  			power-domains =3D <&videocc MVS0C_GDSC>,
->  					<&videocc MVS0_GDSC>,
-> -					<&rpmhpd RPMHPD_MX>;
-> -			power-domain-names =3D "venus", "vcodec0", "mx";
-> +					<&rpmhpd RPMHPD_MX>,
-> +					<&rpmhpd RPMHPD_MMCX>;
-> +			power-domain-names =3D "venus",
-> +					     "vcodec0",
-> +					     "mx",
-> +					     "mmcx";
+Link: https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/r=
+z-v2l-som/
+Link: https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/h=
+ummingboard-rz-series-sbcs/hummingboard-rz-g2l-iot-sbc/
 
-Does this addition cause a device tree schema regression? The schema in
-Documentation/devicetree/bindings/media/qcom,sm8250-venus.yaml currently
-enforces maxItems: 3 for power-domains and restricts power-domain-names
-to exactly "venus", "vcodec0", and "mx".
-
-Will the qcom/venus driver actually attach to this new mmcx power domain?
-Looking at drivers/media/platform/qcom/venus/pm_helpers.c,
-vcodec_domains_get() initializes opp_pd_data with num_pd_names =3D 1, and t=
-he
-hardware resource struct sm8250_res.opp_pmdomain in core.c only lists
-{ "mx" }.
-
-Since "mmcx" is not in this array, devm_pm_domain_attach_list() will only
-attach "mx". This would cause opp_table->required_devs[1] to remain NULL,
-and the OPP core might silently skip setting the performance state for MMCX.
-Does the driver need an update to properly manage the MMCX rail?
-
-[ ... ]
-
-> @@ -4353,22 +4357,26 @@ venus_opp_table: opp-table {
+> diff --git a/arch/arm64/boot/dts/renesas/Makefile b/arch/arm64/boot/dts/r=
+enesas/Makefile
+> index 38163ce845e7a..cff17cb8574a3 100644
+> --- a/arch/arm64/boot/dts/renesas/Makefile
+> +++ b/arch/arm64/boot/dts/renesas/Makefile
+> @@ -188,6 +188,17 @@ dtb-$(CONFIG_ARCH_R9A07G044) +=3D r9a07g044l2-smarc-=
+cru-csi-ov5645.dtbo
+>  r9a07g044l2-smarc-cru-csi-ov5645-dtbs :=3D r9a07g044l2-smarc.dtb r9a07g0=
+44l2-smarc-cru-csi-ov5645.dtbo
+>  dtb-$(CONFIG_ARCH_R9A07G044) +=3D r9a07g044l2-smarc-cru-csi-ov5645.dtb
 > =20
->  				opp-720000000 {
->  					opp-hz =3D /bits/ 64 <720000000>;
-> -					required-opps =3D <&rpmhpd_opp_low_svs>;
-> +					required-opps =3D <&rpmhpd_opp_low_svs>,
-> +							<&rpmhpd_opp_low_svs>;
+> +dtb-$(CONFIG_ARCH_R9A07G054) +=3D r9a07g054l2-hummingboard-iiot.dtb
+> +r9a07g054l2-hummingboard-iiot-emmc-dtbs :=3D r9a07g054l2-hummingboard-ii=
+ot.dtb rzg2l-sr-som-emmc.dtbo
+> +dtb-$(CONFIG_ARCH_R9A07G054) +=3D r9a07g054l2-hummingboard-iiot-emmc.dtb
+> +r9a07g054l2-hummingboard-iiot-microsd-dtbs :=3D r9a07g054l2-hummingboard=
+-iiot.dtb rzg2l-hummingboard-iiot-microsd.dtbo
+> +dtb-$(CONFIG_ARCH_R9A07G054) +=3D r9a07g054l2-hummingboard-iiot-microsd.=
+dtb
 
-Could these duplicate phandles cause a schema validation regression?
-The opp-v2 bindings in Documentation/devicetree/bindings/opp/opp-v2-base.ya=
-ml
-explicitly state that required-opps should not contain multiple phandles to
-the OPP nodes in the same OPP table.
+Are we missing standalone dtb-$(CONFIG_ARCH_R9A07G054) entries for the emmc
+and microsd overlays here?
+
+> +dtb-$(CONFIG_ARCH_R9A07G054) +=3D rzg2l-hummingboard-iiot-rs485-a.dtbo
+> +r9a07g054l2-hummingboard-iiot-rs485-a-dtbs :=3D r9a07g054l2-hummingboard=
+-iiot.dtb rzg2l-hummingboard-iiot-rs485-a.dtbo
+> +dtb-$(CONFIG_ARCH_R9A07G054) +=3D r9a07g054l2-hummingboard-iiot-rs485-a.=
+dtb
+> +dtb-$(CONFIG_ARCH_R9A07G054) +=3D rzg2l-hummingboard-iiot-rs485-b.dtbo
+> +r9a07g054l2-hummingboard-iiot-rs485-b-dtbs :=3D r9a07g054l2-hummingboard=
+-iiot.dtb rzg2l-hummingboard-iiot-rs485-b.dtbo
+> +dtb-$(CONFIG_ARCH_R9A07G054) +=3D r9a07g054l2-hummingboard-iiot-rs485-b.=
+dtb
+
+The rs485-a and rs485-b overlays are explicitly added to the build targets
+above, which ensures they are copied to the output directory during make
+dtbs_install.
+
+If a user compiles a kernel exclusively for RZ/V2L where
+CONFIG_ARCH_R9A07G054=3Dy but CONFIG_ARCH_R9A07G044 is disabled, will
+the emmc and microsd overlays fail to install as standalone files?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-iris-venus=
--fix-sm8250-v6-0-51856dbef83c@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-rzg2-sr-bo=
+ards-v3-0-f033fc96c906@solid-run.com?part=3D3
