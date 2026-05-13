@@ -1,80 +1,78 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A970402426
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 12:37:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F53A41B365
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 12:37:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778675826; cv=none; b=DSDAADtoHRtL7vkXDGrMNS6LOvvEw/VS1xPP69/L6H2TnQYqGPBNMrfLpUgi6cAnzIuapJIebwRV5VQ5/MnivUDQIyBRZyXCdS1Exp1CXjD3q18mcMkXkbc4noAqUIyhTrGlPMYhwYr1dRpxyOvadh3y1H1axfE52r1CBQWZeXc=
+	t=1778675827; cv=none; b=H3Z0fxVIYn3+NwRmUP4e6b6rDcUIt80IYJARIjnsL/6V5t7qKSgFmrLQdy09ojd99BomPy0JBiS/VD+sAX98UummPPrBPKHFNPm29YJWG//ZuZ48ck0RxfB3kudjKvmI69L90K12YWWSnN2DJiGJOyJUOtTHe4ccKWdoOMC1b0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778675826; c=relaxed/simple;
-	bh=OPu1FgN88MOMXiEvgUMhYcVD4hvVSYhgEyQqBkg7fF4=;
+	s=arc-20240116; t=1778675827; c=relaxed/simple;
+	bh=WFhpbAIOGp9LGtXB2JY82FH52Mx74tbbIw1hp6aUqxg=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=d6uqknlgM5wR/U+eh621gx2IeNtYLPmVz5p2cK1pGbkPcYeavRsnmWJnrV0DMAJlFFmsB2sSTl026SWneVe9meWtad7dEZFNCFI9ZfUH5sXjjqP5U3y0dW+4u/ItKpEw6sum+BznZPNblJKRnzhp/exGJuB4slwB26gLTasVZCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ylR2+VY1; arc=none smtp.client-ip=209.85.128.42
+	 MIME-Version:Content-Type; b=WVGV+yGQXsGLN8acsxSbo8HweUtnOndH0TbyUsMUhgHj/jFoqIK92otsVndbiOR2m28ASB5dVhueXTrwZy8KcTqOin4S0uQRejxTWYvrFoTSU6eT4F4+1FZylPdHeosITx42/JaGoLAD3ap4KI7Jhh0A7V0joirwbiNeNPTv6FI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=SHi7+609; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ylR2+VY1"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4891d7164ddso37258255e9.3
-        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 05:37:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="SHi7+609"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-48d102471a4so67026535e9.2
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 05:37:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google; t=1778675824; x=1779280624; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:date:message-id:subject
          :references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0OjILpIxhty0m5xDC2n3oCru1zYqs+0xnRTwGa41TTw=;
-        b=ylR2+VY13zUTpn+LG1VDCpnCexkHd06ItA7sZjQptFgkJH1nyAcjOeHWMWdm0XK95w
-         Wmzkm0W/IWiQjCV7vO/uSRAIysgRrYuY08xI20kT2+u1DhraXk16utd05qL9Z0sqgx0m
-         C1CTFnV5qyX9V0wen+H8yfdRGGtULywEw97iczSluDzE9SSOwp60U5VIu2U6v0qFcmMU
-         ABe3d6LBYwAKjVSiMIqICvUoF8+SqlsmlSqGifRUm8pX98FCRq8U737Ra/nRkVeH6meS
-         HZkbJ6gkKII6/Irgj5NYdGzqrpIXuP9ruNlsi9Q4Xzmbt3KzbWxcwFMkyQq//cwfkQu8
-         eLUw==
+        bh=YOt16YkryKexmXJipwSE2igWxVT46laeHn0nxx/qJ1E=;
+        b=SHi7+609j1bqygV9J/Mai76vgIAGfcn0rCyn3AgQy8M5wMibOeN/+UHuMwbLGngQXm
+         uO/ZnraJnqVlAwFsTMxzLXYPa0KLDu+7jbmq6qmEZcwfL1PBv2wAx1nV+NuTp4x8Gzrf
+         dvAIPxCC3fwOyQYPwcMH+LnHj21F9tFJyfHAmvtLDwI+ZP7dk+J3DfU2Ja/junPU3Nkj
+         Dk+cOQc/1NQzpCBxf9d2TxdNOx+kQz+ZY27ZwvpUFSN7eoZf5GSdqWj/r48aM0W3j6Sk
+         pLuodOg9aShlV/H1plWnlOsxupfT8ZkNFEicNlKlUyCzrvXIXkNro4ImTNNNha+FfVfl
+         /KjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1778675824; x=1779280624;
         h=content-transfer-encoding:mime-version:date:message-id:subject
          :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=0OjILpIxhty0m5xDC2n3oCru1zYqs+0xnRTwGa41TTw=;
-        b=GvKf+9vSxrtUQ+tcZc/f8HcsgqJIq0kmNeDfGb2W5M68EzLUV2vtc+mlNJl5zHZPOk
-         Fro9byAwyXligdccKEiAicOFR1AolzFVblDUzuOH11JkrtNih4b6GyC+Yl8/jlRcYNgM
-         H463H9t9UXx4+vY15WGsMuJgnhG8D550ArbOCzTbFM9dXYkEAqBwwiRYWEDWMuPdiMwN
-         tMseYVjPrJe7y1qdQd+Ly5iSB1UpL5ox2ooM23j6DzWhhe27EV7KXCRhz4Uu8g9Hr2cq
-         UW+khi7uzx9LOv7TVtJHSQpxDeQoJ02IBK8+J9aAJ/YKZcVobINd7x4Ra9GiK224m0py
-         lHnw==
-X-Forwarded-Encrypted: i=1; AFNElJ/lRbdFiGNrUD0/uPTOJdaOn50QdA2Jq6jz6jMfUzqSXAdkGEbYlac4A9OtoqkLpbsq09uyIqYhOO2W@vger.kernel.org
-X-Gm-Message-State: AOJu0YwNnmtrTXaP7p0SX+cv1av22/ZZQQqnqvJ0Mmmzc+190L+f/fcB
-	zPI6/vbDOH+gi9k4w0aBuUFF8G7FabSM0+DPUJwgkWx5F2ziqdzUKDygSWdoPk0iR00=
-X-Gm-Gg: Acq92OFuk3JM0/k5Wz+ze3Gl9tQy96XbJlOuicTu8f3Nhk4pxlfs6rtOH0gZq0YimnM
-	q2jQkvLxoRzLcsaldyNEa68eF4CQLuyO2CS7oL4ZBuuj9wgbyv+a6+ogMa17svzRHdk4k6/9e9t
-	9CJrFqaeVucv+7/1LR+VhSWRZ+1LWdrCdivmxRjAA9RMDU3udzRz4fk41QltQzIphCV6ir80mTx
-	ruNmMj655rg43NamFt2/RICiCpfA9hJiGYz2g9Rs4aKpSnJBrRHNEb6S92Xi8+pw7K2Nnro+ZUb
-	7TtNgU0HFj3xBuRTU3wEMKcTtLFm3m5VCHCnzH1+eQL2E2cGgEdfU4Nr48/gXrx39IvNKbNFYqr
-	RjNTc9fUTsH7h1VluuoIUPHRIiiirLSBr6Wd/GfpBFaLM6LFM8goDrbv5/tcm6rQ8mkerWQE6YQ
-	v0XnpJ/I635J4izFVsuj0MEGW7E97PV1x6kMlT6qdCzhkG
-X-Received: by 2002:a05:600c:5246:b0:48a:52d4:888c with SMTP id 5b1f17b1804b1-48fce9b5f95mr42872205e9.3.1778675823502;
-        Wed, 13 May 2026 05:37:03 -0700 (PDT)
+        bh=YOt16YkryKexmXJipwSE2igWxVT46laeHn0nxx/qJ1E=;
+        b=qdpZaob7XzSlYyys+IcCwCtmcyJwY14n4o9NqL7qgofB5B3+1Flk9I60bvQs1ycEoC
+         nUUVbAbhqqUuix4hX0MMiouYvXrxNQfZeVozjRAebZXRzWtCBitE+9LZ2T3ue9FCBEys
+         JJHH7tmtZ6+5qMyB7luXYHZ/1NDCx3g/nSovzRvYAYiDqTgCj2L+r6X6LLnEw7aczkaO
+         O6mBjxXdz6xY7kfPvV9HFgwtYERqH+Ia+oZ6eY6rNaq1nKT2vtZ1xldbcttDriLN5Vcm
+         Ii9bwQgyA0IoaobO04fu7MaezFE9dGV3iLJj1BpsU/ttGE8AiWokgBJxAUWhdgEqi4Kt
+         dB3Q==
+X-Forwarded-Encrypted: i=1; AFNElJ9tCntlKx+FF8Dj72hNlufnUqtFNnCG/Nkmbg127X61bEWSYSbeUxPqMBz4AZQvWKScuctxkhGBzg0U@vger.kernel.org
+X-Gm-Message-State: AOJu0YzH/47YeycyoWdwrGdpe3S1Irqig2ZaeAGWVmZSs8pxT9IRdszC
+	VD3WvuJw8+ly8J5RCwLdfHC68m/vFQQs53WPT1idBv0Sn7HADg5htcMEmRtO2C4b50k=
+X-Gm-Gg: Acq92OGKWtzDOCoUbNKYUvhB10wEP/W4g1UOZCul+WCo79B+thy060eNnp9cYK6v83m
+	jKtgHF3NdHKz1yXyurjyPF3MPiWWpunLvZb2ZBhezUBpsFlfxFQya+y7mik9524s9ufq3X/2quX
+	/BRZKcZPvWuXl4dGB9jXZ6KkZkxbDz+Gis1RAjpQ1Cns/0fwTXWT0XEytXdYD+ja4kxN/Hi9jNH
+	5Rd/7JMdih/4A2OeF5/VyjZOSJiVvvKFB11jr//VXYv6YewOUbdBhnKcWz+ICntCVkqkLQKDEcu
+	EgQx0tj3KK6vqSUUE87FCMnWDQkRLxsMEtQgxqCJP0736l1EVBKTVuSUo942ubfJlLhf+x9i/dv
+	k27HIGLvmZyA0an4Kqr28tdmfvBoi4jA9vKRPqF5fs+oiC/kdnkId6C4IxaBieblIMMSN3px2K4
+	EW6EiTsvdyHpQDWhjJ58qNoiRnR55Gw67XBB8y+h5dU88l
+X-Received: by 2002:a05:600c:3ba2:b0:48a:563c:c8d6 with SMTP id 5b1f17b1804b1-48fc9a0dd8cmr50279545e9.7.1778675824336;
+        Wed, 13 May 2026 05:37:04 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fc8d74536sm75006895e9.15.2026.05.13.05.37.02
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fc8d74536sm75006895e9.15.2026.05.13.05.37.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Wed, 13 May 2026 05:37:03 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Kevin Hilman <khilman@baylibre.com>, 
- Jerome Brunet <jbrunet@baylibre.com>, 
+To: Philipp Zabel <p.zabel@pengutronix.de>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
  Ronald Claveau <linux-kernel-dev@aliel.fr>
 Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- kernel test robot <lkp@intel.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260330-fix-invalid-property-v2-1-228c51c8de93@aliel.fr>
-References: <20260330-fix-invalid-property-v2-1-228c51c8de93@aliel.fr>
-Subject: Re: [PATCH v2] arm64: dts: amlogic: t7: khadas-vim4: Remove
- invalid property
-Message-Id: <177867582268.1433419.12828948814232574314.b4-ty@b4>
-Date: Wed, 13 May 2026 14:37:02 +0200
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260331-fix-aml-t7-null-reset-v1-2-eb95b625234c@aliel.fr>
+References: <20260331-fix-aml-t7-null-reset-v1-2-eb95b625234c@aliel.fr>
+Subject: Re: (subset) [PATCH 2/2] arm64: dts: amlogic: t7: Fix missing
+ required reset property
+Message-Id: <177867582359.1433419.10249035871609628577.b4-ty@b4>
+Date: Wed, 13 May 2026 14:37:03 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -87,17 +85,14 @@ X-Mailer: b4 0.15.1
 
 Hi,
 
-On Mon, 30 Mar 2026 14:11:21 +0200, Ronald Claveau wrote:
-> Fix introduced invalid property for Khadas VIM4 sdcard regulator.
-> 
-> arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dtb: regulator-sdcard-3v3 (regulator-fixed): Unevaluated properties are not allowed ('enable-active-low' was unexpected)
-> 
-> 
+On Tue, 31 Mar 2026 16:24:05 +0200, Ronald Claveau wrote:
+> CHECK_DTBS shows missing reset required property in T7 DTBS.
+> A new CHECK_DTBS with this patch does not show this anymore.
 
 Thanks, Applied to https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git (v7.2/arm64-dt)
 
-[1/1] arm64: dts: amlogic: t7: khadas-vim4: Remove invalid property
-      https://git.kernel.org/amlogic/c/6f14ba3c3fa3d67b72e052f431f6776470eb2cbd
+[2/2] arm64: dts: amlogic: t7: Fix missing required reset property
+      https://git.kernel.org/amlogic/c/068bad69dc4d3ffdd8ecf41b455cc9e1617d00bc
 
 These changes has been applied on the intermediate git tree [1].
 
