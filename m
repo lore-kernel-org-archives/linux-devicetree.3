@@ -1,63 +1,62 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2383F3D666F
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 07:20:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 773813D6CB2
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 07:20:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778656814; cv=none; b=m1uyeFK88bhLslJwjamgHisQyceu07mvFueCSmjaYDIKV99uxCFCvQ8YISFqY3lq8nrWqCSlUy/qL41/AZTIeOxWubx2yLOxLHR0agGsITAavKYny+xaJkW3gFRkiRzho3YEo5oIevtwvQ01zYDJH5vK87Qp3rY0V4gQKdZwSQs=
+	t=1778656814; cv=none; b=qj29b1i5XAQaCHBo2BulycdmicIH/SbV5yzk48JyFy/G3g3pxzDv1l1+AIzgv7HI6U35/F620RB1giGrX24JD37+d4f8ZcAW1NzyJMTxMjK9IRHlnADpbaHhYJcsy7ElgBFINSdikH0ZXUUpwLJxdOz7syRgUUWKEJR0MtLSu9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1778656814; c=relaxed/simple;
-	bh=E/3dwCOlGKS3Bh+L2ukpwWaK36HqCEJ6UVHUKxK4foM=;
+	bh=ExUGzDRkh5CNTth78Z2QLGpcnnEIRHjJhoWikXky/gI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=C9kFoW4VmhJt4xHwskMwCUhwBdx5ocUSNBIrTZCYyMl3PbnhG7w2g4UNU8XNKiZGSrXm5DccHrmveG1hOwUk877tW8sJeCTkECiUXVgej3ThpCMor7VeRFfhhUIG94dYDVGKbsol9YiOigeqhtpp2+EULAmFcUUUjft0yGTsxwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jNa3coOw; arc=none smtp.client-ip=209.85.128.46
+	 MIME-Version; b=ef7r+8fMVBnMAD3Jx6dhP0AxvP0Pj0FPadbL3A3lExtbLqggH79yKdqEhI4ZmE0xL2TlOIQQeV3vL7DxoCeonvOJi6oTxQKPFkSCkRYJMD1biKbTXFRT/n79LEWLJRD3PZ7uza3j44lOpEHDCLp+dpYOpYNZmoOOpa4LgZIsEz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mINsrdPm; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jNa3coOw"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-48e56c1bf5dso38576255e9.3
-        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 00:20:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mINsrdPm"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-488a14c31eeso43541545e9.0
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 00:20:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778656809; x=1779261609; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1778656808; x=1779261608; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=syWeBTQoOGeqJPlWDI1VXqDojdsh0COwwri+Bm1MZY4=;
-        b=jNa3coOwlUUVN+5MvOvoDQct7w76Wf/P8FecCNDyOZp2zETjJz/IOwt6ISMs7tP167
-         2376jKog7dL2rPszFiA5gCKtR3JqwaGPm+spX1k71lSqtdZyryQFlUx4U1r6Gwcr+WSE
-         cYZAdEvPuqhOqc+0k5DFg0QOvI/czeIjK/TvkogTJOn7jDimY8uteuF9lIwBiorzPilW
-         aUYGcq4THODdn1D6vguKm2UdL7FMwuhHO2zpBXeyhe+VpEnxCSKsmi4rg3tMGM7fLq79
-         JKfCX7H2eiC2/IH9pH4uRSCXacQNLyoZ0AiHobxin6MSNYBj2JS/BAQ2QZvMaQUGpjHJ
-         XPSQ==
+        bh=EcUdyEbWXs5tGAlI10MYOWCFp7umYQk3zJkuC2ozfYg=;
+        b=mINsrdPmNvjJs3yPCWrP7WA8YtqBHVdU5espEKSlfIpWIvyKgMtppE1F6s8xR45Gz7
+         /soT+3XSUdnKWD4s3bimm5KbwFtzNzu6qSmB4odbi7xWLsK4v893d38mZ3iFffnMVR7L
+         rkv8MSO3kQytQpCAJgtOu7t26JzUfMaL9fojMzUxVpcFV+xQxlzh0/wbPcvPNXc2IzVh
+         3fOsVo/M2Mb2vV87s+cjQud4Y+ujsTmt9Um5PCA7BKONj30JPqbhW8jLsUIwdKyyS+1j
+         ESyvpI+cZowWg+SIqw7NvxKeC7uQ88Muck0JRriLM2j4yfGCfQ6zY9GWvoDE5WBS3NvI
+         4hMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778656809; x=1779261609;
+        d=1e100.net; s=20251104; t=1778656808; x=1779261608;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=syWeBTQoOGeqJPlWDI1VXqDojdsh0COwwri+Bm1MZY4=;
-        b=QXidgmt4pzVAwHpxB89SdLRkza6rTSk3WNiBUj+H3Yb4foTFWeknDzzGoKy8iCM/56
-         puUATf6gsTap3HJf/XheMQr/HA9qeIuzblVjrHZcZuPIcbEhkGj6wiSVSdtI99zMJcFD
-         1F7trfa686jXxxH+/oVylJCzTyjwmyAfUoqqFDZwq03VcqP1dXP+GAVIZPrMNRYhY2Ev
-         huqooDZR+aAsC09JPVZrnZ0Wqa4bypTNGD1IntyGZfMEO/giX4i7jbLFGM+xlmF648gp
-         3CumuCWb0WgLO8M83GIZkGBG3OmseH1wk4FAExrlRFFsvUe9p+XFwHxV/ItB1XWtBmYB
-         ZS9Q==
-X-Forwarded-Encrypted: i=1; AFNElJ/4V4v3Avo+LNwrR/qGmYGQnj9yYGcNmehm2ICflgOUH9eSWwk1U5OwEzXBKluGwuH3YDTv1wnjlSUU@vger.kernel.org
-X-Gm-Message-State: AOJu0YxXtLF9fQZN0RCvLJ51Nw6W7wNeRDwvpYfi8yywr6TW0h3HHyCS
-	LHkB0uhjfX46Ye9g5m1GPtJgNUcWQCnlirNcRKWEosWyGFR2TrwfAlIh
-X-Gm-Gg: Acq92OHMBHlJQ/IOyC/eoE5hjzdY4j+vhXS64kdmMdMu0tpI1abcBuhR2RluDpPPhaw
-	d/Xbv1j/lX96xkigic/00BSSpMsvM+7G4HliD4AeK5xaYCusihOAY9Y2mkLiHYoLtCdnVfd+/vj
-	QFkTh8SWeIkR7JrQzyxP0u5Z01YhmXc0Lxm1X2f26Lv0fxVEHjMu4fIZiLs07wz5zOAIdVHt7CO
-	Buy3iRYq9xtmWrdKLBF27+BdTPX5kep+ZiqU/TU0iIxAZ2bd4+ZXtuXYS+xhrTV2X2f8X9EoMMf
-	BSEseqqehhlG4vyozwAiRWH4IXpI5Xz5zx9ys+JhqqG5yQJWv+ncCjgA4AgkPRaAjV7ZQYYzveY
-	2cnVw7vM+u2CKahZ+wmwD1cEGatKYy2z/fNiOoNQDq2+Sc9N3hZdPni3cs7W1sU11vndmOC+yBE
-	1DGF8nuS5VGCVpNyYtqNMrWJBlxJ1a+q7qr07+cAaYpPLNhVFOm2kOBx6tsQFWHDfXtQ==
-X-Received: by 2002:a05:600c:3013:b0:48f:d1c0:5cd3 with SMTP id 5b1f17b1804b1-48fd1c05f08mr5439785e9.13.1778656809169;
-        Wed, 13 May 2026 00:20:09 -0700 (PDT)
+        bh=EcUdyEbWXs5tGAlI10MYOWCFp7umYQk3zJkuC2ozfYg=;
+        b=TGvCLUNVnl7LFRJo6lAKi/AcVgZwGDOFjaoaAuGDQig5XTjdLdnaCsFwNuATkk7Gwr
+         uIS5JWUZxmXKrZIXFVTogE1iI8rHVvflUQlYRtAMwHf0NumRNKRqddAbUR4lzHh++4Z5
+         cjKUUSHWXN3CidhNOfcyCq1Y0wHtSAndhAYOB9fJm/7gHq0MLE2z2/q/DQH4DeePpZt1
+         tMZI8fKQxj/X4UpF3dI0afgMMz9ajfyrnS2LDR65uBobWTxP/xuGfb+/dnP4fd/MGO2v
+         yX0X69Soy6M8hUuMCTJx77THScZLVnFmM0nVHCjic1vzPKVhi4kF3u8H333kJgUqBbHg
+         ayzQ==
+X-Gm-Message-State: AOJu0YxRRz+HgG3ewk46MHA8ni8nxtCi8U16EBk8PPSCZz+I/heoJKTp
+	5CltgKozVCb/i0cDfdBZDV/NC8RvSnoglZqF9L45tyyIj9pgw3NqE2d8
+X-Gm-Gg: Acq92OF/s1mAvdOCaS2y6RGZfzQINlU5jzUeOw0v5/jhU8uBocNBIFQo47m07qRvLky
+	/T6kWMW4BEhXe0aiC+QhBOiw8z//7ouo/KHdGat2NZ4AaH1nSk/Xzc2Z+n5TvS8dGV039J3CxDr
+	GVZ57nH9BIrSUxytCV7ltwUE89tCH/md9GV6gNuWOh+RhqAzwuoPwlMIbXyBCSVn/PzzsuI55JA
+	xhWZlwTvP+5IbiSXAtvKWAMPMzn1ekNmchfKXgcPz7MJCs4iFN/MOPhYr7qT3fPalngx7yYXYuz
+	5+yqCriP6h/H4e3WAjOojADp2N0vv6YRT7trhka902kYRu8KAfzUkg7ZhkywaXHFNH34zhCuUWO
+	mCdkynBrVcMNr79HX7GZdrPRIpH0D1QF6QxD2yPnuismGwVfSvrH3K+pGJGMUtg9Bf9/LMJ0ruD
+	c9mQCzrxRgFXS4jjK3CJRqCDzWXv8msEps9ZZFYPVKiGFdYZU1Fc4bHKWr81GMPR5UOA==
+X-Received: by 2002:a05:600c:8b55:b0:48e:51f8:eb39 with SMTP id 5b1f17b1804b1-48fc9a4b074mr29001935e9.28.1778656807922;
+        Wed, 13 May 2026 00:20:07 -0700 (PDT)
 Received: from mamamia.internal (a89-182-129-90.net-htp.de. [89.182.129.90])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fc8d62422sm58498115e9.11.2026.05.13.00.20.08
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fc8d62422sm58498115e9.11.2026.05.13.00.20.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 13 May 2026 00:20:08 -0700 (PDT)
+        Wed, 13 May 2026 00:20:07 -0700 (PDT)
 From: Andre Heider <a.heider@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -67,14 +66,13 @@ To: Rob Herring <robh@kernel.org>,
 	Albert Ou <aou@eecs.berkeley.edu>,
 	Alexandre Ghiti <alex@ghiti.fr>,
 	Yixun Lan <dlan@gentoo.org>
-Cc: Yixun Lan <dlan@kernel.org>,
-	devicetree@vger.kernel.org,
+Cc: devicetree@vger.kernel.org,
 	linux-riscv@lists.infradead.org,
 	spacemit@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 6/6] riscv: dts: spacemit: k1-musepi-pro: set default console baud rate
-Date: Wed, 13 May 2026 09:19:54 +0200
-Message-ID: <20260513071958.29574-7-a.heider@gmail.com>
+Subject: [PATCH v3 5/6] riscv: dts: spacemit: k1-musepi-pro: enable PCIe ports
+Date: Wed, 13 May 2026 09:19:53 +0200
+Message-ID: <20260513071958.29574-6-a.heider@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260513071958.29574-1-a.heider@gmail.com>
 References: <20260513071958.29574-1-a.heider@gmail.com>
@@ -86,28 +84,70 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Allow serial output with the same uboot/opensbi settings so the
-console works without providing a cmdline.
+Enable the two PCIe controllers along with their associated PHYs. They
+are routed to the M.2 M-key connector and to the PCIe slot.
 
 Signed-off-by: Andre Heider <a.heider@gmail.com>
-Reviewed-by: Yixun Lan <dlan@kernel.org>
 ---
- arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../riscv/boot/dts/spacemit/k1-musepi-pro.dts | 38 +++++++++++++++++++
+ 1 file changed, 38 insertions(+)
 
 diff --git a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-index 953c0ff6a0d34..ce7caf6950dc0 100644
+index b24b378b1b220..953c0ff6a0d34 100644
 --- a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
 +++ b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-@@ -22,7 +22,7 @@ aliases {
+@@ -36,6 +36,14 @@ led1 {
+ 		};
  	};
  
- 	chosen {
--		stdout-path = "serial0";
-+		stdout-path = "serial0:115200n8";
++	reg_pcie_vcc_3v3: regulator-pcie-vcc3v3 {
++		compatible = "regulator-fixed";
++		regulator-name = "PCIE_VCC3V3";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		regulator-always-on;
++	};
++
+ 	reg_vcc_4v0: regulator-vcc-4v0 {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "VCC4V0";
+@@ -272,6 +280,36 @@ dldo7 {
  	};
+ };
  
- 	leds {
++&pcie1_phy {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pcie1_3_cfg>;
++	status = "okay";
++};
++
++&pcie1_port {
++	phys = <&pcie1_phy>;
++	vpcie3v3-supply = <&reg_pcie_vcc_3v3>;
++};
++
++&pcie1 {
++	status = "okay";
++};
++
++&pcie2_phy {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pcie2_4_cfg>;
++	status = "okay";
++};
++
++&pcie2_port {
++	phys = <&pcie2_phy>;
++	vpcie3v3-supply = <&reg_pcie_vcc_3v3>;
++};
++
++&pcie2 {
++	status = "okay";
++};
++
+ &qspi {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&qspi_cfg>;
 -- 
 2.53.0
 
