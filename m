@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 794F93E95AB;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 795C83E9C11;
 	Wed, 13 May 2026 10:44:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778669066; cv=none; b=fbij2dfBjRw7ESW1rOFNN/KpTaG2Xo1uAeKbqTlKn4wllrhuoTDr77jOmmVUFwCA1ZsfG3lqZfNuoWIS4VkY/Kbvy6tUN0+Fn3XYytN6p/iWlMzEIPTlhXYsLugzYM7Y8sxNoClj3mKg08g8lmbRk6UdrNYBWYzg+cvXCG3zOoc=
+	t=1778669066; cv=none; b=PbZNIO3NUpWRUsTt+v0ue3ZgPjKMz47w/8/3xBKNzfvLKCS55Lff3NY1wQu3xx6bdn+cbAIdZYUYbvtaMD2gfv2cShfPiK5bcScXYuNGxMZpHtV5RY8w+Y0Ue/VuOTcpSTm2UhiNCGOn9I/YLeJT2iMpyylUdmy8Z4mxfeoSOJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1778669066; c=relaxed/simple;
-	bh=D5pKwkGTYVUDViuNvaK69HYxWd8+FsaP+xhOfkL+fcw=;
+	bh=AVnCN6kymER6wy+4kacjuFr2lYcaGoCedkDJ0zolop0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=stGVlv8P3sHxJHE676GpAZ7c/c1kvrXsPtbJnz9fnFDMABDkapftOv+xoWunM2MonbZllywuAhg/3gkVutU0Um6LeuBAVmXjQeP28uEaQaOtDwq9Py0WlwnZ0T2Brj5oP7xG0lZN01HJV/Rs9fnDi8/1/HeQDG6C9PReeKICNRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JQB4xHLY; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=tlWJ6sHtb/anTuSl8WwozH05FunThlZW16PUBojL3FB55Wu0ShmfHARfY8eyRZevV6QBtnitWZbnzIGpmY9bIFpoyw6qkwe+jmCz3n67YZ4bvk1EMpZ9ziFBH4OMOJuoe0gIN4GRj5BnPA1nsfWWmjxP7Wd4tJ3czMGJ1O55Ciw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UkTtBFwh; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JQB4xHLY"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2EF2BC2BCF5;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UkTtBFwh"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3C7E5C2BCB8;
 	Wed, 13 May 2026 10:44:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1778669066;
-	bh=D5pKwkGTYVUDViuNvaK69HYxWd8+FsaP+xhOfkL+fcw=;
+	bh=AVnCN6kymER6wy+4kacjuFr2lYcaGoCedkDJ0zolop0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=JQB4xHLYSZJtHr6Sb0Nm1y93yeG6NYoOTQ6Wyti7ZSKt4osOvbnZL0tEh5Oj0dkbH
-	 2iNLTckRxXWi1UFiyex4YgSsrxsTHTwKo30DtiaTiwX/uVleKdHl/o0zDcBw4znmux
-	 Oc7LITIphVO1753TxP6OxQgrvbuGaV7KbyjJO1Z37W+nZ1xJo/NnOSC7nbHSalZO/p
-	 NzrTtj9uCj2Nraf85ZL2wNjUvoJ0H/EIM9E9Ar9hkC65ehAtmYpVYtReGMAX45IKcN
-	 OYDgPfREz5f9YzALLewmeal3spIrzlI9IgGtfWTRFnjeNeO06dEDHhNVywAunjw1vm
-	 cSHZjS6Th+68g==
+	b=UkTtBFwhz5qvnpqKSbhXOQT6p5elGLeyJCNRsQNpheaIJAKTLtDyhjXtshr3Kl4GH
+	 o79RM8utGGbZ5LmoH1F0PyOn3VztjK3i0bARlEGb1WyrMk6twcLcYs5FBQKy1gK9RZ
+	 GwtZ3DKuJ9JwYAxyR20i/6xWn06uxMdTwTd21VyGQcxzhFgkaUi4sLyNZ79N8BOuaW
+	 MaWP5jFZ5hMPA2pC9nrqWVMzFVH7C7fch2ph9pKMZ+4s99WBN+QvDEferElsOpEeaM
+	 Wtal+I4e32gujlIBaY1x5VHJ5dobFi7q69WNlJ6Tl904DGftdycOioBr7m/vAr9Nua
+	 OMX7a+f2/mUKw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 21F31CD4F39;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 32A51CD4F24;
 	Wed, 13 May 2026 10:44:26 +0000 (UTC)
 From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Date: Wed, 13 May 2026 12:43:54 +0200
-Subject: [PATCH v2 2/3] arm64: dts: amlogic: t7: khadas-vim4: reorder root
- node
+Date: Wed, 13 May 2026 12:43:55 +0200
+Subject: [PATCH v2 3/3] arm64: dts: amlogic: t7: khadas-vim4: add
+ PWM-driven status LED
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260513-add-kvim4-sysled-v2-2-3ec9779e8875@aliel.fr>
+Message-Id: <20260513-add-kvim4-sysled-v2-3-3ec9779e8875@aliel.fr>
 References: <20260513-add-kvim4-sysled-v2-0-3ec9779e8875@aliel.fr>
 In-Reply-To: <20260513-add-kvim4-sysled-v2-0-3ec9779e8875@aliel.fr>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -53,13 +53,13 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Ronald Claveau <linux-kernel-dev@aliel.fr>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1197;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1280;
  i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=3G/s+tL1aEZqmNnatksprjAgR3heihJkkWRnLe3A2sA=;
- b=owGbwMvMwCWm1SvKXP3cUInxtFoSQxZLGNv1+I0r086/u3rve8enBxNKzk5j6ttW4f/N6P3zC
- sufopyFHaUsDGJcDLJiiiz9cy1PvLt89MzXPeopMHNYmUCGMHBxCsBE4rYwMqzYztjWVZ20+8XC
- VWesIuae+2tocXK3j+Fqz798R9coHF/N8D/yQNV77SCOUwGTPq49bTTHY8HTmOQJNzSlZ3DUulq
- ZqrADAA==
+ bh=2xdbcwmGmHmxRvinJQMTjDVB63/BF5fZ22AOjpf30NU=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQxZLGAe/2O2a+3P475ob7pLlVj5TH3PE96Vip/GKqam2/
+ LtVTP53lLIwiHExyIopsvTPtTzx7vLRM1/3qKfAzGFlAhnCwMUpABOxZWb4H8rz9ZbCD4fdmnPv
+ fm6YeX9D6AqvSVOr/7fvWzMjwq193XuG/26NkW8q47RFz+RJuS00FPyzrT+VY/eZGWc3+OzWeFQ
+ 3lR0A
 X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
  fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
 X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
@@ -69,45 +69,49 @@ Reply-To: linux-kernel-dev@aliel.fr
 
 From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-Move the xtal-clk node to restore alphabetical ordering.
+The VIM4 board exposes a status LED wired to the PWM_AO_C_D output.
+Enable the pwm_ao_cd controller with its pinmux, and declare a
+pwm-leds node with a heartbeat trigger.
 
 Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
 ---
- .../boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts     | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ .../boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts   | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
-index 69d6118ba57e7..fd1b983354a01 100644
+index fd1b983354a01..c41525a34b721 100644
 --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
 +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
-@@ -45,13 +45,6 @@ secmon_reserved_bl32: secmon@5300000 {
- 		};
+@@ -53,6 +53,16 @@ dc_in: regulator-dc-in {
+ 		regulator-always-on;
  	};
  
--	xtal: xtal-clk {
--		compatible = "fixed-clock";
--		clock-frequency = <24000000>;
--		clock-output-names = "xtal";
--		#clock-cells = <0>;
--	};
--
- 	dc_in: regulator-dc-in {
- 		compatible = "regulator-fixed";
- 		regulator-name = "DC_IN";
-@@ -155,6 +148,13 @@ wifi32k: wifi32k {
- 		clock-frequency = <32768>;
- 			pwms = <&pwm_ab 0 30518 0>;
- 	};
++	pwm-leds {
++		compatible = "pwm-leds";
 +
-+	xtal: xtal-clk {
-+		compatible = "fixed-clock";
-+		clock-frequency = <24000000>;
-+		clock-output-names = "xtal";
-+		#clock-cells = <0>;
++		status {
++			linux,default-trigger="heartbeat";
++			max-brightness = <255>;
++			pwms = <&pwm_ao_cd 0 30040 0>;
++		};
 +	};
++
+ 	sd_3v3: regulator-sdcard-3v3 {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "SD_3V3";
+@@ -163,6 +173,12 @@ &pwm_ab {
+ 	pinctrl-names = "default";
  };
  
- &pwm_ab {
++&pwm_ao_cd {
++	status = "okay";
++	pinctrl-0 = <&pwm_ao_c_d_pins>;
++	pinctrl-names = "default";
++};
++
+ /* SDIO */
+ &sd_emmc_a {
+ 	status = "okay";
 
 -- 
 2.49.0
