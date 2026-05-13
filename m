@@ -1,77 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4D453B9943;
-	Wed, 13 May 2026 22:06:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95F683C9881;
+	Wed, 13 May 2026 22:06:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778709976; cv=none; b=kRimtMftjGotRCte1UcSk0ikIsuiSStdWOHNQYv96arMghYE34DV0fL1Zic+P6QDBtbfi4KztTo88po+6Y+b4kWJVdzqqomQ9iQ3QMxJYyViYn/jcbNs4IKwdmscvtfdXWZSSRvN3/Ncje55qNyMM3SeGRv4XuCl4YuhDEoJF5A=
+	t=1778709994; cv=none; b=mgH40f6/jXeUeejFtMuJGXwHjNU8585GFC9HYqtSun+3ItSqUktavktnIPRb+HUdNImTDG9KfrhwMzgkSPI0OFqQjZv0pyZbsOXX2pZlq9IXV6RIfrg+gia7NO3xvIj+x0XQgrJ5niW9kgNz8bQq8x3+Kp9tdKOaa05dmAp9H6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778709976; c=relaxed/simple;
-	bh=SLtUZuE6eCsfJ26y0lN0VMH2gCaWGCYQmYw6nlqF/tw=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=byELvQ0u8fp9zfPiWS/YyttXi929rhsCVUzvMehzhX9fbbZcxMGg8g+zi7CMlF2Rq+/RkHit1eeTdompEm4zhWQR1RQq3AgzBWvdc/h4XhrjoBISsJ3OSkcuj649frvt9AoZJAkGxGlfEE6DdVmVUXHgaBVt/5coNCZoJtTqqPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iKlNtMsx; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778709994; c=relaxed/simple;
+	bh=nfkr0LjzpYH7pwPCcArAAuCzVZ5SrzrsddVDAOqZiNE=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=WuRYcZuaIdkLJ+hM2xTK8mv3pfdPGJbPA8kzFO9zParPw3x55Qm/lRNMz3RFODjSNt0dK+mLrrRfUzBG20JujQUZuSpoFStJOYS0inHVnTAqlEUhRG7L3aff9W9TVR0CabYGCdO6iEheKlgtI8M9jWdDF2NgYs1niut8LPqer+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bunUZn/H; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iKlNtMsx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12129C19425;
-	Wed, 13 May 2026 22:06:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bunUZn/H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE754C19425;
+	Wed, 13 May 2026 22:06:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778709976;
-	bh=SLtUZuE6eCsfJ26y0lN0VMH2gCaWGCYQmYw6nlqF/tw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=iKlNtMsxO8YS65qWNkC+Igkes3nSBBPFNoNOGWHh1xmPes8LhvqktmDIQl6T7V1wd
-	 F5DhkQSKsroXc4idKz4sjmjMtnLTTEECeQij+Pn+umz31TtVu8pXSLmnPNBjtandzc
-	 KvV0w8drrLjeSHQ9v4/jwjHJHhRycEAABi8+thwgutnz1i8MQdBw7areXuJ28sYCCU
-	 1Inr6U6FlQWOw3Rj/ZK82cEbX5DnYOgSc+sKH9yLl/DYi+MojvIXGzTt+vC7YKkDan
-	 wZhGRHOMhUBxs7uouy2ojlPxZoAnvL45Chj5cPDTR7jeVTb6R1rnhHNJkFuNmW6Kl3
-	 FWHC1Ts9Xi7kQ==
-Date: Wed, 13 May 2026 17:06:10 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Caleb James DeLisle <cjd@cjdns.fr>
-Cc: linux-pci@vger.kernel.org, linux-mips@vger.kernel.org,
-	naseefkm@gmail.com, ryder.lee@mediatek.com, lpieralisi@kernel.org,
-	kwilczynski@kernel.org, mani@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com, ansuelsmth@gmail.com,
-	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 2/2] PCI: mediatek: Add support for EcoNet EN7528 SoC
-Message-ID: <20260513220610.GA341225@bhelgaas>
+	s=k20201202; t=1778709994;
+	bh=nfkr0LjzpYH7pwPCcArAAuCzVZ5SrzrsddVDAOqZiNE=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+	b=bunUZn/H5HxuQnKjMU0Y5mYkD5yA92rV2WgnSonxuFCiuIZ/DsdIm2rpFddUeMoYs
+	 H3/l+wK6QA7LGGRn/+URWh/VG52el1lGABi1Xc4HwYgPAlsYvGwu4p4uSDzZVUac9r
+	 0ScDPgrQO8qHZ7kmKQiXf9dEoJvdJYJiSzIwkBJlomU8l0pd4uRgsR8GTLJ3vqDbC6
+	 d9N1eSw7TQIsXvSL8wcPpyIIeoIeF8eC1Zca90pMzCdDk7yHZ6cuZzhU8LZEdEraSG
+	 48rCZUnqaYmNz42mXXc3l84AYBRN0t/dnCXoULvJznl/NUc8o28lNyxGGW/mhlGf+G
+	 ce7QNPZAXc/tQ==
+Date: Wed, 13 May 2026 17:06:31 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <65792ada-5e9d-4e3f-aa79-bb4a8ffd9161@cjdns.fr>
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-remoteproc@vger.kernel.org, 
+ Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>
+To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+In-Reply-To: <20260514-shikra-rproc-v1-1-9afdedeee002@oss.qualcomm.com>
+References: <20260514-shikra-rproc-v1-0-9afdedeee002@oss.qualcomm.com>
+ <20260514-shikra-rproc-v1-1-9afdedeee002@oss.qualcomm.com>
+Message-Id: <177870999113.1909237.18311226930391336416.robh@kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: remoteproc: qcom,shikra-pas: Document
+ Shikra PAS remoteprocs
 
-On Wed, May 13, 2026 at 11:39:25PM +0200, Caleb James DeLisle wrote:
-> On 13/05/2026 23:07, Bjorn Helgaas wrote:
-> > On Wed, May 13, 2026 at 07:16:52PM +0000, Caleb James DeLisle wrote:
-> > > Add support for the PCIe present on the EcoNet EN7528 (and EN751221) SoCs.
-> > > 
-> > > These SoCs have a mix of Gen1 and Gen2 capable ports, but the Gen2 ports
-> > > require re-training after startup.
 
-> > > +found_port:
-> > > +	if (!IS_BUILTIN(CONFIG_PCIE_MEDIATEK)) {
-> > > +		/* Let it go because the device will work as Gen1 */
-> > > +		dev_warn(dev, "module must be built-in to retrain to Gen2\n");
-> >
-> > I suppose this will cause a warning even in cases where Gen2 is
-> > impossible, e.g., the endpoint only supports Gen1?
+On Thu, 14 May 2026 00:17:30 +0530, Komal Bajaj wrote:
+> Document the bindings for the CDSP, LPAICP and MPSS PAS on
+> the Shikra SoC.
 > 
-> Correct indeed.
+> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+> ---
+>  .../bindings/remoteproc/qcom,shikra-pas.yaml       | 141 +++++++++++++++++++++
+>  1 file changed, 141 insertions(+)
 > 
-> I imagine in most cases, if the port is Gen1 only then board integrator uses
-> a Gen1 card as well, so I could try being fancy and probe the card to see if
-> it supports Gen2. In OpenWrt the PCI driver is always built-in so I didn't
-> really consider this something to worry about.
 
-Probing the downstream device sounds like overkill because it hasn't
-been enumerated yet and there's no good place to check after it is
-enumerated.  I would consider just logging one message as "info"
-instead of "warn", maybe in mtk_pcie_startup_port_en7528()?
+My bot found errors running 'make dt_binding_check' on your patch:
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.example.dts:27:18: fatal error: dt-bindings/interconnect/qcom,shikra.h: No such file or directory
+   27 |         #include <dt-bindings/interconnect/qcom,shikra.h>
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make[2]: *** [scripts/Makefile.dtbs:140: Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.example.dtb] Error 1
+make[2]: *** Waiting for unfinished jobs....
+make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1639: dt_binding_check] Error 2
+make: *** [Makefile:248: __sub-make] Error 2
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260514-shikra-rproc-v1-1-9afdedeee002@oss.qualcomm.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
