@@ -1,80 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2BB8363084;
-	Wed, 13 May 2026 21:08:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFA921E8332
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 21:08:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778706481; cv=none; b=CwdjMHUpfJdmffC2lIx504FsXR6pLERbDoysZ+5gxu9eM13P9DFv9+I/yhEuji5EL34d9wHIefi0OVCjv1r0x0SoBjOaNWAc+doluZhTxtdZZTs3iG9ARRjZxS5FK0SmlcemF+YgA+Du6gMV5pFPuGHLxnK/JJvzS5XQPrWLitg=
+	t=1778706512; cv=none; b=Sou/WmJn4hCqC4gng3CNq+FIGhuHJX+2rDplyLcmOE40mxVxlHUQBQUINBMJcZEMdRw68YzLr0axYh8dPYkDO7TUroq0GbUOBnp9yJomm3If4XVMfQditWWFCv2dCnJW/yAhu17vS78JyzGjsGP3mZ3tMN2cUNzs03PPyoCgT8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778706481; c=relaxed/simple;
-	bh=oZWjXoMfghGHXHjku6nYK8etJGovo5hAboXQRgBbDiA=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=ubr4KZfCjVwt020fceQ99hLhZXstMSSuJrp75UWC9N0HcTLOypCEXHnLVdZ+R7Da/ZLWzUmkrvZ59j1JIcxdZ984rbbrirXDrvld9kFJQFhvNGeDO3C9HV0RGYuxflRKnSDX9Y6YIBT+O8aZ8nsVLpo83STnxXnjaMpNOUBJWq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tTJrOW8p; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778706512; c=relaxed/simple;
+	bh=axsdM5jHVa+eaMxiTl7KMfeq2G0PSZwYX/Cx3NZ1kCo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=PCvDFBNfNMvPubB61gTyooxQY2z0qOoR8cHFrDxMqi43OJZgA4/+LPi2alx42GaeAzNTYzdm6sT7Ah9wzWYHdP0JqIM+ZdM0XFSZ8I22b+AH1Pkzx22AlnnQkBuKVujrYbMICeqlyEfq2uytwCnTbtnXUffI8nPVjq2ScwQ117s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mxtWIFQn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tTJrOW8p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57C8AC19425;
-	Wed, 13 May 2026 21:08:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mxtWIFQn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46283C19425;
+	Wed, 13 May 2026 21:08:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778706480;
-	bh=oZWjXoMfghGHXHjku6nYK8etJGovo5hAboXQRgBbDiA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=tTJrOW8pBXpiXtwhfnE6UWwdLxO53d1pwvpe7uI7N4M7CX1Us1bPLq9hhLUtDSxAG
-	 D+cZ6gVbRPfpAzHT6qorwXZlomfIKWPz2KMP0UDJXdly4bx5AG1orv4lolo3v3HT4Y
-	 ryQU+fFjkkwZJ4qoISUSPRmvFuxNW2xu1pbIHs5+Hz6FqwEHYAZ8JuFB1eGAYXOt9m
-	 3Js0oCfogVLgFCq7fjm8S8/UKFVpP1Rx2/y1DW9MKclsjbNYcl29PJZa53gRxVoP6T
-	 IDATbx2MyIjaUp3bvIsI2TDVMfWPPWCu0PzMnHCmaLqwwJa4uHp25f9G4kRFuzetnM
-	 /oDTdFgyJfpKw==
-Date: Wed, 13 May 2026 16:07:59 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Caleb James DeLisle <cjd@cjdns.fr>
-Cc: linux-pci@vger.kernel.org, linux-mips@vger.kernel.org,
-	naseefkm@gmail.com, ryder.lee@mediatek.com, lpieralisi@kernel.org,
-	kwilczynski@kernel.org, mani@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com, ansuelsmth@gmail.com,
-	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 2/2] PCI: mediatek: Add support for EcoNet EN7528 SoC
-Message-ID: <20260513210759.GA331283@bhelgaas>
+	s=k20201202; t=1778706511;
+	bh=axsdM5jHVa+eaMxiTl7KMfeq2G0PSZwYX/Cx3NZ1kCo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=mxtWIFQnKmj4di21XK8n8HRX/72gTZYVZRsJxC0Z69RLRBqd/hyDR5Ov1zbL+i+lC
+	 J8rsbV741UMOo6gbR/FFsP90kWZcsyu3c2YaD5eclEIPKV0QcYOBLgA/1I8RasDUBY
+	 DVjEFp9XL2nzIwMaYOgve6HRnTfHkpbFbM3ybmBqIXSdzNiVVg/eG+2jwSEuEWiUua
+	 tN6yTajcn5TIESgCig4pGMA1n6N/GfW9zEP1IQ0ZxSoVuPQZAzV1JvL7/6JSM2rmrj
+	 UqWdiDOs0drMEF//22dWj9u7JnRx6U6yOa3iyhy24COtFt+pbf19/0RfTu+aLbc/Zq
+	 /bsPphrvAE8Lw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 05/10] drm/rockchip: analogix_dp: Enable hclk for
+ RK3588
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Damon Ding" <damon.ding@rock-chips.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260512095644.1946084-6-damon.ding@rock-chips.com>
+References: <20260512095644.1946084-6-damon.ding@rock-chips.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 13 May 2026 21:08:30 +0000
+Message-Id: <20260513210831.46283C19425@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260513191652.3200607-3-cjd@cjdns.fr>
 
-On Wed, May 13, 2026 at 07:16:52PM +0000, Caleb James DeLisle wrote:
-> Add support for the PCIe present on the EcoNet EN7528 (and EN751221) SoCs.
-> 
-> These SoCs have a mix of Gen1 and Gen2 capable ports, but the Gen2 ports
-> require re-training after startup.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The newly added `hclk` clock is explicitly kept permanently enab=
+led, bypassing the driver's dynamic power management.
+--
 
-s/re-training/retraining/
+commit 55f729190dc3e9f8e6e9a2cd8960832ed10a25ba
+Author: Damon Ding <damon.ding@rock-chips.com>
 
-> + * @MTK_PCIE_RETRAIN: Re-train link to bridge after startup because some
-> + *                    Gen2-capable devices start as Gen1.
+drm/rockchip: analogix_dp: Enable hclk for RK3588
 
-s/Re-train/Retrain/ to make this consistent and more greppable.
-Also more instances below.
+This commit explicitly acquires and enables the HCLK_VO1 bus clock for the
+RK3588 eDP controller. It replaces an implicit enablement via the
+rockchip,vo-grf phandle reference to align with updated device tree binding=
+s.
 
-> + * as Gen1, and must be re-trained once after initial configuration in order to
-> + * only Gen1 capable. Therefore it is most convenient to re-train every port
+> diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gp=
+u/drm/rockchip/analogix_dp-rockchip.c
+> index 06072efd7fca3..d2af5eb29dbb5 100644
+> --- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
 
-> +	return dev_err_probe(dev, ret, "root bridge not found\n");
+[ ... ]
 
-"Root bridge" is not a term used by the specs, but in common usage it
-refers to the host bridge, i.e., the RC.  In this case, you didn't
-find a "Root Port".
+> @@ -327,6 +328,11 @@ static int rockchip_dp_of_probe(struct rockchip_dp_d=
+evice *dp)
+>  		return dev_err_probe(dev, PTR_ERR(dp->pclk),
+>  				     "failed to get pclk property\n");
+> =20
+> +	clk =3D devm_clk_get_optional_enabled(dev, "hclk");
+> +	if (IS_ERR(clk))
+> +		return dev_err_probe(dev, PTR_ERR(clk),
+> +				     "failed to get hclk property\n");
+> +
 
-> +found_port:
-> +	if (!IS_BUILTIN(CONFIG_PCIE_MEDIATEK)) {
-> +		/* Let it go because the device will work as Gen1 */
-> +		dev_warn(dev, "module must be built-in to retrain to Gen2\n");
+Does keeping this clock permanently enabled bypass the driver's dynamic pow=
+er
+management?
 
-I suppose this will cause a warning even in cases where Gen2 is
-impossible, e.g., the endpoint only supports Gen1?
+Since the local variable clk is discarded after probe, the clock will
+remain enabled as long as the driver is bound. The driver currently toggles
+the APB clock (dp->pclk) in rockchip_dp_poweron() and rockchip_dp_powerdown=
+()
+to save power when the display is inactive.
+
+Should hclk be saved in the rockchip_dp_device struct and managed
+symmetrically with pclk to ensure associated power domains can fully enter
+low-power states during display blanking?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512095644.1946=
+084-1-damon.ding@rock-chips.com?part=3D5
