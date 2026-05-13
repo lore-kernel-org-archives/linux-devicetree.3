@@ -1,35 +1,35 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7FDF246788;
-	Wed, 13 May 2026 13:17:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D584F283CBF;
+	Wed, 13 May 2026 13:17:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778678279; cv=none; b=RuMWJY9yq7MWEKGnQgS5Bnq2VtiEOG+a88CmNPelwTt1rz1uJZSzlM1QPD73CPrh7Ibp1kesdbZYmDiMnswuFkr45mZ9NS+1LEg19n7v/bnocB64FItbNV8/3ToDFqUMNxvPrEk+uuQLrOICddgsO7x+rkyv7JB03qQItoX7u8s=
+	t=1778678280; cv=none; b=RNkySMz5Ga10pawyn7XIh5Eosivz9An8xhkbd2c3U1Vx2foQTcTNNzZKySGI6CHEc4jRxsbWlWKBUTUhRN/Ley897aaJfR1ACu9YaZcqfEgV9hciSNXbqRBzFzTKsp5LWMEoCVcOLnw1F4duZjFUgJS8kbJrq/t+LQipbJ8zrio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778678279; c=relaxed/simple;
-	bh=D0U2DfmPUndQqwQp1lkTtwMeBcRl3wklL6U21sa8dsU=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=u6QZMs/gFtbLXXiqaYhyDswOZqzkvTUAg3tFpkiYV2m87WT+UWOcIj4RigM6Fd8Mor3QEXdEi5FHdx5OT2JK6mxY8duagZrrGi+WmgqImYB7EKxLTZVZl802HKlt531ukczAxlg7XTA7700I1mHHPBwOCjOKiELMWn7ZoPZDN5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=kk7SzXQ/; arc=none smtp.client-ip=213.167.242.64
+	s=arc-20240116; t=1778678280; c=relaxed/simple;
+	bh=PFlOdtkQJnenBMJMqgqsT7Es9PtuqDfu/61DaPuol1M=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=g48kL/OAoGsXAe7cpFnLMmtteKh/JQQv/U5FXz0HU8IvsZ86M4AcpZJ805AJC03x6mi+PV5/GvF73btNa6uZcC2YkcNBS0xqNt4kdo4kn0TnbD8kEwwUQRQnkaMKp+bGj5XYmoanI/isHQp5xYUomlbiVDj1MXQH+IxpNNcO0pA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=c0OVnrvE; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="kk7SzXQ/"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="c0OVnrvE"
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6C8A6227A;
-	Wed, 13 May 2026 15:17:46 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B9CA2298C;
+	Wed, 13 May 2026 15:17:47 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1778678267;
-	bh=D0U2DfmPUndQqwQp1lkTtwMeBcRl3wklL6U21sa8dsU=;
-	h=From:Subject:Date:To:Cc:From;
-	b=kk7SzXQ/DwW1a3KfFYJXyMtn4M6MwZxU3gnxBIj7P6ax/byk8g3Rc5FTsm9jKfvUb
-	 Zz0uQtLur/tX5bO6Weg7ieUFb68uVuZmHSk46VQLttcoYkdf6DexSJdfzQGYPbqtud
-	 Id18jYRojClZKbAZizpMpvfe4ei6Jw2EQUfYWaSM=
+	s=mail; t=1778678268;
+	bh=PFlOdtkQJnenBMJMqgqsT7Es9PtuqDfu/61DaPuol1M=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=c0OVnrvEXkjRSsfu2oMic2bjNg+lPX66E7HkwQ1iQnxg9Ur8MJ0ZgOaM0BS5TtnGC
+	 edSgM56fMUxI9z3sg2glWkS0rwU8IK3tWpZsMTP65uMCj2wjUaGfvLmKA1ML5fJtge
+	 smMXACHvyJi51waFlpiIE6uWMjyyOf+ebGXBjkTA=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Subject: [PATCH v2 00/16] drm/tidss: Add BeagleY-AI display support (and
- some more)
-Date: Wed, 13 May 2026 16:17:22 +0300
-Message-Id: <20260513-beagley-ai-display-v2-0-9e9bcefde6bc@ideasonboard.com>
+Date: Wed, 13 May 2026 16:17:23 +0300
+Subject: [PATCH v2 01/16] dt-bindings: display: ti: Move ti,am62l-dss
+ binding to a new binding file
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -38,12 +38,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAON5BGoC/32PQW6DMBBFr4K8ziDbGEhQFeUeVRYGj5OJAk49B
- BVF3L0G9l3+L/33Zj6CMRKyaLKPiDgRUxhS0IdMdHc73BDIpSy01JU0WkKL9vbEGSyBI3497Qy
- u9lVhOoelNyINXxE9/W7Q7+ueI/68E3vcS9FaRuhC39PYZFOdy3XWI7PdhE32tftUqZQ08pTrs
- q6rogAFDA9Lg7qMlCfAWayCO/EY4rw9ManN8N+9kwIJvtLH0hTOO2Uu5NByGNpgo1ux4rosyx8
- Pa2e0HAEAAA==
-X-Change-ID: 20260420-beagley-ai-display-d7f634cde5f4
+Message-Id: <20260513-beagley-ai-display-v2-1-9e9bcefde6bc@ideasonboard.com>
+References: <20260513-beagley-ai-display-v2-0-9e9bcefde6bc@ideasonboard.com>
+In-Reply-To: <20260513-beagley-ai-display-v2-0-9e9bcefde6bc@ideasonboard.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -55,122 +52,342 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Louis Chauvet <louis.chauvet@bootlin.com>
 Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Jayesh Choudhary <j-choudhary@ti.com>, Aradhya Bhatia <a-bhatia1@ti.com>, 
- Andrew Davis <afd@ti.com>, Robert Nelson <robertcnelson@gmail.com>
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.15-dev-c25d1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4653;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10332;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=D0U2DfmPUndQqwQp1lkTtwMeBcRl3wklL6U21sa8dsU=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqBHn7nQnNzqEKujE7aAPVWJcf+n+08Wvy6Hp7l
- MG6U1H258yJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCagR5+wAKCRD6PaqMvJYe
- 9Td+D/wJP8PUqRIr4BR3lGZcLGRREbADx58sIVrSLS7LabWOM9he9OrpqjDHtmkq0zmJoTQgH2d
- poApfiVoIIMymVU30yE+TY/mFjaLi7VDu1oI5KYVab6KuQevF/w9RBtP5586P274oaqVW5oNIre
- Owz/jrTnLe1hy7nUAfr+ZNxtQiXiQuYL0tv+QtkWMRgPK52kfTo/JD5XAgyGpGDGbSIQsKi4lA0
- V5a88JzX7nj3IgGi9wFieAzazs0aznnSdSkBVqbYDCuExbK3LsNBZnSMbG0zpxiKERqG5evj0zz
- o6OPmhB8cs8Pu3KLHG8JefqV9o6yOcfPBfpTjB/+4s7QwwCJxifYWzvgJ6I36NR/afjPKEBvlCI
- 9/vgkslzELfKIKHTx7xXCwQpOiiASvOutKeE+yEqFnnOfENnI7GDtlUMg4/EK567ckz/FjNfNpD
- Kyxx6Tm8OVi2E+a0N8gBys6kbEu+/UBmqVbT0MxrV8og59m2QMCj7zgYwam551AkeTkm2V67TZy
- C8UDS2ZXsisUifIS0VRIpRW9oxVZXNG6WVX1krYzRgULUEqPORLvqyBfr+/Rw9Q3uYjlHkesN4K
- aO0v9bGGPvuCFuEqe6AzkJ7Z/aDgySSrR3YZwRVVyXlDyGEQfx73wIWl0m4R9xOCxS36Xd2FMxw
- YIIei98s9CJBsmw==
+ bh=PFlOdtkQJnenBMJMqgqsT7Es9PtuqDfu/61DaPuol1M=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqBHn8QJqmulj6Z9dt6yMxL1jJCPuIRi3ODgRoI
+ N2yrqSrU5OJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCagR5/AAKCRD6PaqMvJYe
+ 9YvKD/0YIK6iNGBT1NOnnEMvi+zNV8QN+IFY3I1hFl39jSFrn6BwzjRtqm/XDyZru33M/fzJFhL
+ d6+E6F8Gn7VTbM3b1ZOGcDEq8Y2JtjQx4LSOPmmiQmeGPNurVFJNs751jh0+J4vD4adf8V9I+m0
+ jpBkyVZVPIbwf8ueLdXUXW78AJu+gq72uFGBI9rFmimokcSawFIDax2K9pD/CyYGO+P07RKMoWR
+ wWUToK3hUrxa+QUlru3kxvQt0VCw0IzORNXM88h1AR3Lo2BhE9IDPA5H7u6eMmzhP3lfgYdAm1s
+ EDCsyt9WMIJ0QzonaNe8MFXewvm6pXH538q32aUO+967roY9UAs6YWnqEvtStH9x5aqiruMdCiZ
+ 1SFGEUrqgU8CYzBmfi77XqIm4lBkMyiPK/I9ta2d4PawvcrXdxKFWsolFN9TAtBHR570+aBTv9k
+ btEXfEIHA+K73/MmXyjHeIDWebP0PDdDPnUeIQqUNZXvBqiiPFHdYKocT/QnU9mHRFPunYfU8g9
+ vgmHCAPT5U/LxahH3/+rOUEPinKyvng3WxtGiypfQEyjg/vhX5brfDmZMS/twA6YF1vGMY1Fdup
+ ktQ7zDkXKwDiybVpkDEy0Wnv5M7Cz8TwbCnoKXA9xXfEg4COe6eyvA+6Y/Vnmoqk3FVvRMGec3x
+ OnOeUVbxor40EUg==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-This series aims to add display support for all display interfaces on
-BeagleY-AI board. More generally, it adds display support for TI AM62P,
-J722S, and related SoCs, and, as a bit extra, improves AM62L's DPI
-handling.
+We currently have two binding files for different TI K3 DSS versions:
+ti,j721e-dss.yaml which contains bindings for the "full" DSS version,
+with four planes and outputs, and ti,am65x-dss.yaml which used to
+contain bindings for the "lite" DSS version, with two planes and
+outputs.
 
-The main topics to highlight:
+ti,am62l-dss binding was added recently to the ti,am65x-dss.yaml file,
+which only has a single plane and a single output. To keep with the
+above "binding file per DSS model" style, and to simplify the
+ti,am65x-dss.yaml file, let's move the ti,am62l-dss to a separate, new
+file.
 
-- The data and sync signal polarities require accessing a register
-  (DPI0_CLK_CTRL) in the CTRL_MMR block. This has already been discussed
-  e.g. in
-  https://lore.kernel.org/all/20250730-fix-edge-handling-v1-0-1bdfb3fe7922%40bootlin.com/.
-  In this series the whole CTRL_MMR ("main_conf") block is changed to a
-  syscon, which allows simpler access to the DPI0_CLK_CTRL register.
-
-- The tidss OLDI support will now use auxiliary device/driver. This seems
-  to solve quite neatly the requirement to have a power-domain for each
-  OLDI. The main issue that remains is that on AM62P (and similar) we
-  will have three OLDI TX DT nodes, even if there are only two in the
-  hardware.
-
-With this series one can use the HDMI output on BeagleY-AI. I have also
-tested the DSI output with Raspberry Pi's 7" DSI display, and OLDI
-output with an oscilloscope (I don't have a suitable OLDI panel).
-
- Tomi
-
+Reviewed-by: "Rob Herring (Arm)" <robh@kernel.org>
+Tested-by: Swamil Jain <s-jain1@ti.com>
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
-Changes in v2:
-- Add Rb and Tb tags
-- Drop "dt-bindings: mfd: syscon: Add ti,am625-dss-dpi0-clk-ctrl
-  compatible", which is now implemented with the below changes.
-- New patch "dt-bindings: display: ti,am65x-dss: Add ti,dpi-io-ctrl"
-- Modify "drm/tidss: Add external data and sync signal edge
-  configuration" to use the 'ti,dpi-io-ctrl' with offset.
-- New patch "arm64: dts: ti: k3-am62p-j722s-common-main: Make main_conf
-  a syscon".
-- Modify "arm64: dts: ti: k3-am62p-j722s-common-main: Add support for
-  DSS" to set 'ti,dpi-io-ctrl' properties
-- Drop generic desc in DT bindings for power-domains property
-- Fix pm_runtime_get_sync() return value check
-- Link to v1: https://lore.kernel.org/r/20260420-beagley-ai-display-v1-0-f628543dfd14@ideasonboard.com
-
----
-Andrew Davis (1):
-      arm64: dts: ti: beagley-ai: Enable HDMI display and audio
-
-Jayesh Choudhary (1):
-      arm64: dts: ti: k3-am62p-j722s-common-main: Add support for DSS
-
-Swamil Jain (1):
-      drm/tidss: Add support for AM62P display subsystem
-
-Tomi Valkeinen (13):
-      dt-bindings: display: ti: Move ti,am62l-dss binding to a new binding file
-      dt-bindings: display: ti,am65x-dss: Simplify binding
-      dt-bindings: display: ti,am625-oldi: Add optional power-domain for OLDI
-      dt-bindings: display: ti,am65x-dss: Add ti,dpi-io-ctrl
-      dt-bindings: display: ti,am65x-dss: Add AM62P DSS
-      drm/tidss: Remove extra pm_runtime_mark_last_busy
-      drm/tidss: oldi: Remove define for unused register OLDI_LB_CTRL
-      drm/tidss: Add mechanism to detect DPI output
-      drm/tidss: Add external data and sync signal edge configuration
-      drm/tidss: Add support for DPIENABLE bit
-      drm/tidss: oldi: Fix OLDI signal polarities
-      drm/tidss: oldi: Convert OLDI to an aux driver
-      arm64: dts: ti: k3-am62p-j722s-common-main: Make main_conf a syscon
-
- .../bindings/display/ti/ti,am625-oldi.yaml         |   3 +
- .../bindings/display/ti/ti,am62l-dss.yaml          | 136 ++++++
- .../bindings/display/ti/ti,am65x-dss.yaml          | 187 +++-----
+ .../bindings/display/ti/ti,am62l-dss.yaml          | 136 +++++++++++++++++++++
+ .../bindings/display/ti/ti,am65x-dss.yaml          |  94 +++-----------
  MAINTAINERS                                        |   1 +
- .../boot/dts/ti/k3-am62p-j722s-common-main.dtsi    | 111 ++++-
- arch/arm64/boot/dts/ti/k3-am62p.dtsi               |  16 +
- arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts     | 197 ++++++++
- arch/arm64/boot/dts/ti/k3-j722s.dtsi               |  16 +
- drivers/gpu/drm/tidss/tidss_crtc.c                 |  10 +-
- drivers/gpu/drm/tidss/tidss_crtc.h                 |   4 +-
- drivers/gpu/drm/tidss/tidss_dispc.c                |  49 +-
- drivers/gpu/drm/tidss/tidss_dispc.h                |   5 +-
- drivers/gpu/drm/tidss/tidss_dispc_regs.h           |   5 +
- drivers/gpu/drm/tidss/tidss_drv.c                  |  54 ++-
- drivers/gpu/drm/tidss/tidss_drv.h                  |   5 +-
- drivers/gpu/drm/tidss/tidss_kms.c                  |  55 ++-
- drivers/gpu/drm/tidss/tidss_oldi.c                 | 531 +++++++++++++++------
- drivers/gpu/drm/tidss/tidss_oldi.h                 |   8 +-
- 18 files changed, 1104 insertions(+), 289 deletions(-)
----
-base-commit: 3131ff5a117498bb4b9db3a238bb311cbf8383ce
-change-id: 20260420-beagley-ai-display-d7f634cde5f4
-prerequisite-message-id: <20260415110409.2577633-1-s-jain1@ti.com>
-prerequisite-patch-id: 654d90f9cddec8b41e6fb1b3776a632606fef88c
+ 3 files changed, 156 insertions(+), 75 deletions(-)
 
-Best regards,
+diff --git a/Documentation/devicetree/bindings/display/ti/ti,am62l-dss.yaml b/Documentation/devicetree/bindings/display/ti/ti,am62l-dss.yaml
+new file mode 100644
+index 000000000000..ce6185dca18d
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/ti/ti,am62l-dss.yaml
+@@ -0,0 +1,136 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++# Copyright 2026 Texas Instruments Incorporated
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/ti/ti,am62l-dss.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments AM62L Display Subsystem
++
++maintainers:
++  - Tomi Valkeinen <tomi.valkeinen@ti.com>
++
++description: |
++  The AM62L display subsystem is a cut-down version of the TI Keystone
++  Display SubSystem. It has a single output port which supports DPI
++  format and a single video "lite plane" which does not support scaling.
++  The output port is routed to the SoC boundary via the DPI interface,
++  and the same DPI signals are also routed internally to the DSI Tx
++  controller present within the SoC. Due to clocking limitations only
++  one of the interfaces (DSI or DPI) can be used at a time.
++
++properties:
++  compatible:
++    const: ti,am62l-dss
++
++  reg:
++    description:
++      Addresses to each DSS memory region described in the SoC's TRM.
++    items:
++      - description: common DSS register area
++      - description: VIDL1 light video plane
++      - description: OVR1 overlay manager for vp1
++      - description: VP1 video port 1
++      - description: common1 DSS register area
++
++  reg-names:
++    items:
++      - const: common
++      - const: vidl1
++      - const: ovr1
++      - const: vp1
++      - const: common1
++
++  clocks:
++    items:
++      - description: fck DSS functional clock
++      - description: vp1 Video Port 1 pixel clock
++
++  clock-names:
++    items:
++      - const: fck
++      - const: vp1
++
++  assigned-clocks:
++    minItems: 1
++    maxItems: 2
++
++  assigned-clock-parents:
++    minItems: 1
++    maxItems: 2
++
++  interrupts:
++    maxItems: 1
++
++  power-domains:
++    maxItems: 1
++    description: phandle to the associated power domain
++
++  dma-coherent: true
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/properties/port
++        description:
++          The DSS DPI output port node from video port 1, which may be
++          connected to the external DPI pins or to the internal DSI Tx
++          controller.
++
++    required:
++      - port@0
++
++  max-memory-bandwidth:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      Input memory (from main memory to dispc) bandwidth limit in
++      bytes per second
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - clocks
++  - clock-names
++  - interrupts
++  - ports
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    bus {
++        #address-cells = <2>;
++        #size-cells = <2>;
++
++        dss: dss@30200000 {
++            compatible = "ti,am62l-dss";
++            reg = <0x00 0x30200000 0x00 0x1000>, /* common */
++                  <0x00 0x30202000 0x00 0x1000>, /* vidl1 */
++                  <0x00 0x30207000 0x00 0x1000>, /* ovr1 */
++                  <0x00 0x3020a000 0x00 0x1000>, /* vp1 */
++                  <0x00 0x30201000 0x00 0x1000>; /* common1 */
++            reg-names = "common", "vidl1", "ovr1", "vp1", "common1";
++            power-domains = <&scmi_pds 39>;
++            clocks = <&scmi_clk 162>,
++                     <&scmi_clk 161>;
++            clock-names = "fck", "vp1";
++            interrupts = <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>;
++
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
++                port@0 {
++                    reg = <0>;
++                    dpi0_out: endpoint {
++                        remote-endpoint = <&dsi_in>;
++                    };
++                };
++            };
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
+index 49a007cbcd3a..75d9640398f0 100644
+--- a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
++++ b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
+@@ -18,68 +18,45 @@ description: |
+   internally routed to 2 OLDI TXes. The second video port supports DPI
+   format. The first plane is full video plane with all features and the
+   second is a "lite plane" without scaling support.
+-  The AM62L display subsystem has a single output port which supports DPI
+-  format but it only supports single video "lite plane" which does not support
+-  scaling. The output port is routed to SoC boundary via DPI interface and same
+-  DPI signals are also routed internally to DSI Tx controller present within the
+-  SoC. Due to clocking limitations only one of the interface i.e. either DSI or
+-  DPI can be used at once.
+ 
+ properties:
+   compatible:
+     enum:
+       - ti,am625-dss
+       - ti,am62a7-dss
+-      - ti,am62l-dss
+       - ti,am65x-dss
+ 
+   reg:
+     description:
+       Addresses to each DSS memory region described in the SoC's TRM.
+-    oneOf:
+-      - items:
+-          - description: common DSS register area
+-          - description: VIDL1 light video plane
+-          - description: VID video plane
+-          - description: OVR1 overlay manager for vp1
+-          - description: OVR2 overlay manager for vp2
+-          - description: VP1 video port 1
+-          - description: VP2 video port 2
+-          - description: common1 DSS register area
+-      - items:
+-          - description: common DSS register area
+-          - description: VIDL1 light video plane
+-          - description: OVR1 overlay manager for vp1
+-          - description: VP1 video port 1
+-          - description: common1 DSS register area
++    items:
++      - description: common DSS register area
++      - description: VIDL1 light video plane
++      - description: VID video plane
++      - description: OVR1 overlay manager for vp1
++      - description: OVR2 overlay manager for vp2
++      - description: VP1 video port 1
++      - description: VP2 video port 2
++      - description: common1 DSS register area
+ 
+   reg-names:
+-    oneOf:
+-      - items:
+-          - const: common
+-          - const: vidl1
+-          - const: vid
+-          - const: ovr1
+-          - const: ovr2
+-          - const: vp1
+-          - const: vp2
+-          - const: common1
+-      - items:
+-          - const: common
+-          - const: vidl1
+-          - const: ovr1
+-          - const: vp1
+-          - const: common1
++    items:
++      - const: common
++      - const: vidl1
++      - const: vid
++      - const: ovr1
++      - const: ovr2
++      - const: vp1
++      - const: vp2
++      - const: common1
+ 
+   clocks:
+-    minItems: 2
+     items:
+       - description: fck DSS functional clock
+       - description: vp1 Video Port 1 pixel clock
+       - description: vp2 Video Port 2 pixel clock
+ 
+   clock-names:
+-    minItems: 2
+     items:
+       - const: fck
+       - const: vp1
+@@ -113,8 +90,6 @@ properties:
+           For AM625 DSS, the internal DPI output port node from video
+           port 1.
+           For AM62A7 DSS, the port is tied off inside the SoC.
+-          For AM62L DSS, the DSS DPI output port node from video port 1
+-          or DSI Tx controller node connected to video port 1.
+         properties:
+           endpoint@0:
+             $ref: /schemas/graph.yaml#/properties/endpoint
+@@ -189,38 +164,7 @@ allOf:
+       properties:
+         compatible:
+           contains:
+-            const: ti,am62l-dss
+-    then:
+-      properties:
+-        ports:
+-          properties:
+-            port@1: false
+-        reg:
+-          maxItems: 5
+-        reg-names:
+-          maxItems: 5
+-        clocks:
+-          maxItems: 2
+-        clock-names:
+-          maxItems: 2
+-    else:
+-      properties:
+-        reg:
+-          minItems: 8
+-        reg-names:
+-          minItems: 8
+-        clocks:
+-          minItems: 3
+-        clock-names:
+-          minItems: 3
+-
+-  - if:
+-      properties:
+-        compatible:
+-          contains:
+-            enum:
+-              - ti,am62l-dss
+-              - ti,am65x-dss
++            const: ti,am65x-dss
+     then:
+       properties:
+         oldi-transmitters: false
+diff --git a/MAINTAINERS b/MAINTAINERS
+index d1cc0e12fe1f..902502e1d63c 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8756,6 +8756,7 @@ L:	dri-devel@lists.freedesktop.org
+ S:	Maintained
+ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+ F:	Documentation/devicetree/bindings/display/ti/ti,am625-oldi.yaml
++F:	Documentation/devicetree/bindings/display/ti/ti,am62l-dss.yaml
+ F:	Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
+ F:	Documentation/devicetree/bindings/display/ti/ti,j721e-dss.yaml
+ F:	Documentation/devicetree/bindings/display/ti/ti,k2g-dss.yaml
+
 -- 
-Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+2.43.0
 
