@@ -1,175 +1,171 @@
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022092.outbound.protection.outlook.com [40.107.75.92])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E537026FD93;
-	Wed, 13 May 2026 03:53:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.92
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778644408; cv=fail; b=F5D24CJVJL3lfWPiFeGtHdX09elQG4stn7ujYEU5EHXPJILNJA2FWyeowmNETUqwqCFtaAEHjK+S69vP6nKJanuilagBTs+TWQOwUL+azNlEe2w5ii3WU0JhFPkGEdWt4Aq5PP/84u6moMBMYchGNODiLK5ME4uZ1gGD4wHQuGc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778644408; c=relaxed/simple;
-	bh=tGhCh2OQkZFdnv4sRHIHoYbKGv1fjIyVUxMgrDgsNmM=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=cuEQDhCyDUvqqlGGiS5ZgfnULRhSZIlFh3UH5TP8Dftm/SVNiRcaSsfqsm6t8O65CMmc4BCZaimte+ayy3gh51K8K8gMK0fKlzCvVg8Xf0VTZcF9yF2HRaKZUVNHqUeS+yo3LnvZ/VccPopu7IRT0tQiMLO7O95oNUAlHKietao=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=rUkd0Dk5; arc=fail smtp.client-ip=40.107.75.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B54642A9D
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 04:01:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778644919; cv=none; b=bXEjZXAfZQ7afa740pRGOGG346nwlNHbGLSBNErS3am0C5QSLW36hD/m3VLbAXpH5vBRXmyj41H/EbfwUeXaIPob/MIuRoBGi1YetK9TCcBnQlGKvr4/o39Ql7k4BYrTXu/alhtqx3NYB3IDiQ82yzYujkDQc5PuAWEe3i6aLeM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778644919; c=relaxed/simple;
+	bh=c93f1lQnhEZlfRmvCATQf2Vy38aX1NSPAQaib4v7f1g=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=gqV/QNtAJYAqNQ/bCqxqmtedbRySe6OdOzZbjpmMZ8WBlVd77KFEO6sZpzmesC10rMNqUbEyJ4xd9PjNqP3nONCWXhreiyONVj7MoKrhqTociWCZXMmAx+/+xtghGVs7SB/yHAthSY44wlzeRWz4/j7f7a6MhsNYYCPFX7DeuE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IqNgOL4f; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="rUkd0Dk5"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j1iIWI92IAEkhLob7acAxoAh/dPPUxKu4cfKT41N+jjHwppjhNHvgjCOwIjoqX205qULY8idNIW2PwkiUHR8WLYXpf7tyJYyvmzI7sENCyHZf958i56mKHfQaszhuzHkeGxIovyVLv61i2ct4FrA8w4I7m77Tg19HtYSa3b9Fy+r6Z9gtf2dZQQeUCj5grXfL/+BMP0JgI7V0EIuQ4IieDAnDyQyPVrG4a5F9Eh+FiSsPsn5lX5lFvLgjSIWZc5arN4w6oOOFo9d3qC4lsfNT7S4MBTfyccoeHpSw6NoiiM7uuPdD8SfSiE7+Y2tvJUusYHnfZmKNPHxkuAOT8NDCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tGhCh2OQkZFdnv4sRHIHoYbKGv1fjIyVUxMgrDgsNmM=;
- b=PEp/m9R+moBzezYIhgig21CAG8Yu/TCBBXihFlYVuCl7okBPnb42oMeOXTvjz+PZErohymEZTcnCt5lOZhEMwiOZF71obLeiku3Zvh0jYtS/G/C5nUCjrcFXMkD5XG0OsRyeeiPntw1qlLQyCxTUFCxaRk5t8Rhq+L/lXydueZXoCENWaZxrlSQggdKzZwm0fEgTVb78hFjIsdymkHE6CeNiuTpWiAJaokOtRilRJGyrd5hS2Lz04O4x+30nArz1zFHTjjcx3rZ4eAJhnBNINuwufCJNuyI3JgCPhDqe7w35J4L9laQ0T3+iXCfGFtTTaRv7CfL4fPMBMAZE+CnEDA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tGhCh2OQkZFdnv4sRHIHoYbKGv1fjIyVUxMgrDgsNmM=;
- b=rUkd0Dk56Mqk3wuoBnSf4sYc1TRbZlciEo6sJepvw4ITBzW1dZMilKOufnviRIf65M73QRSJybb0vuIwdZQf+JVjp8v+09NDNuwcQh/uIb9ih8hV2ZK278HEpZjqHAbYE1PG1PWZXiKB3T5YUwwnvmRedBzqFd/w0CU2Vm8clgdsyH98s3Y4xcerGJyLOi7JFi6QcVaPBXMDR/X05z/Ws6y/UyADmVpXcKMXHDLjSOmKpukdAIF9C26ypSWUfilw24BCImPQaVDVwE50DgB5z6xpkYLiqHE4XCvPoCpB2ou+8mPI5NYU7DufNf6Np2oh2zUOHWJCxX1Fn/9mmk5tsA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from KL1PR03MB7149.apcprd03.prod.outlook.com (2603:1096:820:ca::7)
- by SEZPR03MB7837.apcprd03.prod.outlook.com (2603:1096:101:17e::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.17; Wed, 13 May
- 2026 03:53:20 +0000
-Received: from KL1PR03MB7149.apcprd03.prod.outlook.com
- ([fe80::2f06:12a:fff0:6506]) by KL1PR03MB7149.apcprd03.prod.outlook.com
- ([fe80::2f06:12a:fff0:6506%5]) with mapi id 15.21.0025.012; Wed, 13 May 2026
- 03:53:19 +0000
-Message-ID: <f597307c-d1c0-4add-b3f9-34ee1bda0a24@amlogic.com>
-Date: Wed, 13 May 2026 11:53:15 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/10] clk: amlogic: PLL reset signal supports active-low
- configuration
-To: Brian Masney <bmasney@redhat.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Jerome Brunet <jbrunet@baylibre.com>, Xianwei Zhao
- <xianwei.zhao@amlogic.com>, Kevin Hilman <khilman@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260511-b4-a9_clk-v1-0-41cb4071b7c9@amlogic.com>
- <20260511-b4-a9_clk-v1-6-41cb4071b7c9@amlogic.com>
- <agH0FMzku3QRlB50@redhat.com>
-From: Jian Hu <jian.hu@amlogic.com>
-In-Reply-To: <agH0FMzku3QRlB50@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SE2P216CA0007.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:117::9) To KL1PR03MB7149.apcprd03.prod.outlook.com
- (2603:1096:820:ca::7)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IqNgOL4f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0574C2BCC7;
+	Wed, 13 May 2026 04:01:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778644918;
+	bh=c93f1lQnhEZlfRmvCATQf2Vy38aX1NSPAQaib4v7f1g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=IqNgOL4faHvBMnLYwJlANnsCcj+qhGpzw7/V7nmweoZK9VND4m8KCe2oiHT/zhHWp
+	 MXheG6otCyU4JPl40pTbBXro9+w8q3124+JKQLqKvXSixcXNxwAVmat0rhuZ3qZZ/w
+	 hEd0sevpDYv7vf19sDeXgk/muNfe0psHeG6/SGd9UUxwoaoCrtYcb2s8En6mYwpFxz
+	 M1rVdOigKMFTh0JLVe74guQvzMzp1RNRBmYbBsiMSmEB8LStUq/vGjiy07vFcHdmq+
+	 3h1gwuvRNgNErPaEPw0JkVnn9jr9oUIgCgNfq/PBmp/tzoHDL+8R/DCYX36adPtFC8
+	 4anxpXGBEhSQw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/7] gpio: regmap: Add gpio_regmap_operation and
+ write-enable support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
+Cc: conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260512033317.1602537-4-eleanor.lin@realtek.com>
+References: <20260512033317.1602537-4-eleanor.lin@realtek.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 13 May 2026 04:01:58 +0000
+Message-Id: <20260513040158.B0574C2BCC7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KL1PR03MB7149:EE_|SEZPR03MB7837:EE_
-X-MS-Office365-Filtering-Correlation-Id: 305aaf65-63b9-4d3c-afa6-08deb0a32bee
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|22082099003|56012099003|18002099003|11063799003;
-X-Microsoft-Antispam-Message-Info:
-	R68Uj9LQI8rj5Dla3KklwfvX7dOQkhruxEpUVggFQw6AwQRLVbvNfz8RF0QnFx9XubmqkUs3OBHq6eyeRA18HUvIs08Tj1vzkTbANpUXkY+IrAEPBT+VE+6ttbAuSxDiQQp8xQvymYP9/aU3kaGbUSP0f2/pinsjeikysP2lgFRT6YqOOZpkbdyKZyBlxyzOkzemczLlx+BMvDDftee3doo184WZX51YoD/wlt0Se7dSG0q6yuJOdqc7AWS/D/oxMwFh9S6Vq1QNbTksqRTjztjqJBzRuyIV+Y32T8cZzRvei/K3vHfPIJnvpwtdtuJZneGie+P5yu+BbypjRoRYbZdh8Dq3Y9j7bvc+7vaU8gdfwRi7HjPNmr8bQV/UdJEaulopugOT2a1PRyDd+Jskgk2cOX6epW2M32JOsRm7ARex2+9iebVClpv6GkgcQFxJZjUQ+XVVSLjHXiVhwOUBLLJdM4WrLKdLlOyJfcyChTLcA7qg/mjW/s5VUSotzm7siKT4KS1xWToMXx7sOofsJWqNsXP8he1W6UxLqoo8CLXnuZSCcmgwb3U+24Yyv3o3AXRgY1VRRH6RolFtIOjP/+y8wn/4jbFo/GBdz44/Ny5dycM2brZUBTRLbdMjRuljQ+ArAphTXdY1VAwXiItL7JM6bl4GTIZMk3wYnK98lfxt+QQZCDyoUyfFZON8CYaf
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB7149.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(22082099003)(56012099003)(18002099003)(11063799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NGVja0dSZVZPbkVObWFpZzNkWlhlYWFoUWxlQmh6SG5UY3FtWWlBcGFrcWdy?=
- =?utf-8?B?WnZNa0Q4VVRKZU13RWl0WTVJMXl5a0xlZTNOV0JJbTFNL2NLS0FkRStpc3hE?=
- =?utf-8?B?OXpmUVk5TXM5aGxQd2NVVExBUG5YMGR1VExCcFFKZDBGd1d4Y09VUnpicXNu?=
- =?utf-8?B?Y21GSnJqYkZTUTZHM2IzandIZTlrVGY0c3gwUE1IOVJ6TFdOVks5TE4zLzZt?=
- =?utf-8?B?OEZ2enVqenliVTkxNDhqTUJyaXV0cHlLVHk3MXhoQ0w5ZzFQc003YXFpTktj?=
- =?utf-8?B?ZElyRHJYTTFUTU5qZFVXWWhmUjBEakxKUkgxVG9zLytZTjNzWDhIVlRxc2Ix?=
- =?utf-8?B?ajkydTUrUW5nNlJyR2dWanhldktNeC9mcDdZVTlKTWdCTVVra3FIeVZCeXNp?=
- =?utf-8?B?NEl3SWtzR0F4citnNGF5U0JGK3JTQUE5NnJVZVFUMnpTWHZ5OUpZZkZsbDlT?=
- =?utf-8?B?UlRuWTh1K1VPd2xMMVJ4T3FqR3VKTGZQY0x5ZC91NVpHclFNSWpwak9LSnhD?=
- =?utf-8?B?RG9Jbm1sRTVzNUV1VHhlbG1Ka3JWQmc2MmZQVUJSbERGSmptbnV3bzNHWWJE?=
- =?utf-8?B?THlHS0g4NkFmRDlrZk1NbEg1aU8va050VkdpeVV0ekw2K1hVN0lHVk9GQ1Zo?=
- =?utf-8?B?bzd1ZGZvZHpYR3puaDJDSStsV2tLY2l6VXdpT2lpb0JCUUNudzMwbG1KbUtz?=
- =?utf-8?B?ZVNVV2dtdlZ6dlRoTVEyQk9TTXJRdFdMWlNxR1lkckdkb3JjODgyM0g5OEov?=
- =?utf-8?B?ZlFCTU1PWlAvWEQ2RW1SdHZLWXV4Mlp4RTB0aC9SRUxMZUtiRkFodmxiZ281?=
- =?utf-8?B?Y21YOWNBbTF2dG1OSjcySWlPY3JvR3YxdlVOOXFwMmJ2UzFRcGJ6THVvTlNz?=
- =?utf-8?B?L2Voc3o1STMyb0xVR0RTSVMyZ0xyS2lWaHNJSWlYVDdHUGJPUWFPcmhKSDBs?=
- =?utf-8?B?THBES3pMYnlLckgranBNSXJRN0o3Q0VVS0NTeGhSYnpvdWtvZ2puR04wZ0Zr?=
- =?utf-8?B?TUxkMS9TWEozb250dEpKcU9WRnRMYlVWUC8xRWQ0c2ZBamdHM2lwdENEcmgw?=
- =?utf-8?B?L3JVNnBkVUJ1SHdYbzRTVk1JdVJlR2lHK0poYllQVGtCbytxR1EvV0ZwQWZD?=
- =?utf-8?B?UThHY2EwRHJuSTdFbmlwMVgzUTlpVXFGWW02bjZseDF6M0s4QkwzaFRCbGNk?=
- =?utf-8?B?cEIxWTRwMGNERWlPR3FxT1hWdmhzdDlvcThpbTJMSEp5NUNOQnJBeW9ncEFM?=
- =?utf-8?B?SUFZODhqeG1DUXFZakpYSnpZYlFsWGYxeXFaRmt2SEtJWnVzQjcrUTI0eCs1?=
- =?utf-8?B?RXQ2Z2xDQ1RUbllLYTRlVXRtdzJ4M2YzdjVNbUlCb21LamhaNFMzN3ZWYnY1?=
- =?utf-8?B?NkQxZkVHSlFmSGlFdFF3ejh0eHBoOGpNZWFUaGMwZG1iWm1Fek85RDN2Z3hF?=
- =?utf-8?B?czgvQUNJLzRSS0dLRWNCa0sraUlYNTNyTlRQeU5lOW9QbHV0VEFIN3FwZUFi?=
- =?utf-8?B?U1pTQXh6WXRISjJTSk83cloveTkvSGE1aE4vMjg0R1lTTklFN0laUGV3bm1a?=
- =?utf-8?B?cmxHUlRNa2xHNlNjMUZrcE5CS0ZUa00zbHJ4dU5vNHNDNzlOV3JOS2s3cjQr?=
- =?utf-8?B?bUVKK0ZoL2ozR1g4T0I2amd1R210NHl2T0NDMkNkUWJmUWVVTTNTM2ZOYkhv?=
- =?utf-8?B?ZWN0L0VTcFJDMHdsbEh1SkF3ekZjeEJXVFcxTng0VDh6VGZucTQ0cTYrTThG?=
- =?utf-8?B?VTZIYWVCZ0VmSUFuSzBHZFhrbEJnMUI1aUg3cTBqVGpwb1NZb1I2eGJTZDNx?=
- =?utf-8?B?OE91VjFEZS9mTEMvTkxxOUFNZndvOUtxYXMxK0RKTUNZY2wwSnBSa01hQlNU?=
- =?utf-8?B?elRRaUFJUUFzVEhZY2U2ZHZ0T3VlVGF4Q3FrdnFMY09lbnpEYURHZ0t5eHR6?=
- =?utf-8?B?cGw5d3N1UnVSTk5kM0dFNVhUd3QzckRqZGFSU2lFbEtFRFhQRFZBNmlJSU9o?=
- =?utf-8?B?cU1lTjZ5cEpPZUozTllKdU54d3Q3NXVSTmxqNUV6ZDJ6TEJZWHl4UGtETmxW?=
- =?utf-8?B?SHhhUk5lejNSSW0rKzVOUElaMHdjQzZhdlZRblFlWWUwZG1odWxVMzlMZjdN?=
- =?utf-8?B?MXMyc2xTS2RMbjJJWTk1OXc2a2VwdGZYelhYY1IxVXRiR1pvQlp5U0g5TUps?=
- =?utf-8?B?QlM4c1BoVVk1Smgwd29pbGxtUVJNQ3lWUXJLRDBURkdsQ2Z6ejRGaXM2eWd6?=
- =?utf-8?B?V0hPeVhjVUZSeGZZTWRJOVF0dG5NbjJpdUNJYXRsYk1qcGx3bGpLc3JZUW1m?=
- =?utf-8?B?anhQRm0wVlIxeGpiV2dFVGhGRzR1b2FVQVNudTRiUHFpMU8rOVBBUT09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 305aaf65-63b9-4d3c-afa6-08deb0a32bee
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB7149.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 03:53:19.8550
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: l5GXOJP2k2mXLOUI6eibXRa4Qm29OcGM+aS12J30MTyveuOa1cugoXHVCos0k9J9nX3bEDxh/EQuZBfwlQRzBQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR03MB7837
 
-Hi Brain,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Critical] gpio_regmap_get() incorrectly uses the physical GPIO data leve=
+l to determine its direction.
+- [High] The new direction check in gpio_regmap_get() spoils the regmap cac=
+he with volatile input values.
+- [High] The write-enable (WREN) implementation overwrites the register poi=
+nter and corrupts hardware registers if WREN and data registers differ.
+--
 
+commit aa0f1e735514010e24fe4769039de6cdc0302e5d
+Author: Yu-Chun Lin <eleanor.lin@realtek.com>
 
-Thanks for your review.
+gpio: regmap: Add gpio_regmap_operation and write-enable support
 
-On 5/11/2026 11:21 PM, Brian Masney wrote:
-> [ EXTERNAL EMAIL ]
->
-> On Mon, May 11, 2026 at 08:47:28PM +0800, Jian Hu via B4 Relay wrote:
->> From: Jian Hu <jian.hu@amlogic.com>
->>
->> In the A9 design, the PLL reset signal is configured as active-low.
->>
->> Add the flag 'CLK_MESON_PLL_RST_N' to indicate that the PLL reset signal
->> is active-low.
-> This flag isn't in the patch. I assume that you mean
-> CLK_MESON_PLL_RST_ACTIVE_LOW?
->
-> Brian
+This commit extends the reg_mask_xlate callback with an operation type
+parameter to allow different register and mask combinations per GPIO
+operation. It also introduces a write-enable mechanism for hardware
+requiring a protection bit before modifying control registers.
 
+> diff --git a/drivers/gpio/gpio-regmap.c b/drivers/gpio/gpio-regmap.c
+> --- a/drivers/gpio/gpio-regmap.c
+> +++ b/drivers/gpio/gpio-regmap.c
+[ ... ]
+> @@ -78,10 +89,24 @@ static int gpio_regmap_get(struct gpio_chip *chip, un=
+signed int offset)
+>  	else
+>  		base =3D gpio_regmap_addr(gpio->reg_set_base);
+> =20
+> -	ret =3D gpio->reg_mask_xlate(gpio, base, offset, &reg, &mask);
+> +	ret =3D gpio->reg_mask_xlate(gpio, GPIO_REGMAP_GET_OP, base, offset, &r=
+eg, &dir_mask);
+>  	if (ret)
+>  		return ret;
+> =20
+> +	ret =3D regmap_read(gpio->regmap, reg, &val);
 
-Yes,  You are right, the flag should indeed be CLK_MESON_PLL_RST_ACTIVE_LOW.
+Could this read operation spoil the regmap cache with volatile input values?
 
-I will fix the description in the next version.
+The comment further down in this function mentions bypassing the cache to
+avoid spoiling it with pin input values, but calling regmap_read() here
+appears to cache the state.
 
-Thank you for pointing it out.
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (val & dir_mask) {
 
+Will this incorrectly evaluate the physical GPIO data level as the directio=
+n?
 
-[......]
+Since base is set to the data register base earlier in the function, it
+looks like this checks if the data bit is high or low rather than querying
+a separate direction register. Would this cause an input pin driven high
+to be treated as an output?
 
+> +		ret =3D gpio->reg_mask_xlate(gpio, GPIO_REGMAP_OUT, base, offset, &reg=
+, &mask);
+> +		if (ret)
+> +			return ret;
+> +	} else {
+> +		ret =3D gpio->reg_mask_xlate(gpio, GPIO_REGMAP_IN, base, offset, &reg,=
+ &mask);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+>  	/* ensure we don't spoil any register cache with pin input values */
+>  	if (gpio->reg_dat_base =3D=3D gpio->reg_set_base)
+>  		ret =3D regmap_read_bypassed(gpio->regmap, reg, &val);
+[ ... ]
+> @@ -98,10 +123,14 @@ static int gpio_regmap_set(struct gpio_chip *chip, u=
+nsigned int offset,
+>  {
+>  	struct gpio_regmap *gpio =3D gpiochip_get_data(chip);
+>  	unsigned int base =3D gpio_regmap_addr(gpio->reg_set_base);
+> -	unsigned int reg, mask, mask_val;
+> +	unsigned int reg, mask, mask_val, wren_mask;
+>  	int ret;
+> =20
+> -	ret =3D gpio->reg_mask_xlate(gpio, base, offset, &reg, &mask);
+> +	ret =3D gpio->reg_mask_xlate(gpio, GPIO_REGMAP_SET_WREN_OP, base, offse=
+t, &reg, &wren_mask);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D gpio->reg_mask_xlate(gpio, GPIO_REGMAP_SET_OP, base, offset, &r=
+eg, &mask);
+>  	if (ret)
+>  		return ret;
 
-Best regards,
+Is it possible for the second reg_mask_xlate() call to overwrite the
+register pointer if the write-enable register is different from the data
+register? Both calls pass the same reg pointer, which might result in the
+first queried address being lost.
 
-Jian
+> =20
+> @@ -112,9 +141,9 @@ static int gpio_regmap_set(struct gpio_chip *chip, un=
+signed int offset,
+> =20
+>  	/* ignore input values which shadow the old output value */
+>  	if (gpio->reg_dat_base =3D=3D gpio->reg_set_base)
+> -		ret =3D regmap_write_bits(gpio->regmap, reg, mask, mask_val);
+> +		ret =3D regmap_write_bits(gpio->regmap, reg, mask | wren_mask, mask_va=
+l | wren_mask);
+>  	else
+> -		ret =3D regmap_update_bits(gpio->regmap, reg, mask, mask_val);
+> +		ret =3D regmap_update_bits(gpio->regmap, reg, mask | wren_mask, mask_v=
+al | wren_mask);
+> =20
+>  	return ret;
+>  }
 
+Does applying both masks at the same time contradict the mechanism described
+in the commit message?
+
+The message states the hardware requires setting the write-enable bit before
+modifying GPIO control registers, but this writes both bits simultaneously.
+Additionally, if the write-enable mask was intended for a different registe=
+r,
+could this bitwise OR apply the combined masks to the wrong register?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512033317.1602=
+537-1-eleanor.lin@realtek.com?part=3D3
