@@ -1,95 +1,104 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030374C6F15
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 12:49:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D34BB421A09
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 12:51:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778676593; cv=none; b=itSzGFqUHvOAhcD7e9nLx9cz2EwVvsvPoY2Zd59Qt4hB3cOlikwwOHwpsQpAWidIt1PvhU9fjfevwh4Oa6M6rGyLuwBTZXEoexypth5fXZsssf94IqzKy3y7jcg/BzrSFQIMPq7OjqbtFNSxgkpJxSk3+NAJMgTqslAgtZseNhw=
+	t=1778676700; cv=none; b=I0FNWKTEl+CXIpOCVSz5AlFbQnqWVRMqeion/aKSYPXQX5g6DDAyepp2MxowX6xiMUUPpU90FzSMp2RxHbhCgubnlcQXPC2/1fNJhbQlAs3kewfyViBeqSGcBf/AQE4NIMjoY4W7hlcANKgvAdL60R0v130OB7ETVp2VI97MVlo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778676593; c=relaxed/simple;
-	bh=nI7YOzNufegrzrQMgLxNrwAqGVHXqCpVokhfGj2uJHs=;
+	s=arc-20240116; t=1778676700; c=relaxed/simple;
+	bh=iZ+rhY6naGHKhMzrP8QxXXInCAg359+FOPwWyqsge2Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VhwQ7OE4DPmROOY8x60eLe2iK5FFyGlUZKnhPNfiPjXe2qQH3LVsb/PGOO5IlfPPcho59fFvivIOXgdl98WVtuka2szt3wZqSvTeP+rlgJBZJJ2iPGHsu8197jFJoEX2sYZsWQe9SL5PS8vMq2Do1u34WFcDSdf+LjPxefBvdDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=anv6YcyT; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=uZASp+T0IBleRR0ufkNkjZlyhLTSmEfyRmizTusiv1K0If/Jl/rGW8vgxmEBB1mzJlqWrzQVD/y/dhKE/vw87AnCbhErJUDZkzSkkNoXn4e2K9IjxPs+M/W8eR1NOUK49/UokxlhwopoqeD8PL4KPH3wTG6yrHWQ6lSZVnTdYmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NDIq/Rxu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LhqhFQ5I; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="anv6YcyT"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-48a563e4ef7so61563115e9.0
-        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 05:49:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NDIq/Rxu";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LhqhFQ5I"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64D8wsae4159821
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 12:51:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=Kn/YRSmu1AmAJzx11ds2slyz
+	figdFYuhEAsgIp4NDkU=; b=NDIq/RxuVg5XYMINy06ojxe7GwBFB7L7J3aXz/LS
+	4emn1bqc/pRI6ToX9L4lwDJwgUt6vbxim4gCk2AIEDlFZQvQ6TUBHY4thmHCxASD
+	ym6XNRfqdHyxRo4FQpiUWfyItlAKntC2C4kkTD5k0Z2PM7SNkf2/ByUFma3Jqize
+	1Ncb0pYX0q8xmuDu+cDbTouWdcmoVEW8EURr5xqU6+rLI4eWLeHzHsYWuuBidxy+
+	wDFS5jsPP+y06x0dJaUVop3oixYvSVLo8VdtwrQw+sEexabiF5pKWJPaF6Wbqif+
+	DbsMwbXCB8zFCJY3oJjMR/Q5axe0njkSN42RdqPk1OUHsA==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4p91rtp2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 12:51:38 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-2ee1da7a13fso8424489eec.1
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 05:51:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1778676590; x=1779281390; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1778676697; x=1779281497; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=u3zF8kES347TPoEbvDwkqQbzfa05yrB1P5lQaxsmy/k=;
-        b=anv6YcyT1kkN39tGg5nc5kZAg7zQpsefqN7H9k6nFlR+iDHfySQCgjAqbF1Vit5gd6
-         HGvL00FO0ndFtwsAGqbZi7Lq+ftGXgmMie1BQilW144IsLtBbTz8EenRf2GoJtXZXHct
-         8L45vMDjh070y3wWVV3Db08kBBIq0CLPhLkZKaHQuey9Hyn9kLtUPM6d/ueYS1lLmDYi
-         DWzO+AFK5ewpdDMcSm2BQfdphnr1Dy5xQINNfDbQhJegZhXsUoscwrcjBPJAQ5hersSM
-         Dk6KDwz/c9bXB9CgGMtY4vaFx65TH67HQJC9zt82spg6F/gWQGD3VkvQOfMJy9D4lOVf
-         BfGw==
+        bh=Kn/YRSmu1AmAJzx11ds2slyzfigdFYuhEAsgIp4NDkU=;
+        b=LhqhFQ5IIB44hLTpwBNbdhscYptc3t4HxPbXz/76ykTBR4Tw4c6PHKDdezlKRXUAf3
+         fGTv9+EaiOPSl2T/q4UcJXhSDmT8c0srS2tKOof2fzExME+n8HNX/35yZKWuElueysnC
+         Rk2RkOOOBobxWmaWNtxn0qqztPiRAXCXr650ynAjIncISeEg4zLtafoF7mDJ9rcKenwa
+         LC6ELcJEGlrY/XIgyTWsey8VebkC92+RvKmWjehKJTeeA/RugjG77NY73iiUY6IfZQLT
+         V0s9rr+/hT/VEr3ptFAGMM8VjmxR8sGOaSQewTUPHBHP2mGg6ZM6CzHAgy2zNimXEWuD
+         hIDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778676590; x=1779281390;
+        d=1e100.net; s=20251104; t=1778676697; x=1779281497;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=u3zF8kES347TPoEbvDwkqQbzfa05yrB1P5lQaxsmy/k=;
-        b=FzwZ6w6VszIEOML14XHQsvSMPSPpl4A6NYWKUAjnK93vx593ESRa2NfHLYHg3p7nAw
-         Y0jTmDPsUbcKAUNu+w3zElFyWSRJWgvrx4KpWTRge19u07QS7ij4Y4D6SMtzNhxubYEA
-         yAA/+XPWZTSBCefTNeqPM0mW/ESnvd3Y8HjwlFUZxMNMdIm/26CK+EZHs57gPW/dWjRY
-         UPr3RhxOCy2GnYzOH9hAzYwY5PmnWyEAIS24O+ASkuFr898FmaK8AtxeY6b3RIvBTAzs
-         13TOKOq6t90npOL1ksrKDs1GhpSvxMLnd+Hn0jB0X2v4Jw3upwfk8vnYYmYVorFTdZbq
-         w7tw==
-X-Forwarded-Encrypted: i=1; AFNElJ9/cDRSOilUie4cd2e3DEKOHEo+V4881on5t/kBK0h2qyV8vcTjNV6Esh9lHpQOsnCjJb2Pn/eQoxKL@vger.kernel.org
-X-Gm-Message-State: AOJu0YxLrYooFu5JSEtWIFcUR0dYp5E9KjZw96dzdhgXRdJwXUQO4WtT
-	GCwPdX3q+Pn1mVkWeqxTqunytWEBhyQaOFX9daXVZaFzvh4d1oBgz6OJi+i3/whfuyk=
-X-Gm-Gg: Acq92OEaR19JN8biAycc6zzJlQV7Uzu6drNYmCVVGR4g1YEeJWYuO95v1qbT+Jwn7j2
-	8OW7LWMF/ts2ROH1PyAjHGIhJjknzhB72IMD9041KOZtu+vfdwlyHhdaEhrqRpDcXGD/QkEisZz
-	9nVYE9w6JqLE225laxieqb/PpghyEClXXVtAhVOu5xSYCnpWhN4fzNrFKkKOco/nVnbLrwysrR0
-	BW5RqYQcgk8L3BjKZvHxe/cCtgiVrRHiudYPH/QvBEWsfwLAbYS8LcfzVDbf2ELk6KblX9pH6ij
-	8Th/lT9bvHUQen8p1pVCMzZeOOcfl6S4H2MGvxU4Jt0CtdLTaxnDqkWZZIQb5Lhopd+L2zaapl4
-	YfHLWxtb7pzjJUwwRRIatsWKUm3wU4IGrhbA8yX5KVloF+VyBsf/wxow5qonQVKn9RjZNUvpLhx
-	m3b9Rl/K+oic6OPJY/Cx55JiwHdiafrwscIiKfD5KJbtcL/uaDFGfy1+WHqUukOBzp5joZCYBjE
-	Xxp5atPtHYHmDMlopnG7eHZswBRbXCtuQX/+w3HYc5lehSD4EbNc/E0M39pm+qkhx0RC2I4lawe
-	8S0CQkWN
-X-Received: by 2002:a05:600c:6305:b0:48a:5301:bb5c with SMTP id 5b1f17b1804b1-48fc9a32aeamr49565525e9.16.1778676590239;
-        Wed, 13 May 2026 05:49:50 -0700 (PDT)
-Received: from aspen.lan (aztw-34-b2-v4wan-166919-cust780.vm26.cable.virginm.net. [82.37.195.13])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fc8cd49fesm78578015e9.0.2026.05.13.05.49.48
+        bh=Kn/YRSmu1AmAJzx11ds2slyzfigdFYuhEAsgIp4NDkU=;
+        b=mpMeOEofSFoweqZMML4LxF713SgJx7CWVp8mXNsCAmRp9PQKLzOlhLghYPrpsKhBCN
+         Qz0d4nqc8hJgUBe1PQecT3kvpccrqfqXeuLfuJblGDJarX02E8NJZWLdR7A6BoS//v5l
+         TYA5+tEMtxCLmivyc5SQNlkUdUUOt7yxrSqdG7b01QtYb/TXn5lhABKzPX8cM56kwRou
+         /ilImwcm8hageybReaewTXHHKOuDiNzGMK6aiYycOXm8/JjptCjd6KxGhSO0AwrZh26j
+         IxI8Neh7QfQvbQIHHC6F6IPe0VnXODJcdtxgSatBR2BQq+zeefl8Vs5SiTXWRWSPk/K7
+         AVlg==
+X-Forwarded-Encrypted: i=1; AFNElJ+TNYcrX0vPUXB0rKslTv0Izg10IzwcL9qHWxPEnbZdJG9M8JeMrNJYJyLWJCUnSJCkpxHhthXxvP7a@vger.kernel.org
+X-Gm-Message-State: AOJu0YysyfTo6qeYOEqCafb2d9ZHrURX2KGDzKIlcgMg+YWxrpJnVTsC
+	a8cCQb+o+xIlU3gkVH5A9CNmv2WLRDLbV8ekize7qZS41FmZs24XSZDFsvc1iSRXlQZ36iUZgxB
+	CeGw7UaaPRTmoY/eCFSU871wxMFJEXci/KaPbCAhr8/gZF+ox3djP7BZJo1ZQFclR
+X-Gm-Gg: Acq92OHrtmS7ED/x0NA92TQv1mO8f5XXrp4Rkt74/dvmLt3t1ZdW6wVtKaOVUHbxF0k
+	HGhNZn9V+5uoxOYF6uN16kvY9ddchzsELwlEegrGqqTZ0L+IevlO5m/sb0g0bZkQtvnZDTDbBMl
+	cIk3g0YPn+nxRmeyArEvTcOOZsz4l3YZmDIDHAFOC9AnluHlLYBq6U4RiYQIOB4/AuNg+LaGBHh
+	qknoQzLw6lUw4XhvVxMpZcBX69GGxzskefBdqVsCD5F6Gc8s0oC+xMeHGBKekhJl+2/8R79QNCa
+	KPqbxqneZjtZmHkE2LAz4bR4oD3jZ4XpbRpkAk1bGmvG3DjVfxlmiRnsLVTwoy1BI2qswgsoOpE
+	ClUDLPHLSiY61x56Po1V94RZkZ7BM8gf1vNfl1Pfq/HzPG+N9DIpPIl4MvFlN7mXE
+X-Received: by 2002:a05:7300:e7a3:b0:2f2:8857:180a with SMTP id 5a478bee46e88-301541afabamr1201365eec.7.1778676697410;
+        Wed, 13 May 2026 05:51:37 -0700 (PDT)
+X-Received: by 2002:a05:7300:e7a3:b0:2f2:8857:180a with SMTP id 5a478bee46e88-301541afabamr1201342eec.7.1778676696838;
+        Wed, 13 May 2026 05:51:36 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-2f88885b87dsm26728284eec.21.2026.05.13.05.51.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 13 May 2026 05:49:49 -0700 (PDT)
-Date: Wed, 13 May 2026 13:49:46 +0100
-From: Daniel Thompson <daniel@riscstar.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Alex Elder <elder@riscstar.com>, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, maxime.chevallier@bootlin.com,
-	rmk+kernel@armlinux.org.uk, andersson@kernel.org,
-	konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org,
-	arnd@arndb.de, gregkh@linuxfoundation.org,
-	mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
-	alexandre.torgue@foss.st.com, ast@kernel.org,
-	boon.khai.ng@altera.com, chenchuangyu@xiaomi.com,
-	chenhuacai@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
-	hkallweit1@gmail.com, inochiama@gmail.com, john.fastabend@gmail.com,
-	julianbraha@gmail.com, livelycarpet87@gmail.com,
-	matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
-	prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
-	rohan.g.thomas@altera.com, sdf@fomichev.me,
-	siyanteng@cqsoftware.com.cn, weishangjuan@eswincomputing.com,
-	wens@kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 12/12] arm64: dts: qcom: qcs6490-rb3gen2: enable
- TC9564 with a single QCS8081 phy
-Message-ID: <agRzai1UoHEIotZe@aspen.lan>
-References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-13-elder@riscstar.com>
- <01d6ea18-e022-41c7-a642-ac0321957923@oss.qualcomm.com>
+        Wed, 13 May 2026 05:51:36 -0700 (PDT)
+Date: Wed, 13 May 2026 20:51:29 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Luca Weiss <luca.weiss@fairphone.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, aiqun.yu@oss.qualcomm.com,
+        tingwei.zhang@oss.qualcomm.com, trilok.soni@oss.qualcomm.com,
+        yijie.yang@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
+Subject: Re: [PATCH v5 4/5] remoteproc: qcom: pas: Add late attach support
+ for subsystems
+Message-ID: <agRz0VSlRYKiRtxJ@QCOM-aGQu4IUr3Y>
+References: <20260409-knp-soccp-v5-0-805a492124da@oss.qualcomm.com>
+ <20260409-knp-soccp-v5-4-805a492124da@oss.qualcomm.com>
+ <adm37MruBfXAjLpZ@baldur>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -98,71 +107,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <01d6ea18-e022-41c7-a642-ac0321957923@oss.qualcomm.com>
+In-Reply-To: <adm37MruBfXAjLpZ@baldur>
+X-Proofpoint-ORIG-GUID: bQuRckeTkewSrvGj6zWMazozCuTLjYM1
+X-Proofpoint-GUID: bQuRckeTkewSrvGj6zWMazozCuTLjYM1
+X-Authority-Analysis: v=2.4 cv=G9Ys1dk5 c=1 sm=1 tr=0 ts=6a0473da cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=j6KSvuxjzLO5aVo6jmoA:9 a=CjuIK1q_8ugA:10 a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEzMDEzMyBTYWx0ZWRfX2kPEyi8/8PXX
+ BGm7QvlfDrr0mdkCWWmyqMmuBfbKc3KFwC0K3BeM2ks8EtOi5B//V8YLNzKjrbsB2kJaD454igO
+ aQfHheSe9KXLDG0mGBmLLmtBHrbq1eTNEBnLg7S+x5HTMK6Dxe2t9UQwrXTsYGM+29qqa/AmoUU
+ kSHAUV6QEcSBnPs4IYX041pp4o2/lgb6zer3J8/4pG3Z75TLqexAOpbY6fb0Cf70dHMdXUX6ZS5
+ b9oF+FAONHjHBLGIqs+HixqbZ9UX5FDPJiJZhTyDzpfxu5fXv31qnKYbjnzjo69Zd8iFHiJFGQ4
+ mtfiy4CLHmsHXG0lBZSbJPwmqB13Csc+kzehsCyAlzIxjB/IhyjPmQctog3GI3/YJ0veF4guS1H
+ lvO/87t3wz0RJr33uF6PlRXKaUic0ROHOtxIi7Tgzfvnb0VibqYBdzk37Tf0woqjFPzKXInIPJ6
+ T0wDTk7jydF5MIMldIQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-13_01,2026-05-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 adultscore=0 spamscore=0 phishscore=0
+ clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605050000
+ definitions=main-2605130133
 
-On Fri, May 08, 2026 at 04:03:36PM +0200, Konrad Dybcio wrote:
-> On 5/1/26 5:54 PM, Alex Elder wrote:
-> > From: Daniel Thompson <daniel@riscstar.com>
-> >
-> > The QCS6490 RB3Gen2 includes a Toshiba TC9564 (a.k.a. Qualcomm QPS615).
-> > TC9564 is an twin Ethernet-AVB/TSN bridge with an integrated PCIe switch.
-> >
-> > There are multiple builds of RB3Gen2 with components included/excluded.
-> > That means whether or not there is a phy attached to eMAC0 depends on
-> > the exact board. However all versions include a TC9564 combined with a
-> > single QCS8081 attached to eMAC1.
-> >
-> > Add properties to the existing PCI nodes to describe how the TC9564 and
-> > QCS8081 are connected to each other (and to the host SoC).
-> >
-> > (Note: "pci1179,0220" is documented in the "net/toshiba,tc956x-dwmac.yaml"
-> > binding, but checkpatch.pl doesn't recognize that.)
->
-> This should probably go under the --- line
+On Fri, Apr 10, 2026 at 09:59:44PM -0500, Bjorn Andersson wrote:
+> On Thu, Apr 09, 2026 at 01:52:27AM -0700, Jingyi Wang wrote:
+> > Subsystems can be brought out of reset by entities such as bootloaders.
+> > As the irq enablement could be later than subsystem bring up, the state
+> > of subsystem should be checked by reading SMP2P bits and performing ping
+> > test.
+> > 
+> 
+> I still don't understand.
+> 
+> Are you saying that devm_request_threaded_irq() will succeed and then
+> calling irq_get_irqchip_state() will not work? Or are you saying that
+> SMP2P driver isn't reliable and we're loosing the ready or fatal bits?
 
-I'll leave that with Alex...
+Hi Bjorn,
 
+After an offline discussion with Jingyi, I understand that we are trying
+to provide a stronger check (ping-pong) than SMP2P ready bit to make sure
+the subsystem is alive. SMP2P ready bit is a pending state which is not
+necessarily reflecting the current subsystem state. There was ever some
+corner case seen on production environment (with downstream kernel),
+where ready bit is seen but the subsystem is in an abnormal state, where
+the subsystem still feeds watchdog but stops responding to any SMP2P
+request. A ping-pong test could help detect that.
 
-> > +	qep_1p8: regulator-qep-1p8 {
-> > +		compatible = "regulator-fixed";
-> > +		regulator-name = "qep_1p8";
-> > +		gpio = <&pm7325_gpios 8 GPIO_ACTIVE_HIGH>;
-> > +		regulator-min-microvolt = <1800000>;
-> > +		regulator-max-microvolt = <1800000>;
-> > +		enable-active-high;
-> > +		regulator-always-on;
-> > +	};
->
-> If I'm reading the schematics right, this is only required for the PHY
-> - is it collapsible, or does it really need to be a-on?
+But since "pong" is not supported by every subsystem, e.g. ADSPs on
+Nord, we should do the test only for subsystems that support "pong".
 
-It could be turned off if the socket isn't in use but it would prevent
-hotplug detection from working. In practice that means it can only
-collapse during suspend/resume.
-
-However the real reason we jammed this on is because I couldn't find a
-way to get the phy/mdio code to turn one on. However it is possible to
-add regulator support to MDIO devices by extending their existing logic
-to manage resets so it can also manage a regulator. It comes out fairly
-clean so we can add that to the patch set and remove the
-regulator-always-on.
-
-
-> > +	qep_irq_pin: qep-irq-state {
-> > +		pins = "gpio101";
-> > +		function = "gpio";
-> > +		drive-strength = <2>;
-> > +		bias-disable;
->
-> There's no pull-up onboard, should we use the on-chip one?
-
-It is configured the same as lt9611_irq_pin (which I couldn't see a
-pull-up for).
-
-I switched the interrupt trigger to active-low based on other feedback
-on the patchset and the counts in /proc/interrupts remain unchanged
-(with a single figure value). It certainly doesn't look like the irq
-line floats when the PHY interrupt is deasserted.
-
-
-Daniel.
+Shawn
