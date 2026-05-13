@@ -1,178 +1,262 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D533A63E8;
-	Wed, 13 May 2026 05:33:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75182390616
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 05:35:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778650434; cv=none; b=CQ/hLYBbMrEi+5hX5tW/+XJLMRXD1s/jemsCcNERQm0jG0ENmsu1J7cu1LweXJCFt1ePFl3oAAFMDv3y56mJL5U97c/3RA05WWN1PINQ5tWe4xrg4TjxX6qiGH96Y2sF5405FvYVaUjXMUqsoiOrP0nXoWT3ZB+Ryys/UPaHn9U=
+	t=1778650508; cv=none; b=h5o2KRUmjiJ234+J3pnupiWz3M9mQExlIDFQT0CLOKdXEcQKoxODcvMDIy6RA41B6cBb4BbOlCs4WaZifekgiyTbxUrQ+sUnhSg6M4xnMgP62X9zZ7/VGoUACIxQgMwiCuG0j45kWCIZTeqripK0ipehltPveGQ/UiGKumZgsYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778650434; c=relaxed/simple;
-	bh=x5TkDdbONmZOgAdjv0ntaRUkxgGy5Aaa6erKOQdQyOY=;
-	h=From:To:Cc:References:In-Reply-To:Subject:Date:Message-ID:
-	 MIME-Version:Content-Type; b=RZrPbDMqHxJKJeTA/X29x46w4Op1eHL324/TAIgqW9ce8YsXBiQB8fCi2/D7Zjdsx5M3fQU+Z/cSrN/jarI3gE8OcZGDffMxVjhfI6/M7h8E1EXzrXyQ3zMssEpLcxcs5t94VMa3Z07ZLNJf94RyfCRChc5XRxjKBXKF4Aj2Afo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=atCl13yg; arc=none smtp.client-ip=212.227.17.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	s=arc-20240116; t=1778650508; c=relaxed/simple;
+	bh=m5Nx4HpcEeh1slTnHhYaP0H8wCSUulfRhhMs42YVixQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Cl77BrbJjUx4X1us6DV9/0vrCmurpGA9t7Jga+8kaCzYqTAvzw/cJjSkOgyAGurwyJ9v1TWSCcZlLKes5PDnnwza/CwTVBy/9lNCnJ5xp7hRMrrjvLU0OiDteaWSdctxzCxcp0dmVELd9WdIU0+jLqxnb48jUFpQwMZI7mUpujE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bOiEuSWI; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="atCl13yg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1778650420; x=1779255220;
-	i=markus.stockhausen@gmx.de;
-	bh=x5TkDdbONmZOgAdjv0ntaRUkxgGy5Aaa6erKOQdQyOY=;
-	h=X-UI-Sender-Class:From:To:Cc:References:In-Reply-To:Subject:Date:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=atCl13ygkqSifZE/CLSYS1fs2fiaif/wv70zcE3ozOELKiDU2AI0uKeOsbq5kll9
-	 uBtfENjlD9+Tidm2Wy+It8hVl5WQdQFcHfmxeIumZygAom1V1WAQwhAqv/B2gU6/6
-	 VSlz2tHaxE/X0VVqmmBlCrgOHqcflSzqmITHOR1X2JlB18DhokrsLG9slBiuFxp+9
-	 YDzNcFuiM+XvcynpSDjRaueUF5gSs9vvygOfjzydtcPgV9Qj6Y83rFeM9ereJ/qXk
-	 bmvq4PDSer5FeFTyv/Wp8rKf1rBLQx0ectt/ii0H9IoFejbV6iA/qCH8CTcMC+rPB
-	 1b+4vbdMq6V2tcVARg==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1M7b2T-1wSoRt1KO5-009mWo; Wed, 13
- May 2026 07:33:40 +0200
-From: <markus.stockhausen@gmx.de>
-To: "'Bartosz Golaszewski'" <brgl@kernel.org>
-Cc: <wsa+renesas@sang-engineering.com>,
-	<andi.shyti@kernel.org>,
-	<robh@kernel.org>,
-	<krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>,
-	<linux-i2c@vger.kernel.org>,
-	<devicetree@vger.kernel.org>,
-	"'Marek Vasut'" <marek.vasut+renesas@gmail.com>
-References: <20260511162528.84508-1-markus.stockhausen@gmx.de> <CAMRc=Mc-EbMu3eUrMA5UDCEp-xzbyndy8_U8OjfcTDJcATThQg@mail.gmail.com>
-In-Reply-To: <CAMRc=Mc-EbMu3eUrMA5UDCEp-xzbyndy8_U8OjfcTDJcATThQg@mail.gmail.com>
-Subject: AW: [PATCH v2 0/2] i2c: Add i2c-shared-gpio driver
-Date: Wed, 13 May 2026 07:33:40 +0200
-Message-ID: <004c01dce29a$0e44e7b0$2aceb710$@gmx.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bOiEuSWI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81EE1C2BCB7;
+	Wed, 13 May 2026 05:35:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778650508;
+	bh=m5Nx4HpcEeh1slTnHhYaP0H8wCSUulfRhhMs42YVixQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=bOiEuSWIAEMkgU5/s8mHAMDtQ/nBlho/ilJtiVJC7TcwC2NmMyZlIO3PS3A8deFqI
+	 pWlwT6Sk3KsMzecNmXk1OMYMwTSSFxIVdg0GMSOzabC5C5h2xxPifdzKWiN+q3gE1b
+	 P8Ngj6osfgckW2NTPC7wxZxJj7ShGNFxg2Z+Tpf5Y4DhJORiVo9HFWRZ/8kWVirlnA
+	 MQAHbv84tZN9xAXnLL9l3n86Trvfllpx+i871X/4RfPlF/TXMKQBY04nYlwMqtFMeI
+	 XoW/saTuHWowVvrOJf0gsjnRQU+iDHTzakLCT8INcI6jarWC1CJ1bdS4/HY2vrZoXE
+	 OVymI/pcU+ajQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v3 5/6] net: phy: Introduce Airoha AN8801/R
+ Gigabit Ethernet PHY driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260512-add-airoha-an8801-support-v3-5-1edb34e363ae@collabora.com>
+References: <20260512-add-airoha-an8801-support-v3-5-1edb34e363ae@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 13 May 2026 05:35:07 +0000
+Message-Id: <20260513053507.81EE1C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQJOQ41lTjAEFfNc8nTp+ZatC5wHYAIpu+1FtRdc+zA=
-Content-Language: de
-X-Provags-ID: V03:K1:CacZtKZo6KCZxAVcRokzXQ3ySSR+MwPBMgmG+rXB6z3jg6fbHaH
- HfSQsHqg9tVqAh54Jt5qchZiRJKAwJnChXGym6JIGe/1+s4PbS7PTk23wv1iNrSrOtHZTnJ
- aWczeCDw6BoIQDVKldY2JhLNWEjEg72+DSdmHQtuepE8c9SEiuxcvHazt6MiPPOB1tv4b2d
- Wa9TdOZXseiDN6h84G7/g==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:GdH69jWV4jU=;r1pHHCpl2lNgUyCEC0iqN0ADW9K
- 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
- Vp
 
-> Von: Bartosz Golaszewski <brgl@kernel.org>=20
-> Gesendet: Dienstag, 12. Mai 2026 13:00
-> An: Markus Stockhausen <markus.stockhausen@gmx.de>
-> Betreff: Re: [PATCH v2 0/2] i2c: Add i2c-shared-gpio driver
-> ...
-> Hi!
->
-> A couple high-level issues. You'll soon hear from the DT maintainers
-> and they'll ask if the i2c-shared-gpio compatible corresponds with an
-> actual piece of hardware on the board. It does not, so the bindings
-> will be rejected.
->
-> A virtual device doing the mediation is fine but it probably needs to
-> be an auxiliary device instantiated dynamically from C code.
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] Race condition and early return in PHY interrupt handler causes pe=
+rmanently lost interrupts and stalled link state.
+- [High] Uninitialized variable `ret` returned from `an8801r_of_init_leds()=
+` can cause random probe failures.
+- [Medium] LED blink duration calculation overflows `phy_write_mmd` 16-bit =
+value, breaking hardware blink cycle.
+- [Medium] Silent acceptance of unsupported LED triggers violates PHY LED o=
+ffload API contract.
+- [Medium] Link change interrupts are incorrectly left enabled during suspe=
+nd if system wakeup is disabled.
+--
 
-This whole I2C coding is totally new to me. Can you please
-elaborate what this means. Do I need to move over into some
-other folder?=20
+commit 95666fa3cde2e5306e8a143ecfdca2c9d58dbf2d
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-> It just so happens that at the same time as you submitting this, Marek
-> Vasut wants to enable shared write-protect GPIOs for EEPROMs. This
-> seems to be a similar situation where the default is to keep the line
-> high and drive it low if there's at least one consumer that wants it.
-> I will rework the gpio-shared-proxy driver with that logic in mind.
-> Would that be enough to address the issue here?
+net: phy: Introduce Airoha AN8801/R Gigabit Ethernet PHY driver
 
-I'm unsure if this helps. From my understanding SCL gets toggled=20
-high/low for each transferred bit during an operation. This data block=20
-may not be intercepted by other consumers
+Introduce a driver for the Airoha AN8801R Series Gigabit Ethernet PHY.
+This supports setting up PHY LEDs, 10/100M, 1000M speeds, Wake on LAN
+and PHY interrupts.
 
-Markus
+> diff --git a/drivers/net/phy/air_an8801.c b/drivers/net/phy/air_an8801.c
+> new file mode 100644
+> index 0000000000000..a0f164cbf92bc
+> --- /dev/null
+> +++ b/drivers/net/phy/air_an8801.c
+[ ... ]
+> +static int an8801r_led_blink_set(struct phy_device *phydev, u8 index,
+> +				 unsigned long *delay_on,
+> +				 unsigned long *delay_off)
+> +{
+> +	u32 hw_delay_on, hw_delay_off;
+> +	bool blink;
+> +	int ret;
+[ ... ]
+> +	if (blink) {
+> +		ret =3D phy_write_mmd(phydev, MDIO_MMD_VEND2, LED_BLINK_DUR,
+> +				    hw_delay_on + hw_delay_off);
 
+Is it possible for the sum of hw_delay_on and hw_delay_off to overflow here?
+
+Looking at an8801r_led_blink_ms_to_hw(), the delays can be up to 65521.
+If their sum is greater than 65535, it will be silently truncated since
+phy_write_mmd() takes a u16 for the value argument.=20
+
+Because LED_ON_DUR is then written as the non-truncated hw_delay_on, could
+this result in the ON duration exceeding the total blink period and breaking
+the hardware blink cycle?
+
+> +		if (ret)
+> +			goto error;
+> +
+> +		ret =3D phy_write_mmd(phydev, MDIO_MMD_VEND2, LED_ON_DUR,
+> +				    hw_delay_on);
+> +		if (ret)
+> +			goto error;
+> +	}
+[ ... ]
+> +static int an8801r_led_trig_to_hw(unsigned long rules, u16 *on, u16 *bli=
+nk)
+> +{
+[ ... ]
+> +	if (test_bit(TRIGGER_NETDEV_TX, &rules)) {
+> +		*blink |=3D LED_BLINK_EVT_10M_TX;
+> +		*blink |=3D LED_BLINK_EVT_100M_TX;
+> +		*blink |=3D LED_BLINK_EVT_1000M_TX;
+> +	}
+> +
+> +	if (test_bit(TRIGGER_NETDEV_RX_ERR, &rules))
+> +		*blink |=3D LED_BLINK_EVT_RX_CRC_ERR;
+> +
+> +	if (rules && !*on && !*blink)
+> +		return -EOPNOTSUPP;
+
+Does this correctly reject unsupported LED triggers when mixed with support=
+ed
+ones?
+
+If the requested rules contain a combination of supported triggers and
+unsupported triggers, *on or *blink will be non-zero. The condition will
+evaluate to false and the function will return 0.=20
+
+Does this silently drop the unsupported portion of the rules while falsely
+reporting to the LED subsystem that the entire offload combination is
+supported?
+
+> +
+> +	return 0;
+> +}
+[ ... ]
+> +static int an8801r_of_init_leds(struct phy_device *phydev, u8 *led_cfg)
+> +{
+> +	struct device *dev =3D &phydev->mdio.dev;
+> +	struct device_node *np =3D dev->of_node;
+> +	struct device_node *leds;
+> +	u32 function_enum_idx;
+> +	int ret;
+> +
+> +	if (!np)
+> +		return 0;
+> +
+> +	/* If devicetree is present, leds configuration is required */
+> +	leds =3D of_get_child_by_name(np, "leds");
+> +	if (!leds)
+> +		return 0;
+> +
+> +	for_each_available_child_of_node_scoped(leds, led) {
+> +		u32 led_idx;
+> +
+> +		ret =3D of_property_read_u32(led, "reg", &led_idx);
+[ ... ]
+> +		led_cfg[led_idx] =3D function_enum_idx;
+> +	}
+> +out:
+> +	of_node_put(leds);
+> +	return ret;
+
+Can ret be returned uninitialized here?
+
+If a leds node exists in the device tree but has no available children, the
+for_each_available_child_of_node_scoped loop body will never be executed.
+
+The function would then jump to the out label and return the uninitialized
+stack value of ret, which could cause random probe failures.
+
+> +}
+[ ... ]
+> +static irqreturn_t an8801r_handle_interrupt(struct phy_device *phydev)
+> +{
+> +	u32 irq_status =3D 0;
+> +	int ret;
+> +
+> +	ret =3D an8801_buckpbus_reg_read(phydev, AN8801_BPBUS_REG_WAKE_IRQ_STS,
+> +				       &irq_status);
+> +	if (ret)
+> +		return IRQ_NONE;
+> +
+> +	ret =3D an8801r_ack_interrupt(phydev);
+> +	if (ret)
+> +		return IRQ_NONE;
+> +
+> +	if (irq_status & AN8801_IRQ_WAKE_MAGICPKT) {
+> +		pm_wakeup_event(&phydev->mdio.dev, 0);
+> +		return IRQ_HANDLED;
+> +	}
+> +
+> +	if (irq_status & AN8801_IRQ_WAKE_LNKCHG) {
+> +		phy_trigger_machine(phydev);
+> +		return IRQ_HANDLED;
+> +	}
+
+Can this lead to permanently lost link change interrupts?
+
+The an8801r_ack_interrupt() function unconditionally writes
+AN8801_IRQ_WAKE_ALL to clear all pending PHY interrupts in hardware.
+
+If irq_status has both AN8801_IRQ_WAKE_MAGICPKT and AN8801_IRQ_WAKE_LNKCHG
+set, the function returns IRQ_HANDLED early for the magic packet.
+
+Since the link change event would be skipped here but was already globally
+cleared in hardware, it seems phy_trigger_machine() will never run,
+potentially stalling the PHY link state.
+
+> +
+> +	return IRQ_NONE;
+> +}
+[ ... ]
+> +static int an8801r_suspend(struct phy_device *phydev)
+> +{
+> +	struct an8801r_priv *priv =3D phydev->priv;
+> +	int ret;
+> +
+> +	/* If the PHY may wake up by a wake-on-line event, disable the link
+> +	 * interrupt to only keep the  WOL magic interrupt enabled
+> +	 */
+> +	if (device_may_wakeup(&phydev->mdio.dev)) {
+> +		priv->wake_lnkchg_enabled =3D false;
+> +
+> +		if (phydev->interrupts =3D=3D PHY_INTERRUPT_ENABLED) {
+> +			ret =3D an8801_buckpbus_reg_clear_bits(phydev,
+> +							     AN8801_BPBUS_REG_WAKE_IRQ_EN,
+> +							     AN8801_IRQ_WAKE_LNKCHG);
+> +			if (ret)
+> +				return ret;
+> +		}
+> +
+> +		/* Reset Wol status */
+> +		ret =3D an8801r_reset_wake(phydev);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	if (!phydev->wol_enabled)
+> +		return genphy_suspend(phydev);
+
+Are link change interrupts incorrectly left enabled during suspend if system
+wakeup is disabled?
+
+If wake-on-LAN is enabled via ethtool (wol_enabled is true) but system
+wakeup is disabled via sysfs (device_may_wakeup is false), the block
+disabling the LNKCHG interrupt is skipped. Since wol_enabled is true,
+genphy_suspend is also skipped.
+
+Will this leave the PHY awake with the link change interrupt remaining
+active, potentially causing spurious IRQs or interrupt storms if the link
+changes while the system is suspending?
+
+> +
+> +	return 0;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-add-airoha=
+-an8801-support-v3-0-1edb34e363ae@collabora.com?part=3D5
