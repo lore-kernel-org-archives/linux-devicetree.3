@@ -1,88 +1,92 @@
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
+Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com [209.85.217.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59F13360EC0
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 13:12:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73CD5284880
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 13:13:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778677955; cv=none; b=StstVtrDhu+ln2e2PLiGsPqUy/2YE/8ErCjjMR0+mvObncVOgRtn7M/WsC4C+xoyVDd3hy0MjpbdyuwwAwIOwuA2+claGeO6LgDiscwrXY9rZXLbWkiXlMl27he6sSsS4A5SDxWMc++88Dr/VIDHsE92j4dJgedyYceWI8nrC5Q=
+	t=1778678001; cv=none; b=txoYUDeI4qZcT1ICr3tEIIwmVsraiRtKaVed7/YyAinSMferIzC2Oxl7g/rDkFn7GtlegjJR93Bua/xEFn+r3F6ecz6j7dFi/5mseAOks0YQGSaT2nGmS+AbUopR2wihhJdschO/zwaO73Mau3T2yMSf5ZQvixfw+nWPuyZvdCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778677955; c=relaxed/simple;
-	bh=dzT3V0PJ0EtYExpUBsSJdQaC/ZjisOX3JzhU9ZCaz7Q=;
+	s=arc-20240116; t=1778678001; c=relaxed/simple;
+	bh=ptGVfY8dowl21jHV2wAijSOBwL93DMJ7Wdq/sitHQUU=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FnP1u5wnKoWM8CF4inYb7KTx2qfJs7pw1H4fZskvhFYBCnStJ6QNY5coDrhcKhYH/P+gJqn4RbJsWlpZf8y65k0mIidlQy+wovl9/AOAWbYU4rN98YTdpEz1+nZtw18YjHyZam+KXWRtBGPCeFB88aSOeqO5fZvkq7nuVbbQkTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.181
+	 To:Cc:Content-Type; b=hw6bWttDyhPYxdm+J89fFtz9V8RS/8QAqvPi/IwLgoZaZyxtqVYOwLReeaiAKjA+uhHyvUu9ier3tj/ob/S8AbkikPiE5ntW/ZFgvIsllJiDWr2CdTtsGwXVq27yTnRxW5OITvYL6imDFfgpCK1s+FPko5aiYwE1nzzuGcPmUtw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5752b279662so2219156e0c.2
-        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 06:12:34 -0700 (PDT)
+Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-631ca15d35aso3068934137.1
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 06:13:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778677953; x=1779282753;
+        d=1e100.net; s=20251104; t=1778677999; x=1779282799;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=k7kN1iIudHNJUvL4pmKJBVfs8sJZ9FSxEHa1dgQM7WA=;
-        b=f31ovdYFR9liKdaQUdW/h89Ykh7rjFK+El7ivgJCZi/Eh2l9+raFVlOlCkbzd5egbz
-         oD0uglrgWfsouAI31NXbtm5eOv8Bt/wjpUX+kUl5R/afc3gReRQ70Mkyj4RB5v/ICEj4
-         JqZKYSuTXTw62Q7l5bMtUfU7jsDVHTK+91i/BD4Ls1UcI38v/BhEYUxJVL4Kh2bX5olV
-         Z4Dpb/XxWa4OvGuayk0smx1lbekA8cLVQZkGbXBqWQRisILamH5Br3xagp2uQxLS2852
-         /Yp3nMJpwNMxQStyjQ01ngvxefsU6RKsSuf6/sQhz3xivfpW7DgwtF6wIhkTQXdIJcf6
-         d98A==
-X-Forwarded-Encrypted: i=1; AFNElJ9yEzMbhjPZwRPEzcCBs5a5vxxMN+syJqIhVfHSe7tpbzO8KihUYk+AZegSZCiqwnwH6B6ZCXA+vnlW@vger.kernel.org
-X-Gm-Message-State: AOJu0YxMFYFW/xdqTzzPAruPZ88kM04Go9E2btKNO3hpqklHX3QvjtLt
-	DyQyXspHJe79Z4yiRZWN+uUJKN/e8Y6r80AALXW+Td6ydiQ1j3HGPf9Pwq8/ZEyX
-X-Gm-Gg: Acq92OGzlf/1WGY1OD0yn+yd+1bZ+xGcm7fZAWBjS5gJU9LEePQwDELBzlfMIXFN2Vr
-	UwzSJ1S9iCjEefRtorVOgtoLBeyKs0AdiWj6fgUQlsK9lxhRVZBVqgqSNkEs7Yysl0ZY4X/vKgJ
-	cCerA/TgWQEg03cJRtJSiy9dRjEOqJn0MPyWpQOH/gXMmD7OOKWMggrBF0L/JNUFYct0RNkMiU1
-	R56G45FA4jXNxM5wt6eJ/a+ora4DsZ8/m6RbEIyaO2MJFLmgTDTyxZvFAEp8wfFnxboHPRM10jX
-	XOvc2luvs7l0a6aWh5Z9q7HpkIByWe+qMRkesXFF2F+aB51pON6wyGcEFJbjW+qUpHFJV6hhNgS
-	AhUOT3N8jdJLzFx8uJTdqEwI2UVxzwyEO5bDXio0TKDBQGH4Y5P23g0xz3tGkupLixC9GEpXAvC
-	3W6JIvDvOtS7QpxF+7vR4WfK1ouDcflzl4flW9GM9cGdxMeZpDYPeM8MBBaaMb
-X-Received: by 2002:a05:6122:2229:b0:575:3c93:fac with SMTP id 71dfb90a1353d-575e8679eedmr1083005e0c.3.1778677953230;
-        Wed, 13 May 2026 06:12:33 -0700 (PDT)
-Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com. [209.85.217.54])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-574a6ef4012sm24382160e0c.18.2026.05.13.06.12.32
+        bh=Dw4EVFD8umbNXj6ZLEY6BaqpT1xcbjLyZmag6+hF/7o=;
+        b=NjPl4+uF8FyQpE4Xd9512hV8jy1+Xm5GN5exGVZd7QPcBB9qitBjkGN1BBd5MnQSje
+         3YtYC9S2NKaP5PHx7UgLQDDicgLddWK2vk2mR/ROkXBRYk7Z6erLZovW8rareYRCfG3n
+         fjJLD6R7uTDllh3jplK3BATeFI+Kav4u7NZcpoSTf22SsmyMD5qQHVFw59Fv5NnkX5zc
+         48OfO0t/3aOsmKontAb94GgTfpzCulmvf3hG1hN3HUZbH9guOBTnHNMDjuMROS4Qy/KA
+         Qd3vBvvGdtjoneIUz0PXvdnmCxykAxqJ0iXT9/K05RmfwQifP3x/HYwLSVjljQy1joKf
+         A/UQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+mYg/4Jm/z6iUOk6iw5KvSJ8J8WgIcFQobZfKIXAD7JZCwp+xCORnURB2zNTiS5rw7Ju6zi5A0LGC9@vger.kernel.org
+X-Gm-Message-State: AOJu0YxQIGfrwOQJJuTkVee9YkzV0+6nhaGn/to6TGFWxaHLhmfi4gR8
+	RMahYcGLLrztyL/tTveTf+m0q7sxAIaMszNbSNxL7VW8WuI9E5cd/kRDrQ2rAFuY
+X-Gm-Gg: Acq92OHMLGiaGFE5yMQ5XKhrvEW7RdRZUCSeVllZa9qrQ2hkMtUQwYvGfiT/oB5sZDO
+	vQOZMohtshx3YOXmGEDDq00OrLS5ulxfzkiRWOc71EPCTahILGsUfxtewOeou1IjZTN5vbrKMrU
+	ZqTrh0OETbwd1lIdVA22xPhvwbp1SWrs6pmRXWsSPWeBOmEUEkFe0qmwyn87daieD0cOQQANdBE
+	GbF2KHVUCqW098ajBpwuXFRg6i4kgI+UChEHMHc75aDgQncX8280GQUOw77wkGtpe3x733rHW+S
+	rAY2fSYOQC5RGVpkLG0WEwOO+Gs0RWaBQhE+2bGuD7InBmL2DXGQL0TKCZAyBtHTp12IQTcICRq
+	1N8TKKCe8pGM8twRrECTa0uH7vQqrpywtsLic1UFiAKdjWb8jnZJmBoP5nqPehSPxi1vcf7h0ML
+	j3DWrTbeDKtmrWAJqH9TJz6cyMlhnRTukQyfbm1aNqmPSW1DNsyUmAW7OrVOTy
+X-Received: by 2002:a05:6102:5807:b0:633:f7ab:6bd5 with SMTP id ada2fe7eead31-635d1f9e9e6mr3592752137.18.1778677995717;
+        Wed, 13 May 2026 06:13:15 -0700 (PDT)
+Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com. [209.85.222.44])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-575dcef092dsm2759760e0c.13.2026.05.13.06.13.14
         for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 13 May 2026 06:12:32 -0700 (PDT)
-Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-63270abd14fso1372386137.1
-        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 06:12:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/8wCwE+hOiM2SvoZ+mSKvF4uCqUJaPqXnHnNc4SRELciv8RiAYzIL5oPTLO26jI+hEugUEho9y7T6z@vger.kernel.org
-X-Received: by 2002:a67:e703:0:b0:631:3821:2f12 with SMTP id
- ada2fe7eead31-637a90e2a7cmr951105137.16.1778677952636; Wed, 13 May 2026
- 06:12:32 -0700 (PDT)
+        Wed, 13 May 2026 06:13:15 -0700 (PDT)
+Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-95f2b0bd920so2843145241.0
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 06:13:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8ZUeeA2yduQjb8HJcf9nz6AkX+fzmEKPjsBt0YJHHgtKVR5v38MDW/4QdzlQJaZ2prIAVE9oq5MyrX@vger.kernel.org
+X-Received: by 2002:a05:6102:148d:b0:611:959c:86b with SMTP id
+ ada2fe7eead31-635d1ea150cmr3550416137.16.1778677994300; Wed, 13 May 2026
+ 06:13:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260502185557.93061-1-marek.vasut+renesas@mailbox.org> <20260502185557.93061-4-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260502185557.93061-4-marek.vasut+renesas@mailbox.org>
+References: <20260502185557.93061-1-marek.vasut+renesas@mailbox.org> <20260502185557.93061-5-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260502185557.93061-5-marek.vasut+renesas@mailbox.org>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 13 May 2026 15:12:21 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWGLtExqCcHiiixw12Yq198HV_s8ZH_cq1gazuw_2hjmA@mail.gmail.com>
-X-Gm-Features: AVHnY4LeEF2c4Mc4gMH6K1pQiwZCCHRxKdP-2WPlZmXzSxqkEXKWG-8hJyRfniI
-Message-ID: <CAMuHMdWGLtExqCcHiiixw12Yq198HV_s8ZH_cq1gazuw_2hjmA@mail.gmail.com>
-Subject: Re: [PATCH 3/4] ARM: dts: renesas: r8a73a4: Add ZT/ZTR trace clock on
+Date: Wed, 13 May 2026 15:13:03 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXmwyFSP3TsVjh97=wDmGLYNfX=Nr=97NnDP5H=Czdwnw@mail.gmail.com>
+X-Gm-Features: AVHnY4IveyelRqFQvstMxxryiMS78Fp-yg20GxMmqsqgU9kR07zLUMeO9C8m-YI
+Message-ID: <CAMuHMdXmwyFSP3TsVjh97=wDmGLYNfX=Nr=97NnDP5H=Czdwnw@mail.gmail.com>
+Subject: Re: [PATCH 4/4] ARM: dts: renesas: r8a73a4: Describe coresight on
  R-Mobile APE6
 To: Marek Vasut <marek.vasut+renesas@mailbox.org>
 Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
-	Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+	Geert Uytterhoeven <geert+renesas@glider.be>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Michael Turquette <mturquette@baylibre.com>, 
+	Rob Herring <robh@kernel.org>, Stephen Boyd <sboyd@kernel.org>, devicetree@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
 On Sat, 2 May 2026 at 20:56, Marek Vasut
 <marek.vasut+renesas@mailbox.org> wrote:
-> Add ZT trace bus and ZTR trace clock on the R-Mobile APE6.
-> These clock supply the coresight tracing modules, PTM, TPIU,
-> ETB and replicator. Without these clock, the coresight tracing
-> can not be operated.
+> Describe coresight topology on R-Mobile APE6. Extend the current PTM node
+> with connection funnel, TPIU, ETB and replicator. The coresight on this
+> hardware is clocked from the ZT/ZTR trace clock.
+>
+> Note that only core 0 part of the topology is described, because the
+> other cores are still not present in the DT.
 >
 > Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
+LGTM, so
 Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 i.e. will queue in renesas-devel for v7.2.
 
@@ -90,8 +94,7 @@ Gr{oetje,eeting}s,
 
                         Geert
 
-
---
+-- 
 Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
 In personal conversations with technical people, I call myself a hacker. But
