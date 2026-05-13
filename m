@@ -1,48 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AAD338911B;
-	Wed, 13 May 2026 22:28:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1B137FF58;
+	Wed, 13 May 2026 22:30:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778711338; cv=none; b=MBVoea5y0jP/7JEfdZViNC44vPaVoqvfsdt2Djuu2K2LuJ/GojpcCa4Jh7hTU8o7+ypqBQKnana+PSBqeFwWzTFZCAFVKL2ZIR8aujqvd2yEyZm4W0MRtd7UDnGBVbL2FnEt/62NF/8FfCWzIHvOReMH6vLpipp9WoS77FRKoi8=
+	t=1778711435; cv=none; b=NF8q/tpRcUGa6EoH5bllFibOPr94vTwsgFPzYlvg4JVM0SpbedZoTPysJbAupF/37MBKPvb/1U8pq764urJc2zfCHhG904hFV7lztO1RX5GFuaWCz9+ml1GetxIv6BJeSyNOWeB1xOE6dwn1dk29YfwuKCXhOuIZv3ULGUeNo88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778711338; c=relaxed/simple;
-	bh=5Nk0rRgq80ty0dx/6K6KZ2bDzftzeT3LI4fZFjuUYUk=;
+	s=arc-20240116; t=1778711435; c=relaxed/simple;
+	bh=NXP84lvtAJkBs5OOdZdw6bPQK+75PbJWLaGmXLWSShY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qGzyAsU6tv7fBsV3Lq5kuOOdKT6PLkgv0y/ZMr1FJ4GVSPYpf9csdSCBypUUE9sXJ/utMRCkawnrGmHt8cagkvZag5h8nMwCxTNnYgJryLApmRyN2B7oV1NuHwpd31V/8yGUHS4W6Hs/IPDlDnhnEBGGVzgbq6ZIEkX5MX8YDVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KkSTDeX+; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=MSd6Rn5O3/ML2mN9ZzISggOqXyCspQzTAvgXfcEVVAbvR/hZh7aH+AQvSAGss+wp4IE2WQwrEAV+IOQr76DDiTX6Sr54PDRgZ4jcoOCPdlxnSogR7z8rogy0/4dat8b5XgQPKfVbgNKf5Vti4qpQ3EcIIY7k7ctKU2CXQYc0JP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H4TH6LM6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KkSTDeX+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26DA9C19425;
-	Wed, 13 May 2026 22:28:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H4TH6LM6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13150C19425;
+	Wed, 13 May 2026 22:30:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778711338;
-	bh=5Nk0rRgq80ty0dx/6K6KZ2bDzftzeT3LI4fZFjuUYUk=;
+	s=k20201202; t=1778711435;
+	bh=NXP84lvtAJkBs5OOdZdw6bPQK+75PbJWLaGmXLWSShY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KkSTDeX+KNPPe6GO2wGypLPD4LOzQ8dTJBdQbPnG9vsBEiWhkS3eIynY/sloT9Oes
-	 Pe23Z4C3abDpKJo3HSvOcIdSKxsLTMFFNIOYtw0bL3Ga0x/yHwikA4OCT/IP3OG5YY
-	 XJ4Ah7Aa7gEdsNHYB5BtV7w1UWTgvwSkfRBwLxJK+5P61AiW/zYzMSIUZrS14jK2Vn
-	 M9Uhd9UqLRYXuCnYLSUkMGZcElveo3FW8krb0gLn9XJnbOHTljttUUj7fHJVWNu5aW
-	 A4jjduLAjytjYCTNaDUzKWOd/e+HFGFV+jfwqsUBlfX6khY7uwqC33DqpDh9HQFGo6
-	 jTj2qMOY2HrIQ==
-Date: Wed, 13 May 2026 17:28:55 -0500
+	b=H4TH6LM6bGmxdAlgMIZO6VtcI8hx3CftdRZ4aPCbeOlzQVExWwd4w3Evu/R9yMCZP
+	 wcSqjdkQNDxLABPVTng9+/ajTM4dVa60LMhRK+tURkrti/gZv+33zORrnQJd9LhXE4
+	 U0N1CkfPX7eBHjoezWnrSsDRpj+uaS6/kMxgKS7SdUjyfpzDDpJ0OvlZire4CxVWAl
+	 4fqp0nb3SZq1Ix5xCceW5a3i7tGfZEN+UGyzjHE73jTb6ljm4paDQkSkRZz3jzKRD0
+	 WU1ucSQPSKM5GgSsWyXXumIjUxfHqRhsyIhSNNoZQ8xRFAkV2IY0xg2npe8KysmCtb
+	 DaCr+iYJ85xcA==
+Date: Wed, 13 May 2026 17:30:30 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Guenter Roeck <linux@roeck-us.net>, devicetree@vger.kernel.org,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	linux-renesas-soc@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>,
-	"Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>,
-	linux-watchdog@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>
-Subject: Re: [PATCH v4 4/4] dt-bindings: watchdog: renesas,rzn1-wdt:
- interrupts are not required
-Message-ID: <177871133450.2129345.2012198232996151400.robh@kernel.org>
-References: <20260507102410.43384-1-wsa+renesas@sang-engineering.com>
- <20260507102410.43384-5-wsa+renesas@sang-engineering.com>
+To: Robert Marko <robert.marko@sartura.hr>
+Cc: edumazet@google.com, o.rempel@pengutronix.de, pabeni@redhat.com,
+	devicetree@vger.kernel.org, kory.maincent@bootlin.com,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	davem@davemloft.net, krzk+dt@kernel.org, andrew+netdev@lunn.ch,
+	luka.perkov@sartura.hr, conor+dt@kernel.org, kuba@kernel.org
+Subject: Re: [PATCH net-next 1/2] dt-bindings: net: pse-pd:
+ microchip,pd692x0: add port disable GPIO
+Message-ID: <177871143033.2145977.6127255354690890686.robh@kernel.org>
+References: <20260507104720.262641-1-robert.marko@sartura.hr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,17 +46,19 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260507102410.43384-5-wsa+renesas@sang-engineering.com>
+In-Reply-To: <20260507104720.262641-1-robert.marko@sartura.hr>
 
 
-On Thu, 07 May 2026 12:24:09 +0200, Wolfram Sang wrote:
-> It is now understood how the watchdog can do its job without the need of
-> an interrupt. So, it is not required anymore but optional.
+On Thu, 07 May 2026 12:46:54 +0200, Robert Marko wrote:
+> Microchip PSE controllers have a dedicated port disable input that like it
+> name suggest, will disable PoE on all ports.
 > 
-> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> So, lets document that GPIO.
+> 
+> Signed-off-by: Robert Marko <robert.marko@sartura.hr>
 > ---
->  Documentation/devicetree/bindings/watchdog/renesas,rzn1-wdt.yaml | 1 -
->  1 file changed, 1 deletion(-)
+>  .../devicetree/bindings/net/pse-pd/microchip,pd692x0.yaml     | 4 ++++
+>  1 file changed, 4 insertions(+)
 > 
 
 Acked-by: Rob Herring (Arm) <robh@kernel.org>
