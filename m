@@ -1,44 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20E58383338;
-	Wed, 13 May 2026 22:34:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8254E2BFC60
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 22:39:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778711680; cv=none; b=VeRD2NptPW+340X3Dsqf1V+uJts11s/rFBVnm3NeeFG7Aga9eNP3VRzXiLSqF0ip+8Ar952HEO9V9ADx+TIfJ+fTd4c0Jg/95fmN4jqXpLC/PvrnfPNmPkGbyzTceiOSPU34hcrSdyFVnOA0D0OxXzuGupsJJpsllsDf17D00lI=
+	t=1778711994; cv=none; b=TPqDs6EeAHLA+2SUx3Gb2jcGbkVuoSJc7uzb0n7IxfU48TwJWvWDxhkfAylC1WouXWN4dgsyEaEK5o4qChnuDvFPw14B3xL13b5JQwduITjmDS7DKMnN+w3JjRVyA/rhFhLhygTyGzywCaXQmZpbi/+Aw9gt106O8dLdF/PS0Lo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778711680; c=relaxed/simple;
-	bh=pweejv/r1nKE0zf8rPphlToqrTLda+b4RJqDjfhChiE=;
+	s=arc-20240116; t=1778711994; c=relaxed/simple;
+	bh=0VqbTRVEZlpoi5Ld1YnV7oWMDYNnumYR5TrZ6zn2sPQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W6gExYsbOM+TlA2mgqzDkU7FHyGXxhWVr8G2iXF+R5zS87PMYB60/D9OBucRogudL9w67cuvH1G/+Ah/va4rMVLWlWKowYEqprDPmTfIKZIyDWos/+4qy8vfuEjSVjeqeZpcaiKLD3S2NI1OjSjIGCL6L63OEoVHeZ5uYSfV1+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pYJMzFYD; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=r8SlwHSVvvRxJIgvGJoh1uG8sx8Z8mimT7Hsl7xD8sP8hwP7CA9Yp/jiqYA6le0m77qW9/b8ovo4Mr+6W27l+ksS/3vyRpxdOKg/ov5IuVj04U2V2Giz1yxxmomdPs2eEk5jJ/sKTOuURFuBhVk8frVaUZ0dzhlnbUzawxrU0qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XbeZA5pN; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pYJMzFYD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83840C19425;
-	Wed, 13 May 2026 22:34:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778711680;
-	bh=pweejv/r1nKE0zf8rPphlToqrTLda+b4RJqDjfhChiE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pYJMzFYDypOh/OYGxo+cIZARIZ34DBJaWM3qgYsci0Fv7AYsrAtOB0UvUU8pq+GsP
-	 Eq1Opmtf0bnRfByal6xMvdpAB9FFnIyOCiMXGAMpt9Zpuy3o5f7ujOvLIJefr8XtGj
-	 hic/kFiStI+j0WQi+4nGvJavHryrz82L/qigk3sXAGBle9x6tpBAqjl8d2TSHXgBoe
-	 yMA4xUTtohR0+NnymjcxVMGflaw4Lm53TQy0/FE4F2QH1ZRCRTQIfPKwFgvxIBX92m
-	 VFMeCuaHmr6WAmRv4pFm8b7e3q07PNlq96B7ir4+mjC4hIEu86CZPODY9rjr3Y9/ut
-	 2aQxcJrlkqgNA==
-Date: Wed, 13 May 2026 17:34:36 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-pm@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Jonas =?iso-8859-1?Q?Schw=F6bel?= <jonasschwoebel@yahoo.de>,
-	Sebastian Reichel <sre@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: embedded-controller: Document
- Surface RT EC
-Message-ID: <177871167637.2178737.8650131597722661740.robh@kernel.org>
-References: <20260507134608.76222-1-clamor95@gmail.com>
- <20260507134608.76222-2-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XbeZA5pN"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2ba6485d219so48006555ad.3
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 15:39:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778711993; x=1779316793; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=miM3jTAggAFQJz2CzbBvHc0aYdt6SXz1ObmRHBqYD2M=;
+        b=XbeZA5pNH6IFvMJCizA0sjWapJaKNJH27lSsQWG2InYGMKMUThiey6ZJYqg8cIEVBm
+         r0UhW9S02zUKEVHkMH4P3XarBQw0dUFBvfmZ7INC6HwSqiipCGAsyhqND4I8fcr2oskH
+         eq9ygmWEDq7l8NrXuWqB4XNmTUnx0PcFt68WAtD7QAzA2htqUjxGlbO+laNAMjCJQDsg
+         iAqFlhkWcSV/PvlkLNcy+8dRc0bCACySGPN7zKZn+TCPTqpGNbWdrkbO9eim840oPYY9
+         aHh6TEpRu/kCWv+P/xlY+oBniDIsXDOZoFzRnFs6XWFIT45iwLXXQCpF9RvnmAvs7YsD
+         Kc2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778711993; x=1779316793;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=miM3jTAggAFQJz2CzbBvHc0aYdt6SXz1ObmRHBqYD2M=;
+        b=B9DkX4PYMhXOIlqgeEC2+eI4fQY3e0GJ3UJh8gbx+1i06iAeLy9xEDucrB2EpLtXtq
+         3wNgyP27347KHKhqBHkUrgH6OiuFQBg01bT4HCPp3ps26/peOeQ396LMVPzgdkcXrTRF
+         3qg+n/lHCtdXU81cGetMZDr2DwKyuAkhtyyjpvpEs8Jsdgh3nNY8luUpV90UeGLLS+GS
+         F7JxATdnHvY3rY04VmFEXhZx6ANh7DM9FyCUBwQHRXpwDeP7b/mTtE3vLB/r1+J3t7ZH
+         /qhKUyMLAPbVUeMtlPeiBtrno/HUyIm0+c7IGeKnOzeoj/3x/CkIspGaLLp4LEt+MDBD
+         TzGA==
+X-Forwarded-Encrypted: i=1; AFNElJ+05nxVrJjN0NCcPvAOFzM4kL59+07LCa1+2fF2TXZkmoYG+71/JbeY+2QYfaXcF/9t4gzQUs2LWmJ6@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxvb3rmnesFOjEpq9svRhyyw7WMxI8hzb2xT31T97M+ouavkVSs
+	/oxX0OKpeJdplSQZHuztPH7HmG0/bqgC3EBs3RMjebSmJZsq3SRjU90n
+X-Gm-Gg: Acq92OE1xMoilaHBl4MB2QwK75hINayE5+klFlYC4yBNMp4QzZwlUd+CiyUGeiKjxUl
+	se5RQZanAyPNkvCZGpeSTy3pdFyuRLYj71DfM0rRhsgJyQtNr5MOf1BkCQMwN1n1YFxvmVS9U7z
+	ArE0eT2C9r11UBDBFB+5LUsvM7Q6qkuoVN19bzGIs+B9IKFLq3+J6HZoQ3QjPg8plP/FLWbHyDR
+	S9/FumEjKagrj93XWZ5Zc/1OE2Ck6NlQi0cJu1oT7vZuumG9x2ZsH4d0ZpqVDji/m8uzuEGhRk4
+	rwIYEZb2Qfj3MhveSni+ZPwTg3UuvJdQZ+K/pQU9Cf6SG7UmPpsx1lGp+xUAzmWvKmRpCPWMNHa
+	MrHbpzQ1qSaQQrzeGXvFGMDyMHZvASkrnP4xJRSwuTsItd3H8GRN/cCVyht49Rzdj0WpbDumYbG
+	P9NiM5fh0qf1FE154ey6Uwc6WgSGJskPuihqA7
+X-Received: by 2002:a17:903:2f4c:b0:2b7:a350:463f with SMTP id d9443c01a7336-2bd2f4e4c49mr48108145ad.10.1778711992677;
+        Wed, 13 May 2026 15:39:52 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bd5bd5f2e7sm2853795ad.5.2026.05.13.15.39.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 13 May 2026 15:39:52 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Wed, 13 May 2026 15:39:51 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: linux-renesas-soc@vger.kernel.org,
+	"Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, linux-watchdog@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 4/4] dt-bindings: watchdog: renesas,rzn1-wdt:
+ interrupts are not required
+Message-ID: <c06eaf33-6817-4016-9ff3-600027501445@roeck-us.net>
+References: <20260507102410.43384-1-wsa+renesas@sang-engineering.com>
+ <20260507102410.43384-5-wsa+renesas@sang-engineering.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,19 +84,18 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260507134608.76222-2-clamor95@gmail.com>
+In-Reply-To: <20260507102410.43384-5-wsa+renesas@sang-engineering.com>
 
-
-On Thu, 07 May 2026 16:46:06 +0300, Svyatoslav Ryhel wrote:
-> Document Embedded Controller used in Microsoft Surface RT tablets for
-> monitoring battery properties and charger status.
+On Thu, May 07, 2026 at 12:24:09PM +0200, Wolfram Sang wrote:
+> It is now understood how the watchdog can do its job without the need of
+> an interrupt. So, it is not required anymore but optional.
 > 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  .../microsoft,surface-rt-ec.yaml              | 63 +++++++++++++++++++
->  1 file changed, 63 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/embedded-controller/microsoft,surface-rt-ec.yaml
-> 
+> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> Reviewed-by: Herve Codina <herve.codina@bootlin.com>
+> Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+> Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Applied to my watchdog-next branch.
 
+Thanks,
+Guenter
