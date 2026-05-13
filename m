@@ -1,67 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7D7C19CD03;
-	Wed, 13 May 2026 22:45:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1FB21EE7D5
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 22:48:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778712330; cv=none; b=lO59qO3acjz5zjXE6PzHpOGHK7nrlRxvyHePM6HH8mluqaO0p58TQrxr0BVi4iAbd9njVP0d1KmKBwxAqe0IOsl2Dlo+2d15/x20HS3nToew4q7qWBWUGV+q77CCtkLLHwpUOrsmc293V5F5ULk0T9m51UUe4u8ljBPntiJWTRw=
+	t=1778712519; cv=none; b=OmFvjEj5yoYakN3RcCReq4gQTUm1ompWN1/7kEJnbUz/EpIxaD74Oui0KgUZ+8X7h2t/vuiNUuSlCflcBY4SeLjwVAcoFD5kzgLfLzPHFYhiFWSt3ER712o+PjehkC8Uji7ya368u1Nq+cxwAZYKLrZL5sjSve9BrqDSfW4d+Mg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778712330; c=relaxed/simple;
-	bh=PFcef5ZVfmE5jraV+3O2xGVpthKxWMM60NlRYlTSrSw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AcmF9NI4kG6B//AEPFdV/76XG1tYycUq9fiiBDI5bUYw+tq7NXbYsGc/A6z8w5+uKdXCtdsLjdW6mrPhNfFVFT++228JSqFDGtHetQnGosE0n3xsTH6B/Dg2Pnq84Lm7N4qHXVo/MZD6hlMODFGj+Hv+q0a8hssAQzY1tDUZ5D8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cs9Ei1Yc; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778712519; c=relaxed/simple;
+	bh=BC5IsWtExIjTbma9hZqacStE1l4GCM4NLnIlFfEp92g=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=YvdmG0o7RJfLamJryKiPQOWs91/h18PBv/az0aN8zrAJwltmnpba7rw28LRZq5fTwdVEaSCw1aUMVk8jGHnOZ0biBL6gGpAKxMaKXYw0PJmZxEF2qhsqgLL8FleTCkSLeawug1HSNzzgQdZxIIzGsGw3wAD/LGwBwagAdM5NRHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T8haTTMm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cs9Ei1Yc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26C52C19425;
-	Wed, 13 May 2026 22:45:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T8haTTMm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 227F3C19425;
+	Wed, 13 May 2026 22:48:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778712329;
-	bh=PFcef5ZVfmE5jraV+3O2xGVpthKxWMM60NlRYlTSrSw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Cs9Ei1YclCl4T5zxE/1uCVIkjx0PI6V9TmJvAZxqgGiF0Ic8tnN8+z4ObgCnbK0g5
-	 Z07OIsFF8xVgHnifzA2wDQa+5udJ/wT7tOemlzDNvWYhbG1KHcACyMAWhu0bOJ1nK6
-	 vIYycEsjicxMV79pA3nwnr9wWdSa1P31nkZs3NhEp9T0q1y/d0D3TK/ty8qMQUyRJS
-	 xG8yv80oTtcGTAaVMd/pUHlrj2PoW0FBQLf5kSm3r5IEz63UQzuAv8oywjoFFqwOys
-	 dXrjyeK+g1RLz8SGo0YIjJ6qDiO1eyv/J0vqL/FLNQvWEVKnql7U9AKt45ug2M1sL2
-	 q7TFiMx/1mBcA==
-Date: Wed, 13 May 2026 17:45:25 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: nvmem: qcom,qfprom: Add Shikra compatible
-Message-ID: <177871232532.2234507.2166992150616647804.robh@kernel.org>
-References: <20260508-shikra-qfprom-binding-v2-1-a75174c8a580@oss.qualcomm.com>
+	s=k20201202; t=1778712519;
+	bh=BC5IsWtExIjTbma9hZqacStE1l4GCM4NLnIlFfEp92g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=T8haTTMmHvY7EB7vDMiidY6b56600bbK0JnQ9I/mpiE/LbQyR6wwEZUNY2NMB/4pB
+	 frjNK3BLD8kuZs1f1kxvhY0pNWKugI7f9xH57iY8xAHTEjdf/fMT1yy9kDkeA2lbhC
+	 8KPySkJ7J40KcuGRIUSEw275WsEl7cGo8TCgCZ/VxKfMJMNQ0xoyGcwfi/wfELrtBT
+	 MM7MFzFF9wQ47Ebvdd4Xk9Y84/9BQSUbKVA+i/DIXxS8/826aoI4iunfVeNr6meQ3N
+	 yr7j/xWmWB3o2uuZFdL+Mn0Q79XbCAIHycOe+cZgvkUQRBEDFZ6Xrxvv47Hsssx/+m
+	 a0vcFO1Y8OS2w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 5/5] drm: renesas: rz-du: Add support for RZ/T2H SoC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260512144104.761531-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260512144104.761531-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 13 May 2026 22:48:38 +0000
+Message-Id: <20260513224839.227F3C19425@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260508-shikra-qfprom-binding-v2-1-a75174c8a580@oss.qualcomm.com>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Register access is performed unconditionally even if hardware cloc=
+k enablement fails, risking bus errors or system crashes.
+--
 
-On Fri, 08 May 2026 00:30:32 +0530, Komal Bajaj wrote:
-> Document compatible string for the QFPROM on Qualcomm Shikra SoC.
-> 
-> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-> ---
-> Add the QFPROM compatible string for the Qualcomm Shikra SoC to the
-> qcom,qfprom binding document.
-> ---
-> Changes in v2:
-> - Improve commit description: "Shikra platform" -> "Qualcomm Shikra SoC"
-> - Link to v1: https://lore.kernel.org/r/20260501-shikra-qfprom-binding-v1-1-17e63148c2c8@oss.qualcomm.com
-> ---
->  Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml | 1 +
->  1 file changed, 1 insertion(+)
-> 
+commit a456e1dcca8021206b701fc39c90471891f25115
+Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+drm: renesas: rz-du: Add support for RZ/T2H SoC
 
+This commit adds support for the RZ/T2H (R9A09G077) SoC, which includes a
+DU with a DPI interface. It requires an explicit assertion of a DPI
+output-enable signal during CRTC startup.
+
+> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c b/drivers/gpu/=
+drm/renesas/rz-du/rzg2l_du_crtc.c
+> index 2b772a11c7eec..017d5f26bc965 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c
+
+[ ... ]
+
+> @@ -217,8 +218,12 @@ static void rzg2l_du_crtc_put(struct rzg2l_du_crtc *=
+rcrtc)
+>  static void rzg2l_du_start_stop(struct rzg2l_du_crtc *rcrtc, bool start)
+>  {
+>  	struct rzg2l_du_device *rcdu =3D rcrtc->dev;
+> +	u32 val =3D DU_MCR0_DI_EN;
+> =20
+> -	writel(start ? DU_MCR0_DI_EN : 0, rcdu->mmio + DU_MCR0);
+> +	if (start && rzg2l_du_has(rcdu, RZG2L_DU_FEATURE_DPIO_OE))
+> +		val |=3D DU_MCR0_DPI_EN;
+> +
+> +	writel(start ? val : 0, rcdu->mmio + DU_MCR0);
+>  }
+> =20
+>  static void rzg2l_du_crtc_start(struct rzg2l_du_crtc *rcrtc)
+
+This isn't a bug introduced by this patch, but this modifies the register
+write logic inside an unsafe hardware path.
+
+In rzg2l_du_crtc_atomic_enable(), rzg2l_du_crtc_get(rcrtc) is called to ena=
+ble
+clocks and deassert the reset controller, but its return value is ignored:
+
+drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c:rzg2l_du_crtc_atomic_enable()=
+ {
+	...
+	rzg2l_du_crtc_get(rcrtc);
+
+	rzg2l_du_crtc_start(rcrtc);
+}
+
+If clock enablement fails, the driver unconditionally proceeds to
+rzg2l_du_crtc_start(), which accesses the DU_MCR0 MMIO register via
+rzg2l_du_start_stop() above.
+
+Could accessing MMIO registers without the corresponding clocks enabled res=
+ult
+in an external asynchronous abort or bus lockup, leading to a system crash?
+
+Although atomic_enable cannot return an error to the DRM core, should it at
+least skip subsequent hardware register accesses to avoid crashing the syst=
+em
+if rzg2l_du_crtc_get() fails?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512144104.7615=
+31-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D5
