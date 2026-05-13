@@ -1,264 +1,120 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013010.outbound.protection.outlook.com [40.93.201.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B979E37754C;
-	Wed, 13 May 2026 21:09:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778706595; cv=fail; b=juZXYLRFrd+BPLdrbb9KNyScb7DAyCkl3qusEW1gDASyerqhJ9H5IwnRTsGeej2epWkkdPg90Qwa220w93FnAztdGcn4LdZiHvyXLBY2H9qg/zhzFvfKOP+wJxWfqRLqwtb3VsP/uyWWD5K8X7+NLeR/FfTesb8NtCBvdwOfCO4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778706595; c=relaxed/simple;
-	bh=M3P/WCS8weqOmuV0TzpJkF/S5w6P79wvVbeZi0DjsDE=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NvQO88Md2knCr3By3iaNLH9RpsO9Cjl5Ufvc3f9fgtXRQjXSkkIn8YDQdECJIH/t27IegFx98JCnNwbArWs4yVFeli5iScqcO8zxajMx9y1zZPTLTxBNKp5g+ppdDLpu1vAfJNIApqkf1wnfYbLK8HVNyXPG7e1gCt61FlMQ8o8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=visjTPHy; arc=fail smtp.client-ip=40.93.201.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0C773A5E69
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 21:12:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778706735; cv=none; b=kr9b0aWUhtkof7GzrvPeSuToSLycdfUJ4mDsh8LTJFU3P6LDrxjNa+HmirXYOd3ygLvCDyCVPvfDT3wHvDTusl/yaCuAo40sZJut40XoGYCQm6uJkL0PyC4kjgmynyu33PERT30s9hyfTMBLT4ialQNQ1Y5nyeLGQ9fUHI/dwTE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778706735; c=relaxed/simple;
+	bh=QoYcwhZ/7PU9C5SA/BSzuhaMoZg1RV7QS2522SJRsFA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=JA7eL1k/9A29IBAbL4WLUqvof/s1LvrF1P6YXQTObrLxOD9xrOFd9DZ+TVARzAsTuWjVmZIULE75ql2agiQNCmiLvUn6Yg6HV68GT0PpTS5BNE3ypNPRYb/QFa+pHXKoWRpKjERhfvYGVHFK8s2OnguIUfLI5sWxY+CRS0Lf5hw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CU11uW0E; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="visjTPHy"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S/rRTu3CWLeMvQkpz1eWcg+Vso2BTcRqH/JkHUNxA0w8Sh2XZcbvWDX65FSOIWHQVD/aKtXPoS6JYmN1XmwfUYI60GaxnuRyMa+AGfHVb+Kib0QD0W0BL/cTHlcZPxVnFEgRX1xP+ZdvwkyyrHnz36L5kWl3ik/HLbmvFesQvOg/dsJiYiFIvX9Q2Gf34AFlXp5xU63UTiaJ0+DCRtEgmijqHvieZGTlzHevYN91G9YHWK6u5Azev20F3pMRpnYj6dzy7FprIXvXDSMPJ8mWDBwqhINAsiNryc9NbJO/mDgs87JuxeNHfglQ83Nav8zV3+T3BKLK9jJcdBDpuUH+PA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fz7FP/fHEhjZu36JAQxnsNcotFoCNQ3h15Ut5zIc5W8=;
- b=Vz9DMmZlvPI0i1aQXytVrGlGQ6fImiHbeTHePG9ZzjI0kv8pEJHZosMI+9s3VA1wi54b1JF/b5MvXKv2QzdxEDqyia0fMEs7AyqmxiYmfxZPtwAGvCU/2HgS6TTSEswa+QkbRY5YPv4IrYqo5jqyJDgbNL31ylg6vO0ArlbrMYGRRnFpM7uHlm7pPAj1ZZZ9UQ3OO+aydHY2H/kLJ8rwPpuzYLgNRtaCrAksPg/WGzmptEL+dqek6lJvv5r4VDAdnvvZjvjYIxMtmI7b90VqeQnxzkHu0OPIhKbcFf02E6eHvbRInrZuNncIJriHZw6p2y/QnyHcZN9w9OGjrop50Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fz7FP/fHEhjZu36JAQxnsNcotFoCNQ3h15Ut5zIc5W8=;
- b=visjTPHyefjjtLdosU7IFmUVmUiMSY7GMYGZjgAYB4apb6p5QJi09w88EWJZ8QTjkgpL6xZ++fdu56FaJ+w0V2u6SuV66QJ/iE605FdDij+hG4M7JukGrfPfJkdR17ZrIMJ3VO8NVcxc+m4deKqXQDM8Pnc2GZLcazeIZ/FCPz4=
-Received: from IA4P220CA0010.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:558::15)
- by MW5PR10MB5852.namprd10.prod.outlook.com (2603:10b6:303:19c::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Wed, 13 May
- 2026 21:09:50 +0000
-Received: from MN1PEPF0000ECD6.namprd02.prod.outlook.com
- (2603:10b6:208:558:cafe::27) by IA4P220CA0010.outlook.office365.com
- (2603:10b6:208:558::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9913.12 via Frontend Transport; Wed,
- 13 May 2026 21:09:50 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- MN1PEPF0000ECD6.mail.protection.outlook.com (10.167.242.135) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.13 via Frontend Transport; Wed, 13 May 2026 21:09:49 +0000
-Received: from DFLE213.ent.ti.com (10.64.6.71) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 13 May
- 2026 16:09:48 -0500
-Received: from DFLE212.ent.ti.com (10.64.6.70) by DFLE213.ent.ti.com
- (10.64.6.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 13 May
- 2026 16:09:48 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE212.ent.ti.com
- (10.64.6.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Wed, 13 May 2026 16:09:48 -0500
-Received: from a0512632.dhcp.ti.com (a0512632.dhcp.ti.com [172.24.233.20])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64DL9hTA639443;
-	Wed, 13 May 2026 16:09:44 -0500
-From: Swamil Jain <s-jain1@ti.com>
-To: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<tomi.valkeinen@ideasonboard.com>
-CC: <r-sharma3@ti.com>, <devarsht@ti.com>, <praneeth@ti.com>,
-	<linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <s-jain1@ti.com>
-Subject: [PATCH] arm64: dts: ti: k3-am62l: Enable HDMI & DSI display
-Date: Thu, 14 May 2026 02:39:42 +0530
-Message-ID: <20260513210942.692269-1-s-jain1@ti.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CU11uW0E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40DC3C19425;
+	Wed, 13 May 2026 21:12:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778706735;
+	bh=QoYcwhZ/7PU9C5SA/BSzuhaMoZg1RV7QS2522SJRsFA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=CU11uW0EV2LY0R7CFrhGOyyRVGPGxQnX3DTUoQYP5qjxVdSTIz30nXdhO5f277ixm
+	 mHZTf6gEDYiL9ExitcjvE8YJMbQvFnwVlStcp3Qe+YnMcL67ePiTHEtoeNBjNBHZQg
+	 xA4TYxuuZCrgU1ZSf7/6m4ZGkqJNNJdpIvDLxn3WL6uS/9EvxY4wxvGQkkclcDM/1D
+	 w5xql/kWPCBsPaDPsyEXezWVYG1Yl3DWjfnKJ68vuWyM+THxRJDsB3A7DqoZ4zmQYO
+	 MVY2mfGNZDod3RQNyYxhRRxgC2pds/Ofq96bTNPeq+TWTYEydmJbkzyx/m09B0x4CB
+	 /E3tiWupwRoRw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/3] arm64: dts: qcom: eliza: Describe the ADSP and
+ USB related nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260512-eliza-adsp-usb-v3-1-6420282841c2@oss.qualcomm.com>
+References: <20260512-eliza-adsp-usb-v3-1-6420282841c2@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 13 May 2026 21:12:14 +0000
+Message-Id: <20260513211215.40DC3C19425@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD6:EE_|MW5PR10MB5852:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9fd6a305-aa31-44b2-66a9-08deb133f7d9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|376014|1800799024|56012099003|18002099003|3023799003;
-X-Microsoft-Antispam-Message-Info:
-	GAxC5tQqd6jj1u9J+RC7keZZs/weTzvFvpF064RGTsdTmA3rL71yMvRPbnk6uW6V+eMP5eiQ9MCgg5msEAIcsjeitukoNpQ2DIEhCo6RVhDydhaa4cw4Btf+Q6IgEUtgmKmuKC4m9m0M+wIaT+MiD1joA5LrCSsE7FSGsOA2bCrPuJHO3+OyJsKp6fZ24Umh8O6+XvbL7hdH18fyjwPbCtmnh2bWOCZpiQpzUv3RtTI+SDqqOMYw4wd2RtSMuFfmtlL/UFLolh6sy+wGP1gfqyceQ1JDS8ApeMbyFGc+QooqXGpP463fU/sl8lUSSyv4O+SaAHRQYNZihfa9Cntzu/TYjFBOrmZwGJVYpqeRrAynF2qjgSLU/LUhJ/t+E/9UBiHqyd59LiyM47wkmP7Xzce6+CvgpmAbPge5k7LMzNGiFtDKuk558xMBc+awTwIBd4a15BSSCHCqRsrQTrOR/kUXLQ/SfyVf2bA7tm2ABayrqF1pLfrQcmRdh6BpjuYfMBoyWu3oU6IuXoxTCNeIrcIZG5CX/zn4NxAX87r+OTIqfo0oPfbjdH6mUhYkkzLJa+Zt78N6pSQ6fPK8WBr+cLqUn1eV0aFLEFyvLbqyvaEIihkeY/aloI+ueQi120IZm2bqQq29OLrUejzqnfuFOMvOKu2/XcX/Zv/0vUXViIkzKMHrh9KnNdNQ+rlMVQBR3HQGbQpRuipYyDus92E6Qz1JmaFs4cIGcd5UCh7wBts=
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(56012099003)(18002099003)(3023799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	EXp8WumT/5q1RsPSce+VM635xErNs9iigJRohazjhTTzmAGVTjyvRSjVUa8z/zpx44dFnkubk1z4m6ZLxtOYBEtvoGvQmKQ+OCpG0fUBX1qPhXhxniEQagXICVNXoEYT/Nn5bWE1/HdYU33LlV5rru1gP+rm7t8BSgLoz0d+zM+IbuXOIon3OhzRVfK2w3wiJA16m7FC6vO60f4v894ZWHbVcFCD82/gKCHYOzCs43pPQnlhvFXXaLUcQb0LgrDmEIHueREvc/juQDgSPDti+vb9wQqW1KY7pmF700x9lsEnNfdIzpbTLX0hL3jyaQOAp8OwHxJRCp1jKKG8IR2iPIdMo060OoV4/yAFiS0DfvanN5JKdW/vNlry/Ela3l7P3hsblQveRV1MtW++KR3h5d/eKGBboPdEn1BGRuLpFrAVs7sVmRlRUGypkJ1cMIDm
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 21:09:49.1680
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9fd6a305-aa31-44b2-66a9-08deb133f7d9
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000ECD6.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR10MB5852
 
-From: Devarsh Thakkar <devarsht@ti.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] Redundant 'interrupt-parent' property in the 'aoss_qmp' node.
+- [Low] Newly introduced compatible strings violate existing DT binding sch=
+emas, causing dtbs_check validation failures.
+--
 
-Enable DSS, DSI and HDMI related nodes and pinmuxes.
+commit 56225b8dd9e95631f7a6297b203c68d9c7cdee8d
+Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
 
-Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
-Signed-off-by: Swamil Jain <s-jain1@ti.com>
----
- arch/arm64/boot/dts/ti/k3-am62l-main.dtsi | 47 ++++++++++++++++++
- arch/arm64/boot/dts/ti/k3-am62l3-evm.dts  | 58 +++++++++++++++++++++++
- 2 files changed, 105 insertions(+)
+arm64: dts: qcom: eliza: Describe the ADSP and USB related nodes
 
-diff --git a/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi b/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi
-index 80615ca1e01a..1d255c9138db 100644
---- a/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi
-+++ b/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi
-@@ -584,4 +584,51 @@ scmi_shmem: sram@0 {
- 			bootph-all;
- 		};
- 	};
-+
-+	dss: dss@30200000 {
-+		compatible = "ti,am62l-dss";
-+		reg = <0x00 0x30200000 0x00 0x1000>, /* common */
-+		      <0x00 0x30202000 0x00 0x1000>, /* vidl1 */
-+		      <0x00 0x30207000 0x00 0x1000>, /* ovr1 */
-+		      <0x00 0x3020a000 0x00 0x1000>, /* vp1 */
-+		      <0x00 0x30201000 0x00 0x1000>; /* common1 */
-+		reg-names = "common", "vidl1", "ovr1", "vp1", "common1";
-+		power-domains = <&scmi_pds 39>;
-+		clocks = <&scmi_clk 162>,
-+			 <&scmi_clk 161>;
-+		clock-names = "fck", "vp1";
-+		interrupts = <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>;
-+		status = "disabled";
-+
-+		dss_ports: ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+	};
-+
-+	dphy_tx0: phy@301c0000 {
-+		compatible = "ti,j721e-dphy";
-+		reg = <0x0 0x301c0000 0x0 0x1000>;
-+		clocks = <&scmi_clk 348>, <&scmi_clk 343>;
-+		clock-names = "psm", "pll_ref";
-+		#phy-cells = <0>;
-+		power-domains = <&scmi_pds 86>;
-+		assigned-clocks = <&scmi_clk 343>;
-+		assigned-clock-parents = <&scmi_clk 341>;
-+		assigned-clock-rates = <25000000>;
-+		status = "disabled";
-+	};
-+
-+	dsi0: dsi@30500000 {
-+		compatible = "ti,j721e-dsi";
-+		reg = <0x0 0x30500000 0x0 0x100000>, <0x0 0x30270000 0x0 0x100>;
-+		clocks = <&scmi_clk 155>, <&scmi_clk 158>;
-+		clock-names = "dsi_p_clk", "dsi_sys_clk";
-+		power-domains = <&scmi_pds 38>;
-+		interrupt-parent = <&gic500>;
-+		interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
-+		phys = <&dphy_tx0>;
-+		phy-names = "dphy";
-+		status = "disabled";
-+	};
- };
-diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts b/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
-index a1af4571a815..7462921e2180 100644
---- a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
-+++ b/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
-@@ -119,6 +119,18 @@ vcc_1v8: regulator-3 {
- 		regulator-always-on;
- 		regulator-boot-on;
- 	};
-+
-+	hdmi0: connector-hdmi {
-+		compatible = "hdmi-connector";
-+		label = "hdmi";
-+		type = "a";
-+
-+		port {
-+			hdmi_connector_in: endpoint {
-+				remote-endpoint = <&sii9022_out>;
-+			};
-+		};
-+	};
- };
- 
- &gpio0 {
-@@ -192,6 +204,36 @@ exp2: gpio@23 {
- 		bootph-all;
- 	};
- 
-+	sii9022: bridge-hdmi@3b {
-+		compatible = "sil,sii9022";
-+		reg = <0x3b>;
-+		interrupt-parent = <&exp1>;
-+		interrupts = <16 IRQ_TYPE_EDGE_FALLING>;
-+		#sound-dai-cells = <0>;
-+		sil,i2s-data-lanes = < 0 >;
-+		bootph-all;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				sii9022_in: endpoint {
-+					remote-endpoint = <&dpi_out>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				sii9022_out: endpoint {
-+					remote-endpoint = <&hdmi_connector_in>;
-+				};
-+			};
-+		};
-+	};
- };
- 
- &i2c2 {
-@@ -375,6 +417,22 @@ &usb1 {
- 	pinctrl-0 = <&usb1_default_pins>;
- };
- 
-+&dss {
-+	status = "okay";
-+	bootph-all;
-+};
-+
-+&dss_ports {
-+	/* VP1: DPI Output */
-+	port@0 {
-+		reg = <0>;
-+
-+		dpi_out: endpoint {
-+			remote-endpoint = <&sii9022_in>;
-+		};
-+	};
-+};
-+
- &wkup_uart0 {
- 	pinctrl-0 = <&wkup_uart0_pins_default>;
- 	pinctrl-names = "default";
+This commit describes the ADSP remoteproc node along with its dependencies=
+=20
+including the IPCC mailbox, AOSS QMP, and SMP2P links. It also describes=20
+the Eliza SoC's USB 3.1 Gen 2 controller, QMP combo PHY, and SNPS eUSB2 PHY.
+
+> diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qc=
+om/eliza.dtsi
+> --- a/arch/arm64/boot/dts/qcom/eliza.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
+[ ... ]
+> +		usb_hsphy: phy@88e3000 {
+> +			compatible =3D "qcom,eliza-snps-eusb2-phy",
+> +				     "qcom,sm8550-snps-eusb2-phy";
+
+Are these compatible strings fully documented in the binding schemas?
+
+It appears qcom,eliza-snps-eusb2-phy is missing from the allowed enum list =
+in=20
+Documentation/devicetree/bindings/phy/qcom,snps-eusb2-phy.yaml, which will=
+=20
+cause dtbs_check to fail validation.
+
+[ ... ]
+> +		usb_dp_qmpphy: phy@88e8000 {
+> +			compatible =3D "qcom,eliza-qmp-usb3-dp-phy",
+> +				     "qcom,sm8650-qmp-usb3-dp-phy";
+
+Does this fallback compatible chain match the current schema constraints?=20
+
+The schema Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-=
+phy.yaml=20
+expects qcom,sm8650-qmp-usb3-dp-phy to be used alone without a fallback, wh=
+ich=20
+will also result in dtbs_check validation failures.
+
+[ ... ]
+> +		aoss_qmp: power-management@c300000 {
+> +			compatible =3D "qcom,eliza-aoss-qmp", "qcom,aoss-qmp";
+
+Similar to the PHY nodes, is qcom,eliza-aoss-qmp documented in the binding=
+=20
+schema? It seems to be missing from the enum list in=20
+Documentation/devicetree/bindings/soc/qcom/qcom,aoss-qmp.yaml.
+
+> +			reg =3D <0x0 0x0c300000 0x0 0x400>;
+> +
+> +			interrupt-parent =3D <&ipcc>;
+> +			interrupts-extended =3D <&ipcc IPCC_CLIENT_AOP IPCC_MPROC_SIGNAL_GLIN=
+K_QMP
+> +						     IRQ_TYPE_EDGE_RISING>;
+
+Is the interrupt-parent property needed here?=20
+
+Since the node uses interrupts-extended which explicitly includes the inter=
+rupt=20
+controller phandle for each specifier, and there are no child nodes to inhe=
+rit=20
+the interrupt parent, this property seems to be redundant.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-eliza-adsp=
+-usb-v3-0-6420282841c2@oss.qualcomm.com?part=3D1
