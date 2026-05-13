@@ -1,281 +1,220 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CDB837881B
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 04:56:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C97D838E8DA
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 04:56:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778648176; cv=none; b=KWZrSGZE3XRqaO8hrYBbu2vWzxM7mn9NUVTQ6HWpAym7V6APV1VNc/cvWwYjlE6QeQzh9B77+/Rq/NAFhWMRoOiYzhfdPNbH+mGNrrfw1j0a5DgW+fDt6mEuwz/9j8ZFvC8QSB+2syQ/NwAR4HQNo9y1RceLXFzqwr9gyjvJkMQ=
+	t=1778648186; cv=none; b=jU/KtU0GxlANfwY6ACOZ5B4/VMZbiriUuDyyJhSh8byFlxufir0ouJPo6Q2R4f7HwHlHo7ZwepA9gQUfT2ImPtYyWxrtjBseRxvVysCl/QL9mYryJTtUyPeR6HZCgti2xSunHlCcLOyP9rrx5wHPZSFL4c95phq4fLcywv/U+O8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778648176; c=relaxed/simple;
-	bh=sfBtXR1kRXSz661IoJxY7Zqr7WIPUe5w8ybTQPpU0Lc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bzJDd/kjLGhuDxnPJAYURNxYfNOkDUc3rjv1rryD37+DNVuQ3fLcwppgGugxZQiaXo3qTcr71C/bnF7pm6ZDkXIeEPfXO66Q/fosWydI5gcPcUOv8msWVuvhy9fSym5c9hQlnUdQ3f7f5DhfHY26dE9mg5NE8pL7U37PITWtJUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GGb3MqJ2; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778648186; c=relaxed/simple;
+	bh=oEFqrGJElVWsJCJsodudX+JDfgrg6P0Nyniu6jzWYn8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IyhcZERd9uNJqDF0gPhHhLslyCpODlu2BpmKBFu1CTJlfFjyjr9hOprU32Hi8HC2zRZM6yK6IOnjvwSPh5OQH2EnNJakIj/MFtb+Wpgo4nWb2rSJgWy1XJ09iF5wPwNgOQ77w6ai+tGxZsgTg/fNp8T+r4doqm/UCYoSl2siuxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yexmv0Rh; arc=none smtp.client-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GGb3MqJ2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A158BC2BCB7;
-	Wed, 13 May 2026 04:56:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778648175;
-	bh=sfBtXR1kRXSz661IoJxY7Zqr7WIPUe5w8ybTQPpU0Lc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=GGb3MqJ2joOHjSh4kk+xe+/KPPezue16g5evvlC+lUeu0pluyZrYHxAjcOj91mkt8
-	 agPDWs5Hmm7iAa0hDYdHZ4jrwUxQBjl+7JK/JYu+XstB8EGaUeLFyjauD0WnR008im
-	 3/wUr4YQIa8z301z7mnTDMd7ANgra4CnGbPjc2XCWNQbxz91TP6Qp5za+0JfvpiTKc
-	 Oo1grjdkkHuhIeqGOC4KECR0t9DPa4rIl/3UUc9hRZ02MiQN6ErdlMRsBWxdtZDsTQ
-	 FJNS1NPQD65zM83ABaY4lUxWEIvMTaUm+wloDYoUm4TPgBcODM/riY1bhAbOe1w065
-	 2l1zRAFtb1Mcw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 6/7] gpio: realtek: Add driver for Realtek DHC
- RTD1625 SoC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260512033317.1602537-7-eleanor.lin@realtek.com>
-References: <20260512033317.1602537-7-eleanor.lin@realtek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 13 May 2026 04:56:15 +0000
-Message-Id: <20260513045615.A158BC2BCB7@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yexmv0Rh"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-837b39eb078so4300873b3a.2
+        for <devicetree@vger.kernel.org>; Tue, 12 May 2026 21:56:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778648184; x=1779252984; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=BY2NFR2OVpU0WhoUPQAwuaAExP4/KT35v4Z4OHaj9Es=;
+        b=Yexmv0RhAnB3YFu28XfmvRuyVSDTYwFcYgKPsP9bNBpkkXLPtbtdVu7ze//E2Swl/w
+         VpBXpwbXZUjRCEgSLnevYoa3yfRT2KUyb5NwpS0iuIlxSstVJtaiqsvTyi187kueLRO3
+         gF8hhlY0D0B/1tLlLOwU5nH69sCyQn3QGxutMQv/YQls5/G4s415cJ9GVQfWkysFT8jA
+         LHApzBPY4xcn8Ws5C4nmUiBok9us38iQwi/11GgBXzZUwvHsxUoDr8Bw5ZX5dRabEEWR
+         TMAE14oyWf4MkeRP9kcUiPzb4IKYKaXubNJyKX06lhL5mrOSR0cyCYXVv58yhC451EZB
+         jWOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778648184; x=1779252984;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=BY2NFR2OVpU0WhoUPQAwuaAExP4/KT35v4Z4OHaj9Es=;
+        b=iyVpL/I8hkte0f0flsh2wb3ql9qMbK6BqR3CEpmlTc/uVO/q303WlzNOwYWPLj+DMH
+         VZJrhL7cwqMt6WUaHX5DE3mRkYjj1RkWTWvdFQfoYB6abQ22YO5Zc+tM26DZKcnGyu0e
+         waIynXC8DflvQUFpQfrDOuQSHAZraOAngFbeGasFsh0cZgX3B5lb7y0DZwTxbiEzwdAd
+         TguwnPa37sJscoa0VbHRUtWHegfrYK7pXWC8Hh9s9bZfoVLC1ow2tIy6ya84p5BlIR2C
+         X656fI0KUd5nN8Lntur3N9M43wLEcNhmicjfXuSn+6vJssT8RawHxzhEbajXodogZb44
+         Eb+Q==
+X-Forwarded-Encrypted: i=1; AFNElJ8AxHPlMej6NVsxLkR6kJQjgU9JniveAsvZVrc/MLCsymoRWI4hEOFVQWOMPgHb/EorvOhTElQX+6QB@vger.kernel.org
+X-Gm-Message-State: AOJu0YxKFce5Jh4wJWs/AYk75Xln6i8yWgx+dfEu8Z8rMX9z6ia/wfBF
+	Ay1fwaTgFMPF7+ySi6MyiuQOSTN9X8Eom88AELJ46k5vWlHCOXXsVo3O+rAD8Q==
+X-Gm-Gg: Acq92OFSpC1PZ3heWxtlo5/34DrOH04fPmev1eZ+29pMU0L8sMwC1K5clg/bxelkfvE
+	FukmzcJLV8iWOs2cLRUlnn5ohu+rRMjPfTqy9IPM17tpbqBAfNPjAiDtedknL/nH9VDZlSKreYT
+	MrJLpJPWmqLeuTztObmCq6Y0CyZ58bkY0kEYEMC5DnSvPL35olrDJGGo9PDjrYnJYcN+BzNmxBC
+	W2bsfjLs1zRfKCJANP6hG4hkcSCMtRQcVQOViQufRuapCAufLx4WKON9bRwQkdlXDPX9zpHP1YX
+	kR3YYHW/59zDgmAUfP6oQl3yNo0B0nNb477XkeBI8gPYqhvF/NxU37cT9m58onXXDFjtNUydUeS
+	WKHNsCLFcXetTk/O+9COmHkHkEbWR8tCYu+FM2AlKvzGBuUueWmdOwT6rStBA5APNFF5aE2a26r
+	9P1J1DKN8j4CR3mmqSZWo2LIy8mBAp6/hfixHktHDIcUI4Y0lqmzGsgAvdekkr28QekddWx88Z
+X-Received: by 2002:a05:6a00:2291:b0:835:4776:7d7b with SMTP id d2e1a72fcca58-83f042b9b10mr1696659b3a.42.1778648183897;
+        Tue, 12 May 2026 21:56:23 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83967dbf0cesm30881108b3a.46.2026.05.12.21.56.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 12 May 2026 21:56:23 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <9fa93f79-526f-427b-bc43-1216fb5ce94e@roeck-us.net>
+Date: Tue, 12 May 2026 21:56:22 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] hwmon: (pmbus/d1u74t) Add Murata D1U74T PSU driver
+To: sashiko-reviews@lists.linux.dev,
+ Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Cc: robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org,
+ conor+dt@kernel.org, linux-hwmon@vger.kernel.org
+References: <20260511-d1u74t-v1-2-623c2bc1532a@nexthop.ai>
+ <20260513031519.A55BCC2BCB0@smtp.kernel.org>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260513031519.A55BCC2BCB0@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] Uninitialized raw spinlock `data->lock` triggers a BUG/panic.
-- [High] Chained IRQ handlers and IRQ domain are leaked on probe failure an=
-d driver unbind, causing Use-After-Free.
-- [High] Type mismatch in `rtd1625_gpio_set_debounce()` causes memory corru=
-ption and panic.
-- [High] Missing base offset in `rtd1625_gpio_set_debounce()` corrupts inte=
-rrupt status registers.
-- [High] Race condition in IRQ mapping leads to a NULL pointer dereference.
-- [High] Incorrect hardware mask in `GPIO_REGMAP_GET_OP` breaks GPIO input =
-value reading.
-- [Medium] Unprotected state modifications via `gpiochip_disable_irq()` in =
-`.irq_mask`.
---
+Hi,
 
-commit 2806fbf586d5ca5b8f36cb1b33138f23dd2f5b19
-Author: Tzuyi Chang <tychang@realtek.com>
+On 5/12/26 20:15, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> - [Medium] The driver fails to verify the number of bytes read (`rc`) from `PMBUS_MFR_MODEL` before calling `strncmp(buf, "D1U74T-W", 8)`.
+> - [Low] Copy-paste errors in `Documentation/hwmon/d1u74t.rst` for `in2_*` attributes.
+> - [Low] Inconsistent error handling styles for failure modes returning `-ENODEV` in the probe function.
+> --
+> 
+> commit a76e770177dc6ee5472b638d5e12f032fd0a5cd5
+> Author: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+> 
+> hwmon: (pmbus/d1u74t) Add Murata D1U74T PSU driver
+> 
+> This commit introduces a new PMBus driver for Murata D1U74T power supplies.
+> It relies on the core PMBus framework and checks the manufacturer ID and
+> model string during probe.
+> 
+>> diff --git a/Documentation/hwmon/d1u74t.rst b/Documentation/hwmon/d1u74t.rst
+>> new file mode 100644
+>> index 0000000000000..f7786ebba0b47
+>> --- /dev/null
+>> +++ b/Documentation/hwmon/d1u74t.rst
+>> @@ -0,0 +1,97 @@
+> [ ... ]
+>> +in2_label		"vout1"
+>> +in2_input		Measured input voltage
+>> +in2_crit		Critical input over voltage
+>> +in2_crit_alarm		Critical input over voltage alarm
+>> +in2_lcrit		Critical input under voltage fault
+>> +in2_lcrit_alarm		Critical input under voltage fault alarm
+>> +in2_max			Maximum input over voltage
+>> +in2_max_alarm		Maximum input over voltage alarm
+>> +in2_min			Minimum input under voltage warning
+>> +in2_min_alarm		Minimum input under voltage warning alarm
+>> +in2_rated_min		Minimum rated input voltage
+>> +in2_rated_max		Maximum rated input voltage
+> 
+> This isn't a bug, but should these descriptions refer to output voltage
+> instead of input voltage, since the label is vout1?
+> 
+> [ ... ]
+>> diff --git a/drivers/hwmon/pmbus/d1u74t.c b/drivers/hwmon/pmbus/d1u74t.c
+>> new file mode 100644
+>> index 0000000000000..3127e0e5a23de
+>> --- /dev/null
+>> +++ b/drivers/hwmon/pmbus/d1u74t.c
+>> @@ -0,0 +1,85 @@
+> [ ... ]
+>> +static int d1u74t_probe(struct i2c_client *client)
+>> +{
+>> +	char buf[I2C_SMBUS_BLOCK_MAX + 2] = { 0 };
+>> +	struct device *dev = &client->dev;
+>> +	int rc;
+>> +
+>> +	rc = i2c_smbus_read_block_data(client, PMBUS_MFR_ID, buf);
+>> +	if (rc < 0)
+>> +		return dev_err_probe(dev, rc, "Failed to read PMBUS_MFR_ID\n");
+>> +
+>> +	if (rc != 9 || strncmp(buf, "Murata-PS", 9)) {
+>> +		buf[rc] = '\0';
+>> +		dev_err(dev, "Unsupported Manufacturer ID '%s'\n", buf);
+>> +		return -ENODEV;
+>> +	}
+> 
+> This isn't a bug, but could dev_err_probe() be used here for consistency
+> with the other error paths in this function?
+> 
+>> +
+>> +	rc = i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
+>> +	if (rc < 0)
+>> +		return dev_err_probe(dev, rc,
+>> +				     "Failed to read PMBUS_MFR_MODEL\n");
+>> +
+>> +	if (strncmp(buf, "D1U74T-W", 8)) {
+>> +		buf[rc] = '\0';
+>> +		return dev_err_probe(dev, -ENODEV, "Model '%s' not supported\n",
+>> +				     buf);
+>> +	}
+> 
+> Does this code evaluate stale data in the buffer if the model read returns
+> fewer than 8 bytes?
+> 
+> The buf array isn't cleared between the manufacturer and model reads. If
+> i2c_smbus_read_block_data() successfully returns a length smaller than 8,
+> strncmp() could end up comparing against leftover characters from the
+> previous Murata-PS string since rc isn't verified before the comparison.
+> 
+I think those are all valid issues. Please fix.
 
-gpio: realtek: Add driver for Realtek DHC RTD1625 SoC
+Thanks,
+Guenter
 
-Add support for the GPIO controller found on Realtek DHC RTD1625 SoCs.
-
-> diff --git a/drivers/gpio/gpio-rtd1625.c b/drivers/gpio/gpio-rtd1625.c
-> new file mode 100644
-> index 0000000000000..0eae4bb5577d9
-> --- /dev/null
-> +++ b/drivers/gpio/gpio-rtd1625.c
-
-[ ... ]
-
-> +static int rtd1625_reg_mask_xlate(struct gpio_regmap *gpio, enum gpio_re=
-gmap_operation op,
-> +				  unsigned int base, unsigned int offset, unsigned int *reg,
-> +				  unsigned int *mask)
-> +{
-> +	/* Each GPIO has its own dedicated 32-bit register */
-> +	*reg =3D base + offset * 4;
-> +
-> +	switch (op) {
-
-[ ... ]
-
-> +	case GPIO_REGMAP_SET_DIR_WREN_OP:
-> +		*mask =3D RTD1625_GPIO_WREN(RTD1625_GPIO_DIR);
-> +		break;
-> +	case GPIO_REGMAP_GET_OP:
-> +	case GPIO_REGMAP_GET_DIR_OP:
-> +		*mask =3D RTD1625_GPIO_DIR;
-
-GPIO_REGMAP_GET_OP is mapped to RTD1625_GPIO_DIR. Will this return the
-direction configuration instead of the actual physical logic level of the p=
-in
-(RTD1625_GPIO_IN) when calling gpio_get_value()?
-
-> +		break;
-> +	default:
-> +		*mask =3D 0;
-> +		break;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static unsigned int rtd1625_gpio_set_debounce(struct gpio_chip *chip, un=
-signed int offset,
-> +					      unsigned int debounce)
-> +{
-> +	struct rtd1625_gpio *data =3D gpiochip_get_data(chip);
-
-gpiochip_get_data(chip) returns a pointer to struct gpio_regmap when using =
-the
-gpio-regmap framework, not struct rtd1625_gpio.
-
-Will dereferencing data->regmap later in this function cause a crash? Should
-this use gpio_regmap_get_drvdata(gpiochip_get_data(chip)) like the other
-functions?
-
-> +	u8 deb_val;
-> +	u32 val;
-> +
-> +	switch (debounce) {
-
-[ ... ]
-
-> +	case 50000:
-> +		deb_val =3D RTD1625_GPIO_DEBOUNCE_50MS;
-> +		break;
-> +	default:
-> +		return -ENOTSUPP;
-> +	}
-> +
-> +	val =3D FIELD_PREP(RTD1625_GPIO_DEBOUNCE, deb_val) | RTD1625_GPIO_DEBOU=
-NCE_WREN;
-> +	regmap_write(data->regmap, GPIO_CONTROL(offset), val);
-
-Is data->info->base_offset missing from the register calculation here?
-
-Writing to GPIO_CONTROL(offset) without the base offset will overwrite the
-gpa_offset and gpda_offset interrupt status registers instead of the target
-GPIO control register.
-
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static void rtd1625_gpio_disable_irq(struct irq_data *d)
-> +{
-> +	struct gpio_chip *gc =3D irq_data_get_irq_chip_data(d);
-> +	irq_hw_number_t hwirq =3D irqd_to_hwirq(d);
-> +	u32 irq_type =3D irqd_get_trigger_type(d);
-> +	struct rtd1625_gpio *data;
-> +	struct gpio_regmap *gpio;
-> +
-> +	gpio =3D gpiochip_get_data(gc);
-> +	data =3D gpio_regmap_get_drvdata(gpio);
-> +
-> +	if (irq_type & IRQ_TYPE_EDGE_BOTH)
-> +		rtd1625_gpio_disable_edge_irq(data, hwirq);
-> +	else if (irq_type & IRQ_TYPE_LEVEL_MASK)
-> +		rtd1625_gpio_disable_level_irq(data, hwirq);
-> +
-> +	gpiochip_disable_irq(gc, hwirq);
-
-This function is registered as the .irq_mask callback. Since the core
-temporarily masks level-triggered interrupts during processing, will calling
-gpiochip_disable_irq() clear GPIOD_FLAG_IRQ_IS_ENABLED?
-
-If so, could this inadvertently allow a concurrent thread to bypass protect=
-ions
-(e.g. gpiod_direction_output()) and change the GPIO direction to output whi=
-le
-the interrupt is actively firing?
-
-> +}
-
-[ ... ]
-
-> +static int rtd1625_gpio_irq_map(struct irq_domain *domain, unsigned int =
-irq,
-> +				irq_hw_number_t hwirq)
-> +{
-> +	struct rtd1625_gpio *data =3D domain->host_data;
-> +
-> +	irq_set_chip_data(irq, data->gpio_chip);
-
-Could data->gpio_chip be NULL here?
-
-The IRQ domain is added in rtd1625_gpio_probe() before data->gpio_chip is
-populated by gpio_regmap_get_gpiochip(). If an interrupt is mapped
-concurrently during probe, setting NULL chip data will cause a NULL pointer
-dereference later when retrieving the chip data.
-
-> +
-> +	irq_set_chip_and_handler(irq, &rtd1625_iso_gpio_irq_chip, handle_bad_ir=
-q);
-> +
-> +	irq_set_noprobe(irq);
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static int rtd1625_gpio_probe(struct platform_device *pdev)
-> +{
-> +	struct gpio_regmap_config config =3D {0};
-> +	struct device *dev =3D &pdev->dev;
-> +	struct gpio_regmap *gpio_reg;
-> +	struct rtd1625_gpio *data;
-> +	void __iomem *irq_base;
-> +	int ret;
-> +
-> +	data =3D devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-> +	if (!data)
-> +		return -ENOMEM;
-
-Is there a missing initialization for data->lock?
-
-Since data is zero-initialized by devm_kzalloc(), acquiring this uninitiali=
-zed
-raw spinlock via guard(raw_spinlock_irqsave)(&data->lock) in the IRQ callba=
-cks
-will trigger a kernel panic when lock debugging or PREEMPT_RT is enabled.
-
-> +
-> +	data->info =3D device_get_match_data(dev);
-> +	if (!data->info)
-> +		return -EINVAL;
-
-[ ... ]
-
-> +	data->domain =3D irq_domain_add_linear(dev->of_node,
-> +					     data->info->num_gpios,
-> +					     &rtd1625_gpio_irq_domain_ops,
-> +					     data);
-> +	if (!data->domain)
-> +		return -ENOMEM;
-> +
-> +	ret =3D rtd1625_gpio_setup_irq(pdev, data);
-> +	if (ret) {
-> +		irq_domain_remove(data->domain);
-> +		return ret;
-> +	}
-> +
-> +	config.irq_domain =3D data->domain;
-> +	config.drvdata =3D data;
-> +	platform_set_drvdata(pdev, data);
-> +
-> +	gpio_reg =3D devm_gpio_regmap_register(dev, &config);
-> +	if (IS_ERR(gpio_reg)) {
-> +		irq_domain_remove(data->domain);
-> +		return PTR_ERR(gpio_reg);
-> +	}
-
-If devm_gpio_regmap_register() fails, or when the driver is later unbound
-(since there is no .remove callback), data is automatically freed by devres.
-
-However, rtd1625_gpio_setup_irq() configures chained handlers on the parent
-IRQs which are not cleaned up. Will this cause a use-after-free if the pare=
-nt
-hardware interrupt fires after cleanup? Also, is the irq_domain leaked on
-driver unbind?
-
-> +
-> +	data->gpio_chip =3D gpio_regmap_get_gpiochip(gpio_reg);
-> +
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512033317.1602=
-537-1-eleanor.lin@realtek.com?part=3D6
