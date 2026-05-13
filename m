@@ -1,141 +1,70 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 007323CAA5D;
-	Wed, 13 May 2026 23:31:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811F33890E8;
+	Wed, 13 May 2026 23:33:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778715111; cv=none; b=eQczuAgNHzKRyphZed5eX9lvOgmuXvMaOHlzm0ZqrZiXCNFKp76EQKI9QA9jsLOteaM5n5TzsEdqmJv/tknWwaupAx0egXV0RcDCeHOprE7FgZE4p6Q/ufaI6QQoFWzHj1Q5HzQn95PZMy4jPEruI128fACxsdHDm5Y/M2miXT0=
+	t=1778715235; cv=none; b=CUtLCI5VbQP8zk8zwucQO3yl806juGXU+Ec3I6nSsAjtspaUtFBb+3HPSkP59KhyGzms0mRtPmadUIud244KHGSzBAihsbKe+Phv+z8NS92YW5mAo9a3HJSTO7lXVoGbm9VbL49TVAPphx7BKlyjo9e25z55/Uzhym39FujypGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778715111; c=relaxed/simple;
-	bh=eQGOXdB0CBovIWGJ7egFaGigS8NYtK1YuuMzaYsNTSg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a64z3iBwmQdToG4+0n1ZDlqI3qvaGXHaJs/VUMmnrHtkhcduRkwXdSmsAkTXaewATySeB58w/8zoaXmL2u17AQcV4GmQegKOuZpWivHfacVzmvQ5U+PZJO0a3B89ztsytW0tTpIWBZzjiimYeNQiEpS8LIjLPkybYOA0nUP4RKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=ZbEZzfdN; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=EL8Z9YTl; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1778715235; c=relaxed/simple;
+	bh=ABN00HzQ91S9l2mJfmg1rfw+l+o9zTlnJwwutFGLwM0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AM51qa9f3Uw/lm7ZPOgK83hIpzewHXKFsWukUrQ4nr0e/mm6DnpxR/sD60aDJeTzH9QQylYjykq7f1T0VaWTnsNnaBRIep/RS5N6fM+GB65JU5E13/MDpUTp7IdOQ7sN9Gn70YxEvR05JzECpOxyOsi4QB6LyaDIgE8wxr7z1N0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sK6GldL0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ZbEZzfdN";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="EL8Z9YTl"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gG8qc5q18z9vGq;
-	Thu, 14 May 2026 01:31:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1778715100;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=E1GVpz7zUi0aa32m2cLjJs4osxlT2wkEWkq8DiEqL8I=;
-	b=ZbEZzfdN3v96XPb1O7zJC0ciUUh4M2SjH3OQrY90BC2BH7uTZpha7MN6f0r6X1lToXO55q
-	amrwRDoxkWaP4uZ581Y3gFqS1cw/HOafkrI4bwlnktbyOMXPcbtN8uUj286CHKO0NlJwRf
-	0zR4ETqjCbi4G4jlqwdSKx0AHbfQWOM75ZMVWiP8awO7icpIq9YEQjVd7dOHAlyalvK2wN
-	hpe7ViRgOtWo6/D3gczNUjZ6/Fj7nZAYu5jolp+jFtG4lGP9ziagmZgVcMVNZ0tjg76pjY
-	DAGRbtim3VH525UeI2C4FHYynWF4AfflNPV6XePjo8UzsIqhcQZpwSECw9pDaw==
-Message-ID: <58894f67-1985-4e0f-9648-c568f681691b@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1778715099;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=E1GVpz7zUi0aa32m2cLjJs4osxlT2wkEWkq8DiEqL8I=;
-	b=EL8Z9YTlqG8TBCL8ROv5ei71tdSRBfdXblm1gERwQiHWGK/FlK2i/kJBwy56oamGOzeRkK
-	LwGxkQ7j/gExtd+mmeZO9U1ha+p2+OHUUk/abKthMkRa3lEmpXQ28tLhFgceJwZAGcQDWt
-	vPCaXrB9uxtXWZEojnc28g5kkfuTqCWQJMhMy0OZ1MiWHRSI38h0ZL1jyPijZxepHomNsa
-	K2chfG4va5Vt0fXST0lIowaxK/qI1jFGOm9tDBts62OjauiiMvnwmLlXGm9k5aRNEwFx5D
-	o5eunE+4IYtBZQaI+tiPAlEJWmPsNGFtjlQOP309kTlMnSI/jcpFyhsVK/uu4w==
-Date: Thu, 14 May 2026 01:31:21 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sK6GldL0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1579C19425;
+	Wed, 13 May 2026 23:33:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778715235;
+	bh=ABN00HzQ91S9l2mJfmg1rfw+l+o9zTlnJwwutFGLwM0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=sK6GldL0bTZVqO9OPG1ev4S3c6qMvI//wfjvKk1rZ0j69abHr9hqNO7J9Mmt6n1+o
+	 PdcPGN4X7wQ80RoyXo7u+OyrlnH+PCPkf9aXiN2kXqioWMnyINK3deRFbSUoo9/1X9
+	 QwOTMFJQmxv+qWAqU686nn9BgSd0m8dQCdoPNOG3TuLdb5wMD4oUjzlZhz/brJsFFb
+	 WaIopn7fsArYBuXAaxdgUaZptS4nQuvEJvxbMazt2Sr71IRgyhSQx7MlEQ9PMIbCHG
+	 SgUrYj5yJuLmVI7EzcBTPgoZTGFf0WDFPFBuLZP3+5/7RotCIq7KhKu76iOJbBZsPF
+	 b56EUDkUpi8Ww==
+Date: Wed, 13 May 2026 18:33:52 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Manish Baing <manishbaing2789@gmail.com>
+Cc: alexandre.torgue@foss.st.com, thierry.reding@gmail.com,
+	mcoquelin.stm32@gmail.com, linux-kernel@vger.kernel.org,
+	krzk+dt@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+	ukleinek@kernel.org, devicetree@vger.kernel.org,
+	linux-pwm@vger.kernel.org, conor+dt@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linusw@kernel.org
+Subject: Re: [PATCH v2] dt-bindings: pwm: stmpe: drop legacy binding
+Message-ID: <177871523137.2307220.3066863194193334549.robh@kernel.org>
+References: <20260508184626.15938-1-manishbaing2789@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH/RFC 04/14] arm64: dts: renesas: ironhide: Enable SCMI
- devpd, sys, and reset
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
- Sudeep Holla <sudeep.holla@kernel.org>,
- Cristian Marussi <cristian.marussi@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Saravana Kannan <saravanak@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Ulf Hansson <ulfh@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Kevin Hilman <khilman@baylibre.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1776793163.git.geert+renesas@glider.be>
- <2eb3c62df7b6ccedb525569fe34c10403e2fdcf5.1776793163.git.geert+renesas@glider.be>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <2eb3c62df7b6ccedb525569fe34c10403e2fdcf5.1776793163.git.geert+renesas@glider.be>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: 9oi1c88nhrnr1xcg6nynjdfitrstd1r1
-X-MBO-RS-ID: a9fef77da217165e93b
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260508184626.15938-1-manishbaing2789@gmail.com>
 
-On 4/21/26 8:11 PM, Geert Uytterhoeven wrote:
 
-Hello Geert,
-
-> SCP FW SDKv4.28.0 and later for Renesas R-Car X5H Ironhide not only
-> implements the SCMI base and clock management protocols, but also the
-> SCMI power domain, system power, and reset domain management protocols.
+On Fri, 08 May 2026 18:46:26 +0000, Manish Baing wrote:
+> The st,stmpe-pwm binding is already covered by the MFD schema
+> Documentation/devicetree/bindings/mfd/st,stmpe.yaml. Remove the
+> obsolete and redundant text binding file.
 > 
-> Enable support for the latter by adding the corresponding SCMI protocol
-> subnodes.
-> 
-> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Signed-off-by: Manish Baing <manishbaing2789@gmail.com>
 > ---
->   arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts | 14 ++++++++++++++
->   1 file changed, 14 insertions(+)
+> Changes in v2:
+> - Drop the TXT file instead of converting to YAML, as the
+>   functionality is already covered by st,stmpe.yaml.
+> - Update the commit subject and description to reflect the drop.
 > 
-> diff --git a/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts b/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
-> index e2470257d2f32a03..2fb9557a7eb9dbb7 100644
-> --- a/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
-> +++ b/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
-> @@ -31,10 +31,24 @@ scmi: scmi {
->   			#address-cells = <1>;
->   			#size-cells = <0>;
->   
-> +			scmi_devpd: protocol@11 {
-> +			    reg = <0x11>;
-> +			    #power-domain-cells = <1>;
+>  .../devicetree/bindings/pwm/st,stmpe-pwm.txt   | 18 ------------------
+>  1 file changed, 18 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/pwm/st,stmpe-pwm.txt
+> 
 
-Please indent with tabs.
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
-> +			};
-> +
-> +			scmi_sys: protocol@12 {
-> +			    reg = <0x12>;
-
-Please indent with tabs.
-
-> +			};
-> +
->   			scmi_clk: protocol@14 {
->   				reg = <0x14>;
->   				#clock-cells = <1>;
-
-Here it is OK.
-
->   			};
-> +
-> +			scmi_reset: protocol@16 {
-> +			    reg = <0x16>;
-> +			    #reset-cells = <1>;
-
-Please indent with tabs.
-
-I hope it helps!
