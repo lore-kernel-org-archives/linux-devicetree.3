@@ -1,162 +1,140 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 614E639DBE0
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 10:29:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7ECB36605A;
+	Wed, 13 May 2026 10:31:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778668162; cv=none; b=ZbQFrgFJNaZFK4rCaO0TOxz5BTUjB2U+lb8koABZc9n4CPuNkzPD7D29NBApM2jBC7ystnchRbPHz72areggwp7sZ3dm8CaiO335l1Bnl7Zw4hRZSftJdVr16w9AmcnlyYK88mn/BGSgeDb54DNh3zgYT0EOSwbgTJ9Zw9UaTp8=
+	t=1778668296; cv=none; b=iUHUCGpyJpasm6T0DjdgKvh6ovUT4+6xEMv7TEds241mHDREnCLhuFvwnMEDuW/xfOIqQ1gLPFd0Un2kSC4SR4P5ArHHcE2R8xxNrsEj7pTe/DK83RT4vWs9Zjr7TMk+fwXOivcdTrqE+Kb2w3VNIi9hBHqz4BYlTZ2ySStDy6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778668162; c=relaxed/simple;
-	bh=LYgxS0TnzTTnUeFk/iCJr1qdv/ce0xj9FviH5w16JIU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=meSkXr/TAfNV7dC8DEYJ6UmxunPUaylJihInXTC4+R+YR0V8VVgThr/67VAx++EnShkH7bBnAz0MKG4alBIVz82kvvzHJg3St2cci1Jne6DkxJGfeWcAYR40oqUIMwPSbcVQLuBL77E4Qk6YHHHWTIlfA2NqSlh02DFRrkgeUiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=fail smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <mfe@pengutronix.de>)
-	id 1wN6q0-0003LM-VQ; Wed, 13 May 2026 12:29:12 +0200
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mfe@pengutronix.de>)
-	id 1wN6q0-000aCm-2B;
-	Wed, 13 May 2026 12:29:12 +0200
-Received: from mfe by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <mfe@pengutronix.de>)
-	id 1wN6q0-00000002oGI-2KJN;
-	Wed, 13 May 2026 12:29:12 +0200
-Date: Wed, 13 May 2026 12:29:12 +0200
-From: Marco Felsch <m.felsch@pengutronix.de>
-To: Liu Ying <victor.liu@nxp.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev
-Subject: Re: [PATCH 1/3] dt-bindings: soc: imx: fsl,imx93-media-blk-ctrl:
- Allow LVDS Display Bridge child node
-Message-ID: <ymhkemd7ojr4aa5ak2ang4774ks2hpg4b7cpx27n7mk2cuvhj5@wn7h6j2eiu4f>
-References: <20260513-imx93-ldb-v1-0-d11c5c3cc197@nxp.com>
- <20260513-imx93-ldb-v1-1-d11c5c3cc197@nxp.com>
+	s=arc-20240116; t=1778668296; c=relaxed/simple;
+	bh=ddoblNZZsz5wNrt8mpoM1PIZNDv3RgKjfvpiPYWJsIE=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=tSjq4VYY6sgUe84H+MKuVXiDgr0vRFA7CTBpPELGhiv4UYSrTjU16GTiXBe3zCTPGXzU08FxLVnxBdXbkw7U271jKP89bb6nBkk0IwE0SdR8fbAQ2Z67hcQQqNd7wzwiVaEhCCWNDI5xI4aOjkP4aYDoYmIQN1iihv7RG4RAsv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=ZDlNcLmE; arc=none smtp.client-ip=65.21.61.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="ZDlNcLmE"
+Message-ID: <2615455d-4b4b-43cb-a0eb-ee8ea3cd68fb@aliel.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
+	s=courrier-s1; t=1778667966;
+	bh=ddoblNZZsz5wNrt8mpoM1PIZNDv3RgKjfvpiPYWJsIE=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=ZDlNcLmEyrJkfsm2aHLedDxwtuIP7EhBNioKD/ISmamJpI9nQKIEDEn8F8AeWr9F/
+	 f6dy6/7uwEyQYJKbRolYQfamFmrh62d2PiO1M8/tJWfiY4A9e0f7mTMUX+H0X7gFRj
+	 urzcLDclRrXioe82NiKuzrOO4hSSAdTqr4kA2kVo=
+Date: Wed, 13 May 2026 12:26:05 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260513-imx93-ldb-v1-1-d11c5c3cc197@nxp.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: mfe@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
+User-Agent: Mozilla Thunderbird Beta
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Subject: Re: [PATCH 2/2] arm64: dts: amlogic: t7: khadas-vim4: add PWM-driven
+ status LED
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+References: <20260512-add-kvim4-sysled-v1-0-7178719a43e7@aliel.fr>
+ <20260512-add-kvim4-sysled-v1-2-7178719a43e7@aliel.fr>
+ <7ad282ae-fffa-4d0a-9cec-65d8f6b40544@linaro.org>
+Content-Language: en-US
+In-Reply-To: <7ad282ae-fffa-4d0a-9cec-65d8f6b40544@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Liu,
+On 5/13/26 10:05 AM, Neil Armstrong wrote:
+> On 5/12/26 19:47, Ronald Claveau via B4 Relay wrote:
+>> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+>>
+>> The VIM4 board exposes a status LED wired to the PWM_AO_C_D output.
+>> Enable the pwm_ao_cd controller with its pinmux, and declare a
+>> pwm-leds node with a heartbeat trigger.
+>>
+>> Also, move the xtal-clk node to restore alphabetical ordering.
+> 
+> Please send a separate patch for that
+> 
 
-can we please wait for the outcome of this dicussion:
+Thanks for your review, I will add a new patch.
 
-https://lore.kernel.org/all/uyh5s6g7bvuufnhfjrmungp5dbyllxfrgfzaxno22knpxxojmj@qqvh75ezblpp/
+>>
+>> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+>> ---
+>>   .../dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts  | 30 ++++++++++++
+>> +++++-----
+>>   1 file changed, 23 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-
+>> vim4.dts b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>> index 69d6118ba57e7..c41525a34b721 100644
+>> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>> @@ -45,13 +45,6 @@ secmon_reserved_bl32: secmon@5300000 {
+>>           };
+>>       };
+>>   -    xtal: xtal-clk {
+>> -        compatible = "fixed-clock";
+>> -        clock-frequency = <24000000>;
+>> -        clock-output-names = "xtal";
+>> -        #clock-cells = <0>;
+>> -    };
+>> -
+>>       dc_in: regulator-dc-in {
+>>           compatible = "regulator-fixed";
+>>           regulator-name = "DC_IN";
+>> @@ -60,6 +53,16 @@ dc_in: regulator-dc-in {
+>>           regulator-always-on;
+>>       };
+>>   +    pwm-leds {
+>> +        compatible = "pwm-leds";
+>> +
+>> +        status {
+>> +            linux,default-trigger="heartbeat";
+>> +            max-brightness = <255>;
+>> +            pwms = <&pwm_ao_cd 0 30040 0>;
+>> +        };
+>> +    };
+>> +
+>>       sd_3v3: regulator-sdcard-3v3 {
+>>           compatible = "regulator-fixed";
+>>           regulator-name = "SD_3V3";
+>> @@ -155,6 +158,13 @@ wifi32k: wifi32k {
+>>           clock-frequency = <32768>;
+>>               pwms = <&pwm_ab 0 30518 0>;
+>>       };
+>> +
+>> +    xtal: xtal-clk {
+>> +        compatible = "fixed-clock";
+>> +        clock-frequency = <24000000>;
+>> +        clock-output-names = "xtal";
+>> +        #clock-cells = <0>;
+>> +    };
+>>   };
+>>     &pwm_ab {
+>> @@ -163,6 +173,12 @@ &pwm_ab {
+>>       pinctrl-names = "default";
+>>   };
+>>   +&pwm_ao_cd {
+>> +    status = "okay";
+>> +    pinctrl-0 = <&pwm_ao_c_d_pins>;
+>> +    pinctrl-names = "default";
+>> +};
+>> +
+>>   /* SDIO */
+>>   &sd_emmc_a {
+>>       status = "okay";
+>>
+> 
 
-before we're going further?
-
-Regards,
-  Marco
-
-On 26-05-13, Liu Ying wrote:
-> i.MX93 SoC mediamix blk-ctrl contains one LDB_CTRL register and one LVDS
-> register which control video output through a LVDS interface.  Allow the
-> LVDS Display Bridge(LDB) child node and add the child node to example.
-> 
-> Signed-off-by: Liu Ying <victor.liu@nxp.com>
-> ---
->  .../bindings/soc/imx/fsl,imx93-media-blk-ctrl.yaml | 38 ++++++++++++++++++++++
->  1 file changed, 38 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/soc/imx/fsl,imx93-media-blk-ctrl.yaml b/Documentation/devicetree/bindings/soc/imx/fsl,imx93-media-blk-ctrl.yaml
-> index d828c2e82965..ab563b457e07 100644
-> --- a/Documentation/devicetree/bindings/soc/imx/fsl,imx93-media-blk-ctrl.yaml
-> +++ b/Documentation/devicetree/bindings/soc/imx/fsl,imx93-media-blk-ctrl.yaml
-> @@ -26,6 +26,12 @@ properties:
->    reg:
->      maxItems: 1
->  
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 1
-> +
->    '#power-domain-cells':
->      const: 1
->  
-> @@ -92,6 +98,11 @@ properties:
->        - compatible
->        - ports
->  
-> +  bridge@20:
-> +    type: object
-> +    $ref: /schemas/display/bridge/fsl,ldb.yaml#
-> +    unevaluatedProperties: false
-> +
->  allOf:
->    - if:
->        properties:
-> @@ -163,6 +174,8 @@ examples:
->                 <&clk IMX93_CLK_MIPI_DSI_GATE>;
->                 clock-names = "apb", "axi", "nic", "disp", "cam",
->                               "pxp", "lcdif", "isi", "csi", "dsi";
-> +      #address-cells = <1>;
-> +      #size-cells = <1>;
->        #power-domain-cells = <1>;
->  
->        dpi-bridge {
-> @@ -190,4 +203,29 @@ examples:
->            };
->          };
->        };
-> +
-> +      bridge@20 {
-> +        compatible = "fsl,imx93-ldb";
-> +        reg = <0x20 0x4>, <0x24 0x4>;
-> +        reg-names = "ldb", "lvds";
-> +        clocks = <&clk IMX93_CLK_LVDS_GATE>;
-> +        clock-names = "ldb";
-> +
-> +        ports {
-> +          #address-cells = <1>;
-> +          #size-cells = <0>;
-> +
-> +          port@0 {
-> +            reg = <0>;
-> +
-> +            endpoint {
-> +              remote-endpoint = <&lcdif_to_ldb>;
-> +            };
-> +          };
-> +
-> +          port@1 {
-> +            reg = <1>;
-> +          };
-> +        };
-> +      };
->      };
-> 
-> -- 
-> 2.43.0
-> 
-> 
-> 
 
 -- 
-#gernperDu 
-#CallMeByMyFirstName
-
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | https://www.pengutronix.de/ |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
+Best regards,
+Ronald
