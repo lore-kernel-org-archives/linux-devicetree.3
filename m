@@ -1,170 +1,167 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2347363084
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 20:55:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA50E363084;
+	Wed, 13 May 2026 20:56:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778705726; cv=none; b=qqE/ImiPlVDhIp+b2PKN/NpQwavCU/UvhUxafFNc5Q1n69NVU4o0C2jCNvIDj19ODIGm9MLGcAuJXZSyEvGlyRUF3iS0WWn2XE2j2p/uzTqMz+aIfJKMZzsHC1It+06PQQp7Hx501b51d/5BEDGoo7zy+ng3CeqXz9uRSElnE5c=
+	t=1778705769; cv=none; b=QIoh4fG6bAbMvv/MRC0gsqNY3iIUL11jC9kD2Vlzq9FimTkirAf1pC8+Vy/NEafVy7IIFC/kwOwq03baR4mpBMgwCf0qtlBp/eRN2kcYhSEP3V1grLkaJQtBQsKXBnH7GSDg6dOsoQqaE5ehKiKubymVigUiv7voPkAWDOHcuxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778705726; c=relaxed/simple;
-	bh=r38NBoZ/RUD3MjH+uc5TLBPACf1H0U63GZ4TJbCspvM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=revRZA8juPFtvhArwL/0Ads0tPh0yasTsrw75X93MVnBSMWuU6CZgHyH+zEYBINI5VySD0co9gSs3RCoHmOwyfrA2jl1QWHPVx9f5Wfz8laoOAnItI77XCu2EIHP3ICWzxzY39OTueZtTfy5OlqHu/dpLakptOMjhgRmQu6AuFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UmtO8IxW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AFur2RRk; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1778705769; c=relaxed/simple;
+	bh=V4y+OjS8E1WJzQXloo/NVjG5JG5WZAq1w3Lv2299+GU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Kqs2wQ5xtQHKpOTNrMTzjQFOERVaQeYe7aqAVFG/2hlTkL4LbjRzcBhtSE9nlZNQ0MAJMyjP4JvipHVgVpGSK1hkmB6Yj5/cOPG14gr4Fo+lQYAD5Vic215XE/F94JK02AndosW1iQ1aB3ISqRJ/AE0KOkdPryDg6i0tAS+mmug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=P/ja/fKq; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UmtO8IxW";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AFur2RRk"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64DITfev3324682
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 20:55:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	rrYm8QbjWl5AnEafqETu9LkNgXLIyRedrjSfKoLJgdE=; b=UmtO8IxWGZ3kLalY
-	Pr6TcznHgFU8PGTs6pUnEbDz3iXgvLyQMyrkZFNs37FaainXyiwBYcy6Yq7ifY8+
-	nuAAhoOuliqJazxh1c14/aB1PmeuWNPr1aqMnFM7N8mIsdFKJy23SARKiNWVAIdl
-	jfRmZiIkwvqnwsK5wCPrCsPYY2sT+AIpkpwOxmxSlqQAkIyq2jxTuCs9Kc1hCizd
-	6JvLpwSQxg68tD9J0yeeqE70nMH6p71HCPHutqVS7sMkFrgI62QiGo3tuHQUmpqd
-	V4z+kZvtOvVOWqpksFYjynK4mdpySQ4grytiS6janWuvNy4aHrcZ7Ie5UIN5t463
-	TmZXHg==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4kvdbg59-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 20:55:23 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3684cb22502so4697401a91.2
-        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 13:55:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778705723; x=1779310523; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=rrYm8QbjWl5AnEafqETu9LkNgXLIyRedrjSfKoLJgdE=;
-        b=AFur2RRkhpIfyyOwcGcJlZ3Xy1ydCfzc9FDEdelPz4pmcWDPzxbdw1JIPCawKCcQKk
-         e3TkCaZBPZ1qgDamZffUEdXTaV5daxk6bGOijyGpQihLn4pqDU6ZorDJzG1yh5qPBIXg
-         Wr374vcuI9juWlMVCtbe2bGvMxl+6xT2zzyVwe9OLvWa9iVotLGSNQAdAHfbsp1RypRt
-         /kWRSvHxKPYRPmBCkLibkLftJ6fEOxkZQD/qwZKeFdxG7Pvrw3TfeVDokQBeSkxRHrIu
-         9FZyUOLVKnvp5TW5VvKlZdLP+caP248vs3mD8xUY8VnxlEhh4a51PPHd7zWr3hMpd1hT
-         gAyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778705723; x=1779310523;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=rrYm8QbjWl5AnEafqETu9LkNgXLIyRedrjSfKoLJgdE=;
-        b=f+1DVJc2JAv88zkceXJUvNmIhvBLqV6WKkekvBF3W9arFsqnStWbsh3cfsYsuxtqpV
-         4/DsOHmQ5XVLzfH2SED58TxDiLrDIqTlSC7vVL2ZATgO2Kz6hDX/u+WRMivL5id6M4RP
-         jSdLxDvUnyH/BV8MUfsK5+QOWEIIUnqRRePcX9ZL7JSlNlX7IBvRGOxra93kRaZOQuIj
-         +3Bmf/K8Uq9ZPel3PdBBBlWdMz1nbU1qS8DV27nKPZSTtoEAqCjnf/NubwUJRcvjEiGd
-         8yh5nCp/e3+Tcn6tQxAZeQQK0zMSDXj0CkJ15U1rXjxsU0L84rkD1jSicaegRFTK9J27
-         122g==
-X-Forwarded-Encrypted: i=1; AFNElJ8Af5KydEU94tegjc5rYxqJHrqwZJwCqAxULGHnwZFAN2ENFkW9qk0xJrjY6aLUD9g3Sf7WuJ8JtIE+@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx93KV3AMjxLb1Rijf9iBExrOLyhYF1LaD2fyR/KqnrcBcJehaX
-	xnnPCEVbXxfRJ+d9fNa+m0WQK/+5ja7vO9Eg5AoO6kzbe3oEiXpWSunSLDdtgzIfjAj6AA4Z4Z5
-	ZGgJX6nP40nJuS+l7LaYOmwKEYQ0hDoVWi80dj2PVbAh1381WV9lGlZTTM2tezeBO
-X-Gm-Gg: Acq92OGlyBNI4wbxvj9b/G+UaeenMXs7YIGJUu13hUrscO1WemdbWHAgrGIJ3xB30eb
-	vjv7wE3cPUDNVru781XDwrXyg6Ki3s/573M/MRJvj5pxFwIyKJJYaHQpGBE75AHQgHFYG3rWtAM
-	KLp9b/pmcC5/b80uZueq2wkIZf4hIXKn5ZwlAf95YiC/4B4DmIQ6JpSKVBV8KqDwMkX/JGC1nNB
-	oZIKKHen1LgeR11L3vQVEa8dLtxvp6aUPNhTm7EzVgYALmOkiouUz8A3Uj+TrCZ6zOaGBuImHRT
-	l7maxVreKU69VKriuDvpry7Jv3eFHbFW57ARWoT+xSmJSc7W/TypcYe+M8Mpb1Ta+YYyL5zoRXP
-	4f1XXTOPZNqjmF3CqGtOVCDjunRpS3R4O3F0E3c6Q2H/SGzszhYYrvmw=
-X-Received: by 2002:a17:90b:3ec1:b0:368:147b:536a with SMTP id 98e67ed59e1d1-368f3c151e3mr5189504a91.14.1778705722871;
-        Wed, 13 May 2026 13:55:22 -0700 (PDT)
-X-Received: by 2002:a17:90b:3ec1:b0:368:147b:536a with SMTP id 98e67ed59e1d1-368f3c151e3mr5189471a91.14.1778705722385;
-        Wed, 13 May 2026 13:55:22 -0700 (PDT)
-Received: from [192.168.1.6] ([106.222.229.33])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3692da0fdf1sm192484a91.0.2026.05.13.13.55.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 13 May 2026 13:55:22 -0700 (PDT)
-Message-ID: <7cad2dd7-b401-4d1b-8f16-79458b563986@oss.qualcomm.com>
-Date: Thu, 14 May 2026 02:25:13 +0530
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="P/ja/fKq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1778705767; x=1810241767;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=V4y+OjS8E1WJzQXloo/NVjG5JG5WZAq1w3Lv2299+GU=;
+  b=P/ja/fKqrHznDcfrPxb0X+mwXvV0DroDlaOCNT8/Re9LAN73r7ysX371
+   n915pp7xslUH7LK4l3TWul9xBcx+s/hlorbEczsLYPw2U5mx1MgutCAE6
+   AFhcbm3l3XkygwHrSFDIsGqI+Z/E3plt2d9xenixScQOrGtiKJoHV17RS
+   cWs0nnrBtoagpX/r6Vf+c3ctWdaH7m+1KfY3AI9lxX+aF/DvJW6lwgMYS
+   uQD+f8JkVvVEhPGpjSMAZ/Utue7OvwaZ0ajmtexHKgu6k2LflZO24ZMug
+   AF7CyOe5PE57AQKgSOfvn9k4LCayRCcfjEqRVY99Hk7gF6VInE/05y2xp
+   g==;
+X-CSE-ConnectionGUID: UQjkc83VSrmKQvBGtGy+oA==
+X-CSE-MsgGUID: Z/d9Vp7eSGeRPCZcHek8BA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="79596719"
+X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; 
+   d="scan'208";a="79596719"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 13:56:07 -0700
+X-CSE-ConnectionGUID: bRw1Kc4SRKurZCtH1z+efg==
+X-CSE-MsgGUID: r1K5P1YwRau7iK7LpcFRFg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; 
+   d="scan'208";a="261944455"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.106])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 13:56:04 -0700
+Date: Wed, 13 May 2026 23:56:01 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Rishi Gupta <gupt21@gmail.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] iio: light: veml6030: fix channel type when
+ pushing events
+Message-ID: <agTlYWBzzcbidNOO@ashevche-desk.local>
+References: <20260513-veml6031x00-v2-0-4703ca661a1d@gmail.com>
+ <20260513-veml6031x00-v2-2-4703ca661a1d@gmail.com>
+ <agS5Xu8ORtEwuwOB@ashevche-desk.local>
+ <DIHR47ZGCUOK.2CNX05W0I8F6F@gmail.com>
+ <agTY71MPPJ1b7qLC@ashevche-desk.local>
+ <DIHUBAWF7RQ4.205UNZAU31THF@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v5 2/7] dt-bindings: display/msm/gpu: Document A810
- GPU
-To: Alexander Koskovich <akoskovich@pm.me>
-Cc: Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>
-References: <20260502-adreno-810-v5-0-bc9fd2bb788d@pm.me>
- <20260502-adreno-810-v5-2-bc9fd2bb788d@pm.me>
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20260502-adreno-810-v5-2-bc9fd2bb788d@pm.me>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 6XeOdemHo0Q5nvM_tzHqz6h9SxebP19a
-X-Proofpoint-ORIG-GUID: 6XeOdemHo0Q5nvM_tzHqz6h9SxebP19a
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEzMDIwNiBTYWx0ZWRfX5FUADvR4Z/P8
- K2MNiNUUKxSYzLZB9BdWEEvqCvgwqGKY0QNN67B5Fb28CZa+YVM/AMh66M8XXFPPMLxs2Hp6bH0
- nM5SklZQmTgpmlAkAlMzgc+KpdFr4RAPjRMoPb5aAVNoUWQNlRGJaOlMxlECNZ2T1ja79V9KfBr
- 48s8bTB0EeN5Ko5/c9YEDybRVVE/Y3TfMXvRTq8EN+KpvC3CvVl8kwEpM9PYcMvHuxklVq2560o
- +j33IkeT9OLJGH39GoRwDrI1DZgEOeBiRQC3i2inU0wlDNqXNfKUjok+t1SKQOt6P73dlT/uKk4
- uMyDsQ1inUzu7whKF6hooifsYr0BwVMGJPDEZzw4HsIHHzD7m4z/tl26Sad3AjAQ00Sw/UYQLlR
- egPaZK9JoKcRiP7wspLYTAukFO47C3WN/8vFeXO2F2ot8m3ZAUDak2iWShoTmZzRup1Q9R+jniH
- Fb3ARyD1CYmKf0DtzFw==
-X-Authority-Analysis: v=2.4 cv=Iu0utr/g c=1 sm=1 tr=0 ts=6a04e53b cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=nm1BsBjGsf7C+PoY3QnOXg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=M943YIVedLBdXAjs6fsA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-13_02,2026-05-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 spamscore=0 adultscore=0 impostorscore=0
- bulkscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605130206
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DIHUBAWF7RQ4.205UNZAU31THF@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 5/2/2026 1:37 PM, Alexander Koskovich wrote:
-> Document the GPU compatible string used for the Adreno 810.
+On Thu, May 14, 2026 at 09:44:00AM +1300, Javier Carrasco wrote:
+> On Thu May 14, 2026 at 9:02 AM +13, Andy Shevchenko wrote:
+> > On Thu, May 14, 2026 at 07:13:41AM +1300, Javier Carrasco wrote:
+> >> On Thu May 14, 2026 at 6:48 AM +13, Andy Shevchenko wrote:
+> >> > On Wed, May 13, 2026 at 05:49:42PM +1300, Javier Carrasco wrote:
+> >> >> The events are registered for IIO_LIGHT and not for IIO_INTENSITY.
+> >> >> Use the correct channel type.
+> >> >
+> >> >> This bug was introduced in the first version of the driver.
+> >> >
+> >> > Unneeded detail, if it's a bug, use Fixes tag.
+> >>
+> >> >> When at it, fix minor checkpatch code style warning (alignment).
+
+...
+
+> >> >> -	iio_push_event(indio_dev, IIO_UNMOD_EVENT_CODE(IIO_INTENSITY,
+> >> >> -					0, IIO_EV_TYPE_THRESH, evtdir),
+> >> >> -					iio_get_time_ns(indio_dev));
+> >> >> +	iio_push_event(indio_dev, IIO_UNMOD_EVENT_CODE(IIO_LIGHT,
+> >> >> +						       0,
+> >> >> +						       IIO_EV_TYPE_THRESH,
+> >> >> +						       evtdir),
+> >> >> +			iio_get_time_ns(indio_dev));
+> >> >
+> >> > AFAICS the indentation is still broken. Why not doing like this:
+> >> >
+> >> > 	iio_push_event(indio_dev,
+> >> > 		       IIO_UNMOD_EVENT_CODE(IIO_LIGHT, 0, IIO_EV_TYPE_THRESH, evtdir),
+> >> > 		       iio_get_time_ns(indio_dev));
+> >>
+> >> Thank you for your feedback. According to checkpatch.pl, both variants
+> >> are fine. Mine takes into account the indentation within
+> >> IIO_UNMOD_EVENT_CODE(),
+> >
+> > And still have broken indentation with the last parameter. So it's not fine.
 > 
-> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
-> ---
->  Documentation/devicetree/bindings/display/msm/gpu.yaml | 1 +
->  1 file changed, 1 insertion(+)
+> I am sorry to insist on this, but I beg to differ. The last paramter
+> (iio_get_time_ns()) is properly
+
+Nope. It's aligned with TAB TAB TAB, the correct one is TAB TAB 7 spaces.
+I dunno what the editor or fonts you are using, but that's what I see with my
+Vim and monospace fonts.
+
+> aligned as an argument of
+> iio_push_event() and not IIO_UNMOD_EVENT_CODE(). That is exactly my
+> point: with my indentation it is clear that iio_get_time_ns() is an
+> argument of iio_push_event() and not IIO_UNMOD_EVENT_CODE() because of
+> the alignment. Moreove, my proposed alignment (which again, is fine with
+> checkpatch --strict and the original one for example wasn't) is
+> consistent with many usages of iio_push_event() in existing drivers. I
+> just checked that there are dozens like mine, being the majority when it
+> comes to this kind of indentation.
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/gpu.yaml b/Documentation/devicetree/bindings/display/msm/gpu.yaml
-> index 04b2328903ca..1875a3b9f688 100644
-> --- a/Documentation/devicetree/bindings/display/msm/gpu.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/gpu.yaml
-> @@ -434,6 +434,7 @@ allOf:
->                - qcom,adreno-43050a01
->                - qcom,adreno-43050c01
->                - qcom,adreno-43051401
-> +              - qcom,adreno-44010000
-
-Please add contraints for reg list like here:
-https://lore.kernel.org/lkml/20260513-glymur-gpu-dt-v4-2-f83832c3bc9a@oss.qualcomm.com/
-
--Akhil.
-
->  
->      then: # Starting with A6xx, the clocks are usually defined in the GMU node
->        properties:
+> >> and yours only accounts for the indentation for
+> >> the arguments of iio_push_event(). Moreover, your suggestion goes beyond
+> >> 80 characters and mine does not,
+> >
+> > When it's about readability the 80 characters is not a strict limit.
+> >
+> >> so I would prefer sticking to mine if
+> >> possible.
+> >
+> > I recommend to reconsider. Mine has no indentation issues, the only subtle
+> > "problem" is 86 character line. And looking at the result I find mine better
+> > to read (hence the exception may apply and we are fine with the length of
+> > the line).
+> >
+> >> As I said, it passes checkpatch --strict without warnings
+> >> in both cases.
+> >
+> >> I will send a new version adding the Fixes tag and removing the comment.
+> >
+> > Make it the first patch as the currently first one does not sound like a fix
+> > to me.
 > 
+> Ok, I will make this one the first patch of a smaller series with the
+> right Fixes tag added to it and removed from the other patch that
+> affects veml6030. I will split the new driver in smaller chunks and send
+> it as a dedicated series but continuing with the current versioning.
+
+Thanks!
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
