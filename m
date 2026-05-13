@@ -1,94 +1,150 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057A73C3781;
-	Wed, 13 May 2026 21:43:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9F03388E50
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 21:49:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778708613; cv=none; b=E2D2Y0Wea9UnRTzlI6z9qEUNT0baczm1QoyUusdy8gY9TWjdGuMp4/56gNlM8MRIjRzUHnhs+yQ05ubJ7GnwsY/YaY/CZAEkq8drjfUiXI1R7DeSBXJJ4hf5bDTm0bV+anhvptunGaOzUi71teOoUcFDH+5iKJkw5DYjf1+yBUg=
+	t=1778708959; cv=none; b=QovobJfg2pziAPo55Tl3pG8hSF6r6GUaLzmWMXu4VOlLXU4Kuel/FnypaBiQgo1dGzWobZvHRCGj7Cz2U4P2eYi9u+Tk7LOx/TGrptfsCRlKiv26JvkhRKHCxNvEY1XV0GhUTKzLSxFNA8Z3bjB5zzQcA4dybH/rGxQkNFwFi6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778708613; c=relaxed/simple;
-	bh=LT8Be7Q4Bi/XtelKyT3U23dHJqp7FkMFF//vn8LYL9s=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=qSeqNnf8Qn+0CqYyelbPbTdlNy4NyKFSvIb8M7cEqk0jcy0A6B2haFXjwMayJeVlIJowjIUOHW5eP5HllMyBOdbKB3fQHfWHKwuN+huL0mCe73svaFbAN+RMCL9aUK/fC7azbZXkAKMiRWtqBSnLStBgpHkg6zl2zJ9sM4aadgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nm6Mo8xQ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778708959; c=relaxed/simple;
+	bh=dfMOrU38MXovxDjpGMqkZ1S10kOT1MIogIWwoOzIb7c=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=bUoVst/4ov1WfNaZua91LQG2FxaR4Jo4ilM15y2z8KfRU8jcMd1s/7PnWLrQE9d4dT3dJnqdwDUeOU/X8H7bWCh4UvA3Me9cGoEofcmWe3ynvdaFfJQUcWHA7ERmxRXEWYzpG8P5proX9RfoazfsMx87BacAy8ExggQL+V9JYY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d8WUIJuT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nm6Mo8xQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67B7AC19425;
-	Wed, 13 May 2026 21:43:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d8WUIJuT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52224C2BCB8;
+	Wed, 13 May 2026 21:49:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778708612;
-	bh=LT8Be7Q4Bi/XtelKyT3U23dHJqp7FkMFF//vn8LYL9s=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=Nm6Mo8xQ2zXpJKHexPXmHPRrkolH9pKoUK5XOkv5YzPpitvR2GTk+n5nBZtShkFur
-	 ra4J0fo5F0oE3oFsGLlDSu2c5Z4XlcRJxYHrbu4BGG2DWU1JIN9h6leuBa2zFKUrx2
-	 IMec4JSSZ9BI5qI4989bBCiEQH+B9h55ARDzu3Fmc+RwpFyCbdHwVQ6RCXqQOULqMp
-	 Oe4WJ+X8uMa+nYDYtqAFxUT4XIJaY52sYimFQ1f5hzUNLW4HQcIMhzew4EQDeW92Jx
-	 5Y+lIPP2/QrsVRGOPEj1NW+ibNDfV0SDDE48PpkeD4JfOcn2/bbOK43PgIZ3VEG6ii
-	 WZ6BlHeojGTWw==
-Date: Wed, 13 May 2026 16:43:31 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Sai Krishna Musham <sai.krishna.musham@amd.com>
-Cc: bhelgaas@google.com, lpieralisi@kernel.org, kw@linux.com,
-	mani@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, cassel@kernel.org, linux-pci@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	michal.simek@amd.com, bharat.kumar.gogada@amd.com,
-	thippeswamy.havalige@amd.com
-Subject: Re: [PATCH RESEND] PCI: amd-mdb: Assert PERST# on shutdown
-Message-ID: <20260513214331.GA339797@bhelgaas>
+	s=k20201202; t=1778708958;
+	bh=dfMOrU38MXovxDjpGMqkZ1S10kOT1MIogIWwoOzIb7c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=d8WUIJuT9bLa2XB133UC87NHXADloRhLaRTfS2cDIpXzGvVOmYrOKqGiWxdkBH2i+
+	 fjMwrrnzltbEkOFhZBux42Fe7n8RxgXsMRX0L7xbBlRo2zSoeJ7ICjXxuWy+dLPgUr
+	 ey1qh+CeLA0E1aC9OZqTGuLAeMEqwk3Eoz25gq3bzQAWV1dYkaHNZFPu3nqu+W8tlj
+	 HUZWehNLUUZBwa8bappSKw/DR5AyiOTDpE7S7DFpJHKAftNN3Tfk8T7/CgfaUTnhU3
+	 GlArzQ6OlTWfk2tZJahe+poId+3XsFSsa6kmRTz23xTYLxzWZ0p2rMODkV7dmukDCt
+	 Sv2IrdSV3TNYA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/6] arm64: dts: qcom: sc8280xp: Add Iris core
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260512-iris-sc8280xp-v5-3-8cc251e83b58@oss.qualcomm.com>
+References: <20260512-iris-sc8280xp-v5-3-8cc251e83b58@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 13 May 2026 21:49:17 +0000
+Message-Id: <20260513214918.52224C2BCB8@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260427121227.290604-1-sai.krishna.musham@amd.com>
 
-On Mon, Apr 27, 2026 at 05:42:27PM +0530, Sai Krishna Musham wrote:
-> Add a shutdown handler for the AMD MDB PCIe host controller that
-> asserts the PERST# signal via GPIO before the system powers off or
-> reboots. This ensures the connected PCIe endpoint is held in reset
-> during shutdown.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The `mmcx` power domain will be ignored by the fallback `sm8250-ve=
+nus` driver, leaving the hardware under-volted at high frequencies, resulti=
+ng in lockups or crashes.
+- [Low] The `iris` device tree node specifies 4 power domains, violating th=
+e `qcom,sm8250-venus.yaml` schema constraints.
+--
 
-I see a few other drivers (dwc/pci-imx6.c, dwc/pcie-fu740.c,
-pcie-iproc-platform.c) that do something similar, but it doesn't look
-consistent.  *Should* this be consistent across all drivers?
+commit ae854de052f0b364828840ec87b770c30cfa8595
+Author: Konrad Dybcio <konradybcio@kernel.org>
 
-> Signed-off-by: Sai Krishna Musham <sai.krishna.musham@amd.com>
-> ---
->  drivers/pci/controller/dwc/pcie-amd-mdb.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/drivers/pci/controller/dwc/pcie-amd-mdb.c b/drivers/pci/controller/dwc/pcie-amd-mdb.c
-> index 7e50e11fbffd..69d21b4727e4 100644
-> --- a/drivers/pci/controller/dwc/pcie-amd-mdb.c
-> +++ b/drivers/pci/controller/dwc/pcie-amd-mdb.c
-> @@ -507,6 +507,14 @@ static int amd_mdb_pcie_probe(struct platform_device *pdev)
->  	return amd_mdb_add_pcie_port(pcie, pdev);
->  }
->  
-> +static void amd_mdb_pcie_shutdown(struct platform_device *pdev)
-> +{
-> +	struct amd_mdb_pcie *pcie = platform_get_drvdata(pdev);
+arm64: dts: qcom: sc8280xp: Add Iris core
+
+This patch adds the required nodes to enable the Iris core on sc8280xp
+devices.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts=
+/qcom/sc8280xp.dtsi
+> index 41c57e7dc4333..d950816a9a9e1 100644
+> --- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
+
+[ ... ]
+
+> @@ -4181,6 +4189,97 @@ usb_1_dwc3_ss: endpoint {
+>  			};
+>  		};
+> =20
+> +		iris: video-codec@aa00000 {
+> +			compatible =3D "qcom,sc8280xp-iris", "qcom,sm8250-venus";
+> +			reg =3D <0x0 0x0aa00000 0x0 0x100000>;
+> +			interrupts =3D <GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH>;
 > +
-> +	if (pcie->perst_gpio)
-> +		gpiod_set_value_cansleep(pcie->perst_gpio, 1);
-> +}
+> +			clocks =3D <&gcc GCC_VIDEO_AXI0_CLK>,
+> +				 <&videocc VIDEO_CC_MVS0C_CLK>,
+> +				 <&videocc VIDEO_CC_MVS0_CLK>;
+> +			clock-names =3D "iface",
+> +				      "core",
+> +				      "vcodec0_core";
+> +			power-domains =3D <&videocc MVS0C_GDSC>,
+> +					<&videocc MVS0_GDSC>,
+> +					<&rpmhpd SC8280XP_MX>,
+> +					<&rpmhpd SC8280XP_MMCX>;
+> +			power-domain-names =3D "venus",
+> +					     "vcodec0",
+> +					     "mx",
+> +					     "mmcx";
+
+The qcom,sm8250-venus.yaml schema currently enforces a maximum of 3 items
+for power-domains (venus, vcodec0, and mx). Will adding the mmcx power
+domain here cause make dtbs_check to fail validation, since the schema
+hasn't been updated to accommodate a fourth domain?
+
 > +
->  static const struct of_device_id amd_mdb_pcie_of_match[] = {
->  	{
->  		.compatible = "amd,versal2-mdb-host",
-> @@ -521,6 +529,7 @@ static struct platform_driver amd_mdb_pcie_driver = {
->  		.suppress_bind_attrs = true,
->  	},
->  	.probe = amd_mdb_pcie_probe,
-> +	.shutdown = amd_mdb_pcie_shutdown,
->  };
->  
->  builtin_platform_driver(amd_mdb_pcie_driver);
-> -- 
-> 2.43.0
-> 
+> +			resets =3D <&gcc GCC_VIDEO_AXI0_CLK_ARES>,
+> +				 <&videocc VIDEO_CC_MVS0C_CLK_ARES>;
+> +			reset-names =3D "bus", "core";
+> +
+> +			interconnects =3D <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
+> +					 &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
+> +					<&mmss_noc MASTER_VIDEO_P0 QCOM_ICC_TAG_ALWAYS
+> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
+> +			interconnect-names =3D "cpu-cfg",
+> +					     "video-mem";
+> +
+> +			operating-points-v2 =3D <&iris_opp_table>;
+> +			iommus =3D <&apps_smmu 0x2a00 0x400>;
+> +			memory-region =3D <&pil_video_mem>;
+> +
+> +			status =3D "disabled";
+> +
+> +			iris_opp_table: opp-table {
+> +				compatible =3D "operating-points-v2";
+> +
+> +				opp-240000000 {
+> +					opp-hz =3D /bits/ 64 <240000000>;
+> +					required-opps =3D <&rpmhpd_opp_svs>,
+> +							<&rpmhpd_opp_low_svs>;
+> +				};
+
+[ ... ]
+
+> +				opp-560000000 {
+> +					opp-hz =3D /bits/ 64 <560000000>;
+> +					required-opps =3D <&rpmhpd_opp_nom>,
+> +							<&rpmhpd_opp_turbo_l1>;
+> +				};
+> +			};
+
+The opp-table defines two required-opps for each node, which expects the
+driver to scale both the mx and mmcx domains.
+
+However, since this node falls back to qcom,sm8250-venus, the venus driver
+uses sm8250_res which hardcodes opp_pmdomain =3D { "mx" } and only attaches
+the mx domain. The generic opp framework's _set_required_opps() will then
+safely skip the unattached mmcx domain.
+
+Could this leave the mmcx domain stuck at its default voltage (like low_svs
+requested by videocc) while the core runs at 560MHz? Does this run the risk
+of undervolting the hardware and causing lockups?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-iris-sc828=
+0xp-v5-0-8cc251e83b58@oss.qualcomm.com?part=3D3
