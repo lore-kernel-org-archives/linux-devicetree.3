@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C7943A48E0;
-	Wed, 13 May 2026 18:09:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8903840FDBE;
+	Wed, 13 May 2026 18:09:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778695745; cv=none; b=cwIpLVkTzeKL4xCPnk96+XEa78D7GnzwVQbNwlKVWihWaL/tkIFICIOTvREd/wfzsxDX/uW0UJBDMhfGqqTJfOTQqjCtsy0vPev1/QMpSsML/FdLrdQ2fQ1UwqG5HhZWyjIZ0nEiEYZw/2Q0IGKqxhRRN+UTE7CxMJj3qg6L7Lo=
+	t=1778695777; cv=none; b=mPJBsrRgKxcYKqA92Dp2lC8tm2pghoxBxYZEHymbFbKSjhK62cXoO1rsMn79BnxX/QkHEJHGXaa9JUD76YxAi0yb6fLG8L7RR8lEvSFsScyyDrGEk8y/MXb3nU5ggY2wSUrfsxybg1V7W7sa3jhgJlIneZk3sSLU0uXvEwadWkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778695745; c=relaxed/simple;
-	bh=61ItPVM5nIOsfGJc8/zc2bM80JnloKq/g+T0X2QdZC0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iCQg9dXOukEp9kddtQ8sDtbvaMO7e6PheC07750LroQLg9YqZpOPqzpTmgD7ABPvOTbsLGSpE5dP+vh/CJVgQtDckb2qBK/NJNO0CDqFnO8Z9kdDGmjR52KyE66SSNKhSIGFFDKNoW1O+MTpRIZGUmW0rOpOCIEZcwCQVFceFd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OqFfphSJ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778695777; c=relaxed/simple;
+	bh=4M2z6d1Qwnk/RXJ2LWyVlbpEVUPyxmYAsrgclO5xbCI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=VEIuBiIQRN5DB8qM9Cn/Vnymcwt8wo7B1ok2Aws6J0/T63W3WQyVc3viA177ZY3fuybaY8KW9jmKEUA1Tc5ISl+rTK/utD79UEDyfXkP0/TjP235q0eg8M8GGXLk5d3GYFi2mow8XeTf5pRM5OW2Xj1PYqc8r3tlhLmQBR3KLd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UtXTwliI; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OqFfphSJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4EA5C2BCB7;
-	Wed, 13 May 2026 18:09:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UtXTwliI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F138C19425;
+	Wed, 13 May 2026 18:09:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778695745;
-	bh=61ItPVM5nIOsfGJc8/zc2bM80JnloKq/g+T0X2QdZC0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=OqFfphSJZLuYgyPtck5OwkOG173r9s5RoQEIvgCS/B+n4Roh6R7uBT/bMH/1d/hJp
-	 uE/LjP+nPVZISoLgvncbWsGDJ5DWkLw0JivEellpdJzT5CorcABeGFiM5XWzVtjP+c
-	 ZTuvtAQwFjCHqQeP1CCHRP9tIWnEL7n57Isdz7nm7VfaPYrN8BgoGVIIuGcZDsQRcP
-	 b/kWh2mSv4uVFyUY+u0d21I3CJJXGviSmfx7Kgmw9Ukvr4NzKwbsgGWrI+TbSFLsaI
-	 HOhK2AbMM+EKTnRDl9MqQaqbFK4/6xtz75qa6lkw32dWWwnSMDvyf/5yAXhaFhm05r
-	 Nya/agG8EwLiQ==
-Message-ID: <cae7f995-e8ff-468c-9109-10148532ae95@kernel.org>
-Date: Wed, 13 May 2026 20:09:01 +0200
+	s=k20201202; t=1778695777;
+	bh=4M2z6d1Qwnk/RXJ2LWyVlbpEVUPyxmYAsrgclO5xbCI=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=UtXTwliIJWNF/pZ1DraEEoBzwhE2EEP7gv0GpLRbej8oyQ7nrE+owoOyoW9AYZQnd
+	 E1LqjozNnBZzkp+aTKN17ZN8AM0kYZQDS7fXTxFF0lHhYylZC6+geBNFQrVBasznBL
+	 nlkAprcgHTGGEMuNhTshqZctizfMDU583QBHB1xPr0dKYER0xYNl+5P39duhALIo+o
+	 5Grw9FdsGilBNHiHLdw8pQFXmEYjGRB+NC+plFuv+RmdBWN8pDJBO38enUB6o1BXML
+	 18jKxTmYSKrmlDKtGW3rd8CHWXa5BRXOuz3JPemJfQ8f/fbOQUfFkuGrPUEdMkLPTT
+	 uuwn7at3uPjgw==
+Message-ID: <d9a1e0ec-fa4a-478a-957e-47a1559380db@kernel.org>
+Date: Wed, 13 May 2026 20:09:32 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,16 +35,15 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: agilex5: add support for debug daughter
+Subject: Re: [PATCH 0/2] arm64: dts: agilex5: add support for debug daughter
  card
-To: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
- Dinh Nguyen <dinguyen@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+To: Dinh Nguyen <dinguyen@kernel.org>,
+ Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Cc: Niravkumar L Rabara <nirav.rabara@altera.com>
 References: <cover.1778237639.git.adrian.ho.yin.ng@altera.com>
- <a42751b4c7eb9b4d58f2ef1db3591ff68385a562.1778237639.git.adrian.ho.yin.ng@altera.com>
+ <ec0633a6-30f6-4db6-875d-69a4f0f140ca@kernel.org>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -90,26 +89,37 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <a42751b4c7eb9b4d58f2ef1db3591ff68385a562.1778237639.git.adrian.ho.yin.ng@altera.com>
+In-Reply-To: <ec0633a6-30f6-4db6-875d-69a4f0f140ca@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08/05/2026 12:57, Adrian Ng Ho Yin wrote:
-> +};
-> +
-> +&spi0 {
-> +	status = "okay";
-> +	spidev@0 {
-> +		compatible = "rohm,dh2228fv";
+On 09/05/2026 14:05, Dinh Nguyen wrote:
+> 
+> 
+> On 5/8/26 05:57, Adrian Ng Ho Yin wrote:
+>> The Agilex5 SoCDK supports an optional debug daughter card that requires
+>> a dedicated device tree variant due to differences in peripheral
+>> connectivity compared to the standard SoCDK configuration.
+>>
+>> When the debug daughter card is fitted:
+>>    - gpio0 and gmac2 are disabled
+>>    - gmac0 is enabled with RGMII PHY connectivity
+>>    - spi0 is enabled with a <device> peripheral at chip select 0
+>>    - The HPS LED is rewired from gpio0/porta to gpio1/portb
+>>
+>> The new DTS inherits from socfpga_agilex5_socdk.dts and overrides only
+>> the nodes that differ, keeping the delta minimal.
+>>
+>> Adrian Ng Ho Yin (2):
+>>    dt-bindings: altera: add compatible for agilex5 socdk debug daughter
+>>      card
+>>    arm64: dts: agilex5: add support for debug daughter card
+>>
+> 
+> Applied!
 
-
-NAK, don't fake devices.
-
-> +		reg = <0>;
-> +		spi-max-frequency = <10000000>;
-> +	};
-> +};
-
+No, really. This is really unreviewed poor DTS containing fake nodes.
+Please drop the patch.
 
 Best regards,
 Krzysztof
