@@ -1,248 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36AD21F872D;
-	Wed, 13 May 2026 14:05:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A372306749
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 14:06:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778681156; cv=none; b=aqDMpWI0XvBC8w5zTG+CIaejYvj9f8L56Fyfg/OsvSPF2qZPwvhTwywBFTYwqFUniWj3Wir+GWzi0ICbhbPrIinM0+a13qtFGGCPz5l9CApTzEEo/3WrBILkFd364ybOhIcqYxSTxegloYt20Iua6MDzbmnFV9GUN+diiCzeJ/4=
+	t=1778681206; cv=none; b=MtIPn1rm/AQSWYaWUsbalyV27sqD5D3al184mWvWmdXpawmSZuaGsoGHNyEM9GMdYtLfsCNkRkjxnbS2HTPg1R12eYXyWfrCadcM1HnuBi2tCVYQKcpuCcUQkhvomq0uy6zAWUyAT8slwTwfgRWZpRa9mNgzAIi32aU0/G9mOhE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778681156; c=relaxed/simple;
-	bh=zRtBKcT3U26qME99MnyGrZwHZVs016YqqmbYeUEzis4=;
+	s=arc-20240116; t=1778681206; c=relaxed/simple;
+	bh=Yhyz0hv3eV8PhN9nKafDEtA5JZ7bSJjwlgsphHBI9MA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B41eGmL+asH85IeVvXC+9hNJYOcuahAOjsXRMMy+G/T2tNL2OR/xTmBSAF4e0JZwLoGllWj0ZSmAAtP5J9jR3Byp9Fk5aRN5e+N7sW5UqyMZ/zsujrztH97TxRLEFeZhmkNhL1HwaILji5E2bU3yOJ7n4q9fap8QVQ+cn9DMWqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kXdyql+c; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=Eho40mBrWjl6Z8UDQ6JSMaC3f9mCVoOX2kN7/wqC7oHxkCkOUv9W/lJZuroRcQpcnPpfgCaLSIUQpMTOYQ3BKzWcystRVb3SgJ2SYFigDowiBtwGm5zUy1uq6VpEROqN4EEBgKkoCGqTohghHI5dFgFu8JVmv5vB4E+L3Twt4Zc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Nj6ZC+Nq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZWqjnQ9V; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kXdyql+c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A8B5C19425;
-	Wed, 13 May 2026 14:05:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778681155;
-	bh=zRtBKcT3U26qME99MnyGrZwHZVs016YqqmbYeUEzis4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kXdyql+ctDwjMZElPXfCgJbzmsxR3rdb51JTTDZmti36BYgvppUEEtcgYQveaT0FX
-	 DAe0zpwIh+z3jPCqTXFeOTev/lBfAbHhcWvnGJ7RU6woMIL32Cx21YxV0VJ4vlpSyG
-	 gSSHq/U/YPHyqlNIGfoHeHPa24BtBs7g8a+I4xyc2dBjELf4iueqv865IrvF6TqTly
-	 bSNm2abkDoeoFZ00T11zZvDJ5EzRC7DzYUHVTCBp1jI7VIIovtSqIlNroCUH8PxLqn
-	 sTjCg2X/mE89qArZFhBJIeSsClNJQKENQR61YB91Ir9mn0AytA5rPqnRl7gNBPi1Lj
-	 KdpxzKGD9ke7A==
-Date: Wed, 13 May 2026 15:05:50 +0100
-From: Lee Jones <lee@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Pavel Machek <pavel@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Tony Lindgren <tony@atomide.com>, linux-input@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-leds@vger.kernel.org
-Subject: Re: [PATCH v4 5/6 RESEND] mfd: motorola-cpcap: diverge configuration
- per-board
-Message-ID: <20260513140550.GD305027@google.com>
-References: <20260428153611.142816-1-clamor95@gmail.com>
- <20260428153611.142816-6-clamor95@gmail.com>
- <20260507140519.GO305027@google.com>
- <CAPVz0n1Ubvj9MHHMcM2BpxAcTCCheMihr3aJUqcDVoi_V0OQ5g@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Nj6ZC+Nq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZWqjnQ9V"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64DAVLxl3430147
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 14:06:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=Sv2mS35ALbniobTUzrRKgd6h
+	lYi7vNZsP9aMzxoPIfc=; b=Nj6ZC+NqmElLseaABuYVQb1PqleeNZjFLDTD9Kns
+	NwjU+8opwm1i7EtVj6ZryMVbzNTxj1LiWqO3wMusTO5wONMQQ4ZWralPlex5Aztj
+	BQoa3Zoh727EZGXlzICeBQ4wiDAgwrKPsVRYi7UsEyZ6VtPsmMf0wDV/4cyjQokz
+	Wpns1223rrbTp91qP16RBOHNYiO7e5jk46ZzrbOZlB7u8p3QJEwOS3hpkou4XSv5
+	JpwpRQJaj1FEdpbCK+qBityzgeA0XQ7F8jEIvs4dGgj7cl2NcKwkXyTmy6zAvDAf
+	ETVj7ipZbKvJ+k0/hmLTCte4CfMG4bc6pqt4+qmn1TTR8g==
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4qmcgsfb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 14:06:43 +0000 (GMT)
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7dbbb806e10so14314296a34.1
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 07:06:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778681203; x=1779286003; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=Sv2mS35ALbniobTUzrRKgd6hlYi7vNZsP9aMzxoPIfc=;
+        b=ZWqjnQ9VgLzbffJJMXmiBUaMApQo0BbUv/rb9B7BThAZrXZN3aEc23uAxW+Hd/j63k
+         keYxLM7f3B8bfgZjQpQOHBTmA5koVXMLl3v5sLTHMJxHsdGqA0+2b4LXOBfw9X39w5g2
+         4koo9mKGaEgW1qNHybBbRQmomCmcc2LZflARGAMgCpYj78eeGW1j9vGYG503cplwzKx1
+         JU6RotkRMa3NUFLBN18ygC4Wz3n/DINd6xp1d+1ZjI8cIqg9KBPqma3jxbS7zvKXohI8
+         2Nth+B/kQxLC/W9f+mTY7i2qC8m/SJ02nHgzg6ovFR72x7g2gZjI9M7Eyu1WhdIAyP48
+         5flg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778681203; x=1779286003;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Sv2mS35ALbniobTUzrRKgd6hlYi7vNZsP9aMzxoPIfc=;
+        b=lv6J0xT7PlKsQYZLkeigORpxFca1iPowEl0jSop3NayIJqG8TK6N5AnJCq3bDbDQHa
+         Yt/NPLHLf/gCTfb7FoBeP/V8iK7gubj2HZ94PfQM9OMzkpYBPL/IGJkMFt3iHWT4eKAV
+         OnrVuSWrs3xoeFR+RUL2XUtGU0YjHUvHwxUWqAXf9gs1izUqnCDUthZFNFcocBe3wqoo
+         R46Ee+ocLW9uTp0LPZwb228vLTw92ihwDsTxg5h3FNl2qacaJVtUAF9h8MDNeGJGvTcH
+         LOjjps+0wq+NFYCnAkGUvOpzlcmhVSft1g6OVCH28AWEiFoqCkcUjnvtTvnnzoU1lUAQ
+         iyNw==
+X-Forwarded-Encrypted: i=1; AFNElJ8n57RGZcW5/idNF/WkMuS2S4IUYVn0V6K57ta0YDtwJ1PAeWtHCFVNEWQngfzYVnGuu9dvLMYG/6AA@vger.kernel.org
+X-Gm-Message-State: AOJu0YzhIjW7Wz6Np/BrxBUu5ubw8T5K0eNp7ijghZ/Xmvz5GtbSLo5D
+	U7ySF0h4QgDReqVfpArKWwJfqQ4Y9v0fbZ9i92YQ0oe1VDUuT+dczrd29csIFYVuANxqizf3leS
+	t7jaIY0S/3mtvmbqni1TBKqYq/DjyetMUWAiSH2Nr+YwYvhos6W6uzocwPzESACLt
+X-Gm-Gg: Acq92OF6bkFpy9H1riOcoFu1Re74tFNJiCkHn3FBl1ecjeuyUYopHHI7GDBcDBwkWFo
+	kW9EMTHGmJ+JV8dNMqS9ix8dDdoxtD+C7e/uXWQAYTw9yBwAuuABvWLAc2mWVZwOfJKirzqiI+s
+	BwN3SmJiZctaOkKE0MdTcQuXo6aVeq2Ep1FcLsvzF+Kr0v637/ubhr+2hqYjA9lIkM6iOg+3CeK
+	AKCg+9yAHoptmZJIOhkoeU1MUOsV9s2II2epUV4wk/d48obYLIQdHcqlcyJQdeiiBqqDELDd9PU
+	TAEPpbMXHhFLjV7BA+BFFPyW2XcFkGAmN6qUsWLhXAGG4m8iSFh0S3ULXFyBvorPBZSmaZ1mXUn
+	M67hsMzGE1JvLszxzVMfQgT0D5Dko/d5UyRj9R7yuyVABScjT5YMFusVcCkekz3ltnj4xGBEHkW
+	YXj39V63Zo3sjRjVHd3enIe/k0YEU/swy/05Y=
+X-Received: by 2002:a05:6830:44ab:b0:7d7:f5d4:ef5b with SMTP id 46e09a7af769-7e3da0973fcmr1898406a34.7.1778681202829;
+        Wed, 13 May 2026 07:06:42 -0700 (PDT)
+X-Received: by 2002:a05:6830:44ab:b0:7d7:f5d4:ef5b with SMTP id 46e09a7af769-7e3da0973fcmr1898358a34.7.1778681202366;
+        Wed, 13 May 2026 07:06:42 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a8a95152b2sm4047227e87.11.2026.05.13.07.06.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 13 May 2026 07:06:41 -0700 (PDT)
+Date: Wed, 13 May 2026 17:06:39 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Imran Shaik <imran.shaik@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/4] clk: qcom: Add support for Display Clock Controller
+ on Shikra
+Message-ID: <dt5j7khzvgoj5qdrnfoi6ssye23jve5gjta5qx2ubuvufjzr2w@puacv5jgosmb>
+References: <20260513-shikra-dispcc-gpucc-v1-0-5fd673146ab2@oss.qualcomm.com>
+ <20260513-shikra-dispcc-gpucc-v1-3-5fd673146ab2@oss.qualcomm.com>
+ <n4wgnno2td3xmdsgwadvdtvr4ncitzio3ufufg5bp7wnga4ouw@mj76764e3uus>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPVz0n1Ubvj9MHHMcM2BpxAcTCCheMihr3aJUqcDVoi_V0OQ5g@mail.gmail.com>
+In-Reply-To: <n4wgnno2td3xmdsgwadvdtvr4ncitzio3ufufg5bp7wnga4ouw@mj76764e3uus>
+X-Proofpoint-GUID: CtAS1jBFoD3E3QrixIx4upRYjyy8PbGT
+X-Authority-Analysis: v=2.4 cv=Hu5G3UTS c=1 sm=1 tr=0 ts=6a048573 cx=c_pps
+ a=OI0sxtj7PyCX9F1bxD/puw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
+ a=39BKs2L7sj4-dcXLI8oA:9 a=CjuIK1q_8ugA:10 a=Z1Yy7GAxqfX1iEi80vsk:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEzMDE0NSBTYWx0ZWRfX79MalgYz9Fsb
+ DggBhftGQ53fyKLmjsblOzbblnbQHYMfp1C6kU5Ojy2iLAaK0Tqf6gAZ160ybHxnhZbH05mBDj3
+ ONy4ekvg0vgPMEpczTWMCPUWDSIrHGekff/AE34RIPMGkbsbZWyyiH5fvdIxF/6RhJ1z1eXliIC
+ VgIq9XHIO2IDz/JAaSixFU6L9F69ScIFo15Ye+RMx3M/3CfwJhhh1+2n3rifyrplcJ1HcWJgREc
+ 73vhORFm34dOXqoHmy0bzZ6KrA+zjwXYJZZyHpzTN/GRbJJozqKV+Pqsq1b6i3GMqnZ1C653noX
+ +9tMZ5NjPsa22AxZ7LETrvf7x+rBr4oHIWkuTLBlZWhDploVyneqKgxbSSPm2ILqubh2eidg7rx
+ pPy6ac9e5zesGZgUuhJ6dFhnPXtmMoC+w185XY6REHlVYlIt1MIgP591wSsQZFO/yP1O+ZC49nR
+ Ff4Nv04l/ve4Uuy+U+w==
+X-Proofpoint-ORIG-GUID: CtAS1jBFoD3E3QrixIx4upRYjyy8PbGT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-13_01,2026-05-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 impostorscore=0 priorityscore=1501 spamscore=0
+ clxscore=1015 bulkscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605130145
 
-On Thu, 07 May 2026, Svyatoslav Ryhel wrote:
+On Wed, May 13, 2026 at 05:01:16PM +0300, Dmitry Baryshkov wrote:
+> On Wed, May 13, 2026 at 07:10:38PM +0530, Imran Shaik wrote:
+> > Add a driver for the Display clock controller on Qualcomm Shikra SoC.
+> > 
+> > Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+> > ---
+> >  drivers/clk/qcom/Kconfig         |  10 +
+> >  drivers/clk/qcom/Makefile        |   1 +
+> >  drivers/clk/qcom/dispcc-shikra.c | 565 +++++++++++++++++++++++++++++++++++++++
+> >  3 files changed, 576 insertions(+)
+> > 
+> 
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-> чт, 7 трав. 2026 р. о 17:05 Lee Jones <lee@kernel.org> пише:
-> >
-> > On Tue, 28 Apr 2026, Svyatoslav Ryhel wrote:
-> >
-> > > MFD have rigid subdevice structure which does not allow flexible dynamic
-> > > subdevice linking. Address this by diverging CPCAP subdevice composition
-> > > to take into account board specific configuration.
-> > >
-> > > Create a common default subdevice composition, rename existing subdevice
-> > > composition into cpcap_mapphone_mfd_devices since it targets mainly
-> > > Mapphone board.
-> > >
-> > > Removed st,6556002 as it is no longer applicable to all cases and
-> > > duplicates motorola,cpcap, which is used as the default composition.
-> > >
-> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > ---
-> >
-> > Changelog?
-> >
-> 
-> Changelog is in the cover.
-> 
-> > >  drivers/mfd/motorola-cpcap.c | 101 ++++++++++++++++++++++++++++-------
-> > >  1 file changed, 83 insertions(+), 18 deletions(-)
-> > >
-> > > diff --git a/drivers/mfd/motorola-cpcap.c b/drivers/mfd/motorola-cpcap.c
-> > > index d8243b956f87..516d1e33affa 100644
-> > > --- a/drivers/mfd/motorola-cpcap.c
-> > > +++ b/drivers/mfd/motorola-cpcap.c
-> > > @@ -12,6 +12,7 @@
-> > >  #include <linux/kernel.h>
-> > >  #include <linux/module.h>
-> > >  #include <linux/mod_devicetable.h>
-> > > +#include <linux/property.h>
-> > >  #include <linux/regmap.h>
-> > >  #include <linux/sysfs.h>
-> > >
-> > > @@ -24,10 +25,16 @@
-> > >  #define CPCAP_REGISTER_SIZE  4
-> > >  #define CPCAP_REGISTER_BITS  16
-> > >
-> > > +struct cpcap_chip_data {
-> > > +     const struct mfd_cell *mfd_devices;
-> > > +     unsigned int num_devices;
-> > > +};
-> >
-> > This is a red flag.
-> >
-> > >  struct cpcap_ddata {
-> > >       struct spi_device *spi;
-> > >       struct regmap_irq *irqs;
-> > >       struct regmap_irq_chip_data *irqdata[CPCAP_NR_IRQ_CHIPS];
-> > > +     const struct cpcap_chip_data *cdata;
-> > >       const struct regmap_config *regmap_conf;
-> > >       struct regmap *regmap;
-> > >  };
-> > > @@ -195,20 +202,6 @@ static int cpcap_init_irq(struct cpcap_ddata *cpcap)
-> > >       return 0;
-> > >  }
-> > >
-> > > -static const struct of_device_id cpcap_of_match[] = {
-> > > -     { .compatible = "motorola,cpcap", },
-> > > -     { .compatible = "st,6556002", },
-> > > -     {},
-> > > -};
-> > > -MODULE_DEVICE_TABLE(of, cpcap_of_match);
-> > > -
-> > > -static const struct spi_device_id cpcap_spi_ids[] = {
-> > > -     { .name = "cpcap", },
-> > > -     { .name = "6556002", },
-> > > -     {},
-> > > -};
-> > > -MODULE_DEVICE_TABLE(spi, cpcap_spi_ids);
-> > > -
-> > >  static const struct regmap_config cpcap_regmap_config = {
-> > >       .reg_bits = 16,
-> > >       .reg_stride = 4,
-> > > @@ -241,7 +234,56 @@ static int cpcap_resume(struct device *dev)
-> > >
-> > >  static DEFINE_SIMPLE_DEV_PM_OPS(cpcap_pm, cpcap_suspend, cpcap_resume);
-> > >
-> > > -static const struct mfd_cell cpcap_mfd_devices[] = {
-> > > +static const struct mfd_cell cpcap_default_mfd_devices[] = {
-> > > +     {
-> > > +             .name          = "cpcap_adc",
-> > > +             .of_compatible = "motorola,cpcap-adc",
-> > > +     }, {
-> > > +             .name          = "cpcap_battery",
-> > > +             .of_compatible = "motorola,cpcap-battery",
-> > > +     }, {
-> > > +             .name          = "cpcap-regulator",
-> > > +             .of_compatible = "motorola,cpcap-regulator",
-> > > +     }, {
-> > > +             .name          = "cpcap-rtc",
-> > > +             .of_compatible = "motorola,cpcap-rtc",
-> > > +     }, {
-> > > +             .name          = "cpcap-pwrbutton",
-> > > +             .of_compatible = "motorola,cpcap-pwrbutton",
-> > > +     }, {
-> > > +             .name          = "cpcap-usb-phy",
-> > > +             .of_compatible = "motorola,cpcap-usb-phy",
-> > > +     }, {
-> > > +             .name          = "cpcap-led",
-> > > +             .id            = 0,
-> > > +             .of_compatible = "motorola,cpcap-led-red",
-> > > +     }, {
-> > > +             .name          = "cpcap-led",
-> > > +             .id            = 1,
-> > > +             .of_compatible = "motorola,cpcap-led-green",
-> > > +     }, {
-> > > +             .name          = "cpcap-led",
-> > > +             .id            = 2,
-> > > +             .of_compatible = "motorola,cpcap-led-blue",
-> > > +     }, {
-> > > +             .name          = "cpcap-led",
-> > > +             .id            = 3,
-> > > +             .of_compatible = "motorola,cpcap-led-adl",
-> > > +     }, {
-> > > +             .name          = "cpcap-led",
-> > > +             .id            = 4,
-> > > +             .of_compatible = "motorola,cpcap-led-cp",
-> > > +     }, {
-> > > +             .name          = "cpcap-codec",
-> > > +     },
-> > > +};
-> > > +
-> > > +static const struct cpcap_chip_data cpcap_default_data = {
-> > > +     .mfd_devices = cpcap_default_mfd_devices,
-> > > +     .num_devices = ARRAY_SIZE(cpcap_default_mfd_devices),
-> > > +};
-> > > +
-> > > +static const struct mfd_cell cpcap_mapphone_mfd_devices[] = {
-> > >       {
-> > >               .name          = "cpcap_adc",
-> > >               .of_compatible = "motorola,mapphone-cpcap-adc",
-> > > @@ -285,7 +327,12 @@ static const struct mfd_cell cpcap_mfd_devices[] = {
-> > >               .of_compatible = "motorola,cpcap-led-cp",
-> > >       }, {
-> > >               .name          = "cpcap-codec",
-> > > -     }
-> > > +     },
-> > > +};
-> > > +
-> > > +static const struct cpcap_chip_data cpcap_mapphone_data = {
-> > > +     .mfd_devices = cpcap_mapphone_mfd_devices,
-> > > +     .num_devices = ARRAY_SIZE(cpcap_mapphone_mfd_devices),
-> > >  };
-> > >
-> > >  static int cpcap_probe(struct spi_device *spi)
-> > > @@ -297,9 +344,17 @@ static int cpcap_probe(struct spi_device *spi)
-> > >       if (!cpcap)
-> > >               return -ENOMEM;
-> > >
-> > > +     cpcap->cdata = device_get_match_data(&spi->dev);
-> > > +     if (!cpcap->cdata)
-> > > +             return -ENODEV;
-> > > +
-> > >       cpcap->spi = spi;
-> > >       spi_set_drvdata(spi, cpcap);
-> > >
-> > > @@ -331,16 +382,24 @@ static int cpcap_probe(struct spi_device *spi)
-> > >       spi->dev.coherent_dma_mask = 0;
-> > >       spi->dev.dma_mask = &spi->dev.coherent_dma_mask;
-> > >
-> > > -     return devm_mfd_add_devices(&spi->dev, 0, cpcap_mfd_devices,
-> > > -                                 ARRAY_SIZE(cpcap_mfd_devices), NULL, 0, NULL);
-> > > +     return devm_mfd_add_devices(&spi->dev, 0, cpcap->cdata->mfd_devices,
-> > > +                                 cpcap->cdata->num_devices, NULL, 0, NULL);
-> > >  }
-> > >
-> > > +static const struct of_device_id cpcap_of_match[] = {
-> > > +     { .compatible = "motorola,cpcap", .data = &cpcap_default_data },
-> > > +     { .compatible = "motorola,mapphone-cpcap", .data = &cpcap_mapphone_data },
-> >
-> > We don't allow data from one device registration API (MFD) to be passed
-> > through another (OF) because it tends to lead to all sorts of "creative
-> > solutions".  Pass a value instead and match on that in a switch()
-> > statement like all of the other MFD drivers do.
-> >
-> 
-> You don't allow this. I have not seen this enforced anywhere in the
-> kernel except the mfd subsystem. Fine, does not matter, if this makes
-> you happy I will adjust.
+After comparing the files...
 
-Where else would this rule be applicable?  I can't think of anywhere.
+Can we use dispcc-qcm2290.c instead? It uses clock-names instead of
+clock-indices, but I think it should be fine to use clock-names as a
+one-off.
 
 -- 
-Lee Jones
+With best wishes
+Dmitry
