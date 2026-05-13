@@ -1,220 +1,85 @@
-Received: from mail-m19731119.qiye.163.com (mail-m19731119.qiye.163.com [220.197.31.119])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DDC43D7D6B;
-	Wed, 13 May 2026 07:49:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51A4237F746
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 07:50:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778658600; cv=none; b=B0lbLyPTTHFbdUYgCnWeEy99J5o4Pz1OPeCO9dfsuYjg9TosBM7BPrqoXO0qGqDSbSAtQUDqlM0Jk2rhPMfuBttofzgPBHLV0ijBC57Xlm76gtKM6hBHMvI1bgrJQXWyF/VbamXcIq+LWouBLO/oeJOlVR2zZyszNr0VDgyo8Rw=
+	t=1778658659; cv=none; b=dPB4Xf4LGHqeoJ6KIHA3WGKiVg2KNE/QCYaezBIQh74RogwspZ5LNa/AEFMyBsRlRemzij9IQHxoDwKE73wCspwS7gc5/AJ5t6YDfIDbRzRUb6XFCxo7rumVqE7OhQtGsxppsTHuA1DW9ExY7r8/RpvqLeVzVdaLHgKE8OLTgjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778658600; c=relaxed/simple;
-	bh=ixP9bbtfLm9n7b7rZTtXkiyTh2jKzvPSeDG46z1FnrA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=fugCV6uJ/CAYF1xNCe6TrzRy7YV7uomUOXf3AAfMXyA8GwOy4evUs8cxhHb8NOHJLTflb1k6k3TKrVn5d9/1EPWdsWXqZ+w5IpbEx0dUpUSOSof0au05g/KOAzjIA9hEUrS3v31OH7KW6HcLk5pZ0D8AOSs7ZWKPa+E+Nt3tNUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=iP54AtXF; arc=none smtp.client-ip=220.197.31.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1778658659; c=relaxed/simple;
+	bh=p9Ohp9WPIQd1AoIgFc6IB/L4M72lF1cObc3C1yrOMLc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sSkD03R7aBmWAuo1ooDmF3amKpjwkneEmLpyHwlvm9hITEUiiupqBmuxjokyUP7rsMImbUoRaNW3h1XNkO8uuG2CW9UGqLSgtijR0sZoxXF+NOnG5qN2m50OrqYJFB9psqETibMoRIw6PU+OWaSXpFUsiz4uJ5/OtNTCbzoIEro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OTkCyt/K; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="iP54AtXF"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3e3a94d03;
-	Wed, 13 May 2026 15:44:35 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: hjc@rock-chips.com,
-	heiko@sntech.de,
-	andy.yan@rock-chips.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	nicolas.frattaroli@collabora.com,
-	cristian.ciocaltea@collabora.com,
-	sebastian.reichel@collabora.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	luca.ceresoli@bootlin.com,
-	dianders@chromium.org,
-	m.szyprowski@samsung.com,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v5 08/10] drm/bridge: analogix_dp: Rename and simplify is_rockchip()
-Date: Wed, 13 May 2026 15:44:12 +0800
-Message-Id: <20260513074414.2053435-9-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260513074414.2053435-1-damon.ding@rock-chips.com>
-References: <20260513074414.2053435-1-damon.ding@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OTkCyt/K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E803AC2BCB7
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 07:50:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778658658;
+	bh=p9Ohp9WPIQd1AoIgFc6IB/L4M72lF1cObc3C1yrOMLc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=OTkCyt/K+2jP8+YeydzzjXZAlWFD93inR2nAdcd1KRxXKOGr4Gx/qFfsFSZdhLvRf
+	 na0+IFfQTgJ8C/Lg4ffSCDYSCXKvXEpor1rV0CsRclKOl65dNA8skKQ7xV5E4rs3Lx
+	 ixBbpSdfJBI0MGVTyv5fFtwlxj7xFOd4wxMwbPuZjIQdlQ7JPGn1W714R6I/L9fojP
+	 cUegbBHDkDaAiGoMXA0Rv7+DjUHYHxOKB19bWvMQhgMRYl/foSkInH18elR6aYSSKN
+	 KUqHDTEWokk5Co08WYhsZqR52yZpPXGRViqkPZ0pdevY4RQiGz6PbiQGqi6FE5Mifv
+	 g6Thh3fYeIOTA==
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-394095009beso30437281fa.3
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 00:50:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9ljFkNvSBSCTIZ0bSTG4hzBEDlaRmlZ+JNN4zRF+ToTXgwsTdMNXe3HxSK0KgTu2D+qL+7QZqLf+vw@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw/ovPyohHOyX1FIQY/JXKOz+ReJEZQL1mK5HIAKqPQusSUcRsY
+	ukb6l5f2ng7Q2ms6JB1vOW3/q37TZJur7AjZxXVE8q0+JYfyMrzw1bChI/DoWnTYnGn/7OuZPEy
+	z1SiyZwhx/lOYfXuHRT95KKMpazaGlNTKxdBVZ0Mo+w==
+X-Received: by 2002:a2e:ae18:0:10b0:38d:e744:8663 with SMTP id
+ 38308e7fff4ca-3944b60bb79mr4560581fa.26.1778658657667; Wed, 13 May 2026
+ 00:50:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e204b6fb503a3kunm7763bb985611e
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHUNLVkkZGR1JTUNITUlNTVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=iP54AtXFqmsXRrhEyW+o0XE5U/ZqLXOfuPvWQor/PQ2k0L+kijYbCEX9zHnGRiARV5R+9ARnTClIbFLrcIeOrd7zpZClAOKrLABcfI4Y0bddot2Zy/VNs3LxcsiwfqICSxs07KcCG1E1dHAuN9K6CSyyskXPGSx4j/c58T6Zl/M=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=LOMeAIx+KSl1dkBA7xVs1jEHQ7IWNjTCWlPoHezWkhE=;
-	h=date:mime-version:subject:message-id:from;
+References: <20260511162528.84508-1-markus.stockhausen@gmx.de>
+ <CAMRc=Mc-EbMu3eUrMA5UDCEp-xzbyndy8_U8OjfcTDJcATThQg@mail.gmail.com>
+ <004c01dce29a$0e44e7b0$2aceb710$@gmx.de> <agQkbnSHblUNz-IZ@shikoro>
+ <CAMRc=MddGonpdukfZ_eHa8C4ysdCTqhYva6yVRue06LVkyubxg@mail.gmail.com> <agQspjVCkbmVDnt_@shikoro>
+In-Reply-To: <agQspjVCkbmVDnt_@shikoro>
+From: Bartosz Golaszewski <brgl@kernel.org>
+Date: Wed, 13 May 2026 09:50:44 +0200
+X-Gmail-Original-Message-ID: <CAMRc=Mf9j9Y3nFaDD1t1nqhd8ogH6TVceKA=vtM-u5dY6_ptrw@mail.gmail.com>
+X-Gm-Features: AVHnY4J7mArgZfFLDspRetTPfaw6yjD5xgcHAlbljH1t9z5KbSl0zlXC_WKFXlw
+Message-ID: <CAMRc=Mf9j9Y3nFaDD1t1nqhd8ogH6TVceKA=vtM-u5dY6_ptrw@mail.gmail.com>
+Subject: Re: AW: [PATCH v2 0/2] i2c: Add i2c-shared-gpio driver
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: markus.stockhausen@gmx.de, andi.shyti@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, linux-i2c@vger.kernel.org, 
+	devicetree@vger.kernel.org, Marek Vasut <marek.vasut+renesas@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Rename inline helper is_rockchip() to analogix_dp_is_rockchip()
-to follow driver namespace convention consistently across code.
+On Wed, May 13, 2026 at 9:47=E2=80=AFAM Wolfram Sang
+<wsa+renesas@sang-engineering.com> wrote:
+>
+> Hi Bart,
+>
+> > Yes, in that case it seems to me it needs a separate virtual device
+> > driving it. In general, the idea Markus presented is fine but it must
+> > not be described in DT. Instead, you need to create an auxiliary
+> > device from subsystem code.
+>
+> Okay, I get it that it should not be described in DT. DT should only
+> have standard i2c-gpio busses and the OS needs to figure the details,
+> right?
+>
+> I wonder about the subsystem involvement, though. The I2C core doesn't
+> care about the scl-gpios property (except for GPIO recovery which is
+> moot with the i2c-gpio driver). So, maybe this should be handled in the
+> i2c-gpio driver instead?
+>
 
-Replace chained equality comparisons with switch-case layout
-to improve readability and simplify adding new SoC entries later.
+Sure, the driver can live under drivers/gpio/ and still be
+instantiated in i2c core, no problem with that.
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-Suggested-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-
----
-
-Changes in v3:
-- Add Reviewed-by tag.
-
-Changes in v4:
-- Modify the commit msg.
----
- .../gpu/drm/bridge/analogix/analogix_dp_core.c |  2 +-
- .../gpu/drm/bridge/analogix/analogix_dp_reg.c  | 18 +++++++++---------
- include/drm/bridge/analogix_dp.h               | 11 +++++++++--
- 3 files changed, 19 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 8cf6b73bceac..116de3bd83a3 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -870,7 +870,7 @@ static int analogix_dp_bridge_atomic_check(struct drm_bridge *bridge,
- 	struct drm_display_info *di = &conn_state->connector->display_info;
- 	u32 mask = BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) | BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422);
- 
--	if (is_rockchip(dp->plat_data->dev_type)) {
-+	if (analogix_dp_is_rockchip(dp->plat_data->dev_type)) {
- 		if ((di->color_formats & mask)) {
- 			DRM_DEBUG_KMS("Swapping display color format from YUV to RGB\n");
- 			di->color_formats &= ~mask;
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-index 38fd8d5014d2..6207ded7ffd5 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-@@ -72,7 +72,7 @@ void analogix_dp_init_analog_param(struct analogix_dp_device *dp)
- 	reg = SEL_24M | TX_DVDD_BIT_1_0625V;
- 	writel(reg, dp->reg_base + ANALOGIX_DP_ANALOG_CTL_2);
- 
--	if (dp->plat_data && is_rockchip(dp->plat_data->dev_type)) {
-+	if (dp->plat_data && analogix_dp_is_rockchip(dp->plat_data->dev_type)) {
- 		reg = REF_CLK_24M;
- 		if (dp->plat_data->dev_type == RK3288_DP)
- 			reg ^= REF_CLK_MASK;
-@@ -123,7 +123,7 @@ void analogix_dp_reset(struct analogix_dp_device *dp)
- 	analogix_dp_stop_video(dp);
- 	analogix_dp_enable_video_mute(dp, 0);
- 
--	if (dp->plat_data && is_rockchip(dp->plat_data->dev_type))
-+	if (dp->plat_data && analogix_dp_is_rockchip(dp->plat_data->dev_type))
- 		reg = RK_VID_CAP_FUNC_EN_N | RK_VID_FIFO_FUNC_EN_N |
- 			SW_FUNC_EN_N;
- 	else
-@@ -233,7 +233,7 @@ void analogix_dp_set_pll_power_down(struct analogix_dp_device *dp, bool enable)
- 	u32 mask = DP_PLL_PD;
- 	u32 pd_addr = ANALOGIX_DP_PLL_CTL;
- 
--	if (dp->plat_data && is_rockchip(dp->plat_data->dev_type)) {
-+	if (dp->plat_data && analogix_dp_is_rockchip(dp->plat_data->dev_type)) {
- 		pd_addr = ANALOGIX_DP_PD;
- 		mask = RK_PLL_PD;
- 	}
-@@ -254,12 +254,12 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
- 	u32 phy_pd_addr = ANALOGIX_DP_PHY_PD;
- 	u32 mask;
- 
--	if (dp->plat_data && is_rockchip(dp->plat_data->dev_type))
-+	if (dp->plat_data && analogix_dp_is_rockchip(dp->plat_data->dev_type))
- 		phy_pd_addr = ANALOGIX_DP_PD;
- 
- 	switch (block) {
- 	case AUX_BLOCK:
--		if (dp->plat_data && is_rockchip(dp->plat_data->dev_type))
-+		if (dp->plat_data && analogix_dp_is_rockchip(dp->plat_data->dev_type))
- 			mask = RK_AUX_PD;
- 		else
- 			mask = AUX_PD;
-@@ -317,7 +317,7 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
- 		 * to power off everything instead of DP_PHY_PD in
- 		 * Rockchip
- 		 */
--		if (dp->plat_data && is_rockchip(dp->plat_data->dev_type))
-+		if (dp->plat_data && analogix_dp_is_rockchip(dp->plat_data->dev_type))
- 			mask = DP_INC_BG;
- 		else
- 			mask = DP_PHY_PD;
-@@ -329,7 +329,7 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
- 			reg &= ~mask;
- 
- 		writel(reg, dp->reg_base + phy_pd_addr);
--		if (dp->plat_data && is_rockchip(dp->plat_data->dev_type))
-+		if (dp->plat_data && analogix_dp_is_rockchip(dp->plat_data->dev_type))
- 			usleep_range(10, 15);
- 		break;
- 	case POWER_ALL:
-@@ -465,7 +465,7 @@ void analogix_dp_init_aux(struct analogix_dp_device *dp)
- 	analogix_dp_reset_aux(dp);
- 
- 	/* AUX_BIT_PERIOD_EXPECTED_DELAY doesn't apply to Rockchip IP */
--	if (dp->plat_data && is_rockchip(dp->plat_data->dev_type))
-+	if (dp->plat_data && analogix_dp_is_rockchip(dp->plat_data->dev_type))
- 		reg = 0;
- 	else
- 		reg = AUX_BIT_PERIOD_EXPECTED_DELAY(3);
-@@ -837,7 +837,7 @@ void analogix_dp_config_video_slave_mode(struct analogix_dp_device *dp)
- 	u32 reg;
- 
- 	reg = readl(dp->reg_base + ANALOGIX_DP_FUNC_EN_1);
--	if (dp->plat_data && is_rockchip(dp->plat_data->dev_type)) {
-+	if (dp->plat_data && analogix_dp_is_rockchip(dp->plat_data->dev_type)) {
- 		reg &= ~(RK_VID_CAP_FUNC_EN_N | RK_VID_FIFO_FUNC_EN_N);
- 	} else {
- 		reg &= ~(MASTER_VID_FUNC_EN_N | SLAVE_VID_FUNC_EN_N);
-diff --git a/include/drm/bridge/analogix_dp.h b/include/drm/bridge/analogix_dp.h
-index 854af692229b..7b670dd769e9 100644
---- a/include/drm/bridge/analogix_dp.h
-+++ b/include/drm/bridge/analogix_dp.h
-@@ -19,9 +19,16 @@ enum analogix_dp_devtype {
- 	RK3588_EDP,
- };
- 
--static inline bool is_rockchip(enum analogix_dp_devtype type)
-+static inline bool analogix_dp_is_rockchip(enum analogix_dp_devtype type)
- {
--	return type == RK3288_DP || type == RK3399_EDP || type == RK3588_EDP;
-+	switch (type) {
-+	case RK3288_DP:
-+	case RK3399_EDP:
-+	case RK3588_EDP:
-+		return true;
-+	default:
-+		return false;
-+	}
- }
- 
- struct analogix_dp_plat_data {
--- 
-2.34.1
-
+Bartosz
