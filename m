@@ -1,87 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61DC379C5F;
-	Wed, 13 May 2026 23:26:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BEC225B09B
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 23:30:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778714809; cv=none; b=OK5y3Dg19tIXXacGufmnlmwpXtzs4FEMy9kfymt+bPcSJpFPMqAOs6JNIZopu+dSfrMijXB/liytQ/U9ffxhDmprl8xtY6hu6LUXHA1/UYMofzuN9/GS3yC06dYJByW8hJsOfT9E32SQp++b0GhoA01PRZIkfTh84vrAZagLWdU=
+	t=1778715019; cv=none; b=j8tEXHlZ9+Syc4OWIGf7ijN6KxbKBR4lGqrOEINdlS+jWDGShSnZsMAudwYZxMNCjH1WDsCmEZQQjtl8ImWtuoVG2QFrNR4IAc63y9oqI9lyhDDICkuZZELhTKMyiq5KR9DSA4WxMsNTbKnzghSt23dOuHr0surolH3Pb21cH7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778714809; c=relaxed/simple;
-	bh=q3i21lJvhVy9opCji1T4ar4kNcI5PZwWn8BflTqdQ3s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dDv23wZqixtV/9R8P1v1uUNbtpdJob0zimuj7NDkk2Ye+beCcQcqOafyPV7JqiMgJTw5nfiwRil1SnL18KIv6WI59xlsHzWb/sHfuyTjGcHMzpVnKwX0ogn/dSCcnEcBn+8i0AJXl6KLww+yDGmec++q9WeXxvebgVvC6rcnuQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gzRCoaHw; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778715019; c=relaxed/simple;
+	bh=56JO3GUpv3Cra4S9lKjZU5u80IsY0FCBf/wPjtK2L5M=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Vmu6YlgkML1p20pSbqV36rHFd7n3GAn71Us82xYPIeiZC3nxBO0SDP8oqjbQohRrTSsVfEE2giNT3LLHdmtMGPXtMN5A5Y23W1phlp36qH9lxpKtcjqzxo7yck4FIAuS2+/MaI5n57rzLiPlAQeHBkfbbWYX0UzZiIzRbloicoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E3zPuNwv; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gzRCoaHw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC0CEC19425;
-	Wed, 13 May 2026 23:26:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E3zPuNwv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2EA1C19425;
+	Wed, 13 May 2026 23:30:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778714808;
-	bh=q3i21lJvhVy9opCji1T4ar4kNcI5PZwWn8BflTqdQ3s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gzRCoaHwgfpMxXtV5i7hcsOfWpF4L1ft/Q9VIAyK5ZJzkTiS454hh2sAIGpggmoIS
-	 B9j0knU5zEFe/qnB7P0JctaEghBvxW6W76RHLeddbrQ1CdZ6VYJDEjfnHpsZ/Qa8Th
-	 jKP3jJrqVwoINxJbxqY10pEHStpSlELHor+xoC79qPymPpXbzTaIZB0WXChSoYmsPY
-	 Lt10Kj5huXqpAvdKD88ox8f7uLKY9cVwUHH+ie6+argLgDZZDAugk3f902RWGX1eAN
-	 dTnan5PrrRuN4doIBw1aRAoURp3Z/3JPBI3LxwY4jeWjo7vesG0WPAFL6SoEkvC7bB
-	 1e87ClxSOCDqw==
-Date: Wed, 13 May 2026 18:26:35 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Jun Yan <jerrysteve1101@gmail.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Jesper Nilsson <jesper.nilsson@axis.com>,
-	Paul Barker <paul.barker@sancloud.com>, Grant Feng <von81@163.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Robert Marko <robert.marko@sartura.hr>, Lee Jones <lee@kernel.org>,
-	Vincent Knecht <vincent.knecht@mailoo.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Enric Balletbo i Serra <eballetbo@gmail.com>,
-	Pavel Machek <pavel@ucw.cz>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	Bjorn Andersson <andersson@kernel.org>,
-	Pavel Machek <pavel@kernel.org>, linux-leds@vger.kernel.org,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	Conor Dooley <conor+dt@kernel.org>, Peter Rosin <peda@axentia.se>,
-	Baruch Siach <baruch@tkos.co.il>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Subject: Re: [PATCH 1/5] dt-bindings: leds: issi,is31fl319x: Add description
- for the shutdown-gpios property
-Message-ID: <177871479468.2298897.389759358706715014.robh@kernel.org>
-References: <20260508152435.21389-1-jerrysteve1101@gmail.com>
- <20260508152435.21389-2-jerrysteve1101@gmail.com>
+	s=k20201202; t=1778715019;
+	bh=56JO3GUpv3Cra4S9lKjZU5u80IsY0FCBf/wPjtK2L5M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=E3zPuNwvRscpsuaGOdrJJMeX3TAwAOsr02AGqgQq1t1LUj8cdkQp7dQP7UzKqx2G7
+	 UeiO9k62tVIUzd3itYt6uYT/LFnZx7IILBjbDG+vYwfK70nLhdBFDXe84wUcjBHsJc
+	 YPeZ0E8p+yORdKWPUHLaziAoEya6HC5UWwQEqQZT4v8MY3gYcn3ktfcZFP6DRjRWkg
+	 abeAwl5f99pZs0+qok910U765AHre/GaqWbXS4HM+KHbWsafFUHT+crZzeZ6oedC+j
+	 pYIDMsk+c1bQT+Q9Qggjt6UFwSDJ9+sny/jLm3GDV6Ad9AotaRH3xV5H4MDB2IC0gY
+	 W2CjwqKtwRyjw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: fpga: altr,socfpga-fpga-mgr: convert to DT
+ schema
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Manish Baing" <manishbaing2789@gmail.com>
+Cc: krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260512165058.64049-1-manishbaing2789@gmail.com>
+References: <20260512165058.64049-1-manishbaing2789@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 13 May 2026 23:30:12 +0000
+Message-Id: <20260513233015.E2EA1C19425@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260508152435.21389-2-jerrysteve1101@gmail.com>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The 'maintainers' list incorrectly includes Steffen Trumtrar and Ro=
+b Herring.
+--
 
-On Fri, 08 May 2026 23:24:18 +0800, Jun Yan wrote:
-> The IS31FL319X series features an SDB shutdown pin.
-> Driving it low (active low) places the chip into hardware shutdown
-> mode for power saving, while all register contents are preserved
-> and registers are not reset.
-> 
-> Add description for the shutdown down (SDB) pin and fix the example
-> device tree binding.
-> 
-> Fixes: dbc801b472c1 ("dt-bindings: leds: Convert is31fl319x to dtschema")
-> Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
-> ---
->  .../devicetree/bindings/leds/issi,is31fl319x.yaml        | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
-> 
+commit be1c0ecc6a9857f9aa82bd84bf85fccfa1cb035c
+Author: Manish Baing <manishbaing2789@gmail.com>
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+dt-bindings: fpga: altr,socfpga-fpga-mgr: convert to DT schema
 
+This commit converts the Altera SoCFPGA FPGA Manager bindings from the lega=
+cy
+text format to a YAML schema.
+
+[ ... ]
+
+> diff --git a/Documentation/devicetree/bindings/fpga/altr,socfpga-fpga-mgr=
+.yaml b/Documentation/devicetree/bindings/fpga/altr,socfpga-fpga-mgr.yaml
+> new file mode 100644
+> index 0000000000000..d09d552dde5e9
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/fpga/altr,socfpga-fpga-mgr.yaml
+> @@ -0,0 +1,39 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/fpga/altr,socfpga-fpga-mgr.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Altera SOCFPGA FPGA Manager
+> +
+> +maintainers:
+> +  - Steffen Trumtrar <s.trumtrar@pengutronix.de>
+> +  - Rob Herring <robh@kernel.org>
+
+Are these the intended maintainers for this specific binding?
+
+Steffen Trumtrar does not appear to be the original author of the text
+binding, and is not listed in the MAINTAINERS file for the FPGA manager
+framework or the Altera SOCFPGA architecture.=20
+
+Additionally, while Rob Herring is the general Devicetree maintainer,
+the general guidance is to avoid listing him as the dedicated maintainer
+for specific vendor schemas unless he authored them.
+
+Would it be better to list the FPGA subsystem maintainers (such as Moritz
+Fischer or Xu Yilun) or the original author of the text binding here so
+the get_maintainer.pl script routes queries to the right people?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512165058.6404=
+9-1-manishbaing2789@gmail.com?part=3D1
