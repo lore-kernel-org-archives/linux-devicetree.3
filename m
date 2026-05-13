@@ -1,134 +1,103 @@
-Received: from mail-m49234.qiye.163.com (mail-m49234.qiye.163.com [45.254.49.234])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EFC025B09C;
-	Wed, 13 May 2026 07:44:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2BDB374E5A
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 07:47:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778658292; cv=none; b=VHuzPP7P1igejnH8EumYzZ7ZmO7wYXo7+x3GKhNrF0Gn6SSQhI/pHaYn4AWVrBsYAc52o+oKglXekKvjyOzkxy+IhQLzoW5pyKFTIX1OZAqe6IebeLJDkPwhGS914ApUDpREAkNPGuO/bqMDS6/HBEKz2jldYjs2AffYeZT/JGI=
+	t=1778658474; cv=none; b=eZKt8Yh7CnkJwRAWXrl1UQuo9iGfH2raERPa8vF5PWZ8tL7DxOEEy/f2hCKo0g0K3SFm+huQ/HP9eBNosXREIcJdNz9DgPmIg011jG87/KRAjJtDnioghOMGlGH6a64KM4kYaRNgQeUIOYeue1IdrgUBIqnMsnRviVZoBJjLzqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778658292; c=relaxed/simple;
-	bh=52aGuBysztm7C/lZOPWUUGAQiFJ5sqeIqjrIhPDdS7A=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=JzMUu7gZKpXUQ1bNQN6IRsly8R9mm+PhcifxBc6m8bbztfOvlp4w1hT7F7yS3U46BjmzwXzk+/PF/jsu6O6ukUP3i8N9/rcm2/DYn1vHCmjFDY+TWvzyI1/oMYIuzJVJcGAThTb4MCAI1XPYztxHcaIPqoq+/ugDB2ArjZNyeN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=Pam7XkN6; arc=none smtp.client-ip=45.254.49.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1778658474; c=relaxed/simple;
+	bh=la07t7G22tUTJn6yhkaAdXSSftEzlXTdmijnmx9bsig=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZDWTjaUnzYB9+FIYZuTiX724RnRWyyOca3iLTKrJ9aadVNZ7/r/wIQiA8AUQbfNW9uUk1q0w1YhGeLsOQgZSomuSdatUyRxaL9sKgImUsz53MZCik7ud9XJmcNYTlYJ4vJrnkk5SUPgiYXXluK2SWosB2ABgiy7JHubPEsQY070=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=bvBXyesd; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="Pam7XkN6"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3e3a94d17;
-	Wed, 13 May 2026 15:44:38 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: hjc@rock-chips.com,
-	heiko@sntech.de,
-	andy.yan@rock-chips.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	nicolas.frattaroli@collabora.com,
-	cristian.ciocaltea@collabora.com,
-	sebastian.reichel@collabora.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	luca.ceresoli@bootlin.com,
-	dianders@chromium.org,
-	m.szyprowski@samsung.com,
-	dri-devel@lists.freedesktop.org,
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="bvBXyesd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=cXna
+	x59z4Hqvl7eRjKVhrobircdl42kkDxMES6CStf8=; b=bvBXyesdRyCj8pGuinn0
+	Re1KxHFKzOiEgy4qXUSFTq0vjbsiaceuFgMdN0wC6h6MqwKXUByZIQT4L55zw3lb
+	NbmCPpseWZfU1wUjOu4NgAQiRUd77ZuFbbx2djLbJHOBkMUKhyqdA3Yot+Nkfl0v
+	lr0yUbGKOhJs7ByPHQXDyqMfbbNQ4RbeMBXtO6EBzDPocc0iEpNrmtx/IeltSWrj
+	v8wFpiWoWLVfAF9rYDpZvjz3CpcEJ8K5abluduK+70ywyk7pC34c0nB9fws24ET1
+	B3MGO1lWAKkD+hdqyGPCNnry7GyzOdp8BnT9ji1n1fktA/u5wea/6UjD/S6OYmhs
+	oA==
+Received: (qmail 3331290 invoked from network); 13 May 2026 09:47:50 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 13 May 2026 09:47:50 +0200
+X-UD-Smtp-Session: l3s3148p1@G9dNMq5RZI0ujnsX
+Date: Wed, 13 May 2026 09:47:50 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: markus.stockhausen@gmx.de, andi.shyti@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, linux-i2c@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v5 10/10] drm/rockchip: analogix_dp: Add support for RK3576
-Date: Wed, 13 May 2026 15:44:14 +0800
-Message-Id: <20260513074414.2053435-11-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260513074414.2053435-1-damon.ding@rock-chips.com>
-References: <20260513074414.2053435-1-damon.ding@rock-chips.com>
+	Marek Vasut <marek.vasut+renesas@gmail.com>
+Subject: Re: AW: [PATCH v2 0/2] i2c: Add i2c-shared-gpio driver
+Message-ID: <agQspjVCkbmVDnt_@shikoro>
+References: <20260511162528.84508-1-markus.stockhausen@gmx.de>
+ <CAMRc=Mc-EbMu3eUrMA5UDCEp-xzbyndy8_U8OjfcTDJcATThQg@mail.gmail.com>
+ <004c01dce29a$0e44e7b0$2aceb710$@gmx.de>
+ <agQkbnSHblUNz-IZ@shikoro>
+ <CAMRc=MddGonpdukfZ_eHa8C4ysdCTqhYva6yVRue06LVkyubxg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e204b7c3b03a3kunm7763bb9856138
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTh1MVh8dHRgaSBhDTR4dTFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=Pam7XkN6USmg16TY7ypwLsLUZtcuy9G/VXHSHz67qCzLDO5V8MoDx8VdssjX8yu1UyXCSKXSif3IvR8R8m248TAdclS0DlAubX5iMVnCs36o/JK3YrFcLxyjUYqLG2hlLS2GwSvRvvwmQTSzdAiopdEF0QeDfB5PfzpE+S9rfPQ=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=1rwBuI0cZbyqqOuJPZchZLjHCX6v5TeUOe9K2mvsrfM=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="RCwWtzau7mu9P3K0"
+Content-Disposition: inline
+In-Reply-To: <CAMRc=MddGonpdukfZ_eHa8C4ysdCTqhYva6yVRue06LVkyubxg@mail.gmail.com>
 
-RK3576 integrates Analogix eDP 1.3 TX and Samsung combo PHY
-hardware blocks that fully match the proven RK3588 design.
 
-Add dedicated chip data table and device tree matching entry
-to bring up basic eDP functionality for the RK3576 platform.
+--RCwWtzau7mu9P3K0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Support is limited to RGB output up to 4K@60Hz for now; audio,
-PSR and other advanced eDP 1.3 features remain unvalidated.
+Hi Bart,
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> Yes, in that case it seems to me it needs a separate virtual device
+> driving it. In general, the idea Markus presented is fine but it must
+> not be described in DT. Instead, you need to create an auxiliary
+> device from subsystem code.
 
----
+Okay, I get it that it should not be described in DT. DT should only
+have standard i2c-gpio busses and the OS needs to figure the details,
+right?
 
-Changes in v2:
-- Split out a separate patch to enable the "hclk" clock.
-- Add Reviewed-by tag.
+I wonder about the subsystem involvement, though. The I2C core doesn't
+care about the scl-gpios property (except for GPIO recovery which is
+moot with the i2c-gpio driver). So, maybe this should be handled in the
+i2c-gpio driver instead?
 
-Changes in v3:
-- Add Reviewed-by tag.
+All the best,
 
-Changes in v4:
-- Modify the commit msg.
----
- drivers/gpu/drm/rockchip/analogix_dp-rockchip.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+   Wolfram
 
-diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-index d2af5eb29dbb..d4c5dd61e95b 100644
---- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-@@ -522,6 +522,14 @@ static const struct rockchip_dp_chip_data rk3288_dp[] = {
- 	{ /* sentinel */ }
- };
- 
-+static const struct rockchip_dp_chip_data rk3576_edp[] = {
-+	{
-+		.chip_type = RK3576_EDP,
-+		.reg = 0x27dc0000,
-+	},
-+	{ /* sentinel */ }
-+};
-+
- static const struct rockchip_dp_chip_data rk3588_edp[] = {
- 	{
- 		.edp_mode = GRF_REG_FIELD(0x0000, 0, 0),
-@@ -539,6 +547,7 @@ static const struct rockchip_dp_chip_data rk3588_edp[] = {
- static const struct of_device_id rockchip_dp_dt_ids[] = {
- 	{.compatible = "rockchip,rk3288-dp", .data = &rk3288_dp },
- 	{.compatible = "rockchip,rk3399-edp", .data = &rk3399_edp },
-+	{.compatible = "rockchip,rk3576-edp", .data = &rk3576_edp },
- 	{.compatible = "rockchip,rk3588-edp", .data = &rk3588_edp },
- 	{}
- };
--- 
-2.34.1
 
+--RCwWtzau7mu9P3K0
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmoELKEACgkQFA3kzBSg
+Kbbc6xAArLHuJ8wOUWhc4LHdLbBefnKvXGuf/n75CKfctd3pi8lLKovrT4kko1X1
+/QGbyuWt0KiEHF6CzJkfQdJXeBOE90C288wDoiBN8vj8ZHpJN++sXK4ZFDZUOLYy
+8yr09mjZPbtclsw5YOc0hpv2/fr1zKn15gSltJpsiNjbV0+vE6+qafrzdPFCJH3m
+E4Q5sP0JKrFIH6De74Tcm0zKIYdKS3kTBVwnUYOLzM1odCCIUWevw4n8Gk7r0yp9
+ONCwPl6sMRA/nBJmojFRnaT8dDqWU3UASM+GXAZIO6d8IZkDmhZDyO4qcuuUTlU5
+cMKewq7eW1y90WYhXlofxEpj9Xghm5YlqEw/2SbQRwpS890mmds3WkBwx7M71414
+wieM2FTq69l4OFy/WKjRvt0MJ7o4IMJy4K50J++bGST6H/u4DcZn7zwVIyO/3Je7
+11kEGyXZ6EHfYQFRmtSQkrBKheENPrqB9SljDIjXP7v5Fo+EYflRHmdOFGpKhc1v
+Pt0SNMPTVYriGHOlAxNvhkgnQnX+vsCRPw8pesbHuhACb9L88AujQPyt8uW2+0aW
+DBcfgHHLce1SKkThYDKWsuFTfRRmkqjE0FPwg9lZP7t+AfvzxaEplAH/q3ZYB1Eb
+RuRywAwgickRMz4jL6tnb0QBjjNSllu5AqROb8Mibiu9R9YGWQA=
+=er50
+-----END PGP SIGNATURE-----
+
+--RCwWtzau7mu9P3K0--
