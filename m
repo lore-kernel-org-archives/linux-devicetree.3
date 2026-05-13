@@ -1,165 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 550533C9885
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 21:59:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A9441F0E25
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 22:00:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778709575; cv=none; b=PZs4PC8nN0riWcz6gb6NDs0TsDtGTxOL9dBhRLWyXwFJFzBc+sS+BsrNXPPpa64z+eft3ncmDOb/LdE+6qmdUxApxRVKS+RqNdGvuSIGwrIEc/j4z/rN0NCFxueigry+o+wTmDQwwOLNRvR2GuZaRWWFmEatL8WjZPx0E29EZuw=
+	t=1778709638; cv=none; b=sWSW+SamKP+I2XoFy546Ivij5dXBDWow8oDAWc85nB3HazPrDCiw3R1KJhoPK4rTP5zvLgT4qL6w6qalEIWT+hugRnSqyzmMSs7ZeI2exykxeOm4sAOE7kdMHVc3zOZJzdBG2lnv9vaOPAAwQFeMUMjktPbFRPKz3J5vrSVbmD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778709575; c=relaxed/simple;
-	bh=8B4w43EyE7k0N1hagfOk3xtzZ+5vyH8PSAhe3erd3XI=;
+	s=arc-20240116; t=1778709638; c=relaxed/simple;
+	bh=DXw90OeW/hJbguIrNQSu/Uye5ippdxmuZHeaFUgZ924=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dvL0S19O7/SH2a6GsFmukszD+yOfymWA2oMRSLEZcPAVKO4LTnZHAmNcSZpkIsjB1WMXCa24fiPJNncKPP95kIKDH8qWUlUS/FDB8OHCSao2NIQvwDMjiaxhB7L+eW0vHDGR1/pODLWXwAaD/JjZp/a3s5l8NVoFRHrm2+3c0vg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YxFMC2WD; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=hQtTUHR0RnBwVkfTl1y2rrTOLgvP3XbVz0276vx6Fwa/iL4YOTz3Qj5K3fiUvvXNigNghxleM+uA61tCbs2yN6wVIrk5ih8rhVaDIJSofsw6uAGMRS5jqbQxOBA4lvVu1maKrgEM+H0dZxf7nqjG9x3zTk1f4xBirXJR958CLag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lEvnISLR; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YxFMC2WD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3834C19425;
-	Wed, 13 May 2026 21:59:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lEvnISLR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0697AC19425;
+	Wed, 13 May 2026 22:00:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778709575;
-	bh=8B4w43EyE7k0N1hagfOk3xtzZ+5vyH8PSAhe3erd3XI=;
+	s=k20201202; t=1778709638;
+	bh=DXw90OeW/hJbguIrNQSu/Uye5ippdxmuZHeaFUgZ924=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=YxFMC2WDPrT74AIIdgYeufk8P/7W8uhoQJYVj6Cmte6B+43PDPiExd07RgpMR4OtH
-	 /R8abzxLwWbGPFSysXlo5DuzlJg2EQ4djP7p96HteD11+8ZG9znzoAvbEwijVFzObZ
-	 cmg06zd0a27JvrX0vlExR4W1yMb1ojQOsbnAGFaoeynR7Gz7u+ZGGXu56GO1v2PWu7
-	 cM+xhEVRwXPFjjblmx6+sX3fH3Dj1rPtuC3IHW7IqWT2lcM6D/p7niV28D89Gs6FZS
-	 pByWsRizgtv1gSqqNhiMl2n1+N5KAB6Xm3rdi+4vFqaxsbv/2J/K2enGWwLWemAB2o
-	 09rCm41MVjeYg==
+	b=lEvnISLRdgWf93qzvbiMg9ORLilYSo0aZpRI9o9+yeEy5zqVn6ICwZURZSBe8Zb7x
+	 h/oPstWsMr9558IkV0iGXhXg2ecP9TqLzWJV2tt6EQSUM42MHrq1CF9NqwuoVeSKt/
+	 tCDw1M8NI2wewwBGelhQKAArB9AmnJdI+YpiIfAX7x/1q6rimy1ZkYKsB8Y4NgYF9d
+	 ZPxgS1VtmNusQUfJ4VXnBZK4YGVlYSEI5J8miOo3t4ji4AA83Bvwj+fBQR0oRuCfGz
+	 GsPXLutR+0pxG+6IBPoXvK/ig86eUMURkp3XiVB6od4Z5oQZNFSB8WrCSb+nfsg+Od
+	 TukZiCTWn8t4w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/4] arm64: dts: renesas: add support for solidrun
- rzg2lc som and hb-iiot evb
+Subject: Re: [PATCH v4 2/2] pinctrl: qcom: Add Shikra pinctrl driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Josua Mayer" <josua@solid-run.com>
-Cc: devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260512-rzg2-sr-boards-v3-4-f033fc96c906@solid-run.com>
-References: <20260512-rzg2-sr-boards-v3-4-f033fc96c906@solid-run.com>
+To: "Komal Bajaj" <komal.bajaj@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260512-shikra-pinctrl-v4-2-b93c3a2e4c08@oss.qualcomm.com>
+References: <20260512-shikra-pinctrl-v4-2-b93c3a2e4c08@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 13 May 2026 21:59:34 +0000
-Message-Id: <20260513215934.E3834C19425@smtp.kernel.org>
+Date: Wed, 13 May 2026 22:00:37 +0000
+Message-Id: <20260513220038.0697AC19425@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Device tree node name collision for sdhi0 pins causes 1.8V overrid=
-e for 3.3V state.
-- [High] Statically allocated reserved-memory ranges fall outside defined p=
-hysical RAM.
-- [High] Devicetree configuration contradiction for vmmc GPIO polarity.
+- [Low] The Kconfig symbol PINCTRL_SHIKRA incorrectly uses `default ARCH_QC=
+OM`, which is inconsistent with the rest of the pinctrl drivers in the subs=
+ystem.
 --
 
-commit 07693c5c9c5d074ca939a25ad18d8d94023515ac
-Author: Josua Mayer <josua@solid-run.com>
+commit 635e77fc90eb7d688d1990612274cdff1b91f42d
+Author: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
 
-arm64: dts: renesas: add support for solidrun rzg2lc som and hb-iiot evb
+pinctrl: qcom: Add Shikra pinctrl driver
 
-Add support for the SolidRun RZ/G2LC SoM on Hummingboard IIoT. The RZ/G2LC
-SoM was designed to be pin compatible to G2L SoM, with slightly reduced
-feature set.
+This commit adds the pinctrl driver for the TLMM block found in the
+Qualcomm Shikra SoC.
 
-Link: https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/r=
-z-g2lc-som/
-Link: https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/h=
-ummingboard-rz-series-sbcs/hummingboard-rz-g2l-iot-sbc/
-
-> diff --git a/arch/arm64/boot/dts/renesas/r9a07g044c2-hummingboard-iiot.dt=
-s b/arch/arm64/boot/dts/renesas/r9a07g044c2-hummingboard-iiot.dts
-> new file mode 100644
-> index 0000000000000..06d9d031cbe91
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/renesas/r9a07g044c2-hummingboard-iiot.dts
+> diff --git a/drivers/pinctrl/qcom/Kconfig.msm b/drivers/pinctrl/qcom/Kcon=
+fig.msm
+> index 836cdeca1006f..20e1068492734 100644
+> --- a/drivers/pinctrl/qcom/Kconfig.msm
+> +++ b/drivers/pinctrl/qcom/Kconfig.msm
 [ ... ]
-> +&vmmc {
-> +	gpio =3D <&pinctrl RZG2L_GPIO(18, 1) GPIO_ACTIVE_LOW>;
-> +};
+> @@ -369,6 +369,17 @@ config PINCTRL_SDX75
+>           Qualcomm Technologies Inc TLMM block found on the Qualcomm
+>           Technologies Inc SDX75 platform.
+> =20
+> +config PINCTRL_SHIKRA
+> +	tristate "Qualcomm Shikra pin controller driver"
+> +	depends on ARM64 || COMPILE_TEST
+> +	default ARCH_QCOM
 
-In the common file rzg2l-hummingboard-iiot-common.dtsi, vmmc is defined
-with the enable-active-high boolean property. Since this overrides the gpio
-property to use GPIO_ACTIVE_LOW, does the enable-active-high property need
-to be explicitly removed using /delete-property/ enable-active-high;?
+Is this default intended? Looking at the other SoC-specific pin controller
+drivers in this file, such as PINCTRL_SM4450 just below this, they do not
+appear to use default ARCH_QCOM.
 
-According to fixed-regulator bindings, if enable-active-high is present, it
-forces the GPIO line to be active high, overriding the GPIO_ACTIVE_LOW flag.
-Will this result in the SD power control signal functioning with inverted
-polarity and breaking SD card power sequencing?
+Defining it here forces this driver to be built by default whenever the
+generic ARCH_QCOM is enabled, which seems inconsistent with the established
+pattern for the rest of the subsystem.
 
-> diff --git a/arch/arm64/boot/dts/renesas/rzg2lc-sr-som.dtsi b/arch/arm64/=
-boot/dts/renesas/rzg2lc-sr-som.dtsi
-> new file mode 100644
-> index 0000000000000..0505af6926a5e
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/renesas/rzg2lc-sr-som.dtsi
-[ ... ]
-> +	reserved-memory {
-> +		ranges;
-> +		#address-cells =3D <2>;
-> +		#size-cells =3D <2>;
+> +	help
+> +	  This is the pinctrl, pinmux, pinconf and gpiolib driver for the
+> +	  Qualcomm Technologies Inc Top Level Mode Multiplexer block (TLMM)
+> +	  found on the Qualcomm	Technologies Inc Shikra platform.
+> +	  Say Y here to compile statically, or M here to compile it as a module.
+> +	  If unsure, say N.
 > +
-> +		mmp_reserved: linux,multimedia@68000000 {
-> +			compatible =3D "shared-dma-pool";
-> +			reg =3D <0x0 0x68000000 0x0 0x8000000>;
-> +			reusable;
-> +		};
-> +
-> +		global_cma: linux,cma@58000000 {
-> +			compatible =3D "shared-dma-pool";
-> +			reg =3D <0x0 0x58000000 0x0 0x10000000>;
-> +			reusable;
-> +			linux,cma-default;
-> +		};
-> +	};
+>  config PINCTRL_SM4450
+>  	tristate "Qualcomm Technologies Inc SM4450 pin controller driver"
+>  	depends on ARM64 || COMPILE_TEST
 [ ... ]
-> +	memory@40000000 {
-> +		reg =3D <0x0 0x40000000 0x0 0x20000000>;
-> +		device_type =3D "memory";
-> +	};
-
-The standard memory configuration is defined as 512MB ending at 0x60000000.
-Do these static reserved-memory ranges fall outside the defined physical
-RAM?
-
-The global_cma reservation ends at 0x68000000 and mmp_reserved ends at
-0x70000000. Will attempting to reserve and map non-existent physical
-memory cause the CMA allocator to fail or the kernel to panic during early
-boot on 512MB hardware variants?
-
-Could these use dynamic allocation with alloc-ranges instead of fixed reg
-properties, or be resized to fit strictly within the minimum supported RAM
-size?
-
-[ ... ]
-> +&pinctrl {
-[ ... ]
-> +	sdhi0_pins: sdhi0 {
-> +		pins =3D "SD0_DATA0", "SD0_DATA1", "SD0_DATA2", "SD0_DATA3",
-> +		       "SD0_DATA4", "SD0_DATA5", "SD0_DATA6", "SD0_DATA7",
-> +		       "SD0_CLK", "SD0_CMD";
-> +		power-source =3D <3300>;
-> +	};
-> +
-> +	sdhi0_uhs_pins: sdhi0 {
-> +		pins =3D "SD0_DATA0", "SD0_DATA1", "SD0_DATA2", "SD0_DATA3",
-> +		       "SD0_DATA4", "SD0_DATA5", "SD0_DATA6", "SD0_DATA7",
-> +		       "SD0_CLK", "SD0_CMD";
-> +		power-source =3D <1800>;
-> +	};
-
-Does this cause a device tree node name collision? Both sdhi0_pins and
-sdhi0_uhs_pins define a child node named sdhi0 inside pinctrl.
-
-Because the Device Tree Compiler merges sibling nodes with identical names,
-the properties of sdhi0_uhs_pins will overwrite sdhi0_pins. Both phandles
-will point to a merged node with power-source =3D <1800>.
-
-Will this break standard 3.3V SD card initialization since the pinctrl
-subsystem will configure the default pins for 1.8V instead? Could the UHS
-node be renamed to something like sdhi0-uhs to avoid the collision?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-rzg2-sr-bo=
-ards-v3-0-f033fc96c906@solid-run.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-shikra-pin=
+ctrl-v4-0-b93c3a2e4c08@oss.qualcomm.com?part=3D2
