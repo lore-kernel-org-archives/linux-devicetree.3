@@ -1,86 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB4E372070;
-	Wed, 13 May 2026 01:28:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DFA83803CD;
+	Wed, 13 May 2026 01:33:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778635709; cv=none; b=VrgRdbmenY9/vacvs43//Qmhm53P6zw9CINEexAtGnjZCEnhZ3iwUZiPo6oFg4QrIrhb8RVsd3iJKw4vxZZFCFVADJ03Gqo4al4rCUuzH/YdQy7lUUB+tQWRQ/S1bu3EtgiZ7MQIkSp9yh+A4L9ptvhnrmZay0Gcwu+s2rWBTUI=
+	t=1778636025; cv=none; b=uO0dWp5TcDHxQiKOZNCCXcoONa5sF2Gx8FUFG+dA68Si/KtUP9QWdxE95666Lh49nugFGH6Ft6k+v1iNBDYa8DBlOz3u9xrdd42cGOaNY5S4aROiGMVd5ROZg+BrFFwUqbr/F0KaEuHnKGIrJJUbeu87J9seCiIlSgEbTYc05L0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778635709; c=relaxed/simple;
-	bh=VwRmf6yHkU6JoKiELg98yCtWicqZA1yRP4ajE53wTbI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GTdaGnMw1ObU6BNEpUZW69HjuCLHeusDPyZgxU0b7cdjAKS4s2A1h+iptC7yMKLczVeUFftlSmy6szjZZLWSb9ZcTSW3vdcdOdXnIE/RQXZp+fYIviZslANF+LBB3tVJAqMP3USyHrSqyTz4IRsCHulqb9oxm/vIjxpzg0NCbe8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WHCu095Q; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778636025; c=relaxed/simple;
+	bh=zGVv9uG4G5sQPnwZQcu5H7meSqJvyo8As7wJpgw/6zo=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=GoLCz4dPxM1zenyR4zavIMpOm/IV0ZqpyO9UhoZaXOjFCJrCzolv2Ct9S71p9Rdh9KWb/uYPP/AvJ2i7amI3YC5KqmfT+2GpmvDcij2gbzKBQCUmAd1hz2uXTXVncBG60z3VFYndNw3ifkZycX82i+M9WrHEV+H2SHkSYE+LcL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=VBUbbNJH; arc=none smtp.client-ip=185.70.43.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WHCu095Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C27DC2BCB0;
-	Wed, 13 May 2026 01:28:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778635708;
-	bh=VwRmf6yHkU6JoKiELg98yCtWicqZA1yRP4ajE53wTbI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WHCu095QlTDRuHeEtR0WAZcs4LkI0b2+2scgYYj3Gwvkkxzxz2fAqw4POpJ5aZlNw
-	 7CC13isgLxymBMezS3tQMVJehUOiMhZwIn0E2VNkvO/SjxvowipaMoOA2moo9JizWL
-	 N/N5NQZYROnJMzQ5OT9h5/jVJ8aoj7qA7wNQUNxoaYsSRBTxDPEub1jNwKCvUJVTCn
-	 OhCjbiv+MUpRR1la/13m7jrl8TFQMwwcu5GeJgM7AEEGIUCIRAhx010hryQCqDV09v
-	 0oiuaAAKrj+twa/Q41pazi69xLemU2G/7QOfxcvJDj/q8pci4/kGeSp29d3eAajTzY
-	 7GSLh3+BxvgiA==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 0DBCD1AC58CB; Wed, 13 May 2026 02:28:26 +0100 (BST)
-Date: Wed, 13 May 2026 10:28:25 +0900
-From: Mark Brown <broonie@kernel.org>
-To: Frank Li <Frank.Li@nxp.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"open list:VOLTAGE AND CURRENT REGULATOR FRAMEWORK" <linux-kernel@vger.kernel.org>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	imx@lists.linux.dev
-Subject: Re: [PATCH 1/1] dt-bindings: regulator: convert ltc3589 to yaml
- format
-Message-ID: <agPTuWhZQa6V5h5l@sirena.co.uk>
-References: <20260512224544.1223283-1-Frank.Li@nxp.com>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="VBUbbNJH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1778636012; x=1778895212;
+	bh=QSW8aSab9/wztxqArft5t7mYs/SZVX6zIZoNrOAhfQE=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=VBUbbNJHbXfkyDlAAQt/OR64Ovisxah5UhmREMnUYtdVchpdYnVvaYZEW6sjDtTum
+	 KeKp6ATft0mkx3bobddfdFsYbH35E2kG2VuZkDDZ0wCA3S6gItw6GJGIaekfZZzELu
+	 1zrRhJA/D9ThwrC0AeTo+QMInn7IE+H1fbaf9LkcGfUQG9YU+Moe8S69w9B2maDxY0
+	 JiKX1Qu+fc974YP8czr0WUkjg6D5j5mD6kxRS1i2j3/7dHHbvEgKyMAHUfA1R6pCHt
+	 JP0d82bfk5LC+cdvhAUH6FCHS92ae41Ia4yzD/6J+tO5l6LxoujS7qUCH2RQShSwfp
+	 XE/UKKgaHpD5g==
+Date: Wed, 13 May 2026 01:33:27 +0000
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+From: Alexander Koskovich <akoskovich@pm.me>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] arm64: dts: qcom: Add Eliza-specific PM7750BA dtsi
+Message-ID: <q2P-fl0-Y-qp3p1j6PRmUd5xM92-IslEfMGk9rFS_n82-beFGjS3MfZ8J8frpp17AVDYuOiJ8IzInsAE7cAotKSF4JP0LwgCXC6ET4eI_dU=@pm.me>
+In-Reply-To: <20260512-eliza-adsp-usb-v3-2-6420282841c2@oss.qualcomm.com>
+References: <20260512-eliza-adsp-usb-v3-0-6420282841c2@oss.qualcomm.com> <20260512-eliza-adsp-usb-v3-2-6420282841c2@oss.qualcomm.com>
+Feedback-ID: 37836894:user:proton
+X-Pm-Message-ID: 7d9253e433b1d7f42db132b57d13be0a5dd29259
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="P/xE2IxuFcOJjISa"
-Content-Disposition: inline
-In-Reply-To: <20260512224544.1223283-1-Frank.Li@nxp.com>
-X-Cookie: Truckers welcome.
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
+On Tuesday, May 12th, 2026 at 8:32 AM, Abel Vesa <abel.vesa@oss.qualcomm.co=
+m> wrote:
 
---P/xE2IxuFcOJjISa
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> On Eliza, the SPMI arbiter supports multiple bus masters, requiring
+> explicit selection of the master for each PMIC.
+>=20
+> The existing PM7750BA dtsi does not provide a way to describe this,
+> so introduce an Eliza-specific variant with the appropriate bus
+> configuration.
+>=20
+> This duplication is required due to hardware differences in how the
+> SPMI bus is exposed on this platform.
+>=20
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 
-On Tue, May 12, 2026 at 06:45:42PM -0400, Frank Li wrote:
-> Convert the Linear Technology LTC3589/LTC3589-1/LTC3589-2 regulator
-> binding from text to yaml format.
+Was wondering if it might be easier to do something like this instead?
 
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
+eliza-mtp.dts:
+```
+#define PM7550BA_SPMI_BUS &spmi_bus0
+```
 
---P/xE2IxuFcOJjISa
-Content-Type: application/pgp-signature; name="signature.asc"
+pm7550ba.dtsi:
+```
+PM7550BA_SPMI_BUS {
+    pm7550ba: pmic@7 {
+...
+    };
+};
+```
 
------BEGIN PGP SIGNATURE-----
+That way you wouldn't have to duplicate entire file, but don't know if this=
+ has
+already been discussed previously.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmoD07kACgkQJNaLcl1U
-h9BWOQf/algNi1ADgjw7NpMC3NNpA3KqQGA5HLHwZYZE8wQ3PqhMlE4Gi2qGQ/vV
-tq8gJBuCqEKak4ptf59km6d4B+uq2crUrHCVtqHG1cR82uZ7dMA+n8/1/E44NetI
-htY6zfxsDG7nRkK5+zAOwlyn8jrkCR+41AyeSxzmzwCQUKY3jtlLagIsjH5Mqvhj
-AndKJDE8KP8QvQySLANi5sp3dX0jpDdh2WiBXwKEXACFwh00RWwGJDbThZsEveUH
-vqhnFNBxXpKmfaeVUcr5jDTx6P/aLXTsFwZNJXn10Av1JsYkCoeC88OJYRY5/WG5
-kaZWhEjy4kdD8JJ1uq3UkcmjPlO6wg==
-=mtWK
------END PGP SIGNATURE-----
-
---P/xE2IxuFcOJjISa--
+Thanks,
+Alex
