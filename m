@@ -1,116 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 154071991D4
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 04:23:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC543128AB
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 04:26:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778646206; cv=none; b=JUS0NsTYAP4JbCLTm4GlX5UYGdALMTtuGWOyXfxF1WEyGvBd/2+L6qv4NFk8l0GqfTuIj1GuAbdOw2DPZogk83mqt9hMX6+9DTL9Fs29A0FjzhFr9Wp7TmcEIC0vAHiucvyqezYmmN2SjDV5Igf9W33netQKOOFncul9nMPaxrU=
+	t=1778646385; cv=none; b=lW304DdG8g+WmbLWrZo+SAYv4h03ZorRymJR48N3VVSDgujxfPVrG51NL71vmUzGqfVEeQeZZYXEfQej+ltJJBMKAbXqtH5asoJ9SLR9AmOVKnQGknFnGtpZe4hijjetXYO/99A/9yH5/ynyM0STtaOQRAvexug5dq8w3BsMLSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778646206; c=relaxed/simple;
-	bh=PZ/stj5XwONuojM4fh7e63S+aSsQ5CgPvgW41XgsnxY=;
+	s=arc-20240116; t=1778646385; c=relaxed/simple;
+	bh=0S7gxUmxUSwsvNbH2aTww2u8qVU44h8+3ekq9LliEYw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=g7iz02lFHfanmjHtIovxOcbrhnW8DIZVuyMb0fQNssR8047aTfqOLkN6CkgUc8p542qTK9oS4Tah4E+GaaeCri90l7aGIpdRVW/DN2k8oPBw2fd9arVeS3+4fkbAyeGEELT+IB+f2lTtFi2NNerrKdse8ALiShZ4W3U90AHgB+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HrEbVfnY; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=JTpa0NY9G5zfHvuZh6fcwJzVPXL7LjOfR6iokFTcPCtG4E5IP6A4EWsfoToRJh/sddA0bSLY3MTSQVu8vNP5hv3OsuaK1hRZfpBvHyOWTW4Hc6kUjQ9Q5ZF9jrU3TpC3YgII5V6xpBNaFwlCMa6u17n4AL98sBS/kzYp+TCOKF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gO6J+VDU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HrEbVfnY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68C09C2BCB7;
-	Wed, 13 May 2026 04:23:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gO6J+VDU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEBA0C2BCB7;
+	Wed, 13 May 2026 04:26:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778646205;
-	bh=PZ/stj5XwONuojM4fh7e63S+aSsQ5CgPvgW41XgsnxY=;
+	s=k20201202; t=1778646385;
+	bh=0S7gxUmxUSwsvNbH2aTww2u8qVU44h8+3ekq9LliEYw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=HrEbVfnYyqolt9rhpCMb9t/3WY1H/G94Qmdcy0h4HNtlH5Zp08nLItg417HT2QWXW
-	 YB3zceEBN9xPO6ZVX+UJiJRS+69My6s1ly8VWD3ChwrVRNbjAzHsP63WPKJuHt5WwF
-	 QgFABXUzu2Vqp8kMLCVa0puA9MZjY+wxXjDMPN0Wg0yQW9CYsZLAukVGtrlIDP7vK0
-	 KCJQLDdZnl6WVJYQttId96tCPySgYZtQL8i1y3odigIFBC0jdH95dAa48kmWCQi37p
-	 qaCGr3BtNjwiN9oq7qEahFevLm8mJH8800FSND6tGJ6I7y8eaLrcNOIvaFDa8/Fd2V
-	 In/zyjPUGf81Q==
+	b=gO6J+VDUZtlXCLanbV2rIrR9vwqcGB/XRAc+GIz42sMXXrcWgYeExlIjy0uS7wtl/
+	 /tKywL3K57KYY4vgWcx/ijg58RlW9mcvBwhagUdWUz7JD/zylJh6W4VyazcSqJM7Cg
+	 wHhnO9IrhF9az+JSH4blwH7HPuyt3iLyqavS4S6Bp9W9GiuEpRrUbp66zTIj2n9Edm
+	 ZTPxd0fLJRYH3656Osb94BethAnHDedEjTilqBW1kQfNKDHv+xYB60Lek6w4xlJ1Mc
+	 /z+7sfgdImSinq8GaZdPZSrfJbwsLwDTx6bdfRs5TI7V7n+Sb29wjoEDffIPjwSCrZ
+	 OwN6B1WdQfO7Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/7] gpio: regmap: Add set_config callback
+Subject: Re: [PATCH v3 5/7] dt-bindings: gpio: realtek: Add
+ realtek,rtd1625-gpio
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
-Cc: conor+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260512033317.1602537-5-eleanor.lin@realtek.com>
-References: <20260512033317.1602537-5-eleanor.lin@realtek.com>
+Cc: conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260512033317.1602537-6-eleanor.lin@realtek.com>
+References: <20260512033317.1602537-6-eleanor.lin@realtek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 13 May 2026 04:23:24 +0000
-Message-Id: <20260513042325.68C09C2BCB7@smtp.kernel.org>
+Date: Wed, 13 May 2026 04:26:24 +0000
+Message-Id: <20260513042624.CEBA0C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] The `set_config` callback leaks the underlying `struct gpio_chip` t=
-o the driver, breaking the abstraction boundary provided by `gpio_regmap`.
+- [Medium] Missing required properties for interrupt controller capabilitie=
+s.
+- [Low] Mismatch between the commit message description of register blocks =
+and the `reg` property constraint.
 --
 
-commit ac512057e733370619e59d76ffbee25d7ea97d9f
-Author: Yu-Chun Lin <eleanor.lin@realtek.com>
+commit e48cb449a1787cbc350f702042fd90d1f1e83047
+Author: Tzuyi Chang <tychang@realtek.com>
 
-gpio: regmap: Add set_config callback
+dt-bindings: gpio: realtek: Add realtek,rtd1625-gpio
 
-This commit adds a new set_config callback to struct gpio_regmap_config
-to allow drivers to implement hardware-specific configurations like
-debounce settings or other platform-specific GPIO properties.
+This commit introduces device tree bindings for the Realtek DHC RTD1625 GPIO
+controllers. It notes a per-pin register architecture and includes properti=
+es
+for configuring pins and handling interrupts.
 
-> diff --git a/include/linux/gpio/regmap.h b/include/linux/gpio/regmap.h
-> --- a/include/linux/gpio/regmap.h
-> +++ b/include/linux/gpio/regmap.h
+> Add the device tree bindings for the Realtek DHC (Digital Home Center)
+> RTD1625 GPIO controllers.
+>=20
+> The RTD1625 GPIO controller features a per-pin register architecture
+> that differs significantly from previous generations. It utilizes
+> separate register blocks for GPIO configuration and interrupt control.
+
+The commit message states the controller utilizes separate register blocks
+for GPIO configuration and interrupt control. However, the schema constrains
+the reg property to maxItems: 1 and the example uses a single contiguous
+block.=20
+
+If these are truly separate memory regions, should the reg property be
+updated to define multiple items? If they are internal register groups
+within the same memory-mapped region, could the commit message be clarified
+to reflect this?
+
+> diff --git a/Documentation/devicetree/bindings/gpio/realtek,rtd1625-gpio.=
+yaml b/Documentation/devicetree/bindings/gpio/realtek,rtd1625-gpio.yaml
+> new file mode 100644
+> index 0000000000000..f13c910b73c69
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/gpio/realtek,rtd1625-gpio.yaml
+
 [ ... ]
-> @@ -142,6 +145,10 @@ struct gpio_regmap_config {
->  			       unsigned long *valid_mask,
->  			       unsigned int ngpios);
-> =20
-> +	int (*set_config)(struct gpio_chip *gc,
-> +			  unsigned int offset,
-> +			  unsigned long config);
+
+> +required:
+> +  - compatible
+> +  - reg
+> +  - gpio-ranges
+> +  - gpio-controller
+> +  - "#gpio-cells"
 > +
->  	void *drvdata;
->  };
+> +additionalProperties: false
 
-Does exposing struct gpio_chip directly to the driver break the
-abstraction boundary provided by gpio_regmap?
+The binding defines interrupt-controller and #interrupt-cells properties
+earlier in the file, and the example demonstrates their use.
 
-The gpio_regmap library appears designed to abstract away struct gpio_chip
-from generic regmap-based drivers. For instance, the reg_mask_xlate
-callback takes a struct gpio_regmap pointer rather than the raw chip.
-
-Because gpio_regmap sets its own internal structure as the private data
-of the gpio_chip during registration via gpiochip_add_data(), drivers cannot
-simply access their private data using gpiochip_get_data(). They would
-instead be forced to use a lookup chain like
-gpio_regmap_get_drvdata(gpiochip_get_data(gc)).
-
-Would it be better to have the callback in struct gpio_regmap_config take
-a struct gpio_regmap pointer instead?
-
-> diff --git a/drivers/gpio/gpio-regmap.c b/drivers/gpio/gpio-regmap.c
-> --- a/drivers/gpio/gpio-regmap.c
-> +++ b/drivers/gpio/gpio-regmap.c
-[ ... ]
-> @@ -371,6 +371,8 @@ struct gpio_regmap *gpio_regmap_register(const struct=
- gpio_regmap_config *config
->  	if (!gpio->reg_mask_xlate)
->  		gpio->reg_mask_xlate =3D gpio_regmap_simple_xlate;
-> =20
-> +	chip->set_config =3D config->set_config;
-> +
->  	ret =3D gpiochip_add_data(chip, gpio);
->  	if (ret < 0)
-
-If the struct gpio_regmap_config callback is updated to use struct
-gpio_regmap, could an internal wrapper function be added here in
-gpio-regmap.c?
-
-The wrapper could implement the struct gpio_chip set_config signature,
-handle the translation from struct gpio_chip to struct gpio_regmap, and then
-invoke the driver's config->set_config callback.
+Do these properties need to be included in this required list? Since the
+hardware acts as an interrupt controller provider, adding them to the
+required list would prevent incomplete device tree nodes from silently
+passing schema validation.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512033317.1602=
-537-1-eleanor.lin@realtek.com?part=3D4
+537-1-eleanor.lin@realtek.com?part=3D5
