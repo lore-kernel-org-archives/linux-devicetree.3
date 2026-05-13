@@ -1,81 +1,65 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8254E2BFC60
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 22:39:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABC24184;
+	Wed, 13 May 2026 22:42:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778711994; cv=none; b=TPqDs6EeAHLA+2SUx3Gb2jcGbkVuoSJc7uzb0n7IxfU48TwJWvWDxhkfAylC1WouXWN4dgsyEaEK5o4qChnuDvFPw14B3xL13b5JQwduITjmDS7DKMnN+w3JjRVyA/rhFhLhygTyGzywCaXQmZpbi/+Aw9gt106O8dLdF/PS0Lo=
+	t=1778712140; cv=none; b=pvOVSJfqEfAJUF7rn9RtYdEnnKktbF6Kd+ldlRXHYk6x1mqByCCUHyALhPl7FC8LVrZrgakMG7J+hfYbeiwdoAs65THkzUjddU6WRt+VhNo03viG0vYwMyn0ue44Pd5uhqGRBMn13NYrakZ7moVcqhSIMaeyodFWobLlVXQu8nE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778711994; c=relaxed/simple;
-	bh=0VqbTRVEZlpoi5Ld1YnV7oWMDYNnumYR5TrZ6zn2sPQ=;
+	s=arc-20240116; t=1778712140; c=relaxed/simple;
+	bh=6NAHPyole2pQ/CHwKqRP4tLqoyofLvYLcq17xj38jf0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r8SlwHSVvvRxJIgvGJoh1uG8sx8Z8mimT7Hsl7xD8sP8hwP7CA9Yp/jiqYA6le0m77qW9/b8ovo4Mr+6W27l+ksS/3vyRpxdOKg/ov5IuVj04U2V2Giz1yxxmomdPs2eEk5jJ/sKTOuURFuBhVk8frVaUZ0dzhlnbUzawxrU0qo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XbeZA5pN; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=pYPY2YSw4Kf8rGg4AeGp7Uo+0YMVXr9JjQ2aVTLG1ovXrVitevHJ0RfhQIjWJWBRkjPsXSQo3mIipxFsHoARB/JvcTVQqE/wawV1joNGQuhdXSRWifjpawvEmjB8QnL6MdI83ac1WitkT2wo5fUsJJDvv8wmrrJiVeF2HoxmLeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cj+fBMGp; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XbeZA5pN"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2ba6485d219so48006555ad.3
-        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 15:39:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778711993; x=1779316793; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=miM3jTAggAFQJz2CzbBvHc0aYdt6SXz1ObmRHBqYD2M=;
-        b=XbeZA5pNH6IFvMJCizA0sjWapJaKNJH27lSsQWG2InYGMKMUThiey6ZJYqg8cIEVBm
-         r0UhW9S02zUKEVHkMH4P3XarBQw0dUFBvfmZ7INC6HwSqiipCGAsyhqND4I8fcr2oskH
-         eq9ygmWEDq7l8NrXuWqB4XNmTUnx0PcFt68WAtD7QAzA2htqUjxGlbO+laNAMjCJQDsg
-         iAqFlhkWcSV/PvlkLNcy+8dRc0bCACySGPN7zKZn+TCPTqpGNbWdrkbO9eim840oPYY9
-         aHh6TEpRu/kCWv+P/xlY+oBniDIsXDOZoFzRnFs6XWFIT45iwLXXQCpF9RvnmAvs7YsD
-         Kc2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778711993; x=1779316793;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=miM3jTAggAFQJz2CzbBvHc0aYdt6SXz1ObmRHBqYD2M=;
-        b=B9DkX4PYMhXOIlqgeEC2+eI4fQY3e0GJ3UJh8gbx+1i06iAeLy9xEDucrB2EpLtXtq
-         3wNgyP27347KHKhqBHkUrgH6OiuFQBg01bT4HCPp3ps26/peOeQ396LMVPzgdkcXrTRF
-         3qg+n/lHCtdXU81cGetMZDr2DwKyuAkhtyyjpvpEs8Jsdgh3nNY8luUpV90UeGLLS+GS
-         F7JxATdnHvY3rY04VmFEXhZx6ANh7DM9FyCUBwQHRXpwDeP7b/mTtE3vLB/r1+J3t7ZH
-         /qhKUyMLAPbVUeMtlPeiBtrno/HUyIm0+c7IGeKnOzeoj/3x/CkIspGaLLp4LEt+MDBD
-         TzGA==
-X-Forwarded-Encrypted: i=1; AFNElJ+05nxVrJjN0NCcPvAOFzM4kL59+07LCa1+2fF2TXZkmoYG+71/JbeY+2QYfaXcF/9t4gzQUs2LWmJ6@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxvb3rmnesFOjEpq9svRhyyw7WMxI8hzb2xT31T97M+ouavkVSs
-	/oxX0OKpeJdplSQZHuztPH7HmG0/bqgC3EBs3RMjebSmJZsq3SRjU90n
-X-Gm-Gg: Acq92OE1xMoilaHBl4MB2QwK75hINayE5+klFlYC4yBNMp4QzZwlUd+CiyUGeiKjxUl
-	se5RQZanAyPNkvCZGpeSTy3pdFyuRLYj71DfM0rRhsgJyQtNr5MOf1BkCQMwN1n1YFxvmVS9U7z
-	ArE0eT2C9r11UBDBFB+5LUsvM7Q6qkuoVN19bzGIs+B9IKFLq3+J6HZoQ3QjPg8plP/FLWbHyDR
-	S9/FumEjKagrj93XWZ5Zc/1OE2Ck6NlQi0cJu1oT7vZuumG9x2ZsH4d0ZpqVDji/m8uzuEGhRk4
-	rwIYEZb2Qfj3MhveSni+ZPwTg3UuvJdQZ+K/pQU9Cf6SG7UmPpsx1lGp+xUAzmWvKmRpCPWMNHa
-	MrHbpzQ1qSaQQrzeGXvFGMDyMHZvASkrnP4xJRSwuTsItd3H8GRN/cCVyht49Rzdj0WpbDumYbG
-	P9NiM5fh0qf1FE154ey6Uwc6WgSGJskPuihqA7
-X-Received: by 2002:a17:903:2f4c:b0:2b7:a350:463f with SMTP id d9443c01a7336-2bd2f4e4c49mr48108145ad.10.1778711992677;
-        Wed, 13 May 2026 15:39:52 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bd5bd5f2e7sm2853795ad.5.2026.05.13.15.39.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 13 May 2026 15:39:52 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 13 May 2026 15:39:51 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: linux-renesas-soc@vger.kernel.org,
-	"Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cj+fBMGp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3368C19425;
+	Wed, 13 May 2026 22:42:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778712140;
+	bh=6NAHPyole2pQ/CHwKqRP4tLqoyofLvYLcq17xj38jf0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=cj+fBMGppCybD/58WT/pMz7uSjenugSfEv6zeje2jwicAv8xdflI3FMozNWqJ3Mrd
+	 S1y+MtXR/ZG6Ij8EEBKjrsmQWpD/dfdqEC7dggn3gt2RiBO8rYrPRu4npuKZ2xk8TZ
+	 B/v9mMzQ1xL9M+9TNKkpwABmG7TVr8iK81ZQuwYdic5bKII+TXfFbyCSGxP5n6KIJZ
+	 YuqZ3o65MTC2R4SsE/zCKg3vvmR6Lu5Oag5C7beePpd8y60zqSk5uBa1fwVcKD4NV5
+	 /eP2O0KM/LKUTciFzpwn6Fcg0qjftObhxATy7fec/9/ajSn87NLyPf4/yV/fFXVQnC
+	 IU7lUJbzS6SLw==
+Date: Wed, 13 May 2026 17:42:17 -0500
+From: Rob Herring <robh@kernel.org>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-watchdog@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 4/4] dt-bindings: watchdog: renesas,rzn1-wdt:
- interrupts are not required
-Message-ID: <c06eaf33-6817-4016-9ff3-600027501445@roeck-us.net>
-References: <20260507102410.43384-1-wsa+renesas@sang-engineering.com>
- <20260507102410.43384-5-wsa+renesas@sang-engineering.com>
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Jeff Johnson <jjohnson@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+	Rocky Liao <quic_rjliao@quicinc.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Saravana Kannan <saravanak@kernel.org>, linux-mmc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-block@vger.kernel.org,
+	linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
+	linux-bluetooth@vger.kernel.org, netdev@vger.kernel.org,
+	daniel@makrotopia.org
+Subject: Re: [PATCH v2 1/8] dt-bindings: mmc: Document support for
+ nvmem-layout
+Message-ID: <20260513224217.GA2190241-robh@kernel.org>
+References: <20260507-block-as-nvmem-v2-0-bf17edd5134e@oss.qualcomm.com>
+ <20260507-block-as-nvmem-v2-1-bf17edd5134e@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -84,18 +68,47 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260507102410.43384-5-wsa+renesas@sang-engineering.com>
+In-Reply-To: <20260507-block-as-nvmem-v2-1-bf17edd5134e@oss.qualcomm.com>
 
-On Thu, May 07, 2026 at 12:24:09PM +0200, Wolfram Sang wrote:
-> It is now understood how the watchdog can do its job without the need of
-> an interrupt. So, it is not required anymore but optional.
+On Thu, May 07, 2026 at 05:24:36PM +0200, Loic Poulain wrote:
+> Add support for an nvmem-layout subnode under an eMMC hardware
+> partition. This allows the partition to be exposed as an NVMEM
+> provider and its internal layout to be described. For example,
+> an eMMC boot partition can be used to store device-specific
+> information such as a WiFi MAC address.
 > 
-> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-> Reviewed-by: Herve Codina <herve.codina@bootlin.com>
-> Reviewed-by: Guenter Roeck <linux@roeck-us.net>
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/mmc/mmc-card.yaml          | 24 ++++++++++++++++++++++
+>  1 file changed, 24 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/mmc/mmc-card.yaml b/Documentation/devicetree/bindings/mmc/mmc-card.yaml
+> index a61d6c96df759102f9c1fbfd548b026a77921cae..b21426a49cf1d9aae5b4e8e447b5be11b08c96bf 100644
+> --- a/Documentation/devicetree/bindings/mmc/mmc-card.yaml
+> +++ b/Documentation/devicetree/bindings/mmc/mmc-card.yaml
+> @@ -40,6 +40,9 @@ patternProperties:
+>          contains:
+>            const: fixed-partitions
+>  
+> +      nvmem-layout:
+> +        $ref: /schemas/nvmem/layouts/nvmem-layout.yaml
+> +
+>  required:
+>    - compatible
+>    - reg
+> @@ -86,6 +89,27 @@ examples:
+>                      read-only;
+>                  };
+>              };
+> +
+> +            partitions-boot2 {
 
-Applied to my watchdog-next branch.
+Shouldn't this have a 'fixed-partitions' compatible? I'm not sure if 
+it's an oversight in the schema that 'compatible' is not required here. 
+It would be odd that compatible is optional, but if it is present, it 
+must contain 'fixed-partitions' compatible. A follow-up to fix that 
+would be great.
 
-Thanks,
-Guenter
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+
+Rob
