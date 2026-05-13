@@ -1,159 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E173E9C30;
-	Wed, 13 May 2026 10:35:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4279237756C;
+	Wed, 13 May 2026 10:44:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778668521; cv=none; b=LAMjsDfq7yulamku6EHpO0rX7DTE1yY6Vqv+h0v8B5y1WT5Hnq5D4L+3us/3jFjM+kbxpj9KQ8PUzlDmv07fckj0q5NUWMWRGuKzDTgZftMeCbBbvis01JIEijch04iqPK7g7MtaTr8jhrfbqVGndKikm3xF53K1R6D1lqwHWiU=
+	t=1778669066; cv=none; b=hC3WxO52dj90ngxZdqGy2n6QEq+kWAd9X5sFDhn9TL5P8lVNKzLuvsFx1p6jPY2Cw9pV2WxBm7M0DRw68rdWuhtP6NZo30gIKE8cyOhej4krOpjYrNXrD/a1DAN3l835S8O97pLQ4edRbjXHZFuxqWArqz7GM5WNaGgC4jp5vqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778668521; c=relaxed/simple;
-	bh=LJEnQGCxmpT8H5OOyRq2BjQAVPyNqXeudAIu9GFxSBM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bJFd0ZSP/KIx3y98hBPRWC3ccE7rGOR0h/W8XzetpTC0RNVGtbDQ0nEYdlsL48eOlTBhzai6+++rXH/W5fwvTUUANWIAKZGPhtdOauMuAD+lN2PjmUyH9LiphDyAf3ACIsyl+seUlwojDLm8HpuVLhXgd7tcEBqnAyh8cKRQKcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jjtiSQSE; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778669066; c=relaxed/simple;
+	bh=Q/1J667b6JukHamYOF9bAnOtePDVGZhfSHJBpMaACFA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=cnGbz+kY3n8xAzpCQrjAuxdxWowhd6Ab1y4/SOpcWvq4/MmA65tscujuN4eOmP5DsXsnbtcQJo5Y/JGYTCPlfx0FC1c0YeSvYTRj5Wu9aAEye98BgXCaX25gTQAgwpeiH402XkvQED4OtuKg/WVkmlzexuc2MMfZ8b3JX5fZKVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=usg5Lj2k; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jjtiSQSE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3876C2BCC7;
-	Wed, 13 May 2026 10:35:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="usg5Lj2k"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1B085C2BCC7;
+	Wed, 13 May 2026 10:44:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778668521;
-	bh=LJEnQGCxmpT8H5OOyRq2BjQAVPyNqXeudAIu9GFxSBM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jjtiSQSEtVPbIQJULENgyqQ5HO7XywtjOTdlcLlC74wDqaqhWZPu0sQj85LErqBCF
-	 8yGKDWkzxs1/9st2SY33taBno/GNZezEVQ7WRORKiHKejxz8XhV17jsakPBjsqha9k
-	 M2HDS3URszd6y33KiecijcY/nxGyHQfevQjKWlHw9TkJUmW4EVkFiMfRR+gS22+bbJ
-	 +LvDphHRmJ0CxgR6ZDRxbpzc/ODKf98Upw2byXQ0ROtyWmmYjcEX0+ywXyDVKU7zVp
-	 idljGyhQlVdxWm5q6VV9bi50f2SbwxVr4UrhOmN1VdgyR2ZSLbHHYBzoOddEc84WwQ
-	 +rVJVuOEz5ixw==
-Date: Wed, 13 May 2026 12:35:18 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org,
-	devicetree@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH net-next v6 11/12] net: airoha: Support multiple LAN/WAN
- interfaces for hw MAC address configuration
-Message-ID: <agRT5gMzYuk2qqsX@lore-desk>
-References: <20260511-airoha-eth-multi-serdes-v6-11-c899462c4f75@kernel.org>
- <20260512234745.34227C2BCB0@smtp.kernel.org>
+	s=k20201202; t=1778669066;
+	bh=Q/1J667b6JukHamYOF9bAnOtePDVGZhfSHJBpMaACFA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=usg5Lj2kfs/N/Yj4cByAT0HcRxuVlorJrmluiBvNYI9NxJHVGH9La3rrjlPCiTTqp
+	 9l7UYO/5AIm09Ch6fqkSmWNptMcwOC2q1OAUP18Jm9dWjPxlFG+jIZ6hkvX/DI1ciK
+	 HiZnEEbYL7tMl4mAWDSBtXW/PKmrjcU42wQha2UrLk6goAnvZUEXsUoXFiRs2CkEWz
+	 nfVxe3xzSSzN9H/hcYxyeAuM1rU2h7xKrkVehzOscBS9tdUFXzDw/iOevdrxT8E0Cl
+	 2Uac8JO7qKlFCF0kMnR2wbvdUMPKWy2j8xGdJ1KG9Wd27a1HzoFcjgWQyTSbp2Op0y
+	 qEMB3+KXK2uMA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C808CD4F35;
+	Wed, 13 May 2026 10:44:26 +0000 (UTC)
+From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
+Date: Wed, 13 May 2026 12:43:53 +0200
+Subject: [PATCH v2 1/3] arm64: dts: amlogic: t7: Fix pwm_ao_c pinmux
+ definitions
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="HK6WfaX2FoNzYPzr"
-Content-Disposition: inline
-In-Reply-To: <20260512234745.34227C2BCB0@smtp.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260513-add-kvim4-sysled-v2-1-3ec9779e8875@aliel.fr>
+References: <20260513-add-kvim4-sysled-v2-0-3ec9779e8875@aliel.fr>
+In-Reply-To: <20260513-add-kvim4-sysled-v2-0-3ec9779e8875@aliel.fr>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ronald Claveau <linux-kernel-dev@aliel.fr>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1447;
+ i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
+ bh=S8vmDbpcy+8DmhnO1mnKiM+pacEbgZmrZKQgB8iqYaE=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQxZLGOv0hgNf+i5bybt/Lf/w65llG6PB+79sFQ1+mYf+H
+ +pzidzVUcrCIMbFICumyNI/1/LEu8tHz3zdo54CM4eVCWQIAxenAExE+TXD/7hMxv/3bOuyBGZ1
+ 61yMOs1/tiVW++Ppm9o8HKJVuTs7mBgZ+mdHJt0QFL5ekjx57g4dlQexbvqpK0/vuFwx5e0k+wZ
+ 7BgA=
+X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
+ fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
+X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
+ auth_id=744
+X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Reply-To: linux-kernel-dev@aliel.fr
+
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+
+The pwm_ao_c pin node was incomplete: it was missing the group name
+suffix, conflating two distinct pin groups (pwm_ao_c_d and pwm_ao_c_e)
+into a single, ambiguous entry.
+
+Split the node into two separate pinmux entries:
+  - pwm_ao_c_d_pins: uses group "pwm_ao_c_d"
+  - pwm_ao_c_e_pins: uses group "pwm_ao_c_e"
+
+Both alternate pins are not yet referenced by any peripheral node,
+so this has no functional impact on existing boards. No backport needed.
+
+Fixes: ee6e05a49b93 ("arm64: dts: amlogic: t7: Add PWM pinctrl nodes")
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+---
+ arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+index 7fe72c94ed623..62f6b9baad28b 100644
+--- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
++++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+@@ -400,9 +400,17 @@ mux {
+ 					};
+ 				};
+ 
+-				pwm_ao_c_pins: pwm-ao-c {
++				pwm_ao_c_d_pins: pwm-ao-c-d {
+ 					mux {
+-						groups = "pwm_ao_c";
++						groups = "pwm_ao_c_d";
++						function = "pwm_ao_c";
++						bias-disable;
++					};
++				};
++
++				pwm_ao_c_e_pins: pwm-ao-c-e {
++					mux {
++						groups = "pwm_ao_c_e";
+ 						function = "pwm_ao_c";
+ 						bias-disable;
+ 					};
+
+-- 
+2.49.0
 
 
---HK6WfaX2FoNzYPzr
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
-e(s) to consider:
-> - [High] Strict OUI matching logic breaks random MAC initialization and c=
-reates a MAC configuration deadlock.
-> - [Medium] Unaligned stack array passed to Ethernet helper functions.
-> --
->=20
-> commit c741e4a94d25c6203f98c2a4392d2ea65e6c3156
-> Author: Lorenzo Bianconi <lorenzo@kernel.org>
->=20
-> net: airoha: Support multiple LAN/WAN interfaces for hw MAC address confi=
-guration
->=20
-> This commit extends the hardware LAN/WAN MAC address configuration logic =
-to
-> derive the correct minimum and maximum values when multiple interfaces are
-> configured as LAN or WAN. It assumes all interfaces configured in the same
-> group share a common upper MAC address.
->=20
-> > diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/eth=
-ernet/airoha/airoha_eth.c
-> > --- a/drivers/net/ethernet/airoha/airoha_eth.c
-> > +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-> > @@ -71,20 +71,67 @@ static void airoha_qdma_irq_disable(struct airoha_i=
-rq_bank *irq_bank,
-> >  	airoha_qdma_set_irqmask(irq_bank, index, mask, 0);
-> >  }
-> > =20
-> > -static void airoha_set_macaddr(struct airoha_gdm_dev *dev, const u8 *a=
-ddr)
-> > +static int airoha_set_macaddr(struct airoha_gdm_dev *dev, const u8 *ad=
-dr)
-> >  {
-> >  	struct airoha_eth *eth =3D dev->eth;
-> > -	u32 val, reg;
-> > +	u8 ref_addr[ETH_ALEN] =3D {};
->=20
-> Is this stack array missing a 16-bit alignment attribute?
->=20
-> ether_addr_copy() and is_zero_ether_addr() require their arguments to be
-> 16-bit aligned. On systems lacking CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS,
-> passing an unaligned stack array cast to a u16 pointer will cause alignme=
-nt
-> traps.
->=20
-> Could this be declared with __aligned(2) or as a u16 array?
-
-ack, I will fix it in v7.
-
->=20
-> [ ... ]
-> > +			if (netdev->reg_state !=3D NETREG_REGISTERED)
-> > +				continue;
-> > +
-> > +			ether_addr_copy(ref_addr, netdev->dev_addr);
-> [ ... ]
-> > +	if (!is_zero_ether_addr(ref_addr) && memcmp(ref_addr, addr, 3)) {
-> > +		/* According to the HW design, hw mac address MS bits
-> > +		 * must be the same for each net_device with the same
-> > +		 * LAN/WAN configuration.
-> > +		 */
-> > +		return -EINVAL;
-> > +	}
->=20
-> Can this strict OUI matching break device probe or create a configuration
-> deadlock?
->=20
-> If the device tree does not provide MAC addresses, the driver generates r=
-andom
-> MACs via eth_hw_addr_random(), which produces differing OUIs. When the se=
-cond
-> interface attempts to register during probe, this check will fail,
-> register_netdev() will return -EINVAL, and the entire driver probe will a=
-bort.
->=20
-> Additionally, can this prevent userspace from migrating the MAC addresses=
- to a
-> new OUI using "ip link set"?
->=20
-> The first interface update attempt would be rejected because its new OUI
-> would not match the OUI of the remaining unmodified interfaces.
-
-As already pointed out, this is a requirement imposed by the hw design.
-
-Regards,
-Lorenzo
-
->=20
-> --=20
-> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260511-airoha-eth-=
-multi-serdes-v6-0-c899462c4f75@kernel.org?part=3D11
-
---HK6WfaX2FoNzYPzr
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCagRT5gAKCRA6cBh0uS2t
-rLW/AQD4m7PAEXyvb3gFS9eyNox/xtKbmG3rc517uPAgmLhtygD/Y938DMlZwZa2
-cp/j+aZgwDWrz2s2RIsT2h0HXkQJ1Ak=
-=grwD
------END PGP SIGNATURE-----
-
---HK6WfaX2FoNzYPzr--
