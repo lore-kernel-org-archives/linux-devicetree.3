@@ -1,249 +1,295 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775CC43D51E
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 14:31:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B14341065;
+	Wed, 13 May 2026 14:31:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778682696; cv=none; b=RJk4+YArL2ZA8cjjNxHaDwRt0AMyB4OrsdJqd7Qo02+jwZTIcJ0RsrbU73cR8pzVqL2PqQGvOEUQep71z/zf7ETmdvk8SZEHDFzOhSl1aTHucBE9Qt3b1XVq6J+BRDRUjzuhcYYGTbB4wF6DTJwS99LBkov92sWLbL7tAjdTqGE=
+	t=1778682718; cv=none; b=DDclK1O0gwS4XmcHRVJSaUAOFmKM6BaV7fVwx0qT3ZZfJwuYfnsUbtkoZnLXUxDORvXdhn8FSvl1MXVwdV3VEKZDVcU5CVK8AzLekUgvGcGtWbBUxBB7NLnQjbR0yZZrgU9KSKFK2DAzplVqqkrY9BiTEvZKvn65p2fbXuZVq9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778682696; c=relaxed/simple;
-	bh=wUc9lMKXkCeotpgFm95ubkEbe9ZQWC+fBE/j+Hm0hDs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NVx5Jsw40bCXYor5jvWoq4W//sddJxHG7ID1ej0rIpmN6YoCNGmMNoerXOJy6zKOpd+JiboGGNzWlEaSHRzOsYk8woYq2Y4TVwiN7c2dvZjsVn5EDMNSISpzY3c0mdAWkSN0h4lBDQ3QvFVJ/5JSKBbtOmEmDbW49vm01KZEBu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=clrZphC1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=X6Bq21oE; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1778682718; c=relaxed/simple;
+	bh=q5+gkIQ8WoDNLECCchYc8sA8GMbZ8W7SV0eUdH+eKkc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DlHrpdmQUaaYwhvWdmuZmfVbKxr1/gE8sobgQWbRqHI/AqpM7+iIbbb99LMGQDuXsfwDCq/eWvTLSsrQ9rgDJAee+bNCoQE+hZ2W6xGDy7tN5lXDGNolq/QvayF35tMPUiK9x3md/CMMwtA6OTdV+BDucr33Du6cmmItwl2cGr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=B/XCR+Dp; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="clrZphC1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X6Bq21oE"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64DAe5Gh1393047
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 14:31:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/lRuLzIXlukujnHHTg5x8pIPyqWqQhCl4lFaASY0Pd8=; b=clrZphC1X3MFyXIN
-	AGBmOgAA0apGMkojnBUd0zElQPipNJCE8yCywlJL4G9ICNYp4eJPaQ9owhxfcxwL
-	X3TfbzBBPO2H1710f/an80qFgb7aNQjNRqNyOLJtsrfDkyd6Vxnll3lU3LZDdcw2
-	xH/Dk0roz+cMqEeWnAy/LoszF2YzNfLvZQlFZ5P4Q+z+lTb6RtCojfcMrrOPXnOG
-	aP2ntd/21CVtIiwuAFqBe++LCUCT1bMtQf+k10dngWnotYsIlJX8QqfNcXFKqu8f
-	2GPkkiZdJy+8YQ2ub1R9SSpZgIrASZvyG88dGf3uAHePTE26BgJjUexOPeQYT9c8
-	IxsIQg==
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4k2623w3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 14:31:32 +0000 (GMT)
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7dcc9e6b772so16032660a34.0
-        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 07:31:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778682692; x=1779287492; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=/lRuLzIXlukujnHHTg5x8pIPyqWqQhCl4lFaASY0Pd8=;
-        b=X6Bq21oELhQ9BkY1DEhVYIc3y9cGSBirt88E2LfsmZaWSppWhm84R5TKBbjmnPiNNC
-         4DfkrNNYyeHwfN+HCfFJfwQ0Ht7PAsnglEDAk/RLv5t9H7VGiLZ+3hPi3x9M1EQviF8+
-         Jpgw3yOoaYagxjy2+1S8KIpguClCu6ZCqo5f0/MLalOwyCiwkPrue3XzsTPBnhZ2pAOD
-         qfV0UaaAJLPGfFF6ZXuBSF67c3dy+L1Ol9FdyZa1EOPgBARfh8MzgbErq6BXktza/oTT
-         c+8J8/m7FJqx6Dria8UH18wd/+oorxhG9fQQxPSbB1GhuFGyVEEc+KM91LHiyekHbzU0
-         oMwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778682692; x=1779287492;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=/lRuLzIXlukujnHHTg5x8pIPyqWqQhCl4lFaASY0Pd8=;
-        b=Dk5SeK/sZR2jaEVyihQUb4ZIVLnfPwsd6wjOvdWwf+OfJN9RRNOAk7C4Md72zM4h07
-         /0lhrRir0azo5sHlYAag61OYDiNy0Jg+Ontnl7D8vrjD0/6qN8a2Cdr7UjbNZfZxX/1p
-         PLOZ76h5VMdClnDKtodZ2zLIbUHr31pfU1bQxC3uDydHm37GHDfsSOGkrO0vhe6NW4jM
-         Hy4Pphwp9T3UQFK6R4/Mao8gLIM9BCCxkHfXnEEzB7CLBfcmRkCkeF+tIuc5WtORj2Um
-         ZiAhC/0tD6m4iJK+WocoXX15DHMVfXL7uKYb06NqCeiaES9muNiwnqrLItlTkY8WyJ2N
-         G9Bw==
-X-Forwarded-Encrypted: i=1; AFNElJ8Xyz9rN6evBjik+i9s4KX8dN1f6fCs9xinOoIPsljarYXbm+YqIRdyPPdwsRusB2HlsKUco2+iY09V@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz7MQp358fcTEHCAfNfNSK9S2BsrT/N/vrU1kpPh03VZgXeEnvi
-	kJFCqZSANs8kn2OIlvA8zgqrCipF51wklXXAUzb2wiogXU5TujOi1JSQrIY7SXnbIscQgXKveOv
-	dTjyrW4o6nEhPO6GJga4U2n3zFBZnXecLVV68W/POwSnWXwGwQkH6hbhjUVEC9XuH
-X-Gm-Gg: Acq92OESU5V48X1iQqGwyf2eYxVNeosWFCKCnZ6lw8ikzT0qvLSAkguoWIm2YxQl8qf
-	loBcUA5mIGW/1W/OK9JC5eBr+xtFSyHEmZCOYafU2FwIOtTUjUF3AtI8FXyfdO2WtJfCrQ4LKVj
-	afP+RP/A2APmOT/6X7u/NCjHxPhSV9f6a7nSWCJ4KVnqDdRZIUAu5RUBx+KDyXaiqmsy++pOcz4
-	qyAuL7XMODTgbRvoYWIfNF/pQz3E2cv4XcSFWhACMvVmYaDMish+wYHD4N3syLOC9D6Vio9Zwud
-	AWLSvwf5aYgsWyLujwX6YazvEktOwN2TKZrn867lMNBLDCmIvBMuyqk5FgYJEbh+cCAr2kGd7v2
-	m3BrI96ljZMfXb0tgSCti2Tnf/APmd69ykvGwvxum1grVQP05Q5hZAMWAvvqOope2lfCfD3KmA8
-	RQsSp2AF8VUr92/z2JWgX59fCEyq6hL4UCf/w=
-X-Received: by 2002:a05:6830:6e89:b0:7dc:cf5d:df17 with SMTP id 46e09a7af769-7e3bd3b5102mr3695426a34.18.1778682691688;
-        Wed, 13 May 2026 07:31:31 -0700 (PDT)
-X-Received: by 2002:a05:6830:6e89:b0:7dc:cf5d:df17 with SMTP id 46e09a7af769-7e3bd3b5102mr3695403a34.18.1778682691234;
-        Wed, 13 May 2026 07:31:31 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a8a9515087sm4106065e87.12.2026.05.13.07.31.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 13 May 2026 07:31:30 -0700 (PDT)
-Date: Wed, 13 May 2026 17:31:28 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Akash Kumar <akash.kumar@oss.qualcomm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-usb@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: lemans: Enable eud support
-Message-ID: <rwf5xrib7dba5clavznhhmvyqbjejeujy6omotnheisu2ke7de@zpm6ea7f7f46>
-References: <20260512091422.1395490-1-akash.kumar@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="B/XCR+Dp"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 718B23BAFBE;
+	Wed, 13 May 2026 16:31:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1778682702; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=wGwrTVlpyBxr5qWW8aL6TnSMvsiSJT067Q2+nosA5bY=;
+	b=B/XCR+DppU55EwSeXtuREkvRdYJcODV2tA4Bs+pSGoSOsZcxKQlZn49Y9eVK1VjaQBuULO
+	AAC/1kQThRW+65OdfiVAVA8bHancXLltsLEA7UxbqVilt8Y7kxTzFCQ89L+K9kyRD5mhCF
+	OpwGEShdNuRwHXCBnn/9Yo33iDHQvDMnypXTRAtsdLBDRad+aRdbX9/0bRkZgOAv+t3xQW
+	5bGyg5CdU3KYaDUvWkSekOwAwDHzM/CXVIDGSMsEX+9mFEEokHNR9RdZ2eqjKzDnx3vn5u
+	VDPHUsA4wc2z3DIZZBVH85Zkz2jmoMsaLywFmhdOex+0J2g2ThWLzyFBdm/NCA==
+Message-ID: <a4f84ba5-fe28-4674-b91b-33438f5478fb@cjdns.fr>
+Date: Wed, 13 May 2026 16:31:32 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260512091422.1395490-1-akash.kumar@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=M/l97Sws c=1 sm=1 tr=0 ts=6a048b44 cx=c_pps
- a=OI0sxtj7PyCX9F1bxD/puw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=VwQbUJbxAAAA:8 a=clN1VyBAevDfDM2Nx5IA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=Z1Yy7GAxqfX1iEi80vsk:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTEzMDE0OSBTYWx0ZWRfX/wEUmAPKyg3S
- S5ZfgxVHv9Cl6Q2A7olIQI3oZN34ka2u4lbQclw8DXRYM74DkNNg99UlcRTdQn6HjDHxwS46HUK
- dlPHEXIOOmLOxVzBJHp70ziZuUOd9g6qI0f73cdWSmrqM5MEAhDRKjPEq/akbXNpJF7BGemHEgg
- mPLAg0GFgdiqb3ikUhDZt77HnTFs2F1ukyhhpyF+Ivy6zbp77NL9W1GucFo4YPoE/aVAzrkkfXj
- ihSo50S9IhKbQA7bfAiNo2XaR3RLXVBr+4KnPcotd/aJAkzLp8FR2Amnd6Gsa3Syvky9dje21vA
- 5fdnAMq4sGzHl3AtRTSlDRtY4G3CG2l7tcwRarpNgegSFn8ZsUhOvXuq3Wk2PHFPhXjA/MBx6fS
- 0F5G11EPQrHSBNXfKdqs9gK5fEBDIKVtYpjRPbMVe2mc+MjvCWujmpccokc3liWJl0Y4jOALpTQ
- AhQ3L5Lr8HlOOAarCFA==
-X-Proofpoint-ORIG-GUID: QWgBMckpgzt0WLE4hGBQDKYW387Vl4SC
-X-Proofpoint-GUID: QWgBMckpgzt0WLE4hGBQDKYW387Vl4SC
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-13_01,2026-05-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 impostorscore=0 malwarescore=0 suspectscore=0
- spamscore=0 phishscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605130149
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v5 2/2] PCI: mediatek: Add support for EcoNet EN7528 SoC
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-mips@vger.kernel.org,
+ naseefkm@gmail.com, ryder.lee@mediatek.com, helgaas@kernel.org,
+ lpieralisi@kernel.org, kwilczynski@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, ansuelsmth@gmail.com,
+ linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260413140339.16238-1-cjd@cjdns.fr>
+ <20260413140339.16238-3-cjd@cjdns.fr>
+ <duchbakmiuf4ffmhgkoioq3qpxaybcevtcdduwiv2gf56j5ncr@kszd5v54ph3q>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <duchbakmiuf4ffmhgkoioq3qpxaybcevtcdduwiv2gf56j5ncr@kszd5v54ph3q>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, May 12, 2026 at 02:39:26PM +0530, Akash Kumar wrote:
-> Add the EUD controller node in lemans.dtsi and update the USB HS
-> endpoint routing on lemans-evk to pass through EUD instead of linking
-> the connector directly to usb_0_dwc3_hs.
-> 
-> Wire the OF graph endpoints between the connector, EUD and DWC3 HS
-> controller to enable the EUD path on lemans EVK.
-> 
-> This change is part of series "Improve Qualcomm EUD driver and
-> platform support" and has been validated on the Qualcomm Dragonwing platform
-> (RB8 board), confirming successful OpenOCD connectivity to the EUD
-> interface. For detailed usage instructions, refer to Qualcomm’s Linux
-> kernel debugging guide:
-> https://docs.qualcomm.com/bundle/publicresource/topics/80-70020-12/debugging_linux_kernel.html#debug-using-openocd
-> 
-> Signed-off-by: Akash Kumar <akakum@qti.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/lemans-evk.dts | 12 ++++++++++--
->  arch/arm64/boot/dts/qcom/lemans.dtsi    | 26 +++++++++++++++++++++++++
->  2 files changed, 36 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/lemans-evk.dts b/arch/arm64/boot/dts/qcom/lemans-evk.dts
-> index c665db6a4595..96d316867c0e 100644
-> --- a/arch/arm64/boot/dts/qcom/lemans-evk.dts
-> +++ b/arch/arm64/boot/dts/qcom/lemans-evk.dts
-> @@ -55,7 +55,7 @@ port@0 {
->  				reg = <0>;
->  
->  				usb0_con_hs_ep: endpoint {
-> -					remote-endpoint = <&usb_0_dwc3_hs>;
-> +					remote-endpoint = <&eud_con>;
->  				};
->  			};
->  
-> @@ -510,6 +510,14 @@ queue3 {
->  	};
->  };
->  
-> +&eud_ep {
-> +	remote-endpoint = <&usb_0_dwc3_hs>;
-> +};
 
-If this is a static binding, this should be a part of the lemans.dtsi.
+On 12/05/2026 13:55, Manivannan Sadhasivam wrote:
+> On Mon, Apr 13, 2026 at 02:03:39PM +0000, Caleb James DeLisle wrote:
+>> Add support for the PCIe present on the EcoNet EN7528 (and EN751221) SoCs.
+>>
+>> These SoCs have a mix of Gen1 and Gen2 capable ports, but the Gen2 ports
+>> require re-training after startup.
+>>
+>> Co-developed-by: Ahmed Naseef <naseefkm@gmail.com>
+>> Signed-off-by: Ahmed Naseef <naseefkm@gmail.com>
+>> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
+>> ---
+>>   drivers/pci/controller/Kconfig         |   2 +-
+>>   drivers/pci/controller/pcie-mediatek.c | 133 +++++++++++++++++++++++++
+>>   2 files changed, 134 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/pci/controller/Kconfig b/drivers/pci/controller/Kconfig
+>> index 686349e09cd3..5808d5e407fd 100644
+>> --- a/drivers/pci/controller/Kconfig
+>> +++ b/drivers/pci/controller/Kconfig
+>> @@ -209,7 +209,7 @@ config PCI_MVEBU
+>>   
+>>   config PCIE_MEDIATEK
+>>   	tristate "MediaTek PCIe controller"
+>> -	depends on ARCH_AIROHA || ARCH_MEDIATEK || COMPILE_TEST
+>> +	depends on ARCH_AIROHA || ARCH_MEDIATEK || ECONET || COMPILE_TEST
+>>   	depends on OF
+>>   	depends on PCI_MSI
+>>   	select IRQ_MSI_LIB
+>> diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/controller/pcie-mediatek.c
+>> index 75722524fe74..915a35825ce1 100644
+>> --- a/drivers/pci/controller/pcie-mediatek.c
+>> +++ b/drivers/pci/controller/pcie-mediatek.c
+>> @@ -7,6 +7,7 @@
+>>    *	   Honghui Zhang <honghui.zhang@mediatek.com>
+>>    */
+>>   
+>> +#include <asm-generic/errno-base.h>
+>>   #include <linux/clk.h>
+>>   #include <linux/delay.h>
+>>   #include <linux/iopoll.h>
+>> @@ -14,6 +15,7 @@
+>>   #include <linux/irqchip/chained_irq.h>
+>>   #include <linux/irqchip/irq-msi-lib.h>
+>>   #include <linux/irqdomain.h>
+>> +#include <linux/kconfig.h>
+>>   #include <linux/kernel.h>
+>>   #include <linux/mfd/syscon.h>
+>>   #include <linux/msi.h>
+>> @@ -77,6 +79,7 @@
+>>   
+>>   #define PCIE_CONF_VEND_ID	0x100
+>>   #define PCIE_CONF_DEVICE_ID	0x102
+>> +#define PCIE_CONF_REV_CLASS	0x104
+>>   #define PCIE_CONF_CLASS_ID	0x106
+>>   
+>>   #define PCIE_INT_MASK		0x420
+>> @@ -89,6 +92,11 @@
+>>   #define MSI_MASK		BIT(23)
+>>   #define MTK_MSI_IRQS_NUM	32
+>>   
+>> +#define EN7528_HOST_MODE	0x00804201
+>> +#define EN7528_LINKUP_REG	0x50
+>> +#define EN7528_RC0_LINKUP	BIT(1)
+>> +#define EN7528_RC1_LINKUP	BIT(2)
+>> +
+>>   #define PCIE_AHB_TRANS_BASE0_L	0x438
+>>   #define PCIE_AHB_TRANS_BASE0_H	0x43c
+>>   #define AHB2PCIE_SIZE(x)	((x) & GENMASK(4, 0))
+>> @@ -148,12 +156,15 @@ struct mtk_pcie_port;
+>>    * @MTK_PCIE_FIX_DEVICE_ID: host's device ID needed to be fixed
+>>    * @MTK_PCIE_NO_MSI: Bridge has no MSI support, and relies on an external block
+>>    * @MTK_PCIE_SKIP_RSTB: Skip calling RSTB bits on PCIe probe
+>> + * @MTK_PCIE_RETRAIN: Re-train link to bridge after startup because some
+>> + *                    Gen2-capable devices start as Gen1.
+>>    */
+>>   enum mtk_pcie_quirks {
+>>   	MTK_PCIE_FIX_CLASS_ID = BIT(0),
+>>   	MTK_PCIE_FIX_DEVICE_ID = BIT(1),
+>>   	MTK_PCIE_NO_MSI = BIT(2),
+>>   	MTK_PCIE_SKIP_RSTB = BIT(3),
+>> +	MTK_PCIE_RETRAIN = BIT(4),
+>>   };
+>>   
+>>   /**
+>> @@ -753,6 +764,80 @@ static int mtk_pcie_startup_port_v2(struct mtk_pcie_port *port)
+>>   	return 0;
+>>   }
+>>   
+>> +static int mtk_pcie_startup_port_en7528(struct mtk_pcie_port *port)
+>> +{
+>> +	struct mtk_pcie *pcie = port->pcie;
+>> +	struct pci_host_bridge *host = pci_host_bridge_from_priv(pcie);
+>> +	struct resource *mem = NULL;
+>> +	struct resource_entry *entry;
+>> +	u32 val, link_mask;
+>> +	int err;
+>> +
+>> +	entry = resource_list_first_type(&host->windows, IORESOURCE_MEM);
+>> +	if (entry)
+>> +		mem = entry->res;
+>> +	if (!mem)
+>> +		return -EINVAL;
+>> +
+>> +	if (!pcie->cfg) {
+>> +		dev_err(pcie->dev, "EN7528: pciecfg syscon not available\n");
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	/* Assert all reset signals */
+>> +	writel(0, port->base + PCIE_RST_CTRL);
+>> +
+>> +	/*
+>> +	 * Enable PCIe link down reset, if link status changed from link up to
+>> +	 * link down, this will reset MAC control registers and configuration
+>> +	 * space.
+>> +	 */
+>> +	writel(PCIE_LINKDOWN_RST_EN, port->base + PCIE_RST_CTRL);
+>> +
+>> +	msleep(PCIE_T_PVPERL_MS);
+>> +
+>> +	/* De-assert PHY, PE, PIPE, MAC and configuration reset */
+>> +	val = readl(port->base + PCIE_RST_CTRL);
+>> +	val |= PCIE_PHY_RSTB | PCIE_PERSTB | PCIE_PIPE_SRSTB |
+>> +	       PCIE_MAC_SRSTB | PCIE_CRSTB;
+>> +	writel(val, port->base + PCIE_RST_CTRL);
+>> +
+>> +	writel(PCIE_CLASS_CODE | PCIE_REVISION_ID,
+>> +	       port->base + PCIE_CONF_REV_CLASS);
+>> +	writel(EN7528_HOST_MODE, port->base);
+>> +
+>> +	link_mask = (port->slot == 0) ? EN7528_RC0_LINKUP : EN7528_RC1_LINKUP;
+>> +
+>> +	/* 100ms timeout value should be enough for Gen1/2 training */
+>> +	err = regmap_read_poll_timeout(pcie->cfg, EN7528_LINKUP_REG, val,
+>> +				       !!(val & link_mask), 20,
+>> +				       PCI_PM_D3COLD_WAIT * USEC_PER_MSEC);
+>> +	if (err) {
+>> +		dev_err(pcie->dev, "EN7528: port%d link timeout\n", port->slot);
+>> +		return -ETIMEDOUT;
+>> +	}
+>> +
+>> +	/* Activate INTx interrupts */
+>> +	val = readl(port->base + PCIE_INT_MASK);
+>> +	val &= ~INTX_MASK;
+>> +	writel(val, port->base + PCIE_INT_MASK);
+>> +
+>> +	if (IS_ENABLED(CONFIG_PCI_MSI))
+>> +		mtk_pcie_enable_msi(port);
+>> +
+>> +	/* Set AHB to PCIe translation windows */
+>> +	val = lower_32_bits(mem->start) |
+>> +	      AHB2PCIE_SIZE(fls(resource_size(mem)));
+>> +	writel(val, port->base + PCIE_AHB_TRANS_BASE0_L);
+>> +
+>> +	val = upper_32_bits(mem->start);
+>> +	writel(val, port->base + PCIE_AHB_TRANS_BASE0_H);
+>> +
+>> +	writel(WIN_ENABLE, port->base + PCIE_AXI_WINDOW0);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>>   static void __iomem *mtk_pcie_map_bus(struct pci_bus *bus,
+>>   				      unsigned int devfn, int where)
+>>   {
+>> @@ -1149,6 +1234,46 @@ static int mtk_pcie_probe(struct platform_device *pdev)
+>>   	if (err)
+>>   		goto put_resources;
+>>   
+>> +	/* EN7528 PCIe initially comes up as Gen1 even if Gen2 is supported.
+>> +	 * The cannonical way to achieve Gen2 is to re-train the link
+>> +	 * immediately after setup. However, to save a lot of duplicated code
+>> +	 * we use pcie_retrain_link() which is usable once we have the pci_dev
+>> +	 * struct for the bridge, i.e. after pci_host_probe(). */
+> Use below style:
+>
+> 	/*
+> 	 * ...
+> 	 */
 
-> +
-> +&eud_con {
-> +	remote-endpoint = <&usb0_con_hs_ep>;
-> +};
-> +
->  &gpi_dma0 {
->  	status = "okay";
->  };
-> @@ -985,7 +993,7 @@ &usb_0 {
->  };
->  
->  &usb_0_dwc3_hs {
-> -	remote-endpoint = <&usb0_con_hs_ep>;
-> +	remote-endpoint = <&eud_ep>;
 
-The same, this should go to lemans.dtsi.
+Right, sorry, thanks.
 
->  };
->  
->  &usb_0_dwc3_ss {
-> diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/qcom/lemans.dtsi
-> index fe6e76351823..a8ab11681476 100644
-> --- a/arch/arm64/boot/dts/qcom/lemans.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
-> @@ -4003,6 +4003,32 @@ opp-384000000 {
->  			};
->  		};
->  
-> +		eud: eud@88e1000 {
-> +			compatible = "qcom,sc7280-eud", "qcom,eud";
 
-There should be a platform-specific compat too. The lemans.dtsi is
-not sc7280.
+>> +	if (pcie->soc->quirks & MTK_PCIE_RETRAIN) {
+>> +		int slot = of_get_pci_domain_nr(dev->of_node);
+> The returned value is not the slot number, but domain number. Both are different
+> numbering schemes.
+>
+>> +		struct pci_dev *rc = NULL;
+>> +		int ret = -ENOENT;
+>> +
+>> +		if (slot >= 0)
+>> +			rc = pci_get_slot(host->bus, PCI_DEVFN(slot, 0));
+> This looks wrong. If your intention is to find the Root Port of the hierarchy,
+> then you should do:
+>
+> 		pci_get_slot(host->bus, PCI_DEVFN(0, 0));
 
-> +			reg = <0 0x88e1000 0 0x2000>,
-> +				<0 0x88e3000 0 0x1000>;
 
-0x0 instead of just 0.
+Thank you for your review. What's happening here is the hardware exposes 
+two sets of registers for the two devices, but it expects that they 
+might all be controlled by one driver instance - so they hard-wired the 
+second root hub to slot 1. The Mediatek driver here wants to be 
+instantiated twice, so we end up with something like this:
 
-> +			interrupts-extended = <&pdc 11 IRQ_TYPE_LEVEL_HIGH>;
-> +
-> +			ports {
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +
-> +			port@0 {
-> +					reg = <0>;
-> +
-> +					eud_ep: endpoint {
-> +					};
-> +			};
 
-Incorrect indentation.
+0000:00:00.0 PCI bridge: MEDIATEK Corp. Device 0810 (rev 03)
+0000:01:00.0 Network controller: MEDIATEK Corp. MT7662E 802.11ac PCI 
+Express Wireless Network Adapter
+0001:00:01.0 PCI bridge: MEDIATEK Corp. Device 0811 (rev 02)
+0001:01:00.0 Network controller: MEDIATEK Corp. MT7603E 802.11bgn PCI 
+Express Wireless Network Adapter
 
-> +
-> +				port@1 {
-> +					reg = <1>;
-> +
-> +					eud_con: endpoint {
-> +					};
-> +				};
-> +			};
-> +		};
-> +
->  		usb_0_hsphy: phy@88e4000 {
->  			compatible = "qcom,sa8775p-usb-hs-phy",
->  				     "qcom,usb-snps-hs-5nm-phy";
-> -- 
-> 2.43.0
-> 
-> base-commit: https://lore.kernel.org/all/20260501170635.2641748-1-elson.serrao@oss.qualcomm.com/
-> change-id: Improve Qualcomm EUD driver and platform support
+So when it's domain 1, it's also slot 1 (unless the DT is written 
+backwards).
 
--- 
-With best wishes
-Dmitry
+
+The original code from Ahmed Naseef used a loop with pci_get_class() to 
+get all of the bridges that were on the right bus, but it was pointed 
+out in an earlier review that this would also re-train any hypothetical 
+bridge downstream of the root. So the current code specifically 
+re-trains the right bridge.
+
+I can re-send with this explanation wrapped up in the comment, or I 
+guess I could write a loop that tries slot 0 and 1 to find the bridge, 
+but I feel like the loop is a bit hair-splitting so I think my 
+preference would be to just explain it better.
+
+WDYT?
+
+Caleb
+
+
+>
+> - Mani
+>
