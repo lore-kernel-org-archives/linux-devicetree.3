@@ -1,156 +1,196 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2239368D53
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 04:06:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9651991D4
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 04:21:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778645183; cv=none; b=Q9vBPt7h/mtL8aPOpGvQESpG40aqCXRupqUzzDAuzndXbS1/nrR8xDLMl1OAYUKEYRY1DddwEBW3jVgIri/azI1q4OBc2h5y+Mix+/JiSkZ1IZegbAXKUK/bfgcmqLxpIZEStJS+2UOdHGQ98XN5vl5qI5tdmWxByZRiG/x1cvQ=
+	t=1778646107; cv=none; b=oWZg0EUuZEChxBulueACLUZMvfDWZeKtLjkHw/xLqvpWWqldXMGf68Z5JspqiaJM84fbU1vevYUmwzJsTKBvVWx5vNCgYCv3io1OWi4nq22mUfajbgOdn/0UveDluHgi6mXWxi7Vc0DAo2xoWUYORsdXiIq3SMOXNJd08ohuLjA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778645183; c=relaxed/simple;
-	bh=jpjHejlEtkGaBBk6MQW7sF5O/PptqQW8kQL4hQs6NV0=;
+	s=arc-20240116; t=1778646107; c=relaxed/simple;
+	bh=ZUp5hcdmAujcxM4Mdw4SLtHydUSZSCaTcjNdjRzpw74=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bX/abk+o/9D04qgJz+8zjlaVeCMA2E/mWCnTlAGPTfe4PySRjKWvjrZRq22IZDtqGZid5b3NWbgAbYAHoEAWlvlvMHwOalk1AqcsOldA0pzOjL7SijNPnwuCOcHBBatOREv6oTjbG5QR2ftaHigCpE0tGJsDfGLhiTIMymFkeJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q/h0K9NH; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=tMvOmc/SjDjkXoxu5m1msPPePg7mn9sPs3lCtqoeZOk4zGtzmlgdqx5RGy6HyPdD/z1+tXK6sKDNMxdkTzk+Z7UseQ+GpZP8y/lB/ysosLidthd5mQzitzPUVou21dft3lLP7rQ8GJJER19yucDDJGM+QukXcTAlYqNO2BIOyyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N2j4OY09; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q/h0K9NH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03F36C2BCC7;
-	Wed, 13 May 2026 04:06:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N2j4OY09"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA07DC2BCB7;
+	Wed, 13 May 2026 04:21:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778645183;
-	bh=jpjHejlEtkGaBBk6MQW7sF5O/PptqQW8kQL4hQs6NV0=;
+	s=k20201202; t=1778646107;
+	bh=ZUp5hcdmAujcxM4Mdw4SLtHydUSZSCaTcjNdjRzpw74=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=Q/h0K9NHXyfsLN7uVdBYzGI3O9e3+P//r1i1TsNVyHEBRZ6eZInJa0MZ/0fBnGuZz
-	 fgPzf26JICX+19PIaGPUqqegV037UDKZFdz8Xf6093dwgv+9b2AJaBK3g7QdRiG8bj
-	 qHx7idQxBZk3JDq4mdVDfoxa4xhHqV2ZDUnhDlD8T6rb59bmULW42Xrdg5xuQlT5u/
-	 9Vlopud+4GX8V5AZKwtoefjLmfEOXhGLn5fLcgGyH+R3ImfslVwOfIL0sMVLLhgE7v
-	 I0Alrx7gN+KuHDyNBav+Svsm1TRSaKb00LCgscLW8XKtiXq7CuyPGG1HFM7myzA6Bc
-	 blTh2iCj5VAnw==
+	b=N2j4OY09EsmDKqHh/yK5SfSD8A0LLkd+0dhTDJiQDwKREgmOJABZXdXggdvxpxdDr
+	 5+e6V0HKRCiGUMX7y+8nljhDrL7Tzuw2d+eYcbvY+XrPdYqmqqbppFXk/Gp3RI2UQp
+	 4DGTBwFB0KnDXZzWSKEOZzUe/z79hA5yifMJc/wgoVrdLT9xSb6jBRzcnHSq1yFGjx
+	 n8MMpqN0H/GQdJsfGifgoIZ85O/5fJUkd9p8DXxgrYBLy71Rs04d/mLB8R97klxQs4
+	 5/vrvXqj1NtcrXnadjGCVaO04kssKbE7t0A9n71GM0WrMfJprntSRcEplcpKQWvFkA
+	 4gJ4gW+FW/t2w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] arm64: dts: qcom: Introduce Shikra SoC base dtsi
+Subject: Re: [PATCH v2 2/3] soc: qcom: ice: Enable PM runtime for ICE driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Komal Bajaj" <komal.bajaj@oss.qualcomm.com>
-Cc: linux-phy@lists.infradead.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, conor+dt@kernel.org, robh@kernel.org, vkoul@kernel.org
-In-Reply-To: <20260512-shikra-dt-v1-2-716438330dd0@oss.qualcomm.com>
-References: <20260512-shikra-dt-v1-2-716438330dd0@oss.qualcomm.com>
+To: "Linlin Zhang" <linlin.zhang@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260512033750.3393050-3-linlin.zhang@oss.qualcomm.com>
+References: <20260512033750.3393050-3-linlin.zhang@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 13 May 2026 04:06:22 +0000
-Message-Id: <20260513040623.03F36C2BCC7@smtp.kernel.org>
+Date: Wed, 13 May 2026 04:21:46 +0000
+Message-Id: <20260513042146.EA07DC2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] Invalid PPI interrupt numbers (1, 2, 3, 0) are specified for the A=
-RMv8 generic timer instead of the architecturally required numbers (13, 14,=
- 11, 10).
-- [Medium] The `sdhc_1` node incorrectly uses RPMh interconnect tags (`QCOM=
-_ICC_TAG_ALWAYS`, `QCOM_ICC_TAG_ACTIVE_ONLY`) on an RPM-based interconnect =
-topology.
-- [Medium] The USB SuperSpeed wakeup interrupt (`ss_phy_irq`) directly refe=
-rences the GIC instead of routing through the MPM, breaking system wake-up =
-from deep sleep.
-- [Low] The `sdhc_1` node uses the undeclared macro `RPMHPD_CX` for its `po=
-wer-domains` property, which will cause a Device Tree compiler syntax error.
+- [Critical] Runtime PM transitions in legacy bindings target the consumer =
+device instead of the ICE driver, causing recursive PM calls and deadlocks.
+- [High] The ICE core clock remains permanently enabled, negating the power=
+ savings of runtime PM.
+- [High] Probe function unconditionally holds a PM runtime usage count, cau=
+sing underflows on removal or premature suspends during active consumer use.
+- [High] Missing PM runtime usage count decrement on error path in `qcom_ic=
+e_resume()`.
+- [Low] Unconditional assignment of PM operations produces dead code and co=
+mpiler warnings when PM is disabled.
 --
 
-commit e2ee94ef3a5741f2cb9aae14dbef52c5f4a760f1
-Author: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-Subject: arm64: dts: qcom: Introduce Shikra SoC base dtsi
+commit 06d65ce92438c9c71440b4209d19b0ada46013d3
+Author: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
 
-This commit adds initial device tree support for the Qualcomm Shikra SoC, an
-IoT-focused platform featuring a Cortex-A55 and Cortex-A78C cluster. It
-configures RPM-based power and clock management alongside various periphera=
-ls
-like USB, eMMC, and the generic timer.
+soc: qcom: ice: Enable PM runtime for ICE driver
 
-> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/q=
-com/shikra.dtsi
-> new file mode 100644
-> index 0000000000000..262c488add1ec
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
+The QCOM ICE driver manages the ICE core clock through direct calls to
+clk_prepare_enable() and clk_disable_unprepare(), which limits integration
+with platforms that rely on firmware-managed resources or platform-specific
+power management mechanisms.
+
+> diff --git a/drivers/soc/qcom/ice.c b/drivers/soc/qcom/ice.c
+> index b203bc685cadd..6f9d679b530cc 100644
+> --- a/drivers/soc/qcom/ice.c
+> +++ b/drivers/soc/qcom/ice.c
 
 [ ... ]
 
-> +		sdhc_1: mmc@4744000 {
-> +			compatible =3D "qcom,shikra-sdhci", "qcom,sdhci-msm-v5";
+> @@ -310,8 +311,8 @@ int qcom_ice_resume(struct qcom_ice *ice)
+>  	struct device *dev =3D ice->dev;
+>  	int err;
+> =20
+> -	err =3D clk_prepare_enable(ice->core_clk);
+> -	if (err) {
+> +	err =3D pm_runtime_resume_and_get(dev);
+> +	if (err < 0) {
+>  		dev_err(dev, "failed to enable core clock (%d)\n",
+>  			err);
+>  		return err;
+
+For legacy devicetree bindings, the ICE instance is instantiated using the
+consumer device, so dev points directly to the UFS device.
+
+If qcom_ice_resume() is invoked from within the UFS controller's own
+runtime_resume callback, does this cause a deadlock?
+
+rpm_resume() would detect that the device is already in the RPM_RESUMING
+state, and the thread would block waiting for itself to finish.
+
+Also, if qcom_ice_wait_bist_status(ice) fails later in this function:
+
+drivers/soc/qcom/ice.c:qcom_ice_resume() {
+    ...
+	qcom_ice_hwkm_init(ice);
+	return qcom_ice_wait_bist_status(ice);
+}
+
+Does this leak the PM usage count, since pm_runtime_put() is not called
+on the error path?
+
+> @@ -323,7 +324,7 @@ EXPORT_SYMBOL_GPL(qcom_ice_resume);
+> =20
+>  int qcom_ice_suspend(struct qcom_ice *ice)
+>  {
+> -	clk_disable_unprepare(ice->core_clk);
+> +	pm_runtime_put_sync(ice->dev);
+
+Does this cause a PM usage count underflow for legacy bindings?
+
+Since ice->dev is the consumer device, calling this during the UFS
+controller's runtime_suspend callback might drop the usage count below 0
+because the consumer's usage count is already 0.
+
+[ ... ]
+
+> @@ -716,24 +717,69 @@ EXPORT_SYMBOL_GPL(devm_of_qcom_ice_get);
+> =20
+>  static int qcom_ice_probe(struct platform_device *pdev)
+>  {
+> +	struct device *dev =3D &pdev->dev;
+
+[ ... ]
+
+> +	ret =3D pm_runtime_resume_and_get(dev);
+> +	if (ret < 0) {
+> +		dev_warn(dev, "Runtime PM fails to resume, ret: %d\n", ret);
+> +		return ret;
+> +	}
 > +
-> +			reg =3D <0x0 0x04744000 0x0 0x1000>,
-> +			      <0x0 0x04745000 0x0 0x1000>;
+>  	return 0;
+>  }
+> =20
+> +static void qcom_ice_remove(struct platform_device *pdev)
+> +{
+> +	pm_runtime_put_sync(&pdev->dev);
+> +}
+
+Does this create a race condition with the consumer device?
+
+The probe function holds a PM runtime usage count, and the driver seems to
+expect the consumer's suspend routine to drop this initial reference.
+
+If the UFS driver suspends, the ICE count drops to 0. If the ICE driver is
+subsequently unbound, qcom_ice_remove() will call pm_runtime_put_sync(),
+dropping the usage count to -1.
+
+Conversely, if ICE is unbound while UFS is resumed (count is 1),
+qcom_ice_remove() drops the count to 0, suspending the ICE hardware while
+the active UFS consumer is still relying on it for crypto operations.
 
 [ ... ]
 
-> +			interconnects =3D <&system_noc MASTER_SDCC_1 QCOM_ICC_TAG_ALWAYS
-> +					&mc_virt SLAVE_EBI_CH0 QCOM_ICC_TAG_ALWAYS>,
-> +					<&mem_noc MASTER_AMPSS_M0 QCOM_ICC_TAG_ACTIVE_ONLY
-> +					&config_noc SLAVE_SDCC_1 QCOM_ICC_TAG_ACTIVE_ONLY>;
-
-Since the Shikra SoC utilizes an RPM-based architecture, should this node u=
-se
-interconnect tags from qcom,rpm-icc.h (such as RPM_ALWAYS_TAG) instead?=20
-Passing RPMh interconnect tags from qcom,icc.h to an RPM interconnect provi=
-der
-might result in unhandled parameters or silent bandwidth request failures.
-
-> +			interconnect-names =3D "sdhc-ddr",
-> +					     "cpu-sdhc";
+> +static int ice_runtime_suspend(struct device *dev)
+> +{
+> +	struct qcom_ice *ice =3D dev_get_drvdata(dev);
 > +
-> +			power-domains =3D <&rpmpd RPMHPD_CX>;
+> +	clk_disable_unprepare(ice->core_clk);
+> +	return 0;
+> +}
 
-Does this power-domains assignment use an undeclared macro? RPMHPD_CX belon=
-gs
-to RPMh-based power domains, while this platform relies on RPMPD. This looks
-like it will cause a dtc syntax error during the build.
+Does the ICE core clock remain permanently enabled anyway?
 
-[ ... ]
+If the core clock is acquired in qcom_ice_create() using
+devm_clk_get_enabled() or devm_clk_get_optional_enabled(), it holds a
+permanent enable reference on the clock.
 
-> +		usb_1: usb@4e00000 {
-> +			compatible =3D "qcom,shikra-dwc3", "qcom,snps-dwc3";
-> +			reg =3D <0x0 0x04e00000 0x0 0xfc100>;
-
-[ ... ]
-
-> +			interrupts-extended =3D <&intc GIC_SPI 255 IRQ_TYPE_LEVEL_HIGH>,
-> +					      <&intc GIC_SPI 302 IRQ_TYPE_LEVEL_HIGH>,
-> +					      <&intc GIC_SPI 260 IRQ_TYPE_LEVEL_HIGH>,
-> +					      <&intc GIC_SPI 254 IRQ_TYPE_LEVEL_HIGH>,
-> +					      <&intc GIC_SPI 422 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-names =3D "dwc_usb3",
-> +					  "pwr_event",
-> +					  "qusb2_phy",
-> +					  "hs_phy_irq",
-> +					  "ss_phy_irq";
-
-The mpm node correctly maps pin 12 to GIC SPI 422 for the DWC3 ss_phy_irq.
-Could routing this directly to the GIC here instead of hierarchically throu=
-gh
-the mpm (e.g., <&mpm 12 IRQ_TYPE_LEVEL_HIGH>) prevent the hardware from
-waking up from low-power states upon USB activity?
+When ice_runtime_suspend() calls clk_disable_unprepare(), it would only
+decrement the clock's enable count from 2 back to 1, leaving the physical
+hardware clock continuously running.
 
 [ ... ]
 
-> +	timer {
-> +		compatible =3D "arm,armv8-timer";
-> +
-> +		interrupts =3D <GIC_PPI 1 IRQ_TYPE_LEVEL_LOW>,
-> +			     <GIC_PPI 2 IRQ_TYPE_LEVEL_LOW>,
-> +			     <GIC_PPI 3 IRQ_TYPE_LEVEL_LOW>,
-> +			     <GIC_PPI 0 IRQ_TYPE_LEVEL_LOW>;
-> +	};
+>  static struct platform_driver qcom_ice_driver =3D {
+>  	.probe	=3D qcom_ice_probe,
+> +	.remove =3D qcom_ice_remove,
+>  	.driver =3D {
+>  		.name =3D "qcom-ice",
+> +		.pm =3D &ice_pm_ops,
 
-Are these PPI interrupt numbers correct for the ARMv8 generic timer? The
-architecturally defined numbers are typically 13 for Secure, 14 for Non-sec=
-ure,
-11 for Virtual, and 10 for Hypervisor. Using invalid hardware IRQ lines here
-could prevent the kernel from receiving scheduler ticks and stall the boot.
+This isn't a bug, but should this use pm_ptr(&ice_pm_ops)?
 
-> +};
+When CONFIG_PM is disabled, SET_RUNTIME_PM_OPS expands to nothing,
+which leaves the static functions ice_runtime_suspend and
+ice_runtime_resume unreferenced and may cause unused-function warnings.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-shikra-dt-=
-v1-0-716438330dd0@oss.qualcomm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512033750.3393=
+050-1-linlin.zhang@oss.qualcomm.com?part=3D2
