@@ -1,34 +1,34 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA4113126C0;
-	Wed, 13 May 2026 13:18:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E4F2BD58A;
+	Wed, 13 May 2026 13:18:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778678294; cv=none; b=L3A2yijUQ7wmLhfUYhgq7KcpqxupXtCVmwMIXWi0DL5tVDrWZMiAAfPnK49jdujE/LmZRyAlNn4DsdQsqFnRoOsx8Qhv9opxujvB6w4vRaLe8hh6zkIYCBzsWmL8eGsdebdAMmKIl10QNEqtHpLboN+Kv9hJ0h3zO2S3asS1T9o=
+	t=1778678294; cv=none; b=cnUXtL1eRFYV3Lt8GEpzRZySd471LtZ+aUn3+j7fS55i3ily67Cpotq7IzdWc7gofc1LXCA0RU3c8gAeXZtBAoUp05PKdEAcYZCqBqB/4tw3zk9EsEMx0ol62Iqxf1CLriI5sh+XFwA/BvbXklB+m+AgMDIdUqDlwWfzdzaQIXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1778678294; c=relaxed/simple;
-	bh=qlAAHPuyfwHqortEyoSLGkoCaKp5dsbc6D/L7Uu8qiE=;
+	bh=vNhPG3gt1iNAQede4sSDJktbqWiYm6dT9TVVZYkS1Jg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=H5JNcNhjILZKFbbV1n7MPSrWLGUC5ZZ4Cp7uuaH8rzPK7er7BdnXgYxcVctpOjm2jFEA+pNsN/Sf2XtWbOadUWXdc/LPntyKcYZXIin36nPBSziBMzC4IKwr6R631bdrrfM7b9agQHlvcrUizfeIW6ewvCFLbV+Ch5FIaLMPQp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=CgcgVaZ0; arc=none smtp.client-ip=213.167.242.64
+	 In-Reply-To:To:Cc; b=LqaOx6lmasc4+mT9bYBpn3RhjDydUPvOTMbfDvKW/kIoQ443v4L0Mzj/J41VBq/nXyfEJwf2k5e0ta5RO9g724IcrHZ8t0z55GuHtihC0/mnjhXir7t6UQqno5Rl5CzAM6NlKEJhMPSU6w412Qj1iJvoomzyEXkz5WoNsZC4xdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=wmmeqmvc; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="CgcgVaZ0"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="wmmeqmvc"
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id CD3D12F0D;
-	Wed, 13 May 2026 15:17:57 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E8EFE2F84;
+	Wed, 13 May 2026 15:17:58 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1778678278;
-	bh=qlAAHPuyfwHqortEyoSLGkoCaKp5dsbc6D/L7Uu8qiE=;
+	s=mail; t=1778678279;
+	bh=vNhPG3gt1iNAQede4sSDJktbqWiYm6dT9TVVZYkS1Jg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=CgcgVaZ00ZC/gRlmRFZGJlc9i1nQ9FRvfwoVc/Z7w8FEqeHSo7wLubCqU+arj7ah2
-	 D+VWdUvXndyg8QywPaCSLxvKCrhPL1d5ZSTZatmE+92tXHx2hrPRnh3/CcN7ZhqEPD
-	 pT9iaCyqA9v8rzPL9c6X0gbZsUBqDhvC/X5Q4aaY=
+	b=wmmeqmvcAwYM3R3n48gpc9vcJ5xbooIoKw710g0UvU85u/2AvwUktsjnjpl1hNcGe
+	 PdPKryRzh6cr3VrxWa0YtSQJ6MOxdXugLpqx0MaB8hTsNJRDDtXh8vU+q8SjV1M2F9
+	 JULW1baHsJ8NhGAq8tCVfBxCeXsmX+Oe9jUqOFjg=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Wed, 13 May 2026 16:17:32 +0300
-Subject: [PATCH v2 10/16] drm/tidss: Add support for DPIENABLE bit
+Date: Wed, 13 May 2026 16:17:33 +0300
+Subject: [PATCH v2 11/16] drm/tidss: oldi: Fix OLDI signal polarities
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,7 +37,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260513-beagley-ai-display-v2-10-9e9bcefde6bc@ideasonboard.com>
+Message-Id: <20260513-beagley-ai-display-v2-11-9e9bcefde6bc@ideasonboard.com>
 References: <20260513-beagley-ai-display-v2-0-9e9bcefde6bc@ideasonboard.com>
 In-Reply-To: <20260513-beagley-ai-display-v2-0-9e9bcefde6bc@ideasonboard.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -53,129 +53,152 @@ Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.15-dev-c25d1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4235;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4997;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=qlAAHPuyfwHqortEyoSLGkoCaKp5dsbc6D/L7Uu8qiE=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqBHn/6E/+DIUFLlIWGpILW9sqFa7vxeqDtI08G
- VwHofIO+JGJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCagR5/wAKCRD6PaqMvJYe
- 9TDkD/4x3MiPYu9hRaFX1cGtbr//N7niKSvVzlTqlimNsME+DIQPoa/GBO/2L5DC199fOD+rGjI
- 81P7oO8yYuwK+OORdt380WW3EI6eIhUX/EGT63Mf90GYMCwtuZZPL2pKb33CFWw1kQgYAWvqqcd
- fDJuIR/MSJMxlWI4R0xHLP7lh1LmMqInYW+iWfJwrnUy79idDye9FqsS7EdjiiIDcHmkNAHmdAo
- J8E2mbtTYYyb35goiSa09D0LaeKTqDngI0RePeiFa79aFpmKIaUUKBYEG6KGULqOxYUKyISEhbH
- y1j6m6bH8jzqeMrjLzqqjSj7KVynVqrUKmnuacKyjeVCO69qYy2afB6ttbRuG7lMrTgD8WEGii1
- mhlxlYqZBD3ofIqOgW8HheHmxaW5wWDGFEsa9W5fjXhdfSTUKghsVVc4pC+aTMl40aKafKFvFYk
- d/qNRt5etaC/QjVeWZRuzMUdaG+oX5LtEKw1d9eXmPYs+rYwImfse3bEE/YvjAUo+CIb+EhWZvh
- OP5tt/eSwyKywB8BiOLAE/kamBsal1RU8SRF5XEIKElA3w2WMwQlv38wiE03Qq+o1+ByjICFBY8
- 4LNgFzKRi6q6B5ScALYewk3JIhEtrndZS4zP0XwmfZvBUXatLFshiEo35u46gZ+XXxAPsAoDEUe
- /Le5O2gk6gJQpFw==
+ bh=vNhPG3gt1iNAQede4sSDJktbqWiYm6dT9TVVZYkS1Jg=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqBHoADKKdxxycDiVBKEHdHXn6PBSrKmAg76JTO
+ qmDkuR18cWJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCagR6AAAKCRD6PaqMvJYe
+ 9f/uEACn14KBoTk3RisMc2V47Nm7Qa+OtgZ8ZtleGMyekyKkSb6msFgrJfz5VmQCiEqnb97Ur2R
+ +/STOmNOOM5++gVhOozKtzXBTcMYtTAWbHwgjMzxezpChXR0PSNKY2luLbBf2oQs23fidZfnRBc
+ lGDWz8jIU3162LDvBGsHmi79za1SXEfo0WqCzJg24yVRnwPZLSJsZiF5zM95plRJ6jY74Pi0GCf
+ nqv8PsYNEe1+zbYAw0tptHBmoCFLhEVgHfMtrVpkWctfmRSR1lA5SsHNz2eCYgh4KC1DVbDJFoH
+ WMXgxLFtxzaPrdqJDOd0wZ2B7IWUH8WAPJS86wcWToElMiebwHHKBTPEemjJv27iyM4HPpRWHQr
+ W22XWQ6rKNiLrFEpu91zwkdNcIzCf0eglWck+6IPZtnrgshRpeP5piZ0/Xn54g6ORuGzIR1jSL2
+ YsHBo+7OPKOJiH7h3hPdrQfiRLohkn38EWLMT1JGM5CbyAXltbr1c7GMRJAv4hb6gpU9UJSz5kQ
+ xfm2PAIJJtIv2pRsAN6ae1x5YV7q3e7v7tu9TTUi7ysUoX4KgBRMw2jp3tKL3EJVeP+edjUEP4m
+ aVs/MSxJEy9PcvDL01iYZlXtT4twt6xbiZOROXEbMNlEDoIf3LRat738O28RLvrKxsjwd9Dl4ZD
+ 8vRYMrNtjxuIB0A==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-Many (or even all?) K3 SoCs have DSS VP_CONTROL.DPIENABLE bit described
-in their documentation. This bit controls whether the DPI block is
-enabled, and is set to 1 by default (i.e. DPI is enabled at HW reset).
+OLDI has a few issues with how it handles the signal polarities:
 
-However, in almost all SoCs the setting does not actually do anything,
-and at the moment the bit is not managed by the driver.
+- It always sets OLDI_DEPOL, which means DE active low
+- It sets DRM_BUS_FLAG_DE_HIGH in struct drm_bridge_timings, i.e.
+  reverse to the OLDI_DEPOL
+- It sets DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE in struct drm_bridge_timings,
+  but the TRM says "The DSS interface is clocked on the rising edge of
+  OLDI_FWD_P_CLK pixel clock", which I read as "OLDI samples on rising
+  edge".
+- But the defined drm_bridge_timings is not actually used anywhere, even
+  if it is set to bridge->timings, so the bus flags are just ignored.
 
-The exception is AM62L, which does have DPIENABLE connected, and
-disabling the DPI block when it is not in use provides power savings.
+However, based on my testing, OLDI_DEPOL bit or the edge on which data
+and syncs are driven doesn't seem to affect the OLDI output. Possibly
+it's not as robust, but I did not see any effect with an oscilloscope.
 
-Let's add a new feature flag for this, 'has_vp_control_dpienable', and
-implement the support.  Disable DPIENABLE for all videoports at resume
-time, so that it is 0 by default. Specifically enable and disable it in
-dispc_vp_enable() and dispc_vp_disable() for DPI output.
+However, the code is still quite broken, so let's fix it:
+- Remove drm_bridge_timings
+- Set the correct input_bus_cfg.flags in tidss_oldi_atomic_check()
+- Set OLDI_DEPOL based on the DE bus flag
 
 Tested-by: Swamil Jain <s-jain1@ti.com>
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/tidss/tidss_dispc.c      | 23 +++++++++++++++++++++--
- drivers/gpu/drm/tidss/tidss_dispc.h      |  2 ++
- drivers/gpu/drm/tidss/tidss_dispc_regs.h |  1 +
- 3 files changed, 24 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/tidss/tidss_oldi.c | 38 ++++++++++++++++++++++++++++----------
+ 1 file changed, 28 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
-index 92cba069ed6c..82e0b3184cc4 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.c
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.c
-@@ -442,6 +442,8 @@ const struct dispc_features dispc_am62l_feats = {
- 	},
+diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
+index 17c535bfa057..e925ddaa4fd6 100644
+--- a/drivers/gpu/drm/tidss/tidss_oldi.c
++++ b/drivers/gpu/drm/tidss/tidss_oldi.c
+@@ -164,7 +164,8 @@ static void tidss_oldi_tx_power(struct tidss_oldi *oldi, bool enable)
+ 	regmap_update_bits(oldi->io_ctrl, OLDI_PD_CTRL, mask, enable ? 0 : mask);
+ }
  
- 	.vid_order = {0},
-+
-+	.has_vp_control_dpienable = true,
- };
- 
- static const u16 *dispc_common_regmap;
-@@ -1214,6 +1216,11 @@ void dispc_vp_prepare(struct dispc_device *dispc, u32 hw_videoport,
- 
- void dispc_vp_enable(struct dispc_device *dispc, u32 hw_videoport)
+-static int tidss_oldi_config(struct tidss_oldi *oldi)
++static int tidss_oldi_config(struct tidss_oldi *oldi,
++			     struct drm_bridge_state *bridge_state)
  {
-+	if (dispc->feat->has_vp_control_dpienable &&
-+	    dispc->vp_data[hw_videoport].dpi_output)
-+		VP_REG_FLD_MOD(dispc, hw_videoport, DISPC_VP_CONTROL, 1,
-+			       DISPC_VP_CONTROL_DPIENABLE_MASK);
-+
- 	VP_REG_FLD_MOD(dispc, hw_videoport, DISPC_VP_CONTROL, 1,
- 		       DISPC_VP_CONTROL_ENABLE_MASK);
+ 	const struct oldi_bus_format *bus_fmt = NULL;
+ 	u32 oldi_cfg = 0;
+@@ -183,7 +184,8 @@ static int tidss_oldi_config(struct tidss_oldi *oldi)
+ 			 "OLDI%u: DSS port width %d not supported\n",
+ 			 oldi->oldi_instance, bus_fmt->data_width);
+ 
+-	oldi_cfg |= OLDI_DEPOL;
++	if (bridge_state->input_bus_cfg.flags & DRM_BUS_FLAG_DE_LOW)
++		oldi_cfg |= OLDI_DEPOL; /* 1 = active low */
+ 
+ 	oldi_cfg = (oldi_cfg & (~OLDI_MAP)) | (bus_fmt->oldi_mode_reg_val << 1);
+ 
+@@ -220,6 +222,22 @@ static int tidss_oldi_config(struct tidss_oldi *oldi)
+ 	return ret;
  }
-@@ -1222,6 +1229,11 @@ void dispc_vp_disable(struct dispc_device *dispc, u32 hw_videoport)
+ 
++static int tidss_oldi_atomic_check(struct drm_bridge *bridge,
++				   struct drm_bridge_state *bridge_state,
++				   struct drm_crtc_state *crtc_state,
++				   struct drm_connector_state *conn_state)
++{
++	bridge_state->input_bus_cfg.flags &=
++		~(DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE |
++		  DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE);
++
++	bridge_state->input_bus_cfg.flags |=
++		DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
++		DRM_BUS_FLAG_SYNC_SAMPLE_POSEDGE;
++
++	return 0;
++}
++
+ static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
+ 					 struct drm_atomic_state *state)
  {
- 	VP_REG_FLD_MOD(dispc, hw_videoport, DISPC_VP_CONTROL, 0,
- 		       DISPC_VP_CONTROL_ENABLE_MASK);
+@@ -228,6 +246,7 @@ static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
+ 	struct drm_connector_state *conn_state;
+ 	struct drm_crtc_state *crtc_state;
+ 	struct drm_display_mode *mode;
++	struct drm_bridge_state *bridge_state;
+ 
+ 	if (oldi->link_type == OLDI_MODE_SECONDARY_CLONE_SINGLE_LINK)
+ 		return;
+@@ -245,10 +264,14 @@ static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
+ 	if (WARN_ON(!crtc_state))
+ 		return;
+ 
++	bridge_state = drm_atomic_get_new_bridge_state(state, bridge);
++	if (WARN_ON(!bridge_state))
++		return;
 +
-+	if (dispc->feat->has_vp_control_dpienable &&
-+	    dispc->vp_data[hw_videoport].dpi_output)
-+		VP_REG_FLD_MOD(dispc, hw_videoport, DISPC_VP_CONTROL, 0,
-+			       DISPC_VP_CONTROL_DPIENABLE_MASK);
+ 	mode = &crtc_state->adjusted_mode;
+ 
+ 	/* Configure the OLDI params*/
+-	tidss_oldi_config(oldi);
++	tidss_oldi_config(oldi, bridge_state);
+ 
+ 	/* Set the OLDI serial clock (7 times the pixel clock) */
+ 	tidss_oldi_set_serial_clk(oldi, mode->clock * 7 * 1000);
+@@ -329,7 +352,8 @@ tidss_oldi_mode_valid(struct drm_bridge *bridge,
  }
  
- void dispc_vp_unprepare(struct dispc_device *dispc, u32 hw_videoport)
-@@ -2445,10 +2457,17 @@ static void dispc_vp_init(struct dispc_device *dispc)
- 
- 	dev_dbg(dispc->dev, "%s()\n", __func__);
- 
--	/* Enable the gamma Shadow bit-field for all VPs*/
--	for (i = 0; i < dispc->feat->num_vps; i++)
-+	for (i = 0; i < dispc->feat->num_vps; i++) {
-+		/* Enable the gamma Shadow bit-field for all VPs*/
- 		VP_REG_FLD_MOD(dispc, i, DISPC_VP_CONFIG, 1,
- 			       DISPC_VP_CONFIG_GAMMAENABLE_MASK);
-+
-+		if (dispc->feat->has_vp_control_dpienable) {
-+			/* Disable DPIENABLE for all VPs */
-+			VP_REG_FLD_MOD(dispc, i, DISPC_VP_CONTROL, 0,
-+				       DISPC_VP_CONTROL_DPIENABLE_MASK);
-+		}
-+	}
+ static const struct drm_bridge_funcs tidss_oldi_bridge_funcs = {
+-	.attach	= tidss_oldi_bridge_attach,
++	.attach = tidss_oldi_bridge_attach,
++	.atomic_check = tidss_oldi_atomic_check,
+ 	.atomic_pre_enable = tidss_oldi_atomic_pre_enable,
+ 	.atomic_post_disable = tidss_oldi_atomic_post_disable,
+ 	.atomic_get_input_bus_fmts = tidss_oldi_atomic_get_input_bus_fmts,
+@@ -440,11 +464,6 @@ static int get_parent_dss_vp(struct device_node *oldi_tx, u32 *parent_vp)
+ 	return -ENODEV;
  }
  
- static void dispc_initial_config(struct dispc_device *dispc)
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.h b/drivers/gpu/drm/tidss/tidss_dispc.h
-index 6f53d554259c..0fbfb86adfbf 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.h
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.h
-@@ -92,6 +92,8 @@ struct dispc_features {
- 	u32 num_vids;
- 	struct dispc_vid_info vid_info[TIDSS_MAX_PLANES];
- 	u32 vid_order[TIDSS_MAX_PLANES];
-+	/* The DSS has VP_CONTROL.DPIENABLE bit */
-+	bool has_vp_control_dpienable;
- };
+-static const struct drm_bridge_timings default_tidss_oldi_timings = {
+-	.input_bus_flags = DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE
+-			 | DRM_BUS_FLAG_DE_HIGH,
+-};
+-
+ void tidss_oldi_deinit(struct tidss_device *tidss)
+ {
+ 	for (int i = 0; i < tidss->num_oldis; i++) {
+@@ -598,7 +617,6 @@ int tidss_oldi_init(struct tidss_device *tidss)
+ 		/* Register the bridge. */
+ 		oldi->bridge.of_node = child;
+ 		oldi->bridge.driver_private = oldi;
+-		oldi->bridge.timings = &default_tidss_oldi_timings;
  
- extern const struct dispc_features dispc_k2g_feats;
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc_regs.h b/drivers/gpu/drm/tidss/tidss_dispc_regs.h
-index 4cdde24d8372..4246c72efdd5 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc_regs.h
-+++ b/drivers/gpu/drm/tidss/tidss_dispc_regs.h
-@@ -230,6 +230,7 @@ enum dispc_common_regs {
- 
- #define DISPC_VP_CONTROL			0x4
- #define DISPC_VP_CONTROL_DATALINES_MASK			GENMASK(10, 8)
-+#define DISPC_VP_CONTROL_DPIENABLE_MASK			GENMASK(6, 6)
- #define DISPC_VP_CONTROL_GOBIT_MASK			GENMASK(5, 5)
- #define DISPC_VP_CONTROL_ENABLE_MASK			GENMASK(0, 0)
- 
+ 		tidss->oldis[tidss->num_oldis++] = oldi;
+ 		tidss->is_ext_vp_clk[oldi->parent_vp] = true;
 
 -- 
 2.43.0
