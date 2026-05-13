@@ -1,271 +1,214 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2118.outbound.protection.partner.outlook.cn [139.219.17.118])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03AD92D839C
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 00:56:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778633784; cv=none; b=drz/4qKBdaFUx6P4LTiz/70CjsQfoadiKelsEc/rTvYTMPZKczRBglXYyaG7WU/c/fcUNwVzmeyc5H69hpFl4uONjn2kTT3aZH6vhnV4RcNRBp2mZmjOv4dlnkWmOzu9YDuw2mxUXrkBhBl/UevwntI7JO/KQVZpFPbQa+0/vBE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778633784; c=relaxed/simple;
-	bh=kvNgHxm/AWeFLioaIE7iyI3yxJRwwYn/smmLtvRE5k4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IEeKZ2WOSWapL1CZLK+IaYJDJQmEOCC2NMN1zaJgERLosV7/ESV3qr7ZBrlBXPZLjqxV5XiO+vo6FD47AX2eTUTV1YsHAtORmjkmgwuxPaW686s1rMFVMfIy2m3VBuiGCm7lTwSQgtKRoYGt8LnlD0Y3LjpEjjalPAhG+tWp6mw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RXLDfeNH; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RXLDfeNH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C25A2C2BCB0;
-	Wed, 13 May 2026 00:56:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778633783;
-	bh=kvNgHxm/AWeFLioaIE7iyI3yxJRwwYn/smmLtvRE5k4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=RXLDfeNHF0LBNGzcXWFU2LuwuNAzIn4MihHNfahUUR5pv6iYtrNL4JnDE2C/Mb7jN
-	 nP83DfBYN2D9uhU70YKoNBdh/AqjaCD1hay1lJTnrXlblEhLriKu9O4WJJ7EveTj08
-	 hwdw88fCIkXL27pwMyL0xNNQOiVDWboUXAF6b9SGkuha+7978CTb8MxsUhiw4olGtD
-	 K8WMPwaomLNsKoW5SA+a81ykwXkgeECjzyN7KD4ZONNrj8gikeb/eTQhqAxwGuwI9z
-	 3ud0ul15BQH+pWu6jhq1+E7aZ3R1FVuOzoJ/pi3nwN0AeM9+SVhQ7DHzgQNQbfUcd5
-	 n+QwM7680PCBQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] clk: renesas: r9a09g077: Add LCDC and PLL3 clock
- support for RZ/T2H display pipeline
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: wsa+renesas@sang-engineering.com, krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260511191910.1945705-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260511191910.1945705-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3911B306775;
+	Wed, 13 May 2026 01:02:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.118
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778634130; cv=fail; b=ogCo4luWwEyk5o0HMttG2kEKFeCVc8RuwmegY4wglURWbFkmBTU06+Pv8uPjiIdaCGQiwDfOG3HsgIdX4i9IOHvqB0Vg7Y25qyZWFvKoOFLD+j7zPixonKd+NZB1Wyww8Brod6tQ498RG4af5Er+fYODwJ6OIi9l5SH9UCx48Rg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778634130; c=relaxed/simple;
+	bh=/OZEFb90atK0RukdNidWgSazc51LiPXujRrNlWjMMlA=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=XEyJ30m602qa4KJOFS/+PNNDB3BfIWcrN8UHlgU5ZGGv2FevIl/kOJbIfMfwJBhscGZBb5ct9vA68EJNFoYPMfslPMYX+fPVAjV3pEoIuzFHiQZwo3ez0+05NYHrTnOnZZ4xxmgK4trQNr8NvVlm4mnUA4DNo5rzk2xjQPmzqa8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IYs9vihhKE5tx7TL/D875lPXwIQ3at6I+PxNo8vwbLhB7b1ePCR+ely3MBcuyoR7PZBzGVbgxpo+YnDgIG0crinmPSngNkjljVKFmH7UIavaq0IZraraDsMd4sy1VapWCWHqD0e6FCpVlEW0kh1LIjy6RuFVpqakDQr3luDxznYVw8pkd+usMtzpvUZHSaGVynNvg+SIcEunThI+To0diO/or3wtFCuO2AKS+f1PFE79KdlF8n0KRUXR9HmEf2UdUbxm6W/zec6qdjmu+usXrnJ9tCu1XSn3RT+lxe1AJgkw81ifNAIjvf8uNwVWfsQRf/YX4Z6CCJ7mhmdGYA5hIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fqPBFXMU0PAeCSX7HLlFdaSDdzv9njWv/zYwbn2IU4o=;
+ b=DJSyN4hlkT8XSXRoge0p0YY53XBsODRE/x80AQ2+vCe1gI9m7JyFAEvqssG+eHxWPmK+PKwRKXegYZ7NWEDYqgP8ISQwSmEYn5bi3wgbkOjKZUfwi4bCP0QK02rWtiw9VHnwRp2xWZh+ENuHwSnHZvxBRUlK8Vh+GfuGiGQAoL+lcKp2fUuhjatp6Al+bOhJ0VggWdrsOuAPb+/HGBZLh5+kh0CE7QMYc9jGyT17+F5Qf3gFY0ryWwFmjuDzW9lP4APCK6TquCnt5whQ9d27ThDOFg795CY1AG2NoOWyAzlj69wTfBef1jItvlgVljXMp6Gh7jFxiujec1ammhSNFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1155.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:15::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.24; Wed, 13 May
+ 2026 01:01:47 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%5])
+ with mapi id 15.20.9891.021; Wed, 13 May 2026 01:01:47 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Conor Dooley <conor@kernel.org>
+CC: Michael Turquette <mturquette@baylibre.com>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
+	<bmasney@redhat.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
+	<palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
+	<alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing
+	<kernel@esmil.dk>, Chen Wang <unicorn_wang@outlook.com>, Inochi Amaoto
+	<inochiama@gmail.com>, Alexey Charkov <alchark@gmail.com>, Thomas
+ Bogendoerfer <tsbogend@alpha.franken.de>, Keguang Zhang
+	<keguang.zhang@gmail.com>, "linux-clk@vger.kernel.org"
+	<linux-clk@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-riscv@lists.infradead.org"
+	<linux-riscv@lists.infradead.org>
+Subject: Re: [PATCH v2 11/12] soc: starfive: Add socinfo driver for JHB100 SoC
+Thread-Topic: [PATCH v2 11/12] soc: starfive: Add socinfo driver for JHB100
+ SoC
+Thread-Index: AQHc4epWeSXninZZ8UOuEt2E6vxAdbYKqmKAgAB57HA=
+Date: Wed, 13 May 2026 01:01:46 +0000
+Message-ID:
+ <ZQ4PR01MB120205CCC0A3229824701640F2062@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+References: <20260512083521.3448-1-changhuang.liang@starfivetech.com>
+ <20260512083521.3448-12-changhuang.liang@starfivetech.com>
+ <20260512-mushroom-helpless-0815d0885abb@spud>
+In-Reply-To: <20260512-mushroom-helpless-0815d0885abb@spud>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1155:EE_
+x-ms-office365-filtering-correlation-id: cbe6d714-3db1-425d-b640-08deb08b3513
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|376014|7416014|38070700021|18002099003|22082099003|56012099003;
+x-microsoft-antispam-message-info:
+ pZs+qx5J+sh+4eB9xu79+SMvjkGuL5uY0LQV+6vdbUWMnLB4chUUL0oqjZSMcrNGakUVVjThzRxbku8CEDwNxLtBYH/aNftKMx2AIA3KRdV+t5MRh4cnPf7SJgT0qqUvHQkMH4rehQZkijJ2kok70Qut7ObRfTjMCVD3CqgqqOiG6n7sx+f0gFp8HBp0p+D6iDL+4SzUE9Ojha3PVBmyRVgBoCjCm7BdDsxd+nduR7TYMqIuclYpVxg0ZCWcbOAxMwduPb1New/UhKL/2fH3eeOUNP3GNeUpYokIJmtcDDb4J9zHCF/G4WEnOyhgDMe9Hw0CUGdNKq9hFlbWUD1l69NfkMVG2i2FgH80Dcm724y+PGRjTxSgAjDhkcr36hraPBfFoINAC0BP7Re2CCvM9jQBFLHowS6wKkwVa7A8gwAiNkMOcipugTPUpXdY26ce7fHVI0FWK8bvfZBID5H26uEhRPoiBM8S2K43ey4+EHAPIGvEXB5JVkJJZv5Gy43+/CQ1i7U3cQUeXbJSHj/eVg03+q7pvbj8oqNZ4kRCM73TkmgjTTn3vGrTZi7mCOnx
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(38070700021)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?zCYoahYlUkMuFZs3bVJiu0l3BfL3n4ep3pCDk5rlmsHuydbEuag4Z5UZkSx/?=
+ =?us-ascii?Q?lcf2cHtSfAS0Bz676CoiqHjarsrs3XdwF8nnyKLMGbrVOuZcmzVLpeRBW9Ox?=
+ =?us-ascii?Q?VXrqJ6xljjoIDXCKjmZmJvpETNb8MTVarvBHngIS1Yvf5j41VG/H/Zq0dNWl?=
+ =?us-ascii?Q?tKyeeLgYHzM8ltcQWixxh8ugr7V4jn1FoyRXxmOqfutWyMa/jCA76DaL0K43?=
+ =?us-ascii?Q?wY4HiQYlWhHFbpfUGAxcypyOVjmzBtDy3PZbG2u21Rfs5oLN6HXJEQZvSUvz?=
+ =?us-ascii?Q?N56ZCx4qhjXnfQek/2w75FpTczxGb2bSvdpGQX0syZYVS+7EpX3itZGPmgAf?=
+ =?us-ascii?Q?sRbq8DhJfOh5+S2sN8Zg+vWSmeGdD6nV42V/t1lLy0gaB0xOHzys6F0TdJqn?=
+ =?us-ascii?Q?9tqosRlwcg4QOhqQIjeUOxc4RGAAH9R0gi3NKNbHlvEBoVpPOVLAXC8ZuzVJ?=
+ =?us-ascii?Q?e2kpi55AT1+1ykUZanItHLPhXGXfJIGAwSqUwJDZlaUKeFtNtwDw8CLb6/FW?=
+ =?us-ascii?Q?ynTpEyrNjxJZb183dQP8Y0OWLtwdCs2n4uxCFbvoisEQ51PQIt7iYZklGld1?=
+ =?us-ascii?Q?aGcJU+W3g+6msrRzhqslgzLIfGyzyOqgQjEp86yYYxTIcYjt7Lbt2S3L/zYW?=
+ =?us-ascii?Q?jeke1CseC86i+rxt0QRBmLzgjnn3m1fcHhUROzNYFmoGJEGno9HrQ7W3R7o7?=
+ =?us-ascii?Q?geTKhAH1hZrri9x1xPFRILhR213XaY4QmHuajcvxFuSAEit2NnQpeIM72+N7?=
+ =?us-ascii?Q?Z5g0SHeCQeTRXmh2iEqZMu81WLkLCmxkGMBMJaOkK4GivCybTFT2iETB3bY/?=
+ =?us-ascii?Q?I06usGNW57N55wwwuvgxIC3cr3woIxwAr03i0YCpUYe55OdIym4LVqCB8FsG?=
+ =?us-ascii?Q?zrj2z5e/zibP39NnQ7X58XMon3P7rvXcTb24kX3KKpv7+M8RsTMS6SZjwmkP?=
+ =?us-ascii?Q?jq7k2F0ShKscT2elKsHsOG9L25mRyTRmS2sZGIg63XxqfFx3/OtnjqQ93SaB?=
+ =?us-ascii?Q?/FOamN5XCyIuDcy3NfbZAifHG8SCx6LUCFlIRX2pc8qpstvvSPBPzk5cOAnx?=
+ =?us-ascii?Q?C0eq2yNWcN0YJDsJ0+AhuSR6RQpF1OoBMo2ZmLQ5pBm5gjN3cBqKHWsq8Xe3?=
+ =?us-ascii?Q?FEiCUqjpIx/OJ2GJQRYrTiSEt07RWvHPpOrCFpESRwlyayjwYpPI3lxU5zjC?=
+ =?us-ascii?Q?YomsEM1Iz8DgAa880f1iFo4d0mLOoWeC6yElXZIkpCbzOB28XsgexB/mTrTS?=
+ =?us-ascii?Q?B5aCZQvlJ18BFCuGG9frxbOR1fXkrnWJ2BnSMurB/RSs3WN7OoO1xOkBy+Ac?=
+ =?us-ascii?Q?n0bHZg/kDqhnQp7gq38ArE5oC2ew52VHOCKegXMv47K17RtMpr5gQr4Srj9/?=
+ =?us-ascii?Q?vqTiMe+t5P2qtFq07eTnTm7EdRAKFwFQFd8jKzW/cP1PfSOVZTS2g9i+GZvW?=
+ =?us-ascii?Q?OrVaA69V3XrK8+rwmvlo52jcv9zo/DZWt6uKg2G0FpDUL/guq393ccvGArkl?=
+ =?us-ascii?Q?u07244P6HuoFpRLIVsuhnYZ3dyAOV1uKGa4GngUSXE2cPxRenFhds+C2TaxD?=
+ =?us-ascii?Q?92mkcDMizLEOSl51HC+klk5eUJZno4Z+Ueol7P/gZNRxS3p3SYDMEBN8R7A/?=
+ =?us-ascii?Q?k8Vo1bOdtqNmg+kw4c4g0KQnv/fKKxQ2VzcForzmagdvHL4k3IoU/PVzdzU2?=
+ =?us-ascii?Q?8dJAjsElZodqa3mWo1Ay3PicWtJvZDyMLTUAbCajj+NGDUg1OH39diPgcjCH?=
+ =?us-ascii?Q?8T+ENDyaFX2xhsN413IrB7OorogUaUk=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 13 May 2026 00:56:22 +0000
-Message-Id: <20260513005622.C25A2C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: cbe6d714-3db1-425d-b640-08deb08b3513
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 May 2026 01:01:46.9999
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: IfkpLgc+nUAVUwQTqhKXbbiGJJwdvMN5qs1cICd42OR1oz9S6r4em4H/QVM/mObfENP/HKTKKMsRaTcsotX/PXPZ94GQVHYYNkiDoXe3p3d7Sij4b7NNGz7ys4Mvh8Jd
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1155
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [Critical] Uninitialized `struct clk_init_data` allocated on the stack ca=
-uses kernel panics.
-- [High] Invalid downcast of grandparent clock causes type confusion and me=
-mory corruption.
-- [High] State mutation in `determine_rate` callbacks violates Common Clock=
- Framework constraints.
-- [High] Missing locking during read-modify-write on the highly shared `SCK=
-CR3` register.
-- [High] Potential divide-by-zero kernel panic in `r9a09g077_cpg_pll3_clk_r=
-ecalc_rate`.
-- [Medium] Integer truncation of requested 64-bit clock rates leads to unex=
-pected hardware frequencies.
-- [Medium] Amplified rounding error during `best_parent_rate` calculation.
---
+Hi, Conor
 
-commit 92d34dcfa10f7893860a62c602064adfd5fe8364
-Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Thanks for the review.
 
-clk: renesas: r9a09g077: Add LCDC and PLL3 clock support for RZ/T2H display=
- pipeline
+> On Tue, May 12, 2026 at 01:35:20AM -0700, Changhuang Liang wrote:
+> > Add socinfo driver for JHB100 SoC. Currently available for
+> > distinguishing between the two reversions, A0 and A1.
+> >
+> > Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> > ---
+> >  MAINTAINERS                                   |  5 ++
+> >  drivers/soc/Kconfig                           |  1 +
+> >  drivers/soc/Makefile                          |  1 +
+> >  drivers/soc/starfive/Kconfig                  |  6 ++
+> >  drivers/soc/starfive/Makefile                 |  2 +
+> >  drivers/soc/starfive/socinfo/Kconfig          | 11 +++
+> >  drivers/soc/starfive/socinfo/Makefile         |  2 +
+> >  drivers/soc/starfive/socinfo/jhb100-socinfo.c | 80
+> > +++++++++++++++++++
+> >  8 files changed, 108 insertions(+)
+> >  create mode 100644 drivers/soc/starfive/Kconfig  create mode 100644
+> > drivers/soc/starfive/Makefile  create mode 100644
+> > drivers/soc/starfive/socinfo/Kconfig
+> >  create mode 100644 drivers/soc/starfive/socinfo/Makefile
+> >  create mode 100644 drivers/soc/starfive/socinfo/jhb100-socinfo.c
+> >
+> > diff --git a/MAINTAINERS b/MAINTAINERS index
+> > 6f6aac7cea95..66175f453d20 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -25613,6 +25613,11 @@ S:	Maintained
+> >  F:	drivers/reset/starfive/reset-starfive-jhb1*
+> >  F:	include/dt-bindings/reset/starfive,jhb1*.h
+> >
+> > +STARFIVE JHB100 SOCINFO DRIVER
+> > +M:	Changhuang Liang <changhuang.liang@starfivetech.com>
+> > +S:	Maintained
+> > +F:	drivers/soc/starfive/
+>=20
+> FWIW, this is not what I asked for in v1, this should remain the full pat=
+h to the
+> driver. I wanted you to add this directory back to the "STARFIVE SOC
+> DRIVERS" entry, since it's me that'll be applying patches for this driver=
+.
 
-This patch adds the clock definitions and PLL logic required to supply the =
-LCDC
-blocks on the RZ/T2H SoC. It introduces a new PLL clock type, implements ra=
-te
-recalculation and locking sequences, and adds the corresponding muxes and
-divider entries.
+Sorry, I misunderstood what you meant.
 
-> diff --git a/drivers/clk/renesas/r9a09g077-cpg.c b/drivers/clk/renesas/r9=
-a09g077-cpg.c
-> index 93b15e06a19bc..64d45dbea5f1e 100644
-> --- a/drivers/clk/renesas/r9a09g077-cpg.c
-> +++ b/drivers/clk/renesas/r9a09g077-cpg.c
+>=20
+> > +
+> >  STARFIVE JHB100 SYSCON
+> >  M:	Changhuang Liang <changhuang.liang@starfivetech.com>
+> >  S:	Maintained
+> > diff --git a/drivers/soc/Kconfig b/drivers/soc/Kconfig index
+> > a2d65adffb80..b3b01fc38139 100644
+> > --- a/drivers/soc/Kconfig
+> > +++ b/drivers/soc/Kconfig
+> > @@ -24,6 +24,7 @@ source "drivers/soc/renesas/Kconfig"
+> >  source "drivers/soc/rockchip/Kconfig"
+> >  source "drivers/soc/samsung/Kconfig"
+> >  source "drivers/soc/sophgo/Kconfig"
+> > +source "drivers/soc/starfive/Kconfig"
+> >  source "drivers/soc/sunxi/Kconfig"
+> >  source "drivers/soc/tegra/Kconfig"
 
-[ ... ]
+[...]
 
-> +static unsigned long r9a09g077_cpg_pll3_clk_recalc_rate(struct clk_hw *h=
-w,
-> +							unsigned long parent_rate)
-> +{
-> +	struct pll_clk *pll_clk =3D to_pll(hw);
-> +	unsigned int ctr0, ctr1;
-> +	u8 pdiv, sdiv;
-> +	u64 rate;
-> +	u16 mdiv;
-> +	s16 kdiv;
-> +
-> +	ctr0 =3D readl(CPG_PLL3_VCO_CTR0(pll_clk->reg));
-> +	ctr1 =3D readl(CPG_PLL3_VCO_CTR1(pll_clk->reg));
-> +
-> +	pdiv =3D FIELD_GET(CPG_PLL3_VCO_CTR0_PDIV, ctr0);
-> +	mdiv =3D FIELD_GET(CPG_PLL3_VCO_CTR0_MDIV, ctr0);
-> +	kdiv =3D (s16)FIELD_GET(CPG_PLL3_VCO_CTR1_KDIV, ctr1);
-> +	sdiv =3D FIELD_GET(CPG_PLL3_VCO_CTR1_SDIV, ctr1);
-> +
-> +	rate =3D mul_u64_u32_shr(parent_rate, (mdiv << 16) + kdiv, 16 + sdiv);
-> +
-> +	return DIV_ROUND_CLOSEST_ULL(rate, pdiv);
-> +}
+> > +	pr_info("StarFive %s SoC rev(%s)\n", attrs->soc_id,
+> > +attrs->revision);
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +early_initcall(starfive_socinfo_init);
+>=20
+> Does this really need to be an early initcall btw?
 
-Is it possible for pdiv to be 0 if the hardware boots in an uninitialized
-state?
+Yes, there are some drivers that need to use soc_device_match() to match di=
+fferent=20
+revisions, in order to handle the processes caused by differences between r=
+evisions.=20
+So there's no harm in initializing this driver earlier.
 
-The DIV_ROUND_CLOSEST_ULL macro will cause a kernel panic if the divisor
-is zero.
-
-> +static int r9a09g077_cpg_pll3_determine_rate(struct clk_hw *hw,
-> +					     struct clk_rate_request *req)
-> +{
-> +	struct pll_clk *pll_clk =3D to_pll(hw);
-> +	u64 rate_millihz;
-> +
-> +	if (req->rate =3D=3D pll_clk->cur_rate)
-> +		return 0;
-> +
-> +	rate_millihz =3D mul_u32_u32(req->rate, MILLI);
-
-Does this implicitly cast the 64-bit req->rate (which is an unsigned long on
-ARM64) to a 32-bit integer, dropping the upper bits before multiplication?
-
-> +	if (!rzv2h_get_pll_pars(pll_clk->limits, &pll_clk->pll_parameters,
-> +				rate_millihz)) {
-> +		dev_dbg(pll_clk->dev,
-> +			"failed to determine rate for req->rate: %lu\n",
-> +			req->rate);
-> +		return -EINVAL;
-> +	}
-> +	req->rate =3D DIV_ROUND_CLOSEST_ULL(pll_clk->pll_parameters.freq_millih=
-z, MILLI);
-> +	pll_clk->cur_rate =3D req->rate;
-> +
-> +	return 0;
-> +}
-
-Is it safe to mutate the driver state (pll_clk->pll_parameters and
-pll_clk->cur_rate) inside a determine_rate callback?
-
-The common clock framework can call this via clk_round_rate for queries.
-This could overwrite the active configuration without actually changing the
-hardware.
-
-[ ... ]
-
-> +static int r9a09g077_cpg_lcdc_div_determine_rate(struct clk_hw *hw,
-> +						 struct clk_rate_request *req)
-> +{
-> +	struct r9a09g077_lcdc_div_clk *dsi_div =3D to_lcdc_div_clk(hw);
-> +	struct pll_clk *pll_clk =3D to_pll(clk_hw_get_parent(clk_hw_get_parent(=
-hw)));
-
-Since the grandparent clock CLK_SEL_CLK_PLL3 is a multiplexer, could the
-parent hardware actually be the fixed-rate loco clock instead of a
-pll_clk structure?
-
-If so, the to_pll macro would cast a fixed-rate clock to a PLL clock,
-potentially leading to out-of-bounds memory access later in this function.
-
-> +	u8 table[RZT2H_MAX_LCDC_DIV_TABLES] =3D { 0 };
-> +	struct rzv2h_pll_div_pars dsi_params;
-> +	const struct clk_div_table *div;
-> +	unsigned int i =3D 0;
-> +	u64 freq_millihz;
-> +
-> +	for (div =3D dsi_div->dtable; div->div; div++) {
-> +		if (i >=3D RZT2H_MAX_LCDC_DIV_TABLES)
-> +			return -EINVAL;
-> +		table[i++] =3D div->div;
-> +	}
-> +
-> +	freq_millihz =3D mul_u32_u32(req->rate, MILLI);
-
-Similar to the PLL3 callback, does this also truncate the 64-bit rate down
-to 32 bits?
-
-> +
-> +	if (!rzv2h_get_pll_divs_pars(pll_clk->limits, &dsi_params, table,
-> +				     i, freq_millihz)) {
-> +		dev_err(dsi_div->dev,
-> +			"LCDC divider failed to determine rate for req->rate: %lu\n",
-> +			req->rate);
-> +		return -EINVAL;
-> +	}
-> +
-> +	req->rate =3D DIV_ROUND_CLOSEST_ULL(dsi_params.div.freq_millihz, MILLI);
-> +	req->best_parent_rate =3D req->rate * dsi_params.div.divider_value;
-
-Could calculating req->best_parent_rate using the already rounded req->rate
-amplify the Hz-level rounding error?
-
-Using the exact internal rate from dsi_params.pll.freq_millihz / MILLI
-might be more accurate.
-
-> +	dsi_div->divider =3D dsi_params.div.divider_value;
-> +	pll_clk->cur_rate =3D req->best_parent_rate;
-> +	pll_clk->pll_parameters =3D dsi_params.pll;
-> +
-> +	return 0;
-> +}
-
-Does mutating dsi_div->divider and pll_clk properties here break queries if
-the framework only requested a rate check via clk_round_rate?
-
-> +static int r9a09g077_cpg_lcdc_div_set_rate(struct clk_hw *hw,
-> +					   unsigned long rate,
-> +					   unsigned long parent_rate)
-> +{
-> +	struct r9a09g077_lcdc_div_clk *dsi_div =3D to_lcdc_div_clk(hw);
-> +	const struct clk_div_table *clkt;
-> +	bool divider_found =3D false;
-> +	u32 val, shift;
-> +
-> +	for (clkt =3D dsi_div->dtable; clkt->div; clkt++) {
-> +		if (clkt->div =3D=3D dsi_div->divider) {
-> +			divider_found =3D true;
-> +			break;
-> +		}
-> +	}
-> +
-> +	if (!divider_found)
-> +		return -EINVAL;
-> +
-> +	shift =3D GET_SHIFT(dsi_div->conf);
-> +	val =3D readl(dsi_div->reg);
-> +	val &=3D ~(clk_div_mask(GET_WIDTH(dsi_div->conf)) << shift);
-> +	val |=3D clkt->val << shift;
-> +	writel(val, dsi_div->reg);
-> +
-> +	return 0;
-> +}
-
-Does this read-modify-write sequence need to be protected by pub->rmw_lock?
-
-It looks like SCKCR3 is highly shared with other dividers like DIVSCI0ASYNC,
-and concurrent modifications could race.
-
-[ ... ]
-
-> +static struct clk * __init
-> +r9a09g077_cpg_lcdc_div_clk_register(struct device *dev,
-> +				    const struct cpg_core_clk *core,
-> +				    void __iomem *addr,
-> +				    struct cpg_mssr_pub *pub)
-> +{
-> +	struct r9a09g077_lcdc_div_clk *clk_hw_data;
-> +	struct clk **clks =3D pub->clks;
-> +	struct clk_init_data init;
-
-Since this is allocated on the stack without zero initialization, could
-fields like parent_hws and parent_data contain uninitialized garbage?
-
-The common clock framework might dereference these pointers during
-registration before falling back to checking parent_names.
-
-> +	const struct clk *parent;
-> +	const char *parent_name;
-> +	struct clk_hw *hw;
-> +	int ret;
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260511191910.1945=
-705-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D4
+Best Regards,
+Changhuang
