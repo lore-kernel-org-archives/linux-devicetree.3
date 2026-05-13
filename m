@@ -1,24 +1,24 @@
-Received: from mail-m1973198.qiye.163.com (mail-m1973198.qiye.163.com [220.197.31.98])
+Received: from mail-m32108.qiye.163.com (mail-m32108.qiye.163.com [220.197.32.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B2E3D1A94;
-	Wed, 13 May 2026 08:00:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7545C3D7A16;
+	Wed, 13 May 2026 08:00:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778659204; cv=none; b=R1Ak24KBds12GWOqnnT4S6YLU4+3FsM26Z1A3/4iWzCad6c2xFY39YU9idLoxaaylFwjTrmTcA1YmXlIGj60LagVXRgVMtCgjcVGJJVmuEezHJHUzPJOGI93rlc/scl/t9jNauku3uLwOSu0uwMV8IRyTcNgHJ5EbrzTTdkZBM8=
+	t=1778659209; cv=none; b=gSx0xZCRf3kDSeUKio1BLtjZ4uPiyE2Rmhwf1ay3FIuRjJ6/YEHPVSKjGGLePmeSWpMBHT0kz752Fj/exvj07XwlXXvhHG0KECcpkhaWa+yR2XMUm4+JaMeOrOkLx/P2km7V6DaRQ8WGXSPedOSOzfFpws+dzAsCZLNTKW5oUNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778659204; c=relaxed/simple;
-	bh=oCSJDUfn6E9a4iRntMywyqOV1m3idzeRZMyv4PN8eHY=;
+	s=arc-20240116; t=1778659209; c=relaxed/simple;
+	bh=GFPWi/xaj2KK9JkNv4kgMVIXco4zFkyHwtNhMlrUhGI=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=hs24dijVrNAPxXBSSbyrKCP7Z4vwY8TJ/MULgUJ8vHDqkINEX7f7h/kwRVCBGW5Np6Pjn7T/+RcxcAno2Bgb745hV0+4pk0Jld34WCKvBokgoAxtpuVnqxbOnsSb6eO61mxSpxtZ6WaVDptGsQVm1sAaKEEooaLy7P4V1ghA2lU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=YE99MuwR; arc=none smtp.client-ip=220.197.31.98
+	 MIME-Version; b=lE7ArpgrnECgQXkQSINCPiyL3D50YJfbAivX3TkXMKwIvoPIt9nygc1fqjwbqdkQocF23x4PvEHvDukMrvpeX64P/3kPmLc+oA2NE8Tlbya/+HSsoLrLOWHQNAdySZKU6Pt9LDksmv1lCkqxjJl2DzbmR3OR5N4D/Jz/fZo99KM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=Dl/zY1aK; arc=none smtp.client-ip=220.197.32.108
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="YE99MuwR"
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="Dl/zY1aK"
 Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3e3a94ce6;
-	Wed, 13 May 2026 15:44:32 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 3e3a94cf9;
+	Wed, 13 May 2026 15:44:33 +0800 (GMT+08:00)
 From: Damon Ding <damon.ding@rock-chips.com>
 To: hjc@rock-chips.com,
 	heiko@sntech.de,
@@ -49,11 +49,10 @@ Cc: Laurent.pinchart@ideasonboard.com,
 	linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Damon Ding <damon.ding@rock-chips.com>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: [PATCH v5 06/10] dt-bindings: display: rockchip: analogix-dp: Add support for RK3576
-Date: Wed, 13 May 2026 15:44:10 +0800
-Message-Id: <20260513074414.2053435-7-damon.ding@rock-chips.com>
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v5 07/10] arm64: dts: rockchip: Add eDP node for RK3576
+Date: Wed, 13 May 2026 15:44:11 +0800
+Message-Id: <20260513074414.2053435-8-damon.ding@rock-chips.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260513074414.2053435-1-damon.ding@rock-chips.com>
 References: <20260513074414.2053435-1-damon.ding@rock-chips.com>
@@ -64,57 +63,76 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e204b633003a3kunm7763bb98560fc
+X-HM-Tid: 0a9e204b69b103a3kunm7763bb9856114
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTxhIVhgaHUJMTR8YSR1MSVYVFA
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHU9NVkNDTUMYT01LTk5LT1YVFA
 	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
 	pKQk1VSktLVUpCWQY+
 DKIM-Signature: a=rsa-sha256;
-	b=YE99MuwR9EimuGdG3WdT11QlPbnX/7MKhZ63zRKMqdKxl88qZr+qzKefKy1Pm7zLhHPHpSZeE2ITO7uGIoax7Do9/waxJlYPS8IcPtLQtiVIo1+W0avymrNFT6LQvHCFbY8X9a4GwE8HChUzEgqBPYvttvAjSHGlRzxdEWfnBjE=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=YSnahvX5zBa70o9eQuILUX+DsDDNP65+ymKCqva9AIE=;
+	b=Dl/zY1aKppMiLwMd2qDYD2qMJCvfDlfsTtf+rs1+ux2EP7hX0o8ZoyckU5xBlAK/B/1F1zEbYdeBxkqSfM1oOAztPSsNHDtZ0r8TJwz+r2iRH+rjA0PB57KNbXaOME+WV9yYM6RL1PM401pMMnwNGTSUXYF/6CUt9KNLkE6Blso=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=K1DLY9Im8emQ1pvFmDCS9X34Zpvqnm1ezAB2dEZJU7I=;
 	h=date:mime-version:subject:message-id:from;
 
-RK3576 integrates an eDP TX controller compatible with the existing
-RK3588 hardware design, reuse the same binding configuration directly.
+Add full device tree definition for the integrated eDP controller
+on RK3576, following the existing RK3588 hardware layout.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Configure required register range, clocks, interrupt, phy, power
+domain, reset and grf properties to fully describe the controller.
+
 Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
 ---
 
 Changes in v2:
-- Split out a separate patch to add the "hclk" clock reference.
+- Add Reviewed-by tag.
 
-Chanegs in v4:
+Changes in v4:
 - Modify the commit msg.
-
-Changes in v5:
-- Add Acked-by tag.
 ---
- .../bindings/display/rockchip/rockchip,analogix-dp.yaml         | 2 ++
- 1 file changed, 2 insertions(+)
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi | 28 ++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-index d679da70947d..bb75d898a5c5 100644
---- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-+++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-@@ -15,6 +15,7 @@ properties:
-     enum:
-       - rockchip,rk3288-dp
-       - rockchip,rk3399-edp
-+      - rockchip,rk3576-edp
-       - rockchip,rk3588-edp
+diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+index 28175d8200d5..733449cb88b1 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+@@ -1496,6 +1496,34 @@ hdmi_out: port@1 {
+ 			};
+ 		};
  
-   clocks:
-@@ -92,6 +93,7 @@ allOf:
-         compatible:
-           contains:
-             enum:
-+              - rockchip,rk3576-edp
-               - rockchip,rk3588-edp
-     then:
-       properties:
++		edp: edp@27dc0000 {
++			compatible = "rockchip,rk3576-edp";
++			reg = <0x0 0x27dc0000 0x0 0x1000>;
++			clocks = <&cru CLK_EDP0_24M>, <&cru PCLK_EDP0>, <&cru HCLK_VO0_ROOT>;
++			clock-names = "dp", "pclk", "hclk";
++			interrupts = <GIC_SPI 365 IRQ_TYPE_LEVEL_HIGH>;
++			phys = <&hdptxphy>;
++			phy-names = "dp";
++			power-domains = <&power RK3576_PD_VO0>;
++			resets = <&cru SRST_EDP0_24M>, <&cru SRST_P_EDP0>;
++			reset-names = "dp", "apb";
++			rockchip,grf = <&vo0_grf>;
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				edp_in: port@0 {
++					reg = <0>;
++				};
++
++				edp_out: port@1 {
++					reg = <1>;
++				};
++			};
++		};
++
+ 		dp: dp@27e40000 {
+ 			compatible = "rockchip,rk3576-dp";
+ 			reg = <0x0 0x27e40000 0x0 0x30000>;
 -- 
 2.34.1
 
