@@ -1,113 +1,144 @@
-Received: from s106b.cyber-folks.pl (s106b.cyber-folks.pl [195.78.66.88])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFAFD3655F1;
-	Wed, 13 May 2026 05:00:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.78.66.88
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C90AE383985
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 05:01:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778648452; cv=none; b=UxTRq12T9yTYyd2pnJoGLbuA3JJCiRhscDM3GwDOnAxBwZRVf3NzI9t7E+wmH+0werxuNpMbPx1WPo/XsMr4XwxMU8GjXBDiKZgfOkpuMJ5c0YALU58vAvdiHAQG7qGf5CIArWZGHobYb7jPsSPSQ33JQdMTJx/O0wj1gPCKlcY=
+	t=1778648515; cv=none; b=WiVe80HRABdGL26Is1aaq2/TlCELxOJ7yYaEb2t2Pg++VQuj6r5d1/T5JBAOnVSjBGV2DajLp9npaA00HD/VZ81jdVtj3n5m6r61bP4Jn1ASnh9667XfPJDe46j4VEfaOUK5bT8Vyhhmu1K7f9DtQVUnz9k9Mqo7caMFjMtiGeg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778648452; c=relaxed/simple;
-	bh=/N5/DsYuZyXhP6df/g8ro7dcmFJQ8yyC3EItsyGlO0Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bIV4ppquSKUTTfnsZQM+TSwQ138GrW9lxVgauv2AqL6Y0uxUQ+h50Sq7V5Rns425R+ll9k7wOOCyqVw0eZTDp58RybJDST6ZtP52/t/D0LbqU5UeJeKY5FLkhE+HZkhzRWk6USraMnpiLk6jXE6f86AlaDO2GDIOdnlIFUgNaxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mmpsystems.pl; spf=pass smtp.mailfrom=mmpsystems.pl; dkim=pass (2048-bit key) header.d=mmpsystems.pl header.i=@mmpsystems.pl header.b=VnALRn2F; arc=none smtp.client-ip=195.78.66.88
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mmpsystems.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mmpsystems.pl
+	s=arc-20240116; t=1778648515; c=relaxed/simple;
+	bh=oq7zEPv3ECSU2LrsXYviFakLLgDXG2cV9cKi4xUupkg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=SStq+jeeYbv8RNsvQLwGDZ0ch+HtCN3CkCwhByQq5fuwpw70qFm3ZB4t3ZUqSZ9GGm8qCCTVIjo9dqrCZtiIWdbygRuw4covVFv/u9FqOPqgs9iHFba4LBKQH84jpAZbAz9kftKpTMlsvzYDv6yGkfwi/TCDSH0RmZ/8uPyZvDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mZnalon0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mmpsystems.pl header.i=@mmpsystems.pl header.b="VnALRn2F"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=mmpsystems.pl; s=x; h=Cc:To:In-Reply-To:References:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
-	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
-	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=2aQBbG5BBr12ydhLfhSkL/E4J0Fku1F2nvWGO6lgZKA=; b=VnALRn2FAIPrnPvRuXE/00SOEU
-	ellbJLES0qQ78J/B7thoDIkE0j0MlLAuYWZJZKgWmhikw8W4/wAwLZDcd4xDjWtJG/xJ3tugTfZZ0
-	N6p5MhhkvEr66ewBSn4a9oSUihsTYk0YoOS0VyNACKD5UYNgubC7DCJylhaKqcFqAM+iMZyJZ+UVJ
-	tV5sYEs4TvekiRv6A1f4oTZ/iYUu8W0uB9aqMglwpkuVyZtVY7yNULXCUow6y76WAAWEX8uMeqyye
-	mTi/FID9oI6phlazitvLWmueyNVthwq3lXu9TIrummLy6DHYhFJ7kP55cM4AfWrpkMezUzNu3pfUw
-	3W/NmIOQ==;
-Received: from [91.102.182.218] (helo=localhost)
-	by s106.cyber-folks.pl with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <michal.piekos@mmpsystems.pl>)
-	id 1wN1iB-0000000EbcL-1ih0;
-	Wed, 13 May 2026 07:00:47 +0200
-From: Michal Piekos <michal.piekos@mmpsystems.pl>
-Date: Wed, 13 May 2026 06:59:44 +0200
-Subject: [PATCH v2 3/3] arm64: dts: allwinner: a523: add gpadc node
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mZnalon0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 790F6C2BCB7;
+	Wed, 13 May 2026 05:01:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778648515;
+	bh=oq7zEPv3ECSU2LrsXYviFakLLgDXG2cV9cKi4xUupkg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=mZnalon0s5yNmPGnBEWYEO+03rcx6Vld6BTwnBDbj51Xf7fmfefZea6NRwtzmdPjI
+	 8qIqFGrObUnVJ5qAPF7ocbTFSrY1b4vMFZALwTc7ZvgqkCcsq6J8XzaxW9Igbz80WB
+	 Vxq9pf678ojoZzpNLTkiEroipmBf/mP5iDBWItrutrBz/mA+Ryj24S6mzQ2FYfcNVH
+	 wSvJXPr7czH+GnxBbuwY1O4xuC3kFKa1QGUx3jVSf9c8tqfmE+YSZzR1x25FyIOLne
+	 kWUiCzWcIbClvLTY1/fzh2Idf9NGdiUYAnSBgdlLvwJwtwwfn/ChuAMUhY7SyTOrgx
+	 FPLkeTyDFBYfw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/4] clk: qcom: add Global Clock controller (GCC)
+ driver for IPQ9650 SoC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kathiravan Thirumoorthy" <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260512-ipq9650_boot_to_shell-v4-2-1e87c8326e59@oss.qualcomm.com>
+References: <20260512-ipq9650_boot_to_shell-v4-2-1e87c8326e59@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 13 May 2026 05:01:54 +0000
+Message-Id: <20260513050155.790F6C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260513-sunxi-a523-gpadc-v2-3-d5efde151dac@mmpsystems.pl>
-References: <20260513-sunxi-a523-gpadc-v2-0-d5efde151dac@mmpsystems.pl>
-In-Reply-To: <20260513-sunxi-a523-gpadc-v2-0-d5efde151dac@mmpsystems.pl>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Maksim Kiselev <bigunclemax@gmail.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Michal Piekos <michal.piekos@mmpsystems.pl>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778648397; l=1298;
- i=michal.piekos@mmpsystems.pl; s=20260301; h=from:subject:message-id;
- bh=/N5/DsYuZyXhP6df/g8ro7dcmFJQ8yyC3EItsyGlO0Y=;
- b=7IFLix/s5zhm6Z2vJ2rXvkQgwcq7m4r9e0QlY9IbP0q9Ao1SHxmHErk7DFQE4WXUIiCZzeoui
- XFAguZ705gpB2TreIeIY0QKwh5XXKhMh1gY77uJsYHBqyTPO6QiAESE
-X-Developer-Key: i=michal.piekos@mmpsystems.pl; a=ed25519;
- pk=Aixyx03If7ZDamiKKN0lsa+0mtA+WjIuIf2ZQVYNBqg=
-X-Authenticated-Id: michal.piekos@mmpsystems.pl
 
-Describe GPADC block on Allwinner A523.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The `gcc_qpic_sleep_clk` branch clock is missing its parent clock =
+initialization in `clk_init_data`.
+- [Medium] The `gpll4` and `gcc_pcnoc_bfdcd_clk_src` clocks use the `CLK_IS=
+_CRITICAL` flag, which contradicts the explicit comments stating to use `CL=
+K_IGNORE_UNUSED`.
+--
 
-Tested on Radxa Cubie A5E:
-- 2 connected channels are showing voltages in agreement with
-  schematics.
-        BOOT-SEL-ADC ~500mV
-        BOM-ADC ~1800mV
-- 3rd channel exposed on 40pin header is showing correct voltages when
-  connected to known voltage source.
+commit 066e3207c3655c5fa209013fda4d22eaa8774c6c
+Author: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+clk: qcom: add Global Clock controller (GCC) driver for IPQ9650 SoC
 
-Signed-off-by: Michal Piekos <michal.piekos@mmpsystems.pl>
----
- arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+This commit adds support for the global clock controller found on the=20
+IPQ9650 SoC devices.
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-index 5afa8d92acbf..4e793aeccf89 100644
---- a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-+++ b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-@@ -340,6 +340,17 @@ ledc: led-controller@2008000 {
- 			status = "disabled";
- 		};
- 
-+		gpadc: adc@2009000 {
-+			compatible = "allwinner,sun55i-a523-gpadc";
-+			reg = <0x2009000 0x400>;
-+			clocks = <&ccu CLK_BUS_GPADC0>, <&ccu CLK_GPADC0>;
-+			clock-names = "bus", "mod";
-+			resets = <&ccu RST_BUS_GPADC0>;
-+			interrupts = <GIC_SPI 61 IRQ_TYPE_LEVEL_HIGH>;
-+			#io-channel-cells = <1>;
-+			status = "disabled";
-+		};
-+
- 		wdt: watchdog@2050000 {
- 			compatible = "allwinner,sun55i-a523-wdt";
- 			reg = <0x2050000 0x20>;
+> --- /dev/null
+> +++ b/drivers/clk/qcom/gcc-ipq9650.c
 
--- 
-2.43.0
+[ ... ]
 
+> +static struct clk_alpha_pll gpll4 =3D {
+> +	.offset =3D 0x22000,
+> +	.regs =3D clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_LUCID],
+> +	.clkr =3D {
+> +		.enable_reg =3D 0xb000,
+> +		.enable_mask =3D BIT(2),
+> +		.hw.init =3D &(const struct clk_init_data) {
+> +			.name =3D "gpll4",
+> +			.parent_data =3D &gcc_parent_data_xo,
+> +			.num_parents =3D 1,
+> +			/*
+> +			 * There are no consumers for this GPLL in kernel yet,
+> +			 * (will be added soon), so the clock framework
+> +			 * disables this source. But some of the clocks
+> +			 * initialized by boot loaders uses this source. So we
+> +			 * need to keep this clock ON. Add the
+> +			 * CLK_IGNORE_UNUSED flag so the clock will not be
+> +			 * disabled. Once the consumer in kernel is added, we
+> +			 * can get rid of this flag.
+> +			 */
+> +			.flags =3D CLK_IS_CRITICAL,
+
+The comment explicitly mentions adding the CLK_IGNORE_UNUSED flag, but the
+code sets CLK_IS_CRITICAL instead. Should this be CLK_IGNORE_UNUSED to match
+the description and avoid unconditionally forcing the clock on?
+
+[ ... ]
+
+> +static struct clk_rcg2 gcc_pcnoc_bfdcd_clk_src =3D {
+> +	.cmd_rcgr =3D 0x31004,
+> +	.mnd_width =3D 0,
+> +	.hid_width =3D 5,
+> +	.parent_map =3D gcc_parent_map_0,
+> +	.freq_tbl =3D ftbl_gcc_pcnoc_bfdcd_clk_src,
+> +	.clkr.hw.init =3D &(const struct clk_init_data) {
+> +		.name =3D "gcc_pcnoc_bfdcd_clk_src",
+> +		.parent_data =3D gcc_parent_data_0,
+> +		.num_parents =3D ARRAY_SIZE(gcc_parent_data_0),
+> +		/*
+> +		 * There are no consumers for this source in kernel yet,
+> +		 * (will be added soon), so the clock framework
+> +		 * disables this source. But some of the clocks
+> +		 * initialized by boot loaders uses this source. So we
+> +		 * need to keep this clock ON. Add the
+> +		 * CLK_IGNORE_UNUSED flag so the clock will not be
+> +		 * disabled. Once the consumer in kernel is added, we
+> +		 * can get rid of this flag.
+> +		 */
+> +		.flags =3D CLK_IS_CRITICAL,
+
+There is a similar mismatch here where the comment indicates CLK_IGNORE_UNU=
+SED
+but the implementation sets CLK_IS_CRITICAL.
+
+[ ... ]
+
+> +static struct clk_branch gcc_qpic_sleep_clk =3D {
+> +	.halt_reg =3D 0x32018,
+> +	.halt_check =3D BRANCH_HALT,
+> +	.clkr =3D {
+> +		.enable_reg =3D 0x32018,
+> +		.enable_mask =3D BIT(0),
+> +		.hw.init =3D &(const struct clk_init_data) {
+> +			.name =3D "gcc_qpic_sleep_clk",
+> +			.ops =3D &clk_branch2_ops,
+> +		},
+> +	},
+> +};
+
+Does this clock need parent initialization? Other sleep branch clocks in th=
+is
+driver specify their parent, but this one appears to omit parent_hws and
+num_parents. Could this leave the clock unparented in the clock framework?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-ipq9650_bo=
+ot_to_shell-v4-0-1e87c8326e59@oss.qualcomm.com?part=3D2
