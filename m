@@ -1,227 +1,161 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CE173B2FC6;
-	Wed, 13 May 2026 19:10:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 206793B1009;
+	Wed, 13 May 2026 19:12:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778699450; cv=none; b=EfNSAjwYfjK3atZtEn9eZ1k/lxDHVYsWwNwYqcMby92pUTAAZN2pEE2zNJg6YmLO4XtfMTyR5hk+pgISSCvcJUAnQBr2QCDFpw1cLRBx14Zr1ppwDfbYvu/wx7hbcuoLeEZJrdAan9xycx+TElJ65BtTjjAdjmD+lJKTOlTxI78=
+	t=1778699571; cv=none; b=Ik00sltpuJN/T+5P+yjHvQvnLagvsJLQwPbrRQ8TNznLUC7Vitd09ygCfoRQLUK5+y2i8lrJh1+yjdN2/Th8uqaKbfCBuzMMK6Y+OJmfc46IynVA0N6wkgSvex1P7RONzuf0LVqw5lkBbmF4u8i4s8BaiyOgtBnTXeG20BMWgCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778699450; c=relaxed/simple;
-	bh=9MGnPPdV+VUYXwcoWGsmO7cNa+qnyLxjUe2dqB9DHPU=;
+	s=arc-20240116; t=1778699571; c=relaxed/simple;
+	bh=ByO3UDk1bD7UWyiAS+/7bd2l/UItToX1RFnexJVVuBY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XkZz46njCA8FN8OlWka4iQEiUg+7GB5QgB11PL4ZTehkUbflKIJFAKof2nGKhwPtFMuCvCREpnx4CxLEbbugPAGU4Z7XEM8nN9Gl70tHgwRpBdgWlMo0Z9PGl21tTH/eRLzRufjkhu423eNLGPO5M6QEfGyEhnVc6xJIgteSZxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=if/ssKTf; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=GaH0z1YG5oLL48P5XasSfDIPkKrHq/e4luNUMuq6ogu0KmiEOp48PZbCf/w0kqLN2euyBtyfwrR/2daGWnJLEHTkKXgCqqm4fmQsqLqJXLLkKp9vLtKqT1IYQfoyAu6MyrWh17ZfDiTN9D/eeZCXf887PjsuUMhxBAzhy2tjvvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tSEh8ebP; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="if/ssKTf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB1A6C19425;
-	Wed, 13 May 2026 19:10:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tSEh8ebP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B321C19425;
+	Wed, 13 May 2026 19:12:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778699450;
-	bh=9MGnPPdV+VUYXwcoWGsmO7cNa+qnyLxjUe2dqB9DHPU=;
+	s=k20201202; t=1778699570;
+	bh=ByO3UDk1bD7UWyiAS+/7bd2l/UItToX1RFnexJVVuBY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=if/ssKTfRf0rQVz1zLKR7YT8p+GlSqvaWZAFdzE+p+JYykdvWtCLss2q4rDDqs4f4
-	 7tpSxOVxa4CbKhVQ3ECawuFG0T8DXXe163MnUg7+7w5DLe9LSf8Bbc/I6YDiHwIUBj
-	 suYWRaAgJFKAGdmFa+SgEVA95pFkYH2iQ94jklppzF7QjEBrXp8I6tIvbEQ8lSRkfJ
-	 v4qzp9gMTl+ofztQndvzVUO8ctkqHh1oIplx9TZl4swrzvJHlAH2oB6EY9r7z/BXtI
-	 65Uy2a602znvmdEkeZt2iwfXy9RPwFMCE1vtun5Y2KfaLXK6JKDEIvnBsN938AgPyl
-	 owEdmyHL2Ul/g==
-Date: Wed, 13 May 2026 21:10:47 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: sashiko@lists.linux.dev
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
-	robh@kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: Add Airoha AN7583 SoC and AN7583
- Evaluation Board
-Message-ID: <agTMt4_Obx_RMrrY@lore-desk>
-References: <20260509-airoha-7583-v1-2-e5ad085b258e@kernel.org>
- <20260509181009.E5E6AC2BCC4@smtp.kernel.org>
+	b=tSEh8ebPPoDvLCOivTGQDD8UQC5ue9skRt3JrfoTA0akFw3dOfbuxpHQCw7HA5Fqt
+	 lB4PhZNnZosJJVyIi32Oy47qxcdy6fjvmotJP6MPAGewetYNPlKleLjLOckHLNRBcj
+	 jB0gmJv0Aj/mvztLiYYFhsLICOmOyJWoOORpYDwaF1VHEDpZRBx9/QUpgU3YKle8Jd
+	 w8e9viTEtG4MmNMGzOOE6TM2Jhg2RuWfnhTV9HnnUQrMNcBBwav16nsRAz16SQA1fZ
+	 xC68DodgS3DpMu/oP9s9VSm5R4fThueU5fl5P4PLFX48E4gk7sSzuQUgqSIWeWlMKy
+	 5T4qGMwQexIXg==
+Date: Wed, 13 May 2026 14:12:46 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Akash Kumar <akash.kumar@oss.qualcomm.com>
+Cc: Elson Serrao <elson.serrao@oss.qualcomm.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: lemans: Enable eud support
+Message-ID: <agTMzwEX1Nw-dZht@baldur>
+References: <20260512091422.1395490-1-akash.kumar@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="UzIfF7Te10oGzSbt"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260509181009.E5E6AC2BCC4@smtp.kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260512091422.1395490-1-akash.kumar@oss.qualcomm.com>
 
+On Tue, May 12, 2026 at 02:39:26PM +0530, Akash Kumar wrote:
+> Add the EUD controller node in lemans.dtsi and update the USB HS
+> endpoint routing on lemans-evk to pass through EUD instead of linking
+> the connector directly to usb_0_dwc3_hs.
+> 
+> Wire the OF graph endpoints between the connector, EUD and DWC3 HS
+> controller to enable the EUD path on lemans EVK.
+> 
+> This change is part of series "Improve Qualcomm EUD driver and
+> platform support" and has been validated on the Qualcomm Dragonwing platform
+> (RB8 board), confirming successful OpenOCD connectivity to the EUD
+> interface. For detailed usage instructions, refer to Qualcomm’s Linux
+> kernel debugging guide:
+> https://docs.qualcomm.com/bundle/publicresource/topics/80-70020-12/debugging_linux_kernel.html#debug-using-openocd
+> 
+> Signed-off-by: Akash Kumar <akakum@qti.qualcomm.com>
 
---UzIfF7Te10oGzSbt
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Is this based on the work by Elson at
+https://lore.kernel.org/all/20260501170635.2641748-1-elson.serrao@oss.qualcomm.com/#t
+?
 
-> Thank you for your contribution! Sashiko AI review found 6 potential issu=
-e(s) to consider:
-> - [High] The memory node specifies a physical size of 8GB, which is a typ=
-o that will cause a fatal boot panic.
-> - [Medium] The UART compatible string 'ns16550' will disable hardware FIF=
-Os.
-> - [Medium] The GIC maintenance interrupt polarity is incorrectly specifie=
-d as active-low.
-> - [Low] Missing SoC-specific compatible string for the watchdog timer.
-> - [Low] Unnecessary address and size cells in the GIC node will trigger c=
-ompiler warnings.
-> - [Low] CPU nodes declare cooling capabilities but lack required frequenc=
-y scaling properties.
-> --
->=20
-> commit f0ce6065ddf4c46b3e0a82baac122d34553f5f4c
-> Author: Lorenzo Bianconi <lorenzo@kernel.org>
->=20
-> arm64: dts: Add Airoha AN7583 SoC and AN7583 Evaluation Board
->=20
-> Introduce the Airoha AN7583 SoC's dtsi and the Airoha AN7583 Evaluation
-> Board's dts file.
->=20
-> > diff --git a/arch/arm64/boot/dts/airoha/an7583-evb.dts b/arch/arm64/boo=
-t/dts/airoha/an7583-evb.dts
-> > new file mode 100644
-> > index 0000000000000..76b3d94434f63
-> > --- /dev/null
-> > +++ b/arch/arm64/boot/dts/airoha/an7583-evb.dts
->=20
-> [ ... ]
->=20
-> > +	memory@80000000 {
-> > +		device_type =3D "memory";
-> > +		reg =3D <0x0 0x80000000 0x2 0x00000000>;
-> > +	};
->=20
-> Because #size-cells =3D <2>, the size array <0x2 0x00000000> sets the upp=
-er
-> 32 bits to 0x2, which evaluates to an enormous 8GB memory range.
->=20
-> Is this a typo for 512MB (<0x0 0x20000000>) or 2GB (<0x0 0x80000000>)?
->=20
-> While an identical value exists in the predecessor board's DT, it was
-> safely masked there by a restrictive linux,usable-memory-range property
-> in the chosen node.
->=20
-> Since this board lacks that protective limit, will the kernel attempt to
-> map and access the full 8GB of memory and trigger unbacked physical
-> memory accesses, resulting in a fatal bus fault during early boot?
-
-ack, I will fix it in v2.
-
->=20
-> > diff --git a/arch/arm64/boot/dts/airoha/an7583.dtsi b/arch/arm64/boot/d=
-ts/airoha/an7583.dtsi
-> > new file mode 100644
-> > index 0000000000000..64b2c7533aff6
-> > --- /dev/null
-> > +++ b/arch/arm64/boot/dts/airoha/an7583.dtsi
->=20
-> [ ... ]
->=20
-> > +		cpu0: cpu@0 {
-> > +			device_type =3D "cpu";
-> > +			compatible =3D "arm,cortex-a53";
-> > +			reg =3D <0x0>;
-> > +			enable-method =3D "psci";
-> > +			next-level-cache =3D <&l2>;
-> > +			#cooling-cells =3D <2>;
-> > +		};
->=20
-> Are required frequency scaling properties missing here?
->=20
-> Both CPU nodes define #cooling-cells, but the cpufreq_cooling subsystem
-> requires properties like clocks or operating-points-v2 to bind. Without
-> them, is this cooling declaration functionally dead code that generates
-> validation warnings?
-
-ack, I will fix it in v2.
-
->=20
-> [ ... ]
->=20
-> > +		gic: interrupt-controller@9000000 {
-> > +			compatible =3D "arm,gic-v3";
-> > +			interrupt-controller;
-> > +			#interrupt-cells =3D <3>;
-> > +			#address-cells =3D <1>;
-> > +			#size-cells =3D <1>;
->=20
-> Do we need these address and size cells here? According to device tree
-> compiler rules, specifying them without any children or a ranges property
-> causes an avoid_unnecessary_addr_size warning.
-
-ack, I will fix it in v2.
-
->=20
-> > +			reg =3D <0x0 0x09000000 0x0 0x20000>,
-> > +			      <0x0 0x09080000 0x0 0x80000>,
-> > +			      <0x0 0x09400000 0x0 0x2000>,
-> > +			      <0x0 0x09500000 0x0 0x2000>,
-> > +			      <0x0 0x09600000 0x0 0x20000>;
-> > +			interrupts =3D <GIC_PPI 9 IRQ_TYPE_LEVEL_LOW>;
->=20
-> Should this maintenance interrupt be active-high?
->=20
-> The ARM Generic Interrupt Controller architecture specification explicitly
-> mandates that the GIC maintenance interrupt is an active-high,
-> level-sensitive interrupt (IRQ_TYPE_LEVEL_HIGH).
->=20
-> Incorrect polarity might prevent it from firing properly and break
-> hardware virtualization support.
-
-ack, I will fix it in v2.
-
->=20
-> > +		};
-> > +
-> > +		uart1: serial@1fbf0000 {
-> > +			compatible =3D "ns16550";
->=20
-> Could this compatible string unintentionally disable hardware FIFOs?
->=20
-> In the Linux 8250 serial driver, ns16550 restricts the fifo_size to 1
-> byte due to known hardware bugs in the original 16550 chip. Since modern
-> UART IPs include working FIFOs, should this be declared as ns16550a to
-> avoid excessive interrupt load?
-
-ack, I will fix it in v2.
-
->=20
-> > +			reg =3D <0x0 0x1fbf0000 0x0 0x30>;
-> > +			reg-io-width =3D <4>;
-> > +			reg-shift =3D <2>;
-> > +			interrupts =3D <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
-> > +			clock-frequency =3D <1843200>;
-> > +		};
-> > +
-> > +		watchdog@1fbf0100 {
-> > +			compatible =3D "airoha,en7581-wdt";
->=20
-> Would it be better to include the SoC-specific compatible string alongside
-> the fallback?
->=20
-> The dt-binding schema typically dictates using a string like
-> "airoha,an7583-wdt", "airoha,en7581-wdt" to accurately describe the
-> specific SoC and ensure any future platform-specific driver quirks can be
-> cleanly applied.
-
-ack, I will fix it in v2.
+Help Elson to conclude (get merged) his efforts by code reviewing and
+adopting the improved bindings before reposting this.
 
 Regards,
-Lorenzo
+Bjorn
 
->=20
-> --=20
-> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260509-airoha-7583=
--v1-0-e5ad085b258e@kernel.org?part=3D2
-
---UzIfF7Te10oGzSbt
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCagTMtwAKCRA6cBh0uS2t
-rPoJAPwPbPA5HyoNAXkQWW865UorPGSV/CAD5AA+IHUQ1fmlIgEA4Sp1UDY1hNTJ
-NChKZJn069yy+NysZjdp0xk7LNPa1AA=
-=0LIH
------END PGP SIGNATURE-----
-
---UzIfF7Te10oGzSbt--
+> ---
+>  arch/arm64/boot/dts/qcom/lemans-evk.dts | 12 ++++++++++--
+>  arch/arm64/boot/dts/qcom/lemans.dtsi    | 26 +++++++++++++++++++++++++
+>  2 files changed, 36 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/lemans-evk.dts b/arch/arm64/boot/dts/qcom/lemans-evk.dts
+> index c665db6a4595..96d316867c0e 100644
+> --- a/arch/arm64/boot/dts/qcom/lemans-evk.dts
+> +++ b/arch/arm64/boot/dts/qcom/lemans-evk.dts
+> @@ -55,7 +55,7 @@ port@0 {
+>  				reg = <0>;
+>  
+>  				usb0_con_hs_ep: endpoint {
+> -					remote-endpoint = <&usb_0_dwc3_hs>;
+> +					remote-endpoint = <&eud_con>;
+>  				};
+>  			};
+>  
+> @@ -510,6 +510,14 @@ queue3 {
+>  	};
+>  };
+>  
+> +&eud_ep {
+> +	remote-endpoint = <&usb_0_dwc3_hs>;
+> +};
+> +
+> +&eud_con {
+> +	remote-endpoint = <&usb0_con_hs_ep>;
+> +};
+> +
+>  &gpi_dma0 {
+>  	status = "okay";
+>  };
+> @@ -985,7 +993,7 @@ &usb_0 {
+>  };
+>  
+>  &usb_0_dwc3_hs {
+> -	remote-endpoint = <&usb0_con_hs_ep>;
+> +	remote-endpoint = <&eud_ep>;
+>  };
+>  
+>  &usb_0_dwc3_ss {
+> diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/qcom/lemans.dtsi
+> index fe6e76351823..a8ab11681476 100644
+> --- a/arch/arm64/boot/dts/qcom/lemans.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
+> @@ -4003,6 +4003,32 @@ opp-384000000 {
+>  			};
+>  		};
+>  
+> +		eud: eud@88e1000 {
+> +			compatible = "qcom,sc7280-eud", "qcom,eud";
+> +			reg = <0 0x88e1000 0 0x2000>,
+> +				<0 0x88e3000 0 0x1000>;
+> +			interrupts-extended = <&pdc 11 IRQ_TYPE_LEVEL_HIGH>;
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +			port@0 {
+> +					reg = <0>;
+> +
+> +					eud_ep: endpoint {
+> +					};
+> +			};
+> +
+> +				port@1 {
+> +					reg = <1>;
+> +
+> +					eud_con: endpoint {
+> +					};
+> +				};
+> +			};
+> +		};
+> +
+>  		usb_0_hsphy: phy@88e4000 {
+>  			compatible = "qcom,sa8775p-usb-hs-phy",
+>  				     "qcom,usb-snps-hs-5nm-phy";
+> -- 
+> 2.43.0
+> 
+> base-commit: https://lore.kernel.org/all/20260501170635.2641748-1-elson.serrao@oss.qualcomm.com/
+> change-id: Improve Qualcomm EUD driver and platform support
