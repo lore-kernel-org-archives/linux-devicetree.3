@@ -1,143 +1,195 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5E7C38A72B
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 20:59:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A80E63955C1
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 21:04:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778705993; cv=none; b=DehMg6elKHiKtOZSx1iQsrMBqHbWvoy9p61gjI/jI++LeLc2KUo+CKuNidDwXJohlIbNRvEFQvjiQd6cVHLuMAw0wgD+hQyNMhK9iJq5r7q9UPoAM2p1cnlC+/3UF3mSiJdp+348ZqwWDtDmAeKSOQZyl5jfZ8k24pCQh0AjJQo=
+	t=1778706268; cv=none; b=UwO8GgTy6hvrWHf/+5Z61/5BxkSmcEOu8+c4ceH0UnK8VwiQTnMT+DGdqgdhYwCjoyt1OL901vi7fy2yWg6JuojTwrneklzsUPM0P0qdKmLV+hTdGnCRwh5HdKHOXzuYuobCFYNWphRr5GmNKcN5XzvfFUiOS0hRfSfwiENrvL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778705993; c=relaxed/simple;
-	bh=tvlrGcM/AUE8AcKczZQ9XpmobKLfQt6KWsN5V7FTq74=;
+	s=arc-20240116; t=1778706268; c=relaxed/simple;
+	bh=5UTsSnept7bHmH368MHXnsowJFnDqAlVsZxVHLSF7oY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VOSxrrKVk9JEik3SQgzXTMvuMrScROvv0K1TNlMTM2KZtiAPoJ8Nl1wQyYm4cpchH5cuYum3zveLnCa3BfXDyJ0PYcn3pqpZoXeoU8KH8oaZMFfOxMZh7Utz0dZnuTjENl2BCyIYj4aTyaLwRcRt726LOwlOlS7pOMvX7h1Kggk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N+3NcvI7; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=Y8JRy7xSfoDv65H4cS1yf4xG3dVnyP68rvU1t41MMRGWYonCtvwCRiNsvsQJwXeH7E56VYoD0Fos2bBtreK5my44qDNV/Q+pwLRpUCZt+Rv3Vq4YSq1v3m0oSHrHZCOsVmyvWT1qP3FfE3Sw399nRFQjt3kt6ytSINTWFgVRVBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pTeX6KYt; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N+3NcvI7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8CF4C19425;
-	Wed, 13 May 2026 20:59:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pTeX6KYt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06563C19425;
+	Wed, 13 May 2026 21:04:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778705993;
-	bh=tvlrGcM/AUE8AcKczZQ9XpmobKLfQt6KWsN5V7FTq74=;
+	s=k20201202; t=1778706268;
+	bh=5UTsSnept7bHmH368MHXnsowJFnDqAlVsZxVHLSF7oY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=N+3NcvI7jVKjlZtGlO2tx+IwVSGuTK5ax+cK7ulIy8Ub3P1Fx7t2iXxBUQw9zY+IJ
-	 IczFTG3LfU8oKtEi63K+K78QaKKRDx9z7GWt77MhruOsmG5WjfspdfaynnpkmH/BXr
-	 tAQorDgqt+/qoecifceNf02cMubj0uVXVTqqzziGBvianh2aXE7eXB06TQu20+rE3h
-	 P4GpgTBwVq2z7s/M5/HMipGlG3BHGY8oeLqtu1v7n38GVvvdmB47SSJI/IAS5Egxz+
-	 w3jksUrpLtW+SoeQfSTltuPu0Jgaau/TWB7Z1eK/Rh1nU9IAFrlM9zVHrmtsOOxTXk
-	 Vuz0pgWcR2QAw==
+	b=pTeX6KYt3Y9tzPD+XlFiQ1sU+HNbouTkHFO1Tsa4X3aI1VE7E/cN8NNb+GaiZnjdd
+	 KN5WBRAU8GXpEItshZ/P2iDNdIWZ+o6R7n2594HGWgunhuYmCAmUK2tMBLJ+7fLDY8
+	 /X+pAySp5v9seOOZfncJSVM81kpGY5BEgYQN1n/C4zfNh+tdcB4cN8zHDc1hOt2cuo
+	 MJLBvg1qmCH1z+IqXLIjFqKNa1H70IqBzk1FehRB/0o4Uo+zAvrNwqV9IUlNwfvfIC
+	 zhtR9KReh2o6rbLq+pdrcX+iGfXaNR89W3EWzOP6lVi9UiwJUo7xXY2oVDlAwcE0fe
+	 EX5JeK/0q17ag==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 6/6] regulator: mt6359: Add proper ldo_vcn33_[12]
- regulators
+Subject: Re: [PATCH v4 2/2] usb: cdnsp: Add support for device-only
+ configuration
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chen-Yu Tsai" <wenst@chromium.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260512085358.1693208-7-wenst@chromium.org>
-References: <20260512085358.1693208-7-wenst@chromium.org>
+To: "Pawel Laszczak via B4 Relay" <devnull+pawell.cadence.com@kernel.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260512-b4-no_drd_config-v4-2-7b4e5dc96f81@cadence.com>
+References: <20260512-b4-no_drd_config-v4-2-7b4e5dc96f81@cadence.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 13 May 2026 20:59:52 +0000
-Message-Id: <20260513205952.E8CF4C19425@smtp.kernel.org>
+Date: Wed, 13 May 2026 21:04:27 +0000
+Message-Id: <20260513210428.06563C19425@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] The return value of `mt6359_sync_vcn33_setting()` is ignored in `m=
-t6359_regulator_probe()`.
-- [Low] The logging messages in `mt6359_sync_vcn33_setting()` print incorre=
-ct 0-based regulator indices.
+- [High] Uninitialized variable returned in cdns_drd_host_on()
+- [High] Use-After-Free due to improper error handling in cdnsp_pci_probe()
+- [High] Use-After-Free via sysfs due to failure to unregister usb_role_swi=
+tch on cdns_core_init_role() error
+- [High] Race condition in cdnsp_pci_probe() leading to NULL pointer derefe=
+rence under asynchronous probing
 --
 
-commit 6f24659e7932d4cb71b42c3442fde771560f8271
-Author: Chen-Yu Tsai <wenst@chromium.org>
-Subject: regulator: mt6359: Add proper ldo_vcn33_[12] regulators
+commit b729274ea9c34ef88a5c2a918206d853477c97a2
+Author: Pawel Laszczak <pawell@cadence.com>
 
-This commit consolidates the separate Wi-Fi and Bluetooth regulators into
-single hardware regulators for ldo_vcn33_1 and ldo_vcn33_2. It syncs the
-enable bits and forces the Wi-Fi bits off to simplify handling, while
-retaining dummy regulators for device tree backward compatibility.
+usb: cdnsp: Add support for device-only configuration
 
-> diff --git a/drivers/regulator/mt6359-regulator.c b/drivers/regulator/mt6=
-359-regulator.c
-> --- a/drivers/regulator/mt6359-regulator.c
-> +++ b/drivers/regulator/mt6359-regulator.c
+This patch introduces support for the Cadence USBSSP (cdnsp) controller in
+hardware configurations where the Dual-Role Device (DRD) register block is
+not implemented or is inaccessible. It adjusts BAR indexing, adds a no_drd
+flag, and skips DRD-specific initializations if no_drd is true.
 
-[ ... ]
-
-> @@ -951,27 +949,114 @@ static const struct mt6359_regulator_info mt6359p_=
-regulators[] =3D {
-
-[ ... ]
-
-> +static int mt6359_sync_vcn33_setting(struct device *dev, unsigned int id=
-x)
-> +{
-
-[ ... ]
-
-> +	for (unsigned int i =3D 0; i < ARRAY_SIZE(vcn33_regs[0]); i++) {
-> +		u32 bt_en_mask =3D vcn33_regs[idx][i].bt_en_mask;
-> +		u32 wifi_en_mask =3D vcn33_regs[idx][i].wifi_en_mask;
-> +
-> +		ret =3D regmap_read(mt6397->regmap, vcn33_regs[idx][i].wifi_en_reg, &v=
-al);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "Failed to read VCN33_%u_WIFI setting\=
-n", i);
-
-This isn't a bug, but since the loop index i starts at 0, will this print
-VCN33_0_WIFI instead of VCN33_1_WIFI on the first iteration? Would it make
-sense to use i + 1 here and in the subsequent error messages to accurately
-match the hardware component names?
-
-[ ... ]
-
-> +		/* Disable VCN33_[12]_WIFI */
-> +		ret =3D regmap_update_bits(mt6397->regmap, vcn33_regs[idx][i].wifi_en_=
-reg,
-> +					 wifi_en_mask, 0);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "Failed to disable VCN33_%u_WIFI\n", i=
-);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->  static int mt6359_regulator_probe(struct platform_device *pdev)
->  {
->  	struct mt6397_chip *mt6397 =3D dev_get_drvdata(pdev->dev.parent);
-
-[ ... ]
-
->  	ret =3D regmap_read(mt6397->regmap, MT6359P_HWCID, &hw_ver);
->  	if (ret)
->  		return ret;
+> diff --git a/drivers/usb/cdns3/cdns3-plat.c b/drivers/usb/cdns3/cdns3-pla=
+t.c
+> index 3fe3109a3688a..86c963a072dba 100644
+> --- a/drivers/usb/cdns3/cdns3-plat.c
+> +++ b/drivers/usb/cdns3/cdns3-plat.c
+> @@ -81,6 +81,7 @@ static int cdns3_plat_probe(struct platform_device *pde=
+v)
+>  	if (cdns->pdata && cdns->pdata->override_apb_timeout)
+>  		cdns->override_apb_timeout =3D cdns->pdata->override_apb_timeout;
 > =20
-> -	if (hw_ver >=3D MT6359P_CHIP_VER)
-> +	if (hw_ver >=3D MT6359P_CHIP_VER) {
->  		mt6359_info =3D mt6359p_regulators;
-> -	else
-> +		mt6359_sync_vcn33_setting(&pdev->dev, 1);
-> +	} else {
->  		mt6359_info =3D mt6359_regulators;
-> +		mt6359_sync_vcn33_setting(&pdev->dev, 0);
-> +	}
+> +	cdns->no_drd =3D device_property_read_bool(dev, "no_drd");
+>  	platform_set_drvdata(pdev, cdns);
 
-Should the return value of mt6359_sync_vcn33_setting() be checked here?
+This isn't a bug introduced by this patch, but does the error path in this
+probe function leave a dangling role switch?
 
-If the regmap operations inside the sync function fail, it returns a negati=
-ve
-error code via dev_err_probe(). By dropping the return value, the driver
-silently continues to probe and register regulators on top of an
-unsynchronized or inconsistent PMIC hardware state.
+In cdns3_plat_probe(), cdns_init() registers a USB role switch which stores
+a pointer to the devm-allocated cdns structure as its driver data.
 
-Could this return value be captured in the ret variable and propagated up?
+If cdns_core_init_role() fails later in the probe:
+
+cdns3_plat_probe()
+    ret =3D cdns_init(cdns);
+    ...
+    ret =3D cdns_core_init_role(cdns);
+    if (ret)
+        goto err_cdns_init;
+
+err_cdns_init:
+    set_phy_power_off(cdns);
+    ...
+
+Is it possible the role switch remains alive and accessible via sysfs
+without being unregistered, but the underlying cdns structure gets freed by
+devres, leading to a use-after-free?
+
+[ ... ]
+> diff --git a/drivers/usb/cdns3/cdnsp-pci.c b/drivers/usb/cdns3/cdnsp-pci.c
+> index 432007cfe6954..feb9162298709 100644
+> --- a/drivers/usb/cdns3/cdnsp-pci.c
+> +++ b/drivers/usb/cdns3/cdnsp-pci.c
+[ ... ]
+> @@ -93,7 +104,7 @@ static int cdnsp_pci_probe(struct pci_dev *pdev,
+> =20
+>  	pci_set_master(pdev);
+> =20
+> -	if (pci_is_enabled(func)) {
+> +	if (func && pci_is_enabled(func)) {
+>  		wrap =3D pci_get_drvdata(func);
+
+This isn't a bug introduced by this patch, but could this race if
+asynchronous probing is enabled?
+
+If the first function is probed concurrently, it calls
+pcim_enable_device(), which makes pci_is_enabled(func) evaluate to true
+for the second function.=20
+
+If the second function reaches here before the first function calls
+pci_set_drvdata() at the end of its probe, will pci_get_drvdata() return a
+NULL pointer?
+
+If so, could this lead to a NULL pointer dereference immediately following
+this block when it populates resources via res =3D wrap->dev_res?
+
+[ ... ]
+> @@ -158,6 +182,7 @@ static int cdnsp_pci_probe(struct pci_dev *pdev,
+>  		plat_info.dma_mask =3D pdev->dma_mask;
+>  		plat_info.data =3D &pdata;
+>  		plat_info.size_data =3D sizeof(pdata);
+> +		plat_info.properties =3D wrap->prop;
+>  		wrap->devfn =3D pdev->devfn;
+>  		/* register platform device */
+>  		wrap->plat_dev =3D platform_device_register_full(&plat_info);
+
+This isn't a bug introduced by this patch, but does the error handling here
+risk a double-free?
+
+If the second PCI function is being probed and
+platform_device_register_full() fails, the existing error handling does:
+
+cdnsp_pci_probe()
+    wrap->plat_dev =3D platform_device_register_full(&plat_info);
+    if (IS_ERR(wrap->plat_dev)) {
+        ret =3D PTR_ERR(wrap->plat_dev);
+        kfree(wrap);
+        goto put_pci;
+    }
+
+Since wrap was retrieved from the first function's driver data via
+pci_get_drvdata(), the first function still holds this pointer. When the
+first function is eventually unbound, will cdnsp_pci_remove() attempt to
+use and free it again, resulting in a use-after-free?
+
+[ ... ]
+> diff --git a/drivers/usb/cdns3/drd.c b/drivers/usb/cdns3/drd.c
+> index 84fb38a5723a3..f87cf85cb97a1 100644
+> --- a/drivers/usb/cdns3/drd.c
+> +++ b/drivers/usb/cdns3/drd.c
+[ ... ]
+> @@ -181,6 +184,9 @@ int cdns_drd_host_on(struct cdns *cdns)
+>  	u32 val, ready_bit;
+>  	int ret;
+> =20
+> +	if (cdns->no_drd)
+> +		goto phy_set;
+> +
+
+Does this jump bypass the initialization of the return variable?
+
+When no_drd is true, the execution jumps to the phy_set label, bypassing
+the block where ret is populated.
+
+[ ... ]
+> @@ -197,6 +203,7 @@ int cdns_drd_host_on(struct cdns *cdns)
+>  	if (ret)
+>  		dev_err(cdns->dev, "timeout waiting for xhci_ready\n");
+> =20
+> +phy_set:
+>  	phy_set_mode(cdns->usb2_phy, PHY_MODE_USB_HOST);
+>  	phy_set_mode(cdns->usb3_phy, PHY_MODE_USB_HOST);
+>  	return ret;
+
+When the function finishes and returns ret, will it return an uninitialized
+value from the stack, potentially causing host initialization to fail
+unpredictably?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512085358.1693=
-208-1-wenst@chromium.org?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-b4-no_drd_=
+config-v4-0-7b4e5dc96f81@cadence.com?part=3D2
