@@ -1,115 +1,183 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC2B175A64
-	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 23:44:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02BB836F8EC
+	for <devicetree@vger.kernel.org>; Wed, 13 May 2026 23:45:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778715874; cv=none; b=svVHhzGyMkrBgCnoaEUzVxsEAY/Jo2/20LG2lLIvszZIZNwhQ8HiQ7HXgPDtr26/h/f8QyppoVmBfKTxbEzUC1/P12YaukrNnstOM0b95zqNT0gD2CFpLGuVDLErfd7tcYQambc5CLrQTgEj+RYe0cGfArSv8pjx1aSv+EMM6PI=
+	t=1778715936; cv=none; b=EuIiCIHwr2mTWnjTMS3jNK4OqqiYzsxSW8fd9xgDimXFs7w3JelxHfl8/wl8nhe/N/XAceuxtPUzhA3gLgbgVyRWV0IaXa2ek9Lr/GuN0aIc868XeZnX9dP2gHk7rVSTrckc95KSC42NnPhMSP/zaUpG+m+Er758jNBWeTvVets=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778715874; c=relaxed/simple;
-	bh=e8J6P8spAZypS3Lm4Cbbib+cfuktCXJtm+vAKlnXz20=;
+	s=arc-20240116; t=1778715936; c=relaxed/simple;
+	bh=vOXbHV5gSZGoLiFp5y4OYtF7MDzkiR2P+MpkNBRN+84=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Y31g0oCtOw9j2t+jC3XGrsCUfGcSCNhEQ4ujNnr/O23/wVq5mukCm57LEtN8pxOy+rqc8IyJuh68G7mQo8iCM3i8HH78MjdWlJ53rZIlOFTb+Vbu2XcQQgvaYSvIUfKCsmpmq+KHWDFgvyqjcpkZbPPkvBr4cLWIM0RL5S7NUu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CMJ6j6lw; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=JMuMos7uWsVAuG7IhTOUbISGnTNwx8LgpFE9qksQbjpnhoBQ9f/PICAsqZs9MyMMcANVzaCMVB7eCaqkyH9txfY2QIlqQTl1qiSdrmRo+9qIksMcwxoJ+e2pMRewqOsXDPMQCjG4OYo619p2WCwvXw1VhRVxlQCdM1qZuXMA+8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KISNos7r; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CMJ6j6lw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D0A0C19425;
-	Wed, 13 May 2026 23:44:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KISNos7r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B8FFC19425;
+	Wed, 13 May 2026 23:45:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778715873;
-	bh=e8J6P8spAZypS3Lm4Cbbib+cfuktCXJtm+vAKlnXz20=;
+	s=k20201202; t=1778715935;
+	bh=vOXbHV5gSZGoLiFp5y4OYtF7MDzkiR2P+MpkNBRN+84=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=CMJ6j6lwWbat34XmCBe2BnFSf1xhKmSrZ2/AThW/l37/kwla7ZH6Jrm49KuRacH26
-	 7pD39E/s1iyQlYhUdAFcL1Ho4il5O3u5rU+wF9wMJ/CHto2U819+2c2loYMlNR80Dj
-	 HwGPxVL3SI/XSZLaVxe4p1MLq4O9PrhNtAlcUYvWjl4JSea7D6m4lAINPsR2G4gkBs
-	 UnBuJdWlbBFE4hHJkHKMVj0WAFYCRtHhjydgnyyBH1FdiE8A9XwtU7KZEewzkgKnps
-	 n/aGD5F7dCWPrq1ufxB3sBJ4SESeWA7/WuSmLL5miJQhymFKtw+BQliafQjrAR7ZOE
-	 bk1DteMHqsFYQ==
+	b=KISNos7rnj6TOo/ouvwyj4rQ8QpghK5+DHsQ9+ZZYDY9gzY/5qrTMiS21oqBwVg6A
+	 lfOvYsYWlJz0Pg+aBl+T2+sjiR3hQ9JTiFDh5rnkPK5bKgweHcX5Qo7UxYBHAmo2Ny
+	 qOxxhH8l37QBNOhr/4vEEMrkPq1GdjTPeFBGLuZRmryfCLg3fF03Kj8pVNBZx7nPV2
+	 p3fVgOxo8W+fuv+DHwdMWRwPVp65oImmILpN2Tc/HcgaxYyHrCYTHYc34toXPyqV/f
+	 L6dIQMEOxJ1RgBGm0s6d1zD2RCZU5R7yr7TQZVnKVKRvMCvWBOSv+F5Ig4q5zY+qPY
+	 qwiO8Lqer7Mpg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] arm64: dts: amlogic: t7: Fix pwm_ao_c pinmux
- definitions
+Subject: Re: [PATCH v6 01/16] ASoC: dt-bindings: sound: Add DT binding for
+ RZ/G3E sound
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ronald Claveau via B4 Relay" <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Cc: linux-amlogic@lists.infradead.org, neil.armstrong@linaro.org, conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260512-add-kvim4-sysled-v1-1-7178719a43e7@aliel.fr>
-References: <20260512-add-kvim4-sysled-v1-1-7178719a43e7@aliel.fr>
+To: "John Madieu" <john.madieu.xa@bp.renesas.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260512182631.3842065-2-john.madieu.xa@bp.renesas.com>
+References: <20260512182631.3842065-2-john.madieu.xa@bp.renesas.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 13 May 2026 23:44:32 +0000
-Message-Id: <20260513234433.7D0A0C19425@smtp.kernel.org>
+Date: Wed, 13 May 2026 23:45:35 +0000
+Message-Id: <20260513234535.9B8FFC19425@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Medium] The commit provides an incomplete fix by resolving missing pin g=
-roup suffixes for `pwm_ao_c` but overlooking identical bugs for `pwm_ao_g`,=
- `pwm_ao_h`, and `pwm_vs` in the same device tree file.
+- [High] The binding omits provider cell properties (`#clock-cells` and `#s=
+ound-dai-cells`) from the `required` list despite exposing these capabiliti=
+es.
+- [High] The schema allows and the example uses repeated strings (e.g., mul=
+tiple `"tx"`) in the `dma-names` arrays, which breaks standard DMA API look=
+up.
+- [Medium] The `ssi` subnodes define `dmas: true` and `dma-names: true` whi=
+ch bypasses all validation and contradicts the hardware's operational mode.
+- [Low] The device tree example contains multiple unresolved phandle refere=
+nces that will cause `dt_binding_check` to fail.
 --
 
-commit 45b298237b81cf91a3c02cc08237c80e6356d308
-Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
+commit 2000fc3ecea1872cd8c0d174d7a5e3c5c89282e9
+Author: John Madieu <john.madieu.xa@bp.renesas.com>
 
-arm64: dts: amlogic: t7: Fix pwm_ao_c pinmux definitions
+ASoC: dt-bindings: sound: Add DT binding for RZ/G3E sound
 
-The pwm_ao_c pin node was incomplete: it was missing the group name
-suffix, conflating two distinct pin groups (pwm_ao_c_d and pwm_ao_c_e)
-into a single, ambiguous entry.
+Add a standalone device tree binding for the Renesas RZ/G3E (R9A09G047)
+sound controller. The RZ/G3E sound IP is based on R-Car Sound but adds
+extended DMA channel support, additional clock domains, and resets.
 
-> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boo=
-t/dts/amlogic/amlogic-t7.dtsi
-> index 7fe72c94ed623..62f6b9baad28b 100644
-> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-> @@ -400,9 +400,17 @@ mux {
->  					};
->  				};
-> =20
-> -				pwm_ao_c_pins: pwm-ao-c {
-> +				pwm_ao_c_d_pins: pwm-ao-c-d {
->  					mux {
-> -						groups =3D "pwm_ao_c";
-> +						groups =3D "pwm_ao_c_d";
+> diff --git a/Documentation/devicetree/bindings/sound/renesas,r9a09g047-so=
+und.yaml b/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.=
+yaml
+> new file mode 100644
+> index 0000000000000..0b651214bd613
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml
+[ ... ]
+> +  dvc:
+> +    type: object
+> +    additionalProperties: false
+> +    patternProperties:
+> +      "^dvc-[0-1]$":
+> +        type: object
+> +        additionalProperties: false
+> +        properties:
+> +          dmas:
+> +            maxItems: 5
+> +          dma-names:
+> +            maxItems: 5
+> +            allOf:
+> +              - items:
+> +                  enum:
+> +                    - tx
 
-Should we also fix the regressions for pwm_ao_g, pwm_ao_h, and pwm_vs in
-this commit?
+The commit message explicitly notes allowing multiple DMA entries with
+repeated channel names in SSIU, SRC and DVC sub-nodes. However, will this
+regression break the standard DMA API lookup?
 
-In this same device tree file, pwm_ao_g_pins, pwm_ao_h_pins, and pwm_vs_pins
-are defined using the same generic string pattern:
+The of_dma_request_slave_channel() function relies on
+of_property_match_string() to resolve DMA channels by name, which strictly
+returns the index of the first match.
 
-arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi:
-				pwm_ao_g_pins: pwm-ao-g {
-					mux {
-						groups =3D "pwm_ao_g";
-						function =3D "pwm_ao_g";
-						bias-disable;
-					};
-				};
+If multiple entries use the same name, any DMA channels listed after the fi=
+rst
+tx or rx will be inaccessible. To support fallback or alternative
+channels, shouldn't they have unique names like tx0 and tx1?
 
-In drivers/pinctrl/meson/pinctrl-amlogic-t7.c, these generic groups do not
-exist as valid pin arrays. The driver only defines suffixed variants like
-pwm_ao_g_d11, pwm_ao_g_d7, pwm_ao_g_e, pwm_ao_h_d5, pwm_ao_h_d10, pwm_vs_y,
-and pwm_vs_h.
+[ ... ]
+> +  ssi:
+> +    type: object
+> +    additionalProperties: false
+> +    patternProperties:
+> +      "^ssi-[0-9]$":
+> +        type: object
+> +        additionalProperties: false
+> +        properties:
+> +          interrupts:
+> +            maxItems: 1
+> +          dmas: true
+> +          dma-names: true
 
-If any future or out-of-tree board tries to use these existing nodes, won't
-it result in a pinctrl lookup failure at runtime?
+Does defining dmas and dma-names as true bypass schema validation for
+these properties?
 
-> +						function =3D "pwm_ao_c";
-> +						bias-disable;
-> +					};
-> +				};
+This seems inconsistent with the strict constraints applied to src and
+dvc.
+
+Additionally, the commit message states that SSI operates exclusively in BU=
+SIF
+mode, which usually implies DMA is handled by the SSIU, not the SSI directly
+(as reflected by the omission of DMA properties in the ssi example nodes).
+Should these properties be constrained or removed entirely from the ssi
+subnodes?
+
+[ ... ]
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - reset-names
+
+Should #clock-cells and #sound-dai-cells be included in this list?
+
+The schema defines #clock-cells: const: 0 and #sound-dai-cells: const: 1
+in the properties block, indicating the hardware acts as a clock and DAI
+provider.
+
+According to device tree binding guidelines, when a hardware binding suppor=
+ts
+provider capabilities, the corresponding cell-count properties must be
+mandated in the required list to prevent incomplete device tree nodes from
+passing schema validation.
+
+[ ... ]
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
 > +
-> +				pwm_ao_c_e_pins: pwm-ao-c-e {
-> +					mux {
-> +						groups =3D "pwm_ao_c_e";
->  						function =3D "pwm_ao_c";
->  						bias-disable;
->  					};
+> +    sound@13c00000 {
+> +      #sound-dai-cells =3D <1>;
+> +      #clock-cells =3D <0>;
+> +      compatible =3D "renesas,r9a09g047-sound";
+> +      reg =3D <0x13c00000 0x10000>,
+> +            <0x13c20000 0x10000>,
+> +            <0x13c30000 0x1000>,
+> +            <0x13c31000 0x1f000>,
+> +            <0x13c50000 0x10000>;
+> +      reg-names =3D "scu", "adg", "ssiu", "ssi", "audmapp";
+> +      clocks =3D <&cpg 245>,
+
+Are there definitions for external labels like <&cpg 245>, <&dmac0>, and
+<&codec_endpoint> in the example snippet?
+
+When dt_binding_check compiles the example using dtc, unresolved phandle
+references will cause syntax errors for referencing non-existent nodes or
+labels.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-add-kvim4-=
-sysled-v1-0-7178719a43e7@aliel.fr?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512182631.3842=
+065-1-john.madieu.xa@bp.renesas.com?part=3D1
