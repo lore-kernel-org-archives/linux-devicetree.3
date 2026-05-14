@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE141C5F39
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 06:16:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C42AC33F5B9
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 06:21:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778739403; cv=none; b=T6mXsCPveC8zLn+CEfypItzcHQG3KJIjs5Pwtqr1tLpAXl+9DLQRoKyzixBoYSrSN1cW3aZZ1SBtAijy5AfDF1RgvnxRvPmfFiZM1W2L4PN2pyJOGZ092s3AP9Gpf2OvtN3rFEi4v5AFO8u8aE0MffXa5pJ36C9dmqky8CqFyj4=
+	t=1778739715; cv=none; b=PI/Mi32TnpKtSb2G9Iw6NDHcmVwLHlUBeczsNdv1iPiaI55S6PRLxbZC5Tz2gf9Da+W3PeLa0eQFv/J51m8LNlMS4x6jBsnFl1iANF4YTUEnRA4lGkVki3kZQFTOeqJpW0mAKVLtB158PT/pzkGNaktPdSVRcfq3X1dYKjl+O/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778739403; c=relaxed/simple;
-	bh=hclDBaOFRCvoS1b6RlvzmQmXuDbqv9qB9ZrXd/wiXVY=;
+	s=arc-20240116; t=1778739715; c=relaxed/simple;
+	bh=itITcp4EqBK0cCzJvgaxuDSEUU3vvT0bZJOvY7aRzy8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=B/5sAc4dcd6RWiVVjLIandkFVKAPH+QNDNPGPKzZy1BEe5y4pXkSnn1Fxcr57vW2ZVQ0dFod4YWMPQx8LOzIzXuE9ui2KLO6dwbOrjscv77SL6yQ7tcYbj+3TVGIGA6zGZbSr7HOVHRlc1WGvi8aqRtQvZrk+3nXVTnoKx4QSFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Aoo90Bjy; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=uIR2O0g8Z7wWRe7vA+bvi6IoY5ZLS0YTluKIut7f/wKVtijC0wWzjRrkZIm5uIGZHxwaeP4hJc4T3qqPbStMmz3GIXnMSoJgD7m+kfQgc99+YrJwf5uiU4HSmTYSl6422OgdJOl6pYe3Mw2LM8DZGHxY+7yh4EOpxZEmooyLx+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oEbYvU/D; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Aoo90Bjy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6B43C2BCB7;
-	Thu, 14 May 2026 06:16:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oEbYvU/D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E206C2BCB7;
+	Thu, 14 May 2026 06:21:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778739403;
-	bh=hclDBaOFRCvoS1b6RlvzmQmXuDbqv9qB9ZrXd/wiXVY=;
+	s=k20201202; t=1778739715;
+	bh=itITcp4EqBK0cCzJvgaxuDSEUU3vvT0bZJOvY7aRzy8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=Aoo90BjyMT/kLGzAqqVDVgt5EPv6WIVBAhunpRHHhKJahQLnEcALPwSjiWQAg3vbE
-	 x5RXZk63+oZeOca234bMNwCoi6wYX8Ylm2wxw8sMLLF8QZhdn3S5wW4Mxs8PDHA9rI
-	 fyrAxxUeyJJd914CT92BV4NaNiSFYZRf9jICPfs5W2sGYmaWOFly7cjvKzcWM05cJ6
-	 eKkGgzsQwbGH2END0RMEpqM4SpArPqBYTu91ISwV84YylGmWooWb0qjDY9MyxPVcj1
-	 qdxS/ikQMDqulQwJe4dvCMbmbXP+mr57Tkdh9SvMqXIBXOM6qGYH0JgcHpK9lCPlwz
-	 ZNkra2AB1HUlQ==
+	b=oEbYvU/DWfvaPaZwiW3mzRJc02dxhuQoSH+iA1sDxWLwXIOL+zIC2jqq227UhukqQ
+	 sHEh1S12necYLhdHVumL7z6cOSCxCXT72xkjbbE8iTPp2w1SIBubonEYQSMpX9N878
+	 UZEH1fCmXNMHj3jbxLLnKMkINJ8+S1H5iOC8G9o0oGz5vdJQzTekWzZwfPEAQwv+3H
+	 Oz3Y188Gfs9wb1LsSskz2E4LY/mG2NcAh4Uo4/+NyVXZKxMhdUFxPS5KAgXMKzxjtR
+	 rQnk6pJdNVry0kVkd5eLWTDqiKrfsjNMasH7PhhnzTN4WQRiRYdI9lJIRtl9+F+bpE
+	 GGQDrw9SuLPKQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] clk: qcom: nord: negcc: add missing definition for
- the USB2 PHY reset
+Subject: Re: [PATCH RESEND v7 2/3] riscv: clocksource: Add readq options to
+ clocksource mmio
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260513-nord-clk-usb2-phy-v1-2-8eafcb2d5129@oss.qualcomm.com>
-References: <20260513-nord-clk-usb2-phy-v1-2-8eafcb2d5129@oss.qualcomm.com>
+To: "Aleksa Paunovic via B4 Relay" <devnull+aleksa.paunovic.htecgroup.com@kernel.org>
+Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260513-riscv-time-mmio-v7-2-f8925ffc226b@htecgroup.com>
+References: <20260513-riscv-time-mmio-v7-2-f8925ffc226b@htecgroup.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 06:16:42 +0000
-Message-Id: <20260514061642.D6B43C2BCB7@smtp.kernel.org>
+Date: Thu, 14 May 2026 06:21:54 +0000
+Message-Id: <20260514062155.4E206C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,39 +46,54 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The newly introduced UAPI macro for the USB2 PHY reset is incorr=
-ectly named `NE_GCC_QUSB3PHY_PRIM_BCR` instead of `NE_GCC_QUSB2PHY_PRIM_BCR=
-`.
+- [High] Using `readq_relaxed()` to read a live 64-bit clocksource counter =
+is racy and unsafe on 32-bit systems, leading to torn reads and broken time=
+keeping.
 --
 
-commit 6d297fb76d38d25ccff03c1716dff37d01275b24
-Author: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+commit 21048c9043069be78a033341f4f13739837c7833
+Author: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
 
-clk: qcom: nord: negcc: add missing definition for the USB2 PHY reset
+riscv: clocksource: Add readq options to clocksource mmio
 
-This commit adds the missing USB2 PHY reset definition to the negcc clock
-driver and its bindings. This enables adding the USB nodes in the device
-tree.
+This commit adds generic read functions for 64-bit memory-mapped
+clocksources covering both up and down counters.
 
-> diff --git a/drivers/clk/qcom/negcc-nord.c b/drivers/clk/qcom/negcc-nord.c
-> index 1aa24e2784e53..31442d39924a6 100644
-> --- a/drivers/clk/qcom/negcc-nord.c
-> +++ b/drivers/clk/qcom/negcc-nord.c
-> @@ -1918,6 +1918,7 @@ static const struct qcom_reset_map ne_gcc_nord_rese=
-ts[] =3D {
->  	[NE_GCC_USB3_PHY_SEC_BCR] =3D { 0x2d000 },
->  	[NE_GCC_USB3PHY_PHY_PRIM_BCR] =3D { 0x2b004 },
->  	[NE_GCC_USB3PHY_PHY_SEC_BCR] =3D { 0x2d004 },
-> +	[NE_GCC_QUSB3PHY_PRIM_BCR] =3D { 0x2e000 },
+> diff --git a/drivers/clocksource/mmio.c b/drivers/clocksource/mmio.c
+> index 9de7515318312..6329d8ce2c091 100644
+> --- a/drivers/clocksource/mmio.c
+> +++ b/drivers/clocksource/mmio.c
+[ ... ]
+> @@ -17,6 +17,20 @@ static inline struct clocksource_mmio *to_mmio_clksrc(=
+struct clocksource *c)
+>  	return container_of(c, struct clocksource_mmio, clksrc);
+>  }
+> =20
+> +#if defined(readq_relaxed)
 
-Should this be NE_GCC_QUSB2PHY_PRIM_BCR instead of NE_GCC_QUSB3PHY_PRIM_BCR?
+Is it safe to use readq_relaxed() directly for a live 64-bit clocksource
+counter on 32-bit systems?
 
-The commit message explicitly states the intention to add the USB2 PHY rese=
-t,
-and Qualcomm conventions typically use QUSB2 for USB 2.0 PHYs. Since this
-macro is part of the device tree bindings, correcting this typo before it
-merges will prevent the QUSB3 name from becoming part of the permanent ABI.
+readq_relaxed() is not guaranteed to be atomic on 32-bit platforms. For
+example, 32-bit SuperH implements __raw_readq as *(volatile u64 *), which
+results in two separate 32-bit memory accesses. Other 32-bit platforms
+might define it via <linux/io-64-nonatomic-lo-hi.h>.
+
+> +
+> +u64 clocksource_mmio_readq_up(struct clocksource *c)
+> +{
+> +	return (u64)readq_relaxed(to_mmio_clksrc(c)->reg);
+
+If the lower 32 bits of the live hardware counter roll over between the two
+32-bit reads, will the resulting 64-bit value be severely corrupted (torn)?
+
+To safely support 64-bit MMIO clocksources on 32-bit platforms, a software
+retry loop is typically used. Otherwise, shouldn't the generic functions be
+strictly guarded by #ifdef CONFIG_64BIT to prevent accidental usage on
+32-bit systems, rather than just #if defined(readq_relaxed)?
+
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-nord-clk-u=
-sb2-phy-v1-0-8eafcb2d5129@oss.qualcomm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-riscv-time=
+-mmio-v7-0-f8925ffc226b@htecgroup.com?part=3D2
