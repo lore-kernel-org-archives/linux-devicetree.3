@@ -1,130 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A1463C0A0C
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 20:57:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0DB27453
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 21:01:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778792264; cv=none; b=qOp1adx6UxXgkSbsJQpyKjNwMJf5hW/1rqV9Y2p38KL6czXPD34KRI5LBn3AzYUESqhtwikPc6JMvDdHHUui4giOuXrVg+ZaFKTaJVGI9el1bxsuFO+dpYjlDsjx5sX56UrHs1KziGUECGhTQIgAQoeaFFhM2SxCRBv98THm/S0=
+	t=1778792501; cv=none; b=JLiRCR3CGMJhVvuQIgopaqQQEFdK/K4rhWzniwgsGAuqqs4LSQKaYGZs7IRFUsE5ROpVuixSa7RWUflvyobqVK69PaEVaKaI3GV7uA6QlX+FzmPBvF+Iw+Bxhzn6Oc0Ulco0STBWRYoKkw/bRfZvbVTLMfDQMuXHp0RDQEoOMGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778792264; c=relaxed/simple;
-	bh=gQIErgakaBWc4eVx+wtAABqZtOgiDpGIK+PeBBCMD7I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TEKg3RnRtoMYIdPdIGTlqSISjQPJ5rpxf29TNQNhFumdQ5k862giOahPA92kEyMDoLWzE0RjUxDz9j4A39qnh3F+CcQz/7r9MJOMPLiYT4q5Kmw52UUgHwPnimH1tB5JEoQYH7mGmkfR6yS6cNE+jDMh7+ovXKc1AbXtrCPb1EU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sceNOdkA; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778792501; c=relaxed/simple;
+	bh=y828qZKZXqXpcyLAvoLbRNnJVpagChG8tHWaYyCg7jw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=TxTjCTVTT7CFY/kwSBOVwcv0mqH/yjIJG0cP9mn6tESbfSjof+QlMNMT9+1d0+IP8BpbqaRwG+FSEPJt5im7K2zxV/xhHmpwtpC4fvv549ei9WY1/4pTHndmgCPYpwLmXU+0LX6jq1ruLYF5V8H0/bh/BtwaYak8Y7wUQmjp3T0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gl2i1GCF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sceNOdkA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E109BC2BCF7
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 20:57:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gl2i1GCF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B9B0C2BCB3;
+	Thu, 14 May 2026 21:01:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778792263;
-	bh=gQIErgakaBWc4eVx+wtAABqZtOgiDpGIK+PeBBCMD7I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=sceNOdkAhUcnAfYQdvShfH7vQIXJW0beVULzf20rk0QviYtjJNUNu7a7sHTDkYP+B
-	 xpn03N7fLxTy9AzmC8ormHyGSMOMGOJ22hflhEvZ32MNH9ckG5a80mEMv1N2It/Mvc
-	 E+Uf+657Jtx/XJYo1sMobeObDrPoxSu2gwCBMJ04YU+Pw1/77HJqiNGXQedfcEXP6G
-	 z7F2rs1m0aIKiHwhdLTCxveJe0AYHjq39zN2Mmzs2OBJBGcRdFa9PaLs6Vl1MyBAkJ
-	 lgaGKPnNTvjyiwg4RI5YhkRnLyU0aVRKaRyAdnruXYtDopmDmW5vTcnw8lVd6uylvP
-	 Ssov4F4z/oJjQ==
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-bce57c132b2so44452166b.0
-        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 13:57:43 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ95XCtOfBxorAoXgajBguoXtRjiI+hSqOlI6hToBvP+Vwl51a6dtOCMzlZn3c+BARuPVyKoykaLCZwr@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywdk24brrdymahYUDO4+ostoeGo4Cj8597mZo7uESsV1cmCxhoV
-	MLnSNLLtLOQf6uvev6QWCknh8CqAc8GZmAp5uUQRQFoSWR5f3k3j39fVZhFojjMEavg6Q1JM+Gi
-	OpMaCwxHfiM0w8oAexZe7vCQShJTGyg==
-X-Received: by 2002:a17:907:c708:b0:bd4:aafb:def8 with SMTP id
- a640c23a62f3a-bd51553a0c9mr62509566b.21.1778792262550; Thu, 14 May 2026
- 13:57:42 -0700 (PDT)
+	s=k20201202; t=1778792500;
+	bh=y828qZKZXqXpcyLAvoLbRNnJVpagChG8tHWaYyCg7jw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=gl2i1GCFvMVeFfFxZCw81DgXB5JZV2xF0oTXWeysb0WRvGwIXfKZQ/5JHpuRl6pW5
+	 naFKB37pdi3SfO5amY0326jqyQZc7I/0mVKjRVfr1IgsQJ4+ggZqS32kAiNI07pmTw
+	 eKKWyRX/yKPieCoYHYnkVduSXgCbF1RdFmx7+O7zsbcUo/tbZfhPnFs7SiivZPEwmv
+	 8DUZHnLNdhL2SHAvsVpwicjXQ2Cph7ZB50cVToykGDBW5AueDKCS9fwvT127sdN8ds
+	 MK8ovabg29E9sXg5/Gi8H24+/sW6kD0lWsSOrwR2WFa4DoOg4f6RkmkwdM4hzNtCIa
+	 fV0Uu0RWtaALw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 05/10] ARM: dts: qcom: msm8960: add RPM clock
+ controller and fix USB clocks
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Antony Kurniawan Soemardi via B4 Relay" <devnull+linux.smankusors.com@kernel.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260514-msm8960-wifi-v2-5-7cbae45dab5e@smankusors.com>
+References: <20260514-msm8960-wifi-v2-5-7cbae45dab5e@smankusors.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 14 May 2026 21:01:39 +0000
+Message-Id: <20260514210140.6B9B0C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260512204854.8931-1-sander@svanheule.net> <20260514161008.GB841147-robh@kernel.org>
- <9f81a947b65cafd44b293e05080b1fd2820cea06.camel@svanheule.net>
-In-Reply-To: <9f81a947b65cafd44b293e05080b1fd2820cea06.camel@svanheule.net>
-From: Rob Herring <robh@kernel.org>
-Date: Thu, 14 May 2026 15:57:31 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqLM4JQmbYCEz3-vpS+qiz8nXSk758CP_nFwWR2ihG-AFw@mail.gmail.com>
-X-Gm-Features: AVHnY4IiJt6YbJsjlhqBI3XPpUZMihiqOxN7QxDpJD3UYTXwNIgbFa92uKr18_M
-Message-ID: <CAL_JsqLM4JQmbYCEz3-vpS+qiz8nXSk758CP_nFwWR2ihG-AFw@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] watchdog: realtek-otto: add fallback compatible
-To: Sander Vanheule <sander@svanheule.net>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Rustam Adilov <adilov@disroot.org>, linux-watchdog@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, May 14, 2026 at 11:25=E2=80=AFAM Sander Vanheule <sander@svanheule.=
-net> wrote:
->
-> On Thu, 2026-05-14 at 11:10 -0500, Rob Herring wrote:
-> > On Tue, May 12, 2026 at 10:48:52PM +0200, Sander Vanheule wrote:
-> > > Like for the GPIO hardware of the Realtek Otto platform, add a fallba=
-ck
-> > > compatible for the watchdog hardware.
-> > >
-> > > For backward compatibility, the binding will still allow current
-> > > single-compatible devicetrees to work, but new devicetrees, including
-> > > new compatibles, should use a two-component compatible.
-> > >
-> > > This series serves to address comments regarding the device compatibl=
-es
-> > > for the patches adding RTL9607C watchdog support [1].
-> > >
-> > > [1] https://lore.kernel.org/lkml/20260509163101.722793-1-adilov@disro=
-ot.org/
-> >
-> > You misunderstood the discussion (though some came after this). The
-> > fallback should be one of the existing compatibles (the oldest one), so
-> > there are no driver changes needed for the OS. Creating a new fallback
-> > completely misses that point.
->
-> Using a SoC-specific compatible would mean we should go for something lik=
-e:
->         compatible =3D "realtek,rtl9706c-wdt", "realtek,rtl8380-wdt";
->
-> Then that means we can never change our interpretation of how the rtl8380
-> behaves (we don't have datasheets), because it would also impact the beha=
-vior of
-> the rtl9706c.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Mapping `USB_HS1_XCVR_CLK` to the `fs` clock slot causes the USB c=
+ontroller to lose its transceiver clock during normal operation, breaking U=
+SB functionality.
+- [Medium] Improperly assigning an interconnect fabric clock to the `core` =
+clock slot of the USB controller.
+- [Low] The updated USB node violates the `maxItems: 2` restriction for clo=
+cks in the `qcom,ci-hdrc` device tree binding schema.
+--
 
-No, at that point you would add the rtl9706c compatible to the driver
-to distinguish.
+commit e540b9f85ba14f0ebee0eabb79c077903050c001
+Author: Antony Kurniawan Soemardi <linux@smankusors.com>
 
-You have the same constraint with your generic compatible.
+ARM: dts: qcom: msm8960: add RPM clock controller and fix USB clocks
 
-> I also think "apple,wdt" is a bad example to compare with "realtek,otto-w=
-dt".
-> The former only specifies the vendor, while the latter refers to the line=
- of
-> SoCs this IP block is used for. Although I see the docs also discourage f=
-amily
-> compatibles.
+This commit adds the RPM clock controller to the MSM8960 device tree and
+updates the USB controller to declare a dependency on RPM_DAYTONA_FABRIC_CL=
+K.
+It also moves USB_HS1_XCVR_CLK to the fs clock slot.
 
-Is M1, M2, M3 not a family? Maybe A series is included too, but if
-there's anyone that maintains some consistency across SoCs, it is
-Apple.
+> diff --git a/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi b/arch/arm/boot/dts=
+/qcom/qcom-msm8960.dtsi
+> index fd28401cebb5e..0601680cd8dd1 100644
+> --- a/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
+> +++ b/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
+[ ... ]
+> @@ -507,8 +519,12 @@ usb1: usb@12500000 {
+>  			reg =3D <0x12500000 0x200>,
+>  			      <0x12500200 0x200>;
+>  			interrupts =3D <GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>;
+> -			clocks =3D <&gcc USB_HS1_XCVR_CLK>, <&gcc USB_HS1_H_CLK>;
+> -			clock-names =3D "core", "iface";
+> +			clocks =3D <&rpmcc RPM_DAYTONA_FABRIC_CLK>,
+> +				 <&gcc USB_HS1_H_CLK>,
+> +				 <&gcc USB_HS1_XCVR_CLK>;
+> +			clock-names =3D "core",
+> +				      "iface",
+> +				      "fs";
 
-The docs are based on experience and regret...
+Does adding a third clock here violate the devicetree binding schema?
 
->
-> If I may ask, what is the rationale for preferring the "older implementat=
-ion"
-> approach over a "family compatible" to match the common subset of support=
-ed
-> features?
+The qcom,ci-hdrc binding in Documentation/devicetree/bindings/usb/ci-hdrc-u=
+sb2.yaml
+restricts both clocks and clock-names to a maximum of 2 items. Applying this
+without updating the schema seems to trigger dtbs_check errors.
 
-If you create bindings as the SoCs are created, then you don't really
-know what's in a family, only does it work with the existing driver .
-You only know what's in a family after the fact. Things are never that
-clean either.
+Does mapping the transceiver clock to the fs slot inadvertently break USB
+functionality during normal operation?
 
-I just picked the oldest as that's probably the most well known, least
-likely to need some future change, and would have the oldest OS
-version support.
+In the ChipIdea MSM driver in drivers/usb/chipidea/ci_hdrc_msm.c, the fs cl=
+ock
+is used exclusively to propagate reset signals during probe. Immediately af=
+ter
+the reset sequence, the driver calls clk_disable_unprepare() on it and does=
+ not
+re-enable it. Since USB_HS1_XCVR_CLK is the required 60MHz ULPI transceiver
+clock, turning it off would cause the USB controller to fail entirely.
 
-Rob
+Also, is it appropriate to assign the interconnect fabric clock to the core
+clock slot?
+
+The fabric clock is an interconnect bus clock rather than the operational
+core clock for the controller. Usually, bus dependencies are managed through
+the interconnect API or by adding dedicated support for bus clocks in the
+ci_hdrc_msm driver, rather than taking over the mandatory core clock slot.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514-msm8960-wi=
+fi-v2-0-7cbae45dab5e@smankusors.com?part=3D5
