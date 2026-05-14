@@ -1,111 +1,94 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE81F371CEA
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 12:39:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A58B735E93B;
+	Thu, 14 May 2026 12:40:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778762365; cv=none; b=NGYQAx5vs8VPlNcuuVCztQgG3ir5Yikog49cWJNVoEuB6TxBah50VVU2uCqsLRue+0wgqzOs6V5LdNs5G3mRRTFWmmRTWJcfAB6SQUmUrzUBbomMOeLXFJEojv1pGhXv/ctJ/9C9jtpBhG0jMykn1C7reKODchZBTxQ1//btI5g=
+	t=1778762446; cv=none; b=uzi+s4uW1KsmZbAuHUm5HQw9sl8IO0uDCrDxLxkPdehgYTAimS+Of3ZuGkvHTonuo7u+ywuhzkbnUHminPQcaqoMstl0N1r+U/q/C/mclfY+bN+SEOP0CRJpz76idTmRL+54yaYsJdYgkJ+fgxVu2EZxW9v107xYCXXKKgjvfVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778762365; c=relaxed/simple;
-	bh=UySqk39eLeBGFovBsVX8rglvRObVY1qw44G+jUTi6Kk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dije/lFLLuZIIjDOb8KBHd6Y7u401XqxMjgr8iZWbbWlZwslMO2ToLpsgqLEvXgk0SuihIfmCZHzD6MoB7bFSurdDbrxIwFBwcXgs9VG1aOSKw2DvtbtteAbu/uUWZMRgyV7pyk4Dg6VWTk8H60gzCixDbaHwoTqRLmrJspRPMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=O/DYH6at; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1778762446; c=relaxed/simple;
+	bh=iWCSZhdPb+8cBMuEmy8gSvTQVeilWYLmuEzyouzd7YI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ioznIQJHJ8oQhxAVLQdfk7z11ejNEfHYSpJJArBizh4+3GTHhn7rlzvDYZ8UzTedm7yPb4ihYTzkClvpZAvvpy0QVMPar+9icdILR7t9aXtaWFinlR+QnuvIcFbIOWkPFONSvdKP2VAR/fdJVmQDzmeSxudlJYOSfyDpLp7nM18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aX870/BR; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="O/DYH6at"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gGVJK73L5z9vJG;
-	Thu, 14 May 2026 14:39:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1778762354;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+Al+E25T9nH6Toq2pPBuCg+7e3th62bMfctEjg5m7XY=;
-	b=O/DYH6atxg7+xzFp9yKovYNtwfwgDzf0TvhIjE9rN0jW4UCdSOEIhYylD+P6xl2BvxwnNK
-	ATzS7p3JWK3z/cJQW7lzhuSehglDKnF46yT28sYMJnUo3HbdTkgfHNddkx4Wl1jdO2KS83
-	5+NyCPZmH3WXj7y7Hc4G81snsfZMVwsND1REnPOga0pNN+OSN9T/1GGgmQDJOiqeg9lQKf
-	Z24yfzAUtF7SN2v2YXDqdCSxRBV166wvczxbBWRmvyOxcsvSQ4n/kk3jDDb5aOHsD/85ey
-	GEhAGhQQsLAQEdAQHnKnvEK3mkXVhgJiTfISIhxlMPDGXs33pq8rd2Q1Z/U94g==
-Message-ID: <5bf3c863-0959-4625-b9b6-f5ea36c0bcea@mailbox.org>
-Date: Thu, 14 May 2026 14:39:12 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aX870/BR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A76AC2BCB3;
+	Thu, 14 May 2026 12:40:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778762446;
+	bh=iWCSZhdPb+8cBMuEmy8gSvTQVeilWYLmuEzyouzd7YI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=aX870/BR4AkM531xo6QouLrnsue0uIXWdlOfArk/WJtHsanCKyTM2w9zXR28xVImI
+	 aR1ocP432CLGhdFFPANZ2zxuptdM6K4VLf6i9Ku61mNVNhnCi1OxvyG6QZsbxTgtz/
+	 k+TrwGz1rJ2PnAItjV2X6NpSsPFw0BwtEgIddkekqyUdA1cT+b/48EbhV4Dnh5Ff+F
+	 l4gysj8udrc7yx7I+I4SOFbO1zqwGK5j5nxHfAPzLQi4V6OqqS9IEaTTq1vfxaRbI8
+	 sZ055fcAAnQbZClSRkkMy80vdQdMAopGR7BxGlvCJ2QbKHk3kq+7ZbEwpra5IycTF9
+	 BybhmCNHu4eIw==
+Date: Thu, 14 May 2026 13:40:40 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+Cc: Lukasz Luba <lukasz.luba@arm.com>, linux-arm-msm@vger.kernel.org,
+	Sudeep Holla <sudeep.holla@kernel.org>, andersson@kernel.org,
+	konradybcio@kernel.org, myungjoo.ham@samsung.com,
+	kyungmin.park@samsung.com, cw00.choi@samsung.com,
+	cristian.marussi@arm.com, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	arm-scmi@vger.kernel.org, linux-tegra@vger.kernel.org,
+	linux-pm@vger.kernel.org, dmitry.baryshkov@oss.qualcomm.com,
+	jonathanh@nvidia.com, thierry.reding@kernel.org, digetx@gmail.com,
+	conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org
+Subject: Re: [RFC V6 0/8] arm_scmi: vendors: Qualcomm Generic Vendor
+ Extensions
+Message-ID: <20260514-towering-heavenly-earwig-b18feb@sudeepholla>
+References: <20260507062237.78051-1-sibi.sankar@oss.qualcomm.com>
+ <436ce846-bd9e-45bb-bdc2-d2a0fd00dc25@arm.com>
+ <5494a379-1e49-4551-a5f0-50d0bd7cd7d0@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH] arm64: dts: renesas: r8a78000: Add PSCI node
-To: devicetree@vger.kernel.org
-Cc: wsa+renesas@sang-engineering.com, conor+dt@kernel.org,
- krzk+dt@kernel.org, robh@kernel.org
-References: <20260513225037.49803-1-marek.vasut+renesas@mailbox.org>
- <20260514113120.0B5EDC2BCC7@smtp.kernel.org>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <20260514113120.0B5EDC2BCC7@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: h6jmefa7o7iugmasdtsa44kq35bs1gnq
-X-MBO-RS-ID: 492c82e004175c6d62e
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5494a379-1e49-4551-a5f0-50d0bd7cd7d0@oss.qualcomm.com>
 
-On 5/14/26 1:31 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] Missing 'enable-method' in CPU nodes prevents SMP bring-up.
-> --
+On Thu, May 14, 2026 at 05:11:41PM +0530, Sibi Sankar wrote:
 > 
-> commit 0e20af8dd1fbf54360d3f87985cba2a59a5ee08f
-> Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> arm64: dts: renesas: r8a78000: Add PSCI node
+> On 5/13/2026 10:30 PM, Lukasz Luba wrote:
+> > 
+> > 
+
+[...]
+
 > 
-> This commit adds the PSCI node to the r8a78000 device tree to describe SMC
-> based access. This enables interaction with the TFA BL31 PSCI provider for
-> tasks such as CPU power management.
+> > Based on this description I have a few questions:
+> > 1. Why we don't use SCMI notifications for this purpose?
 > 
->> diff --git a/arch/arm64/boot/dts/renesas/r8a78000.dtsi b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
->> index 4c97298fa7634..9e759ea46ee20 100644
->> --- a/arch/arm64/boot/dts/renesas/r8a78000.dtsi
->> +++ b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
 > 
-> [ ... ]
-> 
->> @@ -665,6 +665,11 @@ extalr_clk: extalr-clk {
->>   		/* clock-frequency must be set on board */
->>   	};
->>   
->> +	psci {
->> +		compatible = "arm,psci-1.0";
->> +		method = "smc";
->> +	};
->> +
-> 
-> Does this also require updating the CPU nodes to actually use PSCI?
-> 
-> Looking at the ARM64 SMP bring-up in arch/arm64/kernel/cpu_ops.c, the kernel
-> relies on cpu_read_enable_method() to determine how to wake up secondary
-> CPUs. It expects an enable-method property in the device tree for each CPU
-> node:
-> 
-> arch/arm64/kernel/cpu_ops.c:cpu_read_enable_method() {
->          ...
->          dn = of_get_cpu_node(cpu, NULL);
->          ...
->          enable_method = of_get_property(dn, "enable-method", NULL);
->          if (!enable_method) {
->                  ...
->          }
->          ...
-> }
-> 
-> Without adding enable-method = "psci" to the cpu nodes in r8a78000.dtsi,
-> does this cause an SMP regression where the system fails to initialize
-> secondary cores and boots as a single-core system?
-PSCI is used here to power off / reboot the system, SMP enablement is a 
-separate topic and a separate patch.
+> This is an attempt to retrofit firmware, that is already out in the wild
+> running on X1E laptops and Glymur which continues to use the same firmware, into
+> generic linux frameworks, so that it provides some useful information to
+> user rather than it being a complete black box.
+
+We cannot accept changes that rely on firmware interfaces that are not well
+defined. This is not a comment on any specific interface, but if an interface
+is not specified with the same level of rigor as a standard specification, it
+should not be expected to receive mainline support.
+
+> We already have a ton of firmware changes suggested by Sudeep/Cristian that
+> will be taken into account for the next generation of SoCs, will make sure
+> this is accounted for as well :)
+
+It is helpful to know this but also unfortunate as we have only just begun
+reviewing the interface and refining its shape. Please do not rely solely on
+the review completed so far, as the interface may still evolve. Until it is
+merged, it should not be considered accepted. This is why I am insisting that
+the interface document be reviewed and accepted before any driver changes are
+made.
+
+-- 
+Regards,
+Sudeep
