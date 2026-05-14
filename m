@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D909A5C613
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 02:28:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10AD42D3EF2;
+	Thu, 14 May 2026 02:29:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778725697; cv=none; b=V6t6bUpP0cdOLKYFvl1/Nn4NqgFfK7sPFCRKnjqqnF2xg032sb5WIqnqhT4KIHI2oYpIP+Y7iwmWx7nHCKmO4ccIP4wV1dJjsYZu4f8oGXW+OJR43KvLaY9j7DGsS6E180vKvYjRrE7f9GeJDik3SrjSMR/sOgSwiEkZT3kc5Mo=
+	t=1778725779; cv=none; b=t5a7NtQhB2M6MgOhwWfAfbb4nlo4VwoVm0imUmPo07UczI60VDZoceI/zbXXr/Zw3DEb/GQB/lDs2VGhdxvzgVrdBF+fSY0myVzV37diJ04kShhPw+zWE/jWYVeloGM8GH2QvcF8IsvMtsNDaayI2hNC1JhJ8lfG1/xrQ61dpc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778725697; c=relaxed/simple;
-	bh=nnHudenjuSEGPyitNi65Tcf0PTHqH3TpWM0Mi7MEChw=;
+	s=arc-20240116; t=1778725779; c=relaxed/simple;
+	bh=UUSAxOI+k3W9IGtr2fELZf9Wm7ZNchPQsmG34mI/Pik=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AIKmHIKLu6onzJPw2We5Epi4OKKQ65h9Kl1uRls6Y0FWyfwU4tEXVCYSKHj55hiOD4ZMKh+ffuY4ax5QXqwusRNSyxr73wi6kkw4CMbVQH/0MEhCdNmDvA7x1WraRssPiDkQTAtd96CCUPbYawmblVTYWMtj3Gx3CGXVejXR/sQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QK34Dw8C; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=ZTaIWnvlrNh6dHec8QQ73f30wLKuv5GkcvxAF8NRy+mbQ4yeJV66+6bXjZfgtATnI2eZ5ObSP8cevMEsbnn1KF+Sye4e4LetuigoTEec/43zh0LnhnJrI6KHMATAY52EW6Mwx0h4uTtlQ7ZWyf8SxLO/2cxY9HLXZaC9iEPBOLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E7TtMoZj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QK34Dw8C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FCF8C2BCB3;
-	Thu, 14 May 2026 02:28:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E7TtMoZj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5889BC19425;
+	Thu, 14 May 2026 02:29:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778725697;
-	bh=nnHudenjuSEGPyitNi65Tcf0PTHqH3TpWM0Mi7MEChw=;
+	s=k20201202; t=1778725778;
+	bh=UUSAxOI+k3W9IGtr2fELZf9Wm7ZNchPQsmG34mI/Pik=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=QK34Dw8C+aC7/2in1+BKGBMcyiCoPDwnmkw32/vluO+97XknR/57+N+/+/NIA7+LQ
-	 hH6gmjv5FRVrBuu/cJ8OLW2bLEGR1bL98DnMdGJI7FsS1lbubTj0kY5JWKqrAzKjrP
-	 L9kqIen4HKd8v1cbi35wE1iQRBHBmQkdOfzJZu/tZu1lt4AobiK5iE4Fww/q/fhTaY
-	 6Jcw9hOujbW3G2QceBHEZ0qd+aibpGN7PLaFeiEtAJz+vv9chh0zaFrP6sZOra7P4s
-	 hAnNIcaBDgwf0eV8AILs5otE3AS5lSOrp2qnmO7Bp3oUv86Yt5+i2D8Hpn0bmonS5U
-	 tIvNNg2renN4g==
+	b=E7TtMoZjV9oTmwL687sSBMVHk2tti/Dh/AMHjDl5ni+j18llDi5dMd1/I1E6yZ6dS
+	 W03TMH7c3IuC6BlTNtcKetVOLL183+hJVNwsDDbB6pvNAASAHo5kiHgy7oV4rf72ie
+	 TSW7ZWMWpmtgwoWvBLh1+JO2bW2eH0gQNfhsb0S6YGe3csfrx+RJay1GuPTucwGV4x
+	 GjxaSf3nSSHHPqZfDxxMq9aCXExkGoKW2lA2W8pBiO0CKNcZob8dWDdT1zk2pNqxJl
+	 2a5MKIijJgkLKcDbJ/3yslAoi3IdszHQHMbfbz89rrOUlNmIsRLxI1jz6XMiwIRHHD
+	 zEDb0cPj+J1lw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/6] riscv: dts: spacemit: k1-musepi-pro: add PMIC
- and power infrastructure
+Subject: Re: [PATCH v2 2/3] iio: adc: sun20i-gpadc: add A523 gpadc support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Andre Heider" <a.heider@gmail.com>
-Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260513071958.29574-2-a.heider@gmail.com>
-References: <20260513071958.29574-2-a.heider@gmail.com>
+To: "Michal Piekos" <michal.piekos@mmpsystems.pl>
+Cc: robh@kernel.org, linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260513-sunxi-a523-gpadc-v2-2-d5efde151dac@mmpsystems.pl>
+References: <20260513-sunxi-a523-gpadc-v2-2-d5efde151dac@mmpsystems.pl>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 02:28:16 +0000
-Message-Id: <20260514022817.2FCF8C2BCB3@smtp.kernel.org>
+Date: Thu, 14 May 2026 02:29:37 +0000
+Message-Id: <20260514022938.5889BC19425@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,81 +45,52 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Regulator minimum voltage constraints are set too loosely on fix=
-ed board rails, risking hardware brownouts.
+- [High] If `devm_clk_bulk_get_all_enabled()` returns 0 (meaning no clocks =
+are defined in the device tree), the driver aborts the probe early but inco=
+rrectly returns 0 (success).
 --
 
-commit 823adf1d7b0f1286cdd0e228119b713b02c36d2e
-Author: Andre Heider <a.heider@gmail.com>
+commit 6e1c58e982371b9be677bdb51d74117b3577cd6f
+Author: Michal Piekos <michal.piekos@mmpsystems.pl>
 
-riscv: dts: spacemit: k1-musepi-pro: add PMIC and power infrastructure
+iio: adc: sun20i-gpadc: add A523 gpadc support
 
-This commit enables i2c8 and adds the connected SpacemiT P1 PMIC with its
-related regulators for the board's power infrastructure and voltage
-regulation support.
+This commit adds support for the A523 gpadc by switching to the bulk clock
+API to handle both bus and module clocks.
 
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts b/arch/riscv/=
-boot/dts/spacemit/k1-musepi-pro.dts
-> index 29e333b670cf0..e0b585c50014b 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
+> diff --git a/drivers/iio/adc/sun20i-gpadc-iio.c b/drivers/iio/adc/sun20i-=
+gpadc-iio.c
+> index 861c14da75add..3f1f07b3a3856 100644
+> --- a/drivers/iio/adc/sun20i-gpadc-iio.c
+> +++ b/drivers/iio/adc/sun20i-gpadc-iio.c
 [ ... ]
-> @@ -72,6 +82,130 @@ &pdma {
->  	status =3D "okay";
->  };
+> @@ -205,9 +205,11 @@ static int sun20i_gpadc_probe(struct platform_device=
+ *pdev)
+>  	if (IS_ERR(info->regs))
+>  		return PTR_ERR(info->regs);
 > =20
-> +&i2c8 {
-> +	pinctrl-0 =3D <&i2c8_cfg>;
-> +	pinctrl-names =3D "default";
-> +	status =3D "okay";
-> +
-> +	pmic@41 {
-> +		compatible =3D "spacemit,p1";
-> +		reg =3D <0x41>;
-> +		interrupts =3D <64>;
-[ ... ]
-> +		dldoin1-supply =3D <&buck5>;
-> +		dldoin2-supply =3D <&buck5>;
-> +
-> +		regulators {
-[ ... ]
-> +			buck3_1v8: buck3 {
-> +				regulator-min-microvolt =3D <500000>;
-> +				regulator-max-microvolt =3D <1800000>;
+> -	clk =3D devm_clk_get_enabled(dev, NULL);
+> -	if (IS_ERR(clk))
+> -		return dev_err_probe(dev, PTR_ERR(clk), "failed to enable bus clock\n"=
+);
+> +	ret =3D devm_clk_bulk_get_all_enabled(dev, &clks);
+> +	if (ret <=3D 0)
+> +		return dev_err_probe(
+> +			dev, ret,
+> +			"failed to enable clocks or no clocks defined\n");
 
-Should these minimum bounds be restricted to match the exact hardware layout
-of the board?
+When devm_clk_bulk_get_all_enabled() returns 0 (meaning no clocks are defin=
+ed),
+will this code return 0 from the probe function?
 
-The labels buck3_1v8 and buck4_3v3 indicate these rails are wired for fixed
-1.8V and 3.3V usage, but the regulator-min-microvolt allows them to scale
-down to 0.5V. Could this loose constraint risk hardware brownouts if a driv=
-er
-attempts dynamic voltage scaling on these rails?
+Since dev_err_probe() returns the error code passed to it, returning 0 here
+would cause sun20i_gpadc_probe() to succeed while skipping all remaining
+initialization like reset deassertion, IRQ registration, and IIO device
+registration.
 
-> +				regulator-ramp-delay =3D <5000>;
-> +				regulator-always-on;
-> +			};
-> +
-> +			buck4_3v3: buck4 {
-> +				regulator-min-microvolt =3D <500000>;
-> +				regulator-max-microvolt =3D <3300000>;
-> +				regulator-ramp-delay =3D <5000>;
-> +				regulator-always-on;
-> +			};
-> +
-> +			buck5: buck5 {
-> +				regulator-min-microvolt =3D <500000>;
-> +				regulator-max-microvolt =3D <3450000>;
-
-Since buck5 is used as the parent supply for the DLDOs (dldoin1-supply and
-dldoin2-supply), could the wide 0.5V minimum constraint allow the OS to drop
-its voltage below the necessary headroom needed to power the downstream
-DLDOs?
-
-> +				regulator-ramp-delay =3D <5000>;
-> +				regulator-always-on;
-> +			};
+Should ret be explicitly set to a negative error code (like -ENODEV) before
+calling dev_err_probe() if ret is 0?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513071958.2957=
-4-1-a.heider@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-sunxi-a523=
+-gpadc-v2-0-d5efde151dac@mmpsystems.pl?part=3D2
