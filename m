@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6AA03C65FF;
-	Thu, 14 May 2026 13:55:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB543FADF9;
+	Thu, 14 May 2026 14:00:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778766959; cv=none; b=Fs2mkxOjDhkGY8U+6TTsDB2060Mbgz36CUXUo58je1vIKOapIyOH+qM/gijj/YrYB4cISHPlB8F/aA4nRyM2xL5Fmob15ZaZeQCZ6ZpOvgD+qCkKWnKwl55/dKJ3td0MS/sY44C9MvFM0/Z+xyklISnIZCV051ndEKXJuoyWI+E=
+	t=1778767239; cv=none; b=Mta06TJq20KMag5q1wRIgLZMtZ+JdrSTUHXCPU7qpciTPz8o0aX6pzRsMO6e7zPD6/9GlJ9DSUtY/taQ2MM9ufHYJUwDRbqSjdbpzs2eFECVMbGYg31jXvO/sF0O5hk9loqHVOPZzDxFOiBqO1Jl+OxPuZD/ggmP0EwiPn4l8Q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778766959; c=relaxed/simple;
-	bh=D1M1MFwHJkSlDzFVO/fn9zDUcZErYpmR60k8k4vQvmA=;
+	s=arc-20240116; t=1778767239; c=relaxed/simple;
+	bh=s+cVWTa+Q/o/Ncm4xfRMQxhQKaG5XSBGSNIQAGTFTE0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qgFAfBXR3hnWp5QKJMmIPITsm9fHtik7Hhv0aCR/XDIMntSU34uAvzmQjxguyR6IKjTMr45l19heZ04Sj8ZF9oyf7DO0KyyUlqclZtn14yZTM2TeM7EBX5VcQltjv3v96aoLEI5KYxVjiNVnA2J54O8cw0dqNrtRg6i4MRNnXpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tWiwon/B; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:Content-Type; b=raY/lEB2JRCQl9b6NBL4LZoEZaYLBL73ANguaN6Ii6dhulVuOlV4Fn5MEeyilPWnuE6jiYue0ONwMMmt2LRHl5sKn3KGstXMLli4hmx/73c7iJfsfMST77zDJqbgi425N1/6tkNbnp44pzu+LsvLKQKVoByALhF/F2ax/9g7564=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rGSK4Yu0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tWiwon/B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0278C2BCB3;
-	Thu, 14 May 2026 13:55:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rGSK4Yu0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 365D7C2BCB3;
+	Thu, 14 May 2026 14:00:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778766959;
-	bh=D1M1MFwHJkSlDzFVO/fn9zDUcZErYpmR60k8k4vQvmA=;
+	s=k20201202; t=1778767239;
+	bh=s+cVWTa+Q/o/Ncm4xfRMQxhQKaG5XSBGSNIQAGTFTE0=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=tWiwon/BhlHrMaFLpCIC15kcS3NM/MYV6+t3pgZtL4wmVDxBW7nALl+HimXzloxxH
-	 PiFauX5GIDhS47OXL3AiglGcQXhuLbROQTeu/uforiRI4Bm1phGZmYU+DSuRYy2OWK
-	 s7IqBj4AiVNyNEqn8ty5k2LwDHeCNGBjKZqHlKoXL0SJnEmY/cPoq+4Paq3NbMXPvK
-	 O8v15tHUXJ2/0GdoizbZP/L85foSfif3BJ2Ja2d53u4Yo8vMZnn6jTJaEkLhJD2zuo
-	 8JF4h9svAJvTYBI56peX82Iu4DbXU2qoj/LAqSFOVbBJHiQ5AXbG/hD/Vu3q4vwmQr
-	 AJzZcCtJcF64g==
-Message-ID: <98cf25d1-7dd8-408e-98db-c60f6e8b403b@kernel.org>
-Date: Thu, 14 May 2026 15:55:52 +0200
+	b=rGSK4Yu0h4bMCfnmhimxiQIO0Y5TkErodUEgTh9ZWorpVJLTfFD2Es6oRPAwQpDti
+	 MOYdF+zg9bqpRfCyW9iMVsfU147XXKlAVY/uZWkDDl7gscW3ngQqrqaiTbPiIfH4dh
+	 xIAFLvN8XD1IpxutBd5HRKbMqE8ULyF2bj/ptgqY8RC67Gz9w7wxbCmbSVO2c22XfB
+	 2yyGZgjSQJnzLuVZJFQEpPt3b1cDcDvpWBZXW1Q536DXwUoG7EJ95W27J6zXPXz74x
+	 KxCo/GLtpiG2TrMU/SACA9M7wJEJP9haWRqWuxO7yp+7e2ABncqUSGgeVSjpRggNOt
+	 9w3UmKVKTJnPg==
+Message-ID: <3641ae1e-81f8-44c7-bea4-199964af35ed@kernel.org>
+Date: Thu, 14 May 2026 16:00:35 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,28 +35,15 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/15] ASoC: dt-bindings: qcom: q6dsp: add internal
- mi2s support
-To: Richard Acayan <mailingradian@gmail.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-sound@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- Nickolay Goppen <setotau@mainlining.org>, Adam Skladowski
- <a39.skl@gmail.com>, Vladimir Lypak <vladimir.lypak@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Wesley Cheng <quic_wcheng@quicinc.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-References: <20260501153128.8152-1-mailingradian@gmail.com>
- <20260501153128.8152-3-mailingradian@gmail.com>
- <20260503-devout-mamba-of-sorcery-d4ecb2@quoll> <afe8bQ3SIAu9rP1S@rdacayan>
+Subject: Re: [PATCH v2 0/3] soc: qcom: ice: Enable firmware managed resource
+To: Linlin Zhang <linlin.zhang@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S . Miller" <davem@davemloft.net>,
+ Bjorn Andersson <andersson@kernel.org>, devicetree@vger.kernel.org,
+ linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260507112454.2527088-1-linlin.zhang@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -102,47 +89,43 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <afe8bQ3SIAu9rP1S@rdacayan>
+In-Reply-To: <20260507112454.2527088-1-linlin.zhang@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 03/05/2026 23:21, Richard Acayan wrote:
-> On Sun, May 03, 2026 at 02:11:31PM +0200, Krzysztof Kozlowski wrote:
->> On Fri, May 01, 2026 at 11:31:15AM -0400, Richard Acayan wrote:
->>> The internal MI2S ports are found on devices with the internal sound
->>> card for Snapdragon 660. Add support for them.
->>>
->>> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
->>> ---
->>>  .../bindings/sound/qcom,q6dsp-lpass-ports.yaml     |  4 ++--
->>>  include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h | 14 ++++++++++++++
->>>  2 files changed, 16 insertions(+), 2 deletions(-)
->>
->> Same feedback as last time. DO NOT send next versions, untill you reply
->> or address the feedback.
+On 07/05/2026 13:24, Linlin Zhang wrote:
+> From: linlzhan <linlzhan@qti.qualcomm.com>
 > 
-> Ok, I believe this is about [1] and [2] with reference to the patches
-> already in v7.1-rc1 [3].
+> The Qualcomm automotive SA8255p SoC relies on firmware to configure
+> platform resources, including clocks, interconnects and TLMM (GPIOs).
+> These resources are controlled by the driver via SCMI power and
+> performance protocols.
 > 
-> My patches add INT0_MI2S_RX through INT6_MI2S_TX, which correspond to
-> q6afe port IDs 0x102e - 0x103b. Srini's patches add LPI_MI2S_RX_0
-> through LPI_MI2S_TX_4, but no q6afe port IDs.
+> The SCMI power protocol is used to enable and disable platform
+> resources, including clocks, interconnect paths, and TLMM, by mapping
+> resource state transitions to the runtime PM framework�s
+> resume/suspend callbacks.
 > 
-> I asked if the LPI_MI2S ports have q6afe port IDs to check if we're
-> referring to the same ports, but apparently q6afe is too old to have it
-> [4]:
+> In this design, the ICE driver acts as an SCMI client, with clocks and
+> power domains abstracted and controlled by the SCMI server in firmware.
+> This implementation depends on pm_runtime_resume_and_get() and
+> pm_runtime_put_sync(), which are available in the OPP tree�s
+> linux-next branch.
 > 
-> 	> Is the LPI MI2S on Q6AFE? I don't see the AFE port ID.
-> 	I think the older SOCs did not have this I guess,
+> v2:
+> -- rebase the patchset
+> -- update to/cc lists
+> -- Link to v1: https://lore.kernel.org/all/20260430032136.3058773-1-linlin.zhang@oss.qualcomm.com/
 > 
-> Even if there's already an allocation of dt-bindings ports for LPI_MI2S,
-> they can't just be reused for INT_MI2S. There are allegedly INT5_MI2S
-> and INT6_MI2S (each RX and TX) but LPI_MI2S only counts to 4.
+> -- To Linux Community
+> 
 
-Then what is the difference between INT and LPI? People stuff here some
-hardware names but this is SW ABI, so MI2S_RX_0 is only one. Just like
-we have DISPLAY_PORT_RX_0, but no LPI_DISPLAY_PORT_RX_0 and
-INT_DISPLAY_PORT_RX_0.
+Why did I receive this twice? First posted on 7th of May and then on
+12th of May?
+
+https://lore.kernel.org/all/20260507112454.2527088-2-linlin.zhang@oss.qualcomm.com/
+
+And why do you still Cc incorrect address?
 
 Best regards,
 Krzysztof
