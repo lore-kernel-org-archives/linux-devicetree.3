@@ -1,219 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44DF5224FA;
-	Thu, 14 May 2026 05:45:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38A1C349CDA
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 05:53:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778737512; cv=none; b=NvXSaeO16+08pdwj4TgJDAjiE1brLrLf4JJMDA4K/Joul7KX0p4GXfQ90N4OnQG1fx6wMRISbtovDo7064oSaBynLGTxYV+Cf8V2cji338uzbpekMz1sRtb47PjulvSDeVqUH80fJGnPRicZWuekfT+IBsVNvoHQNRR/UdM8wV0=
+	t=1778738014; cv=none; b=gNe3orQailCE7GHQJd4J6cg3asXiFajA9Qlm4GVGpu8ZVCcRKJwYukUwmCoEFyvFK8kPOxYzzO02N8B7ramdXzeUmIIp8ZgzVymYMsaP6MfMA/ww1P66QLhs8+DqdAAoM7a8YvjV8VnqI4ofS/U434ysXjfc2tSr9+kCeafEzoE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778737512; c=relaxed/simple;
-	bh=LOEZH3XMolxuEp5jOuuEj1zWSprPdQ2jA9sLmCjNJn0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Mu+e/4nB77FSmEg8xF61UKAO2C2/BgcqND1an7Rvj7hUSJvOdOiBUEThqoCuKKeL7WlThwbqg9vGnEtGIKQMHFxb4SDfejdhmwBDOGoGMVbEBmZR5SXG6Js7eM4ix+guQV91G6HQ0ikxV9wRMhIl23Y34g9obeVF8aAwWv8Ek1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ILJD1W31; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778738014; c=relaxed/simple;
+	bh=v6cTISb2HWzz99hmf+ZuNc3LjNWrvMsZQdXYkVpwWyM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=MVqqGiGgQK9SjSUMZzv498tNlQufspoBr8Ip+KfZiNFjbLRjq7zGYbt0C+xHg5KCDkIrlZB/jUyfmlthYX2CXyZdLXq9FclGMZ5nziV8p+UQSbixklXz7GqIhAFfjJIRQReJuh2y8bv0brMshgxDOHRgbRgH+4d86MF0lDOnP5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I+fDQvq6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ILJD1W31"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7B540C2BCC7;
-	Thu, 14 May 2026 05:45:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I+fDQvq6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A29B8C2BCB7;
+	Thu, 14 May 2026 05:53:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778737511;
-	bh=LOEZH3XMolxuEp5jOuuEj1zWSprPdQ2jA9sLmCjNJn0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=ILJD1W312ofJEGVpV0QNIH+3JyjvanQ9l0Da0ECEELc4Mptrm12t9cuuBLlIsMs7x
-	 KZ/w6hyaNteHy7IE0810aw1mB1JVTPJKFGp20WFl6ZCFMRb73KpBNao+j6+IaThXbq
-	 16AvE8rci4K6tQnZ/5HFLmas6UGp/7AEvbcMp7hMvHI82V0pi6AU3UDCy7FFfnyMsb
-	 mHUqQUx1GMX4q6SMBNOOwyWpX1vv3aAiwwAykrq2jeZKER6qhPw70gMst5jcUZURc6
-	 gyBzVsKSzS1R6BuyIB8UqoQYJrCGqX9WjX/Pjcd7jfpoTqN1YhHx2d974ccQ6SqrS2
-	 T6gXzA3w9enJw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6BA2BCD4F39;
-	Thu, 14 May 2026 05:45:11 +0000 (UTC)
-From: Pawel Laszczak via B4 Relay <devnull+pawell.cadence.com@kernel.org>
-Date: Thu, 14 May 2026 08:00:51 +0200
-Subject: [PATCH v7 1/2] dt-bindings: usb: cdns3: Add cdns,no-drd property
+	s=k20201202; t=1778738013;
+	bh=v6cTISb2HWzz99hmf+ZuNc3LjNWrvMsZQdXYkVpwWyM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=I+fDQvq6xZmhOnhesORfzWuAs1pZYG99PekTIpHlgdi4kJN+NWaFKqH3awMq7YHcx
+	 r/Tbz/3OoeDAyqT2JPl+U/NHqdQp67euITU7+4OKZAgZsWt/KkFioebiDtWcncv54H
+	 SiRJLLFjAUQ+MmC8rC4zlSXJtD0Eshg+o3GHUnxG5ZX31hWuc61r/C1NpX5v1jfPmO
+	 DqDN2cHBPuYBuZaHJUvwfkZAn6VOAu+beznq4VCe56uFTy2YCXtq6nNDcR2GPn1icI
+	 X50cs979hNWK71TRLCR/0WU72DciYQqs3AMaU6KqD2hcmycpYdm/ePUGkQZBw7HiA9
+	 XN4wEgCwQZZtw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RESEND v7 1/3] dt-bindings: timer: mips,p8700-gcru
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Aleksa Paunovic via B4 Relay" <devnull+aleksa.paunovic.htecgroup.com@kernel.org>
+Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260513-riscv-time-mmio-v7-1-f8925ffc226b@htecgroup.com>
+References: <20260513-riscv-time-mmio-v7-1-f8925ffc226b@htecgroup.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 14 May 2026 05:53:33 +0000
+Message-Id: <20260514055333.A29B8C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260514-b4-no_drd_config-v7-1-18cc40e363fd@cadence.com>
-References: <20260514-b4-no_drd_config-v7-0-18cc40e363fd@cadence.com>
-In-Reply-To: <20260514-b4-no_drd_config-v7-0-18cc40e363fd@cadence.com>
-To: Peter Chen <peter.chen@kernel.org>, Roger Quadros <rogerq@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Pawel Laszczak <pawell@cadence.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778738460; l=4746;
- i=pawell@cadence.com; h=from:subject:message-id;
- bh=tbJcxqWliRwq9sOBLnSckORm/H18puu1GemD56Jsc9s=;
- b=yaW2SLS6nFayNCohlvSbaQa7f6LIdZFfX9fzVmiFw8rcN0B2aYBRSnT/3FhsAwAI/urKgSX6u
- SnOfW89s6NxCycqnk2NWaDxGO9SKtaWH+7Jop8NPHcFN+RpkctsqUGD
-X-Developer-Key: i=pawell@cadence.com; a=ed25519;
- pk=EUPBvLO9CDg7j6defeDl2iqi+z5Ivqu4Z46aiqe7dYc=
-X-Endpoint-Received: by B4 Relay for pawell@cadence.com/default with
- auth_id=707
-X-Original-From: Pawel Laszczak <pawell@cadence.com>
-Reply-To: pawell@cadence.com
 
-From: Pawel Laszczak <pawell@cadence.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The unit-address in the example node name does not match the first =
+address in the 'reg' property.
+--
 
-Introduce a new boolean property 'cdns,no-drd' for Cadence USBSS/USBSSP
-controllers to support hardware configurations where the Dual-Role
-Device (DRD) register block is missing or inaccessible.
+commit 0fc6965163fbf81e3cf1b47f4dd36f18d5ee7201
+Author: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
 
-When 'cdns,no-drd' is present:
-- The 'otg' register and interrupt resources are not required.
-- The 'reg' and 'interrupts' properties are restricted to 2 items
-  (host and device).
-- 'dr_mode' must be explicitly set to either 'host' or 'peripheral'.
+dt-bindings: timer: mips,p8700-gcru
 
-When 'cdns,no-drd' is absent, the binding maintains backward compatibility
-by requiring all 3 resource sets (otg, host, dev).
+This commit adds dt-bindings for the GCR.U memory mapped timer device for
+RISC-V platforms. The GCR.U memory region contains shadow copies of the
+mtime and hrtime registers.
 
-To achieve this, the schema is updated with an if-then-else logic
-and 'reg-names' use enums to allow flexible
-ordering during validation.
+> diff --git a/Documentation/devicetree/bindings/timer/mips,p8700-gcru.yaml=
+ b/Documentation/devicetree/bindings/timer/mips,p8700-gcru.yaml
+> new file mode 100644
+> index 0000000000000..3498255762cce
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/timer/mips,p8700-gcru.yaml
 
-Signed-off-by: Pawel Laszczak <pawell@cadence.com>
----
-v7:
-- Rename 'no_drd' to 'cdns,no-drd'.
-- Update commit message to reflect property renaming and schema changes.
-- Simplify 'reg-names' using a single enum.
-- Revert 'interrupt-names' to a list of constants.
-- Move 'reg' item descriptions to if/else blocks for accuracy.
-- Clean up 'if/then' logic (remove redundant checks).
-- Add explicit 'items' list for 'interrupt-names' in the 'else' block.
+[ ... ]
 
-v6:
-- Fixed validation error for 'interrupt-names' by correcting
-  the items definition.
-- Adjusted 'minItems'/'maxItems' to properly support the optional
- 'wakeup' interrupt.
-- Fixed 'too long' schema error in examples.
+> +examples:
+> +  - |
+> +    timer@1617f000 {
 
-v5:
-- Implemented strict conditional validation using if-then-else logic.
-- Enforced 2 register/interrupt items and required 'dr_mode'
-  (host or peripheral) when 'no_drd' is present.
-- Enforced the standard 3 register/interrupt items (otg, host, dev)
-  when 'no_drd' is absent to ensure backward compatibility.
-- Updated 'reg-names' and 'interrupt-names' to use enums in the main
-  properties section to support flexible resource ordering during
-  validation.
----
----
- .../devicetree/bindings/usb/cdns,usb3.yaml         | 62 ++++++++++++++++++----
- 1 file changed, 53 insertions(+), 9 deletions(-)
+This isn't a bug, but does the unit-address in the node name need to match
+the first address in the reg property?
 
-diff --git a/Documentation/devicetree/bindings/usb/cdns,usb3.yaml b/Documentation/devicetree/bindings/usb/cdns,usb3.yaml
-index 2d95fb7321af..068fb55a5414 100644
---- a/Documentation/devicetree/bindings/usb/cdns,usb3.yaml
-+++ b/Documentation/devicetree/bindings/usb/cdns,usb3.yaml
-@@ -20,19 +20,17 @@ properties:
-     const: cdns,usb3
- 
-   reg:
--    items:
--      - description: OTG controller registers
--      - description: XHCI Host controller registers
--      - description: DEVICE controller registers
-+    minItems: 2
-+    maxItems: 3
- 
-   reg-names:
-+    minItems: 2
-+    maxItems: 3
-     items:
--      - const: otg
--      - const: xhci
--      - const: dev
-+      enum: [ otg, xhci, dev ]
- 
-   interrupts:
--    minItems: 3
-+    minItems: 2
-     items:
-       - description: XHCI host controller interrupt
-       - description: Device controller interrupt
-@@ -41,7 +39,7 @@ properties:
-                      cleared by xhci core, this interrupt is optional
- 
-   interrupt-names:
--    minItems: 3
-+    minItems: 2
-     items:
-       - const: host
-       - const: peripheral
-@@ -79,6 +77,13 @@ properties:
-     description: Enable resetting of PHY if Rx fail is detected
-     type: boolean
- 
-+  cdns,no-drd:
-+    description:
-+      Indicates that the Dual-Role Device (DRD) register block is not
-+      implemented or is inaccessible. In this case, the controller
-+      must operate in a fixed peripheral or host mode.
-+    type: boolean
-+
- dependencies:
-   port: [ usb-role-switch ]
- 
-@@ -93,6 +98,45 @@ allOf:
-   - $ref: usb-drd.yaml#
-   - $ref: usb-xhci.yaml#
- 
-+  - if:
-+      required:
-+        - cdns,no-drd
-+    then:
-+      properties:
-+        reg:
-+          items:
-+            - description: XHCI Host controller registers
-+            - description: DEVICE controller registers
-+        reg-names:
-+          items:
-+            - const: xhci
-+            - const: dev
-+        interrupts:
-+          maxItems: 2
-+        interrupt-names:
-+          items:
-+            - const: host
-+            - const: peripheral
-+        dr_mode:
-+          enum: [host, peripheral]
-+    else:
-+      properties:
-+        reg:
-+          items:
-+            - description: OTG controller registers
-+            - description: XHCI Host controller registers
-+            - description: DEVICE controller registers
-+        reg-names:
-+          items:
-+            - const: otg
-+            - const: xhci
-+            - const: dev
-+        interrupts:
-+          minItems: 3
-+          maxItems: 4
-+        interrupt-names:
-+          minItems: 3
-+
- unevaluatedProperties: false
- 
- examples:
+> +        compatible =3D "mips,p8700-gcru";
+> +        reg =3D <0x1617f050 0x8>,
 
--- 
-2.43.0
+The node is named timer@1617f000, but the first address specified in the
+reg property is 0x1617f050. This mismatch might trigger a unit_address_vs_r=
+eg
+warning when running make dt_binding_check.
 
+> +              <0x1617f090 0x8>;
+> +    };
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-riscv-time=
+-mmio-v7-0-f8925ffc226b@htecgroup.com?part=3D1
