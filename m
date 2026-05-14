@@ -1,58 +1,96 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 109183B5837
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 12:08:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5101E393DDA;
+	Thu, 14 May 2026 12:11:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778760515; cv=none; b=Wq0Rim8QnYKGH4VW5efHaEqcTV+/ByYx2Zvh5uVXC3wLt5OD0Qyk7Uj1hh31Dwdh2udWZOu63l4ax1nOiC8zpmMRDSOxRDeeD5k9qK7mnSXFD/bQyOsCRmbSXBtDZxTyzqf/U3fsEhcgi+iOEit18M6ak0B2rUj/8H3msmsxPng=
+	t=1778760670; cv=none; b=WRRICHBIY1zWTq0SMyOsGR6gld33sdiffXndc9IZ/lBjbQ2ysP4LZtInosQO6Rhh2fSweurTDMciMx9MOt4yv+UTgKHraO3iomwTCR9MnT6ADLMGFdTOjLjn63//hgFejBlczE4eN5EV371+I35bSm3kPERZmU+o6YbdZvr0hFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778760515; c=relaxed/simple;
-	bh=rdVakW2JsEDG/bn9la26/8KopBgfsGMbhDRdcBYRY04=;
+	s=arc-20240116; t=1778760670; c=relaxed/simple;
+	bh=9nW2QQRmWeZRagTwX8ss7NBX+bqZPltLBWhvDlxyi+0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VN5eTlSNIpH3hZd0Z/u1AKavcGYaKE5fMtRVs5fpdUxbG9OSsUiPHH1WywrhM1boFVidt9CF6zMDCo9hPEreS3uhu6O4GLV7epDPGJFK2GKuVksdcqJCJ95dGbytFFoXgz2FzQ/SICodv+qky5VxNHLai4DeUgtOgnhwtq09jIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=N42aHMGc; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=C3qYPouGe7GfyDrAPg/YAioP9L8oB5GBvbkc2Xhm8nA8NeNw9lyFuJ4J06ue+/auR956u5pipkYomK3F4KP6FDxNLa+WOl/ep+JZtCKcDtLfaWKwakzfk5ruFjLhBEaLPIxU6J644oEa5Q3snFXIeUiuFGE+2svQXgswi+F82mg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ax0GzLvh; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="N42aHMGc"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=Tso+x53GYlnnd0bvooYwZlfjSVUPwDAvBozCDW1Oo58=; b=N42aHMGcEd3zaZq6JElfHZEouQ
-	+DhFxWFVsxTwX7NXiV2+zHnq+cZuoEX6ZfJFp65Cu0xLKfjhUo4LI1ng4MZI4y7FTjjY4L3W/X/gp
-	cra0CT4Y+gYEHqsX7o8KzF0XKfJyS9O+oe2YCP15HK8e5bkuhSvuwCPIL6mttnemsstw=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wNUrS-002trT-CM; Thu, 14 May 2026 14:08:18 +0200
-Date: Thu, 14 May 2026 14:08:18 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-Cc: joel@jms.id.au, andrew@codeconstruct.com.au, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
-	linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 2/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
-Message-ID: <a71d6b4c-fba2-4f02-9603-4370b52663e1@lunn.ch>
-References: <20260514031622.1416922-1-prasanth.padarthi10@gmail.com>
- <20260514031622.1416922-3-prasanth.padarthi10@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ax0GzLvh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 582CFC2BCB3;
+	Thu, 14 May 2026 12:11:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778760669;
+	bh=9nW2QQRmWeZRagTwX8ss7NBX+bqZPltLBWhvDlxyi+0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ax0GzLvh6WgDzyeWnbb67Ntz9JpzVgVWcK3nMg6sK1ECQXCeqTCJ3DzmUcocAJv9E
+	 q8dJ9+SaX+/zzVsZiJY5o5tE9htpPikeTsrOPe5nrHUY1Pt/dqQpAkarv380bRjeeW
+	 3Cf2kpg71PajVG4lQN4DlQC1NMg3Q6z85KHzvyCiZf1WDenUhdO6lRx9itQATq81NR
+	 qCfxjln7nVv3FayNBdIjvEq4rnjegbcX3llKBOLLRw5XTHotspTesSmNTS14QTr75e
+	 3oxu1IlfDqbmW4HGtq35l+F7A/szUfZ740oDduNDgaqrJASak51huIMAT01BXvDKOB
+	 GbZnnqHY+2kLg==
+Date: Thu, 14 May 2026 14:11:07 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	Vyacheslav Yurkov <uvv.mail@gmail.com>
+Subject: Re: [PATCH v2 2/2] dt-bindings: Add GPIO locked fixed clock
+Message-ID: <20260514-authentic-meticulous-baboon-a1eeee@quoll>
+References: <20260510-feature-clock-guard-v2-0-6c25458d5340@bruker.com>
+ <20260510-feature-clock-guard-v2-2-6c25458d5340@bruker.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260514031622.1416922-3-prasanth.padarthi10@gmail.com>
+In-Reply-To: <20260510-feature-clock-guard-v2-2-6c25458d5340@bruker.com>
 
-> +&mac0 {
-> +	status = "okay";
-> +	phy-mode = "rgmii-rxid";
+On Sun, May 10, 2026 at 06:06:23PM +0000, Vyacheslav Yurkov wrote:
+> Describe device tree binding for a fixed clock, which state can only be
+> determined by the external GPIO. It's similar to gated-fixed-clock, but
+> the GPIO direction is inverted.
 
-https://elixir.bootlin.com/linux/v6.15/source/Documentation/devicetree/bindings/net/ethernet-controller.yaml#L287
+v1 comments - do not ask us to repeat them.
 
-Please could you explain the choice of rgmii-rxid.
+"Please explain how I would identify this h/w."
 
-       Andrew
+> 
+> Signed-off-by: Vyacheslav Yurkov <uvv.mail@gmail.com>
+> Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+> ---
+>  .../bindings/clock/gpio-locked-fixed-clock.yaml    | 77 ++++++++++++++++++++++
+>  1 file changed, 77 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/clock/gpio-locked-fixed-clock.yaml b/Documentation/devicetree/bindings/clock/gpio-locked-fixed-clock.yaml
+> new file mode 100644
+> index 000000000000..e0256bbd441d
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/gpio-locked-fixed-clock.yaml
+> @@ -0,0 +1,77 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/gpio-locked-fixed-clock.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: GPIO Locked Fixed Clock
+> +
+> +maintainers:
+> +  - Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+> +
+> +description: |
+> +  Clock controller that aggregates input clocks and/or GPIO
+> +  signals and exposes them as a single clock output.
+
+So same comments as before. We gave you multiple comments, multiple
+expectations.
+
+I see here no real hardware explanation and I asked for it more than
+ONCE.
+
+Best regards,
+Krzysztof
+
