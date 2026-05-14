@@ -1,109 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD8B3859DC;
-	Thu, 14 May 2026 10:40:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8277387348
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 10:41:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778755201; cv=none; b=J1fvHA5C4rsqzatjX/N4Aq+XBFh4teejadz2EBnLlLJF3Zv7O9atWWPauqdzdtPONB/NMcbRWxrXDPTx4uSI10pjetkxVBbNVHjjUAPJ+SoJzokBNY0zyEQ8OY2q0U4+qw2NEhipyFsa6ewQuJXxkpCdkD759zlJvutaduXiCuQ=
+	t=1778755321; cv=none; b=QmnLKT42h4wEWH2dWmqiOiMNW9sbD6skAOMz987kY5fBPvROtZ7Otkp+YvL3feGWyOkVa6D9y0B7QsbCHxViVmnLuUcRDjs307tZ7jqCpi6Z03sB00IXbjzP0IOce59p1dqI2n6n4IXQxNrpYW1+UzUtYhxd+dnuXSTJU562hxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778755201; c=relaxed/simple;
-	bh=19V1/DSpSPv13DRtRXEh4R7F9Fg0pMXSA4RISx5V4kE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FqpIQ++o7G8vnNc5QjMLCbyJ9E5fSNWymAJi5Z+1kBz1vfAcYot6i/hakOegpKpd+dTZibDrpxGeCZ6RUCSd0CFE9fKS1G44xLolFu0TkNwVQMRzogs3M6UnQTcPONha0g25c5JNUUni6VOoR013r5ux1ukxJPtzcCopBHdsNlA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kfQNDW0G; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778755321; c=relaxed/simple;
+	bh=44VD0T0bpMhW57Rqa1pjNU+Tx+b/FPZuIa/q0GXt/no=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JZuIt7JRUNMCJajM/SZE1Pz6FozyXu9dsjIyKgYEoJaPr4sC96S1XKitHonkRH13bl/gl1B8AVVtTjTwPTLR7tLQ229yHJQotAK2j83bbwC7S/PqCRCPeK0jHb53aJdD3mCllcCCQ9JRL223Mr+3GNyl5T1K2DYUUVNiQgklOko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pzTSOTQv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=E8fMiGDT; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kfQNDW0G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02853C2BCB8;
-	Thu, 14 May 2026 10:39:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778755201;
-	bh=19V1/DSpSPv13DRtRXEh4R7F9Fg0pMXSA4RISx5V4kE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=kfQNDW0G9BbD3pEtNuayyRcXP8XF9MNSqnaPO2y4k25HLQdnos6vvq9ApzE31r2vg
-	 yUoTdYQAmqSr9k+QBrcw/5NEHYKURjVTJ55uvbg29K/jaV/VhIYPtLzS8nFCz3LEY5
-	 CCpb+zfndUq4ALI/rvYWEKIHU1rGXzaXwKlwP/ktRWQxh9fzADqGCbz9/wfivZdFbw
-	 q14DOFL1FSMjWUDd80lzsZVpnp6pIGjzwlUaugpRbtNgPk+Ni1ZcG/fiFHJbN5agVe
-	 mA8BwLlGg9/9chBKcVWIqIaeX7Ka9EcEVqso0+6lVSgrWiXZOWVXOnrbdgWsQB7JNK
-	 P2RTc8Aa2E4Tw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/2] dt-bindings: PCI: mediatek: Add support for
- EcoNet EN7528
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Caleb James DeLisle" <cjd@cjdns.fr>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org, linux-pci@vger.kernel.org
-In-Reply-To: <20260513191652.3200607-2-cjd@cjdns.fr>
-References: <20260513191652.3200607-2-cjd@cjdns.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 10:39:58 +0000
-Message-Id: <20260514104000.02853C2BCB8@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pzTSOTQv";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="E8fMiGDT"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64E9kl6o638834
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 10:41:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	iPKozL8Bn44pSJ9LJCFbqQRgLLCIqXXmM8frJNhG5ZQ=; b=pzTSOTQvm9eYi6Hh
+	Sg4LiOWAdzFxxZPQZIcdOReqHklfHrQa1npxWi6468lTc+ScYA7hQ47SWrxpRfKC
+	qOOrGyHf9Ej4UgIHAnXtVEM2sCDuKGKj3QQZmjJw8kDccD5ky1p+9yDernNzha20
+	hjM+g8K0NMfKH7BvwmArmOl08pxmHGlNOQwytgj9aIhtUnlxkp0q35ZrxDxsvCZu
+	UL7hrQG/ULKd0xkb6e/o9jtG0SBFkv+56KoWERP2iIYWRob/9MZ2TcHvaZhgT+kj
+	8h5dIGqACrWEbm2yLuJDhqVEMXNkeUqaSE80W2PWgIhvKQG+hWJM1JSUFdzyBKsy
+	goFgPA==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4vkjkgh7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 10:41:58 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-63142e319f7so385174137.2
+        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 03:41:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778755318; x=1779360118; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=iPKozL8Bn44pSJ9LJCFbqQRgLLCIqXXmM8frJNhG5ZQ=;
+        b=E8fMiGDT4qGGEeiBxPWmnDQEK38boKudAId8zAR4fQ7zM+rjGru3J+klovGgdraXZ2
+         QcRiCuGazEnGOx+4DdiNtpE8L649lKUIZ2idaIPn8gAUdm9boQr0rBSnyT41tH65Vt4G
+         g6ZXz7alvSg1p6H7d2rX/ZTcjTAtDPnu/2W4kBInvTkpigofY72lasp1bz7d4F6gHV3a
+         OgQ5T1SohxNKZpIjAlePMDwd76G9dljO3LtxzwCtxw4cZBP30Hih3MbcpXylvXjOmG3P
+         fLNw35/26/B+KQPBV7S6jmy9LJtqdlod+RSySNCBxCaKeiIp0e0lb571Okkkas3lhHdh
+         cOZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778755318; x=1779360118;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=iPKozL8Bn44pSJ9LJCFbqQRgLLCIqXXmM8frJNhG5ZQ=;
+        b=O0JJtTAmP7mQvDVBD/KaPLj3X4iwefRrKJgebb+wse/8BE4YEcR+D2zbEjh/kFft7o
+         Wh7OsNI9FccuTVKpB7lZokoMYR9M276zQKLdKBgZeJrybc2C3Qv7UO89BLOmmrefUg55
+         TndOiEMWRYMGXmZaXfVY+mQNoQNVQaommkhzeQv7K+ZOkSPo7uNCEa6W3ugiikzvpQpd
+         bgiai4ew6UTlSdqPEEZQ2/c1WH7zri/ZCrwN99merSAO69rLa3fD2OXpxeEavgFxUCd9
+         Lw10O2UN9MCmCE93N15PZOUIQeSVGf0QmoHsvqwKxycfkVCZ6/F2/sQbhmV3WXb10W3N
+         q/jw==
+X-Forwarded-Encrypted: i=1; AFNElJ8J5WWpRsITkhFHGM1gRRhYMF4QiSh5dDGXsPIF7oG1y9M0ib16GNYuwcSztgwms2hCgqG0FuomZ58Z@vger.kernel.org
+X-Gm-Message-State: AOJu0YyK+JsbVLxanuNSGwrDfp3ep8oZNKsU2VvyApD3dbsOzPENOnMn
+	8VmRBkTe/xnzTh9p+kV5fcmfYvIAFYF6t+ZfgpDRiNGWoueS/g2mP+SMHejIVCOY/I/aNDBxbLe
+	UyQYEzyObf1yVhDKOPIr72pnEh+XWm5Xr08C/pZB8se5382q+Vcd00VQCam3t+bmlkLnftLBG
+X-Gm-Gg: Acq92OHPPbG01UAPXoB71lQF+k5uUppZnZUnEgrgygqYSWT5qOzc9rrSa7BHMVy/KpY
+	sun21HEBq0TqJLFMPcNnkuKrNoUHeSuWBcKUhkn1KzlNRzVTuWDpvdPqu2jCL1A6O5JFKL+Ex3A
+	JdxMFRRFsjgBhmxAyWVvV/vCMhW4/2rWqOZHuX/xoPiIIgyicC1O1kXtyQznG2yUihXp4j6GWkR
+	/xx0GkJAkDwv78uQDaVdY+v4uPisPmXzRDcWep9ozPPBC10tFVCZ+KK0qNa/Rt8PxFydjwoH5CH
+	Y6arr/eJPu1eVzte9To9ePCD4CS+ZfH6uVpcKciSj7o2qQIx7PlYFLn4mJtnhGaFm+r+VNQVtRQ
+	TQVXk30YSHkeChp9dTrJqmDu7A/TBzpSonNWmjeIyn0J+e5p0BLPW7oWLh6WPxjymyvY0ZiBy3w
+	DdBAiO8J6IYzwvgQ==
+X-Received: by 2002:a05:6102:2924:b0:60f:77ad:4bed with SMTP id ada2fe7eead31-637757febb2mr1344342137.7.1778755318343;
+        Thu, 14 May 2026 03:41:58 -0700 (PDT)
+X-Received: by 2002:a05:6102:2924:b0:60f:77ad:4bed with SMTP id ada2fe7eead31-637757febb2mr1344328137.7.1778755317984;
+        Thu, 14 May 2026 03:41:57 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bd4f4c3150dsm74825266b.24.2026.05.14.03.41.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 14 May 2026 03:41:57 -0700 (PDT)
+Message-ID: <38cf589d-002d-4e36-ab63-8f8366609e0c@oss.qualcomm.com>
+Date: Thu, 14 May 2026 12:41:54 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] clk: qcom: ipq5210: Use icc-clk for enabling NoC
+ related clocks
+To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
+        Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-clk@vger.kernel.org
+References: <20260514-icc-ipq5210-v1-0-b5070dfbe460@oss.qualcomm.com>
+ <20260514-icc-ipq5210-v1-2-b5070dfbe460@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260514-icc-ipq5210-v1-2-b5070dfbe460@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: tmZtUC1dBV1Uifr5TpavZUzcwefCmqlH
+X-Proofpoint-ORIG-GUID: tmZtUC1dBV1Uifr5TpavZUzcwefCmqlH
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE0MDEwNSBTYWx0ZWRfX+Jbv5uZsWP+U
+ f+S+fkvetehSvSBGMNKAiYdWhpFOACqRUcDgcomvHj+bZ5sFvjFoDlwKhKU3xGRNSLRKY+i70z2
+ fGwXNUtJZP+RjRHOGNG2lDPa7QzGAFbL/vMMioW83ibJuOX8u/HCB+ktbNL/QNUibKT2FAjmYWf
+ nFvsEEIVs125d4gPHSLxiVd2HWRbqCssF0BrwaefiSLU1yHSLhAuyz9tStt2jdONe+r8bjsLUqq
+ s5ayKjuZG/CCuVTeOajlU11GRvjFa78LRH5kz5W77L0LFV+MUJxFuXJF+j5JkQ1nz5t314rk8LE
+ sqjRQK8z8niKvk8AGaRqbJV058i0uiXJuxX6Tn9YR3ZLqpN+pHoV/PstD8nJmv7faEF1BOzK+zh
+ sNh8X9hdzVmsguL24Cc+u0CIklqcP1rZASV5jaGL6BMP0YWQ1Mw+5Tc+xliju3Ch+MoVvgLSnIq
+ 4peWdOy/Wxors22MjsA==
+X-Authority-Analysis: v=2.4 cv=PbDPQChd c=1 sm=1 tr=0 ts=6a05a6f6 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=8eC56JA1x6P3gbDAbPwA:9 a=QEXdDO2ut3YA:10
+ a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-14_02,2026-05-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 suspectscore=0 lowpriorityscore=0
+ priorityscore=1501 bulkscore=0 phishscore=0 malwarescore=0 spamscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605050000
+ definitions=main-2605140105
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The conditional block for `econet,en7528-pcie` uses `reset: false` =
-instead of `resets: false`, failing to correctly forbid the standard `reset=
-s` property.
---
+On 5/14/26 6:05 AM, Varadarajan Narayanan wrote:
+> Use the icc-clk framework to enable few clocks to be able to
+> create paths and use the peripherals connected on those NoCs.
+> 
+> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+> ---
 
-commit 31e1455525e7bb47d92cbe65ee706b4484b25676
-Author: Caleb James DeLisle <cjd@cjdns.fr>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-dt-bindings: PCI: mediatek: Add support for EcoNet EN7528
-
-This commit introduces the EcoNet EN7528 SoC compatible string to the
-MediaTek PCIe controller binding and adds a conditional block to define
-its specific property constraints.
-
-> diff --git a/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml b/D=
-ocumentation/devicetree/bindings/pci/mediatek-pcie.yaml
-> --- a/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
-> +++ b/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
-[ ... ]
-> @@ -226,6 +227,31 @@ allOf:
-> =20
->          mediatek,pbus-csr: false
-> =20
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: econet,en7528-pcie
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 1
-> +
-> +        clock-names:
-> +          maxItems: 1
-> +
-> +        reset: false
-
-Should this be resets (plural) instead of reset?
-
-The standard property for hardware reset lines is resets. Setting reset to
-false will fail to override the global definition, which means the schema=20
-might inadvertently allow the resets property instead of strictly forbidding
-it for this hardware variant.
-
-> +
-> +        reset-names: false
-> +
-> +        power-domains: false
-> +
-> +        mediatek,pbus-csr: false
-> +
-> +      required:
-> +        - phys
-> +        - phy-names
-> +
->  unevaluatedProperties: false
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513191652.3200=
-607-1-cjd@cjdns.fr?part=3D1
+Konrad
