@@ -1,124 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53D2517A2EA
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 04:57:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08BCF1F131A
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 05:05:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778734636; cv=none; b=r28oLNTUi1bzk2y0q4IZMd1oCsAaYO79TUS3YK3ZIvJezZvnXuO3zS5ef9F7MdWQ0EJcvRaoxqkRlaqRuvaUEyQDH/cveaS5v3jkxjmnH1pfSabBqoIP4Nqrmf9JvleH4jDuJ1/NL5Kqd0BFmTaH88Noav9fCA1uIZ1cWTnt3As=
+	t=1778735101; cv=none; b=NajNSy5lnN4uPCVexW2lMvdnt5ugd2QE4IXfj2ZhG7NlkaVqU/VVkL/CZAt2UH7mEJX46CUWQ3KqNl8TjtqLBDihXynM1PD7krvhGsK/Zh2IGKfsdtsX/5IifYQzB5erDYhVuSDTf1LDf0Avm5it8Glwy6nBoylxm7fQJgxTHnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778734636; c=relaxed/simple;
-	bh=3M4jATqlwPqho9sIYkBqwFQF480Pe60+azb9sYqQX+k=;
+	s=arc-20240116; t=1778735101; c=relaxed/simple;
+	bh=el+Ugk49Msg8zxRrqiukMRb4UHcu9muXM71NdH4PsJo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=H0IZb6q5vX5sVE0VH9Kpqr1GuEghF6/hCBNaQTuLljSf3FHC6F2yVkyw+ip2smJqABPExaQAbYauNrpm3qo/EsXFD3mZzssZcWyIUYQuP9dPR1TlzVbf6bZtduZ1t6Z3fxzh3mlm2ZScWkAnaXWksySg6CxUtHPR9L0KnT3xuwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WS255cXF; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=ZC/KFDSDVSus7f+YPICsuU6tLLIsD4W9waGimz4zx0d2zo2pnyuJOiLXcmwYrhOZyXw3ywdGT1Z+ZActgLYZBY1E6pfO8bNg+5waYAeFIg/635Xtfo907cUHZJjMmD2Lnmu4jMMvKsXZ6HDhkTiLbYZ87nSFW3xzr//Qb1CKfn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V20r1yMF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WS255cXF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E22CCC2BCB7;
-	Thu, 14 May 2026 04:57:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V20r1yMF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AA86C2BCB7;
+	Thu, 14 May 2026 05:05:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778734636;
-	bh=3M4jATqlwPqho9sIYkBqwFQF480Pe60+azb9sYqQX+k=;
+	s=k20201202; t=1778735100;
+	bh=el+Ugk49Msg8zxRrqiukMRb4UHcu9muXM71NdH4PsJo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=WS255cXFcCGW+GWtFHscGLMz0bq0svGIw9Ia2vPWbsiux+iuFhDoU6NjnydQqLE/l
-	 vWGCL90ueZT1lZh/cg/3+/QbtSK98GFeHM8yAUKZqOyE9dR7jP+Js5fJd9d6YRHWW8
-	 JPKzoJPyd5NBregSOnPz6dnFGm4I98yyR8tjzsS7cxZPG1U9IVBY5NqVlYI7PJ2Vb3
-	 L01yZMe2INUCZJ/Ks61VEBEMrY+Vbh6l5L9AFnoUbBeVvLyftZaBs4V8kRd0pVtcuG
-	 Lkdabv8gHN0vyfCDkgngX/TI6DZEEe8jmI4+aHMPplZed8MznCU9/f47M7KSHKRvJc
-	 jXxjpnqAMuTYA==
+	b=V20r1yMFyf3hriHpN3E58fuTeqU7BREbGVRM2olocMfDXvoV58+JQNpC3w4ACjv2D
+	 J4LKg0QWUmhNYH4mzXB1G+MltrZ8fPU9GW+vYKDgOAmu2NTEsTd7XTUOF2lbfdMA1J
+	 I8ZOBAudzsz2GZEV6EpjkeGVXLWWstJe1Uq2UOEch79nmX3igrUtg4H1nJzlnR5ZGO
+	 7U52cyerFFvHNfz6b5XmooXKXRDdaAIcZUtoVxqQ5x9STyfj8VQPcYV2ZS6BKmEfa/
+	 kXkjTfTIZQ7eFam82YqQS45qwimhgY+hXscA+Y+cho2fmaaw7aRmqErysK2gcG+k7l
+	 Q2Ndzl+Q1KRmw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 3/6] arm64: dts: qcom: sc8280xp: Add Iris core
+Subject: Re: [PATCH v6 14/16] ASoC: rsnd: src: Add SRC reset and clock
+ support for RZ/G3E
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260513-iris-sc8280xp-v6-3-0d11d90d3e26@oss.qualcomm.com>
-References: <20260513-iris-sc8280xp-v6-3-0d11d90d3e26@oss.qualcomm.com>
+To: "John Madieu" <john.madieu.xa@bp.renesas.com>
+Cc: krzk+dt@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260512182631.3842065-15-john.madieu.xa@bp.renesas.com>
+References: <20260512182631.3842065-15-john.madieu.xa@bp.renesas.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 04:57:15 +0000
-Message-Id: <20260514045715.E22CCC2BCB7@smtp.kernel.org>
+Date: Thu, 14 May 2026 05:04:59 +0000
+Message-Id: <20260514050500.5AA86C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The Venus/Iris driver ignores the `mmcx` power domain, failing to =
-vote for its performance states which will cause MMCX under-voltage and AXI=
- bus hangs at high clock speeds.
-- [Low] The `power-domains` property in the `video-codec` node has 4 items,=
- but the YAML binding `qcom,sm8250-venus.yaml` restricts it to a maximum of=
- 3 items.
-- [Low] The reserved memory node name 'pil_video_region@86700000' uses unde=
-rscores instead of hyphens.
+- [Medium] Missing error rollback in the probe loop leaves hardware permane=
+ntly deasserted.
+- [Low] Redundant devres allocations for a shared reset control inside a lo=
+op.
 --
 
-commit 436af127f4d0421fee1976f98a2eab9818c98aa4
-Author: Konrad Dybcio <konradybcio@kernel.org>
+commit 987ecf3576f0681ad0809aeed224f14241a758ce
+Author: John Madieu <john.madieu.xa@bp.renesas.com>
 
-arm64: dts: qcom: sc8280xp: Add Iris core
+ASoC: rsnd: src: Add SRC reset and clock support for RZ/G3E
 
-Add the required nodes to enable Iris core on SC8280XP.
+This commit introduces explicit Sampling Rate Converter Unit (SCU) reset and
+clock management for the RZ/G3E SoC. It adds support for the shared SCU
+reset controller used by all SRC modules and manages the SCU supply clock
+with the same lifetime as the other SCU clocks.
 
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/q=
-com/sc8280xp.dtsi
---- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
+> diff --git a/sound/soc/renesas/rcar/src.c b/sound/soc/renesas/rcar/src.c
+> --- a/sound/soc/renesas/rcar/src.c
+> +++ b/sound/soc/renesas/rcar/src.c
+
 [ ... ]
-@@ -691,6 +694,11 @@ reserved-region@85b00000 {
- 			no-map;
- 		};
-=20
-> +		pil_video_mem: pil_video_region@86700000 {
-> +			reg =3D <0 0x86700000 0 0x500000>;
-> +			no-map;
-> +		};
+
+> @@ -754,6 +792,16 @@ int rsnd_src_probe(struct rsnd_priv *priv)
+>  			goto rsnd_src_probe_done;
+>  		}
+> =20
+> +		/*
+> +		 * RZ/G3E uses a shared SCU reset controller for all SRC modules.
+> +		 * R-Car platforms typically don't have SRC reset controls.
+> +		 */
+> +		rstc =3D devm_reset_control_get_optional_shared(dev, "scu");
+
+Is it intended to fetch the shared reset control inside the loop?
+
+Since it queries the parent device using a constant string, it resolves to
+the exact same shared reset control on every iteration. Could this be moved
+outside the loop to avoid duplicate devres allocations and repeated refcount
+increments for the same resource?
+
+The resulting single rstc instance could then be safely passed to
+rsnd_mod_init() during each iteration, as the reset subsystem correctly
+handles multiple deassertions on the same shared wrapper.
+
+> +		if (IS_ERR(rstc)) {
+> +			ret =3D PTR_ERR(rstc);
+> +			goto rsnd_src_probe_done;
+> +		}
 > +
+>  		clk =3D rsnd_devm_clk_get_indexed(dev, SRC_NAME, i);
+>  		if (IS_ERR(clk)) {
+>  			ret =3D PTR_ERR(clk);
+>  			goto rsnd_src_probe_done;
+>  		}
 
-This isn't a bug, but device tree conventions expect node names to use hyph=
-ens
-instead of underscores. Should pil_video_region@86700000 be renamed to
-pil-video-region@86700000 to avoid dtc W=3D1 warnings?
+Does this error path leave the hardware permanently deasserted for modules
+initialized in previous iterations?
 
-[ ... ]
-@@ -4181,6 +4189,97 @@ usb_1_dwc3_ss: endpoint {
- 			};
- 		};
-=20
-> +		iris: video-codec@aa00000 {
-> +			compatible =3D "qcom,sc8280xp-iris", "qcom,sm8250-venus";
-> +			reg =3D <0x0 0x0aa00000 0x0 0x100000>;
-> +			interrupts =3D <GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH>;
-[ ... ]
-> +			power-domains =3D <&videocc MVS0C_GDSC>,
-> +					<&videocc MVS0_GDSC>,
-> +					<&rpmhpd SC8280XP_MX>,
-> +					<&rpmhpd SC8280XP_MMCX>;
-> +			power-domain-names =3D "venus",
-> +					     "vcodec0",
-> +					     "mx",
-> +					     "mmcx";
+When an error occurs here, the function returns without rolling back the
+modules successfully initialized earlier in the loop. rsnd_mod_init()
+explicitly deasserts the reset control:
 
-Does the YAML binding for qcom,sm8250-venus support 4 power domains?
+rsnd_mod_init()
+    ...
+    ret =3D reset_control_deassert(rstc);
+    ...
 
-Without adding a conditional block for qcom,sc8280xp-iris, won't this fail
-dtbs_check since the fallback schema restricts power-domains to a maximum
-of 3 items (venus, vcodec0, mx)?
+Since devres only drops object references via reset_control_put() and does
+not assert the reset line on failure, the hardware reset might remain
+permanently deasserted.
 
-Additionally, since this falls back to qcom,sm8250-venus, will the Venus
-driver properly attach and vote for the mmcx power domain?
+While the failure to unwind the clock prepare count on this error path appe=
+ars
+to be a pre-existing condition, the reset deassert state leak is introduced
+here. Could an explicit rollback be added to handle this?
 
-The video codec driver using sm8250 data explicitly defines only mx as the
-OPP power domain. As a result, devm_pm_domain_attach_list() might only
-attach mx and ignore mmcx.
-
-If mmcx is ignored by the driver, won't it remain permanently at the lowest
-statically configured state? When the codec dynamically scales to higher
-frequencies (e.g., 560MHz) requiring turbo_l1 for mmcx, could this lead to
-hardware under-voltage and AXI bus lockups?
+>  		ret =3D rsnd_mod_init(priv, rsnd_mod_get(src),
+> -				    &rsnd_src_ops, clk, NULL, RSND_MOD_SRC, i);
+> +				    &rsnd_src_ops, clk, rstc, RSND_MOD_SRC, i);
+>  		if (ret)
+>  			goto rsnd_src_probe_done;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-iris-sc828=
-0xp-v6-0-0d11d90d3e26@oss.qualcomm.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512182631.3842=
+065-1-john.madieu.xa@bp.renesas.com?part=3D14
