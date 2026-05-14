@@ -1,158 +1,81 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0528C3C768A
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 12:03:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A7C43AEF4F;
+	Thu, 14 May 2026 12:04:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778760241; cv=none; b=mycRx/3AcCpeLCeBFwG6YOPH/dzvWNY+aAkl0/qSUxmEfT3CY2FHgy4Uv5tCvia58L+y4x4At+rB1DurKRlvcjUvcOi9x9OfgCSm5D37VFGouw6qIGj2x5aphP+OEXgD4kMWwwsBhJW8HDVSK4Nltv2cblROT9EcevXHpFiUFEc=
+	t=1778760254; cv=none; b=S5JLLzH2C5z5W4YZjuAlzFbBohJzNTLzQZFzsv3OkmUcDoZFYJ1hFKf0RLqyX1Ui/zcE4NPx3gepSF9X2cqJukEeZfYkXqTN4A41C171GFrLC5Xl+UUZxP4ZW/rf0Qi9IDpUENgohkHkHq+8BePtZuiczL71n16B1k+jFgCbmBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778760241; c=relaxed/simple;
-	bh=S8tvciwNb3UxrfHIh4lNV3EW0cewsgPN0q+Ri2zhbRI=;
+	s=arc-20240116; t=1778760254; c=relaxed/simple;
+	bh=3Ophp1rxRSOQOJoDZj+hxZG0S99E1oAe3Jsf1A4VFLg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HVrY1ToFGDqRNRNzxWLHmr9YchBGorauic8zgsfM5M9wNMHXaauOPOqKRfkalanbq68i8WzzyBsosGH82gSdzv2jY3jQ6/FTZ5KVfPsX+y3+BBbMVanery0EcjrF1jxKAUoMwXlzi7GCPS/oGVjpTWxEB9vaMAxtEn6hlmBxdeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hiD52Zje; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XbCpxlT1; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=U7CWVfmYG+1N8CfO4kW078VaRBRhdum2i8JQ4zTaIAyue/DwPlp8/Z+VAF8PCP3cmg7awxi1itaHbyxq9xbB6D4QlWsMW0HDe6RFDK9EPFDmvMFdarjD0R4+2wuVuWZ1x0gWvGHUk0wr5lUkxQQNMcCY9czFvK6dLWIxfMeWHTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rlEa66C4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hiD52Zje";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XbCpxlT1"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64EBeUih2841062
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 12:03:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=reg4qcjdIp6x+0SDJUJ4n8gs
-	lWAQb0+Nn0u/viW8k+g=; b=hiD52Zjex97PxmfjXjFNrgr2ZoA8rSNdyWqJv6ZV
-	hFKbvC48qnEscoAu0XcvT64ZQXIlclHOtyT7/qYAXTDoQOeMsoiBrRjL+LCdzZAU
-	3Ebuen8AU8JBzzbVB+xzji2Y7QmRcMLCqsVfuHuXMWbtNAkNfoFvs+gb4IO58GyG
-	iGpOd2ssjDG281Eeb8KbRd/LQ7FlLmXPvHJBXvsMPvhngdEI0TXHgY5DcQVBa12d
-	p3+YjkoUbiuCAaM6+rc1Zc4qfXIAFRNFH6zzrhDhNKULVfwxvaVszs0/z0LCIhzy
-	cdU0Dsdyhi9lTL7YVN7Qj46ypS59gcvTnw9ODvaJizkd/w==
-Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e5899s9d2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 12:03:58 +0000 (GMT)
-Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-69649771a5aso14311344eaf.2
-        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 05:03:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778760238; x=1779365038; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=reg4qcjdIp6x+0SDJUJ4n8gslWAQb0+Nn0u/viW8k+g=;
-        b=XbCpxlT1q20eSGYgc9CGSEpex5QmTtlAPLqbYllMj0utpqlLIQHoJGplbSUdJcrrRr
-         ziiUP/+4cB/aOYKldgnhYtZgPgWarzeSN0xRUdhBDQyy6t1YOu84rA9e0IqqbPw07xVk
-         ZZ5C9uEqrV5YvbPULDWp5ZVNXraE9PpTp7kmVnAVHQh6zt21rGNgmohv0gex2u7ZpBPF
-         XYOFRYXEEcAeIFHKP5nDXGVBQ94yEeWcRzWO8itAiWmBq6fvCO5ZqhdIZRibUHSNiwAT
-         ZKyZkijjVDreA4u9hSB5C7aMT33Ofvtx1K4ID331FNRTuHC3zB18Sn6H9bIHOeQwDLKZ
-         wUag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778760238; x=1779365038;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=reg4qcjdIp6x+0SDJUJ4n8gslWAQb0+Nn0u/viW8k+g=;
-        b=O0nmm0UKFgBfeZG4IMZJFtdVqtCKq4Sv2tkY1D0jbsOveO+dAU3Mb5vo+FlhylxC6J
-         j2A1z+Js10ghnvi2aZhdIR2f9E9ClgKor1YsAtSAtVWDXFKyzgWBW6UgdZW98HL7P+tR
-         P+ElnMeLkjeCn3mrvrr7s92HG/Apkug1MIQHM2RH7hAUtpzOwjUlt8IRT4z53WAHMIqQ
-         87EvFKWH7Ca1QzHnhW/S0LyRBMkt5yPAzHCPEoohNWAqhttFo+WQOEZ8/ymH9WDyS/Wp
-         sufaKbbIatgbWoQfDRMeejqJ8n/u9k21h8JotOQsfMUG/d3GlURfaQrbLw2/p4K620Qf
-         qKxA==
-X-Forwarded-Encrypted: i=1; AFNElJ8Ult4yrm3rX/N4cSjCUvJHgIQXtbPq5LTgN79mIwwFcS17w3AYRxiQ4naZjxuVUCNa132W8TpgzVMj@vger.kernel.org
-X-Gm-Message-State: AOJu0YzrOJDjWjO9yIuJLNLTkSeE63kx6emb5Sf5kExnERO0J3wTt3po
-	HlsRcbrsczC8trQQjoY6XZ3RRG2vxWc+5IzxMc6I7maQhsiVRy1Fasq3btMhJ1IU5AKHFAySncn
-	YlaS96UFn5GE1vbKxI9K6WoYZSrVidod6p1E7ytjpQvrUZR803mwbTOweJIUOQapF
-X-Gm-Gg: Acq92OEOJNykidWX+yjxl6Xk6G6sVlcbC1Z0JhImLYqckZTHQJYQlJ1ObIpDRd/wVeN
-	Hv/ArwoiuWmzzU6uV8vnf+KwkDeT6Mot3YabxG0ORqtS7fgp/nUdPCszViCgVnFtO2sLIepM6wr
-	o3uggZo0CioOZ/ceF1lnxA9apBe9Lw03aNumReRbdaR0YWOZzmsL5k8BhrqnP+DczLkjC939ZuF
-	BIzLwvGhrClz77iWGWOGS+ksanMmj6M1hOCsM3YaGyMdzXYhuTDQD4xDafl0wgaIULS0nCM2ZCG
-	Xg0ekTBs18y07HnDDSkj1pisFr+vd7OXWA8If241ziqinkrjtQoofZSAsNeXVoGa6LWkKSgRGIu
-	oBTwuMo+hiNtpW0Xb2FksZBnb0Q8MwAJY5Ciz
-X-Received: by 2002:a05:6820:4cc3:b0:67b:b8d0:a7d5 with SMTP id 006d021491bc7-69b7abc298bmr3724766eaf.53.1778760238224;
-        Thu, 14 May 2026 05:03:58 -0700 (PDT)
-X-Received: by 2002:a05:6820:4cc3:b0:67b:b8d0:a7d5 with SMTP id 006d021491bc7-69b7abc298bmr3724706eaf.53.1778760237645;
-        Thu, 14 May 2026 05:03:57 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.241])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45da0fe0fecsm5900114f8f.26.2026.05.14.05.03.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 14 May 2026 05:03:56 -0700 (PDT)
-Date: Thu, 14 May 2026 15:03:55 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: interconnect: qcom,eliza-rpmh: Add
- SDCC1 slave
-Message-ID: <fexo26osrsj2t3777m6fag4nzqxgvmpvmcxcihnwffc4ehjwzl@77ynlnp2gh53>
-References: <20260512-eliza-interconnect-add-missing-sdcc1-slave-node-v1-0-b1edf81bac3b@oss.qualcomm.com>
- <20260512-eliza-interconnect-add-missing-sdcc1-slave-node-v1-1-b1edf81bac3b@oss.qualcomm.com>
- <5c615bdc-3a19-4f07-a38d-16d45f318411@oss.qualcomm.com>
- <fnasmnyh7rf4wtyrv77lunx7spilgjxji3ejflvufouqrdep6n@uu7pkkfwkxyi>
- <66b3840a-390e-4135-9118-b1ca52d40026@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rlEa66C4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 313F8C2BCB3;
+	Thu, 14 May 2026 12:04:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778760253;
+	bh=3Ophp1rxRSOQOJoDZj+hxZG0S99E1oAe3Jsf1A4VFLg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=rlEa66C483gqkdV75Q58miOOP3AEeMxaN8khSI05Hi8O854PezJ3slt0Qx1lOql1s
+	 De/Fp3derf8ytHNA6LNqQ8K9NtSan9ij8uu1s+0k0Rc3wYzf5jVdVMS6JcreSTn/8O
+	 pLML4huCT3hNRtguQjx6HnGrnGbvWR8+QHAsGdJiQUDw1Dv8663DX40ML+rngtj2mx
+	 G9ciTPPXiKoz4nraWCTXQZqTZdap8IJb8WPYqRtu8unwi1IKoUbz0kHtsZABQjGXYQ
+	 MVvFm2enwuXzjE2+sxa+js5cjFFMPRixgColVzsmqjtMeYPwH2fSgTij0l2VGuxMK6
+	 X6PtaVNlqvjug==
+Date: Thu, 14 May 2026 14:04:11 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: wens@csie.org, samuel@sholland.org, mripard@kernel.org, 
+	maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, mturquette@baylibre.com, 
+	sboyd@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-clk@vger.kernel.org
+Subject: Re: [PATCH v2 7/8] dt-bindings: display: allwinner: Split H616 DE33
+ layer reg space
+Message-ID: <20260514-valiant-ape-of-discourse-a4f5a9@quoll>
+References: <20260509190015.79086-1-jernej.skrabec@siol.net>
+ <20260509190015.79086-8-jernej.skrabec@siol.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <66b3840a-390e-4135-9118-b1ca52d40026@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE0MDEyMCBTYWx0ZWRfX2DxNKe/LWu6o
- B+GuTctRYB7R3Z5y1vORhTfN46DQyRR/o9glk8RgqOD5+mSciO9PU237TbG/xVMFQyNl+GHtcsR
- 6hGBr2j9a9rSN6BwL/4POodSMTtoSBLNB4HuUJnYlDZKDbjUxIIhe7H8FWgUyPc7TrKyDv1TK7B
- a8k1cX0OUAioOfmZZxAF7tIsH1YZwJrGrljBNUSrZVVykGlBoMQhYwiibPX6Zu2q/iU0GL9qN0D
- KykV4V5iJIugBRt5h7e7Ph7PvNZrxckIaihnaF4VYgreRam6MYdEClY6C2ZEwHDi+MajD/zwZik
- KuakoS/NI2RczsogdfnO3wq3c/FXFlmS8AR7deG9rYgWUqmiUoTnoENnbTBeGh7chuF1BTADOVf
- hrCc2ueztkanEIjFt88kK716f3VYzRyc1kyQ9sMvcKjYgiJo6wLHvYQRORRQn/l52xAk8+FhBbi
- 68SfMXEu9D3sj4y/R1g==
-X-Proofpoint-ORIG-GUID: yKLIFuDYyARknx8CYIIFsk7PEFRbPi41
-X-Authority-Analysis: v=2.4 cv=N6AZ0W9B c=1 sm=1 tr=0 ts=6a05ba2e cx=c_pps
- a=lVi5GcDxkcJcfCmEjVJoaw==:117 a=NtgjAHhJo3Q0P2g9Zl9R/g==:17
- a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=CVkctuRbRQ7OC4GNKrAA:9 a=CjuIK1q_8ugA:10 a=rBiNkAWo9uy_4UTK5NWh:22
-X-Proofpoint-GUID: yKLIFuDYyARknx8CYIIFsk7PEFRbPi41
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-14_03,2026-05-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 bulkscore=0 malwarescore=0 clxscore=1015
- impostorscore=0 lowpriorityscore=0 phishscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605140120
+In-Reply-To: <20260509190015.79086-8-jernej.skrabec@siol.net>
 
-On 26-05-14 13:44:59, Krzysztof Kozlowski wrote:
-> On 14/05/2026 12:46, Abel Vesa wrote:
-> > On 26-05-14 07:44:12, Krzysztof Kozlowski wrote:
-> >> On 12/05/2026 14:18, Abel Vesa wrote:
-> >>> The Eliza RPMh interconnect binding is missing the SDCC1 CNOC CFG
-> >>> slave ID. Add it so SDCC1 consumer can describe the corresponding
-> >>> interconnect path.
-> >>>
-> >>> Append the new ID to preserve the existing ABI values.
-> >>>
-> >>> Fixes: 8300438dc424 ("dt-bindings: interconnect: document the RPMh Network-On-Chip interconnect in Eliza SoC")
-> >>
-> >> No bug here to be fixed. Incomplete first posting is not buggy just
-> >> because it is incomplete. Otherwise please provide more details about
-> >> the bug in commit msg - why initial posting could not even work
-> >> (although it did work...).
-> > 
-> > The reason the fixes tag is added is because we want this to be
-> > backported, as the id should've been there from the beginning.
+On Sat, May 09, 2026 at 09:00:14PM +0200, Jernej Skrabec wrote:
+> From: Jernej Skrabec <jernej.skrabec@gmail.com>
 > 
-> We do not add Fixes or stable tags just because we want something to be
-> backported. We add them because something SHOULD be backported according
-> to stable kernel rules.
+> As it turns out, current H616 DE33 binding was written based on
+> incomplete understanding of DE33 design. Namely, planes are shared
+> resource and not tied to specific mixer, which was the case for previous
+> generations of Display Engine (DE3 and earlier).
+> 
+> This means that current DE33 binding doesn't properly reflect HW and
+> using it would mean that second mixer (used for second display output)
+> can't be supported.
+> 
+> Remove layer register space, which will be represented with additional
+> node, and replace it with phandle, which will point to that new, shared
+> node. That way, all mixers can share same layers.
+> 
+> There is no user of this binding yet, so changes can be made safely,
+> without breaking any backward compatibility.
 
-That was not my point, but I have no strong enough argument for backporting, I
-guess.
+There is user. git grep gives me:
+drivers/gpu/drm/sun4i/sun8i_mixer.c
 
-So will respin without fixes tags, as I said.
+which means this is a released ABI. As I understood, the old code was
+working fine but just did not support all use cases. Why this cannot be
+kept backwards compatible?
+
+Best regards,
+Krzysztof
+
