@@ -1,94 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A58B735E93B;
-	Thu, 14 May 2026 12:40:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE57F2C1594;
+	Thu, 14 May 2026 12:42:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778762446; cv=none; b=uzi+s4uW1KsmZbAuHUm5HQw9sl8IO0uDCrDxLxkPdehgYTAimS+Of3ZuGkvHTonuo7u+ywuhzkbnUHminPQcaqoMstl0N1r+U/q/C/mclfY+bN+SEOP0CRJpz76idTmRL+54yaYsJdYgkJ+fgxVu2EZxW9v107xYCXXKKgjvfVg=
+	t=1778762560; cv=none; b=c8Kein0Hlg6/ucyB5UPbg6/2pX0NWiLWxoV/lgzdOOhTKdktcWsYm14Mi0VnHCX8oI+rdU9pq3XHoPIdQVQ1kjFq2rpiqs5PrFTXEXfmLhfGq0Na8n5cB1Rfuc6T30S5pDszsMYBrLpHItWjwpt7mlFSd7LFCR5X4dmKEYOLj7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778762446; c=relaxed/simple;
-	bh=iWCSZhdPb+8cBMuEmy8gSvTQVeilWYLmuEzyouzd7YI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ioznIQJHJ8oQhxAVLQdfk7z11ejNEfHYSpJJArBizh4+3GTHhn7rlzvDYZ8UzTedm7yPb4ihYTzkClvpZAvvpy0QVMPar+9icdILR7t9aXtaWFinlR+QnuvIcFbIOWkPFONSvdKP2VAR/fdJVmQDzmeSxudlJYOSfyDpLp7nM18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aX870/BR; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778762560; c=relaxed/simple;
+	bh=NrSRxXlemFsmOMgUZCAZ+tqMQQxfintqAjkNN79lNsk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=q0s+e1PKCKMQa9wOSWRD3xVG/rGuWhWCT6uvc4LBZrzQNPto7RVZ2Lhr8VCjUUXrbSvDHbysU1SeafCph08smE5BJlFmN6tB+t6vGwEoN5wknJJUW9eTE2tqQMD04PN0NEidSkO02AtVCOPIVfzCYb37oGXdA/jjWPAL/pI+BdI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=d7BamG/8; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aX870/BR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A76AC2BCB3;
-	Thu, 14 May 2026 12:40:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778762446;
-	bh=iWCSZhdPb+8cBMuEmy8gSvTQVeilWYLmuEzyouzd7YI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=aX870/BR4AkM531xo6QouLrnsue0uIXWdlOfArk/WJtHsanCKyTM2w9zXR28xVImI
-	 aR1ocP432CLGhdFFPANZ2zxuptdM6K4VLf6i9Ku61mNVNhnCi1OxvyG6QZsbxTgtz/
-	 k+TrwGz1rJ2PnAItjV2X6NpSsPFw0BwtEgIddkekqyUdA1cT+b/48EbhV4Dnh5Ff+F
-	 l4gysj8udrc7yx7I+I4SOFbO1zqwGK5j5nxHfAPzLQi4V6OqqS9IEaTTq1vfxaRbI8
-	 sZ055fcAAnQbZClSRkkMy80vdQdMAopGR7BxGlvCJ2QbKHk3kq+7ZbEwpra5IycTF9
-	 BybhmCNHu4eIw==
-Date: Thu, 14 May 2026 13:40:40 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-Cc: Lukasz Luba <lukasz.luba@arm.com>, linux-arm-msm@vger.kernel.org,
-	Sudeep Holla <sudeep.holla@kernel.org>, andersson@kernel.org,
-	konradybcio@kernel.org, myungjoo.ham@samsung.com,
-	kyungmin.park@samsung.com, cw00.choi@samsung.com,
-	cristian.marussi@arm.com, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	arm-scmi@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux-pm@vger.kernel.org, dmitry.baryshkov@oss.qualcomm.com,
-	jonathanh@nvidia.com, thierry.reding@kernel.org, digetx@gmail.com,
-	conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org
-Subject: Re: [RFC V6 0/8] arm_scmi: vendors: Qualcomm Generic Vendor
- Extensions
-Message-ID: <20260514-towering-heavenly-earwig-b18feb@sudeepholla>
-References: <20260507062237.78051-1-sibi.sankar@oss.qualcomm.com>
- <436ce846-bd9e-45bb-bdc2-d2a0fd00dc25@arm.com>
- <5494a379-1e49-4551-a5f0-50d0bd7cd7d0@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="d7BamG/8"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F18E610CF24;
+	Thu, 14 May 2026 14:42:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1778762550;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=jfgRv5pAT5KUi8yA/K4qBUoW9PFLUAs7IXTAEOVarg8=;
+	b=d7BamG/83Fwznq8MDxUnMhZDJrFHWpFpnKbh6NUc9yAwHZh/YzKnV70njY7ZjDgDb0gqKj
+	D7/CN4Eykq5uGCAdE/FKQyFoV8jWRHmlw8LYVujRGNyxOlXe7XlimYwRyzOfHNX8OUhfS3
+	CsFp5AY/LewgFfUQ34PwQ/QhaEKbr+yv65c+U2/AR4AJH0npL0sNiggm+2nDHu1l+qRbA0
+	aX1X7wm4lfegIhcDTEhUz4Ci1xEW5tv4SMKgkzMJASsd3BoZe+ytPKBEpr91nkyX1ue9TM
+	f6jSslPqgv+qKepmNShDJVEX1Mru+BqEtXXQy7R4rg1DltU1ZddtTQ6po+a5Gw==
+Message-ID: <6150ef93-16e8-41e1-8cfb-53313e2cb924@nabladev.com>
+Date: Thu, 14 May 2026 14:42:24 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5494a379-1e49-4551-a5f0-50d0bd7cd7d0@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] drm/bridge: lt9211: Add drive-strength-microamp DT
+ property
+To: =?UTF-8?B?QsO2cmdlIFN0csO8bXBmZWw=?= <bstruempfel@data-modul.com>
+Cc: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260513133127.376458-1-bstruempfel@data-modul.com>
+ <20260513133127.376458-3-bstruempfel@data-modul.com>
+ <8bf05bf2-66a3-49e0-972e-4ab7ad9f0ff0@nabladev.com>
+ <agWuyCxPqwZ4ztVF@DATAMODULBOERGELINUX>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <agWuyCxPqwZ4ztVF@DATAMODULBOERGELINUX>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, May 14, 2026 at 05:11:41PM +0530, Sibi Sankar wrote:
+On 5/14/26 1:20 PM, Börge Strümpfel wrote:
+> On Wed, May 13, 2026 at 03:45:43PM +0200, Marek Vasut wrote:
+>> On 5/13/26 3:31 PM, Boerge Struempfel wrote:
+>>
+>> [...]
+>>
+>>> @@ -666,6 +675,26 @@ static int lt9211_parse_dt(struct lt9211 *ctx)
+>>>    
+>>>    	ctx->panel_bridge = panel_bridge;
+>>>    
+>>> +	ctx->lvds_hsdrv_isel = 8; /* default: 25 uA */
+>>> +	ret = of_property_read_u32(dev->of_node, "drive-strength-microamp",
+>>> +				   &microamp);
+>>
+>> if (ret && ret != -EINVAL) {
+>>     ... error handling ...
+>>     return ret;
+>> }
+>>
+>> Then you won't need the if (!ret) conditional and can reduce indent.
 > 
-> On 5/13/2026 10:30 PM, Lukasz Luba wrote:
-> > 
-> > 
-
-[...]
-
-> 
-> > Based on this description I have a few questions:
-> > 1. Why we don't use SCMI notifications for this purpose?
-> 
-> 
-> This is an attempt to retrofit firmware, that is already out in the wild
-> running on X1E laptops and Glymur which continues to use the same firmware, into
-> generic linux frameworks, so that it provides some useful information to
-> user rather than it being a complete black box.
-
-We cannot accept changes that rely on firmware interfaces that are not well
-defined. This is not a comment on any specific interface, but if an interface
-is not specified with the same level of rigor as a standard specification, it
-should not be expected to receive mainline support.
-
-> We already have a ton of firmware changes suggested by Sudeep/Cristian that
-> will be taken into account for the next generation of SoCs, will make sure
-> this is accounted for as well :)
-
-It is helpful to know this but also unfortunate as we have only just begun
-reviewing the interface and refining its shape. Please do not rely solely on
-the review completed so far, as the interface may still evolve. Until it is
-merged, it should not be considered accepted. This is why I am insisting that
-the interface document be reviewed and accepted before any driver changes are
-made.
-
--- 
-Regards,
-Sudeep
+> Thank you for this suggestion. We will than need to do the lookup even
+> in case of no value being supplied, but that would make the code
+> cleaner. Therefore I am changing this in v3.
+of_property_read_u32() returns -ENODATA if property does not have a 
+value -> the error handling above would detect that.
