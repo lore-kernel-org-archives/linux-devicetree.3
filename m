@@ -1,72 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C24353EF3
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 06:49:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 740ED3AC0C3
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 06:52:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778741381; cv=none; b=t0K7Qb/yv5OiZHXO94l3NCdJ/Er6bQlDOZYWH06eRP48NqbHjfl7utGumTbi51WNfLeRWeBgjVqvp8eeizjQAUfmaYnuYs5OWfKQMnO60LoJZ+C6nWuhh48e/KfAfUll0ENz1zDq3arN0YUFEPtQgeZ9DOOLBHPlEU6far8APYY=
+	t=1778741544; cv=none; b=d5WRrIpKTHcE0AciVkQ/Z07l3M/KmNJFSGTghaqoMnWv9ntkAqxdXTJ2chDDrX9Tg6Cxn3bKAzER2xACliFtWjcKsxFofnrUsuyObT6Q71wh/RWrzOK0fskStp30ELsFJk0eWwYYNLSC0DJCQB+5bwpsaOu/0iTCnHMZw46lpOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778741381; c=relaxed/simple;
-	bh=rJrFiOv4HJ3RYG/VUBXQrto0C5r9yv3FzaP1/XXbz+E=;
+	s=arc-20240116; t=1778741544; c=relaxed/simple;
+	bh=mNfdQ6mH/Fl/WyJmH7mJnq7lSmD+jTl6vBrkxDEpw2A=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Jvy7rwW8SAQZlQu8q+CUgBGObwRPosnKSRr30cKxZOqJWyIjgD7CgeJUE/b9GrSxGS+o+saHuQMx8JOLLS7bkO8X0JSW2QUpPxmC87nn9ZdJzzx8O5AxBUwXj1zTgr087GTzDcgdTmiRxqWS5AGIrCRlKUt4YryVr4APWUuX9Co=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EPw7QxBg; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=fIzsU81A3GK8TqIUqYygJC0bB8gs056ss6lDKzGHGsxrAl+L7gjCzrw4rk5ZyqOP/qPDLpHk9k31P8LrrutgE2JgHaCVhTNjm9W8FaiJbUI8ABHpLJVoWQOBfICuSSyPRC7YyrmJb8FCJxgHF0FfdeaY84cSi8rbKjxMXJv79VQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rI6MBy/h; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EPw7QxBg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5060CC2BCB7;
-	Thu, 14 May 2026 06:49:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rI6MBy/h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C746C2BCC9;
+	Thu, 14 May 2026 06:52:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778741381;
-	bh=rJrFiOv4HJ3RYG/VUBXQrto0C5r9yv3FzaP1/XXbz+E=;
+	s=k20201202; t=1778741544;
+	bh=mNfdQ6mH/Fl/WyJmH7mJnq7lSmD+jTl6vBrkxDEpw2A=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=EPw7QxBglUIXsFGyWEBw/H5UtA4xu+1NnTiVTGMm7tPwJsxhF/C4fLO/1sCsrhdTf
-	 9zszzR/WIypVhKss0oDAS8acAIKL15UpDkn3mW8aAIeG+ihKDUBrg07BmHPLI18Ygu
-	 WZKXT8S8grrKQGhoAXp7K0v71qzw2jkCstW8MrX/C/9olkLTEdoCe4E3JWESjtrz6x
-	 N0VCH2dLqQe0JWEoNiUCe/P9WhCd0tqcf/jS3JactFYeLZ1QE92M8jSKKxQ0xZpNoL
-	 RqWbMEnzk/m9X/BUskhAyT9YSfCTAdfs1ALBHNmkobs1jejAt4rKe+LI5R5kIDxcqi
-	 yFs08Tm1FaYDA==
+	b=rI6MBy/hudioh7IqLHdEdnncX5m8fEzy76eHJTOEayxYreh3WabTgcvwBMdqaCNoo
+	 gGetig868+hk2owcuYJQyEr0VGll4HHdlbGq6kiqb9Ew2icaKhiAzpPcxx8SMpAXDe
+	 H9U4NWCaTxJMEZm+GWiJUy51UfcVyVcSnkJ8K5yUcS/v6Jhq6gJnCoYY6kkQ4gnU7O
+	 KUGcOfmSvZiKqOVNjdJiSpiXX70mue6QhiJgaJ7M083I9QNHIiZMTvuBwXbFHMIhqh
+	 XouPWHNt5JXzVBW9qEiiXEQRpMUQAeDBMv2N6a6lUbxll/Rb+u7FACl/0xwPGSEZOg
+	 iL4P2Ywr/AQCg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 16/17] ASoC: simple-amplifier: Update author and
- copyright
+Subject: Re: [PATCH RESEND v7 3/3] riscv: clocksource: Add p8700-gcru driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Herve Codina" <herve.codina@bootlin.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260513081702.317117-17-herve.codina@bootlin.com>
-References: <20260513081702.317117-17-herve.codina@bootlin.com>
+To: "Aleksa Paunovic via B4 Relay" <devnull+aleksa.paunovic.htecgroup.com@kernel.org>
+Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260513-riscv-time-mmio-v7-3-f8925ffc226b@htecgroup.com>
+References: <20260513-riscv-time-mmio-v7-3-f8925ffc226b@htecgroup.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 06:49:40 +0000
-Message-Id: <20260514064941.5060CC2BCB7@smtp.kernel.org>
+Date: Thu, 14 May 2026 06:52:23 +0000
+Message-Id: <20260514065224.0C746C2BCC9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] Copyright and authorship changes should be squashed into the releva=
-nt code commits.
+- [Medium] Resource leak in `p8700_timer_init()` on the error path if `cloc=
+ksource_mmio_init()` fails.
+- [Low] The Kconfig entry lacks `depends on 64BIT`, causing compilation fai=
+lures on 32-bit RISC-V architectures.
 --
 
-commit 8c20a26d5c232c4d2ed2b81d9a71f2b38091a58b
-Author: Herve Codina <herve.codina@bootlin.com>
+commit 4f34b087c1b81aba548d943831bdb092b55bf784
+Author: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
 
-ASoC: simple-amplifier: Update author and copyright
+riscv: clocksource: Add p8700-gcru driver
 
-This commit updates the author and copyright information for the
-simple-amplifier driver to reflect the recent addition of gpio-audio-amp
-support.
+This commit adds a clocksource driver for the MIPS P8700 GCRU. It uses
+timer-of and clocksource_mmio helpers for initialization.
 
-> After reworking the simple-amplifier driver and adding support for
-> gpio-audio-amp in the driver, add myself as the author of the
-> gpio-audio-amp part of the driver and add a related copyright.
+> diff --git a/drivers/clocksource/Kconfig b/drivers/clocksource/Kconfig
+> index ffcd23668763f..861e7b8c93376 100644
+> --- a/drivers/clocksource/Kconfig
+> +++ b/drivers/clocksource/Kconfig
 
-This isn't a bug, but should these copyright and authorship updates be
-squashed directly into the commit that introduces the gpio-audio-amp
-support?
+[ ... ]
+
+> @@ -672,6 +672,15 @@ config CLINT_TIMER
+>  	  This option enables the CLINT timer for RISC-V systems.  The CLINT
+>  	  driver is usually used for NoMMU RISC-V systems.
+> =20
+> +config P8700_TIMER
+> +	bool "MIPS P8700 timer driver"
+> +	depends on GENERIC_SCHED_CLOCK && RISCV && RISCV_SBI
+
+Does this driver also need to depend on 64BIT?
+
+The driver unconditionally uses readq_relaxed() and clocksource_mmio_readq_=
+up.
+On 32-bit RISC-V platforms, readq_relaxed() is not defined, which will cause
+undeclared identifier errors during compilation.
+
+If we try to fix the build by including linux/io-64-nonatomic-lo-hi.h, it
+could introduce torn reads when reading the 64-bit hardware counter with two
+non-atomic 32-bit reads, leading to massive sched_clock() time jumps.
+
+> +	select CLKSRC_MMIO
+> +	select TIMER_PROBE
+> +	select TIMER_OF
+> +	help
+> +	  Enables support for MIPS P8700 timer driver.
+
+[ ... ]
+
+> diff --git a/drivers/clocksource/timer-p8700.c b/drivers/clocksource/time=
+r-p8700.c
+> new file mode 100644
+> index 0000000000000..220ed8efdfe55
+> --- /dev/null
+> +++ b/drivers/clocksource/timer-p8700.c
+
+[ ... ]
+
+> +static int __init p8700_timer_init(struct device_node *node)
+> +{
+> +	int error =3D 0;
+> +
+> +	error =3D timer_of_init(node, &gcru_of);
+> +	if (error)
+> +		return error;
+> +
+> +	p8700_time_val =3D timer_of_base(&gcru_of);
+> +	/* Now init the mmio timer with the address we got from DT */
+> +	error =3D clocksource_mmio_init(p8700_time_val, "mips,p8700-gcru",
+> +				      riscv_timebase, 450, 64,
+> +				      clocksource_mmio_readq_up);
+> +	if (error)
+> +		return error;
+
+If clocksource_mmio_init() fails, does this code leak the I/O memory mapped
+by timer_of_init()?
+
+It looks like timer_of_init() maps the memory via of_iomap(), but this error
+path directly returns without calling timer_of_cleanup() to release those
+mappings and other associated timer_of resources.
+
+> +
+> +	/* Sched clock */
+> +	sched_clock_register(p8700_timer_sched_read, 64, riscv_timebase);
+> +
+> +	return error;
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513081702.3171=
-17-1-herve.codina@bootlin.com?part=3D16
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-riscv-time=
+-mmio-v7-0-f8925ffc226b@htecgroup.com?part=3D3
