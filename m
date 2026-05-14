@@ -1,113 +1,74 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C17C3344D9A
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 16:56:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4061D31E83C;
+	Thu, 14 May 2026 16:56:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778777782; cv=none; b=ID44a2K8KqPLcobxaad0GdPm9EF6BR13QRv1sknMxzJR1oHMoqd/u3Q6XmaqnkBOtnrk5RnKVFpp7+KbsFgy9C0gwahirX7ZAOAsD2NZlzdzW5TG2ep/WMkg52FCEBvKgVqpYQ7LaczDvggwbBh1qOgZhth34jzSHbSey3uIUo8=
+	t=1778777799; cv=none; b=JqlId/4//IT3Kr396BVNiS2//bEaLD8R8eXkIybsjFmy0f2ddqIKAJHdpXnnm6R0Aw/crhHpkC0VYW5SWBpw7NtnoEU9BhH6opJ0WVM+0HbSs7pffOVxCadkkmPPCbiZS+nwJ/qxarFjeUyBwlCzbw3s6sRey4DEgPqRoTaZvQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778777782; c=relaxed/simple;
-	bh=5ULVOCgR+aIMYOuMkruHNrVw/rTZYAg8CEk8Xdm5pxo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=br5IDYMK88eyobxR0Q7jvefCHw4HhzyV0OPuc198TEXppEaO41hCNIIcy9RK7pP6twbV3VQ8+VW7FbBQwyqWQhBboocL4nGTOu5GqUU2s6LzGGVMlnlyFYN6X/SN0IR/d2KaE35IeU+tQHrL1SCfoscAtGWX4MEQm0GvhLtSYNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=JDt02rvo; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1778777799; c=relaxed/simple;
+	bh=3toBXMpP4awO/mcKO1JYvkg+Qt/cHhm2X0K5cAsGqDQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=IbZ4KXAyMMEUnVwlIfw8QqGMJibXB2zzGqbju1/2+4/NcqM5V2EuK7tBP3BL4hcrt3e7hQx+PH3xqA4AM/eLf95sSzNgpiDuQ9lWg22otmkM9RG0bIhA2MMg2WcknTH0Q0TfemA4KY2o39Yhw//eO1LvRzKdulwU9wKZTNIVVSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mz8G8Ll1; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="JDt02rvo"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 15C1A3C392C;
-	Thu, 14 May 2026 18:56:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1778777777; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=jrQZUENFZB71CdcUq7065FvlPBBJ+5mCQIWY7rRfEEY=;
-	b=JDt02rvo6MmqK9SbHQ2R4ofLQ7KV6YumbjteB1dVmW4oiOi6dDjQgt2uPFhxQxXUuKa10/
-	4UIqCqrK5ViTb9NlA2jJMtlie1g/pfdtU7yGJ1s3/EG4Wlbl6f2/XiwaAP8QdH6qEQHPwq
-	S4iGECpx+UdVhdBiXm0GzQVt9FkPAbb+vXJOEUHi+wn+jYrTTsFOBfe/zhXA8t6bhhJ2lq
-	Dbs0sLxAskk3C06qCT6nZnLbWdebI4PLo3vkv76J8vh0CYh1gIOIaaMYtYOr7CYMkEX+8f
-	yxsHE7jRW9pbwndRX90jiPDruS5FH43qIsSzL9XtI3A29xIP6YZinsToWdJuWw==
-Message-ID: <b11694d8-5f4f-4f24-bf53-bad3b5394a04@cjdns.fr>
-Date: Thu, 14 May 2026 18:56:15 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mz8G8Ll1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D77FC2BCB3;
+	Thu, 14 May 2026 16:56:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778777798;
+	bh=3toBXMpP4awO/mcKO1JYvkg+Qt/cHhm2X0K5cAsGqDQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=Mz8G8Ll1E7RkkDyz25X6LHsreB+eQUx2upkprv9Z7RGKO8GSjIAqPv1oWWZCbMA0m
+	 FBvppxk6YEuOr2bW5XHDwnBETL/Uf7VQ0CG9mtgwa5kYbmnItv+x8eXf6+b4PMrX1g
+	 dTUKheLGs8+Dotju2tV026tZSbSiGMt7ZrGElBbyEgH+ejCjxMIImxWniXhyQ1i/NB
+	 /G5yiFdaztNlTC32oNfr3iFl+DJIvI7r3TjODt+pWr/2dOMQnIO2wU/5YTpRFbRwsu
+	 otCktyLEdmsKlQ4BXhzyzSmSEd5Sw1x9h2SOilgyxiHJISJQU5NQXmoFW0U1lgmJbN
+	 UHGToBiTxwXlg==
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: avri.altman@wdc.com, bvanassche@acm.org, robh@kernel.org, 
+ martin.petersen@oracle.com, krzk+dt@kernel.org, 
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: sowon.na@samsung.com, peter.griffin@linaro.org, 
+ linux-scsi@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260417121452.827054-1-alim.akhtar@samsung.com>
+References: <20260417121452.827054-1-alim.akhtar@samsung.com>
+Subject: Re: (subset) [PATCH v2 0/4] add ufs support for Exynosautov920 SoC
+Message-Id: <177877779617.167822.12072849768585215518.b4-ty@b4>
+Date: Thu, 14 May 2026 18:56:36 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v2 4/5] clocksource/timer-econet-en751221: Unmap io mem on
- probe error
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org
-References: <20260514000601.3430262-5-cjd@cjdns.fr>
- <20260514125641.C94F2C2BCB3@smtp.kernel.org>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <20260514125641.C94F2C2BCB3@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-Mailer: b4 0.15.2
 
 
-On 14/05/2026 14:56, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Critical] Unmapping IO memory after a successful `clocksource_mmio_init()` registration introduces a fatal use-after-unmap vulnerability.
-> --
->
-> commit dd9c92736c75fb466e09313766fb39cf62c86394
-> Author: Caleb James DeLisle <cjd@cjdns.fr>
-> clocksource/timer-econet-en751221: Unmap io mem on probe error
->
-> This commit updates the econet timer initialization to unmap the IO
-> memory blocks if an error occurs during probe.
->
->> --- a/drivers/clocksource/timer-econet-en751221.c
->> +++ b/drivers/clocksource/timer-econet-en751221.c
-> [ ... ]
->> @@ -198,12 +199,12 @@ static int __init timer_init(struct device_node *np)
->>   				    clocksource_mmio_readl_up);
->>   	if (ret) {
->>   		pr_err("%pOFn: clocksource_mmio_init failed: %d", np, ret);
->> -		return ret;
->> +		goto err_unmap;
->>   	}
->>   
->>   	ret = cevt_init(np);
->>   	if (ret < 0)
->> -		return ret;
->> +		goto err_unmap;
-> If clocksource_mmio_init() succeeds, it registers the clocksource and saves
-> the mapped IO pointer. If the subsequent cevt_init() fails, the code now
-> jumps to err_unmap and unmaps the memory via iounmap().
-Yeah I need to go back through this again.
->
-> Since clocksource_mmio_init() does not provide a way to unregister the
-> clocksource, the registered clocksource will remain active. When the kernel
-> reads from this clocksource later, will it dereference the unmapped IO memory
-> and cause a use-after-unmap regression?
->
-> Looking at clocksource_mmio_init() in drivers/clocksource/mmio.c:
->
-> clocksource_mmio_init() {
->          ...
->          cs->reg = base;
->          cs->clksrc.read = read;
->          ...
->          return clocksource_register_hz(&cs->clksrc, hz);
-> }
->
-> Before this patch, if cevt_init() failed, the driver returned an error
-> without unmapping the memory, which allowed the already-registered
-> clocksource to safely continue functioning.
->
-> [ ... ]
->> +err_unmap:
->> +	for (int i = 0; i < ARRAY_SIZE(econet_timer.membase); i++) {
->> +		if (econet_timer.membase[i])
->> +			iounmap(econet_timer.membase[i]);
->> +	}
->> +
->> +	return ret;
->>   }
+On Fri, 17 Apr 2026 17:44:48 +0530, Alim Akhtar wrote:
+> This series adds ufs driver support for ExynosAutov920,
+> ExynosAutov920 has the UFSHCI 3.1 compliant UFS controller.
+> 
+> ExynosAutov920 has a different mask of UFS sharability from ExynosAutov9,
+> so this series provide flexible parameter for the mask.
+> 
+> With this series applied, UFS is functional and basic I/O operations are
+> known to be working.
+> 
+> [...]
+
+Applied, thanks!
+
+[1/4] arm64: dts: exynosautov920: Add syscon hsi2 node
+      https://git.kernel.org/krzk/linux/c/14b0c168c7038f1d9e50f27e47d8e285f52cd2a3
+[4/4] arm64: dts: exynosautov920: enable support for ufs controller
+      https://git.kernel.org/krzk/linux/c/ae326b14b2a5a5e426bea0210b984ee8dc5ed0bb
+
+Best regards,
+-- 
+Krzysztof Kozlowski <krzk@kernel.org>
+
