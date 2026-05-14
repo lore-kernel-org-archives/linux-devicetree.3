@@ -1,187 +1,97 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5B63F4100
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 03:16:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E75235A938
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 03:22:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778728603; cv=none; b=JFbxBLZv6p06KIPoDpOZ2QD1RGFugsbSUGnBbGNs/kIsEKGs/rUBzZhihDcqMooIOWi1PC8HBW5ec1ijJCotTZzd+yb+FsXcZ8zS2ROEBBbJt809vAVYfqA0vdxKIw8vFoyecLbpNmZKskJPFf2PgRzHXzbPDtIWbc3oPkC8RnM=
+	t=1778728936; cv=none; b=IItcQMuIb0Ct+NPKAeDfDWguXVLkXbLIy++Hr6jcyChsY4uaCHeZiysvO7F3X4JmgSEm3X/5LF5d3Lcm5BMpwmuj5ZNCa7lCpW3cgezou/uSvTA7o7zCwVOHTi4CP76xIneOZXT2FobTPlWMbVc8Vo7xN/QnU3ak9HU7170QQ7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778728603; c=relaxed/simple;
-	bh=fyTONGMVpH5RgE3uAr2v1MluBj5VqbkSslK5IG34aAI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NVbK8Me2i1W5bom6UllcMh6Xn467/c+hCq421L2aypj+yr2XA4poaZLLG3n8M0VI5nuZRrsbs/X/oLWr2QcrvOZAWrkQw0J8VEcB3/IE5p41IRYpl4F7d6CEos1zR2tBJAZCgaD6H3DCCyCdH5VNoeYCWC8d+ujmDaAawGb2EMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HBMqAix1; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778728936; c=relaxed/simple;
+	bh=tfGDCxcem+Z/HUsNeUaJDzOdL93k262ZymEzbrqPZUw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=G3K6JAY8XawgZTteeoZCa3azWXpEyIHdZz7P6nb6YCM99rSNttHeKqAQyVhqOX48NYqheNU4m2LPkUm/NNl2kz7YG9Y1xoNrsL2On9rgbJ+mDfG5Fd3jYA6u5kWZNp4i3qD3j7lfvcCjcLKEHXCNsMV+3zJ8NAFo/qWPALDq1XA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CApR1b3M; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HBMqAix1"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3692bf38290so208910a91.0
-        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 20:16:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778728602; x=1779333402; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=mhXaZyjR5wnfmrnw0I8RLf6r41iRHOPfxchv5M6XoP8=;
-        b=HBMqAix1Y/CTDaJsUEJabphQLFTvowTUWllhtJDC+7K5aX4RuhETcwJ+oHB+3/Fi55
-         RlpawQwSgJS8WdHwzxsI3a1GBzUImR9nrgrO73yrOLiQ+KVMWx6hyWQkBBaePAxP8esD
-         krlyceV+sIiRuUOByNcoLCHEAdz/49WarHXfKDaCzpuMYuJlVRHh0EMDRRMyGwoHvHH2
-         9Bklkeoa92A5xaRpGYnl94uLKf8KUGuP2QY+PF/dK9DJKJPjYyHPnaN/BdyxvHxUTtut
-         4eMQLw7Q5TS4OtH2XOv10fDOjMVjYhtq6l0GNilxavu4cmItqy/gr0rgo4oHo1qYQpnz
-         tuIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778728602; x=1779333402;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=mhXaZyjR5wnfmrnw0I8RLf6r41iRHOPfxchv5M6XoP8=;
-        b=REbaigqgxXuF3LTjEC2r+99VMmf6j3eveFVGJZ3g4cldGbTK+/D5/b64OEwJxzd5FR
-         jZEpcobXcnlv7/ZYIKkXi6YfNuIPaxJhq9uRT/hiE2RPq0E8dJF0xqtWwU7DQw+YG4Sy
-         C7RhBgsEZq89tveXdsvvt6ibmXWtz7mWfB8AGmdA+Yms9FOk9+ay3RAWB5d1yuSdM8wS
-         HTZWdaUKO+p3qImzkX++n+MswVZLx71YgapTk9rEIQsequy+iJqJwiusmnLWqk/kOy6X
-         Zk5EBowbc0zSAvWNXXea/E1l8G1vPZxnqLVbsVpoyAP4BUdQu+n4OIatJL6Zy8ubG5L+
-         xAlQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9YNaNj+FYiNh0/nEl6eKOKNeSLwTQZg+M7Jv1h0Th2aItIkEfy20HXsGmwffGLoBzVigaMR4HkLfqf@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyvcvvljym0wSJ4+zubCIdgXdeAQqxmIGMxFZiMhN39Jc3l6+B3
-	PLJKuZ9uNp9nY6tHzgy3QzvN0QqjWN5C9FYBOvdAWciHQq+oZDH1/NYj
-X-Gm-Gg: Acq92OFr9iZfuSNrjr0Ol2vITHvYNGpO7RqJlJd54HJEGulOQOgyfO+VsrF9jWpzTBh
-	0LAA+1vl/kAmq9rEu+/9wUpkD5CjFaeI0eVkD0JtL/0Do993gk3fM3+ECvqZyZlgOyNe+cc2Z4x
-	0XZDpyndUYvB3QPktCDZQqDS77uioupEuK9qfXJJP40xVYE3tlRnxrDPVlL/EdriBlrj/Kg68yg
-	PNt2s6SjS6ZVSE+dYLH0R2iOi8JPyHWc3Pz2V9uUgAvxwmf6ttQJby60JvXdSl8il/F3ily627r
-	WWGCkxyNFYcMvFZqCwClU5dqGRoM30TbLiOPOCouQKV1YK3+xhYNbGeq7XKuXb5PcqEygq8bchC
-	HthY1WeMutuMm1GHNUT6Qsu38YeFEZagN75DpD3ksYher3NRSlkhihQ5bE9PN3dy4ohzEGIEnYF
-	RTevS6nhvMQbp7sQKjQhgMBO2VAYlzjbquRsK3UJ2N
-X-Received: by 2002:a17:90a:f946:b0:364:edd2:812 with SMTP id 98e67ed59e1d1-368f40a23dcmr6192258a91.25.1778728601594;
-        Wed, 13 May 2026 20:16:41 -0700 (PDT)
-Received: from debian.prasanth ([103.177.82.138])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3692a94205asm320047a91.7.2026.05.13.20.16.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 13 May 2026 20:16:41 -0700 (PDT)
-From: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-To: joel@jms.id.au,
-	andrew@codeconstruct.com.au
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-aspeed@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org,
-	Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-Subject: [PATCH v2 2/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
-Date: Thu, 14 May 2026 08:46:22 +0530
-Message-ID: <20260514031622.1416922-3-prasanth.padarthi10@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260514031622.1416922-1-prasanth.padarthi10@gmail.com>
-References: <20260514031622.1416922-1-prasanth.padarthi10@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CApR1b3M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A3ACC19425;
+	Thu, 14 May 2026 03:22:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778728935;
+	bh=tfGDCxcem+Z/HUsNeUaJDzOdL93k262ZymEzbrqPZUw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=CApR1b3MT2moUQcQaq0KMk2zIhg5lkjGJgkrnu8al1STVmCqD8x0v5mnMqP5cH2ag
+	 xWjgZj7mQlg9jHs+14owX7q6ja2pyimazIg/9RkUU4lNkDD9vllaLVquyppa7xpADJ
+	 vkfAabsaYyEunsAUMSXR286RHZ0xrsuftpC2yEgSaILuYnEgXDl2jlZlVe0EbfLhv8
+	 +MgmAm3ZDGeHBI0Nk6lmOkOFgxYPg7IBDOAaMQpbtuHCbLxTQEeg3VvMateqpZG8uZ
+	 3+I2miyXZrRCtbnZFAjX3TVtAo/Kjm67FGu7DxvjgmMNI5f5FvxvFxcRlgmOhQgqbW
+	 188L81/XZGKsQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 10/16] ASoC: rsnd: Add SSI reset support for RZ/G3E
+ platform
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "John Madieu" <john.madieu.xa@bp.renesas.com>
+Cc: robh@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260512182631.3842065-11-john.madieu.xa@bp.renesas.com>
+References: <20260512182631.3842065-11-john.madieu.xa@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 14 May 2026 03:22:14 +0000
+Message-Id: <20260514032215.5A3ACC19425@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add initial device tree support for the ASRock Rack B650D4U BMC.
-The B650D4U is a server motherboard utilizing the ASPEED AST2600
-SoC for management.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The commit message claims that `rsnd_ssi_use_busif()` is modified =
+to always return 1 for the RZ/G3E platform to prevent PIO mode, but this im=
+plementation is entirely missing from the patch.
+--
 
-Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
----
- arch/arm/boot/dts/aspeed/Makefile             |  1 +
- .../dts/aspeed/aspeed-bmc-asrock-b650d4u.dts  | 71 +++++++++++++++++++
- 2 files changed, 72 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
+commit 9fb40a1158dd3311ef34bf2a0294ba24c8a07ed6
+Author: John Madieu <john.madieu.xa@bp.renesas.com>
 
-diff --git a/arch/arm/boot/dts/aspeed/Makefile b/arch/arm/boot/dts/aspeed/Makefile
-index c4f064e4b..124d4f8f8 100644
---- a/arch/arm/boot/dts/aspeed/Makefile
-+++ b/arch/arm/boot/dts/aspeed/Makefile
-@@ -13,6 +13,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
- 	aspeed-bmc-asrock-romed8hm3.dtb \
- 	aspeed-bmc-asrock-spc621d8hm3.dtb \
- 	aspeed-bmc-asrock-x570d4u.dtb \
-+	aspeed-bmc-asrock-b650d4u.dtb \
- 	aspeed-bmc-asus-x4tf.dtb \
- 	aspeed-bmc-bytedance-g220a.dtb \
- 	aspeed-bmc-delta-ahe50dc.dtb \
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
-new file mode 100644
-index 000000000..130b7f3e0
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
-@@ -0,0 +1,71 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/dts-v1/;
-+
-+#include "aspeed-g6.dtsi"
-+
-+/ {
-+	model = "ASRock Rack B650D4U BMC";
-+	compatible = "asrock,b650d4u-bmc", "aspeed,ast2600";
-+
-+	aliases {
-+		serial4 = &uart5;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial4:115200n8";
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0x80000000 0x40000000>;
-+	};
-+};
-+
-+/* BMC Console UART */
-+&uart5 {
-+	status = "okay";
-+};
-+
-+/* SPI Flash Management */
-+&fmc {
-+	status = "okay";
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+		label = "bmc";
-+	};
-+};
-+
-+/* Dedicated Management LAN */
-+&mdio0 {
-+	status = "okay";
-+
-+	ethphy0: ethernet-phy@0 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <0>;
-+	};
-+};
-+
-+&mac0 {
-+	status = "okay";
-+	phy-mode = "rgmii-rxid";
-+	phy-handle = <&ethphy0>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rgmii1_default &pinctrl_mdio1_default>;
-+};
-+
-+/* I2C Bus for FRU/EEPROM Storage */
-+&i2c7 {
-+	status = "okay";
-+	eeprom@57 {
-+		compatible = "atmel,24c02";
-+		reg = <0x57>;
-+		pagesize = <16>;
-+	};
-+};
-+
-+/* System Watchdog */
-+&wdt1 {
-+	status = "okay";
-+	aspeed,reset-type = "soc";
-+};
--- 
-2.47.3
+ASoC: rsnd: Add SSI reset support for RZ/G3E platform
 
+This commit adds SSI reset support for the Renesas RZ/G3E SoC, using
+per-SSI reset lines. It also mentions updating the driver to consistently
+select the BUSIF DMA path.
+
+> To support these differences, rsnd_ssi_use_busif() always returns 1
+> on RZ/G3E, ensuring that the driver consistently selects the BUSIF
+> DMA path.
+
+Is the modification to rsnd_ssi_use_busif() missing from this patch?
+
+The commit message states that the function is updated to always return 1
+for the RZ/G3E platform, but the diff does not contain any changes to
+rsnd_ssi_use_busif().
+
+> diff --git a/sound/soc/renesas/rcar/ssi.c b/sound/soc/renesas/rcar/ssi.c
+> index cf98cc9ee44c3..e6734671328c8 100644
+> --- a/sound/soc/renesas/rcar/ssi.c
+> +++ b/sound/soc/renesas/rcar/ssi.c
+
+[ ... ]
+
+> @@ -1220,7 +1232,7 @@ int rsnd_ssi_probe(struct rsnd_priv *priv)
+>  			ops =3D &rsnd_ssi_dma_ops;
+> =20
+>  		ret =3D rsnd_mod_init(priv, rsnd_mod_get(ssi), ops, clk,
+> -				    NULL, RSND_MOD_SSI, i);
+> +				    rstc, RSND_MOD_SSI, i);
+
+Without the rsnd_ssi_use_busif() enforcement, the driver could still select
+PIO mode if the pio-transfer property is set in the Device Tree, or if DMA
+allocation fails and triggers rsnd_ssi_fallback().
+
+Since RZ/G3E does not implement the SSITDR and SSIRDR registers used in PIO
+mode, does this regression risk causing a bus fault when accessing those
+unimplemented registers?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512182631.3842=
+065-1-john.madieu.xa@bp.renesas.com?part=3D10
