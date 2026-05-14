@@ -1,105 +1,108 @@
-Received: from smtp1.tecnico.ulisboa.pt (smtp1.tecnico.ulisboa.pt [193.136.128.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A554219FF;
-	Thu, 14 May 2026 14:55:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.136.128.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4157F425CC9;
+	Thu, 14 May 2026 14:55:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778770534; cv=none; b=EwVUMlghU3zUdNx38wNe8X+PalfUXlI+108IbO1iTWunFBrkGrj/XcS9zO0MWU4hjfjp1NA43ltQuqXKW1m57rxrDpzzZ7G+bhE1eEmYpJ/iHevKBgMlMlFgJfNzLkje4PvfHhk9H6pROu/7ydYNvD08n322UCX216rBQfViOxw=
+	t=1778770545; cv=none; b=kDwbzpxM54aCHKxOeCFYHrr1O7j6Tc8TQFFnu7xFdHtrTtroGwtOWbW8cIrCU30W1+Q4QIwCVbkMer7I1qnqUMCADSoliJm068Gv5OX3cFKBwEEbXBQa9oPq9Y6kHnFPgTUwd2SZRRhy/89/ULD12wnfcGOpM2WMJtatZAnh48A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778770534; c=relaxed/simple;
-	bh=8xZjmEb0d95N1+sb8980A/vPSc/pHkMH8Oys2etbVAM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=b+0TstC87YVoUMmxhXxWCQEX2Jqp0aEioh4D7qNIKZrBloBJlx103x5c+3+Om12UucCytjHxbUVRZ3dgW5D++8gSx4XiAf0r+5XKykMFumhME4N2mhXhvDVSWBpM5/5IPbKX2cX34x/MO5kLAqVbF6OEnplTOz+eM8f0ePUtRhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tecnico.ulisboa.pt; spf=pass smtp.mailfrom=tecnico.ulisboa.pt; dkim=pass (2048-bit key) header.d=tecnico.ulisboa.pt header.i=@tecnico.ulisboa.pt header.b=efsLmlWd; arc=none smtp.client-ip=193.136.128.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tecnico.ulisboa.pt
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tecnico.ulisboa.pt
+	s=arc-20240116; t=1778770545; c=relaxed/simple;
+	bh=herRRBiOpH8A7gjlck6qVNwEdXMOZMlvMsZVWeDnj0g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g2AWoRNJiKNHNR59mJjqcqFlZNr6lFgjufdwCfUfXdGss3+db8K/aENHr/dWN/j69TzAxzf27ZlT3l6Wy7ZcTwGPoFqzA61daUfciQ0n/V7ddlOOB13G6hXeEaEHCvrwz6S3FkdNFNAGKgRTLcxgsL7j7oWgk1/jTXEf/REKh3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QQ70mEW+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tecnico.ulisboa.pt header.i=@tecnico.ulisboa.pt header.b="efsLmlWd"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by smtp1.tecnico.ulisboa.pt (Postfix) with ESMTP id AF71760020C9;
-	Thu, 14 May 2026 15:47:31 +0100 (WEST)
-X-Virus-Scanned: by amavis-2.13.0 (20230106) (Debian) at tecnico.ulisboa.pt
-Received: from smtp1.tecnico.ulisboa.pt ([127.0.0.1])
- by localhost (smtp1.tecnico.ulisboa.pt [127.0.0.1]) (amavis, port 10025)
- with LMTP id OinNfQWH81a8; Thu, 14 May 2026 15:47:29 +0100 (WEST)
-Received: from mail1.tecnico.ulisboa.pt (mail1.ist.utl.pt [IPv6:2001:690:2100:1::b3dd:b9ac])
-	by smtp1.tecnico.ulisboa.pt (Postfix) with ESMTPS id A955060020D6;
-	Thu, 14 May 2026 15:47:29 +0100 (WEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tecnico.ulisboa.pt;
-	s=mail2; t=1778770049;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zcd1JbPtrEgwdOAeh0HthnUl2Zq4Rk56InIYU9qFrKI=;
-	b=efsLmlWdYYNiU5dA0Dot0WXBUlxQX7fnGCJX1BPRVzeCxzDCPaal+fsDSvYvjyuq8DTU2I
-	iGciiVW/QoqWxmBIIjMujMUemOWvs6xnKrRaBe1wIn+U1LvaSuG2pzcc26ozW8tTIchpVP
-	F4zaFcGR6NBGYEeBthuy+uJblWiVzJ5OKendEPZUS5p73YUkQHPo2iDdJtKNBX/Kk14Du3
-	ql62isxTd0a6jMrLpG4vi77nTIUTcI9AU7UQjpINp8cqFKejJ+uyztiF6N3zeoLq3iTDpO
-	GY2Qkd0deq81AjpmivAQRP35pUDR4B4AyfcbBh+0m2W9BDhC2V4xz1OpqNjnig==
-Received: from [192.168.1.94] (2a02-842a-00d7-bd01-2527-ff0d-f555-b6e4.rev.sfr.net [IPv6:2a02:842a:d7:bd01:2527:ff0d:f555:b6e4])
-	(Authenticated sender: ist187313)
-	by mail1.tecnico.ulisboa.pt (Postfix) with ESMTPSA id 16B61360249;
-	Thu, 14 May 2026 15:47:29 +0100 (WEST)
-From: Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>
-Date: Thu, 14 May 2026 16:47:22 +0200
-Subject: [PATCH 4/4] arm64: tegra: smaug: mark MAX77620 as system power
- controller
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QQ70mEW+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3537BC2BCB8;
+	Thu, 14 May 2026 14:55:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778770544;
+	bh=herRRBiOpH8A7gjlck6qVNwEdXMOZMlvMsZVWeDnj0g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=QQ70mEW+sC4jHtZY8e6qk/1x9sidnKcDCTuI1EcaNgovNmGUZQHUKUhCF8sb7NXiS
+	 qf02zPLo1S2nRQUk8g9G7Gxy4uGrEnWzsegSkCztb1kYtmtSlEeA48q6RprGNR+a+n
+	 FCeGtzyDK15GFIB/nDn8576c8w2DBcEHxWslx9cwnpzFpgoiCBWG+c4UCC24DQg/d0
+	 ErKnzJBgDh/6oBBI5FiVghvbVq8FeZYypCYiAtLepZz4AnZ8Z/CnuEfCz8yk91/Jkk
+	 1nxLjOwrbrXHFFeVksizGMQq+rwUPCftA5KResoGN+iv6lTdik45/A85si8rv28J3G
+	 lmmYuSiqOg0Hw==
+Date: Thu, 14 May 2026 09:55:41 -0500
+From: Rob Herring <robh@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>, linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 1/2] dt-bindings: input: Document Imagis ISA1200
+ haptic motor driver
+Message-ID: <20260514145541.GB472306-robh@kernel.org>
+References: <20260512102445.55372-1-clamor95@gmail.com>
+ <20260512102445.55372-2-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260514-smaug-poweroff-v1-4-30f9a4688966@tecnico.ulisboa.pt>
-References: <20260514-smaug-poweroff-v1-0-30f9a4688966@tecnico.ulisboa.pt>
-In-Reply-To: <20260514-smaug-poweroff-v1-0-30f9a4688966@tecnico.ulisboa.pt>
-To: Mark Rutland <mark.rutland@arm.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Lee Jones <lee@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
- Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778770045; l=857;
- i=diogo.ivo@tecnico.ulisboa.pt; s=20240529; h=from:subject:message-id;
- bh=8xZjmEb0d95N1+sb8980A/vPSc/pHkMH8Oys2etbVAM=;
- b=fAg7sGCuUVA0iqnWf++Tln0G9BLmwunVozYRTTAPsp51y1pPfrbVXJeU21dWwC8wa8i8qLzU1
- RSAjLik/GjCBtFgrjC/UcDxwZVxEQlg6mU1osM6V+Jtt3GBIBV27s9a
-X-Developer-Key: i=diogo.ivo@tecnico.ulisboa.pt; a=ed25519;
- pk=BRGXhMh1q5KDlZ9y2B8SodFFY8FGupal+NMtJPwRpUQ=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260512102445.55372-2-clamor95@gmail.com>
 
-Register the MAX77620 PMIC as the system power controller on
-Pixel C so the driver can install its sys-off handler.
+On Tue, May 12, 2026 at 01:24:44PM +0300, Svyatoslav Ryhel wrote:
+> Document the Imagis ISA1200 haptic motor driver, used primarily in mobile
+> handheld devices and capable of supporting up to two motors.
+> 
+> The exact datasheet for the ISA1200 is not available; all data was modeled
+> based on available downstream kernel sources for various devices and
+> fragments of information scattered across the internet.
+> 
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  .../bindings/input/imagis,isa1200.yaml        | 140 ++++++++++++++++++
+>  1 file changed, 140 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/input/imagis,isa1200.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/input/imagis,isa1200.yaml b/Documentation/devicetree/bindings/input/imagis,isa1200.yaml
+> new file mode 100644
+> index 000000000000..bbe6f99d39c1
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/input/imagis,isa1200.yaml
+> @@ -0,0 +1,140 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/input/imagis,isa1200.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Imagis ISA1200 haptic motor driver
+> +
+> +maintainers:
+> +  - Svyatoslav Ryhel <clamor95@gmail.com>
+> +  - Linus Walleij <linusw@kernel.org>
+> +
+> +description:
+> +  The ISA1200 is a high-performance enhanced haptic motor driver designed
+> +  for mobile hand-held devices. It supports various voltages for both ERM
+> +  (Eccentric Rotating Mass) and LRA (Linear Resonant Actuator) type
+> +  actuators. Thanks to an embedded LDO, battery power can be used directly
+> +  in handheld applications.
+> +
+> +properties:
+> +  compatible:
+> +    const: imagis,isa1200
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  control-gpios:
+> +    description:
+> +      One or two GPIOs flagged as active high linked to HEN and LEN pins
 
-This allows the PMIC poweroff sequence to override the non-working
-PSCI SYSTEM_OFF implementation on this platform.
+       minItems: 1
 
-Signed-off-by: Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>
----
- arch/arm64/boot/dts/nvidia/tegra210-smaug.dts | 2 ++
- 1 file changed, 2 insertions(+)
+With that,
 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra210-smaug.dts b/arch/arm64/boot/dts/nvidia/tegra210-smaug.dts
-index f0b8c2c80aa5..1791b47f0a73 100644
---- a/arch/arm64/boot/dts/nvidia/tegra210-smaug.dts
-+++ b/arch/arm64/boot/dts/nvidia/tegra210-smaug.dts
-@@ -1467,6 +1467,8 @@ pmic: pmic@3c {
- 			gpio-controller;
- 			#gpio-cells = <2>;
- 
-+			system-power-controller;
-+
- 			pinctrl-names = "default";
- 			pinctrl-0 = <&max77620_default>;
- 
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
--- 
-2.54.0
-
+> +    maxItems: 2
