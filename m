@@ -1,79 +1,157 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A6C03DDDCA;
-	Thu, 14 May 2026 12:30:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBB222126C
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 12:30:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778761809; cv=none; b=jkE6OX0c+kYoH+or2wzG6hTFbwsE02TlfOdY965VXSGqo5OiEgKbRmTvc9Fh3CGFWvlzLS+YE3qtyKS7flb5GwuIYrXfsaScAzXvvjK5ogSBo/zCaqU+w263Npz1q9202UpRPZexPkxfIFOr0J0EtxPGSJYFUZZ55k4xSh5uiQw=
+	t=1778761854; cv=none; b=cdzseP2HvdF/JatQDUgm0BkaG+axFZysyPf1Z1z+Om76BTFQiVH5Eo60NOUsw7CFxuQV1gdskq821b3jVhRDU4GOCuFHe8/Nuxfx2NZTGrJN3+VkkjhJO9ckHR/E07E6xW4a5xSwf7kr45mAiP6gT3kO7A9SAYBzLV4RwpQoHeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778761809; c=relaxed/simple;
-	bh=bUh+fpgrDiqNF35orWAhT8L0f4AXwoeZqv6kc4rEVU4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cu70IkMGHANB0Qbw0ZLJ5QbGn+ql9c2vvL+6WjUsxGO72pshFJWCjJKk4JJPbyt0/FRIfmPdGwj2zEhDHt2H2k5SnzCyvWu9O+lc9vLnz+uirqt/jjutyrzPvfG1W1tzFy9I9nJ0qYZmspBT6ITGXcDSYHaxFgRB6b64ceSudNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W5BUHYe3; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778761854; c=relaxed/simple;
+	bh=Tmnos9vhCuiRy4j7HGxOssgCygwTpEGJTlKSUHKgJRA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Ohg5m/fFxjIAHzmIiSYmc+8xMhkUxB4OdhcO26F+ogQZ1iTQtnVFGkU/ZUVfEPE1R6X3cFH7bnQH0zMkw7lshKhy8s4ExGaKrP+Gz7J8H7Xwe2FEmK2rNLLs2GxUcnXELHuUE9WQv2DLmyWQBP2Xje38t7gqWdX0vCZNXL5IW2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WoD2tfQe; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W5BUHYe3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C3C8C2BCB3;
-	Thu, 14 May 2026 12:30:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WoD2tfQe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 809BDC2BCB3;
+	Thu, 14 May 2026 12:30:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778761808;
-	bh=bUh+fpgrDiqNF35orWAhT8L0f4AXwoeZqv6kc4rEVU4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=W5BUHYe3ZNzL2CGqEFckQzrOa1MKywKGhu62LRN9TnGvw6OuznC4nD2zXLAqRaxfR
-	 d8GdZoc+8s49uFy2BhmA41PE6d72IVcuMsroX2Y0KejLpc8HJZi0PCjv03UBoUn2qM
-	 6ZvPnlIikDs9REcOwCCqDaGZGQ9efShL3T5zm+D5OAfB8KeiKNM3jJjafyffHkMgil
-	 TXnDqextjkZ3JZXecYSahsKVnhlH/4H0apemKNb6WpBw6V1OUg/iOlUpTOeHguv062
-	 1Lfdxvb3GHojAsMaJ7Ui6qchEXPknHRcEhtRis04MS21EPvvp0OFRq8CQAGfUb82ON
-	 6ReMjwToEjdhw==
-Date: Thu, 14 May 2026 14:30:06 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Arnab Layek <arnab.layek@mediatek.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, 
-	angelogioacchino.delregno@collabora.com, andersson@kernel.org, mathieu.poirier@linaro.org, 
-	linux-remoteproc@vger.kernel.org, Project_Global_Chrome_Upstream_Group@mediatek.com
-Subject: Re: [PATCH v3 1/1] dt-bindings: remoteproc: mtk,scp: Allow multiple
- memory regions for MT8188
-Message-ID: <20260514-poised-green-beagle-79cb9c@quoll>
-References: <20260506133157.3283204-1-arnab.layek@mediatek.com>
- <20260514114533.174008-1-arnab.layek@mediatek.com>
- <20260514114533.174008-2-arnab.layek@mediatek.com>
+	s=k20201202; t=1778761854;
+	bh=Tmnos9vhCuiRy4j7HGxOssgCygwTpEGJTlKSUHKgJRA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=WoD2tfQe1i6aNZ+AytsHDJ4Oh5kf7JXe0kNenWqP3k1fbcYX7KWpfvn1a3amGNpWK
+	 5EITDoW1Ze2+awp0zhl8OgqScz4MjO8puGtz2tI1WAwJR2hpkKvljXsOh9D1cdcpwJ
+	 jhdr4k7tnecK0YhWeq0aKGJoMxOdQfYLskxu7GOB4GJwrOpff9p0Xqcp1D4CXSDMRD
+	 qgmqaYPDVvWuOb7Vw3E8veupLCWSQDSBE9BDh4cYJuww97Uf7Z7weu8E2L+mYZsjSW
+	 9XrWFkPa/PMf477t1Zu7DAPu6Aq/6O1BFJDBOIwVzNIBOyRdV6j2gMFTC1Ij09RKC5
+	 7CdlrtrwiFfHQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 1/2] dt-bindings: usb: cdns3: Add cdns,no-drd
+ property
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pawel Laszczak via B4 Relay" <devnull+pawell.cadence.com@kernel.org>
+Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260514-b4-no_drd_config-v7-1-18cc40e363fd@cadence.com>
+References: <20260514-b4-no_drd_config-v7-1-18cc40e363fd@cadence.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 14 May 2026 12:30:54 +0000
+Message-Id: <20260514123054.809BDC2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260514114533.174008-2-arnab.layek@mediatek.com>
 
-On Thu, May 14, 2026 at 07:45:33PM +0800, Arnab Layek wrote:
-> The MT8188 SCP requires support for 1-2 reserved memory regions, while
-> other MediaTek SoCs use only a single memory region.
-> 
-> The schema uses a permissive base with restrictive conditionals:
-> 1) Base schema allows all devices minItems: 1, maxItems: 2
-> 2) Non-MT8188 devices (mt8183, mt8186, mt8192, mt8195, mt8195-dual) are
->    restricted to maxItems: 1, overriding the base
-> 3) MT8188 devices (mt8188, mt8188-dual) set minItems: 1 with item
->    descriptions, inheriting maxItems: 2 from base, making the second
->    L1TCM region optional
-> 
-> This follows the same pattern as other MediaTek dt-bindings such as
-> mediatek,jpeg-encoder.yaml which uses conditional schemas to support
-> different numbers of iommus per device variant.
-> 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] The schema fails to enforce that `dr_mode` is required when `cdn=
+s,no-drd` is present.
+- [Medium] The conditional blocks enforce strict array ordering for `reg-na=
+mes`, directly contradicting the commit message's claim of supporting flexi=
+ble ordering.
+- [Medium] The `if/then/else` logic fails to fully enforce array length con=
+straints for `reg` and `reg-names`, breaking backward compatibility and all=
+owing invalid configurations.
+--
 
-So I just reviewed v2, because it appeared in patchwork thread...
-because you just threaded v3 there.
+commit 27ad576607394b6bdaff814912f5101ce8966dd5
+Author: Pawel Laszczak <pawell@cadence.com>
 
-No, really, this was repeated also to Mediatek so many times.
+dt-bindings: usb: cdns3: Add cdns,no-drd property
 
-Implement v2 review.
+This commit introduces the cdns,no-drd property for Cadence USB controllers
+where the dual-role device register block is missing or inaccessible. It
+updates the schema to conditionally modify the requirements for reg,
+reg-names, interrupts, and dr_mode based on whether this property is presen=
+t.
 
-Best regards,
-Krzysztof
+> diff --git a/Documentation/devicetree/bindings/usb/cdns,usb3.yaml b/Docum=
+entation/devicetree/bindings/usb/cdns,usb3.yaml
+> --- a/Documentation/devicetree/bindings/usb/cdns,usb3.yaml
+> +++ b/Documentation/devicetree/bindings/usb/cdns,usb3.yaml
+[ ... ]
+> @@ -93,6 +98,45 @@ allOf:
+>    - $ref: usb-drd.yaml#
+>    - $ref: usb-xhci.yaml#
+> =20
+> +  - if:
+> +      required:
+> +        - cdns,no-drd
+> +    then:
+> +      properties:
+> +        reg:
+> +          items:
+> +            - description: XHCI Host controller registers
+> +            - description: DEVICE controller registers
 
+Since the top-level schema relaxes maxItems to 3, does this then block
+need an explicit maxItems of 2 for reg?=20
+
+In JSON schema, defining an items list inside a conditional block does not
+implicitly restrict the maximum length, which could allow an invalid third
+register item to silently pass validation.
+
+> +        reg-names:
+> +          items:
+> +            - const: xhci
+> +            - const: dev
+
+The commit message states reg-names uses enums to allow flexible ordering
+during validation. However, does defining items as an array of constants in
+this block enforce a strict positional sequence?=20
+
+Tuple validation requires xhci to be the first element and dev to be the
+second, which seems to contradict the intended flexibility.
+
+Similarly, does this block also need an explicit maxItems of 2 to match
+the expected length?
+
+> +        interrupts:
+> +          maxItems: 2
+> +        interrupt-names:
+> +          items:
+> +            - const: host
+> +            - const: peripheral
+> +        dr_mode:
+> +          enum: [host, peripheral]
+
+The commit message notes dr_mode must be explicitly set to either host or
+peripheral. Does the then block need a required list containing dr_mode to
+enforce this?=20
+
+Currently, the schema restricts the allowed values but will still pass
+validation if a device tree node omits dr_mode entirely.
+
+> +    else:
+> +      properties:
+> +        reg:
+> +          items:
+> +            - description: OTG controller registers
+> +            - description: XHCI Host controller registers
+> +            - description: DEVICE controller registers
+> +        reg-names:
+> +          items:
+> +            - const: otg
+> +            - const: xhci
+> +            - const: dev
+
+Just like in the then block, does defining items as an array of constants
+here prevent flexible ordering by enforcing otg, xhci, and dev in that
+exact sequence?
+
+Also, since the top-level schema was relaxed to allow a minimum of 2 items,
+do reg and reg-names need an explicit minItems of 3 here?=20
+
+Without it, an array of just 2 items could pass validation when cdns,no-drd
+is absent, which breaks the intended backward compatibility of requiring all
+3 resource sets.
+
+> +        interrupts:
+> +          minItems: 3
+> +          maxItems: 4
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514-b4-no_drd_=
+config-v7-0-18cc40e363fd@cadence.com?part=3D1
