@@ -1,206 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2866A2DF15C
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 09:35:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F5653A6EEB;
+	Thu, 14 May 2026 09:52:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778751310; cv=none; b=DbRYWp/yMM/yAMrlz67Hzes6vDVlFzFbPzKYKlKFWPNe9eciMDWnSfexEVTVqmIUmaOMczyRyFaR5KxWQCGMDyMdDKJu3YZX5N6qseuX5CiE64oeL7A5WxUcnwXOCz0Me3ZwD8aRtPnB+PzzumqfQWjJZqSAaLxlS0yeQ1lDE+8=
+	t=1778752355; cv=none; b=UcZ3kkswZ2c2hjfEZTJxi2cUyqU2B9CmoLu8NSfkMBZjPGnT9A2Yo14V8pzT8LHjNdU7lmIEg/5Sy3p1uL+zwjc/yvl7XrNAcypUqMTvnReOqzn8sww768cw4gz9/xBIYT3uYtbqNmaep7w5TjGbosWwIqk1igDwRpkwWxDILBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778751310; c=relaxed/simple;
-	bh=JM1AMVbkfoa0kmMUo43oYOfKYIRtB4u9P390GLGKceg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KXEL/unBs9K4cQmPtPiz9yzYdFUtdnbcf2nOYCKDgRgwqXGuSwCHR/fijX7jWALeOEmyan5FhwrsXEb0vOGpJ5kHM+0TtBxqzFXqczwMTJbnjAlLfUBloDJe7GNm+YQxl1zVqszmWVAUJEwvefAQLUTDcWBy/6vP8vz2+auhJIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B/J8kVUn; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778752355; c=relaxed/simple;
+	bh=RgThfRfi90t4CYlBZ1BwD8ONPCbUAT3OicJlijcFJak=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HkXYlZ3yZRBLZv3zdosLGucjtyJ+a/m4AaXYmSTAk5DDon/rr7tLHTrz+B5AiuzLmeTp1o+iZdV9KkCXT6aFY+ZFLChQU81XCJwXvH6IPPM2xGORhuK01Y+MGLcPqcQ1sFKdgzsWwtRookhVIvTKHcee/4vxi4GHNeVCW5ETSZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LypZscHL; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B/J8kVUn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D5E0C2BCB7;
-	Thu, 14 May 2026 09:35:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LypZscHL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04706C2BCB3;
+	Thu, 14 May 2026 09:52:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778751309;
-	bh=JM1AMVbkfoa0kmMUo43oYOfKYIRtB4u9P390GLGKceg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=B/J8kVUnNrlBdhMWitVa8bUgeraGIP4kHLmtmVW7kNS5NNPMZQ8pxaA4RPMirfWsv
-	 3EMXlwLt+y6Aj1J7UqA3/tXA/284OJKD+e3B4Nl1mO+FwyBzpQf/8Crg4LzZu+TTPx
-	 hrx7GGfqpCtEYkbevlFkWPSbffEwjdyJ30n+Awu33XW5yX9gNCfDOYE3ovuHKtPIfI
-	 r6I/NPDEICvG21t5QNMt0NuM1q7ENBlkJDylX9KTxv5ZF6aA5iwvOVl5cwuGRsrgai
-	 Bq3Pb54HO69yC9PSOa521jOL6iK/Og8mHsW/gOv7YyyJ6em93Om8GYI3uZPybti0WL
-	 kqyHYRlWDBDXw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V6 10/11] iio: imu: inv_icm42607: Add Gyroscope to
- icm42607
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chris Morgan" <macroalpha82@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260512221634.256747-11-macroalpha82@gmail.com>
-References: <20260512221634.256747-11-macroalpha82@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 09:35:08 +0000
-Message-Id: <20260514093509.2D5E0C2BCB7@smtp.kernel.org>
+	s=k20201202; t=1778752355;
+	bh=RgThfRfi90t4CYlBZ1BwD8ONPCbUAT3OicJlijcFJak=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=LypZscHLziQriDtJv/Glk0fiYd5ADPqALEthu1bCkqdc4MnG4oVVyxOis86AtViaP
+	 HJD6bHU+bjrtX+CyKDWSk2LriIER/oiLrGH6jHsqUDfWpI6dhA3mTVXeXotEFWg0Np
+	 EsJ7piaDsoBPtgqe9Qv4fm4nvCGhehZ0V3c/dAt3m+MkpNnmWZxO+NywEMo6tLyQ90
+	 X3zCqWcxrxGI4V5AjxtGfC9wNV000nI3m0Eirx2hvDGE5+sA7nysidgyLon2+d067+
+	 1gFd9M5offUDtEGf+WFzHhW5jom+c1CcVM5pF0Ab9C2eVmJzauOG+1TkhipaoQkMio
+	 ajdZoCwhLjjGQ==
+Message-ID: <0aa79750-ac75-4111-ac82-ad5672157c90@kernel.org>
+Date: Thu, 14 May 2026 12:52:21 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] interconnect: qcom: eliza: Add SDCC1 slave node
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260512-eliza-interconnect-add-missing-sdcc1-slave-node-v1-0-b1edf81bac3b@oss.qualcomm.com>
+ <20260512-eliza-interconnect-add-missing-sdcc1-slave-node-v1-2-b1edf81bac3b@oss.qualcomm.com>
+From: Georgi Djakov <djakov@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20260512-eliza-interconnect-add-missing-sdcc1-slave-node-v1-2-b1edf81bac3b@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Uninitialized variable 'size' and inverted logic in FIFO parsing l=
-oop condition.
-- [High] Self-deadlock due to double acquisition of `st->lock` in hardware =
-FIFO flush.
-- [High] Race condition in device initialization leads to NULL pointer dere=
-ference in IRQ handler.
-- [Medium] Gyroscope remains indefinitely powered on in software state afte=
-r a raw read.
-- [Medium] The gyroscope IIO device does not implement the `read_avail` API.
---
-
-commit 90abb258df502e4c4bb56ac17141c1096a23395d
-Author: Chris Morgan <macromorgan@hotmail.com>
-
-iio: imu: inv_icm42607: Add Gyroscope to icm42607
-
-Add gyroscope functions to the icm42607 driver.
-
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/i=
-io/imu/inv_icm42607/inv_icm42607_core.c
-> index a69cd0a61050e..c8545dd68cdb0 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-[ ... ]
-> @@ -435,6 +478,7 @@ static irqreturn_t inv_icm42607_irq_timestamp(int irq=
-, void *_data)
->  {
->  	struct inv_icm42607_state *st =3D _data;
-> =20
-> +	st->timestamp.gyro =3D iio_get_time_ns(st->indio_gyro);
->  	st->timestamp.accel =3D iio_get_time_ns(st->indio_accel);
-
-Could this result in a NULL pointer dereference?
-
-In inv_icm42607_core_probe(), the interrupt is initialized and the accelero=
-meter
-device is registered and exposed to userspace before st->indio_gyro is
-allocated:
-
-	st->indio_accel =3D inv_icm42607_accel_init(st);
-	if (IS_ERR(st->indio_accel))
-		...
-	st->indio_gyro =3D inv_icm42607_gyro_init(st);
-
-If userspace enables the accelerometer immediately, the interrupt could fire
-while st->indio_gyro is still NULL, causing iio_get_time_ns() to dereferenc=
-e it.
-
-[ ... ]
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c b/drivers/i=
-io/imu/inv_icm42607/inv_icm42607_gyro.c
-> new file mode 100644
-> index 0000000000000..529929a5349f9
-> --- /dev/null
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
-[ ... ]
-> +static int inv_icm42607_gyro_read_sensor(struct inv_icm42607_state *st,
-> +					 struct iio_chan_spec const *chan,
-> +					 s16 *val)
-> +{
-[ ... ]
-> +	/* enable gyro sensor */
-> +	conf.mode =3D INV_ICM42607_SENSOR_MODE_LOW_NOISE;
-> +	ret =3D inv_icm42607_set_gyro_conf(st, &conf, NULL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* read gyro register data */
-> +	data =3D &st->buffer[0];
-> +	ret =3D regmap_bulk_read(st->map, reg, data, sizeof(*data));
-> +	if (ret)
-> +		return ret;
-> +
-> +	*val =3D be16_to_cpup(data);
-> +	if (*val =3D=3D INV_ICM42607_DATA_INVALID)
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-
-Should the gyroscope be powered down before returning?
-
-The device is explicitly powered up to INV_ICM42607_SENSOR_MODE_LOW_NOISE,
-but it is never restored to INV_ICM42607_SENSOR_MODE_OFF. While
-pm_runtime_put_autosuspend() is used, if the accelerometer is running
-concurrently, the device usage count won't reach zero and the gyroscope
-will remain powered on indefinitely.
-
-[ ... ]
-> +static int inv_icm42607_gyro_hwfifo_flush(struct iio_dev *indio_dev,
-> +					  unsigned int count)
-> +{
-> +	struct inv_icm42607_state *st =3D iio_device_get_drvdata(indio_dev);
-> +	int ret;
-> +
-> +	if (count =3D=3D 0)
-> +		return 0;
-> +
-> +	/* Make sure we don't try to count more than the buffer can hold. */
-> +	count =3D min(count, sizeof(st->fifo.data));
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	ret =3D inv_icm42607_buffer_hwfifo_flush(st, count);
-
-Can this lead to a self-deadlock?
-
-The st->lock mutex is acquired here using guard(mutex)(&st->lock),
-but inv_icm42607_buffer_hwfifo_flush() subsequently calls
-inv_icm42607_buffer_fifo_read(), which unconditionally attempts to
-acquire the exact same st->lock.
-
-[ ... ]
-> +static const struct iio_info inv_icm42607_gyro_info =3D {
-> +	.read_raw =3D inv_icm42607_gyro_read_raw,
-> +	.write_raw =3D inv_icm42607_gyro_write_raw,
-> +	.write_raw_get_fmt =3D inv_icm42607_gyro_write_raw_get_fmt,
-> +	.update_scan_mode =3D inv_icm42607_gyro_update_scan_mode,
-> +	.hwfifo_set_watermark =3D inv_icm42607_gyro_hwfifo_set_watermark,
-> +	.hwfifo_flush_to_buffer =3D inv_icm42607_gyro_hwfifo_flush,
+On 5/12/26 3:18 PM, Abel Vesa wrote:
+> The Eliza interconnect provider is missing the SDCC1 CNOC CFG slave
+> node. Add qhs_sdc1 to the provider node table and qsm_cfg links so
+> SDCC1 interconnect paths can resolve to a provider node.
+> 
+> Bump the qsm_cfg link count to match the new entry.
+> 
+> Fixes: a39efc80ff50 ("interconnect: qcom: Add Eliza interconnect provider driver")
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
+>   drivers/interconnect/qcom/eliza.c | 11 +++++++++--
+>   1 file changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/interconnect/qcom/eliza.c b/drivers/interconnect/qcom/eliza.c
+> index a4f7903f0524..6d12a1c3c034 100644
+> --- a/drivers/interconnect/qcom/eliza.c
+> +++ b/drivers/interconnect/qcom/eliza.c
+> @@ -127,6 +127,12 @@ static struct qcom_icc_node qhs_qup2 = {
+>   	.buswidth = 4,
+>   };
+>   
+> +static struct qcom_icc_node qhs_sdc1 = {
+> +	.name = "qhs_sdc1",
+> +	.channels = 1,
+> +	.buswidth = 4,
 > +};
-
-Is the .read_avail callback intentionally missing?
-
-Without it, the driver does not expose supported sampling frequencies
-and scale factors to userspace.
-
-[ ... ]
-> +int inv_icm42607_gyro_parse_fifo(struct iio_dev *indio_dev)
-> +{
-> +	struct inv_icm42607_state *st =3D iio_device_get_drvdata(indio_dev);
-> +	struct inv_icm42607_sensor_state *gyro_st =3D iio_priv(indio_dev);
-> +	struct inv_sensors_timestamp *ts =3D &gyro_st->ts;
-> +	ssize_t i, size;
-> +	unsigned int no;
-> +	const void *accel, *gyro, *timestamp;
-> +	const s8 *temp;
-> +	unsigned int odr;
-> +	s64 ts_val;
-> +	struct inv_icm42607_gyro_buffer buffer =3D { };
 > +
-> +	/* parse all fifo packets */
-> +	for (i =3D 0, no =3D 0; i < st->fifo.count && i + size > st->fifo.count;
-> +	     i +=3D size, ++no) {
-> +		size =3D inv_icm42607_fifo_decode_packet(&st->fifo.data[i],
+>   static struct qcom_icc_node qhs_sdc2 = {
+>   	.name = "qhs_sdc2",
+>   	.channels = 1,
+> @@ -383,7 +389,7 @@ static struct qcom_icc_node qsm_cfg = {
+>   	.name = "qsm_cfg",
+>   	.channels = 1,
+>   	.buswidth = 4,
+> -	.num_links = 29,
+> +	.num_links = 30,
+>   	.link_nodes = { &qhs_ahb2phy0, &qhs_ahb2phy1,
+>   			&qhs_camera_cfg, &qhs_clk_ctl,
+>   			&qhs_crypto0_cfg, &qhs_display_cfg,
+> @@ -392,7 +398,7 @@ static struct qcom_icc_node qsm_cfg = {
+>   			&qhs_mss_cfg, &qhs_pcie_0_cfg,
+>   			&qhs_prng, &qhs_qdss_cfg,
+>   			&qhs_qspi, &qhs_qup1,
+> -			&qhs_qup2, &qhs_sdc2,
+> +			&qhs_qup2, &qhs_sdc1, &qhs_sdc2,
+>   			&qhs_tcsr, &qhs_tlmm,
+>   			&qhs_ufs_mem_cfg, &qhs_usb3_0,
+>   			&qhs_venus_cfg, &qhs_vsense_ctrl_cfg,
 
-Will this evaluate the loop condition with an uninitialized size variable?
+Should we also add the sdc1 to some BCM?
 
-The variable size is declared but uninitialized, so the expression
-i + size > st->fifo.count will use an indeterminate value on the first
-iteration.
-
-Additionally, should this check verify that the packet fits within
-the buffer (e.g. <=3D) rather than exceeding it (>)?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512221634.2567=
-47-1-macroalpha82@gmail.com?part=3D10
+Thanks,
+Georgi
