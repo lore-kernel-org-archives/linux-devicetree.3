@@ -1,117 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 838F52F9D89;
-	Thu, 14 May 2026 01:04:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB3F78F4A
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 01:11:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778720688; cv=none; b=TXwmRz8gtc2rm304CsgP6nmxfTVMR3cDxl32kjgext2Rs9hL90o0d+PVha5Q7NwC7LLs2VwzfMgUN7JhPR/EukXq2uRa/oE3Eoh3JKZQQC70FeOdzX3EPSlUu8vHJKh1fz5uxjwW6MZlk3HfoWmS2vVU4R4LqEiSLFxnyKk3yrU=
+	t=1778721066; cv=none; b=Sbht3+LFMUjNr1AvOKLypXHqEf4msKfIs5J/FXaEUnCQ+pOqmk+D7i4QhTjQAWNtiBhB7gnkbGzCC1F7pm79fcO5rmz3z9VC9kEYDjKz4tP4+Ju3Js4sLzJkZDpPnB9SKBQLkgiKTuh3t0s6s/ZrX/48Ftfg/ejCQtQsphAnXD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778720688; c=relaxed/simple;
-	bh=Os8M03cI/bIK97UliIlzT2ruhXSS3WfDehObzml7PFo=;
+	s=arc-20240116; t=1778721066; c=relaxed/simple;
+	bh=vHjcmI3+a/qLvArU+eDic4CWccbE/wuLCUEAjeBvmcc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eKTaC92K8M/CLMqUs5zO7LVBRS48en99Mh6w6p8zAmM94uBTZOQXfkYpn1IzaUbc+nQoSUXd/yoVwfdMygOrjbE1mkXY6+nGHEtY6qDhp1C0TvvmrZLXHJU9Fi62HeWchi6slic0fG1+E9F9YG2J1ANinbWHcahW4qG17hW9y88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pKrtDHjd; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=HEWrNVLH8WTe5gdNzhY+OeUXkqzkOPRo2BeOEGPE2W3uK+fK+Qrn6m6f90E7hPmIYyqU28+/jcpfNg84uLKqTpsvXGmBkNkW8e8p06xXRiHutRJNowNTkvwZF8TvfYk2qURmcMHIDBGY/xHEI1CDSSx2/23L7UL912WlXAyoKzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NSfJvdyl; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pKrtDHjd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A329CC19425;
-	Thu, 14 May 2026 01:04:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NSfJvdyl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22465C19425;
+	Thu, 14 May 2026 01:11:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778720688;
-	bh=Os8M03cI/bIK97UliIlzT2ruhXSS3WfDehObzml7PFo=;
+	s=k20201202; t=1778721066;
+	bh=vHjcmI3+a/qLvArU+eDic4CWccbE/wuLCUEAjeBvmcc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=pKrtDHjdS/8B/H4GKH0JtL2Lhv1p/9oevkUvp9K+dKgMbQSfJ1vSq0y+Bz8HNJWtV
-	 b7Z6yEidcnWeBfr94Bg8kDsy1EyBmGqhCfQLsMGOqTi7J863Fwcaj39dPo0VXXsZHM
-	 EgcHRbWOuTUkJ/hRgcyjrgQf4zQoR1y0uC3RrnerRh9kC9CgWMMDWezh+PhUCfmT7Q
-	 BxrgbvHocfoocTcC5L8uMh16kHVG0tfNmdxyHk8CM5s/J/tDUJZnddMiUYdkHKGh77
-	 qvdPbRRk+ta5KFaGQoS+VzangwppvM5BD6ejiP6qwd56LhZsHxcRZH5VR+3M4BsfeN
-	 mUFQfb1tx01Dw==
+	b=NSfJvdyl0JOJjchBs+JqpwJl59UnPALadl2wbo+aP2Hg3DmBWoJ9fGqaotlLCrUyu
+	 xFfNwXCfUUALLal0kKfxtvi0/Fd1gxgfTOJJqb10kwTbnnxXanx3N+mzbT+NHLoJAx
+	 aKwOkD7q7Cc1621H2Y+l3ICC+vprNMC8O/TJlr4KYXK+BkJyF+8w9qH/aN4doEInw0
+	 +YDE/bFOYAKFFZvhr2QbzcArVBwQLSvOUzHRDredd1CDxb6ApLRTilnps1KtxJd0OL
+	 7EjGahV4PQ4BbpBYIC2cYnFMX/KYn3WYm06iXO6LCASnUGoNwDWAaB0Puf78XPjEUk
+	 vkIdgRI0mSDgg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/3] dt-bindings: PCI: imx6q-pcie: Add intr, aer and
- pme interrupts
+Subject: Re: [PATCH v6 06/16] ASoC: rsnd: Add audmacpp clock and reset
+ support for RZ/G3E
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Richard Zhu" <hongxing.zhu@nxp.com>
-Cc: robh@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, krzk+dt@kernel.org, linux-pci@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260513025101.1498104-2-hongxing.zhu@nxp.com>
-References: <20260513025101.1498104-2-hongxing.zhu@nxp.com>
+To: "John Madieu" <john.madieu.xa@bp.renesas.com>
+Cc: wsa+renesas@sang-engineering.com, conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260512182631.3842065-7-john.madieu.xa@bp.renesas.com>
+References: <20260512182631.3842065-7-john.madieu.xa@bp.renesas.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 01:04:47 +0000
-Message-Id: <20260514010447.A329CC19425@smtp.kernel.org>
+Date: Thu, 14 May 2026 01:11:05 +0000
+Message-Id: <20260514011106.22465C19425@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Strictly ordered `items` array prevents omitting intermediate op=
-tional interrupts.
-- [Medium] Global addition of optional interrupts loosens schema validation=
- for older hardware generations.
+- [Medium] Resource leak (clock and reset) when falling back to PIO mode du=
+e to missing memory resource.
 --
 
-commit c716cc823581eb06c45ae0ee7c1441e2e4b80ec3
-Author: Richard Zhu <hongxing.zhu@nxp.com>
+commit 9d3365c013fb5e0808a6b0ca2bbf14ed35e47250
+Author: John Madieu <john.madieu.xa@bp.renesas.com>
 
-dt-bindings: PCI: imx6q-pcie: Add intr, aer and pme interrupts
+ASoC: rsnd: Add audmacpp clock and reset support for RZ/G3E
 
-This commit adds optional interrupt entries (intr, aer, pme) to the i.MX6Q
-PCIe binding to support event-based interrupt handling.
+This commit adds global audmacpp clock and reset management in
+rsnd_dma_probe() for RZ/G3E using optional APIs.
 
-> diff --git a/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie.yaml b/=
-Documentation/devicetree/bindings/pci/fsl,imx6q-pcie.yaml
-> index 9d1349855b422..cf709132ff1e2 100644
-> --- a/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie.yaml
-> +++ b/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie.yaml
-> @@ -58,12 +58,18 @@ properties:
->      items:
->        - description: builtin MSI controller.
->        - description: builtin DMA controller.
-> +      - description: PCIe event interrupt.
-> +      - description: builtin AER SPI standalone interrupt line.
-> +      - description: builtin PME SPI standalone interrupt line.
-
-By adding these optional interrupts at the top level, the maximum number
-of interrupts implicitly increases from 2 to 5 for all compatible strings
-in this binding.
-
-Will this allow older hardware generations that physically only support
-2 interrupts to silently pass validation if they incorrectly specify up to =
-5?
-
-Should the existing allOf conditional blocks explicitly restrict maxItems
-for the interrupts property on variants lacking these new capabilities?
-
+> diff --git a/sound/soc/renesas/rcar/dma.c b/sound/soc/renesas/rcar/dma.c
+> --- a/sound/soc/renesas/rcar/dma.c
+> +++ b/sound/soc/renesas/rcar/dma.c
+[ ... ]
+> @@ -864,6 +867,25 @@ int rsnd_dma_probe(struct rsnd_priv *priv)
+>  	if (rsnd_is_gen4(priv))
+>  		goto audmapp_end;
 > =20
->    interrupt-names:
->      minItems: 1
->      items:
->        - const: msi
->        - const: dma
-> +      - const: intr
-> +      - const: aer
-> +      - const: pme
+> +	/*
+> +	 * Audio DMAC peri-peri clock and reset for RZ/G3E.
+> +	 * These use optional APIs, so they gracefully return NULL
+> +	 * (no error) on platforms whose DT does not provide them.
+> +	 *
+> +	 * Enable the clock first so the block sees a stable clock on
+> +	 * the way out of reset, then deassert the reset line.
+> +	 */
+> +	dmac->audmapp_clk =3D devm_clk_get_optional_enabled(dev, "audmapp");
+> +	if (IS_ERR(dmac->audmapp_clk))
+> +		return dev_err_probe(dev, PTR_ERR(dmac->audmapp_clk),
+> +				     "failed to get audmapp clock\n");
+> +
+> +	dmac->audmapp_rstc =3D
+> +		devm_reset_control_get_optional_exclusive_deasserted(dev, "audmapp");
+> +	if (IS_ERR(dmac->audmapp_rstc))
+> +		return dev_err_probe(dev, PTR_ERR(dmac->audmapp_rstc),
+> +				     "failed to get audmapp reset\n");
+> +
+>  	res =3D platform_get_resource_byname(pdev, IORESOURCE_MEM, "audmapp");
+>  	if (!res) {
+>  		dev_err(dev, "lack of audmapp in DT\n");
+>  		return 0; /* it will be PIO mode */
 
-If a hardware variant supports the msi and intr interrupts but lacks the
-optional dma interrupt, won't this strict array validation fail?
+Does this code leak the clock and reset if the device tree provides a clock
+but lacks the memory resource?
 
-Since dt-schema enforces exact positional matching for items arrays, a devi=
-ce
-tree specifying interrupt-names =3D "msi", "intr" would have the "intr" ent=
-ry
-evaluated against the second constraint (- const: dma).
+Because rsnd_dma_probe() returns 0 on this fallback path, the overall
+probe succeeds and devm will not clean up the acquired resources. This leav=
+es
+the clock permanently enabled and the reset deasserted.
 
-Does this need an enum/anyOf structure with minItems/maxItems, or specific
-allOf conditionals per SoC to correctly handle omitting intermediate entrie=
-s?
+Additionally, since priv->dma is not set before the early return, the clock
+cannot be disabled during system suspend.
 
-> =20
->    reset-gpio:
->      description: Should specify the GPIO for controlling the PCI bus dev=
-ice
+Could the memory resource check be performed before acquiring and enabling
+the clock and reset?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513025101.1498=
-104-1-hongxing.zhu@nxp.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512182631.3842=
+065-1-john.madieu.xa@bp.renesas.com?part=3D6
