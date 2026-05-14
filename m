@@ -1,74 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4061D31E83C;
-	Thu, 14 May 2026 16:56:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A5231AF2D
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 16:58:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778777799; cv=none; b=JqlId/4//IT3Kr396BVNiS2//bEaLD8R8eXkIybsjFmy0f2ddqIKAJHdpXnnm6R0Aw/crhHpkC0VYW5SWBpw7NtnoEU9BhH6opJ0WVM+0HbSs7pffOVxCadkkmPPCbiZS+nwJ/qxarFjeUyBwlCzbw3s6sRey4DEgPqRoTaZvQI=
+	t=1778777893; cv=none; b=RicNC354QozQ3oTfvRUlrObNdxnbDmc8VBOV1QKPqV0elZqUzqurcpz0KzdBsczDExjepTdqCeTGgYL/y9laCKy6rtXOSncs39U4zQ86td1IWMDwgHbJ898H1vfGpw2GEZEITAoMuRmnoBT3PXTpiciwjcuv6X9+sIyPusT25ZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778777799; c=relaxed/simple;
-	bh=3toBXMpP4awO/mcKO1JYvkg+Qt/cHhm2X0K5cAsGqDQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=IbZ4KXAyMMEUnVwlIfw8QqGMJibXB2zzGqbju1/2+4/NcqM5V2EuK7tBP3BL4hcrt3e7hQx+PH3xqA4AM/eLf95sSzNgpiDuQ9lWg22otmkM9RG0bIhA2MMg2WcknTH0Q0TfemA4KY2o39Yhw//eO1LvRzKdulwU9wKZTNIVVSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mz8G8Ll1; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778777893; c=relaxed/simple;
+	bh=gEJYTff5KkuHuN2JJ4XpcnxcZ3VQ94Vt8bozEYt+fis=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lz1xquOlh4IMDennrql8PjMhKQrrrZKE09S1dz0lsAXCYbdoq9m5njniIyZs9jj3YMLB+75x63vTuIynxt7DoWUIwwp9KRT+T5oUZUxUcYYMbea/aZ5xIKN3Q/Vy+KLYNlpfwjF+8owB/wMDKxiIAhFKSfvii6evbM1LnIq0W7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VD9BnXIC; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mz8G8Ll1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D77FC2BCB3;
-	Thu, 14 May 2026 16:56:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VD9BnXIC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D578C2BCB3;
+	Thu, 14 May 2026 16:58:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778777798;
-	bh=3toBXMpP4awO/mcKO1JYvkg+Qt/cHhm2X0K5cAsGqDQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=Mz8G8Ll1E7RkkDyz25X6LHsreB+eQUx2upkprv9Z7RGKO8GSjIAqPv1oWWZCbMA0m
-	 FBvppxk6YEuOr2bW5XHDwnBETL/Uf7VQ0CG9mtgwa5kYbmnItv+x8eXf6+b4PMrX1g
-	 dTUKheLGs8+Dotju2tV026tZSbSiGMt7ZrGElBbyEgH+ejCjxMIImxWniXhyQ1i/NB
-	 /G5yiFdaztNlTC32oNfr3iFl+DJIvI7r3TjODt+pWr/2dOMQnIO2wU/5YTpRFbRwsu
-	 otCktyLEdmsKlQ4BXhzyzSmSEd5Sw1x9h2SOilgyxiHJISJQU5NQXmoFW0U1lgmJbN
-	 UHGToBiTxwXlg==
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: avri.altman@wdc.com, bvanassche@acm.org, robh@kernel.org, 
- martin.petersen@oracle.com, krzk+dt@kernel.org, 
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: sowon.na@samsung.com, peter.griffin@linaro.org, 
- linux-scsi@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260417121452.827054-1-alim.akhtar@samsung.com>
-References: <20260417121452.827054-1-alim.akhtar@samsung.com>
-Subject: Re: (subset) [PATCH v2 0/4] add ufs support for Exynosautov920 SoC
-Message-Id: <177877779617.167822.12072849768585215518.b4-ty@b4>
-Date: Thu, 14 May 2026 18:56:36 +0200
+	s=k20201202; t=1778777893;
+	bh=gEJYTff5KkuHuN2JJ4XpcnxcZ3VQ94Vt8bozEYt+fis=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=VD9BnXICJhzMXgy0t/5rILrv7uOG9eazm2ex9GJHr2xpv07MBoX9upZS3DsovxraO
+	 vaCVJepPf2IIR+2Ri9JYEiQzmzyAMQKWW8zCit31gyxJcPVf6T7L6AgGjD//V+rbat
+	 V1A60gknr6IpNIZgQ+oW4p31Ff8J/slKDb60xJhEZEeC8cF1Lfkwbyh2WzaOsS7Dwu
+	 ab8KKX+PJiHA8tbDMB2RxTSrLbysRhwKtATwCQDhNP+7KRCWY+AlzLP1GfNqEbGDjf
+	 IX6+2D4RQKOaHIjkkwr/usisSGpzqQlHBvQdGZt550G2F1PZQRu/iGN9KmAQL1wfWt
+	 okLLAL+KKnw3Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 2/3] dt-bindings: display: bridge: analogix-dp: Add
+ data-lanes support for endpoint
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Damon Ding" <damon.ding@rock-chips.com>
+Cc: krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260514070133.2275069-3-damon.ding@rock-chips.com>
+References: <20260514070133.2275069-3-damon.ding@rock-chips.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 14 May 2026 16:58:12 +0000
+Message-Id: <20260514165813.1D578C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The patch silently adds a deprecated top-level `data-lanes` prop=
+erty that is completely irrelevant to the analogix-dp binding.
+- [Low] Inconsistent validation constraints for the `data-lanes` arrays.
+--
 
-On Fri, 17 Apr 2026 17:44:48 +0530, Alim Akhtar wrote:
-> This series adds ufs driver support for ExynosAutov920,
-> ExynosAutov920 has the UFSHCI 3.1 compliant UFS controller.
-> 
-> ExynosAutov920 has a different mask of UFS sharability from ExynosAutov9,
-> so this series provide flexible parameter for the mask.
-> 
-> With this series applied, UFS is functional and basic I/O operations are
-> known to be working.
-> 
-> [...]
+commit f1eb1174d9c0a3dbfb4324c331483cad76c51c68
+Author: Damon Ding <damon.ding@rock-chips.com>
 
-Applied, thanks!
+dt-bindings: display: bridge: analogix-dp: Add data-lanes support for endpo=
+int
 
-[1/4] arm64: dts: exynosautov920: Add syscon hsi2 node
-      https://git.kernel.org/krzk/linux/c/14b0c168c7038f1d9e50f27e47d8e285f52cd2a3
-[4/4] arm64: dts: exynosautov920: enable support for ufs controller
-      https://git.kernel.org/krzk/linux/c/ae326b14b2a5a5e426bea0210b984ee8dc5ed0bb
+This commit adds data-lanes property support to the port@1 endpoint for
+physical lane mapping configuration in the analogix-dp device tree binding.
 
-Best regards,
--- 
-Krzysztof Kozlowski <krzk@kernel.org>
+> diff --git a/Documentation/devicetree/bindings/display/bridge/analogix,dp=
+.yaml b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
+> index 62f0521b09245..a82f9b7776c0a 100644
+> --- a/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
+> +++ b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
+> @@ -36,19 +36,35 @@ properties:
+>        Hotplug detect GPIO.
+>        Indicates which GPIO should be used for hotplug detection
+> =20
+> +  data-lanes:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    deprecated: true
+> +    minItems: 1
+> +    maxItems: 4
+> +    items:
+> +      maximum: 3
 
+The commit message states that data-lanes support is being added to the
+port@1 endpoint, but this adds a top-level data-lanes property marked as
+deprecated.
+
+Is this top-level property addition intended?
+
+Looking at the analogix-dp driver history and earlier analogix_dp.txt
+bindings, a root-level data-lanes property does not appear to have been
+supported previously.
+
+Does this remnant come from another binding that was accidentally copied?
+Leaving it here might pollute the schema and allow invalid device trees
+to pass validation with just a deprecation warning instead of an error.
+
+[ ... ]
+>        port@1:
+>          $ref: /schemas/graph.yaml#/properties/port
+> -        description:
+> -          Port node with one endpoint connected to a dp-connector node.
+> +        description: Port node with one endpoint connected to sink devic=
+e node.
+> +        properties:
+> +          endpoint:
+> +            $ref: /schemas/media/video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +            properties:
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4
+> +                items:
+> +                  enum: [ 0, 1, 2, 3 ]
+
+This isn't a bug, but the valid items here are restricted using an enum,
+whereas the top-level property uses a maximum constraint.=20
+
+If the top-level property is removed as suggested above this inconsistency
+will naturally be resolved, but it is worth pointing out in case both
+properties are kept.
+
+> =20
+>      required:
+>        - port@0
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514070133.2275=
+069-1-damon.ding@rock-chips.com?part=3D2
