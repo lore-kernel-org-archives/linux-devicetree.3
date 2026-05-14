@@ -1,113 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B11A131F987;
-	Thu, 14 May 2026 01:42:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E72AD199FAB;
+	Thu, 14 May 2026 01:43:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778722975; cv=none; b=jh5uu7dOUPhqnFCZYN0GVcdEUJg0oaiI8Y+WNUpHxySfwX671UdquLcRY/ruvps12MeXrtLUFxeaKq60XUdhYSAWkt1GhMx+wq1Eu9UrjiYFT0lt+iiWG1ekpN8uydYIL1al/nDPGRdiCDYcKq0bQ1KrwZZu78Vu3emz1rpnzkM=
+	t=1778722990; cv=none; b=XTJlzs5O7ZSAQogGqFqTFsZOs9ICDd8QD+s4YsTtlRv52d5M2VZQvgEzOk36Jc3ZsRb2tZI7hb0DeW+a7NB6DzqdVq7RY405Kq2D48xC5HfxtWC+r2chWRkZD/KoyAEOvPTYEKslZjzwJ3AGL+wIBaBZphxEULe1820cjwZikuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778722975; c=relaxed/simple;
-	bh=oBhCuHah8JcJzRxbSplEMoBSn9c7+hDNbVI06xJE8n0=;
+	s=arc-20240116; t=1778722990; c=relaxed/simple;
+	bh=tbkXta1J5LNJvxTrrlmNwwq7gpShrZauM2s4gHK3eLA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S8mXB6oDdHQcSKOs2I6FVy9UeC7mlfqTEH4CmJj90lC4yflZvAsBpABnfmIEVlb8OvQxDHoh7y0gvF/T3C1PB/08oLcr0U5lvgSRcRBCbJKmFbWYWn4VMKTFhDp8h2s1ypguwx1hXo3iPmpUoq4BMs7VvjjZBwNRcGjxHmRlT5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LUQEggTA; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=J/GmE9f4fbnrHcQ6WzF4H6DDSg8c0obB+6ZIRmKYE6mClOA7dgKrURqGU6WX6NV/pKU/mQbCQIPtJvxIg7vstXdxOImvPXL4YlFV42Y6Px8ENQexIsjI7xNX26K+u1JwPA3uuTMnorr6BFc2zayV08DHs7mICoJNfw3rcaSafiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ORvpY4l/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LUQEggTA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35F06C19425;
-	Thu, 14 May 2026 01:42:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ORvpY4l/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D076C2BCB3;
+	Thu, 14 May 2026 01:43:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778722975;
-	bh=oBhCuHah8JcJzRxbSplEMoBSn9c7+hDNbVI06xJE8n0=;
+	s=k20201202; t=1778722989;
+	bh=tbkXta1J5LNJvxTrrlmNwwq7gpShrZauM2s4gHK3eLA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LUQEggTAnbX4mghOtvtXKy799oS38unx1v4B51VTgl0oxzaZHIsTAk+Ry6m2ICAjM
-	 wuw0qSH0EwNXwcWMmVOf5X7kiasv6J0sX73J3K2IbLorAOx1KyIpASgpQMO4lpMRFE
-	 1855QjA+/cHbABktGQpZ0j14oMOIDBq4PAV73j+WRSUU4eraKAR4mtxxPFqzH2c+pm
-	 //n86azelmDEacVYHBeumOhiBw3QOBqA4YibPkhizu4H6x7KWZiYmpeiQ3Q1YkgGSG
-	 ZAhLaPm/eegbbHtNhauBtVT0viC+mYbmzzq7l9BXpOzcneBho3WnJaOtsgA3FZvkyN
-	 50leu6uVsOc9w==
-Date: Thu, 14 May 2026 09:42:49 +0800
-From: "Peter Chen (CIX)" <peter.chen@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
+	b=ORvpY4l/C/qJPqdDWmMhmc8C/OWnNAP94onagxwPafYldCxx+iFTFTIholIoUG+lE
+	 luUEZZU2gVZ7cRBXzK4q1qiiUyly8m+3BX5u5nzxk7wDUAYcynb2Tq2HbP2PXujJ11
+	 nfMVuuoqDFgwAdJU+PEOv0bgEXaipvIPfTVXbTWva5CgeIV5jWU5NjQyH6xGj7+tyo
+	 C14lYxWuALKG6xBTAqNM6rK8AhDY14pUsBqBq48+SLMN2K/GpevkXCrbVJmf5iBf7p
+	 lkNrc7wiEKdpxOCpMdEkTtE7zYdLfx8hXf30kVXWIqc5oGe5Ol+e9eB/lNnr7Q1UXC
+	 QS9iLmdK96aqQ==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 71AE21AC58CE; Thu, 14 May 2026 02:43:07 +0100 (BST)
+Date: Thu, 14 May 2026 10:43:07 +0900
+From: Mark Brown <broonie@kernel.org>
+To: Alexey Charkov <alchark@flipper.net>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
-	linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org
-Subject: Re: [PATCH v1 2/6] usb: chipidea: tegra: Avoid controller/PHY init
- if bus is externally controlled
-Message-ID: <agUomUMW9Yu3n7ZK@nchen-desktop>
-References: <20260511135703.62470-1-clamor95@gmail.com>
- <20260511135703.62470-3-clamor95@gmail.com>
- <agJ/T8nBGWEoblmd@nchen-desktop>
- <CAPVz0n173syW9rXy7Qt_N=mChe6WBRLvjRDypcJEC50hPL4OMQ@mail.gmail.com>
- <agLb6mgP45jHjvNt@nchen-desktop>
- <CAPVz0n2yGALm1Z0j0j6_MaqAOZGL+a8EgCWYQpW0QN1YVf96EQ@mail.gmail.com>
+	Conor Dooley <conor+dt@kernel.org>, David Lin <CTLIN0@nuvoton.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] ASoC: codecs: nau8822: add support for supply
+ regulators
+Message-ID: <agUoq2N_nE_Sz0Z_@sirena.co.uk>
+References: <20260513-nau8822-reg-v1-0-c532e18e92ad@flipper.net>
+ <20260513-nau8822-reg-v1-2-c532e18e92ad@flipper.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vrCjTCIVc9SgWozE"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPVz0n2yGALm1Z0j0j6_MaqAOZGL+a8EgCWYQpW0QN1YVf96EQ@mail.gmail.com>
+In-Reply-To: <20260513-nau8822-reg-v1-2-c532e18e92ad@flipper.net>
+X-Cookie: Truckers welcome.
 
-On 26-05-13 20:30:10, Svyatoslav Ryhel wrote:
-> вт, 12 трав. 2026 р. о 10:51 Peter Chen (CIX) <peter.chen@kernel.org> пише:
-> >
-> > On 26-05-12 09:13:40, Svyatoslav Ryhel wrote:
-> > > вт, 12 трав. 2026 р. о 04:16 Peter Chen (CIX) <peter.chen@kernel.org> пише:
-> > > >
-> > > > On 26-05-11 16:56:57, Svyatoslav Ryhel wrote:
-> > > > > If the USB controller and PHY are externally controlled, then the
-> > > > > registration of the controller and the PHY initialization should be
-> > > > > skipped, since these configurations must be done by the device that
-> > > > > controls the bus to work correctly.
-> > > > >
-> > > >
-> > > > I find you only control USB controller device add at PHY driver, most of USB drivers
-> > > > has PHY control, for chipidea, it has PHY control at core.c, would please try to
-> > > > adapt for it?
-> > > >
-> > >
-> > > Usually yes, but this is not the case for Tegra unfortunately. As you
-> > > can see Tegra specific section of Chipidea driver specifically
-> > > describes why it has to set PHY manually.
-> > >
-> > > /*
-> > >  * USB controller registers shouldn't be touched before PHY is
-> > >  * initialized, otherwise CPU will hang because clocks are gated.
-> > >  * PHY driver controls gating of internal USB clocks on Tegra.
-> > >  */
-> > >
-> > > So in order to provide correct work of USB when set by an external
-> > > device, both PHY and controller init/add must be skipped.
-> >
-> > You could call generic PHY APIs at ci_hdrc_tegra.c, after PHY init or power on,
-> > call controller initialization.
-> >
-> 
-> I was tinkering with Chipidea driver for Tegra a bit. If you meant to
-> use flag only to control usb controller device init and leave PHY to
-> be handled by controller, then yes, that is possible and that is
-> better approach.
-> 
 
-Yes, you may summarize the initialization sequence, and see if put PHY
-control at Tegra glue layer or at Chipidea core.
+--vrCjTCIVc9SgWozE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
--- 
+On Wed, May 13, 2026 at 05:39:11PM +0400, Alexey Charkov wrote:
 
-Best regards,
-Peter
+> +	for (i = 0; i < ARRAY_SIZE(regulators); i++) {
+> +		ret = devm_regulator_get_enable_optional(dev, regulators[i]);
+> +		if (ret && ret != -ENODEV)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to get regulator %s\n",
+> +					     regulators[i]);
+> +	}
+
+As ever unless the device can work with the supply being physically
+absent regulators should never be optional.
+
+--vrCjTCIVc9SgWozE
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmoFKKoACgkQJNaLcl1U
+h9C9xgf9H5yCbmydtPVGo0h9e89LMXgDhDt7W4T78pU//PRAJqKaipbMDVWjTGaF
+dOft2LaFkRbmI4+j7wNwF+AOHlaRd6qT8+sXheaWpNGBBU2G8ypW1h0nOi8AXL49
+3r0ggZvZCnR4aSnSodqv/JIm67FWuOdCajXg1lDb1uD2XJtM6Z8GljoF7R8FNyqf
+oEBsuX9ekGUH1uPwykD6mgASyncbkoRZVTg3a/+q5a1iPx9qMWoTA4WqsfpuXWrL
+F9eDMPC2oyLhrFwDE27Ss7VUfvX56qHZ6q2B4BUYHW6vfOTr0g3k9DKAJtQqyWsZ
+tj7IZxl7qM4PP9XOeLqn4+f1gC7lMA==
+=uaFC
+-----END PGP SIGNATURE-----
+
+--vrCjTCIVc9SgWozE--
