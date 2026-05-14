@@ -1,100 +1,170 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FE3C38B7B0;
-	Thu, 14 May 2026 17:21:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95EE8344DA0;
+	Thu, 14 May 2026 17:24:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778779313; cv=none; b=PrpDVs4ELWBAIxl3fT9Xs9iZ7aaXTNMQjB7q3+hw2ipE9U90Qc0M77mfTtNzXm/VebFWnjOoi2T2KMMm17xGFdqUqXcNgrKDnZh7KTHUdHepgMdxWUv1UxzHs8Bw8hPbVGaL0wtL5oCk48N4FYkVE66FTi4cHMoHuX4ibQ+EyhY=
+	t=1778779495; cv=none; b=dAt/R6iYSjOEQwNTdfJiut0S5he9ml8xuIslvvSX1Q4P8Hk/QD31QlCl9d6R3PejHYIiG+eS2hbGvO5AQd0kDormbALPIabQcmJ8ktDr52eeGaPFT1ZScMj9GLQxzSHMEUycmUSPZis72HTFOpdfhRDdswbIbHkvd0iO9hLNXUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778779313; c=relaxed/simple;
-	bh=pZwg25nf4mUh7Qf+CSSYXgpx08fS04gW/9MlbOOqyBc=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=G1s5yHbiY9G/ygY6v/NkLMQTtvSsaw7e202AOYlhd2oUqIpQFqj5SvX1SQoop9noeScSvNRiPfQbKUBbU4qTk6CPb1q1wKdxjXe3sVYW80ZyK2F2MqhbOiLiepE8n161R/JFib/0f7V8iNHiS51VqqrhqUhH/NFFSFFqqZ/X13g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pnyMD/xl; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778779495; c=relaxed/simple;
+	bh=bAMBBHIU5JpHs5WIj7GRPOsNIX+w2cKhwu46K4nUuyY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ttniVKLO3uwbB0306lWptG3Ute94dZNCoBrYj2TRpV2CWc9AyAqsp7AeYc6E/i1IyNgMhizRVY4Rd0I9qNaKSxmhShtL4SaXh0d68F20JpqA7TyekQUi/dCMESqoP0X6iGiL/afifI9kWAEgYnmvHfWk7HtISy1FPYsEHsZpLxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YQw6V4ci; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pnyMD/xl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A21F2C2BCB3;
-	Thu, 14 May 2026 17:21:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YQw6V4ci"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 548E5C2BCB7;
+	Thu, 14 May 2026 17:24:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778779312;
-	bh=pZwg25nf4mUh7Qf+CSSYXgpx08fS04gW/9MlbOOqyBc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=pnyMD/xlWs8B2gzI1nXBEPPPnFwHFceNRoypISr4z8KM3WoOOJqqwzXrIHQm/XKTV
-	 1JQ77RZtxZaMK+jERzOCi5ETYQjG4jlaD+97V6qj/2LxgY+N4cFFynAW9dTsjObqxb
-	 9iEtiAvCwiT/eA/b2n4ihcXWKP/dHQtfCc+7IFtvzMFlNKz5A3iE+ACNCSBzG+fsRH
-	 vPiu6EM9Gip9XQMj1ya50aeuGzlg0A96N7MfSPRKT9Gi4G+OVHaNy77EwnWyw8vXu4
-	 mM9Fm373QxSFGman+sK9LVsrgaKnBLku34offJduPy2jxCjLPaRH7Q4RdQ6suhrMps
-	 N+r3Qm+rG1E7g==
-Date: Thu, 14 May 2026 12:21:51 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Matthew Leung <matthew.leung@oss.qualcomm.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] PCI: qcom: Add PCIe support for upcoming Hawi SoC
-Message-ID: <20260514172151.GA410819@bhelgaas>
+	s=k20201202; t=1778779495;
+	bh=bAMBBHIU5JpHs5WIj7GRPOsNIX+w2cKhwu46K4nUuyY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=YQw6V4cijzYe7SKFrySUuUYPvPQ1QJVwbLabWwMEWbQs0k5Dnz9cB2RZusB/mZySg
+	 5aTcEea7FYRgMY+lsH4nb26SR/qpuw/Ha5SzmCKd9s6CXvsjPOs6yJiD88e2JOexeo
+	 QzoL6LRz+Qt7AazjhFFpYRprAHD4kG53gaIS7X6dn7vuxdgt4X96j4hrt8D3zoULxa
+	 qr+gz4FqvbAJQhpk5TEZEPxgfuIhUcZ3qWDwzj9C57ZwXV+MCTUz8fnwzyBDuZROhm
+	 uenxzt45NoEfAbc0ijNMvurjmgRImL1+m36D4KGB58G3+FGFnWY7p81jGDUMow/3K6
+	 I48/5BUt7/H3A==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 46CBECD4F25;
+	Thu, 14 May 2026 17:24:55 +0000 (UTC)
+From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
+Date: Thu, 14 May 2026 12:24:49 -0500
+Subject: [PATCH v2 1/2] dt-bindings: display: panel: Add Chipone ICNA 35xx
+ OLED driver bindings
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260508-hawi-pcie-v1-0-0c910906f7e5@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260514-icna35xx-v2-1-45acd1dfa566@gmail.com>
+References: <20260514-icna35xx-v2-0-45acd1dfa566@gmail.com>
+In-Reply-To: <20260514-icna35xx-v2-0-45acd1dfa566@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778779494; l=2576;
+ i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
+ bh=u+xNtbXC2ipkpodEb8alKozIa29lnpYUjbXquoCzHmQ=;
+ b=D5QyChQvw1PtY6pF+5ePWpatZFHu7kX5ejKoZy3hJZ8E7SLTrlwJiZY8rC+puhkqYIRnHrm/K
+ tDCmJXjYu+aAPzh52yHs6NhRzt/rbOYyxdl5Hfp+UPPcw1+wKRKG+Xw
+X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
+ pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
+X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
+ auth_id=342
+X-Original-From: Aaron Kling <webgeek1234@gmail.com>
+Reply-To: webgeek1234@gmail.com
 
-On Fri, May 08, 2026 at 01:02:13AM +0000, Matthew Leung wrote:
-> This series adds PCIe support for the Qualcomm Hawi SoC. The Hawi
-> platform features two PCIe controllers: one capable of Gen3 x2 operation
-> and one capable of Gen4 x1 operation. The first patch adds the device
-> tree bindings documentation for the Hawi PCIe controller, and the second
-> patch adds driver support by enabling the Hawi compatible string in the
-> existing qcom PCIe driver.
-> 
-> This series depends on the following prerequisite series:
-> - [PATCH v3 0/7] clk: qcom: Add initial clock controllers for the
->   upcoming Hawi SoC (Change-ID: 20260316-clk-hawi-1ad4cad36d6a:v3)
-> - [PATCH v4 0/2] interconnect: qcom: Add support for upcoming Hawi SoC
->   (Change-ID: 20260311-icc-hawi-d6dc165f8935:v4)
-> 
-> These dependencies add necessary headers for running dt_binding_check
-> against the binding.
+From: Aaron Kling <webgeek1234@gmail.com>
 
-These apply cleanly to v7.1-rc1.  I suppose the dt_binding_check thing
-is the only real dependency?  Is there anything we need to do to
-enforce the dependency when these get merged upstream during the merge
-window?
+The Chipone ICNA35xx series of DDICs are high refresh, low power
+MIPI-DSI drivers for OLED panels. The icna3512 is used by the Ayn Odin 2
+Portal and the icna3520 is used by the Ayn Thor top panel and the Ayn
+Odin 3.
 
-> Signed-off-by: Matthew Leung <matthew.leung@oss.qualcomm.com>
-> ---
-> Matthew Leung (2):
->       dt-bindings: PCI: qcom: Document the Hawi PCIe Controller
->       PCI: qcom: Add support for Hawi
-> 
->  .../devicetree/bindings/pci/qcom,hawi-pcie.yaml    | 188 +++++++++++++++++++++
->  drivers/pci/controller/dwc/pcie-qcom.c             |   1 +
->  2 files changed, 189 insertions(+)
-> ---
-> base-commit: 4cd074ae20bbcc293bbbce9163abe99d68ae6ae0
-> change-id: 20260506-hawi-pcie-f61435ca420c
-> prerequisite-change-id: 20260316-clk-hawi-1ad4cad36d6a:v3
-> prerequisite-patch-id: c4fbb0620d748d7f1ee675ade5167775bd31c8ac
-> prerequisite-patch-id: ae5e212518cc333a1a93564cabfc6abd128df664
-> prerequisite-patch-id: 3c3816e0d595589fc02383f10e48c83a61fdc9d1
-> prerequisite-patch-id: cbc13fb819d1c1ee77957393f0958f05db8db864
-> prerequisite-patch-id: 17e2c0cfbbea826fefa1c67d0f5dc2094ab73d76
-> prerequisite-patch-id: 150dc74750377f4558deab6b179632872bcbb71c
-> prerequisite-patch-id: 38fe0da5b18610aeb32c7154f9e50187ccaec6a4
-> prerequisite-change-id: 20260311-icc-hawi-d6dc165f8935:v4
-> prerequisite-patch-id: a1ff655f0b21d6259b158ad9f99a95bde31257e6
-> prerequisite-patch-id: db21b6b20451be8475129faece7ef4191d41273c
+Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+---
+ .../bindings/display/panel/chipone,icna35xx.yaml   | 79 ++++++++++++++++++++++
+ 1 file changed, 79 insertions(+)
 
-I don't know where any of these change-ids or patch-ids come from.
+diff --git a/Documentation/devicetree/bindings/display/panel/chipone,icna35xx.yaml b/Documentation/devicetree/bindings/display/panel/chipone,icna35xx.yaml
+new file mode 100644
+index 00000000000000..6464d8d0cf86d5
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/chipone,icna35xx.yaml
+@@ -0,0 +1,79 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/chipone,icna35xx.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Chipone ICNA35xx display drivers
++
++maintainers:
++  - Neil Armstrong <neil.armstrong@linaro.org>
++
++description:
++  The Chipone ICNA35xx are a series of DDICs connected
++  using a MIPI-DSI video interface.
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - enum:
++              - ayaneo,pocketds-panel-top
++              - ayntec,odin2portal-panel
++          - const: chipone,icna3512
++
++      - items:
++          - enum:
++              - ayntec,odin3-panel
++              - ayntec,thor-panel-top
++          - const: chipone,icna3520
++
++  reg:
++    maxItems: 1
++    description: DSI virtual channel
++
++  vdd-supply: true
++  vddio-supply: true
++  vci-supply: true
++  disp-supply: true
++  blvdd-supply: true
++
++  port: true
++  reset-gpios: true
++  rotation: true
++
++required:
++  - compatible
++  - reg
++  - vdd-supply
++  - vddio-supply
++  - vci-supply
++  - disp-supply
++  - blvdd-supply
++  - reset-gpios
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++        panel@0 {
++            compatible = "ayntec,odin2portal-panel", "chipone,icna3512";
++            reg = <0>;
++            vdd-supply = <&vreg_l11b_1p2>;
++            vddio-supply = <&vreg_l12b_1p8>;
++            vci-supply = <&vreg_l13b_3p0>;
++            disp-supply = <&vdd_disp_2v8>;
++            blvdd-supply = <&vdd_bl_5v0>;
++            reset-gpios = <&tlmm 133 GPIO_ACTIVE_LOW>;
++        };
++    };
++
++...
+
+-- 
+2.53.0
+
+
