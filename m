@@ -1,157 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBB222126C
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 12:30:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F41D5212550;
+	Thu, 14 May 2026 12:31:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778761854; cv=none; b=cdzseP2HvdF/JatQDUgm0BkaG+axFZysyPf1Z1z+Om76BTFQiVH5Eo60NOUsw7CFxuQV1gdskq821b3jVhRDU4GOCuFHe8/Nuxfx2NZTGrJN3+VkkjhJO9ckHR/E07E6xW4a5xSwf7kr45mAiP6gT3kO7A9SAYBzLV4RwpQoHeE=
+	t=1778761886; cv=none; b=SL3buIAIKjO8k0xLJ6qaTx35gT+zYHh9+sz/NfIEgpegCeTXFOIXmS9nyCGoafvqHQVIG0EjyZ7F1WJUOoYZ1geeha/XojQmy3g7yzf7dITu9JMbiU78oPqBJgKwkPw7VW1e9dJpE4b4eIcHF7wu42BqH3uQ/JJwhS3glMpNCKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778761854; c=relaxed/simple;
-	bh=Tmnos9vhCuiRy4j7HGxOssgCygwTpEGJTlKSUHKgJRA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ohg5m/fFxjIAHzmIiSYmc+8xMhkUxB4OdhcO26F+ogQZ1iTQtnVFGkU/ZUVfEPE1R6X3cFH7bnQH0zMkw7lshKhy8s4ExGaKrP+Gz7J8H7Xwe2FEmK2rNLLs2GxUcnXELHuUE9WQv2DLmyWQBP2Xje38t7gqWdX0vCZNXL5IW2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WoD2tfQe; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778761886; c=relaxed/simple;
+	bh=IQQBQgl3Hn9undaNhaqXpFKj9URTS7yww1PdCo8Zzlo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=f+nUgNx/4tp+8OrjIZQ/SDHjBVRIgXMujd0U7Tp3pq81pgdrv0HxL/tl1jZIXkXn3XDwR1gKX+axwFYikAgmsT9O6G1eip+j2nimGDNmAEGyufFCsrM6OU5oRIbGlqFWGIg//yFj/o1qR8TiRZ3tb4P6oYYHtSJna/enJEo/Dkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bE486i7h; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WoD2tfQe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 809BDC2BCB3;
-	Thu, 14 May 2026 12:30:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bE486i7h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F07AC2BCB3;
+	Thu, 14 May 2026 12:31:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778761854;
-	bh=Tmnos9vhCuiRy4j7HGxOssgCygwTpEGJTlKSUHKgJRA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=WoD2tfQe1i6aNZ+AytsHDJ4Oh5kf7JXe0kNenWqP3k1fbcYX7KWpfvn1a3amGNpWK
-	 5EITDoW1Ze2+awp0zhl8OgqScz4MjO8puGtz2tI1WAwJR2hpkKvljXsOh9D1cdcpwJ
-	 jhdr4k7tnecK0YhWeq0aKGJoMxOdQfYLskxu7GOB4GJwrOpff9p0Xqcp1D4CXSDMRD
-	 qgmqaYPDVvWuOb7Vw3E8veupLCWSQDSBE9BDh4cYJuww97Uf7Z7weu8E2L+mYZsjSW
-	 9XrWFkPa/PMf477t1Zu7DAPu6Aq/6O1BFJDBOIwVzNIBOyRdV6j2gMFTC1Ij09RKC5
-	 7CdlrtrwiFfHQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/2] dt-bindings: usb: cdns3: Add cdns,no-drd
- property
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pawel Laszczak via B4 Relay" <devnull+pawell.cadence.com@kernel.org>
-Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260514-b4-no_drd_config-v7-1-18cc40e363fd@cadence.com>
-References: <20260514-b4-no_drd_config-v7-1-18cc40e363fd@cadence.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 12:30:54 +0000
-Message-Id: <20260514123054.809BDC2BCB3@smtp.kernel.org>
+	s=k20201202; t=1778761885;
+	bh=IQQBQgl3Hn9undaNhaqXpFKj9URTS7yww1PdCo8Zzlo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=bE486i7hjYR8dY7y7zh50jmxBtLZXnJGkon+SgQUwO2e8GFaw1xvUJ1ZYedZDcLcg
+	 fLTkcOCnlOqRq1qiZlCWGp/rDlUr2LJVe3u1SlARq/p8Pko54zpwyzP05TDhzIzvvN
+	 0PfZFatW/f1TW77VV2LNKQtNBXYHl9pEnEyYPPVRRLQ8qBipXz4Zems/X5fPkeeE/t
+	 SiOFpNbCRSQPkYEpG9ypc12tJX7u8Go1hNPNzFvGVvGsKvJFmHaPNyiFOTpxOii/Uq
+	 sdKcb/jCvEfRtlHUu+6B6iutqDt5zLPCvUM2pyTbmVBBAKz0sgY9bLZT5lnrt0mDbC
+	 owjsKp9bRVY0A==
+Message-ID: <79460478-2dfc-4d94-8f8c-48ee3e23139b@kernel.org>
+Date: Thu, 14 May 2026 14:31:21 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] dt-bindings: arm: qcom: document the Ayaneo Pocket
+ DS
+To: Alexandre Hamamdjian <azkali.limited@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Teguh Sobirin <teguh@sobir.in>
+References: <20260511-pocketds-v2-0-299dd4247f2f@gmail.com>
+ <20260511-pocketds-v2-1-299dd4247f2f@gmail.com>
+ <20260514-electric-industrious-zebra-7818ba@quoll>
+ <CAL5cOWtRUs-XF5Y6+X-G3PVkGQp-ts+HTiAfzezVjQqYoyt1NQ@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <CAL5cOWtRUs-XF5Y6+X-G3PVkGQp-ts+HTiAfzezVjQqYoyt1NQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] The schema fails to enforce that `dr_mode` is required when `cdn=
-s,no-drd` is present.
-- [Medium] The conditional blocks enforce strict array ordering for `reg-na=
-mes`, directly contradicting the commit message's claim of supporting flexi=
-ble ordering.
-- [Medium] The `if/then/else` logic fails to fully enforce array length con=
-straints for `reg` and `reg-names`, breaking backward compatibility and all=
-owing invalid configurations.
---
+On 14/05/2026 14:24, Alexandre Hamamdjian wrote:
+> The DT was adapted by myself to fit the upstream standards and one bug was
+> fixed too.
 
-commit 27ad576607394b6bdaff814912f5101ce8966dd5
-Author: Pawel Laszczak <pawell@cadence.com>
+Do not top post.
 
-dt-bindings: usb: cdns3: Add cdns,no-drd property
+Do we talk about DT here?
 
-This commit introduces the cdns,no-drd property for Cadence USB controllers
-where the dual-role device register block is missing or inaccessible. It
-updates the schema to conditionally modify the requirements for reg,
-reg-names, interrupts, and dr_mode based on whether this property is presen=
-t.
-
-> diff --git a/Documentation/devicetree/bindings/usb/cdns,usb3.yaml b/Docum=
-entation/devicetree/bindings/usb/cdns,usb3.yaml
-> --- a/Documentation/devicetree/bindings/usb/cdns,usb3.yaml
-> +++ b/Documentation/devicetree/bindings/usb/cdns,usb3.yaml
-[ ... ]
-> @@ -93,6 +98,45 @@ allOf:
->    - $ref: usb-drd.yaml#
->    - $ref: usb-xhci.yaml#
-> =20
-> +  - if:
-> +      required:
-> +        - cdns,no-drd
-> +    then:
-> +      properties:
-> +        reg:
-> +          items:
-> +            - description: XHCI Host controller registers
-> +            - description: DEVICE controller registers
-
-Since the top-level schema relaxes maxItems to 3, does this then block
-need an explicit maxItems of 2 for reg?=20
-
-In JSON schema, defining an items list inside a conditional block does not
-implicitly restrict the maximum length, which could allow an invalid third
-register item to silently pass validation.
-
-> +        reg-names:
-> +          items:
-> +            - const: xhci
-> +            - const: dev
-
-The commit message states reg-names uses enums to allow flexible ordering
-during validation. However, does defining items as an array of constants in
-this block enforce a strict positional sequence?=20
-
-Tuple validation requires xhci to be the first element and dev to be the
-second, which seems to contradict the intended flexibility.
-
-Similarly, does this block also need an explicit maxItems of 2 to match
-the expected length?
-
-> +        interrupts:
-> +          maxItems: 2
-> +        interrupt-names:
-> +          items:
-> +            - const: host
-> +            - const: peripheral
-> +        dr_mode:
-> +          enum: [host, peripheral]
-
-The commit message notes dr_mode must be explicitly set to either host or
-peripheral. Does the then block need a required list containing dr_mode to
-enforce this?=20
-
-Currently, the schema restricts the allowed values but will still pass
-validation if a device tree node omits dr_mode entirely.
-
-> +    else:
-> +      properties:
-> +        reg:
-> +          items:
-> +            - description: OTG controller registers
-> +            - description: XHCI Host controller registers
-> +            - description: DEVICE controller registers
-> +        reg-names:
-> +          items:
-> +            - const: otg
-> +            - const: xhci
-> +            - const: dev
-
-Just like in the then block, does defining items as an array of constants
-here prevent flexible ordering by enforcing otg, xhci, and dev in that
-exact sequence?
-
-Also, since the top-level schema was relaxed to allow a minimum of 2 items,
-do reg and reg-names need an explicit minItems of 3 here?=20
-
-Without it, an array of just 2 items could pass validation when cdns,no-drd
-is absent, which breaks the intended backward compatibility of requiring all
-3 resource sets.
-
-> +        interrupts:
-> +          minItems: 3
-> +          maxItems: 4
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514-b4-no_drd_=
-config-v7-0-18cc40e363fd@cadence.com?part=3D1
+Best regards,
+Krzysztof
