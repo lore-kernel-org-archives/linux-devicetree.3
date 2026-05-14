@@ -1,46 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C4E53FFAB4;
-	Thu, 14 May 2026 15:40:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 702153F412D;
+	Thu, 14 May 2026 15:47:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778773216; cv=none; b=NPjA6nPkpe5heCfgXXnE0yclE00iU5hMc3xiBFCgBDuIV5P20XDAroGRMmiqu3BAgSmTMRgE5h/1EABJd4haCkuNpPMr5lnSTm27nwNgqzp87RLMxEnb/AqJV3WTlLJuUYD0UmHou+X5dp/r6k4W67ZB06e3pRE8qmhNaH9LWr0=
+	t=1778773675; cv=none; b=d7WOSPMaRzCq/4MGDck9YeAdrv6nmtMLlaBmDhvyJ1xoYCdVO51i7KiGcA70hV+fhv8Jr4aj8O+W3XqgYp3Lp3M2kISu4hFi04EG26tvcuLtBN2YTrKncE53mV8n2xACkBGIkTf/A39qW97jv70Klu13M70gKhy8URnO49kk+NM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778773216; c=relaxed/simple;
-	bh=tYsv36+PT51x8rdLun2D3vh6RINRzkNfY2gGHnYj0lg=;
+	s=arc-20240116; t=1778773675; c=relaxed/simple;
+	bh=hakuzLCAWj8yoot5OzqP5fmDkWpL+zmv18POZOyqyYw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aZJ9sRgoPv4RuzFk5JSA/jai8t5GssvhkW4wVbRHS5w3h4PD4N8YeS1WFDhZfvFthtrQwDSS41UjpImNNyCR3D0p2sBk4IZlgKMdRHWvn8Se0pcQU5v1FxsqjBJ5VP5jzWgjnFcWtE2dx1fXbcNyiZ/wyqVcYsbI7iM4ZPBktcY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nMUGQjNM; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=NgPYv3ewMvGfjIaASje9CoHeLFmTIDg2uvdaWer1Clu+WqaqredHoSIO45Q+eIGFt76jmZdqGaTHtV8I6FMTvQkH4NRZ3GPTxCSRFBm0sYXiORyzROD2BEwI3uuCfwCc7qi3ya5DeHqA4eIbwAvBmkAMvmqOUNqh33XF/LtBbsU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NyARr4/S; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nMUGQjNM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09393C2BCB3;
-	Thu, 14 May 2026 15:40:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NyARr4/S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0EB1C2BCB3;
+	Thu, 14 May 2026 15:47:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778773216;
-	bh=tYsv36+PT51x8rdLun2D3vh6RINRzkNfY2gGHnYj0lg=;
+	s=k20201202; t=1778773675;
+	bh=hakuzLCAWj8yoot5OzqP5fmDkWpL+zmv18POZOyqyYw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nMUGQjNM/m8h2xsMDll5ItMrYXeFePrY6CzbuItO/7SqnuZJkao0dGIm3rm8Svdbd
-	 57GxSXcQ/ojQGnXI/cuEAoBtyfBPgSwmx3Etu+ydL4bGFOL+J9hW9cn60pGRJrTqWV
-	 Jof5afrL/7gtlnLbj2VPdYk3fJNSyJYWFRrxhmAVlVMkGzORiSxZASAQg0Aler9061
-	 x4ZX/3pSWL8h7K3IflC+gaP68zM3YQ3uQ8WK+oBgOjfX+PQUhr2x0RhoRTL/k0hBZs
-	 HooAl1//3QGmkNR09TQ+9zE0BSaNqd06mwKEvMa8Z3zvOHVgFJ6Ic+KAI8TrGcuzyB
-	 ZopBGILhzT9Fw==
-Date: Thu, 14 May 2026 10:40:13 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Antoine Bouyer <antoine.bouyer@nxp.com>
-Cc: julien.vuillaumier@nxp.com, jacopo.mondi@ideasonboard.com,
-	alexi.birlinger@nxp.com, anthony.mcgivern@arm.com,
-	laurent.pinchart@ideasonboard.com, geert@linux-m68k.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org, frank.li@nxp.com,
-	linux-media@vger.kernel.org, peng.fan@nxp.com, mchehab@kernel.org,
-	linux-kernel@vger.kernel.org, paul.elder@ideasonboard.com,
-	michael.riesch@collabora.com, daniel.baluta@nxp.com,
-	ai.luthra@ideasonboard.com, imx@lists.linux.dev, krzk+dt@kernel.org
-Subject: Re: [PATCH v2 1/8] dt-bindings: media: Add nxp neoisp support
-Message-ID: <177877321312.739505.3760588703401775306.robh@kernel.org>
-References: <20260511132629.1300868-1-antoine.bouyer@nxp.com>
- <20260511132629.1300868-2-antoine.bouyer@nxp.com>
+	b=NyARr4/SV4uQF004gXSZRXgzzsq/pYYXjhDKE/YKS20QQazeXJwy7WFZMZ90gQPWn
+	 VpApF+51GE2AdfskKHNIz174qCwfk0DdjQR/e/sHipziqKeXkkOC8dcygr+FQjBW40
+	 Zi0Zw+tBYwuvYdQ7Hj7X712GSv/9wM/mX/pR6VxXbzqC77TDORrD8TfFsDBV9BJE5E
+	 C+rglsrnxiLNhm/hnk60Y6qQ9I/otV92dRhRi+zW8gYqm9/1Y+BOeUxH13HXWUziOT
+	 c/VQimfrLR96I2ukXbVyAmhNDkXtNeMEDePF0k/jqR1bvk9l0Q+3bMkrWgIsjahtpq
+	 Kc8Akp6K4RDSg==
+Date: Thu, 14 May 2026 10:47:50 -0500
+From: Rob Herring <robh@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>,
+	krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v2 04/16] dt-bindings: mfd: mediatek: mt6397: add mt6323
+ PMIC thermal
+Message-ID: <20260514154750.GA740881-robh@kernel.org>
+References: <20260512-mt6323-v2-4-3efcba579e88@protonmail.com>
+ <20260513050008.8C829C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,18 +44,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260511132629.1300868-2-antoine.bouyer@nxp.com>
+In-Reply-To: <20260513050008.8C829C2BCB7@smtp.kernel.org>
 
-
-On Mon, 11 May 2026 15:26:21 +0200, Antoine Bouyer wrote:
-> Add the yaml binding for NXP's Neo Image Signal Processor (ISP).
+On Wed, May 13, 2026 at 05:00:07AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Medium] The `#thermal-sensor-cells` property is constrained to 1, but the MT6323 hardware only possesses a single thermal sensor, violating DT ABI design principles.
+> - [Low] The device tree example is missing the `adc` node and its corresponding `mt6323_adc` label, which is referenced by the new `thermal` node.
+> --
 > 
-> Signed-off-by: Antoine Bouyer <antoine.bouyer@nxp.com>
-> ---
->  .../bindings/media/nxp,imx95-neoisp.yaml      | 62 +++++++++++++++++++
->  1 file changed, 62 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/media/nxp,imx95-neoisp.yaml
+> commit 5d14cb32b8298f2c8dd1f6c1a6921b9e3942bf24
+> Author: Roman Vivchar <rva333@protonmail.com>
 > 
+> dt-bindings: mfd: mediatek: mt6397: add mt6323 PMIC thermal
+> 
+> This commit adds devicetree binding documentation for the MediaTek mt6323
+> thermal monitoring hardware, which reads temperature via an AUXADC channel.
+> It configures #thermal-sensor-cells to 1 and includes a thermal node in
+> the example block.
+> 
+> > While mt6323 exposes only a single thermal sensor, newer PMICs like
+> > mt6358 provide more than one sensor. Therefore define #thermal-sensor-cells
+> > as 1 to avoid breaking devicetree ABI in the future.
+> 
+> Since the mt6323 hardware only possesses a single thermal sensor, shouldn't
+> #thermal-sensor-cells be constrained to 0?
+> 
+> Future hardware variants like the mt6358 will use different compatible
+> strings, which can then define their own #thermal-sensor-cells: const: 1
+> constraint without affecting the mt6323 ABI.
+> 
+> Setting it to 1 here forces a dummy cell argument on single-sensor mt6323
+> devices, misrepresenting the actual hardware.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+No, that's fine.
 
+> 
+> > diff --git a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml b/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
+> > index beaa67bf0df2c..2c826737189e7 100644
+> > --- a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
+> > +++ b/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
+> [ ... ]
+> > @@ -511,6 +547,14 @@ examples:
+> >          rtc {
+> >              compatible = "mediatek,mt6323-rtc";
+> >          };
+> > +
+> > +        thermal {
+> > +          compatible = "mediatek,mt6323-thermal";
+> > +          nvmem-cells = <&mt6323_thermal_calibration_data>;
+> > +
+> > +          io-channels = <&mt6323_adc MT6323_AUXADC_CHIP_TEMP>;
+> 
+> Does the mt6323_adc label exist in this example?
+> 
+> Looking through the example block, the adc sub-node and its corresponding
+> mt6323_adc label do not seem to be defined. Will this cause dtc to fail with
+> a reference to non-existent node or label error during dt_binding_check?
+
+Annoyingly, sashiko seems to consistently get this comment wrong.
+
+Rob
