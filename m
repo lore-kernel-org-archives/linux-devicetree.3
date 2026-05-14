@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E49D1314B96;
-	Thu, 14 May 2026 18:05:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0684325704;
+	Thu, 14 May 2026 18:07:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778781952; cv=none; b=WPZVWMIs/s+pghiOL0lP+662zIkiSF0o483jCmo78Ncuh7eiQnd06aMMhJVRgmegLxP2Nu0DZtq4IECVnz1h0geHCPf2MDOF7hNNd6cEYE5C7bK5Hdh1ZUf9EOKZTMZWdkx+SP2Pih84fqnoUMb60f38V4C6P/qgBSHNNADUnvY=
+	t=1778782021; cv=none; b=phhFJHkWCDKtf0qaHDcKPvMeF6T9G1n/4OTuWby+O3/GP1/cyo//5JAzjUPkeqpeKUIOTUDNfYNhQwhtNG/0N/8lTHLRXsV56DonRb+8cYCTDRNS2Jt4b8dKMXaeIAwktvpbEcXHEORJhAn4J1usxUXQ4kERqb1emnHfsgZqq8I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778781952; c=relaxed/simple;
-	bh=6KWlQ8RIVzRCQ77UWcLUxEvtH+ekjdcFQYoM+Oiqfa8=;
+	s=arc-20240116; t=1778782021; c=relaxed/simple;
+	bh=ZJhDvmaNEP1ySX2XrRgUq2t9T2ZNXHWBA7mglE4QaNs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kjB3m8cZZ/mZ3/IpqQ63v2a43j6d8HlnYvu5+yilbwFPM1+ZywydxYDb2aeJwxfhgXHVC9ZlGIjFsHmPOxf/tPvb1F2juuSx/Y4oZ04/P1KdwC37U4MxO9oh5vwZBEIX50ARUhFI2tq46hKvSkA+HCjBGuSwu+SZI7qsXH65z5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I0zWQzmy; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=eQWRhXKwWo3MrOFn5u4b5dXN4pJJKMHpBS4Zq+VSI8txk3j8nUgJxfewBAv41FhssR9swou04mKgbuNjs2mA3PGzYQ/slGfDcA5wEwB9iyPQ0Tv4SGh0qkWUHm1zXzXcH0x9tZ8Q8ZHs92lBCjlhDvFGVz16r43y1W05In/DlI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wh5bwybi; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I0zWQzmy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C68BC2BCB3;
-	Thu, 14 May 2026 18:05:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wh5bwybi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98A05C2BCB3;
+	Thu, 14 May 2026 18:06:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778781951;
-	bh=6KWlQ8RIVzRCQ77UWcLUxEvtH+ekjdcFQYoM+Oiqfa8=;
+	s=k20201202; t=1778782021;
+	bh=ZJhDvmaNEP1ySX2XrRgUq2t9T2ZNXHWBA7mglE4QaNs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=I0zWQzmyww/yiGrsxZC2vAtafAXGKaxJMlqlUTwCconlOcy2zmWCAa17AfoP1Qmy1
-	 ESfFr9wN9rihRwdzswHzdLT+4DEbDufvpJE3v8AunpRJnSYlFO1xU007JjVhVlx0Zq
-	 xt9ep1xtBsIyqprGM/UFGrc3ZNnQIAo9+/76yvvq6A2af/IYXZvAzmsDjTTJbKNLZr
-	 s0GGIaAOO4mV9QYVduz2u0xOX4gpqJ+cfd7rDzhZntnF+74PozkvXjhnDeVC6k0QCp
-	 fumIBDnDIcdePLc74WY/K0jUZaU34AIOslVmxEWrLotDiTcuA6YFFB42CCNvFV34cC
-	 zkF9nhen+oGmQ==
-Date: Thu, 14 May 2026 19:05:46 +0100
+	b=Wh5bwybi1QPNyvNi3hFQ1/ZJnAsKgvnQpQO38MT+AXZ7iFU4+O++iUmpyUyRRIwwB
+	 jJ5tZCknJoAeyl/NI1y/QzinPuC5dGRuvK1gb0AncPhLjfJz9KdRamy3jDdRurjuzA
+	 Jnj0krRWE0tqVls5+v4ONDtKJsh23y3Z7hS2JN+Sep9M3IzorTMP011rHy4ptCO7oc
+	 8OxC9ja3PfY9VLZ9LeGabPIInLXMD0dVhSRWoSYbY1j/n5ums78FFuzzqlLCYkdKiX
+	 +S7yOLVLHllpWrBi3IOQWxiK8yOBLGcovB/xjb6JP1E/lbt9sJvUtwqo5Yi6tKhgxn
+	 STEpGoTWbqPrw==
+Date: Thu, 14 May 2026 19:06:56 +0100
 From: Conor Dooley <conor@kernel.org>
 To: webgeek1234@gmail.com
 Cc: Neil Armstrong <neil.armstrong@linaro.org>,
@@ -38,13 +38,12 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Teguh Sobirin <teguh@sobir.in>
-Subject: Re: [PATCH v2 2/2] drm/panel: Add panel driver for Chipone ICNA35XX
- based panels
-Message-ID: <20260514-sphere-overstep-e564bf7ca609@spud>
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: display: panel: Add Chipone ICNA
+ 35xx OLED driver bindings
+Message-ID: <20260514-ambush-salvation-ce6616190390@spud>
 References: <20260514-icna35xx-v2-0-45acd1dfa566@gmail.com>
- <20260514-icna35xx-v2-2-45acd1dfa566@gmail.com>
+ <20260514-icna35xx-v2-1-45acd1dfa566@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,37 +51,94 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="8ucwXBV2pTA92cg3"
+	protocol="application/pgp-signature"; boundary="2GlSKCpp1lgwMr3n"
 Content-Disposition: inline
-In-Reply-To: <20260514-icna35xx-v2-2-45acd1dfa566@gmail.com>
+In-Reply-To: <20260514-icna35xx-v2-1-45acd1dfa566@gmail.com>
 
 
---8ucwXBV2pTA92cg3
+--2GlSKCpp1lgwMr3n
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, May 14, 2026 at 12:24:50PM -0500, Aaron Kling via B4 Relay wrote:
+On Thu, May 14, 2026 at 12:24:49PM -0500, Aaron Kling via B4 Relay wrote:
+> From: Aaron Kling <webgeek1234@gmail.com>
+>=20
+> The Chipone ICNA35xx series of DDICs are high refresh, low power
+> MIPI-DSI drivers for OLED panels. The icna3512 is used by the Ayn Odin 2
+> Portal and the icna3520 is used by the Ayn Thor top panel and the Ayn
+> Odin 3.
+>=20
+> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> ---
+>  .../bindings/display/panel/chipone,icna35xx.yaml   | 79 ++++++++++++++++=
+++++++
+>  1 file changed, 79 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/display/panel/chipone,icna=
+35xx.yaml b/Documentation/devicetree/bindings/display/panel/chipone,icna35x=
+x.yaml
+> new file mode 100644
+> index 00000000000000..6464d8d0cf86d5
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/chipone,icna35xx.ya=
+ml
 
-> +static const struct of_device_id icna35xx_of_match[] = {
-> +	{ .compatible = "ayaneo,pocketds-panel-top", .data = &odin2portal_desc },
-> +	{ .compatible = "ayntec,odin2portal-panel", .data = &odin2portal_desc },
-> +	{ .compatible = "ayntec,odin3-panel", .data = &thor_top_desc },
-> +	{ .compatible = "ayntec,thor-panel-top", .data = &thor_top_desc },
+Filename matching a compatible please.
 
-This looks like you could be using the fallback compatibles instead of
-matching on the panel's. Why aren't you?
+> @@ -0,0 +1,79 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/panel/chipone,icna35xx.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Chipone ICNA35xx display drivers
+> +
+> +maintainers:
+> +  - Neil Armstrong <neil.armstrong@linaro.org>
+> +
+> +description:
+> +  The Chipone ICNA35xx are a series of DDICs connected
+> +  using a MIPI-DSI video interface.
+> +
+> +allOf:
+> +  - $ref: panel-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - items:
+> +          - enum:
+> +              - ayaneo,pocketds-panel-top
+> +              - ayntec,odin2portal-panel
+> +          - const: chipone,icna3512
+> +
+> +      - items:
+> +          - enum:
+> +              - ayntec,odin3-panel
+> +              - ayntec,thor-panel-top
+> +          - const: chipone,icna3520
 
-> +	{ /* sentinel */ }
+Commit message should state why these ddics are not compatible with one
+another.
 
---8ucwXBV2pTA92cg3
+Rest of this seems okay.
+
+pw-bot: changes-requested
+
+Thanks,
+Conor.
+
+--2GlSKCpp1lgwMr3n
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagYO+gAKCRB4tDGHoIJi
-0nw+AP41Ku2HWXkra/HXNztY5J9SEr7akWQjJG1cuFKy3o8E2QD/bRXSbw6R7pj0
-YNGiZAxKrIe7OiPPDd5I8iHoFIRrVQc=
-=7jGk
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagYPQAAKCRB4tDGHoIJi
+0qhTAQDuWpG815w2psYFuRBAqW6QCw0uwketZvhj1aQkpAzUmAEA07sYOL9/Ytzo
+9JO/9/41YAeuQ1TpbaG+Em0qhu8CBQo=
+=yJu9
 -----END PGP SIGNATURE-----
 
---8ucwXBV2pTA92cg3--
+--2GlSKCpp1lgwMr3n--
