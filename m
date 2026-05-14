@@ -1,66 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79B0338A715;
-	Thu, 14 May 2026 12:20:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9A33630A4;
+	Thu, 14 May 2026 12:21:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778761239; cv=none; b=XBd6dVJhjtR0JjHiIILzu359kslxzt53p5Zv1/j/HY0rK2TCtsKy7CH48wVQ52dzqmCxFqhW8A8qeypukS5UOdy+A8r79zo71WuC0uMjHvsTEORDbRhIc5s408IdYL1rnHqhEzYja/r2qTN3gIkYUW+qOWm2a+k17vyrc4F6pQ0=
+	t=1778761277; cv=none; b=nklR/59USvocHsxyEOD75PwqKGsGnpV3hXeUoazRobUFHeoFjBrHt0nHPcpO0uX1G/jvzlb9kO9mnbNqUcWcUhXCx6pTlji7Q3W4qf5uuS3HHB2Rk+Ev0lk6BRAbctxSttt/Oh65wY2zDbC1Aer9fuWc4lw3yfvNCm1mZhKeVcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778761239; c=relaxed/simple;
-	bh=IbTNOhq3+JGJrRBK3S3BqU51FTc5CP4V6aEDy37QsuU=;
+	s=arc-20240116; t=1778761277; c=relaxed/simple;
+	bh=khRa9McxbmLHTYp74Hoq8veFFCPgZN8lKtg5edbeejE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Nd7gpHyoW8UdHX+HSEwPZpuGmqLQDWkS9DJ6jMvUfA0BIt7Q42L/CZTpATUVwnVHEeBrX7HJL+yJNYqehKqtEuJSA7nRdNDaC6+LNssZdTG5UnTT/USROApmuAwcQeyDM8DU9gqMVQizctHNxNLYmgi4LneLYhhk5h0H9Hoy3Vg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QaOusny+; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=DzmG9Q/cZGz6drptfQ3Ikn4iX479Wc348Nv87hKJ9WlRsK5IIc7bgJMAnSCY6URxCUrCpAosxQPkz/gkcD9ktzIcBjgd44Nk1bj8qHAxgeAIrIXfI90uVjoEYS2gtshO4wta7JNFPiMCjjm6A0EWYUXdsl4R8J1gRsNdzvYxloI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=B97BlKiF; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QaOusny+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90BA4C2BCB3;
-	Thu, 14 May 2026 12:20:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778761239;
-	bh=IbTNOhq3+JGJrRBK3S3BqU51FTc5CP4V6aEDy37QsuU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QaOusny+HTlYYKcwcQ7uaViYslQMQxSG25pjHG+wfaggMuETmlHpFlqmDPOSddwdZ
-	 1fZZ8HWNeOb3XSSpyhQ6kpywd7ObGX+3gJgTFz7m7eEzzElToiDvdRXUzPAZ1/4R+7
-	 4+ECrs4EWBm9P3IG9skx4P6t2mjY+lL923cuh36yrGer3G6ipy0u8LeEvmlj0KUB/v
-	 LbtHPjTKCE0acdrwHMglqB4kfYBJ/CZT3iSZvOzi+ku/aIOYWV8ltsyJJU1UOH/e0e
-	 Xw06lsT2bLKYp8qtmCeqASgScrWyudDdmhUGOAzk9xn+9z7ajpmepYnNdFOj2LJ3qK
-	 g4JR3jkhjICDg==
-Date: Thu, 14 May 2026 14:20:36 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Alexandre Hamamdjian <azkali.limited@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Teguh Sobirin <teguh@sobir.in>
-Subject: Re: [PATCH v2 1/3] dt-bindings: arm: qcom: document the Ayaneo
- Pocket DS
-Message-ID: <20260514-electric-industrious-zebra-7818ba@quoll>
-References: <20260511-pocketds-v2-0-299dd4247f2f@gmail.com>
- <20260511-pocketds-v2-1-299dd4247f2f@gmail.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="B97BlKiF"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=94Ic/9CsfFr/0ROJJfVe7Gx4bPx2TLQEhtf2mTZcMps=; b=B97BlKiF6k34mztIAQfNk/qG9I
+	aqN+0LW1JPDaYz3xsxxM3YcuqGWI5IA7SKeMcqoK36g0DwIumWwpD06o6TwL6FgGHPlC2hq8S0rzV
+	89lR403rrn5zNbC2TD7r9Tm2K+VdkAUOkJDlIW8pu8t5v8pa5kFu3btGpdXa0PxYDZzk=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wNV3o-002tvn-BL; Thu, 14 May 2026 14:21:04 +0200
+Date: Thu, 14 May 2026 14:21:04 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+Cc: Piergiorgio Beruto <Pier.Beruto@onsemi.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
+	"davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@google.com" <edumazet@google.com>,
+	"kuba@kernel.org" <kuba@kernel.org>,
+	"pabeni@redhat.com" <pabeni@redhat.com>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net-next v2 1/9] dt-bindings: net: add onsemi's S2500
+ 10BASE-T1S MACPHY
+Message-ID: <785c24de-056d-42d6-b810-2656c94cfb41@lunn.ch>
+References: <CY8PR02MB924920C8825C7AE5D22EFA4483382@CY8PR02MB9249.namprd02.prod.outlook.com>
+ <20542d76-6f70-4c2d-9fef-0de620a8d6d1@lunn.ch>
+ <CY8PR02MB924974BBC348DE4814DA3C7C83062@CY8PR02MB9249.namprd02.prod.outlook.com>
+ <3c5aa072-9107-440c-820f-3f63aa3ac3e9@lunn.ch>
+ <CY8PR02MB9249D14ADE162A6854C72B9783062@CY8PR02MB9249.namprd02.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260511-pocketds-v2-1-299dd4247f2f@gmail.com>
+In-Reply-To: <CY8PR02MB9249D14ADE162A6854C72B9783062@CY8PR02MB9249.namprd02.prod.outlook.com>
 
-On Mon, May 11, 2026 at 06:33:53PM +0700, Alexandre Hamamdjian wrote:
-> From: Teguh Sobirin <teguh@sobir.in>
+On Wed, May 13, 2026 at 11:53:07PM +0000, Selvamani Rajagopal wrote:
 > 
-> Document the Qualcomm QCS8550 based Ayaneo Pocket DS gaming console.
+> > > I believe this will affect the parameters passed to request_irq in oa_tc6.c. At present,
+> > IRQF_TRIGGER_FALLING is used. It has to be changed to IRQF_TRIGGER_LOW.
+> > > BTW, I did test with this configuration. Both edge triggered and active low, level
+> > triggered seem to work, though technically it is supposed to be level triggered.
+> > >
+> > > My understanding is that I should submit this particular change to oa_tc6, to net, not
+> > net-next as it falls under bug fix. Can you confirm?
+> > 
+> > Yes, this is a bug. Please submit it to net, and include a Fixes: tag.
 > 
-> Co-developed-by: Alexandre Hamamdjian <azkali.limited@gmail.com>
-> Signed-off-by: Alexandre Hamamdjian <azkali.limited@gmail.com>
-> Signed-off-by: Teguh Sobirin <teguh@sobir.in>
+> Andrew,
+> 
+> I am preparing the patch for this issue.
+> 
+> Wondering who would fix this in the YAML file? The maintainers from the respective vendors ? The specific file in question is, microchip,lan8650.yaml.
 
-That's pretty messed DOC chain. I also wonder what was co-developed
-exactly in this trivial binding...
+You could use git blame to find out who added that part, and report
+the issue to that person. Ask them if they have time to fix it.
 
-Best regards,
-Krzysztof
+Or just fix it yourself, and Cc: everybody who has touched that file.
 
+    Andrew
