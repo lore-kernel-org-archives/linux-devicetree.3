@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11C843AEF4F;
-	Thu, 14 May 2026 12:12:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 498733C8C68;
+	Thu, 14 May 2026 12:13:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778760728; cv=none; b=cZqUcWYmzJKHWXmuaONPQekEqm8M7pyHi63qP7Wm/PGyxMhsGBerP8jF7ThgWu0dU97SFtNBRjr56FvP37R+aGnNdIMf/b2nJBL4C4QqVq4kiKWc9Uq47C2Ztkmpl6GeTH4HGlV8aU3rT9RYbKRb/JEQIcz0nhxy5azOX9I4Uus=
+	t=1778760827; cv=none; b=neSPipQwoyBerU8v7WRN1ZWZDQgY2vn4RoMMrr1fR+yhWL6JpTma7AedLzMjRSpsIPcmzxMQ5CG+bUDc0ZUdrSWfLeZlOaUouJUPmY1iRTDXwNr7hvxELR6FqUDx5FOBdiC7DTstXhtd47GMYU8r3a35+q/A/IehyF1OMReF6Pc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778760728; c=relaxed/simple;
-	bh=5iwiGUataS3Aet0+bjaNI17LShBzXko8CYOfIv+JMyE=;
+	s=arc-20240116; t=1778760827; c=relaxed/simple;
+	bh=qOjySuzo217jJkiqCYZDHsfK1Tdo3fmkF19sRxUfY3g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BOTgde9HTcemKmV3ljt2JO76G9eKyG1B3hL76HgjVw68A+AzcVaqrthea3QmBE5vaOKnbbaymfSvKEifLc+y3j+knL53Npvk6FfBBt4XsZY1VM/SmwG6iREqY8T38+SK0kDRJQ3vY/c0+NINGkFJxjMslsDG7P9Z/I5R6XXIpV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OhrkRwEI; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=pB+91nWJFD8kzo1yW8wEYnLqbiiaSb2fgOEAc1F3uI1JGkCeWgCPKckYlG1hDAnnW4grRetvYz80D4mpAKF6md4/sCPcxfFWnACKKkEMahFc/T9kw4jEJzxbcWSEbkNL4Ah6vCIVs0P4wyRpulShZjuhrvrqYqOoPoEJbhdmI4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EyEFXfAr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OhrkRwEI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2281CC2BCB8;
-	Thu, 14 May 2026 12:12:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EyEFXfAr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AB68C2BCC7;
+	Thu, 14 May 2026 12:13:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778760727;
-	bh=5iwiGUataS3Aet0+bjaNI17LShBzXko8CYOfIv+JMyE=;
+	s=k20201202; t=1778760826;
+	bh=qOjySuzo217jJkiqCYZDHsfK1Tdo3fmkF19sRxUfY3g=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OhrkRwEIKGVxHnNOX1IpNj3lYjD3G5R9c/M4IKBnRs9SXIa3yimiBl4Usy9CkmLIE
-	 eIK4yLNCxe8Y3zq2WA1OE2+7R/LjmgbFGAs+FBJsS16WIbF2+b9S9bNYqVltl9ZPdB
-	 sZi5cfI51dNYc43hmBfP+9S/PU+VjZy/fGDt2byt0cUj85Aezsx9E8ffn9xPPBW/jT
-	 j5ewbNOIOxM1au2c6BvOH92j34X5yejU/rhNyfgY6cV4heLnaR/FZaGcRj0g5f0/GB
-	 Us+LDjfssekZ+d0wHABJEDjndbeQx3pNQL23VsMTnsFceyBj0e5sex891rVLYO/G6H
-	 cRzVl1pxkfRog==
-Date: Thu, 14 May 2026 14:12:05 +0200
+	b=EyEFXfArX/1/6PYRwL8CcUDsRK6fXx44WpdTLyrXuvHjHTXmRM8kRh6byLMMC7aHp
+	 s2+eJsSTo3fU4sLH68b8UqSrIQ7fuHQXhwLravLU2xJdk5JwhBmbO7qASVwCsEjtsb
+	 CppKVVjfTbLr3PCMUMTjysXmup5zu+pdHwxij6JxkaxwOQ5RQ1eKbIvuknq2At2+8p
+	 g9jIzBLHTtFnLcRAijjqpZMZkQbnPN/6iha0IeBFpCFgBKix6CdXQX4DAGQNvwj45q
+	 76IEFzmKd3R5kodHBgo8jjr4qBQq56TrFDNzKI4Sd5LKSKlw9nRittzM93DYMr+CIu
+	 hl4wEeQFc+Z3A==
+Date: Thu, 14 May 2026 14:13:44 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-Cc: Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+To: Alexandre Hamamdjian <azkali.limited@gmail.com>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, CTCaer <ctcaer@gmail.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	Vyacheslav Yurkov <uvv.mail@gmail.com>
-Subject: Re: [PATCH v2 0/2] A proposal to add a gpio-locked fixed clock
- driver.
-Message-ID: <20260514-stylish-naughty-orca-bfbf80@quoll>
-References: <20260510-feature-clock-guard-v2-0-6c25458d5340@bruker.com>
+	linux-usb@vger.kernel.org, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] usb: typec: add Rohm BM92TXX Type-C / PD
+ controller driver
+Message-ID: <20260514-impressive-lush-partridge-76ed5d@quoll>
+References: <20260511-bm92t-v2-0-2145e4f4386b@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,36 +46,25 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260510-feature-clock-guard-v2-0-6c25458d5340@bruker.com>
+In-Reply-To: <20260511-bm92t-v2-0-2145e4f4386b@gmail.com>
 
-On Sun, May 10, 2026 at 06:06:21PM +0000, Vyacheslav Yurkov wrote:
-> A gpio-locked fixed clock aggregates one or more input clocks and/or one
-> or more GPIOs. It's similar to a gated-fixed-clock, but GPIO direction is
-> inverted. Consumers can use the output clock to wait until all input
-> clocks are locked and only then initialize / access dependent peripherals.
+On Mon, May 11, 2026 at 01:32:08AM +0700, Alexandre Hamamdjian wrote:
+> This series adds initial support for the Rohm Semiconductor BM92TXX
+> family of USB Type-C and Power Delivery controllers.
 > 
-> The usage example for such a driver is when peripherals depend on PLLs in
-> a FPGA, which can't be directly accessed by the CPU, but need a GPIO pin
-> to check whether clock is actually usable. E.g. some of the IPs might not
-> have a proper split between registers and IP core, which means that if an
-> external clock and/or PLL lock is missing and one tries to access the 
-> registers, the response never comes, thus the CPU stalls.
+> This chipset is found on Nintendo Switch hardware, where it handles
+> charger and dock USB-C / PD negotiation, DisplayPort alternate-mode
+> entry through the dock and VBUS / VCONN control.
 > 
-> Signed-off-by: Vyacheslav Yurkov <uvv.mail@gmail.com>
-> Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+> Further patches will follow to wire the driver up on Nintendo Switch
+> device trees and to address review feedback.
+> 
+> Signed-off-by: Alexandre Hamamdjian <azkali.limited@gmail.com>
 > ---
 > Changes in v2:
-> - Renamed to clk-gpio-locked to express intent.
-> - Provide enable() / is_enabled() operations so the clock behaves as
->   expected
-> - Fixed DTS errors / warnings
-> - Link to v1: https://lore.kernel.org/r/20260318-feature-clock-guard-v1-0-6137cb4084b7@bruker.com
-> 
-> ---
 
-Please format your submission properly - read DT bindings submitting
-patches, add proper blank lines in the schema, use generic node names so
-that we can avoid commenting trivialities.
+Please start testing your commits before you send them. Also, read
+submitting patches in DT subdir and writing bindings documents.
 
 Best regards,
 Krzysztof
