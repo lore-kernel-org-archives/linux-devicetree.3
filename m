@@ -1,134 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996B63C1F46;
-	Thu, 14 May 2026 11:38:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94BE53C1F4B
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 11:40:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778758709; cv=none; b=OflCABTIgazCxKy6XfNQ+NQdtuxscd9DROLqJMxXV4o2iN5IEyn/6LrAiRFahvI0tlM6gMjRouNdkSsBE0IbwT8cYEcKv8I+3663L4+2wLU8AdnvzY/mQxZPVpfTr7pQ6C4LutQ2mqqO/zPfgCfLeb789W7tGFj0EQOD/d6yNLY=
+	t=1778758810; cv=none; b=p+0n8PSjjM7A2QKgZ1zJASDSJGIku7uTmbH8LEvrfapot7tucXVQZVPUe0VSjTETZvD/Uag41G9yHGpLpz2fWpmkfZM80dvz/rfw7r3u171Pi9qi5n0xRmNFRahzx+AFf6sTCG4cRqbi/OXSTlDQDzCDTPjRzynkvCfZeuEVMRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778758709; c=relaxed/simple;
-	bh=r0B3lSKf8gQDDJW5cY+Yg6YjjIjao27p5dvnDeMp/SQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oY9ITGmO/ctzQfmJHFdFYnhv3iQ+E+rIZdSIBnCpum4Zw+ZJNZFre97sEHMNERoD4wGKkHGf4soiZga9OKxnRzJiS8Gx1HTiLPUkciordInnVpoLZ75bu3kggQUwF9cNAecb/BjFTgNNqcJWd3wWd8FLHCaEAP1nc3fEFPVh8Qc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kNQ+9h8L; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778758810; c=relaxed/simple;
+	bh=/hrtYZqwWGlrwIiMCldY6ma1xFklyx3a7furL3lo1sM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=JEctazdtoAS+lhDk7hR6FBLZ2U84qBmv6cRFpMf26HM+q0cQ4zDWJuKpcZZNKvEkuFYwtOTsxYaEmPD68WEQtVcyGhYYYx5fl6huiKIYF2baMKXdzGUX4I2PtvCIOHypEatE9LxId8eN54BviikJKd6a7Krc4jzlTbsi7wT6pDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HZF7dIVy; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kNQ+9h8L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02B0BC2BCC7;
-	Thu, 14 May 2026 11:38:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HZF7dIVy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4977EC2BCC7;
+	Thu, 14 May 2026 11:40:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778758709;
-	bh=r0B3lSKf8gQDDJW5cY+Yg6YjjIjao27p5dvnDeMp/SQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kNQ+9h8LGRxHG5m553fqqudypahupVGpFMNyboyE2iCh75htaN8icgnwxI/GA3+WZ
-	 gyrTswzGbrWWXcmgwvNeB2+GEhg7nMGhDVthLfAh4w/SPdZwbuBue0WcNg3f203vFE
-	 TU14B2cy1O90WgxLV3Wp+K3ND4Y8j3HavYyPYWy5yPhiCLIYinHlKd/qCSVAl6LclR
-	 MxTXtAQxX8HACwV3X5lGz9fmD0O3ihA0djCtH+exGx0LmIBRuqCTonuweozss6yk8a
-	 NSU2HeL7HcQHvv8zT3JWfwPmKfMOTZAsfvM89vsIIG+gOdgNehxJL5JK3VkiPxxbbZ
-	 JvFM3hSyoQWeQ==
-Date: Thu, 14 May 2026 13:38:27 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jiafei Pan <Jiafei.Pan@nxp.com>
-Cc: andersson@kernel.org, mathieu.poirier@linaro.org, peng.fan@nxp.com, 
-	Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, 
-	festevam@gmail.com, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Zhiqiang.Hou@nxp.com, mingkai.hu@nxp.com, 
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 1/4] dt-bindings: remoteproc: add imx-rproc-psci
-Message-ID: <20260514-omniscient-futuristic-macaque-af0718@quoll>
-References: <20260511023928.39640-1-Jiafei.Pan@nxp.com>
- <20260511023928.39640-2-Jiafei.Pan@nxp.com>
+	s=k20201202; t=1778758810;
+	bh=/hrtYZqwWGlrwIiMCldY6ma1xFklyx3a7furL3lo1sM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=HZF7dIVyiJjlhZJcqTcRfVB7FsAyrsNzdC9GAB1A5r62gDY3S8NzJQPCStl377uEQ
+	 1hyhcbfPrlkWIi7Nplwe07aJX3wf2Yh3Ks34+Bx2+hOihbXdVy+BHp5jODyfzupjVm
+	 gMSHITcjzJQuRgxkoEEFoY21bxHT4E8EZ9qTMQE6FwU0T0TFMbW+jtSn4yq/ZuTg96
+	 AeKol0uJsFwkc6hfFPx6IEz/evSYG1b04hcvkrVHobFc9vTQ/77sGsSzcVUiOj9ZGX
+	 WGMYxIV+Ozoc0bqjRtlKCshXCPsP9S97RsMrDPgnUL0h/ML52YvCj9Cx2hD9YmraZo
+	 nwTh+5PyOejCA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 7/7] arm64: dts: qcom: eliza: Add support for MM
+ clock controllers
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Taniya Das" <taniya.das@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260513-eliza_mm_cc_v2-v4-7-e61b5434e8d9@oss.qualcomm.com>
+References: <20260513-eliza_mm_cc_v2-v4-7-e61b5434e8d9@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 14 May 2026 11:40:08 +0000
+Message-Id: <20260514114009.4977EC2BCC7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260511023928.39640-2-Jiafei.Pan@nxp.com>
 
-On Mon, May 11, 2026 at 10:39:25AM +0800, Jiafei Pan wrote:
-> Add compatible string "fsl,imx-rproc-psci" for i.MX Cortex-A Core's
-> remoteproc support.
-> 
-> Signed-off-by: Jiafei Pan <Jiafei.Pan@nxp.com>
-> 
-> ---
-> Changes in v3:
-> - Fixed dt_binding_check warnings
-> 
-> ---
->  .../remoteproc/fsl,imx-rproc-psci.yaml        | 51 +++++++++++++++++++
->  1 file changed, 51 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc-psci.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc-psci.yaml b/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc-psci.yaml
-> new file mode 100644
-> index 000000000000..28d00dbf8bc7
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc-psci.yaml
-> @@ -0,0 +1,51 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/remoteproc/fsl,imx-rproc-psci.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Missing `#power-domain-cells =3D <1>;` property in the `camcc` dev=
+ice node.
+--
+
+commit cf4de2d4ed70ac27e6c99ee7bcb3cb5ce7c09353
+Author: Taniya Das <taniya.das@oss.qualcomm.com>
+
+arm64: dts: qcom: eliza: Add support for MM clock controllers
+
+This commit adds device tree nodes for the multimedia clock controllers
+(cambistmclkcc, camcc, videocc, gpucc) on the Qualcomm Eliza SoC.
+
+> diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qc=
+om/eliza.dtsi
+> index 4a7a0ac40ce62..1a47eb2a86571 100644
+> --- a/arch/arm64/boot/dts/qcom/eliza.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
+
+[ ... ]
+
+> +		camcc: clock-controller@ade0000 {
+> +			compatible =3D "qcom,eliza-camcc";
+> +			reg =3D <0x0 0x0ade0000 0x0 0x20000>;
 > +
-> +title: NXP i.MX Cortex-A Core Remote Processor via PSCI
+> +			clocks =3D <&bi_tcxo_div2>,
+> +				 <&sleep_clk>,
+> +				 <&gcc GCC_CAMERA_AHB_CLK>;
 > +
-> +maintainers:
-> +  - Jiafei Pan <Jiafei.Pan@nxp.com>
-> +
-> +description:
-> +  This binding provides support for managing Cortex-A cores as remote
+> +			#clock-cells =3D <1>;
+> +			#reset-cells =3D <1>;
+> +		};
 
-Describe the hardware, not the binding.
+Should this node also include a #power-domain-cells property?
 
-> +  processors on i.MX platforms using the PSCI (Power State Coordination
-> +  Interface) for CPU power management operations. This allows single
-> +  Cortex-A core or multiple Cortex-A cores to be controlled by Linux as
-> +  a remote processor, enabling them to run RTOS or bare-metal applications.
-> +
-> +properties:
-> +  compatible:
-> +    const: fsl,imx-rproc-psci
+The qcom,eliza-camcc driver registers Global Distributed Sync Controllers
+(GDSCs) which act as power domains for downstream camera IP blocks.
 
-Why isn't the compatible specific?
+Without the #power-domain-cells =3D <1>; property, downstream consumer nodes
+might be unable to parse their power-domains phandles, which could leave the
+camera hardware unpowered and lead to probe or runtime-pm failures.
 
-> +
-> +  fsl,cpus-mask:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      Bitmask indicating which CPU cores are assigned to this remote
-> +      processor instance. Each bit represents a CPU core, where bit N
-> +      corresponds to CPU N. For example, 0x2 (0b10) assigns CPU core 1,
-> +      while 0x6 (0b110) assigns CPU cores 1 and 2.
-
-So you partition existing Cortex-A cores? Or how exactly? Why isn't this
-deducible from the compatible (I assume you read carefully writing
-bindings)?
-
-> +
-> +  memory-region:
-> +    maxItems: 1
-> +    description:
-> +      Phandle to a reserved memory region to be used for the remote
-> +      processor's code and data.
-> +
-> +required:
-> +  - compatible
-> +  - fsl,cpus-mask
-> +  - memory-region
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +        remoteproc-ca55-1 {
-
-Implement previous comments.
-
-Best regards,
-Krzysztof
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-eliza_mm_c=
+c_v2-v4-0-e61b5434e8d9@oss.qualcomm.com?part=3D7
