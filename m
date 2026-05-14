@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540D23AB48C
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 06:04:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE301E515
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 06:09:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778738681; cv=none; b=LMg9nhpWpCac50z9RmsqWcYp457BY1WWwHhH+qyV9T77nKEWKvPhC640A67Mk0SyRrzeAxVCaczB/OcyUNgSID/mKTdvRedFQTDV6atnoyQQXAJ8gSUhE09o/09jTLtqR5QRPzQlG4bL4BRJSA1l0PN/k8ykeWYVmapxNIOnxj8=
+	t=1778738993; cv=none; b=ishVb/Ee05DzBJU67zqXuriu+TmQf6xZRdMfkXPotbFGLMyofiesWfa52bFg9vEQTkvvAxplfSMORao7rLxG1lQhYsZQxDhdJqK3soENcA4cMmW2KSid0/AzwxcLtl5wATC2fX4YFNgFquOnFO0cZvog5SoXgVOq4uwOe+ENUdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778738681; c=relaxed/simple;
-	bh=SowZwqWaliU5XksjX49hT7i3iG8FwtECBVUS6TSzrmc=;
+	s=arc-20240116; t=1778738993; c=relaxed/simple;
+	bh=FJAs9gUgg9hj2zCKQtlKXBRjqNXV7CuU9FNNC9+9U4M=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Z0IXTs10NhYaGMF99pHeXjVshqyLyTpkUD79AmtkJCr8pBawsZNudqBJe/1TKtO/UAjbPLvQn7HF09WDOWX7IDLLlW9lt+/x+lhECBmtN+IlBNXh9nnrJcBUp9PzN+szaEasiKD5hr+twtePg5G5XbXddgk83eUsFGq3jR8mgAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ctPtvlYn; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=cfUVPMpyLlCP9WZjaqRLwgZKdy30e9+ie2B0bw7Ejb7S2m2eWuMNl9ZihNKs6lr1oYsoHLquZuVXakU7x2PI5zSjW/YzA0Yv23xgUf0rKzI2xKGN2+DCJnOwqdCwKqiIGmE4IxhpOsiw8o2VrYRI/r8fk0GxjhWd/Bp8seY6cAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YD5QU30h; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ctPtvlYn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA7DBC2BCB7;
-	Thu, 14 May 2026 06:04:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YD5QU30h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22043C2BCB7;
+	Thu, 14 May 2026 06:09:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778738681;
-	bh=SowZwqWaliU5XksjX49hT7i3iG8FwtECBVUS6TSzrmc=;
+	s=k20201202; t=1778738993;
+	bh=FJAs9gUgg9hj2zCKQtlKXBRjqNXV7CuU9FNNC9+9U4M=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=ctPtvlYnBUvyyNcfvdDM4ZrrhLNe92S0HigaG6maiKDHMi7xrHzfdIGoCPi7EpKx+
-	 CeuXJBuEr6afT9DAOAI5m5TPAqPiwoopE1UN4B8rnR0lcEfZop4oyq4QeGuFPqBVt4
-	 xRoWU/k4w6TvXj4gq9Wd4EcDd3WXmk2gF3SaVPp42Pnryg5hxaMLSfZG4rAwEIeAPp
-	 ZQYmL/mDP4uLknHHS19LFR9SaGIjAv+niVArObk6NZTn5YAKGe8++mptTYxgbRHbhp
-	 hXUYRVGm8xz3WchSY1gV/KxaR1yE6ISqbj6xPc4MM0D/rNv2MY/f7F1dR8AxDFLxp9
-	 zDURcQwfcvETA==
+	b=YD5QU30hm0DleBsPd875AE4rfpg2BzOHlU4cWWCEf2v00W6fYN4uDZD7NUmnGyIeL
+	 nhk2shO4pfUb79iHsbsZsfPcDFu7mTrq4mTaBA1qz61Y0jUqd4hUd19WTtjg/+eLcQ
+	 W/b/h5a7xUHYWgBTFK4o1i4pkFAFeNJ1aVyrkIq4zRYccEfkaO3KsRvohqXsfwCv6R
+	 XufMRS2dPYEw+ttpZwP7vNV9XV6ECEJOaEQ/teyQYNSyNfdx7XOdFYDTiEbWNxZEsq
+	 q2g+JCgBoYhiqNGMHs0ZuafQmGJCknXCYmRowVK4WCcifIjuLIS+MmdGBhKv2WOJOZ
+	 cQ8auVuf0V+aw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/7] dt-bindings: clock: qcom: Add support for CAMCC
- for Eliza
+Subject: Re: [PATCH v6 16/16] ASoC: rsnd: Add system suspend/resume support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Taniya Das" <taniya.das@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260513-eliza_mm_cc_v2-v3-3-b59c370dc281@oss.qualcomm.com>
-References: <20260513-eliza_mm_cc_v2-v3-3-b59c370dc281@oss.qualcomm.com>
+To: "John Madieu" <john.madieu.xa@bp.renesas.com>
+Cc: wsa+renesas@sang-engineering.com, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260512182631.3842065-17-john.madieu.xa@bp.renesas.com>
+References: <20260512182631.3842065-17-john.madieu.xa@bp.renesas.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 06:04:40 +0000
-Message-Id: <20260514060440.EA7DBC2BCB7@smtp.kernel.org>
+Date: Thu, 14 May 2026 06:09:52 +0000
+Message-Id: <20260514060953.22043C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,67 +45,166 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] The schema fails to require `#power-domain-cells` for the `qcom,el=
-iza-camcc` power domain provider, resulting in broken device tree nodes.
-- [Medium] The schema does not define the `power-domains` property, prevent=
-ing the representation of CX and MX power rails.
-- [Medium] The schema incorrectly enforces the `#reset-cells` property for =
-the `qcom,eliza-cambistmclkcc` block, which provides no resets.
+- [High] Incorrect clock and reset sequencing in `rsnd_resume_clk_reset()` =
+prevents proper module resume.
+- [Medium] Silent failure on clock preparation and enable errors during sys=
+tem resume.
+- [Medium] The `scu_supply` clock is not disabled during system suspend, ca=
+using a power leak.
 --
 
-commit 3a72590500ffe71717979089f9afaf963476d138
-Author: Taniya Das <taniya.das@oss.qualcomm.com>
+commit c780dd50f4c396b19ac5b1cf3e1ec1ec5c422765
+Author: John Madieu <john.madieu.xa@bp.renesas.com>
+ASoC: rsnd: Add system suspend/resume support
 
-dt-bindings: clock: qcom: Add support for CAMCC for Eliza
+This commit adds system suspend/resume support for the ASoC rsnd driver,
+required for RZ/G3E platforms. The per-module suspend/resume logic is
+distributed across the relevant component files.
 
-This commit adds compatible strings and dt-bindings headers for the
-Eliza camera and camera BIST clock controllers to the existing
-Milos camcc binding.
-
-> Eliza camera clock controller is on CX and MX rails similar to Milos.
-> Add compatible string for Eliza camera and camera BIST clock
-
-Since the controller relies on CX and MX power rails, does the schema
-need to define the power-domains property?
-
-The qcom,milos-camcc.yaml binding uses unevaluatedProperties: false and
-does not define power-domains. Adding the property to a device tree node
-will trigger schema validation errors.
-
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yam=
-l b/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yaml
-> --- a/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yaml
-> +++ b/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yaml
+> diff --git a/sound/soc/renesas/rcar/core.c b/sound/soc/renesas/rcar/core.c
+> index 679c833fd0014..26cd908299e6d 100644
+> --- a/sound/soc/renesas/rcar/core.c
+> +++ b/sound/soc/renesas/rcar/core.c
 [ ... ]
->  properties:
->    compatible:
-> -    const: qcom,milos-camcc
-> +    enum:
-> +      - qcom,eliza-cambistmclkcc
-
-The qcom,milos-camcc.yaml schema references qcom,gcc.yaml, which
-unconditionally requires #reset-cells to be 1.
-
-Since the qcom,eliza-cambistmclkcc block does not provide any resets, does
-this incorrectly force device tree nodes to include a dummy #reset-cells
-property to pass validation?
-
-> +      - qcom,eliza-camcc
-
-The added qcom,eliza-camcc.h header defines several power domains, making
-this block a power domain provider.
-
-Should the schema require the #power-domain-cells property for this
-compatible string?
-
-Without it, incomplete device tree nodes missing #power-domain-cells can
-silently pass validation, which would cause runtime failures when consumer
-IPs try to link to these domains.
-
-> +      - qcom,milos-camcc
+> @@ -2160,11 +2161,35 @@ static void rsnd_remove(struct platform_device *p=
+dev)
+>  		remove_func[i](priv);
+>  }
 > =20
->    clocks:
+> +void rsnd_suspend_clk_reset(struct clk *clk, struct reset_control *rstc)
+> +{
+> +	clk_unprepare(clk);
+> +	reset_control_assert(rstc);
+> +}
+> +
+> +void rsnd_resume_clk_reset(struct clk *clk, struct reset_control *rstc)
+> +{
+> +	reset_control_deassert(rstc);
+> +	clk_prepare(clk);
+
+Does this sequence deassert the reset before the clock is active, and omit
+clk_enable() entirely?
+
+In rsnd_mod_init(), the driver establishes that the hardware requires the
+module clock to be active before deasserting its reset:
+
+	ret =3D clk_prepare_enable(clk);
+	if (ret)
+		return ret;
+
+	ret =3D reset_control_deassert(rstc);
+
+Will deasserting the reset while the clocks are stopped fail to propagate
+synchronous resets for IP modules using this helper?
+
+Also, does this code silently ignore the return value of clk_prepare()?
+
+If a clock fails to initialize, the subsystem might pretend the resume
+succeeded.
+
+> +}
+[ ... ]
+> @@ -2173,7 +2198,21 @@ static int rsnd_resume(struct device *dev)
+>  {
+>  	struct rsnd_priv *priv =3D dev_get_drvdata(dev);
+> =20
+> -	return rsnd_adg_clk_enable(priv);
+> +	/*
+> +	 * Same order as probe:
+> +	 * DMA -> SSI -> SSIU -> SRC -> CTU -> MIX -> DVC -> ADG
+> +	 */
+> +	rsnd_dma_resume(priv);
+[ ... ]
+> +	rsnd_adg_clk_enable(priv);
+> +
+> +	return 0;
+
+Does this code silently ignore the return value of rsnd_adg_clk_enable() and
+unconditionally return 0?
+
+The pre-patch code properly returned the error code.
+
+>  }
+> =20
+>  static const struct dev_pm_ops rsnd_pm_ops =3D {
+> diff --git a/sound/soc/renesas/rcar/dma.c b/sound/soc/renesas/rcar/dma.c
+> index 0bca0b3031918..0bf97a12a9a72 100644
+> --- a/sound/soc/renesas/rcar/dma.c
+> +++ b/sound/soc/renesas/rcar/dma.c
+[ ... ]
+> @@ -1035,3 +1035,25 @@ int rsnd_dma_probe(struct rsnd_priv *priv)
+[ ... ]
+> +void rsnd_dma_resume(struct rsnd_priv *priv)
+> +{
+> +	struct rsnd_dma_ctrl *dmac =3D rsnd_priv_to_dmac(priv);
+> +
+> +	if (dmac) {
+> +		/* Clock must be stable before reset is deasserted */
+> +		clk_prepare_enable(dmac->audmapp_clk);
+
+Is it possible to check the return value of clk_prepare_enable() here?
+
+If the clock fails to initialize during resume, this could silently fail.
+
+> +		rsnd_resume_clk_reset(NULL, dmac->audmapp_rstc);
+> +	}
+> +}
+> diff --git a/sound/soc/renesas/rcar/src.c b/sound/soc/renesas/rcar/src.c
+> index 0237b5d2e79e6..a844255879787 100644
+> --- a/sound/soc/renesas/rcar/src.c
+> +++ b/sound/soc/renesas/rcar/src.c
+[ ... ]
+> @@ -834,3 +834,37 @@ void rsnd_src_remove(struct rsnd_priv *priv)
+>  		rsnd_mod_quit(rsnd_mod_get(src));
+>  	}
+>  }
+> +
+> +void rsnd_src_suspend(struct rsnd_priv *priv)
+> +{
+> +	struct rsnd_src_ctrl *src_ctrl =3D rsnd_priv_to_src_ctrl(priv);
+> +	struct rsnd_src *src;
+> +	int i;
+> +
+> +	if (!src_ctrl)
+> +		return;
+> +
+> +	for_each_rsnd_src(src, priv, i)
+> +		rsnd_suspend_clk_reset(rsnd_mod_get(src)->clk,
+> +				       rsnd_mod_get(src)->rstc);
+> +
+> +	clk_disable_unprepare(src_ctrl->scu_x2);
+> +	clk_disable_unprepare(src_ctrl->scu);
+
+Does this code miss disabling the scu_supply clock?
+
+It appears to be enabled during probe alongside scu and scu_x2, but omitted
+here.
+
+Could this leave the supply clock enabled across a system suspend cycle?
+
+> +}
+> +
+> +void rsnd_src_resume(struct rsnd_priv *priv)
+> +{
+> +	struct rsnd_src_ctrl *src_ctrl =3D rsnd_priv_to_src_ctrl(priv);
+> +	struct rsnd_src *src;
+> +	int i;
+> +
+> +	if (!src_ctrl)
+> +		return;
+> +
+> +	clk_prepare_enable(src_ctrl->scu);
+> +	clk_prepare_enable(src_ctrl->scu_x2);
+
+Are the return values from clk_prepare_enable() intentionally ignored here
+as well?
+
+> +
+> +	for_each_rsnd_src(src, priv, i)
+> +		rsnd_resume_clk_reset(rsnd_mod_get(src)->clk,
+> +				      rsnd_mod_get(src)->rstc);
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-eliza_mm_c=
-c_v2-v3-0-b59c370dc281@oss.qualcomm.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512182631.3842=
+065-1-john.madieu.xa@bp.renesas.com?part=3D16
