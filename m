@@ -1,107 +1,161 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0508028C2DD
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 00:35:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D649B1A683C;
+	Thu, 14 May 2026 00:43:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778718943; cv=none; b=DqCYlNE6mmghR87vlqnmT297H/lsNMLAoR6aaW284ZIn1Wn0hYymCIFTIF3k2ss9wRrb+Fr3qwpfqxR+eJxKZLULneVAb+BiNUVT8XQ421ygHanYxZqMQ2Nf8LP95EV0O+4ObT8C2OiHLJSv5q7QcU0wTwr4QODU1pDDOQhERTM=
+	t=1778719396; cv=none; b=cOulGWF7mZQ7lely6YHr82yr0aaAwjeMIWWBgmQpTJ3yquoV/bG0xzuFrI6meK+nkLUsbsXCkh9FYwLf0vfo9JeJ57l5BDJ4VOYrZtA6MlN6IUXAgHsPeSbf+QwRoJVR4ywrK2ZE8hIKRHX17PIsqtXILFfRwL3eg0Huvz5Wusc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778718943; c=relaxed/simple;
-	bh=V2bKfo+AduSyM4/JUeW1MRSdqolv8hoYG39QLHDhIGw=;
+	s=arc-20240116; t=1778719396; c=relaxed/simple;
+	bh=njUG4gtX0gjjaL4ssT35jpzwhO2AkUWQoMd2hjUQoGU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=siB2CdC80H9AQjqfWTvbMfFG+qCg/KHK3M/dk8UY/+0mwQhkHRW0IRxC+KnsAs4PlgdhvBCdgKYr5CN8237f2qTDggzjQee2Kd14RFDLVBG7F2ZZkzVCwDHmsnfr6rOFDn7I3ciDjQqkj3o0lBF9RdC5FgEKO5jFvFJWS2TO9Xk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=APBr2DXJ; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=X9YexGkq1b5lLdhVur0Xuzi8hKBzjExXKbREPShXSZRrlRuCjj/RrPJAjqWC2yD91P1lM71YPG+3VPFz6KaXPab7HpPa8z3Oll06qwFobKPVTCJwlx6Tz6l5GPW3+NfWy5mZJoh+uuvXe2EjmAROFcxMjqp+3+vvPOqk3/A6n64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=t06+8Y3k; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="APBr2DXJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DF27C19425;
-	Thu, 14 May 2026 00:35:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="t06+8Y3k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47E27C2BCB3;
+	Thu, 14 May 2026 00:43:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778718942;
-	bh=V2bKfo+AduSyM4/JUeW1MRSdqolv8hoYG39QLHDhIGw=;
+	s=k20201202; t=1778719396;
+	bh=njUG4gtX0gjjaL4ssT35jpzwhO2AkUWQoMd2hjUQoGU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=APBr2DXJtJxz+ljy0iGue4kbkPNTDN8RYHp7iOeRIq2iKTT/fMK6UcGG+MHK8uOsP
-	 jgie1Il6bW1I0cg6q4YDf0IlZrjZoZ7mxYpwwAXAwLKlHxFNhMuqhzWXESgwFxlQ6Z
-	 R8/wBkFUsOzGVco5NRYRMA2OsBmAxr6Nh18DLoZk7SKSSPPzaeySKFGastrAKJtn0Q
-	 HtNYCe8k1kTNwEEyGnM/FGZZn/5NMTqxwFJcPLVDihIOhtzZGE/1MisINqC+9KkHtj
-	 q+1yCbNtCodKBCrOGzak/gKgg6FHMipoEXn1htfqWQjp16TOb/qeL+rSb/NTJbpFD6
-	 mlN3vU3we4uXA==
+	b=t06+8Y3kZjJCJ2qeaBS72SEeCwrKe0JtKatZLYdSjTotSIbkh4kRJLZ3sXTFc6XAL
+	 GskzZ3Hh/BkBdJIFVbBTtmTxIoSpozdz7FBqFx1EVUzu9eYyzlokZB0TqGEpNv+qLM
+	 aCbuU8MZ0pEquuH5PkbcSLixGhZYByZdv7a1eo8uDkfSZxx+EKoQ27eCfHHlQlWmTG
+	 2DCgyauILWDy6nU4D+uMOg3sjx8p7Qiy45ERusqK/1xC4ZfF/R3Pfzt5/skl22qIfu
+	 97N47PBlbrI+VlB1E7OlhXfBZAEYSGq7NkFsHFpANGEEGSUyZAOrLeSem8oyTxknYb
+	 RRuoMPhSue91w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V6 03/11] iio: imu: inv_icm42607: Add inv_icm42607 Core
- Driver
+Subject: Re: [PATCH v2 2/2] hwmon: (pmbus/d1u74t) Add Murata D1U74T PSU
+ driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chris Morgan" <macroalpha82@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260512221634.256747-4-macroalpha82@gmail.com>
-References: <20260512221634.256747-4-macroalpha82@gmail.com>
+To: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
+Cc: conor+dt@kernel.org, krzk+dt@kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260512-d1u74t-v2-2-431d00fbb1c4@nexthop.ai>
+References: <20260512-d1u74t-v2-2-431d00fbb1c4@nexthop.ai>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 00:35:40 +0000
-Message-Id: <20260514003542.5DF27C19425@smtp.kernel.org>
+Date: Thu, 14 May 2026 00:43:14 +0000
+Message-Id: <20260514004316.47E27C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Polling for reset completion immediately after a soft reset will c=
-ause probe to fail due to a bus read error.
+- [Low] Brittle validation logic due to missing read length check for PMBUS=
+_MFR_MODEL.
+- [Low] Copy-paste errors in sysfs documentation for `in2_*` attributes.
+- [Low] MAINTAINERS file entry breaks alphabetical ordering.
 --
 
-commit 62a44073ad81f2d638c1665cd828465dfd85d6f7
-Author: Chris Morgan <macromorgan@hotmail.com>
+commit ec60b1738fafe62da18eefb7e9b1f9a12b6a9113
+Author: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 
-iio: imu: inv_icm42607: Add inv_icm42607 Core Driver
+hwmon: (pmbus/d1u74t) Add Murata D1U74T PSU driver
 
-This commit introduces the core driver component for the inv_icm42607 IMU,
-setting up initial configuration, reset handling, and register definitions.
+This commit adds a new PMBus driver for Murata D1U74T power supplies. It
+registers the device with the hwmon subsystem and provides documentation for
+the driver's sysfs attributes.
 
-[ ... ]
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/i=
-io/imu/inv_icm42607/inv_icm42607_core.c
+Closes: https://lore.kernel.org/oe-kbuild-all/202605122253.zInzmUeX-lkp@int=
+el.com/
+
+> diff --git a/Documentation/hwmon/d1u74t.rst b/Documentation/hwmon/d1u74t.=
+rst
 > new file mode 100644
-> index 0000000000000..0baf4763b0a7d
+> index 0000000000000..7362e56e76a71
 > --- /dev/null
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> +++ b/Documentation/hwmon/d1u74t.rst
 [ ... ]
-> +static int inv_icm42607_setup(struct inv_icm42607_state *st,
-> +			      inv_icm42607_bus_setup bus_setup)
-> +{
-[ ... ]
-> +	ret =3D regmap_write(st->map, INV_ICM42607_REG_SIGNAL_PATH_RESET,
-> +			   INV_ICM42607_SIGNAL_PATH_RESET_SOFT_RESET);
-> +	if (ret)
-> +		return ret;
+> +in1_rated_min		Minimum rated input voltage
+> +in1_rated_max		Maximum rated input voltage
 > +
-> +	/*
-> +	 * Datasheet only specifies a reset period wait of 1ms for a
-> +	 * power-on reset, but not a soft reset so not waiting here.
-> +	 */
-> +	ret =3D regmap_read_poll_timeout(st->map, INV_ICM42607_REG_INT_STATUS,
-> +				       val, val & INV_ICM42607_INT_STATUS_RESET_DONE,
-> +				       INV_ICM42607_RESET_TIME_MS * 100,
-> +				       INV_ICM42607_RESET_TIME_MS * 1000);
+> +in2_label		"vout1"
+> +in2_input		Measured input voltage
 
-Could this cause the probe to fail due to a bus read error?
+This isn't a bug, but is there a copy-paste error in these descriptions?
+Should these be documented as 'output voltage' instead of 'input voltage',
+since the label is "vout1"?
 
-When a soft reset is triggered, the device's digital core restarts, making
-the interface temporarily unresponsive. Since regmap_read_poll_timeout
-performs its first read immediately, the read will likely return a bus erro=
-r.
+> +in2_crit		Critical input over voltage
+> +in2_crit_alarm		Critical input over voltage alarm
+> +in2_lcrit		Critical input under voltage fault
+> +in2_lcrit_alarm		Critical input under voltage fault alarm
+> +in2_max			Maximum input over voltage
+> +in2_max_alarm		Maximum input over voltage alarm
+> +in2_min			Minimum input under voltage warning
+> +in2_min_alarm		Minimum input under voltage warning alarm
+> +in2_rated_min		Minimum rated input voltage
+> +in2_rated_max		Maximum rated input voltage
+[ ... ]
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index b2040011a3865..28ca8e0353124 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -6803,6 +6803,13 @@ S:	Maintained
+>  F:	Documentation/hwmon/crps.rst
+>  F:	drivers/hwmon/pmbus/crps.c
+> =20
+> +MURATA D1U74T PSU DRIVER
+> +M:	Abdurrahman Hussain <abdurrahman@nexthop.ai>
+> +L:	linux-hwmon@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/hwmon/d1u74t.rst
+> +F:	drivers/hwmon/pmbus/d1u74t.c
+> +
+>  CRYPTO API
 
-Because regmap_read_poll_timeout evaluates its exit condition on any error
-returned by the read operation, it will abort immediately rather than retry=
-ing
-the read.
+This isn't a bug, but does this entry break the alphabetical ordering? It
+places an 'M' entry immediately before the 'C' section for CRYPTO API.
 
-Would it be safer to insert a small sleep delay before attempting to read f=
-rom
-the device after initiating the soft reset?
+>  M:	Herbert Xu <herbert@gondor.apana.org.au>
+[ ... ]
+> diff --git a/drivers/hwmon/pmbus/d1u74t.c b/drivers/hwmon/pmbus/d1u74t.c
+> new file mode 100644
+> index 0000000000000..3127e0e5a23de
+> --- /dev/null
+> +++ b/drivers/hwmon/pmbus/d1u74t.c
+[ ... ]
+> +static int d1u74t_probe(struct i2c_client *client)
+> +{
+> +	char buf[I2C_SMBUS_BLOCK_MAX + 2] =3D { 0 };
+> +	struct device *dev =3D &client->dev;
+> +	int rc;
+> +
+> +	rc =3D i2c_smbus_read_block_data(client, PMBUS_MFR_ID, buf);
+> +	if (rc < 0)
+> +		return dev_err_probe(dev, rc, "Failed to read PMBUS_MFR_ID\n");
+> +
+> +	if (rc !=3D 9 || strncmp(buf, "Murata-PS", 9)) {
+> +		buf[rc] =3D '\0';
+> +		dev_err(dev, "Unsupported Manufacturer ID '%s'\n", buf);
+> +		return -ENODEV;
+> +	}
+> +
+> +	rc =3D i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
+> +	if (rc < 0)
+> +		return dev_err_probe(dev, rc,
+> +				     "Failed to read PMBUS_MFR_MODEL\n");
+> +
+> +	if (strncmp(buf, "D1U74T-W", 8)) {
 
+Is there a missing check for the read length in rc here?
+
+If a short read occurs, could strncmp() evaluate the newly read bytes
+combined with stale memory leftover from the previous PMBUS_MFR_ID read?
+
+> +		buf[rc] =3D '\0';
+> +		return dev_err_probe(dev, -ENODEV, "Model '%s' not supported\n",
+> +				     buf);
+> +	}
+> +
+> +	rc =3D pmbus_do_probe(client, &d1u74t_info);
 [ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512221634.2567=
-47-1-macroalpha82@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-d1u74t-v2-=
+0-431d00fbb1c4@nexthop.ai?part=3D2
