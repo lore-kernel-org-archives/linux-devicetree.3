@@ -1,102 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CCA5397E80;
-	Thu, 14 May 2026 10:22:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5408367298
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 10:23:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778754140; cv=none; b=T4j+cZFkGrWKIp1O5f/kwIPuLX5emVq3cN4I3F0Q51Q0YMqw60QoqgHGh6vYccHEXZvF9nLab+pPe+pHAJvUo3bQR5VBRhZMnl9ul7c6R0SO3F8OolYZagzGYkkFIG0u3LxLxxqxzwaxvwDHFXGWu1Xhc9V8L9LiN09E1Rot+mI=
+	t=1778754230; cv=none; b=AZHEj7BIlkhKoyuQ/s3N2IDI9zD+IzwWHjYKHBcLjfIsRBw/FWsl4n9uvMMTd4C6YiUC91xHb8D2U7SiozCZVlIlVb/Z8aOFiN+CM+mnVbw6mcMN6vHIrPVc5h+5CDGcbEOQvbhufSdD5K5je3S1l9LD30VXWmdVmMx4Jmw91ps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778754140; c=relaxed/simple;
-	bh=FtRbZ01KpPe7RoZcygOR6S/KKJge6UxcovG2oSv3GME=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n0Adem75NE6gyRipe6LchL4mWlguJdOdYQwpcKi9vvnezCwcdBSayr2SUtd5JHHH1X4p+Zp9J+rlNMWiRSb5EoWOS7R2XyOSxHwuKbcC6rFGGRP8Bo7Oj595l6z78iaHg9Be8nplNmpP0St8yRb/a3RxfL9E/0K/7j1pmn/tVhQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YUJvu313; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778754230; c=relaxed/simple;
+	bh=9cheypkFJR+lJvVCn6GMF2jLh/IbkEUYi0vKOJeEEJg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jrFQZGy1br7GohlaGRP+5VoEq7O1piAGmy0dxmNpG87+2hYaOACPoOcSYHeAZU9KdhA52Yfff6w7QuNms1XxXdMqxeNwz+ynBtJkpNyaQfOFHlG1EkYFW3qx8VXSg+xUPdCXLjNLHsp4GNyQaq7jCRQtAUiId2Cj3m2zG4auja4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GIv4Iu3V; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YUJvu313"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9767C2BCB3;
-	Thu, 14 May 2026 10:22:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GIv4Iu3V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4505DC2BCB3;
+	Thu, 14 May 2026 10:23:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778754139;
-	bh=FtRbZ01KpPe7RoZcygOR6S/KKJge6UxcovG2oSv3GME=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YUJvu313ULp0O4s/WSpjv1qEtO2qZteX9/qPvn4uH+0GVDU1NaJ7fl1LRV/IG/N07
-	 m4qWHZCwZU9cJAA1JwiYXbNQioI1LgC5+Vcn/d6rYfZ1D/RFM8ROlHtPbRb3kj4cn6
-	 YzS9SGXZ0bgqCBPQHNVjlXpwd3SNGLISSHqF47DRmf8JAM2y9Ch1420KwNUDG5AOwF
-	 370CE+Vlm5cgvukm13QxfBh+ZSpzGSa529fI3vZ0l9BlPFW2XFeXt/kbzsMhaQO0Ow
-	 MKUSE2YhxVy908zz/YFCZu2nAfuocHOF7Tq5GMfytNOGr36obii/ed7R+5mIjaJhc/
-	 98bx/iS0tbDVQ==
-Date: Thu, 14 May 2026 12:22:17 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Qiang Yu <qiang.yu@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Taniya Das <taniya.das@oss.qualcomm.com>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, krishna.chundru@oss.qualcomm.com
-Subject: Re: [PATCH v3 1/4] dt-bindings: clock: qcom: Add QREF regulator
- supplies for glymur
-Message-ID: <20260514-outgoing-literate-dove-2e2a73@quoll>
-References: <20260506-qref_vote_0506-v3-0-5ab71d2e6f16@oss.qualcomm.com>
- <20260506-qref_vote_0506-v3-1-5ab71d2e6f16@oss.qualcomm.com>
+	s=k20201202; t=1778754229;
+	bh=9cheypkFJR+lJvVCn6GMF2jLh/IbkEUYi0vKOJeEEJg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=GIv4Iu3VTy8cnmy/6uMjXqOjfXcsBQ/Iwo2gDQ/htRTLyOmQh/h8ELD9CnIC+owwy
+	 MGJ5TZ/FrRvWEoXUTM0DQt0ky6XuF26SRYOhB06Jbm9qpEyRpOMSP8YBJ31M2921/W
+	 VxvU+2uOGP/sPIXe2mNpVd54Gh1he0opLaisLRgXlpPTPo1+wskiXPi+PUD36O5CPL
+	 pE325dSrGngMJ4k3C6UBTPXMQ8Ne5CxbuuObPNYfVQSSOog6tRkzZXICAxKAxEyoZE
+	 5/UzE99KXhAtxA8AEfFoWrE5Ix4LeyLEAZkvTQOVeZMPUQdtxA36YRujuyerCjCmlO
+	 meogrepf8ApqA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] remoteproc: qcom: pas: Add Shikra remoteproc
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Komal Bajaj" <komal.bajaj@oss.qualcomm.com>
+Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260514-shikra-rproc-v1-2-9afdedeee002@oss.qualcomm.com>
+References: <20260514-shikra-rproc-v1-2-9afdedeee002@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 14 May 2026 10:23:48 +0000
+Message-Id: <20260514102349.4505DC2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260506-qref_vote_0506-v3-1-5ab71d2e6f16@oss.qualcomm.com>
 
-On Wed, May 06, 2026 at 01:43:51AM -0700, Qiang Yu wrote:
-> Add regulator supply properties for the Glymur TCSR QREF/REFGEN blocks
-> required by clkref clocks.
-> 
-> The vdda-qreftx*, vdda-qrefrpt*, and vdda-qrefrx* supplies map to common
-> QREF TX/RPT/RX components, while SoC-specific topology and instance count
-> differ. Document them here for qcom,glymur-tcsr.
-> 
-> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
-> ---
->  .../bindings/clock/qcom,sm8550-tcsr.yaml           | 57 ++++++++++++++++++++++
->  1 file changed, 57 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml b/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
-> index 1ccdf4b0f5dd..57921cb63230 100644
-> --- a/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
-> +++ b/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
-> @@ -51,6 +51,63 @@ properties:
->    '#reset-cells':
->      const: 1
->  
-> +  vdda-refgen-0p9-supply: true
-> +  vdda-refgen-1p2-supply: true
-> +  vdda-qrefrx0-0p9-supply: true
-> +  vdda-qrefrx1-0p9-supply: true
-> +  vdda-qrefrx2-0p9-supply: true
-> +  vdda-qrefrx4-0p9-supply: true
-> +  vdda-qrefrx5-0p9-supply: true
-> +  vdda-qreftx0-0p9-supply: true
-> +  vdda-qreftx0-1p2-supply: true
-> +  vdda-qreftx1-0p9-supply: true
-> +  vdda-qrefrpt0-0p9-supply: true
-> +  vdda-qrefrpt1-0p9-supply: true
-> +  vdda-qrefrpt2-0p9-supply: true
-> +  vdda-qrefrpt3-0p9-supply: true
-> +  vdda-qrefrpt4-0p9-supply: true
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Missing `region_assign_idx` and `region_assign_count` for Shikra C=
+DSP and MPSS resources.
+--
 
-Either I do not understand your previous explanation:
-CXO -> TX0 -> RPT0 -> RPT1 -> RPT2 -> RX2 -> PCIe4_PHY
+commit bfe1ee5022ed8cfda954819b500c3d0c3c26c986
+Author: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
 
-or this is still wrong. There is no TCSR here, so this proves nothing.
-If TCSR is TX0, then you do not have five of them...
+remoteproc: qcom: pas: Add Shikra remoteproc support
 
-My previous comment stay - you are not describing the actual hardware
-here.
+This commit adds support for the CDSP, LPAICP, and MPSS Peripheral
+Authentication Service on the Qualcomm Shikra SoC.
 
-Best regards,
-Krzysztof
+> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom=
+_q6v5_pas.c
+> index da27d1d3c9da6..4d43201b9ada7 100644
+> --- a/drivers/remoteproc/qcom_q6v5_pas.c
+> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+[ ... ]
+> +static const struct qcom_pas_data shikra_cdsp_resource =3D {
+> +	.crash_reason_smem =3D 601,
+> +	.firmware_name =3D "cdsp.mbn",
+> +	.pas_id =3D 18,
+> +	.minidump_id =3D 7,
+> +	.auto_boot =3D false,
+> +	.proxy_pd_names =3D (char *[]){
+> +		"cx",
+> +		NULL
+> +	},
+> +	.load_state =3D "cdsp",
+> +	.ssr_name =3D "cdsp",
+> +	.sysmon_name =3D "cdsp",
+> +	.ssctl_id =3D 0x17,
+> +	.smem_host_id =3D 5,
+> +	.region_assign_vmid =3D QCOM_SCM_VMID_CDSP,
+> +};
 
+Are the region_assign_idx and region_assign_count fields intentionally omit=
+ted
+here?=20
+
+Since they default to 0, qcom_pas_assign_memory_region() will return early
+when checking if (!pas->region_assign_idx). This bypasses the TrustZone SCM
+memory assignment routine entirely, making the explicitly defined
+region_assign_vmid configuration ineffective.
+
+Could this lead to an XPU access control violation if the platform requires
+these memory regions to be reassigned to the DSP VM to boot?
+
+[ ... ]
+> +static const struct qcom_pas_data shikra_mpss_resource =3D {
+> +	.crash_reason_smem =3D 421,
+> +	.firmware_name =3D "qdsp6sw.mbn",
+> +	.pas_id =3D 4,
+> +	.minidump_id =3D 3,
+> +	.auto_boot =3D false,
+> +	.decrypt_shutdown =3D true,
+> +	.proxy_pd_names =3D (char *[]){
+> +		"cx",
+> +		NULL
+> +	},
+> +	.load_state =3D "modem",
+> +	.ssr_name =3D "mpss",
+> +	.sysmon_name =3D "modem",
+> +	.ssctl_id =3D 0x12,
+> +	.region_assign_vmid =3D QCOM_SCM_VMID_MSS_MSA,
+> +};
+
+Similarly, this structure also defines region_assign_vmid but omits the
+index and count fields. Will the MPSS resource face the same memory
+assignment bypass issue?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514-shikra-rpr=
+oc-v1-0-9afdedeee002@oss.qualcomm.com?part=3D2
