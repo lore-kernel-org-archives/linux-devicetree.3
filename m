@@ -1,102 +1,149 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CEAA3F4110
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 07:03:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 238403F4110;
+	Thu, 14 May 2026 07:04:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778742239; cv=none; b=eA6DGJYA2opIjxdjFn/w/5WuXVNa0qQEIKZzjPLkMzZLDyjwcqsdpicR2b+bzIpDHwT6HoOdcTfbX5EyWQ/KwTm1vWUO/y43MNqt0b+f/1yIGNxBQlbdybKYXRYDxXavJyJlD1iCZ/W5hoT43ngXmp3/qJOrpV82nHVIz2+n2rg=
+	t=1778742242; cv=none; b=SdLH7XcVY9oeNQC0jhlFlyE4FODYvJGHx/WFfqhJZjLIUul/Q5IE9ajtDZ9ydZxtofvzMOVpLFEk/3sOmK7XgotaeibrekWfJGiBGP0gbgZYLgYHiFy8SDwkNm1NR7gZ+5sFadYhVtzQixnXO0xQJQBBEhvDvvc5hS/3zr1/mz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778742239; c=relaxed/simple;
-	bh=kFGQn+YxBdztLkVGTBrC2xLslKtos7Jv48cz2/TwxFI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gXnhlfa3AWPODUcpXcZX2ZS+KWjJElrhHaYpZcWmX/3BQCnzQjhAPwXM0tRjrgEoMr9/0Bn7B2x0eWlg07GlWXv40u3Udb0/jcafmFkaysb3VAfw64cSVZrW7FUL60eW0f2s59P3csMMYrGMD5mB7WPVnK0FmryR16a71Ggi1Ig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BzfXa+2u; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778742242; c=relaxed/simple;
+	bh=elyyTlHLLfNzd6l3H0FL9Cz6LRQxDUIlfmi0kRxxO9E=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=LGbvbx3MsJr7RtAYbY92kQVTVJUUtVljm2SJEbqt/G2aiFVMtkyyZF7Lpe5iKtUw56B+DAan44eoBOKWHVKbEOsQK57XUi+3fveJJfgzog7hpeq5obuI9+hnLkDBHNri0O7BGBgIO/33Jj/0y7TWIpw51TE+NB2aN3Dd851XTsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NdHQZFOg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BzfXa+2u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3F76C2BCB7;
-	Thu, 14 May 2026 07:03:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NdHQZFOg"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C0425C2BCB7;
+	Thu, 14 May 2026 07:04:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778742238;
-	bh=kFGQn+YxBdztLkVGTBrC2xLslKtos7Jv48cz2/TwxFI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=BzfXa+2u+CEDxAX1Fkuyt+DWbw5YQsqieXLIs+3XgDEDSik15nVVWXQJpTrdypAgQ
-	 xCaJZ/KQXKV2NskjtMC99ZI79Xc3Htzm3TAWyxQPXTe6R+FW2C56dWrSFrKaLz94ei
-	 NP1vdjHRyuD1EOHn2X2aT0AISr0SGQIFt/gxQrWDWhmgN3iYcnk4O5usKpJxeBepkM
-	 8irb3Voekr9eJHn+87yeTX/H6igwyMm+flaj7i/VANj6mfdjruIkj9aaf0lgXY1h/e
-	 kGXqwaFnPldSEuhkgfBDfZjSOGHKAX9ajAFXPijBmO5sLZAUlVuCS018F5vNNY9s/m
-	 IvzvO2DQnfGSA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/panel: simple: add NEC NL6448BC33-70C
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Steffen Trumtrar" <s.trumtrar@pengutronix.de>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260513-v7-1-topic-panel-simple-nl6448bc33-v1-2-9bd4b7d0eac0@pengutronix.de>
-References: <20260513-v7-1-topic-panel-simple-nl6448bc33-v1-2-9bd4b7d0eac0@pengutronix.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 07:03:58 +0000
-Message-Id: <20260514070358.A3F76C2BCB7@smtp.kernel.org>
+	s=k20201202; t=1778742241;
+	bh=elyyTlHLLfNzd6l3H0FL9Cz6LRQxDUIlfmi0kRxxO9E=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=NdHQZFOg4fvaeuLVIuVuF6WqqBCI5SP6PNoVASTucmcjqvEzhMpy3rGLC3UygvLsp
+	 Ey+VwbHKQin+vUd0pkzQ6u13qsvjNb0Dnlk4464zpHAGA1zS021rh2JXxduBeABoTh
+	 cXOxmf26FXQpMCK+YMy/zawFaDqZHZmaN+2bFdkehY4m1Grnq4OfeB1Ioh7lKhk1LR
+	 to58mpjtC+rI2NtXfjWZR5t45LPYaQa5ZXAXq4LKHqH0sm1Sh9LlrWlkiiC15oBw5a
+	 WuWCQihbP3kMIIZDHgDCf2CpA8yQm8T/+VhRZHWkaCTnazmNiqAnkiVFXeSidOPKWC
+	 hXxa+gEIbAL9Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AF8BDCD4F39;
+	Thu, 14 May 2026 07:04:01 +0000 (UTC)
+From: Rudraksha Gupta via B4 Relay <devnull+guptarud.gmail.com@kernel.org>
+Subject: [PATCH 0/3] Add cpufreq to MSM8960
+Date: Thu, 14 May 2026 00:03:59 -0700
+Message-Id: <20260514-expressatt_cpufreq-v1-0-487fd2d78859@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XN0W6DIBTG8VcxXO80oILVLMveY2kMwkHJpHaAp
+ EvTdx/Wm2Y3vfyT7/y4kYDeYiBdcSMekw12OedgbwVRkzyPCFbnJiUtBeWsArxePIYgY+zVZTU
+ ef0AIUR0HedSMC5IP88DY6wP9Ou2dZ2u24/5I3CY87K5432n6TENcVjV94y8kBgxMozXXg6iR6
+ s/RSTsf1OI+tr9eSb2SDr3szSzDBIkDhZbzsuZUyKZtX2o1Zc+aWXHux3XbpGqzRFMro+jAZfn
+ PGmRAyOFs7IrUHCg53e9/5tTtTHABAAA=
+X-Change-ID: 20260513-expressatt_cpufreq-66638ba8d156
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Rudraksha Gupta <guptarud@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778742241; l=3190;
+ i=guptarud@gmail.com; s=20240916; h=from:subject:message-id;
+ bh=elyyTlHLLfNzd6l3H0FL9Cz6LRQxDUIlfmi0kRxxO9E=;
+ b=adAQ86t2E9Pn6umm47Qn+rUyfPMy/OFEixbhV9nt3P7UFwHbRLRI7fNOuINyw84yMC7CwDYRk
+ g2c6AIttcVaCAJIZP/EIUG6prgzQQ06VhHUwO/PmytSB5CscdM7y1qt
+X-Developer-Key: i=guptarud@gmail.com; a=ed25519;
+ pk=ETrudRugWAtOpr0OhRiheQ1lXM4Kk4KGFnBySlKDi2I=
+X-Endpoint-Received: by B4 Relay for guptarud@gmail.com/20240916 with
+ auth_id=211
+X-Original-From: Rudraksha Gupta <guptarud@gmail.com>
+Reply-To: guptarud@gmail.com
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The `size` field in `panel_desc` is incorrectly populated with t=
-he physical outline dimensions of the module rather than the active display=
- area, which will cause incorrect DPI calculations in userspace.
-- [Low] The `connector_type` field is uninitialized in the `nec_nl6448bc33_=
-70c` panel descriptor, which will trigger a kernel warning during probe.
---
+Similar to APQ8064, cpufreq is enabled with this small patch series.
 
-commit d2a2636831b20ec008ea25a3fcc3144f386ad581
-Author: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Tests:
 
-drm/panel: simple: add NEC NL6448BC33-70C
+// Show available frequencies
+$ cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies
+384000 486000 594000 702000 810000 918000 1026000 1080000 1134000 1242000 1350000 1512000
+$ cat /sys/devices/system/cpu/cpu1/cpufreq/scaling_available_frequencies
+384000 486000 594000 702000 810000 918000 1026000 1080000 1134000 1242000 1350000 1512000
+ 
+// Show current governor
+$ cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+schedutil
+$ cat /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
+schedutil
+ 
+// set low freq
+$ echo 384000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+$ cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+384000
+ 
+// set mid freq
+$ echo 1026000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+$ cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+1026000
+ 
+// set max freq
+$ echo 1512000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+$ cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+1512000
+ 
+// set low freq
+$ echo 384000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
+$ cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+384000
+ 
+// set mid freq
+$ echo 1026000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
+$ cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+1026000
+ 
+// set max freq
+$ echo 1512000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
+$ cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+1512000
+ 
+// SAW2 regulators
+$ cat /sys/class/regulator/regulator.*/microvolts 2>/dev/null | head -2
+1200000
+1150000
 
-This commit adds support for the NEC NL6448BC33-70C 10.4" 640x480 LCD module
-to the panel-simple driver.
+Signed-off-by: Rudraksha Gupta <guptarud@gmail.com>
+---
+Rudraksha Gupta (3):
+      dt-bindings: soc: qcom: saw2: Rename MSM8960 SAW2 compatible to v1.1
+      soc: qcom: spm: Add MSM8960 SAW2 CPU support
+      ARM: dts: qcom: msm8960: Add CPU frequency scaling support
 
-> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel=
-/panel-simple.c
-> index 236bd56208ccf..bbbbdd399d1c3 100644
-> --- a/drivers/gpu/drm/panel/panel-simple.c
-> +++ b/drivers/gpu/drm/panel/panel-simple.c
+ .../devicetree/bindings/soc/qcom/qcom,saw2.yaml    |   2 +-
+ arch/arm/boot/dts/qcom/qcom-msm8960.dtsi           | 133 ++++++++++++++++++++-
+ drivers/soc/qcom/spm.c                             |  20 +++-
+ 3 files changed, 151 insertions(+), 4 deletions(-)
+---
+base-commit: 3131ff5a117498bb4b9db3a238bb311cbf8383ce
+change-id: 20260513-expressatt_cpufreq-66638ba8d156
+prerequisite-message-id: <20260503-expressatt-touchkey-v1-1-f7dd5db64e0d@gmail.com>
+prerequisite-patch-id: 8de4de7909722ccaf385c4224f25a623eaa72c28
+prerequisite-message-id: <20260503-expressatt_camera_flash-v5-0-95524506a799@gmail.com>
+prerequisite-patch-id: ab8b8d87fd2d518c4c5b5dace3f22238d1abbe49
+prerequisite-patch-id: a6ab585bad167db61d13b10c3912018ec94cdfd9
+prerequisite-patch-id: 7ef7df61e7ef6476a35811d765f522f793d9ecc7
+prerequisite-message-id: <20260401-expressatt_fuel_guage-v3-0-9674cfc0b5a2@gmail.com>
+prerequisite-patch-id: 27c37aa51fe76043b4998137d106689ed5ae6c91
+prerequisite-patch-id: e477ee37abf167c55659f5e591b070b176187ca7
+prerequisite-patch-id: 9680b63831f2be63607bff2175639c1987af5e85
+prerequisite-patch-id: ee275dc3aec6159072d0a9efb66d18468a72ad57
 
-[ ... ]
+Best regards,
+-- 
+Rudraksha Gupta <guptarud@gmail.com>
 
-> +static const struct panel_desc nec_nl6448bc33_70c =3D {
-> +	.modes =3D &nec_nl6448bc33_70c_mode,
-> +	.num_modes =3D 1,
-> +	.bpc =3D 6,
-> +	.size =3D {
-> +		.width =3D 243,
-> +		.height =3D 185,
-> +	},
 
-The commit message specifies this is a 10.4" panel, but these dimensions
-(243x185 mm) yield a diagonal of approximately 12.0 inches. Are these the
-physical module outline dimensions instead of the active display area?
-
-The DRM subsystem propagates width_mm and height_mm to
-connector->display_info for userspace DPI scaling calculations. Using the
-mechanical outline instead of the active area (which is typically around
-211x158 mm for a 10.4" 4:3 panel) might result in incorrect UI scaling.
-
-> +	.bus_format =3D MEDIA_BUS_FMT_RGB666_1X18,
-> +	.bus_flags =3D DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE,
-> +};
-
-Is it intentional to omit the connector_type field here?
-
-When this field is omitted, panel_simple_probe() will emit a kernel
-warning saying "Specify missing connector_type" before falling back to
-DRM_MODE_CONNECTOR_DPI. Specifying the correct connector type explicitly
-prevents this warning during boot.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-v7-1-topic=
--panel-simple-nl6448bc33-v1-0-9bd4b7d0eac0@pengutronix.de?part=3D2
