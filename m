@@ -1,201 +1,198 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2F5E4279E1
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 15:11:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 237C9436370;
+	Thu, 14 May 2026 15:11:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778771469; cv=none; b=fLj2s+faAJ+Y+/X1pE6MyEiu7ViPymODn7NLszQJ4FQdc23hgLkPUc1bdfzGgpWVycjgKXkkdi6I43u7RDPUJY4T7X8wCOiudo6iRRvcgLykCe8J0f42KHVoqIurxeFJmuq+MD9vMHH8GiT7vfPEgOEbXI35e7UTuzmI2IMUwpE=
+	t=1778771485; cv=none; b=H+mej5JkW4Om3g1TxzccW142ZLD0aTtGpts28tDSc0Gs3JAT7KnVfwmW6lHaL/y9forRVY+mGWJL0PCeFkWaNoOxzA6fvHh5Tq4YSc8LOQHWgE8ZQBPAmB1S3fH4YXK3mr4AR9pnpSamWYiRjotClWIbHHYEC0X/QdtOUQRMHh0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778771469; c=relaxed/simple;
-	bh=X29Tb+mU4TU588xEduaIV39ZONcE1lEFKkviuT7INIE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=sDAqOlPxPuLnTSA2tJ82j1GpDTizOVE+O+yjjW4UvElHvrQ9BfP+g/dEFc4hi2B/k5ATykqDT+hm04H2NfYNfyelKyM8kuJQDqPuUtnCgjuyrPPb/CrasN6WX6kGWB+0yrzeVe+oejettYdvFNmduVlf5Odu87sHmGYsDAXfhU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=f+Jhf3rI; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1778771485; c=relaxed/simple;
+	bh=hozAw0rEPrOq8LRlaqbe/lv3mLiyhX6RyL3aLIPpo+c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MRvRRAcmaRxs6WHkAYmAAQfmrbl1q0wXIrtXbzdXCloTDmhNHLD4ot4SbIUMCHEXSf9uRBmBMg/QGGF1PPurOB+Ao8XQEGB+2yq9kVWlJFThcIIKZenuyxlNO4DIU2QJvxNvIFhZ2H3+DBx29tAU/DxLLJwxACt5jrlahQILmZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d6e1zB+Z; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="f+Jhf3rI"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-44a74032ff8so6042331f8f.1
-        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 08:11:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1778771464; x=1779376264; darn=vger.kernel.org;
-        h=mime-version:message-id:date:user-agent:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=02NHwmt4Q/1Wwv24vtMYzG1XiCeSXVTnDMbrgdzumy0=;
-        b=f+Jhf3rInAWJISlES/J2HSya/j83Xk83OmQUGQ0ULbRay7TjVRKSXlzWlhLlkCP/Bm
-         bxo50zm4ECPlqq1H/0fUiOsf0JeWfxfkAWyzzYwTCHbJlGWEeAaRSVEDjdoPWIEGY91M
-         9ATApBtJOmVIfmfs7EciJ40Sj3a8ONF3XqVFHF4ugLxosnwPDQmg7xKL3dO6lnb9LwN4
-         8ZAGavnrjm31qOQYoM+N0Aw3bE1KaWtgogZZCFIgSN8zldjSZRGkjJAM2KRlKTp+6ziQ
-         +zKwkmn7/Gquk/0mMnRc4iVeZtlfVCyvCVUsVMI7boI4N9X9r1Ed70skucDH7fuGbMgY
-         9Ycw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778771464; x=1779376264;
-        h=mime-version:message-id:date:user-agent:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=02NHwmt4Q/1Wwv24vtMYzG1XiCeSXVTnDMbrgdzumy0=;
-        b=PaD2/8CcrAUuUd8I+2MP0WJRvALXSMBf8e0wPQlxLpDiYt57NdTZ+G0KlUhyxNsTi0
-         eAGWPHx4lJfrZtqQa8JBAmglD/MpGDq7YhTA/N5i6Q5Vo1DgW1Q20yU3DNU//pCEs9VM
-         helxxw7dbwMk9k23qUBUT8qYlgj2PchWuEj22j6mGDDnDjmx9HxjKRBNrrEHdxsoxZ4g
-         L9I4OyPRNfM0j3aa/xE+QnRIcZcGan7rWQ7p4t2Wi3yGI+VL6GmX8TqsrXl6Nl4XmqQM
-         ZBvXOyebIturbtgDgXnDQcWJCFvRns4R9K/3w+lBocwGJxBk1Qn+gmBb4f1aSRFYpeIj
-         xfhQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9dqSMSj5U0QbV70QLXFbrkUoKfz/MbQK+RCpUebbbr88m+13EVD1A3urannXVkmRp/gugsSEQBv/0E@vger.kernel.org
-X-Gm-Message-State: AOJu0YyNaCsDtYwjfYuNrY7aEmZ6NvFIdIBk96UidJ7BriE0H3dlo+xo
-	lEfDu8Uf6PoevMKCwkaOs0QI7bl0nZ9nWP4bdcD5yMMvBdO5ODd+puqZuSZjIbiMhLc=
-X-Gm-Gg: Acq92OGtE/LcLNPcHqN52qpBD/lHWcNSJioATi5RyG5giEdrzG48RULI4trS5mne4AP
-	eNWAeKfVn+g8jzuEApXVtSUO3EMjg5ezDaY0OsaSu7aZX0IkrdfeaMKs8dQ5cV6HeU5u6WRJ8aN
-	Dj5xdM9p4GX7kP78BTAJQkZ2xIVhgI/ylwmKbwHSjgF8WeqINC/G5FSj/h1XpUQIdugPS+LR8Dq
-	0xMCVqyiSG0Psj2PQbf10uhxuzVy9MXSKogSDXD26m/AbE2+2OSFSw7ewQm/vrpyfqq04NAl6MO
-	hFKJiu478mH0drNw/4uyLCg41QLNDum454XoR136dJYIcNlK3DAJYltV/OtPb1UU1APri44po5g
-	U3qgBqL9JAjSRQvNG2CdpANhLoejvtSO6jf8ltEOe37TH8UXBP9itV/2ESQNiabl4SUqquWUYxj
-	QXOZtFDgMZvW+NZIge3BOWeIkJ8WTY2w==
-X-Received: by 2002:a05:6000:26c1:b0:439:c62a:6dc2 with SMTP id ffacd0b85a97d-45c7bb4a90emr12856516f8f.41.1778771463953;
-        Thu, 14 May 2026 08:11:03 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:8f63:bf1e:b5:28d8])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-45d9ed30110sm8047555f8f.13.2026.05.14.08.11.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 14 May 2026 08:11:03 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>
-Cc: Michael Turquette <mturquette@baylibre.com>,  Stephen Boyd
- <sboyd@kernel.org>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
- <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Neil Armstrong
- <neil.armstrong@linaro.org>,  Xianwei Zhao <xianwei.zhao@amlogic.com>,
-  Kevin Hilman <khilman@baylibre.com>,  Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>,  jian.hu@amlogic.com,
-  linux-kernel@vger.kernel.org,  linux-clk@vger.kernel.org,
-  devicetree@vger.kernel.org,  linux-amlogic@lists.infradead.org,
-  linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 07/10] clk: amlogic: Support POWER_OF_TWO for PLL
- pre-divider
-In-Reply-To: <20260511-b4-a9_clk-v1-7-41cb4071b7c9@amlogic.com> (Jian Hu via's
-	message of "Mon, 11 May 2026 20:47:29 +0800")
-References: <20260511-b4-a9_clk-v1-0-41cb4071b7c9@amlogic.com>
-	<20260511-b4-a9_clk-v1-7-41cb4071b7c9@amlogic.com>
-User-Agent: mu4e 1.12.9; emacs 30.1
-Date: Thu, 14 May 2026 17:11:01 +0200
-Message-ID: <1jy0hm6n7e.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d6e1zB+Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9F04C2BCB3;
+	Thu, 14 May 2026 15:11:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778771484;
+	bh=hozAw0rEPrOq8LRlaqbe/lv3mLiyhX6RyL3aLIPpo+c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=d6e1zB+Z2U3ZKOLAXZGNXOymdfqOhsVQiU7tH6xzvehhkecwNID9tf5GGum6vWgHE
+	 IEdluTVOKmAGhLV6piProU2wXkZHQrbCs190J7AMp3bbC4R2u0u+vCMUtrKtfEuUTi
+	 9ysLKtvpZ+FXoJg7imltNnF1XeDzwKLlFvLf28bICokhgN4oPTkq39m+oYbOQtL4F/
+	 E0+WBuDm1bj67U2Zb1aWDsjr9lnQuZFRZgsCwxGhiW/0gcyWk+iw/t3BwPEdAf9a4Y
+	 04MwWseJ04cgKYwlZIhsRGKv/SWe+tARJXSFgvQgsFtcFGMDTBbtLvj/uNMEeNMlni
+	 ktyWHbzrhU+5A==
+Message-ID: <81a3c207-4d8f-490f-8e2a-6f3f4c2acd35@kernel.org>
+Date: Thu, 14 May 2026 17:11:17 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] dt-bindings: display: panel: Add Novatek NT37705
+To: Luca Weiss <luca.weiss@fairphone.com>, Conor Dooley <conor@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <20260501-fp6-panel-v1-0-e09cb05651cc@fairphone.com>
+ <20260501-fp6-panel-v1-1-e09cb05651cc@fairphone.com>
+ <20260501-yogurt-wise-2a2884e3ec59@spud>
+ <DI9XL1VYYTY7.19IRSM8VIDO53@fairphone.com>
+ <a2444df4-abf1-4b56-8556-7efb238bc677@kernel.org>
+ <DIAJCURQ37FA.1CNEKX6QM6ZO8@fairphone.com>
+ <dd7ebb25-014c-4983-ae31-6a6cbd24e628@kernel.org>
+ <DID4LW3GMLDV.338VDV2L2IPL@fairphone.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <DID4LW3GMLDV.338VDV2L2IPL@fairphone.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On lun. 11 mai 2026 at 20:47, Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org> wrote:
+On 08/05/2026 09:44, Luca Weiss wrote:
+> Hi Krzysztof,
+> 
+> On Tue May 5, 2026 at 9:25 AM CEST, Krzysztof Kozlowski wrote:
+>> On 05/05/2026 08:40, Luca Weiss wrote:
+>>>>>>> +  compatible:
+>>>>>>> +    contains:
+>>>>>>> +      const: boe,bj631jhm-t71-d900
+>>>>>>
+>>>>>> Compatible doesn't match the filename, nor does the commit message match
+>>>>>> what you've got here. Sounds like you're missing a fallback to
+>>>>>> $filename.
+>>>>>
+>>>>> The last times I was upstreaming panel drivers (Feb 2024 and June 2025),
+>>>>> this was the requested way of doing things.
+>>>>
+>>>> So this was requested that time and is requested now. What is here
+>>>> uncertain?
+>>>>
+>>>>>
+>>>>> Compatible being the company and model number making the actual panel
+>>>>> assembly (driver IC + touchscreen + glass etc), while the rest being
+>>>>> named after the driver IC manufacturer & number.
+>>>>
+>>>> So exactly what was asked for...
+>>>
+>>> I don't quite understand what is asked for now, that's my issue.
+>>>
+>>> 1. Change the filename to boe,bj631jhm-t71-d900.yaml and leave the rest
+>>>    as-is.
+>>>
+>>> 2. Add a fallback compatible for novatek,nt37705. IIRC last time it was
+>>>    argued that a "generic" nt37705 driver will never be correct for a
+>>>    specific panel since it's missing a bunch of panel-specific init. So
+>>>    that's why there should not be a fallback to nt37705.
+>>
+>> To my limited knowledge the (2) with fallback describing the specific IC
+>> is preferred, because that compatible although not currently usable is
+>> still specific and describes actual IC used. I imagine that such
+>> fallback still could be useful to some SW implementation to determine
+>> the IC and act based on that.
+>>
+>> If you have sources of other preference, please share, but I just gave
+>> same review to Neil for his ayaneo,wt0600-2k panels.
+> 
+> I found the discussion from 2024 for the Fairphone 4 panel:
+> 
+> https://lore.kernel.org/lkml/f9164049-6529-42c1-a35a-e91132c823b9@linaro.org/
+> 
+> (quoting)
+> 
+> '''
+>   Not sure if "himax,hx83112a" is needed here, the "djn,9a-3r063-1102b"
+>   is enough to know the IC is hx83112a.
+> 
+>   I don't think you'll ever find a "djn,9a-3r063-1102b" with another
+>   controller IC ?
+> 
+>   And "himax,hx83112a" alone as fallback is not enough to describe the
+>   panel hardware, so I think it should be dropped.
+> '''
+> 
+> With Konrad replying "+1" to that.
 
-> From: Jian Hu <jian.hu@amlogic.com>
->
-> The A9 PLL pre-divider uses a division factor of 2^n to ensure a clock
-> duty cycle of 50% after predivision.
->
-> Add flag 'CLK_MESON_PLL_N_POWER_OF_TWO' to indicate that the PLL
-> pre-divider division factor is 2^n.
+The arguments from Linux drivers point of view are correct. And you can
+apply the same to board-level compatibles. Each most-specific board
+level compatible already defines the soc, thus soc-compatible fallback
+is redundant, right?
 
-I understand what you are doing here but I have to ask why this can't be
-implemented with independent dividers that already supports power of 2 ?
+And also the soc-compatible fallback is too generic to be used alone by
+the SW in many cases.
 
->
-> Signed-off-by: Jian Hu <jian.hu@amlogic.com>
-> ---
->  drivers/clk/meson/clk-pll.c | 28 +++++++++++++++++++++++-----
->  drivers/clk/meson/clk-pll.h |  2 ++
->  2 files changed, 25 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/clk/meson/clk-pll.c b/drivers/clk/meson/clk-pll.c
-> index 8568ad6ba7b6..49483e431d44 100644
-> --- a/drivers/clk/meson/clk-pll.c
-> +++ b/drivers/clk/meson/clk-pll.c
-> @@ -66,6 +66,9 @@ static unsigned long __pll_params_to_rate(unsigned long parent_rate,
->  		rate += DIV_ROUND_UP_ULL(frac_rate, frac_max);
->  	}
->  
-> +	if (pll->flags & CLK_MESON_PLL_N_POWER_OF_TWO)
-> +		n = 1 << n;
-> +
->  	return DIV_ROUND_UP_ULL(rate, n);
->  }
->  
-> @@ -83,7 +86,7 @@ static unsigned long meson_clk_pll_recalc_rate(struct clk_hw *hw,
->  	 * it would result in a division by zero. The rate can't be
->  	 * calculated in this case
->  	 */
-> -	if (n == 0)
-> +	if (n == 0 && !(pll->flags & CLK_MESON_PLL_N_POWER_OF_TWO))
->  		return 0;
->  
->  	m = meson_parm_read(clk->map, &pll->m);
-> @@ -103,7 +106,12 @@ static unsigned int __pll_params_with_frac(unsigned long rate,
->  {
->  	unsigned int frac_max = pll->frac_max ? pll->frac_max :
->  						(1 << pll->frac.width);
-> -	u64 val = (u64)rate * n;
-> +	u64 val;
-> +
-> +	if (pll->flags & CLK_MESON_PLL_N_POWER_OF_TWO)
-> +		n = 1 << n;
-> +
-> +	val = (u64)rate * n;
->  
->  	/* Bail out if we are already over the requested rate */
->  	if (rate < parent_rate * m / n)
-> @@ -142,7 +150,8 @@ static int meson_clk_get_pll_table_index(unsigned int index,
->  					 unsigned int *n,
->  					 struct meson_clk_pll_data *pll)
->  {
-> -	if (!pll->table[index].n)
-> +	if (!pll->table[index].n &&
-> +	    !(pll->flags & CLK_MESON_PLL_N_POWER_OF_TWO))
->  		return -EINVAL;
->  
->  	*m = pll->table[index].m;
-> @@ -156,7 +165,12 @@ static unsigned int meson_clk_get_pll_range_m(unsigned long rate,
->  					      unsigned int n,
->  					      struct meson_clk_pll_data *pll)
->  {
-> -	u64 val = (u64)rate * n;
-> +	u64 val;
-> +
-> +	if (pll->flags & CLK_MESON_PLL_N_POWER_OF_TWO)
-> +		n = 1 << n;
-> +
-> +	val = (u64)rate * n;
->  
->  	if (__pll_round_closest_mult(pll))
->  		return DIV_ROUND_CLOSEST_ULL(val, parent_rate);
-> @@ -173,11 +187,15 @@ static int meson_clk_get_pll_range_index(unsigned long rate,
->  {
->  	*n = index + 1;
->  
-> +	if ((pll->flags & CLK_MESON_PLL_N_POWER_OF_TWO))
-> +		*n = index;
-> +
->  	/* Check the predivider range */
->  	if (*n >= (1 << pll->n.width))
->  		return -EINVAL;
->  
-> -	if (*n == 1) {
-> +	if ((*n == 1 && !(pll->flags & CLK_MESON_PLL_N_POWER_OF_TWO)) ||
-> +	    (*n == 0 && (pll->flags & CLK_MESON_PLL_N_POWER_OF_TWO))) {
->  		/* Get the boundaries out the way */
->  		if (rate <= pll->range->min * parent_rate) {
->  			*m = pll->range->min;
-> diff --git a/drivers/clk/meson/clk-pll.h b/drivers/clk/meson/clk-pll.h
-> index 1be7e6e77631..60b2772a54c8 100644
-> --- a/drivers/clk/meson/clk-pll.h
-> +++ b/drivers/clk/meson/clk-pll.h
-> @@ -33,6 +33,8 @@ struct pll_mult_range {
->  #define CLK_MESON_PLL_L_DETECT_ACTIVE_HIGH	BIT(2)
->  /* rst signal is active-low (Power-on reset) */
->  #define CLK_MESON_PLL_RST_ACTIVE_LOW	BIT(3)
-> +/* The division factor of the PLL pre-divider is 2^n */
-> +#define CLK_MESON_PLL_N_POWER_OF_TWO	BIT(4)
->  
->  struct meson_clk_pll_data {
->  	struct parm en;
+Yet we use it. Same here. Why? For the same reasons as we use for
+board-level compatibles. Because that's convenient way for defining
+quirks for the controller IC which otherwise would need to match all
+panel compatibles.
 
--- 
-Jerome
+I do not insist on this (for panels, of course), however I would prefer
+consistency in the code and in the reviews. Heh, I bet you too would
+prefer consistency. :) All my recent reviews were proposing to have the
+fallback, thus I consistently propose one here, but I won't object for
+the patch in current form, thus:
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+But please also add Link to this exact email I am writing.
+
+( Link: ....)
+
+Best regards,
+Krzysztof
