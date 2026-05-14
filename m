@@ -1,116 +1,131 @@
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2125825B094
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 20:01:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E4A386553
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 20:04:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778788909; cv=none; b=JiSaMbps0l+iZkVZWPfeQCrL+hl5wXklKONYST1EhdHZct05+zHrKqX0Yi1Qz5nLL03phSHLo7aST96pdtOOZ1RBE0WTl9qdsP/vTOqa5mbdlbBj05LOty3ivUvhJAcyKH9lzQ2OjHmJ6sOgIPiwgWmTaVzC8AoCPr2VhkQEmB8=
+	t=1778789069; cv=none; b=HJLzMes38gaoRkxDsHEDrcNCA88ENnlH0sjFkMOOhGcPZ4sXDgQegihLiepvKC45HYs4xIZLMnuxlsVw5Cetq62Cea9OmfNLqUYP+P1ao7pJ2YYKf9i7qgGFQLqkKdwSxqdvexlQ0ZbWXkj0yQOSsrKqJf/RQlEBX2PqLjkvOig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778788909; c=relaxed/simple;
-	bh=SUe2Z7csLu3EIVSgP3ikRvI6dwffX9wqRIZ9j07Ovhw=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:Mime-Version:
-	 References:In-Reply-To; b=e5XlgEeK0hBwwSb4vHneI6WSIgxJ5pSh8RB9dDCyDnaowGpN699ZJH8U6avccjQT0Qlb29Bxw+yP861fJe1V3zI3GBl8wGTGpztQaWOvuDkIZRm9emS3VEOfrvdbARLNls0/8GgHg0yT5kgrdOC0Y4v5Q8NZTK7f64JGpjSV6eM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=DG6zvNGH; arc=none smtp.client-ip=74.125.82.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+	s=arc-20240116; t=1778789069; c=relaxed/simple;
+	bh=F4+JQLCALNxLVab6U2Lq52m1d0VmEtyVXHnWOlLE11A=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=F6HM9kbfiI/nCyTFpu9glI/30KVAU5ULWZJBnYgB+7ceSjb7djH8OW8DUpambwLGgkx96CNCP9NNcqzMC1IlFKA4XEl/yjBe0MoxLZwOg+q/Om84dXOLr5B7dtlAF04MiPXbtlQ+erpFuod9hPB2mhRx5ZBd7Bgh2rRjosT1uYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Durow7XY; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="DG6zvNGH"
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1330d6bb78dso5235059c88.1
-        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 13:01:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1778788907; x=1779393707; darn=vger.kernel.org;
-        h=in-reply-to:references:content-transfer-encoding:mime-version:to
-         :from:subject:cc:message-id:date:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=apzLLVPJoJDzSyz6mTxviWGjUoPCsnXa0PozzLDEgxo=;
-        b=DG6zvNGHi200NQ6aoIFP+TdLjIn/iZoZiTfJe3oMkkcNVyw7uBWa5W/2wYvlrR4rk+
-         eTNIg9nUmwwbbb7Ng16wWu5AxjYc4pFIP4UM8IbAv96ZlZVCSsI4EO0e1X68X5S1BawK
-         ZQaTlhwh/ZUEcHspAlsp0NHiHBEwN11YqUktC95LIn4tR1HGqAFySAnC9Y3aCmer7kKg
-         ee5CPUEFQgBzY2EDkEuj9rb+zUw6vDregfZsAMu5VbqNNwsL4A6kA/iPLWm8waNS/140
-         SRZA8TNBaT3/xU7uLoC67Z4VIcn4ifF3+vyRvFuHtImf1EWjQN/le09L4ph7ItHIFej/
-         D3Xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778788907; x=1779393707;
-        h=in-reply-to:references:content-transfer-encoding:mime-version:to
-         :from:subject:cc:message-id:date:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=apzLLVPJoJDzSyz6mTxviWGjUoPCsnXa0PozzLDEgxo=;
-        b=XFMhp/qhsPG9eliHQVMFs5JyrystUtIaxppSmnjqH741D9HLbTy1rHTTUgnRU8eyM5
-         AIDhbuiPU2blttPskSYUyCeWA+HZ7sgd2Ld7lLZ6VV8Bk7nnH3cKeuBGuW7kX8IIuFPd
-         oU1IYs/jzofoCAFGe+e7kaiAE3GuhM7F86eKzZXYxa4XVRYI9QWQMqkm4MTqpXWDdjSn
-         d2J6HYBqZKy2uh+0sBb5EL0pkEUiQZs7Ft8b/ptBBZEImPDEBLZseug/AMEgRU2YtZlN
-         tzjtLCn2uThKwuJVtAp9a9F6elN4IfBjfkuDZG1Kq45gHK8TGdVbV4bf5ydN/tqCoj9w
-         oVZQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8RAMzuI/222y0FQU/Fh7W01Q5RzTdiY6QSi/zhlZMyF7Hsrh4nQuWVbCRCEC86s/l+oRKXHVhQehUp@vger.kernel.org
-X-Gm-Message-State: AOJu0YxTGkjPiv7sokZHooiAsCpglL93kfcx1XC3dsOkZG7tjhGss+bK
-	lZ8cVwxsZbSbwBtgn4OTlOaIAPOqQmVpjzIw6xqQHlOcjVASqkNeBsPvP01NkOi5dxo=
-X-Gm-Gg: Acq92OF2Ry7VWCfIfOueQeAKO3j9+a0047RM7PJCFQ8UZLFROHFEKfAVA58/j8UKt3D
-	M1i7W9/kX1p1GNoL5toN3wVDUPJ0W4k0VRGA9bqQ/8Fnp++Pb3+dwHtw7ku03mHx3T16oFl/YEX
-	Pr25q0wvdPBalJ/LaCaRJbl/AssjlrGaD7GGSEu5DZX8XwB/HuIKgQJYfVr+kAIk6Ah/eA15msi
-	LCMMlWIKQbrb0D5oeScdUpJKIBskMYyRj0JsFlwz92gE9dgaLLA9q80K9hHX8sVE1Q3zlArVz82
-	9NFcuyJQEGRwdVN4Wy7ppkaTLJuEyTUmDJyGkBckHxgurljgO8iRBVrStt8jM79Ufs8qdPlnwdt
-	hVZ2JTTFkyVzRkKj6+GqK7pCJXTfNwJDRq6QUdUC0TpINGkTn1NDoHvHRD2Cie1MrGJGgl/WO1x
-	5QFe6zvs6STLorfbVGlJ21oTiDT2ooNFJfJw==
-X-Received: by 2002:a05:7022:220:b0:128:d29a:3d45 with SMTP id a92af1059eb24-1350474413bmr286821c88.22.1778788907100;
-        Thu, 14 May 2026 13:01:47 -0700 (PDT)
-Received: from localhost ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-134cc33a67csm5914767c88.13.2026.05.14.13.01.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 14 May 2026 13:01:46 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 14 May 2026 13:01:45 -0700
-Message-Id: <DIIO1I9O6X0A.21ESYHG7CYZZX@nexthop.ai>
-Cc: "Guenter Roeck" <linux@roeck-us.net>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Jonathan Corbet" <corbet@lwn.net>, "Shuah Khan"
- <skhan@linuxfoundation.org>, <linux-hwmon@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH v3 1/2] dt-bindings: trivial-devices: Add Murata D1U74T
- PSU
-From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Abdurrahman Hussain"
- <abdurrahman@nexthop.ai>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Durow7XY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 680FFC2BCB3;
+	Thu, 14 May 2026 20:04:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778789068;
+	bh=F4+JQLCALNxLVab6U2Lq52m1d0VmEtyVXHnWOlLE11A=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=Durow7XYoQNHKqorkSaviXadp1aJHV9AuzXRxb7yEQCdjK76dduAc94GhkqY0AGrv
+	 bYDcfKBqULB+JzmsPXWn4XsAue+lR9cvxuJSNA/O7TG+DMXOCC294eUyPTTZmOnQkc
+	 sHpal2hFOoCKNAYaEOjfdGEYb1DDmLcUuWX5RtGI/khDGbOS4jrbgR3PGj8W3EtDnM
+	 jYOLILIIHmCsqU9z6PcXEyjtAJTEbcIcE5ZwoQl8tJC5gI7W20saqQbTN0q8y5RGmG
+	 dCZfSW5Z312IYdviSA2+m8LiWcfeuaBK7swwnM/J3Dxk4IBa2WmeuMbimQd0qTuE6s
+	 J75t6RHSZWVdw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/7] iio: temperature: ltc2983: Use
+ fwnode_property_present() for optional properties
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Liviu Stan" <liviu.stan@analog.com>
+Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260514144712.64374-5-liviu.stan@analog.com>
+References: <20260514144712.64374-5-liviu.stan@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 14 May 2026 20:04:27 +0000
+Message-Id: <20260514200428.680FFC2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: aerc 0.21.0
-References: <20260513-d1u74t-v3-0-27bcd6852c45@nexthop.ai>
- <20260513-d1u74t-v3-1-27bcd6852c45@nexthop.ai>
- <20260514-dazzling-ethereal-bumblebee-d9b69e@quoll>
-In-Reply-To: <20260514-dazzling-ethereal-bumblebee-d9b69e@quoll>
 
-On Thu May 14, 2026 at 4:43 AM PDT, Krzysztof Kozlowski wrote:
-> On Wed, May 13, 2026 at 03:33:02AM -0700, Abdurrahman Hussain wrote:
->> The Murata D1U74T-W is a PMBus-compliant AC/DC power supply unit. The
->> binding only declares the compatible string and i2c reg, with no
->
-> Describe the hardware, not binding. What does the hardware have?
-> Supplies? Pins? Clocks? Interrupts?
->
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Bypassed software validation for RTD rotation when `adi,number-of-=
+wires` is absent.
+- [Medium] The commit only partially implements its stated goal, leaving mu=
+ltiple instances of the exact same error-swallowing anti-pattern throughout=
+ the driver.
+--
 
-Hi Krzysztof,
+commit 94ec4e6144c071e0f0444b0ad792dffbdf874d09
+Author: Liviu Stan <liviu.stan@analog.com>
 
-The Murata D1U74T-W series are hot-pluggable 1U AC/DC front-end
-power supplies in the Intel CRPS-185 / OCP M-CRPS form factor.
-Each variant delivers a 12 V main output plus a 12 V standby output
-from a wide AC input (90-264 Vac) or HVDC supply, and includes an
-internal variable-speed cooling fan and on-board voltage, current,
-power, fan-speed, and temperature telemetry.
+iio: temperature: ltc2983: Use fwnode_property_present() for optional prope=
+rties
 
-The host-side digital interface is a PMBus 1.2 port on I2C.  The
-PSU's other electrical signals (status, alert, current-share) live
-on the CRPS edge connector and are consumed by the chassis
-controller rather than the host SoC, so there are no host-described
-supplies, gpios, clocks, or interrupts.
+This commit attempts to fix the silent swallowing of error codes when optio=
+nal
+properties are present but malformed. It updates the property reads for
+adi,sensor-oc-current-microamp and adi,number-of-wires to check for presence
+first.
 
-If the above two paragraphs provide the adequate description of the
-hardware I will include them verbatim in v4.
+> Checking fwnode_property_read_u32() return value with if (!ret)
+> silently swallows meaningful error codes when a property is present
+> but malformed. Use fwnode_property_present() first so that absence
+> uses the default while a present but unreadable property returns
+> a proper error.
 
-Best regards,
-Abdurrahman
+Does this commit miss updating other optional properties that share the same
+error-swallowing pattern?
+
+For example, in ltc2983_rtd_new(), adi,excitation-current-microamp still
+falls back to default values on any error:
+
+	ret =3D fwnode_property_read_u32(child, "adi,excitation-current-microamp",
+				       &excitation_current);
+	if (ret) {
+		/* default to 5uA */
+		rtd->excitation_current =3D 1;
+
+Are there other instances, like in ltc2983_diode_new(), that also need this
+update to fully implement the stated goal?
+
+> --- a/drivers/iio/temperature/ltc2983.c
+> +++ b/drivers/iio/temperature/ltc2983.c
+[ ... ]
+> @@ -760,8 +766,12 @@ ltc2983_rtd_new(const struct fwnode_handle *child, s=
+truct ltc2983_data *st,
+>  		return dev_err_ptr_probe(dev, ret,
+>  					 "Property reg must be given\n");
+> =20
+> -	ret =3D fwnode_property_read_u32(child, "adi,number-of-wires", &n_wires=
+);
+> -	if (!ret) {
+> +	if (fwnode_property_present(child, "adi,number-of-wires")) {
+> +		ret =3D fwnode_property_read_u32(child, "adi,number-of-wires", &n_wire=
+s);
+> +		if (ret)
+> +			return dev_err_ptr_probe(dev, ret,
+> +						 "Failed to read adi,number-of-wires\n");
+> +
+>  		switch (n_wires) {
+>  		case 2:
+>  			rtd->sensor_config =3D LTC2983_RTD_N_WIRES(0);
+
+If the adi,number-of-wires property is absent, n_wires remains 0. Since
+the hardware configuration correctly defaults to a 2-wire setup
+(sensor_config is zero-initialized), does leaving n_wires as 0 introduce a
+regression where it bypasses the later validation for RTD rotation?
+
+Further down in ltc2983_rtd_new():
+
+	if (fwnode_property_read_bool(child, "adi,rsense-share")) {
+		/* Current rotation is only available with rsense sharing */
+		if (fwnode_property_read_bool(child, "adi,current-rotate")) {
+			if (n_wires =3D=3D 2 || n_wires =3D=3D 3)
+				return dev_err_ptr_probe(dev, -EINVAL,
+							 "Rotation not allowed for 2/3 Wire RTDs\n");
+
+If n_wires is 0, this check is bypassed and current rotation is allowed for
+a 2-wire RTD configuration. Should n_wires be explicitly set to 2 when the
+property is absent to enforce this hardware constraint?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514144712.6437=
+4-1-liviu.stan@analog.com?part=3D4
