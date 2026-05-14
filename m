@@ -1,202 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FB9B427A10;
-	Thu, 14 May 2026 15:13:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7BC130F958
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 15:13:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778771582; cv=none; b=D3E69F9DJDY1FvUHiOigxLOvjMZP4GJGg/i+ybwTldWHsKxZeXEgn/jBCr5s95es3y6Un+yo4IJUO/uj8c7aPg6gT/D21xZ1gve50NxGoPkY1wEE8+dzbvYEcpBDsu+cFNvtPZs2IBTRSpn2RI0sXHW2eg2fydm6TY6Zzefvx08=
+	t=1778771607; cv=none; b=Xfot98yvT5TXp0ThMasEiwfjZDHXZknPyhv/G4b5dQRDyWCosnJaxTkZ87JyAbO2O1l5aknhwVcIoUSt3iFy4WvOBJNZotB+ZuLBBPrsauoXkutrkVeru7lhcNkvN49hs5TVtgYBmcFUWxDyiDG86T6f5MYC/qzk3e0LL8V8YzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778771582; c=relaxed/simple;
-	bh=T3w7EbGZBz4D/NTzORTULk/LURVip4Ir6IuKTi2PPhY=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=iEvMXkrrxyK4oTPmMHR59pveiZktUUlYhCbcNo+4s8Ejv0mGWy53Oj4PxyNWCsMlklKbLwo5eH8lHZmwHBnfKPsdM7V8ehW46PWpghG9OoazyGirB0r0QmKwAdPOGLiAUQOgbNrRpYYEsNgaIRgJ5u8iTerqX3wPxssCVdwPbdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZTN6qAN2; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778771607; c=relaxed/simple;
+	bh=uMb4ZbSplRAY7kyHR/j0eXA2cPzF5uZsroIjreRVzS4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=oKCsfgCusfQYsx57wTo2FLFFCmUg/Z3/jeuL7d9A2hEZsRAKGeUFJC8AwGvA6ChoJe78Xfv9EOxr/5ImFFIIuz+6kSx/h1eo5QGo8xOaOXeLxEXddnVTrWsLf1ADIKpZRB04COHRY5WULKNsGHQ7Y1hsD7PsKdsX1rtSDaskLbk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b=BIRCIgPF; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZTN6qAN2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1C7DC2BCB3;
-	Thu, 14 May 2026 15:12:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778771581;
-	bh=T3w7EbGZBz4D/NTzORTULk/LURVip4Ir6IuKTi2PPhY=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=ZTN6qAN20Zfdyryr7kFdWkmDWODIcx+vtMHa8wzdGn9RGUmaEOSZR8ZX6cBCdFbVE
-	 MAKlW3HZB3Yq/DlwnbGptjon3Axl3+NknKM776CorQz+9c1+oN0L+wZ80bHHcACkJz
-	 Y2C586wpky9K28LxYzvQPYn5PLDWBS4xqB4142W+rf+O0omTGBSXUz753YbP0zD1sv
-	 2J4tFU68zRcSuS5bIgzcshhl/eL8HMRQrb5/iOXzjbTmp/1VDv7XGv36AJxzHZjBXK
-	 qQGbKixgTv49GM3Lq3/Xc9WlhIwlqb74lCXQOKmzIMnxVv5jZjWJs080IQ/SQY16/S
-	 i4YBk6VcZVZvw==
-Message-ID: <f4d24e36-d7be-46eb-a7b8-b868fcf50ad4@kernel.org>
-Date: Thu, 14 May 2026 17:12:53 +0200
+	dkim=pass (2048-bit key) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.b="BIRCIgPF"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-48a3e9862f0so54536375e9.1
+        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 08:13:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1778771596; x=1779376396; darn=vger.kernel.org;
+        h=mime-version:message-id:date:user-agent:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=GMG+MYf2mIEZOo4k7BKQu+vHso1LCBH/45mKDm5C2Qg=;
+        b=BIRCIgPFmkwlES/ERB5xv17HgmgDjY3cSxS8A29mi+lFPdb8hgElSRZRNYxVOkXM8U
+         ez5t38fzXnhI8ehcLycNaw2VqC89e4d3kemKxyX3jV+Nw0aMHo433zrCnuEjSB4BnEtU
+         VkEGTCmtC3O/RLk1AOjZEq0KbkDgECbmlr5u59jznSSu6OLbJwrGu6DxEovBuQX+Sz0n
+         A72vtWlX4PjSagtjHcNVCZ+veEA/FrYBBaAhcGzpPdspAvU1fznPgE8hQNF1b9wbp231
+         BDY8z6Us7KoiFunXgSo8kzF6ujwjE57bV1yvJt1etmrkmu7zRgNn3TN3utz8MfjgHpyP
+         KReA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778771596; x=1779376396;
+        h=mime-version:message-id:date:user-agent:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=GMG+MYf2mIEZOo4k7BKQu+vHso1LCBH/45mKDm5C2Qg=;
+        b=W1Xi5lpjhRA8k4z4g7TYF91pzGsiAzPlNcKR0dYsRrxDPV546WErMyo0WvUqj1ECf/
+         zLNLkiO+nYyciDoHzrpqVd9PT3f7GF0bkeqzRawbA99V3XFsQv4twiJda/7LbCN+DlZK
+         zuYf3fyCTMxi8oxWSHTLs9ymvcZxdKMKyaI47Lzf0Ngijdi9Bqofip2g+joW9S1E0n4W
+         hn44/k0WhPmVrW4ZE9So8DAND1QB7zGQm5hZSX6eMUdAb1OHJnmtb10b2Zmfoqyiv0j0
+         Zcv0UpwUtd5GiFygOyy2Gdxp+V1qQtMbbTNoot2pMLe1D9PzutbnxYSChd5d9Ok14E/P
+         33KQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8WmB2ZD0nD6Dx87XNBi+hCt9MnK1ikBPDbBqR49i75DFLe+v5otQl4uA0RLeRWl8/a/SiHU81J8aV1@vger.kernel.org
+X-Gm-Message-State: AOJu0YydbBHaGMwrjgvpLQrBs9Q+Ep9A5fzJmeSCS7hLQELHi06zWEdL
+	z3pLsvPa8cTwP8xoMGko9G4WREpREvb19IZdvK4Rm3VQdS/gXAup6SIqNo3Uq8xNWA/lcUcwH3y
+	0Lz7B
+X-Gm-Gg: Acq92OHF6Jes0qak4LupUmo9Qv7zY518rujQUUhJ/rpZagbPkfn9slUPVZwHuDDoBbN
+	kWG2ZG3VO/t4i/QAZp6TvQsoetvDTrYxA8s9RQo62VxDVJlgrlL73FcIhNFtJqhymJgGzs+4yHA
+	TIt2aohgAxEeUSP21KdOXtXDfPxnP/vDkRZCxNHZ/7uIpQqftYXNBuWcmy6V6kEKZpWMvJ0khRj
+	eJPl4I62wv9SEZizqc3Zk2Rvp6jPyHz/YMpRNEcV6NKVSEjddI+KL2eIdhlUcUBIJ0GhOAj0m00
+	U1rxLQc6MoF7uWOlMx5jRjpzicwMeymPdLTTPEVcP+ExA8vg9qP+3yXicxiQI2metssE8Qg/tlS
+	IeLlC5rENWvO0x3ZcSqfHSNGKGxfkOmWirQtf9EyqFCeUMRud9SmmCSs+5YOdj6nCp5vMK4Jloa
+	Cnp8WqC1deZIr4wgM+uEM=
+X-Received: by 2002:a05:600c:8906:b0:488:aa33:dc8f with SMTP id 5b1f17b1804b1-48fe486cca4mr514625e9.0.1778771595855;
+        Thu, 14 May 2026 08:13:15 -0700 (PDT)
+Received: from localhost ([2a01:e0a:3c5:5fb1:8f63:bf1e:b5:28d8])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-48fe46f4647sm3184745e9.14.2026.05.14.08.13.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 14 May 2026 08:13:15 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>
+Cc: Michael Turquette <mturquette@baylibre.com>,  Stephen Boyd
+ <sboyd@kernel.org>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Neil Armstrong
+ <neil.armstrong@linaro.org>,  Xianwei Zhao <xianwei.zhao@amlogic.com>,
+  Kevin Hilman <khilman@baylibre.com>,  Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>,  jian.hu@amlogic.com,
+  linux-kernel@vger.kernel.org,  linux-clk@vger.kernel.org,
+  devicetree@vger.kernel.org,  linux-amlogic@lists.infradead.org,
+  linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 05/10] clk: amlogic: PLL l_detect signal supports
+ active-high configuration
+In-Reply-To: <20260511-b4-a9_clk-v1-5-41cb4071b7c9@amlogic.com> (Jian Hu via's
+	message of "Mon, 11 May 2026 20:47:27 +0800")
+References: <20260511-b4-a9_clk-v1-0-41cb4071b7c9@amlogic.com>
+	<20260511-b4-a9_clk-v1-5-41cb4071b7c9@amlogic.com>
+User-Agent: mu4e 1.12.9; emacs 30.1
+Date: Thu, 14 May 2026 17:13:13 +0200
+Message-ID: <1jse7u6n3q.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] dt-bindings: display: panel: Add Novatek NT37705
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Luca Weiss <luca.weiss@fairphone.com>, Conor Dooley <conor@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20260501-fp6-panel-v1-0-e09cb05651cc@fairphone.com>
- <20260501-fp6-panel-v1-1-e09cb05651cc@fairphone.com>
- <20260501-yogurt-wise-2a2884e3ec59@spud>
- <DI9XL1VYYTY7.19IRSM8VIDO53@fairphone.com>
- <a2444df4-abf1-4b56-8556-7efb238bc677@kernel.org>
- <DIAJCURQ37FA.1CNEKX6QM6ZO8@fairphone.com>
- <dd7ebb25-014c-4983-ae31-6a6cbd24e628@kernel.org>
- <DID4LW3GMLDV.338VDV2L2IPL@fairphone.com>
- <81a3c207-4d8f-490f-8e2a-6f3f4c2acd35@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <81a3c207-4d8f-490f-8e2a-6f3f4c2acd35@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 14/05/2026 17:11, Krzysztof Kozlowski wrote:
-> On 08/05/2026 09:44, Luca Weiss wrote:
->> Hi Krzysztof,
->>
->> On Tue May 5, 2026 at 9:25 AM CEST, Krzysztof Kozlowski wrote:
->>> On 05/05/2026 08:40, Luca Weiss wrote:
->>>>>>>> +  compatible:
->>>>>>>> +    contains:
->>>>>>>> +      const: boe,bj631jhm-t71-d900
->>>>>>>
->>>>>>> Compatible doesn't match the filename, nor does the commit message match
->>>>>>> what you've got here. Sounds like you're missing a fallback to
->>>>>>> $filename.
->>>>>>
->>>>>> The last times I was upstreaming panel drivers (Feb 2024 and June 2025),
->>>>>> this was the requested way of doing things.
->>>>>
->>>>> So this was requested that time and is requested now. What is here
->>>>> uncertain?
->>>>>
->>>>>>
->>>>>> Compatible being the company and model number making the actual panel
->>>>>> assembly (driver IC + touchscreen + glass etc), while the rest being
->>>>>> named after the driver IC manufacturer & number.
->>>>>
->>>>> So exactly what was asked for...
->>>>
->>>> I don't quite understand what is asked for now, that's my issue.
->>>>
->>>> 1. Change the filename to boe,bj631jhm-t71-d900.yaml and leave the rest
->>>>    as-is.
->>>>
->>>> 2. Add a fallback compatible for novatek,nt37705. IIRC last time it was
->>>>    argued that a "generic" nt37705 driver will never be correct for a
->>>>    specific panel since it's missing a bunch of panel-specific init. So
->>>>    that's why there should not be a fallback to nt37705.
->>>
->>> To my limited knowledge the (2) with fallback describing the specific IC
->>> is preferred, because that compatible although not currently usable is
->>> still specific and describes actual IC used. I imagine that such
->>> fallback still could be useful to some SW implementation to determine
->>> the IC and act based on that.
->>>
->>> If you have sources of other preference, please share, but I just gave
->>> same review to Neil for his ayaneo,wt0600-2k panels.
->>
->> I found the discussion from 2024 for the Fairphone 4 panel:
->>
->> https://lore.kernel.org/lkml/f9164049-6529-42c1-a35a-e91132c823b9@linaro.org/
->>
->> (quoting)
->>
->> '''
->>   Not sure if "himax,hx83112a" is needed here, the "djn,9a-3r063-1102b"
->>   is enough to know the IC is hx83112a.
->>
->>   I don't think you'll ever find a "djn,9a-3r063-1102b" with another
->>   controller IC ?
->>
->>   And "himax,hx83112a" alone as fallback is not enough to describe the
->>   panel hardware, so I think it should be dropped.
->> '''
->>
->> With Konrad replying "+1" to that.
-> 
-> The arguments from Linux drivers point of view are correct. And you can
-> apply the same to board-level compatibles. Each most-specific board
-> level compatible already defines the soc, thus soc-compatible fallback
-> is redundant, right?
-> 
-> And also the soc-compatible fallback is too generic to be used alone by
-> the SW in many cases.
-> 
-> Yet we use it. Same here. Why? For the same reasons as we use for
-> board-level compatibles. Because that's convenient way for defining
-> quirks for the controller IC which otherwise would need to match all
-> panel compatibles.
-> 
-> I do not insist on this (for panels, of course), however I would prefer
-> consistency in the code and in the reviews. Heh, I bet you too would
-> prefer consistency. :) All my recent reviews were proposing to have the
-> fallback, thus I consistently propose one here, but I won't object for
-> the patch in current form, thus:
-> 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> 
-> But please also add Link to this exact email I am writing.
-> 
-> ( Link: ....)
+On lun. 11 mai 2026 at 20:47, Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org> wrote:
 
-Link: https://lore.kernel.org/r/81a3c207-4d8f-490f-8e2a-6f3f4c2acd35@kernel.org/
+> From: Jian Hu <jian.hu@amlogic.com>
+>
+> l_detect controls the enable/disable of the PLL lock-detect module.
+>
+> For A9, the l_detect signal is active-high:
+> 0 -> Disable lock-detect module;
+> 1 -> Enable lock-detect module.
+>
+> Here, a flag CLK_MESON_PLL_L_DETECT_ACTIVE_HIGH is added to handle cases
+> like A9, where the signal is active-high.
+>
+> Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+> ---
+>  drivers/clk/meson/clk-pll.c | 9 +++++++--
+>  drivers/clk/meson/clk-pll.h | 2 ++
+>  2 files changed, 9 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/clk/meson/clk-pll.c b/drivers/clk/meson/clk-pll.c
+> index 1ea6579a760f..5a0bd75f85a9 100644
+> --- a/drivers/clk/meson/clk-pll.c
+> +++ b/drivers/clk/meson/clk-pll.c
+> @@ -388,8 +388,13 @@ static int meson_clk_pll_enable(struct clk_hw *hw)
+>  	}
+>  
+>  	if (MESON_PARM_APPLICABLE(&pll->l_detect)) {
+> -		meson_parm_write(clk->map, &pll->l_detect, 1);
+> -		meson_parm_write(clk->map, &pll->l_detect, 0);
+> +		if (pll->flags & CLK_MESON_PLL_L_DETECT_ACTIVE_HIGH) {
+> +			meson_parm_write(clk->map, &pll->l_detect, 0);
+> +			meson_parm_write(clk->map, &pll->l_detect, 1);
+> +		} else {
+> +			meson_parm_write(clk->map, &pll->l_detect, 1);
+> +			meson_parm_write(clk->map, &pll->l_detect, 0);
+> +		}
 
-Best regards,
-Krzysztof
+I'm not a fan of this code duplication.
+Use the introduced CLK_MESON_PLL_L_DETECT_ACTIVE_HIGH to compute the
+first value, then flip the bit.
+
+>  	}
+>  
+>  	if (meson_clk_pll_wait_lock(hw))
+> diff --git a/drivers/clk/meson/clk-pll.h b/drivers/clk/meson/clk-pll.h
+> index 949157fb7bf5..97b7c70376a3 100644
+> --- a/drivers/clk/meson/clk-pll.h
+> +++ b/drivers/clk/meson/clk-pll.h
+> @@ -29,6 +29,8 @@ struct pll_mult_range {
+>  
+>  #define CLK_MESON_PLL_ROUND_CLOSEST	BIT(0)
+>  #define CLK_MESON_PLL_NOINIT_ENABLED	BIT(1)
+> +/* l_detect signal is active-high */
+> +#define CLK_MESON_PLL_L_DETECT_ACTIVE_HIGH	BIT(2)
+>  
+>  struct meson_clk_pll_data {
+>  	struct parm en;
+
+-- 
+Jerome
