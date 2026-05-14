@@ -1,103 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFEE325B098
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 05:17:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D6E381C4;
+	Thu, 14 May 2026 05:22:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778735860; cv=none; b=cFHQVwNxlKtsxwXgUKoJ2imvePUWIAhYsmk0A7X3Z/vrhcEBJ09Vw+veLC/Bl63nREQSNeQUY7pSCD5vxUqfMIoLTCdwhfYP4xIzIhworY37CfCcZpf8nP2+oGS8LZpWboKJVhJghlzKyy6n1wL2HxshhAhH/VnMTmFGgbt24Mc=
+	t=1778736124; cv=none; b=PgvFjVd3wH5RFInqyGZkqQ2fxyOTovgPlPR7umO+nTuLWTf+bfCZKYOGGccY/Ijsp0P/GA0wCss54EMz/MMwBCgxoEjd/8+7Mrhru6dSZPo335RHJFzK80Vt/CvZjwweBCu+EnkBlZMIpngFXSrXzupaXmfMwf9+NW+lkWCjo1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778735860; c=relaxed/simple;
-	bh=1IjWY3llMBWroCpaBTuqeax5xUPoC9qv+OlS/SMKqbo=;
+	s=arc-20240116; t=1778736124; c=relaxed/simple;
+	bh=F0hLRQYvgM4FYnU85AviTiv7NndLLm3mP/J3cRFEhnU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ocTOXe8M0k/5TI7lqkfMqEEcKATyQiDae8PA+aupoXIBx+rv7J7xHvoYe4T184fipsGLyjCKpTOkMfjFQCVM3gcKqTNNq9NPGSm6J3ZbdqZ18QMDII1oDe7cWhXAak2Uzv9dTZD/TO1oFA7qk5NjPDKOATdL6v1LLLXs+f/+9vY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AcDRgA+t; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=XdIxwpvubmHLwlhIME24NszcbZFhOq9/Kcztg0hbX3qPVPkYQAyoGT5wMhgX8I7qZjPQpAto25WsQf4yxDC+V4YXO6MfPhtD8svhjJiFTF+8FNz8KS9MyDbC3VgLz0iY1O10l9JOXhTVFzYq+/zx4Unkb4gVrpBLlKncAJdzDMw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m+LziL6U; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AcDRgA+t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2D32C2BCB7;
-	Thu, 14 May 2026 05:17:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m+LziL6U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57A35C2BCB7;
+	Thu, 14 May 2026 05:22:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778735860;
-	bh=1IjWY3llMBWroCpaBTuqeax5xUPoC9qv+OlS/SMKqbo=;
+	s=k20201202; t=1778736123;
+	bh=F0hLRQYvgM4FYnU85AviTiv7NndLLm3mP/J3cRFEhnU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=AcDRgA+twluLPyZUuv21hm/rqwCUxj2Ll+XUJ38/VHkGTEcEA9CgPI3/0y2Zm/JY+
-	 ZLkaI5zQN/9nXfvneRt6Lt584J9gXWM8AAwqQ2Bl6IRBO8p3Xo7gu3sAxsA8Vn5KNe
-	 EraDKdfm4FjQKybFcJgLf1Px2DlS8gzf88e0wjyC6QlGUAi9moe57QvJZQE/aBDUeL
-	 D+xFufRnVAlEme/ttJnMjSKkyZSa1Z/jyamjOaMuojfyKg0NbwbYRBfU4+I1Tou48g
-	 i+0mGuzGjw2AcHoJJ1uzs3qsOEhIC9IcTptWuYtcR/MC4IRiM1LJNnKk+w+M+UGsWn
-	 n6brldqqHR94w==
+	b=m+LziL6U6hxyqpSK1pV/nNO1f6F1a/+vZ2A5TX3jXDt7ZUmwu8I/AjTYJSNyio+8k
+	 K4PwYiClxRu+EJRpOPbkp2KBhUCpvssn6qHmAyQAEsxKV7DD7QtqMq2gYvZ/A1Hyh0
+	 f6SEf9Dep03BDuOUeOlblDJcnmE7bsojUjbuVH1NB6A4snsUumAq9ct2oesTmE7BHw
+	 KwATjfQpAbG2K0uqoluFadUtfv91ICN1MUbgdQseQ5zf4EzaMQTCm3bhUqWQKm3F2O
+	 k0Zh+rm0oMQHifPyOZ4aP0757BknbgUmMBX2qK9qp9hHC+tTKVOWdgRFTQ6hWHDDNE
+	 sGtNXjJ8UWVTw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/2] dt-bindings: phy: add support for NXPs TJA1145
- CAN transceiver
+Subject: Re: [PATCH v7 net-next 09/15] net: dsa: add NETC switch tag support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dimitri Fedrau via B4 Relay" <devnull+dimitri.fedrau.liebherr.com@kernel.org>
-Cc: linux-phy@lists.infradead.org, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, olteanv@gmail.com, robh@kernel.org, neil.armstrong@linaro.org, krzk+dt@kernel.org
-In-Reply-To: <20260513-tja1145-support-v5-1-38720a7ee63e@liebherr.com>
-References: <20260513-tja1145-support-v5-1-38720a7ee63e@liebherr.com>
+To: "Wei Fang" <wei.fang@nxp.com>
+Cc: krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260513030454.1666570-10-wei.fang@nxp.com>
+References: <20260513030454.1666570-10-wei.fang@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 05:17:38 +0000
-Message-Id: <20260514051738.B2D32C2BCB7@smtp.kernel.org>
+Date: Thu, 14 May 2026 05:22:02 +0000
+Message-Id: <20260514052203.57A35C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The dt-binding omits support for the `max-bitrate` property.
-- [Medium] The dt-binding omits support for the `interrupts` property for w=
-ake-up routing.
+- [High] The `netc_flow_dissect` function accesses `skb->data` out-of-bound=
+s without verifying the SKB's linear length.
 --
 
-commit 853ad7c93ebe1c2a625ddddde401c4aaad496a8e
-Author: Dimitri Fedrau <dimitri.fedrau@liebherr.com>
+commit 93fb7c6739d18313bc6426f6ff8df23c472a2795
+Author: Wei Fang <wei.fang@nxp.com>
 
-dt-bindings: phy: add support for NXPs TJA1145 CAN transceiver
+net: dsa: add NETC switch tag support
 
-This commit adds documentation for the NXP TJA1145 CAN transceiver, residing
-in the generic PHY subsystem bindings. It describes the required SPI
-configurations and supply properties for the device.
+This commit adds support for the NXP NETC switch tag, a proprietary header
+added to frames after the source MAC address. It implements the Forward tag,
+SubType 0 of the To_Port tag, and Subtype 0 of the To_Host tag.
 
-> diff --git a/Documentation/devicetree/bindings/phy/nxp,tja1145.yaml b/Doc=
-umentation/devicetree/bindings/phy/nxp,tja1145.yaml
+> diff --git a/net/dsa/tag_netc.c b/net/dsa/tag_netc.c
 > new file mode 100644
+> index 0000000000000..07684e0ff0647
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/phy/nxp,tja1145.yaml
+> +++ b/net/dsa/tag_netc.c
 
 [ ... ]
 
-> +  vbat-supply:
-> +    description:
-> +      Battery supply voltage
+> +static void netc_flow_dissect(const struct sk_buff *skb, __be16 *proto,
+> +			      int *offset)
+> +{
+> +	struct netc_tag_cmn *tag_cmn =3D (struct netc_tag_cmn *)(skb->data - 2);
+> +	int subtype =3D FIELD_GET(NETC_TAG_SUBTYPE, tag_cmn->type);
+
+Is it safe to access skb->data directly here without validating the linear
+length of the skb?
+
+While the comment below notes that hardware-received frames will have
+sufficient linear data, skb_flow_dissect() can also be invoked on locally
+injected packets (for example, via AF_PACKET sockets, bpf_prog_test_run,
+or tc hooks). For these locally generated packets, skb_headlen(skb) might
+be extremely small or even zero.
+
+Could this lead to an out-of-bounds read and kernel panic if the skb is
+fragmented? Would it be better to use skb_header_pointer() or validate that
+skb_headlen(skb) is large enough before dereferencing?
+
+> +	int type =3D FIELD_GET(NETC_TAG_TYPE, tag_cmn->type);
+> +	int tag_len =3D netc_get_rx_tag_len(type, subtype);
 > +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - "#phy-cells"
-> +  - spi-cpha
-> +
-> +additionalProperties: false
-
-Does this binding need to include the max-bitrate property?
-
-This property is standard for CAN transceivers to describe board-level
-capability constraints where the layout cannot support the chip's theoretic=
-al
-maximum speed. Since additionalProperties is set to false, valid device tre=
-es
-specifying a maximum bitrate will fail validation.
-
-Also, does this device tree binding need support for the interrupts propert=
-y?
-
-The TJA1145 supports partial networking and wake-up functionality, which can
-route a wake-up signal to an interrupt line on the host processor. With
-additionalProperties set to false, it is impossible to describe this hardwa=
-re
-interrupt routing in the device tree.
+> +	/* The RX minimum frame length of the NETC switch port is 64 bytes,
+> +	 * and the frame is received by the ENETC driver. From the hardware
+> +	 * perspective, the receive buffer of RX BD is at least 128 bytes,
+> +	 * so the switch tag header is guaranteed to be in the linear region
+> +	 * of the skb.
+> +	 */
+> +	*offset =3D tag_len;
+> +	*proto =3D ((__be16 *)skb->data)[(tag_len / 2) - 1];
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-tja1145-su=
-pport-v5-0-38720a7ee63e@liebherr.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513030454.1666=
+570-1-wei.fang@nxp.com?part=3D9
