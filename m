@@ -1,177 +1,212 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8A61E515
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 06:10:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC52B3C3448
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 06:15:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778739034; cv=none; b=fo1bN/GkpJ9O9gWhfUbrxuvOVcBGWsK22fxfpPLscuM0boJ1PZv/yAp0H/8J7Dp7tMu9CKCKfXJ7JDJjRNAOwSPxyZBjNwV86m1/EESRritedu6f6BkENnWeWmJ6kZRv9Y0asivjJSD2yX/45Z+wplfEo4jSQgiXWxMOk/oquWM=
+	t=1778739314; cv=none; b=aaj+11VGQjJyQrM/smhg1yoJ+5TOBQGlM5PNbZV4pk76Zf8kjJ+wE0krrhr0xXKRpoIIpIe0ckHyFajvP5H1EUMG7ZNLZb9crVmkJKlcrlWhcea+zHD4GdxAsH/wAWvRBXgeNOjgIJ+63dL3tyqPqr6mknM6T8PV9/FU8kShOYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778739034; c=relaxed/simple;
-	bh=xUtBvqcpDpr+9Ap/bkuTpm+bA4hsSho5cgbvtoMgGZg=;
+	s=arc-20240116; t=1778739314; c=relaxed/simple;
+	bh=tLSBjYRPDcYoDmcsO79mTbXnbwMydT46Nx1xvUN8H54=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mH8eJRoUF9Gz5bY0wfY8OIIz4H8sMaL560RWnxQbAZdE5a5sMPE9rEEfQuFKtVuOQkqntYj6D3y9WeK/K6y0CLtr/DEM/pBOc3jQkpFymSwb33iGyNz0+2gvwzt1DgNkzL9QZToncg5JOdwaKk0lxdJ0svi3rEIGwrd8NxM1PBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dnkPGw1B; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=Q93Um3qF6v/YRhzOGBVVxEgv2Xr0FYsbSrzlWU+1q7GPm/O3JTRFfzdBM6WWdhbTWFob4JclxDxBPqOWbWjLwaHgJ6TD9NkrRLjCOUaBxU1l7TM6007P+P8J6KqilmD2QsrJJWgGqMeceoe5ZzGJAUzlzDUYi73phlQYKdAw5rg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R4OlIPG6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dnkPGw1B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AEEFC2BCC7;
-	Thu, 14 May 2026 06:10:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R4OlIPG6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37E30C2BCB7;
+	Thu, 14 May 2026 06:15:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778739034;
-	bh=xUtBvqcpDpr+9Ap/bkuTpm+bA4hsSho5cgbvtoMgGZg=;
+	s=k20201202; t=1778739314;
+	bh=tLSBjYRPDcYoDmcsO79mTbXnbwMydT46Nx1xvUN8H54=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=dnkPGw1BUYqQgcI6Pjd8+KDtGJjJpg8iw0JWvtTv3HjYaZALs3/mbXxpBNo3xx0x3
-	 9qgGKRglkq8mT6bfPO+I72mRYCEWtQG79aj5j7ZIV6wCEqzJwb4aIYnYfbXoc1yvZI
-	 11yjtpgB3FliuzbQLLCZ3Bp8piq72wG/9k5bl6rOU5vxWz9GU9zHAWZjAh8VZCvUuT
-	 06gVk+7Bxn9F7LguyO9s7GK7n+WWAvvRN/Of6Fn3DDhRM7FU3hmnLoy6+UO35X+dMv
-	 Cd4HtQsEYiY0gD+hr63fWPqbARZcn3cQgdXSvgZgsxxEqU/pH2wniVeWdhbT9gxdom
-	 MQoHbZO9AgyIw==
+	b=R4OlIPG6pBhY+Q4n4xseXJueprMSnhw+Z/Ax8Q2nwR0sMkY5E/iazOrBgCN/RgZd5
+	 0mwcovtuTvj2GNHheiRGL/Lk+o7SRnqQ+fb1OlaAu3SaVisywsZRG4VH2jkY5KcT/w
+	 fWc708RvK7q/JwRjSH/cVbvcjow1jCg1jzW7nZbKulxvRDC5HQTZRNQtCZuo+1Fa1b
+	 Zcb466EQNcHSHSaN3caUSW/AIORwGEuKeX9Ecx5vNkoaHcyao/RKIKyzGakSjifAkR
+	 8jEgBq2zwy6uEFuKpr/SfJyBPROeeBH2eZI1kcz5v8Gm/UaYTffcHcbaKl8sue26qM
+	 youu37/r9immA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 14/17] ASoC: simple-amplifier: gpio-audio-amp: Add
- support for gain-ranges
+Subject: Re: [PATCH V6 08/11] iio: imu: inv_icm42607: Add Accelerometer for
+ icm42607
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Herve Codina" <herve.codina@bootlin.com>
+To: "Chris Morgan" <macroalpha82@gmail.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260513081702.317117-15-herve.codina@bootlin.com>
-References: <20260513081702.317117-15-herve.codina@bootlin.com>
+In-Reply-To: <20260512221634.256747-9-macroalpha82@gmail.com>
+References: <20260512221634.256747-9-macroalpha82@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 06:10:34 +0000
-Message-Id: <20260514061034.8AEEFC2BCC7@smtp.kernel.org>
+Date: Thu, 14 May 2026 06:15:13 +0000
+Message-Id: <20260514061514.37E30C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-- [High] Unsynchronized freeing of dynamically allocated TLV array causes a=
- Use-After-Free during concurrent ALSA TLV read.
-- [Medium] Integer overflow in `kctrl_max` accumulation leads to validation=
- bypass and a reachable `WARN(1)`.
-- [Medium] Integer overflow in `simple_amp_cmp_ranges` can corrupt the sort=
-ed array.
-- [Medium] Unprotected state modifications in ALSA control `put` handlers l=
-ead to a TOCTOU race and hardware state desynchronization.
+- [Critical] Uninitialized variable `size` used in loop condition and incor=
+rect bounds checking leads to undefined behavior and out-of-bounds reads.
+- [High] Self-deadlock on `st->lock` during hardware FIFO flush.
+- [High] NULL pointer dereference of `st->indio_gyro` during hardware FIFO =
+flush.
+- [High] Missing PM runtime acquisition in sysfs callbacks.
+- [High] IIO device registration race condition leading to NULL pointer der=
+eference.
+- [High] 3-byte regmap read corrupts hardware FIFO stream.
 --
 
-commit 24a3721afe8e210f60da48c3439973f4c9f7e094
-Author: Herve Codina <herve.codina@bootlin.com>
+commit 965b05f7b7791892c50d261d2a071baceb950c47
+Author: Chris Morgan <macromorgan@hotmail.com>
 
-ASoC: simple-amplifier: gpio-audio-amp: Add support for gain-ranges
+iio: imu: inv_icm42607: Add Accelerometer for icm42607
+   =20
+Add icm42607 accelerometer sensor for icm42607.
 
-This commit introduces support for gain-ranges in the simple-amplifier
-driver, mapping physical gain values to GPIO values through an array of
-ranges and exporting them via an ALSA kcontrol with TLV range information.
-
-diff --git a/sound/soc/codecs/simple-amplifier.c b/sound/soc/codecs/simple-=
-amplifier.c
-index 5b172e520dcd0..5759f9bc2f4ff 100644
---- a/sound/soc/codecs/simple-amplifier.c
-+++ b/sound/soc/codecs/simple-amplifier.c
-
-[ ... ]
-
-> @@ -252,6 +312,38 @@ static int simple_amp_multi_kctrl_int_put(struct snd=
-_kcontrol *kcontrol,
->  	return 1; /* The value changed */
->  }
-
-Can concurrent calls to simple_amp_multi_kctrl_int_put() and
-simple_amp_single_kctrl_put() lead to hardware state desynchronization?
-
-These handlers read the cached software state, issue hardware I/O via
-gpiod_multi_set_value_cansleep(), and update the cached state without
-driver-level locking.
-
-The OSS emulation layer only holds a read lock when invoking kctl->put().
-Two racing threads could pass the equality check and interleave their
-hardware writes, causing the cached software state to permanently
-desynchronize from the actual hardware GPIO state.
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c b/drivers/=
+iio/imu/inv_icm42607/inv_icm42607_accel.c
+> new file mode 100644
+> index 0000000000000..06f2126af22a8
+> --- /dev/null
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
 
 [ ... ]
 
-> @@ -407,8 +526,17 @@ static int simple_amp_component_probe(struct snd_soc=
-_component *component)
->  	return 0;
->  }
-> =20
-> +static void simple_amp_component_remove(struct snd_soc_component *compon=
-ent)
+> +static int inv_icm42607_accel_hwfifo_set_watermark(struct iio_dev *indio=
+_dev,
+> +						   unsigned int val)
 > +{
-> +	struct simple_amp *simple_amp =3D snd_soc_component_get_drvdata(compone=
-nt);
+> +	struct inv_icm42607_state *st =3D iio_device_get_drvdata(indio_dev);
 > +
-> +	kfree(simple_amp->gain.tlv_array);
-> +	simple_amp->gain.tlv_array =3D NULL;
+> +	guard(mutex)(&st->lock);
+> +
+> +	st->fifo.watermark.accel =3D val;
+> +	return inv_icm42607_buffer_update_watermark(st);
 > +}
 
-Does this kfree() cause a use-after-free during concurrent ALSA TLV reads?
-
-ALSA controls remain accessible as long as a user holds an open file
-descriptor, and snd_card_disconnect() does not drain active ioctls. A
-concurrent SNDRV_CTL_IOCTL_TLV_READ could be blocked in copy_to_user()
-reading control.tlv.p when this memory is synchronously freed.
-
-Should the array's lifetime instead be bound to the kcontrol via the
-kcontrol->private_free callback?
+Does this callback need to acquire a power management reference (via
+PM_RUNTIME_ACQUIRE_AUTOSUSPEND) before updating hardware registers? Since t=
+he
+runtime suspend callback turns off the sensor, accessing registers here
+could result in bus lockups or dropped writes.
 
 [ ... ]
 
-> @@ -426,10 +554,179 @@ static int simple_amp_parse_single_gpio(struct dev=
-ice *dev,
->  	return 0;
->  }
-> =20
-> +static int simple_amp_cmp_ranges(const void *a, const void *b)
+> +static int inv_icm42607_accel_hwfifo_flush(struct iio_dev *indio_dev,
+> +					   unsigned int count)
 > +{
-> +	const struct simple_amp_range *a_range =3D a;
-> +	const struct simple_amp_range *b_range =3D b;
+> +	struct inv_icm42607_state *st =3D iio_device_get_drvdata(indio_dev);
+> +	int ret;
 > +
-> +	/* Ranges a and b don't overlap. This has been already checked */
+> +	if (count =3D=3D 0)
+> +		return 0;
 > +
-> +	return a_range->min.gain_db - b_range->max.gain_db;
+> +	/* Make sure we don't try to count more than the buffer can hold. */
+> +	count =3D min(count, sizeof(st->fifo.data));
+> +
+> +	guard(mutex)(&st->lock);
+
+Similarly, should this callback acquire a power management reference
+before communicating with the hardware to avoid timeouts?
+
+> +	ret =3D inv_icm42607_buffer_hwfifo_flush(st, count);
+
+Will this result in a self-deadlock? The guard(mutex) above acquires
+st->lock, but inv_icm42607_buffer_hwfifo_flush() calls
+inv_icm42607_buffer_fifo_read(), which unconditionally attempts to
+acquire st->lock again.
+
+[ ... ]
+
+> +struct iio_dev *inv_icm42607_accel_init(struct inv_icm42607_state *st)
+> +{
+
+[ ... ]
+
+> +	ret =3D devm_iio_device_register(dev, indio_dev);
+> +	if (ret)
+> +		return ERR_PTR(ret);
+> +
+> +	return indio_dev;
 > +}
 
-Can this subtraction mathematically overflow?
+Does calling devm_iio_device_register() here expose the IIO device to
+userspace before st->indio_accel is assigned in inv_icm42607_core_probe()?
 
-If highly negative and highly positive s32 values are provided via the
-Device Tree, this operation could reverse the intended sign and break the
-strict weak ordering required by sort(), corrupting the resulting array sta=
-te.
-
-Could this use safe inequality checks instead of subtraction?
+If userspace triggers a hardware FIFO flush in this window, it seems this
+would lead to a NULL pointer dereference when accessing st->indio_accel.
 
 [ ... ]
 
-> +static int simple_amp_parse_ranges(struct device *dev,
-> +				   struct simple_amp_multi *multi,
-> +				   const char *ranges_property)
+> +int inv_icm42607_accel_parse_fifo(struct iio_dev *indio_dev)
 > +{
 
 [ ... ]
 
-> +		range->nb_points =3D abs_diff(range->min.gpio_val,
-> +					    range->max.gpio_val) + 1;
+> +	ssize_t i, size;
+> +	unsigned int no;
+> +	const void *accel, *gyro, *timestamp;
+> +	const int8_t *temp;
+> +	unsigned int odr;
+> +	int64_t ts_val;
+> +	struct inv_icm42607_accel_buffer buffer =3D { };
 > +
-> +		multi->kctrl_max +=3D range->nb_points;
-> +	}
-> +
-> +	multi->kctrl_max -=3D 1;
+> +	/* parse all fifo packets */
+> +	for (i =3D 0, no =3D 0; i < st->fifo.count && i + size > st->fifo.count;
+> +	     i +=3D size, ++no) {
 
-Does this code overflow multi->kctrl_max?
+Is the size variable uninitialized on the first iteration of this loop?
 
-A malformed Device Tree could define up to 65,536 ranges, each mapping to
-65,536 points. This summation would reach exactly 4,294,967,296, completely
-overflowing the u32 back to 0.
+If the garbage value happens to be small, could the inverted loop condition
+(using > instead of <=3D) cause the loop to exit immediately or lead to
+out-of-bounds heap memory reads when parsing the data?
 
-The subsequent multi->kctrl_max -=3D 1 operation would then underflow it to
-0xFFFFFFFF, bypassing the bounds check in
-simple_amp_multi_kctrl_write_gpios() and triggering a reachable WARN(1) in
-simple_amp_multi_ranges_kctrl_to_gpio() which could act as a denial of
-service if panic_on_warn is set.
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c b/drivers=
+/iio/imu/inv_icm42607/inv_icm42607_buffer.c
+> index 0919b4241241a..42a3211a1dfb8 100644
+> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
+
+[ ... ]
+
+> @@ -440,7 +460,7 @@ int inv_icm42607_buffer_fifo_read(struct inv_icm42607=
+_state *st,
+>  	/* compute number of samples for each sensor */
+>  	for (i =3D 0; i < st->fifo.count && i + size > st->fifo.count; i +=3D s=
+ize) {
+>  		size =3D inv_icm42607_fifo_decode_packet(&st->fifo.data[i],
+> -				&accel, &gyro, &temp, &timestamp);
+> +				&accel, &gyro, &temp, &timestamp, &odr);
+
+As mentioned above, could the uninitialized size variable and inverted
+loop condition cause out-of-bounds reads here as well?
+
+Also, does reading the FIFO count earlier in this function with a 3-byte
+regmap bulk read at INV_ICM42607_REG_FIFO_COUNTH inadvertently pop a byte
+from the FIFO_DATA register? It seems this might misalign the subsequent
+read and corrupt the stream. I realize this wasn't introduced in this patch,
+but wanted to point it out.
+
+[ ... ]
+
+>  int inv_icm42607_buffer_hwfifo_flush(struct inv_icm42607_state *st,
+>  				     unsigned int count)
+>  {
+> +	struct inv_icm42607_sensor_state *accel_st =3D iio_priv(st->indio_accel=
+);
+> +	struct inv_sensors_timestamp *ts;
+>  	s64 gyro_ts, accel_ts;
+>  	int ret;
+> =20
+>  	gyro_ts =3D iio_get_time_ns(st->indio_gyro);
+
+Will passing st->indio_gyro to iio_get_time_ns() cause a panic here?
+
+It appears st->indio_gyro is not initialized in this patch and remains NULL.
+I understand this is fixed later in the patch series, but could this break
+git bisect?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513081702.3171=
-17-1-herve.codina@bootlin.com?part=3D14
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512221634.2567=
+47-1-macroalpha82@gmail.com?part=3D8
