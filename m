@@ -1,143 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C759F393DDA
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 12:56:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59F9B26E6F2
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 12:56:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778763364; cv=none; b=vBnqi+psWfQJdCeobQlko73rHFAQt98t9StLk8Hi0WEKf7et2AK5MQXQ+aK9pZkIfWhMOcw/Yzi9Vo/hwr+4EouCUrebp8fbknL7oKAA5/FImM8/ue/ZIMFldWBEBDNphB85T+NPuNbKjx3kJ6dl7K2KMCsdqVbZjSxAQaeHmzE=
+	t=1778763402; cv=none; b=tj2JoTUMCXL81QPkA05/utp0XyhgZt/joMzfVOejQ8ndw4oE92yon/wzciXOM9w2hwi2TZhORg6GjbdMGbSN2U2wQ06HcTl89R2RfAzUJNL9AKE205APKqcsb0RD1TRablh4BZf8KVz0eFLWJ1EKm6KtihJTza3arTbaL2A3zCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778763364; c=relaxed/simple;
-	bh=qJQFsT5Cwe19hdfjFvFLx+FIMAPCKTspua+1xIG+ikQ=;
+	s=arc-20240116; t=1778763402; c=relaxed/simple;
+	bh=TUL3z1D1MDOOSlizlpHCxgUdQowEhc+8huLxgcDe67o=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=i9TZH8BwP/95+FSS2LrnhrxkeAgCMf2nDEYnijl/9wfo09RoAXtjysaaiQzsIIkFAJSuoYN/tZMVH5LDxVJqXXAfjqVrjNc77v9yt3w46kyAQY9KvuZGE71rblPaafBm/11Yp/c/mg99GnXzpdoMVI9ntB7Dxv7d/iaNQxzKNcw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JXr50bhH; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=p0Mh0dJHPYLaIkQrKwXMsjXqo4lCIk0/mhPiFMZcyXxb7vGNPDhFkjgUTLyd/tQiMDvonJbTkgk5bnvV7+ap28Ty2SAY9vrk/f+T/foYEV5ho4KWYh49xRcbUU+gbFsJ6duk2mOJ78/P4gFcx+DJ16K8Tu3gvRerYTtp7adhm3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bIJbzejp; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JXr50bhH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30B03C2BCB3;
-	Thu, 14 May 2026 12:56:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bIJbzejp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C94F2C2BCB3;
+	Thu, 14 May 2026 12:56:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778763364;
-	bh=qJQFsT5Cwe19hdfjFvFLx+FIMAPCKTspua+1xIG+ikQ=;
+	s=k20201202; t=1778763402;
+	bh=TUL3z1D1MDOOSlizlpHCxgUdQowEhc+8huLxgcDe67o=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=JXr50bhH+4nZDcJ+NxUa9Z1B6caPRkQtvDxAk3zZHRADBiWdPI+j/WabxdAezqtE4
-	 qOehhj4rUBjA6l/Ye1XaL1B6CmzlSXVQsJsN4+utwyKWg2LwhkKuvWXrlfkmpilOAM
-	 BZY5rNWJduuQL5a+BFrS9AzGMhhRBXzwWD1Xpn+uAWYPWFyYQa4HKtrREyAwBFQpB3
-	 BTgO1JaUAJXGElrEE5PpHaZbSRw+BHQFEFb7dKYy0G2yV6G9DCI2/4c6OJgzaqrSQF
-	 Jd0buTdkcIFUK/xzSJhLGpM2Fjbj1l44izcyVkyJFebzpD/1OKYIuH3r8dXp8IifDy
-	 aKvahwv1MWM+Q==
+	b=bIJbzejpCjW2e4+YsnC6NUjQ9zYKzmHWcoLuQYN7sTis5FC5P8f8FKGJfioDdT+w7
+	 7u6Eu3bLcBA+Uzdx1B0Zv88ipNAUCVcZUDoN6Sloy6pDr1/tdBsiqSzje8Wj/aENfD
+	 Li55b6w088RqDrnuoJ5W0xvikoumod2mVU6GXAum+c73CEpYBDoeToyWM3tV1xmglU
+	 ZaIrPU1UAOf9jPbSZeEQTafW1/Q6j0x6Wfx2PVX6dFIH/evWWi9hSuRJ5g/nodhw+R
+	 0taEaKGIGrRztuQlZ0AQ1/jiXrzFLJOaQgtfRKIUbdKcQUH45pQVef3eSvZtvR+7Q5
+	 kJkyJQVwC6BQw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 6/8] media: qcom: venus: add power domain enable
- logic for Venus cores
+Subject: Re: [PATCH v2 4/5] clocksource/timer-econet-en751221: Unmap io mem
+ on probe error
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Erikas Bitovtas" <xerikasxx@gmail.com>
-Cc: conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260514-msm8939-venus-rfc-v7-6-33c6c6fb9285@gmail.com>
-References: <20260514-msm8939-venus-rfc-v7-6-33c6c6fb9285@gmail.com>
+To: "Caleb James DeLisle" <cjd@cjdns.fr>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260514000601.3430262-5-cjd@cjdns.fr>
+References: <20260514000601.3430262-5-cjd@cjdns.fr>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 12:56:03 +0000
-Message-Id: <20260514125604.30B03C2BCB3@smtp.kernel.org>
+Date: Thu, 14 May 2026 12:56:41 +0000
+Message-Id: <20260514125641.C94F2C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Clock initialization is incorrectly gated by the presence of power=
- domains, leading to unclocked hardware access.
-- [Medium] Runtime PM reference leak in vcodec_domains_enable() error path.
+- [Critical] Unmapping IO memory after a successful `clocksource_mmio_init(=
+)` registration introduces a fatal use-after-unmap vulnerability.
 --
 
-commit 1bdd7b26dbc6049ee656dfce05ea05b682bb5990
-Author: Erikas Bitovtas <xerikasxx@gmail.com>
+commit dd9c92736c75fb466e09313766fb39cf62c86394
+Author: Caleb James DeLisle <cjd@cjdns.fr>
+clocksource/timer-econet-en751221: Unmap io mem on probe error
 
-media: qcom: venus: add power domain enable logic for Venus cores
+This commit updates the econet timer initialization to unmap the IO
+memory blocks if an error occurs during probe.
 
-Attach power domains for vdec and venc cores and power them up if a vdec
-or venc session is started. Vcodev clocks are added and enabled to the
-core Venus device both for vcodec0 and vcodec1.
+> --- a/drivers/clocksource/timer-econet-en751221.c
+> +++ b/drivers/clocksource/timer-econet-en751221.c
+[ ... ]
+> @@ -198,12 +199,12 @@ static int __init timer_init(struct device_node *np)
+>  				    clocksource_mmio_readl_up);
+>  	if (ret) {
+>  		pr_err("%pOFn: clocksource_mmio_init failed: %d", np, ret);
+> -		return ret;
+> +		goto err_unmap;
+>  	}
+> =20
+>  	ret =3D cevt_init(np);
+>  	if (ret < 0)
+> -		return ret;
+> +		goto err_unmap;
 
-> diff --git a/drivers/media/platform/qcom/venus/pm_helpers.c b/drivers/med=
-ia/platform/qcom/venus/pm_helpers.c
-> index f0269524ac70e..be705d4d64b53 100644
-> --- a/drivers/media/platform/qcom/venus/pm_helpers.c
-> +++ b/drivers/media/platform/qcom/venus/pm_helpers.c
+If clocksource_mmio_init() succeeds, it registers the clocksource and saves
+the mapped IO pointer. If the subsequent cevt_init() fails, the code now
+jumps to err_unmap and unmaps the memory via iounmap().
+
+Since clocksource_mmio_init() does not provide a way to unregister the
+clocksource, the registered clocksource will remain active. When the kernel
+reads from this clocksource later, will it dereference the unmapped IO memo=
+ry
+and cause a use-after-unmap regression?
+
+Looking at clocksource_mmio_init() in drivers/clocksource/mmio.c:
+
+clocksource_mmio_init() {
+        ...
+        cs->reg =3D base;
+        cs->clksrc.read =3D read;
+        ...
+        return clocksource_register_hz(&cs->clksrc, hz);
+}
+
+Before this patch, if cevt_init() failed, the driver returned an error
+without unmapping the memory, which allowed the already-registered
+clocksource to safely continue functioning.
 
 [ ... ]
-
-> @@ -309,9 +343,63 @@ static int core_get_v1(struct venus_core *core)
->  	if (ret)
->  		return ret;
-> =20
-> +	if (!res->vcodec_pmdomains)
-> +		return 0;
+> +err_unmap:
+> +	for (int i =3D 0; i < ARRAY_SIZE(econet_timer.membase); i++) {
+> +		if (econet_timer.membase[i])
+> +			iounmap(econet_timer.membase[i]);
+> +	}
 > +
-> +	ret =3D vcodec_clks_get(core, dev, core->vcodec_clks,
-> +			      res->vcodec_clks);
-> +	if (ret)
-> +		return ret;
-> +
->  	return 0;
+> +	return ret;
 >  }
 
-Will skipping vcodec_clks_get() when power domains are not present leave
-the vcodec clocks uninitialized?
-
-If a platform defines vcodec_clks but does not require vcodec_pmdomains,
-this early return skips the clock retrieval entirely.
-
-When core_power_v1() later calls vcodec_clks_enable(), it will succeed
-on the NULL pointers, but the physical hardware clocks will remain disabled.
-Accessing Venus hardware registers without clocks enabled can trigger an
-asynchronous external abort and a kernel panic.
-
-> +static int vcodec_domains_enable(struct venus_core *core)
-> +{
-> +	const struct venus_resources *res =3D core->res;
-> +	struct device *pd_dev;
-> +	int i =3D 0, ret;
-> +
-> +	if (!res->vcodec_pmdomains)
-> +		return 0;
-> +
-> +	for (; i < res->vcodec_pmdomains_num; i++) {
-> +		pd_dev =3D core->pmdomains->pd_devs[i];
-> +		ret =3D pm_runtime_resume_and_get(pd_dev);
-> +		if (ret)
-> +			goto err;
-> +
-> +		ret =3D dev_pm_genpd_set_hwmode(pd_dev, true);
-> +		if (ret && ret !=3D -EOPNOTSUPP)
-> +			goto err;
-> +	}
-> +
-> +	return 0;
-> +err:
-> +	while (i--) {
-> +		pd_dev =3D core->pmdomains->pd_devs[i];
-> +		dev_pm_genpd_set_hwmode(pd_dev, false);
-> +		pm_runtime_put_sync(pd_dev);
-> +	}
-> +	return ret;
-> +}
-
-Does this error path leak a runtime PM reference if dev_pm_genpd_set_hwmode=
-()
-fails?
-
-If pm_runtime_resume_and_get() succeeds but the subsequent call to
-dev_pm_genpd_set_hwmode() fails, the code jumps to the err label.
-
-Since while (i--) pre-decrements the index, it skips the current iteration
-index i and rolls back from i-1 down to 0.
-
-This misses the pm_runtime_put_sync() call for the current power domain
-where dev_pm_genpd_set_hwmode() failed, leaving its reference incremented
-and preventing it from ever suspending.
-
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514-msm8939-ve=
-nus-rfc-v7-0-33c6c6fb9285@gmail.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514000601.3430=
+262-1-cjd@cjdns.fr?part=3D4
