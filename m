@@ -1,97 +1,179 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B48233260D;
-	Thu, 14 May 2026 17:50:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 018D3314A98
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 17:57:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778781051; cv=none; b=pZAgwysqhEVVHiFAe6DIXIu9KhLfYyCsi5Lk7a74BCPRfD5ER4gY4K0irYyYh0bEBBb4bdrJ8QJhZ3BwiAJ5RxHxURe4YkxcEGeOUGixAfXP7xRFFGa6B5gcIkDViMHYz74pkL4zki5/tjkfPtwrVPNHdxoLthUChPxyiR3AWrs=
+	t=1778781464; cv=none; b=rT9n+pWEYuQ1GJ3ZWPRmtR0xsOzSZz7XBe82UOixP21aENffpDCCKwZrWMokPWlbVCsFqAX9cEsTjbXqkE5Rd4phWt0wUHw07tBQ5zJi1s7uDR2/fm+dYqMMMt7s6nuHmJnQh0jKLU8JUyxMxTuArCJ04WHIKFlywvO5g413GOU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778781051; c=relaxed/simple;
-	bh=vgBsgGXe+zv6+W6MvoN9aWXs4JINY+nECk3GKt5x/P8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bFJvKxEemxZaZxv72x2rZ/F39dElhZGCQWF0I0azF6KIVjZZdw3aUOpcms9slyFIM5Cg0GRsmhcXEMGxB3AHbP7nhHEl/j2YFzCa+wtJQN9d3xQXQjlHNKXAFdn52CRvLuLmWOZGX2UggBlBAJeyn0IdCqEPhlFmtcfsVqCgpN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E8f6kfTI; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778781464; c=relaxed/simple;
+	bh=S7WqRXFsdtc3DMOYLKP2BhZkRpOaDK8Hrm3hBOcbD/U=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fMPoWmZQjyDuXT2MmQ/g8eb3mwlC/JSByY4pyHnKZ1WNhh2ccrFAoVR7m8mXbEc2RaObCpoB+ZC0XFpmshKroMOvo5Q/wFcta9axvyPN8ZINf8fiJIXzb15CAmQDVH+u4xw0UytYJp7h6gSqMHPDi8/4KoywmWwBR1NLNeeRlKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CJmGnLBr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E8f6kfTI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C3DEC2BCB3;
-	Thu, 14 May 2026 17:50:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CJmGnLBr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73AA8C2BCB3;
+	Thu, 14 May 2026 17:57:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778781051;
-	bh=vgBsgGXe+zv6+W6MvoN9aWXs4JINY+nECk3GKt5x/P8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=E8f6kfTItwwyHlhuFGNz3o8xDm0Saj3GLBDvYYT5rnyZASc77iQqDjaOIVdIW6ydP
-	 RAI3iIMBI/NX+1nT5b8Mxp13VcDeV6UJsi4WBD4PfOCTQ1HDHdyZ0zDvX7CeIRPgc5
-	 ajMm5+IS4ALHyel0HZgSNQ+25HwXMaXo1EsynL8aG5kOu7TghvnjlWkSoAlWqt0K0Y
-	 uE4yBunz/rS9fby4aYr2KPgRPaMuuX7GvPRv5Kj2C+zAgrGWMshDTMMWKv/xjFkCEW
-	 Vj4GddrkwgOe7bJh96tQvK4IQREQF9Yk5p8J9iaCQN4Xa3cI/xE1wNBUazl7MUpv7A
-	 Il2wYDsXKK/Jg==
-Date: Thu, 14 May 2026 18:50:44 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Chen Wang <unicorn_wang@outlook.com>,
-	Inochi Amaoto <inochiama@gmail.com>,
-	Alexey Charkov <alchark@gmail.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Keguang Zhang <keguang.zhang@gmail.com>,
-	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>
-Subject: Re: [PATCH v2 11/12] soc: starfive: Add socinfo driver for JHB100 SoC
-Message-ID: <20260514-filler-footgear-3ae65c9b8c92@spud>
-References: <20260512083521.3448-1-changhuang.liang@starfivetech.com>
- <20260512083521.3448-12-changhuang.liang@starfivetech.com>
- <20260512-mushroom-helpless-0815d0885abb@spud>
- <ZQ4PR01MB120205CCC0A3229824701640F2062@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
- <20260513-headstand-hertz-bf31fe6c1938@spud>
- <ZQ4PR01MB1202150D76C700778EB29978F2072@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+	s=k20201202; t=1778781463;
+	bh=S7WqRXFsdtc3DMOYLKP2BhZkRpOaDK8Hrm3hBOcbD/U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=CJmGnLBrH0HGlMB78+t07l9PxbjL2by6PNhIhRaQnnlanCst62jOWMe6LUUuBfYN5
+	 LsJn1KM9D3UtFWv8SNuR/rIyCPjf1vDIGcZbIsjbU7RuZIRHJZsPbnN/SCkhZHr+TF
+	 qcN+0Pr7nz4Si6BYWeFyHTvaZg3vWZGZoX9sdNYKuUnwDhYss/y8fberdZ4XWFWGP0
+	 ITSaUD39GeJegOHUy61XwI7Nd/GyN1MiUsFlenx2vEPuzVCoHOADKyNCrfwgj36+mq
+	 PwbtoxNg0NmlpTaFK6p+dmRg2/FGclx5rKzu4qfA2xLUvyYQRifnwNZnmn51159eF9
+	 xM4h110dE3xOA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 3/3] drm/bridge: analogix_dp: Add support for
+ optional data-lanes mapping
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Damon Ding" <damon.ding@rock-chips.com>
+Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260514070133.2275069-4-damon.ding@rock-chips.com>
+References: <20260514070133.2275069-4-damon.ding@rock-chips.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 14 May 2026 17:57:42 +0000
+Message-Id: <20260514175743.73AA8C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="58SM5AM6G6irs/hi"
-Content-Disposition: inline
-In-Reply-To: <ZQ4PR01MB1202150D76C700778EB29978F2072@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Stack buffer overflow when parsing 'data-lanes' property on EXYNOS=
+ platforms.
+- [High] Incorrect hardware configuration for asymmetric lane mappings due =
+to inverted logical-to-physical mapping.
+- [Medium] Inconsistent endpoint node resolution leads to device tree parsi=
+ng errors.
+--
 
---58SM5AM6G6irs/hi
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+commit 433b68e59e322b480b7a41218242dfa6cb857ab3
+Author: Damon Ding <damon.ding@rock-chips.com>
 
-On Thu, May 14, 2026 at 01:07:37AM +0000, Changhuang Liang wrote:
->=20
-> This is at the same priority level as most drivers. If some drivers use
->  soc_device_match() and are registered earlier than this driver, issues
->  may arise. It might be possible to lower the level by using subsys_initc=
-all.
->=20
-> What do you think?
+drm/bridge: analogix_dp: Add support for optional data-lanes mapping
 
-If this is the level it has to be to avoid probe issues, that;s okay.
+This commit parses the optional 'data-lanes' device tree property to
+support custom physical lane mapping configuration.
 
---58SM5AM6G6irs/hi
-Content-Type: application/pgp-signature; name="signature.asc"
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers=
+/gpu/drm/bridge/analogix/analogix_dp_core.c
+> index 8cf6b73bceac0..d53ab25bc57b1 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> @@ -1234,6 +1234,59 @@ static const struct drm_bridge_funcs analogix_dp_b=
+ridge_funcs =3D {
+>  	.detect =3D analogix_dp_bridge_detect,
+>  };
+> =20
+> +static int analogix_dp_dt_parse_lanes_map(struct analogix_dp_device *dp)
+> +{
+> +	struct video_info *video_info =3D &dp->video_info;
+> +	struct device_node *endpoint;
+> +	u32 tmp[LANE_COUNT4];
 
------BEGIN PGP SIGNATURE-----
+[ ... ]
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagYLdAAKCRB4tDGHoIJi
-0kJDAP9O0q8w4WvGaOhEQWn9xc/1yHmmppNMJ6J57RBwoR5TEQEAw3kmCD4WPpQ9
-nJ4Q03CWPpKy44/6gTmDgMs1k8bWWAQ=
-=O8cT
------END PGP SIGNATURE-----
+> +	num_lanes =3D drm_of_get_data_lanes_count_ep(dp->dev->of_node, 1, 0, 1,
+> +						   video_info->max_lane_count);
+> +	if (num_lanes < 0)
+> +		return -EINVAL;
+> +
+> +	endpoint =3D of_graph_get_endpoint_by_regs(dp->dev->of_node, 1, -1);
 
---58SM5AM6G6irs/hi--
+Can this inconsistent endpoint node resolution lead to parsing errors?
+
+The drm_of_get_data_lanes_count_ep() call strictly searches for an endpoint
+with reg =3D 0 on port 1, but the subsequent of_graph_get_endpoint_by_regs()
+call uses reg =3D -1 to match the first available endpoint regardless of its
+register value.
+
+If a valid endpoint has a non-zero register, won't the first query fail whi=
+le
+the second would have correctly found it?
+
+> +	if (!endpoint)
+> +		return -EINVAL;
+> +
+> +	ret =3D of_property_read_u32_array(endpoint, "data-lanes", tmp, num_lan=
+es);
+
+Does this introduce a potential stack buffer overflow for the tmp array on
+EXYNOS platforms?
+
+The tmp array is allocated on the stack with a fixed size of LANE_COUNT4 (4=
+),
+but num_lanes is bounded by video_info->max_lane_count. Looking at the EXYN=
+OS
+platform parsing later in the same file:
+
+	case EXYNOS_DP:
+		...
+		of_property_read_u32(dp_node, "samsung,lane-count",
+				     &video_info->max_lane_count);
+
+The max_lane_count is populated directly from the samsung,lane-count device
+tree property without validation. If a malformed device tree specifies a va=
+lue
+greater than 4, num_lanes will exceed the size of the tmp array, causing
+of_property_read_u32_array() to write out of bounds and corrupt the stack.
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/=
+gpu/drm/bridge/analogix/analogix_dp_reg.c
+> index 38fd8d5014d29..45c7652645a13 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+> @@ -48,16 +48,15 @@ void analogix_dp_stop_video(struct analogix_dp_device=
+ *dp)
+>  	writel(reg, dp->reg_base + ANALOGIX_DP_VIDEO_CTL_1);
+>  }
+> =20
+> -void analogix_dp_lane_swap(struct analogix_dp_device *dp, bool enable)
+> +void analogix_dp_lane_mapping(struct analogix_dp_device *dp)
+>  {
+> +	u32 *lane_map =3D dp->video_info.lane_map;
+>  	u32 reg;
+> =20
+> -	if (enable)
+> -		reg =3D LANE3_MAP_LOGIC_LANE_0 | LANE2_MAP_LOGIC_LANE_1 |
+> -		      LANE1_MAP_LOGIC_LANE_2 | LANE0_MAP_LOGIC_LANE_3;
+> -	else
+> -		reg =3D LANE3_MAP_LOGIC_LANE_3 | LANE2_MAP_LOGIC_LANE_2 |
+> -		      LANE1_MAP_LOGIC_LANE_1 | LANE0_MAP_LOGIC_LANE_0;
+> +	reg =3D lane_map[0] << LANE0_MAP_SHIFT;
+> +	reg |=3D lane_map[1] << LANE1_MAP_SHIFT;
+> +	reg |=3D lane_map[2] << LANE2_MAP_SHIFT;
+> +	reg |=3D lane_map[3] << LANE3_MAP_SHIFT;
+
+Is the logical-to-physical lane mapping inverted here?
+
+The data-lanes device tree property semantics dictate that the array index =
+is
+the logical lane and the array value is the physical lane. However, the
+ANALOGIX_DP_LANE_MAP register fields appear to configure which logical lane=
+ is
+assigned to a specific physical lane.
+
+By assigning reg =3D lane_map[0] << LANE0_MAP_SHIFT, does this code write t=
+he
+physical lane assigned to logical lane 0 into the hardware configuration for
+physical lane 0? While this works coincidentally for symmetric permutations
+like <0 1 2 3> or <3 2 1 0>, it would result in incorrect lane assignments =
+for
+asymmetric mappings like <1 2 3 0>.
+
+> =20
+>  	writel(reg, dp->reg_base + ANALOGIX_DP_LANE_MAP);
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514070133.2275=
+069-1-damon.ding@rock-chips.com?part=3D3
