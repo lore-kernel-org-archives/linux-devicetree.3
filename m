@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 470531459FA
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 01:52:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94BC03F413A
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 02:02:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778723553; cv=none; b=tZgjodcwlz5FGy4S8gQdR283384J29RmHLuHDeFKWv0KS1ktsysO24a2IZpOhRX15BFIVFNOUb6a+v/qtW5IB11kwNkdHYGPiyppMc32gYkgDssFSV9q33DcGOLUo8LNdN89uWh8FnDy7XqXNQXZ+HUdXg2idmShOeoEhvkdlzM=
+	t=1778724178; cv=none; b=J4GjbJl34Zw/gFJugg1pTXxvXcujtj3IAVpcvwQOSnv++OfUS5ynz8KZGTK6014stDs+tnkWRx9GBrBRqLKT6nsR3+IcEI9kdJKKNFhf2vlFC5l13ItJOIG0MzaiLDdoY7i0s7YPsgsvWfOiksDYNJahchVgmQ6tolKTmoIfBQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778723553; c=relaxed/simple;
-	bh=UyHYLXLZMY9gRFX467l/354GOeiiHl+VehLvu4zJ5j4=;
+	s=arc-20240116; t=1778724178; c=relaxed/simple;
+	bh=S3aoBbYiav/AkxzLyfItp3DumOz73SBXmalkC7iKKsU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=h72h0Ve5HzvPPE8B8lrnLqfaPGYios0G9nR78PB8yZOYJ7bPTCULOeNxP6rMWo1JMPTESW0LaWOjn/vfyZTQsf10W2Esz9xD2KxsMHHYujn0Xmq+jck9U6UlrT+7nuZuAAoTx+duR99m+K7C0DcG47LX+IPuCMeQjvJe3SCDZR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nDVmwC48; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=dMCUk/LetY7bQYHUZB1LH4KlDu+h2Er5YqIa9pF6Yqz6ccKiWiP0o0xYfo33tvCGeszwcQMxyTWOwdQNVQ1JMc36I38/3x57s+ofJkrad+Lvwz6w5zMsU1QU87YrKI9p8L+jE4WWLwYgeg+8I3uN2+aXvT8wVfZ4UGTnvn1mkbY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UkU9HqcR; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nDVmwC48"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FC29C19425;
-	Thu, 14 May 2026 01:52:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UkU9HqcR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15F3CC19425;
+	Thu, 14 May 2026 02:02:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778723552;
-	bh=UyHYLXLZMY9gRFX467l/354GOeiiHl+VehLvu4zJ5j4=;
+	s=k20201202; t=1778724178;
+	bh=S3aoBbYiav/AkxzLyfItp3DumOz73SBXmalkC7iKKsU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=nDVmwC48RlCuT1OCtT48y9bo9bAunxPY2O/G2eGkXN9kxWtaZ91FZzDnuhRUhjJVi
-	 PlSYJsdwYvez5Jdz/16LxvCshJUhRJqwxPFWpAds51vQoDMitUtp12ujfEOhVpZsW2
-	 20VEhni8Wswcov2OYZynYWp7x61qSwISGvskQnJWnNPCdICyfVuzMOZtzPFGA0Hc5R
-	 G9sB7/SRLkWXQS1CE5BhoDPfsiPd1ok9rBbnV/Fbo5+ZdLRuMAsMImIYZx9XdiU+sx
-	 2FCZ44oSaz8Yx0rquAmSss/qrLQaQFXJJhm190dj9nbmwN5HmjCUrcvx719koBgtRd
-	 I7fdsrdDUn0NQ==
+	b=UkU9HqcR0zF1+pS7KyQi3ZPaWGlaotHHiS0ThX6CRsEBqe2eGyoe417tO/HoPH47E
+	 orLFyMaYFlqP7ABdgA7OamcV0w+iLjyqmskz3jYCzAzOaozOgVBLRlcIjPuhzElghl
+	 SY1svOd3bh/tpwr1XrDK4/pqckaVg5pS4qRyXbLnjLh6/9wn0k721JxRZKUq9tEMdK
+	 IVSOgQGj+iU+zFi6fwokR4i8i8r4vlc9TCRZK4TI7vFFANIcSXgIB7FtSV2OUeFaXo
+	 e2P1F2byVcPgci1quHvyCmtgR8iMxPX54IL2y+kYpDc9h6LUNLgOasnjv+1HrZguu8
+	 yGBpMzCIyxSvQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND v29 1/4] dt-bindings: i2c: Split AST2600 binding
- into a new YAML
+Subject: Re: [PATCH V6 06/11] iio: imu: inv_icm42607: Add Buffer support for
+ icm42607
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ryan Chen" <ryan_chen@aspeedtech.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260513-upstream_i2c-v29-1-fe9926964d55@aspeedtech.com>
-References: <20260513-upstream_i2c-v29-1-fe9926964d55@aspeedtech.com>
+To: "Chris Morgan" <macroalpha82@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260512221634.256747-7-macroalpha82@gmail.com>
+References: <20260512221634.256747-7-macroalpha82@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 01:52:32 +0000
-Message-Id: <20260514015232.8FC29C19425@smtp.kernel.org>
+Date: Thu, 14 May 2026 02:02:57 +0000
+Message-Id: <20260514020258.15F3CC19425@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,89 +46,111 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The new DT binding breaks validation for existing AST2600 device t=
-rees by enforcing a new `reg` layout and removing `bus-frequency`.
-- [High] Renaming `bus-frequency` to `clock-frequency` causes a silent perf=
-ormance regression with the legacy i2c-aspeed driver.
+- [Critical] Hardware FIFO stream corruption via inadvertent read of FIFO_D=
+ATA register
+- [High] Uninitialized variable and inverted bounds check in FIFO parsing l=
+oops
 --
 
-commit 625f06e7b4752a6769de1b97b793eb2043bda8de
-Author: Ryan Chen <ryan_chen@aspeedtech.com>
+commit 1ef48549ddf09f109d55e87b2f2e81329ea2a547
+Author: Chris Morgan <macromorgan@hotmail.com>
 
-dt-bindings: i2c: Split AST2600 binding into a new YAML
+    iio: imu: inv_icm42607: Add Buffer support for icm42607
 
-The AST2600 I2C controller introduces a new register layout with separate
-controller and target blocks. The binding for AST2600 is moved to a dedicat=
-ed
-aspeed,ast2600-i2c.yaml schema, updating requirements like enforcing two reg
-regions and using clock-frequency instead of bus-frequency.
+This commit adds buffer support for the inv_icm42607 hardware by implementi=
+ng
+FIFO parsing and reading functions.
 
-> diff --git a/Documentation/devicetree/bindings/i2c/aspeed,ast2600-i2c.yam=
-l b/Documentation/devicetree/bindings/i2c/aspeed,ast2600-i2c.yaml
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c b/drivers=
+/iio/imu/inv_icm42607/inv_icm42607_buffer.c
 > new file mode 100644
-> index 0000000000000..de2c359037da5
+> index 0000000000000..0919b4241241a
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/i2c/aspeed,ast2600-i2c.yaml
-[ ... ]
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - aspeed,ast2600-i2c-bus
-> +
-> +  reg:
-> +    items:
-> +      - description: controller registers
-> +      - description: controller buffer space
-
-Will enforcing this new reg layout break validation for existing AST2600
-device trees?
-
-Existing in-tree device trees define a single reg region. Because these dev=
-ice
-trees are not updated in this patch series, make dtbs_check will fail for a=
-ll
-AST2600 boards.
-
-Should the binding retain backward compatibility by allowing a single reg
-region for legacy nodes?
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
 
 [ ... ]
-> +  clock-frequency:
-> +    description: Desired operating frequency of the I2C bus in Hz.
-> +    minimum: 500
-> +    maximum: 4000000
-> +    default: 100000
+
+> +int inv_icm42607_buffer_fifo_read(struct inv_icm42607_state *st,
+> +				  unsigned int max)
+> +{
+> +	const void *accel, *gyro, *timestamp;
+> +	size_t i, max_count;
+> +	const s8 *temp;
+> +	ssize_t size;
+> +	int ret;
 > +
-> +  resets:
-> +    maxItems: 1
+> +	guard(mutex)(&st->lock);
 > +
-> +required:
-> +  - reg
-> +  - compatible
-> +  - clocks
-> +  - resets
-> +  - interrupts
+> +	/* reset all samples counters */
+> +	st->fifo.count =3D 0;
+> +	st->fifo.nb.gyro =3D 0;
+> +	st->fifo.nb.accel =3D 0;
+> +	st->fifo.nb.total =3D 0;
 > +
-> +unevaluatedProperties: false
+> +	/* compute maximum FIFO read size */
+> +	if (max =3D=3D 0)
+> +		max_count =3D sizeof(st->fifo.data);
+> +	else
+> +		max_count =3D min((max * inv_icm42607_get_packet_size(st->fifo.en)),
+> +				sizeof(st->fifo.data));
+> +
+> +	/* read FIFO count value */
+> +	ret =3D regmap_bulk_read(st->map, INV_ICM42607_REG_FIFO_COUNTH,
+> +			       st->buffer, sizeof(u8) * 3);
 
-Could renaming bus-frequency to clock-frequency cause a silent performance
-regression with the legacy i2c-aspeed driver?
+Does reading 3 bytes here fetch the COUNTH, COUNTL, and FIFO_DATA registers?
 
-If a device tree is updated to conform to this new binding (by replacing
-bus-frequency with clock-frequency) but does not add the aspeed,global-regs
-property, the legacy i2c-aspeed.c driver will still probe.
+If so, could this inadvertent read of the FIFO_DATA register automatically
+dequeue 1 byte from the hardware FIFO?
 
-The legacy driver relies entirely on bus-frequency and does not use standard
-helpers like i2c_parse_fw_timings() to read clock-frequency.
+This could cause the subsequent regmap_noinc_read() to fetch misaligned
+packet headers, corrupting the decoded sensor stream. Should this be a
+2-byte read instead?
 
-This will cause the driver to fail to find the bus frequency property, log
-an error, and silently fall back to the default 100kHz, which will degrade
-performance for fast-mode devices.
+> +	if (ret)
+> +		return ret;
+> +	st->fifo.count =3D be16_to_cpup(st->buffer);
+> +
+> +	/* check and clamp FIFO count value */
+> +	if (st->fifo.count =3D=3D 0)
+> +		return 0;
+> +
+> +	st->fifo.count =3D min(st->fifo.count, max_count);
+> +
+> +	/* read all FIFO data in internal buffer */
+> +	ret =3D regmap_noinc_read(st->map, INV_ICM42607_REG_FIFO_DATA,
+> +				st->fifo.data, st->fifo.count);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* compute number of samples for each sensor */
+> +	for (i =3D 0; i < st->fifo.count && i + size > st->fifo.count; i +=3D s=
+ize) {
 
-Additionally, because the binding sets unevaluatedProperties to false and
-removes bus-frequency, existing device trees that still use bus-frequency
-will fail validation.
+Is the size variable uninitialized on the first iteration of this loop?
+
+Also, is the i + size > st->fifo.count condition logically inverted? This
+appears to require the packet to overflow the buffer boundaries to continue,
+which could cause the loop to terminate prematurely or not run at all.
+
+Could this inverted logic allow a partial packet to bypass boundaries and
+cause an out-of-bounds read inside inv_icm42607_fifo_is_data_valid() later
+in the loop?
+
+> +		size =3D inv_icm42607_fifo_decode_packet(&st->fifo.data[i],
+> +				&accel, &gyro, &temp, &timestamp);
+> +		if (size <=3D 0)
+> +			break;
+> +		if (gyro !=3D NULL && inv_icm42607_fifo_is_data_valid(gyro))
+> +			st->fifo.nb.gyro++;
+> +		if (accel !=3D NULL && inv_icm42607_fifo_is_data_valid(accel))
+> +			st->fifo.nb.accel++;
+> +		st->fifo.nb.total++;
+> +	}
+> +
+> +	return 0;
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-upstream_i=
-2c-v29-0-fe9926964d55@aspeedtech.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512221634.2567=
+47-1-macroalpha82@gmail.com?part=3D6
