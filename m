@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6EF23BE635
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 19:47:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCAA54F5E0
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 19:48:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778788058; cv=none; b=rF60BRT9t9X5dM4nGg5yC65f4DuR0+Zsh3QMbc7rGt+LHNGGqFFBcF+IZ/HJwl0XAR4ECo7ykrDYQMyYsQ2Dq2kYe005fmFcJymaGuCQKVj4vc9D1bsO76ZITIZevtzjVrOmGuye/tMMpqIF/rCkZ99Qq7F4UJhL6KKxKYCKjSw=
+	t=1778788095; cv=none; b=ulr/aFRoTsGNoO6FBQTXeAQrVfmxkRD+TVDcg8u/hHTPPTHZOHXled58c779AIznC7W0hqaqDnHguTDyu4nUuG3TKMO/hlODcFNXexX6K2kFawGNKcbbLn6HMzYv2bBxhYATxfiQSpnlDt5zzY3Tx/O3GUX9rcPRPOY1tML/0hk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778788058; c=relaxed/simple;
-	bh=P8du4tIQJa0x4DFFIK5e28HEibs04qcz1KFj/ysRwgY=;
+	s=arc-20240116; t=1778788095; c=relaxed/simple;
+	bh=eTrx/pBlFhV9uEx4jojp4Mo3mf88u30r9n8gLWP9vuo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=elXD0fA/Ousav1NEZYcsHilIQKd221WUVaRqxW8MqXo3ramW8xNlRhcsAZmhEqybFmVQv+1KBJ7/V1gmBvLoXKHOsUNaSU69JVG8v6njmZ/y6td5qfZjO/J0NREtO1iNtHM1uoWXoWaqmgVYgBb2hAGYkTZbmi1dGnVh2DFrfBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O/vRSpM7; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=JDHx3Fx9iu0c2scqDJee37aHm/G6fvvqaoen3LYS2DIFflab5Vd/BG0KuYdo5Odk4XKfQL+x34USvY7KDtnA4QtmNHuvl8nWLkJLb4leocjIt2CtYO4/+e4s8XBwJxKLw4qc9HNx9f4vKBe1KF5ChG+beIZFBuKJCxlQANzeG+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G2IfPriv; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O/vRSpM7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56B4DC2BCB3;
-	Thu, 14 May 2026 19:47:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G2IfPriv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3483CC2BCB3;
+	Thu, 14 May 2026 19:48:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778788058;
-	bh=P8du4tIQJa0x4DFFIK5e28HEibs04qcz1KFj/ysRwgY=;
+	s=k20201202; t=1778788095;
+	bh=eTrx/pBlFhV9uEx4jojp4Mo3mf88u30r9n8gLWP9vuo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=O/vRSpM7UqAX5Q8uG3hCH873rE1Tcg3Xb+Al48YbCxlZy0nKIWDAEJn4ug3ub9hi8
-	 HiWoRG1WxaXue2UIxpSx6lvovrdl6urSjIM/oGpOQSn0ytM2DRzZwWk5omPqGJ/w/m
-	 gUTTjprzvLQrh3TmKY9ghdEh21zjRV6GHTn3IUKmVAM6+fmWUzApyR3rWxMTPg0Pdx
-	 5P1rw8mN1SiPlprzoHZKz0Gx3greJZ2yNMiF8dsd4c5vIBMYqKvh6pwTjXpvyfLR6D
-	 A+vipAGMWlpsYnVRX1M4vRXGOXrbmqsmvtrWSqP/D44ZbbQXey4RcVicy12lvnbsgq
-	 nSn3rNul8+DzQ==
+	b=G2IfPriv5ELxlt9fBm8z52g1mUhwwK1tFZIzsJsNIAVeOt/+qlRWRTutKKbLhyZtB
+	 AK2qhhhFgDTH4mzJBOH9UFQD1voadaKFwibJGe+blPlhVuWX8Z9kCbUHuhv4F4pir0
+	 YyJKtTYRjHlI8RVmmWDBvXuOzTZUy8/sG00OaOMoVLp9kMl2M3kxMbrtA3fJmdbMKy
+	 fq7fOPb2frLTYXlkN6t94r0GQnx5GwQmTJdL7FIVD2IbXxSimZfFAUN34s6rT3sZDy
+	 pWyYu/6DBwnyOppqticEyn5//qlkiSMv6eUkkmolh1us+vNWHUAAGjlz+4LxyL4pSm
+	 La2cmnSMbDGXA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/7] iio: temperature: ltc2983: Fix inconsistent
- channel wording in messages
+Subject: Re: [PATCH v5 5/6] riscv: dts: anlogic: add clocks and CRU for
+ DR1V90
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Liviu Stan" <liviu.stan@analog.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260514144712.64374-4-liviu.stan@analog.com>
-References: <20260514144712.64374-4-liviu.stan@analog.com>
+To: "Junhui Liu" <junhui.liu@pigmoral.tech>
+Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260514-dr1v90-cru-v5-5-34f3021aab51@pigmoral.tech>
+References: <20260514-dr1v90-cru-v5-5-34f3021aab51@pigmoral.tech>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 19:47:37 +0000
-Message-Id: <20260514194738.56B4DC2BCB3@smtp.kernel.org>
+Date: Thu, 14 May 2026 19:48:14 +0000
+Message-Id: <20260514194815.3483CC2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,50 +46,70 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Incomplete refactoring / Commit message mismatch: The commit claims=
- to replace all occurrences of 'chan' and 'chann' with 'channel' in error a=
-nd debug messages, but misses several occurrences.
+- [High] The `can_ext` and `wdt_ext` fixed-clock nodes are missing the mand=
+atory `clock-frequency` property.
 --
 
-commit f3ba963d38e5d70969e64d92b33f465e108805e4
-Author: Liviu Stan <liviu.stan@analog.com>
+commit 2b9cd6d4a55b4608470fd48bd92b6cacba368046
+Author: Junhui Liu <junhui.liu@pigmoral.tech>
 
-iio: temperature: ltc2983: Fix inconsistent channel wording in messages
+riscv: dts: anlogic: add clocks and CRU for DR1V90
 
-This commit replaces abbreviations like 'chann' and 'chan' with 'channel'
-in error and debug messages across the ltc2983 driver to improve
-consistency.
+This commit adds clocks and introduces the Clock and Reset unit node
+for the Anlogic DR1V90 SoC. It configures a main crystal oscillator
+and two optional external clocks for the CAN and WDT modules.
 
-> Replace all occurrences of the abbreviated 'chann' and 'chan' with
-> 'channel' in error and debug messages throughout the driver.
+> diff --git a/arch/riscv/boot/dts/anlogic/dr1v90.dtsi b/arch/riscv/boot/dt=
+s/anlogic/dr1v90.dtsi
+> index 9fe183f5f5c8d..574c6608aef01 100644
+> --- a/arch/riscv/boot/dts/anlogic/dr1v90.dtsi
+> +++ b/arch/riscv/boot/dts/anlogic/dr1v90.dtsi
 
-This isn't a bug, but since the goal is to replace all occurrences,
-should the following instances in ltc2983_parse_fw() also be updated?
+[ ... ]
 
-drivers/iio/temperature/ltc2983.c:ltc2983_parse_fw() {
-    ...
-		if (sensor.chan < LTC2983_MIN_CHANNELS_NR ||
-		    sensor.chan > st->info->max_channels_nr)
-			return dev_err_probe(dev, -EINVAL,
-					     "chan:%d must be from %u to %u\n",
-    ...
-		if (channel_avail_mask & BIT(sensor.chan))
-			return dev_err_probe(dev, -EINVAL,
-					     "chan:%d already in use\n",
-    ...
-		dev_dbg(dev, "Create new sensor, type %u, chann %u",
-    ...
-}
+> @@ -40,6 +43,26 @@ cpu0_intc: interrupt-controller {
+>  		};
+>  	};
+> =20
+> +	clocks {
+> +		can_ext: clock-ext-can {
+> +			compatible =3D "fixed-clock";
+> +			clock-output-names =3D "can_ext";
+> +			#clock-cells =3D <0>;
+> +		};
+> +
+> +		osc: clock-osc {
+> +			compatible =3D "fixed-clock";
+> +			clock-output-names =3D "osc";
+> +			#clock-cells =3D <0>;
+> +		};
+> +
+> +		wdt_ext: clock-ext-wdt {
+> +			compatible =3D "fixed-clock";
+> +			clock-output-names =3D "wdt_ext";
+> +			#clock-cells =3D <0>;
+> +		};
 
-It appears these were missed during the refactoring.
+Are the can_ext and wdt_ext fixed-clock nodes missing the mandatory
+clock-frequency property?
 
-While the "chann %u" debug message is coincidentally updated in a later
-commit ("iio: temperature: ltc2983: Add support for ADT7604"), the error
-messages remain unfixed throughout the patch series.
+The fixed-clock devicetree binding requires a clock-frequency property.
+Without it, the fixed-clock driver fails to read the frequency and returns
+-EIO during both of_fixed_clk_setup and platform probe, failing to register
+the clock providers.
 
-Could these be updated here to ensure the code fully matches the commit
-message?
+Because the cru node specifies these clocks as suppliers, the kernel's
+fw_devlink mechanism will indefinitely block the CRU driver from probing.
+
+This recursively blocks all CRU consumers, including the UART console,
+leaving the system without a working console.
+
+Would it be better to add a dummy frequency, mark these nodes with
+status =3D "disabled" in the dtsi, or define them only at the board level
+when they are actually present?
+
+> +	};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514144712.6437=
-4-1-liviu.stan@analog.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514-dr1v90-cru=
+-v5-0-34f3021aab51@pigmoral.tech?part=3D5
