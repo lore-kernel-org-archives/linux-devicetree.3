@@ -1,263 +1,197 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2ABE2D836D
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 18:26:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778783193; cv=none; b=J8QiFvx5D38Y0S1oBl42jwUwCKcblIL56a82xVoBRcs6POobRldKt2mvhgn4kKutUxSdLYEdP0kkuRD/zz+Ft2XvzU9p+YH4ncIbwKbhMrBkrSeBJkViehN3jcVaVa16Po7b1iJaVX1WcYeeugNAC/erLxZjInpy7XYK4FxOUB8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778783193; c=relaxed/simple;
-	bh=ocUUV2GsC2FgvGcbHUMW0RoFvDZhShrGNrCCLkHdeS4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZY9YOGSDPrJhgftLPHLk3LlP7J144ze7/Kg1do6dLkRV7tjW6tdqQus7s63BxSJ8nDwY+YM7iKVCLbJ7AaiGRfsTqOVRfZKQ5x6gkcDZpnUEIkllpS4//S1RxDalaWwBRHHSugk9w6GBH7pRuzI/UXCDy4qCcbf/hQsg8YXBkTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FFQPlf9Q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Eo3K2EJL; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34BEC318ECD
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 18:27:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778783237; cv=pass; b=gkQOCacY7FNsG6Yc46OfMLZ5GwZGsUO8MpLHohVxWScc+2OrzAkN1947XyM7wOERKGbktI9rtmzx38fDLaGC8ihcT4dbJPlAXZs/luOWtQ8SOYnYCbERBSGiRwheNpEv3dxY7zXLZzf8zqBB/dTAONs15EAglKlE7fUN7d1Hfqs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778783237; c=relaxed/simple;
+	bh=ItU+KZc5ropgCT28IRSogm4JMBe/gW3BCododYwU41o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ga/Dzd57PKwNjWClA5EkMJ097Gu6tpapHJETyy0QHfRJ0LsItfuRK3dOwU9fhQdK8YlW6uyEjvZ+fCpbkYoAIFRVh2ZW7GR0koddclmc7ClU0tw+Gw8RtTnUwSf5RTJcGFzcPPsQwS5X92eDTmgGb44AfjXVNnXWPB7VFjYrsWk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KNkj7xnp; arc=pass smtp.client-ip=209.85.208.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FFQPlf9Q";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Eo3K2EJL"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64EBeQj42841032
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 18:26:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	eWyz0bm6QQ0/5uAMB1IflY62dp+iLMo2hK5d5t3vGYE=; b=FFQPlf9Q127YGKAZ
-	GlkNtoT5nWHk5EmbnHqrK4+RjzmsWRhsSwZtHRDYa1lmDYR584xqePWnVxOcRo6f
-	dim/uLEmUhjKIeme3KwDqbKaMHkgtJEK5ybMpNjBNHPOeSkAJuH/57Yj0HWwLpkO
-	JW3UCA8jShl3mKp+pZmIcCCG5VXyfmzVu7s97BaioYYm7NHok/GyOK7+3ATuwo9k
-	GFR6cjefV5jPAo9wMky3pXMkwjCfI29sZrgHqH5qTIzNyo2CN45+YShxlDqrsIz5
-	5a45G6ALeai3MlYzYl16t2Xwkm+deWbhW3QhHDeroodo80TcdiygppGWCoi1ClqJ
-	mJmO8A==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e5899trb9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 18:26:30 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ba718173d1so142916755ad.0
-        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 11:26:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KNkj7xnp"
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3937014be0cso77538481fa.0
+        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 11:27:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778783234; cv=none;
+        d=google.com; s=arc-20240605;
+        b=go2NeXXsBjDA5po02/VcGXvCM0r4s+S/5I10riZW8EyhpwHNtAwnDeVqJK8gdYvxDR
+         AeqEzQFnkWwaRCli2YSdW8Vqx3J+plHXcJbmPYO7vkUwm5SpqYlgHoMGEo0rf8CtdH9N
+         h3Vjvqpwifer1jfXzvFzeWr4Mj+nrMffLflcnfNC0i7RzaTTU52UVFQWRFyDdxIAzSWa
+         jZPmDAukY/AmUk7QBdac7B64A+5YkXzj5n1F6Ji4xrTnbw8bk7jny7JVUAVuBSbnsDE1
+         9Ptew4afnV5p23h81QSTjrsGtzGdo9G/puxvYyhw+KnM3eLY+qWQ2BfdwZo2SqgjhX6x
+         9ZPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2Xh19LyQF10UTWKq1me0fwm+mh43ExASMESLfzu7G68=;
+        fh=ETiCDgPO4Lj30uQItMfm2HZbBRK/2BwUf5a4NzYBOAM=;
+        b=Nok+Z4oBrdI95DvRglsX9Yne9G+Fz3Wci6ebEB5AIulnBuJmyE7NuGmz/iYc6HfhXI
+         qXMhTDEvlJ0CcTCofy7TSmhwgu3uaRoH22cD7GBZM6i1E9Uk/ZRvr5jgcb31gzKtPmEs
+         CftwcMT2xI/j5yW/3jWwQ0IqZEyhFZl7+QV5Pm9392k+vOrmc4Wt/riSUgq0xW1Z8l5Y
+         nFTxabRo02B9PIDVykzwlvUuYf2JDrtm6y2n9IseNw0BTHES84i3t6f0jVsGDuxLzNp0
+         lrh2d/uiqhcuoFEIPrIBhOvAJyi04H6Ys4D37TcbFb7j7g8IH/CreV8e8ke/3KKG2pEF
+         GeWQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778783189; x=1779387989; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=eWyz0bm6QQ0/5uAMB1IflY62dp+iLMo2hK5d5t3vGYE=;
-        b=Eo3K2EJLlnVSbFdVv2gNFEmokvUMb/kdDuZ4IfTAvY3Efgo233xj+0poCkDOmevdDU
-         JOeP/EMZsC8R8lDrFiEuf0PIWy6cs/Tf/mC4f9mYw3M5Lul71kzzzKG4UFPG8uBvMfv0
-         i7HCqs8KHBwwZRHeOPi3wWWUlSpSHpO356vksucPicuBlViHi5OEXw4F3Q5aoHFz144u
-         JTgZpgCNOxI/Wmdm1JCmjwrutHKZQaY2q1MB7B+eiptEZib3/SOqLX45wM2Pj5Vq7anC
-         qNnCVwanEmjlxLghCCfKDJQHWifk5kFi8y5w4MJ2sxNd1kirI+Q15AGE7To9qZcTb2lX
-         +AuA==
+        d=gmail.com; s=20251104; t=1778783234; x=1779388034; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2Xh19LyQF10UTWKq1me0fwm+mh43ExASMESLfzu7G68=;
+        b=KNkj7xnpA8wjCBtPMBQ3t2/8IgxbXORSid8/7SOpf/wsRST7+N687uJno9UDf+6gpk
+         TnhJiMr7GFfaOW44a/u6SypqWuNPQB9pJ7s9KFyUddcWZqAQjATfzW2XqNBhnA5Et1Yu
+         LcepG9qejAL7OmyJVM0igq9wDsk0JBiF9PytN23o+8rRfXT10ZZweI1QNOYY4mBOQfQj
+         rbVopqT4uRdSDxtbueE5nk0xyhpTcqXvvak6N/GvAMZ4lUbGlEKZ1zkzU5lPtRIicU0c
+         /yBDUjQhF4xvP8TV6ExOyQD16vNZvOLO9CFrbw1EFq3aU3KmODwLsct1rO/dJkpMGmr8
+         1w1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778783189; x=1779387989;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=eWyz0bm6QQ0/5uAMB1IflY62dp+iLMo2hK5d5t3vGYE=;
-        b=GkUsVdsH8W3t+nnRmmv7AhZq/6P/WwEUFHy/BZpCzx2qgbEgM+w6VO/qiqnohnGYIh
-         EVQWDDBuJ6eYACb+pR1AfjeMxo8TiS89zWVLqg2Rvf79Nw5VMru7RWLyEjXY9+NlGI8W
-         8cOeLUFnInFZ7FvmdDXxCaUeUSd4mUnJooLIbo9iaPd2KMzFIqLVeiDBTLWvtj3mJgnA
-         R4KrwUNwMMIOagrMhukscowcqQOoF2qvE5y9Ips30pgvlLTmx9vzJm4f9yskr9Fj2SPc
-         CSGe1Tlo08f2Fmvl6WmxqVAUtrZGlIccqUliD23Aj5GFV6IXqLuZhLoAWKCyvlbidKrm
-         xNpw==
-X-Forwarded-Encrypted: i=1; AFNElJ+vNN0SekEv9OZ55Xns/CcnLp6tx+KXyTBswqTrkuCLXxwkIc29hB+aO7OQ8/tIZ+tWCm1P+KttILPm@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxr3m3OGfWeG6w6VM9DeEjRVz44Soq5EHIEJ8uPLtb2QsZv+yU5
-	i6OfgW5x3riemRUvxmFYS1olwyJyv/jyjnsxZqzhu027upjgBzMPhZ2F30JlEplNTNTlNhXm0tk
-	36U4WKyuPGZ6Ztti0kJhITYwZFaNsuMu7r2t6WDppFK5beNpg4aC69Feu12VwrS/haZEgsS18
-X-Gm-Gg: Acq92OFZLZWgFkjZXuXD/CYwwtHWjTstUw1xawmvtlA38EL135TaAga/QiQ8s8DfuLY
-	iRDE67QKcbgpasA1uWSKbWDoxYN/BX0cWy+DXgDDwuaSgcKK3qgeG92Px5MQyBsnruUk/dKMTOm
-	dWvcNxdFGKM8ORN/WrLvH90fN32KUVWM5mFGkp9XkXllJNLdJgN52aRQaQ9lxr0rmnst1DAgYNC
-	HHs3VCQ95X70H5ph4USCYWuZxMVUwmYEYzYuGWvZeyhgVYD/L0ANkUS2WIS9vSr3I1A6tHKdtHF
-	oDxbXEqmY+a8aMp6QBdzkIc2EtVxy6bqi4EIClAielYfr8AjAxo6KqqaCbUXyl72+sl4pjrc+bi
-	dHbyV4lHfZXZmB9rEXSsAXQq0LULXJYJh0FceHmZyF3kvF1rW8l9o+DzLUu4Jxmd1xQ==
-X-Received: by 2002:a17:902:b181:b0:2bc:6784:5260 with SMTP id d9443c01a7336-2bd7e966018mr5256155ad.37.1778783189381;
-        Thu, 14 May 2026 11:26:29 -0700 (PDT)
-X-Received: by 2002:a17:902:b181:b0:2bc:6784:5260 with SMTP id d9443c01a7336-2bd7e966018mr5255935ad.37.1778783188908;
-        Thu, 14 May 2026 11:26:28 -0700 (PDT)
-Received: from [192.168.1.4] ([122.177.247.127])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bd5c05f749sm32831495ad.20.2026.05.14.11.26.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 14 May 2026 11:26:28 -0700 (PDT)
-Message-ID: <5019be04-2800-4f01-96ba-a64ac13d4364@oss.qualcomm.com>
-Date: Thu, 14 May 2026 23:56:23 +0530
+        d=1e100.net; s=20251104; t=1778783234; x=1779388034;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=2Xh19LyQF10UTWKq1me0fwm+mh43ExASMESLfzu7G68=;
+        b=qy9+6G76FYcyjwYR8Bjxj4YiV1UPPPkM3YohhaS+qKznC/whvmKiQ19yOKlYEtHwCI
+         iSdhGnjx+W147KdUXpVLicxjgR32mk3OO5y+NxPqriQKhS2lbgx8uc+LnNzd09ovEB+X
+         lFGURQniqDjYQqxaYKHFb0MuI4GWMAcjr1gVUkDJtCOv4mCRu5XN0plfmpokhTj1gzy5
+         TRkHAWyWhg0ZH4WSp300ADRJ+ywyK6P0e6jlAmc4qvbzK+jkm0xP6SkPORxc64xTdVEQ
+         efgTYLVdtxS80BRTS0RE3B3mt4igW1/nHm/rTFPDApk+8BEClBdXTzD+jb2ypVB+QHq3
+         rZ/g==
+X-Forwarded-Encrypted: i=1; AFNElJ+7u4+sEazoqDcuUjgHfGhiZ29XPqaijb+l54J5N1AWgCfxtbSQBQHIgCUfi4kFHBe9Tg7j4lqAVvxT@vger.kernel.org
+X-Gm-Message-State: AOJu0YyL/4QiKffpWl8kEGCk4xb/fuXxvFatkZefnh2wJb6IRfXAk0LA
+	YvMYM7sjYiv4es5NC7kRVEUdTHas1/sTRfiToisDclZKBKZjpMhMpS5Lg6LTvEb5X+/3B/yxR1C
+	PI7s1ORmFMtBonGYZbE0NC1zNNnmmUhM=
+X-Gm-Gg: Acq92OGaFhw8BJtwSGIPgrAUq/7veNP3cqpdchcmkN25oNwitGxfiJ7yMC8dG4ghh3u
+	/EmfyI3Vh9R0rAdQv/19hv6QFHvncZ82G93yVQwwAIsF2jbcBxlpcHysqPVxS0gEG734tDSXPfU
+	VmzAL9uy+BmO0cnbOZZrwqgcAy+75oJ09RXOIbeeq9A2c1Cc2H38JZOdrWYkRLMdRCb3IWk4UCW
+	9k3KLXBB+z+dQMqnVEJp9CeTqlNsmZ/kW8Q6TP6UAtJlzGisKo6s9USn6B5+N6OEOLJewtjlGQy
+	2RO8SsO3Wnr3bo5HL10BBkZHCZC8uW7Zk7leOHETrBgCktU98aseQOC9WOSvfZrAR4mPNC5mQTM
+	qzm4=
+X-Received: by 2002:a2e:b8d6:0:b0:393:fcd7:5f69 with SMTP id
+ 38308e7fff4ca-39561fa5c00mr481851fa.17.1778783234209; Thu, 14 May 2026
+ 11:27:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] clk: qcom: camcc-glymur: Add camera clock
- controller driver
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        devicetree@vger.kernel.org, Taniya Das <taniya.das@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Ajit Pandey <ajit.pandey@oss.qualcomm.com>
-References: <20260512-glymur_camcc-v3-2-a7196fee2779@oss.qualcomm.com>
- <20260513215441.E17B8C19425@smtp.kernel.org>
-Content-Language: en-US
-From: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-In-Reply-To: <20260513215441.E17B8C19425@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE0MDE4NCBTYWx0ZWRfX5o6rmGJgKBHL
- dRXIeLi7+QmWGAvB8epiFYa7XM4oJ1Wm+V5/OC5RQjGLFDSTsbUAtCXj+vZU4cmNDzJvsDBqUZv
- OkalaN1YjBuRnFGHAmvojoMTtlxmDxG+/UgX2AXaaoltxkrMw9TVym+y0c3DLHBP3Qyua8ZqOgg
- 8dbhyihMlmTOP75V5KmPFIAeyFo7LCtSvVIoIoL53lmZThZHtXOPJzcmlx2whpIusWRgJLP/sG/
- 8dy9hPCNPVrBdEEArjtKCzg48BVXuLeAwVnyF2YdkpTZ6z98yhyfrdURN3ZuF6nqQ2t1YAhb5xI
- BaK1jA/gP6nqwjkviRNpfl6t1Ywf6OdzfgHVS5y2vljtc6RZdQE1eK2xDL8WO4bA0RD/M/O+B//
- bur4Ktvjj+GDLspHPkLvlBg9fQj39KiGmbp96PWTvNZnktAaM/DphJLFErodjBJmKUof63D+CHu
- au/lTMfSmU6zzj5569w==
-X-Proofpoint-ORIG-GUID: 8H5MZmABRfRpApfLfVVDpzpbEyp9b5Qq
-X-Authority-Analysis: v=2.4 cv=N6AZ0W9B c=1 sm=1 tr=0 ts=6a0613d6 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=TsyavLd573QUvrMOwheqKA==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=zW_1G7NrSvYEZv8OMdsA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-GUID: 8H5MZmABRfRpApfLfVVDpzpbEyp9b5Qq
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-14_04,2026-05-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 bulkscore=0 malwarescore=0 clxscore=1015
- impostorscore=0 lowpriorityscore=0 phishscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605140184
+References: <20260514-icna35xx-v2-0-45acd1dfa566@gmail.com>
+ <20260514-icna35xx-v2-1-45acd1dfa566@gmail.com> <20260514-ambush-salvation-ce6616190390@spud>
+ <CALHNRZ8ukiSM2+uj+Qg6rVbUjjFeo88HQjLZsFHbHBs_GTy_1Q@mail.gmail.com> <20260514-accompany-expiring-c90c6af5f7a9@spud>
+In-Reply-To: <20260514-accompany-expiring-c90c6af5f7a9@spud>
+From: Aaron Kling <webgeek1234@gmail.com>
+Date: Thu, 14 May 2026 13:27:02 -0500
+X-Gm-Features: AVHnY4KadKJWIbrmQIWY9oV52j-lGH3-yJCkf7ITOkZqzHwuTXiKriwXdalEiD0
+Message-ID: <CALHNRZ_qBwobaf=nX0i-CwnKexf_PnucEoctFk4Ec913YwDzNA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: display: panel: Add Chipone ICNA 35xx
+ OLED driver bindings
+To: Conor Dooley <conor@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, May 14, 2026 at 1:23=E2=80=AFPM Conor Dooley <conor@kernel.org> wro=
+te:
+>
+> On Thu, May 14, 2026 at 01:20:57PM -0500, Aaron Kling wrote:
+> > On Thu, May 14, 2026 at 1:07=E2=80=AFPM Conor Dooley <conor@kernel.org>=
+ wrote:
+> > >
+> > > On Thu, May 14, 2026 at 12:24:49PM -0500, Aaron Kling via B4 Relay wr=
+ote:
+> > > > From: Aaron Kling <webgeek1234@gmail.com>
+> > > >
+> > > > The Chipone ICNA35xx series of DDICs are high refresh, low power
+> > > > MIPI-DSI drivers for OLED panels. The icna3512 is used by the Ayn O=
+din 2
+> > > > Portal and the icna3520 is used by the Ayn Thor top panel and the A=
+yn
+> > > > Odin 3.
+> > > >
+> > > > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> > > > ---
+> > > >  .../bindings/display/panel/chipone,icna35xx.yaml   | 79 ++++++++++=
+++++++++++++
+> > > >  1 file changed, 79 insertions(+)
+> > > >
+> > > > diff --git a/Documentation/devicetree/bindings/display/panel/chipon=
+e,icna35xx.yaml b/Documentation/devicetree/bindings/display/panel/chipone,i=
+cna35xx.yaml
+> > > > new file mode 100644
+> > > > index 00000000000000..6464d8d0cf86d5
+> > > > --- /dev/null
+> > > > +++ b/Documentation/devicetree/bindings/display/panel/chipone,icna3=
+5xx.yaml
+> > >
+> > > Filename matching a compatible please.
+> >
+> > Does this require splitting / duplicating the files for each ddic, or
+> > can one be arbitrarily picked and the other stay with it?
+>
+> Pick an arbitrary one. Maybe which one is older?
 
-
-On 5/14/2026 3:24 AM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
-> - [High] Incorrect hardware clock mapping for P_CAM_CC_PLL2_OUT_EVEN in cam_cc_parent_data_1.
-> - [High] Mismatch between parent map and frequency table for cam_cc_xo_clk_src leading to clock configuration failure.
-> - [High] Inconsistent hardware register offsets for CSI4 clocks.
-> - [Medium] Cross-Config Consistency Kconfig violation for CLK_GLYMUR_CAMCC.
-> --
-> 
-> commit 5405dbfa49980ee6b2cd4bb1348b52c906b3f710
-> Author: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-> 
-> clk: qcom: camcc-glymur: Add camera clock controller driver
-> 
-> Add support for the camera clock controller for camera clients
-> to be able to request for camcc clocks on Glymur platform.
-> 
->> diff --git a/drivers/clk/qcom/Kconfig b/drivers/clk/qcom/Kconfig
->> index df21ef5ffd686..754c3b823f3f8 100644
->> --- a/drivers/clk/qcom/Kconfig
->> +++ b/drivers/clk/qcom/Kconfig
->> @@ -45,6 +45,17 @@ config CLK_ELIZA_TCSRCC
->>  	  Support for the TCSR clock controller on Eliza devices.
->>  	  Say Y if you want to use peripheral devices such as USB/PCIe/UFS.
->>  
->> +config CLK_GLYMUR_CAMCC
->> +	tristate "Glymur Camera Clock Controller"
->> +	depends on ARM64 || COMPILE_TEST
->> +	select CLK_GLYMUR_GCC
->> +	default m if ARCH_QCOM
-> 
-> This isn't a bug, but is it intentional to use default m if ARCH_QCOM here?
-> Existing sibling configurations for the same SoC family (such as
-> CLK_GLYMUR_DISPCC and CLK_GLYMUR_GPUCC) omit this default.
-> 
-
-Yes, it is intentional. Existing sibling defconfigs were part of separate arm64
-defconfig file, but the recent convention is to enable the defconfig from Kconfig
-itself.
-
->> +	help
->> +	  Support for the camera clock controller on Qualcomm Technologies, Inc
-> 
-> [ ... ]
-> 
->> diff --git a/drivers/clk/qcom/camcc-glymur.c b/drivers/clk/qcom/camcc-glymur.c
->> new file mode 100644
->> index 0000000000000..b21e6830a72b4
->> --- /dev/null
->> +++ b/drivers/clk/qcom/camcc-glymur.c
->> @@ -0,0 +1,2280 @@
-> 
-> [ ... ]
-> 
->> +static const struct parent_map cam_cc_parent_map_1[] = {
->> +	{ P_BI_TCXO, 0 },
->> +	{ P_CAM_CC_PLL2_OUT_EVEN, 3 },
->> +	{ P_CAM_CC_PLL2_OUT_MAIN, 5 },
->> +};
->> +
->> +static const struct clk_parent_data cam_cc_parent_data_1[] = {
->> +	{ .index = DT_BI_TCXO },
->> +	{ .hw = &cam_cc_pll2.clkr.hw },
->> +	{ .hw = &cam_cc_pll2.clkr.hw },
-> 
-> Does this correctly map the EVEN and MAIN outputs? Both are currently mapped
-> to the undivided &cam_cc_pll2.clkr.hw structure, and it appears the
-> cam_cc_pll2_out_even post-divider structure is missing from the file
-> entirely.
-> 
-
-Yes, no need to define separate even and odd outputs here since they are
-unused and only pll2 main output is used to derive the clk frequencies.
-
-> Other PLLs like PLL0 and PLL1 have proper post-divider structures defined
-> for their EVEN outputs. Could this cause the framework to miscalculate
-> the rate of the EVEN output by treating it as the full MAIN frequency?
-> 
->> +};
-> 
-> [ ... ]
-> 
->> +static struct clk_rcg2 cam_cc_xo_clk_src = {
->> +	.cmd_rcgr = 0x13948,
->> +	.mnd_width = 0,
->> +	.hid_width = 5,
->> +	.parent_map = cam_cc_parent_map_6_ao,
->> +	.freq_tbl = ftbl_cam_cc_xo_clk_src,
-> 
-> Will this configuration cause rate operations on cam_cc_xo_clk_src to fail?
-> The frequency table relies on P_BI_TCXO, but the mapped
-> cam_cc_parent_map_6_ao only contains P_BI_TCXO_AO:
-> 
-> static const struct parent_map cam_cc_parent_map_6_ao[] = {
-> 	{ P_BI_TCXO_AO, 0 },
-> };
-> 
-> When the clock framework searches for the source, qcom_find_src_index()
-> might return -ENOENT.
-> 
-
-Will fix the frequency table to use P_BI_TCXO_AO src.
-
->> +	.hw_clk_ctrl = true,
-> 
-> [ ... ]
-> 
->> +static struct clk_rcg2 cam_cc_csi1phytimer_clk_src = {
->> +	.cmd_rcgr = 0x15104,
->> +	.mnd_width = 0,
->> +	.hid_width = 5,
-> 
-> [ ... ]
-> 
->> +static struct clk_rcg2 cam_cc_csi4phytimer_clk_src = {
->> +	.cmd_rcgr = 0x15124,
->> +	.mnd_width = 0,
->> +	.hid_width = 5,
-> 
-> Is the .cmd_rcgr offset correct for this clock block?
-> 
-> The address 0x15124 is immediately sequential to the CSI1 RCGR (0x15104),
-> which suggests this might actually be the CSI2 offset. Additionally, the
-> corresponding branch clocks for CSI4 use .halt_reg at 0x15250 and
-> 0x15254, which are spaced unusually far from the 0x15124 RCGR.
-> 
-
-There are no CSI2,3 clocks supported on Glymur HW and above address is correct
-for CSI4 as per HW register layout.
-
-Thanks,
-Jagadeesh
-
+Alright. I'm going to assume, perhaps unsafely, that the lower number is ol=
+der.
+>
+> > > > @@ -0,0 +1,79 @@
+> > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > > +%YAML 1.2
+> > > > +---
+> > > > +$id: http://devicetree.org/schemas/display/panel/chipone,icna35xx.=
+yaml#
+> > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > +
+> > > > +title: Chipone ICNA35xx display drivers
+> > > > +
+> > > > +maintainers:
+> > > > +  - Neil Armstrong <neil.armstrong@linaro.org>
+> > > > +
+> > > > +description:
+> > > > +  The Chipone ICNA35xx are a series of DDICs connected
+> > > > +  using a MIPI-DSI video interface.
+> > > > +
+> > > > +allOf:
+> > > > +  - $ref: panel-common.yaml#
+> > > > +
+> > > > +properties:
+> > > > +  compatible:
+> > > > +    oneOf:
+> > > > +      - items:
+> > > > +          - enum:
+> > > > +              - ayaneo,pocketds-panel-top
+> > > > +              - ayntec,odin2portal-panel
+> > > > +          - const: chipone,icna3512
+> > > > +
+> > > > +      - items:
+> > > > +          - enum:
+> > > > +              - ayntec,odin3-panel
+> > > > +              - ayntec,thor-panel-top
+> > > > +          - const: chipone,icna3520
+> > >
+> > > Commit message should state why these ddics are not compatible with o=
+ne
+> > > another.
+> >
+> > Ack. Short version: some of the mipi vendor commands don't match.
+> >
+> > > Rest of this seems okay.
+> > >
+> > > pw-bot: changes-requested
+> > >
+> > > Thanks,
+> > > Conor.
+> >
+> > Aaron
