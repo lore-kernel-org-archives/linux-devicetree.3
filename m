@@ -1,170 +1,236 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEC9333F5B2
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 20:30:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2CB93AEF3F
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 20:32:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778790649; cv=none; b=t5aJQ1yICHVYUYmemjjJFIEMtWrINOhiFC6kqMFXxtfeg18WccSSH6psezHkPypV06nNfybs1HPu4Lesy8nm+wuH3KWUiYJVy7yaQgW+JtIaqFZW3v0MCkMB5Epd68mtHUFjFbK0qXp5WDup09C37L01Ip597JIs2PyYvFNOYVQ=
+	t=1778790770; cv=none; b=u8ACSjM6r1CaKV8nFxzQEQcnrWCOqf+kjH0YHYlocgGdGJqcL+FqLof4i3GMg8kCwDWVQEjgogWZg8VC0rOoZybCh4A3OGoi5tMH7UVa3NkKlPm/1ps67jUW8nntz/EgYPqUnTOEJVAFFR9nPGKekau87jG2IsfZOSdb7xTiNMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778790649; c=relaxed/simple;
-	bh=ENRAB6NaAfz+N/esGn59rAS1dbyvJcqApk/1sxjO5Ho=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nl2KaPg1W7cYQBwfojlj/IcE7INbRgH8zRhCQoZ7e8XweF+LYJII7RCKkxHw943PLZkfYvyhK8y0V7GbTph2/3UjNH/qHzntP7VMDQDcEliEoKI0ruAZ1uKtmqM9ns7U0kiKcUBYPs4VN8TVQarQ3ZbmWPHQENp0lhJcE6lJm/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GBHCraI5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NxzF+asI; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1778790770; c=relaxed/simple;
+	bh=BIS+z9ImuxkzSNdjiSLS9/iIpa5p+yZQT1eTWQobi64=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Mg/szXMQKkP9ArjN5JBAePdy5PqOieOPKXJ6jkswnR/qCjtP7mhymZGT+VhcNbYbEIhYJkn/Tc93fgZ7nxDjQQEngVnNIAsuzetBM8YlvKJvkgxhhn+gUmPQSIBcu/+uVFLM/U2pcFy8kqyOoft+0h0RXTDab5brhvjfa7JrqFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=f0Q3xFpC; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GBHCraI5";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NxzF+asI"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64EIpTBt4008297
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 20:30:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	29moSWZqjKQBR+rms1scwxyd2aS4I64T0JEH8KBPdfE=; b=GBHCraI5y1rPwzFw
-	WFcvkHTQqGILl0MlKJF7AUlBkgEwf+WnbNW6zKBYbBt+y5KPlWMFPSaGHoHb5cuj
-	oFNRtKz4Vp1Rmu6e9xE/0kXFS7qLqRsccs4uqzJARwm+zPXa1KbmcM0e+E2Y+eYh
-	2adZz/5WPI3bIRbzykZfMN6g4pSz6pWoqvSAJBD2IUsL7C+wf8RVsvTk29AHRaTZ
-	wqZRY1I6VsYRInyl7CmSYlbl/haAaand6yTKcGFJL8PRv572OVN56TzptpnGV+Kc
-	UrtLj0VcePBu3a8ugDs47+fySkhevvAx0ThONDwddR02F4aWVeG1pKLKpLtFOOrw
-	Q4JcyA==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e5m1srajm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 20:30:46 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-835423c69ffso5114620b3a.1
-        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 13:30:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778790646; x=1779395446; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=29moSWZqjKQBR+rms1scwxyd2aS4I64T0JEH8KBPdfE=;
-        b=NxzF+asIHWQHaRDw05hiBMWU/9WCYlmlHgddp0XsKBAhl374FtrrK9vgRw6tLyHGBg
-         MA+7RTxpTaEw2JViqtcLeh+rPK0zQ3Y6ZWlYbEUulQtZJWF2ZyawcErwTTZIHZKwvvt5
-         +s/RkXqmoZ4jbTYw86JSlMvzeWbGotyZ96/Ju2QCcHxJrI3mcERM9sfYCIZ/qktS6lXc
-         EGubG50PbCft20KXDUueRsoi4fo1C95PRTipE1KvcEgncaGLGujnfYqORK0NXoANS9QP
-         sv2wunTsCj/d1L6wWP8VylVBZB7SGdRRa7h8HMlf7vS3anQzlnhTAfCRTzNxmi0ZpKc0
-         I4GA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778790646; x=1779395446;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=29moSWZqjKQBR+rms1scwxyd2aS4I64T0JEH8KBPdfE=;
-        b=Fb9nns5ViqJRjjDbrPAWSTWtKW2h1YJHIZekDIJQ0XzQSIbAZhPUlBgY1s4VQgLM2q
-         IRuelwh+WKsjbJuILjkrlsp/8iGG9N51nTcD4zjDTrq6yeUYr436rE5V9nzA3vJPIoN8
-         pFJx4osgIiwXpPB3T8z+sjxddVzrYEuzQe52ShSAWj0hCKSZbFQHzV/Gf0LhQgJC330I
-         ISx+u140/L7CPzCMBE2LJmqdhoj4OWpgfOLcz5c8xjLDXFErcpfZrsvhSfAE9hrLwpIQ
-         d6pTdFAy2MgLRGrFLaBa3N+BuNr7+HrnqM0/P/d/Aj5PxPbemgvLoS/IBts3MFy+URYZ
-         E4vg==
-X-Forwarded-Encrypted: i=1; AFNElJ8FnP7NE7F18VBsKlE+ZcjMS4XvJ8kaaDE98G93KDAyqGefu8vlJenZ66tGAZuOXou9kMJ9q35mJprP@vger.kernel.org
-X-Gm-Message-State: AOJu0YxCzO93kOm4vw7t4ucvNucomz5uaRCssRAnRTYlCObnzbhCk/KT
-	swE8qzLO+9BhcqiGRMXjcXQa7CepDXZX0yy+kJxyuj9eC+W82+Ku/pIIez68R1m3fk9V4+YT3Ny
-	dMZIcv7FO2aVniBo8TbHX0yVp2VYVzfKuHXqDv+A9rBbD9YPlTlph7dVCEFDyiWb3
-X-Gm-Gg: Acq92OGJwVaTnpzyelS4Y7yyVCifZOVwNb6Al4fm0GdvIVeCSqHydPG6CflB9TCG564
-	1o/L4L5sch9I2S+AOoiLjJLPPWpKf4szYG48yJ+B3NoK8s7/zy4lSYOJHx0CWn/NL8u7FVu9wK6
-	00lssytJOth56V0QcWzpJJ/E3X/Up4gqs1oqpsWkg7pxwl16xZJTla7e1b3CJlXPaMCH4Sf2a03
-	2bhNMGq6wyTMIaXISKlkW7aUidUG84qpghao0zqMMWK1h/rDLivorjjnOw6+wyiKgeTlHKmNHl5
-	cxE8BKLn3eb0dh97s2ESoql+SiyO7GrkUUjPrUg9nLDNj54+Ea8ad/+oaAhozAGg2v3G4IgefEm
-	CRdHlBsVm4Nx+zFBeopGzzWvX4l92qTDpajiux5r4nsvrBTusU+PCC9s=
-X-Received: by 2002:a05:6a00:1d85:b0:83a:a55f:c3f9 with SMTP id d2e1a72fcca58-83f33b4e019mr1029701b3a.20.1778790645753;
-        Thu, 14 May 2026 13:30:45 -0700 (PDT)
-X-Received: by 2002:a05:6a00:1d85:b0:83a:a55f:c3f9 with SMTP id d2e1a72fcca58-83f33b4e019mr1029675b3a.20.1778790645262;
-        Thu, 14 May 2026 13:30:45 -0700 (PDT)
-Received: from hu-kuldsing-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f19664a59sm3666952b3a.1.2026.05.14.13.30.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 14 May 2026 13:30:44 -0700 (PDT)
-From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Date: Fri, 15 May 2026 02:00:09 +0530
-Subject: [PATCH 2/2] arm64: dts: qcom: shikra: Enable ice support
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="f0Q3xFpC"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E6A733C4F5E;
+	Thu, 14 May 2026 22:32:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1778790765; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=pULZ85QUZYUodhdsIKipH6Dxfe+iLBqcbN7tmCAqB3U=;
+	b=f0Q3xFpC7v81j9mZjtMlHylOlmWYp451y8RT7ZoR0XTy/I+xRLx+W7MO7D/0vJguYcSbhz
+	ewH24wo1oEkQTo46wCLvvQg4GnhHENsdj7oWTVuoydRxyzLXxGXAbd2TrAiQTqu/Zjjs11
+	EDvgedtWLt/IT4cLzhAmhrCsZ8s7/jAe3yfPQ5ZyZeyqf5v8CaL2QoQNoHD+DJfWkFzuW/
+	+VpWgxEkM93/oGWat5oLegan/vwh8nORwTIi1KGcDG7w0yXsg9dJp46d0NDmcQzKf0tBzU
+	Tnh4P1ecl3MlWqqdxZZnYEgOmWwkj4Ys+0apJ+0zk27FLE5qUNRWTPpdPX28CA==
+Message-ID: <1adcfbd4-c269-4b1f-9e03-a697732faac8@cjdns.fr>
+Date: Thu, 14 May 2026 22:32:42 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v2 5/5] clocksource/timer-econet-en751221: Support irq
+ number per timer
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ robh@kernel.org
+References: <20260514000601.3430262-6-cjd@cjdns.fr>
+ <20260514161816.A2133C2BCB3@smtp.kernel.org>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <20260514161816.A2133C2BCB3@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260515-shikra_ice_ufs-v1-2-b1b6ced70559@oss.qualcomm.com>
-References: <20260515-shikra_ice_ufs-v1-0-b1b6ced70559@oss.qualcomm.com>
-In-Reply-To: <20260515-shikra_ice_ufs-v1-0-b1b6ced70559@oss.qualcomm.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-X-Mailer: b4 0.15.1
-X-Proofpoint-ORIG-GUID: Xdv8bzOWnueUOP2I9abcFC_t4s3GE1t8
-X-Proofpoint-GUID: Xdv8bzOWnueUOP2I9abcFC_t4s3GE1t8
-X-Authority-Analysis: v=2.4 cv=cZPiaHDM c=1 sm=1 tr=0 ts=6a0630f6 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=Fg_DINg97nz2W6SJEv8A:9 a=QEXdDO2ut3YA:10
- a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE0MDIwMyBTYWx0ZWRfX01wSRL0h/IL6
- wu6l1EKuXEYtSRVEP/Nrdgx5s6STk+UH6DdwCyBizHwB1J1RTBN8XlGWRfQwAoW05L6oxEdSFI+
- qslZ5IfbM+r5gEGJ7cfIJi51Saa2uT7NSO32Z2ErO3BJw67o/SdJIAVsDbPP2i4Y/QedU6Bqflm
- cjWFCEMlKXf31+e/qt43F1cjABeo1ZS11LknjwDQmzkHu25SOtLWkxrh7p7+105A9gS62L6IKls
- T4gwf7xyuuP/FNqsNcBBHmBYxthHNPc7ZjUtquTYrxZxgqM1l941nHnye4HGqiW3+ZjLYTB6/yS
- 9CHGyqg33eqidHsJI3YyEoe+R2rDWe4wzRziXqm4gh9trOdRylZbbbyr+Ms8RcajgZSTfRn6TO6
- 71FeplgouTkjNunFPpH6su/wRFZLNG5S0c2E5S/QgE4LKed7GI0h8KUENNs6P9VO3G4DhuZJgeg
- y+oh7gSEK/C4bxBby9Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-14_05,2026-05-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0 priorityscore=1501
- adultscore=0 suspectscore=0 malwarescore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605140203
+X-Last-TLS-Session-Version: TLSv1.3
 
-Add UFS inline crypto engine(ICE) support for shikra.
 
-Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/shikra.dtsi | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
-index 262c488add1e..0b988dd607df 100644
---- a/arch/arm64/boot/dts/qcom/shikra.dtsi
-+++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
-@@ -641,6 +641,7 @@ &mc_virt SLAVE_EBI_CH0 QCOM_ICC_TAG_ALWAYS>,
- 			mmc-hs400-enhanced-strobe;
- 
- 			resets = <&gcc GCC_SDCC1_BCR>;
-+			qcom,ice = <&sdhc_ice>;
- 
- 			status = "disabled";
- 
-@@ -663,6 +664,17 @@ opp-384000000 {
- 			};
- 		};
- 
-+		sdhc_ice: crypto@4748000 {
-+			compatible = "qcom,shikra-inline-crypto-engine",
-+				     "qcom,inline-crypto-engine";
-+			reg = <0x0 0x04748000 0x0 0x18000>;
-+			clocks = <&gcc GCC_SDCC1_ICE_CORE_CLK>,
-+				 <&gcc GCC_SDCC1_AHB_CLK>;
-+			clock-names = "core",
-+				      "iface";
-+			power-domains = <&rpmpd RPMHPD_CX>;
-+		};
-+
- 		qupv3_0: geniqup@4ac0000 {
- 			compatible = "qcom,geni-se-qup";
- 			reg = <0x0 0x04ac0000 0x0 0x2000>;
-
--- 
-2.34.1
-
+On 14/05/2026 18:18, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 9 potential issue(s) to consider:
+> - [High] NULL pointer dereference due to requesting IRQ before initializing clock_event_device.
+> - [High] Interrupt storm and system lockup due to incorrect IRQ context handling.
+> - [High] Unconditional MMIO mapping based on NR_CPUS causes initialization failure on older platforms.
+> - [High] Use-After-Free of MMIO memory on initialization error path.
+> - [High] Out-of-bounds per-CPU memory access if DT defines more IRQs than nr_cpu_ids.
+> - [Medium] Returning `-EINVAL` from hotplug startup callback aborts CPU hotplug registration.
+> - [Medium] Missing CPU hotplug teardown callback leaves hardware timer running.
+> - [Medium] Heuristic hardware detection fails on uniprocessor configurations of multi-IRQ SoCs.
+> - [Low] Missing `CLOCK_EVT_FEAT_PERCPU` flag for clock event devices in multi-IRQ mode.
+> --
+>
+> commit 7bc20cbfbe69fc307b80fd4b2cd349dcdd20410b
+> Author: Caleb James DeLisle <cjd@cjdns.fr>
+> Subject: clocksource/timer-econet-en751221: Support irq number per timer
+>
+> This commit adds support for both percpu and individual IRQ per timer modes.
+> It handles standard mti,gic compatible interrupt controllers found on MIPS
+> 1004Kc based systems.
+>
+> Link: https://github.com/openwrt/openwrt/commit/fab098cb6121647ca9cc6e501d56ebe8a9ea550b#diff-a09ee5e4166e89df337d03c1455dce7b81eb89797b1d0f714476b188e6685334
+>
+>> diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocksource/timer-econet-en751221.c
+>> index 4b712eb4db6f6..642af9fcda60e 100644
+>> --- a/drivers/clocksource/timer-econet-en751221.c
+>> +++ b/drivers/clocksource/timer-econet-en751221.c
+> [ ... ]
+>> @@ -21,14 +22,26 @@
+>>   #define ECONET_MAX_DELTA		GENMASK(ECONET_BITS - 2, 0)
+>>   /* 34Kc hardware has 1 block and 1004Kc has 2. */
+>>   #define ECONET_NUM_BLOCKS		DIV_ROUND_UP(NR_CPUS, 2)
+>> +#define ECONET_MAX_IRQS			NR_CPUS
+>>   
+>>   static struct {
+>>   	void __iomem	*membase[ECONET_NUM_BLOCKS];
+>>   	u32		freq_hz;
+>> +	int		irqs[ECONET_MAX_IRQS];
+>> +	int		num_irqs;
+>>   } econet_timer __ro_after_init;
+>>   
+>>   static DEFINE_PER_CPU(struct clock_event_device, econet_timer_pcpu);
+>>   
+>> +/* This timer supports two interrupt controller models, either 1 IRQ which is in per-cpu
+>> + * mode which is used on 34Kc CPUs, and separate IRQ number per CPU which is used on
+>> + * 1004Kc CPUs with GIC intc.
+>> + */
+>> +static inline bool is_percpu_irq(void)
+>> +{
+>> +	return econet_timer.num_irqs == 1;
+>> +}
+> If an SoC using the standard GIC model is configured as a uniprocessor system,
+> will the Device Tree only describe 1 interrupt?
+Such a DT wouldn't pass validation, however perhaps there is too much 
+code inferring whether we're a EN751221 or an EN751627. Will think on it.
+>
+> If so, does this heuristic mistakenly invoke request_percpu_irq() on a standard
+> SPI interrupt, preventing timer initialization?
+>
+>> @@ -98,12 +111,21 @@ static int cevt_init_cpu(uint cpu)
+>>   	struct clock_event_device *cd = &per_cpu(econet_timer_pcpu, cpu);
+>>   	u32 reg;
+>>   
+>> +	if (!is_percpu_irq() && cpu >= econet_timer.num_irqs)
+>> +		return -EINVAL;
+> Since this function is registered as a CPU hotplug startup callback via
+> cpuhp_setup_state(), does returning an error here cause the hotplug core
+> to abort and rollback the state?
+>
+> Should this return 0 instead when intentionally skipping a CPU?
+A CPU without a timer is non-functional, so IMO this should fail as hard 
+as possible.
+>
+>> @@ -171,6 +193,44 @@ static int __init cevt_init(struct device_node *np)
+>>   	return ret;
+>>   }
+>>   
+>> +static int __init cevt_init_multi_irq(struct device_node *np)
+>> +{
+>> +	int i, ret;
+>> +
+>> +	for (i = 0; i < econet_timer.num_irqs; i++) {
+>> +		struct clock_event_device *cd = &per_cpu(econet_timer_pcpu, i);
+> If the system boots with restricted CPUs (e.g. nr_cpus=1) but the device tree
+> provides multiple IRQs, will this loop access uninitialized __per_cpu_offset
+> indices?
+>
+> Should the iteration be bounded by nr_cpu_ids?
+Okay yes.
+>
+>> +
+>> +		econet_timer.irqs[i] = irq_of_parse_and_map(np, i);
+>> +		if (econet_timer.irqs[i] <= 0) {
+>> +			pr_err("%pOFn: irq_of_parse_and_map failed", np);
+>> +			ret = -EINVAL;
+>> +			goto err_free_irqs;
+>> +		}
+>> +
+>> +		ret = request_irq(econet_timer.irqs[i], cevt_interrupt,
+>> +				  IRQF_TIMER | IRQF_NOBALANCING,
+>> +				  np->name, NULL);
+> Because standard IRQs can be routed to a default CPU before
+> irq_force_affinity() is applied, can an interrupt for CPU 1's timer execute
+> on CPU 0?
+>
+> If so, will CPU 0 check its own timer, find it not pending, and
+> return IRQ_NONE without acknowledging CPU 1's timer, causing an IRQ storm?
+>
+> Should a dev_id be passed here and retrieved in the interrupt handler
+> instead of relying on this_cpu_ptr()?
+Think I'll use IRQ_NOAUTOEN and enable later, so if for some reason the 
+CPU never starts it will failsafe.
+>
+> Also, since request_irq() immediately unmasks the interrupt, what happens if
+> a timer interrupt is already pending from the bootloader?
+I think with IRQ_NOAUTOEN this will be fine.
+>
+> Will cevt_interrupt() execute immediately, retrieve the statically
+> zero-initialized clock_event_device, and dereference a NULL dev->cpumask
+> because cevt_setup_clockevent() has not yet been called?
+IRQ_NOAUTOEN fixes this.
+>
+>> +		if (ret < 0) {
+>> +			pr_err("%pOFn: IRQ %d setup failed (%d)\n", np,
+>> +			       econet_timer.irqs[i], ret);
+>> +			irq_dispose_mapping(econet_timer.irqs[i]);
+>> +			goto err_free_irqs;
+>> +		}
+>> +
+>> +		cevt_setup_clockevent(cd, np, econet_timer.irqs[i], i);
+>> +		cevt_dev_init(i);
+> Should the CLOCK_EVT_FEAT_PERCPU flag be set on the clock_event_device
+> here to inform the clockevents core about the hardware's strict CPU
+> locality?
+Whoops, that was a mistake.
+>
+>> @@ -184,6 +244,12 @@ static int __init timer_init(struct device_node *np)
+>>   
+>>   	econet_timer.freq_hz = clk_get_rate(clk);
+>>   
+>> +	econet_timer.num_irqs = of_irq_count(np);
+>> +	if (econet_timer.num_irqs <= 0 || econet_timer.num_irqs > ECONET_MAX_IRQS) {
+>> +		pr_err("%pOFn: invalid IRQ count %d\n", np, econet_timer.num_irqs);
+>> +		return -EINVAL;
+>> +	}
+>> +
+>>   	for (int i = 0; i < ARRAY_SIZE(econet_timer.membase); i++) {
+>>   		econet_timer.membase[i] = of_iomap(np, i);
+> Since the 34Kc platform only has 1 timer block and provides a single reg
+> region in its Device Tree, will of_iomap(np, 1) return NULL and cause
+> initialization to fail if NR_CPUS makes ARRAY_SIZE(econet_timer.membase)
+> evaluate to 2 or more?
+Will address per note on previous patch.
+>
+>> @@ -202,7 +268,11 @@ static int __init timer_init(struct device_node *np)
+>>   		goto err_unmap;
+>>   	}
+>>   
+>> -	ret = cevt_init(np);
+>> +	if (is_percpu_irq())
+>> +		ret = cevt_init(np);
+>> +	else
+>> +		ret = cevt_init_multi_irq(np);
+>> +
+>>   	if (ret < 0)
+>>   		goto err_unmap;
+> If cevt_init_multi_irq() fails and the code jumps to err_unmap, the
+> previously registered clocksource from clocksource_mmio_init() is not
+> unregistered.
+>
+> Does this leave the timekeeping subsystem with a dangling pointer to the
+> unmapped MMIO region, leading to a crash on the next time read?
+Will re-work following notes on previous patch.
+> Additionally, when a CPU goes offline, is the hardware timer ever disabled
+> since there is no teardown callback provided to cpuhp_setup_state() in this
+> function and no set_state_shutdown function?
+>
+> Will the online CPUs continuously receive timer interrupts from the offline
+> CPU's running timer?
+Reference code does not set CONFIG_HOTPLUG_CPU, and similar chips 
+(MT7621) do not set it in OpenWrt so I'm not sure it it's known how to 
+get it working. In any case I think if we ever get there, the timer will 
+be just one of many concerns.
