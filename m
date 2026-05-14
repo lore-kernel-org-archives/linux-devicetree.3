@@ -1,125 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A5231AF2D
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 16:58:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4083E37FF74;
+	Thu, 14 May 2026 17:03:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778777893; cv=none; b=RicNC354QozQ3oTfvRUlrObNdxnbDmc8VBOV1QKPqV0elZqUzqurcpz0KzdBsczDExjepTdqCeTGgYL/y9laCKy6rtXOSncs39U4zQ86td1IWMDwgHbJ898H1vfGpw2GEZEITAoMuRmnoBT3PXTpiciwjcuv6X9+sIyPusT25ZM=
+	t=1778778185; cv=none; b=Eht4i5tlQIUfK8NCewnLzaJW8Ittuto67eXEjhKHiykj4Q8ajOyD+i4V5OOQ9PRFRtLpvmRRVLH5OJcr4r/5P1iN5zKHA1C0tWRRE1bFXbmDdRjoeBLeh3ZutfAQzdX9ldyBYAwQKhTR0D2N5L5Bs0xjz2lN6jBIiLKs8EXR/R4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778777893; c=relaxed/simple;
-	bh=gEJYTff5KkuHuN2JJ4XpcnxcZ3VQ94Vt8bozEYt+fis=;
+	s=arc-20240116; t=1778778185; c=relaxed/simple;
+	bh=YGbFkeB67cXBnD6gXxxQcrXQaTaB64pkM6u2Iug35R8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lz1xquOlh4IMDennrql8PjMhKQrrrZKE09S1dz0lsAXCYbdoq9m5njniIyZs9jj3YMLB+75x63vTuIynxt7DoWUIwwp9KRT+T5oUZUxUcYYMbea/aZ5xIKN3Q/Vy+KLYNlpfwjF+8owB/wMDKxiIAhFKSfvii6evbM1LnIq0W7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VD9BnXIC; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=N+A7MatU4mKhb8+Y6XLYeQFO0vxs0/LgzTXoSKXlRwzEGEv48H09+upOxL5/k7yeVbqbjS7KozhTe+s25qGLB4iKtXZ+X4fkjZqwLfvTeXRudTvLiO8L2Ngz8OsygFjWdRs0KA0aTSU6XBNEoV3Guhg5sy3l/cy2/8Za7KBiFeI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NAT0kZ7d; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VD9BnXIC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D578C2BCB3;
-	Thu, 14 May 2026 16:58:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NAT0kZ7d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ADE1C2BCB7;
+	Thu, 14 May 2026 17:03:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778777893;
-	bh=gEJYTff5KkuHuN2JJ4XpcnxcZ3VQ94Vt8bozEYt+fis=;
+	s=k20201202; t=1778778184;
+	bh=YGbFkeB67cXBnD6gXxxQcrXQaTaB64pkM6u2Iug35R8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=VD9BnXICJhzMXgy0t/5rILrv7uOG9eazm2ex9GJHr2xpv07MBoX9upZS3DsovxraO
-	 vaCVJepPf2IIR+2Ri9JYEiQzmzyAMQKWW8zCit31gyxJcPVf6T7L6AgGjD//V+rbat
-	 V1A60gknr6IpNIZgQ+oW4p31Ff8J/slKDb60xJhEZEeC8cF1Lfkwbyh2WzaOsS7Dwu
-	 ab8KKX+PJiHA8tbDMB2RxTSrLbysRhwKtATwCQDhNP+7KRCWY+AlzLP1GfNqEbGDjf
-	 IX6+2D4RQKOaHIjkkwr/usisSGpzqQlHBvQdGZt550G2F1PZQRu/iGN9KmAQL1wfWt
-	 okLLAL+KKnw3Q==
+	b=NAT0kZ7dXqMcowdXwgSJ6kqDv0/v6a7E41HDuER7VfVCVXoJzbJHbUclUork5zMcJ
+	 Nob+p0oAjrIbM5BN0810UicTg4QyiARFDDOE8I8AgowKNoGw5FAprAkQrSvJxxuZga
+	 izAP7gRjPaV4j4w6cB5jgycuBjWcI+zzsEjWaO1YVcNDRktUAcY4AhnSYkckn7Awcu
+	 /6ga2G7DO2VEPNVxleRJkLPZW8WZ8SSl8A0xwNNm20+eR8Q+xYvihEeLbxC91Ke8g3
+	 DSTG1ugc0Myn7N3xVwew7dUFg9l/2ub8yIOtgoiCRiX+ZpWUIiTcmFIYIWlA1WnMk7
+	 2tqdpcM81AjmQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 2/3] dt-bindings: display: bridge: analogix-dp: Add
- data-lanes support for endpoint
+Subject: Re: [PATCH v2 1/1] arm64: dts: s32g: add SAR ADC support for s32g2
+ and s32g3
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Damon Ding" <damon.ding@rock-chips.com>
-Cc: krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260514070133.2275069-3-damon.ding@rock-chips.com>
-References: <20260514070133.2275069-3-damon.ding@rock-chips.com>
+To: "Khristine Andreea Barbulescu" <khristineandreea.barbulescu@oss.nxp.com>
+Cc: Frank.Li@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260514082639.1181240-2-khristineandreea.barbulescu@oss.nxp.com>
+References: <20260514082639.1181240-2-khristineandreea.barbulescu@oss.nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 16:58:12 +0000
-Message-Id: <20260514165813.1D578C2BCB3@smtp.kernel.org>
+Date: Thu, 14 May 2026 17:03:03 +0000
+Message-Id: <20260514170304.7ADE1C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The patch silently adds a deprecated top-level `data-lanes` prop=
-erty that is completely irrelevant to the analogix-dp binding.
-- [Low] Inconsistent validation constraints for the `data-lanes` arrays.
+- [High] ADC1 is incorrectly configured to use `edma1` instead of `edma0`, =
+breaking DMA routing.
 --
 
-commit f1eb1174d9c0a3dbfb4324c331483cad76c51c68
-Author: Damon Ding <damon.ding@rock-chips.com>
+commit 3b1b0b80a34f00191fc6241e0894c052fd88edf8
+Author: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.c=
+om>
 
-dt-bindings: display: bridge: analogix-dp: Add data-lanes support for endpo=
-int
+arm64: dts: s32g: add SAR ADC support for s32g2 and s32g3
 
-This commit adds data-lanes property support to the port@1 endpoint for
-physical lane mapping configuration in the analogix-dp device tree binding.
+This commit adds ADC0 and ADC1 node definitions for the S32G2 and S32G3 SoC=
+s.
 
-> diff --git a/Documentation/devicetree/bindings/display/bridge/analogix,dp=
-.yaml b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
-> index 62f0521b09245..a82f9b7776c0a 100644
-> --- a/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
-> +++ b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
-> @@ -36,19 +36,35 @@ properties:
->        Hotplug detect GPIO.
->        Indicates which GPIO should be used for hotplug detection
-> =20
-> +  data-lanes:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> +    deprecated: true
-> +    minItems: 1
-> +    maxItems: 4
-> +    items:
-> +      maximum: 3
-
-The commit message states that data-lanes support is being added to the
-port@1 endpoint, but this adds a top-level data-lanes property marked as
-deprecated.
-
-Is this top-level property addition intended?
-
-Looking at the analogix-dp driver history and earlier analogix_dp.txt
-bindings, a root-level data-lanes property does not appear to have been
-supported previously.
-
-Does this remnant come from another binding that was accidentally copied?
-Leaving it here might pollute the schema and allow invalid device trees
-to pass validation with just a deprecation warning instead of an error.
+> diff --git a/arch/arm64/boot/dts/freescale/s32g2.dtsi b/arch/arm64/boot/d=
+ts/freescale/s32g2.dtsi
+> index 51d00dac12deb..6f1952fbbcfee 100644
+> --- a/arch/arm64/boot/dts/freescale/s32g2.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/s32g2.dtsi
 
 [ ... ]
->        port@1:
->          $ref: /schemas/graph.yaml#/properties/port
-> -        description:
-> -          Port node with one endpoint connected to a dp-connector node.
-> +        description: Port node with one endpoint connected to sink devic=
-e node.
-> +        properties:
-> +          endpoint:
-> +            $ref: /schemas/media/video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +            properties:
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +                items:
-> +                  enum: [ 0, 1, 2, 3 ]
 
-This isn't a bug, but the valid items here are restricted using an enum,
-whereas the top-level property uses a maximum constraint.=20
-
-If the top-level property is removed as suggested above this inconsistency
-will naturally be resolved, but it is worth pointing out in case both
-properties are kept.
-
+> @@ -717,6 +727,16 @@ i2c4: i2c@402dc000 {
+>  			status =3D "disabled";
+>  		};
 > =20
->      required:
->        - port@0
+> +		adc1: adc@402e8000 {
+> +			compatible =3D "nxp,s32g2-sar-adc";
+> +			reg =3D <0x402e8000 0x1000>;
+> +			interrupts =3D <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&clks 0x41>;
+> +			dmas =3D <&edma1 1 32>;
+
+Is it possible this should be routing to edma0 instead of edma1?
+
+It appears that other peripherals in the 0x402xxxxx memory range use DMAMUX=
+ 1
+on the edma0 controller (e.g. <&edma0 1 ...>). Since the hardware DMA reque=
+st
+lines for ADC1 are wired to the first eDMA controller's multiplexer, assign=
+ing
+it to edma1 could result in silent DMA failures and timeouts during ADC1
+operations.
+
+> +			dma-names =3D "rx";
+> +			status =3D "disabled";
+> +		};
+> +
+>  		usdhc0: mmc@402f0000 {
+>  			compatible =3D "nxp,s32g2-usdhc";
+>  			reg =3D <0x402f0000 0x1000>;
+> diff --git a/arch/arm64/boot/dts/freescale/s32g3.dtsi b/arch/arm64/boot/d=
+ts/freescale/s32g3.dtsi
+> index e314f3c7d61d0..5cfb37c1216a7 100644
+> --- a/arch/arm64/boot/dts/freescale/s32g3.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/s32g3.dtsi
+
+[ ... ]
+
+> @@ -792,6 +802,16 @@ i2c4: i2c@402dc000 {
+>  			status =3D "disabled";
+>  		};
+> =20
+> +		adc1: adc@402e8000 {
+> +			compatible =3D "nxp,s32g3-sar-adc", "nxp,s32g2-sar-adc";
+> +			reg =3D <0x402e8000 0x1000>;
+> +			interrupts =3D <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&clks 0x41>;
+> +			dmas =3D <&edma1 1 32>;
+
+Does this have the same eDMA controller routing regression as adc1 in
+s32g2.dtsi above?
+
+> +			dma-names =3D "rx";
+> +			status =3D "disabled";
+> +		};
+> +
+>  		usdhc0: mmc@402f0000 {
+>  			compatible =3D "nxp,s32g3-usdhc",
+>  				     "nxp,s32g2-usdhc";
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514070133.2275=
-069-1-damon.ding@rock-chips.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514082639.1181=
+240-2-khristineandreea.barbulescu@oss.nxp.com?part=3D1
