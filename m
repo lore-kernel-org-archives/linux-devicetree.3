@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E0422C15B0
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 02:20:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2C2D301465;
+	Thu, 14 May 2026 02:23:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778725205; cv=none; b=pC/exn1nG3XQZPZKA59vRCeaFWOMXiY/nRnP1HwOGUMKrtIDf7xgoXraa0IdW5vp8E/D1eYYGcA3niXXgp74Z+Pg/jRKWnsJLYA4efZ/efTjtIIXVgDq5idJ8dT/2UE+cKYqeJOmi2WZV5TT61ICrjpUAg9TSfBScysDo5D1aZM=
+	t=1778725412; cv=none; b=NT/DI9/68WyHYFyyBjZBCUL0y1optCJyfRqGmyY2siUuBJWh/RA0Aop7UJZ2d32IC8TuN3uar5R3ZGws5tGXM/NF6tCIwBGEgUXLHv9eeyaFWmiwYvm17yEwXflk11sOQlpRerJkFjWh8p6XAhZORRAfspe1kInZokDnfbbu0rI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778725205; c=relaxed/simple;
-	bh=zhBbiVIKbJxxUjYi2pKorbgockCLfPCiuHv8JXC7BLw=;
+	s=arc-20240116; t=1778725412; c=relaxed/simple;
+	bh=wtIb58l+hszDoFptqKA0UUp+KOZKrrOlCFOBrzHMvMw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Vs4Ce0CVgoR20N49TdumxIsWrbJyfBowdr/AQrcNfm+kI3eItmO0Kr1cfdBqlzj9Q18QbaB7tkSZ5tqMe32b7uDHnJwe5aqikecN4Aj5a24eHQgyRR+YT7l9ajQxPuh9PUiBw6FbQIwmE8tOQ9kRug6njq35eZhC1BMQg3m0bxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pt5cBsiV; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=plytzu5GgwfHGyO6sN8/mJqbWwuJkxi+zkdKoNAQzFQIdc9OxbX6lXjrvjpGRhHnJTfVOvP9MHmi0k4WhZPbxTADEXq3vK4k9ZjzzSqPZ7aJKiFlEsHiXQzD578q0pnYKsv23WEUZajE/oPW7mzZanTqa751vIgh++qCjpYmoUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XGrVcYkO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pt5cBsiV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66E99C19425;
-	Thu, 14 May 2026 02:20:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XGrVcYkO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E20DC19425;
+	Thu, 14 May 2026 02:23:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778725204;
-	bh=zhBbiVIKbJxxUjYi2pKorbgockCLfPCiuHv8JXC7BLw=;
+	s=k20201202; t=1778725412;
+	bh=wtIb58l+hszDoFptqKA0UUp+KOZKrrOlCFOBrzHMvMw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=pt5cBsiVMnHqtsCmII+fsFmKRppSQFWm18e+NIXr7ul9pWn2CVpwxIdWmMieZ8LDR
-	 srcmhln0oOX6G/Ypt5mHvnaETkDP9CRqlfoWb0aL8MI7D7d98wd8OodniWzST1Ck6q
-	 ZTMAFkzsvOmFFlIcjNOmX8pI62iEg//Vrgvga1BZyZa0saTSZ+qhpQUcgfp8qYBIk5
-	 WbL7zUrPsDnaAMShGWLK/gHqP/EtGimrEABLEm0IJWOo61pzGj5D06qIwYr+diJ4XE
-	 HZugwpK9W+viektWUU16erydIpX7KlTq5uctAvMwS2JeGjWnONFtPh6U88ZbJWAmoo
-	 jZPDcFBwXyTUw==
+	b=XGrVcYkOGN4jyAoNr3FehhVUg/bzHvjbSx6xXN4V3uCPghw9smWOPJ9l4y2gtf4US
+	 VrS49jH0hB870rGWTG+bRmkKZq5eFG5xI+W3FIyxbmGwirTuSLyZ0jf5aTV2YAKBVT
+	 eUS4YZhkH4QliBCe44vIlkg0SbRL1pDUY7y7PVLG3f/KogFgI9JLIvLogtsn67ay2h
+	 oSv5ahksYmg9HRx3Zv9eA/st8xbg7fGtg3c+77rvixuryYWticUpKfFvB4oB8fla2c
+	 kZpTrfWFzLJdAn0v1xEixnUVx082+5oozot7W/cmi7zVz1SQ/bhxegfNfjyh8ZujqD
+	 mMOk30eHIgE5w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 2/3] arm64: dts: qcom: ipq5424: Add the IMEM node
+Subject: Re: [PATCH v2 1/3] dt-bindings: iio: adc: Add GPADC for Allwinner
+ A523
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kathiravan Thirumoorthy" <kathiravan.thirumoorthy@oss.qualcomm.com>
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260513-wdt_reset_reason-v10-2-cebda08ab1ef@oss.qualcomm.com>
-References: <20260513-wdt_reset_reason-v10-2-cebda08ab1ef@oss.qualcomm.com>
+To: "Michal Piekos" <michal.piekos@mmpsystems.pl>
+Cc: krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-sunxi@lists.linux.dev
+In-Reply-To: <20260513-sunxi-a523-gpadc-v2-1-d5efde151dac@mmpsystems.pl>
+References: <20260513-sunxi-a523-gpadc-v2-1-d5efde151dac@mmpsystems.pl>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 02:20:03 +0000
-Message-Id: <20260514022004.66E99C19425@smtp.kernel.org>
+Date: Thu, 14 May 2026 02:23:31 +0000
+Message-Id: <20260514022332.1E20DC19425@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,52 +46,66 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The device tree node maps the full 112KB IMEM region, exposing ina=
-ccessible memory to the generic SRAM allocator.
+- [Medium] Schema Conditional Logic Error: `if` block will silently fail to=
+ match A523 compatible string
 --
 
-commit d275aea75b5a17a008a9020c79777d0cc37ddedc
-Author: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+commit f1e37c6efc76bc9bd352a9e8462984a80a03b87c
+Author: Michal Piekos <michal.piekos@mmpsystems.pl>
 
-arm64: dts: qcom: ipq5424: Add the IMEM node
+dt-bindings: iio: adc: Add GPADC for Allwinner A523
 
-This commit adds the IMEM node to the device tree for the IPQ5424 SoC to
-extract debugging information. It defines the IMEM region as 112KB, noting
-that only the first 4KB is accessible by all masters.
+This commit adds support for the GPADC on the Allwinner A523. It updates
+the schema to allow two clocks for this new compatible string while
+restricting previous generations to one clock.
 
-> diff --git a/arch/arm64/boot/dts/qcom/ipq5424.dtsi b/arch/arm64/boot/dts/=
-qcom/ipq5424.dtsi
-> --- a/arch/arm64/boot/dts/qcom/ipq5424.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/ipq5424.dtsi
+> diff --git a/Documentation/devicetree/bindings/iio/adc/allwinner,sun20i-d=
+1-gpadc.yaml b/Documentation/devicetree/bindings/iio/adc/allwinner,sun20i-d=
+1-gpadc.yaml
+> index da605a051b949..6467800d30e27 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/allwinner,sun20i-d1-gpadc=
+.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/allwinner,sun20i-d1-gpadc=
+.yaml
 [ ... ]
-> +		sram@8600000 {
-> +			compatible =3D "qcom,ipq5424-imem", "mmio-sram";
-> +			reg =3D <0 0x08600000 0 0x1c000>;
-> +			ranges =3D <0 0 0x08600000 0x1c000>;
+> @@ -40,6 +46,30 @@ properties:
+>    resets:
+>      maxItems: 1
+> =20
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          enum:
+> +            - allwinner,sun55i-a523-gpadc
 
-Could mapping the full 112KB region cause XPU violations?
+Will this condition successfully match the A523 compatible string?
 
-The commit message notes that only the initial 4KB is accessible by all
-masters in the SoC. Since this node uses the mmio-sram compatible, the
-generic SRAM driver will map the entire 0x1c000 region and add the
-unreserved portion to a gen_pool for dynamic allocation.
+In dt-schema, the compatible property is parsed and evaluated as an array of
+strings. By using enum directly without a contains: keyword, this condition
+expects the property to be exactly a string.
 
-If a driver requests memory from this pool, could it receive an address
-within the restricted region and trigger an SError upon access?
+Under JSON schema rules, this condition will evaluate to false because an
+array cannot equal a string.
 
-Additionally, is there a risk of speculative execution or memory debugging
-tools accessing the restricted region and causing a kernel panic?
+> +    then:
+[ ... ]
+> +    else:
+> +      properties:
+> +        clocks:
+> +          maxItems: 1
+> +        clock-names: false
 
-Should the reg and ranges sizes be limited strictly to the safely
-accessible 4KB (0x1000) region?
+Does this result in valid A523 device tree nodes being incorrectly rejected?
 
-> +
-> +			no-memory-wc;
-> +
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <1>;
-> +		};
+Since the if block silently fails to match, the schema will fall through to
+this else block, enforcing maxItems: 1 for clocks and rejecting clock-names.
+This would erroneously reject A523 configurations that correctly provide the
+two required clocks.
+
+Could the condition be updated to use contains: enum: or contains: const: to
+properly match the compatible array elements?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-wdt_reset_=
-reason-v10-0-cebda08ab1ef@oss.qualcomm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-sunxi-a523=
+-gpadc-v2-0-d5efde151dac@mmpsystems.pl?part=3D1
