@@ -1,105 +1,102 @@
-Received: from mail-m1973172.qiye.163.com (mail-m1973172.qiye.163.com [220.197.31.72])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A30891F5842;
-	Thu, 14 May 2026 07:01:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CEAA3F4110
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 07:03:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778742117; cv=none; b=Jg7W0IAYGabEMbfVEYQD4UPAzfZJaHLljQIItw4m2MX5qGdt8Thyke1uoLsTRerCgYxDpdnr5LoVuY+LyjS+m3JxboOe+X4shNZnRfHrEjkwmjCrRpZcqorW9qcbXt9ATZHN/0Yu74E1EB/RHnTYACz+a/lwqHdTJSNNJj7qyR0=
+	t=1778742239; cv=none; b=eA6DGJYA2opIjxdjFn/w/5WuXVNa0qQEIKZzjPLkMzZLDyjwcqsdpicR2b+bzIpDHwT6HoOdcTfbX5EyWQ/KwTm1vWUO/y43MNqt0b+f/1yIGNxBQlbdybKYXRYDxXavJyJlD1iCZ/W5hoT43ngXmp3/qJOrpV82nHVIz2+n2rg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778742117; c=relaxed/simple;
-	bh=vpYOsbpfOQEuM10dVez2H1rgcCp8dRJRLKnPLP9Ylj4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=kyLRp3wasDjU7WjftEYSEDeL2+MhC688r92ffLsyk9N9+xfvG/wH4OCGZHfhJcklM4on2VtVvTmUxGWEMXzSWWeuL23YpS744r8pXqecvEFqxUW2g8Vc4pDxVp9fk7kWl9fiuFH6+w7NgaFoLcbukdYwaxxsax7yoTcx3hSi7mY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=bF3XB/Nx; arc=none smtp.client-ip=220.197.31.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1778742239; c=relaxed/simple;
+	bh=kFGQn+YxBdztLkVGTBrC2xLslKtos7Jv48cz2/TwxFI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=gXnhlfa3AWPODUcpXcZX2ZS+KWjJElrhHaYpZcWmX/3BQCnzQjhAPwXM0tRjrgEoMr9/0Bn7B2x0eWlg07GlWXv40u3Udb0/jcafmFkaysb3VAfw64cSVZrW7FUL60eW0f2s59P3csMMYrGMD5mB7WPVnK0FmryR16a71Ggi1Ig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BzfXa+2u; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="bF3XB/Nx"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3e617edca;
-	Thu, 14 May 2026 15:01:39 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: hjc@rock-chips.com,
-	heiko@sntech.de,
-	andy.yan@rock-chips.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	nicolas.frattaroli@collabora.com,
-	cristian.ciocaltea@collabora.com,
-	sebastian.reichel@collabora.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	luca.ceresoli@bootlin.com,
-	dianders@chromium.org,
-	m.szyprowski@samsung.com,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v1 1/3] dt-bindings: display: rockchip: analogix-dp: Expose inherited properties
-Date: Thu, 14 May 2026 15:01:31 +0800
-Message-Id: <20260514070133.2275069-2-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260514070133.2275069-1-damon.ding@rock-chips.com>
-References: <20260514070133.2275069-1-damon.ding@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BzfXa+2u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3F76C2BCB7;
+	Thu, 14 May 2026 07:03:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778742238;
+	bh=kFGQn+YxBdztLkVGTBrC2xLslKtos7Jv48cz2/TwxFI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=BzfXa+2u+CEDxAX1Fkuyt+DWbw5YQsqieXLIs+3XgDEDSik15nVVWXQJpTrdypAgQ
+	 xCaJZ/KQXKV2NskjtMC99ZI79Xc3Htzm3TAWyxQPXTe6R+FW2C56dWrSFrKaLz94ei
+	 NP1vdjHRyuD1EOHn2X2aT0AISr0SGQIFt/gxQrWDWhmgN3iYcnk4O5usKpJxeBepkM
+	 8irb3Voekr9eJHn+87yeTX/H6igwyMm+flaj7i/VANj6mfdjruIkj9aaf0lgXY1h/e
+	 kGXqwaFnPldSEuhkgfBDfZjSOGHKAX9ajAFXPijBmO5sLZAUlVuCS018F5vNNY9s/m
+	 IvzvO2DQnfGSA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] drm/panel: simple: add NEC NL6448BC33-70C
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Steffen Trumtrar" <s.trumtrar@pengutronix.de>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260513-v7-1-topic-panel-simple-nl6448bc33-v1-2-9bd4b7d0eac0@pengutronix.de>
+References: <20260513-v7-1-topic-panel-simple-nl6448bc33-v1-2-9bd4b7d0eac0@pengutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 14 May 2026 07:03:58 +0000
+Message-Id: <20260514070358.A3F76C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e254a7c6103a3kunm8191ae6fc25f3
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHR8aVkkZTEMfHxoZSkxIHlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=bF3XB/NxtfQOdzSctQkKF3XU229TaU+05o8zkZGETUQMaD+NbJYBPn90txPuIu4Ji2T3dbnQahqfjxrfLAJkbCb6VPFszt6OCkR43iSxNgVILoFi4iP5u6GOyWyCX+wnPlLWYWMhX8cBfrQQJF4knrw0wAg5QXfJr6MIfBM60xQ=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=PnQAO4hrda8Ee7d8bYmPsv3T8ksDqN93d0yp7NLmvfY=;
-	h=date:mime-version:subject:message-id:from;
 
-Expose the inherited properties from the base analogix-dp schema
-to satisfy unevaluatedProperties constraints.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The `size` field in `panel_desc` is incorrectly populated with t=
+he physical outline dimensions of the module rather than the active display=
+ area, which will cause incorrect DPI calculations in userspace.
+- [Low] The `connector_type` field is uninitialized in the `nec_nl6448bc33_=
+70c` panel descriptor, which will trigger a kernel warning during probe.
+--
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
----
- .../bindings/display/rockchip/rockchip,analogix-dp.yaml    | 7 +++++++
- 1 file changed, 7 insertions(+)
+commit d2a2636831b20ec008ea25a3fcc3144f386ad581
+Author: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 
-diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-index bb75d898a5c5..896ded87880f 100644
---- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-+++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-@@ -50,6 +50,13 @@ properties:
-   aux-bus:
-     $ref: /schemas/display/dp-aux-bus.yaml#
- 
-+  reg: true
-+  interrupts: true
-+  phys: true
-+  phy-names: true
-+  force-hpd: true
-+  ports: true
-+
- required:
-   - compatible
-   - clocks
--- 
-2.34.1
+drm/panel: simple: add NEC NL6448BC33-70C
 
+This commit adds support for the NEC NL6448BC33-70C 10.4" 640x480 LCD module
+to the panel-simple driver.
+
+> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel=
+/panel-simple.c
+> index 236bd56208ccf..bbbbdd399d1c3 100644
+> --- a/drivers/gpu/drm/panel/panel-simple.c
+> +++ b/drivers/gpu/drm/panel/panel-simple.c
+
+[ ... ]
+
+> +static const struct panel_desc nec_nl6448bc33_70c =3D {
+> +	.modes =3D &nec_nl6448bc33_70c_mode,
+> +	.num_modes =3D 1,
+> +	.bpc =3D 6,
+> +	.size =3D {
+> +		.width =3D 243,
+> +		.height =3D 185,
+> +	},
+
+The commit message specifies this is a 10.4" panel, but these dimensions
+(243x185 mm) yield a diagonal of approximately 12.0 inches. Are these the
+physical module outline dimensions instead of the active display area?
+
+The DRM subsystem propagates width_mm and height_mm to
+connector->display_info for userspace DPI scaling calculations. Using the
+mechanical outline instead of the active area (which is typically around
+211x158 mm for a 10.4" 4:3 panel) might result in incorrect UI scaling.
+
+> +	.bus_format =3D MEDIA_BUS_FMT_RGB666_1X18,
+> +	.bus_flags =3D DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE,
+> +};
+
+Is it intentional to omit the connector_type field here?
+
+When this field is omitted, panel_simple_probe() will emit a kernel
+warning saying "Specify missing connector_type" before falling back to
+DRM_MODE_CONNECTOR_DPI. Specifying the correct connector type explicitly
+prevents this warning during boot.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-v7-1-topic=
+-panel-simple-nl6448bc33-v1-0-9bd4b7d0eac0@pengutronix.de?part=3D2
