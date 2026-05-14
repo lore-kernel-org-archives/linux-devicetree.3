@@ -1,36 +1,36 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D95F402BA0;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA54426EA7;
 	Thu, 14 May 2026 15:09:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778771398; cv=none; b=LB5UfJGNJ/iO34L6dj060BUGXKXBgj52W8XoJyWdZIY3kqjbCc7UVNgeiBDTYj5fQcWjGqeLK9pMBrN2AssSwWKi1w5lab97xbjFQMh93e/odfEGXwt4OpDShnDc5Ukw0SOXaU5HXLoRve9COFvB7mcYNPqVu9nH0gvV0cqcKPk=
+	t=1778771399; cv=none; b=mtA4QErR1ig68SK6yyU2+/ttzf/jERtjTcdxjso1imGCTQg9xvk/VhfyONrkoRkKHYPuw8OFIYxdVuAC8p3Z4FRtfIdpkk0FVIBQ8rJ1vpJY0sAjh+Ev5LZ+jfcGdc+OgGYQxStkFpY3s3MFKfCzcmZKoUNWu1+UzE3zTosOmlE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778771398; c=relaxed/simple;
-	bh=t5gE4bxe3l8Rm89s70bV5esQES6c2DxTzt/nvkCifQM=;
+	s=arc-20240116; t=1778771399; c=relaxed/simple;
+	bh=+Y/GGoTKNCM3giuKbq04aPtsbFnmhL9znjR/JyKh7Js=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=k326F2Rnsv3hMtwoA+iUjcxid0kIIH422aenpjG3ldJFT2uOqz/lM9Z1l4Kpj0Kx5SSi+40KSrz4ON8bJp8YF6Ee4tQFeJ80kjwPklfrjaMNOgcWxAlV34UtZcBqRzgtkXhtKDTMH8xSwhhlgYTHGfb74FMevXRfZgT+XmfIer8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LydMEQYy; arc=none smtp.client-ip=10.30.226.201
+	 MIME-Version; b=DqeWh4GHe+zijGcwBIC3eVd6VkZVlM5jxBknM9Z2b293YJgEgdJa8KJe3nBskVXyyjJu070138+41DRi2eS2Nd28rmrstXnOy7SDK9fFlaUMTjS7StRC4rD9I1k8Sl27Zs1TlQPjZuEwlsD7DhCcZPeIS28X/AqPrEOYFz4j4To=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LDMDAMzG; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LydMEQYy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5142C2BCB8;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LDMDAMzG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEF8CC2BD05;
 	Thu, 14 May 2026 15:09:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1778771397;
-	bh=t5gE4bxe3l8Rm89s70bV5esQES6c2DxTzt/nvkCifQM=;
+	bh=+Y/GGoTKNCM3giuKbq04aPtsbFnmhL9znjR/JyKh7Js=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=LydMEQYykl+lrouBNxHsfLVGYzROXndlLpIbgH6j0m2tH/PvpdX+T4PKnkEePAGXJ
-	 c+SWlcf0tRdp9R4ycU6c1fGIsHuiu7L7vSo7UNjlp26c1Eqn3QWjBn08/z15+pWrJ4
-	 r448PK7bN9ERWC0wmgvourvyLhsRgsx3zD0IE4JMq9Cn5EKUBZAILS1Q3XJ4fS4GpS
-	 oPHJMDP6uFtU327aMaa4Q65Vcy6orGWiUDS68E06VbEVcnWqge4Wpd/VAplO8sozhp
-	 uTWmohZ/cNTPb3/0tnhxIs5R6EnvZM444E2D4zoVmOs7ECPV9AkfLmAJI/Q7j8EaGu
-	 n850763jlqEBQ==
+	b=LDMDAMzGaA9jC172A8eLW/Cb0mO2TltTn8gVbgo/Zu4q/jYWo3Znc+RhmuMsC2Rdk
+	 DrE+eWcdwRjhRlKy+13DyVwe+uR8xaRCv5XUpspSMep1T5jwIatMHujwLSLo7576cC
+	 L3Um7uOf+i/wLipca02Vku6OO8ANsm+A3eJxH3UaQnYAQPchqQcgD31ZiOAhpkkEHz
+	 EPHtwH0GL63NCZpCykOs/slBb6U1UmYrMDI+19mYOAvy1dxm3QwXEcpHMRYq1EIX/y
+	 ssmif1ajBeDmtTW9NAqTcP3eT7QDd2biSGD0+EQKLI8uXI2FEodphCyZ2k6k3hR6JG
+	 wAdkXRHD52M8g==
 Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
 	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.98.2)
 	(envelope-from <maz@kernel.org>)
-	id 1wNXhD-00000002Oqg-0nJO;
+	id 1wNXhD-00000002Oqg-3KQ6;
 	Thu, 14 May 2026 15:09:55 +0000
 From: Marc Zyngier <maz@kernel.org>
 To: linux-arm-kernel@lists.infradead.org,
@@ -79,9 +79,9 @@ Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
 	Orson Zhai <orsonzhai@gmail.com>,
 	Baolin Wang <baolin.wang@linux.alibaba.com>,
 	Michal Simek <michal.simek@amd.com>
-Subject: [PATCH v2 01/17] ACPI: GTDT: Account for GTDTv3 size when walking the platform timer descriptors
-Date: Thu, 14 May 2026 16:09:29 +0100
-Message-ID: <20260514150945.3917510-2-maz@kernel.org>
+Subject: [PATCH v2 02/17] ACPI: GTDT: Parse information related to the EL2 virtual timer
+Date: Thu, 14 May 2026 16:09:30 +0100
+Message-ID: <20260514150945.3917510-3-maz@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260514150945.3917510-1-maz@kernel.org>
 References: <20260514150945.3917510-1-maz@kernel.org>
@@ -97,65 +97,75 @@ X-SA-Exim-Rcpt-To: linux-arm-kernel@lists.infradead.org, linux-acpi@vger.kernel.
 X-SA-Exim-Mail-From: maz@kernel.org
 X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Since ARMv8.1, the architecture has grown an EL2-private virtual
-timer. This has been described in ACPI since ACPI v6.3 and revision
-3 of the GTDT table.
+Now that we have a way to identify GTDTv3, allow the information
+related to the EL2 virtual timer to be retrieved by the interface
+used by the architected timer driver.
 
-An aditional structure was added in ACPICA, though in a rather
-bizarre way, and merged in v5.1 as 8f5a14d053100 ("ACPICA: ACPI 6.3:
-add GTDT Revision 3 support").
-
-Finally plug the table parsing in GTDT, and correct the parsing of
-the platform timer subtables to account for the expanded size of
-the base table.
-
-Suggested-by: Sudeep Holla <sudeep.holla@kernel.org>
+Reviewed-by: Sudeep Holla <sudeep.holla@kernel.org>
 Signed-off-by: Marc Zyngier <maz@kernel.org>
 ---
- drivers/acpi/arm64/gtdt.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ drivers/acpi/arm64/gtdt.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
 diff --git a/drivers/acpi/arm64/gtdt.c b/drivers/acpi/arm64/gtdt.c
-index ffc867bac2d60..b9d9b8edf2df7 100644
+index b9d9b8edf2df7..d9b43592c22cd 100644
 --- a/drivers/acpi/arm64/gtdt.c
 +++ b/drivers/acpi/arm64/gtdt.c
-@@ -32,6 +32,12 @@ struct acpi_gtdt_descriptor {
- 	struct acpi_table_gtdt *gtdt;
- 	void *gtdt_end;
- 	void *platform_timer;
-+	bool v3;
-+};
-+
-+struct gtdt_v3 {
-+	struct acpi_table_gtdt	gtdt_v2;
-+	struct acpi_gtdt_el2	el2_vtimer;
- };
+@@ -42,6 +42,14 @@ struct gtdt_v3 {
  
  static struct acpi_gtdt_descriptor acpi_gtdt_desc __initdata;
-@@ -39,8 +45,14 @@ static struct acpi_gtdt_descriptor acpi_gtdt_desc __initdata;
+ 
++static __init struct acpi_gtdt_el2 *gtdt_to_el2_vtimer(struct acpi_table_gtdt *gtdt)
++{
++	if (!acpi_gtdt_desc.v3)
++		return NULL;
++
++	return &container_of(gtdt, struct gtdt_v3, gtdt_v2)->el2_vtimer;
++}
++
  static __init bool platform_timer_valid(void *platform_timer)
  {
  	struct acpi_gtdt_header *gh = platform_timer;
-+	void *platform_timer_begin;
+@@ -113,6 +121,7 @@ static int __init map_gt_gsi(u32 interrupt, u32 flags)
+ int __init acpi_gtdt_map_ppi(int type)
+ {
+ 	struct acpi_table_gtdt *gtdt = acpi_gtdt_desc.gtdt;
++	struct acpi_gtdt_el2 *el2_vtimer = gtdt_to_el2_vtimer(gtdt);
+ 
+ 	switch (type) {
+ 	case ARCH_TIMER_PHYS_NONSECURE_PPI:
+@@ -125,6 +134,12 @@ int __init acpi_gtdt_map_ppi(int type)
+ 	case ARCH_TIMER_HYP_PPI:
+ 		return map_gt_gsi(gtdt->non_secure_el2_interrupt,
+ 				  gtdt->non_secure_el2_flags);
++	case ARCH_TIMER_HYP_VIRT_PPI:
++		if (el2_vtimer && el2_vtimer->virtual_el2_timer_gsiv)
++			return map_gt_gsi(el2_vtimer->virtual_el2_timer_gsiv,
++					  el2_vtimer->virtual_el2_timer_flags);
 +
-+	if (acpi_gtdt_desc.v3)
-+		platform_timer_begin = container_of(acpi_gtdt_desc.gtdt, struct gtdt_v3, gtdt_v2) + 1;
-+	else
-+		platform_timer_begin = acpi_gtdt_desc.gtdt + 1;
++		return 0;
+ 	default:
+ 		pr_err("Failed to map timer interrupt: invalid type.\n");
+ 	}
+@@ -142,6 +157,7 @@ int __init acpi_gtdt_map_ppi(int type)
+ bool __init acpi_gtdt_c3stop(int type)
+ {
+ 	struct acpi_table_gtdt *gtdt = acpi_gtdt_desc.gtdt;
++	struct acpi_gtdt_el2 *el2_vtimer = gtdt_to_el2_vtimer(gtdt);
  
--	return (platform_timer >= (void *)(acpi_gtdt_desc.gtdt + 1) &&
-+	return (platform_timer >= platform_timer_begin &&
- 		platform_timer < acpi_gtdt_desc.gtdt_end &&
- 		gh->length != 0 &&
- 		platform_timer + gh->length <= acpi_gtdt_desc.gtdt_end);
-@@ -169,6 +181,7 @@ int __init acpi_gtdt_init(struct acpi_table_header *table,
- 	acpi_gtdt_desc.gtdt = gtdt;
- 	acpi_gtdt_desc.gtdt_end = (void *)table + table->length;
- 	acpi_gtdt_desc.platform_timer = NULL;
-+	acpi_gtdt_desc.v3 = gtdt->header.revision >= 3 && gtdt->header.length >= sizeof(struct gtdt_v3);
- 	if (platform_timer_count)
- 		*platform_timer_count = 0;
+ 	switch (type) {
+ 	case ARCH_TIMER_PHYS_NONSECURE_PPI:
+@@ -153,6 +169,10 @@ bool __init acpi_gtdt_c3stop(int type)
+ 	case ARCH_TIMER_HYP_PPI:
+ 		return !(gtdt->non_secure_el2_flags & ACPI_GTDT_ALWAYS_ON);
  
++	case ARCH_TIMER_HYP_VIRT_PPI:
++		return el2_vtimer && el2_vtimer->virtual_el2_timer_gsiv &&
++		       !(el2_vtimer->virtual_el2_timer_flags & ACPI_GTDT_ALWAYS_ON);
++
+ 	default:
+ 		pr_err("Failed to get c3stop info: invalid type.\n");
+ 	}
 -- 
 2.47.3
 
