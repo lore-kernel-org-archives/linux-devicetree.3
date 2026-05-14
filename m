@@ -1,197 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1645A3016F7;
-	Thu, 14 May 2026 16:00:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ADA6327C08;
+	Thu, 14 May 2026 16:03:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778774443; cv=none; b=QtSZA7xYU0nzalVYVCzYjK8/3B7pSs+Y70C+6VhacrExJ8QLPAX/fw6x71g3KUC68N3RfRTL0xsJuknc3L2AB8J0rgFvUTFZcx6WZi5hdUGs7ab+n4FetZcOUuRv0EVfYbZBeCIVq5ZQQik0+hrH4MdCDKxYFNCHwy0Y2beKfFs=
+	t=1778774636; cv=none; b=rzf1HXRxRLUn1eJqFd5Z730Yg9/SQKKbbru23aAe6tdQViWkSDJxagsMXk4QY2EiJJXcZhdV1lcJkGmTtBkd/PCJE1rURJp6lVtrrOBKa/8g4BqkmE3so9BYDBun17aOC8bXqmGUh8glBtJvMhrjgZHTmPRuY7mHRWs8wD3PHrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778774443; c=relaxed/simple;
-	bh=aYIL80rw3C3EF35cMMlhXqCBtlwG7P1QQusFd7N/ghs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OZAnzxHUPQ5iVslYDMGkwipOth2BgLEB0bGfRmMzaQSYtQnzTGFH0sUkweMad/zdD5GHGNY1o/kCshvGSwsImQyYRN05nHRJ1OIiye5Ah2Qml3FLiwqYswH8yatTnJqfjs2lfYVeHOI9C7FZ6k5zY9nnoPsdm1DGzutC4R4Ipf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=em/MXqlU; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778774636; c=relaxed/simple;
+	bh=OEKUEAy0p53ShMd/bpraSPVLMD9PPRKadwTBJaCnYQI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mf5+IQiOVxBvVuuFII9XA5lKxBfD7oKgvvBe0XhpUhGzzqqWYCNjJXhZoT3jw3ECdjyJEj8RQxidn5jcG+WM4utZF1CEDRz1s46WMvaNUcY3AGGu3leAf06uiVffB2rJ8AOs1WBlfYxFwWHyg5a/DifPHNRJgG3/CXtvcR0eVuk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aqnUNteO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="em/MXqlU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBA94C2BCB3;
-	Thu, 14 May 2026 16:00:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aqnUNteO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F4024C2BCB7;
+	Thu, 14 May 2026 16:03:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778774442;
-	bh=aYIL80rw3C3EF35cMMlhXqCBtlwG7P1QQusFd7N/ghs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=em/MXqlU3TAY/8GnuMO8/XcHtFL1qNc9dqnURgTg7r+mFc7moSSYxpGuZ10RyE+Nr
-	 yLWlFFYcGhvPy8OdZRymbUrHib5JjCNE/fxdhBHqRBH1yA8YhNkcsQXDYkDnSQdCcQ
-	 tJmhgVTysQfMtRloqRkOpmmrMKkKmJ6kOmucOFMcAkZ4yW2la60SEKmTHUbcsmvN4M
-	 VfOWN/2+hcIaDpPGUe7TuoevqNMQRIDkKNHqgP1HB+GeetUYNb4mCqq5RuKatrGy7x
-	 MO22us0v8xIJXtXcxSmviu8984HfScWa++ln/7zTeUn6OIbQ++d0X4O0TFBuu6T/xy
-	 VcMUbcf5j4/Ag==
-Message-ID: <a51d0e53-3134-475d-a19f-67d7d0695cfe@kernel.org>
-Date: Thu, 14 May 2026 18:00:38 +0200
+	s=k20201202; t=1778774636;
+	bh=OEKUEAy0p53ShMd/bpraSPVLMD9PPRKadwTBJaCnYQI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=aqnUNteOoGz0KWQIXbZLG97Ht/vhGBcArJM+WFoi3+M3DK9pNhbI3b9yWzfbuxjyJ
+	 xB8U1ltsTqdST+eJ17UDILgiqTlq76DFiDLS1/ooryI94aHQjCW3GUXCV4c9BmrOy4
+	 tUfF44/Iw8SMdBZqDafEPI8j62ZLeARipOA1ZFT5bj9UhJYI47TGkpixp7X3BLiQV/
+	 ssYddBeiDhJiAOeJZ+mqqPN7tTuZk2E5CHFaNOQgg+qkwwMh8zfWCxW1gbTwXuInFo
+	 2aAkigyctbiLOPCFBk9r48CN0yS6Lm01+K18OxAI3KiT/k+PHmo5otsCK1kveXhFbH
+	 aNqbmGDxMPMUg==
+Date: Thu, 14 May 2026 11:03:52 -0500
+From: Rob Herring <robh@kernel.org>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Sander Vanheule <sander@svanheule.net>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rustam Adilov <adilov@disroot.org>, linux-watchdog@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: watchdog: realtek,otto-wdt: Add
+ fallback compatible
+Message-ID: <20260514160352.GA841147-robh@kernel.org>
+References: <20260512204854.8931-1-sander@svanheule.net>
+ <20260512204854.8931-2-sander@svanheule.net>
+ <1be8c11b-a020-44d6-86ef-109418e1d968@roeck-us.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] dt-bindings: usb: dwc3-xilinx: Add MMI USB support
- on Versal Gen2 platform
-To: "Pandey, Radhey Shyam" <radheys@amd.com>,
- Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Cc: gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, michal.simek@amd.com, Thinh.Nguyen@synopsys.com,
- p.zabel@pengutronix.de, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, git@amd.com
-References: <20260429173050.1772377-1-radhey.shyam.pandey@amd.com>
- <20260429173050.1772377-2-radhey.shyam.pandey@amd.com>
- <20260503-enchanted-galago-of-relaxation-dcda7f@quoll>
- <f9f25ef4-a541-45a2-b98c-4a411239993b@amd.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <f9f25ef4-a541-45a2-b98c-4a411239993b@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1be8c11b-a020-44d6-86ef-109418e1d968@roeck-us.net>
 
-On 07/05/2026 21:01, Pandey, Radhey Shyam wrote:
->> On Wed, Apr 29, 2026 at 11:00:47PM +0530, Radhey Shyam Pandey wrote:
->>>   additionalProperties: false
->>>   
->>>   examples:
->>> @@ -156,3 +193,30 @@ examples:
->>>               };
->>>           };
->>>       };
->>> +  - |
->>> +    #include <dt-bindings/power/xlnx-zynqmp-power.h>
->>> +    #include <dt-bindings/reset/xlnx-zynqmp-resets.h>
->>> +    #include <dt-bindings/phy/phy.h>
->>> +    usb {
->>> +        #address-cells = <1>;
->>> +        #size-cells = <1>;
->> Please follow DTS coding style.
-> Thanks for the review. will fix it in next version.
->>> +        compatible = "xlnx,versal2-mmi-dwc3";
->> I really doubt that DWC3 block comes without addressing space
->> (registers), so either you just misrepresented things, like created a
->> fake block and syscon, or forgot to combine DWC3 with the wrapper.
->>
->> And if you built with W=1 your DTS you would see errors. How do you see
->> it now? Where do you place it? Wrapper must be outside of soc, but DWC3
->> child must be inside. Did you read submitting patches and writing
->> bindings documents?
-> Apologies for missing the DTS sanity check earlier. I am summarizing the
-> problem statement and possible solution. Please review.
+On Wed, May 13, 2026 at 05:20:59PM -0700, Guenter Roeck wrote:
+> On Tue, May 12, 2026 at 10:48:53PM +0200, Sander Vanheule wrote:
+> > As all known hardware instantiations of this watchdog behave the same, a
+> > fallback compatible can be added.
+> > 
+> > To remain compatible with existing single-compatible bindings, the
+> > current compatibles are duplicated. New compatibles should only be added
+> > to the list with fallback.
+> > 
+> > Signed-off-by: Sander Vanheule <sander@svanheule.net>
+> > ---
+> > Changes since v1:
+> > - Fix indendations
+> > - Add deprecated property to old compatible
+> > - Use two-part compatible in example
+> > ---
+> >  .../bindings/watchdog/realtek,otto-wdt.yaml   | 22 ++++++++++++++-----
+> >  1 file changed, 16 insertions(+), 6 deletions(-)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/watchdog/realtek,otto-wdt.yaml b/Documentation/devicetree/bindings/watchdog/realtek,otto-wdt.yaml
+> > index 1f5390a67cdb..e470e0fcbb2a 100644
+> > --- a/Documentation/devicetree/bindings/watchdog/realtek,otto-wdt.yaml
+> > +++ b/Documentation/devicetree/bindings/watchdog/realtek,otto-wdt.yaml
+> > @@ -25,11 +25,21 @@ allOf:
+> >  
+> >  properties:
+> >    compatible:
+> > -    enum:
+> > -      - realtek,rtl8380-wdt
+> > -      - realtek,rtl8390-wdt
+> > -      - realtek,rtl9300-wdt
+> > -      - realtek,rtl9310-wdt
+> > +    oneOf:
+> > +      - items:
+> > +          - enum:
+> > +              - realtek,rtl8380-wdt
+> > +              - realtek,rtl8390-wdt
+> > +              - realtek,rtl9300-wdt
+> > +              - realtek,rtl9310-wdt
+> > +          - const: realtek,otto-wdt
 > 
-> For MMI USB in current implementation it need a parent/child
-> representation. However, the parent IP is shared across DP, USB,
-> and HDCP, so it cannot have a USB-dedicated parent reg space.
+> For the Apple watchdog driver, the generic property "apple,wdt" is
+> considered to be bad and is not supposed to be used for newer chips.
+> For this watchdog driver, a generic property is introduced.
 > 
-> 1. Versal platform
->    - Parent: USB wrapper IP → has its own I/O space
->    - Child: USB DWC3
-> 
-> 2. Versal Gen2 platform - MMI USB
->    - Parent subsystem combines DP, USB, and HDCP in a single I/O space
->    - Children:
->      - USB DWC3
->      - DP
->      - HDCP
-> 
-> To model the Versal Gen2 MMI USB parent register space, I introduced
-> xlnx,usb-syscon, allowing the DWC3 driver to access parent registers
-> via a syscon handle, addressing the v1 review comment.
+> What is the overall logic ? Is there some rule when a generic property
+> such as "realtek,otto-wdt" is appropriate and preferred, and when it isn't
+> (as in "apple,wdt") ?
 
-Syscon phandle is not to express such relationsship.
+Never preferred. Retroactively adding them, that's a definite no.
 
-> 
-> However, making reg optional satisfies schema validation but fails
-> DTB checks.
-> 
-> versal2.dtsi:1: Warning (simple_bus_reg):
-> /axi/mmi-usb: missing or empty reg/ranges property
-
-Yep, exactly.
-
-> 
-> To fix it i think we can switch from parent/child representation to
-> flat DT representation for the Versal Gen2 platform, similar to
-> existing implementations in qcom,snps-dwc3 and Google Tensor G5 DWC3
-> bindings[1].
-> 
-> The Google Tensor DWC3 binding uses a syscon phandle to access USB
-> configuration registers, which aligns well with the Versal Gen2 MMI
-
-Not true. Just read the binding. If you refer to Tensor, then to access
-A FEW configuration registers. If you refer to LGA, then it has address
-space.
-
-> USB IP, where wrapper subsystem shares a common register space for
-> USB along with other IPs.
-
-
-
-> 
-> If this approach looks fine , will create binding for MMI USB using
-> this flat representation and send out next version.
-> 
-> usb@fe200000 {
-> compatible = "xlnx,versal2-mmi-dwc3";
-> reg = <0xfe200000 0x40000>;
-> xlnx,usb-syscon = <&udh_slcr 0x005c 0x0070 0x00c4 0x00f8>;
-> <snip>
-> };
-
-So I am confused. We ask, since long time, to have unified child.
-Several platforms were already converted. What are you discussing with
-in such case?
-
-Are you going to have unified node or not?
-
-
-Best regards,
-Krzysztof
+Rob
