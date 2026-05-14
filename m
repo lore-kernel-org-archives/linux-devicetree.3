@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB5262EC54C
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 03:30:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841013563FA
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 03:32:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778729422; cv=none; b=Fms5F+AtaNZv981J0uzMwpDWxs74UlWCAPNAY+kfbfJc5lwCkwm2w3VGJsvS4UXCMgx2NhNwiRsyuZK1Hclu8E4M/leUlf4aVc13Ru1r1t2FaHDiJvsvPJHH7q/Z6itNWQRnXEB3H4C2nRCjl+L/hxoq9qV2VM5/2u18HmB9Cf8=
+	t=1778729570; cv=none; b=e5ZGo+tD6g0fbul6NKS5t4oUwDt1fO5oI+obgE10V/yWkQpDeIGuwQehmOjsFQEVQu6scjt9CO76YkLrJ4EAiUBjxibTPyW06sBMrGBkZymr41WS2WUSSdzRmw0CO3ec9HcF/+Z+nP0JWvOIxg2Jr/0GqlvgZ8y8oQgtWS9agIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778729422; c=relaxed/simple;
-	bh=OxGnoagxW7dEhoqtpV8pwXIvZ7WOOPNW9+A+r7Z2aRY=;
+	s=arc-20240116; t=1778729570; c=relaxed/simple;
+	bh=/ZnCrcpv9Xo5bD7ptfYPDHPXGSiM3xi4VJ71VDRB+L4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DgLYf26ogJdnimMrK8NeEjyJrKxR+8Wu+zbRoWzqaAqzK7wspDRTPxyUA/2joF0c0WRTmt/GuwDHbHyiq/B+1yVcmkfcI6NFZjxaUKXOBVdPaqpgJ0GqDLi0U65C7MGTW35G9tOk7qRDTGu+58nOlq05TQgr5C+hVCeg9jPsoP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tZ1WZ4cY; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=BmMGfE/o21QsmoTa9AzOHTLgIVjMJeEo4hnTLx8a2Xg2GQLKPuekva/cW38XiPhdUMOZcTebIBMBdWXEOwoxVjJqWgzlpWaMzMMuLkYosm+ycuEqKQkb4ZUaj+SEDyO7Sg4aY39WLcvEdFRq71W13yzx5nzaLCDOsRuf8hXC6d0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i/8HC/TT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tZ1WZ4cY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8B53C19425;
-	Thu, 14 May 2026 03:30:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i/8HC/TT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BC3EC19425;
+	Thu, 14 May 2026 03:32:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778729422;
-	bh=OxGnoagxW7dEhoqtpV8pwXIvZ7WOOPNW9+A+r7Z2aRY=;
+	s=k20201202; t=1778729569;
+	bh=/ZnCrcpv9Xo5bD7ptfYPDHPXGSiM3xi4VJ71VDRB+L4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=tZ1WZ4cYQ/Cx1eJJjsqae/AkMEnS/ypq+t86DTzE2gjmE9LmrmG5e0UQZMy1LjLpz
-	 cdqYI5Y3n/4vIZgFh50SwgKxqrvf3SiDLoU26pycE02aji8YKoHAR44S3r9Xju9KF4
-	 12m0BfeP+9YIxosggqFrR06TEWX+YcXsHH/ncM8D+gw9INggYP0EMo99kDzVBwdgLW
-	 oqQvmZNV5VvTa1lX9IfMS37xkqrISyXS4oOzMkUI3oYLbfyqntwyVSD6MuI/j5ReRi
-	 +h7AXVmMHfiXzfrd/oiH5iLE2e6JhHMK7lgQfk70URj4EWaol+rSbgK/8IGanm8CU8
-	 msMaxeYPcRMjA==
+	b=i/8HC/TT1dhvqIYywy5+yPAyG/18KXwbGQyJmX9ScBga29/xNw0Zh78e6fd4YWv6K
+	 74NZC8jfmGN1X8XL3SiwYENnoognuuRBdQvTw9uIwCDj/TRNK253FdFQy3/Ze48Pq/
+	 Irz2d88LzrraLdbIUvH5Tj+9tAPyMbcp7RoG2HR26tdzZmx8IcEu8RksY0iDcRayeC
+	 wC7RgiP32eHkdWjG8tscPH60vP6Qsc/ZZPlQyimpf0SCgnRBT2GYrvxV7F3y6aew09
+	 d57bj5HyATl4IAlI8TwBa4SHW/ilD0LC60bM75UgvmOZt4N3cemnKwEhWvJLDwl5q0
+	 CrVXkgF1SWsQg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/3] arm64: dts: qcom: eliza: Describe the ADSP and
- USB related nodes
+Subject: Re: [PATCH v3 08/17] ASoC: simple-amplifier: Remove DAPM widgets
+ and routes from the ASoC component driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260513-eliza-adsp-usb-v4-1-839936e89aca@oss.qualcomm.com>
-References: <20260513-eliza-adsp-usb-v4-1-839936e89aca@oss.qualcomm.com>
+To: "Herve Codina" <herve.codina@bootlin.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260513081702.317117-9-herve.codina@bootlin.com>
+References: <20260513081702.317117-9-herve.codina@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 03:30:21 +0000
-Message-Id: <20260514033021.D8B53C19425@smtp.kernel.org>
+Date: Thu, 14 May 2026 03:32:49 +0000
+Message-Id: <20260514033249.8BC3EC19425@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,47 +46,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Redundant `interrupt-parent` property alongside `interrupts-extende=
-d` in the `aoss_qmp` node.
+- [Medium] Probe fails unconditionally for non-Device Tree instantiations (=
+platform board files, ACPI PRP0001, or CONFIG_OF disabled).
 --
 
-commit 83bbc0567b448712af4a939b7fec5336a2e27452
-Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
+commit a564ff83aa42e00d34fe9812df9996695059dbc5
+Author: Herve Codina <herve.codina@bootlin.com>
 
-arm64: dts: qcom: eliza: Describe the ADSP and USB related nodes
+ASoC: simple-amplifier: Remove DAPM widgets and routes from the ASoC compon=
+ent driver
 
-This commit adds the ADSP remoteproc node, USB controller, and their
-dependencies such as the IPCC mailbox, QMP combo PHY, and SNPS eUSB2 PHY to
-the Eliza SoC device tree.
+This patch moves DAPM tables from the ASoC component driver to the device
+compatible string matching data. This allows the simple-amplifier driver to
+configure different DAPM widgets and routes dynamically during probe based
+on the compatible string.
 
-> diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qc=
-om/eliza.dtsi
-> --- a/arch/arm64/boot/dts/qcom/eliza.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
-
+> diff --git a/sound/soc/codecs/simple-amplifier.c b/sound/soc/codecs/simpl=
+e-amplifier.c
+> index 231e84ab4c0e3..3e644c1c26960 100644
+> --- a/sound/soc/codecs/simple-amplifier.c
+> +++ b/sound/soc/codecs/simple-amplifier.c
 [ ... ]
-
-> +		aoss_qmp: power-management@c300000 {
-> +			compatible =3D "qcom,eliza-aoss-qmp", "qcom,aoss-qmp";
-> +			reg =3D <0x0 0x0c300000 0x0 0x400>;
+> @@ -75,6 +111,10 @@ static int simple_amp_probe(struct platform_device *p=
+dev)
+>  		return -ENOMEM;
+>  	platform_set_drvdata(pdev, simple_amp);
+> =20
+> +	simple_amp->data =3D of_device_get_match_data(dev);
+> +	if (!simple_amp->data)
+> +		return -EINVAL;
 > +
-> +			interrupt-parent =3D <&ipcc>;
-> +			interrupts-extended =3D <&ipcc IPCC_CLIENT_AOP IPCC_MPROC_SIGNAL_GLIN=
-K_QMP
-> +						     IRQ_TYPE_EDGE_RISING>;
 
-Is the interrupt-parent property necessary here?
+Will this cause the probe function to fail unconditionally on non-Device
+Tree platforms?
 
-Since interrupts-extended already explicitly provides the phandle to the
-interrupt parent for the interrupt specifier, the interrupt-parent property
-appears to be redundant and may trigger a dtc or schema validation warning.
+Since the driver does not depend on CONFIG_OF, it can be built and used on
+systems without Device Tree. If CONFIG_OF is disabled, or if the device is
+instantiated via ACPI PRP0001 where dev->of_node is NULL, the call to
+of_device_get_match_data() will evaluate to NULL.
 
-> +
-> +			mboxes =3D <&ipcc IPCC_CLIENT_AOP IPCC_MPROC_SIGNAL_GLINK_QMP>;
-> +
-> +			#clock-cells =3D <0>;
-> +		};
+Because probe now returns -EINVAL when the match data is NULL, this looks
+like it will prevent the driver from probing entirely on those platforms.=20
+
+Could this use device_get_match_data() instead to safely support non-DT
+systems?
+
+>  	simple_amp->gpiod_enable =3D devm_gpiod_get_optional(dev, "enable",
+>  							   GPIOD_OUT_LOW);
+>  	if (IS_ERR(simple_amp->gpiod_enable))
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-eliza-adsp=
--usb-v4-0-839936e89aca@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513081702.3171=
+17-1-herve.codina@bootlin.com?part=3D8
