@@ -1,91 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E0213909B5;
-	Thu, 14 May 2026 23:34:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 830DC38D68F;
+	Thu, 14 May 2026 23:43:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778801690; cv=none; b=ad/vZ5wDKfPGSK9q2IPlD3ErHIqnnSfU5P7z4mC4nSdmFZN5LmJ0Ccxbq9Xd8B5meMZgxel2jOkImy9D/HJrjJs76gcC77XJAr1g1uHeK8maUFUfD/YAfFEZMXM8Pb205bCAKyxDwvel74bSR3HoBi8kXhnB5X9EZiJpaWY4sjs=
+	t=1778802194; cv=none; b=GYWXSC8IE0UK4G3dhUUBiOdAN6ei5aSnYXPaOnylNKsSK+cR8lA114CPgrv5n6+FnHbtB3ftd+tfyVJNjwU38k5GwosreCY+Whk5sTgsOAbtkFlPQr76DhTT3pppvfDV/6hF/Jcf7nUokAJntsx7u7DE/h0ZHCMtP8064Lh01Us=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778801690; c=relaxed/simple;
-	bh=VTVKVwBI0yfXk8vWOqDjB0TtPEq/BIS9tDluZGPTVE8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=stCqC0BmpvSfHbBjG+NSJwQ9xtV3EYPhmf9bNtor5mcfAh8pbfiz1mnl6dYNEyMuPmr6KITJnlqm557NexbD2I8B1ZgQaLWlqmonNV8GQYxrzFVnCzj7PZWdh3vSaOHJGw/Y/WVjQvlbd0YZXz6rJ3GOsa2S/lh7BHuNss4i6QU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KzDuGBx6; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778802194; c=relaxed/simple;
+	bh=o4PUtfFnIDlnRmFtetUSScwXph92XJHFuhTDdAg4cwo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FbD79gkWdclAnbpUvhGkLTW3JFgmqKKnuetJie9bhuuKeBTgLcbdacKmp8xKZjbqd02n3lP7+3uwcKGeAQBF28+rBzlr8m/wP072rBoHbga5MlZu6ny25v9vkTwcIMiyM9yq3qOE2FZ9tB5+BKODuu10gBzyBN9JNmMiZXY9H00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X5leMYW/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KzDuGBx6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 353E7C2BCB3;
-	Thu, 14 May 2026 23:34:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X5leMYW/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F5FCC2BCB3;
+	Thu, 14 May 2026 23:43:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778801690;
-	bh=VTVKVwBI0yfXk8vWOqDjB0TtPEq/BIS9tDluZGPTVE8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KzDuGBx6iH26mngpO4t7dd7Ic4nvod0HRexS7rQXFo1QPRZA/pT27Zb0RM54kS4ax
-	 vLoFpifHWxhr4nDK0Ox2RFpMAsz4sbMuOCCGVtVxPCusPjFk84roYr0isUi6ARFzA/
-	 EFhq8gP7QnWpbLJHq5TqDKr8rr77g36rrTG9zsbNkc+lcAQ0838NHkPrO1D+NMeziu
-	 cK7KTcGBzI7uq2IXSLfS2muqYoF7nFUbY5i2Qi2CHTTI8nG+qQA6vzSyZhK+NA4Hr8
-	 jOTek0vzKCyFsJa7+mL6lcTVwo+a1rvh4zmuy36abVQ0tS5Wg0gVtUJVIpvabeOOxL
-	 UTZZ7K9cVm6yg==
-Date: Thu, 14 May 2026 23:34:48 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Duje =?utf-8?Q?Mihanovi=C4=87?= <duje@dujemihanovic.xyz>
-Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev
-Subject: Re: [PATCH v2 0/2] pwm: spacemit: Add Support for K3 SoC
-Message-ID: <20260514233448-GKA3663945@kernel.org>
-References: <20260428-03-k3-pwm-drv-v2-0-a532bbe45556@kernel.org>
+	s=k20201202; t=1778802194;
+	bh=o4PUtfFnIDlnRmFtetUSScwXph92XJHFuhTDdAg4cwo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=X5leMYW/E4xoIHpBnlxj0Lm7QZWMCzwwD6r6VGQHQrzkvFYwy0OTC8GVZRw7tDgCW
+	 MJ3uCbDVMZ/Jm+NVE9ZT0RWKhMwhS2fjwu1csLf7DI1UowAyAZPfARKC2o2VX/t+53
+	 Lrf3C9xG50AXoXcssVvHe1Nj50xtAoj9WhkURzJFFYCVuW45i73a25vi3sJA9YvdTj
+	 dlYkYj9zK5/Zy01Ht3yt6jGvUf9/SdVET2Q/vJogO6CigkfhZ78VhNjHADOEHK5OMQ
+	 aqQK5JuD+fjyFQ9k7CUkr8AKDUEC+PH1J6TqLyFLGmidro8CIQTdnY1QbmiDzGsLmq
+	 DJ+okJoqKmmNw==
+Message-ID: <51c01dfc-d6b2-4605-81bd-496211947c1f@kernel.org>
+Date: Thu, 14 May 2026 18:43:12 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260428-03-k3-pwm-drv-v2-0-a532bbe45556@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: dts: socfpga: Add dma-coherent to XGMAC nodes
+Content-Language: en-US
+To: muhammad.nazim.amirul.nazle.asmade@altera.com
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260514114111.10574-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+ <20260514114111.10574-3-muhammad.nazim.amirul.nazle.asmade@altera.com>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <20260514114111.10574-3-muhammad.nazim.amirul.nazle.asmade@altera.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Uwe Kleine-König,
-  Can you queue this one for v7.2? I'm sending the DTS part patch
-and got a complaint for "clock definitions violation"
 
-https://lore.kernel.org/all/20260511235952.F32FBC2BCB0@smtp.kernel.org/
 
-On 10:46 Tue 28 Apr     , Yixun Lan wrote:
-> The PWM controller in SpacemiT K3 SoC reuse the same IP as previous K1
-> generation, while the difference is that one additional bus clock is
-> added. Introduce a new compatible string and also adjust driver code to
-> support it.
+On 5/14/26 06:41, muhammad.nazim.amirul.nazle.asmade@altera.com wrote:
+> From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 > 
-> Signed-off-by: Yixun Lan <dlan@kernel.org>
+> The SMMU is enabled and transactions going through it are cache
+> coherent. Add the dma-coherent property to the XGMAC nodes to prevent
+> redundant cache flush/invalidate operations and potential stale data
+> issues.
+> 
+> Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 > ---
-> Changes in v2:
-> - Merge dt-binding of clock-names property
-> - Use local variable for bus clock
-> - Rebase to v7.1-rc1
-> - Link to v1: https://lore.kernel.org/r/20260409-03-k3-pwm-drv-v1-0-1307a06fba38@kernel.org
+>   arch/arm64/boot/dts/intel/socfpga_agilex3_socdk.dts         | 1 +
+>   arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts         | 1 +
+>   arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_013b.dts    | 1 +
+>   arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_modular.dts | 1 +
+>   arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_nand.dts    | 1 +
+>   5 files changed, 5 insertions(+)
 > 
-> ---
-> Yixun Lan (2):
->       dt-bindings: pwm: marvell,pxa-pwm: Add SpacemiT K3 PWM support
->       pwm: pxa: Add optional bus clock
-> 
->  .../devicetree/bindings/pwm/marvell,pxa-pwm.yaml   | 41 ++++++++++++++++++++--
->  drivers/pwm/pwm-pxa.c                              |  8 ++++-
->  2 files changed, 45 insertions(+), 4 deletions(-)
-> ---
-> base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
-> change-id: 20260401-03-k3-pwm-drv-4ea99ae355d6
-> 
-> Best regards,
-> -- 
-> Yixun Lan <dlan@kernel.org>
-> 
+> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex3_socdk.dts b/arch/arm64/boot/dts/intel/socfpga_agilex3_socdk.dts
+> index 25e17df0cbdb..2061d301126e 100644
+> --- a/arch/arm64/boot/dts/intel/socfpga_agilex3_socdk.dts
+> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex3_socdk.dts
+> @@ -52,6 +52,7 @@ &gmac2 {
+>   	phy-mode = "rgmii-id";
+>   	phy-handle = <&emac2_phy0>;
+>   	max-frame-size = <9000>;
+> +	dma-coherent;
+>   
+This property should be in placed in the Agilex5 dtsi file.
 
--- 
-Yixun Lan (dlan)
+Thanks,
+Dinh
