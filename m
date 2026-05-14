@@ -1,240 +1,158 @@
-Received: from mail-m49220.qiye.163.com (mail-m49220.qiye.163.com [45.254.49.220])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A261D798E;
-	Thu, 14 May 2026 07:17:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98A233BED4F
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 07:20:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778743039; cv=none; b=JgIK3q4oE2NSdWOZ8u1kS3P56Ne1B4bgy550ZjUpK/+vtNUR95uQQR+6IMsLkEDAufybJsMQyJF9CxCTMWSXRfCzEPP8Js4595e30OytUnha5Dwr/pdg6oPt9xr80vxE+vDHD+zgDohblodi9Xg4lmSJSwVkqs7rxtf1PG3+EdI=
+	t=1778743222; cv=none; b=fB9JNBPyYDTuG2cjGdREr+Ut/JcddLiLnO5vnM4a36Qfx1I5y3UuDhkccwpRrF5Lp6FInbPdXnWSRdnvOdV0Rrr32DQsgMHiF4Ey5M+10DbDMba5gUP4uGcr/wfkvUeSMyUfwgSkxWsTfTNJJknPJHLoqOlu1UcgrYO0CQ9Gyy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778743039; c=relaxed/simple;
-	bh=Er7U39LE4VPg/jo79HMvgeOl3kVCY2u0yFiq077qxGA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=SmWW0L8EFz2d0CReYeAEUx+sUhvf5k/J0DRVB8XvN6g3TMxTQpBp7MR7xMUhH/m3FHTWJpUfrYo3yw6z9tusWAsHfxWU5gqROiFEcucvHlHPzdJ7NFFs5DOC2cjwniBPbOf/mN7pgr2jqy28c0719BxmJkatXZTTdf8EgWHc2zw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=e1hZG9KJ; arc=none smtp.client-ip=45.254.49.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1778743222; c=relaxed/simple;
+	bh=sz0PagC+xrsAYD/iccgzajP7BdAoD35WehWbqXyLlyA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Exzo/xNAZNVosI0ez+HCcTnMsmgaLZEselJ6EIHvmsURFUBtzK2H2fk0T++SD92wLDqAPoVKjT2FUd/g0l8X+5+p34mHUveWNNft47mwsfH3TxUXq9YRnpbOQ5Vtxk3DXCn9IAUxDWnGerm07JsyjRekWtNhY6WF5I7SNBlL8Zs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DC3PDAWT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=R+/zqqOD; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="e1hZG9KJ"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3e617eddd;
-	Thu, 14 May 2026 15:01:42 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: hjc@rock-chips.com,
-	heiko@sntech.de,
-	andy.yan@rock-chips.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	nicolas.frattaroli@collabora.com,
-	cristian.ciocaltea@collabora.com,
-	sebastian.reichel@collabora.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	luca.ceresoli@bootlin.com,
-	dianders@chromium.org,
-	m.szyprowski@samsung.com,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v1 3/3] drm/bridge: analogix_dp: Add support for optional data-lanes mapping
-Date: Thu, 14 May 2026 15:01:33 +0800
-Message-Id: <20260514070133.2275069-4-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260514070133.2275069-1-damon.ding@rock-chips.com>
-References: <20260514070133.2275069-1-damon.ding@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DC3PDAWT";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R+/zqqOD"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64E1eIvO1243012
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 07:20:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=6ixpOPWUsk4SIfz2iEq/00oC
+	QThu9qSNMayoJJuninQ=; b=DC3PDAWTGaL3gB5dhP46bBnI0NGYHx5rgy8rGU9R
+	/n0lQ45zVVA0m89AiGpD5LNyaui5Jy+TdacyTaTymQNRzVrh+gHPuzLaMsg5YgQb
+	qtH6e6VUbUlKN7ZWXJYoG3dEvAObGRXwSSuTVypHd86J4gxgdP2rEAOvbd9EHpaJ
+	SZObApTAwPE8to8vaA0pQyt0YjtXN/vH8QlpbgAq6vO4Zx5WbEh7hczMLuCIauXk
+	UX5YH0pAt83IVA8j9nUqkf0ipMcZAFU2QSwdnE7xOc633dvq+3mKA9RWqiHNvXdS
+	aEsHC3fF7rDHy3tF8aaysgOXG3zIvNzoCc06s9i/y4U+HA==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4v4ttx9q-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 07:20:20 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-365fc4636bbso15668185a91.2
+        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 00:20:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778743220; x=1779348020; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=6ixpOPWUsk4SIfz2iEq/00oCQThu9qSNMayoJJuninQ=;
+        b=R+/zqqODODDqLYgTLgcdgtiwdaLnHFy+vbml0NWZNyHjAKC2WPX9cpQ66crnqBkgjC
+         ZvwiDID20zhcJF9VF8gPbCM8X6VMFzgSgIblLuXIUdv8Nfk6JJj5KWtEQhoNhXhpGrNq
+         72+jQ2dSXeIrpd3bVEyg0XHMTeZZZv9LCk/258oedVZ/hJ1lQOkWJflSY/5YfT6xe6If
+         w0QTivvECFQvl+9/h+qz7ZiSjHB4guReb77ogPRKG83zrF9+LEEy6HroCeO7gIryc70a
+         zP33wCUKf2xjtEJ/Ek6E+f0pVYvMKkt9U/uTxxSHPVQa+I1HPC3JqOGmZEEpYdCldJ1+
+         E+LQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778743220; x=1779348020;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=6ixpOPWUsk4SIfz2iEq/00oCQThu9qSNMayoJJuninQ=;
+        b=Z0/gqgYzyfoTztMW+rxsBok5vTHrDllv4UzAbHMOT3StzLszdwTpOagNwbuWMlvx0s
+         abVBhsnxOQeD0MG6rlN/KFXwlNvt7ysdJ53feCSRukShQIEJ5xVFAdfiQWnlYFFsvqSF
+         eYjwMqFSmhbTIhooRHkDbRi8TUIgk65qccbsTrwp9Q3ETN7ZyouDv49DmpnHiMwuWMDU
+         18565RwIsfC/T0zWNnoWI1xGUnoxt2vMLInMeYKbkPYScbBeaVGapnZNiRxBhHl4XlLL
+         OrHbfc8gNc5Ui4N7/2QqLNJpL/5ukoKyRlwLE9swQa1pj67/QNIi1RUKdPNIfPxW8Usa
+         mvZw==
+X-Forwarded-Encrypted: i=1; AFNElJ+TWe8KBZssDKZmxbEDKKyolZcoWolLoinWWexJSe80p1P9Sa7dgNRyldggUpEma07pQOPPAS/O4XcL@vger.kernel.org
+X-Gm-Message-State: AOJu0YxgVH64Gkj8lZ6XFKvQdGbWvPz5i4umAy+0sgORSl8aROQX8/7V
+	C5WXTzh3l6gEqKL4Av6XdFqPLY0vGVVWy0hclwrVyPEeiFVsoNEoeZ8i2NB1GbF65qoI5GV8epR
+	98r3v9VT7DzKGXTyCxSNm16NZw6xhIpv8yiQS9iqHUsCbfXeCyGNH/0MPE24GUgbW
+X-Gm-Gg: Acq92OHTngZqExqE0QT5ID2l9TFqUlKZEvvEcYy2lZV4jC6zbkdzS7ZjVKBXeHSOVkc
+	TtMC+c63NMSfsuThz4hS8mXXchhBoLgQx2sv0+23FoOtO6sYKecQ2veZ3hodcyWmW7s8ADoegJ8
+	YdOeYkZzzAnKSkpSa428HvEWSuVilC/o2bV9YsDDdphj45L+9THQ/ClWBi7cSLqt7umKYC0NNVh
+	ChIbwVaV89bSE7eYLbjlQAv07A7mEQCPapbGBN+OGbFpvvd1a0RJYDg0lm/kra1/sL01L7lMcoa
+	sgYBZcaneMevyWuerOBnW2aqdAX4DfNaPnYdUeMczvhM5K3sD8MR4+lWxPje4qtuopuO/LUOqup
+	W0/YgXtpKerVrkz2rHkQmKR3C2cQ3cFmGQt7IbHu7F8QgE+kA
+X-Received: by 2002:a17:90b:3845:b0:368:7c0f:ebf7 with SMTP id 98e67ed59e1d1-368f3d183f3mr7267863a91.16.1778743220057;
+        Thu, 14 May 2026 00:20:20 -0700 (PDT)
+X-Received: by 2002:a17:90b:3845:b0:368:7c0f:ebf7 with SMTP id 98e67ed59e1d1-368f3d183f3mr7267803a91.16.1778743219456;
+        Thu, 14 May 2026 00:20:19 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3692e706875sm1678572a91.4.2026.05.14.00.20.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 14 May 2026 00:20:18 -0700 (PDT)
+Date: Thu, 14 May 2026 12:50:12 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Manivannan Sadhasivam <mani@kernel.org>,
+        Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH] dt-bindings: mailbox: qcom: Add IPCC support for Hawi
+ Platform
+Message-ID: <20260514072012.acgmmzdo2aeugyq3@hu-mojha-hyd.qualcomm.com>
+References: <20260401125126.593254-1-mukesh.ojha@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e254a8b0103a3kunm8191ae6fc260b
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTkhDVkJMQ0IdQk9LQx0dHVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=e1hZG9KJoO+Ws7pEFiY/PHjFwzylmGB1WQMxCmFnVaWAvL2emRB+btxS2O3t+wGivh1rY1IKwKxm36M35nisKhqjppmgG3JspcV2bPsYuI7woBaWlot5UKYQXxRkvCk//OCbUA3aTyidBztz5OtrviSnIM25w2br11uFMxoBuyA=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=1Rr7zTu0FUPyYlb5Cxw0+2EZUM5K8ihGlQO9XaHuTvQ=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260401125126.593254-1-mukesh.ojha@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=XIIAjwhE c=1 sm=1 tr=0 ts=6a0577b4 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=knjUYP8iK99Px4kpKqYA:9 a=CjuIK1q_8ugA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE0MDA3MCBTYWx0ZWRfX2h7h53anmu8y
+ sxB8vxx86eRY4k8oIrU0EW32FXfZ+QwWIXavGEHba+WQU4Jtq7aPfRJdbbPHznr1t9RjSStG8vV
+ KyDAf90M7Nq+y9BWv5nPvKwDfd7YdKG05Sib1GuDgzc+6De7iB3uoBF+p9kecTXIYKOhVwL2nN5
+ a/GEnHA6CPKhsvONLBlmhwu4sfn8y9Gyp5QPaByF8ZXQYleUD2eEqF+6W8Z3v8ECmMMgP9r9zk5
+ F3VaKQAXQBDBbdYg8GhHWehQ6tXBJuuNG7PqOJP8Tg2WWHEYPcib83OBgSJiFP3IWNmFYJdzv6B
+ qt/C3KyyaEGi7CevBS1vKF9ZwYQFGvwvAcl3qYxVnWAfY6LzJZbMuVtaLYvmeyO1i0oyxzvvzys
+ s3UisRqKu7P/2FQanHPi9OyGQP4JBE2f3AG5fL4unPk4yh1SAGxptlpr8cxNVdjYG/g9u3Fo7FL
+ O+hTz22SSqAFsguMw4Q==
+X-Proofpoint-ORIG-GUID: jfiiPr2Y5eC6aqNZM2K0etRscrTHo_3I
+X-Proofpoint-GUID: jfiiPr2Y5eC6aqNZM2K0etRscrTHo_3I
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-14_01,2026-05-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ bulkscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605140070
 
-Parse the optional 'data-lanes' device tree property to support
-custom physical lane mapping configuration.
+On Wed, Apr 01, 2026 at 06:21:26PM +0530, Mukesh Ojha wrote:
+> Document the Inter-Processor Communication Controller on the Qualcomm
+> Hawi Platform, which will be used to route interrupts across various
+> subsystems found on the SoC.
+> 
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml b/Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml
+> index 7c4d6170491d..7dbc3ac6c5c9 100644
+> --- a/Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml
+> +++ b/Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml
+> @@ -25,6 +25,7 @@ properties:
+>      items:
+>        - enum:
+>            - qcom,glymur-ipcc
+> +          - qcom,hawi-ipcc
+>            - qcom,kaanapali-ipcc
+>            - qcom,milos-ipcc
+>            - qcom,qcs8300-ipcc
+@Jassi,
 
-If no valid configuration is found, fall back to the default
-lane map (0, 1, 2, 3) automatically and keep the driver running.
+Would you be picking this?
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
----
- .../drm/bridge/analogix/analogix_dp_core.c    | 56 +++++++++++++++++++
- .../drm/bridge/analogix/analogix_dp_core.h    |  4 +-
- .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 15 +++--
- .../gpu/drm/bridge/analogix/analogix_dp_reg.h |  4 ++
- 4 files changed, 70 insertions(+), 9 deletions(-)
+> -- 
+> 2.53.0
+> 
 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index c8eb3511f92a..a7d19c3be7e0 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -1234,6 +1234,59 @@ static const struct drm_bridge_funcs analogix_dp_bridge_funcs = {
- 	.detect = analogix_dp_bridge_detect,
- };
- 
-+static int analogix_dp_dt_parse_lanes_map(struct analogix_dp_device *dp)
-+{
-+	struct video_info *video_info = &dp->video_info;
-+	struct device_node *endpoint;
-+	u32 tmp[LANE_COUNT4];
-+	u32 map[LANE_COUNT4] = {0, 1, 2, 3};
-+	bool used[LANE_COUNT4] = {false};
-+	int num_lanes;
-+	int ret, i;
-+
-+	memcpy(video_info->lane_map, map, sizeof(map));
-+
-+	num_lanes = drm_of_get_data_lanes_count_ep(dp->dev->of_node, 1, 0, 1,
-+						   video_info->max_lane_count);
-+	if (num_lanes < 0)
-+		return -EINVAL;
-+
-+	endpoint = of_graph_get_endpoint_by_regs(dp->dev->of_node, 1, -1);
-+	if (!endpoint)
-+		return -EINVAL;
-+
-+	ret = of_property_read_u32_array(endpoint, "data-lanes", tmp, num_lanes);
-+	of_node_put(endpoint);
-+	if (ret)
-+		return -EINVAL;
-+
-+	for (i = 0; i < num_lanes; i++) {
-+		if (tmp[i] >= LANE_COUNT4) {
-+			dev_dbg(dp->dev, "data-lanes[%d] = %u is out of range\n", i, tmp[i]);
-+			return -EINVAL;
-+		}
-+
-+		if (used[tmp[i]]) {
-+			dev_dbg(dp->dev, "data-lanes[%d] = %u is duplicate\n", i, tmp[i]);
-+			return -EINVAL;
-+		}
-+
-+		used[tmp[i]] = true;
-+		map[i] = tmp[i];
-+	}
-+
-+	for (i = 0; i < LANE_COUNT4 && num_lanes < LANE_COUNT4; i++) {
-+		if (!used[i])
-+			map[num_lanes++] = i;
-+	}
-+
-+	dev_dbg(dp->dev, "Using parsed lane map: <%u %u %u %u>\n", map[0], map[1], map[2], map[3]);
-+
-+	memcpy(video_info->lane_map, map, sizeof(map));
-+
-+	return 0;
-+}
-+
- static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
- {
- 	struct device_node *dp_node = dp->dev->of_node;
-@@ -1266,6 +1319,9 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
- 		break;
- 	}
- 
-+	if (analogix_dp_dt_parse_lanes_map(dp))
-+		dev_dbg(dp->dev, "No valid data-lanes found, using default lane map\n");
-+
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-index 17347448c6b0..634fad241e69 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-@@ -137,6 +137,8 @@ struct video_info {
- 
- 	int max_link_rate;
- 	enum link_lane_count_type max_lane_count;
-+
-+	u32 lane_map[LANE_COUNT4];
- };
- 
- struct link_train {
-@@ -175,7 +177,7 @@ struct analogix_dp_device {
- /* analogix_dp_reg.c */
- void analogix_dp_enable_video_mute(struct analogix_dp_device *dp, bool enable);
- void analogix_dp_stop_video(struct analogix_dp_device *dp);
--void analogix_dp_lane_swap(struct analogix_dp_device *dp, bool enable);
-+void analogix_dp_lane_mapping(struct analogix_dp_device *dp);
- void analogix_dp_init_analog_param(struct analogix_dp_device *dp);
- void analogix_dp_init_interrupt(struct analogix_dp_device *dp);
- void analogix_dp_reset(struct analogix_dp_device *dp);
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-index 6207ded7ffd5..f5f55bd25062 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-@@ -48,16 +48,15 @@ void analogix_dp_stop_video(struct analogix_dp_device *dp)
- 	writel(reg, dp->reg_base + ANALOGIX_DP_VIDEO_CTL_1);
- }
- 
--void analogix_dp_lane_swap(struct analogix_dp_device *dp, bool enable)
-+void analogix_dp_lane_mapping(struct analogix_dp_device *dp)
- {
-+	u32 *lane_map = dp->video_info.lane_map;
- 	u32 reg;
- 
--	if (enable)
--		reg = LANE3_MAP_LOGIC_LANE_0 | LANE2_MAP_LOGIC_LANE_1 |
--		      LANE1_MAP_LOGIC_LANE_2 | LANE0_MAP_LOGIC_LANE_3;
--	else
--		reg = LANE3_MAP_LOGIC_LANE_3 | LANE2_MAP_LOGIC_LANE_2 |
--		      LANE1_MAP_LOGIC_LANE_1 | LANE0_MAP_LOGIC_LANE_0;
-+	reg = lane_map[0] << LANE0_MAP_SHIFT;
-+	reg |= lane_map[1] << LANE1_MAP_SHIFT;
-+	reg |= lane_map[2] << LANE2_MAP_SHIFT;
-+	reg |= lane_map[3] << LANE3_MAP_SHIFT;
- 
- 	writel(reg, dp->reg_base + ANALOGIX_DP_LANE_MAP);
- }
-@@ -140,7 +139,7 @@ void analogix_dp_reset(struct analogix_dp_device *dp)
- 
- 	usleep_range(20, 30);
- 
--	analogix_dp_lane_swap(dp, 0);
-+	analogix_dp_lane_mapping(dp);
- 
- 	writel(0x0, dp->reg_base + ANALOGIX_DP_SYS_CTL_1);
- 	writel(0x40, dp->reg_base + ANALOGIX_DP_SYS_CTL_2);
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.h
-index 12735139046c..ac914e37089b 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.h
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.h
-@@ -209,6 +209,10 @@
- #define LANE0_MAP_LOGIC_LANE_1			(0x1 << 0)
- #define LANE0_MAP_LOGIC_LANE_2			(0x2 << 0)
- #define LANE0_MAP_LOGIC_LANE_3			(0x3 << 0)
-+#define LANE3_MAP_SHIFT				(6)
-+#define LANE2_MAP_SHIFT				(4)
-+#define LANE1_MAP_SHIFT				(2)
-+#define LANE0_MAP_SHIFT				(0)
- 
- /* ANALOGIX_DP_ANALOG_CTL_1 */
- #define TX_TERMINAL_CTRL_50_OHM			(0x1 << 4)
 -- 
-2.34.1
-
+-Mukesh Ojha
