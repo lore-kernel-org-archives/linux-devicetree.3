@@ -1,100 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-m32124.qiye.163.com (mail-m32124.qiye.163.com [220.197.32.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB8AD3A5457;
-	Thu, 14 May 2026 08:51:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84F413D7D9A
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 08:54:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778748699; cv=none; b=IY2F1jHuDuAP0lw2a4vk4elhKBZrPiVSeCvBAPVk5Diz4Ahfe1SwpJteUL+XL1NHwMAZveyeIWyPBI0AnFmXn9Giv0nEyjNNuGO92JmpTCXa2NJFVQNnv4y1XTy2b4orhssuQgg7ku4vVrGDHXdbTUscuPXKcoaVEP5shj5KqlU=
+	t=1778748849; cv=none; b=Iw6yyWeegrj7kjh0RvQBgkL8dUEDOrLLCxNyVVAyj7JXjjOyLAsHpsmOSpMMzl0GuW3/fqxsRfVLusAngrQWQfr770toeHeBcItvg5as0FH5Bxi1WJH2Cdf50FCqJC7EtnPCq3uzUXB0HvNItc4ZGkxnD1A4lwD3qZUueG+p5OE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778748699; c=relaxed/simple;
-	bh=KO0gzZPZsd7Q/+8uuUnoZ46mZDJJd6UiBBKQS967+eQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mWw4rJGO9wd4to0aCpS3TcI5fyQ2K9aXnUwcCKFrxSNnaJ3dVHgeXa1l4+BeYyxaKB9GI9KKcqMGuxnvioJ5GNeXeYqV8gINVdHBD8jyE2jS0SnVGAwLZmxARmVxunJH0b2TlGt4IfJPdAYV0fUEgXe4A9IYj//2Hyzel8pzQOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uf/7KvFP; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778748849; c=relaxed/simple;
+	bh=IoKzoM6/Z57dXqLNaplXe0EQEP1kl1tN6XhAwdBSJ+k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=V6HyVg9xSPtUDhrw40s8t5tKXvMtGnekjBT3CjOB04L2J6J8/DDaAPDy5qA11txmqC5ZiDUShL3ptXokr2TbDTXEEx8FeHV2B2zoPCdzGgU+nypJ5mukmjGSd/FtcbYoL+JIfpZyzLhVeAfEQhnxBFhLDN5UeX/q8RbybfwYBR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=WxGzprOz; arc=none smtp.client-ip=220.197.32.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uf/7KvFP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34623C2BCB7;
-	Thu, 14 May 2026 08:51:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778748699;
-	bh=KO0gzZPZsd7Q/+8uuUnoZ46mZDJJd6UiBBKQS967+eQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=uf/7KvFPYIeUuPFBL3HVGj24MoLcyAEi7uMQ+2HLsmpr4phYnMRJGfjn5qplqYE1t
-	 G69ufN3xFKiJ1rA84iyBzzuV7G+lGinyOirp8rAyRiYbBwWR/vqT39yzoW8B8zTk61
-	 Vu9SqV8lTSWBVombYiiQJvrTEoqY87CEBEMUo8+Qyrv8fD3uBWzRjXWn1OSN7s0aTW
-	 i+zJHOKJxdxpi05eCsLICgGfh26J9m5gyAUGB5rm4JBGA2Va9a2ZlRA4npmK+pbThm
-	 ScfZmfH6tEpkzvCm6B92Qw9uqEj/5GjtMvxs4yK/SxWr/46fWw32zbjYmUEWvCwzng
-	 51z2ZPDwwOIUA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 net-next 13/15] net: dsa: netc: initialize buffer
- pool table and implement flow-control
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wei Fang" <wei.fang@nxp.com>
-Cc: imx@lists.linux.dev, krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20260513030454.1666570-14-wei.fang@nxp.com>
-References: <20260513030454.1666570-14-wei.fang@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 08:51:38 +0000
-Message-Id: <20260514085139.34623C2BCB7@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="WxGzprOz"
+Received: from [172.16.12.43] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 3e63187bb;
+	Thu, 14 May 2026 15:38:08 +0800 (GMT+08:00)
+Message-ID: <58e9a6d9-b77a-45aa-8d39-294399c85cc0@rock-chips.com>
+Date: Thu, 14 May 2026 15:38:08 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 01/10] dt-bindings: display: rockchip: analogix-dp: Fix
+ hclk as third clock for RK3588
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ robh@kernel.org
+References: <20260513074414.2053435-2-damon.ding@rock-chips.com>
+ <20260514025123.D758DC19425@smtp.kernel.org>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20260514025123.D758DC19425@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9e256be58903a3kunmb52ad2ddc771c
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTB0YVhhKGkhCSkseTh5MTVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=WxGzprOznWAUfFWi3nrZyyRpBA3fSwzGiYboygkNyTi/qSLy4D5JQ2vx+AdIaIq/KWF26XDTQ5jg85WIXV14mz2xhk0PwNgCHdtJ3h2AFLZsKDJmCvuSkggvxKADL/iraVezQw/ffN4KsxRm31HK1lPlZ9zrZcZJgEpI9TN0WJ0=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=sQ3BCKjfz52siRf7KbRAMx4SaiJ9IA0GFI5jrZL+0IY=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] NETC_PAUSE_THRESH is configured to 0xFF00, causing an excessivel=
-y high rate of refresh PAUSE frames during congestion.
---
+On 5/14/2026 10:51 AM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] The device tree schema fails to correctly enforce the required number of clocks in the conditional blocks by omitting `minItems` and `maxItems` constraints.
+> --
+> 
+> commit 1eeef10904ab6c1e09008c1f85fab2353dd23f79
+> Author: Damon Ding <damon.ding@rock-chips.com>
+> 
+> dt-bindings: display: rockchip: analogix-dp: Fix hclk as third clock for RK3588
+> 
+> This commit enforces a third clock name on a per-compatible basis for
+> the analogix-dp driver. It removes the implicit clock enablement from
+> the GRF phandle and explicitly defines the clocks required for each SoC.
+> 
+>> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>> index d99b23b88cc59..8001c1facf986 100644
+>> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+> 
+> [ ... ]
+> 
+>> @@ -60,6 +57,33 @@ required:
+>>   allOf:
+>>     - $ref: /schemas/display/bridge/analogix,dp.yaml#
+>>   
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            enum:
+>> +              - rockchip,rk3288-dp
+>> +    then:
+>> +      properties:
+>> +        clock-names:
+>> +          items:
+>> +            - const: dp
+>> +            - const: pclk
+> 
+> Should this block include maxItems: 2? The top-level schema defines
+> maxItems: 3, which might allow a device tree with an extra unvalidated
+> third clock string to silently pass validation here.
+> 
+>> +
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            enum:
+>> +              - rockchip,rk3399-edp
+>> +    then:
+>> +      properties:
+>> +        clock-names:
+>> +          items:
+>> +            - const: dp
+>> +            - const: pclk
+>> +            - const: grf
+> 
+> Does this block need minItems: 3 to ensure the grf clock is actually
+> enforced? Because the top-level schema allows minItems: 2, a device tree
+> omitting the third clock might still pass validation.
+> 
+>> +
+>>     - if:
+>>         properties:
+>>           compatible:
+>> @@ -68,6 +92,11 @@ allOf:
+>>                 - rockchip,rk3588-edp
+>>       then:
+>>         properties:
+>> +        clock-names:
+>> +          items:
+>> +            - const: dp
+>> +            - const: pclk
+>> +            - const: hclk
+> 
+> Similarly, does this block also require minItems: 3? Without it, the
+> hclk requirement might not be strictly enforced if the schema validation
+> falls back to the top-level minItems: 2 allowance.
+> 
+>>           resets:
+>>             minItems: 2
+>>           reset-names:
+> 
 
-commit c202728eb814feedb124fe98e802ff02c4f35dad
-Author: Wei Fang <wei.fang@nxp.com>
+After adding the maxItems and minItems as AI suggested, there are some 
+warnings via:
 
-net: dsa: netc: initialize buffer pool table and implement flow-control
+make dt_binding_check 
+DT_SCHEMA_FILES=Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
 
-This commit initializes the buffer pool table for the switch to implement
-flow-control. It sets up IPV-to-buffer-pool mappings, enables TX/RX pause
-frames, and programs the pause quanta and refresh thresholds.
+/home/ding/drm-misc/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml: 
+allOf:1:then:properties:clock-names: {'maxItems': 2, 'items': [{'const': 
+'dp'}, {'const': 'pclk'}]} should not be valid under {'required': 
+['maxItems']}
+         hint: "maxItems" is not needed with an "items" list
+         from schema $id: http://devicetree.org/meta-schemas/items.yaml#
+/home/ding/drm-misc/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml: 
+allOf:2:then:properties:clock-names: 'oneOf' conditional failed, one 
+must be fixed:
+         [{'const': 'dp'}, {'const': 'pclk'}, {'const': 'grf'}] is too long
+         [{'const': 'dp'}, {'const': 'pclk'}, {'const': 'grf'}] is too short
+         False schema does not allow 3
+         1 was expected
+         3 is greater than the maximum of 2
+         hint: "minItems" is only needed if less than the "items" list 
+length
+         from schema $id: http://devicetree.org/meta-schemas/items.yaml#
+/home/ding/drm-misc/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml: 
+allOf:3:then:properties:clock-names: 'oneOf' conditional failed, one 
+must be fixed:
+         [{'const': 'dp'}, {'const': 'pclk'}, {'const': 'hclk'}] is too long
+         [{'const': 'dp'}, {'const': 'pclk'}, {'const': 'hclk'}] is too 
+short
+         False schema does not allow 3
+         1 was expected
+         3 is greater than the maximum of 2
+         hint: "minItems" is only needed if less than the "items" list 
+length
+         from schema $id: http://devicetree.org/meta-schemas/items.yaml#
+   LINT    ./Documentation/devicetree/bindings
+   DTEX 
+Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.example.dts
+   DTC [C] 
+Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.example.dtb
 
-> diff --git a/drivers/net/dsa/netc/netc_main.c b/drivers/net/dsa/netc/netc=
-_main.c
-> index 34b5e655d1c96..7a40648496939 100644
-> --- a/drivers/net/dsa/netc/netc_main.c
-> +++ b/drivers/net/dsa/netc/netc_main.c
-[ ... ]
-> @@ -403,6 +406,15 @@ static void netc_port_fixed_config(struct netc_port =
-*np)
-[ ... ]
-> +	/* When a quanta timer counts down and reaches this value,
-> +	 * the MAC sends a refresh PAUSE frame with the programmed
-> +	 * full quanta value if a pause condition still exists.
-> +	 */
-> +	netc_mac_port_wr(np, NETC_PM_PAUSE_THRESH(0), NETC_PAUSE_THRESH);
-[ ... ]
-> diff --git a/drivers/net/dsa/netc/netc_switch.h b/drivers/net/dsa/netc/ne=
-tc_switch.h
-> index cc278a862623e..4a9bf69907e9c 100644
-> --- a/drivers/net/dsa/netc/netc_switch.h
-> +++ b/drivers/net/dsa/netc/netc_switch.h
-[ ... ]
-> @@ -28,11 +28,27 @@
-[ ... ]
-> +/* PAUSE quanta: 0xFFFF =3D 65535 quanta (each quanta =3D 512 bit times)=
- */
-> +#define NETC_PAUSE_QUANTA		0xFFFF
-> +/* PAUSE refresh threshold: send refresh when timer reaches this value */
-> +#define NETC_PAUSE_THRESH		0xFF00
+Best regards,
+Damon
 
-Could NETC_PAUSE_THRESH be a typo for 0x00FF?
-
-When the timer counts down from 0xFFFF and reaches 0xFF00, it has only
-elapsed 255 quanta. At 1 Gbps, 255 quanta is approximately 130 us, which
-means the switch will send a refresh PAUSE frame to the link partner every
-130 us during congestion, rather than waiting for a typical half-interval.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513030454.1666=
-570-1-wei.fang@nxp.com?part=3D13
