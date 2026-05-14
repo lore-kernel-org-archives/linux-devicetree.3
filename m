@@ -1,104 +1,126 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 94A1F329C60;
-	Thu, 14 May 2026 02:26:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D909A5C613
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 02:28:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778725606; cv=none; b=rBgm6PBWE7JTMoZlrAF7K06SKJjAb7y0hJK5VPvBPQa6cJdaP7gb2sR4g7+6H3F/PSMW0eMiPfjPosm+wcNXueBnEK6YNes51FHk/0UGS8AeWiJgP/+zYIMQZS1i6riZoFv8tzNMadDdspk1e7gPElQ6L7+pnOW2zJznQc8zA54=
+	t=1778725697; cv=none; b=V6t6bUpP0cdOLKYFvl1/Nn4NqgFfK7sPFCRKnjqqnF2xg032sb5WIqnqhT4KIHI2oYpIP+Y7iwmWx7nHCKmO4ccIP4wV1dJjsYZu4f8oGXW+OJR43KvLaY9j7DGsS6E180vKvYjRrE7f9GeJDik3SrjSMR/sOgSwiEkZT3kc5Mo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778725606; c=relaxed/simple;
-	bh=u8MoHDV87EkButoVtnwYzpxxD5cG3nCo6IslC3GitKU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=GuJZr002ZhrzEUa0DZ2a2uSv1ToJEi+qa4b6/l73Bteq4bFq8Ehp5hgV0XO1x7AVgeGQ8FLX13NmfTq0yo3ph2aNuxoEFB1rWYBzTmMH8OnjJImDgEm/tZRh+ZTerfYgiT0hyyKDWTz84KZCOGdiYG+gNeckNR1bvK4HYKmszyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from lizhi2$eswincomputing.com ( [10.11.96.26] ) by
- ajax-webmail-app1 (Coremail) ; Thu, 14 May 2026 10:25:55 +0800 (GMT+08:00)
-Date: Thu, 14 May 2026 10:25:55 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
-To: "Jakub Kicinski" <kuba@kernel.org>
-Cc: andrew+netdev@lunn.ch, devicetree@vger.kernel.org, davem@davemloft.net,
-	edumazet@google.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
-	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
-	rmk+kernel@armlinux.org.uk, pjw@kernel.org, palmer@dabbelt.com,
-	aou@eecs.berkeley.edu, alex@ghiti.fr,
-	linux-riscv@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	maxime.chevallier@bootlin.com, ningyu@eswincomputing.com,
-	linmin@eswincomputing.com, pinkesh.vaghela@einfochips.com,
-	pritesh.patel@einfochips.com, weishangjuan@eswincomputing.com,
-	horms@kernel.org
-Subject: Re: Re: [PATCH net-next v7 2/4] net: stmmac: eic7700: enable clocks
- before syscon access and correct RX sampling timing
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <20260512161315.141aba88@kernel.org>
-References: <20260427072353.1114-1-lizhi2@eswincomputing.com>
- <20260427072508.1151-1-lizhi2@eswincomputing.com>
- <20260428180625.738223cf@kernel.org>
- <2117464.7991.19ddd2125d1.Coremail.lizhi2@eswincomputing.com>
- <20260430163551.7491407a@kernel.org>
- <38d052b7.7a70.19dfb0d782b.Coremail.lizhi2@eswincomputing.com>
- <446f69bd.7fe4.19e1ab248fb.Coremail.lizhi2@eswincomputing.com>
- <20260512161315.141aba88@kernel.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	s=arc-20240116; t=1778725697; c=relaxed/simple;
+	bh=nnHudenjuSEGPyitNi65Tcf0PTHqH3TpWM0Mi7MEChw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=AIKmHIKLu6onzJPw2We5Epi4OKKQ65h9Kl1uRls6Y0FWyfwU4tEXVCYSKHj55hiOD4ZMKh+ffuY4ax5QXqwusRNSyxr73wi6kkw4CMbVQH/0MEhCdNmDvA7x1WraRssPiDkQTAtd96CCUPbYawmblVTYWMtj3Gx3CGXVejXR/sQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QK34Dw8C; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QK34Dw8C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FCF8C2BCB3;
+	Thu, 14 May 2026 02:28:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778725697;
+	bh=nnHudenjuSEGPyitNi65Tcf0PTHqH3TpWM0Mi7MEChw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=QK34Dw8C+aC7/2in1+BKGBMcyiCoPDwnmkw32/vluO+97XknR/57+N+/+/NIA7+LQ
+	 hH6gmjv5FRVrBuu/cJ8OLW2bLEGR1bL98DnMdGJI7FsS1lbubTj0kY5JWKqrAzKjrP
+	 L9kqIen4HKd8v1cbi35wE1iQRBHBmQkdOfzJZu/tZu1lt4AobiK5iE4Fww/q/fhTaY
+	 6Jcw9hOujbW3G2QceBHEZ0qd+aibpGN7PLaFeiEtAJz+vv9chh0zaFrP6sZOra7P4s
+	 hAnNIcaBDgwf0eV8AILs5otE3AS5lSOrp2qnmO7Bp3oUv86Yt5+i2D8Hpn0bmonS5U
+	 tIvNNg2renN4g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/6] riscv: dts: spacemit: k1-musepi-pro: add PMIC
+ and power infrastructure
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Andre Heider" <a.heider@gmail.com>
+Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260513071958.29574-2-a.heider@gmail.com>
+References: <20260513071958.29574-2-a.heider@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 14 May 2026 02:28:16 +0000
+Message-Id: <20260514022817.2FCF8C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Message-ID: <7171f9b3.81b6.19e244e0e9f.Coremail.lizhi2@eswincomputing.com>
-X-Coremail-Locale: en_US
-X-CM-TRANSID:TAJkCgDHaXO1MgVqOkkZAA--.7373W
-X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/1tbiAQEGDGoDVh1cGAAEso
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
 
-CgoKPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2VzLS0tLS0KPiBGcm9tOiAiSmFrdWIgS2ljaW5za2ki
-IDxrdWJhQGtlcm5lbC5vcmc+Cj4gU2VuZCB0aW1lOldlZG5lc2RheSwgMTMvMDUvMjAyNiAwNzox
-MzoxNQo+IFRvOiDmnY7lv5cgPGxpemhpMkBlc3dpbmNvbXB1dGluZy5jb20+Cj4gQ2M6IGFuZHJl
-dytuZXRkZXZAbHVubi5jaCwgZGV2aWNldHJlZUB2Z2VyLmtlcm5lbC5vcmcsIGRhdmVtQGRhdmVt
-bG9mdC5uZXQsIGVkdW1hemV0QGdvb2dsZS5jb20sIHJvYmhAa2VybmVsLm9yZywga3J6aytkdEBr
-ZXJuZWwub3JnLCBjb25vcitkdEBrZXJuZWwub3JnLCBuZXRkZXZAdmdlci5rZXJuZWwub3JnLCBw
-YWJlbmlAcmVkaGF0LmNvbSwgbWNvcXVlbGluLnN0bTMyQGdtYWlsLmNvbSwgYWxleGFuZHJlLnRv
-cmd1ZUBmb3NzLnN0LmNvbSwgcm1rK2tlcm5lbEBhcm1saW51eC5vcmcudWssIHBqd0BrZXJuZWwu
-b3JnLCBwYWxtZXJAZGFiYmVsdC5jb20sIGFvdUBlZWNzLmJlcmtlbGV5LmVkdSwgYWxleEBnaGl0
-aS5mciwgbGludXgtcmlzY3ZAbGlzdHMuaW5mcmFkZWFkLm9yZywgbGludXgtc3RtMzJAc3QtbWQt
-bWFpbG1hbi5zdG9ybXJlcGx5LmNvbSwgbGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQu
-b3JnLCBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnLCBtYXhpbWUuY2hldmFsbGllckBib290
-bGluLmNvbSwgbmluZ3l1QGVzd2luY29tcHV0aW5nLmNvbSwgbGlubWluQGVzd2luY29tcHV0aW5n
-LmNvbSwgcGlua2VzaC52YWdoZWxhQGVpbmZvY2hpcHMuY29tLCBwcml0ZXNoLnBhdGVsQGVpbmZv
-Y2hpcHMuY29tLCB3ZWlzaGFuZ2p1YW5AZXN3aW5jb21wdXRpbmcuY29tLCBob3Jtc0BrZXJuZWwu
-b3JnCj4gU3ViamVjdDogUmU6IFtQQVRDSCBuZXQtbmV4dCB2NyAyLzRdIG5ldDogc3RtbWFjOiBl
-aWM3NzAwOiBlbmFibGUgY2xvY2tzIGJlZm9yZSBzeXNjb24gYWNjZXNzIGFuZCBjb3JyZWN0IFJY
-IHNhbXBsaW5nIHRpbWluZwo+IAo+IE9uIFR1ZSwgMTIgTWF5IDIwMjYgMTM6Mzk6MTIgKzA4MDAg
-KEdNVCswODowMCkg5p2O5b+XIHdyb3RlOgo+ID4gRm9yIHRoZSBldGgxIGVuYWJsZW1lbnQgcGFy
-dCwgbXkgY3VycmVudCB1bmRlcnN0YW5kaW5nIGlzIHRoYXQgaXQKPiA+IHNob3VsZCBiZSB0cmVh
-dGVkIGFzIGEgbmV3IGluZGVwZW5kZW50IHYxIHNlcmllcyBmb3IgbmV0LW5leHQsCj4gPiBzaW5j
-ZSB0aGUgc2NvcGUgYW5kIHRhcmdldCB0cmVlIGhhdmUgY2hhbmdlZCBhZnRlciB0aGUgc3BsaXQu
-Cj4gPiAKPiA+IFdvdWxkIHlvdSBwcmVmZXIgdGhpcyBldGgxIHNlcmllcyB0byBzdGFydCBhcyB2
-MSwgb3Igc2hvdWxkIGl0Cj4gPiBjb250aW51ZSBhcyB2OCBmb3IgY29udGludWl0eSB3aXRoIHRo
-ZSBvcmlnaW5hbCBzZXJpZXM/Cj4gCj4gdjggaXMgYmV0dGVyLCBidXQgaXMgdGhlIGZpeCBpbiBu
-ZXQtbmV4dCBhbHJlYWR5Pwo+IAo+IElmIHRoaXMgaXMgdGhlIHBvc3RpbmcgeW91J3JlIHJlZmVy
-cmluZyB0bzoKPiBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvMjAyNjA1MDcwODMyMTQuMTky
-LTEtbGl6aGkyQGVzd2luY29tcHV0aW5nLmNvbS8KPiBpdCBoYXMgYmVlbiBkcm9wcGVkIGJhc2Vk
-IG9uIGZlZWRiYWNrIGZyb20gTWF4aW1lIGFuZCBJIGRvbid0IHNlZSBhIHYyLgoKWWVzLCB0aGUg
-ZXRoMCBmaXhlcyBoYXZlIG5vdyBiZWVuIHJlcG9zdGVkIGFzIGEgZGVkaWNhdGVkIHNlcmllcyB0
-YXJnZXRpbmcgbmV0OgpodHRwczovL2xvcmUua2VybmVsLm9yZy9sa21sLzIwMjYwNTA3MDgzMDM3
-LjE1Mi0xLWxpemhpMkBlc3dpbmNvbXB1dGluZy5jb20vCgpUaGUgcHJldmlvdXMgbmV0LW5leHQg
-ZXRoMS1yZWxhdGVkIHBvc3Rpbmcgd2FzIGRyb3BwZWQgZm9sbG93aW5nIHlvdXIgZ3VpZGFuY2UK
-dG8gZmlyc3QgY29tcGxldGUgdGhlIGV0aDAgZml4ZXMgaW4gbmV0IGJlZm9yZSBjb250aW51aW5n
-IHdpdGggZXRoMS4gSSB3aWxsCmtlZXAgZXRoMSBhcyB2OCBhcyBwcmV2aW91c2x5IHN1Z2dlc3Rl
-ZC4KCkZvciB0aGUgZXRoMCBuZXQgc2VyaWVzLCBJIHdpbGwgc3BsaXQgdGhlIHJlbWFpbmluZyBj
-aGFuZ2VzIGluIHYyIGFzIHN1Z2dlc3RlZApieSBNYXhpbWUgdG8gaW1wcm92ZSByZXZpZXdhYmls
-aXR5IGFuZCBiaXNlY3RhYmlsaXR5LCBhbmQgcmVzZW5kIHNob3J0bHkuCgpPbmNlIHRoYXQgaXMg
-Y29tcGxldGVkLCBJIHdpbGwgcHJvY2VlZCB3aXRoIHRoZSBldGgxIGVuYWJsZW1lbnQgc2VyaWVz
-ICh2OCkKYmFzZWQgb24gdGhlIHVwZGF0ZWQgY29udGV4dC4KClRoYW5rcywKWmhpCg==
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Regulator minimum voltage constraints are set too loosely on fix=
+ed board rails, risking hardware brownouts.
+--
+
+commit 823adf1d7b0f1286cdd0e228119b713b02c36d2e
+Author: Andre Heider <a.heider@gmail.com>
+
+riscv: dts: spacemit: k1-musepi-pro: add PMIC and power infrastructure
+
+This commit enables i2c8 and adds the connected SpacemiT P1 PMIC with its
+related regulators for the board's power infrastructure and voltage
+regulation support.
+
+> diff --git a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts b/arch/riscv/=
+boot/dts/spacemit/k1-musepi-pro.dts
+> index 29e333b670cf0..e0b585c50014b 100644
+> --- a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
+[ ... ]
+> @@ -72,6 +82,130 @@ &pdma {
+>  	status =3D "okay";
+>  };
+> =20
+> +&i2c8 {
+> +	pinctrl-0 =3D <&i2c8_cfg>;
+> +	pinctrl-names =3D "default";
+> +	status =3D "okay";
+> +
+> +	pmic@41 {
+> +		compatible =3D "spacemit,p1";
+> +		reg =3D <0x41>;
+> +		interrupts =3D <64>;
+[ ... ]
+> +		dldoin1-supply =3D <&buck5>;
+> +		dldoin2-supply =3D <&buck5>;
+> +
+> +		regulators {
+[ ... ]
+> +			buck3_1v8: buck3 {
+> +				regulator-min-microvolt =3D <500000>;
+> +				regulator-max-microvolt =3D <1800000>;
+
+Should these minimum bounds be restricted to match the exact hardware layout
+of the board?
+
+The labels buck3_1v8 and buck4_3v3 indicate these rails are wired for fixed
+1.8V and 3.3V usage, but the regulator-min-microvolt allows them to scale
+down to 0.5V. Could this loose constraint risk hardware brownouts if a driv=
+er
+attempts dynamic voltage scaling on these rails?
+
+> +				regulator-ramp-delay =3D <5000>;
+> +				regulator-always-on;
+> +			};
+> +
+> +			buck4_3v3: buck4 {
+> +				regulator-min-microvolt =3D <500000>;
+> +				regulator-max-microvolt =3D <3300000>;
+> +				regulator-ramp-delay =3D <5000>;
+> +				regulator-always-on;
+> +			};
+> +
+> +			buck5: buck5 {
+> +				regulator-min-microvolt =3D <500000>;
+> +				regulator-max-microvolt =3D <3450000>;
+
+Since buck5 is used as the parent supply for the DLDOs (dldoin1-supply and
+dldoin2-supply), could the wide 0.5V minimum constraint allow the OS to drop
+its voltage below the necessary headroom needed to power the downstream
+DLDOs?
+
+> +				regulator-ramp-delay =3D <5000>;
+> +				regulator-always-on;
+> +			};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513071958.2957=
+4-1-a.heider@gmail.com?part=3D1
