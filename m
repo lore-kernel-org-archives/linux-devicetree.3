@@ -1,96 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DACA24CEEA
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 02:48:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B02D124CEEA
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 02:49:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778726902; cv=none; b=hqBNdbBppt+IZwmM4LoFR8oE4MOHdgUfBIXBqYZ8Mg3dwXNi/iNPXefuFSIdTK1ejCujQlC+y8pTPMhmek7z6S7fnwr6lORLiho4WX6eZ6yJq9DNHJgFgBiDR/fGoduV8OTPcjX5Ac02qVD3Rn9b5YcPi1msv1uO76vYx4gpXvQ=
+	t=1778726974; cv=none; b=BceLdoOkJ7M6gyb3azi9EWmPKxEiGa7i2g+95mb4j8TOpasLOVCiMvNAmsApTjdQx9yiGdd9AdD8lbKJ17L/P247VO9LY7SszK1E537IZ4rzS9n+cr4jPAzW/rqUtTmd3L7+ZXE3mSYN0Ym7XGFTu8PgQveveuRDYDC8WQlR5BM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778726902; c=relaxed/simple;
-	bh=MNjjwkLdImsRVYdfsoGsAcFv/SQRqNXQym16nOArv38=;
+	s=arc-20240116; t=1778726974; c=relaxed/simple;
+	bh=gbVI3XcLQD3v1rGIKMGDPKZCYh221ZrQ/CzZAe5m2Ko=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DkyCnMmbi2LJGoIEU1YXkoscdIOTrB+WE/62FCHKRTcEx27vfq37Te/eA0PgsBdlnMgB2+QHcHkrXpM0on1Z0k5Wt+t+pDxYP9EWfB2zeOaj9O2mT+apUIvt0U+1noXcbAz4jMBoVD9hZT7qBxwX3mLCO2urrmo/mP5WKg5YV8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=flgTfiZK; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=RPOkCHmc+bgKvdaJkW5oW99Bkcm6fuvrvEvoGWPo9fshcpTdGhKhy0bS560dE+1TPlRFSWE2Gfsqbhn7OHJ62OyzJBHpFapoQp0XiJUG2ubbBkch/r+uyjf3cNBpCRYL+LLzavhirkj99YhL0wfaGgehNEnsQfhM9Kvni+eZSSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EI7jeCte; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="flgTfiZK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B185BC2BCB3;
-	Thu, 14 May 2026 02:48:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EI7jeCte"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 270E0C19425;
+	Thu, 14 May 2026 02:49:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778726902;
-	bh=MNjjwkLdImsRVYdfsoGsAcFv/SQRqNXQym16nOArv38=;
+	s=k20201202; t=1778726974;
+	bh=gbVI3XcLQD3v1rGIKMGDPKZCYh221ZrQ/CzZAe5m2Ko=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=flgTfiZKnnDgeazDxy57TcnwHwghRmqa86/6fXvAwtdk8UT3Ld7p9amSLnBnssMzc
-	 861O6Hl1KiH1s+cb9CSUSIt0/HJyu2O2mkqVOnD/ahVQVM/6mb95PxpZrmZuweCKsu
-	 omzvPuTAUzbDmwUXkymIXhpY4NexKyx8d6bBiq/Ip1yoSzhYiDXNQch0PZUasYCGpH
-	 A7aXgkXyp89OM389zAgak+51geE6c/ZxjthN4ETiPbw4ssuN7V1zwqIM9ILV0t5Gw+
-	 7B+rOq3QifIiigzj7Q+dJoHsAwdyklh0W8NJUZ3yiHUkOekB9W9CCsAQYbSTfPseuC
-	 kH+7dngCKkb0w==
+	b=EI7jeCtePisRJ8NoMPeYnpIBDbD0Qxr8WocCdAihWf9EFBo3usaifXnD5NnfCdrpA
+	 4Ymq51NUqL45SIZjNTS1KoUo/Vw4oOfUJefPP//S6L7yeQRGYFAynSsUTA9VLhuCjo
+	 kSnfy8LjC/2Q8PjiBvQvXZ9ncc/PwvIYZm7ZxBtw/+RHdPgYmDhEuJvpfBRnb324+0
+	 /nV4TChWTNT64o/mEAlAWws5Dq1mKclp7R6363O28ugBvvAG6Ipok0w9qkAgGsfkx8
+	 sJFwpHyXdO3dRoUjc/xMkqKzGjxUrjWIyBHLgOwKNS9MIbzqk1vzwxLC5aIc9AKFjI
+	 qjTQrwnI2na1g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 3/3] arm64: dts: qcom: ipq5424: add support to get
- watchdog bootstatus from IMEM
+Subject: Re: [RFC PATCH v2 1/2] dt-bindings: iio: light: add Broadcom
+ APDS9999
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kathiravan Thirumoorthy" <kathiravan.thirumoorthy@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260513-wdt_reset_reason-v10-3-cebda08ab1ef@oss.qualcomm.com>
-References: <20260513-wdt_reset_reason-v10-3-cebda08ab1ef@oss.qualcomm.com>
+To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Cc: krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <438370a42f57250cbead53ac73834fbf9ccb9269.1778659152.git.azpijr@gmail.com>
+References: <438370a42f57250cbead53ac73834fbf9ccb9269.1778659152.git.azpijr@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 02:48:21 +0000
-Message-Id: <20260514024821.B185BC2BCB3@smtp.kernel.org>
+Date: Thu, 14 May 2026 02:49:33 +0000
+Message-Id: <20260514024934.270E0C19425@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Device Tree binding schema violation for the watchdog node.
-- [Medium] Missing watchdog driver implementation and commit message mismat=
-ch.
+- [Low] Incorrect alphabetical placement of the new entry in the MAINTAINER=
+S file.
 --
 
-commit 552b829d163556b75c4f936455d4ccee76a98307
-Author: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+commit 9c652efb6ad9a7c4e83bfb1ad645000b5ee9d6a4
+Author: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
-arm64: dts: qcom: ipq5424: add support to get watchdog bootstatus from IMEM
+dt-bindings: iio: light: add Broadcom APDS9999
 
-This commit adds an "sram" property to the watchdog node in the IPQ5424
-device tree and defines a new restart_reason node. The commit message
-states this allows the watchdog driver to retrieve the system restart
-reason from IMEM.
-
-> Parse this information in the watchdog driver and update the bootstatus
-> sysFS if the restart was triggered by a watchdog timeout.
-
-The commit message mentions parsing this information in the watchdog
-driver, but the patch only contains device tree changes. Should this
-commit also include the modifications to the watchdog driver code, or
-are those changes being introduced in a separate patch?
-
-> diff --git a/arch/arm64/boot/dts/qcom/ipq5424.dtsi b/arch/arm64/boot/dts/=
-qcom/ipq5424.dtsi
-> index 9b8410e326290..33ff00990513c 100644
-> --- a/arch/arm64/boot/dts/qcom/ipq5424.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/ipq5424.dtsi
-> @@ -624,6 +624,7 @@ watchdog@f410000 {
->  			reg =3D <0 0x0f410000 0 0x1000>;
->  			interrupts =3D <GIC_SPI 0 IRQ_TYPE_EDGE_RISING>;
->  			clocks =3D <&sleep_clk>;
-> +			sram =3D <&restart_reason>;
->  		};
-
-Will this new property cause device tree validation (make dtbs_check) to
-fail?=20
-
-It looks like the "sram" property might not be documented in the
-corresponding device tree binding schema (qcom-wdt.yaml) yet. If the
-schema enforces unevaluatedProperties as false, introducing an undocumented
-property could trigger a validation error.
+This commit adds Device Tree bindings for the Broadcom APDS9999 ambient lig=
+ht
+and proximity sensor, and updates the MAINTAINERS file.
 
 [ ... ]
 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index a92290fffa163..289130aeb4192 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -3976,6 +3976,12 @@ S:	Maintained
+>  F:	Documentation/devicetree/bindings/iio/light/avago,apds9300.yaml
+>  F:	drivers/iio/light/apds9306.c
+> =20
+> +BROADCOM APDS9999 AMBIENT LIGHT SENSOR DRIVER
+> +M:	Jose A. Perez de Azpillaga <azpijr@gmail.com>
+> +L:	linux-iio@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/iio/light/brcm,apds9999.yaml
+> +
+>  AVIA HX711 ANALOG DIGITAL CONVERTER IIO DRIVER
+>  M:	Andreas Klinger <ak@it-klinger.de>
+>  L:	linux-iio@vger.kernel.org
+
+This isn't a bug, but should this new entry be placed further down in the
+file to maintain alphabetical order?=20
+
+It looks like the BROADCOM entry is currently inserted between the AVAGO and
+AVIA entries, rather than in the B section.
+
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-wdt_reset_=
-reason-v10-0-cebda08ab1ef@oss.qualcomm.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1778659152.gi=
+t.azpijr@gmail.com?part=3D1
