@@ -1,180 +1,131 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15DE12D061D;
-	Thu, 14 May 2026 12:32:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9464E2F4A05;
+	Thu, 14 May 2026 12:32:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778761938; cv=none; b=TyNcqlFAEJFISKBAXknvQpGS+68mDbc0nz8uwhRq+fxzx/HMAd3layujhGC8lN5dN6HXITAMoIHDxQeWlSOvDFqumvr8tEEwcrCrWABa8rPr4+8UCd821ODIHSWhmGAXyToWftiJ/LOvpTPs0KYHx5I03o+oONITlpzhALaQ6aQ=
+	t=1778761953; cv=none; b=YPSXb3y6qA5H7zm1fiEASESnTg5pphfg4Zv49zZ9dBfN4Dwe0tKztLTb+B+KC5Hc3Eu6gRdTjx2od9pXJYdQXToKNorcj1d5rhJhigyHezcGTMd1HexPHYPVNp1fbW4mVPjy53WmE1Qq0kn8S6ThXtSUu3HhtNBLUOCpvUqkQ/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778761938; c=relaxed/simple;
-	bh=dFTN/Ilmg7CNQWeV5jCNzcmA/sJ26w19Z6kHX59BuZ0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NhhbhZN4GRj9B7HPK+dsvYF2ZHoUR25mWRAon2Fyihl9dzlI5e/Ouzd3EHTaBkHaaoz/jel6xbRQOEcmAishCmXuViBtfg0XvwGTA0rtr2TIPjq01taQ2UN7wzTItC5EgkJtHiE364TzOafd007TnDrEMaKvNTnhgwiswWB21cE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=B+lQ81Hm; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1778761953; c=relaxed/simple;
+	bh=yUdL4HvV+GJY4HsxY8hBpdvOPdpVc1WRWzDtFXGeMGQ=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=XmtuV/n4gOf4H7JDaJqAs1LiDPPZCNjwQMJIQx+yLc2hMVQsdx6e3wiX0MuyIc0Ag3quPsN9yRLkfQbedEY3b+FuM3LalcaPsKbxZGg38l0qU1F4gUt3BzXR8SkTBBB9yzCukfFIq5aDRrUCA99NdpxjggFYaz/ZfTYYjwydkQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RiRSJqz+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="B+lQ81Hm"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A75263DAA82;
-	Thu, 14 May 2026 14:32:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1778761934; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=q7MlT/vWbB9Fm8WlPe33XoQuzMQEOwGUJZoEX6GydF8=;
-	b=B+lQ81Hm4VTmOnEPOjxxlxoNH4h6C+D4VGWRsIl+cgwYXlj7Wa5SrUW6tHHl5QMF9zXRTG
-	AZBAVGpCHNBKRljM42Cpz3fvPCUm27ZUoVTh5oDLcT4MUkSLSw1bun5r2icWF5jITkNNYD
-	X/Vxie5vZiy39Z+aTbavyYRucbsrvV8+2HMGvxowgyEwNVv0dD0dqWOh07/MW3GJdj1i6u
-	AnmJCdKNKC1QJogqYRG/2L6jK+L8++WJ/PVku61aPc0xTXEXmWfFE1SYGU3VL2d55Bbcis
-	kdAHL5aoVKnJKD/cjPTyFy0cqYuvX07ICN0lsnkwBnrL9Tf6i7TqkalW+1joSg==
-Message-ID: <e09cabda-93eb-4cbc-b962-c6a55bc8f628@cjdns.fr>
-Date: Thu, 14 May 2026 14:32:12 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RiRSJqz+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E577C2BCB3;
+	Thu, 14 May 2026 12:32:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778761953;
+	bh=yUdL4HvV+GJY4HsxY8hBpdvOPdpVc1WRWzDtFXGeMGQ=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=RiRSJqz+bDpm/6dTKo+1l4NzeYaoytGfd3p8Uy5x2D+g0i4PfPv5YYyJxuVobLRRr
+	 PcvdOHltdcL/nTRl3vjquglt+/d65EY2vBG90s+326YXAqUMX/qNNPUritLAb27ZDL
+	 uztWAaHpFUaMixZE8EwCe8keA5qv5Lw+phL1qg+mrE6ODr9MomyblfY89z0ixrsf9p
+	 6bCXRKsYwXaEjg/A9yEXfQ+szHprTT4ikWiaNCgopJpSUJtUoESJQa2Gbjm/wCHpnW
+	 6289z29JLSER7uBnZPpCvjIpTAC3Q7TIfWtVyWdKge7zMiGf3AzPDbv8LBZBNUhUC3
+	 03ElOchIr7AYg==
+Message-ID: <38d29061-64a4-45e8-891f-d688716058a5@kernel.org>
+Date: Thu, 14 May 2026 14:32:28 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v6 2/2] PCI: mediatek: Add support for EcoNet EN7528 SoC
-To: sashiko-reviews@lists.linux.dev
-Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org,
- linux-pci@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-References: <20260513191652.3200607-3-cjd@cjdns.fr>
- <20260514113514.15297C2BCB3@smtp.kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/1] dt-bindings: remoteproc: mtk,scp: Allow multiple
+ memory regions for MT8188
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Arnab Layek <arnab.layek@mediatek.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ andersson@kernel.org, mathieu.poirier@linaro.org,
+ linux-remoteproc@vger.kernel.org,
+ Project_Global_Chrome_Upstream_Group@mediatek.com
+References: <20260506133157.3283204-1-arnab.layek@mediatek.com>
+ <20260514114533.174008-1-arnab.layek@mediatek.com>
+ <20260514114533.174008-2-arnab.layek@mediatek.com>
+ <20260514-poised-green-beagle-79cb9c@quoll>
 Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <20260514113514.15297C2BCB3@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260514-poised-green-beagle-79cb9c@quoll>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
+On 14/05/2026 14:30, Krzysztof Kozlowski wrote:
+> On Thu, May 14, 2026 at 07:45:33PM +0800, Arnab Layek wrote:
+>> The MT8188 SCP requires support for 1-2 reserved memory regions, while
+>> other MediaTek SoCs use only a single memory region.
+>>
+>> The schema uses a permissive base with restrictive conditionals:
+>> 1) Base schema allows all devices minItems: 1, maxItems: 2
+>> 2) Non-MT8188 devices (mt8183, mt8186, mt8192, mt8195, mt8195-dual) are
+>>    restricted to maxItems: 1, overriding the base
+>> 3) MT8188 devices (mt8188, mt8188-dual) set minItems: 1 with item
+>>    descriptions, inheriting maxItems: 2 from base, making the second
+>>    L1TCM region optional
+>>
+>> This follows the same pattern as other MediaTek dt-bindings such as
+>> mediatek,jpeg-encoder.yaml which uses conditional schemas to support
+>> different numbers of iommus per device variant.
+>>
+> 
+> So I just reviewed v2, because it appeared in patchwork thread...
+> because you just threaded v3 there.
+> 
+> No, really, this was repeated also to Mediatek so many times.
+> 
+> Implement v2 review.
+>
 
-On 14/05/2026 13:35, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 6 potential issue(s) to consider:
-> - [High] Use-after-free on probe error path due to missing pci_remove_root_bus().
-> - [High] Hardware is exposed to endpoint drivers before link retraining completes, causing MMIO failures.
-> - [High] mtk_pcie_retrain() only retrains the first root port, ignoring others.
-> - [Medium] Data race and potential use-after-free due to unprotected iteration of the PCI bus list.
-> - [Medium] Truncation of 64-bit resource_size_t in fls() causes incorrect AXI window size calculation.
-> - [Medium] Silent feature degradation when the driver is compiled as a loadable module.
-> --
->
-> commit 940197600e9e8eb5cb8f108830edfaee6eeb6d16
-> Author: Caleb James DeLisle <cjd@cjdns.fr>
->
-> PCI: mediatek: Add support for EcoNet EN7528 SoC
->
-> This commit adds support for the PCIe controller on the EcoNet EN7528 and
-> EN751221 SoCs. It includes logic to re-train Gen2 capable ports that
-> initially start at Gen1 speeds.
->
->> diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/controller/pcie-mediatek.c
->> --- a/drivers/pci/controller/pcie-mediatek.c
->> +++ b/drivers/pci/controller/pcie-mediatek.c
-> [ ... ]
->> @@ -753,6 +764,132 @@ static int mtk_pcie_startup_port_v2(struct mtk_pcie_port *port)
->>   	return 0;
->>   }
->>   
->> +static int mtk_pcie_startup_port_en7528(struct mtk_pcie_port *port)
->> +{
-> [ ... ]
->> +	if (IS_ENABLED(CONFIG_PCI_MSI))
->> +		mtk_pcie_enable_msi(port);
->> +
->> +	/* Set AHB to PCIe translation windows */
->> +	val = lower_32_bits(mem->start) |
->> +	      AHB2PCIE_SIZE(fls(resource_size(mem)));
-> Does passing resource_size(mem) to fls() risk truncating 64-bit values?
-> Since resource_size_t can be a 64-bit integer and fls() expects a 32-bit
-> unsigned int, an exact 4GB window (0x100000000) or larger could truncate
-> to 0, leading to an incorrect translation window size. Should this use
-> fls64() instead?
-32 bit machine so I don't think that's worth worrying about.
->
->> +	writel(val, port->base + PCIE_AHB_TRANS_BASE0_L);
-> [ ... ]
->> +static int mtk_pcie_retrain(struct device *dev, struct pci_host_bridge *host)
->> +{
->> +	struct pci_dev *rp;
->> +	int ret = -ENOENT;
->> +	u16 lnksta = 0;
->> +	u32 speed;
->> +
->> +	for_each_pci_bridge(rp, host->bus) {
->> +		if (pci_pcie_type(rp) == PCI_EXP_TYPE_ROOT_PORT)
->> +			goto found_port;
->> +	}
-> By jumping to found_port immediately upon finding the first root port, does
-> this skip retraining for any subsequent ports (like RC1 on the EN7528)? The
-> commit message mentions it is most convenient to re-train every port after
-> startup.
-Only one root port per host bridge.
->
-> Also, is it safe to iterate host->bus->devices via for_each_pci_bridge()
-> and use the rp device pointer without holding down_read(&pci_bus_sem) or
-> taking a reference via pci_dev_get()? Since this function runs after
-> pci_host_probe() finishes, could the device list change concurrently?
-That I don't know, but I tend to think it's okay because mtk_pcie_probe 
-has not finished.
->
->> +
->> +	/* Should not happen */
->> +	return dev_err_probe(dev, ret, "root bridge not found\n");
->> +
->> +found_port:
->> +	if (!IS_BUILTIN(CONFIG_PCIE_MEDIATEK)) {
->> +		/* Let it go because the device will work as Gen1 */
->> +		dev_warn(dev, "module must be built-in to retrain to Gen2\n");
->> +		return 0;
->> +	}
->> +
->> +#if IS_BUILTIN(CONFIG_PCIE_MEDIATEK)
->> +	ret = pcie_retrain_link(rp, true);
->> +#endif
-> If the driver is built as a loadable module, this skips link retraining and
-> silently leaves the hardware operating at Gen1 speeds. Is there a way to
-> achieve consistent hardware capabilities regardless of the build
-> configuration without relying on IS_BUILTIN checks?
-If statement a few lines above.
->
->> +
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "failed to retrain port\n");
-> [ ... ]
->> @@ -1149,6 +1286,11 @@ static int mtk_pcie_probe(struct platform_device *pdev)
->>   	err = pci_host_probe(host);
->>   	if (err)
->>   		goto put_resources;
->>   
->> +	if (pcie->soc->quirks & MTK_PCIE_RETRAIN)
->> +		err = mtk_pcie_retrain(dev, host);
->> +	if (err)
->> +		goto put_resources;
->> +
->>   	return 0;
->>   
->>   put_resources:
-> Since mtk_pcie_retrain() is called after pci_host_probe() returns, are the
-> devices exposed to endpoint drivers before the link retraining completes?
-Practically speaking, no. Theoretically speaking I'm not sure.
-> If endpoint drivers are actively probing and communicating with the hardware
-> via MMIO while the link is forced into the Recovery state, could this cause
-> transactions to fail or timeout?
->
-> Additionally, if mtk_pcie_retrain() fails, the code jumps to put_resources
-> and returns an error. This causes devres to free the host bridge memory.
-> However, since pci_host_probe() already fully registered the PCI root bus
-> and its child devices, does this error path leave dangling references in the
-> PCI subsystem by failing to call pci_stop_root_bus() and
-> pci_remove_root_bus() before freeing resources?
+Heh, and now I noticed that you just merged THREE versions in one thread
+leading to complete mess in this entire thread.
 
-That's a bug, I think the best thing to do is continue because it's 
-possible that the port will work anyway as Gen1. I'll update accordingly.
-
-
-Thanks,
-
-Caleb
-
+Best regards,
+Krzysztof
