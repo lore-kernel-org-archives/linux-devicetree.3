@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABA1140B6DB;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E834040B6E3;
 	Thu, 14 May 2026 14:09:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778767765; cv=none; b=j5MMnpsICtbU4ThPTEJtWAEHFcpflXT/+uMz9EiMCrKFdTeiZjpk6YTTwg5Gp7QTd+TgW2+YjQGOmrJbHu70X+eooLqFFfMUYbrfCzvwrmt5DAq8HGEv0FlXD6AIGLoD0buuXuqBMPcFB899KITUWUaZfzA0LecHGGGVgyf8CAw=
+	t=1778767766; cv=none; b=Wb/r9bg82vrUh+4w5zYxEstG6dAhKDdfwQl4Eoz/h8VkS2ftmnUozQu192q9FJHkozqpbLSCaasCRgWeoMwZAvoRBgMVfBdxJNzboNN6ZvB4EsB8ISL2pWmSwtW4RzLsKna7JCO8hdPHNRzNgqbMjVB1YTA6LB8YN+p4O9QAz/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778767765; c=relaxed/simple;
-	bh=N1cLNH+mFBqaPC/RnEtqPemaSVV1XVbleP3l3vQVdn4=;
+	s=arc-20240116; t=1778767766; c=relaxed/simple;
+	bh=rg9+C5OH8UvmQfFgJ9078BWGZIdLO7WHnC4cDTLHOeQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=e8v6H5YkuXuu6HXZeUyohoiqOYpfdHTTfnkeK7jLkNke4F4BFJRVxBV+T0vDVnoVCyODmzZ7MT9CTTcm8IaKfvj2tJlLtfv2oYafV2J1zGCgbTazlqrhgzrQvL+ycDjiV3HXFSOSa8fH+uekG5vB8CkLIgMqseubFl693jiBrfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q8BVc0rk; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=JKlSBp7VZS3yrp0cq7q3t6Of08m9xB63beHPCAwRJzVBJ3BTRmB99IqtoWuOk3TLQWGtKypxVdkuZZnCfGv3XVzukdhmLVnw7CfD6+E8aO49q2c/rIIluXGgjGY7Gth/MP9E1Kw7jv3l+cCE5xGMhi8eTX+VtsSiqO7SEmUDD7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mBHUpuj/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q8BVc0rk"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7EC41C2BCC7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mBHUpuj/"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BDE7CC2BCF6;
 	Thu, 14 May 2026 14:09:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1778767765;
-	bh=N1cLNH+mFBqaPC/RnEtqPemaSVV1XVbleP3l3vQVdn4=;
+	bh=rg9+C5OH8UvmQfFgJ9078BWGZIdLO7WHnC4cDTLHOeQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Q8BVc0rk3VhPqKVlKwD3X1Qqri1jbnWiN+EMZFsvRS/2u+z9LLMhe4oyrCV0h97Yk
-	 DDh3E5wRcI7RRBAqigkn8TzZdaUBDf/Hr7TfBjM2UT2Pwfe7FqkVft7AG+eJUj5fop
-	 9BPu+9dnwSu3vZ0AeJg+lOEStM5dRmyH2eXUdAKIFmiKOc8jk6LD061wd549Myw/nQ
-	 uHUUEEH/qgxhvqMfEAmtPIvCE+jEHPfMRWazVc9uN+2gcjW+QJcz08neR3xDJH57zR
-	 KLPPRH8WlH45nefUW2OBXK5utd+AMMBiXio13agXKYyFgkUZD7QaLtXufXO+EGd+j0
-	 mnhwMU+OZMNmQ==
+	b=mBHUpuj/kjCQint7Za5He0kvXio/EIjeHfYYG2F2gMP1AC9KdL7Mj7qkM6UTgeA+G
+	 bKS+sLR0q1/kHCU/QRwJgQL7x6Vd+O76JdmoB+VJa8ExAOwY9/U0taoOl2YnW+Ld7+
+	 55Wa6zTxUQCzWXLJ5isTVfqG+wwRduhBK0/myI3kAD8LdLhPValJsVbjaB7jiR+xjZ
+	 g9Cc3vcvEkXN2DqRJoc4iQKus4/wsAkA2PnojMmYfT7ZFt1gnvKk3hJrrC9JsZ4cGn
+	 SCCHvNVmmE8GLMSRnHFSL64sxJv0TW1VJ4rrpEEtBWo7v98NT/IpAWR7TIKkb6xS82
+	 kaJr4+fTbi8RQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 71156CD4F42;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B18DACD4F3D;
 	Thu, 14 May 2026 14:09:25 +0000 (UTC)
 From: Antony Kurniawan Soemardi via B4 Relay <devnull+linux.smankusors.com@kernel.org>
-Date: Thu, 14 May 2026 21:08:35 +0700
-Subject: [PATCH v2 06/10] ARM: dts: qcom: msm8960: add SCM
+Date: Thu, 14 May 2026 21:08:37 +0700
+Subject: [PATCH v2 08/10] ARM: dts: qcom: msm8960: add SMSM & SPS
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260514-msm8960-wifi-v2-6-7cbae45dab5e@smankusors.com>
+Message-Id: <20260514-msm8960-wifi-v2-8-7cbae45dab5e@smankusors.com>
 References: <20260514-msm8960-wifi-v2-0-7cbae45dab5e@smankusors.com>
 In-Reply-To: <20260514-msm8960-wifi-v2-0-7cbae45dab5e@smankusors.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -54,13 +54,14 @@ Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
  Rudraksha Gupta <guptarud@gmail.com>, 
  Antony Kurniawan Soemardi <linux@smankusors.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778767762; l=1008;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778767762; l=1706;
  i=linux@smankusors.com; s=20250609; h=from:subject:message-id;
- bh=pCm385rRYmYjbpRH9xmwAqDhm1rn5n09jGxI+Mdphzk=;
- b=KR0vPjg3wJYoxgH3czEl77dZFM7vT++NKS9FqLdCQODT1XpFfymYWNNew1EykK+DsJRP/Dr+I
- BiEopXL5mCgC5M5McI9eAwm3NSmv/D25O955drC5zfB6EgxGkNo0e1a
+ bh=CMKZ5YpftUlezzTDdJrsPmL4abB57nd1szCJUgw0ysI=;
+ b=9e942MZuJrmnpflZ3IM86+10U+BE9R5YOcBpPAySyTSiZ3I3bh64qgVSb9tH7QoKU66obivRl
+ FUFpUot3MimCU8SW4fYkx1q8D79Foy+d2KBDPXy4fOJmSycFUYwUVNt
 X-Developer-Key: i=linux@smankusors.com; a=ed25519;
  pk=65wTy06fJl2/h/EJwjr704YG+yjHFhZObJBWzzK+N00=
 X-Endpoint-Received: by B4 Relay for linux@smankusors.com/20250609 with
@@ -70,37 +71,65 @@ Reply-To: linux@smankusors.com
 
 From: Antony Kurniawan Soemardi <linux@smankusors.com>
 
-Add the Secure Channel Manager firmware device node to the MSM8960
-device tree. The SCM is required for secure communication between the
-application processor and other subsystems.
+Add the Shared Memory State Machine node to coordinate state transitions
+between the Applications processor and the Riva subsystem.
 
 Tested-by: Rudraksha Gupta <guptarud@gmail.com>
+Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Antony Kurniawan Soemardi <linux@smankusors.com>
 ---
- arch/arm/boot/dts/qcom/qcom-msm8960.dtsi | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ arch/arm/boot/dts/qcom/qcom-msm8960.dtsi | 30 ++++++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
 diff --git a/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi b/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
-index 0601680cd8dd..fb23c950fecb 100644
+index e215d8809f28..fdc060df4544 100644
 --- a/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
 +++ b/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
-@@ -77,6 +77,15 @@ l2: l2-cache {
- 		};
+@@ -109,6 +109,31 @@ smem {
+ 		hwlocks = <&sfpb_mutex 3>;
  	};
  
-+	firmware {
-+		scm {
-+			compatible = "qcom,scm-msm8960", "qcom,scm";
++	smsm {
++		compatible = "qcom,smsm";
 +
-+			clocks = <&rpmcc RPM_DAYTONA_FABRIC_CLK>;
-+			clock-names = "core";
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		qcom,ipc-1 = <&l2cc 8 4>;
++		qcom,ipc-2 = <&l2cc 8 14>;
++		qcom,ipc-3 = <&l2cc 8 23>;
++		qcom,ipc-4 = <&sps_sic_non_secure 0x4094 0>;
++
++		apps_smsm: apps@0 {
++			reg = <0>;
++			#qcom,smem-state-cells = <1>;
++		};
++
++		wcnss_smsm: wcnss@3 {
++			reg = <3>;
++			interrupts = <GIC_SPI 204 IRQ_TYPE_EDGE_RISING>;
++
++			interrupt-controller;
++			#interrupt-cells = <2>;
 +		};
 +	};
 +
- 	memory@80000000 {
- 		device_type = "memory";
- 		reg = <0x80000000 0>;
+ 	soc: soc {
+ 		compatible = "simple-bus";
+ 		ranges;
+@@ -459,6 +484,11 @@ clock-controller@4000000 {
+ 				      "hdmipll";
+ 		};
+ 
++		sps_sic_non_secure: interrupt-controller@12100000 {
++			compatible = "qcom,msm8960-sps-sic", "syscon";
++			reg = <0x12100000 0x10000>;
++		};
++
+ 		sdcc3: mmc@12180000 {
+ 			compatible = "arm,pl18x", "arm,primecell";
+ 			reg = <0x12180000 0x2000>;
 
 -- 
 2.34.1
