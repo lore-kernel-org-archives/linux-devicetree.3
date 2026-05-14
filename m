@@ -1,135 +1,104 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B6F3176E0
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 16:52:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8CE0304976;
+	Thu, 14 May 2026 16:53:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778777567; cv=none; b=sbNzEV+ZkoAyBEwm8Y90U3ejDEI2RLeenq9GD1k1tXkhuDgv2GAH1gqKxrKZwPajwbNJTpDWIEX8KSc8Hlk237QXPsMJ8E9RFGvxXH9sByvtQjgSIjxMwMEV2x+tYx9F13VCoByJfhcD0cgTm7V9OOmz4XAFLXLD8cQ8x8+EFWQ=
+	t=1778777609; cv=none; b=X+zgbS45Od8jldJ86ixp7mVTGoceBF+dvIwgFCc+A5rMDFb+lsqQ2xk17g/ndajMRRB7X8OV54jYGqtCWBFuoBVmaF6X3aUyNg+uft51oZuS/eLGUoHDjbR9WZMRjPh5q7ijXp1Ktamu3s5d+/CWg5UcP/ZTxP67nzH7gBrEKKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778777567; c=relaxed/simple;
-	bh=T7MiKuNKPSjYpbT2yVTb8OJ15sQpp/3LQD/kqrBHGM4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QHG7z7QxY9lzIVZ7DZuTbAL8NSHkszPyPCeyoPMuvREIn1PVBpSjKVpyxPdXWr3bSdvVH1Ml2ZkrgTizN0tGVIViJ7bqMX50E106WoZ1R2a6D/iPtWMbZH3KijdH/RhH0GpWa/d1zR91qnlRc4e0G//6E/l4NIR/54ShT4T3q18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=NsfP5vPu; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1778777609; c=relaxed/simple;
+	bh=I3ia4TSW2T1WftlUh1qFzhtH883s/C7iU6UGEPhQ3bw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=e/qpXUk1Ko0yGYNcjjid/NTTwclKJz6c255Q0yYPZdT5xuDNibsDJl1dNHwmx6ntoOfOc+4aoYSG9XZACnw4l5pZ3kDqH7vMimW8TLJsA9LQEj/hz+FfvrPZddVqAr+GBCX+Dyn9ZnezK2D8VUMUWW7xdk+fWBsGiybkjmFd1U4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R9EiMzHJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="NsfP5vPu"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3252A3C1EA3;
-	Thu, 14 May 2026 18:52:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1778777562; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=s9cMvDXYkfw5lrJ7QeUOGkm4umH3v9JSvja3rLol0zg=;
-	b=NsfP5vPu93J3dr4t75yrYa9UE7PXfQE9XITzTzaV9j1SEBM9CLyCwPHPyzgQs+kyzzREDE
-	H+OwL9suZbKqqlPP9YcRehV/3XYknl8ZMQIbwGE515KWsUfNC91ZDbOnyP71X+Blgd6NZe
-	3IvSvz3FbgXRpdIjIDCQfpgg8fRVxKM2l1Zu4X0c/F3olFMsIAJAicovSpom6wKdwCY9VR
-	X/+wG8mdv9zauY8ivw/9dlv5UsOrtpkFf0ZJNh/GUP1GtCaF/srxz0HrVTP8GhWBZfLkyV
-	ypLPMuzT0UhW8Xb61EdfOcVhhSnekxjksWAoMaM+rkYVsk1B7rLMopQydG4urA==
-Message-ID: <e08d8cb8-5096-4421-a3f0-cba31eb39f7f@cjdns.fr>
-Date: Thu, 14 May 2026 18:52:38 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R9EiMzHJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6813C2BCB3;
+	Thu, 14 May 2026 16:53:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778777609;
+	bh=I3ia4TSW2T1WftlUh1qFzhtH883s/C7iU6UGEPhQ3bw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=R9EiMzHJi/g0vI2Yiekbl08L3J3T6VnqHlE9gDMjkDxPd/ZEvzdBWQ3i1dr2I3rt8
+	 adipw7zF9k4SPPq/eR8tKDNCvjVyPio4ne1Y4UqX1Qy+YEOjOs5ZtmtMO0los6k8R3
+	 RWhqP0RTM2fSPeYmwlvnDIBs+6LXR6yAzCC1GwxtDp4GDpa5o2AGE/AX4OXjeVi/tJ
+	 DxJbRcIlkJiyQIDS+QwKObARnwJ7SCWf0ISQ3S1ZtKcsx+GwyRIymQjZpgo7FQS377
+	 ZOjpJ7gTp1G39oXgKUzpmK9pFXQmlh1EDTISa/Drl8gafeeTsVqLwbUzuFeQmZ9CAz
+	 QSPOR+/6bG5QA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] dt-bindings: timer: pit: add PIT node example for
+ s32g2/3 platforms
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Khristine Andreea Barbulescu" <khristineandreea.barbulescu@oss.nxp.com>
+Cc: Frank.Li@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260514070605.996462-3-khristineandreea.barbulescu@oss.nxp.com>
+References: <20260514070605.996462-3-khristineandreea.barbulescu@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 14 May 2026 16:53:28 +0000
+Message-Id: <20260514165328.C6813C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v2 3/5] clocksource/timer-econet-en751221: Always map all
- membase blocks
-To: sashiko-reviews@lists.linux.dev
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- robh@kernel.org
-References: <20260514000601.3430262-4-cjd@cjdns.fr>
- <20260514123004.10908C2BCB3@smtp.kernel.org>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <20260514123004.10908C2BCB3@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] Incorrect Interrupt Cells Representation in DT Example
+- [Low] Non-Generic Device Tree Node Name
+- [Low] Example Scope Confusion and Structural Redundancy
+--
 
-On 14/05/2026 14:30, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [High] Unconditional iteration up to a compile-time constant array size causes timer initialization to fail on hardware with fewer timer blocks, breaking boot.
-> - [High] The per-CPU timer interrupt is unmasked before the clockevent device is registered, creating a race window that can lead to a NULL pointer dereference.
-> --
->
-> commit 1a3827645212808ad5c364c42807919047db1da2
-> Author: Caleb James DeLisle <cjd@cjdns.fr>
->
-> clocksource/timer-econet-en751221: Always map all membase blocks
->
-> This commit simplifies the logic by unconditionally mapping all timer memory
-> blocks up to ARRAY_SIZE(econet_timer.membase), instead of computing the
-> number of blocks dynamically based on the number of possible CPUs.
->
->> diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocksource/timer-econet-en751221.c
->> index 5def3e536b21c..e79069d9a826d 100644
->> --- a/drivers/clocksource/timer-econet-en751221.c
->> +++ b/drivers/clocksource/timer-econet-en751221.c
->> @@ -173,7 +173,6 @@ static int __init cevt_init(struct device_node *np)
->>   
->>   static int __init timer_init(struct device_node *np)
->>   {
->> -	int num_blocks = DIV_ROUND_UP(num_possible_cpus(), 2);
->>   	struct clk *clk;
->>   	int ret;
-> [ ... ]
->
->> @@ -185,7 +184,7 @@ static int __init timer_init(struct device_node *np)
->>   
->>   	econet_timer.freq_hz = clk_get_rate(clk);
->>   
->> -	for (int i = 0; i < num_blocks; i++) {
->> +	for (int i = 0; i < ARRAY_SIZE(econet_timer.membase); i++) {
->>   		econet_timer.membase[i] = of_iomap(np, i);
->>   		if (!econet_timer.membase[i]) {
->>   			pr_err("%pOFn: failed to map register [%d]\n", np, i);
-> Could this cause a regression on systems with fewer timer blocks, like the
-> EN751221 (34Kc) which only has 1 block?
->
-> Since ARRAY_SIZE(econet_timer.membase) is based on CONFIG_NR_CPUS, it
-> expands to a compile-time constant that can exceed the actual number of
-> hardware blocks.
->
-> If a kernel is built with CONFIG_NR_CPUS=4 or higher, this loop will attempt
-> to map 2 or more blocks. On a system with only 1 timer block and 1 reg entry
-> in its device tree, of_iomap(np, 1) will fail and return NULL.
->
-> Because the error path unconditionally returns -ENXIO and aborts timer
-> initialization, could this completely break booting on these platforms?
-Okay I'm convinced. I think num_possible_cpus() wasn't right either. 
-What I think I'll do is fail if I'm not able to map half the num_irqs. 
-I'll also tighten up num_irqs to only allow 1 or 4 since those are the 
-only valid configurations.
->
-> This isn't a regression introduced by this commit, but looking at
-> cevt_init_cpu():
->
-> drivers/clocksource/timer-econet-en751221.c:cevt_init_cpu() {
-> 	...
-> 	enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
->
-> 	/* Do this last because it synchronously configures the timer */
-> 	clockevents_config_and_register(cd, econet_timer.freq_hz,
-> 					ECONET_MIN_DELTA, ECONET_MAX_DELTA);
-> 	...
-> }
->
-> Is it possible for a timer interrupt to fire immediately after
-> enable_percpu_irq() is called?
->
-> If an interrupt fires before clockevents_config_and_register() completes,
-> could the interrupt handler dereference a NULL dev->event_handler(dev)?
->
-> Calling clockevents_config_and_register() before unmasking the interrupt
-> might close this potential race window.
+commit 0c9d62d6961d94621407fcbe8691b419e9baf7f8
+Author: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.c=
+om>
 
-Both percpu and multi-irq have this issue.
+dt-bindings: timer: pit: add PIT node example for s32g2/3 platforms
 
-Probably easiest to just do: if (dev->event_handler) 
-dev->event_handler(dev);
+This commit adds a devicetree binding example for the PIT timer
+as used on nxp s32g2 and s32g3 platforms.
 
+> diff --git a/Documentation/devicetree/bindings/timer/fsl,vf610-pit.yaml b=
+/Documentation/devicetree/bindings/timer/fsl,vf610-pit.yaml
+> --- a/Documentation/devicetree/bindings/timer/fsl,vf610-pit.yaml
+> +++ b/Documentation/devicetree/bindings/timer/fsl,vf610-pit.yaml
+[ ... ]
+> @@ -57,3 +57,11 @@ examples:
+>          clocks =3D <&clks VF610_CLK_PIT>;
+>          clock-names =3D "pit";
+>      };
+> +
+> +    pit@40188000 {
+
+This isn't a bug, but the devicetree specification mandates generic node
+names reflecting the function of the device. Should this be named
+timer@40188000 instead of pit@40188000?
+
+> +        compatible =3D "nxp,s32g2-pit";
+> +        reg =3D <0x40188000 0x3000>;
+> +        interrupts =3D <53 IRQ_TYPE_LEVEL_HIGH>;
+
+Since the nxp s32g2 platform is an arm64 soc using the arm generic interrupt
+controller (gicv3), doesn't it require a 3-cell interrupt specifier (such as
+<GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>)?
+
+Will this 2-cell representation cause dtc compilation errors or misrepresent
+the physical hardware routing for users copying the example?
+
+> +        clocks =3D <&clks 61>;
+> +        clock-names =3D "pit";
+> +    };
+
+This isn't a bug, but adding this to the exact same yaml list item as the
+existing vf610 timer example causes the schema compiler to interpret them as
+existing simultaneously within the same root device tree.=20
+
+Since they share the exact same property structure, is a separate example
+for this platform strictly necessary, or could it just cause structural
+redundancy and bloat the schema?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514070605.9964=
+62-1-khristineandreea.barbulescu@oss.nxp.com?part=3D2
