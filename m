@@ -1,148 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9FA399892
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 11:54:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1DD397E80;
+	Thu, 14 May 2026 11:55:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778759668; cv=none; b=AKgLeubSw2k/AQBYLQB2aI5g4D3aRvKBwwdAmeRnBDlk8jG5NfSSE13FcgD+xWSbrvwAbz++6SxAlRUzulEomlnBqPrcQASYAsU26pC82n7dIp+kny2wIA9cqoo+TDAPtCTpQwmeeuEOuNjaOFamnftJTt3snqkqtzSqWhWNlw4=
+	t=1778759738; cv=none; b=uLoYdGvAPgPuP8Xb3aaOo3dPGSamr2ydN+lLmqnoKhqpIQaY+C9M3a8VNtm6u/3a3mp+Ka84mLCB3j4zTAHKQ9I5C1o8GGi/8wIVdnyLsLHwvOkdllz8Jtvs5h2xvVEWNQVPVFrmAjEDVNU0J+Za1Usw+CEFtfJrNoj6yg4ST90=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778759668; c=relaxed/simple;
-	bh=bXgQdB/QGZVlSDlQcRIJTHYYFPX2PoWDb+DSXgpMdtQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kHrmPry2ULsvJ8mvds0bIjnZWfRFsR80pV7DYMAF4EolN0ZC53m7Dd0v5EcuoZT6rCqc6V5KbW4m+hHzH1uzm93nMl3Hk3oaRqHRrfcCF43ojqTBOfKzOpscTwiLwmNc1YWR25rgGenJoTXttrmkSlgJpRc4Cu046mjNE0UR6S8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MwBCmo8a; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778759738; c=relaxed/simple;
+	bh=AeL1EN007pME/pu3LeC45jDz9y2JECsJFLne8EbWKJE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=fjVbV7aaWmfEFhgfzcnZmpvBsQ9adki1pK3e70BeqUbkOWkOi4i/mxI7a29L14mLUwjhtpzze38ovR7HRSZmn2UR97MtcQdKVix7Sn1ArNb1cz2xwJMWtxEdV/JmmbFdOy9Im+wlLWACRlavjczNtnTk2uYQCraohFmtirylMsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kuiiUCmB; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MwBCmo8a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C52BC2BCB3;
-	Thu, 14 May 2026 11:54:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kuiiUCmB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EA66C2BCB3;
+	Thu, 14 May 2026 11:55:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778759668;
-	bh=bXgQdB/QGZVlSDlQcRIJTHYYFPX2PoWDb+DSXgpMdtQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=MwBCmo8aiTJEmllOqLp44EJV4IZVtePoAZfcN1h2kRewnzlSHA7BRQ/+Sb6Qenram
-	 m8oZ7gjYiWMHA5JAuKXnWZROx3QN6xy6fyzcUhbEQaHRd+KYN3y48QWkKfK0AXkTSf
-	 zcJEVOfsZeWIbR5EkmSKUWV7YTPfBPIthiSkeb7aMw7tb4eHe7Kt75SE094sfiGaIy
-	 bEES22oEKHR5SM/zi7/dQ84eOdV+IXBP6PrpVjqnWAIHd3etECbdBPh/+1wW4IPrYB
-	 AjxpeDv1j+kph4hobkQH06OpyM8+6+SI+TxqFV2AZpWL2GSet18MwW0rhfnwTLvjZr
-	 wS/YZwAiV2+fw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] arm64: dts: ti: Add k3-am62l3-beaglebadge
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Judith Mendez" <jm@ti.com>
-Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260513233447.2713737-3-jm@ti.com>
-References: <20260513233447.2713737-3-jm@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 11:54:26 +0000
-Message-Id: <20260514115427.5C52BC2BCB3@smtp.kernel.org>
+	s=k20201202; t=1778759737;
+	bh=AeL1EN007pME/pu3LeC45jDz9y2JECsJFLne8EbWKJE=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=kuiiUCmBkgjo5eao2a0pQ5bkSXK68BaId4OHWYzSAZnBPrYOT1/mXKnAdA0Na1gMf
+	 7LZcabHRdVfVGdVxRaW19Qno7U4Bby3aNMwaLNYe0SwcAlbWPcc5nhDS9I1GA7VWg9
+	 EIQFEC4e8GSwvIqR6zmBA0lTFRWXL4NECpv4Sk/0k0WID6g6eM32MHCI43jtwPFLnr
+	 JOz4ZBYf8NkRVHuVFSa4RLhK4FFWYPKPvo5q1rJZ6aUxVkCl4doUgfxiQ9kCXC9Wxh
+	 n2MLktFckskXCezIPHwPVNmdMD/n5B3zb7db1WlfBCACNlflfKdsy5o07ywgyF5agu
+	 kGRYNsqLKA4ZQ==
+Message-ID: <0844bde0-4287-450d-9376-dae9cf62efc9@kernel.org>
+Date: Thu, 14 May 2026 06:55:35 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] arm64: dts: agilex5: add support for debug daughter
+ card
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1778237639.git.adrian.ho.yin.ng@altera.com>
+ <ec0633a6-30f6-4db6-875d-69a4f0f140ca@kernel.org>
+ <d9a1e0ec-fa4a-478a-957e-47a1559380db@kernel.org>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <d9a1e0ec-fa4a-478a-957e-47a1559380db@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] The `microchip,spi-present-mask` property is specified as an 8-bit=
- value, which will cause the mcp23s18 driver probe to fail.
-- [High] Missing `bootph-all` property on `&wkup_i2c0` and its PMIC child n=
-ode `tps65214`.
-- [Low] Unnecessary inclusion of DT binding header files.
---
 
-commit 14331975158856c05618604ffa3aca84008b3237
-Author: Judith Mendez <jm@ti.com>
 
-arm64: dts: ti: Add k3-am62l3-beaglebadge
+On 5/13/26 13:09, Krzysztof Kozlowski wrote:
+> On 09/05/2026 14:05, Dinh Nguyen wrote:
+>>
+>>
+>> On 5/8/26 05:57, Adrian Ng Ho Yin wrote:
+>>> The Agilex5 SoCDK supports an optional debug daughter card that requires
+>>> a dedicated device tree variant due to differences in peripheral
+>>> connectivity compared to the standard SoCDK configuration.
+>>>
+>>> When the debug daughter card is fitted:
+>>>     - gpio0 and gmac2 are disabled
+>>>     - gmac0 is enabled with RGMII PHY connectivity
+>>>     - spi0 is enabled with a <device> peripheral at chip select 0
+>>>     - The HPS LED is rewired from gpio0/porta to gpio1/portb
+>>>
+>>> The new DTS inherits from socfpga_agilex5_socdk.dts and overrides only
+>>> the nodes that differ, keeping the delta minimal.
+>>>
+>>> Adrian Ng Ho Yin (2):
+>>>     dt-bindings: altera: add compatible for agilex5 socdk debug daughter
+>>>       card
+>>>     arm64: dts: agilex5: add support for debug daughter card
+>>>
+>>
+>> Applied!
+> 
+> No, really. This is really unreviewed poor DTS containing fake nodes.
+> Please drop the patch.
+> 
 
-This commit adds the device tree for the BeagleBoard.org BeagleBadge,
-a compact single board computer based on the TI AM62L3 SoC. It provides
-initial support including GPIOs, LEDs, regulators, and other peripherals.
 
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-beaglebadge.dts b/arch/arm6=
-4/boot/dts/ti/k3-am62l3-beaglebadge.dts
-> new file mode 100644
-> index 0000000000000..b7541e162a90d
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/ti/k3-am62l3-beaglebadge.dts
-> @@ -0,0 +1,700 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * https://www.beagleboard.org/boards/beaglebadge
-> + *
-> + * Copyright (C) 2026 Texas Instruments Incorporated - https://www.ti.co=
-m/
-> + */
-> +
-> +/dts-v1/;
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/input/input.h>
-> +#include <dt-bindings/leds/common.h>
-> +#include <dt-bindings/net/ti-dp83867.h>
-> +#include <dt-bindings/thermal/thermal.h>
+[2/2] arm64: dts: agilex5: add support for debug daughter card  - Dropped
 
-Are these last two includes necessary?
+Please resubmit.
 
-It doesn't look like there are any DP83867 Ethernet PHY nodes in this device
-tree to use the networking macros.
+Dinh
 
-Also, the thermal zone trip point uses a raw string literal for the type
-rather than the standard macros defined in thermal.h.
-
-[ ... ]
-
-> +&wkup_i2c0 {
-> +	clock-frequency =3D <400000>;
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&wkup_i2c0_pins_default>;
-> +	status =3D "okay";
-> +
-> +	tps65214: pmic@30 {
-> +		compatible =3D "ti,tps65214";
-
-Will U-Boot SPL drop the I2C bus and PMIC from its device tree, failing to
-configure essential SoC voltages like VDD_CORE, VDD_1V8, and VDD_LPDDR4?
-
-While the associated pinmux group wkup_i2c0_pins_default correctly specifies
-bootph-all, both the wkup_i2c0 controller node and the PMIC child node do n=
-ot.
-
-Could this prevent the board from booting?
-
-[ ... ]
-
-> +&spi1 {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&spi1_pins_default>;
-> +	status =3D "okay";
-> +
-> +	mcp23s18: gpio@0 {
-> +		compatible =3D "microchip,mcp23s18";
-> +		reg =3D <0>;
-> +		spi-max-frequency =3D <10000000>;
-> +		gpio-controller;
-> +		#gpio-cells =3D <2>;
-> +		reset-gpios =3D <&gpio0 25 GPIO_ACTIVE_LOW>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&mcp23s18_reset_pins_default>;
-> +		microchip,spi-present-mask =3D /bits/ 8 <0x01>;
-
-Will the mcp23s18 driver probe fail here because of the 8-bit mask value?
-
-The driver in drivers/pinctrl/pinctrl-mcp23s08_spi.c attempts to read this
-using device_property_read_u32(), which expects a property of at least 4 by=
-tes.
-
-Reading a 1-byte property will cause the underlying
-of_property_read_variable_u32_array() to return -EOVERFLOW, which could
-completely disable the GPIO expander and its dependent peripherals.
-
-> +	};
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513233447.2713=
-737-1-jm@ti.com?part=3D2
