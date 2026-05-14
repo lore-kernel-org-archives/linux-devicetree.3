@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB3F78F4A
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 01:11:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 935F4199FAB;
+	Thu, 14 May 2026 01:16:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778721066; cv=none; b=Sbht3+LFMUjNr1AvOKLypXHqEf4msKfIs5J/FXaEUnCQ+pOqmk+D7i4QhTjQAWNtiBhB7gnkbGzCC1F7pm79fcO5rmz3z9VC9kEYDjKz4tP4+Ju3Js4sLzJkZDpPnB9SKBQLkgiKTuh3t0s6s/ZrX/48Ftfg/ejCQtQsphAnXD4=
+	t=1778721382; cv=none; b=N1U1tH8/q/wtnxIxVs/T5GocaJ8pieesenxTtiXJDdaseii/m6YnRsjC3s56t8OY30+NvBfaTGp8mSxCQr3T6PKDAu89PqSvZCqxbsqQ7dsuQ+oxs/SwEHDIO+zcf355BJKyP6xVHAjdIRVJZPDu7aRu0B6+vCykv7RsPKh2I4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778721066; c=relaxed/simple;
-	bh=vHjcmI3+a/qLvArU+eDic4CWccbE/wuLCUEAjeBvmcc=;
+	s=arc-20240116; t=1778721382; c=relaxed/simple;
+	bh=nxI1O/YyLz9vol3gd2j7QC0AYBKo7AvOvdBoc5iFUew=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HEWrNVLH8WTe5gdNzhY+OeUXkqzkOPRo2BeOEGPE2W3uK+fK+Qrn6m6f90E7hPmIYyqU28+/jcpfNg84uLKqTpsvXGmBkNkW8e8p06xXRiHutRJNowNTkvwZF8TvfYk2qURmcMHIDBGY/xHEI1CDSSx2/23L7UL912WlXAyoKzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NSfJvdyl; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=CKVC74vglCxL/wYXd8NvB4cmSPG+Pft6HTKDHHRG8PPUU2pkP8jjTcr9RGVcXbZTmu9WfDXr7gmGDDsyi047FOkgliEZRKZr8PLXUEAXFsoGdB+oW9GxT9IwpaJ4f5SmFxOSzSNwH4f9aGweaqXOFl9nZnvG0hxg3xjlw22Vhlg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k6iNDqYa; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NSfJvdyl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22465C19425;
-	Thu, 14 May 2026 01:11:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k6iNDqYa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3BD2C19425;
+	Thu, 14 May 2026 01:16:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778721066;
-	bh=vHjcmI3+a/qLvArU+eDic4CWccbE/wuLCUEAjeBvmcc=;
+	s=k20201202; t=1778721382;
+	bh=nxI1O/YyLz9vol3gd2j7QC0AYBKo7AvOvdBoc5iFUew=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=NSfJvdyl0JOJjchBs+JqpwJl59UnPALadl2wbo+aP2Hg3DmBWoJ9fGqaotlLCrUyu
-	 xFfNwXCfUUALLal0kKfxtvi0/Fd1gxgfTOJJqb10kwTbnnxXanx3N+mzbT+NHLoJAx
-	 aKwOkD7q7Cc1621H2Y+l3ICC+vprNMC8O/TJlr4KYXK+BkJyF+8w9qH/aN4doEInw0
-	 +YDE/bFOYAKFFZvhr2QbzcArVBwQLSvOUzHRDredd1CDxb6ApLRTilnps1KtxJd0OL
-	 7EjGahV4PQ4BbpBYIC2cYnFMX/KYn3WYm06iXO6LCASnUGoNwDWAaB0Puf78XPjEUk
-	 vkIdgRI0mSDgg==
+	b=k6iNDqYaEgcTHpZDUewQRUM3LGjid0VRNr7kkPjMdSpeJgMQsA5tTwFn/sZbi8QPw
+	 eU1/Q1HpQNj3d9CYR59tktcZA1iA2xXWJz+8unsLOGAsVP14N4d1ojSvklpTjmOti3
+	 9IRNxzR1izWGihS3osICutRNZN1U5ZRpCPvdnXMjHZuA0W0qpczHBay+/EmEeufk1c
+	 iVd+omWjCRKtvDOqBQkJJG4ITL7s+1w0fg7uJZRPi9hj0Q6s0fdLPV+K2/DMEbR2LN
+	 G/s97cr59qRc5psQ9/UmWVMOFgaP5FtvElx9Baq7ucvbCBhsb2cwCUeCEA52rtfA9j
+	 D5s98SMiuSlSw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 06/16] ASoC: rsnd: Add audmacpp clock and reset
- support for RZ/G3E
+Subject: Re: [PATCH v4] arm64: dts: imx95: Increase PCIe outbound address
+ space to 4GB
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "John Madieu" <john.madieu.xa@bp.renesas.com>
-Cc: wsa+renesas@sang-engineering.com, conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260512182631.3842065-7-john.madieu.xa@bp.renesas.com>
-References: <20260512182631.3842065-7-john.madieu.xa@bp.renesas.com>
+To: "Richard Zhu" <hongxing.zhu@nxp.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260513034456.1554188-1-hongxing.zhu@nxp.com>
+References: <20260513034456.1554188-1-hongxing.zhu@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 01:11:05 +0000
-Message-Id: <20260514011106.22465C19425@smtp.kernel.org>
+Date: Thu, 14 May 2026 01:16:21 +0000
+Message-Id: <20260514011621.E3BD2C19425@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,64 +46,72 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Resource leak (clock and reset) when falling back to PIO mode du=
-e to missing memory resource.
+- [High] Unaligned 4GB PCIe outbound memory window causes iATU wrap-around =
+and address translation failure.
 --
 
-commit 9d3365c013fb5e0808a6b0ca2bbf14ed35e47250
-Author: John Madieu <john.madieu.xa@bp.renesas.com>
+commit 2c9468d72c0c22f965e76ce9a1c6ea0cf04f99fa
+Author: Richard Zhu <hongxing.zhu@nxp.com>
 
-ASoC: rsnd: Add audmacpp clock and reset support for RZ/G3E
+arm64: dts: imx95: Increase PCIe outbound address space to 4GB
 
-This commit adds global audmacpp clock and reset management in
-rsnd_dma_probe() for RZ/G3E using optional APIs.
+This commit increases the PCIe outbound memory region size to 4GB to
+match the actual hardware-supported memory space. It updates the ranges
+for both pcie0 and pcie1.
 
-> diff --git a/sound/soc/renesas/rcar/dma.c b/sound/soc/renesas/rcar/dma.c
-> --- a/sound/soc/renesas/rcar/dma.c
-> +++ b/sound/soc/renesas/rcar/dma.c
+> diff --git a/arch/arm64/boot/dts/freescale/imx95.dtsi b/arch/arm64/boot/d=
+ts/freescale/imx95.dtsi
+> index adcc0e1d3696b..d8a6a18ddfa1c 100644
+> --- a/arch/arm64/boot/dts/freescale/imx95.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx95.dtsi
+> @@ -1940,7 +1940,7 @@ pcie0: pcie@4c300000 {
+>  			      <0 0x4c340000 0 0x4000>;
+>  			reg-names =3D "dbi", "config", "atu", "app";
+>  			ranges =3D <0x81000000 0x0 0x00000000 0x0 0x6ff00000 0 0x00100000>,
+> -				 <0x82000000 0x0 0x10000000 0x9 0x10000000 0 0x10000000>;
+> +				 <0x83000000 0x0 0x10000000 0x9 0x00000000 1 0x00000000>;
+
+Will this unaligned 4GB PCIe outbound memory window cause an iATU
+wrap-around and address translation failure?
+
+The child PCI base address is left at 0x10000000. With a size of 4GB (1 0x0=
+),
+the PCI address range extends from 0x10000000 to 0x10FFFFFFF, which crosses
+a 32-bit boundary.
+
+The i.MX95 uses a DesignWare PCIe controller. Its internal Address Translat=
+ion
+Unit (iATU) generates outbound PCI target addresses by adding the CPU-side
+offset to a 32-bit lower target register.
+
+Since this 32-bit adder does not propagate a carry bit to the upper 32-bit
+address register, the 32-bit addition overflows when the CPU accesses the t=
+op
+256MB of the new memory window (e.g., offsets >=3D 0xF0000000).
+
+Instead of correctly crossing into the 0x100000000 PCI address space, the
+hardware silently wraps around to 0x00000000. This limitation will lead to
+PCI access failures or memory corruption if devices are allocated BARs in t=
+he
+upper section of the window.
+
+Should the child PCI address be 4GB-aligned (e.g., 0x0 0x00000000) to match
+the CPU alignment and ensure safe address translation?
+
 [ ... ]
-> @@ -864,6 +867,25 @@ int rsnd_dma_probe(struct rsnd_priv *priv)
->  	if (rsnd_is_gen4(priv))
->  		goto audmapp_end;
-> =20
-> +	/*
-> +	 * Audio DMAC peri-peri clock and reset for RZ/G3E.
-> +	 * These use optional APIs, so they gracefully return NULL
-> +	 * (no error) on platforms whose DT does not provide them.
-> +	 *
-> +	 * Enable the clock first so the block sees a stable clock on
-> +	 * the way out of reset, then deassert the reset line.
-> +	 */
-> +	dmac->audmapp_clk =3D devm_clk_get_optional_enabled(dev, "audmapp");
-> +	if (IS_ERR(dmac->audmapp_clk))
-> +		return dev_err_probe(dev, PTR_ERR(dmac->audmapp_clk),
-> +				     "failed to get audmapp clock\n");
-> +
-> +	dmac->audmapp_rstc =3D
-> +		devm_reset_control_get_optional_exclusive_deasserted(dev, "audmapp");
-> +	if (IS_ERR(dmac->audmapp_rstc))
-> +		return dev_err_probe(dev, PTR_ERR(dmac->audmapp_rstc),
-> +				     "failed to get audmapp reset\n");
-> +
->  	res =3D platform_get_resource_byname(pdev, IORESOURCE_MEM, "audmapp");
->  	if (!res) {
->  		dev_err(dev, "lack of audmapp in DT\n");
->  		return 0; /* it will be PIO mode */
 
-Does this code leak the clock and reset if the device tree provides a clock
-but lacks the memory resource?
+> @@ -2015,7 +2015,7 @@ pcie1: pcie@4c380000 {
+>  			      <0 0x4c3c0000 0 0x4000>;
+>  			reg-names =3D "dbi", "config", "atu", "app";
+>  			ranges =3D <0x81000000 0 0x00000000 0x8 0x8ff00000 0 0x00100000>,
+> -				 <0x82000000 0 0x10000000 0xa 0x10000000 0 0x10000000>;
+> +				 <0x83000000 0 0x10000000 0xa 0x00000000 1 0x00000000>;
 
-Because rsnd_dma_probe() returns 0 on this fallback path, the overall
-probe succeeds and devm will not clean up the acquired resources. This leav=
-es
-the clock permanently enabled and the reset deasserted.
+Does this node have the same address translation issue as pcie0?
 
-Additionally, since priv->dma is not set before the early return, the clock
-cannot be disabled during system suspend.
-
-Could the memory resource check be performed before acquiring and enabling
-the clock and reset?
+Like pcie0, the child PCI base address is 0x10000000 and the size is 4GB,
+which will also overflow the 32-bit iATU adder and wrap around.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512182631.3842=
-065-1-john.madieu.xa@bp.renesas.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513034456.1554=
+188-1-hongxing.zhu@nxp.com?part=3D1
