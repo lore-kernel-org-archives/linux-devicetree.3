@@ -1,375 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38311221F39;
-	Thu, 14 May 2026 10:31:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F9D374722
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 10:31:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778754702; cv=none; b=hV0gAv0FkdVs3z08HS0i2RhoP3OrT8tLlI1m1tZo43uxQCvhXXCoktMqZp6Q604GcUbjEjf8x4GQ8x8XIX9YF6Wt1WVvWvOqCrizeZRXEDjPYLWYkj8J9MpbTxK9UBLA98j332P39lfsm8vKpFyIU8040dRfdFQvLN0+vYWEBM8=
+	t=1778754704; cv=none; b=dMA4QGFl6PAJFzfjjdTKwuhuMqk9jjoroRldb2SfQmIz0dB1nvxCKTo7zM1oP3aLnn+26TW3as7TkhIA8ekuuWZw3SOUAgHOf10tca/Gu7Q9/BVZa9/TaT4Oe7vFQ9iWuCF8KKmE1UIjV64axU51dr8ptFdjrtOokbuFd36SWKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778754702; c=relaxed/simple;
-	bh=4eYexLoGa/dHCytbKVK1I5qgU9P8WAlIpGXy1TtEfmM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oSFQInjh1uyLUJpx08BTBweILwXIFGe5uK749FEt1cRn2Bpv4GkGuj+Bwi3G+P7c4fmm+2+KkV6SeFy7lqY80EbxFYi1iFBCJ3/ZZjU3SllLrbtk4E0qnPfcC+YOYbIONnQprcTxcIK//UaRVqb3hJjmcYM4H7y8r1DRtYbahf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kcnKmQ2X; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778754704; c=relaxed/simple;
+	bh=3EBucZADutiLhc0zsK97xEuNM/mj/N1TAOXT7u77wZo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=sCDfAfM18E+F/n+9x4tDGPiMPWGJTyT3cVa6GIHqoTiBLrbV5OiZPKvjRndHHAE7/LHQuG3h63OW8BeoniuoSENtOnqUx4z8X9GAkYvzajk7NlGOouTTG6MNmEXFF9tshC610ftNy7J/WIKUFG9xOmmE7DxR+3nxXQMC2fWLZVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a6h8orFd; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kcnKmQ2X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81BE8C2BCB8;
-	Thu, 14 May 2026 10:31:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a6h8orFd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B33BC2BCB8;
+	Thu, 14 May 2026 10:31:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778754701;
-	bh=4eYexLoGa/dHCytbKVK1I5qgU9P8WAlIpGXy1TtEfmM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kcnKmQ2XfJN6ObbljjSI41DoqWdxFqn2ws/C0Q4ul2s4fyKBZl6lRiwhtcPFqHEBo
-	 +Xl2/ZAUwVhvwKvFFC6cdEx1Sh9MLheltiwsjq6YnhViCulh/llK0P/34fAOqNCzs5
-	 bbTofPv2OxWZzHsKUTqgxdIOUMdOuln369X/wn7+xiFQ6oQ8xo8+u7pi0lPAdOwPwZ
-	 nvaIJdAw3vq6iyNuvzmBZG3RZPchfSFU1WkLwIy3OZe8rWjLiowzpuTDp8kTINN9Br
-	 MEmZfqiiM9J1LC/DFPLyMi9oP8ihH5bQqAUdZJ/33lmlcU6hARb8J0IhuH4qiF6xqr
-	 y5KU4KrNHxYLg==
-Date: Thu, 14 May 2026 11:31:35 +0100
-From: Lee Jones <lee@kernel.org>
-To: guptarud@gmail.com
-Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v5 2/3] leds: flash: rt8515: Support single-GPIO flash
- ICs with vin supply
-Message-ID: <20260514103135.GI305027@google.com>
-References: <20260503-expressatt_camera_flash-v5-0-95524506a799@gmail.com>
- <20260503-expressatt_camera_flash-v5-2-95524506a799@gmail.com>
+	s=k20201202; t=1778754703;
+	bh=3EBucZADutiLhc0zsK97xEuNM/mj/N1TAOXT7u77wZo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=a6h8orFdggwypf6YVN3RbQQ3SHzDozhvMPa3gGaXtNf9fj8/HOYvvWRir+3lDAYhh
+	 jPlsk3vy2nuor2QqEdP5tiK2BfUxgnv5MKyAcdBXzTawdEy4hgV4Y1xXPIHcvo4qM4
+	 VkJsHI9G6L/neLY6fIfLzQhXrwlw8igfwSJKf2OtxZDHwo8fGeBoMSd6nnzXDImkyK
+	 OyV3zL+OVwllyQ5AQosJ+FZ83JJ9b0wg1CkiLTGALOFJDLj1M2+V3vpXifSzUmUIBS
+	 t1v6eT9b6eOPwY8Tt7hewZP3jz6s1EEfuvdBSn7nx9WpdEOcr8dzLcymhrY9M3YBi9
+	 xEM/Z+FLZerhw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH phy-next 2/2] phy: ti: add PHY driver for TI DS125DF111
+ Dual-Channel Retimer
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ioana Ciornei" <ioana.ciornei@nxp.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, devicetree@vger.kernel.org, vkoul@kernel.org, linux-phy@lists.infradead.org
+In-Reply-To: <20260513185103.1371809-3-ioana.ciornei@nxp.com>
+References: <20260513185103.1371809-3-ioana.ciornei@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 14 May 2026 10:31:42 +0000
+Message-Id: <20260514103143.4B33BC2BCB8@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260503-expressatt_camera_flash-v5-2-95524506a799@gmail.com>
 
-On Sun, 03 May 2026, Rudraksha Gupta via B4 Relay wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Uninitialized memory read in `ds125df111_xlate` due to missing `=
+args_count` validation.
+- [Low] Missing explicit header inclusions for macros and memory allocation=
+ functions.
+--
 
-> From: Rudraksha Gupta <guptarud@gmail.com>
-> 
-> Extend the RT8515 driver to support flash ICs that use only a single
-> GPIO for both flash and torch modes (no separate ENT pin), with an
-> optional vin regulator that gates power to the flash IC.
-> 
-> When vin-supply is provided, the driver enables the regulator before
-> activating the LED and disables it when turning off.
-> 
-> Make ent-gpios optional. When ent-gpios is absent, the driver uses
-> enf-gpios for both flash and torch brightness control.
-> 
-> Assisted-by: Claude:claude-opus-4.6
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> Signed-off-by: Rudraksha Gupta <guptarud@gmail.com>
-> ---
->  drivers/leds/flash/leds-rt8515.c | 130 +++++++++++++++++++++++++++++++--------
->  1 file changed, 105 insertions(+), 25 deletions(-)
-> 
-> diff --git a/drivers/leds/flash/leds-rt8515.c b/drivers/leds/flash/leds-rt8515.c
-> index f6b439674c03..4459874e6a6c 100644
-> --- a/drivers/leds/flash/leds-rt8515.c
-> +++ b/drivers/leds/flash/leds-rt8515.c
-> @@ -31,6 +31,7 @@
->  #include <linux/platform_device.h>
->  #include <linux/property.h>
->  #include <linux/regulator/consumer.h>
-> +#include <linux/workqueue.h>
->  
->  #include <media/v4l2-flash-led-class.h>
->  
-> @@ -52,7 +53,7 @@ struct rt8515 {
->  	struct regulator *reg;
->  	struct gpio_desc *enable_torch;
->  	struct gpio_desc *enable_flash;
-> -	struct timer_list powerdown_timer;
-> +	struct delayed_work powerdown_work;
->  	u32 max_timeout; /* Flash max timeout */
->  	int flash_max_intensity;
->  	int torch_max_intensity;
-> @@ -63,16 +64,50 @@ static struct rt8515 *to_rt8515(struct led_classdev_flash *fled)
->  	return container_of(fled, struct rt8515, fled);
->  }
->  
-> -static void rt8515_gpio_led_off(struct rt8515 *rt)
-> +static int rt8515_gpio_led_off(struct rt8515 *rt)
->  {
-> +	int ret;
+commit a5dcf247e2e2a6b752d667ac46227925aa476def
+Author: Ioana Ciornei <ioana.ciornei@nxp.com>
+
+phy: ti: add PHY driver for TI DS125DF111 Dual-Channel Retimer
+
+This commit adds a generic PHY driver for the TI DS125DF111 Multi-Protocol
+Dual-Channel Retimer over I2C. It currently supports 10G and 1G link speeds,
+and registers a separate PHY device for each of the two channels to allow
+independent configuration.
+
+> diff --git a/drivers/phy/ti/phy-ds125df111.c b/drivers/phy/ti/phy-ds125df=
+111.c
+> new file mode 100644
+> index 0000000000000..8ac10c603bf70
+> --- /dev/null
+> +++ b/drivers/phy/ti/phy-ds125df111.c
+> @@ -0,0 +1,245 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/* Copyright 2026 NXP */
 > +
->  	gpiod_set_value(rt->enable_flash, 0);
->  	gpiod_set_value(rt->enable_torch, 0);
-> +
-> +	if (!rt->reg)
-> +		return 0;
-> +
-> +	/* Disable regulator */
+> +#include <linux/i2c.h>
+> +#include <linux/kernel.h>
+> +#include <linux/module.h>
+> +#include <linux/phy.h>
+> +#include <linux/phy/phy.h>
 
-This comment is superfluous.
+This isn't a bug, but should this include linux/bitfield.h, linux/bits.h,
+and linux/slab.h?
 
-> +	ret = regulator_is_enabled(rt->reg);
-> +	if (ret < 0)
-> +		return ret;
+The driver uses FIELD_PREP(), GENMASK(), and devm_kzalloc(), but relies on
+implicit inclusions for these headers. Explicitly including them can help
+prevent build breakages if the include chains are refactored in the future.
 
-Initialise ret to 0 and return ret then you can remove this branch.
+[ ... ]
 
-> +	if (ret > 0)
-> +		return regulator_disable(rt->reg);
-> +
-> +	return 0;
->  }
->  
-> -static void rt8515_gpio_brightness_commit(struct gpio_desc *gpiod,
-> -					  int brightness)
-> +static int rt8515_gpio_brightness_commit(struct rt8515 *rt,
-> +					 struct gpio_desc *gpiod,
-> +					 int brightness)
+> +static struct phy *ds125df111_xlate(struct device *dev,
+> +				    const struct of_phandle_args *args)
+> +{
+> +	struct ds125df111_priv *priv =3D dev_get_drvdata(dev);
+> +	u32 idx =3D args->args[0];
 
-Use 100-chars to avoid this cramping.
+Is it possible to read uninitialized memory here?
 
->  {
->  	int i;
-> +	int ret;
-> +
-> +	/*
-> +	 * Reset the IC to start brightness from zero,
-> +	 * then re-enable and pulse to the desired level.
-> +	 */
-> +	ret = rt8515_gpio_led_off(rt);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* IC needs time to reset its brightness counter */
-> +	usleep_range(100, 200);
-> +
-> +	/* Enable regulator */
+If a consumer's Device Tree reference incorrectly configures #phy-cells =3D=
+ <0>,
+of_parse_phandle_with_args() sets args->args_count to 0 and leaves the
+args array unmodified.
 
-As above.
-
-> +	if (rt->reg) {
-> +		ret = regulator_enable(rt->reg);
-> +		if (ret)
-> +			return ret;
-> +	}
->  
->  	/*
->  	 * Toggling a GPIO line with a small delay increases the
-> @@ -84,6 +119,8 @@ static void rt8515_gpio_brightness_commit(struct gpio_desc *gpiod,
->  		gpiod_set_value(gpiod, 1);
->  		udelay(1);
->  	}
-> +
-> +	return 0;
->  }
->  
->  /* This is setting the torch light level */
-> @@ -92,23 +129,38 @@ static int rt8515_led_brightness_set(struct led_classdev *led,
->  {
->  	struct led_classdev_flash *fled = lcdev_to_flcdev(led);
->  	struct rt8515 *rt = to_rt8515(fled);
-> +	int ret = 0;
->  
->  	mutex_lock(&rt->lock);
->  
->  	if (brightness == LED_OFF) {
->  		/* Off */
-> -		rt8515_gpio_led_off(rt);
-> +		ret = rt8515_gpio_led_off(rt);
-> +		if (ret)
-> +			goto out;
->  	} else if (brightness < RT8515_TORCH_MAX) {
-> -		/* Step it up to movie mode brightness using the flash pin */
-> -		rt8515_gpio_brightness_commit(rt->enable_torch, brightness);
-> +		/*
-> +		 * Step it up to movie mode brightness.
-> +		 * If there is no separate torch pin, use the flash pin
-> +		 * for torch as well.
-> +		 */
-> +		ret = rt8515_gpio_brightness_commit(rt,
-> +				rt->enable_torch ?: rt->enable_flash, brightness);
-> +		if (ret)
-> +			goto out;
->  	} else {
-> -		/* Max torch brightness requested */
-> -		gpiod_set_value(rt->enable_torch, 1);
-> +		/*
-> +		 * Max torch brightness requested.
-> +		 * If there is no separate torch pin, use the flash pin
-> +		 * for torch as well.
-> +		 */
-> +		gpiod_set_value(rt->enable_torch ?: rt->enable_flash, 1);
-
-What does 1 mean in this context?  Maybe define it so it's clear.
-
->  	}
->  
-> +out:
->  	mutex_unlock(&rt->lock);
->  
-> -	return 0;
-> +	return ret;
->  }
->  
->  static int rt8515_led_flash_strobe_set(struct led_classdev_flash *fled,
-> @@ -117,27 +169,34 @@ static int rt8515_led_flash_strobe_set(struct led_classdev_flash *fled,
->  	struct rt8515 *rt = to_rt8515(fled);
->  	struct led_flash_setting *timeout = &fled->timeout;
->  	int brightness = rt->flash_max_intensity;
-> +	int ret = 0;
->  
->  	mutex_lock(&rt->lock);
->  
->  	if (state) {
->  		/* Enable LED flash mode and set brightness */
-> -		rt8515_gpio_brightness_commit(rt->enable_flash, brightness);
-> +		ret = rt8515_gpio_brightness_commit(rt, rt->enable_flash, brightness);
-> +		if (ret)
-> +			goto out;
-> +
->  		/* Set timeout */
-> -		mod_timer(&rt->powerdown_timer,
-> -			  jiffies + usecs_to_jiffies(timeout->val));
-> +		schedule_delayed_work(&rt->powerdown_work,
-> +				      usecs_to_jiffies(timeout->val));
->  	} else {
-> -		timer_delete_sync(&rt->powerdown_timer);
-> +		cancel_delayed_work(&rt->powerdown_work);
-
-Would it be safer to use 'cancel_delayed_work_sync()' here?  The previous
-implementation used the synchronous 'timer_delete_sync()'.  Swapping to an
-asynchronous cancellation might introduce a race condition if the work is
-already executing.
-
->  		/* Turn the LED off */
-> -		rt8515_gpio_led_off(rt);
-> +		ret = rt8515_gpio_led_off(rt);
-> +		if (ret)
-> +			goto out;
->  	}
->  
->  	fled->led_cdev.brightness = LED_OFF;
->  	/* After this the torch LED will be disabled */
->  
-> +out:
->  	mutex_unlock(&rt->lock);
->  
-> -	return 0;
-> +	return ret;
->  }
->  
->  static int rt8515_led_flash_strobe_get(struct led_classdev_flash *fled,
-> @@ -145,7 +204,7 @@ static int rt8515_led_flash_strobe_get(struct led_classdev_flash *fled,
->  {
->  	struct rt8515 *rt = to_rt8515(fled);
->  
-> -	*state = timer_pending(&rt->powerdown_timer);
-> +	*state = delayed_work_pending(&rt->powerdown_work);
->  
->  	return 0;
->  }
-> @@ -163,12 +222,18 @@ static const struct led_flash_ops rt8515_flash_ops = {
->  	.timeout_set = rt8515_led_flash_timeout_set,
->  };
->  
-> -static void rt8515_powerdown_timer(struct timer_list *t)
-> +static void rt8515_powerdown_work(struct work_struct *work)
->  {
-> -	struct rt8515 *rt = timer_container_of(rt, t, powerdown_timer);
-> +	struct rt8515 *rt = container_of(work, struct rt8515, powerdown_work.work);
-> +	int ret;
->  
->  	/* Turn the LED off */
-> -	rt8515_gpio_led_off(rt);
-> +	mutex_lock(&rt->lock);
-> +	ret = rt8515_gpio_led_off(rt);
-> +	mutex_unlock(&rt->lock);
-> +
-> +	if (ret)
-> +		dev_err(rt->dev, "failed to turn off LED (%d)\n", ret);
->  }
->  
->  static void rt8515_init_flash_timeout(struct rt8515 *rt)
-> @@ -298,12 +363,22 @@ static int rt8515_probe(struct platform_device *pdev)
->  		return dev_err_probe(dev, PTR_ERR(rt->enable_flash),
->  				     "cannot get ENF (enable flash) GPIO\n");
->  
-> -	/* ENT - Enable Torch line */
-> -	rt->enable_torch = devm_gpiod_get(dev, "ent", GPIOD_OUT_LOW);
-> +	/* ENT - Enable Torch line (optional for single-GPIO flash ICs) */
-> +	rt->enable_torch = devm_gpiod_get_optional(dev, "ent", GPIOD_OUT_LOW);
->  	if (IS_ERR(rt->enable_torch))
->  		return dev_err_probe(dev, PTR_ERR(rt->enable_torch),
->  				     "cannot get ENT (enable torch) GPIO\n");
-
-The user doesn't care about 'ENT'.
-
-  "Failed to obtain the Enable Torch GPIO"
+Since the of_phandle_args structure is often allocated on the stack, for
+example in _of_phy_get(), evaluating args->args[0] without verifying that
+args->args_count >=3D 1 could result in evaluating stack garbage against the
+maximum channel count.
 
 > +
-> +	/* Optional VIN supply */
-
-Doesn't the function call already say this?
-
-> +	rt->reg = devm_regulator_get_optional(dev, "vin");
-> +	if (IS_ERR(rt->reg)) {
-> +		ret = PTR_ERR(rt->reg);
-> +		if (ret != -ENODEV)
-> +			return dev_err_probe(dev, ret,
-> +					     "failed to get vin supply\n");
-
-Why are we erroring out on an optional regulator?
-
-> +		rt->reg = NULL;
+> +	if (idx >=3D DS125DF111_NUM_CH) {
+> +		dev_err(dev, "Maximum number of channels is %d\n",
+> +			DS125DF111_NUM_CH);
+> +		return ERR_PTR(-EINVAL);
 > +	}
 > +
->  	child = device_get_next_child_node(dev, NULL);
->  	if (!child) {
->  		dev_err(dev,
-> @@ -328,12 +403,17 @@ static int rt8515_probe(struct platform_device *pdev)
->  		dev_warn(dev,
->  			 "flash-max-timeout-us property missing\n");
->  	}
-> -	timer_setup(&rt->powerdown_timer, rt8515_powerdown_timer, 0);
-> +	INIT_DELAYED_WORK(&rt->powerdown_work, rt8515_powerdown_work);
->  	rt8515_init_flash_timeout(rt);
->  
->  	fled->ops = &rt8515_flash_ops;
->  
-> -	led->max_brightness = rt->torch_max_intensity;
-> +	/*
-> +	 * If there is no separate torch pin, use the flash max intensity
+> +	return priv->ch[idx].phy;
+> +}
 
-Drop the "the".
-
-> +	 * as the max brightness instead.
-> +	 */
-> +	led->max_brightness = rt->enable_torch ?
-> +		rt->torch_max_intensity : rt->flash_max_intensity;
->  	led->brightness_set_blocking = rt8515_led_brightness_set;
->  	led->flags |= LED_CORE_SUSPENDRESUME | LED_DEV_CAP_FLASH;
->  
-> @@ -372,7 +452,7 @@ static void rt8515_remove(struct platform_device *pdev)
->  	struct rt8515 *rt = platform_get_drvdata(pdev);
->  
->  	rt8515_v4l2_flash_release(rt);
-> -	timer_delete_sync(&rt->powerdown_timer);
-> +	cancel_delayed_work_sync(&rt->powerdown_work);
->  	mutex_destroy(&rt->lock);
->  }
->  
-> 
-> -- 
-> 2.54.0
-> 
-> 
-
--- 
-Lee Jones
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513185103.1371=
+809-1-ioana.ciornei@nxp.com?part=3D2
