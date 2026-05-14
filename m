@@ -1,84 +1,146 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59006275B15;
-	Thu, 14 May 2026 12:52:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 019EA3909AE
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 12:52:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778763150; cv=none; b=nSc4lhLjElnw80bt1+uWLuoxIJ/JZ95DmxZ+Wr5E0l9y3z9fZjvVrIReqODHwIcglxXpShLXWhQlOjY/Pzwth8e7Z/pZPGR7kcPCMcii16mlsnm2Zj4SLXoNnqewr0kZoO5rLkxBtc20xbE6XNc95VW5WRgfAaRgYtz0R7JUoxI=
+	t=1778763178; cv=none; b=e1aBHGMdUp8ODeaYimrPKVJtMu4AFFS+p8c95EaKa815Ri6BqRH8vt3mKe+2I2EZ8BoeGqfLTTAz4tJaGnh/xumnLChEWKlC6LgVl8x3WTioM2Om1GOQBK6P3phrIQXnGSelZ3ZDzOnqyVrKfY09bdiR3vhMCuHI/LfjelF3Sc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778763150; c=relaxed/simple;
-	bh=QrxNqoikqhG9/YKhK5vkcERVKm9U2wDdN7QvLO+4ieQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mkCSArxCpT/IH5eMIGvB2Ha/RA5oUSqMQq4/In8FbUTK93GgJ80Bw4ZRyuqJGv2TykkSG60/PFvb8zAXSm/INIbZDKFA1TKxkcpkQko+t4sPoUaU5LooGdu2IFzIWUasxbGkkMk8BG/RreQ2KnUsPUy7D/eWy8JUH8Uz4pb/+t0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NhuI8VOy; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778763178; c=relaxed/simple;
+	bh=7BcAX27xjr2pPp5tvFDoX6DqrmU5yLDBk+GGVOVgJUw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=QCZv6l6WmwyX3sanSgOM6rKNtbNqlsGAB1bop44PFLFylBn7LbUmhJd9csKNtJHuVqNzwPOJ63qRm4K1732FYOH2fXnuk6NLn0NKfAM/ZXT8fsn2AfAs1zjof1SojOSRe/gPbT+SfuuIbJbXCPYsNgDLVnVaiqGkYKC/F2vaM7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oWql75Ah; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NhuI8VOy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60005C2BCB3;
-	Thu, 14 May 2026 12:52:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oWql75Ah"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78EB5C2BCB3;
+	Thu, 14 May 2026 12:52:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778763149;
-	bh=QrxNqoikqhG9/YKhK5vkcERVKm9U2wDdN7QvLO+4ieQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=NhuI8VOy6VF1n5G0zPoGFwwqKqRS4XXfb7yESQys47ZUoMp6+UgrdhZf9SpxlzTZM
-	 MnBT22yONxKVrbh1hI5+se/y0oZteIeF3Tz2jVBkxQVEjg6bJ+Qz9VLcNSIBjCsngK
-	 26fzOQXncR9I/OtaU/G2fDmdfp/iPStVdafvsFiNi9YemnuFs+CMpViqoBlAISZwCE
-	 oisfrAOITSRi/tPDxvFSbmPqAlu4GXj+O5IMQLhLAoQLQtG8+K8geYYwqpt15bGktW
-	 2Y/Fh+/mvscEbGK3lxE22aJIA1s6gEB1JN1C0DkRS1h++TQDLY6dWJWHpeCbNPvWK1
-	 SOB+4Tf58+Fdw==
-Date: Thu, 14 May 2026 14:52:27 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, "David S . Miller" <davem@davemloft.net>, 
-	devicetree@vger.kernel.org, linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] soc: qcom: ice: Enable firmware managed resource
-Message-ID: <20260514-provocative-golden-woodpecker-b3e494@quoll>
-References: <20260512033750.3393050-1-linlin.zhang@oss.qualcomm.com>
+	s=k20201202; t=1778763177;
+	bh=7BcAX27xjr2pPp5tvFDoX6DqrmU5yLDBk+GGVOVgJUw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=oWql75Ahkh1InVUuabW7hjhFvsQFpmGWMwrX5+655FAwp+APXbb9Dho4dR31CnCp+
+	 Ss6NCGngvVWkHGSiLnGefAm0GYHM9vjZDkJZCkBLq9OLAH8NBY80jqL5yDXAtkrW9q
+	 V6zBGS6rDwQzEi7UyJFq1VKT7SDEpQkvk6jI4l+msgDqXBGjlGU7R14yMhWDoBB5x1
+	 wA6GK/RUIiJNtutwrd4eZ4t7JzHL6mQRDsoUtco7ZCGWWnK88oorG8+WvUwR2ybdc0
+	 XAnWYapShREHOjMYjXEKW5wJX7VAyCnuipA3x4ZfzpkcDFZZw70XFEZa+ulVe+chiB
+	 p9INaAdAUozIg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] phy: qcom-qmp-pcie: Add support for ipq5210 PCIe
+ phys
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Varadarajan Narayanan" <varadarajan.narayanan@oss.qualcomm.com>
+Cc: olteanv@gmail.com, linux-phy@lists.infradead.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, vkoul@kernel.org, robh@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20260514-pci-phy-v1-2-482429192746@oss.qualcomm.com>
+References: <20260514-pci-phy-v1-2-482429192746@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 14 May 2026 12:52:55 +0000
+Message-Id: <20260514125256.78EB5C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260512033750.3393050-1-linlin.zhang@oss.qualcomm.com>
 
-On Mon, May 11, 2026 at 08:37:47PM -0700, Linlin Zhang wrote:
-> From: linlzhan <linlzhan@qti.qualcomm.com>
-> 
-> The Qualcomm automotive SA8255p SoC relies on firmware to configure
-> platform resources, including clocks, interconnects and TLMM (GPIOs).
-> These resources are controlled by the driver via SCMI power and
-> performance protocols.
-> 
-> The SCMI power protocol is used to enable and disable platform
-> resources, including clocks, interconnect paths, and TLMM, by mapping
-> resource state transitions to the runtime PM framework?s
-> resume/suspend callbacks.
-> 
-> In this design, the ICE driver acts as an SCMI client, with clocks and
-> power domains abstracted and controlled by the SCMI server in firmware.
-> This implementation depends on pm_runtime_resume_and_get() and
-> pm_runtime_put_sync(), which are available in the OPP tree?s
-> linux-next branch.
-> 
-> v2:
-> -- rebase the patchset
-> -- update to/cc lists
-> -- Link to v1: https://lore.kernel.org/all/20260430032136.3058773-1-linlin.zhang@oss.qualcomm.com/
-> 
-> -- To Linux Community
-> 
-> v6:
-> - Protect calling clock API with fw_managed flag in ICE runtime OPS callbacks.
-> - Link to v5: http://shc-kerarch-hyd:8080/kernel_archive/20260324095703.1306437-1-linlin.zhang@oss.qualcomm.com/T/#t
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Redundant array duplication and misleading naming for PHY init tabl=
+es
+--
 
-Please do not include non-working links in public postings.
+commit 1a4fb65a84494415ea2c151ef7e1a6c4328d3d7f
+Author: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
 
-Best regards,
-Krzysztof
+phy: qcom-qmp-pcie: Add support for ipq5210 PCIe phys
 
+This commit adds support for the PCIe PHYs found on the Qualcomm
+ipq5210 platform.
+
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c b/drivers/phy/qualc=
+omm/phy-qcom-qmp-pcie.c
+> --- a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
+> @@ -514,6 +514,105 @@ static const struct qmp_phy_init_tbl ipq8074_pcie_g=
+en3_pcs_misc_tbl[] =3D {
+[ ... ]
+> +static const struct qmp_phy_init_tbl ipq5210_gen3x1_pcie_ep_tx_tbl[] =3D=
+ {
+> +	QMP_PHY_INIT_CFG(QSERDES_V4_TX_RES_CODE_LANE_OFFSET_TX, 0x02),
+> +	QMP_PHY_INIT_CFG(QSERDES_V4_TX_LANE_MODE_1, 0x06),
+> +	QMP_PHY_INIT_CFG(QSERDES_V4_TX_RCV_DETECT_LVL_2, 0x12),
+> +};
+
+Does this new table duplicate the existing ipq6018_pcie_tx_tbl? Could we
+reuse the existing table instead of creating a redundant copy?
+
+[ ... ]
+> +static const struct qmp_phy_init_tbl ipq5210_gen3x1_pcie_ep_pcs_tbl[] =
+=3D {
+> +	QMP_PHY_INIT_CFG(QPHY_V4_PCS_FLL_CNTRL1, 0x01),
+> +	QMP_PHY_INIT_CFG(QPHY_V4_PCS_REFGEN_REQ_CONFIG1, 0x0d),
+> +	QMP_PHY_INIT_CFG(QPHY_V4_PCS_G12S1_TXDEEMPH_M3P5DB, 0x10),
+> +	QMP_PHY_INIT_CFG(QPHY_V4_PCS_RX_SIGDET_LVL, 0xaa),
+> +	QMP_PHY_INIT_CFG(QPHY_V4_PCS_P2U3_WAKEUP_DLY_TIME_AUXCLK_L, 0x01),
+> +	QMP_PHY_INIT_CFG(QPHY_V4_PCS_RX_DCC_CAL_CONFIG, 0x01),
+> +	QMP_PHY_INIT_CFG(QPHY_V4_PCS_EQ_CONFIG5, 0x01),
+> +};
+
+Is it possible this is an exact duplicate of ipq6018_pcie_pcs_tbl?
+
+[ ... ]
+> @@ -654,6 +753,13 @@ static const struct qmp_phy_init_tbl ipq9574_gen3x2_=
+pcie_serdes_tbl[] =3D {
+[ ... ]
+> +static const struct qmp_phy_init_tbl ipq9574_pcie_tx_tbl[] =3D {
+> +	QMP_PHY_INIT_CFG(QSERDES_V4_TX_RES_CODE_LANE_OFFSET_TX, 0x02),
+> +	QMP_PHY_INIT_CFG(QSERDES_V4_TX_RCV_DETECT_LVL_2, 0x12),
+> +	QMP_PHY_INIT_CFG(QSERDES_V4_TX_HIGHZ_DRVR_EN, 0x10),
+> +	QMP_PHY_INIT_CFG(QSERDES_V4_TX_LANE_MODE_1, 0x06),
+> +};
+
+Could this table be entirely replaced by ipq8074_pcie_gen3_tx_tbl?
+
+Also, does the name ipq9574_pcie_tx_tbl accurately reflect its usage? It
+seems to be used exclusively by the newly added ipq5210_gen3x1_pciephy_cfg,
+while the actual IPQ9574 configurations retain their use of the ipq8074 tab=
+le.
+
+[ ... ]
+> @@ -3613,6 +3719,49 @@ static const struct qmp_phy_cfg ipq6018_pciephy_cf=
+g =3D {
+[ ... ]
+> +static const struct qmp_phy_cfg ipq5210_gen3x1_pciephy_cfg =3D {
+> +	.lanes			=3D 1,
+> +
+> +	.offsets		=3D &qmp_pcie_offsets_v4x1,
+> +
+> +	.tbls =3D  {
+> +		.serdes		=3D ipq9574_gen3x1_pcie_serdes_tbl,
+> +		.serdes_num	=3D ARRAY_SIZE(ipq9574_gen3x1_pcie_serdes_tbl),
+> +		.tx		=3D ipq9574_pcie_tx_tbl,
+> +		.tx_num		=3D ARRAY_SIZE(ipq9574_pcie_tx_tbl),
+
+If ipq9574_pcie_tx_tbl is identical to ipq8074_pcie_gen3_tx_tbl, should
+this reference the existing ipq8074_pcie_gen3_tx_tbl instead?
+
+> +		.rx		=3D ipq9574_pcie_rx_tbl,
+> +		.rx_num		=3D ARRAY_SIZE(ipq9574_pcie_rx_tbl),
+[ ... ]
+> +	.tbls_ep =3D &(const struct qmp_phy_cfg_tbls) {
+> +		.serdes		=3D ipq5210_gen3x1_pcie_ep_serdes_tbl,
+> +		.serdes_num	=3D ARRAY_SIZE(ipq5210_gen3x1_pcie_ep_serdes_tbl),
+> +		.tx		=3D ipq5210_gen3x1_pcie_ep_tx_tbl,
+> +		.tx_num		=3D ARRAY_SIZE(ipq5210_gen3x1_pcie_ep_tx_tbl),
+> +		.rx		=3D ipq5210_gen3x1_pcie_ep_rx_tbl,
+> +		.rx_num		=3D ARRAY_SIZE(ipq5210_gen3x1_pcie_ep_rx_tbl),
+> +		.pcs		=3D ipq5210_gen3x1_pcie_ep_pcs_tbl,
+> +		.pcs_num	=3D ARRAY_SIZE(ipq5210_gen3x1_pcie_ep_pcs_tbl),
+
+Similarly, could these point to ipq6018_pcie_tx_tbl and
+ipq6018_pcie_pcs_tbl respectively?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514-pci-phy-v1=
+-0-482429192746@oss.qualcomm.com?part=3D2
