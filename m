@@ -1,131 +1,113 @@
-Received: from out28-115.mail.aliyun.com (out28-115.mail.aliyun.com [115.124.28.115])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBC721E8826
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 01:41:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B11A131F987;
+	Thu, 14 May 2026 01:42:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778722866; cv=none; b=ESzPiYEj6gdgX5TsK02mYIzpcfP76klHxWSBZG5XY/qB+6nDbEk0UABsb2uEuZ5cITrA8wCuAVVyJcyO4wnIiAhuMaY/R/NWbuTdKbExdkijiEeQ0jsFwfqmarW/gEuoPYWvCLPnj9z13CU2V0W+sq3g929PW/HEF5vSYypEGrw=
+	t=1778722975; cv=none; b=jh5uu7dOUPhqnFCZYN0GVcdEUJg0oaiI8Y+WNUpHxySfwX671UdquLcRY/ruvps12MeXrtLUFxeaKq60XUdhYSAWkt1GhMx+wq1Eu9UrjiYFT0lt+iiWG1ekpN8uydYIL1al/nDPGRdiCDYcKq0bQ1KrwZZu78Vu3emz1rpnzkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778722866; c=relaxed/simple;
-	bh=UnJrnprjJI40cyQqWZmV8Lcq8R0JpcuqgBa957VU6NY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eJcR5FCeheMRiO2O0fK062JlAgrw9wF+R8I/oDMIaj6D6XNzto4ObKCWicNqFATOMBT/qZQwDQnXILXYebUxKFJPFK+1OIruJUVta8Q7MjkSUwW+aTSxrURhgjIpOj6GPYL2/DHOl+03oAoXP0NW0j3Q37S0G5rxqVNthFoiuJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=gAQ+2LPN; arc=none smtp.client-ip=115.124.28.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
+	s=arc-20240116; t=1778722975; c=relaxed/simple;
+	bh=oBhCuHah8JcJzRxbSplEMoBSn9c7+hDNbVI06xJE8n0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=S8mXB6oDdHQcSKOs2I6FVy9UeC7mlfqTEH4CmJj90lC4yflZvAsBpABnfmIEVlb8OvQxDHoh7y0gvF/T3C1PB/08oLcr0U5lvgSRcRBCbJKmFbWYWn4VMKTFhDp8h2s1ypguwx1hXo3iPmpUoq4BMs7VvjjZBwNRcGjxHmRlT5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LUQEggTA; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="gAQ+2LPN"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=lontium.com; s=default;
-	t=1778722856; h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type;
-	bh=paSUUNeM9d+Dg+dK0ePPB8BCcy3aHvmTkKmP2lDWFOQ=;
-	b=gAQ+2LPNdZb6AuF0A2+9VrYyhwGdRWEV9kV9V0AfmTRzGC8/iBGqN0ZMhMQMlVWm+AjN0VZGCKKzCayDtbeCGYVmoPgc/S07odvm2B/5Bn1VER0t8oxZSC0mi1UY7f7+mYGBausHP1cSg+d41oXdOz+q7ArmSdcwgOiay/MQXSb0+4mFy89YcGXmRA9n9sTEO3Q8PxbjYOVOfrer4zwvU/8wljzQRctsidQeeMRK1yHTNatTncqYSdxsg0D0Jp1nR4i8/l7ga0TZAxUOr1L9nzPlVMLNzfr83lxI6h2gfA7p94OihYKEZO40CRDhDh+8bQxgBVxWig8aSR3BAbEfvQ==
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.3534878|-1;CH=blue;DM=|OVERLOAD|false|;DS=CONTINUE|ham_regular_dialog|0.174381-0.0202541-0.805365;FP=11096877952077132768|6|1|5|0|-1|-1|-1;HT=maildocker-contentspam011083013073;MF=syyang@lontium.com;NM=1;PH=DS;RN=1;RT=1;SR=0;TI=SMTPD_---.hWhJdXr_1778722853;
-Received: from mail-oo1-f51.google.com(mailfrom:syyang@lontium.com fp:SMTPD_---.hWhJdXr_1778722853 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 14 May 2026 09:40:54 +0800
-Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6948ed7139eso3717997eaf.0
-        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 18:40:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+hJDdmwy+zgumsryLaN2PF8Crq3ZzoTWcmGINbNFHAj9nt97vNqpB6eX5rSl5V0Z5aIE2pt3FV+mXq@vger.kernel.org
-X-Gm-Message-State: AOJu0YwgfP6eiLFF5z5Segj5QEqQJd24flOPEYMP+vrAMTRKA8KaPjId
-	ZjWd5UWdBCVQQItI/h+N0qRfsW75VCQBHMdIBOsCixECbVG7rNMAqE2KViKfCKDqxlfr/TGhDPC
-	qM7YE0fa0qLvWKxmp+J2bop34bTZe1HE=
-X-Received: by 2002:a05:6820:818d:b0:694:980c:9609 with SMTP id
- 006d021491bc7-69b7ab2de0emr2947356eaf.36.1778722852317; Wed, 13 May 2026
- 18:40:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LUQEggTA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35F06C19425;
+	Thu, 14 May 2026 01:42:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778722975;
+	bh=oBhCuHah8JcJzRxbSplEMoBSn9c7+hDNbVI06xJE8n0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=LUQEggTAnbX4mghOtvtXKy799oS38unx1v4B51VTgl0oxzaZHIsTAk+Ry6m2ICAjM
+	 wuw0qSH0EwNXwcWMmVOf5X7kiasv6J0sX73J3K2IbLorAOx1KyIpASgpQMO4lpMRFE
+	 1855QjA+/cHbABktGQpZ0j14oMOIDBq4PAV73j+WRSUU4eraKAR4mtxxPFqzH2c+pm
+	 //n86azelmDEacVYHBeumOhiBw3QOBqA4YibPkhizu4H6x7KWZiYmpeiQ3Q1YkgGSG
+	 ZAhLaPm/eegbbHtNhauBtVT0viC+mYbmzzq7l9BXpOzcneBho3WnJaOtsgA3FZvkyN
+	 50leu6uVsOc9w==
+Date: Thu, 14 May 2026 09:42:49 +0800
+From: "Peter Chen (CIX)" <peter.chen@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+	linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org
+Subject: Re: [PATCH v1 2/6] usb: chipidea: tegra: Avoid controller/PHY init
+ if bus is externally controlled
+Message-ID: <agUomUMW9Yu3n7ZK@nchen-desktop>
+References: <20260511135703.62470-1-clamor95@gmail.com>
+ <20260511135703.62470-3-clamor95@gmail.com>
+ <agJ/T8nBGWEoblmd@nchen-desktop>
+ <CAPVz0n173syW9rXy7Qt_N=mChe6WBRLvjRDypcJEC50hPL4OMQ@mail.gmail.com>
+ <agLb6mgP45jHjvNt@nchen-desktop>
+ <CAPVz0n2yGALm1Z0j0j6_MaqAOZGL+a8EgCWYQpW0QN1YVf96EQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260507034049.97765-1-syyang@lontium.com> <20260513192515.GA1728398-robh@kernel.org>
-In-Reply-To: <20260513192515.GA1728398-robh@kernel.org>
-From: Sunyun Yang <syyang@lontium.com>
-Date: Thu, 14 May 2026 09:40:40 +0800
-X-Gmail-Original-Message-ID: <CAFQXuNb8WBrCvBpdKdpCUSdrS+qEWjyETE0qD09LH5HOfjOH7A@mail.gmail.com>
-X-Gm-Features: AVHnY4IkVGhomaeI1wAG41IL6-oFivJQBQuT2mzo4d72gRbFAuy9FvNbwo8LR2Q
-Message-ID: <CAFQXuNb8WBrCvBpdKdpCUSdrS+qEWjyETE0qD09LH5HOfjOH7A@mail.gmail.com>
-Subject: Re: [PATCH v5 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
- MIPI DSI to HDMI driver
-To: Rob Herring <robh@kernel.org>
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, andrzej.hajda@intel.com, 
-	neil.armstrong@linaro.org, dmitry.baryshkov@oss.qualcomm.com, 
-	maarten.lankhorst@linux.intel.com, rfoss@kernel.org, mripard@kernel.org, 
-	Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se, 
-	jernej.skrabec@gmail.com, devicetree@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com, 
-	xbpeng@lontium.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPVz0n2yGALm1Z0j0j6_MaqAOZGL+a8EgCWYQpW0QN1YVf96EQ@mail.gmail.com>
 
-Rob Herring <robh@kernel.org> =E4=BA=8E2026=E5=B9=B45=E6=9C=8814=E6=97=A5=
-=E5=91=A8=E5=9B=9B 03:25=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Thu, May 07, 2026 at 11:40:49AM +0800, syyang@lontium.com wrote:
-> > From: Sunyun Yang <syyang@lontium.com>
+On 26-05-13 20:30:10, Svyatoslav Ryhel wrote:
+> вт, 12 трав. 2026 р. о 10:51 Peter Chen (CIX) <peter.chen@kernel.org> пише:
 > >
-> > LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual por=
-t
-> > mipi dsi and output hdmi, differences in hardware features:
-> > - LT9611C: supports 1-port mipi dsi to hdmi 1.4
-> > - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
-> > - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
+> > On 26-05-12 09:13:40, Svyatoslav Ryhel wrote:
+> > > вт, 12 трав. 2026 р. о 04:16 Peter Chen (CIX) <peter.chen@kernel.org> пише:
+> > > >
+> > > > On 26-05-11 16:56:57, Svyatoslav Ryhel wrote:
+> > > > > If the USB controller and PHY are externally controlled, then the
+> > > > > registration of the controller and the PHY initialization should be
+> > > > > skipped, since these configurations must be done by the device that
+> > > > > controls the bus to work correctly.
+> > > > >
+> > > >
+> > > > I find you only control USB controller device add at PHY driver, most of USB drivers
+> > > > has PHY control, for chipidea, it has PHY control at core.c, would please try to
+> > > > adapt for it?
+> > > >
+> > >
+> > > Usually yes, but this is not the case for Tegra unfortunately. As you
+> > > can see Tegra specific section of Chipidea driver specifically
+> > > describes why it has to set PHY manually.
+> > >
+> > > /*
+> > >  * USB controller registers shouldn't be touched before PHY is
+> > >  * initialized, otherwise CPU will hang because clocks are gated.
+> > >  * PHY driver controls gating of internal USB clocks on Tegra.
+> > >  */
+> > >
+> > > So in order to provide correct work of USB when set by an external
+> > > device, both PHY and controller init/add must be skipped.
 > >
-> > Signed-off-by: Sunyun Yang <syyang@lontium.com>
-> > ---
-> >  .../bindings/display/bridge/lontium,lt9611.yaml           | 8 ++++++--
-> >  1 file changed, 6 insertions(+), 2 deletions(-)
+> > You could call generic PHY APIs at ci_hdrc_tegra.c, after PHY init or power on,
+> > call controller initialization.
 > >
-> > diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,l=
-t9611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt961=
-1.yaml
-> > index 429a06057ae8..b20a43456b01 100644
-> > --- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.y=
-aml
-> > +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.y=
-aml
-> > @@ -4,19 +4,23 @@
-> >  $id: http://devicetree.org/schemas/display/bridge/lontium,lt9611.yaml#
-> >  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> >
-> > -title: Lontium LT9611(UXC) 2 Port MIPI to HDMI Bridge
-> > +title: Lontium LT9611(UXC/C/EX/UXD) 2 Port MIPI DSI to HDMI Bridge
-> >
-> >  maintainers:
-> >    - Vinod Koul <vkoul@kernel.org>
-> >
-> >  description: |
-> > -  The LT9611 and LT9611UXC are bridge devices which convert DSI to HDM=
-I
-> > +  The LT9611=E3=80=81LT9611UXC=E3=80=81LT9611C=E3=80=81LT9611EX and LT=
-9611UXD
->
-> Use a normal ','.
->
-> > +  are bridge devices which convert DSI to HDMI
->
-> Missing period.
->
+> 
+> I was tinkering with Chipidea driver for Tegra a bit. If you meant to
+> use flag only to control usb controller device init and leave PHY to
+> be handled by controller, then yes, that is possible and that is
+> better approach.
+> 
 
-thanks, Rob Herring.
+Yes, you may summarize the initialization sequence, and see if put PHY
+control at Tegra glue layer or at Chipidea core.
 
-we will fixed in patch v7.
+-- 
 
-> >
-> >  properties:
-> >    compatible:
-> >      enum:
-> >        - lontium,lt9611
-> >        - lontium,lt9611uxc
-> > +      - lontium,lt9611c
-> > +      - lontium,lt9611ex
-> > +      - lontium,lt9611uxd
-> >
-> >    reg:
-> >      maxItems: 1
-> > --
-> > 2.34.1
-> >
+Best regards,
+Peter
