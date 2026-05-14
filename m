@@ -1,384 +1,212 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328211D798E
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 06:47:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B03C73A4F5C
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 06:48:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778741240; cv=none; b=n4/VNAkaH/Oaix6o54gqtG1ZGFqAq5//Sg7Ejyx3rYrq/ymRUaNDHEUuoi1CROGkj+NVnPr32GtKinKM6d4zj5dBlAHfBMcmL+hk/9WhJ6kLJXKDb24rObXnSCJeg59+BPH5MbSsyzA2abYqez70Vp+aO4JGlRdu9kq+BfRhlJw=
+	t=1778741288; cv=none; b=pkCjoUHXMXWpiiYigo7zxpOkJslkR7A9vU3PV+8SLy+JGiJO2bPRcZyxn0GKpEp+vzE6JfIRFFfkiRULNQUJxXZi8TV6QnvxDsRkjsCbNCT1XZNR81CWW5vtPfzwOCpggwg1u98xcMddqi/r6494fCcNP+CjGUsJdV/yZ0cM5I0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778741240; c=relaxed/simple;
-	bh=YT3lvytYvMk6BaNpVQ9lrTBrXH/oxQi1VPqBmhy9dT4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=l0Z1XWCRQdvc1RDE/eibD78NG79A2n/ppMXIvVjtRGlNTrH9pMWaksKJq/IoMsdbBFz9KUvlI1kg5Tc9lh/oxPRHcDdxtWXUaSYwtPMsBhOD2boPjKDFc7VyTof85o1Bc2vSPpKvHb+PouMFWamMAz4x39DWYoFJMuf10iTM4I0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TtPOK6YU; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778741288; c=relaxed/simple;
+	bh=qpYInB19+KWB5dpwoxZNhko/ryAESkSZ2TXgzDKRXSQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bxO7oJLvHLQ23yBd+W8Kb2gaLIPl7F+1mVaVelY3ro0vnJwF68rVpyey26HURmuuf2ebqJ+TQga8z4iRS0mn/vBa0kr4fr3P13e5OwMJQpGxM17eusKhWDDEDNw9nClqOyKptekvcMs1KhKwOwrk4UGcbC5Drhah+3Ci1uRQkYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BxFwvY9d; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=avVTcypT; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TtPOK6YU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99C53C2BCB7;
-	Thu, 14 May 2026 06:47:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778741239;
-	bh=YT3lvytYvMk6BaNpVQ9lrTBrXH/oxQi1VPqBmhy9dT4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=TtPOK6YUtOO9DXWyw+FQLFtIfO3CTeaQF+hY9H69vSj6EO7x3Ujuqpl13M0qB+5dE
-	 GzxIe+mP21sqn3rDB5lIZ1jK1l88iuKepSc6f7Q6urYrCNZAxDboSQfQ+8uZB1UJhX
-	 Afg1gt5yIUfrqvziLebEPPPTuiaYZ1cCerIsFDsEjtd0cU1PF6BC9vikQKts4vUNo9
-	 Z78eBn37RkpPqCVOA1ASmS6bVkygGIgWDp+PVGVTN/x2/4aiKVtGTRXo7cxYMCtMyU
-	 XjkW0+b9JI7QqU2+im1mPQ5Xx9qXKXL9y0SZYJJqs+2sQtyZl55BNW+P4GoNdNI08U
-	 GqULp/moD0X9g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] media: i2c: imx678: Add driver for Sony IMX678
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jai Luthra" <jai.luthra@ideasonboard.com>
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260513-imx678-v1-2-30fc593ed8fa@ideasonboard.com>
-References: <20260513-imx678-v1-2-30fc593ed8fa@ideasonboard.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 06:47:19 +0000
-Message-Id: <20260514064719.99C53C2BCB7@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BxFwvY9d";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="avVTcypT"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64E5SDL72004007
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 06:48:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	1dIqx3AV3aEYA3aesXchj0hVPbQX+b2MuE+8b6/BrFU=; b=BxFwvY9dmeolgFNT
+	rxtfCdlUKx0M67AilD/55CfJDr/7/jIa/LJgMnmnuiUC3HdG1PbTeFJVsq1ej0F4
+	v0r6Joo67UxwLAsVyF9vrnBnwahlb4+QJ3a4T9UX9k0Jz4BhoB3Skk4UdGmNIaVm
+	llflerEmcXADzX7fiTolPXIkHPmWE72n/uA9RtOzI66mcaP2lws9fTQEiDbsw2nH
+	WjctpSSSDZ6x+gXfPJ0wS56FreTRM9USM4ZoGFnvhPn+qVQyr6ypsNaId1O/oIab
+	Z8u2UpDSIqz9F8cIPRvIQaNrDu1ne316JJtUCP98BIqP5yRbhs1DW7FnNiLhhXsz
+	EPQ41g==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e5899r82t-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 06:48:05 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c8292e18166so2395803a12.3
+        for <devicetree@vger.kernel.org>; Wed, 13 May 2026 23:48:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778741285; x=1779346085; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=1dIqx3AV3aEYA3aesXchj0hVPbQX+b2MuE+8b6/BrFU=;
+        b=avVTcypTd2k3brioJDqSVx+mvA7VyzCNvvgss/MohQxQcsdnInXJEHIIzgDUfJAtZt
+         pUN9hssXVlkEXjdsOPGnih16P0irYJdYg7AfzYzw677/3lpem2+3HNqKpCAciVSVgppv
+         J0xRH8EIC+erEq8H5lhxfQ9/7O8SzNOsJ0BYfkvWcAGiV/NMd1UYu9U8azZepDgX417k
+         y6xt6hhrRqIo/cbGnnsPNr9nt6/sot3cpjbeurVDS8S2VgY4t8y3tKoobgPeRESspxLu
+         XFM8nCQsxncj5YaNQQae1C0Z0ajW6BSXWYUouSffRS6wAGXulQS5jjKK6iNKtHxw4Nuo
+         Xmgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778741285; x=1779346085;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=1dIqx3AV3aEYA3aesXchj0hVPbQX+b2MuE+8b6/BrFU=;
+        b=eAfVlEivx2+HofDyR466S2dKMZKKSkq+mTwDGl+kbbtZ0p+VDGDypXp+nUIAzLoviN
+         vchFkveFcjOWQN847sL1k+dUE8y9hq3E1s7dA+J3APd3EgP+/1H2N7p+C/+SCvlQke7q
+         JE36vszGc/dNM/gOXUbdF0+vUWRKojDHpjl/nPhHoD3nG2EjwRhUhLW2hdPsUKWk0wyN
+         jSTNRmYRkBBhzsSY+M1t6MICmwvLLw8amCi0LzhFQ3FB+xPIbZM/+v1pSQDNWRdIdwUB
+         guUtclI+tWpxAwQ7RJia8hGv2TpzicLPeIHpj4ucAHT4Sr2vLXJP/o/VUsaINFjnfxQa
+         Krkg==
+X-Forwarded-Encrypted: i=1; AFNElJ+sQ9zdOcMo9hshBnaaeJa+vvHqbt3hb5HtbCU7o0gcYMBkpgM+Kh3NlpHQoay5GTUvgZExLrVL98D0@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyudv2IrwVbjKIHXWLkqimjP2IjLl6GD01gjayOzJi4MZguwPPH
+	RxA8967CTd3hJz2d8ZxCW3QUTC2v+yG13VvnMuj88VjS9VBhCWEMBO2D72RClHXCS7XRXI2QPFN
+	bRlsZPFxxcZ0CmUrac0Cv7I0trEXlM/EZZtJORTh44nA36WseudS3ZlRqO3yCvEmH
+X-Gm-Gg: Acq92OEOfvX6+CFutMiL7nXgRGoFmj0c1T1TpsllglV4QO1++qWXPL6ER4QNV0jVgNb
+	73YQIfl2lngCTnuLUWSSnEA7juPUt6kZjhTMlmQxomMsaKH5ePXo9nyLNrQpa6JCYxyG3uWnQwN
+	KKdB4thexv22tLFGp4MkSvSs8nf6YOnmYJf6EL6NUFG5EFRlM5NSaz6JM2Jm7I4O6WwcCtCiQtt
+	pMqN8nrPhbKL5FjnWQ3nxiH96RnL/B0e6loQwZAkSFk8WwFclc5UEDvUZglX5jHbLoSQQ0g2X7r
+	lKl26fDE2BGcJ8+Az0H6xf+FUyfoB3Bxr4o+SzYehaVRIZi3fQGEDiHHl7K2RfrR2h3m2sWImbi
+	2aHIxE2AneE6fU0DqU+1x0Dsduu0MwNCqYumi5xwrxnOC7pS7sfQ=
+X-Received: by 2002:a05:6a21:33a0:b0:39b:f12e:d53 with SMTP id adf61e73a8af0-3af80681dcdmr7390013637.18.1778741284357;
+        Wed, 13 May 2026 23:48:04 -0700 (PDT)
+X-Received: by 2002:a05:6a21:33a0:b0:39b:f12e:d53 with SMTP id adf61e73a8af0-3af80681dcdmr7389962637.18.1778741283620;
+        Wed, 13 May 2026 23:48:03 -0700 (PDT)
+Received: from [10.218.12.237] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f196660f9sm1952912b3a.10.2026.05.13.23.47.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 13 May 2026 23:48:03 -0700 (PDT)
+Message-ID: <e6572f5b-3686-46ca-956d-c06a7363cef2@oss.qualcomm.com>
+Date: Thu, 14 May 2026 12:17:54 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/8] arm64: dts: qcom: kaanapali: Add GPU cooling
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov
+ <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Sean Paul <sean@poorly.run>, linux-arm-kernel@lists.infradead.org,
+        iommu@lists.linux.dev, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20260512-kaana-gpu-dt-v1-0-13e1c07c2050@oss.qualcomm.com>
+ <20260512-kaana-gpu-dt-v1-6-13e1c07c2050@oss.qualcomm.com>
+ <iun4ziuei3tzvr75qbbqgxytto6vptvtd7j5mr5ol5aqviaafz@5m4yxgnqjavc>
+Content-Language: en-US
+From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+In-Reply-To: <iun4ziuei3tzvr75qbbqgxytto6vptvtd7j5mr5ol5aqviaafz@5m4yxgnqjavc>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE0MDA2NSBTYWx0ZWRfX7LOSwbUloZzB
+ +A5M2jNu1k2yZDxAa4p0rHX5Oh96xXc4d0q/YRrev5sxZl+PW7dYh0u6L+0kj/YExBHv0OKnLXe
+ 2Fn+3DpcVxKvttvvul1ydmFE6tL8MPI+Y1MM9SFLrtFAUjHd3J8KNYwOqI8zV3qC0Z2Q4ltJdKC
+ RNt5SR83YsrTWDgZvgDspO7aSWoWTnF2pRoe2rcZM9RoY6XLXYtdY1lI1FOTP5kB+Gcmk6FgSuQ
+ OTI7zQjwNTN/ARVVLyP1VSSqyS6UX6hcyiFR42P2HxeYXmCqMnCphD425MoAv/fSGk2LoWSyAfC
+ kASfrKWzlPNcOd9NvG2rbcgBOq76BqT6PYxr/Ykl6LMUchd5tNGusUUNtky82h2ktbRNYM/f5L6
+ MwEgbn+XT9hleYfs90ol+xkxbyHGnt2efULsyGhOHVC10yJ6+xUae1PxQgsNuS+tmshb13/CuWY
+ 5sVpT8rGjPBASPxLN4Q==
+X-Proofpoint-ORIG-GUID: FM0iU7gEV55Rx3n1EWnAvvCcy0PgiPWO
+X-Authority-Analysis: v=2.4 cv=N6AZ0W9B c=1 sm=1 tr=0 ts=6a057025 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=oeV5rHmN1k-fxemBOLwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-GUID: FM0iU7gEV55Rx3n1EWnAvvCcy0PgiPWO
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-14_01,2026-05-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 priorityscore=1501 bulkscore=0 malwarescore=0 clxscore=1015
+ impostorscore=0 lowpriorityscore=0 phishscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605140065
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
-- [High] Double decrement of the Runtime PM usage counter in the error path=
- of `imx678_enable_streams()`.
-- [High] Unbalanced `pm_runtime_put()` in `imx678_set_ctrl()` when Runtime =
-PM is disabled.
-- [High] 32-bit integer overflow in pixel rate and blanking calculations.
-- [High] Double clock and regulator disable on `imx678_probe()` error path.
-- [High] Inverted reset GPIO polarity and violating hardware teardown seque=
-nce.
-- [High] Unmet Kconfig dependency for `V4L2_CCI_I2C`.
-- [Medium] Unconditional assignment of `dev_pm_ops` causes dead code when `=
-CONFIG_PM` is disabled.
-- [Medium] I2C communication errors are masked in `imx678_detect()`.
---
 
-commit c1c2386554c6d8d1cfb6969de4f0aafe46f7ec69
-Author: Jai Luthra <jai.luthra@ideasonboard.com>
 
-media: i2c: imx678: Add driver for Sony IMX678
+On 5/13/2026 11:23 PM, Dmitry Baryshkov wrote:
+> On Tue, May 12, 2026 at 03:53:20AM +0530, Akhil P Oommen wrote:
+>> From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+>>
+>> Unlike the CPU, the GPU does not throttle its speed automatically when it
+>> reaches high temperatures.
+>>
+>> Set up GPU cooling by throttling the GPU speed
+>> when reaching 105°C.
+>>
+>> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+>> ---
+>>   arch/arm64/boot/dts/qcom/kaanapali.dtsi | 165 ++++++++++++++++++++++++++------
+>>   1 file changed, 135 insertions(+), 30 deletions(-)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+>> index c57aea44218e..5089416ec32c 100644
+>> --- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+>> @@ -26,6 +26,7 @@
+>>   #include <dt-bindings/soc/qcom,gpr.h>
+>>   #include <dt-bindings/soc/qcom,rpmh-rsc.h>
+>>   #include <dt-bindings/sound/qcom,q6dsp-lpass-ports.h>
+>> +#include <dt-bindings/thermal/thermal.h>
+>>   
+>>   #include "kaanapali-ipcc.h"
+>>   
+>> @@ -7045,13 +7046,15 @@ nsphmx-3-critical {
+>>   		};
+>>   
+>>   		gpuss-0-thermal {
+>> +			polling-delay-passive = <200>;
+> 
+> Other DT files use 10 for GPU thermal zones polling interval.
+> 
 
-Add a V4L2 subdev driver for the Sony IMX678 image sensor supporting
-monochrome and color variants via MIPI RAW12.
+Sure, let me update.
 
-> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-> index 8f2ba4121586e..4f9e1bf1566c5 100644
-> --- a/drivers/media/i2c/Kconfig
-> +++ b/drivers/media/i2c/Kconfig
-> @@ -287,6 +287,16 @@ config VIDEO_IMX415
->  	  To compile this driver as a module, choose M here: the
->  	  module will be called imx415.
-> =20
-> +config VIDEO_IMX678
-> +	tristate "Sony IMX678 sensor support"
-> +	select V4L2_CCI_I2C
+>> +
+>>   			thermal-sensors = <&tsens5 0>;
+>>   
+>>   			trips {
+>> -				gpuss-0-hot {
+>> -					temperature = <120000>;
+>> +				gpuss_0_alert0: gpuss-0-alert0 {
+>> +					temperature = <105000>;
+>>   					hysteresis = <5000>;
+>> -					type = "hot";
+>> +					type = "passive";
+>>   				};
+> 
+> Why don't we keep both passive and hot trip points?
+> 
 
-Could this cause unmet dependency warnings? V4L2_CCI_I2C depends on I2C, so
-selecting it without a "depends on I2C" here might lead to Kconfig warnings=
- or
-build failures.
+Need guidance here, we are keeping passive at low temp so still hot trip 
+is needed for such cases.
 
-> +	help
-> +	  This is a Video4Linux2 sensor driver for the Sony
-> +	  IMX678 camera.
-> +
-> +	  To compile this driver as a module, choose M here: the
-> +	  module will be called imx678.
-> +
+>>   
+>>   				gpuss-0-critical {
+>>
+> 
 
-[ ... ]
-
-> diff --git a/drivers/media/i2c/imx678.c b/drivers/media/i2c/imx678.c
-> new file mode 100644
-> index 0000000000000..9725cc473fcef
-> --- /dev/null
-> +++ b/drivers/media/i2c/imx678.c
-
-[ ... ]
-
-> +static u64 imx678_iclk_to_pix(u32 pixel_rate, u32 cycles)
-> +{
-> +	const u32 iclk =3D 74250;
-> +	const u32 pixclk =3D pixel_rate / HZ_PER_KHZ;
-> +	u64 numerator =3D cycles * pixclk;
-
-Can this multiplication overflow before being assigned to the 64-bit
-numerator? Since both cycles and pixclk are 32-bit unsigned integers, their
-product could exceed the 32-bit maximum, potentially resulting in incorrect
-V4L2 blanking limits.
-
-> +
-> +	return DIV_ROUND_CLOSEST_ULL(numerator, iclk);
-> +}
-> +
-> +/*
-> + * HBLANK control is in units of pixels
-> + * Convert to HMAX register units (@ internal 74.25 Mhz)
-> + */
-> +static u64 imx678_pix_to_iclk(u32 pixel_rate, u32 pixels)
-> +{
-> +	const u32 iclk =3D 74250;
-> +	const u32 pixclk =3D pixel_rate / HZ_PER_KHZ;
-> +	u64 numerator =3D pixels * iclk;
-
-Similarly, does this calculation also risk a 32-bit overflow? Casting one of
-the operands to u64 before multiplying might be needed here.
-
-> +
-> +	return DIV_ROUND_CLOSEST_ULL(numerator, pixclk);
-> +}
-
-[ ... ]
-
-> +static int imx678_set_ctrl(struct v4l2_ctrl *ctrl)
-> +{
-> +	struct imx678 *imx678 =3D container_of(ctrl->handler, struct imx678, ct=
-rl_handler);
-> +	struct v4l2_subdev_state *state;
-> +	struct i2c_client *client =3D v4l2_get_subdevdata(&imx678->sd);
-> +	const struct v4l2_mbus_framefmt *format;
-> +	int ret =3D 0;
-> +
-> +	state =3D v4l2_subdev_get_locked_active_state(&imx678->sd);
-> +	format =3D imx678_state_format(state);
-
-[ ... ]
-
-> +	/*
-> +	 * Applying V4L2 control value only happens
-> +	 * when power is up for streaming
-> +	 */
-> +	if (pm_runtime_get_if_in_use(&client->dev) =3D=3D 0)
-> +		return 0;
-
-If Runtime PM is disabled, pm_runtime_get_if_in_use() can return a negative
-error code. Since this check only exits when the value is exactly 0, does
-this code proceed to write to the hardware and then call pm_runtime_put()
-below, potentially causing a reference count underflow?
-
-> +
-> +	switch (ctrl->id) {
-> +	case V4L2_CID_EXPOSURE: {
-
-[ ... ]
-
-> +	default:
-> +		dev_warn(&client->dev,
-> +			 "ctrl(id:0x%x,val:0x%x) is not handled\n",
-> +			 ctrl->id, ctrl->val);
-> +		break;
-> +	}
-> +
-> +	pm_runtime_put(&client->dev);
-> +
-> +	return ret;
-> +}
-
-[ ... ]
-
-> +static int imx678_enable_streams(struct v4l2_subdev *sd,
-> +				 struct v4l2_subdev_state *state, u32 pad,
-> +				 u64 mask)
-> +{
-> +	struct i2c_client *client =3D v4l2_get_subdevdata(sd);
-> +	struct imx678 *imx678 =3D to_imx678(sd);
-> +	const struct v4l2_rect *crop =3D imx678_state_crop(state);
-> +	const bool binning =3D imx678_state_binning(state);
-> +	int ret =3D 0;
-> +
-> +	ret =3D pm_runtime_get_sync(&client->dev);
-> +	if (ret < 0) {
-> +		pm_runtime_put_noidle(&client->dev);
-> +		goto err_rpm_put;
-> +	}
-
-If we take this error path, pm_runtime_put_noidle() decrements the usage
-counter. Does the goto err_rpm_put label then call pm_runtime_put() again,
-leading to a double decrement of the usage counter?
-
-> +
-> +	ret =3D imx678_write_common(imx678);
-
-[ ... ]
-
-> +	return 0;
-> +
-> +err_rpm_put:
-> +	pm_runtime_put(&client->dev);
-> +
-> +	return ret;
-> +}
-
-[ ... ]
-
-> +static int imx678_power_on(struct device *dev)
-> +{
-> +	struct i2c_client *client =3D to_i2c_client(dev);
-> +	struct v4l2_subdev *sd =3D i2c_get_clientdata(client);
-> +	struct imx678 *imx678 =3D to_imx678(sd);
-> +	int ret;
-> +
-> +	ret =3D regulator_bulk_enable(ARRAY_SIZE(imx678_supply_name), imx678->s=
-upplies);
-> +	if (ret) {
-> +		dev_err(&client->dev, "%s: failed to enable regulators\n",
-> +			__func__);
-> +		return ret;
-> +	}
-> +
-> +	usleep_range(500, 550); /* Tlow */
-> +
-> +	gpiod_set_value_cansleep(imx678->reset_gpio, 1);
-
-Does writing 1 to the reset GPIO assert the reset state? If a logical 1
-asserts the reset, the sensor might be held in reset while it is supposed to
-be operating.
-
-> +
-> +	ret =3D clk_prepare_enable(imx678->xclk);
-
-[ ... ]
-
-> +static int imx678_power_off(struct device *dev)
-> +{
-> +	struct i2c_client *client =3D to_i2c_client(dev);
-> +	struct v4l2_subdev *sd =3D i2c_get_clientdata(client);
-> +	struct imx678 *imx678 =3D to_imx678(sd);
-> +
-> +	gpiod_set_value_cansleep(imx678->reset_gpio, 0);
-> +	regulator_bulk_disable(ARRAY_SIZE(imx678_supply_name), imx678->supplies=
-);
-> +	clk_disable_unprepare(imx678->xclk);
-
-Is it safe to disable the regulators before disabling the clock? This seque=
-nce
-drives an active clock into an unpowered CMOS sensor, which might violate
-hardware teardown specifications.
-
-> +
-> +	/* Force reprogramming of the common registers when powered up again. */
-> +	imx678->common_regs_written =3D false;
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static int imx678_detect(struct imx678 *imx678)
-> +{
-> +	struct i2c_client *client =3D v4l2_get_subdevdata(&imx678->sd);
-> +	int ret =3D 0;
-> +	u64 val =3D 0;
-> +
-> +	/*
-> +	 * This sensor's ID registers become accessible 80ms after coming out
-> +	 * of STANDBY mode.
-> +	 */
-> +	cci_write(imx678->cci, IMX678_REG_MODE_SELECT, 0, &ret);
-> +	usleep_range(IMX678_MODULE_ID_DELAY, IMX678_MODULE_ID_DELAY +
-> +		     IMX678_MODULE_ID_DELAY_RANGE);
-> +
-> +	cci_read(imx678->cci, IMX678_REG_MODULE_ID, &val, &ret);
-> +
-> +	if (val !=3D IMX678_ID) {
-> +		dev_err(&client->dev,
-> +			"Chip ID mismatch: %x!=3D%llx\n", IMX678_ID, val);
-> +		return -ENXIO;
-> +	}
-
-If cci_read() fails, the actual I2C error code stored in ret is ignored her=
-e,
-and val defaults to 0. Since 0 doesn't match IMX678_ID, does this log a
-potentially misleading "Chip ID mismatch" error and discard the I2C error
-code?
-
-> +
-> +	cci_read(imx678->cci, IMX678_REG_MONOCHROME, &val, &ret);
-
-[ ... ]
-
-> +static int imx678_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev =3D &client->dev;
-> +	struct imx678 *imx678;
-> +	const struct of_device_id *match;
-> +	int ret, i;
-
-[ ... ]
-
-> +	pm_runtime_set_active(dev);
-> +	pm_runtime_enable(dev);
-> +	pm_runtime_idle(dev);
-> +
-> +	ret =3D imx678_init_controls(imx678);
-> +	if (ret)
-> +		goto error_pm_runtime;
-
-[ ... ]
-
-> +	return 0;
-> +
-> +error_subdev_cleanup:
-> +	v4l2_subdev_cleanup(&imx678->sd);
-> +
-> +error_media_entity:
-> +	media_entity_cleanup(&imx678->sd.entity);
-> +
-> +error_handler_free:
-> +	imx678_free_controls(imx678);
-> +
-> +error_pm_runtime:
-> +	pm_runtime_disable(&client->dev);
-> +	pm_runtime_set_suspended(&client->dev);
-> +
-> +error_power_off:
-> +	imx678_power_off(&client->dev);
-> +
-> +	return ret;
-> +}
-
-Because pm_runtime_idle(dev) was called during probe before
-imx678_init_controls(), the device could already be suspended via the
-imx678_power_off() callback. If we take this error path, does the driver
-unconditionally call imx678_power_off() again, causing unbalanced clock and
-regulator disable calls?
-
-> +
-> +static void imx678_remove(struct i2c_client *client)
-> +{
-
-[ ... ]
-
-> +MODULE_DEVICE_TABLE(of, imx678_dt_ids);
-> +
-> +static const struct dev_pm_ops imx678_pm_ops =3D {
-> +	SET_RUNTIME_PM_OPS(imx678_power_off, imx678_power_on, NULL)
-> +};
-> +
-> +static struct i2c_driver imx678_i2c_driver =3D {
-> +	.driver =3D {
-> +		.name =3D "imx678",
-> +		.of_match_table =3D imx678_dt_ids,
-> +		.pm =3D &imx678_pm_ops,
-
-This isn't a bug, but omitting the pm_ptr() wrapper around &imx678_pm_ops h=
-ere
-can leave unused structures and trigger dead code warnings when CONFIG_PM is
-disabled.
-
-> +	},
-> +	.probe =3D imx678_probe,
-> +	.remove =3D imx678_remove,
-> +};
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-imx678-v1-=
-0-30fc593ed8fa@ideasonboard.com?part=3D2
