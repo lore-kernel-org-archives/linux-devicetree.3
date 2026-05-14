@@ -1,74 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ECA233689B
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 18:09:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74D68389DE6;
+	Thu, 14 May 2026 18:10:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778782181; cv=none; b=B2MC8YwIeOR5sbnG0H6Y4ebEt/XJEAYUyTUiaqKxVAiznNyk2hI1etwi7vz5tK+Qk79XPJJS0KR1rn5eagiy2BJTPp51va0BlE5tgw30epuYDZFgeR39SHC88rVB9ULyeSAccf1CqXgLPQyNI7qJa8Sj3nyElswolVUvKPYaO68=
+	t=1778782237; cv=none; b=hp6jkepf+q6MQIAnA6lppl5eBa+azMHs/FVzWPLAxoTVvMGryMMfQXZJu3f+qtAmR4sS5XXee1AbEJZPiEWlB2hWWtgbjQb1iRKMDhAaHQ8ngolo0kvzfTAiGbGb9eyY5n6MYc/g6aUnLL6FtIyNkuI6af+M1qH0BesPzoNa60M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778782181; c=relaxed/simple;
-	bh=qIeoSKyADr4Wu0dNxCKwUj5mO/2tRBSB8gSM4qMI6+A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=USwPqmJbPQqKcXCc2KwAm2OJtB+tP3OvooLnY2DsvU9mI4aUEs1f4/KWAKs/6k8JN6V3H8GrAbm9FG7SwyKVD6HDWYFhfHr+2oImGKsO7X3+6gEylMCoWCBqnI5rEmNcTqKOQBkX2bxqZR3VBteFsuKbEXJNLvz6eUwbvIHhrrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YFQubSlR; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YFQubSlR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0692BC2BCB3;
-	Thu, 14 May 2026 18:09:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778782181;
-	bh=qIeoSKyADr4Wu0dNxCKwUj5mO/2tRBSB8gSM4qMI6+A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YFQubSlRM5X6zEXMEWCbNbJimRnRT7sqJbJ35k0XGtz8zEmn9XaadtOdDiKlcvn68
-	 HJhWWx/uTMPz6ztbtfoLDoAWvKqA1sXr1DqogHUO7cLsTI4uWWyeOwJMsBc121zWc2
-	 +vxV3fyQJEr3VvIRC568lySaLq/fyUwZc6IrgpGaFODyHfoJMiDG5B64uom7dGwR3+
-	 aTYuujDOHOFR3HodV3GS1IZdXdFa31MgU8t71suCrN0QRD1w31UqcwQVxTYnyq/lMF
-	 btbAwwT7Og8EWPPLgjyINlHHNeXzdpp4IpY/hZi89QFZ3qKJDz6nGuKXPI3ovgDQaU
-	 V+WTDCn9vhHvA==
-Date: Thu, 14 May 2026 19:09:36 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Lorenzo Bianconi <lorenzo@kernel.org>
+	s=arc-20240116; t=1778782237; c=relaxed/simple;
+	bh=AhvkZJuzLnoXeTp6OfzpmSTFhU18gs2QLkv7PeMD52A=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=JNq1erEDEUdvongs3d8v+kPzpuhgLECkcqxMNm8cLhh7tMoKoZQbjmX7Sf4TUGmoDiRHAuPPlA7nwe3CdtAht4kuWMiy89xk1z7/3urWQoXLl2eOBaYH4E5+gCsscPGDNDwt0w6dCrDqefcBgVciM326iePsF9mg4RKM8c99ULo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com; spf=pass smtp.mailfrom=perches.com; arc=none smtp.client-ip=216.40.44.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
+Received: from omf06.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay06.hostedemail.com (Postfix) with ESMTP id C2DD11C04E4;
+	Thu, 14 May 2026 18:10:25 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf06.hostedemail.com (Postfix) with ESMTPA id E4BF32000F;
+	Thu, 14 May 2026 18:10:22 +0000 (UTC)
+Message-ID: <1eee92b884068d649ef7be9f7d931da27aa04536.camel@perches.com>
+Subject: Re: [PATCH] checkpatch: Don't emit warnings for USB & PCI device DT
+ compatible prefixes
+From: Joe Perches <joe@perches.com>
+To: Brian Norris <briannorris@chromium.org>, Chen-Yu Tsai
+ <wenst@chromium.org>
 Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Felix Fietkau <nbd@nbd.name>,
-	John Crispin <john@phrozen.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: arm64: dts: airoha: Add an7583 entry
-Message-ID: <20260514-throbbing-doorframe-25c289ab0b71@spud>
-References: <20260513-airoha-7583-v2-0-ee0d82b37ce7@kernel.org>
- <20260513-airoha-7583-v2-1-ee0d82b37ce7@kernel.org>
+  Conor Dooley <conor+dt@kernel.org>, Andy Whitcroft <apw@canonical.com>,
+ Dwaipayan Ray	 <dwaipayanray1@gmail.com>, Lukas Bulwahn
+ <lukas.bulwahn@gmail.com>, 	devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Yingying Tang	
+ <yingying.tang@oss.qualcomm.com>
+Date: Thu, 14 May 2026 11:10:21 -0700
+In-Reply-To: <agYJJVfMBVL0KB05@google.com>
+References: <20260514105151.2771474-1-wenst@chromium.org>
+	 <agYJJVfMBVL0KB05@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="OsViCA6T3TKoo08k"
-Content-Disposition: inline
-In-Reply-To: <20260513-airoha-7583-v2-1-ee0d82b37ce7@kernel.org>
+X-Rspamd-Server: rspamout05
+X-Rspamd-Queue-Id: E4BF32000F
+X-Stat-Signature: yye39xuupwxyk9kjkbu1zn7cc7gs3wn7
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Session-ID: U2FsdGVkX1/1P6H8PNwd2Tn+kj+N7UnUkLxDUxI2r7s=
+X-HE-Tag: 1778782222-13746
+X-HE-Meta: U2FsdGVkX18fTAuViOy3ZiW0ezDJo1BSI4HFISUYNZy0v+NnKnk3VCPZyXI8MUjjZAanMn4HmKcutbpkkylTiCAQUI3nwZmBNcWr73amZf9qXTGBTTRN3xR4AI6zjpxaXeWwQ5n4T75+e01MnY/UUh60ET6rP9YS5ldh9Z5cyJpkdgMrQRQqZXl4487JrNLyJb6+cTj6zARpUi+s1GyBwQ88S519KKoqcE+AX1z4zxajp26tufeW4yYq6VMW667XuP8BojIO8eXNmuRtXigkU2SF36UJmveBYrTzZ318ejmVYxrzNx03v0Xn8/KULzBI7LYD4+A3rIt99yweFA5tMy06hzIu8X61
 
+On Thu, 2026-05-14 at 10:40 -0700, Brian Norris wrote:
+> Hi Chen-Yu,
+> On Thu, May 14, 2026 at 06:51:50PM +0800, Chen-Yu Tsai wrote:
+> The USB and PCI device bindings define some compatible patterns based
+> > on device IDs that use the comma to separate vendor and product IDs.
+> >=20
+> > These patterns include:
+> >=20
+> >   - usb[0-9a-f]{1,4},[0-9a-f]{1,4}
+> >   - pci[0-9a-f]{2,4},[0-9a-f]{1,4}
+> >   - pciclass,[01][0-9a-f]{3}([0-9a-f]{2})?
+> >=20
+> > These are not real vendor prefixes. Don't emit warnings for them.
+> >=20
+> > Signed-off-by: Chen-Yu Tsai <[wenst@chromium.org](mailto:wenst@chromium=
+.org)>
+> > ---
+> > This is a simplified version of what Brian Norris previously posted [1]=
+,
+>=20
+> Wow, almost forgot about that one. Thanks for the blast from the past.
 
---OsViCA6T3TKoo08k
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+You know Brian, you're different than me.
+I completely forgot about that one.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+> > but more comprehensive and more perl-y than what Yingying Tang posted
+> Is "perl-y" a good thing? :)
 
---OsViCA6T3TKoo08k
-Content-Type: application/pgp-signature; name="signature.asc"
+My sweet wife thinks so.  It's spelled differently though.
 
------BEGIN PGP SIGNATURE-----
+> > Hopefully everyone likes this version.
+> I like any version that eliminates obvious false positives!
+>=20
+> But one thing that can be improved: your version still requires that the
+> full ID string be documented explicitly. For example, this still gives a
+> false warning:
+>=20
+> $ git format-patch -1 --stdout 24af105962c8004edb9f5bf84bc587cbb30e52de |=
+ scripts/checkpatch.pl
+> [...]
+> WARNING: DT compatible string "pci0014,7a24.0" appears un-documented -- c=
+heck ./Documentation/devicetree/bindings/
+> #234: FILE: arch/mips/boot/dts/loongson/ls7a-pch.dtsi:37:
+> +				compatible =3D "pci0014,7a24.0",
+> The dtschema is clear that anything matching the pci pattern is OK, and
+> we don't need to list every possible variation in a yaml file.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagYP4AAKCRB4tDGHoIJi
-0otaAP9ciIZ3isHJRWPYjZZYBPnIzFu2RLtFlNV+1P/ZjFFC6QD/fZs0VecbfXkP
-6XvIhQzrBcqPD5u1MNqPO5JSqKNoqwU=
-=y/u2
------END PGP SIGNATURE-----
+> > diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
+[]
+> > @@ -3795,6 +3795,9 @@ sub process {
+> > =20
+> >  				next if $compat !~ /^([a-zA-Z0-9\-]+)\,/;
+> >  				my $vendor =3D $1;
+> > +				next if $vendor eq "pciclass";
+> > +				next if $vendor =3D~ /^pci[a-f0-9]{2,4}$/;
 
---OsViCA6T3TKoo08k--
+Maybe
+
++				next if $vendor =3D~ /^pci[a-f0-9]{2,4}/;
+
+?
+
+> > +				next if $vendor =3D~ /^usb(if)?[a-f0-9]{1,4}$/;
+
