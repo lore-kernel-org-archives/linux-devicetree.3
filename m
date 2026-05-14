@@ -1,139 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A16F525B0BB
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 20:16:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32CC838BF72
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 20:18:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778789813; cv=none; b=aAiUPHVkm7Z1Bwdu9smsBsp8mNbvmxqKn5O9FKerCzmj31/W+6f7aUIsRi/C6ksm07rxFTRJyrl6/kORji52r6B6Ac4UbD3gALyQuhqRnx1ldPRT1XAlarRODhT204nb+rQwJ16NYBGm36WHqcWQNMqtW3zqaFfczmWz6gjpQGs=
+	t=1778789894; cv=none; b=EqgGPr8t7ye1f/PKLKDwmO9tBX2UR332b8Ozt8AEs2PWKicXaKjJ9Xfo1c32gvWAGOmZNZnHqdpjezJaI24NG58yKRcE64hnwEq2u5ISBfIBzMCArrYUEcg+iKKxl3uSHOz8+TbUjBlrf/mDfrvCtOZmAyWNTc9Retw9H71ALs4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778789813; c=relaxed/simple;
-	bh=s+rFl6lzNlBK9ot5ZFiqHvGocKIbbnpbTAvkc0JxJYc=;
+	s=arc-20240116; t=1778789894; c=relaxed/simple;
+	bh=eeG9fQkvwPjJRL5JSBJO5rD/9qhQX1xIiE7dWKBbyuk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CPzJpid2hjtohxC25BPj1vBvi1x70nFAUsqSz73jUNyylPiyF5Y5p/Gu7+sj28MoUO3Ur4qZa1F/MQdnZFJYR1u1c8GOFX9F1sKNfhf9/074wHOgCAdaGS9q+xzkfpVZpoIylYXy3lmgfNjPUUubNMm6zZiqLF5AL9Vq1Bur/Co=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z0BVIM4a; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=FZAu3itUveDFns31xder7F7kt6AbgwLT7VseyWHsnxZ4ssUmjXfq48jFaNdUtKDg0MOpUn2Uy6p/iuPWbp4uAkMOIlDicL6A/4XrF2V3GjTWHj1HSTXYB8Ovy3yOmV+x7AthZBS5qgZpitrRaXZB6BiGN3BD6oB6kK+LyYSsWyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wv4eVXqr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z0BVIM4a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBCBAC2BCB7;
-	Thu, 14 May 2026 20:16:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wv4eVXqr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AFDAC2BCB3;
+	Thu, 14 May 2026 20:18:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778789813;
-	bh=s+rFl6lzNlBK9ot5ZFiqHvGocKIbbnpbTAvkc0JxJYc=;
+	s=k20201202; t=1778789893;
+	bh=eeG9fQkvwPjJRL5JSBJO5rD/9qhQX1xIiE7dWKBbyuk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=Z0BVIM4a1C/bBlsaOeV5hWIyc4gmf6P2/I1PK0gwGmWs/xHxl4N9zfEBhsF1B/0fd
-	 cHnRrxnglAXKFGiKHzyvoIoT4j6hJk8I0FZEgwa3tENT/JxAF4S4t51xQqkenNO5wp
-	 oNbQAXxz8QvWNEj4KaVQ6ud6cW9XX5E80BI0rq6qVduuX3kQlltgiBmBlpG4cXKSkB
-	 eo4angUZpUN53xiAD83lLALMa2LJM6T86slnurjjOgf0qalrQsejQlpxr5tTKWaU6Z
-	 niAsGfkwJpsSyivOMMKwSz/nfFJxswo4ZrN0VVpoYBhe4TNUQi5kWREKTFwjz8n76f
-	 jHpWCvp3vfVTQ==
+	b=Wv4eVXqrUcF11C7IRJ35NwjPwE7G7y8u5A77IRO1nidG0gl07QF4s7utddKFeoVlq
+	 f3nX/RpcM83Yp/QPyrKD5izBqGOOAZb+cgp0glOAgvl2EWTWIUTle0g/18RnZ9bu6C
+	 wyFeElHDF+kupMwmaNmoLtWu3ByAiL7dOTuMuMJrIzeHFUfwxroOOiJKRKSfjxYCa3
+	 pFPr1bNMXEVLBEFE7swRU5EtkermBMvrxuLb9JCFB8wI2v8mwvU7fx6vVvZRdW7C8W
+	 gAWbk/kqubhuaawKxqKQVr/bhz2TKreg6NPltAT2Cvz5PqFaRmkkt2sTEJ7ywtWRoM
+	 zQ/8jp2DMt09w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 5/7] iio: core: Add IIO_COVERAGE_PERCENT channel type
+Subject: Re: [PATCH v5 3/3] arm64: dts: qcom: eliza-mtp: Enable USB and ADSP
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Liviu Stan" <liviu.stan@analog.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260514144712.64374-6-liviu.stan@analog.com>
-References: <20260514144712.64374-6-liviu.stan@analog.com>
+To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260514-eliza-adsp-usb-v5-3-a21056ffd892@oss.qualcomm.com>
+References: <20260514-eliza-adsp-usb-v5-3-a21056ffd892@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 20:16:52 +0000
-Message-Id: <20260514201652.EBCBAC2BCB7@smtp.kernel.org>
+Date: Thu, 14 May 2026 20:18:13 +0000
+Message-Id: <20260514201813.9AFDAC2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Embedding the measurement unit ('percent') directly into the IIO=
- channel type name violates IIO UAPI design principles.
-- [Medium] The new channel type `IIO_COVERAGE_PERCENT` was not added to the=
- `event_is_known()` switch statement in `tools/iio/iio_event_monitor.c`, br=
-eaking the tool for this channel type.
-- [Low] The new ABI documentation specifies an incorrect and outdated Kerne=
-lVersion.
+- [Low] The compatible string 'qcom,eliza-pmic-glink' is used in the device=
+ tree but is not documented in the YAML bindings.
 --
 
-commit 705b17eefc8a8d4b3eadfd2e4bd4137ac5a8e6eb
-Author: Liviu Stan <liviu.stan@analog.com>
+commit b9c08b3ae54cc2b9b02f4c789a987a560f3a9531
+Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
 
-iio: core: Add IIO_COVERAGE_PERCENT channel type
-   =20
-This commit adds a new channel type for sensors that report fractional
-coverage as a percentage. The first user is the ADT7604 leak detector,
-where the value represents the portion of the sensing element that is
-wetted.
+arm64: dts: qcom: eliza-mtp: Enable USB and ADSP support
 
-> diff --git a/Documentation/ABI/testing/sysfs-bus-iio b/Documentation/ABI/=
-testing/sysfs-bus-iio
-> index 4fc9f6bd42812..73aa5ac4a91a4 100644
-> --- a/Documentation/ABI/testing/sysfs-bus-iio
-> +++ b/Documentation/ABI/testing/sysfs-bus-iio
-[ ... ]
-> +What:		/sys/bus/iio/devices/iio:deviceX/in_coveragepercentX_raw
-> +KernelVersion:	6.15
+This commit enables USB and ADSP support for the Eliza MTP by describing the
+USB Type-C port and eUSB2 repeater. It also enables the USB controller, PHY=
+s,
+and the ADSP remoteproc.
 
-Is this KernelVersion correct? Given that 6.15 was released in 2025,
-shouldn't this reflect the upcoming kernel version for this new interface?
-
-> +Contact:	linux-iio@vger.kernel.org
-> +Description:
-> +		Raw (unscaled no offset etc.) coverage reading. Used for sensors
-> +		that report fractional coverage as a percentage, such as leak
-> +		detectors where the value represents what portion of the sensing
-> +		element is wetted. Units after application of scale and offset are
-> +		percent.
+> diff --git a/arch/arm64/boot/dts/qcom/eliza-mtp.dts b/arch/arm64/boot/dts=
+/qcom/eliza-mtp.dts
+> index 90f629800cb02..3e41c95edb28f 100644
+> --- a/arch/arm64/boot/dts/qcom/eliza-mtp.dts
+> +++ b/arch/arm64/boot/dts/qcom/eliza-mtp.dts
 
 [ ... ]
 
-> diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-c=
-ore.c
-> index 22eefd048ba92..4329d28f78b09 100644
-> --- a/drivers/iio/industrialio-core.c
-> +++ b/drivers/iio/industrialio-core.c
-[ ... ]
-> @@ -98,6 +98,7 @@ static const char * const iio_chan_type_name_spec[] =3D=
- {
->  	[IIO_CHROMATICITY] =3D "chromaticity",
->  	[IIO_ATTENTION] =3D "attention",
->  	[IIO_ALTCURRENT] =3D "altcurrent",
-> +	[IIO_COVERAGE_PERCENT] =3D "coveragepercent",
->  };
+> @@ -54,6 +57,44 @@ bi_tcxo_ao_div2: bi-tcxo-ao-div2-clk {
+>  		};
+>  	};
+> =20
+> +	pmic-glink {
+> +		compatible =3D "qcom,eliza-pmic-glink",
+> +			     "qcom,sm8550-pmic-glink",
+> +			     "qcom,pmic-glink";
 
-Does embedding the measurement unit into the IIO channel type name conflict
-with the IIO UAPI design?
+Is the "qcom,eliza-pmic-glink" compatible string documented in the YAML
+bindings?
 
-Typically, channel types represent the physical quantity, while the unit
-is determined by applying scale and offset to the raw values.
-
-If a future sensor measures coverage using a different scale, such as a
-fractional value from 0.0 to 1.0 or parts-per-million, wouldn't the
-coveragepercent string become misleading and inflexible?
+It appears to be missing from the
+Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml schema.
+Will this cause validation to fail when running dtbs_check?
 
 [ ... ]
-
-> diff --git a/tools/iio/iio_event_monitor.c b/tools/iio/iio_event_monitor.c
-> index 03ca33869ce85..1ba0386133839 100644
-> --- a/tools/iio/iio_event_monitor.c
-> +++ b/tools/iio/iio_event_monitor.c
-[ ... ]
-> @@ -65,6 +65,7 @@ static const char * const iio_chan_type_name_spec[] =3D=
- {
->  	[IIO_CHROMATICITY] =3D "chromaticity",
->  	[IIO_ATTENTION] =3D "attention",
->  	[IIO_ALTCURRENT] =3D "altcurrent",
-> +	[IIO_COVERAGE_PERCENT] =3D "coveragepercent",
->  };
-
-Does this omit an update to the event_is_known() switch statement?
-
-If IIO_COVERAGE_PERCENT is missing from the switch block in event_is_known(=
-),
-the statement will fall through to the default case and return false.
-
-Would this cause the iio_event_monitor tool to falsely flag events from
-this new channel as unknown and fail to parse or print their information?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514144712.6437=
-4-1-liviu.stan@analog.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514-eliza-adsp=
+-usb-v5-0-a21056ffd892@oss.qualcomm.com?part=3D3
