@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117741519B4
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 04:47:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E258F1C5F39
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 04:54:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778734047; cv=none; b=L3mYJjtaCXtaG4iF+LMObpdR8xYPme2a8F+YHkwBAeQSdaZyIudy0GSAqzQXYhGrF7g+YLv54v5zLYi31NOVOnAgdW3JUhI11/cUHZoj7UgxBldKHKrYXmLnGm2uxqKioot21JDH6wVFHv8Bj7P+eg0mGbwWIJlpsuXcwyqp3/A=
+	t=1778734484; cv=none; b=Bm8bRqLu6Kbu3UfPSgwdj+x+/oiVkBXjPYNNkg4rRysmOj/ZwaoB71Nsq1RJo6Hhx2of+4Y8pnP/nmmFtCx1i6N/x4QaP4pKxIiUDCqIJ8CSICsNnl4NmUsG24t+rWq4rT8IPeyjA383sREjQHPfhG+ugwMifPqP3ZYC+sfXguA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778734047; c=relaxed/simple;
-	bh=goa5AomLDKDFWr3qtgXgZK03TbphBjNDlJIfBlTPy8I=;
+	s=arc-20240116; t=1778734484; c=relaxed/simple;
+	bh=ctUHGpuuuZbEme2lA5n3VT8j6UUqq3Tc3Rcv2e3t5c4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Xzmy5M4JE4W3fE5VtknrJ02ebmO7XL3VZRUpvzKXRzUBE/rx+cmoep7B2yAM++psq9PWO9NBP5VnVDgcuNdJaGi2dOIWuOP2yFglL0c0hPzO0vmMRnHiCyLC1QoMV9ahpeThc3/8zwIQM0SfVe+h2w5p8OiOAmHPTrPcE+XLFZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sagEsKC5; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=Z0aENyMfdfZT2Zp2cicof7c9FVbGW4AD8FVsQnS9ell+qGRwylkPeWo2RQByJLBrSAFBHIQFCtWcmolvb/sxEwQINbmrrgH1YjZ+s4oU9YvezoZS1Htdkf62aYXYvuwN5rRhbPL+F7u6D58ZcLR0HLfqKq4EhwQGprQ3YkabYcM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kAG2axXg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sagEsKC5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57297C2BCB7;
-	Thu, 14 May 2026 04:47:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kAG2axXg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32896C2BCB7;
+	Thu, 14 May 2026 04:54:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778734046;
-	bh=goa5AomLDKDFWr3qtgXgZK03TbphBjNDlJIfBlTPy8I=;
+	s=k20201202; t=1778734483;
+	bh=ctUHGpuuuZbEme2lA5n3VT8j6UUqq3Tc3Rcv2e3t5c4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=sagEsKC5SmS2jRPAEVXR12ZzZc+xsy80Hr1r7Pf1gTCayARVrq3O8SC6yet4ID/9f
-	 MMDXbKRp6nZ1vCqhBzVEdog5Ik2E3cYrNrOFsfGanG7k+/Ty8rsUb60GX57Tw8YNrT
-	 MRk6qthnrmmFkfRn+roCslY7ac8OKTZRql2Ln6T8i/mO9N72fb4tRHiJecZKOshFBh
-	 bUr6H2KXY3BHsGzwoscygd1/UDVcI624hPsOyUvNYkjmrUOsKsUB4rQuoJe8fyDW4O
-	 pT6Y4eapP0IUZjUEddCAWUzVrfD4bNzid9HU3vkwZfbeDNXlA8cp62MtuIYV/fkjMj
-	 cliL5Kb69Tehw==
+	b=kAG2axXgkmwPF2oULN6lGKSvbLCFPVMwJ9gbdEnuCItkLsQEeELS+vccOPStAvHjW
+	 b3SHZEDwNgOFxncXlr8lIOVFwbiPaneSkkNTS4Kbb/ilB9tnaaigBOnzMDzDN04fAy
+	 O3GnEy+I9+mWqBq4dHLSeNgDX1TgquVIZp4M3uJw8qd9S6FuaF/Atw5/37lrAkPCic
+	 jIGrtePVrlG1ijB0GoA6oD2zCE5LVOttj9ehGuiF82ej3fZ1HHcQ3hvjvZhrEGoEH4
+	 Cr7AYJJuznFGIyyBZm7Zwi6CJtMJTwz0aFGKzmH2/RIIKEpcWudC0a3q6AClLBzfOC
+	 LgapWISOSDQog==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4] dt-bindings: i2c: convert davinci i2c to dt-schema
+Subject: Re: [PATCH v3 12/17] ASoC: simple-amplifier: gpio-audio-amp: Add
+ support for bypass gpio
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chaitanya Sabnis" <chaitanya.msabnis@gmail.com>
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260513123758.4955-1-chaitanya.msabnis@gmail.com>
-References: <20260513123758.4955-1-chaitanya.msabnis@gmail.com>
+To: "Herve Codina" <herve.codina@bootlin.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260513081702.317117-13-herve.codina@bootlin.com>
+References: <20260513081702.317117-13-herve.codina@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 04:47:25 +0000
-Message-Id: <20260514044726.57297C2BCB7@smtp.kernel.org>
+Date: Thu, 14 May 2026 04:54:42 +0000
+Message-Id: <20260514045443.32896C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,62 +46,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Omitting the 'clock-frequency' property from the device tree cause=
-s a deterministic division-by-zero crash in the driver.
+- [High] The bypass GPIO can drive a physical logic HIGH into an unpowered =
+amplifier chip, creating a severe risk of back-powering and permanent hardw=
+are damage.
 --
 
-commit 75f02e0195256a57df4b6d329b0206def30928b6
-Author: Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
+commit 802f9d8e2a1a80c9fdc791af2e538c251cfdc8e9
+Author: Herve Codina <herve.codina@bootlin.com>
 
-dt-bindings: i2c: convert davinci i2c to dt-schema
+ASoC: simple-amplifier: gpio-audio-amp: Add support for bypass gpio
 
-This commit converts the Texas Instruments DaVinci and Keystone I2C
-controller bindings from legacy text format to modern dt-schema (YAML).
-It also makes the interrupts property required and adds definitions for
-SoC-specific hardware features.
+This commit adds support for controlling an amplifier bypass feature using
+a GPIO. It duplicates the initialization pattern used for the mute GPIO.
 
-> diff --git a/Documentation/devicetree/bindings/i2c/ti,davinci-i2c.yaml b/=
-Documentation/devicetree/bindings/i2c/ti,davinci-i2c.yaml
-> new file mode 100644
-> index 0000000000000..dd7a7ffa02d54
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/i2c/ti,davinci-i2c.yaml
-
+> diff --git a/sound/soc/codecs/simple-amplifier.c b/sound/soc/codecs/simpl=
+e-amplifier.c
+> index c8991e340def5..b9c09a04832a8 100644
+> --- a/sound/soc/codecs/simple-amplifier.c
+> +++ b/sound/soc/codecs/simple-amplifier.c
 [ ... ]
+> @@ -352,8 +360,15 @@ static int simple_amp_probe(struct platform_device *=
+pdev)
+>  			return ret;
+>  	}
+> =20
+> +	if (simple_amp->data->supports & SIMPLE_AUDIO_SUPPORT_BYPASS) {
+> +		ret =3D simple_amp_parse_single_gpio(dev, &simple_amp->bypass, "bypass=
+");
 
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
+Looking at simple_amp_parse_single_gpio(), it requests the GPIO
+synchronously with GPIOD_OUT_LOW:
 
-Should clock-frequency be included in the required list here?
-
-Omitting the clock-frequency property from the device tree causes a
-regression resulting in a division-by-zero crash in the driver.
-
-When clock-frequency is omitted, davinci_i2c_probe() falls back to
-DAVINCI_I2C_DEFAULT_BUS_FREQ (100) and calculates dev->bus_freq:
-
-drivers/i2c/busses/i2c-davinci.c:davinci_i2c_probe() {
+sound/soc/codecs/simple-amplifier.c:simple_amp_parse_single_gpio() {
     ...
-    dev->bus_freq =3D prop / 1000;
+    single->gpio =3D devm_gpiod_get_optional(dev, gpio_property, GPIOD_OUT_=
+LOW);
     ...
 }
 
-Due to integer truncation, dev->bus_freq becomes 0. The driver then calls
-i2c_davinci_calc_clk_dividers(), which divides by dev->bus_freq:
+Since this is called during probe, before the DAPM powers up the device,
+can this cause hardware damage if the device tree defines the GPIO as
+active low?
 
-drivers/i2c/busses/i2c-davinci.c:i2c_davinci_calc_clk_dividers() {
-    ...
-    clk =3D ((input_clock / (psc + 1)) / (dev->bus_freq * 1000));
-    ...
-}
+If the GPIO is defined as active low, gpiolib will immediately drive the pin
+to a physical high voltage. Because the amplifier's power supplies and enab=
+le
+pin are managed by DAPM and disabled at probe time, driving a physical high
+signal into an unpowered CMOS device might forward-bias the internal ESD
+protection diodes.
 
-This executes a division by zero during device probe. Either the C driver's
-fallback logic must be corrected, or clock-frequency must be explicitly
-required in the schema to prevent this regression.
+This could back-power the chip from the SoC's GPIO pad and cause latch-up.
+Would it be safer to strictly sequence the GPIO state changes with the
+device's power state? For example, by deferring the GPIO output configurati=
+on
+until DAPM powers up the device, or implementing the controls as DAPM widge=
+ts.
+
+Note that this identical behavior appears to exist for the mute GPIO as
+well, which this bypass GPIO implementation is modeled after.
+
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+>  	/* Set controls name */
+>  	simple_amp->mute.control_name =3D "Switch";
+> +	simple_amp->bypass.control_name =3D "Bypass Switch";
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513123758.4955=
--1-chaitanya.msabnis@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513081702.3171=
+17-1-herve.codina@bootlin.com?part=3D12
