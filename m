@@ -1,143 +1,93 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D1264266BF
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 15:22:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A241D31E83E;
+	Thu, 14 May 2026 15:23:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778772137; cv=none; b=LBb89zrYJ29fonWJLbxmCcfi1B3J0LKYyGgWEgMQ+PwGQV9+Ds074jVU6mFEIMpXhly6daaiNuMdMpQ11uBCpcdcyJqgDGFK9jA654UsS5FvWND7b9DfFEd92apoSqq883aLiWAcD2zsBiKmFsB3NTkmrM6MPGjbH7mDW/BSGYY=
+	t=1778772212; cv=none; b=FNS5HaNJM8MoBP+zGY0p5izFY4SDQy3WUR1YgTnTEpTU3Eu68FXkXFGZXE1RqsdgzjVI98lsYO579PJ0S8eH1F64F5xljlesywT/bBDtUQn2OSFnDkqQXnch1EFGCLQLmWMmPm43I17QkoGMhi0Nf8E1QmblYtAZQXDLmEWxRlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778772137; c=relaxed/simple;
-	bh=V6qObgAZ/8hMUFqea2LYv5tf6j+hTtLWS+i37NwyaQA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=S8WyNyk53X6N+XZM8P7NBNbDrAdWj/Iyc5X+FArnF+AUMVAs82WRLwJcR7stusYniGLe131r2BLkJBiDBotfGue7UmGvjQ+RHcN/c2FRBUzOlb4q/T7AwPXPfXYNj71MUuNtbB/GZEmXs0pAVuIFMAhjaLTP8Kqi+/XiBtVrR9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=msAy41lZ; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1778772212; c=relaxed/simple;
+	bh=JvugWyByTkXEaIiK4vIpB6X4Zi+TSZyKhUr1GwFqia0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=K9k2+SzCshSVft2lPmUjxmAKspooc3z7pOGOn/RvmwElqJxm0rY+104FlS9IrP1/Hb1KbPvLcefIxLe7IWP0Kch70t8al+w+C90r62k80Av595thp3wPsK/8ZiBT3ny0RLIFzxfL00eOhuSvIj1yeD0vBG3IGU+WuzIQ4958EIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EWFiSNnc; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="msAy41lZ"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3D18E3C049D;
-	Thu, 14 May 2026 17:22:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1778772130; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=iPIEtsOB9x3Ey5zEUP6k0EZzT9HMxltvUAX8Ft7+obc=;
-	b=msAy41lZfa3wmojt6qzahl/zTAhRJ0D4yQx0gU7+ju8UXA+lYWxoP3QXfJhr3tPG2Lx9g7
-	aDACBEOH2lB75yu1r96HFfvVaqUYuPYwRrDIReLPLHN7MOCeqNM+q8Mk2/8km3TAMD5rge
-	JOpYk4aXrfpJ93XY4gooDRf4sQzm8Qn01/e2tk4vRUdYmyIyJxeLxZ2dVnLlqjssxpWTIo
-	jncILW7g6C8Hak/Cig/DvqeE7IcOXzlAXNDAxbAW7m0z2IjOrqUWM5j2q/Y+rGW31633Sr
-	87SGBBZ16VuhlewcEq2m57sngixx5yFzKd4d73PVxTGj8qVDdoxXCY0UHGm+Dg==
-Message-ID: <23568f49-4b58-4acd-85fa-7eba5e99b46c@cjdns.fr>
-Date: Thu, 14 May 2026 17:22:05 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EWFiSNnc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06FC2C2BCC7;
+	Thu, 14 May 2026 15:23:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778772212;
+	bh=JvugWyByTkXEaIiK4vIpB6X4Zi+TSZyKhUr1GwFqia0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=EWFiSNnc3dSAI7/O8AGV6HRJlPPpdM0omY94DJV0t1xNMNDmXd77WNVptjBI4LqM+
+	 J6eBL3atJACHKI7alCexSwPf8VItP7gqXfKFdio/YEVXB5Y5DMGmt2pbAXD7Zo7aag
+	 pBRGqZfGuBq77ctyeUArqY3aWFwgcku/nuHFfWaPiZkaNTT2H5qlfczGMIcZ48hrxH
+	 QX/qKDZ6qYc1j5QYnecdWpga9qP/lIzPEnKPiCuxHe0Dp+FLWWiSQQ8pdt7fqtIAeY
+	 Z1zbliDw451ngxw4FNmDmvdNzvp2wueQi/MfOKwOupMWNG9+/cK5MUYFFmRuLgSHgX
+	 XzSohzDYdTcMQ==
+Date: Thu, 14 May 2026 10:23:29 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Simona Vetter <simona@ffwll.ch>, linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, David Airlie <airlied@gmail.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Maxime Ripard <mripard@kernel.org>,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Subject: Re: [PATCH v3 2/5] dt-bindings: display: renesas,rzg2l-du: Add
+ RZ/T2H and RZ/N2H support
+Message-ID: <177877220882.612619.10485324075713791036.robh@kernel.org>
+References: <20260512144104.761531-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260512144104.761531-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v2 1/5] dt-bindings: timer: econet: Update EN751627 for
- multi-IRQ
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org,
- robh@kernel.org
-References: <20260514000601.3430262-2-cjd@cjdns.fr>
- <20260514114243.126F4C2BCB3@smtp.kernel.org>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <20260514114243.126F4C2BCB3@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260512144104.761531-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
 
 
-On 14/05/2026 13:42, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
-> - [High] Invalid fallback compatible string for incompatible hardware.
-> - [Medium] Outdated top-level binding description.
-> - [Low] Missing item descriptions for the new interrupts.
-> - [Low] Grammatical errors in the commit message.
-> --
->
-> commit 5cbd9643ff098f6fa9a3e82043e46dcf9b0a9953
-> Author: Caleb James DeLisle <cjd@cjdns.fr>
->
-> dt-bindings: timer: econet: Update EN751627 for multi-IRQ
->
-> This commit updates the en751627 timer hardware to use individual IRQs
-> per-timer rather than the shared percpu IRQ used by the en751221 family.
->
->> The former uses a percpu IRQ for all timers while the
->> later uses an individual IRQ numbers per-timer.
-> This isn't a bug, but there appear to be typos in the commit message.
-> Should it say "latter" instead of "later", and "individual IRQ numbers"
-> instead of "an individual IRQ numbers"?
+On Tue, 12 May 2026 15:41:01 +0100, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> 
+> Document the Display Unit (DU) support for the RZ/T2H and RZ/N2H SoCs.
+> 
+> The DU block on RZ/T2H is functionally equivalent to the RZ/G2UL DU and
+> supports the DPI interface, but includes SoC-specific register differences
+> and has no reset control. Add a dedicated compatible string to represent
+> this variant and update the allOf constraints accordingly.
+> 
+> As the DU implementation on RZ/N2H matches RZ/T2H, describe it using an
+> RZ/N2H specific compatible string with the RZ/T2H compatible as fallback.
+> 
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> ---
+> v2->v3:
+> - No change
+> 
+> v1->v2:
+> - Dropped the "port" property in favor of "ports" with a single port@0
+>   child, to align with the existing RZ/G2L bindings and simplify the
+>   device tree structure.
+> - Updated the commit message to reflect the change from "port" to "ports".
+> - Dropped RB tag from Rob due to above changes.
+> ---
+>  .../bindings/display/renesas,rzg2l-du.yaml    | 20 +++++++++++++++++--
+>  1 file changed, 18 insertions(+), 2 deletions(-)
+> 
 
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-:sigh: it seems I'm physically incapable of not doing this. Anyway glad 
-for the bot to pick up after me.
-
-
->
->> diff --git a/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml b/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
->> index c1e7c2b6afde1..f338739e039c6 100644
->> --- a/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
->> +++ b/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
-> Does the top-level description in this file also need an update?
->
-> It still explicitly claims that the timer has a single interrupt line using a
-> percpu-devid interrupt mechanism, which is no longer accurate for the entire
-> binding.
-
-
-Good catch.
-
-
->
-> [ ... ]
->> @@ -52,21 +52,31 @@ allOf:
->>             items:
->>               - description: VPE timers 0 and 1
->>               - description: VPE timers 2 and 3
->> +        interrupts:
->> +          description: An interrupt for each timer (one per VPE)
->> +          minItems: 4
-> Could this include an items list detailing the specific purpose of each
-> of the four interrupts? Defining an items array for each interrupt (such as
-> Timer for VPE 0, VPE 1, etc.) would help ensure clarity for driver developers
-> and enforce a consistent definition order.
-IMO should be self-evident.
->
-> [ ... ]
->>   examples:
->>     - |
->> +    #include <dt-bindings/interrupt-controller/mips-gic.h>
->>       timer@1fbf0400 {
->>           compatible = "econet,en751627-timer", "econet,en751221-timer";
-> Is it safe to retain econet,en751221-timer as a fallback compatible string?
->
-> Device Tree fallback strings declare that an older OS can safely operate the
-> hardware using the fallback driver. Since econet,en751627-timer uses four
-> individual shared IRQs while econet,en751221-timer strictly uses a single
-> percpu IRQ, they appear to have fundamentally incompatible interrupt
-> topologies.
->
-> If an older kernel boots using the fallback, the legacy
-> timer-econet-en751221 driver will attempt to map the first shared IRQ as a
-> percpu IRQ via request_percpu_irq(). This will fail with -EINVAL, causing
-> the timer driver to fail to initialize and potentially leading to a boot
-> failure or system hang.
->
-> Should econet,en751627-timer be defined as a standalone compatible string
-> without the econet,en751221-timer fallback?
-I find this argument compelling so I'll switch.
->
->>           reg = <0x1fbf0400 0x100>, <0x1fbe0000 0x100>;
->>           interrupt-parent = <&intc>;
->> -        interrupts = <30>;
->> +        interrupts = <GIC_SHARED 30 IRQ_TYPE_LEVEL_HIGH>,
->> +                     <GIC_SHARED 29 IRQ_TYPE_LEVEL_HIGH>,
->> +                     <GIC_SHARED 37 IRQ_TYPE_LEVEL_HIGH>,
->> +                     <GIC_SHARED 36 IRQ_TYPE_LEVEL_HIGH>;
->>           clocks = <&hpt_clock>;
->>       };
