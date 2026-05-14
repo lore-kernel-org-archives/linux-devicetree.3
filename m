@@ -1,162 +1,161 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B928345CAE;
-	Thu, 14 May 2026 10:35:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A83436F919;
+	Thu, 14 May 2026 10:35:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778754905; cv=none; b=SYGT9oMUtfuq4KD5jGNUifKH+p9y3JxjQF2GzVrvLMzpp5zVuSLhj66OOuKw2moRnzFLeBYfOjL0XYPNHw7RY0kkLwtrO9qGNxgProSE0q3LlIruSU5WXGtPwdpKXApQx4KSZBWYQ0iYp3YZMOF7KF04Q5DutD3/WYn788zMwhs=
+	t=1778754924; cv=none; b=QBYUiiazv364OEuhcdSRNf5Jz1VtIT5eS4ebcYLKVYjXK+3jLybt+EAYgR9TIuSDr5MwLSxxAvYuDWLjy7Y+hT60EQPKM1B2QAnaAlIr4/In1eC1g/qalwwXLPx8luah/xvW3AcNp3k9i8iY0Uc6Tf6RrzroPWczqDlLr7EpFEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778754905; c=relaxed/simple;
-	bh=N51FGcAnN0YcUlbmh4q5CtwqZkb1liIO+xkIKae1ekQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=peD7j8L15ysskvRV2O1i3LsDiPr8haVM8ppKOCA2A0hfMPZ4wIdapNnxUrAx7zPnbVHee3oeBHg47hQHn7IF0dMdvDY6W1Wv7UanD3p42DyOVGrco7jF6gM4B0oWU5LWRA8YsT+3nrq95L6H29ZelDv7rtSdNDFzO/1d3xJjNos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fsC70KuJ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778754924; c=relaxed/simple;
+	bh=SFTExNfcshhA5vgdKt8pXMMcQAxPMcduzrAcfsGVPGI=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=H40chSHPANXGDYpINdjh1HSwKIQDdb1b1q2EbM4Fdt8zaisr12vs73PWGr9Nz1ozhCu4UU/7Bnl8smJJ/JUVr3AWXsiPg/kR5gNRVpCawn7B6hmro2Ve6sU51dgcEkP8MqiuEJ41YK18xDvKcgmsMCNAkL1ovN4F5KpExJXTtIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l+pmSoxn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fsC70KuJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1F8FC2BCB3;
-	Thu, 14 May 2026 10:35:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l+pmSoxn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3579EC2BCB3;
+	Thu, 14 May 2026 10:35:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778754905;
-	bh=N51FGcAnN0YcUlbmh4q5CtwqZkb1liIO+xkIKae1ekQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=fsC70KuJHVHeQBxDal3BbIC98vnJUTuY6Mv/gGf/fpmIhQHmgDzFdk1iiimxgDQ0u
-	 Kj67f0TNFliO9+ITb/yyxt1BeOTNJ0hfmFeuoJKaxmm01H1oJzHafTgtXw0YiH0uVY
-	 3HYygbVcX/oNFr1h9Rd6jG6MQwPdknqMdOub4QOYIN2VQ95TWAL3DpB/DtxtSLdJyO
-	 QvmHp/0jOcJLDS3zXqwmC3EEpYs/Ygqe3dmqIWK/3aEMjiD0Rc5VJh55/pHkn/zYPa
-	 wZe0KLzu2iP4EmfSGiLgVjtTgbOIS3o2PFiYWxsMBDKmSwOM7ZZ2Jr5cAShaDSPEXM
-	 C+9mM9qGKLeQw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] arm64: dts: imx8dxl: Add SolidRun SoM and
- HummingBoard
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Josua Mayer" <josua@solid-run.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, krzk+dt@kernel.org
-In-Reply-To: <20260513-imx8dxl-sr-som-v5-2-d0899b371c38@solid-run.com>
-References: <20260513-imx8dxl-sr-som-v5-2-d0899b371c38@solid-run.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 10:35:04 +0000
-Message-Id: <20260514103504.A1F8FC2BCB3@smtp.kernel.org>
+	s=k20201202; t=1778754924;
+	bh=SFTExNfcshhA5vgdKt8pXMMcQAxPMcduzrAcfsGVPGI=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=l+pmSoxnsf/XpaGxLASlQj3hnOwYbDqh4WuE4EiHG3RAOPIgzsxbOiS3EeAWJ/edR
+	 5rP8MTWsFOQwI/SKr3twQVXV85qVTxn2m+y+czG6yiQ9bGImxaz5tYV5pM71HKG0Vn
+	 mweBw0QUNKCRRV2Wk985EkQJ4bTQ7BPWPHuVE907PHER6YpMWKdVg1nWPP/QxopFdd
+	 WhiuYNiXPCq7OcCWHFKWQ7Jn3Xji4AZpkCVdLVFHGmvfZ+ZZZkmr/uo4Rk78FD0g6f
+	 pttczcsujsvAlVoFfmRB4LPjv79GGkrXzHCtqp4bouXN6HqMneb09j094EIlQriv1M
+	 dQ6w18V54cU2A==
+Message-ID: <e495cf7c-a76c-4ecc-aa95-36fb0ee54b80@kernel.org>
+Date: Thu, 14 May 2026 12:35:19 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/4] dt-bindings: clock: qcom: Add QREF regulator
+ supplies for glymur
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Qiang Yu <qiang.yu@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Taniya Das
+ <taniya.das@oss.qualcomm.com>, Konrad Dybcio <konradybcio@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ krishna.chundru@oss.qualcomm.com
+References: <20260506-qref_vote_0506-v3-0-5ab71d2e6f16@oss.qualcomm.com>
+ <20260506-qref_vote_0506-v3-1-5ab71d2e6f16@oss.qualcomm.com>
+ <20260514-outgoing-literate-dove-2e2a73@quoll>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260514-outgoing-literate-dove-2e2a73@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] The Quectel cellular modem (`usb-device@1`) will never be powered =
-on because its DT node is unhandled.
-- [High] The `ethernet1` alias is explicitly assigned but then immediately =
-deleted within the same node block, breaking MAC address assignment.
-- [Medium] The `usdhc2` host controller is enabled and marked `non-removabl=
-e` for omitted hardware.
---
+On 14/05/2026 12:22, Krzysztof Kozlowski wrote:
+> On Wed, May 06, 2026 at 01:43:51AM -0700, Qiang Yu wrote:
+>> Add regulator supply properties for the Glymur TCSR QREF/REFGEN blocks
+>> required by clkref clocks.
+>>
+>> The vdda-qreftx*, vdda-qrefrpt*, and vdda-qrefrx* supplies map to common
+>> QREF TX/RPT/RX components, while SoC-specific topology and instance count
+>> differ. Document them here for qcom,glymur-tcsr.
+>>
+>> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+>> ---
+>>  .../bindings/clock/qcom,sm8550-tcsr.yaml           | 57 ++++++++++++++++++++++
+>>  1 file changed, 57 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml b/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
+>> index 1ccdf4b0f5dd..57921cb63230 100644
+>> --- a/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
+>> +++ b/Documentation/devicetree/bindings/clock/qcom,sm8550-tcsr.yaml
+>> @@ -51,6 +51,63 @@ properties:
+>>    '#reset-cells':
+>>      const: 1
+>>  
+>> +  vdda-refgen-0p9-supply: true
+>> +  vdda-refgen-1p2-supply: true
+>> +  vdda-qrefrx0-0p9-supply: true
+>> +  vdda-qrefrx1-0p9-supply: true
+>> +  vdda-qrefrx2-0p9-supply: true
+>> +  vdda-qrefrx4-0p9-supply: true
+>> +  vdda-qrefrx5-0p9-supply: true
+>> +  vdda-qreftx0-0p9-supply: true
+>> +  vdda-qreftx0-1p2-supply: true
+>> +  vdda-qreftx1-0p9-supply: true
+>> +  vdda-qrefrpt0-0p9-supply: true
+>> +  vdda-qrefrpt1-0p9-supply: true
+>> +  vdda-qrefrpt2-0p9-supply: true
+>> +  vdda-qrefrpt3-0p9-supply: true
+>> +  vdda-qrefrpt4-0p9-supply: true
+> 
+> Either I do not understand your previous explanation:
+> CXO -> TX0 -> RPT0 -> RPT1 -> RPT2 -> RX2 -> PCIe4_PHY
+> 
+> or this is still wrong. There is no TCSR here, so this proves nothing.
+> If TCSR is TX0, then you do not have five of them...
+> 
+> My previous comment stay - you are not describing the actual hardware
+> here.
 
-commit a7ba7e5c27b439ec498400fe760e61ca8b0b035c
-Author: Josua Mayer <josua@solid-run.com>
+And it should not be my task BUT YOURS to verify this in hardware
+programming guide or manual, but nevertheless I did verify and the
+manual DOES NOT mention these supplies. For Glymur, it mentions 8 reset
+ports and 5 clock ports.
 
-arm64: dts: imx8dxl: Add SolidRun SoM and HummingBoard
+No supplies at all.
 
-Add support for the SolidRun i.MX8DXL System-on-Module (revision 2.1)
-and its corresponding evaluation carrier board, the HummingBoard
-Telematics (revision 2.0).
+Then I went to QREF and it does mention few supplies but completely
+different, like mx, cx, px 0.88 and px1.2, so none of this matches QREF
+either.
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8dxl-hummingboard-telematic=
-s.dts b/arch/arm64/boot/dts/freescale/imx8dxl-hummingboard-telematics.dts
-> new file mode 100644
-> index 0000000000000..5f42c4f2e3be9
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8dxl-hummingboard-telematics.dts
-> @@ -0,0 +1,536 @@
-[ ... ]
-> +	aliases {
-> +		/* override ethernet aliases from imx8dxl.dtsi */
-> +		ethernet0 =3D &eqos;
-> +		ethernet1 =3D &switch_port1;
-> +		ethernet2 =3D &switch_port2;
-> +		ethernet3 =3D &switch_port3;
-> +		ethernet4 =3D &switch_port4;
-> +		ethernet5 =3D &switch_port5;
-> +		ethernet6 =3D &switch_port6;
-> +		ethernet7 =3D &switch_port7;
-> +		ethernet8 =3D &switch_port8;
-> +		ethernet9 =3D &switch_port9;
-> +		ethernet10 =3D &switch_port10;
-> +		/delete-property/ ethernet1;
-
-Will deleting this alias break MAC address assignment?=20
-
-Because the Device Tree Compiler evaluates properties sequentially within t=
-he
-same node block, this removes the ethernet1 alias from the final compiled
-device tree.
-
-Since bootloaders typically iterate over ethernet%d aliases starting from 0,
-won't breaking the sequence cause the iteration to abort prematurely and
-leave ports 2 through 10 without MAC addresses?
-
-[ ... ]
-> +/* cellular modem */
-> +&usbotg2 {
-[ ... ]
-> +	usb-device@1 {
-> +		compatible =3D "usb2c7c,125";
-> +		reg =3D <1>;
-> +		reset-gpios =3D <&lsio_gpio1 11 GPIO_ACTIVE_LOW>;
-> +		vbus-supply =3D <&v_3_3>;
-> +		vdd-supply =3D <&modem_vbat>;
-> +	};
-> +};
-
-Will this Quectel cellular modem ever be powered on?=20
-
-Since generic USB devices are dynamically enumerated by the host, the kernel
-relies exclusively on the onboard_usb_dev platform driver to power them up
-before enumeration.=20
-
-Since usb2c7c,125 is not in the onboard_dev_match table and there is no
-generic power sequence fallback in the USB core, won't this node be ignored?
-This would leave modem_vbat disabled, the reset pin unhandled, and the modem
-physically unpowered and invisible to the USB host.
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx8dxl-sr-som.dtsi b/arch/arm=
-64/boot/dts/freescale/imx8dxl-sr-som.dtsi
-> new file mode 100644
-> index 0000000000000..93a0eb4d7f770
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8dxl-sr-som.dtsi
-> @@ -0,0 +1,458 @@
-[ ... ]
-> +/* DSRC Radio */
-> +&usdhc2 {
-> +	bus-width =3D <4>;
-> +	keep-power-in-suspend;
-> +	max-frequency =3D <40000000>;
-> +	non-removable;
-
-Does this cause boot delays and MMC enumeration timeouts?
-
-The commit message notes the V2X DSRC Radio peripheral device node is
-intentionally omitted due to a lack of upstream bindings.
-
-Because the controller expects a permanently attached card and is marked as
-non-removable, won't the MMC core attempt to initialize it during boot and
-fail since the peripheral power sequence and resets are not driven by any
-node?
-
-Should the host controller be marked with status =3D "disabled" until the
-peripheral is actually supported and present in the DT?
-
-> +	no-sd;
-> +	pinctrl-0 =3D <&usdhc2_pins>, <&dsrc_pins>;
-> +	pinctrl-names =3D "default";
-> +	vmmc-supply =3D <&v_3_3>;
-> +	vqmmc-supply =3D <&v_1_8>;
-> +	status =3D "okay";
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-imx8dxl-sr=
--som-v5-0-d0899b371c38@solid-run.com?part=3D2
+Best regards,
+Krzysztof
