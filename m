@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB1A386553
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 20:05:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 085E334EF1C
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 20:15:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778789101; cv=none; b=rJKubbo2ZUj4mM74wzlzeTU60TAFy3gnAyyhA1ZTy42mjvIz2LiKoUAawe6+Ygd8KDTaOoWCmhdrzbBroMrF/KI66S3IsZIm5PxEKLBozPHSByR5dhIgnD4J5SbjZz57LttnU04MK8leCObmRSPOS2df0aXiMshagnOXkl0MXLQ=
+	t=1778789751; cv=none; b=WjjH4NThmbpT0qJ8I1ou/T0i+BQcDuaJGoiga+SwH3JiyfiPrznxoYn9+TyhqzFzeQbBMvP5X6j7c7pK4puYUL2OeuhG0oRFpeGmM13pj6LySP2s6z/XJ9gCu9WY+8sfoKGIOXNAT53W1H25DQICG7Zzee9StVtwKWWPbVNtZI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778789101; c=relaxed/simple;
-	bh=hBeHxHIAAZ2oj2VpiZycs1kCQfEEM1m5xo3KdgF6sG0=;
+	s=arc-20240116; t=1778789751; c=relaxed/simple;
+	bh=YX8v27UKa2NBGcchXYv5gvB5WGW0SUMjUpN6yRTWI9c=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=utRJO9xwxThwWrQgG9YN1ftVSopCw5uM6h0qKNL+BRiNmSXW67+wDicLDpV8AfLXWfIeJR7kXLiJdrGGB6GcfLwOPnRsdagOUZD61Tvpx6/AQNrQvSEGxScF8gaDNFXIZLCjNSisaFSn6+eG10iDPC4MQRYP4ksa5zzPFcmaNSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c1nzyodd; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=mNNgUtsb2strME98NKGQeafcd3AduZdT+5RN3BEiDQoJRdA28tFTVtfE5gv1K3Dlvuhj1Cq0aKLytMmROrSn6TDILldy9QC179XdZAKOqkQrJXbl0UDH2eJx15R9pgn6z1se1ThtRn9O34+/baN53WIrk4YuPymwHf3vWcOd0x8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T5heYLC6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c1nzyodd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFF38C2BCB3;
-	Thu, 14 May 2026 20:05:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T5heYLC6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51090C2BCB3;
+	Thu, 14 May 2026 20:15:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778789101;
-	bh=hBeHxHIAAZ2oj2VpiZycs1kCQfEEM1m5xo3KdgF6sG0=;
+	s=k20201202; t=1778789750;
+	bh=YX8v27UKa2NBGcchXYv5gvB5WGW0SUMjUpN6yRTWI9c=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=c1nzyoddplt/r89jxtkh2ZtlGZVNccvGcONF6HoccJ5syetk5pie/MWUF4+5mqbEd
-	 hDsDJCoGvH4vTcG4+n1WPxRRWpUPxAThSnXwi/0SJF6wwZfaROZuFgSatGVJoFclfb
-	 8PcwHnSr/lvY69Qpf3mKbw/lArnQ9nD0BoNBJJyRqtlHcHOHG1I0zUg9sUqZ55nHON
-	 0ETZe80lHsAhbXE9rSSAQ2+4IN4Azy2x6NDhkdzUVlLLwUpEZ/Q/EmNjyR61spFLjP
-	 xns9RZNErY3LfDtsm3zScukIIgwnkj1cLn9Y24MqUYaIwEyCPTnHlUOS0myrG/jcTy
-	 UwtiVxJtqae+g==
+	b=T5heYLC6my92ndOoR+/K3BrjlGJX1KoqoH4ihYR30VGb7ytK8qkuUsReqZB24EEOD
+	 0MqL4Dj97W2MQ8lPTYn/Rbo8bwrg8wEQDxs75OR8sGHJi6pq9a9+nzrYFWfSq8yEkT
+	 8y7z1YijXY8ByiU0fihbVSpt8BQma+TIDoK0hhc9Hs+kx9zaG4uQcUaEJrm4BqbHXu
+	 G2IvTB02mHJZSQ2dv5q5TeEdFtE7g7mzwNwKU681fk1etq1bTN0mH+4T8Eh6GrV2p+
+	 pAJvy2fmpZEnTXrwQRBVbzewjfJylYrD/JNn+XZPZE7HzFVK/u/w1kG2nEodOf8lA/
+	 gMe9nXZLzOUQw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] mfd: max77620: convert poweroff support to sys-off
- API
+Subject: Re: [PATCH v22 02/13] power: reset: reboot-mode: Add support for 64
+ bit magic
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Diogo Ivo" <diogo.ivo@tecnico.ulisboa.pt>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260514-smaug-poweroff-v1-2-30f9a4688966@tecnico.ulisboa.pt>
-References: <20260514-smaug-poweroff-v1-2-30f9a4688966@tecnico.ulisboa.pt>
+To: "Shivendra Pratap" <shivendra.pratap@oss.qualcomm.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260514-arm-psci-system_reset2-vendor-reboots-v22-2-28a5bde07483@oss.qualcomm.com>
+References: <20260514-arm-psci-system_reset2-vendor-reboots-v22-2-28a5bde07483@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 20:05:00 +0000
-Message-Id: <20260514200500.DFF38C2BCB3@smtp.kernel.org>
+Date: Thu, 14 May 2026 20:15:49 +0000
+Message-Id: <20260514201550.51090C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,82 +46,70 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] max77620_pm_power_off() acquires a mutex inside an atomic context =
-(RCU read-side critical section and disabled IRQs), leading to a potential =
-deadlock during system power-off.
+- [Low] Implicit integer underflow masks negative error codes returned by `=
+device_property_count_u32()`.
 --
 
-commit b3bd2ca1c0c28ed17c99ae76d84c114260a5a844
-Author: Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>
+commit 8477e879bf98a4cbb06ad4a10e04a5b704bf488c
+Author: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
 
-mfd: max77620: convert poweroff support to sys-off API
+power: reset: reboot-mode: Add support for 64 bit magic
 
-This commit converts max77620_pm_power_off() to the sys-off callback protot=
-ype
-and registers it with the sys-off API when the device tree marks the PMIC as
-a system power controller. It also removes the global max77620_scratch poin=
-ter
-by passing the chip instance through the callback data.
+The commit modifies the reboot-mode driver to support 64-bit magic values,
+allowing up to two 32-bit arguments to be passed during a reboot sequence.
+This is useful for firmware-based resets like ARM PSCI vendor-specific rese=
+ts
+that require multiple arguments. Existing reboot-mode drivers are updated
+to handle the 64-bit magic.
 
-> diff --git a/drivers/mfd/max77620.c b/drivers/mfd/max77620.c
-> --- a/drivers/mfd/max77620.c
-> +++ b/drivers/mfd/max77620.c
+> diff --git a/drivers/power/reset/reboot-mode.c b/drivers/power/reset/rebo=
+ot-mode.c
+> index 7a74f72a8313b..f1372dc700e48 100644
+> --- a/drivers/power/reset/reboot-mode.c
+> +++ b/drivers/power/reset/reboot-mode.c
 [ ... ]
-> @@ -484,13 +483,15 @@ static int max77620_read_es_version(struct max77620=
-_chip *chip)
->  	return ret;
->  }
+> @@ -175,16 +174,22 @@ int reboot_mode_register(struct reboot_mode_driver =
+*reboot)
+>  	struct property *prop;
+>  	struct device_node *np =3D reboot->dev->of_node;
+>  	size_t len =3D strlen(PREFIX);
+> -	u32 magic;
+> +	size_t count;
+> +	u32 magic[2];
+>  	int ret;
 > =20
-> -static void max77620_pm_power_off(void)
-> +static int max77620_pm_power_off(struct sys_off_data *data)
->  {
-> -	struct max77620_chip *chip =3D max77620_scratch;
-> +	struct max77620_chip *chip =3D data->cb_data;
+>  	INIT_LIST_HEAD(&reboot->head);
 > =20
->  	regmap_update_bits(chip->rmap, MAX77620_REG_ONOFFCNFG1,
->  			   MAX77620_ONOFFCNFG1_SFT_RST,
->  			   MAX77620_ONOFFCNFG1_SFT_RST);
+>  	for_each_property_of_node(np, prop) {
+> +		memset(magic, 0, sizeof(magic));
 > +
-> +	return NOTIFY_DONE;
->  }
-[ ... ]
-> @@ -573,10 +573,14 @@ static int max77620_probe(struct i2c_client *client)
->  		return ret;
->  	}
+>  		if (strncmp(prop->name, PREFIX, len))
+>  			continue;
 > =20
-> -	pm_off =3D of_device_is_system_power_controller(client->dev.of_node);
-> -	if (pm_off && !pm_power_off) {
-> -		max77620_scratch =3D chip;
-> -		pm_power_off =3D max77620_pm_power_off;
-> +	if (of_device_is_system_power_controller(client->dev.of_node)) {
-> +		ret =3D devm_register_sys_off_handler(&client->dev,
-> +						    SYS_OFF_MODE_POWER_OFF,
+> -		if (device_property_read_u32(reboot->dev, prop->name, &magic)) {
+> +		count =3D device_property_count_u32(reboot->dev, prop->name);
 
-Does this code risk deadlocking during system power-off?
+Does this implicitly underflow count? device_property_count_u32() returns an
+int, which can be a negative error code (like -EINVAL or -ENODATA) if the
+property parsing fails. Assigning it to a size_t will wrap negative errors
+into very large positive unsigned integers.
 
-Handlers registered with SYS_OFF_MODE_POWER_OFF execute via an atomic
-notifier call chain inside do_kernel_power_off() holding rcu_read_lock(),
-and with local IRQs completely disabled.
+> +
+> +		if (!count || count > ARRAY_SIZE(magic) ||
+> +		    device_property_read_u32_array(reboot->dev, prop->name, magic, cou=
+nt)) {
 
-However, the max77620_pm_power_off() callback invokes regmap_update_bits()
-on an I2C regmap, which relies on a standard mutex.
+While count > ARRAY_SIZE(magic) will successfully catch the wrapped negative
+error code because the large positive value exceeds 2, relying on unsigned
+integer wraparound for error handling can be brittle.
 
-If another CPU held this PMIC regmap mutex when smp_send_stop() was issued,
-attempting to acquire it here will hang the power-off sequence indefinitely.
+Should count be declared as an int to explicitly check for negative error
+codes returned from device_property_count_u32()?
 
-Would it be safer to register this handler using
-SYS_OFF_MODE_POWER_OFF_PREPARE instead? That mode uses a blocking notifier
-call chain and executes before CPUs are stopped and IRQs are disabled.
-
-> +						    SYS_OFF_PRIO_DEFAULT,
-> +						    max77620_pm_power_off, chip);
-> +		if (ret)
-> +			return dev_err_probe(&client->dev, ret,
-> +					"failed to register power-off handler\n");
->  	}
-> =20
->  	return 0;
+>  			pr_debug("reboot mode %s without magic number\n", prop->name);
+>  			continue;
+>  		}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514-smaug-powe=
-roff-v1-0-30f9a4688966@tecnico.ulisboa.pt?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514-arm-psci-s=
+ystem_reset2-vendor-reboots-v22-0-28a5bde07483@oss.qualcomm.com?part=3D2
