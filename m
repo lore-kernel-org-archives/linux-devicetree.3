@@ -1,76 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC8F39AD32;
-	Thu, 14 May 2026 19:47:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6EF23BE635
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 19:47:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778788058; cv=none; b=gA/rC+bGe0LYm9cJ53cX6J4gS3JJxmw/grYYD8xXuJpDED2RTaBu78YyFMZDNAubw946PFy4ylVVRsjMMqxNiMsPMYDQMuHxUYDEdPZUODCiMn9lHxpEVfpk+F7kundEVnDvf/QiVH9JsvA8Mm8EkzgIgPnV4GLBQ0BJLv1CEG0=
+	t=1778788058; cv=none; b=rF60BRT9t9X5dM4nGg5yC65f4DuR0+Zsh3QMbc7rGt+LHNGGqFFBcF+IZ/HJwl0XAR4ECo7ykrDYQMyYsQ2Dq2kYe005fmFcJymaGuCQKVj4vc9D1bsO76ZITIZevtzjVrOmGuye/tMMpqIF/rCkZ99Qq7F4UJhL6KKxKYCKjSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1778788058; c=relaxed/simple;
-	bh=XKMjFBvrJYU32dKCN/6FrknbPMMcCEBwToPOO1z00oM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gxwZMwvogIHkk8rJsG/LEAkpPC6coznBY0ZvZSaxAzLvSmDUcw4En8HoBRUCkESF/lRv90xFTDd5TliipTJZ/dRI4l8awTGGw+6R2D+339y2Tz8zeYtn1Pj/gaVTFhQvvTTnrrl/33ZwZbiIejzN+UdpZaggffCs2PuuUhVMNDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iZTCJ+qs; arc=none smtp.client-ip=10.30.226.201
+	bh=P8du4tIQJa0x4DFFIK5e28HEibs04qcz1KFj/ysRwgY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=elXD0fA/Ousav1NEZYcsHilIQKd221WUVaRqxW8MqXo3ramW8xNlRhcsAZmhEqybFmVQv+1KBJ7/V1gmBvLoXKHOsUNaSU69JVG8v6njmZ/y6td5qfZjO/J0NREtO1iNtHM1uoWXoWaqmgVYgBb2hAGYkTZbmi1dGnVh2DFrfBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O/vRSpM7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iZTCJ+qs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09944C2BCB3;
-	Thu, 14 May 2026 19:47:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O/vRSpM7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56B4DC2BCB3;
+	Thu, 14 May 2026 19:47:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778788057;
-	bh=XKMjFBvrJYU32dKCN/6FrknbPMMcCEBwToPOO1z00oM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iZTCJ+qs8Eg4zasXtVBYzL0rMbK+Yb8bRYnHZFb1mQh+hzIXnhlGsmDVQFBUZm37I
-	 qXLrIzps700gAc+kUei0k/CvESQXT28U62zwAFda/zTKO3y/0VK2TioYmBdnCJsN2q
-	 +KH1ri+wQnQRF9m9z1hUp+6PrJqdfHaRuac7COsqetOIe7L6upzpwOs7eBFkkfAUfK
-	 O1HNhdEv1NHrnsaE2Fybmn4LmH5ktaozH2gSoEf36eyh8tGBdVRwpuN0Gf04IvcC1z
-	 IHb+6m17EmXDXJqDr8+s6pr5zIVs5n0lPSAzH0QIiBGWg3rW8TAls3lsqmhQYqm1dR
-	 JCaOK8oLdvVhg==
-Date: Thu, 14 May 2026 19:47:35 +0000
-From: Eric Biggers <ebiggers@kernel.org>
-To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Cc: Thara Gopinath <thara.gopinath@gmail.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Andy Gross <agross@kernel.org>, linux-arm-msm@vger.kernel.org,
-	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org
-Subject: Re: [PATCH 0/3] Add support for qcrypto on shikra
-Message-ID: <20260514194735.GA1939213@google.com>
-References: <20260515-shikra_qcrypto-v1-0-80f07b345c29@oss.qualcomm.com>
+	s=k20201202; t=1778788058;
+	bh=P8du4tIQJa0x4DFFIK5e28HEibs04qcz1KFj/ysRwgY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=O/vRSpM7UqAX5Q8uG3hCH873rE1Tcg3Xb+Al48YbCxlZy0nKIWDAEJn4ug3ub9hi8
+	 HiWoRG1WxaXue2UIxpSx6lvovrdl6urSjIM/oGpOQSn0ytM2DRzZwWk5omPqGJ/w/m
+	 gUTTjprzvLQrh3TmKY9ghdEh21zjRV6GHTn3IUKmVAM6+fmWUzApyR3rWxMTPg0Pdx
+	 5P1rw8mN1SiPlprzoHZKz0Gx3greJZ2yNMiF8dsd4c5vIBMYqKvh6pwTjXpvyfLR6D
+	 A+vipAGMWlpsYnVRX1M4vRXGOXrbmqsmvtrWSqP/D44ZbbQXey4RcVicy12lvnbsgq
+	 nSn3rNul8+DzQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/7] iio: temperature: ltc2983: Fix inconsistent
+ channel wording in messages
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Liviu Stan" <liviu.stan@analog.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260514144712.64374-4-liviu.stan@analog.com>
+References: <20260514144712.64374-4-liviu.stan@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 14 May 2026 19:47:37 +0000
+Message-Id: <20260514194738.56B4DC2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260515-shikra_qcrypto-v1-0-80f07b345c29@oss.qualcomm.com>
 
-On Fri, May 15, 2026 at 12:53:35AM +0530, Kuldeep Singh wrote:
-> Add qcrypto and cryptobam DT nodes for enabling qcrypto on kaanapali.
-> Shikra bam dma supports 7 iommus so update dt-bindings accordingly.
-> 
-> The patchset depends on below. There's recursive dependency so referred
-> to base DT patch here.
-> - https://lore.kernel.org/all/20260512-shikra-dt-v1-0-716438330dd0@oss.qualcomm.com/
-> 
-> Validations:
-> - make ARCH=arm64 DT_CHECKER_FLAGS=-m DT_SCHEMA_FILES=Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml dt_binding_check
-> - make ARCH=arm64 qcom/shikra-cqs-evk.dtb CHECK_DTBS=1 DT_SCHEMA_FILES=Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml
-> - cryptobam and crypto driver probe
-> - kcapi test
-> 
-> Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Incomplete refactoring / Commit message mismatch: The commit claims=
+ to replace all occurrences of 'chan' and 'chann' with 'channel' in error a=
+nd debug messages, but misses several occurrences.
+--
 
-What specific kernel features would this be useful for, and what
-specific performance improvements are you seeing with those features?
+commit f3ba963d38e5d70969e64d92b33f465e108805e4
+Author: Liviu Stan <liviu.stan@analog.com>
 
-- Eric
+iio: temperature: ltc2983: Fix inconsistent channel wording in messages
+
+This commit replaces abbreviations like 'chann' and 'chan' with 'channel'
+in error and debug messages across the ltc2983 driver to improve
+consistency.
+
+> Replace all occurrences of the abbreviated 'chann' and 'chan' with
+> 'channel' in error and debug messages throughout the driver.
+
+This isn't a bug, but since the goal is to replace all occurrences,
+should the following instances in ltc2983_parse_fw() also be updated?
+
+drivers/iio/temperature/ltc2983.c:ltc2983_parse_fw() {
+    ...
+		if (sensor.chan < LTC2983_MIN_CHANNELS_NR ||
+		    sensor.chan > st->info->max_channels_nr)
+			return dev_err_probe(dev, -EINVAL,
+					     "chan:%d must be from %u to %u\n",
+    ...
+		if (channel_avail_mask & BIT(sensor.chan))
+			return dev_err_probe(dev, -EINVAL,
+					     "chan:%d already in use\n",
+    ...
+		dev_dbg(dev, "Create new sensor, type %u, chann %u",
+    ...
+}
+
+It appears these were missed during the refactoring.
+
+While the "chann %u" debug message is coincidentally updated in a later
+commit ("iio: temperature: ltc2983: Add support for ADT7604"), the error
+messages remain unfixed throughout the patch series.
+
+Could these be updated here to ensure the code fully matches the commit
+message?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514144712.6437=
+4-1-liviu.stan@analog.com?part=3D3
