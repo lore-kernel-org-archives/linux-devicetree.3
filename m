@@ -1,204 +1,239 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B23C935676F
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 11:45:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C80221096F;
+	Thu, 14 May 2026 11:45:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778759106; cv=none; b=qqVnY6vSJDAJfL0EvVdTOh0u3Hv6XSooeD8/0N/nvrrz9zShOEkyX3k5WLNbTodrGPYhWUiOebexCUwHPXZevLUC7LrT3FwwKDXqlvl+UdV4YXBuWEHFMFIyDb5dpYId+tg2C+bNmi3LG/g7iWFm5M1SqAKqSSpMxvDAkVDTuOA=
+	t=1778759136; cv=none; b=iYuEge14rsMrJtFp8UqqmD8ndE3P9r/DWYgOqjt3Gl9p0kiy0IurXtuSE5AzRDoD7RmGRxLIz2jGzdR52Zfy+tAtjKp03MkBMb5l1QdPAQXQufzAkV+33A+X8L7XtIYNLPGVxWdcMR/KlOtp8pO3TuOi5nEZC0jty+cCs7Lu+Rk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778759106; c=relaxed/simple;
-	bh=9KhAlBIOB44DMlznaHsWijN42EN6qQuNmoZpXvryfMs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ir98AGuTDFBv6PaxTSSgWU/KeJre1dz7dxZiVC3yRArMGrs14eiWVXwhco5JqnInXsPmzDtBzvsGSVEG/TwpxXEVCnxi5JFnHJQkJ+H7l8oIO8ch9PB47d95aju6mODwvX76vTxfV2pJZ/1OxpEyGD5VOW1jjAp8ryagki9d44M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Kj3aIRnE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ctms6EV0; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Kj3aIRnE";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ctms6EV0"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64EBeRG33890937
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 11:45:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	y753qtYW3bVQZ+qckZjvBQEwwv+vQsRM4SYrgC/lNxI=; b=Kj3aIRnEhEeWrpDS
-	4OvvvYDAB5DmjsDsJb9zMho5PB0BO1WfE6edlBjMObrCDpSk7CS//vcpx3m1cHY+
-	bq7dViH66LRXfV9xS18j/80lWcTnJUCm2qjk0VqAdR2808xPMt66MOSGQRfl+d2g
-	hRmQfz0WPDi31sdP8vQKmRRQEB1Hzh411Umzk+SKFzhJU3SHYKEhxbi0wTEA7wpZ
-	ez+0czLwTehy7IckVrTYqCoN2nqgGFjtn9c3UfJt4xIBLuOyyvQwLg+HZT9Rf8Kc
-	MSwLOTd1twNFTnxY5+FpqlGATZtXr+tJ18Ji0bZJjES6fOIM1YHihQImSj+282J7
-	b9LnOg==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4v4tutmc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 11:45:03 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50fb3403e99so157526121cf.2
-        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 04:45:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778759103; x=1779363903; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=y753qtYW3bVQZ+qckZjvBQEwwv+vQsRM4SYrgC/lNxI=;
-        b=Ctms6EV0MHHp1VfdgQbgInnuPezEKimbZlEk8NEFJPF0Mo65mY0sre8CVK4HS7G/Nb
-         C/mY10GQuoERNnP9KqnBlbgEd1R7mceBwdFD/cX5UcJa1PGelW1TaJBNVzhQbwQtCKr/
-         fnbFe9jzBzEXZUb6ZnooGsLjNl4Bz1pVCRvairg27ENuGpTlHs//CuyuAdd7ENVxoa5R
-         EyT5w0cwHLGYJEmh/S/Wa+8apFc0yubkeuhHqalASyNOaiMYs3dF0Z1oLEZutnPi4hZv
-         hjc5NaldTMmrxr5pVatuD9iicTTZQnuLrh4zKMR46RFHKpFp6OWrBA9/QrAszNEIP8gD
-         RIbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778759103; x=1779363903;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=y753qtYW3bVQZ+qckZjvBQEwwv+vQsRM4SYrgC/lNxI=;
-        b=a/0xXNuPUVp+a25jd526ojaSHWYC8B4REB2qqEcisJDBogbzu7k5Dbidi2Qmka6hnp
-         /a4AfTQFCwe3X4845EbHxgE7tIozrvcLAGZmU7eXBUT6G1bFnN+IJYmyqlvZFYeJDzdX
-         DMEcjbzhQXUnpagI5osC0DuR4jlcLuBfmK0Ifmf6buw2ef2VIqkYGlAb7Lh4uiqgILyv
-         7Q909F+JxWKXHg7RWgs2+MT/8m0P7MaKa9R5VvUkRvzA4g8RMIqE+lo8TW46xw815EKg
-         2tcYeOCre8yHGOkURw00Ml+9jutwDVodZPyKjUgazst9Z91c2BQ3/afZS5xxcyMXb/fU
-         rr6g==
-X-Forwarded-Encrypted: i=1; AFNElJ8p5TIKojyPJhYL8Cw30MpdqgApphmxm/wwuYeVJ9lSiSta6IGeDFW/1YRAQyWuYfqJLMe4hKIxRdLG@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywj1Wh2obRPdnoDkXF8xdIXM9BpqoEmxOTEopvnvVhln3iF1k2Y
-	ngBCupzPshPTT+J8UMq0nkDGluwNj/QRsZsKCkj9Jl4pYDmcwcv5mt/MhYKBKeF4ICDmk3bLTg8
-	NcVL5h+/B00Kamevvv2uavjq7L3kuZnLmuBiUU98D5WCRqnCBTuwIEvFan8/Q+oYC
-X-Gm-Gg: Acq92OFfM4k/SUas2d2OpGHH7UhGthqGRSaIuA+2i0Up5nd6Z62zFaAUBkywN+b0qnS
-	qU1HQ7sg1QLr8F7Vs1Wu91chBvkqUSd+Tg1RJSytwVreW1avg9lPegZ2jk1b11+KKFPIorqmc9J
-	uR0ZViGs+4n0I8nflbBQayp//ruxrgfCtBoylbXYATR6F+LlAAq8PyhInyNH4HNQcfVkQs74+Kq
-	MUKxKd6ulCrIUdK7DRGIKciFzUOoKfMZDLBFwTdIwEitnYHYm03l0MdPoGxGuUZ9laWL3zgoA9d
-	TIWi3r/6AS0Miin9Snapzt6SBPzbShyZrVOxdj2h13sgb9APimdmlTk+Gk9pmO/L8QL6rTTMOc0
-	QNBMwiy7wclpx15a9JxVieSx0FK46GyHsRV/9ZB/ousQtxc9F
-X-Received: by 2002:a05:622a:5c9:b0:50e:a1ab:67eb with SMTP id d75a77b69052e-5162f58fe1emr103521701cf.33.1778759102872;
-        Thu, 14 May 2026 04:45:02 -0700 (PDT)
-X-Received: by 2002:a05:622a:5c9:b0:50e:a1ab:67eb with SMTP id d75a77b69052e-5162f58fe1emr103521091cf.33.1778759102401;
-        Thu, 14 May 2026 04:45:02 -0700 (PDT)
-Received: from [192.168.1.29] ([178.197.219.94])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48fd6498cdesm73519285e9.5.2026.05.14.04.45.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 14 May 2026 04:45:00 -0700 (PDT)
-Message-ID: <66b3840a-390e-4135-9118-b1ca52d40026@oss.qualcomm.com>
-Date: Thu, 14 May 2026 13:44:59 +0200
+	s=arc-20240116; t=1778759136; c=relaxed/simple;
+	bh=ZntbPE9ULsi5T2sVrjBocsWAdl/4LmcxdkWpEUqKlys=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=emR/0dVtuNAkyzW+n/bCsCjC0PWox8VW+tEQDTU+FxPCcoF9KN25A7jkvHV+CiNCYzMSSqb8k7fDUOwwKWyZ35NoBAkJLR4sRM8ULDrMpH6LywG1MryonHNfxEON/FFH+h5HaimXmLNOYOWtAXS/37/x5JfrtABA3nowGOmgF/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=207.46.229.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from E0005152DT.eswin.cn (unknown [10.12.96.41])
+	by app1 (Coremail) with SMTP id TAJkCgCHHHHKtQVqgm8ZAA--.32445S2;
+	Thu, 14 May 2026 19:45:15 +0800 (CST)
+From: dongxuyang@eswincomputing.com
+To: mturquette@baylibre.com,
+	sboyd@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	p.zabel@pengutronix.de,
+	huangyifeng@eswincomputing.com,
+	dongxuyang@eswincomputing.com,
+	benoit.monin@bootlin.com,
+	bmasney@redhat.com
+Cc: ningyu@eswincomputing.com,
+	linmin@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v5 1/3] dt-bindings: clock: Add ESWIN eic7700 HSP clock and reset generator
+Date: Thu, 14 May 2026 19:45:10 +0800
+Message-Id: <20260514114510.1321-1-dongxuyang@eswincomputing.com>
+X-Mailer: git-send-email 2.31.1.windows.1
+In-Reply-To: <20260514114212.903-1-dongxuyang@eswincomputing.com>
+References: <20260514114212.903-1-dongxuyang@eswincomputing.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: interconnect: qcom,eliza-rpmh: Add SDCC1
- slave
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260512-eliza-interconnect-add-missing-sdcc1-slave-node-v1-0-b1edf81bac3b@oss.qualcomm.com>
- <20260512-eliza-interconnect-add-missing-sdcc1-slave-node-v1-1-b1edf81bac3b@oss.qualcomm.com>
- <5c615bdc-3a19-4f07-a38d-16d45f318411@oss.qualcomm.com>
- <fnasmnyh7rf4wtyrv77lunx7spilgjxji3ejflvufouqrdep6n@uu7pkkfwkxyi>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-Autocrypt: addr=krzysztof.kozlowski@oss.qualcomm.com; keydata=
- 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
- cwzYbmi/Et7T2+47PN9NZAOyb771QoVr8A==
-In-Reply-To: <fnasmnyh7rf4wtyrv77lunx7spilgjxji3ejflvufouqrdep6n@uu7pkkfwkxyi>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=XIIAjwhE c=1 sm=1 tr=0 ts=6a05b5bf cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=gOEeR9iKwsj33Yj5oN/cWg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=79RcByrGND5wjnUeYAgA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE0MDExNiBTYWx0ZWRfX3rFSfWZNBmH5
- oDl6myikMbZKjwFhcp0lj+fZF9GzhcP1md3H8f/MvzlHpes5oPEh6b+8pwi+0uvNVBZgOuulczp
- 8GJe2VG5u/pL9oqzynzU5gShOPUINMFg0WHylTt75tcvjKkEj+dlcUSW/ouAgajqz4wwXTGkSP+
- YTsIu6iZy2Q3/qIVE9ROB6pUpo9UAkGQk3PqLkAVYqhPQx+UE46aVCwUe6BOj0ozGK3W2wqCTT9
- TOwr0pBJz5RbSwUXFt4cFTcpp19+ZCSab7XXQs4lB38hc7vDk5WwdqRX6yeoo2Yw3sEf2n8Tu0t
- roHj5WR2tQ24m/u6r00DP6mt/oJVVh7VhSPt9ZSwjI9H+DdFzSxyjIWm8pctrwlPd6nNYx5M+V4
- y2arY+uWr7xVBRLDgIPlCTqHP/7tbXclviL55qsxi/lw15jGa8Kdp4qOjXVPoR5UK94rDPOFxez
- DPr8dks8kw5i7GAgX7w==
-X-Proofpoint-ORIG-GUID: VXMaz7xvUGQCVY4Cl7vSjI1RQFo_Wre5
-X-Proofpoint-GUID: VXMaz7xvUGQCVY4Cl7vSjI1RQFo_Wre5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-14_02,2026-05-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
- bulkscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605140116
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:TAJkCgCHHHHKtQVqgm8ZAA--.32445S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3JF17CF4UXFy7Cw1rKr4xCrg_yoW7trWfpF
+	4kCF97Gr1vyF93ua95ta40kryfJ3ZrCry5ArWkJFnrZa1DJw1qqF4IgFyrAF9rZr4fXryx
+	XF1xXw4av34xu3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBS14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+	n2IY04v7M4kE6xkIj40Ew7xC0wCY1x0262kKe7AKxVW8ZVWrXwCY02Avz4vE-syl42xK82
+	IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC2
+	0s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMI
+	IF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF
+	0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87
+	Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRNSdgDUUUU
+X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/
 
-On 14/05/2026 12:46, Abel Vesa wrote:
-> On 26-05-14 07:44:12, Krzysztof Kozlowski wrote:
->> On 12/05/2026 14:18, Abel Vesa wrote:
->>> The Eliza RPMh interconnect binding is missing the SDCC1 CNOC CFG
->>> slave ID. Add it so SDCC1 consumer can describe the corresponding
->>> interconnect path.
->>>
->>> Append the new ID to preserve the existing ABI values.
->>>
->>> Fixes: 8300438dc424 ("dt-bindings: interconnect: document the RPMh Network-On-Chip interconnect in Eliza SoC")
->>
->> No bug here to be fixed. Incomplete first posting is not buggy just
->> because it is incomplete. Otherwise please provide more details about
->> the bug in commit msg - why initial posting could not even work
->> (although it did work...).
-> 
-> The reason the fixes tag is added is because we want this to be
-> backported, as the id should've been there from the beginning.
+From: Xuyang Dong <dongxuyang@eswincomputing.com>
 
-We do not add Fixes or stable tags just because we want something to be
-backported. We add them because something SHOULD be backported according
-to stable kernel rules.
+Add bindings for the high-speed peripherals clock and reset generator
+on the ESWIN EIC7700 HSP.
 
-Best regards,
-Krzysztof
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Xuyang Dong <dongxuyang@eswincomputing.com>
+---
+ .../bindings/clock/eswin,eic7700-hspcrg.yaml  | 63 +++++++++++++++++++
+ MAINTAINERS                                   |  5 +-
+ .../dt-bindings/clock/eswin,eic7700-hspcrg.h  | 33 ++++++++++
+ .../dt-bindings/reset/eswin,eic7700-hspcrg.h  | 21 +++++++
+ 4 files changed, 120 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/clock/eswin,eic7700-hspcrg.yaml
+ create mode 100644 include/dt-bindings/clock/eswin,eic7700-hspcrg.h
+ create mode 100644 include/dt-bindings/reset/eswin,eic7700-hspcrg.h
+
+diff --git a/Documentation/devicetree/bindings/clock/eswin,eic7700-hspcrg.yaml b/Documentation/devicetree/bindings/clock/eswin,eic7700-hspcrg.yaml
+new file mode 100644
+index 000000000000..43df689ae647
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/eswin,eic7700-hspcrg.yaml
+@@ -0,0 +1,63 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/eswin,eic7700-hspcrg.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: ESWIN EIC7700 HSP Clock and Reset Generator
++
++maintainers:
++  - Xuyang Dong <dongxuyang@eswincomputing.com>
++
++description:
++  Clock and reset generator for the ESWIN EIC7700 HSP (high-speed peripherals).
++
++properties:
++  compatible:
++    const: eswin,eic7700-hspcrg
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: HSP configuration top clock
++      - description: MMC top clock
++      - description: SATA top clock
++
++  clock-names:
++    items:
++      - const: cfg
++      - const: mmc
++      - const: sata
++
++  '#clock-cells':
++    const: 1
++    description:
++      See <dt-bindings/clock/eswin,eic7700-hspcrg.h> for valid indices.
++
++  '#reset-cells':
++    const: 1
++    description:
++      See <dt-bindings/reset/eswin,eic7700-hspcrg.h> for valid indices.
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - '#clock-cells'
++  - '#reset-cells'
++
++additionalProperties: false
++
++examples:
++  - |
++    clock-controller@50440000 {
++        compatible = "eswin,eic7700-hspcrg";
++        reg = <0x50440000 0x2000>;
++        clocks = <&clock 171>, <&clock 254>, <&clock 187>;
++        clock-names = "cfg", "mmc", "sata";
++        #clock-cells = <1>;
++        #reset-cells = <1>;
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index b2040011a386..b7180863310c 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -9548,9 +9548,10 @@ ESWIN EIC7700 CLOCK DRIVER
+ M:	Yifeng Huang <huangyifeng@eswincomputing.com>
+ M:	Xuyang Dong <dongxuyang@eswincomputing.com>
+ S:	Maintained
+-F:	Documentation/devicetree/bindings/clock/eswin,eic7700-clock.yaml
++F:	Documentation/devicetree/bindings/clock/eswin,eic7700*
+ F:	drivers/clk/eswin/
+-F:	include/dt-bindings/clock/eswin,eic7700-clock.h
++F:	include/dt-bindings/clock/eswin,eic7700*
++F:	include/dt-bindings/reset/eswin,eic7700-hspcrg.h
+ 
+ ET131X NETWORK DRIVER
+ M:	Mark Einon <mark.einon@gmail.com>
+diff --git a/include/dt-bindings/clock/eswin,eic7700-hspcrg.h b/include/dt-bindings/clock/eswin,eic7700-hspcrg.h
+new file mode 100644
+index 000000000000..1d1ff15c1154
+--- /dev/null
++++ b/include/dt-bindings/clock/eswin,eic7700-hspcrg.h
+@@ -0,0 +1,33 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright 2026, Beijing ESWIN Computing Technology Co., Ltd..
++ * All rights reserved.
++ *
++ * Device Tree binding constants for EIC7700 HSP clock controller.
++ *
++ * Authors: Xuyang Dong <dongxuyang@eswincomputing.com>
++ */
++
++#ifndef _DT_BINDINGS_ESWIN_EIC7700_HSPCRG_CLOCK_H_
++#define _DT_BINDINGS_ESWIN_EIC7700_HSPCRG_CLOCK_H_
++
++#define EIC7700_HSP_CLK_FAC_CFG_DIV2		0
++#define EIC7700_HSP_CLK_FAC_CFG_DIV4		1
++#define EIC7700_HSP_CLK_FAC_MMC_DIV10		2
++#define EIC7700_HSP_CLK_MUX_EMMC_3MUX1		3
++#define EIC7700_HSP_CLK_MUX_SD0_3MUX1		4
++#define EIC7700_HSP_CLK_MUX_SD1_3MUX1		5
++#define EIC7700_HSP_CLK_MUX_EMMC_CQE_2MUX1	6
++#define EIC7700_HSP_CLK_MUX_SD0_CQE_2MUX1	7
++#define EIC7700_HSP_CLK_MUX_SD1_CQE_2MUX1	8
++#define EIC7700_HSP_CLK_GATE_MSHC0_TMR		9
++#define EIC7700_HSP_CLK_GATE_EMMC		10
++#define EIC7700_HSP_CLK_GATE_MSHC1_TMR		11
++#define EIC7700_HSP_CLK_GATE_SD0		12
++#define EIC7700_HSP_CLK_GATE_MSHC2_TMR		13
++#define EIC7700_HSP_CLK_GATE_SD1		14
++#define EIC7700_HSP_CLK_GATE_USB0		15
++#define EIC7700_HSP_CLK_GATE_USB1		16
++#define EIC7700_HSP_CLK_GATE_SATA		17
++
++#endif /* _DT_BINDINGS_ESWIN_EIC7700_HSPCRG_CLOCK_H_ */
+diff --git a/include/dt-bindings/reset/eswin,eic7700-hspcrg.h b/include/dt-bindings/reset/eswin,eic7700-hspcrg.h
+new file mode 100644
+index 000000000000..413fcd08c701
+--- /dev/null
++++ b/include/dt-bindings/reset/eswin,eic7700-hspcrg.h
+@@ -0,0 +1,21 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright 2026, Beijing ESWIN Computing Technology Co., Ltd..
++ * All rights reserved.
++ *
++ * Device Tree binding constants for EIC7700 HSP reset controller.
++ *
++ * Authors: Xuyang Dong <dongxuyang@eswincomputing.com>
++ */
++
++#ifndef _DT_BINDINGS_ESWIN_EIC7700_HSPCRG_RESET_H_
++#define _DT_BINDINGS_ESWIN_EIC7700_HSPCRG_RESET_H_
++
++#define EIC7700_HSP_RST_SATA_P0		0
++#define EIC7700_HSP_RST_SATA_PHY	1
++#define EIC7700_HSP_RST_USB0		2
++#define EIC7700_HSP_RST_USB1		3
++#define EIC7700_HSP_RST_USB0_PHY	4
++#define EIC7700_HSP_RST_USB1_PHY	5
++
++#endif /* _DT_BINDINGS_ESWIN_EIC7700_HSPCRG_RESET_H_ */
+-- 
+2.34.1
+
