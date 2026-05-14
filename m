@@ -1,146 +1,186 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 019EA3909AE
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 12:52:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D14F7286D5C;
+	Thu, 14 May 2026 12:53:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778763178; cv=none; b=e1aBHGMdUp8ODeaYimrPKVJtMu4AFFS+p8c95EaKa815Ri6BqRH8vt3mKe+2I2EZ8BoeGqfLTTAz4tJaGnh/xumnLChEWKlC6LgVl8x3WTioM2Om1GOQBK6P3phrIQXnGSelZ3ZDzOnqyVrKfY09bdiR3vhMCuHI/LfjelF3Sc8=
+	t=1778763226; cv=none; b=dcFoJT81axIvS5xfQfgOGtKSCq49iFiMicwY4O/bhseM4sJLmwZFM+78Mb2VWOCKKxeqXto8DvUNrOp70ya/VLc3EJOhw88gvsBPy0o9vSQhpnoGTBQu2QIyfc8aTDMjAlADE/00kRWJPWsKPbmyLOM4VjvDxl6fzO6LrMQ1Q2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778763178; c=relaxed/simple;
-	bh=7BcAX27xjr2pPp5tvFDoX6DqrmU5yLDBk+GGVOVgJUw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QCZv6l6WmwyX3sanSgOM6rKNtbNqlsGAB1bop44PFLFylBn7LbUmhJd9csKNtJHuVqNzwPOJ63qRm4K1732FYOH2fXnuk6NLn0NKfAM/ZXT8fsn2AfAs1zjof1SojOSRe/gPbT+SfuuIbJbXCPYsNgDLVnVaiqGkYKC/F2vaM7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oWql75Ah; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778763226; c=relaxed/simple;
+	bh=oNn3w9bmvj5Ag9ts6zbpeXiSEhaLbcFAOmPFjRwxyMU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=P60nTWFjvao7egwmF3ez+0oGIjyM+3NpQHNymAzDxItzejMGehPsRhtbtomAmbGKiZAKPgyPgez3A1JM3U3l+N/qgUBZdfe+TPTDl1gHes0RBKyq7n4F0v1uotxLAk+KANjb4en6Tu1f/khttf9ldmMhPgBDSsbHbiU0L7xGxFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=rtYJOeaH; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=FgGv+/Ua; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oWql75Ah"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78EB5C2BCB3;
-	Thu, 14 May 2026 12:52:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778763177;
-	bh=7BcAX27xjr2pPp5tvFDoX6DqrmU5yLDBk+GGVOVgJUw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=oWql75Ahkh1InVUuabW7hjhFvsQFpmGWMwrX5+655FAwp+APXbb9Dho4dR31CnCp+
-	 Ss6NCGngvVWkHGSiLnGefAm0GYHM9vjZDkJZCkBLq9OLAH8NBY80jqL5yDXAtkrW9q
-	 V6zBGS6rDwQzEi7UyJFq1VKT7SDEpQkvk6jI4l+msgDqXBGjlGU7R14yMhWDoBB5x1
-	 wA6GK/RUIiJNtutwrd4eZ4t7JzHL6mQRDsoUtco7ZCGWWnK88oorG8+WvUwR2ybdc0
-	 XAnWYapShREHOjMYjXEKW5wJX7VAyCnuipA3x4ZfzpkcDFZZw70XFEZa+ulVe+chiB
-	 p9INaAdAUozIg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] phy: qcom-qmp-pcie: Add support for ipq5210 PCIe
- phys
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Varadarajan Narayanan" <varadarajan.narayanan@oss.qualcomm.com>
-Cc: olteanv@gmail.com, linux-phy@lists.infradead.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, vkoul@kernel.org, robh@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260514-pci-phy-v1-2-482429192746@oss.qualcomm.com>
-References: <20260514-pci-phy-v1-2-482429192746@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 12:52:55 +0000
-Message-Id: <20260514125256.78EB5C2BCB3@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="rtYJOeaH";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="FgGv+/Ua"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4gGVcv4WLVz9tvF;
+	Thu, 14 May 2026 14:53:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1778763215;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=UHmiCWR0BD8AAt0d/+D6Dm6Xr0telhLVotHuENhq3CQ=;
+	b=rtYJOeaH9551PM8icB9+/T5CMJde9sMKKxRZ2hA2vxE3BTkB0qsQRjKm8t73fKSrejzNJI
+	GNDcgoohr/4uuvnrTzxFqYob1hXWgHsAds7Zz4qHsrXu7FJ+EaA1LOEhPxk1ZVYZlZGxLT
+	fB8s644Q4RgOoll6kkn+WSjjScKJgDArIjJ9MzQhgpWNwbgaHwFosDKvxA26RLsVoMF30C
+	wer+hRWIZucoXnksWBpXuFUtthxAAhprIYETSWgBaY+ibSs+0jPf36it8Cj7akRz0WHsu2
+	wQXIM5s314kfyVzkOcvbdgbkYl5goucE4jWy6smH1TdGtWt8qmq5+VI7SF9kZg==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b="FgGv+/Ua";
+	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1778763213;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=UHmiCWR0BD8AAt0d/+D6Dm6Xr0telhLVotHuENhq3CQ=;
+	b=FgGv+/UaaA1FrJ2PTQGZHjHVgfmj6Duif0TgB7L/gXkW3tbwUCZO4/tkuQNsNn8Hf7GDCS
+	Vlpg1N4+6FlBxxuSJxxQO7KvOqsZ3fVNxUYIykdu4ePXmvsmzqYrBSt9rD3ZMEDGyO1CNN
+	cnTn8BRVLtqxJoHvg0J14vr7ErHgjOxb7LCyl1sLiz5W8qmw2LaXcAAPBVzNajt1HuDT+2
+	Co9/PPsMG1g6BOf0wBNf1aiN1jdMA+S8y1gNvze20hKEU6sEz7SXMCNnis/Jb0+Ax+iBGN
+	r9XsKF6K1WNaJv4Yv+yZ4lz1Odomdmv5nntmSypqD1+IfOf7LfB2ikaLcBw8Og==
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH v2] arm64: dts: renesas: r8a78000: Fix GIC-720AE View 1 Redistributor description
+Date: Thu, 14 May 2026 14:53:06 +0200
+Message-ID: <20260514125328.20954-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: f4t9kpem6b31uiyxzjhci76j4kc6iz93
+X-MBO-RS-ID: fea83fbeaf2ff1a254c
+X-Rspamd-Queue-Id: 4gGVcv4WLVz9tvF
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Redundant array duplication and misleading naming for PHY init tabl=
-es
---
+The Renesas R-Car X5H (R8A78000) SoC contains Arm CoreLink GIC-720AE
+Generic Interrupt Controller with Multi View capability. Firmware has
+access to configuration View 0, Linux kernel has access to View 1.
 
-commit 1a4fb65a84494415ea2c151ef7e1a6c4328d3d7f
-Author: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+The Arm CoreLink GIC-720AE Generic Interrupt Controller Technical
+Reference Manual, currently latest r2p1 [1], chapter "5. Programmers
+model for GIC-720AE", subchapter "5.4 Redistributor registers
+for control and physical LPIs summary", part "5.4.3 GICR_TYPER,
+Redistributor Type Register", "Table 5-50: GICR_TYPER bit descriptions"
+on page 200, clarifies register "GICR_TYPER" bit 4 "Last" behavior
+in Multi View setup as follows:
 
-phy: qcom-qmp-pcie: Add support for ipq5210 PCIe phys
+"
+Last
+Last Redistributor:
 
-This commit adds support for the PCIe PHYs found on the Qualcomm
-ipq5210 platform.
+0 ... This Redistributor is not the last Redistributor on the chip.
+1 ... This Redistributor is the last Redistributor on the chip.
+      When GICD_CFGID.VIEW == 1, for views 1, 2, or 3 this bit
+      always returns 1.
+"
 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c b/drivers/phy/qualc=
-omm/phy-qcom-qmp-pcie.c
-> --- a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
-> @@ -514,6 +514,105 @@ static const struct qmp_phy_init_tbl ipq8074_pcie_g=
-en3_pcs_misc_tbl[] =3D {
-[ ... ]
-> +static const struct qmp_phy_init_tbl ipq5210_gen3x1_pcie_ep_tx_tbl[] =3D=
- {
-> +	QMP_PHY_INIT_CFG(QSERDES_V4_TX_RES_CODE_LANE_OFFSET_TX, 0x02),
-> +	QMP_PHY_INIT_CFG(QSERDES_V4_TX_LANE_MODE_1, 0x06),
-> +	QMP_PHY_INIT_CFG(QSERDES_V4_TX_RCV_DETECT_LVL_2, 0x12),
-> +};
+On this SoC, GICD_CFGID.VIEW is 1 and the Linux kernel has access to
+View 1, therefore Linux kernel GICv3 driver will interpret register
+"GICR_TYPER" bit 4 "Last" = 1 in the first Redistributor in continuous
+Redistributor page as that first Redistributor being the one and only
+Redistributor and will stop processing the continuous Redistributor
+page further. This will prevent the other Redistributors from being
+recognized by the system and used for other PEs.
 
-Does this new table duplicate the existing ipq6018_pcie_tx_tbl? Could we
-reuse the existing table instead of creating a redundant copy?
+Because the hardware indicates that the continuous Redistributor page
+is not continuous for View 1, 2, or 3, describe every Redistributor
+separately in the DT. This makes all Redistributors for all cores
+accessible in Linux.
 
-[ ... ]
-> +static const struct qmp_phy_init_tbl ipq5210_gen3x1_pcie_ep_pcs_tbl[] =
-=3D {
-> +	QMP_PHY_INIT_CFG(QPHY_V4_PCS_FLL_CNTRL1, 0x01),
-> +	QMP_PHY_INIT_CFG(QPHY_V4_PCS_REFGEN_REQ_CONFIG1, 0x0d),
-> +	QMP_PHY_INIT_CFG(QPHY_V4_PCS_G12S1_TXDEEMPH_M3P5DB, 0x10),
-> +	QMP_PHY_INIT_CFG(QPHY_V4_PCS_RX_SIGDET_LVL, 0xaa),
-> +	QMP_PHY_INIT_CFG(QPHY_V4_PCS_P2U3_WAKEUP_DLY_TIME_AUXCLK_L, 0x01),
-> +	QMP_PHY_INIT_CFG(QPHY_V4_PCS_RX_DCC_CAL_CONFIG, 0x01),
-> +	QMP_PHY_INIT_CFG(QPHY_V4_PCS_EQ_CONFIG5, 0x01),
-> +};
+[1] https://documentation-service.arm.com/static/69ef3c1cd35efd294e335c43
+    Arm® CoreLink™ GIC-720AE Generic Interrupt Controller
+    Revision: r2p1 / Issue 12 / 102666_0201_12_en
 
-Is it possible this is an exact duplicate of ipq6018_pcie_pcs_tbl?
+Fixes: 63500d12cf76 ("arm64: dts: renesas: Add R8A78000 SoC support")
+Acked-by: Marc Zyngier <maz@kernel.org>
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Marc Zyngier <maz@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+V2: - Update GIC-700AE documentation link to generated PDF
+    - Update commit message to match the PDF
+    - Add AB from Marc
+---
+ arch/arm64/boot/dts/renesas/r8a78000.dtsi | 36 +++++++++++++++++++++--
+ 1 file changed, 34 insertions(+), 2 deletions(-)
 
-[ ... ]
-> @@ -654,6 +753,13 @@ static const struct qmp_phy_init_tbl ipq9574_gen3x2_=
-pcie_serdes_tbl[] =3D {
-[ ... ]
-> +static const struct qmp_phy_init_tbl ipq9574_pcie_tx_tbl[] =3D {
-> +	QMP_PHY_INIT_CFG(QSERDES_V4_TX_RES_CODE_LANE_OFFSET_TX, 0x02),
-> +	QMP_PHY_INIT_CFG(QSERDES_V4_TX_RCV_DETECT_LVL_2, 0x12),
-> +	QMP_PHY_INIT_CFG(QSERDES_V4_TX_HIGHZ_DRVR_EN, 0x10),
-> +	QMP_PHY_INIT_CFG(QSERDES_V4_TX_LANE_MODE_1, 0x06),
-> +};
+diff --git a/arch/arm64/boot/dts/renesas/r8a78000.dtsi b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+index 3ec1b53d27828..73be51787265c 100644
+--- a/arch/arm64/boot/dts/renesas/r8a78000.dtsi
++++ b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+@@ -689,8 +689,40 @@ gic: interrupt-controller@39000000 {
+ 			#interrupt-cells = <3>;
+ 			#address-cells = <0>;
+ 			interrupt-controller;
+-			reg = <0 0x39000000 0 0x10000>,
+-			      <0 0x39080000 0 0x800000>;
++			#redistributor-regions = <32>;
++			reg = <0x0 0x39000000 0x0 0x10000>,
++			      <0x0 0x39080000 0x0 0x40000>,
++			      <0x0 0x390c0000 0x0 0x40000>,
++			      <0x0 0x39100000 0x0 0x40000>,
++			      <0x0 0x39140000 0x0 0x40000>,
++			      <0x0 0x39180000 0x0 0x40000>,
++			      <0x0 0x391c0000 0x0 0x40000>,
++			      <0x0 0x39200000 0x0 0x40000>,
++			      <0x0 0x39240000 0x0 0x40000>,
++			      <0x0 0x39280000 0x0 0x40000>,
++			      <0x0 0x392c0000 0x0 0x40000>,
++			      <0x0 0x39300000 0x0 0x40000>,
++			      <0x0 0x39340000 0x0 0x40000>,
++			      <0x0 0x39380000 0x0 0x40000>,
++			      <0x0 0x393c0000 0x0 0x40000>,
++			      <0x0 0x39400000 0x0 0x40000>,
++			      <0x0 0x39440000 0x0 0x40000>,
++			      <0x0 0x39480000 0x0 0x40000>,
++			      <0x0 0x394c0000 0x0 0x40000>,
++			      <0x0 0x39500000 0x0 0x40000>,
++			      <0x0 0x39540000 0x0 0x40000>,
++			      <0x0 0x39580000 0x0 0x40000>,
++			      <0x0 0x395c0000 0x0 0x40000>,
++			      <0x0 0x39600000 0x0 0x40000>,
++			      <0x0 0x39640000 0x0 0x40000>,
++			      <0x0 0x39680000 0x0 0x40000>,
++			      <0x0 0x396c0000 0x0 0x40000>,
++			      <0x0 0x39700000 0x0 0x40000>,
++			      <0x0 0x39740000 0x0 0x40000>,
++			      <0x0 0x39780000 0x0 0x40000>,
++			      <0x0 0x397c0000 0x0 0x40000>,
++			      <0x0 0x39800000 0x0 0x40000>,
++			      <0x0 0x39840000 0x0 0x40000>;
+ 			interrupts = <GIC_PPI 9 IRQ_TYPE_LEVEL_HIGH>;
+ 		};
+ 
+-- 
+2.53.0
 
-Could this table be entirely replaced by ipq8074_pcie_gen3_tx_tbl?
-
-Also, does the name ipq9574_pcie_tx_tbl accurately reflect its usage? It
-seems to be used exclusively by the newly added ipq5210_gen3x1_pciephy_cfg,
-while the actual IPQ9574 configurations retain their use of the ipq8074 tab=
-le.
-
-[ ... ]
-> @@ -3613,6 +3719,49 @@ static const struct qmp_phy_cfg ipq6018_pciephy_cf=
-g =3D {
-[ ... ]
-> +static const struct qmp_phy_cfg ipq5210_gen3x1_pciephy_cfg =3D {
-> +	.lanes			=3D 1,
-> +
-> +	.offsets		=3D &qmp_pcie_offsets_v4x1,
-> +
-> +	.tbls =3D  {
-> +		.serdes		=3D ipq9574_gen3x1_pcie_serdes_tbl,
-> +		.serdes_num	=3D ARRAY_SIZE(ipq9574_gen3x1_pcie_serdes_tbl),
-> +		.tx		=3D ipq9574_pcie_tx_tbl,
-> +		.tx_num		=3D ARRAY_SIZE(ipq9574_pcie_tx_tbl),
-
-If ipq9574_pcie_tx_tbl is identical to ipq8074_pcie_gen3_tx_tbl, should
-this reference the existing ipq8074_pcie_gen3_tx_tbl instead?
-
-> +		.rx		=3D ipq9574_pcie_rx_tbl,
-> +		.rx_num		=3D ARRAY_SIZE(ipq9574_pcie_rx_tbl),
-[ ... ]
-> +	.tbls_ep =3D &(const struct qmp_phy_cfg_tbls) {
-> +		.serdes		=3D ipq5210_gen3x1_pcie_ep_serdes_tbl,
-> +		.serdes_num	=3D ARRAY_SIZE(ipq5210_gen3x1_pcie_ep_serdes_tbl),
-> +		.tx		=3D ipq5210_gen3x1_pcie_ep_tx_tbl,
-> +		.tx_num		=3D ARRAY_SIZE(ipq5210_gen3x1_pcie_ep_tx_tbl),
-> +		.rx		=3D ipq5210_gen3x1_pcie_ep_rx_tbl,
-> +		.rx_num		=3D ARRAY_SIZE(ipq5210_gen3x1_pcie_ep_rx_tbl),
-> +		.pcs		=3D ipq5210_gen3x1_pcie_ep_pcs_tbl,
-> +		.pcs_num	=3D ARRAY_SIZE(ipq5210_gen3x1_pcie_ep_pcs_tbl),
-
-Similarly, could these point to ipq6018_pcie_tx_tbl and
-ipq6018_pcie_pcs_tbl respectively?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514-pci-phy-v1=
--0-482429192746@oss.qualcomm.com?part=3D2
