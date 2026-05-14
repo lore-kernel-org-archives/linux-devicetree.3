@@ -1,269 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A8C4625;
-	Thu, 14 May 2026 02:06:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41970319847
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 02:13:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778724420; cv=none; b=Ns0B2KM3NmfXmDc5KOGIRpxoEMTtWa8oiBthBnIlxYCBXVaFSpg8GcyJbm2aHtEmLTZJxjUTp2Emp7elLzpf2HmSerf984IogjR56CuELw1W4o4THP2ZS24m39bcK4cuSWIREHa9UZMWHVULlU7IHyYkVuT3nGOdd1rZ8QbZ4xw=
+	t=1778724784; cv=none; b=pWAOcAQgfr90P/8Gg9W432n6ktzp7Pw3LAuQ9A/uHKvccHhBEyoPR4xKdAFzBooq7df6S58pJNJ7Rthco6HXU7zz03HO0bIftCSx2cbTDjTZwwgQWcu/681IlLTHmq6CWF2M/2PoeLhZ4Y4w4b1Y1gVzh3P2lrKOnJ76+0Xq8MU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778724420; c=relaxed/simple;
-	bh=6ZO/SdkcUL0ZfHkfoL7/mu6bd3ZRt4b638icmr3tqQM=;
+	s=arc-20240116; t=1778724784; c=relaxed/simple;
+	bh=MQUypza3VTxyvSjpuQA1EJv5W5cxJtbFZSvb1llZYKw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tBntJuNWXxhENIpSTq8FjlIOzqwvGXwpgVzjsAVc8nm3QW0DE375+ORrFAqe8XMmXfHBtq1dxBCc56gicEeJojqG3DXa/0p+wBjy5I7t8jWQmXpYxx0gjV0DraQ7SCekisDZYvtJBeWiaweLO/MJ2ucPzd/xvFGPP2hnM/hOf6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=spp3QG3v; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=OaUTevU1ylSWGsI58690UmpD66AOHKjAMVWscUPArtz1fx36Yso7QIXAHXM4J4TZiGE+StBJD6Jd3mrQ+KQobq8ES8h+SmXLjojVDDCbFHZCiRBJzRBtXhnyH5ONYXBZljpFk7Nu7/g3+A4+l4GT0sB2Mu3HDi7ZNLMOft0qxFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RdeaqhGW; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="spp3QG3v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 200DFC19425;
-	Thu, 14 May 2026 02:06:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RdeaqhGW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E402C19425;
+	Thu, 14 May 2026 02:13:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778724419;
-	bh=6ZO/SdkcUL0ZfHkfoL7/mu6bd3ZRt4b638icmr3tqQM=;
+	s=k20201202; t=1778724783;
+	bh=MQUypza3VTxyvSjpuQA1EJv5W5cxJtbFZSvb1llZYKw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=spp3QG3v2aDEwM3CouKn1n0RWyE/CaXP3ql6+t2DuNTKRiyCya7ckrIR2ANULkDB+
-	 6I/pwoXAPDAKH5V/7EpzyadeevObkD5bqm0OEayfrRpBuNpkPAvfaRF7kh2W519oqW
-	 kkWFcy1dWLC5YOjxG8vJD1i/bodRdQ4GwqzTG33wX9fWpByn5TMmCU7nC9WZFGSCY6
-	 dWM9QQ3JNauX+yC0zUc3bgNSdrheQK6wpLTKdFqvBiKTMefDcW4D0F08oG+YopLl3x
-	 rqGVeuoz/O0+Dlu90DEdGBtCtij6zMrzUdB484OnniHP9IQ/45cM/GVF1k4wwe5452
-	 ACP+T7hmGfLZw==
+	b=RdeaqhGWKyfdWnFwJ5Y3w4Wxbyo3ljrg2vBFjA19t2k9BAxwAfEtR1o/TDPRzYb2o
+	 nKVFdpb4ntqQKhoFQ6ghiBD5vTfpmBiXGhXnCdu4WwW6sXcycV5I2jHGZm9Gj6KPYH
+	 0TKD6aZMZOanQmqjaiRYCx76qbfq3V/K3oA4obSkBP29UMwScKj6NEAvL5PgEK5GOx
+	 lrUlS/8kYKCI1TXJdwTZTEs8U+iCgWKipvG6hccdEPWs19iTr2ic9b7/vmLUVCWNTU
+	 ESiPXhSlR8uEqTp80VAQ3vruwbI5Is+kkV4a6ZrfeuEA8BtimVaIIigENVcJSONik9
+	 sjGt2IYgzJ2tQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/3] PCI: imx6: Add root port reset to support link
- recovery
+Subject: Re: [PATCH v6 08/16] ASoC: rsnd: Add RZ/G3E DMA address calculation
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Richard Zhu" <hongxing.zhu@nxp.com>
-Cc: krzk+dt@kernel.org, linux-pci@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260513025101.1498104-4-hongxing.zhu@nxp.com>
-References: <20260513025101.1498104-4-hongxing.zhu@nxp.com>
+To: "John Madieu" <john.madieu.xa@bp.renesas.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260512182631.3842065-9-john.madieu.xa@bp.renesas.com>
+References: <20260512182631.3842065-9-john.madieu.xa@bp.renesas.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 02:06:58 +0000
-Message-Id: <20260514020659.200DFC19425@smtp.kernel.org>
+Date: Thu, 14 May 2026 02:13:03 +0000
+Message-Id: <20260514021303.8E402C19425@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Optional IRQ negative error code implicitly cast to `u32` causes p=
-robe failure on older platforms.
-- [High] Iterating over `bus->devices` without acquiring `pci_bus_sem` crea=
-tes a Use-After-Free race condition.
-- [High] Read-Modify-Write regmap operations on W1C status bits silently cl=
-ear unhandled interrupts.
-- [High] Disabling hardware clocks while a shared interrupt remains active =
-enables a synchronous external abort vector.
-- [High] Using a standard mmio regmap from a primary hardirq handler causes=
- sleep-in-atomic deadlocks on PREEMPT_RT.
-- [Medium] System shutdown callback inadvertently triggers a link recovery =
-thread, leaving hardware out of reset.
-- [Medium] Non-atomic LUT save/restore operations in the recovery thread la=
-ck mutex protection.
-- [Medium] Failure to mask the hardware interrupt on driver unbind causes a=
-n unhandled interrupt storm.
+- [High] Unchecked NULL pointer dereference in rsnd_rzg3e_dma_addr() when S=
+SIU module is not present.
+- [Low] Missing parentheses around macro arguments in RZ/G3E DMA address ca=
+lculation macros.
 --
 
-commit c32252b83882f7c8756d22c0a5aa880135207cb1
-Author: Richard Zhu <hongxing.zhu@nxp.com>
+commit 8ac44d32c9e0b39cce390dd7dede7d192b0f5ad7
+Author: John Madieu <john.madieu.xa@bp.renesas.com>
 
-PCI: imx6: Add root port reset to support link recovery
+ASoC: rsnd: Add RZ/G3E DMA address calculation support
 
-The PCIe link can go down due to various unexpected circumstances. Add
-root port reset support to enable link recovery for the i.MX PCIe
-controller when the optional "intr" interrupt is present.
+This commit adds a dedicated DMA address calculation function for the
+RZ/G3E platform, which has different DMA register base addresses and offsets
+compared to other R-Car platforms.
 
-> diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controll=
-er/dwc/pci-imx6.c
-> index e35044cc52185..38e0a16655092 100644
-> --- a/drivers/pci/controller/dwc/pci-imx6.c
-> +++ b/drivers/pci/controller/dwc/pci-imx6.c
-[ ... ]
-> @@ -1573,6 +1588,9 @@ static int imx_pcie_suspend_noirq(struct device *de=
-v)
->  	if (!(imx_pcie->drvdata->flags & IMX_PCIE_FLAG_SUPPORTS_SUSPEND))
->  		return 0;
-> =20
-> +	if (imx_pcie->lnk_intr)
-> +		regmap_clear_bits(imx_pcie->iomuxc_gpr, IMX95_LINK_INT_CTRL_STS,
-> +				  IMX95_LINK_DOWN_INT_EN);
-
-Does using regmap_clear_bits() and regmap_set_bits() here unintentionally
-clear pending Write-1-to-Clear (W1C) status bits?
-
-Since these functions perform a read-modify-write operation, if a W1C status
-bit like IMX95_LINK_DOWN_INT_STS is active during the read phase, writing it
-back will clear the status bit. This could potentially result in losing
-pending link-down or PME events before their handlers can process them.
+> diff --git a/sound/soc/renesas/rcar/dma.c b/sound/soc/renesas/rcar/dma.c
+> index 24c23cb893906..ede0123d40eb5 100644
+> --- a/sound/soc/renesas/rcar/dma.c
+> +++ b/sound/soc/renesas/rcar/dma.c
 
 [ ... ]
-> @@ -1632,6 +1653,84 @@ static const struct dev_pm_ops imx_pcie_pm_ops =3D=
- {
->  				  imx_pcie_resume_noirq)
->  };
-> =20
-> +static irqreturn_t imx_pcie_lnk_irq_isr(int irq, void *priv)
-> +{
-> +	struct imx_pcie *imx_pcie =3D priv;
-> +	struct dw_pcie *pci =3D imx_pcie->pci;
-> +	struct device *dev =3D pci->dev;
-> +	u32 val;
+
+> +/* RZ/G3E DMA address macros */
+> +#define RDMA_SSI_I_N_G3E(addr, i)	(addr ##_reg + 0x0000F000 + (0x1000 * =
+i))
+> +#define RDMA_SSI_O_N_G3E(addr, i)	(addr ##_reg + 0x0000F000 + (0x1000 * =
+i))
+
+This isn't a bug, but could the 'i' parameter be wrapped in parentheses?
+
+While 'i' is currently passed as a single variable ('id'), using (0x1000 * =
+(i))
+would prevent incorrect address calculations due to operator precedence if =
+an
+expression is ever passed as an argument in the future.
+
+Does it make sense to update the SRC and CMD macros below as well?
+
 > +
-> +	regmap_read(imx_pcie->iomuxc_gpr, IMX95_LINK_INT_CTRL_STS, &val);
-
-Could this regmap_read() call cause a sleep-in-atomic deadlock on PREEMPT_R=
-T?
-
-Since this handler is registered with IRQF_SHARED, it runs in primary hardi=
-rq
-context. The iomuxc_gpr regmap is initialized via devm_regmap_init_mmio()
-without enabling the use_raw_spinlock flag, meaning it relies on a standard
-spinlock. On PREEMPT_RT kernels, this maps to a sleepable rt_mutex, which
-cannot be acquired safely from hardirq context.
-
-> +	if (val & IMX95_LINK_DOWN_INT_STS) {
-> +		dev_dbg(dev, "PCIe link down detected, initiating recovery\n");
-> +		regmap_clear_bits(imx_pcie->iomuxc_gpr, IMX95_LINK_INT_CTRL_STS,
-> +				  IMX95_LINK_DOWN_INT_EN);
-> +		regmap_set_bits(imx_pcie->iomuxc_gpr, IMX95_LINK_INT_CTRL_STS,
-> +				IMX95_LINK_DOWN_INT_STS);
-> +
-> +		return IRQ_WAKE_THREAD;
-> +	} else {
-> +		return IRQ_NONE;
-> +	}
-> +}
-> +
-> +static irqreturn_t imx_pcie_lnk_irq_thread(int irq, void *priv)
-> +{
-> +	struct imx_pcie *imx_pcie =3D priv;
-> +	struct dw_pcie *pci =3D imx_pcie->pci;
-> +	struct dw_pcie_rp *pp =3D &pci->pp;
-> +	struct pci_dev *port;
-> +
-> +	for_each_pci_bridge(port, pp->bridge->bus)
-
-Is it safe to iterate over the bus devices list here without acquiring the
-pci_bus_sem read lock?
-
-Since this threaded handler executes asynchronously, concurrent PCI subsyst=
-em
-modifications like hotplug events or driver unbinding could mutate the list.
-Traversing bus->devices without down_read(&pci_bus_sem) might expose the
-system to list corruption or use-after-free dereferences.
-
-> +		if (pci_pcie_type(port) =3D=3D PCI_EXP_TYPE_ROOT_PORT)
-> +			pci_host_handle_link_down(port);
-> +
-> +	regmap_set_bits(imx_pcie->iomuxc_gpr, IMX95_LINK_INT_CTRL_STS,
-> +			IMX95_LINK_DOWN_INT_EN);
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static int imx_pcie_reset_root_port(struct pci_host_bridge *bridge,
-> +				    struct pci_dev *pdev)
-> +{
-> +	struct pci_bus *bus =3D bridge->bus;
-> +	struct dw_pcie_rp *pp =3D bus->sysdata;
-> +	struct dw_pcie *pci =3D to_dw_pcie_from_pp(pp);
-> +	struct imx_pcie *imx_pcie =3D to_imx_pcie(pci);
-> +	int ret;
-> +
-> +	imx_pcie_msi_save_restore(imx_pcie, true);
-> +	if (imx_check_flag(imx_pcie, IMX_PCIE_FLAG_HAS_LUT))
-> +		imx_pcie_lut_save(imx_pcie);
-
-Should these LUT save and restore operations be protected by the
-imx_pcie->lock mutex?
-
-Other parts of the driver appear to protect concurrent LUT accesses using
-this mutex. Since the recovery thread runs asynchronously, racing with
-concurrent endpoint configuration routines could lead to interleaved I/O
-operations and corrupt the LUT index.
-
-> +	imx_pcie_stop_link(pci);
-> +	imx_pcie_host_exit(pp);
-
-Does fully disabling the clocks here risk a synchronous external abort?
-
-The imx_pcie_host_exit() function completely disables the PCIe controller
-clocks. If another device sharing this interrupt line triggers an interrupt
-while the clocks are off, the kernel will invoke all registered primary
-handlers. If the PME handler attempts to read PCIe Root Port configuration
-registers, accessing unclocked memory-mapped registers could trigger a
-synchronous external abort.
+> +#define RDMA_SSIU_I_N_G3E(addr, i, j)	(addr ##_reg + 0x0000F000 + (0x100=
+0 * (i)) + (((j) / 4) * 0xA000) + (((j) % 4) * 0x400) - (0x4000 * ((i) / 9)=
+ * ((j) / 4)))
+> +#define RDMA_SSIU_O_N_G3E(addr, i, j)	RDMA_SSIU_I_N_G3E(addr, i, j)
 
 [ ... ]
-> @@ -1834,9 +1933,33 @@ static int imx_pcie_probe(struct platform_device *=
-pdev)
->  			val |=3D PCI_MSI_FLAGS_ENABLE;
->  			dw_pcie_writew_dbi(pci, offset + PCI_MSI_FLAGS, val);
->  		}
-> +
-> +		/* Get link event irq if it is present */
-> +		imx_pcie->lnk_intr =3D platform_get_irq_byname(pdev, "intr");
-> +		if (imx_pcie->lnk_intr > 0) {
 
-Could this check fail to handle missing optional interrupts on older
-platforms?
+> +static dma_addr_t
+> +rsnd_rzg3e_dma_addr(struct rsnd_dai_stream *io,
+> +		    struct rsnd_mod *mod, int is_play, int is_from)
+> +{
+> +	struct rsnd_priv *priv =3D rsnd_io_to_priv(io);
+> +	phys_addr_t ssi_reg =3D rsnd_gen_get_phy_addr(priv, RSND_BASE_SSI);
+> +	phys_addr_t src_reg =3D rsnd_gen_get_phy_addr(priv, RSND_BASE_SCU);
+> +	int id    =3D rsnd_mod_id(mod);
+> +	int busif =3D rsnd_mod_id_sub(rsnd_io_to_mod_ssiu(io));
 
-The platform_get_irq_byname() function returns a negative error code like
--ENXIO when the interrupt is missing. Because lnk_intr is declared as a u32,
-the negative error code is implicitly cast to a large positive integer.
-The condition > 0 will evaluate to true, and the driver will attempt to
-request an invalid massive IRQ number, unconditionally failing the probe.
+Can this result in a NULL pointer dereference?
 
-> +			ret =3D devm_request_threaded_irq(dev, imx_pcie->lnk_intr,
-> +							imx_pcie_lnk_irq_isr,
-> +							imx_pcie_lnk_irq_thread,
-> +							IRQF_SHARED,
-> +							"lnk", imx_pcie);
-> +			if (ret) {
-> +				dev_err_probe(dev, ret,
-> +					      "unable to request LNK IRQ\n");
-> +				goto err_host_deinit;
-> +			}
-> +
-> +			regmap_set_bits(imx_pcie->iomuxc_gpr,
-> +					IMX95_LINK_INT_CTRL_STS,
-> +					IMX95_LINK_DOWN_INT_EN);
+If the ALSA stream does not have an SSIU module attached (like when the
+device tree omits the SSIU node, or the SSI is configured for PIO mode via
+the pio-transfer property), rsnd_io_to_mod_ssiu(io) will return NULL.
 
-Is there a mechanism to disable the hardware interrupt on driver unbind?
+Looking at rsnd_mod_id_sub(), it unconditionally dereferences the pointer:
 
-The interrupt is enabled in the IOMUXC GPR register during probe. If the
-driver is unbound and its IRQ handler is freed without a removal callback
-clearing the IMX95_LINK_DOWN_INT_EN bit, the hardware could assert the
-shared interrupt continuously if the link goes down. Since no handler
-would be registered to acknowledge it, this might lead to an unhandled
-interrupt storm.
+sound/soc/renesas/rcar/core.c:rsnd_mod_id_sub() {
+        if ((mod)->ops->id_sub)
+                return (mod)->ops->id_sub(mod);
+       =20
+        return 0;
+}
 
-> +		}
->  	}
-> =20
->  	return 0;
-> +
-> +err_host_deinit:
-> +	dw_pcie_host_deinit(&pci->pp);
-> +
-> +	return ret;
->  }
-> =20
->  static void imx_pcie_shutdown(struct platform_device *pdev)
-
-Will asserting the core reset during shutdown unintentionally trigger the
-link recovery thread?
-
-During system reboot, imx_pcie_shutdown() calls imx_pcie_assert_core_reset()
-to quiesce the hardware, which physically drops the PCIe link. Because the
-interrupt enable bit is not cleared during shutdown, this intentional link
-drop will trigger the hardware interrupt.
-
-The resulting interrupt will queue imx_pcie_lnk_irq_thread(), which calls
-imx_pcie_reset_root_port(). This will explicitly deassert the core reset,
-unintentionally bringing the hardware back out of reset and defeating the
-purpose of the shutdown routine.
+Could this trigger a panic on stream open in valid configurations like
+[SRC] -> [SSI (PIO)]?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513025101.1498=
-104-1-hongxing.zhu@nxp.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512182631.3842=
+065-1-john.madieu.xa@bp.renesas.com?part=3D8
