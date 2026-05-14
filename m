@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F02C023D28C
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 05:33:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE0D1EB5FD
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 05:37:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778736821; cv=none; b=oTco2XulhTqti2WXnBYqa4QvgnaooTdRvYMd6DLZBzQ6kDfeDG7rEOKM88ilMGnDIjyWUZUP1nOFMnbNOzQdrbvklMtayFGGNp6CPqacjisSCeKeioTnbMge3trARSqBX2bD9UcAhcBFCoCvmrdFV8yogIdonfF8QYN7qh8lfkw=
+	t=1778737032; cv=none; b=s4mExLgOOBknF/xM465fbgU7Pp3BkgyLrteMS312EKYFvck2ENuRGOGFKkt5cg6gCHvvUEjnxSnnKriDMYn5fAiOhA1/wOuHxfX0gFBy8JO+5GxwrP6sIyA/znJhd171IL8Sj6StsPAhH8nnJB3QJk4teeNn+iNjSyVdCoyuAMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778736821; c=relaxed/simple;
-	bh=7g6RUZd2j16FB/oQJ+AhSfq8OxLZ05rk5jl735ZnZNU=;
+	s=arc-20240116; t=1778737032; c=relaxed/simple;
+	bh=SQlMgzzhoNxc/8qkmsF9mUb7S5tyVZaHECYTE5yesGo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mdxqPZGVW3kMBQOGhAYia0JNaW6Wv/9YK4geBEhJAKbLA/pU4ti8zWHEoq6pZ4QflHjF7O/i2THjBzVkAVsuBUVLM9E9/g3fFGihwccaPlFYsBp2l5wzWE/soNGmdvbr0BkQJEe4RcXnWnH/5Y5PqQdRk3Ttebz+qyg5tZBhJo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rp1zCATL; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=jwUNg0rEooCCf5rkGpAseCTLVNYam0eilv5OVWFMSbIs/xMGY9FvKv1ZYvfU8CAFv7YM5Tz0E/QEmONPNAXfehdAur+Qtn2IwLIEiDEigMLNxR9Y7R3rrMKibBhjZyAmspi52NPI9G0MmFhIE5xv1pYFgCc8hA4o67H+zfRJq74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=u5KxFgaw; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rp1zCATL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DE4EC2BCB7;
-	Thu, 14 May 2026 05:33:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="u5KxFgaw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7122C2BCB7;
+	Thu, 14 May 2026 05:37:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778736820;
-	bh=7g6RUZd2j16FB/oQJ+AhSfq8OxLZ05rk5jl735ZnZNU=;
+	s=k20201202; t=1778737032;
+	bh=SQlMgzzhoNxc/8qkmsF9mUb7S5tyVZaHECYTE5yesGo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=Rp1zCATLDNoLJK1dImMrFzbizqv2ZaxqIHBeTzS+oND7pQt9obwRR43D0JR4E2gjH
-	 Gxycnwo9Fe3z4Mhi1VqSnz6E/yZlzuLzhuc71Q2lRx0f8gTDbc7xTtxNrZk1+h/W6n
-	 CfDprIpve+XqMOgldWeBxv83fjYKqkAw779tA0Jp+Th8K/+EH2U56XRQmuyAanC5k1
-	 JdRKzCzqAQlXE0upVHDEL4pxd+b7KN2SQBQtqKi9ZYZ5+Qad8rkzJu1WuhmP3q6kN/
-	 BeV/u4V1h4yYr9Eg9mEUOFJPqWmtrnA3qINlbIImUPAfWHNZsZXqm9yfymhu3C3UUF
-	 d0sjZ1HRaEqkA==
+	b=u5KxFgawqvd3YDBAgDJH6tlV/Z7JKiFdcOMHfvNKu/Bua9M1ztyNAfGbu8/ybP0J6
+	 +koAgtcdR1R2HIR5yzoxay4wfZNGqtgb1OjdneiXZz5lI3AuDmZEp7mWm4SdNwSuuI
+	 iTO+815drDBIvKnIPTEChglN6pjpWaaXvPOVQVVJRJ6COWuIE8Z9puLjVNIUKa8t+p
+	 Rwg4cw94oqJ07kIaQ4ilcO5Ie83ih3SFZFWdg4VSExaAOZcmm57TlGRQlk6eZY8PlL
+	 bn7roQ+yVVIwVEBmRi5CGcazECbJDC/GpT0vybMXZWNcyeknJGB7ItqUnR0t0a4ky0
+	 IVlcLORekbq5A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/7] dt-bindings: clock: qcom: Add video clock
- controller on Qualcomm Eliza SoC
+Subject: Re: [PATCH V6 07/11] iio: imu: inv_icm42607: Add Temp Support in
+ icm42607
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Taniya Das" <taniya.das@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260513-eliza_mm_cc_v2-v3-1-b59c370dc281@oss.qualcomm.com>
-References: <20260513-eliza_mm_cc_v2-v3-1-b59c370dc281@oss.qualcomm.com>
+To: "Chris Morgan" <macroalpha82@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260512221634.256747-8-macroalpha82@gmail.com>
+References: <20260512221634.256747-8-macroalpha82@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 05:33:39 +0000
-Message-Id: <20260514053340.4DE4EC2BCB7@smtp.kernel.org>
+Date: Thu, 14 May 2026 05:37:11 +0000
+Message-Id: <20260514053711.E7122C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,53 +46,75 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The schema does not define the `power-domains` property, preventin=
-g valid device trees from describing the hardware correctly.
+- [High] The temperature sensor and high-power clock are left enabled indef=
+initely after a one-shot read.
 --
 
-commit b3d73d9e0090a370ecfafe8774b6d58d6907b4db
-Author: Taniya Das <taniya.das@oss.qualcomm.com>
+commit 8d77083c202fdb58f8003d737a9eb92b429cb188
+Author: Chris Morgan <macromorgan@hotmail.com>
 
-dt-bindings: clock: qcom: Add video clock controller on Qualcomm Eliza SoC
+iio: imu: inv_icm42607: Add Temp Support in icm42607
 
-This commit adds the Eliza video clock controller compatible string to the
-existing Milos videocc binding. It also includes the corresponding
-dt-bindings header for Eliza.
+This commit adds functions for reading temperature sensor data.
 
-> Eliza Video clock controller is on CX and MX rails similar to Milos.
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c b/drivers/i=
+io/imu/inv_icm42607/inv_icm42607_temp.c
+> new file mode 100644
+> index 0000000000000..7e9cb072a0110
+> --- /dev/null
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c
 
-Since the commit message explicitly states the hardware is on the CX and MX
-rails, shouldn't the power-domains property be defined in the binding?
-
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,milos-videocc.y=
-aml b/Documentation/devicetree/bindings/clock/qcom,milos-videocc.yaml
-> index 14c31efe1308a..6e3e4424af78a 100644
-> --- a/Documentation/devicetree/bindings/clock/qcom,milos-videocc.yaml
-> +++ b/Documentation/devicetree/bindings/clock/qcom,milos-videocc.yaml
 [ ... ]
->  properties:
->    compatible:
-> -    const: qcom,milos-videocc
-> +    enum:
-> +      - qcom,eliza-videocc
-> +      - qcom,milos-videocc
-> =20
->    clocks:
 
-The schema qcom,milos-videocc.yaml does not define the power-domains proper=
-ty,
-and neither does its referenced schemas. Since the schema uses
-unevaluatedProperties: false, any device tree node that correctly specifies
-the power-domains property to model this hardware dependency will fail sche=
-ma
-validation.
+> +static int inv_icm42607_temp_read(struct inv_icm42607_state *st, s16 *te=
+mp)
+> +{
+> +	struct device *dev =3D regmap_get_device(st->map);
+> +	__be16 *raw;
+> +	int ret;
+> +
+> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
+> +	if (PM_RUNTIME_ACQUIRE_ERR(&pm))
+> +		return -ENXIO;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	ret =3D inv_icm42607_set_temp_conf(st, true, NULL);
+> +	if (ret)
+> +		return ret;
+> +
+> +	raw =3D &st->buffer[0];
+> +	ret =3D regmap_bulk_read(st->map, INV_ICM42607_REG_TEMP_DATA1, raw, siz=
+eof(*raw));
+> +	if (ret)
+> +		return ret;
+> +
+> +	*temp =3D be16_to_cpup(raw);
+> +	if (*temp =3D=3D INV_ICM42607_DATA_INVALID)
+> +		return -EINVAL;
+> +
+> +	return 0;
+> +}
 
-This forces developers to omit the property from the device tree entirely. =
-If
-the required CX/MX power rails are not incidentally enabled by another
-consumer, accessing the unpowered video clock controller registers during
-probe or runtime could cause a synchronous external abort and kernel panic.
+Does this leave the temperature sensor and high-power clock enabled
+indefinitely after a one-shot read?
+
+It looks like inv_icm42607_set_temp_conf() is called with true before
+the read, which enables the sensor and disables the low-power RC oscillator,
+but the sensor is never disabled again before returning.
+
+While pm_runtime_autosuspend might eventually power down the device,
+if another operation (like an accelerometer read) keeps the PM runtime acti=
+ve
+before the autosuspend delay expires, the autosuspend will not happen.
+
+Because other configuration functions preserve the existing st->conf.temp_en
+state, the high-power clock and temperature sensor would remain permanently
+active, leading to an unintended power draw.
+
+Should there be a matching call to inv_icm42607_set_temp_conf() with false
+after the read is complete?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-eliza_mm_c=
-c_v2-v3-0-b59c370dc281@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512221634.2567=
+47-1-macroalpha82@gmail.com?part=3D7
