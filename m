@@ -1,85 +1,33 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81CC63E51F7
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 13:45:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A0843E557D;
+	Thu, 14 May 2026 13:46:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778766331; cv=none; b=eBoPZHBSkuIxIegIG2Gi++1bduw5SWtpAC7lKqPvs6fzzFvNMNaR29rv67YUL1XsQqMr2rNL/AZUfeWDnqssV4RO0BVcAi/pgDkgji8y3/ADuXnCec+7q0EJC4IFXt8yA+EWki69/us5fldnzfXa99bPlZo8K88uEDZvR+ZRjvs=
+	t=1778766379; cv=none; b=jmoyBso1mbZA+WZjy5TZFiRYhtV+Z/ceg2k1W/SOfGowhEvKlrt27MDfIqrwfuxpo9zMFinH9TtLDfccCsGSTAJ1nzBpAWHGqJd0htNTrNzJNl74XG91ibidELKJ1RUPc23wP8/97QC3z2yWjFT4eX7o5wecklb0kv30S8h/DZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778766331; c=relaxed/simple;
-	bh=UX/0/oNsXO3jFP/m3F5/1BBiL5qPA350g3fa87BSP9M=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=eyAiy8Tdb5gWRUjx6VGOylXRmm+vwNyQX+9CjaEFmdDFTH2qM7nbD/K4k15uCBcq+jjjMjbJu01oDz2B07ysr6u5oAgQXqjhlpOWTEQ/ER3M7cShPpF5MiotF80h8n+e4faPfR8Tm7Sr3Ftu4jkoYIkQnuEs786FeuNlp8LpEOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jJNhajcS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gQUtuVza; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1778766379; c=relaxed/simple;
+	bh=X3xfXHnN+TYYZXeNdQf4vBQgoHkeBnC+m5grpPhIP2M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gZUo5BVW2Rv17GNwE/YpR9e1YmedtzAGcvFeb4IaP6GTZqDhMNOK6XxGN2Y0vM7nuNMis3FGEuQX3ZkvX26YIC2P+/fmUXCF1zqjCbpBaV8OmpGQUMARSDv4RqtBhDju04tyHcrY1S5+gqqHVSn9Vt//4HVkIhsgTf3KJg/exAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hYgarlce; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jJNhajcS";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gQUtuVza"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64EBeRXt3891053
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 13:45:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Bccz44mXt5IlcgrwM6BT+Jf6mOZHElzKxevYD9CBbWM=; b=jJNhajcScwOXhHxL
-	AJ6OEVXxDKfx/i1FBLfkDUXff9kTHcIOM0bdHNcENTxTrLpmzVrj6WUPFzyDCiHO
-	KxFpLr6td0K9W3KrGDGuDp7bRXpnjiYo2UvMnkXhJCMNOLukvI4KZ8QJVNlsh1Jg
-	Hw0Er5GvRtDs1/f94PQJ8KdRSIslVFej1EwPzCMEsJb//q3fjhJrxiYwfmIHeJ6Z
-	4kewvn+lKKox2FD8vqKTHl+AoxgYVL2tk3ImNK2ac4vJh3Nx794UZHMPgV753eYo
-	KDU9OCn/Hqj2AIaxuoUlf77Rm9AMQ3Cqj5cgzxARZw2fdhm3Qfk5TT+i8Mnn0a8V
-	S9KZMg==
-Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4v4tv78v-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 13:45:26 +0000 (GMT)
-Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-65c694b54d7so18769734d50.2
-        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 06:45:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778766325; x=1779371125; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Bccz44mXt5IlcgrwM6BT+Jf6mOZHElzKxevYD9CBbWM=;
-        b=gQUtuVzaWfPc3XSpyVXHAfaj2gWEndRJMhTGVquqDlCt9TmHFhtyR7i6mCkqkgXJs9
-         HYMtm4A4hSSoGRlKqdhsm1itZwPaKabSd9TAGEfxtydVxHxrapOxHLHjnWednur5rBJE
-         KDPc/EIyLfV/F9czrLpd/thKDAtTx7RbBVP8K0vQgfd6h5GrNMGxKZSj0/tFd7xB+npI
-         TkoNWA6qKYUS599PNkoKpI27B2kykTolB1vI59QH3qmznVhc2ogDnaZfaXSAT/fMgFI1
-         a3Ai+gArB5wWf2vF9NBAwbZhXU2iWtRS3DcxGXnc83RE5HqTDvCeQz5bP3piOMZjTHHw
-         FllA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778766325; x=1779371125;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Bccz44mXt5IlcgrwM6BT+Jf6mOZHElzKxevYD9CBbWM=;
-        b=ilhdkoOBcnKj7835tnDEfJWfp3ZHV5dzkUW1JHKpd9fHDhOZj9yntymRkDRiFbpbGM
-         Cvv62kokFVTlUxTdInVBQB1Sli8IB1hKSKI1Oop67LyqQyEb7vnP5KOoVUed6TJgDJKJ
-         sI0637Fy8cm1dDpYof0h97bQDP83EcSiqmWMxaKqrBfr/xTXXBNj7YEhx8Tfc1YRnglv
-         n6tCWov+opZcXQPvc3mDhji58EdwwjVr/31agT2HfwhQMDENYtbe6zmBXhNX7YNgHSVj
-         lbDcs4/qLgL/ZzYVYXTGGdcuoTKCT3PjsZ6hEaxc5f5KX63SDkgTDRpA4L/gnE/Vmp++
-         jcwQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+YYFn9mn+TwWKY5UqC5xWEN4wgqfalAOoBroUvEu1ZyAoJulkGgvKB8XDrn3rB5g2eQMB7mGOBhPPc@vger.kernel.org
-X-Gm-Message-State: AOJu0YxrRFCzwlUKCOYbR0cW+4xn2RZNAApL59Rk/FYrfM3F/wgSnNeu
-	/tEUdPRd/3p6uc9DG83cSG3s8Bo5/doTSKUXizZn7Em4JmcHnIeaL5aPv5DrJ+rSH5Z0Ojeg1yS
-	rT8neqrULHma06+NimO6f07LcdmXa9CUGouvTHPiz3YNOrC3k2tzqMYU+hrWzhN+D
-X-Gm-Gg: Acq92OEQwAmkDxiG6gGOizaZobhi1YtuzRJhT+x7XXWi3yCi2RUB+LNau1jpqorcWd2
-	ER8Nn6INLO/QcaD1t05cjEZJ62u4klwAP456QM5MPqIJfTSD2t3LVEZEZzUs2ncaa2dh97L2NGz
-	VHgF8DJ8A29TAKFF3Ca0xfDyk3tWmXnW3TyTtrB34+uMb9OGnZQktKjLAk50XTkYu+KJzHf9TBH
-	ktcurD3nbQkOC3xQej+sqaVAjClA5jZ4daxdic34CJy1Uc5T8miLnLoqQhGT5Bq4/DhvhFwc8UF
-	ZORNS0rGQ1yp1ySAYJfxZkDDWsoALkPzx0gi1tHuY98WPAtuZTp0JJA2epwKx7iyCnipAP0V8VS
-	8p3aYgs81vvF1MSq6zOLfh2HK5HAylmzwu12yW+1P/iYbSTbZyCvL
-X-Received: by 2002:a05:690c:6603:b0:7bd:a4dc:c23b with SMTP id 00721157ae682-7c6ad473846mr84571307b3.49.1778766325256;
-        Thu, 14 May 2026 06:45:25 -0700 (PDT)
-X-Received: by 2002:a05:690c:6603:b0:7bd:a4dc:c23b with SMTP id 00721157ae682-7c6ad473846mr84570937b3.49.1778766324839;
-        Thu, 14 May 2026 06:45:24 -0700 (PDT)
-Received: from [192.168.1.13] ([106.222.231.69])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-7c7f55bca95sm12983157b3.39.2026.05.14.06.45.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 14 May 2026 06:45:24 -0700 (PDT)
-Message-ID: <ec78d81e-5b0f-4d79-9bf3-02d5985356f9@oss.qualcomm.com>
-Date: Thu, 14 May 2026 19:15:18 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hYgarlce"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E10EC2BCB8;
+	Thu, 14 May 2026 13:46:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778766377;
+	bh=X3xfXHnN+TYYZXeNdQf4vBQgoHkeBnC+m5grpPhIP2M=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=hYgarlceDxIGJCV8CDnVOhyjK4EfVNj/gttq/5hmNggHckONHxTgx1Z9CaJMgG1fk
+	 EVigywhfv++9xSmV3cK6YelqO2qqgJJ65zZGGYq7ilNVtK8OKqKoGApnUGnxQg4dCY
+	 vQZtoSwI6pvHm0OtiWeBaAAOv7g6ZowxziW8FBhner1nfCqgQVEdsltPxhUk3NWbL4
+	 UEEVreCWRu3rKN1P8UcE0D0pUAmYoiUM52EGf6mXpDyTMM6ynNb/nbjAi2F1tQoFE5
+	 7VSMN4s5CBfmjfsrPV7QYNPTketiuG7V1IgsjhbYbxYrODw6kOC4PBMNvF9IUMXJr9
+	 O1c5MNM2g7Ljg==
+Message-ID: <3a4fe731-1e0d-413f-821a-e84981167717@kernel.org>
+Date: Thu, 14 May 2026 15:46:13 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -87,89 +35,98 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: purwa-iot-evk: Update TSENS thermal
- zone
-From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: add basic devicetree for Ayaneo
+ Pocket DS gaming console
+To: Alexandre Hamamdjian <azkali.limited@gmail.com>
 Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
  <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        manaf.pallikunhi@oss.qualcomm.com
-References: <20260416-purwa_high_tj-v1-1-b538f98d42da@oss.qualcomm.com>
- <xxouwrtrhgyf6y6xgpqev3cxomn72mty7kvuzh4tof3jnmfmnf@6deaf6mhhdpw>
- <bee49f32-cf46-4cb5-9d84-0a813b64bd6f@oss.qualcomm.com>
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Teguh Sobirin <teguh@sobir.in>
+References: <20260511-pocketds-v2-0-299dd4247f2f@gmail.com>
+ <20260511-pocketds-v2-3-299dd4247f2f@gmail.com>
+ <20260514-free-ruby-honeybee-d5f317@quoll>
+ <CAL5cOWtz5VZXGJBRVKNTwbXGciAom8PZ84cZFr2KveW7jO1O=A@mail.gmail.com>
+ <CAL5cOWu20Vng7hMZvyz0paFM6Ga=Fs2qQrF2yfMTpVvSt3b0VA@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-In-Reply-To: <bee49f32-cf46-4cb5-9d84-0a813b64bd6f@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=XIIAjwhE c=1 sm=1 tr=0 ts=6a05d1f6 cx=c_pps
- a=J+5FMm3BkXb42VdG8aMU9w==:117 a=UH61rShEP5ZXOK8RUAspcw==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=bZB2p13Iy_By7FS0diAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=Epx66wHExT0cjJnnR-oj:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE0MDEzOCBTYWx0ZWRfXxs17mSckTs4/
- gI4oRJQpmovQPrDcRqe8ejAbJ10DRqgEPnTwqsA+JbH6FnOhCZ6516igNBL7gGNBmmuhQsHYxMC
- SZ3WEvRpfOzGGKyiMx/WllJUr5ihUR7P7AeTCCI3+3Qo+rrpAGpXV/RTPJNRnocICYnTaX8rzAt
- o9TUvWatj3o6tUi59N0qzpwtzFWo9pPYRmq7Quin4F8hJDoM70JUToESqevPZ7r2z4lHSpRuPHC
- WV3ZrM9cTtNwBLNg8BE1L2upw9ztCtQVnzAnzq+RimQl5DR+sWFTrxDHOGqjxjeiEGKalRr/rar
- ob70a169I2DMNFASKe6DYGQZDk7FW7Iad0xZ0A1FcsbZcr/QyZO9+eQVN3wuaKd3kWo5HFzVsMM
- Rl91Wwtd3pUXEvMBSiGep0k8vjfguCe0nbcA5QsH+peO/5SHmWxXg0j/IAoXk84MUaoEXGgEmkd
- YacMKjacy0PcE9gQJhw==
-X-Proofpoint-ORIG-GUID: o2JU9i5ZqnkUwp4Srz5iHCV7y36qBDQW
-X-Proofpoint-GUID: o2JU9i5ZqnkUwp4Srz5iHCV7y36qBDQW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-14_03,2026-05-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
- bulkscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605140138
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <CAL5cOWu20Vng7hMZvyz0paFM6Ga=Fs2qQrF2yfMTpVvSt3b0VA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 14/05/2026 15:00, Alexandre Hamamdjian wrote:
+> I will fix the naming scheme and blank line for the next revision.
+> 
+>> Why isn't this part of the SoC?
+> 
+> I was suggested to look at similar devicetree (ayaneo-pocket-s2) which is
+> doing the same defining in the exact same way the SoC regulators, labeled
+> thermal nodes, pmu etc..
+> I am open to staying consistent but would like the same consistency to be
+> set or questioned for others the same way.
 
-
-On 4/19/2026 12:16 PM, Gaurav Kohli wrote:
-> 
-> 
-> On 4/18/2026 11:26 PM, Dmitry Baryshkov wrote:
->> On Thu, Apr 16, 2026 at 05:04:48PM +0530, Gaurav Kohli wrote:
->>> Purwa IOT boards support a different thermal junction temperature
->>> specification compared to the base Purwa platform due to package
->>> level differences.
->>>
->>> Update the passive trip thresholds to 105°C to align with the higher
->>> temperature specification.
->>>
->>> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
->>> ---
->>>   arch/arm64/boot/dts/qcom/purwa-iot-evk.dts | 32 +++++++++++++++++++ 
->>> +++++++++++
->>>   1 file changed, 32 insertions(+)
->>>
->>> diff --git a/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts b/arch/arm64/ 
->>> boot/dts/qcom/purwa-iot-evk.dts
->>> index ad503beec1d3..261d1e85651d 100644
->>> --- a/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts
->>> +++ b/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts
->>
->> Is it a property of the SKU used in the EVK or a property of the overall
->> form factor, cooling, etc.? In the former case it should go to
->> purwa-iot-som.dtsi.
->>
-> 
-> thanks Dmitry for review.
-> it is applicable for overall form factor, 2nd one is applicable here.
-> 
-> thanks
-> Gaurav
-> 
-
-Gentle reminder for this change.
+Really? I could not find regulators starting there with 'regulator-'
+name or regulators without any prefix or suffix.
 
 > 
+>> Looks like random ordering...
 > 
+> I can reorder if you have advice or documentation on better ordering
 
+That ayaneo-pocket-s2 has correct order so you could even use that one.
+DTS coding style document describes preferred ordering.
+
+Please do not remove pieces of the context - I have no clue what my
+replies were referring to. I have this in the inbox without the rest, so
+judging by inbox alone I do not know what this is even replied to,
+unless I perform some actions.
+
+Your way of handling emails is really not making it easy. Just use
+standard email reply style as on every mailing list.
+
+Best regards,
+Krzysztof
