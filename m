@@ -1,228 +1,161 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F6063DFC78;
-	Thu, 14 May 2026 15:05:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D95F402BA0;
+	Thu, 14 May 2026 15:09:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778771111; cv=none; b=roQIxgywNRkbKl2AQbtLbCRzCeIvBl02CvziLHNhYLHk3UmnED8gzRjKgVbXSz1/93VC/bfnUdxsVg+SwazXlDOY9+MBVZy0jIjelkRVtm3m/HP7ASiddfBZrgkF0hMgHFrUujZ43BC0Vq0DYVWVPluzD8Oie42MbIdWeBCYX5s=
+	t=1778771398; cv=none; b=LB5UfJGNJ/iO34L6dj060BUGXKXBgj52W8XoJyWdZIY3kqjbCc7UVNgeiBDTYj5fQcWjGqeLK9pMBrN2AssSwWKi1w5lab97xbjFQMh93e/odfEGXwt4OpDShnDc5Ukw0SOXaU5HXLoRve9COFvB7mcYNPqVu9nH0gvV0cqcKPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778771111; c=relaxed/simple;
-	bh=y+qWkfH2NdW0SgzpFUw+pNdGVOYGMAeHSrTAVJ8Wd6c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LO0H1lNO5sUDl9FiILUvuWK5COq1ntCE67ski/JRHIzX5dazOISJZFXeaXniFTj3Boo3peNmehl+F5vV/pWje062G4Fb7aznXWDMByxVho/gPBBG89T/irb5/qq44X4sjU5wqj5SqRJXTvrgeXgG743C4egXrDXSJtNPxxIp4IQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lzUL+5ET; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778771398; c=relaxed/simple;
+	bh=t5gE4bxe3l8Rm89s70bV5esQES6c2DxTzt/nvkCifQM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=k326F2Rnsv3hMtwoA+iUjcxid0kIIH422aenpjG3ldJFT2uOqz/lM9Z1l4Kpj0Kx5SSi+40KSrz4ON8bJp8YF6Ee4tQFeJ80kjwPklfrjaMNOgcWxAlV34UtZcBqRzgtkXhtKDTMH8xSwhhlgYTHGfb74FMevXRfZgT+XmfIer8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LydMEQYy; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lzUL+5ET"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23CC3C2BCB3;
-	Thu, 14 May 2026 15:05:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LydMEQYy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5142C2BCB8;
+	Thu, 14 May 2026 15:09:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778771111;
-	bh=y+qWkfH2NdW0SgzpFUw+pNdGVOYGMAeHSrTAVJ8Wd6c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lzUL+5ETuBp68+uAJmjs1ENvWvR7Cv6qPq8mewr+POZ+cdbB7WCVi5LXJATo4rnFp
-	 5Pmdo+uJNjhemnabCCXcFkZ2Zu64tbubILBxwO4+CYT5uX8x3WhdYGmBfYc2bGkSsx
-	 EHiv/IrzUzYVg0ke8JgImhcSRBtDvnYcN5NjdiD53SKBp5BPzcKe0MIUr6ZB+FecmX
-	 8abyt6AbcR5p7yf9+zWlezkeFL7PVb2MPB3cASTV5HRhjzdKwZ5hth/4Al8rq3CDmR
-	 vFfNXGKa1D5S8oEWbghjovfCz7lsxa+ROuZWGDSuXzERpUfaDoRFK9a0mw8vqA7kJ3
-	 FGKyR5ad5F/jA==
-Date: Thu, 14 May 2026 10:05:08 -0500
-From: Rob Herring <robh@kernel.org>
-To: Udaya Kiran Challa <challauday369@gmail.com>
-Cc: alexandre.belloni@bootlin.com, krzk+dt@kernel.org, conor+dt@kernel.org,
-	skhan@linuxfoundation.org, me@brighamcampbell.com,
-	linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] dt-bindings: rtc: epson,rx6110: Convert to DT Schema
-Message-ID: <20260514150508.GA495076-robh@kernel.org>
-References: <20260509185735.21557-1-challauday369@gmail.com>
+	s=k20201202; t=1778771397;
+	bh=t5gE4bxe3l8Rm89s70bV5esQES6c2DxTzt/nvkCifQM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=LydMEQYykl+lrouBNxHsfLVGYzROXndlLpIbgH6j0m2tH/PvpdX+T4PKnkEePAGXJ
+	 c+SWlcf0tRdp9R4ycU6c1fGIsHuiu7L7vSo7UNjlp26c1Eqn3QWjBn08/z15+pWrJ4
+	 r448PK7bN9ERWC0wmgvourvyLhsRgsx3zD0IE4JMq9Cn5EKUBZAILS1Q3XJ4fS4GpS
+	 oPHJMDP6uFtU327aMaa4Q65Vcy6orGWiUDS68E06VbEVcnWqge4Wpd/VAplO8sozhp
+	 uTWmohZ/cNTPb3/0tnhxIs5R6EnvZM444E2D4zoVmOs7ECPV9AkfLmAJI/Q7j8EaGu
+	 n850763jlqEBQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wNXhD-00000002Oqg-0nJO;
+	Thu, 14 May 2026 15:09:55 +0000
+From: Marc Zyngier <maz@kernel.org>
+To: linux-arm-kernel@lists.infradead.org,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Ge Gordon <gordon.ge@bst.ai>,
+	BST Linux Kernel Upstream Group <bst-upstream@bstai.top>,
+	Jesper Nilsson <jesper.nilsson@axis.com>,
+	Lars Persson <lars.persson@axis.com>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Dinh Nguyen <dinguyen@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	=?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	Orson Zhai <orsonzhai@gmail.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Michal Simek <michal.simek@amd.com>
+Subject: [PATCH v2 01/17] ACPI: GTDT: Account for GTDTv3 size when walking the platform timer descriptors
+Date: Thu, 14 May 2026 16:09:29 +0100
+Message-ID: <20260514150945.3917510-2-maz@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260514150945.3917510-1-maz@kernel.org>
+References: <20260514150945.3917510-1-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260509185735.21557-1-challauday369@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: linux-arm-kernel@lists.infradead.org, linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, lpieralisi@kernel.org, guohanjun@huawei.com, sudeep.holla@kernel.org, catalin.marinas@arm.com, will@kernel.org, rafael@kernel.org, mark.rutland@arm.com, daniel.lezcano@kernel.org, tglx@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org, neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, gordon.ge@bst.ai, bst-upstream@bstai.top, jesper.nilsson@axis.com, lars.persson@axis.com, alim.akhtar@samsung.com, ivo.ivanov.ivanov1@gmail.com, Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com, dinguyen@kernel.org, matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com, thierry.reding@kernel.org, jonathanh@nvidia.com, andersson@kernel.org, konradybcio@kernel.org, afaerber@suse.de, heiko@sntech.de, shawn.lin@rock-chips.com, orsonzhai@gmail.com, baolin.wang@linux.alibaba.com, michal.simek@amd.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Sun, May 10, 2026 at 12:26:39AM +0530, Udaya Kiran Challa wrote:
-> Convert the Epson RX6110 Real Time Clock devicetree binding
-> from the legacy text format to DT schema.
-> 
-> Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
-> ---
-> Changelog:
-> Changes since v3:
-> - Add conditional validation for SPI mode properties using anyOf
-> 
-> Link to v3:https://lore.kernel.org/all/20260509181909.21871-1-challauday369@gmail.com/
-> 
-> Changes since v2:
-> - Reference rtc.yaml for common RTC properties
-> - Add conditional validation for SPI mode properties
-> 
-> Link to v2:https://lore.kernel.org/all/20260509095713.5818-1-challauday369@gmail.com/
-> 
-> Changes since v1:
-> - Reuse common SPI peripheral properties
-> - Drop redundant SPI-specific comment
-> - Remove unused labels from examples
-> 
-> Link to v1:https://lore.kernel.org/all/20260504183728.27412-1-challauday369@gmail.com/
-> ---
->  .../devicetree/bindings/rtc/epson,rx6110.txt  | 39 ---------
->  .../devicetree/bindings/rtc/epson,rx6110.yaml | 79 +++++++++++++++++++
->  2 files changed, 79 insertions(+), 39 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/rtc/epson,rx6110.txt
->  create mode 100644 Documentation/devicetree/bindings/rtc/epson,rx6110.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/rtc/epson,rx6110.txt b/Documentation/devicetree/bindings/rtc/epson,rx6110.txt
-> deleted file mode 100644
-> index 3dc313e01f77..000000000000
-> --- a/Documentation/devicetree/bindings/rtc/epson,rx6110.txt
-> +++ /dev/null
-> @@ -1,39 +0,0 @@
-> -Epson RX6110 Real Time Clock
-> -============================
-> -
-> -The Epson RX6110 can be used with SPI or I2C busses. The kind of
-> -bus depends on the SPISEL pin and can not be configured via software.
-> -
-> -I2C mode
-> ---------
-> -
-> -Required properties:
-> -  - compatible: should be: "epson,rx6110"
-> -  - reg : the I2C address of the device for I2C
-> -
-> -Example:
-> -
-> -	rtc: rtc@32 {
-> -		compatible = "epson,rx6110"
-> -		reg = <0x32>;
-> -	};
-> -
-> -SPI mode
-> ---------
-> -
-> -Required properties:
-> -  - compatible: should be: "epson,rx6110"
-> -  - reg: chip select number
-> -  - spi-cs-high: RX6110 needs chipselect high
-> -  - spi-cpha: RX6110 works with SPI shifted clock phase
-> -  - spi-cpol: RX6110 works with SPI inverse clock polarity
-> -
-> -Example:
-> -
-> -	rtc: rtc@3 {
-> -		compatible = "epson,rx6110"
-> -		reg = <3>
-> -		spi-cs-high;
-> -		spi-cpha;
-> -		spi-cpol;
-> -	};
-> diff --git a/Documentation/devicetree/bindings/rtc/epson,rx6110.yaml b/Documentation/devicetree/bindings/rtc/epson,rx6110.yaml
-> new file mode 100644
-> index 000000000000..3466f74736d2
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/rtc/epson,rx6110.yaml
-> @@ -0,0 +1,79 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/rtc/epson,rx6110.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Epson RX6110 Real Time Clock
-> +
-> +description: |
+Since ARMv8.1, the architecture has grown an EL2-private virtual
+timer. This has been described in ACPI since ACPI v6.3 and revision
+3 of the GTDT table.
 
-Don't need '|' if no formatting.
+An aditional structure was added in ACPICA, though in a rather
+bizarre way, and merged in v5.1 as 8f5a14d053100 ("ACPICA: ACPI 6.3:
+add GTDT Revision 3 support").
 
-> +  The Epson RX6110 can be used with SPI or I2C busses.
-> +  The kind of bus depends on the SPISEL pin and can not be
-> +  configured via software.
+Finally plug the table parsing in GTDT, and correct the parsing of
+the platform timer subtables to account for the expanded size of
+the base table.
 
-Wrap lines at 80 chars.
+Suggested-by: Sudeep Holla <sudeep.holla@kernel.org>
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+---
+ drivers/acpi/arm64/gtdt.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-> +
-> +maintainers:
-> +  - Alexandre Belloni <alexandre.belloni@bootlin.com>
-> +
-> +allOf:
-> +  - $ref: rtc.yaml#
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: epson,rx6110
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  spi-cs-high: true
-> +  spi-cpha: true
-> +  spi-cpol: true
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +if:
-> +  anyOf:
-> +    - required:
-> +        - spi-cs-high
-> +    - required:
-> +        - spi-cpha
-> +    - required:
-> +        - spi-cpol
-> +
-> +then:
-> +  required:
-> +    - spi-cs-high
-> +    - spi-cpha
-> +    - spi-cpol
+diff --git a/drivers/acpi/arm64/gtdt.c b/drivers/acpi/arm64/gtdt.c
+index ffc867bac2d60..b9d9b8edf2df7 100644
+--- a/drivers/acpi/arm64/gtdt.c
++++ b/drivers/acpi/arm64/gtdt.c
+@@ -32,6 +32,12 @@ struct acpi_gtdt_descriptor {
+ 	struct acpi_table_gtdt *gtdt;
+ 	void *gtdt_end;
+ 	void *platform_timer;
++	bool v3;
++};
++
++struct gtdt_v3 {
++	struct acpi_table_gtdt	gtdt_v2;
++	struct acpi_gtdt_el2	el2_vtimer;
+ };
+ 
+ static struct acpi_gtdt_descriptor acpi_gtdt_desc __initdata;
+@@ -39,8 +45,14 @@ static struct acpi_gtdt_descriptor acpi_gtdt_desc __initdata;
+ static __init bool platform_timer_valid(void *platform_timer)
+ {
+ 	struct acpi_gtdt_header *gh = platform_timer;
++	void *platform_timer_begin;
++
++	if (acpi_gtdt_desc.v3)
++		platform_timer_begin = container_of(acpi_gtdt_desc.gtdt, struct gtdt_v3, gtdt_v2) + 1;
++	else
++		platform_timer_begin = acpi_gtdt_desc.gtdt + 1;
+ 
+-	return (platform_timer >= (void *)(acpi_gtdt_desc.gtdt + 1) &&
++	return (platform_timer >= platform_timer_begin &&
+ 		platform_timer < acpi_gtdt_desc.gtdt_end &&
+ 		gh->length != 0 &&
+ 		platform_timer + gh->length <= acpi_gtdt_desc.gtdt_end);
+@@ -169,6 +181,7 @@ int __init acpi_gtdt_init(struct acpi_table_header *table,
+ 	acpi_gtdt_desc.gtdt = gtdt;
+ 	acpi_gtdt_desc.gtdt_end = (void *)table + table->length;
+ 	acpi_gtdt_desc.platform_timer = NULL;
++	acpi_gtdt_desc.v3 = gtdt->header.revision >= 3 && gtdt->header.length >= sizeof(struct gtdt_v3);
+ 	if (platform_timer_count)
+ 		*platform_timer_count = 0;
+ 
+-- 
+2.47.3
 
-This 'if' can be better expressed as:
-
-dependencies:
-  spi-cs-high: [ spi-cpha, spi-cpol ]
-  spi-cpha: [ spi-cs-high, spi-cpol ]
-  spi-cpol: [ spi-cs-high, spi-cpha ]
-
-
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  # I2C mode
-> +  - |
-> +    i2c {
-> +      #address-cells = <1>;
-> +      #size-cells = <0>;
-> +
-> +      rtc@32 {
-> +        compatible = "epson,rx6110";
-> +        reg = <0x32>;
-> +      };
-> +    };
-> +
-> +  # SPI mode
-> +  - |
-> +    spi {
-> +      #address-cells = <1>;
-> +      #size-cells = <0>;
-> +
-> +      rtc@3 {
-> +        compatible = "epson,rx6110";
-> +        reg = <3>;
-> +        spi-cs-high;
-> +        spi-cpha;
-> +        spi-cpol;
-> +      };
-> +    };
-> -- 
-> 2.43.0
-> 
-> 
