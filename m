@@ -1,126 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C0738C426
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 18:22:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F3EB3451C1;
+	Thu, 14 May 2026 18:22:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778782923; cv=none; b=Ws3pSGcwFw6xUUhNLV0RjVtAyFbgYAbFJxN+U5hyA7pkVJFITeSuuaISveVO0Jz9ej6jBIbhT7lYQtaj0+FKvpzRhtvEIBDz/8VVRRWCqV1vWmmxNc5RJMIGm+MzuBlfwNVUHhijQtbsoXQag24eL6/2yMvRVMlRGboXes8M6Pg=
+	t=1778782960; cv=none; b=Q8mVIwjkvaXcWaToYxKudXdzWirx9PyKg7vO6kritr+gGQy8n2IFDL0qVZsfxMLoQ83RQIQXTuc7fFZc04fgZQlLGP0SjB5YkO7rltfecyCAj/Lyp20+2GBu0Smif5vunAZdAt12hZCPqkBJofBhkNG8tssoFHkE0nCrJOc2MxI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778782923; c=relaxed/simple;
-	bh=obGmQYKUp2+Yx9Oxx7lFGmmjG/BjG7cPMUWWCocdgto=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rpEZdyeJhnJ+jFDsFbrAzqq5S3OaeIAKSWBa1ekP2/6c9vrHnzWmpCNWMi7EjIAFCzehx7u8qQpwLXVjxc+P0YsJoIdceQs21swddnfMO/0Z340WTqT31vuXlM2/A9r2oki/xt2T9gY8UQc58RtCerLpgR0ehbb4dRO/6GoyXE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P2i1mhQY; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778782960; c=relaxed/simple;
+	bh=tcNcx48a+go1+PIXbPVx+bqSAKU5IIdX2EligEhqik8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jCCNTxl9QAhv9cnlmVfxdhMyYEMKfxia29WBV6iBpEUpoAXyAwt6L1Z5WGoREnTq8oNBHlXyJV53zy+4rC7q5MlvmmM2U7Pvt/xdlPiEGIcfZETipEEawfXtuNSjUlME9kgVOl0+8IF+SQW07K5vl4vW/yWV4zMlCxrPKtOb0V0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a3YNDsyz; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P2i1mhQY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12997C2BCB3;
-	Thu, 14 May 2026 18:22:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a3YNDsyz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D81DC2BCB3;
+	Thu, 14 May 2026 18:22:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778782923;
-	bh=obGmQYKUp2+Yx9Oxx7lFGmmjG/BjG7cPMUWWCocdgto=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=P2i1mhQYeNGkUhcQyWN7fACqjqItLSdCWfTnmbsYaqncBblvxJnL2cHh+OUGkv51O
-	 p8qrh/3wnDSpf1W3ic1XObbIckRWLlo1z9cs/F060zVrbaKNubVYh3/v1xJwaPerPk
-	 oWs5/5J90yHGuzE7Tf/MKbBwzLXb0Qe+RybsFgyxcE3PnocZzxcSg0A5L562b14R16
-	 infT/z4jTajexn5yPy3VtE2otMSr0yIXCrk7mMBBCGCBlj4jygtq4qEj03vEVJcGky
-	 y4oXYggEf+Sr0XINdgIda6we7Bgg+zwvlr+/oWNZpbsSKZWzZxfL11uGugfkB7HooX
-	 s6fAJgfbTcHaQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/6] clk: correct clk_div_mask() return value for
- width == 32
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Junhui Liu" <junhui.liu@pigmoral.tech>
-Cc: conor+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260514-dr1v90-cru-v5-1-34f3021aab51@pigmoral.tech>
-References: <20260514-dr1v90-cru-v5-1-34f3021aab51@pigmoral.tech>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 18:22:02 +0000
-Message-Id: <20260514182203.12997C2BCB3@smtp.kernel.org>
+	s=k20201202; t=1778782959;
+	bh=tcNcx48a+go1+PIXbPVx+bqSAKU5IIdX2EligEhqik8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=a3YNDsyzai9dvNt6VZBDL6ERsW+oYVA2SykU/Obr7s07OgADYxAhobMPBDxXiK9Kn
+	 iaHArLA19pu2f3di2hQZqXd2e1RWdCXA3QcZ88NW3ZbVhhEHl/fC7sMj7o2BlN6BmJ
+	 TMUxOs1RcqEspBfQe+k0J8arhd1Z9I1ROQ44uXxqNNizC66LkvfDPGRYbKchEhnE0Z
+	 BGaYw+akOZZ7t4xNb+cHVMaLCA51K3B6ERnIckfj6ZXwvh7gg4L9l5MrwvZBe0b81k
+	 8SOjRmi5nHbWQGGW8K4rB3hYpz2KGFY8Pb3Pkfbppk6mzcIlgv6lQMWTIBA9raABrj
+	 6bKc7sa1QPwCg==
+Date: Thu, 14 May 2026 19:22:36 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Caleb James DeLisle <cjd@cjdns.fr>
+Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org,
+	conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org
+Subject: Re: [PATCH v2 1/5] dt-bindings: timer: econet: Update EN751627 for
+ multi-IRQ
+Message-ID: <20260514-abiding-entertain-cd2aab06bef5@spud>
+References: <20260514000601.3430262-2-cjd@cjdns.fr>
+ <20260514114243.126F4C2BCB3@smtp.kernel.org>
+ <23568f49-4b58-4acd-85fa-7eba5e99b46c@cjdns.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="U3nnOgtn/eu2wwWq"
+Content-Disposition: inline
+In-Reply-To: <23568f49-4b58-4acd-85fa-7eba5e99b46c@cjdns.fr>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] clk_div_mask(width) generates undefined behavior and corrupts regi=
-sters when width is 0.
-- [Medium] Using clk_div_mask(0) with a compile-time constant breaks the bu=
-ild.
-- [Low] The commit message incorrectly claims GENMASK provides compile-time=
- bounds checking for variables.
-- [Low] The new macro evaluates the `width` argument multiple times, creati=
-ng a risk for side-effects.
---
 
-commit 73197243e5c552cead36bc9d0e0d0747fab0a7ab
-Author: Junhui Liu <junhui.liu@pigmoral.tech>
+--U3nnOgtn/eu2wwWq
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-clk: correct clk_div_mask() return value for width =3D=3D 32
+On Thu, May 14, 2026 at 05:22:05PM +0200, Caleb James DeLisle wrote:
+> > > @@ -52,21 +52,31 @@ allOf:
+> > >             items:
+> > >               - description: VPE timers 0 and 1
+> > >               - description: VPE timers 2 and 3
+> > > +        interrupts:
+> > > +          description: An interrupt for each timer (one per VPE)
+> > > +          minItems: 4
+> > Could this include an items list detailing the specific purpose of each
+> > of the four interrupts? Defining an items array for each interrupt (suc=
+h as
+> > Timer for VPE 0, VPE 1, etc.) would help ensure clarity for driver deve=
+lopers
+> > and enforce a consistent definition order.
+> IMO should be self-evident.
 
-This commit replaces the custom clk_div_mask macro with GENMASK. This change
-aims to fix undefined behavior when the width is 32, preventing incorrect m=
-ask
-generation.
+Ye, I think this is okay. Perhaps you could make it an items list if you
+want though.
 
-> Fix this by using the standard GENMASK() macro. This safely resolves the
-> undefined behavior on both 32-bit and 64-bit architectures, while also
-> benefiting from the built-in compile-time type and bounds checking
-> provided by the GENMASK() macro.
+> >=20
+> > [ ... ]
+> > >   examples:
+> > >     - |
+> > > +    #include <dt-bindings/interrupt-controller/mips-gic.h>
+> > >       timer@1fbf0400 {
+> > >           compatible =3D "econet,en751627-timer", "econet,en751221-ti=
+mer";
+> > Is it safe to retain econet,en751221-timer as a fallback compatible str=
+ing?
+> >=20
+> > Device Tree fallback strings declare that an older OS can safely operat=
+e the
+> > hardware using the fallback driver. Since econet,en751627-timer uses fo=
+ur
+> > individual shared IRQs while econet,en751221-timer strictly uses a sing=
+le
+> > percpu IRQ, they appear to have fundamentally incompatible interrupt
+> > topologies.
+> >=20
+> > If an older kernel boots using the fallback, the legacy
+> > timer-econet-en751221 driver will attempt to map the first shared IRQ a=
+s a
+> > percpu IRQ via request_percpu_irq(). This will fail with -EINVAL, causi=
+ng
+> > the timer driver to fail to initialize and potentially leading to a boot
+> > failure or system hang.
+> >=20
+> > Should econet,en751627-timer be defined as a standalone compatible stri=
+ng
+> > without the econet,en751221-timer fallback?
+> I find this argument compelling so I'll switch.
 
-This isn't a bug, but the commit message claims GENMASK provides compile-ti=
-me
-bounds checking.
+And ye, this is a good point that it made.
 
-Since width is almost exclusively used as a runtime variable in the clock
-subsystem, the compiler bypasses the bounds check which relies on
-__is_constexpr. Is this description accurate for the common usage of this
-macro?
+> >=20
+> > >           reg =3D <0x1fbf0400 0x100>, <0x1fbe0000 0x100>;
+> > >           interrupt-parent =3D <&intc>;
+> > > -        interrupts =3D <30>;
+> > > +        interrupts =3D <GIC_SHARED 30 IRQ_TYPE_LEVEL_HIGH>,
+> > > +                     <GIC_SHARED 29 IRQ_TYPE_LEVEL_HIGH>,
+> > > +                     <GIC_SHARED 37 IRQ_TYPE_LEVEL_HIGH>,
+> > > +                     <GIC_SHARED 36 IRQ_TYPE_LEVEL_HIGH>;
+> > >           clocks =3D <&hpt_clock>;
+> > >       };
 
-> diff --git a/include/linux/clk-provider.h b/include/linux/clk-provider.h
-> index b01a38fef8cf2..b986cc054d827 100644
-> --- a/include/linux/clk-provider.h
-> +++ b/include/linux/clk-provider.h
+--U3nnOgtn/eu2wwWq
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[ ... ]
+-----BEGIN PGP SIGNATURE-----
 
-> @@ -714,7 +715,7 @@ struct clk_divider {
->  	spinlock_t	*lock;
->  };
-> =20
-> -#define clk_div_mask(width)	((1 << (width)) - 1)
-> +#define clk_div_mask(width)	GENMASK((width) - 1, 0)
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagYS7AAKCRB4tDGHoIJi
+0tmOAQC/dD5AgiYmPrze2oXBe2h36kSTdYvxZrJXj8IcC3moKAD7BfI60QSdELli
++gBfkkaGm+igCABXL8s8C8+kOQoTnwQ=
+=ZGnf
+-----END PGP SIGNATURE-----
 
-If a clock driver uses a dummy divider or an edge case where width is 0, th=
-is
-evaluates to GENMASK(-1, 0).
-
-Internally, GENMASK executes a shift of ~0UL by BITS_PER_LONG, which is
-undefined behavior in C. On architectures like ARM and x86, this results in
-a shift by 0, yielding a mask of all 1s (0xFFFFFFFF) instead of the previous
-safe mask of 0.
-
-Could this inadvertently clear adjacent clock controls like gates and muxes
-when applying the mask in drivers/clk/clk-divider.c?
-
-val &=3D ~(clk_div_mask(divider->width) << divider->shift);
-
-Additionally, if width is passed as a compile-time constant of 0,
-GENMASK(-1, 0) will trigger the GENMASK_INPUT_CHECK because the high bit is
-less than the low bit. Does this introduce a build breakage for drivers that
-statically evaluate clk_div_mask(0)?
-
-Also, wrapping the parameter in GENMASK causes the width argument to be
-evaluated multiple times. Will this cause unexpected behavior if a driver
-invokes the macro with an expression containing side-effects?
-
->  #define to_clk_divider(_hw) container_of(_hw, struct clk_divider, hw)
-> =20
->  #define CLK_DIVIDER_ONE_BASED		BIT(0)
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514-dr1v90-cru=
--v5-0-34f3021aab51@pigmoral.tech?part=3D1
+--U3nnOgtn/eu2wwWq--
