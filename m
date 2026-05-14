@@ -1,244 +1,172 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B23D4428477;
-	Thu, 14 May 2026 14:57:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778770651; cv=none; b=swQWsLHRajN1EhlxhIyn/mQ1QuEnTtbbxeSv2p0O6hR/+8gU+zJChz1vOeWa6+DS1dVCe6ortS6ARx9hSS9iejnj+AO2ffWlo3mQNz74RoJ6bsy/tAx2NbBn5DTLsKCARJIDk7k+gMUj5cHgy/jr3iQtq7FvmuDWg2Yhmk6hEKo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778770651; c=relaxed/simple;
-	bh=u4yNX2iNbrX8ZebR3E/Jyo8gk9AJnyPTNS2O6Y7C7CA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BDxiHOc0q+HtEBySPfoT85/QBnUFlE+GbOsa8Bva3LgTXaCN6ibbYouauktnDv2iw32vZYT+2VGV9Ddnm9ywAPqFtjQPUemP+QX5AHHJYk6TejjYMm9l3F/RVAEsJzUy0vroyTFzI8UUw6L5qcDhJeWUXUptYBQLQflWwWh1w7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=lB/obX5n; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D3F407599
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 15:00:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778770856; cv=pass; b=TXfHl1LIb1HSOt2ZY/74+xP2VWHJ9glclKVR+TosQ9fIf3un7s2EJ0csAJQu8F726zLoHlT7Tc2PvdCBC5eOVELkKM+GJmZeNpG7oQAb1XR6z7CJYDBcpuzAbCTUctLvakOJt0+5GmA5z41Kmf0fLrlIvIdsNGjeEZhqv27E7F8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778770856; c=relaxed/simple;
+	bh=93DcpqUrrQy53jqzjaoGf20XgLdTeD3S0fyJqO+62YM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TDx5nByqPJbnjfWzavY5+/JI8GCa0mm1GfK2GAMvWp43FWN7NfLZcBTAeJqvLf31IiAci025c42VR8UBT3KvNoPX4VCfEPkMWjhBFbOvJ0ylJ0pPtt4wzxH3yelMsFI582fLF0g+mElr6DMdK6o+l59EYn2nZfRjRvQmdQNdaEg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VQ2oUUhU; arc=pass smtp.client-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="lB/obX5n"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c69:1da4:3c70:f102:9ea:5df7])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D483156D;
-	Thu, 14 May 2026 16:57:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1778770639;
-	bh=u4yNX2iNbrX8ZebR3E/Jyo8gk9AJnyPTNS2O6Y7C7CA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=lB/obX5nb0MPBjDyES2EV+emMn8k0IDYQklajKeFB466AbOUNt56WC0izXPFm/Zjl
-	 1GrTbKo+wtleU/Yabtz1q1bIVoWUdXHCW1b6F3YlfKkVARJkIHKpi0Dt//v89Mih4K
-	 bKpMPOqtXUjiVFtZGtrGOuRYZqmjkDE7d0mg5hTc=
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Date: Thu, 14 May 2026 20:26:30 +0530
-Subject: [PATCH 4/4] arm64: dts: ti: k3-am67a-beagley-ai: Add overlay for
- IMX219 on CSI1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VQ2oUUhU"
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-2f7020a928eso11304290eec.1
+        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 08:00:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778770853; cv=none;
+        d=google.com; s=arc-20240605;
+        b=R+8Pj/cPOAA7BkkDoeYVcqCpcgqHFDhWp2JAMBbEy2QtAZf6cxC1sTr0a4ls4DXiMn
+         Xk/Pcp1ryF3L1tZdzaTjkrw6qRBLM1yNpNO5UPxkUEZ6oLgqKZ1bnpbeW6nTe01J9n4E
+         lSsrgUv5JDFBaqGuuRZsNctkHwIJVHDSTX8AIfhmleHd6I2tRY6N30I+biNLgeb0Upf4
+         ACHWfixJpLOrVo6SDMEq72Ey/Uk8xsHqGCZtSyM/BQ6+e0/1vmb+h5Wq/5hJ1GI+CTe4
+         51yIqrqe3mkxyPvPRTWRTTketsVnxooUMMYQq3JepleJaMANhFUWpzP50l/I8Ugce5W1
+         fSQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gYE8+9FvfLSVbf4nQgrf6hhDRemavqQW+ej9r6AR/Hk=;
+        fh=Jn9kkB02dh6c/Rh5iR2FxMWebC/NBEqL+HdVQqKekGI=;
+        b=lDdx9lz83XPXf1Jyl12l4B0zruVPXpIEbQ8oR8naFzmuFcNOkPT+0fhqVrX4C67kjR
+         UT8IfBCyhWQEBm9OCrM+XNrj0I8t5dpTqms+u5DA01gN92ZmsgCzMvZ56j6JcKPm5faI
+         5rvFtWF7Wfh7a2S7RGLJB6QJ271T6HCTOrVF1tbg+KoAHE8wPtQFhrQIwYdn6uPxIJv0
+         /85J4ch3zSOR5IBVPoo/cSK73z/vLKOr2GxCB6zb5xXD7v+07TSjGCUIbAnVITxxbxr0
+         eSX0fiBztTEPLboGcH95int9lb/YV/tl3VrBSMEwFcbZsZpRc2TI4bwAPvJohdj96gPS
+         SmTg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778770853; x=1779375653; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=gYE8+9FvfLSVbf4nQgrf6hhDRemavqQW+ej9r6AR/Hk=;
+        b=VQ2oUUhUBTmgMzOS2UcnlF6x0o5Ihs3yZURI1TpWUybDGYjIgISZU5lVs45N5qiT9c
+         Ka2BNB8vw1Bn5iySjsiNYoiGozmFpnKwyvz7Q00wxnEuWFSMwsVRfZlzeOMwWZaa64hp
+         ciQof+sARZuwCNj1TqnDKCcaHXwwZdicDAqPyraLdHOt21+TH5OyTR199Oyc1aoSo/q2
+         atDqpElbHz923dLXZsBzpbEeeH6Izatc01M/ObCYo4/sKRE9ZFwbrbdxDfZcali5d+wF
+         ZYGigFAxITAcaUcJkZe3Oy+DIfhd/UBZ+p4KNgssbr406nkCMR/MQOWL5+tNbfNUiquD
+         cQpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778770853; x=1779375653;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=gYE8+9FvfLSVbf4nQgrf6hhDRemavqQW+ej9r6AR/Hk=;
+        b=aheg4euw9r5XTfAFlpkP0/jfjKVQOH0m7uMwzqLi3jks5cySISQfNDhckXAvI1nByX
+         JOJjZZTrxFV7c5ZfilPfYJKkBBrLavbamX6PjHtnKoPmK8ORVJIDM/dALHTttTZHPJ7V
+         Tbpx+fASPN13ZYKTakjWl0mfaWNXilInEJjVKeiVPLDY7Qw5VVPzKjTTSNqFimSB3uaZ
+         ETeu5z5p7nxTql6l6ZsWlg3bwcRXGs2I7Frav+w17r9fciVNWdoqk5WvFtvn7L1kpyLE
+         9o4oDzWhwlCTDpOU2dNV+xUA5y1qUTmWEHO3g174ce4M3j6n3/b3sFw33PsRD/QGVtF0
+         4Alg==
+X-Forwarded-Encrypted: i=1; AFNElJ/vYLqePbF0qTfX3ybxsVymkY5y55HRG+UKT/67YkOdbvH8At7GPGstXxjniFV03nS5xvD7EXqKvmCJ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzcSEXW/J68qw0a7MZpqp5j/Wk8N/wSSseFmYfYF1ahmAh8JjHi
+	Dr74ylsUXpqLzdA5HhxcZUq/r1amNuT7xya++9enGEsjrx+HZhGG1TXGn3rmXRwwG8XYJVDg6RU
+	eMXnK1IoEL1LenKD8/KMiXvrbLyDohXI=
+X-Gm-Gg: Acq92OHQ0+TCEdaump1SOH4FYBQETOvrq6N+DPjMqKnVrw4RP2MWlX/7k1D4N3LtBS8
+	eqKK26CkR/63yLbGF9N5/H4DI3+1oO2O7a3mugLD4rmapA7iIMpcSxKVwcCJEmEF/Pebolapdxa
+	MIVX+uHnhnPdgM0lm1wRCB6yjc3qzetoJphEF5kGy/zgfbcCZRDgtdvkqaNz6cCbXd4uMpl81k3
+	YdEuD+Ho3xrEs6ekT5niBLg460H1BKDxFlQ/3uWD6oL44ZBS1HfU4ox6Exm4x93wKriVtUAFOfe
+	6PDVfTRe
+X-Received: by 2002:a05:7300:6c28:b0:2b7:38cf:c2fd with SMTP id
+ 5a478bee46e88-30119f59550mr4891365eec.26.1778770852303; Thu, 14 May 2026
+ 08:00:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260514-beagley-cameras-v1-4-5c3500b5a436@ideasonboard.com>
-References: <20260514-beagley-cameras-v1-0-5c3500b5a436@ideasonboard.com>
-In-Reply-To: <20260514-beagley-cameras-v1-0-5c3500b5a436@ideasonboard.com>
-To: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Robert Nelson <robertcnelson@gmail.com>, Andrew Davis <afd@ti.com>, 
- Devarsh Thakkar <devarsht@ti.com>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Jai Luthra <jai.luthra@ideasonboard.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5010;
- i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
- bh=u4yNX2iNbrX8ZebR3E/Jyo8gk9AJnyPTNS2O6Y7C7CA=;
- b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqBeK7lJO4pVRAnu/au/PGenkh+e/0UuKB0xeSC
- Y8YRl33y12JAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCagXiuwAKCRBD3pH5JJpx
- RVTGD/9fccdGpb0oHeQy38pv0K7F2u13frq/pY2vkcTFEZcGL9XyfoP4cH+J6HcaiUE0OB0qSBg
- GBvqxu/IjymPQ4Q11Wsg51gkw1PL1hvSD2IaPkw3DrQG1z/zNKCJwscQ1+8fvibqPJxc8dTMGdO
- aF1xq8i8l+O7exi0BOtH1lMWM5avYwwK3LAY/P+hOwcry+C7FEuEVLfSknt2iGZuMT+WPAfyNI6
- 1YW5BrBAmls6HwX6MemRIpDYz6n/OXqefsyfneZvjTgerorwnPuTttEzYQkruAmD8TvX9aECkth
- NH8Me1V0D40t45Iibos2YU6eoEqt/lbp30VVlGNeRZbQzrAFbc3r+9jbm0xduQVurm2nm4+VjXO
- iyNr5Nqo8JDwmY9BaeLlQqpfLWiBMCPaibUBkDvZE48JBMXx/EYoeBILwKCUkForwm6mt7KmKkD
- OZVBa3KpSIhjCyi8y2SxfWDt591imvelwyUGe6Mdl8sVxseCCqQAMHpPQNOis1XR+sIsjGRa2eO
- mOAG9p64VXkBIxF2Cm1lvqs9MyQeC3dwrZlXou1KztajVFR3qfxaxqoJq2LpHevw8+1c/mpFXMs
- do0Dh7ETl7tdCuwmRoxpTbFi7PXXjbBe/DcMNapZVSjAQgjJN2xjRVATKsziBYIYIt4CWyrPSCI
- UldYT/y9gpfqhug==
-X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
- fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
+References: <20260512102445.55372-1-clamor95@gmail.com> <20260512102445.55372-2-clamor95@gmail.com>
+ <20260514145541.GB472306-robh@kernel.org>
+In-Reply-To: <20260514145541.GB472306-robh@kernel.org>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Thu, 14 May 2026 18:00:41 +0300
+X-Gm-Features: AVHnY4Kxlgcuop2UxuHVvEYceHjbSEBsXZDcmFkiB8-pvvFXvr2T37E9jTAUG7c
+Message-ID: <CAPVz0n2JVUh+5aLwDRNpuT4HMznz0XrDZ-aB6Xvm+1UibPjrBg@mail.gmail.com>
+Subject: Re: [PATCH v5 1/2] dt-bindings: input: Document Imagis ISA1200 haptic
+ motor driver
+To: Rob Herring <robh@kernel.org>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, linux-input@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-RPi v2 Camera (IMX219) is an 8MP camera that can be used with BeagleY AI
-through the 22-pin CSI-RX connectors. Add a DT overlay to enable use of
-this camera sensor through the CSI1 connector.
+=D1=87=D1=82, 14 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 17:5=
+5 Rob Herring <robh@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Tue, May 12, 2026 at 01:24:44PM +0300, Svyatoslav Ryhel wrote:
+> > Document the Imagis ISA1200 haptic motor driver, used primarily in mobi=
+le
+> > handheld devices and capable of supporting up to two motors.
+> >
+> > The exact datasheet for the ISA1200 is not available; all data was mode=
+led
+> > based on available downstream kernel sources for various devices and
+> > fragments of information scattered across the internet.
+> >
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > ---
+> >  .../bindings/input/imagis,isa1200.yaml        | 140 ++++++++++++++++++
+> >  1 file changed, 140 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/input/imagis,isa1=
+200.yaml
+> >
+> > diff --git a/Documentation/devicetree/bindings/input/imagis,isa1200.yam=
+l b/Documentation/devicetree/bindings/input/imagis,isa1200.yaml
+> > new file mode 100644
+> > index 000000000000..bbe6f99d39c1
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/input/imagis,isa1200.yaml
+> > @@ -0,0 +1,140 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/input/imagis,isa1200.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Imagis ISA1200 haptic motor driver
+> > +
+> > +maintainers:
+> > +  - Svyatoslav Ryhel <clamor95@gmail.com>
+> > +  - Linus Walleij <linusw@kernel.org>
+> > +
+> > +description:
+> > +  The ISA1200 is a high-performance enhanced haptic motor driver desig=
+ned
+> > +  for mobile hand-held devices. It supports various voltages for both =
+ERM
+> > +  (Eccentric Rotating Mass) and LRA (Linear Resonant Actuator) type
+> > +  actuators. Thanks to an embedded LDO, battery power can be used dire=
+ctly
+> > +  in handheld applications.
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: imagis,isa1200
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  control-gpios:
+> > +    description:
+> > +      One or two GPIOs flagged as active high linked to HEN and LEN pi=
+ns
+>
+>        minItems: 1
+>
 
-The CSI1 connector is muxed with DSI0, so ensure that we route it to
-CSI1 (DSI_CSI_OE=0 and DSI_CSI_SEL=1).
+In theory there may be no GPIOs and both pins can be hooked to power.
+This is unlikely scenario but since it is possible I did not set
+minItems and did not make control-gpios a required property.
 
-Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
----
- arch/arm64/boot/dts/ti/Makefile                    |   4 +
- .../dts/ti/k3-am67a-beagley-ai-csi1-imx219.dtso    | 121 +++++++++++++++++++++
- 2 files changed, 125 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index 68a82e161c20..51e74f26c803 100644
---- a/arch/arm64/boot/dts/ti/Makefile
-+++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -153,6 +153,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-usb0-type-a.dtbo
- # Boards with J722s SoC
- dtb-$(CONFIG_ARCH_K3) += k3-am67a-beagley-ai.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am67a-beagley-ai-csi0-imx219.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am67a-beagley-ai-csi1-imx219.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm-csi2-quad-rpi-cam-imx219.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm-csi2-quad-tevi-ov5640.dtbo
-@@ -248,6 +249,8 @@ k3-am642-tqma64xxl-mbax4xxl-wlan-dtbs := \
- 	k3-am642-tqma64xxl-mbax4xxl.dtb k3-am64-tqma64xxl-mbax4xxl-wlan.dtbo
- k3-am67a-beagley-ai-csi0-imx219-dtbs := k3-am67a-beagley-ai.dtb \
- 	k3-am67a-beagley-ai-csi0-imx219.dtbo
-+k3-am67a-beagley-ai-csi1-imx219-dtbs := k3-am67a-beagley-ai.dtb \
-+	k3-am67a-beagley-ai-csi1-imx219.dtbo
- k3-am68-sk-base-board-csi2-dual-imx219-dtbs := k3-am68-sk-base-board.dtb \
- 	k3-j721e-sk-csi2-dual-imx219.dtbo
- k3-am68-sk-base-board-pcie1-ep-dtbs := k3-am68-sk-base-board.dtb \
-@@ -322,6 +325,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
- 	k3-am642-tqma64xxl-mbax4xxl-sdcard.dtb \
- 	k3-am642-tqma64xxl-mbax4xxl-wlan.dtb \
- 	k3-am67a-beagley-ai-csi0-imx219.dtb \
-+	k3-am67a-beagley-ai-csi1-imx219.dtb \
- 	k3-am68-phyboard-izar-lvds-ph128800t006.dtb \
- 	k3-am68-phyboard-izar-peb-av-15.dtb \
- 	k3-am68-sk-base-board-csi2-dual-imx219.dtb \
-diff --git a/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai-csi1-imx219.dtso b/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai-csi1-imx219.dtso
-new file mode 100644
-index 000000000000..4a0fa16d30e1
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai-csi1-imx219.dtso
-@@ -0,0 +1,121 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * RPi Camera V2.1 on BeagleY AI CSI1 port
-+ *
-+ * Copyright (C) 2026 Ideas On Board Oy
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include "k3-pinctrl.h"
-+
-+&{/} {
-+	clk_imx219_csi1: imx219-csi1-xclk {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <24000000>;
-+	};
-+
-+	reg_2p8v_csi1: regulator-2p8v-csi1 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "2P8V_CSI1";
-+		regulator-min-microvolt = <2800000>;
-+		regulator-max-microvolt = <2800000>;
-+		vin-supply = <&vdd_3v3>;
-+		regulator-always-on;
-+	};
-+
-+	reg_1p8v_csi1: regulator-1p8v-csi1 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "1P8V_CSI1";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		vin-supply = <&vdd_3v3>;
-+		regulator-always-on;
-+	};
-+
-+	reg_1p2v_csi1: regulator-1p2v-csi1 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "1P2V_CSI1";
-+		regulator-min-microvolt = <1200000>;
-+		regulator-max-microvolt = <1200000>;
-+		vin-supply = <&vdd_3v3>;
-+		regulator-always-on;
-+	};
-+};
-+
-+&main_pmx0 {
-+	cam1_reset_pins_default: cam1-default-reset-pins {
-+		pinctrl-single,pins = <
-+			J722S_IOPAD(0x01d8, PIN_INPUT, 7) /* (D22) MCAN0_TX.GPIO1_24 */
-+		>;
-+	};
-+};
-+
-+&dsi_csi_mux {
-+	idle-state = <1>;
-+};
-+
-+&main_i2c0 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&main_i2c0_pins_default>;
-+	clock-frequency = <400000>;
-+
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	imx219_1: sensor@10 {
-+		compatible = "sony,imx219";
-+		reg = <0x10>;
-+
-+		clocks = <&clk_imx219_csi1>;
-+
-+		VANA-supply = <&reg_2p8v_csi1>;
-+		VDIG-supply = <&reg_1p8v_csi1>;
-+		VDDL-supply = <&reg_1p2v_csi1>;
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&cam1_reset_pins_default>;
-+
-+		reset-gpios = <&main_gpio1 24 GPIO_ACTIVE_HIGH>;
-+
-+		port {
-+			csi2_cam1: endpoint {
-+				remote-endpoint = <&csi2rx1_in_sensor>;
-+				link-frequencies = /bits/ 64 <456000000>;
-+				clock-lanes = <0>;
-+				data-lanes = <1 2>;
-+			};
-+		};
-+	};
-+};
-+
-+&cdns_csi2rx1 {
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		csi1_port0: port@0 {
-+			reg = <0>;
-+			status = "okay";
-+
-+			csi2rx1_in_sensor: endpoint {
-+				remote-endpoint = <&csi2_cam1>;
-+				bus-type = <4>; /* CSI2 DPHY. */
-+				clock-lanes = <0>;
-+				data-lanes = <1 2>;
-+			};
-+		};
-+	};
-+};
-+
-+&ti_csi2rx1 {
-+	status = "okay";
-+};
-+
-+&dphy1 {
-+	status = "okay";
-+};
-
--- 
-2.54.0
-
+> With that,
+>
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+>
+> > +    maxItems: 2
