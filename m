@@ -1,102 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C1083ACA45
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 08:08:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFFED3A9DB5
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 08:08:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778746097; cv=none; b=Yj+Ar4ZwT+diiJVMihmodWv8FOESIVrWsUfDfGePA9UoUZeYP+3LXV5gcRBXGcAHDyyGFcYV9yMu5pN4k2zBzHfsoVjEb8J75jmfUFIocVE+6frc+bOqFGEjOmndmW4kM1AKwaH0oQGrXLp8xpjymGbnPDgxZ9sKie+spGhgmuk=
+	t=1778746127; cv=none; b=P3EkMV1M/WIIY+S1ft2JmdLWe1ORCLkyq0TaYKtn8vt0ExLTIGffDI4X1rer52LylJnIzeXjWUrR0CY6LK7UXWsjbibAP1TnMUEoG7ivg/gNAp94xr6OnyJmFjJQOEJDJ5ibEZbsahIqN6Y59L0D8plEj7Ud3/bJL6oPmUZSTeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778746097; c=relaxed/simple;
-	bh=obF+fViWQP+FcQsUenMzUTwnUFK6aS+M1GkN3KL/F1Q=;
+	s=arc-20240116; t=1778746127; c=relaxed/simple;
+	bh=g7xguqCZtgnyzD9l8m0Kciaz7ozwOJwTX+xmdeVlJtw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Vtroe2uhu8AsmbgRcxQpQDsnGCbpKu0UrOf83m6w1118QZOApgAv7YDvMag5wgGx7KXpHz0wH6MSDOEX9k4SzmOo5AgUtyLWc9LP83hSnuyI6eB3CKnQgnZ7KMCRzUDNqp+XqY18Ybc2WsMueecDgiv/qALKFjXELs8wYJ7KQGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FXE/4hR+; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=OwGvuaFYDxk0IuV72gzOdygXqIQGzSKy9MpPVvf5rbBJooOfjHGDhR3NTlXfMvaIw4G70oAHm2GUU65czkKthTOwicuAama7YBkzSgwm39b3SWEceWsTuCrxvhOnMjZlE4gGEcoMEr5qNvHA4NVTynxVAvazwnCIjI7m+IJftOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Phes9eDo; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FXE/4hR+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67F5AC2BCB7;
-	Thu, 14 May 2026 08:08:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Phes9eDo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4194DC2BCB7;
+	Thu, 14 May 2026 08:08:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778746096;
-	bh=obF+fViWQP+FcQsUenMzUTwnUFK6aS+M1GkN3KL/F1Q=;
+	s=k20201202; t=1778746127;
+	bh=g7xguqCZtgnyzD9l8m0Kciaz7ozwOJwTX+xmdeVlJtw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=FXE/4hR+o3Ri8F4QCVzW5G4Zxz4NqxSIrVhI+prsKSZQ50bpnROnR+4JCUzFsiT7Y
-	 YvpIB2240bWo9vqeUytKwg645+hTR4DlwsQ74xTs63atbWtblVD2J1wEIq7YgXu13d
-	 zze0nsOL24EqOu3QoMOZzPcA9nINZ2NzLNhaCanDo+bs03P51Th2sDAQFd7q2I2234
-	 mhMCUytTaM0t2G9YLCbWDLmA63BPugBfwT0OV1heivw8VQFzzaR4vdmaAWXmlnH5LQ
-	 gUDqMqreI2WIC5WST44kUt42BHS5kiIqfLRQ0qiGQ9QmQmYnib+S/BgvDU6n4tUVQa
-	 wElHW4dvKCjsw==
+	b=Phes9eDoMYgHXcbWtvN+IZkPa7v68daxOucktA5he1M/oADTpzZvEnVFWVuKSu1ax
+	 uQPqglAp9Nz0YzmDc+Lb4oPCDJbJ0qtia05SutymtR8fXbz04E+77lZg2uhOpfas8d
+	 XCSuK0OVFpahDfssFy8rAplhbeNw7bD1ue7smi9wU+Y6MLy7OMUy+1yxw39ltOmfxw
+	 rqiYKEztVg7Yb8nqh7TlYXfKyn6MLUazC2bc8zJtwXwkXCaAGOUwglxFdi9fakB0hz
+	 MLnTfl54CxLyYiGOoa/+yA3EBv1OJf8dOfD3FCNJLUQIqQWrn6Ls9C6PhQbpnAVCdM
+	 e3mNHqKn/JV5w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/2] arm64: dts: qcom: sdm670-google: add common
- device tree include
+Subject: Re: [PATCH v2 2/4] iio: light: veml6030: fix channel type when
+ pushing events
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Richard Acayan" <mailingradian@gmail.com>
+To: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
 Cc: krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260513172549.1345-2-mailingradian@gmail.com>
-References: <20260513172549.1345-2-mailingradian@gmail.com>
+In-Reply-To: <20260513-veml6031x00-v2-2-4703ca661a1d@gmail.com>
+References: <20260513-veml6031x00-v2-2-4703ca661a1d@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 08:08:15 +0000
-Message-Id: <20260514080816.67F5AC2BCB7@smtp.kernel.org>
+Date: Thu, 14 May 2026 08:08:46 +0000
+Message-Id: <20260514080847.4194DC2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The newly added common device tree file uses the deprecated GPL-=
-2.0 SPDX identifier, contradicting the commit message.
-- [Low] The `framebuffer` node retains a unit address in its name without a=
- `reg` property, which triggers a dtc warning.
+- [High] Returning IRQ_HANDLED on I2C read failure in the interrupt handler=
+ causes an interrupt storm.
 --
 
-commit 1f4f677fcfc2b6d8ad7bf836706a7501c4b2897b
-Author: Richard Acayan <mailingradian@gmail.com>
+commit 198c71e09b48e4ebbfc54cfa1edf78cced994d05
+Author: Javier Carrasco <javier.carrasco.cruz@gmail.com>
 
-arm64: dts: qcom: sdm670-google: add common device tree include
+iio: light: veml6030: fix channel type when pushing events
 
-This commit extracts the common elements from the Pixel 3a device tree into
-a shared include file to support the Pixel 3a XL. It also rewrites the
-original device tree to specify only non-XL properties.
+The events are registered for IIO_LIGHT and not for IIO_INTENSITY.
+Use the correct channel type.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/ar=
-m64/boot/dts/qcom/sdm670-google-common.dtsi
-> new file mode 100644
-> index 0000000000000..0f57b915186b7
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-> @@ -0,0 +1,712 @@
-> +// SPDX-License-Identifier: GPL-2.0
+> diff --git a/drivers/iio/light/veml6030.c b/drivers/iio/light/veml6030.c
+> index 745cf3ad7092e..855f052b60c2c 100644
+> --- a/drivers/iio/light/veml6030.c
+> +++ b/drivers/iio/light/veml6030.c
+> @@ -871,9 +871,11 @@ static irqreturn_t veml6030_event_handler(int irq, v=
+oid *private)
 
-The commit message mentions changing the SPDX license identifier from GPL-2=
-.0
-to GPL-2.0-only, but this new common include file still uses GPL-2.0. Was
-this an oversight when creating the new file?
+This isn't a bug introduced by this commit, but looking at the beginning of
+veml6030_event_handler():
 
-[ ... ]
+	ret =3D regmap_read(data->regmap, VEML6030_REG_ALS_INT, &reg);
+	if (ret) {
+		dev_err(&data->client->dev,
+				"can't read als interrupt register %d\n", ret);
+		return IRQ_HANDLED;
+	}
 
-> +	chosen {
-> +		stdout-path =3D "serial0:115200n8";
-> +
-> +		#address-cells =3D <2>;
-> +		#size-cells =3D <2>;
-> +		ranges;
-> +
-> +		framebuffer: framebuffer@9c000000 {
-> +			compatible =3D "simple-framebuffer";
-> +			memory-region =3D <&fb_mem>;
-> +			width =3D <1080>;
+Could returning IRQ_HANDLED on I2C read failure cause an interrupt storm?
 
-Since the reg property was replaced with a memory-region reference, should
-the @9c000000 unit address be removed from the node name to prevent a dtc
-warning about a node having a unit name but no reg property?
+The VEML6030 device uses a level-triggered interrupt which is cleared by the
+hardware only when the VEML6030_REG_ALS_INT register is successfully read.
+If regmap_read() fails, the device continues to assert the interrupt line.
 
-Additionally, are the #address-cells, #size-cells, and ranges properties in
-the parent chosen node still necessary now that the child node no longer
-uses a reg property?
+Because the line is still asserted and IRQ_HANDLED signals the interrupt was
+serviced, the core IRQ subsystem unmasks the line, which fires immediately =
+and
+wakes the threaded handler again.
+
+Would it be better to return IRQ_NONE instead, so the IRQ core's spurious
+interrupt detector can track the unhandled threaded interrupt and eventually
+disable the misbehaving line?
+
+>  	else
+>  		evtdir =3D IIO_EV_DIR_FALLING;
+> =20
+> -	iio_push_event(indio_dev, IIO_UNMOD_EVENT_CODE(IIO_INTENSITY,
+> -					0, IIO_EV_TYPE_THRESH, evtdir),
+> -					iio_get_time_ns(indio_dev));
+> +	iio_push_event(indio_dev, IIO_UNMOD_EVENT_CODE(IIO_LIGHT,
+> +						       0,
+> +						       IIO_EV_TYPE_THRESH,
+> +						       evtdir),
+> +			iio_get_time_ns(indio_dev));
+> =20
+>  	return IRQ_HANDLED;
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513172549.1345=
--1-mailingradian@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-veml6031x0=
+0-v2-0-4703ca661a1d@gmail.com?part=3D2
