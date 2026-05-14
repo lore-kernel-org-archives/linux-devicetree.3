@@ -1,158 +1,125 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98A233BED4F
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 07:20:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F39B83F4127
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 07:47:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778743222; cv=none; b=fB9JNBPyYDTuG2cjGdREr+Ut/JcddLiLnO5vnM4a36Qfx1I5y3UuDhkccwpRrF5Lp6FInbPdXnWSRdnvOdV0Rrr32DQsgMHiF4Ey5M+10DbDMba5gUP4uGcr/wfkvUeSMyUfwgSkxWsTfTNJJknPJHLoqOlu1UcgrYO0CQ9Gyy0=
+	t=1778744875; cv=none; b=XrINM175HE7C2R2GXIJKq1t4svnXz6XJZ7MT8oiOxZpPyvcr2lpoV80f852CHWyXa0wD+BUFk2V9rI7j2ij4VNOBqmWHI7nAQT/Zwip9fzsNbWqibBTN+b7y6DvngvzLDEzLZVb4ynKnl0vQxuyI0+y1bDaQF274NaimlurXfYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778743222; c=relaxed/simple;
-	bh=sz0PagC+xrsAYD/iccgzajP7BdAoD35WehWbqXyLlyA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Exzo/xNAZNVosI0ez+HCcTnMsmgaLZEselJ6EIHvmsURFUBtzK2H2fk0T++SD92wLDqAPoVKjT2FUd/g0l8X+5+p34mHUveWNNft47mwsfH3TxUXq9YRnpbOQ5Vtxk3DXCn9IAUxDWnGerm07JsyjRekWtNhY6WF5I7SNBlL8Zs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DC3PDAWT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=R+/zqqOD; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1778744875; c=relaxed/simple;
+	bh=4ygkUXydDvfdzGsONSuS9fwxQVTKND9fd/m4hei/qzg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rtkNXaug6XsJyAS+RKo5zm9Km0YJPY9tiiW5tlnhhhp0j/BY9Y4KmniOpDuikee79i4joe14zG/FmzsZIgJvfx8OvNTmf+2Z7uXHGw47pjxLe4zQx3vks/mdktZICFnL1Dr4O1H+5GhrFdOQsveuKCfwLr/netfl3AximsK/Z2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SOoTdfCH; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DC3PDAWT";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R+/zqqOD"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64E1eIvO1243012
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 07:20:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=6ixpOPWUsk4SIfz2iEq/00oC
-	QThu9qSNMayoJJuninQ=; b=DC3PDAWTGaL3gB5dhP46bBnI0NGYHx5rgy8rGU9R
-	/n0lQ45zVVA0m89AiGpD5LNyaui5Jy+TdacyTaTymQNRzVrh+gHPuzLaMsg5YgQb
-	qtH6e6VUbUlKN7ZWXJYoG3dEvAObGRXwSSuTVypHd86J4gxgdP2rEAOvbd9EHpaJ
-	SZObApTAwPE8to8vaA0pQyt0YjtXN/vH8QlpbgAq6vO4Zx5WbEh7hczMLuCIauXk
-	UX5YH0pAt83IVA8j9nUqkf0ipMcZAFU2QSwdnE7xOc633dvq+3mKA9RWqiHNvXdS
-	aEsHC3fF7rDHy3tF8aaysgOXG3zIvNzoCc06s9i/y4U+HA==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4v4ttx9q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 07:20:20 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-365fc4636bbso15668185a91.2
-        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 00:20:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778743220; x=1779348020; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=6ixpOPWUsk4SIfz2iEq/00oCQThu9qSNMayoJJuninQ=;
-        b=R+/zqqODODDqLYgTLgcdgtiwdaLnHFy+vbml0NWZNyHjAKC2WPX9cpQ66crnqBkgjC
-         ZvwiDID20zhcJF9VF8gPbCM8X6VMFzgSgIblLuXIUdv8Nfk6JJj5KWtEQhoNhXhpGrNq
-         72+jQ2dSXeIrpd3bVEyg0XHMTeZZZv9LCk/258oedVZ/hJ1lQOkWJflSY/5YfT6xe6If
-         w0QTivvECFQvl+9/h+qz7ZiSjHB4guReb77ogPRKG83zrF9+LEEy6HroCeO7gIryc70a
-         zP33wCUKf2xjtEJ/Ek6E+f0pVYvMKkt9U/uTxxSHPVQa+I1HPC3JqOGmZEEpYdCldJ1+
-         E+LQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778743220; x=1779348020;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=6ixpOPWUsk4SIfz2iEq/00oCQThu9qSNMayoJJuninQ=;
-        b=Z0/gqgYzyfoTztMW+rxsBok5vTHrDllv4UzAbHMOT3StzLszdwTpOagNwbuWMlvx0s
-         abVBhsnxOQeD0MG6rlN/KFXwlNvt7ysdJ53feCSRukShQIEJ5xVFAdfiQWnlYFFsvqSF
-         eYjwMqFSmhbTIhooRHkDbRi8TUIgk65qccbsTrwp9Q3ETN7ZyouDv49DmpnHiMwuWMDU
-         18565RwIsfC/T0zWNnoWI1xGUnoxt2vMLInMeYKbkPYScbBeaVGapnZNiRxBhHl4XlLL
-         OrHbfc8gNc5Ui4N7/2QqLNJpL/5ukoKyRlwLE9swQa1pj67/QNIi1RUKdPNIfPxW8Usa
-         mvZw==
-X-Forwarded-Encrypted: i=1; AFNElJ+TWe8KBZssDKZmxbEDKKyolZcoWolLoinWWexJSe80p1P9Sa7dgNRyldggUpEma07pQOPPAS/O4XcL@vger.kernel.org
-X-Gm-Message-State: AOJu0YxgVH64Gkj8lZ6XFKvQdGbWvPz5i4umAy+0sgORSl8aROQX8/7V
-	C5WXTzh3l6gEqKL4Av6XdFqPLY0vGVVWy0hclwrVyPEeiFVsoNEoeZ8i2NB1GbF65qoI5GV8epR
-	98r3v9VT7DzKGXTyCxSNm16NZw6xhIpv8yiQS9iqHUsCbfXeCyGNH/0MPE24GUgbW
-X-Gm-Gg: Acq92OHTngZqExqE0QT5ID2l9TFqUlKZEvvEcYy2lZV4jC6zbkdzS7ZjVKBXeHSOVkc
-	TtMC+c63NMSfsuThz4hS8mXXchhBoLgQx2sv0+23FoOtO6sYKecQ2veZ3hodcyWmW7s8ADoegJ8
-	YdOeYkZzzAnKSkpSa428HvEWSuVilC/o2bV9YsDDdphj45L+9THQ/ClWBi7cSLqt7umKYC0NNVh
-	ChIbwVaV89bSE7eYLbjlQAv07A7mEQCPapbGBN+OGbFpvvd1a0RJYDg0lm/kra1/sL01L7lMcoa
-	sgYBZcaneMevyWuerOBnW2aqdAX4DfNaPnYdUeMczvhM5K3sD8MR4+lWxPje4qtuopuO/LUOqup
-	W0/YgXtpKerVrkz2rHkQmKR3C2cQ3cFmGQt7IbHu7F8QgE+kA
-X-Received: by 2002:a17:90b:3845:b0:368:7c0f:ebf7 with SMTP id 98e67ed59e1d1-368f3d183f3mr7267863a91.16.1778743220057;
-        Thu, 14 May 2026 00:20:20 -0700 (PDT)
-X-Received: by 2002:a17:90b:3845:b0:368:7c0f:ebf7 with SMTP id 98e67ed59e1d1-368f3d183f3mr7267803a91.16.1778743219456;
-        Thu, 14 May 2026 00:20:19 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3692e706875sm1678572a91.4.2026.05.14.00.20.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 14 May 2026 00:20:18 -0700 (PDT)
-Date: Thu, 14 May 2026 12:50:12 +0530
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Manivannan Sadhasivam <mani@kernel.org>,
-        Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH] dt-bindings: mailbox: qcom: Add IPCC support for Hawi
- Platform
-Message-ID: <20260514072012.acgmmzdo2aeugyq3@hu-mojha-hyd.qualcomm.com>
-References: <20260401125126.593254-1-mukesh.ojha@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SOoTdfCH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ED8CC2BCB7;
+	Thu, 14 May 2026 07:47:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778744874;
+	bh=4ygkUXydDvfdzGsONSuS9fwxQVTKND9fd/m4hei/qzg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=SOoTdfCHMzoHQ/AJK3jLp86kZNK9TXqfVwX+tw/0l4uA/a069GCucXxcbEyNrTqZy
+	 xWLP0KEBilaKXuk1cMO6epXvc9YRUHF7aOWE7Tk8hGHW0bFAZtctuRHf/SQJTOnELb
+	 wn5vw9mQJC1ldN/Xfzo969YVU+DthHeIQq0lpMTtMGVMYq168G9puKIdmG3ub2BzSD
+	 ClqESKlYTp5/auodUo6pP6Z0QTZZdTbcDLBU4mYdgeQm9Wk+kkvY4BoxP9uFgEKwR+
+	 qguOvStfkj6sZRxyrS6bcKKmm7fXO8ZMvUsJNRVP/M5CB9hR4Gwwegztgq+/s4cKcx
+	 6QM8C1YV1HrtA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/7] dt-bindings: clock: qcom: Add support for CAMCC
+ for Eliza
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Taniya Das" <taniya.das@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260513-eliza_mm_cc_v2-v4-3-e61b5434e8d9@oss.qualcomm.com>
+References: <20260513-eliza_mm_cc_v2-v4-3-e61b5434e8d9@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 14 May 2026 07:47:54 +0000
+Message-Id: <20260514074754.8ED8CC2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260401125126.593254-1-mukesh.ojha@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=XIIAjwhE c=1 sm=1 tr=0 ts=6a0577b4 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=knjUYP8iK99Px4kpKqYA:9 a=CjuIK1q_8ugA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE0MDA3MCBTYWx0ZWRfX2h7h53anmu8y
- sxB8vxx86eRY4k8oIrU0EW32FXfZ+QwWIXavGEHba+WQU4Jtq7aPfRJdbbPHznr1t9RjSStG8vV
- KyDAf90M7Nq+y9BWv5nPvKwDfd7YdKG05Sib1GuDgzc+6De7iB3uoBF+p9kecTXIYKOhVwL2nN5
- a/GEnHA6CPKhsvONLBlmhwu4sfn8y9Gyp5QPaByF8ZXQYleUD2eEqF+6W8Z3v8ECmMMgP9r9zk5
- F3VaKQAXQBDBbdYg8GhHWehQ6tXBJuuNG7PqOJP8Tg2WWHEYPcib83OBgSJiFP3IWNmFYJdzv6B
- qt/C3KyyaEGi7CevBS1vKF9ZwYQFGvwvAcl3qYxVnWAfY6LzJZbMuVtaLYvmeyO1i0oyxzvvzys
- s3UisRqKu7P/2FQanHPi9OyGQP4JBE2f3AG5fL4unPk4yh1SAGxptlpr8cxNVdjYG/g9u3Fo7FL
- O+hTz22SSqAFsguMw4Q==
-X-Proofpoint-ORIG-GUID: jfiiPr2Y5eC6aqNZM2K0etRscrTHo_3I
-X-Proofpoint-GUID: jfiiPr2Y5eC6aqNZM2K0etRscrTHo_3I
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-14_01,2026-05-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
- bulkscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605140070
 
-On Wed, Apr 01, 2026 at 06:21:26PM +0530, Mukesh Ojha wrote:
-> Document the Inter-Processor Communication Controller on the Qualcomm
-> Hawi Platform, which will be used to route interrupts across various
-> subsystems found on the SoC.
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml b/Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml
-> index 7c4d6170491d..7dbc3ac6c5c9 100644
-> --- a/Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml
-> +++ b/Documentation/devicetree/bindings/mailbox/qcom-ipcc.yaml
-> @@ -25,6 +25,7 @@ properties:
->      items:
->        - enum:
->            - qcom,glymur-ipcc
-> +          - qcom,hawi-ipcc
->            - qcom,kaanapali-ipcc
->            - qcom,milos-ipcc
->            - qcom,qcs8300-ipcc
-@Jassi,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The schema incorrectly enforces the `#reset-cells` requirement f=
+or the newly added `qcom,eliza-cambistmclkcc` variant, which is not a reset=
+ provider.
+--
 
-Would you be picking this?
+commit a9d0f97a6a58cdea9469da3167d31dd8b62fa02f
+Author: Taniya Das <taniya.das@oss.qualcomm.com>
 
-> -- 
-> 2.53.0
-> 
+dt-bindings: clock: qcom: Add support for CAMCC for Eliza
 
--- 
--Mukesh Ojha
+This commit adds compatible strings for the Eliza camera and camera BIST
+clock controllers to the existing Milos camcc binding. It also introduces
+the corresponding dt-binding headers.
+
+> diff --git a/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yam=
+l b/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yaml
+> index f63149ecf3e1b..fe94dbeb80c60 100644
+> --- a/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yaml
+> +++ b/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yaml
+> @@ -8,16 +8,23 @@ title: Qualcomm Camera Clock & Reset Controller on Milos
+[ ... ]
+>  properties:
+>    compatible:
+> -    const: qcom,milos-camcc
+> +    enum:
+> +      - qcom,eliza-cambistmclkcc
+> +      - qcom,eliza-camcc
+> +      - qcom,milos-camcc
+
+Since qcom,milos-camcc.yaml already has an unconditional inheritance from
+qcom,gcc.yaml:
+
+Documentation/devicetree/bindings/clock/qcom,milos-camcc.yaml:
+    allOf:
+      - $ref: qcom,gcc.yaml#
+
+the base schema enforces #reset-cells in its required list.
+
+> diff --git a/include/dt-bindings/clock/qcom,eliza-cambistmclkcc.h b/inclu=
+de/dt-bindings/clock/qcom,eliza-cambistmclkcc.h
+> new file mode 100644
+> index 0000000000000..7b8b285f18d27
+> --- /dev/null
+> +++ b/include/dt-bindings/clock/qcom,eliza-cambistmclkcc.h
+> @@ -0,0 +1,32 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#ifndef _DT_BINDINGS_CLK_QCOM_CAM_BIST_MCLK_CC_ELIZA_H
+> +#define _DT_BINDINGS_CLK_QCOM_CAM_BIST_MCLK_CC_ELIZA_H
+> +
+> +/* CAM_BIST_MCLK_CC clocks */
+> +#define CAM_BIST_MCLK_CC_MCLK0_CLK				0
+[ ... ]
+> +#define CAM_BIST_MCLK_CC_SLEEP_CLK				19
+> +#define CAM_BIST_MCLK_CC_SLEEP_CLK_SRC				20
+> +
+> +#endif
+
+Looking at this newly added header, the BIST MCLK controller only provides
+clocks and defines zero resets.
+
+Forcing a pure clock provider to declare #reset-cells to pass schema
+validation seems semantically incorrect. It might force developers to add
+bogus properties to their device trees to circumvent validation errors,
+which happened in the subsequent commit "arm64: dts: qcom: eliza: Add
+support for MM clock controllers".
+
+Would it make sense to use an if-then conditional block in the schema to
+restrict the #reset-cells requirement to actual reset providers, or move
+the BIST controller to a separate schema file?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-eliza_mm_c=
+c_v2-v4-0-e61b5434e8d9@oss.qualcomm.com?part=3D3
