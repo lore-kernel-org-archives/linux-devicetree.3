@@ -1,106 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 591853AD500
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 12:50:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59006275B15;
+	Thu, 14 May 2026 12:52:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778763026; cv=none; b=GptNLLJAQpJqznQewOR3tzqf8N9j91APcQaCE38KHohl62Fcws1fi+9JSTRuhiVatPU4K+wdOvcFokDT5Akkf5trX6PUNlsaakvx2bTZoFXnUG5gEMcDK9BueH7shMzjMOJgVeSG7NzLiihCmiWteQI7jqJBXhHnSZWmPHzqteo=
+	t=1778763150; cv=none; b=nSc4lhLjElnw80bt1+uWLuoxIJ/JZ95DmxZ+Wr5E0l9y3z9fZjvVrIReqODHwIcglxXpShLXWhQlOjY/Pzwth8e7Z/pZPGR7kcPCMcii16mlsnm2Zj4SLXoNnqewr0kZoO5rLkxBtc20xbE6XNc95VW5WRgfAaRgYtz0R7JUoxI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778763026; c=relaxed/simple;
-	bh=dDP1T0YtS00dAcIXoW/wQ7pf7oPaXKm87KYsr9Z7j5w=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RssaCHLAt/zsCxjJ+G5Io26Udvztk/0gZXoSjcl5LLHysyOsryna725j71cuolYQhcCTC6WxqXlOKiGG/nUwvbAOkS/8Z5kQShKcVYvjTjoZpP/G6ZyCZsldSTYvqdMV8xHSYp8bGAlhTDkv8fM2apJOemjUiUdbTmS9T87FdK4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m5TasiS8; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778763150; c=relaxed/simple;
+	bh=QrxNqoikqhG9/YKhK5vkcERVKm9U2wDdN7QvLO+4ieQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mkCSArxCpT/IH5eMIGvB2Ha/RA5oUSqMQq4/In8FbUTK93GgJ80Bw4ZRyuqJGv2TykkSG60/PFvb8zAXSm/INIbZDKFA1TKxkcpkQko+t4sPoUaU5LooGdu2IFzIWUasxbGkkMk8BG/RreQ2KnUsPUy7D/eWy8JUH8Uz4pb/+t0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NhuI8VOy; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m5TasiS8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B73DFC2BCB3;
-	Thu, 14 May 2026 12:50:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NhuI8VOy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60005C2BCB3;
+	Thu, 14 May 2026 12:52:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778763026;
-	bh=dDP1T0YtS00dAcIXoW/wQ7pf7oPaXKm87KYsr9Z7j5w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=m5TasiS8PWjZkho9HVGfcijkeI7fmmga5Nb9fy3m0LSNwWpYrKI3N0unx2rNysc2q
-	 vtNIEymG/AlYgju+ojM06/IJn5iX1PrsATSIIX7xlZU+tGc8U3ZdzRQl6InjEimlSt
-	 LdMXwwV8+ZzXD/Q8PRVsWHcpKMT9wrBX1RLNE6gH6zGoO0cEwjZSLh9ImLXx9a8xS5
-	 3qWtjJNCofdMv6cYUsj9vWFQwCmZYU1lDUMZuae4wyJ56EtVPINDFgCl1lthlY28DD
-	 LUexkonuKdUqhb4lhT7yOm0jQZ7PSFvQd4PTsSYQ2rwHuJh5krZEFNNKuS2Obm0g6a
-	 VQyzBn2blSkKA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: ipq5210: Add QPIC SPI NAND
- controller support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Varadarajan Narayanan" <varadarajan.narayanan@oss.qualcomm.com>
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260514-ipq5210-nand-v1-2-cbdd7492e826@oss.qualcomm.com>
-References: <20260514-ipq5210-nand-v1-2-cbdd7492e826@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 12:50:25 +0000
-Message-Id: <20260514125025.B73DFC2BCB3@smtp.kernel.org>
+	s=k20201202; t=1778763149;
+	bh=QrxNqoikqhG9/YKhK5vkcERVKm9U2wDdN7QvLO+4ieQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=NhuI8VOy6VF1n5G0zPoGFwwqKqRS4XXfb7yESQys47ZUoMp6+UgrdhZf9SpxlzTZM
+	 MnBT22yONxKVrbh1hI5+se/y0oZteIeF3Tz2jVBkxQVEjg6bJ+Qz9VLcNSIBjCsngK
+	 26fzOQXncR9I/OtaU/G2fDmdfp/iPStVdafvsFiNi9YemnuFs+CMpViqoBlAISZwCE
+	 oisfrAOITSRi/tPDxvFSbmPqAlu4GXj+O5IMQLhLAoQLQtG8+K8geYYwqpt15bGktW
+	 2Y/Fh+/mvscEbGK3lxE22aJIA1s6gEB1JN1C0DkRS1h++TQDLY6dWJWHpeCbNPvWK1
+	 SOB+4Tf58+Fdw==
+Date: Thu, 14 May 2026 14:52:27 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, "David S . Miller" <davem@davemloft.net>, 
+	devicetree@vger.kernel.org, linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] soc: qcom: ice: Enable firmware managed resource
+Message-ID: <20260514-provocative-golden-woodpecker-b3e494@quoll>
+References: <20260512033750.3393050-1-linlin.zhang@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260512033750.3393050-1-linlin.zhang@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The `&qpic_nand` node in the board device tree (`ipq5210-rdp504.=
-dts`) is missing the `status =3D "okay";` property.
---
+On Mon, May 11, 2026 at 08:37:47PM -0700, Linlin Zhang wrote:
+> From: linlzhan <linlzhan@qti.qualcomm.com>
+> 
+> The Qualcomm automotive SA8255p SoC relies on firmware to configure
+> platform resources, including clocks, interconnects and TLMM (GPIOs).
+> These resources are controlled by the driver via SCMI power and
+> performance protocols.
+> 
+> The SCMI power protocol is used to enable and disable platform
+> resources, including clocks, interconnect paths, and TLMM, by mapping
+> resource state transitions to the runtime PM framework?s
+> resume/suspend callbacks.
+> 
+> In this design, the ICE driver acts as an SCMI client, with clocks and
+> power domains abstracted and controlled by the SCMI server in firmware.
+> This implementation depends on pm_runtime_resume_and_get() and
+> pm_runtime_put_sync(), which are available in the OPP tree?s
+> linux-next branch.
+> 
+> v2:
+> -- rebase the patchset
+> -- update to/cc lists
+> -- Link to v1: https://lore.kernel.org/all/20260430032136.3058773-1-linlin.zhang@oss.qualcomm.com/
+> 
+> -- To Linux Community
+> 
+> v6:
+> - Protect calling clock API with fw_managed flag in ICE runtime OPS callbacks.
+> - Link to v5: http://shc-kerarch-hyd:8080/kernel_archive/20260324095703.1306437-1-linlin.zhang@oss.qualcomm.com/T/#t
 
-commit 0c64aa0eee90581723a1d1e649a4fc267a75331a
-Author: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Please do not include non-working links in public postings.
 
-arm64: dts: qcom: ipq5210: Add QPIC SPI NAND controller support
+Best regards,
+Krzysztof
 
-This commit adds device tree nodes for QPIC SPI NAND flash controller suppo=
-rt
-on the ipq5210 SoC. It includes hardware ECC capabilities and DMA support
-through BAM.
-
-> diff --git a/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts b/arch/arm64/boo=
-t/dts/qcom/ipq5210-rdp504.dts
-> index 941f866ecfe95..4813662c2d6c8 100644
-> --- a/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts
-> +++ b/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts
-> @@ -20,6 +20,25 @@ chosen {
->  	};
->  };
-> =20
-> +&qpic_bam {
-> +	status =3D "okay";
-> +};
-> +
-> +&qpic_nand {
-> +	pinctrl-0 =3D <&qpic_snand_default_state>;
-> +	pinctrl-names =3D "default";
-
-Should this node include a status =3D "okay"; property?
-
-The qpic_nand SPI controller is defined with status =3D "disabled"; by defa=
-ult
-in the dtsi file (shown below). Without overriding the status here, will the
-controller and its attached SPI NAND flash be probed and instantiated by the
-kernel?
-
-[ ... ]
-> diff --git a/arch/arm64/boot/dts/qcom/ipq5210.dtsi b/arch/arm64/boot/dts/=
-qcom/ipq5210.dtsi
-> index 3761eb03ab246..7fd4291caff20 100644
-> --- a/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-[ ... ]
-> @@ -204,6 +204,35 @@ sdhc: mmc@7804000 {
-[ ... ]
-> +		qpic_nand: spi@79b0000 {
-> +			compatible =3D "qcom,ipq5210-snand", "qcom,ipq9574-snand";
-> +			reg =3D <0x0 0x079b0000 0x0 0x10000>;
-[ ... ]
-> +			status =3D "disabled";
-> +		};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514-ipq5210-na=
-nd-v1-0-cbdd7492e826@oss.qualcomm.com?part=3D2
