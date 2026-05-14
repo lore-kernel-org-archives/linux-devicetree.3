@@ -1,210 +1,177 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE301E515
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 06:09:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8A61E515
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 06:10:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778738993; cv=none; b=ishVb/Ee05DzBJU67zqXuriu+TmQf6xZRdMfkXPotbFGLMyofiesWfa52bFg9vEQTkvvAxplfSMORao7rLxG1lQhYsZQxDhdJqK3soENcA4cMmW2KSid0/AzwxcLtl5wATC2fX4YFNgFquOnFO0cZvog5SoXgVOq4uwOe+ENUdA=
+	t=1778739034; cv=none; b=fo1bN/GkpJ9O9gWhfUbrxuvOVcBGWsK22fxfpPLscuM0boJ1PZv/yAp0H/8J7Dp7tMu9CKCKfXJ7JDJjRNAOwSPxyZBjNwV86m1/EESRritedu6f6BkENnWeWmJ6kZRv9Y0asivjJSD2yX/45Z+wplfEo4jSQgiXWxMOk/oquWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778738993; c=relaxed/simple;
-	bh=FJAs9gUgg9hj2zCKQtlKXBRjqNXV7CuU9FNNC9+9U4M=;
+	s=arc-20240116; t=1778739034; c=relaxed/simple;
+	bh=xUtBvqcpDpr+9Ap/bkuTpm+bA4hsSho5cgbvtoMgGZg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cfUVPMpyLlCP9WZjaqRLwgZKdy30e9+ie2B0bw7Ejb7S2m2eWuMNl9ZihNKs6lr1oYsoHLquZuVXakU7x2PI5zSjW/YzA0Yv23xgUf0rKzI2xKGN2+DCJnOwqdCwKqiIGmE4IxhpOsiw8o2VrYRI/r8fk0GxjhWd/Bp8seY6cAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YD5QU30h; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=mH8eJRoUF9Gz5bY0wfY8OIIz4H8sMaL560RWnxQbAZdE5a5sMPE9rEEfQuFKtVuOQkqntYj6D3y9WeK/K6y0CLtr/DEM/pBOc3jQkpFymSwb33iGyNz0+2gvwzt1DgNkzL9QZToncg5JOdwaKk0lxdJ0svi3rEIGwrd8NxM1PBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dnkPGw1B; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YD5QU30h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22043C2BCB7;
-	Thu, 14 May 2026 06:09:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dnkPGw1B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AEEFC2BCC7;
+	Thu, 14 May 2026 06:10:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778738993;
-	bh=FJAs9gUgg9hj2zCKQtlKXBRjqNXV7CuU9FNNC9+9U4M=;
+	s=k20201202; t=1778739034;
+	bh=xUtBvqcpDpr+9Ap/bkuTpm+bA4hsSho5cgbvtoMgGZg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=YD5QU30hm0DleBsPd875AE4rfpg2BzOHlU4cWWCEf2v00W6fYN4uDZD7NUmnGyIeL
-	 nhk2shO4pfUb79iHsbsZsfPcDFu7mTrq4mTaBA1qz61Y0jUqd4hUd19WTtjg/+eLcQ
-	 W/b/h5a7xUHYWgBTFK4o1i4pkFAFeNJ1aVyrkIq4zRYccEfkaO3KsRvohqXsfwCv6R
-	 XufMRS2dPYEw+ttpZwP7vNV9XV6ECEJOaEQ/teyQYNSyNfdx7XOdFYDTiEbWNxZEsq
-	 q2g+JCgBoYhiqNGMHs0ZuafQmGJCknXCYmRowVK4WCcifIjuLIS+MmdGBhKv2WOJOZ
-	 cQ8auVuf0V+aw==
+	b=dnkPGw1BUYqQgcI6Pjd8+KDtGJjJpg8iw0JWvtTv3HjYaZALs3/mbXxpBNo3xx0x3
+	 9qgGKRglkq8mT6bfPO+I72mRYCEWtQG79aj5j7ZIV6wCEqzJwb4aIYnYfbXoc1yvZI
+	 11yjtpgB3FliuzbQLLCZ3Bp8piq72wG/9k5bl6rOU5vxWz9GU9zHAWZjAh8VZCvUuT
+	 06gVk+7Bxn9F7LguyO9s7GK7n+WWAvvRN/Of6Fn3DDhRM7FU3hmnLoy6+UO35X+dMv
+	 Cd4HtQsEYiY0gD+hr63fWPqbARZcn3cQgdXSvgZgsxxEqU/pH2wniVeWdhbT9gxdom
+	 MQoHbZO9AgyIw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 16/16] ASoC: rsnd: Add system suspend/resume support
+Subject: Re: [PATCH v3 14/17] ASoC: simple-amplifier: gpio-audio-amp: Add
+ support for gain-ranges
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "John Madieu" <john.madieu.xa@bp.renesas.com>
-Cc: wsa+renesas@sang-engineering.com, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260512182631.3842065-17-john.madieu.xa@bp.renesas.com>
-References: <20260512182631.3842065-17-john.madieu.xa@bp.renesas.com>
+To: "Herve Codina" <herve.codina@bootlin.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260513081702.317117-15-herve.codina@bootlin.com>
+References: <20260513081702.317117-15-herve.codina@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 06:09:52 +0000
-Message-Id: <20260514060953.22043C2BCB7@smtp.kernel.org>
+Date: Thu, 14 May 2026 06:10:34 +0000
+Message-Id: <20260514061034.8AEEFC2BCC7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] Incorrect clock and reset sequencing in `rsnd_resume_clk_reset()` =
-prevents proper module resume.
-- [Medium] Silent failure on clock preparation and enable errors during sys=
-tem resume.
-- [Medium] The `scu_supply` clock is not disabled during system suspend, ca=
-using a power leak.
+- [High] Unsynchronized freeing of dynamically allocated TLV array causes a=
+ Use-After-Free during concurrent ALSA TLV read.
+- [Medium] Integer overflow in `kctrl_max` accumulation leads to validation=
+ bypass and a reachable `WARN(1)`.
+- [Medium] Integer overflow in `simple_amp_cmp_ranges` can corrupt the sort=
+ed array.
+- [Medium] Unprotected state modifications in ALSA control `put` handlers l=
+ead to a TOCTOU race and hardware state desynchronization.
 --
 
-commit c780dd50f4c396b19ac5b1cf3e1ec1ec5c422765
-Author: John Madieu <john.madieu.xa@bp.renesas.com>
-ASoC: rsnd: Add system suspend/resume support
+commit 24a3721afe8e210f60da48c3439973f4c9f7e094
+Author: Herve Codina <herve.codina@bootlin.com>
 
-This commit adds system suspend/resume support for the ASoC rsnd driver,
-required for RZ/G3E platforms. The per-module suspend/resume logic is
-distributed across the relevant component files.
+ASoC: simple-amplifier: gpio-audio-amp: Add support for gain-ranges
 
-> diff --git a/sound/soc/renesas/rcar/core.c b/sound/soc/renesas/rcar/core.c
-> index 679c833fd0014..26cd908299e6d 100644
-> --- a/sound/soc/renesas/rcar/core.c
-> +++ b/sound/soc/renesas/rcar/core.c
+This commit introduces support for gain-ranges in the simple-amplifier
+driver, mapping physical gain values to GPIO values through an array of
+ranges and exporting them via an ALSA kcontrol with TLV range information.
+
+diff --git a/sound/soc/codecs/simple-amplifier.c b/sound/soc/codecs/simple-=
+amplifier.c
+index 5b172e520dcd0..5759f9bc2f4ff 100644
+--- a/sound/soc/codecs/simple-amplifier.c
++++ b/sound/soc/codecs/simple-amplifier.c
+
 [ ... ]
-> @@ -2160,11 +2161,35 @@ static void rsnd_remove(struct platform_device *p=
-dev)
->  		remove_func[i](priv);
+
+> @@ -252,6 +312,38 @@ static int simple_amp_multi_kctrl_int_put(struct snd=
+_kcontrol *kcontrol,
+>  	return 1; /* The value changed */
+>  }
+
+Can concurrent calls to simple_amp_multi_kctrl_int_put() and
+simple_amp_single_kctrl_put() lead to hardware state desynchronization?
+
+These handlers read the cached software state, issue hardware I/O via
+gpiod_multi_set_value_cansleep(), and update the cached state without
+driver-level locking.
+
+The OSS emulation layer only holds a read lock when invoking kctl->put().
+Two racing threads could pass the equality check and interleave their
+hardware writes, causing the cached software state to permanently
+desynchronize from the actual hardware GPIO state.
+
+[ ... ]
+
+> @@ -407,8 +526,17 @@ static int simple_amp_component_probe(struct snd_soc=
+_component *component)
+>  	return 0;
 >  }
 > =20
-> +void rsnd_suspend_clk_reset(struct clk *clk, struct reset_control *rstc)
+> +static void simple_amp_component_remove(struct snd_soc_component *compon=
+ent)
 > +{
-> +	clk_unprepare(clk);
-> +	reset_control_assert(rstc);
-> +}
+> +	struct simple_amp *simple_amp =3D snd_soc_component_get_drvdata(compone=
+nt);
 > +
-> +void rsnd_resume_clk_reset(struct clk *clk, struct reset_control *rstc)
-> +{
-> +	reset_control_deassert(rstc);
-> +	clk_prepare(clk);
-
-Does this sequence deassert the reset before the clock is active, and omit
-clk_enable() entirely?
-
-In rsnd_mod_init(), the driver establishes that the hardware requires the
-module clock to be active before deasserting its reset:
-
-	ret =3D clk_prepare_enable(clk);
-	if (ret)
-		return ret;
-
-	ret =3D reset_control_deassert(rstc);
-
-Will deasserting the reset while the clocks are stopped fail to propagate
-synchronous resets for IP modules using this helper?
-
-Also, does this code silently ignore the return value of clk_prepare()?
-
-If a clock fails to initialize, the subsystem might pretend the resume
-succeeded.
-
+> +	kfree(simple_amp->gain.tlv_array);
+> +	simple_amp->gain.tlv_array =3D NULL;
 > +}
+
+Does this kfree() cause a use-after-free during concurrent ALSA TLV reads?
+
+ALSA controls remain accessible as long as a user holds an open file
+descriptor, and snd_card_disconnect() does not drain active ioctls. A
+concurrent SNDRV_CTL_IOCTL_TLV_READ could be blocked in copy_to_user()
+reading control.tlv.p when this memory is synchronously freed.
+
+Should the array's lifetime instead be bound to the kcontrol via the
+kcontrol->private_free callback?
+
 [ ... ]
-> @@ -2173,7 +2198,21 @@ static int rsnd_resume(struct device *dev)
->  {
->  	struct rsnd_priv *priv =3D dev_get_drvdata(dev);
-> =20
-> -	return rsnd_adg_clk_enable(priv);
-> +	/*
-> +	 * Same order as probe:
-> +	 * DMA -> SSI -> SSIU -> SRC -> CTU -> MIX -> DVC -> ADG
-> +	 */
-> +	rsnd_dma_resume(priv);
-[ ... ]
-> +	rsnd_adg_clk_enable(priv);
-> +
-> +	return 0;
 
-Does this code silently ignore the return value of rsnd_adg_clk_enable() and
-unconditionally return 0?
-
-The pre-patch code properly returned the error code.
-
+> @@ -426,10 +554,179 @@ static int simple_amp_parse_single_gpio(struct dev=
+ice *dev,
+>  	return 0;
 >  }
 > =20
->  static const struct dev_pm_ops rsnd_pm_ops =3D {
-> diff --git a/sound/soc/renesas/rcar/dma.c b/sound/soc/renesas/rcar/dma.c
-> index 0bca0b3031918..0bf97a12a9a72 100644
-> --- a/sound/soc/renesas/rcar/dma.c
-> +++ b/sound/soc/renesas/rcar/dma.c
-[ ... ]
-> @@ -1035,3 +1035,25 @@ int rsnd_dma_probe(struct rsnd_priv *priv)
-[ ... ]
-> +void rsnd_dma_resume(struct rsnd_priv *priv)
+> +static int simple_amp_cmp_ranges(const void *a, const void *b)
 > +{
-> +	struct rsnd_dma_ctrl *dmac =3D rsnd_priv_to_dmac(priv);
+> +	const struct simple_amp_range *a_range =3D a;
+> +	const struct simple_amp_range *b_range =3D b;
 > +
-> +	if (dmac) {
-> +		/* Clock must be stable before reset is deasserted */
-> +		clk_prepare_enable(dmac->audmapp_clk);
+> +	/* Ranges a and b don't overlap. This has been already checked */
+> +
+> +	return a_range->min.gain_db - b_range->max.gain_db;
+> +}
 
-Is it possible to check the return value of clk_prepare_enable() here?
+Can this subtraction mathematically overflow?
 
-If the clock fails to initialize during resume, this could silently fail.
+If highly negative and highly positive s32 values are provided via the
+Device Tree, this operation could reverse the intended sign and break the
+strict weak ordering required by sort(), corrupting the resulting array sta=
+te.
 
-> +		rsnd_resume_clk_reset(NULL, dmac->audmapp_rstc);
+Could this use safe inequality checks instead of subtraction?
+
+[ ... ]
+
+> +static int simple_amp_parse_ranges(struct device *dev,
+> +				   struct simple_amp_multi *multi,
+> +				   const char *ranges_property)
+> +{
+
+[ ... ]
+
+> +		range->nb_points =3D abs_diff(range->min.gpio_val,
+> +					    range->max.gpio_val) + 1;
+> +
+> +		multi->kctrl_max +=3D range->nb_points;
 > +	}
-> +}
-> diff --git a/sound/soc/renesas/rcar/src.c b/sound/soc/renesas/rcar/src.c
-> index 0237b5d2e79e6..a844255879787 100644
-> --- a/sound/soc/renesas/rcar/src.c
-> +++ b/sound/soc/renesas/rcar/src.c
-[ ... ]
-> @@ -834,3 +834,37 @@ void rsnd_src_remove(struct rsnd_priv *priv)
->  		rsnd_mod_quit(rsnd_mod_get(src));
->  	}
->  }
 > +
-> +void rsnd_src_suspend(struct rsnd_priv *priv)
-> +{
-> +	struct rsnd_src_ctrl *src_ctrl =3D rsnd_priv_to_src_ctrl(priv);
-> +	struct rsnd_src *src;
-> +	int i;
-> +
-> +	if (!src_ctrl)
-> +		return;
-> +
-> +	for_each_rsnd_src(src, priv, i)
-> +		rsnd_suspend_clk_reset(rsnd_mod_get(src)->clk,
-> +				       rsnd_mod_get(src)->rstc);
-> +
-> +	clk_disable_unprepare(src_ctrl->scu_x2);
-> +	clk_disable_unprepare(src_ctrl->scu);
+> +	multi->kctrl_max -=3D 1;
 
-Does this code miss disabling the scu_supply clock?
+Does this code overflow multi->kctrl_max?
 
-It appears to be enabled during probe alongside scu and scu_x2, but omitted
-here.
+A malformed Device Tree could define up to 65,536 ranges, each mapping to
+65,536 points. This summation would reach exactly 4,294,967,296, completely
+overflowing the u32 back to 0.
 
-Could this leave the supply clock enabled across a system suspend cycle?
-
-> +}
-> +
-> +void rsnd_src_resume(struct rsnd_priv *priv)
-> +{
-> +	struct rsnd_src_ctrl *src_ctrl =3D rsnd_priv_to_src_ctrl(priv);
-> +	struct rsnd_src *src;
-> +	int i;
-> +
-> +	if (!src_ctrl)
-> +		return;
-> +
-> +	clk_prepare_enable(src_ctrl->scu);
-> +	clk_prepare_enable(src_ctrl->scu_x2);
-
-Are the return values from clk_prepare_enable() intentionally ignored here
-as well?
-
-> +
-> +	for_each_rsnd_src(src, priv, i)
-> +		rsnd_resume_clk_reset(rsnd_mod_get(src)->clk,
-> +				      rsnd_mod_get(src)->rstc);
-> +}
+The subsequent multi->kctrl_max -=3D 1 operation would then underflow it to
+0xFFFFFFFF, bypassing the bounds check in
+simple_amp_multi_kctrl_write_gpios() and triggering a reachable WARN(1) in
+simple_amp_multi_ranges_kctrl_to_gpio() which could act as a denial of
+service if panic_on_warn is set.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512182631.3842=
-065-1-john.madieu.xa@bp.renesas.com?part=3D16
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513081702.3171=
+17-1-herve.codina@bootlin.com?part=3D14
