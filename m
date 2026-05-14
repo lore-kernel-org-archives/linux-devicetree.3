@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94B451F2380
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 10:26:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA413ACA6A;
+	Thu, 14 May 2026 10:27:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778754371; cv=none; b=OnXWHxT5scgqHnAsqwsuIXCM6RUZTPBEKmYVW6xZpI3pdj34tt305Spi+ohXbLphaZMaDIorQeixAfkSU7EUpPGo6crgvkE5aUsEg26X24ADol029xous7T9ORkxxfxp9uK7S60kYJ7gKpW93UhmZ1X+M6S5OlOUyF46Q6YHaNA=
+	t=1778754454; cv=none; b=EPkvul9vTdSfEonoFi3txX8BxsXXSUrAiMOCJ3QenE4riuFRw46mfLQ2+c7b4yTXUdTC7JmfnQUuIJ/LSolsIejzcxelOmgAsks1yNUMI2NRGxAeJBKTBy/cMgKsUtxMmS+EEKkyGhvSlzxXHD6Y0o3XYJ4zY4qtGwJo3RGOR18=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778754371; c=relaxed/simple;
-	bh=kfhFXJDVzV3jD5ksLFrFUQBSNOcncGtl/0nBgvjiWJE=;
+	s=arc-20240116; t=1778754454; c=relaxed/simple;
+	bh=JvaOyMEk7lKMF50hufgY8FCjW2OD6n34LF25dtPeiRo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Zrw2Mpc1MDMXHzjxs2YlgiAYESMJ6vRLVFd3cihCoT805I4fhpJ1GaNe1Q4jkck8wQWLHRJ33eggBUAdoGjYvXcM7wWyxZ4b403DWxVTybisxGF5q/sFP41a4EwwPD9Ee8AeUe/A3n5xSGstxBBIsevk+Uq180zQjWLB4meuYiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f3kxfXna; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=NufFkRRdyeWA+BMkfqauKXUFMvOnTY3pG9QmM71e6ur1SAtk6aUx3x3GguLUAOLg2dGGVQBgKCmXY7igelD6yic+c1tFYtpYJQ6/5X3IVpp7z6ei7j7PqxeRTKvw/CJoRKd9WcjfE74lbGvAi2NxoDmYQj0rUOq7HBj8IJ8iT4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=crNOsizL; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f3kxfXna"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14A69C2BCC9;
-	Thu, 14 May 2026 10:26:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="crNOsizL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 503B3C2BCB3;
+	Thu, 14 May 2026 10:27:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778754371;
-	bh=kfhFXJDVzV3jD5ksLFrFUQBSNOcncGtl/0nBgvjiWJE=;
+	s=k20201202; t=1778754453;
+	bh=JvaOyMEk7lKMF50hufgY8FCjW2OD6n34LF25dtPeiRo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=f3kxfXnaP8e/07F0xg5W4aduEbUd4Y72kFS/9vjTy7DIPu9Mgrl18awuqxiKugsrr
-	 +9zRqSvj2xQy6Uh2Vnzm900hdPmvVLbYQPKpfuQVmJSa6F7GF4KNldL8on/5qsMiqa
-	 U269J4omN01WEiIRChSFlPlY13mX4oobjEsiVyg2U8mvMSXr1KFB3tLtk/oETV3uec
-	 Oz6iu8q2WKXHaDSnqJr02/ehje5sv51diqtYzI5S6TcpRldYYEAD1isj2jLTx8Txy5
-	 u1YM7pO6y7J7sWKQx4NZWhJ4Jf11Ab6Dse5PjsI8RvKOA9DRFrf+rSBedDXwHkp/xV
-	 DoGBpKT8mLn9w==
+	b=crNOsizLeQmyeCTiiUjla4YP/DRc06E2/8muThZ9CE5OKCKHpjxiImfOL101x3JOn
+	 qoMRXBe7J4PwY0UhhVhaq1Ymr9TRHybgrHyDmU2O1xzq16zThLQ6/etviC8SVQlJFt
+	 N4J6r0NQEQlB8gHHOhHAAP40rnSNo67uX9e7rCmUAw9wRjQzMfLeSzjK6AQK8NEHJq
+	 hbE/3rKKIppULz6AV5zj55PSrK1rDSsY92BmwH1o2P9n/RY/RN22waltP5k8rcWwXZ
+	 /1JpNaUVYY3nxMKiRHD8kXbG/SuR2huS+/ugInzEjSub4BRYzP+n9v1bcqhO/Srd/r
+	 J2zJRz+9pDYHA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 5/7] clk: qcom: gpucc: Add GPU Clock Controller
- driver for Eliza
+Subject: Re: [PATCH v7 net-next 15/15] net: dsa: netc: add support for
+ ethtool private statistics
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Taniya Das" <taniya.das@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260513-eliza_mm_cc_v2-v4-5-e61b5434e8d9@oss.qualcomm.com>
-References: <20260513-eliza_mm_cc_v2-v4-5-e61b5434e8d9@oss.qualcomm.com>
+To: "Wei Fang" <wei.fang@nxp.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, krzk+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260513030454.1666570-16-wei.fang@nxp.com>
+References: <20260513030454.1666570-16-wei.fang@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 10:26:10 +0000
-Message-Id: <20260514102611.14A69C2BCC9@smtp.kernel.org>
+Date: Thu, 14 May 2026 10:27:32 +0000
+Message-Id: <20260514102733.503B3C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,64 +46,75 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Duplicate clock definitions for the same hardware register and bit=
- (gpu_cc_gpu_smmu_vote_clk and gpu_cc_hlos1_vote_gpu_smmu_clk).
+- [Medium] The patch adds standard MAC and network device statistics to the=
+ driver-private `ethtool -S` interface, duplicating existing standard uAPIs.
 --
 
-commit 6d648a0e43468c77f650349682c80884c4151795
-Author: Taniya Das <taniya.das@oss.qualcomm.com>
+commit b533630ccd26c1520e0426d6fa7264b3df331e6a
+Author: Wei Fang <wei.fang@nxp.com>
 
-clk: qcom: gpucc: Add GPU Clock Controller driver for Eliza
+net: dsa: netc: add support for ethtool private statistics
 
-This commit adds the Graphics Clock Controller (GPUCC) driver for the Eliza
-platform, providing clock, reset, and GDSC definitions.
+This commit implements the ethtool private statistics interface for netc
+switches, exposing additional port-level, eMAC, and pMAC counters.
 
-> diff --git a/drivers/clk/qcom/gpucc-eliza.c b/drivers/clk/qcom/gpucc-eliz=
-a.c
-> new file mode 100644
-> index 0000000000000..85ae0ab118405
-> --- /dev/null
-> +++ b/drivers/clk/qcom/gpucc-eliza.c
+> diff --git a/drivers/net/dsa/netc/netc_ethtool.c b/drivers/net/dsa/netc/n=
+etc_ethtool.c
+> index ac8940b5a85c6..8d04db534347c 100644
+> --- a/drivers/net/dsa/netc/netc_ethtool.c
+> +++ b/drivers/net/dsa/netc/netc_ethtool.c
 
 [ ... ]
 
-> +static struct clk_branch gpu_cc_gpu_smmu_vote_clk =3D {
-> +	.halt_reg =3D 0x7000,
-> +	.halt_check =3D BRANCH_HALT_VOTED,
-> +	.clkr =3D {
-> +		.enable_reg =3D 0x7000,
-> +		.enable_mask =3D BIT(0),
-> +		.hw.init =3D &(const struct clk_init_data) {
-> +			.name =3D "gpu_cc_gpu_smmu_vote_clk",
-> +			.ops =3D &clk_branch2_ops,
-> +		},
-> +	},
+> +static const struct netc_port_stat netc_emac_counters[] =3D {
+> +	{ NETC_PM_ROCT(0),	"eMAC rx octets" },
+> +	{ NETC_PM_RVLAN(0),	"eMAC rx VLAN frames" },
+> +	{ NETC_PM_RERR(0),	"eMAC rx frame errors" },
+> +	{ NETC_PM_RUCA(0),	"eMAC rx unicast frames" },
+> +	{ NETC_PM_RDRP(0),	"eMAC rx dropped packets" },
+> +	{ NETC_PM_RPKT(0),	"eMAC rx packets" },
+> +	{ NETC_PM_TOCT(0),	"eMAC tx octets" },
+> +	{ NETC_PM_TVLAN(0),	"eMAC tx VLAN frames" },
+> +	{ NETC_PM_TFCS(0),	"eMAC tx FCS errors" },
+> +	{ NETC_PM_TUCA(0),	"eMAC tx unicast frames" },
+> +	{ NETC_PM_TPKT(0),	"eMAC tx packets" },
+> +	{ NETC_PM_TUND(0),	"eMAC tx undersized packets" },
+> +	{ NETC_PM_TIOCT(0),	"eMAC tx invalid octets" },
 > +};
 > +
-> +static struct clk_branch gpu_cc_hlos1_vote_gpu_smmu_clk =3D {
-> +	.halt_reg =3D 0x7000,
-> +	.halt_check =3D BRANCH_HALT_VOTED,
-> +	.clkr =3D {
-> +		.enable_reg =3D 0x7000,
-> +		.enable_mask =3D BIT(0),
-> +		.hw.init =3D &(const struct clk_init_data) {
-> +			.name =3D "gpu_cc_hlos1_vote_gpu_smmu_clk",
-> +			.ops =3D &clk_branch2_ops,
-> +		},
-> +	},
+> +static const struct netc_port_stat netc_pmac_counters[] =3D {
+> +	{ NETC_PM_ROCT(1),	"pMAC rx octets" },
+> +	{ NETC_PM_RVLAN(1),	"pMAC rx VLAN frames" },
+> +	{ NETC_PM_RERR(1),	"pMAC rx frame errors" },
+> +	{ NETC_PM_RUCA(1),	"pMAC rx unicast frames" },
+> +	{ NETC_PM_RDRP(1),	"pMAC rx dropped packets" },
+> +	{ NETC_PM_RPKT(1),	"pMAC rx packets" },
+> +	{ NETC_PM_TOCT(1),	"pMAC tx octets" },
+> +	{ NETC_PM_TVLAN(1),	"pMAC tx VLAN frames" },
+> +	{ NETC_PM_TFCS(1),	"pMAC tx FCS errors" },
+> +	{ NETC_PM_TUCA(1),	"pMAC tx unicast frames" },
+> +	{ NETC_PM_TPKT(1),	"pMAC tx packets" },
+> +	{ NETC_PM_TUND(1),	"pMAC tx undersized packets" },
+> +	{ NETC_PM_TIOCT(1),	"pMAC tx invalid octets" },
 > +};
 
-Both gpu_cc_gpu_smmu_vote_clk and gpu_cc_hlos1_vote_gpu_smmu_clk map to the
-exact same hardware register (0x7000) and enable mask (BIT(0)).
+Are these counters duplicating values that already have standard kernel uAP=
+Is?
 
-Because the Common Clock Framework maintains independent reference counts a=
-nd
-state for each clock object, if one consumer disables its clock, won't CCF
-clear BIT(0) in register 0x7000?
+According to the networking subsystem guidelines, driver patches must not a=
+dd
+new counters to ethtool -S for values that have a standard interface. Stand=
+ard
+metrics such as rx octets, rx frame errors, rx dropped packets, tx packets,
+and tx FCS errors are already covered by standard interfaces like
+rtnl_link_stats64 and ethtool_eth_mac_stats.
 
-Could this abruptly shut down the SMMU clock in hardware even if the other
-consumer's reference count is still active?
+Since the driver already implements netc_port_get_eth_mac_stats() to handle
+ETHTOOL_MAC_STATS_SRC_EMAC and ETHTOOL_MAC_STATS_SRC_PMAC, exposing these
+metrics as private strings appears redundant and duplicates existing standa=
+rd
+uAPIs.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-eliza_mm_c=
-c_v2-v4-0-e61b5434e8d9@oss.qualcomm.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513030454.1666=
+570-1-wei.fang@nxp.com?part=3D15
