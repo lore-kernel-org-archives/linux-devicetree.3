@@ -1,42 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F3EB3451C1;
-	Thu, 14 May 2026 18:22:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9529C3451C1;
+	Thu, 14 May 2026 18:23:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778782960; cv=none; b=Q8mVIwjkvaXcWaToYxKudXdzWirx9PyKg7vO6kritr+gGQy8n2IFDL0qVZsfxMLoQ83RQIQXTuc7fFZc04fgZQlLGP0SjB5YkO7rltfecyCAj/Lyp20+2GBu0Smif5vunAZdAt12hZCPqkBJofBhkNG8tssoFHkE0nCrJOc2MxI=
+	t=1778783009; cv=none; b=GaMYd46Nqw3p2rnXDvF21zfa5VWwMMH5Tj62gfyB7BAObG5SABMpFzlVmuLM+F0er/ht+CUGQihS613A+Qju1i6y4giyKJ+7lFFa4kGDau4LwU4TAK0jfctDg8jhHXajpBcjzy+Qg+H2v0ncvoXKFuqse/2iu5z0PXxymDRWNlo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778782960; c=relaxed/simple;
-	bh=tcNcx48a+go1+PIXbPVx+bqSAKU5IIdX2EligEhqik8=;
+	s=arc-20240116; t=1778783009; c=relaxed/simple;
+	bh=FbnqPx1PyG+vLXcxu/p7mAAyZB6jG62MlCbjDqegcOU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jCCNTxl9QAhv9cnlmVfxdhMyYEMKfxia29WBV6iBpEUpoAXyAwt6L1Z5WGoREnTq8oNBHlXyJV53zy+4rC7q5MlvmmM2U7Pvt/xdlPiEGIcfZETipEEawfXtuNSjUlME9kgVOl0+8IF+SQW07K5vl4vW/yWV4zMlCxrPKtOb0V0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a3YNDsyz; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=rkFzc/0W6tXJ1qQ5gzcfFa9bVatkn9j0SXcY/d1ramVlKDdlmwR/IP9fC8jNjIBOpYNrta1W1zLvWIfGMAdXLlDxXeK1x5Y7Z0YI4ZG2jPIZmGyVIzmpV4pRnpJzzhtS0S1tKFou49lY6OKvb2sm1D9ExDtSW/mV7eoUWldsF3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VHo615zd; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a3YNDsyz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D81DC2BCB3;
-	Thu, 14 May 2026 18:22:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VHo615zd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A359EC2BCC7;
+	Thu, 14 May 2026 18:23:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778782959;
-	bh=tcNcx48a+go1+PIXbPVx+bqSAKU5IIdX2EligEhqik8=;
+	s=k20201202; t=1778783009;
+	bh=FbnqPx1PyG+vLXcxu/p7mAAyZB6jG62MlCbjDqegcOU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=a3YNDsyzai9dvNt6VZBDL6ERsW+oYVA2SykU/Obr7s07OgADYxAhobMPBDxXiK9Kn
-	 iaHArLA19pu2f3di2hQZqXd2e1RWdCXA3QcZ88NW3ZbVhhEHl/fC7sMj7o2BlN6BmJ
-	 TMUxOs1RcqEspBfQe+k0J8arhd1Z9I1ROQ44uXxqNNizC66LkvfDPGRYbKchEhnE0Z
-	 BGaYw+akOZZ7t4xNb+cHVMaLCA51K3B6ERnIckfj6ZXwvh7gg4L9l5MrwvZBe0b81k
-	 8SOjRmi5nHbWQGGW8K4rB3hYpz2KGFY8Pb3Pkfbppk6mzcIlgv6lQMWTIBA9raABrj
-	 6bKc7sa1QPwCg==
-Date: Thu, 14 May 2026 19:22:36 +0100
+	b=VHo615zdxBV5CnRnYQFbNnfeTEPg0c42CzSOCww0v6RZKq6FO8SHUD+jVIfssc53Q
+	 LYBTrXEdkvDr4xq57A11u0r7muhywEHg8ok+CUiiG1VGCSbA0R+ofTQQBchp9/wvk9
+	 8/1+JAegc4sTXECrl0iGip5A1g154qKDciQIwoc6Biop2+cEE0zp0UDIIIQqSZTH7H
+	 djPwsodLwayyKjL/xik87Q2kjaI4alIqpnC3XDUnyrQ6jOiWjKQnlcdIbLxnB0wLkp
+	 TNl7b8JPvH1r0nraQ/JeFbSSDSjElmKgsNCXBtjvzvDvH1FcZNqQqdcMTQg9erKeyP
+	 RFfpdv4kdxQJw==
+Date: Thu, 14 May 2026 19:23:24 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Caleb James DeLisle <cjd@cjdns.fr>
-Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org,
-	conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org
-Subject: Re: [PATCH v2 1/5] dt-bindings: timer: econet: Update EN751627 for
- multi-IRQ
-Message-ID: <20260514-abiding-entertain-cd2aab06bef5@spud>
-References: <20260514000601.3430262-2-cjd@cjdns.fr>
- <20260514114243.126F4C2BCB3@smtp.kernel.org>
- <23568f49-4b58-4acd-85fa-7eba5e99b46c@cjdns.fr>
+To: Aaron Kling <webgeek1234@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: display: panel: Add Chipone ICNA
+ 35xx OLED driver bindings
+Message-ID: <20260514-accompany-expiring-c90c6af5f7a9@spud>
+References: <20260514-icna35xx-v2-0-45acd1dfa566@gmail.com>
+ <20260514-icna35xx-v2-1-45acd1dfa566@gmail.com>
+ <20260514-ambush-salvation-ce6616190390@spud>
+ <CALHNRZ8ukiSM2+uj+Qg6rVbUjjFeo88HQjLZsFHbHBs_GTy_1Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -44,90 +53,110 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="U3nnOgtn/eu2wwWq"
+	protocol="application/pgp-signature"; boundary="QaqnQ43ZV9tPSjq0"
 Content-Disposition: inline
-In-Reply-To: <23568f49-4b58-4acd-85fa-7eba5e99b46c@cjdns.fr>
+In-Reply-To: <CALHNRZ8ukiSM2+uj+Qg6rVbUjjFeo88HQjLZsFHbHBs_GTy_1Q@mail.gmail.com>
 
 
---U3nnOgtn/eu2wwWq
-Content-Type: text/plain; charset=us-ascii
+--QaqnQ43ZV9tPSjq0
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, May 14, 2026 at 05:22:05PM +0200, Caleb James DeLisle wrote:
-> > > @@ -52,21 +52,31 @@ allOf:
-> > >             items:
-> > >               - description: VPE timers 0 and 1
-> > >               - description: VPE timers 2 and 3
-> > > +        interrupts:
-> > > +          description: An interrupt for each timer (one per VPE)
-> > > +          minItems: 4
-> > Could this include an items list detailing the specific purpose of each
-> > of the four interrupts? Defining an items array for each interrupt (suc=
-h as
-> > Timer for VPE 0, VPE 1, etc.) would help ensure clarity for driver deve=
-lopers
-> > and enforce a consistent definition order.
-> IMO should be self-evident.
+On Thu, May 14, 2026 at 01:20:57PM -0500, Aaron Kling wrote:
+> On Thu, May 14, 2026 at 1:07=E2=80=AFPM Conor Dooley <conor@kernel.org> w=
+rote:
+> >
+> > On Thu, May 14, 2026 at 12:24:49PM -0500, Aaron Kling via B4 Relay wrot=
+e:
+> > > From: Aaron Kling <webgeek1234@gmail.com>
+> > >
+> > > The Chipone ICNA35xx series of DDICs are high refresh, low power
+> > > MIPI-DSI drivers for OLED panels. The icna3512 is used by the Ayn Odi=
+n 2
+> > > Portal and the icna3520 is used by the Ayn Thor top panel and the Ayn
+> > > Odin 3.
+> > >
+> > > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> > > ---
+> > >  .../bindings/display/panel/chipone,icna35xx.yaml   | 79 ++++++++++++=
+++++++++++
+> > >  1 file changed, 79 insertions(+)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/display/panel/chipone,=
+icna35xx.yaml b/Documentation/devicetree/bindings/display/panel/chipone,icn=
+a35xx.yaml
+> > > new file mode 100644
+> > > index 00000000000000..6464d8d0cf86d5
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/display/panel/chipone,icna35x=
+x.yaml
+> >
+> > Filename matching a compatible please.
+>=20
+> Does this require splitting / duplicating the files for each ddic, or
+> can one be arbitrarily picked and the other stay with it?
 
-Ye, I think this is okay. Perhaps you could make it an items list if you
-want though.
+Pick an arbitrary one. Maybe which one is older?
 
-> >=20
-> > [ ... ]
-> > >   examples:
-> > >     - |
-> > > +    #include <dt-bindings/interrupt-controller/mips-gic.h>
-> > >       timer@1fbf0400 {
-> > >           compatible =3D "econet,en751627-timer", "econet,en751221-ti=
-mer";
-> > Is it safe to retain econet,en751221-timer as a fallback compatible str=
-ing?
-> >=20
-> > Device Tree fallback strings declare that an older OS can safely operat=
-e the
-> > hardware using the fallback driver. Since econet,en751627-timer uses fo=
-ur
-> > individual shared IRQs while econet,en751221-timer strictly uses a sing=
-le
-> > percpu IRQ, they appear to have fundamentally incompatible interrupt
-> > topologies.
-> >=20
-> > If an older kernel boots using the fallback, the legacy
-> > timer-econet-en751221 driver will attempt to map the first shared IRQ a=
-s a
-> > percpu IRQ via request_percpu_irq(). This will fail with -EINVAL, causi=
-ng
-> > the timer driver to fail to initialize and potentially leading to a boot
-> > failure or system hang.
-> >=20
-> > Should econet,en751627-timer be defined as a standalone compatible stri=
-ng
-> > without the econet,en751221-timer fallback?
-> I find this argument compelling so I'll switch.
+> > > @@ -0,0 +1,79 @@
+> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/display/panel/chipone,icna35xx.ya=
+ml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: Chipone ICNA35xx display drivers
+> > > +
+> > > +maintainers:
+> > > +  - Neil Armstrong <neil.armstrong@linaro.org>
+> > > +
+> > > +description:
+> > > +  The Chipone ICNA35xx are a series of DDICs connected
+> > > +  using a MIPI-DSI video interface.
+> > > +
+> > > +allOf:
+> > > +  - $ref: panel-common.yaml#
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    oneOf:
+> > > +      - items:
+> > > +          - enum:
+> > > +              - ayaneo,pocketds-panel-top
+> > > +              - ayntec,odin2portal-panel
+> > > +          - const: chipone,icna3512
+> > > +
+> > > +      - items:
+> > > +          - enum:
+> > > +              - ayntec,odin3-panel
+> > > +              - ayntec,thor-panel-top
+> > > +          - const: chipone,icna3520
+> >
+> > Commit message should state why these ddics are not compatible with one
+> > another.
+>=20
+> Ack. Short version: some of the mipi vendor commands don't match.
+>=20
+> > Rest of this seems okay.
+> >
+> > pw-bot: changes-requested
+> >
+> > Thanks,
+> > Conor.
+>=20
+> Aaron
 
-And ye, this is a good point that it made.
-
-> >=20
-> > >           reg =3D <0x1fbf0400 0x100>, <0x1fbe0000 0x100>;
-> > >           interrupt-parent =3D <&intc>;
-> > > -        interrupts =3D <30>;
-> > > +        interrupts =3D <GIC_SHARED 30 IRQ_TYPE_LEVEL_HIGH>,
-> > > +                     <GIC_SHARED 29 IRQ_TYPE_LEVEL_HIGH>,
-> > > +                     <GIC_SHARED 37 IRQ_TYPE_LEVEL_HIGH>,
-> > > +                     <GIC_SHARED 36 IRQ_TYPE_LEVEL_HIGH>;
-> > >           clocks =3D <&hpt_clock>;
-> > >       };
-
---U3nnOgtn/eu2wwWq
+--QaqnQ43ZV9tPSjq0
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagYS7AAKCRB4tDGHoIJi
-0tmOAQC/dD5AgiYmPrze2oXBe2h36kSTdYvxZrJXj8IcC3moKAD7BfI60QSdELli
-+gBfkkaGm+igCABXL8s8C8+kOQoTnwQ=
-=ZGnf
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagYTHAAKCRB4tDGHoIJi
+0qAHAQCcuD1m0Aug+tDgcu9OC2u4uROICoc6KGLbjktD42X11wEA1NPKmSPP5xHm
+W16lFmxqdpLUsSx6/hAPF/rWsV02dQI=
+=uBJJ
 -----END PGP SIGNATURE-----
 
---U3nnOgtn/eu2wwWq--
+--QaqnQ43ZV9tPSjq0--
