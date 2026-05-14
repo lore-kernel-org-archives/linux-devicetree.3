@@ -1,161 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D649B1A683C;
-	Thu, 14 May 2026 00:43:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2161FB1;
+	Thu, 14 May 2026 00:45:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778719396; cv=none; b=cOulGWF7mZQ7lely6YHr82yr0aaAwjeMIWWBgmQpTJ3yquoV/bG0xzuFrI6meK+nkLUsbsXCkh9FYwLf0vfo9JeJ57l5BDJ4VOYrZtA6MlN6IUXAgHsPeSbf+QwRoJVR4ywrK2ZE8hIKRHX17PIsqtXILFfRwL3eg0Huvz5Wusc=
+	t=1778719536; cv=none; b=cX3iPzNxYC4WWkwbdb4rk+XZU4SGAS9Jvu7sP72Kp14jMbUgjlLgM1V5ZSI+CqiibpEgD0SgYBr4Rmmq8xhPt8uC6Z0OZlf7qihcj030R/Q+OFwptbVcuQGZXx/Obw99nVQC7BHJJXxOBpddP8isZ104I/z0wIhIscdmtHC5cqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778719396; c=relaxed/simple;
-	bh=njUG4gtX0gjjaL4ssT35jpzwhO2AkUWQoMd2hjUQoGU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=X9YexGkq1b5lLdhVur0Xuzi8hKBzjExXKbREPShXSZRrlRuCjj/RrPJAjqWC2yD91P1lM71YPG+3VPFz6KaXPab7HpPa8z3Oll06qwFobKPVTCJwlx6Tz6l5GPW3+NfWy5mZJoh+uuvXe2EjmAROFcxMjqp+3+vvPOqk3/A6n64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=t06+8Y3k; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778719536; c=relaxed/simple;
+	bh=69E5nqFMEKvo85wGaxf0eNsKZ1WO1jSUvd6+Fa9XrB4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nTyIVBnZQqeYslzOQol9+7cFgYuf538Jtdax0PsuPc/PFwrpKk7+zN2OHuGX/6HOAeqgDMLUB8VeRVzSBKwrslMUDmM+SC4RJCY7HiNlTv6BpW13wZLQS9mFKdBcHCXmYoN2e5tZ1jIa3otUabnc0TAyxwOWPfLUNzuIF6b8fZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OVfQt/4E; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="t06+8Y3k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47E27C2BCB3;
-	Thu, 14 May 2026 00:43:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OVfQt/4E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 771FDC19425;
+	Thu, 14 May 2026 00:45:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778719396;
-	bh=njUG4gtX0gjjaL4ssT35jpzwhO2AkUWQoMd2hjUQoGU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=t06+8Y3kZjJCJ2qeaBS72SEeCwrKe0JtKatZLYdSjTotSIbkh4kRJLZ3sXTFc6XAL
-	 GskzZ3Hh/BkBdJIFVbBTtmTxIoSpozdz7FBqFx1EVUzu9eYyzlokZB0TqGEpNv+qLM
-	 aCbuU8MZ0pEquuH5PkbcSLixGhZYByZdv7a1eo8uDkfSZxx+EKoQ27eCfHHlQlWmTG
-	 2DCgyauILWDy6nU4D+uMOg3sjx8p7Qiy45ERusqK/1xC4ZfF/R3Pfzt5/skl22qIfu
-	 97N47PBlbrI+VlB1E7OlhXfBZAEYSGq7NkFsHFpANGEEGSUyZAOrLeSem8oyTxknYb
-	 RRuoMPhSue91w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] hwmon: (pmbus/d1u74t) Add Murata D1U74T PSU
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-Cc: conor+dt@kernel.org, krzk+dt@kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260512-d1u74t-v2-2-431d00fbb1c4@nexthop.ai>
-References: <20260512-d1u74t-v2-2-431d00fbb1c4@nexthop.ai>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 00:43:14 +0000
-Message-Id: <20260514004316.47E27C2BCB3@smtp.kernel.org>
+	s=k20201202; t=1778719536;
+	bh=69E5nqFMEKvo85wGaxf0eNsKZ1WO1jSUvd6+Fa9XrB4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OVfQt/4EYIY6QCOsFe4DGh5j5kDe1AEW7wxQUySr5myHQwj2oSYDpx5Of7+EJikRT
+	 Vxu+YU8A9mZxjwBYvNe19b4oHOBiwR/OOUfEcAENlBS62rjoayG5+pnIWBDNqGwTg8
+	 FxsF8QWI3H1cHWalm70YC0DeHEB3soGFPPhekD8lj6UTsi0Oh7k31/sLaN6wzO6CD3
+	 +HotZSSj2lIXQpju68UTRJKxfS4Wt9F95/CyrGvqoaeUpk7PwJMv+/wPYwLoofKm1c
+	 I+Faaa1kO4urytkxkJ6Hx5Iw6OdrjziZDdiGt2q4G3BgEVJYJNEak8je9OjKGuP028
+	 ILnt5+GKdgapg==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 8E7301AC58CB; Thu, 14 May 2026 01:45:32 +0100 (BST)
+Date: Thu, 14 May 2026 09:45:32 +0900
+From: Mark Brown <broonie@kernel.org>
+To: John Madieu <john.madieu.xa@bp.renesas.com>
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Biju Das <biju.das.jz@bp.renesas.com>, john.madieu@gmail.com,
+	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 04/16] ASoC: rsnd: Support hyphen or dot in indexed
+ clock and reset names
+Message-ID: <agUbLPizzMP5XZ2q@sirena.co.uk>
+References: <20260512182631.3842065-1-john.madieu.xa@bp.renesas.com>
+ <20260512182631.3842065-5-john.madieu.xa@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="IEounhn6QKZpmHUd"
+Content-Disposition: inline
+In-Reply-To: <20260512182631.3842065-5-john.madieu.xa@bp.renesas.com>
+X-Cookie: Truckers welcome.
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Low] Brittle validation logic due to missing read length check for PMBUS=
-_MFR_MODEL.
-- [Low] Copy-paste errors in sysfs documentation for `in2_*` attributes.
-- [Low] MAINTAINERS file entry breaks alphabetical ordering.
---
 
-commit ec60b1738fafe62da18eefb7e9b1f9a12b6a9113
-Author: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+--IEounhn6QKZpmHUd
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-hwmon: (pmbus/d1u74t) Add Murata D1U74T PSU driver
+On Tue, May 12, 2026 at 06:26:19PM +0000, John Madieu wrote:
 
-This commit adds a new PMBus driver for Murata D1U74T power supplies. It
-registers the device with the hwmon subsystem and provides documentation for
-the driver's sysfs attributes.
+> + * On ENODEV from the hyphen form, the dot form is tried. All other errors
+> + * (including -EPROBE_DEFER) are returned to the caller unchanged, so
+> + * behaviour against the clock and reset frameworks is preserved.
+> + */
 
-Closes: https://lore.kernel.org/oe-kbuild-all/202605122253.zInzmUeX-lkp@int=
-el.com/
-
-> diff --git a/Documentation/hwmon/d1u74t.rst b/Documentation/hwmon/d1u74t.=
-rst
-> new file mode 100644
-> index 0000000000000..7362e56e76a71
-> --- /dev/null
-> +++ b/Documentation/hwmon/d1u74t.rst
-[ ... ]
-> +in1_rated_min		Minimum rated input voltage
-> +in1_rated_max		Maximum rated input voltage
-> +
-> +in2_label		"vout1"
-> +in2_input		Measured input voltage
-
-This isn't a bug, but is there a copy-paste error in these descriptions?
-Should these be documented as 'output voltage' instead of 'input voltage',
-since the label is "vout1"?
-
-> +in2_crit		Critical input over voltage
-> +in2_crit_alarm		Critical input over voltage alarm
-> +in2_lcrit		Critical input under voltage fault
-> +in2_lcrit_alarm		Critical input under voltage fault alarm
-> +in2_max			Maximum input over voltage
-> +in2_max_alarm		Maximum input over voltage alarm
-> +in2_min			Minimum input under voltage warning
-> +in2_min_alarm		Minimum input under voltage warning alarm
-> +in2_rated_min		Minimum rated input voltage
-> +in2_rated_max		Maximum rated input voltage
-[ ... ]
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index b2040011a3865..28ca8e0353124 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -6803,6 +6803,13 @@ S:	Maintained
->  F:	Documentation/hwmon/crps.rst
->  F:	drivers/hwmon/pmbus/crps.c
-> =20
-> +MURATA D1U74T PSU DRIVER
-> +M:	Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> +L:	linux-hwmon@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/hwmon/d1u74t.rst
-> +F:	drivers/hwmon/pmbus/d1u74t.c
-> +
->  CRYPTO API
-
-This isn't a bug, but does this entry break the alphabetical ordering? It
-places an 'M' entry immediately before the 'C' section for CRYPTO API.
-
->  M:	Herbert Xu <herbert@gondor.apana.org.au>
-[ ... ]
-> diff --git a/drivers/hwmon/pmbus/d1u74t.c b/drivers/hwmon/pmbus/d1u74t.c
-> new file mode 100644
-> index 0000000000000..3127e0e5a23de
-> --- /dev/null
-> +++ b/drivers/hwmon/pmbus/d1u74t.c
-[ ... ]
-> +static int d1u74t_probe(struct i2c_client *client)
+> +struct clk *rsnd_devm_clk_get_indexed(struct device *dev,
+> +				      const char *base, int index)
 > +{
-> +	char buf[I2C_SMBUS_BLOCK_MAX + 2] =3D { 0 };
-> +	struct device *dev =3D &client->dev;
-> +	int rc;
-> +
-> +	rc =3D i2c_smbus_read_block_data(client, PMBUS_MFR_ID, buf);
-> +	if (rc < 0)
-> +		return dev_err_probe(dev, rc, "Failed to read PMBUS_MFR_ID\n");
-> +
-> +	if (rc !=3D 9 || strncmp(buf, "Murata-PS", 9)) {
-> +		buf[rc] =3D '\0';
-> +		dev_err(dev, "Unsupported Manufacturer ID '%s'\n", buf);
-> +		return -ENODEV;
-> +	}
-> +
-> +	rc =3D i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
-> +	if (rc < 0)
-> +		return dev_err_probe(dev, rc,
-> +				     "Failed to read PMBUS_MFR_MODEL\n");
-> +
-> +	if (strncmp(buf, "D1U74T-W", 8)) {
 
-Is there a missing check for the read length in rc here?
+> +	if (!IS_ERR(clk) || PTR_ERR(clk) != -ENOENT)
+> +		return clk;
 
-If a short read occurs, could strncmp() evaluate the newly read bytes
-combined with stale memory leftover from the previous PMBUS_MFR_ID read?
+The comment says ENODEV but the check is for ENOENT.
 
-> +		buf[rc] =3D '\0';
-> +		return dev_err_probe(dev, -ENODEV, "Model '%s' not supported\n",
-> +				     buf);
-> +	}
-> +
-> +	rc =3D pmbus_do_probe(client, &d1u74t_info);
-[ ... ]
+--IEounhn6QKZpmHUd
+Content-Type: application/pgp-signature; name="signature.asc"
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512-d1u74t-v2-=
-0-431d00fbb1c4@nexthop.ai?part=3D2
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmoFGygACgkQJNaLcl1U
+h9CFDwgAgdDku5RloK/HdWrFHsnV1dR88SSoIr1E6POJoM6yFlgiyFdDhli1tdd4
+9HhBCpZJJTeEIgYfblAI+SHDnC/kzKe+XY+WebBfK/uMAUBWA2eGxjr7gn1BTg+K
+XeeGy3L2iQ8cCM9fZoUvZg3IjEtIYkn7QB5+zp3o6B8zHIbsh8vAF3lMm9BQ68rz
+Vyj6yMkYspCTWxa1qQAYpsqGFPUCUgoX7wmvg3buulc3X/T8lIKnhR6iOo7qtDAN
+p1ZfI9oEjs3RUqcfblbuVCcg2yrqXgo+DrCowegrEB9NH0zaRP4ZBcRz+miaLrEP
+HvUI/KnBIZNqWWu+ofTg7Se5lk7CLQ==
+=lCDt
+-----END PGP SIGNATURE-----
+
+--IEounhn6QKZpmHUd--
