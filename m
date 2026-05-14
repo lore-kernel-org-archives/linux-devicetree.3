@@ -1,116 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEF593F4119
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 19:32:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FFD33A5E82
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 19:39:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778787139; cv=none; b=m7XerBpVNk3nMq2CDJXDG1fbF0jBGh5Q5ztj2+n7hZ0jtRkwc8OrETMxIViX3ezKA7BE7OTfdTEcbheFID1ae6y4Uej8VZuy+jHsIdmygTIRTtPIR0dB/Vlgtq7nyiN/W0NKYSOU1XOOTN03aNDOqZ0CiEPIE7k1qdSr6x74WVU=
+	t=1778787579; cv=none; b=kjy33sUGETg1Ml6YTNuV2oo5ik7wWPGRQwsrmOW2gdvTHga25wqynaJEAHmKEZ2VoyWUyDJjohaAORvPwqv6s8Ou3qiXqJJdwHJirKL4Y8OPzZi8t7fdggRckHkwPEwXp4ieW/dmYHg54kG8yymIqxW67R/PgPLm0NmBrhviuGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778787139; c=relaxed/simple;
-	bh=mVEUmPMLoFyUzt3w4/iA1+bNW5IFkgUmRzwvBTbLhtM=;
+	s=arc-20240116; t=1778787579; c=relaxed/simple;
+	bh=msSf4L6GiQrO/DKqO+RtEyg9I1CF0NW45IDKWijPB0E=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uIwITaEDMG/q/yhAKpPYfaMhZmxlbsHv/K+hz9fcusTnZ4XE5MOw+joIo/cNeD3bgPwraFg+PCC4XR76kytKWdbbREP3PaA+yX7Ida/zHBqxky062utv42jKeDeuTi4jNANi4us8zSq6KC3ejuiWgV/QuP74p1v4Zsx5w+I62aE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mlNhsTjD; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=C9tMzt3ed8TKUyLVVlzgZ29F+luqZn26Z+jiRoEZVxJEcmHhmvn+rw91WkAQEbRqxFdeJxU1vkXIkHMEr7XYdf+YF0MJqJ0BVXiNV7U8JwJWMoqlhmWXfTjamzUqoqwDGaO1svkKiz8o4X6XAk7oYBLU5Ng9k5vzr0rc79UDL5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ChX3TwhD; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mlNhsTjD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 219B6C2BCB3;
-	Thu, 14 May 2026 19:32:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ChX3TwhD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04706C2BCB3;
+	Thu, 14 May 2026 19:39:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778787139;
-	bh=mVEUmPMLoFyUzt3w4/iA1+bNW5IFkgUmRzwvBTbLhtM=;
+	s=k20201202; t=1778787579;
+	bh=msSf4L6GiQrO/DKqO+RtEyg9I1CF0NW45IDKWijPB0E=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=mlNhsTjDZTlzJ/hP6DTX9eYRbdtgnyPrnjpXLLgPfTceSAPiBB0e1E32ft7Ej+/Nh
-	 TjRz7t3dHQHS6Px/PkehWz14GktSg0IXKfeLXn5WlTt900XKC0HuJB7JB7HJfMvXWs
-	 elnhWKaAPJgx4GGITuyDDn0ur60UEipXTRu4FZeuiZiJW/CWM6/9OvQBS4s+60T6aS
-	 dMuxA3C/vBE34b6/1tM6DPik/nO+Lc6UR3PIKaU2Yrsrf+M9DRGLb+q1MSMHpwi58w
-	 5WrAARBuYasy5wdRYWdZFHOqXqSzFSDTDehmDdu6sIjNTIp0d7s3W1rmOMjtMjuvGv
-	 FGRLfI3hsL+pA==
+	b=ChX3TwhDfNIqMHwBtVQFZPOVq08iyinzpBOMtPIqVZycEkq9ppP8ADT3QqUr0Ti+t
+	 M+RhOtn888JvheSqrTfxUR+u4Hd2n2FhweKkB62jwrCas9yjXyAIOIHZZU/SpSuNwK
+	 uKYVWPPwG4OhfjxVWrjTnZk5CAVnKuAQJwiiumWHWm3dg4scRL8kTJGhfJXjk8V+wA
+	 QsdKFwkYUBO+kTTAAPWrGPrWUlJBH2uBHNpAG4qMPAzYQlDGd18/26uB6EAeSsL0iC
+	 OFkc6fbu6wnepiMuP830bYydD++nOkEDIEGSTFgmUq1TAfaHSYthN/y+iBCcoOb86o
+	 HVe4R8NZzpF9Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 4/6] reset: anlogic: add support for Anlogic DR1V90
- resets
+Subject: Re: [PATCH v2 2/7] iio: temperature: ltc2983: Use local device
+ pointer consistently
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Junhui Liu" <junhui.liu@pigmoral.tech>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260514-dr1v90-cru-v5-4-34f3021aab51@pigmoral.tech>
-References: <20260514-dr1v90-cru-v5-4-34f3021aab51@pigmoral.tech>
+To: "Liviu Stan" <liviu.stan@analog.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260514144712.64374-3-liviu.stan@analog.com>
+References: <20260514144712.64374-3-liviu.stan@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 19:32:18 +0000
-Message-Id: <20260514193219.219B6C2BCB3@smtp.kernel.org>
+Date: Thu, 14 May 2026 19:39:38 +0000
+Message-Id: <20260514193939.04706C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Implicit cast from generic address space `void *` to `void __iomem =
-*`.
-- [Low] Missing explicit inclusion of `<linux/module.h>`.
+- [Low] The newly added 'dev' variable in `__ltc2983_chan_assign_common` is=
+ declared but never used, leading to compiler warnings.
 --
 
-commit bd68e19d51efda3c5e694cc1c4ab7885341e64b4
-Author: Junhui Liu <junhui.liu@pigmoral.tech>
+commit cab83c99167bc9d0ae1294b92a3bded27d02aabf
+Author: Liviu Stan <liviu.stan@analog.com>
 
-reset: anlogic: add support for Anlogic DR1V90 resets
+iio: temperature: ltc2983: Use local device pointer consistently
 
-This commit adds reset controller support for the Anlogic DR1V90 SoC
-using an auxiliary device associated with the Clock and Reset Unit (CRU).
+This patch adds local dev pointers across various functions in the driver
+to replace bare references to st->spi->dev.
 
-> diff --git a/drivers/reset/reset-dr1v90.c b/drivers/reset/reset-dr1v90.c
-> new file mode 100644
-> index 0000000000000..daa99c797b1af
-> --- /dev/null
-> +++ b/drivers/reset/reset-dr1v90.c
-> @@ -0,0 +1,140 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2026 Junhui Liu <junhui.liu@pigmoral.tech>
-> + */
-> +
-> +#include <linux/auxiliary_bus.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/device.h>
-> +#include <linux/io.h>
-> +#include <linux/reset-controller.h>
-> +
-> +#include <dt-bindings/reset/anlogic,dr1v90-cru.h>
+> diff --git a/drivers/iio/temperature/ltc2983.c b/drivers/iio/temperature/=
+ltc2983.c
+> --- a/drivers/iio/temperature/ltc2983.c
+> +++ b/drivers/iio/temperature/ltc2983.c
+> @@ -351,6 +351,7 @@ static int __ltc2983_chan_assign_common(struct ltc298=
+3_data *st,
+>  					const struct ltc2983_sensor *sensor,
+>  					u32 chan_val)
+>  {
+> +	struct device *dev =3D &st->spi->dev;
+>  	u32 reg =3D LTC2983_CHAN_ASSIGN_ADDR(sensor->chan);
+> =20
+>  	chan_val |=3D LTC2983_CHAN_TYPE(sensor->type);
 
-This isn't a bug, but should linux/module.h be explicitly included here?
-The driver heavily utilizes macros like MODULE_AUTHOR, MODULE_DESCRIPTION,
-and module_auxiliary_driver, but seems to rely on implicit transitive inclu=
-sion
-from other headers to provide them.=20
+Does this leave the newly added dev variable entirely unused?
 
-[ ... ]
+It looks like the dev_dbg() call immediately following this still uses
+&st->spi->dev instead of the local dev pointer.
 
-> +static int dr1v90_reset_probe(struct auxiliary_device *adev,
-> +			      const struct auxiliary_device_id *id)
-> +{
-> +	struct dr1v90_reset_controller *rstc;
-> +	struct device *dev =3D &adev->dev;
-> +
-> +	rstc =3D devm_kzalloc(dev, sizeof(*rstc), GFP_KERNEL);
-> +	if (!rstc)
-> +		return -ENOMEM;
-> +
-> +	spin_lock_init(&rstc->lock);
-> +
-> +	rstc->base =3D dev->platform_data;
+This will cause an unused-variable compiler warning, which breaks builds
+configured with W=3D1 or -Werror and can harm bisectability.
 
-Will this assignment trigger a Sparse warning? It looks like we are implici=
-tly
-casting a generic void pointer from dev->platform_data into the void __iomem
-pointer at rstc->base.=20
-
-Would an explicit cast using (__force void __iomem *) be appropriate here
-to prevent mixing address spaces?
-
-> +	rstc->rcdev.dev =3D dev;
-> +	rstc->rcdev.nr_resets =3D ARRAY_SIZE(dr1v90_resets);
+While this oversight is fixed later in the patch series in commit
+7aff450fb9c7b5749766cff8040dd8d12bc74f0c, each patch must compile
+cleanly and independently.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514-dr1v90-cru=
--v5-0-34f3021aab51@pigmoral.tech?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514144712.6437=
+4-1-liviu.stan@analog.com?part=3D2
