@@ -1,249 +1,210 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A02B38736B
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 11:41:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [4.193.249.245])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A87353C2777;
+	Thu, 14 May 2026 11:42:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=4.193.249.245
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778758914; cv=none; b=pQ4qzWAjQkot5Yj3aodr8BnWDmnM8RnaAV9EAEtV0RvssCR9yJEsiKEbejlzK0cJH6QKOuhTIBnaJf4JjwUIbTYB7J1Z6YWhuc8HK7x3GJssU2DdAazmGsRW/kPJu1hJs35cr28/W08neaaRrTbPoDtND8Ed+bQcW2hDEdpLm14=
+	t=1778758961; cv=none; b=ZF+HAzk2uqhvGaDeoxJ1W0kC4VBt/b8oq5aQppONq5s1FcwD0zx/4Au90l8uxL0uTLgVDk9OCwmjwiATo50seFj7YzxF/EoiQ4sz8+BGJdSNJ44PdSPZKj9/Q2WeoYaXity/nIWXiMRfz+u3Ar3cQIBTXb4Ei0NbD6jHttyLH9w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778758914; c=relaxed/simple;
-	bh=ZBNju30QtNx5PO3WA9oP+jix/lPYme6w15d21uQ73ZA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a3VfWToq/sGS+/yQAnXF3+MyGjTy4P/fuUII950YD7is58cwAnNtM7kJctU2kIa1GxgOA6X3jBHVohus0AFX+aLJ8b6MhaD5KinbY58yJTCodIuMnUVceKiEDJQ5oNH3XB9teW40iDID/3Mq25IaePusLfC/mJfTQf30TxodwLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ejb/PgHL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LdQQwjTB; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ejb/PgHL";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LdQQwjTB"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64EBeWlo889438
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 11:41:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	XN/svW0Jt+ncyOKlvvxZnVvpxXsVA9QC86tQ/FOEaIY=; b=Ejb/PgHL4Hh2Pyf1
-	vLHN+/6ozUtuCdEpQMd9u4UOr8Kh5EHOCzn0MwqcUrMfF1KY1DfwLwQhvf0fOBmN
-	K6qz1qRJQW/7HIfhRTqWXWJ5l5gxw6liZbpJ++KhhNssFQtj5lRz4rVOc65s67+U
-	0NaDXs6dqMDYKSqJv2uUmMm4mbhbzHh7B2GIt/o7xyfoYxvUrnnaSkqy8TebPwrr
-	NRFFRA/QI8az8+s+YIP1egAr53LTgGu1zaUkg8O8OEUUIQmq3qPBbsvqhUO6gMAa
-	viClD+QsJeoZkuQrhA3ljtP3LhvZU/FSFnNWYUFgjq4kldA2KaspJpb4bn+/taxc
-	b6ubig==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4vkjknye-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 11:41:51 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2b4678c6171so84030895ad.1
-        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 04:41:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778758910; x=1779363710; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=XN/svW0Jt+ncyOKlvvxZnVvpxXsVA9QC86tQ/FOEaIY=;
-        b=LdQQwjTBY99PS7PRR2fzAT6vDV1NnXzljcDZBccZWK4qkRX4JqkmmQuWsJLIcpeN2G
-         OR+hRXxkaRYJaWCIe7sj3bu1wfO1zqlMKFtaAVAmoGoX7plXDHCbNk/sXrgV6fhF6OYc
-         YnFKh/jB0sax1hjV/1Q2xv9b1UflGWwISb5iYOnt+AuytEGU9wRjAawp6sS4Ku8yG+kj
-         OFLAMuXeIwIfTWQzS7gwzfEC/Mb1ObYfvq1zgaerppW95nDpeysF4AT8hLRfDxKrirEv
-         iU9QOMHWrMoiHws4O5HR/01z3qtT0dqjgJ2K5BrWxuqG3J8Hkw33gqDbOKbbqp1j3s9o
-         T2fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778758910; x=1779363710;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=XN/svW0Jt+ncyOKlvvxZnVvpxXsVA9QC86tQ/FOEaIY=;
-        b=b3WpXYN3Cg3VfFhi1UAx/9F3dFyma5CIyMGmj8t190hUgyjO2ysMi28mhadsBR0v9R
-         PRsbtmU1a1Rz/SHvYDE/6HlFmOrFIq0jUuDsGRXov61kOoROdN9GTEqzpigTJDjnPvCL
-         jrTonRjq8FxpaUIMt5ySF93wJce62Mn6nvNajUDR6WbBwW7ufgwsVMsQ1R3MkcGafu5F
-         7lI2xwimK/6rWOzn0wfIwPWbRvUNMq4kyYnrGE9s/5bJf6bLYebKVqLhv1onqLFrksxP
-         fSemw9T5oLLDcJBE3WQgp0GSOhGVj9MU14EF2DTQC/cw9rnslvJew01PZ4wkNdPSFXVu
-         A8Dg==
-X-Forwarded-Encrypted: i=1; AFNElJ9Dk67Cd0O3vGsAWm0zlbAUl1wmILSnrG66bNVxZfbcTbm4bY4+fF4tHtre/XWt5cA1peX77Tnb+5c0@vger.kernel.org
-X-Gm-Message-State: AOJu0YxTPNx2zK9fXSVAyq91QLH8BO/8itEEMzTWN3n7qZ7xtcP924Gt
-	F5Kv1MuCYODY7cnqL81Axb1BpZIyz3OFaDtxDOcbwTPpNbVe6xH/BAMMlwOcquPlQVRiVI338WM
-	J91GCTOMOpyYio5O5Lx2VbLY3eWMKjdphfFpNI1OIgHPTrnScIm3+UWeil/wOvU8R
-X-Gm-Gg: Acq92OF14Uq19Ly71nBQiPcxSBB8Jz0nUK+e9JBsv942DRB+wpY2YoAlWjqOAz8A9PR
-	O+DJHSA7Xt734UqLVsNbD0VtbDst5DIIXRtDpnPbxPBXtI75mL/9+VxGRgq8jXr4Iwo288sQFgC
-	gmtIb0msFITMm0hcngIKB484oG0TNFC7lhTForqY8O3m0q50i/HTZBpWJizIDHHhL0gXk+T3mV9
-	iPuj7+yGP+jyu/PjoQifgdssOYVr2xeyA5itXL8MvKF/H9DddMG2bSBxblghC6WTkV/BT81QXXj
-	U6nueEXYTM35646Ko8GeMbN281kMzlkNzv0PEeQsfJdCSui/+2N6T+u0zEUA72zDjBJZzRvf7ij
-	hd4V+pLQw3x3XE0AReyuJNXRhEMNpZhgZaMBUdD9nws+PjDzYllugsggOJaX9RJZZEN1YJ21doI
-	eM+tSdTmSjYI7NExcky1GCSOe/TJfkIHfUp1ZKrAY=
-X-Received: by 2002:a17:902:f54f:b0:2bd:7ca:e67d with SMTP id d9443c01a7336-2bd276dfda1mr85598285ad.29.1778758910275;
-        Thu, 14 May 2026 04:41:50 -0700 (PDT)
-X-Received: by 2002:a17:902:f54f:b0:2bd:7ca:e67d with SMTP id d9443c01a7336-2bd276dfda1mr85597715ad.29.1778758909638;
-        Thu, 14 May 2026 04:41:49 -0700 (PDT)
-Received: from [10.190.200.238] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bd5d0fd384sm24879805ad.65.2026.05.14.04.41.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 14 May 2026 04:41:49 -0700 (PDT)
-Message-ID: <5494a379-1e49-4551-a5f0-50d0bd7cd7d0@oss.qualcomm.com>
-Date: Thu, 14 May 2026 17:11:41 +0530
+	s=arc-20240116; t=1778758961; c=relaxed/simple;
+	bh=c0kiBuXo4beplbsk385mLrgpBWZTZ9MZsCAq10ciP0Q=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=X2u/3PIbr1+XpvsKd2FwOibZZhdVKs+M3pWLrI2V+FPRVgeg/ZzILGBwkSw44CDV/zsrZZkQ8xq8o2jk9V3SesjuL2d0mMdmOUXniUj7OdVv2KgArKNvVe6AljOtWncurWWWct+FqkrDhZNS3X3aRsTWI/R40IrK8q0q1VcAw00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=4.193.249.245
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from E0005152DT.eswin.cn (unknown [10.12.96.41])
+	by app2 (Coremail) with SMTP id TQJkCgAXLaAWtQVqqGsZAA--.40723S2;
+	Thu, 14 May 2026 19:42:15 +0800 (CST)
+From: dongxuyang@eswincomputing.com
+To: mturquette@baylibre.com,
+	sboyd@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	p.zabel@pengutronix.de,
+	huangyifeng@eswincomputing.com,
+	dongxuyang@eswincomputing.com,
+	benoit.monin@bootlin.com,
+	bmasney@redhat.com
+Cc: ningyu@eswincomputing.com,
+	linmin@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com
+Subject: [PATCH v5 0/3] Add driver support for ESWIN EIC7700 HSP clock and reset generator
+Date: Thu, 14 May 2026 19:42:12 +0800
+Message-Id: <20260514114212.903-1-dongxuyang@eswincomputing.com>
+X-Mailer: git-send-email 2.31.1.windows.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC V6 0/8] arm_scmi: vendors: Qualcomm Generic Vendor
- Extensions
-To: Lukasz Luba <lukasz.luba@arm.com>
-Cc: linux-arm-msm@vger.kernel.org, andersson@kernel.org,
-        sudeep.holla@kernel.org, konradybcio@kernel.org,
-        myungjoo.ham@samsung.com, kyungmin.park@samsung.com,
-        cw00.choi@samsung.com, cristian.marussi@arm.com,
-        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, arm-scmi@vger.kernel.org,
-        linux-tegra@vger.kernel.org, linux-pm@vger.kernel.org,
-        dmitry.baryshkov@oss.qualcomm.com, jonathanh@nvidia.com,
-        thierry.reding@kernel.org, digetx@gmail.com, conor+dt@kernel.org,
-        krzk+dt@kernel.org, robh@kernel.org
-References: <20260507062237.78051-1-sibi.sankar@oss.qualcomm.com>
- <436ce846-bd9e-45bb-bdc2-d2a0fd00dc25@arm.com>
-Content-Language: en-US
-From: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-In-Reply-To: <436ce846-bd9e-45bb-bdc2-d2a0fd00dc25@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: diYWyLQb2_N6DsINNvE5gVHgoM9zXTJ_
-X-Proofpoint-ORIG-GUID: diYWyLQb2_N6DsINNvE5gVHgoM9zXTJ_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE0MDExNiBTYWx0ZWRfX6YC/zeJU/Nca
- Q9vT0FNyl2MPjl70LY21eqbmH8vKGCUqk+NPgponuuCh0pz6yP9LVQuoHe+G86XwLyp9JyfCfd2
- QRRdZAZqhxM0phLWFKjDYlNhMqNuLWkApTfU500x0n88vWfMGU7ZHU+1REV8AayvzfnSVDlQrW9
- mxWwovMWEOwHHQ4tRH0EWd7Ud++AUyHx9xylY/R57gHUROKmFra5KRWt5dBl969fpm0oIvJBlEw
- C5EpXJ7xQdFQRHC0RuuTNpBkzdp7t5MhhgSC332MAS+XjFN2xb/F0SDfK0igyWrFIYRKBHJR/Yc
- Ii9GzV1U01Ekf7EjPKmHANs3bg5nG5+3ptpzmVHJL6URnob77BsOBVX2KHwD238UxupwQyL4p4u
- wPuGN94Wykp2IhxQ/JryKzjSL1j2oz9wrvEEs+Vgol5iDMol8KE3DuA0ZXHyodgWbhBExUPyLMu
- UKSud3d4YSdOwgkadaQ==
-X-Authority-Analysis: v=2.4 cv=PbDPQChd c=1 sm=1 tr=0 ts=6a05b4ff cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=2dUMNUc8cBhmsmHMSX8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-14_02,2026-05-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 suspectscore=0 lowpriorityscore=0
- priorityscore=1501 bulkscore=0 phishscore=0 malwarescore=0 spamscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605050000
- definitions=main-2605140116
+X-CM-TRANSID:TQJkCgAXLaAWtQVqqGsZAA--.40723S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxKw17Zr1UtF17Cr1fWry5twb_yoWxCryrpF
+	WxGF95Kr1DArWxurs7ta4I9FyfJa1xJFy5Cws7Ja47Zws0yryUJr40ka45AFWDZw1fXrWU
+	J3W7ta409FWjyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBS14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+	n2IY04v7M4kE6xkIj40Ew7xC0wCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE-syl42xK82
+	IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC2
+	0s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMI
+	IF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF
+	0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87
+	Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUO73vUUUUU
+X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/
 
+From: Xuyang Dong <dongxuyang@eswincomputing.com>
 
-On 5/13/2026 10:30 PM, Lukasz Luba wrote:
->
->
-> On 5/7/26 07:22, Sibi Sankar wrote:
->> The QCOM SCMI vendor protocol provides a generic way of exposing a 
->> number of
->> Qualcomm SoC specific features (like memory bus scaling) through a 
->> mixture of
->> pre-determined algorithm strings and param_id pairs hosted on the SCMI
->> controller. On Qualcomm Glymur and Hamoa SoCs, the memlat governor 
->> and the
->> mechanism to control the various caches and ram is hosted on the CPU 
->> Control
->> Processor (CPUCP) and the method to tweak and start the governor is 
->> exposed
->> through the QCOM SCMI Generic Extension Protocol.
->>
->> This series introduces the devfreq scmi client driver that uses the 
->> memlat
->> algorithm string hosted on QCOM SCMI Generic Extension Protocol to 
->> detect
->> memory latency workloads and control frequency/level of the various 
->> memory
->> buses (DDR/LLCC/DDR_QOS). The DDR/LLCC/DDR_QOS are modelled as devfreq
->> devices, with the governor set to remote devfreq governor. This 
->> serves as
->> a way to get a basic insight into the device operation through 
->> trans_stat
->> and provides for ways to further tweak the parameters of the remote
->> governor.
->>
->> Transtat data for DDR/LLCC/DDR_QOS is now available in this series:
->>
->> #cat llcc/trans_stat
->>> From  :   To
->> 315000000 479000000 545000000 725000000 840000000 
->> 95900000010900000001211000000   time(ms)
->> 315000000:         0         3         6         6 6         
->> 7         0        30    143956
->> 479000000:         2         0         7         1 1         
->> 1         0         3       356
->> 545000000:         7         6         0         5 5         
->> 0         0        10      1200
->> 725000000:         3         0         5         0 6         
->> 1         0         6      2172
->> 840000000:         8         2         3         2 0         
->> 4         0        12      1188
->> 959000000:         3         0         1         2 2         
->> 0         0        13       272
->> 1090000000:         0         0         0         0 0         
->> 0         0         0         0
->> 1211000000:        35         4        11         5 11         
->> 8         0         0     21684
->> Total transition : 253
->>
->> QCOM SCMI Generic Vendor protocol background:
->> It was found that a lot of the vendor protocol used internally was
->> for debug/internal development purposes that would either be super
->> SoC specific or had to be disabled because of some features being
->> fused out during production. This lead to a large number of vendor
->> protocol numbers being quickly consumed and were never released
->> either. Using a generic vendor protocol with functionality abstracted
->> behind algorithm strings gave us the flexibility of allowing such
->> functionality exist during initial development/debugging while
->> still being able to expose functionality like memlat once they have
->> matured enough. The param-ids are certainly expected to act as ABI
->> for algorithms strings like MEMLAT.
->>
->> Thanks in advance for taking time to review the series.
->>
->
+Add support for the ESWIN EIC7700 HSP (high-speed peripherals). The drivers
+provide basic functionality to manage and control the clock and reset
+signals for EIC7700 HSP, including mmc, USB, ethernet, SATA and DMAC.
 
-Hey Lukasz,
+The clock and reset registers are mapped to overlapping I/O address ranges.
+This causes a resource conflict when two drivers attempt to request the
+same region. Use the auxiliary device framework: the main driver
+allocates the shared register region and passes it to auxiliary
+devices, avoiding resource contention and duplicate remapping.
 
-Thanks for taking time to review the series!
+Features:
+Implements support for the ESWIN EIC7700 HSP clock and reset controller.
+Provide API to manage clock and reset signals for the EIC7700 HSP.
 
-> Based on this description I have a few questions:
-> 1. Why we don't use SCMI notifications for this purpose?
+Supported chips:
+ESWIN EIC7700 series SoC.
 
+Test:
+Test this patch on the Sifive HiFive Premier P550 (which used the EIC7700
+SoC), include USB and other peripherals. All the drivers of these modules
+use the clock module and reset module.
 
-This is an attempt to retrofit firmware, that is already out in the wild 
-running
-on X1E laptops and Glymur which continues to use the same firmware, into
-generic linux frameworks, so that it provides some useful information to 
-user
-rather than it being a complete black box. We already have a ton of firmware
-changes suggested by Sudeep/Cristian that will be taken into account for the
-next generation of SoCs, will make sure this is accounted for as well :)
+Updates:
+  Changes in v5:
+  - Clock driver:
+    - Add error checking for the return value of regmap_read to handle register 
+      access failures.
+    - Add "Reviewed-by: Brian Masney <bmasney@redhat.com>".
 
-> 2. Is it safe to assume that there was no extra frequency change
->    during that polling sampling period?
+  - Link to v4: https://lore.kernel.org/all/20260512020432.671-1-dongxuyang@eswincomputing.com/
 
-Yup, there is expected to be at most one transition of DDR/LLCC/DDR-QOS
-per polling cycle.
+  Changes in v4:
+  - Clock driver:
+    - Remove "Reviewed-by: Benoît Monin <benoit.monin@bootlin.com>" and
+      "Reviewed-by: Brian Masney <bmasney@redhat.com>", because the clock
+      driver has been updated.
+    - Remove inclusion of io.h.
+    - Add struct regmap to eic7700_hsp_clk_gate.
+      Replace 'void __iomem *reg' with 'unsigned int reg'.
+      Replace 'void __iomem *ref_reg' with 'unsigned int ref_reg'.
+      Replace long with int for 'offset' and 'ref_offset'.
+      Remove 'spinlock_t *lock'.
+      Apply the same changes to hsp_clk_register_gate().
+    - Remove the structure eic7700_hsp_regmap_lock, and the functions
+      eic7700_hsp_regmap_lock() and eic7700_hsp_regmap_unlock().
+    - Remove the 'guard(spinlock_irqsave)(gate->lock)' in
+      hsp_clk_gate_endisable().
+    - Replace readl() and writel() with regmap_assign_bits() in
+      hsp_clk_gate_endisable().
+    - Change the parameter enable from int to bool.
+    - Replace readl() with regmap_read() in hsp_clk_gate_is_enabled().
+    - Remove the lock_ctx variable.
+    - Move eic7700_hsp_regmap_config from inside the probe function to global
+      scope.
+      Remove '.lock', '.unlock' and 'lock_arg'.
+      Add '.fast_io = true' and '.use_raw_spinlock = true'.
+  - Reset driver:
+    - Add "Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>" for reset.
+    - Drop the temporary variable, just return regmap_assign_bits(...) directly.
+    - Replace -EINVAL with -ENODEV for dev_get_regmap() check.
+    - Drop the '_dt'.
 
-> 3. Shouldn't we sample 2x faster than the changes that we try to
->    observe?
+  - Link to v3: https://lore.kernel.org/all/20260423090904.2108-1-dongxuyang@eswincomputing.com/
 
-Yup, that makes sense. Will fix this in the next re-spin.
+  Changes in v3:
+  - Bindings:
+    - Added "Acked-by: Conor Dooley <conor.dooley@microchip.com>" for bindings.
+  - Clock driver:
+    - Remove 'gate_flags'.
+    - Add __acquires for eic7700_hsp_regmap_lock() and add __releases for
+      eic7700_hsp_regmap_unlock().
+    - Move writel(USB_REF_XTAL24M, gate->ref_reg) into enable. Because this
+      is only used for USB gate clock on the enable path. And modify the
+      comments.
+    - Simplify to: 'return !!(readl(gate->reg) & BIT(gate->bit_idx));'.
+    - Drop const from eic7700_hsp_regmap_config.
+    - Declare eic7700_hsp_regmap_config as a regular variable at the top.
 
-> 4. IIRC there was some extension in the SCMI protocol for performance
->    domains which allows to expose the stats like the one above but in
->    the shared memory. Why we couldn't use this? It would be more robust.
+  - Link to v2: https://lore.kernel.org/all/20260420093929.1895-1-dongxuyang@eswincomputing.com/
 
-Same answer as the first point, since the current firmware provides to no
-such provisions :(
+  Changes in v2:
+  - Bindings:
+    - Remove "hsp_" from clock-names.
+    - Replace "eswin,eic7700-clock.yaml" and "eswin,eic7700-hspcrg.yaml" with
+      "eswin,eic7700*".
+    - Replace "eswin,eic7700-clock.h" and "eswin,eic7700-hspcrg.h" with
+      "eswin,eic7700*".
+  - Clock driver:
+    - Use guard(spinlock_irqsave)(gate->lock) instead of spin_lock_irqsave()
+      and remove spin_unlock_irqrestore().
+    - Remove the newline in function hsp_clk_gate_is_enabled().
+    - Use struct clk_init_data init = {}.
+    - Replace 'static struct clk_parent_data' with
+      'static const struct clk_parent_data'.
+    - Change '.fw_name' to '.index', because the function
+      eswin_clk_register_fixed_factor() uses .index.
+    - The structures of clocks should use static struct. When registering a clock,
+      the 'hw' field in the structure will be assigned.
+    - Remove __force.
+    - Create the regmap in the clock driver and remove (__force void*)data->base.
+      The reset driver uses dev_get_regmap() to get the regmap from the clock.
+    - Move 'const struct regmap_config eic7700_hsp_regmap_config' from reset
+      driver to clock driver.
+    - The USB clock gate (hsp_clk_gate_endisable) and the reset driver both
+      perform read-modify-write cycles on registers 0x800 and 0x900. Use
+      custom regmap lock callbacks so that regmap operations hold data->lock
+      with IRQs disabled, the same lock the clock gate path uses, preventing
+      concurrent RMW races on those shared registers.
+    - Change to 'ret = eswin_clk_register_fixed_factor(dev, eic7700_hsp_factor_clks,'.
+      The next line will be over 80 characters and under 100 characters.
+  - Reset driver:
+    - Remove 'depends on COMMON_CLK_EIC7700_HSP' and 'default COMMON_CLK_EIC7700_HSP'.
+    - Use regmap_assign_bits() in assert and deassert functions.
+    - Remove eic7700_hsp_reset_reset().
+    - The clock driver creates the regmap, and the reset driver uses dev_get_regmap().
+    - Remove of_reset_n_cells.
 
--Sibi
+  - Link to v1: https://lore.kernel.org/all/20260403093459.612-1-dongxuyang@eswincomputing.com/
 
+Xuyang Dong (3):
+  dt-bindings: clock: Add ESWIN eic7700 HSP clock and reset generator
+  clk: eswin: Add eic7700 HSP clock driver
+  reset: eswin: Add eic7700 HSP reset driver
 
+ .../bindings/clock/eswin,eic7700-hspcrg.yaml  |  63 ++++
+ MAINTAINERS                                   |   5 +-
+ drivers/clk/eswin/Kconfig                     |  12 +
+ drivers/clk/eswin/Makefile                    |   1 +
+ drivers/clk/eswin/clk-eic7700-hsp.c           | 341 ++++++++++++++++++
+ drivers/reset/Kconfig                         |  11 +
+ drivers/reset/Makefile                        |   1 +
+ drivers/reset/reset-eic7700-hsp.c             | 112 ++++++
+ .../dt-bindings/clock/eswin,eic7700-hspcrg.h  |  33 ++
+ .../dt-bindings/reset/eswin,eic7700-hspcrg.h  |  21 ++
+ 10 files changed, 598 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/clock/eswin,eic7700-hspcrg.yaml
+ create mode 100644 drivers/clk/eswin/clk-eic7700-hsp.c
+ create mode 100644 drivers/reset/reset-eic7700-hsp.c
+ create mode 100644 include/dt-bindings/clock/eswin,eic7700-hspcrg.h
+ create mode 100644 include/dt-bindings/reset/eswin,eic7700-hspcrg.h
+
+--
+2.34.1
 
