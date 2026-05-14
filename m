@@ -1,81 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E34633E0244;
-	Thu, 14 May 2026 13:17:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B253E0745;
+	Thu, 14 May 2026 13:17:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778764650; cv=none; b=DFeIKbn8Qjl+jpgGNQc6xu1aL19cK4Q0TycsIzFkY8e7wEjeCeLJUFl+kennf1cKAF1tmeCPXiqqiTWw00Ec/vam5zZpx/WDcWwDJrS7Urrz9qnn01X9mgIDABDAioojdotqLeoW2UDhatMy9eNsiSbKmwsbny/elKsTsYSjx/w=
+	t=1778764651; cv=none; b=W+J1NIxXgbUMpCs4JjjXq+j0Zsdv633ieIrCXY3TAAIb8NwaCep7dCcKSRT0LHamSF2w8oJxJ/ETWZyZSqIbiEhEKlKGCBSjOzG3EJs0kbaiJ1h7bePMj0iWO6ELd2abXCLqvX2GIC7s7ya6XvTZng70VUvF2b/VAg4c5h9c1Ec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778764650; c=relaxed/simple;
-	bh=EkWIIli560mWz0bwtZZxmS2TApAQiMmid+nZBy603YE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fl/p8OsTNN4/DAsTs2d0KRWuMJw9Ltp/e6J/Gm2wbiGJlnfHh67jg3sJIj1d7rBuy++d72V9j96BFYcND3BP4A+Lk+7UFWyaKKQQsqg3E/QUMrrmIUvBl3vDisuCWhIG1FH29G8c78NugUXxQFaJx27e9a0FZQPalsk0jo2eFTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IRUV3B+7; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778764651; c=relaxed/simple;
+	bh=GK+pcqSgFJkVn54Slq5nyvwaQWsp/qlPoexNRpOCAOg=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=daPPjfLXL1KEEklUAbA/TyVatQi4Y0SP6E/u2UYmGDVSVZj5MUDzGfORsB3S7mljHNXpt3GUhYvu44xI8jghj1qQznB9qn+k4zYgi3f/RTXwUnAQ4A8B1FAI3bN6QebzEBnCC4AMbqT5VGdYpy7AsJwz8PFfUX+fKzgjfseQNVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bun2uiHX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IRUV3B+7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA9FEC2BCB3;
-	Thu, 14 May 2026 13:17:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bun2uiHX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0BEEC2BCB8;
+	Thu, 14 May 2026 13:17:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778764649;
-	bh=EkWIIli560mWz0bwtZZxmS2TApAQiMmid+nZBy603YE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=IRUV3B+7as52K+cnLx7gV8r0u1CdwW1TjoxvlxU3NeFSHLpPUH499tebrwYkofsy1
-	 783Kp4tvFwXHBbxaZFJK6Rrn8gVFZu7eHmA5QZ2L0ff0VV0NjOn+T6YKAcMw4GmwYW
-	 +Btz/Fi3CerlboOh9usTPjzlVXi0yrsYGEt9gdTUEFo+VY6/IU8lPoPt6OXWYaBiTY
-	 1vf22ZahgzMUNh9Pkgm6+zd32FWTgbnlM2FkJ85VC6edQAI3rD/jzq9+sEdtXkT7TC
-	 Uc0gq9LaVSGUCxcCHz+VHy0MYgM7ZnMDbp7oqUGZ9LYNwQ/aucZwwSSVMP1DtH6eF6
-	 wGSLJVkxXKr5A==
-From: William Breathitt Gray <wbg@kernel.org>
-To: Wadim Mueller <wafgo01@gmail.com>
-Cc: William Breathitt Gray <wbg@kernel.org>,
-	linusw@kernel.org,
-	brgl@kernel.org,
-	conor+dt@kernel.org,
-	krzk+dt@kernel.org,
-	robh@kernel.org,
-	conor.dooley@microchip.com,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/3] counter: add GPIO-based quadrature encoder driver
-Date: Thu, 14 May 2026 22:17:21 +0900
-Message-ID: <20260514131722.236394-1-wbg@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <4mklwzoe3g24rse57hcrztmq3u7lmr3czxs6jha4ltkys57o5z@rlrxjfjbpkeh>
-References: <4mklwzoe3g24rse57hcrztmq3u7lmr3czxs6jha4ltkys57o5z@rlrxjfjbpkeh>
+	s=k20201202; t=1778764651;
+	bh=GK+pcqSgFJkVn54Slq5nyvwaQWsp/qlPoexNRpOCAOg=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+	b=Bun2uiHXReT3cQ7hmE4On5Pj6AgD0axSugnB/1bEulhqpU5DEnwxUymmAQhqfOUg0
+	 HDxAQoAESbU47r3YR4F8pw2rXCslvM5mRFN08hqvseanirCI2kGd+AA8Io2gK2xFBb
+	 CXNLYIvS4uz7O7djvZTWnIGWoDdhjdboQcXZ/1Q4zSgbc7WLlqKL8nMHkQxQviw+M1
+	 1qoDxpTl0iEaYnFKa03UR1tOUvBQ+Ft0RB5pZ4x9wKZ/KeZ4h+g3h3MLuG/9WOkwip
+	 vdHvfZfBplaL035BR64XA3tRkkmhiihxo22Nh+pMaLRS9O7hUfIMsxythdg09VZo+z
+	 mHQR4hblNjFOg==
+Date: Thu, 14 May 2026 08:17:29 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1260; i=wbg@kernel.org; h=from:subject; bh=EkWIIli560mWz0bwtZZxmS2TApAQiMmid+nZBy603YE=; b=owGbwMvMwCW21SPs1D4hZW3G02pJDFmsp72O3szxNV7SoV+w+rO2+xz9hPzfMlxtLzf29B5Lf Oqiely/o5SFQYyLQVZMkaXX/OzdB5dUNX68mL8NZg4rE8gQBi5OAZjIikMMfzgnzf+gP7Ns3eqH G6XP9XFPknM9IOXbMW/lqQrp4yzcvz0ZGfb8NJH0jd1w0uTQ0RyOF8tr6/7mKEn9O5AouT97sg+ zMDsA
-X-Developer-Key: i=wbg@kernel.org; a=openpgp; fpr=8D37CDDDE0D22528F8E89FB6B54856CABE12232B
-Content-Transfer-Encoding: 8bit
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Emil Renner Berthing <kernel@esmil.dk>, linux-gpio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ Bartosz Golaszewski <brgl@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+In-Reply-To: <20260514111218.94519-13-changhuang.liang@starfivetech.com>
+References: <20260514111218.94519-1-changhuang.liang@starfivetech.com>
+ <20260514111218.94519-13-changhuang.liang@starfivetech.com>
+Message-Id: <177876463989.125858.724905267935459432.robh@kernel.org>
+Subject: Re: [PATCH v2 12/22] dt-bindings: pinctrl: Add
+ starfive,jhb100-per0-pinctrl
 
-On Wed, May 06, 2026 at 08:50:33AM +0200, Wadim Mueller wrote:
-> What i would like to know
-> -------------------------
-> My reading of the numbers is that on this kind of SoC a kernel side
-> edge counter is the only way to get correct counts at industrial
-> encoder rates without burning a whole core on a userspace listener,
-> and that the proposed driver does exactly fit this role. But like i
-> said, this is your subsystem and your call. So concretely:
+
+On Thu, 14 May 2026 04:12:08 -0700, Changhuang Liang wrote:
+> Add pinctrl bindings for StarFive JHB100 SoC Peripheral-0(per0) pinctrl
+> controller.
 > 
->   - if you would like me to send a v4 (with whatever changes from
->     this round you want me to fold in) i am happy to do that;
->   - if you would rather not take the driver at all, please tell me
->     so and i will drop the series. I would just like to know either
->     way, so i can stop sitting on the branch.
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> ---
+>  .../pinctrl/starfive,jhb100-per0-pinctrl.yaml | 176 ++++++++++++++++++
+>  .../pinctrl/starfive,jhb100-pinctrl.h         |  62 ++++++
+>  2 files changed, 238 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/pinctrl/starfive,jhb100-per0-pinctrl.yaml
 > 
-> Thanks for taking the time to look at it.
 
-Thank you for the throughout analysis of the different GPIO counter
-approaches. Your arguments make sense so I can see the merit of having
-a GPIO kernel driver to achieve this. I'm going to complete a full
-review in the next day or so, after which you can submit a v4 addressing
-whatever comes up, and we can hopefully get this merged in to the
-Counter subsystem when it's all ready.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-William Breathitt Gray
+yamllint warnings/errors:
+./Documentation/devicetree/bindings/pinctrl/starfive,jhb100-sys2-pinctrl.yaml:135:14: [warning] wrong indentation: expected 12 but found 13 (indentation)
+./Documentation/devicetree/bindings/pinctrl/starfive,jhb100-sys1-pinctrl.yaml:136:14: [warning] wrong indentation: expected 12 but found 13 (indentation)
+./Documentation/devicetree/bindings/pinctrl/starfive,jhb100-per0-pinctrl.yaml:136:14: [warning] wrong indentation: expected 12 but found 13 (indentation)
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pinctrl/starfive,jhb100-per0-pinctrl.example.dtb: pinctrl@11a0a000 (starfive,jhb100-per0-pinctrl): gpio-ranges:2: [32, 28] is too short
+	from schema $id: http://devicetree.org/schemas/gpio/gpio.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pinctrl/starfive,jhb100-sys1-pinctrl.example.dtb: pinctrl@13081000 (starfive,jhb100-sys1-pinctrl): gpio-ranges:1: [8] is too short
+	from schema $id: http://devicetree.org/schemas/gpio/gpio.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pinctrl/starfive,jhb100-sys2-pinctrl.example.dtb: pinctrl@13082000 (starfive,jhb100-sys2-pinctrl): gpio-ranges:2: [32, 5] is too short
+	from schema $id: http://devicetree.org/schemas/gpio/gpio.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260514111218.94519-13-changhuang.liang@starfivetech.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
