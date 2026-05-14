@@ -1,125 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41970319847
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 02:13:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E0422C15B0
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 02:20:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778724784; cv=none; b=pWAOcAQgfr90P/8Gg9W432n6ktzp7Pw3LAuQ9A/uHKvccHhBEyoPR4xKdAFzBooq7df6S58pJNJ7Rthco6HXU7zz03HO0bIftCSx2cbTDjTZwwgQWcu/681IlLTHmq6CWF2M/2PoeLhZ4Y4w4b1Y1gVzh3P2lrKOnJ76+0Xq8MU=
+	t=1778725205; cv=none; b=pC/exn1nG3XQZPZKA59vRCeaFWOMXiY/nRnP1HwOGUMKrtIDf7xgoXraa0IdW5vp8E/D1eYYGcA3niXXgp74Z+Pg/jRKWnsJLYA4efZ/efTjtIIXVgDq5idJ8dT/2UE+cKYqeJOmi2WZV5TT61ICrjpUAg9TSfBScysDo5D1aZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778724784; c=relaxed/simple;
-	bh=MQUypza3VTxyvSjpuQA1EJv5W5cxJtbFZSvb1llZYKw=;
+	s=arc-20240116; t=1778725205; c=relaxed/simple;
+	bh=zhBbiVIKbJxxUjYi2pKorbgockCLfPCiuHv8JXC7BLw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OaUTevU1ylSWGsI58690UmpD66AOHKjAMVWscUPArtz1fx36Yso7QIXAHXM4J4TZiGE+StBJD6Jd3mrQ+KQobq8ES8h+SmXLjojVDDCbFHZCiRBJzRBtXhnyH5ONYXBZljpFk7Nu7/g3+A4+l4GT0sB2Mu3HDi7ZNLMOft0qxFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RdeaqhGW; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=Vs4Ce0CVgoR20N49TdumxIsWrbJyfBowdr/AQrcNfm+kI3eItmO0Kr1cfdBqlzj9Q18QbaB7tkSZ5tqMe32b7uDHnJwe5aqikecN4Aj5a24eHQgyRR+YT7l9ajQxPuh9PUiBw6FbQIwmE8tOQ9kRug6njq35eZhC1BMQg3m0bxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pt5cBsiV; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RdeaqhGW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E402C19425;
-	Thu, 14 May 2026 02:13:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pt5cBsiV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66E99C19425;
+	Thu, 14 May 2026 02:20:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778724783;
-	bh=MQUypza3VTxyvSjpuQA1EJv5W5cxJtbFZSvb1llZYKw=;
+	s=k20201202; t=1778725204;
+	bh=zhBbiVIKbJxxUjYi2pKorbgockCLfPCiuHv8JXC7BLw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=RdeaqhGWKyfdWnFwJ5Y3w4Wxbyo3ljrg2vBFjA19t2k9BAxwAfEtR1o/TDPRzYb2o
-	 nKVFdpb4ntqQKhoFQ6ghiBD5vTfpmBiXGhXnCdu4WwW6sXcycV5I2jHGZm9Gj6KPYH
-	 0TKD6aZMZOanQmqjaiRYCx76qbfq3V/K3oA4obSkBP29UMwScKj6NEAvL5PgEK5GOx
-	 lrUlS/8kYKCI1TXJdwTZTEs8U+iCgWKipvG6hccdEPWs19iTr2ic9b7/vmLUVCWNTU
-	 ESiPXhSlR8uEqTp80VAQ3vruwbI5Is+kkV4a6ZrfeuEA8BtimVaIIigENVcJSONik9
-	 sjGt2IYgzJ2tQ==
+	b=pt5cBsiVMnHqtsCmII+fsFmKRppSQFWm18e+NIXr7ul9pWn2CVpwxIdWmMieZ8LDR
+	 srcmhln0oOX6G/Ypt5mHvnaETkDP9CRqlfoWb0aL8MI7D7d98wd8OodniWzST1Ck6q
+	 ZTMAFkzsvOmFFlIcjNOmX8pI62iEg//Vrgvga1BZyZa0saTSZ+qhpQUcgfp8qYBIk5
+	 WbL7zUrPsDnaAMShGWLK/gHqP/EtGimrEABLEm0IJWOo61pzGj5D06qIwYr+diJ4XE
+	 HZugwpK9W+viektWUU16erydIpX7KlTq5uctAvMwS2JeGjWnONFtPh6U88ZbJWAmoo
+	 jZPDcFBwXyTUw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 08/16] ASoC: rsnd: Add RZ/G3E DMA address calculation
- support
+Subject: Re: [PATCH v10 2/3] arm64: dts: qcom: ipq5424: Add the IMEM node
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "John Madieu" <john.madieu.xa@bp.renesas.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260512182631.3842065-9-john.madieu.xa@bp.renesas.com>
-References: <20260512182631.3842065-9-john.madieu.xa@bp.renesas.com>
+To: "Kathiravan Thirumoorthy" <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260513-wdt_reset_reason-v10-2-cebda08ab1ef@oss.qualcomm.com>
+References: <20260513-wdt_reset_reason-v10-2-cebda08ab1ef@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 02:13:03 +0000
-Message-Id: <20260514021303.8E402C19425@smtp.kernel.org>
+Date: Thu, 14 May 2026 02:20:03 +0000
+Message-Id: <20260514022004.66E99C19425@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Unchecked NULL pointer dereference in rsnd_rzg3e_dma_addr() when S=
-SIU module is not present.
-- [Low] Missing parentheses around macro arguments in RZ/G3E DMA address ca=
-lculation macros.
+- [High] The device tree node maps the full 112KB IMEM region, exposing ina=
+ccessible memory to the generic SRAM allocator.
 --
 
-commit 8ac44d32c9e0b39cce390dd7dede7d192b0f5ad7
-Author: John Madieu <john.madieu.xa@bp.renesas.com>
+commit d275aea75b5a17a008a9020c79777d0cc37ddedc
+Author: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 
-ASoC: rsnd: Add RZ/G3E DMA address calculation support
+arm64: dts: qcom: ipq5424: Add the IMEM node
 
-This commit adds a dedicated DMA address calculation function for the
-RZ/G3E platform, which has different DMA register base addresses and offsets
-compared to other R-Car platforms.
+This commit adds the IMEM node to the device tree for the IPQ5424 SoC to
+extract debugging information. It defines the IMEM region as 112KB, noting
+that only the first 4KB is accessible by all masters.
 
-> diff --git a/sound/soc/renesas/rcar/dma.c b/sound/soc/renesas/rcar/dma.c
-> index 24c23cb893906..ede0123d40eb5 100644
-> --- a/sound/soc/renesas/rcar/dma.c
-> +++ b/sound/soc/renesas/rcar/dma.c
-
+> diff --git a/arch/arm64/boot/dts/qcom/ipq5424.dtsi b/arch/arm64/boot/dts/=
+qcom/ipq5424.dtsi
+> --- a/arch/arm64/boot/dts/qcom/ipq5424.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/ipq5424.dtsi
 [ ... ]
+> +		sram@8600000 {
+> +			compatible =3D "qcom,ipq5424-imem", "mmio-sram";
+> +			reg =3D <0 0x08600000 0 0x1c000>;
+> +			ranges =3D <0 0 0x08600000 0x1c000>;
 
-> +/* RZ/G3E DMA address macros */
-> +#define RDMA_SSI_I_N_G3E(addr, i)	(addr ##_reg + 0x0000F000 + (0x1000 * =
-i))
-> +#define RDMA_SSI_O_N_G3E(addr, i)	(addr ##_reg + 0x0000F000 + (0x1000 * =
-i))
+Could mapping the full 112KB region cause XPU violations?
 
-This isn't a bug, but could the 'i' parameter be wrapped in parentheses?
+The commit message notes that only the initial 4KB is accessible by all
+masters in the SoC. Since this node uses the mmio-sram compatible, the
+generic SRAM driver will map the entire 0x1c000 region and add the
+unreserved portion to a gen_pool for dynamic allocation.
 
-While 'i' is currently passed as a single variable ('id'), using (0x1000 * =
-(i))
-would prevent incorrect address calculations due to operator precedence if =
-an
-expression is ever passed as an argument in the future.
+If a driver requests memory from this pool, could it receive an address
+within the restricted region and trigger an SError upon access?
 
-Does it make sense to update the SRC and CMD macros below as well?
+Additionally, is there a risk of speculative execution or memory debugging
+tools accessing the restricted region and causing a kernel panic?
+
+Should the reg and ranges sizes be limited strictly to the safely
+accessible 4KB (0x1000) region?
 
 > +
-> +#define RDMA_SSIU_I_N_G3E(addr, i, j)	(addr ##_reg + 0x0000F000 + (0x100=
-0 * (i)) + (((j) / 4) * 0xA000) + (((j) % 4) * 0x400) - (0x4000 * ((i) / 9)=
- * ((j) / 4)))
-> +#define RDMA_SSIU_O_N_G3E(addr, i, j)	RDMA_SSIU_I_N_G3E(addr, i, j)
-
-[ ... ]
-
-> +static dma_addr_t
-> +rsnd_rzg3e_dma_addr(struct rsnd_dai_stream *io,
-> +		    struct rsnd_mod *mod, int is_play, int is_from)
-> +{
-> +	struct rsnd_priv *priv =3D rsnd_io_to_priv(io);
-> +	phys_addr_t ssi_reg =3D rsnd_gen_get_phy_addr(priv, RSND_BASE_SSI);
-> +	phys_addr_t src_reg =3D rsnd_gen_get_phy_addr(priv, RSND_BASE_SCU);
-> +	int id    =3D rsnd_mod_id(mod);
-> +	int busif =3D rsnd_mod_id_sub(rsnd_io_to_mod_ssiu(io));
-
-Can this result in a NULL pointer dereference?
-
-If the ALSA stream does not have an SSIU module attached (like when the
-device tree omits the SSIU node, or the SSI is configured for PIO mode via
-the pio-transfer property), rsnd_io_to_mod_ssiu(io) will return NULL.
-
-Looking at rsnd_mod_id_sub(), it unconditionally dereferences the pointer:
-
-sound/soc/renesas/rcar/core.c:rsnd_mod_id_sub() {
-        if ((mod)->ops->id_sub)
-                return (mod)->ops->id_sub(mod);
-       =20
-        return 0;
-}
-
-Could this trigger a panic on stream open in valid configurations like
-[SRC] -> [SSI (PIO)]?
+> +			no-memory-wc;
+> +
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <1>;
+> +		};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260512182631.3842=
-065-1-john.madieu.xa@bp.renesas.com?part=3D8
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-wdt_reset_=
+reason-v10-0-cebda08ab1ef@oss.qualcomm.com?part=3D2
