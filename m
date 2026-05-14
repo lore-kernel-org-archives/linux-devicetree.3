@@ -1,213 +1,225 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71A2406268
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 14:29:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85A993C4B89;
+	Thu, 14 May 2026 14:31:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778768953; cv=none; b=r2+wpWpLYEvTxekQ7wSwTW0OPbzoc1cCFtDlkZSEu+sb6SmKabXi/kBHejnK1el3RMX9ZyQq8Y2ykevCmeCbDayDi0qm0cyKsiPidyky/97Qt50VhKAGf2tU0N55AVylOcN7Fl2PsjveOeoRr7Xf3SlvSiMiU6+TRwDEKOxUVQk=
+	t=1778769093; cv=none; b=Aikna0NqvV/qvYFwTQ3n/ymNRfW8yaK0ElYjpYfisuCYck/QpaLPHhTMMMTAOFBWuuh1R7CpLXQC6N4VGsRNrWfyEu6A+RPxZAXW0AiUO5GsIu4l18RWZN0ZpLsqrd8haFT4siTDM82GCkWDGlp6XJ1aBiR1SRQEnhBFv9VItho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778768953; c=relaxed/simple;
-	bh=fv/5hA6B5h6bSFJ3jKPW5Yj8V7+yiEtiEsQ3Jf2Ak5E=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qjSIKtTdODGyuZtYyH+fCBkaOZ6dowskuNg3kVdcIaW1bL0ucDQo2Cb7wWPXm+oW2l1Zruuz03AB6zf0JrXyf+EDaW3HsIVi1DvpHLUtMAU9wlyW2Z0NvNceCO6UEyk9DV4DUFIhjdqj6FvWpZmvdb+G2JaW07n7KWo06xwpxf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=i/7XF9ck; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iEdYyYl4; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1778769093; c=relaxed/simple;
+	bh=6iGfJZhncc8TZYCUGnqm+IpTKIkhFAcFKCIJIf6eUSQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ach0kzZsaNSVWQ3FSZx0em+0CJHOaIJnO+jDKV3nzhniI8mau4ZAy5m1LpisJTFuMXXru5d4JboQ3n5iLNSCpAkXg6IwldqkqPeFIrvfaTUbO+6bcsW1EJYCGpY70867m6EaWGMFAO8+bu2Tq8vlGcfTPYI6oX81MDseAmpDkO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BkDt38PE; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="i/7XF9ck";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iEdYyYl4"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64EBeSQi3891239
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 14:29:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	o6KLS8vHiombqosDZEYpdFeq0nG5CyaHud+DvpMo+CE=; b=i/7XF9ckTQVND/dC
-	TYkq0l/GzJfcDmNbkYBgu/dmSahdZq+voxXEMKcAkQ9jb3/EwuGoHCDIB9g3hBoL
-	q9hjln/GwV1tjG2/W5JoAHU0+pq9IWdB/WR93kiDXc/zJZWyhGwH2aTxEy0ZaFvS
-	rPqIeaNy31v4dslLkEQWftw2+af/NBnBK70hNs7ebp06nZLJUVKF7AXg6Jdk/NN8
-	5cms4Qk5F2qvkU1BJ4CexyQUXHzxVce0pkvKcF3umunCg1TvR5t2qS1jiqGF8xps
-	BX2OmFHWyceJkJzvPJRDywNzES0NDADXC/Wo0ktlcdA7dcPe4HeFe67OTqd7xfSi
-	BDLE6A==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e4v4tvd4j-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 14:29:11 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2b7aba0af02so84354485ad.2
-        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 07:29:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778768951; x=1779373751; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=o6KLS8vHiombqosDZEYpdFeq0nG5CyaHud+DvpMo+CE=;
-        b=iEdYyYl4lphwBFbtQ1IbURYtbPQF+A18cAGAxmobfi4MON7iuVyDf/sJS5bWGjaE8A
-         +JV45Bzl9MX0uKlu3XIPiVioGg5jYH8j++5pP8VZNjYG548kRbLBmITO+GKJfFndO3k/
-         NZnkrea54xyHWMspgO8fsVcneA+EI8wAoJAEkVsATu8oHH5mFMcMkRwuOeFHfEhjH106
-         LVp/GxmsgRPSaGciWHSJY4SLkfN/odIDqm1MOv7D5HRir/F1OaJIXrKo06usyV+p8qkB
-         BrahTJxg2ubHs7LVNSY9K+qpazL66qnRqkii6KpQ1BU2AlmZT97nBF3AGFsuut81hLwi
-         VRLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778768951; x=1779373751;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=o6KLS8vHiombqosDZEYpdFeq0nG5CyaHud+DvpMo+CE=;
-        b=nmqTX4p2YcE2U74sbN8vWyK+hkiSUFf9zsLwbaKDmOXtogJXcWJN+uztiqTj3+XkgP
-         t3UiOkrW0NuevqBaUTMLbtcL32lA9t5/RBdKFqPmKz4AygYedDd1qTOj93yzwx/Xd8FO
-         hIu60iJt+aT4KOHbDeOyMDGdKbkXUcmquigQjgEoFAYJR+1EWSYNvdXEjO4k8px7QpKB
-         j7G9tOO52Knb0OQoqp7tJxPNSPyEiDGz+yGfjODsrozDgaTuvJv7yEvGnOXLU1GMqFIx
-         tz1wgXwZaMYu2N30U4EK8LSlRpLh/wbcatccqoILBLRKkkwXg15S6W4ukxci86oZX+AN
-         Z8sw==
-X-Forwarded-Encrypted: i=1; AFNElJ8RMpu/99HmL2KGv345QVRWUSoK0ZCHWEkmPbraBgophVd6nidMjQ6yvdAYhwb/waSg8A8cUTTOPFWN@vger.kernel.org
-X-Gm-Message-State: AOJu0YyOqg5qecsyYYi87IY81koD1QffnC0gEGH76cz2Oh4R/TNFMZK1
-	yjR+Tgy4EjKdvY8WRCdrD80pjEcJck8lRgV+eGq6Z+n0BmyuOW84AS/UxK8treoSjKNP/JyXxhJ
-	rC5uYzLxdTP1rN+n16qQKb0ysL1Vp+aYY83kGfS9YKPD8Nycqq7t1/ogRZccq9vBX
-X-Gm-Gg: Acq92OF4bXL4DQNObf2PBtfueJQrk/IkztUMj92gDJBUHJtFP4yV8di6FeOWEjS57+h
-	3qkGgh+KCi3sXBjcS1pSTKAUbzmBwffwZQH4uWBxBGAEhwzLda2A3NKBN6JonouOPBJ6MZRU89H
-	I6rrjr+uasGBPRFER7H+3sqrvMaXqFPsdSN7/pUBZeCGviVh9Wa4cpqoopQemQ2eO2FmBFU5J9s
-	qh9sN5Dq229ckH+MClWPTL9dGlxPmfHoIXERGt1WRFaMELh08xjllpe6FikGNxGCLBCFuutQ46+
-	ucTOH31pCdxylJglKsJGuazDWfqHu9KGOn8ToYyM3yt3Om4ZxTop6A3VEN82EpzmCenHkfn6Izz
-	KHSesRrVk5s+EcHR0Y/E4FvB/hGvFt2nzwpN7doMfE6KmGW5MpLUQ2cQ2pA==
-X-Received: by 2002:a17:903:120a:b0:2bc:78ec:54c0 with SMTP id d9443c01a7336-2bd2ff2a51emr89626785ad.31.1778768950480;
-        Thu, 14 May 2026 07:29:10 -0700 (PDT)
-X-Received: by 2002:a17:903:120a:b0:2bc:78ec:54c0 with SMTP id d9443c01a7336-2bd2ff2a51emr89626035ad.31.1778768949767;
-        Thu, 14 May 2026 07:29:09 -0700 (PDT)
-Received: from hu-spratap-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bd5c05ffbesm28566485ad.27.2026.05.14.07.28.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 14 May 2026 07:29:09 -0700 (PDT)
-From: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-Date: Thu, 14 May 2026 19:55:54 +0530
-Subject: [PATCH v22 13/13] arm64: dts: qcom: Add psci reboot-modes for
- talos boards
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BkDt38PE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C43CCC2BCB3;
+	Thu, 14 May 2026 14:31:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778769093;
+	bh=6iGfJZhncc8TZYCUGnqm+IpTKIkhFAcFKCIJIf6eUSQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=BkDt38PEb9XlTwH7zQZH6xmvM/K8ws918v/NQNjjIfW4RE4Z1lfJPmGTlY7lNb2Dw
+	 kjVJqtdvonYl5imzBcDzZAvVyr+/5/sp/gM/1SdF262ZtnWAYWf3YfqbgAoqEOHnnR
+	 ntXd5rGMT5K0GoF9whvlyKxGd+aNm4HGdMANdWj9G4m6z3KIsW7WjBVCjrKXqNctNg
+	 zv8WxNAtO+FtSz34keNchpmFILXSJLSf5qbQAxV3qjU8v//ESdHe68TiCOlNzhNtz+
+	 DwR799y4GN7g/Z3+NH4IN5cNb23ElQEdg9Krlq6sl0Bh5z4JpWclM/ORijPtRiQ/DK
+	 jnezgCT3g80Zw==
+Message-ID: <1d1a21a6-720d-4e8d-9798-27f8cc593403@kernel.org>
+Date: Thu, 14 May 2026 16:31:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260514-arm-psci-system_reset2-vendor-reboots-v22-13-28a5bde07483@oss.qualcomm.com>
-References: <20260514-arm-psci-system_reset2-vendor-reboots-v22-0-28a5bde07483@oss.qualcomm.com>
-In-Reply-To: <20260514-arm-psci-system_reset2-vendor-reboots-v22-0-28a5bde07483@oss.qualcomm.com>
-To: Sebastian Reichel <sre@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Christian Loehle <christian.loehle@arm.com>,
-        Ulf Hansson <ulfh@kernel.org>, Lee Jones <lee@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-        Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
-        Andy Yan <andy.yan@rock-chips.com>,
-        Matthias Brugger <matthias.bgg@gmail.com>,
-        John Stultz <john.stultz@linaro.org>,
-        Moritz Fischer <moritz.fischer@ettus.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Sudeep Holla <sudeep.holla@kernel.org>, Ulf Hansson <ulfh@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        devicetree@vger.kernel.org,
-        Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-        Andre Draszik <andre.draszik@linaro.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Song Xue <quic_songxue@quicinc.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778768806; l=1676;
- i=shivendra.pratap@oss.qualcomm.com; s=20250710; h=from:subject:message-id;
- bh=fv/5hA6B5h6bSFJ3jKPW5Yj8V7+yiEtiEsQ3Jf2Ak5E=;
- b=DTfcdvmuHlaXJOFI959VmgqyKdy4KwC74h60uKvEJMgANVtVK6agBUfCB1qK6VdTsL7mvl14J
- T3zgl6il8yIDiXblCoQ5QJIMe1V8sJGmhryAweJi3aC5fMddvtrdDHs
-X-Developer-Key: i=shivendra.pratap@oss.qualcomm.com; a=ed25519;
- pk=CpsuL7yZ8NReDPhGgq6Xn/SRoa59mAvzWOW0QZoo4gw=
-X-Authority-Analysis: v=2.4 cv=XIIAjwhE c=1 sm=1 tr=0 ts=6a05dc37 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=NtfjKPfcWimlndMDSJoA:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE0MDE0NiBTYWx0ZWRfX2vRnDqAzwWqq
- QYe7z69NjLcGNtLDoHCgNbV55BiAzQHCzRIRpW6UlcGKGhYjmlOHEfizAVpAFa0HTRDNeLLsFSE
- nCR5xNW5m10RWsBjoO5c1bTv6Qi1l3nxxptr6NVAHt7/6dT99qzNz29JWjs5fPc093Sx3hSmKio
- /5Sw61a/6E4WYr/CmrSxMzyOMHEDPgP8XAL2aCjstB/EPzNMdO8pUnASejfqm4ed6kFeu8GK4DA
- JGvbye3FkYAYj1088cx7mLVAyUx60vyoVTPnXHSa6ZiiSDTXCl1w4U5lo0+1MBqbFjFOTatEEcM
- +dc/WBdGRM5cxq1ADH52vpTl8/ui29mt5+aOHwgc0f165tBZrusIR+S3Dd1etb1r4uhhiXE+t/Q
- lK3ho79w1/jCcrDpuQabDYdle6VqSiiElJELGbYwRG5aRWEs3xLIub03MDWKyJo5z2xWH4NeUiV
- HJCMvH2VRo98UhOHsBQ==
-X-Proofpoint-ORIG-GUID: sVaswx_5GSdwhVmUu0Gabcq27aRzUr5A
-X-Proofpoint-GUID: sVaswx_5GSdwhVmUu0Gabcq27aRzUr5A
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-14_03,2026-05-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
- bulkscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605050000 definitions=main-2605140146
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/2] dt-bindings: pwm: dwc: add optional reset
+To: Xuyang Dong <dongxuyang@eswincomputing.com>
+Cc: ukleinek@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, ben-linux@fluff.org, ben.dooks@codethink.co.uk,
+ p.zabel@pengutronix.de, linux-pwm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ningyu@eswincomputing.com, linmin@eswincomputing.com,
+ xuxiang@eswincomputing.com, wangguosheng@eswincomputing.com,
+ pinkesh.vaghela@einfochips.com
+References: <20260424094529.1691-1-dongxuyang@eswincomputing.com>
+ <20260424095435.1721-1-dongxuyang@eswincomputing.com>
+ <ee58a5d6-9268-445c-a270-1f4a49b49c6e@kernel.org>
+ <622e18f1.5bb3.19dd36d0c40.Coremail.dongxuyang@eswincomputing.com>
+ <7bd6129a-dd37-48e8-a54c-cc149a2b84a2@kernel.org>
+ <1ac7fae4.5c66.19dd892ec4d.Coremail.dongxuyang@eswincomputing.com>
+ <b3a1b5ba-c381-407f-9118-aac7217138af@kernel.org>
+ <f4f7edf.6067.19e15df803f.Coremail.dongxuyang@eswincomputing.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <f4f7edf.6067.19e15df803f.Coremail.dongxuyang@eswincomputing.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Add PSCI SYSTEM_RESET2 reboot-modes for qcs615-ride, for use by the
-psci-reboot-mode driver.
+On 11/05/2026 09:10, Xuyang Dong wrote:
+>>
+>> On 29/04/2026 11:30, Xuyang Dong wrote:
+>>>>>>>  
+>>>>>>> +allOf:
+>>>>>>> +  - $ref: pwm.yaml#
+>>>>>>> +
+>>>>>>> +  - if:
+>>>>>>> +      properties:
+>>>>>>> +        compatible:
+>>>>>>> +          contains:
+>>>>>>> +            const: eswin,eic7700-pwm
+>>>>>>
+>>>>>> Same problem as v3 which I commented. I do not understand why your new
+>>>>>> device has also 1 reset.
+>>>>>>
+>>>>>> Your commit msg MUST explain why 1 reset is valid.
+>>>>>>
+>>>>>
+>>>>> Hi Krzysztof,
+>>>>>
+>>>>> Although the PWM IP supports two clock domains, each requiring a reset, 
+>>>>> the EIC7700 implementation uses the same clock domain for both clock 
+>>>>> signals. Therefore, the eic7700-pwm only supports one reset.
+>>>>>
+>>>>
+>>>> If we speak about eic7700, explain why it has two resets now, according
+>>>> to schema, even though you say it has not.
+>>>>
+>>>> But I was speaking about dw-apb-timers-pwm, which has one reset as well!
+>>>> Why you are not having proper constraints? Please read writing bindings
+>>>> document.
+>>>>
+>>>
+>>> Hi Krzysztof,
+>>>
+>>> Let me clarify the reset signals.
+>>>   - snps,dw-apb-timers-pwm2: IP spec has 2 optional reset signals (one per
+>>> clock domain), SoC vendor decides whether to wire them — so maxItems: 2, 
+>>> optional in required.
+>>
+>> Two reset signals but what is exactly optional? Each of them? Only the
+>> first? Binding does not allow the first to be optional.
+>>
+> 
+> Hi Krzysztof,
+> 
+> Thank you for the review. 
+> 
+> For the generic snps,dw-apb-timers-pwm2 binding, both reset signals 
+> are now fully optional by not including resets in the required list.
+> 
+> When a single optional reset signal is used, the interface bus reset 
+> (index 0) is used by default.
+> 
+> Keep the YAML as follows:
+> +  resets:
+> +    minItems: 1
+> +    items:
+> +      - description: Interface bus reset
+> +      - description: PWM timer logic reset
+> 
+> Add the following description to the commit message:
 
-The following modes are defined:
-- bootloader: reboot into fastboot mode for fastboot flashing.
-- edl: reboot into emergency download mode for image loading via the
-  Firehose protocol.
+We speak about hardware, not binding. I asked, why your new device has
+only one reset.
 
-Support for these modes is firmware dependent.
+> 
+> Whether each signal is wired on a given SoC is a board integration 
+> decision, so the resets property is optional for snps,dw-apb-timers-pwm2. 
+> When present, up to two handles may be supplied: the bus reset is always 
+> at index 0 and the timer reset at index 1.
+> 
+>>>   - eswin,eic7700-pwm: SoC physically ties both signals to one reset — so
+>>> exactly 1, required.
+>>
+>> Then two would not be right and you need to restrict that.
+>>
+> 
+> For the specific eswin,eic7700-pwm binding, the reset signal is required 
+> and fixed to one via conditional schema (if:then:), with maxItems: 1 
+> and resets added to required. And add an example for eswin,eic7700-pwm.
+> The changes are as follows:
+> 
+> +allOf:
+> +  - $ref: pwm.yaml#
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: eswin,eic7700-pwm
+> +    then:
+> +      properties:
+> +        resets:
+> +          maxItems: 1
+> +      required:
+> +        - resets
+> +
+> 
+> +  - |
+> +    pwm@50818000 {
+> +      compatible = "eswin,eic7700-pwm";
+> +      reg = <0x50818000 0x4000>;
+> +      #pwm-cells = <3>;
+> +      clocks = <&bus>, <&timer>;
+> +      clock-names = "bus", "timer";
+> +      resets = <&reset>;
+> +    };
+> 
+> Then change the binding's subject from "dt-bindings: pwm: dwc: add optional 
+> reset" to "dt-bindings: pwm: dwc: add eswin,eic7700-pwm compatible and resets".
+> 
+> Do these changes look acceptable to you?
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Song Xue <quic_songxue@quicinc.com>
-Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/qcs615-ride.dts | 7 +++++++
- arch/arm64/boot/dts/qcom/talos.dtsi      | 2 +-
- 2 files changed, 8 insertions(+), 1 deletion(-)
+So two resets or one reset? I am completely confused what you are
+replying to.
 
-diff --git a/arch/arm64/boot/dts/qcom/qcs615-ride.dts b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
-index 831002789838033ff6c4135f2d558a0af0d3ec83..ad488570135591eb7a9e5dec5fb1924163a159e9 100644
---- a/arch/arm64/boot/dts/qcom/qcs615-ride.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
-@@ -498,6 +498,13 @@ &pon_resin {
- 	status = "okay";
- };
- 
-+&psci {
-+	reboot-mode {
-+		mode-bootloader = <0x80010001 0x2>;
-+		mode-edl = <0x80000000 0x1>;
-+	};
-+};
-+
- &qupv3_id_0 {
- 	status = "okay";
- };
-diff --git a/arch/arm64/boot/dts/qcom/talos.dtsi b/arch/arm64/boot/dts/qcom/talos.dtsi
-index ff5afbfce2a4744777829a1938754f02a5f6cb5c..83ba8d3bc40731f54d71b6892045bc1dd15d320d 100644
---- a/arch/arm64/boot/dts/qcom/talos.dtsi
-+++ b/arch/arm64/boot/dts/qcom/talos.dtsi
-@@ -560,7 +560,7 @@ pmu-a76 {
- 		interrupts = <GIC_PPI 5 IRQ_TYPE_LEVEL_HIGH &ppi_cluster1>;
- 	};
- 
--	psci {
-+	psci: psci {
- 		compatible = "arm,psci-1.0";
- 		method = "smc";
- 
+Please read writing bindings document.
 
--- 
-2.34.1
-
+Best regards,
+Krzysztof
