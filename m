@@ -1,131 +1,215 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9464E2F4A05;
-	Thu, 14 May 2026 12:32:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F07DC3F4135;
+	Thu, 14 May 2026 12:33:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778761953; cv=none; b=YPSXb3y6qA5H7zm1fiEASESnTg5pphfg4Zv49zZ9dBfN4Dwe0tKztLTb+B+KC5Hc3Eu6gRdTjx2od9pXJYdQXToKNorcj1d5rhJhigyHezcGTMd1HexPHYPVNp1fbW4mVPjy53WmE1Qq0kn8S6ThXtSUu3HhtNBLUOCpvUqkQ/s=
+	t=1778762022; cv=none; b=gFI7oRvuW8QdKBCZ+oITkwmR52mfoonAq3HeCaehWGcx5oD+aovt12II4cHsaJQ7rP7WJr7b99OGsz7ER02HtmZ1oBCVL+LTv1aKCfsb9Vl5E5hfwWMfMaE3GVBtqbxE+K5oaARXmmIE0mPFMQhtt1juxid2kKw3a/B1i3IbNIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778761953; c=relaxed/simple;
-	bh=yUdL4HvV+GJY4HsxY8hBpdvOPdpVc1WRWzDtFXGeMGQ=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=XmtuV/n4gOf4H7JDaJqAs1LiDPPZCNjwQMJIQx+yLc2hMVQsdx6e3wiX0MuyIc0Ag3quPsN9yRLkfQbedEY3b+FuM3LalcaPsKbxZGg38l0qU1F4gUt3BzXR8SkTBBB9yzCukfFIq5aDRrUCA99NdpxjggFYaz/ZfTYYjwydkQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RiRSJqz+; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778762022; c=relaxed/simple;
+	bh=KAxFHjWUEvSr8tRZeOR2sBDCzcWtFm4IrUtBB1y0hBE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=QcjnyrZlLTYaGvK4kN+FP8epJwbts2hbHojYqLJaklZeCDEC03qXQe7kC1Q89prcLxiSftNDt0XsyPbNM8NfRNIIc3asl3fC/8ERaoeT3Wmean5apoeXd3cjUnqfc0NKqZvDFnhZgwbro35D5yORD53+IhT+dAjBfeDb/Z78Yc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tps5KY+/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RiRSJqz+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E577C2BCB3;
-	Thu, 14 May 2026 12:32:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tps5KY+/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36928C2BCB3;
+	Thu, 14 May 2026 12:33:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778761953;
-	bh=yUdL4HvV+GJY4HsxY8hBpdvOPdpVc1WRWzDtFXGeMGQ=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=RiRSJqz+bDpm/6dTKo+1l4NzeYaoytGfd3p8Uy5x2D+g0i4PfPv5YYyJxuVobLRRr
-	 PcvdOHltdcL/nTRl3vjquglt+/d65EY2vBG90s+326YXAqUMX/qNNPUritLAb27ZDL
-	 uztWAaHpFUaMixZE8EwCe8keA5qv5Lw+phL1qg+mrE6ODr9MomyblfY89z0ixrsf9p
-	 6bCXRKsYwXaEjg/A9yEXfQ+szHprTT4ikWiaNCgopJpSUJtUoESJQa2Gbjm/wCHpnW
-	 6289z29JLSER7uBnZPpCvjIpTAC3Q7TIfWtVyWdKge7zMiGf3AzPDbv8LBZBNUhUC3
-	 03ElOchIr7AYg==
-Message-ID: <38d29061-64a4-45e8-891f-d688716058a5@kernel.org>
-Date: Thu, 14 May 2026 14:32:28 +0200
+	s=k20201202; t=1778762021;
+	bh=KAxFHjWUEvSr8tRZeOR2sBDCzcWtFm4IrUtBB1y0hBE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=Tps5KY+/Qoo4+nu29h2jopX1UmWNS4bDANOosrR77ZidA2im9UF/5d+m63rtP1/BV
+	 JSfQdNDJw22bj8gLWE1yjJ8W39lHehBnEPkliZnystGfcwzua2feLvQhJ3Z6lkrFcT
+	 13w8InrtICFehsxgVqbCKZSyq+HAAEPvLHGvW5gLqnt6ItrVGk1FyJ3CoaEoi1w2qF
+	 R8eEreWkg3anNxQUKzw4hmb0vbhpkZD9kJpkFvy+2JJysOUTCfacxw8oNvs42V8mrE
+	 IXoGmXsWjKEG/a4+so1eJ7zDsfMmCc34RMgS6xvmbT60cqSqIhv+9r9qeoe9OGzcXr
+	 ljtzobOIklyVg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: ipq5210: Enable PCIe support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Varadarajan Narayanan" <varadarajan.narayanan@oss.qualcomm.com>
+Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org, linux-pci@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260514-pci-ipq5210-v1-2-a09436200b35@oss.qualcomm.com>
+References: <20260514-pci-ipq5210-v1-2-a09436200b35@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 14 May 2026 12:33:40 +0000
+Message-Id: <20260514123341.36928C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/1] dt-bindings: remoteproc: mtk,scp: Allow multiple
- memory regions for MT8188
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Arnab Layek <arnab.layek@mediatek.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
- andersson@kernel.org, mathieu.poirier@linaro.org,
- linux-remoteproc@vger.kernel.org,
- Project_Global_Chrome_Upstream_Group@mediatek.com
-References: <20260506133157.3283204-1-arnab.layek@mediatek.com>
- <20260514114533.174008-1-arnab.layek@mediatek.com>
- <20260514114533.174008-2-arnab.layek@mediatek.com>
- <20260514-poised-green-beagle-79cb9c@quoll>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260514-poised-green-beagle-79cb9c@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 14/05/2026 14:30, Krzysztof Kozlowski wrote:
-> On Thu, May 14, 2026 at 07:45:33PM +0800, Arnab Layek wrote:
->> The MT8188 SCP requires support for 1-2 reserved memory regions, while
->> other MediaTek SoCs use only a single memory region.
->>
->> The schema uses a permissive base with restrictive conditionals:
->> 1) Base schema allows all devices minItems: 1, maxItems: 2
->> 2) Non-MT8188 devices (mt8183, mt8186, mt8192, mt8195, mt8195-dual) are
->>    restricted to maxItems: 1, overriding the base
->> 3) MT8188 devices (mt8188, mt8188-dual) set minItems: 1 with item
->>    descriptions, inheriting maxItems: 2 from base, making the second
->>    L1TCM region optional
->>
->> This follows the same pattern as other MediaTek dt-bindings such as
->> mediatek,jpeg-encoder.yaml which uses conditional schemas to support
->> different numbers of iommus per device variant.
->>
-> 
-> So I just reviewed v2, because it appeared in patchwork thread...
-> because you just threaded v3 there.
-> 
-> No, really, this was repeated also to Mediatek so many times.
-> 
-> Implement v2 review.
->
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] The 'phys' property is incorrectly placed in the PCIe Root Port ch=
+ild node rather than the main PCIe controller node.
+- [Medium] Dummy fixed clocks are used for the PCIe pipe clocks instead of =
+the actual PHY nodes.
+- [Medium] The `ranges` property in `pcie0` and `pcie1` incorrectly sets th=
+e child PCI address for I/O space to match the CPU address.
+- [Low] The `pcie0` and `pcie1` nodes define `pinctrl-0` but omit the `pinc=
+trl-names` property.
+--
 
-Heh, and now I noticed that you just merged THREE versions in one thread
-leading to complete mess in this entire thread.
+commit 6a61b5c948b9e28a9b86554a5e888347a3c559ab
+Author: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
 
-Best regards,
-Krzysztof
+arm64: dts: qcom: ipq5210: Enable PCIe support
+
+Add DT entries to enable the PCIe controllers found in ipq5210.
+
+> diff --git a/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts b/arch/arm64/boo=
+t/dts/qcom/ipq5210-rdp504.dts
+> index 941f866ecfe95..5e599a1cea3f4 100644
+> --- a/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts
+> +++ b/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts
+[ ... ]
+> @@ -20,6 +21,32 @@ chosen {
+>  	};
+>  };
+> =20
+> +&pcie0_phy {
+> +	status =3D "okay";
+> +};
+> +
+> +&pcie0_rp {
+> +	reset-gpios =3D <&tlmm 32 GPIO_ACTIVE_LOW>;
+> +};
+> +
+> +&pcie0 {
+> +	pinctrl-0 =3D <&pcie0_default_state>;
+
+Should this node also include a pinctrl-names property?
+
+Omitting pinctrl-names =3D "default" might trigger validation warnings, even
+if the pinctrl core falls back to index 0.
+
+> +	status =3D "okay";
+> +};
+> +
+> +&pcie1_phy {
+> +	status =3D "okay";
+> +};
+> +
+> +&pcie1_rp {
+> +	reset-gpios =3D <&tlmm 29 GPIO_ACTIVE_LOW>;
+> +};
+> +
+> +&pcie1 {
+> +	pinctrl-0 =3D <&pcie1_default_state>;
+
+Similarly, should pinctrl-names =3D "default" be added here?
+
+> +	status =3D "okay";
+> +};
+> +
+>  &sdhc {
+>  	max-frequency =3D <192000000>;
+>  	bus-width =3D <4>;
+> diff --git a/arch/arm64/boot/dts/qcom/ipq5210.dtsi b/arch/arm64/boot/dts/=
+qcom/ipq5210.dtsi
+> index 3761eb03ab246..ec1c9a8c08e0a 100644
+> --- a/arch/arm64/boot/dts/qcom/ipq5210.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
+[ ... ]
+> @@ -13,6 +14,18 @@ / {
+>  	interrupt-parent =3D <&intc>;
+> =20
+>  	clocks {
+> +		pcie30_phy0_pipe_clk: pcie30_phy0_pipe_clk {
+> +			compatible =3D "fixed-clock";
+> +			clock-frequency =3D <250000000>;
+> +			#clock-cells =3D <0>;
+> +		};
+> +
+> +		pcie30_phy1_pipe_clk: pcie30_phy1_pipe_clk {
+> +			compatible =3D "fixed-clock";
+> +			clock-frequency =3D <250000000>;
+> +			#clock-cells =3D <0>;
+> +		};
+> +
+
+Is it intentional to use dummy fixed clocks for the PCIe pipe clocks here?
+
+The PCIe PHY nodes below (pcie0_phy, pcie1_phy) are correctly configured as
+clock providers (#clock-cells =3D <0> and clock-output-names).
+
+Hardcoding these as fixed clocks severs the dependency graph, so the GCC mi=
+ght
+not establish a parent-child relationship with the PHY. Could this allow the
+clock to be enabled without the PHY being powered on?
+
+[ ... ]
+> +		pcie1: pcie@50000000 {
+[ ... ]
+> +			#size-cells =3D <2>;
+> +
+> +			ranges =3D <0x81000000 0x0 0x50200000 0x0 0x50200000 0x0 0x00100000>,
+
+Does this I/O space mapping correctly set the PCI child address?
+
+This maps the CPU address 0x50200000 to PCI I/O address 0x50200000, but sta=
+ndard
+PCI architectures typically expect the I/O port address space to start at
+address 0 on the PCI bus side.
+
+Should it translate the CPU I/O base address to the PCI I/O address 0?
+
+> +				 <0x82000000 0x0 0x50300000 0x0 0x50300000 0x0 0x0fd00000>;
+[ ... ]
+> +			pcie1_rp: pcie@0 {
+> +				device_type =3D "pci";
+> +				reg =3D <0x0 0x0 0x0 0x0 0x0>;
+> +				bus-range =3D <0x01 0xff>;
+> +				phys =3D <&pcie1_phy>;
+
+Should the phys property be placed in the main PCIe controller node instead
+of the Root Port child node?
+
+The Qualcomm PCIe controller driver expects to find the phys property in the
+main controller node using devm_phy_optional_get(dev, "pciephy").
+
+If it is placed in the child node, devm_phy_optional_get() might return NULL
+and silently bypass PHY initialization.
+
+> +
+> +				#address-cells =3D <3>;
+> +				#size-cells =3D <2>;
+> +				ranges;
+> +			};
+> +		};
+> +
+> +		pcie0: pcie@70000000 {
+[ ... ]
+> +			#size-cells =3D <2>;
+> +
+> +			ranges =3D <0x81000000 0x0 0x70200000 0x0 0x70200000 0x0 0x00100000>,
+
+Similar to pcie1, should this I/O space mapping translate the CPU I/O base
+address to the PCI I/O address 0 instead of matching the CPU address?
+
+> +				 <0x82000000 0x0 0x70300000 0x0 0x70300000 0x0 0x0fd00000>;
+[ ... ]
+> +			pcie0_rp: pcie@0 {
+> +				device_type =3D "pci";
+> +				reg =3D <0x0 0x0 0x0 0x0 0x0>;
+> +				bus-range =3D <0x01 0xff>;
+> +				phys =3D <&pcie0_phy>;
+
+Also similarly here, should this phys property belong to the parent pcie0
+node instead of the pcie0_rp child node?
+
+> +
+> +				#address-cells =3D <3>;
+> +				#size-cells =3D <2>;
+> +				ranges;
+> +			};
+> +		};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514-pci-ipq521=
+0-v1-0-a09436200b35@oss.qualcomm.com?part=3D2
