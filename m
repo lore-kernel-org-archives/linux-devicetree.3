@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E597A35E952
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 04:15:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E7CB3ACA7C
+	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 04:16:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778732106; cv=none; b=Y+UAVat76MNLFimXMXYHQ8m55YPWItz3nErS8xTI6Y0xaXxNu+zk2YkbjhVsiuv9TrcYirFwFkL5PLRfEOWEjz5EeRleXAKYo4GTID1m61lFM4i4JK5qHbrBEB6/lqqXUa7IE2/UcG6eQ//rQsBbE+GFO0F+eyoPXC5+JREfLG0=
+	t=1778732192; cv=none; b=oZssGyDjcHOcbJfHmcfhBo0MTkqlqitgdlqUUKJAsCg/sT7G2AMPlASYYUKiwcvZWWEMxtvOeNbrfO9iefecL7s9TGAJWszFjOFWLmU2/VzTKg+Qcx8wM6fpW/+gK327X9JB0TQdoq3nExvJbicNuIPPDe1+50I20RDXuJ/xo+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778732106; c=relaxed/simple;
-	bh=SgFoT9A5AIjh/MyKN4pGQELt/AGGtOnhU1aeQ7Ornzw=;
+	s=arc-20240116; t=1778732192; c=relaxed/simple;
+	bh=dEfafon3zqQ7+WNcIH62G8ogU315+gRbIBGrGthXwJU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=p57c78miBL5p/Y/BvSJJ1jr9JneKy9LYXhJ3vhemOfGScj4tstcKEpC1cTvQJ+tYhN+/MXsbZIZFWZWyvyWSJgYNkFQuX38TI43RAuhEjet0JzCuv/BskWseR6kq7+1us1vBKuVIqRDyUhSSpHidAJPxWNGPwcC3yxmm73j0l1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xl9EstBj; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=scPlyF4s2b1joUGTOMboXAhTtu2jlFqbxwpruGUX1IkMkTKckSlpiV7OG1hzowgdJRpbnMFDHatVl2IERHXn4PW6KwxOHGsvCKVvD7tOJH/gyGp2p/irdf1yesOIO3YZL+SuixO+h00qm3XGw2GodJzje6vyOcH+pdZCERUTKgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JfJ66Lln; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xl9EstBj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F94FC2BCB7;
-	Thu, 14 May 2026 04:15:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JfJ66Lln"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8F81C2BCB7;
+	Thu, 14 May 2026 04:16:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778732105;
-	bh=SgFoT9A5AIjh/MyKN4pGQELt/AGGtOnhU1aeQ7Ornzw=;
+	s=k20201202; t=1778732192;
+	bh=dEfafon3zqQ7+WNcIH62G8ogU315+gRbIBGrGthXwJU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=Xl9EstBj7OhRpZIjA7ji1fSrNiVtiqWQfgu7ltUENJOk7+FlGmSqOrz5Y8yLFNcol
-	 devvOQR0KmSYs0D6f2/xggBsZREtI+1wFs7MNKk3HWsBi5hhveVrTrMisXJEM7oB9p
-	 CML7T24D2PB3W4EN43tax0LgApeKl0stOrH9/D3zLLdNt+eKpQ1cywKNDjTkLisEhA
-	 5kcVwfcrs82PMG+MnnqejnOQajFM0ZLMSWu9udHgfcU+R7+1QGR+WpO97m8Q/V2gn8
-	 2SbjNXZmg85NkIz1NbajCuCHSWgHGMawsfk4t89gYog5Q78I/ZYggILsUJuXbn//ga
-	 PMgRbrJCwplxQ==
+	b=JfJ66LlnY2xjM8mL0JqANYRm6vMEjsY751Ssvr/rEeQQqDkZcFy44ZvkVRzq8u411
+	 XKki51IGEBTdDkHjIn1BoQtVHsEOLmJpN8PogW/jP8C5ohj5uCYwzeKy4aFyrmu0W1
+	 p2H+lVTnMRjscr+i+qgvSPZxYcuKvxfJwgB4mmbb9lClMzQqNdL9jykLhPS1cS/GV0
+	 XMX5Z3KywbX+SUvDPZplXn1qIkJcLx0OKjS56j+dvNAtnzdkCuXZnK+JSZ7YKozAk4
+	 Gp+bqoIuffQtwzEOkXCnVDR1t9ftrjkvN00O5XdcutcWURHNyVNLuxvSuv8DaoI/t+
+	 0wAzASFppsLZw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: cache: qcom,llcc: Document Eliza
- LLCC block
+Subject: Re: [PATCH v1] arm64: dts: qcom: hamoa-iot-evk: add MCP2518FD CAN
+ on spi18
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org
-In-Reply-To: <20260513-eliza-llcc-v2-1-27381ae833d5@oss.qualcomm.com>
-References: <20260513-eliza-llcc-v2-1-27381ae833d5@oss.qualcomm.com>
+To: "Viken Dadhaniya" <viken.dadhaniya@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260513-hamoa-spi-can-devicetree-v1-1-554a671a3789@oss.qualcomm.com>
+References: <20260513-hamoa-spi-can-devicetree-v1-1-554a671a3789@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 04:15:04 +0000
-Message-Id: <20260514041505.3F94FC2BCB7@smtp.kernel.org>
+Date: Thu, 14 May 2026 04:16:31 +0000
+Message-Id: <20260514041631.B8F81C2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,67 +46,46 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The `reg` and `reg-names` properties for `qcom,eliza-llcc` incor=
-rectly skip `llcc1_base` and define `llcc2_base` as the second base registe=
-r region.
+- [Low] The fixed-clock node name 'can-clk' violates the devicetree schema =
+and will cause a `dtbs_check` warning.
 --
 
-commit b822a325e6d0b593e6e849500133d7b473e7127e
-Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
+commit a4e072ba93299bc9cde800bbed0ba51dffbdac3a
+Author: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
 
-dt-bindings: cache: qcom,llcc: Document Eliza LLCC block
+arm64: dts: qcom: hamoa-iot-evk: add MCP2518FD CAN on spi18
 
-This commit documents the Last Level Cache Controller (LLCC) for the Eliza
-SoC. It specifies that the Eliza LLCC block has 2 base register regions
-and an additional AND/OR broadcast region.
+This commit enables the Microchip MCP2518FD CAN-FD controller on hamoa.
+The controller is connected via SPI18 and uses a 40 MHz oscillator.
 
-> diff --git a/Documentation/devicetree/bindings/cache/qcom,llcc.yaml b/Doc=
-umentation/devicetree/bindings/cache/qcom,llcc.yaml
-> --- a/Documentation/devicetree/bindings/cache/qcom,llcc.yaml
-> +++ b/Documentation/devicetree/bindings/cache/qcom,llcc.yaml
-
+> diff --git a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts b/arch/arm64/boot=
+/dts/qcom/hamoa-iot-evk.dts
+> index 460f27dcd6f69..f260f23d2597a 100644
+> --- a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
+> +++ b/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
 [ ... ]
-
-> @@ -341,6 +342,27 @@ allOf:
->              - const: llcc_broadcast_base
->              - const: llcc_broadcast_and_base
+> @@ -29,6 +29,14 @@ backlight: backlight {
+>  		pinctrl-names =3D "default";
+>  	};
 > =20
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - qcom,eliza-llcc
-> +    then:
-> +      properties:
-> +        reg:
-> +          items:
-> +            - description: LLCC0 base register region
-> +            - description: LLCC2 base register region
-> +            - description: LLCC broadcast OR register region
-> +            - description: LLCC broadcast AND register region
-> +        reg-names:
-> +          items:
-> +            - const: llcc0_base
-> +            - const: llcc2_base
+> +	clocks {
+> +		mcp2518fd_osc: can-clk {
 
-The commit message mentions that Eliza LLCC has 2 base register regions,
-but the names here skip to llcc2_base. Should this be llcc1_base instead?
+This isn't a bug, but will the node name can-clk violate the devicetree
+schema for fixed clocks?
 
-Looking at the upstream LLCC driver (drivers/soc/qcom/llcc-qcom.c), it
-maps base register regions by their sequential index and generates internal
-regmap names sequentially.
+According to the fixed-clock devicetree binding schema, the preferred node
+name format is clock-<freq>. Any node name that does not match this pattern
+generates a validation warning during make dtbs_check.
 
-If the driver fetches the second region at index 1, it will internally
-name it llcc1_base, which creates a semantic mismatch with the device
-tree's llcc2_base designation.
+Could this be named clock-40000000 instead to prevent validation warnings?
 
-Could this also lead to an out-of-bounds mapping if the hardware
-dynamically reports 3 banks?
-
-> +            - const: llcc_broadcast_base
-> +            - const: llcc_broadcast_and_base
+> +			compatible =3D "fixed-clock";
+> +			clock-frequency =3D <40000000>;
+> +			#clock-cells =3D <0>;
+> +		};
+> +	};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-eliza-llcc=
--v2-0-27381ae833d5@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260513-hamoa-spi-=
+can-devicetree-v1-1-554a671a3789@oss.qualcomm.com?part=3D1
