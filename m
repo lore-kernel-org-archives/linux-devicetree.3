@@ -1,172 +1,228 @@
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D3F407599
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 15:00:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778770856; cv=pass; b=TXfHl1LIb1HSOt2ZY/74+xP2VWHJ9glclKVR+TosQ9fIf3un7s2EJ0csAJQu8F726zLoHlT7Tc2PvdCBC5eOVELkKM+GJmZeNpG7oQAb1XR6z7CJYDBcpuzAbCTUctLvakOJt0+5GmA5z41Kmf0fLrlIvIdsNGjeEZhqv27E7F8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778770856; c=relaxed/simple;
-	bh=93DcpqUrrQy53jqzjaoGf20XgLdTeD3S0fyJqO+62YM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TDx5nByqPJbnjfWzavY5+/JI8GCa0mm1GfK2GAMvWp43FWN7NfLZcBTAeJqvLf31IiAci025c42VR8UBT3KvNoPX4VCfEPkMWjhBFbOvJ0ylJ0pPtt4wzxH3yelMsFI582fLF0g+mElr6DMdK6o+l59EYn2nZfRjRvQmdQNdaEg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VQ2oUUhU; arc=pass smtp.client-ip=74.125.82.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F6063DFC78;
+	Thu, 14 May 2026 15:05:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778771111; cv=none; b=roQIxgywNRkbKl2AQbtLbCRzCeIvBl02CvziLHNhYLHk3UmnED8gzRjKgVbXSz1/93VC/bfnUdxsVg+SwazXlDOY9+MBVZy0jIjelkRVtm3m/HP7ASiddfBZrgkF0hMgHFrUujZ43BC0Vq0DYVWVPluzD8Oie42MbIdWeBCYX5s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778771111; c=relaxed/simple;
+	bh=y+qWkfH2NdW0SgzpFUw+pNdGVOYGMAeHSrTAVJ8Wd6c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LO0H1lNO5sUDl9FiILUvuWK5COq1ntCE67ski/JRHIzX5dazOISJZFXeaXniFTj3Boo3peNmehl+F5vV/pWje062G4Fb7aznXWDMByxVho/gPBBG89T/irb5/qq44X4sjU5wqj5SqRJXTvrgeXgG743C4egXrDXSJtNPxxIp4IQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lzUL+5ET; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VQ2oUUhU"
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-2f7020a928eso11304290eec.1
-        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 08:00:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778770853; cv=none;
-        d=google.com; s=arc-20240605;
-        b=R+8Pj/cPOAA7BkkDoeYVcqCpcgqHFDhWp2JAMBbEy2QtAZf6cxC1sTr0a4ls4DXiMn
-         Xk/Pcp1ryF3L1tZdzaTjkrw6qRBLM1yNpNO5UPxkUEZ6oLgqKZ1bnpbeW6nTe01J9n4E
-         lSsrgUv5JDFBaqGuuRZsNctkHwIJVHDSTX8AIfhmleHd6I2tRY6N30I+biNLgeb0Upf4
-         ACHWfixJpLOrVo6SDMEq72Ey/Uk8xsHqGCZtSyM/BQ6+e0/1vmb+h5Wq/5hJ1GI+CTe4
-         51yIqrqe3mkxyPvPRTWRTTketsVnxooUMMYQq3JepleJaMANhFUWpzP50l/I8Ugce5W1
-         fSQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=gYE8+9FvfLSVbf4nQgrf6hhDRemavqQW+ej9r6AR/Hk=;
-        fh=Jn9kkB02dh6c/Rh5iR2FxMWebC/NBEqL+HdVQqKekGI=;
-        b=lDdx9lz83XPXf1Jyl12l4B0zruVPXpIEbQ8oR8naFzmuFcNOkPT+0fhqVrX4C67kjR
-         UT8IfBCyhWQEBm9OCrM+XNrj0I8t5dpTqms+u5DA01gN92ZmsgCzMvZ56j6JcKPm5faI
-         5rvFtWF7Wfh7a2S7RGLJB6QJ271T6HCTOrVF1tbg+KoAHE8wPtQFhrQIwYdn6uPxIJv0
-         /85J4ch3zSOR5IBVPoo/cSK73z/vLKOr2GxCB6zb5xXD7v+07TSjGCUIbAnVITxxbxr0
-         eSX0fiBztTEPLboGcH95int9lb/YV/tl3VrBSMEwFcbZsZpRc2TI4bwAPvJohdj96gPS
-         SmTg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778770853; x=1779375653; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=gYE8+9FvfLSVbf4nQgrf6hhDRemavqQW+ej9r6AR/Hk=;
-        b=VQ2oUUhUBTmgMzOS2UcnlF6x0o5Ihs3yZURI1TpWUybDGYjIgISZU5lVs45N5qiT9c
-         Ka2BNB8vw1Bn5iySjsiNYoiGozmFpnKwyvz7Q00wxnEuWFSMwsVRfZlzeOMwWZaa64hp
-         ciQof+sARZuwCNj1TqnDKCcaHXwwZdicDAqPyraLdHOt21+TH5OyTR199Oyc1aoSo/q2
-         atDqpElbHz923dLXZsBzpbEeeH6Izatc01M/ObCYo4/sKRE9ZFwbrbdxDfZcali5d+wF
-         ZYGigFAxITAcaUcJkZe3Oy+DIfhd/UBZ+p4KNgssbr406nkCMR/MQOWL5+tNbfNUiquD
-         cQpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778770853; x=1779375653;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=gYE8+9FvfLSVbf4nQgrf6hhDRemavqQW+ej9r6AR/Hk=;
-        b=aheg4euw9r5XTfAFlpkP0/jfjKVQOH0m7uMwzqLi3jks5cySISQfNDhckXAvI1nByX
-         JOJjZZTrxFV7c5ZfilPfYJKkBBrLavbamX6PjHtnKoPmK8ORVJIDM/dALHTttTZHPJ7V
-         Tbpx+fASPN13ZYKTakjWl0mfaWNXilInEJjVKeiVPLDY7Qw5VVPzKjTTSNqFimSB3uaZ
-         ETeu5z5p7nxTql6l6ZsWlg3bwcRXGs2I7Frav+w17r9fciVNWdoqk5WvFtvn7L1kpyLE
-         9o4oDzWhwlCTDpOU2dNV+xUA5y1qUTmWEHO3g174ce4M3j6n3/b3sFw33PsRD/QGVtF0
-         4Alg==
-X-Forwarded-Encrypted: i=1; AFNElJ/vYLqePbF0qTfX3ybxsVymkY5y55HRG+UKT/67YkOdbvH8At7GPGstXxjniFV03nS5xvD7EXqKvmCJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YzcSEXW/J68qw0a7MZpqp5j/Wk8N/wSSseFmYfYF1ahmAh8JjHi
-	Dr74ylsUXpqLzdA5HhxcZUq/r1amNuT7xya++9enGEsjrx+HZhGG1TXGn3rmXRwwG8XYJVDg6RU
-	eMXnK1IoEL1LenKD8/KMiXvrbLyDohXI=
-X-Gm-Gg: Acq92OHQ0+TCEdaump1SOH4FYBQETOvrq6N+DPjMqKnVrw4RP2MWlX/7k1D4N3LtBS8
-	eqKK26CkR/63yLbGF9N5/H4DI3+1oO2O7a3mugLD4rmapA7iIMpcSxKVwcCJEmEF/Pebolapdxa
-	MIVX+uHnhnPdgM0lm1wRCB6yjc3qzetoJphEF5kGy/zgfbcCZRDgtdvkqaNz6cCbXd4uMpl81k3
-	YdEuD+Ho3xrEs6ekT5niBLg460H1BKDxFlQ/3uWD6oL44ZBS1HfU4ox6Exm4x93wKriVtUAFOfe
-	6PDVfTRe
-X-Received: by 2002:a05:7300:6c28:b0:2b7:38cf:c2fd with SMTP id
- 5a478bee46e88-30119f59550mr4891365eec.26.1778770852303; Thu, 14 May 2026
- 08:00:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lzUL+5ET"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23CC3C2BCB3;
+	Thu, 14 May 2026 15:05:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778771111;
+	bh=y+qWkfH2NdW0SgzpFUw+pNdGVOYGMAeHSrTAVJ8Wd6c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=lzUL+5ETuBp68+uAJmjs1ENvWvR7Cv6qPq8mewr+POZ+cdbB7WCVi5LXJATo4rnFp
+	 5Pmdo+uJNjhemnabCCXcFkZ2Zu64tbubILBxwO4+CYT5uX8x3WhdYGmBfYc2bGkSsx
+	 EHiv/IrzUzYVg0ke8JgImhcSRBtDvnYcN5NjdiD53SKBp5BPzcKe0MIUr6ZB+FecmX
+	 8abyt6AbcR5p7yf9+zWlezkeFL7PVb2MPB3cASTV5HRhjzdKwZ5hth/4Al8rq3CDmR
+	 vFfNXGKa1D5S8oEWbghjovfCz7lsxa+ROuZWGDSuXzERpUfaDoRFK9a0mw8vqA7kJ3
+	 FGKyR5ad5F/jA==
+Date: Thu, 14 May 2026 10:05:08 -0500
+From: Rob Herring <robh@kernel.org>
+To: Udaya Kiran Challa <challauday369@gmail.com>
+Cc: alexandre.belloni@bootlin.com, krzk+dt@kernel.org, conor+dt@kernel.org,
+	skhan@linuxfoundation.org, me@brighamcampbell.com,
+	linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] dt-bindings: rtc: epson,rx6110: Convert to DT Schema
+Message-ID: <20260514150508.GA495076-robh@kernel.org>
+References: <20260509185735.21557-1-challauday369@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260512102445.55372-1-clamor95@gmail.com> <20260512102445.55372-2-clamor95@gmail.com>
- <20260514145541.GB472306-robh@kernel.org>
-In-Reply-To: <20260514145541.GB472306-robh@kernel.org>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Thu, 14 May 2026 18:00:41 +0300
-X-Gm-Features: AVHnY4Kxlgcuop2UxuHVvEYceHjbSEBsXZDcmFkiB8-pvvFXvr2T37E9jTAUG7c
-Message-ID: <CAPVz0n2JVUh+5aLwDRNpuT4HMznz0XrDZ-aB6Xvm+1UibPjrBg@mail.gmail.com>
-Subject: Re: [PATCH v5 1/2] dt-bindings: input: Document Imagis ISA1200 haptic
- motor driver
-To: Rob Herring <robh@kernel.org>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, linux-input@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260509185735.21557-1-challauday369@gmail.com>
 
-=D1=87=D1=82, 14 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 17:5=
-5 Rob Herring <robh@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Tue, May 12, 2026 at 01:24:44PM +0300, Svyatoslav Ryhel wrote:
-> > Document the Imagis ISA1200 haptic motor driver, used primarily in mobi=
-le
-> > handheld devices and capable of supporting up to two motors.
-> >
-> > The exact datasheet for the ISA1200 is not available; all data was mode=
-led
-> > based on available downstream kernel sources for various devices and
-> > fragments of information scattered across the internet.
-> >
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > ---
-> >  .../bindings/input/imagis,isa1200.yaml        | 140 ++++++++++++++++++
-> >  1 file changed, 140 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/input/imagis,isa1=
-200.yaml
-> >
-> > diff --git a/Documentation/devicetree/bindings/input/imagis,isa1200.yam=
-l b/Documentation/devicetree/bindings/input/imagis,isa1200.yaml
-> > new file mode 100644
-> > index 000000000000..bbe6f99d39c1
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/input/imagis,isa1200.yaml
-> > @@ -0,0 +1,140 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/input/imagis,isa1200.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Imagis ISA1200 haptic motor driver
-> > +
-> > +maintainers:
-> > +  - Svyatoslav Ryhel <clamor95@gmail.com>
-> > +  - Linus Walleij <linusw@kernel.org>
-> > +
-> > +description:
-> > +  The ISA1200 is a high-performance enhanced haptic motor driver desig=
-ned
-> > +  for mobile hand-held devices. It supports various voltages for both =
-ERM
-> > +  (Eccentric Rotating Mass) and LRA (Linear Resonant Actuator) type
-> > +  actuators. Thanks to an embedded LDO, battery power can be used dire=
-ctly
-> > +  in handheld applications.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: imagis,isa1200
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  control-gpios:
-> > +    description:
-> > +      One or two GPIOs flagged as active high linked to HEN and LEN pi=
-ns
->
->        minItems: 1
->
+On Sun, May 10, 2026 at 12:26:39AM +0530, Udaya Kiran Challa wrote:
+> Convert the Epson RX6110 Real Time Clock devicetree binding
+> from the legacy text format to DT schema.
+> 
+> Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
+> ---
+> Changelog:
+> Changes since v3:
+> - Add conditional validation for SPI mode properties using anyOf
+> 
+> Link to v3:https://lore.kernel.org/all/20260509181909.21871-1-challauday369@gmail.com/
+> 
+> Changes since v2:
+> - Reference rtc.yaml for common RTC properties
+> - Add conditional validation for SPI mode properties
+> 
+> Link to v2:https://lore.kernel.org/all/20260509095713.5818-1-challauday369@gmail.com/
+> 
+> Changes since v1:
+> - Reuse common SPI peripheral properties
+> - Drop redundant SPI-specific comment
+> - Remove unused labels from examples
+> 
+> Link to v1:https://lore.kernel.org/all/20260504183728.27412-1-challauday369@gmail.com/
+> ---
+>  .../devicetree/bindings/rtc/epson,rx6110.txt  | 39 ---------
+>  .../devicetree/bindings/rtc/epson,rx6110.yaml | 79 +++++++++++++++++++
+>  2 files changed, 79 insertions(+), 39 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/rtc/epson,rx6110.txt
+>  create mode 100644 Documentation/devicetree/bindings/rtc/epson,rx6110.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/rtc/epson,rx6110.txt b/Documentation/devicetree/bindings/rtc/epson,rx6110.txt
+> deleted file mode 100644
+> index 3dc313e01f77..000000000000
+> --- a/Documentation/devicetree/bindings/rtc/epson,rx6110.txt
+> +++ /dev/null
+> @@ -1,39 +0,0 @@
+> -Epson RX6110 Real Time Clock
+> -============================
+> -
+> -The Epson RX6110 can be used with SPI or I2C busses. The kind of
+> -bus depends on the SPISEL pin and can not be configured via software.
+> -
+> -I2C mode
+> ---------
+> -
+> -Required properties:
+> -  - compatible: should be: "epson,rx6110"
+> -  - reg : the I2C address of the device for I2C
+> -
+> -Example:
+> -
+> -	rtc: rtc@32 {
+> -		compatible = "epson,rx6110"
+> -		reg = <0x32>;
+> -	};
+> -
+> -SPI mode
+> ---------
+> -
+> -Required properties:
+> -  - compatible: should be: "epson,rx6110"
+> -  - reg: chip select number
+> -  - spi-cs-high: RX6110 needs chipselect high
+> -  - spi-cpha: RX6110 works with SPI shifted clock phase
+> -  - spi-cpol: RX6110 works with SPI inverse clock polarity
+> -
+> -Example:
+> -
+> -	rtc: rtc@3 {
+> -		compatible = "epson,rx6110"
+> -		reg = <3>
+> -		spi-cs-high;
+> -		spi-cpha;
+> -		spi-cpol;
+> -	};
+> diff --git a/Documentation/devicetree/bindings/rtc/epson,rx6110.yaml b/Documentation/devicetree/bindings/rtc/epson,rx6110.yaml
+> new file mode 100644
+> index 000000000000..3466f74736d2
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/rtc/epson,rx6110.yaml
+> @@ -0,0 +1,79 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/rtc/epson,rx6110.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Epson RX6110 Real Time Clock
+> +
+> +description: |
 
-In theory there may be no GPIOs and both pins can be hooked to power.
-This is unlikely scenario but since it is possible I did not set
-minItems and did not make control-gpios a required property.
+Don't need '|' if no formatting.
 
-> With that,
->
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
->
-> > +    maxItems: 2
+> +  The Epson RX6110 can be used with SPI or I2C busses.
+> +  The kind of bus depends on the SPISEL pin and can not be
+> +  configured via software.
+
+Wrap lines at 80 chars.
+
+> +
+> +maintainers:
+> +  - Alexandre Belloni <alexandre.belloni@bootlin.com>
+> +
+> +allOf:
+> +  - $ref: rtc.yaml#
+> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: epson,rx6110
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  spi-cs-high: true
+> +  spi-cpha: true
+> +  spi-cpol: true
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +if:
+> +  anyOf:
+> +    - required:
+> +        - spi-cs-high
+> +    - required:
+> +        - spi-cpha
+> +    - required:
+> +        - spi-cpol
+> +
+> +then:
+> +  required:
+> +    - spi-cs-high
+> +    - spi-cpha
+> +    - spi-cpol
+
+This 'if' can be better expressed as:
+
+dependencies:
+  spi-cs-high: [ spi-cpha, spi-cpol ]
+  spi-cpha: [ spi-cs-high, spi-cpol ]
+  spi-cpol: [ spi-cs-high, spi-cpha ]
+
+
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  # I2C mode
+> +  - |
+> +    i2c {
+> +      #address-cells = <1>;
+> +      #size-cells = <0>;
+> +
+> +      rtc@32 {
+> +        compatible = "epson,rx6110";
+> +        reg = <0x32>;
+> +      };
+> +    };
+> +
+> +  # SPI mode
+> +  - |
+> +    spi {
+> +      #address-cells = <1>;
+> +      #size-cells = <0>;
+> +
+> +      rtc@3 {
+> +        compatible = "epson,rx6110";
+> +        reg = <3>;
+> +        spi-cs-high;
+> +        spi-cpha;
+> +        spi-cpol;
+> +      };
+> +    };
+> -- 
+> 2.43.0
+> 
+> 
