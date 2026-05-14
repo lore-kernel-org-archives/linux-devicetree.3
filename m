@@ -1,227 +1,274 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F93E3AB27D
-	for <devicetree@vger.kernel.org>; Thu, 14 May 2026 21:02:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com [210.160.252.171])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3077C17A2EA;
+	Thu, 14 May 2026 21:02:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.160.252.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778792544; cv=none; b=OO15s5P5SUrErB/8bwEIYJ0Oh3MBw6Dz+ckq7qYG3KisPq7OVLB8AR/NEDb6TwnWlpHl1luJXdAHi2/2QNkxp/g3oKSi/vzj5phltSGfH8QIbFQt5gT0/Xs1Tv8EgMnoYo57d4TEczZIOjIebmZbkS3PYPFnSED6eaXNP37J5X4=
+	t=1778792559; cv=none; b=rYjiu1vhjJIqhzJaDey1ZqFKDCCWsXYsCe/5lf0tw7TabYaiLQQBDgWmAwUmnXOMIeTnyihPobhQt4jG7yYUrqdAxRhxwAt+7WXjGWrPo8+Dv6L+E3qyAHcKgCXnpgFhgv2wSM9eIsL2v8kbmk7JBaSWK9RTaOlyO5PRx0NkJbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778792544; c=relaxed/simple;
-	bh=eHRN/rmLxe0PUoH1MeSV+i8mbVD52E1PUGHu1kBDfGk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fFkFuPQQya4ovj2JdDHqWsxoSfbXy5xgLaVpng068qmm7VHLttvPjf37iOFesQRY+Gx4avcjH4mtHzp4tH83HgGqBltnKbYhjnrvAhW1ieNEMfVDaLlhgnoru5bGieVyowAK50NAkTvz3jc9eJks9fa/zBs1GVkLdJZ96TckeNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qyqkff3v; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qyqkff3v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D01AC2BCB3;
-	Thu, 14 May 2026 21:02:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778792543;
-	bh=eHRN/rmLxe0PUoH1MeSV+i8mbVD52E1PUGHu1kBDfGk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=qyqkff3vKBKeuuP0AWapHTlu/nh+OEQMzaF2801fvUyx5XHq21ZVjSxFpbDfx9EYv
-	 PNfs4opuQoaOLwMUzdod9F+MgvzwgdUgFAYovYYMgqXdL7yXz3AkiAo6Pjql17NQrX
-	 K7f8xA6ilm4XLQYRxNSqWMVQXwEixujL4L8y+C1a52HZBkiv5OZyIhn2mAufJUvlWV
-	 GtMEHcln7Ef2aMQRoKpbW4BO51Xuk0Zi7il2zEil6+cWrN0PCzZO2oX7e4TfXlGJpH
-	 8Jx9yeL9Hk+Pil28mbv0fcZx29hVuwtY86aGA0zQPeXyAkpXurJbuCu+ZTpBEc/bB/
-	 ki93NfS6E+nsw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] drm/panel: Add panel driver for Chipone ICNA35XX
- based panels
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aaron Kling via B4 Relay" <devnull+webgeek1234.gmail.com@kernel.org>
-Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260514-icna35xx-v2-2-45acd1dfa566@gmail.com>
-References: <20260514-icna35xx-v2-2-45acd1dfa566@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 14 May 2026 21:02:23 +0000
-Message-Id: <20260514210223.8D01AC2BCB3@smtp.kernel.org>
+	s=arc-20240116; t=1778792559; c=relaxed/simple;
+	bh=L6tgnJ6HVRpvyne7GS8JPqXSX4XQFaYBy7CWbE1jSv0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I+1ooWSaJzshe2RmFElZ3YXQn4pX6htPLnc3vsxp4p/Aj4dPGvDZY9Sw2L2oBfcyH1+BAIMIjH8YJqDaB0DIpmP1xw+VSlNW0mFtWG1fNCfiIbEDZOVP4yUwpU/+JN97CM7EA7vQSormSRA/JRuSAyT/GDnizmVnxjj6oPvnjPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; arc=none smtp.client-ip=210.160.252.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+X-CSE-ConnectionGUID: fezz5zrPTDOd0v3OJeCDig==
+X-CSE-MsgGUID: WYp4g7/XRMW4GpD9CfKFOg==
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+  by relmlie5.idc.renesas.com with ESMTP; 15 May 2026 06:02:27 +0900
+Received: from mind-2s.lan (unknown [10.24.0.33])
+	by relmlir5.idc.renesas.com (Postfix) with ESMTP id 1E1AF40031EC;
+	Fri, 15 May 2026 06:02:23 +0900 (JST)
+From: Fabrizio Castro <fabrizio.castro.jz@renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v2] arm64: dts: renesas: rzt2h-n2h-evk: Configure eMMC/SDHI pins
+Date: Thu, 14 May 2026 22:02:17 +0100
+Message-ID: <20260514210220.7616-1-fabrizio.castro.jz@renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] Missing DRM_DISPLAY_DSC_HELPER select causes link errors.
-- [High] Missing NULL pointer check for `connector` in `icna35xx_get_curren=
-t_mode()`.
-- [High] Backlight operations send DCS commands without verifying panel pow=
-er state.
-- [High] Data race on `dsi->mode_flags` between sysfs backlight operations =
-and DRM panel operations.
-- [Medium] Failure to restore `MIPI_DSI_MODE_LPM` flag on error paths in ba=
-cklight operations.
-- [Medium] The error path in `icna35xx_prepare()` disables regulators witho=
-ut first asserting the reset GPIO.
---
+The HW user manual for the Renesas RZ/T2H and the RZ/N2H states
+that for SDR104, SDR50, and HS200 to work properly the eMMC/SDHI
+interface pins have to be configured as specified below:
+* SDn_CLK pin - drive strength: Ultra High, slew rate: Fast
+* Other SDn_* pins: drive strength: High, slew rate: Fast,
+  Schmitt trigger: disabled (not applicable to SDn_RST pins).
 
-commit 39fa40429bef32de4454951a077f1a44f88692ba
-Author: Teguh Sobirin <teguh@sobir.in>
+HS DDR and DDR50 are currently not supported, and for every
+other bus mode the eMMC/SDHI interface pins should be configured
+as specified below:
+* SDn_CLK pin - drive strength: High, slew rate: Fast
+* Other SDn_* pins: drive strength: Middle, slew rate: Fast,
+  Schmitt trigger: disabled (not applicable to SDn_RST pins).
 
-drm/panel: Add panel driver for Chipone ICNA35XX based panels
+Adjust the pin definitions accordingly.
 
-This adds support for the ICNA3512 and ICNA3520 DDICs used in the AYN Odin 2
-Portal and for both the AYN Odin 3 and the AYN Thor top panel respectively.
+Signed-off-by: Fabrizio Castro <fabrizio.castro.jz@renesas.com>
+---
+v1->v2:
+* Take into account the settings for lower speed modes
 
-> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-> index 7450b27622a23..1368b5a0b6c91 100644
-> --- a/drivers/gpu/drm/panel/Kconfig
-> +++ b/drivers/gpu/drm/panel/Kconfig
-> @@ -105,6 +105,17 @@ config DRM_PANEL_BOE_TV101WUM_LL2
->  	  Say Y here if you want to support for BOE TV101WUM-LL2
->  	  WUXGA PANEL DSI Video Mode panel
-> =20
-> +config DRM_PANEL_CHIPONE_ICNA35XX
-> +	tristate "Chipone ICNA35XX panel driver"
-> +	depends on OF
-> +	depends on DRM_MIPI_DSI
-> +	depends on BACKLIGHT_CLASS_DEVICE
-> +	select DRM_DISPLAY_HELPER
+ .../dts/renesas/rzt2h-n2h-evk-common.dtsi     | 147 ++++++++++++++++--
+ 1 file changed, 136 insertions(+), 11 deletions(-)
 
-The driver code explicitly calls drm_dsc_pps_payload_pack(), which is
-exported by drivers/gpu/drm/display/drm_dsc_helper.c. Should this config
-also select DRM_DISPLAY_DSC_HELPER to avoid undefined reference link errors?
+diff --git a/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi b/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
+index f87c2492f414..46f4aaac0478 100644
+--- a/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
++++ b/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
+@@ -275,12 +275,63 @@ data-pins {
+ 				 <RZT2H_PORT_PINMUX(12, 7, 0x29)>, /* SD0_DATA5 */
+ 				 <RZT2H_PORT_PINMUX(13, 0, 0x29)>, /* SD0_DATA6 */
+ 				 <RZT2H_PORT_PINMUX(13, 1, 0x29)>; /* SD0_DATA7 */
++			drive-strength-microamp = <5000>;
++			slew-rate = <1>;
++			input-schmitt-disable;
+ 		};
+ 
+-		ctrl-pins {
+-			pinmux = <RZT2H_PORT_PINMUX(12, 0, 0x29)>, /* SD0_CLK */
+-				 <RZT2H_PORT_PINMUX(12, 1, 0x29)>, /* SD0_CMD */
+-				 <RZT2H_PORT_PINMUX(13, 2, 0x29)>; /* SD0_RST# */
++		clk-pins {
++			pinmux = <RZT2H_PORT_PINMUX(12, 0, 0x29)>; /* SD0_CLK */
++			drive-strength-microamp = <9000>;
++			slew-rate = <1>;
++		};
++
++		cmd-pins {
++			pinmux = <RZT2H_PORT_PINMUX(12, 1, 0x29)>; /* SD0_CMD */
++			drive-strength-microamp = <5000>;
++			slew-rate = <1>;
++			input-schmitt-disable;
++		};
++
++		rst-pins {
++			pinmux = <RZT2H_PORT_PINMUX(13, 2, 0x29)>; /* SD0_RST# */
++			drive-strength-microamp = <5000>;
++			slew-rate = <1>;
++		};
++	};
++
++	sdhi0_emmc_pins_uhs: sd0-emmc-group-uhs {
++		data-pins {
++			pinmux = <RZT2H_PORT_PINMUX(12, 2, 0x29)>, /* SD0_DATA0 */
++				 <RZT2H_PORT_PINMUX(12, 3, 0x29)>, /* SD0_DATA1 */
++				 <RZT2H_PORT_PINMUX(12, 4, 0x29)>, /* SD0_DATA2 */
++				 <RZT2H_PORT_PINMUX(12, 5, 0x29)>, /* SD0_DATA3 */
++				 <RZT2H_PORT_PINMUX(12, 6, 0x29)>, /* SD0_DATA4 */
++				 <RZT2H_PORT_PINMUX(12, 7, 0x29)>, /* SD0_DATA5 */
++				 <RZT2H_PORT_PINMUX(13, 0, 0x29)>, /* SD0_DATA6 */
++				 <RZT2H_PORT_PINMUX(13, 1, 0x29)>; /* SD0_DATA7 */
++			drive-strength-microamp = <9000>;
++			slew-rate = <1>;
++			input-schmitt-disable;
++		};
++
++		clk-pins {
++			pinmux = <RZT2H_PORT_PINMUX(12, 0, 0x29)>; /* SD0_CLK */
++			drive-strength-microamp = <11800>;
++			slew-rate = <1>;
++		};
++
++		cmd-pins {
++			pinmux = <RZT2H_PORT_PINMUX(12, 1, 0x29)>; /* SD0_CMD */
++			drive-strength-microamp = <9000>;
++			slew-rate = <1>;
++			input-schmitt-disable;
++		};
++
++		rst-pins {
++			pinmux = <RZT2H_PORT_PINMUX(13, 2, 0x29)>; /* SD0_RST# */
++			drive-strength-microamp = <9000>;
++			slew-rate = <1>;
+ 		};
+ 	};
+ 
+@@ -299,12 +350,49 @@ data-pins {
+ 				 <RZT2H_PORT_PINMUX(12, 3, 0x29)>, /* SD0_DATA1 */
+ 				 <RZT2H_PORT_PINMUX(12, 4, 0x29)>, /* SD0_DATA2 */
+ 				 <RZT2H_PORT_PINMUX(12, 5, 0x29)>; /* SD0_DATA3 */
++			drive-strength-microamp = <5000>;
++			slew-rate = <1>;
++			input-schmitt-disable;
++		};
++
++		clk-pins {
++			pinmux = <RZT2H_PORT_PINMUX(12, 0, 0x29)>; /* SD0_CLK */
++			drive-strength-microamp = <9000>;
++			slew-rate = <1>;
+ 		};
+ 
+ 		ctrl-pins {
+-			pinmux = <RZT2H_PORT_PINMUX(12, 0, 0x29)>, /* SD0_CLK */
+-				 <RZT2H_PORT_PINMUX(12, 1, 0x29)>, /* SD0_CMD */
++			pinmux = <RZT2H_PORT_PINMUX(12, 1, 0x29)>, /* SD0_CMD */
+ 				 <RZT2H_PORT_PINMUX(22, 5, 0x29)>; /* SD0_CD */
++			drive-strength-microamp = <5000>;
++			slew-rate = <1>;
++			input-schmitt-disable;
++		};
++	};
++
++	sdhi0_sd_pins_uhs: sd0-sd-group-uhs {
++		data-pins {
++			pinmux = <RZT2H_PORT_PINMUX(12, 2, 0x29)>, /* SD0_DATA0 */
++				 <RZT2H_PORT_PINMUX(12, 3, 0x29)>, /* SD0_DATA1 */
++				 <RZT2H_PORT_PINMUX(12, 4, 0x29)>, /* SD0_DATA2 */
++				 <RZT2H_PORT_PINMUX(12, 5, 0x29)>; /* SD0_DATA3 */
++			drive-strength-microamp = <9000>;
++			slew-rate = <1>;
++			input-schmitt-disable;
++		};
++
++		clk-pins {
++			pinmux = <RZT2H_PORT_PINMUX(12, 0, 0x29)>; /* SD0_CLK */
++			drive-strength-microamp = <11800>;
++			slew-rate = <1>;
++		};
++
++		ctrl-pins {
++			pinmux = <RZT2H_PORT_PINMUX(12, 1, 0x29)>, /* SD0_CMD */
++				 <RZT2H_PORT_PINMUX(22, 5, 0x29)>; /* SD0_CD */
++			drive-strength-microamp = <9000>;
++			slew-rate = <1>;
++			input-schmitt-disable;
+ 		};
+ 	};
+ 
+@@ -323,12 +411,49 @@ data-pins {
+ 				 <RZT2H_PORT_PINMUX(17, 0, 0x29)>, /* SD1_DATA1 */
+ 				 <RZT2H_PORT_PINMUX(17, 1, 0x29)>, /* SD1_DATA2 */
+ 				 <RZT2H_PORT_PINMUX(17, 2, 0x29)>; /* SD1_DATA3 */
++			drive-strength-microamp = <5000>;
++			slew-rate = <1>;
++			input-schmitt-disable;
++		};
++
++		clk-pins {
++			pinmux = <RZT2H_PORT_PINMUX(16, 5, 0x29)>; /* SD1_CLK */
++			drive-strength-microamp = <9000>;
++			slew-rate = <1>;
++		};
++
++		ctrl-pins {
++			pinmux = <RZT2H_PORT_PINMUX(16, 6, 0x29)>, /* SD1_CMD */
++				 <RZT2H_PORT_PINMUX(17, 4, 0x29)>; /* SD1_CD */
++			drive-strength-microamp = <5000>;
++			slew-rate = <1>;
++			input-schmitt-disable;
++		};
++	};
++
++	sdhi1_pins_uhs: sd1-group-uhs {
++		data-pins {
++			pinmux = <RZT2H_PORT_PINMUX(16, 7, 0x29)>, /* SD1_DATA0 */
++				 <RZT2H_PORT_PINMUX(17, 0, 0x29)>, /* SD1_DATA1 */
++				 <RZT2H_PORT_PINMUX(17, 1, 0x29)>, /* SD1_DATA2 */
++				 <RZT2H_PORT_PINMUX(17, 2, 0x29)>; /* SD1_DATA3 */
++			drive-strength-microamp = <9000>;
++			slew-rate = <1>;
++			input-schmitt-disable;
++		};
++
++		clk-pins {
++			pinmux = <RZT2H_PORT_PINMUX(16, 5, 0x29)>; /* SD1_CLK */
++			drive-strength-microamp = <11800>;
++			slew-rate = <1>;
+ 		};
+ 
+ 		ctrl-pins {
+-			pinmux = <RZT2H_PORT_PINMUX(16, 5, 0x29)>, /* SD1_CLK */
+-				 <RZT2H_PORT_PINMUX(16, 6, 0x29)>, /* SD1_CMD */
++			pinmux = <RZT2H_PORT_PINMUX(16, 6, 0x29)>, /* SD1_CMD */
+ 				 <RZT2H_PORT_PINMUX(17, 4, 0x29)>; /* SD1_CD */
++			drive-strength-microamp = <9000>;
++			slew-rate = <1>;
++			input-schmitt-disable;
+ 		};
+ 	};
+ };
+@@ -342,7 +467,7 @@ &sci0 {
+ #if SD0_EMMC
+ &sdhi0 {
+ 	pinctrl-0 = <&sdhi0_emmc_pins>;
+-	pinctrl-1 = <&sdhi0_emmc_pins>;
++	pinctrl-1 = <&sdhi0_emmc_pins_uhs>;
+ 	pinctrl-names = "default", "state_uhs";
+ 	vmmc-supply = <&reg_3p3v>;
+ 	vqmmc-supply = <&reg_1p8v>;
+@@ -357,7 +482,7 @@ &sdhi0 {
+ #if SD0_SD
+ &sdhi0 {
+ 	pinctrl-0 = <&sdhi0_sd_pins>;
+-	pinctrl-1 = <&sdhi0_sd_pins>;
++	pinctrl-1 = <&sdhi0_sd_pins_uhs>;
+ 	pinctrl-names = "default", "state_uhs";
+ 	vmmc-supply = <&reg_3p3v>;
+ 	vqmmc-supply = <&vqmmc_sdhi0>;
+@@ -372,7 +497,7 @@ &sdhi0 {
+ #if SD1_MICRO_SD
+ &sdhi1 {
+ 	pinctrl-0 = <&sdhi1_pins>;
+-	pinctrl-1 = <&sdhi1_pins>;
++	pinctrl-1 = <&sdhi1_pins_uhs>;
+ 	pinctrl-names = "default", "state_uhs";
+ 	vmmc-supply = <&reg_3p3v>;
+ 	vqmmc-supply = <&vccq_sdhi1>;
+-- 
+2.34.1
 
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/panel/panel-chipone-icna35xx.c b/drivers/gpu=
-/drm/panel/panel-chipone-icna35xx.c
-> new file mode 100644
-> index 0000000000000..958f205a7f4f9
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-chipone-icna35xx.c
-> @@ -0,0 +1,619 @@
-
-[ ... ]
-
-> +static int icna35xx_get_current_mode(struct panel_info *pinfo)
-> +{
-> +	struct drm_connector *connector =3D pinfo->connector;
-> +	struct drm_crtc_state *crtc_state;
-> +	int i;
-> +
-> +	/* Return the default (first) mode if no info available yet */
-> +	if (!connector->state || !connector->state->crtc)
-> +		return 0;
-
-Can connector be NULL here? It appears pinfo->connector is only initialized
-during get_modes(). If the panel's prepare() callback is invoked before
-get_modes() (for instance, if userspace forces a modeset without querying
-modes), dereferencing connector->state when connector is NULL could cause a
-kernel panic.
-
-[ ... ]
-
-> +static int icna35xx_prepare(struct drm_panel *panel)
-> +{
-> +	struct panel_info *pinfo =3D to_panel_info(panel);
-> +	int ret;
-> +
-> +	ret =3D regulator_bulk_enable(ARRAY_SIZE(panel_supplies), pinfo->suppli=
-es);
-> +	if (ret < 0) {
-> +		dev_err(panel->dev, "failed to enable regulators: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	icna35xx_reset(pinfo);
-> +
-> +	ret =3D pinfo->desc->init_sequence(pinfo);
-> +	if (ret < 0) {
-> +		regulator_bulk_disable(ARRAY_SIZE(panel_supplies), pinfo->supplies);
-
-Does this error path need to assert the reset GPIO before disabling the
-regulators? The icna35xx_reset() function leaves the reset_gpio deasserted,
-and properly powering down the panel usually requires asserting the reset
-GPIO (driving it to 1, as done in icna35xx_unprepare()) to avoid backpoweri=
-ng
-and leakage current.
-
-> +		dev_err(panel->dev, "failed to initialize panel: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int icna35xx_disable(struct drm_panel *panel)
-> +{
-> +	struct panel_info *pinfo =3D to_panel_info(panel);
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D pinfo->dsi };
-> +
-> +	pinfo->dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-
-Could this non-atomic modification of dsi->mode_flags race with the sysfs
-backlight callbacks?
-
-Sysfs operations are protected by the backlight subsystem's ops_lock, while
-DRM panel callbacks use modeset locks. Concurrent execution could lead to
-interleaved read-modify-write operations, potentially corrupting flags like
-MIPI_DSI_CLOCK_NON_CONTINUOUS.
-
-> +
-> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 50);
-
-[ ... ]
-
-> +static int icna35xx_bl_update_status(struct backlight_device *bl)
-> +{
-> +	struct mipi_dsi_device *dsi =3D bl_get_data(bl);
-> +	u16 brightness =3D backlight_get_brightness(bl);
-> +	int ret;
-> +
-> +	dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-> +
-> +	ret =3D mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-
-Since userspace can trigger sysfs callbacks at any time, can this send DCS
-commands when the panel is suspended or disabled?
-
-Sending commands to an unpowered panel could cause DSI bus transfer timeouts
-or hardware hangs. Does the driver need to check if the panel is prepared
-before accessing the hardware?
-
-> +	if (ret < 0)
-> +		return ret;
-
-If mipi_dsi_dcs_set_display_brightness_large() fails, the function returns
-early without restoring the MIPI_DSI_MODE_LPM flag. Will this leave the
-hardware in High Speed mode for all subsequent communications?
-
-> +
-> +	dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
-> +
-> +	return 0;
-> +}
-> +
-> +static int icna35xx_bl_get_brightness(struct backlight_device *bl)
-> +{
-> +	struct mipi_dsi_device *dsi =3D bl_get_data(bl);
-> +	u16 brightness;
-> +	int ret;
-> +
-> +	dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-> +
-> +	ret =3D mipi_dsi_dcs_get_display_brightness_large(dsi, &brightness);
-
-The same concerns about unpowered panels apply here.
-
-> +	if (ret < 0)
-> +		return ret;
-
-The same flag restoration issue on the error path also appears here.
-
-> +
-> +	dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
-> +
-> +	return brightness;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514-icna35xx-v=
-2-0-45acd1dfa566@gmail.com?part=3D2
