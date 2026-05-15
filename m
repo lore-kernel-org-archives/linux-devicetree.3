@@ -1,299 +1,138 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5D3C40DFC0;
-	Fri, 15 May 2026 08:39:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778834361; cv=none; b=sVZW7x0+kcjG6GXr4QVYvqA545IGPAjnsGSlqgcyFmzVYNp3ZAHCaHPkuVFti2XCB0GEmPBK1lqsGAUK0KJMzlV33izOtfTXIqQhDCmWLM2n4AOoEvxGhv9uFrShgBAOuYATtnt8i9Uxc15A9FtRFfsNteWR51g/lqQwFD2MlOc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778834361; c=relaxed/simple;
-	bh=VrneZbL/qUCFOhbUgoa9MQud/RcYfTPWysr2dZS2xLg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=WeMSTbDwTo7CFoTYnB/EjVcvK4ubzcQg9p/y/LMEOs9Rrn0FlRY6lg+Zlf2WmBttOsC69u95icB0n1kGSEFmsnMpjYbXo2vYspwjkox6kEA1tJXhHwE0cOdeY3FMTaIztyIl6/c+NBFzu1Igxg/EM8wsBcmhUTqRBAE+W4K4TQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.82])
-	by APP-05 (Coremail) with SMTP id zQCowAAHlwqc2wZqB+ZSEA--.46578S2;
-	Fri, 15 May 2026 16:38:53 +0800 (CST)
-Message-ID: <1c4d8611411e2d14699ac0b9aeb5b2377feedc8a.camel@iscas.ac.cn>
-Subject: Re: [PATCH 2/2] drm/verisilicon: add support for Nuvoton MA35D1
- DCUltra Lite display controller
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Fri, 15 May 2026 16:38:52 +0800
-In-Reply-To: <1a42a168-1dbb-467e-9053-b5585a737f71@gmail.com>
-References: <20260511075142.54752-1-a0987203069@gmail.com>
-	 <20260511075142.54752-3-a0987203069@gmail.com>
-	 <93e69179dbc495188cfffd8015350b3a55ce7876.camel@iscas.ac.cn>
-	 <de35406e-874d-4bdd-be7f-3d74dc37b13f@gmail.com>
-	 <3b94806073de8bd1d79aa7ec956493f67679e46b.camel@iscas.ac.cn>
-	 <dfbc4042-64cf-49f2-a5de-12260beffaa0@gmail.com>
-	 <4bf6efbb222ebc4d770ad613d17c6185e7cb2fda.camel@iscas.ac.cn>
-	 <1d04dd6d-f245-4b83-96b0-c5491fad8093@gmail.com>
-	 <76a9e9b676509e85484a1eb31c723b46c7e21a19.camel@iscas.ac.cn>
-	 <1a42a168-1dbb-467e-9053-b5585a737f71@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B0740244A
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 08:40:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778834403; cv=pass; b=RTXwUVXNfxn6xtdXLrj/SaioHJDn3sk2Qs0wotFzUSQ2vr6cplRuHKva0Ib1x1XRBM8anBb8iYES5PD+sk7Rao4k0BB/DudyF9EOvCOSWCnFajqn+9SyYG6xTsFEStgw1r4RN7KUAB+1j912IppS3a0D0VKGlCU5EPehq017yh8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778834403; c=relaxed/simple;
+	bh=1lcRrzpWt3IYTyxqjcwZ50t5ZeMwNrUNQTJrko/WnXY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PqdBn6sqVDFVBrt91OaUlij8cX5tkTswO+sTIigGdHRsbkpVDjs0ZHJLJL3za9IEDyriIBakM61q3jquOYNpJMyNE9xuguFIw7Oq1NpXwgbGnSga7kaHmcJNC3XD+FQpbPrUXgmSeKow4B+xxMDK4Vaz3uO6yGTUpEksIQPnE8c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=is7nxtqS; arc=pass smtp.client-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="is7nxtqS"
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-2f0d3e07e30so21214019eec.0
+        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 01:40:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778834401; cv=none;
+        d=google.com; s=arc-20240605;
+        b=eqKi4ehPIVDSZlQmK3PzV3BmO3o8vpfrp7GUTx0hDYcFjRdwaU12+R3/n38Ct4xvPN
+         /3N1ylHYE8fvS4TLYOeDLxDbnSqWZ/ql8inZd3WuP6gSuw/TJOozWVJHhKPEv5Sb3Qo2
+         fLURunbyWDQ5VO4qcuvNDxWIJkn2KBU9nvNcijG+9N6FEkyVgksaVWZA6TbnkksYzx/n
+         wVfKPJrPAXUKJ6I5S+0agx9teXu22oERXS3XXXxb9KfXjrpuubkWmpX9p8OCJzaTjER3
+         6XBg81G7UE5EdArn98KtWtLN6+VPD3GFcWN682PI3gSGq3hO3Tln3gut70i5mNkXt3Ls
+         HRTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=V9o04x0HaWnrCGllcDop+2XHXFTs0K8A0nGkD2mPC7Y=;
+        fh=wJbizb9kN/CyQto54G0MI3LiaO+fhT0pC5oL8Rkbw4o=;
+        b=OLlfJPgrVrkhTp9a/v9wpgtMfLUu233Tq4RKpKXTNVTYBpbFk8iv3TPiuIs+WcWcQv
+         BQ5YzLFVTBP0+GKyUyM5Jq9PHia4OkGb6NTo64vVzYbcs+6Fj9OIt4m/I3y8yt6FKP6U
+         WAvi+g8up5sWZCWF2kiYaZX2habybi9OE4ZTnNFhokVccETJZUCrTXKv5Vdy0Wc3w4hC
+         hcZKldkrDcN/Zwu/VmVQoME7FpRYmKTrwU8zvoYSbjzbvmsPCwueVS+9J1zKcmEIAHxD
+         Vj/RQyn8B5vBI3AmJVZ99Nzn0AYgloKC6cWs0t2Er2xlWXqfRpk+KnwkCfGse5hTbMnj
+         LdNg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778834401; x=1779439201; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=V9o04x0HaWnrCGllcDop+2XHXFTs0K8A0nGkD2mPC7Y=;
+        b=is7nxtqSJzzSE1pIDEQia6X3GSzhFzuBSbS/XUZb/kHd9ERKtuHxKogbrcbJ5GUkNb
+         27AYr1G27EkQ/WlQHWkPcWk2sgv7RHeoHkgM+jgiesZPmndMf74tJLUystiYEsPOZzKD
+         qrwZhTSICUW9/gXkg6p1bOgYxNGHV92nIorQQcCQWMBs1/nZhbrAiTrh2aNY+vM1rw6G
+         h8t0tOp3nMEY5qcXy1+28v2lA+/X2h4SOFTWUc0ML8oTxj5RFr4AOr6hkQDAXy9a4xgo
+         B2GTvjziYm5MskgdWfnkp8O3gC+dXWdS72lkrkG0+s+MeyOr1XEWdqzofVqak63doJda
+         qAqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778834401; x=1779439201;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=V9o04x0HaWnrCGllcDop+2XHXFTs0K8A0nGkD2mPC7Y=;
+        b=czrUKqPdwtwmp+CwTV0b5jXt9brwFo0x5kHU4Y9OHlsM5FYrtGfQghbN/bDwLkncm9
+         bjxFL7L4V/6GNA+2caMVNduhcyBBGS0QrdTXXfKreYknJjfVLERIITnvWdwzzJ8SWmaK
+         S8cS16Fb2RHWIdaJS5ZZmtpDHHisfLeEm5QDHGBIB/il7odXqTxUd1tyD/lkBf4biv1t
+         c1uez0k8dNDHjMcr5y+6cV90U0S8MhyW/EuqaDWO8dlD2snm2AhUO5eWi+7E66cPX3fb
+         rcueCgBufLS3xKN51Av1Q1Rc94FlUX7UnFKjJ59GLTSgG1+Qqu2NHerq9fS3IEjPI2yy
+         FhLw==
+X-Forwarded-Encrypted: i=1; AFNElJ9GMjH9iBxwloJ/h4c+e1uh1QzTrx9p6yCtbnGtN0kFpQxQLYuMRIdQ6eAcYiEh5d3B5Yub0fWTLMCE@vger.kernel.org
+X-Gm-Message-State: AOJu0YzmSCe4mif7coZVkh4TN1st3uaNAaJesUp/vJRwP09Po2P2r6Lt
+	TxAiaAQAbUSWdPtDtzW500R4e8k21WO0r8LmJAPLe0lZQurGbmJHJiPSfpDyVNM8JALZnsDiWfl
+	KAcxocwUsbsW/jLeBajqcNdh1IfKFo2A=
+X-Gm-Gg: Acq92OGG2AWEuZxx2bNBLthBEdylcZCt+6SIYQj6gny8TKdfZHreE+HYmP5TlXUsRTG
+	SLWQVK8/ps1g1pl6PBLI0sAEuiOBXDX8T6q73ISjVl/XlZ8m3zMP8IJbYUpO9qqPNEKQUqyzRXa
+	RooT2ocjUlbMMXhA1NDiPLZ0hILDKKB50WqMNHQEa2770HupfiZbgIsvOK6U2/U6O/cFWwiLUML
+	0AWMOA94/HnSZHoVoQuCSgbY78/T/mcOrxwNZSHJOHDPIhnPjiA3SAssvvusIH7xckV8ETOIuQo
+	xX7rnfOt3YuIQMlAXiw=
+X-Received: by 2002:a05:7300:a504:b0:2e5:8ec2:82c9 with SMTP id
+ 5a478bee46e88-303986a15f3mr1535796eec.26.1778834400799; Fri, 15 May 2026
+ 01:40:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:zQCowAAHlwqc2wZqB+ZSEA--.46578S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxtFyUXF4DAr15CF4UWr1ftFb_yoW3Gw1fpr
-	ykGFW0kr4DJryayr47tw1DtFyjyw1UJw43Wr1kJr1rXr1qyr17WF4UJr1UCF1kWr1kGr18
-	Jr48JrWxXry5ArUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
-	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
-	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
-	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
-	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
-	wI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
-	v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
-	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
-	ZFpf9x07betCcUUUUU=
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+References: <20260511135703.62470-1-clamor95@gmail.com> <20260511135703.62470-4-clamor95@gmail.com>
+ <20260515-precious-ginger-lori-d1fde7@quoll>
+In-Reply-To: <20260515-precious-ginger-lori-d1fde7@quoll>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Fri, 15 May 2026 11:39:49 +0300
+X-Gm-Features: AVHnY4LhmWA2BwD0V1_j_6xstdiR56JxjkYZue9zoJ3Q1jLukX8MObrLmKvfP2I
+Message-ID: <CAPVz0n3mvBLracMWGNuJ8kKUvAVZ+JRTJVkZGyq5MkuSobd8NQ@mail.gmail.com>
+Subject: Re: [PATCH v1 3/6] dt-bindings: net: Document Infineon/Intel XMM6260 modem
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Peter Chen <peter.chen@kernel.org>, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-=E5=9C=A8 2026-05-15=E4=BA=94=E7=9A=84 14:25 +0800=EF=BC=8CJoey Lu=E5=86=99=
-=E9=81=93=EF=BC=9A
->=20
-> On 5/12/2026 9:12 PM, Icenowy Zheng wrote:
-> > =E5=9C=A8 2026-05-12=E4=BA=8C=E7=9A=84 18:59 +0800=EF=BC=8CJoey Lu=E5=
-=86=99=E9=81=93=EF=BC=9A
-> > > On 5/12/2026 6:01 PM, Icenowy Zheng wrote:
-> > > > =E5=9C=A8 2026-05-12=E4=BA=8C=E7=9A=84 17:06 +0800=EF=BC=8CJoey Lu=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > > >=20
-> > > > =3D=3D=3D=3D=3D=3D=3D 8< =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > > > > > > > diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c
-> > > > > > > > > b/drivers/gpu/drm/verisilicon/vs_bridge.c
-> > > > > > > > > index 7a93049368db..225af322de32 100644
-> > > > > > > > > --- a/drivers/gpu/drm/verisilicon/vs_bridge.c
-> > > > > > > > > +++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
-> > > > > > > > > @@ -164,13 +164,16 @@ static void
-> > > > > > > > > vs_bridge_enable_common(struct
-> > > > > > > > > vs_crtc *crtc,
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0			VSDC_DISP_PANEL_CONFIG_C=
-LK_E
-> > > > > > > > > N);
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0	regmap_set_bits(dc->regs,
-> > > > > > > > > VSDC_DISP_PANEL_CONFIG(output),
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0			VSDC_DISP_PANEL_CONFIG_R=
-UNNI
-> > > > > > > > > NG);
-> > > > > > > > > -	regmap_clear_bits(dc->regs,
-> > > > > > > > > VSDC_DISP_PANEL_START,
-> > > > > > > > > -		=09
-> > > > > > > > > VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
-> > > > > > > > > -	regmap_set_bits(dc->regs,
-> > > > > > > > > VSDC_DISP_PANEL_START,
-> > > > > > > > > -
-> > > > > > > > > 			VSDC_DISP_PANEL_START_RUNNIN
-> > > > > > > > > G(ou
-> > > > > > > > > tput));
-> > > > > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=20
-> > > > > > > > > -	regmap_set_bits(dc->regs,
-> > > > > > > > > VSDC_DISP_PANEL_CONFIG_EX(crtc-
-> > > > > > > > > > id),
-> > > > > > > > > -
-> > > > > > > > > 			VSDC_DISP_PANEL_CONFIG_EX_CO
-> > > > > > > > > MMIT);
-> > > > > > > > > +	if (dc->info->has_config_ex) {
-> > > > > > > > > +		regmap_clear_bits(dc->regs,
-> > > > > > > > > VSDC_DISP_PANEL_START,
-> > > > > > > > > +			=09
-> > > > > > > > > VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
-> > > > > > > > > +		regmap_set_bits(dc->regs,
-> > > > > > > > > VSDC_DISP_PANEL_START,
-> > > > > > > > > +				VSDC_DISP_PANEL_STAR
-> > > > > > > > > T_RU
-> > > > > > > > > NNIN
-> > > > > > > > > G(ou
-> > > > > > > > > tput
-> > > > > > > > > ));
-> > > > > > > > > +
-> > > > > > > > > +		regmap_set_bits(dc->regs,
-> > > > > > > > > VSDC_DISP_PANEL_CONFIG_EX(crtc->id),
-> > > > > > > > > +				VSDC_DISP_PANEL_CONF
-> > > > > > > > > IG_E
-> > > > > > > > > X_CO
-> > > > > > > > > MMIT
-> > > > > > > > > );
-> > > > > > > > Should the commit operation happen on
-> > > > > > > > DC8000/DCUltraLite
-> > > > > > > > too?
-> > > > > > > > (By
-> > > > > > > > writing to DcregFrameBufferConfig0.VALID).
-> > > > > > > >=20
-> > > > > > > > Many registers written has "Note: This field is double
-> > > > > > > > buffered" in
-> > > > > > > > the
-> > > > > > > > DCUltraLite documentation.
-> > > > > > > >=20
-> > > > > > > > I suggest create a static function for commit -- write
-> > > > > > > > to
-> > > > > > > > the
-> > > > > > > > corresponding commit bit on DC8200, and write to
-> > > > > > > > DcregFrameBufferConfig0.VALID on DC8000/DCUltraLite.
-> > > > > > > [a] There is no commit operation for DCUltra Lite.
-> > > > > > > I'll not add a `VSDC_FB_CONFIG_VALID` macro. VALID
-> > > > > > > (BIT(3))
-> > > > > > > is a
-> > > > > > > hardware-managed double-buffer status bit: hardware
-> > > > > > > writes
-> > > > > > > 1=3DPENDING
-> > > > > > > when a new register set is ready and clears to 0=3DWORKING
-> > > > > > > after
-> > > > > > > the
-> > > > > > > VBLANK copy. Software must never write it, and there is
-> > > > > > > no
-> > > > > > > polling
-> > > > > > > use
-> > > > > > It seems to be writable and controls whether register
-> > > > > > buffering
-> > > > > > is
-> > > > > > enabled, see [1].
-> > > > > >=20
-> > > > > > The description of this bit in MA35D1 TRM says "This
-> > > > > > ensures a
-> > > > > > frame
-> > > > > > will always start with a valid working set if this register
-> > > > > > is
-> > > > > > programmed last, which reduces the need for SW to wait for
-> > > > > > the
-> > > > > > start of
-> > > > > > a VBLANK signal in order to ensure all states are loaded
-> > > > > > before
-> > > > > > the
-> > > > > > next VBLANK", which indicates some kind of "committing
-> > > > > > write",
-> > > > > > although
-> > > > > > the code at [1] seems to indicate that double buffering is
-> > > > > > only
-> > > > > > enabled
-> > > > > > when bit is cleared.
-> > > > > >=20
-> > > > > > Anyway this bit should be programmable, and "Software must
-> > > > > > never
-> > > > > > write
-> > > > > > it" contradicts with the MA35D1 TRM.
-> > > > > >=20
-> > > > > > Thanks,
-> > > > > > Icenowy
-> > > > > >=20
-> > > > > > [1]
-> > > > > > https://github.com/rockos-riscv/rockos-kernel/blob/rockos-v6.6.=
-y/drivers/gpu/drm/eswin/es_dc_hw.c#L993
-> > > > > Thank you for the correction. I'll add
-> > > > > `#define VSDC_FB_CONFIG_VALID BIT(3)` to
-> > > > > vs_primary_plane_regs.h
-> > > > > and
-> > > > > write it in `vs_primary_plane_commit()` for non-config_ex
-> > > > > variants.
-> > > > > > > case in the driver that requires a named constant. For
-> > > > > > > non-
-> > > > > > > config_ex
-> > > > > > > variants, `vs_primary_plane_commit()` performs no commit
-> > > > > > > operation =E2=80=94
-> > > > > > > `VSDC_FB_CONFIG_ENABLE` (OUTPUT, BIT(0)) is set in
-> > > > > > > `vs_crtc_atomic_enable()` and `VSDC_FB_CONFIG_RESET`
-> > > > > > > (BIT(4))
-> > > > > > > is
-> > > > > > > set/cleared in the bridge enable/disable paths.
-> > > > Well according to the driver code for DC8000 from Eswin, and
-> > > > the
-> > > > bit
-> > > > named "VALID", maybe it should be cleared before programming
-> > > > the
-> > > > registers, and set after programming registers, to make the
-> > > > process
-> > > > of
-> > > > programming registers atomic from the perspective of the
-> > > > display
-> > > > controller.
-> > > >=20
-> > > > Anyway this should require testing on real hardware to verify.
-> > > >=20
-> > > > By the way, I see multiple peripheral drivers for MA35D1 get
-> > > > applied in
-> > > > the torvalds tree, but the device tree is still only a
-> > > > skeleton;
-> > > > when
-> > > > will the device tree be updated?
-> > > >=20
-> > > > Thanks,
-> > > > Icenowy
-> > > Thanks for pointing this out.=C2=A0I=E2=80=99ll perform tests on real=
- hardware
-> > > since
-> > > I haven=E2=80=99t used this bit before.
-> > >=20
-> > > As for the device tree,=C2=A0we plan to update it comprehensively
-> > > after
-> > > completing several major IPs, with the goal of releasing the
-> > > update
-> > > later this year.
-> > Well I bought a MA35D1 board (MYIR MYB-LMA35 + RGB LCD) earlier
-> > this
-> > year (and this is where I got the MA35D1 identification register
-> > values). Hope I can have a chance to test this driver by myself.
-> >=20
-> > As MMC, Ethernet and USB support is all applied, maybe it's already
-> > worthy to update the device tree ;-)
-> >=20
-> > Thanks,
-> > Icenowy
->=20
-> Yes you can!
->=20
-> I have performed hardware validation on the MA35D1 and found that
-> this=20
-> bit acts as a manual latch for the shadow registers rather than an=20
-> auto-clearing trigger, which clarifies the slightly ambiguous=20
-> description in the TRM.
->=20
-> Following your suggestion, I will align the implementation with
-> ESWIN's=20
-> DC8000 logic: setting the VALID bit at atomic_begin and clearing it
+=D0=BF=D1=82, 15 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 11:1=
+8 Krzysztof Kozlowski <krzk@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Mon, May 11, 2026 at 04:56:58PM +0300, Svyatoslav Ryhel wrote:
+> > +  ap-wake-gpios:
+> > +    description: GPIO connected to the EINT3 pin
+> > +    maxItems: 1
+> > +
+> > +  cp-wake-gpios:
+> > +    description: GPIO connected to the EINT2 pin
+> > +    maxItems: 1
+> > +
+> > +  phys:
+> > +    maxItems: 1
+> > +
+> > +  vbat-supply:
+> > +    description: Supply connected to the VBAT lines.
+>
+> This should be rather name of the pin on this device, not the provider
+> name. VBAT suggests the latter. Please double check.
+>
 
-Ah do you mean clearing it at begin and setting it at flush?
+There is no documentation on this device from Infineon, I have used
+schematics of the P895 where this modem is used. According to it power
+supply is connected to pin with name VBAT (and yes, I am not mixing it
+up since supplies have different names)
 
-In the Eswin driver (which seems to be based on reference code by
-Verisilicon, I saw similar driver code for DC8200),
-dc_hw_enable_shadow_register() clears VALID bit when enable is true,
-and all register setting sequences calls that function with enable =3D
-true before setting and enable =3D false after setting.
-
-In addition, considering this bit is called "VALID" instead of
-"INVALID", I think it represents that the DC will apply the new setting
-when it's set and keep the current setting when it's cleared, so I
-think it should be cleared before modeset sequence and be set after
-modeset sequence.
-
-Thanks,
-Icenowy
-
-> at=20
-> atomic_flush. My tests confirm this allows the hardware to latch the=20
-> plane configuration correctly while avoiding the blank screen issues=20
-> observed with other configurations.
->=20
-> I am preparing the v2 patchset with this change, along with the=20
-> requested commit splits, and will submit it shortly.=F0=9F=99=82
->=20
-> > > > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D 8< =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > > > >=20
-
+> Rest looks fine, with respect to Sashiko comment on description:
+>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>
+> Best regards,
+> Krzysztof
+>
