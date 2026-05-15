@@ -1,194 +1,205 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0030243C05E;
-	Fri, 15 May 2026 10:03:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFE0B3D170D;
+	Fri, 15 May 2026 10:06:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778839437; cv=none; b=hP88XDSBkifJu7WKWJhfhrac/xqqpRpVbLBmJDuurvR3RKE9MIvNiE3kYkDz9gXPAhKbne586Z2hElqT7A2NgJJNDQFlGYqgqs8q3vH1gsAHytzcMehxXh0mjKxGE02L1Sm38Eahh2NkHs20qDDC7k4YSnklVCb96NFb+mqhTYM=
+	t=1778839585; cv=none; b=jazz/gILWkVvKUFpPvfwFiXqyJ9pl8eUJNNCTJ6obEtBVk5prE0TIe0cIvKiYQ2a8mkbtK3NEiJ62Fp8hdLfIliG2rt1U/c20AIKohTNOVbXsMqjCeEY3SgC4vZM4Ti3UBeItJpPxOCJptXExOBYFQq5UGz6ilkszj9NSMMH5oE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778839437; c=relaxed/simple;
-	bh=rmXc2RV9XZGALh+ZdY2CWCSvGaYLblZ8chn0OvWGWEk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LrdjZVHHplmXTAyv5jJzpnf2uK3IklnoovPrPolpQoBKtzbekx9k4s58HG3fmCeaZmGAqN8Z66wrz/SQP4i+v/NlArHGWlA21p9WN5FWBlZVRvT/WaWyZefDc8zdjZIhP3oJ3wkYR6vtqnm9nsYAbTZ0ekia58bmu+Yr/PJiw34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LBKi+bpm; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778839585; c=relaxed/simple;
+	bh=Tt8o4wmWv7FBD8c1FR41Koq5aNB7M2BPgy0ZMMxct8g=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XHul1zeThf5NLjb5Ro6fDmgw4E0Ir9WMWOeag7j7NEzxZSIDJTS3xgdETTNoFPhSjGRpjUp1kXZPyARjBpHfCZ1ybf8Ls5UYTSBuVPNN0tyVV5pZOzTFvre39IwGf0GIX/cAqdur3kRm4Q5SwJvIm8X9zQtoyVdRvDHVO8K/wzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=0Ih20V3a; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LBKi+bpm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7497C2BCB0;
-	Fri, 15 May 2026 10:03:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778839436;
-	bh=rmXc2RV9XZGALh+ZdY2CWCSvGaYLblZ8chn0OvWGWEk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=LBKi+bpmKyG+cH6YwIGomcrWS1lBBal434bNxd0C2HiuoJqhKdhpVqQN74tE7e9LM
-	 kUnSbWV6LBzUcg5JuqGDTyKhI6XhB9pA4P9k8f3QJIkmz/DzW2qLdfO9AtUR4LgPgl
-	 itnVs4uDGOIiIlCJm5ZssjYD7Tir789DRAS54PCK264yWyoTXKqq2UTFWAFC2y/ZKo
-	 1RO5oZs4HU803yRqULjWtPvTBlUaPj7Hy40I+s7PAfLgl9EjwxJGCQ1DMO+pFFGhnu
-	 yfubd4buO6vjuE45K+WftR5jXSW/kHsEoyoPxLMLUzYS487M107DnLwLZiR8fQHOxN
-	 skhTfguZKGUEA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] hwmon: Add Eswin EIC7700 PVT sensor driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: hehuan1@eswincomputing.com
-Cc: linux-hwmon@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260515092128.483-1-hehuan1@eswincomputing.com>
-References: <20260515092128.483-1-hehuan1@eswincomputing.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 May 2026 10:03:55 +0000
-Message-Id: <20260515100355.A7497C2BCB0@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="0Ih20V3a"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1778839584; x=1810375584;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Tt8o4wmWv7FBD8c1FR41Koq5aNB7M2BPgy0ZMMxct8g=;
+  b=0Ih20V3aLTBrBl/UZ+1/PjcadnbxKih9tftWFW/0HPV196oe+6hqiszr
+   ewpZRfqSrEoolqk6jrGqvc02nio4QOB8hAFbW2VZNNkBa68UmURaD7U9c
+   Fx9au9aR3UgR+GFNiLQLAEfpdWXMGL7LnGaBwivL45CdKotYI38lj1peD
+   wNkYkVtqFpi2GM+HPq4RcUdlMYToEQrguVzj1S3gcY4YvvWpher/6xpmw
+   c6wDnuKstmpHQIL/8Pzx1Uv0JtdY7tjBVKw3kfXfU1DWJ5i5hKqkpVFQG
+   BqxEZojjbWokzbiiae38lrBpB9cWTF2Vkj5UiCVQhonYTzLNn68wP/DPv
+   g==;
+X-CSE-ConnectionGUID: o9rrxM+iSRKeBuLs0oESHA==
+X-CSE-MsgGUID: fQzx7hEJQgO9SWwp0ra30g==
+X-IronPort-AV: E=Sophos;i="6.23,236,1770620400"; 
+   d="asc'?scan'208";a="56789153"
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 May 2026 03:06:23 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
+ chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.37; Fri, 15 May 2026 03:06:21 -0700
+Received: from wendy (10.10.85.11) by chn-vm-ex04.mchp-main.com (10.10.85.152)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
+ Transport; Fri, 15 May 2026 03:06:18 -0700
+Date: Fri, 15 May 2026 11:05:40 +0100
+From: Conor Dooley <conor.dooley@microchip.com>
+To: Jia Wang <wangjia@ultrarisc.com>
+CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer
+ Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre
+ Ghiti <alex@ghiti.fr>, Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski
+	<brgl@kernel.org>, Samuel Holland <samuel.holland@sifive.com>, Paul Walmsley
+	<paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@sifive.com>, Conor Dooley
+	<conor@kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<linux-gpio@vger.kernel.org>
+Subject: Re: [PATCH 0/9] riscv: ultrarisc: add DP1000 SoC DT and pinctrl
+ support
+Message-ID: <20260515-brink-dealer-d0610c0dbc7b@wendy>
+References: <20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="Zg1zeyfmQCNl+VVp"
+Content-Disposition: inline
+In-Reply-To: <20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [Critical] The timeout calculation for sensor conversion evaluates to 0 j=
-iffies, causing all reads to instantly fail.
-- [High] Missing pm_runtime_disable() in the devres cleanup path leads to a=
-n unbalanced disable_depth.
-- [High] Clock leakage on the IRQ request error path when CONFIG_PM is disa=
-bled.
-- [High] Race condition between ISR and main thread leaks PM runtime active=
- state.
-- [High] Incorrect initialization order causes an IRQ storm during probe if=
- an interrupt fires early.
-- [High] Lack of internal locking in eic7700_pvt_hwmon_read allows concurre=
-nt hardware state corruption.
-- [Medium] Useless and incorrectly ordered devres action for unblocking sys=
-fs readers.
---
+--Zg1zeyfmQCNl+VVp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit fe78922d5101b3a07ca5ea0fbd0fd5e9cba0dcc9
-Author: Huan He <hehuan1@eswincomputing.com>
+Hey,
 
-hwmon: Add Eswin EIC7700 PVT sensor driver
+On Fri, May 15, 2026 at 09:17:56AM +0800, Jia Wang wrote:
+> This series adds initial Devicetree support for the UltraRISC DP1000 RISC=
+-V
+> SoC and two DP1000-based boards (Milk-V Titan and Rongda M0).
+>=20
+> The series introduces the required DT bindings, adds the DP1000 pinctrl
+> driver, and provides the initial SoC/board DTS files.
+>=20
+> Notes:
+>   - Clocks are configured and enabled by firmware before Linux boots. Lin=
+ux
+>     does not manage clock rates or gating at runtime on this platform.
+>     Therefore the initial DT only models the fixed clocks required by
+>     standard drivers, and no clock controller/driver is provided.
 
-Add support for ESWIN EIC7700 Voltage and Temperature sensor. The driver
-supports temperature and voltage monitoring with polynomial conversion,
-and provides sysfs interface for sensor data access.
+I really disagree with this approach. In my experience it never ends up
+working out and ends up being disruptive, because it is either an over
+simplification of the clock tree and condenses multiple different clocks
+into one where rates are similar or because firmware changes mean clock
+rate changes down the line. I would much rather you modelled the clocks
+accurately, even if that just means that a read-only clock controller is
+implemented. Alternatively, if firmware does all of your clock control,
+you can implement this using rpmi/mpoxy using clk-rpmi.c
 
-> diff --git a/drivers/hwmon/eic7700-pvt.c b/drivers/hwmon/eic7700-pvt.c
-> index 0000000000000..cdcfa031cdbdb
-> --- /dev/null
-> +++ b/drivers/hwmon/eic7700-pvt.c
-[ ... ]
-> +static irqreturn_t eic7700_pvt_hard_isr(int irq, void *data)
-> +{
-[ ... ]
-> +	val =3D readl(pvt->regs + PVT_DATA);
-> +	WRITE_ONCE(pvt->data_cache, FIELD_GET(PVT_DATA_OUT, val));
-> +	complete(&pvt->conversion);
-> +
-> +	if (IS_ENABLED(CONFIG_PM))
-> +		pm_runtime_put_noidle(pvt->dev);
-> +
-> +	return IRQ_HANDLED;
-> +}
+>   - The DP1000 pinctrl binding supports two child node styles under the s=
+ame
+>     controller compatible:
+>       * legacy DP1000-specific nodes using phandle-array properties
+>         "pinctrl-pins" and "pinconf-pins"
+>       * generic pinctrl nodes using "pins", "function" and generic pin
+>         configuration properties
+>     The legacy form is kept for compatibility with existing vendor DTs.
 
-If the main thread in eic7700_pvt_hwmon_read() drops the usage count from 2
-to 1 before the ISR drops it from 1 to 0, will both threads fail to trigger
-the idle callback?
+Why would we want "legacy" stuff in mainline when this is a brand new
+platform? "legacy" vendor devicetrees are not something that mainline
+cares about, sorry.
 
-This could leave the device indefinitely in the active state. Should the ISR
-use pm_runtime_put_autosuspend() or pm_runtime_put() instead of
-pm_runtime_put_noidle()?
+Additionally, these pinctrl patches should be sent standalone to the
+pinctrl maintainers, they're likely to go through lots of revisions and
+a different maintainer applies them.
 
-[ ... ]
-> +static int eic7700_pvt_read_data(struct pvt_hwmon *pvt,
-> +				 enum pvt_sensor_type type, long *val)
-> +{
-> +	unsigned long timeout;
-[ ... ]
-> +	timeout =3D 2 * usecs_to_jiffies(ktime_to_us(pvt->timeout));
-> +	ret =3D wait_for_completion_timeout(&pvt->conversion, timeout);
+>   - The bindings for "ultrarisc,dp1000-uart" and "ultrarisc,dp1000-pcie" =
+are
+>     being reviewed in separate series, since the DP1000 SoC DTS introduced
+>     here uses those compatibles:
+>     * Link: https://lore.kernel.org/lkml/20260429-ultrarisc-serial-v7-3-e=
+475cce9e274@ultrarisc.com/
+>     * Link: https://lore.kernel.org/lkml/20260427-ultrarisc-pcie-v4-2-989=
+35f6cdfb5@ultrarisc.com/
+>   - ARCH_ULTRARISC support is being reviewed separately:
+>     * Link: https://lore.kernel.org/lkml/20260427-ultrarisc-pcie-v4-1-989=
+35f6cdfb5@ultrarisc.com/
 
-Because pvt->timeout is 333 microseconds, will usecs_to_jiffies(333) evalua=
-te
-to 0 on standard kernel configurations like HZ=3D1000?
+IMO, this patch needs to be in this series so that it compiles.
 
-If so, this acts as a non-blocking check and wait_for_completion_timeout()
-could instantly return 0, causing all reads to permanently fail with
--ETIMEDOUT.
+Cheers,
+Conor.
 
-[ ... ]
-> +static int eic7700_pvt_hwmon_read(struct device *dev,
-> +				  enum hwmon_sensor_types type, u32 attr,
-> +				  int ch, long *val)
-> +{
-> +	struct pvt_hwmon *pvt =3D dev_get_drvdata(dev);
+>=20
+> Testing:
+>   - dt_binding_check and yamllint (all new/modified binding YAMLs)
+>   - dtbs_check and dtbs (RISC-V, including dp1000-milkv-titan.dtb and
+>     dp1000-rongda-m0.dtb)
+>   - Kernel build for RISC-V and boot-tested on DP1000 (Milk-V Titan and
+>     Rongda M0)
+>=20
+> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> ---
+> Jia Wang (9):
+>       dt-bindings: vendor-prefixes: add Rongda
+>       dt-bindings: riscv: cpus: Add UltraRISC CP100 compatible
+>       dt-bindings: riscv: Add UltraRISC DP1000 bindings
+>       dt-bindings: pinctrl: Add UltraRISC DP1000 pinctrl bindings
+>       riscv: dts: ultrarisc: Add initial device tree for UltraRISC DP1000
+>       pinctrl: ultrarisc: Add UltraRISC DP1000 pinctrl driver
+>       riscv: dts: ultrarisc: add Rongda M0 board device tree
+>       riscv: dts: ultrarisc: add Milk-V Titan board device tree
+>       riscv: defconfig: enable ARCH_ULTRARISC
+>=20
+>  .../bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml | 168 ++++
+>  Documentation/devicetree/bindings/riscv/cpus.yaml  |   1 +
+>  .../devicetree/bindings/riscv/ultrarisc.yaml       |  27 +
+>  .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+>  MAINTAINERS                                        |  15 +
+>  arch/riscv/boot/dts/Makefile                       |   1 +
+>  arch/riscv/boot/dts/ultrarisc/Makefile             |   3 +
+>  .../dts/ultrarisc/dp1000-milkv-titan-pinctrl.dtsi  | 107 +++
+>  .../boot/dts/ultrarisc/dp1000-milkv-titan.dts      | 182 +++++
+>  .../dts/ultrarisc/dp1000-rongda-m0-pinctrl.dtsi    |  85 ++
+>  arch/riscv/boot/dts/ultrarisc/dp1000-rongda-m0.dts | 111 +++
+>  arch/riscv/boot/dts/ultrarisc/dp1000.dtsi          | 851 +++++++++++++++=
+++++++
+>  arch/riscv/configs/defconfig                       |   1 +
+>  drivers/pinctrl/Kconfig                            |   1 +
+>  drivers/pinctrl/Makefile                           |   1 +
+>  drivers/pinctrl/ultrarisc/Kconfig                  |  23 +
+>  drivers/pinctrl/ultrarisc/Makefile                 |   4 +
+>  drivers/pinctrl/ultrarisc/pinctrl-dp1000.c         | 112 +++
+>  drivers/pinctrl/ultrarisc/pinctrl-ultrarisc.c      | 746 +++++++++++++++=
++++
+>  drivers/pinctrl/ultrarisc/pinctrl-ultrarisc.h      |  71 ++
+>  .../dt-bindings/pinctrl/ultrarisc,dp1000-pinctrl.h |  65 ++
+>  21 files changed, 2577 insertions(+)
+> ---
+> base-commit: 50897c955902c93ae71c38698abb910525ebdc89
+> change-id: 20260316-ultrarisc-pinctrl-efa6e24c4803
+>=20
+> Best regards,
+> -- =20
+> Jia Wang <wangjia@ultrarisc.com>
+>=20
 
-The driver registers the temperature sensor with the thermal subsystem via
-the HWMON_C_REGISTER_TZ flag.
+--Zg1zeyfmQCNl+VVp
+Content-Type: application/pgp-signature; name="signature.asc"
 
-If thermal zone background polling directly invokes this read callback while
-a user concurrently reads a hwmon sysfs attribute, is there a race conditio=
-n?
-Does this need an internal mutex to prevent concurrent hardware state
-corruption?
+-----BEGIN PGP SIGNATURE-----
 
-[ ... ]
-> +static struct pvt_hwmon *eic7700_pvt_create_data(struct platform_device =
-*pdev)
-> +{
-[ ... ]
-> +	ret =3D devm_add_action(dev, pvt_clear_data, pvt);
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagbv9AAKCRB4tDGHoIJi
+0owyAP98o2Gi+WPgvPXDb2eegMxaGOqaR/US3qNCty4tHANZqgEA1vZfx3qOE2A4
+JvyDT2lpoJ17eKlYt9elN5N+5alSIQI=
+=6JcX
+-----END PGP SIGNATURE-----
 
-Because devres actions execute in reverse order of registration (LIFO), will
-this action run after the hwmon device is unregistered?
-
-Since hwmon unregistration blocks until all active sysfs read operations
-finish, the reader would have already completed before pvt_clear_data runs,
-which might make it ineffective for unblocking sysfs readers.
-
-[ ... ]
-> +static void eic7700_pvt_disable_pm_runtime(void *data)
-> +{
-> +	struct pvt_hwmon *pvt =3D data;
-> +
-> +	pm_runtime_dont_use_autosuspend(pvt->dev);
-> +	pm_runtime_force_suspend(pvt->dev);
-> +
-> +	if (!IS_ENABLED(CONFIG_PM))
-> +		clk_disable_unprepare(pvt->clk);
-> +}
-
-Should this custom devres cleanup action call pm_runtime_disable()?
-
-If the module is unloaded and then re-probed, could the unbalanced
-disable_depth cause an "Unbalanced pm_runtime_enable!" warning and corrupt
-the power management state?
-
-> +
-> +static int eic7700_pvt_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	if (IS_ENABLED(CONFIG_PM))
-> +		clk_disable_unprepare(pvt->clk);
-> +
-> +	ret =3D eic7700_pvt_request_irq(pvt);
-> +	if (ret)
-> +		return ret;
-
-If CONFIG_PM is disabled, the clock remains enabled. If
-eic7700_pvt_request_irq() fails here, does the function return without
-disabling the clock? This could permanently leak the clock reference because
-the devres cleanup action is not yet registered.
-
-> +
-> +	pm_runtime_enable(&pdev->dev);
-
-Since the IRQ is unmasked before pm_runtime_enable() is called, what happens
-if the hardware asserts an interrupt in this window?
-
-If eic7700_pvt_hard_isr() fires, pm_runtime_get_if_active() would return
--EINVAL and the handler would return IRQ_NONE without clearing the interrup=
-t.
-Since the interrupt is level-triggered (IRQF_TRIGGER_HIGH), could this cause
-an infinite IRQ storm that locks up the CPU?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515091942.449-=
-1-hehuan1@eswincomputing.com?part=3D2
+--Zg1zeyfmQCNl+VVp--
