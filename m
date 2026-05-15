@@ -1,140 +1,236 @@
-Received: from polaris.svanheule.net (polaris.svanheule.net [84.16.241.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88A43B4EBB
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 21:10:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.241.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A5DB487BE;
+	Fri, 15 May 2026 21:11:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778879449; cv=none; b=eG17el6/W+UFH9BvtowoxzZsqNt4buIm6qoFySSq6ZlVZA24pm6clyQmKYdydo7bGIS0BouKD83m3GWzTVOOfVKp77pJT4wk36hGeTd4NUWB6vZY+LxI0uQJGJuhokHYTXJz+TaeHIyzBYE7Ioumc7wZOWkzB1/LipcNjcszn5s=
+	t=1778879513; cv=none; b=YS6sdghOuWbpZdAMcT+99hCzYI7rtjpRvXQTJAw3Y/J5PwNivdNJeCp5A4/uPCMiVKxwjLjfELwr7NggWb/6nvR8SwJZAbrAGM1vkd+NRCnMB30j+4C2/w8gTe4eYu4q/+DDJziIe32eWcwuin11PyzEsHmwLhZI4EJdA/iyEOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778879449; c=relaxed/simple;
-	bh=2RUTRr/e2mDBeEQc5WgusbV5r2IsaSEwTwJeHAB9En8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=BT02ITun4E7EIzoYnlH16TjssQtd0pk5QNGhMVIW0+m3wmmBlh2Jj8e23/+DrNrcET0u4whJxOTLNxDLUfHbWafTiOfTuJ0AKS5ZLio8oHtOOk3VzaA9OVhDjvqqawi3qMsdqgtttwArf/d3fwkkpGJG/V8HpJg56JxetP+/SCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net; spf=pass smtp.mailfrom=svanheule.net; dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b=qCfby3Og; arc=none smtp.client-ip=84.16.241.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=svanheule.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=svanheule.net
+	s=arc-20240116; t=1778879513; c=relaxed/simple;
+	bh=NW9PHikwJQ3ZtX3oBjSMWYnrqk7Wju8+GpkDo/Fz3u8=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=FsoZFbTQ2hu5FJ0QCTvagHVVrVfuMhMGb0oCBOnfOI057s/qAk6SRO6+oFpRrRkeuIiEL0c+Fohde1MODWLNaMstsEk+KOR5r04cnXYj7Rf6c4mNoC80zBdGHge/juyhP/3BjgwmHvhyavLyCFx2OoLmarX5nypF/8MVlUtm/pc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=UqsszUUE; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=svanheule.net header.i=@svanheule.net header.b="qCfby3Og"
-Received: from [IPv6:2a02:1812:162d:3d00:c381:7255:a866:916d] (2a02-1812-162d-3d00-c381-7255-a866-916d.ip6.access.telenet.be [IPv6:2a02:1812:162d:3d00:c381:7255:a866:916d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sander@svanheule.net)
-	by polaris.svanheule.net (Postfix) with ESMTPSA id E35EE780785;
-	Fri, 15 May 2026 23:10:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=svanheule.net;
-	s=mail1707; t=1778879446;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cawzNw3i1BfQgbkrGSJ5TI4CbbBN61A9TA4ImP4zRJI=;
-	b=qCfby3OgmHe+GH+Ot+HJARa1Kn7+pyHzQOMRnP3Uvk1f3d0ak4IwQFNYbdEnEMf1afgzUi
-	HeQp+WED+D+Hd0CkhIqDhMSUmWk0lxVN0fjC5cGvJxl4BTJ1sv5sXpP66zXQrmVl3dA67B
-	u4Ry/23eLZ4VLeXjSdKfFFM2033G65qrH+F3SloxbLS+R4TFnJY+viV7jANCnkfmmwvwW9
-	kkcFYhH9cwNcYNpDw5Lm2op4M38FXdNWzKHnleUDqNsMU1WpZW1wc5w9DKmtGgm/D9FHWj
-	RP4u5dgYs0clKncMczrAVkXpak5kCVuiw9j0fwNGfDsZ/HHe3GenAhIEOdQIQA==
-Message-ID: <173f0f7d804d3b0f33b6584b8a592d2079c593e9.camel@svanheule.net>
-Subject: Re: [PATCH 1/3] watchdog: realtek-otto: Change to use regmap API
-From: Sander Vanheule <sander@svanheule.net>
-To: Rustam Adilov <adilov@disroot.org>, sashiko@lists.linux.dev
-Cc: linux-watchdog@vger.kernel.org, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, Wim Van
- Sebroeck	 <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>
-Date: Fri, 15 May 2026 23:10:44 +0200
-In-Reply-To: <1d8a4fa99fa1af9e41f255ec147a7571@disroot.org>
-References: <20260509163101.722793-2-adilov@disroot.org>
-	 <20260509171602.6B74FC2BCB2@smtp.kernel.org>
-	 <1d8a4fa99fa1af9e41f255ec147a7571@disroot.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="UqsszUUE"
+Received: from mail01.disroot.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id C93BB27249;
+	Fri, 15 May 2026 23:11:49 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id oHfTVjZ0KNoU; Fri, 15 May 2026 23:11:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1778879508; bh=NW9PHikwJQ3ZtX3oBjSMWYnrqk7Wju8+GpkDo/Fz3u8=;
+	h=Date:Cc:Subject:From:To:References:In-Reply-To;
+	b=UqsszUUEXaXyvllsI8NE9KleLkIwLZwQ6d7IpoMs2tX2Vbf5NfvDiJd2h2d3JwVYl
+	 VYWYoXpLXHjQoB9gYu3lv9tlRl/VBD6RtZjpQv2YZN8Au89o4xRt5B/ahf+Nvblh5E
+	 rWmPU48hSf49bXn082NXVLrIiK0D/Za+5APDWzh8hEKMTrgYt1rJAyM2HkExBy6zuw
+	 Z1HVe/aTfnq57aco1VoGFhVLhEP/egzTu1MyBKVx7qy5e6U3ifOYEKO1hO+BEMb+hg
+	 /C3fV9CEoQe5A9n2Ldn1jOQzZCecbB9KQTzujFmQv93fOiMNjMkEoEqHR+UKpvZXgV
+	 zRzwErxLj5DPQ==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 16 May 2026 02:41:29 +0530
+Message-Id: <DIJK5FTQ5KWG.HOKZAOXHTGU7@disroot.org>
+Cc: "Lee Jones" <lee@kernel.org>, "Pavel Machek" <pavel@kernel.org>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "MyungJoo Ham"
+ <myungjoo.ham@samsung.com>, "Chanwoo Choi" <cw00.choi@samsung.com>,
+ "Sebastian Reichel" <sre@kernel.org>, "Krzysztof Kozlowski"
+ <krzk@kernel.org>, =?utf-8?q?Andr=C3=A9_Draszik?=
+ <andre.draszik@linaro.org>, "Alexandre Belloni"
+ <alexandre.belloni@bootlin.com>, "Jonathan Corbet" <corbet@lwn.net>, "Shuah
+ Khan" <skhan@linuxfoundation.org>, "Nam Tran" <trannamatk@gmail.com>,
+ =?utf-8?q?=C5=81ukasz_Lebiedzi=C5=84ski?= <kernel@lvkasz.us>,
+ <linux-leds@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-pm@vger.kernel.org>,
+ <linux-samsung-soc@vger.kernel.org>, <linux-rtc@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>
+Subject: Re: [PATCH v6 03/11] dt-bindings: mfd: add documentation for
+ S2MU005 PMIC
+From: "Kaustabh Chakraborty" <kauschluss@disroot.org>
+To: "Conor Dooley" <conor@kernel.org>, "Kaustabh Chakraborty"
+ <kauschluss@disroot.org>
+References: <20260515-s2mu005-pmic-v6-0-1979106992d4@disroot.org>
+ <20260515-s2mu005-pmic-v6-3-1979106992d4@disroot.org>
+ <20260515-justly-recite-6028f4bfb24a@spud>
+In-Reply-To: <20260515-justly-recite-6028f4bfb24a@spud>
 
-Adding back Guenter (and Wim) in Cc
+On 2026-05-15 18:14 +01:00, Conor Dooley wrote:
+> On Fri, May 15, 2026 at 04:08:59PM +0530, Kaustabh Chakraborty wrote:
+>> Samsung's S2MU005 PMIC includes subdevices for a charger, an MUIC (Micro
+>> USB Interface Controller), and flash and RGB LED controllers.
+>>=20
+>> Add the compatible and documentation for the S2MU005 PMIC. Also, add an
+>> example for nodes for supported sub-devices, i.e. MUIC, flash LEDs, and
+>> RGB LEDs. Charger sub-device uses the node of the parent.
+>>=20
+>> Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
+>> ---
+>>  .../bindings/mfd/samsung,s2mu005-pmic.yaml         | 120 ++++++++++++++=
++++++++
+>>  1 file changed, 120 insertions(+)
+>>=20
+>> diff --git a/Documentation/devicetree/bindings/mfd/samsung,s2mu005-pmic.=
+yaml b/Documentation/devicetree/bindings/mfd/samsung,s2mu005-pmic.yaml
+>> new file mode 100644
+>> index 0000000000000..0e6afb7d2017b
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/mfd/samsung,s2mu005-pmic.yaml
+>> @@ -0,0 +1,120 @@
+>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/mfd/samsung,s2mu005-pmic.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Samsung S2MU005 Power Management IC
+>> +
+>> +maintainers:
+>> +  - Kaustabh Chakraborty <kauschluss@disroot.org>
+>> +
+>> +description: |
+>> +  The S2MU005 is a companion power management IC which includes subdevi=
+ces for
+>> +  a charger controller, an MUIC (Micro USB Interface Controller), and f=
+lash and
+>> +  RGB LED controllers.
+>> +
+>> +allOf:
+>> +  - $ref: /schemas/power/supply/power-supply.yaml#
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: samsung,s2mu005-pmic
+>> +
+>> +  flash:
+>> +    $ref: /schemas/leds/samsung,s2mu005-flash.yaml
+>> +    description:
+>> +      Child node describing flash LEDs.
+>> +
+>> +  interrupts:
+>> +    maxItems: 1
+>> +
+>> +  muic:
+>> +    $ref: /schemas/extcon/samsung,s2mu005-muic.yaml#
+>> +    description:
+>> +      Child node describing MUIC device.
+>> +
+>> +  multi-led:
+>> +    type: object
+>> +
+>> +    allOf:
+>> +      - $ref: /schemas/leds/leds-class-multicolor.yaml#
+>
+> Does this need to be an allOf when the other refs are not?
 
-On Fri, 2026-05-15 at 20:48 +0000, Rustam Adilov wrote:
-> On 2026-05-09 17:16, sashiko-bot@kernel.org=C2=A0wrote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential
-> > issue(s) to consider:
-> > - [High] Deadlock risk in the atomic restart handler due to regmap's
-> > internal spinlock.
-> > --
-> >=20
-> > commit a520c8e2203154ba331a6ae28f00daec074e62ee
-> > Author: Rustam Adilov <adilov@disroot.org>
-> >=20
-> > watchdog: realtek-otto: Change to use regmap API
-> >=20
-> > This commit converts the realtek-otto watchdog driver to use the regmap=
- API
-> > instead of direct mmio accesses. It replaces direct read/modify/write
-> > sequences with regmap functions and selects REGMAP_MMIO.
-> >=20
-> > > diff --git a/drivers/watchdog/realtek_otto_wdt.c
-> > > b/drivers/watchdog/realtek_otto_wdt.c
-> > > index 2c30ddd574c59..e5e9cb480f4f9 100644
-> > > --- a/drivers/watchdog/realtek_otto_wdt.c
-> > > +++ b/drivers/watchdog/realtek_otto_wdt.c
-> > [ ... ]
-> > > @@ -199,7 +189,7 @@ static int otto_wdt_restart(struct watchdog_devic=
-e
-> > > *wdev, unsigned long reboot_m
-> > > =C2=A0
-> > > =C2=A0	/* Configure for shortest timeout and wait for reset to occur =
-*/
-> > > =C2=A0	v =3D FIELD_PREP(OTTO_WDT_CTRL_RST_MODE, reset_mode) |
-> > > OTTO_WDT_CTRL_ENABLE;
-> > > -	iowrite32(v, ctrl->base + OTTO_WDT_REG_CTRL);
-> > > +	regmap_write(ctrl->regmap, OTTO_WDT_REG_CTRL, v);
-> >=20
-> > Could this regmap_write() cause a deadlock during system restart?
-> >=20
-> > The restart handler is often called during system shutdown or kernel pa=
-nic
-> > in an atomic context with local interrupts disabled. Since
-> > devm_regmap_init_mmio() configures the regmap to use a spinlock by defa=
-ult,
-> > if a panic occurs while another cpu holds the regmap lock (e.g., during
-> > a ping or timeout update) and that cpu is halted by smp_send_stop(), th=
-is
-> > regmap_write() could spin endlessly and prevent the system from rebooti=
-ng.
-> >=20
-> > Additionally, on preempt-rt kernels, the regmap spinlock becomes a slee=
-pable
-> > rt_mutex, which could cause a sleeping in atomic context bug when acqui=
-red
-> > with interrupts disabled.
-> >=20
-> > > =C2=A0	mdelay(3 * otto_wdt_tick_ms(ctrl, 0));
-> > >=20
->=20
-> Hi Sander,
->=20
-> I hope it is alright if i CCd you for this as i am not an expert on watch=
-dog
-> stuff.
-> Wonna make sure this issue applies here before i proceed with the suggest=
-ed
-> solution
-> to add .disable_locking to regmap_config without understanding the
-> consequences of it.
+It has it's own properties, that's the reason. This used to be it's own
+thing in dt-bindings/leds, but I was asked to move it here in prior
+reviews.
 
-I'm no expert either, but AFAICT using .disable_locking would essentially m=
-ean
-all accesses are only protected by the watchdog subsystem. Which is also th=
-e
-case now, so that would mean feature parity.
+>> +
+>> +    properties:
+>> +      compatible:
+>> +        const: samsung,s2mu005-rgb
+>> +
+>> +    required:
+>> +      - compatible
+>> +
+>> +    unevaluatedProperties: false
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>
+> Move this above the child nodes please.
 
-I'll leave it up to Guenter to decide if this refactor is worthwhile or not=
-.
+But properties are sorted in lex order?
 
-Best,
-Sander
+> Otherwise, I think this looks good.
+>
+> pw-bot: changes-requested
+>
+> Thanks,
+> Conor.
+>
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +
+>> +unevaluatedProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/interrupt-controller/irq.h>
+>> +    #include <dt-bindings/leds/common.h>
+>> +
+>> +    i2c {
+>> +        #address-cells =3D <1>;
+>> +        #size-cells =3D <0>;
+>> +
+>> +        pmic@3d {
+>> +            compatible =3D "samsung,s2mu005-pmic";
+>> +            reg =3D <0x3d>;
+>> +            interrupt-parent =3D <&gpa2>;
+>> +            interrupts =3D <7 IRQ_TYPE_LEVEL_LOW>;
+>> +
+>> +            monitored-battery =3D <&battery>;
+>> +
+>> +            flash {
+>> +                compatible =3D "samsung,s2mu005-flash";
+>> +                #address-cells =3D <1>;
+>> +                #size-cells =3D <0>;
+>> +
+>> +                led@0 {
+>> +                    reg =3D <0>;
+>> +                    color =3D <LED_COLOR_ID_WHITE>;
+>> +                    function =3D LED_FUNCTION_FLASH;
+>> +                };
+>> +
+>> +                led@1 {
+>> +                    reg =3D <1>;
+>> +                    color =3D <LED_COLOR_ID_WHITE>;
+>> +                    function =3D LED_FUNCTION_FLASH;
+>> +                    function-enumerator =3D <1>;
+>> +                };
+>> +            };
+>> +
+>> +            muic {
+>> +                compatible =3D "samsung,s2mu005-muic";
+>> +
+>> +                connector {
+>> +                    compatible =3D "usb-b-connector";
+>> +                    label =3D "micro-USB";
+>> +                    type =3D "micro";
+>> +                };
+>> +
+>> +                port {
+>> +                    muic_to_usb: endpoint {
+>> +                        remote-endpoint =3D <&usb_to_muic>;
+>> +                    };
+>> +                };
+>> +            };
+>> +
+>> +            multi-led {
+>> +                compatible =3D "samsung,s2mu005-rgb";
+>> +                color =3D <LED_COLOR_ID_RGB>;
+>> +                function =3D LED_FUNCTION_INDICATOR;
+>> +                linux,default-trigger =3D "pattern";
+>> +            };
+>> +        };
+>> +    };
+>>=20
+>> --=20
+>> 2.53.0
+>>=20
+
