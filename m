@@ -1,110 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C6B346E46;
-	Fri, 15 May 2026 08:23:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9508E3FE647
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 08:23:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778833407; cv=none; b=YmbrQE9N2owoAPz33bQ9Ca4FY8lYl51xoG5cRkoQljGVEJAUjBeRCaFrcdxSgmNhB9QMRvtvCma9EoUIH5qwoP1+rs4sMQpOmx50PYC9FRxNOBu/viVi7PWtnu+tOhPmZ2KTk3KI4IP3WiJJp/fy1ZOYraaz9iIz295vwW7o+qs=
+	t=1778833428; cv=none; b=gGSOaWR8bwZjUKKvqgs7TuGXPFM8FFUWAhHmK5EzqOPH5BkOBIZab14BgB6dU3mJbq/INwv7pSR/afiM4AhqfkEI8Df6T/P1vNdpgBR1UK5cR7nn6hcCbOQClZXpTN0zCbNbtAlykBxuaGmjA3PkLGOcRwAqrGaFJHxF3uIiD+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778833407; c=relaxed/simple;
-	bh=SSlT9myUcJF6FeiwE9AnyDzQpQFt6t3Xl8RNqCsXNDY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m3F7588p+E2CZeq0AdNfpQKSrJMLuQU0F7zwvK1sFw2ha4ebLUDYGEY4iZY18IemcViZ8NpTozdJHMs64dZ4tHUYtVorCabvjX3xec7n+CGCz/GP61Uyi0wFhOuHz2U7Ro/NYYsdRdZYAmHGAtg5BUweKtV4nxjCciTAX4BHWoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hzirt9sx; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778833428; c=relaxed/simple;
+	bh=+xSu2XzeSBwKyZz065leFnq7A9B/pwwQHZIEouB9+4Q=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=AP3aUOk4Z9+LHcR+TdG8rMvPOiBmbXDPWi0WCG4/db4b4w3TmWPsH3vDx8D6CrSukD2IHeLDjMrkLFNeGhb71jvzJ88XLaT2+VXOdbdFNmYEj4Ms3ts93Yucw60KC43fNb1zj8jraCqet3PDEkMsU3uu+8uXfGKW3P71SaQ4xQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d35NBLJd; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hzirt9sx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17E20C2BCB0;
-	Fri, 15 May 2026 08:23:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d35NBLJd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AE17C2BCB0;
+	Fri, 15 May 2026 08:23:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778833407;
-	bh=SSlT9myUcJF6FeiwE9AnyDzQpQFt6t3Xl8RNqCsXNDY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=hzirt9sxCO6vcFSLPEGZpe063b4OoH63/V7vdwux8hZpDjsxyR67CRfZ+Ue9uD7K9
-	 vWWo9d69BEztqBegI9RjUV+Bdt4EYG4TjJx2lT7JmPBTQWQFsj15vN7lj4UTAh/gTS
-	 UzqQOduUqSIoa6XWCVrxL0nILJqSow9+EYCpQD8dNhXQ9lhKq5Wr8k8mnqEIO9/lSv
-	 tRMkhVI/BxrUcIcWNqvcU/tDUHK9LjFb00P07r68PTE56CLk+cfuMbLhhlxRIRiuBr
-	 nWmGnOz+sei7vGdVMoPn/L6wL8Gk55E2sRsLcZC7xAarQSxGDGJb9q9yAwUPQNPxR6
-	 ZD4O95KSOGnUw==
-Message-ID: <7a0d05fb-48fb-4183-9eb3-9dd316f4cc62@kernel.org>
-Date: Fri, 15 May 2026 10:23:23 +0200
+	s=k20201202; t=1778833427;
+	bh=+xSu2XzeSBwKyZz065leFnq7A9B/pwwQHZIEouB9+4Q=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=d35NBLJdEwXxTf9R3TVY6PJ5DN0dJaDDaPb43TsBU2hl3x66lHKl03/JTsMkTFlmv
+	 rbj6ryASN12C08R7tWen+AVBG9zCPOSIPP9f6fwb5s1CfIVT9ZqSK3Hwdr/piDee/t
+	 sYyIfwCE/0MSV1gxtoKAAEJqtTayUd/fpSffeOo0CjLRZ2AiCvHyC0lQ60j/UYM89b
+	 Rj9d2ig3SDnuzEuho3VYd/BWxMfncUF2A1bG32mQEmM8ho8LlvbLAvJqfN830GpjQ6
+	 hPqSPawKjDij3a8kd2aD8yPPGPYjJCI+2OjoOKC5q1njNO9ZplaqNWXYMI/bWRyov3
+	 jpPhKjozggGPQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] arm64: dts: socfpga: Add dma-coherent to XGMAC
+ nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: muhammad.nazim.amirul.nazle.asmade@altera.com
+Cc: krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260515080014.6260-3-muhammad.nazim.amirul.nazle.asmade@altera.com>
+References: <20260515080014.6260-3-muhammad.nazim.amirul.nazle.asmade@altera.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 15 May 2026 08:23:46 +0000
+Message-Id: <20260515082347.5AE17C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: ipq5210: add the download mode support
-To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260511-ipq5210_dload_support-v1-1-5609c6b8330e@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260511-ipq5210_dload_support-v1-1-5609c6b8330e@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 11/05/2026 13:01, Kathiravan Thirumoorthy wrote:
-> Enable support for download mode to collect RAM dumps in case
-> of system crash, facilitating post mortem analysis.
-> 
-> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/ipq5210.dtsi | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Missing dma-coherent property on other SMMU clients causes data co=
+rruption
+--
 
-So you sent ALL your patches separately. One by one.
+commit be9ce7db4922ed7d48488efa182130301cfa9435
+Author: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 
-This is non acceptable waste of maintainers time.
+arm64: dts: socfpga: Add dma-coherent to XGMAC nodes
 
-Best regards,
-Krzysztof
+The commit asserts that SMMU transactions are cache coherent and adds
+dma-coherent to the XGMAC nodes. This prevents redundant cache flush and
+invalidate operations and potential stale data issues.
+
+> The SMMU is enabled and transactions going through it are cache
+> coherent. Add the dma-coherent property to the XGMAC nodes to prevent
+> redundant cache flush/invalidate operations and potential stale data
+> issues.
+
+This problem wasn't introduced by this patch, but the patch provides an
+incomplete fix.
+
+The commit message asserts that "transactions going through it are cache
+coherent" and correctly notes that missing the dma-coherent property causes
+"potential stale data issues".
+
+On ARM64, if a hardware-coherent device is treated as non-coherent, the ker=
+nel
+will execute cache invalidation (dcache_inval_poc -> dc ivac via
+arch_sync_dma_for_cpu) for DMA_FROM_DEVICE transfers.
+
+If the device wrote data directly into the CPU caches, the dc ivac instruct=
+ion
+will discard those dirty cache lines without writing them back to RAM. This
+destroys the DMA writes and causes the CPU to read stale data from memory,
+resulting in reproducible data corruption.
+
+If the SMMU provides coherency for all transactions, do other major DMA
+masters that also route through the SMMU need the dma-coherent property?
+
+For example, usb0, dmac0, and dmac1 use the SMMU but lack the property:
+
+arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi:
+    usb0: usb@10b00000 {
+        ...
+        iommus =3D <&smmu 6>;
+        ...
+    };
+
+    dmac0: dma-controller@0 {
+        ...
+        iommus =3D <&smmu 8>;
+        ...
+    };
+
+    dmac1: dma-controller@10000 {
+        ...
+        iommus =3D <&smmu 9>;
+        ...
+    };
+
+If coherency is specific only to XGMAC, could the commit message be clarifi=
+ed
+to avoid a blanket statement about the SMMU?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515080014.6260=
+-1-muhammad.nazim.amirul.nazle.asmade@altera.com?part=3D2
