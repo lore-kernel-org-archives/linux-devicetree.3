@@ -1,222 +1,153 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011021.outbound.protection.outlook.com [40.107.208.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93EBB3EFD27
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 07:58:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778831927; cv=none; b=UkUWGLpwzFd5oEiKnTul1RGJ7Jq37/iy2+Znj0X8LSfBiJGTac/cdATKxNnrW0M14atiY0YW/LHmYTHja6s5MRBVTbsX71dCcrHDsjtSS2YBUgDO01n3++tRcZzDSDvYfJW7Flf4Od1LKMGSb5hUG+BuesjJFvDJE1fGdJf9M3g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778831927; c=relaxed/simple;
-	bh=wyYa8gIFgLjBYlLhyXw9vzSHb5OxneEJ6CcsElborA4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fBue3hA8KfjRCz+WE1hYivtihI0ZTngxjmK3uV+NnkV3hv3z4EithlmmAIucphGevcw1XUyNe3sDwIIiorbJZN2W6JoUIkNzR4UyaSROimGYL02jQ6jhZuhx/CzBrrbGm6iJBLFyNw3AMdRTSe2wHbgqoF+igDQPhZF9qA8vPu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GOyUGC8z; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8E553DEFE2;
+	Fri, 15 May 2026 08:00:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778832019; cv=fail; b=sdwhzfEI5F2sh2UEuIwLNRYdUGs3EXP1XKKOxGnCBbQR33FuS2nlbkIMklrT0w5kNoJW3OrLD1n94/SJlkRKoo67uqBbiUYsGETp/33ta4zaqgRT9vy67f/pz4pDwCIboj7Cz+16lZPRA8Hby6yN4v6MmXtsADUNdygTV+M7w30=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778832019; c=relaxed/simple;
+	bh=8c6IyMtgEnDhuK+P20x6+52Sz0SMI6sgmOzcsUCkQE4=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=BzmvtH6dhoei7e660gcxcdGU2Btg3oz+1V3uQRPV77R/0mUlU1WpJiyJ58Atzxf2j3wVtLaoc/Et0rs4MHssm6KZPjh00N6h0C5WCO027YWzBdVdjj4mmkDWc9yYA4b3t/+vDtJsAg7EUkymoYhY3bihZfVr/NU3VjZip128WlE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=aLsPs939; arc=fail smtp.client-ip=40.107.208.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GOyUGC8z"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3665a90bcd3so7096867a91.1
-        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 00:58:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778831924; x=1779436724; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5MiS+JhxTiWTYXV5rcm6uEgwCs/g+gk9Na8Cem5QvF0=;
-        b=GOyUGC8zk2B7f1atKHeOFC8hTNzjFpG8l0wfhMd6NehmJYo0p6jPcvKvZCAYAzF7Bs
-         91X/PJJ+3425G8d+eFddfzeZNiCqoYudAR5iWKwJfUbOAP9Da25AAPsZHK/3Db2cELIL
-         dXoJqaNBAQOwMqfUxoTNnQWewjyFDhvMLH7qVf7GfocPdXY3GApQCDFTFGepQobbAkuI
-         sXfouRycjEbD5AHxKLUzcsfpl5YFON/SI77PqWuTPGDeb/ZXUXkoipj6TsWenWitIEIa
-         fNO0xeDgDfT/MPY2kTZq5RLZ1SgviWMYmGpqUVSxf+Sh6V8Z8DFnGJ5rFFnvItAinvtB
-         4tqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778831924; x=1779436724;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=5MiS+JhxTiWTYXV5rcm6uEgwCs/g+gk9Na8Cem5QvF0=;
-        b=Q5xNm9vTlJLa0Y7ntZuzhNGlRUCZ945EF7Fc6d3Zq8+ttdgiWeYPdwcy//R+C37JpZ
-         qiyEDiHUk1YHI7twKKCWW//OAzH505+ahpH4J6Qndb44UkmAQZGqta3cwMmJA9l9jm6H
-         4ADMDhrDONoJ1TtJE55gcK+HjLnMTzE0JckCNllP7lsGcYJ1rgdOafcHnB1+mBZQVpD8
-         LkSxczQ1XvNuqQul7tMI0Is/xdZ2xUs18stxaoPyB1FWeZYjMdSj/IiAFi6yPNUjYuo3
-         yMOPLiKiOHuySD6mUwWVwUqrQkXGpJyVCZAH9yElzSI/9xIDFS1joUyNCqvpPKtocRK6
-         4CCA==
-X-Forwarded-Encrypted: i=1; AFNElJ+eGnF3+s1rFE158mG+ad+KbWh3u6FUH+hXRV+ii1J7dIgh+YPAH7+zlF/v0uxZKYWMxTDD0TznW1zY@vger.kernel.org
-X-Gm-Message-State: AOJu0YwxBrAE+LybX8iL3WcD2GnniKuxJDEk/HRRHcjSnfwWBwZyyMt5
-	lUUqG1qn9bWO+1hKfh8kkadI/xstbBhm3KxvyNeMHoeWSowBGLLUHis4
-X-Gm-Gg: Acq92OHpfmWUh3TDL9yEBqdnK32TX3D/PlGjomy2CRnTE8GtA/Rl95d/F/y7YlUlQcZ
-	d8PvSq8CP5B033ZOhD0Iz4CvExKFlKrrUoGgYNnoDqtni/z6ZWaYPnSxwiOStOis3sdxlXvOUUd
-	qoTJTJJhk70Au5IXZtcXWK+3QwdK+F0k+8y377K5Q1RMoQn0FUrOj1d9Eyny6ON0Hg1QJTdV1zQ
-	U14T+RUZz79lj/Cao90ebYg/WHnERU88Tu/vTvTdAg1yx1mvKiAe0Tg54Re62b+IHp688493l7O
-	JEiekzeYgngK96SS4bZLnnCCRdEtvTZOwfJMdOWSvZfZSGDn3KzEPozzxEU1Y9D3f8zrhiDjsbF
-	GUuTBHTYmCgKlBKRV9CPgaFYB0kNyD8saqzBKcy+2ovHdgul1lkv9wex2+Qz6nv4f634CJonVok
-	1k5JhwsCV8jcnNPNFbTXyDK2eUjz4fGVkmFJeUUuDg
-X-Received: by 2002:a17:90b:38d2:b0:366:33a6:9921 with SMTP id 98e67ed59e1d1-369519af699mr2924409a91.4.1778831923836;
-        Fri, 15 May 2026 00:58:43 -0700 (PDT)
-Received: from localhost.localdomain ([2405:201:d008:80b:a00:27ff:feb6:42dd])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36959c7eacesm542040a91.2.2026.05.15.00.58.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 15 May 2026 00:58:43 -0700 (PDT)
-From: Pramod Maurya <pramod.nexgen@gmail.com>
-To: jic23@kernel.org
-Cc: lars@metafoo.de,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org,
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="aLsPs939"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NVaAeinvWiqfHaTR9j3cKRLjgZKLLzeWq7Uegd/RcPbpcHZJzHl2UMCgOl4EfhzEg09lHS6g/RiNhmA6wdngeKScBOlNZzPKgGi0QhSXVUTCWTtcdezPcFco1eAV8oTBUh5lW70Bbb01GzIFeL8EtU/HPq75A2EvylDVY9ha+7iqm0JiMvNzOeiACcyNa5xbke34jldKf9wiQV1GWi78vw3cXvgVMkLRqbN692B1mIe3nlDbSv5r2Nc5rE0djQc9ClVlcSh0M0V/0FeYUNd+1MqLqRck6+uB5KY5riDWgXR1Ya7L30quoMhD9BpWmE0FByF8xaybp7oWiKBq1Oqy8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sKLGsAWD2j3tDk9rqEqW0Njb1fJlint3paXy7nqmJ3g=;
+ b=wFEiN++B84Huv5qbo/s7rJ1pcvif6yPcdS8/0AmlHN2BtH5f6GJNjINH2jd7zDeiMhbkXy0LIk2VfhSpytWTWl5ADMdtXm5QQl+2TdvXHQWDP8RQJueJK6p38Ztl9tHSLIn33cHQZpGNCFWrShPT+aeeJldiI0aBVD59OIX/dFsnjuUB2ZqEdvd7xxQVTAvGyZ6KiBv4We8/FoiEIrkUK865oN38/pM6sP5ySONaRSSX0CdBGbUB+2OYI/dT8b5kRCkMvHciVt+zGZWhnNAA+sIKWcEVxGPl4FZSHRySzdrFe+HiY7X/THe/ZoRFrwbXspc70w+2fun4yWvqok+nLA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sKLGsAWD2j3tDk9rqEqW0Njb1fJlint3paXy7nqmJ3g=;
+ b=aLsPs939Ag18Q3Exf2Rlb5S6uxHPf/pyTG3kUgU8Cb4kzDEQZ4kJVz+RyK28iSd6zXhvOyOMei71AYgyD4SZNPVjGwUIyE/7fnQT1qXEXIJlNjuaqAqXhltLcRPGtHjDbDD5FzRzOaYAz1jqJ/b98oI6P5zYhzYEIvt8wp5MntnVZ81kdvMEUe5NWWbEn0ulfGTQox1vqlF7ErRW8BUrI/g1novmbm8mkH/du8Dyq3IsF3/WXlq/BOCg0Zji+MGEIgJpL9N9XZ+gnTv/8vlKuzM+iTgFSWZ4SQPIlzuHrrdSNF+xplTG03NGoZT7V8stleXLSj3YdY3cQrzzM9ieYQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from SJ0PR03MB6964.namprd03.prod.outlook.com (2603:10b6:a03:432::18)
+ by BLAPR03MB5634.namprd03.prod.outlook.com (2603:10b6:208:285::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Fri, 15 May
+ 2026 08:00:15 +0000
+Received: from SJ0PR03MB6964.namprd03.prod.outlook.com
+ ([fe80::b965:bfa8:58fb:e775]) by SJ0PR03MB6964.namprd03.prod.outlook.com
+ ([fe80::b965:bfa8:58fb:e775%6]) with mapi id 15.20.9913.009; Fri, 15 May 2026
+ 08:00:15 +0000
+From: muhammad.nazim.amirul.nazle.asmade@altera.com
+To: dinguyen@kernel.org
+Cc: robh@kernel.org,
 	krzk+dt@kernel.org,
 	conor+dt@kernel.org,
-	pramod.nexgen@gmail.com
-Subject: [PATCH v4 3/3] dt-bindings: misc: Add binding for Xilinx AXI-Stream FIFO
-Date: Fri, 15 May 2026 03:57:36 -0400
-Message-ID: <20260515075736.172172-4-pramod.nexgen@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260515075736.172172-1-pramod.nexgen@gmail.com>
-References: <20260510083219.70224-1-pramod.nexgen@gmail.com>
- <20260515075736.172172-1-pramod.nexgen@gmail.com>
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] arm64: dts: socfpga: Enable SMMU and add DMA coherency for XGMAC
+Date: Fri, 15 May 2026 01:00:12 -0700
+Message-ID: <20260515080014.6260-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+X-Mailer: git-send-email 2.43.7
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BY5PR16CA0007.namprd16.prod.outlook.com
+ (2603:10b6:a03:1a0::20) To SJ0PR03MB6964.namprd03.prod.outlook.com
+ (2603:10b6:a03:432::18)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6964:EE_|BLAPR03MB5634:EE_
+X-MS-Office365-Filtering-Correlation-Id: 453c47ad-2104-4b47-ec4c-08deb257ff8f
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|1800799024|56012099003|18002099003|11063799003|55112099003;
+X-Microsoft-Antispam-Message-Info:
+	RpTUozT6YGRSHhWpa1TNa2Tu6gzlB9mr5z+Vi8YNl9NRw/uQI5f9HFHebsUJ5c0JpU+cGGhiqwNqW4h7AXB3nrrqrSStUA6MYWr76G4SlDhFW3OAoBPJb4l7BgN2Xo80ZnNP7QSePKRWW3ShZypwkT27vgoJb/z9R5411IFb48XCIsja2xV3xbOE/zdBQ4r+kcdBLgrX0bwg2gG72RmYeqQwWEe6jQiplJZR/99fepx+rwMchvrvNdP1rvnB5oCBS+wgalK826aMXK4zIVyPJs+KiPXsyfJ6XkYBOZzWIXSL7+h6HaxoUMyA2wuB/4gkdNi2o+LjqSMas+yOg57oOly2CyuWP57i0spkF+T4LBXVhetUYp5SlZSLaN3X2sg5I1GDehsHUXGes/qkZ+Ho4n2ErU+lQiTewhEMdnTgtt4+udUyt26Y91QgE77ITjt7zygBe/fcwtTD3ZxXaqe/wkY3Ll7VJuFzPELpBH4vIjO9OcAw6Aa4crt54NRthOUtvPOyZhOtZ4Ft7kKxsCJCP9YfTVwbANvgVxhZUu9T4KB8IZtkg+Is5rWCWjbPKfCpNdAMrIl1zxRSSUR6HWI6uK4lIJhEUx4Pxh9WtdQyKiz3b4f1scHMbRrmGGMnFk3vjS9qyY/5MQJq77VXv26jfbAqGDunOaSakQE/0oX36FgwxiD1o7ZtGJf+z9D4UhA6
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6964.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(18002099003)(11063799003)(55112099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?7y0SwHJEDKtGKrR7QAfQOmrt3BcQRIy3PtRpVrDYeTGam5LJTWeL4y/r6Kfj?=
+ =?us-ascii?Q?XmZWu79X7hDOjm3rf5XBGGzqbugUpYnF7ASFShLkDtCf1JqJTMVWAse2PmNZ?=
+ =?us-ascii?Q?sAkrqsaGywCNpe8AOIBn5sS5biPNtgPibkKoa5dof0uFKjvDBvcnjsZ8ZcJR?=
+ =?us-ascii?Q?JYm0BzuBlJzCCE27nZ4ATod7nLgL1WygqQ8PrdgBNFRH9v3AUJS+8KbeBSD9?=
+ =?us-ascii?Q?d9BMce3UeuN/ihylNmB1kdAwhTDyvfN4rvOOp7YfzW56mkILR7svODcPs4Yo?=
+ =?us-ascii?Q?mwZ3muv1L2JWc7PwviQF4uFWXJVgDrNsBpVBhCYsrXrmPEWom2Tb/7MzioSY?=
+ =?us-ascii?Q?9TySy+LBI8F5Q4V7IeuO0X8TK5ngv3TOxQeLBkbT/zun5TKpfRV/ijRNfRTT?=
+ =?us-ascii?Q?b/wH75hADJdSclmyeIXXSNO9ijljMktUP/3LvZ1FxioiJ5gsITx8Jm6lvj6P?=
+ =?us-ascii?Q?/5SCyVskPYM1gloyTNeUbAlLUkIcLIUVqcahgk0aLAC8zdPZeZNih32zdZPZ?=
+ =?us-ascii?Q?8t5+a0MJibjR3ihSZ+kjPp/QUU1W12DxLR6lEd6nndxGwrqyomCXIoGo6BNb?=
+ =?us-ascii?Q?9yTcxOwClLsI7c8gHG+ppBSEJ5j3FfHugkDZJmJi+sWH8PPhMjXuIh8IOzcM?=
+ =?us-ascii?Q?T6KeG8HgBUCc729I71VCyOdEuojk/ODgoFeENmYFRFQc/nPGMJEBws48kkXf?=
+ =?us-ascii?Q?EfuE6TREw3GFu9IGPsJ7OCGnRHmiJx7ZRmTfSN7N1PJcV/gjL8oMsO9aiS1E?=
+ =?us-ascii?Q?ikR4tI19ANOOctHMs80E3vk9YZtoPdGIvAjhVXiMW9MiBf+1Y8D+Z1uG2mz7?=
+ =?us-ascii?Q?perdudOeHw7NTAkzC/SEw71uBGDT1muS3LXlM0lQaxbYOGKNCHGffax3+5Ua?=
+ =?us-ascii?Q?mSs4s08YoDU8mRbBTbHJnXXepZyeWnNnKZxgbrO3iTVtZqW0f8brntix15bI?=
+ =?us-ascii?Q?KJowHTBRjYwrIVahdx1rO5/tE6GsuPsshfSIjQumz2EFdpy+aCfb0BUiekFl?=
+ =?us-ascii?Q?XCvIqSuzBwRlLnLZsqSoYzpUfHHTVOBiAk5fpboY2Tm+aCX/hu5VDUn+9a5L?=
+ =?us-ascii?Q?KVCuNbyp1rJ87pDxRSWPQP2ajEU4LhXeMx6L+xanU/cFUMFb9DEdzLmk3P9b?=
+ =?us-ascii?Q?QGOxpvHYNii11pd2A5mQtvBsiuK9WnX8ucEKyg8v9ZAZx4r+9xJsUiWEVgmT?=
+ =?us-ascii?Q?yTPKzCEUjormmOyATHFpymBbh3zwaZFR/Yr2duZ584BM1mbAu/1VuxgYmfHk?=
+ =?us-ascii?Q?89Nu9LYFFG5jWvdX+1QSfLr8cB8h6Ez3Ckt4beFbaz4L4yjVnQ9KdDX4BGqF?=
+ =?us-ascii?Q?VIuRczEt3x8w9Ml53MCtTM4qVPAOWeB45HCVSneZzwx017d9sMi9YJEk/2/r?=
+ =?us-ascii?Q?hOeI5CAf/0/TGVGAPa6cm5U6B2b9M3NFSBDZMkO+IyyLeyf/tdJUzi+QjLIf?=
+ =?us-ascii?Q?DXrLtRP9qptaOFf4zP2BQRFv/jKhtuVuyhNUMC9HY48ZELO/86ZuDgiMeOba?=
+ =?us-ascii?Q?eBFYUZOMo407DZiwiIAyHEejXZg7i6ZMoThPIfO7zpUcau2iWdvfiYivwLWD?=
+ =?us-ascii?Q?sbngIGX9VIQes059NaJnxQHYGsBV+HuBxfmpy978uRR2fIwScwo3naLkqbLy?=
+ =?us-ascii?Q?At4laeiqIKkkDSO0N5BiCm+g0uc4gUJYo+ei/cjYxV2blEaB/5pNmixE1Lkk?=
+ =?us-ascii?Q?Wa37dWKZfJi43GTOqI66zB/GNeXHNKDHrwKgsWCvqs038Y2RSn4NqugUwkHj?=
+ =?us-ascii?Q?2xkMTcVWaASWL8HiRaXk1fxCMPHAxWMkFg4MklKfaLFtp4/5GBCCUIZBD8c/?=
+X-MS-Exchange-AntiSpam-MessageData-1: NBCKl4aF81jXlg==
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 453c47ad-2104-4b47-ec4c-08deb257ff8f
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6964.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 08:00:15.3900
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2O7xclvYEtA5ukhTOsyRb2+5uYBi0gp9oMuCI++7trm1SrOy7/coWkneViRwfxEvJCBah8LLvM1sH1oh/CMHYAnQR2sy4tIppNlQGLtfGO8K5SdeUlfonHxwHKSyvKVqmTjZDa64AHPar5jqcpxfxg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR03MB5634
 
-Add a YAML schema for the Xilinx AXI-Stream FIFO IP core (PG080).
-The binding documents the three supported compatible strings and the
-vendor-specific properties that the axis-fifo staging driver reads from
-the device tree.
+From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 
-This resolves the following checkpatch.pl warnings in
-drivers/staging/axis-fifo/axis-fifo.c:
-  WARNING: DT compatible string "xlnx,axi-fifo-mm-s-4.1" appears un-documented
-  WARNING: DT compatible string "xlnx,axi-fifo-mm-s-4.2" appears un-documented
-  WARNING: DT compatible string "xlnx,axi-fifo-mm-s-4.3" appears un-documented
+This series enables the SMMU and adds DMA coherency support for the
+XGMAC nodes across the affected board device trees.
 
-Signed-off-by: Pramod Maurya <pramod.nexgen@gmail.com>
----
- .../bindings/misc/xlnx,axi-fifo-mm-s.yaml     | 93 +++++++++++++++++++
- MAINTAINERS                                   |  6 ++
- 2 files changed, 99 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+Patch 1 enables the SMMU for the SoCFPGA board device trees where it
+was missing. The SoC uses a different memory-mapped base address for
+its peripherals, which requires the SMMU to be active so that the
+Secure Device Manager (SDM) can correctly access those regions through
+address translation.
 
-diff --git a/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
-new file mode 100644
-index 000000000000..f4ef7c277cd7
---- /dev/null
-+++ b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
-@@ -0,0 +1,93 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/misc/xlnx,axi-fifo-mm-s.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Xilinx AXI-Stream FIFO
-+
-+maintainers:
-+  - Jacob Feder <jacobsfeder@gmail.com>
-+
-+description:
-+  The Xilinx AXI-Stream FIFO (PG080) provides a memory-mapped interface to
-+  an AXI-Stream FIFO IP core. It allows a processor to transmit and receive
-+  AXI-Stream packets via simple MMIO register reads and writes. Currently
-+  only store-forward mode with a 32-bit AXI4-Lite interface is supported.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - xlnx,axi-fifo-mm-s-4.1
-+      - xlnx,axi-fifo-mm-s-4.2
-+      - xlnx,axi-fifo-mm-s-4.3
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  xlnx,axi-str-rxd-tdata-width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      Width of the receive AXI-Stream data bus in bits. Currently only 32
-+      is supported.
-+    const: 32
-+
-+  xlnx,axi-str-txd-tdata-width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      Width of the transmit AXI-Stream data bus in bits. Currently only 32
-+      is supported.
-+    const: 32
-+
-+  xlnx,rx-fifo-depth:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      Depth of the receive FIFO in words.
-+
-+  xlnx,tx-fifo-depth:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      Depth of the transmit FIFO in words.
-+
-+  xlnx,use-rx-data:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      Set to 1 if the receive data FIFO is enabled, 0 otherwise.
-+    enum: [0, 1]
-+
-+  xlnx,use-tx-data:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      Set to 1 if the transmit data FIFO is enabled, 0 otherwise.
-+    enum: [0, 1]
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - xlnx,axi-str-rxd-tdata-width
-+  - xlnx,axi-str-txd-tdata-width
-+  - xlnx,rx-fifo-depth
-+  - xlnx,tx-fifo-depth
-+  - xlnx,use-rx-data
-+  - xlnx,use-tx-data
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    axi_fifo: fifo@43c00000 {
-+        compatible = "xlnx,axi-fifo-mm-s-4.3";
-+        reg = <0x43c00000 0x10000>;
-+        interrupts = <0 30 4>;
-+        interrupt-parent = <&intc>;
-+        xlnx,axi-str-rxd-tdata-width = <32>;
-+        xlnx,axi-str-txd-tdata-width = <32>;
-+        xlnx,rx-fifo-depth = <0x1000>;
-+        xlnx,tx-fifo-depth = <0x1000>;
-+        xlnx,use-rx-data = <1>;
-+        xlnx,use-tx-data = <1>;
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 58d35c17704d..bbb6b8c20ed6 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -29164,6 +29164,12 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/iio/adc/xlnx,zynqmp-ams.yaml
- F:	drivers/iio/adc/xilinx-ams.c
- 
-+XILINX AXI-STREAM FIFO DRIVER
-+M:	Jacob Feder <jacobsfeder@gmail.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
-+F:	drivers/staging/axis-fifo/
-+
- XILINX AXI ETHERNET DRIVER
- M:	Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
- S:	Maintained
+Patch 2 adds the dma-coherent property to the XGMAC nodes. The SMMU
+is enabled and transactions going through it are cache coherent.
+Adding dma-coherent prevents redundant cache flush/invalidate
+operations and potential stale data issues.
+
+Changes in v2:
+- Move SMMU enable into the base DTSI file instead of individual DTS files
+- Move dma-coherent property into the base DTSI file instead of individual DTS files
+- Improve commit messages and cover letter descriptions with more context on why the changes are needed
+
+Nazim Amirul (2):
+  arm64: dts: socfpga: Enable the SMMU for SoCFPGA device trees
+  arm64: dts: socfpga: Add dma-coherent to XGMAC nodes
+
+ arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
 -- 
-2.52.0
+2.43.7
 
