@@ -1,97 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013043.outbound.protection.outlook.com [40.107.159.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C7F13815F3;
-	Fri, 15 May 2026 19:44:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778874283; cv=none; b=A4YYc8mQ9iECRIEnybIbet6QhQ+NO5ZFw/2tLeXb6pD8GdXZLfms5lJF+CgHlvxlVkDLKKy287djysvopZFgX1ClBFZJOIlghnS6nwErXZO4bPbZbvlDR6YnW0vpCDJy/RYSRqyhda9Cc5DZWkqrt0l99y0CJjWvfhvWMoMEceA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778874283; c=relaxed/simple;
-	bh=rzrlAISMn/eiteqlbQ00LvCAczT91++vuO6hzroHa/8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=naaz71M5zvpST6toop/xKBuhfLQ6WLjuTT6xC0ifE3AjoCsV85FpnAO1x26zruyAYUjcwzMf/WXr8MCaxgKsT4Xo3M+E1uJsduaqdQflWvJ96PFIp8J/CnG9X+Ct8fW3U+99mvp66xlOiN7LktZTEzNvReb8RulNuwxWwvikqhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z2uTVscz; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9512135E1DE;
+	Fri, 15 May 2026 19:59:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778875189; cv=fail; b=ByDOorhkuSDa4Jgfo/l8fy4MY+11ZUc7VzU8yBm44adeattNR1K1iD3TokJmdJA0qqd4X+EZjMmdGndhjrdbiWQaU4MA60aEydYl5balzKQEvfB8eukXlERg3ryPs5aiT5WkACgkGGV/5Wj5MfXoumrpSW1rhZzNIYhpGeYxn5o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778875189; c=relaxed/simple;
+	bh=3+vxTx7PaCnQiOwPAWit1zAfYB/8YY+49h9Mka9dflg=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=BuXLZLbj+TQQb8X4f9r4HmBYA96iUFtqbqd1Jr2IzSq72jb/PXdBPbfOCnbt3guvFkQiiea0zi4RRN6u5wb+yNlTCzV870n54lc5K4VZrb+otnvoSsThNWX6xtBcnqFkZvsiOzUZtmaszsAb7AyYL03UB4Z7CER5UK1r6ZQaqWA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=aqF7+XlB; arc=fail smtp.client-ip=40.107.159.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z2uTVscz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40BBCC2BCC7;
-	Fri, 15 May 2026 19:44:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778874283;
-	bh=rzrlAISMn/eiteqlbQ00LvCAczT91++vuO6hzroHa/8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=Z2uTVsczQWMV6c1ohqiAdqFoLZdssdhOUCgDkZ+7vrBBofggRtaJM3fubHHFspJsf
-	 zspbZWA7X89uG7bZW9HLy3nMhU0GY2LMxEW4OgECv8c2r0E2SH5hJTDTTFEXvqpqQ8
-	 6IP/Rp3EiZmRWg5Lgysr6CIbPS8WNXjbY2ivRaxW/mCfcHMXiiL6tqC22NjVo9SZ/D
-	 mXbpA1JMNdL3kM44ybH4EPNbasU3PVQQVCBCS8CDmDAmq6LbvkXELvYlUiNO92sMH0
-	 7RKGzYdzcpivjjuHpXOvXokYp1kja3EjujEQA+XpERY0CRHiw4lPB47GsZzOLfwT/1
-	 6IJnyS5peoQ+w==
-Date: Fri, 15 May 2026 20:44:33 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Chris Morgan <macroalpha82@gmail.com>
-Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
- dlechner@baylibre.com, jean-baptiste.maneyrol@tdk.com,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
- andriy.shevchenko@intel.com, Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH V7 10/11] iio: imu: inv_icm42607: Add Gyroscope to
- icm42607
-Message-ID: <20260515204433.3ddbe884@jic23-huawei>
-In-Reply-To: <20260515130018.237378-11-macroalpha82@gmail.com>
-References: <20260515130018.237378-1-macroalpha82@gmail.com>
-	<20260515130018.237378-11-macroalpha82@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="aqF7+XlB"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=R4THiuUw3H8Ps0LQ3t2awwKIfndzEtCASKnnWdvPbJu9+3HpGD+Cy4fUbOPFDmrp3LTX1KqJrXLmyl2MaW/V52rSC5D4k7vNsM/XOJVwcm9cSeCfN592ChzBiFmbrKoAQGYtQ6mbfkdHtcVdAq80H3HVgSiv8tRi4EnPKdRA1wBIfAhPW+ZJewhkXnGiUGhP8NFzxaNiUAgM5YqSYd9pVHXxWYAnrR07KDhD+oo4Bb3QEGbm9XSo3EgCyjAWK93bZIKelCxGLXyqC8S7WJ3XzpAKNmDONtjvJWbv5BnjjHAyRODkRXLuf4NUj+ftAThlcfm6s8eXg2sn8N8uSncciA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sBr9qbX5SogYIZzu+43ahYK60O3zqrj7XPcZCiO7onI=;
+ b=iMJAbSc9uDGUg+iFsxWGrBeLA0fqD7TFKTUXMuqyU5PG3P3EyKPc6x4F+DpMETXE6vNevEE0MY47MyrTyblrpTnzJmqajhGlsF33dnnLwtKV6MUI7v/VkkPZdLpgItm+9sfAFyjYfG7ktfLHasru35XSe/lzil50s21aSGVvJ4uZt+txq9cnN5nD21Mn+ZvPEKMHOZ7zRdm2Mha/Zl4Oe7AgssOsYpB9nL8vmbCD6ngriD6TOcrkR3SgU4QKXM4oJXZXNumAE26Fv4pOjYmwc9v6boNNJt5oQ4FJYyEjipM9RHKEglb0zPV5Nr7di/iWJOnXgrm2EMhn44EffdzaGA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sBr9qbX5SogYIZzu+43ahYK60O3zqrj7XPcZCiO7onI=;
+ b=aqF7+XlB4OvWBLTfk3SU1wjiVz9HJ68pFyZSd2uo9TGZS7J28UaYpqq9pinpiUtHn99FtRUqizUqqdDYe5bENqR6LXOQNL4WebDp3+3gMJHiptdp4JhPbAdwBN829NmwZo7AGsQkMsiqsZ3fRaX+YME39gj4dTFA91zXc2i8iqgevlRBW+zOZe4rE1kXXTsxSfj7wuhcNpxxr/qdiQMd3Wz9eePiWp11BT6hBRKRWCtWIoJMG1nttFWFXZiirCDrrHl3NaAhd1diwJDPiZdgmruWvPkzle25xRo+eqyihkO7NYZTswloptRJ5hntbjgi/lu+nB+oBBHe8QOWwH6g0A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GVXPR04MB10353.eurprd04.prod.outlook.com (2603:10a6:150:1d8::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Fri, 15 May
+ 2026 19:59:42 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.20.9913.009; Fri, 15 May 2026
+ 19:59:42 +0000
+From: Frank.Li@oss.nxp.com
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	Sam Ravnborg <sam@ravnborg.org>,
+	dri-devel@lists.freedesktop.org (open list:DRM PANEL DRIVERS),
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev,
+	Frank Li <Frank.Li@nxp.com>
+Subject: [PATCH 1/1] dt-bindings: display: simple: add avic,tm097tdh02 panel
+Date: Fri, 15 May 2026 15:59:34 -0400
+Message-ID: <20260515195935.2415466-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR05CA0154.namprd05.prod.outlook.com
+ (2603:10b6:a03:339::9) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GVXPR04MB10353:EE_
+X-MS-Office365-Filtering-Correlation-Id: d9e98fe8-c847-47d6-dbe4-08deb2bc80dd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|19092799006|18002099003|56012099003|921020|11063799003;
+X-Microsoft-Antispam-Message-Info:
+	5w+HT/F1+mpRzv7Uyxh3koLBxgpumf84rG95CjwxzoV9+TYCp5g+yLpdRQsmtEPtJLk2nvKOuKSjQKblbidAZVpxyeAMmY22ZWxr8hUTa3K0NccYLYgphsLjo5dvrSQy/UombH2w55S62WrjpyDWa+eqxjCYrvpLYXHfeuG0l9S8a+reVpROt+Cx4aE2s4IVR6j3IuESQPmoMrreRTPVyxC9s4oZReeeJY5xSIn6RDWu2OZpQF/7eizMwfO8ovcR5Eapc55loygDegVUiSdl/oMZrQAZ4nb55iLhz/0CP8P0heZlWXL6BBAleLXasIpPDVCASpfX4/NflcHI1GNUNlUkVFpWRkmlx4Ni7kZSEUa5/2Q+9NxGuD+HfUzYsiizwLTSUbavlxjpDU4b5I63t2zI2ie68nNs9odnlecXTFbVt/buBjbtfPwYI1H1su1S3G57zuO9SyWcfB7qLBwV/chs7b/HqtqwSE02O5mpBRaLG5cIxHbelI/18sFOKAm29rs6frhygiWGY/wDMkyU7wmRjaqxuTNd4gO6pEW20IfLhRHSTMQTwvA9fCG4wtZqu18Av5BEIexX1QaHqeqdB+dC477BhDEzdYirm3QsYxghu1DexQ0wBSfRaCt0WADRjs3IH4nBGk5CLSoiPSM+TXVt+OOv1cZt5xwGfwnbw16yMWh9VB1iDmgQBnDb9v/PGfbz6VbCsMy7F4tVCszrozvwG1oR4PAnbDHWvtW8y0A=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(19092799006)(18002099003)(56012099003)(921020)(11063799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?iiEWydohmiEjv2HhBeVcX1xFA2n6dVrs1wo9pT735WAVhMs7AyOY/o7L2vQd?=
+ =?us-ascii?Q?Cf0UkkRW/HYl0Ptc6vXz16ufB7nnXellciRATl7SWy7RVVuagsiJ5SI+uGbZ?=
+ =?us-ascii?Q?MgkZ0HiCjgX5G6JhZZnOuxbxd6A1hge/sPXeJiqygHT2gA9c0/TcIjoij3Gx?=
+ =?us-ascii?Q?xsXbvOJQxCKoDFpo9I6I5FaX5u6FHN3MUvLt2iR1y9uPpVBdm4M2GS/S3PNG?=
+ =?us-ascii?Q?hKwPBByaG1sbrYpP516KDFAj4P7TK3N5M8qUuWjEJ4My6KT092ri8kSFKrfs?=
+ =?us-ascii?Q?26nxEnYn9fKYo+JzG2D1TfqzUdFKtuZuZrQkRwqzdehsI0/1VO+AM+64zN7e?=
+ =?us-ascii?Q?+/WBTk4Z1la/r4+BrWbUe7huOOaiDqJZvnHAKP5Q7LDA8uAJICLncLvFPDXy?=
+ =?us-ascii?Q?w90QZHJbnnYz4Z8353M3r7OBPNO0OiWnk07/DclUIRBKS+FGobIyMHQp+8yO?=
+ =?us-ascii?Q?fmGzbZyyoz5odMaaAeYuwBGurzb6Bo8aji8FrQ3ZRhwcLtxPOIyyLiPltpMW?=
+ =?us-ascii?Q?W1NMGQ7KxYd7iPNAT+Rr8ECFTQ7AWr7nSdTgZxpFwhCUm2obDbRryWImdTtV?=
+ =?us-ascii?Q?n4b2TiGHDYoFGJ9hknYBFPHQNVoioKdW0k9xQsqiB4ksiO9bVcNmxji4UNMK?=
+ =?us-ascii?Q?AUOV6i/cNv4VmddWKuxXNRhX8C7aBez5fMQNwC8YkeqJwIxpKHxI+/6/14Cv?=
+ =?us-ascii?Q?Vx6Kwv3sMVNMLLChYGx7VLCVTJLqnOK6ufvLSpAQaENpblEGP34zYdhJxu5Y?=
+ =?us-ascii?Q?VK2O5QaYV1TytjWy+8Rs0/3FG3HtCLm6g8EqA0vnKikkfWT2uDo5iJvftK9v?=
+ =?us-ascii?Q?46FYULi9dgEyem8uu9uX42NDUzE87YJbHlmjBqt+J4pIYDhXKEbyaOxIDrWZ?=
+ =?us-ascii?Q?gFIFh8tOxv8qyU0lmWK9VA0upxonnRXwsQLMFlpHuFxptvWXTSScVRFnsVMI?=
+ =?us-ascii?Q?q6YfLpqoVndeThYXWkyKhXfgc+Rw7PxqhwYDLKX02b8hk5v/swATFh+KKeCK?=
+ =?us-ascii?Q?VNfcqeIhuHlBXGXm47u56cap9nDDBYmWYgZpfeVpkfV641g6CtcOPZ6sxaSs?=
+ =?us-ascii?Q?oBfAOLUFDnmhZEfqLgM7KHFEbZcdPzVV6d3yOqJoV22o6wLEnYmQJOuZlLSK?=
+ =?us-ascii?Q?apIMZuYu1HMCrYZXMC2jicS6QsMtLPBuntx8HeemBxY4LmesPLTHdNvQiGws?=
+ =?us-ascii?Q?ePcEWNI7IafLWfb927vJa7J45OzPAcVuFgwltSscD4395VNNXZLEN6H6xYrn?=
+ =?us-ascii?Q?F3YPwLPL96s8DsNlS9hCr4gjMgVX44PctD/7gSMX+b4wjGdpZTs9jxhk254v?=
+ =?us-ascii?Q?6Lt2DsrNpAHsj+etrXYGYemNkt6C3MwFznF5sXqp7Fgi3tuQdv9DR9iuHLHU?=
+ =?us-ascii?Q?soiL8E2nQtPTd/hqFjVPBq0TZ38NWSdq7snRs/Vj3Ug8737luJHlo2sxOUFQ?=
+ =?us-ascii?Q?6qktXAuy43m7kJ2A+HEjVl+J8o7XM9T0UPl6LEcL0wwq9Rl7BEsRsOLOnRWU?=
+ =?us-ascii?Q?nbE1x0HXziWVR3oB1Vc8CWeQuCdKYdaIeh2aq7ohw+7YJDXMQNqGRzXrxmcl?=
+ =?us-ascii?Q?N+Dot0nskppBcfBFmjRkHXHXpOTrTOVBwQ8J/IqKl8yW78X92bGH3wPvknTd?=
+ =?us-ascii?Q?4AFceiYi80IAEKbek+Z4J87sL882WQaEhB5HXuwiCdHyB6eOJZm4wkqPo0ty?=
+ =?us-ascii?Q?l9RZvsfnEMr7Uj4/5XRvCHJUlbsqbQbOBD4s7Gd66vhmlQa0BsBeNO4+OHI8?=
+ =?us-ascii?Q?jbOdEIWxTn1cq0deX/nvRpoj5JNZ2RYdWH38wxF6qzzZkwBsRYeV?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9e98fe8-c847-47d6-dbe4-08deb2bc80dd
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 19:59:42.1370
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ltR0ee0ddgifxZPq0UP2DvQ44LgdtpFa1UpogPtaBcVhkbMqOofK+o8Vc2/RCGG9p70FeGfAq/2amTiod1e+hbRiqg6uiHdIiAwKnk16KARVLkKtYZe9s+P5rfO32ceB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10353
 
-On Fri, 15 May 2026 08:00:15 -0500
-Chris Morgan <macroalpha82@gmail.com> wrote:
+From: Frank Li <Frank.Li@nxp.com>
 
-> From: Chris Morgan <macromorgan@hotmail.com>
-> 
-> Add gyroscope functions to the icm42607 driver.
-> 
-> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
-Hi Chris last one I'm getting to today...
+Add compatilbe string avic,tm097tdh02 for AVIC Optoelectronics 9.7".
 
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+ .../devicetree/bindings/display/panel/panel-simple.yaml         | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> @@ -499,9 +512,10 @@ int inv_icm42607_buffer_fifo_parse(struct inv_icm42607_state *st)
->  int inv_icm42607_buffer_hwfifo_flush(struct inv_icm42607_state *st,
->  				     unsigned int count)
->  {
-> +	struct inv_icm42607_sensor_state *gyro_st = iio_priv(st->indio_gyro);
->  	struct inv_icm42607_sensor_state *accel_st = iio_priv(st->indio_accel);
->  	struct inv_sensors_timestamp *ts;
-> -	s64 accel_ts;
-> +	s64 gyro_ts, accel_ts;
-
-Most of what sashiko got matched the earlier accelerometer driver but this
-is a good catch.  you never initialize gyro_ts unlike accel_ts:
-
-	accel_ts = iio_get_time_ns(st->indio_accel);
-
->  	int ret;
->  
->  	accel_ts = iio_get_time_ns(st->indio_accel);
-> @@ -513,6 +527,14 @@ int inv_icm42607_buffer_hwfifo_flush(struct inv_icm42607_state *st,
->  	if (st->fifo.nb.total == 0)
->  		return 0;
->  
-> +	if (st->fifo.nb.gyro > 0) {
-> +		ts = &gyro_st->ts;
-> +		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.gyro, gyro_ts);
-> +		ret = inv_icm42607_gyro_parse_fifo(st->indio_gyro);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
->  	if (st->fifo.nb.accel > 0) {
->  		ts = &accel_st->ts;
->  		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.accel, accel_ts);
+diff --git a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
+index fdf522a15d2ea..a8f057208e23d 100644
+--- a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
++++ b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
+@@ -63,6 +63,8 @@ properties:
+       - auo,p320hvn03
+         # Shanghai AVIC Optoelectronics 7" 1024x600 color TFT-LCD panel
+       - avic,tm070ddh03
++        # Shanghai AVIC Optoelectronics 9.7" 1024x600 color TFT-LCD panel
++      - avic,tm097tdh02
+         # BOE AV101HDT-a10 10.1" 1280x720 LVDS panel
+       - boe,av101hdt-a10
+         # BOE BP082WX1-100 8.2" WXGA (1280x800) LVDS panel
+-- 
+2.43.0
 
