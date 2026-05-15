@@ -1,166 +1,135 @@
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m32113.qiye.163.com (mail-m32113.qiye.163.com [220.197.32.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDDD03CFF5C
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 04:22:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778818948; cv=pass; b=SpyNXS6wPl9QpLQKEURNT68qBQzcjzXLVawmv5OTSdiXMiBoVAKx7TAmmCrbVEty2fPPYngJo7Qr8uZ+uePylfaJdf2ieQ9YLBSbGf6EzGAFkZcAnY10gj1mZO6h5QGCHgkJo0rlThTuoXMrUlPEYRPk8AFnfLgfdiKA8Eiv1AI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778818948; c=relaxed/simple;
-	bh=QCAkoND4ENm8fAKTSZpNTY4aLP2Hmp3gLwgJAGWD/Ys=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JgZrNnyZRGB6/0bm79l27VtVzkKtx3WcNHTA7G+SzlqsOFay7vccy/Gi6s+3KAym2xD7zDmK+9gEk1n8Ud+e3CB0H84elVdMne/U4nWxT4hzE0pdYJ/nWzLkmNQYRtF8guEiPl2Dl8svrO/MxcJ8a8nADAUq+AxUgMwMMsOOleU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=OvU4yZL7; arc=pass smtp.client-ip=209.85.167.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA303D5646;
+	Fri, 15 May 2026 04:33:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.113
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778819622; cv=none; b=lPA6V/vj8P6NBdkD++NP/6vU9apA43UkjB5OiANjsB+7iSo+c8dpFlH25huSRIZFsZIFouCHDaTIqse7UbfpjW5djhlFFg3Ay1aSEyxvFIhCbkq3lRa9BMUhTeopHbrOmGJWScG3qRCX5+Jzqz19XpFqdUM9KnYQQ25ScTZp6Uc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778819622; c=relaxed/simple;
+	bh=zg8dWcxfVEFqhgH2uc69LayhhgOBez8UBuZQBT7A5oo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=svD/4/M/ERY9Jem3p9WWE3erNPQqjgQeeK6V6jWIHWbiE2eoPL53eKCzLX1eGG3je8pDOT0R2wQy5PrFkB0F9CjuJXbpb0KHYm4xFjDX6V4klxQfR5FaceQBNf+vTY5pTBktKnxwAc25CIHDbfiACAn4bCdgU2KzEK2snFNMv3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=UZB7lH4h; arc=none smtp.client-ip=220.197.32.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="OvU4yZL7"
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5a858881ad2so10135950e87.3
-        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 21:22:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778818945; cv=none;
-        d=google.com; s=arc-20240605;
-        b=LyCJlcS2QHAYDm1qbW8XIecOJdZMeB6jyd0Xfrlx6p3kFmxgSNv553ar/1M+HN/dFo
-         ritVMs6/dcvVUyj6NqFL2vE0RtmBs24RbRWE9bcYGG6kzCS+tDVLqkGBiAtP21te1whM
-         wocBq6gsyehjnAjc8i/XqBYmqKnaX+++duQupUHRZlrUFPwTwqWsxY3n4seyRSKmpKna
-         EucMe0RsTSHiZX0olcD236ATHYKqf5evZLcUItOQeF4d9buVlB6iVdbahgygTm5AoXE5
-         6og0T5v5xK6MA1ZofyWWZk0yrDa/N4I43g1gNXeTjOM07wMOHZmHCQ/W+/MxDmeYNuv4
-         ZY6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=I0cZ21uB8dtPdz735Z7AvPhcMUm74vkL87VB125DpqM=;
-        fh=efP/DXfsN7sQ0OfatMj3ozh1XuC6oSbgEMFpUuL9DWo=;
-        b=bcLMzKAo0WpJiw8WA4dlhUioOT1eH5pf/XzD7i6P0N7bh/ouM8ZV5ZMsFz8TyiezHy
-         uiIJ5odx2cBvc7dsn2r39rKDv7CXDRIgjwEyakdI/luRlcbUTgZPL99I8OTrqc7FUKfa
-         nNVYGz6EYHxXzOO/XBJOUR8G+rLVSGKLwXj/az96+Ar5fScxwZk2nmEEl12RHLjaFWCv
-         +nxNTuSXGnOxQ6xCnWo9LWZVcYM6OkfQ1FOhnnDlPF/yvSW3G/tMbfnq0VmdHm7WltHB
-         AV1o/KED6DWG6rJGTf1JRlIDiKlJYizfCdttRjrZ5+7uC88FNaSiMutlv9PcbRWw51hp
-         KFUg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1778818945; x=1779423745; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=I0cZ21uB8dtPdz735Z7AvPhcMUm74vkL87VB125DpqM=;
-        b=OvU4yZL7NTow6ibgI/T9G+6CbAPExdgj1fCa+Ql8RF0RZNBLVSXvEtP040sHSv7Jmi
-         lk/Fjze3gM2TCqeOiAQgyNQhCmQRpC8bFN3N/7JpzY9r+1FPI8SxaylHZSkhRi4KZJXk
-         fiIuP58I1EHQM3iMCxHp703Khsu3oUmTAlyek=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778818945; x=1779423745;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=I0cZ21uB8dtPdz735Z7AvPhcMUm74vkL87VB125DpqM=;
-        b=iWFj2MLlDFkqMRw460h4IuuwmOUg/tb0wMc3/QIMud96zMfKhdyZ/RYYtggd/rqX2h
-         +oRF3OO8mtx8MczGtcPIPBSTmca2Fi2OtDsDgYAAbjQxvQbINTtBOzlIJrjxrfKgb2tx
-         Q/MaU/m8n0Sc0rFmgc+aphiCHaO3eJx4yEUuDLvGAutr1TP528J5KewtaxsIhtBg6Qw2
-         JdIBvg2hqFDXRnsWKQTzQTWa54IORVCYo7oXyoLPusjE1NxBwncKqqz1hV++tchLGC41
-         PH0U3qje6S9i2Hs1kfnz6vIfb8gHBzVhiW6msN7953KdMlczwky71cObL3PoXm1IbsPB
-         EjQw==
-X-Forwarded-Encrypted: i=1; AFNElJ/Ob3UHNyV72IFS56UpjciwLc+UUuPpXVz5p/4dGekik2GBK2T+XmZ8JRMCKfBf7fqiC/EOwnQB24M0@vger.kernel.org
-X-Gm-Message-State: AOJu0YyB6jRe6PwqKicbLlMfZiCQCfXhGBaKYw1Q24LfeFyq4/BSKclI
-	EOG1Ip46dwBs08yylbSXaFU1k1AdCBk7YVG4iFIJwrESGEP88miumFHrviY/Plaecrs2ZXGy8xh
-	tDhRTU1sxRQGx1GQNf6V4G8kFZV7oySW3w5OrpjcC
-X-Gm-Gg: Acq92OEbvuwRQU9MUrSgIHW0VZNZmZ8aB66EA/bwaMgMSq+xnQCQMZ8mYrI62bK5/eb
-	Y99vBxz88QqcR3FtB9/MLp6fSb2K6yPGwL0t2MA5QVOLVBoX1U8wv44PzKfu3p7Zj1G3wPXe209
-	E+LEmpRLqWTFnMWsHj9OxRXg3pI4U40r1/hXujI6IuGdkO32HiawqwDr97l+7iU9c5AcdjoL+cP
-	bPXpZXIRZ0vIzWvadXth9wR1bwp81Wn6yu+uK9okMpbm/5zPe68/ZEY3WbKi0FuPuhbfP59/Nqu
-	wt6ROT4tEn6nQiXzePojvrOouOqnJxz00u+vPQ==
-X-Received: by 2002:a05:6512:15a2:b0:5aa:b6a:9257 with SMTP id
- 2adb3069b0e04-5aa0e7408bemr545551e87.44.1778818945188; Thu, 14 May 2026
- 21:22:25 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="UZB7lH4h"
+Received: from [172.16.12.43] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 3e82fac39;
+	Fri, 15 May 2026 11:57:58 +0800 (GMT+08:00)
+Message-ID: <2f653664-27e9-4632-97e9-8b59cf7e585e@rock-chips.com>
+Date: Fri, 15 May 2026 11:57:58 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260514091520.2718987-6-wenst@chromium.org> <20260514183429.5F56DC2BCB3@smtp.kernel.org>
-In-Reply-To: <20260514183429.5F56DC2BCB3@smtp.kernel.org>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Fri, 15 May 2026 12:22:13 +0800
-X-Gm-Features: AVHnY4K5aDAGTsz3NDQUWoQBl-6lRkS_VKST26gc1SWQeCwxQAXo_TleLCjgO5I
-Message-ID: <CAGXv+5G1MDRZp-9mPZMcSebn=_1UjLNne0sop-Zpk0XfinCZ8A@mail.gmail.com>
-Subject: Re: [PATCH v4 5/6] regulator: mt6359: Add regulator supply names
-To: sashiko-reviews@lists.linux.dev, Mark Brown <broonie@kernel.org>
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, 
-	robh@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/3] dt-bindings: display: rockchip: analogix-dp:
+ Expose inherited properties
+To: Conor Dooley <conor@kernel.org>
+Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
+ cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
+ dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
+ dianders@chromium.org, m.szyprowski@samsung.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260514070133.2275069-1-damon.ding@rock-chips.com>
+ <20260514070133.2275069-2-damon.ding@rock-chips.com>
+ <20260514-upstate-sneer-0b6e78682798@spud>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20260514-upstate-sneer-0b6e78682798@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9e29c8ae0703a3kunmd1b8d9bd125afa
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSktLVkIYTR8aHkgdTE0YSVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=UZB7lH4hvEXP3pLiPNBhvVIN/gQNsy9iafLoKvDKgsRRFlrJKAecHptJ7/J77wyBeceuZOOprBHD36ae6nHJk5rWBHxxSgKKrOX7JTLhssGbJxofO/ZsqaDhRPiJGMf+/tYd2AQbZfHuNBGK4/0Iow6PsrJyKqHXbi5WbuimHJU=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=num2dBkmQCmOz3VFEseziFih+L9BmXJ8Dbo1P1UCNNw=;
+	h=date:mime-version:subject:message-id:from;
 
-On Fri, May 15, 2026 at 2:34=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Low] The supply name for 'vbbck' in 'mt6359p_regulators' was incorrect=
-ly set to 'LDO_VIO18' instead of 'VIO18'.
-> --
->
-> commit c863063b2f41de345a843312e3b866262b280224
-> Author: Chen-Yu Tsai <wenst@chromium.org>
->
-> regulator: mt6359: Add regulator supply names
->
-> The MT6359 regulator DT binding defines the supply names for the PMIC.
-> This commit adds support for them by introducing .supply_name field
-> settings for each regulator. The LDOs share supplies, while buck
-> regulators have their own supplies related to their names.
->
-> > diff --git a/drivers/regulator/mt6359-regulator.c b/drivers/regulator/m=
-t6359-regulator.c
-> > index bcf9a476a34e1..46cafe93b24e4 100644
-> > --- a/drivers/regulator/mt6359-regulator.c
-> > +++ b/drivers/regulator/mt6359-regulator.c
-> [ ... ]
-> > @@ -871,11 +879,11 @@ static const struct mt6359_regulator_info mt6359p=
-_regulators[] =3D {
-> >                  MT6359P_RG_LDO_VM18_EN_ADDR, MT6359P_RG_LDO_VM18_EN_SH=
-IFT,
-> >                  MT6359P_DA_VM18_B_EN_ADDR, MT6359P_RG_VM18_VOSEL_ADDR,
-> >                  MT6359_RG_VM18_VOSEL_MASK << MT6359_RG_VM18_VOSEL_SHIF=
-T,
-> >                  1920),
-> > -     MT6359_LDO("ldo_vbbck", VBBCK, vbbck_voltages,
-> > +     MT6359_LDO("ldo_vbbck", VBBCK, "LDO_VIO18", vbbck_voltages,
->
-> In mt6359p_regulators, the supply name for vbbck was introduced as "LDO_V=
-IO18",
-> whereas in mt6359_regulators it is set to "VIO18".
->
-> Because the descriptor name for vio18 is "VIO18", the condition
-> strcmp(desc->supply_name, vio18_name) !=3D 0 in mt6359_regulator_probe() =
-will
-> evaluate to true for the MT6359P variant on every boot.
->
-> This discrepancy triggers the fallback execution path inside the probe lo=
-op,
-> performing an unnecessary devm_kzalloc() to allocate a new regulator_desc=
- and
-> correct the supply name dynamically.
->
-> Should this also be "VIO18" to prevent the permanent, unintended memory
-> allocation on MT6359P platforms?
+Hi Conor,
 
-Sigh. I keep forgeting this driver supports two variants. I'll respin
-a new version later today or next week. Still have to address the other
-review comment regarding no ops leading to failures.
+On 5/15/2026 2:16 AM, Conor Dooley wrote:
+> On Thu, May 14, 2026 at 03:01:31PM +0800, Damon Ding wrote:
+>> Expose the inherited properties from the base analogix-dp schema
+>> to satisfy unevaluatedProperties constraints.
+>>
+>> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+> 
+> Given it's unevaluatedProperties, not addtionalProperties, this patch
+> shouldn't be needed?
+> 
 
+When I remove both the top-level data-lanes property and those explicit 
+"xxx: true" property entries and run the dtbs check with:
 
-Sorry for the noise
+make CHECK_DTBS=y CROSS_COMPILE=aarch64-linux-gnu- LT0=none LLVM=1 
+LLVM_IAS=1 ARCH=arm64 rockchip/rk3588-evb1-v10.dtb 
+rockchip/rk3588s-evb1-v10.dtb rockchip/rk3399-sapphire-excavator.dtb 
+rockchip/rk3576-evb1-v10.dtb -j4
 
-ChenYu
+It results in validation errors like these:
 
-> >                  MT6359P_RG_LDO_VBBCK_EN_ADDR, MT6359P_RG_LDO_VBBCK_EN_=
-SHIFT,
-> >                  MT6359P_DA_VBBCK_B_EN_ADDR, MT6359P_RG_VBBCK_VOSEL_ADD=
-R,
-> >                  MT6359P_RG_VBBCK_VOSEL_MASK << MT6359P_RG_VBBCK_VOSEL_=
-SHIFT,
-> >                  480),
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514091520.27=
-18987-1-wenst@chromium.org?part=3D5
+/home/ding/drm-misc/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dtb: 
+edp@27dc0000: ports:port@1:endpoint: Unevaluated properties are not 
+allowed ('data-lanes' was unexpected)
+         from schema $id: 
+http://devicetree.org/schemas/display/rockchip/rockchip,analogix-dp.yaml#
+/home/ding/drm-misc/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dtb: 
+edp@27dc0000: Unevaluated properties are not allowed ('force-hpd', 
+'interrupts', 'phy-names', 'phys', 'ports', 'reg' were unexpected)
+         from schema $id: 
+http://devicetree.org/schemas/display/rockchip/rockchip,analogix-dp.yaml#
+
+I suspect that the properties defined in the child binding are 
+overriding/masking all the inherited properties from the parent Analogix 
+DP schema.
+
+Is there a better way to fix this issue without explicitly listing all 
+inherited properties as true?
+
+Best regards,
+Damon
+
+>> ---
+>>   .../bindings/display/rockchip/rockchip,analogix-dp.yaml    | 7 +++++++
+>>   1 file changed, 7 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>> index bb75d898a5c5..896ded87880f 100644
+>> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+>> @@ -50,6 +50,13 @@ properties:
+>>     aux-bus:
+>>       $ref: /schemas/display/dp-aux-bus.yaml#
+>>   
+>> +  reg: true
+>> +  interrupts: true
+>> +  phys: true
+>> +  phy-names: true
+>> +  force-hpd: true
+>> +  ports: true
+>> +
+>>   required:
+>>     - compatible
+>>     - clocks
+>> -- 
+>> 2.34.1
+>>
+>>
+
