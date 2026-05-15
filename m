@@ -1,893 +1,264 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F7684E3785
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 15:36:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7F323FD95E
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 15:36:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778859396; cv=none; b=AWJ0OGsbrjAlS3riJvwKAS6ZRwk7XDM/Wntxf1FaHvrH1pTTHLidij/GwrvXXJj6ZgbXL5DOiiqMTR5mTI/pRUpVe2AuZDlR98/xivCVYOKboGfbK8n0cCeLFhN3AFQUvrg7fETabXy5em8wE4MbmnxYo/dRNXsk/Zs9RM1nlCY=
+	t=1778859400; cv=none; b=eXWUJnXMNueN/AVL+rOpO3leXvPctXjbK6xI5ENszuCWNGqDogPo3IQaDUz1tgejVe2lvNF4QTWRlsRD/3C8zRQ9oUejY7bE7EE4SrkjpoOxImeX+R/qn4WQCPT0AyOYGIcGU709/PPzwOhYMqy/Dye6dZ5epWo3QEUgjZzblUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778859396; c=relaxed/simple;
-	bh=vAX/FqWV3HxDWPXotNbXauhUzrdC1NEW6oSBgy5WD48=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LitRvUZEXfYeTzIYNvRvB5rm5SZ7aNxHWHgmGo6JhPAOa6dgReJJFUKrrnNtp4IqTE7Fx85EprzOTzaxf8UtNVQRFZClRJVflFnvEpvTcLsPpBKG4obK2AxoKLkyqJmqZ0QwNuLjwGs4NC5JdED8PqrzvUTevgP6rQSZsaJqz/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V5rMRbUO; arc=none smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1778859400; c=relaxed/simple;
+	bh=Bgc8kTKac6/LGbaUjbVwDFKjsjZ76Q3ddXtL3Xs/XCA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uwO3T1Wt/kp1xdZ/SxPiLUPsxZgHDn0/y0E/R5DOb7AucoUc+j0CNdraDhYIzV4IGMFIbWCn5nURnZ8YsNwvs4AZG75T92taaXy25ohcuFdN1BmND0CVy3jj51Eg0Ab4G3fGqZvWAKthIO9GPOo8LHYDBncCFb5awvLcbyBYR+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=n8Vx5k7E; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fobWbc4a; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V5rMRbUO"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-67be871ed3fso17210832a12.1
-        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 08:36:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="n8Vx5k7E";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fobWbc4a"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64FB9QH33671116
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 15:36:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	rsaGzOjLUFY2It8a9XtlX327ezydEMR58UXIEf39RR4=; b=n8Vx5k7EOihDTmZX
+	7DOdHH0etoziH5v/38ebKig5B2J5oXo3bA1nd+ue6B4HaJV/H2TI0aAqZw36E8j/
+	mVX8fltNd0AdxCsN4bek5nOuv1c2zdEAZa/5cwRaP0So1LG0YGIsri4zoK/p0iu7
+	Rjxo2uYfQbSesp2p4PnDMEfDJ6KKOYbEcZLJTFmpyp1Qz0+kakXt2ZoZS6o0xSml
+	eNbRSHfmb2+RTWTmLG66vBga+CMx0CIu2SH5APCr8Kr82ddaeLLGTjuyosgpz6UJ
+	asJpYkUvKxTFWkybYKEzByUnNrLfEWguj/qiI121HQCjrKMmlZBxjCbN3WzIp1sG
+	J9kwKg==
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e5m1s3wa8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 15:36:33 +0000 (GMT)
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-13312cff948so16770376c88.1
+        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 08:36:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778859389; x=1779464189; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=RycbqZD2MbV8BbWRQFsgwhZtyPnP/3Tf01jDBAocK6Q=;
-        b=V5rMRbUO8xTog9yY9OjeRYLoVeqd+hO32xt1InWNnSQu1OSMw/+gpkM/B6R82DkQfQ
-         g0HOdJ6H1dDw5I3J68GGtuORAhaOe1e8foBNvMvPoUdZvXJTLMpC+B1lcUQSYYac1Wmx
-         42QD97BosIK0w+L/6ubz/7jhVgG8YSAXbviunqEdG64XN8cUAeh5mYDvB5A1VKk0wevu
-         9cxhAiGGLFzGTQ/DpPOFkP6Xp1jTswSLn6nzO7jKgpU3IUtLqV2ZL5P3/1yTmBBxEmdf
-         HtBOUYzmgPhrqeLND7QBFDCGs8CbXuLsFzfp7H9HS7rNW5a2xpJy6KJURyAgsJWATLil
-         rDVQ==
+        d=oss.qualcomm.com; s=google; t=1778859392; x=1779464192; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=rsaGzOjLUFY2It8a9XtlX327ezydEMR58UXIEf39RR4=;
+        b=fobWbc4aXlsdY+Rab+iq9slX8M/7gY+2nZBFNpru7sSi72vP5q7epySkI2Ft1uQCfc
+         BEn747FxhMvQ7EiKTePPUAA6Ps7c/HrkQ+RJF1otBdjMiyLFxfJwgybJ+vDnO/S5Ip3r
+         LqmLlO+Ex3D022T9vCfjX7+Y+lIJ2yUDoBLv1MWd5HNS2zQ+xwbdhKWUeniSgjwLPc5V
+         zhmx1TPNOJ7JLl4Hi+3BNS0c38IIivRLhFksi8pA5KrUYypKzBtpJQkFtWDjIE4L2scN
+         lizVsEXpzQbbWtiVpxUoesr7FExS0smxGXIUmziW6MS6P/hcavVMDazxv4hderZ5/DAh
+         LkAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778859389; x=1779464189;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=RycbqZD2MbV8BbWRQFsgwhZtyPnP/3Tf01jDBAocK6Q=;
-        b=HUFfBAckZf5zOMkeFs5/4Us+ZLOdBj5VXYdEg9+f0Wx1Th+o2ovJn+sFxSxpU81Kmt
-         uc0H7J08zlHmfwozj6e7u5tusHq+QxLn0NaBeSVlvYHULjZ90YKOim0UQFPjaBNC15xl
-         RSjDhxEWnu/j73wxBrK8ddZR0qZ9Kr0qRL+xfVIRIUnAJswzRpl6h3nzzfb8VG0r21lc
-         vJPxE8vVvFl8hPdV1TqTOA8SeS80R8SPXhhbQ0rvC3iWd39VTcsROSlWS9KFSl+b/SEt
-         mNRFxG7TG44WKfKFpYrcb/YE0LSsidHNEHOZ1+9TwrwY52AJXl7RxgWbS1XLMdbRpXuR
-         0JmA==
-X-Forwarded-Encrypted: i=1; AFNElJ/Q+Xof70f8EuDOSATK+6+0a0jJ7zg3GLSTnNNjnNYOjiqUg9IYWbDnn+nOR2IeY5wEmi13MEeiy/B4@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywx2wrYcBiqL/AxDenLOh8no8SckaycfV2BI1lje2gVehy8jEio
-	mZMvK+066K4rrTUpEsxW+Ar0s+qtGOgJwcH1VfbuOTNIFLx5vOHGraM1
-X-Gm-Gg: Acq92OE7YGTZvcBO6ttG8ObZcOjnSydaxT6FvXf5RuUpskec8syAKplic08TbNnfwry
-	et5McYgByVC1KbCjIijzoJ7XbN5A4eOJFGBdwGFbX3rI117aQ7S1iISMq/jY0xd+Hc5khZKsI3f
-	pqPLJtr2Gt0g2CF4ZREKzo9PUZDmpFyCIQjXMeavZTjqMzElxQc38ddu310NCKVSKFs7oc+pXvc
-	+9rUvkwH/uagSjc3kL0Fo/L2Hk4l0ePFLIoCE5sP15BhzxkjupzOFJ62WDbLPLA8WzwnhXbKyHG
-	jCKUZBlGFOii5AmWnNjTnsori6+0tI6ev8s5RiNSF2dBtrlLtxODu6mXN+dJZ16MJMAfDU+or0P
-	LgscHSxXMaoau9Uia90fMj0UkytE5Zy8bGz/3yUxuh+jXAnO1HvHeBI3fJ4lZ1wzXjxDVCmf2G6
-	8kpKMEO3et
-X-Received: by 2002:a05:6402:b8c:b0:680:1e7:cfa4 with SMTP id 4fb4d7f45d1cf-683bd38c4f4mr1453544a12.24.1778859388571;
-        Fri, 15 May 2026 08:36:28 -0700 (PDT)
-Received: from fedora ([2a02:8071:50c5:5c0::6182])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-68310d510fasm2205089a12.11.2026.05.15.08.36.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 15 May 2026 08:36:27 -0700 (PDT)
-From: Wadim Mueller <wafgo01@gmail.com>
-To: William Breathitt Gray <wbg@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wadim Mueller <wafgo01@gmail.com>
-Subject: [PATCH v4 2/3] counter: add GPIO-based quadrature encoder driver
-Date: Fri, 15 May 2026 17:36:15 +0200
-Message-ID: <20260515153616.157605-3-wafgo01@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260515153616.157605-1-wafgo01@gmail.com>
-References: <20260501200749.20029-1-wafgo01@gmail.com>
- <20260515153616.157605-1-wafgo01@gmail.com>
+        d=1e100.net; s=20251104; t=1778859392; x=1779464192;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=rsaGzOjLUFY2It8a9XtlX327ezydEMR58UXIEf39RR4=;
+        b=MvaYm6yv1KrrYSeRrAdXhC403MOyVYamVL4U3nLsA3ihzKxfVHnBUNmV9HB76rp8I1
+         hXs7wNeXV++3QG+h2iRRQYH/idH5VUQjdMFhucooGnPRxIgKeg70Ot4wwdQTh+RPNmi+
+         /BZ01HWlCQUm7vCkqPrLbCzXNftPf972c/rA5xUBAk30Weh+3hvHjZbrhTkyCef5vnkR
+         L9LjXX4rZp88NozplDikfN1ozNQlhN56rny1yQd/MedM7ZkRobR412NRsLuZWxsO4n6A
+         MoYjrvoVuP7RgHFgYUbflUzRiKegLq6CdiJQUq+jsEJrJs9/2W/mcmOx0XKQDj8c3YN8
+         MSHA==
+X-Forwarded-Encrypted: i=1; AFNElJ+Tu18eQqmDIXUo9F7hXGh0OuUlQVKVL6oBxIm6R/szfUM/gKt255ibmTryNDhAgREN8Bhy+Mlu6XEW@vger.kernel.org
+X-Gm-Message-State: AOJu0YyaxBLKJbOMdIrwSo45seJwjknxl86OtRmtHcuvn6oNwRHGHcjh
+	3TbKpI+Lwci3wIKi9N2wpgVJ5RaU/Z9LCNUP/5PRK+TvkdkwQckkD8aPI2dCYPsJqEp9nbGnxv1
+	DcXYMt4dIPWjqu78aco6nnQcTotWfG7fxhqMd/VEbonP2jCakp0tGVM0QYNR7vCtq
+X-Gm-Gg: Acq92OHmM8AJw90mQxitggwwGja1XYw77uAdLytnV6QRnLBvn2ZdpWXyz4Wpugx0W8e
+	Z2eSj7NvaEv/hJzkyAjwv97l7e4HbGVdGTEE5eLK/SytCGWcPvLnMyAe+5QGevSWxq01Z0TSezG
+	hsCYrk5Rtvzpc1SrOXVcpQHZ/7O+bh16PinqPHwG4KWATZc5+RHlaRplOTTCF/Oko2bZAcBIOWw
+	UaEOcp2I4N4U89epQFEgex28lXY5FZCWlJkXYR2ppXvD+2XiTgu72hD5nlarVUfIu7f8VkQz45V
+	jqF+r26ttM+6MVCPttb5RmRZLHJHv2pmx7WfsQlddsqrc3K7Cx5w9oiICdzJy1VX1/DaJC12S9F
+	owS0+7zdWYy8fSAUsCnby6PgzMJIdUgkiGMFQ3ncUCe4xZ94MRMuVHIZF5Tjq4Q2kEVrLGkCq8e
+	fiFavA3hycGFyKHA==
+X-Received: by 2002:a05:7022:1e11:b0:12d:ff1b:92f5 with SMTP id a92af1059eb24-1350484ce0emr2086006c88.28.1778859392224;
+        Fri, 15 May 2026 08:36:32 -0700 (PDT)
+X-Received: by 2002:a05:7022:1e11:b0:12d:ff1b:92f5 with SMTP id a92af1059eb24-1350484ce0emr2085975c88.28.1778859391617;
+        Fri, 15 May 2026 08:36:31 -0700 (PDT)
+Received: from [192.168.1.2] ([122.177.241.140])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-134cbdcf140sm10393355c88.5.2026.05.15.08.36.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 15 May 2026 08:36:31 -0700 (PDT)
+Message-ID: <34586ed6-4f78-490f-a916-baf7657cca7a@oss.qualcomm.com>
+Date: Fri, 15 May 2026 21:06:21 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/4] dt-bindings: phy: qcom,msm8998-qmp-usb3-phy: Add
+ support for Shikra
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Vinod Koul
+ <vkoul@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>,
+        Johan Hovold <johan+linaro@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260504170659.282532-1-krishna.kurapati@oss.qualcomm.com>
+ <20260504170659.282532-3-krishna.kurapati@oss.qualcomm.com>
+ <20260505-gifted-salamander-of-prowess-5107a6@quoll>
+ <8cd564af-9646-40c5-a8ef-c7197fb3cfe9@kernel.org>
+ <95b567cc-b83c-4154-9520-e624555f1882@oss.qualcomm.com>
+ <29571bdd-23bf-42a7-a9e3-918a28c79700@kernel.org>
+ <62161822-2365-4ec7-80f7-8660bdadb177@oss.qualcomm.com>
+ <40b5e0f6-bc61-4750-9560-bdcc268f0fe3@kernel.org>
+ <d52c5039-9431-44ed-9f3b-bb00d03ae176@oss.qualcomm.com>
+ <5baeeeed-7c18-46f7-82a3-5bb299ba05ef@kernel.org>
+ <42ba6ac7-306a-419f-96b6-3427c51ef567@oss.qualcomm.com>
+ <9ed7c714-07c1-48de-8d27-cbe24356c606@kernel.org>
+Content-Language: en-US
+From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+In-Reply-To: <9ed7c714-07c1-48de-8d27-cbe24356c606@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE1MDE1OSBTYWx0ZWRfXwonPDG7w/gmB
+ vaygxr21B8/Amc3GvYvhU2fyxVq5paj8GhIMBklCF0VOblmbZ0Oni0fmOY5xmfhR+vwS9r9G83I
+ tMBKYS2oxxiyJD38SBUMaUvtHyWZIrrAXfwqBMoDR49B+uOflrWwMdQr6h6tiEXXH4jUjw0Bm2m
+ HL1R4lXe0cbAZXyDBv05WXaSH2SLt1cGDMIdcFOKLkvseZJ2ENBuSBKT5IaeIYoI8oJau235/fC
+ XAbuuCo03IHbPWu+qXupuvR+3etpfUkxWOBmDa7lialfwHyjlSHB905bbDv0+okb6kx3h4NvXpX
+ 3taRaJGQyukwKtMNnaQDD8uTf9UH5/iEiVjjE+8SeAxgFNyicSzYu9E7SSQLxsd8gvZLfWyjTo8
+ /1Rxn/dOfEfQMbljm51FI3Km4kRuwhDBPCONvtvkq160cNEn2BITeTDESew2k84wa0iOr33fffw
+ SqwWighgEYtRnBu6syg==
+X-Authority-Analysis: v=2.4 cv=Md5cfZ/f c=1 sm=1 tr=0 ts=6a073d81 cx=c_pps
+ a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=3kx7GFP7sCMRTT5SgtpHhw==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=kYkthLK8IOESzKOdJy8A:9 a=QEXdDO2ut3YA:10
+ a=vBUdepa8ALXHeOFLBtFW:22
+X-Proofpoint-GUID: DZjtVk7v9uA5Knhaa1CbnbyG-s-JpMGI
+X-Proofpoint-ORIG-GUID: DZjtVk7v9uA5Knhaa1CbnbyG-s-JpMGI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-15_03,2026-05-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
+ impostorscore=0 malwarescore=0 adultscore=0 phishscore=0 spamscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605150159
 
-Add a platform driver that turns ordinary GPIOs into a quadrature
-encoder counter device.  The driver requests edge-triggered interrupts
-on the A and B (and optional Index) GPIOs and decodes the quadrature
-signal in software using a classic state-table approach.
 
-Supported counting modes:
-  - Quadrature X1 (count on A rising edge only)
-  - Quadrature X2 (count on both A edges)
-  - Quadrature X4 (count on every A and B edge)
-  - Pulse-direction (A = pulse, B = direction)
 
-An optional index signal resets the count to zero on its rising edge
-when enabled through sysfs.  A configurable ceiling clamps the count
-to [0, ceiling].
+On 5/14/2026 8:07 PM, Krzysztof Kozlowski wrote:
+> On 14/05/2026 08:22, Krishna Kurapati wrote:
+>>
+>>
+>> On 5/14/2026 12:26 AM, Krzysztof Kozlowski wrote:
+>>> On 07/05/2026 13:37, Krishna Kurapati wrote:
+>>>>
+>>>>
+>>>> On 5/5/2026 7:30 PM, Krzysztof Kozlowski wrote:
+>>>>> On 05/05/2026 15:57, Krishna Kurapati wrote:
+>>>>>>
+>>>>>>
+>>>>>> On 5/5/2026 6:59 PM, Krzysztof Kozlowski wrote:
+>>>>>>> On 05/05/2026 15:27, Krishna Kurapati wrote:
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> On 5/5/2026 4:22 PM, Krzysztof Kozlowski wrote:
+>>>>>>>>> On 05/05/2026 12:49, Krzysztof Kozlowski wrote:
+>>>>>>>>>> On Mon, May 04, 2026 at 10:36:57PM +0530, Krishna Kurapati wrote:
+>>>>>>>>>>> Declare the USB-C QMP PHY present on the Qualcomm Shikra platform.
+>>>>>>>>>>>
+>>>>>>>>>>> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+>>>>>>>>>>> ---
+>>>>>>>>>>>       .../devicetree/bindings/phy/qcom,msm8998-qmp-usb3-phy.yaml      | 2 ++
+>>>>>>>>>>>       1 file changed, 2 insertions(+)
+>>>>>>>>>>
+>>>>>>>>>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>>>>>>>>>
+>>>>>>>>> ... and then I looked at the driver. So un-reviewed. Devices are clearly
+>>>>>>>>> compatible. If not, explain what is not compatible.
+>>>>>>>>>
+>>>>>>>> Talos uses GCC_USB3_PRIM_PHY_AUX_CLK.
+>>>>>>>>
+>>>>>>>> In Shikra, we are using GCC_USB3_PRIM_PHY_COM_AUX_CLK. We don't have
+>>>>>>>> GCC_USB3_PRIM_PHY_AUX_CLK.
+>>>>>>>>
+>>>>>>>> Hence, I didn't use a fallback compatible.
+>>>>>>>
+>>>>>>> This still explains nothing. How different clock makes interface for SW
+>>>>>>> incompatible exactly?
+>>>>>>>
+>>>>>> So I went by the naming. AUX vs COM_AUX.
+>>>>>
+>>>>> The naming does not matter. If the clock is called
+>>>>> "no_one_expects_spanish_inquisition", does that make software
+>>>>> incompatible? Why would the name itself matter?
+>>>>>
+>>>>>>
+>>>>>> Can I use a fallback compatible and in DT vote for "COM_AUX" clock with
+>>>>>> clock-names mentioning "aux" ?
+>>>>>
+>>>>> I don't know, I asked what is different in software interface.
+>>>>>
+>>>>
+>>>> Hi Krzysztof,
+>>>>
+>>>>     I checked with the hw team here and found out two things.
+>>>>
+>>>>     1. Shikra is a spinoff of Agatti and its sw interface (clocks used and
+>>>> regulators used) is the same as agatti.
+>>>>
+>>>>     2. I thought we could use qcm2290 as a fallback since the phy register
+>>>> init sequence is the same for Talos/Shikra/Agatti. The difference
+>>>> between Talos and agatti when checked in the driver was the init load
+>>>> settings. I checked with the hw team and they suggested using the init
+>>>> load settings which talos was using.
+>>>>
+>>>>     Hence both these compatibles (qcm2290 and qcs615) cannot be used as
+>>>> fallback for Shikra.
+>>>
+>>> Then I do not understand why you are using qcs615_usb3phy_cfg for
+>>> Shikra. You say that the initialization is different, but you use
+>>> exactly the same initialization. So in a meaning of compatibility
+>>> between hardware for Devicetree they are compatible.
+>>>
+>> Hi Krzysztof,
+>>
+>>    There are 3 things:
+>>
+>> 1. Clocks used:
+>> -> Talos supports AUX Clock since it supports DP over USB.
+>> -> Agatti and Shikra use COM_AUX clock since they dont support DP over USB.
+>>
+>> 2. Phy register Init sequence - same for all 3 targets
+>>
+>> 3. Regulator init load:
+>> -> Different for both Talos and Agatti
+>> -> Recommendation is to use Talos regulator load values.
+>>
+>> SW interface wise, shikra is comaptible with agatti. If we use agatti as
+>> fallback, we would end up using the platform data of Agatti where the
+>> regulator init load is not suitable for Shikra. Hence not using Agatti
+>> as fallback.
+>>
+>> Coming to driver changes, I used qcs615_cfg because it has required phy
+>> register sequence and regulator init load as needed by shikra.
+> 
+> So is it compatible with QCS615? If not, then something is incomplete or
+> confusing. The driver uses the same software interface.
+> 
+Sorry for the confusion. The Talos compatible represents the USB/DP PHY 
+with aux clock input, while Shikra is a USB-only PHY with com_aux input 
+clock, so the two PHYs are not compatible with each other.
 
-Signed-off-by: Wadim Mueller <wafgo01@gmail.com>
----
- drivers/counter/Kconfig                   |  15 +
- drivers/counter/Makefile                  |   1 +
- drivers/counter/gpio-quadrature-encoder.c | 739 ++++++++++++++++++++++
- 3 files changed, 755 insertions(+)
- create mode 100644 drivers/counter/gpio-quadrature-encoder.c
+In the Linux driver implementation the match data is currently used only 
+to affect the init sequence and regulator init load and here Shikra can 
+reuse the Talos match data structure.
 
-diff --git a/drivers/counter/Kconfig b/drivers/counter/Kconfig
-index d30d22dfe..72c5c8159 100644
---- a/drivers/counter/Kconfig
-+++ b/drivers/counter/Kconfig
-@@ -68,6 +68,21 @@ config INTEL_QEP
- 	  To compile this driver as a module, choose M here: the module
- 	  will be called intel-qep.
- 
-+config GPIO_QUADRATURE_ENCODER
-+	tristate "GPIO-based quadrature encoder counter driver"
-+	depends on GPIOLIB
-+	help
-+	  Select this option to enable the GPIO-based quadrature encoder
-+	  counter driver.  It reads A/B quadrature signals and an optional
-+	  index pulse via edge-triggered GPIO interrupts, supporting X1, X2,
-+	  X4 quadrature decoding and pulse-direction mode.
-+
-+	  This is useful on SoCs that lack a dedicated hardware quadrature
-+	  decoder or where the encoder is wired to generic GPIO pins.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called gpio-quadrature-encoder.
-+
- config INTERRUPT_CNT
- 	tristate "Interrupt counter driver"
- 	depends on GPIOLIB
-diff --git a/drivers/counter/Makefile b/drivers/counter/Makefile
-index fa3c1d08f..2bef64d10 100644
---- a/drivers/counter/Makefile
-+++ b/drivers/counter/Makefile
-@@ -14,6 +14,7 @@ obj-$(CONFIG_STM32_TIMER_CNT)	+= stm32-timer-cnt.o
- obj-$(CONFIG_STM32_LPTIMER_CNT)	+= stm32-lptimer-cnt.o
- obj-$(CONFIG_TI_EQEP)		+= ti-eqep.o
- obj-$(CONFIG_FTM_QUADDEC)	+= ftm-quaddec.o
-+obj-$(CONFIG_GPIO_QUADRATURE_ENCODER)	+= gpio-quadrature-encoder.o
- obj-$(CONFIG_MICROCHIP_TCB_CAPTURE)	+= microchip-tcb-capture.o
- obj-$(CONFIG_INTEL_QEP)		+= intel-qep.o
- obj-$(CONFIG_TI_ECAP_CAPTURE)	+= ti-ecap-capture.o
-diff --git a/drivers/counter/gpio-quadrature-encoder.c b/drivers/counter/gpio-quadrature-encoder.c
-new file mode 100644
-index 000000000..53e9ef878
---- /dev/null
-+++ b/drivers/counter/gpio-quadrature-encoder.c
-@@ -0,0 +1,739 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * GPIO-based Quadrature Encoder Counter Driver
-+ *
-+ * Reads quadrature encoder signals (A, B, and optional Index) via GPIOs.
-+ * Supports X1, X2, X4 quadrature decoding and pulse-direction mode in
-+ * both increase and decrease orientation, and pure increase/decrease
-+ * pulse counters.
-+ *
-+ * Copyright (C) 2026 CMBlu Energy AG
-+ * Author: Wadim Mueller <wafgo01@gmail.com>
-+ */
-+
-+#include <linux/counter.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/interrupt.h>
-+#include <linux/irq.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/spinlock.h>
-+#include <linux/types.h>
-+
-+enum gpio_qenc_signal_id {
-+	GPIO_QENC_SIGNAL_A = 0,
-+	GPIO_QENC_SIGNAL_B,
-+	GPIO_QENC_SIGNAL_INDEX,
-+};
-+
-+struct gpio_qenc_priv {
-+	struct gpio_desc *gpio_a;
-+	struct gpio_desc *gpio_b;
-+	struct gpio_desc *gpio_index;
-+
-+	int irq_a;
-+	int irq_b;
-+	int irq_index;
-+
-+	/* Serialises ISR updates against sysfs read/write paths. */
-+	spinlock_t lock;
-+
-+	u64 count;
-+	u64 ceiling;
-+	u64 preset;
-+	bool preset_enabled;
-+	enum counter_count_direction direction;
-+	enum counter_function function;
-+
-+	int prev_a;
-+	int prev_b;
-+
-+	struct counter_count cnts[1];
-+	struct counter_signal signals[3];
-+	struct counter_synapse synapses[3];
-+};
-+
-+/*
-+ * Encode the four quadrature transitions in a single 4-bit state:
-+ *   bit3 = prev_a, bit2 = prev_b, bit1 = curr_a, bit0 = curr_b.
-+ *
-+ * Indexing the table with this value yields the signed delta for an
-+ * X4 decoder.  Illegal transitions (both inputs toggled at once)
-+ * remain 0 so the count is unchanged.
-+ */
-+#define CREATE_QE_STATE(prev_a, prev_b, curr_a, curr_b) \
-+	(((prev_a) << 3) | ((prev_b) << 2) | ((curr_a) << 1) | (curr_b))
-+
-+static const s8 gpio_qenc_quad_x4_table[16] = {
-+	[CREATE_QE_STATE(0, 0, 0, 0)] =  0,
-+	[CREATE_QE_STATE(0, 0, 0, 1)] = -1,
-+	[CREATE_QE_STATE(0, 0, 1, 0)] =  1,
-+	[CREATE_QE_STATE(0, 0, 1, 1)] =  0,
-+	[CREATE_QE_STATE(0, 1, 0, 0)] =  1,
-+	[CREATE_QE_STATE(0, 1, 0, 1)] =  0,
-+	[CREATE_QE_STATE(0, 1, 1, 0)] =  0,
-+	[CREATE_QE_STATE(0, 1, 1, 1)] = -1,
-+	[CREATE_QE_STATE(1, 0, 0, 0)] = -1,
-+	[CREATE_QE_STATE(1, 0, 0, 1)] =  0,
-+	[CREATE_QE_STATE(1, 0, 1, 0)] =  0,
-+	[CREATE_QE_STATE(1, 0, 1, 1)] =  1,
-+	[CREATE_QE_STATE(1, 1, 0, 0)] =  0,
-+	[CREATE_QE_STATE(1, 1, 0, 1)] =  1,
-+	[CREATE_QE_STATE(1, 1, 1, 0)] = -1,
-+	[CREATE_QE_STATE(1, 1, 1, 1)] =  0,
-+};
-+
-+static void gpio_qenc_update_count(struct gpio_qenc_priv *priv, int delta)
-+{
-+	if (delta > 0) {
-+		priv->direction = COUNTER_COUNT_DIRECTION_FORWARD;
-+		if (priv->count == priv->ceiling)
-+			return;
-+		priv->count++;
-+	} else if (delta < 0) {
-+		priv->direction = COUNTER_COUNT_DIRECTION_BACKWARD;
-+		if (priv->count == 0)
-+			return;
-+		priv->count--;
-+	}
-+}
-+
-+static int gpio_qenc_a_delta(struct gpio_qenc_priv *priv, int a, int b,
-+			     int prev_a, int prev_b)
-+{
-+	int state = CREATE_QE_STATE(prev_a, prev_b, a, b);
-+
-+	switch (priv->function) {
-+	case COUNTER_FUNCTION_QUADRATURE_X4:
-+		return gpio_qenc_quad_x4_table[state];
-+
-+	case COUNTER_FUNCTION_QUADRATURE_X2_A:
-+		/* Both edges of A; sign comes from current A vs B. */
-+		return (a == b) ? -1 : 1;
-+
-+	case COUNTER_FUNCTION_QUADRATURE_X1_A:
-+		/* Rising edge of A only. */
-+		if (!prev_a && a)
-+			return b ? -1 : 1;
-+		return 0;
-+
-+	case COUNTER_FUNCTION_PULSE_DIRECTION:
-+		/* A is pulse, B is direction. */
-+		if (!prev_a && a)
-+			return b ? -1 : 1;
-+		return 0;
-+
-+	case COUNTER_FUNCTION_INCREASE:
-+		if (!prev_a && a)
-+			return 1;
-+		return 0;
-+
-+	case COUNTER_FUNCTION_DECREASE:
-+		if (!prev_a && a)
-+			return -1;
-+		return 0;
-+
-+	default:
-+		return 0;
-+	}
-+}
-+
-+static int gpio_qenc_b_delta(struct gpio_qenc_priv *priv, int a, int b,
-+			     int prev_a, int prev_b)
-+{
-+	int state = CREATE_QE_STATE(prev_a, prev_b, a, b);
-+
-+	switch (priv->function) {
-+	case COUNTER_FUNCTION_QUADRATURE_X4:
-+		return gpio_qenc_quad_x4_table[state];
-+
-+	case COUNTER_FUNCTION_QUADRATURE_X2_B:
-+		return (a == b) ? 1 : -1;
-+
-+	case COUNTER_FUNCTION_QUADRATURE_X1_B:
-+		if (!prev_b && b)
-+			return a ? 1 : -1;
-+		return 0;
-+
-+	default:
-+		return 0;
-+	}
-+}
-+
-+static irqreturn_t gpio_qenc_a_isr(int irq, void *dev_id)
-+{
-+	struct counter_device *counter = dev_id;
-+	struct gpio_qenc_priv *priv = counter_priv(counter);
-+	unsigned long flags;
-+	int a, b, delta;
-+
-+	spin_lock_irqsave(&priv->lock, flags);
-+
-+	a = gpiod_get_value(priv->gpio_a);
-+	b = gpiod_get_value(priv->gpio_b);
-+
-+	delta = gpio_qenc_a_delta(priv, a, b, priv->prev_a, priv->prev_b);
-+	gpio_qenc_update_count(priv, delta);
-+
-+	priv->prev_a = a;
-+	priv->prev_b = b;
-+
-+	spin_unlock_irqrestore(&priv->lock, flags);
-+
-+	counter_push_event(counter, COUNTER_EVENT_CHANGE_OF_STATE, 0);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static irqreturn_t gpio_qenc_b_isr(int irq, void *dev_id)
-+{
-+	struct counter_device *counter = dev_id;
-+	struct gpio_qenc_priv *priv = counter_priv(counter);
-+	unsigned long flags;
-+	int a, b, delta;
-+
-+	spin_lock_irqsave(&priv->lock, flags);
-+
-+	a = gpiod_get_value(priv->gpio_a);
-+	b = gpiod_get_value(priv->gpio_b);
-+
-+	delta = gpio_qenc_b_delta(priv, a, b, priv->prev_a, priv->prev_b);
-+	gpio_qenc_update_count(priv, delta);
-+
-+	priv->prev_a = a;
-+	priv->prev_b = b;
-+
-+	spin_unlock_irqrestore(&priv->lock, flags);
-+
-+	counter_push_event(counter, COUNTER_EVENT_CHANGE_OF_STATE, 0);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static irqreturn_t gpio_qenc_index_isr(int irq, void *dev_id)
-+{
-+	struct counter_device *counter = dev_id;
-+	struct gpio_qenc_priv *priv = counter_priv(counter);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&priv->lock, flags);
-+	if (priv->preset_enabled)
-+		priv->count = priv->preset;
-+	spin_unlock_irqrestore(&priv->lock, flags);
-+
-+	counter_push_event(counter, COUNTER_EVENT_INDEX, 0);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static int gpio_qenc_count_read(struct counter_device *counter,
-+				struct counter_count *count, u64 *val)
-+{
-+	struct gpio_qenc_priv *priv = counter_priv(counter);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&priv->lock, flags);
-+	*val = priv->count;
-+	spin_unlock_irqrestore(&priv->lock, flags);
-+
-+	return 0;
-+}
-+
-+static int gpio_qenc_count_write(struct counter_device *counter,
-+				 struct counter_count *count, u64 val)
-+{
-+	struct gpio_qenc_priv *priv = counter_priv(counter);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&priv->lock, flags);
-+
-+	if (val > priv->ceiling) {
-+		spin_unlock_irqrestore(&priv->lock, flags);
-+		return -EINVAL;
-+	}
-+
-+	priv->count = val;
-+	spin_unlock_irqrestore(&priv->lock, flags);
-+
-+	return 0;
-+}
-+
-+static const enum counter_function gpio_qenc_functions[] = {
-+	COUNTER_FUNCTION_INCREASE,
-+	COUNTER_FUNCTION_DECREASE,
-+	COUNTER_FUNCTION_PULSE_DIRECTION,
-+	COUNTER_FUNCTION_QUADRATURE_X1_A,
-+	COUNTER_FUNCTION_QUADRATURE_X1_B,
-+	COUNTER_FUNCTION_QUADRATURE_X2_A,
-+	COUNTER_FUNCTION_QUADRATURE_X2_B,
-+	COUNTER_FUNCTION_QUADRATURE_X4,
-+};
-+
-+static int gpio_qenc_function_read(struct counter_device *counter,
-+				   struct counter_count *count,
-+				   enum counter_function *function)
-+{
-+	struct gpio_qenc_priv *priv = counter_priv(counter);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&priv->lock, flags);
-+	*function = priv->function;
-+	spin_unlock_irqrestore(&priv->lock, flags);
-+
-+	return 0;
-+}
-+
-+static int gpio_qenc_function_write(struct counter_device *counter,
-+				    struct counter_count *count,
-+				    enum counter_function function)
-+{
-+	struct gpio_qenc_priv *priv = counter_priv(counter);
-+	unsigned long flags;
-+	unsigned int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(gpio_qenc_functions); i++)
-+		if (gpio_qenc_functions[i] == function)
-+			break;
-+	if (i == ARRAY_SIZE(gpio_qenc_functions))
-+		return -EINVAL;
-+
-+	spin_lock_irqsave(&priv->lock, flags);
-+	priv->function = function;
-+	spin_unlock_irqrestore(&priv->lock, flags);
-+
-+	return 0;
-+}
-+
-+static const enum counter_synapse_action gpio_qenc_synapse_actions[] = {
-+	COUNTER_SYNAPSE_ACTION_NONE,
-+	COUNTER_SYNAPSE_ACTION_RISING_EDGE,
-+	COUNTER_SYNAPSE_ACTION_FALLING_EDGE,
-+	COUNTER_SYNAPSE_ACTION_BOTH_EDGES,
-+};
-+
-+static const enum counter_synapse_action gpio_qenc_index_synapse_actions[] = {
-+	COUNTER_SYNAPSE_ACTION_NONE,
-+	COUNTER_SYNAPSE_ACTION_RISING_EDGE,
-+};
-+
-+static int gpio_qenc_action_read(struct counter_device *counter,
-+				 struct counter_count *count,
-+				 struct counter_synapse *synapse,
-+				 enum counter_synapse_action *action)
-+{
-+	struct gpio_qenc_priv *priv = counter_priv(counter);
-+	enum gpio_qenc_signal_id signal_id = synapse->signal->id;
-+
-+	/* Index synapse always observes rising edges, regardless of mode. */
-+	if (signal_id == GPIO_QENC_SIGNAL_INDEX) {
-+		*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
-+		return 0;
-+	}
-+
-+	*action = COUNTER_SYNAPSE_ACTION_NONE;
-+
-+	switch (priv->function) {
-+	case COUNTER_FUNCTION_QUADRATURE_X4:
-+		*action = COUNTER_SYNAPSE_ACTION_BOTH_EDGES;
-+		break;
-+
-+	case COUNTER_FUNCTION_QUADRATURE_X2_A:
-+		if (signal_id == GPIO_QENC_SIGNAL_A)
-+			*action = COUNTER_SYNAPSE_ACTION_BOTH_EDGES;
-+		break;
-+
-+	case COUNTER_FUNCTION_QUADRATURE_X2_B:
-+		if (signal_id == GPIO_QENC_SIGNAL_B)
-+			*action = COUNTER_SYNAPSE_ACTION_BOTH_EDGES;
-+		break;
-+
-+	case COUNTER_FUNCTION_QUADRATURE_X1_A:
-+		if (signal_id == GPIO_QENC_SIGNAL_A) {
-+			if (priv->direction == COUNTER_COUNT_DIRECTION_FORWARD)
-+				*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
-+			else
-+				*action = COUNTER_SYNAPSE_ACTION_FALLING_EDGE;
-+		}
-+		break;
-+
-+	case COUNTER_FUNCTION_QUADRATURE_X1_B:
-+		if (signal_id == GPIO_QENC_SIGNAL_B) {
-+			if (priv->direction == COUNTER_COUNT_DIRECTION_FORWARD)
-+				*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
-+			else
-+				*action = COUNTER_SYNAPSE_ACTION_FALLING_EDGE;
-+		}
-+		break;
-+
-+	case COUNTER_FUNCTION_PULSE_DIRECTION:
-+	case COUNTER_FUNCTION_INCREASE:
-+	case COUNTER_FUNCTION_DECREASE:
-+		if (signal_id == GPIO_QENC_SIGNAL_A)
-+			*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
-+		break;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int gpio_qenc_signal_read(struct counter_device *counter,
-+				 struct counter_signal *signal,
-+				 enum counter_signal_level *level)
-+{
-+	struct gpio_qenc_priv *priv = counter_priv(counter);
-+	struct gpio_desc *gpio;
-+	int ret;
-+
-+	switch (signal->id) {
-+	case GPIO_QENC_SIGNAL_A:
-+		gpio = priv->gpio_a;
-+		break;
-+	case GPIO_QENC_SIGNAL_B:
-+		gpio = priv->gpio_b;
-+		break;
-+	case GPIO_QENC_SIGNAL_INDEX:
-+		gpio = priv->gpio_index;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	ret = gpiod_get_value(gpio);
-+	if (ret < 0)
-+		return ret;
-+
-+	*level = ret ? COUNTER_SIGNAL_LEVEL_HIGH : COUNTER_SIGNAL_LEVEL_LOW;
-+	return 0;
-+}
-+
-+static int gpio_qenc_watch_validate(struct counter_device *counter,
-+				    const struct counter_watch *watch)
-+{
-+	if (watch->channel != 0)
-+		return -EINVAL;
-+
-+	switch (watch->event) {
-+	case COUNTER_EVENT_CHANGE_OF_STATE:
-+	case COUNTER_EVENT_INDEX:
-+		return 0;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static const struct counter_ops gpio_qenc_ops = {
-+	.count_read	= gpio_qenc_count_read,
-+	.count_write	= gpio_qenc_count_write,
-+	.function_read	= gpio_qenc_function_read,
-+	.function_write	= gpio_qenc_function_write,
-+	.action_read	= gpio_qenc_action_read,
-+	.signal_read	= gpio_qenc_signal_read,
-+	.watch_validate	= gpio_qenc_watch_validate,
-+};
-+
-+static int gpio_qenc_ceiling_read(struct counter_device *counter,
-+				  struct counter_count *count, u64 *val)
-+{
-+	struct gpio_qenc_priv *priv = counter_priv(counter);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&priv->lock, flags);
-+	*val = priv->ceiling;
-+	spin_unlock_irqrestore(&priv->lock, flags);
-+
-+	return 0;
-+}
-+
-+static int gpio_qenc_ceiling_write(struct counter_device *counter,
-+				   struct counter_count *count, u64 val)
-+{
-+	struct gpio_qenc_priv *priv = counter_priv(counter);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&priv->lock, flags);
-+	priv->ceiling = val;
-+	if (priv->count > val)
-+		priv->count = val;
-+	spin_unlock_irqrestore(&priv->lock, flags);
-+
-+	return 0;
-+}
-+
-+static int gpio_qenc_enable_read(struct counter_device *counter,
-+				 struct counter_count *count, u8 *enable)
-+{
-+	struct gpio_qenc_priv *priv = counter_priv(counter);
-+	unsigned long flags;
-+	bool irq_enabled;
-+
-+	spin_lock_irqsave(&priv->lock, flags);
-+	irq_enabled = !irqd_irq_disabled(irq_get_irq_data(priv->irq_a));
-+	spin_unlock_irqrestore(&priv->lock, flags);
-+
-+	*enable = irq_enabled;
-+	return 0;
-+}
-+
-+static int gpio_qenc_enable_write(struct counter_device *counter,
-+				  struct counter_count *count, u8 enable)
-+{
-+	struct gpio_qenc_priv *priv = counter_priv(counter);
-+
-+	if (enable) {
-+		enable_irq(priv->irq_a);
-+		enable_irq(priv->irq_b);
-+		if (priv->irq_index)
-+			enable_irq(priv->irq_index);
-+		return 0;
-+	}
-+
-+	disable_irq(priv->irq_a);
-+	disable_irq(priv->irq_b);
-+	if (priv->irq_index)
-+		disable_irq(priv->irq_index);
-+	return 0;
-+}
-+
-+static int gpio_qenc_direction_read(struct counter_device *counter,
-+				    struct counter_count *count, u32 *direction)
-+{
-+	struct gpio_qenc_priv *priv = counter_priv(counter);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&priv->lock, flags);
-+	*direction = priv->direction;
-+	spin_unlock_irqrestore(&priv->lock, flags);
-+
-+	return 0;
-+}
-+
-+static int gpio_qenc_preset_read(struct counter_device *counter,
-+				 struct counter_count *count, u64 *val)
-+{
-+	struct gpio_qenc_priv *priv = counter_priv(counter);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&priv->lock, flags);
-+	*val = priv->preset;
-+	spin_unlock_irqrestore(&priv->lock, flags);
-+
-+	return 0;
-+}
-+
-+static int gpio_qenc_preset_write(struct counter_device *counter,
-+				  struct counter_count *count, u64 val)
-+{
-+	struct gpio_qenc_priv *priv = counter_priv(counter);
-+	unsigned long flags;
-+
-+	if (val > priv->ceiling)
-+		return -EINVAL;
-+
-+	spin_lock_irqsave(&priv->lock, flags);
-+	priv->preset = val;
-+	spin_unlock_irqrestore(&priv->lock, flags);
-+
-+	return 0;
-+}
-+
-+static int gpio_qenc_preset_enable_read(struct counter_device *counter,
-+					struct counter_count *count, u8 *val)
-+{
-+	struct gpio_qenc_priv *priv = counter_priv(counter);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&priv->lock, flags);
-+	*val = priv->preset_enabled;
-+	spin_unlock_irqrestore(&priv->lock, flags);
-+
-+	return 0;
-+}
-+
-+static int gpio_qenc_preset_enable_write(struct counter_device *counter,
-+					 struct counter_count *count, u8 val)
-+{
-+	struct gpio_qenc_priv *priv = counter_priv(counter);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&priv->lock, flags);
-+	priv->preset_enabled = !!val;
-+	spin_unlock_irqrestore(&priv->lock, flags);
-+
-+	return 0;
-+}
-+
-+static struct counter_comp gpio_qenc_count_ext[] = {
-+	COUNTER_COMP_CEILING(gpio_qenc_ceiling_read, gpio_qenc_ceiling_write),
-+	COUNTER_COMP_ENABLE(gpio_qenc_enable_read, gpio_qenc_enable_write),
-+	COUNTER_COMP_DIRECTION(gpio_qenc_direction_read),
-+	COUNTER_COMP_PRESET(gpio_qenc_preset_read, gpio_qenc_preset_write),
-+	COUNTER_COMP_PRESET_ENABLE(gpio_qenc_preset_enable_read,
-+				   gpio_qenc_preset_enable_write),
-+};
-+
-+static int gpio_qenc_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct counter_device *counter;
-+	struct gpio_qenc_priv *priv;
-+	bool has_index;
-+	int num_signals;
-+	int num_synapses;
-+	int ret;
-+
-+	counter = devm_counter_alloc(dev, sizeof(*priv));
-+	if (!counter)
-+		return -ENOMEM;
-+
-+	priv = counter_priv(counter);
-+	spin_lock_init(&priv->lock);
-+
-+	priv->gpio_a = devm_gpiod_get(dev, "encoder-a", GPIOD_IN);
-+	if (IS_ERR(priv->gpio_a))
-+		return dev_err_probe(dev, PTR_ERR(priv->gpio_a),
-+				     "failed to get encoder-a GPIO\n");
-+
-+	priv->gpio_b = devm_gpiod_get(dev, "encoder-b", GPIOD_IN);
-+	if (IS_ERR(priv->gpio_b))
-+		return dev_err_probe(dev, PTR_ERR(priv->gpio_b),
-+				     "failed to get encoder-b GPIO\n");
-+
-+	priv->gpio_index = devm_gpiod_get_optional(dev, "encoder-index",
-+						   GPIOD_IN);
-+	if (IS_ERR(priv->gpio_index))
-+		return dev_err_probe(dev, PTR_ERR(priv->gpio_index),
-+				     "failed to get encoder-index GPIO\n");
-+
-+	has_index = !!priv->gpio_index;
-+
-+	priv->irq_a = gpiod_to_irq(priv->gpio_a);
-+	if (priv->irq_a < 0)
-+		return dev_err_probe(dev, priv->irq_a,
-+				     "failed to get IRQ for encoder-a\n");
-+
-+	priv->irq_b = gpiod_to_irq(priv->gpio_b);
-+	if (priv->irq_b < 0)
-+		return dev_err_probe(dev, priv->irq_b,
-+				     "failed to get IRQ for encoder-b\n");
-+
-+	if (has_index) {
-+		priv->irq_index = gpiod_to_irq(priv->gpio_index);
-+		if (priv->irq_index < 0)
-+			return dev_err_probe(dev, priv->irq_index,
-+					     "failed to get IRQ for encoder-index\n");
-+	}
-+
-+	priv->prev_a = gpiod_get_value(priv->gpio_a);
-+	priv->prev_b = gpiod_get_value(priv->gpio_b);
-+
-+	priv->function = COUNTER_FUNCTION_QUADRATURE_X4;
-+	priv->direction = COUNTER_COUNT_DIRECTION_FORWARD;
-+	priv->ceiling = U64_MAX;
-+
-+	num_signals = has_index ? 3 : 2;
-+	num_synapses = num_signals;
-+
-+	priv->signals[GPIO_QENC_SIGNAL_A].id = GPIO_QENC_SIGNAL_A;
-+	priv->signals[GPIO_QENC_SIGNAL_A].name = "Signal A";
-+
-+	priv->signals[GPIO_QENC_SIGNAL_B].id = GPIO_QENC_SIGNAL_B;
-+	priv->signals[GPIO_QENC_SIGNAL_B].name = "Signal B";
-+
-+	priv->synapses[0].actions_list = gpio_qenc_synapse_actions;
-+	priv->synapses[0].num_actions = ARRAY_SIZE(gpio_qenc_synapse_actions);
-+	priv->synapses[0].signal = &priv->signals[GPIO_QENC_SIGNAL_A];
-+
-+	priv->synapses[1].actions_list = gpio_qenc_synapse_actions;
-+	priv->synapses[1].num_actions = ARRAY_SIZE(gpio_qenc_synapse_actions);
-+	priv->synapses[1].signal = &priv->signals[GPIO_QENC_SIGNAL_B];
-+
-+	if (has_index) {
-+		priv->signals[GPIO_QENC_SIGNAL_INDEX].id =
-+			GPIO_QENC_SIGNAL_INDEX;
-+		priv->signals[GPIO_QENC_SIGNAL_INDEX].name = "Index";
-+
-+		priv->synapses[2].actions_list = gpio_qenc_index_synapse_actions;
-+		priv->synapses[2].num_actions =
-+			ARRAY_SIZE(gpio_qenc_index_synapse_actions);
-+		priv->synapses[2].signal =
-+			&priv->signals[GPIO_QENC_SIGNAL_INDEX];
-+	}
-+
-+	priv->cnts[0].id = 0;
-+	priv->cnts[0].name = "Count";
-+	priv->cnts[0].functions_list = gpio_qenc_functions;
-+	priv->cnts[0].num_functions = ARRAY_SIZE(gpio_qenc_functions);
-+	priv->cnts[0].synapses = priv->synapses;
-+	priv->cnts[0].num_synapses = num_synapses;
-+	priv->cnts[0].ext = gpio_qenc_count_ext;
-+	priv->cnts[0].num_ext = ARRAY_SIZE(gpio_qenc_count_ext);
-+
-+	counter->name = dev_name(dev);
-+	counter->parent = dev;
-+	counter->ops = &gpio_qenc_ops;
-+	counter->signals = priv->signals;
-+	counter->num_signals = num_signals;
-+	counter->counts = priv->cnts;
-+	counter->num_counts = ARRAY_SIZE(priv->cnts);
-+
-+	irq_set_status_flags(priv->irq_a, IRQ_NOAUTOEN);
-+	ret = devm_request_irq(dev, priv->irq_a, gpio_qenc_a_isr,
-+			       IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING,
-+			       "gpio-qenc-a", counter);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to request IRQ for encoder-a\n");
-+
-+	irq_set_status_flags(priv->irq_b, IRQ_NOAUTOEN);
-+	ret = devm_request_irq(dev, priv->irq_b, gpio_qenc_b_isr,
-+			       IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING,
-+			       "gpio-qenc-b", counter);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to request IRQ for encoder-b\n");
-+
-+	if (has_index) {
-+		irq_set_status_flags(priv->irq_index, IRQ_NOAUTOEN);
-+		ret = devm_request_irq(dev, priv->irq_index,
-+				       gpio_qenc_index_isr,
-+				       IRQF_TRIGGER_RISING,
-+				       "gpio-qenc-index", counter);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "failed to request IRQ for encoder-index\n");
-+	}
-+
-+	ret = devm_counter_add(dev, counter);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "failed to add counter\n");
-+
-+	dev_info(dev, "GPIO quadrature encoder registered (signals: A, B%s)\n",
-+		 has_index ? ", Index" : "");
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id gpio_qenc_of_match[] = {
-+	{ .compatible = "gpio-quadrature-encoder" },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, gpio_qenc_of_match);
-+
-+static struct platform_driver gpio_qenc_driver = {
-+	.probe = gpio_qenc_probe,
-+	.driver = {
-+		.name = "gpio-quadrature-encoder",
-+		.of_match_table = gpio_qenc_of_match,
-+	},
-+};
-+module_platform_driver(gpio_qenc_driver);
-+
-+MODULE_ALIAS("platform:gpio-quadrature-encoder");
-+MODULE_AUTHOR("Wadim Mueller <wafgo01@gmail.com>");
-+MODULE_DESCRIPTION("GPIO-based quadrature encoder counter driver");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("COUNTER");
--- 
-2.52.0
-
+Regards,
+Krishna,
