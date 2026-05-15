@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CCA43EE1F7;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0783EF64D;
 	Fri, 15 May 2026 21:40:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778881236; cv=none; b=FOfnybRzDR2xvGlPMVunKU74P5lBdEnhOC3gRPFFVNwYXUNfZDu21g4f99vrq2+rNp9kpsHuByCCCQ6vsuhH3zkpEivG9wQg8EmFhTCZff14glmz3+v/NF7E7Ujc4y256J1oiIn8u9tnMoDlcnG73KRbfE+frnGvld1290yIlSk=
+	t=1778881236; cv=none; b=Ywks+OHoBC5B4rfK+T0LKzGtUIQR4OLgEuW8dE32P/JAOUOQdhX0xxnbKW6x693aSykv+p+F3KoFdTQPjP0RV5uzoeAxvhaTqkSj7i/mrahlAmTBg7cwGLNDkwwfvWGVhvnpr2o+Y/f4Ke26bK243DKYG6kf2mePGfL/wv2kXZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1778881236; c=relaxed/simple;
-	bh=ZnohZHnn2hcuxWohpCh3aH0JBTFgOo0GebNJ+3Wz/xc=;
+	bh=rX6r/+0B06uXvQR5Rend/nvCLxZh6GVTshJGCcYbsLM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=R79OTzWZ4fRza58ghXEcUUeHV0I0EfNZv7JGlhqaWq1SAL0Inu9fcz4uwOn8O4DPq7cEemJLhBgtqYaqU4n6pk3b7jgqhhY/7L1LCRHdhEj6YM9F+IG16/UTjWsgerQfkvCkxwZdoj7vwarFgXVjLVpkgcj6VTgEoWDpKT6rs+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ssWBnfUR; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=aFOG/2GQ6EbSl6ahX6jiD/q2SeKTnzl3QMjPhlRUoTRaPGoLBzS5ihLw3e/WOack8ukLoTuAlBBPPmbJibygIhwvxHkeVhrzQk7q68lgYRbW943IiQsiM7GgYVWJe6IQREzY5RyBpi08PpyMeXUtFl06Yc8tUN7Ilm/QVCFSRnw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VccQFmxy; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ssWBnfUR"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4F6FFC2BCB3;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VccQFmxy"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 75D2BC2BCB0;
 	Fri, 15 May 2026 21:40:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1778881236;
-	bh=ZnohZHnn2hcuxWohpCh3aH0JBTFgOo0GebNJ+3Wz/xc=;
+	bh=rX6r/+0B06uXvQR5Rend/nvCLxZh6GVTshJGCcYbsLM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=ssWBnfURxcDPGQzhB58IHB82FIoVqBVeXDMVbWV5qpw//tPVYQ9U8Yhxk5G7aUXM0
-	 Q2llKsAKxFSeTbQ8SxTlsbdb1keW8OkZtWaN4Q/dIvBqHWRQDomUMm+A5HSI8wWy0P
-	 Wi7fE8x/U1sR3Yl5Adj5XoA+d+qYw31lTwYHno/212la5Qs8q493xseV6/4EFeadok
-	 rE799YFrPFki1Y299TT+cfdVfq96mc/S+3OBWpqx/VPtOOj3N73woKkAY2kbMVwk0v
-	 H8ctXqx58R43DhriZjPdcni/yjGg9bZtLsJr3R3I/ddSkQNj2U1pVTw0k/7Xp0g7fx
-	 gWeFqNAOC02nA==
+	b=VccQFmxyQ0Y7N4jXYWXR9uq3K3pLblpJQiNEWWRyzI0cuiAZopwzXsmnd7h/Lp6yj
+	 wGYZu+y2C0I+lGDmqhGRx2IXSBVCb1JAWYNIvFhjRHNK/LBeR2KIw9+mBekA7VOXK2
+	 y5MRXW9MFwDWGaHDwIOj/xXwABpQCWBwwmSEiuazyhHpECDuj33tEE0msku6rbFxjP
+	 42gAUPeiN/Wmut6G7xNpq//oT8UVICUPosCwrLQbMdyLLLZby/0fLiQpgNfhAGk6Z8
+	 PNm3ZcsYQGNcZBbtXq6xn27ejrjmkLJjlMNyAkSgaWf76VoNC1ZmhmWzdAnsUYWjUb
+	 6EUoJAesXX6xA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 476DACD343F;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6FE27CD4F46;
 	Fri, 15 May 2026 21:40:36 +0000 (UTC)
 From: Frank Li via B4 Relay <devnull+Frank.Li.nxp.com@kernel.org>
-Date: Fri, 15 May 2026 17:40:35 -0400
-Subject: [PATCH 4/6] ARM: dts: imx6qdl-tx6: remove undocumented
- karo,imx6qdl-tx6-sgtl5000 and keep only simple-audio-card
+Date: Fri, 15 May 2026 17:40:37 -0400
+Subject: [PATCH 6/6] ARM: dts: imx6-display5: replace marvell,88E1510 with
+ ethernet-phy-ieee802.3-c22
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260515-imx25_dts_simple_warning_2-v1-4-b06bff192a05@nxp.com>
+Message-Id: <20260515-imx25_dts_simple_warning_2-v1-6-b06bff192a05@nxp.com>
 References: <20260515-imx25_dts_simple_warning_2-v1-0-b06bff192a05@nxp.com>
 In-Reply-To: <20260515-imx25_dts_simple_warning_2-v1-0-b06bff192a05@nxp.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -52,11 +52,11 @@ Cc: devicetree@vger.kernel.org, imx@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Frank Li <Frank.Li@nxp.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1778881235; l=1447;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778881235; l=1530;
  i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
- bh=VqQTiqkhk2bfCYwJMM5wAbMlco3U6+HIbHdkhOxXS8s=;
- b=wOo+Lc+o1+htwVd6+ls5OBNoG3brE6l7hGEvVgNuJ5QVZokIlC4m0jCGB11ULL2G9Y041b34K
- 3Gc/YWL8rQDDn2LCwrDgtDKS5jKZVbdjgWVkqt+IbOPQU5R1aLUJTOQ
+ bh=pOOTdBIy4O5VkcyQTkfiAAoOW2MNieyUh8U6TN+0VYE=;
+ b=A2KlQ7H7PfGwYPV+Uj5xHeMPOwdRYv6ImnK7llmb68mG9ga9y0abIlg3GhkfwjAVWWnVuaufZ
+ 0IY7PFmRaaHCEtwGR86hp42oWznfdMNFRFjwbnv1Ilrts9EACVrZoEr
 X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
  pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
 X-Endpoint-Received: by B4 Relay for Frank.Li@nxp.com/20240130 with
@@ -66,38 +66,40 @@ Reply-To: Frank.Li@nxp.com
 
 From: Frank Li <Frank.Li@nxp.com>
 
-Remove the undocumented and unused compatible karo,imx6qdl-tx6-sgtl5000 and
-retain only the generic simple-audio-card sound configuration.
+Replace the vendor-specific PHY compatible string with the generic
+ethernet-phy-ieee802.3-c22 compatible.
 
-The karo,imx6qdl-tx6-sgtl5000 compatible is not documented and is not
-referenced by any in-kernel driver. The audio setup is already fully
-described using simple-audio-card, which is the standard and supported
-binding for this hardware configuration.
+The marvell,88E1510 compatible is listed in whitelist_phys[] and is
+never matched against a PHY driver. PHY devices are expected to use
+the generic ethernet-phy-ieee802.3-c22 compatible unless a specific
+MDIO driver match is required.
 
-No known users (such as uboot) rely on karo,imx6qdl-tx6-sgtl5000.
+The 88E1510 is compatible with Clause 22 PHY devices, so use the
+generic compatible string instead.
 
 Fix below CHECK_DTBS warnings:
-arch/arm/boot/dts/nxp/imx/imx6dl-tx6dl-comtft.dtb: /sound: failed to match any schema with compatible: ['karo,imx6qdl-tx6-sgtl5000', 'simple-audio-card']
+arch/arm/boot/dts/nxp/imx/imx6q-display5-tianma-tm070-1280x768.dtb: /soc/bus@2100000/ethernet@2188000/mdio/ethernet-phy@0: failed to match any schema with compatible: ['marvell,88E1510']
+
+Known other user (uboot) did not use marvell,88E1510.
 
 Signed-off-by: Frank Li <Frank.Li@nxp.com>
 ---
- arch/arm/boot/dts/nxp/imx/imx6qdl-tx6.dtsi | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ arch/arm/boot/dts/nxp/imx/imx6q-display5.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-tx6.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-tx6.dtsi
-index 57297d6521cf09f1fd629ae375c9994ebb683375..ec1528ff3ea0146157a56f2ecba500e651f857ff 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6qdl-tx6.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-tx6.dtsi
-@@ -148,8 +148,7 @@ reg_usbotg_vbus: regulator-usbotg-vbus {
- 	};
- 
- 	sound {
--		compatible = "karo,imx6qdl-tx6-sgtl5000",
--			     "simple-audio-card";
-+		compatible = "simple-audio-card";
- 		simple-audio-card,name = "imx6qdl-tx6-sgtl5000-audio";
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&pinctrl_audmux>;
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6q-display5.dtsi b/arch/arm/boot/dts/nxp/imx/imx6q-display5.dtsi
+index 4e448b4810f27ba67332811519a199a7ff0ee004..21e8bbdab4e695c0da169f1a8714398c6964ca35 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx6q-display5.dtsi
++++ b/arch/arm/boot/dts/nxp/imx/imx6q-display5.dtsi
+@@ -208,7 +208,7 @@ mdio {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+ 		ethernet_phy0: ethernet-phy@0 {
+-			compatible = "marvell,88E1510";
++			compatible = "ethernet-phy-ieee802.3-c22";
+ 			device_type = "ethernet-phy";
+ 			/* Set LED0 control: */
+ 			/* On - Link, Blink - Activity, Off - No Link */
 
 -- 
 2.43.0
