@@ -1,162 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4B5302742;
-	Fri, 15 May 2026 13:09:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE92C317150;
+	Fri, 15 May 2026 13:14:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778850587; cv=none; b=uwRp3JIUHz2xGehBSu646aKKA/+xXZWA+UHFvDImB/bM03BtrS9Zx8QV1/glGplfFg48/cv+MddU0ADonRNqyUgbdVKhFX6b2NS6IyCq95a/fxXLu98ic7Qs5icrosYKrI0uIWaDAxrqM5VEK4ZGtk7O78WlZ55eGQbES8xtQGw=
+	t=1778850856; cv=none; b=DvSM9Zq8ZwRHMmICphlOG1wLCLOLSakyNesBtiSImlFb3jW9bw6MwS25N6breYW2J+OdqSJ+CvTdvgq198b/ypn5BS6uy9xzo97m3TkgryuRh8WNtxF+ohS84TcvAWRZ+ZEgWoiRXb2lQeF9u+r2nImgflabkE49XuZRKwwY1Nk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778850587; c=relaxed/simple;
-	bh=8HT7U6MbGUnPY3w7ftF7Pj8ZwTCOPc4Nj2sUdScJoM8=;
+	s=arc-20240116; t=1778850856; c=relaxed/simple;
+	bh=K8+IOdK6mfi+tlOyO0LvfPWKRPiT10gc6/h3f/mbymM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sFnvadxvaz5n3HLSr3ShJmpqhOY4zwjAlo18llpb3+ngi+m09e1OVNCnbOkPY4Ee4pZRjir/azjbzxTqxkKxGOzN8fL4zj/4L9ECDys4qRgZAdow7zRi5Uqu4SRz1hpGFpMmR8Wisy5KVIPRI6VwIysiYx+SIRlycjToESaww/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uETHaK/6; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=CX1ge1tzvF3VwFzSghjZzlw10dMKCF6bJV2zRvOTbLOOP1tSAalkwGARAqB3El/biX02ZCcGaoDBaj8FJ+jnYbE1xnlnwfstFINlZAiot0R+VzU8QbDEVHyfXSTqNt7b8TQLx6u6THst4okyp8xUpAwuX+QLjuGhJb4VxfKE+eI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=GDb9KE3d; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uETHaK/6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C660CC2BCB8;
-	Fri, 15 May 2026 13:09:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778850587;
-	bh=8HT7U6MbGUnPY3w7ftF7Pj8ZwTCOPc4Nj2sUdScJoM8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uETHaK/6JA4o/qdms2SZj2AD/cCQx5KtgTOIXmNolrOiywgskoZPcQsJ+SUDzsBjU
-	 gawiHsCZRUZAFAZWcthszhJ/T6z5/9qpAx/oT5R3ptKpk/fW0k/XARmh4GsOxzjVxK
-	 +fu7ZB1nSr9Ryrbvhyjw5jMUnsDFUynEWh8QqXMbqyHQNuwSaFsl2pcE/dfBoyPcHQ
-	 xKf8Fmvthhj180RumlOUS43V496ujSK51NeZwOkKMSm5j5qt93epJWPCGFn95dx7iu
-	 bYrfYDmjylyrYC3edupfu84JtDVYmIgg9hXozM+a4Mz5g22aJBFpK910YylCuG/Ezq
-	 a5vkUB1Na3bdg==
-Date: Fri, 15 May 2026 14:09:42 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Hal Feng <hal.feng@starfivetech.com>
-Cc: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Emil Renner Berthing <emil.renner.berthing@canonical.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Changhuang Liang <changhuang.liang@starfivetech.com>,
-	linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v18 2/3] riscv: dts: starfive: Correct pwm nodes
-Message-ID: <20260515-dandruff-outpour-7b3b6b5480db@spud>
-References: <20260515054723.25024-1-hal.feng@starfivetech.com>
- <20260515054723.25024-3-hal.feng@starfivetech.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="GDb9KE3d"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=1O3Uv9ZACqlT1DjzNL55O3hGy5mm/f60RLVWQ8N0rvQ=; b=GDb9KE3dc8qmyI0VEzFmQ754UX
+	AhMwsKMwKCOBjsy2MY+59KnOdLreZtA9w1qLHxsKCSSQuVtbXRKdfyj0QKkD5afAtyMA0LK3ObL30
+	qlfGJTJDYfLT+pMTnzVEQDLgvaRPUTslm1VeNk6uhfDBBAjuw/n940U/2W8iRDykFW8w=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wNsMg-0034A1-U0; Fri, 15 May 2026 15:14:06 +0200
+Date: Fri, 15 May 2026 15:14:06 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: =?utf-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+	rmk+kernel@armlinux.org.uk, maxime.chevallier@bootlin.com,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, ningyu@eswincomputing.com,
+	linmin@eswincomputing.com, pinkesh.vaghela@einfochips.com,
+	pritesh.patel@einfochips.com, weishangjuan@eswincomputing.com
+Subject: Re: Re: [PATCH net v1 1/2] dt-bindings: ethernet: eswin: refine
+ delay model and HSP register description
+Message-ID: <0581dba0-c500-4a21-935f-9324692fce78@lunn.ch>
+References: <20260507083037.152-1-lizhi2@eswincomputing.com>
+ <20260507083136.175-1-lizhi2@eswincomputing.com>
+ <2436c6e9-4aad-4ffd-9fef-0cbbe38dc66d@lunn.ch>
+ <29bee81.8323.19e2a8bf746.Coremail.lizhi2@eswincomputing.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="JriUJS52jcgo79we"
-Content-Disposition: inline
-In-Reply-To: <20260515054723.25024-3-hal.feng@starfivetech.com>
-
-
---JriUJS52jcgo79we
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <29bee81.8323.19e2a8bf746.Coremail.lizhi2@eswincomputing.com>
 
-On Fri, May 15, 2026 at 01:47:21PM +0800, Hal Feng wrote:
-> Each of the StarFive JH7100/JH7110 SoCs has 8 OpenCores PTC IP
-> cores. One OpenCores PTC IP core can output one PWM channel.
->=20
-> Signed-off-by: Hal Feng <hal.feng@starfivetech.com>
-> ---
->  .../boot/dts/starfive/jh7100-common.dtsi      | 28 ++++++--
->  arch/riscv/boot/dts/starfive/jh7100.dtsi      | 69 ++++++++++++++++++-
->  .../boot/dts/starfive/jh7110-common.dtsi      | 27 ++++++--
->  .../boot/dts/starfive/jh7110-milkv-mars.dts   |  6 +-
->  .../dts/starfive/jh7110-milkv-marscm.dtsi     |  6 +-
->  .../dts/starfive/jh7110-pine64-star64.dts     |  6 +-
->  .../jh7110-starfive-visionfive-2-lite.dtsi    |  6 +-
->  .../jh7110-starfive-visionfive-2.dtsi         |  6 +-
->  arch/riscv/boot/dts/starfive/jh7110.dtsi      | 69 ++++++++++++++++++-
->  9 files changed, 200 insertions(+), 23 deletions(-)
->=20
-> diff --git a/arch/riscv/boot/dts/starfive/jh7100-common.dtsi b/arch/riscv=
-/boot/dts/starfive/jh7100-common.dtsi
-> index ae1a6aeb0aea..85106545090e 100644
-> --- a/arch/riscv/boot/dts/starfive/jh7100-common.dtsi
-> +++ b/arch/riscv/boot/dts/starfive/jh7100-common.dtsi
-> @@ -199,13 +199,23 @@ GPO_I2C2_PAD_SDA_OEN,
->  		};
->  	};
-> =20
-> -	pwm_pins: pwm-0 {
-> -		pwm-pins {
-> +	pwm0_pins: pwm0-0 {
-> +		pwm0-pins {
->  			pinmux =3D <GPIOMUX(7,
->  				  GPO_PWM_PAD_OUT_BIT0,
->  				  GPO_PWM_PAD_OE_N_BIT0,
-> -				  GPI_NONE)>,
-> -				 <GPIOMUX(5,
-> +				  GPI_NONE)>;
-> +			bias-disable;
-> +			drive-strength =3D <35>;
-> +			input-disable;
-> +			input-schmitt-disable;
-> +			slew-rate =3D <0>;
-> +		};
-> +	};
-> +
-> +	pwm1_pins: pwm1-0 {
-> +		pwm1-pins {
-> +			pinmux =3D  <GPIOMUX(5,
->  				  GPO_PWM_PAD_OUT_BIT1,
->  				  GPO_PWM_PAD_OE_N_BIT1,
->  				  GPI_NONE)>;
-> @@ -359,9 +369,15 @@ &osc_aud {
->  	clock-frequency =3D <27000000>;
->  };
-> =20
-> -&pwm {
-> +&pwm0 {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pwm0_pins>;
-> +	status =3D "okay";
-> +};
-> +
-> +&pwm1 {
->  	pinctrl-names =3D "default";
-> -	pinctrl-0 =3D <&pwm_pins>;
-> +	pinctrl-0 =3D <&pwm1_pins>;
->  	status =3D "okay";
->  };
-> =20
-> diff --git a/arch/riscv/boot/dts/starfive/jh7100.dtsi b/arch/riscv/boot/d=
-ts/starfive/jh7100.dtsi
-> index 7de0732b8eab..4629e9747307 100644
-> --- a/arch/riscv/boot/dts/starfive/jh7100.dtsi
-> +++ b/arch/riscv/boot/dts/starfive/jh7100.dtsi
-> @@ -360,9 +360,72 @@ watchdog@12480000 {
->  				 <&rstgen JH7100_RSTN_WDT>;
->  		};
-> =20
-> -		pwm: pwm@12490000 {
-> -			compatible =3D "starfive,jh7100-pwm", "opencores,pwm-v1";
-> -			reg =3D <0x0 0x12490000 0x0 0x10000>;
-> +		pwm0: pwm@12490000 {
-> +			compatible =3D "opencores,pwm-v1";
-> +			reg =3D <0x0 0x12490000 0x0 0x10>;
+> This will help determine whether this change should remain in the net
+> series or be moved to a follow-up net-next series.
 
-NAK on the compatibles front, but this also looks very suspect, given
-the size of the register regions, but I think it is actually correct.
-You need to explain why it is correct in the commit message.
+net-next. It does not fix anything which is broken, and bothers
+people.
 
---JriUJS52jcgo79we
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagcbFgAKCRB4tDGHoIJi
-0sOZAQCxnM7BwwH632XmI1nkReaAbjpkqxb7gbx/dTUK9rxb9gEA25ebV2QgpQw4
-q+nS+323xE/qF1dkL8S3ShWf/tgduwA=
-=u+CZ
------END PGP SIGNATURE-----
-
---JriUJS52jcgo79we--
+	  Andrew
