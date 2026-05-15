@@ -1,156 +1,132 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1EFD44B67F;
-	Fri, 15 May 2026 10:41:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41FF644B67F;
+	Fri, 15 May 2026 10:41:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778841691; cv=none; b=VH/Aar9BTjZp5Vx34LtiiyVS/1J8qBmLHj3fe5/RdfENIKLGM6IaGrUnhUfNfqoPvJhUn1o8/xm39TW/jcCtgit4SAbyBkaHHXKJYkIfDRm1lAMJLQ6zFX+klIQqQvDl9Wh7tgE/DJVqNo5Xsl8owIHUdp4nAZC7a/fIroX/r6I=
+	t=1778841698; cv=none; b=LB0F0ZK0XVebbyKY1loFG/2/L0FA35IThFSkBGDf9DXWTXFM+zRKN5Gc5QmPds7plv0HHEc5KBdkxjqD9MZL63KcvcAtZhnkpReSnn2gmBFG+p24UtyTcw//gpr8zbljZzQaYjMjVutZs/cZe80kL0H05CST4FzlyhU0VbQBD8I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778841691; c=relaxed/simple;
-	bh=/WI5uPKkfnHPmN5fRkoq5GqgK1SkJOYa870eu3oI8o0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=D6Z2aqOpzYC4Pu5e87RQ9z4uszTPtCbqlpFImb1pYehwn0gBY7/UtnB4sBfn8xQeoI9f+cEzRTUjS0kINxIWalyP1mHsmJglOQUYkINyHGu2fZ+q2t8qzmCWi1jRd60As5taXcOIsazApLZx9Q67spqFoMbmvXnooJomfNM4Sl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=HAZnQP7c; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1778841698; c=relaxed/simple;
+	bh=ZPp1ndVMVWLYC7Sk18kpys0/Vxz72Hm26ip8CZBljYE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SAwtbrJ8V+xX0DXbgOG4JgKqNjOKv1v/r8LN2KpYS6tVnIrVuKxSAali6BFZgz4ZVB4n/IKEsLkRkEMi4Y2HArVJ7I6l4eBKlahNg+va3Ako8Qxwg8qYvun+MgOZWxD/dkHZAgPbWjNhopxnPAsHr26zufAr6skA+tbfRUnXUYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LoTx566A; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="HAZnQP7c"
-Received: from mail01.disroot.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 438D12673A;
-	Fri, 15 May 2026 12:41:28 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id N8aZwqtK04q8; Fri, 15 May 2026 12:41:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1778841687; bh=/WI5uPKkfnHPmN5fRkoq5GqgK1SkJOYa870eu3oI8o0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=HAZnQP7cGHYtMmL09+JdJWDxWBDWfryDS+T8IYtsaeVVSFXK2Fpgi0nkHiw4NUipm
-	 U7rCKTkyOIzbPUwMP2MwlLBCDVzp8ZVu8d4S0/3NFqeyYUFDp3PYu7u2Mry6QbegpS
-	 u/BkW9CuaYeikhua9JMzdF/yN9y2+5N2OsynzwsvE1f+ZCNnEt9TDVU/FgHAxdNTrj
-	 4uYSJEXa3PL+MXU8J/HxevC9Ef2rCpfAMUGPWWWMoTluAJjF/i5g1sqMYk4zXINxKj
-	 yhg1f1/l5Nooyga7nFf+4IJ8HWJ+jk06XMss0U+a1cqNjt5yXo2rqiL1h4L8S+kJrn
-	 yUB/zFikFlugQ==
-From: Kaustabh Chakraborty <kauschluss@disroot.org>
-Date: Fri, 15 May 2026 16:09:05 +0530
-Subject: [PATCH v6 09/11] Documentation: leds: document pattern behavior of
- Samsung S2M series PMIC RGB LEDs
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LoTx566A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DFA4C2BCB0;
+	Fri, 15 May 2026 10:41:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778841697;
+	bh=ZPp1ndVMVWLYC7Sk18kpys0/Vxz72Hm26ip8CZBljYE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=LoTx566AZfQ7AhbCDv8iJXLbQuv4WxHkjBv793wCwifvvzWY9mvl9BUQNXCw+fCSL
+	 Tq6zOxvUrSgBVp2X7+D/JduW0dq8Ucna1aMZ1UHNteo1x9f1878XHeQfFtJKS7+hAz
+	 O+YSW5vQ4LypYB4ROn0kAhlHp5pP5WvgNlmowLrjwfoYXWbkCi/ZsU7kvGsTVAr8Sf
+	 lsttYtXhDHvRhX8l1v2gU0apZKTiTavcMoXaM9JBVL0+TSwbPnXjp8JOGjAOMFUHBF
+	 gvQrwWCob8ceNdomHFsbl5u2UvIWvaEQa0qR8zIcJsgLCNo5cyK2yG5bKSmeBzkq15
+	 hE+yLbESijFqw==
+Date: Fri, 15 May 2026 12:41:35 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] media: i2c: imx678: Add driver for Sony IMX678
+Message-ID: <20260515-meteoric-prudent-walrus-eee028@quoll>
+References: <20260513-imx678-v1-0-30fc593ed8fa@ideasonboard.com>
+ <20260513-imx678-v1-2-30fc593ed8fa@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260515-s2mu005-pmic-v6-9-1979106992d4@disroot.org>
-References: <20260515-s2mu005-pmic-v6-0-1979106992d4@disroot.org>
-In-Reply-To: <20260515-s2mu005-pmic-v6-0-1979106992d4@disroot.org>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, MyungJoo Ham <myungjoo.ham@samsung.com>, 
- Chanwoo Choi <cw00.choi@samsung.com>, Sebastian Reichel <sre@kernel.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Nam Tran <trannamatk@gmail.com>, 
- =?utf-8?q?=C5=81ukasz_Lebiedzi=C5=84ski?= <kernel@lvkasz.us>
-Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
- linux-samsung-soc@vger.kernel.org, linux-rtc@vger.kernel.org, 
- linux-doc@vger.kernel.org, Kaustabh Chakraborty <kauschluss@disroot.org>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260513-imx678-v1-2-30fc593ed8fa@ideasonboard.com>
 
-Add documentation to describe how hardware patterns (as defined by the
-documentation of led-class-multicolor) are parsed and implemented by the
-Samsung S2M series PMIC RGB LED driver.
+On Wed, May 13, 2026 at 09:03:17PM +0530, Jai Luthra wrote:
+> +static int imx678_disable_streams(struct v4l2_subdev *sd,
+> +				  struct v4l2_subdev_state *state,
+> +				  u32 pad, u64 mask)
+> +{
+> +	struct i2c_client *client = v4l2_get_subdevdata(sd);
+> +	struct imx678 *imx678 = to_imx678(sd);
+> +	int ret = 0;
+> +
+> +	/* Master mode disable */
+> +	cci_write(imx678->cci, IMX678_REG_XMSTA, 0x01, &ret);
+> +	/* Standby */
+> +	cci_write(imx678->cci, IMX678_REG_MODE_SELECT, IMX678_MODE_STANDBY, &ret);
+> +	if (ret)
+> +		dev_err(&client->dev, "%s failed to stop stream\n", __func__);
+> +
+> +	pm_runtime_put(&client->dev);
+> +
+> +	return ret;
+> +}
+> +
+> +static int imx678_power_on(struct device *dev)
+> +{
+> +	struct i2c_client *client = to_i2c_client(dev);
+> +	struct v4l2_subdev *sd = i2c_get_clientdata(client);
+> +	struct imx678 *imx678 = to_imx678(sd);
+> +	int ret;
+> +
+> +	ret = regulator_bulk_enable(ARRAY_SIZE(imx678_supply_name), imx678->supplies);
+> +	if (ret) {
+> +		dev_err(&client->dev, "%s: failed to enable regulators\n",
+> +			__func__);
+> +		return ret;
+> +	}
+> +
+> +	usleep_range(500, 550); /* Tlow */
+> +
+> +	gpiod_set_value_cansleep(imx678->reset_gpio, 1);
 
-Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
----
- Documentation/leds/index.rst        |  1 +
- Documentation/leds/leds-s2m-rgb.rst | 60 +++++++++++++++++++++++++++++++++++++
- 2 files changed, 61 insertions(+)
+Never tested. How can you have device powered on when it is in reset
+stage?
 
-diff --git a/Documentation/leds/index.rst b/Documentation/leds/index.rst
-index bebf440042787..23fa9ff7aaf4b 100644
---- a/Documentation/leds/index.rst
-+++ b/Documentation/leds/index.rst
-@@ -28,6 +28,7 @@ LEDs
-    leds-lp5812
-    leds-mlxcpld
-    leds-mt6370-rgb
-+   leds-s2m-rgb
-    leds-sc27xx
-    leds-st1202
-    leds-qcom-lpg
-diff --git a/Documentation/leds/leds-s2m-rgb.rst b/Documentation/leds/leds-s2m-rgb.rst
-new file mode 100644
-index 0000000000000..4f89a8c89ea86
---- /dev/null
-+++ b/Documentation/leds/leds-s2m-rgb.rst
-@@ -0,0 +1,60 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+======================================
-+Samsung S2M Series PMIC RGB LED Driver
-+======================================
-+
-+Description
-+-----------
-+
-+The RGB LED on the S2M series PMIC hardware features a three-channel LED that
-+is grouped together as a single device. Furthermore, it supports 8-bit
-+brightness control for each channel. This LED is typically used as a status
-+indicator in mobile devices. It also supports various parameters for hardware
-+patterns.
-+
-+The hardware pattern can be programmed using the "pattern" trigger, using the
-+hw_pattern attribute.
-+
-+/sys/class/leds/<led>/repeat
-+----------------------------
-+
-+The hardware supports only indefinitely repeating patterns. The repeat
-+attribute must be set to -1 for hardware patterns to function.
-+
-+/sys/class/leds/<led>/hw_pattern
-+--------------------------------
-+
-+Specify a hardware pattern for the RGB LEDs.
-+
-+The pattern is a series of brightness levels and durations in milliseconds.
-+There should be only one non-zero brightness level. Unlike the results
-+described in leds-trigger-pattern, the transitions between on and off states
-+are smoothed out by the hardware.
-+
-+Simple pattern::
-+
-+    "255 3000 0 1000"
-+
-+    255 -+ ''''''-.                     .-'''''''-.
-+         |         '.                 .'           '.
-+         |           \               /               \
-+         |            '.           .'                 '.
-+         |              '-.......-'                     '-
-+      0 -+-------+-------+-------+-------+-------+-------+--> time (s)
-+         0       1       2       3       4       5       6
-+
-+As described in leds-trigger-pattern, it is also possible to use zero-length
-+entries to disable the ramping mechanism.
-+
-+On-Off pattern::
-+
-+    "255 1000 255 0 0 1000 0 0"
-+
-+    255 -+ ------+       +-------+       +-------+
-+         |       |       |       |       |       |
-+         |       |       |       |       |       |
-+         |       |       |       |       |       |
-+         |       +-------+       +-------+       +-------
-+      0 -+-------+-------+-------+-------+-------+-------+--> time (s)
-+         0       1       2       3       4       5       6
+> +
+> +	ret = clk_prepare_enable(imx678->xclk);
+> +	if (ret) {
+> +		dev_err(&client->dev, "%s: failed to enable clock\n",
+> +			__func__);
+> +		goto reg_off;
+> +	}
+> +
+> +	usleep_range(20, 22); /* T4 */
+> +
+> +	return 0;
+> +
+> +reg_off:
+> +	regulator_bulk_disable(ARRAY_SIZE(imx678_supply_name), imx678->supplies);
+> +	return ret;
+> +}
+> +
+> +static int imx678_power_off(struct device *dev)
+> +{
+> +	struct i2c_client *client = to_i2c_client(dev);
+> +	struct v4l2_subdev *sd = i2c_get_clientdata(client);
+> +	struct imx678 *imx678 = to_imx678(sd);
+> +
+> +	gpiod_set_value_cansleep(imx678->reset_gpio, 0);
 
--- 
-2.53.0
+And here as well bug. And if you looked at existing drivers you would
+see how to do that correctly.
+
+
+> +	regulator_bulk_disable(ARRAY_SIZE(imx678_supply_name), imx678->supplies);
+> +	clk_disable_unprepare(imx678->xclk);
+> +
+> +	/* Force reprogramming of the common registers when powered up again. */
+> +	imx678->common_regs_written = false;
+
+You should just use regcache.
+
+Best regards,
+Krzysztof
 
