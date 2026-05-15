@@ -1,311 +1,164 @@
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF49C3F8882
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 17:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A76318EF4;
+	Fri, 15 May 2026 18:07:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778867976; cv=none; b=ddbcuWnqUNoUW9wNnTF2rIHSNj+imK2XnZB1+G0DbqO4m99L+uHqyw3GsDS7iEQlcL8Jpu8UrZ76580w9HD5pBkvrz5GjFdLPAQAtetsOS8tnyo5wxUfW7atIC3fYBXlmuj70wwAUnIs6tPfW1Uj3fz4UEjb7oNSG3YRuZh9uMo=
+	t=1778868426; cv=none; b=Siq28wCLzSb/eEVamVvky7pxPXi2SkWS9QXGcVCSj5pVOb+/UeDFlsMs5mcHP/It6QqdrswBtAZPE2RTYcJrvyKUI5Q4/iexnbeE4AfB2EiAk07gvZ1MMyQPUfStqef0j+WZrvwSWPUvSHCdDH4KBzrl/2va0OmhQVeG+1xflgs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778867976; c=relaxed/simple;
-	bh=4ZM/T/Iol4GdBJ3vAdj/xlPSEBECPVnDvDzu8h7m9FQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mABKZqJTAkCo6BkvHfa3elDzKIGomM57PjZ6Ej4iHieJz+Lgj44SnafxjefqK2s7Eo2v+yUvN3VTdurRJ1qA9D/RUUh9iRRbyGnQy7nvLOkhxje41J/R+imLA+dCBYK6G9qucrLHi1zyJtIacWC5JgR6piSNdLxSqXVTi/taujo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=qVh7ugvm; arc=none smtp.client-ip=209.85.219.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1778868426; c=relaxed/simple;
+	bh=MNgucxDdXQp6pKqBkiLjgpVooAKZZcCEtmvA/14/GIw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=BoogfsCuIO6MOUyyFoEWg8I9ox5ke2HIwDo4tlFyN2rDn3967A+UavIzdZ8ET+JlZloye4uaFWRup9KSj7ql8KQ9X5qJOLAbVcEdoDv4qilkGjIZbydGDEVi0JDgkPVy3uFwJCKcPGY2fTX2SewMe7JUfhrV0x4RM5MgQaboMXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fsfMqax7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="qVh7ugvm"
-Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-8acb3daf2aaso903766d6.0
-        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 10:59:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1778867972; x=1779472772; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=d8SB7g/SQE94W836Nonq8Wq3k7Nj7c32M69MG7wU2+o=;
-        b=qVh7ugvmRPA8oUMn5B7aXPu//lBgoxkU+3CwDEXgSDMYUalqHGG/1XK3IbP5KUPikc
-         d/1H867qtVCJ60jgRjrgnXJNtf/PIk0OlnHz6Cs4+NYvh5SA/hU7Wr1qR0XbJl1TnNG8
-         tFVsSwteK9QKyqljdA6Go6NBSe+i5WHMVUImzeR4rnOIpgEEmdA33eLOrgyIfkcjKQsl
-         wIyW69xAs/j3mlBoDiOxd7c9AbI0xsj/eRsw4/eQJl/JOG0c8xon1u66cNYaYOBv3Pby
-         CVeh6W0l4CqSbHYDvBZl9DWxa2rARflP4HbiJhTLYIWVKg/l3RhDcHAABTgueqYYVLLZ
-         Vskg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778867972; x=1779472772;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=d8SB7g/SQE94W836Nonq8Wq3k7Nj7c32M69MG7wU2+o=;
-        b=Zo4vM6FhfMH7cpFa1szKoUTCAeOsnZU99yTpS+nohg3iHYbbTUM9Ca/G2K65q0w+Fi
-         DT534E5WvlJdN8Q3ZJLDFV25Xp4NxfrKDnJHeXPeASsKHwzCUNGUWw5LW6tioKbjMPuW
-         gYZ1Wvdc/zPb7snmvQnQyaGkC+65cy1X1LQWpwDrmzYqUYq1CMI/i6qvil2gdWmcMYcu
-         uiDQTGxfSsPmlZ/lmKpaE4hC/47AwDIait0xS75g7c6vKSbHLEfKWEWh7//2yQZd1Sqe
-         GQLFesOy+umHOrZn7L4RZkrGcQJVIUSiTe/E7+8lnUD1FqCiaVWyX/NziXnCXL0+/gFE
-         Pddg==
-X-Forwarded-Encrypted: i=1; AFNElJ9usZcKh9NYhYwZSsN7qoCRbxFoz/rX3CMU9DfM+EwxFPI2+fxpowizEhKNUtO1a2VZRcsuVcszXPS2@vger.kernel.org
-X-Gm-Message-State: AOJu0YwRfAnlHdrl44O9NY6cZocOm/eqEnk2phju3b/hCEdSNiW6Gu9d
-	Kg+khhzWL2q0CrBa7MXsEwEVg0h4lp6mFVZuEMFNpeQ5pNQElj7PIHsZPgjSKJC8VW0=
-X-Gm-Gg: Acq92OGuL/idzfH0NiiDm0w/5Z0L/pp/YErNp0UUma0JFRezdYnMBTFHomCTHCl7/iy
-	mh94cM+FVUh9ubcD6VEy+JX8i+0PdG3zzatJJ5/MifvCFQiu+m2JAerMvsHk7yNCHO68SkT6vkC
-	VxRMKJ7UhEe3kmcjMHfH6SeX0eScFL2hdD0T1BIj2bUj2Zcc+phh9MllokwzgHBQS0iZXKIdOtP
-	HXJzsWIieV6ZWE5fXDgFOahLHjbNvEFUTjHJ0boHCZMXMEw00EiqxwxSSHZbsEVZ7TThyjkLONP
-	ZszCHAPxrIz1wD4+IBNaDmYYBk/Z7dTCgvzLV7HvruHe5pXKjSwd0oMNEKeabiLlEK+IW48rIKU
-	uqK0O2ZVLbusKxVbLAQhBpUVpt6e34nEnAPwpgER3UL6hsG5Ie3lM2dLSnkRoYMUlAmjiWLAGDA
-	ID5JpqryqQu2mwfVtr+uDuNONVll4klJ+v6jDz5MLOvvP1H3p+FzXyS/WWdEV/iH4=
-X-Received: by 2002:a05:6214:5541:b0:8be:143c:955f with SMTP id 6a1803df08f44-8ca0f710315mr86073156d6.49.1778867972151;
-        Fri, 15 May 2026 10:59:32 -0700 (PDT)
-Received: from [172.22.22.28] (c-75-72-117-212.hsd1.mn.comcast.net. [75.72.117.212])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8c90bf6720asm62107926d6.39.2026.05.15.10.59.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 15 May 2026 10:59:31 -0700 (PDT)
-Message-ID: <2414c9e9-0672-417a-a3d1-993bd06d62db@riscstar.com>
-Date: Fri, 15 May 2026 12:59:27 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fsfMqax7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C32BAC2BCB0;
+	Fri, 15 May 2026 18:07:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778868426;
+	bh=MNgucxDdXQp6pKqBkiLjgpVooAKZZcCEtmvA/14/GIw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=fsfMqax7A4eStuzPk/xePDAjyqUk+hnvNNO52aznPJJL3zV62QjyQapO1mSivxAYt
+	 MbcxE2md+tpe2vQXffHN7vlDlrKMYSR5CkOsRi2lMdrAOygHSbG2e7ZMPvhBsb167D
+	 pdcaHkLZ5pV3etd+ypriw834w+6ryVbdlXW9q6lYwXXuIqAoM3T3OxH/+yzTK+5fxv
+	 z17vyrURlNY8FCpGPynoKB9rOtE3G76dYG3THTCoudCYVtMIT4XqeUUafZjCQyD62O
+	 4KaHrhogP4NPfpAw8KiP5pLhnMK58hqFZIpz1W5bomWAnOfW0pRlyLPBtTIvROMQ79
+	 PBNDFtXYZnHXQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 4/6] pinctrl: add NXP MC33978/MC34978 pinctrl driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Oleksij Rempel" <o.rempel@pengutronix.de>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, linux-hwmon@vger.kernel.org
+In-Reply-To: <20260515160537.115808-5-o.rempel@pengutronix.de>
+References: <20260515160537.115808-5-o.rempel@pengutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 15 May 2026 18:07:05 +0000
+Message-Id: <20260515180705.C32BAC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 00/12] net: enable TC956x support
-To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
- rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org,
- brgl@kernel.org, arnd@arndb.de, gregkh@linuxfoundation.org
-Cc: daniel@riscstar.com, mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
- alexandre.torgue@foss.st.com, ast@kernel.org, boon.khai.ng@altera.com,
- chenchuangyu@xiaomi.com, chenhuacai@kernel.org, daniel@iogearbox.net,
- hawk@kernel.org, hkallweit1@gmail.com, inochiama@gmail.com,
- john.fastabend@gmail.com, julianbraha@gmail.com, livelycarpet87@gmail.com,
- matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
- prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
- rohan.g.thomas@altera.com, sdf@fomichev.me, siyanteng@cqsoftware.com.cn,
- weishangjuan@eswincomputing.com, wens@kernel.org, netdev@vger.kernel.org,
- bpf@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260501155421.3329862-1-elder@riscstar.com>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <20260501155421.3329862-1-elder@riscstar.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 5/1/26 10:54 AM, Alex Elder wrote:
-> This series introduces stmmac driver support for the Toshiba TC9564
-> (also known as Qualcomm QPS615).  This is an Ethernet-AVB/TSN bridge IC
-> that provides a high-speed connection between a host SoC and Ethernet
-> devices on a network.  It incorporates a PCIe switch, and implements
-> two 10 Gbps capable Ethernet MACs (along with other IP blocks), and
-> is essentially a small and highly-specialized SoC.  The TC9564 is a
-> member of a family of similar chips, and the driver code uses "tc956x"
-> to reflect this.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The `cached_bias` and `cached_drive` arrays independently cache th=
+e same physical hardware state (`MC33978_REG_CONFIG`), leading to conflicti=
+ng state restoration when changing GPIO direction.
+--
 
-I'm writing now to just state what the plan is for version 2
-of this series.  I had hoped to get something out this week,
-but it won't be available today, so I wanted to at least let
-people know what to expect.
+commit ae57c2734af81a36d2a256fc43f258b7210de10a
+Author: David Jander <david@protonic.nl>
 
-First, we received a great deal of really good feedback on
-this series.  I/we sincerely appreciate it, and have already
-addressed almost all of the suggestions people have made.
+pinctrl: add NXP MC33978/MC34978 pinctrl driver
 
-Andrew Lunn asked a number of questions about the way that
-the TC956x device is represented, and in particular questioned
-whether having the GPIO controller as a device subordinate to
-a PCIe function even made sense.  This led to some additional
-discussion, including some offline work exploring what other
-options might be reasonable.
+Add pin control and GPIO driver for the NXP MC33978/MC34978 Multiple Switch
+Detection Interface (MSDI) devices. This driver translates physical switch
+states to logical GPIO levels, emulates outputs via hardware tri-state,
+and implements a hierarchical irq_chip for interrupt routing.
 
-The plan for version 2 is to submit it fairly soon, to include
-updates that address *most* of the feedback received so far.
-(I have sent e-mail with clear confirmation of what we intend
-to do--and these changes would be incorporated in version 2).
+> diff --git a/drivers/pinctrl/pinctrl-mc33978.c b/drivers/pinctrl/pinctrl-=
+mc33978.c
+> index 0000000000000..2ee1b1284c87a
+> --- /dev/null
+> +++ b/drivers/pinctrl/pinctrl-mc33978.c
+[ ... ]
+> +struct mc33978_pinctrl {
+[ ... ]
+> +	enum mc33978_bias_state cached_bias[MC33978_NGPIO];
+> +	enum mc33978_drive_mode cached_drive[MC33978_NGPIO];
+> +};
 
-However, because there remain other outstanding issues,
-including "big picture" questions about how to represent the
-hardware, the series will be sent as RFC.
+Does the separation of cached_bias and cached_drive lead to conflicting
+state restoration?
 
-This will allow others to see the changes we made based on
-feedback, but also makes it clear there is more work that
-needs to be done before we're confident in our final proposal.
+Both arrays appear to independently cache the same physical hardware state
+(MC33978_REG_CONFIG) for SP pins:
 
-					-Alex
+[ ... ]
+> +static int mc33978_set_drive(struct mc33978_pinctrl *mpc, unsigned int p=
+in,
+> +			     enum mc33978_drive_mode mode)
+> +{
+[ ... ]
+> +	ret =3D mc33978_update_bits(mpc, MC33978_REG_CONFIG, mask,
+> +				  (mode =3D=3D MC33978_OPEN_DRAIN) ? mask : 0);
+> +	if (!ret)
+> +		mpc->cached_drive[pin] =3D mode;
+> +
+> +	return ret;
+> +}
 
-> TC956x chips incorporate a PCIe gen 3 switch, with one upstream and
-> three downstream ports.  Its PCIe functionality is already supported
-> upstream, including a power control driver that performs some early
-> configuration of the PCI ports ("pci-pwrctrl-tc9563.c").
-> 
-> One of the PCIe switch's downstream ports has an internal PCIe endpoint,
-> which implements two PCIe functions, each of which has an Ethernet MAC
-> (eMAC) subsystem. The eMAC is composed of a Synopsis Designware XGMAC
-> combined with an XPCS and PMA.  Each MAC is capable of operating at
-> 10M/100M/1G/2.5G/5Gps and 10Gps.  The initial target platform is the
-> Qualcomm RB3gen2, which supports a 10Gbps Marvell PHY on port A, and
-> a 2.5Gbps Qualcomm PHY on port B.  (The Marvell PHY is not populated on
-> all RB3gen2 boards, and only 2.5 Gbps support is included initially.)
-> 
-> TC956x chips also implement several other blocks of functionality,
-> including a GPIO controller, interrupt controllers (MSIGEN), I2C
-> and SPI, a UART, and an Arm Cortex M3 CPU with 128KB SRAM.  The GPIO
-> interface exposes several lines to manage external resets.  The
-> interrupt controllers are used internally by the MAC functions.  The
-> UART, SPI, microcontroller, and SRAM are currently unused.
-> 
->                ----------------------------------
->                |              Host              |
->                ------+...+----------+........+---
->                      |i2c|          |  PCIe  |
->      ----------------+...+----------+........+------
->      | TC956x        |I2C|          |upstream|     |
->      |               -----        --+--------+---  |
->      |  -----  ------  -------    | PCIe switch |  |
->      |  |SPI|  |GPIO|  |reset|    |             |  |
->      |  -----  ------  |clock|    | DS3 DS2 DS1 |  |
->      |                 -------    ---++--++--++--  |
->      |  -----  ------     downstream//    \\  \\   |  downstream
->      |  |MCU|  |SRAM|    /==========/      \\  \===== PCIe port 1
->      |  -----  ------   //PCIe port 3       \\     |
->      |                  ||                   \======= downstream
->      |  ----+-----------++-----------+----         |  PCIe port 2
->      |  | M | internal PCIe endpoint | M |         |
->      |  | S |------------------------| S |  ------ |
->      |  | I |   PCIe   |  |   PCIe   | I |  |UART| |
->      |  | G |function 0|  |function 1| G |  ------ |
->      |  | E |----++----|  |----++----| E |         |
->      |  | N |  eMAC 0  |  |  eMAC 1  | N |         |
->      --------+.......+------+.....+-----------------
->              |USXGMII|      |SGMII|
->            --+.......+--  --+.....+--
->            |  ARQ113C  |  | QEP8121 |
->            |    PHY    |  |   PHY   |
->            -------------  -----------
-> 
-> The primary objective for this series is to support the Ethernet
-> functionality provided by the TC956x.  The code providing this
-> support has been structured into three distinct modules.
->    - A driver for the GPIO controller
->    - Code enabling the TC956x-specific eMAC/MSIGEN hardware
->    - A "chip" driver, associated with the PCIe functions
-> 
-> The GPIO driver is implemented separately because in some hardware
-> configurations, these GPIO lines are used to manage resets for
-> external Ethernet PHYs.  We describe these PHYs via devicetree,
-> where the GPIO-based reset signals are defined using phandles.
-> 
-> The code for the eMAC/MSIGEN consists of a new source file that
-> populates hardware-specific details about the two MACs, and integrates
-> with the existing stmmac driver.  This also required implementing some
-> enhancements to the core stmmac driver, described further below.
-> 
-> To manage the common functionality (including configuring address
-> translation and controlling internal reset and clock signals), a
-> "chip" driver is implemented.  This chip driver is associated with
-> the PCIe function *itself*, not the eMAC associated with the function.
-> 
-> The driver binds to the internal PCI functions 0 and 1, and creates
-> a shared data structure describing the common chip elements the two
-> driver instances share.  Three auxiliary bus devices are created to
-> represent the GPIO controller and the two Synopsys MAC controllers.
-> 
-> The driver instance for PCIe function 0 has responsibility for
-> controlling the common chip functionality--creating the GPIO
-> controller auxiliary device, configuring address translation
-> between PCIe address space and internal addresses, and controlling
-> clocks and resets.  It creates a data structure--shared via its
-> platform data pointer with PCIe function 1--to represent shared
-> "chip" information.  In addition, PCIe function 0 creates an
-> auxiliary device to represent its attached eMAC.  It allocates
-> IRQs and maps BAR address ranges for use by the stmmac driver,
-> passing them in a structure via the auxiliary device's platform
-> data.
-> 
-> PCIe function 1 defers probing until after PCIe function 0 has
-> created the shared data structure.  After that its only job is
-> to set up IRQs and mapped memory and create the eMAC1 auxiliary
-> device.
-> 
-> The version of the Synopsys MAC IP is 3.01, which is largely compatible
-> with version 2.20.  The core stmmac driver required several changes to
-> enable support for the TC956x.
->    - A change to dwxgmac2 support changes the interrupt mode when
->      multi_msi_en is enabled.
->    - While most support for version 3.01 simply uses the 2.20 code,
->      an erratum related to the RX ring length is implemented for
->      3.01 DMA operations.
->    - Having the PCIe device be separate from an auxiliarly device
->      implementing the eMAC required allowing a distinct DMA device
->      to be maintained for an stmmac interface.
-> 
-> In addition:
->    - A new source file provides memory-mapped access to XPCS using
->      regmap.  The alignment of the TC956x MDIO registers aren't
->      suitable for using simple MMIO.
->    - Two additional XPCS changes are implemented that provides
->      support for the XPCS as implemented in the TC956x.
-> 
-> This series is available here:
->    https://github.com/riscstar/linux/tree/tc956x/stmmac-v1
-> 
-> 					-Alex (and Daniel)
-> 
-> Alex Elder (3):
->    net: stmmac: dma: create a separate dma_device pointer
->    gpio: tc956x: add TC956x/QPS615 support
->    misc: tc956x_pci: add TC956x/QPS615 support
-> 
-> Daniel Thompson (9):
->    net: pcs: pcs-xpcs-regmap: support XPCS memory-mapped MDIO bus via
->      regmap
->    net: pcs: pcs-xpcs: select operating mode for 10G-baseR capable PCS
->    net: pcs: pcs-xpcs: Preserve BMCR_ANENBLE during link up
->    net: stmmac: dwxgmac2: Add multi MSI interrupt mode
->    net: stmmac: dwxgmac2: Add XGMAC 3.01a support
->    net: stmmac: dwxgmac2: export symbols for XGMAC 3.01a DMA
->    dt-bindings: net: toshiba,tc965x-dwmac: add TC956x Ethernet bridge
->    net: stmmac: tc956x: add TC956x/QPS615 support
->    arm64: dts: qcom: qcs6490-rb3gen2: enable TC9564 with a single QCS8081
->      phy
-> 
->   .../bindings/net/toshiba,tc956x-dwmac.yaml    | 111 +++
->   arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts  |  45 +-
->   drivers/gpio/Kconfig                          |  11 +
->   drivers/gpio/Makefile                         |   1 +
->   drivers/gpio/gpio-tc956x.c                    | 209 +++++
->   drivers/misc/Kconfig                          |  10 +
->   drivers/misc/Makefile                         |   1 +
->   drivers/misc/tc956x_pci.c                     | 667 +++++++++++++++
->   drivers/net/ethernet/stmicro/stmmac/Kconfig   |  13 +
->   drivers/net/ethernet/stmicro/stmmac/Makefile  |   2 +
->   .../net/ethernet/stmicro/stmmac/chain_mode.c  |  12 +-
->   .../ethernet/stmicro/stmmac/dwmac-tc956x.c    | 791 ++++++++++++++++++
->   .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  12 +
->   .../ethernet/stmicro/stmmac/dwxgmac2_core.c   |   1 +
->   .../ethernet/stmicro/stmmac/dwxgmac2_descs.c  |   1 +
->   .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    |  78 +-
->   .../net/ethernet/stmicro/stmmac/ring_mode.c   |  12 +-
->   drivers/net/ethernet/stmicro/stmmac/stmmac.h  |   1 +
->   .../net/ethernet/stmicro/stmmac/stmmac_main.c |  59 +-
->   .../net/ethernet/stmicro/stmmac/stmmac_xdp.c  |   2 +-
->   drivers/net/pcs/Makefile                      |   4 +-
->   drivers/net/pcs/pcs-xpcs-regmap.c             | 203 +++++
->   drivers/net/pcs/pcs-xpcs.c                    |  43 +-
->   include/linux/pcs/pcs-xpcs-regmap.h           |  20 +
->   include/linux/stmmac.h                        |   1 +
->   include/soc/toshiba/tc956x-dwmac.h            |  84 ++
->   26 files changed, 2341 insertions(+), 53 deletions(-)
->   create mode 100644 Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
->   create mode 100644 drivers/gpio/gpio-tc956x.c
->   create mode 100644 drivers/misc/tc956x_pci.c
->   create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-tc956x.c
->   create mode 100644 drivers/net/pcs/pcs-xpcs-regmap.c
->   create mode 100644 include/linux/pcs/pcs-xpcs-regmap.h
->   create mode 100644 include/soc/toshiba/tc956x-dwmac.h
-> 
-> 
-> base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+When mc33978_set_drive() updates MC33978_REG_CONFIG and cached_drive,
+cached_bias is left stale.
 
+[ ... ]
+> +static int mc33978_set_pull(struct mc33978_pinctrl *mpc, unsigned int pi=
+n,
+> +			    enum mc33978_bias_state val)
+> +{
+[ ... ]
+> +	/* Configure direction (Exclusively for SP pins) */
+> +	if (mc33978_is_sp(pin) && val !=3D MC33978_TRISTATE) {
+> +		ret =3D mc33978_update_bits(mpc, MC33978_REG_CONFIG, mask,
+> +					  (val =3D=3D MC33978_PD) ? mask : 0);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	/* Enable current source or set to tri-state  */
+> +	ret =3D mc33978_update_bits(mpc, mc33978_spsg(MC33978_REG_TRI_SP, pin),
+> +				  mask,
+> +				   (val =3D=3D MC33978_TRISTATE) ? mask : 0);
+> +	if (!ret)
+> +		mpc->cached_bias[pin] =3D val;
+> +
+> +	return ret;
+> +}
+
+Similarly, when mc33978_set_pull() updates MC33978_REG_CONFIG and
+cached_bias, cached_drive is left stale.
+
+[ ... ]
+> +static int mc33978_direction_input(struct gpio_chip *chip, unsigned int =
+offset)
+> +{
+> +	struct mc33978_pinctrl *mpc =3D gpiochip_get_data(chip);
+> +
+> +	guard(mutex)(&mpc->lock);
+[ ... ]
+> +	return mc33978_set_pull(mpc, offset, mpc->cached_bias[offset]);
+> +}
+
+If mc33978_direction_input() unconditionally restores cached_bias, could
+this write back stale MC33978_REG_CONFIG data, clobbering a recently
+configured output drive mode?
+
+[ ... ]
+> +static int mc33978_direction_output(struct gpio_chip *chip, unsigned int=
+ offset,
+> +				    int value)
+> +{
+> +	struct mc33978_pinctrl *mpc =3D gpiochip_get_data(chip);
+> +	u32 mask =3D BIT(offset);
+> +	u32 bits =3D value ? mask : 0;
+> +	int ret;
+> +
+> +	guard(mutex)(&mpc->lock);
+> +
+> +	ret =3D mc33978_set_drive(mpc, offset, mpc->cached_drive[offset]);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return mc33978_update_tri_state(mpc, mask, bits);
+> +}
+
+And likewise, could mc33978_direction_output() clobber the pinctrl bias
+setting when it restores the potentially stale cached_drive?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515160537.1158=
+08-1-o.rempel@pengutronix.de?part=3D4
