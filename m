@@ -1,115 +1,159 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B4C3FB7E1
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 09:29:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E745238F925;
+	Fri, 15 May 2026 09:29:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778837380; cv=none; b=SdInmMdN7VslX3/3mS7XYlje9we7hOi3Y3yRSo7JvJuzvMfeuo3yAi7oZ+GXMFVEbxKdAnU7bOezFYzZcf/p3ouLZQ6o2tfalrdOp0PzYSLDtGMkHz4XOPHMsBxnRul1zp4uzN31h1+SmJLVXlS8e353EedywQFhgmvVwUHBnHo=
+	t=1778837397; cv=none; b=UGaklSpnScvuZtkxJEwQC0vzGaIWz46A/HPUZyLjmblppKInmfZPchH5Y2RctE7xXNvKSl+ADe9nBnNdY76KH8Bq8YWlvBMJAsypYhQnyHMgT0Ugxk42pBvGQp60bnCFpQwkns433D+6O3e2W3Z6FANFqiSDlF+JcaXe922ZOSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778837380; c=relaxed/simple;
-	bh=1Gj/HPBROwqJ7CZWPHGQrV3g+Xz9J/TVthqlh8+3p+g=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=il+DAnzFrz7Z4IoroJLSH2hADYg2QziyFaMtthQ2Wn6Fh5TBTP5gF8Hlc9yQ6+pqf1Zi7n8gdcHT8Kn16oHndWENkpa17cEJjR2vhMnjGYyzI70zV7LoaHhPBbeWTedue8vgErmJEnoSVZods9ughBBq+yMsTA7tH/1hdF+Ws+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wNoqs-0003eX-W9; Fri, 15 May 2026 11:29:03 +0200
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wNoqr-000u29-1W;
-	Fri, 15 May 2026 11:29:01 +0200
-Received: from pza by lupine with local (Exim 4.98.2)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wNoqr-000000008Ey-1TPR;
-	Fri, 15 May 2026 11:29:01 +0200
-Message-ID: <53c57285166ea40ee7a435a0df048955a1ee3a0b.camel@pengutronix.de>
-Subject: Re: [PATCH 3/5] drm/rcar-du: dsc: Add rudimentary Renesas R-Car V4H
- DSC driver
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, Geert
- Uytterhoeven <geert+renesas@glider.be>, Michael Turquette
- <mturquette@baylibre.com>, Stephen Boyd	 <sboyd@kernel.org>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong	 <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart	
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>, Magnus
- Damm <magnus.damm@gmail.com>, Marek Vasut	
- <marek.vasut+renesas@mailbox.org>, Laurent Pinchart	
- <laurent.pinchart+renesas@ideasonboard.com>, Kieran Bingham	
- <kieran.bingham+renesas@ideasonboard.com>
-Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org
-Date: Fri, 15 May 2026 11:29:01 +0200
-In-Reply-To: <20260514-rcar-du-dsc-v1-3-d65f7a9e9841@ideasonboard.com>
-References: <20260514-rcar-du-dsc-v1-0-d65f7a9e9841@ideasonboard.com>
-	 <20260514-rcar-du-dsc-v1-3-d65f7a9e9841@ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	s=arc-20240116; t=1778837397; c=relaxed/simple;
+	bh=SE75j4Iyud7MMtx0DEKj7/adQYIBvLKMI5frRmXs7Vk=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Dewn617jU1AkNkAzt36AZMkfvozz+p3G4FSM4ehvKy9QEQv6WQOe9ctAmMOKnSpIUzrdCTqI+GwNC1MgjwVbz4OWyBxoS3tu9gvnd8JKNaoW1BibccESC6NH66HWpP/HpzOl84Y30zjueKGF4Yq23bA98D/GKZ3MTrg8w7aiaDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=SCahSfDJ; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="SCahSfDJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1778837396; x=1810373396;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=SE75j4Iyud7MMtx0DEKj7/adQYIBvLKMI5frRmXs7Vk=;
+  b=SCahSfDJMwjB5lNcTUGAzAtD95NoX9utSgH4AA9nNc3A1Ds+LoM76us4
+   GCynLTSM+Fytp6p0UYLxAl7Qi5KnuQhMwEbxv4Da4titCRQSlLNUDPHuV
+   P6Gh2AO5xkx3VujIxco7NVbD6LcDN+tSLitMIXHX2/5T/f0nORFo7v2xI
+   kAHzPu5UwgbEO7AtkbrotVaW/HuI2BEH1A1zo2Qp9zSHrNvGfB2a7lGvi
+   YA2G2dazfvVdeo9vmDenrqyMt6Ezb2jefDBzU4BM0xcqSRYsMglSZFrvZ
+   d3bNvUcf96XIlc0OlJzK7cRcHC83CIeNlwiCnMLImj8YpLsy5iWpQVT74
+   Q==;
+X-CSE-ConnectionGUID: Y4NSJCdiR8C+lnvQe5YPyw==
+X-CSE-MsgGUID: 9sjv03v2TGWzGI5PqWNpdg==
+X-IronPort-AV: E=Sophos;i="6.23,236,1770620400"; 
+   d="scan'208";a="57560885"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 May 2026 02:29:55 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
+ chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.37; Fri, 15 May 2026 02:29:54 -0700
+Received: from marius-VM.mshome.net (10.10.85.11) by chn-vm-ex03.mchp-main.com
+ (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Fri, 15 May 2026 02:29:51 -0700
+From: <marius.cristea@microchip.com>
+To: <jic23@kernel.org>, <dlechner@baylibre.com>, <nuno.sa@analog.com>,
+	<andy@kernel.org>
+CC: <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+	<broonie@kernel.org>, <linux-iio@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<marius.cristea@microchip.com>
+Subject: [PATCH v4 0/2] add support for Microchip PAC194X Power Monitor
+Date: Fri, 15 May 2026 12:29:44 +0300
+Message-ID: <20260515092946.10791-1-marius.cristea@microchip.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: p.zabel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On Do, 2026-05-14 at 15:24 +0300, Tomi Valkeinen wrote:
-> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
->=20
-> The Renesas DSC Display Stream Compression is a bridge embedded in the
-> Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
-> 8k or 400 Mpixel/s . Add rudimentary driver, which currently acts as a
-> pass-through bridge and allows DSI1 to be operational on R-Car V4H.
->=20
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> [tomi.valkeinen: use bridge->next_bridge, minor changes]
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> ---
->  drivers/gpu/drm/renesas/rcar-du/Kconfig    |  13 +++
->  drivers/gpu/drm/renesas/rcar-du/Makefile   |   1 +
->  drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c | 163 +++++++++++++++++++++++=
-++++++
->  3 files changed, 177 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/Kconfig b/drivers/gpu/drm/re=
-nesas/rcar-du/Kconfig
-> index 840305fdeb49..a51f996d3537 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/Kconfig
-> +++ b/drivers/gpu/drm/renesas/rcar-du/Kconfig
-> @@ -33,6 +33,19 @@ config DRM_RCAR_DW_HDMI
->  	help
->  	  Enable support for R-Car Gen3 or RZ/G2 internal HDMI encoder.
-> =20
-> +config DRM_RCAR_USE_DSC
-> +	bool "R-Car DU DSC Encoder Support"
-> +	depends on DRM_BRIDGE && OF
-> +	depends on DRM_RCAR_DU || COMPILE_TEST
-> +	default DRM_RCAR_DU
-> +	help
-> +	  Enable support for the R-Car Display Unit embedded DSC encoder.
-> +
-> +config DRM_RCAR_DSC
-> +	def_tristate DRM_RCAR_DU
-> +	depends on DRM_RCAR_USE_DSC
-> +	select RESET_CONTROLLER
+From: Marius Cristea <marius.cristea@microchip.com>
 
-No need to select RESET_CONTROLLER, the API is stubbed out if not
-enabled.
+Add support for Microchip PAC194X and PAC195X series of Power Monitor
+with Accumulator chip family. This driver covers the following part
+numbers:
+ - PAC1941, PAC1941-2, PAC1942, PAC1942-2, PAC1943, PAC1944
+ - PAC1951, PAC1951-2, PAC1952, PAC1952-2, PAC1953, PAC1954
 
-regards
-Philipp
+The PAC194X family supports 9V Full-Scale Range and the PAC195X supports
+32V Full-Scale Range.
+
+There are two versions of the PAC194X/5X: the PAC194X-1/5X-1 devices are
+for high-side current sensing and the PAC194X/5X-2 devices are for low-side
+current sensing or floating VBUS applications. The PAC194X/5X-1 is named
+shortly PAC194X/5X.
+
+Differences related to previous patch:
+v4:
+  rewrite the driver to keep just basic functionality
+- fix review comments for device tree binding:
+  change compatible from "microchip,pac194(1/2)2" to "microchip,pac194(1/2)-2"
+  rewrite the interrupts and interrupt-names
+  add gpio-controller
+  add range for input voltage and current sense voltage
+  remove the long average mode from hardware accumulator
+- fix review comments for the driver:
+  remove custom attributes
+  fix include files
+  remove "non standard" frequency
+  add range parsing from the device tree for Vbus and Vsense
+  free acpi allocated buffers in case of early exit
+
+v3:
+- fix review comments device tree binding:
+  rewrite commit message
+  change the way full scale for voltage and current is set. Add a
+    properties to describe if the input is bipolar or not.
+  fix the "dtschema/dtc warnings/errors"
+- fix review comments driver:
+  simplify the driver to include just the basic functionality. More
+    features will be added later.
+  fix coding style issues
+  change to lower case the "to_pac1944_chip_info()" to be more like
+    other container_of
+  remove the PAC1944_DEV_ATTR() macro
+  drop the __func__ bit from error messages
+  remove unneeded casts
+  change the logic to reset the accumulator when is enabled
+  change from {} to { }
+  remove unreachable() from the code
+  rewrite the code to keep the error paths out of line
+  replace scoped_guard() with guard(), where was possible
+  use to_delayed_work() to get from work to delayed work
+  remove active_channels[] array
+  print info message in case FW disagrees with what is found on the bus
+
+v2:
+- fix review comments device tree binding:
+    remove underscore from names
+    add names to the interrupts and list them
+    add a better description for new properties
+- fix review comments driver:
+    fix coding style issues
+    use bitmap for checking the active channels
+    keep the "pac1944_get_unaligned_be56" here because the change wasn't acceted
+      into the asm-generic.
+    document new added attributes
+    remove the "scan" part till we support buffered capture
+    remove "unlikely" marking
+    add masks up in some array of const structures to avoid some case statements
+    remove pac1944_mutex_destroy function
+    replace some functions with a macro (just for testing)
+    replace dev_err with dev_err_probe in functions used in pac1944_probe
+
+v1:
+- first version committed to review
+
+Marius Cristea (2):
+  dt-bindings: iio: adc: add support for PAC1944
+  iio: adc: add support for PAC194X
+
+ .../bindings/iio/adc/microchip,pac1944.yaml   |  315 +++
+ MAINTAINERS                                   |    7 +
+ drivers/iio/adc/Kconfig                       |   12 +
+ drivers/iio/adc/Makefile                      |    1 +
+ drivers/iio/adc/pac1944.c                     | 2172 +++++++++++++++++
+ 5 files changed, 2507 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/microchip,pac1944.yaml
+ create mode 100644 drivers/iio/adc/pac1944.c
+
+
+base-commit: d2a4ec19d2a2e54c23b5180e939994d3da4a6b91
+-- 
+2.51.0
+
