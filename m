@@ -1,242 +1,340 @@
-Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2FE0372698;
-	Fri, 15 May 2026 09:08:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.135.77
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778836086; cv=fail; b=aPhDuHX29nOmWN3sc/3BH4tEsAdjRRm/MPFkpBRTs4+oCQGb1VbUx9dTYOLzwUgDD0VOSJ5/XMoJ4YpPBFXFSsWZKKC9/JGX0NHmhtxKBZj81l8vhVU3zPimSPi9c8dsBptLX+P3LPciemOr0VbAvCvFx5enlzRC1d+j6mL/mTA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778836086; c=relaxed/simple;
-	bh=14c3uFMaeh6geNiL16QC+u5+gf03fT69hYXQtkdNllI=;
-	h=From:To:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=pbvmYryuXC36i5C8K7tVfgOh/hft6YYd7E+n8bX132jeUgtC6AJgFbMxps62dBxxJdyHKWE2Gsz8/Q0Kza2ov7CcvsEiFV4d72zvhtoxsz7fDzM+5reEOs3kWHQLqA+B605wFmzucjEs7zh/ZtSENTkPawuZI9yKHs7jLdR45aI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=vRAG+ZgY; arc=fail smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0CC401A22
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 09:08:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778836114; cv=none; b=IuKd6mhYP02BHnv2qdaft9PjVe1HUJKTSOVkC/Eoi40H8w2essswzrI+Jq3uhmprD8xAo9UO+yKNv25fkmqVvpbkw0aXngQagBhdHcT/5VP5OMbRjotnv2vEpPevA5fF1YNLh2rW98T9W3gCZaLMBkIPn7FB580HncH30pddp/s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778836114; c=relaxed/simple;
+	bh=MNJXilQnBvYEG82nQpV/+W1YuceTtoGlk0VMSzRioAw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=smszYKBJwso8Mnysy+TO7MV3JCxxmh/fBTOhBorFabbL09BnLFGwYGh+Kjy0oZ1w1yWLxn9StJVwi/0bMDrBHIaoxVmCfFTsbDnO9lkkmVhudyWJX6/Mp+fCW+zysdQdxuK/8QDduXT9Xalu5EZN49qrsyN105sjwbBnaG/AhWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ItzQvet1; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="vRAG+ZgY"
-Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64F7YRCc2162093;
-	Fri, 15 May 2026 05:08:00 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=
-	content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=14c3u
-	FMaeh6geNiL16QC+u5+gf03fT69hYXQtkdNllI=; b=vRAG+ZgYPjciFVsnHtX/n
-	arSqxVoakH1pQQXn1ogrigE7D+fzKGYHXgPBP3i66yUig1LUi0MhvSXneSIq8ZG/
-	oj4wmRCOWV8tarwJiesvvtsCz1oYmEXD5/xz0gWnzNOxgdSkPCR/IEM6naWanpAH
-	bL2sv8L1PWHW0xqjzjRgiQhWRlK4kOYegsQye+y9aB1qge7hwSHx88nF6lfN0TUV
-	euvp3Ul9+0Jo2EmRLDLWNDL6KWnlX/d7HHJUWujreRgxDwbZCE50DD/lm6hlR0BQ
-	1v9AFZ6oxi4c8Q+dh8MuDBd5FGK6tmDIY5mBhnUEUDA+d2I3xXRhB/a7kIHTX/gF
-	g==
-Received: from mw6pr02cu001.outbound.protection.outlook.com (mail-westus2azon11012049.outbound.protection.outlook.com [52.101.48.49])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4e5m2xjdkt-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 15 May 2026 05:08:00 -0400 (EDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WivnXh93T5RzWzww56GlDrDp2kvLwqHNv7dRg+W0W2BvmySRphJbC4lUBnqqs+4u9rYbOUQYVWlVQeOhlnW9FKVn9bYVfTo8qoCYZMiUXX7kr6vp7zUogHUVIzmf79Vexc7qVRJXfCmfyRt7abNoK7kFQvRNTXbYsqQoEkOsr0XMcCpQbuelTawEc76U5FVVDr7YnYMfiPZkdl5a8etzQrJftUeV5U4vhBYg6w3luFLu2HCiYhyHD2ZH472w/YcYwtfZyDyce8iq7vJDyxUBXFhZeiJILih5k55mCvt/ZlkbX74TFZd7DXS7auvMXcHZRMbJpKPQiFKiC4MmTvw2wQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=14c3uFMaeh6geNiL16QC+u5+gf03fT69hYXQtkdNllI=;
- b=ITH32DuL9vaeq4kWAeaU6EIiMfq1QSXKR5g4x9hB7gm0BFiLpr5MUCiioe2QVrKYU84f+KUsIoGmNOqjMx4gbTTF8GsMPnZF3WIqLPiuDFoNNmm3NQrh8CaOTR0M6EbUZT6kjcWcv7GcL1nmDTA/m0EwYiE1lUda/haJ1aDzbMJSTnlBnWCe89n20pMKsWf3qoCYJtvBDj4ajNecM2FBU6WCYRfaTYNIO0vSVqEa6K182u6SFWzZKXuFR0DMsHcfuLY9C+FfVcPxD+A77Hp6ojIGdwvOeijnwFf7DhkYmGKr3KxyZtFXvV1WwtN/mhFXclsMIOyI1cIqByk3z90Ryw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
- dkim=pass header.d=analog.com; arc=none
-Received: from SA5PR03MB8377.namprd03.prod.outlook.com (2603:10b6:806:47d::22)
- by PH0PR03MB5896.namprd03.prod.outlook.com (2603:10b6:510:3b::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.20; Fri, 15 May
- 2026 09:07:54 +0000
-Received: from SA5PR03MB8377.namprd03.prod.outlook.com
- ([fe80::9276:9909:1b4c:8438]) by SA5PR03MB8377.namprd03.prod.outlook.com
- ([fe80::9276:9909:1b4c:8438%4]) with mapi id 15.20.9913.012; Fri, 15 May 2026
- 09:07:54 +0000
-From: "Stan, Liviu" <Liviu.Stan@analog.com>
-To: Francesco Lavra <flavra@baylibre.com>,
-        Jonathan Cameron
-	<jic23@kernel.org>,
-        David Lechner <dlechner@baylibre.com>,
-        "Sa, Nuno"
-	<Nuno.Sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
-        "Hennerich, Michael"
-	<Michael.Hennerich@analog.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof
- Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Miclaus,
- Antoniu" <Antoniu.Miclaus@analog.com>,
-        "linux-iio@vger.kernel.org"
-	<linux-iio@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>,
-        linux <linux@analog.com>,
-        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-Subject: RE: [PATCH v2 7/7] iio: temperature: ltc2983: Add support for ADT7604
-Thread-Topic: [PATCH v2 7/7] iio: temperature: ltc2983: Add support for
- ADT7604
-Thread-Index: AQHc47EClIM3xYOGDkCh1l5fvldR27YOxRMAgAAGTRA=
-Date: Fri, 15 May 2026 09:07:54 +0000
-Message-ID:
- <SA5PR03MB8377BBAC8F179B0397A1C8F4F6042@SA5PR03MB8377.namprd03.prod.outlook.com>
-References: <20260514144712.64374-1-liviu.stan@analog.com>
-	 <20260514144712.64374-8-liviu.stan@analog.com>
- <fe013c5a2a1e62a9d1085a4ed16cfb08837a313a.camel@baylibre.com>
-In-Reply-To: <fe013c5a2a1e62a9d1085a4ed16cfb08837a313a.camel@baylibre.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA5PR03MB8377:EE_|PH0PR03MB5896:EE_
-x-ms-office365-filtering-correlation-id: eff11984-b193-403d-cdc0-08deb26172e6
-x-ld-processed: eaa689b4-8f87-40e0-9c6f-7228de4d754a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|366016|7416014|56012099003|38070700021|22082099003|921020|11063799003|4143699003|18002099003;
-x-microsoft-antispam-message-info:
- Z88q7AOXWP9Uz4vacDYggjldbE1IyGYCfuCaGoync5NKp1rH+0Kto5wDiDaGcgiQPgp3TvkQ1nn2C6acr4XZ4g1ER2gNREEYH6J72b42MoLMsrGM7l8tveDLbFHY++NUzHTQX3rnJFoVHSbvCoHS1VQjLGUGc1wLlUT1g7oEG8lZIGtDCifdLJYfChkSAu/0XnPyyJ2RAkWQQzwo5rYCj4EBlZJd5sWqmVg6dRhqM3HjGzoZYV564rSBI8DGoCLYKON+RK6H5XSz1YTrAdYARKvHDbYwMTZiBorzi3nFeoJt3xZHe6s+XeSeCMXlVAAJqsCSZpRUDdtzQ7L4T2PX0AS4+wRIPUd9q/wJwv70LYZfsSyMw252vm2TXHi0K9M18TS4Cd49MDAVkzaMfFjd8OurDAEHCeJJRr0rza6k6owj4B48MXnBRqMAo1/xs0X1If6LErTL8ueAup5S8qlRrKkYBa7LVPTQ8+C8eaMrBOCV4rergTJAdrVDNXQJC88K1C3ws29kZ1BCYZyO6v3vZ4ByfQR6hdJ4PDhEuNezjKpkgNjQ3IXmEw0/kLR99nPlge7MVY+/zfSuJttALg0vYz0s3tbQypfbFiNbvNp8z/dIv7Wqb+5g5UfQPgTpM0i0m7DUNSdk9VRztIdI8+SAB2mXR9gourF/LGguXQyOEei+Lx2HGFIdjUrIrr11VabAJoNjsUTPtPqyrlh0YEAPjioofQqiQyCAeLRP4CpvjOPHoAOaJeSYaAeCi2pwseDWHNKO2zNayceFUIHkEY3ypQ==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA5PR03MB8377.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7416014)(56012099003)(38070700021)(22082099003)(921020)(11063799003)(4143699003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?dE5wNDFRY25yL2NyK0tDRndvSGJuNGc3TnBKMVk0TkdJQjRSOSs0dGxxVUtt?=
- =?utf-8?B?RG9HTlFyL0RXbkNwSDNNdUpwQVhha2tJTmF6VDBJTzcwU3kzRWtPTmkySEtH?=
- =?utf-8?B?UTk5TkxBeVp0YkkwbDhITy8xNmh2Wm44ejhqbkNlbzk5YmZJTUYvT0Q5c0pW?=
- =?utf-8?B?NGx2elNFSFdRUENYRk44M1V1TXV2RWhDYlljTzB2Nlp6Wk1oQXNHblZYTGJE?=
- =?utf-8?B?NTdBd2tTL01Fdk9iYkxZcEJLSEJZTXFyMTUvZ2tUdWU4STJ4SDhrb3pJUmE1?=
- =?utf-8?B?Ry9jYUNJK3FTY2ZQL0MzLytzaFk1Tjg1OWhuTklsVm43anVHWWltczJlY3V6?=
- =?utf-8?B?WGxqNDJnVkNuSVJCWnRIRlRUdTc4b0lvYXJ0ek92VHdyV3dWVmFoYU1wRkN6?=
- =?utf-8?B?OFBnalM3eDQzVUFTZ1R3YW4vVC80RURXUVFNUk1aZTZjRWtqZ1dTOU55ODZT?=
- =?utf-8?B?WmJGTFN4RnE2ZGNJRDZHS3RJa0cvNUZrL3B1VEVTZnRlTzR3ZFRoM09yOUpo?=
- =?utf-8?B?d3RtdDBuamJGREhjSWlmbWdsTk04R0xwUFA0bmxmc3J0V09XUmVWY1Nnc1Rm?=
- =?utf-8?B?YXVHTGVPaHNYUEJyZ1NJeVZMNVJuaEdrdjg4ZjNGYW4wSER6TzJIc3ZOUGs4?=
- =?utf-8?B?MUhjUlJsam5WQXNrY3gxT1pXZkE5U1dLWFIzbnhqTVo5a3V3dXJRN05DaVVV?=
- =?utf-8?B?SzAzYVVLS21oU0Jna3UvUGZWcXpPMUJIR1pkUXV1aXlDL05wUHZYKzFVMmNK?=
- =?utf-8?B?Q0JXZ3BOK3BZRjJGR1lyQ3owdFlsNWFjRUVnWnpYQ052bVo3WmlpcGdmb0Vl?=
- =?utf-8?B?Mi96ZWNNYnNydUZpREdwRTZkQkFyRmU4ck9wODM1akN1R0FOWmFVeWI1RVpy?=
- =?utf-8?B?aWhGSjV6WWdxZE1iVFlYUThhV1ZTWXhKbHZ4cnAwaU9XRTVPYjFtUDZEd0Jq?=
- =?utf-8?B?NDBKYnNiVlpoNVUyRjlLNU8rZHpjaFUyUnJzTkQ1VDJsUnRMUWozMk5jQU9N?=
- =?utf-8?B?cVNLTlhpaDVydm9HOHVkSzJ5YUFaUjlFMUg1Qlh1SlVYR3FiaWhObmRZUkow?=
- =?utf-8?B?cW9SeUF3dDFLc2paei8yenR6dTl1NWlhY1NkdmgzTkFaNytLZ3hGK1o0Ty94?=
- =?utf-8?B?TGNXcUF3bnZ1Nm1kRFlnaHg0VkFaa0pxdFlpVkJQdktuTDN3RW9zdkFOZjNQ?=
- =?utf-8?B?L3hYSEtJd3BZTjlCTWVFSkNpTlhVWWZKR2N0WERITFRyVnFOcnVsSlJjbkk1?=
- =?utf-8?B?VTRSRVBoMlc0U0VuK2U4QVdqMlZiQWZVQW1FaG1yelVXcDNja21mcXJBcTVy?=
- =?utf-8?B?MXlKZWQvZVZnV3ZyRGdDUmtJQ3p3TStROENHZWc0ekMwT0RhaW5JL0ZVUzZs?=
- =?utf-8?B?QTBwWk85TEUvZDgzSGZxZ29ha2cwa09kcUloUm5kMHFGS3VDZ2NyWjV5N004?=
- =?utf-8?B?Q3NVUkpIVWNmOUNqNDBkRndSUS9FbElHcHZBZEpaQjJzSSs0MnR3YmJBUWF3?=
- =?utf-8?B?dm42Q3VaREM3d0YzeEovTmJSK2U1VXhFUW9TUnJSTFFIb0hUTmpHR0UwNUFR?=
- =?utf-8?B?Z3Y1VTl1UEZBSFdVbGRuK0FZVmtjZjZzUUNWUDVEM05UZkVQaWU0Ui9EOVRu?=
- =?utf-8?B?T3hWTmZ2NjVyVVhHQS9DQVp4ZkU0NnMrSWNRMzNkMUo4TWZkdW5XLzd0WXZX?=
- =?utf-8?B?TzRWOUtpVXJaQzBNV1dmUklleEFXeFY2RzRRRkFtbTlKVmlLM2huUU9NMnhT?=
- =?utf-8?B?RzJhMW5SSmJ1SXJRV0hWT3JRU0JJTXJmQzFQdy9PUjlPb0RUMlJGNVY2VzBm?=
- =?utf-8?B?Z0lQU28yMlZVa210OFdkdk5TVXY2TFJqbkE5bmI1bjJJLzc3cTIxM3lXVjJa?=
- =?utf-8?B?WHlEaTI2Q0hUelNJTHk3QnJsT0hCNlAydHY3SlB4TWRod0x3LzBCRndKS1Bz?=
- =?utf-8?B?M2FHemJIb093K3JSVXhEMXBCWGkxWmlHbzdkZTY5Ullic2R2N2t4T1BNWjZy?=
- =?utf-8?B?MWFPZEFpWjVnMzBGeUZ2VTFodTRIeVh5VDRmNWhjcUtJZmxEY2JDdEgwZkJk?=
- =?utf-8?B?Tjd2M1RTZ28zdW03eW1DS0hSa2ptbWZoRm1ZcnNCZ2VXblQ4QVFzMVBLSm1S?=
- =?utf-8?B?Z1pJOXk0bmQycjZxVkJ1a0NCQytIVC8rc2FjcXBlL1JLcGJTTmZzQThOUGhq?=
- =?utf-8?B?Mno1ZDB3QTJWVzhaRFRCV1JTNy9HclA0R0t2alhiVWp5dlZQeExLcW5lYUhT?=
- =?utf-8?B?emNhT3A1dUxNZnVCYXNtcXZYSzA2WTNtakl6cDNyZ294d2RkcU5HVTlMSS9D?=
- =?utf-8?B?ZWVxSXBQMk1UdG5aSkFTT0lneTRwNHlYalJmeHc1Qk9ITTIzamNNdz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ItzQvet1"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2bccb978bd9so4273725ad.0
+        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 02:08:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778836112; x=1779440912; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=MDBlcreApT69nD2JDPHGYA71d8rTboSMPdYxDM3luXk=;
+        b=ItzQvet1GVehZ+GBmqLOD50+FZooTlJ68/M0/tyKHc6IeEJyJ5lQglQJiQ+o50VxMo
+         yqhgCldzqku1p9Yjjz0qFLLRkvQWdDXNBQEEZXYudWrgg2IwM9NCQBHf6nDI7yX3oaVv
+         pMZZNl1590THb56285AJSz7sfXKpeWiBdXkoKF3MaLyhzHxWr0xCbbt+SPcq7riRzjB1
+         zU8Z7eackz3CeDaH5wTM2oMRUg/jxHDp3BbM/MHRsVTSyISL6mbCA5kBA6wI3djigBm+
+         7mQpV98aKrW5nXlYRhOA122ic+yz0bXUyRK5qdP53X4mS1BaFO3cV/sd7JmqFTKWUNfR
+         qzgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778836112; x=1779440912;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=MDBlcreApT69nD2JDPHGYA71d8rTboSMPdYxDM3luXk=;
+        b=c75mK3dNw0kCw2yqkXH4tr4+uq8W5JaO410cVp1hTxLzaolrVU/9kKiS59EcJL01zr
+         M0O5dDjr8XOIl4XF1HJMM2fEkpU0sYQmn/EBU5z6p6ngQ2/RpC9qkyF4MpxPZMXjmEU5
+         RdmhiZmJslWVT/mplW3mj1kfyCrEzwC2kRzp26QzdxkgSmEd9OU0iuXvyWnE/hijjS8+
+         7J7dna0bIBtKw0+mWo8WZfrAf2zTJpMZVu3bpc3jTR+GG7SzD8oWJF3dfWBUJNL/1fGL
+         V9R8wgnR2ngkGXeeq0TXk5NepUqQRdv5YDlQLstSsbpqpUCs6MDfu6MMn+dHhU9q8477
+         n2vw==
+X-Forwarded-Encrypted: i=1; AFNElJ/thQhB0j47CV88H54pb7i4JphUkYtt5TpqE3Ml73TDtM/GMMy3MnDxYZwS8JkMQY3miwfn1e6gjDuG@vger.kernel.org
+X-Gm-Message-State: AOJu0YzbPm5sdXhUkpU6F8MDX3gAt8im552w+wZ++FVRb6VwPpbL+KbR
+	+OQMIZbP+OOkghynBiDiFdm91Tj0hO7lFF7s8KKususVOOLkHFm98izT
+X-Gm-Gg: Acq92OHvETqZoGILXjv3shEeP+bX1rrU21ZvulpF+fxUHiiD6iSDYbT4VZLHg4ie7Pt
+	xp/re2uJIiyG+u+OkgMoAE+P5iW8cORwD/Sqr0uPVpANWvPUJJwL6PE8Ppmu1Cb5eHrF018vVyx
+	bbRhiNVMFifQxaK1Ry6S29Ip2hBF3yKwOjjvg98D3IeedWEgb+XEezrCJrVK+6Gsqmv/0wqP4Va
+	fnYkyidUoapXniNcpyvwPHIXZzQEt5w/mmybVrRQaYOCgpMr8KW1u6aJoBhEkxhmTS2mLJISwH7
+	wfWIXqbu2/y53qRI9tpe7tau0amVG7uSv/GX1VlOor3RsI5JhckiQbFpjZ3jpe9pEpPUaAv13Q9
+	ccL8OsElmrkWNO+VWMzzvDKjnpSqCTtCTDcNswerlCPCev/5HwkkwE8hl45zGnT21dXQzWe6vf+
+	wvHhjwr946vLMh3JCwkbXMWyf85P4q1ueOJNH4slk1VT810lSyfiQX8WsXcg3Wp7yGERW87ijHy
+	zEh+8dSeJQNhDY=
+X-Received: by 2002:a17:903:46c7:b0:2bc:dca9:f0ed with SMTP id d9443c01a7336-2bd7e9249a5mr28348315ad.15.1778836111714;
+        Fri, 15 May 2026 02:08:31 -0700 (PDT)
+Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bd5d0fd384sm55522125ad.65.2026.05.15.02.08.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 15 May 2026 02:08:31 -0700 (PDT)
+Message-ID: <520e1683-6d5c-4e1f-8811-0ef78cf8d605@gmail.com>
+Date: Fri, 15 May 2026 17:08:25 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	Iji7Sk25kP6porztbJIwzTL5amxBqHXcAQwRW4u58Q2HiIxxpGH8jBvSv9VrDeu/qCeXesTmt4jclYXYhC2Trz/LIbt3433mEDrBAf8jRZ275/4PbfMxYiAkb6RY3truLwzvqO88DuZLDMSRYjsJ7JGZSaJf0iA5HNYy/eQSh0luvlb8P6i/e//Pk4RVQ0+y+t7lKD2WcVwEEZSmr7YJAQrkBGF4Eto/5cba9Ql5y40e/RWzsewyF669ZU2JmAH/SCYzkc6brm2eSptnfTI3ji5Rv+7V6T5jsnXU+1z6dktWXZSqETT1erveeELqmefonaatabTbI3gPKU9qkT0SIw==
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA5PR03MB8377.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eff11984-b193-403d-cdc0-08deb26172e6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 May 2026 09:07:54.2233
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +dDYRPITt7KRGMcngthqw4U5MwEkPPaqe1c2IG9ddNQtv/9NEhP1nPqA25uUSHZ67qg1VgtQ0aNwYwEs5sqoPA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB5896
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE1MDA5MiBTYWx0ZWRfX9Nwj4QBRAqyz
- 2uUyuRB20U7H4x+kMixqCu/jek3tknzXh7vKg0tKTupxLQRAukbKpwqGDXui3QQpFNJv8WccONQ
- tfEs+q63ltvyGRAYKGJkKB02n326NReeJz8Dn93iX+648cGRxPHX/5LX16EPEHamAw6Jd9OfKFK
- R00oF0xVqlj+nBKgOsWYjDBV4ip3g4t+8feliBVrj19v27Y2II3cy6R2E6zBxK60m6TMFRCQQVW
- 1oEOzkZ6dNf9IL4cKv162m28M9OSdqg6v1fMOAsqxsbh6TFq693zeHsYE20Kt3OqtyndAd/3JD1
- 1ur1ZSpwQLEyhC/8b1mao1aL9gf1yE2m47btJw8vvmjC6fVeNwQT6ggQVb2Um1Eb8DcwESJ5Euc
- xEiGp0NZGHokUipBMcUmRrmRQGWkxF8ny3gVl/ITkqPzF3fLE6JRDSDjX87KLtKlwyGH6QKKPZV
- AuiEDu7qe6WwG9YwrSw==
-X-Proofpoint-GUID: GpwBXOKZix-LzZv9a6fVMvH-9LTpxtG-
-X-Proofpoint-ORIG-GUID: GpwBXOKZix-LzZv9a6fVMvH-9LTpxtG-
-X-Authority-Analysis: v=2.4 cv=N90Z0W9B c=1 sm=1 tr=0 ts=6a06e270 cx=c_pps
- a=w9jTARCbdo3hRO6w7Rsibg==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=N--XFCr6TIEc_64PeIT2:22 a=CscILIOLagS5JHHM7uQA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-15_02,2026-05-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 phishscore=0 malwarescore=0 bulkscore=0
- suspectscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605150092
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/verisilicon: add support for Nuvoton MA35D1
+ DCUltra Lite display controller
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260511075142.54752-1-a0987203069@gmail.com>
+ <20260511075142.54752-3-a0987203069@gmail.com>
+ <93e69179dbc495188cfffd8015350b3a55ce7876.camel@iscas.ac.cn>
+ <de35406e-874d-4bdd-be7f-3d74dc37b13f@gmail.com>
+ <3b94806073de8bd1d79aa7ec956493f67679e46b.camel@iscas.ac.cn>
+ <dfbc4042-64cf-49f2-a5de-12260beffaa0@gmail.com>
+ <4bf6efbb222ebc4d770ad613d17c6185e7cb2fda.camel@iscas.ac.cn>
+ <1d04dd6d-f245-4b83-96b0-c5491fad8093@gmail.com>
+ <76a9e9b676509e85484a1eb31c723b46c7e21a19.camel@iscas.ac.cn>
+ <1a42a168-1dbb-467e-9053-b5585a737f71@gmail.com>
+ <1c4d8611411e2d14699ac0b9aeb5b2377feedc8a.camel@iscas.ac.cn>
+Content-Language: en-US
+From: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <1c4d8611411e2d14699ac0b9aeb5b2377feedc8a.camel@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-VGhhbmtzIGZvciB0aGUgcmV2aWV3Lg0KDQpPbiBGcmksIE1heSAxNSwgMjAyNiwgRnJhbmNlc2Nv
-IExhdnJhIHdyb3RlOg0KPiBPbiBUaHUsIDIwMjYtMDUtMTQgYXQgMTc6NDYgKzAzMDAsIExpdml1
-IFN0YW4gd3JvdGU6DQo+ID4gQEAgLTEyNjksNiArMTU3OSwxNiBAQCBzdGF0aWMgaW50IGx0YzI5
-ODNfcmVhZF9yYXcoc3RydWN0IGlpb19kZXYNCj4gPiAqaW5kaW9fZGV2LA0KPiA+IMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoC8qIDJeMjEgKi8NCj4gPiDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAqdmFsMiA9IDIw
-OTcxNTI7DQo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgcmV0dXJuIElJT19WQUxfRlJBQ1RJT05BTDsNCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgY2FzZSBJSU9fUkVTSVNUQU5DRToNCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoC8qIHZhbHVlIGluIG9obSwgMTAgZnJhY3Rpb25hbCBi
-aXRzOiBkaXZpZGUgYnkNCj4gPiAyXjEwICovDQo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAqdmFsID0gMTsNCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCp2YWwyID0gMTAyNDsNCj4gPiArwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoHJldHVybiBJSU9fVkFMX0ZSQUNU
-SU9OQUw7DQo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGNhc2UgSUlPX0NPVkVS
-QUdFX1BFUkNFTlQ6DQo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAvKiB2YWx1ZSBpbiBwZXJjZW50LCAxMCBmcmFjdGlvbmFsIGJpdHM6IGRpdmlkZQ0K
-PiA+IGJ5IDJeMTAgKi8NCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCp2YWwgPSAxOw0KPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgKnZhbDIgPSAxMDI0Ow0KPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgcmV0dXJuIElJT19WQUxfRlJBQ1RJT05BTDsNCj4gDQo+
-IFRoZSBhYm92ZSB0d28gYnJhbmNoZXMgYXJlIGlkZW50aWNhbCwgeW91IG1pZ2h0IHdhbnQgdG8g
-anVzdCBzdGFjayB0aGVpcg0KPiBsYWJlbHMuDQoNClVuZGVyc3Rvb2QsIHdpbGwgY2hhbmdlIGlu
-IHYzLg0KDQo+IA0KPiANCj4gPiBAQCAtMTY1OCwyNSArMjAxOCwzNCBAQCBzdGF0aWMNCj4gREVG
-SU5FX1NJTVBMRV9ERVZfUE1fT1BTKGx0YzI5ODNfcG1fb3BzLA0KPiA+IGx0YzI5ODNfc3VzcGVu
-ZCwNCj4gPiDCoHN0YXRpYyBjb25zdCBzdHJ1Y3QgbHRjMjk4M19jaGlwX2luZm8gbHRjMjk4M19j
-aGlwX2luZm9fZGF0YSA9IHsNCj4gPiDCoMKgwqDCoMKgwqDCoMKgLm5hbWUgPSAibHRjMjk4MyIs
-DQo+ID4gwqDCoMKgwqDCoMKgwqDCoC5tYXhfY2hhbm5lbHNfbnIgPSAyMCwNCj4gPiArwqDCoMKg
-wqDCoMKgwqAuc3VwcG9ydGVkX3NlbnNvcnMgPSBMVEMyOTgzX0NPTU1PTl9TRU5TT1JTLA0KPiA+
-IMKgfTsNCj4gPg0KPiA+IMKgc3RhdGljIGNvbnN0IHN0cnVjdCBsdGMyOTgzX2NoaXBfaW5mbyBs
-dGMyOTg0X2NoaXBfaW5mb19kYXRhID0gew0KPiA+IMKgwqDCoMKgwqDCoMKgwqAubmFtZSA9ICJs
-dGMyOTg0IiwNCj4gPiDCoMKgwqDCoMKgwqDCoMKgLm1heF9jaGFubmVsc19uciA9IDIwLA0KPiA+
-ICvCoMKgwqDCoMKgwqDCoC5zdXBwb3J0ZWRfc2Vuc29ycyA9IExUQzI5ODNfQ09NTU9OX1NFTlNP
-UlMsDQo+ID4gwqDCoMKgwqDCoMKgwqDCoC5oYXNfZWVwcm9tID0gdHJ1ZSwNCj4gPiDCoH07DQo+
-ID4NCj4gPiDCoHN0YXRpYyBjb25zdCBzdHJ1Y3QgbHRjMjk4M19jaGlwX2luZm8gbHRjMjk4Nl9j
-aGlwX2luZm9fZGF0YSA9IHsNCj4gPiDCoMKgwqDCoMKgwqDCoMKgLm5hbWUgPSAibHRjMjk4NiIs
-DQo+ID4gwqDCoMKgwqDCoMKgwqDCoC5tYXhfY2hhbm5lbHNfbnIgPSAxMCwNCj4gPiAtwqDCoMKg
-wqDCoMKgwqAuaGFzX3RlbXAgPSB0cnVlLA0KPiA+ICvCoMKgwqDCoMKgwqDCoC5zdXBwb3J0ZWRf
-c2Vuc29ycyA9IExUQzI5ODNfQ09NTU9OX1NFTlNPUlMgfA0KPiA+IEJJVF9VTEwoTFRDMjk4M19T
-RU5TT1JfQUNUSVZFX1RFTVApLA0KPiA+IMKgwqDCoMKgwqDCoMKgwqAuaGFzX2VlcHJvbSA9IHRy
-dWUsDQo+ID4gwqB9Ow0KPiA+DQo+ID4gwqBzdGF0aWMgY29uc3Qgc3RydWN0IGx0YzI5ODNfY2hp
-cF9pbmZvIGx0bTI5ODVfY2hpcF9pbmZvX2RhdGEgPSB7DQo+ID4gwqDCoMKgwqDCoMKgwqDCoC5u
-YW1lID0gImx0bTI5ODUiLA0KPiA+IMKgwqDCoMKgwqDCoMKgwqAubWF4X2NoYW5uZWxzX25yID0g
-MTAsDQo+ID4gLcKgwqDCoMKgwqDCoMKgLmhhc190ZW1wID0gdHJ1ZSwNCj4gPiArwqDCoMKgwqDC
-oMKgwqAuc3VwcG9ydGVkX3NlbnNvcnMgPSBMVEMyOTgzX0NPTU1PTl9TRU5TT1JTIHwNCj4gPiBC
-SVRfVUxMKExUQzI5ODNfU0VOU09SX0FDVElWRV9URU1QKSwNCj4gPiArwqDCoMKgwqDCoMKgwqAu
-aGFzX2VlcHJvbSA9IHRydWUsDQo+IA0KPiBZb3UgYWxtb3N0IGNlcnRhaW5seSBkaWRuJ3QgbWVh
-biB0byBhZGQgdGhpcyBsaW5lLg0KDQpUaGUgaGFzX2VlcHJvbSA9IHRydWUgZm9yIGx0bTI5ODUg
-d2FzIGFscmVhZHkgcHJlc2VudCBiZWZvcmUgdGhlDQpwYXRjaC4gSXQgY2FuIGJlIHNlZW4gYXQg
-dGhlIGVuZCBvZiBhZHQ3NjA0IGNoaXBfaW5mbyBzdHJ1Y3QgaW4gdGhlIGRpZmYuIA0KQnV0IEkg
-Y2FuIGVkaXQgdGhlIGh1bmsgaW4gdjMgdG8gaGF2ZSBhZHQ3NjA0X2NoaXBfaW5mb19kYXRhIGFw
-cGVhcg0KYXMgYSBjbGVhbiBuZXcgYmxvY2sgYW5kIG1ha2UgdGhlIGRpZmYgY2xlYXJlci4NCg0K
-VGhhbmtzLA0KTGl2aXUNCg==
+
+On 5/15/2026 4:38 PM, Icenowy Zheng wrote:
+> 在 2026-05-15五的 14:25 +0800，Joey Lu写道：
+>> On 5/12/2026 9:12 PM, Icenowy Zheng wrote:
+>>> 在 2026-05-12二的 18:59 +0800，Joey Lu写道：
+>>>> On 5/12/2026 6:01 PM, Icenowy Zheng wrote:
+>>>>> 在 2026-05-12二的 17:06 +0800，Joey Lu写道：
+>>>>>
+>>>>> ======= 8< =============
+>>>>>>>>>> diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c
+>>>>>>>>>> b/drivers/gpu/drm/verisilicon/vs_bridge.c
+>>>>>>>>>> index 7a93049368db..225af322de32 100644
+>>>>>>>>>> --- a/drivers/gpu/drm/verisilicon/vs_bridge.c
+>>>>>>>>>> +++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
+>>>>>>>>>> @@ -164,13 +164,16 @@ static void
+>>>>>>>>>> vs_bridge_enable_common(struct
+>>>>>>>>>> vs_crtc *crtc,
+>>>>>>>>>>       			VSDC_DISP_PANEL_CONFIG_CLK_E
+>>>>>>>>>> N);
+>>>>>>>>>>       	regmap_set_bits(dc->regs,
+>>>>>>>>>> VSDC_DISP_PANEL_CONFIG(output),
+>>>>>>>>>>       			VSDC_DISP_PANEL_CONFIG_RUNNI
+>>>>>>>>>> NG);
+>>>>>>>>>> -	regmap_clear_bits(dc->regs,
+>>>>>>>>>> VSDC_DISP_PANEL_START,
+>>>>>>>>>> -			
+>>>>>>>>>> VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
+>>>>>>>>>> -	regmap_set_bits(dc->regs,
+>>>>>>>>>> VSDC_DISP_PANEL_START,
+>>>>>>>>>> -
+>>>>>>>>>> 			VSDC_DISP_PANEL_START_RUNNIN
+>>>>>>>>>> G(ou
+>>>>>>>>>> tput));
+>>>>>>>>>>       
+>>>>>>>>>> -	regmap_set_bits(dc->regs,
+>>>>>>>>>> VSDC_DISP_PANEL_CONFIG_EX(crtc-
+>>>>>>>>>>> id),
+>>>>>>>>>> -
+>>>>>>>>>> 			VSDC_DISP_PANEL_CONFIG_EX_CO
+>>>>>>>>>> MMIT);
+>>>>>>>>>> +	if (dc->info->has_config_ex) {
+>>>>>>>>>> +		regmap_clear_bits(dc->regs,
+>>>>>>>>>> VSDC_DISP_PANEL_START,
+>>>>>>>>>> +				
+>>>>>>>>>> VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
+>>>>>>>>>> +		regmap_set_bits(dc->regs,
+>>>>>>>>>> VSDC_DISP_PANEL_START,
+>>>>>>>>>> +				VSDC_DISP_PANEL_STAR
+>>>>>>>>>> T_RU
+>>>>>>>>>> NNIN
+>>>>>>>>>> G(ou
+>>>>>>>>>> tput
+>>>>>>>>>> ));
+>>>>>>>>>> +
+>>>>>>>>>> +		regmap_set_bits(dc->regs,
+>>>>>>>>>> VSDC_DISP_PANEL_CONFIG_EX(crtc->id),
+>>>>>>>>>> +				VSDC_DISP_PANEL_CONF
+>>>>>>>>>> IG_E
+>>>>>>>>>> X_CO
+>>>>>>>>>> MMIT
+>>>>>>>>>> );
+>>>>>>>>> Should the commit operation happen on
+>>>>>>>>> DC8000/DCUltraLite
+>>>>>>>>> too?
+>>>>>>>>> (By
+>>>>>>>>> writing to DcregFrameBufferConfig0.VALID).
+>>>>>>>>>
+>>>>>>>>> Many registers written has "Note: This field is double
+>>>>>>>>> buffered" in
+>>>>>>>>> the
+>>>>>>>>> DCUltraLite documentation.
+>>>>>>>>>
+>>>>>>>>> I suggest create a static function for commit -- write
+>>>>>>>>> to
+>>>>>>>>> the
+>>>>>>>>> corresponding commit bit on DC8200, and write to
+>>>>>>>>> DcregFrameBufferConfig0.VALID on DC8000/DCUltraLite.
+>>>>>>>> [a] There is no commit operation for DCUltra Lite.
+>>>>>>>> I'll not add a `VSDC_FB_CONFIG_VALID` macro. VALID
+>>>>>>>> (BIT(3))
+>>>>>>>> is a
+>>>>>>>> hardware-managed double-buffer status bit: hardware
+>>>>>>>> writes
+>>>>>>>> 1=PENDING
+>>>>>>>> when a new register set is ready and clears to 0=WORKING
+>>>>>>>> after
+>>>>>>>> the
+>>>>>>>> VBLANK copy. Software must never write it, and there is
+>>>>>>>> no
+>>>>>>>> polling
+>>>>>>>> use
+>>>>>>> It seems to be writable and controls whether register
+>>>>>>> buffering
+>>>>>>> is
+>>>>>>> enabled, see [1].
+>>>>>>>
+>>>>>>> The description of this bit in MA35D1 TRM says "This
+>>>>>>> ensures a
+>>>>>>> frame
+>>>>>>> will always start with a valid working set if this register
+>>>>>>> is
+>>>>>>> programmed last, which reduces the need for SW to wait for
+>>>>>>> the
+>>>>>>> start of
+>>>>>>> a VBLANK signal in order to ensure all states are loaded
+>>>>>>> before
+>>>>>>> the
+>>>>>>> next VBLANK", which indicates some kind of "committing
+>>>>>>> write",
+>>>>>>> although
+>>>>>>> the code at [1] seems to indicate that double buffering is
+>>>>>>> only
+>>>>>>> enabled
+>>>>>>> when bit is cleared.
+>>>>>>>
+>>>>>>> Anyway this bit should be programmable, and "Software must
+>>>>>>> never
+>>>>>>> write
+>>>>>>> it" contradicts with the MA35D1 TRM.
+>>>>>>>
+>>>>>>> Thanks,
+>>>>>>> Icenowy
+>>>>>>>
+>>>>>>> [1]
+>>>>>>> https://github.com/rockos-riscv/rockos-kernel/blob/rockos-v6.6.y/drivers/gpu/drm/eswin/es_dc_hw.c#L993
+>>>>>> Thank you for the correction. I'll add
+>>>>>> `#define VSDC_FB_CONFIG_VALID BIT(3)` to
+>>>>>> vs_primary_plane_regs.h
+>>>>>> and
+>>>>>> write it in `vs_primary_plane_commit()` for non-config_ex
+>>>>>> variants.
+>>>>>>>> case in the driver that requires a named constant. For
+>>>>>>>> non-
+>>>>>>>> config_ex
+>>>>>>>> variants, `vs_primary_plane_commit()` performs no commit
+>>>>>>>> operation —
+>>>>>>>> `VSDC_FB_CONFIG_ENABLE` (OUTPUT, BIT(0)) is set in
+>>>>>>>> `vs_crtc_atomic_enable()` and `VSDC_FB_CONFIG_RESET`
+>>>>>>>> (BIT(4))
+>>>>>>>> is
+>>>>>>>> set/cleared in the bridge enable/disable paths.
+>>>>> Well according to the driver code for DC8000 from Eswin, and
+>>>>> the
+>>>>> bit
+>>>>> named "VALID", maybe it should be cleared before programming
+>>>>> the
+>>>>> registers, and set after programming registers, to make the
+>>>>> process
+>>>>> of
+>>>>> programming registers atomic from the perspective of the
+>>>>> display
+>>>>> controller.
+>>>>>
+>>>>> Anyway this should require testing on real hardware to verify.
+>>>>>
+>>>>> By the way, I see multiple peripheral drivers for MA35D1 get
+>>>>> applied in
+>>>>> the torvalds tree, but the device tree is still only a
+>>>>> skeleton;
+>>>>> when
+>>>>> will the device tree be updated?
+>>>>>
+>>>>> Thanks,
+>>>>> Icenowy
+>>>> Thanks for pointing this out. I’ll perform tests on real hardware
+>>>> since
+>>>> I haven’t used this bit before.
+>>>>
+>>>> As for the device tree, we plan to update it comprehensively
+>>>> after
+>>>> completing several major IPs, with the goal of releasing the
+>>>> update
+>>>> later this year.
+>>> Well I bought a MA35D1 board (MYIR MYB-LMA35 + RGB LCD) earlier
+>>> this
+>>> year (and this is where I got the MA35D1 identification register
+>>> values). Hope I can have a chance to test this driver by myself.
+>>>
+>>> As MMC, Ethernet and USB support is all applied, maybe it's already
+>>> worthy to update the device tree ;-)
+>>>
+>>> Thanks,
+>>> Icenowy
+>> Yes you can!
+>>
+>> I have performed hardware validation on the MA35D1 and found that
+>> this
+>> bit acts as a manual latch for the shadow registers rather than an
+>> auto-clearing trigger, which clarifies the slightly ambiguous
+>> description in the TRM.
+>>
+>> Following your suggestion, I will align the implementation with
+>> ESWIN's
+>> DC8000 logic: setting the VALID bit at atomic_begin and clearing it
+> Ah do you mean clearing it at begin and setting it at flush?
+>
+> In the Eswin driver (which seems to be based on reference code by
+> Verisilicon, I saw similar driver code for DC8200),
+> dc_hw_enable_shadow_register() clears VALID bit when enable is true,
+> and all register setting sequences calls that function with enable =
+> true before setting and enable = false after setting.
+>
+> In addition, considering this bit is called "VALID" instead of
+> "INVALID", I think it represents that the DC will apply the new setting
+> when it's set and keep the current setting when it's cleared, so I
+> think it should be cleared before modeset sequence and be set after
+> modeset sequence.
+>
+> Thanks,
+> Icenowy
+Thanks for pointing that out. To clarify, the TRM defines the states for 
+this bit as:
+1: PENDING (Shadow registers are locked; incoming CPU writes are held in 
+the shadow buffer).
+0: WORKING (Shadow registers are unfrozen/live; configuration is committed).
+
+Regarding the Eswin reference, `dc_hw_enable_shadow_register(hw, false)` 
+actually writes a 1 to isolate the registers during a batch update, and 
+then transitions back to true (0) to flush them out.
+My hardware test confirms this sequence:
+
+- atomic_begin: We set VALID = 1. This safely freezes the current 
+scanout configuration so we can update multiple registers (like frame 
+addresses and pitches) without mid-frame tearing.
+- atomic_update: We write the new register values safely into the frozen 
+shadow space.
+- atomic_flush: We clear VALID = 0. This releases the shadow lock, 
+triggering the hardware to latch the whole batch atomically.
+
+If we reverse this logic—leaving the bit at 1 after the flush — the 
+hardware remains permanently stuck in the PENDING state, waiting to be 
+unfrozen, which starves the display engine and results in the blank 
+screen behavior I observed.
+>> at
+>> atomic_flush. My tests confirm this allows the hardware to latch the
+>> plane configuration correctly while avoiding the blank screen issues
+>> observed with other configurations.
+>>
+>> I am preparing the v2 patchset with this change, along with the
+>> requested commit splits, and will submit it shortly.🙂
+>>
+>>>>>>> ========= 8< ==========
+>>>>>>>
