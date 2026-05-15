@@ -1,126 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 223923176E0;
-	Fri, 15 May 2026 08:19:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077E53033FC;
+	Fri, 15 May 2026 08:20:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778833196; cv=none; b=JDygXwe6wq6YsK+OSPKVZ2VmTbS+9IF1hB3DiyMZf013TlcPGg5FPLQ582rq3GQI1NYJImv9nqtSu9/MiGApc92g2vNxQOd8In4WFR8Db1zMXpkUVZH/83vfNDmbFtyNhJ+eg4byu6kQVdmY15dJa5X/IKoheKcXEg1Zrlln9EM=
+	t=1778833243; cv=none; b=rpWUH6Adp7f5YeN9yO5pTRjXlR1cNR6d+l8rQCkzL/wDKa4+/T87IDrDUvtPbTI7lDRycTODZN4UBY6WPPxCtsf6FIyAwqT4VqHjpV0t40OSuXoYjolXav/SvThCZTXAC6iLwoPPBEW6gMqhan9NOFMNUZ+pYtjBZYLVsaHgIU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778833196; c=relaxed/simple;
-	bh=DVW3zGuRiAwtlxV6sDechZsTz70XEBaeqt1QBsRL1w0=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kHZQRcwj1PM8eeQaeisElMUCq+y/HCIkkl+dLThmVU4JXGPCDG+RWFtZxWP5VhsKr4+50tXqPd/VZT1kbXzVaJKXaM62Iiy5nU69mxhxuIJFzgPIWYNb/n21PraHgqj7MwMVP1ES4oKGp5IjElwtSzrQYiAKJsy4K9+wnQycNeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UuuPRH7I; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778833243; c=relaxed/simple;
+	bh=UXJ65w8VdygtsSiOLKk+/N2cT36BTANVHhYswQ/RPdQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LgM6kqqEAdGXY1g6RKea5OGbCNoOctGFpMgr748YXBqvOOT9A7fRn61zCRQ+8GAVzFY9PVpPshi4J6xSrtPs9YtGRIGupCg1AE7FgZMd+N5xjwIeW46BAR/AcZehdmikdR8p0j46GKkb/gRcfRJk3ATPweBbjVqtP6kSquvC1+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TdGnmdzU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UuuPRH7I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2A51C2BCB0;
-	Fri, 15 May 2026 08:19:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TdGnmdzU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27086C2BCB0;
+	Fri, 15 May 2026 08:20:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778833195;
-	bh=DVW3zGuRiAwtlxV6sDechZsTz70XEBaeqt1QBsRL1w0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=UuuPRH7IPZPbcK0LZ3o14TgqdgwVbURcINWZ6iyumNFirfL1QM18nouUZ9UYh1MFj
-	 R/WS9LHpZXAOV9PMamTfjgytnro7vboE8yEdnLAOMLQiJ3c26y9c6dEWwQpFeoGNTT
-	 yEUQ0SIhNAJRRSXQSKwXopJzNGoKhNqMBL6jNU7PbksZC+kNxxRAh7CBulneD2zQrS
-	 27bmrLzX5/Rk7PsTU+VL4uVGgaashbQkBIIAxEMjqq1xFZeb69fj33xor4T4dNhs0T
-	 Vw1QK+2c6gs2wtQ0BPdvqBW2UzKI88bH08yqkPATGZePNsA1AEzOnshraBvzndVEHg
-	 7mEs1tQA1aHPA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wNnlx-00000002bwo-3229;
-	Fri, 15 May 2026 08:19:53 +0000
-Date: Fri, 15 May 2026 09:23:08 +0100
-Message-ID: <87tss99j4j.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org,	devicetree@vger.kernel.org,	krzk+dt@kernel.org,
-	conor+dt@kernel.org, =?UTF-8?B?IkFuZHJlYXMgRsOkcmJlciI=?=
- <afaerber@suse.de>, Yu-Chun Lin <eleanor.lin@realtek.com>
-Subject: Re: [PATCH v2 14/17] arm64: dts: realtek: Add EL2 virtual timer interrupt
-In-Reply-To: <20260514231804.000CCC2BCB3@smtp.kernel.org>
-References: <20260514150945.3917510-15-maz@kernel.org>
-	<20260514231804.000CCC2BCB3@smtp.kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20201202; t=1778833242;
+	bh=UXJ65w8VdygtsSiOLKk+/N2cT36BTANVHhYswQ/RPdQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=TdGnmdzUXmRp4XyIhXkGePu9VPDDqo2q/PTIRIoTZP5jf7K1nghUkUrVS2LeWr3cN
+	 zLLo2vmjFdoh06UoDcKYF3sBtFA/5EcmZkdBVwNyLPS1Q8Vpj0FDYrITPX0N7qEEN1
+	 Vj5iCzRXFVwiDkvBdCdMp1VPQGLQ20deQTl/4PvQaowW7yJIgdjpgpAD8QgDcEUxIH
+	 GAeQ7s10v77TCsa2t+WnKFkElHQnyiKP+5pDIZxD6K86X2508Q65BeKAbXiVcg9RTw
+	 Ee5igPbNo+hJEBJIJhf60iuwwFqU9odPnKXKrSqgBtq5Zv2H2IW/q5mYhIYnJDtOSe
+	 He7EzmFGR7JlA==
+Date: Fri, 15 May 2026 10:20:40 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Peter Chen <peter.chen@kernel.org>, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-tegra@vger.kernel.org, linux-usb@vger.kernel.org
+Subject: Re: [PATCH v1 5/6] dt-bindings: phy: tegra: Document Nvidia Tegra
+ XMM6260 PHY
+Message-ID: <20260515-utopian-malamute-of-patience-367e8e@quoll>
+References: <20260511135703.62470-1-clamor95@gmail.com>
+ <20260511135703.62470-6-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: sashiko-reviews@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, afaerber@suse.de, eleanor.lin@realtek.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260511135703.62470-6-clamor95@gmail.com>
 
-On Fri, 15 May 2026 00:18:03 +0100,
-sashiko-bot@kernel.org wrote:
+On Mon, May 11, 2026 at 04:57:00PM +0300, Svyatoslav Ryhel wrote:
+> Document the XMM6260 PHY used by various devices based on the Nvidia Tegra
+> SoC, describing its usage
 > 
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] Incomplete implementation: missing update for Realtek Kent SoC family which specifies an incorrect EL2 virtual timer interrupt.
-> --
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  .../bindings/phy/nvidia,tegra-xmm6260.yaml    | 58 +++++++++++++++++++
+>  1 file changed, 58 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/phy/nvidia,tegra-xmm6260.yaml
 > 
-> commit 3b73638950a28ecc324e1c28fa4fb9fcb13d5567
-> Author: Marc Zyngier <maz@kernel.org>
-> 
-> arm64: dts: realtek: Add EL2 virtual timer interrupt
-> 
-> This commit adds the missing EL2 virtual timer interrupt to ARMv8.2-based
-> Realtek SoCs. It updates rtd16xx.dtsi by adding the fifth timer interrupt
-> with GIC_PPI 12.
-> 
-> > diff --git a/arch/arm64/boot/dts/realtek/rtd16xx.dtsi b/arch/arm64/boot/dts/realtek/rtd16xx.dtsi
-> > index 3a7f6e35b7f74..43b13d133c324 100644
-> > --- a/arch/arm64/boot/dts/realtek/rtd16xx.dtsi
-> > +++ b/arch/arm64/boot/dts/realtek/rtd16xx.dtsi
-> > @@ -105,7 +105,8 @@ timer {
-> >  		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>,
-> >  			     <GIC_PPI 14 IRQ_TYPE_LEVEL_LOW>,
-> >  			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>,
-> > -			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>;
-> > +			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>,
-> > +			     <GIC_PPI 12 IRQ_TYPE_LEVEL_LOW>;
-> >  	};
-> 
-> Does this update miss another Realtek ARMv8.2+ SoC file?
-> 
-> Looking at arch/arm64/boot/dts/realtek/kent.dtsi (used by RTD1501, RTD1861,
-> and RTD1920), the fifth timer interrupt is currently defined as
-> <GIC_PPI 9 IRQ_TYPE_LEVEL_HIGH>.
-> 
-> PPI 9 is the GIC vCPU maintenance interrupt, rather than the EL2 virtual
-> timer interrupt which should be PPI 12:
-> 
-> arch/arm64/boot/dts/realtek/kent.dtsi:
-> 	timer {
-> 		compatible = "arm,armv8-timer";
-> 		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>,
-> 			     <GIC_PPI 14 IRQ_TYPE_LEVEL_LOW>,
-> 			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>,
-> 			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>,
-> 			     <GIC_PPI  9 IRQ_TYPE_LEVEL_HIGH>;
-> 	};
-> 
-> Another patch in this series (clocksource/drivers/arm_arch_timer: Default
-> to EL2 virtual timer when running VHE) changes the driver to use the EL2
-> virtual timer by default on VHE systems.
-> 
-> If the kernel uses the EL2 virtual timer on these Realtek SoCs, could it
-> request the wrong interrupt (PPI 9 instead of PPI 12), causing timer
-> interrupts to not be delivered and resulting in a boot hang regression?
+> diff --git a/Documentation/devicetree/bindings/phy/nvidia,tegra-xmm6260.yaml b/Documentation/devicetree/bindings/phy/nvidia,tegra-xmm6260.yaml
+> new file mode 100644
+> index 000000000000..0346433c9772
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/nvidia,tegra-xmm6260.yaml
+> @@ -0,0 +1,58 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/phy/nvidia,tegra-xmm6260.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Nvidia Tegra PHY for XMM6260 modem
 
-That's definitely odd, as PPI9 is present in two interrupt specifiers
-(timer and GIC). Obviously, that's not possible.
+XMM6260 is Infineon modem, so any combination with nvidia,tegra is very
+confusing.
 
-I'll add a tentative fix for that in the next round. Maybe Andreas or
-Yu-Chun can check in the meantime?
+> +
+> +description:
+> +  A hardware configuration used in Tegra SoCs to provide proper interaction
+> +  between the application processor and the modem, as well as control over
+> +  one of the SoC's USB lines for the modem.
+> +
+> +maintainers:
+> +  - Svyatoslav Ryhel <clamor95@gmail.com>
+> +
+> +properties:
+> +  compatible:
+> +    const: nvidia,tegra-xmm6260
 
-	M.
+Also here.
 
--- 
-Jazz isn't dead. It just smells funny.
+What sort of phy is this? So far looks more like a software construct.
+
+Best regards,
+Krzysztof
+
