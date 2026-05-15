@@ -1,173 +1,114 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011004.outbound.protection.outlook.com [52.101.57.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED303F9278;
-	Fri, 15 May 2026 16:15:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.4
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778861707; cv=fail; b=tOrqMOLXzI7xt8JVZdENtlyh1VSfx0QYov9NnqE/9F6eopT+uAoU1lWsCIuhoPbHK5DawD2O9ttlTldXJB9Q8zC9NujuTUnH+nEWIM+02Wa4TXT3DK1ldBADGYjnmgjtdEl2xD9kgPHWA9NwkzXbQ8EwEVm4Y4f1eqpI0DiNaB0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778861707; c=relaxed/simple;
-	bh=7lO+Wdsup3gNVhA+/RSFu1dQBKkiMDkjxyWICH0k24g=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oDl7Xdtez70n0u7cTqtWUtRy09GdL0D32y7MnPKj2nn7OOWHKU0HRGA7P2b9cFEYMapCtAB9iDt2mJqB5+fpQpJh9Md9wSQ2RAc6m/6r0RI5XFJ383I62PI2d0W61HSB3niK0GbQF8IlrF6/xI7pX2IKQ6oVgkRr6Ayb70bZosI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=hSkZgrrW; arc=fail smtp.client-ip=52.101.57.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC6523FBB43;
+	Fri, 15 May 2026 16:15:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778861756; cv=none; b=dAlWQTJ2R2fsAHEOigzWgqrmSinY8t89vwRtAGYFz+YLYaukI1IpvyKoMh/PgNnk4FbCEgqxm8wTP/SARZPYbCDUvKa6KDWxDX7R/zzet5arIo8wQMhAKm+WxjOI2siQwz45mQsfW77d8Fy1MdfKlbYWL2kcg4IB3KpKi1v3LaA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778861756; c=relaxed/simple;
+	bh=Ls0zieI6n1a+GjiUULtE7wmeeaHH+lHJ7sjhkoqpTI0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=EwZzu7iuFa4rPdyRx7tKB2yAcLFSzDU+oi9vMPzZhXLfAiYo4fuCKbrwRo+Q68yF0FB+lFze1KsmZP3CU7ZbPAh7iAfqP6ftYxHxp4co1NNP4FY3R0pqXdd4FYzGG76pRQrCnKUSA+7SptAgpGwm4XN5DdluxG8kKPXlAyL1zqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eM8l/ioT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="hSkZgrrW"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sXoVxTKNqtG5Wb6MmohcQWHUy/YKcVLPnx9m5zos/6eUndVu5TQH6vANGirFqCXZVvhC55bVywXcCxh/yiyfRoP1uQEDyI/NRaMyEC4voQsaFfXJsz4dDfcqDJocpEmhbOg8YMpSaCdbEO7RJC/6WTBEEqn4R5bGYUmfzWfx2tCarl7p66BR2BI9T/I3Cx/ROCaW0bvQ3OmZlCEooe7v4waZbjrxc72WQiU7Tqnc4LhM6ZwgJ/xq7Fu+DV3e1gCyJn9k8A2UiktaMVj3f8jQdXge4Tw2bAPqk1Q+fG0FQjGgIQoQoDdbqZFok6BpApYY9NcN1us47Kq0hCwYvFg29Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IB03wv9KRlgE9h6lPTo/JOmjUJHFK8sYweNt7xy+H+c=;
- b=LiUo6laGZssbMJc4QTMt5ZOm+LDGTfq8Sf1WEZo/VIt9bqmn4HNC+Srq23ukWRHh3Lc3a4Y0VJjvAvn2CqRxTnYbnUIxrkd440SkeuP4pCbNKikESejBnxd/LPu7GB/Lwtl3+WeaYguLqw+pu9a7KR0WjSgdxpIK+zjKyA/cUxvteyJQa5pkVBYbG82z2EjrsYZuVqizPKAR6B628I3jn7mSYB/p49Lo1L9YwzpPv9LP26zrYWhcJ+hGaWAhWYTxtwhIHUsY5aXp5n4R5BP1hY74yxbhung2QXkjQwHdT3ZR1NrezoJspZvYexNIQITteqxXUiowa+Dfsj/dqIUBbQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IB03wv9KRlgE9h6lPTo/JOmjUJHFK8sYweNt7xy+H+c=;
- b=hSkZgrrWymWMKJvh29eHEwEQuGXTV0+MwWyzUgmIbLAtUf/iiFqUpvzEAXUeewWEPcIiqN/6FclTYv8B7XmDNGWHOln5fE0dz1pZ6ouKfHfSIo/YfttO1o5IeoDvJ6/Z6g4V1M31BnbDC6T7xFHiz8Q8rQJBr/F8t6GkDZx4Stw=
-Received: from BL0PR05CA0002.namprd05.prod.outlook.com (2603:10b6:208:91::12)
- by CH3PR10MB7138.namprd10.prod.outlook.com (2603:10b6:610:122::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Fri, 15 May
- 2026 16:14:59 +0000
-Received: from BL02EPF0001A101.namprd05.prod.outlook.com
- (2603:10b6:208:91:cafe::a) by BL0PR05CA0002.outlook.office365.com
- (2603:10b6:208:91::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.10 via Frontend Transport; Fri, 15
- May 2026 16:14:59 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- BL02EPF0001A101.mail.protection.outlook.com (10.167.241.132) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.13 via Frontend Transport; Fri, 15 May 2026 16:14:58 +0000
-Received: from DFLE201.ent.ti.com (10.64.6.59) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 15 May
- 2026 11:14:53 -0500
-Received: from DFLE208.ent.ti.com (10.64.6.66) by DFLE201.ent.ti.com
- (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 15 May
- 2026 11:14:53 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE208.ent.ti.com
- (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Fri, 15 May 2026 11:14:53 -0500
-Received: from localhost (mz02jj9v.dhcp.ti.com [128.247.81.246])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64FGEr8a573990;
-	Fri, 15 May 2026 11:14:53 -0500
-From: Sen Wang <sen@ti.com>
-To: Mark Brown <broonie@kernel.org>, Kuninori Morimoto
-	<kuninori.morimoto.gx@renesas.com>, Liam Girdwood <lgirdwood@gmail.com>, "Rob
- Herring" <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
-	<tiwai@suse.com>
-CC: <linux-sound@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Sen Wang <sen@ti.com>
-Subject: [PATCH v2 1/2] dt-bindings: sound: simple-card: add system-clock-id property
-Date: Fri, 15 May 2026 11:13:57 -0500
-Message-ID: <20260515161358.1462453-2-sen@ti.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260515161358.1462453-1-sen@ti.com>
-References: <20260515161358.1462453-1-sen@ti.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eM8l/ioT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48EE0C2BCC7;
+	Fri, 15 May 2026 16:15:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778861756;
+	bh=Ls0zieI6n1a+GjiUULtE7wmeeaHH+lHJ7sjhkoqpTI0=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=eM8l/ioTjTBlLE2elUng/c7wE0Nc0RQeRkkvJo1Knm7wijcU8WAKliRKAsUQsMbrk
+	 Aj29LKlg7xoQuYGO1PxWHxMsuttdwICyuDvoh5odyTq/LhseB5EWQFNxRbKsbi5c/D
+	 k1v/fEkpw+tD28c0SJIESxkv/R+tgSbXZtdtMUOiXOQKPKxQU6YPSB4+dyupww9ALx
+	 SjGbKRQs88cSHCNaAhJ8NCWrYrW0xJcJ8HGV477dYC+Eby+ebY4UJWWadfcJiw9Bsg
+	 fOxrxpPBp4oThtZW8H+8MSNhyfBZN7J/iNWysQxOwrIqKBA2seVbnCzUa2hVy3H1ql
+	 P2fGKoY+lRZVw==
+Message-ID: <ab821805-49dd-4b55-a77d-0f25e0247bff@kernel.org>
+Date: Fri, 15 May 2026 18:15:50 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A101:EE_|CH3PR10MB7138:EE_
-X-MS-Office365-Filtering-Correlation-Id: 958e8341-e007-47d9-866a-08deb29d1c11
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|7416014|376014|1800799024|3023799003|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	YHxzv3EqQ4RGXHA+sD75CHK3wVOMbWOK3/3stWmS9dXv4uAqhKwpmRimZsX0RhEDER8w8jHFdpU80L948Bo87hQchD84vRgeKEPZo/HUJoPgGIrKwZUmV58XABvNHIvmqdfnAmYrhG+n6aFmOK3LZYm5sIx/jNxI4pri2HeGYlk6ecrP9yIdg9VC+K87iEeM+8143doFHL74/luVuRS++lygCOALcl0ZWaKYETJ1UJkvUniGkuvhoN/ttOJmk3qMCJNsDS9mQFph+J6JlmBs+88XUy/SmGjZW8IL/2+Ubj3owH6UPMFBwMKWxIU35+BQahjvQQl3ao8l6hjlKmVAXFnwvvqBb4LDw4SeUc9B75A1bGEbzawNqSJH3UrtX6l5QvIrpNIDDcXoYc1NQAWNOQwiJBEr0TYo+/S08mL1M3usHvmIoAFrPw090t0f/7FcIPhik/MpozF2hh7ABsA4143KwAGIwOz7P0+j8LTkc2fWhRE3JbiBo4EfFNuiFzCCYh6sB5vitQSl8CltgIyx0WUpJR9649k1nFMZRyZPK8Ug2uk/EMS7HSi0PdYvBGobYOMC4p8doFXhq7d2ckfa7wxCO3+Bkl4stmh7ArzXuSppMRThp52ns04IPVdI6JMwCxVQrT3Zv1opJ66jWWBL/BxDyufFl5ehQgafhHgIEem33rhhBrI+koKOaUkDflqkCwDNOxdkG0CC476E7UKw4Stnhy7W+hcn3FcHqMlebMI=
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(376014)(1800799024)(3023799003)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	11sbnAt14ur9nPWQEAZLUJvoaqDryBgCJsAMONhXRxj1qQSHcXKNDXargeubsbYjPRL7oSHAemERorDHh1hS935ct5QW2FvrbwaH53SlOGQVOlXqUMyNxeu5onx7UNKoUC8hh8GD5y7yDqeTcnw/2JVKL/AOs1OdTixiy0fSimAAGkl/q7PFdrLiuM6oNnOO6rO9+pgP+JRBubOjTWHxl7UodRDDP1ZM3+z2bBvH7sNmZsKD0zMQRusuP/2D6yz/wDBv10KFVAAUAa5pdfccmn/UHYphvmK1xpjZozObjRrkQ3rao5mcW2m14zD+6+TzcO1fguVqSRGr2YGsqppOnYf1aT4QudLV5yc/dX8l5x1QGqwO3pSS8htEbSsW9Rz0JDEIhK5tLC+uAkM86MuDkasH78Zesh2KfrxdSyeEiJfCvqkel7wgtNvJNk5TSApI
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 16:14:58.2556
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 958e8341-e007-47d9-866a-08deb29d1c11
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0001A101.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR10MB7138
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 2/2] dt-bindings: net: updated interrupt type to be
+ active low, level triggered
+To: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>,
+ "parthiban.veerasooran@microchip.com" <parthiban.veerasooran@microchip.com>,
+ "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "edumazet@google.com" <edumazet@google.com>,
+ "kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com"
+ <pabeni@redhat.com>, "robh@kernel.org" <robh@kernel.org>,
+ "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <CY8PR02MB924916514D414B698DEB9A1883042@CY8PR02MB9249.namprd02.prod.outlook.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <CY8PR02MB924916514D414B698DEB9A1883042@CY8PR02MB9249.namprd02.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Document the new optional "system-clock-id" u32 property for cpu/codec
-sub-nodes in simple-audio-card and audio-graph-card.
+On 15/05/2026 18:13, Selvamani Rajagopal wrote:
+> According to OPEN Alliance 10BASE-T1x MACPHY Serial Interface (TC6)
+> specification, interrupt type is active low, level triggered interrupt.
+> 
+> Fixes: ac49b950bea9 ("dt-bindings: net: add Microchip's LAN865X 10BASE-T1S MACPHY")
 
-The property maps directly to the clk_id argument of
-snd_soc_dai_set_sysclk(). When absent the existing default of 0 is
-used, so no existing DT is affected. CPU and codec sub-nodes are
-parsed independently; each side may carry a different value to select
-different clock sources on the two DAIs within the same dai-link.
+Drop, there is no bug here. That is only an example. Otherwise explain
+how does this bug affect anything.
 
-Signed-off-by: Sen Wang <sen@ti.com>
----
-changes in V2:
-  - Newly added (V1 is RFC)
+Also, did you consider the board layout?
 
-diff --git a/Documentation/devicetree/bindings/sound/audio-graph-port.yaml b/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
-index d1cbfc5edd3a..8094a76b9b4a 100644
---- a/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
-+++ b/Documentation/devicetree/bindings/sound/audio-graph-port.yaml
-@@ -67,6 +67,8 @@ definitions:
-         $ref: simple-card.yaml#/definitions/system-clock-direction-out
-       system-clock-fixed:
-         $ref: simple-card.yaml#/definitions/system-clock-fixed
-+      system-clock-id:
-+        $ref: simple-card.yaml#/definitions/system-clock-id
- 
-       dai-format:
-         description: audio format.
-diff --git a/Documentation/devicetree/bindings/sound/simple-card.yaml b/Documentation/devicetree/bindings/sound/simple-card.yaml
-index a14716b2732f..47a02d340d5e 100644
---- a/Documentation/devicetree/bindings/sound/simple-card.yaml
-+++ b/Documentation/devicetree/bindings/sound/simple-card.yaml
-@@ -49,6 +49,14 @@ definitions:
-       single fixed sampling rate.
-     $ref: /schemas/types.yaml#/definitions/flag
- 
-+  system-clock-id:
-+    description:
-+      Selects which system clock to configure via set_sysclk(). Corresponds
-+      to the clk_id argument of snd_soc_dai_set_sysclk(). When absent the
-+      driver default (0) is used. CPU and codec sub-nodes are parsed
-+      independently so each side may carry a different value.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-   mclk-fs:
-     description: |
-       Multiplication factor between stream rate and codec mclk.
-@@ -135,6 +143,8 @@ definitions:
-         $ref: "#/definitions/system-clock-direction-out"
-       system-clock-fixed:
-         $ref: "#/definitions/system-clock-fixed"
-+      system-clock-id:
-+        $ref: "#/definitions/system-clock-id"
-     required:
-       - sound-dai
- 
+Best regards,
+Krzysztof
