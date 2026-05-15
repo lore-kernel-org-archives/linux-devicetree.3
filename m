@@ -1,177 +1,396 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2109.outbound.protection.partner.outlook.cn [139.219.17.109])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC63B3D3CE8;
-	Fri, 15 May 2026 10:26:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.109
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778840783; cv=fail; b=J9c8p7zs2Zyk/Ycwjkt01syErAjFpYZhZmttsHOPpczvg95DxD5/XF//0P5u8oVsq8atsSJIRRjg86KcpZPO79wxFcC6Fhsers+i75HyLoiX9aH6w9vTsmsS/uSSwnYPWfIj8ygHBMO9m9RTLEWxMJlb+J72/Xh9VvICodcmidw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778840783; c=relaxed/simple;
-	bh=SDmqboDBp4i5s3lk/kkrgZyWi5pXiYNROsuUMcNd2Y4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VbN32/nKUzGGwbrmkkHfiSYh+8twGVd2bwBiSVYZQF0El67JSeUc9AA/Mq+DBXTYpUicjB3Zl4SPwdaW5a952X/bMCEd5KNNItX7OhVl24lNTuVE6OIID+xSjAu2mB2xjWPTtOu/fMifIpJFOZ4p37PfwRHf7SVY7siNOM0F8/g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.109
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mUmPv0GOmwGlrtAw2OUWWO0fXiTK04YV1m8m9ZM+3r6VB7nj+e0e1nOTKQmORPXNC45gO18qD9oevOIRx4vfkNWYLiI2G2KtqtCDb6TfJ5JpmocozNp13TO9PXzshbIJODOTYlWrQU+l6De1Swyhy3VztRAy8IbfCJG9qHzuZ32u9KwVZ0ePsJJ5Hosp6oSB9RZHzx8F0KwP6EJ7Ng4s0GKnkhvU3i/8coA/zsWvq7twYEwk68mm0LGyFDW6pF94DEfh8R/YvgSmme0tldABzm/S3f6+dd6VQw1HCqK51U4qCciBEUlAHqajo4yxcyPkMe2T1uLnatzRSr2yQU5Hig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i58Pc5CwVd8OQPk0LcuS4wk2Mox8frr75P7uPZuLeRI=;
- b=E6DHQc23q6UEEJXpykfcdeTK+wgTJmlXBlwg3UOvg6mcYJhG79Z36SlvJrEyjzL4P+mlIZTq1k4C5Qd4VyLhPMcmCOCxcLsmBoyvqmok95S1APFlqKDUo9goQz94DoK3h2dM28niYrWjP5W2ZFtOyoOB2o3lpoN6sFgyXpQ4fzI7ZHsbw8Zqr7zSI9k45nBSOLHnbVBVPTeNxE93dKXF1OOTrCJ7o8LxnDp+bv6kx1GtowKDPDUuvmok9t6QW8yz6KDQEII/97iFxGs8Qmtm8pBBeH5kvKWNCAtmmfsya5+rL28islLz/UfkXia3oXU50k208TPX5Q9Wyd+DJe4AUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn (10.2.8.138) by
- NTZPR01MB1002.CHNPR01.prod.partner.outlook.cn (10.2.8.237) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.21; Fri, 15 May 2026 09:54:06 +0000
-Received: from NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
- ([fe80::d8e2:3f39:6ae7:bdf2]) by
- NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn ([fe80::d8e2:3f39:6ae7:bdf2%6])
- with mapi id 15.20.9913.012; Fri, 15 May 2026 09:54:06 +0000
-From: Xingyu Wu <xingyu.wu@starfivetech.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Xingyu Wu <xingyu.wu@starfivetech.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org
-Subject: [PATCH v2 1/2] dt-bindings: hwlock: Add StarFive JHB100 HW lock
-Date: Fri, 15 May 2026 17:53:56 +0800
-Message-Id: <20260515095357.75998-2-xingyu.wu@starfivetech.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260515095357.75998-1-xingyu.wu@starfivetech.com>
-References: <20260515095357.75998-1-xingyu.wu@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: NT0PR01CA0012.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510::7) To NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:8::10)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62FEA3C3422;
+	Fri, 15 May 2026 10:27:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778840836; cv=none; b=QFg7nkmsZn/ONtEu1RQzEy80PTmJVzWL8l1y5IVyixALMQ77M5oNJDSCDCbPNz8VPwgFJgomthr6+lCob59q8Z5fOELw8Obp94TMEKDAsDDhlcYkY7hQDux5TsrBXtkFYHZ+ZGgvNySiVKniwFWLCU2GbYgnx8md0+ai1FDrUCE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778840836; c=relaxed/simple;
+	bh=Qk9NZ7WqcT4v7DKQJ7GeuukI5VSD3ZxkWEeReTD+ruU=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HMvVhVtRTaaGnAnLTOJuUcwgWvThZRAtJXxIDXrTMYDpF7P+XRM/gbWMuRsLQO0iQeQIbF54YV5bYBOXfgqTfMJNFED/DBjcFNFl/Qc+Q+heLPbDVdGLcqVTmT2lO3Y47tyyZJYDekozNBDxThwSIEy0dctQt/blJLRk/K3JF9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=tRSmKduP; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="tRSmKduP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1778840834; x=1810376834;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Qk9NZ7WqcT4v7DKQJ7GeuukI5VSD3ZxkWEeReTD+ruU=;
+  b=tRSmKduPDmGdX85e0lCpXd3qjTCVpuqUpb8KBvm6KTIKbFd77vWehf45
+   GGXu7cU2xeBKg4cwRYQaQfQriSGbEumZ8Aww/VaS962c3yYoGGwlgCXPV
+   8POOjz+34BqRDeLkV1+pP+PF23kaLyqDr49S87I56imQSPBA+YWcRGTi3
+   BHPcIcG9Jm8+EAWWAJfL0dKXytDi0hWoLfCs7r+syfINT6qytvHWf4fGC
+   MqKmhy5yayDmFP2D0os7VVV4fnqhBzMpEeM959a3OYJhUiSDfgtatAHVJ
+   rFlrTfEfcGo470e0biEBB0+mZDQG05FUPN5ReieNk/5DVFCB4jPX6Bruw
+   w==;
+X-CSE-ConnectionGUID: Xy4zyqk9RhyxiOqI97z15Q==
+X-CSE-MsgGUID: e72aybRuTAKsM/JwMIIimQ==
+X-IronPort-AV: E=Sophos;i="6.23,236,1770620400"; 
+   d="asc'?scan'208";a="57968182"
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 15 May 2026 03:27:13 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Fri, 15 May 2026 03:27:12 -0700
+Received: from wendy (10.10.85.11) by chn-vm-ex04.mchp-main.com (10.10.85.152)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
+ Transport; Fri, 15 May 2026 03:27:09 -0700
+Date: Fri, 15 May 2026 11:26:31 +0100
+From: Conor Dooley <conor.dooley@microchip.com>
+To: Jia Wang <wangjia@ultrarisc.com>
+CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer
+ Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre
+ Ghiti <alex@ghiti.fr>, Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski
+	<brgl@kernel.org>, Samuel Holland <samuel.holland@sifive.com>, Paul Walmsley
+	<paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@sifive.com>, Conor Dooley
+	<conor@kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<linux-gpio@vger.kernel.org>
+Subject: Re: [PATCH 5/9] riscv: dts: ultrarisc: Add initial device tree for
+ UltraRISC DP1000
+Message-ID: <20260515-morbidity-rule-d8504467b252@wendy>
+References: <20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com>
+ <20260515-ultrarisc-pinctrl-v1-5-bf559589ea8a@ultrarisc.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: NTZPR01MB0956:EE_|NTZPR01MB1002:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5a45dc69-e683-40ee-d012-08deb267e75c
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|52116014|376014|38350700014|18002099003|22082099003|56012099003|3023799003;
-X-Microsoft-Antispam-Message-Info:
-	cYfqpK1flH9119U+4BzQZ6Y98Hn53GwG2Q30pgpVWMKtlvRyBLH49UcIbGtH6GTJdXYOYJNkXuFcX+hbNoDY21A2COCkTFU6aoaUaf5MR7jH+cdOVjDaiEIPfAvaqy2n6UesAMbgtC4vnUQeoOLN5OKHbmRarA4BuRWHmruA8VJNmJSTjxQus3x+d3e/ncplG4bM7n5JFesN2CrUx7ew6gadbJiX9xQCnuAm4iFU5a03rcpooaGI9ZADt4mZE/Ul69FVGk7F2qLs7l/2FE4bahJM7ctzpp9HOVbZpxnj0MQBfm0G9bLgPCNBBjXQ4G7+Ov3LGHFHmuy3/SM9eXJHBHXZebKp8vYEphZuHHbPhUweqWIUKH/IlM1//ZL0eYA+a7V2J+sY0NvcgfvArG4PTpZ3NIw5tNj392gwFjBHwHf39WMbzwpBCm9rP+GkjdKs05cPiFvvPma/s8cl6o4k8vYPun3hzf5EoKceLfZZ91+vATapB80DywveHckSCUVHpYXy5Y02T1EuFNZ4DclrxSDLUSOczDge9ZBDWRS1SkzJd/DadYR8ZRmJP6PqmPoR
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(52116014)(376014)(38350700014)(18002099003)(22082099003)(56012099003)(3023799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?qMR9BND2vBaJLxZPhTnJietu++V2felyTLHKb7dzxFZNc5F7nku07L+WflpM?=
- =?us-ascii?Q?yoxYCgiH23wdqIyM0cciTQcXxlIQo5ysOjs2H5UAVGq3H0rUJ9JkB/3ofybv?=
- =?us-ascii?Q?PnSu2AoNi89yIFMkCzPqS2dJK80lTRI8KZ4ulCuLixIdfvnQx9gB0KRzjolZ?=
- =?us-ascii?Q?+H5z9pXXLXJ2ZvJWAuC7FRhmF39KxhXWLQfNnNr0CemQo7aal7YiYPadqZ69?=
- =?us-ascii?Q?HUQmhgTcWVDJaRKX4YYYTvERYawVYAgIrsTHYOeGWdkpAlR86okOIu5zzG4o?=
- =?us-ascii?Q?TTUOGMv9J+bsXBFU4TqmOSXc80R+SaenmQtYLiM0z7e9B/ncU779iwDsXXDT?=
- =?us-ascii?Q?I3UhRIiUiM/im0CwgWAiihlM70BCOJhAACUI06T+3bs/yOvCClClxLrbVGpU?=
- =?us-ascii?Q?6XZb1uu9oamUB9Ud+88Qvn4ljId8e3gITWpkwcT2yCLx6nOJ96L2aJ59PyId?=
- =?us-ascii?Q?0Ydii6GP/h2Ld5VRW6CF7S3Nh/YrvgXOvodXuI07p7cd5X2BSsPbLCV7DyvL?=
- =?us-ascii?Q?Hf00IA9aOhDzUk7/eQK7vPU5u9uGsDRKtqPzm4ASeGm9nfGGInH35sRWEqP/?=
- =?us-ascii?Q?PMRpDGouXBqZI+7kJJtUNNHq/cqmDBIHSrxPOshTXv0tnImlIQrpqQAyW/JF?=
- =?us-ascii?Q?5+J5+KWZlKcC0jBYgZELVA0YNqg+f2m8JAxxQcPsbEYDlSfle9OWatyzP4OB?=
- =?us-ascii?Q?mY0BtPE43TV+TU885qm8wpxEx01Sfw978YvQ9E9nuC5K6ajGdH9jdwb2F6i5?=
- =?us-ascii?Q?H39T1v0jB2cJF31pxZ64KhIBVRkj9r4aFZUHkEfb/2xwfURd4tDnztLVrnHw?=
- =?us-ascii?Q?Uf8vq6dVgtj5giCcHjbjBlCVacZmmXl11FyTeUQiglvp56HzeMJR6I4CcB+M?=
- =?us-ascii?Q?IbNz8fRdhSynfzF6KG7+II4oOBfExSo0U3MAQkzy++EkgQOMLuEbfxfvPPWG?=
- =?us-ascii?Q?9ZIYnllO30d6ZjPT46jnFiueTy9WRa5pU+lbDP4Z20X40h7L2E2OOC0z4YEa?=
- =?us-ascii?Q?4y53Ys6wWyEcP090m//pNo2kYLTMQzTBXz7ZEVokow38UW6o+DgQB819beQr?=
- =?us-ascii?Q?wVH2AmOeib2C1UeE4puL7Q6rn6ou0RzksNONpRUEA/Ht07KLmav7s+odMn92?=
- =?us-ascii?Q?D4WwECxcj9cW1l8ITtKL53yyVOTrzR844ZkZAIkWN+qYdwYjODZ44McGeHsQ?=
- =?us-ascii?Q?DJCtgB4dXZ0816lu5bGIn9K1IoSJ+IhOz8gX4mcNQGQdDjLFEK2OnNjUtdaP?=
- =?us-ascii?Q?xEFgz38Md4t0P8MeHZ4R0m/X3JVle+IV/NMmp6EE1SqQGw65Ux/zwMffFwoJ?=
- =?us-ascii?Q?qLdf5iVkdY1PzjtgMA4eXLvE79dSS0+oeEHrACBp7ltQcEIW/nK9TjXW0BAI?=
- =?us-ascii?Q?EwAHz4railP7hChR4OGxYCOfzQTs1Sc+0nomE9crA95nKp0pBWXS1PfcV8aj?=
- =?us-ascii?Q?vvS0vZUbFoe6QPwgnNmWMh5U68RinaYW0y+3teJSjAzgu9r51rZkPNmeEa80?=
- =?us-ascii?Q?VTqu1eZuvKloSabJAZ9d7g7ngVvKfUPZC0UQRfSx35n9WshqpRIUqZ21X8DZ?=
- =?us-ascii?Q?RX1iakDqb1qsS29CiQFM91kadZykkEasbRg6RnrXIOFLV3Dx2zO5Kthl9Jm2?=
- =?us-ascii?Q?sqk+P5PP2BdzjbKPRdlKsSOKMSVyVf0zB22K2vUcpHecUJph+SzVnIitGiqP?=
- =?us-ascii?Q?evrjl2GKiFIPaAOL+lMEhbY07AkjQ6gkWGrVGva+Bi+0eHLTLDiKDnMcZ7q9?=
- =?us-ascii?Q?zEBEnRgJdig5ZffCgS0FEYQ5B9AMncA=3D?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5a45dc69-e683-40ee-d012-08deb267e75c
-X-MS-Exchange-CrossTenant-AuthSource: NTZPR01MB0956.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 09:54:06.8211
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NJ4lXe+HK/VEerWbKKLLUa1O9GXdCNkJyE2v0aWhqGzyqGQD20RyLg5ClIXeDLZSIhmqDeYk/nVePluD3bRK6w4YBDv5586th200Z3xm7+k=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: NTZPR01MB1002
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="YkSoZU4ahkAk+Ef4"
+Content-Disposition: inline
+In-Reply-To: <20260515-ultrarisc-pinctrl-v1-5-bf559589ea8a@ultrarisc.com>
 
-Add the new documentation of hardware spinlock for the StarFive JHB100 SoC.
+--YkSoZU4ahkAk+Ef4
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Xingyu Wu <xingyu.wu@starfivetech.com>
----
- .../hwlock/starfive,jhb100-hwspinlock.yaml    | 43 +++++++++++++++++++
- 1 file changed, 43 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/hwlock/starfive,jhb100-hwspinlock.yaml
+On Fri, May 15, 2026 at 09:18:01AM +0800, Jia Wang wrote:
+> Add the base device tree for the UltraRISC DP1000 SoC. It describes the
+> 8=D7CP100 CPU cores and essential SoC peripherals including the interrupt
+> controller, pinctrl, GPIO, UART, SPI, I2C, PCIe, GMAC and the DMA
+> controller.
+>=20
+> Link: https://lore.kernel.org/lkml/20260427-ultrarisc-pcie-v4-2-98935f6cd=
+fb5@ultrarisc.com/
+> Link: https://lore.kernel.org/lkml/20260429-ultrarisc-serial-v7-3-e475cce=
+9e274@ultrarisc.com/
+>=20
 
-diff --git a/Documentation/devicetree/bindings/hwlock/starfive,jhb100-hwspinlock.yaml b/Documentation/devicetree/bindings/hwlock/starfive,jhb100-hwspinlock.yaml
-new file mode 100644
-index 000000000000..af09aeb072b3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/hwlock/starfive,jhb100-hwspinlock.yaml
-@@ -0,0 +1,43 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/hwlock/starfive,jhb100-hwspinlock.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: StarFive JHB100 Hardware Spinlock
-+
-+maintainers:
-+  - Xingyu Wu <xingyu.wu@starfivetech.com>
-+
-+properties:
-+  compatible:
-+    const: starfive,jhb100-hwspinlock
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+  "#hwlock-cells":
-+    const: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - resets
-+  - "#hwlock-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    hwlock@13012000 {
-+        compatible = "starfive,jhb100-hwspinlock";
-+        reg = <0x13012000 0x400>;
-+        resets = <&sys0crg 0>;
-+        #hwlock-cells = <1>;
-+    };
--- 
-2.34.1
+No blank line here FYI.
 
+> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> ---
+>  MAINTAINERS                               |   1 +
+>  arch/riscv/boot/dts/ultrarisc/dp1000.dtsi | 851 ++++++++++++++++++++++++=
+++++++
+>  2 files changed, 852 insertions(+)
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index baaaa46b1a56..832e01898ae5 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -23087,6 +23087,7 @@ M:	Jia Wang <wangjia@ultrarisc.com>
+>  L:	linux-riscv@lists.infradead.org
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/riscv/ultrarisc.yaml
+> +F:	arch/riscv/boot/dts/ultrarisc/
+> =20
+>  RNBD BLOCK DRIVERS
+>  M:	Md. Haris Iqbal <haris.iqbal@ionos.com>
+> diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000.dtsi b/arch/riscv/boot/=
+dts/ultrarisc/dp1000.dtsi
+> new file mode 100644
+> index 000000000000..1aae53fc1a2b
+> --- /dev/null
+> +++ b/arch/riscv/boot/dts/ultrarisc/dp1000.dtsi
+> @@ -0,0 +1,851 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright(C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
+> + */
+> +
+> +/dts-v1/;
+> +
+> +/ {
+> +	compatible =3D "ultrarisc,dp1000";
+> +	#address-cells =3D <2>;
+> +	#size-cells =3D <2>;
+> +
+> +	cpus {
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +		timebase-frequency =3D <10000000>;
+> +
+> +		cpu0: cpu@0 {
+> +			compatible =3D "ultrarisc,cp100", "riscv";
+> +			reg =3D <0x0>;
+> +			device_type =3D "cpu";
+> +			riscv,isa =3D "rv64imafdcbh";
+
+Drop this property, its replacements (below) should be supported by all
+users.
+
+> +			riscv,isa-base =3D "rv64i";
+> +			riscv,isa-extensions =3D "i", "m", "a", "f", "d", "c", "b", "h",
+> +					       "zba", "zbb", "zbc", "zbs", "zicntr",
+> +					       "zicsr", "zifencei", "zihpm", "ziccif",
+> +					       "ziccrse", "ziccamoa", "za64rs", "zicbom",
+> +					       "zicbop", "zicboz", "zkt", "svade",
+> +					       "ssccptr", "sstvecd", "sscounterenw",
+> +					       "shcounterenw", "shtvala", "shvstvecd",
+> +					       "shvsatpa", "svvptc";
+> +			mmu-type =3D "riscv,sv48";
+> +			clock-frequency =3D <2000000000>;
+> +			/* L1 I-cache and D-cache:
+
+FYI, the comment format outside of drivers/net/ has a newline after /*.
+
+> +			 * block-size 64B
+> +			 * 4-way set associative, size 64KB
+> +			 * per-core.
+> +			 */
+> +			d-cache-block-size =3D <64>;
+> +			d-cache-sets =3D <256>;
+> +			d-cache-size =3D <0x10000>;
+> +			i-cache-block-size =3D <64>;
+> +			i-cache-sets =3D <256>;
+> +			i-cache-size =3D <0x10000>;
+> +			next-level-cache =3D <&l2_cache0>;
+> +			riscv,cbom-block-size =3D <64>;
+> +			riscv,cboz-block-size =3D <64>;
+> +
+> +			cpu0_intc: interrupt-controller {
+> +				compatible =3D "riscv,cpu-intc";
+> +				interrupt-controller;
+> +				#interrupt-cells =3D <0x01>;
+> +			};
+> +
+> +			l2_cache0: l2-cache {
+> +				/* L2 cache:
+> +				 * cache-unified, block-size 64B
+> +				 * 8-way set associative, size 512KB
+> +				 * per-core.
+> +				 */
+> +				compatible =3D "cache";
+> +				cache-block-size =3D <64>;
+> +				cache-level =3D <2>;
+> +				cache-size =3D <0x80000>;
+> +				cache-sets =3D <1024>;
+> +				cache-unified;
+> +				next-level-cache =3D <&cluster0_l3>;
+> +			};
+> +		};
+
+> +		cpu4: cpu@4 {
+> +			compatible =3D "ultrarisc,cp100", "riscv";
+> +			reg =3D <0x10>;
+
+Sashiko correctly pointed out that this is wrong.
+
+> +		cpu5: cpu@5 {
+> +			compatible =3D "ultrarisc,cp100", "riscv";
+> +			reg =3D <0x11>;
+
+And so is this.
+
+> +		cpu6: cpu@6 {
+> +			compatible =3D "ultrarisc,cp100", "riscv";
+> +			reg =3D <0x12>;
+
+And this.
+
+> +		cpu7: cpu@7 {
+> +			compatible =3D "ultrarisc,cp100", "riscv";
+> +			reg =3D <0x13>;
+
+And this.
+
+> +	clocks {
+
+I've commented on this in the cover letter.
+
+> +		device_clk: device_clk {
+> +			compatible =3D "fixed-clock";
+> +			clock-frequency =3D <62500000>;
+> +			#clock-cells =3D <0>;
+> +		};
+> +
+> +		timer_clk: timer_clk {
+> +			compatible =3D "fixed-clock";
+> +			clock-frequency =3D <50000000>;
+> +			#clock-cells =3D <0>;
+> +		};
+> +
+> +		csr_clk: csr_clk {
+> +			compatible =3D "fixed-clock";
+> +			clock-frequency =3D <250000000>;
+> +			#clock-cells =3D <0>;
+> +		};
+> +	};
+
+> +	memory@80000000 {
+> +		device_type =3D "memory";
+> +		reg =3D <0x00 0x80000000 0x4 0x00000000>;
+> +	};
+
+This looks incorrectly placed, memory should be in the board dts unless
+it is actually a part of the chip.
+
+> +
+> +	soc {
+> +		compatible =3D "simple-bus";
+> +		ranges;
+> +		#address-cells =3D <0x02>;
+> +		#size-cells =3D <0x02>;
+> +
+> +		clint: clint@8000000 {
+> +			compatible =3D "sifive,clint0", "riscv,clint0";
+
+Missing a device-specific clint compatible.
+
+> +			reg =3D <0x00 0x8000000 0x00 0x100000>;
+> +			interrupts-extended =3D <&cpu0_intc 0x03>, <&cpu0_intc 0x07>,
+> +					      <&cpu1_intc 0x03>, <&cpu1_intc 0x07>,
+> +					      <&cpu2_intc 0x03>, <&cpu2_intc 0x07>,
+> +					      <&cpu3_intc 0x03>, <&cpu3_intc 0x07>,
+> +					      <&cpu4_intc 0x03>, <&cpu4_intc 0x07>,
+> +					      <&cpu5_intc 0x03>, <&cpu5_intc 0x07>,
+> +					      <&cpu6_intc 0x03>, <&cpu6_intc 0x07>,
+> +					      <&cpu7_intc 0x03>, <&cpu7_intc 0x07>;
+> +		};
+> +
+> +		plic: plic@9000000 {
+> +			compatible =3D "ultrarisc,dp1000-plic", "ultrarisc,cp100-plic";
+> +			reg =3D <0x00 0x9000000 0x00 0x4000000>;
+> +			#interrupt-cells =3D <1>;
+> +			#address-cells =3D <0>;
+> +			interrupt-controller;
+> +			interrupts-extended =3D <&cpu0_intc 0xb>, <&cpu0_intc 0x9>, <&cpu0_in=
+tc 0xa>,
+> +					      <&cpu1_intc 0xb>, <&cpu1_intc 0x9>, <&cpu1_intc 0xa>,
+> +					      <&cpu2_intc 0xb>, <&cpu2_intc 0x9>, <&cpu2_intc 0xa>,
+> +					      <&cpu3_intc 0xb>, <&cpu3_intc 0x9>, <&cpu3_intc 0xa>,
+> +					      <&cpu4_intc 0xb>, <&cpu4_intc 0x9>, <&cpu4_intc 0xa>,
+> +					      <&cpu5_intc 0xb>, <&cpu5_intc 0x9>, <&cpu5_intc 0xa>,
+> +					      <&cpu6_intc 0xb>, <&cpu6_intc 0x9>, <&cpu6_intc 0xa>,
+> +					      <&cpu7_intc 0xb>, <&cpu7_intc 0x9>, <&cpu7_intc 0xa>;
+> +			riscv,ndev =3D <160>;
+> +		};
+> +
+> +		pmx0: pinmux@11081000 {
+> +			compatible =3D "ultrarisc,dp1000-pinctrl";
+> +			reg =3D <0x0 0x11081000  0x0 0x1000>;
+                                             ^^ extra space here btw
+
+> +			#pinctrl-cells =3D <2>;
+> +		};
+> +
+> +		spi0: spi@20320000 {
+> +			compatible =3D "snps,dw-apb-ssi";
+
+Missing a device-specific compatible here, can just fall abck to the
+dw-apb-ssi one, so no need to make driver changes.
+
+> +			reg =3D <0x0 0x20320000 0x0 0x1000>;
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			clocks =3D <&device_clk>;
+> +			interrupt-parent =3D <&plic>;
+> +			interrupts =3D <19>;
+> +			num-cs =3D <3>;
+> +		};
+
+> +
+> +		i2c0: i2c@20330000 {
+> +			compatible =3D "snps,designware-i2c";
+
+Same applies here.
+
+> +			reg =3D <0x0 0x20330000 0x0 0x100>;
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			clock-frequency =3D <400000>;
+> +			clocks =3D <&device_clk>;
+> +			interrupt-parent =3D <&plic>;
+> +			interrupts =3D <20>;
+> +		};
+
+> +
+> +		ethernet: ethernet@38000000 {
+> +			compatible =3D "snps,dwmac", "snps,dwmac-5.10a";
+
+Surprised this passes dtbs_check. Same here, you need a specific
+compatible.
+
+> +			reg =3D <0x00 0x38000000 0x00 0x1000000>;
+> +			clocks =3D <&csr_clk>;
+> +			clock-names =3D "stmmaceth";
+> +			interrupt-parent =3D <&plic>;
+> +			interrupts =3D <84>;
+> +			interrupt-names =3D "macirq";
+> +			local-mac-address =3D [ff ff ff ff ff ff];
+> +			max-speed =3D <1000>;
+> +			phy-mode =3D "rgmii-id";
+> +			snps,txpbl =3D <8>;
+> +			snps,rxpbl =3D <8>;
+> +		};
+> +
+> +		dmac: dma-controller@39000000 {
+> +			compatible =3D "snps,axi-dma-1.01a";
+
+Same thing here, I'd like to see a device specific compatible too.
+
+> +			reg =3D <0x0 0x39000000 0x0 0x400>;
+> +			clocks =3D <&device_clk>, <&device_clk>;
+
+This kind of thing is what makes me think that you're over simplifying
+your clock tree. Sure, maybe you do use the same clock here for both
+ports, but it's suspect.
+
+Cheers,
+Conor.
+
+> +			clock-names =3D "core-clk", "cfgr-clk";
+> +			#dma-cells =3D <1>;
+> +			dma-channels =3D <8>;
+> +			interrupt-parent =3D <&plic>;
+> +			interrupts =3D <152>;
+> +			snps,dma-masters =3D <1>;
+> +			snps,data-width =3D <4>;
+> +			snps,block-size =3D <512 512 512 512 512 512 512 512>;
+> +			snps,priority =3D <0 1 2 3 4 5 6 7>;
+> +			snps,axi-max-burst-len =3D <256>;
+> +		};
+> +	};
+> +};
+>=20
+> --=20
+> 2.34.1
+>=20
+
+--YkSoZU4ahkAk+Ef4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagb01wAKCRB4tDGHoIJi
+0vgLAP9uHie8ekeBr5yzJlkDGTFyTizgLiDpL9cTNsn7ocsDygD9HhxPN8tXjgAS
+sxt6qsr2Jb5SGx9eXn3M2MeK4NnzUw4=
+=p8DX
+-----END PGP SIGNATURE-----
+
+--YkSoZU4ahkAk+Ef4--
