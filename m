@@ -1,437 +1,175 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E06523EDACD;
-	Fri, 15 May 2026 21:40:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0D59637FF4C
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 21:52:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778881250; cv=none; b=miHE+4ScJcbFviGBc6gIsb2iPDLjZNxdx7gIFfVGd12nVARAMHJXMZvgdcN+xckHMMYS2hJPeIH8dJvCRTrAE2YPI4s8Joj6W+9VcabMdvqIuMUaoV2tLIoSp0RtX3MksiMq9JftKjpVSrIJsf+yzLggjZVighG+WQTCALswskc=
+	t=1778881923; cv=none; b=j4XygbLVFLFrHlccVi5PUofj5n09KJvtt5wCKcGcyCpggyx5L2ioFsbh2mL0fxevgMjHOTU0oasVZyna3e7Eoe08/mRSiwqygQTPnODTqxbCov/LAuQBkEoOONJUwU5eCWnVtFN1ObCsqqiMKrtQjNGOHmEfKBd0G0mTo6ukJuk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778881250; c=relaxed/simple;
-	bh=8JrnFI7Vl3CJ1BNRgrQrlFdwognOikguFtI62Ej8OLM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=V9fN7O1XfASgnX3FveEl/CQdCQP3CHVWXjCBE7Jhy06nidJ2WniL2qN9DxjpnBqPlAbWnhVuce55zxy17+N3D9YlvX/+byWGJIZas8AiGakTUBzOW0bftPmcIqXXCHwujbvQ65VZxU0muBU6EifhA9/V2sYcHfau6ZJMtUbYTnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=jLvNQsk3; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1778881923; c=relaxed/simple;
+	bh=w/NSnWPxO2pPbEQZolqzwkIT6PojPrmpavCWj0wqYGU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Q5xKBcnHKVsF0/AjK3pu5TCNFGlgObq+9yEgPzO5/F9RXisWGwFu4SCsH4ez7C2UvoRtZpRANpuuBvd3tNd4RB363KG4zbW6r70vV8BmjjFfseAVD3297sUKqpY27R/htOcxT3INYzSBKC9FYZ/1KuHVACMze7YhVHK+jRi9j2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=nCPJZG/y; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="jLvNQsk3"
-Received: from mail01.disroot.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 855212686F;
-	Fri, 15 May 2026 23:40:47 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id jp5F3DuGfee1; Fri, 15 May 2026 23:40:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1778881246; bh=8JrnFI7Vl3CJ1BNRgrQrlFdwognOikguFtI62Ej8OLM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=jLvNQsk318F1A8UeneCSqL4VTlKpE+Z4ePdrK4QRQ/+OwqcGLVJeRvVcpDahZSXhG
-	 oE533eJ0Pac0cpQvebaKk7I8Wz46ZYKdvaOX4yoiGChAEXC9fDwp/mOo+tmwPIReWN
-	 Emrrmr4wAS5XcKYNOa5cAjJgRDcOzCg3jSKuv8tQTMzAgaxpnoLcQeh/EEOJ0w8efO
-	 +JOOOygqpOa2nkysGbfHbicztuKERhChAseEabbLtd9wX05WBUBkRozoJDkgOykcz9
-	 PchE7e1qvps1lQ8SyVJRJ51jFZaNO8wcKFLe5baXR1zZ0S4iwAOU+ie7O+lB9qlAmj
-	 /OcyM2fyfKkqQ==
-From: Kaustabh Chakraborty <kauschluss@disroot.org>
-Date: Sat, 16 May 2026 03:08:42 +0530
-Subject: [PATCH v7 10/10] power: supply: add support for Samsung S2M series
- PMIC charger device
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="nCPJZG/y"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D48101BCB;
+	Fri, 15 May 2026 14:51:54 -0700 (PDT)
+Received: from ryzen.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 371183F85F;
+	Fri, 15 May 2026 14:51:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1778881920; bh=w/NSnWPxO2pPbEQZolqzwkIT6PojPrmpavCWj0wqYGU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=nCPJZG/ymBaYmcyERMbxLdIsHQoNGJJEJxaWy2/8f+2GnZIHlMZ+4GS5187VVvwoY
+	 IH2pP9VPYV9gZM+MXD1JIlOMUxGgO/ZclmXl4a955uYPg0wdQKJNQFcQLflkdYlRLM
+	 krq3CmKprRwSY7QjrDU8svR6X78wpShjn/zYDMXo=
+Date: Fri, 15 May 2026 23:51:12 +0200
+From: Andre Przywara <andre.przywara@arm.com>
+To: Chen-Yu Tsai <wens@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec
+ <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH] arm64: dts: allwinner: Cubie A5E: enable SPI flash
+Message-ID: <20260515235112.3d2a0c5e@ryzen.lan>
+In-Reply-To: <CAGb2v66drOyBgNU0hFo356MKTFnggNmyzrANok+-U31NzZCUEw@mail.gmail.com>
+References: <20260511221741.25888-1-andre.przywara@arm.com>
+	<CAGb2v64u4sqwiiQcEBg-XvmJ2DLEpSj-_AWNbp14RAp-GXP7OA@mail.gmail.com>
+	<ee9fca66-d079-4ad7-9cb3-5077e8a4f6d6@arm.com>
+	<CAGb2v66drOyBgNU0hFo356MKTFnggNmyzrANok+-U31NzZCUEw@mail.gmail.com>
+Organization: Arm Ltd.
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.31; x86_64-slackware-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260516-s2mu005-pmic-v7-10-73f9702fb461@disroot.org>
-References: <20260516-s2mu005-pmic-v7-0-73f9702fb461@disroot.org>
-In-Reply-To: <20260516-s2mu005-pmic-v7-0-73f9702fb461@disroot.org>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, MyungJoo Ham <myungjoo.ham@samsung.com>, 
- Chanwoo Choi <cw00.choi@samsung.com>, Sebastian Reichel <sre@kernel.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Nam Tran <trannamatk@gmail.com>, 
- =?utf-8?q?=C5=81ukasz_Lebiedzi=C5=84ski?= <kernel@lvkasz.us>, 
- Yassine Oudjana <y.oudjana@protonmail.com>
-Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
- linux-samsung-soc@vger.kernel.org, linux-rtc@vger.kernel.org, 
- linux-doc@vger.kernel.org, Kaustabh Chakraborty <kauschluss@disroot.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Add a driver for charger controllers found in certain Samsung S2M series
-PMICs. The driver has very basic support for the device, with only
-charger online reporting working, and USB 2.0 device negotiations
-working.
+On Sat, 16 May 2026 00:12:17 +0800
+Chen-Yu Tsai <wens@kernel.org> wrote:
 
-The driver includes initial support for the S2MU005 PMIC charger.
+> On Wed, May 13, 2026 at 5:19=E2=80=AFPM Andre Przywara <andre.przywara@ar=
+m.com> wrote:
+> >
+> > Hi Chen-Yu,
+> >
+> > thanks for chipping in!
+> >
+> > On 5/13/26 07:21, Chen-Yu Tsai wrote: =20
+> > > Hi,
+> > >
+> > > On Tue, May 12, 2026 at 6:18=E2=80=AFAM Andre Przywara <andre.przywar=
+a@arm.com> wrote: =20
+> > >>
+> > >> The Cubie A5E board comes with 16MiB of SPI NOR flash.
+> > >>
+> > >> Enable the SPI0 DT node and describe the configuration.
+> > >>
+> > >> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+> > >> ---
+> > >>   .../boot/dts/allwinner/sun55i-a527-cubie-a5e.dts  | 15 +++++++++++=
+++++
+> > >>   1 file changed, 15 insertions(+)
+> > >>
+> > >> diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts=
+ b/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts
+> > >> index bfdf1728cd14b..7ad22fc85d1fd 100644
+> > >> --- a/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts
+> > >> +++ b/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts
+> > >> @@ -344,6 +344,21 @@ &r_pio {
+> > >>          vcc-pm-supply =3D <&reg_aldo3>;
+> > >>   };
+> > >>
+> > >> +&spi0  {
+> > >> +       pinctrl-names =3D "default";
+> > >> +       pinctrl-0 =3D <&spi0_pc_pins>, <&spi0_cs0_pc_pin>,
+> > >> +                   <&spi0_hold_pc_pin>, <&spi0_wp_pc_pin>; =20
+> > >
+> > > This whole thing needs to be an overlay. The HOLD and WP pins
+> > > conflict with eMMC usage, so it seems that Radxa only populates
+> > > one or the other.
+> > >
+> > > If you look at the pictures on their official website, you'll see the
+> > > SPI NOR chip populated, but not the eMMC chip. On the linux-sunxi wiki
+> > > page, you'll see the opposite. =20
+> >
+> > Well, I have a hard time spotting any actual eMMC SKUs in the shops any=
+way.
+> > But you are right, the hold and WP pins conflict with eMMC, whereas the
+> > other pins are not.
+> > =20
+> > > And you probably want to enable QSPI, like Sashiko mentioned. =20
+> >
+> > Well, in the interest of keeping this simple and enabling the usage of
+> > SPI flash for all the users out there, I'd rather drop the extra pins.
+> > This is mostly really useful for booting the firmware, maybe loading a
+> > tiny kernel or other data once, so performance is not a big concern in
+> > this use case. The BootROM surely does not use QSPI. =20
+>=20
+> Given that the pins are tied on physically, if someone then enables mmc2
+> for a potentially present eMMC, the two pins could be toggled by the
+> MMC controller, causing the flash to misbehave. I'm slightly concerned
+> about this possibility.
 
-Co-developed-by: Łukasz Lebiedziński <kernel@lvkasz.us>
-Signed-off-by: Łukasz Lebiedziński <kernel@lvkasz.us>
-Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
----
- drivers/power/supply/Kconfig       |  10 ++
- drivers/power/supply/Makefile      |   1 +
- drivers/power/supply/s2m-charger.c | 313 +++++++++++++++++++++++++++++++++++++
- 3 files changed, 324 insertions(+)
+That's a good point, but that means it's really a hardware design
+issue: you cannot have SPI together with eMMC on this board.
 
-diff --git a/drivers/power/supply/Kconfig b/drivers/power/supply/Kconfig
-index 83392ed6a8da9..899c929f31620 100644
---- a/drivers/power/supply/Kconfig
-+++ b/drivers/power/supply/Kconfig
-@@ -856,6 +856,16 @@ config CHARGER_RK817
- 	help
- 	  Say Y to include support for Rockchip RK817 Battery Charger.
- 
-+config CHARGER_S2M
-+	tristate "Samsung S2M series PMIC battery charger support"
-+	depends on EXTCON_S2M
-+	depends on MFD_SEC_CORE
-+	help
-+	  This option enables support for charger devices found in
-+	  certain Samsung S2M series PMICs, such as the S2MU005. These
-+	  devices provide USB power supply information and also required
-+	  for USB OTG role switching.
-+
- config CHARGER_SMB347
- 	tristate "Summit Microelectronics SMB3XX Battery Charger"
- 	depends on I2C
-diff --git a/drivers/power/supply/Makefile b/drivers/power/supply/Makefile
-index 7ee839dca7f33..738814650ea0f 100644
---- a/drivers/power/supply/Makefile
-+++ b/drivers/power/supply/Makefile
-@@ -107,6 +107,7 @@ obj-$(CONFIG_CHARGER_BQ25890)	+= bq25890_charger.o
- obj-$(CONFIG_CHARGER_BQ25980)	+= bq25980_charger.o
- obj-$(CONFIG_CHARGER_BQ256XX)	+= bq256xx_charger.o
- obj-$(CONFIG_CHARGER_RK817)	+= rk817_charger.o
-+obj-$(CONFIG_CHARGER_S2M)	+= s2m-charger.o
- obj-$(CONFIG_CHARGER_SMB347)	+= smb347-charger.o
- obj-$(CONFIG_CHARGER_TPS65090)	+= tps65090-charger.o
- obj-$(CONFIG_CHARGER_TPS65217)	+= tps65217_charger.o
-diff --git a/drivers/power/supply/s2m-charger.c b/drivers/power/supply/s2m-charger.c
-new file mode 100644
-index 0000000000000..4d1f2c2c71446
---- /dev/null
-+++ b/drivers/power/supply/s2m-charger.c
-@@ -0,0 +1,313 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Battery Charger Driver for Samsung S2M series PMICs.
-+ *
-+ * Copyright (c) 2015 Samsung Electronics Co., Ltd
-+ * Copyright (c) 2026 Kaustabh Chakraborty <kauschluss@disroot.org>
-+ * Copyright (c) 2026 Łukasz Lebiedziński <kernel@lvkasz.us>
-+ */
-+
-+#include <linux/devm-helpers.h>
-+#include <linux/extcon.h>
-+#include <linux/mfd/samsung/core.h>
-+#include <linux/mfd/samsung/s2mu005.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_graph.h>
-+#include <linux/platform_device.h>
-+#include <linux/power_supply.h>
-+#include <linux/regmap.h>
-+
-+struct s2m_chgr {
-+	struct device *dev;
-+	struct regmap *regmap;
-+	struct power_supply *psy;
-+	struct extcon_dev *extcon;
-+	struct work_struct extcon_work;
-+	struct notifier_block extcon_nb;
-+};
-+
-+static int s2mu005_chgr_get_online(struct s2m_chgr *priv, int *value)
-+{
-+	u32 val;
-+	int ret;
-+
-+	ret = regmap_read(priv->regmap, S2MU005_REG_CHGR_STATUS0, &val);
-+	if (ret) {
-+		dev_err(priv->dev, "failed to read register (%d)\n", ret);
-+		return ret;
-+	}
-+
-+	*value = !!(val & S2MU005_CHGR_CHG);
-+
-+	return 0;
-+}
-+
-+static void s2mu005_chgr_get_usb_type(struct s2m_chgr *priv, int *value)
-+{
-+	if (extcon_get_state(priv->extcon, EXTCON_CHG_USB_CDP) > 0)
-+		*value = POWER_SUPPLY_USB_TYPE_CDP;
-+	else if (extcon_get_state(priv->extcon, EXTCON_CHG_USB_SDP) > 0)
-+		*value = POWER_SUPPLY_USB_TYPE_SDP;
-+	else if (extcon_get_state(priv->extcon, EXTCON_CHG_USB_DCP) > 0)
-+		*value = POWER_SUPPLY_USB_TYPE_DCP;
-+	else
-+		*value = POWER_SUPPLY_USB_TYPE_UNKNOWN;
-+}
-+
-+static int s2mu005_chgr_get_property(struct power_supply *psy,
-+				     enum power_supply_property psp,
-+				     union power_supply_propval *val)
-+{
-+	struct s2m_chgr *priv = power_supply_get_drvdata(psy);
-+	int ret;
-+
-+	switch (psp) {
-+	case POWER_SUPPLY_PROP_ONLINE:
-+		ret = s2mu005_chgr_get_online(priv, &val->intval);
-+		if (ret)
-+			return ret;
-+		break;
-+	case POWER_SUPPLY_PROP_USB_TYPE:
-+		s2mu005_chgr_get_usb_type(priv, &val->intval);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int s2mu005_chgr_mode_set_host(struct s2m_chgr *priv)
-+{
-+	int ret;
-+
-+	/* set mode to OTG */
-+	ret = regmap_update_bits(priv->regmap, S2MU005_REG_CHGR_CTRL0,
-+				 S2MU005_CHGR_OP_MODE,
-+				 FIELD_PREP(S2MU005_CHGR_OP_MODE,
-+					    S2MU005_CHGR_OP_MODE_OTG));
-+	if (ret) {
-+		dev_err(priv->dev, "failed to set OTG mode (%d)\n", ret);
-+		return ret;
-+	}
-+
-+	/* set boost frequency to 2MHz */
-+	ret = regmap_update_bits(priv->regmap, S2MU005_REG_CHGR_CTRL11,
-+				 S2MU005_CHGR_OSC_BOOST,
-+				 FIELD_PREP(S2MU005_CHGR_OSC_BOOST,
-+					    S2MU005_CHGR_OSC_BOOST_2MHZ));
-+	if (ret) {
-+		dev_err(priv->dev, "failed to set boost frequency (%d)\n", ret);
-+		return ret;
-+	}
-+
-+	/* set OTG current limit to 1.5 A */
-+	ret = regmap_update_bits(priv->regmap, S2MU005_REG_CHGR_CTRL4,
-+				 S2MU005_CHGR_OTG_OCP,
-+				 FIELD_PREP(S2MU005_CHGR_OTG_OCP,
-+					    S2MU005_CHGR_OTG_OCP_1P5A));
-+	if (ret) {
-+		dev_err(priv->dev, "failed to set OTG current limit (%d)\n", ret);
-+		return ret;
-+	}
-+
-+	/* VBUS switches are OFF when OTG over-current happens */
-+	ret = regmap_set_bits(priv->regmap, S2MU005_REG_CHGR_CTRL4,
-+			      S2MU005_CHGR_OTG_OCP_OFF);
-+	if (ret) {
-+		dev_err(priv->dev, "failed to set OTG OCP switch (%d)\n", ret);
-+		return ret;
-+	}
-+
-+	/* set OTG voltage to 5.1 V */
-+	ret = regmap_update_bits(priv->regmap, S2MU005_REG_CHGR_CTRL5,
-+				 S2MU005_CHGR_VMID_BOOST,
-+				 FIELD_PREP(S2MU005_CHGR_VMID_BOOST,
-+					    S2MU005_CHGR_VMID_BOOST_5P1V));
-+	if (ret) {
-+		dev_err(priv->dev, "failed to set OTG voltage (%d)\n", ret);
-+		return ret;
-+	}
-+
-+	/* turn on OTG */
-+	ret = regmap_update_bits(priv->regmap, S2MU005_REG_CHGR_CTRL15,
-+				 S2MU005_CHGR_OTG_EN,
-+				 FIELD_PREP(S2MU005_CHGR_OTG_EN,
-+					    S2MU005_CHGR_OTG_EN_ON));
-+	if (ret) {
-+		dev_err(priv->dev, "failed to turn on OTG (%d)\n", ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int s2mu005_chgr_mode_set_charger(struct s2m_chgr *priv)
-+{
-+	int ret;
-+
-+	/* first reset to mode 0 */
-+	ret = regmap_clear_bits(priv->regmap, S2MU005_REG_CHGR_CTRL0,
-+				S2MU005_CHGR_OP_MODE);
-+	if (ret) {
-+		dev_err(priv->dev, "failed to reset opmode (%d)\n", ret);
-+		return ret;
-+	}
-+
-+	/* wait for the charger to settle before switching to charging mode */
-+	msleep(50);
-+	/* then set to charging mode */
-+	ret = regmap_update_bits(priv->regmap, S2MU005_REG_CHGR_CTRL0,
-+				 S2MU005_CHGR_OP_MODE,
-+				 FIELD_PREP(S2MU005_CHGR_OP_MODE,
-+					    S2MU005_CHGR_OP_MODE_CHG));
-+	if (ret) {
-+		dev_err(priv->dev, "failed to set opmode to charging (%d)\n", ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int s2mu005_chgr_mode_unset(struct s2m_chgr *priv)
-+{
-+	int ret;
-+
-+	/* turn off OTG */
-+	ret = regmap_clear_bits(priv->regmap, S2MU005_REG_CHGR_CTRL15,
-+				S2MU005_CHGR_OTG_EN);
-+	if (ret) {
-+		dev_err(priv->dev, "failed to turn off OTG (%d)\n", ret);
-+		return ret;
-+	}
-+
-+	/* reset operation mode */
-+	ret = regmap_clear_bits(priv->regmap, S2MU005_REG_CHGR_CTRL0,
-+				S2MU005_CHGR_OP_MODE);
-+	if (ret) {
-+		dev_err(priv->dev, "failed to reset opmode (%d)\n", ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static void s2mu005_chgr_extcon_work(struct work_struct *work)
-+{
-+	struct s2m_chgr *priv = container_of(work, struct s2m_chgr, extcon_work);
-+
-+	if (extcon_get_state(priv->extcon, EXTCON_USB_HOST) > 0)
-+		s2mu005_chgr_mode_set_host(priv);
-+	else if (extcon_get_state(priv->extcon, EXTCON_USB) > 0)
-+		s2mu005_chgr_mode_set_charger(priv);
-+	else
-+		s2mu005_chgr_mode_unset(priv);
-+
-+	power_supply_changed(priv->psy);
-+}
-+
-+static const enum power_supply_property s2mu005_chgr_properties[] = {
-+	POWER_SUPPLY_PROP_ONLINE,
-+	POWER_SUPPLY_PROP_USB_TYPE,
-+};
-+
-+static const struct power_supply_desc s2mu005_chgr_psy_desc = {
-+	.name = "s2mu005-charger",
-+	.type = POWER_SUPPLY_TYPE_USB,
-+	.properties = s2mu005_chgr_properties,
-+	.num_properties = ARRAY_SIZE(s2mu005_chgr_properties),
-+	.get_property = s2mu005_chgr_get_property,
-+	.usb_types = BIT(POWER_SUPPLY_USB_TYPE_CDP) |
-+		     BIT(POWER_SUPPLY_USB_TYPE_SDP) |
-+		     BIT(POWER_SUPPLY_USB_TYPE_DCP) |
-+		     BIT(POWER_SUPPLY_USB_TYPE_UNKNOWN),
-+};
-+
-+static int s2m_chgr_extcon_notifier(struct notifier_block *nb,
-+					unsigned long event, void *param)
-+{
-+	struct s2m_chgr *priv = container_of(nb, struct s2m_chgr, extcon_nb);
-+
-+	schedule_work(&priv->extcon_work);
-+
-+	return NOTIFY_OK;
-+}
-+
-+static int s2m_chgr_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct sec_pmic_dev *pmic_drvdata = dev_get_drvdata(dev->parent);
-+	struct s2m_chgr *priv;
-+	struct device_node *extcon_node __free(device_node) = NULL;
-+	struct power_supply_config psy_cfg = {};
-+	const struct power_supply_desc *psy_desc;
-+	work_func_t extcon_work_func;
-+	int ret;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	platform_set_drvdata(pdev, priv);
-+	priv->dev = dev;
-+	priv->regmap = pmic_drvdata->regmap_pmic;
-+
-+	switch (platform_get_device_id(pdev)->driver_data) {
-+	case S2MU005:
-+		psy_desc = &s2mu005_chgr_psy_desc;
-+		extcon_work_func = s2mu005_chgr_extcon_work;
-+		break;
-+	default:
-+		return dev_err_probe(dev, -ENODEV,
-+				     "device type %d is not supported by driver\n",
-+				     pmic_drvdata->device_type);
-+	}
-+
-+	/* MUIC is mandatory. If unavailable, request probe deferral */
-+	extcon_node = of_get_child_by_name(dev->parent->of_node, "muic");
-+	if (!extcon_node)
-+		return dev_err_probe(dev, -ENODEV, "MUIC node required but not found\n");
-+
-+	priv->extcon = extcon_find_edev_by_node(extcon_node);
-+	if (IS_ERR(priv->extcon))
-+		return -EPROBE_DEFER;
-+
-+	psy_cfg.drv_data = priv;
-+	psy_cfg.fwnode = dev_fwnode(dev->parent);
-+	priv->psy = devm_power_supply_register(dev, psy_desc, &psy_cfg);
-+	if (IS_ERR(priv->psy))
-+		return dev_err_probe(dev, PTR_ERR(priv->psy),
-+				     "failed to register power supply subsystem\n");
-+
-+	ret = devm_work_autocancel(dev, &priv->extcon_work, extcon_work_func);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to initialize extcon work\n");
-+
-+	priv->extcon_nb.notifier_call = s2m_chgr_extcon_notifier;
-+	ret = devm_extcon_register_notifier_all(dev, priv->extcon, &priv->extcon_nb);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to register extcon notifier\n");
-+
-+	return 0;
-+}
-+
-+static const struct platform_device_id s2m_chgr_id_table[] = {
-+	{ "s2mu005-charger", S2MU005 },
-+	{ /* sentinel */ },
-+};
-+MODULE_DEVICE_TABLE(platform, s2m_chgr_id_table);
-+
-+static struct platform_driver s2m_chgr_driver = {
-+	.driver = {
-+		.name = "s2m-charger",
-+	},
-+	.probe = s2m_chgr_probe,
-+	.id_table = s2m_chgr_id_table,
-+};
-+module_platform_driver(s2m_chgr_driver);
-+
-+MODULE_DESCRIPTION("Battery Charger Driver For Samsung S2M Series PMICs");
-+MODULE_AUTHOR("Kaustabh Chakraborty <kauschluss@disroot.org>");
-+MODULE_AUTHOR("Łukasz Lebiedziński <kernel@lvkasz.us>");
-+MODULE_LICENSE("GPL");
+I don't know if Radxa ships the eMMC SKUs without SPI flash, I
+will try to query Tom Cubie about this.
 
--- 
-2.53.0
+I would prefer to go with SPI flash, at least for now: I think that's
+what most users have, and the eMMC versions are rare so far? Since we
+don't have an eMMC node in the DT anyway, that should be fine for now.
+If someone adds eMMC support later, we would need to figure this out.
+We could mark one as disabled, and leave it up to users (or U-Boot)
+to decide which to enable.
+On the H6 there is a similar problem: PC5 is both SPI0_CS and MMC2_CMD,
+so on the PineH64 we disable the SPI flash, in favour of eMMC, which is
+more useful for users (but sunxi-fel SPI access and U-Boot SPI loading
+work nevertheless). But given the apparent prevalence of SPI boards vs.
+those with eMMC for the Cubie A5E, I would go with SPI on this one.
+
+Does that make sense? Any thoughts?
+
+Cheers,
+Andre
+
+> > And as you say, if people are really interested in the last bit of
+> > performance, they can use an overlay.
+> >
+> > Cheers,
+> > Andre
+> > =20
+> > >
+> > >
+> > > ChenYu
+> > >
+> > > =20
+> > >> +       status =3D "okay";
+> > >> +
+> > >> +       flash@0 {
+> > >> +               compatible =3D "winbond,w25q128", "jedec,spi-nor";
+> > >> +               reg =3D <0>;
+> > >> +               spi-max-frequency =3D <40000000>;
+> > >> +               #address-cells =3D <1>;
+> > >> +               #size-cells =3D <1>;
+> > >> +       };
+> > >> +};
+> > >> +
+> > >>   &uart0 {
+> > >>          pinctrl-names =3D "default";
+> > >>          pinctrl-0 =3D <&uart0_pb_pins>;
+> > >> --
+> > >> 2.46.4
+> > >> =20
+> > > =20
+> > =20
+>=20
 
