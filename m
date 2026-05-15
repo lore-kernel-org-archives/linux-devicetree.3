@@ -1,277 +1,273 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1A03B6340
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 14:42:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2F1A33F593
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 14:43:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778856139; cv=none; b=XrwDylimEvOGzdW7If78QWV7RcNvGicuQOBC0p93BR5L4+OLRwBj/RFiD22dbI+1k9HmPRVVnp5PgdNLxNG7SZVzELv+rr1QlHRyH3YTuDown6DTJ+2uDgeIbvK9DB96YPjHQkn+O+Ob8DYBb+57Bce904IUBvVCxFVJ7KYxpE8=
+	t=1778856202; cv=none; b=E+gs68AOoRNV2/4S4a64S4CJTJY1AUqn5xEP6lQNl23/KxLQEWeOO8mTt3X5yAreQT7H2gZN7nqBMaX9btTzSvPBzKNogsdQRS9p+De+RCE36w7CljxabNUcLVyIgatS/gHOpUjCQW5yWHqlbivBp9z1Pj7EZ6XgaRZ2gWrW/Fo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778856139; c=relaxed/simple;
-	bh=LZeBCl2ciYkr6Byb2/1HqNidFlfZdsC9qLxWJVky7I4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=phbwe27Jf4EGKRAhIWeBLa+7N53Y7wAfLv9feK3f83julxx+H0E9lRRlp/IrbtFNyqt9jUcJCtF8Rlzsz5Fo71IGhi7ppOzpwqw+qC40RA9tZWw4P2LtdeQtqjS43St8G3/Vz15yFlpXaU+G6P0xs4lqa3YlKJMesd16rBIjCdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=nVpYhzq2; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1778856202; c=relaxed/simple;
+	bh=BrDnglcPpHdF17/XDXh0A5c13ePXd2Eol2zpQw9zZuM=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=U9cArds5NUrv3hWgKldDMg0NdVFomEAYDfWoCZIm1+qXhLykUogqZS2ovI8F9gH0Z7yz/ThtGuwZPyvbUn1VAiEAuWgscGVFp3WXEVlmMh9pailMv3J+onsr64py3qb3ATtJoqH1Y72kQPVZGTvurhHOTXjb2P3eEvqGukxlLIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=DH72HnBH; arc=none smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="nVpYhzq2"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-48e56c1bf5dso54192505e9.3
-        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 07:42:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="DH72HnBH"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-bd3d7c29b4dso505953266b.2
+        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 07:43:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1778856134; x=1779460934; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=7DLL66al4CZld43bSNXSjcwgynvaL5lE06OXkqyj12I=;
-        b=nVpYhzq2Y2VDrknqwRdsHreTN3pc9Q21dPAs5zgaKlsJhIbx6dDjBWDAu9liE/hmyV
-         UBOV3Bk5DJFuHNzHa2evz9U5SXinI0IraYPq6xRsX2vmFGW6Ooj1/L9i1oVl3xjhwvtP
-         4qgvo7GCD47Ou42SFo6GtnrGcTkm9D0GD0Zo6gJ17oCOx9mYIKCaMZxWSKq/7Jwfjt3K
-         n8MerfkqD3aoriMktgDcuJR+JgKK9+JxXaHmX6KRRo1BmQuCf4XcnUDk/913xeHSAqHh
-         0ulcfV/JXxTl4kObyF9HdAGGKQjRceXdavAV4Dwmv42+EpzW22nPLT4/wk3dwmPWqZAl
-         u/gg==
+        d=fairphone.com; s=fair; t=1778856199; x=1779460999; darn=vger.kernel.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=D0Bn3ek7iAddkL4KNYP43/nukBKzdDN3DwlzCPpyg8I=;
+        b=DH72HnBH0jyYKk9Yl3mn7COLlJKZxPbrs7Shr5k655sITNyb3U2tKoOwXSD6wH1lTi
+         VlV0snFF8l+aIaa1yi4wu6Z+2eQL3oodtXs9QIMen5XIqtCzQWeqKf1zpA2Ju7MuBYXM
+         FS/uBPqyoWVC5UxXjqTX2uCQW8+WQU2uEB/TA7D55FdIweaZmX2JuLkx+IpjBMr2ZbjT
+         /wPSgdMhqLbHCSW/UMeMpGv1Jry9492ciAApdbc+BntTM+0NPRfxOMoqnb4WbHBciQ6p
+         X4GTW2eeuLJ6tIHh/bPxGe8p6QZrh3WuQcAzauU9ZqBVJBJWyJ5EPhWWCTRbQ4qmIGhO
+         E65g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778856134; x=1779460934;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=7DLL66al4CZld43bSNXSjcwgynvaL5lE06OXkqyj12I=;
-        b=RA+G8VXGvkwwZYpXBtuw6Sos12uPNdNgrNrZU1d4ygQE39rtLIizD2waVfaLJjkoxQ
-         QekBHcmatOyRHLwmVNn2ZyAd4AyddEWzj3Odk/BGXgIhijYs7Uo+02wb/0OI70NTfcqL
-         URChYhzb11VJgGOFYWxjXeMit+A9cCIRmszk4IqvQ3Yvpt9TNaQ3tB6L8oqo0xrX8WRz
-         qFE3DlecAii0fu/Ns7MIbDm3QVwOvcFghV4bL9yhCe2TssY/uWCKz2OQgIsV2gxqL2bw
-         ndjZn8xDZ9XEBfMn5dYhgtKwUYmapQaUI9ppS1Ia0MVQvLP7FPedLVXUmanKA4b3Zmcr
-         tRQA==
-X-Forwarded-Encrypted: i=1; AFNElJ+TJhelCZ33XW9QBcF/WcEZFLRVNcrP4lDzX2ut4bbUfWIdeWg7VvtW2C5vLZq7zx8orzS4aZu+JAHO@vger.kernel.org
-X-Gm-Message-State: AOJu0YxjdEBliaHsGLldA5niYzQC0FnH5tUJU2eKXCQT3mTwkFdxtAcf
-	FBXxY7KR8FoiuYRt+9+m4PNbZfpgq8L+mJcpfwR2CoCj+RZTOs0rTOB0+dmTBrWVMn4=
-X-Gm-Gg: Acq92OHy9wvkYNQlkrETQQAOT6elPhZwrOKzpWb68OxosoxqEaItq71qO+x3FLNYKGu
-	ZXDxiFVoRkyrQOSrHJ1TPhz3yBjWP6ffcc5drm7Fvqp/5KxP1GleZq2D13m51MEIkwIWiOupTsh
-	GJCncmMnc0NwJ5pGVwd+AhItLO1Dl8SJFvuHWp+6X9NnTcs3CLlszHuwXjyf5KbDlw+bPRcfvZp
-	Sm+81hwsmEuE9OblcutB8rgydQSvbTJWia7k4gDL26YXt/gnRZ1bhSLI0dVs6tBAj9Ai+NfKQj9
-	VEkBEa5g2QmM4xSeF35bthwI2mszLIYNuSIoM8h8+vblJSWjQynGEjnh/GP1tcphlcckIWi5Kp9
-	37Mnv4uBaJfT7LRUWRwcbgCnpNvOHuEIWGIOG8X3KQkGgLTV4apR2nmqCQqCFnsowBZmK+dKb/1
-	fiKhXBcOpN6A3/B7yICJJZgDogYoGVS3UvPD0UE3jAxfMAIsJoy3eGUnM2usYpXIyExWyThvS2s
-	jSv3qzhszeVnkF6bPL53OXH1tRpfVak5AGkRsLveCT6jcTUVETQdNwfeGihnNDC5Oj4+Noq1RMN
-	+bwr2idLc3gA/5N2kiA=
-X-Received: by 2002:a05:600c:8485:b0:486:fa35:aef2 with SMTP id 5b1f17b1804b1-48fe5fcdec2mr67166485e9.4.1778856133590;
-        Fri, 15 May 2026 07:42:13 -0700 (PDT)
-Received: from aspen.lan (aztw-34-b2-v4wan-166919-cust780.vm26.cable.virginm.net. [82.37.195.13])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48febf80d04sm14872875e9.36.2026.05.15.07.42.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 15 May 2026 07:42:12 -0700 (PDT)
-Date: Fri, 15 May 2026 15:42:09 +0100
-From: Daniel Thompson <daniel@riscstar.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Alex Elder <elder@riscstar.com>, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, maxime.chevallier@bootlin.com,
-	rmk+kernel@armlinux.org.uk, andersson@kernel.org,
-	konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org,
-	arnd@arndb.de, gregkh@linuxfoundation.org,
-	mohd.anwar@oss.qualcomm.com, a0987203069@gmail.com,
-	alexandre.torgue@foss.st.com, ast@kernel.org,
-	boon.khai.ng@altera.com, chenchuangyu@xiaomi.com,
-	chenhuacai@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
-	hkallweit1@gmail.com, inochiama@gmail.com, john.fastabend@gmail.com,
-	julianbraha@gmail.com, livelycarpet87@gmail.com,
-	matthew.gerlach@altera.com, mcoquelin.stm32@gmail.com, me@ziyao.cc,
-	prabhakar.mahadev-lad.rj@bp.renesas.com, richardcochran@gmail.com,
-	rohan.g.thomas@altera.com, sdf@fomichev.me,
-	siyanteng@cqsoftware.com.cn, weishangjuan@eswincomputing.com,
-	wens@kernel.org, netdev@vger.kernel.org, bpf@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 12/12] arm64: dts: qcom: qcs6490-rb3gen2: enable
- TC9564 with a single QCS8081 phy
-Message-ID: <agcwwRhXqKljob0m@aspen.lan>
-References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-13-elder@riscstar.com>
- <01d6ea18-e022-41c7-a642-ac0321957923@oss.qualcomm.com>
- <agRzai1UoHEIotZe@aspen.lan>
- <3c6e7ec5-f600-44ee-a97a-211a99102744@lunn.ch>
- <agXo_evi1oFLBJoo@aspen.lan>
- <f113752b-b351-4a14-af6d-1e2751f0913d@lunn.ch>
+        d=1e100.net; s=20251104; t=1778856199; x=1779460999;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=D0Bn3ek7iAddkL4KNYP43/nukBKzdDN3DwlzCPpyg8I=;
+        b=Ci31G8O5vWSQZSu8nyHpiAzBT+5Wl85Dd9miudUUAJoNna04EDXqbcm9ydh7ZZAHl2
+         jrRrKulw8oq5ggz3yV/GqzNGk9UOZGrHip/crmrKCfbloXyUykUc3fw4FFsX3Z8fa/Bu
+         tvskvC0PMdqO9eeeASbpkiA5kXDeLY6151ie2ll9CNg5pDJqgK56LpKg4hRUJqTinKFv
+         aLO7SZzdOrRz8vV+yHn+Wl/0KQLOCn9cUyAmBUnWAWS8b6xtwjuogZ3de42MY4GO8W7l
+         /Spfz4elR9Nz9YjtwqSQNF4mEMx8Fs+cO+z8H8ozn+ZpVyoBAxIOlsUsLF7ZgFal29/i
+         WCKg==
+X-Forwarded-Encrypted: i=1; AFNElJ/L+UI6gJ8ZiBSHyW6WNM5t0WsiffsZ4JUzvIT18AVcQOcBa5rYRRW6MuUPHZjUwzgtNrFJu9F3X9Fc@vger.kernel.org
+X-Gm-Message-State: AOJu0YwrbnSQX0ncqE1qyWkO3SVpThJRH7rCEZZpJi7LnvBdr9IJDBaa
+	AkdlJUijeZSW6RpcOqCQnmP7uZS/yNlXOTgm1/RbdY/VMXqawVMYSN5V+gf4FiMpE0g=
+X-Gm-Gg: Acq92OEHPs5MqXpCIEpDGtIqjwvWK7wXOgxvgHXU/QuWoApNjw9T9Kn/D2BLT3hIwV7
+	ZOczZXqivWi1vJIr43hLfJjZj3/C2RJl04mjDuSAADCRxoRkfcaicSS+POOqN7N7xx+Vj3GibXQ
+	diz2l691VvGnbhr9hereR/GxUpUuC2n5d3OKDELSAdVjvg3asZJv05D3C1nOklMeJ0You/xob3i
+	yYtTFrcB22J/oLWhxMz0ILOp0wSWMJaPhmK09/+AOmt7uWu8tF3NnGw8HGRCvR7pW/Q1bhVxamW
+	nOomxRs8PUTdLOYGMaMNP1NRnaNpZ7GL7MYLd61izSS9gA+yXRC855h1CCTOTx17tlyOnhfu+oT
+	5MU9w4NmhUxeDjgT3MwbsjzpJWTFFWuiUg+gXS2IL2IobpfLZhPXsVJQ7KtnClQcUFZ/8XdHqTV
+	7tUIbKUbbPMFCq8Wkrtd7emzoe8On/3vVsqx+Rok4KmD/GBaMlt2mofc6pwNoLC3tDL0zDKJUis
+	CKReFo=
+X-Received: by 2002:a17:907:7287:b0:bd1:9f5c:abbf with SMTP id a640c23a62f3a-bd51798eb09mr231759966b.43.1778856199218;
+        Fri, 15 May 2026 07:43:19 -0700 (PDT)
+Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bd4f4e60a76sm236571966b.53.2026.05.15.07.43.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 15 May 2026 07:43:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <f113752b-b351-4a14-af6d-1e2751f0913d@lunn.ch>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 15 May 2026 16:43:18 +0200
+Message-Id: <DIJBW80W84I8.27QBZZD2BGAKO@fairphone.com>
+To: "Thomas Zimmermann" <tzimmermann@suse.de>, "Luca Weiss"
+ <luca.weiss@fairphone.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Jessica Zhang" <jesszhan0024@gmail.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Bjorn Andersson"
+ <andersson@kernel.org>, "Konrad Dybcio" <konradybcio@kernel.org>
+Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>
+Subject: Re: [PATCH 2/4] drm/panel: Add driver for Novatek NT37705 panel
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260501-fp6-panel-v1-0-e09cb05651cc@fairphone.com>
+ <20260501-fp6-panel-v1-2-e09cb05651cc@fairphone.com>
+ <c06623ba-b19c-471a-becb-2fafddb3583c@suse.de>
+ <DIJBNGDNXE0L.2I0H4PBDDODOP@fairphone.com>
+ <4d4e8090-3216-4a41-9a7d-3d2c0998121a@suse.de>
+In-Reply-To: <4d4e8090-3216-4a41-9a7d-3d2c0998121a@suse.de>
 
-On Thu, May 14, 2026 at 06:14:07PM +0200, Andrew Lunn wrote:
-> > I’m afraid this must be necessarily long but to help navigate the
-> > general structure is:
+On Fri May 15, 2026 at 4:36 PM CEST, Thomas Zimmermann wrote:
+> Hi
 >
-> Thanks for the long email.
+> Am 15.05.26 um 16:31 schrieb Luca Weiss:
+>> On Fri May 8, 2026 at 10:06 AM CEST, Thomas Zimmermann wrote:
+>>> Hi
+>>>
+>>> Am 01.05.26 um 15:52 schrieb Luca Weiss:
+>>>> Add support for the 2484x1116 AMOLED panel from BOE (BJ631JHM-T71-D900=
+)
+>>>> bundled with a NT37705 driver IC, as found on the Fairphone (Gen. 6)
+>>>> smartphone.
+>>>>
+>>>> The panel can also be configured in 10-bit (RGB101010) mode, however
+>>>> currently it's configured in 8-bit (RGB888) since there's some issues =
+in
+>>>> the Qualcomm DPU driver when driving this panel in 10-bit.
+>>>>
+>>>> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+>>>> ---
+>>>>    drivers/gpu/drm/panel/Kconfig                 |  11 +
+>>>>    drivers/gpu/drm/panel/Makefile                |   1 +
+>>>>    drivers/gpu/drm/panel/panel-novatek-nt37705.c | 413 +++++++++++++++=
++++++++++++
+>>>>    3 files changed, 425 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kco=
+nfig
+>>>> index 979109c27b9b..59ab3f29d8ef 100644
+>>>> --- a/drivers/gpu/drm/panel/Kconfig
+>>>> +++ b/drivers/gpu/drm/panel/Kconfig
+>>>> @@ -624,6 +624,17 @@ config DRM_PANEL_NOVATEK_NT37700F
+>>>>    	  Say Y here if you want to enable support for Novatek NT37700F DS=
+I
+>>>>    	  panel module. The panel has a resolution of 1080x2160.
+>>>>   =20
+>>>> +config DRM_PANEL_NOVATEK_NT37705
+>>>> +	tristate "Novatek NT37705-based DSI panel"
+>>>> +	depends on OF
+>>>> +	depends on DRM_MIPI_DSI
+>>>> +	depends on BACKLIGHT_CLASS_DEVICE
+>>>> +	select DRM_KMS_HELPER
+>>>> +	help
+>>>> +	  Say Y here if you want to enable support for Novatek NT37705-based
+>>>> +	  display panels, such as the one found in the The Fairphone (Gen. 6=
+)
+>>> Duplicate 'the'
+>> Marketing really wanted to have it be "The Fairphone". Will change and
+>> make it saner.
 >
-> > Let’s turn our attention to MDIO.
-> >
-> > Following the pattern above where all the links related to power come
-> > from the main device node, then the phy node for the qca8081 in an
-> > rb3gen2 would look like something like this:
-> >
-> >     tc956x_emac1_phy: ethernet-phy@1c {
-> >         compatible = "ethernet-phy-id004d.d101";
-> >         reg = <0x1c>;
-> >
-> >         reset-gpios = <&tc956x_emac0 1 GPIO_ACTIVE_LOW>;
-> >         # On RB3gen2 all supplies are controlled by a single GPIO
-> >         # so we link all supplies to that single regulator
-> >         avdd-supply = <&qep_1p8>;
-> >         avdd18-supply = <&qep_1p8>;
-> >         vdd-supply = <&qep_1p8>;
-> >         vddldo-supply = <&qep_1p8>;
-> >         vdd18-supply = <&qep_1p8>;
-> >         vdd125-supply = <&qep_1p8>;
-> >
-> >         pinctrl-names = "default";
-> >         pinctrl-0 = <&qep_irq_pin>;
-> >         interrupts-extended = <&tlmm 101 IRQ_TYPE_LEVEL_LOW>;
-> >     };
+> How about "as the one found in Gen. 6 of The Fairphone." ?
 
-I nearly snipped this... but I referring to *-supplies so often below
-I decided it was useful to keep it!
+I'll just make it
 
+  display panels, such as the one found in the Fairphone (Gen. 6)
+  smartphone.
 
-> > Once we have established what the DT looks like then the question
-> > becomes where to put "something, written in C [or Rust], that contains
-> > burned in knowledge of how to turn on a wcn6855^H^H^H^H^H^H^Hqca8081"?
-> >
-> > The qca8081 on rb3gen2 just gets a bunch of individual regulators and a
-> > reset. As in the pci-pwrctrl-tc9563 example above, this means there is
-> > nothing in the DT for a pwrseq driver to bind to.
+>>>> +	  smartphone.
+>>>> +
+>>>>    config DRM_PANEL_NOVATEK_NT37801
+>>>>    	tristate "Novatek NT37801/NT37810 AMOLED DSI panel"
+>>>>    	depends on OF
+>>>> diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Ma=
+kefile
+>>>> index 0d694acbfbb6..94639bc58ca8 100644
+>>>> --- a/drivers/gpu/drm/panel/Makefile
+>>>> +++ b/drivers/gpu/drm/panel/Makefile
+>>>> @@ -61,6 +61,7 @@ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36523) +=3D panel-n=
+ovatek-nt36523.o
+>>>>    obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672A) +=3D panel-novatek-nt36672=
+a.o
+>>>>    obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672E) +=3D panel-novatek-nt36672=
+e.o
+>>>>    obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37700F) +=3D panel-novatek-nt37700=
+f.o
+>>>> +obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37705) +=3D panel-novatek-nt37705.o
+>>>>    obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37801) +=3D panel-novatek-nt37801.=
+o
+>>>>    obj-$(CONFIG_DRM_PANEL_NOVATEK_NT39016) +=3D panel-novatek-nt39016.=
+o
+>>>>    obj-$(CONFIG_DRM_PANEL_MANTIX_MLAF057WE51) +=3D panel-mantix-mlaf05=
+7we51.o
+>>>> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37705.c b/drivers/g=
+pu/drm/panel/panel-novatek-nt37705.c
+>>>> new file mode 100644
+>>>> index 000000000000..27bd8072ccd1
+>>>> --- /dev/null
+>>>> +++ b/drivers/gpu/drm/panel/panel-novatek-nt37705.c
+>>>> @@ -0,0 +1,413 @@
+>>>> +// SPDX-License-Identifier: GPL-2.0-only
+>>>> +/*
+>>>> + * Generated with linux-mdss-dsi-panel-driver-generator from vendor d=
+evice tree.
+>>>> + * Copyright (c) 2026 Luca Weiss <luca.weiss@fairphone.com>
+>>>> + */
+>>>> +
+>>>> +#include <linux/backlight.h>
+>>>> +#include <linux/delay.h>
+>>>> +#include <linux/gpio/consumer.h>
+>>>> +#include <linux/mod_devicetable.h>
+>>>> +#include <linux/module.h>
+>>>> +#include <linux/regulator/consumer.h>
+>>>> +
+>>>> +#include <video/mipi_display.h>
+>>>> +
+>>>> +#include <drm/display/drm_dsc.h>
+>>>> +#include <drm/display/drm_dsc_helper.h>
+>>> IIRC this requires
+>>>
+>>>   =C2=A0select DRM_DISPLAY_DSC_HELPER
+>>>
+>>> in the Kconfig. Maybe double-check.
+>> Will check. Always difficult to figure out the proper dependencies in a
+>> fully-featured defconfig build.
+>>
+>>>> +#include <drm/drm_mipi_dsi.h>
+>>>> +#include <drm/drm_modes.h>
+>>>> +#include <drm/drm_panel.h>
+>>>> +#include <drm/drm_probe_helper.h>
+>>>> +
+>>>> +struct nt37705_panel {
+>>>> +	struct drm_panel panel;
+>>>> +	struct mipi_dsi_device *dsi;
+>>>> +	struct drm_dsc_config dsc;
+>>>> +	struct regulator_bulk_data *supplies;
+>>>> +	struct gpio_desc *reset_gpio;
+>>>> +};
+>>>> +
+>>>> +static const struct regulator_bulk_data nt37705_supplies[] =3D {
+>>>> +	{ .supply =3D "vddio" },
+>>>> +	{ .supply =3D "dvdd" },
+>>>> +	{ .supply =3D "vci" },
+>>>> +};
+>>>> +
+>>>> +static inline struct nt37705_panel *to_nt37705_panel(struct drm_panel=
+ *panel)
+>>>> +{
+>>>> +	return container_of_const(panel, struct nt37705_panel, panel);
+>>> Either just use container_of or build something that respects the
+>>> input's const-ness.
+>> I really don't get what you mean here? Why is container_of_const() bad
+>> here?
 >
-> I don't understand that. We have a node in device tree for the PHY. We
-> can put the needed properties there somehow.  Maybe similar to how
-> pinctrl works. Before probing the device, the driver core looks for
-> the pinctrl- properties, and activates them. We could have similar
-> properties for power sequencing, before enumerating an address, do
-> whatever the pwrseq-names requests? It might need help for the driver
-> actually enumerating the bus, to point to core at the node.
+> Because nothing is const here. It looks like an oversight or as if=20
+> something should be const.
 
-pinctrl properties describe the relationship between the device and the
-pin controller of its host. In the case above &qep_irq_pin it leads back
-to something belonging to the pin controller.
+I checked and include/linux/container_of.h states:
 
-Devicetree does have power domains and these are actually pretty similar
-to pinctrl. power-domains properties are used to essentially used to
-describe the relationship between the device and a power domain
-controller.
+  Do not use container_of() in new code.
 
-However in this case power domains don't really fit. There is no power
-domain controller to link to. Thus I'd still expect the phy power
-supplies to be modelled in devicetree as I showed above.  pwrseq, PCI
-and USB all adopt this approach for modelling onboard devices in DT.
+and
 
+  Always prefer container_of_const() instead of container_of() in new code.
 
-> > Even if we could find
-> > a way to do that, it is not obviously useful to decouple how to turn on
-> > an MDIO device from how to drive it. Thus I think the right answer to
-> > that is to put the code to fire up the regulators into the qca808x.c
-> > driver and it looks to me like the existing probe/remove methods would
-> > already work perfectly well as the place to put it.
+So sounds like using container_of_const() is the correct way.
+
+>>>> +
+>>>> +	ret =3D regulator_bulk_enable(ARRAY_SIZE(nt37705_supplies), ctx->sup=
+plies);
+>>>> +	if (ret < 0) {
+>>> Common style is to check for errors with
+>>>
+>>>   =C2=A0 if (ret)
+>>>
+>>> Here and everywhere else.
+>> At least for regulator_bulk_enable() "ret < 0" is actually more popular
+>> than just "ret".
+>>
+>> Kernel doc says "Return: 0 on success or a negative error number on
+>> failure." so a positive integer should in theory never happen so they're
+>> equivalent.
+>>
+>> (git grep -h -A2 regulator_bulk_enable | grep if | sed 's|^[ \t]\+||' | =
+sed 's| {$||' | sort | uniq -c)
 >
-> But you have a chicken/egg. Same as with PCI, with Ethernet PHYs, you
-> ask the device what it is, and then find a driver to drive it, and
-> then call the probe function. However, if its clock is off, its GPIO
-> reset is held in reset, its power regulators are switch off, it never
-> answers when you ask it, what are you? If you have no idea what it is,
-> you cannot probe it. And if you cannot probe it, the probe function
-> cannot turn all these things on.
->
-> The standard reply we have is, ignore the fact the device can be
-> enumerated, hard code in DT what its ID is. And that is what you have
-> above in your DT fragment.
+> It's just nitpicking, not a blocker.
 
-My comment above about it not being useful to decouple was very much
-based on this "standard reply".
+I was also curious so I dug around a bit :)
 
-The *-supply properties will differ from phy to phy so we need the DT
-to know what device is in order to supply the right properties. In other
-words de-coupling the parsing of those supply properties (and anything
-else) does not help MDIO with the chicken/egg problem.
-
-However perhaps I was being a little shortsighted to say there are no
-benefits (below).
-
-
-> But you also need to live with the
-> consequences of it being wrong, since that driver is going to be
-> loaded, no questions asked. And don't think about having a rev A board
-> and a rev B board which have different pin compatible PHYs, and want
-> to use the enumeration to get the correct driver loaded.
-
-Typically embedded platforms "solve" this by having a bootloader
-retrieve the board revision (usually from whatever non-volatile storage
-it keeps the mac address) and swap a status = "okay"/status =
-"disabled" pair in the DT.
-
-This is not great (hence quoting "solve") but it must also be added
-that this approach does also work when the PHY isn't pin compatible and
-needs to be powered up differently.
-
-
-> DT developers continually want to make use of the enumeration feature,
-> since it is there, part of 802.3, it is how it was done for the first
-> 20 years of networking, etc. And they keep trying to extend the
-> current code to get the PHY running to allow it to be enumerated.  And
-> i keep rejecting it.
-
-Has someone already tried to "sell" you on approach somewhat similar to
-the onboard_usb_dev code?
-
-onboard_usb_dev centralizes *all* knowledge of how to turn the regulators,
-clocks, resets for all soldered down USB devices that need help to be
-turned on. In the case of USB then it literally examines the list of
-VID/PID pairs supported by onboard_usb_dev to decide whether to create
-the platform device used to lubricate things.
-
-This still relies on the "standard reply" meaning it doesn't solve the
-chicken/egg and it doesn't avoid there being something written in C (or
-Rust) that knows how to turn on devices. However it does do is move
-the churn associated with enabling a new USB on an embedded platform
-out of the USB drivers and into a single centralized place.
-
-With the embedded churn on one place stops "embedded crap" from creeping
-through the all the drivers. I suspect is also much easier to divide
-review/maintenance responsibilities.
-
-FWIW I think the relatively simple structure of the MDIO bus means we
-don't actually have to mess about with platform devices. I think one
-might be able to get it down to four function calls (which could easily
-be stubbed out on !CONFIG_OF systems).
-
-
-> Ideally, i would like some generic core code which can be given a list
-> of resources, probably phandles, and timing information. And it will
-> walk the list and turn them on, inserting the requested delays. And
-> then we can enumerate the device.
->
-> Until such code exists, i agree, forget the device is enumerable, hard
-> code the ID, and get the probe function to enable the regulators, take
-> the device out of reset, enable the clocks, etc. And repeat that in
-> every PHY driver.
-
-So, having spent a bit of time thinking about it I do wonder if creating
-some kind of onboard_mdio.c to collect knowledge of how to turn specific
-mdio devices on might be better than putting the same knowledge
-directly into probe functions.
-
-Should generic core code (or library functons) ever arrive then having
-this code centralized between phys would make adopting the generic code
-code easier.
-
-I'm not overly attached to either idea but if you'd like me to sketch
-out a prototype then let me know!
-
-
-Daniel.
+Regards
+Luca
