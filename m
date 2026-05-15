@@ -1,82 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 830DC38D68F;
-	Thu, 14 May 2026 23:43:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BED41EEA3C
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 00:24:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778802194; cv=none; b=GYWXSC8IE0UK4G3dhUUBiOdAN6ei5aSnYXPaOnylNKsSK+cR8lA114CPgrv5n6+FnHbtB3ftd+tfyVJNjwU38k5GwosreCY+Whk5sTgsOAbtkFlPQr76DhTT3pppvfDV/6hF/Jcf7nUokAJntsx7u7DE/h0ZHCMtP8064Lh01Us=
+	t=1778804667; cv=none; b=fA2r/WaH9Of170+seu/bf2mUZ0jdjz6YdtAsfiu74c948crSdlBUN1nC013rTgUqCalQusrHq14JXzkevlxuUjcDLcFKGjvtPtQNZKhfEq02Jmt24BWNN29DwC2QS5qc4kvL9bhJ3bLnT60VnTblxj+RNoA4DdhYjANJqvMSE60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778802194; c=relaxed/simple;
-	bh=o4PUtfFnIDlnRmFtetUSScwXph92XJHFuhTDdAg4cwo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FbD79gkWdclAnbpUvhGkLTW3JFgmqKKnuetJie9bhuuKeBTgLcbdacKmp8xKZjbqd02n3lP7+3uwcKGeAQBF28+rBzlr8m/wP072rBoHbga5MlZu6ny25v9vkTwcIMiyM9yq3qOE2FZ9tB5+BKODuu10gBzyBN9JNmMiZXY9H00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X5leMYW/; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778804667; c=relaxed/simple;
+	bh=Sar0GakJ3O1xIQRQPXTI663SLwPshMbaO/UXV5gcNHM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=iImYrCNO7iRnLZSSZ7zgqMPtqKJz9ba5wqdfwgy1tW7oUaCL96RfZnxCqPKX/TFNPCJrniq4p+dGVPERyBwkxKJmW5b1JUISMJgdmj04S6YQpGKXttsFIR0D/ZccmeFppb0ujTOcbkFl0dEg2KBODjTfedWtHTULvOp7DlYTsOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aUpd7S+I; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X5leMYW/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F5FCC2BCB3;
-	Thu, 14 May 2026 23:43:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aUpd7S+I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 970ABC2BCB3;
+	Fri, 15 May 2026 00:24:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778802194;
-	bh=o4PUtfFnIDlnRmFtetUSScwXph92XJHFuhTDdAg4cwo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=X5leMYW/E4xoIHpBnlxj0Lm7QZWMCzwwD6r6VGQHQrzkvFYwy0OTC8GVZRw7tDgCW
-	 MJ3uCbDVMZ/Jm+NVE9ZT0RWKhMwhS2fjwu1csLf7DI1UowAyAZPfARKC2o2VX/t+53
-	 Lrf3C9xG50AXoXcssVvHe1Nj50xtAoj9WhkURzJFFYCVuW45i73a25vi3sJA9YvdTj
-	 dlYkYj9zK5/Zy01Ht3yt6jGvUf9/SdVET2Q/vJogO6CigkfhZ78VhNjHADOEHK5OMQ
-	 aqQK5JuD+fjyFQ9k7CUkr8AKDUEC+PH1J6TqLyFLGmidro8CIQTdnY1QbmiDzGsLmq
-	 DJ+okJoqKmmNw==
-Message-ID: <51c01dfc-d6b2-4605-81bd-496211947c1f@kernel.org>
-Date: Thu, 14 May 2026 18:43:12 -0500
+	s=k20201202; t=1778804666;
+	bh=Sar0GakJ3O1xIQRQPXTI663SLwPshMbaO/UXV5gcNHM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=aUpd7S+IHRGuFyGxlObkcugAkAGpd/A+5x+hbPon7xPKmUh+OP2Sqn53e7V0M0UlQ
+	 ZhtrD8rQXzBBkM0RaD3gwzUeI2YIVJ7OBlyDJVcum0xnUlGZufmsjRBciXHXy/W4kC
+	 31W8KlZV8zeOdsqeHQKK+qkchEUrTmM7lQW9Oaz6Z2lfAratVZdaFLj7346CO7zwX3
+	 u2CRxBLYUsVLgBdCO/6iUbClvbZ2YsRhJmYCEhzPa2QFuEmi2OzPEB6lQ9VAiAKJyw
+	 GWA/IyFl774gNSl0seb+88UNFcjH7lLkCY8VIG3hPdFZnA87lMArD2ZI+8ci4M9CrR
+	 X981ST4HiE1iQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v22 12/13] arm64: dts: qcom: Add psci reboot-modes for
+ monaco boards
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shivendra Pratap" <shivendra.pratap@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org
+In-Reply-To: <20260514-arm-psci-system_reset2-vendor-reboots-v22-12-28a5bde07483@oss.qualcomm.com>
+References: <20260514-arm-psci-system_reset2-vendor-reboots-v22-12-28a5bde07483@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 15 May 2026 00:24:26 +0000
+Message-Id: <20260515002426.970ABC2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: socfpga: Add dma-coherent to XGMAC nodes
-Content-Language: en-US
-To: muhammad.nazim.amirul.nazle.asmade@altera.com
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260514114111.10574-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
- <20260514114111.10574-3-muhammad.nazim.amirul.nazle.asmade@altera.com>
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <20260514114111.10574-3-muhammad.nazim.amirul.nazle.asmade@altera.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] System hang on reboot when requesting vendor-specific reboot modes=
+ on unsupported firmware
+--
 
+commit da9bb648c6683dbd4e4976f8d350b0b7213b92be
+Author: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
 
-On 5/14/26 06:41, muhammad.nazim.amirul.nazle.asmade@altera.com wrote:
-> From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
-> 
-> The SMMU is enabled and transactions going through it are cache
-> coherent. Add the dma-coherent property to the XGMAC nodes to prevent
-> redundant cache flush/invalidate operations and potential stale data
-> issues.
-> 
-> Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
-> ---
->   arch/arm64/boot/dts/intel/socfpga_agilex3_socdk.dts         | 1 +
->   arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts         | 1 +
->   arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_013b.dts    | 1 +
->   arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_modular.dts | 1 +
->   arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_nand.dts    | 1 +
->   5 files changed, 5 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex3_socdk.dts b/arch/arm64/boot/dts/intel/socfpga_agilex3_socdk.dts
-> index 25e17df0cbdb..2061d301126e 100644
-> --- a/arch/arm64/boot/dts/intel/socfpga_agilex3_socdk.dts
-> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex3_socdk.dts
-> @@ -52,6 +52,7 @@ &gmac2 {
->   	phy-mode = "rgmii-id";
->   	phy-handle = <&emac2_phy0>;
->   	max-frame-size = <9000>;
-> +	dma-coherent;
->   
-This property should be in placed in the Agilex5 dtsi file.
+arm64: dts: qcom: Add psci reboot-modes for monaco boards
 
-Thanks,
-Dinh
+This commit adds PSCI SYSTEM_RESET2 reboot-modes for monaco-evk and
+qcs8300-ride to support bootloader and emergency download (edl) reboot mode=
+s.
+
+> diff --git a/arch/arm64/boot/dts/qcom/monaco-evk.dts b/arch/arm64/boot/dt=
+s/qcom/monaco-evk.dts
+> index 9d17ef7d2caf1..df668dbf2bc60 100644
+> --- a/arch/arm64/boot/dts/qcom/monaco-evk.dts
+> +++ b/arch/arm64/boot/dts/qcom/monaco-evk.dts
+
+[ ... ]
+
+> @@ -661,6 +661,13 @@ usb2_id: usb2-id-state {
+>  	};
+>  };
+> =20
+> +&psci {
+> +	reboot-mode {
+> +		mode-bootloader =3D <0x80010001 0x2>;
+> +		mode-edl =3D <0x80000000 0x1>;
+> +	};
+> +};
+
+Could adding these modes introduce a regression on boards running older
+firmware where a system hang occurs on reboot?
+
+The commit message notes that support for these modes is firmware dependent.
+However, if a user requests a bootloader reboot on a system where the
+firmware lacks SYSTEM_RESET2 support, it appears the system might hang
+instead of falling back to a normal reboot.
+
+If psci-reboot-mode registers these modes unconditionally,
+psci_reboot_mode_write() sets the reset command to the vendor-specific
+value.
+
+During reboot, psci_sys_reset() calls psci_handle_reset_cmd(). If
+psci_system_reset2_supported is false and the vendor reset type is non-zero,
+it returns without making a PSCI call.
+
+This causes psci_sys_reset() to return NOTIFY_DONE. The kernel then reaches
+the end of the restart chain and spins indefinitely with a failure panic.
+
+Should the psci-reboot-mode driver or the PSCI reset handler be updated to
+handle unsupported firmware before introducing these device tree properties?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514-arm-psci-s=
+ystem_reset2-vendor-reboots-v22-0-28a5bde07483@oss.qualcomm.com?part=3D12
