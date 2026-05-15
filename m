@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1563E3D3482
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 13:36:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384CB1C01
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 13:37:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778852170; cv=none; b=sTNMMuUQ5rnzngAmR7nUNaMjgS9CFWsl9Q2VKj3So1z1pK2Wb+FppCiRQDBBGuFlqD+zmHltYlnzYjtQbo5oxITNwGQTHUtjZtLgJ2Ws9mix7LOYXRjNOuPgwfzOtMaP3n2/1LboPEwohFiKS2bRDZ45ldz15V1N5zl1jGMV42E=
+	t=1778852274; cv=none; b=Rv1gEX8Nl5FJnM8SBZdyxTdXpBbj1MzUxjmpFUzmMPUkk15JhnBABh7vm6YDVN4Mrk76FMkYmEJ29gPkOKtD2VLJJyRn3VYtQOSKj3ZeTlNgMma2IhlDaHNCru8gI4qNRKTBjyTwJ+7UaE6IBYwtsXlZpp5KKMCPgRkpWZ17iQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778852170; c=relaxed/simple;
-	bh=6cychEZsMounqtjuNUVfyd6f9LFz7sXxrj2M8/XHQ+A=;
+	s=arc-20240116; t=1778852274; c=relaxed/simple;
+	bh=5RxcRtRvC4CWnlhMY7jHn9+L7s5FqDGhofLNMgKGbaM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ic0bg+VyZ6x/O53glrfSVILXl4imbhBj5bJyYqBa41G1X6PJoUCJaaWjBGWuNWp8L6xNK97L0cxTFwS0us2jCfK5/AxJPGdvV8TdMemtL6oKRtuIwdeAfkrZYX+/JOa2hliOyTPAcWK6/Cn2PHqRULU/8yrynDfmFNITH27VL+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GlTMVHzH; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=uXKh7laPr1FlUO6xQTG6qRmUNgVGpdU4iROmW3qpvJPtcWOQNNYzM0tTq8XPAKeAEtMD9aKENcSfg9NWUvrT9vzAompgM2hpuRqUTteXX1mrVK5ZleD3UAv5bB83PgkddlLu9MBC4IwbJDHxrZDUV9/tbu5PQjtXJ9QiM09tju4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lTmRGnJZ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GlTMVHzH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 755D2C2BCB8;
-	Fri, 15 May 2026 13:36:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lTmRGnJZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE3CCC2BCB0;
+	Fri, 15 May 2026 13:37:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778852169;
-	bh=6cychEZsMounqtjuNUVfyd6f9LFz7sXxrj2M8/XHQ+A=;
+	s=k20201202; t=1778852273;
+	bh=5RxcRtRvC4CWnlhMY7jHn9+L7s5FqDGhofLNMgKGbaM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=GlTMVHzH60r5Et1FsjcbYAOubzVLPEL5StMry0fLOVpfC4Cjj18oR/Ah/IYf3KE+K
-	 YswOJ0XvRFje7b+cOcVLiTxBa28upQs0L36M+P8r9PKZ9OHcyeUiltJNtqXCAPNr4p
-	 mpSwVOFJ/sCPnccgDnQ6lgycuo9L7ryL7jMZ9OqQ7Gj0oXw4/nfXaDCrCtZg80ftiz
-	 j2Xi/mUg7tNtVAgxm3mExsUlHYgkbeib98k5g65j3dH0obAus8ESSuLM6CfOOdTT6t
-	 RSNORHLvDV3k4/47cU2OdxClr/o2xNt3PKdisE8IkYnn/BlYrxmxQ+l+9aQLZZaKQt
-	 VgoFNKKxSb3tw==
+	b=lTmRGnJZh5kvnB3i9tAvvKgP3YNwyKHLv3q5Bh8stwGWKRKsNiYndq+MsrgsLKicX
+	 SFUsbzhTLr2yP14srx9k1YtvXMfCfJvXoJHI4vA4gjrw3x8r6MzB4A+w1vGT7U2jzd
+	 xsFtpmlEsL+CC2NFjAp8md3cUf/j0JiHvXhs8/G3Qp3gZOWG5+WPS4RHisw/cnUwg/
+	 RivbdjcK8xai3KjlGPkhT27dN5qVOJ8SsB+N5LiJa0r6g8PpqrbCUMrKH4PAQB6k8/
+	 8Fv2VU8RHnqOGN4s9bpajtEnuZbz0mNgVc0PadnM8Iu11I+TM4z0fNyJZccFjtIVCb
+	 twEHnVoFQxBCw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V7 05/11] iio: imu: inv_icm42607: Add PM support for
- icm42607
+Subject: Re: [PATCH v11 1/6] dt-bindings: iio: adc: add AD4691 family
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chris Morgan" <macroalpha82@gmail.com>
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260515130018.237378-6-macroalpha82@gmail.com>
-References: <20260515130018.237378-6-macroalpha82@gmail.com>
+To: "Radu Sabau via B4 Relay" <devnull+radu.sabau.analog.com@kernel.org>
+Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260515-ad4692-multichannel-sar-adc-driver-v11-1-eab27d852ac2@analog.com>
+References: <20260515-ad4692-multichannel-sar-adc-driver-v11-1-eab27d852ac2@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 May 2026 13:36:09 +0000
-Message-Id: <20260515133609.755D2C2BCB8@smtp.kernel.org>
+Date: Fri, 15 May 2026 13:37:52 +0000
+Message-Id: <20260515133752.EE3CCC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,53 +45,91 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Unconditional assignment of runtime PM callbacks using RUNTIME_PM_O=
-PS causes dead code when CONFIG_PM is disabled.
+- [Medium] The binding defines GPIO controller capabilities but omits `gpio=
+-controller` and `#gpio-cells` from the `required` list and the `examples` =
+section.
 --
 
-commit 2b859f6a3a3693a6dff734a7ea031d9f3a2a527f
-Author: Chris Morgan <macromorgan@hotmail.com>
+commit 5576d49868d1ae53d794381f2b3e2079954441db
+Author: Radu Sabau <radu.sabau@analog.com>
 
-iio: imu: inv_icm42607: Add PM support for icm42607
+dt-bindings: iio: adc: add AD4691 family
 
-Add power management support for the ICM42607 device driver.
+This commit adds device tree bindings for the Analog Devices AD4691 family
+of multichannel SAR ADCs. It defines hardware connections including power
+domains, PWM, reset GPIOs, and interrupt sources, along with providing
+two binding examples.
 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/i=
-io/imu/inv_icm42607/inv_icm42607_core.c
-> index 1088c5c7076f8..e27ad0319a125 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4691.yaml b/=
+Documentation/devicetree/bindings/iio/adc/adi,ad4691.yaml
+> new file mode 100644
+> index 0000000000000..af28a0c1cfa9e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4691.yaml
 
 [ ... ]
 
-> +static int inv_icm42607_runtime_resume(struct device *dev)
-> +{
-> +	struct inv_icm42607_state *st =3D dev_get_drvdata(dev);
+> +  gpio-controller: true
 > +
-> +	guard(mutex)(&st->lock);
+> +  '#gpio-cells':
+> +    const: 2
 > +
-> +	return inv_icm42607_enable_vddio_reg(st);
-> +}
+> +  '#trigger-source-cells':
+> +    description:
+> +      This node can act as a trigger source. The single cell in a consum=
+er
+> +      reference specifies the GP pin number (0-3) used as the trigger ou=
+tput.
+> +    const: 1
 > +
-> +EXPORT_NS_GPL_DEV_PM_OPS(inv_icm42607_pm_ops, IIO_ICM42607) =3D {
-> +	SYSTEM_SLEEP_PM_OPS(inv_icm42607_suspend, inv_icm42607_resume)
-> +	RUNTIME_PM_OPS(inv_icm42607_runtime_suspend,
-> +		       inv_icm42607_runtime_resume, NULL)
+> +required:
+> +  - compatible
+> +  - reg
+> +  - avdd-supply
+> +  - vio-supply
 
-Will this result in dead code if CONFIG_PM is disabled?
+Since the binding defines the device as a GPIO controller, should
+gpio-controller and #gpio-cells be added to this required list?
 
-Unlike SYSTEM_SLEEP_PM_OPS which internally wraps its arguments with
-pm_sleep_ptr(), RUNTIME_PM_OPS does not use pm_ptr() for its callbacks.
-This leaves the static inv_icm42607_runtime_suspend and
-inv_icm42607_runtime_resume functions compiled even when PM is disabled.
+Omitting these properties from the required list might allow incomplete
+device tree nodes to pass validation.
 
-Could this be updated to use pm_ptr() for the runtime PM callbacks, or
-alternatively use the DEFINE_RUNTIME_DEV_PM_OPS macro?
+[ ... ]
 
-> +};
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +    /* AD4692 in CNV Burst Mode with SPI offload */
+> +    spi {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
 > +
->  MODULE_AUTHOR("InvenSense, Inc.");
+> +        adc@0 {
+> +            compatible =3D "adi,ad4692";
+> +            reg =3D <0>;
+> +            spi-cpol;
+> +            spi-cpha;
+> +            spi-max-frequency =3D <40000000>;
+> +
+> +            avdd-supply =3D <&avdd_supply>;
+> +            ldo-in-supply =3D <&avdd_supply>;
+> +            vio-supply =3D <&vio_supply>;
+> +            ref-supply =3D <&ref_5v>;
+> +
+> +            reset-gpios =3D <&gpio0 15 GPIO_ACTIVE_LOW>;
+> +
+> +            pwms =3D <&pwm_gen 0 0>;
+> +
+> +            #trigger-source-cells =3D <1>;
+> +        };
+> +    };
+
+Should the gpio-controller and #gpio-cells properties be included in these
+examples?
+
+Without them, the examples might fail dt_binding_check if they are added
+to the required list above.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515130018.2373=
-78-1-macroalpha82@gmail.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-ad4692-mul=
+tichannel-sar-adc-driver-v11-0-eab27d852ac2@analog.com?part=3D1
