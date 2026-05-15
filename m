@@ -1,93 +1,120 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC2C43C066;
-	Fri, 15 May 2026 10:07:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4505A3C5837
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 10:08:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778839640; cv=none; b=AVzy+23QQLUso5uT2CXvCQzyqmIUwHJ6JkVOfYuUTLlx/Ic3juGEbwXjBeOOKJwIkN6mtbxZmpOnVOVLYJP6lxCburz6JO0PM1+ckJsZhYT0wY8px3glKokT7TewffVnAPA+Suq/U6uet5Mh43JGH7VQxRgDhYa4eVui0vxxAuw=
+	t=1778839694; cv=none; b=htQiIqdaUZQ7QW+cahGl3ZAXwPcReqlaCTH1oRi/s8xAECJYpRXQxqJmOJsMhiBXpqk08ZlD8rFGl8iBNwnAqtt/ipHMc+xGZ6Nvo9CdSixQOmywXjR/R4wmnnl0hrRZaRgvbfNfZ9mVK7MjaOTibYHXqGTMIwx9FxDDcuERvzY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778839640; c=relaxed/simple;
-	bh=p16Samuzcb7UeG8Qdbq/J3WL7f5r6uCXgJkREuEk3FE=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Za6m33WcIBms8zeaTR5yG7/X+tBrZIaOMBEVUeRSEtrSdSvFTvukmEuKBKUlPLBONPi4HmMi6LuAo79V2VPZJsesyAlO40STMr/9xTqx5BmqRbkyYq2BwXmCq0wHcjsQnnkFqoCpvEGKWk/84IMSxHiP8M4ObHy7PK5aZgXXhtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=0MQpcXCd; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1778839694; c=relaxed/simple;
+	bh=ES7qA1WnyHdAEaDAZQahh7dvYPpmgDXZ2+S9Mq0ZC+M=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fK3JgMqINh9Qy9rHUy3hWsnm0NaqGeM04SVYQoNC85oftxaM/Rh1s8GTo5EEKO0yBcQeoehx86envseQV2hf0O11EQh0CyXfU8CWJG4Id2MMe/9yvIsBgi4bIGjAqWXEyQnzGWwe+U8Dy5rxv0VasYNfXq44LpiDdb4c8/mNGP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VvMNWzPL; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="0MQpcXCd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1778839640; x=1810375640;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=p16Samuzcb7UeG8Qdbq/J3WL7f5r6uCXgJkREuEk3FE=;
-  b=0MQpcXCdPYEcfEZJYgUopfbWfuuJ2A6t2bhi3xuBmHe4VXLhU7gnE4BV
-   RLUBVg5C6AhIz4WsXjhSBd8y+6Bp4/RQLhcQM1HVLl+zdLhrWHjSGmw3c
-   qqHL+i72/cnZHdkZpgFpJcyNJZen0PqjgUqTbNMf6MdRc/zIP6PJ5F1O+
-   P2oY8LKtOsSESzTvZl++xIMII2bp7ARBpmNXfsSfnQJTl6WJwCJ/NgQN5
-   +6lsL5TUBUywE5YDT/HaGeAamYxk3LUJJb9Ur7/K1G7+l4ck1gW55WEK8
-   7pbyu3yrXkP0056F0CFXSc2NTfi965Dve5TqvEUO2C4gnJuhEcRlyqxC1
-   Q==;
-X-CSE-ConnectionGUID: 3YPa1uukQxehnbSvoJmU4A==
-X-CSE-MsgGUID: LTVlmf/nT4aZ2CNGcybFHQ==
-X-IronPort-AV: E=Sophos;i="6.23,236,1770620400"; 
-   d="asc'?scan'208";a="56789185"
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 15 May 2026 03:07:19 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Fri, 15 May 2026 03:07:17 -0700
-Received: from wendy (10.10.85.11) by chn-vm-ex03.mchp-main.com (10.10.85.151)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
- Transport; Fri, 15 May 2026 03:07:14 -0700
-Date: Fri, 15 May 2026 11:06:36 +0100
-From: Conor Dooley <conor.dooley@microchip.com>
-To: Jia Wang <wangjia@ultrarisc.com>
-CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer
- Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre
- Ghiti <alex@ghiti.fr>, Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski
-	<brgl@kernel.org>, Samuel Holland <samuel.holland@sifive.com>, Paul Walmsley
-	<paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@sifive.com>, Conor Dooley
-	<conor@kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<linux-gpio@vger.kernel.org>
-Subject: Re: [PATCH 2/9] dt-bindings: riscv: cpus: Add UltraRISC CP100
- compatible
-Message-ID: <20260515-possibly-showgirl-a38423881f96@wendy>
-References: <20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com>
- <20260515-ultrarisc-pinctrl-v1-2-bf559589ea8a@ultrarisc.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VvMNWzPL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B81CC2BCB0;
+	Fri, 15 May 2026 10:08:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778839692;
+	bh=ES7qA1WnyHdAEaDAZQahh7dvYPpmgDXZ2+S9Mq0ZC+M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=VvMNWzPLLiauYcoUMc2Rnk/Xvk5gD9rvMAEhYSTdvf4478zOtUTyZQ85IVKVuqFHI
+	 /GxuGMYlX/6o/1XewtkOsEXcz7apMn3WU0Obqz9W0sKTMicURGIeNzo63l9l7gT6tq
+	 LUwf6ylVeQd4MWsSkoCyYyQlLO3HgoZMViX64Qz2rXemc+Xyf0EXG2y1CI0J3pVkWP
+	 2A9IXN20hwBHTlD+k1ekJeDALZTNazt/zTb4cK1ZWZxHjoSaab/ZN9NW/GeH7vCTVq
+	 2p7hwEM4OLJ+T9vqLzf2ZGvxmTmzgK2+mBznXNloxgk3DLQM8U1YpBTsp6yI5hYr+z
+	 1qOH2cJyTEqbw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/3] dt-bindings: pinctrl: Add
+ aspeed,ast2700-soc1-pinctrl
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Billy Tsai" <billy_tsai@aspeedtech.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260515-pinctrl-single-bit-v3-2-e97da4312104@aspeedtech.com>
+References: <20260515-pinctrl-single-bit-v3-2-e97da4312104@aspeedtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 15 May 2026 10:08:05 +0000
+Message-Id: <20260515100812.9B81CC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Qa3Omcx9s0HAw1jP"
-Content-Disposition: inline
-In-Reply-To: <20260515-ultrarisc-pinctrl-v1-2-bf559589ea8a@ultrarisc.com>
 
---Qa3Omcx9s0HAw1jP
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Schema uses `additionalProperties: false` alongside `$ref` instead =
+of `unevaluatedProperties: false`.
+--
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+commit f22ff0791aac86f631d0cc5f4662941db457d162
+Author: Billy Tsai <billy_tsai@aspeedtech.com>
 
---Qa3Omcx9s0HAw1jP
-Content-Type: application/pgp-signature; name="signature.asc"
+dt-bindings: pinctrl: Add aspeed,ast2700-soc1-pinctrl
 
------BEGIN PGP SIGNATURE-----
+This commit introduces a new devicetree binding schema for the ASPEED
+AST2700 SoC1 pin controller. It reuses the standard pinmux and generic
+pin configuration schemas.
 
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCagbwLAAKCRB4tDGHoIJi
-0r/OAQDRlYqfkdPpp90m6Qrq0ztSJvu2u34C9qGWQNkz4kamQQD+Pj1GthASpIRQ
-hFGwBclBGjHAlwcUVTh78KCnFIt2PAk=
-=VDHT
------END PGP SIGNATURE-----
+> diff --git a/Documentation/devicetree/bindings/pinctrl/aspeed,ast2700-soc=
+1-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2700-s=
+oc1-pinctrl.yaml
+> new file mode 100644
+> index 0000000000000..76944fd14e2c7
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2700-soc1-pinct=
+rl.yaml
+> @@ -0,0 +1,760 @@
 
---Qa3Omcx9s0HAw1jP--
+[ ... ]
+
+> +patternProperties:
+> +  '-state$':
+> +    description: |
+> +      Pin control state.
+
+[ ... ]
+
+> +    type: object
+> +    allOf:
+> +      - $ref: pinmux-node.yaml#
+> +      - $ref: pincfg-node.yaml#
+
+[ ... ]
+
+> +              - pins
+> +    additionalProperties: false
+
+Since this block references pinmux-node.yaml and pincfg-node.yaml, should
+this use unevaluatedProperties: false instead? Using additionalProperties:
+false might cause standard properties provided by the referenced schemas to
+be incorrectly rejected during validation.
+
+> +
+> +    properties:
+> +      function:
+
+[ ... ]
+
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +allOf:
+> +  - $ref: pinctrl.yaml#
+> +
+> +additionalProperties: false
+
+Similarly, since the root level includes a reference to pinctrl.yaml, does
+this also need to be unevaluatedProperties: false?
+
+> +
+> +examples:
+> +  - |
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-pinctrl-si=
+ngle-bit-v3-0-e97da4312104@aspeedtech.com?part=3D2
