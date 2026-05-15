@@ -1,87 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2E51367F32
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 02:59:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778813975; cv=none; b=h/GagQ/0G3DhIxIg3bVKGyBJXk+mp/lsOCarSqDq/sGT6rG+V6hMRMP8mvi3Zv0ost8oLNYE3oHlTpjN/Kas7DZE8Xf0Aqf/5jW0MaEvLzZR8pCeYxN+YF25rGQse5uWgZKj0F/1nNzP1A/Tk6GEi2HQdgCmKGOGBTK5x1iXRI4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778813975; c=relaxed/simple;
-	bh=pUTk3ydnIT5LntkJABWxPFqKPRtGtKpnosg/iGAwQVE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VjlJTk29LUtsDUSjhXPJcaU/PK14YOxES52lxLB6TSjCKw7gNNeedyV48IaSf40nqZBvcTP2L0biekLs1xFtjltQvS38nvM5C+jbxR19EruCJ/ynsqxgFeYxaCF3PaFYlAFaw7c7IMV0++gqBAjIvIbtNo0zUhjLu1+t1alW0uA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZhXdRhkA; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA7A93C4563
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 03:02:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778814155; cv=pass; b=Cz59I36jVAjKSR3fkWU0z7YpN8ZdzbLEoQRf58m91EuZvZx277/tTIRaeeMZtt0pxbdlfdUnf5ChB3p32TJYV46KiAI05KRGtmI419EMWPsPdQgWJOvIuiT3kpfT0clhzL4y6Gk0VBuoO7sAeZhBhcWBQRqDAd4zXgXsdIPg8CY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778814155; c=relaxed/simple;
+	bh=dyZPgBChY99/iHmj5U84EX4BMYoVSMr/fTUqGlpI7W0=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=ZafUxVBNgJvIbo4AJ/BFRDK1ZgKvCdUJtqGr+bt7dZeksqnKUf2dPeZGcHhGN+vqa3WmQSDyDvI6jco/KGpWHfsFBQAVlJC6GcGdWlqtoHLtvTszW6Rq8A7c+cQAl7o7AU925UGkR8Y6Sj1hiQM+eD5LGChHNqALGHFAEnIIiW4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=fZrGnatE; arc=pass smtp.client-ip=136.143.188.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZhXdRhkA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36F07C2BCB3;
-	Fri, 15 May 2026 02:59:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778813975;
-	bh=pUTk3ydnIT5LntkJABWxPFqKPRtGtKpnosg/iGAwQVE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=ZhXdRhkAXQD+HYsTqiNa9aEF7V/LAFkdym/SyR/GYHA7nc9rpazo6HGSOe3tBJ87h
-	 f+6W8oBfvkP/0Le2Na+Ig/UYQ5Fes6yECwMqPJ35YzPbhbtAb8FnJPfHP8bTsxHohe
-	 aakhxiLxcOVOmz8YDekQLAm0NjdtZLwme/SAKAmBoccVztG/YKNhQJ8Xhdtojyrogu
-	 2BQ8pkFzWXCDjQbfG7F0j90Nx1Xc4bKAOI7dZLqc90x6zVmLLK5ezvhPIzeMjkwcml
-	 96QGDvrl1zFWKnQWI6gDD/a9QwyMMwhYI4UoNjatuD6EE8H9AI4CMS5QqpyRaeizic
-	 4raf9wHCjK+CA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 9/9] riscv: defconfig: enable ARCH_ULTRARISC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jia Wang via B4 Relay" <devnull+wangjia.ultrarisc.com@kernel.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260515-ultrarisc-pinctrl-v1-9-bf559589ea8a@ultrarisc.com>
-References: <20260515-ultrarisc-pinctrl-v1-9-bf559589ea8a@ultrarisc.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 May 2026 02:59:34 +0000
-Message-Id: <20260515025935.36F07C2BCB3@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="fZrGnatE"
+ARC-Seal: i=1; a=rsa-sha256; t=1778814139; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=ZTLTOCH4QACSXPm/P88s4FOBywNqYthsnUmG66Yee9pyvVKb5yryAGEh3TlYQnfZ4oj2qNdbCREmSMpKBZ4dkJomyFu7hB9+NQ4ODnWnAeaCRmDTrJIfyF4HWnzCdnd5XfSTp3odyMxrzpxpBYjGGEJCJIKVRVDa1QefwpTNcZw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1778814139; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=4n/XbRYHd8XjsRnvVLMKpN1WjkZh8ld26QymEgYHYCs=; 
+	b=Pg9zcRYE3O4pPXpmNRZMZplFCCWtYboe8zFFcy3WPxKVCfwiU8jYKss5fgbRaMEMKzcMR9MnYg0EzKsCGf97URNQgI6oZkl6Lf1ao20h5hwp5i+LcMHTqQ23MnGyV6vkMM05fVhLlI0jYwKrFEN6LxeDyg7Uz8mUyTcK2ZO/EyM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1778814139;
+	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
+	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:Cc:Cc:Subject:Subject:From:From:To:To:References:In-Reply-To:Reply-To;
+	bh=4n/XbRYHd8XjsRnvVLMKpN1WjkZh8ld26QymEgYHYCs=;
+	b=fZrGnatEzkN0URENlgy7OXWU7yxHC1V4zAnXsribU0xnIW4wwl3Njlmw4gh8eFy4
+	/+e9WO9GRrsEsDZM2be5mryE2Z6G5nuChmS3WIEil94h0ejCttRnHimezcJ4HP2eebX
+	wfs7RGtCZIy3xmrTZYjojB82cjtU10vSwf55qOx0=
+Received: by mx.zohomail.com with SMTPS id 1778814137416850.1047948154467;
+	Thu, 14 May 2026 20:02:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 15 May 2026 11:02:06 +0800
+Message-Id: <DIIWZC9OQLDW.E3I75VVPJ09T@pigmoral.tech>
+Cc: <krzk+dt@kernel.org>, <devicetree@vger.kernel.org>, <robh@kernel.org>,
+ <conor+dt@kernel.org>
+Subject: Re: [PATCH v5 5/6] riscv: dts: anlogic: add clocks and CRU for
+ DR1V90
+From: "Junhui Liu" <junhui.liu@pigmoral.tech>
+To: <sashiko-reviews@lists.linux.dev>, "Junhui Liu"
+ <junhui.liu@pigmoral.tech>
+X-Mailer: aerc 0.21.0
+References: <20260514-dr1v90-cru-v5-5-34f3021aab51@pigmoral.tech>
+ <20260514194815.3483CC2BCB3@smtp.kernel.org>
+In-Reply-To: <20260514194815.3483CC2BCB3@smtp.kernel.org>
+X-ZohoMailClient: External
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The Kconfig symbol `ARCH_ULTRARISC` is not defined anywhere in t=
-he kernel tree.
---
+On Fri May 15, 2026 at 3:48 AM CST, sashiko-bot wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [High] The `can_ext` and `wdt_ext` fixed-clock nodes are missing the ma=
+ndatory `clock-frequency` property.
+> --
+>
+> commit 2b9cd6d4a55b4608470fd48bd92b6cacba368046
+> Author: Junhui Liu <junhui.liu@pigmoral.tech>
+>
+> riscv: dts: anlogic: add clocks and CRU for DR1V90
+>
+> This commit adds clocks and introduces the Clock and Reset unit node
+> for the Anlogic DR1V90 SoC. It configures a main crystal oscillator
+> and two optional external clocks for the CAN and WDT modules.
+>
+>> diff --git a/arch/riscv/boot/dts/anlogic/dr1v90.dtsi b/arch/riscv/boot/d=
+ts/anlogic/dr1v90.dtsi
+>> index 9fe183f5f5c8d..574c6608aef01 100644
+>> --- a/arch/riscv/boot/dts/anlogic/dr1v90.dtsi
+>> +++ b/arch/riscv/boot/dts/anlogic/dr1v90.dtsi
+>
+> [ ... ]
+>
+>> @@ -40,6 +43,26 @@ cpu0_intc: interrupt-controller {
+>>  		};
+>>  	};
+>> =20
+>> +	clocks {
+>> +		can_ext: clock-ext-can {
+>> +			compatible =3D "fixed-clock";
+>> +			clock-output-names =3D "can_ext";
+>> +			#clock-cells =3D <0>;
+>> +		};
+>> +
+>> +		osc: clock-osc {
+>> +			compatible =3D "fixed-clock";
+>> +			clock-output-names =3D "osc";
+>> +			#clock-cells =3D <0>;
+>> +		};
+>> +
+>> +		wdt_ext: clock-ext-wdt {
+>> +			compatible =3D "fixed-clock";
+>> +			clock-output-names =3D "wdt_ext";
+>> +			#clock-cells =3D <0>;
+>> +		};
+>
+> Are the can_ext and wdt_ext fixed-clock nodes missing the mandatory
+> clock-frequency property?
+>
+> The fixed-clock devicetree binding requires a clock-frequency property.
+> Without it, the fixed-clock driver fails to read the frequency and return=
+s
+> -EIO during both of_fixed_clk_setup and platform probe, failing to regist=
+er
+> the clock providers.
+>
+> Because the cru node specifies these clocks as suppliers, the kernel's
+> fw_devlink mechanism will indefinitely block the CRU driver from probing.
+>
+> This recursively blocks all CRU consumers, including the UART console,
+> leaving the system without a working console.
+>
+> Would it be better to add a dummy frequency, mark these nodes with
+> status =3D "disabled" in the dtsi, or define them only at the board level
+> when they are actually present?
 
-commit c77ace3a44699f903221665a56d7714a8cd6cf21
-Author: Jia Wang <wangjia@ultrarisc.com>
+Yes, this is true.
 
-riscv: defconfig: enable ARCH_ULTRARISC
+I will update the binding to make both can_ext and wdt_ext optional, and
+remove them from the SoC dtsi. If a specific board uses these external
+clock inputs, the board-level dts can define them with their actual clock
+frequencies.
 
-This commit adds the CONFIG_ARCH_ULTRARISC symbol to the default RISC-V
-defconfig file.
-
-Link: https://lore.kernel.org/lkml/20260427-ultrarisc-pcie-v4-1-98935f6cdfb=
-5@ultrarisc.com/
-
-> diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defconfig
-> index c2c37327b9877..9fdc4d1831ed9 100644
-> --- a/arch/riscv/configs/defconfig
-> +++ b/arch/riscv/configs/defconfig
-> @@ -32,6 +32,7 @@ CONFIG_SOC_STARFIVE=3Dy
->  CONFIG_ARCH_SUNXI=3Dy
->  CONFIG_ARCH_TENSTORRENT=3Dy
->  CONFIG_ARCH_THEAD=3Dy
-> +CONFIG_ARCH_ULTRARISC=3Dy
-
-Is ARCH_ULTRARISC defined anywhere in the kernel tree?
-
-It appears that the Kconfig entry for ARCH_ULTRARISC is missing. Adding an
-undefined symbol to a defconfig has no effect because the Kconfig system wi=
-ll
-silently discard it during .config generation, which would prevent the
-intended components from being built.
-
-Was a prerequisite patch that adds the ARCH_ULTRARISC definition accidental=
-ly
-left out of this patch series?
+>
+>> +	};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-ultrarisc-=
-pinctrl-v1-0-bf559589ea8a@ultrarisc.com?part=3D9
+Best regards,
+Junhui Liu
+
