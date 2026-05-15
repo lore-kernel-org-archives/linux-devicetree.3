@@ -1,64 +1,64 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 582153630A3
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 05:42:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9292B364029
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 05:42:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778823743; cv=none; b=AFHIt7byHalyg6F156Jd/skJomMB5P75M7TtEQttNn+TWB+gGh6LziF7XGGLT1g9B+WJrfFpIYYwRej8eSlFBqmxczENiVe7WsgzqCUEwxbcjPURus/wUt5TGZvDYfPyC7b/mP/wOx5d8ikksD5Ny4hGcK5IsT/JuIq4p3hFROw=
+	t=1778823751; cv=none; b=Adf2LnKEAEssk50q8QkVrvJm7YwSKsW1te4tw/ktr9K/etU2oOkVOawvxjyphnwJLPUxVenTpayrtTGpgXgbyYcnAjwEUnuFqY7Lu0EVtCb7KN2KfspjnSr5mj4/G/oPB5lPjOyW+wYsE9odw+9d3RpCryYFuFOFFDRikT1G92I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778823743; c=relaxed/simple;
-	bh=4ujO8YPn+C6kly/QIxgqk2+iFaoJUzR0JdPeVgifXGg=;
+	s=arc-20240116; t=1778823751; c=relaxed/simple;
+	bh=aVdFf5OymMVSZ4KFTnooyC2hd0qHH4hvBzmghV4dLpk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nvqinM4H8mizcQ8KgnQHPZx2Bf3SyYzQgcZ/ykhUUS4OViL2BUIikPxsusSCryH9/W7FLTHxXrZaIq9xuWBn1AGN9dPNbBG22zc86iUg6ldSzOUSZnvjRK0RN29QR1HYnM9wd1Iwm7FBbBBEiryp71vrrG1rLLg4IB4nSwCPoPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F/uTGYHL; arc=none smtp.client-ip=209.85.210.169
+	 MIME-Version; b=IvTnqrUNI7DuqXq1kbs7kxPXo2EPJoDt5VlzjmI3nEjRbJtOshfDhK/dyVb2xHzGiM/IzzxNdBbU0y10kBqL3H5fnp3oC1lUM4bnyrdZoA1JA3iCcw8FVsm93B+IvC760iUPtTf+l4Ys5NaDYXU4GH4AkBqBBwk1wA44rCvR82A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P4zjnFXG; arc=none smtp.client-ip=209.85.210.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F/uTGYHL"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-824c9da9928so4357361b3a.3
-        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 22:42:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P4zjnFXG"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-82f8b60e485so4387719b3a.0
+        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 22:42:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778823742; x=1779428542; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1778823750; x=1779428550; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5BD6jb0vjKtzgJh8F8xKpey20kEfF+Odim4ezk9P1XI=;
-        b=F/uTGYHLT8VYmGW7uUL+D8T/AA74P6prWB53VB35e1Kcxs9A1li02lUUJfl59m2XPG
-         UY9OLwSN6S+/GyHL7u9w6UurHJG2uXT6EofbCa31igySqpYGx2ecTIpBe5XaqdKQrW0c
-         zMB0Q5Vt/vCsG/kUXnNwsxqCm2edDNVb6h7iwTs6LrrYPs0mGDZOywnYqXOq//V1Xq8N
-         Z3CgISE7MVDvS/pAtRj4lRWSEYv5Mbaxe+nEhv/DucluH8eIFkne84tkuLaoGmLlu12m
-         Y6Wr6qgXaZu8EKxu1EzW/9XGVTu+kYxXKeeW/icfozYKB0+QwoxhDMuq+FGy/7nj9Oxd
-         8Z4A==
+        bh=uA3KbxtyArVx1TPayII+4ue5MWymrrbmptjetuH5M+E=;
+        b=P4zjnFXGHsF/eBNiA1ijEPqz/NFATd7mTH554p4nTpVHGlaiIPzSNPOmme5yz7k36/
+         DpR+N6STAkUWLTeCPyD/lw6+zaxnuRujKlOW9C/Mkk8GC2CGSCTTQEQ97eSY2tQcYWUJ
+         ZQnYF1HtCwdD2QRW8eNCHv0gDugHAcmUGi7FOAPubXii4tDsSTxtzhEPxtSKK8YwhQhg
+         ZgvtVdaNIo61i+GjMueX74rfcfVleUAT6JuR7FrXQd4MMDwJDhQ4Ghn3AN4a+drWzJdB
+         mPQ9mL55ufgPy3oqpt688fTl8gcE0PnrU8Fm/9F3nkoe7CQ5j4byS8klEGelMiWokk3w
+         Gvyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778823742; x=1779428542;
+        d=1e100.net; s=20251104; t=1778823750; x=1779428550;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=5BD6jb0vjKtzgJh8F8xKpey20kEfF+Odim4ezk9P1XI=;
-        b=fhDnSWSsLZItS7amcvglzxV+gsx0NMDxpV7CxKthmhkNTxAUf45BTJfh5Wwd0GELsw
-         55LxsvEkJabYclIMUX/DB6stEnkPD10GN+uywQnCCWw1N558Hj8F3Yp0kCrdbkKNl0gc
-         4Kndg8dVOSiwqByY2Qr2YmLOwpNFIPEv/b79G7lPrCeMSiTvQhVABpA+o3gjkT4qBCgl
-         Nkk2PxdO6yEB25XxbrDFpH+SZkS6yI38O8QIqyCoRn+Re4tjGqCMqD8Kx50i4V+k9vrz
-         QcsWIsNJzbeO0zfM56/3vJN2UmBIyXmkVlTEGMl8Qro9S/soRzXD+xsgqWPoFn5IcGx1
-         6dpQ==
-X-Forwarded-Encrypted: i=1; AFNElJ//w+alfYsVmK9lKkzcuczHQL4K7+Rx+Hs2dIAZSkWozYb0i6QCTWjtsZkueTVOFLDplSW2Aw8DTFx/@vger.kernel.org
-X-Gm-Message-State: AOJu0YyGBS/mHOiC9vP/HR1qlxpmL59o2IM1LiGrhFtPUjB7CS2Ob3Dh
-	EwONR8eoZ7GyQHkA9GXyrMeP+WWTvQWg7Gf47qIqL9X12WftocDTdHVq
-X-Gm-Gg: Acq92OErCIwLpBvGGBhLT2+1cSAtgcClgDzuae+caXUH8jWGo/Dvdgn7INvhzn3w7Rl
-	2v2WSA3P0T64PWBTJZnkItmzALtyG76JaE3+gAlgUVxl/jA4x1+1dcunrqd9xM/4TfKXQA5TrvG
-	WfA2XDe4RPrpHpIvdrtS1uxmV1mo74fwCL5K81Mj8AlawWn4ox1ZrokD97BF2gK2pGIfFUk6Lu4
-	54VJJ3hOca2qnWHYgE12Fq1IEgIjdrWOYtFkNpXeRAnHwCfeGuCRVmo2qNMBmpob056hoF4svTH
-	0AmjXpTfpTxH5LCT7E8aKriwZqzz3ykOGHRSQQepQFIgchqr0EoCqRvXh7ZIH88forCNVcKk3NZ
-	wXp1Wi1SN3LJeOkpOBUsE4rrENXBpfu6Dd5jL+m4yn2m65EsGJigJJOpPrBUbbvgoURSnCac0Eo
-	T/hl3phyiGuuonlgyqRAd0gJhR0ct5SbPA4fCrh26zI1Hjr4rsiQ6phH1urUJiax93sMked1eC5
-	n2sHDu3LbAKLTcjhRaGPNo7ufQ=
-X-Received: by 2002:a05:6a00:1954:b0:835:366f:5da2 with SMTP id d2e1a72fcca58-83f33d80937mr2828691b3a.37.1778823741521;
-        Thu, 14 May 2026 22:42:21 -0700 (PDT)
+        bh=uA3KbxtyArVx1TPayII+4ue5MWymrrbmptjetuH5M+E=;
+        b=s3U9q4SMgh4fD9D/i4jLAl2CAZuvZ5kX2v9hV+tqSvh6vqPuApi1MB0yiE3RWCVEIE
+         OggYRBbPqLfXLGktWktL7WsjAIou/DtY7BzJ8tcUNkPLlDv3bYzNbV+lKK4Vjd8cOzRr
+         LWKZnXNaSLHy+tcLgi2kr3le9sAm/aGQ10f9mdxCAcl979V1XDblrXlL1YrYnlhdpPhQ
+         2EbGwDaANzXOTVFbi6ZlwmIp8mcSb2+W0XoqJhVpb66lHJWwJX+evhdMARiErXlIELVT
+         xT6L7R13qvC+xhfGUgdb+w5q+kjkCBfoJaCgQqAFZDhAr5EqZai7QvBMCQqf5GMZXB7a
+         HAvg==
+X-Forwarded-Encrypted: i=1; AFNElJ+DkJdvdgllhzFZcMm+zJl/uVpwhpE3hI+xhGzvi9tTTEKSEcU4Yzh3ag5pnNHtpQXoXav2mvV+adA8@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx+b8OF6+727RiOr9KLnY5v+pgmjNyjPeE53RDwm322+46XCebA
+	DJrpISEvNNXhA2shkBYj+zKckE9Vz5lbzQFA/Vl6b4FWVJEvc9zWfAgA
+X-Gm-Gg: Acq92OG7OpIArkVh1MUipz5xToc4pZ5H3XbeLrYvb7MzWaVu2mx7LvIj9x3rs1Uct6s
+	OA87aXxWro81jbUmDSYHzOnQrLpqUpvYOrcteloqXb8E5txuHnnN341f1KHJZokaDC7Z3MYy5gd
+	agxd8iVsMq+ACrqPV0dKjVpwBW5FXkXgYldVAAxGkrGmzrjjaRelEUFsITM5u4TM28MNOClUAKq
+	D+YeT2UiesIAHvqOx0CseY9dye+rjIog6tZu59Gkegb3xMTFw84wY3ckemGvW2tGv4b+tFQq6Ja
+	Gtiu1eicvPr9DxEmir4285Z9/diEKKx0vW+WgSlQ2JixLnjhbeM3J3EhkJ0unsWR9h3S4Ktzvd7
+	iaodb7MtjY9cu5pr79SdDDNLYleXJw9LpfT/dvErM+LK0FClsooVh0aREF70DnTRXzSdI/yhLno
+	DXBVdqm5zKjjw3gwddsWLiAo2ISo+ZV4GxpcSmRyUHx1C4277b2xLimhCozn0ybyzhYhFSc9yu1
+	LJjZQ0pP9KTrCGbIVrHXCHiucY=
+X-Received: by 2002:a05:6a00:2793:b0:83f:2568:d456 with SMTP id d2e1a72fcca58-83f33d277e9mr2723997b3a.29.1778823749726;
+        Thu, 14 May 2026 22:42:29 -0700 (PDT)
 Received: from harrison-Surface-Pro-12in-1st-Ed-with-Snapdragon.wework.com ([203.117.161.34])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f2b9bec8fsm3106116b3a.33.2026.05.14.22.42.15
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f2b9bec8fsm3106116b3a.33.2026.05.14.22.42.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 14 May 2026 22:42:20 -0700 (PDT)
+        Thu, 14 May 2026 22:42:29 -0700 (PDT)
 From: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
 To: andersson@kernel.org,
 	konradybcio@kernel.org,
@@ -87,12 +87,12 @@ Cc: Douglas Anderson <dianders@chromium.org>,
 	dri-devel@lists.freedesktop.org,
 	linux-input@vger.kernel.org,
 	platform-driver-x86@vger.kernel.org
-Subject: [PATCH v2 0/7] Add support for the Microsoft Surface Pro 12in 1st Edition (Snapdragon),
-Date: Fri, 15 May 2026 15:41:45 +1000
-Message-ID: <cover.1778822464.git.harrison.vanderbyl@gmail.com>
+Subject: [PATCH v2 1/7] dt-bindings: arm: qcom: Add Microsoft Surface Pro 12in
+Date: Fri, 15 May 2026 15:41:46 +1000
+Message-ID: <e54aa6c1e190b0e26d58504c5ea1b05fd09d64d3.1778822464.git.harrison.vanderbyl@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <177869930359.1496076.12020223802779537187.b4-ty@kernel.org>
-References: <177869930359.1496076.12020223802779537187.b4-ty@kernel.org>
+In-Reply-To: <cover.1778822464.git.harrison.vanderbyl@gmail.com>
+References: <cover.1778822464.git.harrison.vanderbyl@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -101,81 +101,30 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Changes in v2:
-Ice device tree: 
- - Updated to use 0x0 formatting
+Document the compatible string for the Microsoft Surface Pro
+12-inch, 1st Edition with Snapdragon, based on the Qualcomm X1P42100
+SoC.
 
-Panel: 
- - Add edid to commit message
+Signed-off-by: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Device tree:
- - Fixed formatting and ordering nits
- - Removed extra dmic audio declarations
- - Added suspected devices on i2c busses
- - Fixed incorrect usb regulator
- - Describe panel pin regulator
- - Added defaults for volume button GPIOs
-
-QSEECOM patch (4/8 in v1):
-  - Applied by Bjorn Andersson
-  
-Hid patch (5/8 in v1):
-  - Acked by Jiri Kosina, but not applied yet.
-
-Link to v1:
-https://lore.kernel.org/all/cover.1778498477.git.harrison.vanderbyl@gmail.com/
-
-
-Currently supported:
-  - UFS (with inline crypto)
-  - Touchscreen, pen, cover keyboard and touchpad (via SAM)
-  - USB 3.2 x2 with DP Alt Mode
-  - Audio, WiFi, Bluetooth
-  - CDSP, ADSP, GPU
-  - Display (BOE NE120DRM-N28 panel)
-
-Not yet supported:
-  - Accelerometer
-  - Front, back, and IR cameras
-  - IRIS video decoder
-
-Note on the compatible string: unlike other Microsoft Surface devices
-upstream (denali, arcata, romulus13, blackrock), this device does not
-appear to carry an internal codename in firmware. The DSDT, SMBIOS, and
-EFI variables only refer to it as "Surface Pro 12in 1st Ed with
-Snapdragon" (SKU 2110). I have used `microsoft,surface-pro-12in` as the
-compatible. Suggestions welcome.
-
-Although the device is marketed as just a smaller version of the denali,
-it has enough differences that it warranted a different compatible and
-device tree.
-
-Tested on Surface Pro 12in 1st Ed with Snapdragon (SKU 2110).
-
-Harrison Vanderbyl (7):
-  dt-bindings: arm: qcom: Add Microsoft Surface Pro 12in
-  dt-bindings: crypto: Add x1e80100 inline crypto
-  platform/surface: SAM: Add support for Surface Pro 12in
-  hid: Pen battery quirk for Surface Pro 12in
-  drm/panel-edp: Add panel for Surface Pro 12in
-  arm64: dts: qcom: hamoa: Add inline crypto for UFS
-  arm64: dts: qcom: Add Microsoft Surface Pro 12in
-
- .../devicetree/bindings/arm/qcom.yaml         |    4 +
- .../crypto/qcom,inline-crypto-engine.yaml     |    1 +
- arch/arm64/boot/dts/qcom/Makefile             |    2 +
- arch/arm64/boot/dts/qcom/hamoa.dtsi           |   10 +
- .../dts/qcom/x1p42100-microsoft-sp12in.dts    | 1201 +++++++++++++++++
- drivers/gpu/drm/panel/panel-edp.c             |    1 +
- drivers/hid/hid-ids.h                         |    1 +
- drivers/hid/hid-input.c                       |    2 +
- .../surface/surface_aggregator_registry.c     |   15 +
- 9 files changed, 1237 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/x1p42100-microsoft-sp12in.dts
-
-
-base-commit: 5d6919055dec134de3c40167a490f33c74c12581
-prerequisite-patch-id: a34133ba03bd1d31c0ed08612c31131b62015654
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index b4943123d2e4..aaa9a129908a 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -1168,6 +1168,10 @@ properties:
+           - const: microsoft,denali
+           - const: qcom,x1e80100
+ 
++      - items:
++          - const: microsoft,surface-pro-12in
++          - const: qcom,x1p42100
++
+       - items:
+           - enum:
+               - qcom,purwa-iot-evk
 -- 
 2.53.0
 
