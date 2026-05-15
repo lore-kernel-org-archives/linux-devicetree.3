@@ -1,155 +1,221 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011026.outbound.protection.outlook.com [52.101.57.26])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99E723AEF59;
-	Fri, 15 May 2026 13:33:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.26
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778852025; cv=fail; b=q0+BOUNgoj4Wpqujsrgv5J53Fd48+nUfA2OW8mNKhaTV5SGO4ZEcG9qJmfXC4MswX9bqsEX/LPRv33lggj7UVXo6Lz/6EY0Nt/ylxEnYvmMJh2ybHpFKRUOCbtH6pZEmx6zOul1WsiVIgLuZVX8ADLQE0Pw1U66lnLIkvcmrVvk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778852025; c=relaxed/simple;
-	bh=POhNa0P0m+Ga73kg298soWXufxw0kHr4xaPhUAfEaL0=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G4b0FTHLWTJDyin1YuYx9/QOLkrRAXHYQ27XQKs8wd1TziDZaIZP1uUHWUAwBiruyTI1q2Q5TH6i1tNWU8PzTl2bcTFJa0MiYh1PH1SKZKrCmbSvrH50aviKVux+x4WAGP5FDMOKEvlAVD6XnxJDbKrLwLCiVIVUrFUuAK/ecE8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=K5BBJVRX; arc=fail smtp.client-ip=52.101.57.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6473E322B72
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 13:34:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778852068; cv=none; b=SQ4Z4QcGJD6O1rbC/bKtebhsPiWxKaA3nkIP7w6juzU3QXTYDs45VWbj+GMBnBMgBgG3SCPNjddn34+d2dNleHxuPJs3BDckfCa4JteUvxiRwoZpiNSG4R1n5BPhuL869KV23JlTLOPEjvECDmhZHXb/XWJNjwXli7DmuW2DAU8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778852068; c=relaxed/simple;
+	bh=zBMVqPuV0eCvurcoLUCY/bCLK4EOiOhNiBeHwSFTSss=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=TJcpzhnq8cVTi246OuaFSTs8bMDECOm83bFOz+tiUdJ+0EXo0NWgOZKjzJriL4obwtPi3OafbXG86Yx0Sqc123XRtzytT0/yOJCRR7E15TdzcuyxwXpLgfoRHqu27WM7FX5SI8KWhTZ4ZapzcPkyvjdnmbjQh3H1U9XVbFZwRMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XMg7ik+l; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="K5BBJVRX"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wGjspElMEWhasil5JDQIawt1LdHPaNw+P9aaEmuFrcac48CjmMxpvSIEJi7tayi/a+pnG15Tfot75p8315Uj731iyv0uV8VsWvlZHhI3Mt3UIJ+TXUJV3AW7dR+ue5FeE736vFuGS/GqtkUMwAnL4+d259LBQTTczDPmXj2XuqrP0pfeFEUI0h0Hl2Q1j/AS4/phGmFivtybk9JZ7xkx9Tsq5goRGXiZM0X0I0M2djHcLrBiDOSeJrHivG/L+I21bhAGrFKvu2Dff71FFUfkEnsEr3RV7xyyyoqKtPveKo6vfdt8WxN/Lt8SrR2qoFVJlx9girGFGKJxERezGYdyRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RacppeYCgeq3f1KkQtct10fppYkjQXDlUYfhvjTHDBM=;
- b=dbk/G4Tmf3wPJfueJrrycplT39l4VgYWkoxmzdBffOIKRTFN5+utslbHK+sD+SSCc0+pcajjhal3lF9WU/zmExYe72CHV0lILpFyZx5H9IaZ5oHJCHt1oGQ753DvrMXOyS7e6fnWi7P4xEmo+sNTXzD2LRyYZG8u84rVSKraFoZtA/yO+oUL4LuMvAZ7efxvc0lstKI2zRqHqNz/5Y1m/ms8BzWbp7RDLBZs8qNkYfEWFE/RnIr1rv0HdrdxIrcgbE2LdtrUUznPkBiRlHOKLoKcu35se/5JYfdzFQulGlhCD1ET2LUmdRGpbj+Z0TrB4X43kaAX0DFHvEQYmagdmA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RacppeYCgeq3f1KkQtct10fppYkjQXDlUYfhvjTHDBM=;
- b=K5BBJVRXTbZUvQZvJdb6qyzuVdaJAeSdos/f9fJX9+rsUMY9FkOxKXEO9um8AxxuDqlPSbYdMhuQJvSgNM3UkPlWY/uFeo1o9KgawzacPULmO00vweTdZaPGV9oew7w2+Pj/vfgmONxer17DlBZNTp93oZ2KZpP3psUc0LPWjb4=
-Received: from MN2PR06CA0005.namprd06.prod.outlook.com (2603:10b6:208:23d::10)
- by LV0PR10MB997588.namprd10.prod.outlook.com (2603:10b6:408:33f::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Fri, 15 May
- 2026 13:33:37 +0000
-Received: from MN1PEPF0000F0E3.namprd04.prod.outlook.com
- (2603:10b6:208:23d:cafe::ab) by MN2PR06CA0005.outlook.office365.com
- (2603:10b6:208:23d::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.20 via Frontend Transport; Fri, 15
- May 2026 13:33:37 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- MN1PEPF0000F0E3.mail.protection.outlook.com (10.167.242.41) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.13 via Frontend Transport; Fri, 15 May 2026 13:33:36 +0000
-Received: from DFLE202.ent.ti.com (10.64.6.60) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 15 May
- 2026 08:33:36 -0500
-Received: from DFLE201.ent.ti.com (10.64.6.59) by DFLE202.ent.ti.com
- (10.64.6.60) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 15 May
- 2026 08:33:35 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE201.ent.ti.com
- (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Fri, 15 May 2026 08:33:35 -0500
-Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64FDXZqx3973738;
-	Fri, 15 May 2026 08:33:35 -0500
-Date: Fri, 15 May 2026 08:33:35 -0500
-From: Nishanth Menon <nm@ti.com>
-To: Antonios Christidis <a-christidis@ti.com>
-CC: Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] arm64: dts: ti: k3-j784s4: Add GPU node
-Message-ID: <20260515133335.6k3fptntggpnr2xu@numbing>
-References: <20260506-j784s4_gpu_node_upstream-v2-1-23d6a2565ac0@ti.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XMg7ik+l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BE29C2BCF5;
+	Fri, 15 May 2026 13:34:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778852068;
+	bh=zBMVqPuV0eCvurcoLUCY/bCLK4EOiOhNiBeHwSFTSss=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=XMg7ik+lSSu1onWoNBGxXBM6kJ6vJIsmaDV3QG9M7j4STk+m9kiyul1BKYOkX5q/x
+	 9zY+Z6AqYfkGWHL6BVj49Gmw/Cc5zJk1CzcVKaOwcBOpUmcDWV6kmT0H6hpKRxNZ/L
+	 OdKTopUcNJwW84cJfxnNjxnsoLvBITu3xu9IDo6RD6CTwnMmSMuRFIscJifnppQMDq
+	 He4By33XabTEGtX2kE5Or2l5ngAf1Vk4RmauIcZARkeEArHYGEGT03aOzuSNgkmuC0
+	 vGWWqd/YOTGfCxbW+iFWXubNG5WhYiOPMIZ+LQcnY8vGfvHuO9bGdeoee+6+rCTwdg
+	 bioYnyB6nmvTg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V7 08/11] iio: imu: inv_icm42607: Add Accelerometer for
+ icm42607
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chris Morgan" <macroalpha82@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260515130018.237378-9-macroalpha82@gmail.com>
+References: <20260515130018.237378-9-macroalpha82@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 15 May 2026 13:34:26 +0000
+Message-Id: <20260515133428.0BE29C2BCF5@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260506-j784s4_gpu_node_upstream-v2-1-23d6a2565ac0@ti.com>
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E3:EE_|LV0PR10MB997588:EE_
-X-MS-Office365-Filtering-Correlation-Id: f12d0370-e1fd-432b-a48a-08deb2869158
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700016|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	BhzgHcpwzTifKC7pQspfZ0IfY2vdB8o+9xeL2U6j2/IO5w7KWXTezd9VnQUn/VXrW0USLrK28PqI3EQwD1Z5IzpAadgWF9sluzUZdBwWXht6fCeI7D5NCynBvR7zfj5Rp1eQ20MGJhIqhDip1t97kfvd1xjfWtpsaZFmBhyJGCC62IHrsBvaF+Wqy2/zCNVDN3fIBu5xcrWFotKRdgfbq9wfombvdeIaiE32BEi/kxDcSkGrH7pnyRX3oPk4/5SJH9A9c9sD2YCjtiviNy8SnCpcEgagcpTcbONPTXT8h3iWbouDpAYl2cFvDFN6iYxrOVrSByXskHY79fky8HyUzREDMW2Xr75ad5gpdo27bGofsnI+SUbYmMN3wSVClbCy90L6RFr36iUc/hh9QArJdeEzoljyel4dlGQ0YznKcDbTH+d+KlC7bsfUwaqh0ovAXXyRX7kUFwNPeB4IfdHzdZudjVAYpKbLbUPpH6CPzHIpY+WavENhLuRlwpBX1VYresMgJOkzdBIi6TIH4y1fjIxMqoZ+DPSC+VfhAts35YF4aZ2yHIdfaPsH2eMVaSukgUgG+hArTIstinsGBDQVFeFQSWkQuT1Q/5Mzc1jFkmC8wLBisOPR8t2XPtkpxuF7tPS4k58u6mowKpVgC20D9ai+cnJADfu/QF6SgfrVVwhiloxQZC+L/f5uL28Ltvm+vmupcLR7Pb178L77gxQ0wyuj838ByuqLTYIhuL8PIWI=
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Wyics0sq+omgUoWoZT+207vlit6FrUZPNBg3gF0YSAZKiAk4Zj3uagaN42qp+unSPM4P1utfPYM9ZvoU8h9LZyXVXxxCXeXmjZt16AKVC70nmBaY5i59WPYMWGvSaqlccta60Ktm9PNBHUZwBOFAr+P9JhC4dNK/mGljM8J5oTNFOw7m7auAVx+AGrB36S/ALCMWNfLfT9+So+bevIwaPGsiA7xAANouQHMphfj2Jb2LayTr/HTlNLtFWYWpiIM7Uwdm4cdVig88N0iM3FaOdo9Uvncl3ryUAQD5UBZy9zMD1HPhBMdoBxYk2pBvOfbklsMsL+LNZDLFv07kOpIKmSuK6NNuFL+yvsWneGuf/uRlLS2tVcqCt6EeNlQkyfLMjNpN8ur2lmphcu960brb7NZO22X5pOaQOold7aUEDbZky8xQXf+stfrUZz9ZoH7v
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 13:33:36.5849
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f12d0370-e1fd-432b-a48a-08deb2869158
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000F0E3.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR10MB997588
 
-On 15:18-20260506, Antonios Christidis wrote:
-> Add the Series BXS GPU node for j784s4 device tree.
-> 
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] Reversed bounds check in FIFO parser causes valid packets to be dr=
+opped and out-of-bounds reads
+- [High] Unprotected lockless access to shared FIFO state leads to data rac=
+es and corruption
+- [High] Missing packet bounds check in `inv_icm42607_buffer_fifo_read` all=
+ows out-of-bounds memory access
+- [High] Unsupported TEMP-only scan mask causes silent data drops and users=
+pace deadlock
+- [Medium] Reserved array elements exposed as zeroed sampling frequencies i=
+n userspace
+--
 
-Adding documentation why j721s2 compatible is correct for j784s4 is
-needed.
+commit 7b72703c452d419fa91a97227176f51c49a6b7cb
+Author: Chris Morgan <macromorgan@hotmail.com>
 
-[...]
-> diff --git a/arch/arm64/boot/dts/ti/k3-j784s4-main.dtsi b/arch/arm64/boot/dts/ti/k3-j784s4-main.dtsi
-> index 78fcd0c40abc..ddb9385cd942 100644
-> --- a/arch/arm64/boot/dts/ti/k3-j784s4-main.dtsi
-> +++ b/arch/arm64/boot/dts/ti/k3-j784s4-main.dtsi
-> @@ -137,6 +137,20 @@ serdes2: serdes@5020000 {
->  		};
->  	};
->  
-> +	gpu: gpu@4e20000000 {
+iio: imu: inv_icm42607: Add Accelerometer for icm42607
+   =20
+This commit adds accelerometer sensor support to the icm42607 driver. It
+introduces device configuration, power management, timestamp handling, and =
+data
+parsing from the hardware FIFO. It also exposes available sampling frequenc=
+ies
+and scales to userspace.
 
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c b/drivers/=
+iio/imu/inv_icm42607/inv_icm42607_accel.c
+> new file mode 100644
+> index 0000000000000..b354a84fd2ed4
+> --- /dev/null
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
+[ ... ]
+> +static const unsigned long inv_icm42607_accel_scan_masks[] =3D {
+> +	INV_ICM42607_SCAN_MASK_ACCEL_3AXIS,
+> +	INV_ICM42607_SCAN_MASK_TEMP,
+> +	INV_ICM42607_SCAN_MASK_ACCEL_3AXIS | INV_ICM42607_SCAN_MASK_TEMP,
+> +	0
+> +};
 
-https://docs.kernel.org/devicetree/bindings/dts-coding-style.html
+Does offering INV_ICM42607_SCAN_MASK_TEMP by itself cause issues? If usersp=
+ace=20
+requests only the temperature channel, inv_icm42607_accel_update_scan_mode(=
+)=20
+enables only the TEMP sensor. If the hardware generates packets without ACC=
+EL=20
+or GYRO headers, inv_icm42607_fifo_decode_packet() returns -EINVAL.=20
 
-"Nodes on any bus, thus using unit addresses for children, shall be
-ordered by unit address in ascending order. Alternatively for some
-subarchitectures, nodes of the same type can be grouped together,
-e.g. all I2C controllers one after another even if this breaks unit
-address ordering."
+Even if it generates an ACCEL packet, inv_icm42607_accel_parse_fifo() expli=
+citly
+discards packets lacking accelerometer data. Would this cause the TEMP data=
+ to be
+silently dropped, potentially leaving userspace applications deadlocked wai=
+ting
+for data?
 
-Any specific reason to keep this patch ordering?
+[ ... ]
+> +static int inv_icm42607_accel_read_avail(struct iio_dev *indio_dev,
+> +					 struct iio_chan_spec const *chan,
+> +					 const int **vals,
+> +					 int *type, int *length, long mask)
+> +{
+> +	if (chan->type !=3D IIO_ACCEL)
+> +		return -EINVAL;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SCALE:
+> +		*vals =3D (const int *)inv_icm42607_accel_scale_nano;
+> +		*type =3D IIO_VAL_INT_PLUS_NANO;
+> +		*length =3D ARRAY_SIZE(inv_icm42607_accel_scale_nano) * 2;
+> +		return IIO_AVAIL_LIST;
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		*vals =3D (const int *)inv_icm42607_accel_odr;
+> +		*type =3D IIO_VAL_INT_PLUS_MICRO;
+> +		*length =3D ARRAY_SIZE(inv_icm42607_accel_odr) * 2;
+> +		return IIO_AVAIL_LIST;
 
-> +		compatible = "ti,j721s2-gpu", "img,img-bxs-4-64", "img,img-rogue";
+Can this expose uninitialized array elements to userspace? Because=20
+inv_icm42607_accel_odr has indices 0-5 reserved and implicitly initialized =
+to=20
+zero, passing the full ARRAY_SIZE() could expose those 0.000000 sampling=20
+frequencies as available to userspace.
 
-^^ j721s2-gpu: please clarify in commit message.
+[ ... ]
+> +	/* parse all fifo packets */
+> +	for (i =3D 0, no =3D 0; i < st->fifo.count; i +=3D size, ++no) {
+> +		size =3D inv_icm42607_fifo_decode_packet(&st->fifo.data[i],
+> +				&accel, &gyro, &temp, &timestamp, &odr);
+> +		/* quit if error or FIFO is empty */
+> +		if (size <=3D 0)
+> +			return size;
+> +
+> +		/* If the packet size could cause us to overflow, return. */
+> +		if (i + size <=3D st->fifo.count)
+> +			return -EIO;
 
-[...]
+Is this condition reversed? If i + size <=3D st->fifo.count, the packet fit=
+s=20
+within the valid buffer limit, but the parser returns -EIO and valid packet=
+s=20
+are dropped. Conversely, if the packet exceeds the buffer boundaries=20
+(i + size > st->fifo.count), it evaluates to false, allowing the parser to=
+=20
+read out-of-bounds kernel memory.
 
--- 
-Regards,
-Nishanth Menon
-Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
-https://ti.com/opensource
+> +
+> +		/* skip packet if no accel data or data is invalid */
+> +		if (accel =3D=3D NULL || !inv_icm42607_fifo_is_data_valid(accel))
+> +			continue;
+[ ... ]
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c b/drivers=
+/iio/imu/inv_icm42607/inv_icm42607_buffer.c
+> index 74e5213d92671..4371f428cc3f8 100644
+> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
+[ ... ]
+> @@ -440,7 +460,7 @@ int inv_icm42607_buffer_fifo_read(struct inv_icm42607=
+_state *st,
+>  	/* compute number of samples for each sensor */
+>  	for (i =3D 0; i < st->fifo.count; i +=3D size) {
+>  		size =3D inv_icm42607_fifo_decode_packet(&st->fifo.data[i],
+> -				&accel, &gyro, &temp, &timestamp);
+> +				&accel, &gyro, &temp, &timestamp, &odr);
+>  		/* Make sure the size is at least 1 valid packet. */
+>  		if (size < INV_ICM42607_FIFO_1SENSOR_PACKET_SIZE)
+>  			break;
+
+Could this code access memory out-of-bounds? If the hardware returns a=20
+partial packet at the very end of the st->fifo.data array, the loop does no=
+t=20
+verify that i + size <=3D st->fifo.count before passing the decoded pointer=
+s.=20
+inv_icm42607_fifo_decode_packet() could then yield pointers that point=20
+outside the populated bounds, which inv_icm42607_fifo_is_data_valid() would=
+=20
+subsequently dereference.
+
+[ ... ]
+>  int inv_icm42607_buffer_hwfifo_flush(struct inv_icm42607_state *st,
+>  				     unsigned int count)
+>  {
+> +	struct inv_icm42607_sensor_state *accel_st =3D iio_priv(st->indio_accel=
+);
+> +	struct inv_sensors_timestamp *ts;
+> +	s64 accel_ts;
+>  	int ret;
+> =20
+> +	accel_ts =3D iio_get_time_ns(st->indio_accel);
+> +
+>  	ret =3D inv_icm42607_buffer_fifo_read(st, count);
+> +	if (ret)
+> +		return ret;
+> =20
+> -	return ret;
+> +	if (st->fifo.nb.total =3D=3D 0)
+> +		return 0;
+> +
+> +	if (st->fifo.nb.accel > 0) {
+> +		ts =3D &accel_st->ts;
+> +		inv_sensors_timestamp_interrupt(ts, st->fifo.nb.accel, accel_ts);
+> +		ret =3D inv_icm42607_accel_parse_fifo(st->indio_accel);
+
+Can a data race happen here? inv_icm42607_buffer_fifo_read() properly=20
+acquires and releases st->lock, but then inv_icm42607_accel_parse_fifo() is=
+=20
+called without holding the lock. A concurrent flush operation could acquire=
+=20
+the lock, overwrite st->fifo.data, and reset st->fifo.count while the=20
+original thread is mid-parse, leading to memory corruption and out-of-bound=
+s=20
+reads.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515130018.2373=
+78-1-macroalpha82@gmail.com?part=3D8
