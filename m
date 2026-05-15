@@ -1,156 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15EFB3C8C65;
-	Fri, 15 May 2026 09:52:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FEEE43E4A6;
+	Fri, 15 May 2026 09:53:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778838722; cv=none; b=CHugXIqQF6OKG4ehfRrwuOb99vO68U8hclh0GaVNw5lbjlurJEczze4QrkPkCUOlHcXb4rG6+8qNSMUYXg2UpneLqsFsJVeodfyPjydAUzODx6YXuJ5JjmULMWSu//TRdbs9VAQLa68GNWpbbDbqm9v2CJBtg9vJD3dKDURGM8g=
+	t=1778838810; cv=none; b=IAo/IdT5kqiRkq32/51e5liEdQXU2pzMpIl1XRnHf/JIqAue5LP5gjxxWbGINlynsUExjFAPTKxF1RMXrO/8Qt1hwA8zV5I8e1UcBRaodaQPJIlwxwMHzX9olN4vW1SHNlkgrlRtIxN+ExTT10CqElxKbv9UVdk9PVTnnEcUl5A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778838722; c=relaxed/simple;
-	bh=RkB6HAVtl9jHlb71A/+OR9URWkP/BBC0JHSseBIkJNQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pBgOa6kE75998MvAs9xESqZ2ma2tGiNYRjt8iiiuyatmltEkzak+M+pJKtM6/I4QeMIo9iPSV6Qi78Bpoki+ic+1bgrpkTwSx3tuh+TgCqHDtGXoc1XFdPNe8Xlq+T0K8YtdxTsaVDSI5XawbUj/ZNHHggUXlAG23AdETPHjYeo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DrA2gvGb; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1778838810; c=relaxed/simple;
+	bh=A0YTQ7UkDojF2CD4/8jwh9dUZ30FIIWOA4StnexdvRs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gccNW2LiQXcSG0Rs0DhgGTLiqsxSMEHnuSjiMZYJEVzi86vjF3u8oKF55LxUhxmtnWrsMrSNtaYj/5R/WSTlWGilQ7T8Eoq+krdZMwDeUNi/BSxgGbwE/Q+N4QVlOrCZob+qoMiEzeQ1k2DFX8aCDMRL/D67LK+kEC+OwD6Zprk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oD51zqXL; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DrA2gvGb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 638A2C2BCB0;
-	Fri, 15 May 2026 09:51:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oD51zqXL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADFCEC2BCB7;
+	Fri, 15 May 2026 09:53:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778838721;
-	bh=RkB6HAVtl9jHlb71A/+OR9URWkP/BBC0JHSseBIkJNQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DrA2gvGbjhet/porjfOMZjR10Iyf8yPc/X6skDqji7XIzV6UsfuwDiTLDUrwlLyq0
-	 Gn0B78wMNvTxcTtwzBVZP0AOiSlGyW+zwat+3PI+UTgbIj0Ph7GPB4tdvqQQfcX/Nw
-	 FpcyBIUlFvstyzy0CHaA16i8jTzxV1r3D0LNhPYyJrEjzUpdWL/b0h6O+wxZxmW2wp
-	 UfmdvSpTXFMalJgQTysQuKm7dOj++bpEzK3TDtC3SdSLQ2QqnLXD2ZGLp4eo37LhWG
-	 /vaVoXfI0cf0kd09ZWlg1WDChJqQGfS21t+Y6VjKbUVVnd58bBdAGBHcfJrZ4gnGlL
-	 /dYPgjXibnUjA==
-Date: Fri, 15 May 2026 10:51:52 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Marc Zyngier <maz@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Ge Gordon <gordon.ge@bst.ai>,
-	BST Linux Kernel Upstream Group <bst-upstream@bstai.top>,
-	Jesper Nilsson <jesper.nilsson@axis.com>,
-	Lars Persson <lars.persson@axis.com>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Dinh Nguyen <dinguyen@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Michal Simek <michal.simek@amd.com>
-Subject: Re: [PATCH v2 01/17] ACPI: GTDT: Account for GTDTv3 size when
- walking the platform timer descriptors
-Message-ID: <20260515-prudent-vagabond-beetle-cad34b@sudeepholla>
-References: <20260514150945.3917510-1-maz@kernel.org>
- <20260514150945.3917510-2-maz@kernel.org>
+	s=k20201202; t=1778838809;
+	bh=A0YTQ7UkDojF2CD4/8jwh9dUZ30FIIWOA4StnexdvRs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=oD51zqXLZ42q3M97ibmBgqaqDPho0Om0C3rVe6FupKBULF7WZGrN9dW3GnvZ4IRrn
+	 7pJlK8psnpUusrYRgE3MCVwu/nbJdyv0YAP7qqVtrAXt9JFgd04SHNLH1WFxE5HEEZ
+	 2SbYvWDNZiyNAYRLKhJZfgzNVwFDIDot68cVZnrZAoe/NkX2OF/jXV9GxUeh746K+W
+	 ri1XqwWwZA8GJPYadspK0CoPSVeEkGPhNUacNuCtnrneZGz85BV7kTMLlqSOvS9ImJ
+	 1h/zlYptBexyCPXheQnNJn1+CZyNcGnSggzXmz4P+ngoOewG2cFBiM3wOrNnnVJDds
+	 LSo4Ph2bCBvng==
+Message-ID: <3a36e708-6cc2-4041-8750-12b25d050b43@kernel.org>
+Date: Fri, 15 May 2026 10:53:20 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260514150945.3917510-2-maz@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 0/8] media: qcom: venus: add MSM8939 support
+To: Erikas Bitovtas <xerikasxx@gmail.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ phone-devel@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <DNbx21zMg31pkwSpiMB9_CkOmf_zlDEkQXoUA-a8l2NewLmiwCe1HyivIJV1oKaYtXo6gTR7qvePk9rqflNU7Q==@protonmail.internalid>
+ <20260514-msm8939-venus-rfc-v7-0-33c6c6fb9285@gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20260514-msm8939-venus-rfc-v7-0-33c6c6fb9285@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, May 14, 2026 at 04:09:29PM +0100, Marc Zyngier wrote:
-> Since ARMv8.1, the architecture has grown an EL2-private virtual
-> timer. This has been described in ACPI since ACPI v6.3 and revision
-> 3 of the GTDT table.
-> 
-> An aditional structure was added in ACPICA, though in a rather
-> bizarre way, and merged in v5.1 as 8f5a14d053100 ("ACPICA: ACPI 6.3:
-> add GTDT Revision 3 support").
-> 
-> Finally plug the table parsing in GTDT, and correct the parsing of
-> the platform timer subtables to account for the expanded size of
-> the base table.
-> 
-> Suggested-by: Sudeep Holla <sudeep.holla@kernel.org>
-> Signed-off-by: Marc Zyngier <maz@kernel.org>
-> ---
->  drivers/acpi/arm64/gtdt.c | 15 ++++++++++++++-
->  1 file changed, 14 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/acpi/arm64/gtdt.c b/drivers/acpi/arm64/gtdt.c
-> index ffc867bac2d60..b9d9b8edf2df7 100644
-> --- a/drivers/acpi/arm64/gtdt.c
-> +++ b/drivers/acpi/arm64/gtdt.c
-> @@ -32,6 +32,12 @@ struct acpi_gtdt_descriptor {
->  	struct acpi_table_gtdt *gtdt;
->  	void *gtdt_end;
->  	void *platform_timer;
-> +	bool v3;
-> +};
-> +
-> +struct gtdt_v3 {
-> +	struct acpi_table_gtdt	gtdt_v2;
-> +	struct acpi_gtdt_el2	el2_vtimer;
->  };
->  
->  static struct acpi_gtdt_descriptor acpi_gtdt_desc __initdata;
-> @@ -39,8 +45,14 @@ static struct acpi_gtdt_descriptor acpi_gtdt_desc __initdata;
->  static __init bool platform_timer_valid(void *platform_timer)
->  {
->  	struct acpi_gtdt_header *gh = platform_timer;
-> +	void *platform_timer_begin;
-> +
-> +	if (acpi_gtdt_desc.v3)
-> +		platform_timer_begin = container_of(acpi_gtdt_desc.gtdt, struct gtdt_v3, gtdt_v2) + 1;
-> +	else
-> +		platform_timer_begin = acpi_gtdt_desc.gtdt + 1;
->
-> -	return (platform_timer >= (void *)(acpi_gtdt_desc.gtdt + 1) &&
-> +	return (platform_timer >= platform_timer_begin &&
->  		platform_timer < acpi_gtdt_desc.gtdt_end &&
->  		gh->length != 0 &&
->  		platform_timer + gh->length <= acpi_gtdt_desc.gtdt_end);
-> @@ -169,6 +181,7 @@ int __init acpi_gtdt_init(struct acpi_table_header *table,
->  	acpi_gtdt_desc.gtdt = gtdt;
->  	acpi_gtdt_desc.gtdt_end = (void *)table + table->length;
->  	acpi_gtdt_desc.platform_timer = NULL;
-> +	acpi_gtdt_desc.v3 = gtdt->header.revision >= 3 && gtdt->header.length >= sizeof(struct gtdt_v3);
+On 13/05/2026 22:24, Erikas Bitovtas wrote:
+> This patch series adds support for Venus on MSM8939. It is mostly
+> similar to MSM8916 Venus, except it needs two additional cores to be
+> powered on before it can start decoding.
+Stylistic feedback for future reference.
 
-Regarding Sashiko’s comment about the missing length validation for GTDT v2, I
-realised that the current check could cause a malformed v3 table to be
-interpreted as v2 if its length does not match the expected v3 length.
+- Schema
+- Driver
+- DTS
 
-It would be better to fail early and return an error rather than allow
-processing to continue with the table incorrectly interpreted as v2.
+Is the correct stacking for patches. Makes it just a little bit easier 
+to pick and apply, no need to resend for this.
 
--- 
-Regards,
-Sudeep
+---
+bod
