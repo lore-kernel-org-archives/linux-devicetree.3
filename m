@@ -1,67 +1,87 @@
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F037636F90E
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 06:25:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF25137F75B
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 06:30:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778826357; cv=none; b=dUEFnaeEu4Ga9FXSqw+DLupMigGrUdCJV9eluLnOz6qq0N+FTL0QeWiTyJlnJE/MZrncOcVYcQ5CGOB1ZkRNUIBVy6M7qOIvuBI47GC2YBcizqczfRA8eZ1VJidZAVI3JUK1EqeIvJwnuRrWDP7P8f97yH/n27gh1KvP2BfbXpg=
+	t=1778826617; cv=none; b=FH66BHA00ifR8WMg87y9/O9H3F63OKEBx3z5YzTj+rjIcvZ+Vkb3v50EeGPdn4V/cQOF4wo5Rs/W7c2OhgIJeiK5JTr7JcWOxPvcej6yxf9rrCA3S/OqXL3JN2K4b+1aGSf179DKF6Nog4ViMQn+NiNtdRUCTm+5kpNVuzUHNPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778826357; c=relaxed/simple;
-	bh=h545ON6L3KV75fWVbtwI+PsMEJB5oC9uZj9fG6ieiX8=;
+	s=arc-20240116; t=1778826617; c=relaxed/simple;
+	bh=4OhkOUm1uinge3W9lUySjqDtHM82URbONjbpN6SzBlk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kyRY1sIR9wqDKBYdMmxQZvO9/bBn7pvNLYCsM96zUyMMjZybjjje8LE0nPMxClL4rbxknr7OKOEl02WS96LnYe8rNTtiOax/BifJCVyScrWrb2257H8Nf0GqENtk72YBmfWQ17jt6Um8cHdcUi1V/FCkbs4FKxVhjWTSCeHsrtg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V4n8XePR; arc=none smtp.client-ip=209.85.215.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=aPZ27LJYRZdyfmLVObZwaulQ1z3So6+gocGrHUpyn5Bll7JRvqK9exJOLPj7AHIW2OmyXYdJwdcO8WScVJ/ozfRVQBwfa2cvgotDGe5+vtNY23sZ1nSlA3tuJB9vBxn8AdyV3ZISjzAFYmT5KRsw0PH6npTBxL2VuGxFBn4BrBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bT6q8Eat; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MQF/F6xJ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V4n8XePR"
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-c8027e876fcso3721117a12.1
-        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 23:25:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bT6q8Eat";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MQF/F6xJ"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64F5KaFI3513372
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 06:30:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	hb7U1c0ZK+6x5WATBstJlJ/LiC1OoHYdzdqkvWGt0dM=; b=bT6q8EatEKwk6vxA
+	WJJBCA6dFpa1H690UBjIpDA4OpSfUpE3jcYK63S6pyQd2qKOLCQDORLgOL0NscT4
+	e4i3k2XLTLIqQ5wJaJiiu0kazftGdhggq3SlOKaqR/37IIvnd4cxdW/xRpw80FOe
+	MEhiU0QZfAv8jT9CZlGiDlwUTxHVqweqxgx5zimpeh75gjlBnvYd1ubKGXsArYIX
+	TTFnTiDDlw0bHhgQTmtJcZ4VPADHx/HYPI0h45BOrrRIFpqlejRqplejXeiNzqlG
+	aGYmYK4x+nQFrduTKmrpvwt+vPcg9qzTBUGfi8t4fg9tuRVj4IKTEB0AJjqhTA5y
+	G0AR9A==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e5m1v9wra-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 06:30:13 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-8aca29dcd69so214831986d6.1
+        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 23:30:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778826355; x=1779431155; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1778826613; x=1779431413; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=F4wG8bH1gfDBcb14JbvmcrOJGC7+5HB1bq/2ymPAYSI=;
-        b=V4n8XePRYYiQgCryrrVetcJyPjrO5OfDn8dzhXvgumIRn+0343GFdaXfQILRs6KTQP
-         JYybxdDmlQRqCpKv0B+jhEUelbDOOAOIXOkvMPmSZp7Y3DcdVNPQjt1vFo4o9DDYERxV
-         h6Orbw9HwVFls2gU+xbfcoo8csqol6bn98zH38i/yun4pjfUcUrmJdEbYNmS8ipcy55R
-         6NjTXJGLLz/Ar67YXhEaEoT5vVVV3m9WX1VkIL8M4zEVnF/8HUQOvZ31tnE00+gPcXPn
-         36+AUkekroww8Ogn3sL2EKgNDCw1RHeExcBiYj6FNbCoS2tDi0/m4OQnnIjDLpI/k7FN
-         jNog==
+        bh=hb7U1c0ZK+6x5WATBstJlJ/LiC1OoHYdzdqkvWGt0dM=;
+        b=MQF/F6xJEYCtlYvsmTFzdaFCOIX5JLulPTuy9HFv0X85L3D5n6KlpvIrWJ6Q2DosEr
+         aX64tq3fxAtz/K2T4rtn7/q6aJ/1cuhk4/1s6DrQqXZ8GoU0WXRYO5jfg+2AYmuJlnbE
+         9POgI/+bfWEnvbPeFW+lFDWSFi6gC+NQkWfqcSkl3XLyTgI/v8IR+KEEhj5zWwGqf1g6
+         KcvPV5bUcF6wqLoQErUdJar/teDL552Yi3qT8lpXrdX8gRlibGbhE8qBGvpFiDsYWdeq
+         Qp4RmdTADjorRlhsSp6wUKl61wO25VovhUZzkhXoOzPaH1bWlNd9NUckZADTZrZT2KCc
+         +61A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778826355; x=1779431155;
+        d=1e100.net; s=20251104; t=1778826613; x=1779431413;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=F4wG8bH1gfDBcb14JbvmcrOJGC7+5HB1bq/2ymPAYSI=;
-        b=VISxkteTl0QhWZcqDESR8H6AIS3TzhD6/lsMY02FssbI6zj/E/sijDewDK+RFqG9Jk
-         msZAKivX0ZPpxAoeNaE2p1xIuh0giLNgAqS63d7zGtvPY/PHe1bxBPlwg6apJS3OnQb8
-         Kv93dWspFGwmruyEniJSEtwS3UG0rTX2hjQ39ds04lWSKU0yDbe9ihuuJDpXsKvTAn6g
-         zEr9frEiXexJdocSgFNIGSV2X/ib3TGK9LsrtSsQVxVwRfqFiBJjml6fw7jFXPg9Thch
-         TvQbVMEkJTqFqGxGmjUj7Yahd7TcFdOOuoqGCjDRkWiaf1b5qtUXvhMbOuTh9XaVjZSo
-         rr9w==
-X-Forwarded-Encrypted: i=1; AFNElJ+5KRIlHT80RiFQS3w/LZniVxCgDF4Ci9yds45jsKLtUltvYlgTbDkzootMtgDWVOlGMOfoz91JsYoW@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz1jsG4wijW2FlJ7vlzItmiCsujT+NP+Ai4R+VedV7e7OY99PUR
-	pC5XNwvL8fe7/k+YtDOBBHPFPK+C0nVXpY26nSsOYuaXcOtiW2Yoqcl1OBsnAg==
-X-Gm-Gg: Acq92OFR2AFMLkXPPXRjTcceH8gsPOW98uy2dJ5rffWqPjfBH/C81iXQvdEwCYd2v45
-	L/xSCmdlH8saaIzpW4RXtQErliPUvzCBEzgRBX79QzwLbR4kANdt10dWqKhfUpkbae9y99P/xdF
-	zhTiQnDj6IEsIVcI7Bj1vogMWHra6xYZuprgM9ZQTs/awxy0AwwweLxeahJKDeRYwoiDRauDJMZ
-	DWwriyQhHZwulqZcvUJw8Ll+jVE/WF+FHPW+YUwzQZD6OlFEt8mJx8ISQuMmMPhGDY+fxlJ22xA
-	Ye2YGx+NEjLtQD1yr+mYAApVUaLcRnsjNIE659iuLKqzI9ch4WvyN1caVBqsCmM7+SFPR+GgADY
-	yWlaSdW/FAReuTKCKDcWxodTo5YxndM0D9p/wZJxSmYbgzzyU1X8LOoElkQI7uK6zocp5ePuLQX
-	dL4mbPWVUjfkwDeqSiH2G5gGWyyFlPuRUlorJzg3noqFvnndWTHTsuIbRNQq/pNNoISrHsXqnUA
-	8Y/
-X-Received: by 2002:a05:6a20:560c:b0:3a8:2af3:ce8b with SMTP id adf61e73a8af0-3b22e72fb16mr2125835637.14.1778826355136;
-        Thu, 14 May 2026 23:25:55 -0700 (PDT)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c82bb0ff0edsm4688486a12.20.2026.05.14.23.25.51
+        bh=hb7U1c0ZK+6x5WATBstJlJ/LiC1OoHYdzdqkvWGt0dM=;
+        b=g1BVCsrpxW5Prk5Sy2nfMbrkx8xQN1GLBsGzsdAS6sgjO9v+J668wpRh7/7v1XrBsL
+         0trMtLKrDQm+taTcyT+zWZLSFhycX/XHSD6XsZTqIJk9ywp6AXriSm9VjjaDBzFspm/X
+         At9qqG1O78jqBeldbMZ/aIfghCnY/n7bhsl/aB9CMacDKYzJA59wRgPz55rbrYbKi8Dj
+         2t7+0ov3QT5DGuOqXKL72ONXZm8/vBqh5Mp75leRx1kzTtBmKbrhmvMB/2nfoWKmCUSk
+         fDki9fGbqvv7p68p8KhVuZeSarfZQwbduwk8nm4LY41rupNmm+ebQ+1A5mpnt9kjbnV3
+         JaWw==
+X-Forwarded-Encrypted: i=1; AFNElJ9MObhWNUMGgyUZP2ffgkHyYj83uyHWsrbAp560Nm4wKlGTrgazM/6Ii4h+/MD9eDI8YVOynf7UsQ1i@vger.kernel.org
+X-Gm-Message-State: AOJu0YxOQdJ0fpmHoo8XNKGuIN3kgBbFw45FMfbOmVtgRGBecZ/0hYNI
+	gBdxOZVTZlBlWCw5ZEf0MX7i90QEVTvrQLBDj2Mia20kX+EAlC4ll2gTDvYtgx/xOKeEg8U/+KO
+	VNBG0aCLGrpw7HsMW5OnGefIeADMBKGqwyalRK4d4ptHkUqnqzMIFihMVMjXg50hX
+X-Gm-Gg: Acq92OFAUa7wPa4Go0qckp93fy48isfRfupyfNU/cBgBSwIMItn0Mxa2M+gC+Rp0D7H
+	70+C57b9gbe+3dmCFeFCv5pzVtMkX4mDWE4SmLAoYsqM4oLCfGqHoNcFUK2PtIpylH33FZy4loy
+	XtZXjhUvUXsfScXTnB59AZcQbOq5mO5iheS9VnZBV1oFWCoQelY0KlfAtRkjiLSbBmynGlIQmMT
+	Ry7Br49G3ytOLaJB7V+nbgk8T3468GalJmPSXPmWc1QSQzbkouf9ZMYgFPEuzGnYdEdm7IsnC4M
+	RS7y+oiSQSTc5YE+84SClVg33KmyL+QmFJbbJsbv51d+InINbx/9L/4G/oselvSK7A5cfswyVZ3
+	PPy3KCcuslWah55GVraPVY7/kkZ8AhxwnHD54XcPlBCYlbQHOfj++mOPyTB8Vk5SjNglS/TVAfI
+	bpuXq43uwG
+X-Received: by 2002:a0c:f109:0:b0:8ac:801d:c3dc with SMTP id 6a1803df08f44-8ca0f5c456amr36977886d6.9.1778826613205;
+        Thu, 14 May 2026 23:30:13 -0700 (PDT)
+X-Received: by 2002:a0c:f109:0:b0:8ac:801d:c3dc with SMTP id 6a1803df08f44-8ca0f5c456amr36977306d6.9.1778826612525;
+        Thu, 14 May 2026 23:30:12 -0700 (PDT)
+Received: from [10.111.160.50] (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8c908f0d92esm43711496d6.19.2026.05.14.23.30.07
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 14 May 2026 23:25:54 -0700 (PDT)
-Message-ID: <1a42a168-1dbb-467e-9053-b5585a737f71@gmail.com>
-Date: Fri, 15 May 2026 14:25:48 +0800
+        Thu, 14 May 2026 23:30:11 -0700 (PDT)
+Message-ID: <7d34bc76-fe49-4d8c-8ac9-f563c2c35fe1@oss.qualcomm.com>
+Date: Fri, 15 May 2026 14:30:04 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,197 +89,95 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/verisilicon: add support for Nuvoton MA35D1
- DCUltra Lite display controller
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260511075142.54752-1-a0987203069@gmail.com>
- <20260511075142.54752-3-a0987203069@gmail.com>
- <93e69179dbc495188cfffd8015350b3a55ce7876.camel@iscas.ac.cn>
- <de35406e-874d-4bdd-be7f-3d74dc37b13f@gmail.com>
- <3b94806073de8bd1d79aa7ec956493f67679e46b.camel@iscas.ac.cn>
- <dfbc4042-64cf-49f2-a5de-12260beffaa0@gmail.com>
- <4bf6efbb222ebc4d770ad613d17c6185e7cb2fda.camel@iscas.ac.cn>
- <1d04dd6d-f245-4b83-96b0-c5491fad8093@gmail.com>
- <76a9e9b676509e85484a1eb31c723b46c7e21a19.camel@iscas.ac.cn>
+Subject: Re: [PATCH v2 1/3] dt-bindings: media: Add bindings for
+ qcom,x1p42100-camss
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260511-purwa_camss-v2-0-22608ab9126c@oss.qualcomm.com>
+ <20260511-purwa_camss-v2-1-22608ab9126c@oss.qualcomm.com>
+ <20260514-carmine-magpie-of-imagination-5dddfc@quoll>
 Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <76a9e9b676509e85484a1eb31c723b46c7e21a19.camel@iscas.ac.cn>
+From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+In-Reply-To: <20260514-carmine-magpie-of-imagination-5dddfc@quoll>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE1MDA2MiBTYWx0ZWRfX9CYppy1bWm82
+ uPoa4RtXmsCndMy04SOyYSfiOA24ZXbKaO06PEZ95+IrYVyM5h5oO6h3BP9JNEMUgtCbre5ipED
+ AFoSypzeahWxVaPqyNMlgGXz/Dd+F5A+M0wh6AWIRDvS3p+ctgjEW+iOG4JB9yg1MgTRoOMdy9u
+ VNhOpTFdDZ9nPLJINEh30m/PyarZWikEQfye4YVEU7Zt3RIAstacpPg/23OMHdlrjHDmv5jGxuY
+ Cj5IUdgmdd56k0L8yCATgioofTfSYpqFOi1o3uJalufbT4bXy/9E1lu2/8AWljmZjI/osqwgbv+
+ oUiF3f7ZzL5oGPO8CQkvPNB2AihArrSLttSJihJJWyKPv5LX+HdAl66Ee/ef6XuvRYImYfKoja9
+ rre4vuQ3+Qwwa78DrPzlIJT7H0+ChNGYF55PeWDHN5VEmO0XoJ5dhdQKqjRvS60hBQxr2xX2dSn
+ taizM+13G7SEI9jdpjw==
+X-Proofpoint-GUID: lkHrL8_2UEHHlE1yNwKweP8Vob_MWvkS
+X-Proofpoint-ORIG-GUID: lkHrL8_2UEHHlE1yNwKweP8Vob_MWvkS
+X-Authority-Analysis: v=2.4 cv=BvqtB4X5 c=1 sm=1 tr=0 ts=6a06bd75 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=CMSjfWuysNDtZblWgkUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-15_01,2026-05-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 phishscore=0 clxscore=1015 priorityscore=1501
+ spamscore=0 malwarescore=0 bulkscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605150062
 
 
-On 5/12/2026 9:12 PM, Icenowy Zheng wrote:
-> 在 2026-05-12二的 18:59 +0800，Joey Lu写道：
->> On 5/12/2026 6:01 PM, Icenowy Zheng wrote:
->>> 在 2026-05-12二的 17:06 +0800，Joey Lu写道：
->>>
->>> ======= 8< =============
->>>>>>>> diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c
->>>>>>>> b/drivers/gpu/drm/verisilicon/vs_bridge.c
->>>>>>>> index 7a93049368db..225af322de32 100644
->>>>>>>> --- a/drivers/gpu/drm/verisilicon/vs_bridge.c
->>>>>>>> +++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
->>>>>>>> @@ -164,13 +164,16 @@ static void
->>>>>>>> vs_bridge_enable_common(struct
->>>>>>>> vs_crtc *crtc,
->>>>>>>>      			VSDC_DISP_PANEL_CONFIG_CLK_EN);
->>>>>>>>      	regmap_set_bits(dc->regs,
->>>>>>>> VSDC_DISP_PANEL_CONFIG(output),
->>>>>>>>      			VSDC_DISP_PANEL_CONFIG_RUNNING);
->>>>>>>> -	regmap_clear_bits(dc->regs,
->>>>>>>> VSDC_DISP_PANEL_START,
->>>>>>>> -			
->>>>>>>> VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
->>>>>>>> -	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_START,
->>>>>>>> -
->>>>>>>> 			VSDC_DISP_PANEL_START_RUNNING(ou
->>>>>>>> tput));
->>>>>>>>      
->>>>>>>> -	regmap_set_bits(dc->regs,
->>>>>>>> VSDC_DISP_PANEL_CONFIG_EX(crtc-
->>>>>>>>> id),
->>>>>>>> -
->>>>>>>> 			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
->>>>>>>> +	if (dc->info->has_config_ex) {
->>>>>>>> +		regmap_clear_bits(dc->regs,
->>>>>>>> VSDC_DISP_PANEL_START,
->>>>>>>> +				
->>>>>>>> VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
->>>>>>>> +		regmap_set_bits(dc->regs,
->>>>>>>> VSDC_DISP_PANEL_START,
->>>>>>>> +				VSDC_DISP_PANEL_START_RU
->>>>>>>> NNIN
->>>>>>>> G(ou
->>>>>>>> tput
->>>>>>>> ));
->>>>>>>> +
->>>>>>>> +		regmap_set_bits(dc->regs,
->>>>>>>> VSDC_DISP_PANEL_CONFIG_EX(crtc->id),
->>>>>>>> +				VSDC_DISP_PANEL_CONFIG_E
->>>>>>>> X_CO
->>>>>>>> MMIT
->>>>>>>> );
->>>>>>> Should the commit operation happen on DC8000/DCUltraLite
->>>>>>> too?
->>>>>>> (By
->>>>>>> writing to DcregFrameBufferConfig0.VALID).
->>>>>>>
->>>>>>> Many registers written has "Note: This field is double
->>>>>>> buffered" in
->>>>>>> the
->>>>>>> DCUltraLite documentation.
->>>>>>>
->>>>>>> I suggest create a static function for commit -- write to
->>>>>>> the
->>>>>>> corresponding commit bit on DC8200, and write to
->>>>>>> DcregFrameBufferConfig0.VALID on DC8000/DCUltraLite.
->>>>>> [a] There is no commit operation for DCUltra Lite.
->>>>>> I'll not add a `VSDC_FB_CONFIG_VALID` macro. VALID (BIT(3))
->>>>>> is a
->>>>>> hardware-managed double-buffer status bit: hardware writes
->>>>>> 1=PENDING
->>>>>> when a new register set is ready and clears to 0=WORKING
->>>>>> after
->>>>>> the
->>>>>> VBLANK copy. Software must never write it, and there is no
->>>>>> polling
->>>>>> use
->>>>> It seems to be writable and controls whether register buffering
->>>>> is
->>>>> enabled, see [1].
->>>>>
->>>>> The description of this bit in MA35D1 TRM says "This ensures a
->>>>> frame
->>>>> will always start with a valid working set if this register is
->>>>> programmed last, which reduces the need for SW to wait for the
->>>>> start of
->>>>> a VBLANK signal in order to ensure all states are loaded before
->>>>> the
->>>>> next VBLANK", which indicates some kind of "committing write",
->>>>> although
->>>>> the code at [1] seems to indicate that double buffering is only
->>>>> enabled
->>>>> when bit is cleared.
->>>>>
->>>>> Anyway this bit should be programmable, and "Software must
->>>>> never
->>>>> write
->>>>> it" contradicts with the MA35D1 TRM.
->>>>>
->>>>> Thanks,
->>>>> Icenowy
->>>>>
->>>>> [1]
->>>>> https://github.com/rockos-riscv/rockos-kernel/blob/rockos-v6.6.y/drivers/gpu/drm/eswin/es_dc_hw.c#L993
->>>> Thank you for the correction. I'll add
->>>> `#define VSDC_FB_CONFIG_VALID BIT(3)` to vs_primary_plane_regs.h
->>>> and
->>>> write it in `vs_primary_plane_commit()` for non-config_ex
->>>> variants.
->>>>>> case in the driver that requires a named constant. For non-
->>>>>> config_ex
->>>>>> variants, `vs_primary_plane_commit()` performs no commit
->>>>>> operation —
->>>>>> `VSDC_FB_CONFIG_ENABLE` (OUTPUT, BIT(0)) is set in
->>>>>> `vs_crtc_atomic_enable()` and `VSDC_FB_CONFIG_RESET` (BIT(4))
->>>>>> is
->>>>>> set/cleared in the bridge enable/disable paths.
->>> Well according to the driver code for DC8000 from Eswin, and the
->>> bit
->>> named "VALID", maybe it should be cleared before programming the
->>> registers, and set after programming registers, to make the process
->>> of
->>> programming registers atomic from the perspective of the display
->>> controller.
->>>
->>> Anyway this should require testing on real hardware to verify.
->>>
->>> By the way, I see multiple peripheral drivers for MA35D1 get
->>> applied in
->>> the torvalds tree, but the device tree is still only a skeleton;
->>> when
->>> will the device tree be updated?
->>>
->>> Thanks,
->>> Icenowy
->> Thanks for pointing this out. I’ll perform tests on real hardware
->> since
->> I haven’t used this bit before.
+
+On 5/14/2026 8:19 PM, Krzysztof Kozlowski wrote:
+> On Mon, May 11, 2026 at 04:59:34PM +0800, Wenmeng Liu wrote:
+>> Add bindings for the Camera Subsystem for X1P42100.
 >>
->> As for the device tree, we plan to update it comprehensively after
->> completing several major IPs, with the goal of releasing the update
->> later this year.
-> Well I bought a MA35D1 board (MYIR MYB-LMA35 + RGB LCD) earlier this
-> year (and this is where I got the MA35D1 identification register
-> values). Hope I can have a chance to test this driver by myself.
->
-> As MMC, Ethernet and USB support is all applied, maybe it's already
-> worthy to update the device tree ;-)
->
-> Thanks,
-> Icenowy
+>> The X1P42100 platform provides:
+>> - 2 x CSIPHY
+>> - 3 x TPG
+>> - 3 x CSID
+>> - 2 x CSID Lite
+>> - 1 x IFE
+>> - 2 x IFE Lite
+>>
+>> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+> 
+> I do not see you responded to previous comments and FIRST one was not
+> implemented, so I am ignoring the rest. Not going to review this.
+> 
+> Best regards,
+> Krzysztof
+> 
 
-Yes you can!
+Hi Krzysztof,
 
-I have performed hardware validation on the MA35D1 and found that this 
-bit acts as a manual latch for the shadow registers rather than an 
-auto-clearing trigger, which clarifies the slightly ambiguous 
-description in the TRM.
+Apologies for not clearly addressing your previous comments — that’s on me.
 
-Following your suggestion, I will align the implementation with ESWIN's 
-DC8000 logic: setting the VALID bit at atomic_begin and clearing it at 
-atomic_flush. My tests confirm this allows the hardware to latch the 
-plane configuration correctly while avoiding the blank screen issues 
-observed with other configurations.
+Regarding the first concern about dependencies: in v1 the series was 
+indeed based on the csiphy rework, which pulled in a large set of 
+dependencies from Bryan’s changes. In v2 I intentionally moved back to 
+the existing (pre-rework) csiphy code to reduce the dependency 
+footprint. As a result, the remaining dependencies are now limited to:
+1) Clock changes (expected to be merged soon)
+2) TPG support (planned to appear in linux-next shortly)
+3) hamoa DTS
 
-I am preparing the v2 patchset with this change, along with the 
-requested commit splits, and will submit it shortly.🙂
+For the csiphy-related concerns you raised earlier, those should no 
+longer apply with this approach since the series is no longer based on 
+the reworked csiphy code.
 
->>>>> ========= 8< ==========
->>>>>
+Thanks a lot for your time and feedback.
+
+Best regards,
+Wenmeng
