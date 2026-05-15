@@ -1,175 +1,96 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0D59637FF4C
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 21:52:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BA8F2010EE;
+	Fri, 15 May 2026 21:52:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778881923; cv=none; b=j4XygbLVFLFrHlccVi5PUofj5n09KJvtt5wCKcGcyCpggyx5L2ioFsbh2mL0fxevgMjHOTU0oasVZyna3e7Eoe08/mRSiwqygQTPnODTqxbCov/LAuQBkEoOONJUwU5eCWnVtFN1ObCsqqiMKrtQjNGOHmEfKBd0G0mTo6ukJuk=
+	t=1778881961; cv=none; b=Xa8Qd5TtSetfet5MiLmY/TKEMmHLH6NV/vz7EFMZkJ3KDZK+ohPHr21Gr49iRjwOltdtxXyAHF0Bw/ImwyaBeby58pvq6s6NTvB79ksYW2KE2q3p0cVDYSabczY0cDw5ns7MwFcYDGGWE1yIvQZth9JnJcctNoAWe12gvHx105g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778881923; c=relaxed/simple;
-	bh=w/NSnWPxO2pPbEQZolqzwkIT6PojPrmpavCWj0wqYGU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Q5xKBcnHKVsF0/AjK3pu5TCNFGlgObq+9yEgPzO5/F9RXisWGwFu4SCsH4ez7C2UvoRtZpRANpuuBvd3tNd4RB363KG4zbW6r70vV8BmjjFfseAVD3297sUKqpY27R/htOcxT3INYzSBKC9FYZ/1KuHVACMze7YhVHK+jRi9j2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=nCPJZG/y; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1778881961; c=relaxed/simple;
+	bh=io1mo3XLPCwCYCHxlFo+KOBQf0uvj9xY+ciVNMK0NxI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=iUNAYzW/ogijb/axyvSXZoqKymt0QLNXM7eP/VsZeX5zrAuZU/g9zYefu0yHMhGNHnlAi9RZCVWMglnos8fV4ajypflRP0JGqq7LvKlUj7XCglmZCgy4kzlV5ZYqib7lLYI0BEIqu6Xs6xI1UyfT04Z7S8OGMsxqTcTH0kScOHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P213e4aX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="nCPJZG/y"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D48101BCB;
-	Fri, 15 May 2026 14:51:54 -0700 (PDT)
-Received: from ryzen.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 371183F85F;
-	Fri, 15 May 2026 14:51:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1778881920; bh=w/NSnWPxO2pPbEQZolqzwkIT6PojPrmpavCWj0wqYGU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=nCPJZG/ymBaYmcyERMbxLdIsHQoNGJJEJxaWy2/8f+2GnZIHlMZ+4GS5187VVvwoY
-	 IH2pP9VPYV9gZM+MXD1JIlOMUxGgO/ZclmXl4a955uYPg0wdQKJNQFcQLflkdYlRLM
-	 krq3CmKprRwSY7QjrDU8svR6X78wpShjn/zYDMXo=
-Date: Fri, 15 May 2026 23:51:12 +0200
-From: Andre Przywara <andre.przywara@arm.com>
-To: Chen-Yu Tsai <wens@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec
- <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH] arm64: dts: allwinner: Cubie A5E: enable SPI flash
-Message-ID: <20260515235112.3d2a0c5e@ryzen.lan>
-In-Reply-To: <CAGb2v66drOyBgNU0hFo356MKTFnggNmyzrANok+-U31NzZCUEw@mail.gmail.com>
-References: <20260511221741.25888-1-andre.przywara@arm.com>
-	<CAGb2v64u4sqwiiQcEBg-XvmJ2DLEpSj-_AWNbp14RAp-GXP7OA@mail.gmail.com>
-	<ee9fca66-d079-4ad7-9cb3-5077e8a4f6d6@arm.com>
-	<CAGb2v66drOyBgNU0hFo356MKTFnggNmyzrANok+-U31NzZCUEw@mail.gmail.com>
-Organization: Arm Ltd.
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.31; x86_64-slackware-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P213e4aX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A644C2BCB0;
+	Fri, 15 May 2026 21:52:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778881961;
+	bh=io1mo3XLPCwCYCHxlFo+KOBQf0uvj9xY+ciVNMK0NxI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=P213e4aXb9HJvDg8/dZMthaVg/w35t010uFFR4cIyU0eH1vo6+UizfHD2h6SeEiM/
+	 XPwvUjjcoksDiLrokomu7n/grMB1lDV8wSTywzV+vB0t+YLSczx/4Srs5R3/NpB71R
+	 zP6d6rZ5h7wH9y7WqobfGP44YA+4I9e0yx8PQ0dIxT8t8lMDi6pDnGaoNDMA98E3aD
+	 xvYPvrmBCrBOAJN2P1fdFcxn+ADUY5vLxeHXeKJbJFGZhN4cSzl7Oqd2shDHBF3uCp
+	 cQb+LsMEI1hstJ6m5SrwnbzrpSuO1SyIOr1bGpvkCe+MOlsAki5CnH7z1iYWdcc/JU
+	 zMKHYnHL0d0DQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/6] ARM: dts: imx: add (power|vdd)-supply for related
+ node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Frank Li via B4 Relay" <devnull+Frank.Li.nxp.com@kernel.org>
+Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, robh@kernel.org
+In-Reply-To: <20260515-imx25_dts_simple_warning_2-v1-1-b06bff192a05@nxp.com>
+References: <20260515-imx25_dts_simple_warning_2-v1-1-b06bff192a05@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 15 May 2026 21:52:39 +0000
+Message-Id: <20260515215240.7A644C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, 16 May 2026 00:12:17 +0800
-Chen-Yu Tsai <wens@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The newly added `reg_5v` regulator in `imx53-sk-imx53.dts` incor=
+rectly has `regulator-name =3D "usb_vbus"`.
+--
 
-> On Wed, May 13, 2026 at 5:19=E2=80=AFPM Andre Przywara <andre.przywara@ar=
-m.com> wrote:
-> >
-> > Hi Chen-Yu,
-> >
-> > thanks for chipping in!
-> >
-> > On 5/13/26 07:21, Chen-Yu Tsai wrote: =20
-> > > Hi,
-> > >
-> > > On Tue, May 12, 2026 at 6:18=E2=80=AFAM Andre Przywara <andre.przywar=
-a@arm.com> wrote: =20
-> > >>
-> > >> The Cubie A5E board comes with 16MiB of SPI NOR flash.
-> > >>
-> > >> Enable the SPI0 DT node and describe the configuration.
-> > >>
-> > >> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-> > >> ---
-> > >>   .../boot/dts/allwinner/sun55i-a527-cubie-a5e.dts  | 15 +++++++++++=
-++++
-> > >>   1 file changed, 15 insertions(+)
-> > >>
-> > >> diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts=
- b/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts
-> > >> index bfdf1728cd14b..7ad22fc85d1fd 100644
-> > >> --- a/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts
-> > >> +++ b/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts
-> > >> @@ -344,6 +344,21 @@ &r_pio {
-> > >>          vcc-pm-supply =3D <&reg_aldo3>;
-> > >>   };
-> > >>
-> > >> +&spi0  {
-> > >> +       pinctrl-names =3D "default";
-> > >> +       pinctrl-0 =3D <&spi0_pc_pins>, <&spi0_cs0_pc_pin>,
-> > >> +                   <&spi0_hold_pc_pin>, <&spi0_wp_pc_pin>; =20
-> > >
-> > > This whole thing needs to be an overlay. The HOLD and WP pins
-> > > conflict with eMMC usage, so it seems that Radxa only populates
-> > > one or the other.
-> > >
-> > > If you look at the pictures on their official website, you'll see the
-> > > SPI NOR chip populated, but not the eMMC chip. On the linux-sunxi wiki
-> > > page, you'll see the opposite. =20
-> >
-> > Well, I have a hard time spotting any actual eMMC SKUs in the shops any=
-way.
-> > But you are right, the hold and WP pins conflict with eMMC, whereas the
-> > other pins are not.
-> > =20
-> > > And you probably want to enable QSPI, like Sashiko mentioned. =20
-> >
-> > Well, in the interest of keeping this simple and enabling the usage of
-> > SPI flash for all the users out there, I'd rather drop the extra pins.
-> > This is mostly really useful for booting the firmware, maybe loading a
-> > tiny kernel or other data once, so performance is not a big concern in
-> > this use case. The BootROM surely does not use QSPI. =20
->=20
-> Given that the pins are tied on physically, if someone then enables mmc2
-> for a potentially present eMMC, the two pins could be toggled by the
-> MMC controller, causing the flash to misbehave. I'm slightly concerned
-> about this possibility.
+commit 1eaf7d9176cad41b8d33d56943e5b16020f26bf0
+Author: Frank Li <Frank.Li@nxp.com>
 
-That's a good point, but that means it's really a hardware design
-issue: you cannot have SPI together with eMMC on this board.
+ARM: dts: imx: add (power|vdd)-supply for related node
 
-I don't know if Radxa ships the eMMC SKUs without SPI flash, I
-will try to query Tom Cubie about this.
+This commit adds required power-supply and vdd-supply properties to fix
+CHECK_DTB warnings for several imx devicetrees.
 
-I would prefer to go with SPI flash, at least for now: I think that's
-what most users have, and the eMMC versions are rare so far? Since we
-don't have an eMMC node in the DT anyway, that should be fine for now.
-If someone adds eMMC support later, we would need to figure this out.
-We could mark one as disabled, and leave it up to users (or U-Boot)
-to decide which to enable.
-On the H6 there is a similar problem: PC5 is both SPI0_CS and MMC2_CMD,
-so on the PineH64 we disable the SPI flash, in favour of eMMC, which is
-more useful for users (but sunxi-fel SPI access and U-Boot SPI loading
-work nevertheless). But given the apparent prevalence of SPI boards vs.
-those with eMMC for the Cubie A5E, I would go with SPI on this one.
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx53-sk-imx53.dts b/arch/arm/boot=
+/dts/nxp/imx/imx53-sk-imx53.dts
+> index 1a00d290092ad..c1e065359fd2d 100644
+> --- a/arch/arm/boot/dts/nxp/imx/imx53-sk-imx53.dts
+> +++ b/arch/arm/boot/dts/nxp/imx/imx53-sk-imx53.dts
+> @@ -29,6 +29,13 @@ memory@70000000 {
+>  		reg =3D <0x70000000 0x20000000>;
+>  	};
+> =20
+> +	reg_5v: regulator-5v {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "usb_vbus";
 
-Does that make sense? Any thoughts?
+Is "usb_vbus" the intended name for this regulator?
 
-Cheers,
-Andre
+Since this regulator is used to power the display panel, the name appears
+to be a copy-paste error from the reg_usb1_vbus node directly below it.
 
-> > And as you say, if people are really interested in the last bit of
-> > performance, they can use an overlay.
-> >
-> > Cheers,
-> > Andre
-> > =20
-> > >
-> > >
-> > > ChenYu
-> > >
-> > > =20
-> > >> +       status =3D "okay";
-> > >> +
-> > >> +       flash@0 {
-> > >> +               compatible =3D "winbond,w25q128", "jedec,spi-nor";
-> > >> +               reg =3D <0>;
-> > >> +               spi-max-frequency =3D <40000000>;
-> > >> +               #address-cells =3D <1>;
-> > >> +               #size-cells =3D <1>;
-> > >> +       };
-> > >> +};
-> > >> +
-> > >>   &uart0 {
-> > >>          pinctrl-names =3D "default";
-> > >>          pinctrl-0 =3D <&uart0_pb_pins>;
-> > >> --
-> > >> 2.46.4
-> > >> =20
-> > > =20
-> > =20
->=20
+Defining multiple regulators with the exact same name can cause sysfs
+directory collisions and registration warnings in the regulator subsystem.
 
+Would a unique name like "5V" or "panel-5v" be more appropriate here?
+
+> +		regulator-min-microvolt =3D <5000000>;
+> +		regulator-max-microvolt =3D <5000000>;
+> +	};
+> +
+>  	reg_usb1_vbus: regulator-usb-vbus {
+>  		compatible =3D "regulator-fixed";
+>  		regulator-name =3D "usb_vbus";
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-imx25_dts_=
+simple_warning_2-v1-0-b06bff192a05@nxp.com?part=3D1
