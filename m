@@ -1,236 +1,95 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A5DB487BE;
-	Fri, 15 May 2026 21:11:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 740CB30648A
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 21:17:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778879513; cv=none; b=YS6sdghOuWbpZdAMcT+99hCzYI7rtjpRvXQTJAw3Y/J5PwNivdNJeCp5A4/uPCMiVKxwjLjfELwr7NggWb/6nvR8SwJZAbrAGM1vkd+NRCnMB30j+4C2/w8gTe4eYu4q/+DDJziIe32eWcwuin11PyzEsHmwLhZI4EJdA/iyEOM=
+	t=1778879829; cv=none; b=jRvKtbrXf5rEuWMfYUHXmTFT72vAKs2iCJJT9NdiXX4dPFxl+erTdze5n2iHFKkaIjIiRKeXAro/FUZ23X2WbaGU231YPdJFgs29BZF5UfvSuO+NLMY+9Q08clDh+0ZCQ/Zmad48ItLoN7CyMk88YXIB5jrHxBnHum81w9yjt5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778879513; c=relaxed/simple;
-	bh=NW9PHikwJQ3ZtX3oBjSMWYnrqk7Wju8+GpkDo/Fz3u8=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=FsoZFbTQ2hu5FJ0QCTvagHVVrVfuMhMGb0oCBOnfOI057s/qAk6SRO6+oFpRrRkeuIiEL0c+Fohde1MODWLNaMstsEk+KOR5r04cnXYj7Rf6c4mNoC80zBdGHge/juyhP/3BjgwmHvhyavLyCFx2OoLmarX5nypF/8MVlUtm/pc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=UqsszUUE; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1778879829; c=relaxed/simple;
+	bh=y+rElgqW2y1ZBqK57KvlGwC00oPxlztxlvwsXn8yRyI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=gssqVyhIYeaLzVKVDGM4k63IRzLQqTKOJ4svvOwCYq/D9eWYK2TE4N8iIzkumKx/s0yNO6jOF9wzBg/fQQ8bwoKuhcLrlIvEdM6cIAWARnLuA9BNEl5xuV6oOmksqs4gxaKiqzDYi95T1n5lRn1E93QfG7a4xY5PRz2jchdk2hI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IZbEHyFq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="UqsszUUE"
-Received: from mail01.disroot.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id C93BB27249;
-	Fri, 15 May 2026 23:11:49 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id oHfTVjZ0KNoU; Fri, 15 May 2026 23:11:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1778879508; bh=NW9PHikwJQ3ZtX3oBjSMWYnrqk7Wju8+GpkDo/Fz3u8=;
-	h=Date:Cc:Subject:From:To:References:In-Reply-To;
-	b=UqsszUUEXaXyvllsI8NE9KleLkIwLZwQ6d7IpoMs2tX2Vbf5NfvDiJd2h2d3JwVYl
-	 VYWYoXpLXHjQoB9gYu3lv9tlRl/VBD6RtZjpQv2YZN8Au89o4xRt5B/ahf+Nvblh5E
-	 rWmPU48hSf49bXn082NXVLrIiK0D/Za+5APDWzh8hEKMTrgYt1rJAyM2HkExBy6zuw
-	 Z1HVe/aTfnq57aco1VoGFhVLhEP/egzTu1MyBKVx7qy5e6U3ifOYEKO1hO+BEMb+hg
-	 /C3fV9CEoQe5A9n2Ldn1jOQzZCecbB9KQTzujFmQv93fOiMNjMkEoEqHR+UKpvZXgV
-	 zRzwErxLj5DPQ==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IZbEHyFq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6797EC2BCB0;
+	Fri, 15 May 2026 21:17:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778879829;
+	bh=y+rElgqW2y1ZBqK57KvlGwC00oPxlztxlvwsXn8yRyI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=IZbEHyFqf7MxW47bSiIzqQsSJ++B42Kocx6P+jf6awC0nmMMKTnfSKIfOTCYHmob9
+	 1na7PqcG0efAORk3ByzLWYRHsmBqf5XBJXBH/P7SqFaVr0UlPfbWoaISEaSa1fjljM
+	 rHe1woetCsPFF+qCGZ6Sgb+aBJTcC/kOGAJSBrNBSN5qqZ+l7tYnTIFq41jBoc4nRg
+	 RO0KDgPXNn4euoxkQw7ia/YddSXvsSlVbxTs8Xb/4aJeOFPFI3O42FGGGnPdYyFKCY
+	 BVEDn/aXtsI5zsMcbcmA/zvTmZ5tnBUIa6KmmI+1XD8rqxA8mQLjhsPLUyxujSDspw
+	 Nwr7ZXndKY/ag==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] arm64: tegra: Add iommu and dma properties for
+ Tegra194 QSPI
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Aaron Kling via B4 Relay" <devnull+webgeek1234.gmail.com@kernel.org>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260515-tegra194-qspi-iommu-v1-3-57dfb63cd3d6@gmail.com>
+References: <20260515-tegra194-qspi-iommu-v1-3-57dfb63cd3d6@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 15 May 2026 21:17:07 +0000
+Message-Id: <20260515211708.6797EC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 16 May 2026 02:41:29 +0530
-Message-Id: <DIJK5FTQ5KWG.HOKZAOXHTGU7@disroot.org>
-Cc: "Lee Jones" <lee@kernel.org>, "Pavel Machek" <pavel@kernel.org>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "MyungJoo Ham"
- <myungjoo.ham@samsung.com>, "Chanwoo Choi" <cw00.choi@samsung.com>,
- "Sebastian Reichel" <sre@kernel.org>, "Krzysztof Kozlowski"
- <krzk@kernel.org>, =?utf-8?q?Andr=C3=A9_Draszik?=
- <andre.draszik@linaro.org>, "Alexandre Belloni"
- <alexandre.belloni@bootlin.com>, "Jonathan Corbet" <corbet@lwn.net>, "Shuah
- Khan" <skhan@linuxfoundation.org>, "Nam Tran" <trannamatk@gmail.com>,
- =?utf-8?q?=C5=81ukasz_Lebiedzi=C5=84ski?= <kernel@lvkasz.us>,
- <linux-leds@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-pm@vger.kernel.org>,
- <linux-samsung-soc@vger.kernel.org>, <linux-rtc@vger.kernel.org>,
- <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH v6 03/11] dt-bindings: mfd: add documentation for
- S2MU005 PMIC
-From: "Kaustabh Chakraborty" <kauschluss@disroot.org>
-To: "Conor Dooley" <conor@kernel.org>, "Kaustabh Chakraborty"
- <kauschluss@disroot.org>
-References: <20260515-s2mu005-pmic-v6-0-1979106992d4@disroot.org>
- <20260515-s2mu005-pmic-v6-3-1979106992d4@disroot.org>
- <20260515-justly-recite-6028f4bfb24a@spud>
-In-Reply-To: <20260515-justly-recite-6028f4bfb24a@spud>
 
-On 2026-05-15 18:14 +01:00, Conor Dooley wrote:
-> On Fri, May 15, 2026 at 04:08:59PM +0530, Kaustabh Chakraborty wrote:
->> Samsung's S2MU005 PMIC includes subdevices for a charger, an MUIC (Micro
->> USB Interface Controller), and flash and RGB LED controllers.
->>=20
->> Add the compatible and documentation for the S2MU005 PMIC. Also, add an
->> example for nodes for supported sub-devices, i.e. MUIC, flash LEDs, and
->> RGB LEDs. Charger sub-device uses the node of the parent.
->>=20
->> Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
->> ---
->>  .../bindings/mfd/samsung,s2mu005-pmic.yaml         | 120 ++++++++++++++=
-+++++++
->>  1 file changed, 120 insertions(+)
->>=20
->> diff --git a/Documentation/devicetree/bindings/mfd/samsung,s2mu005-pmic.=
-yaml b/Documentation/devicetree/bindings/mfd/samsung,s2mu005-pmic.yaml
->> new file mode 100644
->> index 0000000000000..0e6afb7d2017b
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/mfd/samsung,s2mu005-pmic.yaml
->> @@ -0,0 +1,120 @@
->> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/mfd/samsung,s2mu005-pmic.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Samsung S2MU005 Power Management IC
->> +
->> +maintainers:
->> +  - Kaustabh Chakraborty <kauschluss@disroot.org>
->> +
->> +description: |
->> +  The S2MU005 is a companion power management IC which includes subdevi=
-ces for
->> +  a charger controller, an MUIC (Micro USB Interface Controller), and f=
-lash and
->> +  RGB LED controllers.
->> +
->> +allOf:
->> +  - $ref: /schemas/power/supply/power-supply.yaml#
->> +
->> +properties:
->> +  compatible:
->> +    const: samsung,s2mu005-pmic
->> +
->> +  flash:
->> +    $ref: /schemas/leds/samsung,s2mu005-flash.yaml
->> +    description:
->> +      Child node describing flash LEDs.
->> +
->> +  interrupts:
->> +    maxItems: 1
->> +
->> +  muic:
->> +    $ref: /schemas/extcon/samsung,s2mu005-muic.yaml#
->> +    description:
->> +      Child node describing MUIC device.
->> +
->> +  multi-led:
->> +    type: object
->> +
->> +    allOf:
->> +      - $ref: /schemas/leds/leds-class-multicolor.yaml#
->
-> Does this need to be an allOf when the other refs are not?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Hardware misrepresentation: QSPI node falsely claims GPCDMA's SMMU=
+ Stream ID to mask a driver bug
+--
 
-It has it's own properties, that's the reason. This used to be it's own
-thing in dt-bindings/leds, but I was asked to move it here in prior
-reviews.
+commit 5a99acb609c512098a594cb6c335a984b6c04380
+Author: Aaron Kling <webgeek1234@gmail.com>
 
->> +
->> +    properties:
->> +      compatible:
->> +        const: samsung,s2mu005-rgb
->> +
->> +    required:
->> +      - compatible
->> +
->> +    unevaluatedProperties: false
->> +
->> +  reg:
->> +    maxItems: 1
->
-> Move this above the child nodes please.
+arm64: tegra: Add iommu and dma properties for Tegra194 QSPI
 
-But properties are sorted in lex order?
+This commit adds DMA and IOMMU properties to the QSPI controller nodes for
+Tegra194. The commit message indicates these are required to prevent flash
+storage transfers from timing out.
 
-> Otherwise, I think this looks good.
->
-> pw-bot: changes-requested
->
-> Thanks,
-> Conor.
->
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +
->> +unevaluatedProperties: false
->> +
->> +examples:
->> +  - |
->> +    #include <dt-bindings/interrupt-controller/irq.h>
->> +    #include <dt-bindings/leds/common.h>
->> +
->> +    i2c {
->> +        #address-cells =3D <1>;
->> +        #size-cells =3D <0>;
->> +
->> +        pmic@3d {
->> +            compatible =3D "samsung,s2mu005-pmic";
->> +            reg =3D <0x3d>;
->> +            interrupt-parent =3D <&gpa2>;
->> +            interrupts =3D <7 IRQ_TYPE_LEVEL_LOW>;
->> +
->> +            monitored-battery =3D <&battery>;
->> +
->> +            flash {
->> +                compatible =3D "samsung,s2mu005-flash";
->> +                #address-cells =3D <1>;
->> +                #size-cells =3D <0>;
->> +
->> +                led@0 {
->> +                    reg =3D <0>;
->> +                    color =3D <LED_COLOR_ID_WHITE>;
->> +                    function =3D LED_FUNCTION_FLASH;
->> +                };
->> +
->> +                led@1 {
->> +                    reg =3D <1>;
->> +                    color =3D <LED_COLOR_ID_WHITE>;
->> +                    function =3D LED_FUNCTION_FLASH;
->> +                    function-enumerator =3D <1>;
->> +                };
->> +            };
->> +
->> +            muic {
->> +                compatible =3D "samsung,s2mu005-muic";
->> +
->> +                connector {
->> +                    compatible =3D "usb-b-connector";
->> +                    label =3D "micro-USB";
->> +                    type =3D "micro";
->> +                };
->> +
->> +                port {
->> +                    muic_to_usb: endpoint {
->> +                        remote-endpoint =3D <&usb_to_muic>;
->> +                    };
->> +                };
->> +            };
->> +
->> +            multi-led {
->> +                compatible =3D "samsung,s2mu005-rgb";
->> +                color =3D <LED_COLOR_ID_RGB>;
->> +                function =3D LED_FUNCTION_INDICATOR;
->> +                linux,default-trigger =3D "pattern";
->> +            };
->> +        };
->> +    };
->>=20
->> --=20
->> 2.53.0
->>=20
+> diff --git a/arch/arm64/boot/dts/nvidia/tegra194.dtsi b/arch/arm64/boot/d=
+ts/nvidia/tegra194.dtsi
+> index 1d659454a6f9f..0e0a20befe9e6 100644
+> --- a/arch/arm64/boot/dts/nvidia/tegra194.dtsi
+> +++ b/arch/arm64/boot/dts/nvidia/tegra194.dtsi
+> @@ -923,6 +923,10 @@ spi@3270000 {
+>  				 <&bpmp TEGRA194_CLK_QSPI0_PM>;
+>  			clock-names =3D "qspi", "qspi_out";
+>  			resets =3D <&bpmp TEGRA194_RESET_QSPI0>;
+> +			iommus =3D <&smmu TEGRA194_SID_GPCDMA_0>;
 
+Does assigning the GPCDMA's Stream ID to the QSPI node misrepresent the
+hardware topology?
+
+TEGRA194_SID_GPCDMA_0 physically belongs to the external GPCDMA controller,
+which is the actual bus master performing the DMA transfers. Device trees
+must strictly describe hardware.=20
+
+It appears this configuration might be masking a driver bug in
+drivers/spi/spi-tegra210-quad.c, where tegra_qspi_dma_map_xfer() maps buffe=
+rs
+against the QSPI device rather than the DMA engine's device pointer. Faking
+the same Stream ID places both devices in the same SMMU group, which avoids
+translation faults but breaks IOMMU isolation.
+
+Should the driver be fixed to map memory using the DMA provider's device
+pointer instead of adding the iommus and dma-coherent properties to the QSPI
+nodes?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-tegra194-q=
+spi-iommu-v1-0-57dfb63cd3d6@gmail.com?part=3D3
