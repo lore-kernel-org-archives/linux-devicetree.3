@@ -1,124 +1,152 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFF913C9896
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 16:08:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F5233F929D
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 16:11:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778861315; cv=none; b=u9f90WvdL2stRmaPl9gCNdaecjuwajyk7/gcphRMXfQvb4i3jljxSTAZ16Fbt4zp+QAnhMPsSMLjxN+DnyvPqpzHLGFX+lrIHiS7s+D9AYW6lp23gEcvkD3x6yLgqsTmk9Gp3BcxvxCA56tUySbEW99YaYCq1K4cjkJRxF7XARg=
+	t=1778861515; cv=none; b=L28dB6z4YH+m+M0ueeMP2J5uOuh3VeAlnJSN0Ao6ejdlA+HstapD4U+J87T6PSJwIfpd+Fx4M38ATbjjwCCEQKY6ONo3IEXnLxOr9InXxWCiyVEg6yOHwFCHqbdKKzljxIaVJX6o+YndAx1D3CMdN2tWNBkEMe9iwPBeTGEns5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778861315; c=relaxed/simple;
-	bh=xT+3vLJrS2EkteGGMBFhFa9C4EU2j5O1CpJuRu02co4=;
+	s=arc-20240116; t=1778861515; c=relaxed/simple;
+	bh=+wX9CJCWleDvzX2V2jYmbl6Wtx3VAnhUYvdTe77+kVQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gktBtr+MbUoOeJEKZ+4kKjOUvzCMqDLU84ZjuovK/K7om1iP9BASzE/soj95uKeRXQkZn322yRc4Tazo9FHUr8Y8TKwoLyM80FsBwfpyU0qc5oE+LeeUNS8qhc3naINsL+NrP7J/C2r2SnVPavUP8E9Hg6vyXgWdbxDZQEI3KCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oQ3Uwk3R; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=S0XdJ8u0HtDpz3Y+oMN0kc2iKGJGp48FmN+3Q09pKWiH+u0tNYbG1qrRHyu7QeAlPElyfuJKk+2oyNyIhFi/mWFKpHB4aZKNfe11Yjr0gDNmJ9nrEnu53FX0KGwtb6oi5jZIhMtAPxtbu7gg0b38hJTFIrAKCkpflfE3Kjlp/Kg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BUiLap8j; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oQ3Uwk3R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 607A9C2BCB0;
-	Fri, 15 May 2026 16:08:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BUiLap8j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBA47C2BCB0;
+	Fri, 15 May 2026 16:11:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778861315;
-	bh=xT+3vLJrS2EkteGGMBFhFa9C4EU2j5O1CpJuRu02co4=;
+	s=k20201202; t=1778861515;
+	bh=+wX9CJCWleDvzX2V2jYmbl6Wtx3VAnhUYvdTe77+kVQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=oQ3Uwk3REm/2kWdKvfxa5euEfjzxmHC4wZj7qSelkz2rw2kLm18jxkzJ26ZoXtBwC
-	 hT/HUR097BKwH0JiXDYA6lcwruHveziRPp8K4hn8h4Dz6lY6la1a/uTPDfaDlL3QQt
-	 fYpR6yhf9NXk7d+JZkThOyNJ+NPvVEdiGjchSigPRvcUnJMNntzM78xF/uoKJ4j4nd
-	 lerGNcNMLwpzeft+cRnMKyZOWzxLWTc/lR4a0KpMxmR3TSzNQYv9BRM/YgT4L3PULn
-	 w6qPEEh19QSHGuN/LUH3jG5YRqILLZA68FEn/dVNDwN5inKbhosfrp7b1hIUTJ3sNu
-	 8HruPnizzeY+Q==
+	b=BUiLap8jVFyEfmTWNZLOTdU6gqGTCopBQzs5WrJlJraMzejZOA1xGZvPX16GqqVLE
+	 /WqHRWuBMZtyY/C5M7Y9vOV8vIU66tYkdIlVEjeyPXikk2iORTudiVcnXgLPGLgFW9
+	 lCbBaMcCzucPCrJSEyHH3KdHoOxZMegVp3hYAcy93P/GtFIfpruoODsBPhtwTQ8qwG
+	 GdatEK2Q8yefwYpflUC2JH5kkrIXlmGnlx7bbybkWG/7tnL8pTzxl8gqV/XghNeoux
+	 9BacTPh4QNCa+fZ7z4V0jxGJ665gxYc5PMnHg0NsafjDDcu+9yz4LZUgguO4S+KwlL
+	 vzzeb6YFuLrQA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 20/28] media: rockchip: rga: support external iommus
+Subject: Re: [PATCH v6 21/28] media: rockchip: rga: share the interrupt when
+ an external iommu is used
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?U3ZlbiBQw7xzY2hlbA==?= <s.pueschel@pengutronix.de>
-Cc: conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260515-spu-rga3-v6-20-e547152eb9c9@pengutronix.de>
-References: <20260515-spu-rga3-v6-20-e547152eb9c9@pengutronix.de>
+Cc: krzk+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260515-spu-rga3-v6-21-e547152eb9c9@pengutronix.de>
+References: <20260515-spu-rga3-v6-21-e547152eb9c9@pengutronix.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 May 2026 16:08:34 +0000
-Message-Id: <20260515160835.607A9C2BCB0@smtp.kernel.org>
+Date: Fri, 15 May 2026 16:11:54 +0000
+Message-Id: <20260515161154.BBA47C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Critical] An off-by-one bounds check in `fill_descriptors` combined with=
- unsigned integer underflow allows an attacker to perform an unbounded out-=
-of-bounds heap write.
+- [Critical] Accessing hardware registers without ensuring power/clock stat=
+e in shared interrupt handler.
+- [High] Unconditional `IRQ_HANDLED` return from shared interrupt handler d=
+efeats spurious IRQ detection.
+- [High] Data race on the `RGA_INT` register due to lockless ISR execution.
+- [High] Early IRQ registration introduces a NULL pointer dereference windo=
+w.
 --
 
-commit bf314a22b4aaca4693af88a7c738812bfaefb82d
-Author: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
+commit 9f93e8eca57c7b5671e83f97e16709aa91786176
+Author: Michael Olbrich <m.olbrich@pengutronix.de>
 
-media: rockchip: rga: support external iommus
+media: rockchip: rga: share the interrupt when an external iommu is used
 
-In preparation for the RGA3 add support for external iommus. This is a
-transition step to just disable the RGA2 specific mmu table setup code.
+The RGA3 and the corresponding iommu share the interrupt. So in that
+case, request a shared interrupt so that the iommu driver can request
+it as well.
 
-> diff --git a/drivers/media/platform/rockchip/rga/rga-buf.c b/drivers/medi=
-a/platform/rockchip/rga/rga-buf.c
-> index ab9554c1c4cd9..cd6904d5fe5a6 100644
-> --- a/drivers/media/platform/rockchip/rga/rga-buf.c
-> +++ b/drivers/media/platform/rockchip/rga/rga-buf.c
-[ ... ]
-> @@ -136,17 +140,21 @@ static int rga_buf_prepare(struct vb2_buffer *vb)
->  	for (i =3D 0; i < vb->num_planes; i++) {
->  		vb2_set_plane_payload(vb, i, f->pix.plane_fmt[i].sizeimage);
+> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
+atform/rockchip/rga/rga.c
+> index e3c99c3f7c5be..cda3cecb1ce8c 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.c
+> +++ b/drivers/media/platform/rockchip/rga/rga.c
+> @@ -767,7 +767,8 @@ static int rga_probe(struct platform_device *pdev)
+>  		goto err_put_clk;
+>  	}
 > =20
-> -		/* Create local MMU table for RGA */
-> -		n_desc =3D fill_descriptors(&rbuf->dma_desc[curr_desc],
-> -					  rbuf->n_desc - curr_desc,
-> -					  vb2_dma_sg_plane_desc(vb, i));
-> -		if (n_desc < 0) {
-> -			v4l2_err(&ctx->rga->v4l2_dev,
-> -				 "Failed to map video buffer to RGA\n");
-> -			return n_desc;
-> +		if (rga_has_internal_iommu(ctx->rga)) {
-> +			/* Create local MMU table for RGA */
-> +			n_desc =3D fill_descriptors(&rbuf->dma_desc[curr_desc],
-> +						  rbuf->n_desc - curr_desc,
+> -	ret =3D devm_request_irq(rga->dev, irq, rga_isr, 0,
+> +	ret =3D devm_request_irq(rga->dev, irq, rga_isr,
+> +			       rga_has_internal_iommu(rga) ? 0 : IRQF_SHARED,
+>  			       dev_name(rga->dev), rga);
 
-This problem wasn't introduced by this patch, but could this calculation
-underflow and cause an out-of-bounds write?
+By enabling IRQF_SHARED, the rga_isr handler can be triggered by interrupts
+from other devices (like the IOMMU) at any time. Does the current ISR safely
+handle these shared interrupts?
 
-In fill_descriptors(), the loop condition allows one extra iteration:
+Looking at rga_isr(), it always returns IRQ_HANDLED even when the interrupt
+was not generated by this device:
 
-rga-buf.c:fill_descriptors() {
+drivers/media/platform/rockchip/rga/rga.c:rga_isr() {
+	if (rga->hw->handle_irq(rga)) {
+		...
+	}
+
+	return IRQ_HANDLED;
+}
+
+Should the handler return IRQ_NONE when it determines the interrupt wasn't
+generated by its hardware, to avoid defeating the kernel's spurious IRQ
+detection?
+
+Additionally, because the IRQ is requested here before the driver is fully
+initialized, could an immediate shared interrupt cause a NULL pointer
+dereference?
+
+drivers/media/platform/rockchip/rga/rga.c:rga_isr() {
 	...
-	for_each_sgtable_dma_page(sgt, &iter, 0) {
-		if (n_desc > max_desc)
-			return -EINVAL;
+	if (rga->hw->handle_irq(rga)) {
+		...
+		struct rga_ctx *ctx =3D rga->curr;
+
+		WARN_ON(!ctx);
+
+		rga->curr =3D NULL;
+
+		src =3D v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx);
 	...
 }
 
-If n_desc =3D=3D max_desc, it allows an extra element to be written and ret=
-urns
-max_desc + 1.
+If the hardware happens to have a pending interrupt bit, rga->curr will be
+NULL, and the code assigns NULL to ctx, then attempts to dereference
+ctx->fh.m2m_ctx.
 
-If a user provides a multi-planar buffer via V4L2 where the first plane's
-scatterlist contains exactly rbuf->n_desc + 1 pages, fill_descriptors()
-writes one element out-of-bounds and returns rbuf->n_desc + 1 instead of an
-error.
+Could this early registration also cause the ISR to attempt to access
+hardware registers while the device's clocks and power domains are disabled?
 
-> +						  vb2_dma_sg_plane_desc(vb, i));
-> +			if (n_desc < 0) {
-> +				v4l2_err(&ctx->rga->v4l2_dev,
-> +					 "Failed to map video buffer to RGA\n");
-> +				return n_desc;
-> +			}
-> +			dma_addrs[i] =3D curr_desc << PAGE_SHIFT;
-> +			curr_desc +=3D n_desc;
+Because the driver uses PM runtime, the device may be suspended when a shar=
+ed
+interrupt fires. Is it necessary to verify pm_runtime_active(rga->dev)
+before reading registers in the ISR to avoid a synchronous external abort?
 
-Since curr_desc receives this return value, could rbuf->n_desc - curr_desc
-underflow to SIZE_MAX during the next iteration of the loop for the second
-plane?
+Finally, could this lead to a data race on the RGA_INT register?
 
-This would pass SIZE_MAX as the max_desc argument to fill_descriptors(),
-potentially allowing an unbounded out-of-bounds write to adjacent memory.
+With IRQF_SHARED, rga_isr() can run asynchronously on another CPU while
+device_run() is executing:
+
+drivers/media/platform/rockchip/rga/rga.c:device_run() {
+	...
+	rga->hw->start(rga, vb_to_rga(src), vb_to_rga(dst));
+}
+
+If device_run() calls rga->hw->start() to write 0x600 to the RGA_INT regist=
+er
+to enable interrupts, while rga_isr() locklessly performs a read-modify-wri=
+te
+on RGA_INT, could the ISR silently overwrite the configuration with 0,
+disabling RGA interrupts mid-job?
+
+>  	if (ret < 0) {
+>  		dev_err(rga->dev, "failed to request irq\n");
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-spu-rga3-v=
-6-0-e547152eb9c9@pengutronix.de?part=3D20
+6-0-e547152eb9c9@pengutronix.de?part=3D21
