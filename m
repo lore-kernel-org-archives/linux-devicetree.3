@@ -1,703 +1,445 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2093.outbound.protection.partner.outlook.cn [139.219.17.93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 435BA36D4E4;
-	Fri, 15 May 2026 05:48:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778824105; cv=none; b=i11N8MYajAs9tDsgoiIeCDSaJYoAgHaSyXof67XFZB7xzRa32iQKGDj/vQbtsSv+X6RmP7F51V5AqkgEMqi/eLuNMUlSZYiPCJbIY7MBEbW/MGZ69E/y1E8MLUtvO+ArrL8eRnYPy5ykoD96Hqjk8wvNrt/DEseK8Wydz1QKc+U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778824105; c=relaxed/simple;
-	bh=60kRau48iTEuUMjbvRdUT1ZnBbKWW2xQzfzA3WrKVO0=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB9ED357A40;
+	Fri, 15 May 2026 05:48:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.93
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778824135; cv=fail; b=PMUGtlFOhOHQiHXOj+cAk9CJeZjn+ExuFqWYFepaYsd2zojil1zoP8ld82hByRR3c2tbMkyosaQQBvRDyAQHewOmaypBg5j+c23toEWFPTV07tj0ahXCCNNkYoomWx4KU/hBx56QiyBfbj9Vbrm5nZ4wh97gaGgp75VkT3CDt+w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778824135; c=relaxed/simple;
+	bh=wzlg8jr9UzZybZmk3buMCxSpXkcMzEI4MhBbbvIpyBk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CH8aei2ee0W5yt0tDhqlk73mUfOj/wfAHbjZeY9Mb+RkVSA34m4EX5pJnrVLGgAz7Fq5vQt4EEBNRqlA0jFtv8ObRqyLeh9xMifDbyMcB7366zml4AUeWKMdl7orHEIEW29Nop3+CZLhj0dLVmvzv9H5BCCst7Va3lZxL+Evbvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QTrbLpLr; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QTrbLpLr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0817FC2BCB8;
-	Fri, 15 May 2026 05:48:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778824104;
-	bh=60kRau48iTEuUMjbvRdUT1ZnBbKWW2xQzfzA3WrKVO0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=QTrbLpLrln0yjx899IaioEWCVn0LzR3DzxNIFupI0/htZ2F/7F39GFfjC1VLqVwHO
-	 pQd75OSrNoIFcJ3RbYrqGqoMnNHGVu7UqlV2Cx2WBujBSLvKL1+nUVnRk7gLBmTeM1
-	 cfpqBZ3I7O2TVCIvqYlBRJEqvhoKnZOvGc5lIz9fadbBvYWvs7zidPkMPRPBDqPnBF
-	 BUWGGlB6UJ1h6SZRcpCh2jPp77kgVFRqu0FYyeiu+jJP+NQur13g5l4UHGF8zKfCK1
-	 3wGy/RSissY6CU7F1SCU/mB79wCWPn4BUq0cZ3wG5MtyZN8iE3E/YqQrBCTE+85/pm
-	 npq1uyBkNyOoQ==
-From: William Breathitt Gray <wbg@kernel.org>
-To: Wadim Mueller <wafgo01@gmail.com>
-Cc: William Breathitt Gray <wbg@kernel.org>,
-	conor+dt@kernel.org,
-	krzk+dt@kernel.org,
-	robh@kernel.org,
-	conor.dooley@microchip.com,
-	linux-iio@vger.kernel.org,
+	 Content-Type:MIME-Version; b=DADlGXPeEclNaeMPNc4FCaMCM9Tm8b48d5tL4wNmKO4YPMd+n+gJ32chjwdn2kMIPt2DQKC4rWiFOifAols9N1cyAsOJNiXsh9D1Of1AIN3eZlYlnOWQELDgHQIUIiKPisXbkhxSGRdi7AOz3Ox0BaX25KVvizmAkzC1WE0pnNo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.93
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dZFpP/1vnaMawTshJkug2yHznX73WsQ2kWUU9mV+hx4ouB3oBCfTDftqG0xZ0uiQC6359kGxp0Ppq+lSfEqP3BVP/jC5zRBcEMOF63ZVGaPfk+99xouV+bgriayW0iTHVa8Biv+fUi4+NTRIv3vHwE2L0H+Qh8dH8CEcgYyyUw66r+FuL5vIDKyHg2U7/0a950v/P5q3LYpf9z9MvqsaPrubN5BkobzVtqLUbHHLSdeQ4oEWWCJ7RbP+PDwFlU6CfYRegCnkxCy6lefzzp7EWEhb7sgnO3X1qxXDiP+qtpx+z30WYquzDLlewjC51TLckI/DAf4r23rorRUCfxYTRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OivD3rqodpHTLCVPIlZiEbGvMcTPZG5rEDwZdFQa/DM=;
+ b=Oc2yhB9a2ddLv9Du38yKltwEBsftLHDxcFSPTJZCXz6vgQSpLlwdbyTMcYKesnlX8XK3SrEJK8b1MiX1pKZzg4eUnBrYvBGphQ0oyQk6O+YEJUL8hQobld54J1Dpjamv15zU7wUYVTL63cuXAwMFs7bU/USwlSVtEZ1FJBLSUbp/lKx2elN5NpZj3KpK8RBSPDPwpJ8wBIz8jHpDqJfOdW4ucKjinLEXVVDIkOjYCWVU3wiMGYvW9IXkIfJwHpqZXVD+JTRWRN1Kfm7FZMhG32KuA+MhEEtFKK8rw0LRS3iUxuMz2FtqMVbi8iufINAnx9o+Oi3B7UMKPMV1v77hfQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:7::14) by ZQ2PR01MB1276.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:10::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Fri, 15 May
+ 2026 05:47:34 +0000
+Received: from ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn
+ ([fe80::4386:5cc4:3bc4:4795]) by
+ ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn ([fe80::4386:5cc4:3bc4:4795%4])
+ with mapi id 15.20.9913.009; Fri, 15 May 2026 05:47:34 +0000
+From: Hal Feng <hal.feng@starfivetech.com>
+To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor@kernel.org>,
+	Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Albert Ou <aou@eecs.berkeley.edu>
+Cc: Changhuang Liang <changhuang.liang@starfivetech.com>,
+	Hal Feng <hal.feng@starfivetech.com>,
+	linux-pwm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linusw@kernel.org,
-	brgl@kernel.org
-Subject: Re: [PATCH v3 2/3] counter: add GPIO-based quadrature encoder driver
-Date: Fri, 15 May 2026 14:48:17 +0900
-Message-ID: <20260515054819.302445-1-wbg@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260501200749.20029-3-wafgo01@gmail.com>
-References: <20260501200749.20029-3-wafgo01@gmail.com>
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v18 3/3] pwm: Add OpenCores PTC PWM driver
+Date: Fri, 15 May 2026 13:47:22 +0800
+Message-ID: <20260515054723.25024-4-hal.feng@starfivetech.com>
+X-Mailer: git-send-email 2.43.2
+In-Reply-To: <20260515054723.25024-1-hal.feng@starfivetech.com>
+References: <20260515054723.25024-1-hal.feng@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SHXPR01CA0013.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:1b::22) To ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:7::14)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=21104; i=wbg@kernel.org; h=from:subject; bh=60kRau48iTEuUMjbvRdUT1ZnBbKWW2xQzfzA3WrKVO0=; b=owGbwMvMwCW21SPs1D4hZW3G02pJDFlsm7Mb+HbOT2DYfyEv4U5I6LUr4gr3vij35a65r7enn /H0wS6rjlIWBjEuBlkxRZZe87N3H1xS1fjxYv42mDmsTCBDGLg4BWAi2lKMDNNFvy5tTYw7k+dv v600btPk18/CGGVk7s93fTrbtmy7eC8jw4EDL+6cPLQ4MuvhArGSJ1ILnxb9yU3xXT1/4b68nAp ffQ4A
-X-Developer-Key: i=wbg@kernel.org; a=openpgp; fpr=8D37CDDDE0D22528F8E89FB6B54856CABE12232B
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ2PR01MB1307:EE_|ZQ2PR01MB1276:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2a1bb34a-4fd6-425b-5554-08deb24576a4
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|52116014|56012099003|18002099003|22082099003|13003099007|38350700014|3023799003;
+X-Microsoft-Antispam-Message-Info:
+	5zLsvayno+h3nRiQ7BiMFjexR1Sxz4VjSjK8qGSjgsdQDyzS2aS1loinpBNeSI4A6gTAbGv1DfSORTsB8gI6ub823X/pY7nKUP15R+OeA2W3difDDePGExP6FzFSmxWNwWg1+wwdMYpVYbFq+liIsdptoHegktgqH1UbfNjpE0L8XwMufzfJs2Whu5oRkfu/PRkBebYAGY0aQZ+ytL+DCZgzqJlMgsa9rGJlzbA+BrCueDDQ7mok8pIGghqoCUglhOaBQX+QjBTb8iVVmIulrjyiFBUEKN/MmQZ9mcPX2c0iOjysH/lOKdU7BRhf4FOQ5L048uV+In3boQYIzWjj6EayPAapRQ7rZBHu50Kj9LdsLZCp9wE7CCmtlwpuVKMRfIqAKjOX8+OtDwQamrUEEQgBR+ndehEcU2kYZHuKRp6+2IPt+pimQKrMqokpp/nydUUVH4ehnqblWmkpaYf0FqKwCwjhQzb8ixHYEofsa+HjO8jl2oIFux+f5YQox82N33Me7PZcI2nQ0dRHgktgi7yVtThLiJyjonlYySeIx/QuAeTxKonIZgqTpdO9/0bP
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(52116014)(56012099003)(18002099003)(22082099003)(13003099007)(38350700014)(3023799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?zQ8tPd76SvGIQooECcohFPeNWveL+Wr+1KhuWGwNDE1sU8kSfCEyEXlG6VDa?=
+ =?us-ascii?Q?vG+OtqA/4ULI/nwC7LZnSFLOOYpwOpxbAQwg0Bhk5UvzNTct3Z3dKrmP1U4G?=
+ =?us-ascii?Q?OikgOjNE71CBrZre8vGDYEKeWE0XFVt3xYrdCKms6csvcpUWGbz/LYn7Rt1l?=
+ =?us-ascii?Q?MPlgHGNumfQ61bpIB2Z8oUs1pKQSBuQjJqHvgfJUs/avOaps17wuj8JDofwE?=
+ =?us-ascii?Q?DBDWU3FZ0sdVx20lzXuTHI9M2jdzmRfD2aXPplNOkwHaDsaCX9inBK30TJXy?=
+ =?us-ascii?Q?XWYwK7kzEHE+x2AXrWCz+JR4/cWqbbDndvBX1oM/31jwFAm9nnaVXPLH/rcu?=
+ =?us-ascii?Q?DHGE77o+5ecJuqqqn372NwqzxQXkCx3vAmsTgVdEVNzDT0eQiLIdni0zLILA?=
+ =?us-ascii?Q?y5sWI382fsoj7l8U4Te+xC5jhbmnfiWdngHiYGTYk0YeS4mnKrXHJv3vZ5J+?=
+ =?us-ascii?Q?HnHrhCd1Viv53ribNvlS7gt0bQPgs1YdANIVjDzDCar/SxWpS51yVZozJ6Y5?=
+ =?us-ascii?Q?NVQMdKCrUEQytx2QzqSsIyIjV96PteQVwQ6reg8bsBD8W5veggVeY1HY6HIP?=
+ =?us-ascii?Q?6JATZ0ar7vC8RHqkL8Zr9bp6TUiNlRGMxyTkTvqww5A8GiP9K1AkJ+ZU8Dxe?=
+ =?us-ascii?Q?SsKTS7PASDMFAxUCk69nkmiGqFjyYmXkx0nHiZfyG+e1rjSc2QskKRH56/Li?=
+ =?us-ascii?Q?x0WLO2M0+/9n8WZ/q2YXvi6O57DSeJNxK5FmJT3vPx8q5EB3gmmOC1uqF+ic?=
+ =?us-ascii?Q?uq6op+zZM55mdz7Kb6MXN5sEkoUfdsLoi8X1+AB5/6Eppw3mxmMyul4h0XGm?=
+ =?us-ascii?Q?a1jhfto13LLrGIHHSHEK5ifpqzkXPGpX/jUmyLck0hthbEef1g9tb0HPJohH?=
+ =?us-ascii?Q?1MIIfzZr97WFeJY7NY0UarrDvEJKKOyqdnL4egadW73Oi05IlWh4Vfr7F/X1?=
+ =?us-ascii?Q?iAmn2DZ65PSX4A36kfkZxL2cQYJK8WauC9rm4V3YBJ7OmxRQkW4N5jsVr0Le?=
+ =?us-ascii?Q?+slCG8k0UtJgKApikx3oPelLlIijORnVaO/je8GxgiMBx2kBUFGWjboYgVzC?=
+ =?us-ascii?Q?WttNllKem2XIyGaMLqVUJxXqjzCuCsxYb41H3MXaUoozZRyWZSIcuIcIGC3c?=
+ =?us-ascii?Q?4htz1K63/9KqMqPZG63zMagmHdFh18w7dDEvTQVJWJY5+2TnyqTBpgi5GF0T?=
+ =?us-ascii?Q?6TNwMMLrS0s765k3coJLkBVYmqHhF1Tamo0c0OZrYKqLMyZ4kOps7ehGURhl?=
+ =?us-ascii?Q?2I8/odwmoxFt4XQ45SDo+WWebJ1xQVgUtM99aJJJL1lkd4ibNoIugYBCiw2h?=
+ =?us-ascii?Q?AnFkb5/2Wtgt7xXzd1O6nhBjhLZyY/WrDexw44Ee55ciBFNCgeyRin8ViVlG?=
+ =?us-ascii?Q?RNBq2zhLkoHGTCGO/TecEBILriTxrCeUOszb0DpaC2IJ5/pTp2TpXMxHTLM2?=
+ =?us-ascii?Q?PjzHiP/TVy+Rj+5Je3Tck8fb697GCHYfp4JtUJJqHqa0NikLWUnsfN7rpxzr?=
+ =?us-ascii?Q?RPJOFf+SkEMFPS9OTD3rQN/M+kCTGjVwGpiOf6mctFfIrcWmhrQEn0y/Qqu2?=
+ =?us-ascii?Q?aC6e7s3L98u/ExuJk04RjwRLVjR2Ll9OBYiT1Oz3GBFpFRTuek6kkW0agPdo?=
+ =?us-ascii?Q?/PVLm1dCMijeh3aLy8N0wW6Iqq7kdpDcTPSrEQhKf1j8U5bxJZvZXX0eP1zj?=
+ =?us-ascii?Q?K1RJmRwtkcf68CSvDX6RaGNB/JYkPC5WfcZdROvSoRkHqlZpWONHCW4Q1Ckr?=
+ =?us-ascii?Q?7Gd11x6f2Y9q4Lx9HZ/ZLVvfmHSjy4I=3D?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a1bb34a-4fd6-425b-5554-08deb24576a4
+X-MS-Exchange-CrossTenant-AuthSource: ZQ2PR01MB1307.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 05:47:34.7720
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3jWDgQHqBVIDwipNeV/m/YPBQC9QiKOXbDOr9PdOrH6xTjLcPeF4Gyh5D5bn/941/fkokjMoBWKo8T1a3Xq8dJKVyoJqp26YTWLFmpe+M2E=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ2PR01MB1276
+
+Add PWM driver for OpenCores PTC IP core.
+
+Signed-off-by: Hal Feng <hal.feng@starfivetech.com>
+---
+ MAINTAINERS              |   6 +
+ drivers/pwm/Kconfig      |  12 ++
+ drivers/pwm/Makefile     |   1 +
+ drivers/pwm/pwm-ocores.c | 249 +++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 268 insertions(+)
+ create mode 100644 drivers/pwm/pwm-ocores.c
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 6aa3fe2ee1bb..14af609f4ada 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -20027,6 +20027,12 @@ F:	Documentation/i2c/busses/i2c-ocores.rst
+ F:	drivers/i2c/busses/i2c-ocores.c
+ F:	include/linux/platform_data/i2c-ocores.h
+ 
++OPENCORES PWM DRIVER
++M:	Hal Feng <hal.feng@starfivetech.com>
++S:	Supported
++F:	Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
++F:	drivers/pwm/pwm-ocores.c
++
+ OPENRISC ARCHITECTURE
+ M:	Jonas Bonn <jonas@southpole.se>
+ M:	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>
+diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
+index 6f3147518376..dd7f3bf5c3eb 100644
+--- a/drivers/pwm/Kconfig
++++ b/drivers/pwm/Kconfig
+@@ -534,6 +534,18 @@ config PWM_NTXEC
+ 	  controller found in certain e-book readers designed by the original
+ 	  design manufacturer Netronix.
+ 
++config PWM_OCORES
++	tristate "OpenCores PTC PWM support"
++	depends on HAS_IOMEM && OF
++	depends on COMMON_CLK
++	depends on ARCH_STARFIVE || COMPILE_TEST
++	help
++	  PWM driver for OpenCores PTC IP core.
++	  For details see https://opencores.org/projects/ptc.
++
++	  To compile this driver as a module, choose M here: the module
++	  will be called pwm-ocores.
++
+ config PWM_OMAP_DMTIMER
+ 	tristate "OMAP Dual-Mode Timer PWM support"
+ 	depends on OF
+diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
+index 0dc0d2b69025..2d47bad7bd74 100644
+--- a/drivers/pwm/Makefile
++++ b/drivers/pwm/Makefile
+@@ -47,6 +47,7 @@ obj-$(CONFIG_PWM_MICROCHIP_CORE)	+= pwm-microchip-core.o
+ obj-$(CONFIG_PWM_MTK_DISP)	+= pwm-mtk-disp.o
+ obj-$(CONFIG_PWM_MXS)		+= pwm-mxs.o
+ obj-$(CONFIG_PWM_NTXEC)		+= pwm-ntxec.o
++obj-$(CONFIG_PWM_OCORES)	+= pwm-ocores.o
+ obj-$(CONFIG_PWM_OMAP_DMTIMER)	+= pwm-omap-dmtimer.o
+ obj-$(CONFIG_PWM_PCA9685)	+= pwm-pca9685.o
+ obj-$(CONFIG_PWM_PXA)		+= pwm-pxa.o
+diff --git a/drivers/pwm/pwm-ocores.c b/drivers/pwm/pwm-ocores.c
+new file mode 100644
+index 000000000000..fa6a34117cde
+--- /dev/null
++++ b/drivers/pwm/pwm-ocores.c
+@@ -0,0 +1,249 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * OpenCores PTC PWM Driver
++ *
++ * https://opencores.org/projects/ptc
++ *
++ * Copyright (C) 2018-2026 StarFive Technology Co., Ltd.
++ *
++ * Limitations:
++ * - The hardware only supports inverted polarity.
++ * - The hardware minimum period / duty_cycle of PWM is (1 / pwm_apb clock frequency).
++ * - The hardware maximum period / duty_cycle of PWM is (U32_MAX / pwm_apb clock frequency).
++ * - The output is immediately set to low when the module is disabled.
++ */
++
++#include <linux/clk.h>
++#include <linux/io.h>
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
++#include <linux/pwm.h>
++#include <linux/reset.h>
++
++#define OCPWM_HRC	0x4
++#define OCPWM_LRC	0x8
++#define OCPWM_CTRL	0xC
++
++#define OCPWM_CTRL_EN	BIT(0)
++#define OCPWM_CTRL_OE	BIT(3)
++#define OCPWM_CTRL_RST	BIT(7)
++
++struct ocores_pwm_device {
++	void __iomem *base;
++	struct clk *clk;
++	unsigned long clk_rate;
++	struct reset_control *rst;
++};
++
++static int ocores_pwm_get_state(struct pwm_chip *chip,
++				struct pwm_device *pwm,
++				struct pwm_state *state)
++{
++	struct ocores_pwm_device *ddata = pwmchip_get_drvdata(chip);
++	u32 period_data, duty_data, ctrl_data;
++	int ret;
++
++	ret = pm_runtime_resume_and_get(pwmchip_parent(chip));
++	if (ret < 0)
++		return ret;
++
++	period_data = readl(ddata->base + OCPWM_LRC);
++	duty_data = readl(ddata->base + OCPWM_HRC);
++	ctrl_data = readl(ddata->base + OCPWM_CTRL);
++
++	state->period = DIV_ROUND_UP_ULL((u64)period_data * NSEC_PER_SEC, ddata->clk_rate);
++	state->duty_cycle = DIV_ROUND_UP_ULL((u64)duty_data * NSEC_PER_SEC, ddata->clk_rate);
++	if (state->duty_cycle > state->period)
++		state->duty_cycle = state->period;
++
++	state->polarity = PWM_POLARITY_INVERSED;
++	state->enabled = (ctrl_data & OCPWM_CTRL_EN) ? true : false;
++
++	pm_runtime_put(pwmchip_parent(chip));
++
++	return 0;
++}
++
++static int ocores_pwm_apply(struct pwm_chip *chip,
++			    struct pwm_device *pwm,
++			    const struct pwm_state *state)
++{
++	struct ocores_pwm_device *ddata = pwmchip_get_drvdata(chip);
++	u64 period_data, duty_data;
++	int ret;
++
++	if (state->polarity != PWM_POLARITY_INVERSED)
++		return -EINVAL;
++
++	if (state->enabled) {
++		if (!pwm_is_enabled(pwm)) {
++			ret = pm_runtime_resume_and_get(pwmchip_parent(chip));
++			if (ret < 0)
++				return ret;
++		}
++	} else {
++		if (pwm_is_enabled(pwm)) {
++			writel(0, ddata->base + OCPWM_CTRL);
++			pm_runtime_put(pwmchip_parent(chip));
++		}
++		return 0;
++	}
++
++	writel(0, ddata->base + OCPWM_CTRL);
++	writel(OCPWM_CTRL_RST, ddata->base + OCPWM_CTRL);
++
++	period_data = mul_u64_u32_div(state->period, ddata->clk_rate, NSEC_PER_SEC);
++	if (period_data > U32_MAX)
++		period_data = U32_MAX;
++
++	duty_data = mul_u64_u32_div(state->duty_cycle, ddata->clk_rate, NSEC_PER_SEC);
++	if (duty_data > U32_MAX)
++		duty_data = U32_MAX;
++
++	writel(period_data, ddata->base + OCPWM_LRC);
++	writel(duty_data, ddata->base + OCPWM_HRC);
++	writel(OCPWM_CTRL_OE | OCPWM_CTRL_EN, ddata->base + OCPWM_CTRL);
++
++	return 0;
++}
++
++static const struct pwm_ops ocores_pwm_ops = {
++	.get_state = ocores_pwm_get_state,
++	.apply = ocores_pwm_apply,
++};
++
++static int ocores_pwm_runtime_suspend(struct device *dev)
++{
++	struct ocores_pwm_device *ddata = dev_get_drvdata(dev);
++
++	clk_disable_unprepare(ddata->clk);
++
++	return 0;
++}
++
++static int ocores_pwm_runtime_resume(struct device *dev)
++{
++	struct ocores_pwm_device *ddata = dev_get_drvdata(dev);
++	int ret;
++
++	ret = clk_prepare_enable(ddata->clk);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to enable clock\n");
++
++	return 0;
++}
++
++static const struct dev_pm_ops ocores_pwm_pm_ops = {
++	RUNTIME_PM_OPS(ocores_pwm_runtime_suspend,
++		       ocores_pwm_runtime_resume, NULL)
++	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
++			    pm_runtime_force_resume)
++};
++
++static void ocores_pwm_pm_disable(void *data)
++{
++	struct device *dev = data;
++	struct ocores_pwm_device *ddata = dev_get_drvdata(dev);
++
++	pm_runtime_disable(dev);
++
++	if (!pm_runtime_status_suspended(dev))
++		ocores_pwm_runtime_suspend(dev);
++
++	reset_control_assert(ddata->rst);
++}
++
++static int ocores_pwm_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct ocores_pwm_device *ddata;
++	struct pwm_chip *chip;
++	int ret;
++
++	chip = devm_pwmchip_alloc(dev, 1, sizeof(*ddata));
++	if (IS_ERR(chip))
++		return -ENOMEM;
++
++	chip->ops = &ocores_pwm_ops;
++	ddata = pwmchip_get_drvdata(chip);
++
++	ddata->base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(ddata->base))
++		return dev_err_probe(dev, PTR_ERR(ddata->base),
++				     "Failed to map IO resources\n");
++
++	ddata->clk = devm_clk_get(dev, NULL);
++	if (IS_ERR(ddata->clk))
++		return dev_err_probe(dev, PTR_ERR(ddata->clk),
++				     "Failed to get clock\n");
++
++	ddata->clk_rate = clk_get_rate(ddata->clk);
++	if (!ddata->clk_rate || ddata->clk_rate > NSEC_PER_SEC)
++		return dev_err_probe(dev, -EINVAL,
++				     "Invalid clock rate: %lu\n", ddata->clk_rate);
++
++	ddata->rst = devm_reset_control_get_optional_shared(dev, NULL);
++	if (IS_ERR(ddata->rst))
++		return dev_err_probe(dev, PTR_ERR(ddata->rst),
++				     "Failed to get reset\n");
++
++	platform_set_drvdata(pdev, ddata);
++
++	ret = ocores_pwm_runtime_resume(dev);
++	if (ret)
++		return ret;
++
++	ret = reset_control_deassert(ddata->rst);
++	if (ret)
++		goto err_clk_disable;
++
++	ret = pm_runtime_set_active(dev);
++	if (ret)
++		goto err_reset_assert;
++
++	pm_runtime_enable(dev);
++
++	ret = devm_add_action_or_reset(dev, ocores_pwm_pm_disable, dev);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to add pm disable action\n");
++
++	pm_runtime_get_noresume(dev);
++
++	writel(0, ddata->base + OCPWM_CTRL);
++
++	pm_runtime_put(dev);
++
++	ret = devm_pwmchip_add(dev, chip);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "Could not register PWM chip\n");
++
++	return 0;
++
++err_reset_assert:
++	reset_control_assert(ddata->rst);
++err_clk_disable:
++	ocores_pwm_runtime_suspend(dev);
++	return dev_err_probe(dev, ret, "Failed to init pwm power\n");
++}
++
++static const struct of_device_id ocores_pwm_of_match[] = {
++	{ .compatible = "opencores,pwm-v1" },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, ocores_pwm_of_match);
++
++static struct platform_driver ocores_pwm_driver = {
++	.probe = ocores_pwm_probe,
++	.driver = {
++		.name = "ocores-pwm",
++		.of_match_table = ocores_pwm_of_match,
++		.pm = pm_ptr(&ocores_pwm_pm_ops),
++	},
++};
++module_platform_driver(ocores_pwm_driver);
++
++MODULE_AUTHOR("Jieqin Chen");
++MODULE_AUTHOR("Hal Feng <hal.feng@starfivetech.com>");
++MODULE_DESCRIPTION("OpenCores PTC PWM driver");
++MODULE_LICENSE("GPL");
+-- 
+2.43.2
 
-On Fri, May 01, 2026 at 10:07:48PM +0200, Wadim Mueller wrote:
-> Add a platform driver that turns ordinary GPIOs into a quadrature
-> encoder counter device.  The driver requests edge-triggered interrupts
-> on the A and B (and optional Index) GPIOs and decodes the quadrature
-> signal in software using a classic state-table approach.
-> 
-> Supported counting modes:
->   - Quadrature X1 (count on A rising edge only)
->   - Quadrature X2 (count on both A edges)
->   - Quadrature X4 (count on every A and B edge)
->   - Pulse-direction (A = pulse, B = direction)
-
-Hi Wadim,
-
-The Documentation/ABI/testing/sysfs-bus-counter file documents the Count
-function modes. Because we're interpreting GPIO lines and can define our
-own encoding states, it would be prudent to support all these Count
-function modes (i.e. increase, decrease, x1 b, and x2 b modes).
-
-> 
-> An optional index signal resets the count to zero on its rising edge
-> when enabled through sysfs.  A configurable ceiling clamps the count
-> to [0, ceiling].
-> 
-> Signed-off-by: Wadim Mueller <wafgo01@gmail.com>
-
-I recommend adding support at some point for a compare
-(COUNTER_COMP_COMPARE) component and floor component
-(COUNTER_COMP_FLOOR) which are common functionalities in quadrature
-devices. It'd be nice as well to have events pushed for
-COUNTER_EVENT_OVERFLOW, COUNTER_EVENT_UNDERFLOW,
-COUNTER_EVENT_OVERFLOW_UNDERFLOW, COUNTER_EVENT_THRESHOLD, and
-COUNTER_EVENT_DIRECTION_CHANGE.
-
-> +enum gpio_qenc_function {
-> +	GPIO_QENC_FUNC_QUAD_X1 = 0,
-> +	GPIO_QENC_FUNC_QUAD_X2,
-> +	GPIO_QENC_FUNC_QUAD_X4,
-> +	GPIO_QENC_FUNC_PULSE_DIR,
-> +};
-
-We use device specific enums to map device hardware register values to
-the Counter subsystem function enum constants. However, because this
-driver is not tied to any specific device hardware, you don't need to
-define a new enum. In other words, just use the COUNTER_FUNCTION_*
-constants directly in your code.
-
-> +struct gpio_qenc_priv {
-> +	struct gpio_desc *gpio_a;
-> +	struct gpio_desc *gpio_b;
-> +	struct gpio_desc *gpio_index;
-> +
-> +	int irq_a;
-> +	int irq_b;
-> +	int irq_index;
-> +
-> +	spinlock_t lock;
-> +
-> +	s64 count;
-
-The count_read()/count_write() callbacks pass a u64 count value, so I
-suspect this private count value store can be u64 as well.
-
-> +	u64 ceiling;
-> +	bool enabled;
-> +	enum counter_count_direction direction;
-> +	enum gpio_qenc_function function;
-> +
-> +	int prev_a;
-> +	int prev_b;
-> +
-> +	bool index_enabled;
-> +
-> +	struct counter_signal signals[3];
-> +	struct counter_synapse synapses[3];
-> +	struct counter_count cnts;
-
-I know you only have a single count, but for consistency with the rest
-of the code and Counter subsystem, I recommend declaring this as a
-single element array:
-
-	struct counter_count cnts[1];
-
-> +};
-> +
-> +/*
-> + * Quadrature state table for X4 decoding.
-> + * Rows = previous state (A<<1 | B), Columns = new state (A<<1 | B).
-> + * Values: 0 = no change, +1 = forward, -1 = backward, 2 = error (skip).
-> + */
-> +static const int quad_table[4][4] = {
-> +	/*          00  01  10  11  <- new */
-> +	/* 00 */ {  0, -1,  1,  2 },
-> +	/* 01 */ {  1,  0,  2, -1 },
-> +	/* 10 */ { -1,  2,  0,  1 },
-> +	/* 11 */ {  2,  1, -1,  0 },
-> +};
-> +
-> +static void gpio_qenc_update_count(struct gpio_qenc_priv *priv, int delta)
-> +{
-> +	s64 new_count;
-> +
-> +	if (!delta)
-> +		return;
-> +
-> +	new_count = priv->count + delta;
-> +
-> +	if (priv->ceiling) {
-> +		if (new_count < 0)
-> +			new_count = 0;
-> +		else if (new_count > (s64)priv->ceiling)
-> +			new_count = priv->ceiling;
-> +	}
-> +
-> +	priv->count = new_count;
-> +	priv->direction = (delta > 0) ? COUNTER_COUNT_DIRECTION_FORWARD
-> +				      : COUNTER_COUNT_DIRECTION_BACKWARD;
-
-Quadrature encoding represents changes of a single unit value at a time.
-Because we never increase nor decrease more than a value of 1 at a time,
-I think the code would read clearer if we determine the direction first,
-then make the adjustments to the count value thereafter. Maybe something
-like this (assuming priv->count is u64):
-
-	if (!delta)
-		return;
-	
-	priv->direction = (delta > 0) ? COUNTER_COUNT_DIRECTION_FORWARD
-				      : COUNTER_COUNT_DIRECTION_BACKWARD;
-	
-	if (priv->direction == COUNTER_COUNT_DIRECTION_FORWARD)
-		priv->count = (priv->count == priv->ceiling) ? priv->ceiling
-							     : priv->count + 1;
-	else
-		priv->count = (priv->count == 0) ? priv->ceiling
-						 : priv->count - 1;
-
-> +}
-> +
-> +static irqreturn_t gpio_qenc_a_isr(int irq, void *dev_id)
-> +{
-> +	struct counter_device *counter = dev_id;
-> +	struct gpio_qenc_priv *priv = counter_priv(counter);
-> +	unsigned long flags;
-> +	int a, b, prev_state, new_state, delta;
-> +
-> +	spin_lock_irqsave(&priv->lock, flags);
-> +
-> +	if (!priv->enabled)
-> +		goto out;
-
-Do we need to check the enabled state? If the IRQ is disabled, we don't
-reach this path, or do we?
-
-> +
-> +	a = gpiod_get_value(priv->gpio_a);
-> +	b = gpiod_get_value(priv->gpio_b);
-> +
-> +	prev_state = (priv->prev_a << 1) | priv->prev_b;
-> +	new_state = (a << 1) | b;
-
-I might make sense to wrap the state operation into a macro to make the
-intention of these bitwise operations more intuitive. For example:
-
-	prev_state = CREATE_QE_STATE(priv->prev_a, priv->prev_b);
-	new_state = CREATE_QE_STATE(a, b);
-
-Or something like that makes it more obvious that these two lines are
-just building the indices for the state array rather than any inherent
-meaning in the binary representation of the variables.
-
-> +
-> +	switch (priv->function) {
-> +	case GPIO_QENC_FUNC_QUAD_X4:
-> +		delta = quad_table[prev_state][new_state];
-> +		if (delta == 2)
-> +			delta = 0;
-> +		gpio_qenc_update_count(priv, delta);
-> +		break;
-> +
-> +	case GPIO_QENC_FUNC_QUAD_X2:
-> +		delta = quad_table[prev_state][new_state];
-> +		if (delta == 2)
-> +			delta = 0;
-> +		gpio_qenc_update_count(priv, delta);
-> +		break;
-
-After determining the delta value we call the gpio_qenc_update_count()
-function immedidately. We can save on a function call and remove the
-!delta check in gpio_qenc_update_count() if you make the call only when
-delta is known to update the count; for example:
-
-	if (!delta && delta != 2)
-		gpio_qenc_update_count(priv, delta);
-
-In fact, you may consider just removing the "2" states from the
-quad_table and leaving it as just "0" because the effect is the same,
-right?
-
-> +static irqreturn_t gpio_qenc_b_isr(int irq, void *dev_id)
-> +{
-> +	struct counter_device *counter = dev_id;
-> +	struct gpio_qenc_priv *priv = counter_priv(counter);
-> +	unsigned long flags;
-> +	int a, b, prev_state, new_state, delta;
-> +
-> +	spin_lock_irqsave(&priv->lock, flags);
-> +
-> +	if (!priv->enabled)
-> +		goto out;
-> +
-> +	a = gpiod_get_value(priv->gpio_a);
-> +	b = gpiod_get_value(priv->gpio_b);
-> +
-> +	prev_state = (priv->prev_a << 1) | priv->prev_b;
-> +	new_state = (a << 1) | b;
-> +
-> +	switch (priv->function) {
-> +	case GPIO_QENC_FUNC_QUAD_X4:
-> +		delta = quad_table[prev_state][new_state];
-> +		if (delta == 2)
-> +			delta = 0;
-> +		gpio_qenc_update_count(priv, delta);
-> +		break;
-> +
-> +	case GPIO_QENC_FUNC_QUAD_X2:
-> +		/* X2: only A-channel edges update count */
-> +		break;
-> +
-> +	case GPIO_QENC_FUNC_QUAD_X1:
-> +	case GPIO_QENC_FUNC_PULSE_DIR:
-> +		break;
-
-I guess you added these two cases to pacify the compiler warning for
-missing switch cases. You can provide a default case instead so we don't
-need to list out every case that is ignored.
-
-> +static irqreturn_t gpio_qenc_index_isr(int irq, void *dev_id)
-> +{
-> +	struct counter_device *counter = dev_id;
-> +	struct gpio_qenc_priv *priv = counter_priv(counter);
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&priv->lock, flags);
-> +
-> +	if (priv->enabled && priv->index_enabled)
-> +		priv->count = 0;
-> +
-> +	spin_unlock_irqrestore(&priv->lock, flags);
-> +
-> +	counter_push_event(counter, COUNTER_EVENT_INDEX, 0);
-> +
-> +	return IRQ_HANDLED;
-> +}
-
-In many quadrature encoder devices I've seen, Index functions can be
-chosen which determine what happens to the count when an Index signal
-occurs. Typically, one of those functions is to reset the count, but
-that is not necessary the only function nor is it unconditionally
-enabled.
-
-Existing drivers such as 104-quad-8 use COUNTER_COMP_PRESET to define a
-preset component that holds a value to preset the counter on an Index
-signal; COUNTER_COMP_PRESET_ENABLE is used to enable/disable such
-functionality. You may want to implement something similar for
-gpio-quadrature-encoder, and consider other such Index functionality
-that may be desirable to provide to users.
-
-> +static int gpio_qenc_count_write(struct counter_device *counter,
-> +				 struct counter_count *count, const u64 val)
-> +{
-> +	struct gpio_qenc_priv *priv = counter_priv(counter);
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&priv->lock, flags);
-> +
-> +	if (priv->ceiling && val > priv->ceiling) {
-> +		spin_unlock_irqrestore(&priv->lock, flags);
-> +		return -EINVAL;
-> +	}
-
-So the ceiling component represents the highest value the count can
-reach. I would argue a ceiling value of 0 does not indicate a disabled
-ceiling but rather a Count which is limited to the value of 0; n.b. this
-technically is not a disabled Count because COUNTER_EVENT_OVERFLOW could
-still be pushed in this scenario, albeit a rather dubious configuration
-for the Count in real life applications.
-
-To "disable" a ceiling, the user would set the ceiling value to the
-maximum value supported by the device hardware (or U64_MAX in our case
-if priv->count is u64). In fact, you should initialize priv->ceiling to
-this maximum value in your gpio_qenc_probe() callback so that we don't
-limit.
-
-> +static int gpio_qenc_function_read(struct counter_device *counter,
-> +				   struct counter_count *count,
-> +				   enum counter_function *function)
-> +{
-> +	struct gpio_qenc_priv *priv = counter_priv(counter);
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&priv->lock, flags);
-> +
-> +	switch (priv->function) {
-> +	case GPIO_QENC_FUNC_QUAD_X1:
-> +		*function = COUNTER_FUNCTION_QUADRATURE_X1_A;
-> +		break;
-> +	case GPIO_QENC_FUNC_QUAD_X2:
-> +		*function = COUNTER_FUNCTION_QUADRATURE_X2_A;
-> +		break;
-> +	case GPIO_QENC_FUNC_QUAD_X4:
-> +		*function = COUNTER_FUNCTION_QUADRATURE_X4;
-> +		break;
-> +	case GPIO_QENC_FUNC_PULSE_DIR:
-> +		*function = COUNTER_FUNCTION_PULSE_DIRECTION;
-> +		break;
-> +	}
-
-If you use declare priv->function as enum counter_function, you can
-replace the entire switch as a simple set operation:
-
-	*function = priv->function;
-
-> +
-> +	spin_unlock_irqrestore(&priv->lock, flags);
-> +	return 0;
-> +}
-> +
-> +static int gpio_qenc_function_write(struct counter_device *counter,
-> +				    struct counter_count *count,
-> +				    enum counter_function function)
-> +{
-> +	struct gpio_qenc_priv *priv = counter_priv(counter);
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&priv->lock, flags);
-> +
-> +	switch (function) {
-> +	case COUNTER_FUNCTION_QUADRATURE_X1_A:
-> +		priv->function = GPIO_QENC_FUNC_QUAD_X1;
-> +		break;
-> +	case COUNTER_FUNCTION_QUADRATURE_X2_A:
-> +		priv->function = GPIO_QENC_FUNC_QUAD_X2;
-> +		break;
-> +	case COUNTER_FUNCTION_QUADRATURE_X4:
-> +		priv->function = GPIO_QENC_FUNC_QUAD_X4;
-> +		break;
-> +	case COUNTER_FUNCTION_PULSE_DIRECTION:
-> +		priv->function = GPIO_QENC_FUNC_PULSE_DIR;
-> +		break;
-> +	default:
-> +		spin_unlock_irqrestore(&priv->lock, flags);
-> +		return -EINVAL;
-> +	}
-
-Same suggestion as for gpio_qenc_function_read():
-
-	priv->function = function;
-
-> +
-> +	spin_unlock_irqrestore(&priv->lock, flags);
-> +	return 0;
-> +}
-> +
-> +static const enum counter_synapse_action gpio_qenc_synapse_actions[] = {
-> +	COUNTER_SYNAPSE_ACTION_BOTH_EDGES,
-> +	COUNTER_SYNAPSE_ACTION_RISING_EDGE,
-> +	COUNTER_SYNAPSE_ACTION_NONE,
-> +};
-
-If I'm not mistaken, you can fire interrupts on the falling edge of a
-GPIO signal. It'd be good to support such a configuration as it's
-necessary for Quadrature X1 A mode.
-
-> +static int gpio_qenc_action_read(struct counter_device *counter,
-> +				 struct counter_count *count,
-> +				 struct counter_synapse *synapse,
-> +				 enum counter_synapse_action *action)
-> +{
-> +	struct gpio_qenc_priv *priv = counter_priv(counter);
-> +	enum gpio_qenc_signal_id signal_id = synapse->signal->id;
-
-You can eliminate a lot of the else statements the switch block by
-handling a couple default cases. For example, you can define a default
-action mode of "none" and have the rest of the code only set an action
-if meets the right criteria.
-
-Furthermore, the Index synapse should be treated as independent of
-the quadrature mode; the Signal is not evaluated in determining the
-encoding state, and is commonly used on physical quadrature encoder
-devices as a count reset trigger in non-quadrature modes. So I recommend
-handling it early here as well:
-
-	/* Default action mode */
-	*action = COUNTER_SYNAPSE_ACTION_NONE;
-
-	/* Handle Index Signal */
-	if (priv->index_enabled && signal_id == GPIO_QENC_SIGNAL_INDEX) {
-		*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
-		return 0;
-	}
-
-> +
-> +	switch (priv->function) {
-> +	case GPIO_QENC_FUNC_QUAD_X4:
-> +		if (signal_id == GPIO_QENC_SIGNAL_A ||
-> +		    signal_id == GPIO_QENC_SIGNAL_B)
-> +			*action = COUNTER_SYNAPSE_ACTION_BOTH_EDGES;
-> +		else
-> +			*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
-> +		return 0;
-
-With the default cases suggested earlier, the if statement and else go
-away completely and you can directly set the action to "both edges":
-
-	case COUNTER_FUNCTION_QUADRATURE_X4:
-		*action = COUNTER_SYNAPSE_ACTION_BOTH_EDGES;
-		return 0;
-
-> +
-> +	case GPIO_QENC_FUNC_QUAD_X2:
-> +		if (signal_id == GPIO_QENC_SIGNAL_A)
-> +			*action = COUNTER_SYNAPSE_ACTION_BOTH_EDGES;
-> +		else if (signal_id == GPIO_QENC_SIGNAL_B)
-> +			*action = COUNTER_SYNAPSE_ACTION_NONE;
-> +		else
-> +			*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
-> +		return 0;
-
-Ditto:
-
-	case COUNTER_FUNCTION_QUADRATURE_X2_A:
-		if (signal_id == GPIO_QENC_SIGNAL_A)
-			*action = COUNTER_SYNAPSE_ACTION_BOTH_EDGES;
-		return 0;
-
-> +
-> +	case GPIO_QENC_FUNC_QUAD_X1:
-> +		if (signal_id == GPIO_QENC_SIGNAL_A)
-> +			*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
-> +		else if (signal_id == GPIO_QENC_SIGNAL_B)
-> +			*action = COUNTER_SYNAPSE_ACTION_NONE;
-> +		else
-> +			*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
-> +		return 0;
-
-In the commit description you mention that this mode counts only rising
-edges, but you matched this to COUNTER_FUNCTION_QUADRATURE_X1_A which
-depends on the current direction to determine which edge is active. I'll
-assume that was your intention (otherwise this becomes a duplicate of
-pulse-direction mode with Index handled independent of quadrature mode):
-
-	case COUNTER_FUNCTION_QUADRATURE_X1_A:
-		if (signal_id == GPIO_QENC_SIGNAL_A) {
-			if (priv->direction == COUNTER_COUNT_DIRECTION_FORWARD)
-				*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
-			else
-				*action = COUNTER_SYNAPSE_ACTION_FALLING_EDGE;
-		}
-		return 0;
-
-> +
-> +	case GPIO_QENC_FUNC_PULSE_DIR:
-> +		if (signal_id == GPIO_QENC_SIGNAL_A)
-> +			*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
-> +		else
-> +			*action = COUNTER_SYNAPSE_ACTION_NONE;
-> +		return 0;
-
-This cas becomes simple too:
-
-	case COUNTER_FUNCTION_PULSE_DIRECTION:
-		if (signal_id == GPIO_QENC_SIGNAL_A)
-			*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
-		return 0;
-
-> +	}
-> +
-> +	return -EINVAL;
-> +}
-> +
-> +static int gpio_qenc_signal_read(struct counter_device *counter,
-> +				 struct counter_signal *signal,
-> +				 enum counter_signal_level *level)
-> +{
-> +	struct gpio_qenc_priv *priv = counter_priv(counter);
-> +	struct gpio_desc *gpio;
-> +	int ret;
-> +
-> +	switch (signal->id) {
-> +	case GPIO_QENC_SIGNAL_A:
-> +		gpio = priv->gpio_a;
-> +		break;
-> +	case GPIO_QENC_SIGNAL_B:
-> +		gpio = priv->gpio_b;
-> +		break;
-> +	case GPIO_QENC_SIGNAL_INDEX:
-> +		gpio = priv->gpio_index;
-> +		break;
-> +	default:
-> +		return -EINVAL;
-
-The default case is unneeded because all possible enum constants are
-handled by the switch block.
-
-> +	}
-> +
-> +	if (!gpio)
-> +		return -EINVAL;
-
-Why is it possible to get back a zero value? Is this to handle the case
-where a GPIO line does not exist? Would it be possible avoid adding
-Counter Signals for missing GPIO during the gpio_qenc_probe() call so we
-don't encounter such zombie Counter Signals?
-
-> +
-> +	ret = gpiod_get_value(gpio);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	*level = ret ? COUNTER_SIGNAL_LEVEL_HIGH : COUNTER_SIGNAL_LEVEL_LOW;
-> +	return 0;
-> +}
-> +
-> +static int gpio_qenc_events_configure(struct counter_device *counter)
-> +{
-> +	return 0;
-> +}
-
-The events_configure() callback is option, so you don't need to define
-it if it doesn't do anything. Its intention is to enable/disable device
-interrupts based on the Counter watches requested by users; that doesn't
-apply for this driver because our encoding state is virtual and we push
-Counter events as needed when we update the virtual state.
-
-> +static int gpio_qenc_enable_write(struct counter_device *counter,
-> +				  struct counter_count *count, u8 enable)
-> +{
-> +	struct gpio_qenc_priv *priv = counter_priv(counter);
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&priv->lock, flags);
-> +
-> +	if (priv->enabled == !!enable) {
-> +		spin_unlock_irqrestore(&priv->lock, flags);
-> +		return 0;
-> +	}
-> +
-> +	if (enable) {
-> +		priv->enabled = true;
-> +		spin_unlock_irqrestore(&priv->lock, flags);
-> +		enable_irq(priv->irq_a);
-> +		enable_irq(priv->irq_b);
-> +		if (priv->irq_index)
-> +			enable_irq(priv->irq_index);
-> +	} else {
-> +		priv->enabled = false;
-> +		spin_unlock_irqrestore(&priv->lock, flags);
-> +		disable_irq(priv->irq_a);
-> +		disable_irq(priv->irq_b);
-> +		if (priv->irq_index)
-> +			disable_irq(priv->irq_index);
-> +	}
-> +
-> +	return 0;
-> +}
-
-The value of enable is ensured by the Counter subsystem to be a bool
-when passed to the enable_write() callback, so there's no need for the
-double negation; you can compare against enable directly. Also you can
-simplify the if block by setting priv->enabled unconditionally and
-adding a return 0 to the if path:
-
-	spin_lock_irqsave(&priv->lock, flags);
-
-	if (priv->enabled == enable) {
-		spin_unlock_irqrestore(&priv->lock, flags);
-		return 0;
-	}
-	priv->enabled = enable;
-
-	spin_unlock_irqrestore(&priv->lock, flags);
-
-	if (enable) {
-		enable_irq(priv->irq_a);
-		enable_irq(priv->irq_b);
-		if (priv->irq_index)
-			enable_irq(priv->irq_index);
-		return 0;
-	}
-
-	disable_irq(priv->irq_a);
-	disable_irq(priv->irq_b);
-	if (priv->irq_index)
-		disable_irq(priv->irq_index);
-
-	return 0;
-
-> +static struct counter_comp gpio_qenc_count_ext[] = {
-> +	COUNTER_COMP_CEILING(gpio_qenc_ceiling_read, gpio_qenc_ceiling_write),
-> +	COUNTER_COMP_ENABLE(gpio_qenc_enable_read, gpio_qenc_enable_write),
-> +	COUNTER_COMP_DIRECTION(gpio_qenc_direction_read),
-> +	COUNTER_COMP_COUNT_BOOL("index_enabled",
-> +				gpio_qenc_index_enable_read,
-> +				gpio_qenc_index_enable_write),
-
-The Index function in this driver is used to preset (reset) the Count so
-rather than define your own "index_enabled" component, the idiomatic way
-to handle this behavior in the Counter subsystem is to set
-priv->index_enabled via COUNTER_COMP_PRESET_ENABLE().
-
-> +	priv->synapses[0].actions_list = gpio_qenc_synapse_actions;
-> +	priv->synapses[0].num_actions = ARRAY_SIZE(gpio_qenc_synapse_actions);
-> +	priv->synapses[0].signal = &priv->signals[GPIO_QENC_SIGNAL_A];
-> +
-> +	priv->synapses[1].actions_list = gpio_qenc_synapse_actions;
-> +	priv->synapses[1].num_actions = ARRAY_SIZE(gpio_qenc_synapse_actions);
-> +	priv->synapses[1].signal = &priv->signals[GPIO_QENC_SIGNAL_B];
-> +
-> +	if (has_index) {
-> +		priv->synapses[2].actions_list = gpio_qenc_synapse_actions;
-
-The Index Signal only has two possible Synapse actions "rising edge" and
-"none". Because that differs from the Quadrature A and B Signals (which
-can also have "both edges" for example), you need to define a separate
-static const enum counter_synapse_action array for just the Index
-Signal which has just those two actions.
-
-> +	priv->cnts.id = 0;
-> +	priv->cnts.name = "Position";
-
-Name this something more generic such as "Count" because positioning is
-only one of the possible applications for a quadrature encoder not its
-sole use case.
-
-> +	counter->name = dev_name(dev);
-> +	counter->parent = dev;
-> +	counter->ops = &gpio_qenc_ops;
-> +	counter->signals = priv->signals;
-> +	counter->num_signals = num_signals;
-> +	counter->counts = &priv->cnts;
-> +	counter->num_counts = 1;
-
-Use ARRAY_SIZE() for num_counts for the sake of consistency (and in case
-we ever support more than one Count in future updates).
-
-William Breathitt Gray
