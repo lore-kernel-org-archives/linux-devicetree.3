@@ -1,62 +1,64 @@
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EECC447CC9B
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 11:50:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5078477998
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 11:51:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778845862; cv=none; b=dq+A6d+wMFmtunRUA63Vocs5u8N4Q999WaYpG7vAdHp+KzyAFMO4lMEuA08YgnE7AltKgs3WIecYk2OqSOi3GfrnPmTplXxGj71LXfsWPd/nXq7mGZey0PDMA/TBcegSXgjV1NQYLUHx/8b5uefkcPXyaJAO2kt4yW655fmuKjE=
+	t=1778845862; cv=none; b=gBqh1KyZWgjLE5eP3ZiIOsb7p1aVOiF9RQXkgfjChu7WmyvnaE+VDk2AXqRrV+f9DeOEJkA8IRQMNEfGTG+7ire+QUj5MNF1DUVetEvDbCIaAQ3UouarE1pALCDhoceSqSEeg6orY17HMJRxkNRsxhOgS8xvRfpwJyakrkvbaNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1778845862; c=relaxed/simple;
-	bh=6kFn4dcGVaXo/n35fpEIPoxldbG29tZM7Sv8RrAE/FI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Lwo3mZNGJidw5vErIT0jUxvowZYlJX9fytPRii0GK/STYCHnPyPxpqI/LaXMQjMrOX5Mj8bcFSlrEl25GotQ5im7PGz/hY1ep/9lkrHJO1qtZVpjFirvjmSEMRYeMPsC6cblaLdCGN69Muj9iTEl8A4+Su098xeLxzPrVExsiE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=dGyZoH+A; arc=none smtp.client-ip=209.85.167.47
+	bh=zgdW6+r+x1rBS1+WVhWuLw6rj90vBCLZ2HVd/YgdLbE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KdBgI+urRBkgmdKW2BeSQDB3TBE9TajJnVBTVbnc2F2T6Sr6qxqb59Fe2Q51ytfInT5GvR3vku901uvMIvCN9yaQdO9x5E8emfD6GPYKhu9lTy7EsgGBRUxWgO7NZ0KAdnqWAIrKPhbFR4yRFepYBsCRcnJS9QZfsys4hc+fNxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=zl/Q4W04; arc=none smtp.client-ip=209.85.167.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="dGyZoH+A"
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5a40502e63bso8296265e87.0
-        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 04:50:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="zl/Q4W04"
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5a8fbe18b1dso3488513e87.2
+        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 04:51:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1778845858; x=1779450658; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=X6ljMWmUboXD/jlL65txDouWmV0Cc/lFptWauWqQZEE=;
-        b=dGyZoH+Au2zrEwjH9gfGsLmwb8QoE4EOTJ8y2EXlRHR89hrJ/mnVFXKxALiKcq1sm2
-         etls6uJrH0r+b1ydVqPglXCrRw+7IL15FZ02qq1BuIbbCvLPhxCBNEHD75A+sXGT8yJD
-         PZmHzQFipstGnLrZ7ozoJLzDp7gIbOxiORV+jzioU7jmHjy/PWCsvZwN1eSoTBkV+6xl
-         pSb6wmv1vxbVdeJiWTTJaZf1vdlVzq/4bGKPAcd1fKakB7rvZMRGj/uBLXK2zmND2TdE
-         gaA6tvFl0j08cERLgasrcQCTeEXbuDXEiFRmLfxN6MJLZaLIkQr37nLdFYeEC9VmqYfS
-         ogDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778845858; x=1779450658;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=sartura.hr; s=sartura; t=1778845859; x=1779450659; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=X6ljMWmUboXD/jlL65txDouWmV0Cc/lFptWauWqQZEE=;
-        b=MLZJxc2Qf2qBaVFLk6CYnNH+O4PzdT1O/+C+sXcSBvtACgUaLlxAkWpie5am4TWTPk
-         gJ0NLg/YC2ZrSGEBSCE8CNDnAAp4a7+4MprqduFtiE7jsZFH+CKRu40oZoHQyYAB3vZH
-         4ja5/qe2G2osaFEILGd+L/BWWM8jKisKm2x7V8Bt+I1/Unrx3Mx7lGEt16YOWYP/+p6p
-         Cq/l3qwjvzmLeVMMpkFWSEZQcrIguJ/ZpY6KEe9NXKTS57EQTROe9ImBxplgHiqObZyf
-         DLy4X9MYNbR7cuiNVhrr+vZfoeyWI9c7f5eT5fpBnRvXqOGWNMws80tVqYNM3Qa97ShV
-         deew==
-X-Forwarded-Encrypted: i=1; AFNElJ8y4UQGfUt1sqgjBXgoqdrA2C5z4vf0+JNT/kADxhuwczDShp5YvuUi23iTXibX04hbHaeg+63hG8tv@vger.kernel.org
-X-Gm-Message-State: AOJu0YxfazQ2vtgL1uI48T6+BnR9dTA4Kz7jFD+qvJWm933BzPXtOxH8
-	VadFjRMmPxkmkG6+Nqo0Jfejv/EYKG4KP37jS+1AOM0eJSAnRSVC88x/6NBVpIVc80o=
-X-Gm-Gg: Acq92OEJeEWx2ci5M3BZtvnG2yOPkXYL4/0RCSj1wUVBiVqMZMo5j1TTn31wO1QmYmd
-	qJO2TlQ9cVGN9/7aPMGnziXz3oGlnB9/QdDX7IlwdSC1XgoQY4SkaDkVQZirL7e89XcOiw3x8TZ
-	WXVr4p2KZYzf/gHg2aruorE+b3WZxAmydAGwqLY9LFSZGXm87L2QPfwqH7x7bJzjiZO0/J1B4wQ
-	wLv845AOTI2IhEAMtJSnmQwlHifAZhgCeXN+Z8pLYRT2lZND1yi7j0AcHdL1fcVjyLtOGep35Uj
-	NZzolXDrmpvpah2aWl97Wkzfig34EJfxLzU7ute5dJPbX2S7Bujt/dxBEwSjLPs1PvNd2uDAR2H
-	foWtdRJ8OHl9ltMQWoVNufsZvJ2mK0T2nzwP4KEpbdNjHY7GrOLHlqtlTHP0drhx0UD+BtyyEmX
-	fRREBpq23djfMwlVKQcO7sqKzlAMwzJPkeuY9ydEGK48Zp/0gMFoGiU4C4FOR4caKYhD8Ir6/AT
-	i4ZAzE6g0WE+d8WfrXtUw==
-X-Received: by 2002:a05:6512:1387:b0:5a8:65d9:613f with SMTP id 2adb3069b0e04-5aa0e73c0eemr1036472e87.24.1778845857681;
-        Fri, 15 May 2026 04:50:57 -0700 (PDT)
+        bh=rCJHKBX1/2/0XhVxv+J3PvII+iORt4DXAiiPbyzOSnM=;
+        b=zl/Q4W04j1/UkkcrkxdxzzSB8aX9a8qKDWaYumJ3CXiUoHHOfihCEARVUMrjr0gBPZ
+         M0EnG8jPYLAASuRN9R9wrICcxJlVcKhkQiLufcoZDlEtOl0LyIl3+mnLCl10kIDoBHtr
+         c2Rcq9aCq17t9gXHuiI510xuExXgmPn8TYCCkY1p+n8mGE9c7YKBgvLrDngMH75zuiwc
+         NUbjhBhP5xLqM3abw+8g1NMU4aAdWLLR9ggGkT5kK0IZ5nij4o3q5Rg7P5EsdG8FWim6
+         Wcs/nX+9Sn5+dOZwFAtAVjJ2u+PlO9z1kZmUJtrlHTEY5gQkydg1Kj9wSmjZWIQmLcUo
+         I2lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778845859; x=1779450659;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=rCJHKBX1/2/0XhVxv+J3PvII+iORt4DXAiiPbyzOSnM=;
+        b=f9bgwawKWNkhApMswa+0r6DbcQbMudatGNAAtP016SkZwnvwbpJ+7pyh4hNwTxOqYd
+         Tbfa3xZUcCaoIxLOxkmCEK/AdZ6zhziGQzcXyX6C321Luz9tHDakvKsu8BKDL4D5j1+J
+         g6uV+Fd0QC32HJQJZ0A4aoXPHsTrgv7R+ATd1Qymec6ikSNhSgfjmBs157RSrivU9+iO
+         Jc0xQz4LMjpKijMrqJCinVAvv+nOAQA9tEcHYSb02NYV0yT8knb4geemcM0SAzQoJguB
+         uE3tBQdYpdeCDE39dryFL2fe0NgVVPHFFMuaoeHLaphPaaBlyZmnk0m/ZbsHzyOCsO3G
+         DQXg==
+X-Forwarded-Encrypted: i=1; AFNElJ8N9NSm6FC4WNJYaVQSWhKQd7yQ1A1yWYFF9Z0EPQctxx/6IRzmb90h43wnjkL0w2thDBBP5v8Io2U+@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx/ogx/I/eksRy6mSqi1SNjkuaR0+wOAtU+Pn4LkauoY/XMiF8n
+	2MYvFCAXVKbPHoGm3hG5HN8VsatP/CmfXStpwMZ90rh9gcuSz3RXcYG5xsCnyyG/EBI=
+X-Gm-Gg: Acq92OFcdHinHU1vZcLZapKsJA4IYU+oQ9tv2BQHg4WteJfvTk4dBsx47nJm6BPO7hd
+	srQol5LMQguHb6OmV23OIpapDY0J72yrAQT0OJ8Dmk2fQGwQJsgzpu3MBKoFRFxmexy2Ve4rpYs
+	jBCo8+znKYw+Ia2aLhzUTdDrVaslYKFBRqbH62fFhciy39vTS3Qs79KdDJyvT5zrrEXMEsJ5Wh1
+	i64/S7FecYe+EC942CJ7yA6Gmt+jbvsCnthLfrnf7uqW8cppYo+Y+t0MNGFGlGUAKZMr9ELB9XJ
+	e8cNecsG8iYwF381Vls9syweM/6UNg007OpcvpXhv3Xp4+tx4Bh9ySW72CQEzQbwCzGIBWmsvku
+	DqcdZ9zOVlwkIbxtwXiQnqIJ6JLN79vbCrgHmcJQuJyZyot1F1cBw33auvhWPKjSM8kkvZ40cjF
+	ZayREDkP3Pvd0uhZRTA/1QM8zM04IWx7brj0a547/8wh4cEmlr9nH9JLmsdyA8IgyC5ivzGKVDq
+	gFaRBqPbrcHrS6l5tdApg==
+X-Received: by 2002:a05:6512:2393:b0:5a8:9511:b906 with SMTP id 2adb3069b0e04-5aa0e769bc1mr1119872e87.33.1778845859201;
+        Fri, 15 May 2026 04:50:59 -0700 (PDT)
 Received: from fedora (d-zg2-146.globalnet.hr. [213.149.37.146])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a9164bc0ccsm1278617e87.41.2026.05.15.04.50.56
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a9164bc0ccsm1278617e87.41.2026.05.15.04.50.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 15 May 2026 04:50:57 -0700 (PDT)
+        Fri, 15 May 2026 04:50:58 -0700 (PDT)
 From: Robert Marko <robert.marko@sartura.hr>
 X-Google-Original-From: Robert Marko <robimarko@gmail.com>
 To: o.rempel@pengutronix.de,
@@ -74,10 +76,12 @@ To: o.rempel@pengutronix.de,
 	linux-kernel@vger.kernel.org
 Cc: luka.perkov@sartura.hr,
 	Robert Marko <robert.marko@sartura.hr>
-Subject: [PATCH net-next v2 1/2] dt-bindings: net: pse-pd: microchip,pd692x0: add port disable GPIO
-Date: Fri, 15 May 2026 13:50:00 +0200
-Message-ID: <20260515115050.691119-1-robimarko@gmail.com>
+Subject: [PATCH net-next v2 2/2] net: pse-pd: pd692x0: support disabling disable ports GPIO
+Date: Fri, 15 May 2026 13:50:01 +0200
+Message-ID: <20260515115050.691119-2-robimarko@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260515115050.691119-1-robimarko@gmail.com>
+References: <20260515115050.691119-1-robimarko@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,35 +92,52 @@ Content-Transfer-Encoding: 8bit
 
 From: Robert Marko <robert.marko@sartura.hr>
 
-Microchip PSE controllers have a dedicated port disable input that like it
-name suggest, will disable PoE on all ports.
+Microchip PSE controllers have a dedicated disable ports input that like it
+name says disables PoE on all ports.
 
-So, lets document that GPIO.
+So lets support parsing that GPIO and using the GPIO flags to set it to
+output high by default and enable PoE on all ports during probe.
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Robert Marko <robert.marko@sartura.hr>
 ---
 Changes in v2:
-* Pick Acked-by from Rob
+* Use GPIOD_OUT_LOW by default so that DTS reflects the real active state
 
- .../devicetree/bindings/net/pse-pd/microchip,pd692x0.yaml     | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/net/pse-pd/pd692x0.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/net/pse-pd/microchip,pd692x0.yaml b/Documentation/devicetree/bindings/net/pse-pd/microchip,pd692x0.yaml
-index ca61cc37a790..ca4200afa793 100644
---- a/Documentation/devicetree/bindings/net/pse-pd/microchip,pd692x0.yaml
-+++ b/Documentation/devicetree/bindings/net/pse-pd/microchip,pd692x0.yaml
-@@ -22,6 +22,10 @@ properties:
-   reg:
-     maxItems: 1
+diff --git a/drivers/net/pse-pd/pd692x0.c b/drivers/net/pse-pd/pd692x0.c
+index 4a3c852780f5..6c5c5a26bbaa 100644
+--- a/drivers/net/pse-pd/pd692x0.c
++++ b/drivers/net/pse-pd/pd692x0.c
+@@ -7,6 +7,7 @@
  
-+  disable-ports-gpios:
-+    description: GPIO pin to disable PoE on all ports
-+    maxItems: 1
+ #include <linux/delay.h>
+ #include <linux/firmware.h>
++#include <linux/gpio/consumer.h>
+ #include <linux/i2c.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+@@ -1757,6 +1758,7 @@ static int pd692x0_i2c_probe(struct i2c_client *client)
+ 	static const char * const regulators[] = { "vdd", "vdda" };
+ 	struct pd692x0_msg msg, buf = {0}, zero = {0};
+ 	struct device *dev = &client->dev;
++	struct gpio_desc *disable_ports;
+ 	struct pd692x0_msg_ver ver;
+ 	struct pd692x0_priv *priv;
+ 	struct fw_upload *fwl;
+@@ -1780,6 +1782,11 @@ static int pd692x0_i2c_probe(struct i2c_client *client)
+ 	priv->client = client;
+ 	i2c_set_clientdata(client, priv);
+ 
++	disable_ports = devm_gpiod_get_optional(dev, "disable-ports", GPIOD_OUT_LOW);
++	if (IS_ERR(disable_ports))
++		return dev_err_probe(&client->dev, PTR_ERR(disable_ports),
++				     "Failed to get disable ports GPIO\n");
 +
-   vdd-supply:
-     description: Regulator that provides 3.3V VDD power supply.
- 
+ 	ret = i2c_master_recv(client, (u8 *)&buf, sizeof(buf));
+ 	if (ret != sizeof(buf)) {
+ 		dev_err(dev, "Failed to get device status\n");
 -- 
 2.54.0
 
