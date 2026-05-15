@@ -1,125 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011004.outbound.protection.outlook.com [40.107.130.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87AC8342CB6;
-	Fri, 15 May 2026 03:34:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778816099; cv=none; b=LQ3OOik2ZQZnSofnhLj7aMnDZ1VMi1BQxqEFBJuAdCeWhmtdfCnaWNJSqW4U912xGXNv50uNPvyV1wvzKuH8qrfFipQAejAIB0AlLIXJWIbTTyV3pEOxJYnyVhuGQQLE/GuHM7BsYTgeRLs2c4otOCQqD0aOaPq+h/2YmnoSIdk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778816099; c=relaxed/simple;
-	bh=EsdR/1Z/BBuDH6Fiii9AY83b9NACD6uCzeniHf/SHKs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WM0SlgL2k0XyMCYAtn3QR7s0CDv//0XflgdsNw+2ogDnoRUIL8jiU4RenQBmoAISIP/SU8s6mT+nRBlJNM6iru5/4YeJX4KK6FEYyRGm7usrAnmB1nMJUqCgIfo5W7t1KYHx+XhaKxquMAY3m10VwSc/yvAdpbNafdXBP0kwa00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fjz5Gnue; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25E823CF027;
+	Fri, 15 May 2026 03:36:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.4
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778816189; cv=fail; b=e7OeTmf8L62oA9XQYsoTO3GgSI/oJgSimmN7vR3zm+UUI8x4znWRmDK43Keu80U95I5fub9UYILjcBcTy+JCWl7cSsOt36864K4CH5NbeK+7O/06V4LwrxFq0iXuGzLDBjGiPOBmoTA95gzlbKfsxyuEv6Jo+57fOWGk9oRHX8E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778816189; c=relaxed/simple;
+	bh=LCEdlr6CzxjvAu43KZUZSlxgTIhLcBaQXLWvpuoa40s=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=NjsH6UZ7psc4BpuBYMsZyP/c7a4HINQ9i/jLLSu8us930gVeeR2wDuGAZq+sPOD5DOEMmLQyDTfhb3HIeIhF0weTg20o1uhNVFilj/Y6no/pKcAzWwQOyffgLO8AidGQyId67ls2btVMdIqcpJszVHLBpdphlZq9tl+pwuP/JqI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=PpY2y7Se; arc=fail smtp.client-ip=40.107.130.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fjz5Gnue"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFBFCC2BCB0;
-	Fri, 15 May 2026 03:34:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778816099;
-	bh=EsdR/1Z/BBuDH6Fiii9AY83b9NACD6uCzeniHf/SHKs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=fjz5GnueD1VZPDTDZtRBEqy6lDKN0tU8NLM+z7JHHkCFPEprZ+igEyvwl6KhX2x/2
-	 3SMX2Su73PwvzFEw29OhvunpvFphnip3UPXc+PuPu5n9BCTU1C5uAY4jYc0VP/p3xz
-	 A9k5zuXE9UqfXj+5E+mLd/Jgm5n9eRQupJfpYUjCpiEi/mSjOamxFr0CCxLTMNWH8K
-	 qvlZoVdy5ICTyV6jNsodjQe7tJmNxaoikMooNxLWTtEmmGwKhop8x3xATYICWQQyNr
-	 iTwKWth1uG/zhGtfw+j4FSvb2sLkyqmpX+WBqXI1d+i1Im1InP7vOh6ed4wMSp/RgJ
-	 v3XtIGhHsc//w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] hwmon: (pmbus/d1u74t) Add Murata D1U74T PSU
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, linux-hwmon@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260514-d1u74t-v4-2-1f1ee7b002ec@nexthop.ai>
-References: <20260514-d1u74t-v4-2-1f1ee7b002ec@nexthop.ai>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="PpY2y7Se"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=O7pBd7QPBIBctHZ7GXh2CSy93QodWlbIdfJF46eONJnJa7Lcg8+d+3R/KUIRGV0FhtY0RUq9fg28tqD5dvRfvKAWnazb6D9QoSxQG6tmpXlK+EmJ9NrTNcSi9nnxbGx6+4vbRyhVcF+dR+QE2eRZO23TVOyUOr41Fj8pwhJ5qQoeHVv6sLvRjlamQZoB8DY5ByR5/hymSuLWo85/FKjxLmhFMpV7IFrT3FbkuBuuh7giqqs00CNGfleo5uyRiII8cRv2+6kmSPKEXLKDqVunYnS54XoMyIWpHN1i7uPTXiW+RP2bbRK8ddZLAJv5KuvSJ2lBevFvTyQT+d5+bDQUIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JmRz2FQR+E7INjCpVZO6lijeFe7y1PzPkR+xJ2ryLMk=;
+ b=FiaXACpLUL9jaLUstymrxQMtbufdeWz6GB5aDTa4LShaYMkMH68ugh0S6QPFMR+OULhwJvNYh426CSJYQV+k//WGaiwSb5a9mGl5keaJKxBk85b35t1BHXTgZCWV2638f/dEUwVYl97KNOHIB8B7k3BuHm7JnMxbECxNDIArBg04BM2FJ10DCM2sxEw6nnWHIZhi7w7bJcGIyBaftiIYTF+hdCId0oVd3Bz6HzJGCJdiJs64bA/V3ZfOj1nw5k5mcDv/D3KeIG25CFWQ4RN+CUAN+ym5h19b2u/cltVfOrpIOyIxpLKQ6/Y5wzL27ribSJ5vI+xTfrcKHeej0MhOiA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JmRz2FQR+E7INjCpVZO6lijeFe7y1PzPkR+xJ2ryLMk=;
+ b=PpY2y7SeCB2v0GzWqc8zJup00xFCv2alAPMlkw0ekrk6VLkVwvobSbhZvD2LVDD+Gv0LBf9PjJlAqGybRP1mEQy+DfKCV7/mKiwUPfkcJhLT3NIa86EDWTm0fF5uWoYc/HHM1xCkIqT+uohB/61RAIA0G7YnXFduln07Q30TPN3sw/ygUzfWiL0kgHV59HO4lvQFIIQTqpTGLWWFMOXT63nYNkKMOi4lb+LbuUZ3dHgOQKHGzZ5BaLEVAY2aLBEzfKJ0TE5kiqOUtZCFRBxgo+/069uXf+8Ww20YLxR6EZkiRcujZp0t3dXrosDpFl7ZLSVrT+Hj2JtEjucLOcb0SA==
+Received: from DBBPR04MB7500.eurprd04.prod.outlook.com (2603:10a6:10:1f4::16)
+ by DBBPR04MB7929.eurprd04.prod.outlook.com (2603:10a6:10:1ec::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Fri, 15 May
+ 2026 03:36:22 +0000
+Received: from DBBPR04MB7500.eurprd04.prod.outlook.com
+ ([fe80::c291:543b:4bde:cee7]) by DBBPR04MB7500.eurprd04.prod.outlook.com
+ ([fe80::c291:543b:4bde:cee7%6]) with mapi id 15.20.9913.009; Fri, 15 May 2026
+ 03:36:22 +0000
+From: Wei Fang <wei.fang@nxp.com>
+To: Claudiu Manoil <claudiu.manoil@nxp.com>, Vladimir Oltean
+	<vladimir.oltean@nxp.com>, Clark Wang <xiaoning.wang@nxp.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
+	<davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
+	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"f.fainelli@gmail.com" <f.fainelli@gmail.com>, Frank Li <frank.li@nxp.com>,
+	"chleroy@kernel.org" <chleroy@kernel.org>, "horms@kernel.org"
+	<horms@kernel.org>, "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
+	"maxime.chevallier@bootlin.com" <maxime.chevallier@bootlin.com>,
+	"andrew@lunn.ch" <andrew@lunn.ch>, "olteanv@gmail.com" <olteanv@gmail.com>
+CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "imx@lists.linux.dev"
+	<imx@lists.linux.dev>
+Subject: RE: [PATCH v7 net-next 10/15] net: dsa: netc: introduce NXP NETC
+ switch driver for i.MX94
+Thread-Topic: [PATCH v7 net-next 10/15] net: dsa: netc: introduce NXP NETC
+ switch driver for i.MX94
+Thread-Index: AQHc4oUZiwWgjwtsAkaDFGy/HKvxcLYOcgMg
+Date: Fri, 15 May 2026 03:36:22 +0000
+Message-ID:
+ <DBBPR04MB75008DCC18E2A10C9949294188042@DBBPR04MB7500.eurprd04.prod.outlook.com>
+References: <20260513030454.1666570-1-wei.fang@nxp.com>
+ <20260513030454.1666570-11-wei.fang@nxp.com>
+In-Reply-To: <20260513030454.1666570-11-wei.fang@nxp.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DBBPR04MB7500:EE_|DBBPR04MB7929:EE_
+x-ms-office365-filtering-correlation-id: 4edd179d-c703-4abf-8a7d-08deb2332258
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|19092799006|376014|7416014|366016|1800799024|921020|38070700021|56012099003|11063799003|4143699003|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ 9V0EyLbB4GFAFuM+AALiHTMCMTtJi37tqtAOg+re9U/h07PHdl7mEjds8PwNA6cCA8kTChsE6zxFksx62Xgcub/Ey6OLYX7X34BWcTYPzfldlbiPEMuck+bi4qUQ/Z+L6cu0uQgbHpq6ZaZ4cHhRzUSUUr3ThFLzhwmybUiD5ik5rDKT0e8Z0UBJLgtz+WMVlYXyVhaTwWG2PsApJDHYjbij2AG3hQQ3J6QoxYccHxigI3ArdafbR1ENySh96zNXG/BhSp6L2fL7IIIqInAKdBV5diPZDjFSzOoameEPNdPDruQG6mTXV/eC9kn4nUhgrNdv9/vwalRhV3W/tMSNSOXL7O444zcTUEPG6e8ewjRzw0sIKyaScCLsIHF7NPl5SumjVioTEbL/c2PFSLiIBZlpuLnzAQNVq1VNMhgfx4LY25bx2nd0MC4L0r9rEu0VsI3eigUlWCZwv9m2S7WP2jseSVO27H7ubEzKAiUSisJPz0VWs5ltGVoAzzBGPibtNdOPQyySl+Ey3aeBrTtTeWjLLw3OHIh1/5gw/WKa+bwMT6D5PfjWYF8Rn8qFVcAIi/CvcoNJlCIAFj3IeClnhUoPD8H8Tad1mJ/dmaw9dByoNDpTrDZcXz32M89b80zrLhrWai8OpIE06OP79ahzq0JcBtKxhJA4ct+LoNYRE3vyr+UWc3U78qW9ECL/Y8ICrRxuPVi6PISP1DMeQEgF+0yy9VWoAXAsYRyWz1IUbAsMlabUZO3bgY1JCAJ49j6kPV2OcPcldtokYSMTW9i82g==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DBBPR04MB7500.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(7416014)(366016)(1800799024)(921020)(38070700021)(56012099003)(11063799003)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?5wl7EOxv/13qHmXGDKKxs0YzUTU8m6jSBrixdhur9uY25lue2t8JyrMCpAlr?=
+ =?us-ascii?Q?WnePGRSV/UhFqbm8zd+aNToGOnrnuvhOtCa1J0+dizeJtl7B584IpViWMAv6?=
+ =?us-ascii?Q?GPKQsV22/sNjmQ7FrFZ19wp0WZq5/G4/3/SpY025ZyPrtTSliSsyynmoj4Uf?=
+ =?us-ascii?Q?fR1dQ1YmP0FjJAoqD8lVx/HUnqDRbQ5tYzbQ2Nv4KBlxJK2px/TDuN7nvKfr?=
+ =?us-ascii?Q?cChRc2Eyq/UcisYOKkKRWhw3DPVVa3eAO11qvLJaldxEcTKc8XfdgwOSfNRk?=
+ =?us-ascii?Q?BBxRz7UPOzFxx0pvGCGAg9jxYrJGNT2KpTS2Sm/zGTn8v2KYzeyQzUjDqlLu?=
+ =?us-ascii?Q?Lq7LX6GMfOcz/YTo1E/PSxwDvrzhTOIA2F23chBshYOI9KcM/g9nXfMnljE3?=
+ =?us-ascii?Q?tcz/oCWYisohj/c4yXkFx9w/MfjVe0EBEA08aVvw9GNZO2zhM2XjmuHcEVcr?=
+ =?us-ascii?Q?SarEntOjSwglZyq+KpxmfJN8HQtFcaB2VK+sXHaJ7Q+f5jWoEkzGZ99MFlKF?=
+ =?us-ascii?Q?J+q88CgdfOvSX6VcefXCh2oYSyDQ3iqjMSB6XwxiKVZlMiyo9BRais3cqV5c?=
+ =?us-ascii?Q?k6ddJXqIq+vObZx1CuaLmHOM5PRket06k297sUV1Rl+LqcLhEAhOssm24/8h?=
+ =?us-ascii?Q?TVWp/47qPYIpOJP3IXzbSWpUPwgTDcQUmLk/pQkdysGt67ovIiyRnWilxCWs?=
+ =?us-ascii?Q?yWjJQa+WPX9b2+zXr7T73XIw1iAucOaIU+C+2K7kSSUu66uREnsNkQt+9jPM?=
+ =?us-ascii?Q?jPAeh5/IlV9uyQpg9zdaiGg+1xynWv4WdqT1icVDXe1kmfTP5TqyJjf2I/XB?=
+ =?us-ascii?Q?n7wzikD+b3UhQiwKBylZcuobi+vmdq5NJJNGYg3AhJlbAufZCimNAkcexdCQ?=
+ =?us-ascii?Q?3z5Qu/zuWU5uYipfWXusAL7umZky2ohWL3punA+b9juUqOAsSTwQrcQI3hdZ?=
+ =?us-ascii?Q?Je+o1dy1qt1pD8fmKhPLC6XD1MjNQoifeksoyjVzMyi48Iwoq2LL2ThVtE3S?=
+ =?us-ascii?Q?Pes2MONYKG4QRq3kA7aB8snr3jp2ow4LeVhdNWC4yPuhft+jpCgRLy2SSMJJ?=
+ =?us-ascii?Q?kEpZ31VzyhD6i5uv/vmwt6RfRel5KJ0xBk5ikwjy4ART0dbytHoeYey8f144?=
+ =?us-ascii?Q?Dg8+/CxplxXWHS17izjm2G0KVleuufX4e4mjcAp8/p6+ylroXPXjwpc9KH/e?=
+ =?us-ascii?Q?h6SSs8RSJt+/Y/tndRg1usFWpIFZHXJ0FwVFcQKWAjrrg8JxnWdDmdEE5eTL?=
+ =?us-ascii?Q?Ej1OrP3gINvAIaSXBGeaQl/pO92JCS4P4LHhpNNo/9Iq1e7e3BUtaGWv75AA?=
+ =?us-ascii?Q?pLa8RPlxeTTxCYCfSbJl/N/G6gC24JJ7cVbyrDDQ2V1iaiDXKTx+Sl+kDhKV?=
+ =?us-ascii?Q?/Ed3+mHAPLDIR1YUt+jYLj+aBs8/HMGuC7c8Z9CfkWNMsLoAMIQ3NBk0x9H8?=
+ =?us-ascii?Q?v0FXrenhMKraKATWTWDK76pls0dz0Ka6udAySSXAGsnTE+c/bERTF47rhoor?=
+ =?us-ascii?Q?4Yqzivw4YFXiHbKjZz3OD0USo0Ji3FSHsh8IgxHy9gabSmEEt8tZk0VKaqnf?=
+ =?us-ascii?Q?dlfBu0XXqtVzRj+DphfiD3vtCts8hPDVYsHvnuJUu363+pJTUuCz8cvY1sdD?=
+ =?us-ascii?Q?PdhK0TCxu3oiCsKKi5Cijyc14Ev3VkEwEX5g9WjqIhFj2WiD+6vf2UFFIYkh?=
+ =?us-ascii?Q?YOcQgsyiSOiAN54K1bdbDPbQD7JwE2PqgASi3kG3tw5W6cT8?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 May 2026 03:34:58 +0000
-Message-Id: <20260515033458.CFBFCC2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DBBPR04MB7500.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4edd179d-c703-4abf-8a7d-08deb2332258
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 May 2026 03:36:22.2209
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ocP2ad0V3xa5lj9vDgsWg01S3TsyV2qVNmNuomLYxQ4BGY67czClragDrRKirVIdmsd9rGYwEk0+HKyu5wel7Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7929
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] Missing includes for <linux/module.h> and <linux/string.h>.
-- [Low] Logging raw I2C device strings without escaping.
---
-
-commit f645f72f2f4d8cc53bec169fb4350e6231e649a4
-Author: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-
-hwmon: (pmbus/d1u74t) Add Murata D1U74T PSU driver
-
-This commit adds a PMBus client driver for the Murata D1U74T power supplies.
-
-Closes: https://lore.kernel.org/oe-kbuild-all/202605122253.zInzmUeX-lkp@int=
-el.com/
-
-> diff --git a/drivers/hwmon/pmbus/d1u74t.c b/drivers/hwmon/pmbus/d1u74t.c
-> new file mode 100644
-> index 0000000000000..286ba492e3362
+> diff --git a/drivers/net/dsa/netc/Kconfig b/drivers/net/dsa/netc/Kconfig =
+new file
+> mode 100644 index 000000000000..0f246ac9e018
 > --- /dev/null
-> +++ b/drivers/hwmon/pmbus/d1u74t.c
-> @@ -0,0 +1,86 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright 2026 Nexthop Systems.
-> + */
-> +
-> +#include <linux/i2c.h>
-> +#include <linux/of.h>
-> +#include <linux/pmbus.h>
-> +
-> +#include "pmbus.h"
+> +++ b/drivers/net/dsa/netc/Kconfig
+> @@ -0,0 +1,15 @@
+> +# SPDX-License-Identifier: GPL-2.0-only config NET_DSA_NETC_SWITCH
+> +	tristate "NXP NETC Ethernet switch support"
+> +	depends on ARM64 || COMPILE_TEST
+> +	depends on NET_DSA && PCI
+> +	select NET_DSA_TAG_NETC
+> +	select FSL_ENETC_MDIO
+> +	select NXP_NTMP
+> +	select NXP_NETC_LIB
+> +	help
+> +	  This driver supports the NXP NETC Ethernet switch, which is embedded
+> +	  as a PCIe function of the NXP NETC IP. But note that this driver is
+> +	  is only available for NETC v4.3 and later versions.
 
-This isn't a bug, but should this file include <linux/module.h> and
-<linux/string.h>? It uses module-specific macros like MODULE_DEVICE_TABLE
-and MODULE_AUTHOR, as well as the strncmp function. While compilation might
-succeed due to transitive includes, it could lead to build failures or
-implicit declaration warnings on some architectures.
+Sashiko reported there is a duplicated "is" in the help text. I will fix in=
+ v8.
 
-[ ... ]
-
-> +static int d1u74t_probe(struct i2c_client *client)
-> +{
-> +	char buf[I2C_SMBUS_BLOCK_MAX + 2] =3D { 0 };
-> +	struct device *dev =3D &client->dev;
-> +	int rc;
-> +
-> +	rc =3D i2c_smbus_read_block_data(client, PMBUS_MFR_ID, buf);
-> +	if (rc < 0)
-> +		return dev_err_probe(dev, rc, "Failed to read PMBUS_MFR_ID\n");
-> +
-> +	if (rc !=3D 9 || strncmp(buf, "Murata-PS", 9)) {
-> +		buf[rc] =3D '\0';
-> +		return dev_err_probe(dev, -ENODEV,
-> +				     "Unsupported Manufacturer ID '%s'\n",
-> +				     buf);
-> +	}
-> +
-> +	rc =3D i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
-> +	if (rc < 0)
-> +		return dev_err_probe(dev, rc,
-> +				     "Failed to read PMBUS_MFR_MODEL\n");
-> +
-> +	if (rc < 8 || strncmp(buf, "D1U74T-W", 8)) {
-> +		buf[rc] =3D '\0';
-> +		return dev_err_probe(dev, -ENODEV, "Model '%s' not supported\n",
-> +				     buf);
-> +	}
-
-Does this code log potentially unescaped strings directly from the device?
-
-Since the I2C bus can return garbage data or unprintable characters from a
-malfunctioning device, using the %s format specifier could result in
-corrupted log output. Would it be safer to use the %*pE specifier to safely
-escape these untrusted strings?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260514-d1u74t-v4-=
-0-1f1ee7b002ec@nexthop.ai?part=3D2
+--
+pw-bot: cr
