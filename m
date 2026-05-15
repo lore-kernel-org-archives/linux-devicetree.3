@@ -1,43 +1,43 @@
-Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch [79.135.106.30])
+Received: from mail-106119.protonmail.ch (mail-106119.protonmail.ch [79.135.106.119])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5996F3DEAED
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 05:09:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22FE3DEAC9;
+	Fri, 15 May 2026 05:09:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778821761; cv=none; b=HAK9M5bW5aulHXDLuf9ozNTeh2zegUYY2iq/yd9NSOU+gxRGQH7R9CR3OaD8EoX/6IFsxg5b96TRzq1YFmixlucnQPiHk930pi6HSXrvizJN0OK1PnCTvSNDi4U2aZXsPZOFhvv/K3+OluA0qE6DX/RD/+V2sIJ7wuTsjqCZcE4=
+	t=1778821773; cv=none; b=Zn3ktBDT00XMTh3tDAVaA5P7EIpEHLOiIBHxIQe2se++pj6sRcz0+A0oQ1K3cvUEyL4f9diKoHnX/CQOwIWFUdFyhaR/aIFB2F/YaJ+FphshiQgsGy+uqZF0pUmsYAxPx7N1NZDvLTt246oKwSY7sPit5kXXZJ0ZLQ7fzICCPTQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778821761; c=relaxed/simple;
-	bh=Tpnj9uF4ZKfxDszPrsQeXalLh7hFaXn6bvO+xHvviac=;
+	s=arc-20240116; t=1778821773; c=relaxed/simple;
+	bh=/fZvmPQBnECgiBpRI4YxdLslErM79oMlwBF3AS5qL5o=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sqaGCaL6YokY3dY6wbBApAr5tLS5YnPmqx8UGKyo7a5EbJBeR5TMoREZbGTPJw/5R4oE9B2f85vaG5rXJNNR0Cbb62D7ybqShgwH2B6VG511qK9S8dG0ScvLdwqGXiheKZzM32MFFOHc0mFyeZY8ROj3aYP59pFzml+XOqOyUBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=mmSf61i2; arc=none smtp.client-ip=79.135.106.30
+	 MIME-Version:Content-Type; b=ZiGo2HRZ6weMJYK6iOu9bqiIbS49xVhhVSvySPdwjW9PydPzr1mpuY/NVgqSd2Jd1MRrJiWanrEITbF48snFStE3tZTKLrihpGwAw0y+CP5pIcL6A8nLE62i+1LXERVhPcBo17FouYbpUUp0hf4YN7PBX9DF98+ufH5zmdwr6eA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=eMvHdzX3; arc=none smtp.client-ip=79.135.106.119
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="mmSf61i2"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="eMvHdzX3"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1778821750; x=1779080950;
-	bh=Tpnj9uF4ZKfxDszPrsQeXalLh7hFaXn6bvO+xHvviac=;
+	s=protonmail3; t=1778821768; x=1779080968;
+	bh=/0oIkpOvGi8da+/dPiiWv3td9vDNvzL/PHE/qmbEj10=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=mmSf61i2FA4rJVGVdOSLhpmdvwsyI3z54zwAv5aagWgvpbzwQ8jEJTAObvM1vNRIk
-	 gqyfKW9QhHNIjGmhCNUo29wX27CqUbhdYoCi5reSLT/CjcOnM9Cvzl8dwK4l0V/Jvd
-	 0ZQpEoXMI5YQ04k97gGAbU8jmQcpeiJWcwbZFTDzyymvXmOLH8q1vxHJDur2vQ7uuS
-	 XNhcGXajsdA0+qAaZAFO0403dGFvdwquEgqYKD/CgO5AulXlRimZUR3lvAPpNHnakA
-	 NYsvSJPsQ4R/rSyQX1q3qIJhKJZKQ6reYorVsg23wmCo0MkOTa9xLbnwclQ/CZZvaX
-	 2QpxCMReWEiaw==
-Date: Fri, 15 May 2026 05:08:56 +0000
+	b=eMvHdzX3u6q4ixYW742xCQyhIcnqzyQ/+iqggVQev2v+ara+B6M4kfSQd70I3XVm2
+	 rOgSPXFO2dnZNKor9hJsfJLOzObCLQ157+nFkt7IkuesCPoji4uhZKAJbQAKeoKH/e
+	 qfcC3s9cIsAt21hH/PMywPTLvItjv9sI7qIO4p9Vif29uMqiNjb6ct0+bncYckNfpX
+	 Qo9G9/Uhy1KFZj7b1IK3Sh4Keg6Oyy+hSaaHOTU0yozgVtK4eR4VYru+p5QhArPXBJ
+	 xI7sVKzCl3iBYzR6zvgPW8vhUUj/Ot9FJB/rXW0dzhYYg1BrdPIGDkTc5kxzKDY2t6
+	 Fr+GOFxTIOqKQ==
+Date: Fri, 15 May 2026 05:09:20 +0000
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Akhil P Oommen <akhilpo@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>
 From: Alexander Koskovich <akoskovich@pm.me>
-Cc: Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: [PATCH RFC v6 4/7] drm/msm/adreno: set cx_misc_mmio regardless of if platform has LLCC
-Message-ID: <20260515-adreno-810-v6-4-fbe04c7203e1@pm.me>
+Cc: Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>
+Subject: [PATCH RFC v6 6/7] drm/msm/adreno: add Adreno 810 GPU support
+Message-ID: <20260515-adreno-810-v6-6-fbe04c7203e1@pm.me>
 In-Reply-To: <20260515-adreno-810-v6-0-fbe04c7203e1@pm.me>
 References: <20260515-adreno-810-v6-0-fbe04c7203e1@pm.me>
 Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: f8a9fe4628bf3206e3a6fa5585c2375f2a5560a0
+X-Pm-Message-ID: 4fc6189ec4bd361cd6c5b83bd7f467b9ea7e519a
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,114 +47,377 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Platforms without a LLCC (e.g. milos) still need to be able to read and
-write to the cx_mem region. Previously if LLCC slices were unavailable
-the cx_misc_mmio mapping was overwritten with ERR_PTR, causing a crash
-when the GMU later accessed cx_mem.
+Add catalog entry and register configuration for the Adreno 810
+found in Qualcomm SM7635 (Milos) based devices.
 
-Move the cx_misc_mmio mapping out of a6xx_llc_slices_init() into
-a6xx_gpu_init() so that cx_mem mapping is independent of LLCC.
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 38 ++++++++++++++++---------------=
-----
- 1 file changed, 17 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 298 ++++++++++++++++++++++++++=
+++++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.h   |   5 +
+ 2 files changed, 303 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/ad=
-reno/a6xx_gpu.c
-index 4275c1d726b2..533272e11111 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -2039,7 +2039,7 @@ static void a6xx_llc_activate(struct a6xx_gpu *a6xx_g=
-pu)
- =09struct msm_gpu *gpu =3D &adreno_gpu->base;
- =09u32 cntl1_regval =3D 0;
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/ms=
+m/adreno/a6xx_catalog.c
+index 550ff3a9b82e..3e6f409d13a2 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+@@ -1799,6 +1799,261 @@ static const struct adreno_reglist_pipe x285_dyn_pw=
+rup_reglist_regs[] =3D {
+ };
+ DECLARE_ADRENO_REGLIST_PIPE_LIST(x285_dyn_pwrup_reglist);
 =20
--=09if (IS_ERR(a6xx_gpu->cx_misc_mmio))
-+=09if (IS_ERR_OR_NULL(a6xx_gpu->llc_slice) && IS_ERR_OR_NULL(a6xx_gpu->htw=
-_llc_slice))
- =09=09return;
++static const struct adreno_reglist_pipe a810_nonctxt_regs[] =3D {
++=09{ REG_A8XX_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
++=09{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0x00f80800, BIT(PIPE_BV) | BIT(PIPE_BR) }=
+,
++=09{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_B=
+R) },
++=09{ REG_A8XX_PC_VIS_STREAM_CNTL, 0x10010000, BIT(PIPE_BV) | BIT(PIPE_BR) =
+},
++=09{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0x00000002, BIT(PIPE_BV)=
+ | BIT(PIPE_BR) },
++=09{ REG_A8XX_PC_CHICKEN_BITS_1, 0x00000003, BIT(PIPE_BR) },
++=09{ REG_A8XX_PC_CHICKEN_BITS_1, 0x00000023, BIT(PIPE_BV) }, /* Avoid part=
+ial waves at VFD */
++=09{ REG_A8XX_PC_CHICKEN_BITS_2, 0x00000200, BIT(PIPE_BV) | BIT(PIPE_BR) }=
+,
++=09{ REG_A8XX_PC_CHICKEN_BITS_3, 0x00500000, BIT(PIPE_BV) | BIT(PIPE_BR) }=
+,
++=09{ REG_A8XX_PC_CHICKEN_BITS_4, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) }=
+,
++=09{ REG_A7XX_RB_CCU_CNTL, 0x00000068, BIT(PIPE_BR) },
++=09/* Partially enable perf clear, Disable DINT to c/z be data forwarding =
+*/
++=09{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0x00002200, BIT(PIPE_BR) },
++=09{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0x00000007, BIT(PIPE_BR) },
++=09{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0x00004000, BIT(PIPE_BR) },
++=09{ REG_A8XX_RBBM_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
++=09{ REG_A8XX_RBBM_SLICE_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
++=09{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL, 0x00000030, BIT(PIPE_NONE) },
++=09{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL2, 0x00000030, BIT(PIPE_NONE) },
++=09{ REG_A8XX_UCHE_GBIF_GX_CONFIG, 0x010240e0, BIT(PIPE_NONE) },
++=09{ REG_A8XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x22122212, BIT(PIPE_NONE) },
++=09{ REG_A8XX_RBBM_CGC_P2S_CNTL, 0x00000040, BIT(PIPE_NONE) },
++=09/*
++=09 * BIT(22): Disable PS out of order retire
++=09 * BIT(23): Enable half wave mode and MM instruction src&dst is half pr=
+ecision
++=09 */
++=09{ REG_A7XX_SP_CHICKEN_BITS_2, BIT(22) | BIT(23), BIT(PIPE_NONE) },
++=09{ REG_A7XX_SP_CHICKEN_BITS_3, 0x00300000, BIT(PIPE_NONE) },
++=09{ REG_A6XX_SP_PERFCTR_SHADER_MASK, 0x0000003f, BIT(PIPE_NONE) },
++=09{ REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP, 0x00000080, BIT(PIPE_NONE) },
++=09{ REG_A6XX_TPL1_DBG_ECO_CNTL, 0x10100000, BIT(PIPE_NONE) },
++=09{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x04000724, BIT(PIPE_NONE) },
++=09{ REG_A6XX_UCHE_MODE_CNTL, 0x00020000, BIT(PIPE_NONE) },
++=09{ REG_A8XX_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
++=09{ REG_A8XX_UCHE_CCHE_CACHE_WAYS, 0x00000800, BIT(PIPE_NONE) },
++=09/* Disable write slow pointer in data phase queue */
++=09{ REG_A8XX_UCHE_HW_DBG_CNTL, BIT(8), BIT(PIPE_NONE) },
++=09{ REG_A8XX_UCHE_VARB_IDLE_TIMEOUT, 0x00000020, BIT(PIPE_NONE) },
++=09{ REG_A7XX_VFD_DBG_ECO_CNTL, 0x00008000, BIT(PIPE_BV) | BIT(PIPE_BR) },
++=09{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR)=
+ },
++=09{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0x00600060, BIT(PIPE_BV) | BIT(PIPE_BR)=
+ },
++=09{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0x00200020, BIT(PIPE_BV) | BIT(PIPE_BR)=
+ },
++=09{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0x00100020, BIT(PIPE_BV) | BIT(PIPE_BR) }=
+,
++=09{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0x00000001, BIT(PIPE_BV) | BIT(PIPE=
+_BR) },
++=09{ REG_A8XX_RB_GC_GMEM_PROTECT, 0x00900000, BIT(PIPE_BR) },
++=09{ },
++};
++
++static const u32 a810_protect_regs[] =3D {
++=09A6XX_PROTECT_RDONLY(0x00000, 0x03a3),
++=09A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
++=09A6XX_PROTECT_NORDWR(0x00440, 0x001f),
++=09A6XX_PROTECT_RDONLY(0x00580, 0x005f),
++=09A6XX_PROTECT_NORDWR(0x005e0, 0x011f),
++=09A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
++=09A6XX_PROTECT_RDONLY(0x00759, 0x0026),
++=09A6XX_PROTECT_RDONLY(0x00789, 0x0000),
++=09A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
++=09A6XX_PROTECT_NORDWR(0x00800, 0x0029),
++=09A6XX_PROTECT_NORDWR(0x00837, 0x00af),
++=09A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
++=09A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
++=09A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
++=09A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
++=09A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
++=09A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
++=09A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
++=09A6XX_PROTECT_NORDWR(0x00e03, 0x1fff),
++=09A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
++=09A6XX_PROTECT_RDONLY(0x03cc6, 0x1fff),
++=09A6XX_PROTECT_NORDWR(0x08600, 0x01ff),
++=09A6XX_PROTECT_NORDWR(0x08e00, 0x00ff),
++=09A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
++=09A6XX_PROTECT_NORDWR(0x08f01, 0x01be),
++=09A6XX_PROTECT_NORDWR(0x09600, 0x01ff),
++=09A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
++=09A6XX_PROTECT_NORDWR(0x09e00, 0x01ff),
++=09A6XX_PROTECT_NORDWR(0x0a600, 0x01ff),
++=09A6XX_PROTECT_NORDWR(0x0ae00, 0x0006),
++=09A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
++=09A6XX_PROTECT_NORDWR(0x0ae10, 0x036f),
++=09A6XX_PROTECT_NORDWR(0x0b600, 0x1fff),
++=09A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
++=09A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
++=09A6XX_PROTECT_NORDWR(0x18400, 0x003f),
++=09A6XX_PROTECT_RDONLY(0x18440, 0x013f),
++=09A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
++=09A6XX_PROTECT_NORDWR(0x1b400, 0x1fff),
++=09A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
++=09A6XX_PROTECT_RDONLY(0x1f878, 0x0787),
++=09A6XX_PROTECT_NORDWR(0x1f930, 0x0329),
++=09A6XX_PROTECT_NORDWR(0x20000, 0x1fff),
++=09A6XX_PROTECT_NORDWR(0x27800, 0x007f),
++=09A6XX_PROTECT_RDONLY(0x27880, 0x0381),
++=09A6XX_PROTECT_NORDWR(0x27882, 0x0001),
++=09A6XX_PROTECT_NORDWR(0x27c02, 0x0000),
++};
++DECLARE_ADRENO_PROTECT(a810_protect, 64);
++
++static const uint32_t a810_pwrup_reglist_regs[] =3D {
++=09REG_A6XX_UCHE_MODE_CNTL,
++=09REG_A8XX_UCHE_VARB_IDLE_TIMEOUT,
++=09REG_A8XX_UCHE_GBIF_GX_CONFIG,
++=09REG_A8XX_UCHE_CACHE_WAYS,
++=09REG_A8XX_UCHE_CCHE_MODE_CNTL,
++=09REG_A8XX_UCHE_CCHE_CACHE_WAYS,
++=09REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN,
++=09REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN + 1,
++=09REG_A8XX_UCHE_CCHE_TRAP_BASE,
++=09REG_A8XX_UCHE_CCHE_TRAP_BASE + 1,
++=09REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE,
++=09REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE + 1,
++=09REG_A8XX_UCHE_HW_DBG_CNTL,
++=09REG_A8XX_UCHE_WRITE_THRU_BASE,
++=09REG_A8XX_UCHE_WRITE_THRU_BASE + 1,
++=09REG_A8XX_UCHE_TRAP_BASE,
++=09REG_A8XX_UCHE_TRAP_BASE + 1,
++=09REG_A8XX_UCHE_CLIENT_PF,
++=09REG_A8XX_RB_CMP_NC_MODE_CNTL,
++=09REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP,
++=09REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN,
++=09REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN + 1,
++=09REG_A7XX_SP_READ_SEL,
++=09REG_A6XX_TPL1_NC_MODE_CNTL,
++=09REG_A6XX_TPL1_DBG_ECO_CNTL,
++=09REG_A6XX_TPL1_DBG_ECO_CNTL1,
++=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(1),
++=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(2),
++=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(3),
++=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(4),
++=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(5),
++=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(6),
++=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(7),
++=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(8),
++=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(9),
++=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(10),
++=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(11),
++=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(12),
++=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(13),
++=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(14),
++=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(15),
++=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(16),
++=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(17),
++=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(18),
++=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(19),
++};
++DECLARE_ADRENO_REGLIST_LIST(a810_pwrup_reglist);
++
++static const u32 a810_ifpc_reglist_regs[] =3D {
++=09REG_A8XX_RBBM_NC_MODE_CNTL,
++=09REG_A8XX_RBBM_PERFCTR_CNTL,
++=09REG_A8XX_RBBM_SLICE_INTERFACE_HANG_INT_CNTL,
++=09REG_A8XX_RBBM_SLICE_NC_MODE_CNTL,
++=09REG_A6XX_SP_NC_MODE_CNTL,
++=09REG_A7XX_SP_CHICKEN_BITS_2,
++=09REG_A7XX_SP_CHICKEN_BITS_3,
++=09REG_A6XX_SP_PERFCTR_SHADER_MASK,
++=09REG_A8XX_CP_PROTECT_GLOBAL(0),
++=09REG_A8XX_CP_PROTECT_GLOBAL(1),
++=09REG_A8XX_CP_PROTECT_GLOBAL(2),
++=09REG_A8XX_CP_PROTECT_GLOBAL(3),
++=09REG_A8XX_CP_PROTECT_GLOBAL(4),
++=09REG_A8XX_CP_PROTECT_GLOBAL(5),
++=09REG_A8XX_CP_PROTECT_GLOBAL(6),
++=09REG_A8XX_CP_PROTECT_GLOBAL(7),
++=09REG_A8XX_CP_PROTECT_GLOBAL(8),
++=09REG_A8XX_CP_PROTECT_GLOBAL(9),
++=09REG_A8XX_CP_PROTECT_GLOBAL(10),
++=09REG_A8XX_CP_PROTECT_GLOBAL(11),
++=09REG_A8XX_CP_PROTECT_GLOBAL(12),
++=09REG_A8XX_CP_PROTECT_GLOBAL(13),
++=09REG_A8XX_CP_PROTECT_GLOBAL(14),
++=09REG_A8XX_CP_PROTECT_GLOBAL(15),
++=09REG_A8XX_CP_PROTECT_GLOBAL(16),
++=09REG_A8XX_CP_PROTECT_GLOBAL(17),
++=09REG_A8XX_CP_PROTECT_GLOBAL(18),
++=09REG_A8XX_CP_PROTECT_GLOBAL(19),
++=09REG_A8XX_CP_PROTECT_GLOBAL(20),
++=09REG_A8XX_CP_PROTECT_GLOBAL(21),
++=09REG_A8XX_CP_PROTECT_GLOBAL(22),
++=09REG_A8XX_CP_PROTECT_GLOBAL(23),
++=09REG_A8XX_CP_PROTECT_GLOBAL(24),
++=09REG_A8XX_CP_PROTECT_GLOBAL(25),
++=09REG_A8XX_CP_PROTECT_GLOBAL(26),
++=09REG_A8XX_CP_PROTECT_GLOBAL(27),
++=09REG_A8XX_CP_PROTECT_GLOBAL(28),
++=09REG_A8XX_CP_PROTECT_GLOBAL(29),
++=09REG_A8XX_CP_PROTECT_GLOBAL(30),
++=09REG_A8XX_CP_PROTECT_GLOBAL(31),
++=09REG_A8XX_CP_PROTECT_GLOBAL(32),
++=09REG_A8XX_CP_PROTECT_GLOBAL(33),
++=09REG_A8XX_CP_PROTECT_GLOBAL(34),
++=09REG_A8XX_CP_PROTECT_GLOBAL(35),
++=09REG_A8XX_CP_PROTECT_GLOBAL(36),
++=09REG_A8XX_CP_PROTECT_GLOBAL(37),
++=09REG_A8XX_CP_PROTECT_GLOBAL(38),
++=09REG_A8XX_CP_PROTECT_GLOBAL(39),
++=09REG_A8XX_CP_PROTECT_GLOBAL(40),
++=09REG_A8XX_CP_PROTECT_GLOBAL(41),
++=09REG_A8XX_CP_PROTECT_GLOBAL(42),
++=09REG_A8XX_CP_PROTECT_GLOBAL(43),
++=09REG_A8XX_CP_PROTECT_GLOBAL(44),
++=09REG_A8XX_CP_PROTECT_GLOBAL(45),
++=09REG_A8XX_CP_PROTECT_GLOBAL(46),
++=09REG_A8XX_CP_PROTECT_GLOBAL(47),
++=09REG_A8XX_CP_PROTECT_GLOBAL(48),
++=09REG_A8XX_CP_PROTECT_GLOBAL(49),
++=09REG_A8XX_CP_PROTECT_GLOBAL(50),
++=09REG_A8XX_CP_PROTECT_GLOBAL(51),
++=09REG_A8XX_CP_PROTECT_GLOBAL(52),
++=09REG_A8XX_CP_PROTECT_GLOBAL(53),
++=09REG_A8XX_CP_PROTECT_GLOBAL(54),
++=09REG_A8XX_CP_PROTECT_GLOBAL(55),
++=09REG_A8XX_CP_PROTECT_GLOBAL(56),
++=09REG_A8XX_CP_PROTECT_GLOBAL(57),
++=09REG_A8XX_CP_PROTECT_GLOBAL(58),
++=09REG_A8XX_CP_PROTECT_GLOBAL(59),
++=09REG_A8XX_CP_PROTECT_GLOBAL(60),
++=09REG_A8XX_CP_PROTECT_GLOBAL(61),
++=09REG_A8XX_CP_PROTECT_GLOBAL(62),
++=09REG_A8XX_CP_PROTECT_GLOBAL(63),
++};
++DECLARE_ADRENO_REGLIST_LIST(a810_ifpc_reglist);
++
++static const struct adreno_reglist_pipe a810_dyn_pwrup_reglist_regs[] =3D =
+{
++=09{ REG_A8XX_CP_PROTECT_CNTL_PIPE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
++=09{ REG_A8XX_CP_PROTECT_PIPE(15), 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
++=09{ REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++=09{ REG_A8XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++=09{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++=09{ REG_A7XX_RB_CCU_CNTL, 0, BIT(PIPE_BR) },
++=09{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0, BIT(PIPE_BR) },
++=09{ REG_A8XX_RB_CCU_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
++=09{ REG_A8XX_RB_CMP_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
++=09{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0, BIT(PIPE_BR) },
++=09{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0, BIT(PIPE_BR) },
++=09{ REG_A8XX_RB_GC_GMEM_PROTECT, 0, BIT(PIPE_BR) },
++=09{ REG_A6XX_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE_ENABLE, 0, BIT(PIPE_BR) =
+},
++=09{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++=09{ REG_A8XX_PC_CHICKEN_BITS_1, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++=09{ REG_A8XX_PC_CHICKEN_BITS_2, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++=09{ REG_A8XX_PC_CHICKEN_BITS_3, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++=09{ REG_A8XX_PC_CHICKEN_BITS_4, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++=09{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
++=09{ REG_A8XX_PC_VIS_STREAM_CNTL, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
++=09{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0, BIT(PIPE_BR) | BIT(PI=
+PE_BV) },
++=09{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++=09{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++=09{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++=09{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++=09{ REG_A7XX_VFD_DBG_ECO_CNTL, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
++};
++DECLARE_ADRENO_REGLIST_PIPE_LIST(a810_dyn_pwrup_reglist);
++
+ static const struct adreno_reglist_pipe a840_nonctxt_regs[] =3D {
+ =09{ REG_A8XX_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
+ =09{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0x00000800, BIT(PIPE_BV) | BIT(PIPE_BR) }=
+,
+@@ -2193,6 +2448,48 @@ static const struct adreno_info a8xx_gpus[] =3D {
+ =09=09=09{ 252, 2 },
+ =09=09=09{ 221, 3 },
+ =09=09),
++=09}, {
++=09=09.chip_ids =3D ADRENO_CHIP_IDS(0x44010000),
++=09=09.family =3D ADRENO_8XX_GEN1,
++=09=09.fw =3D {
++=09=09=09[ADRENO_FW_SQE] =3D "gen80300_sqe.fw",
++=09=09=09[ADRENO_FW_GMU] =3D "gen80300_gmu.bin",
++=09=09},
++=09=09.gmem =3D SZ_512K + SZ_64K,
++=09=09.inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
++=09=09.quirks =3D ADRENO_QUIRK_HAS_CACHED_COHERENT |
++=09=09=09  ADRENO_QUIRK_HAS_HW_APRIV |
++=09=09=09  ADRENO_QUIRK_PREEMPTION |
++=09=09=09  ADRENO_QUIRK_IFPC,
++=09=09.funcs =3D &a8xx_gpu_funcs,
++=09=09.zapfw =3D "gen80300_zap.mbn",
++=09=09.a6xx =3D &(const struct a6xx_info) {
++=09=09=09.protect =3D &a810_protect,
++=09=09=09.nonctxt_reglist =3D a810_nonctxt_regs,
++=09=09=09.pwrup_reglist =3D &a810_pwrup_reglist,
++=09=09=09.dyn_pwrup_reglist =3D &a810_dyn_pwrup_reglist,
++=09=09=09.ifpc_reglist =3D &a810_ifpc_reglist,
++=09=09=09.gbif_cx =3D a840_gbif,
++=09=09=09.max_slices =3D 1,
++=09=09=09.gmu_chipid =3D 0x8030000,
++=09=09=09.bcms =3D (const struct a6xx_bcm[]) {
++=09=09=09=09{ .name =3D "SH0", .buswidth =3D 16 },
++=09=09=09=09{ .name =3D "MC0", .buswidth =3D 4 },
++=09=09=09=09{
++=09=09=09=09=09.name =3D "ACV",
++=09=09=09=09=09.fixed =3D true,
++=09=09=09=09=09.perfmode =3D BIT(2),
++=09=09=09=09=09.perfmode_bw =3D 10687500,
++=09=09=09=09},
++=09=09=09=09{ /* sentinel */ },
++=09=09=09},
++=09=09},
++=09=09.preempt_record_size =3D 4558 * SZ_1K,
++=09=09.speedbins =3D ADRENO_SPEEDBINS(
++=09=09=09{ 0,   0 },
++=09=09=09{ 242, 1 },
++=09=09=09{ 221, 2 },
++=09=09),
+ =09}
+ };
 =20
- =09if (!llcc_slice_activate(a6xx_gpu->llc_slice)) {
-@@ -2098,7 +2098,7 @@ static void a7xx_llc_activate(struct a6xx_gpu *a6xx_g=
-pu)
- =09struct adreno_gpu *adreno_gpu =3D &a6xx_gpu->base;
- =09struct msm_gpu *gpu =3D &adreno_gpu->base;
-=20
--=09if (IS_ERR(a6xx_gpu->cx_misc_mmio))
-+=09if (IS_ERR_OR_NULL(a6xx_gpu->llc_slice) && IS_ERR_OR_NULL(a6xx_gpu->htw=
-_llc_slice))
- =09=09return;
-=20
- =09if (!llcc_slice_activate(a6xx_gpu->llc_slice)) {
-@@ -2135,31 +2135,12 @@ static void a6xx_llc_slices_destroy(struct a6xx_gpu=
- *a6xx_gpu)
- static void a6xx_llc_slices_init(struct platform_device *pdev,
- =09=09struct a6xx_gpu *a6xx_gpu, bool is_a7xx)
- {
--=09struct device_node *phandle;
--
- =09/* No LLCC on non-RPMh (and by extension, non-GMU) SoCs */
- =09if (adreno_has_gmu_wrapper(&a6xx_gpu->base))
- =09=09return;
-=20
--=09/*
--=09 * There is a different programming path for A6xx targets with an
--=09 * mmu500 attached, so detect if that is the case
--=09 */
--=09phandle =3D of_parse_phandle(pdev->dev.of_node, "iommus", 0);
--=09a6xx_gpu->have_mmu500 =3D (phandle &&
--=09=09of_device_is_compatible(phandle, "arm,mmu-500"));
--=09of_node_put(phandle);
--
--=09if (is_a7xx || !a6xx_gpu->have_mmu500)
--=09=09a6xx_gpu->cx_misc_mmio =3D msm_ioremap(pdev, "cx_mem");
--=09else
--=09=09a6xx_gpu->cx_misc_mmio =3D NULL;
--
- =09a6xx_gpu->llc_slice =3D llcc_slice_getd(LLCC_GPU);
- =09a6xx_gpu->htw_llc_slice =3D llcc_slice_getd(LLCC_GPUHTW);
--
--=09if (IS_ERR_OR_NULL(a6xx_gpu->llc_slice) && IS_ERR_OR_NULL(a6xx_gpu->htw=
-_llc_slice))
--=09=09a6xx_gpu->cx_misc_mmio =3D ERR_PTR(-EINVAL);
+@@ -2205,4 +2502,5 @@ static inline __always_unused void __build_asserts(vo=
+id)
+ =09BUILD_BUG_ON(a660_protect.count > a660_protect.count_max);
+ =09BUILD_BUG_ON(a690_protect.count > a690_protect.count_max);
+ =09BUILD_BUG_ON(a730_protect.count > a730_protect.count_max);
++=09BUILD_BUG_ON(a810_protect.count > a810_protect.count_max);
+ }
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/=
+adreno/adreno_gpu.h
+index ec643b84646b..d88eb8ecf417 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+@@ -592,6 +592,11 @@ static inline int adreno_is_a8xx(struct adreno_gpu *gp=
+u)
+ =09return gpu->info->family >=3D ADRENO_8XX_GEN1;
  }
 =20
- #define GBIF_CLIENT_HALT_MASK=09=09BIT(0)
-@@ -2621,6 +2602,7 @@ static struct msm_gpu *a6xx_gpu_init(struct drm_devic=
-e *dev)
- =09struct platform_device *pdev =3D priv->gpu_pdev;
- =09struct adreno_platform_config *config =3D pdev->dev.platform_data;
- =09const struct adreno_info *info =3D config->info;
-+=09struct device_node *phandle;
- =09struct device_node *node;
- =09struct a6xx_gpu *a6xx_gpu;
- =09struct adreno_gpu *adreno_gpu;
-@@ -2657,6 +2639,20 @@ static struct msm_gpu *a6xx_gpu_init(struct drm_devi=
-ce *dev)
-=20
- =09a6xx_llc_slices_init(pdev, a6xx_gpu, is_a7xx);
-=20
-+=09/*
-+=09 * There is a different programming path for A6xx targets with an
-+=09 * mmu500 attached, so detect if that is the case
-+=09 */
-+=09phandle =3D of_parse_phandle(pdev->dev.of_node, "iommus", 0);
-+=09a6xx_gpu->have_mmu500 =3D (phandle &&
-+=09=09of_device_is_compatible(phandle, "arm,mmu-500"));
-+=09of_node_put(phandle);
++static inline int adreno_is_a810(struct adreno_gpu *gpu)
++{
++=09return gpu->info->chip_ids[0] =3D=3D 0x44010000;
++}
 +
-+=09if (is_a7xx || !a6xx_gpu->have_mmu500)
-+=09=09a6xx_gpu->cx_misc_mmio =3D msm_ioremap(pdev, "cx_mem");
-+=09else
-+=09=09a6xx_gpu->cx_misc_mmio =3D NULL;
-+
- =09ret =3D a6xx_set_supported_hw(&pdev->dev, a6xx_gpu, info);
- =09if (ret) {
- =09=09a6xx_llc_slices_destroy(a6xx_gpu);
+ static inline int adreno_is_x285(struct adreno_gpu *gpu)
+ {
+ =09return gpu->info->chip_ids[0] =3D=3D 0x44070001;
 
 --=20
 2.53.0
