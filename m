@@ -1,1351 +1,703 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8AEB36495D
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 05:43:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 435BA36D4E4;
+	Fri, 15 May 2026 05:48:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778823800; cv=none; b=IMgfI1JKj5otq/o208xSuZCKmpxBkaHij0E9Nac91z171OBWw/ib7bhPr6aUqdB/09yuAceziPiuiw2zwOywtROioeKae3vlApoOu+T+9RGtOgkidGcvJxxPnpSNxoHRM6k2LXelT379MN9riIYNRYS0jEh454brKoq+uCK08Kk=
+	t=1778824105; cv=none; b=i11N8MYajAs9tDsgoiIeCDSaJYoAgHaSyXof67XFZB7xzRa32iQKGDj/vQbtsSv+X6RmP7F51V5AqkgEMqi/eLuNMUlSZYiPCJbIY7MBEbW/MGZ69E/y1E8MLUtvO+ArrL8eRnYPy5ykoD96Hqjk8wvNrt/DEseK8Wydz1QKc+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778823800; c=relaxed/simple;
-	bh=7hdu7UvjCw7PPNOKum2BeKYj6txVYdLgiic2DWvdDCc=;
+	s=arc-20240116; t=1778824105; c=relaxed/simple;
+	bh=60kRau48iTEuUMjbvRdUT1ZnBbKWW2xQzfzA3WrKVO0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Fa7ScJV7iDm/PxNQVFfLhEjtpZOof0HebngbyJLZZxVyuo35dWcCCEqgkLK8JOmsnKK7QwsVRBdsAzxO+vPkL7BgfyXRsW4L01Ll7xS5IjsXnKZLe9mKFuVM+gQ37U9Yvf12p4z7GZURFZYTZbbbn5Cqp5wgaQ/WrJkT27tuGRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ix3ErP18; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=CH8aei2ee0W5yt0tDhqlk73mUfOj/wfAHbjZeY9Mb+RkVSA34m4EX5pJnrVLGgAz7Fq5vQt4EEBNRqlA0jFtv8ObRqyLeh9xMifDbyMcB7366zml4AUeWKMdl7orHEIEW29Nop3+CZLhj0dLVmvzv9H5BCCst7Va3lZxL+Evbvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QTrbLpLr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ix3ErP18"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c80170db7d6so3557775a12.0
-        for <devicetree@vger.kernel.org>; Thu, 14 May 2026 22:43:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778823797; x=1779428597; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=mB5f3tqVgjuDVpoG/7XIIRcdiNEH7CNdPM+NqL/AwVw=;
-        b=Ix3ErP18+IP8LDJJvwLhJrFWaZqeEp0XrP47HB8tMqARrU12nxD4fTTiI5/h/m0qKQ
-         AjR5fvUuSrg5lofRar5QhSRq2KkLZwrj0Kcf5I8pGtFc1xoJXQPLwCmWe3o3nH8PM6PF
-         slpgs+vUAMT7A4CA1jCPrF7c5pBkKZPcyj5zl8LBVHopp4TByJSb4jA6B+GBjleDnByR
-         M0k8uan4imNRAd+gBTqM7XwXPEZdNX3vcXTCeC/3GCquKCEZGBIlPmh3xBbhKxiGKbb0
-         zCQjRsdYvkU4GoOwE4Vn5w9OWJ0H3Brigi5CaGA5Eb4JueTnFcVzrK+FlVn+CarDxLuS
-         H2BQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778823797; x=1779428597;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=mB5f3tqVgjuDVpoG/7XIIRcdiNEH7CNdPM+NqL/AwVw=;
-        b=i0GCcm271UQJyXVgXgU+m9JdKpgF0W1bpcbmwbbCvyxPy9cal3s1eTaCN1xpsBkJ6x
-         7FBPV+pDFWK6f+0l3aLiF0aRWHo3hs5cDWRePC6tV5CiReOOB8hWXT3L1WOS3lIMtrdf
-         GQ9B02lz0YvL5JacdtTj6jUK8N99pgXGy6QJ+yZuwhkHuLKwdSMq4N1nK6Nz6zPvPmrC
-         VPScNvFtkb4bSKEOPpjOhe3365omnhvQ5PFYIyd7BtkzksnMqFP9nM22EZ+xCboFUcj+
-         NW+B0Yqmg/lqFL5rPnGuIL1lgMWCUnORW091xL1rjXsGDekl/Hp7QSe2poHB/z8WpeYd
-         ElsA==
-X-Forwarded-Encrypted: i=1; AFNElJ+AeJNrR+Yte4V5Wxwx3JVjro4OTfh+GCc7X4FEQym1o0igLCXl3BQRcdrNQGdXfglpXUwXuzO/Bvp1@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy7VJDyhjhmVgJNZTS6Sj91R1khOfDtTBlORNstXgFLnmZdNSDr
-	cXnqR+ZrG4W/HLxyP+6ZSXIFsyHV8GVhUK4Zo1u4oIvlXq+8kbeFe7bK
-X-Gm-Gg: Acq92OGOU+rP4VbuNWtCQr3vOjNzV/jic9Kd2Ig/YPnBx8UURWFDB5SjzkMVm4KlYU3
-	HmMqkDsm084yyJArvRSOPqt81gaIpF9ZN7g2hWKuiNnnir3yW97+V+pOagYFZXQhuTXhPUf50m4
-	QiHJwwNheWEihtjRc2OcoalFm9yakLCkA2eoALSN5cMb5Y65Oucjm9zC6cwZTuDor93bDzSSU/+
-	FVvfgM1jk8ntCOAeM3Yg1388Msbslh5LZ/gSHu6xT+NFFwc1isVjlA/Jo68uCbbR7/irslwrPSo
-	zOv9fCP7zdDP0hSL3ESpjIW/YYHyfECQw/O27UDzeMHMoI/ER0MZlNwxMPL0f6goYMh54rVxlbL
-	lGw11lFnUaXGqrH5FFR5ww1bMDvIWzjrdVAzy3iL1ltu4FTmwJYzDqdyXCU42LDxhj3TrnFYoky
-	mqSNeubCpJn3N2X9lWwNyBRNGRdMF9Jorg/IdDcxe91rXWPuYyQX2LPwgPxZ8JyKj0WSQGKKr6r
-	u9oQHrksOBLxLB1or2peENr6o2mDdsI+S3hQA==
-X-Received: by 2002:a05:6a00:2e08:b0:837:80a:5ab4 with SMTP id d2e1a72fcca58-83f33f0dd44mr2883516b3a.44.1778823796721;
-        Thu, 14 May 2026 22:43:16 -0700 (PDT)
-Received: from harrison-Surface-Pro-12in-1st-Ed-with-Snapdragon.wework.com ([203.117.161.34])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-83f2b9bec8fsm3106116b3a.33.2026.05.14.22.43.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 14 May 2026 22:43:16 -0700 (PDT)
-From: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
-To: andersson@kernel.org,
-	konradybcio@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QTrbLpLr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0817FC2BCB8;
+	Fri, 15 May 2026 05:48:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778824104;
+	bh=60kRau48iTEuUMjbvRdUT1ZnBbKWW2xQzfzA3WrKVO0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=QTrbLpLrln0yjx899IaioEWCVn0LzR3DzxNIFupI0/htZ2F/7F39GFfjC1VLqVwHO
+	 pQd75OSrNoIFcJ3RbYrqGqoMnNHGVu7UqlV2Cx2WBujBSLvKL1+nUVnRk7gLBmTeM1
+	 cfpqBZ3I7O2TVCIvqYlBRJEqvhoKnZOvGc5lIz9fadbBvYWvs7zidPkMPRPBDqPnBF
+	 BUWGGlB6UJ1h6SZRcpCh2jPp77kgVFRqu0FYyeiu+jJP+NQur13g5l4UHGF8zKfCK1
+	 3wGy/RSissY6CU7F1SCU/mB79wCWPn4BUq0cZ3wG5MtyZN8iE3E/YqQrBCTE+85/pm
+	 npq1uyBkNyOoQ==
+From: William Breathitt Gray <wbg@kernel.org>
+To: Wadim Mueller <wafgo01@gmail.com>
+Cc: William Breathitt Gray <wbg@kernel.org>,
 	conor+dt@kernel.org,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	davem@davemloft.net,
-	neil.armstrong@linaro.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	jikos@kernel.org,
-	bentiss@kernel.org,
-	luzmaximilian@gmail.com,
-	hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com
-Cc: Douglas Anderson <dianders@chromium.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	linux-arm-msm@vger.kernel.org,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	conor.dooley@microchip.com,
+	linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-crypto@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-input@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org
-Subject: [PATCH v2 7/7] arm64: dts: qcom: Add Microsoft Surface Pro 12in
-Date: Fri, 15 May 2026 15:41:52 +1000
-Message-ID: <8ac29ee38ba80a3fbde8bfe43b74b9b936b31cb1.1778822464.git.harrison.vanderbyl@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1778822464.git.harrison.vanderbyl@gmail.com>
-References: <cover.1778822464.git.harrison.vanderbyl@gmail.com>
+	linusw@kernel.org,
+	brgl@kernel.org
+Subject: Re: [PATCH v3 2/3] counter: add GPIO-based quadrature encoder driver
+Date: Fri, 15 May 2026 14:48:17 +0900
+Message-ID: <20260515054819.302445-1-wbg@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260501200749.20029-3-wafgo01@gmail.com>
+References: <20260501200749.20029-3-wafgo01@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=21104; i=wbg@kernel.org; h=from:subject; bh=60kRau48iTEuUMjbvRdUT1ZnBbKWW2xQzfzA3WrKVO0=; b=owGbwMvMwCW21SPs1D4hZW3G02pJDFlsm7Mb+HbOT2DYfyEv4U5I6LUr4gr3vij35a65r7enn /H0wS6rjlIWBjEuBlkxRZZe87N3H1xS1fjxYv42mDmsTCBDGLg4BWAi2lKMDNNFvy5tTYw7k+dv v600btPk18/CGGVk7s93fTrbtmy7eC8jw4EDL+6cPLQ4MuvhArGSJ1ILnxb9yU3xXT1/4b68nAp ffQ4A
+X-Developer-Key: i=wbg@kernel.org; a=openpgp; fpr=8D37CDDDE0D22528F8E89FB6B54856CABE12232B
 Content-Transfer-Encoding: 8bit
 
-Initial device tree for Microsoft Surface Pro 12in
+On Fri, May 01, 2026 at 10:07:48PM +0200, Wadim Mueller wrote:
+> Add a platform driver that turns ordinary GPIOs into a quadrature
+> encoder counter device.  The driver requests edge-triggered interrupts
+> on the A and B (and optional Index) GPIOs and decodes the quadrature
+> signal in software using a classic state-table approach.
+> 
+> Supported counting modes:
+>   - Quadrature X1 (count on A rising edge only)
+>   - Quadrature X2 (count on both A edges)
+>   - Quadrature X4 (count on every A and B edge)
+>   - Pulse-direction (A = pulse, B = direction)
 
-Currently supported:
-  - UFS
-  - Touchscreen
-  - Pen
-  - USB 3.2 x2 (DP Alt Mode)
-  - Audio
-  - Wifi
-  - Bluetooth
-  - CDSP
-  - ADSP
-  - GPU
+Hi Wadim,
 
-Not currently supported:
-  - Accelerometer
-  - Front, Back and IR cameras
-  - IRIS video decoder
+The Documentation/ABI/testing/sysfs-bus-counter file documents the Count
+function modes. Because we're interpreting GPIO lines and can define our
+own encoding states, it would be prudent to support all these Count
+function modes (i.e. increase, decrease, x1 b, and x2 b modes).
 
-Tested on Surface_Pro_12in_1st_Ed_with_Snapdragon_2110
+> 
+> An optional index signal resets the count to zero on its rising edge
+> when enabled through sysfs.  A configurable ceiling clamps the count
+> to [0, ceiling].
+> 
+> Signed-off-by: Wadim Mueller <wafgo01@gmail.com>
 
-Signed-off-by: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
----
- arch/arm64/boot/dts/qcom/Makefile             |    2 +
- .../dts/qcom/x1p42100-microsoft-sp12in.dts    | 1201 +++++++++++++++++
- 2 files changed, 1203 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/x1p42100-microsoft-sp12in.dts
+I recommend adding support at some point for a compare
+(COUNTER_COMP_COMPARE) component and floor component
+(COUNTER_COMP_FLOOR) which are common functionalities in quadrature
+devices. It'd be nice as well to have events pushed for
+COUNTER_EVENT_OVERFLOW, COUNTER_EVENT_UNDERFLOW,
+COUNTER_EVENT_OVERFLOW_UNDERFLOW, COUNTER_EVENT_THRESHOLD, and
+COUNTER_EVENT_DIRECTION_CHANGE.
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 4ba8e7306419..8b6d3e4b479c 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -449,3 +449,5 @@ x1p42100-lenovo-thinkbook-16-el2-dtbs	:= x1p42100-lenovo-thinkbook-16.dtb x1-el2
- dtb-$(CONFIG_ARCH_QCOM)	+= x1p42100-lenovo-thinkbook-16.dtb x1p42100-lenovo-thinkbook-16-el2.dtb
- x1p64100-microsoft-denali-el2-dtbs	:= x1p64100-microsoft-denali.dtb x1-el2.dtbo
- dtb-$(CONFIG_ARCH_QCOM)	+= x1p64100-microsoft-denali.dtb x1p64100-microsoft-denali-el2.dtb
-+x1p42100-microsoft-sp12in-el2-dtbs	:= x1p42100-microsoft-sp12in.dtb x1-el2.dtbo
-+dtb-$(CONFIG_ARCH_QCOM)	+= x1p42100-microsoft-sp12in.dtb x1p42100-microsoft-sp12in-el2.dtb
-diff --git a/arch/arm64/boot/dts/qcom/x1p42100-microsoft-sp12in.dts b/arch/arm64/boot/dts/qcom/x1p42100-microsoft-sp12in.dts
-new file mode 100644
-index 000000000000..32b8df249791
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/x1p42100-microsoft-sp12in.dts
-@@ -0,0 +1,1201 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved.
-+ * Copyright (c) 2024, Linaro Limited
-+ * Copyright (c) 2025, Jens Glathe
-+ * Copyright (c) 2025, Harrison Vanderbyl
-+ */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/gpio-keys.h>
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
-+#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-+#include <dt-bindings/clock/qcom,x1e80100-tcsr.h>
-+
-+#include "purwa.dtsi"
-+#include "hamoa-pmics.dtsi"
-+
-+/delete-node/ &pmc8380_6;
-+/delete-node/ &pmc8380_6_thermal;
-+
-+/ {
-+	model = "Surface Pro 12in 1st Edition";
-+	compatible = "microsoft,surface-pro-12in", "qcom,x1p42100";
-+	chassis-type = "tablet";
-+
-+	aliases {
-+		serial0 = &uart2;
-+		serial1 = &uart14;
-+	};
-+
-+	backlight: backlight {
-+		compatible = "pwm-backlight";
-+		pwms = <&pmk8550_pwm 0 5000000>;
-+
-+		power-supply = <&vreg_edp_3p3>;
-+	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+
-+		pinctrl-0 = <&hall_int_n_default>, <&vol_up_n_default>, <&vol_down_n_default>;
-+		pinctrl-names = "default";
-+
-+		switch-lid {
-+			gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
-+			linux,input-type = <EV_SW>;
-+			linux,code = <SW_LID>;
-+			wakeup-source;
-+			wakeup-event-action = <EV_ACT_DEASSERTED>;
-+		};
-+
-+		key-vol-up {
-+			gpios = <&pm8550_gpios 8 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_VOLUMEUP>;
-+			debounce-interval = <15>;
-+			linux,can-disable;
-+			wakeup-source;
-+		};
-+
-+		key-vol-down {
-+			gpios = <&pm8550_gpios 6 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_VOLUMEDOWN>;
-+			debounce-interval = <15>;
-+			linux,can-disable;
-+			wakeup-source;
-+		};
-+	};
-+
-+	pmic-glink {
-+		compatible = "qcom,x1e80100-pmic-glink",
-+			     "qcom,sm8550-pmic-glink",
-+			     "qcom,pmic-glink";
-+		orientation-gpios = <&tlmm 121 GPIO_ACTIVE_HIGH>,
-+				 <&tlmm 123 GPIO_ACTIVE_HIGH>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		/* Right-side upper port */
-+		connector@0 {
-+			compatible = "usb-c-connector";
-+			reg = <0>;
-+			power-role = "dual";
-+			data-role = "dual";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					pmic_glink_ss0_hs_in: endpoint {
-+						remote-endpoint = <&usb_1_ss0_dwc3_hs>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					pmic_glink_ss0_ss_in: endpoint {
-+						remote-endpoint = <&usb_1_ss0_qmpphy_out>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					pmic_glink_ss0_sbu: endpoint {
-+						remote-endpoint = <&usb_1_ss0_sbu_mux>;
-+					};
-+				};
-+			};
-+		};
-+
-+		/* Right-side lower port */
-+		connector@1 {
-+			compatible = "usb-c-connector";
-+			reg = <1>;
-+			power-role = "dual";
-+			data-role = "dual";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					pmic_glink_ss1_hs_in: endpoint {
-+						remote-endpoint = <&usb_1_ss1_dwc3_hs>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					pmic_glink_ss1_ss_in: endpoint {
-+						remote-endpoint = <&usb_1_ss1_qmpphy_out>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					pmic_glink_ss1_sbu: endpoint {
-+						remote-endpoint = <&usb_1_ss1_sbu_mux>;
-+					};
-+				};
-+			};
-+		};
-+	};
-+
-+	reserved-memory {
-+		linux,cma {
-+			compatible = "shared-dma-pool";
-+			size = <0x0 0x20000000>;
-+			reusable;
-+			linux,cma-default;
-+		};
-+	};
-+
-+	vreg_edp_3p3: regulator-edp-3p3 {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "VREG_EDP_3P3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+
-+		gpio = <&tlmm 70 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&edp_reg_en>;
-+		pinctrl-names = "default";
-+
-+		regulator-boot-on;
-+		vin-supply = <&vreg_panel_en>;
-+	};
-+
-+	vreg_panel_en: regulator-panel-en {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "VREG_PANEL_EN";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+
-+		gpio = <&tlmm 29 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		regulator-enable-ramp-delay = <150000>;
-+
-+		pinctrl-0 = <&panel_en>;
-+		pinctrl-names = "default";
-+
-+		regulator-boot-on;
-+	};
-+
-+	vph_pwr: regulator-vph-pwr {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "vph_pwr";
-+		regulator-min-microvolt = <3700000>;
-+		regulator-max-microvolt = <3700000>;
-+	};
-+
-+	vreg_wcn_0p95: regulator-wcn-0p95 {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "VREG_WCN_0P95";
-+		regulator-min-microvolt = <950000>;
-+		regulator-max-microvolt = <950000>;
-+
-+		vin-supply = <&vreg_wcn_3p3>;
-+	};
-+
-+	vreg_wcn_1p9: regulator-wcn-1p9 {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "VREG_WCN_1P9";
-+		regulator-min-microvolt = <1900000>;
-+		regulator-max-microvolt = <1900000>;
-+
-+		vin-supply = <&vreg_wcn_3p3>;
-+	};
-+
-+	vreg_wcn_3p3: regulator-wcn-3p3 {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "VREG_WCN_3P3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+
-+		gpio = <&tlmm 214 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&wcn_sw_en>;
-+		pinctrl-names = "default";
-+	};
-+
-+	sound {
-+		compatible = "qcom,x1e80100-sndcard";
-+		model = "X1P42100-Microsoft-Surface-Pro-12in";
-+		audio-routing = "SpkrLeft IN", "WSA WSA_SPK1 OUT",
-+				"SpkrRight IN", "WSA WSA_SPK2 OUT",
-+				"VA DMIC0", "vdd-micb",
-+				"VA DMIC1", "vdd-micb";
-+
-+		va-dai-link {
-+			link-name = "VA Capture";
-+
-+			codec {
-+				sound-dai = <&lpass_vamacro 0>;
-+			};
-+
-+			cpu {
-+				sound-dai = <&q6apmbedai VA_CODEC_DMA_TX_0>;
-+			};
-+
-+			platform {
-+				sound-dai = <&q6apm>;
-+			};
-+		};
-+
-+		wsa-dai-link {
-+			link-name = "WSA Playback";
-+
-+			codec {
-+				sound-dai = <&left_spkr>, <&right_spkr>,
-+						<&swr0 0>, <&lpass_wsamacro 0>;
-+			};
-+
-+			cpu {
-+				sound-dai = <&q6apmbedai WSA_CODEC_DMA_RX_0>;
-+			};
-+
-+			platform {
-+				sound-dai = <&q6apm>;
-+			};
-+		};
-+	};
-+
-+	wcn7850-pmu {
-+		compatible = "qcom,wcn7850-pmu";
-+
-+		vdd-supply = <&vreg_wcn_0p95>;
-+		vddio-supply = <&vreg_l15b_1p8>;
-+		vddaon-supply = <&vreg_wcn_0p95>;
-+		vdddig-supply = <&vreg_wcn_0p95>;
-+		vddrfa1p2-supply = <&vreg_wcn_1p9>;
-+		vddrfa1p8-supply = <&vreg_wcn_1p9>;
-+
-+		wlan-enable-gpios = <&tlmm 117 GPIO_ACTIVE_HIGH>;
-+		bt-enable-gpios = <&tlmm 116 GPIO_ACTIVE_HIGH>;
-+
-+		pinctrl-0 = <&wcn_wlan_bt_en>;
-+		pinctrl-names = "default";
-+
-+		regulators {
-+			vreg_pmu_rfa_cmn: ldo0 {
-+				regulator-name = "vreg_pmu_rfa_cmn";
-+			};
-+
-+			vreg_pmu_aon_0p59: ldo1 {
-+				regulator-name = "vreg_pmu_aon_0p59";
-+			};
-+
-+			vreg_pmu_wlcx_0p8: ldo2 {
-+				regulator-name = "vreg_pmu_wlcx_0p8";
-+			};
-+
-+			vreg_pmu_wlmx_0p85: ldo3 {
-+				regulator-name = "vreg_pmu_wlmx_0p85";
-+			};
-+
-+			vreg_pmu_btcmx_0p85: ldo4 {
-+				regulator-name = "vreg_pmu_btcmx_0p85";
-+			};
-+
-+			vreg_pmu_rfa_0p8: ldo5 {
-+				regulator-name = "vreg_pmu_rfa_0p8";
-+			};
-+
-+			vreg_pmu_rfa_1p2: ldo6 {
-+				regulator-name = "vreg_pmu_rfa_1p2";
-+			};
-+
-+			vreg_pmu_rfa_1p8: ldo7 {
-+				regulator-name = "vreg_pmu_rfa_1p8";
-+			};
-+
-+			vreg_pmu_pcie_0p9: ldo8 {
-+				regulator-name = "vreg_pmu_pcie_0p9";
-+			};
-+
-+			vreg_pmu_pcie_1p8: ldo9 {
-+				regulator-name = "vreg_pmu_pcie_1p8";
-+			};
-+		};
-+	};
-+
-+	usb-1-ss0-sbu-mux {
-+		compatible = "onnn,fsusb42", "gpio-sbu-mux";
-+
-+		enable-gpios = <&tlmm 168 GPIO_ACTIVE_LOW>;
-+		select-gpios = <&tlmm 167 GPIO_ACTIVE_HIGH>;
-+
-+		pinctrl-0 = <&usb_1_ss0_sbu_default>;
-+		pinctrl-names = "default";
-+
-+		mode-switch;
-+		orientation-switch;
-+
-+		port {
-+			usb_1_ss0_sbu_mux: endpoint {
-+				remote-endpoint = <&pmic_glink_ss0_sbu>;
-+			};
-+		};
-+	};
-+
-+	usb-1-ss1-sbu-mux {
-+		compatible = "onnn,fsusb42", "gpio-sbu-mux";
-+
-+		enable-gpios = <&tlmm 179 GPIO_ACTIVE_LOW>;
-+		select-gpios = <&tlmm 178 GPIO_ACTIVE_HIGH>;
-+
-+		pinctrl-0 = <&usb_1_ss1_sbu_default>;
-+		pinctrl-names = "default";
-+
-+		mode-switch;
-+		orientation-switch;
-+
-+		port {
-+			usb_1_ss1_sbu_mux: endpoint {
-+				remote-endpoint = <&pmic_glink_ss1_sbu>;
-+			};
-+		};
-+	};
-+};
-+
-+&apps_rsc {
-+	regulators-0 {
-+		compatible = "qcom,pm8550-rpmh-regulators";
-+		qcom,pmic-id = "b";
-+
-+		vdd-bob1-supply = <&vph_pwr>;
-+		vdd-bob2-supply = <&vph_pwr>;
-+		vdd-l1-l4-l10-supply = <&vreg_s4c_1p8>;
-+		vdd-l2-l13-l14-supply = <&vreg_bob1>;
-+		vdd-l5-l16-supply = <&vreg_bob1>;
-+		vdd-l6-l7-supply = <&vreg_bob2>;
-+		vdd-l8-l9-supply = <&vreg_bob1>;
-+		vdd-l12-supply = <&vreg_s5j_1p2>;
-+		vdd-l15-supply = <&vreg_s4c_1p8>;
-+		vdd-l17-supply = <&vreg_bob2>;
-+
-+		vreg_bob1: bob1 {
-+			regulator-name = "vreg_bob1";
-+			regulator-min-microvolt = <3008000>;
-+			regulator-max-microvolt = <3960000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_bob2: bob2 {
-+			regulator-name = "vreg_bob2";
-+			regulator-min-microvolt = <2504000>;
-+			regulator-max-microvolt = <3008000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l1b_1p8: ldo1 {
-+			regulator-name = "vreg_l1b_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2b_3p0: ldo2 {
-+			regulator-name = "vreg_l2b_3p0";
-+			regulator-min-microvolt = <3072000>;
-+			regulator-max-microvolt = <3100000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l4b_1p8: ldo4 {
-+			regulator-name = "vreg_l4b_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l5b_3p0: ldo5 {
-+			regulator-name = "vreg_l5b_3p0";
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3000000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l6b_1p8: ldo6 {
-+			regulator-name = "vreg_l6b_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2960000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l7b_2p8: ldo7 {
-+			regulator-name = "vreg_l7b_2p8";
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <2800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-always-on;
-+		};
-+
-+		vreg_l8b_3p0: ldo8 {
-+			regulator-name = "vreg_l8b_3p0";
-+			regulator-min-microvolt = <3072000>;
-+			regulator-max-microvolt = <3072000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l9b_2p9: ldo9 {
-+			regulator-name = "vreg_l9b_2p9";
-+			regulator-min-microvolt = <2960000>;
-+			regulator-max-microvolt = <2960000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l10b_1p8: ldo10 {
-+			regulator-name = "vreg_l10b_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l12b_1p2: ldo12 {
-+			regulator-name = "vreg_l12b_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l13b_3p0: ldo13 {
-+			regulator-name = "vreg_l13b_3p0";
-+			regulator-min-microvolt = <3072000>;
-+			regulator-max-microvolt = <3100000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l14b_3p0: ldo14 {
-+			regulator-name = "vreg_l14b_3p0";
-+			regulator-min-microvolt = <3072000>;
-+			regulator-max-microvolt = <3072000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l15b_1p8: ldo15 {
-+			regulator-name = "vreg_l15b_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l16b_2p9: ldo16 {
-+			regulator-name = "vreg_l16b_2p9";
-+			regulator-min-microvolt = <2900000>;
-+			regulator-max-microvolt = <2912000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l17b_2p5: ldo17 {
-+			regulator-name = "vreg_l17b_2p5";
-+			regulator-min-microvolt = <2504000>;
-+			regulator-max-microvolt = <2504000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+
-+	regulators-1 {
-+		compatible = "qcom,pm8550ve-rpmh-regulators";
-+		qcom,pmic-id = "c";
-+
-+		vdd-l1-supply = <&vreg_s5j_1p2>;
-+		vdd-s4-supply = <&vph_pwr>;
-+
-+		vreg_s4c_1p8: smps4 {
-+			regulator-name = "vreg_s4c_1p8";
-+			regulator-min-microvolt = <1856000>;
-+			regulator-max-microvolt = <2000000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l1c_1p2: ldo1 {
-+			regulator-name = "vreg_l1c_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2c_0p8: ldo2 {
-+			regulator-name = "vreg_l2c_0p8";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <920000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3c_0p8: ldo3 {
-+			regulator-name = "vreg_l3c_0p8";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <920000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+
-+	regulators-2 {
-+		compatible = "qcom,pmc8380-rpmh-regulators";
-+		qcom,pmic-id = "d";
-+
-+		vdd-l3-supply = <&vreg_s4c_1p8>;
-+		vdd-s1-supply = <&vph_pwr>;
-+
-+		vreg_l1d_0p8: ldo1 {
-+			regulator-name = "vreg_l1d_0p8";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <920000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2d_0p9: ldo2 {
-+			regulator-name = "vreg_l2d_0p9";
-+			regulator-min-microvolt = <912000>;
-+			regulator-max-microvolt = <920000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3d_1p8: ldo3 {
-+			regulator-name = "vreg_l3d_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+
-+	regulators-3 {
-+		compatible = "qcom,pmc8380-rpmh-regulators";
-+		qcom,pmic-id = "e";
-+
-+		vdd-l3-supply = <&vreg_s5j_1p2>;
-+
-+		vreg_l2e_0p8: ldo2 {
-+			regulator-name = "vreg_l2e_0p8";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <880000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3e_1p2: ldo3 {
-+			regulator-name = "vreg_l3e_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+
-+	regulators-6 {
-+		compatible = "qcom,pm8550ve-rpmh-regulators";
-+		qcom,pmic-id = "i";
-+
-+		vdd-l1-supply = <&vreg_s4c_1p8>;
-+		vdd-l2-supply = <&vreg_s5j_1p2>;
-+		vdd-s1-supply = <&vph_pwr>;
-+		vdd-s2-supply = <&vph_pwr>;
-+
-+		vreg_s1i_0p9: smps1 {
-+			regulator-name = "vreg_s1i_0p9";
-+			regulator-min-microvolt = <900000>;
-+			regulator-max-microvolt = <920000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_s2i_1p0: smps2 {
-+			regulator-name = "vreg_s2i_1p0";
-+			regulator-min-microvolt = <1000000>;
-+			regulator-max-microvolt = <1100000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l1i_1p8: ldo1 {
-+			regulator-name = "vreg_l1i_1p8";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2i_1p2: ldo2 {
-+			regulator-name = "vreg_l2i_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3i_0p8: ldo3 {
-+			regulator-name = "vreg_l3i_0p8";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <880000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+
-+	regulators-7 {
-+		compatible = "qcom,pm8550ve-rpmh-regulators";
-+		qcom,pmic-id = "j";
-+
-+		vdd-l2-supply = <&vreg_s5j_1p2>;
-+		vdd-s5-supply = <&vph_pwr>;
-+
-+		vreg_s5j_1p2: smps5 {
-+			regulator-name = "vreg_s5j_1p2";
-+			regulator-min-microvolt = <1256000>;
-+			regulator-max-microvolt = <1304000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l1j_0p8: ldo1 {
-+			regulator-name = "vreg_l1j_0p8";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <920000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2j_1p2: ldo2 {
-+			regulator-name = "vreg_l2j_1p2";
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1256000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3j_0p8: ldo3 {
-+			regulator-name = "vreg_l3j_0p8";
-+			regulator-min-microvolt = <880000>;
-+			regulator-max-microvolt = <880000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+};
-+
-+&gpu {
-+	status = "okay";
-+};
-+
-+&gpu_zap_shader {
-+	firmware-name = "qcom/x1p42100/Microsoft/Surface12/qcdxkmsucpurwa.mbn";
-+};
-+
-+&i2c8 {
-+	clock-frequency = <1000000>;
-+
-+	status = "okay";
-+
-+	touchscreen@16 {
-+		compatible = "hid-over-i2c";
-+		reg = <0x16>;
-+
-+		hid-descr-addr = <0x1>;
-+		interrupts-extended = <&tlmm 38 IRQ_TYPE_LEVEL_LOW>;
-+		wakeup-source;
-+
-+		vddl-supply = <&vreg_l15b_1p8>;
-+
-+		pinctrl-0 = <&ts0_default>;
-+		pinctrl-names = "default";
-+	};
-+};
-+
-+&i2c0 {
-+	clock-frequency = <400000>;
-+
-+	status = "okay";
-+};
-+
-+&i2c4 {
-+	clock-frequency = <400000>;
-+
-+	/* MAX34417 @12 */
-+	/* MAX34417 @14 */
-+	/* MAX34417 @16 */
-+	/* MAX34417 @18 */
-+	/* MAX34417 @1a */
-+
-+	status = "okay";
-+};
-+
-+&i2c9 {
-+	clock-frequency = <400000>;
-+
-+	// NFC @28, commercial devices only
-+
-+	status = "okay";
-+};
-+
-+&lpass_tlmm {
-+	spkr_01_sd_n_active: spkr-01-sd-n-active-state {
-+		pins = "gpio12";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+		output-low;
-+	};
-+};
-+
-+&lpass_vamacro {
-+	qcom,dmic-sample-rate = <4800000>;
-+
-+	vdd-micb-supply = <&vreg_l1b_1p8>;
-+
-+	pinctrl-0 = <&dmic01_default>;
-+	pinctrl-names = "default";
-+};
-+
-+&mdss {
-+	status = "okay";
-+};
-+
-+&mdss_dp0 {
-+	status = "okay";
-+};
-+
-+&mdss_dp0_out {
-+	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
-+};
-+
-+&mdss_dp1 {
-+	status = "okay";
-+};
-+
-+&mdss_dp1_out {
-+	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
-+};
-+
-+&mdss_dp3 {
-+	/delete-property/ #sound-dai-cells;
-+
-+	pinctrl-0 = <&edp0_hpd_default>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+
-+	aux-bus {
-+		panel: panel {
-+			compatible = "edp-panel";
-+
-+			backlight = <&backlight>;
-+
-+			power-supply = <&vreg_edp_3p3>;
-+
-+			port {
-+				edp_panel_in: endpoint {
-+					remote-endpoint = <&mdss_dp3_out>;
-+				};
-+			};
-+		};
-+	};
-+
-+	ports {
-+		port@1 {
-+			reg = <1>;
-+
-+			mdss_dp3_out: endpoint {
-+				data-lanes = <0 1 2 3>;
-+				link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
-+
-+				remote-endpoint = <&edp_panel_in>;
-+			};
-+		};
-+	};
-+};
-+
-+&mdss_dp3_phy {
-+	vdda-phy-supply = <&vreg_l3j_0p8>;
-+	vdda-pll-supply = <&vreg_l2j_1p2>;
-+
-+	status = "okay";
-+};
-+
-+&pcie4 {
-+	pinctrl-0 = <&pcie4_default>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&pcie4_phy {
-+	vdda-phy-supply = <&vreg_l3i_0p8>;
-+	vdda-pll-supply = <&vreg_l3e_1p2>;
-+
-+	status = "okay";
-+};
-+
-+&pcie4_port0 {
-+	reset-gpios = <&tlmm 146 GPIO_ACTIVE_LOW>;
-+	wake-gpios = <&tlmm 148 GPIO_ACTIVE_LOW>;
-+
-+	wifi@0 {
-+		compatible = "pci17cb,1107";
-+		reg = <0x10000 0x0 0x0 0x0 0x0>;
-+
-+		vddaon-supply = <&vreg_pmu_aon_0p59>;
-+		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
-+		vddwlmx-supply = <&vreg_pmu_wlmx_0p85>;
-+		vddrfacmn-supply = <&vreg_pmu_rfa_cmn>;
-+		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
-+		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
-+		vddrfa1p8-supply = <&vreg_pmu_rfa_1p8>;
-+		vddpcie0p9-supply = <&vreg_pmu_pcie_0p9>;
-+		vddpcie1p8-supply = <&vreg_pmu_pcie_1p8>;
-+	};
-+};
-+
-+&pm8550_gpios {
-+    vol_up_n_default: vol-up-n-state {
-+		pins = "gpio8";
-+		function = "normal";
-+		power-source = <1>;
-+		bias-pull-up;
-+		input-enable;
-+	};
-+
-+    vol_down_n_default: vol-down-n-state {
-+		pins = "gpio6";
-+		function = "normal";
-+		power-source = <1>;
-+		bias-pull-up;
-+		input-enable;
-+	};
-+};
-+
-+&pmk8550_pwm {
-+	status = "okay";
-+};
-+
-+&qupv3_0 {
-+	status = "okay";
-+};
-+
-+&qupv3_1 {
-+	status = "okay";
-+};
-+
-+&qupv3_2 {
-+	status = "okay";
-+};
-+
-+&remoteproc_adsp {
-+	firmware-name = "qcom/x1p42100/Microsoft/Surface12/qcadsp8380.mbn",
-+			"qcom/x1p42100/Microsoft/Surface12/adsp_dtbs.elf";
-+
-+	status = "okay";
-+};
-+
-+&remoteproc_cdsp {
-+	firmware-name = "qcom/x1p42100/Microsoft/Surface12/qccdsp8380.mbn",
-+			"qcom/x1p42100/Microsoft/Surface12/cdsp_dtbs.elf";
-+
-+	status = "okay";
-+};
-+
-+&smb2360_0 {
-+	status = "okay";
-+};
-+
-+&smb2360_0_eusb2_repeater {
-+	vdd18-supply = <&vreg_l3d_1p8>;
-+	vdd3-supply = <&vreg_l2b_3p0>;
-+};
-+
-+&smb2360_1 {
-+	status = "okay";
-+};
-+
-+&smb2360_1_eusb2_repeater {
-+	vdd18-supply = <&vreg_l3d_1p8>;
-+	vdd3-supply = <&vreg_l14b_3p0>;
-+};
-+
-+&swr0 {
-+	pinctrl-0 = <&wsa_swr_active>, <&spkr_01_sd_n_active>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+
-+	/* WSA8845, Left speaker */
-+	left_spkr: speaker@0,0 {
-+		compatible = "sdw20217020400";
-+		reg = <0 0>;
-+		reset-gpios = <&lpass_tlmm 12 GPIO_ACTIVE_LOW>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "SpkrLeft";
-+		vdd-1p8-supply = <&vreg_l15b_1p8>;
-+		vdd-io-supply = <&vreg_l12b_1p2>;
-+		qcom,port-mapping = <1 2 3 7 10 13>;
-+	};
-+
-+	/* WSA8845, Right speaker */
-+	right_spkr: speaker@0,1 {
-+		compatible = "sdw20217020400";
-+		reg = <0 1>;
-+		reset-gpios = <&lpass_tlmm 12 GPIO_ACTIVE_LOW>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "SpkrRight";
-+		vdd-1p8-supply = <&vreg_l15b_1p8>;
-+		vdd-io-supply = <&vreg_l12b_1p2>;
-+		qcom,port-mapping = <4 5 6 7 11 13>;
-+	};
-+};
-+
-+&tlmm {
-+	gpio-reserved-ranges = <34 2>, /* Unused */
-+				   <44 4>; /* SPI (TPM) */
-+
-+	edp_reg_en: edp-reg-en-state {
-+		pins = "gpio70";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	hall_int_n_default: hall-int-n-state {
-+		pins = "gpio2";
-+		function = "gpio";
-+		bias-disable;
-+	};
-+
-+	panel_en: panel-en-state {
-+		pins = "gpio29";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	pcie4_default: pcie4-default-state {
-+		clkreq-n-pins {
-+			pins = "gpio147";
-+			function = "pcie4_clk";
-+			drive-strength = <2>;
-+			bias-pull-up;
-+		};
-+
-+		perst-n-pins {
-+			pins = "gpio146";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+
-+		wake-n-pins {
-+			pins = "gpio148";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	ssam_state: ssam-state-state {
-+		pins = "gpio91";
-+		function = "gpio";
-+		bias-disable;
-+	};
-+
-+	ts0_default: ts0-default-state {
-+		int-n-pins {
-+			pins = "gpio38";
-+			function = "gpio";
-+			bias-disable;
-+		};
-+
-+		reset-n-pins {
-+			pins = "gpio48";
-+			function = "gpio";
-+			output-high;
-+			drive-strength = <16>;
-+		};
-+	 };
-+
-+	wcn_sw_en: wcn-sw-en-state {
-+		pins = "gpio214";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	wcn_wlan_bt_en: wcn-wlan-bt-en-state {
-+		pins = "gpio116", "gpio117";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	usb_1_ss0_sbu_default: usb-1-ss0-sbu-state {
-+		oe-n-pins {
-+			pins = "gpio168";
-+			function = "gpio";
-+			bias-disable;
-+			drive-strength = <2>;
-+		};
-+
-+		sel-pins {
-+			pins = "gpio167";
-+			function = "gpio";
-+			bias-disable;
-+			drive-strength = <2>;
-+		};
-+
-+	};
-+
-+	usb_1_ss1_sbu_default: usb-1-ss1-sbu-state {
-+		oe-n-pins {
-+			pins = "gpio179";
-+			function = "gpio";
-+			bias-disable;
-+			drive-strength = <2>;
-+		};
-+
-+		sel-pins {
-+			pins = "gpio178";
-+			function = "gpio";
-+			bias-disable;
-+			drive-strength = <2>;
-+		};
-+	};
-+};
-+
-+&uart2 {
-+	status = "okay";
-+
-+	embedded-controller {
-+		compatible = "microsoft,surface-sam";
-+
-+		interrupts-extended = <&tlmm 91 IRQ_TYPE_EDGE_RISING>;
-+
-+		current-speed = <4000000>;
-+
-+		pinctrl-0 = <&ssam_state>;
-+		pinctrl-names = "default";
-+	};
-+};
-+
-+&uart14 {
-+	status = "okay";
-+
-+	bluetooth {
-+		compatible = "qcom,wcn7850-bt";
-+		max-speed = <3200000>;
-+
-+		vddaon-supply = <&vreg_pmu_aon_0p59>;
-+		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
-+		vddwlmx-supply = <&vreg_pmu_wlmx_0p85>;
-+		vddrfacmn-supply = <&vreg_pmu_rfa_cmn>;
-+		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
-+		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
-+		vddrfa1p8-supply = <&vreg_pmu_rfa_1p8>;
-+	};
-+};
-+
-+&ufs_mem_hc {
-+	vcc-supply = <&vreg_l17b_2p5>;
-+	vcc-max-microamp = <800000>;
-+	vccq-supply = <&vreg_l2i_1p2>;
-+	vccq-max-microamp = <900000>;
-+
-+	vdd-hba-supply = <&vreg_l3j_0p8>;
-+
-+	status = "okay";
-+};
-+
-+&ufs_mem_phy {
-+	status = "okay";
-+
-+	vdda-phy-supply = <&vreg_l3i_0p8>;
-+	vdda-pll-supply = <&vreg_l3e_1p2>;
-+};
-+
-+&usb_1_ss0_hsphy {
-+	vdd-supply = <&vreg_l3j_0p8>;
-+	vdda12-supply = <&vreg_l2j_1p2>;
-+
-+	phys = <&smb2360_0_eusb2_repeater>;
-+
-+	status = "okay";
-+};
-+
-+&usb_1_ss0_qmpphy {
-+	vdda-phy-supply = <&vreg_l2j_1p2>;
-+	vdda-pll-supply = <&vreg_l1j_0p8>;
-+
-+	status = "okay";
-+};
-+
-+&usb_1_ss0 {
-+	dr_mode = "host";
-+
-+	status = "okay";
-+};
-+
-+&usb_1_ss0_dwc3_hs {
-+	remote-endpoint = <&pmic_glink_ss0_hs_in>;
-+};
-+
-+&usb_1_ss0_qmpphy_out {
-+	remote-endpoint = <&pmic_glink_ss0_ss_in>;
-+};
-+
-+&usb_1_ss1_hsphy {
-+	vdd-supply = <&vreg_l3j_0p8>;
-+	vdda12-supply = <&vreg_l2j_1p2>;
-+
-+	phys = <&smb2360_1_eusb2_repeater>;
-+
-+	status = "okay";
-+};
-+
-+&usb_1_ss1_qmpphy {
-+	vdda-phy-supply = <&vreg_l2j_1p2>;
-+	vdda-pll-supply = <&vreg_l2d_0p9>;
-+
-+	status = "okay";
-+};
-+
-+&usb_1_ss1 {
-+	dr_mode = "host";
-+
-+	status = "okay";
-+};
-+
-+&usb_1_ss1_dwc3_hs {
-+	remote-endpoint = <&pmic_glink_ss1_hs_in>;
-+};
-+
-+&usb_1_ss1_qmpphy_out {
-+	remote-endpoint = <&pmic_glink_ss1_ss_in>;
-+};
--- 
-2.53.0
+> +enum gpio_qenc_function {
+> +	GPIO_QENC_FUNC_QUAD_X1 = 0,
+> +	GPIO_QENC_FUNC_QUAD_X2,
+> +	GPIO_QENC_FUNC_QUAD_X4,
+> +	GPIO_QENC_FUNC_PULSE_DIR,
+> +};
 
+We use device specific enums to map device hardware register values to
+the Counter subsystem function enum constants. However, because this
+driver is not tied to any specific device hardware, you don't need to
+define a new enum. In other words, just use the COUNTER_FUNCTION_*
+constants directly in your code.
+
+> +struct gpio_qenc_priv {
+> +	struct gpio_desc *gpio_a;
+> +	struct gpio_desc *gpio_b;
+> +	struct gpio_desc *gpio_index;
+> +
+> +	int irq_a;
+> +	int irq_b;
+> +	int irq_index;
+> +
+> +	spinlock_t lock;
+> +
+> +	s64 count;
+
+The count_read()/count_write() callbacks pass a u64 count value, so I
+suspect this private count value store can be u64 as well.
+
+> +	u64 ceiling;
+> +	bool enabled;
+> +	enum counter_count_direction direction;
+> +	enum gpio_qenc_function function;
+> +
+> +	int prev_a;
+> +	int prev_b;
+> +
+> +	bool index_enabled;
+> +
+> +	struct counter_signal signals[3];
+> +	struct counter_synapse synapses[3];
+> +	struct counter_count cnts;
+
+I know you only have a single count, but for consistency with the rest
+of the code and Counter subsystem, I recommend declaring this as a
+single element array:
+
+	struct counter_count cnts[1];
+
+> +};
+> +
+> +/*
+> + * Quadrature state table for X4 decoding.
+> + * Rows = previous state (A<<1 | B), Columns = new state (A<<1 | B).
+> + * Values: 0 = no change, +1 = forward, -1 = backward, 2 = error (skip).
+> + */
+> +static const int quad_table[4][4] = {
+> +	/*          00  01  10  11  <- new */
+> +	/* 00 */ {  0, -1,  1,  2 },
+> +	/* 01 */ {  1,  0,  2, -1 },
+> +	/* 10 */ { -1,  2,  0,  1 },
+> +	/* 11 */ {  2,  1, -1,  0 },
+> +};
+> +
+> +static void gpio_qenc_update_count(struct gpio_qenc_priv *priv, int delta)
+> +{
+> +	s64 new_count;
+> +
+> +	if (!delta)
+> +		return;
+> +
+> +	new_count = priv->count + delta;
+> +
+> +	if (priv->ceiling) {
+> +		if (new_count < 0)
+> +			new_count = 0;
+> +		else if (new_count > (s64)priv->ceiling)
+> +			new_count = priv->ceiling;
+> +	}
+> +
+> +	priv->count = new_count;
+> +	priv->direction = (delta > 0) ? COUNTER_COUNT_DIRECTION_FORWARD
+> +				      : COUNTER_COUNT_DIRECTION_BACKWARD;
+
+Quadrature encoding represents changes of a single unit value at a time.
+Because we never increase nor decrease more than a value of 1 at a time,
+I think the code would read clearer if we determine the direction first,
+then make the adjustments to the count value thereafter. Maybe something
+like this (assuming priv->count is u64):
+
+	if (!delta)
+		return;
+	
+	priv->direction = (delta > 0) ? COUNTER_COUNT_DIRECTION_FORWARD
+				      : COUNTER_COUNT_DIRECTION_BACKWARD;
+	
+	if (priv->direction == COUNTER_COUNT_DIRECTION_FORWARD)
+		priv->count = (priv->count == priv->ceiling) ? priv->ceiling
+							     : priv->count + 1;
+	else
+		priv->count = (priv->count == 0) ? priv->ceiling
+						 : priv->count - 1;
+
+> +}
+> +
+> +static irqreturn_t gpio_qenc_a_isr(int irq, void *dev_id)
+> +{
+> +	struct counter_device *counter = dev_id;
+> +	struct gpio_qenc_priv *priv = counter_priv(counter);
+> +	unsigned long flags;
+> +	int a, b, prev_state, new_state, delta;
+> +
+> +	spin_lock_irqsave(&priv->lock, flags);
+> +
+> +	if (!priv->enabled)
+> +		goto out;
+
+Do we need to check the enabled state? If the IRQ is disabled, we don't
+reach this path, or do we?
+
+> +
+> +	a = gpiod_get_value(priv->gpio_a);
+> +	b = gpiod_get_value(priv->gpio_b);
+> +
+> +	prev_state = (priv->prev_a << 1) | priv->prev_b;
+> +	new_state = (a << 1) | b;
+
+I might make sense to wrap the state operation into a macro to make the
+intention of these bitwise operations more intuitive. For example:
+
+	prev_state = CREATE_QE_STATE(priv->prev_a, priv->prev_b);
+	new_state = CREATE_QE_STATE(a, b);
+
+Or something like that makes it more obvious that these two lines are
+just building the indices for the state array rather than any inherent
+meaning in the binary representation of the variables.
+
+> +
+> +	switch (priv->function) {
+> +	case GPIO_QENC_FUNC_QUAD_X4:
+> +		delta = quad_table[prev_state][new_state];
+> +		if (delta == 2)
+> +			delta = 0;
+> +		gpio_qenc_update_count(priv, delta);
+> +		break;
+> +
+> +	case GPIO_QENC_FUNC_QUAD_X2:
+> +		delta = quad_table[prev_state][new_state];
+> +		if (delta == 2)
+> +			delta = 0;
+> +		gpio_qenc_update_count(priv, delta);
+> +		break;
+
+After determining the delta value we call the gpio_qenc_update_count()
+function immedidately. We can save on a function call and remove the
+!delta check in gpio_qenc_update_count() if you make the call only when
+delta is known to update the count; for example:
+
+	if (!delta && delta != 2)
+		gpio_qenc_update_count(priv, delta);
+
+In fact, you may consider just removing the "2" states from the
+quad_table and leaving it as just "0" because the effect is the same,
+right?
+
+> +static irqreturn_t gpio_qenc_b_isr(int irq, void *dev_id)
+> +{
+> +	struct counter_device *counter = dev_id;
+> +	struct gpio_qenc_priv *priv = counter_priv(counter);
+> +	unsigned long flags;
+> +	int a, b, prev_state, new_state, delta;
+> +
+> +	spin_lock_irqsave(&priv->lock, flags);
+> +
+> +	if (!priv->enabled)
+> +		goto out;
+> +
+> +	a = gpiod_get_value(priv->gpio_a);
+> +	b = gpiod_get_value(priv->gpio_b);
+> +
+> +	prev_state = (priv->prev_a << 1) | priv->prev_b;
+> +	new_state = (a << 1) | b;
+> +
+> +	switch (priv->function) {
+> +	case GPIO_QENC_FUNC_QUAD_X4:
+> +		delta = quad_table[prev_state][new_state];
+> +		if (delta == 2)
+> +			delta = 0;
+> +		gpio_qenc_update_count(priv, delta);
+> +		break;
+> +
+> +	case GPIO_QENC_FUNC_QUAD_X2:
+> +		/* X2: only A-channel edges update count */
+> +		break;
+> +
+> +	case GPIO_QENC_FUNC_QUAD_X1:
+> +	case GPIO_QENC_FUNC_PULSE_DIR:
+> +		break;
+
+I guess you added these two cases to pacify the compiler warning for
+missing switch cases. You can provide a default case instead so we don't
+need to list out every case that is ignored.
+
+> +static irqreturn_t gpio_qenc_index_isr(int irq, void *dev_id)
+> +{
+> +	struct counter_device *counter = dev_id;
+> +	struct gpio_qenc_priv *priv = counter_priv(counter);
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&priv->lock, flags);
+> +
+> +	if (priv->enabled && priv->index_enabled)
+> +		priv->count = 0;
+> +
+> +	spin_unlock_irqrestore(&priv->lock, flags);
+> +
+> +	counter_push_event(counter, COUNTER_EVENT_INDEX, 0);
+> +
+> +	return IRQ_HANDLED;
+> +}
+
+In many quadrature encoder devices I've seen, Index functions can be
+chosen which determine what happens to the count when an Index signal
+occurs. Typically, one of those functions is to reset the count, but
+that is not necessary the only function nor is it unconditionally
+enabled.
+
+Existing drivers such as 104-quad-8 use COUNTER_COMP_PRESET to define a
+preset component that holds a value to preset the counter on an Index
+signal; COUNTER_COMP_PRESET_ENABLE is used to enable/disable such
+functionality. You may want to implement something similar for
+gpio-quadrature-encoder, and consider other such Index functionality
+that may be desirable to provide to users.
+
+> +static int gpio_qenc_count_write(struct counter_device *counter,
+> +				 struct counter_count *count, const u64 val)
+> +{
+> +	struct gpio_qenc_priv *priv = counter_priv(counter);
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&priv->lock, flags);
+> +
+> +	if (priv->ceiling && val > priv->ceiling) {
+> +		spin_unlock_irqrestore(&priv->lock, flags);
+> +		return -EINVAL;
+> +	}
+
+So the ceiling component represents the highest value the count can
+reach. I would argue a ceiling value of 0 does not indicate a disabled
+ceiling but rather a Count which is limited to the value of 0; n.b. this
+technically is not a disabled Count because COUNTER_EVENT_OVERFLOW could
+still be pushed in this scenario, albeit a rather dubious configuration
+for the Count in real life applications.
+
+To "disable" a ceiling, the user would set the ceiling value to the
+maximum value supported by the device hardware (or U64_MAX in our case
+if priv->count is u64). In fact, you should initialize priv->ceiling to
+this maximum value in your gpio_qenc_probe() callback so that we don't
+limit.
+
+> +static int gpio_qenc_function_read(struct counter_device *counter,
+> +				   struct counter_count *count,
+> +				   enum counter_function *function)
+> +{
+> +	struct gpio_qenc_priv *priv = counter_priv(counter);
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&priv->lock, flags);
+> +
+> +	switch (priv->function) {
+> +	case GPIO_QENC_FUNC_QUAD_X1:
+> +		*function = COUNTER_FUNCTION_QUADRATURE_X1_A;
+> +		break;
+> +	case GPIO_QENC_FUNC_QUAD_X2:
+> +		*function = COUNTER_FUNCTION_QUADRATURE_X2_A;
+> +		break;
+> +	case GPIO_QENC_FUNC_QUAD_X4:
+> +		*function = COUNTER_FUNCTION_QUADRATURE_X4;
+> +		break;
+> +	case GPIO_QENC_FUNC_PULSE_DIR:
+> +		*function = COUNTER_FUNCTION_PULSE_DIRECTION;
+> +		break;
+> +	}
+
+If you use declare priv->function as enum counter_function, you can
+replace the entire switch as a simple set operation:
+
+	*function = priv->function;
+
+> +
+> +	spin_unlock_irqrestore(&priv->lock, flags);
+> +	return 0;
+> +}
+> +
+> +static int gpio_qenc_function_write(struct counter_device *counter,
+> +				    struct counter_count *count,
+> +				    enum counter_function function)
+> +{
+> +	struct gpio_qenc_priv *priv = counter_priv(counter);
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&priv->lock, flags);
+> +
+> +	switch (function) {
+> +	case COUNTER_FUNCTION_QUADRATURE_X1_A:
+> +		priv->function = GPIO_QENC_FUNC_QUAD_X1;
+> +		break;
+> +	case COUNTER_FUNCTION_QUADRATURE_X2_A:
+> +		priv->function = GPIO_QENC_FUNC_QUAD_X2;
+> +		break;
+> +	case COUNTER_FUNCTION_QUADRATURE_X4:
+> +		priv->function = GPIO_QENC_FUNC_QUAD_X4;
+> +		break;
+> +	case COUNTER_FUNCTION_PULSE_DIRECTION:
+> +		priv->function = GPIO_QENC_FUNC_PULSE_DIR;
+> +		break;
+> +	default:
+> +		spin_unlock_irqrestore(&priv->lock, flags);
+> +		return -EINVAL;
+> +	}
+
+Same suggestion as for gpio_qenc_function_read():
+
+	priv->function = function;
+
+> +
+> +	spin_unlock_irqrestore(&priv->lock, flags);
+> +	return 0;
+> +}
+> +
+> +static const enum counter_synapse_action gpio_qenc_synapse_actions[] = {
+> +	COUNTER_SYNAPSE_ACTION_BOTH_EDGES,
+> +	COUNTER_SYNAPSE_ACTION_RISING_EDGE,
+> +	COUNTER_SYNAPSE_ACTION_NONE,
+> +};
+
+If I'm not mistaken, you can fire interrupts on the falling edge of a
+GPIO signal. It'd be good to support such a configuration as it's
+necessary for Quadrature X1 A mode.
+
+> +static int gpio_qenc_action_read(struct counter_device *counter,
+> +				 struct counter_count *count,
+> +				 struct counter_synapse *synapse,
+> +				 enum counter_synapse_action *action)
+> +{
+> +	struct gpio_qenc_priv *priv = counter_priv(counter);
+> +	enum gpio_qenc_signal_id signal_id = synapse->signal->id;
+
+You can eliminate a lot of the else statements the switch block by
+handling a couple default cases. For example, you can define a default
+action mode of "none" and have the rest of the code only set an action
+if meets the right criteria.
+
+Furthermore, the Index synapse should be treated as independent of
+the quadrature mode; the Signal is not evaluated in determining the
+encoding state, and is commonly used on physical quadrature encoder
+devices as a count reset trigger in non-quadrature modes. So I recommend
+handling it early here as well:
+
+	/* Default action mode */
+	*action = COUNTER_SYNAPSE_ACTION_NONE;
+
+	/* Handle Index Signal */
+	if (priv->index_enabled && signal_id == GPIO_QENC_SIGNAL_INDEX) {
+		*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
+		return 0;
+	}
+
+> +
+> +	switch (priv->function) {
+> +	case GPIO_QENC_FUNC_QUAD_X4:
+> +		if (signal_id == GPIO_QENC_SIGNAL_A ||
+> +		    signal_id == GPIO_QENC_SIGNAL_B)
+> +			*action = COUNTER_SYNAPSE_ACTION_BOTH_EDGES;
+> +		else
+> +			*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
+> +		return 0;
+
+With the default cases suggested earlier, the if statement and else go
+away completely and you can directly set the action to "both edges":
+
+	case COUNTER_FUNCTION_QUADRATURE_X4:
+		*action = COUNTER_SYNAPSE_ACTION_BOTH_EDGES;
+		return 0;
+
+> +
+> +	case GPIO_QENC_FUNC_QUAD_X2:
+> +		if (signal_id == GPIO_QENC_SIGNAL_A)
+> +			*action = COUNTER_SYNAPSE_ACTION_BOTH_EDGES;
+> +		else if (signal_id == GPIO_QENC_SIGNAL_B)
+> +			*action = COUNTER_SYNAPSE_ACTION_NONE;
+> +		else
+> +			*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
+> +		return 0;
+
+Ditto:
+
+	case COUNTER_FUNCTION_QUADRATURE_X2_A:
+		if (signal_id == GPIO_QENC_SIGNAL_A)
+			*action = COUNTER_SYNAPSE_ACTION_BOTH_EDGES;
+		return 0;
+
+> +
+> +	case GPIO_QENC_FUNC_QUAD_X1:
+> +		if (signal_id == GPIO_QENC_SIGNAL_A)
+> +			*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
+> +		else if (signal_id == GPIO_QENC_SIGNAL_B)
+> +			*action = COUNTER_SYNAPSE_ACTION_NONE;
+> +		else
+> +			*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
+> +		return 0;
+
+In the commit description you mention that this mode counts only rising
+edges, but you matched this to COUNTER_FUNCTION_QUADRATURE_X1_A which
+depends on the current direction to determine which edge is active. I'll
+assume that was your intention (otherwise this becomes a duplicate of
+pulse-direction mode with Index handled independent of quadrature mode):
+
+	case COUNTER_FUNCTION_QUADRATURE_X1_A:
+		if (signal_id == GPIO_QENC_SIGNAL_A) {
+			if (priv->direction == COUNTER_COUNT_DIRECTION_FORWARD)
+				*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
+			else
+				*action = COUNTER_SYNAPSE_ACTION_FALLING_EDGE;
+		}
+		return 0;
+
+> +
+> +	case GPIO_QENC_FUNC_PULSE_DIR:
+> +		if (signal_id == GPIO_QENC_SIGNAL_A)
+> +			*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
+> +		else
+> +			*action = COUNTER_SYNAPSE_ACTION_NONE;
+> +		return 0;
+
+This cas becomes simple too:
+
+	case COUNTER_FUNCTION_PULSE_DIRECTION:
+		if (signal_id == GPIO_QENC_SIGNAL_A)
+			*action = COUNTER_SYNAPSE_ACTION_RISING_EDGE;
+		return 0;
+
+> +	}
+> +
+> +	return -EINVAL;
+> +}
+> +
+> +static int gpio_qenc_signal_read(struct counter_device *counter,
+> +				 struct counter_signal *signal,
+> +				 enum counter_signal_level *level)
+> +{
+> +	struct gpio_qenc_priv *priv = counter_priv(counter);
+> +	struct gpio_desc *gpio;
+> +	int ret;
+> +
+> +	switch (signal->id) {
+> +	case GPIO_QENC_SIGNAL_A:
+> +		gpio = priv->gpio_a;
+> +		break;
+> +	case GPIO_QENC_SIGNAL_B:
+> +		gpio = priv->gpio_b;
+> +		break;
+> +	case GPIO_QENC_SIGNAL_INDEX:
+> +		gpio = priv->gpio_index;
+> +		break;
+> +	default:
+> +		return -EINVAL;
+
+The default case is unneeded because all possible enum constants are
+handled by the switch block.
+
+> +	}
+> +
+> +	if (!gpio)
+> +		return -EINVAL;
+
+Why is it possible to get back a zero value? Is this to handle the case
+where a GPIO line does not exist? Would it be possible avoid adding
+Counter Signals for missing GPIO during the gpio_qenc_probe() call so we
+don't encounter such zombie Counter Signals?
+
+> +
+> +	ret = gpiod_get_value(gpio);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	*level = ret ? COUNTER_SIGNAL_LEVEL_HIGH : COUNTER_SIGNAL_LEVEL_LOW;
+> +	return 0;
+> +}
+> +
+> +static int gpio_qenc_events_configure(struct counter_device *counter)
+> +{
+> +	return 0;
+> +}
+
+The events_configure() callback is option, so you don't need to define
+it if it doesn't do anything. Its intention is to enable/disable device
+interrupts based on the Counter watches requested by users; that doesn't
+apply for this driver because our encoding state is virtual and we push
+Counter events as needed when we update the virtual state.
+
+> +static int gpio_qenc_enable_write(struct counter_device *counter,
+> +				  struct counter_count *count, u8 enable)
+> +{
+> +	struct gpio_qenc_priv *priv = counter_priv(counter);
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&priv->lock, flags);
+> +
+> +	if (priv->enabled == !!enable) {
+> +		spin_unlock_irqrestore(&priv->lock, flags);
+> +		return 0;
+> +	}
+> +
+> +	if (enable) {
+> +		priv->enabled = true;
+> +		spin_unlock_irqrestore(&priv->lock, flags);
+> +		enable_irq(priv->irq_a);
+> +		enable_irq(priv->irq_b);
+> +		if (priv->irq_index)
+> +			enable_irq(priv->irq_index);
+> +	} else {
+> +		priv->enabled = false;
+> +		spin_unlock_irqrestore(&priv->lock, flags);
+> +		disable_irq(priv->irq_a);
+> +		disable_irq(priv->irq_b);
+> +		if (priv->irq_index)
+> +			disable_irq(priv->irq_index);
+> +	}
+> +
+> +	return 0;
+> +}
+
+The value of enable is ensured by the Counter subsystem to be a bool
+when passed to the enable_write() callback, so there's no need for the
+double negation; you can compare against enable directly. Also you can
+simplify the if block by setting priv->enabled unconditionally and
+adding a return 0 to the if path:
+
+	spin_lock_irqsave(&priv->lock, flags);
+
+	if (priv->enabled == enable) {
+		spin_unlock_irqrestore(&priv->lock, flags);
+		return 0;
+	}
+	priv->enabled = enable;
+
+	spin_unlock_irqrestore(&priv->lock, flags);
+
+	if (enable) {
+		enable_irq(priv->irq_a);
+		enable_irq(priv->irq_b);
+		if (priv->irq_index)
+			enable_irq(priv->irq_index);
+		return 0;
+	}
+
+	disable_irq(priv->irq_a);
+	disable_irq(priv->irq_b);
+	if (priv->irq_index)
+		disable_irq(priv->irq_index);
+
+	return 0;
+
+> +static struct counter_comp gpio_qenc_count_ext[] = {
+> +	COUNTER_COMP_CEILING(gpio_qenc_ceiling_read, gpio_qenc_ceiling_write),
+> +	COUNTER_COMP_ENABLE(gpio_qenc_enable_read, gpio_qenc_enable_write),
+> +	COUNTER_COMP_DIRECTION(gpio_qenc_direction_read),
+> +	COUNTER_COMP_COUNT_BOOL("index_enabled",
+> +				gpio_qenc_index_enable_read,
+> +				gpio_qenc_index_enable_write),
+
+The Index function in this driver is used to preset (reset) the Count so
+rather than define your own "index_enabled" component, the idiomatic way
+to handle this behavior in the Counter subsystem is to set
+priv->index_enabled via COUNTER_COMP_PRESET_ENABLE().
+
+> +	priv->synapses[0].actions_list = gpio_qenc_synapse_actions;
+> +	priv->synapses[0].num_actions = ARRAY_SIZE(gpio_qenc_synapse_actions);
+> +	priv->synapses[0].signal = &priv->signals[GPIO_QENC_SIGNAL_A];
+> +
+> +	priv->synapses[1].actions_list = gpio_qenc_synapse_actions;
+> +	priv->synapses[1].num_actions = ARRAY_SIZE(gpio_qenc_synapse_actions);
+> +	priv->synapses[1].signal = &priv->signals[GPIO_QENC_SIGNAL_B];
+> +
+> +	if (has_index) {
+> +		priv->synapses[2].actions_list = gpio_qenc_synapse_actions;
+
+The Index Signal only has two possible Synapse actions "rising edge" and
+"none". Because that differs from the Quadrature A and B Signals (which
+can also have "both edges" for example), you need to define a separate
+static const enum counter_synapse_action array for just the Index
+Signal which has just those two actions.
+
+> +	priv->cnts.id = 0;
+> +	priv->cnts.name = "Position";
+
+Name this something more generic such as "Count" because positioning is
+only one of the possible applications for a quadrature encoder not its
+sole use case.
+
+> +	counter->name = dev_name(dev);
+> +	counter->parent = dev;
+> +	counter->ops = &gpio_qenc_ops;
+> +	counter->signals = priv->signals;
+> +	counter->num_signals = num_signals;
+> +	counter->counts = &priv->cnts;
+> +	counter->num_counts = 1;
+
+Use ARRAY_SIZE() for num_counts for the sake of consistency (and in case
+we ever support more than one Count in future updates).
+
+William Breathitt Gray
