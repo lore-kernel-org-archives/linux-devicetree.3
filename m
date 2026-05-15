@@ -1,60 +1,62 @@
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
+Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com [209.85.160.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E1263812C2
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 22:22:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62BCA1DF261
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 22:22:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778883736; cv=none; b=tTt2aQJCAnD5U0yA6HJyMYK7p7/ZI+hSEozAc2yxKgn86fFHgDBAGomrsFkkwWLi5LVXncqcHhKBEWJ3Wsq14aoWsYakDM+YIgSgPtc9U/NFeXHZS0qdAAXiaLmca4j8aKw8/1mxlborQywdZ3kOxedVhkh+pBWUi2czdQ76tDU=
+	t=1778883737; cv=none; b=RSxiEse8zeomADDGuFt+4BTwkc28aZ93fQB//bN5+aDx+3pd4757WNqIB02ohIqIo/l9NwiaCyHuwqoVj2kG8u0+/UqYdQClPdYJR5d/Zzrldsq/6zvsxzQBpfyJwGIvz5gVY9pVXeiAW61kO3+9dYJ53SSdsKVDvRzATBTVSXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778883736; c=relaxed/simple;
-	bh=9HoFIWvMx+t3kfwrcyvOsuK+wni8VWqYz//BsbgoorA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qtdJhNBrEl7a5Vsi3J7WFcnSfWoNtOoDshKbwIzF5COqdzknqrUYONoshY/ofuCyy4WHUaCxz+obxi/LFTRZGMDUNA4R0yYYXDttfgzDFyCrztoEUaBHDB916mVuAsT0eElOs78bITqajE2HbLn2ltEtwf5R0yOtqvLJn1/XyxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZFsVQK3H; arc=none smtp.client-ip=209.85.210.43
+	s=arc-20240116; t=1778883737; c=relaxed/simple;
+	bh=Yc29TTeopF7GBGZJDILyfmE7Cm2PTK7KPtu3Zc9tXfI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KPtdonlV6qhP/gj6xpLPV0Ss2juHoooFxRX9ZpOqAj97Q9tsQvVydK2YaRtKEOUWdaxiO1xTLRrbQaA+6V4SR5RE9tFa8EgIRvYWSKGFCzMxxwwa3YLEdu1SVXQUtnp5gKa6UjKvH3T4muzZwMBZl3gdUmXdmUqscnU9pPtwLtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=icznFxov; arc=none smtp.client-ip=209.85.160.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZFsVQK3H"
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-7dcdd1b492eso342587a34.1
-        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 15:22:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="icznFxov"
+Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-439bdb1d75bso220926fac.1
+        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 15:22:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778883734; x=1779488534; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=nzgPino86LaQeP8b63WXKQ8PXEYI7/0fnGLVDfvDc4M=;
-        b=ZFsVQK3HnHG/psndD8yOO6seArZBMt4CpR6eN3udHN4k/IoeOWRNLOL/8zABnl/eCo
-         uFDdppa7Nm2EKEYXlXroQ53YGjfF6N2S64a1n1Pvn4DoIQcj99SyNZlH8GA4Jf1ShWcr
-         ALBe9CeLj0nKcsLOtNSZvx/LX2htVnkHKcqGI575qVCOzy1wpRYRPDwhyWhY8LmCgp/m
-         geC0V9w0wtro4Q50dgEPvDpbnfkPXdO2x+HnD5h6QjQ+e9UHxq2/qt/j/Au06TROOI19
-         lxo+1wVKjvnkWH57o4g31NJ6KmRfaznr9dzYhudOTB15w3D6ja77k0oiXyegLAMvihUm
-         Ovxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778883734; x=1779488534;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1778883735; x=1779488535; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=nzgPino86LaQeP8b63WXKQ8PXEYI7/0fnGLVDfvDc4M=;
-        b=SoBA9EZ2nero6PLZa5vYhRg9fNR3iaUOuffJrJDhFs1qI3q3Li2Erf3XV/Mh3FloG6
-         NDjx5dJTqdvOofT+UPRv56uq467WVwa6emKqC406iGLLvfYtZUUe9r/dEMu44h5t1NV7
-         GYCBBm5s7IDHolTu4kz6SiR4q8ConJ96YZNCOZyr8blcLAxwA8au8Yvka9DVcUNoQFMX
-         DyWfBBcRKUgRamPiMd5N74N49mJX5+Qg762vx3yw8d58AjDI+TeYEhrQI5A+BSfuTsaj
-         9czxXo2ryHn2v2qgmt0sqQkhScioFgE8GXd5qCVlEUVowEHNkaowsCAw+ZJsE5mZM3CC
-         uB+Q==
-X-Gm-Message-State: AOJu0YzoI+qfvk2/TBC44G6oXURVBujnq87h9yQDOVIRcf7E5yUiwJ/6
-	3wAwQg0oR5FmJWd5qeBkn0aq83ihahZaW/QWZy99kWjm5CGXmzFIr0Vlv8NUrKZC
-X-Gm-Gg: Acq92OHdN6Aw9N+vgoTqBHsU79Na37yf0SVbztN/BZPNIggj5H5/0JcZOZ3oUl1zscV
-	kikqmUogc0a2XdkbqjEsZJ6VFdKNgQVsFl96VRWyoZig9yoGe/v6qJvsEUH4wM1ClDmZDzw1VMW
-	YQ+gVHw7W6CvF4a3pZOvFhldtvc8/pOzt1c8YpUB0RghCG7NAAfSDbU8xwbK+cgHNq77NMmk+Js
-	5VwKb3Rm8QKAy/pBe/txQWwWyGLCtyXcqheSFBfqd63EG0S0igYQ71RQF2WPHJQ53vHDUtuBVf6
-	hnExhN5+0bayxU9Uwqx6gr5Vquc126XEyIDpfvM078LdOCXKlFaAn0juGd8w35+cGjXC1jPvE0C
-	oNyEMEuRl/1fSN6ugKwNm0fO1gyUhHCPwiOw2P4emYLeoH/+DWOOK4jmHdQzBV7WuZdLrOTAyrJ
-	vQUujux7mJVO2JT6MeMzmCdn+ntKU+pezpjK2x1RqAnYG+6ykpQ1co
-X-Received: by 2002:a05:6830:2a08:b0:7d7:f70b:5b0e with SMTP id 46e09a7af769-7e4a400124dmr3371261a34.12.1778883734287;
-        Fri, 15 May 2026 15:22:14 -0700 (PDT)
+        bh=eWRRU0GvDFaf4a964FT+cr5rSIOhJbhEFzH95X7dSHg=;
+        b=icznFxovqwqwmEPwWx11jsmfS3vGUKkz0dXhYH42YD9aCPGatU5auo0ipdubkUj8FP
+         x7jVM63KMvA9cmvHE0zdOboOuw37uHX0swV2QPe4v/b8OJMjfXr9xUqwq2M067+oBwzC
+         VhNxMmOWH+umBsiYpmpobeauYIPk3ycw19UWZQjW8WxArpXNA3aNoOS8AGL7PEw0cl2b
+         nYv99s81w4W7b2VMTOgFCbaYeuzD7MdwPJaCZSQv1N8uufRxKja4UvXWrz4ERDdNWF/1
+         ObLmP46xa0I0Wpq+4pV4e/+9dHYo75MoC17GN5ea4HPGBTb3DkxilevwMIwwXZ8torOZ
+         FaWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778883735; x=1779488535;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=eWRRU0GvDFaf4a964FT+cr5rSIOhJbhEFzH95X7dSHg=;
+        b=RXyWkw2KMzUhbZy4czqN7V/FFP2rA5NKihLDikjQxsibC9w1vi89RT7V6ChMBB0eyq
+         1MD4ZHnHlxv6iucfErX3eLzIAbcMMdZ+eIt1VOZFsXhycQDDPJkE4CfXwmjpuJGPHHJb
+         YQdNCgEOEiBpzNFn0Bxp1nhog7xcJ3rS67Kx0qe0cbYZdadRWviuUek5rfdpWQlP2sl/
+         aILLOnqahI47TRJVY37se7MG0wnAbOEVevat3GxuodBpHNx+WgEgf2fZHBJdQ3YdvXjq
+         njZbf2xwWjQkzVGIkR6/guhBsHnheZY1jTuwnC2mm3XW4TVlzqq1bC/UlSYReLG4j7Ik
+         ksQw==
+X-Gm-Message-State: AOJu0Ywdy/HliFa1NWdcRuEsMN76xk+rcZlg8oB5YI5TxunrfDB7HhWG
+	SKTn/C3XVOC6kI9JIo+icpzK2gpG3pGwCa10Obg+ZzBhw8U8vHcHvSBJ
+X-Gm-Gg: Acq92OH9MrzmUYYrLc5D2KDZ4ZSSeQt8xlzqKZdNYJhvRZ5IvvI238WTyZiOGe9fG0S
+	pZLb/s/K0rfjWWGlaKliUfDTCFI9nGz2z020TjXvrmZXhdHKjsxtuU6+0XRgFeT5fRzrssUMqQB
+	2Zg8qVgcgYcmrRHsP3L1Oc8aB6xYJ1Uh5NaQK1ItDrpwLpHAetp770i3z9dpnrUSDMTAEHolQN4
+	YV2jUHjX4qLuJ/1bAYY++HUsJ1OfEB8D1Odmocnol8DP1tZj/GiXhyplisbLR+oq2MhQ7+EBagS
+	RcJ58sAaUy+yfDP0Wtw08WNMhVmCSju0fNRU8qq1Q8lEGilnCEJNoevc2d57kVLN6UHfwfygIyv
+	/7NqyEUgF3LEBDi+o4/SmKxAorhUVgLpgOR/bJ14jM8PV2DfvbpSKZnQ5yfQaT7glHmSq14R2fJ
+	gNoHY2EpXrXzORoZD0ejnR+7p57/rECo492g1TMwP9hw==
+X-Received: by 2002:a05:6808:3204:b0:47c:6c9c:607d with SMTP id 5614622812f47-482e55a978bmr4321044b6e.2.1778883735358;
+        Fri, 15 May 2026 15:22:15 -0700 (PDT)
 Received: from localhost.localdomain ([2600:1700:fb0:1bc0:8c2e:6a8e:445a:9169])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e568c0d889sm980764a34.9.2026.05.15.15.22.13
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e568c0d889sm980764a34.9.2026.05.15.15.22.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 15 May 2026 15:22:13 -0700 (PDT)
+        Fri, 15 May 2026 15:22:14 -0700 (PDT)
 From: Chris Morgan <macroalpha82@gmail.com>
 To: linux-rockchip@lists.infradead.org
 Cc: devicetree@vger.kernel.org,
@@ -72,10 +74,12 @@ Cc: devicetree@vger.kernel.org,
 	krzk+dt@kernel.org,
 	robh@kernel.org,
 	Chris Morgan <macromorgan@hotmail.com>
-Subject: [PATCH V2 0/6] Add Anbernic RG Vita-Pro
-Date: Fri, 15 May 2026 17:19:41 -0500
-Message-ID: <20260515221947.299229-1-macroalpha82@gmail.com>
+Subject: [PATCH V2 1/6] dt-bindings: power: supply: sgm41542: document sgm41542
+Date: Fri, 15 May 2026 17:19:42 -0500
+Message-ID: <20260515221947.299229-2-macroalpha82@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260515221947.299229-1-macroalpha82@gmail.com>
+References: <20260515221947.299229-1-macroalpha82@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -86,39 +90,122 @@ Content-Transfer-Encoding: 8bit
 
 From: Chris Morgan <macromorgan@hotmail.com>
 
-Add support for the Anbernic RG Vita-Pro, based on the Rockchip RK3576 SoC.
+Document the SG Micro sgm41542 battery charger/boost converter.
+The parameters of input-current-limit-microamp and
+input-voltage-limit-microvolt are defined as such since they are in
+common use among multiple bindings currently.
 
-Changes Since V1:
- - Updated documentation filename to matche compatible string.
- - Corrected order of allocating IRQ in charger driver and switched
-   to using devm managed function to allocate work queue.
-
-Chris Morgan (6):
-  dt-bindings: power: supply: sgm41542: document sgm41542
-  power: supply: sgm41542: Add SG Micro sgm41542 charger
-  dt-bindings: display: panel: document Anbernic TD4310 panel
-  drm/panel: anbernic-td4310: Add RG Vita Pro panel
-  dt-bindings: arm: rockchip: Add Anbernic RG Vita-Pro
-  arm64: dts: rockchip: Add Anbernic RG Vita-Pro
-
- .../devicetree/bindings/arm/rockchip.yaml     |    6 +
- .../display/panel/anbernic,td4310.yaml        |   64 +
- .../power/supply/sgmicro,sgm41542.yaml        |   99 ++
- arch/arm64/boot/dts/rockchip/Makefile         |    3 +
- .../rockchip/rk3576-anbernic-rg-vita-pro.dts  | 1317 +++++++++++++++++
- drivers/gpu/drm/panel/Kconfig                 |   10 +
- drivers/gpu/drm/panel/Makefile                |    1 +
- drivers/gpu/drm/panel/panel-anbernic-td4310.c |  291 ++++
- drivers/power/supply/Kconfig                  |    8 +
- drivers/power/supply/Makefile                 |    1 +
- drivers/power/supply/sgm41542_charger.c       | 1035 +++++++++++++
- 11 files changed, 2835 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/panel/anbernic,td4310.yaml
+Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+---
+ .../power/supply/sgmicro,sgm41542.yaml        | 99 +++++++++++++++++++
+ 1 file changed, 99 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542.yaml
- create mode 100644 arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts
- create mode 100644 drivers/gpu/drm/panel/panel-anbernic-td4310.c
- create mode 100644 drivers/power/supply/sgm41542_charger.c
 
+diff --git a/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542.yaml b/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542.yaml
+new file mode 100644
+index 000000000000..fa0d31e496f7
+--- /dev/null
++++ b/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542.yaml
+@@ -0,0 +1,99 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/power/supply/sgmicro,sgm41542-charger.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: SGM41542 Battery Charger
++
++description:
++  The SGMicro SGM41542 is a single cell battery charger/boost controller.
++
++maintainers:
++  - Chris Morgan <macromorgan@hotmail.com>
++  - Xu Shengfei <xsf@rock-chips.com>
++
++properties:
++  compatible:
++    const: sgmicro,sgm41542
++
++  input-current-limit-microamp:
++    description:
++      Optional value to clamp the maximum input current limit to for
++      the device. If omitted, the default value for the hardware will
++      be used (2400000).
++    minimum: 100000
++    maximum: 3800000
++
++  input-voltage-limit-microvolt:
++    description:
++      Optional value to clamp the maximum input voltage limit to for
++      the device. If omitted, the default value for the hardware will
++      be used (4500000).
++    minimum: 3900000
++    maximum: 12000000
++
++  interrupts:
++    maxItems: 1
++
++  monitored-battery:
++    description: |
++        A phandle to a monitored battery node. Values for the following
++        are used by the driver and if not present will result in default
++        values being applied:
++        constant-charge-current-max-microamp
++        constant-charge-voltage-max-microvolt
++        charge-term-current-microamp
++        precharge-current-microamp
++
++  reg:
++    maxItems: 1
++
++  regulators:
++    type: object
++    properties:
++      otg-vbus:
++        type: object
++        description: OTG boost regulator
++        $ref: /schemas/regulator/regulator.yaml
++        unevaluatedProperties: false
++    additionalProperties: false
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    battery: battery {
++      compatible = "simple-battery";
++      constant-charge-current-max-microamp = <10000000>;
++      constant-charge-voltage-max-microvolt = <4350000>;
++      precharge-current-microamp = <180000>;
++      charge-term-current-microamp = <300000>;
++    };
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++    i2c {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      charger@3b {
++        compatible = "sgmicro,sgm41542";
++        reg = <0x3b>;
++        input-current-limit-microamp = <3000000>;
++        input-voltage-limit-microvolt = <4500000>;
++        interrupt-parent = <&gpio0>;
++        interrupts = <26 IRQ_TYPE_EDGE_FALLING>;
++        monitored-battery = <&battery>;
++
++        regulators {
++          otg-vbus {
++            regulator-max-microvolt = <5000000>;
++            regulator-min-microvolt = <5000000>;
++          };
++        };
++      };
++    };
 -- 
 2.43.0
 
