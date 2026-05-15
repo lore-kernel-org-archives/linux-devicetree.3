@@ -1,156 +1,147 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 419613F0ABC
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 09:35:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A93043FB05B;
+	Fri, 15 May 2026 09:37:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778837751; cv=none; b=sVqUwSogE3X3vj3t2aDWjKnVCdA5KXAICDZIPR83DgYnqCwtiElJ650qxw/msXbcaMexZDG+LLFbV2IWL/5c3arKSspLGpobOgWwQ1OL0xE648ZZ3kLBjTlrsU4vAcdIyVODBPDlJXJ77F3vaNYRaENJ7fwrrjpON44rtyO8KIw=
+	t=1778837868; cv=none; b=ISwN2Pm2QSACyC7j2q/9ubbnRGCGMSBv63heG2/8mTsU64hn2SPUvwT4QPsuWPwdk9lCsKtQEFwCofvu5gAvjc24cpv8iWoxmAOvKzqPzvtK5ytC0nyJgAuhFxYmZS97J45mzS/AEuKtmq1a633BAh758pvur3xpHEOaKaz746c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778837751; c=relaxed/simple;
-	bh=lk0yUUbpT8/U39ivTcsC1egqSJRZIo+BJJ5eGnvW12g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Vb1XCWWrvgiY7xmfQsvSoE7Q1dzRc2Z86j80GrXtR/Jwbe6HWzpJb9AYd1lwHaoNMh5GKrA2VF2C3ZbE514hLsGXk4HdpLSkfK0f1Eya2KQpoE23rga4egf/98RSvtYy4AAAO1qEG2iFOjdJMUPzuF2aYbAMDmcMh2Wx9NZb6Qw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VFteFIgp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Imw7X/1d; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VFteFIgp";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Imw7X/1d"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64F4iq8c655391
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 09:35:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	lk0yUUbpT8/U39ivTcsC1egqSJRZIo+BJJ5eGnvW12g=; b=VFteFIgpWTy97Kvi
-	MNJD2q+DW11IkDrK+Fv8PrQ9HSJDkcsMwH+aKYt1WY6asyg/UqBiiHbTHjhcMifa
-	xD9xbhv92Zpd35M4ZW7kjWYopS4sx8r3vBHuBLc1bblcY9RxMtii4K8dQ/KM4yxV
-	XG5sPJVkQpBu8XOEL8dImJTI/xJFjcYicfGxiqljemPPHji5v4O9FwakD627F8IJ
-	S7qLbubheLqJf4xid8O95o2czAoOZ/eL2Ih6wIBQZoGWjFOOiSAIUyy9Gaxa+j6o
-	dP0FVXoGu2BO82hoBXJBXG2jXZGAxAjtvADCw5KCFfTZcjoZc0Q8bHUnE+u7s+P1
-	LmlZdA==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e5m1ptq0x-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 09:35:49 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-634396ec8fdso396375137.0
-        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 02:35:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1778837748; x=1779442548; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=lk0yUUbpT8/U39ivTcsC1egqSJRZIo+BJJ5eGnvW12g=;
-        b=Imw7X/1dMYs0f2aHoq8c02ceorRdMbQMzpuJQdmUyg5J3fLjLTFoUKQjWTRP6lSqm1
-         ih6NW01O9us00jth7hkzFOySqhlMZe8YAOLJc5vCGf2XXVNXVNgDWHaYDgKlh4jPNek3
-         h7Np3rwWYQPElPSMfwr9yBRGugm4Sj35Rz71E8Gmp59be4dXPiEDbChaW4gQJUnobz3g
-         wVzyVgNpZGo9FxH2pT5AfFo8GIFiNZvF86qwKvriw0fo+g3jdGv3943UTlZnxu6U0MnZ
-         2pJtE1xATveBLsWyX2MUHnGNv4pP89/lOTUrxNX5/vpfsQLMxaBCL9Cw6w8DB5QeVxop
-         sB+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778837748; x=1779442548;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=lk0yUUbpT8/U39ivTcsC1egqSJRZIo+BJJ5eGnvW12g=;
-        b=skA9FdtVV49ZTFBmx95BQSoWz4TlCXjrjEoU+17OKLf9UqsWCJ6a1n89Qb/Qy+0dbF
-         llbs8exw4604sYdbRQjNe11H90okzMTSGx3SkdIAmFF0rFmdUPYJrNEFHadhtzS2RGsw
-         zjXDuZO0Il0bADxYRzkKkE0qDc/82aUsfu76QFc5Y9+EVHQDhUENP69DrGWI6Bf+3Yca
-         w9BT2N/drbZRh/D2lXoyU2vCHLKlH7FG5PspacKJujZdcex+OV54viK7m1AOlQwTO55R
-         aLqBRNN6MKwL/YyJ72xTFAEcUSObyVMTf0/CGJg7BGHzIIf2fJrH5HO1zcUstt7UdKDi
-         +5BQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8edbgulTBoHUF2YBgLGSuZy7+/34mW/537Mud8+0cfp1Fh1sTEBqQmuQlmKKpz8J2jUqI2AqaEGpiS@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx3MwYE8UhyFA+ZY4I4C/gypqbh7X8BuSMOESYJi2wKu7PYR33b
-	05TDvIasmeb68sLrxQFJ31gdEniPClo/hp86KFbwYlwsqcOp31E9DhpUvcZYFjRYXvTSP4Pm7LV
-	CjjKBhuBIfxCmhSuipfi3sVNkNiZXIgvBN8nc+Ll48ztvX3sV1+CgAoPDXWD99/uk
-X-Gm-Gg: Acq92OF9NkhSnot1wb8J5NebnWM05bsYtsyrqMqLzIbVfO9Mwi/rMVycsioXa2nwVpH
-	qZcLxv4l6GQSC/B8FfgkWC0GduZ9ebIpk97sEuYVhWjeEVzTEL9YUlBnSSGQZGq1KNKYLFtkPTZ
-	1FkNNH6LqVV1wjgJ0WrdAsUIQ9Va9XBS/wjQogvTWjj8E5WBXkJD0iH+RmiGA2H4cBWFaSst3TL
-	w8pWe0ifA2PTOEAX1uH3IhIXUkTFSSF+csLKRfwzfR7wwqq843EYBWiEooXUtL5ZOGJdPPchnTM
-	4Zu6iYccUNN2Zk7LDp7GN3gRq8GluXCy86KWLz9KhR5cC7x+677uOfew0Dpt2iwmr8zOR7yrlzV
-	PvFgfgZ+0wwIMo/0f73Iq3ZQBiBhYcO4bSTDamYgL8viQJrT3LDsEBy3ByK+UvL4qQhbX3MsjRR
-	9ygIY=
-X-Received: by 2002:a05:6102:21d6:b0:637:25ea:99c8 with SMTP id ada2fe7eead31-63a3cc0c981mr429433137.1.1778837748367;
-        Fri, 15 May 2026 02:35:48 -0700 (PDT)
-X-Received: by 2002:a05:6102:21d6:b0:637:25ea:99c8 with SMTP id ada2fe7eead31-63a3cc0c981mr429413137.1.1778837747869;
-        Fri, 15 May 2026 02:35:47 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bd4f4e5eef9sm195347866b.51.2026.05.15.02.35.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 15 May 2026 02:35:46 -0700 (PDT)
-Message-ID: <af2a9994-44b1-4945-9c04-4f31c1ff60f9@oss.qualcomm.com>
-Date: Fri, 15 May 2026 11:35:42 +0200
+	s=arc-20240116; t=1778837868; c=relaxed/simple;
+	bh=9Cn9pDIuyFA9O7PKzEDGkjk/BPWLh9Gxh6Xx0JghGi0=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=pxBzguVZhW8CyXQgucbPaKvNJCNHkXCTxEIlnc2F2WL5gCcs+CHQTbqy/kX2d1SFcMTjjmr6BRHsPHJY1jofAIYgrOWvLDCBNALQ+WPtBIvS+zwDxtv1mNU1DEmqM935pDtvS3kwnJtk0oTIlhO48NI3+6g+wl83ady2wlF+F3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Fri, 15 May
+ 2026 17:37:38 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Fri, 15 May 2026 17:37:38 +0800
+From: Billy Tsai <billy_tsai@aspeedtech.com>
+Subject: [PATCH v3 0/3] pinctrl: aspeed: Add AST2700 SoC1 support
+Date: Fri, 15 May 2026 17:37:36 +0800
+Message-ID: <20260515-pinctrl-single-bit-v3-0-e97da4312104@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 8/8] ARM: dts: qcom: Add Samsung Galaxy S4
-To: MINETTE Alexandre <contact@alex-min.fr>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        MyungJoo Ham <myungjoo.ham@samsung.com>,
-        Chanwoo Choi <cw00.choi@samsung.com>,
-        Guru Das Srinagesh
- <linux@gurudas.dev>,
-        Linus Walleij <linusw@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Kees Cook <kees@kernel.org>,
-        Tony Luck <tony.luck@intel.com>,
-        "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-        iommu@lists.linux.dev, phone-devel@vger.kernel.org
-References: <20260427-mainline-send-v1-sending-v2-0-dcaa9178007b@alex-min.fr>
- <20260427-mainline-send-v1-sending-v2-8-dcaa9178007b@alex-min.fr>
- <97969bf9-8eb2-4498-90bd-9973fb2bd638@oss.qualcomm.com>
- <edbaf71e-6a47-4294-a8c6-6b356bc336ed@app.fastmail.com>
- <fdca4d01-eb6b-49a6-86e1-b6d582af4ba8@oss.qualcomm.com>
- <bb8353fe-29f6-4902-9c7f-67ef61676f2b@oss.qualcomm.com>
- <1eb77056-0716-49d3-b45f-d51ee5b70618@app.fastmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <1eb77056-0716-49d3-b45f-d51ee5b70618@app.fastmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: RrO1GLaGpDjEMPbTyScS4jfx_AfTwZpS
-X-Proofpoint-ORIG-GUID: RrO1GLaGpDjEMPbTyScS4jfx_AfTwZpS
-X-Authority-Analysis: v=2.4 cv=GrhyPE1C c=1 sm=1 tr=0 ts=6a06e8f5 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=NJkuH3xNc77H-X9ZbZMA:9 a=QEXdDO2ut3YA:10 a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE1MDA5NiBTYWx0ZWRfX4PTtQzJorGDk
- 4hhcJ1eljSKfn/c/dpV1TF8JplVdDia5vbW2PaKlxDY4murRZ5JRUQqCVvEEOMX2WmnXNu9FYxN
- /r863ihi7nNTep7Lviw7jiQPu5HWocfEPlp9Km7oRQY3DBgD8+GAvoPKzCqDXtJ0Dl5VG4zJEKs
- Xtbx65bryg43cy735j3YQXwB3EwdDaVpf/QvS2sTUzogqH0cPWAfhJBSgSgVPE8cMqPTExIfqlX
- 8yNjgZjzZOkZa1CpjRn4TetkrcWLl/AJpI3qG2pyUNM1LKXTQcMp9Obt6ajLLu8r8O/nHqZ3nQ6
- w4tIBHXwHLks/hYANyNcUal770azlOyTPSA49SQcZv+WiMsDpz4FcVfzDg5iZBPbu9JYqsDMscF
- 49bnlBgBqLwHx6WksnXAkYojOuSUqdhnQtikx5bga3kqa6XZFaA+AxClsPvu5yp1BdnZc3v52b+
- 24Im+orhfmAavxq9kiQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-15_02,2026-05-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 lowpriorityscore=0 adultscore=0 bulkscore=0
- spamscore=0 suspectscore=0 impostorscore=0 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605150096
+X-B4-Tracking: v=1; b=H4sIAGDpBmoC/23NQQ6CMBCF4auQrq1pp4rgynsYF6VMYRIspG0aD
+ eHuFhLjQpb/S+abmQX0hIFdi5l5TBRodDnUoWCm165DTm1uBgJKAVLyiZyJfuCBXDcgbyjyVoN
+ UFiow9Znlw8mjpdeG3h+5ewpx9O/tR5Lr+uXUHpckF9yUwoJtKoG2uekwIbYRTX8045OtZoKfo
+ 0S560B2LnUtK2N1U57kn7MsyweU7CU4AQEAAA==
+X-Change-ID: 20260211-pinctrl-single-bit-da213f282c95
+To: Linus Walleij <linusw@kernel.org>, Tony Lindgren <tony@atomide.com>, "Rob
+ Herring" <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, Andrew Jeffery
+	<andrew@codeconstruct.com.au>, Bartosz Golaszewski <brgl@kernel.org>, "Lee
+ Jones" <lee@kernel.org>, Ryan Chen <ryan_chen@aspeedtech.com>
+CC: <patrickw3@meta.com>, <linux-gpio@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
+	<BMC-SW@aspeedtech.com>, <openbmc@lists.ozlabs.org>, Andrew Jeffery
+	<andrew@aj.id.au>, <linux-clk@vger.kernel.org>, Billy Tsai
+	<billy_tsai@aspeedtech.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1778837858; l=4269;
+ i=billy_tsai@aspeedtech.com; s=20251118; h=from:subject:message-id;
+ bh=9Cn9pDIuyFA9O7PKzEDGkjk/BPWLh9Gxh6Xx0JghGi0=;
+ b=GkjgcF1HK1mq+U56PeB/4J8NkQ8iJNGyrh5Cu984mgNvSqUvhC42xoHRoQtJ3QGQZlqDRIlzz
+ +L1gv+Tlej5DXm/LV7HbijCAWqOKfNlEhvJszrkCnwAgTa5+TLPmcJc
+X-Developer-Key: i=billy_tsai@aspeedtech.com; a=ed25519;
+ pk=/A8qvgZ6CPfnwKgT6/+k+nvXOkN477MshEGJvVdzeeQ=
 
-On 5/14/26 10:23 PM, MINETTE Alexandre wrote:
-> Ah yes, I see. I tried GSBI for both the MUIC/extcon bus and the LED bus,
-> but it does not work on my GT-I9505: USB does not enumerate with the MUIC
-> on GSBI2, and the LED on GSBI3 times out when setting brightness (-110, with no visble changes).
-> So I think these should stay as i2c-gpio like downstream.
+Legacy ASPEED pin controllers have historically not had a coherent
+register interface. Control fields often had no consistent mapping to
+individual pins, and configuring a function frequently required
+coordinating multiple control bits across several registers. As a
+result, the existing ASPEED pinctrl drivers rely on complex macro
+infrastructure to describe the dependencies between pins, functions,
+and register fields.
 
-Alright, thanks for confirming
+The pin controller for SoC1 in the AST2700 breaks from this legacy
+design.
 
-Konrad
+For SoC1, each pin maps directly to a dedicated function field in the
+SCU register space that determines the active mux function for that
+pin. This results in a much more regular register layout compared to
+previous generations.
+
+While the behaviour is conceptually similar to pinctrl-single, the
+register layout and configuration model differ enough that reusing
+pinctrl-single directly is not practical. Therefore this driver is
+implemented as a SoC-specific pinctrl driver using static data tables
+to describe the register layout.
+
+The binding reuses the standard pinmux and generic pin configuration
+schemas and does not introduce any custom Devicetree properties.
+
+Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
+---
+Changes in v3:
+- Added pin configuration group support for AST2700 SoC1 by
+  implementing `pin_config_group_get()` and `pin_config_group_set()`.
+- Restricted AST2700 SoC1 `drive-strength` settings to the supported
+  4/8/12/16 mA values in the pinctrl driver.
+- Convert kernel-doc comment for aspeed_g7_soc1_drv_map to a regular
+  comment to avoid kernel-doc warning reported by kernel test robot.
+- Update the AST2700 SoC1 pinctrl binding to describe the `reg`
+  property and require it.
+- Allow standard pinconf properties in pin state nodes.
+- Add a binding example for the AST2700 SoC1 pinctrl node.
+- Add state-node description, function+groups dependency constraint,
+  and oneOf groups/pins constraint to the binding, matching the SoC0
+  binding style.
+- Add pins enum (212 entries) to the binding to cover all physical pins
+  that support per-pin configuration.
+- Add UART modem-line signals as independent functions/groups:
+  NCTS0/1/5/6, NDCD0/1/5/6, NDSR0/1/5/6, NDTR0/1/5/6,
+  NRI0/1/5/6, NRTS0/1/5/6; remove those pins from UART0/1/5/6 groups.
+- Add LTPI_PS_I2C0/1/2/3 functions/groups for I2C-over-LTPI;
+  extend I2C0/1/2/3 functions with the new LTPI groups.
+- Fix typo: rename RMII0RCKO/RMII1RCKO to RMII0RCLKO/RMII1RCLKO.
+- Fix wrong index: rename DSGPM1 to DSGPM0.
+- Kconfig: use "Aspeed G7 SoC1 pin control" to match neighbouring entries.
+- pin_config_get: fix BIAS_DISABLE readback (val=!val must be skipped
+  for BIAS_DISABLE since hardware bit=1 means pull disabled).
+- set_mux: remove dead null check on grp; propagate regmap_update_bits()
+  return value.
+- gpio_request_enable: propagate regmap_update_bits() return value.
+- Link to v2: https://lore.kernel.org/r/20260306-pinctrl-single-bit-v2-0-79918cfab641@aspeedtech.com
+
+Changes in v2:
+- Updated the series title to focus on AST2700 SoC1 support.
+- Reworked implementation to use static SoC-specific layout tables
+  instead of a generic packed-field model.
+- Dropped the generic "pinctrl-packed" driver approach.
+- Removed custom Devicetree properties.
+- Updated binding to reuse standard pinmux and generic pin
+  configuration schemas.
+- Link to v1: https://lore.kernel.org/r/20260213-pinctrl-single-bit-v1-0-c60f2fb80efb@aspeedtech.com
+
+---
+Billy Tsai (3):
+      dt-bindings: mfd: aspeed,ast2x00-scu: Support AST2700 SoC1 pinctrl
+      dt-bindings: pinctrl: Add aspeed,ast2700-soc1-pinctrl
+      pinctrl: aspeed: Add AST2700 SoC1 support
+
+ .../bindings/mfd/aspeed,ast2x00-scu.yaml           |    1 +
+ .../pinctrl/aspeed,ast2700-soc1-pinctrl.yaml       |  760 +++++++++
+ drivers/pinctrl/aspeed/Kconfig                     |   14 +
+ drivers/pinctrl/aspeed/Makefile                    |    1 +
+ drivers/pinctrl/aspeed/pinctrl-aspeed-g7-soc1.c    | 1732 ++++++++++++++++++++
+ 5 files changed, 2508 insertions(+)
+---
+base-commit: e532a5a81d0db872acd2c0a92d2639580ca3da44
+change-id: 20260211-pinctrl-single-bit-da213f282c95
+
+Best regards,
+-- 
+Billy Tsai <billy_tsai@aspeedtech.com>
+
