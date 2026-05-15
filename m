@@ -1,203 +1,248 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81F1743DA22;
-	Fri, 15 May 2026 09:10:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A556337C11B
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 09:10:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778836212; cv=none; b=jdRnteCqk2drnqQJ5oyBR0oK3EAlhXs1gXljMAN/4hLtmBnpzEJd3Ijw1EQgdQBOKKMZ7DdlaqjDHeQNdsAopVuu9xdDpsXIn0LXV1mROp1lxAdMZ4STvoYd62GWQ7DVQbVT1ennl6c56bRgqqBgaVydjzHWEN14Cqamm7kzd/k=
+	t=1778836236; cv=none; b=n+6bw5TtduWz/BCuo1AKctFqYnGhfvL8I0fyim0LJm4/mK1F3mqQPGQXKrpPQ3ejSzpdH/2N9zN8khAI6azpxbVzCcyKzaskofmZfhOMMtp3oIA/euf2Y3P8xtRZZyi7Tnyfdkfk5jz6IPKtazgkU3jAwY2uhtl0yLiq2hF6+ws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778836212; c=relaxed/simple;
-	bh=sQ7dH7dQ/n7Rrc06bQe/1ItYvKBy46snwgvffXpYWQw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=XRG+v/auLFJAx0fcD3fca3X20svBGCRtTbzd2Co4myasvDfSjHIYPEEE1FMae0dyYFiuDsV+pcLWSuIpVr1tBRUJX4QycAesn5ziUHVX0FvcSLm8p8ElnUalCog7OCZ3DyBmPJKpIBF4WGJpjJykxJBPM2bojhPadCTyevUGjIs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=p0ryn/q/; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1778836236; c=relaxed/simple;
+	bh=NAlYr5OBkji2DJxmosxyZUEB0sJ0e4O5IXDaacLjWjI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=D4h+XEn5CAiXthfT4F6PPoilrALoNhyHpl+8hSeQPQsXLBxEC56EX/dYJs5Ziuyjcj+szqSDgRkJ2m/M1CI/1UGedbN+OZPj7izCp65VR3ixjaPk5/hR7NLyxPlPPAVG5jtC7V6kEq2te/lEoCRrHni3XwjSmuc7j7fSK3XrgBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=K4twMkWs; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=C2TzaBV0; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="p0ryn/q/"
-Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E8BDC19EF;
-	Fri, 15 May 2026 11:09:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1778836198;
-	bh=sQ7dH7dQ/n7Rrc06bQe/1ItYvKBy46snwgvffXpYWQw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=p0ryn/q/koHB4EiO3lUEZBGJiilxYg2Ju3pwaRJUOMw68YWtiDt9cVXiQ4C+H8Did
-	 nObo5oRehPB4FD7buNzVMzIStwCmCtx1JqMGya1UjIQSfojdL2vHklf8+OHu2AfCXR
-	 VQyD1FQRerLK9u+x0h3Mb3yV3DKMtaMeUm0fsTdg=
-From: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Date: Fri, 15 May 2026 12:09:32 +0300
-Subject: [PATCH v3 7/7] arm64: dts: renesas: white-hawk: Add second mini-DP
- output support
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="K4twMkWs";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="C2TzaBV0"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64F5Vd8w1847948
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 09:10:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Y33Kq8jS4pkB9lQwGZwmPZHQOGa7dfJetj4tNP3diP8=; b=K4twMkWsVKO4ydqM
+	+x7fLcIUaYUdC4pZjQ4nzmCwJCNDSpko9ngzcGuQ7lfJI5A4gLCXHL81OpCqbGOG
+	yhasSoIeNqzJiNwh1/RafZEvUpGZrp0tjybRvB4iP/sRM1zcgO0Iri0a/QKtqQ3a
+	QYL4LX60xgHH68IMK/tb9gD87084M5OpiNYKDYHAW6K5MRomzYic50cPbfbfAWFU
+	IeMu+4qqlENVZAULizM91LjB4jtfQdv83n2G8H+k8BpUH9obttqNPpZGpSR45cC+
+	R2ZS7gpswo00/woXaYryEbWcMeEkQ2xQwQ32hEt2MaCiGrk0DN9DUBPoU0JBKh0+
+	dgQr7g==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4e5m1t2gum-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 09:10:32 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-6314bbea08dso391607137.1
+        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 02:10:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1778836232; x=1779441032; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Y33Kq8jS4pkB9lQwGZwmPZHQOGa7dfJetj4tNP3diP8=;
+        b=C2TzaBV01qjOFUAjkfk4GhhuZ6zjdAZ4KNwrLseErhUZwCKLch4ygFbUvD2jv/2n0g
+         GPf5OSfTo82maKf2Ib3cXpXY1H1YJKR+kIClo45ba10/1LWAxWHnHsN6U7knh0yuLjYb
+         CMM1pWokuXSSM0aKFi0APiMcq4sHH5huvlZ4Ihgska4b1d0rN8spNDBUgZ15HtFbjkOs
+         PypVbg+SpQyZC4TJB9jY4ZRdQ+tQiZbH8k39kSWHJGNGRZlIB8u8neWaiPA6azMQL2XR
+         oEMLW59cp6D8McxZKhFGoGu2yu/MJTvFNVyDYIL7CkWusxMk2cY5+keU+LbG+lfzUULa
+         /gaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778836232; x=1779441032;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Y33Kq8jS4pkB9lQwGZwmPZHQOGa7dfJetj4tNP3diP8=;
+        b=EEgRDyX3PD0bccrbpE8ww4zMLG942egNkCph9zt5Af02xnr0F81SXE05stVWlKf9Eq
+         b2LmbW65YlREkrZzKE/tZCy9B3mVRqP/MXtbggIdtBxAWVXhyjhTzcZ4u3lcl0WYRLWu
+         fyaOfHidXyDpKDRXrtxm3Me3G29OsHYAR1RhHVy2ppr3T+sMbQEgRtQNmrPnjDyWepAU
+         +ZjWlylFWdG4meGB+L5e3OJjMvBSzA8k1FapNuqQp23nsjoaxDiV23cSux3sdPQicsHH
+         AeFD8FLsc94z+EQMpPRHgIPsieSR0NVCv6bxnijAPxEO/aEAx2Op2dyvpgPh6IQ4pTcV
+         IjHg==
+X-Forwarded-Encrypted: i=1; AFNElJ81Z18fi6Z0CQneDDDlRUpXCx7V7COxGpaE1orWmAMYU94swvzRjaw4Zj7FMpArVG0CLtPxMNHnNEVu@vger.kernel.org
+X-Gm-Message-State: AOJu0YxgiWXjUWEh8zylDSbBPznMqAkfvGcZHx65584tzc9fooKZCYa2
+	eQH/1j3OMu3m9uVuwoNoKzJr6f9dQBwpdx3sBmZYrU8R+iXS2ZTyqw9R7M3ixSX8PWQyN030lhh
+	mXgYj3fiAwEV3R/NVez1a3Tcwi5z0iFoiusKA85SXB39yIjqbt8an06OiDsh+3lOs
+X-Gm-Gg: Acq92OGzDczqpQCKa1kt63x2fulN2xfymoZgspoKzjyU++61CEwf/TI7w0+5RQptPri
+	P8iYt0exIZqSg3hAotxSzGRlNmJH7W8OpSsYFzD8UUYBTsBKAOwTt5WC4Q6IMabkYyRp44Yx8Qd
+	K2Z4mPD1DggN6btnPF515AxRdb9dtidMNLixsPHhln4liuWsQyspAqNxVC4IZfqEHV5cbG/4jnC
+	Jc41SF7McIIWNXqQNgdoZxgVtym3ynpA/aEnNKFqjrwtL0BPl9ko4HFC+fqqPOTzBTz4mpUMaof
+	ANMEMhhmN67ioIoEXNv8y/rQU6uwQVlvaaaAljGIXSbVjZtfg3+LUQT0PGqzLzCJwaWxv9kTDgE
+	A6ntCrai/U8MRJri4MQaY76C+qNLY6TADKwI1E97Ib1E7yRVI4PQZKZoSCzCfZcixhIG4z1gAx6
+	h1XMA=
+X-Received: by 2002:a05:6102:1242:b0:62f:46c:40bb with SMTP id ada2fe7eead31-63a402a0379mr383763137.5.1778836231748;
+        Fri, 15 May 2026 02:10:31 -0700 (PDT)
+X-Received: by 2002:a05:6102:1242:b0:62f:46c:40bb with SMTP id ada2fe7eead31-63a402a0379mr383755137.5.1778836231245;
+        Fri, 15 May 2026 02:10:31 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl. [78.88.45.245])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bd4f4c23feasm200169966b.14.2026.05.15.02.10.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 15 May 2026 02:10:30 -0700 (PDT)
+Message-ID: <934d6876-3c83-43de-b155-d435af4c3547@oss.qualcomm.com>
+Date: Fri, 15 May 2026 11:10:28 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: eliza: Add QUPv3, GPI DMA, SDHCI
+ and LLCC nodes
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260513-eliza-dts-fix-debug-uart-and-more-support-v1-0-05814d24f4cf@oss.qualcomm.com>
+ <20260513-eliza-dts-fix-debug-uart-and-more-support-v1-2-05814d24f4cf@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260513-eliza-dts-fix-debug-uart-and-more-support-v1-2-05814d24f4cf@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260515-rcar-du-dsc-v3-7-164157820498@ideasonboard.com>
-References: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com>
-In-Reply-To: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
- Marek Vasut <marek.vasut+renesas@mailbox.org>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2737;
- i=tomi.valkeinen+renesas@ideasonboard.com; h=from:subject:message-id;
- bh=C9rP9GABvcYb9jE1vUzXF6HhHnFgCbKipQ/Ea+SbMGY=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqBuLiiTqP0RYYEkYtroljiEpni+J1CY4V6VoG8
- JXMaS1cCKKJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCagbi4gAKCRD6PaqMvJYe
- 9SBaEACOaDZzTIQrGoWXa20lEGTRBsBiOPRk39I3W4jUj2vT/HXxsm754izvyNcLrExit01qCd+
- 0Dyqc8bdMokPw+kZ9tgcrgpNygj0GhyCKOQUgWNEIoQz8B4C9R9xbf7ytyhZV7RsDDLWKMTgbGo
- UFFvlY215G98Woio/0cc31juMbD/c2QIgS393VE57YTCnhibSXTgNx2pRBxg0l5IWLlMZZ7T09j
- cTCUq4mbClqGEXyjT6pQkj1357ODLklbv7DJexilLJdhTllNuiFD4C041C8oOyGhacqlF2q3gvf
- RpfEbfdmRpNxeDEiH0kckpiEUhSEC0NdrGf4wlH79b7kMisNDFib44xrT8Ou6k8iR801Mfr3dK7
- 8fBfvQjSZjm7bRCIcNpR6eCMekjYtFcRhknWIT1MypuQnO7+1vH6eFEeypoQ+r5pwfiyIBqL6zK
- vZaIn+4BG3qZHKGbnvuQCgy3cWxZTs0ujKIFCqfnb9xqmJNXtt+I75atA9Xi1F8syp6wvPg9Vyy
- hWTl5euKDxQE1vbl8FY+U7parLfPJgfOJCDJG3wpSMa5g08p63E/w+QR8E2fejHGYwSv7qqgIOU
- sxrmtu+HcF/Rl64O2XqqStalOCKhN4QxLswKXuDaweH3EZTkwHHCYSDezJrc+JmgXVehZIqKYTG
- jLnzcMA7RbZc6rg==
-X-Developer-Key: i=tomi.valkeinen+renesas@ideasonboard.com; a=openpgp;
- fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
+X-Authority-Analysis: v=2.4 cv=D7Z37PRj c=1 sm=1 tr=0 ts=6a06e308 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=olRgGBVlyjl6rEf_PyYA:9 a=QEXdDO2ut3YA:10
+ a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE1MDA5MSBTYWx0ZWRfXxXE3ycNfiIuy
+ JH3jJ+htGm1r6UlYazjCjvEfmqnCvxNgeN4HEE0lwLGu+YvBmYilzUzH+MahjzPxwdif+OaETcn
+ B6VbDnPokpXgSPhBbTal8NLsvo4erMuX8oX+f7kvjLNLufpfpeWwE4ucJEVZaSDETDAH7UmKg6k
+ nIrULLk15ACFLesefosH4CHiZ4EFbBUV7NiUD70R1tW1r+Z3ksmHeSdae1VhJvudmpIhJhdu3xs
+ q7sq49TMLanBGS7hbl66JfkDNC4aedXJEV4/vhW9s3nA0xEf1eF2rHX8mmtFgbFvfNO0MESYiHJ
+ oZHVVIjvIV/AC5vC36bMmLyc4oQfFz46yEks7I0xHAR8PO9N1JMiHTvmHtKFztK54a7Yz6SMS0h
+ HZwuo83YnhdKyRvHkoRolDC507JETbLamsUlgs9PVdlMl+gw4VMUpN8uD2EbM43TRAiiTH1JhMT
+ XMlBiHlYAuMoYNbK1Rg==
+X-Proofpoint-ORIG-GUID: 5jgRxpfq730lzRplPpUf-RUM23lBQFPv
+X-Proofpoint-GUID: 5jgRxpfq730lzRplPpUf-RUM23lBQFPv
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-15_02,2026-05-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 priorityscore=1501 impostorscore=0
+ adultscore=0 phishscore=0 clxscore=1015 bulkscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605150091
 
-From: Geert Uytterhoeven <geert+renesas@glider.be>
+On 5/13/26 2:33 PM, Abel Vesa wrote:
+> Describe the missing Eliza SoC nodes for the QUPv3 WRAP1 and WRAP2 serial
+> engines, add the matching GPI DMA controllers, the SDHCI controllers and
+> the LLCC system cache controller.
+> 
+> Also add the TLMM pinctrl states for the QUPv3 serial engines and the
+> SD card/eMMC interfaces, plus OPP tables for the SDHCI controllers.
+> 
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
 
-Add support for the mini-DisplayPort connector on the White Hawk
-BreakOut board.  This port is driven by a TI SN65DSI86 DSI to eDP
-bridge, which in turn gets the pixel data from the second DSI channel on
-the R-Car V4H SoC.  Note that this port is not present on the White Hawk
-Single development board.
+[...]
 
-Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-[tomi.valkeinen: added status=okay for dsc]
-Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
----
- .../arm64/boot/dts/renesas/r8a779g0-white-hawk.dts | 94 ++++++++++++++++++++++
- 1 file changed, 94 insertions(+)
+> +		gpi_dma1: dma-controller@a00000 {
+> +			compatible = "qcom,eliza-gpi-dma", "qcom,sm6350-gpi-dma";
+> +			reg = <0x0 0x00a00000 0x0 0x60000>;
+> +
+> +			interrupts = <GIC_SPI 279 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 280 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 281 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 282 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 283 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 284 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 293 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 294 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 295 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 296 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 297 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 298 IRQ_TYPE_LEVEL_HIGH>;
+> +
+> +			dma-channels = <12>;
+> +			dma-channel-mask = <0x3f>;
+> +			#dma-cells = <3>;
+> +
+> +			iommus = <&apps_smmu 0xb6 0x0>;
+> +			dma-coherent;
+> +
+> +			status = "disabled";
 
-diff --git a/arch/arm64/boot/dts/renesas/r8a779g0-white-hawk.dts b/arch/arm64/boot/dts/renesas/r8a779g0-white-hawk.dts
-index 784d4e8b204c..89d60b83ac4f 100644
---- a/arch/arm64/boot/dts/renesas/r8a779g0-white-hawk.dts
-+++ b/arch/arm64/boot/dts/renesas/r8a779g0-white-hawk.dts
-@@ -12,4 +12,98 @@
- / {
- 	model = "Renesas White Hawk CPU and Breakout boards based on r8a779g0";
- 	compatible = "renesas,white-hawk-breakout", "renesas,white-hawk-cpu", "renesas,r8a779g0";
-+
-+	sn65dsi86_refclk2: clk-x16 {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <38400000>;
-+	};
-+
-+	mini-dp-con2 {
-+		compatible = "dp-connector";
-+		label = "CN15";
-+		type = "mini";
-+
-+		port {
-+			mini_dp_con_in2: endpoint {
-+				remote-endpoint = <&sn65dsi86_out2>;
-+			};
-+		};
-+	};
-+};
-+
-+&dsc {
-+	status = "okay";
-+};
-+
-+&dsi1 {
-+	status = "okay";
-+
-+	ports {
-+		port@1 {
-+			dsi1_out: endpoint {
-+				remote-endpoint = <&sn65dsi86_in2>;
-+				data-lanes = <1 2 3 4>;
-+			};
-+		};
-+	};
-+};
-+
-+&i2c4 {
-+	pinctrl-0 = <&i2c4_pins>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+	clock-frequency = <400000>;
-+
-+	bridge@2c {
-+		pinctrl-0 = <&irq1_pins>;
-+		pinctrl-names = "default";
-+
-+		compatible = "ti,sn65dsi86";
-+		reg = <0x2c>;
-+
-+		clocks = <&sn65dsi86_refclk2>;
-+		clock-names = "refclk";
-+
-+		interrupts-extended = <&intc_ex 1 IRQ_TYPE_LEVEL_HIGH>;
-+
-+		enable-gpios = <&gpio1 27 GPIO_ACTIVE_HIGH>;
-+
-+		vccio-supply = <&reg_1p8v>;
-+		vpll-supply = <&reg_1p8v>;
-+		vcca-supply = <&reg_1p2v>;
-+		vcc-supply = <&reg_1p2v>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				sn65dsi86_in2: endpoint {
-+					remote-endpoint = <&dsi1_out>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+				sn65dsi86_out2: endpoint {
-+					remote-endpoint = <&mini_dp_con_in2>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&pfc {
-+	i2c4_pins: i2c4 {
-+		groups = "i2c4";
-+		function = "i2c4";
-+	};
-+
-+	irq1_pins: irq1 {
-+		groups = "intc_ex_irq1_a";
-+		function = "intc_ex";
-+	};
- };
+Let's keep the GPIs enabled
 
--- 
-2.43.0
+[...]
 
+> +		sdhc_1: mmc@f44000 {
+> +			compatible = "qcom,eliza-sdhci", "qcom,sdhci-msm-v5";
+> +			reg = <0x0 0x00f44000 0x0 0x1000>,
+> +			      <0x0 0x00f45000 0x0 0x1000>,
+> +			      <0x0 0x00f48000 0x0 0x8000>;
+> +			reg-names = "hc",
+> +				    "cqhci",
+> +				    "ice";
+
+This should be a separate node
+
+> +
+> +			interrupts = <GIC_SPI 94 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 417 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-names = "hc_irq",
+> +					  "pwr_irq";
+> +
+> +			clocks = <&gcc GCC_SDCC1_AHB_CLK>,
+> +				 <&gcc GCC_SDCC1_APPS_CLK>,
+> +				 <&rpmhcc RPMH_CXO_CLK>;
+> +			clock-names = "iface",
+> +				      "core",
+> +				      "xo";
+> +
+> +			interconnects = <&aggre2_noc MASTER_SDCC_1 QCOM_ICC_TAG_ALWAYS
+> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+> +					<&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
+> +					 &config_noc SLAVE_SDCC_1 QCOM_ICC_TAG_ACTIVE_ONLY>;
+> +			interconnect-names = "sdhc-ddr",
+> +					     "cpu-sdhc";
+> +
+> +			power-domains = <&rpmhpd RPMHPD_CX>;
+> +			operating-points-v2 = <&sdhc1_opp_table>;
+> +
+> +			qcom,dll-config = <0x000f44ec>;
+> +			qcom,ddr-config = <0x80040868>;
+> +
+> +			iommus = <&apps_smmu 0x520 0x0>;
+> +			dma-coherent;
+> +
+> +			bus-width = <4>;
+
+That's definitely 8
+
+> +			max-sd-hs-hz = <37500000>;
+
+This should be fixed in Eliza
+
+[...]
+
+> +			max-sd-hs-hz = <37500000>;
+
+ditto for sdcc2
+
+> +
+> +			resets = <&gcc GCC_SDCC2_BCR>;
+> +
+> +			status = "disabled";
+> +
+> +			sdhc2_opp_table: opp-table {
+> +				compatible = "operating-points-v2";
+> +
+> +				opp-100000000 {
+> +					opp-hz = /bits/ 64 <100000000>;
+
+The clock plan says 100, but the SDC doc says 50. What does
+downstream set here?
+
+Konrad
