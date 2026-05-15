@@ -1,68 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB133DA7CF;
-	Fri, 15 May 2026 17:43:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8B93EFFA6
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 17:46:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778866990; cv=none; b=d73TD/SOUdv4zM28BnfXSbzvsv88QhCegHYwddIN67xYDBBeaP3d7MPQ9FrpjvBNO1fsySa8NX4plsVkJKQiKmUxjTiOMfsK+mHI517fNO9xH0c2dNxRLJi6zh3UDYl/aJPl6G53SpeSXMChOAGqyGGXFNRa723X+4Ja6Ln2A08=
+	t=1778867197; cv=none; b=NJBBr8CbCnk6BsCiYqvfLhR9h6rVH31XPLYAQVjZF5FBzTPv+RqTnc0c12SEzE1qMmuWViQpW/2ey/TaPkqsmfUPwqOQfIsRbnxUJ+8QB2K5dNd1Yie85O1OCYH69Eo9haGX/c6Ev1xNQg8+/cQP5h90BqfDUXVUBDMCFa/NdOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778866990; c=relaxed/simple;
-	bh=edM7CSJlHKP7ooFa7YXL8HIbbu7a3p9orIejHN6LJAA=;
+	s=arc-20240116; t=1778867197; c=relaxed/simple;
+	bh=mdRe6QuXA6oiJX8GbDhkCFUjeKZk89BXf0bia5Ra5dI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=crrU98ifXm2QMwYRaUnVp6u1qR21lmeiadTIls5LHT+fd4/icsn0Ya3qaZ2IcCqGeFy5GctItSTvUO3dRc5WuSlA8GAIhia1IsNXIO5af7W87jqItvFJKqZWtC56LSJr7HutcFnll8Whd2K6opRfpv0AwA2+r+yazttRnoYew8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sdjrj7Us; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=g73fVDavwfYsBQfbLzOTgpO+NblfuGAjDwZgukghd5cYbxeOeCU1/zfKRBFqhxNuR4/DKn48I3ikrCEn6eC5Ad+tyXJcOSxK47dNteiF6Xtu5A1wDVDCABQ0EadOhGSxx3eLB3//lfw2p4JAY/PFA70i3bMEvtW3EluNmKA4nl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b0gX6RD3; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sdjrj7Us"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B55B4C2BCB0;
-	Fri, 15 May 2026 17:43:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b0gX6RD3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D344C2BCB3;
+	Fri, 15 May 2026 17:46:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778866990;
-	bh=edM7CSJlHKP7ooFa7YXL8HIbbu7a3p9orIejHN6LJAA=;
+	s=k20201202; t=1778867197;
+	bh=mdRe6QuXA6oiJX8GbDhkCFUjeKZk89BXf0bia5Ra5dI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=Sdjrj7Us7MTR0InMh3wa+HE1r52KqZu0878k8/ixJPULxHUJ4HRL7uEDlmOx7sIkI
-	 yYKm9V3j6vXHI9zt++k2VGfcqNnetfron3U+1FPRkdD9x1N/QjXyGqwSRCGCzT+b+6
-	 5ZbKGviIEo5QSqRPRIjIt7TvQx+D0q3B1O/3tADQP+48vBowrjZHuo+A0Deu6+9nY7
-	 TwmzINUii7vWUTQtkvTK75nvs/I3Pls8+7zMrRVYEZRZCqaHX+0D4CjhaOpIYlIU23
-	 IomDKwcAdKknHIroYO51T8rZwiagBrKPnyVClKWq9J8kiCUa9HEoWlvTzZAPsMs6Ai
-	 GyS9grqS2k0Gw==
+	b=b0gX6RD3sn2gVDt+yI/kfyo6kP8uZ95DEle9SqLuwEmBEdq5vodu/9Chj3LF0cGrG
+	 y/6GqCkJD0h5TXyWIxcjQs4ajWHnZhCXhuv4lXbnitP/MZF3U2/0eK1OalqfqOyTlI
+	 ELaJUsvxfrbttYCU/QQJFjg9DnpTsCGtAhO45g9a05pFkahzXXjrJ7QI7R+n9XC7/b
+	 n/KrpoaGN8MVpdrCy0H3KcYz8mhc+Qw2BKhm8UdrldtNwptT1ORxUH+zZlXITOILoB
+	 FQu6pizS2ilfylwvANvz/cdRuaAU8DaEzdyuhIkP3WJ6zVWrr0lSctLGai6hSym+Wp
+	 sJuNtGjKDu6Jg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 3/6] pinctrl: core: Make pin group callbacks
- optional for pin-only drivers
+Subject: Re: [PATCH] memory: tegra264: Add full set of MC clients
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Oleksij Rempel" <o.rempel@pengutronix.de>
-Cc: krzk+dt@kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260515160537.115808-4-o.rempel@pengutronix.de>
-References: <20260515160537.115808-4-o.rempel@pengutronix.de>
+To: "Sumit Gupta" <sumitg@nvidia.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260515171911.1929868-1-sumitg@nvidia.com>
+References: <20260515171911.1929868-1-sumitg@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 May 2026 17:43:09 +0000
-Message-Id: <20260515174309.B55B4C2BCB0@smtp.kernel.org>
+Date: Fri, 15 May 2026 17:46:36 +0000
+Message-Id: <20260515174637.1D344C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-> Currently, the pinctrl core strictly requires all drivers to implement
-> .get_groups_count and .get_group_name callbacks in their pinctrl_ops.
->=20
-> However, for simple pinctrl drivers that act purely as GPIO controllers
-> and pin-specific configuration proxies, without any concept of muxing or
-> pin groups, this strict requirement forces the implementation of dummy
-> callbacks just to satisfy pinctrl_check_ops().
->=20
-> Relax this requirement for pin-only drivers by making the group callbacks
-> optional when no muxing or group pin configuration support is provided.
-> Update the core and debugfs helpers to check for the existence of these
-> callbacks before invoking them.
->=20
-> Drivers that provide muxing or group pin configuration operations still
-> must implement group enumeration and naming callbacks, and are rejected
-> at registration time if they do not.
->=20
-> Suggested-by: Linus Walleij <linusw@kernel.org>
-> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Newly added BPMP-managed memory clients are missing their `.bpmp_i=
+d` and `.type` initializations.
+- [Medium] The `tegra264_mc_clients` array is not strictly sorted by client=
+ ID, contradicting the commit message.
+--
 
-Reviewed-by: Sashiko <sashiko-bot@kernel.org>
+commit fefb4bd46910389b4d7cd1d39ffbe180883f7665
+Author: Sumit Gupta <sumitg@nvidia.com>
 
+memory: tegra264: Add full set of MC clients
+
+This commit extends the Tegra264 MC dt-bindings header and
+tegra264_mc_clients table to cover the full set of memory clients exposed by
+the SoC.
+
+> Extend the Tegra264 MC dt-bindings header and tegra264_mc_clients
+> table to cover the full set of memory clients exposed by the SoC.
+> Client name is used for MC fault reporting. Clients managed by the
+> bandwidth manager in BPMP additionally carry their bpmp_id and type.
+
+The commit message states that clients managed by the bandwidth manager in
+BPMP carry their bpmp_id and type. Should these fields be initialized for t=
+he
+newly added clients like NVENC, NVJPG, ISP, PVA, XUSB, and TSEC?
+
+> diff --git a/drivers/memory/tegra/tegra264.c b/drivers/memory/tegra/tegra=
+264.c
+> --- a/drivers/memory/tegra/tegra264.c
+> +++ b/drivers/memory/tegra/tegra264.c
+[ ... ]
+> @@ -110,6 +208,12 @@ static const struct tegra_mc_client tegra264_mc_clie=
+nts[] =3D {
+>  		.name =3D "rcew",
+>  		.bpmp_id =3D TEGRA264_BWMGR_RCE,
+>  		.type =3D TEGRA_ICC_NISO,
+> +	}, {
+> +		.id =3D TEGRA264_MEMORY_CLIENT_NVENC1SRD2MC,
+> +		.name =3D "nvenc1srd2mc",
+> +	}, {
+> +		.id =3D TEGRA264_MEMORY_CLIENT_NVENC1SWR2MC,
+> +		.name =3D "nvenc1swr2mc",
+>  	}, {
+>  		.id =3D TEGRA264_MEMORY_CLIENT_PCIE0W,
+>  		.name =3D "pcie0w",
+
+If the bpmp_id and type fields are omitted here, they default to 0. Would
+this cause drivers for these components to inadvertently pass 0 as the clie=
+nt
+ID to the BPMP firmware when attempting to configure interconnect bandwidth?
+
+> Entries in tegra264_mc_clients[] are sorted in increasing order of
+> their client IDs, which matches the order of the override and
+> security register offsets used in previous SoCs.
+
+This isn't a functional bug, but are these entries strictly sorted by their
+client IDs as the commit message indicates?
+
+[ ... ]
+> @@ -185,6 +289,402 @@ static const struct tegra_mc_client tegra264_mc_cli=
+ents[] =3D {
+>  		.name =3D "nvdecswr2mc",
+>  		.bpmp_id =3D TEGRA264_BWMGR_NVDEC,
+>  		.type =3D TEGRA_ICC_NISO,
+> +	}, {
+> +		.id =3D TEGRA264_MEMORY_CLIENT_MIU5R,
+> +		.name =3D "miu5r",
+> +	}, {
+
+Looking at the tegra264_mc_clients array, GPUR02MC (0xb6), GPUW02MC (0xb7),
+NVDECSRD2MC (0x78), and NVDECSWR2MC (0x79) appear immediately after
+PCIE5W (0xe3), and the newly added MIU5R (0xfc) is appended after them.
+
+Could this mismatch between the array's actual order and the commit
+message's claim cause confusion during future maintenance?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515171911.1929=
+868-1-sumitg@nvidia.com?part=3D1
