@@ -1,211 +1,246 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013063.outbound.protection.outlook.com [40.107.162.63])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD3B3B9601
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 14:49:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778856555; cv=none; b=LMiZafP8easf1EahYTOluy0f55LYXsZkOYS4/UryOccRAI9OjwcxXH3sblTYUH5swnI8Mjxq7BVtHQu+KaN1V8z+e0f1jgxmQ9sA2vUhaac/xtQiajlvPNVvaxhlhwFPN9plIT69F4j2sqc3DyfHOYob3NYzXbgPROpK+sxgq+4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778856555; c=relaxed/simple;
-	bh=mOv6Q8Fcxzbd/nWF/hITixM5c619MgiWAJDK0f0JBy8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZuqhM7W9Z4+pYzsBDO+uzq2FaoWQrP7emTv2J0f2NdorvHyWRNeZ3kTM660dlUVG4B2suQj1+DFOMo7YJqdWmhcIDLQD8PyV3XlE6wjSK/2KrwZ7n5/48HujUW1Ze4lS9zvyQRenDhv5d9RAYyQ/mvsldYj3Uc5kO24HVcqkRRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=rsXGA3OZ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=RxKftq7j; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=rsXGA3OZ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=RxKftq7j; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B36D2318EF4;
+	Fri, 15 May 2026 14:52:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.63
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1778856744; cv=fail; b=DrFQfqd970gECJPy+eUJcWYDgBAmczIPjYOBh/HZcXifs2+6HtWC2iCiiZGuANLoS1kfNknlmPAdgRaF4XtFGoX/yI6QgEJHgaAZ9/8W8p51MMauBiPQ5edtxl8RNDpwyxDhoTQ88XdV3bimc+bwCF40s1pMqrw1AXYKekHx28c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1778856744; c=relaxed/simple;
+	bh=OY7wuodj85PDNZox5JfCfuleGN3jyhtKd3kZCwhyp2A=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=G/z0kuQq9y9LsjT7jj3+jWbaQ3Fuoa1g+Fy6qjt5guaQD+y1ScLnSwNmq/Nuuc/13hAkpWHpyENaRA7vqHlrAo0uk8tLHXFozQmAFfWcDoJdy2T2wGZ0gSWlddzNgOL/bRkAwIKI8sLADsdNJl2XD9pbGP3TbWkkOwxGhMNdApQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=EAWYO+cn; arc=fail smtp.client-ip=40.107.162.63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rsXGA3OZ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="RxKftq7j";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rsXGA3OZ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="RxKftq7j"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id DEEA75C93F;
-	Fri, 15 May 2026 14:49:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1778856550; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=7ru+fjFB/tNdq+tdFTOk5Iq5/99xUyuLD40hSwxkMX4=;
-	b=rsXGA3OZUAWLpm4GJyWj1u0v4tql7wgi1jofVujLXiwoivjgDNcJW1YY0gV08cs+JqWpTm
-	KO6lGMc8guTzlmHS2w+Y06luZsYcQcC5X1Q43+WzIkx38gjjhQ9XIWpelMKIyfGaJvROfD
-	ZmxRbKfIfMfn+ergsO+UWj6mGAp3dAY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1778856550;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=7ru+fjFB/tNdq+tdFTOk5Iq5/99xUyuLD40hSwxkMX4=;
-	b=RxKftq7j7MtIWVKnMldGLGoNKE9KpUkOFr0vKbm89Q6DrNY4GQeo+Gve1gyWwOWroVq74J
-	uqL6G+8QVI/G5cBw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1778856550; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=7ru+fjFB/tNdq+tdFTOk5Iq5/99xUyuLD40hSwxkMX4=;
-	b=rsXGA3OZUAWLpm4GJyWj1u0v4tql7wgi1jofVujLXiwoivjgDNcJW1YY0gV08cs+JqWpTm
-	KO6lGMc8guTzlmHS2w+Y06luZsYcQcC5X1Q43+WzIkx38gjjhQ9XIWpelMKIyfGaJvROfD
-	ZmxRbKfIfMfn+ergsO+UWj6mGAp3dAY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1778856550;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=7ru+fjFB/tNdq+tdFTOk5Iq5/99xUyuLD40hSwxkMX4=;
-	b=RxKftq7j7MtIWVKnMldGLGoNKE9KpUkOFr0vKbm89Q6DrNY4GQeo+Gve1gyWwOWroVq74J
-	uqL6G+8QVI/G5cBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7133F593A9;
-	Fri, 15 May 2026 14:49:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Dsp0GmYyB2o2OwAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Fri, 15 May 2026 14:49:10 +0000
-Message-ID: <70130cc3-593e-4811-8c22-3e7b6fbe79ad@suse.de>
-Date: Fri, 15 May 2026 16:49:09 +0200
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="EAWYO+cn"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OPXLemDYDJA9/LsRVnxf6kPFs26+5XMLLIX/jxB1Y6yHqYXE7iyZNzWBY4MLA328oyxj33R9/Ra/4FFHOQdnI88fQsSFM+T3ZeOk71X+vwzTZ28cfwHTJIsXE1eux1dtB7U/eBHXx8ahG8tklpDk6b5S0b6xmbAbHFuxuLAMyEV4IlC22usGxbLIod/b5+xEkBCRcCzNv8Yd2dsSntMQi3M8fHNHXtHWvPAetpiONEE9hvsKcajL8FV9b7EM/NskwXHwbrtrZ5G/csUsiEVrj8bs2GXg4c5E8nkI1ruNrCsM6l/OdZSrwxRD72gkA2ELTL7Zu7AWevouuUkDSyCYdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oeki5v86GUXOt1phRY5JmI6qGi9qy5KEusHP+V/RARI=;
+ b=I25kgxTpT1fqgbh4X+NjRqYhmLoJJPrdJLkhzufuNF8TwhDHAv/wIUCrQQ4qULvbvpcH8rIH+tu1llIlZxqnxDRHCgdnwsKZe3xH4r4FbYrdABUnQFz06OMdaDGQXo78cC/hcwiE56IbZnQwZCxYW4EeAiQPidtj1sA7t3ol3sPtf3r7mOnDGTuFJCVKx5sGQpBU5uuL39/+LRnajWB7VfBd7EIG/9rpo2wR0hfaWG+LI4ZD6My5hFWk0ep1Y2nuUILVP7u1j3MscB6ZOZS83BZPvvuWbZhLD8S+SXECEN0RRKE2rN+8nblx5NejrQiIgkf1UCjOa2HC2Bjp4nQvsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oeki5v86GUXOt1phRY5JmI6qGi9qy5KEusHP+V/RARI=;
+ b=EAWYO+cnS95XHWc3MHQoCrrKPitqMIJSPgajiI2qsGWZr/NDnAdBBPTcJKlFWoVH+uiGEusoSTTD810BBXBuxc7w0+MglCJt7QN8hdxL+u+ZghBp5hW/jnNFbXH7de+jIAJiWMAHEBahziEqqOPfnFEvJzcGEI3RVKP04+9Lav6zepxBA8BfkDkQ2/1bOs3XStv0EMBBlTseJzPR920vqVYA2M4BZBZMmFHqOdLCkV/3otmvQz7eQGLxUp7aT4YdNiwoo9MViHZuE6V3MU/q19GYQOlN8zoga0D8FoU2/qf7g/RFpWJsEfGktQy/hE4vL4XN2LQWyWEn/H210xUsfQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GV1PR04MB11016.eurprd04.prod.outlook.com (2603:10a6:150:206::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Fri, 15 May
+ 2026 14:52:11 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.20.9913.009; Fri, 15 May 2026
+ 14:52:11 +0000
+From: Frank.Li@oss.nxp.com
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	linux-sound@vger.kernel.org (open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM...),
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev
+Subject: [PATCH v4 1/1] ASoC: dt-bindings: Convert eukrea-tlv320.txt to yaml
+Date: Fri, 15 May 2026 10:52:03 -0400
+Message-ID: <20260515145205.1696584-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SA1PR05CA0016.namprd05.prod.outlook.com
+ (2603:10b6:806:2d2::25) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] drm/panel: Add driver for Novatek NT37705 panel
-To: Luca Weiss <luca.weiss@fairphone.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20260501-fp6-panel-v1-0-e09cb05651cc@fairphone.com>
- <20260501-fp6-panel-v1-2-e09cb05651cc@fairphone.com>
- <c06623ba-b19c-471a-becb-2fafddb3583c@suse.de>
- <DIJBNGDNXE0L.2I0H4PBDDODOP@fairphone.com>
- <4d4e8090-3216-4a41-9a7d-3d2c0998121a@suse.de>
- <DIJBW80W84I8.27QBZZD2BGAKO@fairphone.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <DIJBW80W84I8.27QBZZD2BGAKO@fairphone.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Score: -2.80
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	URIBL_BLOCKED(0.00)[suse.de:mid,suse.com:url,imap1.dmz-prg2.suse.org:helo];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_TO(0.00)[fairphone.com,linaro.org,gmail.com,linux.intel.com,kernel.org,ffwll.ch];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	ARC_NA(0.00)[];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TAGGED_RCPT(0.00)[dt];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,suse.de:mid]
-X-Spam-Level: 
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV1PR04MB11016:EE_
+X-MS-Office365-Filtering-Correlation-Id: 12391271-d2d1-47f6-1006-08deb2918b3e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|19092799006|11063799003|56012099003|18002099003|4133799003|3023799003;
+X-Microsoft-Antispam-Message-Info:
+	YRmFmXwWVUpnMOjvYqjChs8u4OPg3zdgFREmlevFqdmPtAUxD3Z6lB7k/XTo3Dxx9vlUjwkFYli/Xr7F2JWVUAsjswft161SGe2F9lzv+tHFQlLwVjyDJcLT3HL8Z9nMbEDItTF8tjN40m2M+DvKOqtioe/ODrsIbcbUxdVq5moeUrpOK8fFe6TUgJp9nL9URihyPBdXKiq5qvnmQAwk94hzE1JI9cNnnyglbhyUEXHgKnPtZdvuA1QYeeR6xLS+rI55VL+0vTIvIfHVodq9aWXz+BCzuvXkVzWsLaVV18EEFGgwGErdM6ZRew28ecoNPujdlR+6GjCA8gexYN6Pp5DJgs7xh/IBvrSk1yemu1g+wbn3Tik87S0vdNhKjt1sIDDgNFnfr+E5wXOLMD3Z9mZhVmhx4wSopB0nMEopF9sLJUNweMOCRjNKRPiA1xlLUHvXQgF6cy9+RozNHBcFHmLIB6xD/TbGZOdvUYUHsslXme9iEsbshFjoBnyzaKABer1nq/PPpTKWHvMt/56ERKwKRaLa22N9hA3uz4iwUtWq6OwZVuWLNsEtyZgDGx1s2so0wLZK4q28opnNjZDv/+FCBDr250UdbwHyQgueetyfrTqjMLY8rfy6oHkwi5mq+Ah/rUY8+vsXzhCZHRDzkw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(19092799006)(11063799003)(56012099003)(18002099003)(4133799003)(3023799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?czDnQOmqA9GQi7fJobLAOLwimq23d8ssgFb7Gx9ZZTuRKPUz0IE4LhD94ZNg?=
+ =?us-ascii?Q?vSqziJyRHxfwU/N4y/e9qi430yDeX6va8QcjfogB90ZMPEOcOjdwx+/fwujH?=
+ =?us-ascii?Q?WBsIQF41NSfg4fXv7j27IUvWvAOSVs4z5/vzxyHgZtuEfUBaarluLZXCurVX?=
+ =?us-ascii?Q?MnNsI8ks05hdJWupdPl022HLsf1/N3JLT/qRTKmOEr73K/hEMfN1VcnNFv7E?=
+ =?us-ascii?Q?bMK+TyRpTM6QjlXzsCkY1U70mHcK4Ub+7A2f3oqQXfzE99qISqtn9ifJnvor?=
+ =?us-ascii?Q?hRPMXoCdl8VaWFyD97cGcTmPtqrTynqk+DfyYVUUOuf+c/X/oXGeXAMszCHr?=
+ =?us-ascii?Q?WfuzpxJmCif42nFGVnGoSPshInUitJ1aULTNNWIU0PvrRRSAB3fy/pa24tBQ?=
+ =?us-ascii?Q?k2o02x6k86maD5ILServ0WoDnJcA9puim1lmi+jFgggNJ3h2vn3YS/35tT/Q?=
+ =?us-ascii?Q?X6ikaIxU1YWc6Stq1IMLTmMNo2rvASvSJwCCKopm0ZTEvRPvYHmCr/UbnzLZ?=
+ =?us-ascii?Q?Qk6LgJNOo1P5nVqQy/e778zffR0tGLn6tpXTFbqahNvZRiTZeffFSt21Fkxw?=
+ =?us-ascii?Q?o/7YJS9LVreemP/BMdmmBh9s4mpbF4PXviszmjcZAyUqc0grxV2ZnuGZFyem?=
+ =?us-ascii?Q?4r84wjOvJ85i40XPRiTjIuxfrIDC+fCDaCUv329PCJ0DbBCldWTA8+bXzRSl?=
+ =?us-ascii?Q?8W+cpY46BSxkiLWj4llNrECcUCIX/IeG+MulL4P4MjlUGCiXXNrmI1l1mgt9?=
+ =?us-ascii?Q?nijP9c83FyEjFJcvClJNFlV/3YmlHipDlHY4Qnj2Wc+eHA/HQGoATsI+fv9b?=
+ =?us-ascii?Q?8oY1UHyDZmfW3WGgFN7Hl5+lcmlv/jaKZRchP5kNxHP///8nIOhNBW8QWGB1?=
+ =?us-ascii?Q?0gOJDnbDkqyzfn5H3hkk1k4Fv2/+uGonxKJlSHwK4kBk3RlyYELEfIqxBW+v?=
+ =?us-ascii?Q?MNoVBIKdjhMxr7buGSSRwDuZ8ZN6+Tknctuacj7E8YS6WW/5WA+hVsy2mQWx?=
+ =?us-ascii?Q?1G9YmOcFZLBj9gF7Zd2M74wtyD9Xf7e6dr8H+pqbp3Cq5Rc6uxAyocBsp4wK?=
+ =?us-ascii?Q?UDjjmbBVtyq+pZ/bWEjWZGZaT8/bYDF+VG3gqpnURsUPJcsAN02QQi5AbP9S?=
+ =?us-ascii?Q?hQ2eo8ra8HdLP6bTFA9XfJJuv/R2W/pdVx1tPjftXWALBoNhVh3GEJysgkZU?=
+ =?us-ascii?Q?gavZSFPu1DTRwA3bFXy9QXBmtKh/J37e9ziuQQWvfQ4gSrkni73hBc/TUMIc?=
+ =?us-ascii?Q?XEkjeEMPrsk7aFpNuJCOC61kvG0B8FwXhUZyXa0PcmbywwxReo/c/VCnLLqD?=
+ =?us-ascii?Q?Ywj4HAXsE8cTG9Q+zhEj9RUBZyIiB4ceSLMPspmD++0/lsHo+bdzNB0cQacE?=
+ =?us-ascii?Q?ocVoxZPWvaUEEyYxj6xevAmfxoH+RIF0A1+NV1tCJ938DjK20aewLeW0gy/v?=
+ =?us-ascii?Q?Nlw5lrkZYQ+j64ALTMGAviWWypdL+4EL80Ba3gWL9Kx4PFYy4dBr/QvWNntR?=
+ =?us-ascii?Q?j+qES3AYcWi9lltucIc/a0f/il7mpdDu3V1wR5tW1lFn//IfKd/0BKxkuTAk?=
+ =?us-ascii?Q?wuKZw5/WUGuwqZPgSCRhMBGytPmunnEe3FfipTLo45foYTjGCZl+VbDCoN+8?=
+ =?us-ascii?Q?LLF+gFRbulBxjpy05xsFnB+yaVnUSpSCu76ppbtvcjhG1i0LXFN8Ru41ZWYO?=
+ =?us-ascii?Q?IT+YkQj8avH/H4sP5fZz8OJTMhU/nfnnqKUG32I+W9eTsmgxVM0GdkE8f25A?=
+ =?us-ascii?Q?C73H24Wh8y/9hwylcqwfQ6xVcZ29/rI=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 12391271-d2d1-47f6-1006-08deb2918b3e
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 14:52:11.2813
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UO700xdtSPQRD7D3O+FhOtfb9HsIJGfmaFX844xh8ck01DgMYV0luN7l6/u55SjBHjawFeI1aSzqZpqWkLAWGWbtafTbzWGTtrRJKISiWtYjwT0nczk2bvwx/oxbaPCr
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB11016
 
-Hi
+From: Frank Li <Frank.Li@nxp.com>
 
-Am 15.05.26 um 16:43 schrieb Luca Weiss:
-[...]
-> I checked and include/linux/container_of.h states:
->
->    Do not use container_of() in new code.
->
-> and
->
->    Always prefer container_of_const() instead of container_of() in new code.
->
-> So sounds like using container_of_const() is the correct way.
+Convert eukrea-tlv320.txt to yaml format.
 
-I didn't know that. Thanks!
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+Change in v4
+- add minimum and maximum for fsl,mux-int-port and fsl,mux-out-port.
+change in v3
+- add fsl,mux-int-port and fsl,mux-out-port to required
+change in v2
+- Add comments about "The AUDMUX port numbering should start at 1"
+  v1: https://lore.kernel.org/linux-devicetree/CAEnQRZACes8EptdEgg0i0vzdcxgUJwZAfQHU0DEhMnXtA-g01Q@mail.gmail.com/
+---
+ .../bindings/sound/eukrea,asoc-tlv320.yaml    | 61 +++++++++++++++++++
+ .../bindings/sound/eukrea-tlv320.txt          | 26 --------
+ 2 files changed, 61 insertions(+), 26 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/eukrea,asoc-tlv320.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/eukrea-tlv320.txt
 
-Best regards
-Thomas
-
->
->>>>> +
->>>>> +	ret = regulator_bulk_enable(ARRAY_SIZE(nt37705_supplies), ctx->supplies);
->>>>> +	if (ret < 0) {
->>>> Common style is to check for errors with
->>>>
->>>>      if (ret)
->>>>
->>>> Here and everywhere else.
->>> At least for regulator_bulk_enable() "ret < 0" is actually more popular
->>> than just "ret".
->>>
->>> Kernel doc says "Return: 0 on success or a negative error number on
->>> failure." so a positive integer should in theory never happen so they're
->>> equivalent.
->>>
->>> (git grep -h -A2 regulator_bulk_enable | grep if | sed 's|^[ \t]\+||' | sed 's| {$||' | sort | uniq -c)
->> It's just nitpicking, not a blocker.
-> I was also curious so I dug around a bit :)
->
-> Regards
-> Luca
-
+diff --git a/Documentation/devicetree/bindings/sound/eukrea,asoc-tlv320.yaml b/Documentation/devicetree/bindings/sound/eukrea,asoc-tlv320.yaml
+new file mode 100644
+index 0000000000000..24b793feb02df
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/eukrea,asoc-tlv320.yaml
+@@ -0,0 +1,61 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/eukrea,asoc-tlv320.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Audio complex for Eukrea boards with tlv320aic23 codec.
++
++maintainers:
++  - Frank Li <Frank.Li@nxp.com>
++
++properties:
++  compatible:
++    const: eukrea,asoc-tlv320
++
++  eukrea,model:
++    $ref: /schemas/types.yaml#/definitions/string
++    description:
++      The user-visible name of this sound complex.
++
++  ssi-controller:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      The phandle of the SSI controller.
++
++  fsl,mux-int-port:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: |
++      The internal port of the i.MX audio muxer (AUDMUX).
++      Note: The AUDMUX port numbering should start at 1, which is consistent with
++      hardware manual.
++    minimum: 1
++    maximum: 8
++
++  fsl,mux-ext-port:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: |
++      The external port of the i.MX audio muxer.
++      Note: The AUDMUX port numbering should start at 1, which is consistent with
++      hardware manual.
++    minimum: 1
++    maximum: 8
++
++required:
++  - compatible
++  - eukrea,model
++  - ssi-controller
++  - fsl,mux-int-port
++  - fsl,mux-ext-port
++
++additionalProperties: false
++
++examples:
++  - |
++    sound {
++        compatible = "eukrea,asoc-tlv320";
++        eukrea,model = "imx51-eukrea-tlv320aic23";
++        ssi-controller = <&ssi2>;
++        fsl,mux-int-port = <2>;
++        fsl,mux-ext-port = <3>;
++    };
+diff --git a/Documentation/devicetree/bindings/sound/eukrea-tlv320.txt b/Documentation/devicetree/bindings/sound/eukrea-tlv320.txt
+deleted file mode 100644
+index 6dfa88c4dc1e8..0000000000000
+--- a/Documentation/devicetree/bindings/sound/eukrea-tlv320.txt
++++ /dev/null
+@@ -1,26 +0,0 @@
+-Audio complex for Eukrea boards with tlv320aic23 codec.
+-
+-Required properties:
+-
+-  - compatible		: "eukrea,asoc-tlv320"
+-
+-  - eukrea,model	: The user-visible name of this sound complex.
+-
+-  - ssi-controller	: The phandle of the SSI controller.
+-
+-  - fsl,mux-int-port	: The internal port of the i.MX audio muxer (AUDMUX).
+-
+-  - fsl,mux-ext-port	: The external port of the i.MX audio muxer.
+-
+-Note: The AUDMUX port numbering should start at 1, which is consistent with
+-hardware manual.
+-
+-Example:
+-
+-	sound {
+-		compatible = "eukrea,asoc-tlv320";
+-		eukrea,model = "imx51-eukrea-tlv320aic23";
+-		ssi-controller = <&ssi2>;
+-		fsl,mux-int-port = <2>;
+-		fsl,mux-ext-port = <3>;
+-	};
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+2.43.0
 
