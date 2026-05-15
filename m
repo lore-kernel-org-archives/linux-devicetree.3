@@ -1,101 +1,63 @@
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD92392C28
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 19:23:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1259413D82;
+	Fri, 15 May 2026 19:29:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778873027; cv=none; b=oeXwDZ11IiJEd+yL3HFPGhMwFkaj20oAJ2MU+9HbxI6lKjLrCZpaic5+U9BmOdpwJklPiaSUKx8Yt38xqzV5qTL92huuUsmgg9y0vkBq7GNG+iTjUoi3gyEp/UYMKGc0qrjtzjuaF778GWTq6KwVCIgvRCwY0EDEoKh+WQ+LzHI=
+	t=1778873398; cv=none; b=kbpaqxELCTAJ3QwcT7kdvLNdDb96mhiLc3wrH278QQLhSnOCZV4eC4KwB8uBru3U7AreoL5erZKVWyv4qQRxS7nUEb5VgQ79VTqiJShoeQmVrmYeIlgy7r2nQjndY1pH/NTKtayx7TAFLdipeg83l3qxb6XrmOhuEpwhwMcCLV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778873027; c=relaxed/simple;
-	bh=DMxsZcVsw+nJoJOw2PtEXmSbJMObppD+XcE8tEfDI7I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VonEJ1tl/rAPqmXAez4VY+T6iqwFP8sBBpnoaJFJAnD1/KvavnQvbBjrTvMHwWTmhPTD/0blYi7zBT3aLIHyzrO3B5A83pI2fLzIeVeUyOZqd9GdS6US1//wehpekbhbOFxwIDSRuwcpzgD8189kmZXvz5UfKK6vrYlUQfcBtNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=jECUCK6+; arc=none smtp.client-ip=74.125.82.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1778873398; c=relaxed/simple;
+	bh=UUbgqtv7hJT6lsCumGN5AiSxZyffjnc80/gbNf37Bik=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=YElxce5v5A1y50iesZ9nRsCLKd9KJJsbWgy6OMZiI30baVwZHS9/IVbkmqSop7u7fswy5c9xpKXVQzJOJDFhfyPPr+JuZXlgqZl+50Nkn5tXT/3mtJJIwGa6rFPXIHInERZ6ujqYCSfcU8GpKcHuNQPusuxVTCiT6WwA4pyF7TE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IbLQmYC6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="jECUCK6+"
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1331e851faaso66084c88.1
-        for <devicetree@vger.kernel.org>; Fri, 15 May 2026 12:23:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1778873025; x=1779477825; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=DMxsZcVsw+nJoJOw2PtEXmSbJMObppD+XcE8tEfDI7I=;
-        b=jECUCK6+TxIZq4KxyzhIuO0oL59r9RUDf2p6IZu+wp9iGMspfDl2NvgvervEguOcwq
-         bfmcE7FW+1dhyKcMTsRhHWtNFVHKpcFX4nNM0ISgLJCgcOJBgULY7f/yAunxr5S3mvAB
-         fx6puevBO8F+J/2dP/wqN2EGLj/kSC4Mw5sHw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778873025; x=1779477825;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=DMxsZcVsw+nJoJOw2PtEXmSbJMObppD+XcE8tEfDI7I=;
-        b=UcQiPsoHL0CvjeQrnbBQe0/r1l/G/VECEDhVTAdvaSto340K7ZcXWttZaai1sR6Vsc
-         FvOtklSj/ZxRBDRu0sPjhN2R7oSkXFLpV/B0BxKNQBZUhJ2nM+X2iNt2pwS61OfCCT8W
-         XK3LH2F+JX5VhQQDxa7OyT7MI236RtjLhge/CJh5BhHYZE2tpwLZ+ze65ZJbo/g5P0zr
-         n8yiSMa4AY06Bon6AeR+LWod/Bw7e4noDS8TO71q67wfFDE4QckIle9fggd2+zsWZ2il
-         ENdbQ6wEGjiigU6iJM1OJnCiwlL++hCy7mjs5P/tK6GQP8OPAun3PuMDn9nglRCPi62/
-         tGNg==
-X-Forwarded-Encrypted: i=1; AFNElJ9CXCw4Z6DwOtZdhoyUaxqD9S79w+9DBKHUDHgYEJmwcnUpKzRKneihyaLdHWeDWtkJsPGBd6mn1KRw@vger.kernel.org
-X-Gm-Message-State: AOJu0YyelpFKV7inHqDqfJmsRGxf5/dxJczefpAXxoEP6hGhjvRmQ3eI
-	/CBCcGmwpzEV93jdjzhQllh8QXylWhgW1AzmN/gFqiR0cEc3YhdApdYGv98UUytmrw==
-X-Gm-Gg: Acq92OGWO2naYY2Dsfbv2hi34kwTBwNOvkDiVd/x4UVS4yOnj30NUeYnOFLe14YAxaB
-	cKZQMeOrNa5nPkKg/2dvjJlzu2vnDnyufmtDk32D3NYr8XSNNRTO3SYXE233OgSL9KM1M8+Pg5H
-	45tKfLCkS6KbWw2T0BiPNzLJAjGpJ9FLtE7L4bcBFKq+2vvw9zcGSfIY3Za2vwYok6DbLbFkqZ9
-	5egiG4ACKjq7UVUKofP/f16AVGZ2AVEQiUpF4XAu8pnHVErVKQcbzbvNsQo4DIBXpi3/9MCHNof
-	XLuLSTjgcAcnvq4BwfN6+hbzYvaNXKn9zEr+9U08XXClBYOm5gVjhRMACiF5VL9XZgpMraaacFS
-	9V4ZMVPEuVYzvRMgSzSvKvcMW1g3tab9o6wsa78cLGaRkwgiRPZjTZXgp2v2mhohXFmAnl7gEHL
-	VIOukPrFEnJWKFLAZEnzoiEeO+yAO4DPMASKjNUoaK+urjNpA+eawQp8Hj8fAHO+MGKNJPybCf
-X-Received: by 2002:a05:7022:3803:b0:135:1ae8:39a1 with SMTP id a92af1059eb24-1351ae83c60mr1049495c88.17.1778873025162;
-        Fri, 15 May 2026 12:23:45 -0700 (PDT)
-Received: from localhost ([2a00:79e0:2e7c:8:6286:f060:4b08:96eb])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-134cc33a67csm10704810c88.13.2026.05.15.12.23.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 15 May 2026 12:23:44 -0700 (PDT)
-Date: Fri, 15 May 2026 12:23:41 -0700
-From: Brian Norris <briannorris@chromium.org>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Joe Perches <joe@perches.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andy Whitcroft <apw@canonical.com>,
-	Dwaipayan Ray <dwaipayanray1@gmail.com>,
-	Lukas Bulwahn <lukas.bulwahn@gmail.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yingying Tang <yingying.tang@oss.qualcomm.com>
-Subject: Re: [PATCH] checkpatch: Don't emit warnings for USB & PCI device DT
- compatible prefixes
-Message-ID: <agdyvR0EjH-RXBcy@google.com>
-References: <20260514105151.2771474-1-wenst@chromium.org>
- <agYJJVfMBVL0KB05@google.com>
- <1eee92b884068d649ef7be9f7d931da27aa04536.camel@perches.com>
- <CAGXv+5HrunhENv3QD4uG0ZLs8BvdOdrQcfn_82DRP51+_+ECUQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IbLQmYC6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50E12C2BCB0;
+	Fri, 15 May 2026 19:29:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778873398;
+	bh=UUbgqtv7hJT6lsCumGN5AiSxZyffjnc80/gbNf37Bik=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=IbLQmYC6yCf5MZT0oIoJxkdVpNonY2pP2RINCQ9Y4/xoke2daGumq2IEYb2JPyY/r
+	 zHWjGs82TTtfaYw/VSZpYc981Nyc7T/Bc9bwW57514OQD2ls9BeZobNS+QpK4F3N8+
+	 1Ap3TKalIVv6e2kpuNN5/kgA6yMVZ8YuzGmPrDN3qLcabWgZVqMs/5YZt1d2JkBOz+
+	 kcWaY2iLZA1cLOrlm2NcbcTcg0j3k43QfOYCYqcpGHRhaqBgyszFKwb8WBu1r3u0Ec
+	 FmJ8531kEd3FlFY5jPHO3TgYgvlNcjJvFgMqEvGsJMDFEpAXqc2v1kh3+LPp+2y2xS
+	 hEOvnI3PSn+1g==
+Date: Fri, 15 May 2026 20:29:48 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Chris Morgan <macroalpha82@gmail.com>
+Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
+ dlechner@baylibre.com, jean-baptiste.maneyrol@tdk.com,
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
+ andriy.shevchenko@intel.com, Chris Morgan <macromorgan@hotmail.com>
+Subject: Re: [PATCH V7 08/11] iio: imu: inv_icm42607: Add Accelerometer for
+ icm42607
+Message-ID: <20260515202948.5b90c2d0@jic23-huawei>
+In-Reply-To: <20260515130018.237378-9-macroalpha82@gmail.com>
+References: <20260515130018.237378-1-macroalpha82@gmail.com>
+	<20260515130018.237378-9-macroalpha82@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAGXv+5HrunhENv3QD4uG0ZLs8BvdOdrQcfn_82DRP51+_+ECUQ@mail.gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, May 15, 2026 at 11:24:09AM +0800, Chen-Yu Tsai wrote:
-> We could import Documentation/devicetree/bindings/processed-schema.json
-> and match against the compatibles and vendor prefixes from that. It
-> might actually be faster (vs grepping through the entire DT bindings
-> directory), but it requires the user having run make commands that
-> produce it.
+On Fri, 15 May 2026 08:00:13 -0500
+Chris Morgan <macroalpha82@gmail.com> wrote:
 
-Personally, I would avoid having checkpatch do more duplication of
-other/better tools, like the DT schema validator. I'd also avoid having
-it run other tools that are not guaranteed to be easily available.
+> From: Chris Morgan <macromorgan@hotmail.com>
+> 
+> Add icm42607 accelerometer sensor for icm42607.
+> 
+> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+Sashiko raised a few things.  Otherwise I don't have any comments.
+https://sashiko.dev/#/patchset/20260515130018.237378-1-macroalpha82%40gmail.com
 
-I would focus on eliminating the false positives, even if that means
-making checkpatch less likely to catch omissions.
-
-But my opinion may not be valuable.
-
-Brian
