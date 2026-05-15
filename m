@@ -1,216 +1,246 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73195357D1A;
-	Fri, 15 May 2026 13:34:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 244C6224AF7
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 13:35:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778852101; cv=none; b=K7fd655GP7bqi6WyTmvCqyYh3ULYeGgiuB7wBzsOXQrkudp9S09k9psqs2XDB6DudP+yKDmd3WHsKcZFku4U+qoEs/nvlSIMyuqqUUYoCaG3a7GA2d1krz4jVoHyOXeMi7pz0tfg0umAuvBmfDTUxEI5QZLXCJ1Pdy+XroEOLSE=
+	t=1778852142; cv=none; b=T2/WPRum4ZuMCjSmrYWWIP6nO20gJoi2184LNnTCEFuPGGKqWiaDPO3Ics3fEK6Rg92VwVcEaZ2rpLiVgCSsNitP7jxSzZK/vKLmWUn/oOSwNb9MQ345mANLhnVvylqe5OqEHi5fOSoi0mMzufJVeuJiL5KUuHixlVT8hpHNAUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778852101; c=relaxed/simple;
-	bh=NCET79qZworMeGxlUtbnqOq50zq63+sJvrMAPaiTqmg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a9CPVksvQrO3dx4CavoXGlaJi1OhsuSxYum/qMc1BFiY2Hd+GrN0qLAfQD+MH9a512AQb2sgNDkRwJISj8ziHUBA2HzimkaYSQs+YdSeQuatoNf4ADV9t1MZdpj8AYZS3LwOKa/bah9o1GSnNEo+U4zAChOMHkdj+JMUrfzJ6YY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=bknCUXBu; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1778852142; c=relaxed/simple;
+	bh=nc5Orx7m54en1/8Sa4kUcm3InnfZ3JxI9Kv0RQTsun8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=uxAplKd1dgES4qKGQ/j3Xf0w9S+8wX/A8iuw2tDLPdAAZ0YOKbrmSX6nCXrFQhtAA6aZK0gkiMIBp/6Nj3Q39tf+b13VitCKPTiFMmLTS+1R/mLFcHveDHZv+XUgr2et/RyCQKl7dXwW/8bN5mlXmG9zJbYrSfdDxW/iidXvdcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W4MnErqj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="bknCUXBu"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A16943E2A72;
-	Fri, 15 May 2026 15:34:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1778852095; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=A5zmeGSN+y1eB9ovPme0Em/fslZDHREQBQZ+/qd911k=;
-	b=bknCUXBuLti5q0f9ZMuKNon9Wcm1gf0EoenQcEslk0B5FVXdV+2X2kW0LD9tnYtzibTkzY
-	2xmgv3xDCCMYbiFyncIidH+FzGnveyQ9thlEN4oCeSsG6VqhyR1KtZIx11kh0cNP2LEPQ5
-	ZrBt3OCBMS5GNfu/aU8QHq4BGZC3eX1fLnVITWfH+yo1U74DVfsD5s7umqPfxFYVVXlfru
-	bqAsoz5pCG1meAVhV9rC21jzByOt2z3ZBSf5V5wT9nDvLgEWeJ309jwCRQ7xBVOroKXlTU
-	DqNxRDOZsXpIxE49PP514pWOB41vutfRJt4cAOe7a0+yAPL+kNrQPBns2CsEKA==
-Message-ID: <22d7274b-640a-470e-86b0-997a4b6e102d@cjdns.fr>
-Date: Fri, 15 May 2026 15:34:53 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W4MnErqj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8090C2BCC7;
+	Fri, 15 May 2026 13:35:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778852142;
+	bh=nc5Orx7m54en1/8Sa4kUcm3InnfZ3JxI9Kv0RQTsun8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=W4MnErqjMTLtox5WKvV+Qq9Z6wVVZGOftZY4+36pGL/kLRTXFXtEChM8zmsvPbU0/
+	 dWl4TiGwVh+1k1/TZSw6e8xf8fI7TldI+9c9VBe2XIf4rreiXG83u6bnbjbSof/MyI
+	 uUA8uHli+y9Fmr7ni9J21KrNry4SCqO3fL0dzxLBu9YKAcezKduvs+2EHQnEEslW2A
+	 XndxqpP9tTHw8P0/OC8ZHE0JQwgnfk9iq2yezoFSr4vnwDELpApwG1FugUvazmvotl
+	 wMW4mPWfRzROJ93aPZaXTzeGHQI7m3eaugeHp+ePwLrw4w6uO/26CD2pw5xzQgZ5HM
+	 xqKzE4BcO22Ng==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V7 06/11] iio: imu: inv_icm42607: Add Buffer support for
+ icm42607
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chris Morgan" <macroalpha82@gmail.com>
+Cc: krzk+dt@kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260515130018.237378-7-macroalpha82@gmail.com>
+References: <20260515130018.237378-7-macroalpha82@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 15 May 2026 13:35:41 +0000
+Message-Id: <20260515133541.B8090C2BCC7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v7 2/2] PCI: mediatek: Add support for EcoNet EN7528 SoC
-To: sashiko-reviews@lists.linux.dev, Bjorn Helgaas <helgaas@kernel.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org
-References: <20260514151318.3444959-3-cjd@cjdns.fr>
- <20260514210141.2DEF2C2BCB3@smtp.kernel.org>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <20260514210141.2DEF2C2BCB3@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Regarding this, I could use some advice. Bjorn I tagged you in because 
-you're probably best to have an opinion here.
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] Missing bounds check in `inv_icm42607_buffer_fifo_read` allows out=
+-of-bounds slab memory read.
+- [High] Unaligned memory access in `inv_icm42607_fifo_is_data_valid()` cau=
+ses undefined behavior and alignment faults.
+- [High] Software state desynchronization in `inv_icm42607_buffer_predisabl=
+e` due to missing teardown on error paths.
+- [Medium] Redundant and potentially destructive assignment logic in `inv_i=
+cm42607_buffer_set_fifo_en` overwrites FIFO configuration.
+- [Medium] Dead code for sleep delay in `inv_icm42607_buffer_postdisable` b=
+ypasses required hardware power-down delays.
+- [Low] The macro `INV_ICM42607_SENSOR_CONF_INIT` initializes more elements=
+ than the struct contains.
+--
 
+commit b372db6e3728fbbbe2a3d28ca15a025d7cf101c5
+Author: Chris Morgan <macromorgan@hotmail.com>
 
-On 14/05/2026 23:01, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
-> - [High] mtk_pcie_retrain() iterates the PCI bus without locks and holds an unreferenced device pointer, leading to a Use-After-Free.
-> - [High] mtk_pcie_retrain() only retrains the first root port, silently ignoring any other ports on the same host.
-> - [High] Link retraining occurs after downstream endpoint drivers are probed, causing a race condition that can lead to system crashes.
-> - [High] Calling virt_to_phys() on an __iomem pointer causes undefined behavior and potential memory corruption.
-> - [Medium] The IS_BUILTIN() workaround silently degrades hardware capabilities when the driver is compiled as a module.
-> --
->
-> commit 08338fe344200ef55148194108ab3b65616af7c7
-> Author: Caleb James DeLisle <cjd@cjdns.fr>
-> Subject: PCI: mediatek: Add support for EcoNet EN7528 SoC
->
-> This commit adds support for the PCIe controller found on EcoNet EN7528 SoCs.
-> It introduces a hardware quirk to retrain the link after startup, as some
-> ports capable of Gen2 operation will initially start at Gen1 speeds.
->
->> diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/controller/pcie-mediatek.c
->> --- a/drivers/pci/controller/pcie-mediatek.c
->> +++ b/drivers/pci/controller/pcie-mediatek.c
-> [ ... ]
->> @@ -753,6 +764,135 @@ static int mtk_pcie_startup_port_v2(struct mtk_pcie_port *port)
-> [ ... ]
->> +	/* Activate INTx interrupts */
->> +	val = readl(port->base + PCIE_INT_MASK);
->> +	val &= ~INTX_MASK;
->> +	writel(val, port->base + PCIE_INT_MASK);
->> +
->> +	if (IS_ENABLED(CONFIG_PCI_MSI))
->> +		mtk_pcie_enable_msi(port);
-> Is it safe to call mtk_pcie_enable_msi() here? Looking at
-> mtk_pcie_enable_msi(), it calculates the message address using:
->
->      virt_to_phys(port->base + PCIE_MSI_VECTOR)
->
-> Since port->base is an ioremapped __iomem pointer, passing it to
-> virt_to_phys() produces undefined behavior and could return a garbage
-> physical address. If this address overlaps with valid physical RAM mapped
-> for DMA, could memory writes from the PCIe endpoint corrupt random system
-> memory?
-Learned a few things from that note. Seems ioremap is just giving us a 
-KSEG1 address and virt_to_phys() is getting the real address back. In 
-any case I'm just doing what the driver already does.
->
->> +
->> +	/* Set AHB to PCIe translation windows */
-> [ ... ]
->> +static int mtk_pcie_retrain(struct device *dev, struct pci_host_bridge *host)
->> +{
->> +	struct pci_dev *rp;
->> +	int ret = -ENOENT;
->> +	u16 lnksta = 0;
->> +	u32 speed;
->> +
->> +	/* Should already have been warned about during startup_port */
->> +	if (!IS_BUILTIN(CONFIG_PCIE_MEDIATEK))
->> +		return 0;
->> +
->> +	for_each_pci_bridge(rp, host->bus) {
->> +		if (pci_pcie_type(rp) == PCI_EXP_TYPE_ROOT_PORT)
->> +			goto found_port;
->> +	}
->> +
->> +	/* Should not happen */
->> +	return dev_err_probe(dev, ret, "root port not found\n");
->> +
->> +found_port:
-> The commit message mentions that it is most convenient to retrain every port
-> after startup. Does the goto found_port here unintentionally skip all
-> subsequent root ports by breaking out of the loop after the first match?
-There aren't any.
->
-> Also, is it safe to traverse host->bus->devices via for_each_pci_bridge()
-> without holding the pci_bus_sem read lock? If a device is concurrently added
-> or removed, this might lead to list corruption.
->
-> Finally, pcie_retrain_link() is a sleepable function. Because the code does
-> not acquire a reference to the root port via pci_dev_get() before sleeping,
-> could a concurrent removal event free the pci_dev structure and result in a
-> use-after-free?
+iio: imu: inv_icm42607: Add Buffer support for icm42607
 
+This commit adds all FIFO parsing and reading functions to support the
+inv_icm42607 hardware.
 
-Okay here's the one I have a question about:
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607.h b/drivers/iio/im=
+u/inv_icm42607/inv_icm42607.h
+> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607.h
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
+[ ... ]
+> @@ -84,6 +88,7 @@ struct inv_icm42607_sensor_conf {
+>  	int odr;
+>  	int filter;
+>  };
+> +#define INV_ICM42607_SENSOR_CONF_INIT		{-1, -1, -1, -1}
 
-There's a bunch of related issues here, and I don't see any way to 
-perfectly resolve all of them without moving retrain up before 
-pci_host_probe(), but as noted previously without a mapped bus I can't 
-just call pcie_retrain_link() and I have to - at worst - manually find 
-the registers which is an annoying amount of additional code.
+This isn't a bug, but struct inv_icm42607_sensor_conf is defined with exact=
+ly
+three fields. Will initializing it with four values cause excess elements in
+struct initializer compiler warnings?
 
- From the vendor code, it looks like it should be about 50-70 lines of 
-code to do this manually. The question is, is this race adding more 
-complexity than that code?
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c b/drivers=
+/iio/imu/inv_icm42607/inv_icm42607_buffer.c
+> --- /dev/null
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
+[ ... ]
+> +int inv_icm42607_buffer_set_fifo_en(struct inv_icm42607_state *st,
+> +				    unsigned int fifo_en)
+> +{
+> +	unsigned int val;
+> +	int ret;
+> +
+> +	/* update FIFO EN bits for accel and gyro */
+> +	val =3D 0;
+> +	if (fifo_en & INV_ICM42607_SENSOR_GYRO)
+> +		val |=3D INV_ICM42607_FIFO_CONFIG1_MODE;
+> +	if (fifo_en & INV_ICM42607_SENSOR_ACCEL)
+> +		val |=3D INV_ICM42607_FIFO_CONFIG1_MODE;
+> +	if (fifo_en & INV_ICM42607_SENSOR_TEMP)
+> +		val |=3D INV_ICM42607_FIFO_CONFIG1_MODE;
+> +
+> +	ret =3D regmap_write(st->map, INV_ICM42607_REG_FIFO_CONFIG1, val);
 
-I think wrapping the mtk_pcie_retrain() call in a 
-pci_lock_rescan_remove() lock should stop any downstream probing while 
-pcie_retrain_link() sleeps, but if it happens that a downstream device 
-ends up probing on a different CPU, in the moment 
-between pci_host_probe() and pci_lock_rescan_remove(), we still have the 
-problem of retraining while the device is setting up. Though this is 
-admittedly a pretty tiny race window.
+Does writing 0 to the FIFO_CONFIG1 register here when fifo_en is empty
+inadvertently overwrite the INV_ICM42607_FIFO_CONFIG1_BYPASS mode set
+previously in inv_icm42607_buffer_predisable()?
 
-So I think the options are:
+Also, does setting the exact same mask (INV_ICM42607_FIFO_CONFIG1_MODE) for
+all three sensors properly configure the hardware, or are distinct bits
+expected here?
 
-1. Do nothing
+[ ... ]
+> +static int inv_icm42607_buffer_predisable(struct iio_dev *indio_dev)
+> +{
+[ ... ]
+> +	/* set FIFO in bypass mode */
+> +	ret =3D regmap_write(st->map, INV_ICM42607_REG_FIFO_CONFIG1,
+> +			   INV_ICM42607_FIFO_CONFIG1_BYPASS);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* flush FIFO data */
+> +	ret =3D regmap_write(st->map, INV_ICM42607_REG_SIGNAL_PATH_RESET,
+> +			   INV_ICM42607_SIGNAL_PATH_RESET_FIFO_FLUSH);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* disable FIFO threshold interrupt */
+> +	ret =3D regmap_update_bits(st->map, INV_ICM42607_REG_INT_SOURCE0,
+> +				 INV_ICM42607_INT_SOURCE0_FIFO_THS_INT1_EN, 0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * FIFO should only be 1 at this point, so explicitly set it to 0
+> +	 * instead of decrementing it.
+> +	 */
+> +	st->fifo.on =3D 0;
+> +
+> +	return 0;
+> +}
 
-2. Add pci_lock_rescan_remove() - I'm not informed enough to know if 
-this can introduce other issues...
+If any of these regmap operations fail and return early, st->fifo.on remains
+greater than 0. Since the IIO core continues the buffer teardown process ev=
+en
+if predisable returns an error, does this leave the software state permanen=
+tly
+desynchronized?=20
 
-3. Give up on using pcie_retrain_link() and do it manually before 
-pci_host_probe()
+If so, future calls to inv_icm42607_buffer_postenable() might see st->fifo.=
+on
+as non-zero and silently skip initialization, leaving the device unresponsi=
+ve
+until the module is reloaded.
 
+[ ... ]
+> +static int inv_icm42607_buffer_postdisable(struct iio_dev *indio_dev)
+> +{
+> +	struct inv_icm42607_state *st =3D iio_device_get_drvdata(indio_dev);
+> +	struct device *dev =3D regmap_get_device(st->map);
+> +	unsigned int sensor;
+> +	unsigned int *watermark;
+> +	unsigned int sleep_temp =3D 0;
+> +	unsigned int sleep_sensor =3D 0;
+> +	unsigned int sleep;
+> +	int ret;
+[ ... ]
+> +	/* sleep maximum required time */
+> +	sleep =3D max(sleep_sensor, sleep_temp);
+> +	if (sleep)
+> +		msleep(sleep);
 
-I'm leaning toward #2 but I also don't know what I don't know, so I 
-could use a little advice.
+Is there missing logic to update sleep_sensor and sleep_temp?
 
+Since they are initialized to 0 and never changed, this sleep will never
+occur. Could bypassing this hardware-specific power-down delay lead to issu=
+es
+when rapidly toggling power states?
 
+[ ... ]
+> +int inv_icm42607_buffer_fifo_read(struct inv_icm42607_state *st,
+> +				  unsigned int max)
+> +{
+[ ... ]
+> +	/* compute number of samples for each sensor */
+> +	for (i =3D 0; i < st->fifo.count; i +=3D size) {
+> +		size =3D inv_icm42607_fifo_decode_packet(&st->fifo.data[i],
+> +				&accel, &gyro, &temp, &timestamp);
+> +		/* Make sure the size is at least 1 valid packet. */
+> +		if (size < INV_ICM42607_FIFO_1SENSOR_PACKET_SIZE)
+> +			break;
+> +		if (gyro !=3D NULL && inv_icm42607_fifo_is_data_valid(gyro))
+> +			st->fifo.nb.gyro++;
+> +		if (accel !=3D NULL && inv_icm42607_fifo_is_data_valid(accel))
+> +			st->fifo.nb.accel++;
+> +		st->fifo.nb.total++;
+> +	}
 
->
->> +
->> +#if IS_BUILTIN(CONFIG_PCIE_MEDIATEK)
->> +	ret = pcie_retrain_link(rp, true);
->> +#endif
-> Does this silently degrade hardware capabilities when the driver is compiled
-> as a loadable module? The Kconfig definition allows CONFIG_PCIE_MEDIATEK to
-> be a tristate module, so users compiling it as a module might find their PCIe
-> devices permanently stuck at Gen1 speeds.
-Handled in the if statement above, noted in previous version of the patch.
->
->> +
->> +	if (ret)
-> [ ... ]
->> @@ -1149,6 +1289,13 @@ static int mtk_pcie_probe(struct platform_device *pdev)
->>   	if (err)
->>   		goto put_resources;
->>   
->> +	/*
->> +	 * Ignore error because pci_host_probe() was already called, and in any
->> +	 * case it is possible that the port will still work as Gen1.
->> +	 */
->> +	if (pcie->soc->quirks & MTK_PCIE_RETRAIN)
->> +		mtk_pcie_retrain(dev, host);
->> +
->>   	return 0;
-> Does retraining the link at this stage introduce a race condition with
-> downstream endpoints?
->
-> By the time pci_host_probe() completes successfully, the PCIe bus is fully
-> enumerated and downstream endpoint drivers (such as NVMe or WiFi) have been
-> probed. If those drivers are actively issuing MMIO or DMA requests, forcing
-> the physical link into the Recovery state could cause PCIe completion timeouts
-> and potentially lead to fatal kernel crashes.
+Can an incomplete partial packet at the end of the read result in size
+extending past the valid populated data?=20
 
-Issue noted above.
+There is no validation to ensure that i + size <=3D st->fifo.count. If
+st->fifo.count is near the maximum array size, could i + size exceed the
+bounds of the st->fifo.data array, leading to an out-of-bounds memory read
+in inv_icm42607_fifo_is_data_valid()?
 
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.h b/drivers=
+/iio/imu/inv_icm42607/inv_icm42607_buffer.h
+> --- /dev/null
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.h
+[ ... ]
+> +/* FIFO data packet */
+> +struct inv_icm42607_fifo_sensor_data {
+> +	__be16 x;
+> +	__be16 y;
+> +	__be16 z;
+> +};
+> +
+> +#define INV_ICM42607_FIFO_DATA_INVALID		-32768
+> +
+> +static inline bool
+> +inv_icm42607_fifo_is_data_valid(const struct inv_icm42607_fifo_sensor_da=
+ta *s)
+> +{
+> +	s16 x, y, z;
+> +
+> +	x =3D be16_to_cpu(s->x);
 
-Thanks,
+Because the first field of the packet layout struct
+(inv_icm42607_fifo_2sensors_packet) is a 1-byte header, the accel and gyro
+fields reside at odd byte offsets.
 
-Caleb
+Since struct inv_icm42607_fifo_sensor_data is not marked as __packed, the
+compiler assumes 2-byte alignment for its __be16 fields. Will passing these
+unaligned pointers into inv_icm42607_fifo_is_data_valid() trigger undefined
+behavior and alignment faults on architectures that enforce strict alignmen=
+t?
 
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515130018.2373=
+78-1-macroalpha82@gmail.com?part=3D6
