@@ -1,150 +1,87 @@
-Received: from mail-m49226.qiye.163.com (mail-m49226.qiye.163.com [45.254.49.226])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2A9C3C81AA;
-	Fri, 15 May 2026 02:58:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2E51367F32
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 02:59:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778813942; cv=none; b=P57zp0V9M4/8EiAg9Rp45jjsubiI5oaxJ3ccoefO/lM5r5LDn0HcRmMzzpZ+cMcJ5vy2KzRNJ4yo3XRgEyeP0YnK1Y+RCjZXoUy+cA7EIJlO3icZFLgxrejUawT8ockpFDYm5DKHxUVoc/gl8Jp9Oc9/kF5WgDaGFn/GRnS7YK0=
+	t=1778813975; cv=none; b=h/GagQ/0G3DhIxIg3bVKGyBJXk+mp/lsOCarSqDq/sGT6rG+V6hMRMP8mvi3Zv0ost8oLNYE3oHlTpjN/Kas7DZE8Xf0Aqf/5jW0MaEvLzZR8pCeYxN+YF25rGQse5uWgZKj0F/1nNzP1A/Tk6GEi2HQdgCmKGOGBTK5x1iXRI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778813942; c=relaxed/simple;
-	bh=PvGdAfskjOnfJFGxIFXft0jY6m3RugZRW95j804rXso=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N/2VSLbdrYXJwnFF8ZguRH4C16+2WCB1Ft7jM7zwCP1dFr1MUgpVxLRWKinqwzHqjUrTbEF9gRHivNuiSDjKx05aEyeJ/7zwWhno1q0qA588m0s+1HP1JMZsyxdN1Lkan2/JEbRV3wH632ExWAIpBO3RV2gId1uzAum6/SnfE5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=bNuiS2Dr; arc=none smtp.client-ip=45.254.49.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1778813975; c=relaxed/simple;
+	bh=pUTk3ydnIT5LntkJABWxPFqKPRtGtKpnosg/iGAwQVE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=VjlJTk29LUtsDUSjhXPJcaU/PK14YOxES52lxLB6TSjCKw7gNNeedyV48IaSf40nqZBvcTP2L0biekLs1xFtjltQvS38nvM5C+jbxR19EruCJ/ynsqxgFeYxaCF3PaFYlAFaw7c7IMV0++gqBAjIvIbtNo0zUhjLu1+t1alW0uA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZhXdRhkA; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="bNuiS2Dr"
-Received: from [172.16.12.43] (unknown [58.22.7.114])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3e805fe57;
-	Fri, 15 May 2026 10:53:37 +0800 (GMT+08:00)
-Message-ID: <f9fd086e-9d9f-40a3-9393-7cfa5c426c66@rock-chips.com>
-Date: Fri, 15 May 2026 10:53:37 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZhXdRhkA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36F07C2BCB3;
+	Fri, 15 May 2026 02:59:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778813975;
+	bh=pUTk3ydnIT5LntkJABWxPFqKPRtGtKpnosg/iGAwQVE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
+	b=ZhXdRhkAXQD+HYsTqiNa9aEF7V/LAFkdym/SyR/GYHA7nc9rpazo6HGSOe3tBJ87h
+	 f+6W8oBfvkP/0Le2Na+Ig/UYQ5Fes6yECwMqPJ35YzPbhbtAb8FnJPfHP8bTsxHohe
+	 aakhxiLxcOVOmz8YDekQLAm0NjdtZLwme/SAKAmBoccVztG/YKNhQJ8Xhdtojyrogu
+	 2BQ8pkFzWXCDjQbfG7F0j90Nx1Xc4bKAOI7dZLqc90x6zVmLLK5ezvhPIzeMjkwcml
+	 96QGDvrl1zFWKnQWI6gDD/a9QwyMMwhYI4UoNjatuD6EE8H9AI4CMS5QqpyRaeizic
+	 4raf9wHCjK+CA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 9/9] riscv: defconfig: enable ARCH_ULTRARISC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jia Wang via B4 Relay" <devnull+wangjia.ultrarisc.com@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260515-ultrarisc-pinctrl-v1-9-bf559589ea8a@ultrarisc.com>
+References: <20260515-ultrarisc-pinctrl-v1-9-bf559589ea8a@ultrarisc.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 15 May 2026 02:59:34 +0000
+Message-Id: <20260515025935.36F07C2BCB3@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/3] dt-bindings: display: bridge: analogix-dp: Add
- data-lanes support for endpoint
-To: Conor Dooley <conor@kernel.org>
-Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
- cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
- dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
- dianders@chromium.org, m.szyprowski@samsung.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260514070133.2275069-1-damon.ding@rock-chips.com>
- <20260514070133.2275069-3-damon.ding@rock-chips.com>
- <20260514-jolly-confining-997882e502c7@spud>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20260514-jolly-confining-997882e502c7@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9e298dc37203a3kunm6bd5d8e111d35b
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGhofSVZPShpPHUtKTB
-	pLTEtWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
-	tIVUpLSEpKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=bNuiS2Dre4Q5BTbn3B1+0fBx2UlyKHcHIU2sndZ4rhJCriwHPmLgl2XgQ0+5OezFxNij6gzxyCaFuJ9XbQD19js2/mtL18ORxirq3opoRFCafpHIl1GwXZuzlWA27nAx7xFTpabrXENpRkIAGv0cmL/NRF6OFA+Vs0hUey4n0NI=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=wiOcpYgO5JDj+FjoQaOM0eym/Auz/dWfyTv2lzex6Rs=;
-	h=date:mime-version:subject:message-id:from;
 
-Hi Conor,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The Kconfig symbol `ARCH_ULTRARISC` is not defined anywhere in t=
+he kernel tree.
+--
 
-On 5/15/2026 2:19 AM, Conor Dooley wrote:
-> On Thu, May 14, 2026 at 03:01:32PM +0800, Damon Ding wrote:
->> Add data-lanes property support to the port@1 endpoint for physical
->> lane mapping configuration.
->>
->> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
->> ---
->>   .../bindings/display/bridge/analogix,dp.yaml  | 24 +++++++++++++++----
->>   1 file changed, 20 insertions(+), 4 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
->> index 62f0521b0924..a82f9b7776c0 100644
->> --- a/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
->> +++ b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
->> @@ -36,19 +36,35 @@ properties:
->>         Hotplug detect GPIO.
->>         Indicates which GPIO should be used for hotplug detection
->>   
->> +  data-lanes:
->> +    $ref: /schemas/types.yaml#/definitions/uint32-array
->> +    deprecated: true
-> 
-> Why are you adding a new property as deprecated? Why does this duplicate
-> what you're adding to the port node? At the very least, your commit is
-> lacking an explanation.
-> pw-bot: changes-requested
-> 
+commit c77ace3a44699f903221665a56d7714a8cd6cf21
+Author: Jia Wang <wangjia@ultrarisc.com>
 
-Thank you for the review.
+riscv: defconfig: enable ARCH_ULTRARISC
 
-I referenced the implementation in 
-Documentation/devicetree/bindings/display/msm/dp-controller.yaml. After 
-evaluating QCOM DP driver and other drivers, I agree that implementing 
-'data-lanes' in the endpoint node is the preferred and common approach 
-nowadays.
+This commit adds the CONFIG_ARCH_ULTRARISC symbol to the default RISC-V
+defconfig file.
 
-The top-level `data-lanes` property together with the `deprecated` mark 
-was leftover content from my early reference and arrangement, which I 
-neglected to delete before submitting. It is redundant, unreasonable and 
-should not have been added at all.
+Link: https://lore.kernel.org/lkml/20260427-ultrarisc-pcie-v4-1-98935f6cdfb=
+5@ultrarisc.com/
 
-I will fix it in the next version.
+> diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defconfig
+> index c2c37327b9877..9fdc4d1831ed9 100644
+> --- a/arch/riscv/configs/defconfig
+> +++ b/arch/riscv/configs/defconfig
+> @@ -32,6 +32,7 @@ CONFIG_SOC_STARFIVE=3Dy
+>  CONFIG_ARCH_SUNXI=3Dy
+>  CONFIG_ARCH_TENSTORRENT=3Dy
+>  CONFIG_ARCH_THEAD=3Dy
+> +CONFIG_ARCH_ULTRARISC=3Dy
 
-Best regards,
-Damon
+Is ARCH_ULTRARISC defined anywhere in the kernel tree?
 
-> 
->> +    minItems: 1
->> +    maxItems: 4
->> +    items:
->> +      maximum: 3
->> +
->>     ports:
->>       $ref: /schemas/graph.yaml#/properties/ports
->>   
->>       properties:
->>         port@0:
->>           $ref: /schemas/graph.yaml#/properties/port
->> -        description:
->> -          Input node to receive pixel data.
->> +        description: Input node to receive pixel data.
->>   
->>         port@1:
->>           $ref: /schemas/graph.yaml#/properties/port
->> -        description:
->> -          Port node with one endpoint connected to a dp-connector node.
->> +        description: Port node with one endpoint connected to sink device node.
->> +        properties:
->> +          endpoint:
->> +            $ref: /schemas/media/video-interfaces.yaml#
->> +            unevaluatedProperties: false
->> +            properties:
->> +              data-lanes:
->> +                minItems: 1
->> +                maxItems: 4
->> +                items:
->> +                  enum: [ 0, 1, 2, 3 ]
->>   
->>       required:
->>         - port@0
->> -- 
->> 2.34.1
->>
+It appears that the Kconfig entry for ARCH_ULTRARISC is missing. Adding an
+undefined symbol to a defconfig has no effect because the Kconfig system wi=
+ll
+silently discard it during .config generation, which would prevent the
+intended components from being built.
 
+Was a prerequisite patch that adds the ARCH_ULTRARISC definition accidental=
+ly
+left out of this patch series?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515-ultrarisc-=
+pinctrl-v1-0-bf559589ea8a@ultrarisc.com?part=3D9
