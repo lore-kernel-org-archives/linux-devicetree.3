@@ -1,216 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6645642EEDE;
-	Fri, 15 May 2026 09:12:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87FF43FE67C;
+	Fri, 15 May 2026 09:13:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778836324; cv=none; b=ndLn34hGlmMASTF9ZAdjzyubuHvs4gmbAxAYhMPhDN22PPB8rPHGaAc5iev5ThTflDJMYkyeqXIup2NaQw6IW+8/bwmjeVDB/g83scoBGRHhuOwslKP1iThad64YD98WXZpuSM3Hit/0wt6tJfCOPYc0bb6egcjszmh/LbWOOe4=
+	t=1778836411; cv=none; b=SRDhChdtYvaUiYug3WQRRiWVBh9pv9NSPTVyA9hhbHRRMcrIylf0X/hCkQbp2BU2KvTXQKqKkwi7xq3a8PEfkQ3Znal8BEK/852uTaB4WlZKzX9rFB5oItRuzJaMwzjfH31Q2WioLl5Chz50Kn+cjpKvib1qSxZpdaADHb/ftto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778836324; c=relaxed/simple;
-	bh=ezInJyFm/d7b/zaAGKXD/lqLjaLONJlsN86X11bWh9I=;
+	s=arc-20240116; t=1778836411; c=relaxed/simple;
+	bh=zLRb1yIvUvA5lHs5BNZoLifNrajMLhxzNg0gMUhb7XE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EhaMtvI4toejJ0ow1ec31TMUSkpHxHlF/f+Oma0b/TDhVf0niTD6NsaMmeqhYJclFYlSSrMwQUvZTjY0reemxJHPfXBWPDYqGQEFQjSeemCHgk0woLvZkmK28Nz15XqAsaYhlVsYs+SIuUZsFX+Ft2gW4mCdh/xucBcud4BJpJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dLeGmsfC; arc=none smtp.client-ip=10.30.226.201
+	 Content-Type:Content-Disposition:In-Reply-To; b=HuaJl+AbomYPOAvIwt4KXOHne9gcF3Rl05rPM7ao3IFCLzGFfAC08HtWrIDvrJ3fl1rPZBXGwbrbzs090k39jnz3KedfsBE02/RDG9TvFZn5O/5WuOMbBDKkuI3/8zhoXQo1yLMJNb+v55QJJ1LVIFPhjn2r5covnsgjjTpgJpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vPXa7OLF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dLeGmsfC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8D50C2BCB0;
-	Fri, 15 May 2026 09:12:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vPXa7OLF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD05DC2BCB0;
+	Fri, 15 May 2026 09:13:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778836324;
-	bh=ezInJyFm/d7b/zaAGKXD/lqLjaLONJlsN86X11bWh9I=;
+	s=k20201202; t=1778836411;
+	bh=zLRb1yIvUvA5lHs5BNZoLifNrajMLhxzNg0gMUhb7XE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dLeGmsfC42LmUDWjMf22yS8ryXFBK3vitMGaWOkpBa7G1omlyYY2fM7uSiv9gkZQi
-	 z1gjt0dJl6Q9G+PdpJby27SceI9nJRtTw07Q0jbkHqik1WyMPysHoRkkbvElLPvaC+
-	 wQU3yCrKOYSBeev1ZVhMP545xJVWernWYlLBboa4xapfiDpM+AYe2DHwcCYZsbYHMX
-	 UGmDx7bj3Xvyt53FNtS2jkYjVUMVd+CnVjxc+5lmS4hEWhE7nh/i9+2WtBYFlSDJM8
-	 DNMrNPmSQqy18YShS05KIHUQ9f0kMdxTBeZTDQeH4zsVv6uQkHqpx5/D89qtE9LKFA
-	 eR/FYsG1SKqlQ==
-Date: Fri, 15 May 2026 11:12:00 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Benjamin Larsson <benjamin.larsson@genexis.eu>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v6 01/12] dt-bindings: net: airoha: Add EN7581
- ethernet-ports properties
-Message-ID: <agbjYLb3FeFSVoyb@lore-desk>
-References: <20260511-airoha-eth-multi-serdes-v6-0-c899462c4f75@kernel.org>
- <20260511-airoha-eth-multi-serdes-v6-1-c899462c4f75@kernel.org>
- <20260514140130.GA257001-robh@kernel.org>
+	b=vPXa7OLFSnq+DMHuyXiEWk6yF93IQTdX3Jbvg3nP+Z0vWF+pRBef4qBarEAnLqmFh
+	 IRfL23+HrHdMUG93nDQzVv9Nn/oNeWXUrW4SGWX2gTn7zAuVmtWLd7zQ0yj5fRVS0h
+	 Fwp14qEEhd4h0PobthVYm74E0FaeL7BO4Y+za1owUc+2VJVVtXSI/fYvbXDCNwPN3e
+	 bjl//ewt+HwL4H2OM2E74XcKLvYUyXUmqERtIfvPjpqFf+2E0S1BN87zT/d9DgP4Gh
+	 yqCJCXktTChzr1QZg3ZK9+NaX/hKFs6DKulFwJ1S87AOEGNASf6Q1+gnzgZlS/Slfe
+	 MJgZoK+Yn/zdA==
+Date: Fri, 15 May 2026 11:13:28 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Taniya Das <taniya.das@oss.qualcomm.com>, Shawn Guo <shengchao.guo@oss.qualcomm.com>, brgl@kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: clock: qcom: add missing definition for
+ the USB2 PHY reset
+Message-ID: <20260515-invisible-ermine-of-memory-6d7dae@quoll>
+References: <20260513-nord-clk-usb2-phy-v1-0-8eafcb2d5129@oss.qualcomm.com>
+ <20260513-nord-clk-usb2-phy-v1-1-8eafcb2d5129@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="0BJ5H8Z2afeCFdbr"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260514140130.GA257001-robh@kernel.org>
+In-Reply-To: <20260513-nord-clk-usb2-phy-v1-1-8eafcb2d5129@oss.qualcomm.com>
 
+On Wed, May 13, 2026 at 05:35:29PM +0200, Bartosz Golaszewski wrote:
+> The USB2 PHY reset definition is missing from the negcc clock driver and
+> its bindings. Provide it in order to enable adding the USB nodes in DTS.
+> 
+> Fixes: 06498d59bb4e ("dt-bindings: clock: qcom: Add Nord Global Clock Controller")
 
---0BJ5H8Z2afeCFdbr
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Same comments as for Eliza yesterday. Missing feature is not a bug, per
+se. We do add things incomplete and then grow (release early, release
+often). Please explain in the commit msg what was supposed to work in
+the initial commit but is not working due to the missing part.
 
-> On Mon, May 11, 2026 at 12:49:27PM +0200, Lorenzo Bianconi wrote:
-> > EN7581 and AN7583 SoCs support connecting multiple external SerDes to G=
-DM3
-> > or GDM4 ports via a hw arbiter that manages the traffic in a TDM manner.
-> > As a result multiple net_devices can connect to the same GDM{3,4} port
-> > and there is a theoretical "1:n" relation between GDM ports and
-> > net_devices.
-> > Introduce the ethernet-port property in order to model a given net_devi=
-ce
-> > that is connected via the external arbiter to the GDM{3,4} port (that
-> > is represented by the ethernet property. Please note GDM1 or GDM2 does =
-not
-> > support the connection with the external arbiter and are represented
-> > by ethernet property.
-> >=20
-> > Signed-off-by: Lorenzo Bianconi <lorenzo@kernel.org>
-> > ---
-> >  .../devicetree/bindings/net/airoha,en7581-eth.yaml | 64 ++++++++++++++=
-+++++++-
-> >  1 file changed, 63 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/net/airoha,en7581-eth.ya=
-ml b/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
-> > index fbe2ddcdd909..642f300c0945 100644
-> > --- a/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
-> > +++ b/Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
-> > @@ -130,6 +130,50 @@ patternProperties:
-> >          maximum: 4
-> >          description: GMAC port identifier
-> > =20
-> > +      '#address-cells':
-> > +        const: 1
->=20
-> blank line
+Best regards,
+Krzysztof
 
-ack, I will fix it in v7.
-
->=20
-> > +      '#size-cells':
-> > +        const: 0
-> > +
-> > +    allOf:
-> > +      - if:
-> > +          properties:
-> > +            reg:
-> > +              contains:
-> > +                items:
-> > +                  - enum:
-> > +                      - 3
-> > +                      - 4
-> > +        then:
-> > +          properties:
-> > +            '#address-cells':
-> > +              const: 1
-> > +            '#size-cells':
-> > +              const: 0
->=20
-> Why do you have these twice? Drop this one.
-
-ack, I will fix it in v7.
-
->=20
-> > +
-> > +          patternProperties:
-> > +            "^ethernet-port@[0-5]$":
-> > +              type: object
-> > +              unevaluatedProperties: false
-> > +              $ref: ethernet-controller.yaml#
-> > +              description: External ethernet port ID available on the =
-GDM port
-> > +
-> > +              properties:
-> > +                compatible:
-> > +                  const: airoha,eth-port
-> > +
-> > +                reg:
-> > +                  maxItems: 1
->=20
-> Instead, 'maximum: 5'.
-
-ack, I will fix it in v7.
-
->=20
-> > +                  description: External ethernet port identifier
-> > +
-> > +              required:
-> > +                - reg
-> > +                - compatible
-> > +
-> > +          required:
-> > +            - "#address-cells"
-> > +            - "#size-cells"
-> > +
-> >      required:
-> >        - reg
-> >        - compatible
-> > @@ -191,9 +235,27 @@ examples:
-> >          #address-cells =3D <1>;
-> >          #size-cells =3D <0>;
-> > =20
-> > -        mac: ethernet@1 {
-> > +        mac1: ethernet@1 {
->=20
-> Just drop unused labels.
-
-ack, I will fix it in v7.
-
-Regards,
-Lorenzo
-
->=20
-> >            compatible =3D "airoha,eth-mac";
-> >            reg =3D <1>;
-> >          };
-> > +
-> > +        mac4: ethernet@4 {
-> > +          compatible =3D "airoha,eth-mac";
-> > +          reg =3D <4>;
-> > +
-> > +          #address-cells =3D <1>;
-> > +          #size-cells =3D <0>;
-> > +
-> > +          ethernet-port@0 {
-> > +            compatible =3D "airoha,eth-port";
-> > +            reg =3D <0>;
-> > +          };
-> > +
-> > +          ethernet-port@1 {
-> > +            compatible =3D "airoha,eth-port";
-> > +            reg =3D <1>;
-> > +          };
-> > +        };
-> >        };
-> >      };
-> >=20
-> > --=20
-> > 2.54.0
-> >=20
-
---0BJ5H8Z2afeCFdbr
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCagbjYAAKCRA6cBh0uS2t
-rOXiAP44pwN0k6371R9brljGliJaHzd+jLmOlP+Fz+duEXskIwEAx58Rf002P7nU
-Tst7hPK0DwlRxEsE9KgSF4NcFS/08A8=
-=EZ9T
------END PGP SIGNATURE-----
-
---0BJ5H8Z2afeCFdbr--
