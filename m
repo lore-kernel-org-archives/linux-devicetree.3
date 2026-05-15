@@ -1,87 +1,176 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84A88395243
-	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 22:55:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F07F1DED5C
+	for <devicetree@vger.kernel.org>; Fri, 15 May 2026 23:10:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1778885724; cv=none; b=ZDLUhy3cbeXeaBr4UtbVFP8um33itAR5UdKWfwE8l6da+qQgnG29Ah+Y8WmBpQiv5JYs2RYiKHWYXVIBLAXbVShY+lN/0XjVFRcjhoEb5nVPAMFZZhOa2v1Wpcnn/PJcrNtDpkjx4KoOG1ER8j1jU8MCJVjbKBnEx5X97aQR/Ew=
+	t=1778886636; cv=none; b=CoFR0Fu8Ex5ZVLO4AOSLU8gE5aRakNAwc1+wwaKoSpBmRnDDTIhCzYuFLFl0/SnEGCESwK10OW/IzmqlSfOijSSKakeco5c+sx3+RVpiQhTmLHJYhsgkH7g4arub4kFsDdYgX61jRDtqFNegoMioxgJOCecLAGa+4PDieQKmiow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1778885724; c=relaxed/simple;
-	bh=qAZU9KXzEMhQER7M2HhOcqibjghOsciau3ty79QFc/8=;
+	s=arc-20240116; t=1778886636; c=relaxed/simple;
+	bh=wR2NeTEdNLRmu5RIoAUcBF2xvfP+9PVBdZAZHlHb3bs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jss9ebGVzLjCiGicOT37iARdkQQa1cFe15sDMuOrpCRuiZqtLHtHsiBdgjIBsalsxgJwoA9oCn9nUidfldoQc9Xe85/jRInqVMQp6EJDSK4Dd+U7ld6AeenH5cTMMl3kC2+ga7vc3apIkcY7cGvn4R9CS1rxuUjE3QnzQAPxT+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A0fYb7kH; arc=none smtp.client-ip=10.30.226.201
+	 Message-Id; b=ulGVNOBnuEm7k8nmI8+mkSEhvndNvc6kZAplO3MWQIdkEGkO85sbWbuHYyNKJ2HyGfRyFTVXMQSDN/rgUgtUSyztWCy5N0cX+mxToDYpZpZLfHzAe4EIwYqQHiRF2Su1EJ1vcN5lO8LxTOUfP1YKUe9uSEw+jBiF4IRIq86eJrw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DwUCsyR9; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A0fYb7kH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19DC2C2BCB0;
-	Fri, 15 May 2026 22:55:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DwUCsyR9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E181C2BCB0;
+	Fri, 15 May 2026 23:10:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778885724;
-	bh=qAZU9KXzEMhQER7M2HhOcqibjghOsciau3ty79QFc/8=;
+	s=k20201202; t=1778886636;
+	bh=wR2NeTEdNLRmu5RIoAUcBF2xvfP+9PVBdZAZHlHb3bs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date:From;
-	b=A0fYb7kHtVBTlmIzPHuJIkQ7OwinSjyT2RUY3v1HdWaDJrRdJ80iNMfrd1GMCEWGf
-	 1mt57JTA5PbkwdZTgFvlV19/1R1Jog2lQ79+rYZ7bV0qaZ1EwMS+dOXX1up4eGEVM6
-	 uO0ohOBbcrqt3ZMpFMc+a+0gnoajivhrhBrZE6zP44GtVYkG/I9eYQ4qOByJ1ddMkC
-	 G4f02P9Kud2CXxntXPPW8j1XY9/bAV+Krquhzv6VHqWu2wAFbty7YkKxmrQ5eWCKgb
-	 TEccXH1tMVJ6jw6WDqJE3mC9jt38mY1KJFEhpsbXEqB4UQVz1bLU9bM3BAUnX/luew
-	 7ry5kG+2qrLiQ==
+	b=DwUCsyR9HHu2sccbvg+4VW7WMo6U6hDYpXyuCJqO0kHqNB0ifA4B8C5O8xxosWIFt
+	 0r33c/LaprJ7dfdxwnXkUHkYiX40yZhNfkwndshTiKE3I0TYvx2IuA2kMeaDKlTtC6
+	 dC700sV7QRPGdFOFQ5vFuEQdn/s2EKcvw3YsYtfz9KekTKOh5TUcneVyFuMUMwWMuv
+	 pUWFYomrollkPKD8z2qGhCz0zN8SePLnYYWlaaPgnUrD8myyNZm9bPSNTLewaUaRBi
+	 Isv3OCYKKZImTYRG4P07nXI7H3r60vyD8DpgldE8a5lDwVS6DC5PFIdiCc2hOWDZ8x
+	 JREV72N3LzVhQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V2 3/6] dt-bindings: display: panel: document Anbernic
- TD4310 panel
+Subject: Re: [PATCH V2 4/6] drm/panel: anbernic-td4310: Add RG Vita Pro
+ panel
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Chris Morgan" <macroalpha82@gmail.com>
-Cc: krzk+dt@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260515221947.299229-4-macroalpha82@gmail.com>
-References: <20260515221947.299229-4-macroalpha82@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260515221947.299229-5-macroalpha82@gmail.com>
+References: <20260515221947.299229-5-macroalpha82@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 15 May 2026 22:55:23 +0000
-Message-Id: <20260515225524.19DC2C2BCB0@smtp.kernel.org>
+Date: Fri, 15 May 2026 23:10:33 +0000
+Message-Id: <20260515231034.9E181C2BCB0@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Low] The YAML filename does not match the compatible string.
+- [High] Resource leak and hardware state mismatch on prepare error path.
+- [High] Enable GPIO is incorrectly asserted during probe before the VDD re=
+gulator is enabled.
+- [Medium] Panel-specific delay configuration fields are ignored in favor o=
+f hardcoded values.
+- [Low] Extraneous semicolon after if-statement block.
 --
 
-commit 5f66eb8e2fe14ce244cbb7ee82f13643cfae18e7
+commit b88e27c6a433bac0f5f02ad289ba084e02f359ed
 Author: Chris Morgan <macromorgan@hotmail.com>
 
-dt-bindings: display: panel: document Anbernic TD4310 panel
+drm/panel: anbernic-td4310: Add RG Vita Pro panel
 
-This commit introduces a new device tree binding for the TD4310-based panel
-used in the Anbernic RG Vita-Pro device.
+This commit adds support for the TD4310 DSI panel used in the Anbernic RG
+Vita Pro handheld console. It introduces a new panel driver with power
+sequencing, DCS initialization, and display mode definitions.
 
-> diff --git a/Documentation/devicetree/bindings/display/panel/anbernic,td4=
-310.yaml b/Documentation/devicetree/bindings/display/panel/anbernic,td4310.=
-yaml
+> diff --git a/drivers/gpu/drm/panel/panel-anbernic-td4310.c b/drivers/gpu/=
+drm/panel/panel-anbernic-td4310.c
 > new file mode 100644
-> index 0000000000000..5068dd6b2d524
+> index 0000000000000..733c68ff9771b
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/panel/anbernic,td4310.yaml
+> +++ b/drivers/gpu/drm/panel/panel-anbernic-td4310.c
+[ ... ]
+> +static int panel_anbernic_td4310_prepare(struct drm_panel *panel)
+> +{
+> +	struct anbernic_panel_td4310 *ctx =3D panel_to_anbernic_panel_td4310(pa=
+nel);
+> +	struct mipi_dsi_device *dsi =3D ctx->dsi;
+> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D dsi };
+> +	int ret;
+> +
+> +	ret =3D regulator_enable(ctx->vdd);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (ctx->enable_gpio) {
+> +		ret =3D gpiod_set_value_cansleep(ctx->enable_gpio, 1);
+> +		if (ret)
+> +			goto err_enable;
+> +	};
+
+This isn't a bug, but is there an extra semicolon here after the if block?
+
+> +
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +	mipi_dsi_msleep(&dsi_ctx, 10);
+> +
+> +	ret =3D gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +	if (ret)
+> +		goto err_reset;
+> +	if (ctx->panel_info->reset_delay)
+> +		mipi_dsi_msleep(&dsi_ctx, ctx->panel_info->reset_delay);
+> +	ret =3D gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +	if (ret)
+> +		goto err_reset;
+> +
+> +	if (ctx->panel_info->enable_delay)
+> +		mipi_dsi_msleep(&dsi_ctx, ctx->panel_info->enable_delay);
+> +
+> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 100);
+
+Does this code ignore the prepare_delay and init_delay fields defined in
+anbernic_panel_td4310_info by using a hardcoded 100ms sleep?
+
+> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 100);
+> +
+> +	return dsi_ctx.accum_err;
+
+If mipi_dsi_dcs_exit_sleep_mode_multi or mipi_dsi_dcs_set_display_on_multi
+encounters an error and populates dsi_ctx.accum_err, does this return bypass
+the err_reset and err_enable cleanup paths?
+
+If the DRM framework does not call unprepare when prepare fails, does
+this leave the vdd regulator enabled indefinitely and the GPIOs in their
+active states?
+
+> +
+> +err_reset:
+> +	gpiod_set_value_cansleep(ctx->enable_gpio, 0);
+> +err_enable:
+> +	regulator_disable(ctx->vdd);
+> +	return ret;
+> +}
+> +
+> +static int panel_anbernic_td4310_unprepare(struct drm_panel *panel)
+> +{
+> +	struct anbernic_panel_td4310 *ctx =3D panel_to_anbernic_panel_td4310(pa=
+nel);
+> +	struct mipi_dsi_device *dsi =3D ctx->dsi;
+> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D dsi };
+> +
+> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 120);
+> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 120);
+
+Are the disable_delay and unprepare_delay fields defined in
+anbernic_panel_td4310_info intended to be used here instead of the hardcoded
+120ms sleeps?
 
 [ ... ]
+> +static int panel_anbernic_td4310_probe(struct mipi_dsi_device *dsi)
+> +{
+> +	struct device *dev =3D &dsi->dev;
+> +	struct anbernic_panel_td4310 *ctx;
+> +	int ret;
+[ ... ]
+> +	ctx->reset_gpio =3D devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
+> +	if (IS_ERR(ctx->reset_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
+> +				     "Cannot get reset gpio\n");
+> +
+> +	ctx->enable_gpio =3D devm_gpiod_get_optional(dev, "enable", GPIOD_OUT_H=
+IGH);
 
-> +properties:
-> +  compatible:
-> +    items:
-> +      - const: anbernic,panel-vita-pro
+Does initializing enable_gpio with GPIOD_OUT_HIGH assert the GPIO
+immediately during probe, before the vdd regulator is enabled in
+panel_anbernic_td4310_prepare?
 
-This isn't a bug, but the YAML filename is anbernic,td4310.yaml while the
-only defined compatible string is anbernic,panel-vita-pro.
-
-According to device tree schema guidelines, the YAML filename should genera=
-lly
-match the compatible string.=20
-
-Should the filename be renamed to anbernic,panel-vita-pro.yaml, or should
-anbernic,td4310 be added as a compatible string here?
+Could driving control pins active while the main IC power supply is off
+cause leakage current or latch-up through ESD diodes?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260515221947.2992=
-29-1-macroalpha82@gmail.com?part=3D3
+29-1-macroalpha82@gmail.com?part=3D4
